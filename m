@@ -4,57 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91F79C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 14:40:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE0DCC433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 14:43:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F91510EB3C;
-	Fri, 14 Jan 2022 14:40:16 +0000 (UTC)
-X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
- Fri, 14 Jan 2022 12:39:43 UTC
-Received: from sender4-op-o14.zoho.com (sender4-op-o14.zoho.com
- [136.143.188.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A178E10E205
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 12:39:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1642163076; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=eSV+x6aTZvIEVmiQdICjP8xwHx5ZcvEw7dDQwMKB9OL2YBBZhGxfzYVzzGB5++NOHYzbswueZC/6lu1x1+a926yoFE8FFLhIsS1coUKopT9+zOXSUpC1nglBUbPSfK9z/85M1/cHMqPK4A8RdQzG1MeTViVvQY1qjW+oMsx5eRE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1642163076;
- h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
- bh=bVcv3AMbPXq1GB6rsRAc8R3cEkg+TkkgW5xVWu8/NuI=; 
- b=NJ1zVhv45O+sxyzBBhOA0Pm94/uOhTAWxsd16B1B9+L8ZVcug8RjWdXCrfh/4MFQoPrbi6xJPi3cFn91zRyEUCdletqgROUw8bdd9hBlwCaMavsQ+IFOrPduKXHKGgekVDCpKfavNvALlk3IniGE4aUkj7abZ2erqTZN28kUccI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=hixontech.com;
- spf=pass  smtp.mailfrom=linux-kernel-bugs@hixontech.com;
- dmarc=pass header.from=<linux-kernel-bugs@hixontech.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1642163076; 
- s=zoho; d=hixontech.com; i=linux-kernel-bugs@hixontech.com;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
- bh=bVcv3AMbPXq1GB6rsRAc8R3cEkg+TkkgW5xVWu8/NuI=;
- b=X8clYn947LcXprViBkQElXk3l9k+K5VmusKDoK9XNc6BlRjlzRC5OtI+xZaNlzjg
- 39QlV8eshzSCbKLzs7UVSHvODyKzlOsncP9WYcTzDh7NqXsK4b7pEK3iCPMhx5XSa5Q
- Gp41rs59QNMRzuDVQBw0PVYExOm5fyX5h+DmFLWg=
-Received: from droplet5.hixontech.com (droplet5.hixontech.com
- [164.90.159.118]) by mx.zohomail.com
- with SMTPS id 1642163073700685.5295435867972;
- Fri, 14 Jan 2022 04:24:33 -0800 (PST)
-Message-ID: <991bfaea-2978-321d-deb8-cefa4572877e@hixontech.com>
-Date: Fri, 14 Jan 2022 05:24:30 -0700
-MIME-Version: 1.0
-Subject: Re: [PATCH v5] drm/amd/display: Revert W/A for hard hangs on
- DCN20/DCN21
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E04010EBF3;
+	Fri, 14 Jan 2022 14:43:20 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B76FD10EBB4;
+ Fri, 14 Jan 2022 14:43:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZQX//hrUPDMhkobJXnyVNLCcd2FGoTRat6ZZfKK+f/OIJzVMOyS7irzk2W3eR4Lv4Rbfc6rTkEmPQ+H5UQLXinm5yPvJDgxfZUwfuPK/mNrvx25xacsSeA5nSEW6pQhTv/XzEo6Q36l9k04Z6uvgCfYm1EAuhYNFsbiEHbphPUeOKzc1l06/NavugwgO3NpxuqBPbPm+xmKaVGvudUqLLQspL7MkMppIVD3R60AzrEDG84iGyBJBz/oG3lJsw2iGCM5rH29Q5z/AQADYmlSYVQ9pXFDN7xZUnZm1ui6Rc19DUUwac/gB6kZBDYrxa05T0pGIrwaK7Q3Ok4lJJQrVtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7Y78nyKAEcgWmKrse36BMBjD83CLacLsIRO4Be4cpgo=;
+ b=TtevnK09uStuZgf95wdauZn5/nY6Rxfnx/OkFxZpO6lYkvC8EhBCwBXnRhOOkYzu0+iGpiWTsZAF8hfIhvnLHFWnfTyHbZuDSRhkGC3i2ZyPR60bGnfIAohpTR8wkKjaiq7GvrvSVnfweu+JXfRCFhHzW0AAYo7J7FZGOarFOXyaNfkbSKP7TpP4DuNmTmeFYOkGozeULLAAjgt7Nmbu3GsdIO0x7IPcaBeB7v0WKuj9c+Lhzsc05FJmX+sxE9kojgTKMFThe4S6Xz3rzdztCJPsdK7unTmWtSkneHDRATpw4U8Fvnr7Qmm6GDDVYVpX3i2Sn1mVGLs99ag1t+ZBSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7Y78nyKAEcgWmKrse36BMBjD83CLacLsIRO4Be4cpgo=;
+ b=X+2DKhUibAwtTrtgXEVu9iJucwco0ZtfU6226VP5gATo1dPfwH3Aoo7CQuQSytiDGzea3F9N1F/53eyPrVcnDwzyMY5ABe1xmp4rGpLDiR2mMCWM/BPeIV0BrEMZU3Q9zauMkqyQUh2eo0rW5Kx/wE1LsaO9Sy/ncFzH+hoE/1Q=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by BN8PR12MB3281.namprd12.prod.outlook.com (2603:10b6:408:6e::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Fri, 14 Jan
+ 2022 14:43:16 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::dd4b:b67b:1688:b52]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::dd4b:b67b:1688:b52%9]) with mapi id 15.20.4888.012; Fri, 14 Jan 2022
+ 14:43:16 +0000
+Message-ID: <b58b4288-8220-8ab8-3972-6371cdc4e34a@amd.com>
+Date: Fri, 14 Jan 2022 09:43:08 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [RFC PATCH v3 1/3] drm: introduce fb_modifiers_not_supported flag
+ in mode_config
 Content-Language: en-US
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20220107164959.12511-1-mario.limonciello@amd.com>
- <DM4PR12MB51821C74C0F9C8254A8CE048EC4D9@DM4PR12MB5182.namprd12.prod.outlook.com>
- <BL1PR12MB5157D5DC6BE941A1C1294DFDE24D9@BL1PR12MB5157.namprd12.prod.outlook.com>
-From: Chris Hixon <linux-kernel-bugs@hixontech.com>
-In-Reply-To: <BL1PR12MB5157D5DC6BE941A1C1294DFDE24D9@BL1PR12MB5157.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 14 Jan 2022 14:40:05 +0000
+To: Tomohito Esaki <etom@igel.co.jp>, dri-devel@lists.freedesktop.org
+References: <20220114101753.24996-1-etom@igel.co.jp>
+ <20220114101753.24996-2-etom@igel.co.jp>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20220114101753.24996-2-etom@igel.co.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0127.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:5::30) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9c2e6d0f-b334-4e7b-f515-08d9d76c3274
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3281:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB3281E8DC2CD2D351C461B1638C549@BN8PR12MB3281.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: iQzf7CDDBpId2UtjJ5/SkkjwrtMUyR1SRKqysRD+jEI4rVwh93mJPIkwFhUcQ7PM9zu5vnxWIZR15OgkwRTp/GOK6GIeIi+PIoKH6gNR8rYqYH5uv0xuI4FUMmZPr1IHWv/gXezvz0dDOMrZB6wrlA9iVt4WRx7e/7SGcojoYZohDpQKM0wjj+TS+glxSL+p1y1gkMPLeVQPTY8ri4Cp7wDMMgtLu3SfQLAsZpMz1NSkcd3SuR9jsoNNFeEAtCiTb/KJw72cJYqIxaMfMrk/gtsVMoQv6KRxq14XlAzFFtRRoT7WVTS2itimKD0UqHMW/wgnVOZDRZ8f7pz5GZJC0bSXqM1OTiP9HPx93PxoHx1uBtpeEhmGSghw1C8l9WKdBtxcKvL1b1OIvbKz6yQVZi2Mh/OLQzdZsJhuznCsVQAlvNw8Jxj2vAvLLsmpwTUfpDU2mBzpk43kXsbvxfyJYmcxtKfRbYh3gxowiAK6xoQ89sObiaJPcX306MzmVcy0k/jtXTbxd+4P7f2b4x+QNkrc/a2LqXHkAwoqtClMTp1eV8tGUScwJo/wFAt0rvQGl5l0J/3VmohX4prR3xpsjYAc7v8dip0rwKcQVYzYdy79UklDByq+ZWS1/syuxgolxcKoa3rSq+1i7mWun5YGnqKwFnCwVQiiHo611ygxSdYoB7TosAsSAqdyCz37dzmZb5sGHhkcgqLZR+Vx1Xhs3CrFcjmizjy5h5ojBRTFMMrz/UWAjcs3sRcputtWjevX
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(7416002)(86362001)(36756003)(4326008)(31686004)(2906002)(8936002)(83380400001)(31696002)(6486002)(186003)(66946007)(6506007)(66556008)(44832011)(38100700002)(6666004)(508600001)(26005)(5660300002)(54906003)(53546011)(6512007)(2616005)(316002)(8676002)(66476007)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UEF6VzI4TlV1ejRCcFJUZ3A5ZmJ2M00wK2RGMnpBSnVxK25hbk45Y1JKZWNr?=
+ =?utf-8?B?WmhaSk5DNWFCd05tcmJBMWZEVVZuRWw5bk5nelpnSGJyc3h1Y1dXQm41bXRy?=
+ =?utf-8?B?SndvLzcrbVplNjFyZmZ6VHUxS0ZwcmludTdEVGU4djlEUGRtb0E0TW10NWFr?=
+ =?utf-8?B?d2VZL0hUZE10cEpOVENJd3BDaXZxb1dtK2dVdWxBaERPU04zbllZV1pMeUo4?=
+ =?utf-8?B?R3JJcWtUQlRjTllyUzgwK0psTG1tTHZYdVllaDluQ1A4Ty9ZWGpWZ3VOTUVv?=
+ =?utf-8?B?dmJ3Zy9nOURHRjlWemtjdzMxZC95SmJaSEpRZVptVXpYMEUrSmdUTkpvdkpD?=
+ =?utf-8?B?UUROeHdOdFpzRnpzK0RvemxHeFZ5TDNrVGoxUTdIMFplRlNoSm5UZnY3ZXYw?=
+ =?utf-8?B?amJ0WE55SldtUXVPUE5aKzFKN3hrbjJ3aCtmMnhickRpaDZ5WTdud1hEcGo2?=
+ =?utf-8?B?ZklmbVdqSlhvc3VZOUZPTmlJSktOcDUvMkQzUC9HdXRqNWNVRVJIK3h2bUpS?=
+ =?utf-8?B?UzBEcDRXUzFlODd6M0psRmdIdjlSMUh3aElPT3lheTFveGxIcEtIaTJjQm1y?=
+ =?utf-8?B?QmFZaW54QVBNTDlVZnJYNlpoMFQ2RW5MMXdyalljZzFwZmVvRnQyblZjWUEw?=
+ =?utf-8?B?NEVqVDAzYTlEQlB2V2F1R2NiVlZwRUZJOHBJTTdZYVhqTFM2WHVyeTB5ZWJu?=
+ =?utf-8?B?NndnZ0RyS3FzZU43L2ZxM01zUVEzOGFkVXNqMnNPT1B0bXVKSzQ3OFVGdWNH?=
+ =?utf-8?B?b2MyTDdOQlBwL0FsV3VIWHQ0aU9sd3lRV3NKdzFTVC9OT0Y0anQvam9xTThq?=
+ =?utf-8?B?YXlIYW9yZHhtUHdvcCt6cDAzdXlhMm5VVVdPZGFvWHRSWnFHKytwQ0lRMzRL?=
+ =?utf-8?B?aHlsM0RNZ0ZERkE4S1RiaVQzMys3UllQQzFSQXpZb0xmQjhQR3hYUnBFNmZr?=
+ =?utf-8?B?Z2QyYldLUTh2OW4yakVjUG95Vmc4NFloNk5OZ1VucUlNMXd6N0t3aUlBdkFU?=
+ =?utf-8?B?dDRHVEpUdDNaMjlRZmw1MUdKUnpqK0laaExNRFc5WmJXOVpuUEFoSC9EdWlN?=
+ =?utf-8?B?NmExS01hVE9YVzd1MW9zOTlUVFVkQmxRbm9SMEEzeUQ4YlU5azlkblJoTUxk?=
+ =?utf-8?B?RUNFNEt1VHE1SFBNQndITEZWa2pROU10enp5R21OdVJFdlF5UjUxb1NTcGZa?=
+ =?utf-8?B?bWNENWI5M0phYjVqNGEvbWRsbDNrb3QzbGRBaUhJWkptRFdKd011TSs1M2JN?=
+ =?utf-8?B?Y1ZNU1JnT1N1anN3S1FpU2REa2JTaDV1Q3FVRkFTRE5Kd2xacmdQcDZqWXJO?=
+ =?utf-8?B?dXJDMmtzV0E4a0xncHJndHJpOUlrVzJpTlZza0xhNFdpNjhTcVhjZ0d3QWJt?=
+ =?utf-8?B?SlNCRUxQdkYvdFlYWlFkVE9ub2Q4QWZEZTVDZDZJSWxGZmg4L0xFN3pzazVS?=
+ =?utf-8?B?ZU9ZcWllb1ovWVBTTDZqQklnV3VrREZFWGVQQlR1WlJPU3FNYmR4Ri9qNmRn?=
+ =?utf-8?B?VG56TGZ1RDVRME4yU0ZOLzRJdDMvMk1SOEExTU1YT3R0bUJXU0k1MEtDY0JD?=
+ =?utf-8?B?dXRsaEh4MzJzSHJ1Um5UalQ5Z2w0WFEyZHhNNnEwbGRMNDRPMy9RZFBGRVVF?=
+ =?utf-8?B?T2xPbVdRRy8ySlBsM3lVYmxGR0JJbUZUa0NERmpubXl3ajUxdThva096cTBz?=
+ =?utf-8?B?OFZVOXpQcTNld01CN1ZXa3lqRjQzVXNzYkpoRWhxbTJ3cnFLQUpnQkdlTzRM?=
+ =?utf-8?B?aEdBcEtqbXpuM2V1ajQzNGozWU1lTzltaktkUmtPNlVLZktxbHoveDRZcDdk?=
+ =?utf-8?B?L0E0MGtDRlQwWk42cmRDU1A3WkkzWCtURUpxdWJaRlhoOGU3TFBxNHBNOVJK?=
+ =?utf-8?B?d1Z0Y2hPSEZpYS9wcGh3RERLdS9vdnNyWlZnTTVOd09qK2M4WVZDcy9CUldl?=
+ =?utf-8?B?TjFXOHpPZzFVVm5zMWtTMVBuSlRrMGNqOWNiaVhmMUsvTjI1UlVmN1oydWsr?=
+ =?utf-8?B?ZmJTeFB6RURtQVJpbVhYemNFWjIxclk1MW1VMmhjVlZ0dGpBK3VDMDZmTThU?=
+ =?utf-8?B?WWhzdWQwMy9VR2JSUHFGemxTZkxoTlA2NmM4VTVpVWNjSU54N3VBYVpFbXJ1?=
+ =?utf-8?B?QXNHRFd4dWhjY3JDelZsdHdYeUo5c0ZMTU9SbUdqS0lPOEdSeDNVVmFRZ2hH?=
+ =?utf-8?Q?Z68eNAp+IuaVWZJI1xdBdyA=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c2e6d0f-b334-4e7b-f515-08d9d76c3274
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2022 14:43:15.8537 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TBxMW27HoVFvNh18npg6aOmjjlmyPUO8R6lfSC4QCyK84xBi86ITcE11A8VBUeDR9/0ZJ8vbdPo9iDP1ljs5Iw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3281
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,134 +128,250 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhuo, Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>,
- Scott Bruce <smbruce@gmail.com>, "spasswolf@web.de" <spasswolf@web.de>
+Cc: Simon Ser <contact@emersion.fr>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org,
+ =?UTF-8?Q?Michel_D=c3=a4nzer?= <mdaenzer@redhat.com>,
+ amd-gfx@lists.freedesktop.org, Lee Jones <lee.jones@linaro.org>,
+ Rob Clark <robdclark@chromium.org>, Takanari Hayama <taki@igel.co.jp>,
+ Daniel Stone <daniel@fooishbar.org>, Ben Skeggs <bskeggs@redhat.com>,
+ Evan Quan <evan.quan@amd.com>, Petr Mladek <pmladek@suse.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Sean Paul <seanpaul@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Mark Yacoub <markyacoub@chromium.org>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Damian Hobson-Garcia <dhobsong@igel.co.jp>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/7/22 11:51, Limonciello, Mario wrote:
+On 2022-01-14 05:17, Tomohito Esaki wrote:
+> If only linear modifier is advertised, since there are many drivers that
+> only linear supported, the DRM core should handle this rather than
+> open-coding in every driver. However, there are legacy drivers such as
+> radeon that do not support modifiers but infer the actual layout of the
+> underlying buffer. Therefore, a new flag fb_modifiers_not_supported is
+> introduced for these legacy drivers, and allow_fb_modifiers is replaced
+> with this new flag.
+> 
+> Signed-off-by: Tomohito Esaki <etom@igel.co.jp>
 
-> [AMD Official Use Only]
->
->
->> I think the revert is fine once we figure out where we're missing call=
-s to:
->>
->>          .optimize_pwr_state =3D dcn21_optimize_pwr_state,
->>          .exit_optimized_pwr_state =3D dcn21_exit_optimized_pwr_state,
->>
->> These are already part of dc_link_detect, so I suspect there's another=
- interface
->> in DC that should be using these.
->>
->> I think the best way to debug this is to revert the patch locally and =
-add a stack
->> dump when DMCUB hangs our times out.
-> OK so I did this on top of amd-staging-drm-next with my v5 patch (this =
-revert in place)
->
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/=
-gpu/drm/amd/display/dmub/src/dmub_srv.c
-> index 9280f2abd973..0bd32f82f3db 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-> @@ -789,8 +789,10 @@ enum dmub_status dmub_srv_cmd_with_reply_data(stru=
-ct dmub_srv *dmub,
->          // Execute command
->          status =3D dmub_srv_cmd_execute(dmub);
->
-> -       if (status !=3D DMUB_STATUS_OK)
-> +       if (status !=3D DMUB_STATUS_OK) {
-> +               ASSERT(0);
->                  return status;
-> +       }
->
->          // Wait for DMUB to process command
->          status =3D dmub_srv_wait_for_idle(dmub, 100000);
->
->> That way you can know where the PHY was trying to be accessed without =
-the
->> refclk being on.
->>
->> We had a similar issue in DCN31 which didn't require a W/A like DCN21.
->>
->> I'd like to hold off on merging this until that hang is verified as go=
-ne.
->>
-> Then I took a RN laptop running DMUB 0x01010019 and disabled eDP, and c=
-onfirmed
-> no CRTC was configured but plugged in an HDMI cable:
->
-> connector[78]: eDP-1
->          crtc=3D(null)
->          self_refresh_aware=3D0
-> connector[85]: HDMI-A-1
->          crtc=3Dcrtc-1
->          self_refresh_aware=3D0
->
-> I triggered 100 hotplugs like this:
->
-> #!/bin/bash
-> for i in {0..100..1}
-> do
->      echo 1 | tee /sys/kernel/debug/dri/0/HDMI-A-1/trigger_hotplug
->      sleep 3
-> done
->
-> Unfortunately, no hang or traceback to be seen (and HDMI continues to w=
-ork).
-> I also manually pulled the plug a handful of times I don't know the spe=
-cifics that Lillian had the
-> failure though, so this might not be a good enough check.
->
-> I'll try to upgrade DMUB to 0x101001c (the latest version) and double c=
-heck that as well.
+Acked-by: Harry Wentland <harry.wentland@amd.com>
 
-I applied patch v5 and the above ASSERT patch, on top of both Linux=20
-5.16-rc8 and 5.16.
+Harry
 
-Result: no problems with suspend/resume, 16+ cycles.
-
-As far as the hang goes:
-
-I plugged in an HDMI cable connected to my TV, and configured Gnome to=20
-use the external display only.
-
-connectors from /sys/kernel/debug/dri/0/state:
-
-connector[78]: eDP-1
- =C2=A0=C2=A0 =C2=A0crtc=3D(null)
- =C2=A0=C2=A0 =C2=A0self_refresh_aware=3D0
-connector[85]: HDMI-A-1
- =C2=A0=C2=A0 =C2=A0crtc=3Dcrtc-1
- =C2=A0=C2=A0 =C2=A0self_refresh_aware=3D0
-connector[89]: DP-1
- =C2=A0=C2=A0 =C2=A0crtc=3D(null)
- =C2=A0=C2=A0 =C2=A0self_refresh_aware=3D0
-
-I manually unplugged/plugged the HDMI cable 16+ times, and also ran:
-
-$ sudo sh -c 'for ((i=3D0;i<100;i++)); do echo 1 | tee=20
-/sys/kernel/debug/dri/0/HDMI-A-1/trigger_hotplug; sleep 3; done'
-
-The system did not hang, and I saw no kernel log output from the ASSERT.
-
-I also tried a USB-C dock with an HDMI port, with the same results,=20
-though there are other issues with this (perhaps worthy of other bug=20
-reports).
-
-Is there some reason to use amd-staging-drm-next for this test?
-
-I don't use the HDMI connection much and I have never experienced a hang=20
-with HDMI in the first place. Can someone send a link to an=20
-issue/discussion where this hang is being discussed?
-
-HW: HP ENVY x360 Convertible 15-ds1xxx, AMD Ryzen 7 4700U with Radeon=20
-Graphics
-OS/Desktop: Arch Linux, Gnome 41.3 (Wayland)
-FW: linux-firmware-git 20211229.57d6b95-1, DMUB version=3D0x0101001C
-
-
-
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       |  6 +++---
+>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c            |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c            |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c             |  1 +
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c             |  2 ++
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 +++
+>  drivers/gpu/drm/drm_framebuffer.c                 |  6 +++---
+>  drivers/gpu/drm/drm_ioctl.c                       |  2 +-
+>  drivers/gpu/drm/nouveau/nouveau_display.c         |  6 ++++--
+>  drivers/gpu/drm/radeon/radeon_display.c           |  2 ++
+>  include/drm/drm_mode_config.h                     | 10 ++++++++++
+>  11 files changed, 33 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index 82011e75ed85..edbb30d47b8c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -954,7 +954,7 @@ static int amdgpu_display_verify_sizes(struct amdgpu_framebuffer *rfb)
+>  	int ret;
+>  	unsigned int i, block_width, block_height, block_size_log2;
+>  
+> -	if (!rfb->base.dev->mode_config.allow_fb_modifiers)
+> +	if (rfb->base.dev->mode_config.fb_modifiers_not_supported)
+>  		return 0;
+>  
+>  	for (i = 0; i < format_info->num_planes; ++i) {
+> @@ -1141,7 +1141,7 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
+>  	if (ret)
+>  		return ret;
+>  
+> -	if (!dev->mode_config.allow_fb_modifiers) {
+> +	if (dev->mode_config.fb_modifiers_not_supported) {
+>  		drm_WARN_ONCE(dev, adev->family >= AMDGPU_FAMILY_AI,
+>  			      "GFX9+ requires FB check based on format modifier\n");
+>  		ret = check_tiling_flags_gfx6(rfb);
+> @@ -1149,7 +1149,7 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
+>  			return ret;
+>  	}
+>  
+> -	if (dev->mode_config.allow_fb_modifiers &&
+> +	if (!dev->mode_config.fb_modifiers_not_supported &&
+>  	    !(rfb->base.flags & DRM_MODE_FB_MODIFIERS)) {
+>  		ret = convert_tiling_flags_to_modifier(rfb);
+>  		if (ret) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> index d1570a462a51..fb61c0814115 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> @@ -2798,6 +2798,8 @@ static int dce_v10_0_sw_init(void *handle)
+>  	adev_to_drm(adev)->mode_config.preferred_depth = 24;
+>  	adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+>  
+> +	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
+> +
+>  	adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
+>  
+>  	r = amdgpu_display_modeset_create_props(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> index 18a7b3bd633b..17942a11366d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> @@ -2916,6 +2916,8 @@ static int dce_v11_0_sw_init(void *handle)
+>  	adev_to_drm(adev)->mode_config.preferred_depth = 24;
+>  	adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+>  
+> +	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
+> +
+>  	adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
+>  
+>  	r = amdgpu_display_modeset_create_props(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> index c7803dc2b2d5..2ec99ec8e1a3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -2674,6 +2674,7 @@ static int dce_v6_0_sw_init(void *handle)
+>  	adev_to_drm(adev)->mode_config.max_height = 16384;
+>  	adev_to_drm(adev)->mode_config.preferred_depth = 24;
+>  	adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+> +	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
+>  	adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
+>  
+>  	r = amdgpu_display_modeset_create_props(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> index 8318ee8339f1..de11fbe5aba2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> @@ -2695,6 +2695,8 @@ static int dce_v8_0_sw_init(void *handle)
+>  	adev_to_drm(adev)->mode_config.preferred_depth = 24;
+>  	adev_to_drm(adev)->mode_config.prefer_shadow = 1;
+>  
+> +	adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
+> +
+>  	adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
+>  
+>  	r = amdgpu_display_modeset_create_props(adev);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 2f0b14f8f833..61cb41766fae 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -7868,6 +7868,9 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>  	if (res)
+>  		return res;
+>  
+> +	if (modifiers == NULL)
+> +		adev_to_drm(dm->adev)->mode_config.fb_modifiers_not_supported = true;
+> +
+>  	res = drm_universal_plane_init(adev_to_drm(dm->adev), plane, possible_crtcs,
+>  				       &dm_plane_funcs, formats, num_formats,
+>  				       modifiers, plane->type, NULL);
+> diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
+> index 07f5abc875e9..4562a8b86579 100644
+> --- a/drivers/gpu/drm/drm_framebuffer.c
+> +++ b/drivers/gpu/drm/drm_framebuffer.c
+> @@ -309,7 +309,7 @@ drm_internal_framebuffer_create(struct drm_device *dev,
+>  	}
+>  
+>  	if (r->flags & DRM_MODE_FB_MODIFIERS &&
+> -	    !dev->mode_config.allow_fb_modifiers) {
+> +	    dev->mode_config.fb_modifiers_not_supported) {
+>  		DRM_DEBUG_KMS("driver does not support fb modifiers\n");
+>  		return ERR_PTR(-EINVAL);
+>  	}
+> @@ -594,7 +594,7 @@ int drm_mode_getfb2_ioctl(struct drm_device *dev,
+>  	r->pixel_format = fb->format->format;
+>  
+>  	r->flags = 0;
+> -	if (dev->mode_config.allow_fb_modifiers)
+> +	if (!dev->mode_config.fb_modifiers_not_supported)
+>  		r->flags |= DRM_MODE_FB_MODIFIERS;
+>  
+>  	for (i = 0; i < ARRAY_SIZE(r->handles); i++) {
+> @@ -607,7 +607,7 @@ int drm_mode_getfb2_ioctl(struct drm_device *dev,
+>  	for (i = 0; i < fb->format->num_planes; i++) {
+>  		r->pitches[i] = fb->pitches[i];
+>  		r->offsets[i] = fb->offsets[i];
+> -		if (dev->mode_config.allow_fb_modifiers)
+> +		if (!dev->mode_config.fb_modifiers_not_supported)
+>  			r->modifier[i] = fb->modifier;
+>  	}
+>  
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index 8b8744dcf691..51fcf1298023 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -297,7 +297,7 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
+>  			req->value = 64;
+>  		break;
+>  	case DRM_CAP_ADDFB2_MODIFIERS:
+> -		req->value = dev->mode_config.allow_fb_modifiers;
+> +		req->value = !dev->mode_config.fb_modifiers_not_supported;
+>  		break;
+>  	case DRM_CAP_CRTC_IN_VBLANK_EVENT:
+>  		req->value = 1;
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
+> index 2b460835a438..2cd0932b3d68 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_display.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+> @@ -708,10 +708,12 @@ nouveau_display_create(struct drm_device *dev)
+>  				     &disp->disp);
+>  		if (ret == 0) {
+>  			nouveau_display_create_properties(dev);
+> -			if (disp->disp.object.oclass < NV50_DISP)
+> +			if (disp->disp.object.oclass < NV50_DISP) {
+> +				dev->mode_config.fb_modifiers_not_supported = true;
+>  				ret = nv04_display_create(dev);
+> -			else
+> +			} else {
+>  				ret = nv50_display_create(dev);
+> +			}
+>  		}
+>  	} else {
+>  		ret = 0;
+> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+> index 573154268d43..b9a07677a71e 100644
+> --- a/drivers/gpu/drm/radeon/radeon_display.c
+> +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> @@ -1596,6 +1596,8 @@ int radeon_modeset_init(struct radeon_device *rdev)
+>  	rdev->ddev->mode_config.preferred_depth = 24;
+>  	rdev->ddev->mode_config.prefer_shadow = 1;
+>  
+> +	rdev->ddev->mode_config.fb_modifiers_not_supported = true;
+> +
+>  	rdev->ddev->mode_config.fb_base = rdev->mc.aper_base;
+>  
+>  	ret = radeon_modeset_create_props(rdev);
+> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+> index 91ca575a78de..da82f45351c7 100644
+> --- a/include/drm/drm_mode_config.h
+> +++ b/include/drm/drm_mode_config.h
+> @@ -933,6 +933,16 @@ struct drm_mode_config {
+>  	 */
+>  	bool allow_fb_modifiers;
+>  
+> +	/**
+> +	 * @fb_modifiers_not_supported:
+> +	 *
+> +	 * This flag is for legacy drivers such as radeon that do not support
+> +	 * modifiers but infer the actual layout of the underlying buffer.
+> +	 * Generally, each drivers must support modifiers, this flag should not
+> +	 * be set.
+> +	 */
+> +	bool fb_modifiers_not_supported;
+> +
+>  	/**
+>  	 * @normalize_zpos:
+>  	 *
 
