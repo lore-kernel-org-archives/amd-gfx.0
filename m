@@ -4,66 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 389BEC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 02:06:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6A37C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 02:54:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA8110EB57;
-	Fri, 14 Jan 2022 02:06:58 +0000 (UTC)
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [IPv6:2607:f8b0:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73CA710EB57
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 02:06:57 +0000 (UTC)
-Received: by mail-pl1-x633.google.com with SMTP id h1so11984148pls.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jan 2022 18:06:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=igel-co-jp.20210112.gappssmtp.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=oP85wEibAgdAllFjeeWyOD+iyUTYy6my1+XJQtMFYUQ=;
- b=6WAP5NS+llYsdT26NLQfMH1T1HBtOUbzDEhZ7R8iQYWLIoxXv95oPSls63p0TYd2MJ
- YxlLnQ1Ir5kfFAfQD1V8xNSb7U0opn7zb6u44VnX8DACbWarpcj3KEDC3IuFFAL250xY
- n85BmLXWGnReW52NNo4tTsJLc7W204tViaeMuMewM2345JoYSuiAPG3+pYkP/0QXilfS
- Pz36d9yVYgw+Zz+LF08gCKFJKlslb/rCdgIAW5yRSERtgv2T013wjqWv0WqxVGPMlhP5
- nSKBGrBxwSiOXSrH70IdufD9whvD4fnqQ7nVNGBy/2EfrdGUKOG3qtdO+aZAA2BZDkBI
- +Pcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=oP85wEibAgdAllFjeeWyOD+iyUTYy6my1+XJQtMFYUQ=;
- b=SHInSiFZSmBuXXBvv77Qpbgb6LMoDaSnP/7eeuBgdLssJhA2P19EOzWkSVGmMQuW8/
- wGkeZkcKRDTcEOxtq/wqEAD83FX/3AUBGW+UuBn4UDZqzXogBTdtbHlD3vBD9Vcpazci
- IeIqpIDJJ+yV6dQTIRxJymShWHxCBQd0U3hchhTo+yBoiHkt1S6XHsT9z5kDmC621iBR
- wmxx4nL/rp0+ZIYfFFAsRICTvJrS2cz3O8QdlTr8AX2veHyBC0lMfZZM9Bt+1UhC4BuY
- jKIvC7t8BPaZ7U2ajt1X8qvocPx7z81QFP++DQ6ihXfDAa5F44eH2r4+7kkHbAsdx91X
- /CbQ==
-X-Gm-Message-State: AOAM531DAUxkYyHwjeX1+sW5EyBouAWn9+7h2PHVkk1NVXQ2yGeaH0RW
- 2b8hOJosLZZCmNmf9dvn9PEwiA==
-X-Google-Smtp-Source: ABdhPJwAf8JNoK0IFF/OFmOGwLzMqK0nv9iCuKxfLT1lgh3OfeKFFLd0NcCDqRORNBbkRlpxc/KA2g==
-X-Received: by 2002:a17:90b:1a88:: with SMTP id
- ng8mr17797236pjb.180.1642126016944; 
- Thu, 13 Jan 2022 18:06:56 -0800 (PST)
-Received: from [10.16.129.73] (napt.igel.co.jp. [219.106.231.132])
- by smtp.gmail.com with ESMTPSA id i4sm3554122pjj.30.2022.01.13.18.06.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Jan 2022 18:06:56 -0800 (PST)
-Message-ID: <d8882c4a-df6f-77e4-8a6d-57cf907574b6@igel.co.jp>
-Date: Fri, 14 Jan 2022 11:06:47 +0900
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15BF310EB58;
+	Fri, 14 Jan 2022 02:54:44 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2075.outbound.protection.outlook.com [40.107.244.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDB8310EB58
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 02:54:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jTe4kU9n4SZuM4+/F7LUMBVhvlJfzhJg6XQqofZPZhHUuj57usuMhi86e5LNvOhBv3p6kHO+HW4huI47wOxuUXzbeYsK2FYHwOdo5p5ai8TTMEOsodPkFN3YKDRYhlsM8hYIuoR+kgCGwyVsOQ4euzYrjXpL1wXO64Sy0PNAOLgCxCpI2bAEEkMZe06dEZSpJ/Wr/VdAUlshQ4ZHljkkgiTJ3ew/YBO44DVPz89w8gVgFjsTzjhdTvS/ZW8HE9BDNmZFQ0nm+UWfImJ524o/tYD+3R8cqrrf7zQfa2tMQBZkSHLyTsdE1bwYX7zueajSQd0X2THndQtmnm6MjYI7fQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/7H5cCVTshfydM0ZKBzQG6h6waooyrTCMuKn9iHjnTs=;
+ b=UmCacLSTPTxZ46Lf3A3QuS/GEZR2EW7D/DLIiu4Txdsfb1AdIHhnNutpT2rm/Jz+jKaslDSeeD95M9hweGJrYhLzZ37ab5nd9l+e6mFIJ1UMDfxeeCGCxrKWuG1NbK0XjIGO0Ey2UFSsB7Zq2Q3uxUrHRUt9WBoLv1xiPOCtb7CtIVyVsZ8FtnFYdcK8WZ/uHz+kagF2zGuMoyEnNYL4FLYHXiFDmYjdbmH9AoqeLeG7XtRDOl2lGKr9epLarQtQOJPXRDfrgSrCIjDvHuN2pZozOnqHJm69XyNpZ/7HytDRFOEXOZ4p5LIGSKCnYBHRvD6Bzwl/rw1qEq92FflCWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/7H5cCVTshfydM0ZKBzQG6h6waooyrTCMuKn9iHjnTs=;
+ b=WXcVp+sYwAzMoCHpBq5Z/JygmjP4tub142ttYs3tKa4t0AsElz1jx8KKYefj8whx6fAiqybiy4nyeJ4SHCFXaM51n0UcVMwQxL7SXsf0bSJvNQMqL888zvAPM4pvArwffy4QG9e2lIF8w33qBIM40/NdRuPOR4zuWgwOZNeGVrg=
+Received: from BN6PR16CA0046.namprd16.prod.outlook.com (2603:10b6:405:14::32)
+ by MWHPR12MB1280.namprd12.prod.outlook.com (2603:10b6:300:12::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Fri, 14 Jan
+ 2022 02:54:40 +0000
+Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:405:14:cafe::49) by BN6PR16CA0046.outlook.office365.com
+ (2603:10b6:405:14::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10 via Frontend
+ Transport; Fri, 14 Jan 2022 02:54:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4888.9 via Frontend Transport; Fri, 14 Jan 2022 02:54:39 +0000
+Received: from flora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Thu, 13 Jan
+ 2022 20:54:37 -0600
+From: Flora Cui <flora.cui@amd.com>
+To: <Evan.Quan@amd.com>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdgpu: fix null ptr access
+Date: Fri, 14 Jan 2022 10:54:22 +0800
+Message-ID: <20220114025422.255750-1-flora.cui@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Subject: Re: [RFC PATCH v2 2/3] drm: set fb_modifiers_not_supported flag in
- legacy drivers
-Content-Language: en-US
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-References: <20220113094419.12433-1-etom@igel.co.jp>
- <20220113094419.12433-3-etom@igel.co.jp>
- <CAP+8YyF60rXVacY3-ZKieYjxRzseb_SGJbNnXaUzUyUUS-n42Q@mail.gmail.com>
-From: Esaki Tomohito <etom@igel.co.jp>
-In-Reply-To: <CAP+8YyF60rXVacY3-ZKieYjxRzseb_SGJbNnXaUzUyUUS-n42Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9ee16927-ed2a-4490-9aaa-08d9d70934ed
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1280:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1280906CCA163C8C9739900AFA549@MWHPR12MB1280.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1360;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 3LeDIywSQl5dmDfj7Yx1vfkqUbKi0+beg+rqOSc8AXzwRMAmF0+VQyV030hnBZjzmcsOT7+jd/S/DwXzHfPVRtVIjNtNpYN978Uy43Nu/WfINhUuTwOAs8cxg5y9tiGSCtuu+3tB8QY59xXFRqBXROIPDQvP4wQY04mHvq7Ed+XAfaXHeJiihERk5yQoFZ/BlmsWCZD8CL7I5qcD48tOW4V9nONhWFgiH+Z+kJPgfUCc6HDkpDgmGnOYIOLafIWHIu6HQJk8JFOoKwQr7KOiuee5Q4v07Z1IGMYVabl3Z8a5uoFIeP0KeHOqzAYtRV1Kk1+JDqk3tgQLB4QYs3mZ/wpHjzs5ZtW0RVZujVoUzNbPtVIQx7wtodkoc9z89CbVELXuhSMUt+0hUe/adhyjKuKYDDnsv7IRA73EZnswdSaLNEU9b5CkhNypveNEoiY5PsjkpHEBEw7Gqr9D7ORVmhtqMisH+hEONWa+IgPKaOSfSzNW/tiWxI9vSciFtUTLPAeGBHJUrJ0PgWjXxwQI1YYfYAOQtVChArXf9vJb9IC6PYx3gY6Sdt75K1/OcCwFwykq8x2+Vbub9JpIXP42tsUw2GpnmsGRYKt0MVLrEPdPTSnAQ+p5xOx/c6CwyhXXHFUpa8geg3nH2zMwq2RD+Yt29Fa22h08JrCjjSgqZ6ncvb3lI+24hrAVEqw/ZmORAKRG/68uEtiFuM92EeKZLJ1T1sdcHPoB2o/8IGDWLRS/q3vJT2hNySAHRU7sFyVz/tgyW7MqNkQQTbviPSXKaeDwhBL59Ha5ulIuSfR0ejs=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(46966006)(40470700002)(186003)(2616005)(8676002)(2906002)(26005)(86362001)(44832011)(5660300002)(508600001)(83380400001)(16526019)(316002)(4326008)(110136005)(336012)(7696005)(36756003)(6666004)(426003)(70586007)(356005)(1076003)(82310400004)(36860700001)(40460700001)(81166007)(47076005)(70206006)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2022 02:54:39.1831 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ee16927-ed2a-4490-9aaa-08d9d70934ed
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1280
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,178 +99,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <mdaenzer@redhat.com>,
- Daniel Stone <daniel@fooishbar.org>, Lee Jones <lee.jones@linaro.org>,
- etom@igel.co.jp, Rob Clark <robdclark@chromium.org>,
- Evan Quan <evan.quan@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Ben Skeggs <bskeggs@redhat.com>, Petr Mladek <pmladek@suse.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Alex Deucher <alexander.deucher@amd.com>, Takanari Hayama <taki@igel.co.jp>,
- Sean Paul <seanpaul@chromium.org>, Maxime Ripard <mripard@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Simon Ser <contact@emersion.fr>, Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Mark Yacoub <markyacoub@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Damian Hobson-Garcia <dhobsong@igel.co.jp>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Flora Cui <flora.cui@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+check null ptr first before access its element
 
-Thank you for your comment.
+v2: check adev->pm.dpm_enabled early in amdgpu_debugfs_pm_init()
 
-On 2022/01/14 2:56, Bas Nieuwenhuizen wrote:
-> I think we'll also want to do a conditional disable for DC
-> (drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c) since it only
-> enables modifiers on newer HW.  Something like "if (modifiers == NULL)
-> fb_modifiers_not_supported = true;" in amdgpu_dm_plane_init.
+Signed-off-by: Flora Cui <flora.cui@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 2 +-
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c  | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-Ok, I'll add a conditional disable in amdgpu_dm_plane_init().
-
-Thanks,
-Tomohito Esaki
-
-> On Thu, Jan 13, 2022 at 10:44 AM Tomohito Esaki <etom@igel.co.jp> wrote:
->>
->> Set fb_modifiers_not_supported flag in legacy drivers whose planes
->> support non-linear layouts but does not support modifiers, and replace
->> allow_fb_modifiers with fb_modifiers_not_supported.
->>
->> Signed-off-by: Tomohito Esaki <etom@igel.co.jp>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 6 +++---
->>   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      | 2 ++
->>   drivers/gpu/drm/amd/amdgpu/dce_v11_0.c      | 2 ++
->>   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       | 1 +
->>   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       | 2 ++
->>   drivers/gpu/drm/nouveau/nouveau_display.c   | 6 ++++--
->>   drivers/gpu/drm/radeon/radeon_display.c     | 2 ++
->>   7 files changed, 16 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->> index dc50c05f23fc..cbaea9c6cfda 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->> @@ -958,7 +958,7 @@ static int amdgpu_display_verify_sizes(struct amdgpu_framebuffer *rfb)
->>          int ret;
->>          unsigned int i, block_width, block_height, block_size_log2;
->>
->> -       if (!rfb->base.dev->mode_config.allow_fb_modifiers)
->> +       if (rfb->base.dev->mode_config.fb_modifiers_not_supported)
->>                  return 0;
->>
->>          for (i = 0; i < format_info->num_planes; ++i) {
->> @@ -1145,7 +1145,7 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
->>          if (ret)
->>                  return ret;
->>
->> -       if (!dev->mode_config.allow_fb_modifiers) {
->> +       if (dev->mode_config.fb_modifiers_not_supported) {
->>                  drm_WARN_ONCE(dev, adev->family >= AMDGPU_FAMILY_AI,
->>                                "GFX9+ requires FB check based on format modifier\n");
->>                  ret = check_tiling_flags_gfx6(rfb);
->> @@ -1153,7 +1153,7 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
->>                          return ret;
->>          }
->>
->> -       if (dev->mode_config.allow_fb_modifiers &&
->> +       if (!dev->mode_config.fb_modifiers_not_supported &&
->>              !(rfb->base.flags & DRM_MODE_FB_MODIFIERS)) {
->>                  ret = convert_tiling_flags_to_modifier(rfb);
->>                  if (ret) {
->> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
->> index d1570a462a51..fb61c0814115 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
->> @@ -2798,6 +2798,8 @@ static int dce_v10_0_sw_init(void *handle)
->>          adev_to_drm(adev)->mode_config.preferred_depth = 24;
->>          adev_to_drm(adev)->mode_config.prefer_shadow = 1;
->>
->> +       adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
->> +
->>          adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
->>
->>          r = amdgpu_display_modeset_create_props(adev);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
->> index 18a7b3bd633b..17942a11366d 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
->> @@ -2916,6 +2916,8 @@ static int dce_v11_0_sw_init(void *handle)
->>          adev_to_drm(adev)->mode_config.preferred_depth = 24;
->>          adev_to_drm(adev)->mode_config.prefer_shadow = 1;
->>
->> +       adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
->> +
->>          adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
->>
->>          r = amdgpu_display_modeset_create_props(adev);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
->> index c7803dc2b2d5..2ec99ec8e1a3 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
->> @@ -2674,6 +2674,7 @@ static int dce_v6_0_sw_init(void *handle)
->>          adev_to_drm(adev)->mode_config.max_height = 16384;
->>          adev_to_drm(adev)->mode_config.preferred_depth = 24;
->>          adev_to_drm(adev)->mode_config.prefer_shadow = 1;
->> +       adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
->>          adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
->>
->>          r = amdgpu_display_modeset_create_props(adev);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
->> index b200b9e722d9..8369336cec90 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
->> @@ -2699,6 +2699,8 @@ static int dce_v8_0_sw_init(void *handle)
->>          adev_to_drm(adev)->mode_config.preferred_depth = 24;
->>          adev_to_drm(adev)->mode_config.prefer_shadow = 1;
->>
->> +       adev_to_drm(adev)->mode_config.fb_modifiers_not_supported = true;
->> +
->>          adev_to_drm(adev)->mode_config.fb_base = adev->gmc.aper_base;
->>
->>          r = amdgpu_display_modeset_create_props(adev);
->> diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
->> index 929de41c281f..1ecad7fa3e8a 100644
->> --- a/drivers/gpu/drm/nouveau/nouveau_display.c
->> +++ b/drivers/gpu/drm/nouveau/nouveau_display.c
->> @@ -711,10 +711,12 @@ nouveau_display_create(struct drm_device *dev)
->>                                       &disp->disp);
->>                  if (ret == 0) {
->>                          nouveau_display_create_properties(dev);
->> -                       if (disp->disp.object.oclass < NV50_DISP)
->> +                       if (disp->disp.object.oclass < NV50_DISP) {
->> +                               dev->mode_config.fb_modifiers_not_supported = true;
->>                                  ret = nv04_display_create(dev);
->> -                       else
->> +                       } else {
->>                                  ret = nv50_display_create(dev);
->> +                       }
->>                  }
->>          } else {
->>                  ret = 0;
->> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
->> index 573154268d43..b9a07677a71e 100644
->> --- a/drivers/gpu/drm/radeon/radeon_display.c
->> +++ b/drivers/gpu/drm/radeon/radeon_display.c
->> @@ -1596,6 +1596,8 @@ int radeon_modeset_init(struct radeon_device *rdev)
->>          rdev->ddev->mode_config.preferred_depth = 24;
->>          rdev->ddev->mode_config.prefer_shadow = 1;
->>
->> +       rdev->ddev->mode_config.fb_modifiers_not_supported = true;
->> +
->>          rdev->ddev->mode_config.fb_base = rdev->mc.aper_base;
->>
->>          ret = radeon_modeset_create_props(rdev);
->> --
->> 2.25.1
->>
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index f0daa66f5b3d..5fc33893a68c 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -463,7 +463,7 @@ int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *smu_versio
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	int r = 0;
+ 
+-	if (!pp_funcs->load_firmware)
++	if (!pp_funcs || !pp_funcs->load_firmware)
+ 		return 0;
+ 
+ 	mutex_lock(&adev->pm.mutex);
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 1b03ad7a21ad..49a9c6375343 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -3583,6 +3583,9 @@ void amdgpu_debugfs_pm_init(struct amdgpu_device *adev)
+ 	struct drm_minor *minor = adev_to_drm(adev)->primary;
+ 	struct dentry *root = minor->debugfs_root;
+ 
++	if (!adev->pm.dpm_enabled)
++		return;
++
+ 	debugfs_create_file("amdgpu_pm_info", 0444, root, adev,
+ 			    &amdgpu_debugfs_pm_info_fops);
+ 
+-- 
+2.25.1
 
