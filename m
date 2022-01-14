@@ -4,84 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20291C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 16:50:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09C7EC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 16:59:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6204E10EAE7;
-	Fri, 14 Jan 2022 16:50:17 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AA0B10EB02
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 16:50:16 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id k18so16553550wrg.11
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 08:50:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=VEOOxhr/Qwdhz6jGRXCfn43YOQWOPX+v7bNM1lLXnMs=;
- b=GQYnWMHTELRAX6IxEgSqmKjWAnpubD1b5rEvbvgGfNtDbs7tQuSCh/OrJmX7kDVK8z
- rPdvpyBfW761Oyb3/+SC3o/9fHqJEKGv83GhHHBQM/aW0ZBAtayMSxhfItAzaxMYLRRt
- 5CZsm6e0kddTqky4BUZbuj+6wzRBrVNehO/QQ=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8643510EDE2;
+	Fri, 14 Jan 2022 16:59:30 +0000 (UTC)
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [IPv6:2607:f8b0:4864:20::c2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A93C610EDE2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 16:59:29 +0000 (UTC)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ b15-20020a4a9bcf000000b002dc83a61053so2736837ook.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 08:59:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=5cThNBdmifX5fjZDzGTufhPtxnTPpDZseICZVG8X7bs=;
+ b=isoSpKsCm5ZpGCuYkDFDYlrFvQYtQXCZuuZy6UaIX5BtkIJbr+RomSIGnDM/kit2Ai
+ +gl/jIYFZEeiQSceyMBlnJ6RQ4Mp64RFyoS4iBGLhnT9hz3aOZYxerFetYCGPmh6aMgu
+ igm3ybcvbapX0WK8IU4Jm3hChWoy8+tAEe5pKsf3JGsZmgmeJwWGqwlZTej0RdqSDwY6
+ W7Jlc+hE1fs/EiSgooGaBhMTvz8LNuGEU2OMEz7IVSbeIIFTHcGETEVmZsCTO/dhUpqO
+ k1bgujPLcKlp1UbEYg6yZOrTT++SFdq75rYRg/b2LYQztb+T/FlRgCBWcUHtgvi3mewx
+ OunA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=VEOOxhr/Qwdhz6jGRXCfn43YOQWOPX+v7bNM1lLXnMs=;
- b=jEPns/9ovL8Mf8aMiaZg2Nwe0SGYjOsXU29T1ctOY/zIUxmNIruAq1BSwPNVn4E6Tn
- /i2Niz3Ztv4pBGHUahhfNVoxqzsPwCkhkbEzoBZ59uuhoRkSI50Us133fU+gm5Opv4YB
- gnLfHJLbq6rv8Y8ZH+l/O8VL5JU0yWXrJN+2i6yom2/mwIDo3p6JRwI5nlC54FLqBcS4
- fiTO9/IuzII0IS++KtjrvCjVEPZuUxJSzKC1FrKxKK2HuhNVxVsZHCs2q67vk6bhHAUA
- vEbhs+D4QX1Vwr7oc/GuvaBw7zpkn3TyXKXk6jF+ZpYc3Cv0gScmD4HziP/XUoSUc44o
- isgw==
-X-Gm-Message-State: AOAM530jiWQenMK7uxx15v7s8StBFjhfS1AT4RYnd2fBu5VyiHndjEIJ
- lfm31toagMXpQaczOELOeBeWBw==
-X-Google-Smtp-Source: ABdhPJwz9kukA9QNeawPcf2CaPxbGlOu7bGLv961X6bi262Yhbg82aYRWaL5DsXL4YUvYSzxOtsv8Q==
-X-Received: by 2002:a05:6000:1845:: with SMTP id
- c5mr2499147wri.350.1642179014678; 
- Fri, 14 Jan 2022 08:50:14 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id l6sm9036159wry.18.2022.01.14.08.50.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Jan 2022 08:50:14 -0800 (PST)
-Date: Fri, 14 Jan 2022 17:50:11 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Tomohito Esaki <etom@igel.co.jp>
-Subject: Re: [RFC PATH 1/3] drm: add support modifiers for drivers whose
- planes only support linear layout
-Message-ID: <YeGpw7L3jODHHnPC@phenom.ffwll.local>
-Mail-Followup-To: Tomohito Esaki <etom@igel.co.jp>,
- dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Ben Skeggs <bskeggs@redhat.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
- Simon Ser <contact@emersion.fr>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Mark Yacoub <markyacoub@chromium.org>,
- Sean Paul <seanpaul@chromium.org>, Evan Quan <evan.quan@amd.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Petr Mladek <pmladek@suse.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Lee Jones <lee.jones@linaro.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@chromium.org>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
- Damian Hobson-Garcia <dhobsong@igel.co.jp>,
- Takanari Hayama <taki@igel.co.jp>
-References: <20211222052727.19725-1-etom@igel.co.jp>
- <20211222052727.19725-2-etom@igel.co.jp>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5cThNBdmifX5fjZDzGTufhPtxnTPpDZseICZVG8X7bs=;
+ b=L9vB3EasGurX/MEPx0zYMcmjGI6Mf+CNgb9cX3vpEZfyojlxp9Vc5sFDbQVegCXXxj
+ dIKccrgmZ4KV2955hbeeZCDh1Xv0LtucE9Ktjx5F6j6NZJTNgmwZLXEXFea0toSMlfy/
+ SLxxKyw7QCxMi4NdH3RlziwecYHUa3ED3u34FHV67ki0718YB2rqyUZ9Z8gS/SERtv59
+ sHpNrqtxPFLRb/pi+T700oESroW+IwimQ1ysoBmEYIxx0ONeyaTzAOS+SygYGLM8uJ4P
+ EkuZKobkn1hKOX55ZlvVu48hPja/gkLsBfOJtQ1NR13867Skw7xf6K8ypKUkpN373kWK
+ wXfQ==
+X-Gm-Message-State: AOAM533fzU7hH4gPh/5z4TsyzJhza3FUIk9hv/7Wf+0EgjCEvF5kWwUx
+ 4nF0E3uSekYidVPrPCRPBPugrODaKvGomnU0jos=
+X-Google-Smtp-Source: ABdhPJx1EKV5ZyaOI+xQnYlcVar1DmmVP/sQhIT7xqxFIN2i0vw/QBqnfJhcERfytHKBoVlBPW9HKTR7RqT4VwLc61Q=
+X-Received: by 2002:a4a:374c:: with SMTP id r73mr1470159oor.68.1642179568821; 
+ Fri, 14 Jan 2022 08:59:28 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211222052727.19725-2-etom@igel.co.jp>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
+References: <20220114092338.10004-1-Xiaojian.Du@amd.com>
+In-Reply-To: <20220114092338.10004-1-Xiaojian.Du@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 14 Jan 2022 11:59:17 -0500
+Message-ID: <CADnq5_NFbvxS8xvHL+xtyeU+U8FooCeturG+BE3abJxxRwowuA@mail.gmail.com>
+Subject: Re: [Patch v3] drm/amdgpu: add vram check function for GMC
+To: Xiaojian Du <Xiaojian.Du@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,179 +61,180 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
- Lee Jones <lee.jones@linaro.org>, Rob Clark <robdclark@chromium.org>,
- Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org,
- Ben Skeggs <bskeggs@redhat.com>, Petr Mladek <pmladek@suse.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Takanari Hayama <taki@igel.co.jp>, Sean Paul <seanpaul@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mark Yacoub <markyacoub@chromium.org>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Simon Ser <contact@emersion.fr>,
- Alex Deucher <alexander.deucher@amd.com>,
- Damian Hobson-Garcia <dhobsong@igel.co.jp>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, Huang Rui <ray.huang@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 22, 2021 at 02:27:25PM +0900, Tomohito Esaki wrote:
-> The LINEAR modifier is advertised as default if a driver doesn't specify
-> modifiers. However, there are legacy drivers such as radeon that do not
-> support modifiers but infer the actual layout of the underlying buffer.
-> Therefore, a new flag not_support_fb_modifires is introduced for these
-> legacy drivers. Allow_fb_modifiers will be replaced with this new flag.
-> 
-> Signed-off-by: Tomohito Esaki <etom@igel.co.jp>
+On Fri, Jan 14, 2022 at 4:24 AM Xiaojian Du <Xiaojian.Du@amd.com> wrote:
+>
+> This will add vram check function for GMC block.
+> It will write pattern data to the vram and then read back from the vram,
+> so that to verify the work status of vram.
+> This patch  will cover gmc v6/7/8/9/10.
+>
+> Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com>
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/drm_plane.c   | 34 ++++++++++++++++++++++++++--------
->  include/drm/drm_mode_config.h | 10 ++++++++++
->  include/drm/drm_plane.h       |  3 +++
->  3 files changed, 39 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
-> index 82afb854141b..75308ee240c0 100644
-> --- a/drivers/gpu/drm/drm_plane.c
-> +++ b/drivers/gpu/drm/drm_plane.c
-> @@ -161,6 +161,16 @@ modifiers_ptr(struct drm_format_modifier_blob *blob)
->  	return (struct drm_format_modifier *)(((char *)blob) + blob->modifiers_offset);
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 46 +++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  1 +
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  5 +++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   |  5 ++-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   |  5 ++-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   |  5 ++-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |  7 +++-
+>  7 files changed, 70 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 83f26bca7dac..96cabf3ed29e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -833,3 +833,49 @@ void amdgpu_gmc_get_reserved_allocation(struct amdgpu_device *adev)
+>                 break;
+>         }
 >  }
->  
-> +static bool check_format_modifier(struct drm_plane *plane, uint32_t format,
-> +				  uint64_t modifier)
+> +
+> +int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
 > +{
-> +	if (plane->funcs->format_mod_supported)
-> +		return plane->funcs->format_mod_supported(plane, format,
-> +							  modifier);
+> +       struct amdgpu_bo        *vram_bo;
+> +       uint64_t        vram_gpu;
+> +       void    *vram_ptr;
 > +
-> +	return modifier == DRM_FORMAT_MOD_LINEAR;
+> +       int ret, size = 0x100000;
+> +       uint8_t cptr[10];
+> +
+> +       ret = amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
+> +                               AMDGPU_GEM_DOMAIN_VRAM,
+> +                               &vram_bo,
+> +                               &vram_gpu,
+> +                               &vram_ptr);
+> +       if (ret)
+> +               return ret;
+> +
+> +       memset(vram_ptr, 0x86, size);
+> +       memset(cptr, 0x86, 10);
+> +
+> +       /**
+> +       * Check the start, the mid, and the end of the memory if the content of
+> +       * each byte is the pattern "0x86". If yes, we suppose the vram bo is
+> +       * workable.
+> +       *
+> +       * Note: If check the each byte of whole 1M bo, it will cost too many
+> +       * seconds, so here, we just pick up three parts for emulation.
+> +       */
+> +       ret = memcmp(vram_ptr, cptr, 10);
+> +       if (ret)
+> +               return ret;
+> +
+> +       ret = memcmp(vram_ptr + (size / 2), cptr, 10);
+> +       if (ret)
+> +               return ret;
+> +
+> +       ret = memcmp(vram_ptr + size - 10, cptr, 10);
+> +       if (ret)
+> +               return ret;
+> +
+> +       amdgpu_bo_free_kernel(&vram_bo, &vram_gpu,
+> +                       &vram_ptr);
+> +
+> +       return 0;
 > +}
-> +
->  static int create_in_format_blob(struct drm_device *dev, struct drm_plane *plane)
->  {
->  	const struct drm_mode_config *config = &dev->mode_config;
-> @@ -203,16 +213,15 @@ static int create_in_format_blob(struct drm_device *dev, struct drm_plane *plane
->  	memcpy(formats_ptr(blob_data), plane->format_types, formats_size);
->  
->  	/* If we can't determine support, just bail */
-> -	if (!plane->funcs->format_mod_supported)
-> +	if (config->fb_modifiers_not_supported)
->  		goto done;
->  
->  	mod = modifiers_ptr(blob_data);
->  	for (i = 0; i < plane->modifier_count; i++) {
->  		for (j = 0; j < plane->format_count; j++) {
-> -			if (plane->funcs->format_mod_supported(plane,
-> -							       plane->format_types[j],
-> -							       plane->modifiers[i])) {
-> -
-> +			if (check_format_modifier(plane,
-> +						  plane->format_types[j],
-> +						  plane->modifiers[i])) {
->  				mod->formats |= 1ULL << j;
->  			}
->  		}
-> @@ -242,6 +251,10 @@ static int __drm_universal_plane_init(struct drm_device *dev,
->  				      const char *name, va_list ap)
->  {
->  	struct drm_mode_config *config = &dev->mode_config;
-> +	const uint64_t default_modifiers[] = {
-> +		DRM_FORMAT_MOD_LINEAR,
-> +		DRM_FORMAT_MOD_INVALID
-> +	};
->  	unsigned int format_modifier_count = 0;
->  	int ret;
->  
-> @@ -282,6 +295,11 @@ static int __drm_universal_plane_init(struct drm_device *dev,
->  
->  		while (*temp_modifiers++ != DRM_FORMAT_MOD_INVALID)
->  			format_modifier_count++;
-> +	} else {
-> +		if (!dev->mode_config.fb_modifiers_not_supported) {
-> +			format_modifiers = default_modifiers;
-> +			format_modifier_count = 1;
-> +		}
->  	}
->  
->  	/* autoset the cap and check for consistency across all planes */
-> @@ -346,7 +364,7 @@ static int __drm_universal_plane_init(struct drm_device *dev,
->  		drm_object_attach_property(&plane->base, config->prop_src_h, 0);
->  	}
->  
-> -	if (config->allow_fb_modifiers)
-> +	if (format_modifier_count)
->  		create_in_format_blob(dev, plane);
->  
->  	return 0;
-> @@ -373,8 +391,8 @@ static int __drm_universal_plane_init(struct drm_device *dev,
->   * drm_universal_plane_init() to let the DRM managed resource infrastructure
->   * take care of cleanup and deallocation.
->   *
-> - * Drivers supporting modifiers must set @format_modifiers on all their planes,
-> - * even those that only support DRM_FORMAT_MOD_LINEAR.
-> + * For drivers supporting modifiers, all planes will advertise
-> + * DRM_FORMAT_MOD_LINEAR support, if @format_modifiers is not set.
->   *
->   * Returns:
->   * Zero on success, error code on failure.
-> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-> index 48b7de80daf5..c56f298c55bd 100644
-> --- a/include/drm/drm_mode_config.h
-> +++ b/include/drm/drm_mode_config.h
-> @@ -920,6 +920,16 @@ struct drm_mode_config {
->  	 */
->  	bool allow_fb_modifiers;
->  
-> +	/**
-> +	 * @fb_modifiers_not_supported:
-> +	 *
-> +	 * This flag is for legacy drivers such as radeon that do not support
-
-Maybe don't put specific driver names into kerneldoc (in commit message to
-motivate your changes it's fine). It's unlikely radeon ever changes on
-this, but also no one will update this in the docs if we ever do that.
-
-Perhaps also add that new driver should never set this, just to hammer it
-home that modifiers really should work everywhere.
-
-Otherwise I think this series is the right thing to do.
--Daniel
-
-> +	 * modifiers but infer the actual layout of the underlying buffer.
-> +	 * Generally, each drivers must support modifiers, this flag should not
-> +	 * be set.
-> +	 */
-> +	bool fb_modifiers_not_supported;
-> +
->  	/**
->  	 * @normalize_zpos:
->  	 *
-> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-> index 0c1102dc4d88..cad641b1f797 100644
-> --- a/include/drm/drm_plane.h
-> +++ b/include/drm/drm_plane.h
-> @@ -803,6 +803,9 @@ void *__drmm_universal_plane_alloc(struct drm_device *dev,
->   *
->   * The @drm_plane_funcs.destroy hook must be NULL.
->   *
-> + * For drivers supporting modifiers, all planes will advertise
-> + * DRM_FORMAT_MOD_LINEAR support, if @format_modifiers is not set.
-> + *
->   * Returns:
->   * Pointer to new plane, or ERR_PTR on failure.
->   */
-> -- 
-> 2.17.1
-> 
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> index 82ec665b366c..f06af61378ef 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -343,4 +343,5 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev);
+>  uint64_t amdgpu_gmc_vram_mc2pa(struct amdgpu_device *adev, uint64_t mc_addr);
+>  uint64_t amdgpu_gmc_vram_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
+>  uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
+> +int amdgpu_gmc_vram_checking(struct amdgpu_device *adev);
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index 3915ba837596..41b11c1f8db0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -1048,6 +1048,11 @@ static int gmc_v10_0_hw_init(void *handle)
+>         if (r)
+>                 return r;
+>
+> +       if (amdgpu_emu_mode == 1) {
+> +               r = amdgpu_gmc_vram_checking(adev);
+> +               if (r)
+> +                       return r;
+> +       }
+>         if (adev->umc.funcs && adev->umc.funcs->init_registers)
+>                 adev->umc.funcs->init_registers(adev);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> index 0fe714f54cca..dec5539fe779 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> @@ -923,7 +923,10 @@ static int gmc_v6_0_hw_init(void *handle)
+>         if (r)
+>                 return r;
+>
+> -       return r;
+> +       if (amdgpu_emu_mode == 1)
+> +               return amdgpu_gmc_vram_checking(adev);
+> +       else
+> +               return r;
+>  }
+>
+>  static int gmc_v6_0_hw_fini(void *handle)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> index 0a50fdaced7e..b249aa9b3724 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> @@ -1112,7 +1112,10 @@ static int gmc_v7_0_hw_init(void *handle)
+>         if (r)
+>                 return r;
+>
+> -       return r;
+> +       if (amdgpu_emu_mode == 1)
+> +               return amdgpu_gmc_vram_checking(adev);
+> +       else
+> +               return r;
+>  }
+>
+>  static int gmc_v7_0_hw_fini(void *handle)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> index 9a3fc0926903..78ce7828b348 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -1241,7 +1241,10 @@ static int gmc_v8_0_hw_init(void *handle)
+>         if (r)
+>                 return r;
+>
+> -       return r;
+> +       if (amdgpu_emu_mode == 1)
+> +               return amdgpu_gmc_vram_checking(adev);
+> +       else
+> +               return r;
+>  }
+>
+>  static int gmc_v8_0_hw_fini(void *handle)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index ce7d438eeabe..ebbd212ed795 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1771,8 +1771,13 @@ static int gmc_v9_0_hw_init(void *handle)
+>                 adev->umc.funcs->init_registers(adev);
+>
+>         r = gmc_v9_0_gart_enable(adev);
+> +       if (r)
+> +               return r;
+>
+> -       return r;
+> +       if (amdgpu_emu_mode == 1)
+> +               return amdgpu_gmc_vram_checking(adev);
+> +       else
+> +               return r;
+>  }
+>
+>  /**
+> --
+> 2.25.1
+>
