@@ -4,118 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C239AC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 21:43:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9D67C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jan 2022 22:07:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3885610E259;
-	Fri, 14 Jan 2022 21:43:54 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2054.outbound.protection.outlook.com [40.107.236.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0614210E23A;
- Fri, 14 Jan 2022 21:43:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4981E10E249;
+	Fri, 14 Jan 2022 22:07:11 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2060.outbound.protection.outlook.com [40.107.95.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D13C10E249
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jan 2022 22:07:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OX7pKkMBeJSciU8TYv9rCH3XsrVMxTLUOAHQxuGj8f7wCH7bcixo1eiDPRnHRuLdeC9K3w9sO92PUVAcm9VA9PG3YcE9TVwYA8QO0tZotJtziny0ensgTY7H6zfLAALR6n2+Ekq6tqPQP71xD1z03+h+YHqUphQHiPysMgENlF+CL4vOb9AjS7g2KIOnT9MTfJeOqCLZY3PzykcgGNTF0BvXxo21RZF0P5VcXRwxkBsSDGmgbuTleNk/G0GufCvIjXK9ZSJVeZw50leCpXx4KadYAaHT57gq2U9T08s8bh2zSSebWluivr7631VHoSuV7c5/+TnrpkgH1C/nkVS6sw==
+ b=MgjEMzjNaofppYF5bycYWeYNEVPzRK9/bheQwD3Y8xYXiCHHuoKA3ALg0Oedd7w57Fq0K6hVuLhiVwkMDTiAB//ibK110eR4SOu1srlAPuNdC5AVOsPLLJF16szmM9j6NhiuqvtoIDhaS3ru638+2UvoS82G6ld8b9Xg+22nqOtZ/91A04aIitxGqRXuyKkm38uJ4CuhTlQTaxC4S+Dwj7XTBpxKK1ZCZcgOGOtsqG9aDzUF/oUlpmYeczmSiizXC2ZgYr7bEmcSAVcQxs5s47+x03rUc4r9Ukh3YLtp4ABiB5BUl0vMkDUZxvIVZ8RspXtPDALrIRafrZd1TG4wag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bF72+YxH0A6CQjuyw2VPQRLvduCLZeAJqedftwU+otI=;
- b=bbhQCDsBVqtWBhc3imN8uHmBJ6XCzb8eOcminhUmKDNHqI89nyMOZOV8gKaffSRP/EyE62S36OSArpQYxtwEvB5uTsUYfOayQg/pY6TMDtB2l2xWUbFXu8mxl3nZqmsGDs+8c+yjUj1DBIIu1aywwECr83VwDCYsycW91jSoS4Cyu1n0KePIXPviWcZ12HJlZ2TBmQ6kEzrkI6jxIWDMpLLqqIB52a8QUju8Ayz8lDgMqYx/sw7vk6KLpQhrnBkt+mj0Iu9zR1IX4J8EcBRARpkQE66dCkW0fS8dzfqPUTaZK3+NGW3L/UNqiZW+8GjGS/d56Urf2ZzlbfBdDj+yuA==
+ bh=8FifSE8PSnYdOMSFU1fw6Z0w/fXZnRuxOEfqqxOn1XQ=;
+ b=KBRoV25RI3RdbNfASSO6fKX0d7PbasNwhpztsicekgAuzQ3gA0//qnmwKVe2Xivr3k8yTg7COPxq0v53pRnKnm9DY77fmP785lRPqUZAepHJpycvzvhXYQRhkTo4+lPmWvK4X5duBo+Z/D5XIbX8fAT/O8O9J3qoHwLdAe+4ak/IoNvlcAefU+/PHbkgFtRnW9lV7rTO4UhQo+quXr9eBMu2Na5hpEppykbRROOByDI+fwFyL/kC20QkhIUiSakEO8w7bioVOgohPtVYXpHf7N4zCDdl0YGY+4JR4ojC67bBR8ff79WAhPRQ+EvlFFbQyJk3exADGQFfqxxWM4JXxw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bF72+YxH0A6CQjuyw2VPQRLvduCLZeAJqedftwU+otI=;
- b=n9e9QUYoM3K6d9CEopuYyLaHkQOVrCMi1yhkqZErnVS/YPHQLhQb/uRwXu7oS5ssmGdiILQ/YwJZM1CleLYYDlXTH4ntwVN9/DX4KTwlOncKgiqK53uR7Jtsj5Z7HbHm9UTdO4SWhqiVgyT1b0J8Y+dovz+VcnarpIi2uFZlUfU=
+ bh=8FifSE8PSnYdOMSFU1fw6Z0w/fXZnRuxOEfqqxOn1XQ=;
+ b=inHuu16VmwewMwtanoQaB7h6+NZStj1581SDMBoxBb//V5+aJPsynRn0KLJDsYJEDHls4XBZHcL+Yxu72uBtlVqvlvoDW2or2EPBsY5U9iWjvEmV5HSY3kskfvKTnk5ZNaWKo2hm8RJXHTEGD4fmqaOrp5vFw0mfWhx4wdvS5yE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MN2PR12MB3230.namprd12.prod.outlook.com (2603:10b6:208:108::19)
+ by CY4PR1201MB0088.namprd12.prod.outlook.com (2603:10b6:910:1e::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Fri, 14 Jan
- 2022 21:43:49 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Fri, 14 Jan
+ 2022 22:07:06 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::971:531c:e4f4:8a9a%7]) with mapi id 15.20.4888.012; Fri, 14 Jan 2022
- 21:43:49 +0000
-Subject: Re: [PATCH 1/1] Add available memory ioctl for libhsakmt
-To: Daniel Phillips <daniel.phillips@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-References: <20220111013955.3214767-1-daniel.phillips@amd.com>
+ 22:07:06 +0000
+Subject: Re: [PATCH 2/5] drm/amdkfd: enable per process SMI event
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220114203839.21707-1-Philip.Yang@amd.com>
+ <20220114203839.21707-3-Philip.Yang@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <616c6d75-0eae-896c-d321-db69d9d4e90d@amd.com>
-Date: Fri, 14 Jan 2022 16:43:47 -0500
+Message-ID: <625540be-9aa7-792f-3b23-89c053f414be@amd.com>
+Date: Fri, 14 Jan 2022 17:07:04 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <20220111013955.3214767-1-daniel.phillips@amd.com>
+In-Reply-To: <20220114203839.21707-3-Philip.Yang@amd.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-ClientProxiedBy: YTOPR0101CA0018.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::31) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YTOPR0101CA0059.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::36) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5895a413-684d-4f77-4eaa-08d9d7a6f2bc
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3230:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB32302FA5FCB05E2AC47D9A7D92549@MN2PR12MB3230.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Office365-Filtering-Correlation-Id: 45b27792-4ffb-45e0-a087-08d9d7aa33b2
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0088:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB0088C04076D14134C562159992549@CY4PR1201MB0088.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7oluP3coDCTsCIFVYkM7l6RYO16qbR3yZlgJbGzk3mQpv88hBMc/USrgyXNgDBl3gEaMAxpFGagaVQ967lhPzSEc7awH/SWZ5xBnRUoAAUKuOsaN9g7Cq4uEOpPu0bCIhiM1itoRcrW4QbCgs2U4cgLigSryaD2SkMw9MFwAyA9xyzwEcJB2asUz+OmwluD8w+R8o5E2XM5JpqoLC/32y5a5cXR8dAY75NvbkeJ2bGqfLP1edZkP97WcVvtDh20k43lMeeaCrOFK7IY6whHyupSxRrUPXhorxI8uFxIrmS0WYKTcTjEKENGuT/USGcG4Bmdxlk8/ym+JCKXRVpmxtXYTZcFKMp6ZyCwpL7K1EhkJUTuGRWSd/vy14nwI9SZridGQLyTxx73jXiA4yqsxEM8lxZQVrQ3o6u+yXFQUzKoIV5qbEHyvQsPAuSEs2Nl2unt2rbR7OFUHA0sRJcc7NLJrRz+Sp0cWS97oAXE/f6gu6o1Y6+UXDLV+wFSvyrnJZVBiZigRClS0MCbe73zxkXpnvYI84mizqZMN0bpz2aeMNWBuYGxv2PhTJryfCahXT0+UCGAKPr3O7IgI6SRFIAO06DW/V4sbYXNRsCrFBC/5I+k4LpS7cUksrUAYRPs0gxun8hyQYyXG4ixB95rhHitJ8K9FLU4v1BU/Y8nbgN+7cXnwa/m2FZZq6ZNXlzY3DvTujYVJeFDZDZ+GRiF42zUWq38r/RDXHtpggE08bCRIDZwy5pjoa1BaFXmxJAUoluWWkKUGUIOFVKpsYsT2oQ==
+X-Microsoft-Antispam-Message-Info: nTIQWZnrKaPUwghBuS2LadOs3jG8cN8uuWDFRRG2C09HBP2u5HW0rcPw+0AlqOZgkNb8r38+VcriDLrdN92RKrgNCAoTpb5uJ3pYOU/cM6XUtMS+6dj6IDpHRo9ez4fK4QgL/d5VZCfWTy5Yh4MrNg1L5hWqVJoCwnvVk0yl9IxGFNTL5qOiqU5FUrvoYbeQkxIXTGBGL5DRHN/DTzkbVkLb+z00huu2nc6wwNTPYcaO1T0H5fic1X5v8b3kWfLtdwQahUOlzslSw01ijAXJOFqDWxWEtJcERdFNGYYAGQ7ElP7Wp1eg666rCCLHC7tHb+ldHR9ZH95Gjf4DL9Kfn2/mLm19SXmcRQP/r7IHrkJ21S+2HPNGkhfwchdGK5fkn3pAiwXTAvmRa5YxT9q918Fn7xng2VR4nyi2oemfo2cVwTXA0fC9bjKnvN0ZDHbvWD86n2p6GzBinpmKN40IWKiUEO3ycT33sipeIIVhr9B1wMefF8cZxegQd5ZVf8qCKHKB0o2DNI0BvHVafbegVgJf9E9/2Y3X9Sy6YsK9djEW2QmvS1R2yF59QilUXyFDOaf5D+0PnpjehyvYZFHFzXVis5ubro9IarqFVnhl8Ye54lJJ8wq4bckZlOfTW8kDbQ5Dt1EJwA0C6o4+SBtACn4xV8XIIf1vwZl/ANC3jTU1Zgr5Kppdgy7fR+plpylmNn1pbC5ONkW8FGcjr7ntE3gFJlfOIX+nrkIOSRlRWUDEZuwjmjOUJCh7TW2M7usR
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8676002)(36756003)(508600001)(2616005)(316002)(31686004)(31696002)(6486002)(8936002)(38100700002)(450100002)(83380400001)(2906002)(66556008)(6506007)(86362001)(66476007)(44832011)(966005)(6512007)(26005)(5660300002)(66946007)(186003)(131093003)(43740500002)(45980500001);
+ SFS:(4636009)(366004)(6512007)(66476007)(66556008)(8936002)(8676002)(26005)(86362001)(38100700002)(44832011)(508600001)(6506007)(6486002)(2906002)(186003)(5660300002)(66946007)(31696002)(36756003)(83380400001)(2616005)(31686004)(316002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2RKMTVsNkw1RVEyZmRSZzd5ak9IRVVBWk1oU2RNRDUycVkwZ2gxSG0wVTE1?=
- =?utf-8?B?VDhDczhhVTdMSWlWcUVzNkpaSWc0T2RvdDg1STdLWDQ0SWZ2TDI0OGJEWnZ2?=
- =?utf-8?B?blJ1bkZaZkxDZkNRSWV4OHFaRjNvUFFLV3JxMlloSUNUeFowQ2QxbHo5d3Aw?=
- =?utf-8?B?QnNmSUxVa01iN1BydmN3OXhzUXBzOENYZ1Rhb2hmM2VwR2puV2lCTFhBMkhQ?=
- =?utf-8?B?TVlyR215cndZWDRhbnhqbGYzT0I1VWNDd3lhWTJpNFp3Z1FsSmRtakVWM3FH?=
- =?utf-8?B?T0hOZ2VuRm5NTDhDeUhhbGMyMjZFRHY1MFJBc213YzdtUy9mQ2I0NzJwR3gr?=
- =?utf-8?B?VWNNVEJyZnZreUlaczQyMURRejBjSkExNlRGaVIrTkpwencwb3NGdHVsS3Vo?=
- =?utf-8?B?YUFRcXdPcEFIcDFsdzgvYlhCVWY2K1gzQXU1ZHJXek9vb0NMRWZHN2YreUxN?=
- =?utf-8?B?Ky9yUGdiaFE1VlhFdW0vaytya0NqV1pzMkVBMkpwZEIxeE9zUlJJZ0dYUVYv?=
- =?utf-8?B?eHdId1N1WDZ5TnhqTDJIbDJwZS8vTFpBcXRGRnFJOXozODJJVUxSQVlkRDdH?=
- =?utf-8?B?ZnFUSzRTWWZuVzZSczJ1c2FCZGZCdzhhR2dGcHkzQzUzWGFDdEcyTnFBWkxk?=
- =?utf-8?B?VEwxVWF1aXowdUFjdUJ2RHppM042ZkxoVjllbm0ybTJUOTZGZ0U0c09QellI?=
- =?utf-8?B?R0pwam1jc003UjNzV2V2RlNlZk4vMFIvaEsxNUNFbEcvVjkydXpaeU9DR2NF?=
- =?utf-8?B?dnI2VFRyQmFTQlVseEZDVCtPdkx6WVBuQjdVTGZkSTk5b3BjTU1LZHhlRzBB?=
- =?utf-8?B?OHoxeCsvOXFiTDNkWDlxOTgrU280SUk1dlhJZ051UlNPRHRqV3MzYUlUODZZ?=
- =?utf-8?B?bDVFMjh3NTh2elZxWGtJN0ZuM2JuWUxkSHdndTN5MkcxR1ZXU09KMDBib21D?=
- =?utf-8?B?cFltOGhlQmNNUC8zeXR4azRWamUycFFSZVFwWFFuVGxZWFZFaUxxd01LeWJ1?=
- =?utf-8?B?bWR2eS9yU3N2ci9aOTRWM3dVanAwT3BWc0tkSEhPaE1nMGREc0t1N2l1c3lQ?=
- =?utf-8?B?NWhKaEU2ck5DUzVnQW9BZDFzNUJtbnRhV2hwYXc4MFArU0hWU3FZZEJaOWVL?=
- =?utf-8?B?VkowOElXRmtlWHgwWThvbU5yL29tQm0rdVdEa3ovNHBEVnhkeStlNlhXWnlI?=
- =?utf-8?B?UUVMNDNMbVpCZHJYMFZlbmpRQ0szdG4zbkUxMjBKVVlTN0Yzc1Z2T2Z1R0Vm?=
- =?utf-8?B?UEgrWXJNanZaMERlMkg5QVJQUTJsdklGZzYrbWdDL3RtRjcxN1kzcjl1M050?=
- =?utf-8?B?YnE5UEkwM1VrZWpIUjVtYVlVNyt3VGdPL0p0K0NBeGt2WEtaZ3NJeVFUdXE4?=
- =?utf-8?B?TFhLUDU1M3ZBRXBGMStrSGUrci8zZjVEOERHNitYZklEVlVreDZEcjh2b2Y3?=
- =?utf-8?B?dmJIYVVkNTBnckJCYkRXQlhocnJtdUdYSzRRRjFVU1FRZG55TlFwWUFiLy9j?=
- =?utf-8?B?UzI5ZC9wN09ZazhoN1lIZU0ycWs2TFhpcXJQaC9TRUVJR2FCYzhWQkY3K2g4?=
- =?utf-8?B?clhqMEdEYVpaaTB6R1d4YlFYSnFxNjhqb1k1Q2lMYWR5Z1dKUzlPZnBkandZ?=
- =?utf-8?B?WmhaazBLWUxKWnZwTTFSL3ZnNVNrU2RKeVo2L2VBOVlJRm5RZUczUDVhVzdP?=
- =?utf-8?B?Smdab3pRai9VaUx5dEhoTE9JcnZtaW0wcVFhY0Mva1FCSndVVkdBSi9reVNK?=
- =?utf-8?B?YjErWlZNOUZ1RUtsWDA2WHgzeHZkTVRnUVkrNEI5eWptRTloNUtkakprelFM?=
- =?utf-8?B?aVg2UEJlUjA0dGljTisxRkREZU1RSVZ2T2pXVU1PdC81NEZLVVBBSVI4Unhm?=
- =?utf-8?B?Qk03ZHRNL21aNzY4Q0I4eW9BSExPUFBCM3RBZElURThoUzZMdmdYUGkvYW9R?=
- =?utf-8?B?WXR1UmhUOGhlYno0SlM0SVV3RzMvcjZET3pVOFRHU1huM2I5b3Y2bG1uRXNs?=
- =?utf-8?B?cnVDeU9kbDFrcUVsWWlOZ3o5T2lHU1AwSVdPVnpienRlTnByRllDbHRPTE9P?=
- =?utf-8?B?YlRRZFY2OWJDMXJpUk81Z1dndmxGTytmUmM0MUtXbkRydEk3NURFcmFYc0ZT?=
- =?utf-8?B?Rng3YmRTd0xMdm5sMVpHanFrWTBwZnFIcGJablJ0SGhzQ3pKQ2lxOHYyWmpu?=
- =?utf-8?Q?y1Pj4xk6fk6o7EliI8aWr3U=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V2VjVURhazZIbTVvemh6Mm5QRHBhUkVlbHFNeDNKT0lBV3FFeFpDaDRFQmpI?=
+ =?utf-8?B?MERuUmNYcDYyRlU5L2NLU0ZjM0tZd2Q5ZlJzL0dLT1RqNW9OZjRsVFl1WU5S?=
+ =?utf-8?B?TENSZFEzbXM1QWhqRG1ickYwVVJKMi96VnZYVXFIeTZ6US9mU01GZmVCNlkw?=
+ =?utf-8?B?SGxEZThHYWVjdHo2UWYzNFI4NzBWdGdKSHhtSnVnYUNGSXorNXpMZ1IyT3hL?=
+ =?utf-8?B?UTRRbW5tY3FYYUJOVm14TkhNMXZMUVJxYUZOMkpXS1dzWThQUEpoQi9pa05w?=
+ =?utf-8?B?YXkvOElFTXNLeWZNZ3ZpclBHWXM2ZUlwcGFOM2dGRGlCV2FXaDh5MkFJZXZI?=
+ =?utf-8?B?OGJPS3Njc2M5aXBPNnQ3MXRoY3R1QlZoZVV5V3owcVhrQnhFaW9sNmpNYXcr?=
+ =?utf-8?B?L3RyY1hHMXhPZWNaMUo1dEozMkhLaE9BT0dQV2FkYmpieThCVjRhekF1bHNx?=
+ =?utf-8?B?L0d6L2FKQXJCdEphK0VjK08rVFZQT2lQVU1qKzZ3NlhES2M5N2FLbDhTQXh4?=
+ =?utf-8?B?R3g3ZWxsQUcxbGhQUkRLLzN4eTFZaTBFNWRqaWxPUlNSODY2YUdweGhZMElU?=
+ =?utf-8?B?NGJDU0htRExUQUdHeG9mZUtqMVhTOHltb1BtNzV2WDBJNG5Ud1BHcHJGdVNJ?=
+ =?utf-8?B?TlB6NW9rWURybWNNSVJIV2ZUL0FOSTk5QU1YV1p2U29JYXgwdXRLL2tjeTU2?=
+ =?utf-8?B?NzR2aE1kVS9BSXZwYnk5QytGR1dkSmc4QXV6SnpmSlUyckJsZlI0eHMwU2RD?=
+ =?utf-8?B?MmxJMVFvS2N0RWJLNzQyZ2FHa0MwVEtTU0dlZjZXbE1vbllVMHhHSVdvdjZj?=
+ =?utf-8?B?QUJET1RIZ3p1OFJ6RE5VNlY1QTdHdEFna253aGE3azJ1RWZ4YVZEaU1YNGw0?=
+ =?utf-8?B?aGRXSGZ4bUR3Q2NjbndGeW44MkNvaXJaOFlRQXF6ZHR6ZnBRK3VSbXF0d2Nv?=
+ =?utf-8?B?cVovWnZXeDl5VFFNMWNVcnczWlRqblFUZlpVazBQMGh4VytTa1FHSGZlamNG?=
+ =?utf-8?B?ZEwwaWl6a21Mc1RGM0YrbWJsZ3hrcjE5NTVIOHI4bHg4ZTFtUHBnTkcwbm5u?=
+ =?utf-8?B?OE1VNHpiZ2Q5bHFwUndkaGVFYVRqdk15ZHRkbVVGaXNrdEt2Q3dBdGo3MXVM?=
+ =?utf-8?B?RXhRbHE5WVNadWt4Q3RnZnQ4NWNGWFVONTV6bFBwOHpyMmJTV1B3Z1IyVWRs?=
+ =?utf-8?B?ekVNSlB0M0VxWTJkNEFvaTNMejdacGYyMGVBU21OQzZXRmhLMnVpbDZzSG14?=
+ =?utf-8?B?Y0ZZTjd1V3N6cjIyQzUvWDN6aVl1STdCeHh3bUJpbGxwT2x3MlJtSTJ4a1Qy?=
+ =?utf-8?B?ZC9Xb1dsbWhFZGJ3VHgrY1NnbExidWs2cVBNSllscG41Y1NuRDVoMkdvdllt?=
+ =?utf-8?B?WXF3VDJVSTBZOXkwck1rRXMzcVJqcTlXM0RYL1JNTW9pcGpJcWpITDliQmd0?=
+ =?utf-8?B?a3BkcHA3aU11dThWL1lTWTdRdTUvWHR2dDhnaXhvdHBNODFVNzMrSHdtM0py?=
+ =?utf-8?B?QzlBeWRtRkFvSGNxQjJDdU9LUHd6MWxrL3ZacDAwdnFua1JpSzJ5MS9KYnky?=
+ =?utf-8?B?a3hUOEdXTjNkQ0ZxVmRMYVVxZEhpZFZXOGJubk4xVllwSzV2MnoyZHFzaUF0?=
+ =?utf-8?B?M29KYXhydjcrY3VDSERwUGtaWWJXRjNYK0UwVzlWUHkxUHlIQ3VRajZlOTdr?=
+ =?utf-8?B?RWh5aG1mR2kzSjRDcW9LOVluQ3Q4OVI3dDJETWJMWnJEcUQ4aDRRZzlLeXpF?=
+ =?utf-8?B?bmFrQUNNRFVSMU5EbUtXVEo1SkRmaFhJTXRWMWRwQW1adEhQMG0xS05xaVpm?=
+ =?utf-8?B?eVlacjBtaFlhNkNHV3QrUE9ndktyMWdMSW1URzg1NzFOajVHSGU3ckNqN3hv?=
+ =?utf-8?B?czF3MmFMQzNzVDVJaFMxY3UyNDNTMlZxNEVCSlBBQTVqaE5FR2VRdjZLUVVM?=
+ =?utf-8?B?VFN3bVhFbkdVdzdaNU1TZzYxM014enBPbG1CVlVKVDZycDlCZnBSWXNURXB2?=
+ =?utf-8?B?U0FwMGFBZnNCTVp2K3JxdlcvWkp5ZmhBaTlLUHNUK045ejQvYnl6ZlBGcWVZ?=
+ =?utf-8?B?VXU1WGhRTnppeDJjTnVaLzQ0alV1T0lJc3F4WkJMdmF5bGlWamVFaVBBRVFO?=
+ =?utf-8?B?UTZmaDY4SjZ3R0NTeWdMYnk3ejVMQzZiTjBrd2MreitNaDdIOU5qdjFZRCt2?=
+ =?utf-8?Q?ZvbITBZQ3JFuUbNtc9cwIl0=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5895a413-684d-4f77-4eaa-08d9d7a6f2bc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45b27792-4ffb-45e0-a087-08d9d7aa33b2
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2022 21:43:49.0511 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2022 22:07:06.3592 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a4qZ+OsAw6WB5SJUSK46W72Hwh4PDLCoHc2AIitWl6kgz99QrpiaHUJP5IHaY5zNUs/LOV807YFPynWq7Hjaig==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3230
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2L9rDOLQpjg/7fShGCi7cDxF+rymBTEw9Tgjh9uWLcqBf/V6WHb0vjlEcYAaeF31CuCJyfky+7DMzaRK32h7ig==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0088
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,138 +130,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-01-10 um 8:39 p.m. schrieb Daniel Phillips:
-> Add an ioctl to inquire memory available for allocation by libhsakmt
-> per node, allowing for space consumed by page translation tables.
->
-> This ioctl is the underlying mechanism for the new memory availability
-> library call posted for review here:
->
->    https://lists.freedesktop.org/archives/amd-gfx/2022-January/073352.html
->
-> Signed-off-by: Daniel Phillips <daniel.phillips@amd.com>
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
+Am 2022-01-14 um 3:38 p.m. schrieb Philip Yang:
+> Process receive event log from same process by default. Add a flag to
+> be able to receive event log from all processes, this requires super
+> user permission.
 >
+> Event log with pid 0 send to all processes.
+>
+> Define new event log id, migration trigger, user queue eviction
+> trigger, those new event log will be added in following patches.
+>
+> Update kfd_ioctl.h version.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h      |  1 +
->  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c    | 14 ++++++++++++++
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c        | 17 +++++++++++++++++
->  include/uapi/linux/kfd_ioctl.h                  | 14 ++++++++++++--
->  4 files changed, 44 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 28 +++++++++++++++------
+>  include/uapi/linux/kfd_ioctl.h              | 27 ++++++++++++++++++++
+>  2 files changed, 48 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index fcbc8a9c9e06..64c6c36685d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -266,6 +266,7 @@ int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
->  void amdgpu_amdkfd_gpuvm_release_process_vm(struct amdgpu_device *adev,
->  					void *drm_priv);
->  uint64_t amdgpu_amdkfd_gpuvm_get_process_page_dir(void *drm_priv);
-> +size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev);
->  int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
->  		struct amdgpu_device *adev, uint64_t va, uint64_t size,
->  		void *drm_priv, struct kgd_mem **mem,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 86a1a6c109d9..b7490a659173 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -190,6 +190,20 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
->  	return ret;
->  }
->  
-> +size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev)
-> +{
-> +	uint64_t reserved_for_pt =
-> +		ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
-> +	size_t available_memory;
-> +
-> +	spin_lock(&kfd_mem_limit.mem_limit_lock);
-> +	available_memory =
-> +		adev->gmc.real_vram_size -
-> +		adev->kfd.vram_used - reserved_for_pt;
-> +	spin_unlock(&kfd_mem_limit.mem_limit_lock);
-> +	return available_memory;
-> +}
-> +
->  static void unreserve_mem_limit(struct amdgpu_device *adev,
->  		uint64_t size, u32 alloc_flag)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 4bfc0c8ab764..5c2f6d97ff1c 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -486,6 +486,20 @@ static int kfd_ioctl_get_queue_wave_state(struct file *filep,
->  	return r;
->  }
->  
-> +static int kfd_ioctl_get_available_memory(struct file *filep,
-> +			         struct kfd_process *p, void *data)
-> +{
-> +	struct kfd_ioctl_get_available_memory_args *args = data;
-> +	struct kfd_dev *dev;
-> +
-> +	dev = kfd_device_by_id(args->gpu_id);
-> +	if (!dev)
-> +		return -EINVAL;
-> +
-> +	args->available = amdgpu_amdkfd_get_available_memory(dev->adev);
-> +	return 0;
-> +}
-> +
->  static int kfd_ioctl_set_memory_policy(struct file *filep,
->  					struct kfd_process *p, void *data)
->  {
-> @@ -1959,6 +1973,9 @@ static const struct amdkfd_ioctl_desc amdkfd_ioctls[] = {
->  
->  	AMDKFD_IOCTL_DEF(AMDKFD_IOC_SET_XNACK_MODE,
->  			kfd_ioctl_set_xnack_mode, 0),
-> +
-> +	AMDKFD_IOCTL_DEF(AMDKFD_IOC_AVAILABLE_MEMORY,
-> +			kfd_ioctl_get_available_memory, 0),
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> index 7023fa21a0a9..5818ea8ad4ce 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> @@ -37,6 +37,8 @@ struct kfd_smi_client {
+>  	uint64_t events;
+>  	struct kfd_dev *dev;
+>  	spinlock_t lock;
+> +	pid_t pid;
+> +	bool suser;
 >  };
 >  
->  #define AMDKFD_CORE_IOCTL_COUNT	ARRAY_SIZE(amdkfd_ioctls)
+>  #define MAX_KFIFO_SIZE	1024
+> @@ -150,16 +152,26 @@ static int kfd_smi_ev_release(struct inode *inode, struct file *filep)
+>  	return 0;
+>  }
+>  
+> -static void add_event_to_kfifo(struct kfd_dev *dev, unsigned int smi_event,
+> -			      char *event_msg, int len)
+> +static bool kfd_smi_ev_enabled(pid_t pid, struct kfd_smi_client *client,
+> +			       unsigned int smi_event)
+> +{
+> +	if (pid &&
+> +	    !(client->suser && client->events & KFD_SMI_EVENT_MASK_FROM_INDEX(KFD_SMI_EVENT_ALL_PROCESSES)) &&
+> +	    client->pid != pid)
+
+We cannot change the default behaviour for existing SMI events.
+Otherwise be break existing user mode.
+
+I'd make the new flag KFD_SMI_EVENT_SAME_PROCESS. Its default is 0,
+which preserves the existing behaviour.
+
+The SAME_PROCESS flag can apply to all events. But for the new profiler
+events, we need to check both the flag and the ADMIN capability to allow
+events from all processes, because they contain more sensitive
+information than the existing SMI events.
+
+
+> +		return false;
+> +
+> +	return client->events & KFD_SMI_EVENT_MASK_FROM_INDEX(smi_event);
+
+You still need to access client->events with READ_ONCE here. The reason
+is, that this function is not holding the lock. So we need to read the
+variable atomically.
+
+Regards,
+  Felix
+
+
+> +}
+> +
+> +static void add_event_to_kfifo(pid_t pid, struct kfd_dev *dev,
+> +			       unsigned int smi_event, char *event_msg, int len)
+>  {
+>  	struct kfd_smi_client *client;
+>  
+>  	rcu_read_lock();
+>  
+>  	list_for_each_entry_rcu(client, &dev->smi_clients, list) {
+> -		if (!(READ_ONCE(client->events) &
+> -				KFD_SMI_EVENT_MASK_FROM_INDEX(smi_event)))
+> +		if (!kfd_smi_ev_enabled(pid, client, smi_event))
+>  			continue;
+>  		spin_lock(&client->lock);
+>  		if (kfifo_avail(&client->fifo) >= len) {
+> @@ -202,7 +214,7 @@ void kfd_smi_event_update_gpu_reset(struct kfd_dev *dev, bool post_reset)
+>  	len = snprintf(fifo_in, sizeof(fifo_in), "%x %x\n", event,
+>  						dev->reset_seq_num);
+>  
+> -	add_event_to_kfifo(dev, event, fifo_in, len);
+> +	add_event_to_kfifo(0, dev, event, fifo_in, len);
+>  }
+>  
+>  void kfd_smi_event_update_thermal_throttling(struct kfd_dev *dev,
+> @@ -225,7 +237,7 @@ void kfd_smi_event_update_thermal_throttling(struct kfd_dev *dev,
+>  		       KFD_SMI_EVENT_THERMAL_THROTTLE, throttle_bitmask,
+>  		       amdgpu_dpm_get_thermal_throttling_counter(dev->adev));
+>  
+> -	add_event_to_kfifo(dev, KFD_SMI_EVENT_THERMAL_THROTTLE,	fifo_in, len);
+> +	add_event_to_kfifo(0, dev, KFD_SMI_EVENT_THERMAL_THROTTLE, fifo_in, len);
+>  }
+>  
+>  void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t pasid)
+> @@ -250,7 +262,7 @@ void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t pasid)
+>  	len = snprintf(fifo_in, sizeof(fifo_in), "%x %x:%s\n", KFD_SMI_EVENT_VMFAULT,
+>  		task_info.pid, task_info.task_name);
+>  
+> -	add_event_to_kfifo(dev, KFD_SMI_EVENT_VMFAULT, fifo_in, len);
+> +	add_event_to_kfifo(task_info.pid, dev, KFD_SMI_EVENT_VMFAULT, fifo_in, len);
+>  }
+>  
+>  int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd)
+> @@ -282,6 +294,8 @@ int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd)
+>  	spin_lock_init(&client->lock);
+>  	client->events = 0;
+>  	client->dev = dev;
+> +	client->pid = current->pid;
+> +	client->suser = capable(CAP_SYS_ADMIN);
+>  
+>  	spin_lock(&dev->smi_lock);
+>  	list_add_rcu(&client->list, &dev->smi_clients);
 > diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-> index af96af174dc4..94a99add2432 100644
+> index af96af174dc4..bbbae8ad9721 100644
 > --- a/include/uapi/linux/kfd_ioctl.h
 > +++ b/include/uapi/linux/kfd_ioctl.h
-> @@ -32,9 +32,10 @@
+> @@ -32,6 +32,7 @@
 >   * - 1.4 - Indicate new SRAM EDC bit in device properties
 >   * - 1.5 - Add SVM API
 >   * - 1.6 - Query clear flags in SVM get_attr API
-> + * - 1.7 - Add available_memory ioctl
+> + * - 1.7 - Add SMI profiler event log
 >   */
 >  #define KFD_IOCTL_MAJOR_VERSION 1
-> -#define KFD_IOCTL_MINOR_VERSION 6
-> +#define KFD_IOCTL_MINOR_VERSION 7
->  
->  struct kfd_ioctl_get_version_args {
->  	__u32 major_version;	/* from KFD */
-> @@ -98,6 +99,12 @@ struct kfd_ioctl_get_queue_wave_state_args {
->  	__u32 pad;
+>  #define KFD_IOCTL_MINOR_VERSION 6
+> @@ -459,10 +460,36 @@ enum kfd_smi_event {
+>  	KFD_SMI_EVENT_THERMAL_THROTTLE = 2,
+>  	KFD_SMI_EVENT_GPU_PRE_RESET = 3,
+>  	KFD_SMI_EVENT_GPU_POST_RESET = 4,
+> +	KFD_SMI_EVENT_MIGRATION = 5,
+> +	KFD_SMI_EVENT_PAGE_FAULT = 6,
+> +	KFD_SMI_EVENT_QUEUE_EVICTION = 7,
+> +	KFD_SMI_EVENT_QUEUE_EVICTION_RESTORE = 8,
+> +
+> +	/*
+> +	 * max event number, as a flag bit to get events from all processes,
+> +	 * this requires super user permission, otherwise will not be able to
+> +	 * receive events from any process. Without this flag to receive events
+> +	 * from same process.
+> +	 */
+> +	KFD_SMI_EVENT_ALL_PROCESSES = 64
 >  };
 >  
-> +struct kfd_ioctl_get_available_memory_args {
-> +	__u64 available;	/* from KFD */
-> +	__u32 gpu_id;		/* to KFD */
-> +	__u32 pad;
+>  #define KFD_SMI_EVENT_MASK_FROM_INDEX(i) (1ULL << ((i) - 1))
+>  
+> +enum KFD_MIGRATION_TRIGGER {
+> +	MIGRATION_TRIGGER_PREFETCH = 1,
+> +	MIGRATION_TRIGGER_PAGEFAULT,
+> +	MIGRATION_TRIGGER_PAGEFAULT_CPU,
+> +	MIGRATION_TRIGGER_TTM_EVICTION
 > +};
 > +
->  /* For kfd_ioctl_set_memory_policy_args.default_policy and alternate_policy */
->  #define KFD_IOC_CACHE_POLICY_COHERENT 0
->  #define KFD_IOC_CACHE_POLICY_NONCOHERENT 1
-> @@ -742,7 +749,10 @@ struct kfd_ioctl_set_xnack_mode_args {
->  #define AMDKFD_IOC_SET_XNACK_MODE		\
->  		AMDKFD_IOWR(0x21, struct kfd_ioctl_set_xnack_mode_args)
->  
-> +#define AMDKFD_IOC_AVAILABLE_MEMORY		\
-> +		AMDKFD_IOR(0x22, struct kfd_ioctl_get_available_memory_args)
+> +enum KFD_USER_QUEUE_EVICTION_TRIGGER {
+> +	SVM_RANGE_EVICTION = 1,
+> +	USERPTR_EVICTION,
+> +	TTM_EVICTION,
+> +	SUSPEND_EVICTION
+> +};
 > +
->  #define AMDKFD_COMMAND_START		0x01
-> -#define AMDKFD_COMMAND_END		0x22
-> +#define AMDKFD_COMMAND_END		0x23
->  
->  #endif
+>  struct kfd_ioctl_smi_events_args {
+>  	__u32 gpuid;	/* to KFD */
+>  	__u32 anon_fd;	/* from KFD */
