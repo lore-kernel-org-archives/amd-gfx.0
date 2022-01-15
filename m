@@ -4,61 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35F2AC433F5
-	for <amd-gfx@archiver.kernel.org>; Sat, 15 Jan 2022 15:00:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AC3FC433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 15 Jan 2022 15:00:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73CFE10E52A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC8F610E547;
 	Sat, 15 Jan 2022 15:00:23 +0000 (UTC)
-X-Greylist: delayed 460 seconds by postgrey-1.36 at gabe;
- Sat, 15 Jan 2022 01:23:32 UTC
-Received: from mout.web.de (mout.web.de [212.227.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE1E10E374
- for <amd-gfx@lists.freedesktop.org>; Sat, 15 Jan 2022 01:23:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
- s=dbaedf251592; t=1642209810;
- bh=cn54tKiMviARuDA/iEwqQwoysukPyU+CXBA2eg3HqnU=;
- h=X-UI-Sender-Class:Subject:From:To:Cc:Date:In-Reply-To:References;
- b=M/LXS51MhIxDG5OnMXZ+2Nro2UgY/iuqQZkX+R3qotwPdo7HhWukVzgpplCXgntjq
- tyA/BC/onJ7LKY90OWAX1xPlrvNV/lTW6TdkA9LLqm+0yUOcxYhQA41cu9sc6CKR80
- qRHWpVLCJ4iQ63B352E7K84pYRZlJ9NKFkTgudXY=
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.0.101] ([88.152.98.65]) by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MTvw0-1mhh552CgM-00R4P5; Sat, 15
- Jan 2022 02:10:37 +0100
-Message-ID: <bab0216094b710159132b4b1b72887cceaf2fbd3.camel@web.de>
-Subject: Re: [PATCH v5] drm/amd/display: Revert W/A for hard hangs on
- DCN20/DCN21
-From: Bert Karwatzki <spasswolf@web.de>
-To: amd-gfx@lists.freedesktop.org
-Date: Sat, 15 Jan 2022 02:10:36 +0100
-In-Reply-To: <BL1PR12MB51570343D08806D7EC08D6FDE2529@BL1PR12MB5157.namprd12.prod.outlook.com>
-References: <c0ac94855d1119e398c5607263d06c750249300f.camel@web.de>
- <BL1PR12MB51570343D08806D7EC08D6FDE2529@BL1PR12MB5157.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.42.2-1 
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [IPv6:2607:f8b0:4864:20::1032])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEC8B10EEE1;
+ Sat, 15 Jan 2022 07:02:38 +0000 (UTC)
+Received: by mail-pj1-x1032.google.com with SMTP id
+ i8-20020a17090a138800b001b3936fb375so24425661pja.1; 
+ Fri, 14 Jan 2022 23:02:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mqpF8BmL+D8ySHQ8HdO4dmpXZkNxvy3zHZ5nkJG5RfQ=;
+ b=TbK944vTXTdEwPsFKOYqfD7tBmfL8PCwX99bNKK0lotwCj63N6DUo05XDfvk0jCO/A
+ jZpTjtByDW46zWrFU56lG3JCBoW2DDEuCSk/o1LVAdpVq8DdSFS1qs6BY72ceUdwCiD7
+ ZpNi9B+fhPmPJHiU6N6lFOF0k6O1qjzrwGdmsltsLjg2JN2zx7syv+4qETDiBaJxPLDZ
+ 8+H9ZT3OS5bsrEBhs76QAzTQByK8pehiMcPwnQBfDmuIN789TXfeQMbkxAUPhXwKsupH
+ 01/d21tFaJfXdzEm/dI3ct9LXFI31FZqqgcJt9TX4sFqV4AOa1MjLGaY6t/LVFhCjOvk
+ VICw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mqpF8BmL+D8ySHQ8HdO4dmpXZkNxvy3zHZ5nkJG5RfQ=;
+ b=yl/qvj0evBIlEsiagXPDQLG5VZdE+e0F1Mccmvu1E7UwMfx3b1Pxb2QCR58opYyd/b
+ /xNELZkwtDcRbIggSFkRIRlMdJaeJV3LLOV138iw3bI7CwZcaGGGGBpmt/lKJGxXl7l2
+ Z+U9QTwywpeZSVZySL5grnlN/usef5CAG7ErFkv2H1uJw+hmqiVWWj3VGUCuR3MFz3Uv
+ 2saNBubM/upZyORKifzjmoK0dOUNV2z6PQ2JoJJRqGim937AZQDTX0wZlNZ4GqIzEK4Y
+ cP+2aaFcw60m2pex9jIs+gkGdgmHKGo9x5SGUD5MKiPosb9jPJ9OhtWn1mnzeC2esp/u
+ dB+Q==
+X-Gm-Message-State: AOAM5307pLBxaYX39mlAmnSXfnAcpptr2Z+oFnw4ddi/PCiNyrp2fUvW
+ YcnLK9euET1LynwdZ8Gh7jg=
+X-Google-Smtp-Source: ABdhPJxfclDoOikdDw14Ze4UiSx3vPLmUkDWFC0ENU8j0guatbP4J6JTvqDvrRvoO3lkLvaNKYmxtg==
+X-Received: by 2002:a17:902:e544:b0:14a:555c:add3 with SMTP id
+ n4-20020a170902e54400b0014a555cadd3mr12591881plf.102.1642230158467; 
+ Fri, 14 Jan 2022 23:02:38 -0800 (PST)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id e5sm6694600pjr.53.2022.01.14.23.02.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Jan 2022 23:02:37 -0800 (PST)
+From: cgel.zte@gmail.com
+X-Google-Original-From: deng.changcheng@zte.com.cn
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amdgpu: remove duplicate include
+Date: Sat, 15 Jan 2022 07:02:02 +0000
+Message-Id: <20220115070202.850676-1-deng.changcheng@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:F1b829zFNGdIMl3kWg8mHw7OCQAfNtvnu9ScgG/c9E0EU4fSTT1
- bAtPaL8kD6YErkxP3LOxJtaR5jCZ1918jAZ3vt9mwcxPzfgUcy+tNJIypiN0dwBdvNGviDl
- CoOWfjIUYGwuK0m/V3mEtIQ8z85rITthw0baO28HKK6+zCzpiNKoUb8J2lW6JFq07Xlx7IJ
- eLc3YhWvOSupzVJ3HuPCA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:8tHlz45gMl4=:ndbcVvUMGK2RWha9HQK2BL
- xsuKBDbuCjKKH3Unfbhi161ZmVE4KzeSAPPXCnts9ETUevcWaSJT+u416kmvuEAx7AeEZkVMQ
- 35SfLv85UPevJx+myEGeTudIkDUCddtGaIEI30LaajOTsv3TH19cHbTpLxdRU/o6xrq1Mo4Nj
- nrnU2Z0Dl2vsZ6R2sQF/gx+T009J0/JA2V7a4gcYzaKuLmGetKzOZ1R7O1Ln3CXRw25hzCmL1
- ly00urxAYLeEaM19/p1HqwYAak5NKlTmm3DOOSPewzUM0zVQQKNWq2xItsT6jzBg9mqFDb4YP
- 06Jjjd2Sig2XTJ2KC/ipLgianNwgnEgDkDl9Koh3yBFI0YX+kuQ1GScnLz3iwdmQLYJOK5Rxt
- IONoA6fgTJg+repBrxofxtWi6iY9Pln3vgJFOsGnzjXPEl/ogXWMjIlDlSMEPASWXdoOYVrhX
- MK/UFWNeB+MCsstynPa0IEJ4LLjabS3UmZ9tqMIuTcrKHUbL02NQpxC6fnuXk7gKMssm2MX+N
- bIDziDrOueZhP9FepkmRFaX2rdSBrtZROFouXh6a7VEYx+slUV2FrggK4OAFwDVRXMT+75Mmo
- GpTwkiAFApHyfAJOEbyghyJtEClNQPhRzoQIiQn1l/Fy4DYLRjrHI1cHch0kkxoWGAz9BSfjD
- tApCzGAohQroNfh/fYDalfbSyNssrcAdBFcwytYS8JY7EhfU2bcCZPO7GjE8TNwrGxJT2dVT6
- 7mcmRRwk/xU5Rj4YaINhXXrhfyO9UlMv91nIoqZtCCE8S/cov7SDj1brqZoNpsaQ5kiNh6VH7
- PlKXfo7qU9njxlUVl2oZYFkGlj67VgwK88la8lwRXrPUCMxLLfZfSir0Yc0xsfeOTq3zkb06c
- UYgNDZpoYB8zH66IhI4RUEhHHPh9jkKjiWe+R50249Q/H8rlTq6X9QJPykEWTBCLkP6IdghgN
- L6f5fn8ypK706lo2YETwqRhvjQhvwouwZqFYfj3F8nUUCtzSAPJeV1CLonJiVT9rqR6VbyaOP
- r8BkkH97dYrdF+EXdnis5uckso1VMX7YJZV8b+zmbDK6DX5/LV6U7OtjzvV2B1cEcbiiDMnLi
- y0zAFB4PPS+1oU=
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 15 Jan 2022 15:00:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,49 +68,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhuo, Qingqing" <Qingqing.Zhuo@amd.com>, ScottBruce <smbruce@gmail.com>,
- "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- Chris Hixon <linux-kernel-bugs@hixontech.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>
+Cc: Philip.Yang@amd.com, Oak.Zeng@amd.com, tzimmermann@suse.de,
+ kevin1.wang@amd.com, airlied@linux.ie, Felix.Kuehling@amd.com,
+ Xinhui.Pan@amd.com, Zeal Robot <zealci@zte.com.cn>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ jonathan.kim@amd.com, nirmoy.das@amd.com, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Changcheng Deng <deng.changcheng@zte.com.cn>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Mittwoch, dem 12.01.2022 um 02:08 +0000 schrieb Limonciello, Mario:
-> [AMD Official Use Only]
->
-> > -----Original Message-----
-> > From: Bert Karwatzki <spasswolf@web.de>
-> > Sent: Tuesday, January 11, 2022 19:12
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Limonciello, Mario <Mario.Limonciello@amd.com>; Kazlauskas,
-> > Nicholas
-> > <Nicholas.Kazlauskas@amd.com>; Zhuo, Qingqing (Lillian)
-> > <Qingqing.Zhuo@amd.com>; Scott Bruce <smbruce@gmail.com>; Chris
-> > Hixon
-> > <linux-kernel-bugs@hixontech.com>
-> > Subject: [PATCH v5] drm/amd/display: Revert W/A for hard hangs on
-> > DCN20/DCN21
-> >
-> > I just tested patch v5 applied to amd-staging-drm-next (with HEAD
-> > 26c981e27e698c251ef3241f73ac846e66ad7fc3) and suspend and resume
-> > work
-> > fine. But as amd-staging-drm-next is still based on linux-5.13 I
-> > had to
-> > replace the mediatek wlan driver by the version from linux-5.16.
->
-> FYI it should likely cherry pick to 5.16 too if it's easier to test
-> there.
-> I was able to cherry-pick to rc8 no problem.
->
-> If you can please try any display hotplugging to make sure hotplugs
-> don=E2=80=99t
-> cause problems for you as well feel comfortable to add a Tested-by
-> tag.
->
-> Thanks,
+From: Changcheng Deng <deng.changcheng@zte.com.cn>
 
-Now I was able to get external HDMI displays to work (with gnome and
-wayland) and display hotplugging did not cause problems.
+'drm/drm_drv.h' included in 'amdgpu_ttm.c' is duplicated. It is also
+ included on 53 line.
 
-Tested-by: Bert Karwatzki <spasswolf@web.de>
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 953d68b26f0b..ebd40d1a8aff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -43,7 +43,6 @@
+ #include <linux/sizes.h>
+ #include <linux/module.h>
+
+-#include <drm/drm_drv.h>
+ #include <drm/ttm/ttm_bo_api.h>
+ #include <drm/ttm/ttm_bo_driver.h>
+ #include <drm/ttm/ttm_placement.h>
+--
+2.25.1
 
