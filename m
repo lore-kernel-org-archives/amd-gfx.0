@@ -4,69 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CABAC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jan 2022 14:50:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4049DC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jan 2022 14:50:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0BB210E30D;
-	Mon, 17 Jan 2022 14:50:50 +0000 (UTC)
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [IPv6:2607:f8b0:4864:20::102e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0CA889B06;
- Mon, 17 Jan 2022 14:50:48 +0000 (UTC)
-Received: by mail-pj1-x102e.google.com with SMTP id
- n16-20020a17090a091000b001b46196d572so29625pjn.5; 
- Mon, 17 Jan 2022 06:50:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=u3CfPmV8p9gp3S1fYQvKsUINoEAb4hU+7FlXdlh97oM=;
- b=YLsgUGTuMLHvjuZnalnizlaq5kPGD37C+1fWkwjeB8Cu8aFDSomYJPY2FjAjZh774Q
- Iq8vmN+wdVLWf9VkiWjjyyqsqrOj6aNdaCKrSPnkeod91PIA11ZcYx7BM6r+6lc4IrLg
- WqbNOPEvpnPPfzJKuZCOItiWN7ypXkhHZ9VSOxCCzLn69HFGRS0taqKWVpwaBkfGAQMG
- HYRMUXdOWKx+a89IatDFpmz+XoQmhoy0EGYroKx8jnJ0FZ5xK8FIhcD7/e+daX7O4txz
- 3SV6U7HuATqV4qJzFVkrDWTIeMYdnrZ2LJoNQpv0VjoYl3vk8jW7ZMZqnjC83JOJm9Y5
- 0QBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=u3CfPmV8p9gp3S1fYQvKsUINoEAb4hU+7FlXdlh97oM=;
- b=fA2D6Hl0/BMY5B5PNrzhXDr+j2M/ZjTmhJRamcaKH8so/9CqyFltgTqBVpNs7JJGYy
- 5aNbGsf2pYqjn343PuRUmQLsEPZzSlFKW39q9/OZCbVc65QkYjfFw6CaqhuQl+5E04Xm
- +/OU4GX/cjt1Vtmey41xVqAJ3KY08GP3pvxPmHmmKXxa+KV3TclpbE/1zUOSmi+lnK++
- W2M/0Df7gWqO4f4yrdZydiTs770aaAg86o4iQDQKFBK3gPPvkzHXYoX7/PevJR/NJVEU
- cQfvTk+0G9UgPVX0PnmqkVbdlx/O/k6Iu/gxEc1Q+3xBUiJNLb18W4uYEdaCAGpwmMhY
- V9ow==
-X-Gm-Message-State: AOAM53328cHgYm99Ipg5goIjRhmifw2/2Y8N1sCZ8IGZrAVphEk98Ann
- Gv7WUIqOPuG1LpbEiCPXqBXWYF80tMmz0fmyKaSn24Hx
-X-Google-Smtp-Source: ABdhPJyRu9o3AUt9ZUW3nOfScNg8w5m5Bou/48YnvdiQvhCfa7NaFEMOxizWwfHjJn1jaDZC/k07R5EflTS4GddQ5O0=
-X-Received: by 2002:a17:90a:4d48:: with SMTP id
- l8mr34682268pjh.106.1642431048519; 
- Mon, 17 Jan 2022 06:50:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8EAD10E309;
+	Mon, 17 Jan 2022 14:50:54 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2053.outbound.protection.outlook.com [40.107.237.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEC8F10E309
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jan 2022 14:50:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nyKF3tBZTLKfFJ1vUWplsGgBSTGRp0fBcfND33ZMN2JQS60llBzdwAvs2VjS+M9gBlEBEkm88KMEoAQar5XviU/6oIoYuSQ7cPYRLDp1CFYEorfQsLTLON1Q8zAfX4rbp+sx9yxGrM1s8akvtz2wcySes3dCINqjXbvmUiSibQPBtYPDAn0p7o9AGQwxvW8RSibwimYaRYbfaeLcgMyfJmfity36h5CRzaYk1Dm3wHAgCWiR2RoJjdeJBPcQtcX6Nh0V5HZlOty9G8ivCWehitZieZOlsnjQqFyKhvbhQo69wRoNIxd7663U7d+K9m7yU3fNrQoHo7zUc/QNLj2+gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UpgwHeRA1sJ/kIVP1KtQClGkMj6JA7SCcU+jUfgM8PM=;
+ b=MuGVue0DSqX69dXGrbBQUqzZthBtrZsTGHz0+Xx6fJQYHXK0X/3i2stHePbTWp9Frtzpzm4yMihj+OWRi2tetKtNHmJkA9zW4oxhFaK/yfQOXMrVTRTZLkQho5ICsaSxGpH6mysOUOCK5G3ohe+RjHva8FoHAJe5HmvRc/cStknd3ArkKS/C31y88uh/T7rIjBs+89TN9cDw/Q0YHIjBYdje/PHsKZ1Pd/tcl0R+fjFUPJuatWraLLbhPsWv4/dJgXzHTdSLzlAUme+MIPCjfU/yEMIowveemzvApIrYCxqF6YDhDU9QfHBPi61MjWvoWokqYzaQ5AISkmRBIEEyvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UpgwHeRA1sJ/kIVP1KtQClGkMj6JA7SCcU+jUfgM8PM=;
+ b=WtMBpZ5blTjDinhnzTamDtFcSnx9lIjNn0PY5KDfkF411nRlvVCmHBUIFDWoN7fHZw474uCKs3csVmLqIU0Q68w9fob1t155vE+83f99FPznwwT2OSH+7TvhUJh7a2cX4RaK25xLVOlkV5D3sE1IbiJJAe4sYTt6UvLovgW/2pE=
+Received: from DM5PR12MB1531.namprd12.prod.outlook.com (2603:10b6:4:f::8) by
+ DM6PR12MB3194.namprd12.prod.outlook.com (2603:10b6:5:184::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4888.11; Mon, 17 Jan 2022 14:50:48 +0000
+Received: from DM5PR12MB1531.namprd12.prod.outlook.com
+ ([fe80::3039:1226:afd7:8ca]) by DM5PR12MB1531.namprd12.prod.outlook.com
+ ([fe80::3039:1226:afd7:8ca%8]) with mapi id 15.20.4888.014; Mon, 17 Jan 2022
+ 14:50:48 +0000
+From: "Bhardwaj, Rajneesh" <Rajneesh.Bhardwaj@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Phillips, Daniel"
+ <Daniel.Phillips@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/1] Add available memory ioctl for libhsakmt
+Thread-Topic: [PATCH 1/1] Add available memory ioctl for libhsakmt
+Thread-Index: AQHYBmRmrjBkbt+UiEyP37kgNrgx0KxcwEWAgAqVFoA=
+Date: Mon, 17 Jan 2022 14:50:47 +0000
+Message-ID: <DM5PR12MB1531361295346BED5D6B4486FE579@DM5PR12MB1531.namprd12.prod.outlook.com>
+References: <20220110205457.3165572-1-daniel.phillips@amd.com>
+ <BL1PR12MB51449917D93BE664ECF3E5B5F7509@BL1PR12MB5144.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB51449917D93BE664ECF3E5B5F7509@BL1PR12MB5144.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-17T14:50:44Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-01-17T14:50:44Z
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: ecadc547-f717-42d5-ba8c-f48697815101
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: d7b94fd3-7eef-4e03-8aa6-08d9d9c8bf96
+x-ms-traffictypediagnostic: DM6PR12MB3194:EE_
+x-microsoft-antispam-prvs: <DM6PR12MB31946ED25684E76BEAE3BE4BFE579@DM6PR12MB3194.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: zdS4O1Gg8VaGTwf9+gc8IHTQVqfIGoQ1ItQVdGijXwh6s0mJR3CSzs06PGCIO8knyOC4g5PGnuCsJWeAla3HNwheBXjBLzTSOt1p3NziKS94P8gp2F431QE9LOg6yij0Sb1lTv1UcMmvLx2MtQrS6ry8vhphjm0cWCxnxgHzwP8ST0NJtETSz6wHqI119W1PbtcwzAecwIzkQf9kLhYejyw14GtT0Jq/MdJekSri30JpXKppUO+98rR8O4NaUeSgorNqypwCDL6JQ0rvril5u4PTi8gf0hLL5hQkp63kPDvIXaPffO4C8VXBIkNcll7S5E+WXok+RjR8vsipIuKEIGazYor3VwHT3rfflZORX9QzoQIujmTOx/qkpzCnzpzl8qThN7oHrOm1/+xH2v4yVrXbV2kN8s3nHajbeah4Ywpp46gKxB8ayKvHguTF9AbwR5PNO6MzdU2c/EUTLkd5KSzJZZMPwJVhMEm+Nof5JPdjIDNUx5lft7DNb2Liq4rc7cX6ELZkzZxUS1wMIoSBg2y/ZVWi9C5ntams+LJfQArBoFy4VyNKG9IaHDH87Mfx1C61++++Z9RM/e440XWR5oB6iLX55uOST7Mhsi7sDyC9ZkWFOYI7px1hiN9IVCbGOAHz3oGnBmgoJGr3J8uVWNAm49IJeVeWiVfgqEz1jExHVVgfmthqIPhK5XdGR4rIfw+VcHYVV6fnWEG98BdGn4aUCzv1IqIdAs9a2LdCpVDXLevR4to06hbTodbsQPnj
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1531.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(186003)(64756008)(86362001)(2906002)(38070700005)(55016003)(8676002)(7696005)(4326008)(38100700002)(9686003)(110136005)(26005)(8936002)(33656002)(122000001)(316002)(508600001)(5660300002)(52536014)(83380400001)(66446008)(76116006)(53546011)(71200400001)(66556008)(6506007)(66946007)(66476007)(131093003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wf/BUFX/PNlz6ork9muVw6YZTK6Faqrtb55y1giksw/YZhhHSo74L47dsy5T?=
+ =?us-ascii?Q?8FrRNeeMBcY2ALWLeaiV4UCxWLowQbUk9SXz+vVX0AzMZAJu6PCWlLIvh9Mx?=
+ =?us-ascii?Q?WMGw3Js69gaEZXgOgiMDIZjmMbsphWWFLI7uUwS+qUVfPrj6BKNYBa3qbudt?=
+ =?us-ascii?Q?GHPpZuEWbep9017bUiOrtBD0FhOMaUk2ci1Fm5SZa0sKU60KfRMoaYOWudWQ?=
+ =?us-ascii?Q?LLIIevZyiZR3LdXpjlHlWoQ/Dta59MGr4K4eyju4/I+K8Z5ouptFX5cpQbrY?=
+ =?us-ascii?Q?ZeKEn+UNJ6BtpuPHZPoJwxjV2me2opA67fy2FKsQIwXqXsIdK2SrUoBgGuxE?=
+ =?us-ascii?Q?sDy5609sFeAyvyqHPMR5AOUfwd5p0I7SGC+NWqan1BEQQ0xqZqn13FJHtueA?=
+ =?us-ascii?Q?6r0zI+1/NfdJDAYi9FGxhYppe5Ld216zGsjOYxPDTJ3hq2GauhRuTRhvgAgi?=
+ =?us-ascii?Q?Bf8lnNjDQMXlK5BaAcJEJuhkpA8LWhcNu4BhWGaUBi2VUdgJ3ElkHT3xs0Um?=
+ =?us-ascii?Q?gJG7oRz5AXCAJbKtfL02vE5CTZfhefnxKkJLgYyOZ26ND+Vkq+KiY9wYKTMT?=
+ =?us-ascii?Q?nxvi/w08oVZhKe59o/S8cYQRnKHqn5q6oepfpg4Vpv+zMXMU0lqFViU/ECvW?=
+ =?us-ascii?Q?jo7i/X+K9UTSHNo/bIwMBQkf8RfM8v6kBvjA210hw9EGHKG9FLaFoA4lOCpD?=
+ =?us-ascii?Q?lmYatAP8AxwtyuUzEn9rMxPCQdFoPRXb3eFwET1aT/yDj+emReoS3WNe7Y7Q?=
+ =?us-ascii?Q?Ue+tzHEayPZTADfeDTB8oBvzlWZlcbktFbjeLJT56eHQ17+nPxwm/bebAr+k?=
+ =?us-ascii?Q?Af4ROsmajBdt28WLK32lhHk8WxLNNQUadFX4CpBoS/J8oeHQ/2UsJyxsaicj?=
+ =?us-ascii?Q?f1FcaMOh22V4NIqUBtbXGLm9/ogpCLKklyJAjtUlauTsozCDXkNloXu5T26A?=
+ =?us-ascii?Q?nxy+2JljaVo3OQBOZVxPS/a4LIYxPa1YANbcSKSib6UKBiRPoJLAOLUDE0OQ?=
+ =?us-ascii?Q?75zocI16PcfGc2X5M+aXI0g+ocXc9EoKXqe82JoNBZZUB7bbPOj26UbmsVpz?=
+ =?us-ascii?Q?WHF8NA3mGq8dOziyubmVIlAjy7PpXoz1xCdqUOC1zfiwCXQ4PUH0pBp8/MrD?=
+ =?us-ascii?Q?qVWHMRM74Dabb/E//3qOv6/JNzfEIw/Yxef7JSBaIBwHjS5Xc5wIPV02quyu?=
+ =?us-ascii?Q?DwyOffQO4fVSpzUE0d6GQS/lK1iS5Fqs7Z2rEFqrwlAo1i8DUqj8SvuSI4r+?=
+ =?us-ascii?Q?4Od4cKa/wmkJq0BQbB0MPdu+1Wz0mH+d57mNCWgnAaNrBFizAWfx8XAA5+jj?=
+ =?us-ascii?Q?X6xRF6KG5PfmvHzpkloSEl1jVovVbv49VG7RrmxPvoxNEmPyIWlWreZkhQ68?=
+ =?us-ascii?Q?F8r0r78H49cJLwASZab6NUI1kheTcycD4Qf1iHqQbGlleYFMWH/dd4daCrmK?=
+ =?us-ascii?Q?gljOLBMSBWElwgmUmHizqYpLGBvEszHmhU3yVhfjzZG7rO4GByhZPykPXRE+?=
+ =?us-ascii?Q?m3JWadVdZm9p2oMSOPZ8ULjf0Oflzopt0Ta8aBJ0rEYb4bfh0zwyflkhEwa6?=
+ =?us-ascii?Q?XHdE27BMUIjvTMzabup8ZtySlr2APJgoC3t7HSZgp1a5ntLzrn1acWDINF6k?=
+ =?us-ascii?Q?B5LH0zHnri7r40DLgpJxl2w=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM5PR12MB1531361295346BED5D6B4486FE579DM5PR12MB1531namp_"
 MIME-Version: 1.0
-References: <a5c769fd-7eac-2628-a36d-fedddfb7d398@amd.com>
- <279c7ffc-99e5-f052-5de1-9b957c455d85@amd.com>
- <1ab2558b-1af0-3319-dce6-b805320a49d0@gmail.com>
- <60760210-3b3d-952c-2637-4d70fab1a857@amd.com>
- <fd95f1c0-7550-0497-7284-64a5257304ca@amd.com>
- <ddb344cc-48ec-7323-4494-4e1cb8323585@amd.com>
- <071fbdc1-38ce-d1e8-0e11-25204a3cc217@amd.com>
- <af705589-a601-9774-ec55-d1c244f756a9@amd.com>
- <386142cc-1df5-228c-af24-2187998d9307@amd.com>
- <b80efca2-4a51-7ac9-cc9e-e497ac7c9c7c@amd.com>
- <YeGoVhLgMDOJS15K@phenom.ffwll.local>
- <92f1cc2b-d4db-6c50-d8a3-cdcd31127d15@amd.com>
- <63c48a97-aa76-0a3c-0c68-97de628b864c@amd.com>
- <387a53c6-8ec0-ff6b-aaa2-34398f36a369@gmail.com>
- <0210e651-cc71-c1d2-5166-7473f664f405@amd.com>
- <d0e694a7-4a16-7e9f-7058-beec32ab1717@amd.com>
- <3028607c-59be-6c23-73e2-0136f5d01ce4@amd.com>
-In-Reply-To: <3028607c-59be-6c23-73e2-0136f5d01ce4@amd.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Mon, 17 Jan 2022 09:50:12 -0500
-Message-ID: <CAAxE2A5XrPUJD2QJHBcF1Gd5cw6T=EmEEuVvNT3SjasSy9E8yg@mail.gmail.com>
-Subject: Re: [PATCH] drm/ttm: Don't inherit GEM object VMAs in child process
-To: Felix Kuehling <felix.kuehling@amd.com>
-Content-Type: multipart/alternative; boundary="00000000000037139e05d5c847fb"
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1531.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7b94fd3-7eef-4e03-8aa6-08d9d9c8bf96
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jan 2022 14:50:47.8605 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hYlBWcqIstl0g+wy9AcdCUfQ2xVtycqr4Or+zGbmzFcNHTxJYrOyLypgwb61XDMg8wBNpHG9vLkFnJvreSpiNA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3194
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,328 +132,519 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- David Yat Sin <david.yatsin@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Dave Airlie <airlied@redhat.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Adrian Reber <adrian@lisas.de>
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000037139e05d5c847fb
-Content-Type: text/plain; charset="UTF-8"
+--_000_DM5PR12MB1531361295346BED5D6B4486FE579DM5PR12MB1531namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-I don't think fork() would work with userspace where all buffers are
-shared. It certainly doesn't work now. The driver needs to be notified that
-a buffer or texture is shared to ensure data coherency between processes,
-and the driver must execute decompression and other render passes when a
-buffer or texture is being shared for the first time. Those aren't called
-when fork() is called.
+[Public]
 
-Marek
 
-On Mon, Jan 17, 2022 at 9:34 AM Felix Kuehling <felix.kuehling@amd.com>
-wrote:
 
-> Am 2022-01-17 um 9:21 a.m. schrieb Christian K=C3=B6nig:
-> > Am 17.01.22 um 15:17 schrieb Felix Kuehling:
-> >> Am 2022-01-17 um 6:44 a.m. schrieb Christian K=C3=B6nig:
-> >>> Am 14.01.22 um 18:40 schrieb Felix Kuehling:
-> >>>> Am 2022-01-14 um 12:26 p.m. schrieb Christian K=C3=B6nig:
-> >>>>> Am 14.01.22 um 17:44 schrieb Daniel Vetter:
-> >>>>>> Top post because I tried to catch up on the entire discussion here=
-.
-> >>>>>>
-> >>>>>> So fundamentally I'm not opposed to just close this fork() hole
-> >>>>>> once and
-> >>>>>> for all. The thing that worries me from a upstream/platform pov is
-> >>>>>> really
-> >>>>>> only if we don't do it consistently across all drivers.
-> >>>>>>
-> >>>>>> So maybe as an idea:
-> >>>>>> - Do the original patch, but not just for ttm but all gem renderno=
-de
-> >>>>>>      drivers at least (or maybe even all gem drivers, no idea), wi=
-th
-> >>>>>> the
-> >>>>>>      below discussion cleaned up as justification.
-> >>>>> I know of at least one use case which this will break.
-> >>>>>
-> >>>>> A couple of years back we had a discussion on the Mesa mailing list
-> >>>>> because (IIRC) Marek introduced a background thread to push command
-> >>>>> submissions to the kernel.
-> >>>>>
-> >>>>> That broke because some compositor used to initialize OpenGL and th=
-en
-> >>>>> do a fork(). This indeed worked previously (no GPUVM at that time),
-> >>>>> but with the addition of the backround thread obviously broke.
-> >>>>>
-> >>>>> The conclusion back then was that the compositor is broken and need=
-s
-> >>>>> fixing, but it still essentially means that there could be people o=
-ut
-> >>>>> there with really old userspace where this setting would just break
-> >>>>> the desktop.
-> >>>>>
-> >>>>> I'm not really against that change either, but at least in theory w=
-e
-> >>>>> could make fork() work perfectly fine even with VMs and background
-> >>>>> threads.
-> >>>> You may regret this if you ever try to build a shared virtual addres=
-s
-> >>>> space between GPU and CPU. Then you have two processes (parent and
-> >>>> child) sharing the same render context and GPU VM address space.
-> >>>> But the
-> >>>> CPU address spaces are different. You can't maintain consistent shar=
-ed
-> >>>> virtual address spaces for both processes when the GPU address
-> >>>> space is
-> >>>> shared between them.
-> >>> That's actually not much of a problem.
-> >>>
-> >>> All you need to do is to use pthread_atfork() and do the appropriate
-> >>> action in parent/child to clean up your context:
-> >>> https://man7.org/linux/man-pages/man3/pthread_atfork.3.html
-> >> Thunk already does that. However, it's not foolproof. pthread_atfork
-> >> hanlders aren't called when the process is forked with a clone call.
-> >
-> > Yeah, but that's perfectly intentional. clone() is usually used to
-> > create threads.
->
-> Clone can be used to create new processes. Maybe not the common use today=
-.
->
->
-> >
-> >>> The rest is just to make sure that all shared and all private data ar=
-e
-> >>> kept separate all the time. Sharing virtual memory is already done fo=
-r
-> >>> decades this way, it's just that nobody ever did it with a statefull
-> >>> device like GPUs.
-> >> My concern is not with sharing or not sharing data. It's with sharing
-> >> the address space itself. If you share the render node, you share GPU
-> >> virtual address space. However CPU address space is not shared between
-> >> parent and child. That's a fundamental mismatch between the CPU world
-> >> and current GPU driver implementation.
-> >
-> > Correct, but even that is easily solvable. As I said before you can
-> > hang this state on a VMA and let it be cloned together with the CPU
-> > address space.
->
-> I'm not following. The address space I'm talking about is struct
-> amdgpu_vm. It's associated with the render node file descriptor.
-> Inheriting and using that file descriptor in the child inherits the
-> amdgpu_vm. I don't see how you can hang that state on any one VMA.
->
-> To be consistent with the CPU, you'd need to clone the GPU address space
-> (struct amdgpu_vm) in the child process. That means you need a new
-> render node file descriptor that imports all the BOs from the parent
-> address space. It's a bunch of extra work to fork a process, that you're
-> proposing to immediately undo with an atfork handler. So I really don't
-> see the point.
->
-> Regards,
->   Felix
->
->
-> >
-> > Since VMAs are informed about their cloning (in opposite to file
-> > descriptors) it's trivial to even just clone kernel data on first acces=
-s.
-> >
-> > Regards,
-> > Christian.
-> >
-> >>
-> >> Regards,
-> >>    Felix
-> >>
-> >>
-> >>> Regards,
-> >>> Christian.
-> >>>
-> >>>> Regards,
-> >>>>     Felix
-> >>>>
-> >
->
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Deucher,=
+ Alexander
+Sent: Monday, January 10, 2022 4:11 PM
+To: Phillips, Daniel <Daniel.Phillips@amd.com>; amd-gfx@lists.freedesktop.o=
+rg; dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/1] Add available memory ioctl for libhsakmt
 
---00000000000037139e05d5c847fb
-Content-Type: text/html; charset="UTF-8"
+
+[Public]
+
+
+[Public]
+
+This is missing your signed-off-by.  Additionally, for UAPI changes, we nee=
+d a link the patches for the userspace component that will make use of it.
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Daniel Phillips <daniel.phillips@amd.=
+com<mailto:daniel.phillips@amd.com>>
+Sent: Monday, January 10, 2022 3:54 PM
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>; dri-dev=
+el@lists.freedesktop.org<mailto:dri-devel@lists.freedesktop.org> <dri-devel=
+@lists.freedesktop.org<mailto:dri-devel@lists.freedesktop.org>>
+Cc: Phillips, Daniel <Daniel.Phillips@amd.com<mailto:Daniel.Phillips@amd.co=
+m>>
+Subject: [PATCH 1/1] Add available memory ioctl for libhsakmt
+
+From: Daniel Phillips <dphillip@amd.com<mailto:dphillip@amd.com>>
+
+Add an ioctl to inquire memory available for allocation by libhsakmt
+per node, allowing for space consumed by page translation tables.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h      |  1 +
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c    | 14 ++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c        | 17 +++++++++++++++++
+ include/uapi/linux/kfd_ioctl.h                  | 14 ++++++++++++--
+ 4 files changed, 44 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_amdkfd.h
+index fcbc8a9c9e06..64c6c36685d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -266,6 +266,7 @@ int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgp=
+u_device *adev,
+ void amdgpu_amdkfd_gpuvm_release_process_vm(struct amdgpu_device *adev,
+                                         void *drm_priv);
+ uint64_t amdgpu_amdkfd_gpuvm_get_process_page_dir(void *drm_priv);
++size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev);
+ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+                 struct amdgpu_device *adev, uint64_t va, uint64_t size,
+                 void *drm_priv, struct kgd_mem **mem,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 86a1a6c109d9..b7490a659173 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -190,6 +190,20 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdg=
+pu_device *adev,
+         return ret;
+ }
+
++size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev)
++{
++       uint64_t reserved_for_pt =3D
++               ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
++       size_t available_memory;
++
++       spin_lock(&kfd_mem_limit.mem_limit_lock);
++       available_memory =3D
++               adev->gmc.real_vram_size -
++               adev->kfd.vram_used - reserved_for_pt;
++       spin_unlock(&kfd_mem_limit.mem_limit_lock);
++       return available_memory;
++}
++
+ static void unreserve_mem_limit(struct amdgpu_device *adev,
+                 uint64_t size, u32 alloc_flag)
+ {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_chardev.c
+index 4bfc0c8ab764..5c2f6d97ff1c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -486,6 +486,20 @@ static int kfd_ioctl_get_queue_wave_state(struct file =
+*filep,
+         return r;
+ }
+
++static int kfd_ioctl_get_available_memory(struct file *filep,
++                                struct kfd_process *p, void *data)
++{
++       struct kfd_ioctl_get_available_memory_args *args =3D data;
++       struct kfd_dev *dev;
++
++       dev =3D kfd_device_by_id(args->gpu_id);
+Once CRIU changes land, this need to change to kfd_process_device_data_by_i=
+d() and then use pdd->dev
+
+
++       if (!dev)
++               return -EINVAL;
++
++       args->available =3D amdgpu_amdkfd_get_available_memory(dev->adev);
++       return 0;
++}
++
+ static int kfd_ioctl_set_memory_policy(struct file *filep,
+                                         struct kfd_process *p, void *data)
+ {
+@@ -1959,6 +1973,9 @@ static const struct amdkfd_ioctl_desc amdkfd_ioctls[]=
+ =3D {
+
+         AMDKFD_IOCTL_DEF(AMDKFD_IOC_SET_XNACK_MODE,
+                         kfd_ioctl_set_xnack_mode, 0),
++
++       AMDKFD_IOCTL_DEF(AMDKFD_IOC_AVAILABLE_MEMORY,
++                       kfd_ioctl_get_available_memory, 0),
+ };
+
+ #define AMDKFD_CORE_IOCTL_COUNT ARRAY_SIZE(amdkfd_ioctls)
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.=
+h
+index af96af174dc4..94a99add2432 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -32,9 +32,10 @@
+  * - 1.4 - Indicate new SRAM EDC bit in device properties
+  * - 1.5 - Add SVM API
+  * - 1.6 - Query clear flags in SVM get_attr API
++ * - 1.7 - Add available_memory ioctl
+  */
+ #define KFD_IOCTL_MAJOR_VERSION 1
+-#define KFD_IOCTL_MINOR_VERSION 6
++#define KFD_IOCTL_MINOR_VERSION 7
+
+ struct kfd_ioctl_get_version_args {
+         __u32 major_version;    /* from KFD */
+@@ -98,6 +99,12 @@ struct kfd_ioctl_get_queue_wave_state_args {
+         __u32 pad;
+ };
+
++struct kfd_ioctl_get_available_memory_args {
++       __u64 available;        /* from KFD */
++       __u32 gpu_id;           /* to KFD */
++       __u32 pad;
++};
++
+ /* For kfd_ioctl_set_memory_policy_args.default_policy and alternate_polic=
+y */
+ #define KFD_IOC_CACHE_POLICY_COHERENT 0
+ #define KFD_IOC_CACHE_POLICY_NONCOHERENT 1
+@@ -742,7 +749,10 @@ struct kfd_ioctl_set_xnack_mode_args {
+ #define AMDKFD_IOC_SET_XNACK_MODE               \
+                 AMDKFD_IOWR(0x21, struct kfd_ioctl_set_xnack_mode_args)
+
++#define AMDKFD_IOC_AVAILABLE_MEMORY            \
++               AMDKFD_IOR(0x22, struct kfd_ioctl_get_available_memory_args=
+)
++
+ #define AMDKFD_COMMAND_START            0x01
+-#define AMDKFD_COMMAND_END             0x22
++#define AMDKFD_COMMAND_END             0x23
+
+ #endif
+--
+2.34.1
+
+--_000_DM5PR12MB1531361295346BED5D6B4486FE579DM5PR12MB1531namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>I don&#39;t think fork() would work with userspace wh=
-ere all buffers are shared. It certainly doesn&#39;t work now. The driver n=
-eeds to be notified that a buffer or texture is shared to ensure data coher=
-ency between processes, and the driver must execute decompression and other=
- render passes when a buffer or texture is being shared for the first time.=
- Those aren&#39;t called when fork() is called.</div><div><br></div><div>Ma=
-rek<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
-"gmail_attr">On Mon, Jan 17, 2022 at 9:34 AM Felix Kuehling &lt;<a href=3D"=
-mailto:felix.kuehling@amd.com">felix.kuehling@amd.com</a>&gt; wrote:<br></d=
-iv><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
-er-left:1px solid rgb(204,204,204);padding-left:1ex">Am 2022-01-17 um 9:21 =
-a.m. schrieb Christian K=C3=B6nig:<br>
-&gt; Am 17.01.22 um 15:17 schrieb Felix Kuehling:<br>
-&gt;&gt; Am 2022-01-17 um 6:44 a.m. schrieb Christian K=C3=B6nig:<br>
-&gt;&gt;&gt; Am 14.01.22 um 18:40 schrieb Felix Kuehling:<br>
-&gt;&gt;&gt;&gt; Am 2022-01-14 um 12:26 p.m. schrieb Christian K=C3=B6nig:<=
-br>
-&gt;&gt;&gt;&gt;&gt; Am 14.01.22 um 17:44 schrieb Daniel Vetter:<br>
-&gt;&gt;&gt;&gt;&gt;&gt; Top post because I tried to catch up on the entire=
- discussion here.<br>
-&gt;&gt;&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;&gt;&gt; So fundamentally I&#39;m not opposed to just close=
- this fork() hole<br>
-&gt;&gt;&gt;&gt;&gt;&gt; once and<br>
-&gt;&gt;&gt;&gt;&gt;&gt; for all. The thing that worries me from a upstream=
-/platform pov is<br>
-&gt;&gt;&gt;&gt;&gt;&gt; really<br>
-&gt;&gt;&gt;&gt;&gt;&gt; only if we don&#39;t do it consistently across all=
- drivers.<br>
-&gt;&gt;&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;&gt;&gt; So maybe as an idea:<br>
-&gt;&gt;&gt;&gt;&gt;&gt; - Do the original patch, but not just for ttm but =
-all gem rendernode<br>
-&gt;&gt;&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0 drivers at least (or mayb=
-e even all gem drivers, no idea), with<br>
-&gt;&gt;&gt;&gt;&gt;&gt; the<br>
-&gt;&gt;&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0 below discussion cleaned =
-up as justification.<br>
-&gt;&gt;&gt;&gt;&gt; I know of at least one use case which this will break.=
-<br>
-&gt;&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;&gt; A couple of years back we had a discussion on the Mesa=
- mailing list<br>
-&gt;&gt;&gt;&gt;&gt; because (IIRC) Marek introduced a background thread to=
- push command<br>
-&gt;&gt;&gt;&gt;&gt; submissions to the kernel.<br>
-&gt;&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;&gt; That broke because some compositor used to initialize =
-OpenGL and then<br>
-&gt;&gt;&gt;&gt;&gt; do a fork(). This indeed worked previously (no GPUVM a=
-t that time),<br>
-&gt;&gt;&gt;&gt;&gt; but with the addition of the backround thread obviousl=
-y broke.<br>
-&gt;&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;&gt; The conclusion back then was that the compositor is br=
-oken and needs<br>
-&gt;&gt;&gt;&gt;&gt; fixing, but it still essentially means that there coul=
-d be people out<br>
-&gt;&gt;&gt;&gt;&gt; there with really old userspace where this setting wou=
-ld just break<br>
-&gt;&gt;&gt;&gt;&gt; the desktop.<br>
-&gt;&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;&gt; I&#39;m not really against that change either, but at =
-least in theory we<br>
-&gt;&gt;&gt;&gt;&gt; could make fork() work perfectly fine even with VMs an=
-d background<br>
-&gt;&gt;&gt;&gt;&gt; threads.<br>
-&gt;&gt;&gt;&gt; You may regret this if you ever try to build a shared virt=
-ual address<br>
-&gt;&gt;&gt;&gt; space between GPU and CPU. Then you have two processes (pa=
-rent and<br>
-&gt;&gt;&gt;&gt; child) sharing the same render context and GPU VM address =
-space.<br>
-&gt;&gt;&gt;&gt; But the<br>
-&gt;&gt;&gt;&gt; CPU address spaces are different. You can&#39;t maintain c=
-onsistent shared<br>
-&gt;&gt;&gt;&gt; virtual address spaces for both processes when the GPU add=
-ress<br>
-&gt;&gt;&gt;&gt; space is<br>
-&gt;&gt;&gt;&gt; shared between them.<br>
-&gt;&gt;&gt; That&#39;s actually not much of a problem.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; All you need to do is to use pthread_atfork() and do the appro=
-priate<br>
-&gt;&gt;&gt; action in parent/child to clean up your context:<br>
-&gt;&gt;&gt; <a href=3D"https://man7.org/linux/man-pages/man3/pthread_atfor=
-k.3.html" rel=3D"noreferrer" target=3D"_blank">https://man7.org/linux/man-p=
-ages/man3/pthread_atfork.3.html</a><br>
-&gt;&gt; Thunk already does that. However, it&#39;s not foolproof. pthread_=
-atfork<br>
-&gt;&gt; hanlders aren&#39;t called when the process is forked with a clone=
- call.<br>
-&gt;<br>
-&gt; Yeah, but that&#39;s perfectly intentional. clone() is usually used to=
-<br>
-&gt; create threads.<br>
-<br>
-Clone can be used to create new processes. Maybe not the common use today.<=
-br>
-<br>
-<br>
-&gt;<br>
-&gt;&gt;&gt; The rest is just to make sure that all shared and all private =
-data are<br>
-&gt;&gt;&gt; kept separate all the time. Sharing virtual memory is already =
-done for<br>
-&gt;&gt;&gt; decades this way, it&#39;s just that nobody ever did it with a=
- statefull<br>
-&gt;&gt;&gt; device like GPUs.<br>
-&gt;&gt; My concern is not with sharing or not sharing data. It&#39;s with =
-sharing<br>
-&gt;&gt; the address space itself. If you share the render node, you share =
-GPU<br>
-&gt;&gt; virtual address space. However CPU address space is not shared bet=
-ween<br>
-&gt;&gt; parent and child. That&#39;s a fundamental mismatch between the CP=
-U world<br>
-&gt;&gt; and current GPU driver implementation.<br>
-&gt;<br>
-&gt; Correct, but even that is easily solvable. As I said before you can<br=
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-&gt; hang this state on a VMA and let it be cloned together with the CPU<br=
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheaderc10f11a2, li.msipheaderc10f11a2, div.msipheaderc10f11a2
+	{mso-style-name:msipheaderc10f11a2;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheaderc10f11a2" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]</s=
+pan><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.freed=
+esktop.org&gt;
+<b>On Behalf Of </b>Deucher, Alexander<br>
+<b>Sent:</b> Monday, January 10, 2022 4:11 PM<br>
+<b>To:</b> Phillips, Daniel &lt;Daniel.Phillips@amd.com&gt;; amd-gfx@lists.=
+freedesktop.org; dri-devel@lists.freedesktop.org<br>
+<b>Subject:</b> Re: [PATCH 1/1] Add available memory ioctl for libhsakmt<o:=
+p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">This is=
+ missing your signed-off-by.&nbsp; Additionally, for UAPI changes, we need =
+a link the patches for the userspace component that will make use of it.<o:=
+p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Alex<o:=
+p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"1" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
+.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt; on behalf o=
+f Daniel Phillips &lt;<a href=3D"mailto:daniel.phillips@amd.com">daniel.phi=
+llips@amd.com</a>&gt;<br>
+<b>Sent:</b> Monday, January 10, 2022 3:54 PM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;;
+<a href=3D"mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesk=
+top.org</a> &lt;<a href=3D"mailto:dri-devel@lists.freedesktop.org">dri-deve=
+l@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Phillips, Daniel &lt;<a href=3D"mailto:Daniel.Phillips@amd.com">=
+Daniel.Phillips@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH 1/1] Add available memory ioctl for libhsakmt</span>=
+ <o:p>
+</o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">From: Daniel Phillips=
+ &lt;<a href=3D"mailto:dphillip@amd.com">dphillip@amd.com</a>&gt;<br>
+<br>
+Add an ioctl to inquire memory available for allocation by libhsakmt<br>
+per node, allowing for space consumed by page translation tables.<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; |&nbsp; 1 +<br>
+&nbsp;.../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c&nbsp;&nbsp;&nbsp; | 14 +=
++++++++++++++<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_chardev.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; | 17 +++++++++++++++++<br>
+&nbsp;include/uapi/linux/kfd_ioctl.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 14 ++++++=
+++++++--<br>
+&nbsp;4 files changed, 44 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_amdkfd.h<br>
+index fcbc8a9c9e06..64c6c36685d3 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h<br>
+@@ -266,6 +266,7 @@ int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgp=
+u_device *adev,<br>
+&nbsp;void amdgpu_amdkfd_gpuvm_release_process_vm(struct amdgpu_device *ade=
+v,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; void *drm_priv);<br>
+&nbsp;uint64_t amdgpu_amdkfd_gpuvm_get_process_page_dir(void *drm_priv);<br=
 >
-&gt; address space.<br>
-<br>
-I&#39;m not following. The address space I&#39;m talking about is struct<br=
++size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev);<br>
+&nbsp;int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev, uint64_t va, uint64_t siz=
+e,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; void *drm_priv, struct kgd_mem **mem,<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
+index 86a1a6c109d9..b7490a659173 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
+@@ -190,6 +190,20 @@ static int amdgpu_amdkfd_reserve_mem_limit(struct amdg=
+pu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+&nbsp;<br>
++size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev)<br>
++{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t reserved_for_pt =3D<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size_t available_memory;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock(&amp;kfd_mem_limit.mem_limi=
+t_lock);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; available_memory =3D<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;gmc.real_vram_size -<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;kfd.vram_used - reserved_for_pt;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;kfd_mem_limit.mem_li=
+mit_lock);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return available_memory;<br>
++}<br>
++<br>
+&nbsp;static void unreserve_mem_limit(struct amdgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; uint64_t size, u32 alloc_flag)<br>
+&nbsp;{<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_chardev.c<br>
+index 4bfc0c8ab764..5c2f6d97ff1c 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
+@@ -486,6 +486,20 @@ static int kfd_ioctl_get_queue_wave_state(struct file =
+*filep,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;}<br>
+&nbsp;<br>
++static int kfd_ioctl_get_available_memory(struct file *filep,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process *p, void *data)<br=
 >
-amdgpu_vm. It&#39;s associated with the render node file descriptor.<br>
-Inheriting and using that file descriptor in the child inherits the<br>
-amdgpu_vm. I don&#39;t see how you can hang that state on any one VMA.<br>
-<br>
-To be consistent with the CPU, you&#39;d need to clone the GPU address spac=
-e<br>
-(struct amdgpu_vm) in the child process. That means you need a new<br>
-render node file descriptor that imports all the BOs from the parent<br>
-address space. It&#39;s a bunch of extra work to fork a process, that you&#=
-39;re<br>
-proposing to immediately undo with an atfork handler. So I really don&#39;t=
-<br>
-see the point.<br>
-<br>
-Regards,<br>
-=C2=A0 Felix<br>
-<br>
-<br>
-&gt;<br>
-&gt; Since VMAs are informed about their cloning (in opposite to file<br>
-&gt; descriptors) it&#39;s trivial to even just clone kernel data on first =
-access.<br>
-&gt;<br>
-&gt; Regards,<br>
-&gt; Christian.<br>
-&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; Regards,<br>
-&gt;&gt; =C2=A0=C2=A0 Felix<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt;&gt; Regards,<br>
-&gt;&gt;&gt; Christian.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; Regards,<br>
-&gt;&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0 Felix<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;<br>
-</blockquote></div>
++{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_ioctl_get_available_memory=
+_args *args =3D data;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_dev *dev;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev =3D kfd_device_by_id(args-&gt;gpu=
+_id);<o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Once CRIU changes lan=
+d, this need to change to kfd_process_device_data_by_id() and then use pdd-=
+&gt;dev<o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dev)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;available =3D amdgpu_amdkfd_=
+get_available_memory(dev-&gt;adev);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
++}<br>
++<br>
+&nbsp;static int kfd_ioctl_set_memory_policy(struct file *filep,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct kfd_process *p, void *data)<br>
+&nbsp;{<br>
+@@ -1959,6 +1973,9 @@ static const struct amdkfd_ioctl_desc amdkfd_ioctls[]=
+ =3D {<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IOCTL_DEF(AMDKFD_IO=
+C_SET_XNACK_MODE,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_i=
+octl_set_xnack_mode, 0),<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IOCTL_DEF(AMDKFD_IOC_AVAILABLE=
+_MEMORY,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_ioctl_get_av=
+ailable_memory, 0),<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;#define AMDKFD_CORE_IOCTL_COUNT ARRAY_SIZE(amdkfd_ioctls)<br>
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.=
+h<br>
+index af96af174dc4..94a99add2432 100644<br>
+--- a/include/uapi/linux/kfd_ioctl.h<br>
++++ b/include/uapi/linux/kfd_ioctl.h<br>
+@@ -32,9 +32,10 @@<br>
+&nbsp; * - 1.4 - Indicate new SRAM EDC bit in device properties<br>
+&nbsp; * - 1.5 - Add SVM API<br>
+&nbsp; * - 1.6 - Query clear flags in SVM get_attr API<br>
++ * - 1.7 - Add available_memory ioctl<br>
+&nbsp; */<br>
+&nbsp;#define KFD_IOCTL_MAJOR_VERSION 1<br>
+-#define KFD_IOCTL_MINOR_VERSION 6<br>
++#define KFD_IOCTL_MINOR_VERSION 7<br>
+&nbsp;<br>
+&nbsp;struct kfd_ioctl_get_version_args {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 major_version;&nbsp;=
+&nbsp;&nbsp; /* from KFD */<br>
+@@ -98,6 +99,12 @@ struct kfd_ioctl_get_queue_wave_state_args {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 pad;<br>
+&nbsp;};<br>
+&nbsp;<br>
++struct kfd_ioctl_get_available_memory_args {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u64 available;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* from KFD */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 gpu_id;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* to KFD */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 pad;<br>
++};<br>
++<br>
+&nbsp;/* For kfd_ioctl_set_memory_policy_args.default_policy and alternate_=
+policy */<br>
+&nbsp;#define KFD_IOC_CACHE_POLICY_COHERENT 0<br>
+&nbsp;#define KFD_IOC_CACHE_POLICY_NONCOHERENT 1<br>
+@@ -742,7 +749,10 @@ struct kfd_ioctl_set_xnack_mode_args {<br>
+&nbsp;#define AMDKFD_IOC_SET_XNACK_MODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; AMDKFD_IOWR(0x21, struct kfd_ioctl_set_xnack_mode_arg=
+s)<br>
+&nbsp;<br>
++#define AMDKFD_IOC_AVAILABLE_MEMORY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; AMDKFD_IOR(0x22, struct kfd_ioctl_get_available_memory_args)<br>
++<br>
+&nbsp;#define AMDKFD_COMMAND_START&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 0x01<br>
+-#define AMDKFD_COMMAND_END&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; 0x22<br>
++#define AMDKFD_COMMAND_END&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; 0x23<br>
+&nbsp;<br>
+&nbsp;#endif<br>
+-- <br>
+2.34.1<o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
 
---00000000000037139e05d5c847fb--
+--_000_DM5PR12MB1531361295346BED5D6B4486FE579DM5PR12MB1531namp_--
