@@ -4,68 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDDF8C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jan 2022 14:07:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48CE1C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jan 2022 14:07:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3C3410E2EF;
-	Mon, 17 Jan 2022 14:07:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0ABEF10E304;
+	Mon, 17 Jan 2022 14:07:25 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A0110E638
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jan 2022 09:58:49 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39C7810E3D0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jan 2022 08:42:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1642413528;
+ s=mimecast20190719; t=1642408926;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=08T3n5IWCHMWsVkAtjOf6+gJCb4Fku4CYCaGHHt4aUA=;
- b=ATQ1dPsE4cu8v68cyCZKzeh2178URvktN9aF5F4sbwYUOhhr8rcxACGs63nY2QzsRNatzC
- y2iXRVgrF4vzb7TbdZUv7crDabXcsFTUNz+gy+vrwqx2og0W2b3GV73NTGWKcBXyBwqlSm
- cOuk5JYYTdGf0lujyJ/E9JNQx6aax+M=
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=XGK1SlpJXhWBG+NMFQFueBq+YAxFBORg6nehgEQYpqw=;
+ b=Zd+y0zN3aYj7Z1zv5oI6R2PRqZlb9NgeiwlKARPFuwWwrtf7HHHpA1nWv1CepPAJh417Ap
+ g1sIvTnaVEFNpjBdo16G8kB6Bu3o8bRfsGTJnsnuOd92obDgsoy0O5v/3qK2NYODRY/Boy
+ Gn1wBO/Vdw3R+BIsnTjIYKm+jNWINZI=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-397-ZtS1rfxeMRKkk_Z3PJNmCQ-1; Mon, 17 Jan 2022 04:58:47 -0500
-X-MC-Unique: ZtS1rfxeMRKkk_Z3PJNmCQ-1
-Received: by mail-ot1-f70.google.com with SMTP id
- x9-20020a9d3789000000b005909c996b68so5779749otb.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jan 2022 01:58:47 -0800 (PST)
+ us-mta-32-KmF17DuqN4a4TUYSEWKtaA-1; Mon, 17 Jan 2022 03:42:05 -0500
+X-MC-Unique: KmF17DuqN4a4TUYSEWKtaA-1
+Received: by mail-ed1-f71.google.com with SMTP id
+ cf15-20020a0564020b8f00b0040284b671c6so2431110edb.22
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jan 2022 00:42:04 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=08T3n5IWCHMWsVkAtjOf6+gJCb4Fku4CYCaGHHt4aUA=;
- b=mzCvWaAl+HuPh1i7ZUinTz9ihaiCa0OT5kH7yqqM+fY5EoOlqEmXiqurI5V3dbtqok
- FB45wtxB7CyTBrumpGHpO3cLrKUuuTKfnDvElM15A2WifcgaSDFXGdbsnv2yDLJ0t9/E
- 6GEiTyqS6rS+/bX+uxMX+eIAEpjvUtP/PL72DPohy3y6mwqN766MnTCmS0bRZasHgOMW
- 8F9axbd+167egzwjn6pcFMRDSoXTW3li9VuuIJxxdqSv5tbPU3NRGAapO6xj4rU/1Izq
- FyNio8f5TH8j+cYqA1cNyT/dZB3nOtFkcjDembx1huqd6xZP93cJjey35DzuJ3IuiCwl
- o9bw==
-X-Gm-Message-State: AOAM530TMIFBB91SonhpnvLI9ZXV0Impjo9NEzjx63CPSz+Tnq0UpWD9
- 6io8PIgkUZOW0GvWvk7oS8V2eqMNoFQ6xoBWeIkuCsx+89JswMcYSBlrZl12zvgnEyEkLFvjan8
- P1+Do86hHcr8NVn4v54WslPZ0dvmSYCtgBHCLuiTENQ==
-X-Received: by 2002:a05:6808:bc8:: with SMTP id
- o8mr1843864oik.45.1642413526613; 
- Mon, 17 Jan 2022 01:58:46 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxKct3SgWBeF/ZhMKb6rKuC5442JSq+bQAVO4Sk9trpwNF3/J1RWA8Lzqm64XqwB0izwPNICUqFSEzQGkSnJ34=
-X-Received: by 2002:a05:6808:bc8:: with SMTP id
- o8mr1843854oik.45.1642413526412; 
- Mon, 17 Jan 2022 01:58:46 -0800 (PST)
-MIME-Version: 1.0
-References: <20220117093848.1884-1-christian.koenig@amd.com>
-In-Reply-To: <20220117093848.1884-1-christian.koenig@amd.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=XGK1SlpJXhWBG+NMFQFueBq+YAxFBORg6nehgEQYpqw=;
+ b=cYWpZ5jw1ZFPEOvwgBF4gSv0jT+PmVq4FdXr3DhekqqZt/2z3NOLdVPUQ9RWmRpRKp
+ VmPE6V8nqp3vljX29HhTkwn6dFD0KA/yRTOwTRqGusl4XjSRg6ioT4BJs/XqqOSoXNNU
+ Wz/eeSE17og3DSRG0HoRMQzbSgSoVpWt5tdVRWcwvHhEab/xz+ZE9ONokTenyRzRLX+9
+ Ws0v/ufYtcx1TOOOLnarbwWKdk6h8RwlyxlYqvjBakh5jIAtkbNfvAyAMfjWBUEV+w7O
+ T1eGL4SxX0N39gzwDrHRMS8r5j8WkOcajAAmsI8efzPr3VUajE+RmGPju3bfPwrIMSou
+ oo/w==
+X-Gm-Message-State: AOAM5335gj4ANUbIULN5td5BOjHuU6KJFpVWnkrMD6RFf3LkuRqHF8l9
+ kceEO8rhsxYdgmhmXUFcLB8NlCSGYMoLYbr/4Y0vFfez/Pbl5UWKZCqevsNrEOYTYgbAHJNoMhU
+ 2sxMO97RXToi5G5fWzIK64AlrTw==
+X-Received: by 2002:aa7:d88d:: with SMTP id u13mr12929579edq.217.1642408923858; 
+ Mon, 17 Jan 2022 00:42:03 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyQaNHnu9csjbqL/rvTKocAVaWQGdF9eKIb7dk2s05zyxmDzJTWikk+EcxQrUKDwpxHigdkag==
+X-Received: by 2002:aa7:d88d:: with SMTP id u13mr12929556edq.217.1642408923485; 
+ Mon, 17 Jan 2022 00:42:03 -0800 (PST)
+Received: from janakin.usersys.redhat.com ([83.148.38.137])
+ by smtp.gmail.com with ESMTPSA id y7sm4989329edq.27.2022.01.17.00.42.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Jan 2022 00:42:02 -0800 (PST)
+Date: Mon, 17 Jan 2022 09:42:01 +0100
 From: Jan Stancek <jstancek@redhat.com>
-Date: Mon, 17 Jan 2022 10:58:28 +0100
-Message-ID: <CAASaF6yQL+PSxMMrmSa7ix4iV0R3zGfAoqqOWCVS-BcuckMO4g@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: fix error handling in radeon_driver_open_kms
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: RIP: 0010:radeon_vm_fini+0x15/0x220 [radeon]
+Message-ID: <20220117084158.GA2673957@janakin.usersys.redhat.com>
+References: <YeLyToEyBFnQqQGB@zn.tnic>
+ <1049939c-422f-787a-7481-21a2598eeedd@amd.com>
+MIME-Version: 1.0
+In-Reply-To: <1049939c-422f-787a-7481-21a2598eeedd@amd.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 17 Jan 2022 14:07:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,104 +84,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: arthur.marsh@internode.on.net, bp@alien8.de, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Borislav Petkov <bp@alien8.de>,
+ lkml <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 17, 2022 at 10:38 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
+On Mon, Jan 17, 2022 at 08:16:09AM +0100, Christian König wrote:
+>Hi Borislav,
 >
-> The return value was never initialized so the cleanup code executed when
-> it isn't even necessary.
+>Am 15.01.22 um 17:11 schrieb Borislav Petkov:
+>>Hi folks,
+>>
+>>so this is a *very* old K8 laptop - yap, you read it right, family 0xf.
+>>
+>>[   31.353032] powernow_k8: fid 0xa (1800 MHz), vid 0xa
+>>[   31.353569] powernow_k8: fid 0x8 (1600 MHz), vid 0xc
+>>[   31.354081] powernow_k8: fid 0x0 (800 MHz), vid 0x16
+>>[   31.354844] powernow_k8: Found 1 AMD Turion(tm) 64 Mobile Technology MT-34 (1 cpu cores) (version 2.20.00)
+>>
+>>This is true story.
 >
-> Just add proper error handling.
+>well, that hardware is ancient ^^.
 >
-> Fixes: 2ad5d8fca195 ("drm/radeon/radeon_kms: Fix a NULL pointer dereferen=
-ce in radeon_driver_open_kms()")
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>Interesting to see that even that old stuff is still used.
+>
+>>Anyway, it blows up, see below.
+>>
+>>Kernel is latest Linus tree, top commit is:
+>>
+>>a33f5c380c4b ("Merge tag 'xfs-5.17-merge-3' of git://git.kernel.org/pub/scm/fs/xfs/xfs-linux")
+>>
+>>I can bisect if you don't see it immediately why it blows up.
+>
+>Immediately I see that code is called which isn't for this hardware 
+>generation.
+>
+>This is extremely odd because it means that we either have recently 
+>added a logic bug or the detection of the hardware generation doesn't 
+>work as expected any more.
+>
+>Please bisect,
+>Christian.
 
-Thanks for quick patch, applied on top of 8d0749b4f83b Merge tag
-'drm-next-2022-01-07'
-it fixed the boot panic for me.
+I'm see panics like this one as well on multiple systems in lab (e.g. ProLiant SL390s G7,
+PowerEdge R805). Looks same to what Bruno reported here:
+  https://lore.kernel.org/all/CA+QYu4rt2VHWzbOt-SegA9yABqC-D36PoqTZmy6DscWvp+6ZMQ@mail.gmail.com/
 
-Tested-by: Jan Stancek <jstancek@redhat.com>
+It started around 8d0749b4f83b - Merge tag 'drm-next-2022-01-07', running a bisect atm.
 
-> ---
->  drivers/gpu/drm/radeon/radeon_kms.c | 22 ++++++++++++----------
->  1 file changed, 12 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon=
-/radeon_kms.c
-> index e2488559cc9f..11ad210919c8 100644
-> --- a/drivers/gpu/drm/radeon/radeon_kms.c
-> +++ b/drivers/gpu/drm/radeon/radeon_kms.c
-> @@ -666,18 +666,18 @@ int radeon_driver_open_kms(struct drm_device *dev, =
-struct drm_file *file_priv)
->                 fpriv =3D kzalloc(sizeof(*fpriv), GFP_KERNEL);
->                 if (unlikely(!fpriv)) {
->                         r =3D -ENOMEM;
-> -                       goto out_suspend;
-> +                       goto err_suspend;
->                 }
->
->                 if (rdev->accel_working) {
->                         vm =3D &fpriv->vm;
->                         r =3D radeon_vm_init(rdev, vm);
->                         if (r)
-> -                               goto out_fpriv;
-> +                               goto err_fpriv;
->
->                         r =3D radeon_bo_reserve(rdev->ring_tmp_bo.bo, fal=
-se);
->                         if (r)
-> -                               goto out_vm_fini;
-> +                               goto err_vm_fini;
->
->                         /* map the ib pool buffer read only into
->                          * virtual address space */
-> @@ -685,7 +685,7 @@ int radeon_driver_open_kms(struct drm_device *dev, st=
-ruct drm_file *file_priv)
->                                                         rdev->ring_tmp_bo=
-.bo);
->                         if (!vm->ib_bo_va) {
->                                 r =3D -ENOMEM;
-> -                               goto out_vm_fini;
-> +                               goto err_vm_fini;
->                         }
->
->                         r =3D radeon_vm_bo_set_addr(rdev, vm->ib_bo_va,
-> @@ -693,19 +693,21 @@ int radeon_driver_open_kms(struct drm_device *dev, =
-struct drm_file *file_priv)
->                                                   RADEON_VM_PAGE_READABLE=
- |
->                                                   RADEON_VM_PAGE_SNOOPED)=
-;
->                         if (r)
-> -                               goto out_vm_fini;
-> +                               goto err_vm_fini;
->                 }
->                 file_priv->driver_priv =3D fpriv;
->         }
->
-> -       if (!r)
-> -               goto out_suspend;
-> +       pm_runtime_mark_last_busy(dev->dev);
-> +       pm_runtime_put_autosuspend(dev->dev);
-> +       return 0;
->
-> -out_vm_fini:
-> +err_vm_fini:
->         radeon_vm_fini(rdev, vm);
-> -out_fpriv:
-> +err_fpriv:
->         kfree(fpriv);
-> -out_suspend:
-> +
-> +err_suspend:
->         pm_runtime_mark_last_busy(dev->dev);
->         pm_runtime_put_autosuspend(dev->dev);
->         return r;
-> --
-> 2.25.1
->
+[   15.230105] SGI XFS with ACLs, security attributes, scrub, quota, no debug enabled 
+[   15.234816] XFS (sdb1): Mounting V5 Filesystem 
+[   15.342261] [drm] ib test succeeded in 0 usecs 
+[   15.343311] [drm] No TV DAC info found in BIOS 
+[   15.344061] [drm] Radeon Display Connectors 
+[   15.344330] [drm] Connector 0: 
+[   15.344961] [drm]   VGA-1 
+[   15.345174] [drm]   DDC: 0x60 0x60 0x60 0x60 0x60 0x60 0x60 0x60 
+[   15.345991] [drm]   Encoders: 
+[   15.346617] [drm]     CRT1: INTERNAL_DAC1 
+[   15.346942] [drm] Connector 1: 
+[   15.347561] [drm]   VGA-2 
+[   15.347746] [drm]   DDC: 0x6c 0x6c 0x6c 0x6c 0x6c 0x6c 0x6c 0x6c 
+[   15.348598] [drm]   Encoders: 
+[   15.349217] [drm]     CRT2: INTERNAL_DAC2 
+[   15.349521] BUG: kernel NULL pointer dereference, address: 0000000000000000 
+[   15.349974] #PF: supervisor read access in kernel mode 
+[   15.350305] #PF: error_code(0x0000) - not-present page 
+[   15.350675] PGD 0 P4D 0  
+[   15.350814] Oops: 0000 [#[   15.431048] CPU: 0 PID: 410 Comm: systemd-udevd Tainted: G          I       5.16.0 #1 
+[   15.443401] XFS (sdb1): Ending clean mount 
+[   15.451541] Hardware name: HP ProLiant SL390s G7/, BIOS P69 07/02/2013 
+[   15.451545] RIP: 0010:radeon_vm_fini+0x174/0x300 [radeon] 
+[   15.452689] Code: e8 74 cc 7a c1 eb d1 4c 8b 24 24 4d 8d 74 24 48 49 8b 5c 24 48 49 39 de 74 38 66 2e 0f 1f 84 00 00 00 00 00 66 90 4c 8d 7b a8 <48> 8b 2b 48 8d 7b 18 e8 30 1e f4 ff 48 83 c3 c0 48 89 df e8 34 f3 
+[   15.454412] RSP: 0018:ffffa3494800001 R08: 0000000000200000 R09: 0000000000000000 
+[   15.533944] R10: 0000000000000000 R11: ffffffffc04f7810 R12: ffff979b4ba46730 
+[   15.533945] R13: ffff979d5c260000 R14: ffff979b4ba46778 R15: ffffffffffffffa8 
+[   15.533947] FS:  00007f3a13141500(0000) GS:ffff979d4ba00000(0000) knlGS:0000000000000000 
+[   15.533948] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033 
+[   15.533950] CR2: 0000000000000000 CR3: 000000031c7fc005 CR4: 00000000000206f0 
+[   15.533952] Call Trace: 
+[   15.533956]  <TASK> 
+[   15.533959]  radeon_driver_open_kms+0x118/0x180 [radeon] 
+[   15.533998]  drm_file_alloc+0x1a8/0x230 [drm] 
+[      
+  OK   [[   15.961755]  drm_client_init+0x99/0x130 [drm] 
+  [   15.961777]  drm_fb_helper_init+0x32/0x50 [drm_kms_helper] 
+  [   15.961809]  radeon_fbdev_init+0xbc/0x110 [radeon] 
+  [   15.963653]  radeon_modeset_init+0x857/0x9e0 [radeon] 
+  0m] Mounted  [0;[   15.964003]  radeon_driver_load_kms+0x19b/0x290 [radeon] 
+  [   15.964474]  drm_dev_register+0xf5/0x2d0 [drm] 
+  1;39msysroot.mou[   15.965196]  radeon_pci_probe+0xc3/0x120 [radeon] 
+  [   15.965972]  pci_device_probe+0x185/0x220 
+  [   15.966225]  call_driver_probe+0x32/0xd0 
+  [   15.966505]  really_probe+0x157/0x380 
+  [   15.99bus_add_driver+0x111/0x210 
+  [   16.467150]  ? 0xffffffffc0412000 
+  [   16.467805]  driver_register+0x81/0x120 
+  [   16.468069]  do_one_initcall+0xb0/0x290 
+  [   16.468359]  ? down_write+0xe/0x40 
+  [   16.469008]  ? kernfs_activate+0x28/0x130 
+  [   16.469267]  ? kernfs_add_one+0x1c8/0x210 
+  [   16.469563]  ? vunmap_p4d_range+0x3dc/0x420 
+  [   16.469858]  ? __vunmap+0x1df/0x2a0 
+  [   16.470466]  ? kmem_cache_alloc_trace+0x1a4/0x330 
+  [   16.471224]  ? do_init_module+0x24/0x230 
+  [   16.471485]  do_init_module+0x5a/0x230 
+  [   16.471779]  load_module+0x145f/0x1630 
+  [   16.472022]  ? kernel_read_file_from_fd+0x5d/0x80 
+  [   16.472762]  __se_sys_finit_module+0x9f/0xd0 
+  [   16.473480]  do_syscall_64+0x43/0x90 
+  [   16.473778]  entry_SYSCALL_64_after_hwframe+0x44/0xae 
+  [   16.474123] RIP: 0033:0x7f3a13d11e2d 
+  [   16.474422] Code: 5b 41 5c c3 66 0f 1f 84 00 00 00 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d bb 7f 0e 00 f7 d8 64 89 01 48 
+  [   16.476010] RSP: 002b:00007fff9cb92b78 EFLAGS: 00000246 ORIG_RAX: 000000 R08: 0000000000000000 R09: 0000000000000002 
+  [   16.977414] R10: 0000000000000012 R11: 0000000000000246 R12: 00007f3a13e6d43c 
+  [   16.978320] R13: 0000555c5eba3080 R14: 0000000000000007 R15: 0000555c5eba3d70 
+  [   16.979218]  </TASK> 
+  [   16.979381] Modules linked in: xfs radeon(+) drm_ttm_helper ttm i2c_algo_bit drm_kms_helper crct10dif_pclmul crc32_pclmul crc32c_intel cec ata_generic ghash_clmulni_intel drm serio_raw pata_acpi hpwdt 
+  [   16.980516] CR2: 0000000000000000 
+  [   16.981179] ---[ end trace d6f7f573dad76bd2 ]--- 
+  [   16.981861] RIP: 0010:radeon_vm_fini+0x174/0x300 [radeon] 
+  [   16.982257] Code: e8 74 cc 7a c1 eb d1 4c 8b 24 24 4d 8d 74 24 48 49 8b 5c 24 48 49 39 de 74 38 66 2e 0f 1f 84 00 00 00 00 00 66 90 4c 8d 7b a8 <48> 8b 2b 48 8d 7b 18 e8 30 1e f4 ff 48 83 c3 c0 48 89 df e8 34 f3 
+  [   16.983766] RSP: 0018:ffffa3494801f8e8 EFLAGS: 00010286 
+  [   16.984124] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000 
+  nt   
+   - /sysroo[   16.984981] RDX: 0000000000000001 RSI: ffff979b4ba46730 RDI: ffff979b4ba46750 
+   [   16.985898] RBP: 0000000000000001 R08: 0000000000200000 R09: 0000000000000000 
+   [   16.986730] R10: 0000000000000000 R11: ffffffffc04f7810 R12: 0 ES: 0000 CR0: 0000000080050033 
+   [   17.488057] CR2: 0000000000000000 CR3: 000000031c7fc005 CR4: 00000000000206f0 
+   [   17.489013] Kernel panic - not syncing: Fatal exception 
+   [   17.489404] Kernel Offset: 0x0 from 0xffffffff81000000 (relocation range: 0xffffffff80000000-0xffffffffbfffffff) 
+   [   17.490485] ---[ end Kernel panic - not syncing: Fatal exception ]--- 
+
 
