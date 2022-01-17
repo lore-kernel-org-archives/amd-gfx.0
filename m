@@ -4,130 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EC5EC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jan 2022 16:07:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5E90C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jan 2022 16:16:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B38D810EAF0;
-	Mon, 17 Jan 2022 16:07:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69FD910ED0B;
+	Mon, 17 Jan 2022 16:16:09 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2048.outbound.protection.outlook.com [40.107.93.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15F0510EAF0
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jan 2022 16:07:48 +0000 (UTC)
+ (mail-dm6nam10on2069.outbound.protection.outlook.com [40.107.93.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C4E710ED0B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jan 2022 16:16:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VHogtHdjZYZrCfqSIL5EoTtutj0dzAvtU8VsO3jrCgE3Dv0ye82fc/yHaaxXNQBKTFx1qZghimbL79qGGEVHbAHpbUPSGDMm1u5AdKETfUc+AgF4K9+IlEnjFXdrm+buRY4zASTKlizFrEMS5Ye7FIasTuxS9ADvK0ohVQzRtNk4pb1ZVeqWTxBD/mIOGnLzlQTWFg8frpcQN5YjmgBCNMTY18Udg5rAeKRfJP5/wqB9GlGgECI3Zghd8SgUBRzfQrHkDgF0yxZI8yL4V5llIdWmbGDPwBeMoyMwX+q2jU2QPiCqWhR6pcphTApFkorGhzjyX0mTg9LOIAl3N/YAbg==
+ b=LiFmCnNr4T0SMYOSVbBEYZOPH4ubOsX13IKO2CXlTU8fee/XmqVFZyjjQIHHqk8eKHJ3JlTVomTpdsCuwzHWgm/sXbKxMZGgGayym5/zwKYw7alBXZcoil5eha+Uyh2nyAI2R4NdsiBrH//aYow5RAXw/3mNzMoMXcVeqCD6PwzVMdOo5DzYQaF8a9JRHO7nOxDbi/ficisHSR0zGdyM72YlUcyu+ZNGOUX0D1hsMkOo30QkVHhpyT5bGh65oF36mNPy11eXCkvjrgPTJfTy2ceAw/bzKiPh7G6YKZGXpKdEH/7HfVGL94L8ct51itcynLDTHraRqsfldaa3eTmgvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r70OhqOz3EXUL+cEQhVjwdGS0VY+2qQVGhHB7Xw3Qn0=;
- b=ZOYzcq0VdwZssXrdFNWg0nEoxJhdeSKTRv7uOTuu7kR8p17vY4O2XBqTyh3oSvUdcQMbFclEa+xWksfe0prd2Zjwy3b5dd9E3UxrVcz5C7aZKajVpqpLC0ywjfsHUzFhtQkAT+ZOOkZ8JRyd+BVmohsW3S8hFCfofdeeM0/KGwexn8qyeHWP2wpXDwznX7ErEFq4rgiJil3wTKdNrgcvKeQ1Sg6FNTuUnpP/ga4NhCHode2fx8mjVu+CiGqYHCn9PJgMGCzm3SwLS2GbmsHCmIiXKD5KcU6RO9ai++hYoObwmTuKhmwKUHFnRLgFEZZ3bwdjQWwqa1Omd5/4v1VJOg==
+ bh=nPy9nnurccOKSr4KV95OyRr8MZvIOL8ti2/duveyQ1o=;
+ b=dQ7u3vsMot7EgLidFmKmkpKDAchtrukNFJiLCf0n29FuQIhvf20ouzDsPs1RA98O5L57qYM3hD0f/HrpxBSzG2bn10u6ck++YZqRXgsz4IiuPCTxw0woVOidcojuj5p5NuwnB+p/8kDI8EEwLwitoXhts5v46OD7nWcrPWv/Txa+h4w4tl2JHPPyUqpnu10UHax0JPW/wr6Rwr2q8/zoV8FUg1yuYZVQxfOGgFD1KF/wRSL0R1VEUe3L/MCJid5kQPEJ4z+TDM64qKl7vrc+4qPQO7O0IffMY2qEZPJufhvdsXyTtxrZJ/kbNoTzwT/yRaMSCA8X+EXlYUjER5nc6Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r70OhqOz3EXUL+cEQhVjwdGS0VY+2qQVGhHB7Xw3Qn0=;
- b=Ww6xElLVbGqyg0GzK+kT6NJbyYGn76dI2O54b5P8g+av81uOMQqCZeq1DeBSb/spPil9I1aBC03/FT5NE4qTZrbRFJ8kcNoq/0NcuRBHcwbj7mrbeZllqHhkqphMJTFlVvfk0d3a2quTD59qF+IFPa6PepN4A+g7oxIc3Dvvuzs=
+ bh=nPy9nnurccOKSr4KV95OyRr8MZvIOL8ti2/duveyQ1o=;
+ b=ouqUJowifSvPlfxktkvUHZVhmU5eBVfbUq5WZQnWU6LqVsyvzXr3PIqN+Ixfz9/OTwsdJ/sVTN86Rd8ROII8bgy37he1VUGAXKOyT6dTSM0WXiWoj+k679E6EilWB5KmcjVSQrY68SKLdG7mUQtDR+brNn+UM1L4QDHYul3Wryg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14) by BN7PR12MB2836.namprd12.prod.outlook.com
- (2603:10b6:408:32::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.9; Mon, 17 Jan
- 2022 16:07:45 +0000
-Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::b4d6:f148:3798:6246]) by MWHPR1201MB0192.namprd12.prod.outlook.com
- ([fe80::b4d6:f148:3798:6246%7]) with mapi id 15.20.4888.014; Mon, 17 Jan 2022
- 16:07:45 +0000
-Subject: Re: [PATCH 2/2] drm/amdgpu: add AMDGPURESET uevent on AMD GPU reset
-To: "Somalapuram, Amaranath" <asomalap@amd.com>,
- "Sharma, Shashank" <shashank.sharma@amd.com>,
- "Somalapuram, Amaranath" <Amaranath.Somalapuram@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20220117063343.27896-1-Amaranath.Somalapuram@amd.com>
- <12d7152f-3274-a250-e25e-6144cc9cc1e2@amd.com>
- <DM6PR12MB3897D77C82314BBBDBE8AF93F8579@DM6PR12MB3897.namprd12.prod.outlook.com>
- <5568c4e1-7bc5-cd7f-d6d7-92a4f920c40c@amd.com>
- <DM6PR12MB3897D33226DBA88264B5BBF8F8579@DM6PR12MB3897.namprd12.prod.outlook.com>
- <62372e77-31c8-211f-0d9c-01a0f880badf@amd.com>
- <779d4778-6b85-2769-f169-f5f9e956a671@amd.com>
- <10fe91c4-9078-8937-5dac-0625d38c2ea3@amd.com>
- <7a082b06-179a-22dc-e176-3f6d46a1deeb@amd.com>
- <8ffbf71a-9c62-b153-bf52-a88e7bcf91d3@amd.com>
- <98202e9d-cefa-8874-8a8d-58ec512f80ca@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <ee156d84-796a-af7b-d316-5bca0a2a6e5d@amd.com>
-Date: Mon, 17 Jan 2022 17:07:37 +0100
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by MN2PR12MB4360.namprd12.prod.outlook.com (2603:10b6:208:266::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Mon, 17 Jan
+ 2022 16:16:05 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::14cd:f56f:bac0:a862]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::14cd:f56f:bac0:a862%7]) with mapi id 15.20.4888.014; Mon, 17 Jan 2022
+ 16:16:05 +0000
+Subject: Re: [PATCH 3/5] drm/amdkfd: add page fault SMI event
+To: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
+ <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220114203839.21707-1-Philip.Yang@amd.com>
+ <20220114203839.21707-4-Philip.Yang@amd.com>
+ <47b948f0-c004-b3d1-d5f9-0cbf1db1f21e@amd.com>
+From: philip yang <yangp@amd.com>
+Message-ID: <3089a563-d1ba-a509-9e1d-a4dba3bf3ddb@amd.com>
+Date: Mon, 17 Jan 2022 11:16:03 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <98202e9d-cefa-8874-8a8d-58ec512f80ca@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <47b948f0-c004-b3d1-d5f9-0cbf1db1f21e@amd.com>
+Content-Type: text/html; charset=utf-8
 Content-Language: en-US
-X-ClientProxiedBy: AS8P251CA0018.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:2f2::25) To MWHPR1201MB0192.namprd12.prod.outlook.com
- (2603:10b6:301:5a::14)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0006.namprd13.prod.outlook.com
+ (2603:10b6:208:256::11) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 791d8df9-ea7d-4183-33d8-08d9d9d37f99
-X-MS-TrafficTypeDiagnostic: BN7PR12MB2836:EE_
-X-Microsoft-Antispam-PRVS: <BN7PR12MB28362E72AD7FB8061C74F58F83579@BN7PR12MB2836.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 17c5fc0f-2551-4709-1f60-08d9d9d4a95e
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4360:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4360BB7B545673264AE81A0DE6579@MN2PR12MB4360.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ykZUTdA8grWUcCjxJJ/2VHBQGdnSxt4SGF+Jr0KXOB1fx6MlKwA9Hv1KdlaV0TGDHQJFvydC3RPR/ZnMVoD3Nr6Giaj0WehCv4Gk8Pb19OrReEdJa8pSfL8w8OjVvvhYLOClgoQQsmk1mji7sBhClI2mw/4Gc2FDhye0B5c1XjV3gGrkUYYWsN0IqFIfTuVAdcgc3fGvyqzpziT3AgGob3oFob0SP0U+npGEQPv7P11LjjS0H9icmaD0kVNE/LdfcoFdsE/hpAmk1ylMOjUl02Vbo86KLw7ZTyc8B0DpwVFeqnjMNSvZ+McrShOd44uWuexIs9yt86qEeienNdg1R0jehmbzeVNvMs7zSAro2XwXmC73HlZEGEVlo35DgiZ2+dZ30GKft8BnNFJAKQz4Wi4A4L3X9td7oCgaUnJRmRBmz7VpDgYDU0lSeyAFL29lTV1TxCj2RqmYXt7u8l8EHJu41z5DR8bQ+WPNKoTChH2S1cVi1IWQanxYaDxI8/7kpN+qd1jDX+UqMwa5T0FXYILsBaU4q4NaGb6CrwrkVTyU062p72WTn9rRbb2NEWLZsKkHWWWwNnG5sy+N3YCjxjvdT8FWRbyr2jKrht6LR8KYeHLui4/Ebg93JofgecHt2zl+IwkI376PIdmYgKnoUi6EjnUOWPQXWIlhand/LFTMSeErjLOfebMvc7E1Zdfg+nM7POLF2Kip13t4Qa5LbUzcETMSUK1UTnA+unHrqsmTDYm97IibZGq8wi29tyGm
+X-Microsoft-Antispam-Message-Info: 6OFbp9O5zPgRGj21aZhweafr8CtcAT+xT3+Wwz+szpk5FbFZKyYknA27kvgVqIC0ssseYsz6YyXZPy8LHVe9tzWtTG90YWE4WzFdjzRKyKekdxuiD1mcdOg9aLHoI/DIzL+y/GTJEpCOn6h15+QO99CcMsBAZ9OVR48AcDsYucHCHbfngcRQaZSsfNdWQd2ssvdmkcUtXPVNY8X6Q+B0kEtxf4Hezk/Y8juIMUBP0ks3UDJQGgtB3LzzD6PI/Nt5ab5/bK+V2fzu2yd9V4FgvZLuntrZW1K5a3+QlEMo9dQ6Bylt5sK2hVLHk7oHzvFnscrfzsnvJQRqSBXD5uMvM68D3LZiyVJj4j9zB6Src44tEM6dr7pzFUC62DE7WyB8osRKUh2DTKyX4WUD6CMjsEuaGOZU4iC2EKsLU/EZGy05iuisw5P+qbJQqKZU8yRg+y7bR7nSB8tm4r+/4RRK+lwnEXcP2aPARSeRlfl56NHw6ROel8co8s0IKhKIGBG6xEB5weV/Dmsc9m++S6CRDwmxoOOoj1SDcT+DIuxFfP54mg9V6ivJYwBwPBE+rfOXoJQssotUt7LKizhF2vcKebWeJa3vBG+j2v26DOlbPPKbSRapkaeUAlxk16u6LCDqI5lzyyiFJMIEtbV8Bl+aNbr2L/jrpPSnC10WMGlpPVm3ztLiVvdhfAIMpREloIBHQnrOdDHiZuOf5SPNTGLbzz05kyIeOI3h0+c6PbPz4EE=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(110136005)(316002)(38100700002)(508600001)(2906002)(186003)(6512007)(6486002)(83380400001)(8936002)(2616005)(31686004)(31696002)(6666004)(5660300002)(66476007)(86362001)(66946007)(4326008)(53546011)(66556008)(8676002)(6506007)(36756003)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(508600001)(6512007)(2616005)(6506007)(53546011)(6486002)(5660300002)(186003)(26005)(31696002)(36756003)(38100700002)(2906002)(83380400001)(66946007)(31686004)(110136005)(316002)(8676002)(8936002)(66476007)(66556008)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M3ZMVFhhV2NFV3hFcVQ2WVN4amRBb29BczVyZmdBZ29QdUM0RC9nVkh5bENn?=
- =?utf-8?B?RU9MOW5wWEYyRFVweDYxWTdNaUhDenNxb09palNJclB1cURaVkFWZ1cva2hP?=
- =?utf-8?B?OERlUlpUZGJ2QVBRSlEvR1dIcEJERWdMdG9kcnE4YUxBb3JhTVFzUXBSZDI4?=
- =?utf-8?B?WGppWFV6TG04K1Y1WEUveVNwYjNhRkRoMFcrZlJMdDRUSEw4TEZ4M2FramZw?=
- =?utf-8?B?c0IrTVpRNGFWME04MFRObDAyZlM3dUpjMGcyMm1vanpOOGtXdFdQYzYwMWlZ?=
- =?utf-8?B?azAyd3RDcnBTQkY3YmJVVGlsMS85MEhWVS8xZ0dReGJjR2hacVRzR0JsMkIv?=
- =?utf-8?B?NWpDdFkwbjNNUkV6SHRCS1dyYnZLWkl6ZWFOc2J3ZTh2WUtDTDQ5TXVxU28r?=
- =?utf-8?B?U00rS0FnZVoxR1NFWG1uTzlGUStzTXdwTGp6OVJQU2Nvelg4a1NPUktpenI4?=
- =?utf-8?B?Z3JmWFA5cjVNVUxaeU40cWVZYlRqSU90aVVDbFo5cFJFQ3RXK29nN01qRk4v?=
- =?utf-8?B?OEtpdklNZTVzaFEvZFpoRnVyUGgxcGl5dWtrbTF2aHNNSGZ3RHJiWWsvbkdQ?=
- =?utf-8?B?OWVUdC9oc2xNSDdxS29mSlJtVVFmS0VCRGhETnBMWm9iL3FRTFdDeXYzdzVP?=
- =?utf-8?B?VGlWYjhrUFp0K1UyTWViRllYV3N2dXRVSFY3RnhXdS9sWENwUFVaNXpycUF2?=
- =?utf-8?B?MjFrWElJZ2hGYTZ6U2MreXJ6NDF6MVJYdWl5blVNbmRIOUtWZElNeXFmcWxq?=
- =?utf-8?B?MUdVSjFsYW85S0xwczhpdTBSb013MGVDNlhVVEhzNk92cEtXVUlFMnZOWUd3?=
- =?utf-8?B?bHVCSk1NOEhLNHNsT3RGVjh1UUhXelEweHpEL0txczNVbTBocHBnTGl3dTVK?=
- =?utf-8?B?YmNoSGQ5MEsvN3VIcFNEYVNwcE8wL2Y2UUdYbnBuOXBCNXZNeG9ZSitmQk1u?=
- =?utf-8?B?RUVuNzdYNUlFUWtkL2xlTWZ1dnpWRnIxY3ZqNzB3d2FCOGxqdGdOVGFKWTVE?=
- =?utf-8?B?UkVZQ201MmpaU2FJUEZvZ3R6aHlwTmhDVk9kaVZoaWV1dVNSWXBTZklDVU5R?=
- =?utf-8?B?SkZETkd6Z0ZVTlVITm53OTdLUEJlOG9wcm5hVnpSK2VFY2gyZnMwdVNHSXJE?=
- =?utf-8?B?bDc1T2pBV0ZFWWpDMXRGSzA4Smo0dkVpMmZTcUcrbEEyTFE5aGI1bmgxVGda?=
- =?utf-8?B?RUhPTVhLN29pQlJUc3NTcDZzMEdkN0RrTEJlL2lROVNaWDVrTFNDajZtTThJ?=
- =?utf-8?B?LzYwOHRoblRVSXpXQnlxbFdJS1NnVFhUV0Z3enhLck8vSlhaSWxqSEQ2S1pI?=
- =?utf-8?B?WGt4MmRYcER2OEgyL0NZclBsN3dndDEyQzE4Z1lyYXI1YlIzbzJmcVdVUkV0?=
- =?utf-8?B?a0w3aFlnRnlzK25OUFVMckR4YmpvVXBVTkM1YkVpalVhYnE2b0tGY2hGbU5m?=
- =?utf-8?B?K3VKWXdWczRVMGQwQUFGcXBJa21CRzRucDZyZWF0Y1ozbGtnN09oTUtqL21i?=
- =?utf-8?B?VU1qc1UrVVduS0tid1lNZmhnUkhuWFM5SjdwYmdDOU1VYnk3bzlLeHhSd1Ns?=
- =?utf-8?B?SWtNczhUKzB6QU44VUtsVVRqVTMvV1h2empLa1M0VFQrM3l0ODc3MUdpaXBx?=
- =?utf-8?B?cXRXeHI5STR0NThMUkpVdFBWQWZrN3FhNHM0dVlIMElqZzFWdlVXNmp4UVdh?=
- =?utf-8?B?ck1hRUNkWW1wRklwZ0JCN0ZBRU8rOG01YkpHNjlwQ0lHRy9Sckw2cjZxWC9w?=
- =?utf-8?B?YjNWMXhqWkJna2RUaW9OeFdHVlNIdVNoMGVHUFdabkt6Nm83WS9pM29aMFM2?=
- =?utf-8?B?UmFVU05tNnVxR09vNDdzdTJLOFhSYlAzRno0ejJEZWdDRUpDRVRtRzhzTnFi?=
- =?utf-8?B?K3BxRFZEUnhKV05CZDk4UXVqM1RyN2JCK2VBTmFNVUp5NmprVFFxNEhSTTFC?=
- =?utf-8?B?cWYzS0x5YkFxT0Z5ZXRhVkJqV1J2K3dFbEdMaVR5TzRjU1dhVzVSYXZCa21x?=
- =?utf-8?B?b3NjQW16akdQVHhsVGd5V0ZIOHM5am5SQlBNR3A4cEp1Vm04R1pYV21OKzZ0?=
- =?utf-8?B?MlRWKzlpNWR6b2VGQTMyNE1FeWxlR1U2NGFGb2N2VkZVb2VPdUc2MlZzdXdS?=
- =?utf-8?B?S2t4dFQ5QUh6b1RlQTRjK0F6WGRxQkc5UzBEY0MzWTdJQ2VlT3NEblhkM1c0?=
- =?utf-8?Q?YeJF/lqB54ulQilDfSrpXco=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bTZuWFJUejc0aEtuT0Y3SmpWNjVsTUErM2xPM3hlTVNFWXNibFNVVHpoQ1Zo?=
+ =?utf-8?B?VUlWak1WVUxtd2RXbjU2VnYxZitaNEZDVEpyb3VyTHdsN0ozQ3pGRmtlS3FL?=
+ =?utf-8?B?eGJpWTZaNVBzY2lyM29UaERzVWN0QVRnRGZSSStmTzNPTjVzWWJYOTRtNVVF?=
+ =?utf-8?B?MU1GbGM4eEt2TTJlU28xTERpVzlNWi8zMlJweTJOb0lJRUVRWHRHYWp5WGZz?=
+ =?utf-8?B?enBib1ZzWDNtZnl2b21DeVY0Sm80bEQydklNMXlIbkM5N01SZDZiMXp1eStr?=
+ =?utf-8?B?ZXJPLzNITVd0NHVHYU94RFhIOTBLWHdzWS82dzZCMU5ZeUJSSUs4YnR1VFdF?=
+ =?utf-8?B?azBwb28yY0FhbTVzY2p2L2k3bEpaYTVaTVgzZWFwZVB6eUY1UkU1dkJyeHcx?=
+ =?utf-8?B?UVNlaUFKd0N3UVlMZ3dUL2EvK2VQblFFd05OQWpYOVkzeVZBSkRCUVZwZ1VJ?=
+ =?utf-8?B?eUNnNEJLV3d6VmJNcFRhMEwra2piT3dpSGhQVjBJd1VUemdjZ3Q5R2hVYy9U?=
+ =?utf-8?B?SDVreGpwWHBpdGZ0ZlN5dGZKcVMzdzZsVGxIZzRva2xDdTlGN0JXR0pXdm85?=
+ =?utf-8?B?bHpWUUsvQzdVTW44dEtQRVhRdkdoeHBaMkNzUVg5bkRWclE5NzVGM3J0bUhy?=
+ =?utf-8?B?UjBsUW5MaTRQbHFETkowd1N1Wm9GRW9XOXpXWWpvR0xMN3FRN0ZOZUNHRno3?=
+ =?utf-8?B?cm1XQktWa3A0azBzQ2YrakRtb1NMb0FQTzJZbUg3QXk1YVpxVVI3UHVVbmpG?=
+ =?utf-8?B?MmtjWWNEelpISy9Da2haUWYrOHFRdTdjSm1IaXFVNm1jb1l4Y1Z0aGhOQkpV?=
+ =?utf-8?B?SWZOQUZlWXduRE9zQjlpM0tsVDVUaFBZbG5UNU9JUWh6THc5WlBUc0RSTHM1?=
+ =?utf-8?B?RE5kb2NFVlh1czdFRzFEUm5zT3h3dE1ULzB4MXVVMkJDUzEzYmhBZkNFQWhk?=
+ =?utf-8?B?Wm96Nlkyc0s1R3kxLzhvakNjVktNWnNDQVVqa3BNSTVpMjRkRVlOdUpDdUZD?=
+ =?utf-8?B?N0h1L1BBVnY1SVV5WXFXaDU0QU5VWHVjZVZOTEJINXJvalRPajdRUGRHSUYz?=
+ =?utf-8?B?RTA3cEM1YmI5RC9jME43T21aNVhCcXlGYSttcHA1RkdYRGtqOXJsZjYwZXVE?=
+ =?utf-8?B?THZVeUFyVWxvOTFGd3BjeHhFdW1MNzQrUUt4UHh4L0hjNWFjaWd1bUhkWGJT?=
+ =?utf-8?B?YnR2VUFFY0JTT0JFYmpnMHVnbTI3dlI1cmlOWTkvSDJEUkZMQmJwNXhhYU9y?=
+ =?utf-8?B?T2hwcWdTK3VwVUk4U1dMUmdmczk4bktVTlYvTEFmQVJSZGc1L0pibkFGdGFV?=
+ =?utf-8?B?dXBvSCt4SlVWdkZFd0lyUUVxSm1WcDRJZlZ5ejYyaUNKcDdxVzZBM3JVNTNm?=
+ =?utf-8?B?MjJ6UWtUNTBkTUlzdWNCL3FEbGtIYVZBam1LQnNhZUxSNEVEaHZTejZDazFD?=
+ =?utf-8?B?eXB1dUtObVBiNlN6T1dNcS9DOFBsVlkwa1FJOW5WaTlTWXhxTHBidUE4KzZs?=
+ =?utf-8?B?TkpKRUJPSU56Q29BczhGWFBma0VMSWxWY0xLdjc0UTFGVjMzYmprNnBsbW9y?=
+ =?utf-8?B?QjBiOU1XUzVaTXJRT0F2TnhsV0RoQXMvZHlyYkhDNUlWa2RUQWNRdnpJclh5?=
+ =?utf-8?B?M0ErZytqemlvdkt1ODIxWXVaSUVtU0p6WEsxWGo1a1BMdUQ5bVVjUnRnWkxy?=
+ =?utf-8?B?U3MwQndnbGtiWXp2NEJpb0RxSEVuSHY3NjNCQ3h4QmhOdDlzaW4xNWJraEhw?=
+ =?utf-8?B?emFkN2lQaTVnNUxPVG5tMm51VG9laHd6Si9pWmhmaWFsNjBuRSswRk9XUTZy?=
+ =?utf-8?B?RUpBZWdWSmdhcEtFeVdxUnhCczZVZGJPMUxyL0tVajJ0V25WV25WcWM2WXhV?=
+ =?utf-8?B?UFJEZ0ZXc1ZDK0l2am1jdG1CcDFZb0VYNmhCd0t3REllaXhqdlpwQlkvV1BJ?=
+ =?utf-8?B?WVFjYmE4bmo4WWFPMDYzRHp0dG5SbEFOSGl3K2x2WFU4N1hMRTRUb1k5WDhL?=
+ =?utf-8?B?ajlCRWw2cndBaU9pM21INjJsa01NT25SbE9DRlFuTmQwNXIyLzUvWktEYkpj?=
+ =?utf-8?B?YkJrS1N3enVQYnhyWC9qcGNBMWdBZnoxRWloRjlKWEkzQ0V2NTJqRzV6YXBM?=
+ =?utf-8?Q?Jszw=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 791d8df9-ea7d-4183-33d8-08d9d9d37f99
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17c5fc0f-2551-4709-1f60-08d9d9d4a95e
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2022 16:07:45.5302 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2022 16:16:04.9635 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QSEh3BY9aOC3KEP/AZCTTzf9tyI3T+nlayrej7nlzEcdG/khXjpq3DdChSKLElgU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2836
+X-MS-Exchange-CrossTenant-UserPrincipalName: iAkYIsemgYlgEetI1aOOmwIgms6fmfh3sRwT8u7jHdfzEA11kCGErrSPYWSpP2m5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4360
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,74 +128,246 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Amarnath,
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2022-01-14 5:37 p.m., Felix Kuehling
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:47b948f0-c004-b3d1-d5f9-0cbf1db1f21e@amd.com">
+      <pre class="moz-quote-pre" wrap="">Am 2022-01-14 um 3:38 p.m. schrieb Philip Yang:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">After GPU page fault is recovered, output timestamp when fault is
+received, duration to recover the fault, if migration or only
+GPU page table is updated, fault address, read or write fault.
 
-not a bad idea, but that won't work either because you really need to 
-return to make sure that a potential next reset can run.
+Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 41 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h |  3 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c        | 12 ++++--
+ 3 files changed, 53 insertions(+), 3 deletions(-)
 
-What could be done is to have a work item which does that, but then I 
-think it would just be easier to teach the udev function a GFP mask.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+index 5818ea8ad4ce..6ed3d85348d6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+@@ -265,6 +265,47 @@ void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t pasid)
+ 	add_event_to_kfifo(task_info.pid, dev, KFD_SMI_EVENT_VMFAULT, fifo_in, len);
+ }
+ 
++static bool kfd_smi_event_pid_duration(struct kfd_dev *dev, uint16_t pasid,
++				       pid_t *pid, uint64_t ts,
++				       uint64_t *duration)
++{
++	struct amdgpu_task_info task_info = {0};
++
++	if (list_empty(&amp;dev-&gt;smi_clients))
++		return false;
++
++	amdgpu_vm_get_task_info(dev-&gt;adev, pasid, &amp;task_info);
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+The caller (svm_range_restore_pages) already knows the kfd_process. It
+should be able to provide the pid directly from p-&gt;lead_thread.pid. No
+need to look that up from the pasid and vm task info.</pre>
+    </blockquote>
+    yes, I can use p-&gt;lead_thread.pid for other events as well.<br>
+    <blockquote type="cite" cite="mid:47b948f0-c004-b3d1-d5f9-0cbf1db1f21e@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">+	if (!task_info.pid) {
++		pr_debug(&quot;task is gone\n&quot;);
++		return false;
++	}
++	if (pid)
++		*pid = task_info.pid;
++	if (duration)
++		*duration = ktime_get_ns() - ts;
++	return true;
++}
++
++void kfd_smi_event_page_fault(struct kfd_dev *dev, uint16_t pasid,
++			      unsigned long address, bool migration,
++			      bool write_fault, uint64_t ts)
++{
++	char fifo_in[128];
++	uint64_t duration;
++	pid_t pid;
++	int len;
++
++	if (!kfd_smi_event_pid_duration(dev, pasid, &amp;pid, ts, &amp;duration))
++		return;
++
++	len = snprintf(fifo_in, sizeof(fifo_in), &quot;%d ts=%lld duration=%lld&quot;
++		       &quot; pid=%d pfn=0x%lx write=%d migration=%d\n&quot;,
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Please don't break the string over several lines. I believe that would
+also trigger a checkpatch warning.</pre>
+    </blockquote>
+    It does trigger checkpatch warning, although I saw other places
+    using multiple lines format, but this is not good to grep string by
+    line, I will short it and use one line format.<br>
+    <blockquote type="cite" cite="mid:47b948f0-c004-b3d1-d5f9-0cbf1db1f21e@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">+		       KFD_SMI_EVENT_PAGE_FAULT, ts, duration, pid, address,
++		       write_fault, migration);
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+The existing events use %x for all numbers, including event number and
+pid. Maybe better to stick with that convention for consistency. At
+least for the event number.
+</pre>
+    </blockquote>
+    Will output event number as hex.<br>
+    <blockquote type="cite" cite="mid:47b948f0-c004-b3d1-d5f9-0cbf1db1f21e@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+The existing events seems to favor a very compact layout. I could think
+of ways to make this event more compact as well (still using decimal for
+some things for readability):
+
+&quot;%x %d(%d)-%d @%x %c%c&quot;, KFD_SMI_EVENT_PAGE_FAULT, ts, duration, pid,
+address, write ? 'W' : 'w', migration ? 'M' : 'm'
+
+</pre>
+    </blockquote>
+    good idea to short the format and message.<br>
+    <blockquote type="cite" cite="mid:47b948f0-c004-b3d1-d5f9-0cbf1db1f21e@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">+
++	add_event_to_kfifo(pid, dev, KFD_SMI_EVENT_PAGE_FAULT, fifo_in, len);
++}
++
+ int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd)
+ {
+ 	struct kfd_smi_client *client;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
+index bffd0c32b060..fa3a8fdad69f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
+@@ -28,5 +28,8 @@ void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t pasid);
+ void kfd_smi_event_update_thermal_throttling(struct kfd_dev *dev,
+ 					     uint64_t throttle_bitmask);
+ void kfd_smi_event_update_gpu_reset(struct kfd_dev *dev, bool post_reset);
++void kfd_smi_event_page_fault(struct kfd_dev *dev, uint16_t pasid,
++			      unsigned long address, bool migration,
++			      bool write_fault, uint64_t ts);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 37b3191615b6..b81667162dc1 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -32,6 +32,7 @@
+ #include &quot;kfd_priv.h&quot;
+ #include &quot;kfd_svm.h&quot;
+ #include &quot;kfd_migrate.h&quot;
++#include &quot;kfd_smi_events.h&quot;
+ 
+ #ifdef dev_fmt
+ #undef dev_fmt
+@@ -2657,11 +2658,12 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 	struct svm_range_list *svms;
+ 	struct svm_range *prange;
+ 	struct kfd_process *p;
+-	uint64_t timestamp;
++	uint64_t timestamp = ktime_get_ns();
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+kfd_ioctl_get_clock_counters uses ktime_get_boottime_ns for the
+system_clock_counter. We should use the same here (and in the duration
+calculation) to make it possible to correlate timestamps from different
+KFD APIs.
+</pre>
+    </blockquote>
+    ok<br>
+    <blockquote type="cite" cite="mid:47b948f0-c004-b3d1-d5f9-0cbf1db1f21e@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap=""> 	int32_t best_loc;
+ 	int32_t gpuidx = MAX_GPU_INSTANCE;
+ 	bool write_locked = false;
+ 	struct vm_area_struct *vma;
++	bool migration = false;
+ 	int r = 0;
+ 
+ 	if (!KFD_IS_SVM_API_SUPPORTED(adev-&gt;kfd.dev)) {
+@@ -2737,9 +2739,9 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 		goto out_unlock_range;
+ 	}
+ 
+-	timestamp = ktime_to_us(ktime_get()) - prange-&gt;validate_timestamp;
+ 	/* skip duplicate vm fault on different pages of same range */
+-	if (timestamp &lt; AMDGPU_SVM_RANGE_RETRY_FAULT_PENDING) {
++	if ((ktime_to_us(timestamp) -  prange-&gt;validate_timestamp) &lt;
++	    AMDGPU_SVM_RANGE_RETRY_FAULT_PENDING) {
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+ktime_to_us takes a ktime_t. But timestamp is just a time in
+nanoseconds. I think the correct conversion is just div_u64(timestamp,
+1000).</pre>
+    </blockquote>
+    <p>prange-&gt;validate_timestamp will change to
+      ktime_get_boottime_ns as well.</p>
+    <p>Thanks,</p>
+    <p>Philip<br>
+    </p>
+    <blockquote type="cite" cite="mid:47b948f0-c004-b3d1-d5f9-0cbf1db1f21e@amd.com">
+      <pre class="moz-quote-pre" wrap="">
 
 Regards,
-Christian.
+&nbsp; Felix
 
 
-Am 17.01.22 um 15:19 schrieb Somalapuram, Amaranath:
-> Hi Christian,
->
-> if sending udev event during reset is going to create problem, we can 
-> move this code from reset sequence to re-int  (after GPU reset 
-> succeeded).
->
-> Regards,
->
-> S.Amarnath
->
-> On 1/17/2022 5:27 PM, Christian König wrote:
->> Am 17.01.22 um 12:43 schrieb Sharma, Shashank:
->>> Hello Christian,
->>>
->>> On 1/17/2022 11:37 AM, Christian König wrote:
->>>> Am 17.01.22 um 11:34 schrieb Somalapuram, Amaranath:
->>>>> [SNIP]
->>>>> Any suggestion how we can notify user space during this situation. 
->>>>
->>>> Well trace points should work. They use a ring buffer and are 
->>>> specially made to work in such situations.
->>>
->>> We are anyways sending a trace event with data, but can trace event 
->>> be a wake up source for an application (like a tracer) ? This DRM 
->>> event is just to indicate that reset happened, so app has to read 
->>> from trace file.
->>
->> Yeah, that's a really good question I can't fully answer. As far as I 
->> know you can filter in userspace what you get from the tracer, but I 
->> don't know if you can block on a specific event.
->>
->> Christian.
->>
->>>
->>>>
->>>> Alternative would be to audit the udev code and allow giving a GFP 
->>>> mask to the function to make sure that we don't run into the deadlock.
->>>>
->>>> Another alternative is a debugfs file which just blocks for the 
->>>> next reset to happen.
->>>>
->>>
->>> - Shashank
->>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>> Regards,
->>>>>
->>>>> S.Amarnath
->>>>>
->>>>
->>
-
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap=""> 		pr_debug(&quot;svms 0x%p [0x%lx %lx] already restored\n&quot;,
+ 			 svms, prange-&gt;start, prange-&gt;last);
+ 		r = 0;
+@@ -2776,6 +2778,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 		 prange-&gt;actual_loc);
+ 
+ 	if (prange-&gt;actual_loc != best_loc) {
++		migration = true;
+ 		if (best_loc) {
+ 			r = svm_migrate_to_vram(prange, best_loc, mm);
+ 			if (r) {
+@@ -2804,6 +2807,9 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 		pr_debug(&quot;failed %d to map svms 0x%p [0x%lx 0x%lx] to gpus\n&quot;,
+ 			 r, svms, prange-&gt;start, prange-&gt;last);
+ 
++	kfd_smi_event_page_fault(adev-&gt;kfd.dev, p-&gt;pasid, addr, migration,
++				 write_fault, timestamp);
++
+ out_unlock_range:
+ 	mutex_unlock(&amp;prange-&gt;migrate_mutex);
+ out_unlock_svms:
+</pre>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
