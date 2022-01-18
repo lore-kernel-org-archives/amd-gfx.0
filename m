@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C71ADC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 02:37:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1B31C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 02:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CC701128F8;
-	Tue, 18 Jan 2022 02:37:34 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD8F31128F7;
- Tue, 18 Jan 2022 02:37:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D69B1128FB;
+	Tue, 18 Jan 2022 02:39:04 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 208AE1128FB;
+ Tue, 18 Jan 2022 02:39:03 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 96E2DB81132;
- Tue, 18 Jan 2022 02:37:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153E8C36AE3;
- Tue, 18 Jan 2022 02:37:27 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9837160C96;
+ Tue, 18 Jan 2022 02:39:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42EEBC36AE3;
+ Tue, 18 Jan 2022 02:39:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642473450;
- bh=LSCFijlqwDVH3dQEdv7hVOW/AfBT0FrxVmDG8/uNt/8=;
+ s=k20201202; t=1642473542;
+ bh=35lOTX6cm3m1nD+3sw8XpEL6aINTmKJuCTuO6dclzwU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BGpJz0F5FZTcld4v89CCiHmtg8fNx4IYGUl/BzGahDGp2jm/0rbXxjtXWXO8UIZYz
- COuLszTnsMl5OZZIcWLUbNt9Gd5Firxbi45uOGeU160/qst7YCvPnXbLUmBK8CMWCj
- ai1C3cfBQwy8tn0aZfgoePwIdCPbapW+dqnic88GlmX4rc3I+mmKwc44VLIznRjHd8
- j6q9cGVGX5+5PQJVTZknqOuYr96z++YW8A8hbqeGlnL83oFVtNJYmsvArizBmDmY4r
- fT3yR2Ik2hkmlrPqU0pQX8qYD/tA7toAI/V3mna6wWCAh9sqPibi6s8Rt6Rd/rYrhv
- O9wdrjJBGuT0w==
+ b=sYjQmGk9UZ6e3l+mPw9aokQi66da3K8KW81fIOy3NE0MLpi+knX9ORHkrciYAfCss
+ Wr1SfBAJh+xYYt64WDUVxdjit5Ys/R2liWlmtvR+qa9O8oj9gmabXbB3fLWYwqkY2v
+ Kg3vCbTXIrn3KQfzJVpR7aLKihf/dgcwNlhABLqZUZxT7yCrvgwUTpI9xLxERln3T5
+ NrlDCPhcbieEL550/4q2TdGHVgvp8wXBvDn9Ve2djA78twQjQUgNFhhztrlE+cpF9p
+ tdjdEAu9PPnXU4UxtmsM21bolwW63DVK/J8JvtAdCUvnPbOFclSdi3Tid8/ESILbsi
+ EWSL9Bls49gBg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 120/188] drm/amd/amdgpu: fix gmc bo pin count
- leak in SRIOV
-Date: Mon, 17 Jan 2022 21:30:44 -0500
-Message-Id: <20220118023152.1948105-120-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 158/188] drm/amdgpu: Don't inherit GEM object
+ VMAs in child process
+Date: Mon, 17 Jan 2022 21:31:22 -0500
+Message-Id: <20220118023152.1948105-158-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220118023152.1948105-1-sashal@kernel.org>
 References: <20220118023152.1948105-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -54,78 +55,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, airlied@linux.ie, dri-devel@lists.freedesktop.org,
- Xiaomeng.Hou@amd.com, victor.skvortsov@amd.com,
- Sasha Levin <sashal@kernel.org>, Horace Chen <horace.chen@amd.com>,
- Oak.Zeng@amd.com, aaron.liu@amd.com, amd-gfx@lists.freedesktop.org,
- Yuliang.Shi@amd.com, Philip.Yang@amd.com, Felix.Kuehling@amd.com,
- John.Clements@amd.com, Jack.Gui@amd.com, Jingwen Chen <Jingwen.Chen2@amd.com>,
- Xinhui.Pan@amd.com, ray.huang@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
- Hawking.Zhang@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, colin.king@intel.com, tzimmermann@suse.de,
+ airlied@linux.ie, Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
+ nirmoy.das@amd.com, Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ amd-gfx@lists.freedesktop.org, JinhuiEric.Huang@amd.com,
+ David Yat Sin <david.yatsin@amd.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jingwen Chen <Jingwen.Chen2@amd.com>
+From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 
-[ Upstream commit 948e7ce01413b71395723aaf846015062aea3a43 ]
+[ Upstream commit fbcdbfde87509d523132b59f661a355c731139d0 ]
 
-[Why]
-gmc bo will be pinned during loading amdgpu and reset in SRIOV while
-only unpinned in unload amdgpu
+When an application having open file access to a node forks, its shared
+mappings also get reflected in the address space of child process even
+though it cannot access them with the object permissions applied. With the
+existing permission checks on the gem objects, it might be reasonable to
+also create the VMAs with VM_DONTCOPY flag so a user space application
+doesn't need to explicitly call the madvise(addr, len, MADV_DONTFORK)
+system call to prevent the pages in the mapped range to appear in the
+address space of the child process. It also prevents the memory leaks
+due to additional reference counts on the mapped BOs in the child
+process that prevented freeing the memory in the parent for which we had
+worked around earlier in the user space inside the thunk library.
 
-[How]
-add amdgpu_in_reset and sriov judgement to skip pin bo
+Additionally, we faced this issue when using CRIU to checkpoint restore
+an application that had such inherited mappings in the child which
+confuse CRIU when it mmaps on restore. Having this flag set for the
+render node VMAs helps. VMAs mapped via KFD already take care of this so
+this is needed only for the render nodes.
 
-v2: fix wrong judgement
+To limit the impact of the change to user space consumers such as OpenGL
+etc, limit it to KFD BOs only.
 
-Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
-Reviewed-by: Horace Chen <horace.chen@amd.com>
+Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: David Yat Sin <david.yatsin@amd.com>
+Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 4 ++++
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 4 ++++
- 2 files changed, 8 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index e47104a1f5596..3c01be6610144 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -1021,10 +1021,14 @@ static int gmc_v10_0_gart_enable(struct amdgpu_device *adev)
- 		return -EINVAL;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index a1e63ba4c54a5..630dc99e49086 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -264,6 +264,9 @@ static int amdgpu_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_str
+ 	    !(vma->vm_flags & (VM_READ | VM_WRITE | VM_EXEC)))
+ 		vma->vm_flags &= ~VM_MAYWRITE;
  
-+	if (amdgpu_sriov_vf(adev) && amdgpu_in_reset(adev))
-+		goto skip_pin_bo;
++	if (bo->kfd_bo)
++		vma->vm_flags |= VM_DONTCOPY;
 +
- 	r = amdgpu_gart_table_vram_pin(adev);
- 	if (r)
- 		return r;
+ 	return drm_gem_ttm_mmap(obj, vma);
+ }
  
-+skip_pin_bo:
- 	r = adev->gfxhub.funcs->gart_enable(adev);
- 	if (r)
- 		return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 5551359d5dfdc..b5d93247237b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1708,10 +1708,14 @@ static int gmc_v9_0_gart_enable(struct amdgpu_device *adev)
- 		return -EINVAL;
- 	}
- 
-+	if (amdgpu_sriov_vf(adev) && amdgpu_in_reset(adev))
-+		goto skip_pin_bo;
-+
- 	r = amdgpu_gart_table_vram_pin(adev);
- 	if (r)
- 		return r;
- 
-+skip_pin_bo:
- 	r = adev->gfxhub.funcs->gart_enable(adev);
- 	if (r)
- 		return r;
 -- 
 2.34.1
 
