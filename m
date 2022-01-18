@@ -4,55 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50A77C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 19:35:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69A0BC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 20:13:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEE710E53C;
-	Tue, 18 Jan 2022 19:35:44 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 057B510E53C
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 19:35:44 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- a10-20020a9d260a000000b005991bd6ae3eso12130320otb.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 11:35:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C768110E227;
+	Tue, 18 Jan 2022 20:13:52 +0000 (UTC)
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56B3E10E227;
+ Tue, 18 Jan 2022 20:13:51 +0000 (UTC)
+Received: by mail-oi1-x234.google.com with SMTP id w188so591505oiw.13;
+ Tue, 18 Jan 2022 12:13:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YCGosHywqDJiiiOX4ekKanTqt2u6ya69LBZ0sUnoizk=;
- b=Z7buN3zzmP1v+aGdn4YEyMF6sX+IgLaJIAlIdRTkXruRSLMlpGiS/o4+HotmEFA1ln
- Yec8lqht9INFhBLicULOWD2b+MOz1jIWGkDEJoNXlmxRs6m4095bjWVyr54dSL4BFMj/
- G7WRVXpDF+NhbfVbGD6WZKehnPOq6pGe5bA6YqCTyAzo9XAYY1JeXeGOH8WjxIbD/0Bu
- JMTU9sZGQCjXVYnp77+/uvbcSVM6iBfEjn+UMZVVynAgjiTIow00nwNUL9J7LQKtiMTZ
- fAzeJ3z3/byir2SuF5JxdYSOG/JUP+SiGVLc5b842ocDrcGPGR11iQEa5pUEfyUM8lVb
- Zcbw==
+ :cc; bh=XpoF/evSGX0quKC3ojWlZTaHsolih4rnXmKXZB109js=;
+ b=n8WE+2ligzVvQw/ftNjaP0Jz2I1BoZsxvck3BbPbUE2kP5cwZAgXweL6E9LBtnJvJM
+ 1Z+RJvetEolqEgtBCwkmyNZ48Dog0SO60DM9dFkETYnmCh/xaeKp+fzwHVNyAqRLLemj
+ tADuUkyCCcJF9iQFwMdF/H+JhaKN2HGHFsC0Lrrb/z9jS1Yf4Q0S1Z1+eIG0uoK+uvQP
+ cCcvC6YIqQ0LRWQpCXPLkr3tCrYJUHYK4AiYcEkUXQUMOomxqNl5rupsd0ne7DWp4Hym
+ lPUhAymAfQZHw0K887F/ecfeKL/1bSKmAffodTve5rE3R4E9fyHgU28XaLZco31L8wv8
+ 8YZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=YCGosHywqDJiiiOX4ekKanTqt2u6ya69LBZ0sUnoizk=;
- b=7Np7wDb5mb5O1ApuFx7/y7Bp0aES1A27mA13URCu+52riVECV7l7R5FY0OHKbObIR+
- 9/EElGg4KdMN78r2A6V1OAX5+0Gr4gYJ8Glm1XKQ2BZ9KSyF3QaBCyw+NTOHaoVjNAtJ
- SuU7kIYuH4REvL4FBrXTmWroazfyiGGz9CMAoBeCxgIHTaNbeK3jr7qjGcVRRLfWd57Y
- gy7/0mvrLvtbp5jT/FtsF2ZllIvnf8BgUyVGx1ydZBJ8/Apbl5AioYFzq2X3Om/taQNI
- rKNV5vMnEpMbP5ntaXkAUXfFlYEvoZ6dSsl4rrmeLvSqP+l+i0dnSFiPUyrW1CeUO3EB
- Kesw==
-X-Gm-Message-State: AOAM531W0faCTVDGHxMMRkGXKWCVZ1HIcLL5GeIZs+dAC3GBs1rNI94d
- nhPobynXj1IFiZtRRERIjxW/azqZlccPUu1uz2k=
-X-Google-Smtp-Source: ABdhPJw8OlKyM58iyn9tLvfFfrpMQnWixPdMlYEasNAiMXZPsZyFcMC3lWzVY1XqT36zXQM3Im6IsIJr6euEiI+PhV0=
-X-Received: by 2002:a05:6830:1d90:: with SMTP id
- y16mr10606944oti.200.1642534543187; 
- Tue, 18 Jan 2022 11:35:43 -0800 (PST)
+ bh=XpoF/evSGX0quKC3ojWlZTaHsolih4rnXmKXZB109js=;
+ b=FBZrD8sVsx0fcVuYMmffcQdU+RVWLgDRlkT2w9uZDtgjD6ndzL7Su6+AJo5oJuuuY5
+ CyPkoDfzLklcNVnWcSUFVEvwjpY9LFm67YvJhAbdmvttA/ee4BtEOITMrWi3el2HUj7g
+ gOIwDLmK8F2StGJ1ArdSXTrb8jFWUaqN7SGXqxT7pDF8aoqA+ihVwdYug9ZXmOZLfEYI
+ HQcASLPwBGmaMgnV8YLdXZbwO3fQQ0Mzhh5H/3ji0p1OMCCSwCeKt5AM7a4Y4DQMDblI
+ azbNGvpFYKDz4ig9858lp/y5N4/8+T/oq5aX1JEdIni8R3fVAeeIxE+oc8UWDw90kqP+
+ K9kQ==
+X-Gm-Message-State: AOAM531oPaB9gCGE0SlyALSF4J5Y7Q7t5VgFf5bQi+g9jml9EX/GwR20
+ EIf2CFeM5hjJqLWjmYVcl6dlzoO6vfZOt7+eOcs=
+X-Google-Smtp-Source: ABdhPJxvYFNlS33t9IOQ2TLxkoGORZjhSHiI7VuLU21HAwY3nvkX4Ewt2BR5wBKsVHdRKvXiVgMiEuFSpuxy058YkGI=
+X-Received: by 2002:a05:6808:68f:: with SMTP id k15mr176939oig.5.1642536830297; 
+ Tue, 18 Jan 2022 12:13:50 -0800 (PST)
 MIME-Version: 1.0
-References: <20220118161552.11122-1-jinhuieric.huang@amd.com>
- <CADnq5_OVpDd7O+q=9N8j14dwa-+2PqKjmDvKv6JkQGiiuQDYSQ@mail.gmail.com>
- <2f7705db-d5ac-3e7c-a991-79634c0b9f8c@amd.com>
- <DM5PR12MB1308EAE234EBFD55B3374B3085589@DM5PR12MB1308.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB1308EAE234EBFD55B3374B3085589@DM5PR12MB1308.namprd12.prod.outlook.com>
+References: <1642507272-17545-1-git-send-email-lyz_cs@pku.edu.cn>
+ <0ba294a9-1428-98cf-93b6-f9a195924a8f@amd.com>
+In-Reply-To: <0ba294a9-1428-98cf-93b6-f9a195924a8f@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 18 Jan 2022 14:35:32 -0500
-Message-ID: <CADnq5_N4i9+FfzUGD8UWrVjc-9rs78PEzMW9wpWeqe4JqQnvfg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: enable heavy-weight TLB flush on Arcturus
-To: "Russell, Kent" <Kent.Russell@amd.com>
+Date: Tue, 18 Jan 2022 15:13:39 -0500
+Message-ID: <CADnq5_M7SqB_OjKaYaqKvdC=8xAo=Zn4NFzAuPxZrKPEOJtU8w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add missing pm_runtime_put_autosuspend
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,89 +61,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Huang, JinHuiEric" <JinHuiEric.Huang@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Tom St Denis <tom.stdenis@amd.com>, Jack Zhang <Jack.Zhang1@amd.com>,
+ Yongzhi Liu <lyz_cs@pku.edu.cn>, Jingwen Chen <Jingwen.Chen2@amd.com>,
+ Kevin Wang <kevin1.wang@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Dave Airlie <airlied@linux.ie>, Nirmoy Das <nirmoy.das@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Quan, Evan" <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 18, 2022 at 2:27 PM Russell, Kent <Kent.Russell@amd.com> wrote:
->
-> [AMD Official Use Only]
->
-> I think what he means is that if we are using SDMA v17, this will cause issues, won't it? Should we check that SDMA version is >=18 before enabling it? Or am I misunderstanding the fix?
-
-Yes, that was my concern.
+Applied.  Strangely I can't seem to find this patch in my inbox or in
+the dri-devel or amd-gfx archives.
 
 Alex
 
+On Tue, Jan 18, 2022 at 9:03 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
 >
->  Kent
 >
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Eric Huang
-> > Sent: Tuesday, January 18, 2022 2:09 PM
-> > To: Alex Deucher <alexdeucher@gmail.com>
-> > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-> > Subject: Re: [PATCH] drm/amdkfd: enable heavy-weight TLB flush on Arcturus
-> >
-> > The SDMA fix is generic and not in a specific version of FW, so we don't
-> > have to check.
-> >
-> > Thanks,
-> > Eric
-> >
-> > On 2022-01-18 11:35, Alex Deucher wrote:
-> > > On Tue, Jan 18, 2022 at 11:16 AM Eric Huang <jinhuieric.huang@amd.com> wrote:
-> > >> SDMA FW fixes the hang issue for adding heavy-weight TLB
-> > >> flush on Arcturus, so we can enable it.
-> > > Do we need to check for a specific fw version?
-> > >
-> > > Alex
-> > >
-> > >> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
-> > >> ---
-> > >>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 8 +++++---
-> > >>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         | 3 ++-
-> > >>   2 files changed, 7 insertions(+), 4 deletions(-)
-> > >>
-> > >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> > >> index a64cbbd943ba..7b24a920c12e 100644
-> > >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> > >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> > >> @@ -1892,10 +1892,12 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
-> > >>                                  true);
-> > >>          ret = unreserve_bo_and_vms(&ctx, false, false);
-> > >>
-> > >> -       /* Only apply no TLB flush on Aldebaran to
-> > >> -        * workaround regressions on other Asics.
-> > >> +       /* Only apply no TLB flush on Aldebaran and Arcturus
-> > >> +        * to workaround regressions on other Asics.
-> > >>           */
-> > >> -       if (table_freed && (adev->asic_type != CHIP_ALDEBARAN))
-> > >> +       if (table_freed &&
-> > >> +           (adev->asic_type != CHIP_ALDEBARAN) &&
-> > >> +           (adev->asic_type != CHIP_ARCTURUS))
-> > >>                  *table_freed = true;
-> > >>
-> > >>          goto out;
-> > >> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> > b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> > >> index b570c0454ce9..ef4d676cc71c 100644
-> > >> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> > >> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> > >> @@ -1806,7 +1806,8 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file
-> > *filep,
-> > >>          }
-> > >>          mutex_unlock(&p->mutex);
-> > >>
-> > >> -       if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2)) {
-> > >> +       if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
-> > >> +           KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1)) {
-> > >>                  err = amdgpu_amdkfd_gpuvm_sync_memory(dev->adev,
-> > >>                                  (struct kgd_mem *) mem, true);
-> > >>                  if (err) {
-> > >> --
-> > >> 2.25.1
-> > >>
 >
+> On 1/18/2022 5:31 PM, Yongzhi Liu wrote:
+> > pm_runtime_get_sync() increments the runtime PM usage counter even
+> > when it returns an error code, thus a matching decrement is needed
+> > on the error handling path to keep the counter balanced.
+> >
+> > Signed-off-by: Yongzhi Liu <lyz_cs@pku.edu.cn>
+>
+> Thanks!
+>
+> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 4 +++-
+> >   1 file changed, 3 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > index 9aea1cc..4b950de 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > @@ -1120,8 +1120,10 @@ static ssize_t amdgpu_debugfs_gfxoff_read(struct file *f, char __user *buf,
+> >               return -EINVAL;
+> >
+> >       r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+> > -     if (r < 0)
+> > +     if (r < 0) {
+> > +             pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> >               return r;
+> > +     }
+> >
+> >       while (size) {
+> >               uint32_t value;
+> >
