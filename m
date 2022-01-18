@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD839C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 02:29:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCA6FC433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 02:34:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E6AD1128D9;
-	Tue, 18 Jan 2022 02:29:44 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C08A1128D9;
- Tue, 18 Jan 2022 02:29:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29E3C1128E7;
+	Tue, 18 Jan 2022 02:34:46 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F5CD1128E7;
+ Tue, 18 Jan 2022 02:34:44 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 01696B8124F;
- Tue, 18 Jan 2022 02:29:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 606A6C36AE3;
- Tue, 18 Jan 2022 02:29:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 08CEA611D8;
+ Tue, 18 Jan 2022 02:34:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 695A1C36AEB;
+ Tue, 18 Jan 2022 02:34:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642472980;
- bh=o+qYG+ML9wHDSqQvfw0/Rdn3tY3nA8lbroLnq/hiesA=;
+ s=k20201202; t=1642473283;
+ bh=4HZ6twDd3uZBRGOAKOIYoZ/dW23vMiKEUWjChiDBfqo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MkdzJxjbGu4pDkLYjH8nvC07Ei5kuKHFfWOoUhYfsYa4sVbv2HLNPhCijROJnc2wN
- w3alVI4upquEH9K9WlWiR4LmhYmPB1fDjvRmWaOjwNd1CXZRWb0BmFzh1YYh2582eF
- 7Te4Xdt6ci55sGiEJd87M/+nqA+9tCP4P6unSIp7UhxnYpY1fXeLSgO97cYUmTCcW5
- E7KxEcNTxI1z+895k/e/BQN/9gQ4oSjpC8asrtSRrcUq/N6XVL7fsgiI9WZFP6i0w4
- TgGZbRqYqp3J+ezMeC+Ur5Ltc1xu0z4ra1WOe4fQ5/aacxXpHgAR3by3hYAJC2W69Y
- Ldh7f1JFoKchw==
+ b=BjWJSsKNinuypfGubENNVWFqa2Knj31uyNh+EqF5y6ebVyCjbRWKApp1g5isVcXgR
+ 39XFbK0s4tfS386Suk4GNIuSPqLLn4SrYpB1YP8m30WcKbPF8w5O2dCHgs1Lm25YUJ
+ 96sCHoc2Lj75yt5+SbYKcTa9EcGp1SBz/RWO7nkolNvrAp43Pc6sGml9XntyBUKl1p
+ jhQhmhgIygpdqsk2IFoOnwGuOYRiJLhVVEtN4JPYj6lGmSbSCV0P1s4DXUQkiBsN77
+ j6soXLtgQoFMbYtMlbo5FpAu+sNRrA186t16FGF4ifa7sKbSGBCnCcSRpAk/PJC6bo
+ SnncHYAekzW8g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.16 188/217] amdgpu/pm: Make sysfs pm attributes as
- read-only for VFs
-Date: Mon, 17 Jan 2022 21:19:11 -0500
-Message-Id: <20220118021940.1942199-188-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 052/188] drm/amd/display: check
+ top_pipe_to_program pointer
+Date: Mon, 17 Jan 2022 21:29:36 -0500
+Message-Id: <20220118023152.1948105-52-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220118021940.1942199-1-sashal@kernel.org>
-References: <20220118021940.1942199-1-sashal@kernel.org>
+In-Reply-To: <20220118023152.1948105-1-sashal@kernel.org>
+References: <20220118023152.1948105-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,62 +55,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com,
- Marina Nikolic <Marina.Nikolic@amd.com>, airlied@linux.ie,
- Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- christian.koenig@amd.com
+Cc: Lewis.Huang@amd.com, aric.cyr@amd.com, haonan.wang2@amd.com,
+ airlied@linux.ie, llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ meenakshikumar.somasundaram@amd.com, Jun.Lei@amd.com, lee.jones@linaro.org,
+ Jimmy.Kizito@amd.com, Sasha Levin <sashal@kernel.org>,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
+ michael.strauss@amd.com, harry.wentland@amd.com, Anson.Jacob@amd.com,
+ Abaci Robot <abaci@linux.alibaba.com>, nathan@kernel.org, Martin.Leung@amd.com,
+ Eric.Yang2@amd.com, Xinhui.Pan@amd.com, ndesaulniers@google.com,
+ christian.koenig@amd.com, Yang Li <yang.lee@linux.alibaba.com>,
+ daniel@ffwll.ch, Wayne.Lin@amd.com, Alex Deucher <alexander.deucher@amd.com>,
+ roy.chan@amd.com, nicholas.kazlauskas@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Marina Nikolic <Marina.Nikolic@amd.com>
+From: Yang Li <yang.lee@linux.alibaba.com>
 
-[ Upstream commit 11c9cc95f818f0f187e9b579a7f136f532b42445 ]
+[ Upstream commit a689e8d1f80012f90384ebac9dcfac4201f9f77e ]
 
-== Description ==
-Setting values of pm attributes through sysfs
-should not be allowed in SRIOV mode.
-These calls will not be processed by FW anyway,
-but error handling on sysfs level should be improved.
+Clang static analysis reports this error
 
-== Changes ==
-This patch prohibits performing of all set commands
-in SRIOV mode on sysfs level.
-It offers better error handling as calls that are
-not allowed will not be propagated further.
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:2870:7: warning:
+Dereference of null pointer [clang-analyzer-core.NullDereference]
+                if
+(top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
+                    ^
 
-== Test ==
-Writing to any sysfs file in passthrough mode will succeed.
-Writing to any sysfs file in ONEVF mode will yield error:
-"calling process does not have sufficient permission to execute a command".
+top_pipe_to_program being NULL is caught as an error
+But then it is used to report the error.
 
-Signed-off-by: Marina Nikolic <Marina.Nikolic@amd.com>
-Acked-by: Evan Quan <evan.quan@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+So add a check before using it.
+
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 41472ed992530..f8370d54100e8 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2123,6 +2123,12 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index c798c65d42765..1860ccc3f4f2c 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2703,7 +2703,8 @@ static void commit_planes_for_stream(struct dc *dc,
+ #endif
  
-+	/* setting should not be allowed from VF */
-+	if (amdgpu_sriov_vf(adev)) {
-+		dev_attr->attr.mode &= ~S_IWUGO;
-+		dev_attr->store = NULL;
-+	}
-+
- #undef DEVICE_ATTR_IS
- 
- 	return 0;
+ 	if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
+-		if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
++		if (top_pipe_to_program &&
++			top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
+ 			if (should_use_dmub_lock(stream->link)) {
+ 				union dmub_hw_lock_flags hw_locks = { 0 };
+ 				struct dmub_hw_lock_inst_flags inst_flags = { 0 };
 -- 
 2.34.1
 
