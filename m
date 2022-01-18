@@ -4,52 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 042D9C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 16:36:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27EC0C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 16:40:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A48C10E4E8;
-	Tue, 18 Jan 2022 16:36:11 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2529710E4E8
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 16:36:10 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id s9so29254972oib.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 08:36:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TMfk/4s/Nsrf3zOZBzJARnxGorL/g7IkChakciD0GiQ=;
- b=Fp7n5HNtkbvg1hdVITGX062paeKWNGaVfpxCU1hq3Qka5qLeZ4FZFwM0udlph+wCcg
- pzYx5xxwiYPe8+7z43pCRZiUMPTFOYLhh8PFURZ64g3HhjnTW6nXywya2iB6abH3MkEQ
- +O9mIt7CV0rduNns4Z4t603RSzy4vp+yMEDc4xkcqLDtpMgXUqaVRW4oBc0dG0pwTN6P
- 5aMeTTpZLDQ+kt8yF+zjn3E5FsJFBKj0+HPjuMnSK/OwVD3nE7rVGwW8gIsz+sEEGc4J
- lms1d2WzY7ygUFKQ2/H8ZEO/oU1LtKJYC53yXbDaZKY+6ahp/IZP5J59iu/3RNcXIw4u
- XlSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=TMfk/4s/Nsrf3zOZBzJARnxGorL/g7IkChakciD0GiQ=;
- b=rE0juSgxBfap70o9+dnP2nXxErpcCeajhhkZZJR/jCkBoT+/zlQ4m621WM5CvxG8Ox
- qD8x8ZTwrl8ZboGt7V2v3ifG4b3urVX0hN6T98bnYcsTXC88BmVcSwxmioJn/sG1URjB
- d6sC7cjhtaKDTLSi1a8AsPYMKfPHSxCOJJDMluws8EmPDz5hlIU/u9Iav814Zr/5Ixyv
- iRG8AlXZaPj4ML4E805zziRnH4IkL89jgOLeXEPeNtxhvfmNzssig0sOqSiRcDrkFMSD
- OfgW6Vimrmbqf4oXy68vpw9D6jYbYfvyLzfAg0V96Nf92e3NsKsqS063KCPrqcRFzUHK
- vO9Q==
-X-Gm-Message-State: AOAM530rm9xxIHVrNMyWU3vU0u/AfiwNaZUNW+EoQ5jEk/YZavHkd+vY
- y6wloVOKNi6IbbxzPa6plKG0TP217riNlo+Dc6k=
-X-Google-Smtp-Source: ABdhPJzGxXpoaojUrz73cVcgqGZPMg25Mgkt5aCNY7YXatDk6oJ1414vDBux21YwRdf+oHxnPpMCIEs6nUT4eTIbP2U=
-X-Received: by 2002:a05:6808:68f:: with SMTP id
- k15mr27220197oig.5.1642523769431; 
- Tue, 18 Jan 2022 08:36:09 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81AC310E5DC;
+	Tue, 18 Jan 2022 16:40:22 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2077.outbound.protection.outlook.com [40.107.96.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 739DA10E5DC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 16:40:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UBeOVKJ/4iwOrr8+esE90QCoGFRiiUEF9y6wc1BIaI0Tz2W9QHO0aCfKWPKbfDjzHP18L7b9q/AshwBrXytYkbW5aXMDc0OUoKiRkr0BrKo83abqcBez8yCqsbnH+w0/UVP+AEZ8WhvyzYeMVCVe0IXBUmchbO2tFxGzDLJZ9rLmDTvrlOHenyat8Nk/0EgwMxbW4CzKqSMZDgMprLjSrtmKe9I3RUef6sEb+fDVj3jYse7HRXunRVrMRwmLVjdBCFJyv/aVEKpUSQE37ITdJ8xlHswfhXn1JGEpxhIosL2tL//X83T7NXjX/PZ2PhXDsdf8PaNTXo1jWBG4DLNqww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+2pYaCajHnigTnKnRZ6Ph58kRU7JyzReH5737ji9JmQ=;
+ b=cPTIvLDqB0JwVAvtqF7NXq03hrlVG8ue3ZClD1bSjFcCfbeWQoZorjpl+AJ8AJge3/gOCZIwhsG3iI0uM37jIOkSUTvnCdHQrB+RCAE9/0VsPC9q0fqbz99RcakG2DVqYfe576HIit2CfOSC4RsZOTCwZHsgsV3aua+z5pgJTjCEeRQf6qYvfl7+ULH06QPT/40bX2oLV4M6Q6MX5DPE2DZm8AsWABbP9XOfwMZUG6QtOLLx0kOPrOi3Dw/PaJAADipn7II+3EtZbLR/lGCY6ggZ5NJQPr5U/3sX7It6CKel4G7g9sPnb0aOhaAXcoQb/btoeXOe0MghnTKlJXNDDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=chromium.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+2pYaCajHnigTnKnRZ6Ph58kRU7JyzReH5737ji9JmQ=;
+ b=zNBl/eLj5HIvG6KadEVGJfpQV8616DpPSZcPe0omt9Yw1E2maZloHTtCq9Hral49eowdyPObMzslId6nCE/c/drZnC7hpXkDP4tyM6RkZtwK0Il2u/r1qmtu+SnGZzmYkEeua0B6K+eFCzjPV/dscZZS5hXhApUuG+eIoZLnk7Q=
+Received: from DM5PR20CA0044.namprd20.prod.outlook.com (2603:10b6:3:13d::30)
+ by BN6PR12MB1570.namprd12.prod.outlook.com (2603:10b6:405:5::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Tue, 18 Jan
+ 2022 16:40:17 +0000
+Received: from DM6NAM11FT035.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:13d:cafe::8b) by DM5PR20CA0044.outlook.office365.com
+ (2603:10b6:3:13d::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10 via Frontend
+ Transport; Tue, 18 Jan 2022 16:40:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT035.mail.protection.outlook.com (10.13.172.100) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4888.9 via Frontend Transport; Tue, 18 Jan 2022 16:40:16 +0000
+Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 18 Jan
+ 2022 10:40:15 -0600
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: Mark Yacoub <markyacoub@chromium.org>, Leo Li <sunpeng.li@amd.com>, "Harry
+ Wentland" <harry.wentland@amd.com>
+Subject: [PATCH] drm/amd/display: Copy crc_skip_count when duplicating CRTC
+ state
+Date: Tue, 18 Jan 2022 11:40:04 -0500
+Message-ID: <20220118164004.601780-1-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220118161552.11122-1-jinhuieric.huang@amd.com>
-In-Reply-To: <20220118161552.11122-1-jinhuieric.huang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 18 Jan 2022 11:35:58 -0500
-Message-ID: <CADnq5_OVpDd7O+q=9N8j14dwa-+2PqKjmDvKv6JkQGiiuQDYSQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: enable heavy-weight TLB flush on Arcturus
-To: Eric Huang <jinhuieric.huang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: abe6e8a1-5c9b-4ac6-b4e3-08d9daa13556
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1570:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR12MB1570B62252E042D73A8CC6CE98589@BN6PR12MB1570.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: oh6rT4UYrwbtuet2ur0OY6XUrz8IB3rutjSn2SGLpkQ2ND+skjN7sUFvRkSkX2n3GYey+cHxd9k41vc/1mOjGGCilJU+AC26OrnQKYpXwSTQPxErPeS711YK895IdNW/btcKqxkz3C8xMKB7lC+S7rsxa/fMnjBGosm2JsmIGZkcAGkbs2QB1sH7e3qpAxmPNBZxo6ohmSjdfSQ6myklNRgfeil/fz5LNVseX513MKbNhz50D3H5I6OMeYTvIr7e2SdzJUp3nTMesUhWXTqZjadZPbknE/hNffN9cRdAeMkBrwhhyD6e//qVFeHvYuRq3XT5hSEmIj5Ae3OIA/DnRfOwGQYTOKYFcmI8K600T8WS1TOpZmyrmPsmYP8J+BfJ6IoJHy/Cp+5+n6YiE6m5DnlWFJltDwQxrN8+r2xOm55oUpp3OqU5vaXL3NnC//x5SBRqSs3fSRMx5PwKhRt/SbinaH/aisxUmU2tuwRjxw1gXKn0KVQHyWr/a39/K0napX4TQ2RYy9lDIJULy/HPv9SznJ6ORFxgP3XdwHo0PtQExOWcSsz61nN8jZY7/BJI256U23B8O2NRyuXpMfKSxiU4hGOf/aOtd/MsHG+C7FgwSvsgl+Wh4WdKdH9ykQXE/xpURX/I34wV2ajCLUJPEM6k6tEpQ+Dh3WJpasxkygUv3uL5qYneWQNJyeRDv4kGD9pSSuhl3pSVQRKKwsyzRFSY9Vw3uHeqUTLlK3PJng1tcUnQLXG8G1rFbqBqAoJz0PuVaDNHfgFvhPeEKHyY1FOOdB2oXtb70R8Szry9TRw=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(40470700002)(46966006)(16526019)(186003)(82310400004)(40460700001)(2906002)(86362001)(356005)(110136005)(54906003)(316002)(6636002)(81166007)(47076005)(36756003)(5660300002)(8936002)(426003)(6666004)(4326008)(8676002)(2616005)(1076003)(36860700001)(70586007)(70206006)(508600001)(26005)(336012)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2022 16:40:16.8319 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: abe6e8a1-5c9b-4ac6-b4e3-08d9daa13556
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT035.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1570
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,60 +101,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Nicholas Choi <Nicholas.Choi@amd.com>, amd-gfx@lists.freedesktop.org,
+ Hayden Goodfellow <hayden.goodfellow@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 18, 2022 at 11:16 AM Eric Huang <jinhuieric.huang@amd.com> wrote:
->
-> SDMA FW fixes the hang issue for adding heavy-weight TLB
-> flush on Arcturus, so we can enable it.
+From: Leo Li <sunpeng.li@amd.com>
 
-Do we need to check for a specific fw version?
+[Why]
+crc_skip_count is used to track how many frames to skip to allow the OTG
+CRC engine to "warm up" before it outputs correct CRC values.
+Experimentally, this seems to be 2 frames.
 
-Alex
+When duplicating CRTC states, this value was not copied to the
+duplicated state. Therefore, when this state is committed, we will
+needlessly wait 2 frames before outputing CRC values. Even if the CRC
+engine is already warmed up.
 
->
-> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 8 +++++---
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         | 3 ++-
->  2 files changed, 7 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index a64cbbd943ba..7b24a920c12e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1892,10 +1892,12 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
->                                 true);
->         ret = unreserve_bo_and_vms(&ctx, false, false);
->
-> -       /* Only apply no TLB flush on Aldebaran to
-> -        * workaround regressions on other Asics.
-> +       /* Only apply no TLB flush on Aldebaran and Arcturus
-> +        * to workaround regressions on other Asics.
->          */
-> -       if (table_freed && (adev->asic_type != CHIP_ALDEBARAN))
-> +       if (table_freed &&
-> +           (adev->asic_type != CHIP_ALDEBARAN) &&
-> +           (adev->asic_type != CHIP_ARCTURUS))
->                 *table_freed = true;
->
->         goto out;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index b570c0454ce9..ef4d676cc71c 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -1806,7 +1806,8 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
->         }
->         mutex_unlock(&p->mutex);
->
-> -       if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2)) {
-> +       if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
-> +           KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1)) {
->                 err = amdgpu_amdkfd_gpuvm_sync_memory(dev->adev,
->                                 (struct kgd_mem *) mem, true);
->                 if (err) {
-> --
-> 2.25.1
->
+[How]
+Copy the crc_skip_count as part of dm_crtc_duplicate_state.
+
+Cc: Mark Yacoub <markyacoub@chromium.org>
+Cc: Hayden Goodfellow <hayden.goodfellow@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Nicholas Choi <Nicholas.Choi@amd.com>
+
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 87299e62fe12..5482b0925396 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6568,6 +6568,7 @@ dm_crtc_duplicate_state(struct drm_crtc *crtc)
+ 	state->freesync_config = cur->freesync_config;
+ 	state->cm_has_degamma = cur->cm_has_degamma;
+ 	state->cm_is_degamma_srgb = cur->cm_is_degamma_srgb;
++	state->crc_skip_count = cur->crc_skip_count;
+ 	state->force_dpms_off = cur->force_dpms_off;
+ 	/* TODO Duplicate dc_stream after objects are stream object is flattened */
+ 
+-- 
+2.25.1
+
