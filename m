@@ -4,51 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77A88C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 20:31:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7041CC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 21:02:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BDEA10E11E;
-	Tue, 18 Jan 2022 20:31:39 +0000 (UTC)
-Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
- [IPv6:2607:f8b0:4864:20::c2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E715889FF6;
- Tue, 18 Jan 2022 20:31:37 +0000 (UTC)
-Received: by mail-oo1-xc2d.google.com with SMTP id
- v10-20020a4a244a000000b002ddfb22ab49so103154oov.0; 
- Tue, 18 Jan 2022 12:31:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1D1F10E12A;
+	Tue, 18 Jan 2022 21:02:35 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE2B610E12A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 21:02:34 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id u21so1091152edd.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 13:02:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=lS3GFrM29kfkWwvPWQIw4Pk6eycOPGCpsobayljmZkw=;
- b=V9sBl3RXniA+oUbr5FnqqjPErpemmaL+yQmC7+wieMHA1rxEIMHEQP4+Yptu/ZLS1i
- PEb6tz7rCo33HvMdh7OcQja7l54gxG1OQkx/I16eDZl2rqjp/r94C6LWg44v2DfNBmtA
- 0EaLrgcMP1wz+isVMSFmc+gYMUFLz4Pj9ARee4dTHPwiZhYkLt4phILDKcaG73lFo/sV
- ENoGra2xi3AHouWAArmOgW0QlglmwS1brr0rku2pyW+BtwB6bf2NvKuSwW6sy1MJs+Yy
- Dyy4HsBshi0av2Ut3fHrmL5RkRBuZ6T6l2slmxtTrIrHNPK5llCW0hUK4jh6ZHcrqwbg
- KtSg==
+ :cc; bh=JIig2TUYFZx/rNpd0WBgBD+R/juntr8CxXIj5A2GCqA=;
+ b=nqFhjhyMjed5/XO2wW7osCeqTaHDZXYdihVQFaJDSf3arWpBK6moqvPvcPLRZ08d3o
+ Sn34QnwaT1TM+oTfLgyttl9Un2FnyQ9SBHIySA/LSnsgUYdjT5+fobb2qE0ekNi2NMcr
+ 3ofUbSUDAY1bbpeH9efCa+4nu8DEZg36EDQwhg7mIVWAVCtY3bPye2iYQUwNMqZ16ocK
+ 0QkAUgpgHGSApk51JGMFdxNomSHRKuE399IDVmHvfYIzX1B4jXu5W3tveSH17G6GNFCW
+ xdnqNR+PKVASa0pSw9XariDudzJ/8PiBEfosr1jOyZQWxmjjXblU25JssoAQ9YGDo4X2
+ 1ZcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=lS3GFrM29kfkWwvPWQIw4Pk6eycOPGCpsobayljmZkw=;
- b=Osl/qBv77MRXDCZzc/ROxp1vQXc4nlaZol0znT7GmkOHrQaShYvkynOSGoOrUiWt46
- 5W72aYZbHxNy6KbQ9FjNV6PfgRAWNHOLOA4nU8TANunnslGlYfUfvPlGqv6reIwBEXTf
- 7z447INli98E4FxUMEdUl3tFWb1Fxl+9X3PgN+VV38qx1oqNR9Dvwt2nxN3qTxSlu8mM
- afOOI/sFbggHDMgKwVXUEeEHBNwbGWqQqCm+XQwJjTU7AsZfALDzclttAMvJqr4M4iIC
- cK7nplAacJrjATzGcuAlGwenEjxTiLZ1CgdLo/FCduqq28ihtw3kYkDekNJhcto6Umex
- 58Dw==
-X-Gm-Message-State: AOAM530I8GqEzKAaCgQUABJrOfPQFpyQEXbdOktntEvqLDhf3tPg76Nl
- AXtvl9RyMOacvjt1bHN8mk+9sf71UKT5efo+goE=
-X-Google-Smtp-Source: ABdhPJwC6J2yTtkomxVb1nBmVSS2A70Zz3uGg1xsukouvEGbNDpuyzjryP5ofkkY9baDzG+BHEx+p8BzBJelYa2CRdA=
-X-Received: by 2002:a4a:3412:: with SMTP id b18mr19430884ooa.23.1642537897267; 
- Tue, 18 Jan 2022 12:31:37 -0800 (PST)
+ bh=JIig2TUYFZx/rNpd0WBgBD+R/juntr8CxXIj5A2GCqA=;
+ b=tYccFogA6Y3MHDUJ9qLDlo3iLkioFBCP6orxNMMO2cTyJJCpacxCU5HMbkGGsw/FO8
+ ZfnRKV6+qbE93mpLZDCUS3rFoxyKcY09AoTpmTrog60dxy+7Sa/RPKUrAKyjz8dB8RNa
+ AQX+MY9+H52Z0fR6dUsOOBfuOM0nxicgKyeTiRuIa+klyLu+JQbyaokAhjmVQakX7YBZ
+ ZlBvGMZ6k9zeua8v1b8xvS2JKpI53OKfIOBN8gqIyOiaTwnNWdIrelTb1InYEOnT6Ubj
+ cNXizVRAPRh6xWzcXXqmEWtaoOqCwpSbYw628toWmqRw1+JJmMimVR3WK7n38Kja1KBq
+ PmVg==
+X-Gm-Message-State: AOAM530siSgYvajUAV66l3ilef6SkuesLIhSbbHlNEXyWQX3L1J51Sn1
+ ZAK2vxQ8cQqwaKdOmTQNTTQ9kPK1JPKy3JeT3Q6WW8gf
+X-Google-Smtp-Source: ABdhPJzTUg3FT+NsvsMnMRLhYo2VZ2ParTYojwBE3ZBo0/OoEdTvqOYRd6K15u2aykLGj/DCWbY4IGnmRA4R8i3aZxA=
+X-Received: by 2002:a17:906:6a1d:: with SMTP id
+ qw29mr8891610ejc.750.1642539753386; 
+ Tue, 18 Jan 2022 13:02:33 -0800 (PST)
 MIME-Version: 1.0
-References: <20220118075702.925929-1-chi.minghao@zte.com.cn>
-In-Reply-To: <20220118075702.925929-1-chi.minghao@zte.com.cn>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 18 Jan 2022 15:31:26 -0500
-Message-ID: <CADnq5_OeWEJq7Re-usY=m8vThD2jLyXObL6Cn_k3mZweFW_+Pg@mail.gmail.com>
-Subject: Re: [PATCH] amdgpu/amdgpu_psp: remove unneeded ret variable
-To: CGEL <cgel.zte@gmail.com>
+References: <20220118161552.11122-1-jinhuieric.huang@amd.com>
+ <CADnq5_OVpDd7O+q=9N8j14dwa-+2PqKjmDvKv6JkQGiiuQDYSQ@mail.gmail.com>
+ <2f7705db-d5ac-3e7c-a991-79634c0b9f8c@amd.com>
+ <DM5PR12MB1308EAE234EBFD55B3374B3085589@DM5PR12MB1308.namprd12.prod.outlook.com>
+ <CADnq5_N4i9+FfzUGD8UWrVjc-9rs78PEzMW9wpWeqe4JqQnvfg@mail.gmail.com>
+ <f182bb24-d2ff-f1e0-1a20-4b71b665d558@amd.com>
+In-Reply-To: <f182bb24-d2ff-f1e0-1a20-4b71b665d558@amd.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Wed, 19 Jan 2022 07:02:22 +1000
+Message-ID: <CAPM=9tzVkJsi5=+rMWDCx75y=s0jAibSk6KzS3opJW0yPvpgCA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: enable heavy-weight TLB flush on Arcturus
+To: Eric Huang <jinhuieric.huang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,63 +66,27 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: xinhui pan <Xinhui.Pan@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Dave Airlie <airlied@linux.ie>, John Clements <john.clements@amd.com>,
- Oak Zeng <Oak.Zeng@amd.com>, "Lazar, Lijo" <lijo.lazar@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Christian Koenig <christian.koenig@amd.com>, "Kim,
- Jonathan" <jonathan.kim@amd.com>, Minghao Chi <chi.minghao@zte.com.cn>,
- "Deucher, Alexander" <alexander.deucher@amd.com>, "Li,
- Candice" <candice.li@amd.com>, Lang Yu <lang.yu@amd.com>,
- Zeal Robot <zealci@zte.com.cn>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, "Russell,
+ Kent" <Kent.Russell@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Wed, 19 Jan 2022 at 06:14, Eric Huang <jinhuieric.huang@amd.com> wrote:
+>
+> I understand Alex's concern. I think usually we only check the version
+> when a feature is only available in a specific version, and other
+> version or newer version doesn't have.
+>
+> In case of FW fix, we assume the driver and FWs have to be synchronous.
+> If we have driver backward compatibility for FWs, there must be a lot of
+> redundant codes for FW version check. So this patch and SDMA fix will be
+> pushed into ROCm 5.1 release branch at the same time.
+>
 
-Alex
+Please remove that assumption from everwhere.
 
-On Tue, Jan 18, 2022 at 2:57 AM <cgel.zte@gmail.com> wrote:
->
-> From: Minghao Chi <chi.minghao@zte.com.cn>
->
-> Return value from amdgpu_bo_create_kernel() directly instead
-> of taking this in another redundant variable.
->
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
-> Signed-off-by: CGEL ZTE <cgel.zte@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index dee17a0e1187..ac2b87f81ef9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -914,19 +914,15 @@ static void psp_prep_ta_load_cmd_buf(struct psp_gfx_cmd_resp *cmd,
->  static int psp_ta_init_shared_buf(struct psp_context *psp,
->                                   struct ta_mem_context *mem_ctx)
->  {
-> -       int ret;
-> -
->         /*
->         * Allocate 16k memory aligned to 4k from Frame Buffer (local
->         * physical) for ta to host memory
->         */
-> -       ret = amdgpu_bo_create_kernel(psp->adev, mem_ctx->shared_mem_size,
-> +       return amdgpu_bo_create_kernel(psp->adev, mem_ctx->shared_mem_size,
->                                       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM,
->                                       &mem_ctx->shared_bo,
->                                       &mem_ctx->shared_mc_addr,
->                                       &mem_ctx->shared_buf);
-> -
-> -       return ret;
->  }
->
->  static void psp_ta_free_shared_buf(struct ta_mem_context *mem_ctx)
-> --
-> 2.25.1
->
+If you have released a fw into linux-firmware then you need to support
+it going forward, even if it means printing something in dmesg
+recommending people upgrade for features.
+
+Dave.
