@@ -4,120 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD5CC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 16:49:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46DB9C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 18:20:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3529510E28C;
-	Tue, 18 Jan 2022 16:49:13 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2087.outbound.protection.outlook.com [40.107.92.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A41510E28C
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 16:49:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEC2810E12F;
+	Tue, 18 Jan 2022 18:20:19 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2048.outbound.protection.outlook.com [40.107.94.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B77310E12F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 18:20:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i2O2n6HYDv3wCtGsaTNz+nVZHi7F0UVo3+IovwpgJzOcva/kqkEqFwNZ9eL4cDmeQtStBWlXkE8Ci5XeJ1dHntGmgKEp6HxTfQJrjnsbGsdagPIjIkoYtBZ+6U1jriVE3nBXLnyRoB5XNaT6MOPIezaaIdHov1lXKYzF/WhR/nF5jeCHCXaUCE5lzQeocDqJpnqLFwN5pkY7+y9PgrvUu1o+OpekUr1KOm02GMPEoRPc1Fz7Wbpj8Z6B9ybfoZYeTfcRpzt4xFF6vEdOR2m7qYSqUnRbF0z8Ih9UClUXHgiWEbAW9ZUxxbIQ2eH3dEJiKmJ0s2x2g5T2J8MnpJRklg==
+ b=aLgCZCIHs9JruQzLEtTfJzIgTrzkHyzqmxMaKioRotmCRH+NxAY2g9YjS7uz9wjaHreDF+dpqpPTwS7PlnROjftRZE68wEJNt7QY7O4ad8wHyVmIjB7MzJHIXX/2GsCekvJYB3lj10P97atWed+DRNM/82d/SeaY9HmCoWErJ1R2/kpxgnyT9TiAPdWX1Hr1jhso/tC6R8wfEaOjXFZl/eL7NS4wN76ZKLeFz51LYqTfd01CJ02YSVSwOxWXgNWtVBWgg8hBGa09yKsqR/Q0dg72QFY32dIDpBKoYaP93BAGpos/7PPru/tswLPYN7Fb+gcqBihOO0PnShIZB+lbhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1eMYtJ8vEv4EXDOjGwVPGfm97pj54yL1dX9fkf7Cbrs=;
- b=EWtRp2ef/DOWan/kx4mn3DjRvYFyH2TeTi38Jbp8ZTrZ+iLpcfiCez6AMrg5oXafMlvQLcCdI1htAlKJfknMHlmhBSOAl3i/l3+LYm8Tmd4x4Vqtp3B9GRaoGY1/76nKKV6LuTf85HDgve/Z3Dt0w2lCr9r3WmGNB3JrWrB/7Xvp2Vds58bKGSW9heucnO79Zqd/cXEa6upFej6UrPbdkm2mHYPdwuVmT6E3Ws+lGJOC4q59kCtS6Ogi9roPDIt/zuwM2V8ts/pU1SobFxHGEFTL9a7eOVeDf28zcD/07SOG1I8RkNvNo5NvKmCfaalGqR3BxnxVafF/CjXAiv/FGQ==
+ bh=2JMbUyjErrUk+WiNsnHQ95OosGASTWRHyPMWLxiIl8Y=;
+ b=EGQfdH5Ebo/TbwEhZS6/fxzGQ+wrEBZLADsn/KBbzV8bNKjzOxWKX8r1p/r6YTtI8ZIn+mqvkRsMLjdbCM836vinz7Ie9bmW/+xmOJGcyI+4sfOfXK9C1qt1CHzwVNMEMho8dOAOSI6VytBDLvAWoae83vCtFo1ExJMLzNVeWRvj7XMxqkJJmzb7g9VeeyNsQUzREGu4XwRtK595aC2sxx+uIn3PiPtGIBOZziKRC8Q5xXscPMatzT4fgLt09PWze7G0WSTIYrnJdk2Ll4W0XjchHSYxFh1TUp8+DdSnbpxCiB11e+BAZYvdzN2n8h22+AB6vSrtboYOEqf6BlAewQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1eMYtJ8vEv4EXDOjGwVPGfm97pj54yL1dX9fkf7Cbrs=;
- b=eVHiL2Bi/eqcggIO/mKfm5bnH+dBWMOMdSJgjRWcdksLfa0O4xnUAMbNsgfuVHU9qVeVUgj9ZYi6Dt1Fdfexvtp8BVm+nvxtTlpByIGGt39h/tcDJpMsQN0WEpgzbvx0cMaSL+bDTIzaGIBdSBkpeJFE3+Q7b92d0tTzH/mUkNU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5182.namprd12.prod.outlook.com (2603:10b6:5:395::24)
- by DM5PR12MB1802.namprd12.prod.outlook.com (2603:10b6:3:109::11) with
+ bh=2JMbUyjErrUk+WiNsnHQ95OosGASTWRHyPMWLxiIl8Y=;
+ b=VSLfDnLGafORLWK1pGgsl+TqQtTPFUy+/y7WSN8abjXliqXbK8v3QPiylj9IPhjHvkiZwkYvtJzOHvigqwlb4lGplVDy5GA/BvodbAxSXU7eNsFUzIcql7NMnf6UoEl9wgLS2uBA+grOLR6bsDrKYJXC8f2QcnlfkB8QhHjtwN4=
+Received: from BL1PR12MB5157.namprd12.prod.outlook.com (2603:10b6:208:308::15)
+ by MWHPR12MB1183.namprd12.prod.outlook.com (2603:10b6:300:d::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Tue, 18 Jan
- 2022 16:49:08 +0000
-Received: from DM4PR12MB5182.namprd12.prod.outlook.com
- ([fe80::98fd:4e9b:b4d6:64a3]) by DM4PR12MB5182.namprd12.prod.outlook.com
- ([fe80::98fd:4e9b:b4d6:64a3%7]) with mapi id 15.20.4888.014; Tue, 18 Jan 2022
- 16:49:08 +0000
-Message-ID: <46372b6f-0bb0-72e6-766b-b43afc2783c7@amd.com>
-Date: Tue, 18 Jan 2022 11:49:04 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/amd/display: Copy crc_skip_count when duplicating
- CRTC state
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.9; Tue, 18 Jan
+ 2022 18:20:17 +0000
+Received: from BL1PR12MB5157.namprd12.prod.outlook.com
+ ([fe80::42f:534d:e82:b59f]) by BL1PR12MB5157.namprd12.prod.outlook.com
+ ([fe80::42f:534d:e82:b59f%6]) with mapi id 15.20.4909.007; Tue, 18 Jan 2022
+ 18:20:17 +0000
+From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+To: "Liang, Prike" <Prike.Liang@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2] drm/amd: Warn users about potential s0ix problems
+Thread-Topic: [PATCH v2] drm/amd: Warn users about potential s0ix problems
+Thread-Index: AQHYByXifc5BzR5/BUKp3P/SNW4846xnfToQgAABRQCAAAFLkIAA/I2AgACk3wA=
+Date: Tue, 18 Jan 2022 18:20:16 +0000
+Message-ID: <BL1PR12MB5157646D2702EAB9B8CFA501E2589@BL1PR12MB5157.namprd12.prod.outlook.com>
+References: <20220111200026.15855-1-mario.limonciello@amd.com>
+ <BL1PR12MB5157190D878C197F8EBEAE78E2579@BL1PR12MB5157.namprd12.prod.outlook.com>
+ <BYAPR12MB4614363B37C7FCEB7150C29E97579@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <BL1PR12MB51576008119B2DDC0ED29904E2579@BL1PR12MB5157.namprd12.prod.outlook.com>
+ <BYAPR12MB32382789E82932190C6B1048FB589@BYAPR12MB3238.namprd12.prod.outlook.com>
+In-Reply-To: <BYAPR12MB32382789E82932190C6B1048FB589@BYAPR12MB3238.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Mark Yacoub <markyacoub@chromium.org>, Leo Li <sunpeng.li@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
-References: <20220118164004.601780-1-Rodrigo.Siqueira@amd.com>
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-In-Reply-To: <20220118164004.601780-1-Rodrigo.Siqueira@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0176.namprd13.prod.outlook.com
- (2603:10b6:208:2bd::31) To DM4PR12MB5182.namprd12.prod.outlook.com
- (2603:10b6:5:395::24)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bf71110a-42ac-4302-70c3-08d9daa2722f
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1802:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB18021A6ECA5391B5CA491F6BEC589@DM5PR12MB1802.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FlvwPtnE91UkjXESULZUWcpwPOdrSW7wiIdUYfPjoXmxvadiC8//rP6PIfCI04bPZR7r9z2Vglp4QUaVUO69UjLsqPusjJlomUZ3eqq5wQHls/KknXFLT+19btdBJb+dqP7t4N3ovNfQGIm/sHV/Ke8LSMqnc9qQUQ8YamwCkHDJR2vQGWo5Np5oVf1dqoS5XTOfvPPr/E/5LCyBznVjjBA6hAG4EMlF842ATNcvEW+r630WLtbq6HH7OtJjXkmBmNscOIC4kf0eZC1r+Dm8wf6iftHHFZNGU2RrnHpaA7eq2+FiEq2P/4biuTSEkFihb5QJWAiiCFjQ3ExaHIEwXg/slCFnu83C2O9HuA293RnqHZNtc+9BFz7X2d7ISdpkVZBhFgAomnZeHGVF9Z1tNHviCjI//tNQvXs6Q6JpYJq4Wtn3d8CIospdnZiXSrwdlah//ArGw/6z7O/HmNj3bXeH6quqThU+D/ckcAN/Cr5+3uO4Gr8+dSxE7YYb0ClXdYwF1jI5cE+pcz3Sp04llXvF11evOJYemTpBXU8F1JParZ7tn6jBS624XRm6zPCGZAaikKXnaxiB8zf3AB2g3xER7Gr0CIxO2Mj1Si6SYyoX+Tqz792+xyTrk4epF0GvpOncxjd3nskzYCaH+/XmYYnJqbxGsuvRukfXRwweQiLpm9eVXuF4r94UX/97SIAfpsa0iNzXWgblbuZmq3PGgbFBd/vueWnxWuCUpE93mIIytTBRgjQyb+/C1cV7PKDE
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5182.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(6666004)(6512007)(508600001)(6486002)(66476007)(2906002)(6636002)(8936002)(5660300002)(66946007)(2616005)(8676002)(66556008)(186003)(31686004)(110136005)(54906003)(26005)(36756003)(316002)(83380400001)(86362001)(4326008)(53546011)(38100700002)(31696002)(6506007)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-17T17:15:10.0000000Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-01-18T18:20:14Z
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: c5143e5c-8cc3-4186-a1e1-d0891c6c58d5
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a0cb294c-405e-4d54-e0cb-08d9daaf2dc7
+x-ms-traffictypediagnostic: MWHPR12MB1183:EE_
+x-microsoft-antispam-prvs: <MWHPR12MB1183679F1657DFBCDF5E2D39E2589@MWHPR12MB1183.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: jWi+BteC1OBQMLYI3gQPXHbWc3O2OTSzPpjXqu1m6MbSN2Y2I9WwoVFN2plOLE8xLY7lTVWhDr98L/PKSF1jRHal9drE0sSFL4TaIyHKbFrPCE6SV6Hi1Jmbe2lu9Pxo0Alna+Md+YBMpx4dw5XUhO/qdD0LUQO9mU89SXFvcjrPhqOsxBhV6ALKvCFTjNrhhvoZ31nNvd0NjNlmliIYjMi9CokR03SRNYZRUSHnKyA39RAcIkEe/vnCcOYi1c7GsuAy4G+bGuEVCkzwr+Wr9mjVhKXwol14zh3a835U7clkehjABLOPWBaUnD4JJ6sq40IpYUA1uffmZMvz+uN/aXbaQzXve7xG9ygKc43CdjkLH3P8fO+luZzstNYF/OfKysKNJfefAxKqb5lYvb6bWjzBmAKVUrrbblY1DHG0CamwgMBM/jnipGkeS/cMqJef4eONiOuu+g2rMB3pYGQDSCQMErP9v4keuzChnDrdqinBQiVTcDWwcL6AThcr/aa/cCdLuGqFDq3OKS8cYECCLAQUN7pR3wfsnFhwKURuYM6smnVBnAGtA00SoOG2H7duPgCi53FELv3zo7hIv4DLuNVZo4RVCLE4JEesvwMtaIckdwWTkpJj77Buj5CJUg+0Yb1qA0s8w4kOcFXAX8r4NFuoILqCfRAzFI8A6scgJwHMm2e2chZTeMpmQgTHmn1nCmepmL7SmisZcyZTZl5h0wuLVGML+dRF5XB9LI52VN8=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5157.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(55016003)(71200400001)(2906002)(33656002)(86362001)(7696005)(8936002)(508600001)(316002)(9686003)(38070700005)(8676002)(26005)(166002)(83380400001)(66446008)(6506007)(38100700002)(122000001)(66556008)(186003)(53546011)(64756008)(66476007)(5660300002)(4326008)(76116006)(66946007)(966005)(52536014)(110136005)(32563001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?elRrdExPSzg5bnd1bE11Wjh5dVVZbUU1S3JWMS9aY1ZUL3FwQ3dmMnUvYjcw?=
- =?utf-8?B?SVU0R0VORGJ0MzRJazk3ZUVzcndZL0JveWNXWW4xRmttZ3FVclUvdk5hZ3B5?=
- =?utf-8?B?dTNIeks0dlVKYkszNE9lUUs2ZlNTb2NSRlBCRzM1TWZVMnd5V2h0bjd6RnUy?=
- =?utf-8?B?c2hVbjZjOVJZRkl1MHd3dG1MbDQ4Umc0cEk4Nkthcy9qTU5nUVNWeUprMlkv?=
- =?utf-8?B?S0tQQ1hoem9xWTN0QTdLNG9PRm9ZU3pKUlB0My9XOTM3aUJ4Qlhia3l2TTR0?=
- =?utf-8?B?bFN5L0ZIcUQ3c2doNnE2N09WR2UrbGpMTiswd3F3cFArdlpEOWYwb2UyNHRL?=
- =?utf-8?B?SVduY1plM3lIY0JGSGdPSm5GQXlIU3dZdHh4eTBVdDdITDFObGY2eWtTcXQz?=
- =?utf-8?B?WWF1OGJES1hYb1B3SC9iK085ZFJoVUV0UGRGZUIzRmJjVzE4Skk4UllKMllq?=
- =?utf-8?B?aTZKTFZJQTRicGFnYWJ6bjU2RmRQa2F0ZVFyNWMwNlk4TzNiMG1SS2xidmNa?=
- =?utf-8?B?cldReXZDZDRtQW9TazRBM0I4NzdsL3dadDZsbWt2aWdHbmpNMHcwRk5pczhF?=
- =?utf-8?B?RDQ0QnJtQi9QcnRmRGQ3bFdIZDFla1BvV3RqbS9pMnEvWnY4aXN0Q3RyWXFF?=
- =?utf-8?B?QVhSZlFScCtpWFFuZmdSRy9MTSt6eU5EVUVLdDhmOS9LblBhMHBCVFllbjdN?=
- =?utf-8?B?NTdDc3l2d2xtTE9RU2RtVndtaml1b1pITk5UNGxzc0hVMGZlWkw4bWE5d1Ay?=
- =?utf-8?B?K1J3SDEwdjZwOEdVRzBiQmkxblM5ckpvSWNiQmpwMjJZaFhsOTBkMzNIbkxr?=
- =?utf-8?B?UmdVaTNoNTI0MDdURXQrOGx4QnlBVEdGNTFSQXQ0VytxV0o4dFg2QUlGU0Vw?=
- =?utf-8?B?K3JLSmQyLzJoS1JQeHo1NFRJSU1Pbkl6aitkdXdPRjRnekgyUEZ5Z1hOd0F0?=
- =?utf-8?B?c21UUkRubGEwME5pbmk1L2JFTXpBekovbm9TazhKR0RVeFlvTStjbEc1Tm14?=
- =?utf-8?B?eFVwMHBMR0d2bjM2eUxYWFFjaDVPbTZXSEJoVEJsWGN4L0svdithRE90Z09O?=
- =?utf-8?B?S0tZZkVCNzBOOW11MEMvdlBWbFd3ZjYrdk9BQkRJeDAyaXpZZ3pzQ0I0QmV4?=
- =?utf-8?B?dk1OcTl0MWxuN3pLbFA3Q0xCREhpaXlBK1NpQWlmRW9rb3dnMVJFN2dVSDlj?=
- =?utf-8?B?MktCbnhobWN1Q1B3aFFMQzhDbEZ6azN4Z2psNEQ4cGtMN0hKem5sSFNmeDhl?=
- =?utf-8?B?WVRsK1V6Mlk0T29hbGl4bk9DdUYxS0hZbmtreVNWUGo0dXQvaEFIcHpMa0Vv?=
- =?utf-8?B?eXNHa1ZaWkNETjQ2SmxkTXRPR0dQazJ2aW05aG9KV3Bhc2VvemFPQUdEdWNt?=
- =?utf-8?B?L3E0cXd6MzlpV2JYVnJkNVpFMlJiYlEzZkxkODEvellWTkh1WWd2MmRzeC8r?=
- =?utf-8?B?VjBMbDFsRnFWYktxOGxEL01EYmVMeGIySW1SWEp3amJtQ0ppVHFjL1l5R0ZH?=
- =?utf-8?B?bm5CelNYN1pQYlp3c2lURFMxaVU5WUkvSC95ZkFGUS8xcDhiWHZOUWtlaFdO?=
- =?utf-8?B?UUN0QjFCQUJtNnUyVWlYZ1ArSmtpM1NwZGZLUEVhZzl5dExpS2N5b2NBaElM?=
- =?utf-8?B?YXdBeHdJNS9TSEc5M25HS1pmay93Q0xsTkhCR3VDS1dWaHZNeUk1aXg4NDJF?=
- =?utf-8?B?UHduM3ZMVjcxb1BiK1hDYy82N0NXaGIwWGFuWXNlU1lsbGhyVE5DWU9MZHQ5?=
- =?utf-8?B?VkJMK1p2ZmNicTR1TWRSQ3BHaHBVeDRyMVdlWXMxN09XQkljSTlXbGJ5aHJK?=
- =?utf-8?B?bVp2SXpnYjdGRGlDbkdoanVGSDhiVnZyZUtmNU80SmV3VUhZcStBTDREaElj?=
- =?utf-8?B?MXYvbVZlb0JudE5vaHpZcTlaRDA3UUtjY3g3eU5yZ3BIZm9kRXBGekpDMlRC?=
- =?utf-8?B?SUZqRXVhTWJNRWxxbXF6RDM5c09oMzQ0bCs0dEk1eHdjaStVZml2NlowWHFs?=
- =?utf-8?B?Y1UyRU9hb1p6bkd1TE5lMVk2Vm8xWTRUTStRcU9VSVF6cWFvK3NtYitSQnk0?=
- =?utf-8?B?SWppYnNTWnRPbStlMVNnK0p6V040SE5CVDVheHpQcHFKdGNOY3lqZExwTCtm?=
- =?utf-8?B?dXdBdytOdnZHSUdtNjA1MFQzdFhJQW1WY1NxV0FWS1JFR0NLTW9ZMVJFdDBC?=
- =?utf-8?Q?lHaJiy5UKHbrWXT6ALNG+8M=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PsoJobNpv4+hrcydZJGxt0JvOp/uY0pXff/7/lC27vO8bzqi+5IQ6uEkUruC?=
+ =?us-ascii?Q?EZR7CNfOCMkn0+WpJ0FsPrFhjK/Gswx/tTzWIMfiWTTdhaTkao2yfMixjL58?=
+ =?us-ascii?Q?o5D4cidxHXQntPoIuy5wAkG/Y6XQAkorVtjGEKuLkbrP2qVwKP9WWgbruOiS?=
+ =?us-ascii?Q?NalQg0nGAU+4NPlrDyXYCoLpDKtJJAi9OFFYIfL9OfKdvy8QKkNY9aeiu/0v?=
+ =?us-ascii?Q?uVHXBMZ5KVyyKSUGQFyR7JSNswu+/E2OE9mfBTZIvwFxywK24iGBPdtOLWaj?=
+ =?us-ascii?Q?dly4XepFlAO7/Fqgp+gAMdqh0SJWyAWYA1DAhaQrQPKzmLKgYSvDa81uFSxZ?=
+ =?us-ascii?Q?hsk+OtkQj95I7eEZxHfXX8qGtxhXp69YRqWFhiY/NFvZIaL68eoZ91MIphEw?=
+ =?us-ascii?Q?hw7xm5yaXG5CAONW1s4jpNHL7iUJYUCfHpTeMpwgIRXgSgr/kfxoZAHN4aaq?=
+ =?us-ascii?Q?N4KOLXHIlPaz31Ui40sf0Xl9BsYhn4GFn6UqGXFFs71xkPMsYmcpS+FFtKbd?=
+ =?us-ascii?Q?eP4qjh9Qh8f41b7pUfvRCcf2bx6z3tiImZXH56ACpABIwPgKpZqAf1YYNZ9O?=
+ =?us-ascii?Q?dFcVhxu0OijN+taw21a4neG7g24oR7RuAYhFRmBrTIcAfYbRWfGj7sYQ/yLg?=
+ =?us-ascii?Q?lGTmvwX5fFu8SiEPUKv/MOe4Rj35hTrMSrcGi41iVgE8ck2yM5Ua7G0dpHcm?=
+ =?us-ascii?Q?umbrD3Q3Ohotk+q/eiYh6QsV6GinTuXsmau64OgBiBELzlF188r8eLyx3VcA?=
+ =?us-ascii?Q?1GoDrwirF7RdevAAhis3X1r2NK6gttyxiAW6RnXu/E6HCnuPTSty1paXqC4H?=
+ =?us-ascii?Q?Lrokitre1vybd97z8NMCweoQldax8YR8ASYbRiCdG+QoUQVzYjiEkXzfSWzh?=
+ =?us-ascii?Q?G93ovZuvk+LkC32hGMwQZkG3di0wKb79gFPxMQsFQPMGOWUkV+mX1cSY3mSD?=
+ =?us-ascii?Q?voHDbcVfPvVfHQU7ueW3jJn6rE45hV238g/RPzy7QZ89v8eUAbGVhB9x63GH?=
+ =?us-ascii?Q?PKWfFpJ8q7lUIlL5jCyi05BBI8dH+ikQKONjYDm6woCD0Pwym65V0EmrJfVf?=
+ =?us-ascii?Q?csrkdofjPgulgSeq3jps3uSXXtn+FS42BLUT7v0DbnohZ69fcrtX/a6Jvawm?=
+ =?us-ascii?Q?W3j8ODppsXH2UkAjIAi9IMV4bD0f9olo4OLZ20ZgQKrmv1uExN6lp60+uUL+?=
+ =?us-ascii?Q?apjIkcY8MoqwAK0nrm3Z4oD+YbNfzRXg+z9kgGwkernvvvxMA4RB6VARwZFc?=
+ =?us-ascii?Q?EGz++5r2k6tA+WSWAMnCLfs9GXtorWkHTDwQchg7fHl7fgFkY6P1zs3w+BBm?=
+ =?us-ascii?Q?DKt6XAx/aMVWrl+IG3xl+35crGN/dkN5Gx3IEW/CMd+GhclEO9qJoZ+R20H/?=
+ =?us-ascii?Q?e6CkM7BZ/8dcvG1t0yQ492hEoOe2I/VBu1KDmB9uaXArUVKRLaL2cvCgbSnF?=
+ =?us-ascii?Q?Brzl8/k1RlddJEJUP+tEPu6DpG+kNalJLsV1lQIQP9rqD0Sve5vWKQt5cFJn?=
+ =?us-ascii?Q?0QHd4jJ+63g6GhGSLGHZ34qBJ6i5EjCoGem4uO9ymzDxoYNr14A/Eas3NnSs?=
+ =?us-ascii?Q?zgOAz2OfaVUr4mvZcidqjRt4A8K0xh3uJke5UBr+aJBRY591VuFM2nSLhVrU?=
+ =?us-ascii?Q?Z6Fhe1VQJDQchb4sWo80RvE=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB5157646D2702EAB9B8CFA501E2589BL1PR12MB5157namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf71110a-42ac-4302-70c3-08d9daa2722f
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5182.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2022 16:49:08.7353 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F6dkjqeAiRj8LxIBjP+ab/pMS7pHpJvK/MkgGC/VlDVDxp3YrHZ54uztUDuJ//dMp5zQ9HGjIQ4ZX0CvlMXBPQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1802
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5157.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0cb294c-405e-4d54-e0cb-08d9daaf2dc7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jan 2022 18:20:16.9978 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hn7dncY3WGoSUSw3vpAsC6UZMXp5xzFmYNBuz7MIyxGL1HwtqJyZzzi7oiMYMi1YKzxc795QRxA76nOThvoz0Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1183
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,74 +135,441 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nicholas Choi <Nicholas.Choi@amd.com>, amd-gfx@lists.freedesktop.org,
- Hayden Goodfellow <hayden.goodfellow@amd.com>
+Cc: Bjoren Dasse <bjoern.daase@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/18/2022 11:40 AM, Rodrigo Siqueira wrote:
-> From: Leo Li <sunpeng.li@amd.com>
-> 
-> [Why]
-> crc_skip_count is used to track how many frames to skip to allow the OTG
-> CRC engine to "warm up" before it outputs correct CRC values.
-> Experimentally, this seems to be 2 frames.
-> 
-> When duplicating CRTC states, this value was not copied to the
-> duplicated state. Therefore, when this state is committed, we will
-> needlessly wait 2 frames before outputing CRC values. Even if the CRC
-> engine is already warmed up. >
-> [How]
-> Copy the crc_skip_count as part of dm_crtc_duplicate_state.
+--_000_BL1PR12MB5157646D2702EAB9B8CFA501E2589BL1PR12MB5157namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-This likely introduces regressions.
+[Public]
 
-Here's an example case where it can take two frames even after the CRTC 
-is enabled:
+That is what I was hoping to convey with the warning messages.  I'll take a=
+ stab at rewording them and send out an updated revision.
 
-1. VUPDATE is before line 0, in the front porch, counter=0
-2. Flip arrives before VUPDATE is signaled, but does not finish 
-programming until after VUPDATE point, counter=0.
-3. Vblank counter increments, counter=1.
-4. Flip programming finishes, counter=1.
-5. OS delay happens, cursor programming is delayed, counter=1.
-6. Cursor programming starts, counter=1.
-7. VUPDATE fires, updating frame but missing cursor, counter=1.
-8. Cursor programming finishes, counter=2.
-9. Cursor programming pending for counter=2.
+From: Liang, Prike <Prike.Liang@amd.com>
+Sent: Tuesday, January 18, 2022 02:28
+To: Limonciello, Mario <Mario.Limonciello@amd.com>; Lazar, Lijo <Lijo.Lazar=
+@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Bjoren Dasse <bjoern.daase@gmail.com>
+Subject: RE: [PATCH v2] drm/amd: Warn users about potential s0ix problems
 
-This is a little contrived, but I've seen something similar happen 
-during IGT testing before.
+If the flag ACPI_FADT_LOW_POWER_S0 not set or AMDPMC driver not build, then=
+ that seems will mess up the suspend entry and unable to enter either S3 no=
+r S2idle properly. In this S2idle configuration issue case, how about add s=
+ome message to notify end user how to configure S2idle correctly?
 
-This is because cursor update happens independent of the rest of plane 
-programming and is tied to a separate lock. That lock part can't change 
-due to potential for stuttering, but the first part could be fixed.
+Thanks,
+Prike
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> On Behalf Of Limonciello, Mario
+Sent: Tuesday, January 18, 2022 1:26 AM
+To: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>; amd-gfx@li=
+sts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Cc: Bjoren Dasse <bjoern.daase@gmail.com<mailto:bjoern.daase@gmail.com>>
+Subject: RE: [PATCH v2] drm/amd: Warn users about potential s0ix problems
 
-Regards,
-Nicholas Kazlauskas
 
-> 
-> Cc: Mark Yacoub <markyacoub@chromium.org>
-> Cc: Hayden Goodfellow <hayden.goodfellow@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Nicholas Choi <Nicholas.Choi@amd.com>
-> 
-> Signed-off-by: Leo Li <sunpeng.li@amd.com>
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+[Public]
+
+Yes, that's part of why I want to make sure there are explicit warnings to =
+users about using this flow.
+When not enabled in ACPI then also the LPS0 device is not exported and AMD_=
+PMC won't load or be used.
+
+I think from amdgpu perspective it should behave relatively similar to an a=
+borted suspend.
+
+From: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>
+Sent: Monday, January 17, 2022 11:20
+To: Limonciello, Mario <Mario.Limonciello@amd.com<mailto:Mario.Limonciello@=
+amd.com>>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.o=
+rg>
+Cc: Bjoren Dasse <bjoern.daase@gmail.com<mailto:bjoern.daase@gmail.com>>
+Subject: Re: [PATCH v2] drm/amd: Warn users about potential s0ix problems
+
+Any problem with PMFW sequence in the way Linux handles s2idle when it's no=
+t enabled in ACPI?
+
+Thanks,
+Lijo
+________________________________
+From: Limonciello, Mario <Mario.Limonciello@amd.com<mailto:Mario.Limonciell=
+o@amd.com>>
+Sent: Monday, January 17, 2022 10:45:44 PM
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>; Lazar, =
+Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>
+Cc: Bjoren Dasse <bjoern.daase@gmail.com<mailto:bjoern.daase@gmail.com>>
+Subject: RE: [PATCH v2] drm/amd: Warn users about potential s0ix problems
+
+[Public]
+
+This has been sitting a week or so.
+Bump on review for this patch.
+
+> -----Original Message-----
+> From: Limonciello, Mario <Mario.Limonciello@amd.com<mailto:Mario.Limoncie=
+llo@amd.com>>
+> Sent: Tuesday, January 11, 2022 14:00
+> To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+> Cc: Limonciello, Mario <Mario.Limonciello@amd.com<mailto:Mario.Limonciell=
+o@amd.com>>; Bjoren Dasse
+> <bjoern.daase@gmail.com<mailto:bjoern.daase@gmail.com>>
+> Subject: [PATCH v2] drm/amd: Warn users about potential s0ix problems
+>
+> On some OEM setups users can configure the BIOS for S3 or S2idle.
+> When configured to S3 users can still choose 's2idle' in the kernel by
+> using `/sys/power/mem_sleep`.  Before commit 6dc8265f9803
+> ("drm/amdgpu:
+> always reset the asic in suspend (v2)"), the GPU would crash.  Now when
+> configured this way, the system should resume but will use more power.
+>
+> As such, adjust the `amdpu_acpi_is_s0ix function` to warn users about
+> potential power consumption issues during their first attempt at
+> suspending.
+>
+> Reported-by: Bjoren Dasse <bjoern.daase@gmail.com<mailto:bjoern.daase@gma=
+il.com>>
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1824<https://nam11.=
+safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgitlab.freedesktop.or=
+g%2Fdrm%2Famd%2F-%2Fissues%2F1824&data=3D04%7C01%7CPrike.Liang%40amd.com%7C=
+925d02acbde94f61cb2b08d9d9de74bc%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0=
+%7C637780371747154944%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV=
+2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=3DfO8dU9u204YesBNjoI99%2=
+BAkngggcEgkQhet2mnkCRls%3D&reserved=3D0>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com<mailto:mario.=
+limonciello@amd.com>>
 > ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 87299e62fe12..5482b0925396 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6568,6 +6568,7 @@ dm_crtc_duplicate_state(struct drm_crtc *crtc)
->   	state->freesync_config = cur->freesync_config;
->   	state->cm_has_degamma = cur->cm_has_degamma;
->   	state->cm_is_degamma_srgb = cur->cm_is_degamma_srgb;
-> +	state->crc_skip_count = cur->crc_skip_count;
->   	state->force_dpms_off = cur->force_dpms_off;
->   	/* TODO Duplicate dc_stream after objects are stream object is flattened */
->   
+> v1->v2:
+>  * Only show messages in s2idle cases
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> index 4811b0faafd9..1295de6d6c30 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -1040,11 +1040,15 @@ void amdgpu_acpi_detect(void)
+>   */
+>  bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev)
+>  {
+> -#if IS_ENABLED(CONFIG_AMD_PMC) && IS_ENABLED(CONFIG_SUSPEND)
+> -     if (acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0) {
+> -             if (adev->flags & AMD_IS_APU)
+> -                     return pm_suspend_target_state =3D=3D
+> PM_SUSPEND_TO_IDLE;
+> -     }
+> +     if (!(adev->flags & AMD_IS_APU) ||
+> +         pm_suspend_target_state !=3D PM_SUSPEND_TO_IDLE)
+> +             return false;
+> +     if (!(acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0))
+> +             dev_warn_once(adev->dev,
+> +                           "BIOS is not configured for suspend-to-idle, =
+power
+> consumption will be higher\n");
+> +#if !IS_ENABLED(CONFIG_AMD_PMC)
+> +     dev_warn_once(adev->dev,
+> +                   "amd-pmc is not enabled in the kernel, power
+> consumption will be higher\n");
+>  #endif
+> -     return false;
+> +     return true;
+>  }
+> --
+> 2.25.1
 
+--_000_BL1PR12MB5157646D2702EAB9B8CFA501E2589BL1PR12MB5157namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+p.msipheaderc10f11a2, li.msipheaderc10f11a2, div.msipheaderc10f11a2
+	{mso-style-name:msipheaderc10f11a2;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheaderc10f11a2" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]</s=
+pan><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">That is what I was hoping to convey with the warning=
+ messages.&nbsp; I&#8217;ll take a stab at rewording them and send out an u=
+pdated revision.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Liang, Prike &lt;Prike.Liang@amd.com&gt=
+; <br>
+<b>Sent:</b> Tuesday, January 18, 2022 02:28<br>
+<b>To:</b> Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;; Lazar, Lij=
+o &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
+<b>Cc:</b> Bjoren Dasse &lt;bjoern.daase@gmail.com&gt;<br>
+<b>Subject:</b> RE: [PATCH v2] drm/amd: Warn users about potential s0ix pro=
+blems<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">If the flag ACPI_FADT_LOW_POWER_S0 not set or AMDPMC=
+ driver not build, then that seems will mess up the suspend entry and unabl=
+e to enter either S3 nor S2idle properly. In this S2idle configuration issu=
+e case, how about add some message
+ to notify end user how to configure S2idle correctly?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Prike<o:p></o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-b=
+ounces@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt;
+<b>On Behalf Of </b>Limonciello, Mario<br>
+<b>Sent:</b> Tuesday, January 18, 2022 1:26 AM<br>
+<b>To:</b> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">Lijo.Lazar=
+@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<b>Cc:</b> Bjoren Dasse &lt;<a href=3D"mailto:bjoern.daase@gmail.com">bjoer=
+n.daase@gmail.com</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH v2] drm/amd: Warn users about potential s0ix pro=
+blems<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheaderc10f11a2" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]</s=
+pan><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Yes, that&#8217;s part of why I want to make sure th=
+ere are explicit warnings to users about using this flow.<o:p></o:p></p>
+<p class=3D"MsoNormal">When not enabled in ACPI then also the LPS0 device i=
+s not exported and AMD_PMC won&#8217;t load or be used.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I think from amdgpu perspective it should behave rel=
+atively similar to an aborted suspend.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.=
+Lazar@amd.com">Lijo.Lazar@amd.com</a>&gt;
+<br>
+<b>Sent:</b> Monday, January 17, 2022 11:20<br>
+<b>To:</b> Limonciello, Mario &lt;<a href=3D"mailto:Mario.Limonciello@amd.c=
+om">Mario.Limonciello@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<b>Cc:</b> Bjoren Dasse &lt;<a href=3D"mailto:bjoern.daase@gmail.com">bjoer=
+n.daase@gmail.com</a>&gt;<br>
+<b>Subject:</b> Re: [PATCH v2] drm/amd: Warn users about potential s0ix pro=
+blems<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
+121">Any problem with PMFW sequence in the way Linux handles s2idle when it=
+'s not enabled in ACPI?<o:p></o:p></span></p>
+</div>
+<div id=3D"ms-outlook-mobile-signature">
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<p class=3D"MsoNormal">Thanks,<br>
+Lijo<o:p></o:p></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"1" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Limonciello, Mario &lt;</span><a href=3D"mailto:Mar=
+io.Limonciello@amd.com">Mario.Limonciello@amd.com</a><span style=3D"color:b=
+lack">&gt;<br>
+<b>Sent:</b> Monday, January 17, 2022 10:45:44 PM<br>
+<b>To:</b> </span><a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@=
+lists.freedesktop.org</a><span style=3D"color:black"> &lt;</span><a href=3D=
+"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><sp=
+an style=3D"color:black">&gt;; Lazar, Lijo &lt;</span><a href=3D"mailto:Lij=
+o.Lazar@amd.com">Lijo.Lazar@amd.com</a><span style=3D"color:black">&gt;<br>
+<b>Cc:</b> Bjoren Dasse &lt;</span><a href=3D"mailto:bjoern.daase@gmail.com=
+">bjoern.daase@gmail.com</a><span style=3D"color:black">&gt;<br>
+<b>Subject:</b> RE: [PATCH v2] drm/amd: Warn users about potential s0ix pro=
+blems</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">[Public]<br>
+<br>
+This has been sitting a week or so.<br>
+Bump on review for this patch.<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: Limonciello, Mario &lt;<a href=3D"mailto:Mario.Limonciello@amd.c=
+om">Mario.Limonciello@amd.com</a>&gt;<br>
+&gt; Sent: Tuesday, January 11, 2022 14:00<br>
+&gt; To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.fre=
+edesktop.org</a><br>
+&gt; Cc: Limonciello, Mario &lt;<a href=3D"mailto:Mario.Limonciello@amd.com=
+">Mario.Limonciello@amd.com</a>&gt;; Bjoren Dasse<br>
+&gt; &lt;<a href=3D"mailto:bjoern.daase@gmail.com">bjoern.daase@gmail.com</=
+a>&gt;<br>
+&gt; Subject: [PATCH v2] drm/amd: Warn users about potential s0ix problems<=
+br>
+&gt; <br>
+&gt; On some OEM setups users can configure the BIOS for S3 or S2idle.<br>
+&gt; When configured to S3 users can still choose 's2idle' in the kernel by=
+<br>
+&gt; using `/sys/power/mem_sleep`.&nbsp; Before commit 6dc8265f9803<br>
+&gt; (&quot;drm/amdgpu:<br>
+&gt; always reset the asic in suspend (v2)&quot;), the GPU would crash.&nbs=
+p; Now when<br>
+&gt; configured this way, the system should resume but will use more power.=
+<br>
+&gt; <br>
+&gt; As such, adjust the `amdpu_acpi_is_s0ix function` to warn users about<=
+br>
+&gt; potential power consumption issues during their first attempt at<br>
+&gt; suspending.<br>
+&gt; <br>
+&gt; Reported-by: Bjoren Dasse &lt;<a href=3D"mailto:bjoern.daase@gmail.com=
+">bjoern.daase@gmail.com</a>&gt;<br>
+&gt; Link: <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=
+=3Dhttps%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1824&amp=
+;data=3D04%7C01%7CPrike.Liang%40amd.com%7C925d02acbde94f61cb2b08d9d9de74bc%=
+7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637780371747154944%7CUnknown%7=
+CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn=
+0%3D%7C3000&amp;sdata=3DfO8dU9u204YesBNjoI99%2BAkngggcEgkQhet2mnkCRls%3D&am=
+p;reserved=3D0">
+https://gitlab.freedesktop.org/drm/amd/-/issues/1824</a><br>
+&gt; Signed-off-by: Mario Limonciello &lt;<a href=3D"mailto:mario.limonciel=
+lo@amd.com">mario.limonciello@amd.com</a>&gt;<br>
+&gt; ---<br>
+&gt; v1-&gt;v2:<br>
+&gt;&nbsp; * Only show messages in s2idle cases<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 16 ++++++++++------<b=
+r>
+&gt;&nbsp; 1 file changed, 10 insertions(+), 6 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c<br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c<br>
+&gt; index 4811b0faafd9..1295de6d6c30 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c<br>
+&gt; @@ -1040,11 +1040,15 @@ void amdgpu_acpi_detect(void)<br>
+&gt;&nbsp;&nbsp; */<br>
+&gt;&nbsp; bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev)<br>
+&gt;&nbsp; {<br>
+&gt; -#if IS_ENABLED(CONFIG_AMD_PMC) &amp;&amp; IS_ENABLED(CONFIG_SUSPEND)<=
+br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (acpi_gbl_FADT.flags &amp; ACPI_FADT_LOW_=
+POWER_S0) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (adev-&gt;flags &amp; AMD_IS_APU)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return pm_suspend_targe=
+t_state =3D=3D<br>
+&gt; PM_SUSPEND_TO_IDLE;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;flags &amp; AMD_IS_APU) ||<br=
+>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_suspend_target_st=
+ate !=3D PM_SUSPEND_TO_IDLE)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return false;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!(acpi_gbl_FADT.flags &amp; ACPI_FADT_LO=
+W_POWER_S0))<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_warn_once(adev-&gt;dev,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; &quot;BIOS is not configured for suspend-to-idle, power<br>
+&gt; consumption will be higher\n&quot;);<br>
+&gt; +#if !IS_ENABLED(CONFIG_AMD_PMC)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; dev_warn_once(adev-&gt;dev,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;amd-pmc is not enabled in the=
+ kernel, power<br>
+&gt; consumption will be higher\n&quot;);<br>
+&gt;&nbsp; #endif<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
+&gt;&nbsp; }<br>
+&gt; --<br>
+&gt; 2.25.1<o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB5157646D2702EAB9B8CFA501E2589BL1PR12MB5157namp_--
