@@ -4,117 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C146C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 21:50:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92A59C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 22:45:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E846510E1FF;
-	Tue, 18 Jan 2022 21:50:37 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2057.outbound.protection.outlook.com [40.107.243.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C299910E19F
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 21:50:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1141D89E65;
+	Tue, 18 Jan 2022 22:45:38 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2087.outbound.protection.outlook.com [40.107.101.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BE7C10E38D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 22:45:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QPOnKguJ+luWAL9qt0uUV0pQM8XX2yT9vpUvfK2NRifONNBstPeHqAO5SPeyDe0IjAuUZvOpfL4RiUXNLsSvS4XYSszsyv8Yv4Ttz4V5dt+9rpnpGv3UbXRTYsfUGn6ZvwpZeoIf4o3rH71n6Q8nd4HGU/8TcWxEtsPji71wPvt0qmBAUtY6fH8lNbIcOHKkYdS6+cwHBLDHFP7dftbqjW3p4L8IH2R1557PtXL1YtbbzWUmgOMeLKJpniAZjAlhwpr9axwnSHRCi3A8QdIEctYerbPTDM0r86M32qg1hggxcEYUJYNGFiGp6IWVbh5IeocT4LzOp/S6V1Sf3OhQfg==
+ b=Zloj2t9ROFz6K/ewJmIXlJt7jfcYiUDZiXLldQy5O/GMJ3fara+IP7L4hBJeaA/kJuB73Fzy/WX2NJspH+bDglcskU3LIXX8jD07vEpdlheGrcFl5xYwR5s3bkB6v0GGHLf2YOFtwCXrF9UZKuQXdm9F9HiSH8nf02vLWq5RdX2TFryeBO979sOCfBksItzSxiCMEs2pG5YDmJXAuham1k5mOnrSpqFhrcxA+kEeZYYwNvyw0KgMQ96lQGsEDx9v4kFh5WT4ajigTbxF10NDmIwT9NLZkpovVCkq97smBuUQnUjINMBidZVS2XJi/FcOWVgiU6Ka+710Rx0k6IRISw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S5cyHuCelEUvWA4UzLhv++G1GZ/7xOuh42LmOG52zJk=;
- b=al6YhrpKhhDihVKBkOyyTe+OTSzpArualXDtZnKv7LC6Mr+/tesjfCq/g5hRdaNrbiOiL/xpQvk9Af6lbItLcNbtAuzLkGqGsyl/0rh9TH17FxpzA9U5pUESOAPrk5VPQqzDPiwLCIOjBJHlDAya0r2NdeCeh1lokZ1nJOcz55Z0aQdaUn2l+S+3ZWWjncniXit/PZ2fZhOG5c0hZ+X3CZvdqlHxrTt+v5Ym5sTfO74qRRI7QXwePcA4oKh3k+/xr14mUZ5Zaowwzy66VMMO88Vek6WXe3RyNnA7wUW5msMRw89LsMgf+jg3HoensGZDf3bYupTxwYjMCqA6ef3qkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=RZscp/0F5M0xauAx98ra0njN5vgxiTNWvrP0nER10r0=;
+ b=QuKgzndiH9GZnpKWq5M+NyP8TdoRPF45l/D6Lo1cxhgnfe3jR5lGDHdUMKz01+LdxX4l1R513esYJzzE02Jz6nCn4ADznGyq6yY/gSD9Z3y/Kr7HVTvBxqWt0Fk19s4/8hPvbiAVQHPcOtCThFFtJCIsUfxYnupWa5wZTOoN08mMRNT8bC9p/V8jWHQYWYqCX6DY77txTfAXEeojc0BcI9hbIyAwEE0sPM10a1KDbnaDtUZLoNtDA8sGpI9XfnLTMf3uQMti3/mL/bw7IoCAIIML+7gIj4OkNV3nzexz5/02+1ItAJMk75KPlf1QdE3CrTJl4MK5JJ+dgvwz0/XIuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S5cyHuCelEUvWA4UzLhv++G1GZ/7xOuh42LmOG52zJk=;
- b=TsbjFm/74Ntp4XEMowSAV4BWYDFDSNijB0+TlIHz4r4QLS7RZEJXdEKXA/PDMMO+aiB6Cs86Ju3CDAh3TU+DCD/PyFe+zodgjGYR2wbtVllqnVpooUoDJAkyeFPDd6aKIEBkUI1Yx6bTe266GPlfplvPZzL1RlG6VPobiPyVMqo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM5PR12MB1754.namprd12.prod.outlook.com (2603:10b6:3:10f::19) with
+ bh=RZscp/0F5M0xauAx98ra0njN5vgxiTNWvrP0nER10r0=;
+ b=KKp3epI9LEpolVta1sJR9fJr3OxdSzIRF+WQwNDnuD1Hobq3YIwC8A0OEmp93ydB+LKFBw9iOoVwVCubFCyk9IFW4nG4nxoSHZJTjDFmBkWtgNSKq6nXcDiVuhKzEX2S1QwEdGO56WZJjpGzn7Rb2K4uvBnG1cFrdnAV/Wv7vkc=
+Received: from DM6PR07CA0112.namprd07.prod.outlook.com (2603:10b6:5:330::27)
+ by BN9PR12MB5340.namprd12.prod.outlook.com (2603:10b6:408:105::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.13; Tue, 18 Jan
- 2022 21:50:35 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::971:531c:e4f4:8a9a%7]) with mapi id 15.20.4909.007; Tue, 18 Jan 2022
- 21:50:35 +0000
-Subject: Re: [PATCH] drm/amdkfd: enable heavy-weight TLB flush on Arcturus
-To: Eric Huang <jinhuieric.huang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220118212808.23392-1-jinhuieric.huang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <ca5d88fd-c7a1-cc0f-b011-c31a59ef7ca8@amd.com>
-Date: Tue, 18 Jan 2022 16:50:32 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <20220118212808.23392-1-jinhuieric.huang@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: YT3PR01CA0026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:86::14) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Tue, 18 Jan
+ 2022 22:45:33 +0000
+Received: from DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:330:cafe::8a) by DM6PR07CA0112.outlook.office365.com
+ (2603:10b6:5:330::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10 via Frontend
+ Transport; Tue, 18 Jan 2022 22:45:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT010.mail.protection.outlook.com (10.13.172.222) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4888.9 via Frontend Transport; Tue, 18 Jan 2022 22:45:32 +0000
+Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.18; Tue, 18 Jan 2022 16:45:30 -0600
+From: Eric Huang <jinhuieric.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdkfd: enable heavy-weight TLB flush on Arcturus
+Date: Tue, 18 Jan 2022 17:45:13 -0500
+Message-ID: <20220118224513.26563-1-jinhuieric.huang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2246982b-b219-4da1-a3f1-08d9dacc8e44
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1754:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB17545231791A52E5876EC6D392589@DM5PR12MB1754.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 7bfe7c81-7d81-49b9-38a0-08d9dad43c52
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5340:EE_
+X-Microsoft-Antispam-PRVS: <BN9PR12MB53405D39EC6AE140E7C2991482589@BN9PR12MB5340.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IClqzFg6LCpTXPEADAbPRsfCShc/fWvDkGwH/LRnJTL9TsZ3/x2enDilxEzkSAhHFWxb7QnyQ9iGVk7xKLo64gBMnbUmaJRvSeYHuQFpavvK0Qy25WSgijBd11PhGQcJcMTTXZruccH3H62pRttriCxnwmc/kZ+BTg1nd1tEC1jCuZ2CnItBKn1qCbBY1Ds8FwI6JoUhiSPlGZiHTTVP41IdtAUFJY78b0ZHh7r1PdHca505hGhed3i3KditnKUXpViAuKquk4ZqiAVHtFPsBcI+o0mhq1BY4OOzFnR9p1Ak3Rx9BoD719tV1vlKVjitKz2SunmDJQ/Gbkf1MRRONhIE+yl6cAs7ST1lxMwJaTMxo5zK6JjsTcTEBhXBYGfNU+STrnP6nD9UW2k0ziEbJV68ds4bWvkOvwckO+84Mt5ScPFi2FS0AOOm0sJ0/9uK4OUzTXVGzLdHLwsYiYsJZp8X10TOJPTJ9fBsw0DvTNKLJAd9yg1tlO3sTi6IMN6eQrVEbwqVv3aEFZ1Zmbk3bU/TJhdh/8xlGkxUj1/Yy/HZCLgQOjd6emrpDswYQt+QlNeJ2ZN+/FkVtfnSCfVrzvW+CjasxPozwyozpXGjJDRBmDelBrmfTLPqEiwpzea0U0eHpCQBqzg9zwRE4ZrPuACS37t+xfGdUQPvA7h7IH8Qr4nxD6n13bYLuVns7PdD2Rt3JgaUDBZwCsXKqO0cVWHHzBTvzDwBrX1JArAGlhDC7CZchH6q4CGpC96mDf8d5r2zTkNThEc3dPFtfjCdRg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8676002)(31696002)(5660300002)(66946007)(66476007)(6512007)(6486002)(186003)(8936002)(44832011)(316002)(2906002)(66556008)(38100700002)(6666004)(83380400001)(2616005)(86362001)(6506007)(31686004)(508600001)(36756003)(26005)(16393002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: jAPXtCqdKqubId5Q4oCf3L8OrO3W7oRrcaGzCusg4nYifrxLL93duNIPeLPjXqcXwpSE1X9RzXmY8nSDfmOONxsB8xsA7kBfULaKdQwZhQ6yt+jnOiDnkUOIPRG53HfSvTuLmmoVtBDqqvXV725UUW3kaIArO3S3g+LPaes6wZHmZsDtXjvu7Ud9rzBh9/BZCKTtfMId66faFvniO+1URLDwZuD+FIQK9ezDxuRsMuk+hhOXNtLoYym35TPhuLZV2PfMlL0/TlY3SgniOwcQzYNgXHU2/25coX20Hl/7Q+Wq+9TAMKt4YAXVd6kOSn0TfygsFgH1e0pi8k9TWIhBmqB1VqokshgCdff/5/D6gWbui7VWRELgL+0F5uaTg57juTy68iUYXaDtFK334kOrPxE4i7+rBp904LSBd/3a+m+qhKv7IPQSuCAU7cqgQSO0Ei3Ep41n4y+XAx596Ah0P/iGOuQKIJ8Ynqlbj01C1GZTrphX+PZX55ggZ5DEdF5iNIGEWNgf746Tjzri9VE75HI9VMkCIvD20kgAg3myfqImtLY3GLabgXup/YT5Z6l9e3ygOX+24chblHG3/iVf0xHJUhQWzwZ9yFKdQ3/W00gpqYuYaAq/vjnIsBfWc4qTBa1I0zXDSw/1anO/107ttQTyHDxyqu2OfXZ5g2wBEusAx68KL/hH50zbQSeFFqgJ4sapjeDC3W8U/94vmSEHvFaw20qrGVChkkGKl+GsahrzsBt2JVNgHAXSoPHpFJbEUF3a8qjzVP0LlGraPIhRxcHdOGTv6zdrxN73kpWswqUa8gESWTO8aGdfsBUGY3nj7XAn3oqBV1aYjWZgXBLSfQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(36840700001)(40470700002)(46966006)(81166007)(316002)(426003)(36756003)(2906002)(5660300002)(8936002)(1076003)(2616005)(8676002)(83380400001)(16526019)(40460700001)(186003)(7696005)(4326008)(36860700001)(356005)(70586007)(70206006)(82310400004)(47076005)(26005)(6666004)(508600001)(336012)(6916009)(86362001)(16393002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?enVacnlyVzZlOVNNTXFFYlhBbk9aRmNZQi8yY3FQcE1PbmYvTzl3SUdtNEwv?=
- =?utf-8?B?UEY0TTltL3huU2ZCMWozSC91V2hscDNNL2pybXBiaHdzcXhmUXp4QTlNdy9u?=
- =?utf-8?B?dFUzMzF0bGpDNHV4TXdoZ0VhYXFDQUsyVGNsMm5JOVltNTlKTEo4R1FWdkJP?=
- =?utf-8?B?UGY5QjhhdWdGV24zZmZYajJBUStFVlVPRGxXTWQ3WE5kV1FPMHQxWlp3VHFt?=
- =?utf-8?B?dDJUSXk2UytRZnljcWxMSkhLRHpSVEpLOEU5TFA1YkxhTDRPM1lEMklvWGtI?=
- =?utf-8?B?Q3JPaE9oRzMwTkpLL1JUUDkvZ21Pc2pCSVhtU1JoK1o3V051ZmhwK2ZtQ21I?=
- =?utf-8?B?RnBINFUydks1b1ZaNGZaa0txcjZTT1g2VDUrckhGc1QydThWUlFlLzFNNGN2?=
- =?utf-8?B?T08wWFErbWZFcHE0L0FYNkwzMU04VHlVZGNER1JPOThwK3FWR3RsTzVxanVm?=
- =?utf-8?B?aTZSVFR3VmFtSXljOS85TCs0aVhXNFBJUUJEaXNicDhVUFNqdVZOa3phYUl5?=
- =?utf-8?B?OFRVY3pPYXZKam9tUGZ5MURYUEhtcGNRSkNzN2RXdFZySElNeWwxc3dJV0NS?=
- =?utf-8?B?a1lmbG55eEFkMTBGbmplZHVERVVMQWQ5aGd2NStaOFJmY3NUNUtPNWh3cDJj?=
- =?utf-8?B?VThJekR4Nlo4TUxZRWswc0dRQnVVclUxVXZlb0VGSEdkcXV2T0ZiWUEya1Fk?=
- =?utf-8?B?VEh1YlFNRnFqajVZQ1pVMytvQllYb0hFRWFIWlpTby95eTBOUm1zd0gvV0Jq?=
- =?utf-8?B?MUs5dytzQXpPUThxSjdtclNzdHNWck1DMi8wTFBsMUl5MlZnZTRVWk1jTGRN?=
- =?utf-8?B?RDR0aUI1UE9FaDhaY3pSZ2VHWk5uY09kWWhKekdmak1oYWxGcE5GbHhoUXNN?=
- =?utf-8?B?aWF0aGdwRWlOS05JdmY4QmZDb1FiSU1jNElQQ1dkMnZhY3VpejBzMkd3ck1P?=
- =?utf-8?B?YkRKYkRBaTVqMzhjdm11TE5CYWwwcjFFbUFGR2dITFpDTDNtSGVUUENmdURx?=
- =?utf-8?B?QTNQNUZubW9BVkxmZnM3N2xaNkJjSWljV3NsRGU4bkIxbkZZaW9IOXR5Q2dP?=
- =?utf-8?B?R0svdm9vaHFocTFOczhQRWxRbDZHL2t6NWYvWEErbXRmNys4VHUyOXI5VEgz?=
- =?utf-8?B?RlVrVW9uZ3RhbUgzVmMxcHB6N0JTclUvSTBvY1ozK3BlS0lPZWc5RTY2ck9Z?=
- =?utf-8?B?U2tnT3BHME1XVXFXMVZ5M2VQZHF3NjVWSjcvUEJ5ZmZsRTlscm9naHhmNjJa?=
- =?utf-8?B?ZW14L1NHMUdrM1MrK3p2TGtlTU9aUy90NVRscXNoMndoM1hiRW9lRUFDL2hx?=
- =?utf-8?B?WTNWbkFXeWFCNVRFWS9Za0Z1Tm9OM2hDYVlGdVFsVGdVUlkvT05KMkZrV3Q1?=
- =?utf-8?B?ckpUODY4RW9VdVNrK2xXeEk1VHBnUlVZb2JPYS9lVmkrZ1JkZ0MxZzV5c3N3?=
- =?utf-8?B?L2pTbUVPSFFyNVNqUkE1SXhGNk9YcVRMS1dHTld3aXhQQXk0a0RyWTZhVkNy?=
- =?utf-8?B?UHY5dnNSd2ZnanFyc2VDUzFPcC93eGx4SkxhL3VlR2d3QkJxM0ZuV2RtRWhJ?=
- =?utf-8?B?cEtKQ0hsMWhzRjdCTENJV0p0ZjhWMW9FVW9tOUpJZ3BGNmNpZXYvTThFc2JD?=
- =?utf-8?B?bC84SGxsODM5RDRzbVFPYkgzVUYzakE0bVpqZ2UwZ2VIQWlNbWRMU3BUWG81?=
- =?utf-8?B?VjNxbHV5bVRzS1hOazREVERwMWZMN1p2WHZjOUJ3cGcyQnpWQ1EwZUxtSFVU?=
- =?utf-8?B?b3RPVlFSS0IvcW14V25wL2VXak8wb21lZEYzbWxQVGxBZG0vOXZIWWkveEw0?=
- =?utf-8?B?TWxwUktiaUZUclAwcFczUWFXUk5Ed0JwRmc0S0RzSHZLRVNHZkFCc1QyRG5L?=
- =?utf-8?B?Q1lTT1FIczdvOGdweitSekNzUkZmbWRlWFpRTmFRbnJYR3VqbnZ4WThhc0Zv?=
- =?utf-8?B?MUJYTUZybHBzRFlVVzBjR2lOU3BoVUVRYTAvVFZORTRmMW1ydmFBZVpqZWNt?=
- =?utf-8?B?bzQweldMcDdRU3ZZZmN4RlNhRXR2S1VlT0gyd01LeFNrdkx2SDRVa2RubllQ?=
- =?utf-8?B?dXIxWDI3c0cvVVV0YTRrVXFmY1VBSkRBcklVbGtidHVkY0RkNTJ4SFE1ZnJy?=
- =?utf-8?B?T0xkaWVISDdDQ3dvaFFKTC93RFNCb3pia3ZlSjdJeWVkbHpSU0g2d2M3RW93?=
- =?utf-8?Q?EYIMFEamn1FWrmPDmoP0Yv8=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2246982b-b219-4da1-a3f1-08d9dacc8e44
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2022 21:50:34.8119 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2022 22:45:32.8797 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7bfe7c81-7d81-49b9-38a0-08d9dad43c52
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4m098InZuwqeiVEoMCs+o97jAAiNsIicU7Rp3ipQVIl2486raNI/lg9W6gK5YND+Rmlh6bzwzwiCJUvpeKiqvw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1754
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5340
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,74 +99,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Eric Huang <jinhuieric.huang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-01-18 um 4:28 p.m. schrieb Eric Huang:
-> SDMA FW fixes the hang issue for adding heavy-weight TLB
-> flush on Arcturus, so we can enable it.
->
-> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 9 ++++++---
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         | 4 +++-
->  2 files changed, 9 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index a64cbbd943ba..f1fed0fc31d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1892,10 +1892,13 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
->  				true);
->  	ret = unreserve_bo_and_vms(&ctx, false, false);
->  
-> -	/* Only apply no TLB flush on Aldebaran to
-> -	 * workaround regressions on other Asics.
-> +	/* Only apply no TLB flush on Aldebaran and Arcturus
-> +	 * to workaround regressions on other Asics.
->  	 */
-> -	if (table_freed && (adev->asic_type != CHIP_ALDEBARAN))
-> +	if (table_freed &&
-> +	    (adev->asic_type != CHIP_ALDEBARAN) &&
-> +	    (adev->asic_type != CHIP_ARCTURUS ||
-> +	     adev->sdma.instance[0].fw_version < 18))
->  		*table_freed = true;
+SDMA FW fixes the hang issue for adding heavy-weight TLB
+flush on Arcturus, so we can enable it.
 
-Can we move this check into the caller in kfd_chardev.c? That avoids
-spreading around these conditions in several places.
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  6 ------
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         | 10 ++++++++--
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index a64cbbd943ba..acb4fd973e60 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1892,12 +1892,6 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
+ 				true);
+ 	ret = unreserve_bo_and_vms(&ctx, false, false);
+ 
+-	/* Only apply no TLB flush on Aldebaran to
+-	 * workaround regressions on other Asics.
+-	 */
+-	if (table_freed && (adev->asic_type != CHIP_ALDEBARAN))
+-		*table_freed = true;
+-
+ 	goto out;
+ 
+ out_unreserve:
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index b570c0454ce9..485d4c52c7de 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1596,6 +1596,12 @@ static int kfd_ioctl_free_memory_of_gpu(struct file *filep,
+ 	return ret;
+ }
+ 
++static bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev) {
++	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
++	       (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1) &&
++	        dev->adev->sdma.instance[0].fw_version >= 18);
++}
++
+ static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
+ 					struct kfd_process *p, void *data)
+ {
+@@ -1692,7 +1698,7 @@ static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
+ 	}
+ 
+ 	/* Flush TLBs after waiting for the page table updates to complete */
+-	if (table_freed) {
++	if (table_freed || !kfd_flush_tlb_after_unmap(dev)) {
+ 		for (i = 0; i < args->n_devices; i++) {
+ 			peer = kfd_device_by_id(devices_arr[i]);
+ 			if (WARN_ON_ONCE(!peer))
+@@ -1806,7 +1812,7 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
+ 	}
+ 	mutex_unlock(&p->mutex);
+ 
+-	if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2)) {
++	if (kfd_flush_tlb_after_unmap(dev)) {
+ 		err = amdgpu_amdkfd_gpuvm_sync_memory(dev->adev,
+ 				(struct kgd_mem *) mem, true);
+ 		if (err) {
+-- 
+2.25.1
 
->  
->  	goto out;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index b570c0454ce9..0e4a76dca809 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -1806,7 +1806,9 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
->  	}
->  	mutex_unlock(&p->mutex);
->  
-> -	if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2)) {
-> +	if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
-> +	    (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1) &&
-> +	     dev->adev->sdma.instance[0].fw_version >= 18)) {
-
-Maybe put this into a helper function that can be used here and in
-kfd_ioctl_map_memory_to_gpu. I also saw this being duplicated in the
-upcoming CRIU patches. And we may want to adopt this in the SVM code as
-well. Having one common helper makes sure we'll keep the TLB flushing
-strategy consistent everywhere. Something like:
-
-    bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev) {
-    	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
-    	      (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1) &&
-    	       dev->adev->sdma.instance[0].fw_version >= 18);
-    }
-
-Regards,
-  Felix
-
-
->  		err = amdgpu_amdkfd_gpuvm_sync_memory(dev->adev,
->  				(struct kgd_mem *) mem, true);
->  		if (err) {
