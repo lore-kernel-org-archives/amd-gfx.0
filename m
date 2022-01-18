@@ -4,118 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD8DCC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 02:14:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74453C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 02:17:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D98A1128B0;
-	Tue, 18 Jan 2022 02:14:07 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2047.outbound.protection.outlook.com [40.107.244.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA0E71128AE
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 02:14:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A26C1128B3;
+	Tue, 18 Jan 2022 02:17:45 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2083.outbound.protection.outlook.com [40.107.236.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 574E01128B2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 02:17:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PKhZrUnX3AdVvt6KAHG6V+KzgsAa+sIMMf9NyYSJSDUpSU1OAH5rzwu8CKu9ktjno7jpUZ9Px8ZudgaJRXmLby/xU5eRF6XBicRe+65zRtcwIzW57kmeppTR6+wLDGmbZI0uYJ80vzqGECM5AVPMF7UWfWi9gqrFYpYpghUGE56gPk/bnViYyiQhPX3HAYtFjI1TS1mR9jGHA71fCzBPqIgSEMUUAI8XyEzvvCjBn1Yv+Fs7Fefp/+5EZqALgGKGPdSV8nGi6EVEJJ9W4y6byL/IfvXizy0fQSQOrtiLCLzAFkoy3+mhDL5YJVD3zSINMOVnwht0frZ3PnZGDBfqww==
+ b=U/jKHOBfANHX0aV3VFu4WTUOLp+QCldxk+oV/zDNeM6cgLjwUsptI7rUIuDzG1HUzyArbDi+ByMAUA7vvjG+l/bdT72HNEJ9FfYcbyvOWJ+qaPPX3+q8X1FLy+lf92MWS2wHaNx2IZw4LQAE+0nvwtjEpbGQH+itRHB+wXvVQccvGxazvX25hsv21GOMtPZUWzO9Wcvr03Q977SflJQnjRaXUc6k6OoVWBvYZ6HA6JJLyqZaxnCg5+Dk3kbeNO/cUBtSRU8NyrsJruVNa861uT6XgJRT05RXbeOhcd/o0SEUsVesHiwqRlveXQIJkapI03XLD8lLON/4tahkpfUV5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5j2WK08gbJdNAhOL0RKiR3JmztnDv1sFzzTpWt0Sesc=;
- b=HuXQ4RWiYkCyXNV7kNs1dUWbHoVotN6HoFq8Uxq49oZ7KrEBsz0e1B1HXButZ+VdoaSu9uV2W/zlLYE2FYSuq1WZwUrxhvh+5KF7SQxXQf1istpYiW/ZDktBHPG8FFLyibdWqkOYLhIWYNcfHVrSBKoy/97bfBbsSdLdz+CI/nSivo9WegqBX+qRXBbm/Yi97O0c1gEsHht+fyii1NeUutBTOLsFOk3rPj5tc8yTJPDPYE8Y99S86Fct/acXHsiQbEAB76LzzC9ul7ndT88X9QHsxjYIzpWPMMWzi420izIlL5vpgIFP3c+5K5pLKIw6J9Cx7fok/kRBxq8Fwj7WqA==
+ bh=u5uK+pnDxYieb6zI4NEcVXDW7zOFYxGfZ7QSsv+nlH4=;
+ b=iWRfg1wR3ecEndQGZ0k7Uxb/ST9FjbyBCyOOmsujaOIPtyF6YhvcqKdRNLgufxOSJvqoeCq3vLXLb7bgez6pqBAgHY6BssQjG9wkRkVn9loB2BbB5kCYuW/O52I2ZwQUhkU3VE7pGQAo7nTbtVtPT7mYFxJ6h1CWiRrlW6aUnkTbtj95A8BML1iigXaFwYi+bYJZduy+lTjOUVuU0n6sZwc4dYi+WGTD7CEat4A4SuUkYxAwlsLCodL5fA4k2KjUFiRPDzX0JAxXcNmxH1lpb6QaG0JPlwUYhrRYnY1K4fxaw1bsZI6UqWMZDz2OaxNLL1fZecu5oiZNBxg2C7HsfQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5j2WK08gbJdNAhOL0RKiR3JmztnDv1sFzzTpWt0Sesc=;
- b=tuNwXcUa0aFZGuqYh9UQMJvtLJvK4KNY2q9tAJr2ahusjJR0WHAcO+7tG/DMsWhI8BYmBExuWhqb4mO18ga6qu9NRVbGDCr0HW+SDxiuHeSkLwO5Dq8/LBxIgwEGBPZutIZmwUZ578y902JGLe717uOakmZanpSS7mQH4jgmgD0=
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com (2603:10b6:303:13e::8)
- by SA0PR12MB4589.namprd12.prod.outlook.com (2603:10b6:806:92::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.9; Tue, 18 Jan
- 2022 02:14:02 +0000
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::b49d:d2e4:875b:e881]) by CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::b49d:d2e4:875b:e881%4]) with mapi id 15.20.4888.014; Tue, 18 Jan 2022
- 02:14:02 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Nikolic, Marina" <Marina.Nikolic@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/pm: Enable sysfs required by rocm-smi tool for
- One VF mode
-Thread-Topic: [PATCH] drm/amd/pm: Enable sysfs required by rocm-smi tool for
- One VF mode
-Thread-Index: AQHYC75l5r5BdVVkxk2FMHIKObuz36xoCnyA
-Date: Tue, 18 Jan 2022 02:14:02 +0000
-Message-ID: <CO6PR12MB5473AF4CF5C4E860D79DCC7482589@CO6PR12MB5473.namprd12.prod.outlook.com>
-References: <20220117162153.30906-1-Marina.Nikolic@amd.com>
-In-Reply-To: <20220117162153.30906-1-Marina.Nikolic@amd.com>
-Accept-Language: en-US, zh-CN
+ bh=u5uK+pnDxYieb6zI4NEcVXDW7zOFYxGfZ7QSsv+nlH4=;
+ b=5r4YMgy4gMkobe97vCmbv9pS9KMaE6Kg6cbUSMzkmHnP9R/mJgfXVO63RTtmwpU8kWCA4dgaDz391zaeTTm/+ii7QdGrSSBIzlxaigF+JAyh4tAGjmgWGRP7kHp79grRirdXiuEHxE7gIrYxeEPGOlNBbFEURyKPrrv5Fq9TN4o=
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
+ CH0PR12MB5026.namprd12.prod.outlook.com (2603:10b6:610:e1::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4888.9; Tue, 18 Jan 2022 02:17:40 +0000
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::1500:4b8c:efd6:672]) by DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::1500:4b8c:efd6:672%4]) with mapi id 15.20.4888.014; Tue, 18 Jan 2022
+ 02:17:40 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: "Kim, Jonathan" <Jonathan.Kim@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] drm/amdgpu: fix build up and tear down of debug vram
+ access bounce buffer
+Thread-Topic: [PATCH 1/2] drm/amdgpu: fix build up and tear down of debug vram
+ access bounce buffer
+Thread-Index: AQHYC/wB4n/uUjOCA0eOf90imw9wI6xoClJw
+Date: Tue, 18 Jan 2022 02:17:40 +0000
+Message-ID: <DM5PR12MB2469D98F143BD6A627F0FF1CF1589@DM5PR12MB2469.namprd12.prod.outlook.com>
+References: <20220117234307.3820143-1-jonathan.kim@amd.com>
+In-Reply-To: <20220117234307.3820143-1-jonathan.kim@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-01-18T02:14:01.782Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-18T02:14:42Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=7e3c329d-860f-4bff-91eb-e30a4f33d6fd;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-01-18T02:17:37Z
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 884712f6-4452-4ff5-b27a-2ecee7a70ea3
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f94d7db5-660d-416c-60f0-08d9da283258
-x-ms-traffictypediagnostic: SA0PR12MB4589:EE_
-x-microsoft-antispam-prvs: <SA0PR12MB458977B8945DD2FE218D96CB82589@SA0PR12MB4589.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4125;
+x-ms-office365-filtering-correlation-id: 1ba45744-5d07-4eac-37c0-08d9da28b431
+x-ms-traffictypediagnostic: CH0PR12MB5026:EE_
+x-microsoft-antispam-prvs: <CH0PR12MB5026744F23A11C408A3E44CBF1589@CH0PR12MB5026.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: LGOzDCh6gFPcd2GQCf2x39ZCpkKYl9FZPPZCO1nyNUknlw4ILE6CodK1bi+xI6XntOPMEq39uDc+fgnwIxkrH8R8TGUG5s4q+0tNQjlPo9xxky+LakI+I/qtkp+iyW3nO1ydMws51y9AyU3Wwkg62GoljFMiWr15MJd4YGc+uDoOH0pqpksRYqM3pgsnRy+WRWDOcNcZIYkVPuPex9GUIICkBlTeJPSgdCu0QlO37ba/Va96JfRTCNKsxojF9rCRmrWgkrQAZPwW5I81kdspuRWys9MxiTRRZoCJ6T8jX+gyVq4QgZCbqsAPoL5bx/kKjY/pH6hd2CqQQg2Ab3hyzPy3YHyMR2Js6jh8pLcUmarPBh9Hv+Zxht1h4jPvG9uj3RNajujmqO2aNZR5AlPO7QrQYSzoij56yLPRpLn/A0HPhjkwOKA8sUUjkydWxQwvxXNe8MUFe3juNBbhdzFgKyKqGxkipmQE2vbRtqWk9LNVRAZ6a5a0RpRLTr3fxWWlbVkrY8jPSvRCeLsSkvac8nSNz0/7/lle0Cka9FV9OIdMWOePv/GGWqPLjMLo8ueXrqefGq1AdJ0jrqxmHGWCvrbDq36RPCcHLEpC1d6FbLEHUKTVW57/CxSx6xMLBGr+FeU1F3kZVdW1OuEx+TXl6UOdExllon7RF9vWv3jzRUxwmeBs1mvLxWxaAYXGGKCCDhaYX3r9iL6tuEq3dnxV1g==
+x-microsoft-antispam-message-info: QB/c+zWMoWMSajwwi72mHgDeX/4pXZAPxo/JfI0vhLc8FnLUA+su17KBNj/efRAlrJkBdv/28rtJnGuE/tDHlgqcCW29Pjc7jRAid7LMml7RdARAcI6ZLFaavnTlpHfkS3IekDHZN7ZpSPFPEDnxO3uLjmY0hNMV65a80D2yQBuLgM3ZyG13DdhUEFehAwpSQkLNX9V+9hB1hj+R0BR2AZnRhUeANz1pweXxSXuB5eh03sFmQ33IJAZx6JlGLlBbE+0rHa7Zte+fbGNyHWG5g8OGDSS61MKsOGVOvUwBKlW4BwqEx6CM8H1w9OCPHYLVkK4uD5jNW7zVZC3uo40frkgXPKnd5BFmw9T12v7rjWPn62/3smkYs5kfzdDx1+Dobe+dMEqd5lo7NG9ZqQ9AlC0M7ZLKfUk+aq0BdNe6TJdkqKeOukZ8LpVxU63+0dKWAnB4uXxrJGHZ4StDQkHAjwnLe4C9OqDsbJjfcQ85sF67XzTkrJc8td0/ccxcvPp0/0usNlJBUYUvVyPbdHYY82lPGtnAbnBeER35TaboOCFsmR1PbPHKvvUQKddDTuQj3Oondm6OseVUlX7FOOlrjVhbhdLfFjurY/3NW0AQjs3/A0r0wJTc+bPiJ5p9Ju5Vk5EeC2FpxocqzCr534Z4huZ6y+PghlE0WDcWdCcY/AjOqwPbh1cnA1I9F0NVIfW1cmADH52OaEvSqEDrACqaiw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5473.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(66556008)(7696005)(54906003)(76116006)(66946007)(66476007)(91956017)(66446008)(53546011)(186003)(316002)(8936002)(64756008)(6506007)(508600001)(83380400001)(122000001)(38070700005)(19627405001)(4326008)(8676002)(26005)(9686003)(38100700002)(86362001)(5660300002)(2906002)(71200400001)(110136005)(33656002)(52536014)(55016003);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(5660300002)(110136005)(52536014)(186003)(66556008)(316002)(38100700002)(76116006)(54906003)(7696005)(55016003)(66946007)(508600001)(86362001)(122000001)(53546011)(83380400001)(6506007)(64756008)(4326008)(38070700005)(9686003)(8936002)(71200400001)(8676002)(2906002)(26005)(66446008)(66476007)(33656002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?86fWUUef8hlxkhvnb6mLbLzghjnC70/B4gMgHX/dZR5Lbvq+z3cfMroYGE?=
- =?iso-8859-1?Q?NUR8x13UYWdnSEPtIM0V57lj2a7I0x91rV3Fwv8GHpfIAV3DLgKEGGZwdj?=
- =?iso-8859-1?Q?JjCcRqA+7Ox10El5UAPe25hrUSc4KFg5HHYc/RPCDY0E4DFW+YsIgxj02T?=
- =?iso-8859-1?Q?8d8IvfExpeHSdSVJKdbpqIBspJNPA3eGSgOvk+t7KMUPIjXb7wI4rglD51?=
- =?iso-8859-1?Q?SV6hLyrvkMXbz3KPn8JmTuANsRkbZT1bghcv5dtXI3K7VWim448qzHRgSm?=
- =?iso-8859-1?Q?6g3PfFPYzwbIc9nac10cuhF87jTnMxURQYARyzbQVODvWJrWVgRptvtMx8?=
- =?iso-8859-1?Q?ncrqAx8nuA6cR9vpRyYEmHSqmJrDgmd/TrtPDfdmpOgcWM3EVFXXej/Mkg?=
- =?iso-8859-1?Q?Ejkgd4vZ+XfK5eEFlw7dUOdB0tg7wT2aNdfa1/SKeGeggNDtHpnYrBB1py?=
- =?iso-8859-1?Q?bE2vG3IygA45g7q1kRO/uhjbECSjQatbyqpLOCFhLvgpf66ga2WSi4KdEA?=
- =?iso-8859-1?Q?3vANbwhggMa+FAfVuEPf5OiNrYzsx8nkGW6dtGkGTtSAoYL98u+wWgblMU?=
- =?iso-8859-1?Q?ND6cYJx7xjb0xAujpEw3xqDsUTMt9RZ6dE2yM7dB1+qS+IZs5uFpyolyKw?=
- =?iso-8859-1?Q?35rwolhSkSDWRx/WzidLaBTsb1eoMKbilJmyF8RgYM2SaI6DqaoBO6Wrmo?=
- =?iso-8859-1?Q?vFKxKpOWi9FE/qQNzNZF7lScTsK38N+Y12zLL7jOuxjZ4wot/mmkgPJIop?=
- =?iso-8859-1?Q?CZKYiW8ldQHTEiwsUI4JK10p+QXLKvuYjpYbH8WlR9s380ancqFsNvcsLB?=
- =?iso-8859-1?Q?8dt4VX3bEot8NJ88nu6PwIVmx3GiAdURhq90kZ8YkRxjBpFIDcX0lz9ROH?=
- =?iso-8859-1?Q?1bGCk1mv/+YIWq3Ym+zx2gn8siVZMFU3w3RX3T/rShOjdsISzHENRA1Idj?=
- =?iso-8859-1?Q?AK8NPe3Aw+x0/IMWfBrPubX6J5EhHPF5VY4X+4VUC5f9D4LbynHBXTghX2?=
- =?iso-8859-1?Q?/nk6cXdG4NvcPSvPW1UALXJ84q2lHslTAyhgBwV69cDp/1apwU+RV04en9?=
- =?iso-8859-1?Q?VrfaPPLELLyI04AvhfBkaJJikD2gMm5UcMUfSw+M3PPjTseUiE0dAKeKbJ?=
- =?iso-8859-1?Q?LcxFqqfvcj2kiB+9tVfTKBGouAF9MfW3XqsgmSEgQViP81HE7OAL5nlinI?=
- =?iso-8859-1?Q?H0DnP59UcrS+j8hCTwsDEDQNgTzn7uzMRur5taFylu4LLX2md+m1NeA9jR?=
- =?iso-8859-1?Q?IN8RzFkac+5t2uRMBhxgXVka2lO0vMBZNtmaWT1Cs+Zpd+tcKtF+PLmMur?=
- =?iso-8859-1?Q?w/kElVeCUc3uyE87ZaZmecZiRr+FQAdhLdAKKTLcrW7wrX8sG5JX/cqUKn?=
- =?iso-8859-1?Q?AzPPh/Q6oZTSMb8AMO+pHCxJ+KI/pKnv1XmuVCK0N/oySI2VWAQPg+I7GH?=
- =?iso-8859-1?Q?AcNNfa6JcNrTCxYaj/AWN+aVMZhCpj/0QvsBDsWFiOFD4ZNNYgi8bVZB7P?=
- =?iso-8859-1?Q?AAC70/6z5WZecCnC4S+Gfi8G0SEk1M+XuDFfVgYf2vq55B6L0QNOphOwzO?=
- =?iso-8859-1?Q?ngSyPon2mldYrRBEVUlOGshYh/Ij7TeVORiliboKIIXqMAIAV+qvrBQiRM?=
- =?iso-8859-1?Q?3yBmUIcUULU2U=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CO6PR12MB5473AF4CF5C4E860D79DCC7482589CO6PR12MB5473namp_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Zfr0FcTrfa040CxDNOeq6xjIoFElJCzopNhljJMzuQgFTbcsy6GER6yUNIz0?=
+ =?us-ascii?Q?wOj+NTXvm7PmKa3bdI3BYQi0A2Ef8HJiqoctFpM1UdlO3uF/toMkrMIQw8YS?=
+ =?us-ascii?Q?phhfdqJHfzKTd7RzDyuXFUQPvx/5ZdFStnRfMCfD/tgry9JOhIB52zIJns5q?=
+ =?us-ascii?Q?QvjYFcxZUrI0oU2TtifV4P7q031Ng9+aUPyGeVtFM2WEuo8b+WlPl6FFM4oj?=
+ =?us-ascii?Q?1+IM3ioyE0dy/pxu8IxlEE2gR6MTRCg/Qwepv9PTlOcpHahYnPL0OGOawQsQ?=
+ =?us-ascii?Q?0NWQ+tgksRBqF8ha6eJ0yg3AViMZgF818Cq+r1K5SzMEptVMVDZODSS2KT8C?=
+ =?us-ascii?Q?+PSCSsgDwX3P4vfyJvzH44befYyj3ifOuynN+8pXP+KnOwkMJcN2ZwvwQkQL?=
+ =?us-ascii?Q?6X47bsFqN9Gbc2bt2Rz1T86JH3ngunCl3wFAvNrhCrqOz1MINyjfSKbdvNxv?=
+ =?us-ascii?Q?ynK/NjoimUnffwzHO7fXiRKf76bvfH8jrOVdngdjZ+D/kqHni22qAcOIeNG4?=
+ =?us-ascii?Q?0vbzUyA1vHR9TB7lpjtIvrOW1A7KxTMpSNZzQllASdzEm6TPJvL66lhJ6S1F?=
+ =?us-ascii?Q?vbiMM1izBhmrT5MWL6QUwNp7JWeIUCASNlTJZM0TUZU4tV782wVn/7WLts4k?=
+ =?us-ascii?Q?WC5MUWk8kCnuVWnlH9GiD211N2E3BXqB7JiZ3iqShLfxnDBHVV+ORKG2MCm7?=
+ =?us-ascii?Q?a8sJkfj16h6boXSmVMskGyamS9dT5419VENBns4ntAoN16jgPo1PAwbmrvkP?=
+ =?us-ascii?Q?MfnvOTWSxeXmXHtharly1GR3kHh5Q1LTnsfVs9f7/y+uvgxHo6UWDKtlZHZN?=
+ =?us-ascii?Q?SFdNX2W+x4iElKvrvHBsJOArvPiHA3UXsDXYmlM3Ih+YnwsOySpp6CcO970F?=
+ =?us-ascii?Q?14KcoZdE6N0RVWvSK51OT9jaRtKX4/34CN75P2+jB3ujuqelKJxDnVBUu0Xn?=
+ =?us-ascii?Q?VynTdL1xOaAdSZlU37eyBQ45ujdmfZyUpCbzjWLGDhdXJLhl5wc3qIBxUgGQ?=
+ =?us-ascii?Q?r4wAnUmv8ylenkEF7zxHmX1u4U7KW2QhtjpjGc7PWuLwtQrnD2US9X34CQcw?=
+ =?us-ascii?Q?w2GtjsYzFO2UhHbXPepdTR7UNfkqVzph5NVo7fhjUbZLu5t74IZd58K9sd+b?=
+ =?us-ascii?Q?kx9Ib3Q+GYmPsxru/sM0kiDNp76xxUMLceC6zwgTR8HozbBXQKZKHaY/Hyin?=
+ =?us-ascii?Q?KkVzQgSJ04uMzddAy0ko3A+wO3lnis5xcWYuVomWlHQCg8+HgbF2bfWoh1Sv?=
+ =?us-ascii?Q?UnxbIY9VsGMPmLoPmXYDqNW2GKGz3i1w03EkO3FtWvDaagqTaUrmBGZv+52l?=
+ =?us-ascii?Q?op/1hW82e5DmYW1Q/RBtgbSY5KJn0MFtnpVsGqGMQHK3BZmFKc7bKbjxz6H1?=
+ =?us-ascii?Q?BOUlS6Kc8nQTBoSmLiVloW6FLRHXqt1xf6C+HOkeQPYRbmZwH4ULy1VIUD5Y?=
+ =?us-ascii?Q?CiicW3DqAsYKvKirE0PQgALj20kHMaDuuoG17pa2zbbaLXQGjAK0vv8Inh/N?=
+ =?us-ascii?Q?lz6DTaQu0uPEhVF2/Lmmpr6Xfqyzq6cvn/kBWQssY8wrGYFLLaIE6/WNy99F?=
+ =?us-ascii?Q?XgkPzd8JPL1gfiVNkgIsvjf1FQadi8o2XsrSRR3HPkstUkzV6MX2R3cJMGjZ?=
+ =?us-ascii?Q?gZdmq+zmXaXS0YJRgssv1cI=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5473.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f94d7db5-660d-416c-60f0-08d9da283258
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jan 2022 02:14:02.6585 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ba45744-5d07-4eac-37c0-08d9da28b431
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jan 2022 02:17:40.4432 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: N/Z7kGkAD0lbEAV4sI7oSDwqL30RUWL09sV1Miwnq7XrE5T7LYg0R2JWCY65w9TG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4589
+X-MS-Exchange-CrossTenant-userprincipalname: eRHpnPIFamOXs37XPufhmYi5VkDkzNLfB8gNTPvDYnJlc3wg2uGvqKkMsNYC1hIJ7BngquJvsPHe3feGj9hRow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5026
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,309 +134,100 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Mitrovic, Milan" <Milan.Mitrovic@amd.com>, "Veljkovic,
- Nikola" <Nikola.Veljkovic@amd.com>, "Kitchen, Greg" <Greg.Kitchen@amd.com>
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CO6PR12MB5473AF4CF5C4E860D79DCC7482589CO6PR12MB5473namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+[Public]
 
-[AMD Official Use Only]
+Thanks for your quick fix, Jonathan.
 
-Reviewed-by: Kevin Wang <kevinyang.wang@amd.com>
+I wonder if it's better to encapsulate the bo creation into a function and =
+put the function definition in amdgpu_sdma or amdgpu_ttm?
 
-Best Regards,
-Kevin
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Marina N=
-ikolic <Marina.Nikolic@amd.com>
-Sent: Tuesday, January 18, 2022 12:21 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Mitrovic, Milan <Milan.Mitrovic@amd.com>; Veljkovic, Nikola <Nikola.Vel=
-jkovic@amd.com>; Nikolic, Marina <Marina.Nikolic@amd.com>; Kitchen, Greg <G=
-reg.Kitchen@amd.com>
-Subject: [PATCH] drm/amd/pm: Enable sysfs required by rocm-smi tool for One=
- VF mode
+Regards,
+Guchun
 
-Enable power level, power limit and fan speed
-information retrieval in one VF mode.
-This is required so that tool ROCM-SMI
-can provide this information to users.
+-----Original Message-----
+From: Kim, Jonathan <Jonathan.Kim@amd.com>=20
+Sent: Tuesday, January 18, 2022 7:43 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Koenig, Christian <Christian.=
+Koenig@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>; Kim, Jonathan <Jonatha=
+n.Kim@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: fix build up and tear down of debug vram a=
+ccess bounce buffer
+
+Move the debug sdma vram bounce buffer GART map on device init after when G=
+ART is ready to avoid warnings and non-access to SDMA.
+
+Also move bounce buffer tear down after the memory manager has flushed queu=
+ed work for safety.
+
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c              | 17 ++---------------
- .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c |  2 +-
- 2 files changed, 3 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  8 --------
+ 2 files changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c
-index 1b03ad7a21ad..bb7d03cd814c 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -1903,8 +1903,8 @@ static struct amdgpu_device_attr amdgpu_device_attrs[=
-] =3D {
-         AMDGPU_DEVICE_ATTR_RW(pp_dpm_fclk,                              AT=
-TR_FLAG_BASIC|ATTR_FLAG_ONEVF),
-         AMDGPU_DEVICE_ATTR_RW(pp_dpm_vclk,                              AT=
-TR_FLAG_BASIC|ATTR_FLAG_ONEVF),
-         AMDGPU_DEVICE_ATTR_RW(pp_dpm_dclk,                              AT=
-TR_FLAG_BASIC|ATTR_FLAG_ONEVF),
--       AMDGPU_DEVICE_ATTR_RW(pp_dpm_dcefclk,                           ATT=
-R_FLAG_BASIC),
--       AMDGPU_DEVICE_ATTR_RW(pp_dpm_pcie,                              ATT=
-R_FLAG_BASIC),
-+       AMDGPU_DEVICE_ATTR_RW(pp_dpm_dcefclk,                           ATT=
-R_FLAG_BASIC|ATTR_FLAG_ONEVF),
-+       AMDGPU_DEVICE_ATTR_RW(pp_dpm_pcie,                              ATT=
-R_FLAG_BASIC|ATTR_FLAG_ONEVF),
-         AMDGPU_DEVICE_ATTR_RW(pp_sclk_od,                               AT=
-TR_FLAG_BASIC),
-         AMDGPU_DEVICE_ATTR_RW(pp_mclk_od,                               AT=
-TR_FLAG_BASIC),
-         AMDGPU_DEVICE_ATTR_RW(pp_power_profile_mode,                    AT=
-TR_FLAG_BASIC|ATTR_FLAG_ONEVF),
-@@ -3152,19 +3152,6 @@ static umode_t hwmon_attributes_visible(struct kobje=
-ct *kobj,
-         if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-                 return 0;
-
--       /* there is no fan under pp one vf mode */
--       if (amdgpu_sriov_is_pp_one_vf(adev) &&
--           (attr =3D=3D &sensor_dev_attr_pwm1.dev_attr.attr ||
--            attr =3D=3D &sensor_dev_attr_pwm1_enable.dev_attr.attr ||
--            attr =3D=3D &sensor_dev_attr_pwm1_max.dev_attr.attr ||
--            attr =3D=3D &sensor_dev_attr_pwm1_min.dev_attr.attr ||
--            attr =3D=3D &sensor_dev_attr_fan1_input.dev_attr.attr ||
--            attr =3D=3D &sensor_dev_attr_fan1_min.dev_attr.attr ||
--            attr =3D=3D &sensor_dev_attr_fan1_max.dev_attr.attr ||
--            attr =3D=3D &sensor_dev_attr_fan1_target.dev_attr.attr ||
--            attr =3D=3D &sensor_dev_attr_fan1_enable.dev_attr.attr))
--               return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index da3348fa7b0e..099460d15258 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2378,6 +2378,13 @@ static int amdgpu_device_ip_init(struct amdgpu_devic=
+e *adev)
+ 	if (r)
+ 		goto init_failed;
+=20
++	/* GTT bounce buffer for debug vram access over sdma. */
++	if (amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
++				AMDGPU_GEM_DOMAIN_GTT,
++				&adev->mman.sdma_access_bo, NULL,
++				&adev->mman.sdma_access_ptr))
++		DRM_WARN("Debug VRAM access will use slowpath MM access\n");
++
+ 	/*
+ 	 * retired pages will be loaded from eeprom and reserved here,
+ 	 * it should be called after amdgpu_device_ip_hw_init_phase2  since @@ -3=
+872,6 +3879,10 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ 	}
+ 	adev->shutdown =3D true;
+=20
++	/* remove debug vram sdma access bounce buffer. */
++	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
++					&adev->mman.sdma_access_ptr);
++
+ 	/* make sure IB test finished before entering exclusive mode
+ 	 * to avoid preemption on IB test
+ 	 * */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ttm.c
+index b489cd8abe31..6178ae7ba624 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1855,12 +1855,6 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 		return r;
+ 	}
+=20
+-	if (amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
+-				AMDGPU_GEM_DOMAIN_GTT,
+-				&adev->mman.sdma_access_bo, NULL,
+-				adev->mman.sdma_access_ptr))
+-		DRM_WARN("Debug VRAM access will use slowpath MM access\n");
 -
-         /* Skip fan attributes if fan is not present */
-         if (adev->pm.no_fan && (attr =3D=3D &sensor_dev_attr_pwm1.dev_attr=
-.attr ||
-             attr =3D=3D &sensor_dev_attr_pwm1_enable.dev_attr.attr ||
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/driv=
-ers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 4e37cd8025ed..7ea0427f65d3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -134,7 +134,7 @@ static struct cmn2asic_msg_mapping sienna_cichlid_messa=
-ge_map[SMU_MSG_MAX_COUNT]
-         MSG_MAP(PrepareMp1ForUnload,            PPSMC_MSG_PrepareMp1ForUnl=
-oad,         1),
-         MSG_MAP(AllowGfxOff,                    PPSMC_MSG_AllowGfxOff,    =
-             0),
-         MSG_MAP(DisallowGfxOff,                 PPSMC_MSG_DisallowGfxOff, =
-             0),
--       MSG_MAP(GetPptLimit,                    PPSMC_MSG_GetPptLimit,     =
-            0),
-+       MSG_MAP(GetPptLimit,                    PPSMC_MSG_GetPptLimit,     =
-            1),
-         MSG_MAP(GetDcModeMaxDpmFreq,            PPSMC_MSG_GetDcModeMaxDpmF=
-req,         1),
-         MSG_MAP(ExitBaco,                       PPSMC_MSG_ExitBaco,       =
-             0),
-         MSG_MAP(PowerUpVcn,                     PPSMC_MSG_PowerUpVcn,     =
-             0),
+ 	return 0;
+ }
+=20
+@@ -1901,8 +1895,6 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+ 	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_OA);
+ 	ttm_device_fini(&adev->mman.bdev);
+ 	adev->mman.initialized =3D false;
+-	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
+-					&adev->mman.sdma_access_ptr);
+ 	DRM_INFO("amdgpu: ttm finalized\n");
+ }
+=20
 --
-2.20.1
-
-
---_000_CO6PR12MB5473AF4CF5C4E860D79DCC7482589CO6PR12MB5473namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Kevin Wang &lt;kevinyang.wang@amd.com&gt;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Kevin</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Marina Nikolic &lt;Marina.Nik=
-olic@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, January 18, 2022 12:21 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Mitrovic, Milan &lt;Milan.Mitrovic@amd.com&gt;; Veljkovic, Nikol=
-a &lt;Nikola.Veljkovic@amd.com&gt;; Nikolic, Marina &lt;Marina.Nikolic@amd.=
-com&gt;; Kitchen, Greg &lt;Greg.Kitchen@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/pm: Enable sysfs required by rocm-smi tool =
-for One VF mode</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Enable power level, power limit and fan speed<br>
-information retrieval in one VF mode.<br>
-This is required so that tool ROCM-SMI<br>
-can provide this information to users.<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/amdgpu_pm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 17 ++---------------<br>
-&nbsp;.../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c |&nbsp; 2 +-<br>
-&nbsp;2 files changed, 3 insertions(+), 16 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c<br>
-index 1b03ad7a21ad..bb7d03cd814c 100644<br>
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-@@ -1903,8 +1903,8 @@ static struct amdgpu_device_attr amdgpu_device_attrs[=
-] =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_DEVICE_ATTR_RW(pp_d=
-pm_fclk,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_DEVICE_ATTR_RW(pp_d=
-pm_vclk,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_DEVICE_ATTR_RW(pp_d=
-pm_dclk,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_DEVICE_ATTR_RW(pp_dpm_dcefclk,=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; ATTR_FLAG_BASIC),<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_DEVICE_ATTR_RW(pp_dpm_pcie,&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ATTR_FLAG_BASIC),<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_DEVICE_ATTR_RW(pp_dpm_dcefclk,=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_DEVICE_ATTR_RW(pp_dpm_pcie,&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_DEVICE_ATTR_RW(pp_s=
-clk_od,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ATTR_FLAG_BASIC),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_DEVICE_ATTR_RW(pp_m=
-clk_od,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ATTR_FLAG_BASIC),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_DEVICE_ATTR_RW(pp_p=
-ower_profile_mode,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ATTR_FLAG_BASIC|A=
-TTR_FLAG_ONEVF),<br>
-@@ -3152,19 +3152,6 @@ static umode_t hwmon_attributes_visible(struct kobje=
-ct *kobj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev) =
-&amp;&amp; !amdgpu_sriov_is_pp_one_vf(adev))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* there is no fan under pp one vf mo=
-de */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_is_pp_one_vf(adev) &=
-amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (attr =3D=3D =
-&amp;sensor_dev_attr_pwm1.dev_attr.attr ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =
-=3D=3D &amp;sensor_dev_attr_pwm1_enable.dev_attr.attr ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =
-=3D=3D &amp;sensor_dev_attr_pwm1_max.dev_attr.attr ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =
-=3D=3D &amp;sensor_dev_attr_pwm1_min.dev_attr.attr ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =
-=3D=3D &amp;sensor_dev_attr_fan1_input.dev_attr.attr ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =
-=3D=3D &amp;sensor_dev_attr_fan1_min.dev_attr.attr ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =
-=3D=3D &amp;sensor_dev_attr_fan1_max.dev_attr.attr ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =
-=3D=3D &amp;sensor_dev_attr_fan1_target.dev_attr.attr ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =
-=3D=3D &amp;sensor_dev_attr_fan1_enable.dev_attr.attr))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return 0;<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Skip fan attributes if =
-fan is not present */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.no_fan &am=
-p;&amp; (attr =3D=3D &amp;sensor_dev_attr_pwm1.dev_attr.attr ||<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at=
-tr =3D=3D &amp;sensor_dev_attr_pwm1_enable.dev_attr.attr ||<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/driv=
-ers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c<br>
-index 4e37cd8025ed..7ea0427f65d3 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c<br>
-@@ -134,7 +134,7 @@ static struct cmn2asic_msg_mapping sienna_cichlid_messa=
-ge_map[SMU_MSG_MAX_COUNT]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(PrepareMp1ForUnloa=
-d,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_=
-MSG_PrepareMp1ForUnload,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1)=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(AllowGfxOff,&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_AllowGfxOff,&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(DisallowGfxOff,&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; PPSMC_MSG_DisallowGfxOff,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetPptLimit,&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_GetPptLimit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetPptLimit,&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_GetPptLimit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(GetDcModeMaxDpmFre=
-q,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_=
-MSG_GetDcModeMaxDpmFreq,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1)=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(ExitBaco,&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_ExitBaco,&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MSG_MAP(PowerUpVcn,&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_PowerUpVcn,&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; 0),<br>
--- <br>
-2.20.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CO6PR12MB5473AF4CF5C4E860D79DCC7482589CO6PR12MB5473namp_--
+2.25.1
