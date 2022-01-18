@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B69AC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 02:39:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEECFC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 02:41:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DC2F1128FE;
-	Tue, 18 Jan 2022 02:39:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F9F511290B;
+	Tue, 18 Jan 2022 02:41:24 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F4D61128FE;
- Tue, 18 Jan 2022 02:39:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FAAA11290C;
+ Tue, 18 Jan 2022 02:41:23 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 68341B81249;
- Tue, 18 Jan 2022 02:39:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE117C36AF2;
- Tue, 18 Jan 2022 02:39:07 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 55377B81250;
+ Tue, 18 Jan 2022 02:41:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B988C36AEB;
+ Tue, 18 Jan 2022 02:41:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642473549;
- bh=62gaORYSPJT9CczU4qMGP9Eyq2uaRncI4NxIrYxJHVA=;
+ s=k20201202; t=1642473681;
+ bh=mzszewQvu+rH1A9pS5GqxEif5yWkdOeZ53lYTxnWPLc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=J2XjhJoHaniWvP36Fg8rAv4ujgJz6RUaXKqmQdNDV1xcrEoDzBz1WwtXhFCBJfvHf
- 0IoZ4RaRxoCgQ48U+ZqpY8H6Yi7GVK2Hc5Zt8KxnlWUXm5qlA/IRrRL0++BAh2wAeY
- VR0Jt4Zu/CeQt4pkyZEcKvHIivOqt6ICpVSF409GWnE2Qhm8trO35aSiMPJLcnC3Zl
- J6IiWZDRP0PcBjk7+t2cSWicgUnwJ2V1XOmz7YZQhreD1N/sVRlJI6vvnP31xzbLwn
- l/INPS7IcEpCoeOS8HwA82Kg0qW+rLXuUC1UPOi9lySvtwKBQe9pQ/SbniG4Mn3F7V
- TLOiIxE8aXN5w==
+ b=lwNaKyShSdlYmTqnSFm0gI5JxDr9IaPwNEEHQwOaCAOCJdx/QRpSDNXIK4lYdKioi
+ 2VbZ9P2Ga2tdYk9wNat/3TwTqedhDKPpY5CgFO5j58wDUkDk/W5zUP7SLi3lD6vf2h
+ tnX/ved8PfZusEmI7ovVm6DSJMrPe3Ml4E9uz8NyS3Oc7bZRyhYhCiiOMSl16RDPfs
+ Bsx71oaPbAxuEDqTAQ8VFtRTtGHRI8qHIn5OsoonfZHdwk6xl36DPlkJeTIv6D6P2L
+ wuSgzrsv9n1exD/4QKWLPCIQtAZFMsGia0R34jjJa6Du0TVbRqEu+ThuAGT3vcx23/
+ 59EbJIdEy2GBg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 161/188] amdgpu/pm: Make sysfs pm attributes as
- read-only for VFs
-Date: Mon, 17 Jan 2022 21:31:25 -0500
-Message-Id: <20220118023152.1948105-161-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 022/116] drm/amd/display: check
+ top_pipe_to_program pointer
+Date: Mon, 17 Jan 2022 21:38:33 -0500
+Message-Id: <20220118024007.1950576-22-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220118023152.1948105-1-sashal@kernel.org>
-References: <20220118023152.1948105-1-sashal@kernel.org>
+In-Reply-To: <20220118024007.1950576-1-sashal@kernel.org>
+References: <20220118024007.1950576-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,62 +54,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com,
- Marina Nikolic <Marina.Nikolic@amd.com>, airlied@linux.ie,
- Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- christian.koenig@amd.com
+Cc: Lewis.Huang@amd.com, aric.cyr@amd.com, haonan.wang2@amd.com,
+ airlied@linux.ie, llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ meenakshikumar.somasundaram@amd.com, lee.jones@linaro.org,
+ Jimmy.Kizito@amd.com, Sasha Levin <sashal@kernel.org>,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
+ michael.strauss@amd.com, harry.wentland@amd.com, Anson.Jacob@amd.com,
+ Abaci Robot <abaci@linux.alibaba.com>, nathan@kernel.org, Martin.Leung@amd.com,
+ Eric.Yang2@amd.com, Xinhui.Pan@amd.com, ndesaulniers@google.com,
+ christian.koenig@amd.com, Yang Li <yang.lee@linux.alibaba.com>,
+ daniel@ffwll.ch, Wayne.Lin@amd.com, Alex Deucher <alexander.deucher@amd.com>,
+ roy.chan@amd.com, nicholas.kazlauskas@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Marina Nikolic <Marina.Nikolic@amd.com>
+From: Yang Li <yang.lee@linux.alibaba.com>
 
-[ Upstream commit 11c9cc95f818f0f187e9b579a7f136f532b42445 ]
+[ Upstream commit a689e8d1f80012f90384ebac9dcfac4201f9f77e ]
 
-== Description ==
-Setting values of pm attributes through sysfs
-should not be allowed in SRIOV mode.
-These calls will not be processed by FW anyway,
-but error handling on sysfs level should be improved.
+Clang static analysis reports this error
 
-== Changes ==
-This patch prohibits performing of all set commands
-in SRIOV mode on sysfs level.
-It offers better error handling as calls that are
-not allowed will not be propagated further.
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:2870:7: warning:
+Dereference of null pointer [clang-analyzer-core.NullDereference]
+                if
+(top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
+                    ^
 
-== Test ==
-Writing to any sysfs file in passthrough mode will succeed.
-Writing to any sysfs file in ONEVF mode will yield error:
-"calling process does not have sufficient permission to execute a command".
+top_pipe_to_program being NULL is caught as an error
+But then it is used to report the error.
 
-Signed-off-by: Marina Nikolic <Marina.Nikolic@amd.com>
-Acked-by: Evan Quan <evan.quan@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+So add a check before using it.
+
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 249cb0aeb5ae4..32a0fd5e84b73 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2117,6 +2117,12 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 284ed1c8a35ac..93f5229c303e7 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2436,7 +2436,8 @@ static void commit_planes_for_stream(struct dc *dc,
  	}
  
-+	/* setting should not be allowed from VF */
-+	if (amdgpu_sriov_vf(adev)) {
-+		dev_attr->attr.mode &= ~S_IWUGO;
-+		dev_attr->store = NULL;
-+	}
-+
- #undef DEVICE_ATTR_IS
- 
- 	return 0;
+ 	if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
+-		if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
++		if (top_pipe_to_program &&
++			top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
+ 			if (should_use_dmub_lock(stream->link)) {
+ 				union dmub_hw_lock_flags hw_locks = { 0 };
+ 				struct dmub_hw_lock_inst_flags inst_flags = { 0 };
 -- 
 2.34.1
 
