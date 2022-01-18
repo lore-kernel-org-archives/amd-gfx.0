@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE9A4C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 02:41:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 672ABC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 02:43:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B99E511290D;
-	Tue, 18 Jan 2022 02:41:32 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7856F11290A;
- Tue, 18 Jan 2022 02:41:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDE4211290E;
+	Tue, 18 Jan 2022 02:43:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C885112914;
+ Tue, 18 Jan 2022 02:43:58 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F0F03612BD;
- Tue, 18 Jan 2022 02:41:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B871CC36AEB;
- Tue, 18 Jan 2022 02:41:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id ADEE6612E5;
+ Tue, 18 Jan 2022 02:43:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A780AC36AE3;
+ Tue, 18 Jan 2022 02:43:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642473689;
- bh=ZE5dsaoNj8qyo4ImDQroynSx3KZtWAsOjL0c8M5iZPY=;
+ s=k20201202; t=1642473837;
+ bh=gftabYyXkMadHg19oaBWLurzEcg5g5knoVByzQVVmhk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=grLHJfSDiAyQ8iH48U8OF4hksVkKdmpn9ep9nn8joLskVj4tdgIq9Sg9AXBGU72Gv
- vUhNkALhW8OpqkQTdVdfwfWEk/kNkSwUdgoU3fFBNldx9+ckKK1dGaLQr+b6WvWSfY
- K+JRJDukdZDsuYhTHsORqXasf9o5BFkybgWn2oZK8+UtYtPz3TKiFO8axGcTw/4g/N
- y0J5UhOGkDg7ufaa4VfmuseurLszBww5dl6W5m+u8rWOtQvWEfm7/vXA2Ymo8OHgTm
- OVNgzFgdzBgtKTMvx+d6QHi5xI1qvi2TiE7E5bSlZjDCGDrbKntGVaWjeDtPxzUNm5
- w7B6zdllDznGw==
+ b=umXCg3DCK/s2rXk4eA5TLtJWzqOM8JjYxnGhVsiCZ/K5L2g79NhmwKThjHMminSKm
+ hZiZUM/3Yl+FCtqI2AHfBdbBc50/xGSNjVj1w5+U+NnQ2RbomH/FyxZSdq50qRiqt0
+ idB+5JYE0GHQRbR5cW/bJCrl06N+StJL/u4Ej9yowrQhSSYLv0nojcQciF9OXtCMKA
+ fR6f1n3dtULLoJwfNi2ZXyJgqd/O+qSXnITibwv9nK057ZgsNaZZKlH3QGUNv88WwY
+ N1kGmqdg4PbZN5+nogC3pf65rsAdQpplLXW6HtNnXdQuC+WdLxc+HXP738PY+RdATA
+ Udwu168ZN3VOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 023/116] drm/amdgpu/display: set
- vblank_disable_immediate for DC
-Date: Mon, 17 Jan 2022 21:38:34 -0500
-Message-Id: <20220118024007.1950576-23-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 095/116] drm/amdgpu: fixup bad vram size on gmc v8
+Date: Mon, 17 Jan 2022 21:39:46 -0500
+Message-Id: <20220118024007.1950576-95-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220118024007.1950576-1-sashal@kernel.org>
 References: <20220118024007.1950576-1-sashal@kernel.org>
@@ -54,62 +54,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yong.Zhao@amd.com, Philip.Yang@amd.com, airlied@linux.ie,
- dri-devel@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- aurabindo.pillai@amd.com, qingqing.zhuo@amd.com,
- Harry Wentland <harry.wentland@amd.com>, andrey.grodzovsky@amd.com,
- daniel@ffwll.ch, Anson.Jacob@amd.com, nikola.cornij@amd.com,
- Emily.Deng@amd.com, shenshih@amd.com, Felix.Kuehling@amd.com,
- Xinhui.Pan@amd.com, Roman.Li@amd.com, christian.koenig@amd.com,
- tzimmermann@suse.de, Wayne.Lin@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, nicholas.kazlauskas@amd.com,
- Hawking.Zhang@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, andrey.grodzovsky@amd.com,
+ Oak.Zeng@amd.com, airlied@linux.ie, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, Zongmin Zhou <zhouzongmin@kylinos.cn>,
+ nirmoy.das@amd.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Zongmin Zhou <zhouzongmin@kylinos.cn>
 
-[ Upstream commit 92020e81ddbeac351ea4a19bcf01743f32b9c800 ]
+[ Upstream commit 11544d77e3974924c5a9c8a8320b996a3e9b2f8b ]
 
-Disable vblanks immediately to save power.  I think this was
-missed when we merged DC support.
+Some boards(like RX550) seem to have garbage in the upper
+16 bits of the vram size register.  Check for
+this and clamp the size properly.  Fixes
+boards reporting bogus amounts of vram.
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1781
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+after add this patch,the maximum GPU VRAM size is 64GB,
+otherwise only 64GB vram size will be used.
+
+Signed-off-by: Zongmin Zhou<zhouzongmin@kylinos.cn>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c           | 1 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-index 2f70fdd6104f2..582055136cdbf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-@@ -267,7 +267,6 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
- 	if (!amdgpu_device_has_dc_support(adev)) {
- 		if (!adev->enable_virtual_display)
- 			/* Disable vblank IRQs aggressively for power-saving */
--			/* XXX: can this be enabled for DC? */
- 			adev_to_drm(adev)->vblank_disable_immediate = true;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 9ab65ca7df777..873bc33912e23 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -524,10 +524,10 @@ static void gmc_v8_0_mc_program(struct amdgpu_device *adev)
+ static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
+ {
+ 	int r;
++	u32 tmp;
  
- 		r = drm_vblank_init(adev_to_drm(adev), adev->mode_info.num_crtc);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a5b6f36fe1d72..6c8f141103da4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1069,6 +1069,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 	adev_to_drm(adev)->mode_config.cursor_width = adev->dm.dc->caps.max_cursor_size;
- 	adev_to_drm(adev)->mode_config.cursor_height = adev->dm.dc->caps.max_cursor_size;
+ 	adev->gmc.vram_width = amdgpu_atombios_get_vram_width(adev);
+ 	if (!adev->gmc.vram_width) {
+-		u32 tmp;
+ 		int chansize, numchan;
  
-+	/* Disable vblank IRQs aggressively for power-saving */
-+	adev_to_drm(adev)->vblank_disable_immediate = true;
-+
- 	if (drm_vblank_init(adev_to_drm(adev), adev->dm.display_indexes_num)) {
- 		DRM_ERROR(
- 		"amdgpu: failed to initialize sw for display support.\n");
+ 		/* Get VRAM informations */
+@@ -571,8 +571,15 @@ static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
+ 		adev->gmc.vram_width = numchan * chansize;
+ 	}
+ 	/* size in MB on si */
+-	adev->gmc.mc_vram_size = RREG32(mmCONFIG_MEMSIZE) * 1024ULL * 1024ULL;
+-	adev->gmc.real_vram_size = RREG32(mmCONFIG_MEMSIZE) * 1024ULL * 1024ULL;
++	tmp = RREG32(mmCONFIG_MEMSIZE);
++	/* some boards may have garbage in the upper 16 bits */
++	if (tmp & 0xffff0000) {
++		DRM_INFO("Probable bad vram size: 0x%08x\n", tmp);
++		if (tmp & 0xffff)
++			tmp &= 0xffff;
++	}
++	adev->gmc.mc_vram_size = tmp * 1024ULL * 1024ULL;
++	adev->gmc.real_vram_size = adev->gmc.mc_vram_size;
+ 
+ 	if (!(adev->flags & AMD_IS_APU)) {
+ 		r = amdgpu_device_resize_fb_bar(adev);
 -- 
 2.34.1
 
