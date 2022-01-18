@@ -4,57 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D42C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 14:19:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAAE5C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jan 2022 14:19:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE32A10E6EC;
-	Tue, 18 Jan 2022 14:19:30 +0000 (UTC)
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
- [IPv6:2607:f8b0:4864:20::831])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 170AF10E1C7;
- Tue, 18 Jan 2022 07:57:12 +0000 (UTC)
-Received: by mail-qt1-x831.google.com with SMTP id d4so1139953qtw.1;
- Mon, 17 Jan 2022 23:57:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=oVASYcnUzo//aC4Lo3/46A3KtVN0oXM5tvWTeJ4jCZ8=;
- b=dFYGMojLFUBw1OMQjj6HwqnFRyARImliTcO5d7rybcEcORxWEfUGG7jjQtc9PHvOhb
- FTa0uKEgRc18PNWHHcixKTxZa+PX1QMKX20DuT5ma1QOhCgYVM22WgljjR4LB6SlXNYp
- jif/sq0cmvxhBSQ0kOaqsHsd3B+bEeDTxG7Chlz4Zd5FUfDSSeCgGJLCJ9l2AYOlGAPM
- 6TzP+9gN33/WW2NlNFUROaL87ApVOyv1AgPoG5yMDqSOPrbMz3ES6zeZ12yOapBa7nk4
- I+IxRKwRqZYxPiW7qZNqrvhv1zLwawkF9wvs2u2JyItB1A8c2cCboH1TPGHCDcV8cShI
- a05Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=oVASYcnUzo//aC4Lo3/46A3KtVN0oXM5tvWTeJ4jCZ8=;
- b=V6kJxpT1i2x2texRa60Sc5EUSOLDDlyLf0WU09D10r5iVXogstg2gJdIGD8R6wLY9y
- wtS+LzYiAOidnSISPJvNBZcWKdr7XVJoLAdwVUtFkthOSOMdjaQChCNmIKV1ENtaBWPQ
- uhXE+SgAKa4noFi3UdY84mdKBSe/rbyXyUiq/y4E0/V48MXeKI5sT1tCN/g7ef8sfZDO
- +y7IWVOpxY0/YU7Zi9SLayisuFgRSsIEBMkO1N8lHLkKBCjhtzxERlA4xcIRRC2oQY4p
- /EphTiEhXW9DqUYJ5wPsp3UP0wI+bTBjxRe05cqyeMbrStsNnDfQLLAzHLoBUWGlWOso
- UP3Q==
-X-Gm-Message-State: AOAM532nu+Xpk0NTME48wLCe7Sr/HeYaMf5tLaM0soG8ggcoKaxN3Kso
- v+bEUrEwVzDyGewLnhR1SJY=
-X-Google-Smtp-Source: ABdhPJzTOFGF33TPzBo+kbuXuIEVovrBBhmGDVuKZqsKz3S+0IG70LLGvd0QdY8yw99+kVf8vs/r8g==
-X-Received: by 2002:a05:622a:2d1:: with SMTP id
- a17mr18608482qtx.196.1642492631252; 
- Mon, 17 Jan 2022 23:57:11 -0800 (PST)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id o7sm10070549qke.44.2022.01.17.23.57.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Jan 2022 23:57:10 -0800 (PST)
-From: cgel.zte@gmail.com
-X-Google-Original-From: chi.minghao@zte.com.cn
-To: alexander.deucher@amd.com
-Subject: [PATCH] amdgpu/amdgpu_psp: remove unneeded ret variable
-Date: Tue, 18 Jan 2022 07:57:02 +0000
-Message-Id: <20220118075702.925929-1-chi.minghao@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5794D10E55D;
+	Tue, 18 Jan 2022 14:19:31 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C61CC10F2C1;
+ Tue, 18 Jan 2022 09:54:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642499692; x=1674035692;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=iCK4/KbCsLlMc5j0Y8eHw+xQocZMcWu5acqJbztI50s=;
+ b=QXaYSX7T/nV3XJHXqXekcF5mSjkKBuVOPJsqfexmN7Q24I6/tYNrCXVU
+ +LVWmUIZBolcPaQwUVQFDDSSmWftNgxAI0U1mC/0/EdcmMqksV/6LHsZC
+ 6AdEOyQ6K8/8G2nODup6frNdc160MG4B91L6c1aAAbcZKj5nZuh8HQseo
+ NtI2NtLT2B3NRyFgq5KbD0l/IHi1KSfsvhCJ18TlY2SXGYu0LGDSm3Ni0
+ Acn9MF00BsunxPVdo1d18LhQbt2CUjhKws5f9LLa/2vwAZs31M+KXbdnu
+ 1A/xoKvs3pake1QhEWXe0CmRkJBm8qM30dbqJuTyiLfJBbnev6y0bexsj A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10230"; a="269158058"
+X-IronPort-AV: E=Sophos;i="5.88,297,1635231600"; d="scan'208";a="269158058"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2022 01:54:52 -0800
+X-IronPort-AV: E=Sophos;i="5.88,297,1635231600"; d="scan'208";a="595015751"
+Received: from smile.fi.intel.com ([10.237.72.61])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2022 01:54:46 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1n9lBG-00Bnof-PN; Tue, 18 Jan 2022 11:53:34 +0200
+Date: Tue, 18 Jan 2022 11:53:34 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Esaki Tomohito <etom@igel.co.jp>
+Subject: Re: [RFC PATCH v3 2/3] drm: add support modifiers for drivers whose
+ planes only support linear layout
+Message-ID: <YeaOHqfTcf+evbVC@smile.fi.intel.com>
+References: <20220114101753.24996-1-etom@igel.co.jp>
+ <20220114101753.24996-3-etom@igel.co.jp>
+ <YeGFugZvwbF7l2I/@smile.fi.intel.com>
+ <0cf405a1-0d2d-ed5e-abdf-be645e7a9209@igel.co.jp>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0cf405a1-0d2d-ed5e-abdf-be645e7a9209@igel.co.jp>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mailman-Approved-At: Tue, 18 Jan 2022 14:19:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,53 +63,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lijo.lazar@amd.com, airlied@linux.ie, lang.yu@amd.com, Oak.Zeng@amd.com,
- Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Zeal Robot <zealci@zte.com.cn>,
- Minghao Chi <chi.minghao@zte.com.cn>, jonathan.kim@amd.com,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- CGEL ZTE <cgel.zte@gmail.com>, candice.li@amd.com, john.clements@amd.com,
- christian.koenig@amd.com, Hawking.Zhang@amd.com
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
+ Daniel Stone <daniel@fooishbar.org>, Lee Jones <lee.jones@linaro.org>,
+ Rob Clark <robdclark@chromium.org>, Takanari Hayama <taki@igel.co.jp>,
+ amd-gfx@lists.freedesktop.org, Ben Skeggs <bskeggs@redhat.com>,
+ Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Sean Paul <seanpaul@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Evan Quan <evan.quan@amd.com>, Mark Yacoub <markyacoub@chromium.org>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simon Ser <contact@emersion.fr>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Damian Hobson-Garcia <dhobsong@igel.co.jp>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Minghao Chi <chi.minghao@zte.com.cn>
+On Mon, Jan 17, 2022 at 02:15:48PM +0900, Esaki Tomohito wrote:
+> On 2022/01/14 23:16, Andy Shevchenko wrote:
+> > On Fri, Jan 14, 2022 at 07:17:52PM +0900, Tomohito Esaki wrote:
+> > > The LINEAR modifier is advertised as default if a driver doesn't specify
+> > > modifiers.
+> > 
+> > ...
+> > 
+> > > +	const uint64_t default_modifiers[] = {
+> > > +		DRM_FORMAT_MOD_LINEAR,
+> > > +		DRM_FORMAT_MOD_INVALID
+> > 
+> > + Comma?
+> 
+> There is no mention in the coding style about adding/removing a comma to the
+> last element of an array. Is there a policy in drm driver?
+> 
+> I think the advantage of adding a comma to the last element of an array is
+> that diff is only one line when an element is added to the end.
+> However since INVALID is always the last element in the modifiers array, I
+> think it can be either in this case.
+> If there is a policy, I will match it.
 
-Return value from amdgpu_bo_create_kernel() directly instead
-of taking this in another redundant variable.
+Indeed, but there is a common sense. The idea behind (multi-line) definitions
+that when next time somebody will add an element in the array, there are will
+be:
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
-Signed-off-by: CGEL ZTE <cgel.zte@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+a) no additional churn (like in case of this patch, if the item will be added
+   at the bottom;
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index dee17a0e1187..ac2b87f81ef9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -914,19 +914,15 @@ static void psp_prep_ta_load_cmd_buf(struct psp_gfx_cmd_resp *cmd,
- static int psp_ta_init_shared_buf(struct psp_context *psp,
- 				  struct ta_mem_context *mem_ctx)
- {
--	int ret;
--
- 	/*
- 	* Allocate 16k memory aligned to 4k from Frame Buffer (local
- 	* physical) for ta to host memory
- 	*/
--	ret = amdgpu_bo_create_kernel(psp->adev, mem_ctx->shared_mem_size,
-+	return amdgpu_bo_create_kernel(psp->adev, mem_ctx->shared_mem_size,
- 				      PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM,
- 				      &mem_ctx->shared_bo,
- 				      &mem_ctx->shared_mc_addr,
- 				      &mem_ctx->shared_buf);
--
--	return ret;
- }
- 
- static void psp_ta_free_shared_buf(struct ta_mem_context *mem_ctx)
+b) an element that may not be added behind the terminator, which will look
+   weird.
+
+That said, the question is if the element is terminator one or not, if not,
+comma is better than no comma and vise versa.
+
 -- 
-2.25.1
+With Best Regards,
+Andy Shevchenko
+
 
