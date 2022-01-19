@@ -4,113 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D5EC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 01:45:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F504C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 02:35:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E63D110E1CF;
-	Wed, 19 Jan 2022 01:45:52 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2046.outbound.protection.outlook.com [40.107.220.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 829D610E1CF
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jan 2022 01:45:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SBW+I/EvueJ8Oth8LOPtBWAHq5ViTpqY3E4t4P6J+s0gPhxhgK4/jP2YupUL7wL2OO3hRGUNCGKt2U1iI7IzTdk6dLk3H2aDA13nCHT0pfW3t/+C8H7IPcd4ZvNp23bjT3wXodchhxvH/CI/ufNt66gCE2M2v/c0X0GvzUzSUr2uCo7oQcJ3E1iSN2H4l51C2wgUkDdhXUdl9T3DmJysutAlqpsJeT6zzVZMz0QVL3idLIu0awsPJZBYxrNJ6W8hx9HPCZfnlsxTR4+b0AF4cmGvf0F9dEDKIeM5HLOCGntZpZADTe6f7NM4skt48yd6bV4Wz8zqRNh/htTrLBYs3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WkicEbG5D0jE7sgVhXHzxRXGIoHnFuKu/x5RqjxZowM=;
- b=VC5etIWhpiY3GmlsK6hcgU1b1QLyva51NaaV4EGFbRjMG3I9CAw9J0idZTKemnQsZYfoSshpCmYFLOclVfcPRZPKhhKP18Byl/70ID7hg6h3Lhp+QKdEBIO2K10ZkJpnWtKsNozL8yBiQuvqRPhQvkw47gFunn4Jv0ELKq+irDwyUjj0P8O+1dPCzA2bpoj9Z1rSB+lyryJWNQP8qbIsWzNNdqA5jc7nteu5Sbt3KR02PYwGcHhsSeag0y4opR4mLixRJkFkC1NJLXwV3ulFOOzaesXuNMiJb6gepxhGbsq5BSp2khUpcstX5NSsI1PlVXvJ8ymZCW790je4vldeKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WkicEbG5D0jE7sgVhXHzxRXGIoHnFuKu/x5RqjxZowM=;
- b=VWRUbrjaGKutpyf4KW9HaLwJLIoIa0kkIq04BdvVNKVcgUXOuc+Hkl13zsAnpRuHwClNBsTiw9eCWwXB9J9hlWcGUwh3ChyVeLTxako2BshGg2hOOtNBlNqywxYjIlz/pVbxZxQ4RkAYcQUFJxcFAoDaXMDdW6rOPhWOBmMl8fE=
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by DM6PR12MB2668.namprd12.prod.outlook.com (2603:10b6:5:4a::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.12; Wed, 19 Jan
- 2022 01:45:48 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::9c25:ce1d:a478:adda]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::9c25:ce1d:a478:adda%6]) with mapi id 15.20.4888.014; Wed, 19 Jan 2022
- 01:45:48 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v3] drm/amd: Warn users about potential s0ix problems
-Thread-Topic: [PATCH v3] drm/amd: Warn users about potential s0ix problems
-Thread-Index: AQHYDJmTeqdeVfl2S0+a3kPwlBg1mKxpkoOo
-Date: Wed, 19 Jan 2022 01:45:48 +0000
-Message-ID: <BYAPR12MB4614D0EB07738E929BBFA52C97599@BYAPR12MB4614.namprd12.prod.outlook.com>
-References: <20220118183102.32482-1-mario.limonciello@amd.com>
-In-Reply-To: <20220118183102.32482-1-mario.limonciello@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-19T01:42:55.1618380Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 545a1c57-aeb3-4557-e01d-08d9daed6b13
-x-ms-traffictypediagnostic: DM6PR12MB2668:EE_
-x-microsoft-antispam-prvs: <DM6PR12MB2668417DD640EC29F9554E9197599@DM6PR12MB2668.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1051;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: z62OVnTBFsubo+bU4jHEN7xjuFIhYrii5F0qEslZKuPo2Cpmsc+4dUOTZ4z+paH+Dy73k9iHWY+JsyLOu2KtkJQEaawXdXeeudyx6+XmYW5yXr95iATsdA/IiQ2IbgS+O8Lt6lGvrnreA96+yXyX1sS7AhwzeyZrZPFtrjCvPMFSLaq6ei9+id3j7aG3zmbJR78LSB0ffn6jzlBu0O7P8+W8hH5O1WKwgZ9HIeiwJ9C/Flja0+1O7UYSn4rgWcndCPvZdiHg9ACrJI3vJD7lgLI6MbEjCsa0yQlnejb8p3F9asUOqD3WsPvR7zNpDW12D2i/L5vGDsHRKt5FkAJnNrjwH2dtAkZUwpucyiOBsP2kK6DjStmxqqLttIjZ589VREx1TFPL2VJe4/5qn4zDRlQHM5Zm4d8uL5tP5DsFFkGInmDpBF6YgazYeRNJxWPmpieKYuYV/hPnSjvbmEgBjRRCLYRQ1oFu3LGE7EyR/MpwDILfa95krKPEiwuiE5TRbe4PVcffyoO4STbkHuVkj4/9BrNvww42e8QsXgilYXnP2BxteGtVitX2Kupp/0JBT4pXU4TzTPq/Bo0ESYRjmuAvo+rMX2N2vS+HaucJqCm2VwMzZlp3yAzOK6fHvwnuPr/6Iu8tJXhYWZuEsdk17A7cWHv3D3ErhMYiiMbqNKGhwv895Df9z9FyoctI/mh874fHjQcntqJfZXeUvUQNc7obtcIGs6GsDCixy8FCMQ0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(66446008)(2906002)(76116006)(86362001)(64756008)(91956017)(122000001)(66556008)(66946007)(71200400001)(38070700005)(508600001)(55016003)(110136005)(26005)(54906003)(316002)(186003)(4326008)(8936002)(6506007)(66476007)(8676002)(558084003)(7696005)(5660300002)(33656002)(38100700002)(52536014)(9686003)(83380400001)(32563001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?aHowzQSLAVSRw8FAUqtCxWUv8E9DoFkIGchb51v2xLZ+BroCC+HPU5GHoX+O?=
- =?us-ascii?Q?1PTFFPy1SE+wCzPdgt5Op4FarD58sGbMlUdJ11NDgJhRr9cyZnPi1AN6UvbQ?=
- =?us-ascii?Q?XGx60pf3hmf5DERjx60+fqjv53lstB9cFJhY4lnIlkGkT5PXg+QNUSf5/Mbn?=
- =?us-ascii?Q?PawpeNCyJHuOpLD/0lYCNsjs8SxjVUsOujEaAFDFJ09WUubA+tmuPE7Ya+7A?=
- =?us-ascii?Q?Gx18U+R7ZkHYzKS0vN8ArXOVPMzNwjQ4sChJbnOfHl94X8oa3kTjeiRifaQ5?=
- =?us-ascii?Q?iBlVD+W8BoQmvTe6tp/Skq+LL/ERj/hHro7yPhnY4+bl5puBkOrDS+E7LLfU?=
- =?us-ascii?Q?LlLs5uEIJJjiwXUUHPdCOicBf6v3O+ZcmRkjoNfPvkd8/b4JTABPgtFVIl20?=
- =?us-ascii?Q?PavlbWKXl+MVSbZ4EtYNsQ1fUfZCYDEWZdtFilMEvFn/VO5goOASmayanNdX?=
- =?us-ascii?Q?zgun4uMOytkbXDoEYBKe/jmBP82GxzSZUowrZkqrk3y6yy/he8o+nm3J0HPj?=
- =?us-ascii?Q?+O67GyH5Iv5lWJBhejWX84dlZH/atjh+FVJHELXFNWn8YQf/9YU7fK1gISdL?=
- =?us-ascii?Q?pUMuUNxv6TX+o0tn3vxXJZNcqgeEXyAhpfAPkjbjgUCasNq0Pfl9m0WndvbM?=
- =?us-ascii?Q?2i4ncTLStrTEPMpzpmZ6cnDs3mpRkloaSnwZnmF+nX5rn0Wwycxr2meWd5gM?=
- =?us-ascii?Q?f02e8Ohg72KLhhvA7WTU0MAixVVVCQaP+CfuJjjaz4kKDC8d2Zy+Kony6dyk?=
- =?us-ascii?Q?A0YXy8bqNNWHgcuREyAEHUx88nk0I57vfvduj5DHRwFLP6td+kcn6AWlrIt7?=
- =?us-ascii?Q?8dJO6ox8xw/VckZ1Qyxl/VhwNCWLzr0Iqd3cgi5A/dAoJFGDV1a81ui4TYb9?=
- =?us-ascii?Q?B9RaBdMCFQzInXzm/YX9rXUPzjZQ14Da1lcQeFKaaez34fb8T9dgux1fG247?=
- =?us-ascii?Q?lO/6BKmWecLMoVthm9Los1Chz89W1jydn99LFeV+DafERYGOjn9Jz9pvRawV?=
- =?us-ascii?Q?YS5iUq+NCwnVUEZU1pVRKGYPAmpidUBlUKaE3R4o3PH44fsCVTKLoQA0Bat1?=
- =?us-ascii?Q?EYN9g1Ur+I96mTBD+YuL87ONdS2PvL9LZwUNDHrSm/xP3CKP2SVymYxa5D6Q?=
- =?us-ascii?Q?QKq0oaaj2aj2PX94XAljAe3MgUbwRjtOLRSQRZInZzfyccJ7ibQEpaOxFvlg?=
- =?us-ascii?Q?ncagC0tyuXw/PFx/hdzQdezBBREBmzYO53ORE4xU11vikyi/WJHPqi5UjE7+?=
- =?us-ascii?Q?81aXlhkTRkKj77jIxFT5HiSAtpMU3yzweY43+i076wfIo8xxKu0qe33YUIpb?=
- =?us-ascii?Q?NbjZinp5nDVVBIqU9VdED8cEmLJh+ZG3TdtHwoR01MyXElwbr0a+8OHkLcXv?=
- =?us-ascii?Q?OqTYbJ7SBS/k2nUFt+zbPgwA/H4pqqGs13FDaR6LdQmgeowefOZpvYv/65Bf?=
- =?us-ascii?Q?CA8gtZTmvTTyrQIntkz816HPYPftLeZVl7Vble6FHLhzAOgQZPyz51PclUBT?=
- =?us-ascii?Q?bqLxmqfbfjVdx++BX3sgrDdFxcqDl7rXLClgL9SvbWNhjmxY7aLWlF7a/KgA?=
- =?us-ascii?Q?RmjYH/HteC01X1LmsqfUWYveMVqcRwktO2cTNFhj?=
-Content-Type: multipart/alternative;
- boundary="_000_BYAPR12MB4614D0EB07738E929BBFA52C97599BYAPR12MB4614namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5F7C10E564;
+	Wed, 19 Jan 2022 02:35:33 +0000 (UTC)
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [IPv6:2607:f8b0:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC69610E581
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jan 2022 02:35:32 +0000 (UTC)
+Received: by mail-pl1-x62b.google.com with SMTP id t18so769699plg.9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jan 2022 18:35:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=igel-co-jp.20210112.gappssmtp.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=ghW/ul0d9NEyJ9r42fCrbuuKSEOCoJslPqejWSnYe4E=;
+ b=uPqM8B/AGjP0zEx3Jb1zSG/XQs3hDbbgpen5gl3SMQdeuniUTowERurn5OXzTAdvtd
+ fRR1eFmNfr/L328KILrOZGgiISXNDYf/CYtmObLx+YvxxNpnFvTtDTBtXm1zKxDTtTFn
+ FmCtJUT5ufM73Pc8tn8pVy7/45/n6mPTHu06ivs5vZrR2Uan/i/bNM/XUw+UZymsYMi0
+ kM+j5EyyQSO60NNsEg3qFLDqjZ4HHBYI7h07UqdQkJFoi/GsAK3ypsziUF4WOQY2b9t1
+ dVl3eg/PpJwmFGNOSlQkbTd10Kq3T5nfbK7BqVAsWZRV2w8nva5jJysJuEabEcuXp5WG
+ UPFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=ghW/ul0d9NEyJ9r42fCrbuuKSEOCoJslPqejWSnYe4E=;
+ b=gwr9BpZNWYhSTNMOaJGkzZk6j5PP/GTMao3fDjmA5ckV1E/pKvD0mMtAZMaK9pD8+b
+ R6dp8K1r4QgCv6htAcDpmN0OMhb/Tzs/blHTJIcWbyqA2Fz3rtLaeWXXDPOKvoiS4WfC
+ 9GP6KtaGHUcjLyGs7UZFmRYHr4LzRp4rKisBjKbxvs9RGFBC3nfeHUf4Yyf1Ymea9S38
+ eEiq0XOAiiNBTDkUZl8qTzX1rM2X5BDNV/Sl4qzAPRzs7gK+luXhh8wX2uNWSfnTLqfa
+ zWHhaPHdbBB9xoFNHx26fKcAIFeZs+Y4xPBU72/Tu8Ty9+lH7VVnT7ANTyo5CbIleEc7
+ Dqig==
+X-Gm-Message-State: AOAM532DG+yulw2ep3w62DdXQOYTtcxp3KqPl82QG9TLFhO3HsiC9I+g
+ rV8e2akRd7a67nS7iURMbJujlg==
+X-Google-Smtp-Source: ABdhPJxN1s1eA9Hs8mRFndnBGoYKps6ZgVn3wyGBiRkZe12FBr3GwhWrZf3/6Z6/SAg6dI6p5UlLsA==
+X-Received: by 2002:a17:902:cece:b0:14a:73bb:e75 with SMTP id
+ d14-20020a170902cece00b0014a73bb0e75mr30647215plg.115.1642559732396; 
+ Tue, 18 Jan 2022 18:35:32 -0800 (PST)
+Received: from [10.16.129.73] (napt.igel.co.jp. [219.106.231.132])
+ by smtp.gmail.com with ESMTPSA id d11sm18974996pfu.211.2022.01.18.18.35.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Jan 2022 18:35:31 -0800 (PST)
+Message-ID: <94bddda6-9823-6479-bc1d-cbb8c1079877@igel.co.jp>
+Date: Wed, 19 Jan 2022 11:35:22 +0900
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 545a1c57-aeb3-4557-e01d-08d9daed6b13
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jan 2022 01:45:48.6798 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Z74re76nypRnbXKys5Vsi9iOXooJfo5dS0R7BwF7s2TdfzYo1r/Qy37X5HVDuzre
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2668
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [RFC PATCH v3 2/3] drm: add support modifiers for drivers whose
+ planes only support linear layout
+Content-Language: en-US
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+References: <20220114101753.24996-1-etom@igel.co.jp>
+ <20220114101753.24996-3-etom@igel.co.jp>
+ <YeGFugZvwbF7l2I/@smile.fi.intel.com>
+ <0cf405a1-0d2d-ed5e-abdf-be645e7a9209@igel.co.jp>
+ <YeaOHqfTcf+evbVC@smile.fi.intel.com>
+From: Esaki Tomohito <etom@igel.co.jp>
+In-Reply-To: <YeaOHqfTcf+evbVC@smile.fi.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,52 +77,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bjoren Dasse <bjoern.daase@gmail.com>, "Liang, Prike" <Prike.Liang@amd.com>,
- "Limonciello, Mario" <Mario.Limonciello@amd.com>
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Michel_D=c3=a4nzer?= <mdaenzer@redhat.com>,
+ Daniel Stone <daniel@fooishbar.org>, Lee Jones <lee.jones@linaro.org>,
+ Rob Clark <robdclark@chromium.org>, Takanari Hayama <taki@igel.co.jp>,
+ amd-gfx@lists.freedesktop.org, Ben Skeggs <bskeggs@redhat.com>,
+ Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Sean Paul <seanpaul@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Evan Quan <evan.quan@amd.com>, Mark Yacoub <markyacoub@chromium.org>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simon Ser <contact@emersion.fr>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Damian Hobson-Garcia <dhobsong@igel.co.jp>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BYAPR12MB4614D0EB07738E929BBFA52C97599BYAPR12MB4614namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 2022/01/18 18:53, Andy Shevchenko wrote:
+> On Mon, Jan 17, 2022 at 02:15:48PM +0900, Esaki Tomohito wrote:
+>> On 2022/01/14 23:16, Andy Shevchenko wrote:
+>>> On Fri, Jan 14, 2022 at 07:17:52PM +0900, Tomohito Esaki wrote:
+>>>> The LINEAR modifier is advertised as default if a driver doesn't specify
+>>>> modifiers.
+>>>
+>>> ...
+>>>
+>>>> +	const uint64_t default_modifiers[] = {
+>>>> +		DRM_FORMAT_MOD_LINEAR,
+>>>> +		DRM_FORMAT_MOD_INVALID
+>>>
+>>> + Comma?
+>>
+>> There is no mention in the coding style about adding/removing a comma to the
+>> last element of an array. Is there a policy in drm driver?
+>>
+>> I think the advantage of adding a comma to the last element of an array is
+>> that diff is only one line when an element is added to the end.
+>> However since INVALID is always the last element in the modifiers array, I
+>> think it can be either in this case.
+>> If there is a policy, I will match it.
+> 
+> Indeed, but there is a common sense. The idea behind (multi-line) definitions
+> that when next time somebody will add an element in the array, there are will
+> be:
+> 
+> a) no additional churn (like in case of this patch, if the item will be added
+>     at the bottom;
+> 
+> b) an element that may not be added behind the terminator, which will look
+>     weird.
+> 
+> That said, the question is if the element is terminator one or not, if not,
+> comma is better than no comma and vise versa.
+> 
 
-[Public]
+Ah I see. In this case, DRM_FORMAT_MOD_INVALID is terminator, so it
+should not have a comma.
 
-IS_ENABLED(CONFIG_SUSPEND) will be required for using  pm_suspend_target_st=
-ate.
-
-Thanks,
-Lijo
-
---_000_BYAPR12MB4614D0EB07738E929BBFA52C97599BYAPR12MB4614namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
-" dir=3D"auto">
-<span style=3D"font-family: -apple-system, HelveticaNeue; font-size: 14.666=
-7px; display: inline !important;">IS_ENABLED(CONFIG_SUSPEND) will be requir=
-ed for using&nbsp; pm_suspend_target_state.</span><br>
-</div>
-<div id=3D"ms-outlook-mobile-signature" dir=3D"auto">
-<div><br>
-</div>
-Thanks,<br>
-Lijo</div>
-</div>
-</body>
-</html>
-
---_000_BYAPR12MB4614D0EB07738E929BBFA52C97599BYAPR12MB4614namp_--
+Thanks
+Tomohito Esaki
