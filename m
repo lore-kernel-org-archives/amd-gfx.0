@@ -4,63 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA3FFC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 15:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76E4FC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 16:15:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6655010E1D5;
-	Wed, 19 Jan 2022 15:52:53 +0000 (UTC)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF69610E1D5
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jan 2022 15:52:51 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 25-20020a05600c231900b003497473a9c4so15020617wmo.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jan 2022 07:52:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=7MCXxYSQOmZ3OoCOTB8BhQUtdRKxWCtkQgr2GT/szNw=;
- b=YUZIEIFJGuPL2ug+aK3YwgMTGTG03fBehJAuVhgx+X2+pvuMnI5wKBnsDcK/B4COfx
- rtUc9e23/P83QfW5ULdj9yl5mdxTxCe0CR3ROflOuFv/fFF5T+kVVVTreT0nWwtN35Em
- VvDRPilu3t8zozA1ELnrUICgCko5Hh93BTD8/akez4bv//42PAFfoRxiTUmVgD5V+riv
- AemF1Sznt/Pa4McijQDSlx0IosYoEwdCx7GshaKitc+e5Cf6Y4jdKxEuNRw1wyBklgI7
- j0SLlxeXDRGEDsakVjcYpTRqRLdSPH3c8oGN8aMSvUkeeKaut9uFrYC6naf2F7SWsKmJ
- rN2Q==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26DD910E39D;
+	Wed, 19 Jan 2022 16:15:09 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4A0210E398
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jan 2022 16:15:07 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id c2so6073069wml.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jan 2022 08:15:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to; bh=/740EhzwYoGWwplLvQqVEtpoUmpyOdkwft+pAru/eUg=;
+ b=CLleadD2rlpyVmC2Y6vZSEoLi9LN/RUvstwkUMHlt3h7gHDd+Twhzs8oNKymBLJ71M
+ +mCmZ512cWOY8OIf9l9LSqDn0RzEX5N4nNE80SRlE4EPdjhpbA+VFlLjEUNdd6c7+gmz
+ hc/Es0b3squc/LZ7AtYoKuJMwS6NkmXhvHLNA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=7MCXxYSQOmZ3OoCOTB8BhQUtdRKxWCtkQgr2GT/szNw=;
- b=oLAxE0xgyEvqc3AjLDsps0/CgSt123SrlK1SxOsLWThsKtaZpXva6SzJg0kUCuvzGU
- geycIDlcAozfsSa9+SoZ9vao0g40NQWglyfPQP+/VVqqk/BwhwyHhs9Ji53XEp4faohy
- I10DbWXlWg1Fc9774Ttfnr0OVUP2GjSZRznha2TCzRtI3HuRgyJbdXFr5931g/U6MrJN
- k3ps9PiNZzDmWs2ReMHFScnmmlGmS8jyFLRXPi8S5FApywtk0rif6yuwy+3NwVPnoWBw
- SnIByiO9eucmoQhO1wx9gg/ycTSHMmnEEeYzOOUeqQ3pqH8Qq1AV0TaL4q1cIGb+RDRI
- pUAA==
-X-Gm-Message-State: AOAM530D39TY1qzO8KsYWpgYaXcvnUjLrFmDYgkaP5pIUJDRd23uC5EL
- v53pCDsm2N4sGyicnWLkJP0=
-X-Google-Smtp-Source: ABdhPJyBJ8j/HA8Ru1ORHq45eafi4jQ0Fgj85jz9iNnjLa3s2ph94Q1NQGWNezPdu0PxQSeJjMymVQ==
-X-Received: by 2002:a7b:ce17:: with SMTP id m23mr4070755wmc.141.1642607570439; 
- Wed, 19 Jan 2022 07:52:50 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:e02a:2696:8337:7b12?
- ([2a02:908:1252:fb60:e02a:2696:8337:7b12])
- by smtp.gmail.com with ESMTPSA id i18sm147282wrq.96.2022.01.19.07.52.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Jan 2022 07:52:50 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: fix broken debug sdma vram access function
-To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220119154736.113984-1-jonathan.kim@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <f94276e7-1ebb-fed5-5584-b601a9cc0505@gmail.com>
-Date: Wed, 19 Jan 2022 16:52:49 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to;
+ bh=/740EhzwYoGWwplLvQqVEtpoUmpyOdkwft+pAru/eUg=;
+ b=AxV1CESWkSLQyUVoZxFO+n0v0JfUfstEqZngifF68vZ6VrsjZq1sES4TrRqEF+Hz4x
+ Tt1Jyl7cBgdIQayOl/fib14+mMIMxDIqj/RZL3/WsOuKoOAnTFL1ghKBO08yrJjQR1iD
+ MLTVgRRxjbDjjlCybVs5X+2x3UvNDis8cX1Xwwgku9pnGUQfB21o60AfrFNAKk86kn7t
+ o+yYV5y02DL4G4GEkdPT48RgwtTn8SNKtfCabeP0z1N2DSzPqeQutFVdfWQrVmLOy8+t
+ oh/KPf7fmDEOR5JngbpofBPxyr7gA2MnE8v+ItdhkrbIG6pi2kPelJ1Pa9lNEIH77iBl
+ flMw==
+X-Gm-Message-State: AOAM531mMGGxasTJ622zDFsGRQaPFGm8jL7lIuEjuRgicl0gJKsjIg5u
+ FciJaI6xeaWWuE2O/gzd0h137A==
+X-Google-Smtp-Source: ABdhPJwiLLIYLwmxveHTo+l6K6jAbRNMKsadqYtKqTPCn9x60CqA3JeQAqEpCJtSMiU+47LHV4yaMA==
+X-Received: by 2002:adf:fb84:: with SMTP id a4mr30060043wrr.315.1642608906005; 
+ Wed, 19 Jan 2022 08:15:06 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id o13sm298372wrq.37.2022.01.19.08.15.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Jan 2022 08:15:05 -0800 (PST)
+Date: Wed, 19 Jan 2022 17:15:02 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Subject: Re: [PATCH 0/3] lib/string_helpers: Add a few string helpers
+Message-ID: <Yeg5BpV8tknSPdSQ@phenom.ffwll.local>
+Mail-Followup-To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Petr Mladek <pmladek@suse.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-security-module@vger.kernel.org,
+ nouveau@lists.freedesktop.org, netdev@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Ben Skeggs <bskeggs@redhat.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ David Airlie <airlied@linux.ie>,
+ "David S . Miller" <davem@davemloft.net>,
+ Emma Anholt <emma@anholt.net>, Eryk Brol <eryk.brol@amd.com>,
+ Francis Laniel <laniel_francis@privacyrequired.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Julia Lawall <julia.lawall@lip6.fr>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>,
+ Leo Li <sunpeng.li@amd.com>, Mikita Lipski <mikita.lipski@amd.com>,
+ Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
+ Raju Rangoju <rajur@chelsio.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Vishal Kulkarni <vishal@chelsio.com>
+References: <20220119072450.2890107-1-lucas.demarchi@intel.com>
+ <YegPiR7LU8aVisMf@alley> <87tudzbykz.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20220119154736.113984-1-jonathan.kim@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+In-Reply-To: <87tudzbykz.fsf@intel.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,89 +100,133 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, Christian.Koenig@amd.com
+Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
+ Francis Laniel <laniel_francis@privacyrequired.com>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>, Mikita Lipski <mikita.lipski@amd.com>,
+ amd-gfx@lists.freedesktop.org, Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Petr Mladek <pmladek@suse.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Leo Li <sunpeng.li@amd.com>,
+ intel-gfx@lists.freedesktop.org, Raju Rangoju <rajur@chelsio.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Julia Lawall <julia.lawall@lip6.fr>,
+ Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Eryk Brol <eryk.brol@amd.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
+ linux-security-module@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David S . Miller" <davem@davemloft.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 19.01.22 um 16:47 schrieb Jonathan Kim:
-> Debug VRAM access through SDMA has several broken parts resulting in
-> silent MMIO fallback.
->
-> BO kernel creation takes the location of the cpu addr pointer, not
-> the pointer itself for address kmap.
->
-> drm_dev_enter return true on success so change access check.
->
-> The source BO is reserved but not pinned so find the address using the
-> cursor offset relative to its memory domain start.
->
-> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+On Wed, Jan 19, 2022 at 04:16:12PM +0200, Jani Nikula wrote:
+> On Wed, 19 Jan 2022, Petr Mladek <pmladek@suse.com> wrote:
+> > On Tue 2022-01-18 23:24:47, Lucas De Marchi wrote:
+> >> Add some helpers under lib/string_helpers.h so they can be used
+> >> throughout the kernel. When I started doing this there were 2 other
+> >> previous attempts I know of, not counting the iterations each of them
+> >> had:
+> >> 
+> >> 1) https://lore.kernel.org/all/20191023131308.9420-1-jani.nikula@intel.com/
+> >> 2) https://lore.kernel.org/all/20210215142137.64476-1-andriy.shevchenko@linux.intel.com/#t
+> >> 
+> >> Going through the comments I tried to find some common ground and
+> >> justification for what is in here, addressing some of the concerns
+> >> raised.
+> >> 
+> >> d. This doesn't bring onoff() helper as there are some places in the
+> >>    kernel with onoff as variable - another name is probably needed for
+> >>    this function in order not to shadow the variable, or those variables
+> >>    could be renamed.  Or if people wanting  <someprefix>
+> >>    try to find a short one
+> >
+> > I would call it str_on_off().
+> >
+> > And I would actually suggest to use the same style also for
+> > the other helpers.
+> >
+> > The "str_" prefix would make it clear that it is something with
+> > string. There are other <prefix>_on_off() that affect some
+> > functionality, e.g. mute_led_on_off(), e1000_vlan_filter_on_off().
+> >
+> > The dash '_' would significantly help to parse the name. yesno() and
+> > onoff() are nicely short and kind of acceptable. But "enabledisable()"
+> > is a puzzle.
+> >
+> > IMHO, str_yes_no(), str_on_off(), str_enable_disable() are a good
+> > compromise.
+> >
+> > The main motivation should be code readability. You write the
+> > code once. But many people will read it many times. Open coding
+> > is sometimes better than misleading macro names.
+> >
+> > That said, I do not want to block this patchset. If others like
+> > it... ;-)
+> 
+> I don't mind the names either way. Adding the prefix and dashes is
+> helpful in that it's possible to add the functions first and convert
+> users at leisure, though with a bunch of churn, while using names that
+> collide with existing ones requires the changes to happen in one go.
+> 
+> What I do mind is grinding this series to a halt once again. I sent a
+> handful of versions of this three years ago, with inconclusive
+> bikeshedding back and forth, eventually threw my hands up in disgust,
+> and walked away.
 
-Reviewed-by: Christian KÃ¶nig <christian.koenig@amd.com>
+Yeah we can sed this anytime later we want to, but we need to get the foot
+in the door. There's also a pile more of these all over.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 15 ++++++++-------
->   1 file changed, 8 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index b489cd8abe31..0a2e8e355eaa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1436,6 +1436,7 @@ static int amdgpu_ttm_access_memory_sdma(struct ttm_buffer_object *bo,
->   {
->   	struct amdgpu_bo *abo = ttm_to_amdgpu_bo(bo);
->   	struct amdgpu_device *adev = amdgpu_ttm_adev(abo->tbo.bdev);
-> +	struct amdgpu_res_cursor src_mm;
->   	struct amdgpu_job *job;
->   	struct dma_fence *fence;
->   	uint64_t src_addr, dst_addr;
-> @@ -1448,9 +1449,8 @@ static int amdgpu_ttm_access_memory_sdma(struct ttm_buffer_object *bo,
->   	if (!adev->mman.sdma_access_ptr)
->   		return -EACCES;
->   
-> -	r = drm_dev_enter(adev_to_drm(adev), &idx);
-> -	if (r)
-> -		return r;
-> +	if (!drm_dev_enter(adev_to_drm(adev), &idx))
-> +		return -ENODEV;
->   
->   	if (write)
->   		memcpy(adev->mman.sdma_access_ptr, buf, len);
-> @@ -1460,7 +1460,8 @@ static int amdgpu_ttm_access_memory_sdma(struct ttm_buffer_object *bo,
->   	if (r)
->   		goto out;
->   
-> -	src_addr = amdgpu_bo_gpu_offset(abo);
-> +	amdgpu_res_first(abo->tbo.resource, offset, len, &src_mm);
-> +	src_addr = amdgpu_ttm_domain_start(adev, bo->resource->mem_type) + src_mm.start;
->   	dst_addr = amdgpu_bo_gpu_offset(adev->mman.sdma_access_bo);
->   	if (write)
->   		swap(src_addr, dst_addr);
-> @@ -1858,7 +1859,7 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
->   	if (amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
->   				AMDGPU_GEM_DOMAIN_GTT,
->   				&adev->mman.sdma_access_bo, NULL,
-> -				adev->mman.sdma_access_ptr))
-> +				&adev->mman.sdma_access_ptr))
->   		DRM_WARN("Debug VRAM access will use slowpath MM access\n");
->   
->   	return 0;
-> @@ -1882,6 +1883,8 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
->   	if (adev->mman.stolen_reserved_size)
->   		amdgpu_bo_free_kernel(&adev->mman.stolen_reserved_memory,
->   				      NULL, NULL);
-> +	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
-> +					&adev->mman.sdma_access_ptr);
->   	amdgpu_ttm_fw_reserve_vram_fini(adev);
->   
->   	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-> @@ -1901,8 +1904,6 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
->   	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_OA);
->   	ttm_device_fini(&adev->mman.bdev);
->   	adev->mman.initialized = false;
-> -	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
-> -					&adev->mman.sdma_access_ptr);
->   	DRM_INFO("amdgpu: ttm finalized\n");
->   }
->   
+Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
+on the series, maybe it helps? And yes let's merge this through drm-misc.
+-Daniel
+
+> 
+> >
+> >
+> >> e. One alternative to all of this suggested by Christian König
+> >>    (43456ba7-c372-84cc-4949-dcb817188e21@amd.com) would be to add a
+> >>    printk format. But besides the comment, he also seemed to like
+> >>    the common function. This brought the argument from others that the
+> >>    simple yesno()/enabledisable() already used in the code is easier to
+> >>    remember and use than e.g. %py[DOY]
+> >
+> > Thanks for not going this way :-)
+> >
+> >> Last patch also has some additional conversion of open coded cases. I
+> >> preferred starting with drm/ since this is "closer to home".
+> >> 
+> >> I hope this is a good summary of the previous attempts and a way we can
+> >> move forward.
+> >> 
+> >> Andrew Morton, Petr Mladek, Andy Shevchenko: if this is accepted, my
+> >> proposal is to take first 2 patches either through mm tree or maybe
+> >> vsprintf. Last patch can be taken later through drm.
+> >
+> > I agree with Andy that it should go via drm tree. It would make it
+> > easier to handle potential conflicts.
+> >
+> > Just in case, you decide to go with str_yes_no() or something similar.
+> > Mass changes are typically done at the end on the merge window.
+> > The best solution is when it can be done by a script.
+> >
+> > Best Regards,
+> > Petr
+> 
+> -- 
+> Jani Nikula, Intel Open Source Graphics Center
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
