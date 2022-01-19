@@ -4,56 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B12B3C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 14:32:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B992C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 14:37:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E08910EB51;
-	Wed, 19 Jan 2022 14:32:50 +0000 (UTC)
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E224810E8DA;
- Wed, 19 Jan 2022 09:15:10 +0000 (UTC)
-Received: by mail-ed1-x534.google.com with SMTP id j2so8093491edj.8;
- Wed, 19 Jan 2022 01:15:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=+wBLyr24cGi7atsVZkoQIwe3uAQ6ojShCI+jVRO74lw=;
- b=ao0v25V0JGLDJrhWghxLs60wWofvYKqtQxj3HBEQwJaDJTjv/Lzjrj4cmemvRZiGaF
- 3TQidRCj+lverr4MTeq8/sW4jCpameXalGUF2xTcsf1j3o7Htw3+0219zMDSBePHXhL5
- DuQj2jQKZn6LEZuOCXNwh/ShlaY9RXT37ynos6fjkEDSr2tSo9ySjFFwTQC7rk026W7V
- o0G+X0sxXxEf4TtJeNf9/z9TlVQYD6hhAmdChaWaVsPmenf9MD+qhkx+J37qut75KuAn
- dkAEcMLtoR9Lh+QFJ4zNg5am9VWdnNH2QsvS/hSk1J58K0EC7y8mBIX8RCT4EDbardBR
- hswQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=+wBLyr24cGi7atsVZkoQIwe3uAQ6ojShCI+jVRO74lw=;
- b=CxBUIZ8wRo9373/Sts+130CKPolzrDECrccQyTc9xRjqR6Wuxrn7QEAS1pI4ZVv4oC
- Eb029Z06HmgLoRMBuxVmIhNeK5Bz06IpNNLCt5HDb7+xE2Otap8oyVqsA+zHjt0X7egE
- CRVoaFBufYjTOp79/OBhZIVGzozzkhMRZnm1KOKbNO8LkTsZKuE0cloLXzayvP/FBhme
- xc20VHhceJXwiDZtADkz1f9S6zL6h57HkLtUYJHMl23lcMLFVaeBoOILZLctKIOiwZU7
- vA1QC47yPggxiqkY92kusseBZFBvTLIJN+lu81M1DV/pAFtnGVmVVQkT52Se3ioxoCPY
- BHWA==
-X-Gm-Message-State: AOAM531c8K2ss1gz1MjvK94nS4IFiVNf42U3VMiJCxFuLi1QtzhlL/88
- qx8AAuAk0+vHpys+r7bnrtGrgtieZYL8YzhsQSo=
-X-Google-Smtp-Source: ABdhPJzWXVKEVPSd+/ybJqb9qB+8jj+Kj3hkYFRJGGmlEfb5sp9rfzec4m4cysQ94quYGJ2bZ7zcfx+15OJ7T7ROWKk=
-X-Received: by 2002:a17:906:5d0f:: with SMTP id
- g15mr5198009ejt.44.1642583709284; 
- Wed, 19 Jan 2022 01:15:09 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E303410EBA0;
+	Wed, 19 Jan 2022 14:37:45 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2055.outbound.protection.outlook.com [40.107.243.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F3D910EB9C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jan 2022 14:37:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UU2ys7M7h6vH7nqZnBp6aZWZgS49WpOltHO9SVth8kxwunxl71viZ5Cu/bezHvq47xOmhVlwOQJD0zgYLSfV8+fA70F8LwF9f449Ve9YqEieYuqhKfWoaixVv2m0ZpqQksaGYbvWa2qxQm/a5jlb5C+JWpv79C68FIeVKvBuHLxPYVYfG49agRddlek3kr6KW2GLbNGxdtav1BrSV8iikQrK3wslHzDnbp34kinjErTRzUTcDl6fg6Y39qpL/4jDSBe2I169Fub/90TH2lMs5sMnYjDjyCUUwShmMWVYdsaeYp5MpV9EctI8qz9c0jWKsZFtkbuhj8b1Ub75TI9JMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XRoNmSnK5zjmGXde/ghdUWT0FUnau2J8lBX3ZWf4vnY=;
+ b=BwkjPsO1mfpVa4o04YTFOp2M56kfqSGrthfh3Fe18BDHjBmihxAfHCR0VXQpUR5TpCNG+eQfHi59/X+OKQcc8qCVoS2r4ydiIqMT1K2hg/rdflS2buV61OCepMB3yQj40n0YuEYGuBqJxpLX9PTw9HtLD+jJydrajym6ytT/n4L0+FZCL6jSyA5dferKaI3xAZYYBU0mJuMN6cueif+GAbWO4ja0lNSMgPF2ZgFnKlcsMwiKprVI0pfAXfiKqU7gFhKHQMlEwhY9egn+OoV5MjNURJASWljwqspPSIaWJhR1TEdLXKgQc5wJMcurM4DVDipRCZ3EEY1Zjux8chbnBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XRoNmSnK5zjmGXde/ghdUWT0FUnau2J8lBX3ZWf4vnY=;
+ b=FCTgy9NnFTj7zw0DcFMZkELZDmsKU62iWEyoztlYnOVLOWACji3KuJZLSMzQM7fpNgR5Ze9NY1/2hBDm8gfqn/Y6gimkCJaCrIVcqgb6dNZ87TKzAZ3dxGtf5rLtWb5y8GjKnH4WiPsLx92p2J6QCAINn/g3J7UyXwwxWVB4mG0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DM5PR12MB1321.namprd12.prod.outlook.com (2603:10b6:3:78::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.13; Wed, 19 Jan
+ 2022 14:37:41 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::b03b:7df9:d733:13b2]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::b03b:7df9:d733:13b2%5]) with mapi id 15.20.4888.014; Wed, 19 Jan 2022
+ 14:37:41 +0000
+Subject: Re: [PATCH] drm/amdgpu: remove gart.ready flag
+To: "Chen, Guchun" <Guchun.Chen@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Kim, Jonathan" <Jonathan.Kim@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20220118120157.102453-1-christian.koenig@amd.com>
+ <DM5PR12MB24692C6D246264672211B712F1589@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <99b919b4-97df-16bc-46c2-682bc03117f4@gmail.com>
+ <DM5PR12MB2469F71C6D7237AA6CC28B37F1589@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <DM5PR12MB24693B64F61260F9F28B326DF1599@DM5PR12MB2469.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <4fce003f-e00f-d3ff-6523-fceb06df57ed@amd.com>
+Date: Wed, 19 Jan 2022 15:37:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <DM5PR12MB24693B64F61260F9F28B326DF1599@DM5PR12MB2469.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: AS9PR06CA0148.eurprd06.prod.outlook.com
+ (2603:10a6:20b:467::11) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Received: by 2002:a17:907:9713:0:0:0:0 with HTTP; Wed, 19 Jan 2022 01:15:08
- -0800 (PST)
-In-Reply-To: <20220119072450.2890107-2-lucas.demarchi@intel.com>
-References: <20220119072450.2890107-1-lucas.demarchi@intel.com>
- <20220119072450.2890107-2-lucas.demarchi@intel.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 19 Jan 2022 11:15:08 +0200
-Message-ID: <CAHp75Vf5QOD_UtDK8VbxNApEBuJvzUic0NkzDNmRo3Q7Ud+=qw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] lib/string_helpers: Consolidate yesno() implementation
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Content-Type: multipart/alternative; boundary="000000000000817d6d05d5ebd2cd"
-X-Mailman-Approved-At: Wed, 19 Jan 2022 14:32:45 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c19424d1-7afe-4663-a559-08d9db593f5f
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1321:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB13210CFE2E9C6D837CF24A8E83599@DM5PR12MB1321.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6Y4YjZ8aVzeb/8exERrxJZ8HcmuN1RQHOcoddFy51n4nUCGEcgyWNJoxlzSFxc8xHJB3+/RPJ+HAY9Jv7bRGtCO4MP/87ityaZ15Hq6cA+Xo91u4bcE6dKivRQU1lkgSNRSiSgAE4/laD6IdkMFr7Kpol49o+lcAuMmOiBTBX09ozSULM5RODjAk+u3bbgoENQxH8On6hcjPff42hTghPJN6RkT9W+LfUIX7ztq+mQSalET8lyq8TNE8vpwMcaLCFQndfkh0fQzZbiQkaZ2ciSXdzCWUxVNb+djraaXQN5VI7dNczIh3Gwiile5DOjHagb/nMPWYV87RCpz7FHX/tR5IZOS8kLAI/C6Hf+ObiJhD6dZ8SPJH3DDlyC7gUDEsCaL591n8ABzlcn5RUCQOiiKDYz9ElxqHqNuyCxYgQex0lsRfvZ2QhPVm6gy5DZig+/W0GBFGWHHNHiu7gK8PpsJ0E5KkrgbLqQKQI3gYymiAYeMocA1epIUTGbkV42YtmqdzCiy1hLPLy+AVaO7MwrwTKPi/F9LS4BP+/Umahng3069p1dzgwd7YtO87zS+k12MUAYZ0wK/Dotcuo2gU6B0ck/DJD9xlaJHGgf6DCgxCVia8skzpeBheWRodEdCENOI08zMDnQmdHZHTJCPzNi/vXQ30jYcTVwhA/1k/eMsnyduw3XoVdd/vF9rXXXfOHJJ4HY1GRAeQofKDcaPLuWy36SKItRM6kLWEB2TWyO4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(508600001)(36756003)(31696002)(66556008)(5660300002)(86362001)(6486002)(30864003)(38100700002)(66574015)(6666004)(6512007)(110136005)(2906002)(31686004)(2616005)(8936002)(186003)(53546011)(66946007)(83380400001)(316002)(6506007)(8676002)(66476007)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SHJtRzRSQ2IwK2JNS0grcmdBMEZoZEFiajFWTEM4alpCMnZOLzRIRXUvTjFY?=
+ =?utf-8?B?ZTI4dWlvZm1wNS9aS3JPYTRta0tKTXhWM2NtaFZFYkhSWDZHQzBVY1dBZFBK?=
+ =?utf-8?B?RVlNNEFPUWZiR3ZDVkVkekdzeFBJMG5pb05CQnYrM0J4aGVvaGxzejlGN0Nn?=
+ =?utf-8?B?TVp5WHQ5YlFMQURObUZYY2ZscHlieUMzRytuT09PcG45WG9XeUNoVXBxNE5U?=
+ =?utf-8?B?YTA5ZHdHcGNzeHZad3BUWThlMW45QW1nSndkd1FPdXBSYVRTWVkzWU5EU2xp?=
+ =?utf-8?B?MEdYWnpLc1ZRNHpNNTRZbWVuSDBUakYvOGFzdWVVU1B6czF6WGNDTUxsRDdM?=
+ =?utf-8?B?ektIbFFiY0FCL0M2UHZVL1BXOUFDVkEveHNOVEg0VzZoVGdIN0pBS2xHR2I0?=
+ =?utf-8?B?V1poN2hUSXhueUc4T1hNZ3VJU0NLTysxUnZyWUYrd3BZaUZrNDNsMlBBeXV4?=
+ =?utf-8?B?dUkwZHp1TXNuamc4Qm9PNXRza3NEOHlsWUwxV1BrTHRoQ2NjVE9KNEZiVU8y?=
+ =?utf-8?B?NHNmT0xQaDhmMmJGSEc5aHVMSEw0cnAwYUd4bWNsb1d5UHRjV21Db0ljUk5G?=
+ =?utf-8?B?NXJBbEZpV0luZlJqTFlRMnFUczZjazZjMGQwYktXeFNsL1dPKzlPY2lnOTlX?=
+ =?utf-8?B?VkpZM25FVHpueTJSbVJrVkVmMDJ5cjVIejBtUFFzWVlwWmhQRm5qOEhTT3lB?=
+ =?utf-8?B?cG00eVNzd2hwRURmTHZ0NGxTbEJ4YWlPL3Bza0ZuT3FacDJKcDFaazNHamFx?=
+ =?utf-8?B?cEJjSEJsWWMyMEQ1MWsyVlR2d0RyOXFIWGF5aUI1YVZKRDUrZ3BCWklwcmhj?=
+ =?utf-8?B?ZDlnMy80UnRLUEI4VXBqR1lLd214RVhUcWlndWZ0MmFKbkthTktNSGhlWlIw?=
+ =?utf-8?B?SDRQQ2xjaVRSbXhrQktwaERjdG5LUm5XdkcrWnJDRlV4d1JnY2N6UEhmNTdD?=
+ =?utf-8?B?Z3VnWWtkcW9LL3VMY3lud2ZyeDF0YXg5SGJCOThjbDFCRWJjK0RwK1NOWERs?=
+ =?utf-8?B?T2ttVFBpVC9TWmZVa3pIV1VZMG0xSHZkVGJsZUYva1kvbDlvZ3BscmFIbFdJ?=
+ =?utf-8?B?Uzg4c3lMTGFjS2RMS1hHM3QvV2VBUkhOQlBrTEFZVEdVYVBQRCtGOWlaY0pX?=
+ =?utf-8?B?Z3ZrbzFpV25aZmRkbkVPb0VxNnBQejMvTlBsdzlMK211bjZtd1pYMjNuam96?=
+ =?utf-8?B?SlBYcnJmOS85dGpHMk9PMHp2SkFVaUJ5NkcyTUVXZnFyWmZwNlRwSzRjc2ZP?=
+ =?utf-8?B?L21INldYL2tEbkRYV0RibUpsUEdUMjgwRDMreEZzcGFUZG40OW9nRUZaYlZx?=
+ =?utf-8?B?RUtXemxhWWtZY3MrRDZJV1UwUjJtY3grSzU5amllTEdUWm1RcG9mTW5PMUcv?=
+ =?utf-8?B?dWtzVWgyWjVraWlQSDZSOFg3Q05ZbXN1Z1ZmaXBHeWt5NExkbFhHcGM0NGt2?=
+ =?utf-8?B?YjdibGhZVVdYeEZhSGl4aGI4a0RoeUlZTWtOUTdzcmJBNTNJcGZrVmFwbEFY?=
+ =?utf-8?B?aXlyaUdQdWRrd3JSUjBNL1hLcEhHMjJ6d2lVR05VQmswV3Uxa1loTjFkbU9D?=
+ =?utf-8?B?cGMrN0k1V2hEZWNva0w3Y3AyYytjM3pzeTJ4VE9EUWtWdk13VEk3TS9CeldE?=
+ =?utf-8?B?alRzOWhTZ0M5bldUcjRYU0N2UHRWTlNBek9ucTI1ZEJxQ2JJOUZTeTVqemdT?=
+ =?utf-8?B?QVBWVkJ4eDM0c1lHUjFCdEZXWklZTm9BckNnVGVEUGVwVlh0SXVFMUhqWDFy?=
+ =?utf-8?B?R25PRVF6NUYwMjJPTDBPV1c3UFhXUGpkSmdjVmQ2K05TMEsvRTZPSjFTOTZC?=
+ =?utf-8?B?QVd0ZkUxRkx3RlBYT0doTkY0NXM3OEptUDROQXg4OUZEb2lOOGdTTHQzbUVN?=
+ =?utf-8?B?Wm4wSENMRUZRZUgxQ0VSbzd0cCtKb1VmWERQbTUyRWltUjUzOWJNQW9EcVcx?=
+ =?utf-8?B?V2V5TExRRGk1YUJnMzB6NUUzUUtuR1BaYkZGTnNvNU1RZFJvUEwxMy9ndDJK?=
+ =?utf-8?B?N1IyQXBxSXBFdjFmQU9RS2Q5dzl6REVXWENKSTdocE12Z3p6aXFmRkpQZTNp?=
+ =?utf-8?B?MTMvWFFjTmxnZnozK0tJUEZxZnBVRHBqVFI2RGZTR05TNkNBMGVrcEdqTi9k?=
+ =?utf-8?B?NmZienRtdk1HcnFRR3liRGx4WFJzM3RxRVhOMzl1QmpZN20xaG90QXpYQ2l3?=
+ =?utf-8?Q?zC4X0LMcESbWFZEOAl5HgPg=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c19424d1-7afe-4663-a559-08d9db593f5f
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2022 14:37:41.5503 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TvhW31TmN+ioVgBwvtZhGz5Ix8TKKII4W3a/cGt8rJAhWyy3EnrWawNUIHpJ5Irk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1321
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,503 +132,620 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
- Francis Laniel <laniel_francis@privacyrequired.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>, Mikita Lipski <mikita.lipski@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Ben Skeggs <bskeggs@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>, Petr Mladek <pmladek@suse.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Leo Li <sunpeng.li@amd.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- Raju Rangoju <rajur@chelsio.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Julia Lawall <julia.lawall@lip6.fr>,
- Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
- Steven Rostedt <rostedt@goodmis.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Eryk Brol <eryk.brol@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- "linux-security-module@vger.kernel.org"
- <linux-security-module@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S . Miller" <davem@davemloft.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000817d6d05d5ebd2cd
-Content-Type: text/plain; charset="UTF-8"
+Hi Guchun,
 
-On Wednesday, January 19, 2022, Lucas De Marchi <lucas.demarchi@intel.com>
-wrote:
+yes, just haven't found time to do this yet.
 
-> There are a few implementations of yesno() in the tree. Consolidate them
-> in include/linux/string_helpers.h.  Quite a few users of open coded
-> yesno() could later be converted to the new function:
->
-> $ git grep '?\s*"yes"\s*' | wc -l
-> 286
-> $ git grep '?\s*"no"\s*' | wc -l
-> 20
->
-> The inlined function should keep the const strings local to each
-> compilation unit, the same way it's now, thus not changing the current
-> behavior.
->
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> ---
->  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  |  6 +-----
->  drivers/gpu/drm/i915/i915_utils.h              |  5 -----
->  .../net/ethernet/chelsio/cxgb4/cxgb4_debugfs.c | 11 -----------
->  include/linux/string_helpers.h                 |  2 ++
->  security/tomoyo/audit.c                        |  2 +-
->  security/tomoyo/common.c                       | 18 ++++--------------
->  security/tomoyo/common.h                       |  1 -
->  7 files changed, 8 insertions(+), 37 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> index 9d43ecb1f692..b59760f91bf6 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> @@ -23,6 +23,7 @@
->   *
->   */
->
-> +#include <linux/string_helpers.h>
->  #include <linux/uaccess.h>
->
->  #include "dc.h"
-> @@ -49,11 +50,6 @@ struct dmub_debugfs_trace_entry {
->         uint32_t param1;
->  };
->
-> -static inline const char *yesno(bool v)
-> -{
-> -       return v ? "yes" : "no";
-> -}
-> -
->  /* parse_write_buffer_into_params - Helper function to parse debugfs
-> write buffer into an array
->   *
->   * Function takes in attributes passed to debugfs write entry
-> diff --git a/drivers/gpu/drm/i915/i915_utils.h
-> b/drivers/gpu/drm/i915/i915_utils.h
-> index 7a5925072466..2a8781cc648b 100644
-> --- a/drivers/gpu/drm/i915/i915_utils.h
-> +++ b/drivers/gpu/drm/i915/i915_utils.h
-> @@ -414,11 +414,6 @@ wait_remaining_ms_from_jiffies(unsigned long
-> timestamp_jiffies, int to_wait_ms)
->  #define MBps(x) KBps(1000 * (x))
->  #define GBps(x) ((u64)1000 * MBps((x)))
->
-> -static inline const char *yesno(bool v)
-> -{
-> -       return v ? "yes" : "no";
-> -}
-> -
->  static inline const char *onoff(bool v)
->  {
->         return v ? "on" : "off";
-> diff --git a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_debugfs.c
-> b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_debugfs.c
-> index 7d49fd4edc9e..61a04d7abc1f 100644
-> --- a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_debugfs.c
-> +++ b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_debugfs.c
-> @@ -2015,17 +2015,6 @@ static const struct file_operations
-> rss_debugfs_fops = {
->  /* RSS Configuration.
->   */
->
-> -/* Small utility function to return the strings "yes" or "no" if the
-> supplied
-> - * argument is non-zero.
-> - */
-> -static const char *yesno(int x)
-> -{
-> -       static const char *yes = "yes";
-> -       static const char *no = "no";
-> -
-> -       return x ? yes : no;
-> -}
-> -
->  static int rss_config_show(struct seq_file *seq, void *v)
->  {
->         struct adapter *adapter = seq->private;
-> diff --git a/include/linux/string_helpers.h b/include/linux/string_
-> helpers.h
-> index 4ba39e1403b2..e980dec05d31 100644
-> --- a/include/linux/string_helpers.h
-> +++ b/include/linux/string_helpers.h
-> @@ -102,4 +102,6 @@ char *kstrdup_quotable_file(struct file *file, gfp_t
-> gfp);
->
->  void kfree_strarray(char **array, size_t n);
->
-> +static inline const char *yesno(bool v) { return v ? "yes" : "no"; }
+Regards,
+Christian.
 
-
-
-Perhaps keep it on 4 lines? Yes, yes/no is short, but if we add others
-(enable/disable) it will not be possible to keep on one line. And hence
-style will be broken among similar functions.
-
-
-Also it needs to be rebased and resend after -rc1, I expect conflict here.
-
-
-
-> +
->  #endif
-> diff --git a/security/tomoyo/audit.c b/security/tomoyo/audit.c
-> index d79bf07e16be..1458e27361e8 100644
-> --- a/security/tomoyo/audit.c
-> +++ b/security/tomoyo/audit.c
-> @@ -166,7 +166,7 @@ static char *tomoyo_print_header(struct
-> tomoyo_request_info *r)
->                        "#%04u/%02u/%02u %02u:%02u:%02u# profile=%u mode=%s
-> granted=%s (global-pid=%u) task={ pid=%u ppid=%u uid=%u gid=%u euid=%u
-> egid=%u suid=%u sgid=%u fsuid=%u fsgid=%u }",
->                        stamp.year, stamp.month, stamp.day, stamp.hour,
->                        stamp.min, stamp.sec, r->profile,
-> tomoyo_mode[r->mode],
-> -                      tomoyo_yesno(r->granted), gpid, tomoyo_sys_getpid(),
-> +                      yesno(r->granted), gpid, tomoyo_sys_getpid(),
->                        tomoyo_sys_getppid(),
->                        from_kuid(&init_user_ns, current_uid()),
->                        from_kgid(&init_user_ns, current_gid()),
-> diff --git a/security/tomoyo/common.c b/security/tomoyo/common.c
-> index 5c64927bf2b3..304ed0f426dd 100644
-> --- a/security/tomoyo/common.c
-> +++ b/security/tomoyo/common.c
-> @@ -8,6 +8,7 @@
->  #include <linux/uaccess.h>
->  #include <linux/slab.h>
->  #include <linux/security.h>
-> +#include <linux/string_helpers.h>
->  #include "common.h"
+Am 19.01.22 um 15:24 schrieb Chen, Guchun:
+> [Public]
 >
->  /* String table for operation mode. */
-> @@ -174,16 +175,6 @@ static bool tomoyo_manage_by_non_root;
+> Hello Christian,
 >
->  /* Utility functions. */
+> Do you plan to submit your code to drm-next branch?
 >
-> -/**
-> - * tomoyo_yesno - Return "yes" or "no".
-> - *
-> - * @value: Bool value.
-> - */
-> -const char *tomoyo_yesno(const unsigned int value)
-> -{
-> -       return value ? "yes" : "no";
-> -}
-> -
->  /**
->   * tomoyo_addprintf - strncat()-like-snprintf().
->   *
-> @@ -730,8 +721,8 @@ static void tomoyo_print_config(struct
-> tomoyo_io_buffer *head, const u8 config)
->  {
->         tomoyo_io_printf(head, "={ mode=%s grant_log=%s reject_log=%s }\n",
->                          tomoyo_mode[config & 3],
-> -                        tomoyo_yesno(config &
-> TOMOYO_CONFIG_WANT_GRANT_LOG),
-> -                        tomoyo_yesno(config &
-> TOMOYO_CONFIG_WANT_REJECT_LOG));
-> +                        yesno(config & TOMOYO_CONFIG_WANT_GRANT_LOG),
-> +                        yesno(config & TOMOYO_CONFIG_WANT_REJECT_LOG));
->  }
+> Regards,
+> Guchun
 >
->  /**
-> @@ -1354,8 +1345,7 @@ static bool tomoyo_print_condition(struct
-> tomoyo_io_buffer *head,
->         case 3:
->                 if (cond->grant_log != TOMOYO_GRANTLOG_AUTO)
->                         tomoyo_io_printf(head, " grant_log=%s",
-> -                                        tomoyo_yesno(cond->grant_log ==
-> -
->  TOMOYO_GRANTLOG_YES));
-> +                                        yesno(cond->grant_log ==
-> TOMOYO_GRANTLOG_YES));
->                 tomoyo_set_lf(head);
->                 return true;
->         }
-> diff --git a/security/tomoyo/common.h b/security/tomoyo/common.h
-> index 85246b9df7ca..ca285f362705 100644
-> --- a/security/tomoyo/common.h
-> +++ b/security/tomoyo/common.h
-> @@ -959,7 +959,6 @@ char *tomoyo_read_token(struct tomoyo_acl_param
-> *param);
->  char *tomoyo_realpath_from_path(const struct path *path);
->  char *tomoyo_realpath_nofollow(const char *pathname);
->  const char *tomoyo_get_exe(void);
-> -const char *tomoyo_yesno(const unsigned int value);
->  const struct tomoyo_path_info *tomoyo_compare_name_union
->  (const struct tomoyo_path_info *name, const struct tomoyo_name_union
-> *ptr);
->  const struct tomoyo_path_info *tomoyo_get_domainname
-> --
-> 2.34.1
+> -----Original Message-----
+> From: Chen, Guchun
+> Sent: Tuesday, January 18, 2022 10:22 PM
+> To: 'Christian König' <ckoenig.leichtzumerken@gmail.com>; Kim, Jonathan <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
+> Subject: RE: [PATCH] drm/amdgpu: remove gart.ready flag
 >
+> [Public]
 >
+> Thanks for the clarification. The patch is:
+> Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+>
+> Regards,
+> Guchun
+>
+> -----Original Message-----
+> From: Christian König <ckoenig.leichtzumerken@gmail.com>
+> Sent: Tuesday, January 18, 2022 10:10 PM
+> To: Chen, Guchun <Guchun.Chen@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH] drm/amdgpu: remove gart.ready flag
+>
+> Am 18.01.22 um 14:28 schrieb Chen, Guchun:
+>> [Public]
+>>
+>> -	if (amdgpu_sriov_vf(adev) && amdgpu_in_reset(adev))
+>> -		goto skip_pin_bo;
+>> -
+>> -	r = amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+>> -	if (r)
+>> -		return r;
+>> -
+>> -skip_pin_bo:
+>>
+>> Does deleting skip_pin_bo path cause bo redundant pin in SRIOV case?
+> Pinning/unpinning the BO was already removed as well.
+>
+> See Nirmoy's patches in the git log.
+>
+> Regards,
+> Christian.
+>
+>> Regards,
+>> Guchun
+>>
+>> -----Original Message-----
+>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
+>> Sent: Tuesday, January 18, 2022 8:02 PM
+>> To: Chen, Guchun <Guchun.Chen@amd.com>; Kim, Jonathan
+>> <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
+>> Subject: [PATCH] drm/amdgpu: remove gart.ready flag
+>>
+>> That's just a leftover from old radeon days and was preventing CS and GART bindings before the hardware was initialized. But nowdays that is perfectly valid.
+>>
+>> The only thing we need to warn about are GART binding before the table is even allocated.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c    | 35 +++-------
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h    | 15 ++--
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c |  9 +--
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 77 ++++++---------------
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  4 +-
+>>    drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c      | 11 +--
+>>    drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c       |  7 +-
+>>    drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c       |  8 +--
+>>    drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c       |  8 +--
+>>    drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c       | 10 +--
+>>    drivers/gpu/drm/amd/amdkfd/kfd_migrate.c    |  5 +-
+>>    11 files changed, 52 insertions(+), 137 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+>> index 645950a653a0..53cc844346f0 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+>> @@ -150,7 +150,7 @@ void amdgpu_gart_table_vram_free(struct amdgpu_device *adev)
+>>     * replaces them with the dummy page (all asics).
+>>     * Returns 0 for success, -EINVAL for failure.
+>>     */
+>> -int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+>> +void amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+>>    			int pages)
+>>    {
+>>    	unsigned t;
+>> @@ -161,13 +161,11 @@ int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+>>    	uint64_t flags = 0;
+>>    	int idx;
+>>    
+>> -	if (!adev->gart.ready) {
+>> -		WARN(1, "trying to unbind memory from uninitialized GART !\n");
+>> -		return -EINVAL;
+>> -	}
+>> +	if (WARN_ON(!adev->gart.ptr))
+>> +		return;
+>>    
+>>    	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+>> -		return 0;
+>> +		return;
+>>    
+>>    	t = offset / AMDGPU_GPU_PAGE_SIZE;
+>>    	p = t / AMDGPU_GPU_PAGES_IN_CPU_PAGE; @@ -188,7 +186,6 @@ int
+>> amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+>>    		amdgpu_gmc_flush_gpu_tlb(adev, 0, i, 0);
+>>    
+>>    	drm_dev_exit(idx);
+>> -	return 0;
+>>    }
+>>    
+>>    /**
+>> @@ -204,7 +201,7 @@ int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+>>     * Map the dma_addresses into GART entries (all asics).
+>>     * Returns 0 for success, -EINVAL for failure.
+>>     */
+>> -int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+>> +void amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+>>    		    int pages, dma_addr_t *dma_addr, uint64_t flags,
+>>    		    void *dst)
+>>    {
+>> @@ -212,13 +209,8 @@ int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+>>    	unsigned i, j, t;
+>>    	int idx;
+>>    
+>> -	if (!adev->gart.ready) {
+>> -		WARN(1, "trying to bind memory to uninitialized GART !\n");
+>> -		return -EINVAL;
+>> -	}
+>> -
+>>    	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+>> -		return 0;
+>> +		return;
+>>    
+>>    	t = offset / AMDGPU_GPU_PAGE_SIZE;
+>>    
+>> @@ -230,7 +222,6 @@ int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+>>    		}
+>>    	}
+>>    	drm_dev_exit(idx);
+>> -	return 0;
+>>    }
+>>    
+>>    /**
+>> @@ -246,20 +237,14 @@ int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+>>     * (all asics).
+>>     * Returns 0 for success, -EINVAL for failure.
+>>     */
+>> -int amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
+>> +void amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
+>>    		     int pages, dma_addr_t *dma_addr,
+>>    		     uint64_t flags)
+>>    {
+>> -	if (!adev->gart.ready) {
+>> -		WARN(1, "trying to bind memory to uninitialized GART !\n");
+>> -		return -EINVAL;
+>> -	}
+>> -
+>> -	if (!adev->gart.ptr)
+>> -		return 0;
+>> +	if (WARN_ON(!adev->gart.ptr))
+>> +		return;
+>>    
+>> -	return amdgpu_gart_map(adev, offset, pages, dma_addr, flags,
+>> -			       adev->gart.ptr);
+>> +	amdgpu_gart_map(adev, offset, pages, dma_addr, flags,
+>> +adev->gart.ptr);
+>>    }
+>>    
+>>    /**
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+>> index 78895413cf9f..8fea3e04e411 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+>> @@ -46,7 +46,6 @@ struct amdgpu_gart {
+>>    	unsigned			num_gpu_pages;
+>>    	unsigned			num_cpu_pages;
+>>    	unsigned			table_size;
+>> -	bool				ready;
+>>    
+>>    	/* Asic default pte flags */
+>>    	uint64_t			gart_pte_flags;
+>> @@ -58,12 +57,12 @@ int amdgpu_gart_table_vram_pin(struct amdgpu_device *adev);  void amdgpu_gart_table_vram_unpin(struct amdgpu_device *adev);  int amdgpu_gart_init(struct amdgpu_device *adev);  void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev); -int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+>> -		       int pages);
+>> -int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+>> -		    int pages, dma_addr_t *dma_addr, uint64_t flags,
+>> -		    void *dst);
+>> -int amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
+>> -		     int pages, dma_addr_t *dma_addr, uint64_t flags);
+>> +void amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+>> +			int pages);
+>> +void amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+>> +		     int pages, dma_addr_t *dma_addr, uint64_t flags,
+>> +		     void *dst);
+>> +void amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
+>> +		      int pages, dma_addr_t *dma_addr, uint64_t flags);
+>>    void amdgpu_gart_invalidate_tlb(struct amdgpu_device *adev);  #endif
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+>> index 9151950e0cc3..babdd915c4c3 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+>> @@ -224,26 +224,21 @@ uint64_t amdgpu_gtt_mgr_usage(struct amdgpu_gtt_mgr *mgr)
+>>     *
+>>     * Re-init the gart for each known BO in the GTT.
+>>     */
+>> -int amdgpu_gtt_mgr_recover(struct amdgpu_gtt_mgr *mgr)
+>> +void amdgpu_gtt_mgr_recover(struct amdgpu_gtt_mgr *mgr)
+>>    {
+>>    	struct amdgpu_gtt_node *node;
+>>    	struct drm_mm_node *mm_node;
+>>    	struct amdgpu_device *adev;
+>> -	int r = 0;
+>>    
+>>    	adev = container_of(mgr, typeof(*adev), mman.gtt_mgr);
+>>    	spin_lock(&mgr->lock);
+>>    	drm_mm_for_each_node(mm_node, &mgr->mm) {
+>>    		node = container_of(mm_node, typeof(*node), base.mm_nodes[0]);
+>> -		r = amdgpu_ttm_recover_gart(node->tbo);
+>> -		if (r)
+>> -			break;
+>> +		amdgpu_ttm_recover_gart(node->tbo);
+>>    	}
+>>    	spin_unlock(&mgr->lock);
+>>    
+>>    	amdgpu_gart_invalidate_tlb(adev);
+>> -
+>> -	return r;
+>>    }
+>>    
+>>    /**
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> index b489cd8abe31..9cdb61ec669e 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> @@ -246,10 +246,7 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
+>>    		dma_addr_t *dma_addr;
+>>    
+>>    		dma_addr = &bo->ttm->dma_address[mm_cur->start >> PAGE_SHIFT];
+>> -		r = amdgpu_gart_map(adev, 0, num_pages, dma_addr, flags,
+>> -				    cpu_addr);
+>> -		if (r)
+>> -			goto error_free;
+>> +		amdgpu_gart_map(adev, 0, num_pages, dma_addr, flags, cpu_addr);
+>>    	} else {
+>>    		dma_addr_t dma_address;
+>>    
+>> @@ -257,11 +254,8 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
+>>    		dma_address += adev->vm_manager.vram_base_offset;
+>>    
+>>    		for (i = 0; i < num_pages; ++i) {
+>> -			r = amdgpu_gart_map(adev, i << PAGE_SHIFT, 1,
+>> -					    &dma_address, flags, cpu_addr);
+>> -			if (r)
+>> -				goto error_free;
+>> -
+>> +			amdgpu_gart_map(adev, i << PAGE_SHIFT, 1, &dma_address,
+>> +					flags, cpu_addr);
+>>    			dma_address += PAGE_SIZE;
+>>    		}
+>>    	}
+>> @@ -826,14 +820,13 @@ static void amdgpu_ttm_tt_unpin_userptr(struct
+>> ttm_device *bdev,  #endif  }
+>>    
+>> -static int amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
+>> -				struct ttm_buffer_object *tbo,
+>> -				uint64_t flags)
+>> +static void amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
+>> +				 struct ttm_buffer_object *tbo,
+>> +				 uint64_t flags)
+>>    {
+>>    	struct amdgpu_bo *abo = ttm_to_amdgpu_bo(tbo);
+>>    	struct ttm_tt *ttm = tbo->ttm;
+>>    	struct amdgpu_ttm_tt *gtt = (void *)ttm;
+>> -	int r;
+>>    
+>>    	if (amdgpu_bo_encrypted(abo))
+>>    		flags |= AMDGPU_PTE_TMZ;
+>> @@ -841,10 +834,8 @@ static int amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
+>>    	if (abo->flags & AMDGPU_GEM_CREATE_CP_MQD_GFX9) {
+>>    		uint64_t page_idx = 1;
+>>    
+>> -		r = amdgpu_gart_bind(adev, gtt->offset, page_idx,
+>> -				gtt->ttm.dma_address, flags);
+>> -		if (r)
+>> -			goto gart_bind_fail;
+>> +		amdgpu_gart_bind(adev, gtt->offset, page_idx,
+>> +				 gtt->ttm.dma_address, flags);
+>>    
+>>    		/* The memory type of the first page defaults to UC. Now
+>>    		 * modify the memory type to NC from the second page of @@ -853,21 +844,13 @@ static int amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
+>>    		flags &= ~AMDGPU_PTE_MTYPE_VG10_MASK;
+>>    		flags |= AMDGPU_PTE_MTYPE_VG10(AMDGPU_MTYPE_NC);
+>>    
+>> -		r = amdgpu_gart_bind(adev,
+>> -				gtt->offset + (page_idx << PAGE_SHIFT),
+>> -				ttm->num_pages - page_idx,
+>> -				&(gtt->ttm.dma_address[page_idx]), flags);
+>> +		amdgpu_gart_bind(adev, gtt->offset + (page_idx << PAGE_SHIFT),
+>> +				 ttm->num_pages - page_idx,
+>> +				 &(gtt->ttm.dma_address[page_idx]), flags);
+>>    	} else {
+>> -		r = amdgpu_gart_bind(adev, gtt->offset, ttm->num_pages,
+>> -				     gtt->ttm.dma_address, flags);
+>> +		amdgpu_gart_bind(adev, gtt->offset, ttm->num_pages,
+>> +				 gtt->ttm.dma_address, flags);
+>>    	}
+>> -
+>> -gart_bind_fail:
+>> -	if (r)
+>> -		DRM_ERROR("failed to bind %u pages at 0x%08llX\n",
+>> -			  ttm->num_pages, gtt->offset);
+>> -
+>> -	return r;
+>>    }
+>>    
+>>    /*
+>> @@ -883,7 +866,7 @@ static int amdgpu_ttm_backend_bind(struct ttm_device *bdev,
+>>    	struct amdgpu_device *adev = amdgpu_ttm_adev(bdev);
+>>    	struct amdgpu_ttm_tt *gtt = (void*)ttm;
+>>    	uint64_t flags;
+>> -	int r = 0;
+>> +	int r;
+>>    
+>>    	if (!bo_mem)
+>>    		return -EINVAL;
+>> @@ -930,14 +913,10 @@ static int amdgpu_ttm_backend_bind(struct
+>> ttm_device *bdev,
+>>    
+>>    	/* bind pages into GART page tables */
+>>    	gtt->offset = (u64)bo_mem->start << PAGE_SHIFT;
+>> -	r = amdgpu_gart_bind(adev, gtt->offset, ttm->num_pages,
+>> -		gtt->ttm.dma_address, flags);
+>> -
+>> -	if (r)
+>> -		DRM_ERROR("failed to bind %u pages at 0x%08llX\n",
+>> -			  ttm->num_pages, gtt->offset);
+>> +	amdgpu_gart_bind(adev, gtt->offset, ttm->num_pages,
+>> +			 gtt->ttm.dma_address, flags);
+>>    	gtt->bound = true;
+>> -	return r;
+>> +	return 0;
+>>    }
+>>    
+>>    /*
+>> @@ -987,12 +966,7 @@ int amdgpu_ttm_alloc_gart(struct
+>> ttm_buffer_object *bo)
+>>    
+>>    	/* Bind pages */
+>>    	gtt->offset = (u64)tmp->start << PAGE_SHIFT;
+>> -	r = amdgpu_ttm_gart_bind(adev, bo, flags);
+>> -	if (unlikely(r)) {
+>> -		ttm_resource_free(bo, &tmp);
+>> -		return r;
+>> -	}
+>> -
+>> +	amdgpu_ttm_gart_bind(adev, bo, flags);
+>>    	amdgpu_gart_invalidate_tlb(adev);
+>>    	ttm_resource_free(bo, &bo->resource);
+>>    	ttm_bo_assign_mem(bo, tmp);
+>> @@ -1006,19 +980,16 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo)
+>>     * Called by amdgpu_gtt_mgr_recover() from amdgpu_device_reset() to
+>>     * rebind GTT pages during a GPU reset.
+>>     */
+>> -int amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo)
+>> +void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo)
+>>    {
+>>    	struct amdgpu_device *adev = amdgpu_ttm_adev(tbo->bdev);
+>>    	uint64_t flags;
+>> -	int r;
+>>    
+>>    	if (!tbo->ttm)
+>> -		return 0;
+>> +		return;
+>>    
+>>    	flags = amdgpu_ttm_tt_pte_flags(adev, tbo->ttm, tbo->resource);
+>> -	r = amdgpu_ttm_gart_bind(adev, tbo, flags);
+>> -
+>> -	return r;
+>> +	amdgpu_ttm_gart_bind(adev, tbo, flags);
+>>    }
+>>    
+>>    /*
+>> @@ -1032,7 +1003,6 @@ static void amdgpu_ttm_backend_unbind(struct ttm_device *bdev,  {
+>>    	struct amdgpu_device *adev = amdgpu_ttm_adev(bdev);
+>>    	struct amdgpu_ttm_tt *gtt = (void *)ttm;
+>> -	int r;
+>>    
+>>    	/* if the pages have userptr pinning then clear that first */
+>>    	if (gtt->userptr) {
+>> @@ -1052,10 +1022,7 @@ static void amdgpu_ttm_backend_unbind(struct ttm_device *bdev,
+>>    		return;
+>>    
+>>    	/* unbind shouldn't be done for GDS/GWS/OA in ttm_bo_clean_mm */
+>> -	r = amdgpu_gart_unbind(adev, gtt->offset, ttm->num_pages);
+>> -	if (r)
+>> -		DRM_ERROR("failed to unbind %u pages at 0x%08llX\n",
+>> -			  gtt->ttm.num_pages, gtt->offset);
+>> +	amdgpu_gart_unbind(adev, gtt->offset, ttm->num_pages);
+>>    	gtt->bound = false;
+>>    }
+>>    
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> index 084aa49e627d..d9691f262f16 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> @@ -119,7 +119,7 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device
+>> *adev);
+>>    
+>>    bool amdgpu_gtt_mgr_has_gart_addr(struct ttm_resource *mem);
+>> uint64_t amdgpu_gtt_mgr_usage(struct amdgpu_gtt_mgr *mgr); -int
+>> amdgpu_gtt_mgr_recover(struct amdgpu_gtt_mgr *mgr);
+>> +void amdgpu_gtt_mgr_recover(struct amdgpu_gtt_mgr *mgr);
+>>    
+>>    uint64_t amdgpu_preempt_mgr_usage(struct ttm_resource_manager *man);
+>>    
+>> @@ -162,7 +162,7 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>>    			struct dma_fence **fence);
+>>    
+>>    int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo); -int
+>> amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
+>> +void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
+>>    uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev,
+>> uint32_t type);
+>>    
+>>    #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>> index 4f8d356f8432..867c94a1a81a 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+>> @@ -1000,14 +1000,7 @@ static int gmc_v10_0_gart_enable(struct amdgpu_device *adev)
+>>    		return -EINVAL;
+>>    	}
+>>    
+>> -	if (amdgpu_sriov_vf(adev) && amdgpu_in_reset(adev))
+>> -		goto skip_pin_bo;
+>> -
+>> -	r = amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+>> -	if (r)
+>> -		return r;
+>> -
+>> -skip_pin_bo:
+>> +	amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+>>    	r = adev->gfxhub.funcs->gart_enable(adev);
+>>    	if (r)
+>>    		return r;
+>> @@ -1033,8 +1026,6 @@ static int gmc_v10_0_gart_enable(struct amdgpu_device *adev)
+>>    		 (unsigned)(adev->gmc.gart_size >> 20),
+>>    		 (unsigned long long)amdgpu_bo_gpu_offset(adev->gart.bo));
+>>    
+>> -	adev->gart.ready = true;
+>> -
+>>    	return 0;
+>>    }
+>>    
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+>> index cd6c38e083d0..3baece11d74e 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+>> @@ -469,16 +469,14 @@ static void gmc_v6_0_set_prt(struct amdgpu_device *adev, bool enable)  static int gmc_v6_0_gart_enable(struct amdgpu_device *adev)  {
+>>    	uint64_t table_addr;
+>> -	int r, i;
+>>    	u32 field;
+>> +	int i;
+>>    
+>>    	if (adev->gart.bo == NULL) {
+>>    		dev_err(adev->dev, "No VRAM object for PCIE GART.\n");
+>>    		return -EINVAL;
+>>    	}
+>> -	r = amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+>> -	if (r)
+>> -		return r;
+>> +	amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+>>    
+>>    	table_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
+>>    
+>> @@ -558,7 +556,6 @@ static int gmc_v6_0_gart_enable(struct amdgpu_device *adev)
+>>    	dev_info(adev->dev, "PCIE GART of %uM enabled (table at 0x%016llX).\n",
+>>    		 (unsigned)(adev->gmc.gart_size >> 20),
+>>    		 (unsigned long long)table_addr);
+>> -	adev->gart.ready = true;
+>>    	return 0;
+>>    }
+>>    
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>> index ab8adbff9e2d..cf83f8c258f4 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>> @@ -613,17 +613,14 @@ static void gmc_v7_0_set_prt(struct amdgpu_device *adev, bool enable)  static int gmc_v7_0_gart_enable(struct amdgpu_device *adev)  {
+>>    	uint64_t table_addr;
+>> -	int r, i;
+>>    	u32 tmp, field;
+>> +	int i;
+>>    
+>>    	if (adev->gart.bo == NULL) {
+>>    		dev_err(adev->dev, "No VRAM object for PCIE GART.\n");
+>>    		return -EINVAL;
+>>    	}
+>> -	r = amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+>> -	if (r)
+>> -		return r;
+>> -
+>> +	amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+>>    	table_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
+>>    
+>>    	/* Setup TLB control */
+>> @@ -712,7 +709,6 @@ static int gmc_v7_0_gart_enable(struct amdgpu_device *adev)
+>>    	DRM_INFO("PCIE GART of %uM enabled (table at 0x%016llX).\n",
+>>    		 (unsigned)(adev->gmc.gart_size >> 20),
+>>    		 (unsigned long long)table_addr);
+>> -	adev->gart.ready = true;
+>>    	return 0;
+>>    }
+>>    
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>> index 054733838292..7cc7c8001734 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>> @@ -837,17 +837,14 @@ static void gmc_v8_0_set_prt(struct amdgpu_device *adev, bool enable)  static int gmc_v8_0_gart_enable(struct amdgpu_device *adev)  {
+>>    	uint64_t table_addr;
+>> -	int r, i;
+>>    	u32 tmp, field;
+>> +	int i;
+>>    
+>>    	if (adev->gart.bo == NULL) {
+>>    		dev_err(adev->dev, "No VRAM object for PCIE GART.\n");
+>>    		return -EINVAL;
+>>    	}
+>> -	r = amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+>> -	if (r)
+>> -		return r;
+>> -
+>> +	amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+>>    	table_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
+>>    
+>>    	/* Setup TLB control */
+>> @@ -953,7 +950,6 @@ static int gmc_v8_0_gart_enable(struct amdgpu_device *adev)
+>>    	DRM_INFO("PCIE GART of %uM enabled (table at 0x%016llX).\n",
+>>    		 (unsigned)(adev->gmc.gart_size >> 20),
+>>    		 (unsigned long long)table_addr);
+>> -	adev->gart.ready = true;
+>>    	return 0;
+>>    }
+>>    
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> index c76ffd1a70cd..9f71f810c2f8 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> @@ -1783,14 +1783,7 @@ static int gmc_v9_0_gart_enable(struct amdgpu_device *adev)
+>>    		return -EINVAL;
+>>    	}
+>>    
+>> -	if (amdgpu_sriov_vf(adev) && amdgpu_in_reset(adev))
+>> -		goto skip_pin_bo;
+>> -
+>> -	r = amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+>> -	if (r)
+>> -		return r;
+>> -
+>> -skip_pin_bo:
+>> +	amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
+>>    	r = adev->gfxhub.funcs->gart_enable(adev);
+>>    	if (r)
+>>    		return r;
+>> @@ -1807,7 +1800,6 @@ static int gmc_v9_0_gart_enable(struct amdgpu_device *adev)
+>>    	DRM_INFO("PTB located at 0x%016llX\n",
+>>    			(unsigned long long)amdgpu_bo_gpu_offset(adev->gart.bo));
+>>    
+>> -	adev->gart.ready = true;
+>>    	return 0;
+>>    }
+>>    
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> index d5d2cf2ee788..88db82b3d443 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> @@ -86,10 +86,7 @@ svm_migrate_gart_map(struct amdgpu_ring *ring,
+>> uint64_t npages,
+>>    
+>>    	cpu_addr = &job->ibs[0].ptr[num_dw];
+>>    
+>> -	r = amdgpu_gart_map(adev, 0, npages, addr, pte_flags, cpu_addr);
+>> -	if (r)
+>> -		goto error_free;
+>> -
+>> +	amdgpu_gart_map(adev, 0, npages, addr, pte_flags, cpu_addr);
+>>    	r = amdgpu_job_submit(job, &adev->mman.entity,
+>>    			      AMDGPU_FENCE_OWNER_UNDEFINED, &fence);
+>>    	if (r)
+>> --
+>> 2.25.1
 
--- 
-With Best Regards,
-Andy Shevchenko
-
---000000000000817d6d05d5ebd2cd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br><br>On Wednesday, January 19, 2022, Lucas De Marchi &lt;<a href=3D"mail=
-to:lucas.demarchi@intel.com">lucas.demarchi@intel.com</a>&gt; wrote:<br><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
-ccc solid;padding-left:1ex">There are a few implementations of yesno() in t=
-he tree. Consolidate them<br>
-in include/linux/string_helpers.<wbr>h.=C2=A0 Quite a few users of open cod=
-ed<br>
-yesno() could later be converted to the new function:<br>
-<br>
-$ git grep &#39;?\s*&quot;yes&quot;\s*&#39; | wc -l<br>
-286<br>
-$ git grep &#39;?\s*&quot;no&quot;\s*&#39; | wc -l<br>
-20<br>
-<br>
-The inlined function should keep the const strings local to each<br>
-compilation unit, the same way it&#39;s now, thus not changing the current<=
-br>
-behavior.<br>
-<br>
-Signed-off-by: Lucas De Marchi &lt;<a href=3D"mailto:lucas.demarchi@intel.c=
-om">lucas.demarchi@intel.com</a>&gt;<br>
----<br>
-=C2=A0.../amd/display/amdgpu_dm/<wbr>amdgpu_dm_debugfs.c=C2=A0 |=C2=A0 6 +-=
-----<br>
-=C2=A0drivers/gpu/drm/i915/i915_<wbr>utils.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 |=C2=A0 5 -----<br>
-=C2=A0.../net/ethernet/chelsio/<wbr>cxgb4/cxgb4_debugfs.c | 11 -----------<=
-br>
-=C2=A0include/linux/string_helpers.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 2 ++<br>
-=C2=A0security/tomoyo/audit.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 2 +-<br>
-=C2=A0security/tomoyo/common.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 18 ++++--------------<br>
-=C2=A0security/tomoyo/common.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 1 -<br>
-=C2=A07 files changed, 8 insertions(+), 37 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm_debugfs.c=
- b/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm_debugfs.c<br>
-index 9d43ecb1f692..b59760f91bf6 100644<br>
---- a/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm_debugfs.c<br>
-+++ b/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm_debugfs.c<br>
-@@ -23,6 +23,7 @@<br>
-=C2=A0 *<br>
-=C2=A0 */<br>
-<br>
-+#include &lt;linux/string_helpers.h&gt;<br>
-=C2=A0#include &lt;linux/uaccess.h&gt;<br>
-<br>
-=C2=A0#include &quot;dc.h&quot;<br>
-@@ -49,11 +50,6 @@ struct dmub_debugfs_trace_entry {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t param1;<br>
-=C2=A0};<br>
-<br>
--static inline const char *yesno(bool v)<br>
--{<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0return v ? &quot;yes&quot; : &quot;no&quot;;<br=
->
--}<br>
--<br>
-=C2=A0/* parse_write_buffer_into_params - Helper function to parse debugfs =
-write buffer into an array<br>
-=C2=A0 *<br>
-=C2=A0 * Function takes in attributes passed to debugfs write entry<br>
-diff --git a/drivers/gpu/drm/i915/i915_<wbr>utils.h b/drivers/gpu/drm/i915/=
-i915_<wbr>utils.h<br>
-index 7a5925072466..2a8781cc648b 100644<br>
---- a/drivers/gpu/drm/i915/i915_<wbr>utils.h<br>
-+++ b/drivers/gpu/drm/i915/i915_<wbr>utils.h<br>
-@@ -414,11 +414,6 @@ wait_remaining_ms_from_<wbr>jiffies(unsigned long time=
-stamp_jiffies, int to_wait_ms)<br>
-=C2=A0#define MBps(x) KBps(1000 * (x))<br>
-=C2=A0#define GBps(x) ((u64)1000 * MBps((x)))<br>
-<br>
--static inline const char *yesno(bool v)<br>
--{<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0return v ? &quot;yes&quot; : &quot;no&quot;;<br=
->
--}<br>
--<br>
-=C2=A0static inline const char *onoff(bool v)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return v ? &quot;on&quot; : &quot;off&quot;;<br=
->
-diff --git a/drivers/net/ethernet/<wbr>chelsio/cxgb4/cxgb4_debugfs.c b/driv=
-ers/net/ethernet/<wbr>chelsio/cxgb4/cxgb4_debugfs.c<br>
-index 7d49fd4edc9e..61a04d7abc1f 100644<br>
---- a/drivers/net/ethernet/<wbr>chelsio/cxgb4/cxgb4_debugfs.c<br>
-+++ b/drivers/net/ethernet/<wbr>chelsio/cxgb4/cxgb4_debugfs.c<br>
-@@ -2015,17 +2015,6 @@ static const struct file_operations rss_debugfs_fops=
- =3D {<br>
-=C2=A0/* RSS Configuration.<br>
-=C2=A0 */<br>
-<br>
--/* Small utility function to return the strings &quot;yes&quot; or &quot;n=
-o&quot; if the supplied<br>
-- * argument is non-zero.<br>
-- */<br>
--static const char *yesno(int x)<br>
--{<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0static const char *yes =3D &quot;yes&quot;;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0static const char *no =3D &quot;no&quot;;<br>
--<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0return x ? yes : no;<br>
--}<br>
--<br>
-=C2=A0static int rss_config_show(struct seq_file *seq, void *v)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct adapter *adapter =3D seq-&gt;private;<br=
->
-diff --git a/include/linux/string_<wbr>helpers.h b/include/linux/string_<wb=
-r>helpers.h<br>
-index 4ba39e1403b2..e980dec05d31 100644<br>
---- a/include/linux/string_<wbr>helpers.h<br>
-+++ b/include/linux/string_<wbr>helpers.h<br>
-@@ -102,4 +102,6 @@ char *kstrdup_quotable_file(struct file *file, gfp_t gf=
-p);<br>
-<br>
-=C2=A0void kfree_strarray(char **array, size_t n);<br>
-<br>
-+static inline const char *yesno(bool v) { return v ? &quot;yes&quot; : &qu=
-ot;no&quot;; }</blockquote><div><br></div><div><br></div><div>Perhaps keep =
-it on 4 lines? Yes, yes/no is short, but if we add others (enable/disable) =
-it will not be possible to keep on one line. And hence style will be broken=
- among similar functions.</div><div><br></div><div><br></div><div>Also it n=
-eeds to be rebased and resend after -rc1, I expect conflict here.</div><div=
-><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-+<br>
-=C2=A0#endif<br>
-diff --git a/security/tomoyo/audit.c b/security/tomoyo/audit.c<br>
-index d79bf07e16be..1458e27361e8 100644<br>
---- a/security/tomoyo/audit.c<br>
-+++ b/security/tomoyo/audit.c<br>
-@@ -166,7 +166,7 @@ static char *tomoyo_print_header(struct tomoyo_request_=
-info *r)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&quot;#%04u/%02u/%02u %02u:%02u:%02u# profile=3D%u mode=3D%s gran=
-ted=3D%s (global-pid=3D%u) task=3D{ pid=3D%u ppid=3D%u uid=3D%u gid=3D%u eu=
-id=3D%u egid=3D%u suid=3D%u sgid=3D%u fsuid=3D%u fsgid=3D%u }&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0stamp.year, stamp.month, stamp.day, stamp.hour,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0stamp.min, stamp.sec, r-&gt;profile, tomoyo_mode[r-&gt;mode],<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 tomoyo_yesno(r-&gt;granted), gpid, tomoyo_sys_getpid(),<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 yesno(r-&gt;granted), gpid, tomoyo_sys_getpid(),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tomoyo_sys_getppid(),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0from_kuid(&amp;init_user_ns, current_uid()),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0from_kgid(&amp;init_user_ns, current_gid()),<br>
-diff --git a/security/tomoyo/common.c b/security/tomoyo/common.c<br>
-index 5c64927bf2b3..304ed0f426dd 100644<br>
---- a/security/tomoyo/common.c<br>
-+++ b/security/tomoyo/common.c<br>
-@@ -8,6 +8,7 @@<br>
-=C2=A0#include &lt;linux/uaccess.h&gt;<br>
-=C2=A0#include &lt;linux/slab.h&gt;<br>
-=C2=A0#include &lt;linux/security.h&gt;<br>
-+#include &lt;linux/string_helpers.h&gt;<br>
-=C2=A0#include &quot;common.h&quot;<br>
-<br>
-=C2=A0/* String table for operation mode. */<br>
-@@ -174,16 +175,6 @@ static bool tomoyo_manage_by_non_root;<br>
-<br>
-=C2=A0/* Utility functions. */<br>
-<br>
--/**<br>
-- * tomoyo_yesno - Return &quot;yes&quot; or &quot;no&quot;.<br>
-- *<br>
-- * @value: Bool value.<br>
-- */<br>
--const char *tomoyo_yesno(const unsigned int value)<br>
--{<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0return value ? &quot;yes&quot; : &quot;no&quot;=
-;<br>
--}<br>
--<br>
-=C2=A0/**<br>
-=C2=A0 * tomoyo_addprintf - strncat()-like-snprintf().<br>
-=C2=A0 *<br>
-@@ -730,8 +721,8 @@ static void tomoyo_print_config(struct tomoyo_io_buffer=
- *head, const u8 config)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 tomoyo_io_printf(head, &quot;=3D{ mode=3D%s gra=
-nt_log=3D%s reject_log=3D%s }\n&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0tomoyo_mode[config &amp; 3],<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 tomoyo_yesno(config &amp; TOMOYO_CONFIG_WANT_GRANT_LOG),<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 tomoyo_yesno(config &amp; TOMOYO_CONFIG_WANT_REJECT_LOG)<wbr>);<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 yesno(config &amp; TOMOYO_CONFIG_WANT_GRANT_LOG),<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 yesno(config &amp; TOMOYO_CONFIG_WANT_REJECT_LOG)<wbr>);<br>
-=C2=A0}<br>
-<br>
-=C2=A0/**<br>
-@@ -1354,8 +1345,7 @@ static bool tomoyo_print_condition(struct tomoyo_io_b=
-uffer *head,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 case 3:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (cond-&gt;grant_=
-log !=3D TOMOYO_GRANTLOG_AUTO)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 tomoyo_io_printf(head, &quot; grant_log=3D%s&quot;,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tomoyo_y=
-esno(cond-&gt;grant_log =3D=3D<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0TOMOYO_GRANTLOG_YES));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 yesno(co=
-nd-&gt;grant_log =3D=3D TOMOYO_GRANTLOG_YES));<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tomoyo_set_lf(head)=
-;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return true;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-diff --git a/security/tomoyo/common.h b/security/tomoyo/common.h<br>
-index 85246b9df7ca..ca285f362705 100644<br>
---- a/security/tomoyo/common.h<br>
-+++ b/security/tomoyo/common.h<br>
-@@ -959,7 +959,6 @@ char *tomoyo_read_token(struct tomoyo_acl_param *param)=
-;<br>
-=C2=A0char *tomoyo_realpath_from_path(<wbr>const struct path *path);<br>
-=C2=A0char *tomoyo_realpath_nofollow(<wbr>const char *pathname);<br>
-=C2=A0const char *tomoyo_get_exe(void);<br>
--const char *tomoyo_yesno(const unsigned int value);<br>
-=C2=A0const struct tomoyo_path_info *tomoyo_compare_name_union<br>
-=C2=A0(const struct tomoyo_path_info *name, const struct tomoyo_name_union =
-*ptr);<br>
-=C2=A0const struct tomoyo_path_info *tomoyo_get_domainname<br>
--- <br>
-2.34.1<br>
-<br>
-</blockquote><br><br>-- <br>With Best Regards,<br>Andy Shevchenko<br><br><b=
-r>
-
---000000000000817d6d05d5ebd2cd--
