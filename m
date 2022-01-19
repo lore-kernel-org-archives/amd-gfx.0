@@ -4,38 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2DAFC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 21:04:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DDDFC433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 21:14:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35FF010E203;
-	Wed, 19 Jan 2022 21:04:02 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56ECC10E1CB;
- Wed, 19 Jan 2022 21:00:23 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C2B4760C37;
- Wed, 19 Jan 2022 21:00:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86120C004E1;
- Wed, 19 Jan 2022 21:00:18 +0000 (UTC)
-Date: Wed, 19 Jan 2022 16:00:17 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH 1/3] lib/string_helpers: Consolidate yesno() implementation
-Message-ID: <20220119160017.65bd1fa5@gandalf.local.home>
-In-Reply-To: <YehllDq7wC3M2PQZ@smile.fi.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F12F410E425;
+	Wed, 19 Jan 2022 21:14:39 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 475CB10E21A;
+ Wed, 19 Jan 2022 21:09:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642626543; x=1674162543;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ZzYmMjvc+5ZxKARHkTHppxBXOgslf91RNegeCdTQKbM=;
+ b=e8WFxZ2qNFoncplhhiFPXtf/96EijZn1k7z6GQ3xEGVTX50MQ354iUvC
+ 1yUfs9eiLRUAoJxqX3Zz4BXxQfl40p88Y7PJXZfRQLsktd8JShQspjBNS
+ L/D1dHOHk9AgnXycusyHpVMVDQwJe419KTLebVVPZXypzfJUe0+2rwts1
+ alzI2tKLaGKtO59UWpPpkuqYm4I99bLRfG3FkMEUFTiW0zF5BxPBvPCuJ
+ YOlNPAlLrn9JnStPFnfB72O6Igsj3FeaNIPsLPVnPvzyRzZuBIFAd7GbF
+ oOuGIIER/+Uc5pQ5SVjCLatxC80qrlB9+9KCDdWjAw4KDkbrQF0b7kZCZ w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10231"; a="244986658"
+X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="244986658"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 13:09:02 -0800
+X-IronPort-AV: E=Sophos;i="5.88,300,1635231600"; d="scan'208";a="578966588"
+Received: from smile.fi.intel.com ([10.237.72.61])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 13:08:54 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1nAIBD-00CHBb-6W; Wed, 19 Jan 2022 23:07:43 +0200
+Date: Wed, 19 Jan 2022 23:07:42 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 0/3] lib/string_helpers: Add a few string
+ helpers
+Message-ID: <Yeh9noiOmJd0DkRO@smile.fi.intel.com>
 References: <20220119072450.2890107-1-lucas.demarchi@intel.com>
- <20220119072450.2890107-2-lucas.demarchi@intel.com>
- <YefXg03hXtrdUj6y@paasikivi.fi.intel.com>
- <20220119100635.6c45372b@gandalf.local.home>
- <YehllDq7wC3M2PQZ@smile.fi.intel.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ <YegPiR7LU8aVisMf@alley> <87tudzbykz.fsf@intel.com>
+ <Yeg5BpV8tknSPdSQ@phenom.ffwll.local>
+ <20220119205343.kd5cwfzpg4mlsekk@ldmartin-desk2>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Wed, 19 Jan 2022 21:04:00 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220119205343.kd5cwfzpg4mlsekk@ldmartin-desk2>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+X-Mailman-Approved-At: Wed, 19 Jan 2022 21:14:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,35 +72,52 @@ Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
  Kentaro Takeda <takedakn@nttdata.co.jp>, amd-gfx@lists.freedesktop.org,
  Ben Skeggs <bskeggs@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
  Harry Wentland <harry.wentland@amd.com>, Petr Mladek <pmladek@suse.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Leo Li <sunpeng.li@amd.com>,
- intel-gfx@lists.freedesktop.org, Raju Rangoju <rajur@chelsio.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Julia Lawall <julia.lawall@lip6.fr>,
+ Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Raju Rangoju <rajur@chelsio.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Julia Lawall <julia.lawall@lip6.fr>,
  Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Mikita Lipski <mikita.lipski@amd.com>,
- Eryk Brol <eryk.brol@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-kernel@vger.kernel.org,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mikita Lipski <mikita.lipski@amd.com>, Eryk Brol <eryk.brol@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- linux-security-module@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- netdev@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>, "David S .
- Miller" <davem@davemloft.net>
+ linux-security-module@vger.kernel.org,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, netdev@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David S . Miller" <davem@davemloft.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 19 Jan 2022 21:25:08 +0200
-Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+On Wed, Jan 19, 2022 at 12:53:43PM -0800, Lucas De Marchi wrote:
+> On Wed, Jan 19, 2022 at 05:15:02PM +0100, Daniel Vetter wrote:
+> > On Wed, Jan 19, 2022 at 04:16:12PM +0200, Jani Nikula wrote:
 
-> > I say keep it one line!
+...
+
+> > Yeah we can sed this anytime later we want to, but we need to get the foot
+> > in the door. There's also a pile more of these all over.
 > > 
-> > Reviewed-by: Steven Rostedt (Google) <rostedt@goodmis.org>  
+> > Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> > 
+> > on the series, maybe it helps? And yes let's merge this through drm-misc.
 > 
-> I believe Sakari strongly follows the 80 rule, which means...
+> Ok, it seems we are reaching some agreement here then:
 
-Checkpatch says "100" I think we need to simply update the docs (the
-documentation always lags the code ;-)
+> - Change it to use str_ prefix
 
-	bdc48fa11e46f
+Not sure about this (*), but have no strong argument against. Up to you.
+Ah, yes, Jani said about additional churn this change will make if goes
+together with this series. Perhaps it can be done separately?
 
--- Steve
+> - Wait -rc1 to avoid conflict
+> - Merge through drm-misc
+
+*) E.g. yesno() to me doesn't sound too bad to misunderstand its meaning,
+   esp.when it's used as an argument to the printf() functions.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
