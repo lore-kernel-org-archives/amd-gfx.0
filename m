@@ -4,90 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5CE5C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 12:58:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E06A9C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 14:16:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B1B010F2BA;
-	Wed, 19 Jan 2022 12:58:05 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57D7310F2B9
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jan 2022 12:58:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l2jC5lSZwUB4H3UlvD+fCe3olpVD6lFQIPQxmczemkW6ssiHms6YF/mgc+aPLggnMuCbEzPflOigAzHp+f/SvhEGqIX1lRNlt8nb64gqqcFLPfYulE1MPrRehhEnQ96VAOn/P/rtQH4YsRQMaQj3HeoWd7UOFWDpR/q8BhyArX3gcHWoZArOrWqD+1Iyy7JdbeDa5oC7JLrhKNDVHSsVvzO2/3fLcFe/BXVy2q4ur4nDcdHXqAVdGeq6KxAvt7zAmfYu8pfoEPB2iMFtCSvQIxY6zRn0y5cLQlN0OpDH92J4fXZppxji99QaYXooknbAEvfO1ZaInxdihsPkb4j7vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=usStzygSW5DGlQyrrmjcta3y3T594/Yg6zJBfpyk6II=;
- b=flF83TiEtG4iLZ/oS/0mBhWztjpDNkR8AbkrVJKlFPR+7VsyGDZSeMd2w/JaF1Go08I1K8BJOBrF244gg83lRNSTsSSO+X0FoqAlETvFKMQPKetY9ef3dTQOWHQUXbZ8uNmjW09mMlBkFjVvhY7mllFoUlzi3xuhhOZnckxVMSsupXq3SimzMdaB3+G+csBqqJmzr9H+VFJsIDJ2qMdUDeqvCiMmQAoyuohq/PUi777PmRrq/8/wPW1a+gu1e5e+6/ptCZb3XDAZkQzzSIJVSQX0RclFt21wCc4JOk3rF5EvrQTiShRNsn/J/toZ5WUHA0k7O0d+eeasFuMb4zB4cQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=usStzygSW5DGlQyrrmjcta3y3T594/Yg6zJBfpyk6II=;
- b=KbC1jFkv0NEBQw1u9jIYFwsVwoPJbPmUc5yEmzj1Iomu4q0FmS2qNxowfgq3d2sG55qJG51ECb7cPyHRHiKIqj33sdlUW5vOeN9Y8KfiX9Uayz61I/PK3N0cadWvDaNt26qXqmKvVafaNKS9MJjFccHmVTSoV/b5ztwEV17JfpU=
-Received: from MW4PR03CA0346.namprd03.prod.outlook.com (2603:10b6:303:dc::21)
- by BY5PR12MB4998.namprd12.prod.outlook.com (2603:10b6:a03:1d4::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Wed, 19 Jan
- 2022 12:58:01 +0000
-Received: from CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:dc:cafe::6e) by MW4PR03CA0346.outlook.office365.com
- (2603:10b6:303:dc::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7 via Frontend
- Transport; Wed, 19 Jan 2022 12:58:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT052.mail.protection.outlook.com (10.13.174.225) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4909.7 via Frontend Transport; Wed, 19 Jan 2022 12:58:00 +0000
-Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 19 Jan
- 2022 06:57:58 -0600
-From: majun <majun@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] amd/amdkfd:Fix the return value in kfd_process_queue_manager
-Date: Wed, 19 Jan 2022 20:57:21 +0800
-Message-ID: <20220119125721.278221-1-majun@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C850910EA37;
+	Wed, 19 Jan 2022 14:16:45 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C05F710E9F1;
+ Wed, 19 Jan 2022 14:16:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642601803; x=1674137803;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=d7hVq3oxHgek+LZjbNjbhxHHdzW6IMVr8vZX6/zGsrc=;
+ b=aNnY8icCbsWxwY7sIbaOgmz7QJ1+jLHuqMQg7Ek6103MFuPfuCG7gwXC
+ i19mJ0w36G1t4FE0MKaHAVbuIX5SSlResG6HkTVqqcKxBQoIyML0o0SF/
+ 0GSZYC8wW2YJwYQPUUq9mJZMmr7PfdZaAqhNYf/ky3fntuNqZEkmVQGp/
+ 9ITB8iexKA9vZjkzb4hO63uf1ypCq2XQJM4U+FnEypSj1RCCX5T2e6sQD
+ jY3DT85Fj+YMH7+x9linwpT1V7iq1dOWukxTAOMgnD1B496rWQhdlFy57
+ f8268Nkp8ZorVG4dPasBUuz4Vb3VVE+bJYw1RjyubIoiZKB9fw86e5KlI Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10231"; a="245271579"
+X-IronPort-AV: E=Sophos;i="5.88,299,1635231600"; d="scan'208";a="245271579"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 06:16:42 -0800
+X-IronPort-AV: E=Sophos;i="5.88,299,1635231600"; d="scan'208";a="477387201"
+Received: from elenadel-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.50.196])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 06:16:15 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Petr Mladek <pmladek@suse.com>, Lucas De Marchi <lucas.demarchi@intel.com>
+Subject: Re: [PATCH 0/3] lib/string_helpers: Add a few string helpers
+In-Reply-To: <YegPiR7LU8aVisMf@alley>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220119072450.2890107-1-lucas.demarchi@intel.com>
+ <YegPiR7LU8aVisMf@alley>
+Date: Wed, 19 Jan 2022 16:16:12 +0200
+Message-ID: <87tudzbykz.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: be237cdf-4fe3-478b-1eea-08d9db4b5295
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4998:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB49983152FD6AEB6F84088A8FBC599@BY5PR12MB4998.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:862;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: P2KZAmJiI5tjRqoXzh3UMm0wdrXGx/TZtWz/Vg8vS1eVOK5Ysp4FfCdDG7IED9dVPVsmICJ+aS9gmRaTpiRh99fRCrzOH6kaQpRrZox7LUhJI19uztfKdO9oJCo5qixvsMWf1eRyNzvjBTCp3ruSIFseDutUV9OGw8hs0hzi4VllrHiRhEoxuTUuv93xwLIjyQSuSwUgBcjt/MgBZoLVAeNGZ0ILQSpNCU/aGI0NeSu1d9Rs0OBmteOjKUQClbDCrA/xB9B93JuT21Elqr1wAta1IHiRCpJSo5MfBZf6uus1hPRLl5WeDONdXmcwMC0Gn5UuHojVMHeighJdYxfoDQPLM4TFeJf5zqF6+8Ig7gml+Lczff9ttKPRMd1SEI2UZJvujn8gJFIWdqQvgXlJzZIOefXlLMizN8iwUXeRahYBMjc70zt4tRurdkJMWkU8Oz6tvo0GnhhvJLnXcBPUJkNpnUjxmAjB5nbb5RvTw74XgrjYLPHqhdpM54Ag2+1srUaMfW8dIQV5a4werlHdQzi6Y6owtiKGt/8NyUE0fVXO4oTChXgh7H6bPYcCnHyBtWYmxvzA0R7rQ1VXQfD6ScRIIBLao0HX/9Q+YKnrPiUUYZAXs/OPLWxJgJr/Ld0oQVjMkqdvBJlQ4q0o7COtWG5CSBkUAXJPhDFcWCHzvzxm33/6PTeftgBQnxZ8AiWKMGvC7vSf0A9KW5qY+NIH06o+sB2ceTTD31JqICNyWtRnwMWbCMuXaQznfQ58uerCoEskZ177oDZ98qpslYdAOIE/gWDybGEwwI2vAkan+J4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(40470700002)(46966006)(36840700001)(36756003)(6916009)(8676002)(82310400004)(7696005)(2616005)(47076005)(36860700001)(316002)(4326008)(70206006)(356005)(8936002)(426003)(2906002)(336012)(508600001)(83380400001)(81166007)(5660300002)(40460700001)(26005)(6666004)(186003)(4744005)(16526019)(1076003)(70586007)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2022 12:58:00.2608 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be237cdf-4fe3-478b-1eea-08d9db4b5295
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4998
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,30 +57,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
+ Francis Laniel <laniel_francis@privacyrequired.com>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>, Mikita Lipski <mikita.lipski@amd.com>,
+ amd-gfx@lists.freedesktop.org, Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Leo Li <sunpeng.li@amd.com>,
+ intel-gfx@lists.freedesktop.org, Raju Rangoju <rajur@chelsio.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Julia Lawall <julia.lawall@lip6.fr>,
+ Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Eryk Brol <eryk.brol@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org,
+ Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
+ linux-security-module@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ netdev@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, "David S
+ . Miller" <davem@davemloft.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Change the return value of set_queue_properties_from_criu()
+On Wed, 19 Jan 2022, Petr Mladek <pmladek@suse.com> wrote:
+> On Tue 2022-01-18 23:24:47, Lucas De Marchi wrote:
+>> Add some helpers under lib/string_helpers.h so they can be used
+>> throughout the kernel. When I started doing this there were 2 other
+>> previous attempts I know of, not counting the iterations each of them
+>> had:
+>>=20
+>> 1) https://lore.kernel.org/all/20191023131308.9420-1-jani.nikula@intel.c=
+om/
+>> 2) https://lore.kernel.org/all/20210215142137.64476-1-andriy.shevchenko@=
+linux.intel.com/#t
+>>=20
+>> Going through the comments I tried to find some common ground and
+>> justification for what is in here, addressing some of the concerns
+>> raised.
+>>=20
+>> d. This doesn't bring onoff() helper as there are some places in the
+>>    kernel with onoff as variable - another name is probably needed for
+>>    this function in order not to shadow the variable, or those variables
+>>    could be renamed.  Or if people wanting  <someprefix>
+>>    try to find a short one
+>
+> I would call it str_on_off().
+>
+> And I would actually suggest to use the same style also for
+> the other helpers.
+>
+> The "str_" prefix would make it clear that it is something with
+> string. There are other <prefix>_on_off() that affect some
+> functionality, e.g. mute_led_on_off(), e1000_vlan_filter_on_off().
+>
+> The dash '_' would significantly help to parse the name. yesno() and
+> onoff() are nicely short and kind of acceptable. But "enabledisable()"
+> is a puzzle.
+>
+> IMHO, str_yes_no(), str_on_off(), str_enable_disable() are a good
+> compromise.
+>
+> The main motivation should be code readability. You write the
+> code once. But many people will read it many times. Open coding
+> is sometimes better than misleading macro names.
+>
+> That said, I do not want to block this patchset. If others like
+> it... ;-)
 
-Signed-off-by: majun <majun@amd.com>
-Change-Id: I11362eb76eee84e64c5207c24a2b78141f62e63a
----
- drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I don't mind the names either way. Adding the prefix and dashes is
+helpful in that it's possible to add the functions first and convert
+users at leisure, though with a bunch of churn, while using names that
+collide with existing ones requires the changes to happen in one go.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index ec62897914da..f70e972d1d33 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -826,7 +826,7 @@ static void set_queue_properties_from_criu(struct queue_properties *qp,
- 	qp->type = q_data->type;
- 	qp->format = q_data->format;
- 
--	return 0;
-+	return;
- }
- 
- 
--- 
-2.25.1
+What I do mind is grinding this series to a halt once again. I sent a
+handful of versions of this three years ago, with inconclusive
+bikeshedding back and forth, eventually threw my hands up in disgust,
+and walked away.
 
+>
+>
+>> e. One alternative to all of this suggested by Christian K=C3=B6nig
+>>    (43456ba7-c372-84cc-4949-dcb817188e21@amd.com) would be to add a
+>>    printk format. But besides the comment, he also seemed to like
+>>    the common function. This brought the argument from others that the
+>>    simple yesno()/enabledisable() already used in the code is easier to
+>>    remember and use than e.g. %py[DOY]
+>
+> Thanks for not going this way :-)
+>
+>> Last patch also has some additional conversion of open coded cases. I
+>> preferred starting with drm/ since this is "closer to home".
+>>=20
+>> I hope this is a good summary of the previous attempts and a way we can
+>> move forward.
+>>=20
+>> Andrew Morton, Petr Mladek, Andy Shevchenko: if this is accepted, my
+>> proposal is to take first 2 patches either through mm tree or maybe
+>> vsprintf. Last patch can be taken later through drm.
+>
+> I agree with Andy that it should go via drm tree. It would make it
+> easier to handle potential conflicts.
+>
+> Just in case, you decide to go with str_yes_no() or something similar.
+> Mass changes are typically done at the end on the merge window.
+> The best solution is when it can be done by a script.
+>
+> Best Regards,
+> Petr
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
