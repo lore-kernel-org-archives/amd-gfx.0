@@ -4,42 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79983C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 14:32:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D87BC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jan 2022 14:32:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 954E910EB57;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E65C10EB5F;
 	Wed, 19 Jan 2022 14:32:46 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A0CD10E13A;
- Wed, 19 Jan 2022 13:18:05 +0000 (UTC)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 54C8621123;
- Wed, 19 Jan 2022 13:18:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1642598283; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5030rwRdQVdGOVRRFHRTkRKqifOJXNno9J3Z4c5+1YA=;
- b=X+sTq95MaR4ipOc0sga1XDfWcMiW9FTvop0fDJWvb/D9s4D7IGDBilB2aVkSGlh5aFcJD/
- n/WEnrXPiJsFn6TQAANEUr68P561Vum2hTmCOBIaTd3It9Hqa5/LYx0lz0+wL5aAgSaYNR
- fPvU2djzpoRxXztcSp7BAsmfXILijxY=
-Received: from suse.cz (unknown [10.100.224.162])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id DB985A3B89;
- Wed, 19 Jan 2022 13:18:01 +0000 (UTC)
-Date: Wed, 19 Jan 2022 14:18:01 +0100
-From: Petr Mladek <pmladek@suse.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29C5F10E96D;
+ Wed, 19 Jan 2022 09:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642583952; x=1674119952;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Zf7maaT407OcqJiMSYXoEAzMcLY861f8NYGTlKtPnGA=;
+ b=ZFNwW0Dd9ESaHoa0UPh0BzF1zqZNveic6/jajEPk6qIJOnltb2XtBENE
+ 885yBSiun1DGbR2uQ7RjwbCELiS2skBvZQgtW+grFtz7tSYK6b0RBOL/y
+ AAIjYSX8rjjSgCN+Hv8SKBxs8xtEQUtwkHI1Y3mf0ZUqdF1Ay8uK9YsMy
+ ordGnhWbMpmC1jlKXmhOyE8+ftckvfAD2s515M4FB+5rjVfwwUbaSQN4p
+ EajkxxmSlJaQc/l5HNiih7vtpeb8WHIWvqYIuJruGo338HwJ7i4nFZh/P
+ e3xZpoctQHC4BqAxceYeKH38QlSoFHVCmEoST1+GVW3rgexoNpDOKK+Vw g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10231"; a="232388195"
+X-IronPort-AV: E=Sophos;i="5.88,299,1635231600"; d="scan'208";a="232388195"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 01:19:11 -0800
+X-IronPort-AV: E=Sophos;i="5.88,299,1635231600"; d="scan'208";a="622447667"
+Received: from paasikivi.fi.intel.com ([10.237.72.42])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 01:19:01 -0800
+Received: from paasikivi.fi.intel.com (localhost [127.0.0.1])
+ by paasikivi.fi.intel.com (Postfix) with SMTP id CEBE0203C8;
+ Wed, 19 Jan 2022 11:18:59 +0200 (EET)
+Date: Wed, 19 Jan 2022 11:18:59 +0200
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: Lucas De Marchi <lucas.demarchi@intel.com>
-Subject: Re: [PATCH 0/3] lib/string_helpers: Add a few string helpers
-Message-ID: <YegPiR7LU8aVisMf@alley>
+Subject: Re: [PATCH 1/3] lib/string_helpers: Consolidate yesno() implementation
+Message-ID: <YefXg03hXtrdUj6y@paasikivi.fi.intel.com>
 References: <20220119072450.2890107-1-lucas.demarchi@intel.com>
+ <20220119072450.2890107-2-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220119072450.2890107-1-lucas.demarchi@intel.com>
+In-Reply-To: <20220119072450.2890107-2-lucas.demarchi@intel.com>
 X-Mailman-Approved-At: Wed, 19 Jan 2022 14:32:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,10 +68,10 @@ Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
  Kentaro Takeda <takedakn@nttdata.co.jp>, Mikita Lipski <mikita.lipski@amd.com>,
  amd-gfx@lists.freedesktop.org, Andy Shevchenko <andy.shevchenko@gmail.com>,
  Ben Skeggs <bskeggs@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Leo Li <sunpeng.li@amd.com>,
- intel-gfx@lists.freedesktop.org, Raju Rangoju <rajur@chelsio.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Julia Lawall <julia.lawall@lip6.fr>,
+ Harry Wentland <harry.wentland@amd.com>, Petr Mladek <pmladek@suse.com>,
+ Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Raju Rangoju <rajur@chelsio.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Julia Lawall <julia.lawall@lip6.fr>,
  Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
  Steven Rostedt <rostedt@goodmis.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -79,74 +86,22 @@ Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue 2022-01-18 23:24:47, Lucas De Marchi wrote:
-> Add some helpers under lib/string_helpers.h so they can be used
-> throughout the kernel. When I started doing this there were 2 other
-> previous attempts I know of, not counting the iterations each of them
-> had:
-> 
-> 1) https://lore.kernel.org/all/20191023131308.9420-1-jani.nikula@intel.com/
-> 2) https://lore.kernel.org/all/20210215142137.64476-1-andriy.shevchenko@linux.intel.com/#t
-> 
-> Going through the comments I tried to find some common ground and
-> justification for what is in here, addressing some of the concerns
-> raised.
-> 
-> d. This doesn't bring onoff() helper as there are some places in the
->    kernel with onoff as variable - another name is probably needed for
->    this function in order not to shadow the variable, or those variables
->    could be renamed.  Or if people wanting  <someprefix>
->    try to find a short one
+Hi Lucas,
 
-I would call it str_on_off().
+On Tue, Jan 18, 2022 at 11:24:48PM -0800, Lucas De Marchi wrote:
+> @@ -1354,8 +1345,7 @@ static bool tomoyo_print_condition(struct tomoyo_io_buffer *head,
+>  	case 3:
+>  		if (cond->grant_log != TOMOYO_GRANTLOG_AUTO)
+>  			tomoyo_io_printf(head, " grant_log=%s",
+> -					 tomoyo_yesno(cond->grant_log ==
+> -						      TOMOYO_GRANTLOG_YES));
+> +					 yesno(cond->grant_log == TOMOYO_GRANTLOG_YES));
 
-And I would actually suggest to use the same style also for
-the other helpers.
+This would be better split on two lines.
 
-The "str_" prefix would make it clear that it is something with
-string. There are other <prefix>_on_off() that affect some
-functionality, e.g. mute_led_on_off(), e1000_vlan_filter_on_off().
+Then,
 
-The dash '_' would significantly help to parse the name. yesno() and
-onoff() are nicely short and kind of acceptable. But "enabledisable()"
-is a puzzle.
+Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-IMHO, str_yes_no(), str_on_off(), str_enable_disable() are a good
-compromise.
-
-The main motivation should be code readability. You write the
-code once. But many people will read it many times. Open coding
-is sometimes better than misleading macro names.
-
-That said, I do not want to block this patchset. If others like
-it... ;-)
-
-
-> e. One alternative to all of this suggested by Christian König
->    (43456ba7-c372-84cc-4949-dcb817188e21@amd.com) would be to add a
->    printk format. But besides the comment, he also seemed to like
->    the common function. This brought the argument from others that the
->    simple yesno()/enabledisable() already used in the code is easier to
->    remember and use than e.g. %py[DOY]
-
-Thanks for not going this way :-)
-
-> Last patch also has some additional conversion of open coded cases. I
-> preferred starting with drm/ since this is "closer to home".
-> 
-> I hope this is a good summary of the previous attempts and a way we can
-> move forward.
-> 
-> Andrew Morton, Petr Mladek, Andy Shevchenko: if this is accepted, my
-> proposal is to take first 2 patches either through mm tree or maybe
-> vsprintf. Last patch can be taken later through drm.
-
-I agree with Andy that it should go via drm tree. It would make it
-easier to handle potential conflicts.
-
-Just in case, you decide to go with str_yes_no() or something similar.
-Mass changes are typically done at the end on the merge window.
-The best solution is when it can be done by a script.
-
-Best Regards,
-Petr
+-- 
+Sakari Ailus
