@@ -4,93 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14055C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 18:04:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88210C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 18:15:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7624610E566;
-	Thu, 20 Jan 2022 18:04:48 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2083.outbound.protection.outlook.com [40.107.237.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04B7A10E218
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 18:04:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Zd9mUYA3/Dfy1g7Ypn90OFK41w1Uj/2PTxpBm1mee6TTj2BshWBzlau4h3sa/S2T2L+YCEpGC48Pj71DO+bHynnBvVBvQ8gU+uxGwJPsg8guZrCzO/t3curTJwVMKD5NZbPe4j8ePF+/9YDHhyMdNckVG+CbpEVPMH+TMnvprE5ELNR7+AVq/v2mq55sZFH/acYNx6jrgCx9hFbCOSk19UBhejqsVC6OGLteMGTDJVg9eXTxRFdD+9aOtJegApfTUf19Zw4XsMtO3vKxqNAN1yvJI42JPrXkKIDJVIebMQwU9X5FbO0mgIIw3oxZc+g0U831Cg9PP1nRKzogIdysog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H9Iiojk3ECrwfW7U08wU1wykwaNqZyGFopD5MSIKhVk=;
- b=aoXsjdPXs83whL6WNYwCxmTgxc/nugLZ2uZHcUbNKwLrFE4QTLmyF2bflklhqzRZDPYWn62X/qK6byRh4BAGVBPtcEirAxPJ7ADRpQWxEZJ53PFcCRdmdYO8cjr6lzBxKgDU3BxIhv/aYAPFogtJexCjAY+tTFDdJt6SSL6kiinxo9rF9QUj1zsKRo+dWQ/QmmGvwqaawKl9DKMl5usV97aLs2fXIC2TBhXmxviVUUh+Snh5Ni2f1hqg6iBkMIQHo8WwX0G1Nd6PtExk+wXnnpsPYvBy1wIoN+R/IzKoa6nk1Gtylhy6byrr53Z2pt4mcnJ10B7dDvghLSOjJS9dSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H9Iiojk3ECrwfW7U08wU1wykwaNqZyGFopD5MSIKhVk=;
- b=WG8Yjv92AhILSd94NQQB7sWKYYc3EIqQDTtoH1yehE2EEDPAxlWHsEfFa42gxQtuQDs/ph2E+9vLQrJTwTe/FOgv+BnHM7rK5c/51X6kPJ/nEY85TCYiN8jYduWiMp9nJr7rNSpBhwybu3qc1/DRXHiMpo+c8lMEDhANF31/Efo=
-Received: from MWHPR13CA0045.namprd13.prod.outlook.com (2603:10b6:300:95::31)
- by DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Thu, 20 Jan
- 2022 18:04:44 +0000
-Received: from CO1NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:95:cafe::fc) by MWHPR13CA0045.outlook.office365.com
- (2603:10b6:300:95::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.4 via Frontend
- Transport; Thu, 20 Jan 2022 18:04:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT054.mail.protection.outlook.com (10.13.174.70) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4909.7 via Frontend Transport; Thu, 20 Jan 2022 18:04:44 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 20 Jan
- 2022 12:04:42 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu/display: use msleep rather than udelay for
- long delays
-Date: Thu, 20 Jan 2022 13:04:29 -0500
-Message-ID: <20220120180429.616236-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220120180429.616236-1-alexander.deucher@amd.com>
-References: <20220120180429.616236-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1026E10E3DF;
+	Thu, 20 Jan 2022 18:15:33 +0000 (UTC)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EA0610E3DF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 18:15:31 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id p18so13839861wmg.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 10:15:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=/1niYLAEuaijbIFq33MZTPkGdWDJYXePP52dnn6Zn2c=;
+ b=OS85OKzSApXoK1N0lrYEapqDayLiPZaUMX6p36RKbAypCLreEmIzbdi+3FzcQhEEju
+ pOXPhD32zDG6ckDdCep14g/AECZaHHzvvPAcaw4IazVjQHsXYP2gAVXdRJtpl/qjiduU
+ m53NLmPsFNlpKQhbBRc6p8DiVk5T4E9Y6sY9EDd4szj351KzB2EueHYwG3ETAne1yuMs
+ 43BLxannePzd2+aAW9CuGY51pbPl3w1tP3Pb1v37MlSBAhUPHrKG8OjExCQYCGchMkTG
+ qagVF58nvCMuvQDcG5gD1MAnAsL1LWCsHpbEzF7e7XiZgVcbgOlyeWoJ0YGK3frQFzTk
+ zwLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=/1niYLAEuaijbIFq33MZTPkGdWDJYXePP52dnn6Zn2c=;
+ b=yrfFCUvuqBiT/aHfqPg74vpPTNJeRXh6z0j2yko2Ikg0EL2qipJk7OZWdwn2fc86jo
+ t5MW9nQxp/K3YhnPltEmhxheZsS1nmNqmQccPeTzq7WImRsWQIvVnoR47Aq3X0QuOUzQ
+ FggrN9M/CDUPd+B+voMcDKalBFfPS24GWUlgWsGEy2YBU7xWmuWJIhGE4sYx4BuOrhp3
+ y+rQQilEJmpDf2oCjl5jFUMJsOBiRi/Ex4FoofIQfzjfNdtYlZm2UZw57ojTvR6k5377
+ mStOgPkZAZP5XO1VLqjsdc5yr0dje0WBeSTAK0s9+q06WGoILOfbFC8bgwFBD+iBaBu3
+ 35ew==
+X-Gm-Message-State: AOAM531T8QUnj6/ytis3U6S7bgf67jZfaag409mhRBwSBpZrg3zWclGT
+ KfMdvq2fWuHdE8b7dB/cTGZK3esTAqU=
+X-Google-Smtp-Source: ABdhPJzein75xPLgdQoPMvOYmnwMd52uTS9nzIw+PmDSbQY8kWYQYEUJ0bke4X+wu33qMKLZxezxMg==
+X-Received: by 2002:adf:d1e7:: with SMTP id g7mr255608wrd.642.1642702529965;
+ Thu, 20 Jan 2022 10:15:29 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:49c6:94a6:8972:baf0?
+ ([2a02:908:1252:fb60:49c6:94a6:8972:baf0])
+ by smtp.gmail.com with ESMTPSA id bh26sm2849903wmb.40.2022.01.20.10.15.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Jan 2022 10:15:29 -0800 (PST)
+Subject: Re: [PATCH] drm/amdgpu: filter out radeon secondary ids as well
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220120174858.597208-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <0bf21d1c-b648-4b12-c131-7154efc5ebc6@gmail.com>
+Date: Thu, 20 Jan 2022 19:15:28 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
+In-Reply-To: <20220120174858.597208-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 37e877b8-9478-4fc0-e19c-08d9dc3f56a3
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2972:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB297223E61114A62974B31DD2F75A9@DM6PR12MB2972.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zNSWJBQ8IlqidlgyNpvLJ3QFBJUkL1xAJcsBD+HI73mD000oZBgtVjzWWeR9WjW4wXowGc8vk+qhQ0rt3YA9EutUhFHOAMX8HZQxmmdJipK6T9i19+eGJgJJYXVSHUjUyPwJAZhHC9O6Kr8xnOujMh4sqXFtE+pQm44Z/BFL+hkPQTJhLq62T2bm7ODiJyXpISk8QbZat+7TSs06V0cKAcusR83Una1kTO31zMYbuQkIcnuczYF+kzxUHl3R2XecRr4PzF7aV2ODzlSbOt/v6gSWgHQ3Sr/8dXZDZRI+dGUbtu47FXj0DDUKqdFVY4D36xr1NEWhtWepBJ9HYIcqY5mFUMPo0w031J9neBuPMq1RF5FwPhZowf4bgGyPSnB4JPh4zNxLr5kYcCR1q/bjxiTyu1tgYTN/qHWE9s9A2JMQ5BvURaS7xGMAN6UH1GXt3tUToFFW+VP9E6smQwtERJ8+OF/P3VMziSfJJ8Q3MRckq1jUAqJpbcGP82tSlFzFW2EO1RheTsmKkl9244o/G97dr0CUf6Z2vnzcbKPdOe8MwS1TPkFHGgfv9DorszDUcz5lZ+ZnmxPU90CrDkZu79A9xCZeNH9f8ky9vmZGjpAplGGSkr4Zsmbaaa1aKXufPKm5kIhImod4keN4MNU076MyX2QDt3xPdNTOF8REJhB18VR1xw9iWiZPCMP0sjJ/kQbvXZ9/wW/ZiomhmT50cJaJaSm2juC32MBsf8rkvHfxN/i+gRV5BxbUtPCg9aL8JA1yL/EiswPWn/QasCwZHC7ZJHGC/ykVSuTSHysSyPM=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700002)(6916009)(26005)(83380400001)(1076003)(2906002)(86362001)(7696005)(5660300002)(336012)(8936002)(8676002)(508600001)(6666004)(47076005)(2616005)(82310400004)(36860700001)(356005)(40460700001)(4744005)(426003)(316002)(81166007)(4326008)(186003)(16526019)(70586007)(36756003)(70206006)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 18:04:44.2704 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37e877b8-9478-4fc0-e19c-08d9dc3f56a3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT054.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2972
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,42 +71,115 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some architectures (e.g., ARM) throw an compilation error if the
-udelay is too long.  In general udelays of longer than 2000us are
-not recommended on any architecture.  Switch to msleep in these
-cases.
+Am 20.01.22 um 18:48 schrieb Alex Deucher:
+> Older radeon boards (r2xx-r5xx) had secondary PCI functions
+> which we solely there for supporting multi-head on OSs with
+> special requirements.  Add them to the unsupported list
+> as well so we don't attempt to bind to them.  The driver
+> would fail to bind to them anyway, but this does so
+> in a cleaner way that should not confuse the user.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Acked-by: Christian König <christian.koenig@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index aa1c67c3c386..eb4432dca761 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -6941,7 +6941,7 @@ bool dpcd_write_128b_132b_sst_payload_allocation_table(
- 			}
- 		}
- 		retries++;
--		udelay(5000);
-+		msleep(5);
- 	}
- 
- 	if (!result && retries == max_retries) {
-@@ -6993,7 +6993,7 @@ bool dpcd_poll_for_allocation_change_trigger(struct dc_link *link)
- 			break;
- 		}
- 
--		udelay(5000);
-+		msleep(5);
- 	}
- 
- 	if (result == ACT_FAILED) {
--- 
-2.34.1
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 81 +++++++++++++++++++++++++
+>   1 file changed, 81 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 1527decd7e30..75ceb43392b1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -1499,6 +1499,87 @@ static const u16 amdgpu_unsupported_pciidlist[] = {
+>   	0x99A0,
+>   	0x99A2,
+>   	0x99A4,
+> +	/* radeon secondary ids */
+> +	0x3171,
+> +	0x3e70,
+> +	0x4164,
+> +	0x4165,
+> +	0x4166,
+> +	0x4168,
+> +	0x4170,
+> +	0x4171,
+> +	0x4172,
+> +	0x4173,
+> +	0x496e,
+> +	0x4a69,
+> +	0x4a6a,
+> +	0x4a6b,
+> +	0x4a70,
+> +	0x4a74,
+> +	0x4b69,
+> +	0x4b6b,
+> +	0x4b6c,
+> +	0x4c6e,
+> +	0x4e64,
+> +	0x4e65,
+> +	0x4e66,
+> +	0x4e67,
+> +	0x4e68,
+> +	0x4e69,
+> +	0x4e6a,
+> +	0x4e71,
+> +	0x4f73,
+> +	0x5569,
+> +	0x556b,
+> +	0x556d,
+> +	0x556f,
+> +	0x5571,
+> +	0x5854,
+> +	0x5874,
+> +	0x5940,
+> +	0x5941,
+> +	0x5b72,
+> +	0x5b73,
+> +	0x5b74,
+> +	0x5b75,
+> +	0x5d44,
+> +	0x5d45,
+> +	0x5d6d,
+> +	0x5d6f,
+> +	0x5d72,
+> +	0x5d77,
+> +	0x5e6b,
+> +	0x5e6d,
+> +	0x7120,
+> +	0x7124,
+> +	0x7129,
+> +	0x712e,
+> +	0x712f,
+> +	0x7162,
+> +	0x7163,
+> +	0x7166,
+> +	0x7167,
+> +	0x7172,
+> +	0x7173,
+> +	0x71a0,
+> +	0x71a1,
+> +	0x71a3,
+> +	0x71a7,
+> +	0x71bb,
+> +	0x71e0,
+> +	0x71e1,
+> +	0x71e2,
+> +	0x71e6,
+> +	0x71e7,
+> +	0x71f2,
+> +	0x7269,
+> +	0x726b,
+> +	0x726e,
+> +	0x72a0,
+> +	0x72a8,
+> +	0x72b1,
+> +	0x72b3,
+> +	0x793f,
+>   };
+>   
+>   static const struct pci_device_id pciidlist[] = {
 
