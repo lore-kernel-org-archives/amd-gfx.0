@@ -4,124 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F308C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 13:23:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7A0CC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 13:32:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A086E10E7BC;
-	Thu, 20 Jan 2022 13:23:56 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2052.outbound.protection.outlook.com [40.107.220.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A940B10E7B7
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 13:23:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 339F510E55B;
+	Thu, 20 Jan 2022 13:32:12 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2050.outbound.protection.outlook.com [40.107.93.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26D9310E3A3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 13:32:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BHYShYcd2cmC8Rl9s+DVjKFSCAN4qaePuNsK0h7WTKFSOVgAsrG11WBnlmMokc+qQmZyYeAhlCAjgpIeq6wvA0ZSJuRaj1Vzg4nzjV0C8Rbk/R0pqboY63qEbSYL4xIwPOxDNNGnsh+ae8NSdSSttF0HRG1qOtdU0rR+grJk0ZmmfXG9f6nHeg/jC887tcyAl0orhJnnTM47DcAt09Y8Jgci5Kl4lsPiXJ6gpKVPvQXj4juvQ4mVAZnrFl+Kfocf3H2eEwVQyIR7iE+7stBpijQsbWHG6N8RdqWVeUoKGWmxV+/KWpo9Seekv5UX7y+exQOY4G0sVOCl8BaxFucIpg==
+ b=AagQ2nf0YY36uJB+ECV47ykgUN7i1p7y13OfSHtGLjbUMJ1b5YlPLYriXGr+qOTLg7XsFOCkpA4s18kvmuMrAlOx5V68vB9rFaDLtJf38/vSwTwUlzuJkcvcGekbg2FyQLV3fwVboOjnkKBX8wMVoBX8dm2cbVzWQjMfrsScGqMBt+4ACac4HUm8HDPBD0x385JkQij73eJf8tKau4+nE9TWphf3iNU34a4x2j69IiFuUhuPpcnJfUPnIGoV2XlPifuOWpGQSfIh97AZRxTvT7NMZKTJeRHZYoHk3bNOe1Mm3akdpFRVHLHsilKcxhvbhzcaOO657Ud3wUdQCf5RAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yTbiuvnj166xX0aMnNzOvfb8b8V8qR0tFggD7d9G9Rk=;
- b=hz9tzUijzGcWIsuQ9XluAEYUmbwq+mHLko3FK6turSDlU5ZpC146XUmEaTorIvalrOAfdMefGXblYlSPREiiyTVYxCdv7FZoCYaRaLIrpkH65/1IZu5EHyAdkYWagaTfolyJFjNCN2bdjaPhQqYvLoSpYwNIgzfQn+8E3+2o1HSQTG3VljgJB0szID04DOBk85WBK+vUITvsEn/4rprEZNYOLH7tZmeM4Zw3jQXcq1hYVOIDJ4V/OBr48++/tajXieSTHxBOXlK4tJIh6LUESurDxk0qdjjbVSb0pOxKD4vHOFjjOzSRG383jmsqKe+9gEONCUlOsIvf+wZqvWOtWg==
+ bh=NUlF0ekCg0p4iL4/Fm4qgP0DZF2ZosaLy/MK1mubWS0=;
+ b=O01k6m58bhlUAWKLYMHqbRoLBKS5av1cYxZg+mo7tHSbJiEDqPF2fSZLlKtdK97gnGt03sWQha5u5uEyDkEmnPYZsz1DlxWkJ7s8FCM8UWIQ7BMdEQZQL6dYCHKjUD/ad2vjinHS0nKfxyaNLUSRWdXOMNBUTzh9zruiwAd1QRc02fBCrDBLxNTnQOLQ7wQ/FxlODst1wgfJTbaFkPfeyePbeNnKP1TTOgdflzAZyo1jxW1eTRT+8YL5U3X/gDn5m3Weng64thvYFqdpzNcRw0TmqKLlCVwatESthgOQ1YDJ+XKT5RAh5XAtsNwuqN46M2Py1AEEb/DyQgl8cI6+JQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yTbiuvnj166xX0aMnNzOvfb8b8V8qR0tFggD7d9G9Rk=;
- b=CfdBkl68OLWsw42KmIprBHe1t+u2/D324k88TxE8VV9IW74bNz4uwYbydbD8V8EB+NsYQj1bTYrKzhgf+LjP0ADQYa6WtS2YvUnzLiYdFkZn5bF8vZX5OgW/5hO2su31QgrLcOKi6U7Ca+T7r3kuy7PA0dSgI162NY5/NMhDsLo=
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
- DM6PR12MB4878.namprd12.prod.outlook.com (2603:10b6:5:1b8::24) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4909.8; Thu, 20 Jan 2022 13:23:53 +0000
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::a4:23f1:1652:90c]) by DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::a4:23f1:1652:90c%4]) with mapi id 15.20.4909.010; Thu, 20 Jan 2022
- 13:23:53 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Du, Xiaojian" <Xiaojian.Du@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/admgpu: fix the page fault caused by uninitialized
- variables
-Thread-Topic: [PATCH] drm/admgpu: fix the page fault caused by uninitialized
- variables
-Thread-Index: AQHYDdQcUonaMo0NX0CENdi6MhVDUaxr5gHg
-Date: Thu, 20 Jan 2022 13:23:53 +0000
-Message-ID: <DM5PR12MB24694B184B5DB9E00B86C98AF15A9@DM5PR12MB2469.namprd12.prod.outlook.com>
-References: <20220120080220.27663-1-Xiaojian.Du@amd.com>
-In-Reply-To: <20220120080220.27663-1-Xiaojian.Du@amd.com>
-Accept-Language: en-US
+ bh=NUlF0ekCg0p4iL4/Fm4qgP0DZF2ZosaLy/MK1mubWS0=;
+ b=1Zwf+JA1UMzRQY8w/cYHmiObmd6YNA1BZ7/tRt05wspMzEoAoUHmsdO94KLrBcR1khwFuQZKFMtNf0Pr0/WwaNY5u7kpUgUyaPw3pVfJzk26YqO30VopceaLdK8Y/xEa3LB6zrF76K7ikZ3Mpi/kMSsMm2z2AzaGkinnkTCm690=
+Received: from CO6PR12MB5473.namprd12.prod.outlook.com (2603:10b6:303:13e::8)
+ by BYAPR12MB2919.namprd12.prod.outlook.com (2603:10b6:a03:12c::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Thu, 20 Jan
+ 2022 13:32:08 +0000
+Received: from CO6PR12MB5473.namprd12.prod.outlook.com
+ ([fe80::b49d:d2e4:875b:e881]) by CO6PR12MB5473.namprd12.prod.outlook.com
+ ([fe80::b49d:d2e4:875b:e881%5]) with mapi id 15.20.4909.008; Thu, 20 Jan 2022
+ 13:32:08 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: switch to common helper to read bios from rom
+Thread-Topic: [PATCH] drm/amdgpu: switch to common helper to read bios from rom
+Thread-Index: AQHYDfCfedlHrZjlgUyhKv5B3HvLaKxr6CzH
+Date: Thu, 20 Jan 2022 13:32:08 +0000
+Message-ID: <CO6PR12MB54735252E08C8C3BF086D184825A9@CO6PR12MB5473.namprd12.prod.outlook.com>
+References: <20220120112635.11904-1-Hawking.Zhang@amd.com>
+In-Reply-To: <20220120112635.11904-1-Hawking.Zhang@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-20T13:22:58Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=6c24ebbb-4eea-46f1-b79d-fc7d5f21306e;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-01-20T13:23:50Z
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 666525d6-158e-4035-abae-1c8326d983b1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-01-20T13:32:02.118Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7c43e389-bb2f-4267-67d0-08d9dc181a96
-x-ms-traffictypediagnostic: DM6PR12MB4878:EE_
-x-microsoft-antispam-prvs: <DM6PR12MB4878182177D75E1FF1920E3AF15A9@DM6PR12MB4878.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:136;
+x-ms-office365-filtering-correlation-id: 104be664-476d-4b0d-b41e-08d9dc1941ec
+x-ms-traffictypediagnostic: BYAPR12MB2919:EE_
+x-microsoft-antispam-prvs: <BYAPR12MB2919939CAF547E2BE24371F1825A9@BYAPR12MB2919.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2512;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Z/q0eFIWxhrqyppJZCnn0bFwg9YYJgGC10+pH+1Fn7jiN8aLxuyZLJ5LwlTUziHKZrrBLalqAR5jqe3+dH2T1vvlSz9y5W5F+FPC4Z62TFpWTUweyDAcDau7E6Jwgu6IZYHS7R3H068evmYr+8mgRNX27/HvflI4WUVxzb08hAN0gUqUSSJiJML8+Oq1/6qubcDXchOVejAui7sb8goKEqJFSzjtHQ2DnkXCspEWPfSFwHOnO6eJ9VwRWXHVprvvu23bwbMBvjVaL7g1HaRgTyqg1GLBqcVZzLOWuqwXQU24zuqAQmmZHmfuj3M+WXKp2ahfaJj9xsf1J4KpV/6lsVgl1fNSIp/JQWIEUhwVZcp24IvmpHhNks0eiRltJ2TTEMvi7DAtUZnlLDnx4YQpXysCcIZJr+zMR7pH5TRPbwB5IuOePQfP7hbfRFbCraf5e/C+ylZPdc+PrVNU+IApm7aQkCbKUaDr4T4PPaFQQ9I2fQgQmSwItQ0SDaNspnOYv3UifwvbqI/ErRoh1xMxYlj3ehMXhnNHgEZ95lhYkv+AMyIhMYtFSpPwu0u0iujiog0wZBrN7Zn7idJgdIrBrHEtoV6gEFEVG1LbxHjAyh0GZFfZfsRoF18DKF8Rj6eQvM6M47lc9lrpSvvRqNxHaryn1PCKLUwR/7YCP+VbYn5l1MuRIIpZCCdrJeQNZn/RRvvmbAy1TPsJh+bqLt6P3g==
+x-microsoft-antispam-message-info: 7AdmMbCXDoEv+JBK02AkPF2RpN39tLv4LPpf2UCR4pdoHoGhPwIjkMxNpvTl6MNGrc24e30Fxd4gUS/J6okWqnvxYTnM6JQD/TEtAS14DO9VPyxE2CZr3hBp16KaHJFDWXF7FpRXn0UIoqINpdaccmPGNQHTfqcSdc/5m0Z0k/Qkb873nO14AHrp/HzXjdBn82rq5+TOUFCtVKrZGUWTp2lLtF4LYnroSoRaYZn3FJCx1Zm5VnMNJBxo3Y2VQOXQgwmXRK0lUrZjZHZJJde3U87pG9wEma3SKKAjXF5xV6Io9daZgDRI2ZjU8nig6WnsUFGbFMGAcNZFKAnU43EGGG81FeTqzhp3b3xSYiAFym5/sFBhGXGl4J8HatNjNFBufZynWYWbUyH1XZmbPYZugH6PgHImx6TUoIgsjHqwsz/idhRzpy37zqTgaUkDNHdA4BURXgjWkpDw1Upgb64TQKr00RMNP0Poc3vguHiGhvvWJ+xYxkru6pRckzOYXrunz8zNG/Zqelq9Rp0c687FVzTlxA+p+0JPDXYcF8GzTM0PAX8wO6FTjOW0HunO1KIjklszJz5ga42tuSw23b6HqwboP3hP/0AH4d+HPsdmMWIg4jts0ABbZcv79dbepwSEzATtnV7nt6wgf4Jeuj0nBfONuTuYzArvhLbMLw+EHsCz6DDayLZ88D/BGXmlkEkfpf6/ZjLzuiXifh0G7J0zNw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(122000001)(71200400001)(2906002)(38070700005)(38100700002)(8676002)(55016003)(8936002)(6506007)(86362001)(53546011)(4326008)(316002)(5660300002)(26005)(52536014)(110136005)(33656002)(83380400001)(76116006)(66556008)(9686003)(66946007)(66476007)(508600001)(7696005)(186003)(66446008)(64756008)(54906003);
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5473.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(110136005)(52536014)(8936002)(83380400001)(5660300002)(33656002)(316002)(71200400001)(508600001)(7696005)(6506007)(186003)(26005)(38100700002)(55016003)(8676002)(19627405001)(9686003)(6636002)(64756008)(86362001)(76116006)(66446008)(66476007)(66556008)(122000001)(66946007)(2906002)(53546011)(91956017)(38070700005);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?BM9dLCrDYVJjzWQw3ADL7dXnZMGBkfay9JzkZLo725YB/Y0q1iFYsImSlWxB?=
- =?us-ascii?Q?I7JCX8kvtM2FY/Tc8H/r0Uh5KAw7JujYpoU+EgKcCvkQ99qYcQ6lejHd0LXt?=
- =?us-ascii?Q?OHI+sI0JBoDf5TRW72iZ6afEsCMhSh2UTPBsRgD2k0fsr3AbimZWNt7riHfr?=
- =?us-ascii?Q?2UCeVoZzLvHG2ipSg40Sikhh+FgarUW69pxTFi911L6R1iSsMMcxXrZ2XuOP?=
- =?us-ascii?Q?habsfd4oiL2Ast0syxqfco/F4AnPFFGxCyC+xMmRsXUD4QEuXz5NZUKdTyIj?=
- =?us-ascii?Q?1tbcVV9t3+ND8EY7P/Zu3B44KtfNLXlH3/VGlPUzKFf9smkoZmp3dcA/X9c6?=
- =?us-ascii?Q?GVYfEXYNEgICCEipBowUb7R/Iv6Xxr+/un83kXlrZKcSy9NOseD0DuFaAvD4?=
- =?us-ascii?Q?kRyDIdbBykTFNfsoeM1i3ZzXFOPvumJWQA9e+sGSD9qlFtT784r33hObakIC?=
- =?us-ascii?Q?+yIJHNFptG1JIOlG7CajH9NE4mM9DKWQbyBBMs7eeUVfgoXJkBz+HtRACqcq?=
- =?us-ascii?Q?v8reCQDpofXGiFJXSGQfQNRFLfvMqquaH5icM4DSP0Ux5OJAyX9MaVeo86yA?=
- =?us-ascii?Q?j6IH25tVRu8bfKD/ihl8Pkc3A5gS2PwFhQ0jFZuRcKjLB6xWpJlkXLLw34M/?=
- =?us-ascii?Q?8C5cdApyoB7C1/b0sGTDPJLG8XD+f+OrPbQkS0YsrS3Yv6nFhnR6Qjx5wUZN?=
- =?us-ascii?Q?jDjCmo3sJhS3KRrlOh1bCliO+ADkC6kKU9Zp7RWmc28wkogtGSBFW5uQQxfm?=
- =?us-ascii?Q?2BT3thoHYR8VkMdz0ha3wKJhTR6XPGqdN7QyDThax19bAZvvkqGZHiXi8UK6?=
- =?us-ascii?Q?GwS+pwjYAPAH8dYfu6dmCV4Q1YYIITQJOOJowIJlp5TQCgb5iDS1B3slQb/A?=
- =?us-ascii?Q?zDOZ7uOGaaJeuaLPHW1re/oJQeF6Xgia24JTl02GVDMU33shfGnT/Uhzz/49?=
- =?us-ascii?Q?/Hz4z14Go5eP5jc/Ivt9LbVVJm8mhBERo7+1S8jhwmgFe8AsiKlMzFSUoUKi?=
- =?us-ascii?Q?SxCWLSmUiLN+aCyT1dMcn69Zo8qG8qalkOaP55F4Y1rxA3zztaP8GsEtlv2j?=
- =?us-ascii?Q?5FQpgUrOXfWc7fC1viu6Ncx3QJWUPIEYq/sEjzEIBZrY+iqyKqy0VZA3ZnQ1?=
- =?us-ascii?Q?dU2fkemYwJgnFXC+4lQ0gM5RratCtmbz01oGdfTHPDsqEweGlMmwfDZzVMyp?=
- =?us-ascii?Q?4tUpCKvXheEJaXH7sAE1hsWxGjxg3tx/UzWRG2SW/TNRXzD0SjKFKSZZv+Ik?=
- =?us-ascii?Q?jik+NjdXyXbdkm5nh6jDEcVmSNahFMIV9c9fPs4NQq3lvBpM5If/GpCRg6w1?=
- =?us-ascii?Q?GIiSTVE4iVo/FRpTd4+iqzGSA0ac+Eq+++197vcbGOV+RbX7C1x6Bd/A6gbb?=
- =?us-ascii?Q?8itEXcwmaMrzF5m99cHYvv/8RLQ1YBKWyrhdDKCm1GiBvZ9lJeNJsoCpJtR3?=
- =?us-ascii?Q?9YCX82qoqLGTxV2ExCrFekYwt88cn0ZVolfFYPLX7/VLVdbMSrenscf3pj9G?=
- =?us-ascii?Q?GqNPcuHAAOcHVTn67f5WO5BNlrjKLad8aYey454Wiu4UH3yE8kgUJX4fji+S?=
- =?us-ascii?Q?5WFQSf7GBtu+g58XyvoAmzM/zlHyGTNPuoXsEWjTu45HN8FFNN28+Vmb4h5+?=
- =?us-ascii?Q?FAro1trrjR/hs2zhX931tik=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?XXRZjn9Mbabhxva2rFwAoRH2gCjHXslx6nbmfJT2ATrH4B5vQ25Bn+pJbE?=
+ =?iso-8859-1?Q?w5TEf5M2w+TR7sHc49MjhXBhFPKiPun3LL/cwd/AjtiUPMHFSey+FO84yZ?=
+ =?iso-8859-1?Q?UjFFXmw1dSkiiBHU5ol5NvocR96mWMYRhQ5BUtAt9MRkn0/q/lhGVLnwK6?=
+ =?iso-8859-1?Q?vejUktMVPf3hLZLqWAYIGsixwhY+3+AT36CXkMaTLbJ/1JGYBwbS5+tKnR?=
+ =?iso-8859-1?Q?lQ1ulu4XEs1ipdrn5e7lLRx2kIJRMHnvQmFh+0YT2dH0UDJolKmIZs/zKy?=
+ =?iso-8859-1?Q?7ZX5C0WCNvaYy0NEXQiT3TQ7+TfxJnJ8K58woFz/hPWPe6LqSPkr0ds5ff?=
+ =?iso-8859-1?Q?GiPExzDIb0PJXbHzwsej0Ci2sP3R8p4GqafPp4xlXbwUOCKDShjiUzN1nc?=
+ =?iso-8859-1?Q?rpn444yX+ZfU3huT1k4jF1VDkYRyKw8nsqbsR89J78Nds8cPz/NdNCRCYS?=
+ =?iso-8859-1?Q?Na38hm/qnDvx9zfWDQHQQD0Dz+NBnoPQM3kEFKVt0eXcgC7d2/ICtBcmyh?=
+ =?iso-8859-1?Q?YktmFLIEQlESw4dmWhwmH823xBeW08T74BWmYPzFXc9mUTodXn5DQSHFz1?=
+ =?iso-8859-1?Q?SlxHbap8Adj4XQVKf7TQ5ikIip924sK5k48LIkqn2265FDjRp25iTnsb9z?=
+ =?iso-8859-1?Q?H6fozbeoBLvFGwNT4qKvZ3LJPyNSnSbX7qE/LwtQa/3HzUOSV6lVFJEYwO?=
+ =?iso-8859-1?Q?TONyEOON+1cE5y7pgDsH5rGYC8DrE88lm3ALUIUbyVHUSZnp+As1t3isww?=
+ =?iso-8859-1?Q?2Xd0F69BVShBTAqwta5Ka/2Nw+1r1HUAHTMFpfG3Yij/l1W1o/QIfEjjE6?=
+ =?iso-8859-1?Q?RoE2HDobaYvdUNhhdMNep8Hn/TLv6pydgjcpbKOGnQVQ2Ly0Rqcm1fgfdP?=
+ =?iso-8859-1?Q?gP5Ee/cnDYuXAaPlNKwZPY91GmDa3ZAT9wlszMMy4IUNp0MWkciZqzhkY9?=
+ =?iso-8859-1?Q?PyyOTnQ+w0hiY+zU8QVSI4Dsf8+jXWurR51am2imGLDMpCwdTbYhirhT6H?=
+ =?iso-8859-1?Q?htNY9PUmHcbC9tKG5+rjSvUJCb5UEOD1XenKUcixeoY851CcCWad00PCE9?=
+ =?iso-8859-1?Q?BB0ibCaOmPWs2qg8r7HwTIsZfVuBvyRGtPY26b2dBNvmP9uXkQzRg66NJm?=
+ =?iso-8859-1?Q?ecLnmKw+JHTrotW5Lbq/ST5xvL5PcihUMJQTeh7/qCxWinxi0XgdDBlkyv?=
+ =?iso-8859-1?Q?DV+mnxhFqOzPg8KMg2d+4mgUbYUzHWNVf79CpbEl7whz0sD+scP8FkFMfI?=
+ =?iso-8859-1?Q?CVXo+zNACInfMu7avBMMqCfOEnEdysQyQOuwZjgqHi4jMYAMsUgEDZTUde?=
+ =?iso-8859-1?Q?ZwQx3AJysY5r7uJGhItUltB+bKtjQ7iZ/UgPdOlekvx3JZy2JVuuPku4wS?=
+ =?iso-8859-1?Q?1WIS6N/Fyl93DtUNq6+3X9Vb871VO0qASe89T/zJWzXea+l5RPDbgsxqmm?=
+ =?iso-8859-1?Q?j0nVlTJVMLnbjOVvoM13SB5fJATnv2uFKRWQPZzhj8ZkbNerQXezQOwPPL?=
+ =?iso-8859-1?Q?4ntEOPmvEn9eyr2UXHO1sk+hDgn/AvHgfZkjceH4czkO4dMxNerbPHKvD/?=
+ =?iso-8859-1?Q?1TMOzV9DdFWelSUEPw6edv4Gj+a29+OhHb8RaF0Yj0fAUlhSwEMFfBcsN3?=
+ =?iso-8859-1?Q?zwiwnnDxVhllw=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CO6PR12MB54735252E08C8C3BF086D184825A9CO6PR12MB5473namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c43e389-bb2f-4267-67d0-08d9dc181a96
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2022 13:23:53.2401 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5473.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 104be664-476d-4b0d-b41e-08d9dc1941ec
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2022 13:32:08.6262 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tSubb9roVeMH0mbKRg13p5NBVZZkn21Vhxbgs4GlZ8BiAv6fHDEtVyYPXSX3vhn4NiSzb8Ubaj+EGo4/yFINRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4878
+X-MS-Exchange-CrossTenant-userprincipalname: wYJ3+j/B0NfZGOI7v7x72bkFYFuXY1uUoR2BfRTP4j/iIZxLvOr2alvg4HkH8nUU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2919
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,50 +125,561 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>, "Du, Xiaojian" <Xiaojian.Du@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+--_000_CO6PR12MB54735252E08C8C3BF086D184825A9CO6PR12MB5473namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-If you add the page fault info in your commit message, that's better.
+[AMD Official Use Only]
 
-Regards,
-Guchun
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Xiaojian=
- Du
-Sent: Thursday, January 20, 2022 4:02 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Huang, Ray <Ray.Huang@amd.com>; Du, Xiaojian <Xiaojian.Du@amd.com>
-Subject: [PATCH] drm/admgpu: fix the page fault caused by uninitialized var=
-iables
+Best Regards,
+Kevin
 
-This patch will fix the page fault caused by uninitialized variables.
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Hawking =
+Zhang <Hawking.Zhang@amd.com>
+Sent: Thursday, January 20, 2022 7:26 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
+ Alexander <Alexander.Deucher@amd.com>
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: switch to common helper to read bios from rom
 
-Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com>
+create a common helper function for soc15 and onwards
+to read bios image from rom
+
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 38 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/nv.c          | 34 +--------------------
+ drivers/gpu/drm/amd/amdgpu/soc15.c       | 37 ++---------------------
+ 4 files changed, 43 insertions(+), 69 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gmc.c
-index c65d82301bca..09780a0f874a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -828,9 +828,9 @@ void amdgpu_gmc_get_reserved_allocation(struct amdgpu_d=
-evice *adev)
-=20
- int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)  {
--	struct amdgpu_bo *vram_bo;
--	uint64_t vram_gpu;
--	void *vram_ptr;
-+	struct amdgpu_bo *vram_bo =3D NULL;
-+	uint64_t vram_gpu =3D 0;
-+	void *vram_ptr =3D NULL;
-=20
- 	int ret, size =3D 0x100000;
- 	uint8_t cptr[10];
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h
+index 8a7759147fb2..b2da840f4718 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -378,7 +378,8 @@ int amdgpu_device_ip_block_add(struct amdgpu_device *ad=
+ev,
+  */
+ bool amdgpu_get_bios(struct amdgpu_device *adev);
+ bool amdgpu_read_bios(struct amdgpu_device *adev);
+-
++bool amdgpu_soc15_read_bios_from_rom(struct amdgpu_device *adev,
++                                    u8 *bios, u32 length_bytes);
+ /*
+  * Clocks
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_bios.c
+index ca0503d56e5c..a819828408fd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+@@ -476,3 +476,41 @@ bool amdgpu_get_bios(struct amdgpu_device *adev)
+         adev->is_atom_fw =3D (adev->asic_type >=3D CHIP_VEGA10) ? true : f=
+alse;
+         return true;
+ }
++
++/* helper function for soc15 and onwards to read bios from rom */
++bool amdgpu_soc15_read_bios_from_rom(struct amdgpu_device *adev,
++                                    u8 *bios, u32 length_bytes)
++{
++       u32 *dw_ptr;
++       u32 i, length_dw;
++       u32 rom_index_offset;
++       u32 rom_data_offset;
++
++       if (bios =3D=3D NULL)
++               return false;
++       if (length_bytes =3D=3D 0)
++               return false;
++       /* APU vbios image is part of sbios image */
++       if (adev->flags & AMD_IS_APU)
++               return false;
++       if (!adev->smuio.funcs ||
++           !adev->smuio.funcs->get_rom_index_offset ||
++           !adev->smuio.funcs->get_rom_data_offset)
++               return false;
++
++       dw_ptr =3D (u32 *)bios;
++       length_dw =3D ALIGN(length_bytes, 4) / 4;
++
++       rom_index_offset =3D
++               adev->smuio.funcs->get_rom_index_offset(adev);
++       rom_data_offset =3D
++               adev->smuio.funcs->get_rom_data_offset(adev);
++
++       /* set rom index to 0 */
++       WREG32(rom_index_offset, 0);
++       /* read out the rom data */
++       for (i =3D 0; i < length_dw; i++)
++               dw_ptr[i] =3D RREG32(rom_data_offset);
++
++       return true;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/n=
+v.c
+index 3ccd3b42196a..e52d1114501c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -358,38 +358,6 @@ static bool nv_read_disabled_bios(struct amdgpu_device=
+ *adev)
+         return false;
+ }
+
+-static bool nv_read_bios_from_rom(struct amdgpu_device *adev,
+-                                 u8 *bios, u32 length_bytes)
+-{
+-       u32 *dw_ptr;
+-       u32 i, length_dw;
+-       u32 rom_index_offset, rom_data_offset;
+-
+-       if (bios =3D=3D NULL)
+-               return false;
+-       if (length_bytes =3D=3D 0)
+-               return false;
+-       /* APU vbios image is part of sbios image */
+-       if (adev->flags & AMD_IS_APU)
+-               return false;
+-
+-       dw_ptr =3D (u32 *)bios;
+-       length_dw =3D ALIGN(length_bytes, 4) / 4;
+-
+-       rom_index_offset =3D
+-               adev->smuio.funcs->get_rom_index_offset(adev);
+-       rom_data_offset =3D
+-               adev->smuio.funcs->get_rom_data_offset(adev);
+-
+-       /* set rom index to 0 */
+-       WREG32(rom_index_offset, 0);
+-       /* read out the rom data */
+-       for (i =3D 0; i < length_dw; i++)
+-               dw_ptr[i] =3D RREG32(rom_data_offset);
+-
+-       return true;
+-}
+-
+ static struct soc15_allowed_register_entry nv_allowed_read_registers[] =3D=
+ {
+         { SOC15_REG_ENTRY(GC, 0, mmGRBM_STATUS)},
+         { SOC15_REG_ENTRY(GC, 0, mmGRBM_STATUS2)},
+@@ -707,7 +675,7 @@ static int nv_update_umd_stable_pstate(struct amdgpu_de=
+vice *adev,
+ static const struct amdgpu_asic_funcs nv_asic_funcs =3D
+ {
+         .read_disabled_bios =3D &nv_read_disabled_bios,
+-       .read_bios_from_rom =3D &nv_read_bios_from_rom,
++       .read_bios_from_rom =3D &amdgpu_soc15_read_bios_from_rom,
+         .read_register =3D &nv_read_register,
+         .reset =3D &nv_asic_reset,
+         .reset_method =3D &nv_asic_reset_method,
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
+u/soc15.c
+index 0fc1747e4a70..e5a1950fb862 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -375,39 +375,6 @@ static bool soc15_read_disabled_bios(struct amdgpu_dev=
+ice *adev)
+         return false;
+ }
+
+-static bool soc15_read_bios_from_rom(struct amdgpu_device *adev,
+-                                    u8 *bios, u32 length_bytes)
+-{
+-       u32 *dw_ptr;
+-       u32 i, length_dw;
+-       uint32_t rom_index_offset;
+-       uint32_t rom_data_offset;
+-
+-       if (bios =3D=3D NULL)
+-               return false;
+-       if (length_bytes =3D=3D 0)
+-               return false;
+-       /* APU vbios image is part of sbios image */
+-       if (adev->flags & AMD_IS_APU)
+-               return false;
+-
+-       dw_ptr =3D (u32 *)bios;
+-       length_dw =3D ALIGN(length_bytes, 4) / 4;
+-
+-       rom_index_offset =3D
+-               adev->smuio.funcs->get_rom_index_offset(adev);
+-       rom_data_offset =3D
+-               adev->smuio.funcs->get_rom_data_offset(adev);
+-
+-       /* set rom index to 0 */
+-       WREG32(rom_index_offset, 0);
+-       /* read out the rom data */
+-       for (i =3D 0; i < length_dw; i++)
+-               dw_ptr[i] =3D RREG32(rom_data_offset);
+-
+-       return true;
+-}
+-
+ static struct soc15_allowed_register_entry soc15_allowed_read_registers[] =
+=3D {
+         { SOC15_REG_ENTRY(GC, 0, mmGRBM_STATUS)},
+         { SOC15_REG_ENTRY(GC, 0, mmGRBM_STATUS2)},
+@@ -925,7 +892,7 @@ static void soc15_pre_asic_init(struct amdgpu_device *a=
+dev)
+ static const struct amdgpu_asic_funcs soc15_asic_funcs =3D
+ {
+         .read_disabled_bios =3D &soc15_read_disabled_bios,
+-       .read_bios_from_rom =3D &soc15_read_bios_from_rom,
++       .read_bios_from_rom =3D &amdgpu_soc15_read_bios_from_rom,
+         .read_register =3D &soc15_read_register,
+         .reset =3D &soc15_asic_reset,
+         .reset_method =3D &soc15_asic_reset_method,
+@@ -947,7 +914,7 @@ static const struct amdgpu_asic_funcs soc15_asic_funcs =
+=3D
+ static const struct amdgpu_asic_funcs vega20_asic_funcs =3D
+ {
+         .read_disabled_bios =3D &soc15_read_disabled_bios,
+-       .read_bios_from_rom =3D &soc15_read_bios_from_rom,
++       .read_bios_from_rom =3D &amdgpu_soc15_read_bios_from_rom,
+         .read_register =3D &soc15_read_register,
+         .reset =3D &soc15_asic_reset,
+         .reset_method =3D &soc15_asic_reset_method,
 --
 2.17.1
+
+
+--_000_CO6PR12MB54735252E08C8C3BF086D184825A9CO6PR12MB5473namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Yang Wang &lt;kevinyang.wang@amd.com&gt;</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Best Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Kevin</div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Hawking Zhang &lt;Hawking.Zha=
+ng@amd.com&gt;<br>
+<b>Sent:</b> Thursday, January 20, 2022 7:26 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: switch to common helper to read bios fr=
+om rom</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">create a common helper function for soc15 and onwa=
+rds<br>
+to read bios image from rom<br>
+<br>
+Signed-off-by: Hawking Zhang &lt;Hawking.Zhang@amd.com&gt;<br>
+Reviewed-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&n=
+bsp; 3 +-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 38 +++++++++++++++++++++++=
++<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/nv.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; | 34 +--------------------<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; | 37 ++---------------------<br>
+&nbsp;4 files changed, 43 insertions(+), 69 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h<br>
+index 8a7759147fb2..b2da840f4718 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+@@ -378,7 +378,8 @@ int amdgpu_device_ip_block_add(struct amdgpu_device *ad=
+ev,<br>
+&nbsp; */<br>
+&nbsp;bool amdgpu_get_bios(struct amdgpu_device *adev);<br>
+&nbsp;bool amdgpu_read_bios(struct amdgpu_device *adev);<br>
+-<br>
++bool amdgpu_soc15_read_bios_from_rom(struct amdgpu_device *adev,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u8 *bios, u32=
+ length_bytes);<br>
+&nbsp;/*<br>
+&nbsp; * Clocks<br>
+&nbsp; */<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_bios.c<br>
+index ca0503d56e5c..a819828408fd 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c<br>
+@@ -476,3 +476,41 @@ bool amdgpu_get_bios(struct amdgpu_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;is_atom_fw =3D (a=
+dev-&gt;asic_type &gt;=3D CHIP_VEGA10) ? true : false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
+&nbsp;}<br>
++<br>
++/* helper function for soc15 and onwards to read bios from rom */<br>
++bool amdgpu_soc15_read_bios_from_rom(struct amdgpu_device *adev,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u8 *bios, u32=
+ length_bytes)<br>
++{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 *dw_ptr;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 i, length_dw;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 rom_index_offset;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 rom_data_offset;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bios =3D=3D NULL)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return false;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (length_bytes =3D=3D 0)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return false;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* APU vbios image is part of sbios i=
+mage */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;flags &amp; AMD_IS_APU)<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return false;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;smuio.funcs ||<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !adev-&gt;smu=
+io.funcs-&gt;get_rom_index_offset ||<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !adev-&gt;smu=
+io.funcs-&gt;get_rom_data_offset)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return false;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dw_ptr =3D (u32 *)bios;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; length_dw =3D ALIGN(length_bytes, 4) =
+/ 4;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rom_index_offset =3D<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;smuio.funcs-&gt;get_rom_index_offset(adev);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rom_data_offset =3D<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;smuio.funcs-&gt;get_rom_data_offset(adev);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* set rom index to 0 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rom_index_offset, 0);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* read out the rom data */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; length_dw; i++)<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dw_ptr[i] =3D RREG32(rom_data_offset);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
++}<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/n=
+v.c<br>
+index 3ccd3b42196a..e52d1114501c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+@@ -358,38 +358,6 @@ static bool nv_read_disabled_bios(struct amdgpu_device=
+ *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-static bool nv_read_bios_from_rom(struct amdgpu_device *adev,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u8 *bios, u32 length_bytes)<br>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 *dw_ptr;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 i, length_dw;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 rom_index_offset, rom_data_offset=
+;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bios =3D=3D NULL)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return false;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (length_bytes =3D=3D 0)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return false;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* APU vbios image is part of sbios i=
+mage */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;flags &amp; AMD_IS_APU)<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return false;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dw_ptr =3D (u32 *)bios;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; length_dw =3D ALIGN(length_bytes, 4) =
+/ 4;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rom_index_offset =3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;smuio.funcs-&gt;get_rom_index_offset(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rom_data_offset =3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;smuio.funcs-&gt;get_rom_data_offset(adev);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* set rom index to 0 */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rom_index_offset, 0);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* read out the rom data */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; length_dw; i++)<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dw_ptr[i] =3D RREG32(rom_data_offset);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
+-}<br>
+-<br>
+&nbsp;static struct soc15_allowed_register_entry nv_allowed_read_registers[=
+] =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { SOC15_REG_ENTRY(GC, 0, m=
+mGRBM_STATUS)},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { SOC15_REG_ENTRY(GC, 0, m=
+mGRBM_STATUS2)},<br>
+@@ -707,7 +675,7 @@ static int nv_update_umd_stable_pstate(struct amdgpu_de=
+vice *adev,<br>
+&nbsp;static const struct amdgpu_asic_funcs nv_asic_funcs =3D<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_disabled_bios =3D &a=
+mp;nv_read_disabled_bios,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_bios_from_rom =3D &amp;nv_read_=
+bios_from_rom,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_bios_from_rom =3D &amp;amdgpu_s=
+oc15_read_bios_from_rom,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_register =3D &amp;nv=
+_read_register,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset =3D &amp;nv_asic_re=
+set,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset_method =3D &amp;nv_=
+asic_reset_method,<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
+u/soc15.c<br>
+index 0fc1747e4a70..e5a1950fb862 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+@@ -375,39 +375,6 @@ static bool soc15_read_disabled_bios(struct amdgpu_dev=
+ice *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-static bool soc15_read_bios_from_rom(struct amdgpu_device *adev,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u8 *bios, u32=
+ length_bytes)<br>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 *dw_ptr;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 i, length_dw;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rom_index_offset;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rom_data_offset;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bios =3D=3D NULL)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return false;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (length_bytes =3D=3D 0)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return false;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* APU vbios image is part of sbios i=
+mage */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;flags &amp; AMD_IS_APU)<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return false;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dw_ptr =3D (u32 *)bios;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; length_dw =3D ALIGN(length_bytes, 4) =
+/ 4;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rom_index_offset =3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;smuio.funcs-&gt;get_rom_index_offset(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rom_data_offset =3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;smuio.funcs-&gt;get_rom_data_offset(adev);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* set rom index to 0 */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rom_index_offset, 0);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* read out the rom data */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; length_dw; i++)<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dw_ptr[i] =3D RREG32(rom_data_offset);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
+-}<br>
+-<br>
+&nbsp;static struct soc15_allowed_register_entry soc15_allowed_read_registe=
+rs[] =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { SOC15_REG_ENTRY(GC, 0, m=
+mGRBM_STATUS)},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { SOC15_REG_ENTRY(GC, 0, m=
+mGRBM_STATUS2)},<br>
+@@ -925,7 +892,7 @@ static void soc15_pre_asic_init(struct amdgpu_device *a=
+dev)<br>
+&nbsp;static const struct amdgpu_asic_funcs soc15_asic_funcs =3D<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_disabled_bios =3D &a=
+mp;soc15_read_disabled_bios,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_bios_from_rom =3D &amp;soc15_re=
+ad_bios_from_rom,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_bios_from_rom =3D &amp;amdgpu_s=
+oc15_read_bios_from_rom,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_register =3D &amp;so=
+c15_read_register,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset =3D &amp;soc15_asic=
+_reset,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset_method =3D &amp;soc=
+15_asic_reset_method,<br>
+@@ -947,7 +914,7 @@ static const struct amdgpu_asic_funcs soc15_asic_funcs =
+=3D<br>
+&nbsp;static const struct amdgpu_asic_funcs vega20_asic_funcs =3D<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_disabled_bios =3D &a=
+mp;soc15_read_disabled_bios,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_bios_from_rom =3D &amp;soc15_re=
+ad_bios_from_rom,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_bios_from_rom =3D &amp;amdgpu_s=
+oc15_read_bios_from_rom,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_register =3D &amp;so=
+c15_read_register,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset =3D &amp;soc15_asic=
+_reset,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset_method =3D &amp;soc=
+15_asic_reset_method,<br>
+-- <br>
+2.17.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CO6PR12MB54735252E08C8C3BF086D184825A9CO6PR12MB5473namp_--
