@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFA46C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 17:35:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CA5AC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 17:35:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6900110E826;
-	Thu, 20 Jan 2022 17:35:34 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2DDA10E818;
- Thu, 20 Jan 2022 17:35:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642700132; x=1674236132;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=DN5nnQK6lp4kz/Y+rXi3ugnQTbeCTE93kv55+cBIA3M=;
- b=gqwnsP/jxrnXXRsYTPTRKy2ntbCbt1GAMyxSmn1k97NjfYP2ul+3rlje
- RVJf9bcWY3Eysv9BVZpZmMzF3VYXes2jYuU0h5s4f9F8GWSZ+9QKOz/76
- kQwRjJP694ASTY1Yj26vOOiCYtTCIDwIhLS4hpDgtuQl1fRwBZBBhGOW9
- vovYAbcDwnqZt1TKikB9MhkSByYC29I4YedlLdhWmPjCAX9IoOvvGbOt9
- K5nyyyScOq0I2DKINiGiMLXagsH7QQGuffbH6x3mHvoAMeo7XeiRM4C4S
- rl/FZYzrvTajmzHZXMbaAzL+5Ms6HRNRF24tLMY0EVWNDaLG7U+xItODF A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="331760248"
-X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="331760248"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 09:35:31 -0800
-X-IronPort-AV: E=Sophos;i="5.88,303,1635231600"; d="scan'208";a="595828899"
-Received: from kdevey-mobl2.ger.corp.intel.com (HELO [10.252.29.97])
- ([10.252.29.97])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 09:35:29 -0800
-Message-ID: <82ee8da9-ad9a-d1cb-4a19-b1056fa57083@intel.com>
-Date: Thu, 20 Jan 2022 17:35:26 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id B49B310E7D0;
+	Thu, 20 Jan 2022 17:35:39 +0000 (UTC)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E14B10E818
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 17:35:38 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ c3-20020a9d6c83000000b00590b9c8819aso8481556otr.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 09:35:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=iUYLgJUNSAphT+CFow7albXWs0o8oSpM+f+TFTju46I=;
+ b=iWY8XdAFtwViC7sPmfEjtHRw5TILOkcSfhRPcf3IYuDF26v/3+08G0YbnB83X78/Nr
+ LLCcd7qqy/6o8f7dzXomKgYXStafF9mLgtxEiQjde9j+pLh8L6shhImJh1ChyifOYgcO
+ ftuW/cjqqGTUn+5zbubmJAfcvqV2tu7DS8qCmYXdy8/ul4JU3LiLLGYhMZBPBPrMDS+z
+ ccyEziYLJ/rdRtcKD0LueD0Zkf6GJciKzz5A6ybtGvvmCkrABk7l6uc1WbQnFVB59YVc
+ cxp7Sck/LPfeZrBYvk3zuZ7xB26L73xYHIfJaDeqEov2Dd395k0OQfek4hVXSLNTq2AZ
+ gVBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=iUYLgJUNSAphT+CFow7albXWs0o8oSpM+f+TFTju46I=;
+ b=K19x1KbrmkkxT6bHTbr14Xq1hkvkwjanS6PD/8Y60hs+D98ShjTwS+3aMfDuA/qBRQ
+ rYs77Ro3ZKDSAdN6J94Vxtc9tmRkySlAEZCXKMhmRx5vYSra24tRmSP7csgdJnQW0I9H
+ g8RD4S0Jx1YhZPRFIBwRZprNhHh2TK+NEXQmCnHraWeqHEJigPBqCJMh/qjajokU4TFp
+ tXRxydBIxgksVbKS4QxmK0HIwADp0hIIA4EAJUiX+s6sVTQe7be24EYV1xGjTkjnHzQV
+ ytijrXI3EqBVAINC9QnetGlczUI2gyUaCRvrq+aEFa6uUrutkYX7SQCpezLSPVjoWMoI
+ JCmA==
+X-Gm-Message-State: AOAM531wV4QsF92L+wsMyZkeAQ1zo5vuDL3VZ2gVqIAS4lFXhQcNrXYw
+ EdSDlknz3NQ29vgYgRhlOUSB/yb9bN+tnhVhkoU=
+X-Google-Smtp-Source: ABdhPJzu7vPj3gUmOQJfK/EH7SS/iAxVYodF2ZbWCqw1NiZ6YMuQ6U+ebxUwAf9KjZl7Pj99w0Zcsah1BLP2RbUqop0=
+X-Received: by 2002:a05:6830:19e6:: with SMTP id
+ t6mr27390985ott.357.1642700137947; 
+ Thu, 20 Jan 2022 09:35:37 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [PATCH v9 4/6] drm: implement a method to free unused pages
-Content-Language: en-GB
-To: Arunpravin <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20220119113718.3311-1-Arunpravin.PaneerSelvam@amd.com>
- <20220119113718.3311-3-Arunpravin.PaneerSelvam@amd.com>
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20220119113718.3311-3-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20220120062504.565239-1-Lang.Yu@amd.com>
+In-Reply-To: <20220120062504.565239-1-Lang.Yu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 20 Jan 2022 12:35:27 -0500
+Message-ID: <CADnq5_McP3zr6A+Ke8Uu=MZUAftT7qJeZM60H7vF0Ys+ieXYtA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: enable amdgpu_dc module parameter
+To: Lang Yu <Lang.Yu@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,202 +62,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, tzimmermann@suse.de, jani.nikula@linux.intel.com,
- christian.koenig@amd.com, daniel@ffwll.ch
+Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 19/01/2022 11:37, Arunpravin wrote:
-> On contiguous allocation, we round up the size
-> to the *next* power of 2, implement a function
-> to free the unused pages after the newly allocate block.
-> 
-> v2(Matthew Auld):
->    - replace function name 'drm_buddy_free_unused_pages' with
->      drm_buddy_block_trim
->    - replace input argument name 'actual_size' with 'new_size'
->    - add more validation checks for input arguments
->    - add overlaps check to avoid needless searching and splitting
->    - merged the below patch to see the feature in action
->       - add free unused pages support to i915 driver
->    - lock drm_buddy_block_trim() function as it calls mark_free/mark_split
->      are all globally visible
-> 
-> v3(Matthew Auld):
->    - remove trim method error handling as we address the failure case
->      at drm_buddy_block_trim() function
-> 
-> v4:
->    - in case of trim, at __alloc_range() split_block failure path
->      marks the block as free and removes it from the original list,
->      potentially also freeing it, to overcome this problem, we turn
->      the drm_buddy_block_trim() input node into a temporary node to
->      prevent recursively freeing itself, but still retain the
->      un-splitting/freeing of the other nodes(Matthew Auld)
-> 
->    - modify the drm_buddy_block_trim() function return type
-> 
-> v5(Matthew Auld):
->    - revert drm_buddy_block_trim() function return type changes in v4
->    - modify drm_buddy_block_trim() passing argument n_pages to original_size
->      as n_pages has already been rounded up to the next power-of-two and
->      passing n_pages results noop
-> 
-> v6:
->    - fix warnings reported by kernel test robot <lkp@intel.com>
-> 
-> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+On Thu, Jan 20, 2022 at 1:25 AM Lang Yu <Lang.Yu@amd.com> wrote:
+>
+> It doesn't work under IP discovery mode. Make it work!
+>
+> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
 > ---
->   drivers/gpu/drm/drm_buddy.c                   | 65 +++++++++++++++++++
->   drivers/gpu/drm/i915/i915_ttm_buddy_manager.c | 10 +++
->   include/drm/drm_buddy.h                       |  4 ++
->   3 files changed, 79 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index 6aa5c1ce25bf..c5902a81b8c5 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -546,6 +546,71 @@ static int __drm_buddy_alloc_range(struct drm_buddy *mm,
->   	return __alloc_range(mm, &dfs, start, size, blocks);
->   }
->   
-> +/**
-> + * drm_buddy_block_trim - free unused pages
-> + *
-> + * @mm: DRM buddy manager
-> + * @new_size: original size requested
-> + * @blocks: output list head to add allocated blocks
-
-@blocks: Input and output list of allocated blocks. MUST contain single 
-block as input to be trimmed. On success will contain the newly 
-allocated blocks making up the @new_size. Blocks always appear in 
-ascending order.
-
-?
-
-> + *
-> + * For contiguous allocation, we round up the size to the nearest
-> + * power of two value, drivers consume *actual* size, so remaining
-> + * portions are unused and it can be freed.
-
-so remaining portions are unused and can be optionally freed with this 
-function.
-
-?
-
-> + *
-> + * Returns:
-> + * 0 on success, error code on failure.
-> + */
-> +int drm_buddy_block_trim(struct drm_buddy *mm,
-> +			 u64 new_size,
-> +			 struct list_head *blocks)
-> +{
-> +	struct drm_buddy_block *parent;
-> +	struct drm_buddy_block *block;
-> +	LIST_HEAD(dfs);
-> +	u64 new_start;
-> +	int err;
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index 07965ac6381b..1ad137499e38 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -846,8 +846,14 @@ static int amdgpu_discovery_set_display_ip_blocks(struct amdgpu_device *adev)
+>  {
+>         if (adev->enable_virtual_display || amdgpu_sriov_vf(adev)) {
+>                 amdgpu_device_ip_block_add(adev, &amdgpu_vkms_ip_block);
+> +               return 0;
+> +       }
 > +
-> +	if (!list_is_singular(blocks))
-> +		return -EINVAL;
+> +       if (!amdgpu_device_has_dc_support(adev))
+> +               return 0;
 > +
-> +	block = list_first_entry(blocks,
-> +				 struct drm_buddy_block,
-> +				 link);
-> +
-> +	if (!drm_buddy_block_is_allocated(block))
+>  #if defined(CONFIG_DRM_AMD_DC)
+> -       } else if (adev->ip_versions[DCE_HWIP][0]) {
+> +       if (adev->ip_versions[DCE_HWIP][0]) {
+>                 switch (adev->ip_versions[DCE_HWIP][0]) {
+>                 case IP_VERSION(1, 0, 0):
+>                 case IP_VERSION(1, 0, 1):
+> @@ -882,9 +888,9 @@ static int amdgpu_discovery_set_display_ip_blocks(struct amdgpu_device *adev)
+>                                 adev->ip_versions[DCI_HWIP][0]);
+>                         return -EINVAL;
+>                 }
+> -#endif
+>         }
+>         return 0;
+> +#endif
 
-Maybe:
+I think the compiler will complain about this.  If you move the #endif
+before the return, the patch is:
+Reviewed-by: Alex Deucher <aleander.deucher@amd.com>
 
-if (WARN_ON(!drm_buddy_block_is_allocated()))
-
-AFAIK it should be normally impossible to be handed such non-allocated 
-block, and so should be treated as a serious programmer error.
-
-?
-
-> +		return -EINVAL;
-> +
-> +	if (new_size > drm_buddy_block_size(mm, block))
-> +		return -EINVAL;
-> +
-> +	if (!new_size && !IS_ALIGNED(new_size, mm->chunk_size))
-> +		return -EINVAL;
-
-I assume that's a typo:
-
-if (!new_size || ...)
-
-Otherwise I think looks good. Some unit tests for this would be nice, 
-but not a blocker. And this does at least pass the igt_mock_contiguous 
-selftest, and I didn't see anything nasty when running on DG1, which 
-does make use of TTM_PL_FLAG_CONTIGUOUS,
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-
-> +
-> +	if (new_size == drm_buddy_block_size(mm, block))
-> +		return 0;
-> +
-> +	list_del(&block->link);
-> +	mark_free(mm, block);
-> +	mm->avail += drm_buddy_block_size(mm, block);
-> +
-> +	/* Prevent recursively freeing this node */
-> +	parent = block->parent;
-> +	block->parent = NULL;
-> +
-> +	new_start = drm_buddy_block_offset(block);
-> +	list_add(&block->tmp_link, &dfs);
-> +	err =  __alloc_range(mm, &dfs, new_start, new_size, blocks);
-> +	if (err) {
-> +		mark_allocated(block);
-> +		mm->avail -= drm_buddy_block_size(mm, block);
-> +		list_add(&block->link, blocks);
-> +	}
-> +
-> +	block->parent = parent;
-> +	return err;
-> +}
-> +EXPORT_SYMBOL(drm_buddy_block_trim);
-> +
->   /**
->    * drm_buddy_alloc_blocks - allocate power-of-two blocks
->    *
-> diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-> index 3662434b64bb..53eb100688a6 100644
-> --- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-> +++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-> @@ -97,6 +97,16 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
->   	if (unlikely(err))
->   		goto err_free_blocks;
->   
-> +	if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
-> +		u64 original_size = (u64)bman_res->base.num_pages << PAGE_SHIFT;
-> +
-> +		mutex_lock(&bman->lock);
-> +		drm_buddy_block_trim(mm,
-> +				     original_size,
-> +				     &bman_res->blocks);
-> +		mutex_unlock(&bman->lock);
-> +	}
-> +
->   	*res = &bman_res->base;
->   	return 0;
->   
-> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-> index 424fc443115e..17ca928fce8e 100644
-> --- a/include/drm/drm_buddy.h
-> +++ b/include/drm/drm_buddy.h
-> @@ -145,6 +145,10 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   			   struct list_head *blocks,
->   			   unsigned long flags);
->   
-> +int drm_buddy_block_trim(struct drm_buddy *mm,
-> +			 u64 new_size,
-> +			 struct list_head *blocks);
-> +
->   void drm_buddy_free_block(struct drm_buddy *mm, struct drm_buddy_block *block);
->   
->   void drm_buddy_free_list(struct drm_buddy *mm, struct list_head *objects);
-> 
+>  }
+>
+>  static int amdgpu_discovery_set_gc_ip_blocks(struct amdgpu_device *adev)
+> --
+> 2.25.1
+>
