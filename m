@@ -4,123 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3524AC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 09:39:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAAE6C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 09:47:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AF6810E4A6;
-	Thu, 20 Jan 2022 09:39:27 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2047.outbound.protection.outlook.com [40.107.223.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D324310E210
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 09:39:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47F9010E1F4;
+	Thu, 20 Jan 2022 09:47:29 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2075.outbound.protection.outlook.com [40.107.101.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45E8410E1F4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 09:47:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IAf/5StyFh5tfM3Uv8jAL4TBsLty/60z/hrz6HziiRAlsZZDuqA/OUYqsxlpwmothmtLmz70DRa0pQL1Z1XbjVevX0ZnUEJkj5JgFTr3HXOYyJTpULgQPiru55OAPseltyqK7OPxDGLi84sgReYAnW07g6xQ84eF35PGCHSb20eiq+gSwRLnJ2n1UDQKQ/MRGm2nBAEJ3Szzy18mJfzlwiXlyfRABKv5yHFeWlJKELuQJsu8fBGpSlzKggP2U56os6VTzjBZ3xVBAFP9vw9rhfuIQq/TRdddizzETGN0oRLW4c63wgHcjhqF6XSnxpRnO1KyUGhGaoMjGLt2JzW+Nw==
+ b=jM5UBSdotyhKdQYDILbJnmI5gbNxzUwnc/ykj88cM9zkdskknAqqq07o+DYEtCP3/JA8M1ycKnkfjZheRiXEEeqlZpHcobZjXTv8IqDYDCpr7f2Z7iWhCdF3G5LX7PYTj5Kzfx2+voVT8MrYY1cqcRXFJnNlN4uvU8tYao5sHU0FFEBkAGYMsh4BsoiHJvg8ktMkmHC1XcBTJOlWv+T7iLMSMvhhAqUPgGXbnt4lHDi8F/zhshaJpImZESFyHC2zAqcH+ZnPku4Z/ZTyg0YftsexO101aqrENjDFBTTTayXs7cN4D4F5e/pOqt3Lg8tPLXBuDwkciJfVjAjK6OmolQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zrDC4bVQkHJOIVUOmwBqTbQ3qFYaTlWAxNDUUngZkKc=;
- b=cNXl/pPO38ckJw8dqVMawDIRzIU90UHIPA1x74EZ3K9gGRl7ILuX+ygeqF9BiGxodNuJHCSDdvy60wI416bqYDUtbx1jx4FpBAbu5PAaGKhbexFpkK3MGCVlqF/in8yM7F9Vap0b5ZVxD3yAXFSO+xbG9CJHfBCCjBl8uv76GQXJjcmDCoEf/cD6b9rO4oOYoQzZCHxAcVt7Iid93lGwdoCTmevh2AXyU5ED1JNZqGsIwu6x+9Z56o2r11g3mAtd1EORDRv6/m6VXAv+H7ueGnPpzSeBUhyy1j5GmIpf1Fsx41iy2b8sph2VdYlXBFjxng5a09ChXW5G28x6ghpbAQ==
+ bh=EzzAEGhXY929JEza1uBY/swWU4AAQQUbCasX66nSBn8=;
+ b=cixH/nfj6BjfL+al0k2Q8m6zyQsy9m8zYBcG6tKSyTIG2qttnCAY7r9weIR/alfU8TvQAO4ztnte75aBYBA3vq6XJwckHJDoe5pPUITZWLZx1OGIGXYDCNDB3gL950Iz/YLLi8B1XQqypapFzgkVqeJ6S8nBjn1j8bUgkawz5hWfSRPSidnXEXbbl/u1avYQogO9FLSIm/TAs92K6RAdnjK2IU2stFsxbfXO1+9fBh9H2I3O86EVTKxglG8VuHibdNxr/AfgNBhlfaxf9Tngf0nnFFTXXAKiBNMEBWJSkofONY3cmSEQKNP7nxCpp2DvGZCehUjjvbxhj3FDhxuLpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zrDC4bVQkHJOIVUOmwBqTbQ3qFYaTlWAxNDUUngZkKc=;
- b=bN7cexqT1QaDSmN/+WP0PH/fOYZfiH0EefVLhmoTejc9FK3pz6ZqjF77DPRmkzclfeQnZtI46Dtfl6EDDPdxeJX//WFXvXKcuwxkNuyr9S/VW+HPzQW1CBv76cSx7YYoldmP2F4QgDjFmFCAFFTlVAd6CrsG7WxXuBKrFxbXBDE=
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com (2603:10b6:303:13e::8)
- by BN8PR12MB3057.namprd12.prod.outlook.com (2603:10b6:408:64::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8; Thu, 20 Jan
- 2022 09:39:23 +0000
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::b49d:d2e4:875b:e881]) by CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::b49d:d2e4:875b:e881%5]) with mapi id 15.20.4909.008; Thu, 20 Jan 2022
- 09:39:22 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: force using sdma to update vm page table when
- mmio is blocked
-Thread-Topic: [PATCH] drm/amdgpu: force using sdma to update vm page table
- when mmio is blocked
-Thread-Index: AQHYDOLz9NJJp1Ao/ket4CY+uhKskaxrmDUXgAAF6ICAAACajoAAAvyAgAAHlZo=
-Date: Thu, 20 Jan 2022 09:39:22 +0000
-Message-ID: <CO6PR12MB5473612CFBEC14CB9D6315E0825A9@CO6PR12MB5473.namprd12.prod.outlook.com>
-References: <20220119031610.832211-1-KevinYang.Wang@amd.com>
- <CO6PR12MB54731E9FBF54A2E86A320419825A9@CO6PR12MB5473.namprd12.prod.outlook.com>
- <95be3a20-ac92-9acd-9600-3caf9223c67a@amd.com>
- <CO6PR12MB54735F709AACC151C3B66900825A9@CO6PR12MB5473.namprd12.prod.outlook.com>
- <0a753643-dffe-8560-8923-4e4cfcbfd7e1@amd.com>
-In-Reply-To: <0a753643-dffe-8560-8923-4e4cfcbfd7e1@amd.com>
-Accept-Language: en-US, zh-CN
+ bh=EzzAEGhXY929JEza1uBY/swWU4AAQQUbCasX66nSBn8=;
+ b=VCokLfjMdHX9paQNvQqju2mzV5GEUbBLbzKB7WHCacC0qniYnJFMjfjseic3doKciGSclTg+Ha3H2yEparCJJB+s16elQb+aAzmbDAExzu6JOgZTcV6Rib4FseJI9/v6K8hw9/KRVXosMpCEeiHvYCyHQr0Va2UEVzjYs69YQHY=
+Received: from BN6PR12MB1555.namprd12.prod.outlook.com (2603:10b6:405:5::19)
+ by MN2PR12MB4829.namprd12.prod.outlook.com (2603:10b6:208:1b6::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Thu, 20 Jan
+ 2022 09:47:26 +0000
+Received: from BN6PR12MB1555.namprd12.prod.outlook.com
+ ([fe80::1c48:a77c:d1d6:1f79]) by BN6PR12MB1555.namprd12.prod.outlook.com
+ ([fe80::1c48:a77c:d1d6:1f79%12]) with mapi id 15.20.4909.010; Thu, 20 Jan
+ 2022 09:47:25 +0000
+From: "Ji, Ruili" <Ruili.Ji@amd.com>
+To: "Yang, Philip" <Philip.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] drm/amdkfd: svm deferred_list work continue cleanup
+ after mm gone
+Thread-Topic: [PATCH 1/2] drm/amdkfd: svm deferred_list work continue cleanup
+ after mm gone
+Thread-Index: AQHYDVDdb8r0CGos0EyNaww3NcQ/56xrqitw
+Date: Thu, 20 Jan 2022 09:47:25 +0000
+Message-ID: <BN6PR12MB15554602066165A6C9CFB3139B5A9@BN6PR12MB1555.namprd12.prod.outlook.com>
+References: <20220119162246.21457-1-Philip.Yang@amd.com>
+In-Reply-To: <20220119162246.21457-1-Philip.Yang@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Mentions: Christian.Koenig@amd.com
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-01-20T09:39:22.288Z;
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=5d451f00-88c8-4e0d-a740-2217a730d021;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+ Official Use Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-01-20T09:45:04Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7a2c03ed-f603-49a2-cd6c-08d9dbf8bda6
-x-ms-traffictypediagnostic: BN8PR12MB3057:EE_
-x-microsoft-antispam-prvs: <BN8PR12MB3057C3DE2A692B745382869F825A9@BN8PR12MB3057.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:590;
+x-ms-office365-filtering-correlation-id: a7ddb056-f440-4b24-cf7c-08d9dbf9dd85
+x-ms-traffictypediagnostic: MN2PR12MB4829:EE_
+x-microsoft-antispam-prvs: <MN2PR12MB4829B58093B605D0A16936699B5A9@MN2PR12MB4829.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4714;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: JvbIJmdI9NOhk/sSXZYWJRUIxIcSR+tWiFZxq2UBzJs65u4RhwS+9tR+EvZ/W1BfHnRB1nyrBJtr9qthP+iJKeCGHeYHGvZJotE5E+OsKLDDuJBU97xu/19HS+3EtjkdAl4NNoIBlBGmUqdaaYnDPe2igjkzXfJbyJOLrwc+adMLMj05YiW8agNa2pkZua00BoDQNz6Ml1PvbWpVLeKQu2+kGJ58A9EUtqQEzjL6WH6wUK5LhTSK/ymWKfpfZOHiZlWEps/0m8xgfdnkGFtgg1rcb0iykz7HAYovLYuNWeKsTkaii34ricw/AWLGQEQ7x8czCejsTEXkPBuvbAAyRPyEISYM+3gF/bfas1T9iyRiuQ6eCr5vOJLUvVVKg8KAgs0a4FbDNjmkyjJH/OSIJ6UVg3VLzxm4xUJnkuhnMW6baXXuW+P+6eabMfWwApvw75DjR3HOK9QoLfuhQpkDCTroem3QRQawgiVAvxLYCn6lf6y3RD9QZCJCaQGY6CGUZvGmHJivC1PzJ11LupGHDB/AhkxHptVa7De/QgiX3kyLYo5HBkzSpz9al+6JJbgKbXCMXdZAAjKa5lXTc7EytwXhcH2cfGsMLf6ud4SO5Z+pHjK9pLW3yxkYVvifxsvYRX7WpReB4V6lamz4EEsc0ora24/1dlyZZ3e8YHqqPeOqmC2a0zUaIFmS82Uq0dtoqyNpbAKqniUh1+44x2iDyQ==
+x-microsoft-antispam-message-info: /6CpxhgEwi9VZRTxKNYGlRvr7RV9FlpHutndggxt0zd1I3WQiTpDdwiMcZPUCyGW6bMcsPgodzGVgpWKl0nkUqH8MN6mv6KtFneLsvMgJYVRinKCH8hjIVyuqJGWNkRTo8bY2fWu/N3NlIkp/2K4qTuTh57uQlboVTtomqyoI/KCFRiNObrih+oVsRwVnlBzW4xQRkB09sEmkq0hHT2/p1nNNb2LMPRAFVXzCGe9CZdimO1s5zyocKyzWfZdRaxhmA8gV/ELjslPyttxUk97thAfCQG0TuN77yBJrdrv+ROQ42jPhGfB/mHrVvkVpnSCuR3SK3no/9nANV4Z3EVP+zfYbxoScRsCc/eoDXQLORTfwDLM18GLSrGEteeUerJW2/kZAeP94irGCXDIcI/U3VhcQjwhFRpuSi1zxTW/xEB6tFJq4BmNjwjMBzLfBg+6w+1M5rmYySI5v9uyTAeutKzlkl4Aoxga+k+f7cCB2W9fiv7XnNBIw+J5qopDgrf8sqkVghmrIDEapUNf/a/0iVlulwIHvoVoNhec7GPgS2CTTA+dxj9rVK3pn0D4vkdbxeAKuNIlhnou+TxZ+1jtssV5VOgkqGvdf2fC92QL+H5pApqmIJDbn67Ite7fHje6fIYl8gakyj5GkLEzvpPUs0dnD7WOdXi+jdyB9Dg3I+5pL3tVxHnrtJVKAMJaX9JYufPpXNTBO4KcZq6ii0MRWA==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5473.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(5660300002)(6636002)(83380400001)(54906003)(122000001)(4326008)(38100700002)(508600001)(19627405001)(71200400001)(8676002)(2906002)(110136005)(7696005)(316002)(9686003)(55016003)(15650500001)(52536014)(186003)(86362001)(38070700005)(66946007)(53546011)(26005)(33656002)(8936002)(91956017)(64756008)(76116006)(66556008)(66476007)(66446008)(6506007);
+ IPV:NLI; SFV:NSPM; H:BN6PR12MB1555.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(55016003)(38070700005)(316002)(71200400001)(66476007)(110136005)(38100700002)(122000001)(2906002)(5660300002)(53546011)(33656002)(508600001)(26005)(7696005)(186003)(76116006)(9686003)(86362001)(66556008)(64756008)(6506007)(8676002)(4326008)(66946007)(83380400001)(66446008)(52536014)(8936002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?GEzgLsf/uU303MHS2Yv2YF8yGJpi5mpnKSvx6CgFmNCz6MC6/rxwT0fyhv?=
- =?iso-8859-1?Q?+pfSz656uE0PrgUKhMDRrM3JnDN3iPIP8IxtFzJygTvKdCZHCKKqGu+TkC?=
- =?iso-8859-1?Q?2UiCrdf6E1Fk+rQMX2DPXetUFBfkim4FTLMm3rUMii+MTn+GsUU3yGhv8o?=
- =?iso-8859-1?Q?72jAQU9lnmVe672X9kuPhiVPWzSUoBpsre3W2E7brMfIJLTqQKXVhvuzxS?=
- =?iso-8859-1?Q?FTOD1F6YWbkgtOXtpZH8+i0Io0b8CX6AM8JKasYUzvfuSWOtyeIoqYjQms?=
- =?iso-8859-1?Q?iDAhILnd77Muhk3LgHsGIhsEXtDQa4iXxmjY3nRBHWFH0HIloPzhHpHTzl?=
- =?iso-8859-1?Q?cxElKZcFetht0AXqoD01/QWr84f8LN/GjWLy5KIiFzbEUXHO7IDsDw8J2U?=
- =?iso-8859-1?Q?jZ278vc2oA81JWqzquyjgWeB9m6vNdbQWP5v/iKJ6M3Jitsg4bLmIF/XZf?=
- =?iso-8859-1?Q?yLSblHCbCM3bmfGUXSBk+sn4igiulqE5suxdR8t9F13qId9VO+ERRR8ivm?=
- =?iso-8859-1?Q?lAW+MdtplehwFhHS7SNueTDPNmD0XhBoWIZwFLKMwKyQc6b42ZF22JE6UY?=
- =?iso-8859-1?Q?6MCbL6jiPERXPVxsX7fpo/wfAmx0EfMmk+IjxYwnat13joRyNeY3pojjOb?=
- =?iso-8859-1?Q?11ELcasHiGM0iIzC2D3Eo1yhmPa7ZlppuH8RjG1WMwgNHpXP9fb03EQ92d?=
- =?iso-8859-1?Q?ajXvKMikd0h3d7Lgnd59wqSfCy3bQmxDJUPdPvZKbcniZxRezjO29JM/Li?=
- =?iso-8859-1?Q?tRr90Trkq5JqprpTrbvB6KrL+2Icwlr6D/GppWHlBv9tTxTPyNiY/yFSVE?=
- =?iso-8859-1?Q?se/McGtJ3l7hyB0tWZmIxHl3aOAcVkFFJVNdbFrjl8y2IdqqW8BqILwO4J?=
- =?iso-8859-1?Q?9Ea5/ebOIWGmVmM3QjLzy/9efCpMzIYRnFgFsxuTk8JhuVDxQUfVeN3d3M?=
- =?iso-8859-1?Q?mKduhHZJWdftn2fsq4MwjStOmafHgkukzfsn63/R00LxXBuu/6FFKpsYIt?=
- =?iso-8859-1?Q?p7IOUINAA9LshGWhkHLUVeRC6U3qgpV86Ek2m/rHnSOWzc4QURtpzrP7mF?=
- =?iso-8859-1?Q?t6YNET2TdJV+oREPcS9Yy0NtVD7oztn75iLpWgai+ZJZzmczFLC0+hYXSh?=
- =?iso-8859-1?Q?F6slsV+lZ44dmU/yboQMUlu8Ipt7nCRNsGLOi9JxDI0CNA2t8AMTE5E45K?=
- =?iso-8859-1?Q?TuDjecKOIJPlZ6NlloUfefTcqqlmS/eCyMa0JFsdRamZ8AGWcWZbXLuyhq?=
- =?iso-8859-1?Q?y/HjXYa4fwFBm0Pj/5O9xz9geRBK8Ts/ItIXhNf5maukZGHouWVRCFHUhK?=
- =?iso-8859-1?Q?4lyDbP9JifE7Zd22L37wPhMWM0ekQaIRCGRM3sy3CezL6HyhpnzklGhrNE?=
- =?iso-8859-1?Q?IHfMgf7rDZGV6Y/cIHBFS49pY39wniM3QC2MjQwMP9IiI3RLL2tK2CYHGy?=
- =?iso-8859-1?Q?Sdm/l+clbeprty67lxQzSdxAzx/SKDnO8rvOjUDHzIl7tRHxSmHOWck9NK?=
- =?iso-8859-1?Q?rnSYS2suMUCnt19fAeyzFTH6uYSgwkElWBohfbGsRXB4vFfVdmqVfpHXvZ?=
- =?iso-8859-1?Q?W/bz6dQSYuWwIVS0Q3kzK0zLK0ym8MsYNVibKvA5wvLcm7DSXohgq/uqws?=
- =?iso-8859-1?Q?0ssSZJySqntKM=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CO6PR12MB5473612CFBEC14CB9D6315E0825A9CO6PR12MB5473namp_"
+x-ms-exchange-antispam-messagedata-0: =?iso-2022-jp?B?YTY2WHhJb2NLRHl5dXFveERXRzBieS80M1lYN09HMTFXRzUyYjJ5eHhz?=
+ =?iso-2022-jp?B?QU96SW9DYmRPMXpKVDI2a0NmSjJIVE81WS9kclB1dE13OEwrVUlRS3dK?=
+ =?iso-2022-jp?B?K0ZheUdWekF5TnlxeFBGSHdHWStNcnFUbUZVRk5uWGpRSktGaERha3hl?=
+ =?iso-2022-jp?B?MVNYbTQ3WEVodGE1OGhNQ0xzWEE1bEFiS29qSlpkZW45WHBMcWhuR2Y2?=
+ =?iso-2022-jp?B?Q0Z2UnYzNW1uMTdJTUcvZXBnWmFzZDg0c3dZUnFUM0JSR29obnR2MUli?=
+ =?iso-2022-jp?B?ajNHc0daNjFaY1VRcDZjR1podFh1WnRYNHJ4WU5paTFSYVpndXRXdnpM?=
+ =?iso-2022-jp?B?TEYvYVZMK1c1bVVCcDFVVUwxRTZtUHZsNTJWYW1Fc1VuOVJGMTVsV3BL?=
+ =?iso-2022-jp?B?bkRpa2JnY2Rzd3A5VmlTd1RJMXA2Z3ZSVE5ieVdMYlAvcWVVQXN3MXdM?=
+ =?iso-2022-jp?B?eDlIdXRtcG5iaHowcStJdnVSYW8wcGJzTGRnb1FhNWtHUGgyZ2IzYlVC?=
+ =?iso-2022-jp?B?QUpqTDM4bDh0YytZVE1ScGJSczBYKzBPR1pjZFZkM3hBS0o3OTl5TlA3?=
+ =?iso-2022-jp?B?VFIzL1FKcXJrZ1lEQ204YXd1NjNUM0lreURhVDdQanVISGpCdHFkK1ls?=
+ =?iso-2022-jp?B?WTdwRzZkUDVSaGxVazNTUnA4MTZOcENOK2VKcW51eXJsSXowb1ZpUlp4?=
+ =?iso-2022-jp?B?Y1ZIYS8yejRiME9NZEIwWWJCQ3dtaldGNzlrV0dCMkkvUjlXQXRpSkxx?=
+ =?iso-2022-jp?B?M1hGeWtNVVFHMkc2YVFEVStaYm82R0pRWC8zcnA4UTNZZ0JZUVk2dm1O?=
+ =?iso-2022-jp?B?QzhnWTlwWnpTeGFpTWFaSXFjV0M1ejhuYzRtbW5wV3BXamJjaUpKMGFO?=
+ =?iso-2022-jp?B?UnFvZjFFclhYMlRBSERiWmlPZHN2cGw3UUYwMWxiSUtKZUpmWGNQbFdr?=
+ =?iso-2022-jp?B?QnRIQ2lORk9YTTAwd1J2UGpEY01NVDhYSXF5SmlHREg0dXFuck93cFlK?=
+ =?iso-2022-jp?B?MzkySnd2dkZVeml3aUpqYm1rS1hvR2R4SldaYVJheWxyTlhnQVdmUUhx?=
+ =?iso-2022-jp?B?WmNJLzhmbldWZTArQXlBVmlxZ3I0RUE1bjZJcXFnNG1PTEhMUWhrTXV2?=
+ =?iso-2022-jp?B?MFc1cEo2dFpCYmpWcVdLSllRQUFDaDdzRjZvYzVoUXhWUzIrNWFrV1Jr?=
+ =?iso-2022-jp?B?VEJEWjRyTlhyRDJLenYxdXVsL3p1OGI5cW9abmtYZHFGL0RYSFR6eHdo?=
+ =?iso-2022-jp?B?R05uVFNlQ3dZRHZwUCtBSFpSVEJtSWZKcFNjWHFCeisrdC9PKzU2bnVO?=
+ =?iso-2022-jp?B?bjdNT29NVlUxR1VEM21vZktDcU1Rb3VtSVhnY0dvQkpRbVpnNW5TQlFj?=
+ =?iso-2022-jp?B?SCt0YUNSWEZZNDZhVk54bFhjVFJ6TnVhbEgxeDRzMVNwUzdlSjd1dm1h?=
+ =?iso-2022-jp?B?MjFQWEg4QytCL3dyL3JtVm9iRUJhemVWc3B1N0xTMnh4alpvVVIrM1pV?=
+ =?iso-2022-jp?B?WnBGdTkycytqTGQ5MHBYODh0TTladVp2ZTdrVDF0YlVZVkFFaFZjSHNz?=
+ =?iso-2022-jp?B?OGZaNG9NT0tLbGNMam04SzkySXREek1IbFpQb0EyTE5CS3QyT1pTRys2?=
+ =?iso-2022-jp?B?M0xic1liN3JMNGtYUGRqNHZONDdOb3Z2dFcvSU5ha3ZkRC9RMUFZSkV6?=
+ =?iso-2022-jp?B?dEhYK1daRmQ5cHZRYUFtaEFyZDNuSzNuSGxoOWtSOW4vZzZrU2NlTVhM?=
+ =?iso-2022-jp?B?ZHZWU0RvQkg3dWozdE9pS2c0OUYzNVdjb3A1ekZ2ZXVyU2swellxZ2Vp?=
+ =?iso-2022-jp?B?ZnF2VFc1ejE3YWMvbXZ2VDU0SHNwZkhUbmRXSW13QVprUUVWdUMrUVpi?=
+ =?iso-2022-jp?B?VnRkYlpoTTAreTFXdE1qR0w5SGRqWkwrZ3JzNEEyYkVibkE0S2J3SHJO?=
+ =?iso-2022-jp?B?WmM2dkRSdlNPUmN6dFpGdmRqbFdBRW1GS3d1d3FYNEt0aXZSQnVDS0VY?=
+ =?iso-2022-jp?B?a2hjRVlObHcxRGduS3Y3d2ZDVTFxUlRYVTlqRjRBUUk1MkhWdkw4VTFW?=
+ =?iso-2022-jp?B?WS9ORFRXT2ZYN2I5SHl6VGRvbDk3bnlDbjZnTlBBZ00yNGxvTjFWVWZq?=
+ =?iso-2022-jp?B?dm0zdm9VTzV4S1FLcjlidGtLMFRmZ2t6d2k0WlJUaHRCUHBXUTkwNDlk?=
+ =?iso-2022-jp?B?V2FPemt3UnNsVWMwc21qZEJXYk42WjVxUnprMUN0bkNmaFd0MDN3OTFV?=
+ =?iso-2022-jp?B?N1dPTHlOdnJQR1FuajhWYURnTFpDV2UrcmxqY3N2cDNXUTlWcWJyWnBF?=
+ =?iso-2022-jp?B?bCtGZWlsUCtBeUdGbkx5T1l5bk5LQW1taFo4alhJekdiaXpRKytFenVU?=
+ =?iso-2022-jp?B?TU5lSzA9?=
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5473.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a2c03ed-f603-49a2-cd6c-08d9dbf8bda6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2022 09:39:22.7802 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BN6PR12MB1555.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7ddb056-f440-4b24-cf7c-08d9dbf9dd85
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2022 09:47:25.8572 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bil3hKqyBvMj54SOTUS5zBz8IyFtQ2f+i+rbO9WBxJhBiKkpVw7hoLHEGPE5PKsX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3057
+X-MS-Exchange-CrossTenant-userprincipalname: OhTrwmedSkpIYASRLFNdc35/LQLgzOmUrCv6xK+RViijzPAmExdWnmtOvlB/kC9NiQDOgi7HiyUybAH/habzrg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4829
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,450 +139,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Chen, Horace" <Horace.Chen@amd.com>, "Min, Frank" <Frank.Min@amd.com>
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CO6PR12MB5473612CFBEC14CB9D6315E0825A9CO6PR12MB5473namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
 [AMD Official Use Only]
 
-Thanks @Koenig, Christian<mailto:Christian.Koenig@amd.com>.
+sudo ./kfdtest --gtest_filter=3DKFDSVM*
+sudo ./kfdtest
+Test results are pass.
+Tested-by: Ruili Ji <ruili.ji@amd.com>
 
-Best Regards,
-Kevin
-________________________________
-From: Koenig, Christian <Christian.Koenig@amd.com>
-Sent: Thursday, January 20, 2022 5:11 PM
-To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.o=
-rg <amd-gfx@lists.freedesktop.org>; Deucher, Alexander <Alexander.Deucher@a=
-md.com>; Liu, Monk <Monk.Liu@amd.com>
-Cc: Min, Frank <Frank.Min@amd.com>; Chen, Horace <Horace.Chen@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: force using sdma to update vm page table w=
-hen mmio is blocked
+-----Original Message-----
+From: Yang, Philip <Philip.Yang@amd.com>
+Sent: 2022=1B$BG/=1B(B1=1B$B7n=1B(B20=1B$BF|=1B(B 0:23
+To: amd-gfx@lists.freedesktop.org
+Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Ji, Ruili <Ruili.Ji@amd.com>;=
+ Yang, Philip <Philip.Yang@amd.com>
+Subject: [PATCH 1/2] drm/amdkfd: svm deferred_list work continue cleanup af=
+ter mm gone
 
-Hi Kevin,
+After mm is removed from task->mm, deferred_list work should continue to ha=
+ndle deferred_range_list which maybe split to child range to avoid child ra=
+nge leak, and remove ranges mmu interval notifier to avoid mm mm_count leak=
+, but skip updating notifier and inserting new notifier.
 
-well at least the HDP flush function has to work correctly or otherwise the=
- driver won't work correctly.
-
-If the registers are not accessible any more we need to find a proper worka=
-round for this.
-
-One possibility would be to use the KIQ, another is a dummy write/read to m=
-ake sure the HDP is flushed (check the hardware docs).
-
-The third option would be to question if blocking the HDP registers is real=
-ly a good idea.
-
-The solution is up to you, but a workaround like proposed below doesn't rea=
-lly help in any way.
-
-Regards,
-Christian.
-
-Am 20.01.22 um 10:07 schrieb Wang, Yang(Kevin):
-
-[AMD Official Use Only]
-
-Hi Chris,
-
-yes, I agree with your point.
-and another way is that we can use KIQ to write HDP register to resolve HDP=
- can't R/W issue.
-but it will cause some performance drop if use KIQ to programing register.
-
-what is your ideas?
-
-Best Regards,
-Kevin
-________________________________
-From: Koenig, Christian <Christian.Koenig@amd.com><mailto:Christian.Koenig@=
-amd.com>
-Sent: Thursday, January 20, 2022 4:58 PM
-To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com><mailto:KevinYang.Wang@amd.co=
-m>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
-d-gfx@lists.freedesktop.org><mailto:amd-gfx@lists.freedesktop.org>; Deucher=
-, Alexander <Alexander.Deucher@amd.com><mailto:Alexander.Deucher@amd.com>; =
-Liu, Monk <Monk.Liu@amd.com><mailto:Monk.Liu@amd.com>
-Cc: Min, Frank <Frank.Min@amd.com><mailto:Frank.Min@amd.com>; Chen, Horace =
-<Horace.Chen@amd.com><mailto:Horace.Chen@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: force using sdma to update vm page table w=
-hen mmio is blocked
-
-Well NAK.
-
-Even when we can't R/W HDP registers we need a way to invalidate the HDP or=
- quite a bunch of functions won't work correctly.
-
-Blocking CPU base page table updates only works around the symptoms, but do=
-esn't really solve anything.
-
-Regards,
-Christian.
-
-Am 20.01.22 um 09:46 schrieb Wang, Yang(Kevin):
-
-[AMD Official Use Only]
-
-ping...
-
-add @Liu, Monk<mailto:Monk.Liu@amd.com> @Koenig, Christian<mailto:Christian=
-.Koenig@amd.com> @Deucher, Alexander<mailto:Alexander.Deucher@amd.com>
-
-Best Regards,
-Kevin
-________________________________
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com><mailto:KevinYang.Wang@amd.=
-com>
-Sent: Wednesday, January 19, 2022 11:16 AM
-To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
-d-gfx@lists.freedesktop.org><mailto:amd-gfx@lists.freedesktop.org>
-Cc: Min, Frank <Frank.Min@amd.com><mailto:Frank.Min@amd.com>; Chen, Horace =
-<Horace.Chen@amd.com><mailto:Horace.Chen@amd.com>; Wang, Yang(Kevin) <Kevin=
-Yang.Wang@amd.com><mailto:KevinYang.Wang@amd.com>
-Subject: [PATCH] drm/amdgpu: force using sdma to update vm page table when =
-mmio is blocked
-
-when mmio protection feature is enabled in hypervisor,
-it will cause guest OS can't R/W HDP regiters,
-and using cpu to update page table is not working well.
-
-force using sdma to update page table when mmio is blocked.
-
-Signed-off-by: Yang Wang <KevinYang.Wang@amd.com><mailto:KevinYang.Wang@amd=
-.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reported-by: Ruili Ji <ruili.ji@amd.com>
+Tested-by: Ruili Ji <ruili.ji@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 41 ++++++++++++++++------------
+ 1 file changed, 24 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_vm.c
-index b23cb463b106..0f86f0b2e183 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2959,6 +2959,9 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct=
- amdgpu_vm *vm)
-         vm->use_cpu_for_update =3D !!(adev->vm_manager.vm_update_mode &
-                                     AMDGPU_VM_USE_CPU_FOR_GFX);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amd=
+kfd/kfd_svm.c
+index f2805ba74c80..9ec195e1ef23 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1985,10 +1985,9 @@ svm_range_update_notifier_and_interval_tree(struct m=
+m_struct *mm,  }
 
-+       if (vm->use_cpu_for_update && amdgpu_sriov_vf(adev) && amdgpu_virt_=
-mmio_blocked(adev))
-+               vm->use_cpu_for_update =3D false;
+ static void
+-svm_range_handle_list_op(struct svm_range_list *svms, struct svm_range *pr=
+ange)
++svm_range_handle_list_op(struct svm_range_list *svms, struct svm_range *pr=
+ange,
++                        struct mm_struct *mm)
+ {
+-       struct mm_struct *mm =3D prange->work_item.mm;
+-
+        switch (prange->work_item.op) {
+        case SVM_OP_NULL:
+                pr_debug("NULL OP 0x%p prange 0x%p [0x%lx 0x%lx]\n", @@ -20=
+04,25 +2003,29 @@ svm_range_handle_list_op(struct svm_range_list *svms, str=
+uct svm_range *prange)
+        case SVM_OP_UPDATE_RANGE_NOTIFIER:
+                pr_debug("update notifier 0x%p prange 0x%p [0x%lx 0x%lx]\n"=
+,
+                         svms, prange, prange->start, prange->last);
+-               svm_range_update_notifier_and_interval_tree(mm, prange);
++               if (mm)
++                       svm_range_update_notifier_and_interval_tree(mm, pra=
+nge);
+                break;
+        case SVM_OP_UPDATE_RANGE_NOTIFIER_AND_MAP:
+                pr_debug("update and map 0x%p prange 0x%p [0x%lx 0x%lx]\n",
+                         svms, prange, prange->start, prange->last);
+-               svm_range_update_notifier_and_interval_tree(mm, prange);
++               if (mm)
++                       svm_range_update_notifier_and_interval_tree(mm, pra=
+nge);
+                /* TODO: implement deferred validation and mapping */
+                break;
+        case SVM_OP_ADD_RANGE:
+                pr_debug("add 0x%p prange 0x%p [0x%lx 0x%lx]\n", svms, pran=
+ge,
+                         prange->start, prange->last);
+                svm_range_add_to_svms(prange);
+-               svm_range_add_notifier_locked(mm, prange);
++               if (mm)
++                       svm_range_add_notifier_locked(mm, prange);
+                break;
+        case SVM_OP_ADD_RANGE_AND_MAP:
+                pr_debug("add and map 0x%p prange 0x%p [0x%lx 0x%lx]\n", sv=
+ms,
+                         prange, prange->start, prange->last);
+                svm_range_add_to_svms(prange);
+-               svm_range_add_notifier_locked(mm, prange);
++               if (mm)
++                       svm_range_add_notifier_locked(mm, prange);
+                /* TODO: implement deferred validation and mapping */
+                break;
+        default:
+@@ -2071,20 +2074,22 @@ static void svm_range_deferred_list_work(struct wor=
+k_struct *work)
+        pr_debug("enter svms 0x%p\n", svms);
+
+        p =3D container_of(svms, struct kfd_process, svms);
+-       /* Avoid mm is gone when inserting mmu notifier */
 +
-         DRM_DEBUG_DRIVER("VM update mode is %s\n",
-                          vm->use_cpu_for_update ? "CPU" : "SDMA");
-         WARN_ONCE((vm->use_cpu_for_update &&
-@@ -3094,6 +3097,10 @@ int amdgpu_vm_make_compute(struct amdgpu_device *ade=
-v, struct amdgpu_vm *vm)
-         /* Update VM state */
-         vm->use_cpu_for_update =3D !!(adev->vm_manager.vm_update_mode &
-                                     AMDGPU_VM_USE_CPU_FOR_COMPUTE);
++       /* If mm is gone, continue cleanup the deferred_range_list */
+        mm =3D get_task_mm(p->lead_thread);
+-       if (!mm) {
++       if (!mm)
+                pr_debug("svms 0x%p process mm gone\n", svms);
+-               return;
+-       }
 +
-+       if (vm->use_cpu_for_update && amdgpu_sriov_vf(adev) && amdgpu_virt_=
-mmio_blocked(adev))
-+               vm->use_cpu_for_update =3D false;
-+
-         DRM_DEBUG_DRIVER("VM update mode is %s\n",
-                          vm->use_cpu_for_update ? "CPU" : "SDMA");
-         WARN_ONCE((vm->use_cpu_for_update &&
+ retry:
+-       mmap_write_lock(mm);
++       if (mm)
++               mmap_write_lock(mm);
+
+        /* Checking for the need to drain retry faults must be inside
+         * mmap write lock to serialize with munmap notifiers.
+         */
+        if (unlikely(atomic_read(&svms->drain_pagefaults))) {
+-               mmap_write_unlock(mm);
++               if (mm)
++                       mmap_write_unlock(mm);
+                svm_range_drain_retry_fault(svms);
+                goto retry;
+        }
+@@ -2109,19 +2114,21 @@ static void svm_range_deferred_list_work(struct wor=
+k_struct *work)
+                        pr_debug("child prange 0x%p op %d\n", pchild,
+                                 pchild->work_item.op);
+                        list_del_init(&pchild->child_list);
+-                       svm_range_handle_list_op(svms, pchild);
++                       svm_range_handle_list_op(svms, pchild, mm);
+                }
+                mutex_unlock(&prange->migrate_mutex);
+
+-               svm_range_handle_list_op(svms, prange);
++               svm_range_handle_list_op(svms, prange, mm);
+                mutex_unlock(&svms->lock);
+
+                spin_lock(&svms->deferred_list_lock);
+        }
+        spin_unlock(&svms->deferred_list_lock);
+
+-       mmap_write_unlock(mm);
+-       mmput(mm);
++       if (mm) {
++               mmap_write_unlock(mm);
++               mmput(mm);
++       }
+        pr_debug("exit svms 0x%p\n", svms);
+ }
+
 --
-2.25.1
+2.17.1
 
-
-
-
---_000_CO6PR12MB5473612CFBEC14CB9D6315E0825A9CO6PR12MB5473namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thanks <a id=3D"OWAAM159923" class=3D"P8b7u5KH31KY6Eljcf5yw mention ms-bgc-=
-nlr ms-fcl-b" href=3D"mailto:Christian.Koenig@amd.com">
-@Koenig, Christian</a>.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Kevin</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian &lt=
-;Christian.Koenig@amd.com&gt;<br>
-<b>Sent:</b> Thursday, January 20, 2022 5:11 PM<br>
-<b>To:</b> Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; amd-gfx@lists.=
-freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;; Deucher, Alexander &=
-lt;Alexander.Deucher@amd.com&gt;; Liu, Monk &lt;Monk.Liu@amd.com&gt;<br>
-<b>Cc:</b> Min, Frank &lt;Frank.Min@amd.com&gt;; Chen, Horace &lt;Horace.Ch=
-en@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: force using sdma to update vm page =
-table when mmio is blocked</font>
-<div>&nbsp;</div>
-</div>
-<div>Hi Kevin,<br>
-<br>
-well at least the HDP flush function has to work correctly or otherwise the=
- driver won't work correctly.<br>
-<br>
-If the registers are not accessible any more we need to find a proper worka=
-round for this.<br>
-<br>
-One possibility would be to use the KIQ, another is a dummy write/read to m=
-ake sure the HDP is flushed (check the hardware docs).<br>
-<br>
-The third option would be to question if blocking the HDP registers is real=
-ly a good idea.<br>
-<br>
-The solution is up to you, but a workaround like proposed below doesn't rea=
-lly help in any way.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-<div class=3D"x_moz-cite-prefix">Am 20.01.22 um 10:07 schrieb Wang, Yang(Ke=
-vin):<br>
-</div>
-<blockquote type=3D"cite">
-<p align=3D"Left" style=3D"margin-top: 0px; margin-bottom: 0px;font-family:=
-Arial; font-size:10pt; color:#0000FF; margin:5pt">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Hi Chris,</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-yes, I agree with your point.</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<span style=3D"color:rgb(0,0,0); font-family:Calibri,Arial,Helvetica,sans-s=
-erif; font-size:12pt">and another way is that we can use KIQ to write HDP r=
-egister to resolve HDP can't R/W issue.</span><br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<span style=3D"color:rgb(0,0,0); font-family:Calibri,Arial,Helvetica,sans-s=
-erif; font-size:12pt">but it will cause some performance drop if use KIQ to=
- programing register.</span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-what is your ideas?</div>
-<span></span>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Best Regards,</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Kevin</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian
-<a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:Christian.Koenig@amd.co=
-m">&lt;Christian.Koenig@amd.com&gt;</a><br>
-<b>Sent:</b> Thursday, January 20, 2022 4:58 PM<br>
-<b>To:</b> Wang, Yang(Kevin) <a class=3D"x_moz-txt-link-rfc2396E" href=3D"m=
-ailto:KevinYang.Wang@amd.com">
-&lt;KevinYang.Wang@amd.com&gt;</a>; <a class=3D"x_moz-txt-link-abbreviated"=
- href=3D"mailto:amd-gfx@lists.freedesktop.org">
-amd-gfx@lists.freedesktop.org</a> <a class=3D"x_moz-txt-link-rfc2396E" href=
-=3D"mailto:amd-gfx@lists.freedesktop.org">
-&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Deucher, Alexander <a class=3D"x=
-_moz-txt-link-rfc2396E" href=3D"mailto:Alexander.Deucher@amd.com">
-&lt;Alexander.Deucher@amd.com&gt;</a>; Liu, Monk <a class=3D"x_moz-txt-link=
--rfc2396E" href=3D"mailto:Monk.Liu@amd.com">
-&lt;Monk.Liu@amd.com&gt;</a><br>
-<b>Cc:</b> Min, Frank <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:F=
-rank.Min@amd.com">
-&lt;Frank.Min@amd.com&gt;</a>; Chen, Horace <a class=3D"x_moz-txt-link-rfc2=
-396E" href=3D"mailto:Horace.Chen@amd.com">
-&lt;Horace.Chen@amd.com&gt;</a><br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: force using sdma to update vm page =
-table when mmio is blocked</font>
-<div>&nbsp;</div>
-</div>
-<div>Well NAK.<br>
-<br>
-Even when we can't R/W HDP registers we need a way to invalidate the HDP or=
- quite a bunch of functions won't work correctly.<br>
-<br>
-Blocking CPU base page table updates only works around the symptoms, but do=
-esn't really solve anything.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-<div class=3D"x_x_moz-cite-prefix">Am 20.01.22 um 09:46 schrieb Wang, Yang(=
-Kevin):<br>
-</div>
-<blockquote type=3D"cite">
-<p align=3D"Left" style=3D"margin-top: 0px; margin-bottom: 0px;margin-top:0=
-px; margin-bottom:0px; font-family:Arial; font-size:10pt; color:#0000FF; ma=
-rgin:5pt">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-ping...</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-add <a id=3D"OWAAM160069" class=3D"x_x_P8b7u5KH31KY6Eljcf5yw x_x_mention x_=
-x_ms-bgc-nlr x_x_ms-fcl-b" href=3D"mailto:Monk.Liu@amd.com">
-@Liu, Monk</a>&nbsp;<a id=3D"OWAAM254265" class=3D"x_x_P8b7u5KH31KY6Eljcf5y=
-w x_x_mention x_x_ms-bgc-nlr x_x_ms-fcl-b" href=3D"mailto:Christian.Koenig@=
-amd.com">@Koenig, Christian</a>&nbsp;<a id=3D"OWAAM277931" class=3D"x_x_P8b=
-7u5KH31KY6Eljcf5yw x_x_mention x_x_ms-bgc-nlr x_x_ms-fcl-b" href=3D"mailto:=
-Alexander.Deucher@amd.com">@Deucher,
- Alexander</a></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Best Regards,</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Kevin</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
-" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Wang, Yang(Kevin)
-<a class=3D"x_x_moz-txt-link-rfc2396E" href=3D"mailto:KevinYang.Wang@amd.co=
-m">&lt;KevinYang.Wang@amd.com&gt;</a><br>
-<b>Sent:</b> Wednesday, January 19, 2022 11:16 AM<br>
-<b>To:</b> <a class=3D"x_x_moz-txt-link-abbreviated" href=3D"mailto:amd-gfx=
-@lists.freedesktop.org">
-amd-gfx@lists.freedesktop.org</a> <a class=3D"x_x_moz-txt-link-rfc2396E" hr=
-ef=3D"mailto:amd-gfx@lists.freedesktop.org">
-&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-<b>Cc:</b> Min, Frank <a class=3D"x_x_moz-txt-link-rfc2396E" href=3D"mailto=
-:Frank.Min@amd.com">
-&lt;Frank.Min@amd.com&gt;</a>; Chen, Horace <a class=3D"x_x_moz-txt-link-rf=
-c2396E" href=3D"mailto:Horace.Chen@amd.com">
-&lt;Horace.Chen@amd.com&gt;</a>; Wang, Yang(Kevin) <a class=3D"x_x_moz-txt-=
-link-rfc2396E" href=3D"mailto:KevinYang.Wang@amd.com">
-&lt;KevinYang.Wang@amd.com&gt;</a><br>
-<b>Subject:</b> [PATCH] drm/amdgpu: force using sdma to update vm page tabl=
-e when mmio is blocked</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size:1=
-1pt">
-<div class=3D"x_x_PlainText">when mmio protection feature is enabled in hyp=
-ervisor,<br>
-it will cause guest OS can't R/W HDP regiters,<br>
-and using cpu to update page table is not working well.<br>
-<br>
-force using sdma to update page table when mmio is blocked.<br>
-<br>
-Signed-off-by: Yang Wang <a class=3D"x_x_moz-txt-link-rfc2396E" href=3D"mai=
-lto:KevinYang.Wang@amd.com">
-&lt;KevinYang.Wang@amd.com&gt;</a><br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 7 +++++++<br>
-&nbsp;1 file changed, 7 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_vm.c<br>
-index b23cb463b106..0f86f0b2e183 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-@@ -2959,6 +2959,9 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct=
- amdgpu_vm *vm)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm-&gt;use_cpu_for_update =
-=3D !!(adev-&gt;vm_manager.vm_update_mode &amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_V=
-M_USE_CPU_FOR_GFX);<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vm-&gt;use_cpu_for_update &amp;&a=
-mp; amdgpu_sriov_vf(adev) &amp;&amp; amdgpu_virt_mmio_blocked(adev))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; vm-&gt;use_cpu_for_update =3D false;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_DRIVER(&quot;VM =
-update mode is %s\n&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- vm-&gt;use_cpu_for_update ? &quot;CPU&quot; : &quot;SDMA&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ONCE((vm-&gt;use_cpu_=
-for_update &amp;&amp;<br>
-@@ -3094,6 +3097,10 @@ int amdgpu_vm_make_compute(struct amdgpu_device *ade=
-v, struct amdgpu_vm *vm)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Update VM state */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm-&gt;use_cpu_for_update =
-=3D !!(adev-&gt;vm_manager.vm_update_mode &amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_V=
-M_USE_CPU_FOR_COMPUTE);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vm-&gt;use_cpu_for_update &amp;&a=
-mp; amdgpu_sriov_vf(adev) &amp;&amp; amdgpu_virt_mmio_blocked(adev))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; vm-&gt;use_cpu_for_update =3D false;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG_DRIVER(&quot;VM =
-update mode is %s\n&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- vm-&gt;use_cpu_for_update ? &quot;CPU&quot; : &quot;SDMA&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ONCE((vm-&gt;use_cpu_=
-for_update &amp;&amp;<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</blockquote>
-<br>
-</div>
-</div>
-</blockquote>
-<br>
-</div>
-</div>
-</body>
-</html>
-
---_000_CO6PR12MB5473612CFBEC14CB9D6315E0825A9CO6PR12MB5473namp_--
