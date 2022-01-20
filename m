@@ -4,59 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6586CC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 19:09:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6154C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 19:09:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87C4210E938;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7691B10E8D5;
 	Thu, 20 Jan 2022 19:09:47 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C951310E8D4;
- Thu, 20 Jan 2022 16:57:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1642697838; x=1674233838;
- h=date:from:to:subject:message-id:references:mime-version:
- content-transfer-encoding:in-reply-to;
- bh=pCcwTYYesBJwbUxzk/FlPOIcKf6xw2HINpD6RNQi8Ug=;
- b=kKAQyiDghXfU/NDu4Gbmm4TnGO8w017GPjhajy/b1cLf8Pe8bjC4QeVk
- 49sNWg6NNPWlfkz7iWUhl9/tMGyKuYEejU9kDm3cs8TUH///vgrsGUynx
- +7Z49gUeJqr3z9TTDMpHSdge++w91P/3iNXcBCgq8a9dfObjmmETj2mFf
- SEp7pDQM6GVg9DxWVMq8vJmW9psMUeBllbnjDR6E8iXvfoyPqBuOqzv/b
- NkPWnNgMh83CTfqt0oJsYFNIdkqPpamuOKENIk/52Gbw6/U0iq+n9V8kK
- O2OPUt/JJZgA+682oz3r3Oj+jPMvvzjwshh2ZsVeYtV14iWUAWYM3InZy A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="245189912"
-X-IronPort-AV: E=Sophos;i="5.88,302,1635231600"; d="scan'208";a="245189912"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 08:57:18 -0800
-X-IronPort-AV: E=Sophos;i="5.88,302,1635231600"; d="scan'208";a="532859202"
-Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 08:57:18 -0800
-Date: Thu, 20 Jan 2022 08:57:17 -0800
-From: Ira Weiny <ira.weiny@intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
-Subject: Re: [Intel-gfx] [PATCH 0/7] DRM kmap() fixes and kmap_local_page()
- conversions
-Message-ID: <20220120165717.GG209936@iweiny-DESK2.sc.intel.com>
-References: <20211210232404.4098157-1-ira.weiny@intel.com>
- <20220119165356.GD209936@iweiny-DESK2.sc.intel.com>
- <YehJRt+JngIsj+Gd@phenom.ffwll.local>
- <20220119235542.GF209936@iweiny-DESK2.sc.intel.com>
- <fb71af05-a889-8f6e-031b-426b58a64f00@amd.com>
- <YemEYndwyP6BHwMx@phenom.ffwll.local>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <YemEYndwyP6BHwMx@phenom.ffwll.local>
-User-Agent: Mutt/1.11.1 (2018-12-01)
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF19C10E7C4;
+ Thu, 20 Jan 2022 10:17:53 +0000 (UTC)
+Received: by mail-pl1-x632.google.com with SMTP id e8so4798839plh.8;
+ Thu, 20 Jan 2022 02:17:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id;
+ bh=rdBW0j5QQWhMLX1FKpoagwlaHny7USjq4sUZI4cs1fE=;
+ b=okHs6cOUaGLya4BJJW9td244ZQrPan4DTQ8eym4VDUiEE/pliKgmIEijdwdyZbjKfX
+ mbO9y0ZXTKOXQYlnj93QUnGFKN9hmMCtDgqaI2/kDRTchPd1qbd2ucbYDNhjHbtIrsSt
+ v6c/JjbHE8QWG1HDSjc0kSuD7kbZr55DXGG3+KAJvJ0IPLaUz8p/ICXMN+zRSRtNjwYl
+ dQkyi2xomTA+LhCVaw0GMNkuf4fPBbIgKcbQiptNED3agNqudbwo8oHzWg4tDbPfbe76
+ XKVIGzCg9RPq6h636C4I77z7uWQIgLcuk+Tl+JcI0iwtvUApqjJraXuZGfvT7XSZWZ2L
+ urcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:subject:date:message-id;
+ bh=rdBW0j5QQWhMLX1FKpoagwlaHny7USjq4sUZI4cs1fE=;
+ b=CZDo/iknB2NoyKGo8kcgndqebG/jvq/TMspdSyy4Uz3jD6iQdH91OJrJGz1b0E1Nte
+ xcpL7w7s89stK7OKqfNOu/CTFKoEeR0xR9RlVWs2m4OU2U6tCgBcoR0eZo9aFANzXOT5
+ KNKG0KbhOPz2hAIMjGc990d9C1YWKM2BvCurQDCesJbnf1n5al7z2ZNDhzgf4Kv3h06h
+ u5o5yGu3/9en8zi7B5P7aNHGhP3klgbGexCzQCyuk1wYsTPtoPn5I8ebDT6nF/xSYRmw
+ kuDcEUM8bqDjJdePyh8+gHEVWZIJ9Kden0xeczJ9fJnaL6w+hmBA2dOuMjU7AL4MldUz
+ M6LA==
+X-Gm-Message-State: AOAM5334VVKfJXpPhGoIkdWguHCg50ZJ79nbHzkHI/1ShCTHLaQ9XQJK
+ HkPOrZ9rIvQ6UFKmpL3Irrk=
+X-Google-Smtp-Source: ABdhPJyeMp9RNX3h2fsUBSP5ombifhj5R4/4Wk9OoG84WlguEkGvIfX/1cSt4nKN2RqGXj+FFM6WKA==
+X-Received: by 2002:a17:90a:d154:: with SMTP id
+ t20mr9972019pjw.43.1642673873398; 
+ Thu, 20 Jan 2022 02:17:53 -0800 (PST)
+Received: from localhost.localdomain ([159.226.95.43])
+ by smtp.googlemail.com with ESMTPSA id h12sm2070618pgh.79.2022.01.20.02.17.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Jan 2022 02:17:53 -0800 (PST)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ John Clements <john.clements@amd.com>, Jonathan Kim <jonathan.kim@amd.com>,
+ Bernard Zhao <bernard@vivo.com>, Miaoqian Lin <linmq006@gmail.com>,
+ Kevin Wang <kevin1.wang@amd.com>, shaoyunl <shaoyun.liu@amd.com>,
+ Tian Tao <tiantao6@hisilicon.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix double free in amdgpu_get_xgmi_hive
+Date: Thu, 20 Jan 2022 10:17:43 +0000
+Message-Id: <20220120101746.24847-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Thu, 20 Jan 2022 19:09:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,50 +74,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 20, 2022 at 04:48:50PM +0100, Daniel Vetter wrote:
-> On Thu, Jan 20, 2022 at 09:16:35AM +0100, Christian König wrote:
-> > Am 20.01.22 um 00:55 schrieb Ira Weiny:
-> > > On Wed, Jan 19, 2022 at 06:24:22PM +0100, Daniel Vetter wrote:
-> > > > On Wed, Jan 19, 2022 at 08:53:56AM -0800, Ira Weiny wrote:
-> > > > > On Fri, Dec 10, 2021 at 03:23:57PM -0800, 'Ira Weiny' wrote:
-> > > > > > From: Ira Weiny <ira.weiny@intel.com>
-> > > > > > 
-> > > > > > This series starts by converting the last easy kmap() uses to
-> > > > > > kmap_local_page().
-> > > > > > 
-> > > > > > There is one more call to kmap() wrapped in ttm_bo_kmap_ttm().  Unfortunately,
-> > > > > > ttm_bo_kmap_ttm() is called in a number of different ways including some which
-> > > > > > are not thread local.  I have a patch to convert that call.  However, it is not
-> > > > > > straight forward so it is not included in this series.
-> > > > > > 
-> > > > > > The final 2 patches fix bugs found while working on the ttm_bo_kmap_ttm()
-> > > > > > conversion.
-> > > > > Gentile ping on this series?  Will it make this merge window?
-> > > > I think this fell through the cracks and so no. Note that generally we
-> > > > feature-freeze drm tree around -rc6 anyway for the upcoming merge window,
-> > > > so you were cutting this all a bit close anyway.
-> > > Ok, No problem.  I just had not heard if this was picked up or not.
-> > > 
-> > > > Also looks like the ttm
-> > > > kmap caching question didn't get resolved?
-> > > I'm sorry I thought it was resolve for this series.  Christian said the patches
-> > > in this series were "a good bug fix" even if not strictly necessary.[1]  Beyond
-> > > this series I was discussing where to go from here, and is it possible to go
-> > > further with more changes.[2]  At the moment I don't think I will.
-> > > 
-> > > Christian did I misunderstand?  I can drop patch 6 and 7 if they are not proper
-> > > bug fixes or at least clarifications to the code.
-> > 
-> > Yeah, it is indeed a correct cleanup. I would just *not* put a CC stable on
-> > it because it doesn't really fix anything.
-> 
-> Ok can you pls get the amd/radeon ones stuffed into alex' tree? Or do we
-> want to put all the ttm ones into drm-misc instead?
+Callback function amdgpu_xgmi_hive_release() in kobject_put()
+calls kfree(hive), So we don't need call kfree(hive) again.
 
-I just updated to the latest master and there is a minor conflict.  Since this
-is not going in this window.  Let me rebase and resend.
+Fixes: 7b833d680481 ("drm/amd/amdgpu: fix potential memleak")
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Ira
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index e8b8f28c2f72..35d4b966ef2c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -393,7 +393,6 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
+ 	if (ret) {
+ 		dev_err(adev->dev, "XGMI: failed initializing kobject for xgmi hive\n");
+ 		kobject_put(&hive->kobj);
+-		kfree(hive);
+ 		hive = NULL;
+ 		goto pro_end;
+ 	}
+-- 
+2.17.1
 
-> -Daniel
-> 
