@@ -4,42 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C97DAC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 19:09:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6586CC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 19:09:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0146110E873;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87C4210E938;
 	Thu, 20 Jan 2022 19:09:47 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B26610E49E;
- Thu, 20 Jan 2022 10:45:39 +0000 (UTC)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 971CA1F394;
- Thu, 20 Jan 2022 10:45:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1642675537; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lNXsCxk1kmLzWZ3KuMXgc2QP7yNDhqQLgFtjl4LsFGg=;
- b=s80Eh1CewTbGXaANSfdmhOC8yS7mIDv9FCt/I0hzu7cf9Pu9Si7tpC0AUMlifM6MhpyvNI
- EdQykNw0T5LfW9CMRgRZQ36TExFEeiyITs3AE72J+aELbU1yWnXuKDUzDzoC1F8NJaMUMu
- 9y1MB7bqBlsK9YohaVnVWyOxwl7Ul6w=
-Received: from suse.cz (unknown [10.100.224.162])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 65535A3B81;
- Thu, 20 Jan 2022 10:45:30 +0000 (UTC)
-Date: Thu, 20 Jan 2022 11:45:36 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Subject: Re: [PATCH 0/3] lib/string_helpers: Add a few string helpers
-Message-ID: <Yek9UEHpS16/9ajt@alley>
-References: <20220119072450.2890107-1-lucas.demarchi@intel.com>
- <YegPiR7LU8aVisMf@alley> <87tudzbykz.fsf@intel.com>
- <YekfbKMjOP9ecc5v@alley> <8735libwjo.fsf@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C951310E8D4;
+ Thu, 20 Jan 2022 16:57:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642697838; x=1674233838;
+ h=date:from:to:subject:message-id:references:mime-version:
+ content-transfer-encoding:in-reply-to;
+ bh=pCcwTYYesBJwbUxzk/FlPOIcKf6xw2HINpD6RNQi8Ug=;
+ b=kKAQyiDghXfU/NDu4Gbmm4TnGO8w017GPjhajy/b1cLf8Pe8bjC4QeVk
+ 49sNWg6NNPWlfkz7iWUhl9/tMGyKuYEejU9kDm3cs8TUH///vgrsGUynx
+ +7Z49gUeJqr3z9TTDMpHSdge++w91P/3iNXcBCgq8a9dfObjmmETj2mFf
+ SEp7pDQM6GVg9DxWVMq8vJmW9psMUeBllbnjDR6E8iXvfoyPqBuOqzv/b
+ NkPWnNgMh83CTfqt0oJsYFNIdkqPpamuOKENIk/52Gbw6/U0iq+n9V8kK
+ O2OPUt/JJZgA+682oz3r3Oj+jPMvvzjwshh2ZsVeYtV14iWUAWYM3InZy A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="245189912"
+X-IronPort-AV: E=Sophos;i="5.88,302,1635231600"; d="scan'208";a="245189912"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2022 08:57:18 -0800
+X-IronPort-AV: E=Sophos;i="5.88,302,1635231600"; d="scan'208";a="532859202"
+Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2022 08:57:18 -0800
+Date: Thu, 20 Jan 2022 08:57:17 -0800
+From: Ira Weiny <ira.weiny@intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org
+Subject: Re: [Intel-gfx] [PATCH 0/7] DRM kmap() fixes and kmap_local_page()
+ conversions
+Message-ID: <20220120165717.GG209936@iweiny-DESK2.sc.intel.com>
+References: <20211210232404.4098157-1-ira.weiny@intel.com>
+ <20220119165356.GD209936@iweiny-DESK2.sc.intel.com>
+ <YehJRt+JngIsj+Gd@phenom.ffwll.local>
+ <20220119235542.GF209936@iweiny-DESK2.sc.intel.com>
+ <fb71af05-a889-8f6e-031b-426b58a64f00@amd.com>
+ <YemEYndwyP6BHwMx@phenom.ffwll.local>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <8735libwjo.fsf@intel.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <YemEYndwyP6BHwMx@phenom.ffwll.local>
+User-Agent: Mutt/1.11.1 (2018-12-01)
 X-Mailman-Approved-At: Thu, 20 Jan 2022 19:09:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,52 +69,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
- Francis Laniel <laniel_francis@privacyrequired.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>, Mikita Lipski <mikita.lipski@amd.com>,
- amd-gfx@lists.freedesktop.org, Andy Shevchenko <andy.shevchenko@gmail.com>,
- Ben Skeggs <bskeggs@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Leo Li <sunpeng.li@amd.com>,
- intel-gfx@lists.freedesktop.org, Raju Rangoju <rajur@chelsio.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Steven Rostedt <rostedt@goodmis.org>, Julia Lawall <julia.lawall@lip6.fr>,
- Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Eryk Brol <eryk.brol@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-kernel@vger.kernel.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- linux-security-module@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- netdev@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S . Miller" <davem@davemloft.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu 2022-01-20 11:12:27, Jani Nikula wrote:
-> On Thu, 20 Jan 2022, Petr Mladek <pmladek@suse.com> wrote:
-> > The problem is not that visible with yesno() and onoff(). But as you said,
-> > onoff() confliscts with variable names. And enabledisable() sucks.
-> > As a result, there is a non-trivial risk of two mass changes:
+On Thu, Jan 20, 2022 at 04:48:50PM +0100, Daniel Vetter wrote:
+> On Thu, Jan 20, 2022 at 09:16:35AM +0100, Christian König wrote:
+> > Am 20.01.22 um 00:55 schrieb Ira Weiny:
+> > > On Wed, Jan 19, 2022 at 06:24:22PM +0100, Daniel Vetter wrote:
+> > > > On Wed, Jan 19, 2022 at 08:53:56AM -0800, Ira Weiny wrote:
+> > > > > On Fri, Dec 10, 2021 at 03:23:57PM -0800, 'Ira Weiny' wrote:
+> > > > > > From: Ira Weiny <ira.weiny@intel.com>
+> > > > > > 
+> > > > > > This series starts by converting the last easy kmap() uses to
+> > > > > > kmap_local_page().
+> > > > > > 
+> > > > > > There is one more call to kmap() wrapped in ttm_bo_kmap_ttm().  Unfortunately,
+> > > > > > ttm_bo_kmap_ttm() is called in a number of different ways including some which
+> > > > > > are not thread local.  I have a patch to convert that call.  However, it is not
+> > > > > > straight forward so it is not included in this series.
+> > > > > > 
+> > > > > > The final 2 patches fix bugs found while working on the ttm_bo_kmap_ttm()
+> > > > > > conversion.
+> > > > > Gentile ping on this series?  Will it make this merge window?
+> > > > I think this fell through the cracks and so no. Note that generally we
+> > > > feature-freeze drm tree around -rc6 anyway for the upcoming merge window,
+> > > > so you were cutting this all a bit close anyway.
+> > > Ok, No problem.  I just had not heard if this was picked up or not.
+> > > 
+> > > > Also looks like the ttm
+> > > > kmap caching question didn't get resolved?
+> > > I'm sorry I thought it was resolve for this series.  Christian said the patches
+> > > in this series were "a good bug fix" even if not strictly necessary.[1]  Beyond
+> > > this series I was discussing where to go from here, and is it possible to go
+> > > further with more changes.[2]  At the moment I don't think I will.
+> > > 
+> > > Christian did I misunderstand?  I can drop patch 6 and 7 if they are not proper
+> > > bug fixes or at least clarifications to the code.
+> > 
+> > Yeah, it is indeed a correct cleanup. I would just *not* put a CC stable on
+> > it because it doesn't really fix anything.
 > 
-> My point is, in the past three years we could have churned through more
-> than two mass renames just fine, if needed, *if* we had just managed to
-> merge something for a start!
+> Ok can you pls get the amd/radeon ones stuffed into alex' tree? Or do we
+> want to put all the ttm ones into drm-misc instead?
 
-Huh, this sound alarming.
+I just updated to the latest master and there is a minor conflict.  Since this
+is not going in this window.  Let me rebase and resend.
 
-Cosmetic changes just complicate history. They make "git blame" useless.
-They also complicate backports. I know that it is not problem for
-mainline. But there are supported stable branches, ...
+Ira
 
-There should be a good reason for such changes. They should not be
-done light-heartedly.
-
-Best Regards,
-Petr
+> -Daniel
+> 
