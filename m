@@ -4,99 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB01DC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 04:50:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF7D1C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 05:49:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 284F710E31C;
-	Thu, 20 Jan 2022 04:50:03 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2073.outbound.protection.outlook.com [40.107.94.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98F0B10E351;
- Thu, 20 Jan 2022 04:09:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A4C910E896;
+	Thu, 20 Jan 2022 05:49:39 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 747E010E896
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 05:49:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VQbezYFUX7jX2oWrWjAB71Hj9/WM+lDuYpkSk87EjbtKqtG5h4/9DasVqIXCLIcMvJGe5RUQbia7xfLqLIGBaT6kpTBQ7MWHXBGAleeBtN9/hJWaD34cZsW6O4zsrQQTPC/Dl0jg0xBUFf911EXBT4P5opoYN8x74RY8f+GXuCDJHlBd9CnnqkolifyDR7XlqTBSpAGpeJT90FIy98UiRQWNVeFaf3EueW3Y5zO1KNbTvWtg+2Bz8DDAvHt5nUXD2rYvmgANxwp0bezS4SfVHc4f9bzVmrVzRJ8HLO1aQB0CcS8twbtRa+s2MzRE9CGXU3YwItj4AZZ39oWWmxFHKA==
+ b=irAMI7z87CHbXcjnHdN6Tsotm4tbNGTkUb6jqVOBmbqQ037ZVHctnACDyzeO74z+hsfeNqu4h74vEwFDARwnsP96RsOO5tkDJOpdjQnWFQX3nmAn26B4R+GsDiW4BSn03zBw/KJknK9jEE9D2/y00QxhK6bLda/sboVOb4tjMGnXfebHcDFnwCW0Jc9xS3Bq2zXIWAlKkXfurUUaeX6HcqMAD5IhXxLFmA+UoSYBELr++ebNRb2HN5STzfq6mGRdyrJCUdToRVSumNkhAZZNcO6ooi97q3d9aOhz+0McR8v6mH3IA5UeNXPtfkIsr556fwBS3jQPmM9l+HZ1koVOJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bxkg+qIwCptWddUzl0PUjXe9A2yyPzhXBQM/exoYHgg=;
- b=JsBs9HsHHGOVfehAZ+oKUFzG+HkGHCIcw76Ha1ePxOiwDTnf9KM1pzYq8WiZjUVfKsPV4C880Qk1GUFfny6YC9WDGghWh+W8+YWjX9kpfO5qPel/xnOoS09D0Jb7m9YYAOtnDgS/n2cQlbwFlXd0mbAofjZd6W27RmG2lcOLy4wu2y2to2jnc/5dH10lljantWXnTj0kf4+y3v4Cpajp1bYYX6kSdqgvG5P8RzabByZFKkoTHvicYxqwJZxBNZhbmoPVRq/KNz7iT12gt09u2drJgYkX8xshUD6GCT26YDeGnZx1SAFAvPxSeDUUrNFyznt3/Wz4+PChwRqWgUJBNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.236) smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=UnPvryNPIZeL7XpXK2ThdWk2m+t8zQYtMVNU4oBZYcY=;
+ b=hIBp6HOG+BNbO1GN5L/LUu9v7yyazKifNTGO3IP+IK3jsMRHeEUjx5jVw6HqnWvun8X8L4FA5Qjyb7qWHqgWA2NmF7zco385NbYkQMoI53d0p4Xze/FV83ip+JqYZuiUlxdLhHa6Z59xM6maNwtUZl81dejBLG9JOuN6WqfWktz0qLj2kD4HAFfaC7QHjzD+NSN8gLxDcKK0OzDPgmvsrGthNxqvvPFP1Ekw8aATAwex302GHrex6uSyLswibyD6MB3VsIntSyEDAY2hHVaPre1aGBN7Xq7wHNMnlU6op+adb5IQVwxYaXpTZxKH9ZnuWzbfsyKtR5kk0n866PO6rg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bxkg+qIwCptWddUzl0PUjXe9A2yyPzhXBQM/exoYHgg=;
- b=DukAuc76nsQup9QepgJOMRsadXemrn/QEKw43lNUBxjhZQzM7MLZm/eiHbZZZ8KWNNd7FudpY1kUczR3Um0e7aQu0aaH9a2a/SeKFU1gF8nrYL5b7MR1yS1hfLul4xJWrHIVIdmTzVinKVx2tV4HCMiTI3+/1mqvNwrLmSwvRI5J2Ye1EgVUfq9OHhcEpwCoDxrxWNrDLLtzQK8ltHICQtkxCeXc6PXmp0U+rq6MXZO4nqpNolWh5dGUUGqatAMavBlRzv4EDiygNIswIklgsyW5XS6oqxk2KDuKodtxknKZwqHarsYvRNvWJGw7BtLZqFVoWPKpLynhV7XJ0ZgrVA==
-Received: from BN6PR19CA0111.namprd19.prod.outlook.com (2603:10b6:404:a0::25)
- by BYAPR12MB3592.namprd12.prod.outlook.com (2603:10b6:a03:db::25)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Thu, 20 Jan
- 2022 04:09:04 +0000
-Received: from BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:a0:cafe::ad) by BN6PR19CA0111.outlook.office365.com
- (2603:10b6:404:a0::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7 via Frontend
- Transport; Thu, 20 Jan 2022 04:09:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.236)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.236 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.236; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (12.22.5.236) by
- BN8NAM11FT054.mail.protection.outlook.com (10.13.177.102) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4909.7 via Frontend Transport; Thu, 20 Jan 2022 04:09:03 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by DRHQMAIL109.nvidia.com
- (10.27.9.19) with Microsoft SMTP Server (TLS) id 15.0.1497.18;
- Thu, 20 Jan 2022 04:09:01 +0000
-Received: from nvdebian.localnet (10.126.230.35) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.986.9; Wed, 19 Jan 2022
- 20:08:58 -0800
-From: Alistair Popple <apopple@nvidia.com>
-To: <akpm@linux-foundation.org>, <Felix.Kuehling@amd.com>,
- <linux-mm@kvack.org>, <rcampbell@nvidia.com>, <linux-ext4@vger.kernel.org>,
- <linux-xfs@vger.kernel.org>, Alex Sierra <alex.sierra@amd.com>
-Subject: Re: [PATCH v3 01/10] mm: add zone device coherent type memory support
-Date: Thu, 20 Jan 2022 15:08:56 +1100
-Message-ID: <29335901.2ltahdNQJ0@nvdebian>
-In-Reply-To: <20220110223201.31024-2-alex.sierra@amd.com>
-References: <20220110223201.31024-1-alex.sierra@amd.com>
- <20220110223201.31024-2-alex.sierra@amd.com>
+ bh=UnPvryNPIZeL7XpXK2ThdWk2m+t8zQYtMVNU4oBZYcY=;
+ b=o3LSWGgsVoG5kF+QgKuN/iersFAjKUgfMI6JRD+CYmSxWpsE0y2ewCpOVXzMrv5rLxz0M9MEcjkPig07PVeBYTBggye+HV3c/BdWdMsd2ZxjcNErsCmF9EDGtvPZkofDzHjduWXNReNR4a28P57mlvMxEqKjVeSLx4g+y83DCvE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (20.178.1.22) by
+ SN6PR12MB4704.namprd12.prod.outlook.com (20.177.250.147) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4888.11; Thu, 20 Jan 2022 05:49:36 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::9c25:ce1d:a478:adda]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::9c25:ce1d:a478:adda%6]) with mapi id 15.20.4888.014; Thu, 20 Jan 2022
+ 05:49:35 +0000
+Message-ID: <bed5d7a1-d7a1-5f4e-3c7c-b69a81d033c0@amd.com>
+Date: Thu, 20 Jan 2022 11:19:17 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH V2 1/2] drm/amdgpu: Move xgmi ras initialization from
+ .late_init to .early_init
+Content-Language: en-US
+To: yipechai <YiPeng.Chai@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220120031850.350206-1-YiPeng.Chai@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20220120031850.350206-1-YiPeng.Chai@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BMXPR01CA0073.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:54::13) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-X-Originating-IP: [10.126.230.35]
-X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2261f8c5-810a-4515-cf89-08d9dbca9852
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3592:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB359279FC4D59C4F014AEFFE8DF5A9@BYAPR12MB3592.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: 74f1ab30-e023-40d1-25dc-08d9dbd8a382
+X-MS-TrafficTypeDiagnostic: SN6PR12MB4704:EE_
+X-Microsoft-Antispam-PRVS: <SN6PR12MB47042481FC601278169F7385975A9@SN6PR12MB4704.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XHXxKWgasEKsapzexEM0Glomj8BqYdAqCu0LXiOTpkculJdQoVRilT/Le4f4uS/aSCkOBa+SuZSD/aX6XDZtQTIJS+b/z2g+KtDVpZ9RofydNHAVPetowGHXbTgAFrK3a+b3KzP+XVYy/CL0j35mwSZm+Jea8m+077a1rPUoCGoZoP7sUeL+D83eiS7RPYGeEQz4TNrTxkqJl+dqqLPOBC4luFRUWmaGu8r2dwOJB45cdMd072DRv1ISZte0yI1NF0YGU3hv+66DsHdurLNtfe0xDMxnaYPa6Fe+X2e3/wNjB/ymOA3f6LFWWDC1si7BAn0WO4foV9Sn5sjUBPAA57Bo77f2tHLiqy9dmP0xd8+/vG5up9HgqhwF3TFLq7/VXrF8gWj8SfX2imDctSr4uoLwJZDGYUZ2hqYlBufXMTh++FyxVj2wXOwRevikVDH5Zmr2H8gZymKmq0jNwgAiv/CnGTx6rnuNVPRWpvaYe/3o2Y51wZPc1RzM9iLhKp2qzT88FWRUZDFvH2qpwZvC7z/oCUT6um6zuDSnBlcYtdP8jFb9wOJ2C289iHr289Azej3BFvJWbEZv5vZYU/hCba0/MlMPBHQCB49oxYUkKnkyWu1CShhi9JLiIKNo73VnSFhJC8jp+oiTGaXGv1E86fPDw5zFIJsbjHRQdn/KAgjdAMiCv6KBwhWLkp9viSpzxw3CYgFVBVkvSBYRfdJWsbgt0Lgyz0Z1mZpAuJXv2tu1Jcfwsm+O+jdqB9TXcHXPrQQq2iJ7WmKlSHo+qHQvcr0xhXlNnrBJOjAwMgIioT5UBYPiCLsA0BGXjAfU7jIL3YePJxUz0CBcvKU1OX0mYA==
-X-Forefront-Antispam-Report: CIP:12.22.5.236; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(4636009)(36840700001)(40470700002)(46966006)(110136005)(81166007)(9576002)(8676002)(9686003)(36860700001)(70586007)(86362001)(426003)(83380400001)(8936002)(356005)(336012)(40460700001)(70206006)(82310400004)(316002)(7416002)(54906003)(4326008)(33716001)(16526019)(2906002)(508600001)(5660300002)(186003)(47076005)(26005)(39026012)(36900700001);
+X-Microsoft-Antispam-Message-Info: VAwlJrrg4JT/kiCItzR6f9ZWQoUy2/VAu2wxtZSkmWbbOqpN8CogJG0CUSfjL2Lo05l4HwL+ItX1dDul05whJYlnXq56H3rdX5Xa0y2n55DVz4zMrHbystw7PNtkEZBjk0maCncJw5dC/CHN1c5RwiYu1uvcRMR/bnYsnx/levFaFgiJlsXitX8HMa2rouuAJTg5suy+010vL+RLo/pMr+es0KBobj7QJC6gqDxcUfH+J9R6FbgSVOfLQQB8n0iu+bRjh2Aj9Le/F/aVCdWI/zlrVMc7dZqFwvwtO0un0H5s7rkwkghsTtEyJ2434g6ux/io77adtOmNBa7zjBtkAzd7WTRPs0nmyhfDv8RcwvQ+H+88pX4dUBHbeyP86lfzcBEp2k6mm30FlbXHwtLnG5XMFmJJXQSDs0H/u+J9VgVS7ZIBQNywFdqS7fffJidLN1VCnm1MG6Ff0aNyfjwufjpRY/UccXjKjXn/+W5/iZW5uVhbmGD1jFxgUDWSA1EGVdONvQ0jtVojFe/AY6y3wnkfEl8ok2BtjGG8bvbotjUAG0KDK40qcitfskUBUgN6yUn19Jzf2IMilRq92eVnJusKhg/Cd17e6I6mYblZOmu/qBqNkjetVo3+D3gAWoPIWBFv89pNTGqYraHXBIF8E1PoSpm0erax1/gu7rPZVk6/1U+MdDE8osg456lr2aoRh5KP27hnCa5LssX5slHcW0vZsypllYn7CyDoDCFoAHUyasss4N87jedTuW/6Q2oHTNBm+zYf/fBB/3anw3bNlA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(316002)(2616005)(31696002)(6486002)(2906002)(6512007)(53546011)(5660300002)(6506007)(83380400001)(38100700002)(8936002)(31686004)(6666004)(86362001)(8676002)(26005)(4326008)(36756003)(66476007)(66556008)(66946007)(508600001)(186003)(142923001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 04:09:03.3357 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2261f8c5-810a-4515-cf89-08d9dbca9852
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.236];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3592
-X-Mailman-Approved-At: Thu, 20 Jan 2022 04:50:02 +0000
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T2E0dlYwdWZ0eS9aL2UweEJHZGw4N2g3M1F5clMyTUswdnN6MHprMFBRVEgy?=
+ =?utf-8?B?dG1xankyK2M5aUQ3aHdGK3ZCQlR1bG5vYjBlRGtwL3NQVnplSDdzQkQyckU1?=
+ =?utf-8?B?VjBMU2RoekF2RE41c29UMVMzeklISDVsWFQ4MlV0SkZNb0FnWkRZdXRnak9w?=
+ =?utf-8?B?WlE4T00xS0FxM3hzeHNSV0hOR3Z6aEdHWUR4MU1tNWFlTUVJWStTM2NOcENK?=
+ =?utf-8?B?ZXo1VWNxY1lXS0ZnNGp1VlRGclMvZ3I0Y0ZFdGprbnova2NUbWpSaUxvQTJx?=
+ =?utf-8?B?NjBBU2lXVlEwNXM4V0hPcCs2Wk1xTklzWlNlcDI1Sml6QXdHQ3VzQzhWOUN2?=
+ =?utf-8?B?VE10NUlQQjdyMzQvcXRZUXdmTWVmMkJnVDBidE9mZEV1d1U2VWlLY1lycnpm?=
+ =?utf-8?B?TlhGNmpnNGtrcHQ1R3FZeWZQeXRNU1g5d05DbkNqaDhkbzhLbk1qQ1MwSHIw?=
+ =?utf-8?B?SENhb2NKYitBSDVqb0FQTmpUeHZUMThxMzZFdEF4UnYyaElNMDh1Zk83MVha?=
+ =?utf-8?B?VXVncStteG5acThxRE9laktySmMxVEFsTjFvM1ZaaWlKcUNSbnkxYmM1enZ3?=
+ =?utf-8?B?N0txUThBNWU3YUtIRkFMSWNWSGxUa0MwNC82ZE5ORitlb0FCZlJZY2ZPeHVI?=
+ =?utf-8?B?dVVKbVZLZlRUcFZ6ZUw1c0MzUHQ0bDFxcll0WCtvbE1ISjVPb05hLzVoTk9k?=
+ =?utf-8?B?VlhER1NGcWhRVXBNdTJURTY3UUpKN2xnaGV3em9qSk1xTTBtRnVHa0FQQXlB?=
+ =?utf-8?B?QllBZG5RRVNMUkwyNnBTR1lkY1djY0hIRTMrM2tCQzhCdEtSaGsxS2RKcXZZ?=
+ =?utf-8?B?MVhTS1NXSkFsVkFlOGtEZFFEVDZMOXNucnZwQUpDYi9idUlhRDlpbGlVTnV0?=
+ =?utf-8?B?eHIyeXFVRmFVTUMyZzlOT20xZGY4cldkdkpJOVRoNXd2K3hKTE1BUTN5Y2tY?=
+ =?utf-8?B?QWRHMUR3MG9PQzdsYjU0V3VQWXMyWTJ6SXhENVpVc0wwUGtra3FNcjdEVjQ2?=
+ =?utf-8?B?VjBES1UvRTkyTm1aY0Z3dFNTZGE0Q2kxTUhsN00vcW5uUDVOTWZQZnRPRjdQ?=
+ =?utf-8?B?bDFIUzk1eGpMRFlUNkRYV21GbFBQNmlvSHhKOC9rMkRFNmxxczNxOWN0Nzlk?=
+ =?utf-8?B?UHNWWnAyOHZGVGlZcnR3cTJLUVcyN3MzbklXVVgrbitpWHYxM0xtM0EvL21t?=
+ =?utf-8?B?dk16WHQrTE13WlEwbkE1RExjUjZkTTduUy9ja00zcTNNaTg2R2FjMElpc1dr?=
+ =?utf-8?B?aWRUTm5BS2RlQnIrSGFKL1VEZDVSUE13bnJzMVhaNjFWNmVGcTVVRWxRYnhK?=
+ =?utf-8?B?dUxoS09yUlQ2Ky9lNE0zdC9QMDhBNkZYMmdUN2x6cDAwMGw0VFBHQTZpZWZI?=
+ =?utf-8?B?eFhHS0xVVUR2N3JWNFk2VGhackMzdGxFTDRub3NrYklrMVRmVDJUY01Wd2dS?=
+ =?utf-8?B?UnBsOXFGbVNKYkVQNzZBOTAwRnJvQXRQSmNDR2p3Vi9qbUlRb3lNQkU2SlRz?=
+ =?utf-8?B?MHFMdzUrSVpKZXF0QnQ3QVJtWjNhdGU3OW51S2t6NDg5YVR3Vi83M1lTaHVh?=
+ =?utf-8?B?cHdkOEJWYVZKV251cDFNcnA2bm9aRXU1cUpFbFRKOXZmWDdrZXY5dDdDQVRE?=
+ =?utf-8?B?c0hySnhsOGpKNGNCbU43VW45OER2UUxrUkRaOHBJdnpxVHB3VEd6S205aFdN?=
+ =?utf-8?B?UjFSMzAwOFJ5TW41aUVrZkp4LzEvM0pTSHZMaUg5SmgxbFR6UEVRV2s2blRS?=
+ =?utf-8?B?OGc0RHQ1KzFFZDlJRk42eXE3NDlEZHc4MnN6SnkzdHY2SVN3K1VVeDYyR1V3?=
+ =?utf-8?B?Y2pFZ1F1cS9KR2NuY3YralI0QmcxNmxZYkd1RGV0QzgrWEx6RWxmVWsrbCtM?=
+ =?utf-8?B?ZXp4R04zTVNzSXRRRHNoS1VUQUQ2SUt4ZUlEajBnYkxCbmFBVjdOYy9obTE0?=
+ =?utf-8?B?T2VHb2I2bllRM1FUL0NmNUk3OWh2MmY2alZZL051RFFSTjVVTzNDYjdoVkg2?=
+ =?utf-8?B?M01qc1pBZ3NiWTZMRE1hWHlFWmExYW9yejZ6MG1kbHpDaSt3UGU3UjNpaG5H?=
+ =?utf-8?B?M0dwZDI5Z2xZeGI5aHJKRmg1bkI3emh4RHlnS09uSlNTY0l4RDZ5a1RpSnZG?=
+ =?utf-8?Q?adpQ=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74f1ab30-e023-40d1-25dc-08d9dbd8a382
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 05:49:35.6644 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mWju57Z36EcgLKVwp9OHLISC32oU+RcyabH1tkowlDMFczf3eFyYw95zki85t5zT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB4704
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,263 +124,124 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, willy@infradead.org, jglisse@redhat.com,
- dri-devel@lists.freedesktop.org, jgg@nvidia.com, hch@lst.de
+Cc: yipechai@amd.com, Tao.Zhou1@amd.com, John.Clements@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, 11 January 2022 9:31:52 AM AEDT Alex Sierra wrote:
-> Device memory that is cache coherent from device and CPU point of view.
-> This is used on platforms that have an advanced system bus (like CAPI
-> or CXL). Any page of a process can be migrated to such memory. However,
-> no one should be allowed to pin such memory so that it can always be
-> evicted.
+
+
+On 1/20/2022 8:48 AM, yipechai wrote:
+> Move xgmi ras initialization from .late_init to .early_init, which let
+> xgmi ras can be initialized only once.
 > 
-> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+> Signed-off-by: yipechai <YiPeng.Chai@amd.com>
 > ---
->  include/linux/memremap.h |  8 ++++++++
->  include/linux/mm.h       | 16 ++++++++++++++++
->  mm/memcontrol.c          |  6 +++---
->  mm/memory-failure.c      |  8 ++++++--
->  mm/memremap.c            |  5 ++++-
->  mm/migrate.c             | 21 +++++++++++++--------
->  6 files changed, 50 insertions(+), 14 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 15 ++++++++++-----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  5 +++++
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |  5 +++++
+>   4 files changed, 21 insertions(+), 5 deletions(-)
 > 
-> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
-> index c0e9d35889e8..ff4d398edf35 100644
-> --- a/include/linux/memremap.h
-> +++ b/include/linux/memremap.h
-> @@ -39,6 +39,13 @@ struct vmem_altmap {
->   * A more complete discussion of unaddressable memory may be found in
->   * include/linux/hmm.h and Documentation/vm/hmm.rst.
->   *
-> + * MEMORY_DEVICE_COHERENT:
-> + * Device memory that is cache coherent from device and CPU point of view. This
-> + * is used on platforms that have an advanced system bus (like CAPI or CXL). A
-> + * driver can hotplug the device memory using ZONE_DEVICE and with that memory
-> + * type. Any page of a process can be migrated to such memory. However no one
-> + * should be allowed to pin such memory so that it can always be evicted.
-> + *
->   * MEMORY_DEVICE_FS_DAX:
->   * Host memory that has similar access semantics as System RAM i.e. DMA
->   * coherent and supports page pinning. In support of coordinating page
-> @@ -59,6 +66,7 @@ struct vmem_altmap {
->  enum memory_type {
->  	/* 0 is reserved to catch uninitialized type fields */
->  	MEMORY_DEVICE_PRIVATE = 1,
-> +	MEMORY_DEVICE_COHERENT,
->  	MEMORY_DEVICE_FS_DAX,
->  	MEMORY_DEVICE_GENERIC,
->  	MEMORY_DEVICE_PCI_P2PDMA,
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 73a52aba448f..fcf96c0fc918 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -1162,6 +1162,7 @@ static inline bool page_is_devmap_managed(struct page *page)
->  		return false;
->  	switch (page->pgmap->type) {
->  	case MEMORY_DEVICE_PRIVATE:
-> +	case MEMORY_DEVICE_COHERENT:
->  	case MEMORY_DEVICE_FS_DAX:
->  		return true;
->  	default:
-> @@ -1191,6 +1192,21 @@ static inline bool is_device_private_page(const struct page *page)
->  		page->pgmap->type == MEMORY_DEVICE_PRIVATE;
->  }
->  
-> +static inline bool is_device_coherent_page(const struct page *page)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 3483a82f5734..788c0257832d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -436,6 +436,16 @@ void amdgpu_gmc_filter_faults_remove(struct amdgpu_device *adev, uint64_t addr,
+>   	} while (fault->timestamp < tmp);
+>   }
+>   
+> +int amdgpu_gmc_ras_early_init(struct amdgpu_device *adev)
 > +{
-> +	return IS_ENABLED(CONFIG_DEV_PAGEMAP_OPS) &&
-> +		is_zone_device_page(page) &&
-> +		page->pgmap->type == MEMORY_DEVICE_COHERENT;
+> +	if (!adev->gmc.xgmi.connected_to_cpu) {
+> +		adev->gmc.xgmi.ras = &xgmi_ras;
+> +		amdgpu_ras_register_ras_block(adev, &adev->gmc.xgmi.ras->ras_block);
+> +	}
+> +
+> +	return 0;
 > +}
 > +
-> +static inline bool is_device_page(const struct page *page)
-
-I wish we could think of a better name for this - it's too similar to
-is_zone_device_page() so I can never remember if it includes FS_DAX pages or
-not. Unfortunately I don't have any better suggestions though.
-
-> +{
-> +	return IS_ENABLED(CONFIG_DEV_PAGEMAP_OPS) &&
-> +		is_zone_device_page(page) &&
-> +		(page->pgmap->type == MEMORY_DEVICE_PRIVATE ||
-> +		page->pgmap->type == MEMORY_DEVICE_COHERENT);
-> +}
+>   int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev)
+>   {
+>   	int r;
+> @@ -452,11 +462,6 @@ int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev)
+>   			return r;
+>   	}
+>   
+> -	if (!adev->gmc.xgmi.connected_to_cpu) {
+> -		adev->gmc.xgmi.ras = &xgmi_ras;
+> -		amdgpu_ras_register_ras_block(adev, &adev->gmc.xgmi.ras->ras_block);
+> -	}
+> -
+>   	if (adev->gmc.xgmi.ras && adev->gmc.xgmi.ras->ras_block.ras_late_init) {
+>   		r = adev->gmc.xgmi.ras->ras_block.ras_late_init(adev, NULL);
+>   		if (r)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> index 0001631cfedb..ac4c0e50b45c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -318,6 +318,7 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev,
+>   			      uint16_t pasid, uint64_t timestamp);
+>   void amdgpu_gmc_filter_faults_remove(struct amdgpu_device *adev, uint64_t addr,
+>   				     uint16_t pasid);
+> +int amdgpu_gmc_ras_early_init(struct amdgpu_device *adev);
+>   int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev);
+>   void amdgpu_gmc_ras_fini(struct amdgpu_device *adev);
+>   int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index 4f8d356f8432..7a6ad5d467b2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -719,6 +719,7 @@ static void gmc_v10_0_set_gfxhub_funcs(struct amdgpu_device *adev)
+>   
+>   static int gmc_v10_0_early_init(void *handle)
+>   {
+> +	int r;
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+>   	gmc_v10_0_set_mmhub_funcs(adev);
+> @@ -734,6 +735,10 @@ static int gmc_v10_0_early_init(void *handle)
+>   	adev->gmc.private_aperture_end =
+>   		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
+>   
+> +	r = amdgpu_gmc_ras_early_init(adev);
+> +	if (r)
+> +		return r;
 > +
->  static inline bool is_pci_p2pdma_page(const struct page *page)
->  {
->  	return IS_ENABLED(CONFIG_DEV_PAGEMAP_OPS) &&
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 6da5020a8656..d0bab0747c73 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -5695,8 +5695,8 @@ static int mem_cgroup_move_account(struct page *page,
->   *   2(MC_TARGET_SWAP): if the swap entry corresponding to this pte is a
->   *     target for charge migration. if @target is not NULL, the entry is stored
->   *     in target->ent.
-> - *   3(MC_TARGET_DEVICE): like MC_TARGET_PAGE  but page is MEMORY_DEVICE_PRIVATE
-> - *     (so ZONE_DEVICE page and thus not on the lru).
-> + *   3(MC_TARGET_DEVICE): like MC_TARGET_PAGE  but page is device memory and
-> + *   thus not on the lru.
->   *     For now we such page is charge like a regular page would be as for all
->   *     intent and purposes it is just special memory taking the place of a
->   *     regular page.
-> @@ -5730,7 +5730,7 @@ static enum mc_target_type get_mctgt_type(struct vm_area_struct *vma,
->  		 */
->  		if (page_memcg(page) == mc.from) {
->  			ret = MC_TARGET_PAGE;
-> -			if (is_device_private_page(page))
-> +			if (is_device_page(page))
->  				ret = MC_TARGET_DEVICE;
->  			if (target)
->  				target->page = page;
-> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-> index 3e6449f2102a..4cf212e5f432 100644
-> --- a/mm/memory-failure.c
-> +++ b/mm/memory-failure.c
-> @@ -1554,12 +1554,16 @@ static int memory_failure_dev_pagemap(unsigned long pfn, int flags,
->  		goto unlock;
->  	}
->  
-> -	if (pgmap->type == MEMORY_DEVICE_PRIVATE) {
-> +	switch (pgmap->type) {
-> +	case MEMORY_DEVICE_PRIVATE:
-> +	case MEMORY_DEVICE_COHERENT:
->  		/*
-> -		 * TODO: Handle HMM pages which may need coordination
-> +		 * TODO: Handle device pages which may need coordination
->  		 * with device-side memory.
->  		 */
->  		goto unlock;
-> +	default:
-> +		break;
->  	}
->  
->  	/*
-> diff --git a/mm/memremap.c b/mm/memremap.c
-> index ed593bf87109..94d6a1e01d42 100644
-> --- a/mm/memremap.c
-> +++ b/mm/memremap.c
-> @@ -44,6 +44,7 @@ EXPORT_SYMBOL(devmap_managed_key);
->  static void devmap_managed_enable_put(struct dev_pagemap *pgmap)
->  {
->  	if (pgmap->type == MEMORY_DEVICE_PRIVATE ||
-> +	    pgmap->type == MEMORY_DEVICE_COHERENT ||
->  	    pgmap->type == MEMORY_DEVICE_FS_DAX)
->  		static_branch_dec(&devmap_managed_key);
->  }
-> @@ -51,6 +52,7 @@ static void devmap_managed_enable_put(struct dev_pagemap *pgmap)
->  static void devmap_managed_enable_get(struct dev_pagemap *pgmap)
->  {
->  	if (pgmap->type == MEMORY_DEVICE_PRIVATE ||
-> +	    pgmap->type == MEMORY_DEVICE_COHERENT ||
->  	    pgmap->type == MEMORY_DEVICE_FS_DAX)
->  		static_branch_inc(&devmap_managed_key);
->  }
-> @@ -328,6 +330,7 @@ void *memremap_pages(struct dev_pagemap *pgmap, int nid)
->  
->  	switch (pgmap->type) {
->  	case MEMORY_DEVICE_PRIVATE:
-> +	case MEMORY_DEVICE_COHERENT:
->  		if (!IS_ENABLED(CONFIG_DEVICE_PRIVATE)) {
 
-This will fail if device private support isn't enabled. Does device coherent
-need to depend on that?
+At this point it's unknown if RAS is applicable for the SKU. I think 
+this failure check shouldn't be there (here and below one).
 
->  			WARN(1, "Device private memory not supported\n");
->  			return ERR_PTR(-EINVAL);
+amdgpu_gmc_ras_early_init is return 0 always, that way also this check 
+is not needed.
 
-Also there is this check further down:
+Thanks,
+Lijo
 
-                if (!pgmap->ops || !pgmap->ops->migrate_to_ram) {
-
-Device coherent pages don't use the migrate_to_ram() callback, so this should
-check for migrate_to_ram == NULL in that case.
-
-                        WARN(1, "Missing migrate_to_ram method\n");
-                        return ERR_PTR(-EINVAL);
-                }
-
-
-> @@ -498,7 +501,7 @@ EXPORT_SYMBOL_GPL(get_dev_pagemap);
->  void free_devmap_managed_page(struct page *page)
->  {
->  	/* notify page idle for dax */
-> -	if (!is_device_private_page(page)) {
-> +	if (!is_device_page(page)) {
->  		wake_up_var(&page->_refcount);
->  		return;
->  	}
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index 1852d787e6ab..91018880dc7f 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -362,7 +362,7 @@ static int expected_page_refs(struct address_space *mapping, struct page *page)
->  	 * Device private pages have an extra refcount as they are
->  	 * ZONE_DEVICE pages.
->  	 */
-> -	expected_count += is_device_private_page(page);
-> +	expected_count += is_device_page(page);
->  	if (mapping)
->  		expected_count += thp_nr_pages(page) + page_has_private(page);
->  
-> @@ -2503,7 +2503,7 @@ static bool migrate_vma_check_page(struct page *page)
->  		 * FIXME proper solution is to rework migration_entry_wait() so
->  		 * it does not need to take a reference on page.
->  		 */
-> -		return is_device_private_page(page);
-> +		return is_device_page(page);
->  	}
->  	/* For file back page */
-> @@ -2791,7 +2791,7 @@ EXPORT_SYMBOL(migrate_vma_setup);
->   *     handle_pte_fault()
->   *       do_anonymous_page()
->   * to map in an anonymous zero page but the struct page will be a ZONE_DEVICE
-> - * private page.
-> + * private or coherent page.
->   */
->  static void migrate_vma_insert_page(struct migrate_vma *migrate,
->  				    unsigned long addr,
-> @@ -2867,10 +2867,15 @@ static void migrate_vma_insert_page(struct migrate_vma *migrate,
->  				swp_entry = make_readable_device_private_entry(
->  							page_to_pfn(page));
->  			entry = swp_entry_to_pte(swp_entry);
-> +		} else if (is_device_coherent_page(page)) {
-> +			entry = pte_mkold(mk_pte(page,
-> +						 READ_ONCE(vma->vm_page_prot)));
-> +			if (vma->vm_flags & VM_WRITE)
-> +				entry = pte_mkwrite(pte_mkdirty(entry));
-
-As I understand things device coherent pages use normal PTEs, so it would be
-good if you could consolidate this to use the same code path as for normal
-pages.
-
->  		} else {
->  			/*
-> -			 * For now we only support migrating to un-addressable
-> -			 * device memory.
-> +			 * We support migrating to private and coherent types
-> +			 * for device zone memory.
->  			 */
->  			pr_warn_once("Unsupported ZONE_DEVICE page type.\n");
->  			goto abort;
-> @@ -2976,10 +2981,10 @@ void migrate_vma_pages(struct migrate_vma *migrate)
->  		mapping = page_mapping(page);
->  
->  		if (is_zone_device_page(newpage)) {
-> -			if (is_device_private_page(newpage)) {
-> +			if (is_device_page(newpage)) {
->  				/*
-> -				 * For now only support private anonymous when
-> -				 * migrating to un-addressable device memory.
-> +				 * For now only support private and coherent
-> +				 * anonymous when migrating to device memory.
->  				 */
->  				if (mapping) {
->  					migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
+>   	return 0;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index c76ffd1a70cd..3cdd3d459d51 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1318,6 +1318,7 @@ static void gmc_v9_0_set_mca_funcs(struct amdgpu_device *adev)
+>   
+>   static int gmc_v9_0_early_init(void *handle)
+>   {
+> +	int r;
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+>   	/* ARCT and VEGA20 don't have XGMI defined in their IP discovery tables */
+> @@ -1347,6 +1348,10 @@ static int gmc_v9_0_early_init(void *handle)
+>   	adev->gmc.private_aperture_end =
+>   		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
+>   
+> +	r = amdgpu_gmc_ras_early_init(adev);
+> +	if (r)
+> +		return r;
+> +
+>   	return 0;
+>   }
+>   
 > 
-
-
-
-
