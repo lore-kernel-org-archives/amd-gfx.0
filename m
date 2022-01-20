@@ -4,71 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0712CC4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 15:48:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9773CC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 15:49:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04D9510E4E9;
-	Thu, 20 Jan 2022 15:48:55 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64B2910E4EB
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 15:48:54 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id c24so28177023edy.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 07:48:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to; bh=Bf+aPX+mUMycYg4Pnh8QdB/etAdn0UYI9odfp2ic0RU=;
- b=VuHmjh0SAY/OibGfI272b2yxxqa4fWVJoHrJXAIVhmI2uq7mgBCjhYultf0nE+HSv9
- XM59BOs42OGYgfIzLdRlVeX7FzHjat1ZIG3kRpD6fkWw/D3BFLhtWwkbrzlHfFp7+oF7
- jJozod36Z8nRN0FbLHkTEacY4JArvixbnLcdI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :content-transfer-encoding:in-reply-to;
- bh=Bf+aPX+mUMycYg4Pnh8QdB/etAdn0UYI9odfp2ic0RU=;
- b=0neGJHkf2h7kDbZhWgwbtgQhBEjmBG55JHY0io5X21cs2lmY82Bl0Yc9qWWr7FsUqC
- RQQB9DMpZ8hf+zUb8BmuDqzTL3NfSJ4EAJUYFIWEsWyAPbgPl383U3UreXjkihqpuVWo
- zeuZCWUiJgjcPwv7vcd8qTeaCNkhWCz23YFVH+E2pDRaCgH2unaBZaPj4InZfmJyg7QK
- iDXS/qjhd+NVQoI1RuKPKwrtWGHmUyQU5dci3tGj6nKpbKEzUyi366cDroL/jTk1ezIT
- FxmtbNtlAPaQKOHYg/sS7UA74mH2wer2TNE8MztFyKnecnNRfvQIF8frgp6geNirwI95
- RkqA==
-X-Gm-Message-State: AOAM5314FA46dis86wgLQW6bGoD+heZ7bmDJ7l85FhyOlF9+85/lZTJp
- t2hjYGSHY3Tt7GwaRvN5bxgGzA==
-X-Google-Smtp-Source: ABdhPJzhMjhzCED4OmXlcjcUzvJnwaTB8+5wMXtz4qIarfHZTG8xg7ac5tSmz+CD+nIsB34bqh7XKQ==
-X-Received: by 2002:a17:907:ea4:: with SMTP id
- ho36mr2995567ejc.140.1642693732656; 
- Thu, 20 Jan 2022 07:48:52 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id u17sm1144874ejb.31.2022.01.20.07.48.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Jan 2022 07:48:52 -0800 (PST)
-Date: Thu, 20 Jan 2022 16:48:50 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [Intel-gfx] [PATCH 0/7] DRM kmap() fixes and kmap_local_page()
- conversions
-Message-ID: <YemEYndwyP6BHwMx@phenom.ffwll.local>
-Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, 
- Ira Weiny <ira.weiny@intel.com>, David Airlie <airlied@linux.ie>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
-References: <20211210232404.4098157-1-ira.weiny@intel.com>
- <20220119165356.GD209936@iweiny-DESK2.sc.intel.com>
- <YehJRt+JngIsj+Gd@phenom.ffwll.local>
- <20220119235542.GF209936@iweiny-DESK2.sc.intel.com>
- <fb71af05-a889-8f6e-031b-426b58a64f00@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0938010E4F7;
+	Thu, 20 Jan 2022 15:49:10 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2055.outbound.protection.outlook.com [40.107.92.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 166D010E4EB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 15:49:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EhNttNhXKnbQov3C7cOkxQfSlZCTmgprbP8rLv1LRZkp3O3gMLHftkhbTMZSxzhD2j3TDvUuDCXr7tol+Y7tSinrgJBWX0YbM5bFbcmSVwRJEyHi/7lK7z9JMdXCYdXVg7uA+7qJQZ8a2B8s/6CXM6eyAe1DvHVa3Dgg0naWc1VTBugvgDJ82k+jIzYeLUD780zxfu3PeNNiSJwExg82fqgfNhXfO9/YukIAZlcHcgPv1HqkVVC7It2165jwjaCwEYKprZoHJGhym/JwVBSfBiuMkx7Pf1SKAZ5YRDUx/jvweh43WJM6BETyNGBx+1vpXhTVoqe6mpYlI+i+QZRtVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uwDkT7AEwneFnT5xZnGrCUgdqTdEjUyy6GWpTRfLGpE=;
+ b=OUlQ8TP36fGYLXtMR8L4yr9NWO/VjOW9kwBI/LRfNAQGttq855AZ7v8LID4CPDdCgNeAQtXbqNfq4uN1LBiNUPqFEW4QYA6WdSo906Q4M0iEvJGxEsqwmk/9AswZib6os+IDmmPvDL9dVZudvWlE0bMZ9GO2OkrmQi/s7nuJ2t4ykBGZtUbcOLNFiACXVKG8IsZXbiDoeBSLa8/58dus0DxFduqMuM3frGvgvoQfWHuaSzPrqaOXYbCzsE05ThgI653N1Vzcc8HefmkpqRmHJMkWBG3PzMmKxdJu7JmCcywvG16cn2XprM78yBa/vEsLTC7E5oqQyHWx43toBxlvug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uwDkT7AEwneFnT5xZnGrCUgdqTdEjUyy6GWpTRfLGpE=;
+ b=zaxH4Vv8fKEqOMwCmBGp/94QuPsjCtOd4aXeWGqvmJD0Z/dpklmulAqfCmWyb76h6HuCWMPYxxkEnpCSpyuRgUHYgoEfavK/zJE4wH6oDjGrFVr0rqmMlZQMlYHYG2IS2v1S5b559uY6IScZLjYO86BAHI3dCWf+Y0KW3jrod4M=
+Received: from MW2PR2101CA0008.namprd21.prod.outlook.com (2603:10b6:302:1::21)
+ by BY5PR12MB4819.namprd12.prod.outlook.com (2603:10b6:a03:1fd::25)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8; Thu, 20 Jan
+ 2022 15:49:05 +0000
+Received: from CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:302:1:cafe::fb) by MW2PR2101CA0008.outlook.office365.com
+ (2603:10b6:302:1::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.7 via Frontend
+ Transport; Thu, 20 Jan 2022 15:49:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT017.mail.protection.outlook.com (10.13.175.108) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4909.7 via Frontend Transport; Thu, 20 Jan 2022 15:49:04 +0000
+Received: from shaoyunl-dev1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 20 Jan
+ 2022 09:49:03 -0600
+From: shaoyunl <shaoyun.liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Disable FRU EEPROM access for SRIOV
+Date: Thu, 20 Jan 2022 10:48:51 -0500
+Message-ID: <20220120154851.22223-1-shaoyun.liu@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fb71af05-a889-8f6e-031b-426b58a64f00@amd.com>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c731fe0f-5201-43ff-6540-08d9dc2c62f0
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4819:EE_
+X-Microsoft-Antispam-PRVS: <BY5PR12MB4819DF20B1D421F085B38B61F45A9@BY5PR12MB4819.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2SgzDcWpfME1cshYzvjGR6HmG1nIld5ISIFkP3KQchFjdiXv/UAOzGfsO3pvwiLiZdSf4MKi1ZVxQSDwTcgyi+ASQ+rs52LhRrsT4eGdagBQVLNXqH8dZTzIVoEUuGJ8l6k39blXX/78c33Lo4MpQBrqwcoipJCXq+GQO+SqZOzFDYu86BNwEMlHU95r5JApmX131mHHIndVW4jryJQutnrTlIEoQL5L3Ylusj046MHOfjzLyfun35hWEv6vMhb4c353wMlszrD3+WiSpq4gTs6C2+tLOA4uCTgCz0Szjh8ZKIP3jr8pnMlTL/2tQNQps2f1E4WfFg0XgPfsIvIiPvRVpUQLqt68JEqKWxHXTGYUYckCno2K+mS0TGjpg6Cxqf+7ZSJap2cAU1btgMWLYFUEd+npnODrUk5ttHkW+I11UD1uvdN+CcbzDDCnErta1JYqn/j7Zh/Ddt4MTq6t7LMmdYSq+Ud7NA2QQjqZ798jjil+kMBp/K0wHXffBgBZqUPBCzrb8EmYL6FH3k5nyYVpyV6dc9sy+g0tmd9+AC2hNgbPiRcG1Cl2bNCF3tO3nzsrep6NamnR3EQ6b3va4O+JQT+L1S1OOBYiWvnGb9OKQLIAiw0JgTKRCHFa1wOItn1AcTnNf8aOA0tJA2g1/mYHtHbZ2mx9EURiLWCIuMIT3VzvJrkhhOGPsQq6CiIR3SDElNJuDc1qZCz6uijGwKjiwqfctgvimzIL/NfnGH5EPQXMVOefdXb0y7yuD4YyTt+PnuqDtV4E+Vo6F2Y9FuC5Glmprp8yxboSx6ApjnCaEMk9O8tGFcb3fOK931/SOrpgI+020bMQZKkJ+WDP0A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(36840700001)(40470700002)(7696005)(36860700001)(8676002)(83380400001)(86362001)(82310400004)(186003)(40460700001)(26005)(36756003)(6666004)(336012)(426003)(8936002)(2906002)(2616005)(47076005)(1076003)(316002)(70586007)(70206006)(4326008)(356005)(16526019)(5660300002)(81166007)(508600001)(4744005)(6916009)(43062005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 15:49:04.1542 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c731fe0f-5201-43ff-6540-08d9dc2c62f0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4819
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,106 +98,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Ira Weiny <ira.weiny@intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, linux-arm-msm@vger.kernel.org,
- Sean Paul <sean@poorly.run>, intel-gfx@lists.freedesktop.org
+Cc: shaoyunl <shaoyun.liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 20, 2022 at 09:16:35AM +0100, Christian König wrote:
-> Am 20.01.22 um 00:55 schrieb Ira Weiny:
-> > On Wed, Jan 19, 2022 at 06:24:22PM +0100, Daniel Vetter wrote:
-> > > On Wed, Jan 19, 2022 at 08:53:56AM -0800, Ira Weiny wrote:
-> > > > On Fri, Dec 10, 2021 at 03:23:57PM -0800, 'Ira Weiny' wrote:
-> > > > > From: Ira Weiny <ira.weiny@intel.com>
-> > > > > 
-> > > > > This series starts by converting the last easy kmap() uses to
-> > > > > kmap_local_page().
-> > > > > 
-> > > > > There is one more call to kmap() wrapped in ttm_bo_kmap_ttm().  Unfortunately,
-> > > > > ttm_bo_kmap_ttm() is called in a number of different ways including some which
-> > > > > are not thread local.  I have a patch to convert that call.  However, it is not
-> > > > > straight forward so it is not included in this series.
-> > > > > 
-> > > > > The final 2 patches fix bugs found while working on the ttm_bo_kmap_ttm()
-> > > > > conversion.
-> > > > Gentile ping on this series?  Will it make this merge window?
-> > > I think this fell through the cracks and so no. Note that generally we
-> > > feature-freeze drm tree around -rc6 anyway for the upcoming merge window,
-> > > so you were cutting this all a bit close anyway.
-> > Ok, No problem.  I just had not heard if this was picked up or not.
-> > 
-> > > Also looks like the ttm
-> > > kmap caching question didn't get resolved?
-> > I'm sorry I thought it was resolve for this series.  Christian said the patches
-> > in this series were "a good bug fix" even if not strictly necessary.[1]  Beyond
-> > this series I was discussing where to go from here, and is it possible to go
-> > further with more changes.[2]  At the moment I don't think I will.
-> > 
-> > Christian did I misunderstand?  I can drop patch 6 and 7 if they are not proper
-> > bug fixes or at least clarifications to the code.
-> 
-> Yeah, it is indeed a correct cleanup. I would just *not* put a CC stable on
-> it because it doesn't really fix anything.
+VF acces the EEPROM is blocked by security policy, we might need other way
+to get SKUs info for VF
 
-Ok can you pls get the amd/radeon ones stuffed into alex' tree? Or do we
-want to put all the ttm ones into drm-misc instead?
--Daniel
+Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-> 
-> Christian.
-> 
-> > 
-> > Ira
-> > 
-> > [1] https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Flkml%2Fc3b173ea-6509-ebbe-b5f9-eeb29f1ce57e%40amd.com%2F&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C5e0192210d4640adb88b08d9dba734b1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637782333459591089%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=4p7jCB6pB4nlcUtLWh6K2Sso9X%2BsRSK7mcD8UavzztQ%3D&amp;reserved=0
-> > [2] https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Flkml%2F20211215210949.GW3538886%40iweiny-DESK2.sc.intel.com%2F&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C5e0192210d4640adb88b08d9dba734b1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637782333459591089%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=6%2BGfSKshg8Xr%2FXJshiU28yHzbg2HcVisVJLDU6tVUT4%3D&amp;reserved=0
-> > 
-> > > Anyway if patches are stuck resend with RESEND and if people still don't
-> > > pick them up poke me and I'll apply as fallback.
-> > > 
-> > > Cheers, Daniel
-> > > 
-> > > > Thanks,
-> > > > Ira
-> > > > 
-> > > > > 
-> > > > > Ira Weiny (7):
-> > > > > drm/i915: Replace kmap() with kmap_local_page()
-> > > > > drm/amd: Replace kmap() with kmap_local_page()
-> > > > > drm/gma: Remove calls to kmap()
-> > > > > drm/radeon: Replace kmap() with kmap_local_page()
-> > > > > drm/msm: Alter comment to use kmap_local_page()
-> > > > > drm/amdgpu: Ensure kunmap is called on error
-> > > > > drm/radeon: Ensure kunmap is called on error
-> > > > > 
-> > > > > drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 ++++----
-> > > > > drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 1 +
-> > > > > drivers/gpu/drm/gma500/gma_display.c | 6 ++----
-> > > > > drivers/gpu/drm/gma500/mmu.c | 8 ++++----
-> > > > > drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 4 ++--
-> > > > > drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 8 ++++----
-> > > > > drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c | 4 ++--
-> > > > > drivers/gpu/drm/i915/gt/shmem_utils.c | 4 ++--
-> > > > > drivers/gpu/drm/i915/i915_gem.c | 8 ++++----
-> > > > > drivers/gpu/drm/i915/i915_gpu_error.c | 4 ++--
-> > > > > drivers/gpu/drm/msm/msm_gem_submit.c | 4 ++--
-> > > > > drivers/gpu/drm/radeon/radeon_ttm.c | 4 ++--
-> > > > > drivers/gpu/drm/radeon/radeon_uvd.c | 1 +
-> > > > > 13 files changed, 32 insertions(+), 32 deletions(-)
-> > > > > 
-> > > > > --
-> > > > > 2.31.1
-> > > > > 
-> > > -- 
-> > > Daniel Vetter
-> > > Software Engineer, Intel Corporation
-> > > https://nam11.safelinks.protection.outlook.com/?url=http%3A%2F%2Fblog.ffwll.ch%2F&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C5e0192210d4640adb88b08d9dba734b1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637782333459591089%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=NLqm91HCdllhW%2BrQ8aHMLXhYGkOJrYffpjsIJZWaFBc%3D&amp;reserved=0
-> 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+index 2a786e788627..0548e279cc9f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+@@ -40,6 +40,12 @@ static bool is_fru_eeprom_supported(struct amdgpu_device *adev)
+ 	 */
+ 	struct atom_context *atom_ctx = adev->mode_info.atom_context;
+ 
++	/* The i2c access is blocked on VF
++	 * TODO: Need other way to get the info
++	 */  
++	if (amdgpu_sriov_vf(adev)
++		return false;
++
+ 	/* VBIOS is of the format ###-DXXXYY-##. For SKU identification,
+ 	 * we can use just the "DXXX" portion. If there were more models, we
+ 	 * could convert the 3 characters to a hex integer and use a switch
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.17.1
+
