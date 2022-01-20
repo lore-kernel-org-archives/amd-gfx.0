@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39A5EC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 23:13:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97E1AC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 23:13:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E51010E81D;
-	Thu, 20 Jan 2022 23:13:43 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2075.outbound.protection.outlook.com [40.107.95.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D40610E7C7
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 23:13:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D90110E818;
+	Thu, 20 Jan 2022 23:13:45 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B968610E827
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 23:13:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D1McL8TL5v8PW4OUDqUWdZ86BKYRclL0cEvXxVnAlcSmnpVEIKRFroqjA99lMHgqfrlC7PWHblkamlzYufuCrZnFmssiJeME0nb6mevHzF9zDVCuDZEQiRKeeAmUOL+ZM3c4cz6XQi+JSgu56SvpfQ9CDMT6AOdnOjUj8x03UlMtjBTHXMMANztJ4xKjDQNjRh6hyY2U/GKnDmoCOpKH86ijtmbzL5ea3QQyo62fzJTvW/wZiEZ9yNO4gvbxAMp51d3fk0dMKPCE7bOpc8WHA9aDhWvdz1H81Iuu+vpv+MbyJPseJsFh/MWYJZrxM0uHDHttd/AnT/55HtErH/mnhg==
+ b=WoxyoR7G8+rpS8YLRwfFdoLuBOtujWGKrNNOfCSQva69FXTYVGc/mgo4CDJmOpscdfPZDOpVrMdMV3hvKxMAT77J15pvQ6ktMddwBjEdmvm8QL9SV1yFcCCPCmvVTOTjm68HTsLjlhORecDe0KoPzz3fVTwNG7fQInSrd1w19lsTsfrERLs7Zi5V9lrB/1pVqPDz50h6zfDKpT9jQJ/4hCqfxND/n41/ySL1hCHTrxLq7rNElQw+UOFMXmOHX1B7tpBQEKhA1z1VHY0YXOi9yPo/CYB1EyxknKQpn6agb1GyuYX5EBh8Y8tm8tv3O3HJnWtARMWH5lGTdYjoxriu1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UCPzMdzbKt14YqiDU58RxWp1SgOLkaNXVjUu8im2mOk=;
- b=f6oCNC6woTfRzFRfMNuUfNoshZsjYMKa62ncHFoTo6mSg3YDrDTxKpD0XIKGQcD3DHUGqqbkjvPb6YRXHAkw54KYlNmCy7eNq8c+b5alTxB4dE4+bzbhxuCBIuMxZnLblkGDMZGe+4QTgL19yYIVATCX82JoHwry+EUfGAFH+3ogoV6b3ynK3gWsfwuduKQBvoPjknGLX3FPcjjVP6b4q4ReUgDuyTp3iz0XBmdJlsj0x+UNE2PlNKC6mWToF3F44PUBDEusFZDlUafWMyN2zmlGCc5pdIqUTulR5b8z65gjB6QxWUjz5ziX4m2Ljd1Kk+cypcPgK5GDyzLI6fLUdQ==
+ bh=1nqllJmdm7ZaHo7n3fxKZfZVRYnJX4JBi586vxxr29M=;
+ b=VD7zyAJdavAm2dQrMty85888GXUOGvWnAxrZYpGnfmPwUDf9WVfMXeUFB8topvMcxq93+OiPd4npzL3Y+NUFC+gnypvbJoC+xltOs+6W0HLdY2M5jp6ckkWun3SIqVnyDkacRSzpBWG+9PqMIJA0s8+ftUVFZI/l16Lwtg0Je9xmThNNzH5WkEz9+TCt527U2L9eEMTspK0sFYuqjqKm/g1f8/7a8chokuJn4tI+IdmBgtJbXM80qcF4PsWpt4A+4aNufNJHEk93p/2O69wmM5NHkGHgxOs6pFJY28inN0bGt07QHnqRLDDvc9/lzfEJNNhkRcs5nzV763OgBG9jBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UCPzMdzbKt14YqiDU58RxWp1SgOLkaNXVjUu8im2mOk=;
- b=rhThd9PJxtbN16jOSGyozX+91eVA3ECzk73RhTj+dbV+e1eW5L+4slG04mj3iulsW5K0CZ4AJN9S/PtrI7tnLY45XRxSYaJNokQqvbgpf9CIJ+ol4PIg4Z9Vip8R/PAa1fNoNHCIO4yP7cbuXX0yeYYsOW1azWqeKIR67nXd4Nk=
-Received: from MWHPR19CA0087.namprd19.prod.outlook.com (2603:10b6:320:1f::25)
- by MN2PR12MB4655.namprd12.prod.outlook.com (2603:10b6:208:1b9::13)
+ bh=1nqllJmdm7ZaHo7n3fxKZfZVRYnJX4JBi586vxxr29M=;
+ b=e5O1Hwrxtn4lmzH5Y4ipX7mnCovZm1sf3H9bh/s2ZYypt2n586rjlyUVnBsjip2Y9VMRy6iiqrLLZKwPSHJABKfqMho4y1im+3A4jKEZV80nOA0WVEsVMYdQfy8/a9SGMvwf57e1GiTay3jyjgP2h1Pv3Qz/xsgt9wWX3AQEgak=
+Received: from MWHPR19CA0092.namprd19.prod.outlook.com (2603:10b6:320:1f::30)
+ by BL0PR12MB2339.namprd12.prod.outlook.com (2603:10b6:207:4e::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.12; Thu, 20 Jan
- 2022 23:13:38 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10; Thu, 20 Jan
+ 2022 23:13:42 +0000
 Received: from CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:320:1f:cafe::c0) by MWHPR19CA0087.outlook.office365.com
- (2603:10b6:320:1f::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.11 via Frontend
- Transport; Thu, 20 Jan 2022 23:13:37 +0000
+ (2603:10b6:320:1f:cafe::26) by MWHPR19CA0092.outlook.office365.com
+ (2603:10b6:320:1f::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8 via Frontend
+ Transport; Thu, 20 Jan 2022 23:13:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT055.mail.protection.outlook.com (10.13.175.129) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4909.7 via Frontend Transport; Thu, 20 Jan 2022 23:13:37 +0000
+ 15.20.4909.7 via Frontend Transport; Thu, 20 Jan 2022 23:13:41 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 20 Jan
- 2022 17:13:35 -0600
+ 2022 17:13:38 -0600
 From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 1/8] drm/amdkfd: Correct SMI event read size
-Date: Thu, 20 Jan 2022 18:13:15 -0500
-Message-ID: <20220120231322.10321-2-Philip.Yang@amd.com>
+Subject: [PATCH v2 8/8] drm/amdkfd: Bump KFD API version for SMI profiling
+ event
+Date: Thu, 20 Jan 2022 18:13:22 -0500
+Message-ID: <20220120231322.10321-9-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220120231322.10321-1-Philip.Yang@amd.com>
 References: <20220120231322.10321-1-Philip.Yang@amd.com>
@@ -67,28 +68,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 51ea3d59-c702-4d7c-95aa-08d9dc6a7d3d
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4655:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB465509E7B232EC46FAE9A2C9E65A9@MN2PR12MB4655.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
+X-MS-Office365-Filtering-Correlation-Id: 93787328-21af-4c46-ccff-08d9dc6a7fca
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2339:EE_
+X-Microsoft-Antispam-PRVS: <BL0PR12MB2339E1391CE904FBE6F17196E65A9@BL0PR12MB2339.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jXse4eAR9fXH67Tu/BtdBTwfXnX1Jt6KQjNnEXFy+If421RqMJKoADhjWtsZ4lDnu+zuZBnTwSxaQ4pr5hOLLSeOeVXPVMw9AvkoeGWHoy9B+etS/oUYSfr6v7L+tXb8knN98gqi5+yAQgRSDLTE3XnRcxxcnRhQ6Lw1f2WHpkui/isJNQ6j2isX1vxv0nQ0p3Qd4q+aeDM9UZ9PDiD+VR++WdVmC77CyXeUFtLopCUPgbAanCKlhNXrj5wEFJBP0lqTHKReOjFEqUVcbhm55mho+pcKKs8nPgu3GzZ9Dy5fR3IIX4Y3p+05Mk5uigBBIcf85PmtHBcqow4RqIoO3Kz5Wqk5/UN7c0HVUlIMz4T3EAJokTXCmZgjfS65eGNUF7aiUZlqhYMfRri9Q347vkwFWDlba8ze3WAOrd+7vbJ5C2mssDlRD0F9oVDpDLKzZZTlXahkImIY5IbTnn/7ejzVl9AOW6ShqdulXJLTU96JF2T0xYrGqgfcIcb1tmld11ba//xmYWV4YAc7aZJ1MJ+BDKF7awj7i2jq1iYLiFlNYvIyHHuVRGHtQwj9eMU53bQCgXXFp+TUL0lz3lF+Mtkmkqt/g6OiyhacE+fJHZsXuH/0G9JN9IxQN2gT5me9/iohudic2ETskYbtU+sreZnphTOl9PtV4wCOF6YHiEgcBCelVGtnsLI20e3x/tVVHO2VGLXcsN5+Fn2L+bFhHwuaXYhA3W/Mx+Y0Ji768JTZuGsu5bCzWM3uCwM91Dxiy3ltLfQKQG4uFZ4Wqisb92gJRCKrTWLOtS8F3jcseow=
+X-Microsoft-Antispam-Message-Info: bkEOkse5H4k9E7taIe82sbSLqGSG9P1+CND/m/aguLfonR9uLnkr2eLnYlytCEwzdO1glzOrqMOBwoCEDpNofLca22AMdd4f37QGvcB8m3uKqL99i36uuwT8tZFh4xjinXGD6GEFuUaTAqACxIzr0swQLxttD81smsMphwTJSCxfigxVABSS29qMYu89ZeyywUVS7eof6S5o/g7D5W/YjxfL232ulSRBAeRBQy6A2AS56JDEWBLQaE9Sf3eKh6L7Cv4uVqXCLYyJZE2CnVdXs65rpmwZAHF+uJSb9q39O5XTo4UsabSsYFooZfZ/w5QveT1w5PBjpcJnaMLV6jjOzIo3XsVuZ6XklafQbYvhH8Mm23ljf/pY6gSXRxgo2FUFC4wq9S9D6hIue/c7VQnb+LG8glbcGyQOZCdOH6Md2NGLMIiIPHiBCApUbPQtAWbbQ+9ZI8ne5OMvCgGpHQWiUHtEukRbATlJLckPPCtGcGisllr6xZmx5E/brmjzCFHgP3OQkYoYLE/D+8k+zRS+bdC7VnFlIdqYFNVzaeMbVDucTRycr7JO5iUC7oIs1bV7lRkteyKxchjWlGWacNaZdYrjfBCb6VFF3XU+h4jpUFInivo3SBz9ljgNPX/XmAanvN0vKJLmQHgnXayaaRlp19haTbLv/NRmc3rzu7oHIDtd70H8iLtXIRC+NZRTg6arUaOCoag/0MulyFXS7bp+cN1VTe1CaeAkqxIYVCXppkr4NmnZUnYidofMUn4z3S6q1s8qxNWwQHolyhapZtpGyH96+i02IjAxqyorFRCKhqg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(40470700002)(46966006)(36840700001)(26005)(54906003)(316002)(1076003)(2616005)(2906002)(5660300002)(336012)(83380400001)(186003)(36756003)(356005)(81166007)(16526019)(70206006)(82310400004)(7696005)(508600001)(36860700001)(8676002)(6666004)(8936002)(40460700001)(86362001)(47076005)(6916009)(4326008)(70586007)(426003)(36900700001);
+ SFS:(4636009)(46966006)(40470700002)(36840700001)(7696005)(6916009)(336012)(40460700001)(82310400004)(36860700001)(508600001)(81166007)(426003)(316002)(16526019)(186003)(8936002)(26005)(8676002)(47076005)(54906003)(2906002)(2616005)(86362001)(70586007)(4326008)(83380400001)(4744005)(6666004)(1076003)(36756003)(356005)(5660300002)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 23:13:37.3905 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51ea3d59-c702-4d7c-95aa-08d9dc6a7d3d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 23:13:41.6714 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93787328-21af-4c46-ccff-08d9dc6a7fca
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4655
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2339
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,38 +105,29 @@ Cc: Philip Yang <Philip.Yang@amd.com>, felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-sizeof(buf) is 8 bytes because it is defined as unsigned char *buf,
-each SMI event read only copy max 8 bytes to user buffer. Correct this
-by using the buf allocate size.
+Indicate SMI profiling events available,
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ include/uapi/linux/kfd_ioctl.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-index 329a4c89f1e6..18ed1b72f0f7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-@@ -81,7 +81,8 @@ static ssize_t kfd_smi_ev_read(struct file *filep, char __user *user,
- 	struct kfd_smi_client *client = filep->private_data;
- 	unsigned char *buf;
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index de0b5bb95db3..1236550d1375 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -32,9 +32,10 @@
+  * - 1.4 - Indicate new SRAM EDC bit in device properties
+  * - 1.5 - Add SVM API
+  * - 1.6 - Query clear flags in SVM get_attr API
++ * - 1.7 - Add SMI profiler event log
+  */
+ #define KFD_IOCTL_MAJOR_VERSION 1
+-#define KFD_IOCTL_MINOR_VERSION 6
++#define KFD_IOCTL_MINOR_VERSION 7
  
--	buf = kmalloc_array(MAX_KFIFO_SIZE, sizeof(*buf), GFP_KERNEL);
-+	size = min_t(size_t, size, MAX_KFIFO_SIZE);
-+	buf = kmalloc(size, GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
- 
-@@ -95,7 +96,7 @@ static ssize_t kfd_smi_ev_read(struct file *filep, char __user *user,
- 		ret = -EAGAIN;
- 		goto ret_err;
- 	}
--	to_copy = min3(size, sizeof(buf), to_copy);
-+	to_copy = min(size, to_copy);
- 	ret = kfifo_out(&client->fifo, buf, to_copy);
- 	spin_unlock(&client->lock);
- 	if (ret <= 0) {
+ struct kfd_ioctl_get_version_args {
+ 	__u32 major_version;	/* from KFD */
 -- 
 2.17.1
 
