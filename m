@@ -4,63 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A360C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 01:15:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB9ECC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jan 2022 01:36:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C4F210F335;
-	Thu, 20 Jan 2022 01:15:35 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.15.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8935310F334
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jan 2022 01:12:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
- s=dbaedf251592; t=1642641161;
- bh=2xNCynkRF5q3y2qiqhLoh83+Dtm3JY+1k6JzbutZbr8=;
- h=X-UI-Sender-Class:Subject:From:To:Cc:In-Reply-To:References:Date;
- b=i7uQFEAx+BCFDoQDxka7eC+3t7Kq+biyhFVQFAYo67MEOYq/ftrF59T4ti7LsusRY
- H4etc/1kZsAHbmVbdWQWbBk3HtzC8iD5ZVtjTtuI5XIIjz0idvj5oHimTgGYSEhHXR
- l4yMgMs289QGhOS7QiCtqqIMIfpKUYEb/tNuh0WI=
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.0.101] ([88.152.98.65]) by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1M6YNJ-1nCoqW2Ui9-006gpO; Thu, 20
- Jan 2022 02:12:41 +0100
-Message-ID: <9da08e91cf313da76d4c4d8e9221b929e9e5247d.camel@web.de>
-Subject: Re: amd-staging-drm-next breaks suspend
-From: Bert Karwatzki <spasswolf@web.de>
-To: Alex Deucher <alexdeucher@gmail.com>
-In-Reply-To: <CADnq5_Nv9aChRhSBk3snMZ2ueU0fAAfYa_a_tc5gAy49dRRR_w@mail.gmail.com>
-References: <2d7fe1c0ddde50a1836b49dff8a02decdfcbe00d.camel@web.de>
- <BL1PR12MB515792BB2C4609F91269E3AFE2599@BL1PR12MB5157.namprd12.prod.outlook.com>
- <904d0552-20b0-2e11-c061-4d9d20bca374@amd.com>
- <75d1eefa7cf24d1751532b19841625be010cc015.camel@web.de>
- <314494939bcf185110d6a468637b08891138fba5.camel@web.de>
- <CADnq5_Nv9aChRhSBk3snMZ2ueU0fAAfYa_a_tc5gAy49dRRR_w@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 20 Jan 2022 02:11:30 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E61210F473;
+	Thu, 20 Jan 2022 01:36:25 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DA6C10F474;
+ Thu, 20 Jan 2022 01:36:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YRy/DF+66VL50N/fux268pcUsq9qS/AmrB/I8tv+hlzGZxHmI9p0pzLvb95rqz2KoBJKJbrWyrQ2bQUlLYbYLnmwE417gbRyZb8uzyhSBdMp8oEAOtRLO6Tm2dQ9JPTh/pB/U+/1gSLqEcmG4GaBYJP95LH+sT133Fw1JL2rcMrmKB65Ls7AKa9fpMqo8Z20Y4VQnYyAATwi3bCXcu+L1katScSJkaGF5gsmPAW2MhbyrgwZYuCdVjcxf0j5b+jB1MTA7T5eFql7jsxV+fCTRXqE7wmrE2sYhBBMn9FuqJpAXpmdZFzu9vYyM+PqME97VrHAjyUHQB8EvDQ8M1uDvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k1bxomhd62mlYUTmZ5r2rPVit89rgn7IaZCAL+CWJAQ=;
+ b=G22S6k2NdZSbF1BbG4+zJH+0VXerka6nLObFlh8gxgXDZCAx6u7j7SL+hcU19vxeS7bQ7Yp2nHlgvMfl2ZVe5LxAHgVbrun+y07+8tdyxiKWfL3udCNo94mheDMoC9qHyLbiFcxO3wh9U84VrRPlxiyOs4ZMb6jMQNhna7yhVTsDL+JT7lv89RFBIRTYzjpzudjwWtO2EbKCnlMvvMXEtdWP8TLvCRv/tGX684ZJ3/apKYvWNoP5z/LgFMCBpBd736tKHzMFl5zCfahlj5eebPdkbTXr1PqOci89337gQsB1WCM8EtDUNNrZZEq9my8C5KR7Qr0CVi/FgU2etmksKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k1bxomhd62mlYUTmZ5r2rPVit89rgn7IaZCAL+CWJAQ=;
+ b=XpbLPwPkq4K49v8BLMfjKH0DyeYvAwHKlKe/rU1ww5Q/bNhoEhu9DxksFknOZCyR7aUp5T1ZDj0qThwdYexuOOGeONCZ0e+OpvLLmh/7jXG9CBeMolfOFyS5fuiGFnWKt3WqkkGaIe6NWrZ4XymE4KqH50wrLshg49B8dxDx7n4=
+Received: from BN9PR03CA0583.namprd03.prod.outlook.com (2603:10b6:408:10d::18)
+ by BN9PR12MB5099.namprd12.prod.outlook.com (2603:10b6:408:118::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Thu, 20 Jan
+ 2022 01:36:18 +0000
+Received: from BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10d:cafe::a8) by BN9PR03CA0583.outlook.office365.com
+ (2603:10b6:408:10d::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8 via Frontend
+ Transport; Thu, 20 Jan 2022 01:36:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT044.mail.protection.outlook.com (10.13.177.219) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4909.7 via Frontend Transport; Thu, 20 Jan 2022 01:36:18 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 19 Jan
+ 2022 19:36:17 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu, radeon drm-fixes-5.17
+Date: Wed, 19 Jan 2022 20:35:47 -0500
+Message-ID: <20220120013547.5649-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Evolution 3.42.3-1 
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:AjcIQyFqaB1189gaVpCMert+tBYw8BTEUsyfu/4dPDrjte84AxI
- Fv17Zj/LzHljCfEScYjYpYeSdUkc6KgDrPGNeuhbnZ0KvB4Hxa53K6CVWYZ2DWkvcavj5tK
- 5qeIwWF3nHACzVrtJlvDXrOZ3LhUy1xRg7p4wWQMkbQwPseGYJixW3jyKQzak9FnKbzyGxZ
- z7mEOYIzTYZL4uJ2LhywQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:9QJqCMXfWSo=:4dAbb3PXLaeuUNxKjmNXM/
- 00qQsKCi9iyVQTrQ+ofNMuKLYBShuNNqw8oV46l43lbqiF5GzDFyKngmF2kUwuQXuHU35JYiX
- CwKhdFSDr2/Dj6ho/oE2nWtQWL3mdxopTwQuGTuCNDdiWHl63Jm5AfYaZElTYM7Y4U5iN939J
- enT3oa/2RRflzMhoZh9qVZ3Vd/47n/eMz5IX3QrqQADe8VEUtA91QlAMyxVTO8tL4IKu7Fgwn
- b0kKmloKgnw/3zIKnquOxXHc/1aBSM/7pBHDiqABIN78V5YkTBDvDp+XcCzoIAWgim/C0u0Jo
- E8aPOmuXbyOxP4y3IL8/HQcTWj1WPSwDa88Ee7ZlnyKO6y+jNCEJu12Lscd9aqXMeqglhN3Rv
- 94RFs6rLtAHgoxAxXuWsS2PCIPVUIBqKODk1SRFU4mU4646WeeOZCacAaLC0ZBoAwhqYpzO+/
- zvdsU7v1QsPL6aTFSp76j2WxwcrxkexuCzpEaVBc5Bu9cdJv3rQ+IKyG4xVDhXIlcf3a2IKZj
- GS2gVb47Hue2wokxRtPMp2/mIEOpJ9zFPYKodNDCRd4ktjVHwfIvvXztytRZgVSxmifElCLDP
- VuNrosRRBLlfyVNCwXEDdpVpfEnF3bSrR+TsachDb0Jud3oGY0zJ41gP4q8tAvqbtBKH3Y9/J
- xTSm3HiAU6pZMmjF82rTLeMvD0dtPF6L3krXWAxNek1HQdyGj1t9NnksxzlVp66Noq937rHtb
- Kbuc49v1B/LnQhBA9kfTsgrwIUgMC8Q4uVbWVqNPxz+FjB+jCO1GFKSGPh+NP8MUtOHTqLX7y
- Yu3SYn8dW7alo0FUSgZnSoxGWESBANVl5hcW3LO1cLaYn9cWh/zNsfAU5YBKC+ltK/DoNSBGT
- p4/DvZd269l5XoGZEcSt8Duw7YwuGIUKFMM8BTGwF6j5q9sHu5OEIn8P5CfaYgVNcH2MFlH+1
- M+WSFwH2d+MIL0KYS2yeP6a6hRNtQ96WXP4od/ZLZzCkN68yRskeH+7TBrE4DlqpHLDOUqtUW
- 8my0+eyih2NgOKB57p7UnQVsgG/+yzvt3vkPuE0GHlr/5XEmNX/SJulibtX725h1dJ92M4lVB
- S0hYWUFcWvVZUU=
-X-Mailman-Approved-At: Thu, 20 Jan 2022 01:15:34 +0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f0579b12-5b11-4785-da58-08d9dbb5419c
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5099:EE_
+X-Microsoft-Antispam-PRVS: <BN9PR12MB5099EFD22AE75912587E4769F75A9@BN9PR12MB5099.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1775;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zgeLCDx9gQYlt5RcBh/DQ4bHv2R78bap2S5FwtYv0afPmkZhcAbXE3DuQm7sV3CKxm4J9wGpH61jLn9sr6ES781vCViIE9rSTe2/yLEby1M4JL/DH+61H0BiouYKzmkqdFljqmqdPJ2/HanFiXtYeEvnlWMk1+171yZmmrRyBxCRWjGOeY8MobMjbzknu5nYih8NiT7An/er26dQCTaf6KK/Rc9lU0WvqritBe+qUjaa4A/2/fng9ZqwJsEm8xOLmiVuiHL7IBlLdaug9wNkLtHr6BIJXMgaYWOwCILeGnLL6BmYAKt9HtiLNWuV/uGBNjuH1Q+76dS/ZwVDPyJT7TUVF0gahtK7CJMQeUdCBoVEVWA7O/5x/wFucid/KluIF5vkBMYI/NuyNC2v317tRWweIDR+upZjOTKsU1sVe1QhWp726gVQe+JdirvlSOBg7Or6D+dRsShckNKhQg4WIUEjL+nTVvYvfNV5HSpnFvBk1+6jydt+oXidyO0pPZefY7DoVhef+eL8IEv2TzKJjLSSTjY3h4WMnwOJvsMu23sVjS2f07OQLxnrNzYZwCvF0PL0MXFdGoacmgDeGphbWE8Oi1oGkdinV1bvdSb5AAtEIkbtCzlWAo4wIE90OSDOLT6LRRnmGexnyoqTjQaeGZjbg/gIb5gnciQd2F/5Tx5aGgH9A/H/fkk250R5YOmIJJo2MPepToMIjPxEUtZeQvc5ceZQNbTl8RXkoBQwoUvtQNRGXrmAjpnRXpO7n8Znrnblr9yBr5qmU8qwdas/gIN08WATkSHcobD9cToDeZg=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(40470700002)(36840700001)(2616005)(186003)(66574015)(83380400001)(8936002)(70206006)(110136005)(36756003)(82310400004)(316002)(1076003)(70586007)(26005)(5660300002)(86362001)(8676002)(6666004)(36860700001)(7696005)(4326008)(508600001)(47076005)(40460700001)(81166007)(966005)(426003)(2906002)(16526019)(356005)(336012)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 01:36:18.5529 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0579b12-5b11-4785-da58-08d9dbb5419c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5099
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,493 +100,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Hixon <linux-kernel-bugs@hixontech.com>, "Zhuo,
- Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Das,
- Nirmoy" <nirmoy.das@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Scott Bruce <smbruce@gmail.com>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Unfortunately this does not work either:
+Hi Dave, Daniel,
 
-[    0.859998] ------------[ cut here ]------------
-[    0.859998] trying to bind memory to uninitialized GART !
-[    0.860003] WARNING: CPU: 13 PID: 235 at
-drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c:254 amdgpu_gart_bind+0x29/0x40
-[amdgpu]
-[    0.860099] Modules linked in: amdgpu(+) drm_ttm_helper ttm
-gpu_sched i2c_algo_bit drm_kms_helper syscopyarea hid_sensor_hub
-sysfillrect mfd_core sysimgblt hid_generic fb_sys_fops cec xhci_pci
-xhci_hcd nvme drm r8169 nvme_core psmouse crc32c_intel realtek amd_sfh
-usbcore i2c_hid_acpi mdio_devres t10_pi crc_t10dif i2c_hid i2c_piix4
-crct10dif_generic libphy crct10dif_common hid backlight
-i2c_designware_platform i2c_designware_core
-[    0.860113] CPU: 13 PID: 235 Comm: systemd-udevd Not tainted 5.13.0+
-#15
-[    0.860115] Hardware name: Micro-Star International Co., Ltd. Alpha
-15 B5EEK/MS-158L, BIOS E158LAMS.107 11/10/2021
-[    0.860116] RIP: 0010:amdgpu_gart_bind+0x29/0x40 [amdgpu]
-[    0.860210] Code: 00 80 bf 34 25 00 00 00 74 14 4c 8b 8f 20 25 00 00
-4d 85 c9 74 05 e9 16 ff ff ff 31 c0 c3 48 c7 c7 08 06 7d c0 e8 8e cc 31
-e2 <0f> 0b b8 ea ff ff ff c3 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40
-[    0.860212] RSP: 0018:ffffbb9e80b6f968 EFLAGS: 00010286
-[    0.860213] RAX: 0000000000000000 RBX: 0000000000000067 RCX:
-ffffffffa3080968
-[    0.860214] RDX: 0000000000000000 RSI: 00000000ffffefff RDI:
-ffffffffa3028960
-[    0.860215] RBP: ffff947c91e49a80 R08: 0000000000000000 R09:
-ffffbb9e80b6f798
-[    0.860215] R10: ffffbb9e80b6f790 R11: ffffffffa30989a8 R12:
-0000000000000000
-[    0.860216] R13: ffff947c8a740000 R14: ffff947c8a740000 R15:
-0000000000000000
-[    0.860216] FS:  00007f60a3c918c0(0000) GS:ffff947f5e940000(0000)
-knlGS:0000000000000000
-[    0.860217] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    0.860218] CR2: 00007f60a4213480 CR3: 0000000135ee2000 CR4:
-0000000000550ee0
-[    0.860218] PKRU: 55555554
-[    0.860219] Call Trace:
-[    0.860221]  amdgpu_ttm_gart_bind+0x74/0xc0 [amdgpu]
-[    0.860305]  amdgpu_ttm_alloc_gart+0x13e/0x190 [amdgpu]
-[    0.860385]  amdgpu_bo_create_reserved.part.0+0xf3/0x1b0 [amdgpu]
-[    0.860465]  ? amdgpu_ttm_debugfs_init+0x110/0x110 [amdgpu]
-[    0.860554]  amdgpu_bo_create_kernel+0x36/0xa0 [amdgpu]
-[    0.860641]  amdgpu_ttm_init.cold+0x167/0x181 [amdgpu]
-[    0.860784]  gmc_v10_0_sw_init+0x2d7/0x430 [amdgpu]
-[    0.860889]  amdgpu_device_init.cold+0x147f/0x1ad7 [amdgpu]
-[    0.861007]  ? acpi_ns_get_node+0x4a/0x55
-[    0.861011]  ? acpi_get_handle+0x89/0xb2
-[    0.861012]  amdgpu_driver_load_kms+0x55/0x290 [amdgpu]
-[    0.861098]  amdgpu_pci_probe+0x181/0x250 [amdgpu]
-[    0.861188]  pci_device_probe+0xcd/0x140
-[    0.861191]  really_probe+0xed/0x460
-[    0.861193]  driver_probe_device+0xe3/0x150
-[    0.861195]  device_driver_attach+0x9c/0xb0
-[    0.861196]  __driver_attach+0x8a/0x150
-[    0.861197]  ? device_driver_attach+0xb0/0xb0
-[    0.861198]  ? device_driver_attach+0xb0/0xb0
-[    0.861198]  bus_for_each_dev+0x73/0xb0
-[    0.861200]  bus_add_driver+0x121/0x1e0
-[    0.861201]  driver_register+0x8a/0xe0
-[    0.861202]  ? 0xffffffffc1117000
-[    0.861203]  do_one_initcall+0x47/0x180
-[    0.861205]  ? do_init_module+0x19/0x230
-[    0.861208]  ? kmem_cache_alloc+0x182/0x260
-[    0.861210]  do_init_module+0x51/0x230
-[    0.861211]  __do_sys_finit_module+0xb1/0x110
-[    0.861213]  do_syscall_64+0x40/0xb0
-[    0.861216]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-[    0.861218] RIP: 0033:0x7f60a4149679
-[    0.861220] Code: 48 8d 3d 9a a1 0c 00 0f 05 eb a5 66 0f 1f 44 00 00
-48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f
-05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d c7 57 0c 00 f7 d8 64 89 01 48
-[    0.861221] RSP: 002b:00007ffe25f17ea8 EFLAGS: 00000246 ORIG_RAX:
-0000000000000139
-[    0.861223] RAX: ffffffffffffffda RBX: 000056004a10a660 RCX:
-00007f60a4149679
-[    0.861224] RDX: 0000000000000000 RSI: 00007f60a42e9eed RDI:
-0000000000000016
-[    0.861224] RBP: 0000000000020000 R08: 0000000000000000 R09:
-000056004a105980
-[    0.861225] R10: 0000000000000016 R11: 0000000000000246 R12:
-00007f60a42e9eed
-[    0.861225] R13: 0000000000000000 R14: 000056004a0efdd0 R15:
-000056004a10a660
-[    0.861226] ---[ end trace 0319f26df48f8ef0 ]---
-[    0.861228] [drm:amdgpu_ttm_gart_bind [amdgpu]] *ERROR* failed to
-bind 1 pages at 0x00400000
-[    0.861540] amdgpu 0000:03:00.0: amdgpu: 00000000a9dfe17c bind
-failed
+Fixes for 5.17.  This does not yet include the proper fix for the patch
+Linux reverted when he pulled in the original drm merge windows PR.  I
+was waiting for rc1.  At that point do you plan to merge rc1 into drm-fixes?
+If so, I can just drop the fix on top.
 
+The following changes since commit 4efdddbce7c1329f00c458e85dcaf105aebdc0ed:
 
-Am Mittwoch, dem 19.01.2022 um 19:54 -0500 schrieb Alex Deucher:
-> On Wed, Jan 19, 2022 at 7:48 PM Bert Karwatzki <spasswolf@web.de>
-> wrote:
-> >
-> > Bisected the error and found the first bad commit to be
-> > d015e9861e55928a78137a2c95897bc50637fc47 is the first bad commit
-> > commit d015e9861e55928a78137a2c95897bc50637fc47
-> > Author: Jonathan Kim <jonathan.kim@amd.com>
-> > Date:=C2=A0=C2=A0 Thu Dec 9 16:48:56 2021 -0500
-> >
-> > =C2=A0=C2=A0=C2=A0 drm/amdgpu: improve debug VRAM access performance u=
-sing sdma
-> >
-> > =C2=A0=C2=A0=C2=A0 For better performance during VRAM access for debug=
-ged
-> > processes,
-> > do
-> > =C2=A0=C2=A0=C2=A0 read/write copies over SDMA.
-> >
-> > =C2=A0=C2=A0=C2=A0 In order to fulfill post mortem debugging on a brok=
-en device,
-> > fallback to
-> > =C2=A0=C2=A0=C2=A0 stable MMIO access when gpu recovery is disabled or=
- when job
-> > submission
-> > =C2=A0=C2=A0=C2=A0 time outs are set to max.=C2=A0 Failed SDMA access =
-should
-> > automatically
-> > fall
-> > =C2=A0=C2=A0=C2=A0 back to MMIO access.
-> >
-> > =C2=A0=C2=A0=C2=A0 Use a pre-allocated GTT bounce buffer pre-mapped in=
-to GART to
-> > avoid
-> > =C2=A0=C2=A0=C2=A0 page-table updates and TLB flushes on access.
-> >
-> > =C2=A0=C2=A0=C2=A0 Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
-> > =C2=A0=C2=A0=C2=A0 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com=
->
-> >
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 78
-> > +++++++++++++++++++++++++++++++++
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |=C2=A0 4 ++
-> > =C2=A02 files changed, 82 insertions(+)
->
-> Should be fixed with:
-> https://patchwork.freedesktop.org/patch/470069/
->
-> Alex
->
-> >
-> >
-> > Am Donnerstag, dem 20.01.2022 um 00:22 +0100 schrieb Bert
-> > Karwatzki:
-> > > Reverting commit 72f686438de13f121c52f58d7445570a33dfdc61 does
-> > > not
-> > > change the errors:
-> > > [=C2=A0=C2=A0=C2=A0 1.310550] ------------[ cut here ]------------
-> > > [=C2=A0=C2=A0=C2=A0 1.310551] trying to bind memory to uninitialized=
- GART !
-> > > [=C2=A0=C2=A0=C2=A0 1.310556] WARNING: CPU: 9 PID: 252 at
-> > > drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c:254
-> > > amdgpu_gart_bind+0x2e/0x40
-> > > [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.310659] Modules linked in: amdgpu(+) gpu_sched
-> > > i2c_algo_bit
-> > > drm_ttm_helper hid_sensor_hub ttm hid_generic nvme drm_kms_helper
-> > > nvme_core cec xhci_pci t10_pi r8169 rc_core crc32_pclmul
-> > > crc_t10dif
-> > > i2c_hid_acpi realtek xhci_hcd psmouse crc32c_intel
-> > > crct10dif_generic
-> > > i2c_hid amd_sfh mdio_devres crct10dif_pclmul drm i2c_piix4
-> > > usbcore
-> > > libphy crct10dif_common wmi button battery video fjes(-) hid
-> > > [=C2=A0=C2=A0=C2=A0 1.310672] CPU: 9 PID: 252 Comm: systemd-udevd No=
-t tainted
-> > > 5.13.0+
-> > > #4
-> > > [=C2=A0=C2=A0=C2=A0 1.310673] Hardware name: Micro-Star Internationa=
-l Co., Ltd.
-> > > Alpha
-> > > 15 B5EEK/MS-158L, BIOS E158LAMS.107 11/10/2021
-> > > [=C2=A0=C2=A0=C2=A0 1.310674] RIP: 0010:amdgpu_gart_bind+0x2e/0x40 [=
-amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.310762] Code: 00 80 bf 34 25 00 00 00 74 14 4c=
- 8b 8f 20 25
-> > > 00
-> > > 00
-> > > 4d 85 c9 74 05 e9 01 ff ff ff 31 c0 c3 48 c7 c7 68 36 dd c0 e8 86
-> > > db
-> > > 19
-> > > e8 <0f> 0b b8 ea ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f
-> > > 44
-> > > 00
-> > > [=C2=A0=C2=A0=C2=A0 1.310763] RSP: 0018:ffffb19d00c33920 EFLAGS: 000=
-10282
-> > > [=C2=A0=C2=A0=C2=A0 1.310764] RAX: 0000000000000000 RBX: 00000000000=
-00067 RCX:
-> > > ffffffffa9abb208
-> > > [=C2=A0=C2=A0=C2=A0 1.310765] RDX: 0000000000000000 RSI: 00000000fff=
-fefff RDI:
-> > > ffffffffa9a63200
-> > > [=C2=A0=C2=A0=C2=A0 1.310766] RBP: ffff985ce2a796c0 R08: 00000000000=
-00000 R09:
-> > > ffffb19d00c33748
-> > > [=C2=A0=C2=A0=C2=A0 1.310766] R10: ffffb19d00c33740 R11: ffffffffa9a=
-d3248 R12:
-> > > 0000000000000000
-> > > [=C2=A0=C2=A0=C2=A0 1.310766] R13: ffff985cd45a0000 R14: ffff985cd45=
-a0000 R15:
-> > > 0000000000000000
-> > > [=C2=A0=C2=A0=C2=A0 1.310767] FS:=C2=A0 00007f69fabdc8c0(0000)
-> > > GS:ffff985f9e640000(0000)
-> > > knlGS:0000000000000000
-> > > [=C2=A0=C2=A0=C2=A0 1.310768] CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: =
-0000000080050033
-> > > [=C2=A0=C2=A0=C2=A0 1.310768] CR2: 00007f69fabc5dca CR3: 00000001139=
-ec000 CR4:
-> > > 0000000000750ee0
-> > > [=C2=A0=C2=A0=C2=A0 1.310769] PKRU: 55555554
-> > > [=C2=A0=C2=A0=C2=A0 1.310770] Call Trace:
-> > > [=C2=A0=C2=A0=C2=A0 1.310772]=C2=A0 amdgpu_ttm_gart_bind+0x79/0xc0 [=
-amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.310858]=C2=A0 amdgpu_ttm_alloc_gart+0x146/0x1a=
-0 [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.310942]=C2=A0 amdgpu_bo_create_reserved.part.0=
-+0xf8/0x1b0
-> > > [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311025]=C2=A0 ? amdgpu_ttm_debugfs_init+0x110/=
-0x110 [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311145]=C2=A0 amdgpu_bo_create_kernel+0x3b/0xa=
-0 [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311229]=C2=A0 amdgpu_ttm_init.cold+0x165/0x17f=
- [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311349]=C2=A0 gmc_v10_0_sw_init+0x2dc/0x430 [a=
-mdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311455]=C2=A0 amdgpu_device_init.cold+0x1544/0=
-x1b54 [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311570]=C2=A0 ? acpi_ns_get_node+0x4f/0x5a
-> > > [=C2=A0=C2=A0=C2=A0 1.311574]=C2=A0 ? acpi_get_handle+0x8e/0xb7
-> > > [=C2=A0=C2=A0=C2=A0 1.311576]=C2=A0 amdgpu_driver_load_kms+0x67/0x32=
-0 [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311664]=C2=A0 amdgpu_pci_probe+0x1bc/0x290 [am=
-dgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311750]=C2=A0 local_pci_probe+0x42/0x80
-> > > [=C2=A0=C2=A0=C2=A0 1.311753]=C2=A0 ? __cond_resched+0x16/0x40
-> > > [=C2=A0=C2=A0=C2=A0 1.311755]=C2=A0 pci_device_probe+0xfd/0x1b0
-> > > [=C2=A0=C2=A0=C2=A0 1.311756]=C2=A0 really_probe+0xf2/0x460
-> > > [=C2=A0=C2=A0=C2=A0 1.311759]=C2=A0 driver_probe_device+0xe8/0x160
-> > > [=C2=A0=C2=A0=C2=A0 1.311760]=C2=A0 device_driver_attach+0xa1/0xb0
-> > > [=C2=A0=C2=A0=C2=A0 1.311761]=C2=A0 __driver_attach+0x8f/0x150
-> > > [=C2=A0=C2=A0=C2=A0 1.311763]=C2=A0 ? device_driver_attach+0xb0/0xb0
-> > > [=C2=A0=C2=A0=C2=A0 1.311764]=C2=A0 ? device_driver_attach+0xb0/0xb0
-> > > [=C2=A0=C2=A0=C2=A0 1.311765]=C2=A0 bus_for_each_dev+0x78/0xc0
-> > > [=C2=A0=C2=A0=C2=A0 1.311766]=C2=A0 bus_add_driver+0x12b/0x1e0
-> > > [=C2=A0=C2=A0=C2=A0 1.311768]=C2=A0 driver_register+0x8f/0xe0
-> > > [=C2=A0=C2=A0=C2=A0 1.311769]=C2=A0 ? 0xffffffffc1828000
-> > > [=C2=A0=C2=A0=C2=A0 1.311770]=C2=A0 do_one_initcall+0x44/0x1d0
-> > > [=C2=A0=C2=A0=C2=A0 1.311772]=C2=A0 ? kmem_cache_alloc_trace+0x103/0=
-x240
-> > > [=C2=A0=C2=A0=C2=A0 1.311775]=C2=A0 do_init_module+0x5c/0x270
-> > > [=C2=A0=C2=A0=C2=A0 1.311777]=C2=A0 __do_sys_finit_module+0xb1/0x110
-> > > [=C2=A0=C2=A0=C2=A0 1.311779]=C2=A0 do_syscall_64+0x40/0xb0
-> > > [=C2=A0=C2=A0=C2=A0 1.311781]=C2=A0 entry_SYSCALL_64_after_hwframe+0=
-x44/0xae
-> > > [=C2=A0=C2=A0=C2=A0 1.311783] RIP: 0033:0x7f69fb094679
-> > > [=C2=A0=C2=A0=C2=A0 1.311785] Code: 48 8d 3d 9a a1 0c 00 0f 05 eb a5=
- 66 0f 1f 44
-> > > 00
-> > > 00
-> > > 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24
-> > > 08
-> > > 0f
-> > > 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d c7 57 0c 00 f7 d8 64 89
-> > > 01
-> > > 48
-> > > [=C2=A0=C2=A0=C2=A0 1.311786] RSP: 002b:00007ffce4131708 EFLAGS: 000=
-00246
-> > > ORIG_RAX:
-> > > 0000000000000139
-> > > [=C2=A0=C2=A0=C2=A0 1.311788] RAX: ffffffffffffffda RBX: 000055d7135=
-0a3a0 RCX:
-> > > 00007f69fb094679
-> > > [=C2=A0=C2=A0=C2=A0 1.311788] RDX: 0000000000000000 RSI: 00007f69fb2=
-34eed RDI:
-> > > 0000000000000013
-> > > [=C2=A0=C2=A0=C2=A0 1.311789] RBP: 0000000000020000 R08: 00000000000=
-00000 R09:
-> > > 000055d7134f3930
-> > > [=C2=A0=C2=A0=C2=A0 1.311789] R10: 0000000000000013 R11: 00000000000=
-00246 R12:
-> > > 00007f69fb234eed
-> > > [=C2=A0=C2=A0=C2=A0 1.311790] R13: 0000000000000000 R14: 000055d7134=
-da0f0 R15:
-> > > 000055d71350a3a0
-> > > [=C2=A0=C2=A0=C2=A0 1.311791] ---[ end trace ff47998e3140e95d ]---
-> > > [=C2=A0=C2=A0=C2=A0 1.311793] [drm:amdgpu_ttm_gart_bind [amdgpu]] *E=
-RROR* failed
-> > > to
-> > > bind 1 pages at 0x00400000
-> > > [=C2=A0=C2=A0=C2=A0 1.312100] amdgpu 0000:03:00.0: amdgpu: 000000009=
-89bdfac bind
-> > > failed
-> > >
-> > > and using https://patchwork.freedesktop.org/patch/469907/
-> > > gives a this message:
-> > >
-> > > [=C2=A0=C2=A0=C2=A0 1.311502] ------------[ cut here ]------------
-> > > [=C2=A0=C2=A0=C2=A0 1.311502] WARNING: CPU: 9 PID: 221 at
-> > > drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c:244
-> > > amdgpu_gart_bind+0x16/0x20
-> > > [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311602] Modules linked in: amdgpu(+) gpu_sched
-> > > i2c_algo_bit
-> > > drm_ttm_helper hid_sensor_hub ttm hid_generic nvme xhci_pci
-> > > drm_kms_helper nvme_core t10_pi xhci_hcd crc_t10dif r8169 cec
-> > > crct10dif_generic i2c_hid_acpi amd_sfh rc_core crct10dif_pclmul
-> > > realtek
-> > > i2c_hid crc32_pclmul mdio_devres psmouse usbcore crc32c_intel drm
-> > > libphy i2c_piix4 crct10dif_common button wmi battery video fjes(-
-> > > )
-> > > hid
-> > > [=C2=A0=C2=A0=C2=A0 1.311614] CPU: 9 PID: 221 Comm: systemd-udevd No=
-t tainted
-> > > 5.13.0+
-> > > #6
-> > > [=C2=A0=C2=A0=C2=A0 1.311616] Hardware name: Micro-Star Internationa=
-l Co., Ltd.
-> > > Alpha
-> > > 15 B5EEK/MS-158L, BIOS E158LAMS.107 11/10/2021
-> > > [=C2=A0=C2=A0=C2=A0 1.311617] RIP: 0010:amdgpu_gart_bind+0x16/0x20 [=
-amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311701] Code: 39 df 74 aa eb dc e8 19 a2 f6 f0=
- 66 0f 1f 84
-> > > 00
-> > > 00
-> > > 00 00 00 0f 1f 44 00 00 4c 8b 8f 20 25 00 00 4d 85 c9 74 05 e9 3a
-> > > ff
-> > > ff
-> > > ff <0f> 0b c3 0f 1f 80 00 00 00 00 0f 1f 44 00 00 55 48 89 fd 53
-> > > 0f
-> > > ae
-> > > [=C2=A0=C2=A0=C2=A0 1.311702] RSP: 0018:ffffb5be80b17948 EFLAGS: 000=
-10246
-> > > [=C2=A0=C2=A0=C2=A0 1.311703] RAX: 0000000000000022 RBX: ffff9867058=
-3e858 RCX:
-> > > ffff98677c8a8738
-> > > [=C2=A0=C2=A0=C2=A0 1.311704] RDX: 0000000000000001 RSI: 00000000004=
-00000 RDI:
-> > > ffff986720ce0000
-> > > [=C2=A0=C2=A0=C2=A0 1.311704] RBP: ffff986705841a08 R08: 00000000000=
-00067 R09:
-> > > 0000000000000000
-> > > [=C2=A0=C2=A0=C2=A0 1.311705] R10: ffff986705841a08 R11: 00000000000=
-00400 R12:
-> > > 0000000000000000
-> > > [=C2=A0=C2=A0=C2=A0 1.311705] R13: ffff98670dc50e40 R14: ffff986720c=
-e0000 R15:
-> > > 0000000000000000
-> > > [=C2=A0=C2=A0=C2=A0 1.311706] FS:=C2=A0 00007ff4ee0968c0(0000)
-> > > GS:ffff9869de840000(0000)
-> > > knlGS:0000000000000000
-> > > [=C2=A0=C2=A0=C2=A0 1.311707] CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: =
-0000000080050033
-> > > [=C2=A0=C2=A0=C2=A0 1.311707] CR2: 00007ff4ee07fdca CR3: 000000017b4=
-36000 CR4:
-> > > 0000000000750ee0
-> > > [=C2=A0=C2=A0=C2=A0 1.311708] PKRU: 55555554
-> > > [=C2=A0=C2=A0=C2=A0 1.311708] Call Trace:
-> > > [=C2=A0=C2=A0=C2=A0 1.311710]=C2=A0 amdgpu_ttm_alloc_gart+0x147/0x19=
-0 [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311793]=C2=A0 amdgpu_bo_create_reserved.part.0=
-+0xf8/0x1b0
-> > > [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311873]=C2=A0 ? amdgpu_ttm_debugfs_init+0x110/=
-0x110 [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.311952]=C2=A0 amdgpu_bo_create_kernel+0x3b/0xa=
-0 [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.312031]=C2=A0 amdgpu_ttm_init.cold+0x165/0x17f=
- [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.312181]=C2=A0 gmc_v10_0_sw_init+0x2dc/0x430 [a=
-mdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.312275]=C2=A0 amdgpu_device_init.cold+0x1544/0=
-x1b54 [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.312385]=C2=A0 ? acpi_ns_get_node+0x4f/0x5a
-> > > [=C2=A0=C2=A0=C2=A0 1.312388]=C2=A0 ? acpi_get_handle+0x8e/0xb7
-> > > [=C2=A0=C2=A0=C2=A0 1.312390]=C2=A0 amdgpu_driver_load_kms+0x67/0x32=
-0 [amdgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.312479]=C2=A0 amdgpu_pci_probe+0x1bc/0x290 [am=
-dgpu]
-> > > [=C2=A0=C2=A0=C2=A0 1.312573]=C2=A0 local_pci_probe+0x42/0x80
-> > > [=C2=A0=C2=A0=C2=A0 1.312578]=C2=A0 ? __cond_resched+0x16/0x40
-> > > [=C2=A0=C2=A0=C2=A0 1.312581]=C2=A0 pci_device_probe+0xfd/0x1b0
-> > > [=C2=A0=C2=A0=C2=A0 1.312583]=C2=A0 really_probe+0xf2/0x460
-> > > [=C2=A0=C2=A0=C2=A0 1.312587]=C2=A0 driver_probe_device+0xe8/0x160
-> > > [=C2=A0=C2=A0=C2=A0 1.312589]=C2=A0 device_driver_attach+0xa1/0xb0
-> > > [=C2=A0=C2=A0=C2=A0 1.312591]=C2=A0 __driver_attach+0x8f/0x150
-> > > [=C2=A0=C2=A0=C2=A0 1.312592]=C2=A0 ? device_driver_attach+0xb0/0xb0
-> > > [=C2=A0=C2=A0=C2=A0 1.312593]=C2=A0 ? device_driver_attach+0xb0/0xb0
-> > > [=C2=A0=C2=A0=C2=A0 1.312594]=C2=A0 bus_for_each_dev+0x78/0xc0
-> > > [=C2=A0=C2=A0=C2=A0 1.312595]=C2=A0 bus_add_driver+0x12b/0x1e0
-> > > [=C2=A0=C2=A0=C2=A0 1.312597]=C2=A0 driver_register+0x8f/0xe0
-> > > [=C2=A0=C2=A0=C2=A0 1.312598]=C2=A0 ? 0xffffffffc1696000
-> > > [=C2=A0=C2=A0=C2=A0 1.312599]=C2=A0 do_one_initcall+0x44/0x1d0
-> > > [=C2=A0=C2=A0=C2=A0 1.312602]=C2=A0 ? kmem_cache_alloc_trace+0x103/0=
-x240
-> > > [=C2=A0=C2=A0=C2=A0 1.312604]=C2=A0 do_init_module+0x5c/0x270
-> > > [=C2=A0=C2=A0=C2=A0 1.312606]=C2=A0 __do_sys_finit_module+0xb1/0x110
-> > > [=C2=A0=C2=A0=C2=A0 1.312608]=C2=A0 do_syscall_64+0x40/0xb0
-> > > [=C2=A0=C2=A0=C2=A0 1.312610]=C2=A0 entry_SYSCALL_64_after_hwframe+0=
-x44/0xae
-> > > [=C2=A0=C2=A0=C2=A0 1.312614] RIP: 0033:0x7ff4ee54e679
-> > > [=C2=A0=C2=A0=C2=A0 1.312616] Code: 48 8d 3d 9a a1 0c 00 0f 05 eb a5=
- 66 0f 1f 44
-> > > 00
-> > > 00
-> > > 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24
-> > > 08
-> > > 0f
-> > > 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d c7 57 0c 00 f7 d8 64 89
-> > > 01
-> > > 48
-> > > [=C2=A0=C2=A0=C2=A0 1.312617] RSP: 002b:00007fff9c9d5bc8 EFLAGS: 000=
-00246
-> > > ORIG_RAX:
-> > > 0000000000000139
-> > > [=C2=A0=C2=A0=C2=A0 1.312618] RAX: ffffffffffffffda RBX: 000055aca9c=
-f9230 RCX:
-> > > 00007ff4ee54e679
-> > > [=C2=A0=C2=A0=C2=A0 1.312619] RDX: 0000000000000000 RSI: 00007ff4ee6=
-eeeed RDI:
-> > > 0000000000000013
-> > > [=C2=A0=C2=A0=C2=A0 1.312619] RBP: 0000000000020000 R08: 00000000000=
-00000 R09:
-> > > 000055aca9cdf480
-> > > [=C2=A0=C2=A0=C2=A0 1.312620] R10: 0000000000000013 R11: 00000000000=
-00246 R12:
-> > > 00007ff4ee6eeeed
-> > > [=C2=A0=C2=A0=C2=A0 1.312620] R13: 0000000000000000 R14: 000055aca9c=
-f9ab0 R15:
-> > > 000055aca9cf9230
-> > > [=C2=A0=C2=A0=C2=A0 1.312622] ---[ end trace c4fc99f16e2a1eb7 ]---
-> > >
-> > > In both cases there's a similar error message for the oth GPU in
-> > > the
-> > > system (the integrated one at 08:00.0)
-> > >
-> > > Am Mittwoch, dem 19.01.2022 um 23:40 +0100 schrieb Das, Nirmoy:
-> > > >
-> > > > On 1/19/2022 10:59 PM, Limonciello, Mario wrote:
-> > > > > [Public]
-> > > > >
-> > > > > > -----Original Message-----
-> > > > > > From: Bert Karwatzki <spasswolf@web.de>
-> > > > > > Sent: Wednesday, January 19, 2022 15:52
-> > > > > > To: amd-gfx@lists.freedesktop.org
-> > > > > > Cc: Limonciello, Mario <Mario.Limonciello@amd.com>;
-> > > > > > Kazlauskas,
-> > > > > > Nicholas
-> > > > > > <Nicholas.Kazlauskas@amd.com>; Zhuo, Qingqing (Lillian)
-> > > > > > <Qingqing.Zhuo@amd.com>; Scott Bruce <smbruce@gmail.com>;
-> > > > > > Alex
-> > > > > > Deucher
-> > > > > > <alexdeucher@gmail.com>; Chris Hixon
-> > > > > > <linux-kernel-bugs@hixontech.com>
-> > > > > > Subject: amd-staging-drm-next breaks suspend
-> > > > > >
-> > > > > > I just tested drm-staging-drm-next with HEAD
-> > > > > > f1b2924ee6929cb431440e6f961f06eb65d52beb:
-> > > > > > Going into suspend leads to a hang again:
-> > > > > > This is probably caused by
-> > > > > > [ 1.310551] trying to bind memory to uninitialized GART !
-> > > > > > and/or
-> > > > > > [ 3.976438] trying to bind memory to uninitialized GART !
-> > > >
-> > > >
-> > > > Could you please also try
-> > > > https://patchwork.freedesktop.org/patch/469907/=C2=A0?
-> > > >
-> > > >
-> > > > Regards,
-> > > >
-> > > > Nirmoy
-> > > >
-> > > > > >
-> >
+  Merge tag 'amd-drm-next-5.17-2022-01-12' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2022-01-14 15:42:28 +0100)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.17-2022-01-19
+
+for you to fetch changes up to 4722f463896cc0ef1a6f1c3cb2e171e949831249:
+
+  drm/radeon: fix error handling in radeon_driver_open_kms (2022-01-18 18:00:58 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-5.17-2022-01-19:
+
+amdgpu:
+- SR-IOV fix
+- VCN harvest fix
+- Suspend/resume fixes
+- Tahiti fix
+- Enable GPU recovery on yellow carp
+
+radeon:
+- Fix error handling regression in radeon_driver_open_kms
+
+----------------------------------------------------------------
+Alex Deucher (3):
+      drm/amdgpu: invert the logic in amdgpu_device_should_recover_gpu()
+      drm/amdgpu: don't do resets on APUs which don't support it
+      drm/amdgpu: drop flags check for CHIP_IP_DISCOVERY
+
+CHANDAN VURDIGERE NATARAJ (1):
+      drm/amdgpu: Enable recovery on yellow carp
+
+Christian König (1):
+      drm/radeon: fix error handling in radeon_driver_open_kms
+
+Guchun Chen (1):
+      drm/amdgpu: apply vcn harvest quirk
+
+Jingwen Chen (1):
+      drm/amd/amdgpu: fixing read wrong pf2vf data in SRIOV
+
+Lukas Fink (1):
+      drm/amdgpu: Fix rejecting Tahiti GPUs
+
+Mario Limonciello (1):
+      drm/amd/display: Revert W/A for hard hangs on DCN20/DCN21
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 45 +++++++++-------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      | 32 ++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  5 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           | 20 ++++------
+ drivers/gpu/drm/amd/amdgpu/cik.c                   |  4 ++
+ drivers/gpu/drm/amd/amdgpu/vi.c                    |  4 ++
+ .../amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c   | 11 +-----
+ .../drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c  | 11 +-----
+ .../amd/display/dc/irq/dcn20/irq_service_dcn20.c   | 25 ------------
+ .../amd/display/dc/irq/dcn20/irq_service_dcn20.h   |  2 -
+ .../amd/display/dc/irq/dcn21/irq_service_dcn21.c   | 25 ------------
+ .../amd/display/dc/irq/dcn21/irq_service_dcn21.h   |  2 -
+ drivers/gpu/drm/amd/display/dc/irq/irq_service.c   |  2 +-
+ drivers/gpu/drm/amd/display/dc/irq/irq_service.h   |  4 --
+ drivers/gpu/drm/radeon/radeon_kms.c                | 22 ++++++-----
+ 15 files changed, 75 insertions(+), 139 deletions(-)
