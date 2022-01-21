@@ -4,46 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 108C1C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA08C433EF
 	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jan 2022 08:35:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90B3A10E982;
-	Fri, 21 Jan 2022 08:35:15 +0000 (UTC)
-X-Greylist: delayed 605 seconds by postgrey-1.36 at gabe;
- Fri, 21 Jan 2022 01:48:16 UTC
-Received: from relay.hostedemail.com (relay031.a.hostedemail.com
- [64.99.140.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6AE110E590;
- Fri, 21 Jan 2022 01:48:16 +0000 (UTC)
-Received: from omf06.hostedemail.com (a10.router.float.18 [10.200.18.1])
- by unirelay06.hostedemail.com (Postfix) with ESMTP id DAEDB22DB5;
- Fri, 21 Jan 2022 01:38:07 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
- omf06.hostedemail.com (Postfix) with ESMTPA id 3264F20010; 
- Fri, 21 Jan 2022 01:37:54 +0000 (UTC)
-Message-ID: <5da3e02454c8c9ff3335c7199f3ae48af2864981.camel@perches.com>
-Subject: Re: [PATCH 1/3] lib/string_helpers: Consolidate yesno() implementation
-From: Joe Perches <joe@perches.com>
-To: Steven Rostedt <rostedt@goodmis.org>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>
-Date: Thu, 20 Jan 2022 17:37:53 -0800
-In-Reply-To: <20220119160017.65bd1fa5@gandalf.local.home>
-References: <20220119072450.2890107-1-lucas.demarchi@intel.com>
- <20220119072450.2890107-2-lucas.demarchi@intel.com>
- <YefXg03hXtrdUj6y@paasikivi.fi.intel.com>
- <20220119100635.6c45372b@gandalf.local.home>
- <YehllDq7wC3M2PQZ@smile.fi.intel.com>
- <20220119160017.65bd1fa5@gandalf.local.home>
-Content-Type: text/plain; charset="ISO-8859-1"
-User-Agent: Evolution 3.40.4-1ubuntu2 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A85310E986;
+	Fri, 21 Jan 2022 08:35:16 +0000 (UTC)
+X-Greylist: delayed 575 seconds by postgrey-1.36 at gabe;
+ Fri, 21 Jan 2022 05:41:53 UTC
+Received: from zg8tmtyylji0my4xnjiumje2.icoremail.net
+ (zg8tmtyylji0my4xnjiumje2.icoremail.net [162.243.162.216])
+ by gabe.freedesktop.org (Postfix) with SMTP id D3D6D10E705;
+ Fri, 21 Jan 2022 05:41:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fudan.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+ Message-Id:MIME-Version:Content-Transfer-Encoding; bh=HX9Za2e1JM
+ g4jxUgjH8Yl50bM6liwnW3gcJPuVFZ+TQ=; b=EaOuY7OHip6dQx9325GLcFKa/z
+ fXp9uZg3VSiAvRIYNR4vLl85GjZOvI4p/EIo5MBGHtsfJUdRMzHvx7KGzrexLh+5
+ oJQE4CDvA54Rs551iyD29eEd+ln9vEjVceHgFrYwGFVByKJVbTmROXq8quq6eKTB
+ oaIu+42ZblfYMDwP8=
+Received: from localhost.localdomain (unknown [111.192.165.103])
+ by app1 (Coremail) with SMTP id XAUFCgAXLsLVROphhGc_AA--.2130S4;
+ Fri, 21 Jan 2022 13:30:02 +0800 (CST)
+From: Xin Xiong <xiongx18@fudan.edu.cn>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+Subject: [PATCH] drm/amd/amdgpu/amdgpu_cs: fix refcount leak of a dma_fence obj
+Date: Fri, 21 Jan 2022 13:28:28 +0800
+Message-Id: <20220121052827.4384-1-xiongx18@fudan.edu.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 7rtkhruhzyxmaz9kz4md8szkb6csicqt
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: 3264F20010
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX1+2KBCQ3/oG0QJHNmpFhxNu1Bw+ZDwRWLg=
-X-HE-Tag: 1642729074-280175
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: XAUFCgAXLsLVROphhGc_AA--.2130S4
+X-Coremail-Antispam: 1UD129KBjvdXoWruw48Cr48Zr1kJr1fAry8AFb_yoWDCFb_Gr
+ W8XrnrXr1ayF1qqFnFvw4rZw1ayF43uF4kGr1Sq34Sqry2v3yUtryDXrnxWF1furs7GFyD
+ Zan8ur95Z3ZxKjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbfxFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+ 6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
+ rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY02Avz4vE14v_GrWl42xK82IYc2Ij64vIr4
+ 1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+ 67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+ 8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAv
+ wI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
+ AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JU94SOUUUUU=
+X-CM-SenderInfo: arytiiqsuqiimz6i3vldqovvfxof0/1tbiAhANEFKp2iYsDwAAsr
 X-Mailman-Approved-At: Fri, 21 Jan 2022 08:35:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,48 +69,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
- Francis Laniel <laniel_francis@privacyrequired.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>, amd-gfx@lists.freedesktop.org,
- Ben Skeggs <bskeggs@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>, Petr Mladek <pmladek@suse.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Leo Li <sunpeng.li@amd.com>,
- intel-gfx@lists.freedesktop.org, Raju Rangoju <rajur@chelsio.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Julia Lawall <julia.lawall@lip6.fr>,
- Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Mikita Lipski <mikita.lipski@amd.com>,
- Eryk Brol <eryk.brol@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-kernel@vger.kernel.org,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- linux-security-module@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- netdev@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>, "David S
- . Miller" <davem@davemloft.net>
+Cc: Xin Tan <tanxin.ctf@gmail.com>, yuanxzhang@fudan.edu.cn,
+ Xin Xiong <xiongx18@fudan.edu.cn>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2022-01-19 at 16:00 -0500, Steven Rostedt wrote:
-> On Wed, 19 Jan 2022 21:25:08 +0200
-> Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
-> 
-> > > I say keep it one line!
-> > > 
-> > > Reviewed-by: Steven Rostedt (Google) <rostedt@goodmis.org>  
-> > 
-> > I believe Sakari strongly follows the 80 rule, which means...
-> 
-> Checkpatch says "100" I think we need to simply update the docs (the
-> documentation always lags the code ;-)
+This issue takes place in an error path in
+amdgpu_cs_fence_to_handle_ioctl(). When `info->in.what` falls into
+default case, the function simply returns -EINVAL, forgetting to
+decrement the reference count of a dma_fence obj, which is bumped
+earlier by amdgpu_cs_get_fence(). This may result in reference count
+leaks.
 
-checkpatch doesn't say anything normally, it's a stupid script.
-It just mindlessly bleats a message when a line exceeds 100 chars...
+Fix it by decreasing the refcount of specific object before returning
+the error code.
 
-Just fyi: I think it's nicer on a single line too.
+Signed-off-by: Xin Xiong <xiongx18@fudan.edu.cn>
+Signed-off-by: Xin Tan <tanxin.ctf@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 0311d799a..894869789 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1510,6 +1510,7 @@ int amdgpu_cs_fence_to_handle_ioctl(struct drm_device *dev, void *data,
+ 		return 0;
+ 
+ 	default:
++		dma_fence_put(fence);
+ 		return -EINVAL;
+ 	}
+ }
+-- 
+2.25.1
 
