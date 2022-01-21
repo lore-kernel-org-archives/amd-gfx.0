@@ -4,118 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D646C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jan 2022 07:36:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88104C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jan 2022 07:45:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D215210E90B;
-	Fri, 21 Jan 2022 07:36:28 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060.outbound.protection.outlook.com [40.107.223.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4490110E905
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jan 2022 07:36:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34E3610E411;
+	Fri, 21 Jan 2022 07:45:12 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC60B10E411
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jan 2022 07:45:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Th5qfR+A96OIIf2nDqJd0uc67ieXqNGuLzyWieo4yFZ1Mk/t5lelcvYLo4HqpgdaHYF/3LyTBaSuaMOm3t5Tl90l7lrbHRVGRJJMjq2RRDvbZ+TmPLV/ikFgiF/bTBrbibcts4nggjFgVwCxGjWOtg8GQJq3lxSxcKSYUOzR2H7+PdKa8XHNwIpjiztuTzv9JnAPVddAvSbuTb0dulU/iING964pY8ON3feaTjrwXIdSnAOA+k7mNXqr4u79VCiIQD4nznCaDt5xdnTMMMsdlB2m9+hF4C4ts/1uSzkTjz/FtURqoTQSNjDrRxh6/U7g1o2M+VYR3VLa7l0RBnibnw==
+ b=FEx7tMfgLCId/tmgfMUtffVPci/dWIxoohhRA55evATKlWGGi2yTwrc6YEYTHOop6ahatZUl/sjAUa4Rno+35BaIQw3g5DQXZ7U3CaKCHu2wWTSJAvTXYi33IM57xh4+9cWF5Da6iglpNtQp6IcLZvY0WD2IH4fovpf51ZX3ctBVOZpM/9Cz7eBjDFibD34kIrJN2zPg9QPtBnSlbh4SD0VhWRUFYLUXE9eonQ5X3qcxPG8NHmcJA3jBn7+rAiO8fKcF1uhjud9LTp08yOpy1Mn6UrXH+mZoQWgbKWl7dgJ+doQzLYpxc62ByYTJxpYJNfo5kqmngKlQECOFhKYddQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NvROK2fC/DGTqtGYeqXfQgqqzjiAMDUFVxtGFriQuCc=;
- b=ke2HP7WyxtYZyc2ZM9rHe8I/c/DbvgeCeeMIOTdS5kG+pGh8uxA9lFNlTdnGSEQWNcLOGVuykGj9ZTqrkhEU1KPVXceqKqnb5PuOBMzjMOvdIPv31qvT79AH1z6B3b99WUIydX7yw4MyDZqfXmT4maBhW2hmZMhfoP4Pv5R2JpW0bZwALpXqBS5T2bpF5+TOkvpntpjMRvzEheJtl1zvxFMX5fRG/y7XosKJU/98HaIPTYx5keEcOksuDWLEUUFX5fhPahsa/pDe/GPrQ39aKXPMOkstO4iWqQr9OuOZs+zjZZbvBj7MB9oKEOsQ/T4wrh0mSkfWzJyFINdsNV5yHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
+ bh=DGVKwT9Nv6oWiVr0nPDkGF7ITttbVboGxuzH/cXMAiY=;
+ b=SvOmvRTacH3IvcyeBhXc4xuyxhjcMjtzQqgX8Lm8BHdB87JUIf+OYZNVZDZmWh/suzFbzokJat/6VhbuYXKex3ftxbDVpgiIiXogHn21v3vCHKcLNs6qQ9uq6nUF5X0iKrl3h9B4Gp8sCefWAi8enFah5eDVyAQzcSJWxYIQ9Ynj0YLPl/ohko7cnnTuHlKKvNvxwA3E/005HwXkrWvBBAe8hQpYodj8LghoYoAKcDU5MBVUP/nm3FtSHGwt9L52e4Gl1q02yItfJe38Ax/sNjZ+com5aWBfZ3pJXZusFNAdq1DbgOuwBrXq37UJZEz2DETPaacWTu8pYFOYAXH77g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NvROK2fC/DGTqtGYeqXfQgqqzjiAMDUFVxtGFriQuCc=;
- b=PRIQD2OljBdd2DV4rjUliNLzLFw/SSsVyYJW0NWdGDayTrGiK3H1DO7D9rJvMlTyrVN3UcfnBn5m8QlZGfk7k+wIQpjut4DvY8r6TU9uC1gi06B4A5auYzyez76G8KfQR7YCPX4j9Avky79bIm5IIQYPhJ0wZG/VKPRWiUmzSSE=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- MW2PR12MB2394.namprd12.prod.outlook.com (2603:10b6:907:f::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4888.12; Fri, 21 Jan 2022 07:36:24 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::a894:300e:5c16:5639]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::a894:300e:5c16:5639%6]) with mapi id 15.20.4909.010; Fri, 21 Jan 2022
- 07:36:24 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: use dev_*** to print output in multiple GPUs
-Thread-Topic: [PATCH] drm/amd/pm: use dev_*** to print output in multiple GPUs
-Thread-Index: AQHYDnE2nDxk6lug+kOca4X6IYgOBqxs05WwgABCQgCAAABfcA==
-Date: Fri, 21 Jan 2022 07:36:24 +0000
-Message-ID: <DM6PR12MB2619FA41919BDB49FE27A44FE45B9@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20220121024639.810-1-guchun.chen@amd.com>
- <DM6PR12MB2619100E7D280FDA837DE308E45B9@DM6PR12MB2619.namprd12.prod.outlook.com>
- <DM5PR12MB246963C0644A3BD1758B55AEF15B9@DM5PR12MB2469.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB246963C0644A3BD1758B55AEF15B9@DM5PR12MB2469.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-21T07:36:22Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=2ced341f-1b67-41be-9af5-197824821330;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: fa1c1615-2bb5-4593-b711-08d9dcb0ba35
-x-ms-traffictypediagnostic: MW2PR12MB2394:EE_
-x-microsoft-antispam-prvs: <MW2PR12MB23948A1CE987F5D8C4868896E45B9@MW2PR12MB2394.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: dzuGI4FEa5jS0lN1h3B4Ut2hZ6Q6393SnWYGbL536AwUP3fxX6lIs6IYQzcMfUngNQLn53AIg1dhA6OWAe8ZlayCENnMQLNip2WcX/7w8vmX6Lt2cJolltmSiunYKjG46boz0Oh8Z8gKw0ljzOSbd/i65ZDW+1OptdtVreJvsmJd8xZbsZIjtm7ctrVhs27Ru/oUj40Ysv8xSdWEvhBd9TCcNyL05zoaLnyefDYV9K0HDsxHJFI+0XGwABvsQpqeDyxtdaKR4kS4Rn7RRetxgKP98IVGgWTcImlsfI+kUJmqAShowHyWuewVz7SAPiXk7rXy/Yzlbm7m0Ws18MfbZV9yM8DAxOI0J3Ryj5brV7KKhMGhk+PCWbcs3jDl/k9pAQVyz9xHhCSgiMZ/DpeNmMFC65O50jwbMmfK3rHRHvWu/FQlasD3F4UQcYyVYEwYwJQdIep53Zl2e8uVuI2xCdNwFJaceoP1PBYVECSIRNBlkUFXFkLBxUpL2VL8JjTsAk0A8RI5Ki9P6hbNlfBP3++LG8Aoa1DDBxjf9PhFyLvx3ON6BiG5v734zEe615+dGnJDlgGMKrKWuf7OndMZ/O7jsq4zHo2MF0TSkKRgu2l/pgBjjFsk8tPMi+FykPoDUjvbDdQJ9yRx4cTXHqeJxOtfe2oYopZK08w5+fakOiUmMg14/aZwb9US0tpIPrz4SHkGGISopLOVNi1DmRgBY7Y9ah4wA/9qu3iqNBzC2fs=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(6506007)(122000001)(53546011)(71200400001)(33656002)(9686003)(8936002)(7696005)(64756008)(66476007)(76116006)(66946007)(110136005)(66446008)(52536014)(2906002)(5660300002)(6636002)(83380400001)(38100700002)(921005)(186003)(55016003)(38070700005)(316002)(8676002)(508600001)(86362001)(66556008)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?55gGgpB5ybIvABvOUVZwXw5LcBlf7Vh+T4XFhfTaAOhWNKfnFkZNwA11Y5QD?=
- =?us-ascii?Q?PY6AVBOcvPJcSnFqTSTPeOSeH5ulqXLEiDf/EVJfeJassXrOAS8+ltm3URSW?=
- =?us-ascii?Q?+NPwmhW5IiqOowV4OMcE7QocbkRSpzgX/TtHWUfarXQlJ0E9bmCAH+r/g9qB?=
- =?us-ascii?Q?yTmuNy9KvqVNgPldzEKdzNi4WqnaM7ZRvMEteRqHIye5jC+uJ/OadgfF3eJU?=
- =?us-ascii?Q?n/FhC+zNvFwfeQSZCvsQ68HWbym6LAXS2xoWZZ9SaLjK5A6of65MRn9kNqeT?=
- =?us-ascii?Q?fPDO3lBfVFKPbT0Y6VG5OwTNRKmajAbLQT+Zm2IP3uTU49Q39J2OzJlRomxe?=
- =?us-ascii?Q?M4aJ10vIDjDPTsmXXd3CgFCJCI9tacgL1EKUve2OON27JquSqLsjDftuxdXv?=
- =?us-ascii?Q?PF7++vmcnfw1hXBaMejm8ac2jRFOR6x2TE/RxhPWXSYplzMXe2BYJc1lyfUY?=
- =?us-ascii?Q?J3pO5aNJ0SJhCkHXQjO1I5pUKCsybqyjJUQAbEHapmmF62scu1PO3LwBB7tS?=
- =?us-ascii?Q?E3oXViI8s59aQ2VyIFj7qRikUFxrvpELh2Nt4OSCEDtMH9r82GEGZkMyCMzx?=
- =?us-ascii?Q?Dj9Bozvp4uOmbE42VQjPeOqqGb+HgLwXkml7pbksDDgOH6o+Td2HgTAHaEEu?=
- =?us-ascii?Q?vTKH4y+YeLVUcf7suFpjRUM5mArvEnkwrKJ5gv5Qtq93s/I1EbWOW/P+K3CO?=
- =?us-ascii?Q?/eQBOWPuI8g1KbzKh6lcN51O9PtFbfNiBBBUv23nFCIupriNEasoq35o+OlZ?=
- =?us-ascii?Q?jeksIm69uPOcVgQkSwP90AA1L/g5pvlv4oSzIMP5GxDR9dbu4nk6LrtvjzIr?=
- =?us-ascii?Q?4GtOSSudFfvuB7oZNUjl5kJGx++Wm9vzoDwZssBlaWRXKpSwOIO+WBjCpq+D?=
- =?us-ascii?Q?V09+9VI/SbAHALxMUNLJ/ER7eFeF39XXBuDQNZDaVL5tVbtfntZi85myokFd?=
- =?us-ascii?Q?3Qt+oslXL61OQky0m2gxHJxQn+dDdggA7Q7pvyjiJ7f76bHBbAwqF8ilLb6n?=
- =?us-ascii?Q?tJhG2fnfzOV8yRep6citE7BfgdvBj7mBy3DWfWVDMkttaJ1FBdKobbdXS4MB?=
- =?us-ascii?Q?c18wgeWhi/QYKLatPMvsnZMh0BaO8PDdEY6y7x3IJXJVrSeDyfDk4BeZeU6H?=
- =?us-ascii?Q?pvQdVrslcDXvhNA+1DqSAjEGWHcBcR6V+diuQ23WQhqD2RjG8UsO5Gzhx4Me?=
- =?us-ascii?Q?nbWhsT5Stzcy4BsFyts7azTQJRlHmGgm0OzT+xUgAspn03cvahA4QmW3SGnc?=
- =?us-ascii?Q?L3+Pk1vTUANpq5vEtHfN0LMxiznCVvyQKcxavUeALlWmFLUNhEcYBYcejf+N?=
- =?us-ascii?Q?DqntxvKqY1AV2bkB/LSO9A8UpKBM+XUF5O1A2TOf3oa9fi7gg5edakGsel46?=
- =?us-ascii?Q?uio/xUB6H6b9JDbFrN1y5VDLmR/WnMEwQJWID6wwKy0LLzk7M5qNUhjiuOXp?=
- =?us-ascii?Q?6PUMGOremdZG4EIlaw+wvMvjZkyBLNj9BgYxbDiNv7ABKJuqV3/E9f8NN9wS?=
- =?us-ascii?Q?AedjsFZ7Wa2zy1xdll25Qq8kmQ6lNWrxkdMl8Cg1ZBfQTKQMhfZxPbyTNwlt?=
- =?us-ascii?Q?tA9vy0GR63i2W8RcZms=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=DGVKwT9Nv6oWiVr0nPDkGF7ITttbVboGxuzH/cXMAiY=;
+ b=3tkJtxLei64A50hpYHP9Bcr2XqOEuL61Z0fM9jM/MvMtxS3LQOYQWO9AqcuREznOZmptRWMf3AojU4JM+ooyj2kOIjzOWJCznTj1BqyNnneyD/W88p3jb9SE99m8bWcgpbaMIvb5s5FScpoLsJx1piynlARwo4KM/MeleZa78Ww=
+Received: from MWHPR12CA0059.namprd12.prod.outlook.com (2603:10b6:300:103::21)
+ by BY5PR12MB5509.namprd12.prod.outlook.com (2603:10b6:a03:1d7::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Fri, 21 Jan
+ 2022 07:45:06 +0000
+Received: from CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:103:cafe::b3) by MWHPR12CA0059.outlook.office365.com
+ (2603:10b6:300:103::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8 via Frontend
+ Transport; Fri, 21 Jan 2022 07:45:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT042.mail.protection.outlook.com (10.13.174.250) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4909.7 via Frontend Transport; Fri, 21 Jan 2022 07:45:06 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 21 Jan
+ 2022 01:45:04 -0600
+From: Evan Quan <evan.quan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/7] drm/amd/pm: correct the way for retrieving enabled
+ ppfeatures on Renoir
+Date: Fri, 21 Jan 2022 15:44:37 +0800
+Message-ID: <20220121074443.639392-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9aa4f99b-834a-4f4c-2fd3-08d9dcb1f15a
+X-MS-TrafficTypeDiagnostic: BY5PR12MB5509:EE_
+X-Microsoft-Antispam-PRVS: <BY5PR12MB55096A87E4D674A00032EB49E45B9@BY5PR12MB5509.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1148;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: mOf5D/v8ErYOFN9/EzYDn5v9H9b13H6I5Sgj6hIiu+uUYWTT5kFm2r92z4VK5W2FccpssIeNsc/rw2OvMWfqKjfAI2f4Vu8tQXPXQTJYbnCelVfeX+OxMAiPKCIPCp4MSahbV1KMDG0Ljl6n8e9j3l3456rMDnlMGl5shXk2xPxS+p/69S6oDDDS2BmyDFMc6I+GkUR0xsJX5jnY0EDXpJyiOlQVbYvqYoRs/AgPFujqV6xjym8Dmy4225a87sa72Sj0yKzgKj98nFKq5tsvRzImPNs0T01637mjE+1m/qqTwXOEyddp+HV82NqIqzZ803ETUBaVV8qqVJhR0wdsid9DiK/PZmdOWCuvypK9nXz2rOFIqFmasp7TC3FVMZWDOsbHGj5kCkSX48bUWEIb9sgpam4dT8B0v9cSZ5S6bjThIEWjnxipehQYK99riy9/eQORhCJRluwfyTocieyph/5zKI50nbom5+TQUuuxqdqwArlfNmfvxW2coa8LiPaWuISzvUDR7D8w46cz8PxE1swzntwLESOsZk7enN9Bacj0VJTsE5ihlIziinPe0XAp5botqdC/FRX9+5SFGyIOdIOrg1W0sGzOdxD1ZSeG+xYRjWY2G5bNU4LxJtO4GmQQK8Xlvj5b8JiTMa47Ad18jqtlU4wsk40kiD3S7lbVjQLo82lwhCqE+lg3vv74GFqTNGHztmWjS5ufgU7ypJsWdWq/H22XW0ycI0X5j0uHE83FHV/BJ8FNT97uc8rOd+X8YAn91u0QXcN8qKMDBvaOt+vltUKZW4GA0gG7m2h4JRg=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(40470700002)(36840700001)(46966006)(6916009)(508600001)(2906002)(7696005)(6666004)(8936002)(70206006)(70586007)(8676002)(4744005)(336012)(86362001)(47076005)(83380400001)(1076003)(5660300002)(36860700001)(36756003)(16526019)(26005)(54906003)(81166007)(82310400004)(44832011)(2616005)(40460700001)(186003)(426003)(4326008)(316002)(356005)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa1c1615-2bb5-4593-b711-08d9dcb0ba35
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jan 2022 07:36:24.4666 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Pa0y0Nt3oEIWl4r04YOD3kwC16efxGw7UDeYHZs0mycTJZBmkFGR6fsBwnlXLji1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2394
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2022 07:45:06.4615 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9aa4f99b-834a-4f4c-2fd3-08d9dcb1f15a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5509
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,234 +100,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alexander.Deucher@amd.com, Lijo.Lazar@amd.com, ray.huang@amd.com,
+ Evan Quan <evan.quan@amd.com>, Guchun.Chen@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+As other dGPU asics, Renoir should use smu_cmn_get_enabled_mask() for
+that job.
 
-Sure, please go ahead.
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Change-Id: I9e845ba84dd45d0826506de44ef4760fa851a516
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-BR
-Evan
-> -----Original Message-----
-> From: Chen, Guchun <Guchun.Chen@amd.com>
-> Sent: Friday, January 21, 2022 3:35 PM
-> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org;
-> Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Lazar,
-> Lijo <Lijo.Lazar@amd.com>
-> Subject: RE: [PATCH] drm/amd/pm: use dev_*** to print output in multiple
-> GPUs
->=20
-> [Public]
->=20
-> Thank you for review, Evan. I will submit the patch with modifying the
-> commit message a bit to align the indentation. Hope it's fine to you.
->=20
-> Regards,
-> Guchun
->=20
-> -----Original Message-----
-> From: Quan, Evan <Evan.Quan@amd.com>
-> Sent: Friday, January 21, 2022 11:38 AM
-> To: Chen, Guchun <Guchun.Chen@amd.com>; amd-
-> gfx@lists.freedesktop.org; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Lazar,
-> Lijo <Lijo.Lazar@amd.com>
-> Subject: RE: [PATCH] drm/amd/pm: use dev_*** to print output in multiple
-> GPUs
->=20
-> [AMD Official Use Only]
->=20
-> Reviewed-by: Evan Quan <evan.quan@amd.com>
->=20
-> > -----Original Message-----
-> > From: Chen, Guchun <Guchun.Chen@amd.com>
-> > Sent: Friday, January 21, 2022 10:47 AM
-> > To: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Koenig, Christian
-> > <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Quan,
-> > Evan <Evan.Quan@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
-> > Cc: Chen, Guchun <Guchun.Chen@amd.com>
-> > Subject: [PATCH] drm/amd/pm: use dev_*** to print output in multiple
-> > GPUs
-> >
-> > In multiple GPU configuration, when failed to send a SMU message, it's
-> > hard to figure out which GPU has such problem.
-> > So it's not comfortable to user.
-> >
-> > [40190.142181] amdgpu: [powerplay]
-> >                 last message was failed ret is 65535 [40190.242420]
-> > amdgpu: [powerplay]
-> >                 failed to send message 201 ret is 65535 [40190.392763]
-> > amdgpu: [powerplay]
-> >                 last message was failed ret is 65535 [40190.492997]
-> > amdgpu: [powerplay]
-> >                 failed to send message 200 ret is 65535 [40190.743575]
-> > amdgpu: [powerplay]
-> >                 last message was failed ret is 65535 [40190.843812]
-> > amdgpu: [powerplay]
-> >                 failed to send message 282 ret is 65535
-> >
-> > Signed-off-by: Guchun Chen <guchun.chen@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c   |  4 +++-
-> >  .../gpu/drm/amd/pm/powerplay/smumgr/smu10_smumgr.c    |  4 ++--
-> >  drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c | 11
-> > +++++++----
-> >  drivers/gpu/drm/amd/pm/powerplay/smumgr/smu9_smumgr.c |  2 +-
-> >  .../gpu/drm/amd/pm/powerplay/smumgr/vega20_smumgr.c   |  4 ++--
-> >  5 files changed, 15 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-> > b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-> > index 93a1c7248e26..5ca3c422f7d4 100644
-> > --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-> > +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-> > @@ -208,6 +208,7 @@ static int ci_read_smc_sram_dword(struct
-> pp_hwmgr
-> > *hwmgr, uint32_t smc_addr,
-> >
-> >  static int ci_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg) {
-> > +	struct amdgpu_device *adev =3D hwmgr->adev;
-> >  	int ret;
-> >
-> >  	cgs_write_register(hwmgr->device, mmSMC_RESP_0, 0); @@ -218,7
-> +219,8
-> > @@ static int ci_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t
-> msg)
-> >  	ret =3D PHM_READ_FIELD(hwmgr->device, SMC_RESP_0, SMC_RESP);
-> >
-> >  	if (ret !=3D 1)
-> > -		pr_info("\n failed to send message %x ret is %d\n",  msg, ret);
-> > +		dev_info(adev->dev,
-> > +			"failed to send message %x ret is %d\n", msg,ret);
-> >
-> >  	return 0;
-> >  }
-> > diff --git
-> a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu10_smumgr.c
-> > b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu10_smumgr.c
-> > index 47b34c6ca924..88a5641465dc 100644
-> > --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu10_smumgr.c
-> > +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu10_smumgr.c
-> > @@ -87,7 +87,7 @@ static int smu10_send_msg_to_smc(struct pp_hwmgr
-> > *hwmgr, uint16_t msg)
-> >  	smu10_send_msg_to_smc_without_waiting(hwmgr, msg);
-> >
-> >  	if (smu10_wait_for_response(hwmgr) =3D=3D 0)
-> > -		printk("Failed to send Message %x.\n", msg);
-> > +		dev_err(adev->dev, "Failed to send Message %x.\n", msg);
-> >
-> >  	return 0;
-> >  }
-> > @@ -108,7 +108,7 @@ static int
-> > smu10_send_msg_to_smc_with_parameter(struct pp_hwmgr *hwmgr,
-> >
-> >
-> >  	if (smu10_wait_for_response(hwmgr) =3D=3D 0)
-> > -		printk("Failed to send Message %x.\n", msg);
-> > +		dev_err(adev->dev, "Failed to send Message %x.\n", msg);
-> >
-> >  	return 0;
-> >  }
-> > diff --git
-> a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-> > b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-> > index aae25243eb10..5a010cd38303 100644
-> > --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-> > +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-> > @@ -165,6 +165,7 @@ bool smu7_is_smc_ram_running(struct pp_hwmgr
-> > *hwmgr)
-> >
-> >  int smu7_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg)  {
-> > +	struct amdgpu_device *adev =3D hwmgr->adev;
-> >  	int ret;
-> >
-> >  	PHM_WAIT_FIELD_UNEQUAL(hwmgr, SMC_RESP_0, SMC_RESP, 0);
-> @@ -172,9
-> > +173,10 @@ int smu7_send_msg_to_smc(struct pp_hwmgr *hwmgr,
-> uint16_t
-> > msg)
-> >  	ret =3D PHM_READ_FIELD(hwmgr->device, SMC_RESP_0, SMC_RESP);
-> >
-> >  	if (ret =3D=3D 0xFE)
-> > -		pr_debug("last message was not supported\n");
-> > +		dev_dbg(adev->dev, "last message was not supported\n");
-> >  	else if (ret !=3D 1)
-> > -		pr_info("\n last message was failed ret is %d\n", ret);
-> > +		dev_info(adev->dev,
-> > +			"\nlast message was failed ret is %d\n", ret);
-> >
-> >  	cgs_write_register(hwmgr->device, mmSMC_RESP_0, 0);
-> >  	cgs_write_register(hwmgr->device, mmSMC_MESSAGE_0, msg);
-> @@ -184,9
-> > +186,10 @@ int smu7_send_msg_to_smc(struct pp_hwmgr *hwmgr,
-> uint16_t
-> > msg)
-> >  	ret =3D PHM_READ_FIELD(hwmgr->device, SMC_RESP_0, SMC_RESP);
-> >
-> >  	if (ret =3D=3D 0xFE)
-> > -		pr_debug("message %x was not supported\n", msg);
-> > +		dev_dbg(adev->dev, "message %x was not supported\n",
-> > msg);
-> >  	else if (ret !=3D 1)
-> > -		pr_info("\n failed to send message %x ret is %d \n",  msg,
-> > ret);
-> > +		dev_dbg(adev->dev,
-> > +			"failed to send message %x ret is %d \n",  msg, ret);
-> >
-> >  	return 0;
-> >  }
-> > diff --git
-> a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu9_smumgr.c
-> > b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu9_smumgr.c
-> > index 23e5de3c4ec1..8c9bf4940dc1 100644
-> > --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu9_smumgr.c
-> > +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu9_smumgr.c
-> > @@ -126,7 +126,7 @@ int smu9_send_msg_to_smc(struct pp_hwmgr
-> *hwmgr,
-> > uint16_t msg)
-> >
-> >  	ret =3D smu9_wait_for_response(hwmgr);
-> >  	if (ret !=3D 1)
-> > -		pr_err("Failed to send message: 0x%x, ret value: 0x%x\n",
-> > msg, ret);
-> > +		dev_err(adev->dev, "Failed to send message: 0x%x, ret
-> > value: 0x%x\n", msg, ret);
-> >
-> >  	return 0;
-> >  }
-> > diff --git
-> a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega20_smumgr.c
-> > b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega20_smumgr.c
-> > index 741fbc87467f..9ad26c285ecd 100644
-> > --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega20_smumgr.c
-> > +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega20_smumgr.c
-> > @@ -115,7 +115,7 @@ static int vega20_send_msg_to_smc(struct
-> pp_hwmgr
-> > *hwmgr, uint16_t msg)
-> >
-> >  	ret =3D vega20_wait_for_response(hwmgr);
-> >  	if (ret !=3D PPSMC_Result_OK)
-> > -		pr_err("Failed to send message 0x%x, response 0x%x\n",
-> > msg, ret);
-> > +		dev_err(adev->dev, "Failed to send message 0x%x, response
-> > 0x%x\n", msg, ret);
-> >
-> >  	return (ret =3D=3D PPSMC_Result_OK) ? 0 : -EIO;  } @@ -143,7 +143,7 @=
-@
-> > static int vega20_send_msg_to_smc_with_parameter(struct pp_hwmgr
-> > *hwmgr,
-> >
-> >  	ret =3D vega20_wait_for_response(hwmgr);
-> >  	if (ret !=3D PPSMC_Result_OK)
-> > -		pr_err("Failed to send message 0x%x, response 0x%x\n",
-> > msg, ret);
-> > +		dev_err(adev->dev, "Failed to send message 0x%x, response
-> > 0x%x\n", msg, ret);
-> >
-> >  	return (ret =3D=3D PPSMC_Result_OK) ? 0 : -EIO;  }
-> > --
-> > 2.17.1
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index fcead7c6ca7e..c3c679bf9d9f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -710,7 +710,8 @@ size_t smu_cmn_get_pp_feature_mask(struct smu_context *smu,
+ 	size_t size = 0;
+ 	int ret = 0, i;
+ 
+-	if (!smu->is_apu) {
++	if (!smu->is_apu ||
++	    (smu->adev->asic_type == CHIP_RENOIR)) {
+ 		ret = smu_cmn_get_enabled_mask(smu,
+ 						feature_mask,
+ 						2);
+-- 
+2.29.0
+
