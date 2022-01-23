@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B24DC433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC152C433F5
 	for <amd-gfx@archiver.kernel.org>; Sun, 23 Jan 2022 18:21:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC1F410E438;
-	Sun, 23 Jan 2022 18:21:12 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E473410E438
- for <amd-gfx@lists.freedesktop.org>; Sun, 23 Jan 2022 18:21:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19BE810E73B;
+	Sun, 23 Jan 2022 18:21:13 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2047.outbound.protection.outlook.com [40.107.93.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FCE310E213
+ for <amd-gfx@lists.freedesktop.org>; Sun, 23 Jan 2022 18:21:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hkdv35mF079bS0Xl5aVL421K6y3R0zTiCjxvxLySlF9Qs+aXghLLWJ4kV96fuJ4enhzJ9L6cM4hpdTsCG1Dugb++90SIixgyTDVjDfKV2Hd4UXvdthvY/XfhupsMN/kOOaBnJimRJOa3nfZHHmhYeK05PBvM9+mcIUJr7wQ+Z69uGW2tknfJLxMlhBOYGStkrBgv5NGNeCE+MQs07d4C7V6ugtzfsifTSm1JRlwgvYY89XMvDK6M91CumgHHFZlnS0wXONIqAZpHdYfeTkJVYZFrQvanc/+/dsOoOrhQL/gpuRAOasYaumn7qGQth05rN5vas6ZfXIEXHJsj1Dp6+A==
+ b=EohHwckPveuqROidJl3zIOtc7sXHOM/MPex0/nviLxVkj6N4FvPnglQtcLR98J6rBgYTi7vhIDbQjAJumblV69Ux56KB4RFz98xik26azlcIHa4SNtuxf6Ooa3CWzjWocVoGIrQotu3CZ6TTbiqQTGRuswEkiacndifjZTW4qHGO1ldrQ7pErAr1ptanx/ujGINiy96E/giHBYyjau/Nu6l3MNSEqXfQwh3Xf+/kzVJ0mxjdtlWZ2/RkA13X7fejaqlOXi1WApOGQJ4SfpTfYfNImYOBBdsS8JpYnOCWBlXPqU7yz7ipLA1w8BreJhV++CNdrpJc3G0WRK+EzRWB9g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fiEQCsxgD8+H5szZEiQZx8m6xuxQ8Ba5JZ3f0B8M5io=;
- b=dJGLc2Jr5mJnQiZ21ize/we64X8pF7gV7L2bYkQHy5teErUzWrcK6Pqql4VBQTl+3RuUNbGeis5031VSlH59+l2C1UsGxJsOLOc0p8HG3BN8dXlcuDs+RvF06LI4ctg1AcEvmshgw9O0gPe4mWt4SUHKMEywZygNvn+DfWvu7T8fvCUuBC7nKZVac793BzT4VnDVbFgqzfU6j5KvBSk3tX5QF0LDS4YPxLME4xmoGARxBo03nj57/2fV8e3NO3Jg7DquukAVgAwh1cSOZK6TDeQhfyLO3C06bo+3dra9F33D7E7zu2Jedz55H1kQEVyD5ENUc5oITudbyF/D8M7DMA==
+ bh=8TN7JHEY+b8Y9vrLCTils2QhH7hSt9fUSDc1t4KzSmo=;
+ b=Boo5sXf8QTCeAH6MFDsAEKkRG/yXUh5bSoKuY9NeVM3MfP1dxIsrz0tLnwiazW5jFj5kLIMVC+f0JHfoSab5kQlO0tzKSkAL1n1qt0RZYwCb1LOEuf194iT4vBiPC9+XZcWZtoANhOa08MCqiw1k8Ngi/id+Kir7BroS457SvLWq0m4/6eakAs+f2JCWCDQp3U27UeZFpFYnP4NgzCDiCO+maUGa1NUvKIJP+uq0NIRuzPNlcYFkYE9by50KfQJY9BBj4kZcBUCA8zdxMkGqGxmYAYfg9HQ2RUt0vCiTpLDQpIGZyV84k9CiVgnLfAlN5WoplHnseZTlyysTGUq/nA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fiEQCsxgD8+H5szZEiQZx8m6xuxQ8Ba5JZ3f0B8M5io=;
- b=kePgvPOxEoGWAB0WPFnxDFKTnyCC0I3RaZMvqOZlRExFGTYzTdv743kdL+I3XK33YdJ4Jau+LD9uQPVw8fUIkrJf2zHJcBs6Eip8UYHyIFtwpFm7JO5bPhHNpIZ4KgqJYX6ac/UmtHc2tLjWQw4mPGPpVoLle/mNxs489KWkeI8=
-Received: from BN6PR13CA0054.namprd13.prod.outlook.com (2603:10b6:404:11::16)
- by MWHPR12MB1536.namprd12.prod.outlook.com (2603:10b6:301:6::23) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=8TN7JHEY+b8Y9vrLCTils2QhH7hSt9fUSDc1t4KzSmo=;
+ b=fqFp2YCTFk/ei6ImbiJJF7biejZvFF2SNYIN9tuFkXceOxUSstv0kFzopZkua/vUWKJrjxooNmQrk+XSTK9IwdcGU/51tWOQZZvVs++WU0d+VQ/gMamc13i5yOQvu/LP2DqdUS2ZO/EfU7XmDxDX1BxCAHfN7FzXc62ZbJKjr5k=
+Received: from BN6PR14CA0001.namprd14.prod.outlook.com (2603:10b6:404:79::11)
+ by BY5PR12MB4835.namprd12.prod.outlook.com (2603:10b6:a03:1fd::14)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10; Sun, 23 Jan
- 2022 18:21:04 +0000
-Received: from BN8NAM11FT041.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:11:cafe::c0) by BN6PR13CA0054.outlook.office365.com
- (2603:10b6:404:11::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.14 via Frontend
- Transport; Sun, 23 Jan 2022 18:21:03 +0000
+ 2022 18:20:59 +0000
+Received: from BN8NAM11FT046.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:79:cafe::18) by BN6PR14CA0001.outlook.office365.com
+ (2603:10b6:404:79::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8 via Frontend
+ Transport; Sun, 23 Jan 2022 18:20:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT041.mail.protection.outlook.com (10.13.177.18) with Microsoft SMTP
+ BN8NAM11FT046.mail.protection.outlook.com (10.13.177.127) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4909.7 via Frontend Transport; Sun, 23 Jan 2022 18:21:03 +0000
+ 15.20.4909.7 via Frontend Transport; Sun, 23 Jan 2022 18:20:58 +0000
 Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Sun, 23 Jan
- 2022 12:21:01 -0600
+ 2022 12:20:56 -0600
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 09/24] drm/amd/display: Add Synaptics Fifo Reset Workaround
-Date: Sun, 23 Jan 2022 13:20:06 -0500
-Message-ID: <20220123182021.4154032-10-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 04/24] drm/amd/display: Change error to warning when hpd
+ remains low for eDP
+Date: Sun, 23 Jan 2022 13:20:01 -0500
+Message-ID: <20220123182021.4154032-5-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220123182021.4154032-1-Rodrigo.Siqueira@amd.com>
 References: <20220123182021.4154032-1-Rodrigo.Siqueira@amd.com>
@@ -68,28 +69,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0b0c3aad-3ad9-485b-19f5-08d9de9d1d4b
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1536:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB153643E1B21AB6E337EF6D51985D9@MWHPR12MB1536.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:254;
+X-MS-Office365-Filtering-Correlation-Id: 91bcc1af-27a2-4995-e113-08d9de9d1a78
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4835:EE_
+X-Microsoft-Antispam-PRVS: <BY5PR12MB4835E800542703A63ECC2BDD985D9@BY5PR12MB4835.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:605;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HAXDmqotSubnmWi5ZJ9vOUFTiIChZxdVc/HEYxAixZ7WsCFJp862Ri3hZ4Ijalt95DqmwX/1P+i8s8pl5irDkw6d0/kirBNFh5/9dKxmKNj/ty8IoODzz7xvWUsjwRyRuNcOA0MkrhOhsizwjLlg691GPNB6iUmOVuN/yvbRQg0Im4EZXmyX7lI8+jeAdhhKZJR1JIqKaNt/6CEGV+wJnAxYW4JMQ60h52yUjArBgTZNKbAaaG1zvv449ifjFApaeqISGmcOA2E0iXUVGXYJVP6OlkUagv4xrC01PBf4WGjDH68CeZwLowDT4jIU5vnHk6vwvmh9/oKuzUYen/Rk32AHSI2k0tZCi+Ddbn5h9cSteAVzXLdf8UysAk3dDuaw4rLvoqGFxC/7O5cfRYguuIXTa5AIK7ZcbOL8VC9G2yhDnHTBv+y78Hoh/rIaqHOKV9FO5Q8dtWr6ZCrg2+LwFcHbgQvyepvOaA/eJaPliRtYbhnynM9NLKnyQhXxq0UkqbcchbOtzEcLvikBnq2wATg2ZaqQl8Yz077/ee4NSRKdoMX0FQDpO+VSgJg/iqpPQqPyfm+v24IL9XllunHoORu6DBm9l5WIFx+16YYGpEKiPN1O43YiMDa6nwFVRZtHYEJQTkajWevC7rFo0CwN/9LKz9D8kZSAxE2ybG4HniMtmUZGvU4fkL1D8kmYUnYhN34+Z2dnEM0zcKy/bP+c7B3uR33qLYA5gkVQOh7EVoEOH/bO33cYOVbQdfX39HS9Vy0lo2rDmjoeqTshwa9TO/RKCoVb5ENbafYh727REsY=
+X-Microsoft-Antispam-Message-Info: WlMKEd06S6NJCj8VtdWaQ68cnrYv/JTxncH5lvTckzrVMJztFUmuR89jWu/6ePtRqxEEBLMnF0WFMxsK0q/aRWvsiKPbjjXVnp3mExUVbSwGg/P89m3xASa86xNiAROYN6G/uYgnQnGZ/PVeUMTAGSI/CBRbacyX/hjJD1sCsFrX58/zjR1MQRfebZ/Jg9YReH0yMRtlCW61+HsSvgtGFzPkxX62XgZlstPC16N72KTIlLrKyj08Ilz/6VpCfgQ++JZ5xj35HZg70hj1HKxcWzxV46ULY1Mg5k6agVgwVcxiudBGzr6xfTMywZ+Y0EDqfsIuOKxQ3ZbKQ/KUBU6j8w7dATPvmRcmLazt2fh44oS5YXAFAb6BbmENyeCnDbuJOPHbQWvHUuFKmOKxoI5jqmtD6KG2km2Mi2/VWq3aelTTdwDKMwJmTzqRp2637klMt0VH9f1EIk8eleh4otn6D4R3UJX/0lyV7Kv2MJg3uHjDN21a+a9GbYaBDFzsE4ADBHkMsAKgi74y72gfNH9urXEtsHbDBQlqC9XiBpf1KS9MfmLqVgnAcxGKhi65PPrAJOLkVjwDIAOekNWJgBTEe763558O8fSNEjCiaxy0gRYJM8dgbXwk6GOE5K6PiXnsP5tsdN1F8RUbQUrWZUaqaDyX1wK4Oc4OcHvyU4lM9yabgeU3DcTIVT2ICP+aYMyS+wNihN6fpnL/caVdjTMKVTtHQW8o7ijKQrJ+x3nnq2a6FuHTrq0b6cBIXOi45a4Y/0+LMrGZEwjX8xBc0l9dQpV3OBjYQ42XsikbTulDWdk=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(40470700004)(36840700001)(6916009)(2616005)(40460700003)(54906003)(316002)(82310400004)(2906002)(5660300002)(81166007)(36756003)(8936002)(86362001)(70206006)(70586007)(16526019)(186003)(508600001)(36860700001)(83380400001)(47076005)(336012)(26005)(8676002)(356005)(4326008)(1076003)(426003)(36900700001);
+ SFS:(4636009)(36840700001)(40470700004)(46966006)(83380400001)(336012)(356005)(40460700003)(36756003)(508600001)(47076005)(86362001)(16526019)(186003)(6916009)(70206006)(70586007)(82310400004)(2906002)(81166007)(8676002)(426003)(54906003)(2616005)(1076003)(26005)(36860700001)(6666004)(316002)(4326008)(8936002)(4744005)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2022 18:21:03.1859 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b0c3aad-3ad9-485b-19f5-08d9de9d1d4b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2022 18:20:58.4528 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91bcc1af-27a2-4995-e113-08d9de9d1a78
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT041.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT046.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1536
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4835
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,212 +102,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Aurabindo.Pillai@amd.com, Hersen Wu <hersenxs.wu@amd.com>, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Varone <divarone@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Martin Leung <Martin.Leung@amd.com>, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+From: Varone <divarone@amd.com>
 
-Sequence to reset synaptics SDP fifo before enabling first stream
+[WHY?]
+SKUs that contain an unused eDP connector will throw an error when no
+display is connected.
 
-Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
+[HOW?]
+Change error to a warning.
+
+Reviewed-by: Martin Leung <Martin.Leung@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Signed-off-by: Dillon Varone <divarone@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 133 ++++++++++++++++++
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   2 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |  10 ++
- 3 files changed, 144 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index d757bdd9f0e2..b760c0b199d5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -536,6 +536,139 @@ bool dm_helpers_submit_i2c(
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+index 9857e7b1b37d..bdde8786ff9b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+@@ -793,7 +793,7 @@ void dce110_edp_wait_for_hpd_ready(
+ 	dal_gpio_destroy_irq(&hpd);
  
- 	return result;
+ 	if (false == edp_hpd_high) {
+-		DC_LOG_ERROR(
++		DC_LOG_WARNING(
+ 				"%s: wait timed out!\n", __func__);
+ 	}
  }
-+
-+static bool execute_synatpics_rc_command(struct drm_dp_aux *aux,
-+		bool is_write_cmd,
-+		unsigned char cmd,
-+		unsigned int length,
-+		unsigned int offset,
-+		unsigned char *data)
-+{
-+	bool success = false;
-+	unsigned char rc_data[16] = {0};
-+	unsigned char rc_offset[4] = {0};
-+	unsigned char rc_length[2] = {0};
-+	unsigned char rc_cmd = 0;
-+	unsigned char rc_result = 0xFF;
-+	unsigned char i = 0;
-+	uint8_t ret = 0;
-+
-+	if (is_write_cmd) {
-+		// write rc data
-+		memmove(rc_data, data, length);
-+		ret = drm_dp_dpcd_write(aux, SYNAPTICS_RC_DATA, rc_data, sizeof(rc_data));
-+	}
-+
-+	// write rc offset
-+	rc_offset[0] = (unsigned char) offset & 0xFF;
-+	rc_offset[1] = (unsigned char) (offset >> 8) & 0xFF;
-+	rc_offset[2] = (unsigned char) (offset >> 16) & 0xFF;
-+	rc_offset[3] = (unsigned char) (offset >> 24) & 0xFF;
-+	ret = drm_dp_dpcd_write(aux, SYNAPTICS_RC_OFFSET, rc_offset, sizeof(rc_offset));
-+
-+	// write rc length
-+	rc_length[0] = (unsigned char) length & 0xFF;
-+	rc_length[1] = (unsigned char) (length >> 8) & 0xFF;
-+	ret = drm_dp_dpcd_write(aux, SYNAPTICS_RC_LENGTH, rc_length, sizeof(rc_length));
-+
-+	// write rc cmd
-+	rc_cmd = cmd | 0x80;
-+	ret = drm_dp_dpcd_write(aux, SYNAPTICS_RC_COMMAND, &rc_cmd, sizeof(rc_cmd));
-+
-+	if (ret < 0) {
-+		DRM_ERROR("	execute_synatpics_rc_command - write cmd ..., err = %d\n", ret);
-+		return false;
-+	}
-+
-+	// poll until active is 0
-+	for (i = 0; i < 10; i++) {
-+		drm_dp_dpcd_read(aux, SYNAPTICS_RC_COMMAND, &rc_cmd, sizeof(rc_cmd));
-+		if (rc_cmd == cmd)
-+			// active is 0
-+			break;
-+		msleep(10);
-+	}
-+
-+	// read rc result
-+	drm_dp_dpcd_read(aux, SYNAPTICS_RC_RESULT, &rc_result, sizeof(rc_result));
-+	success = (rc_result == 0);
-+
-+	if (success && !is_write_cmd) {
-+		// read rc data
-+		drm_dp_dpcd_read(aux, SYNAPTICS_RC_DATA, data, length);
-+	}
-+
-+	DC_LOG_DC("	execute_synatpics_rc_command - success = %d\n", success);
-+
-+	return success;
-+}
-+
-+static void apply_synaptics_fifo_reset_wa(struct drm_dp_aux *aux)
-+{
-+	unsigned char data[16] = {0};
-+
-+	DC_LOG_DC("Start apply_synaptics_fifo_reset_wa\n");
-+
-+	// Step 2
-+	data[0] = 'P';
-+	data[1] = 'R';
-+	data[2] = 'I';
-+	data[3] = 'U';
-+	data[4] = 'S';
-+
-+	if (!execute_synatpics_rc_command(aux, true, 0x01, 5, 0, data))
-+		return;
-+
-+	// Step 3 and 4
-+	if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x220998, data))
-+		return;
-+
-+	data[0] &= (~(1 << 1)); // set bit 1 to 0
-+	if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x220998, data))
-+		return;
-+
-+	if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x220D98, data))
-+		return;
-+
-+	data[0] &= (~(1 << 1)); // set bit 1 to 0
-+	if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x220D98, data))
-+		return;
-+
-+	if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x221198, data))
-+		return;
-+
-+	data[0] &= (~(1 << 1)); // set bit 1 to 0
-+	if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x221198, data))
-+		return;
-+
-+	// Step 3 and 5
-+	if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x220998, data))
-+		return;
-+
-+	data[0] |= (1 << 1); // set bit 1 to 1
-+	if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x220998, data))
-+		return;
-+
-+	if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x220D98, data))
-+		return;
-+
-+	data[0] |= (1 << 1); // set bit 1 to 1
-+		return;
-+
-+	if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x221198, data))
-+		return;
-+
-+	data[0] |= (1 << 1); // set bit 1 to 1
-+	if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x221198, data))
-+		return;
-+
-+	// Step 6
-+	if (!execute_synatpics_rc_command(aux, true, 0x02, 0, 0, NULL))
-+		return;
-+
-+	DC_LOG_DC("Done apply_synaptics_fifo_reset_wa\n");
-+}
-+
- bool dm_helpers_dp_write_dsc_enable(
- 		struct dc_context *ctx,
- 		const struct dc_stream_state *stream,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index cc34a35d0bcb..23cc6a6fe70e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -159,7 +159,7 @@ static const struct drm_connector_funcs dm_dp_mst_connector_funcs = {
- };
- 
- #if defined(CONFIG_DRM_AMD_DC_DCN)
--static bool needs_dsc_aux_workaround(struct dc_link *link)
-+bool needs_dsc_aux_workaround(struct dc_link *link)
- {
- 	if (link->dpcd_caps.branch_dev_id == DP_BRANCH_DEVICE_ID_90CC24 &&
- 	    (link->dpcd_caps.dpcd_rev.raw == DPCD_REV_14 || link->dpcd_caps.dpcd_rev.raw == DPCD_REV_12) &&
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-index 900d3f7a8498..5da28ca03372 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-@@ -26,6 +26,14 @@
- #ifndef __DAL_AMDGPU_DM_MST_TYPES_H__
- #define __DAL_AMDGPU_DM_MST_TYPES_H__
- 
-+#define DP_BRANCH_DEVICE_ID_90CC24 0x90CC24
-+
-+#define SYNAPTICS_RC_COMMAND       0x4B2
-+#define SYNAPTICS_RC_RESULT        0x4B3
-+#define SYNAPTICS_RC_LENGTH        0x4B8
-+#define SYNAPTICS_RC_OFFSET        0x4BC
-+#define SYNAPTICS_RC_DATA          0x4C0
-+
- struct amdgpu_display_manager;
- struct amdgpu_dm_connector;
- 
-@@ -50,6 +58,8 @@ struct dsc_mst_fairness_vars {
- bool compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
- 				       struct dc_state *dc_state,
- 				       struct dsc_mst_fairness_vars *vars);
-+
-+bool needs_dsc_aux_workaround(struct dc_link *link);
- #endif
- 
- #endif
 -- 
 2.25.1
 
