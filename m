@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E67FAC433EF
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Jan 2022 18:21:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B24DC433EF
+	for <amd-gfx@archiver.kernel.org>; Sun, 23 Jan 2022 18:21:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5770610E213;
-	Sun, 23 Jan 2022 18:21:09 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2067.outbound.protection.outlook.com [40.107.244.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A8C910E213
- for <amd-gfx@lists.freedesktop.org>; Sun, 23 Jan 2022 18:21:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC1F410E438;
+	Sun, 23 Jan 2022 18:21:12 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E473410E438
+ for <amd-gfx@lists.freedesktop.org>; Sun, 23 Jan 2022 18:21:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j855KyK36QRXrkSntu+yg2f71X7QT8n6D8oQeqffj9O/yAmOv9El93FuWRqy0u5DahTMkGNBuLi0+avejpeZiVmcbVkwVL2YpRI/q8J4amSdyRFTV32Ay461dzqpFiA7ipgnNOKG/u9tzl3u7UVMnEUQI7RI8SIgXRfQY8OMPZic3qsD+zKckHmuxt/NOUNhRxJJRW4ew3CkJZvPm1WWjNYNeUG3ZqRiXbJ1Knk0kRArpTw9fAP+FampCSDk5x/3e6QC+A9r9xwt2VYaBLEeQhGYc2Ks3qyIxB17mN/z7kn3A8lQB9c1wYHzlwE1THlRlrseh2Ad7Cvfd2BXhYnklQ==
+ b=hkdv35mF079bS0Xl5aVL421K6y3R0zTiCjxvxLySlF9Qs+aXghLLWJ4kV96fuJ4enhzJ9L6cM4hpdTsCG1Dugb++90SIixgyTDVjDfKV2Hd4UXvdthvY/XfhupsMN/kOOaBnJimRJOa3nfZHHmhYeK05PBvM9+mcIUJr7wQ+Z69uGW2tknfJLxMlhBOYGStkrBgv5NGNeCE+MQs07d4C7V6ugtzfsifTSm1JRlwgvYY89XMvDK6M91CumgHHFZlnS0wXONIqAZpHdYfeTkJVYZFrQvanc/+/dsOoOrhQL/gpuRAOasYaumn7qGQth05rN5vas6ZfXIEXHJsj1Dp6+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T082mYEuHzgSLlMVnSRy6iGjjWQac80NI8KoAue2jTY=;
- b=lLiTFCjMvtK9pU62c9q2b/T+iQfMGxbcmaxzg3c2TkHjIg7qOZM+5nJUdgoEgCcsFfPs8a9oiEA6pSyJar4Y4hUh3oQPrBesvHrIbzWKFcSXFIlQMLClQYgapit+P8ieiWP5p5NvtDeooMGKJ6a1xExAoR4SFHacsd9WWgUK+2tQX5bCV6Y3ji+vopRLoJ5gqB+N9H/CesTb73QDquA/8zlAPfrU7p7WImY7gsOxtr7gGjNeYILscc12T2BU8HDoUKKiCI9hg2gDv1jWVPFJjr1kkyYXGxqwL6Na9f2ES0dY/mpp5u46JCACu/VQNQjFTakFb470nw5BFrIhaqmKeg==
+ bh=fiEQCsxgD8+H5szZEiQZx8m6xuxQ8Ba5JZ3f0B8M5io=;
+ b=dJGLc2Jr5mJnQiZ21ize/we64X8pF7gV7L2bYkQHy5teErUzWrcK6Pqql4VBQTl+3RuUNbGeis5031VSlH59+l2C1UsGxJsOLOc0p8HG3BN8dXlcuDs+RvF06LI4ctg1AcEvmshgw9O0gPe4mWt4SUHKMEywZygNvn+DfWvu7T8fvCUuBC7nKZVac793BzT4VnDVbFgqzfU6j5KvBSk3tX5QF0LDS4YPxLME4xmoGARxBo03nj57/2fV8e3NO3Jg7DquukAVgAwh1cSOZK6TDeQhfyLO3C06bo+3dra9F33D7E7zu2Jedz55H1kQEVyD5ENUc5oITudbyF/D8M7DMA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T082mYEuHzgSLlMVnSRy6iGjjWQac80NI8KoAue2jTY=;
- b=qMQH+mfqpx4ORqAABez0FoE4d2SnDyjiD1fJ5X4OTCbA37OiJkPITB00tf1pcki7k4JQxQev+xYxQ28A+TCf4HX/xQ/G4QnsUdzSncsaUJ7tgGnahaR2pLQRHxdluPmLpDfLhQv2OD9Rs82biP/zhfynXwCuCUgboDLceIxSKGY=
-Received: from BN9PR03CA0609.namprd03.prod.outlook.com (2603:10b6:408:106::14)
- by SN1PR12MB2526.namprd12.prod.outlook.com (2603:10b6:802:2a::10)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=fiEQCsxgD8+H5szZEiQZx8m6xuxQ8Ba5JZ3f0B8M5io=;
+ b=kePgvPOxEoGWAB0WPFnxDFKTnyCC0I3RaZMvqOZlRExFGTYzTdv743kdL+I3XK33YdJ4Jau+LD9uQPVw8fUIkrJf2zHJcBs6Eip8UYHyIFtwpFm7JO5bPhHNpIZ4KgqJYX6ac/UmtHc2tLjWQw4mPGPpVoLle/mNxs489KWkeI8=
+Received: from BN6PR13CA0054.namprd13.prod.outlook.com (2603:10b6:404:11::16)
+ by MWHPR12MB1536.namprd12.prod.outlook.com (2603:10b6:301:6::23) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10; Sun, 23 Jan
- 2022 18:21:02 +0000
-Received: from BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:106:cafe::1e) by BN9PR03CA0609.outlook.office365.com
- (2603:10b6:408:106::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8 via Frontend
- Transport; Sun, 23 Jan 2022 18:21:02 +0000
+ 2022 18:21:04 +0000
+Received: from BN8NAM11FT041.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:11:cafe::c0) by BN6PR13CA0054.outlook.office365.com
+ (2603:10b6:404:11::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.14 via Frontend
+ Transport; Sun, 23 Jan 2022 18:21:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT036.mail.protection.outlook.com (10.13.177.168) with Microsoft SMTP
+ BN8NAM11FT041.mail.protection.outlook.com (10.13.177.18) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4909.7 via Frontend Transport; Sun, 23 Jan 2022 18:21:02 +0000
+ 15.20.4909.7 via Frontend Transport; Sun, 23 Jan 2022 18:21:03 +0000
 Received: from atma2.hitronhub.home (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Sun, 23 Jan
- 2022 12:21:00 -0600
+ 2022 12:21:01 -0600
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 08/24] drm/amd/display: Add Cable ID support for native DP
-Date: Sun, 23 Jan 2022 13:20:05 -0500
-Message-ID: <20220123182021.4154032-9-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 09/24] drm/amd/display: Add Synaptics Fifo Reset Workaround
+Date: Sun, 23 Jan 2022 13:20:06 -0500
+Message-ID: <20220123182021.4154032-10-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220123182021.4154032-1-Rodrigo.Siqueira@amd.com>
 References: <20220123182021.4154032-1-Rodrigo.Siqueira@amd.com>
@@ -68,28 +68,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2a671906-0818-471a-10d5-08d9de9d1cb5
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2526:EE_
-X-Microsoft-Antispam-PRVS: <SN1PR12MB252651655CCCF2281BBB35F0985D9@SN1PR12MB2526.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 0b0c3aad-3ad9-485b-19f5-08d9de9d1d4b
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1536:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB153643E1B21AB6E337EF6D51985D9@MWHPR12MB1536.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:254;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4oKiBBTJmeXjYCF8wDSllvyhU3NaPSB6YHzWHzXknFpt/jJaOiP0vB4vr5D74E0irUIAE4UK/QZ0dGwpc9mn9IAFVZPHKDZElU3L/89Cx/d7NtKO3jPKFb6z2ik3gPq2r4zIqiVAFfgLIj5P8uUc0PzwLSJPi7d/5UCnCsWgnTH4F09cs1Rnj3JTHQd8rAJ3r/P7kf9HkgQ41fa73qbCcv4abIZ9dt0//3Hy+iof0zdzdU9qfmhzuhiTM6/T9UuRue4han4sB08i2SJhK1T4zSBACgcfKxLN1rT99X/RJ4rHnohO/REyagPWPieFGKcLB86CmR1rH0DMNG2VC2OqDNwPJpWgz7ipcgL7jR18waIHtJfGhHOj76iivXXfG+glCGjVySIxaq+CeD4SPU2D4UhPoOiZL5GntvY1r+Wu+7FkR8T/QaHgms2P5sgmsk97y/yzyplmAqGGX3C/PTUw56D43e4SNiWytXjDZ5UUEi3KNp4BuIwNUF2rMKNQEN/aYkuJtGEUxrXUWE0Ld/lINliEhEZC+GZK/VB5L7abYZjI6amKuAXL7L0K4f2Wz9xSTcKpLh+bp56BACs8phTUgQoUBn2DhY5YwIFmeX0KxiYR/OUQ79eZkuvarPZr9KOWERoB5mwO/2/tKTKhbXOX5uwzGHuYI0673TreNFGOs8Mnz37M/FV3aixsoPqeGq87yJXOPo3SIBXh8xGx8M5H3i9hwRRM1Qlu29QvsC8fZYa7WnCcJJKZRPJ14kMYq8ZmftouYgfkVHFdHk2hITu+dYdMNCYJEF7ir/side/oTTM=
+X-Microsoft-Antispam-Message-Info: HAXDmqotSubnmWi5ZJ9vOUFTiIChZxdVc/HEYxAixZ7WsCFJp862Ri3hZ4Ijalt95DqmwX/1P+i8s8pl5irDkw6d0/kirBNFh5/9dKxmKNj/ty8IoODzz7xvWUsjwRyRuNcOA0MkrhOhsizwjLlg691GPNB6iUmOVuN/yvbRQg0Im4EZXmyX7lI8+jeAdhhKZJR1JIqKaNt/6CEGV+wJnAxYW4JMQ60h52yUjArBgTZNKbAaaG1zvv449ifjFApaeqISGmcOA2E0iXUVGXYJVP6OlkUagv4xrC01PBf4WGjDH68CeZwLowDT4jIU5vnHk6vwvmh9/oKuzUYen/Rk32AHSI2k0tZCi+Ddbn5h9cSteAVzXLdf8UysAk3dDuaw4rLvoqGFxC/7O5cfRYguuIXTa5AIK7ZcbOL8VC9G2yhDnHTBv+y78Hoh/rIaqHOKV9FO5Q8dtWr6ZCrg2+LwFcHbgQvyepvOaA/eJaPliRtYbhnynM9NLKnyQhXxq0UkqbcchbOtzEcLvikBnq2wATg2ZaqQl8Yz077/ee4NSRKdoMX0FQDpO+VSgJg/iqpPQqPyfm+v24IL9XllunHoORu6DBm9l5WIFx+16YYGpEKiPN1O43YiMDa6nwFVRZtHYEJQTkajWevC7rFo0CwN/9LKz9D8kZSAxE2ybG4HniMtmUZGvU4fkL1D8kmYUnYhN34+Z2dnEM0zcKy/bP+c7B3uR33qLYA5gkVQOh7EVoEOH/bO33cYOVbQdfX39HS9Vy0lo2rDmjoeqTshwa9TO/RKCoVb5ENbafYh727REsY=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700004)(81166007)(83380400001)(82310400004)(356005)(5660300002)(70206006)(86362001)(8936002)(36756003)(47076005)(2906002)(4326008)(54906003)(6916009)(70586007)(1076003)(2616005)(36860700001)(426003)(8676002)(336012)(16526019)(186003)(508600001)(40460700003)(316002)(26005)(36900700001);
+ SFS:(4636009)(46966006)(40470700004)(36840700001)(6916009)(2616005)(40460700003)(54906003)(316002)(82310400004)(2906002)(5660300002)(81166007)(36756003)(8936002)(86362001)(70206006)(70586007)(16526019)(186003)(508600001)(36860700001)(83380400001)(47076005)(336012)(26005)(8676002)(356005)(4326008)(1076003)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2022 18:21:02.2027 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a671906-0818-471a-10d5-08d9de9d1cb5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2022 18:21:03.1859 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b0c3aad-3ad9-485b-19f5-08d9de9d1d4b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT041.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2526
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1536
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,272 +102,211 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, "Shen, George" <George.Shen@amd.com>,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, Wenjing Liu <Wenjing.Liu@amd.com>,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Aurabindo.Pillai@amd.com, Hersen Wu <hersenxs.wu@amd.com>, wayne.lin@amd.com,
  Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Shen, George" <George.Shen@amd.com>
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
 
-[Why/How]
-We need to handle cable capabilities for cables that support cable ID.
-The cable attributes are intersected with the verified link caps to
-determine appropriate max link rate. After determining cable attributes
-we update the DP receiver.
+Sequence to reset synaptics SDP fifo before enabling first stream
 
-Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: George Shen <George.Shen@amd.com>
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c |  5 ++
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 59 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  2 +
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h  | 16 +++++
- drivers/gpu/drm/amd/display/dc/dc_link.h      |  7 +++
- .../gpu/drm/amd/display/dc/inc/dc_link_dp.h   |  3 +
- 6 files changed, 92 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 133 ++++++++++++++++++
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   2 +-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |  10 ++
+ 3 files changed, 144 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index b826ac9bd85d..d0aba8d7b1c3 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -1290,6 +1290,8 @@ static bool detect_link_and_local_sink(struct dc_link *link,
- 		 *  Clear dongle_max_pix_clk on disconnect to fix this
- 		 */
- 		link->dongle_max_pix_clk = 0;
-+
-+		dc_link_dp_clear_rx_status(link);
- 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index d757bdd9f0e2..b760c0b199d5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -536,6 +536,139 @@ bool dm_helpers_submit_i2c(
  
- 	LINK_INFO("link=%d, dc_sink_in=%p is now %s prev_sink=%p edid same=%d\n",
-@@ -1969,6 +1971,9 @@ static enum dc_status enable_link_dp(struct dc_state *state,
- 	if (link->dpcd_sink_ext_caps.raw != 0)
- 		msleep(post_oui_delay);
- 
-+	// similarly, mode switch can cause loss of cable ID
-+	dpcd_update_cable_id(link);
-+
- 	skip_video_pattern = true;
- 
- 	if (link_settings.link_rate == LINK_RATE_LOW)
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 1730be6c64ed..0033d2a0cfe5 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -2981,6 +2981,20 @@ static enum dc_link_rate get_lttpr_max_link_rate(struct dc_link *link)
- 	return lttpr_max_link_rate;
+ 	return result;
  }
- 
-+static enum dc_link_rate get_cable_max_link_rate(struct dc_link *link)
++
++static bool execute_synatpics_rc_command(struct drm_dp_aux *aux,
++		bool is_write_cmd,
++		unsigned char cmd,
++		unsigned int length,
++		unsigned int offset,
++		unsigned char *data)
 +{
-+	enum dc_link_rate cable_max_link_rate = LINK_RATE_HIGH3;
++	bool success = false;
++	unsigned char rc_data[16] = {0};
++	unsigned char rc_offset[4] = {0};
++	unsigned char rc_length[2] = {0};
++	unsigned char rc_cmd = 0;
++	unsigned char rc_result = 0xFF;
++	unsigned char i = 0;
++	uint8_t ret = 0;
 +
-+	if (link->dpcd_caps.cable_attributes.bits.UHBR10_20_CAPABILITY & DP_UHBR20)
-+		cable_max_link_rate = LINK_RATE_UHBR20;
-+	else if (link->dpcd_caps.cable_attributes.bits.UHBR13_5_CAPABILITY)
-+		cable_max_link_rate = LINK_RATE_UHBR13_5;
-+	else if (link->dpcd_caps.cable_attributes.bits.UHBR10_20_CAPABILITY & DP_UHBR10)
-+		cable_max_link_rate = LINK_RATE_UHBR10;
++	if (is_write_cmd) {
++		// write rc data
++		memmove(rc_data, data, length);
++		ret = drm_dp_dpcd_write(aux, SYNAPTICS_RC_DATA, rc_data, sizeof(rc_data));
++	}
 +
-+	return cable_max_link_rate;
++	// write rc offset
++	rc_offset[0] = (unsigned char) offset & 0xFF;
++	rc_offset[1] = (unsigned char) (offset >> 8) & 0xFF;
++	rc_offset[2] = (unsigned char) (offset >> 16) & 0xFF;
++	rc_offset[3] = (unsigned char) (offset >> 24) & 0xFF;
++	ret = drm_dp_dpcd_write(aux, SYNAPTICS_RC_OFFSET, rc_offset, sizeof(rc_offset));
++
++	// write rc length
++	rc_length[0] = (unsigned char) length & 0xFF;
++	rc_length[1] = (unsigned char) (length >> 8) & 0xFF;
++	ret = drm_dp_dpcd_write(aux, SYNAPTICS_RC_LENGTH, rc_length, sizeof(rc_length));
++
++	// write rc cmd
++	rc_cmd = cmd | 0x80;
++	ret = drm_dp_dpcd_write(aux, SYNAPTICS_RC_COMMAND, &rc_cmd, sizeof(rc_cmd));
++
++	if (ret < 0) {
++		DRM_ERROR("	execute_synatpics_rc_command - write cmd ..., err = %d\n", ret);
++		return false;
++	}
++
++	// poll until active is 0
++	for (i = 0; i < 10; i++) {
++		drm_dp_dpcd_read(aux, SYNAPTICS_RC_COMMAND, &rc_cmd, sizeof(rc_cmd));
++		if (rc_cmd == cmd)
++			// active is 0
++			break;
++		msleep(10);
++	}
++
++	// read rc result
++	drm_dp_dpcd_read(aux, SYNAPTICS_RC_RESULT, &rc_result, sizeof(rc_result));
++	success = (rc_result == 0);
++
++	if (success && !is_write_cmd) {
++		// read rc data
++		drm_dp_dpcd_read(aux, SYNAPTICS_RC_DATA, data, length);
++	}
++
++	DC_LOG_DC("	execute_synatpics_rc_command - success = %d\n", success);
++
++	return success;
 +}
 +
- bool dc_link_dp_get_max_link_enc_cap(const struct dc_link *link, struct dc_link_settings *max_link_enc_cap)
- {
- 	struct link_encoder *link_enc = NULL;
-@@ -3009,8 +3023,10 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
- {
- 	struct dc_link_settings max_link_cap = {0};
- 	enum dc_link_rate lttpr_max_link_rate;
-+	enum dc_link_rate cable_max_link_rate;
- 	struct link_encoder *link_enc = NULL;
- 
-+
- 	link_enc = link_enc_cfg_get_link_enc(link);
- 	ASSERT(link_enc);
- 
-@@ -3029,6 +3045,14 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
- 			max_link_cap.link_spread)
- 		max_link_cap.link_spread =
- 				link->reported_link_cap.link_spread;
-+
-+	/* Lower link settings based on cable attributes */
-+	cable_max_link_rate = get_cable_max_link_rate(link);
-+
-+	if (!link->dc->debug.ignore_cable_id &&
-+			cable_max_link_rate < max_link_cap.link_rate)
-+		max_link_cap.link_rate = cable_max_link_rate;
-+
- 	/*
- 	 * account for lttpr repeaters cap
- 	 * notes: repeaters do not snoop in the DPRX Capabilities addresses (3.6.3).
-@@ -5059,6 +5083,13 @@ bool dp_retrieve_lttpr_cap(struct dc_link *link)
- 	return is_lttpr_present;
- }
- 
-+
-+static bool is_usbc_connector(struct dc_link *link)
++static void apply_synaptics_fifo_reset_wa(struct drm_dp_aux *aux)
 +{
-+	return link->link_enc &&
-+			link->link_enc->features.flags.bits.DP_IS_USB_C;
-+}
++	unsigned char data[16] = {0};
 +
- static bool retrieve_link_cap(struct dc_link *link)
- {
- 	/* DP_ADAPTER_CAP - DP_DPCD_REV + 1 == 16 and also DP_DSC_BITS_PER_PIXEL_INC - DP_DSC_SUPPORT + 1 == 16,
-@@ -5115,6 +5146,9 @@ static bool retrieve_link_cap(struct dc_link *link)
- 	 */
- 	msleep(post_oui_delay);
- 
-+	/* Read cable ID and update receiver */
-+	dpcd_update_cable_id(link);
++	DC_LOG_DC("Start apply_synaptics_fifo_reset_wa\n");
 +
- 	for (i = 0; i < read_dpcd_retry_cnt; i++) {
- 		status = core_link_read_dpcd(
- 				link,
-@@ -6292,6 +6326,26 @@ void dpcd_set_source_specific_data(struct dc_link *link)
- 	}
- }
- 
-+void dpcd_update_cable_id(struct dc_link *link)
-+{
-+	if (!link->link_enc->features.flags.bits.IS_UHBR10_CAPABLE ||
-+			link->dprx_status.cable_id_updated)
++	// Step 2
++	data[0] = 'P';
++	data[1] = 'R';
++	data[2] = 'I';
++	data[3] = 'U';
++	data[4] = 'S';
++
++	if (!execute_synatpics_rc_command(aux, true, 0x01, 5, 0, data))
 +		return;
 +
-+	/* Retrieve cable attributes */
-+	if (!is_usbc_connector(link))
-+		core_link_read_dpcd(link, DP_CABLE_ATTRIBUTES_UPDATED_BY_DPRX,
-+				&link->dpcd_caps.cable_attributes.raw,
-+				sizeof(uint8_t));
++	// Step 3 and 4
++	if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x220998, data))
++		return;
 +
-+	/* Update receiver with cable attributes */
-+	core_link_write_dpcd(link, DP_CABLE_ATTRIBUTES_UPDATED_BY_DPTX,
-+			&link->dpcd_caps.cable_attributes.raw,
-+			sizeof(link->dpcd_caps.cable_attributes.raw));
++	data[0] &= (~(1 << 1)); // set bit 1 to 0
++	if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x220998, data))
++		return;
 +
-+	link->dprx_status.cable_id_updated = 1;
++	if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x220D98, data))
++		return;
++
++	data[0] &= (~(1 << 1)); // set bit 1 to 0
++	if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x220D98, data))
++		return;
++
++	if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x221198, data))
++		return;
++
++	data[0] &= (~(1 << 1)); // set bit 1 to 0
++	if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x221198, data))
++		return;
++
++	// Step 3 and 5
++	if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x220998, data))
++		return;
++
++	data[0] |= (1 << 1); // set bit 1 to 1
++	if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x220998, data))
++		return;
++
++	if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x220D98, data))
++		return;
++
++	data[0] |= (1 << 1); // set bit 1 to 1
++		return;
++
++	if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x221198, data))
++		return;
++
++	data[0] |= (1 << 1); // set bit 1 to 1
++	if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x221198, data))
++		return;
++
++	// Step 6
++	if (!execute_synatpics_rc_command(aux, true, 0x02, 0, 0, NULL))
++		return;
++
++	DC_LOG_DC("Done apply_synaptics_fifo_reset_wa\n");
 +}
 +
- bool dc_link_set_backlight_level_nits(struct dc_link *link,
- 		bool isHDR,
- 		uint32_t backlight_millinits,
-@@ -6689,3 +6743,8 @@ void edp_panel_backlight_power_on(struct dc_link *link)
- 	if (link->dc->hwss.edp_backlight_control)
- 		link->dc->hwss.edp_backlight_control(link, true);
- }
-+
-+void dc_link_dp_clear_rx_status(struct dc_link *link)
-+{
-+	memset(&link->dprx_status, 0, sizeof(link->dprx_status));
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index ff5093e52f2d..0dc183d6af5d 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -687,6 +687,7 @@ struct dc_debug_options {
- 	bool set_mst_en_for_sst;
- 	bool disable_uhbr;
- 	bool force_dp2_lt_fallback_method;
-+	bool ignore_cable_id;
- 	union mem_low_power_enable_options enable_mem_low_power;
- 	union root_clock_optimization_options root_clock_optimization;
- 	bool hpo_optimization;
-@@ -1234,6 +1235,7 @@ struct dpcd_caps {
- 	union dp_main_line_channel_coding_cap channel_coding_cap;
- 	union dp_sink_video_fallback_formats fallback_formats;
- 	union dp_fec_capability1 fec_cap1;
-+	union dp_cable_attributes cable_attributes;
+ bool dm_helpers_dp_write_dsc_enable(
+ 		struct dc_context *ctx,
+ 		const struct dc_stream_state *stream,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index cc34a35d0bcb..23cc6a6fe70e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -159,7 +159,7 @@ static const struct drm_connector_funcs dm_dp_mst_connector_funcs = {
  };
  
- union dpcd_sink_ext_caps {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-index 6d813db6b8dc..ac2c59bd024d 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-@@ -901,6 +901,9 @@ struct dpcd_usb4_dp_tunneling_info {
- #ifndef DP_LINK_SQUARE_PATTERN
- #define DP_LINK_SQUARE_PATTERN				0x10F
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+-static bool needs_dsc_aux_workaround(struct dc_link *link)
++bool needs_dsc_aux_workaround(struct dc_link *link)
+ {
+ 	if (link->dpcd_caps.branch_dev_id == DP_BRANCH_DEVICE_ID_90CC24 &&
+ 	    (link->dpcd_caps.dpcd_rev.raw == DPCD_REV_14 || link->dpcd_caps.dpcd_rev.raw == DPCD_REV_12) &&
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+index 900d3f7a8498..5da28ca03372 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+@@ -26,6 +26,14 @@
+ #ifndef __DAL_AMDGPU_DM_MST_TYPES_H__
+ #define __DAL_AMDGPU_DM_MST_TYPES_H__
+ 
++#define DP_BRANCH_DEVICE_ID_90CC24 0x90CC24
++
++#define SYNAPTICS_RC_COMMAND       0x4B2
++#define SYNAPTICS_RC_RESULT        0x4B3
++#define SYNAPTICS_RC_LENGTH        0x4B8
++#define SYNAPTICS_RC_OFFSET        0x4BC
++#define SYNAPTICS_RC_DATA          0x4C0
++
+ struct amdgpu_display_manager;
+ struct amdgpu_dm_connector;
+ 
+@@ -50,6 +58,8 @@ struct dsc_mst_fairness_vars {
+ bool compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
+ 				       struct dc_state *dc_state,
+ 				       struct dsc_mst_fairness_vars *vars);
++
++bool needs_dsc_aux_workaround(struct dc_link *link);
  #endif
-+#ifndef DP_CABLE_ATTRIBUTES_UPDATED_BY_DPTX
-+#define DP_CABLE_ATTRIBUTES_UPDATED_BY_DPTX		0x110
-+#endif
- #ifndef DP_DSC_CONFIGURATION
- #define DP_DSC_CONFIGURATION				0x161
+ 
  #endif
-@@ -913,6 +916,9 @@ struct dpcd_usb4_dp_tunneling_info {
- #ifndef DP_128b_132b_TRAINING_AUX_RD_INTERVAL
- #define DP_128b_132b_TRAINING_AUX_RD_INTERVAL		0x2216
- #endif
-+#ifndef DP_CABLE_ATTRIBUTES_UPDATED_BY_DPRX
-+#define DP_CABLE_ATTRIBUTES_UPDATED_BY_DPRX		0x2217
-+#endif
- #ifndef DP_TEST_264BIT_CUSTOM_PATTERN_7_0
- #define DP_TEST_264BIT_CUSTOM_PATTERN_7_0		0X2230
- #endif
-@@ -1011,6 +1017,16 @@ union dp_fec_capability1 {
- 	uint8_t raw;
- };
- 
-+union dp_cable_attributes {
-+	struct {
-+		uint8_t UHBR10_20_CAPABILITY	:2;
-+		uint8_t UHBR13_5_CAPABILITY	:1;
-+		uint8_t CABLE_TYPE		:3;
-+		uint8_t RESERVED		:2;
-+	} bits;
-+	uint8_t raw;
-+};
-+
- struct dp_color_depth_caps {
- 	uint8_t support_6bpc	:1;
- 	uint8_t support_8bpc	:1;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-index 9014c0a0a63b..b1c79b3f26aa 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-@@ -43,6 +43,10 @@ struct dc_link_status {
- 	struct dpcd_caps *dpcd_caps;
- };
- 
-+struct dp_receiver_status {
-+	bool cable_id_updated;
-+};
-+
- /* DP MST stream allocation (payload bandwidth number) */
- struct link_mst_stream_allocation {
- 	/* DIG front */
-@@ -201,6 +205,7 @@ struct dc_link {
- 	struct link_mst_stream_allocation_table mst_stream_alloc_table;
- 
- 	struct dc_link_status link_status;
-+	struct dp_receiver_status dprx_status;
- 
- 	struct link_trace link_trace;
- 	struct gpio *hpd_gpio;
-@@ -459,4 +464,6 @@ const struct link_resource *dc_link_get_cur_link_res(const struct dc_link *link)
- void dc_get_cur_link_res_map(const struct dc *dc, uint32_t *map);
- /* restore link resource allocation state from a snapshot */
- void dc_restore_link_res_map(const struct dc *dc, uint32_t *map);
-+
-+void dc_link_dp_clear_rx_status(struct dc_link *link);
- #endif /* DC_LINK_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-index b7c5c42d67ed..3ed2dbbf5642 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-@@ -112,6 +112,9 @@ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode);
- bool dp_overwrite_extended_receiver_cap(struct dc_link *link);
- 
- void dpcd_set_source_specific_data(struct dc_link *link);
-+
-+void dpcd_update_cable_id(struct dc_link *link);
-+
- /* Write DPCD link configuration data. */
- enum dc_status dpcd_set_link_settings(
- 	struct dc_link *link,
 -- 
 2.25.1
 
