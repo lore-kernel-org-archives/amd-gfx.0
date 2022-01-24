@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82E7BC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 19:59:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B742C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 20:04:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21F5610EA4A;
-	Mon, 24 Jan 2022 19:59:36 +0000 (UTC)
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
- [IPv6:2607:f8b0:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91DA810E9FF;
- Mon, 24 Jan 2022 19:59:34 +0000 (UTC)
-Received: by mail-ot1-x329.google.com with SMTP id
- j38-20020a9d1926000000b0059fa6de6c71so4024177ota.10; 
- Mon, 24 Jan 2022 11:59:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C78610E3FF;
+	Mon, 24 Jan 2022 20:04:20 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE08010E3FF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jan 2022 20:04:18 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id g205so27269931oif.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jan 2022 12:04:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=w+lZqp5VkPjN0faGgSSPKZ3zUhREnNDGIkuhzUCrVAU=;
- b=CSAtIjx4L+ZkJciYlaWlmCBX6UHmUCvw1LCMR3LfRIGvEjh3fERyo+hkCxZVzZVBsC
- CgSeSRBEHJ02dBKUqKVxK6XFAAcuOQ4HPqrhCT0oM/R6lZoVCbPvRX8v0CD5P6hmoT/+
- L58y+kpGl8c7DIBbCzp6UolIERAa6i9T8H7vLoRLfxa3bX0GRY3NSj//B756aVhSNbhp
- G3j4knVTvzCoKjLC++e7sAY/UarFC0XGY1l2esyRVCnHuD+dnsdNaC3fDALkIi4oZvL7
- N/XrfocLShB4Ad0AqhzV2I9DzafUi1yimxXNA6kNHy4Wki4vd57iuwzOA1Hc/MXKK3Uo
- 3RpA==
+ :cc; bh=FY3ybORuPx/bi6G+4wzdBWM586AxVF8SB3NsHEe/o+o=;
+ b=Lv/BMBl/sYkF+UWcWao1Udsoc+xApRvvckKO80iHOD3KdIK31uwe89m+dYEnMtBuRD
+ wEAWMcUYD+fGbER+pWx9M7p8wMNqpFPi6fLlMkb4P18I5vzm0rwmKZ71pFnS4RyZlRlv
+ UcuQra9k46BXlI6OrehudZG7osYrnfow5gflkpjr4fgVLqYJ0QSdPmc2gqc2uEoXCDWm
+ GkZ5GMP1Zlj229HqgjMDVkz7eFkVIZ+1rRaC2pDxEjFM5xvL0KBCzFtoxe73gqeHFr2o
+ kRuwHIAvYzSaJsNZsAs7JiUV9oM/yzRnVCR9YBjqqKhVYW7z/r0QKIgmcBJIenQTf/V6
+ toWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=w+lZqp5VkPjN0faGgSSPKZ3zUhREnNDGIkuhzUCrVAU=;
- b=kDNjcd9DduQ8nf9Lq1cz2Z8QegNgAVizcsoRsuHrQWxM0+dVt//BHryyMaj0ALxUgl
- 47lUpny6dMkdVbPHWD2hC1+pfhuw5Xjf8mSkWsVPUotZVhD4R21p2UgmPf+Z15cq43g4
- BiwPdf0NebARbcgA7L9hn/cAWvoAK3QOejxsgOz8CiOe3C9X+babgeBN2f5QiCdBD1Bi
- p9i/ODHTXFkquRAyzVX+w+h4BRnZYXchvuxYa7Iun5iW/lkBPWMozjup0kWkl1IJDEfu
- ccG/mzGAUVLlL7dF9YAu/3svG8SoEI16fqbX46gdPA3kZXVguouGq3iIeOf3VyP0ywp5
- Tjyw==
-X-Gm-Message-State: AOAM533+r2Dr1TX7NdHHsfXmmeJoanjjPqaZ1W7YuSR7PbBvrVcpxBDZ
- LtRRnuUcWLEmNyQdvqMCIeO/bFrh7xHwXhdjps4=
-X-Google-Smtp-Source: ABdhPJyInPhzcrJLNRrdGV5Euq2uJFvwa+CtjDpOWM0SbP+p9pyHaSW7USbPxxFYzNmwKNu6aqwl8ruO9MIIWHs9TGI=
-X-Received: by 2002:a05:6830:1d90:: with SMTP id
- y16mr12820867oti.200.1643054373917; 
- Mon, 24 Jan 2022 11:59:33 -0800 (PST)
+ bh=FY3ybORuPx/bi6G+4wzdBWM586AxVF8SB3NsHEe/o+o=;
+ b=ya4IsckTxHdDo7Ho42WFyMuu9OP9FvQ9xt5a1rKEmDtZuvXIYVwLDhelGtPHNZemDG
+ 0R1ELqvmQqbMFwFk3uBTCBkQooeV6VT6uRTI/XTiS+44+zWuHUXuCQNbqBwNn0ofczyT
+ VAa2qhLmc186j00jCJ2Z+wlfx1p5J8b4gAzZqnau/0BN89HMTmSiustRUAXphWF1Ls8W
+ 8BRdAVwISHh05RyDgXIAS4XObCrCBfzuTlHQZBB61AKc7YoKphgYhkC/0ojjaR5tgtXP
+ XiKXrfKzQhNeiNJRLqWiKgUOhfarxfBmn308HoinupJuVUsmH4r+6e1C8sgUk5Pa2vZQ
+ 1hlg==
+X-Gm-Message-State: AOAM530wO4QEg4PYYTcBgGm3uxSAMmDqRe4f3eId76vF5mMFrWzM78Sx
+ yVO5/jzuatBD7LrrslawBe7p01Dv5MP2R7AtHdM=
+X-Google-Smtp-Source: ABdhPJwmQ0ALL3egj7ujhs0CN6wjC+qoyudaOSB5p+jPdpVakEAMgsH6gvd46T712LgPJO6PJRwlSMEO17mLkKAl6F8=
+X-Received: by 2002:a05:6808:300b:: with SMTP id
+ ay11mr2886814oib.120.1643054658246; 
+ Mon, 24 Jan 2022 12:04:18 -0800 (PST)
 MIME-Version: 1.0
-References: <20220124165732.56587-1-zhou1615@umn.edu>
-In-Reply-To: <20220124165732.56587-1-zhou1615@umn.edu>
+References: <20220124002336.3455326-1-bas@basnieuwenhuizen.nl>
+ <20220124002336.3455326-2-bas@basnieuwenhuizen.nl>
+In-Reply-To: <20220124002336.3455326-2-bas@basnieuwenhuizen.nl>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 Jan 2022 14:59:22 -0500
-Message-ID: <CADnq5_P9cnxi27FM6cU1sf1FjkV2sZdHjJciuuDd9ZZ92qyxeg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix a NULL pointer dereference in
- amdgpu_dm_connector_add_common_modes()
-To: Zhou Qingyang <zhou1615@umn.edu>
+Date: Mon, 24 Jan 2022 15:04:07 -0500
+Message-ID: <CADnq5_Mj9KTxUi5ki6bg8u81aEOhPHvwrZMU68q-K4za33Y-=g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: Wrap dcn301_calculate_wm_and_dlg for
+ FPU.
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,70 +63,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Kangjie Lu <kjlu@umn.edu>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <Roman.Li@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Nikola Cornij <nikola.cornij@amd.com>, David Airlie <airlied@linux.ie>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Tony Cheng <Tony.Cheng@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- LKML <linux-kernel@vger.kernel.org>, Jude Shih <shenshih@amd.com>
+Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, Zhan Liu <Zhan.Liu@amd.com>,
+ "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Wentland,
+ Harry" <harry.wentland@amd.com>,
+ "Pierre-Loup A. Griffais" <pgriffais@valvesoftware.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Applied the series.  Thanks!
 
 Alex
 
-On Mon, Jan 24, 2022 at 12:05 PM Zhou Qingyang <zhou1615@umn.edu> wrote:
+On Sun, Jan 23, 2022 at 7:23 PM Bas Nieuwenhuizen
+<bas@basnieuwenhuizen.nl> wrote:
 >
-> In amdgpu_dm_connector_add_common_modes(), amdgpu_dm_create_common_mode()
-> is assigned to mode and is passed to drm_mode_probed_add() directly after
-> that. drm_mode_probed_add() passes &mode->head to list_add_tail(), and
-> there is a dereference of it in list_add_tail() without recoveries, which
-> could lead to NULL pointer dereference on failure of
-> amdgpu_dm_create_common_mode().
+> Mirrors the logic for dcn30. Cue lots of WARNs and some
+> kernel panics without this fix.
 >
-> Fix this by adding a NULL check of mode.
->
-> This bug was found by a static analyzer.
->
-> Builds with 'make allyesconfig' show no new warnings,
-> and our static analyzer no longer warns about this code.
->
-> Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_types and amdgpu_dm")
-> Signed-off-by: Zhou Qingyang <zhou1615@umn.edu>
+> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 > ---
-> The analysis employs differential checking to identify inconsistent
-> security operations (e.g., checks or kfrees) between two code paths
-> and confirms that the inconsistent operations are not recovered in the
-> current function or the callers, so they constitute bugs.
+>  .../gpu/drm/amd/display/dc/dcn301/dcn301_resource.c   | 11 +++++++++++
+>  .../gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c    |  2 +-
+>  .../gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.h    |  2 +-
+>  3 files changed, 13 insertions(+), 2 deletions(-)
 >
-> Note that, as a bug found by static analysis, it can be a false
-> positive or hard to trigger. Multiple researchers have cross-reviewed
-> the bug.
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+> index b4001233867c..5d9637b07429 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+> @@ -1380,6 +1380,17 @@ static void set_wm_ranges(
+>         pp_smu->nv_funcs.set_wm_ranges(&pp_smu->nv_funcs.pp_smu, &ranges);
+>  }
 >
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 7f9773f8dab6..9ad94186b146 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -8143,6 +8143,9 @@ static void amdgpu_dm_connector_add_common_modes(struct drm_encoder *encoder,
->                 mode = amdgpu_dm_create_common_mode(encoder,
->                                 common_modes[i].name, common_modes[i].w,
->                                 common_modes[i].h);
-> +               if (!mode)
-> +                       continue;
+> +static void dcn301_calculate_wm_and_dlg(
+> +               struct dc *dc, struct dc_state *context,
+> +               display_e2e_pipe_params_st *pipes,
+> +               int pipe_cnt,
+> +               int vlevel)
+> +{
+> +       DC_FP_START();
+> +       dcn301_calculate_wm_and_dlg_fp(dc, context, pipes, pipe_cnt, vlevel);
+> +       DC_FP_END();
+> +}
 > +
->                 drm_mode_probed_add(connector, mode);
->                 amdgpu_dm_connector->num_modes++;
->         }
+>  static struct resource_funcs dcn301_res_pool_funcs = {
+>         .destroy = dcn301_destroy_resource_pool,
+>         .link_enc_create = dcn301_link_encoder_create,
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
+> index 94c32832a0e7..0a7a33864973 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
+> @@ -327,7 +327,7 @@ void dcn301_fpu_init_soc_bounding_box(struct bp_soc_bb_info bb_info)
+>                 dcn3_01_soc.sr_exit_time_us = bb_info.dram_sr_exit_latency_100ns * 10;
+>  }
+>
+> -void dcn301_calculate_wm_and_dlg(struct dc *dc,
+> +void dcn301_calculate_wm_and_dlg_fp(struct dc *dc,
+>                 struct dc_state *context,
+>                 display_e2e_pipe_params_st *pipes,
+>                 int pipe_cnt,
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.h
+> index fc7065d17842..774b0fdfc80b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.h
+> @@ -34,7 +34,7 @@ void dcn301_fpu_set_wm_ranges(int i,
+>
+>  void dcn301_fpu_init_soc_bounding_box(struct bp_soc_bb_info bb_info);
+>
+> -void dcn301_calculate_wm_and_dlg(struct dc *dc,
+> +void dcn301_calculate_wm_and_dlg_fp(struct dc *dc,
+>                 struct dc_state *context,
+>                 display_e2e_pipe_params_st *pipes,
+>                 int pipe_cnt,
 > --
-> 2.25.1
+> 2.34.1
 >
