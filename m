@@ -4,48 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E514AC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 20:14:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30889C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 20:21:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79E3610E860;
-	Mon, 24 Jan 2022 20:14:41 +0000 (UTC)
-X-Greylist: delayed 3380 seconds by postgrey-1.36 at gabe;
- Mon, 24 Jan 2022 20:08:35 UTC
-Received: from desiato.infradead.org (desiato.infradead.org
- [IPv6:2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA20B10E90F
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jan 2022 20:08:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
- :In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=630GZf2pl7dUC09jByd2lRVEJ71rHFIBrI9U48V8bzA=; b=l0WJXVDaYcmJ3/V3RWFezwDDer
- C44GbJGe7OjLN0KX4PaF1IWCv0kAoNTjNLYvwuH+jZell6Ad2JgbYr55poxlvv5DL8vopnnR/7kMY
- vn/kveSmXCK7I5QKtfyV0XYyRC15LtirFVJpZLpus0tksAvWxi6l/uO/J6VOZyNLBn7KViVZO+pmi
- tCMavBPk+ocRsC6yujO5bPnGRcZhKLBisgW7TtJG3/FxTW3BAp4mXk9rBm2YHM6MqRSSbpG11QU3K
- iU0eefreID+Mspii6FT8TND1o3Wgkgcez5ouyqVdYFPOacbzF1GFPC3zVTqT0YP/NTts2M908BtFX
- 6ETemMoQ==;
-Received: from [2601:1c0:6280:3f0::aa0b]
- by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nC4l3-003F5b-C0; Mon, 24 Jan 2022 19:12:05 +0000
-Message-ID: <aca104cf-5f5f-b696-754a-35e62dbe64c3@infradead.org>
-Date: Mon, 24 Jan 2022 11:11:56 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id A913010E14A;
+	Mon, 24 Jan 2022 20:21:11 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9438310E731
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jan 2022 20:18:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1643055500;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=LK256wQogjCX5wa9UmsP7s8Vi1buTBnWqTcBCjO4e1M=;
+ b=L/XLgTOZ0Kvqjw+/FggItrh1/yqVyFyY9IXNh5vV4NQJTPN+g/tHTT1EFnjtAyEJpbvhtd
+ 9rX6TXm4j6JcLztDa8QAIHS9+PWbfycxEewcYMoR2h3tL8AOEc2brxKMWuxA1mOOr8sxCs
+ mkcY9NIwD2imFRNDOUEUeZytHDi5q34=
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
+ [209.85.161.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-341-7gterrxQOw-4GYvTjbIRPQ-1; Mon, 24 Jan 2022 15:18:19 -0500
+X-MC-Unique: 7gterrxQOw-4GYvTjbIRPQ-1
+Received: by mail-oo1-f71.google.com with SMTP id
+ u126-20020a4a5784000000b002e3688852c8so5373698ooa.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jan 2022 12:18:18 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LK256wQogjCX5wa9UmsP7s8Vi1buTBnWqTcBCjO4e1M=;
+ b=aYEpEXDvqYrNIj+iv6Wf0idFNRFIcMJYFdGckD/CHOWRPJkP8ikXq541Kkuscg33uo
+ oT5EhZthHvxyTaoq1b3Z+9y3UKXU3QgkxEzhaajYYYazw6o6CO5WoQfoecM6gqLlDX2V
+ sYpYa/duU/Vy+coBWnSfiMQHLa5DKFu14wZBWDraqeDSnmEix/E+SwWMVur0puzi/1Ow
+ kxxN4evSjQu/UkBQxiMD/+k/6WCL2ieUreSNYCkfzGfbISnQsyYImoowRtlvBH02o3m2
+ O5w9R7bs0Q6/n1+cnVhRtLZ0Xy98scvELeOxU4ZBxS4RvtZ3Mb5Pi6lcy1BDSJzifOmN
+ oDIA==
+X-Gm-Message-State: AOAM532a6TNl1zCjjHulAl86wIV2aPesQIEVhTP2vsjNbNFZ8091amQo
+ F0xlhOgnz26awq5LFcfSKzdW/pMIi44ze0WHpzMnUMyYgzWlhhqySQ2HewOlVAg/sDOenotGn77
+ g3GGA0Bs0eztKtuC0IvidFbVW9Q==
+X-Received: by 2002:a9d:d08:: with SMTP id 8mr13197881oti.334.1643055498358;
+ Mon, 24 Jan 2022 12:18:18 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyTEn4ya3/5eCInZIkS/C/4U2Q9wOWBRRyxGnlMA9linsmQiFFzkE//YKVVW2gVtrkOgoqmKw==
+X-Received: by 2002:a9d:d08:: with SMTP id 8mr13197856oti.334.1643055498138;
+ Mon, 24 Jan 2022 12:18:18 -0800 (PST)
+Received: from localhost.localdomain.com (024-205-208-113.res.spectrum.com.
+ [24.205.208.113])
+ by smtp.gmail.com with ESMTPSA id bk23sm6235774oib.23.2022.01.24.12.18.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Jan 2022 12:18:17 -0800 (PST)
+From: trix@redhat.com
+To: evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@linux.ie, daniel@ffwll.ch, nathan@kernel.org,
+ ndesaulniers@google.com, lijo.lazar@amd.com, darren.powell@amd.com,
+ guchun.chen@amd.com, Arunpravin.PaneerSelvam@amd.com,
+ andrey.grodzovsky@amd.com
+Subject: [PATCH v2] drm/amd/pm: return -ENOTSUPP if there is no
+ get_dpm_ultimate_freq function
+Date: Mon, 24 Jan 2022 12:18:12 -0800
+Message-Id: <20220124201812.1078824-1-trix@redhat.com>
+X-Mailer: git-send-email 2.26.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: Build regressions/improvements in v5.17-rc1
-Content-Language: en-US
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
- Alex Deucher <alexdeucher@gmail.com>
-References: <20220123125737.2658758-1-geert@linux-m68k.org>
- <alpine.DEB.2.22.394.2201240851560.2674757@ramsan.of.borg>
- <CADnq5_MUq0fX7wMLJyUUxxa+2xoRinonL-TzD8tUhXALRfY8-A@mail.gmail.com>
- <CAMuHMdWUWqHYbbavtMT-XAD_sarDPC5xnc3c0pX1ZAh3Wuzuzg@mail.gmail.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <CAMuHMdWUWqHYbbavtMT-XAD_sarDPC5xnc3c0pX1ZAh3Wuzuzg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 24 Jan 2022 20:14:40 +0000
+Content-Type: text/plain; charset="US-ASCII"
+X-Mailman-Approved-At: Mon, 24 Jan 2022 20:21:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,141 +84,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- KVM list <kvm@vger.kernel.org>, Network Development <netdev@vger.kernel.org>,
- linux-um <linux-um@lists.infradead.org>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
- Lakshmi Sowjanya D <lakshmi.sowjanya.d@intel.com>,
- sparclinux <sparclinux@vger.kernel.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, "Tobin C. Harding" <me@tobin.cc>
+Cc: Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Tom Rix <trix@redhat.com>
 
+clang static analysis reports this represenative problem
+amdgpu_smu.c:144:18: warning: The left operand of '*' is a garbage value
+        return clk_freq * 100;
+               ~~~~~~~~ ^
 
-On 1/24/22 10:55, Geert Uytterhoeven wrote:
-> Hi Alex,
-> 
-> On Mon, Jan 24, 2022 at 7:52 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->> On Mon, Jan 24, 2022 at 5:25 AM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
->>> On Sun, 23 Jan 2022, Geert Uytterhoeven wrote:
->>>>  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: error: control reaches end of non-void function [-Werror=return-type]:  => 1560:1
->>
->> I don't really see what's going on here:
->>
->> #ifdef CONFIG_X86_64
->> return cpu_data(first_cpu_of_numa_node).apicid;
->> #else
->> return first_cpu_of_numa_node;
->> #endif
-> 
-> Ah, the actual failure causing this was not included:
-> 
-> In file included from /kisskb/src/arch/x86/um/asm/processor.h:41:0,
->                  from /kisskb/src/include/linux/mutex.h:19,
->                  from /kisskb/src/include/linux/kernfs.h:11,
->                  from /kisskb/src/include/linux/sysfs.h:16,
->                  from /kisskb/src/include/linux/kobject.h:20,
->                  from /kisskb/src/include/linux/pci.h:35,
->                  from
-> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:25:
-> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: In
-> function 'kfd_cpumask_to_apic_id':
-> /kisskb/src/arch/um/include/asm/processor-generic.h:103:18: error:
-> called object is not a function or function pointer
->  #define cpu_data (&boot_cpu_data)
->                   ^
-> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1556:9:
-> note: in expansion of macro 'cpu_data'
->   return cpu_data(first_cpu_of_numa_node).apicid;
->          ^
-> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1560:1:
-> error: control reaches end of non-void function [-Werror=return-type]
->  }
->  ^
+If there is no get_dpm_ultimate_freq function,
+smu_get_dpm_freq_range returns success without setting the
+output min,max parameters.  So return an -ENOTSUPP error.
 
-ah yes, UML.
-I have a bunch of UML fixes that I have been hesitant to post.
-
-This is one of them.
-What do people think about this?
-
-thanks.
-
+Fixes: e5ef784b1e17 ("drm/amd/powerplay: revise calling chain on retrieving frequency range")
+Signed-off-by: Tom Rix <trix@redhat.com>
 ---
-From: Randy Dunlap <rdunlap@infradead.org>
+v2: return error instead of initializing min/max
 
+drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1556:9: note: in expansion of macro ‘cpu_data’
-  return cpu_data(first_cpu_of_numa_node).apicid;
-         ^~~~~~~~
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1560:1: error: control reaches end of non-void function [-Werror=return-type]
-
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function ‘kfd_fill_iolink_info_for_cpu’:
-../arch/um/include/asm/processor-generic.h:103:19: error: called object is not a function or function pointer
- #define cpu_data (&boot_cpu_data)
-                  ~^~~~~~~~~~~~~~~
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1688:27: note: in expansion of macro ‘cpu_data’
-  struct cpuinfo_x86 *c = &cpu_data(0);
-                           ^~~~~~~~
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:7: error: dereferencing pointer to incomplete type ‘struct cpuinfo_x86’
-  if (c->x86_vendor == X86_VENDOR_AMD)
-       ^~
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:23: error: ‘X86_VENDOR_AMD’ undeclared (first use in this function); did you mean ‘X86_VENDOR_ANY’?
-  if (c->x86_vendor == X86_VENDOR_AMD)
-                       ^~~~~~~~~~~~~~
-                       X86_VENDOR_ANY
-
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function ‘kfd_create_vcrat_image_cpu’:
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1742:11: warning: unused variable ‘entries’ [-Wunused-variable]
-  uint32_t entries = 0;
-
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c     |    6 +++---
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c |    2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
-
---- linux-next-20220107.orig/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ linux-next-20220107/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1552,7 +1552,7 @@ static int kfd_cpumask_to_apic_id(const
- 	first_cpu_of_numa_node = cpumask_first(cpumask);
- 	if (first_cpu_of_numa_node >= nr_cpu_ids)
- 		return -1;
--#ifdef CONFIG_X86_64
-+#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
- 	return cpu_data(first_cpu_of_numa_node).apicid;
- #else
- 	return first_cpu_of_numa_node;
---- linux-next-20220107.orig/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ linux-next-20220107/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1679,7 +1679,7 @@ static int kfd_fill_mem_info_for_cpu(int
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 5ace30434e603..264eb09ccfd51 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -116,7 +116,7 @@ int smu_get_dpm_freq_range(struct smu_context *smu,
+ 			   uint32_t *min,
+ 			   uint32_t *max)
+ {
+-	int ret = 0;
++	int ret = -ENOTSUPP;
  
--#ifdef CONFIG_X86_64
-+#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
- static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
- 				uint32_t *num_entries,
- 				struct crat_subtype_iolink *sub_type_hdr)
-@@ -1738,7 +1738,7 @@ static int kfd_create_vcrat_image_cpu(vo
- 	struct crat_subtype_generic *sub_type_hdr;
- 	int avail_size = *size;
- 	int numa_node_id;
--#ifdef CONFIG_X86_64
-+#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
- 	uint32_t entries = 0;
- #endif
- 	int ret = 0;
-@@ -1803,7 +1803,7 @@ static int kfd_create_vcrat_image_cpu(vo
- 			sub_type_hdr->length);
- 
- 		/* Fill in Subtype: IO Link */
--#ifdef CONFIG_X86_64
-+#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
- 		ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
- 				&entries,
- 				(struct crat_subtype_iolink *)sub_type_hdr);
-
+ 	if (!min && !max)
+ 		return -EINVAL;
+-- 
+2.26.3
 
