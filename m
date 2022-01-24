@@ -4,106 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19A11C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 08:19:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DF29C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 08:30:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A05D510E726;
-	Mon, 24 Jan 2022 08:19:09 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02E4510E726
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jan 2022 08:19:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F67910ED23;
+	Mon, 24 Jan 2022 08:30:18 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2055.outbound.protection.outlook.com [40.107.102.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB80B10ED23
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jan 2022 08:30:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JxNkP5JPMd+V6ZDf1ZTmuA3gl8bpZitjGBWU17istCLHOeLZXZKlcV7gt/RKhlWKhhrzr3OxcadXlYiHOJMH1mD4G58GyBC4ptnCCuLji7lowE3E9iQXckbUk7aSuanvPsywdjVNI2aybk+xGKnH6fIdQ7iX2S9w8KsNI+1qLqitsA4StYPiyhqHmrKp+hBvppJbII8CJlYQRZBfHXWnRM0dAU9YufgBHrm3jgzyQvzlY1QFXP/sOBRRZdSWXabuJR9A7s/7K3U5iqhI5gMMLZiw8Jxe1rGYLwSLodzDUlSs+I67O/Q+NgsWfyG48OvLPWr9mFrYokSPckCJXvaxMw==
+ b=iFPdp1R0t1nH7r/UvpRxRkhcgPaTNPsBTjX1BEKIMfXNABKArYgB9zUZf/bYtzASlFq1aQ35GPFOhPjxzuI/9orfhAk4gIo4M+Q7KGIbBKpBa9M2+MnekMHpTvw0K5504Uc1jBFG0TCAjwf6O9pXBAGABDWiORZUOIqTeW9gqDenxzmitRszKZ5XTqEKDN/Ukk2LD3BNPz4KUQ31kKjl9y3758wpOWPhUc9klzEJQqEMbcZ8/PQIAh5leGIIyVtJrYqieg1ID3FI8QpvAoXQ0e/QDH3BjjHcGpT0VE6QX3iIEpkv2swBYe5mZEL+Xy/aJVwxUrledklwpUNyLEJcfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3QjyFApOroea9Q+Jd/s3ByN4sR14BuIkXRRVlrYNrY8=;
- b=H9YoQrTuxVOBJ3A9fB7ge/TCxBC37M8ZgZD6ap5LSFxr0xJGK/DYwFZXhcVaoo4vj9yAyoIj/z2eQ9BiWdb+0BLnCuQ+7lOJe3w/rsDntMJnzo+b19dTdPwaAF89eri/CZF5KfGcHgkUbvJ9V/JcXYMuEbwr2vEP4Vna6Vo2rvfhSgnWJ5eD5Bl4owAibjEzTJJuv9IPiiXIpPm99miNkbzaaj/GEqe3SciRRbF3Nf+Sp/f9LCWUnT7CF7eE/DO0QND4WK/Yok7+d4d42MOXWbYDa5u4m27OUtkr6zLDdkmHkvb1pj85FyDgNle3mL5wHvIb3/B6q06pPi4r+FQaPQ==
+ bh=PSIYvkXVA7wVHGSsiT+zM/xeCVKeP0vrZq+OFbLOPzk=;
+ b=j2LDPYQpqJ5tTB9LQBLyiQE4nrqJWN7zKZt5xJk57so+P2e/IW5bx317ySeLXTqlLAoLiiuRAiglJVU2OkG5r7xGGBse7w6Oxw3znYETBlm3lcpAB9FX4R9TOj0ggdLDhZ2S8mrUaVd0zWrct4jgYkXfmAMheARUSpBSRC+taEw00dY8+5sGpyFX37ZnMps7/uog/TnJa+70SdO/GP/xv1C+7McVwd8U9te28ZOZJbdYvU4qNtZE7DOnf+vOI5XNRPucjaVjmuGArnAzQtMh6h+XxFHAkw1AIUePDN8WsDtttyAQ/4Em3aDLR1zVfFeLjLVAYq0Z+SXIVIxyfTzyeg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3QjyFApOroea9Q+Jd/s3ByN4sR14BuIkXRRVlrYNrY8=;
- b=3vmRJHhWh/x/xHCMekmkgioiBvYGCDngMeKJMUVz/ZDPnRC/d/MAsTloTmNUSQAf5LE1YneuUp/m5TZrBiYz5DzMhFM7bBR54G5WycA6nK/8mK1eTsg8nCwgxekEieu7zcPhIOEjl+oO8TkCAvNb9uPVG98Uhy0VPQJhSVQGA2E=
+ bh=PSIYvkXVA7wVHGSsiT+zM/xeCVKeP0vrZq+OFbLOPzk=;
+ b=kOPx8+i9erzvQLlbOM81uHhSb+WGc5pNbaoggCWs7THgKREwr+NmbaEIlHf/SWAICQmOQ5U+QgwG39DCcH5RKBjOrGh1XZzABw++AzpdH4nDA3f75hlnCest9c6C0CPy5xGr9a72hi0i/iG8vk2FXmM+vDv+BPwAPJQa1FlzTrc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
- MN2PR12MB3360.namprd12.prod.outlook.com (2603:10b6:208:c7::30) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4909.10; Mon, 24 Jan 2022 08:19:04 +0000
-Received: from DM6PR12MB4250.namprd12.prod.outlook.com
- ([fe80::989c:5eff:f1be:c7ac]) by DM6PR12MB4250.namprd12.prod.outlook.com
- ([fe80::989c:5eff:f1be:c7ac%5]) with mapi id 15.20.4909.017; Mon, 24 Jan 2022
- 08:19:04 +0000
-Date: Mon, 24 Jan 2022 16:18:55 +0800
-From: Lang Yu <Lang.Yu@amd.com>
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by BN8PR12MB4769.namprd12.prod.outlook.com (2603:10b6:408:a7::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Mon, 24 Jan
+ 2022 08:30:15 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::b07d:3a18:d06d:cb0b]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::b07d:3a18:d06d:cb0b%4]) with mapi id 15.20.4909.017; Mon, 24 Jan 2022
+ 08:30:15 +0000
+Message-ID: <a6c49bda-cc66-2426-8927-2c461d63ecef@amd.com>
+Date: Mon, 24 Jan 2022 14:00:00 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
 Subject: Re: [PATCH 1/2] drm/amd/pm: add get_dpm_ultimate_freq function for
  cyan skillfish
-Message-ID: <Ye5g71hOdQZmABYO@lang-desktop>
+Content-Language: en-US
+To: Lang Yu <Lang.Yu@amd.com>
 References: <20220124064342.273055-1-Lang.Yu@amd.com>
  <88fe897a-4866-7275-62c4-bdd027789f2a@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <88fe897a-4866-7275-62c4-bdd027789f2a@amd.com>
-X-ClientProxiedBy: HK2PR03CA0063.apcprd03.prod.outlook.com
- (2603:1096:202:17::33) To DM6PR12MB4250.namprd12.prod.outlook.com
- (2603:10b6:5:21a::9)
+ <Ye5g71hOdQZmABYO@lang-desktop>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <Ye5g71hOdQZmABYO@lang-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BM1PR01CA0086.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:1::26) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 54102e38-25b5-4d47-80bb-08d9df122ed8
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3360:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB336019747E7D0BA13649CF92FB5E9@MN2PR12MB3360.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:639;
+X-MS-Office365-Filtering-Correlation-Id: c5a6d20d-767e-42cf-6943-08d9df13befe
+X-MS-TrafficTypeDiagnostic: BN8PR12MB4769:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB476923195246B462742914FA975E9@BN8PR12MB4769.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1388;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eB1JOoMZhWqNmphELtAvUU9svnSn6c4/4p1uteOF/x7PWvIbBr1u4GITzFVqjP7g6Wj5XNY5oTW88x4bcKZf51ro3UkQ8kQjt3ecm3z5KVyuVT4O9qkoQsuNpORnhy0DbJTKWo0yn2OIpm7cu+Q+1Z114Lxi8QlQqqqHj1PPo+fgefDOI/UuC/+3klZQZ0/zuR4T6whposc2fGqGfngjVIirNV5bRYf0mSxBFCB+9KpoxLknnRLTMBwON2Q/KRxLbauvH0C7D3bDkuAyccRnrTgFPd5LxQdIKvNlGsXcCFwlCJQcIroE++XiQ6LW1cXKuR2yMuCIzkzu8n9SsSGnW4CGa9maHhpv/ktUan62U9HcLsvkV+VPpAuhHotsQ3Hrjg6/aWAia9Uzn4wijRkVSY0CCGZi6rYdyiBZ2XT2pl3FQeLKf6651jK7v1uRTlh/21BS3/eaSC2utkq5z0pUHA5HpnyHEPIdtTmYRqfGIinA/t7fOlgKB2pANKRla0qqZYXOVNL3AXoti52lCKUPzm8S0BG+M9LR7yPY9upQjk4SagdfIhOf2jhFu4gRnN5QHsbAP3CM10YWrJ+7RwH65Tkdm9UPGLYIbOpSXYK/gm7T7Fbgs+Ru/smxIi2MNQDG0S/TDpB1sK9pDK+E8Z79Yg==
+X-Microsoft-Antispam-Message-Info: 0t65PFeUfwkWYAYXE+Kbd+rF1PpK9SqY9J9v8ms/JFTDhrjK9SYyFq2Rkhfs12iAu1pSPdaXr9TH42bH3AttEigAMNeQDJaUSkN8+Uvm56v4d7FTeBIOVjDCWDLWtM261Lqq4imgNU+4O6KOgxqs+eT5uvyAx1/eTMIe4DQR5SyZOItwEsnhvcoac3jTGIu9TJDWb2+UvMREbAa3MMUQqVwLjdDNwLgJW/zkUdcJUeVf6ObMtBQ9eX51eoc1qHe7tIFjFkol/Kri/toARWsCp+s8Q92fecqqQ2k2/pTQDitoY6Y1GUpuDYyMtq3N018u4n/nEHLw2jI/iz+RQZNO0yPywPBtStsaf801a1XhPzirDqQoR/zbkJ8gdJrbl4w2u3f8/c/ULfb3E44IuZt6ILbPoW9uItTSPGRbPmZ0t3gm2d+R9Y42CTerc2c7+YZsFs0UC/XPhu6ZpS5qXyT4NqNwLv25RGpiQyDKaUmD5rikqe7Wi1OPvVftJK7U2DGs0iGpX/JtSdi6sy/pxhDuRLKjYTcZ6lglocjZmJF8HT0L59Ltygxnfq9LAewFK809PAmylYoWwTL+n0p36zAkDE5CZN9hc3BCwH81Vi2Hl3GhlVbUheU0Ce8IVXb4HuoMOJIsekPa3UdBQeTDldRTSKKY6zVjyhcJRTvJ01te/X78YheY8J7XnyPIjuS8GjBrXjPtxtfpXA0FNFGEaFP3CHy3JFCwV0PNuUS0Wanr/c/hiA3k+D07PdGBZKDZZLzc
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(7916004)(4636009)(366004)(86362001)(6862004)(6636002)(54906003)(186003)(6512007)(6506007)(53546011)(6666004)(33716001)(8936002)(9686003)(2906002)(26005)(316002)(66946007)(66556008)(5660300002)(66476007)(508600001)(83380400001)(4326008)(6486002)(38100700002)(8676002);
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(5660300002)(6506007)(66946007)(86362001)(26005)(31696002)(53546011)(8936002)(186003)(6512007)(6486002)(316002)(4326008)(508600001)(2616005)(6862004)(38100700002)(83380400001)(66556008)(31686004)(6636002)(6666004)(66476007)(8676002)(2906002)(54906003)(37006003)(36756003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Mdnx48Ph/Ra1yvfBWcW+lCldmaMfN5jo7hUHsIQSki+/+zGm0gHh7mTqgDm8?=
- =?us-ascii?Q?pxx0EVlQoxCo0PgZ6I4qe8J5yUzb0ombuM4m44DJCvcCZjgfspxYjbMti1Pz?=
- =?us-ascii?Q?3b366j+CTTJ4Ttyxh08vNTn8vJ9SXrgy+LGdQD7Zu8V2xnao3mfV1eH/wrFF?=
- =?us-ascii?Q?HVMOPmd6JqVaN8kEG7nWki5yHdEliTRakhPsdBrRxds9XoG5NjS/F2w4D4Bf?=
- =?us-ascii?Q?aK74f7fjpdguUOYA9DtEX0a4ZdqPfwgWZEiAMvCcarJeRfyhjgLDk2KZRVXt?=
- =?us-ascii?Q?XL5v9ved8MS10FDVPaHhtT2Xo1KRP1e4dQefRm18J7xr9GCUrQvuoIodI41Z?=
- =?us-ascii?Q?RlnK9FkqEZRydk3k0X9Y4Qoqyo/z8tofzkmET5FETpcKmJ/obUxzM7vTNVKF?=
- =?us-ascii?Q?MRXmtK7gYk+w5okBLnyycQJsMChZygX4r0K5+WeofCm1nasn0s/eyyf3ZtrT?=
- =?us-ascii?Q?9hLfxSYscysK9d+w0CFYJWRqt1NWwdHPDUgPP5BkysbaCUguTG3TrthjosBQ?=
- =?us-ascii?Q?uJezdgbnGtvjpjQzR2AuJyYW/+4Cl0cSeUh3mDv2J3NvJMpF6qz8sIUAodEM?=
- =?us-ascii?Q?DzOmVht4CUdpJEWPLnwoAu5E5t9FeCMyLjunkW3H+yx801TlsxVJ0XwM7mUR?=
- =?us-ascii?Q?tXxQ5E6aHTI97mDKMiZnVOKlL+sz5GB58NvBaVA3S3dNgQQZeyMy163oTDaT?=
- =?us-ascii?Q?HYyrCZlqea8DLNlBrVYSW7rYuQv/GnMqsoERoafv27Q4qZvqRnJeyDpldYs3?=
- =?us-ascii?Q?QSi+dF5e53Fk3vTnTPngnf13jWu8q9DVGH3USChhrAzwOVrCnanSElwjn7+7?=
- =?us-ascii?Q?ld6TO3qPdugs9g/iAYeduFq4n8AgitP5FJvjBraVzirAHPa4S8A6wtVcDAOl?=
- =?us-ascii?Q?vkY4Y+6qqIxMMhYavg6vrzz3mZnHBAtf2+C7V3BGUVMdLTkt7wPG3V4LkY63?=
- =?us-ascii?Q?YgqrDzSxoz5G5Ks325q86ySq70uk5GW3NaTsLJVPsZwR7QT0zRfaEpPQRPLu?=
- =?us-ascii?Q?n5tlYVHPtPapJ89d9IbVXO6MQYNgIJnNztF8wsR1MzNDZr6Q6q6Ha70/yh3I?=
- =?us-ascii?Q?SI5J6XMr4Yx0WxpwzhkCF13UIB73X7AriF2/i8ZWJcjTBE58OxX0GKBfDZd0?=
- =?us-ascii?Q?1m9huPSEyIEoxkHXR3Y7hCL/7kQ3IXtvFoPhYi222YX4nQUOEZKzBBLZ/bBl?=
- =?us-ascii?Q?UIzpL4VYo6ugm0wqRxi2N8hyE38IL7ymYgkzILlwtzm9ed8ZmvFVGtGwvzl3?=
- =?us-ascii?Q?TsoQqEqhlddpIrCoC0meBwdYqNheApzr+OKE1dNUFJ1nZkg2B04IcLMGSIP2?=
- =?us-ascii?Q?rl041Kjsy01Ejj4mNvkvW9wYkrYl4Mfx7xV8BD2LUV1M5vKPThm+Ga1qqsiA?=
- =?us-ascii?Q?l1Oix954OVyNPH529AtfK98TQHa93dHItk6kWbLfnqaoihMrsL4ps1cjEYLj?=
- =?us-ascii?Q?HK+2TKSOKQPQ5/PiLidmBnCy/zAuFKtldXiJWC76k70iBBxvjn+vzMKE1ULw?=
- =?us-ascii?Q?nNX4gv16j3vAqgNPY2bL0i/SfJ+5duKJpzgDTn+BaWtpo2VkUHVskXyKtJ/L?=
- =?us-ascii?Q?ZvvbwCICVYANJijuO/g+TqVo5am42qW3ETnhTiVAiM2PjGWZdJvCSj+8ytmj?=
- =?us-ascii?Q?5mUP/NBfLAGU7qGjQA7K7Xg=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SnBZOUtCMVRCNnlqWXovU3REUHQrK3d6Y1ZlSysvSUJrUkdCaDlaeGVGdkww?=
+ =?utf-8?B?R0p4NU9nSE1aR0JjY0xzWHVFQnh4NVN1c1FodFltTEVpOG9paWlFcHl4TmRr?=
+ =?utf-8?B?aU9zeWJOSjN2ell0cjA3YWtNM3lJVHpIVEthVFBHYlpOWjkzSmtaNEhFQnJS?=
+ =?utf-8?B?L3R6QTlFQllRTXcrNVRlNE15ODVXVTRNZjErNlBjbXJCU0hoeW9VQ0NNTlNu?=
+ =?utf-8?B?dGd0eXdGSmpqbFJEckx1TkxEdjA4RDlRaWxjbGtHNVJRTG9NZzUwS3JaQVFn?=
+ =?utf-8?B?Y0QxTjJXMzlCaEJvTnkzbVhrYnhzUm9UVVFYLzlFVzd6S0hBQnhvVm81ZFEw?=
+ =?utf-8?B?RThaRUtZTkhUd2ZXeHM2N2E0bFNtdTFsYnF4U0N2MDRDQnlEalVTM0xBLzRi?=
+ =?utf-8?B?SW1CeTJVa1daVWRXS2hHNi9weUtybmJHUGU1aFdPOWk2czBSbXlwMHZDOEpx?=
+ =?utf-8?B?NmJrYlljWndGZDhXRGN0aW9UWHhzRzQyMklWWXpwRzRVODZ0VTE0VERJOXdJ?=
+ =?utf-8?B?RzdpMzVqdzRoczRwY0ZTT3huT2xJWGMyRm8xRUgxVEhCN1drcmhUSlZ5MHFJ?=
+ =?utf-8?B?UEpOb2M5T1poUkgveUxVYmJXSmNEKzJjcmtSVlU2eDJPc0QvZlJaemhzQ3Fq?=
+ =?utf-8?B?eEQ3WSsyM3ovdFlycjZZY3pVamdXUkE1N0s0OUZSTml1cDlSWVJDVk1pcE5B?=
+ =?utf-8?B?Skh2TzRoVnNhdHpGZzRhZXNYd3pGZFBFNjNnTEVOdWE2VEwvTjhrSThXT1dT?=
+ =?utf-8?B?SCt0b0lHQjZYMy8zS0lobjdlSEp1Y2l6WTJmV3pLMzFRS3dpdnBFS3lSZk5i?=
+ =?utf-8?B?NExtOTllN0FhTC95MG90c1M0OFNsQ2J1OFlsSG55MHVnTzVnR3FMNjd5Tm9U?=
+ =?utf-8?B?UDc4NnF3NkpnZ1FpelBFdUtSZjRaN1dtMi8wQjlFMXYrZFNIM00xQ3oyNjVp?=
+ =?utf-8?B?NTM3K09Ua085Vk1McFR5aTl5ZWpzSU5lN3h3dXk3N2NIRmJ1L2tYZEVBSDZU?=
+ =?utf-8?B?eWh4T0VQZ2dOaG5xZlNTUUh3QnAyYlo1SjZaMHhicThCbVMwTzh4dEQ4M0Fp?=
+ =?utf-8?B?M2J2SCtJMkw4bXJlSUlMVzZINXJPbGVCRHlUb2RzMXdOSXVrNG4zTDkvS2tk?=
+ =?utf-8?B?SVZJTVY4aUk4WkFWSThGNk1seGphaTdEdS9HVStRS3I3dlgyQlZzaVZFSFRn?=
+ =?utf-8?B?cW5SOXRCQzN0VzduWXlBekp0aW8yL3I2YklVb0hMbkp0emNHZDFIc0tjeHFy?=
+ =?utf-8?B?a3hjb3ZDOUMvRTR4RTFwd2ZiRDVrSmhzVUJMeTBiSklNNUJpMElMbGZaWEt1?=
+ =?utf-8?B?ZHhxL0FnMkY4NWJJeHRQL05ZQ3JDSGkzTDNHcG5oemplZS9iS1lUcy9nQk5I?=
+ =?utf-8?B?ZEs2SDJPK21TSXhGVmtnQ1pPL0JGUzg0bCs1N2xzSUVnY1FFSWpOd2V4UFpy?=
+ =?utf-8?B?ajU1czkya0dCUUYyd291MjRQVzByMjl0R1JOelFoYzdIVFE4R0Z0ek1PMXBE?=
+ =?utf-8?B?S2JOUEhzSVB1WitIbjI0Z2VGaUtTTk5pdFJtazBMTVdERlhrVC80eG8rNjYv?=
+ =?utf-8?B?dlhtOXdaR0pnMFlxdW9BME12N2daLy9DenRjbCtNSkFteWhxNjUzU2RIbnUv?=
+ =?utf-8?B?WUl4bEpDVnZVekFaU1Avc2ZDYWttVW5vY0xPUWNkRFV0UVNic2VTSUpGODc4?=
+ =?utf-8?B?ZFhQZmtGNFMxdlBNemJPQUlTa0N3QkwyTEZuUEo3YTVabTZHaUZSQWtxQVBn?=
+ =?utf-8?B?L1VRSVQvOTYwdHV4UGMyNHZMR3VISEpUeGJybkJZVVhtNzVDSkh2ZXhGUXF1?=
+ =?utf-8?B?SmhKUHZETUdoaHNtK25BY2VOTHpiakNzVkd0ejVPenAySy9hYWxUZ1d0RWNu?=
+ =?utf-8?B?NUlCeFlYNUo2RVpiTmpXdEpHQ1lQNEZlSUZ6OXhwZzcyWnNUQ2lpRDlrNTVT?=
+ =?utf-8?B?MW90UFZtK3FLdFdmWWJHYnZ6L3p2VVp0TnBiRHJ4VDc2ZHUvdG1ZNUltYTli?=
+ =?utf-8?B?R05iQTd0UnU3Q0lONzZma25CSEVSc2tsZTRWR3ZyL0NZMFNIUDhBUFk3RzJP?=
+ =?utf-8?B?SktnREFqMjBRRmRRbk5oV3BnTVY2cDJIbUhUZTZ6Wjg4dzRoSnI2NzZlRkZV?=
+ =?utf-8?Q?PT6A=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54102e38-25b5-4d47-80bb-08d9df122ed8
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5a6d20d-767e-42cf-6943-08d9df13befe
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2022 08:19:04.1262 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2022 08:30:15.4789 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YHGCTbT3A4nys0OqtdBw+k01avizkq4VEtYIZUt1IaqgpP6T9frqfm50e8jWe4+iRTQgK9U0TuSl0QfdgICdag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3360
+X-MS-Exchange-CrossTenant-UserPrincipalName: B04NTURy6IxCim7LTgF3WKqlHNzzjMrxir8mVGw475CZSQ4THr4j/K3lRzJLe9OZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB4769
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,87 +132,98 @@ Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 01/24/ , Lazar, Lijo wrote:
-> 
-> 
-> On 1/24/2022 12:13 PM, Lang Yu wrote:
-> > Some clients(e.g., kfd) query sclk/mclk through this function.
-> > 
-> > Before this patch:
-> >   # /opt/rocm/opencl/bin/clinfo
-> > 
-> >   Max clock frequency:                           0Mhz
-> > 
-> > After this patch:
-> >   # /opt/rocm/opencl/bin/clinfo
-> > 
-> >   Max clock frequency:                           1500Mhz
-> > 
-> > Signed-off-by: Lang Yu <Lang.Yu@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c | 9 +++++++++
-> >   1 file changed, 9 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-> > index 2238ee19c222..665905a568eb 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-> > @@ -552,6 +552,14 @@ static int cyan_skillfish_od_edit_dpm_table(struct smu_context *smu,
-> >   	return ret;
-> >   }
-> > +static int cyan_skillfish_get_dpm_ultimate_freq(struct smu_context *smu,
-> > +						enum smu_clk_type clk_type,
-> > +						uint32_t *min,
-> > +						uint32_t *max)
-> > +{
-> > +	return cyan_skillfish_get_current_clk_freq(smu, clk_type, min ? min : max);
-> > +}
-> > +
-> 
-> I see the below logic already there and this patch doesn't match with that.
-> 
->         case SMU_GFXCLK:
->                 ret = cyan_skillfish_get_current_clk_freq(smu, clk_type,
-> &cur_value);
->                 if (ret)
->                         return ret;
->                 if (cur_value  == CYAN_SKILLFISH_SCLK_MAX)
->                         i = 2;
->                 else if (cur_value == CYAN_SKILLFISH_SCLK_MIN)
->                         i = 0;
->                 else
->                         i = 1;
->                 size += sysfs_emit_at(buf, size, "0: %uMhz %s\n",
-> CYAN_SKILLFISH_SCLK_MIN,
->                                 i == 0 ? "*" : "");
->                 size += sysfs_emit_at(buf, size, "1: %uMhz %s\n",
->                                 i == 1 ? cur_value :
-> cyan_skillfish_sclk_default,
->                                 i == 1 ? "*" : "");
->                 size += sysfs_emit_at(buf, size, "2: %uMhz %s\n",
-> CYAN_SKILLFISH_SCLK_MAX,
->                                 i == 2 ? "*" : "");
->                 break;
 
-Thanks for your comments. To maintain the logic, for sclk,
-just set min/max to CYAN_SKILLFISH_SCLK_MIN/CYAN_SKILLFISH_SCLK_MAX.
-For others, set min=max=current. What do you think? Thanks!
 
-Regards,
-Lang
+On 1/24/2022 1:48 PM, Lang Yu wrote:
+> On 01/24/ , Lazar, Lijo wrote:
+>>
+>>
+>> On 1/24/2022 12:13 PM, Lang Yu wrote:
+>>> Some clients(e.g., kfd) query sclk/mclk through this function.
+>>>
+>>> Before this patch:
+>>>    # /opt/rocm/opencl/bin/clinfo
+>>>
+>>>    Max clock frequency:                           0Mhz
+>>>
+>>> After this patch:
+>>>    # /opt/rocm/opencl/bin/clinfo
+>>>
+>>>    Max clock frequency:                           1500Mhz
+>>>
+>>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c | 9 +++++++++
+>>>    1 file changed, 9 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+>>> index 2238ee19c222..665905a568eb 100644
+>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+>>> @@ -552,6 +552,14 @@ static int cyan_skillfish_od_edit_dpm_table(struct smu_context *smu,
+>>>    	return ret;
+>>>    }
+>>> +static int cyan_skillfish_get_dpm_ultimate_freq(struct smu_context *smu,
+>>> +						enum smu_clk_type clk_type,
+>>> +						uint32_t *min,
+>>> +						uint32_t *max)
+>>> +{
+>>> +	return cyan_skillfish_get_current_clk_freq(smu, clk_type, min ? min : max);
+>>> +}
+>>> +
+>>
+>> I see the below logic already there and this patch doesn't match with that.
+>>
+>>          case SMU_GFXCLK:
+>>                  ret = cyan_skillfish_get_current_clk_freq(smu, clk_type,
+>> &cur_value);
+>>                  if (ret)
+>>                          return ret;
+>>                  if (cur_value  == CYAN_SKILLFISH_SCLK_MAX)
+>>                          i = 2;
+>>                  else if (cur_value == CYAN_SKILLFISH_SCLK_MIN)
+>>                          i = 0;
+>>                  else
+>>                          i = 1;
+>>                  size += sysfs_emit_at(buf, size, "0: %uMhz %s\n",
+>> CYAN_SKILLFISH_SCLK_MIN,
+>>                                  i == 0 ? "*" : "");
+>>                  size += sysfs_emit_at(buf, size, "1: %uMhz %s\n",
+>>                                  i == 1 ? cur_value :
+>> cyan_skillfish_sclk_default,
+>>                                  i == 1 ? "*" : "");
+>>                  size += sysfs_emit_at(buf, size, "2: %uMhz %s\n",
+>> CYAN_SKILLFISH_SCLK_MAX,
+>>                                  i == 2 ? "*" : "");
+>>                  break;
+> 
+> Thanks for your comments. To maintain the logic, for sclk,
+> just set min/max to CYAN_SKILLFISH_SCLK_MIN/CYAN_SKILLFISH_SCLK_MAX.
+> For others, set min=max=current. What do you think? Thanks!
+> 
 
+Should be fine. Also, from API perspective - make sure to check both 
+min/max args for non-null and assign values to both when they are not 
+null (doesn't matter whether min=max).
+
+Thanks,
+Lijo
+
+> Regards,
+> Lang
 > 
-> Thanks,
-> Lijo
-> 
-> >   static const struct pptable_funcs cyan_skillfish_ppt_funcs = {
-> >   	.check_fw_status = smu_v11_0_check_fw_status,
-> > @@ -565,6 +573,7 @@ static const struct pptable_funcs cyan_skillfish_ppt_funcs = {
-> >   	.is_dpm_running = cyan_skillfish_is_dpm_running,
-> >   	.get_gpu_metrics = cyan_skillfish_get_gpu_metrics,
-> >   	.od_edit_dpm_table = cyan_skillfish_od_edit_dpm_table,
-> > +	.get_dpm_ultimate_freq = cyan_skillfish_get_dpm_ultimate_freq,
-> >   	.register_irq_handler = smu_v11_0_register_irq_handler,
-> >   	.notify_memory_pool_location = smu_v11_0_notify_memory_pool_location,
-> >   	.send_smc_msg_with_param = smu_cmn_send_smc_msg_with_param,
-> > 
+>>
+>> Thanks,
+>> Lijo
+>>
+>>>    static const struct pptable_funcs cyan_skillfish_ppt_funcs = {
+>>>    	.check_fw_status = smu_v11_0_check_fw_status,
+>>> @@ -565,6 +573,7 @@ static const struct pptable_funcs cyan_skillfish_ppt_funcs = {
+>>>    	.is_dpm_running = cyan_skillfish_is_dpm_running,
+>>>    	.get_gpu_metrics = cyan_skillfish_get_gpu_metrics,
+>>>    	.od_edit_dpm_table = cyan_skillfish_od_edit_dpm_table,
+>>> +	.get_dpm_ultimate_freq = cyan_skillfish_get_dpm_ultimate_freq,
+>>>    	.register_irq_handler = smu_v11_0_register_irq_handler,
+>>>    	.notify_memory_pool_location = smu_v11_0_notify_memory_pool_location,
+>>>    	.send_smc_msg_with_param = smu_cmn_send_smc_msg_with_param,
+>>>
