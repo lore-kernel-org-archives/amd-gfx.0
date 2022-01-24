@@ -4,48 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F69C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 08:57:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDC2EC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 08:57:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D87B610EE16;
-	Tue, 25 Jan 2022 08:57:22 +0000 (UTC)
-Received: from desiato.infradead.org (desiato.infradead.org
- [IPv6:2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E26410E2F4
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 01:29:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
- :In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=P/pVADs/xaxzcSJh6qZOPmplhn33eeiTUUHUCQLTs+g=; b=RiuXdYQMDg6lKw2ZdUlIlVTWfh
- oErHs/5wEO/DUNbsdr0w7GaVRxJBfzd7AG8PtOi+t9cN6pVPCudDSZDAKyGihXSUqkeowAJh6z0yD
- s8vovFBzCqsjmB9NmzpySCD8j18MuGALijvQ9qibGMaMbRYAfNthbfqNbOs/9qeiivOL3HKiQXnlS
- 7oeJ9fdy6G7Pz0pBJIt3CCSLNOPlXB3Kh9aX8FJ4vVl2Lp5b6z6i+uzu7hWzeBkUSqmeapJUlw0ob
- Oqm5PYXOamSqtsgMaFBjjZkDm+CAYXDiJPVe4oe1NzkEAsOA1vebPKT288l+AOS9yTMSxSk56ZnK0
- GFXoAReA==;
-Received: from [2601:1c0:6280:3f0::aa0b]
- by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nCAeC-003KRf-IG; Tue, 25 Jan 2022 01:29:25 +0000
-Message-ID: <0ddcd3d8-6fca-dc6a-d9d8-f8df8715be95@infradead.org>
-Date: Mon, 24 Jan 2022 17:29:17 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 383D910EE17;
+	Tue, 25 Jan 2022 08:57:25 +0000 (UTC)
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E043110E2DF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 00:44:50 +0000 (UTC)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 8BAC1580389;
+ Mon, 24 Jan 2022 19:44:48 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Mon, 24 Jan 2022 19:44:48 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=turner.link; h=
+ cc:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm1; bh=Hg+/kJzRpMwyU8RBBG9lM29Q4G3SCNyE5PQExK
+ Qjrjg=; b=BqhV2/LX+jA/ib0C3suNSFwh8doiJauUSvPVxk+uBbNEorrAZbP1iR
+ 5gNpFk2LgQ7cLfef4t7YtlVJSeAE1tg7pNCtVRYvd5IfU96XR2wTMxWkt5EgqN5O
+ xbZYT20AVlZSDY6PPGchtxHvVVZxZh+6cPw4ahe/8gK2gmshQA7Rb5oAruoy5iD9
+ 0lpJlFpQzx8xBboXOi81OZfCQl5D2CoNFJMi4EUzEbEORp5XHpGY1Ae0zEJQFMcG
+ irXojU99SQzfbYshiyxeHeKgyKApQLq43HdA+0p7iRoIL+aYSMhIDLLINo475C4T
+ JiMKE71bQGkV8LTe7hWUbRgrjFnaiyOg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=Hg+/kJzRpMwyU8RBB
+ G9lM29Q4G3SCNyE5PQExKQjrjg=; b=NnF9YKvTgV+/CzqonPrhH6bqt2WlJ4u/V
+ 0e5EIJr4hxAwC9+fPKCyjMjLQFL7qrbjxjXFIPrdrUTGfM7J6s3SHwnq67rYY35f
+ AAdyTDYdeqWTj4LCnd+TZ70KSgKLAVdSglmbXgwa+ajA6n/uUMX1EpFmSlYkwj/D
+ w8Xjd3ybbGdoY1DGBiQn2dxoQV8DpbD0T3IQ2uw6cxeFgp9p/TCwyaO+BhzpE0mF
+ LxR/XD6IxXdjTGUUAozzYQknbIZf0gvWcm4ExzybZRggNr/xbIys/rnbBcng0jOh
+ pyPxkrjIS0E8x1ywdW+MBOVpvlDmppAIOE3MijQ16LRpMyXnYn9Yw==
+X-ME-Sender: <xms:_0fvYQ-EfYy1x8ckLKQOASpfF1f8VG1P-YWrZzzpxTHBK9WYhNxFsA>
+ <xme:_0fvYYvQ4J3beV2uRjLa31Bh_ODGeg6dL4-lMaqx4Up28gOo3QlSTswv6YiD-Vtpg
+ IJHUY5k-MA4iSAy4w>
+X-ME-Received: <xmr:_0fvYWAFmvUzQxh0iBiGiqD4fBbfMq3-4nNy1vMXlMHn1BXiEot-KL-OXqPk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrvdekgddvhecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpehfhffvufffjgfkgggtsehttdertddttddtnecuhfhrohhmpeflrghmvghsucfv
+ uhhrnhgvrhcuoehlihhnuhigkhgvrhhnvghlrdhfohhsshesughmrghrtgdqnhhonhgvrd
+ htuhhrnhgvrhdrlhhinhhkqeenucggtffrrghtthgvrhhnpeetvdefudehieeufefghfdv
+ teeitddtvefhieetuefhleevudevtddtfffggffgteenucevlhhushhtvghrufhiiigvpe
+ dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehlihhnuhigkhgvrhhnvghlrdhfohhsshes
+ ughmrghrtgdqnhhonhgvrdhtuhhrnhgvrhdrlhhinhhk
+X-ME-Proxy: <xmx:AEjvYQf2y2zGcFgoCWUciNn9b9e2Ec0Y-WL5xhNm2ABYSv_7GMV4IA>
+ <xmx:AEjvYVPPma5oQKL6quJ8Jk66URimEX_lrvguofqERLdCMTYsPQQsZQ>
+ <xmx:AEjvYal0LCNI_T_XPDgs4DgaDQO3NOORXHUTsx1RGMbZkpFy197sug>
+ <xmx:AEjvYbv6u5vmUwQ8EAKjckw9E1-Hpdolaz4WyHTPJldFQw-3yZxqSQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 24 Jan 2022 19:44:47 -0500 (EST)
+References: <87ee57c8fu.fsf@turner.link>
+ <acd2fd5e-d622-948c-82ef-629a8030c9d8@leemhuis.info>
+ <87a6ftk9qy.fsf@dmarc-none.turner.link> <87zgnp96a4.fsf@turner.link>
+ <fc2b7593-db8f-091c-67a0-ae5ffce71700@leemhuis.info>
+ <CADnq5_Nr5-FR2zP1ViVsD_ZMiW=UHC1wO8_HEGm26K_EG2KDoA@mail.gmail.com>
+ <87czkk1pmt.fsf@dmarc-none.turner.link>
+ <BYAPR12MB46140BE09E37244AE129C01A975C9@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <87sftfqwlx.fsf@dmarc-none.turner.link>
+ <BYAPR12MB4614E2CFEDDDEAABBAB986A0975E9@BYAPR12MB4614.namprd12.prod.outlook.com>
+From: James Turner <linuxkernel.foss@dmarc-none.turner.link>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+Subject: Re: [REGRESSION] Too-low frequency limit for AMD GPU
+ PCI-passed-through to Windows VM
+Date: Mon, 24 Jan 2022 18:58:10 -0500
+In-reply-to: <BYAPR12MB4614E2CFEDDDEAABBAB986A0975E9@BYAPR12MB4614.namprd12.prod.outlook.com>
+Message-ID: <87ee4wprsx.fsf@turner.link>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: Build regressions/improvements in v5.17-rc1
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Alex Deucher <alexdeucher@gmail.com>
-References: <20220123125737.2658758-1-geert@linux-m68k.org>
- <alpine.DEB.2.22.394.2201240851560.2674757@ramsan.of.borg>
- <CADnq5_MUq0fX7wMLJyUUxxa+2xoRinonL-TzD8tUhXALRfY8-A@mail.gmail.com>
- <CAMuHMdWUWqHYbbavtMT-XAD_sarDPC5xnc3c0pX1ZAh3Wuzuzg@mail.gmail.com>
- <aca104cf-5f5f-b696-754a-35e62dbe64c3@infradead.org>
- <500a3aa0-f51e-92ac-82d6-7ffc7f603e2c@amd.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <500a3aa0-f51e-92ac-82d6-7ffc7f603e2c@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Mailman-Approved-At: Tue, 25 Jan 2022 08:57:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,158 +88,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- KVM list <kvm@vger.kernel.org>, Network Development <netdev@vger.kernel.org>,
- linux-um <linux-um@lists.infradead.org>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
- Lakshmi Sowjanya D <lakshmi.sowjanya.d@intel.com>,
- sparclinux <sparclinux@vger.kernel.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, "Tobin C. Harding" <me@tobin.cc>
+Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ Greg KH <gregkh@linuxfoundation.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>,
+ Alex Deucher <alexdeucher@gmail.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Lijo,
+
+> Not able to relate to how it affects gfx/mem DPM alone. Unless Alex
+> has other ideas, would you be able to enable drm debug messages and
+> share the log?
+
+Sure, I'm happy to provide drm debug messages. Enabling everything
+(0x1ff) generates *a lot* of log messages, though. Is there a smaller
+subset that would be useful? Fwiw, I don't see much in the full drm logs
+about the AMD GPU anyway; it's mostly about the Intel GPU.
+
+All the messages in the system log containing "01:00" or "1002:6981" are
+identical between the two versions.
+
+I've posted below the only places in the logs which contain "amd". The
+commit with the issue (f9b7f3703ff9) has a few drm log messages from
+amdgpu which are not present in the logs for f1688bd69ec4.
 
 
-On 1/24/22 17:23, Felix Kuehling wrote:
-> 
-> Am 2022-01-24 um 14:11 schrieb Randy Dunlap:
->> On 1/24/22 10:55, Geert Uytterhoeven wrote:
->>> Hi Alex,
->>>
->>> On Mon, Jan 24, 2022 at 7:52 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->>>> On Mon, Jan 24, 2022 at 5:25 AM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
->>>>> On Sun, 23 Jan 2022, Geert Uytterhoeven wrote:
->>>>>>   + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: error: control reaches end of non-void function [-Werror=return-type]:  => 1560:1
->>>> I don't really see what's going on here:
->>>>
->>>> #ifdef CONFIG_X86_64
->>>> return cpu_data(first_cpu_of_numa_node).apicid;
->>>> #else
->>>> return first_cpu_of_numa_node;
->>>> #endif
->>> Ah, the actual failure causing this was not included:
->>>
->>> In file included from /kisskb/src/arch/x86/um/asm/processor.h:41:0,
->>>                   from /kisskb/src/include/linux/mutex.h:19,
->>>                   from /kisskb/src/include/linux/kernfs.h:11,
->>>                   from /kisskb/src/include/linux/sysfs.h:16,
->>>                   from /kisskb/src/include/linux/kobject.h:20,
->>>                   from /kisskb/src/include/linux/pci.h:35,
->>>                   from
->>> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:25:
->>> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: In
->>> function 'kfd_cpumask_to_apic_id':
->>> /kisskb/src/arch/um/include/asm/processor-generic.h:103:18: error:
->>> called object is not a function or function pointer
->>>   #define cpu_data (&boot_cpu_data)
->>>                    ^
->>> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1556:9:
->>> note: in expansion of macro 'cpu_data'
->>>    return cpu_data(first_cpu_of_numa_node).apicid;
->>>           ^
->>> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1560:1:
->>> error: control reaches end of non-void function [-Werror=return-type]
->>>   }
->>>   ^
->> ah yes, UML.
->> I have a bunch of UML fixes that I have been hesitant to post.
->>
->> This is one of them.
->> What do people think about this?
-> 
-> Does it make sense to configure a UML kernel with a real device driver in the first place? Or should we just prevent enabling amdgpu for UML with a Kconfig dependency?
-> 
+# f1688bd69ec4 ("drm/amd/amdgpu:save psp ring wptr to avoid attack")
 
-Hi,
+[drm] amdgpu kernel modesetting enabled.
+vga_switcheroo: detected switching method \_SB_.PCI0.GFX0.ATPX handle
+ATPX version 1, functions 0x00000033
+amdgpu: CRAT table not found
+amdgpu: Virtual CRAT table created for CPU
+amdgpu: Topology: Add CPU node
 
-Your option IMO. I have seen both opinions given.
-I also meant to reply that someone could just add
-	depends on !UML
-for this device, like you are suggesting.
 
-I'm fine with it either way.
+# f9b7f3703ff9 ("drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)")
 
-thanks.
+[drm] amdgpu kernel modesetting enabled.
+vga_switcheroo: detected switching method \_SB_.PCI0.GFX0.ATPX handle
+ATPX version 1, functions 0x00000033
+[drm:amdgpu_atif_pci_probe_handle.isra.0 [amdgpu]] Found ATIF handle \_SB_.PCI0.GFX0.ATIF
+[drm:amdgpu_atif_pci_probe_handle.isra.0 [amdgpu]] ATIF version 1
+[drm:amdgpu_acpi_detect [amdgpu]] SYSTEM_PARAMS: mask = 0x6, flags = 0x7
+[drm:amdgpu_acpi_detect [amdgpu]] Notification enabled, command code = 0xd9
+amdgpu: CRAT table not found
+amdgpu: Virtual CRAT table created for CPU
+amdgpu: Topology: Add CPU node
 
-> 
->>
->> thanks.
->>
->> ---
->> From: Randy Dunlap <rdunlap@infradead.org>
->>
->>
->> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1556:9: note: in expansion of macro ‘cpu_data’
->>    return cpu_data(first_cpu_of_numa_node).apicid;
->>           ^~~~~~~~
->> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1560:1: error: control reaches end of non-void function [-Werror=return-type]
->>
->> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function ‘kfd_fill_iolink_info_for_cpu’:
->> ../arch/um/include/asm/processor-generic.h:103:19: error: called object is not a function or function pointer
->>   #define cpu_data (&boot_cpu_data)
->>                    ~^~~~~~~~~~~~~~~
->> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1688:27: note: in expansion of macro ‘cpu_data’
->>    struct cpuinfo_x86 *c = &cpu_data(0);
->>                             ^~~~~~~~
->> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:7: error: dereferencing pointer to incomplete type ‘struct cpuinfo_x86’
->>    if (c->x86_vendor == X86_VENDOR_AMD)
->>         ^~
->> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:23: error: ‘X86_VENDOR_AMD’ undeclared (first use in this function); did you mean ‘X86_VENDOR_ANY’?
->>    if (c->x86_vendor == X86_VENDOR_AMD)
->>                         ^~~~~~~~~~~~~~
->>                         X86_VENDOR_ANY
->>
->> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function ‘kfd_create_vcrat_image_cpu’:
->> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1742:11: warning: unused variable ‘entries’ [-Wunused-variable]
->>    uint32_t entries = 0;
->>
->> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     |    6 +++---
->>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |    2 +-
->>   2 files changed, 4 insertions(+), 4 deletions(-)
->>
->> --- linux-next-20220107.orig/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> +++ linux-next-20220107/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> @@ -1552,7 +1552,7 @@ static int kfd_cpumask_to_apic_id(const
->>       first_cpu_of_numa_node = cpumask_first(cpumask);
->>       if (first_cpu_of_numa_node >= nr_cpu_ids)
->>           return -1;
->> -#ifdef CONFIG_X86_64
->> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>       return cpu_data(first_cpu_of_numa_node).apicid;
->>   #else
->>       return first_cpu_of_numa_node;
->> --- linux-next-20220107.orig/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> +++ linux-next-20220107/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> @@ -1679,7 +1679,7 @@ static int kfd_fill_mem_info_for_cpu(int
->>       return 0;
->>   }
->>   -#ifdef CONFIG_X86_64
->> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>   static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
->>                   uint32_t *num_entries,
->>                   struct crat_subtype_iolink *sub_type_hdr)
->> @@ -1738,7 +1738,7 @@ static int kfd_create_vcrat_image_cpu(vo
->>       struct crat_subtype_generic *sub_type_hdr;
->>       int avail_size = *size;
->>       int numa_node_id;
->> -#ifdef CONFIG_X86_64
->> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>       uint32_t entries = 0;
->>   #endif
->>       int ret = 0;
->> @@ -1803,7 +1803,7 @@ static int kfd_create_vcrat_image_cpu(vo
->>               sub_type_hdr->length);
->>             /* Fill in Subtype: IO Link */
->> -#ifdef CONFIG_X86_64
->> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>           ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
->>                   &entries,
->>                   (struct crat_subtype_iolink *)sub_type_hdr);
->>
->>
 
--- 
-~Randy
+Other things I'm willing to try if they'd be useful:
+
+- I could update to the 21.Q4 Radeon Pro driver in the Windows VM. (The
+  21.Q3 driver is currently installed.)
+
+- I could set up a Linux guest VM with PCI passthrough to compare to the
+  Windows VM and obtain more debugging information.
+
+- I could build a kernel with a patch applied, e.g. to disable some of
+  the changes in f9b7f3703ff9.
+
+James
