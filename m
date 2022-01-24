@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DADEEC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 19:20:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82E7BC433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 19:59:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B24510E670;
-	Mon, 24 Jan 2022 19:20:10 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A1BC10E670;
- Mon, 24 Jan 2022 19:20:09 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id w133so250902oie.7;
- Mon, 24 Jan 2022 11:20:09 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21F5610EA4A;
+	Mon, 24 Jan 2022 19:59:36 +0000 (UTC)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91DA810E9FF;
+ Mon, 24 Jan 2022 19:59:34 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ j38-20020a9d1926000000b0059fa6de6c71so4024177ota.10; 
+ Mon, 24 Jan 2022 11:59:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Y8UlOKPL4x0I+w9FvmczKZQzjM11WitOpHu1NnDd7hI=;
- b=EIvsCF/shkSJKYfdjXZKNXCsVd70UCSlAARnO6sDbsxiWBHwhD/82BOJnQrXDl9IOz
- PFcMdh5ibyXsaAQcTPODkOpuxlRpW6Ykx3+iaL0mfu3o/5TQuzEDx8ce/CsAPrzpsBH0
- Aq1xw2ZjdD9sgudMll8flbupKTmKPw8pARBNeIt/gt3ZmOXc0U4ez/5KDdbtmSmdJ/cY
- A7Z4/te+96euwxEnd8/NJBr/0001w5zlvvzIJi/j/otI7/zc1nWeoYlU4o4Pp+0rrOEb
- sMg62TePWcfT120HGmcpZPJ+W8BC4DVZ60OxaL1hE3s2BVUOxqLUUgtgRqjyoHlrl8LB
- UFGg==
+ :cc; bh=w+lZqp5VkPjN0faGgSSPKZ3zUhREnNDGIkuhzUCrVAU=;
+ b=CSAtIjx4L+ZkJciYlaWlmCBX6UHmUCvw1LCMR3LfRIGvEjh3fERyo+hkCxZVzZVBsC
+ CgSeSRBEHJ02dBKUqKVxK6XFAAcuOQ4HPqrhCT0oM/R6lZoVCbPvRX8v0CD5P6hmoT/+
+ L58y+kpGl8c7DIBbCzp6UolIERAa6i9T8H7vLoRLfxa3bX0GRY3NSj//B756aVhSNbhp
+ G3j4knVTvzCoKjLC++e7sAY/UarFC0XGY1l2esyRVCnHuD+dnsdNaC3fDALkIi4oZvL7
+ N/XrfocLShB4Ad0AqhzV2I9DzafUi1yimxXNA6kNHy4Wki4vd57iuwzOA1Hc/MXKK3Uo
+ 3RpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Y8UlOKPL4x0I+w9FvmczKZQzjM11WitOpHu1NnDd7hI=;
- b=0n1RkfvpbPlS/6gfZ/IigSB2gwPL1hOUFRFw8s1MYjr6peb0nGSRRLmoJtdkvRQqwP
- dVlh8t0R/P8D7TGJKiy2JW7+uO+gFBItNgSYqDVs7XdcFW3NqbOB9fSVfsmgVRY6x6US
- fD499o7CGaWygmTXe/hZeLG6buDJuSstNRdHQb5lTZx8/F6qOojZZqqsXVILnX8RcMfD
- Hh39PfYH4QPItun63sMv0ztrOgdw+SdIVsChHFpFGUvtPLciLHJWMvEc4Pm8Er8Ui6bw
- ZOMziy34WNtpelJNEHhYr7bvbpq3sV5H5605FTCML8hiEIXjA3nWY3vPVbsxtMZI8tmo
- xSZA==
-X-Gm-Message-State: AOAM533pwcdPR6NqyBgAvdRfpAZmZZqcGG1nHLYJJRMjRivYaHtq7m2/
- cz6kfO/rVRDKjZIHMewcJ4s6gQuEBZq4Yaye/Ew=
-X-Google-Smtp-Source: ABdhPJwS85QtnAAmIxiRJFhdMAqQlvW1zcZquOPGUFZLskhO60Qo5Zms8Ge28nzBDwYGw0SYuP/P8X5DerGCwVBWtfo=
-X-Received: by 2002:a05:6808:300b:: with SMTP id
- ay11mr2766540oib.120.1643052008712; 
- Mon, 24 Jan 2022 11:20:08 -0800 (PST)
+ bh=w+lZqp5VkPjN0faGgSSPKZ3zUhREnNDGIkuhzUCrVAU=;
+ b=kDNjcd9DduQ8nf9Lq1cz2Z8QegNgAVizcsoRsuHrQWxM0+dVt//BHryyMaj0ALxUgl
+ 47lUpny6dMkdVbPHWD2hC1+pfhuw5Xjf8mSkWsVPUotZVhD4R21p2UgmPf+Z15cq43g4
+ BiwPdf0NebARbcgA7L9hn/cAWvoAK3QOejxsgOz8CiOe3C9X+babgeBN2f5QiCdBD1Bi
+ p9i/ODHTXFkquRAyzVX+w+h4BRnZYXchvuxYa7Iun5iW/lkBPWMozjup0kWkl1IJDEfu
+ ccG/mzGAUVLlL7dF9YAu/3svG8SoEI16fqbX46gdPA3kZXVguouGq3iIeOf3VyP0ywp5
+ Tjyw==
+X-Gm-Message-State: AOAM533+r2Dr1TX7NdHHsfXmmeJoanjjPqaZ1W7YuSR7PbBvrVcpxBDZ
+ LtRRnuUcWLEmNyQdvqMCIeO/bFrh7xHwXhdjps4=
+X-Google-Smtp-Source: ABdhPJyInPhzcrJLNRrdGV5Euq2uJFvwa+CtjDpOWM0SbP+p9pyHaSW7USbPxxFYzNmwKNu6aqwl8ruO9MIIWHs9TGI=
+X-Received: by 2002:a05:6830:1d90:: with SMTP id
+ y16mr12820867oti.200.1643054373917; 
+ Mon, 24 Jan 2022 11:59:33 -0800 (PST)
 MIME-Version: 1.0
-References: <20220124165552.56106-1-zhou1615@umn.edu>
-In-Reply-To: <20220124165552.56106-1-zhou1615@umn.edu>
+References: <20220124165732.56587-1-zhou1615@umn.edu>
+In-Reply-To: <20220124165732.56587-1-zhou1615@umn.edu>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 Jan 2022 14:19:57 -0500
-Message-ID: <CADnq5_MPvHgnW-Rpv-caNrgg+9XkVFZs2Oes1gKPyj=TesBKXw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display/dc/calcs/dce_calcs: Fix a memleak in
- calculate_bandwidth()
+Date: Mon, 24 Jan 2022 14:59:22 -0500
+Message-ID: <CADnq5_P9cnxi27FM6cU1sf1FjkV2sZdHjJciuuDd9ZZ92qyxeg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix a NULL pointer dereference in
+ amdgpu_dm_connector_add_common_modes()
 To: Zhou Qingyang <zhou1615@umn.edu>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -62,13 +63,18 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Kangjie Lu <kjlu@umn.edu>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Kangjie Lu <kjlu@umn.edu>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <Roman.Li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Nikola Cornij <nikola.cornij@amd.com>, David Airlie <airlied@linux.ie>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, Lee Jones <lee.jones@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Tony Cheng <Tony.Cheng@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>, Jude Shih <shenshih@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -78,17 +84,21 @@ Alex
 
 On Mon, Jan 24, 2022 at 12:05 PM Zhou Qingyang <zhou1615@umn.edu> wrote:
 >
-> In calculate_bandwidth(), the tag free_sclk and free_yclk are reversed,
-> which could lead to a memory leak of yclk.
+> In amdgpu_dm_connector_add_common_modes(), amdgpu_dm_create_common_mode()
+> is assigned to mode and is passed to drm_mode_probed_add() directly after
+> that. drm_mode_probed_add() passes &mode->head to list_add_tail(), and
+> there is a dereference of it in list_add_tail() without recoveries, which
+> could lead to NULL pointer dereference on failure of
+> amdgpu_dm_create_common_mode().
 >
-> Fix this bug by changing the location of free_sclk and free_yclk.
+> Fix this by adding a NULL check of mode.
 >
 > This bug was found by a static analyzer.
 >
 > Builds with 'make allyesconfig' show no new warnings,
 > and our static analyzer no longer warns about this code.
 >
-> Fixes: 2be8989d0fc2 ("drm/amd/display/dc/calcs/dce_calcs: Move some large variables from the stack to the heap")
+> Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_types and amdgpu_dm")
 > Signed-off-by: Zhou Qingyang <zhou1615@umn.edu>
 > ---
 > The analysis employs differential checking to identify inconsistent
@@ -100,26 +110,23 @@ On Mon, Jan 24, 2022 at 12:05 PM Zhou Qingyang <zhou1615@umn.edu> wrote:
 > positive or hard to trigger. Multiple researchers have cross-reviewed
 > the bug.
 >
->  drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
+>  1 file changed, 3 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c b/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-> index ff5bb152ef49..e6ef36de0825 100644
-> --- a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-> +++ b/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-> @@ -2033,10 +2033,10 @@ static void calculate_bandwidth(
->         kfree(surface_type);
->  free_tiling_mode:
->         kfree(tiling_mode);
-> -free_yclk:
-> -       kfree(yclk);
->  free_sclk:
->         kfree(sclk);
-> +free_yclk:
-> +       kfree(yclk);
->  }
->
->  /*******************************************************************************
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 7f9773f8dab6..9ad94186b146 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -8143,6 +8143,9 @@ static void amdgpu_dm_connector_add_common_modes(struct drm_encoder *encoder,
+>                 mode = amdgpu_dm_create_common_mode(encoder,
+>                                 common_modes[i].name, common_modes[i].w,
+>                                 common_modes[i].h);
+> +               if (!mode)
+> +                       continue;
+> +
+>                 drm_mode_probed_add(connector, mode);
+>                 amdgpu_dm_connector->num_modes++;
+>         }
 > --
 > 2.25.1
 >
