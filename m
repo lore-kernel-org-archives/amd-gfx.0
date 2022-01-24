@@ -4,117 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49112C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 15:25:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62767C4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 16:03:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C07210E1BD;
-	Mon, 24 Jan 2022 15:25:27 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FCE410E1B8;
- Mon, 24 Jan 2022 15:25:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eKK+THUQuPyaUgEBXVRlVg7GXaB9aSOP1cD5CerHr1Hx1a/nmZSRGUExCqBg2RNlfYlFuAzNSSh1duLlRe8TJs2duoCtyUM9PF6oTWv911GTVjS90Y4XcL2hS4I1FJqr53PKQ49WzhOm6RKV4+JZOJAY1ahw7O4GnZajDAvJnf1IO9PvSSBgfS68ixMTNciUGNx6Juug4thVFT+P6HQLrj6DIuzmqL5BlgQ42XYiaC0kMZgnq2GMOvQDUDnD0K4COw5ZhndrAS3Dk083EuwQXYo0/HDnWRQlGHt68WVfFuTAoPDSPCZSQNIcYHKvRSCT5ny3/mB89tLCsVYxmtJRmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H9hDBBsf9zLLdqknMSQor9GR3kt58SnI3gtccqTRuV4=;
- b=hxR4XjX2ayPINe6eWrJjVgFlOrvhm9fOq0TUzjeV0nxtLTOp91jWWDzbDwxqlwkYIZVc5ZpWJZhvq0BmBBWFTzhFs307U/pRjec2aEsLSnuYdmzqn6NcoNS158YDG4O4LUrBRieClfpcizqe1NbsfIwZdkWNG4bdqS8k1so47tJVKFwWyP7IhAgkd+CHCY4nTfvR0JRkYieKkETqNJEmOgmDWktuTAX+DGiQXYv2bwu/YV55saHvHfJdvEbr3X/q8tXl43KEiBy1p0heSVISssEG862SaYNDIGVURuZ57bE+LVVZMVeQkssy44VJVH5/5k3tC2Sv65MK6hcAnbQMIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H9hDBBsf9zLLdqknMSQor9GR3kt58SnI3gtccqTRuV4=;
- b=OYHMVwLbScWNuvGdkac6d6kP0EqRzhcJ9dYopCfvtyM4Ll638TF2zL/k/i9nYBYUntshlIt9ttqlnkk7SMGkIvUoK+HaxTKBfmELCq4hjfbULX0gzZkHyS/pFPTHq/0Q+45eTlI6nbQp24Wr2W+SiI62VvBX4dT1WdqhzSNuj0M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by DM5PR12MB1433.namprd12.prod.outlook.com (2603:10b6:3:73::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8; Mon, 24 Jan
- 2022 15:25:23 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::dd4b:b67b:1688:b52]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::dd4b:b67b:1688:b52%9]) with mapi id 15.20.4909.017; Mon, 24 Jan 2022
- 15:25:23 +0000
-Message-ID: <fca36168-d66b-c914-a5c6-fb8d495238ad@amd.com>
-Date: Mon, 24 Jan 2022 10:25:18 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH -next] drm/amd/display: don't use /** for non-kernel-doc
- comments
-Content-Language: en-US
-To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-References: <20220122012343.32540-1-rdunlap@infradead.org>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20220122012343.32540-1-rdunlap@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0137.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:e::10) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64C0D10E326;
+	Mon, 24 Jan 2022 16:03:55 +0000 (UTC)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAD9D10E326
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jan 2022 16:03:53 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id m4so22725240ejb.9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jan 2022 08:03:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=hHD1I6HBwWXdmu99NOtKXptCdvMp508sRo/7M3HfYGs=;
+ b=Z+EuI9Pi5ZDJTsvU0GJbe6u9iQbz09QiMO9lztGoX794vCmEhRU6hlhU9YSGbtQE5j
+ NSUsu2eCWgf+isH6LuoPiSSQlDOGV9ZfIbVVkpO+elQEUlHtqHS1E0OFBq7QUfQ0Nz6s
+ Qy0ENSro1a5UtnAQAsHkl/PgskYfs0fK29Dis=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=hHD1I6HBwWXdmu99NOtKXptCdvMp508sRo/7M3HfYGs=;
+ b=pSeufRr5GntojeVioTYJyiA23IfaAYib5ZHWrrIJgEksTzaOfbzzqAR3/tSat/Z5g/
+ G64kE+xOSUa24OrcJlFbnSAxmdDQFtDOHczWKvwBOzMyBGzHmlnSYLcM4gr1N/qf4Cmc
+ g58B/fYymBhlOxkag08dQkXg8pbnhRG/iyG+z3y8ISYqRgKL3Nv1ots/a4x4TXAb7qEC
+ byiVvMTdu2UaYiARq83HBdbb2PhweiHNFROPrLIYHtI1ggnsPEWDkl0y86Td6Ih7UTXx
+ lG8WVZ4xX/KXdOXQRnRIPWDuHfLYFBA/U00WHh/xf63iRXJVKVcSYK+CAAyOLN5Djbuf
+ BaxA==
+X-Gm-Message-State: AOAM531VSnHYSNf8YmIrYKzL35LrZpulhdT96jNgD59H7Cb+yVLcOJYq
+ xeAPOOa1qH/QlqkQNXNjtQgLMg==
+X-Google-Smtp-Source: ABdhPJxdVfkKMEYbXujqgWUpyR3+7qh2oP6uKoyQ37sTd705e0vRoEIcpmauPwpBhopTpK2j9FowlQ==
+X-Received: by 2002:a17:906:3089:: with SMTP id
+ 9mr12877415ejv.97.1643040232290; 
+ Mon, 24 Jan 2022 08:03:52 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id p21sm5051250ejj.156.2022.01.24.08.03.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Jan 2022 08:03:51 -0800 (PST)
+Date: Mon, 24 Jan 2022 17:03:50 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: ira.weiny@intel.com
+Subject: Re: [PATCH V2 3/7] drm/gma: Remove calls to kmap()
+Message-ID: <Ye7N5ZrmVjOBo1RG@phenom.ffwll.local>
+Mail-Followup-To: ira.weiny@intel.com, David Airlie <airlied@linux.ie>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org
+References: <20220124015409.807587-1-ira.weiny@intel.com>
+ <20220124015409.807587-4-ira.weiny@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1388f763-a0f5-414b-60b6-08d9df4dbd38
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1433:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB14336B6E6A7EC7AB4896EF6E8C5E9@DM5PR12MB1433.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yyAxDm1ty9miOnDGVy64ydOFk4+Dkz93lo9Ruks2o7cvrRfdcccd23IMC9JbgM9R++aucsAt1MOwujjDx+jvPqXWFIbsKZgBh2Gc3ljde2Vt8s1R7LQ3VdedtIcfkCfRkf2Mp4cUhCEhhebw1dIQkk433S1ePPo9ppRrj+c4p61wwoFTRlqbe3+gBWgXSOxS+kbCWvbALlhSOY8IVGaKuEG7T0+RUsTE8dm+PvbGnI/5g23ARuXKTOrpOxdb+QifmS/NNMukDPeThDHzN897SdyDn0WxV0WC5XMnz7660AYLrIOOq4ii/9Y4ruPsQYbXTUYUZQ8FvSAGsZJyO7vOxLsVMWZ51d+n8oQ2C1PT7gJ2kN4KE3aQkdi1qvj519f4ehbAbMPlUuETrS2kY9KEmdYTyObQqdkOyh61lrGaG9MoPOcXOF6mCB+8KKHazcCaWYMJEOSd4u9qtzsJZPm3bBJUraKxn2K5vRtVEOrh8j/MZq3/nHArPLfjYiac6n3FWaMQTeT6GnlqG6v9ODJH5KNHx/HZqn+EnKGWjMDJt3nbUbDZW0TlALzkhs1TukoXeo5Xzv1NL1C/Js97VHrw8PyyQCYp7S4rK3daOkocaQxlvKwGSHz2kc4LvqOzqGKbIWoAt4BVw5hleb6Ij980h8sdkLUdMI9m9gE2jLojX7Q30xQ8o+5Sj/VgejzRZ/hicWspqY1K4SmplO43SRBKNk40DfyobSdh9pbSFO7J9Zk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(6486002)(83380400001)(508600001)(84970400001)(316002)(6506007)(5660300002)(2906002)(31686004)(2616005)(6666004)(66476007)(31696002)(66556008)(4326008)(66946007)(38100700002)(36756003)(8936002)(8676002)(86362001)(53546011)(54906003)(186003)(26005)(44832011)(6512007)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eThTZXBFd1daV0Q3aE5aTmNwcWZVUk0rVitnamErMnR0TE9hcjhaVW5VRm8v?=
- =?utf-8?B?dHowY29kSkUyNkRaVWg5UDRMMzRjNzQrcTBWTWNaTUE2cWU0bW10ZnpOTmRG?=
- =?utf-8?B?S0szN3BobW1XK2w0elVMUGhGanI3MG4wVG5tUThyaXFGSE5TeHJtSUtwb29o?=
- =?utf-8?B?UWJ1WEhodjBEZkQxQmwvbEJUR2RYZ2F2L1QrdGZSbzNqUmxudXdiUzc4TCtu?=
- =?utf-8?B?Rkh0OUVnaHhZVWlDdTRNWlVsLytyTCtDekcxaEF2YXp3dGFwY3FZdWNzK25M?=
- =?utf-8?B?ajFOM09mQXAyTDIwa01hKzgyLzhoeG5wVXlIZ1hacW1tVlFOM1R4NzVPRWdH?=
- =?utf-8?B?ZGhuMXc4OXhCbWRtZ28wQ0RBSjMxU2NXNXRoSEs5OGl3ZWtKZWI5Uy9nUzl5?=
- =?utf-8?B?SmV2UVBpVEw0S3NDWHdRVUxkalJJLzdTaTQzZnpjUnZEbEpMMjhPbGpTK0Zq?=
- =?utf-8?B?SWFSRjhnZmxpRjBHMUZzK1lJYnpWUUFROWF5ZHByazI3VDZHeXBEWUlaZWR1?=
- =?utf-8?B?RUtxc3kzTzZhWGphY3NtRUpUNGV4TSsyREszRWYra3krUkdsR3V3YWNKb0x4?=
- =?utf-8?B?Z0JXR0h3YUc2anh4RkRoQlFxOFVOb2ZLVTRnd3MwL3cyYjQ5YnNnS0dTMlM2?=
- =?utf-8?B?a1RMcVpHODhVU1pVSmlnN1RvNzlBVURvZWJhR1NHTnFHSzBSNTZ0Z3ppMDdD?=
- =?utf-8?B?NUYzbWpQZ25aUjZreWRsM0pSbXdYek9yeXRuRmtTVXllckd5aGpoUFhySDVD?=
- =?utf-8?B?Z05kZGxpK0JpVnlMT0pJTDFNU2xmaGVTb3JsSTlyOHpleDEyRXdSVWUySEpC?=
- =?utf-8?B?Tk5ocEUxNk8vSWdJdTJHUzVtRzNoajZBUUN2Yy9NM1VhL2hyeGd2S3BNTGpu?=
- =?utf-8?B?aDJ6VDkvUCtOQ0lFYVgyWSthcGF4S3RpaGh0OFNodEM1SnBWSzhQQXVtRCt6?=
- =?utf-8?B?cGpzcE5RSVhHZjFIdmtsLzB6b1Zqd0l1T3lpS28rczBRMHhKbjcrTW83WjdY?=
- =?utf-8?B?dCtDM2ZmcEpVQ2QxUkxORnk3YkhOakswYUk2bWNzSnRacVZVL1hSU0JaTDBn?=
- =?utf-8?B?QTZrbDdiMkdkaWwzdzJyTDYzM3d1S3h1V05BWXZHMWFPMHgzeXpLaVJWamJt?=
- =?utf-8?B?UHZXamJORHlVUThuNUJ0K28zQ1hOeHpFREUxK0gxRHFNSWQzdFBRamtib2VT?=
- =?utf-8?B?WmdEZmRFYjJrb3d0SDMvbTJEWlowbjBpUzdiekxDaTlkOVlPd1ArcllUdDdO?=
- =?utf-8?B?cStWbHJwUlNPWkYzUTBvV0ZFYzhoUW1iaVU4ZEIreFdFemJMMkdzajJUbGd6?=
- =?utf-8?B?RW5CTFpRcEhZakRHV1RzczhBb3lIaXhWd0U2U2w1SXhUdGtDanZqb2xiVjhH?=
- =?utf-8?B?TnV2clI4YUFsRWs3MjFleXQ1QklZdmkzYzlQRXFBcy9oeElvQmVwMDlmSy9h?=
- =?utf-8?B?c2ZiTEZwR3hGVWdQWDFDeWVlR1Fjbm9yV2FoakdlUWM4bzRoU2tSeVBvMm1E?=
- =?utf-8?B?VnJ1TFFES2xCLzFIelhBVjN1RlhqbFNuOGo0bkZDMEhpb1VMbWdvRk9rK1dN?=
- =?utf-8?B?REgwcU9pWk1mak5BT0xpTHg2ZFNLZldFdzV2RWhUdUJkQzFaakpHNWdVS0JC?=
- =?utf-8?B?VGJ6NnZQR2ozR3ZCaEhPNTR4ODFFTDJGcDhRYUxTN0xuOHltNllzZnV6WkRP?=
- =?utf-8?B?d2pIL2NJR0VxdER6Zk5aK1lOK3V4VDZaOFBZc2tlcDgydDI2QjVnekpBYzk3?=
- =?utf-8?B?YzBTcm12TWdySVhGTndHV3NPTW42TGRNZ2IrSjU3aDM3T3pobHRMcCsxbHBV?=
- =?utf-8?B?bG1JTEhoNlFra2l4bjVaQkE0cUVSRndhSFArUVBvUCtRRllsQzU4cW9SZXds?=
- =?utf-8?B?VkIrNE81UzhJZ2VaMUVYLzJ2Zlpnb1Fha0pFdmdjZURiVHg2U3gwSDM0bUZq?=
- =?utf-8?B?dXdRRTNsTTZKYXJEMjllRnZwc0E4aStRcFVFYXRFdnhmUnhscUpvSS91TU5u?=
- =?utf-8?B?OHJGL0VwWk5FNnVRU0FjYVFwQzFsWERPUGd4ZnFyVGF0T2hJd215Mmk0RmU4?=
- =?utf-8?B?amFZejdJUXFjNzZhSlErdlBlRm9uV3h5c2x2S0UwWEZ1czFFSGRVQ3NwRVNO?=
- =?utf-8?B?WXpYOVBYUDJJTDQwSlVEUEFFVWNsd2tFOWk2M3pzeDFKa1pJU2lJc0xpYlZp?=
- =?utf-8?Q?YsWov9bcfwew1ItetDhZXKE=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1388f763-a0f5-414b-60b6-08d9df4dbd38
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2022 15:25:23.2668 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c3ewidIdpFitJ3BySwd9WfvVLQwcE1JEDDE729fPD3MF+u4pXkXHP+0+8ikbLnItTQaQumYfps6r2JLtXuct9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1433
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220124015409.807587-4-ira.weiny@intel.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,52 +73,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ intel-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-01-21 20:23, Randy Dunlap wrote:
-> Change a static function's comment from "/**" (indicating kernel-doc
-> notation) to "/*" (indicating a regular C language comment).
-> This prevents multiple kernel-doc warnings:
+On Sun, Jan 23, 2022 at 05:54:05PM -0800, ira.weiny@intel.com wrote:
+> From: Ira Weiny <ira.weiny@intel.com>
 > 
->   drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:4343: warning: Function parameter or member 'max_supported_frl_bw_in_kbps' not described in 'intersect_frl_link_bw_support'
->   drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:4343: warning: Function parameter or member 'hdmi_encoded_link_bw' not described in 'intersect_frl_link_bw_support'
->   drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:4343: warning: expecting prototype for Return PCON's post FRL link training supported BW if its non(). Prototype was for intersect_frl_link_bw_support() instead
+> kmap() is being deprecated and these instances are easy to convert to
+> kmap_local_page().
 > 
-> Fixes: c022375ae095 ("drm/amd/display: Add DP-HDMI FRL PCON Support in DC")
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Leo Li <sunpeng.li@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
+> Furthermore, in gma_crtc_cursor_set() use the memcpy_from_page() helper
+> instead of an open coded use of kmap_local_page().
+> 
+> Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Applied to drm-misc-next, the others should all have full time maintainers
+to make sure the patches land. Pls holler if not.
 
-Harry
+Thanks, Daniel
 
 > ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/gma500/gma_display.c | 6 ++----
+>  drivers/gpu/drm/gma500/mmu.c         | 8 ++++----
+>  2 files changed, 6 insertions(+), 8 deletions(-)
 > 
-> --- linux-next-20220121.orig/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> +++ linux-next-20220121/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -4970,7 +4970,7 @@ uint32_t dc_link_bw_kbps_from_raw_frl_li
->  	return 0;
->  }
+> diff --git a/drivers/gpu/drm/gma500/gma_display.c b/drivers/gpu/drm/gma500/gma_display.c
+> index 99da3118131a..60ba7de59139 100644
+> --- a/drivers/gpu/drm/gma500/gma_display.c
+> +++ b/drivers/gpu/drm/gma500/gma_display.c
+> @@ -335,7 +335,7 @@ int gma_crtc_cursor_set(struct drm_crtc *crtc,
+>  	struct psb_gem_object *pobj;
+>  	struct psb_gem_object *cursor_pobj = gma_crtc->cursor_pobj;
+>  	struct drm_gem_object *obj;
+> -	void *tmp_dst, *tmp_src;
+> +	void *tmp_dst;
+>  	int ret = 0, i, cursor_pages;
 >  
-> -/**
-> +/*
->   * Return PCON's post FRL link training supported BW if its non-zero, otherwise return max_supported_frl_bw.
->   */
->  static uint32_t intersect_frl_link_bw_support(
+>  	/* If we didn't get a handle then turn the cursor off */
+> @@ -400,9 +400,7 @@ int gma_crtc_cursor_set(struct drm_crtc *crtc,
+>  		/* Copy the cursor to cursor mem */
+>  		tmp_dst = dev_priv->vram_addr + cursor_pobj->offset;
+>  		for (i = 0; i < cursor_pages; i++) {
+> -			tmp_src = kmap(pobj->pages[i]);
+> -			memcpy(tmp_dst, tmp_src, PAGE_SIZE);
+> -			kunmap(pobj->pages[i]);
+> +			memcpy_from_page(tmp_dst, pobj->pages[i], 0, PAGE_SIZE);
+>  			tmp_dst += PAGE_SIZE;
+>  		}
+>  
+> diff --git a/drivers/gpu/drm/gma500/mmu.c b/drivers/gpu/drm/gma500/mmu.c
+> index fe9ace2a7967..a70b01ccdf70 100644
+> --- a/drivers/gpu/drm/gma500/mmu.c
+> +++ b/drivers/gpu/drm/gma500/mmu.c
+> @@ -184,17 +184,17 @@ struct psb_mmu_pd *psb_mmu_alloc_pd(struct psb_mmu_driver *driver,
+>  		pd->invalid_pte = 0;
+>  	}
+>  
+> -	v = kmap(pd->dummy_pt);
+> +	v = kmap_local_page(pd->dummy_pt);
+>  	for (i = 0; i < (PAGE_SIZE / sizeof(uint32_t)); ++i)
+>  		v[i] = pd->invalid_pte;
+>  
+> -	kunmap(pd->dummy_pt);
+> +	kunmap_local(v);
+>  
+> -	v = kmap(pd->p);
+> +	v = kmap_local_page(pd->p);
+>  	for (i = 0; i < (PAGE_SIZE / sizeof(uint32_t)); ++i)
+>  		v[i] = pd->invalid_pde;
+>  
+> -	kunmap(pd->p);
+> +	kunmap_local(v);
+>  
+>  	clear_page(kmap(pd->dummy_page));
+>  	kunmap(pd->dummy_page);
+> -- 
+> 2.31.1
+> 
 
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
