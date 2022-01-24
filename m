@@ -4,74 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62B5FC4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 10:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB494C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jan 2022 10:25:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D98C510E8EA;
-	Mon, 24 Jan 2022 10:25:02 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 774EC10ED48
- for <amd-gfx@lists.freedesktop.org>; Sat, 22 Jan 2022 14:36:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1642862163;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=iMoDmTVNmITbklh5q/t/44BNAz/LykE1HqAeIjzQA3M=;
- b=UcZ9WG5bzT1mlTVD9rdm4nitoM4UQze+g5SXLcSbg3xiIXZn9aBuhe5sK5nYToce33+oVy
- AlVzL2d7Ki1Kn8H5kYNFi66dUNEUuLvTTR6D550G3+RdtLS3xtpTTa2sK69iQ6hAzUZWj4
- VsceuPaifXhRug5M8WeFtferYwMSCm4=
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
- [209.85.161.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-623-MX64WE7FN7CgERtKpREjMA-1; Sat, 22 Jan 2022 09:36:02 -0500
-X-MC-Unique: MX64WE7FN7CgERtKpREjMA-1
-Received: by mail-oo1-f70.google.com with SMTP id
- a7-20020a4ad5c7000000b002dacfc3d40cso3671581oot.9
- for <amd-gfx@lists.freedesktop.org>; Sat, 22 Jan 2022 06:35:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=iMoDmTVNmITbklh5q/t/44BNAz/LykE1HqAeIjzQA3M=;
- b=jWgw+pWdba68r9kf6Cw+n0BK0nbFc4/kGKPb+yMd5TjZMECsAubw9oTVUMZmCtLzU1
- BBpblaVRyZzfK568c7KFMobPx44fesLBo7iw24uTW7x7U19EqDd0okp8tdSU+Y/H5jad
- U1V3SVglDsLEBTXhbHJQqzuC++BU7F1OGKH1uPKBYcDgDkzd4V+8V7+Vd7QbNuba+T9A
- Ckh+vJW9k1YcGtOzKT3oyknMurJ6TnLsQruAYA66iBWY50rqeqWtfLYtbYQez1zG/Kby
- wEPb01PF9u5Z+vO9b1SQHF59Dpk1/fnejrpAT6zfN4jalDVl2hTByOT3PldzoqWtUZyZ
- 3znw==
-X-Gm-Message-State: AOAM530OKVNPTnFR33rp7xpCLEX6UCt7MUeyJiUn3AC+8iKVNX57Q3IW
- T/+8t5xNDiWZ28hlvQWZqDqFagyeGX4Mek5bp4v3A6RDaynE+Ba91McqurT7/14/X/eAEajfh8h
- yw8Nx9Ut+YKPrh7Ahj6xNlhLMzQ==
-X-Received: by 2002:a05:6830:25d0:: with SMTP id
- d16mr6221820otu.362.1642862158913; 
- Sat, 22 Jan 2022 06:35:58 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwgc0T99YhICS47P7DM3QV6ViRHJuBhuoL3AAcXMdbyPUZZgVBeGsTVqm4QwhQs0NqYaB+Bjg==
-X-Received: by 2002:a05:6830:25d0:: with SMTP id
- d16mr6221798otu.362.1642862158724; 
- Sat, 22 Jan 2022 06:35:58 -0800 (PST)
-Received: from localhost.localdomain.com (024-205-208-113.res.spectrum.com.
- [24.205.208.113])
- by smtp.gmail.com with ESMTPSA id w13sm2943114oik.52.2022.01.22.06.35.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 22 Jan 2022 06:35:58 -0800 (PST)
-From: trix@redhat.com
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch
-Subject: [PATCH] drm/amdkfd: simplify else if to else check of
- MIGRATION_COPY_DIR
-Date: Sat, 22 Jan 2022 06:35:49 -0800
-Message-Id: <20220122143549.914925-1-trix@redhat.com>
-X-Mailer: git-send-email 2.26.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7943010EA14;
+	Mon, 24 Jan 2022 10:25:04 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F80210E27C;
+ Mon, 24 Jan 2022 01:54:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642989256; x=1674525256;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=BBygKGffoL5d5GTpz8jASmHam5hJkymlp1BmAKuyaH0=;
+ b=PD4oMlRRxBya31CJ67nZZoXbbELU3HVJQjWbceQvGLHUaFyLNA5lHoLo
+ tK4Hh9B7pCs4dGRaVVmN+i3QsbfN4F1rMe+bVqsJQDrxJcN8rLj5p2/X1
+ 4iYnPYLv/zhZXGFJ7fhf6OzpaSgvKGwe8A/t1MVt9l+fr3D+AtA3A6hMj
+ tfFjpWpxWfAc9rc5100fSjdwnGX65fbB+dO3zTZ6dsbPnlJxbSCSw5b0Z
+ coR9aE+6m8k0RVOPvJxHYOZnvZrLRAi+sOBhPR32k0XFAtoMuQ79TuABF
+ W6kovrFCD39/5EKHxVbmiAXD+MrsdVR64pQuAmW/WQFj5DBx4hvKCX0U3 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10236"; a="226616229"
+X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="226616229"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2022 17:54:15 -0800
+X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="627320411"
+Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2022 17:54:15 -0800
+From: ira.weiny@intel.com
+To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+Subject: [PATCH V2 7/7] drm/radeon: Ensure kunmap is called on error
+Date: Sun, 23 Jan 2022 17:54:09 -0800
+Message-Id: <20220124015409.807587-8-ira.weiny@intel.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20220124015409.807587-1-ira.weiny@intel.com>
+References: <20220124015409.807587-1-ira.weiny@intel.com>
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
 X-Mailman-Approved-At: Mon, 24 Jan 2022 10:25:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,35 +57,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Ira Weiny <ira.weiny@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tom Rix <trix@redhat.com>
+From: Ira Weiny <ira.weiny@intel.com>
 
-The enum MIGRATION_COPY_DIR type has 2 values.  So
-the else-if can be converted to an else.
+The default case leaves the buffer object mapped in error.
 
-Signed-off-by: Tom Rix <trix@redhat.com>
+Add radeon_bo_kunmap() to that case to ensure the mapping is cleaned up.
+
+Signed-off-by: Ira Weiny <ira.weiny@intel.com>
+
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+NOTE: It seems like this function could use a fair bit of refactoring
+but this is the easiest way to fix the actual bug.
+---
+ drivers/gpu/drm/radeon/radeon_uvd.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index d986f9ee0e1f4..c06c44f37b00e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -146,7 +146,8 @@ svm_migrate_copy_memory_gart(struct amdgpu_device *adev, dma_addr_t *sys,
- 			gart_s = svm_migrate_direct_mapping_addr(adev, *vram);
- 			r = svm_migrate_gart_map(ring, size, sys, &gart_d, 0);
+diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/radeon_uvd.c
+index 377f9cdb5b53..7cca283f6202 100644
+--- a/drivers/gpu/drm/radeon/radeon_uvd.c
++++ b/drivers/gpu/drm/radeon/radeon_uvd.c
+@@ -560,6 +560,7 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p, struct radeon_bo *bo,
  
--		} else if (direction == FROM_RAM_TO_VRAM) {
-+		} else {
-+			/* direction == FROM_RAM_TO_VRAM */
- 			r = svm_migrate_gart_map(ring, size, sys, &gart_s,
- 						 KFD_IOCTL_SVM_FLAG_GPU_RO);
- 			gart_d = svm_migrate_direct_mapping_addr(adev, *vram);
+ 	default:
+ 
++		radeon_bo_kunmap(bo);
+ 		DRM_ERROR("Illegal UVD message type (%d)!\n", msg_type);
+ 		return -EINVAL;
+ 	}
 -- 
-2.26.3
+2.31.1
 
