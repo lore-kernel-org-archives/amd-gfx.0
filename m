@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D711C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 09:00:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A83DC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 09:00:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF19E10E922;
-	Tue, 25 Jan 2022 09:00:43 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2083F10E8CE
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 09:00:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E59D10EE29;
+	Tue, 25 Jan 2022 09:00:44 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2063.outbound.protection.outlook.com [40.107.243.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA44210E8A7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 09:00:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NFPw5BGlo7Mvr2uVQ3tGTAT4jX7mq5cO9n+cmTe5CnM5KlnLGCxod3t8u9ebLJ7oqRDg9WbrBYv01slGaeCfCbxwjBPBcT1FIroPCYQBMEvEY/jB8zQtX0S1OfSEcg3g14AbouBTHb6zSuL7FJEI6qy0T/HNE8E/3f4XG1cxpSqv4+RtkXiWaM9/GBO8aa5DsHoHycri5L2oLJiOm1U4/mCBnAeiXppto1nIdyJlUmuZL6oWqzK+DOBXWKR70Wj6M3qjGLfuvNKcPklmL6h64n6bUITK5/5GziiQwZzBQjLYiOgyZFAOXQh/Yat1xzGL7JaFwoDJ1C3pIFr6HPTBDw==
+ b=LIUvaKeY54QmBqdXWOnMTZ/dtXG0vyAPO2sGmnANAUX2Gec+7Xe7+aNAlMvsZLwRTcsQ4Yq7S3bWxNL/UJ+rwVMEpBFS0vEnkrZt64PidKqeBtOBhJAJaBGrqnejQKW3EMm2KZZCdcgqRHLKl9S3CNNTedIPGL6fLGdQDnoRICOfaqqqDK/nuifZreTEB3Km0V+1pGPWlFMEReeDqkMRXIGMp0jRCTwlY/t0wyp3cQNBWlo63tzJANfeOKYHpfLQwogixA8s5e5aJEd+Xbtmgcy863uPHLZ38XZ1cetPdwLqXMhGMZThsCdYR12vtuiTzAHFlq0687tp9H4R1sNUJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uNdkF7h43QWHYrU3iwdXIZ/qRWUiv5Ly1M9DYR7KavE=;
- b=NhiKGyZIWpA/TF25tp4YdQ9zUphtLIRIjxPQ29aQHRb5Yzl4qgW8QiXi6H6xI25aSlFH8YA3IJ/c5qedM4ugx2vOfJViNoRiZZ7W83YvOP/utm3PIXw53TZ1aEiLe/nT/lqkJ0R1FqBlW4HLD3GuGpI4OFVGNRjA+erFeVXuVo/aDzyDAarnwpkvPVC4hoBlObCDaGjd3HVUV/qq4oG7ftZ61cFv2UQhEjncjSRtO8sf1/tGmEUx5Pw43KCfAeho+JWWfgaH8edMQMCw6bDlIVZFGnp8f4kqc0M5wKQiaBFuuKkwFKhQ/V2yHBbsXWJ3pi0sTUPXfDnXPmQ+f0BxKg==
+ bh=E810vCZUkymeYRiCYLtoPgbq/+OgqMahvYjyyOC0W6U=;
+ b=VMBVYNJuxwhKVWzBvbTkU7bfrty4pxlSh8XdnrAc+Ah2LbMjumO1PjkVOr6nqkIP9yO6Df6hm3/GiwpNdnpSBUDOTDDBaw1j5KdzV9u4jqx/25L4Ft/vVhqj7ZnGK7CXecVyTAyWP7Ul1GPLNWQkXF/X11vxVCPEe77HPxdnveJ6od8+ld7qM3dU5F1N51EOJOoYSfYXPmh1BqsrXifsKbavS7LJ6qBJ/OgnW/iwCFC1H5AzIhmO8a/4XHfQGOKb/tyov17T4K+ItuZOLi6ZBaze2tWJa5b4tdP1fwwy7pHzJlIsEpgNIH4D6LydiYkX/QMXiinL54Jvax3O6YN12A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uNdkF7h43QWHYrU3iwdXIZ/qRWUiv5Ly1M9DYR7KavE=;
- b=rSWIahoShr9+HRhEhFy0GkB6fELmzX9lRdv3YQSicTCbpJ3Aw9PNwzibXaLXBglz4FE496K0BXnM8e2BlOYxH8jQ4WoLXKomOJDp+M4RFYUJX2b4VKMcRInjR1ahKmnZiBv3F4qwySMGafeS60sCRrnfYXLz9fKeeHAs+RHTdR4=
-Received: from MW4PR03CA0260.namprd03.prod.outlook.com (2603:10b6:303:b4::25)
- by MN2PR12MB3535.namprd12.prod.outlook.com (2603:10b6:208:105::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8; Tue, 25 Jan
- 2022 09:00:38 +0000
-Received: from CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b4:cafe::de) by MW4PR03CA0260.outlook.office365.com
- (2603:10b6:303:b4::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8 via Frontend
- Transport; Tue, 25 Jan 2022 09:00:37 +0000
+ bh=E810vCZUkymeYRiCYLtoPgbq/+OgqMahvYjyyOC0W6U=;
+ b=uvU39mwggpBRtWxBz8eH3SapykYYes1mK+VjPi+2VA96PTCrU36df8NC2ilWFwCfUyYDB+5+49x58QQs+aTGF3t5MUnb9c9Fkl8iDIVF9SqrRP/8XSB8y7pjg5aZJUER8z78uQ59BvDBxNSmPc6hW7+FYJ0mxmT+zBYHdrUEX4w=
+Received: from MWHPR22CA0020.namprd22.prod.outlook.com (2603:10b6:300:ef::30)
+ by MWHPR12MB1535.namprd12.prod.outlook.com (2603:10b6:301:5::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10; Tue, 25 Jan
+ 2022 09:00:34 +0000
+Received: from CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:ef:cafe::15) by MWHPR22CA0020.outlook.office365.com
+ (2603:10b6:300:ef::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.17 via Frontend
+ Transport; Tue, 25 Jan 2022 09:00:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT003.mail.protection.outlook.com (10.13.175.93) with Microsoft SMTP
+ CO1NAM11FT008.mail.protection.outlook.com (10.13.175.191) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4909.7 via Frontend Transport; Tue, 25 Jan 2022 09:00:37 +0000
+ 15.20.4909.7 via Frontend Transport; Tue, 25 Jan 2022 09:00:34 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 25 Jan
- 2022 03:00:35 -0600
+ 2022 03:00:32 -0600
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V2 4/7] drm/amd/pm: correct the usage for 'supported' member
- of smu_feature structure
-Date: Tue, 25 Jan 2022 17:00:10 +0800
-Message-ID: <20220125090013.102080-4-evan.quan@amd.com>
+Subject: [PATCH V2 2/7] drm/amd/pm: unify the interface for retrieving enabled
+ ppfeatures
+Date: Tue, 25 Jan 2022 17:00:08 +0800
+Message-ID: <20220125090013.102080-2-evan.quan@amd.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20220125090013.102080-1-evan.quan@amd.com>
 References: <20220125090013.102080-1-evan.quan@amd.com>
@@ -69,28 +69,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c918c473-e230-4e6d-69a0-08d9dfe127dc
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3535:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3535E6C8C93343A560623C31E45F9@MN2PR12MB3535.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:318;
+X-MS-Office365-Filtering-Correlation-Id: 4066d845-d493-4578-65d1-08d9dfe125f3
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1535:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB15356FD5391ADBCAF6E9A522E45F9@MWHPR12MB1535.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5RPg9kos2aGwB9DlW6YlJp96BcVpoPc9rrccpTVDaUFzauphkVVP/9wKy3vo5XzlXEgJ430lUCPBxs5dGH5MKg8XZprwPhN5wwXlTJYe7mxKfHjW0QnU4mVGU3cTi7DawuDPzAf8Pin3th5wZWAo+lwJIiE4TEczPYigZWnSB9/5d7OQ3w+GdMHpWS2KSYX1NwTnLLDQFaWmq4cjec0pdi03AegcPBUlPmZ3uTvQ8u1+2ByS7FzdaQk7bm0wkaQD8wZV7X0Huxu1DACSR72li5u8JY+QPtHucSH4I2dhevFIFIdMYQLNcWzCfhOJRqtMy1EK8nk9M0xbviakXB+nZ+RzvIFk9BYRwvY8n+2rkH8wqgIImjU5Si4BhyJgY7R3DuulCdf35P3gGjRHd3/e5nBCkQ69CtsvGIVENWTig13ojsoQHYkZCbNWZzU8hqG1qfzrtWEGb2KD5cZ1dMSIoPiLozvIcxVZ7KdV0dP5Hw1y6aVx1XyHA0nakkXXYMwQ1e34B0PEHMnoKAdoPA8/DmueUgpivaEbkZbx0HgBGZRD4GZzq113tnIi4ODpUPugPvXmvsAdgh4zDKKeDgMgSg5uubOMawd9CabNy7PUf6Xyc9cN61UuGT6jGpACEJoWhK9xWh8q5NSOrqe9cHjih8YyCn2YV030qUtlJsX3PE/HBc1iAtzGr9wt0DCEYoz2olpLHCyT71DDl9184nfnQPqE6U8UmRaeVCyJpu7HjL0eqQ31LsMC+e8dDSq1zFlTRtOEKhM5sJI5VYdVegPX14Pl1MNKaPiQxZao0kN6woo=
+X-Microsoft-Antispam-Message-Info: zS2yBjU9iSoW7dty08Qnz/oWEi+jxQSVVpwpdKrZPXB868uABMPTheArlqXxg66fBoscGStY1FU4jY0/2qgx5ptkI9sB0iFY2mTsPhjlW/GE0OzaCkB//8/tEFtaAYX6RQWSilalwwch5Zk41uthmJWQFFfAZ1HjHb+42ffZ/evnI3LZBXlUtEpQApDvgH+jRiCNrzUMDcHSJ4DtonOl+oeKqCaLjVF3bIlB03eO93+ce2SYeIwQZvw8gevtM1tQFzSvWVm4+KMftksmZ2WbC5qT8U35yCgZobBh7pDsobKn2gF0N58YlNADoaNHKb+05jy/JRAD/KwXBhbbwHGCybhDUBvtMOOe1LNnV6oQ86s9sY+gsVjogleGDI5RZezI49+3wabLSnnQfMKtPbpl+/zPYgyAIrPBLM73d3RNlGvEhFU8CaTo2MYaq5q8iBnys2pouvwaXcnNk9i+Tnv3PK2+dQOSFASDOg8w6MpbZnYCFWMGljI+g8YPN9QCGW8Tt6V8e58Oujiu0mskz3IFP+kaOX5lXH0vi3nHsACYiExb5yLIEKZ1JAd/kIpGWbmGSSCdHfMXgKmwy0r8OVmKlW/frhJdiNSvaObVFZPWuzqHwbJ4kTlcdke7eYKMAioezAYGlZPrqx+qu7ngyll+B6OuiIrXXQ1UNGjnDXlM0yL+SWoSEImclB0t4+Dqm98Mi1C3Ox7jtol71DZWKxi8cb+vdM7Uf7oj0myAe8u2dM4Z/PYVLxrXMN+tHGdwp6PsQgt5d35zeXHNaQ4KDuyKCNtGXz8JMvdFU6Zjiffb1og=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(40470700004)(46966006)(16526019)(356005)(40460700003)(82310400004)(186003)(7696005)(26005)(426003)(36860700001)(5660300002)(6916009)(44832011)(4326008)(6666004)(8936002)(86362001)(70206006)(54906003)(2616005)(508600001)(36756003)(83380400001)(8676002)(70586007)(81166007)(1076003)(2906002)(47076005)(316002)(336012)(36900700001);
+ SFS:(4636009)(46966006)(36840700001)(40470700004)(6916009)(81166007)(47076005)(316002)(70586007)(6666004)(26005)(44832011)(8936002)(426003)(83380400001)(70206006)(356005)(186003)(16526019)(54906003)(2906002)(82310400004)(2616005)(508600001)(86362001)(336012)(1076003)(36756003)(36860700001)(7696005)(8676002)(40460700003)(4326008)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2022 09:00:37.7309 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c918c473-e230-4e6d-69a0-08d9dfe127dc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2022 09:00:34.5417 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4066d845-d493-4578-65d1-08d9dfe125f3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3535
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1535
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,217 +107,238 @@ Cc: Alexander.Deucher@amd.com, Lijo.Lazar@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The supported features should be retrieved just after EnableAllDpmFeatures message
-complete. And the check(whether some dpm feature is supported) is only needed when we
-decide to enable or disable it.
+Instead of having two which do the same thing.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
-Change-Id: I07c9a5ac5290cd0d88a40ce1768d393156419b5a
+Change-Id: I6302c9b5abdb999c4b7c83a0d1852181208b1c1f
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c             | 11 +++++++++++
- drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c       |  8 ++++----
- .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 10 +++++-----
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c        |  3 ---
- drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c      |  5 +----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c        |  3 ---
- drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |  3 ---
- 7 files changed, 21 insertions(+), 22 deletions(-)
+ .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   |  2 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  6 +-
+ .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |  6 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 93 ++++++++-----------
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  4 -
+ 5 files changed, 44 insertions(+), 67 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 95929cede585..1ef15f092b35 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1057,8 +1057,10 @@ static int smu_get_thermal_temperature_range(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+index 2f57333e6071..cc080a0075ee 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+@@ -357,7 +357,7 @@ static bool cyan_skillfish_is_dpm_running(struct smu_context *smu)
+ 	if (adev->in_suspend)
+ 		return false;
  
- static int smu_smc_hw_setup(struct smu_context *smu)
- {
-+	struct smu_feature *feature = &smu->smu_feature;
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t pcie_gen = 0, pcie_width = 0;
-+	uint64_t features_supported;
- 	int ret = 0;
+-	ret = smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
++	ret = smu_cmn_get_enabled_mask(smu, feature_mask, 2);
+ 	if (ret)
+ 		return false;
  
- 	if (adev->in_suspend && smu_is_dpm_running(smu)) {
-@@ -1138,6 +1140,15 @@ static int smu_smc_hw_setup(struct smu_context *smu)
- 		return ret;
- 	}
- 
-+	ret = smu_feature_get_enabled_mask(smu, &features_supported);
-+	if (ret) {
-+		dev_err(adev->dev, "Failed to retrieve supported dpm features!\n");
-+		return ret;
-+	}
-+	bitmap_copy(feature->supported,
-+		    (unsigned long *)&features_supported,
-+		    feature->feature_num);
-+
- 	if (!smu_is_dpm_running(smu))
- 		dev_info(adev->dev, "dpm has been disabled\n");
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index b68bce921453..4a41cd6c5ea4 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -1625,8 +1625,8 @@ static int navi10_display_config_changed(struct smu_context *smu)
- 	int ret = 0;
- 
- 	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
--	    smu_cmn_feature_is_supported(smu, SMU_FEATURE_DPM_DCEFCLK_BIT) &&
--	    smu_cmn_feature_is_supported(smu, SMU_FEATURE_DPM_SOCCLK_BIT)) {
-+	    smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCEFCLK_BIT) &&
-+	    smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_SOCCLK_BIT)) {
- 		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_NumOfDisplays,
- 						  smu->display_config->num_display,
- 						  NULL);
-@@ -1861,13 +1861,13 @@ static int navi10_notify_smc_display_config(struct smu_context *smu)
- 	min_clocks.dcef_clock_in_sr = smu->display_config->min_dcef_deep_sleep_set_clk;
- 	min_clocks.memory_clock = smu->display_config->min_mem_set_clock;
- 
--	if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_DPM_DCEFCLK_BIT)) {
-+	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCEFCLK_BIT)) {
- 		clock_req.clock_type = amd_pp_dcef_clock;
- 		clock_req.clock_freq_in_khz = min_clocks.dcef_clock * 10;
- 
- 		ret = smu_v11_0_display_clock_voltage_request(smu, &clock_req);
- 		if (!ret) {
--			if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_DS_DCEFCLK_BIT)) {
-+			if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DS_DCEFCLK_BIT)) {
- 				ret = smu_cmn_send_smc_msg_with_param(smu,
- 								  SMU_MSG_SetMinDeepSleepDcefclk,
- 								  min_clocks.dcef_clock_in_sr/100,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 98ea283f2a78..be522fd1088c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -1281,8 +1281,8 @@ static int sienna_cichlid_display_config_changed(struct smu_context *smu)
- 	int ret = 0;
- 
- 	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
--	    smu_cmn_feature_is_supported(smu, SMU_FEATURE_DPM_DCEFCLK_BIT) &&
--	    smu_cmn_feature_is_supported(smu, SMU_FEATURE_DPM_SOCCLK_BIT)) {
-+	    smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCEFCLK_BIT) &&
-+	    smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_SOCCLK_BIT)) {
- #if 0
- 		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_NumOfDisplays,
- 						  smu->display_config->num_display,
-@@ -1518,13 +1518,13 @@ static int sienna_cichlid_notify_smc_display_config(struct smu_context *smu)
- 	min_clocks.dcef_clock_in_sr = smu->display_config->min_dcef_deep_sleep_set_clk;
- 	min_clocks.memory_clock = smu->display_config->min_mem_set_clock;
- 
--	if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_DPM_DCEFCLK_BIT)) {
-+	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCEFCLK_BIT)) {
- 		clock_req.clock_type = amd_pp_dcef_clock;
- 		clock_req.clock_freq_in_khz = min_clocks.dcef_clock * 10;
- 
- 		ret = smu_v11_0_display_clock_voltage_request(smu, &clock_req);
- 		if (!ret) {
--			if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_DS_DCEFCLK_BIT)) {
-+			if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DS_DCEFCLK_BIT)) {
- 				ret = smu_cmn_send_smc_msg_with_param(smu,
- 								  SMU_MSG_SetMinDeepSleepDcefclk,
- 								  min_clocks.dcef_clock_in_sr/100,
-@@ -3749,7 +3749,7 @@ static int sienna_cichlid_gpo_control(struct smu_context *smu,
- 	int ret = 0;
- 
- 
--	if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_DPM_GFX_GPO_BIT)) {
-+	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_GFX_GPO_BIT)) {
- 		ret = smu_cmn_get_smc_version(smu, NULL, &smu_version);
- 		if (ret)
- 			return ret;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index b34d3a416939..d36b64371492 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -808,7 +808,6 @@ int smu_v11_0_system_features_control(struct smu_context *smu,
- 		return ret;
- 
- 	bitmap_zero(feature->enabled, feature->feature_num);
--	bitmap_zero(feature->supported, feature->feature_num);
- 
- 	if (en) {
- 		ret = smu_cmn_get_enabled_mask(smu, &feature_mask);
-@@ -817,8 +816,6 @@ int smu_v11_0_system_features_control(struct smu_context *smu,
- 
- 		bitmap_copy(feature->enabled, (unsigned long *)&feature_mask,
- 			    feature->feature_num);
--		bitmap_copy(feature->supported, (unsigned long *)&feature_mask,
--			    feature->feature_num);
- 	}
- 
- 	return ret;
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 65f30cdafc8f..478151e72889 100644
+index 721027917f81..b4a3c9b8b54e 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -1956,7 +1956,6 @@ static int vangogh_system_features_control(struct smu_context *smu, bool en)
- 						      RLC_STATUS_OFF, NULL);
+@@ -507,7 +507,7 @@ static bool vangogh_is_dpm_running(struct smu_context *smu)
+ 	if (adev->in_suspend)
+ 		return false;
  
- 	bitmap_zero(feature->enabled, feature->feature_num);
--	bitmap_zero(feature->supported, feature->feature_num);
+-	ret = smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
++	ret = smu_cmn_get_enabled_mask(smu, feature_mask, 2);
  
+ 	if (ret)
+ 		return false;
+@@ -1965,7 +1965,7 @@ static int vangogh_system_features_control(struct smu_context *smu, bool en)
  	if (!en)
  		return ret;
-@@ -1967,8 +1966,6 @@ static int vangogh_system_features_control(struct smu_context *smu, bool en)
  
- 	bitmap_copy(feature->enabled, (unsigned long *)&feature_mask,
- 		    feature->feature_num);
--	bitmap_copy(feature->supported, (unsigned long *)&feature_mask,
--		    feature->feature_num);
- 
- 	return 0;
- }
-@@ -1985,7 +1982,7 @@ static int vangogh_post_smu_init(struct smu_context *smu)
- 		adev->gfx.config.max_sh_per_se * adev->gfx.config.max_shader_engines;
- 
- 	/* allow message will be sent after enable message on Vangogh*/
--	if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_DPM_GFXCLK_BIT) &&
-+	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_GFXCLK_BIT) &&
- 			(adev->pg_flags & AMD_PG_SUPPORT_GFX_PG)) {
- 		ret = smu_cmn_send_smc_msg(smu, SMU_MSG_EnableGfxOff, NULL);
- 		if (ret) {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index 6b77fc4b4698..92b5c1108a2e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -774,7 +774,6 @@ int smu_v13_0_system_features_control(struct smu_context *smu,
+-	ret = smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
++	ret = smu_cmn_get_enabled_mask(smu, feature_mask, 2);
+ 	if (ret)
  		return ret;
  
- 	bitmap_zero(feature->enabled, feature->feature_num);
--	bitmap_zero(feature->supported, feature->feature_num);
+@@ -2182,7 +2182,7 @@ static const struct pptable_funcs vangogh_ppt_funcs = {
+ 	.dpm_set_jpeg_enable = vangogh_dpm_set_jpeg_enable,
+ 	.is_dpm_running = vangogh_is_dpm_running,
+ 	.read_sensor = vangogh_read_sensor,
+-	.get_enabled_mask = smu_cmn_get_enabled_32_bits_mask,
++	.get_enabled_mask = smu_cmn_get_enabled_mask,
+ 	.get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
+ 	.set_watermarks_table = vangogh_set_watermarks_table,
+ 	.set_driver_table_location = smu_v11_0_set_driver_table_location,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+index bd24a2632214..f425827e2361 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+@@ -209,7 +209,7 @@ static int yellow_carp_system_features_control(struct smu_context *smu, bool en)
+ 	if (!en)
+ 		return ret;
  
- 	if (en) {
- 		ret = smu_cmn_get_enabled_mask(smu, &feature_mask);
-@@ -783,8 +782,6 @@ int smu_v13_0_system_features_control(struct smu_context *smu,
+-	ret = smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
++	ret = smu_cmn_get_enabled_mask(smu, feature_mask, 2);
+ 	if (ret)
+ 		return ret;
  
- 		bitmap_copy(feature->enabled, (unsigned long *)&feature_mask,
- 			    feature->feature_num);
--		bitmap_copy(feature->supported, (unsigned long *)&feature_mask,
--			    feature->feature_num);
+@@ -258,7 +258,7 @@ static bool yellow_carp_is_dpm_running(struct smu_context *smu)
+ 	uint32_t feature_mask[2];
+ 	uint64_t feature_enabled;
+ 
+-	ret = smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
++	ret = smu_cmn_get_enabled_mask(smu, feature_mask, 2);
+ 
+ 	if (ret)
+ 		return false;
+@@ -1174,7 +1174,7 @@ static const struct pptable_funcs yellow_carp_ppt_funcs = {
+ 	.is_dpm_running = yellow_carp_is_dpm_running,
+ 	.set_watermarks_table = yellow_carp_set_watermarks_table,
+ 	.get_gpu_metrics = yellow_carp_get_gpu_metrics,
+-	.get_enabled_mask = smu_cmn_get_enabled_32_bits_mask,
++	.get_enabled_mask = smu_cmn_get_enabled_mask,
+ 	.get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
+ 	.set_driver_table_location = smu_v13_0_set_driver_table_location,
+ 	.gfx_off_control = smu_v13_0_gfx_off_control,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index c3c679bf9d9f..50164ebed1cd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -545,67 +545,57 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,
+ 			     uint32_t *feature_mask,
+ 			     uint32_t num)
+ {
+-	uint32_t feature_mask_high = 0, feature_mask_low = 0;
+ 	struct smu_feature *feature = &smu->smu_feature;
++	struct amdgpu_device *adev = smu->adev;
++	uint32_t *feature_mask_high;
++	uint32_t *feature_mask_low;
+ 	int ret = 0;
+ 
+ 	if (!feature_mask || num < 2)
+ 		return -EINVAL;
+ 
+-	if (bitmap_empty(feature->enabled, feature->feature_num)) {
+-		ret = smu_cmn_send_smc_msg(smu, SMU_MSG_GetEnabledSmuFeaturesHigh, &feature_mask_high);
+-		if (ret)
+-			return ret;
+-
+-		ret = smu_cmn_send_smc_msg(smu, SMU_MSG_GetEnabledSmuFeaturesLow, &feature_mask_low);
+-		if (ret)
+-			return ret;
+-
+-		feature_mask[0] = feature_mask_low;
+-		feature_mask[1] = feature_mask_high;
+-	} else {
+-		bitmap_copy((unsigned long *)feature_mask, feature->enabled,
++	if (!bitmap_empty(feature->enabled, feature->feature_num)) {
++		bitmap_copy((unsigned long *)feature_mask,
++			     feature->enabled,
+ 			     feature->feature_num);
++		return 0;
+ 	}
+ 
+-	return ret;
+-}
+-
+-int smu_cmn_get_enabled_32_bits_mask(struct smu_context *smu,
+-					uint32_t *feature_mask,
+-					uint32_t num)
+-{
+-	uint32_t feature_mask_en_low = 0;
+-	uint32_t feature_mask_en_high = 0;
+-	struct smu_feature *feature = &smu->smu_feature;
+-	int ret = 0;
+-
+-	if (!feature_mask || num < 2)
+-		return -EINVAL;
+-
+-	if (bitmap_empty(feature->enabled, feature->feature_num)) {
+-		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GetEnabledSmuFeatures, 0,
+-										 &feature_mask_en_low);
++	feature_mask_low = &feature_mask[0];
++	feature_mask_high = &feature_mask[1];
+ 
++	switch (adev->asic_type) {
++	case CHIP_CYAN_SKILLFISH:
++	case CHIP_VANGOGH:
++	case CHIP_YELLOW_CARP:
++		ret = smu_cmn_send_smc_msg_with_param(smu,
++						      SMU_MSG_GetEnabledSmuFeatures,
++						      0,
++						      feature_mask_low);
+ 		if (ret)
+ 			return ret;
+ 
+-		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GetEnabledSmuFeatures, 1,
+-										 &feature_mask_en_high);
+-
++		ret = smu_cmn_send_smc_msg_with_param(smu,
++						      SMU_MSG_GetEnabledSmuFeatures,
++						      1,
++						      feature_mask_high);
++		break;
++	case CHIP_RENOIR:
++	/* other dGPU ASICs */
++	default:
++		ret = smu_cmn_send_smc_msg(smu,
++					   SMU_MSG_GetEnabledSmuFeaturesHigh,
++					   feature_mask_high);
+ 		if (ret)
+ 			return ret;
+ 
+-		feature_mask[0] = feature_mask_en_low;
+-		feature_mask[1] = feature_mask_en_high;
+-
+-	} else {
+-		bitmap_copy((unsigned long *)feature_mask, feature->enabled,
+-				 feature->feature_num);
++		ret = smu_cmn_send_smc_msg(smu,
++					   SMU_MSG_GetEnabledSmuFeaturesLow,
++					   feature_mask_low);
++		break;
  	}
  
  	return ret;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-index a7aabb8079ed..d89e8a03651b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-@@ -204,7 +204,6 @@ static int yellow_carp_system_features_control(struct smu_context *smu, bool en)
- 		ret = smu_cmn_send_smc_msg(smu, SMU_MSG_PrepareMp1ForUnload, NULL);
- 
- 	bitmap_zero(feature->enabled, feature->feature_num);
--	bitmap_zero(feature->supported, feature->feature_num);
- 
- 	if (!en)
- 		return ret;
-@@ -215,8 +214,6 @@ static int yellow_carp_system_features_control(struct smu_context *smu, bool en)
- 
- 	bitmap_copy(feature->enabled, (unsigned long *)&feature_mask,
- 		    feature->feature_num);
--	bitmap_copy(feature->supported, (unsigned long *)&feature_mask,
--		    feature->feature_num);
- 
- 	return 0;
+-
  }
+ 
+ uint64_t smu_cmn_get_indep_throttler_status(
+@@ -710,20 +700,11 @@ size_t smu_cmn_get_pp_feature_mask(struct smu_context *smu,
+ 	size_t size = 0;
+ 	int ret = 0, i;
+ 
+-	if (!smu->is_apu ||
+-	    (smu->adev->asic_type == CHIP_RENOIR)) {
+-		ret = smu_cmn_get_enabled_mask(smu,
+-						feature_mask,
+-						2);
+-		if (ret)
+-			return 0;
+-	} else {
+-		ret = smu_cmn_get_enabled_32_bits_mask(smu,
+-					feature_mask,
+-					2);
+-		if (ret)
+-			return 0;
+-	}
++	ret = smu_cmn_get_enabled_mask(smu,
++				       feature_mask,
++				       2);
++	if (ret)
++		return 0;
+ 
+ 	size =  sysfs_emit_at(buf, size, "features high: 0x%08x low: 0x%08x\n",
+ 			feature_mask[1], feature_mask[0]);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+index f0b4fb2a0960..4e34c18c6063 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+@@ -61,10 +61,6 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,
+ 			     uint32_t *feature_mask,
+ 			     uint32_t num);
+ 
+-int smu_cmn_get_enabled_32_bits_mask(struct smu_context *smu,
+-					uint32_t *feature_mask,
+-					uint32_t num);
+-
+ uint64_t smu_cmn_get_indep_throttler_status(
+ 					const unsigned long dep_status,
+ 					const uint8_t *throttler_map);
 -- 
 2.29.0
 
