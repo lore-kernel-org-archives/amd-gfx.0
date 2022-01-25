@@ -4,93 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4FBBC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 08:57:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F69C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 08:57:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63D4410EE11;
-	Tue, 25 Jan 2022 08:57:18 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2068.outbound.protection.outlook.com [40.107.244.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE5710EE10
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 08:57:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OdqkCWXP+nCwd1jXUuI5Hsn9pzOdzWSeQuIyZFVNmkkuHPVYYgtcmnIUr32y56fCi1Fozf02nto6aG6fLD08v/FwTnVPFWzfC0jFm2UPElKN7ep6jRe+g/w6Kf9YY8zU1lYpUX6hpfcpgJM3QFA5yKP8EPd2mLcTMBlL5xY/i4lU7/G40jBKENpTqHxEuqBEDs3ooBlmM7pweS+tdw1QL5zygoseCHZE5CTNZ1te7StedQTKnJTuwe4gkM+MkN5wK74VMxQ62FcnU+4cxPbRh7j+LtXup3SRbjaXdbq47kZFvVAJb2ggRQ7RbA2cvNo7lHScWv+SBw4q9rgaUd6yow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kRsot1xwovLyZVLrX7PULBgxntx3AH4lZXnovqL8Agk=;
- b=lbTuD9xPrxgyclrCl08KplsLI7iWJobh50vA1jP23+qasS6urNgcDIaUJyxLhCyHNBe+NLzZIvDYy+CF794Cgdmy70cJD+uhXxZSH1AE2OEdIkXAEKRw/pJTiKe0zpOtTpywJ/rcQwNuA3RS3UigOjDz7uWDEOsEd/RYdYMpG1uHwVCwNGhyjwUnQnF914rw/WfKoOQ9U8DXvb3qTl1ks7KSFyGIGvjryPoxMigolDj6hcCt8ZNFVSa03YZh4mQS5y4SVu1chgZ05rK3XAgAZB2XKfORCabgxBQ8Y3jazIu9+mZNg+XJk6d8de83S34znJkMhsN/9wSih88OWhc5mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kRsot1xwovLyZVLrX7PULBgxntx3AH4lZXnovqL8Agk=;
- b=RjhnpOTJi8OPgSnJj1ftgUf7hA4C6I0/LgQZGtKlTTdiaWHN4gPgeu/clWVvZfb2r8kCs/h38H4snno2YQykU1WFEt5wV+qmAGQy2+U0aLPqbVdq+fdmextNZk2vL7CbI5lyZDCNttIFSgifkJRchv100ehSHZe4y3fL1Q2Xupc=
-Received: from BN6PR16CA0018.namprd16.prod.outlook.com (2603:10b6:404:f5::28)
- by CH2PR12MB4646.namprd12.prod.outlook.com (2603:10b6:610:11::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8; Tue, 25 Jan
- 2022 08:57:14 +0000
-Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:f5:cafe::d8) by BN6PR16CA0018.outlook.office365.com
- (2603:10b6:404:f5::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.17 via Frontend
- Transport; Tue, 25 Jan 2022 08:57:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4909.7 via Frontend Transport; Tue, 25 Jan 2022 08:57:14 +0000
-Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 25 Jan
- 2022 02:57:12 -0600
-From: Evan Quan <evan.quan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amd/pm: fix the deadlock observed on
- performance_level setting
-Date: Tue, 25 Jan 2022 16:56:14 +0800
-Message-ID: <20220125085614.101348-2-evan.quan@amd.com>
-X-Mailer: git-send-email 2.29.0
-In-Reply-To: <20220125085614.101348-1-evan.quan@amd.com>
-References: <20220125085614.101348-1-evan.quan@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D87B610EE16;
+	Tue, 25 Jan 2022 08:57:22 +0000 (UTC)
+Received: from desiato.infradead.org (desiato.infradead.org
+ [IPv6:2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E26410E2F4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 01:29:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
+ :In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:
+ Sender:Reply-To:Content-ID:Content-Description;
+ bh=P/pVADs/xaxzcSJh6qZOPmplhn33eeiTUUHUCQLTs+g=; b=RiuXdYQMDg6lKw2ZdUlIlVTWfh
+ oErHs/5wEO/DUNbsdr0w7GaVRxJBfzd7AG8PtOi+t9cN6pVPCudDSZDAKyGihXSUqkeowAJh6z0yD
+ s8vovFBzCqsjmB9NmzpySCD8j18MuGALijvQ9qibGMaMbRYAfNthbfqNbOs/9qeiivOL3HKiQXnlS
+ 7oeJ9fdy6G7Pz0pBJIt3CCSLNOPlXB3Kh9aX8FJ4vVl2Lp5b6z6i+uzu7hWzeBkUSqmeapJUlw0ob
+ Oqm5PYXOamSqtsgMaFBjjZkDm+CAYXDiJPVe4oe1NzkEAsOA1vebPKT288l+AOS9yTMSxSk56ZnK0
+ GFXoAReA==;
+Received: from [2601:1c0:6280:3f0::aa0b]
+ by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1nCAeC-003KRf-IG; Tue, 25 Jan 2022 01:29:25 +0000
+Message-ID: <0ddcd3d8-6fca-dc6a-d9d8-f8df8715be95@infradead.org>
+Date: Mon, 24 Jan 2022 17:29:17 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: Build regressions/improvements in v5.17-rc1
+Content-Language: en-US
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <20220123125737.2658758-1-geert@linux-m68k.org>
+ <alpine.DEB.2.22.394.2201240851560.2674757@ramsan.of.borg>
+ <CADnq5_MUq0fX7wMLJyUUxxa+2xoRinonL-TzD8tUhXALRfY8-A@mail.gmail.com>
+ <CAMuHMdWUWqHYbbavtMT-XAD_sarDPC5xnc3c0pX1ZAh3Wuzuzg@mail.gmail.com>
+ <aca104cf-5f5f-b696-754a-35e62dbe64c3@infradead.org>
+ <500a3aa0-f51e-92ac-82d6-7ffc7f603e2c@amd.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <500a3aa0-f51e-92ac-82d6-7ffc7f603e2c@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 76abb099-eb66-4281-6d58-08d9dfe0ae80
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4646:EE_
-X-Microsoft-Antispam-PRVS: <CH2PR12MB464672ADC00DF9116D04F6F8E45F9@CH2PR12MB4646.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:923;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3+7inySHlPGfbQSq8XYHRdCLY6jbtAbr+pGJAcuvuzZqc8kmP6UIi1DX+JPYND/V2AnV3V9xsMmFOEgcpYKvPjnbi7CtgbUIleVvklpWCVVIpYzRZYYPLIDYDVnb5H0eb0g8BuwS5ie+Exw/E+GZ9RAvSmjfNpRRQcYOJjxEdG3K+cpfwjYzagwPAHrgFYGEdGw0jsPIEJfwVQdf5u7hHxPir12RdxHmJO6xOBxDDYqsirTrDBwBSm0rQlV5qtNanwtJz590YbLlSuSszhT4WhtnaRG0Stp2K0mK6SOk6WC1esxdn2RlKArz+DsnBd9zy3N/bBt7Vc7b8QImHgf3Js+cQ63i/YrgKlHFrsb2XoHvTHwjY+Z8OEEvYhxI9tQ6pYxFHDKLPp9ZgufAVZBnBY9aS+m863eep8aBqZkxCEjlsJT5UNDVw8A9G7YKWSQtwhTuwD2rrLYuZ8q0fsjOy7LUpGB1bPwcjXZ+8RfRWlyt4MEciUALY0Hnmn81N15EZs460X1wJ7st49lLaE0x+UaHAACq5vIp2dUAvc2J7I6LZg/RaZ+fy2iRYOfV0GofMDbhU3hrePHwjVDfs5xfQeTuTJ+pyltCDmXP9x9RYWxz81vJGJI2xqw+2fY3vfdAzf5wsOx5TYdIHlCCiiQeayMCb+JrCSuaboew8C2o5AE7KrGolmUenul1dDE3BOKKSI+WBCRp9KAq7ftn+EA05AZvugFRZ9q+YHFvKTSUgIt9ARUXg0iicxuOyfOGSKi0gjnwuL1jSc2Yx4tdY944WzbKsLyyK77zDMq9avyi6S4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(40470700004)(36840700001)(46966006)(336012)(47076005)(16526019)(186003)(26005)(8676002)(1076003)(508600001)(426003)(44832011)(6916009)(82310400004)(2906002)(2616005)(8936002)(40460700003)(83380400001)(356005)(36756003)(54906003)(316002)(86362001)(7696005)(70206006)(36860700001)(81166007)(70586007)(5660300002)(4326008)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2022 08:57:14.2643 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76abb099-eb66-4281-6d58-08d9dfe0ae80
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4646
+X-Mailman-Approved-At: Tue, 25 Jan 2022 08:57:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,120 +58,158 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ KVM list <kvm@vger.kernel.org>, Network Development <netdev@vger.kernel.org>,
+ linux-um <linux-um@lists.infradead.org>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
+ Lakshmi Sowjanya D <lakshmi.sowjanya.d@intel.com>,
+ sparclinux <sparclinux@vger.kernel.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, "Tobin C. Harding" <me@tobin.cc>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The sub-routine(amdgpu_gfx_off_ctrl) tried to obtain the lock
-adev->pm.mutex which was actually hold by amdgpu_dpm_force_performance_level.
-A deadlock happened then.
 
-Signed-off-by: Evan Quan <evan.quan@amd.com>
-Change-Id: Id692829381dedc6380f5464d74107d696f7abca1
----
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 50 ++++++++++-------------------
- 1 file changed, 17 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index 5fc33893a68c..ef574c96b41c 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -692,25 +692,16 @@ void amdgpu_dpm_set_power_state(struct amdgpu_device *adev,
- 		amdgpu_dpm_compute_clocks(adev);
- }
- 
--static enum amd_dpm_forced_level amdgpu_dpm_get_performance_level_locked(struct amdgpu_device *adev)
-+enum amd_dpm_forced_level amdgpu_dpm_get_performance_level(struct amdgpu_device *adev)
- {
- 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
- 	enum amd_dpm_forced_level level;
- 
-+	mutex_lock(&adev->pm.mutex);
- 	if (pp_funcs->get_performance_level)
- 		level = pp_funcs->get_performance_level(adev->powerplay.pp_handle);
- 	else
- 		level = adev->pm.dpm.forced_level;
--
--	return level;
--}
--
--enum amd_dpm_forced_level amdgpu_dpm_get_performance_level(struct amdgpu_device *adev)
--{
--	enum amd_dpm_forced_level level;
--
--	mutex_lock(&adev->pm.mutex);
--	level = amdgpu_dpm_get_performance_level_locked(adev);
- 	mutex_unlock(&adev->pm.mutex);
- 
- 	return level;
-@@ -725,23 +716,16 @@ int amdgpu_dpm_force_performance_level(struct amdgpu_device *adev,
- 					AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
- 					AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
- 					AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
--	int ret = 0;
- 
- 	if (!pp_funcs->force_performance_level)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
--
--	if (adev->pm.dpm.thermal_active) {
--		ret = -EINVAL;
--		goto out;
--	}
-+	if (adev->pm.dpm.thermal_active)
-+		return -EINVAL;
- 
--	current_level = amdgpu_dpm_get_performance_level_locked(adev);
--	if (current_level == level) {
--		ret = 0;
--		goto out;
--	}
-+	current_level = amdgpu_dpm_get_performance_level(adev);
-+	if (current_level == level)
-+		return 0;
- 
- 	if (adev->asic_type == CHIP_RAVEN) {
- 		if (!(adev->apu_flags & AMD_APU_IS_RAVEN2)) {
-@@ -755,10 +739,8 @@ int amdgpu_dpm_force_performance_level(struct amdgpu_device *adev,
- 	}
- 
- 	if (!(current_level & profile_mode_mask) &&
--	    (level == AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)) {
--		ret = -EINVAL;
--		goto out;
--	}
-+	    (level == AMD_DPM_FORCED_LEVEL_PROFILE_EXIT))
-+		return -EINVAL;
- 
- 	if (!(current_level & profile_mode_mask) &&
- 	      (level & profile_mode_mask)) {
-@@ -780,17 +762,19 @@ int amdgpu_dpm_force_performance_level(struct amdgpu_device *adev,
- 						       AMD_PG_STATE_GATE);
- 	}
- 
-+	mutex_lock(&adev->pm.mutex);
-+
- 	if (pp_funcs->force_performance_level(adev->powerplay.pp_handle,
--					      level))
--		ret = -EINVAL;
-+					      level)) {
-+		mutex_unlock(&adev->pm.mutex);
-+		return -EINVAL;
-+	}
- 
--	if (!ret)
--		adev->pm.dpm.forced_level = level;
-+	adev->pm.dpm.forced_level = level;
- 
--out:
- 	mutex_unlock(&adev->pm.mutex);
- 
--	return ret;
-+	return 0;
- }
- 
- int amdgpu_dpm_get_pp_num_states(struct amdgpu_device *adev,
+On 1/24/22 17:23, Felix Kuehling wrote:
+> 
+> Am 2022-01-24 um 14:11 schrieb Randy Dunlap:
+>> On 1/24/22 10:55, Geert Uytterhoeven wrote:
+>>> Hi Alex,
+>>>
+>>> On Mon, Jan 24, 2022 at 7:52 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>>> On Mon, Jan 24, 2022 at 5:25 AM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+>>>>> On Sun, 23 Jan 2022, Geert Uytterhoeven wrote:
+>>>>>>   + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: error: control reaches end of non-void function [-Werror=return-type]:  => 1560:1
+>>>> I don't really see what's going on here:
+>>>>
+>>>> #ifdef CONFIG_X86_64
+>>>> return cpu_data(first_cpu_of_numa_node).apicid;
+>>>> #else
+>>>> return first_cpu_of_numa_node;
+>>>> #endif
+>>> Ah, the actual failure causing this was not included:
+>>>
+>>> In file included from /kisskb/src/arch/x86/um/asm/processor.h:41:0,
+>>>                   from /kisskb/src/include/linux/mutex.h:19,
+>>>                   from /kisskb/src/include/linux/kernfs.h:11,
+>>>                   from /kisskb/src/include/linux/sysfs.h:16,
+>>>                   from /kisskb/src/include/linux/kobject.h:20,
+>>>                   from /kisskb/src/include/linux/pci.h:35,
+>>>                   from
+>>> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:25:
+>>> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c: In
+>>> function 'kfd_cpumask_to_apic_id':
+>>> /kisskb/src/arch/um/include/asm/processor-generic.h:103:18: error:
+>>> called object is not a function or function pointer
+>>>   #define cpu_data (&boot_cpu_data)
+>>>                    ^
+>>> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1556:9:
+>>> note: in expansion of macro 'cpu_data'
+>>>    return cpu_data(first_cpu_of_numa_node).apicid;
+>>>           ^
+>>> /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1560:1:
+>>> error: control reaches end of non-void function [-Werror=return-type]
+>>>   }
+>>>   ^
+>> ah yes, UML.
+>> I have a bunch of UML fixes that I have been hesitant to post.
+>>
+>> This is one of them.
+>> What do people think about this?
+> 
+> Does it make sense to configure a UML kernel with a real device driver in the first place? Or should we just prevent enabling amdgpu for UML with a Kconfig dependency?
+> 
+
+Hi,
+
+Your option IMO. I have seen both opinions given.
+I also meant to reply that someone could just add
+	depends on !UML
+for this device, like you are suggesting.
+
+I'm fine with it either way.
+
+thanks.
+
+> 
+>>
+>> thanks.
+>>
+>> ---
+>> From: Randy Dunlap <rdunlap@infradead.org>
+>>
+>>
+>> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1556:9: note: in expansion of macro ‘cpu_data’
+>>    return cpu_data(first_cpu_of_numa_node).apicid;
+>>           ^~~~~~~~
+>> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1560:1: error: control reaches end of non-void function [-Werror=return-type]
+>>
+>> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function ‘kfd_fill_iolink_info_for_cpu’:
+>> ../arch/um/include/asm/processor-generic.h:103:19: error: called object is not a function or function pointer
+>>   #define cpu_data (&boot_cpu_data)
+>>                    ~^~~~~~~~~~~~~~~
+>> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1688:27: note: in expansion of macro ‘cpu_data’
+>>    struct cpuinfo_x86 *c = &cpu_data(0);
+>>                             ^~~~~~~~
+>> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:7: error: dereferencing pointer to incomplete type ‘struct cpuinfo_x86’
+>>    if (c->x86_vendor == X86_VENDOR_AMD)
+>>         ^~
+>> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:23: error: ‘X86_VENDOR_AMD’ undeclared (first use in this function); did you mean ‘X86_VENDOR_ANY’?
+>>    if (c->x86_vendor == X86_VENDOR_AMD)
+>>                         ^~~~~~~~~~~~~~
+>>                         X86_VENDOR_ANY
+>>
+>> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function ‘kfd_create_vcrat_image_cpu’:
+>> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1742:11: warning: unused variable ‘entries’ [-Wunused-variable]
+>>    uint32_t entries = 0;
+>>
+>> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     |    6 +++---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |    2 +-
+>>   2 files changed, 4 insertions(+), 4 deletions(-)
+>>
+>> --- linux-next-20220107.orig/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> +++ linux-next-20220107/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> @@ -1552,7 +1552,7 @@ static int kfd_cpumask_to_apic_id(const
+>>       first_cpu_of_numa_node = cpumask_first(cpumask);
+>>       if (first_cpu_of_numa_node >= nr_cpu_ids)
+>>           return -1;
+>> -#ifdef CONFIG_X86_64
+>> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>>       return cpu_data(first_cpu_of_numa_node).apicid;
+>>   #else
+>>       return first_cpu_of_numa_node;
+>> --- linux-next-20220107.orig/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>> +++ linux-next-20220107/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>> @@ -1679,7 +1679,7 @@ static int kfd_fill_mem_info_for_cpu(int
+>>       return 0;
+>>   }
+>>   -#ifdef CONFIG_X86_64
+>> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>>   static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
+>>                   uint32_t *num_entries,
+>>                   struct crat_subtype_iolink *sub_type_hdr)
+>> @@ -1738,7 +1738,7 @@ static int kfd_create_vcrat_image_cpu(vo
+>>       struct crat_subtype_generic *sub_type_hdr;
+>>       int avail_size = *size;
+>>       int numa_node_id;
+>> -#ifdef CONFIG_X86_64
+>> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>>       uint32_t entries = 0;
+>>   #endif
+>>       int ret = 0;
+>> @@ -1803,7 +1803,7 @@ static int kfd_create_vcrat_image_cpu(vo
+>>               sub_type_hdr->length);
+>>             /* Fill in Subtype: IO Link */
+>> -#ifdef CONFIG_X86_64
+>> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>>           ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
+>>                   &entries,
+>>                   (struct crat_subtype_iolink *)sub_type_hdr);
+>>
+>>
+
 -- 
-2.29.0
-
+~Randy
