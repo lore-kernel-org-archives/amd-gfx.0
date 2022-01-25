@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAAADC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 15:58:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD49BC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 15:58:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4919310E294;
-	Tue, 25 Jan 2022 15:58:08 +0000 (UTC)
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DA7010E294
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 15:58:07 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id y23so13512799oia.13
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 07:58:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F9B310E390;
+	Tue, 25 Jan 2022 15:58:28 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D69710E390
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 15:58:26 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ 10-20020a9d030a000000b0059f164f4a86so9376566otv.13
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 07:58:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7di1w576uHnbbbpoM68XAv5EaJQgyH2OozJZqQg6Idw=;
- b=gs3vPgzsboNellDheyHmM/60fZy5CQjumdLhvLU9+cdHaOln242cqq0YeQvvQEcwcI
- sR+x2iHnPPfdGjwXyDIFcFXNkrqbr84n4vWcpg9xGTALBJQceIdcb+KxUkk6hDtwfOp1
- /XRIkEfKIEQhDAMixXtEtBeFvkmnAcYF7I5SHUXUWw18+/iMIvsZ5tgcx0g7TUtFjJhw
- XdMW2XlJ5XyyWQEy6utBlUfULGX+Z+ZXH5atJVkqx8vWmqpjPaXcidu86m74rhI94eDo
- Xa3fC3SIKL2YxXRxob9gYRm39yyfKWKlzE2+uOnhxAxw43FBrXwbx2dLqNzm6ALxotsT
- AHIQ==
+ :cc; bh=EmGKz/gOwmTRCq4XmkTYXBBpXy0A8DKdLocqLEsX5iw=;
+ b=aVsKrlX2JEK9wwCgd4LTkahEHEWgdGzlGP2+MiyKSRsIj4LMNeezAnrqhHutWiQV06
+ zpsTxrZbfRbBINkEH167TdFRI4/3pdQylvZUMHBOqXT70+CWbAwbJPo2S9tbli7NvBz9
+ QL2K4w+TkyWm5MP530C3r6XChp1eFGFJQUEycct/bOwLL+ISp/Ddx03ICiFJHvvY/wxJ
+ avqLRAKRHuh69agcqniyKbMlg4DI4cuiae8huAeiTmdBFbwpQwWAiOatneiGvxucR87q
+ 8oUFu4qJB0USrvGnLUbJq4EAlQw0XLThKTNYA/2LKDNbVRI/IVAVvlhP8G2mZM+DlGcX
+ fELg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=7di1w576uHnbbbpoM68XAv5EaJQgyH2OozJZqQg6Idw=;
- b=XMgUxLATtLl4oN9nHZJ0iWSsyie/TN2/mYIeoWCWbMUEu0UdlAUBkKCoj0z0uJkM0s
- rxV/O5T8vzE8wZEadzbYgkkWHz5cHieFZ77XgnPM2qZMs/alcCmnURHo/ABorf5UpHHh
- 5T0Ug6wGyImYSUFXyGJHDIJoKlWOYeYQU0GkvdU1ArVewaNYXTJwbXSaZlAbuyjGkVY/
- t20vhI8Cjaf3zFgLsGiObftSbCmK1NcmNye+5MKwY+ngzFlmY/SaCQjGdsTKkSZjqbp3
- gIRuD4lRyurhy4lL4okRZ1d7g6xCTpWNo6YewpgetQRIyTh/urZfh3FdcURTV+ZpdWnC
- uxEA==
-X-Gm-Message-State: AOAM530KrHm/iXMs8N63BYmKU+0AA9jDyheYJePYliLTdH3q8If5X0Qu
- pYXeZ0Zw8ONq0LdP3lfpxXJSiUXDdRxY0ou0406LsOk/
-X-Google-Smtp-Source: ABdhPJzqKUUg3ktxvbEQZE77CMo1UJIrC4Rki/HbzSIjh9X44MbOe3jZtdr/GVwmNMXeNGgDz7Nt4ayyGhIvXGCCbT8=
-X-Received: by 2002:a05:6808:2189:: with SMTP id
- be9mr1059413oib.93.1643126286513; 
- Tue, 25 Jan 2022 07:58:06 -0800 (PST)
+ bh=EmGKz/gOwmTRCq4XmkTYXBBpXy0A8DKdLocqLEsX5iw=;
+ b=sU8LfSR4MLElovXZhb8Zu7kRGbf5njVSSqsYIVBoWRnq5bEWUh6ActbzmXQ7xdWfgm
+ H5sW/ni/GclQY+vapUKnwiWY3n6bC44nV19ttkfEn5YInmSOMCUvdoyCqHUphTMaBDz6
+ 5mQJQgXXFIWr8lv6/K/314Lqbxi/TOGifdcobgMxAPbOhmPrN49KbQmU6IXR4M9yrK5H
+ wc0NvL1oy9jFrfMsQRH04+6PNaW8DGhgwX+HgT76fiiiqCinEEKmJwVNA0CVvGoWnPOO
+ wp0ROiunDDQbW/+xRdzkMdSNQ4akspHeK593CwqwPHSRqwd88Q25pXAYePpC1GI6kq+U
+ 36hA==
+X-Gm-Message-State: AOAM531KWbk8FZk3V/TBNjvLp0bx9y3RTeOgvkficzDpn2o5DSphhSL9
+ CrfNcJZYE5PfbjwR9GabHuMG3fEsqnum9A8OKiSO8lN+
+X-Google-Smtp-Source: ABdhPJx1Z4TG8PVo30PcZsvQLqv+JJYR0eemE/3oqVQdzcqsuj0Wi2mnwp+I59p34mdpZopqEK4zAsQatwWKnbkiQ8Q=
+X-Received: by 2002:a9d:6c0d:: with SMTP id f13mr3577916otq.299.1643126305973; 
+ Tue, 25 Jan 2022 07:58:25 -0800 (PST)
 MIME-Version: 1.0
 References: <20220125090013.102080-1-evan.quan@amd.com>
- <20220125090013.102080-2-evan.quan@amd.com>
-In-Reply-To: <20220125090013.102080-2-evan.quan@amd.com>
+In-Reply-To: <20220125090013.102080-1-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 25 Jan 2022 10:57:55 -0500
-Message-ID: <CADnq5_O42g3RQ-44ds1v7gF0_5CY-VoC9JQ0myAaDUPJiHa=YA@mail.gmail.com>
-Subject: Re: [PATCH V2 2/7] drm/amd/pm: unify the interface for retrieving
- enabled ppfeatures
+Date: Tue, 25 Jan 2022 10:58:15 -0500
+Message-ID: <CADnq5_M-KLrvRmvQ4R-gesSJMYQbAUidBOAXSN_unAsjRsAThg@mail.gmail.com>
+Subject: Re: [PATCH V2 1/7] drm/amd/pm: correct the way for retrieving enabled
+ ppfeatures on Renoir
 To: Evan Quan <evan.quan@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,243 +67,33 @@ Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 On Tue, Jan 25, 2022 at 4:00 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-> Instead of having two which do the same thing.
+> As other dGPU asics, Renoir should use smu_cmn_get_enabled_mask() for
+> that job.
 >
 > Signed-off-by: Evan Quan <evan.quan@amd.com>
-> Change-Id: I6302c9b5abdb999c4b7c83a0d1852181208b1c1f
+> Change-Id: I9e845ba84dd45d0826506de44ef4760fa851a516
 > ---
->  .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   |  2 +-
->  .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  6 +-
->  .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |  6 +-
->  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 93 ++++++++-----------
->  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  4 -
->  5 files changed, 44 insertions(+), 67 deletions(-)
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-> index 2f57333e6071..cc080a0075ee 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-> @@ -357,7 +357,7 @@ static bool cyan_skillfish_is_dpm_running(struct smu_context *smu)
->         if (adev->in_suspend)
->                 return false;
->
-> -       ret = smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
-> +       ret = smu_cmn_get_enabled_mask(smu, feature_mask, 2);
->         if (ret)
->                 return false;
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> index 721027917f81..b4a3c9b8b54e 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> @@ -507,7 +507,7 @@ static bool vangogh_is_dpm_running(struct smu_context *smu)
->         if (adev->in_suspend)
->                 return false;
->
-> -       ret = smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
-> +       ret = smu_cmn_get_enabled_mask(smu, feature_mask, 2);
->
->         if (ret)
->                 return false;
-> @@ -1965,7 +1965,7 @@ static int vangogh_system_features_control(struct smu_context *smu, bool en)
->         if (!en)
->                 return ret;
->
-> -       ret = smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
-> +       ret = smu_cmn_get_enabled_mask(smu, feature_mask, 2);
->         if (ret)
->                 return ret;
->
-> @@ -2182,7 +2182,7 @@ static const struct pptable_funcs vangogh_ppt_funcs = {
->         .dpm_set_jpeg_enable = vangogh_dpm_set_jpeg_enable,
->         .is_dpm_running = vangogh_is_dpm_running,
->         .read_sensor = vangogh_read_sensor,
-> -       .get_enabled_mask = smu_cmn_get_enabled_32_bits_mask,
-> +       .get_enabled_mask = smu_cmn_get_enabled_mask,
->         .get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
->         .set_watermarks_table = vangogh_set_watermarks_table,
->         .set_driver_table_location = smu_v11_0_set_driver_table_location,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-> index bd24a2632214..f425827e2361 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-> @@ -209,7 +209,7 @@ static int yellow_carp_system_features_control(struct smu_context *smu, bool en)
->         if (!en)
->                 return ret;
->
-> -       ret = smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
-> +       ret = smu_cmn_get_enabled_mask(smu, feature_mask, 2);
->         if (ret)
->                 return ret;
->
-> @@ -258,7 +258,7 @@ static bool yellow_carp_is_dpm_running(struct smu_context *smu)
->         uint32_t feature_mask[2];
->         uint64_t feature_enabled;
->
-> -       ret = smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
-> +       ret = smu_cmn_get_enabled_mask(smu, feature_mask, 2);
->
->         if (ret)
->                 return false;
-> @@ -1174,7 +1174,7 @@ static const struct pptable_funcs yellow_carp_ppt_funcs = {
->         .is_dpm_running = yellow_carp_is_dpm_running,
->         .set_watermarks_table = yellow_carp_set_watermarks_table,
->         .get_gpu_metrics = yellow_carp_get_gpu_metrics,
-> -       .get_enabled_mask = smu_cmn_get_enabled_32_bits_mask,
-> +       .get_enabled_mask = smu_cmn_get_enabled_mask,
->         .get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
->         .set_driver_table_location = smu_v13_0_set_driver_table_location,
->         .gfx_off_control = smu_v13_0_gfx_off_control,
 > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> index c3c679bf9d9f..50164ebed1cd 100644
+> index fcead7c6ca7e..c3c679bf9d9f 100644
 > --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
 > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> @@ -545,67 +545,57 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,
->                              uint32_t *feature_mask,
->                              uint32_t num)
->  {
-> -       uint32_t feature_mask_high = 0, feature_mask_low = 0;
->         struct smu_feature *feature = &smu->smu_feature;
-> +       struct amdgpu_device *adev = smu->adev;
-> +       uint32_t *feature_mask_high;
-> +       uint32_t *feature_mask_low;
->         int ret = 0;
->
->         if (!feature_mask || num < 2)
->                 return -EINVAL;
->
-> -       if (bitmap_empty(feature->enabled, feature->feature_num)) {
-> -               ret = smu_cmn_send_smc_msg(smu, SMU_MSG_GetEnabledSmuFeaturesHigh, &feature_mask_high);
-> -               if (ret)
-> -                       return ret;
-> -
-> -               ret = smu_cmn_send_smc_msg(smu, SMU_MSG_GetEnabledSmuFeaturesLow, &feature_mask_low);
-> -               if (ret)
-> -                       return ret;
-> -
-> -               feature_mask[0] = feature_mask_low;
-> -               feature_mask[1] = feature_mask_high;
-> -       } else {
-> -               bitmap_copy((unsigned long *)feature_mask, feature->enabled,
-> +       if (!bitmap_empty(feature->enabled, feature->feature_num)) {
-> +               bitmap_copy((unsigned long *)feature_mask,
-> +                            feature->enabled,
->                              feature->feature_num);
-> +               return 0;
->         }
->
-> -       return ret;
-> -}
-> -
-> -int smu_cmn_get_enabled_32_bits_mask(struct smu_context *smu,
-> -                                       uint32_t *feature_mask,
-> -                                       uint32_t num)
-> -{
-> -       uint32_t feature_mask_en_low = 0;
-> -       uint32_t feature_mask_en_high = 0;
-> -       struct smu_feature *feature = &smu->smu_feature;
-> -       int ret = 0;
-> -
-> -       if (!feature_mask || num < 2)
-> -               return -EINVAL;
-> -
-> -       if (bitmap_empty(feature->enabled, feature->feature_num)) {
-> -               ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GetEnabledSmuFeatures, 0,
-> -                                                                                &feature_mask_en_low);
-> +       feature_mask_low = &feature_mask[0];
-> +       feature_mask_high = &feature_mask[1];
->
-> +       switch (adev->asic_type) {
-> +       case CHIP_CYAN_SKILLFISH:
-> +       case CHIP_VANGOGH:
-> +       case CHIP_YELLOW_CARP:
-
-Can you convert this to an SMU IP version check rather than an asic type check?
-
-> +               ret = smu_cmn_send_smc_msg_with_param(smu,
-> +                                                     SMU_MSG_GetEnabledSmuFeatures,
-> +                                                     0,
-> +                                                     feature_mask_low);
->                 if (ret)
->                         return ret;
->
-> -               ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GetEnabledSmuFeatures, 1,
-> -                                                                                &feature_mask_en_high);
-> -
-> +               ret = smu_cmn_send_smc_msg_with_param(smu,
-> +                                                     SMU_MSG_GetEnabledSmuFeatures,
-> +                                                     1,
-> +                                                     feature_mask_high);
-> +               break;
-> +       case CHIP_RENOIR:
-> +       /* other dGPU ASICs */
-> +       default:
-> +               ret = smu_cmn_send_smc_msg(smu,
-> +                                          SMU_MSG_GetEnabledSmuFeaturesHigh,
-> +                                          feature_mask_high);
->                 if (ret)
->                         return ret;
->
-> -               feature_mask[0] = feature_mask_en_low;
-> -               feature_mask[1] = feature_mask_en_high;
-> -
-> -       } else {
-> -               bitmap_copy((unsigned long *)feature_mask, feature->enabled,
-> -                                feature->feature_num);
-> +               ret = smu_cmn_send_smc_msg(smu,
-> +                                          SMU_MSG_GetEnabledSmuFeaturesLow,
-> +                                          feature_mask_low);
-> +               break;
->         }
->
->         return ret;
-> -
->  }
->
->  uint64_t smu_cmn_get_indep_throttler_status(
-> @@ -710,20 +700,11 @@ size_t smu_cmn_get_pp_feature_mask(struct smu_context *smu,
+> @@ -710,7 +710,8 @@ size_t smu_cmn_get_pp_feature_mask(struct smu_context *smu,
 >         size_t size = 0;
 >         int ret = 0, i;
 >
-> -       if (!smu->is_apu ||
-> -           (smu->adev->asic_type == CHIP_RENOIR)) {
-> -               ret = smu_cmn_get_enabled_mask(smu,
-> -                                               feature_mask,
-> -                                               2);
-> -               if (ret)
-> -                       return 0;
-> -       } else {
-> -               ret = smu_cmn_get_enabled_32_bits_mask(smu,
-> -                                       feature_mask,
-> -                                       2);
-> -               if (ret)
-> -                       return 0;
-> -       }
-> +       ret = smu_cmn_get_enabled_mask(smu,
-> +                                      feature_mask,
-> +                                      2);
-> +       if (ret)
-> +               return 0;
->
->         size =  sysfs_emit_at(buf, size, "features high: 0x%08x low: 0x%08x\n",
->                         feature_mask[1], feature_mask[0]);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> index f0b4fb2a0960..4e34c18c6063 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> @@ -61,10 +61,6 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,
->                              uint32_t *feature_mask,
->                              uint32_t num);
->
-> -int smu_cmn_get_enabled_32_bits_mask(struct smu_context *smu,
-> -                                       uint32_t *feature_mask,
-> -                                       uint32_t num);
-> -
->  uint64_t smu_cmn_get_indep_throttler_status(
->                                         const unsigned long dep_status,
->                                         const uint8_t *throttler_map);
+> -       if (!smu->is_apu) {
+> +       if (!smu->is_apu ||
+> +           (smu->adev->asic_type == CHIP_RENOIR)) {
+>                 ret = smu_cmn_get_enabled_mask(smu,
+>                                                 feature_mask,
+>                                                 2);
 > --
 > 2.29.0
 >
