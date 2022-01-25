@@ -4,115 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC609C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 10:48:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23DB0C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 11:32:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 845F410E9ED;
-	Tue, 25 Jan 2022 10:48:47 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2064.outbound.protection.outlook.com [40.107.243.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2165110E9F9
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 10:48:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A6A510F2D1;
+	Tue, 25 Jan 2022 11:32:43 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2070.outbound.protection.outlook.com [40.107.94.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E59210F2D1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 11:32:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JeiQfUqooRI0ApUGQHVsk13FW9idbpi0IdmSVFe28FAfZdXSJeVO0CIZCnFIoXIk8QDtenWnn1eS2u6IstjbRGASE1lK/XgyE8PamSuQ0oRJ03raV+NzkaGTa5TyhykaBXDCWRE4NJjaLNh3Yh5AHvDRYJ7y54q2PxIz5kYZekOZL0gTEdS4LglwWyqLBQVoM5y5dS8yo+nR063n1xStwlTFl98Dtwz6WZggFrO2n8Cf0/7wq5F8gBNNWLmbcymTsV6VIze1RWl4MabrAdDOsEOvUzycpuVfCRBO8e9UCgOTZS86CKP/dauHM3qIk+eNzKM7jlQD5rCX5Tnrn/CBuw==
+ b=TxeXSM2RCJeInhCiZweVwWsAe5QMH6X3Lcfh6m4GdDiDJFVrlukQsLDfeHThPb5IIg5FHGV5FTHuAU/Dmi0aaLlX+CoqBizcexYT4ndowhVPrHyB/omsm9mN8DM8Z7DLgNJ805PwbfZ+OfIOxI+ATakOIeWyU7ZPNbuHDi0S/aAeihrcvwS66KDeQ9nXLBjc91BsFLxBqNu7zQQX/qClbLOyGjq/Pyu9KZiNif3phhrxct9TpnE5GRUGztSZXblwXQ99H0vTWQ70ZccEOJuGG1iFyZgbkMaIVe5wgN9kIk1nade/HUca0nMlSJpwDChFlevEC+KOI/ZZV13RGiMeIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hoertF8N6Bm5uDgcp5teQDbC9jzKhV+WG0f6tcMiUsw=;
- b=atSDOc0rFWlWVbZS5PAhhOybTvGCa01+zf6Li1iNlbgqIJUn7VfGLUp1HtgEH3kHT8edLiGaNzJbcENYZv4bgUz2y2uD0xK2Ny5+KXPBoVdrH3x+z2lDbL5AkxXcnvXik4e+7L4V0HcifwvcdIQ6om2Sn0pN0OopUOplY77mBCK8D+7rDdRxCk9G9/Gf3zhCS4L6a7hQ1O9boAsWXqWtWUYXSZsimEA8mtgCAPB9TKJ1pyD+T90LPCrtt/yNxMudw328UJ8xTNzw7PfLIHwIJ8pIZBakJOUn7zH9uNexviLza5qjA4b3eCtn8jSgQmXR76G0AOnQwblrqWl4EF8LCQ==
+ bh=r6AKt9sfi+4bvnU69vBiE7PtnM8O7AJBdZ3UUnxi/Co=;
+ b=jlYiEyjEVPjg7Z2G/Cb+fI5x8WVGq4KBM/XScWG1kXm2pkWoVvYDvNIidFXF2jRWY05yia/32FA/pO+wgzywHg0AHQfS7S0pbBmqnr1osfv9XYg+7Zs+HSkYzpBGEGXuspCxhasZZZAZNtgbAnJXLdqhKJiQrsZRuVr1HC9h4M3oLdWuGQ1smICLUNeEJVhGTTaUHBLeHy82gKZQBWsn/o0X1Budfl1345DWcJ9gWtnGoWiPXMhVry1JVdMVJycUmI3z1C7jH+zMOv7FIs++Nd7AzC1CkUycNeBR8ZZ9HQoPlCROkAvFAHT2vxnuKbz1w6B0XR/AVCyy1rWoah5gHg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hoertF8N6Bm5uDgcp5teQDbC9jzKhV+WG0f6tcMiUsw=;
- b=RBvYspSM+ApUemZlTa4oboT7Wy/j0bt6U4PZu7bjzQE/YXs6FraIHflxM9+aFS8C5SRAOe6k36kFKRS1Ws1NQ8TqDGYJ6nwINmYHAMq8HiXbzpFRua8LmQNYt0jnJR/hZcxdvSuBCKYng3gwBNF62j2snfTLE54t6EmEKzOcM/s=
-Received: from SJ0PR12MB5488.namprd12.prod.outlook.com (2603:10b6:a03:3ad::15)
- by BL0PR12MB5011.namprd12.prod.outlook.com (2603:10b6:208:1c9::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Tue, 25 Jan
- 2022 10:48:43 +0000
-Received: from SJ0PR12MB5488.namprd12.prod.outlook.com
- ([fe80::7c6e:c35a:a136:425e]) by SJ0PR12MB5488.namprd12.prod.outlook.com
- ([fe80::7c6e:c35a:a136:425e%7]) with mapi id 15.20.4909.019; Tue, 25 Jan 2022
- 10:48:43 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
-Thread-Topic: [PATCH] drm/amdgpu: Fix an error message in rmmod
-Thread-Index: AQHYEdLe5EW/6tLrTEK1YwVvNwwtJKxzjc2b
-Date: Tue, 25 Jan 2022 10:48:43 +0000
-Message-ID: <SJ0PR12MB54888020E0D600D546BAC634825F9@SJ0PR12MB5488.namprd12.prod.outlook.com>
-References: <20220125100321.450194-1-tianci.yin@amd.com>
-In-Reply-To: <20220125100321.450194-1-tianci.yin@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-01-25T10:48:45.835Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=r6AKt9sfi+4bvnU69vBiE7PtnM8O7AJBdZ3UUnxi/Co=;
+ b=TMNsYTMG4gnX6TSxQw9Z3tlvFzsH5hxNpFUR+UlTGuDzxGP4636R+VRkdMGjpZN1EJAnN4SH1u4w55ztIoeRPCUcpsXm20Vv7IV8ggmCPxNj18WazQ+v47UkVEwV2EDouH/RDC8naB3027bcHvLDFetl81kJfedBC0TPauvxumU=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3d2c7552-6dbb-4e76-1161-08d9dff0418f
-x-ms-traffictypediagnostic: BL0PR12MB5011:EE_
-x-microsoft-antispam-prvs: <BL0PR12MB5011488705C2BBB2609BE5DC825F9@BL0PR12MB5011.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 2MSSdaUdUGM1Ai19PEzDRJ4NrkEo+v+uceoQXnivGvSuM27DMapkfE6LcRzPYvAR0zLgleby6A8lSXYzoMGVScfk6QgHhMXk8qcKBvIh+H6H7VtplL+eqGRLSCzhIYTDmB5yxETExhjJAfplvBP8L5kR78EUCJkr2owePYxy3THf4Y91LUnlofbcfUEdioMAGB8Fup7p1uVxveJjyiEE4lN53YvVSx3qAxjp7UbsFBJQA8DX3ABSO2BJ5bvW482DMfd8k+XjwaIigqdLp4I+R+9hXf1aD2Yu3KpmpKKsrNkrEDoZuqXCFWZgyWcv63afKQ01pEfm4Drd9kSJQQhMqMX0GGmXdfnaZfVhkIN08htg2ZwOM9I4A22xAUucpz+xYP0aU9eF3yWdjx4AMzgLferViixs7SNnkU54H2PNQylGbtG4Ek1e3VlnFX5Q8mYQJIWWvIhenTRYc8fPtQ3xorJFfXmZ34kAfk4ObTSglY9SmaSEcbK2NLtjXp7wHAVQWSW+F7x1IpZDCs1RlSsWZLL2YJOLYvrT/FJ5U/ZpImI9G9yS8KdJyBoXnGhjRvaMBpkQga53xXzV+6dkgh73Ii+0WFysyqSPS5Lxx0AQtPZMCtTa+McqGeChLDeEcjGlKB8viFi6xtToKj4tzwQtsxHT9RyTHLuwP5YMOv8usUTs3Sw9zZkXJqg4M5iJ8UZeU+98K6v+Mq/3QgPcJe1+NA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB5488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(38070700005)(52536014)(55016003)(54906003)(53546011)(6506007)(83380400001)(7696005)(86362001)(122000001)(38100700002)(66946007)(4326008)(110136005)(316002)(64756008)(66556008)(66446008)(66476007)(91956017)(76116006)(19627405001)(33656002)(15650500001)(8936002)(71200400001)(26005)(8676002)(9686003)(5660300002)(2906002)(508600001)(186003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?k4FlrIpOsiNgDn1vMmqZLLbkmNWbpiS7iFkmdLGs2NMcJLPUYnld9H9V/S?=
- =?iso-8859-1?Q?kyxDB18CmgwpsRo4Ci40LiAiljE5HG/2bMS0blTUL9u7gsl96TvpMlivPg?=
- =?iso-8859-1?Q?9SFu5jhBDlPm7AJDZel66Of8un7misjLgKCbzhAYsG3mfjRB/B4WRI/jBF?=
- =?iso-8859-1?Q?F4yoIxyMzXF3Oa9fhlLmfOzwPNJmRa7nGcviX+rPjbHqMJN0gnDYDOyf/R?=
- =?iso-8859-1?Q?6Ev9nBnbEzSxHYm1wwIyc+cKQil7/dV9/oLINtTqbgCZY3pPXNLerxvojT?=
- =?iso-8859-1?Q?BE3tD2/NuVBUQfSJ4XewJw1G/bYoMMZgfbpm16I5cwdiZjRLIfLH39iNau?=
- =?iso-8859-1?Q?gtRAdHcmSPtpcYdCPWJ5FwFob+tuW6BTVLOXD1krvLmahUD6aA2pbxJX8a?=
- =?iso-8859-1?Q?Neovhombwh0rfKhp6LAgUZN/F3vD/69azNHcWY6O6LK4PmPbzIlUz/q4bB?=
- =?iso-8859-1?Q?6CccHPHNXUkLwMeUjz496JzKrWnIFhQzdaHbybPZVWq3pl5grHAOCT4b//?=
- =?iso-8859-1?Q?kBtvLf3Ybaoo97yssU+c/IJXwyxHiZw+NsiRU4k+VFEHcu+K+x1pKdTJrp?=
- =?iso-8859-1?Q?1DNS1AlOoyge55ve/BYg1EBmRnHGJ75FIwmD82gCruqov2p5knfS+VP7P8?=
- =?iso-8859-1?Q?8JdpFJ96HqQWqpDXI5H0VMEhT/Qt/onegrlJwUh2lBZNshzha3JwZWYoAH?=
- =?iso-8859-1?Q?33eWLShB1/gDjVdhanR2ntRhArWU2B20d1khVQzrmsszGAzJBGsre4GS+M?=
- =?iso-8859-1?Q?7w9x+OkP+gNIHEYv9nVX5j6k/B/lUIu7TDNcNwwtGLS+8gStWafYxM8QKJ?=
- =?iso-8859-1?Q?Rb5bGE9vi8gS0+KlYBAYHWAIHcVRF2+hLg1bm7j4av5fqQ2aBZoE6Ef8Z6?=
- =?iso-8859-1?Q?xhh1CXHaAND8YvVwcBLBTO9vuqdzrQ3eaUPYh2EymJV+g9XmrzXrwrKfiA?=
- =?iso-8859-1?Q?zW84VWcll9h/vqfxfEE+mypikE/fg5AeqzqDX6Mbu1JaCbSKMNPrYYTnEw?=
- =?iso-8859-1?Q?kVRaK162r5mSGqGZxGIni52YTWVUrcMHR3fbrrHCizvggce6w/01WWUwAW?=
- =?iso-8859-1?Q?GjIcDHoNMje08DQ/m4vpjW4i7JyuVylAYAS9D/VCCSyV6bPMI8F/N+kr+8?=
- =?iso-8859-1?Q?zUl3DML6pO9SvYFWHXYiIVCWl8YYX5o6oARkgkyfGMXAMc+VVE0aPqPMfp?=
- =?iso-8859-1?Q?78g3udqUMVbX3/t4rttLLXDQ/hU4fcxoD32ECa0DnUqEz7o9AXxB9D4jy7?=
- =?iso-8859-1?Q?7G6dfxmwaif9RZV79T7oFVhj/OuE8olZHtgM7V5WuTDEmVjIDQ9vvEbADw?=
- =?iso-8859-1?Q?52qxUqGAm28DFedmivGopQrvbC5WeKAg8ozNEQ1ZbHE78ebli+P8SnZznq?=
- =?iso-8859-1?Q?8w1PaGFO6iQs41rb9Di5vCf4oFrGrZn6U1qXxsfDRY9imPM0nkRz2B6Gor?=
- =?iso-8859-1?Q?o6HlV7uPriwI9y1oXWSqSl0Q8YDTPI43ScxkJzKhdWE/GbnueRvYAYOnrj?=
- =?iso-8859-1?Q?JKdGDFBMdRIuGCAld6JDlF7GT0tHZq6fXuaXmbFTtXFuFeRWKNmNB3WiXX?=
- =?iso-8859-1?Q?2Pi0efWXhHfzFcC5ARYliU2v1ZK3QWdge5aqu1nobD1nlAI+hUiSvcp/MF?=
- =?iso-8859-1?Q?SIX5PFjD+KI44=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_SJ0PR12MB54888020E0D600D546BAC634825F9SJ0PR12MB5488namp_"
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by CY4PR1201MB0167.namprd12.prod.outlook.com (2603:10b6:910:22::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.13; Tue, 25 Jan
+ 2022 11:32:39 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::b07d:3a18:d06d:cb0b]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::b07d:3a18:d06d:cb0b%4]) with mapi id 15.20.4909.017; Tue, 25 Jan 2022
+ 11:32:39 +0000
+Message-ID: <36b699d7-b7c4-21cf-93ee-47f4f33190df@amd.com>
+Date: Tue, 25 Jan 2022 17:02:25 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH 2/2] drm/amdgpu/display: use msleep rather than udelay for
+ long delays
+Content-Language: en-US
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220120180429.616236-1-alexander.deucher@amd.com>
+ <20220120180429.616236-2-alexander.deucher@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20220120180429.616236-2-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN1PR0101CA0068.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c00:d::30) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 67cafde7-564f-45e8-9191-08d9dff664a1
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0167:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB01673959FDE3E8BE717432D7975F9@CY4PR1201MB0167.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vhQk94Wwc7kc3QPDdpS769zRnguX23KeqyNgKhdbKgphdlDUz4RH9E19deiGK5hjxQnQZUNUfj40FHt57aHbFkzqBEz1vUWK2nLI4N9tpMYhoIoVZnZjAGZQk1RCEStnBuiOXXsdtsihc500PB28+8GmwcnGtTHfYVHp/49DKNM/KZfBI9fKhfA7mo+i2z6+d9iFkCqr2EjS0kYovuwh/RMgBqhn8yWVwdt/NFU9oNvjIg2RQIERCjbt7cQz7NAsT1vaBQhVkGwyPdwQov7aEpjbklcmzBiQuRGg9oiDREFvkb+kq68HxmBlqVAS+ACayvYAXIR6lc1bl/BUIGFrm73v4yAGzaObGjf7uB+C5rqtyX4lTHllpfXJJbtw/gCGnV+0o1QPqq/uXik/MiWrCs3H0DmubWcZyXlT66Kw3zB+qjcOtcnRVPaYvztOIs5+zc3klm0/adsyFoWCSmZa8KivvD+W3XMls7/Yp03Cc8+LiBwm1dgiTUaTercvSpvgJ83OG6Vw0gITvL6SMu4FEFonFpQzohxQHy9krw0iHLJlKeaEiq5+llBCpk/fzjShPTR+DrTZp2DCK6mkVE9oI/Q02MGR2OH4zAnSHVH6epfSKcX8j3h4yh7lI6s+3jHIW0mzUlgNuZLd835geggBpFTyYn5BlQrTgRK2VLO57ZCyVuJdgIgnfuRftl/XkWb28dQXdCjoB239oy0KAfVsbY2lNVshrIMGCAJTmqB4P0S9F4AQ/YYC9Isoi7f7vGcV
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(66946007)(86362001)(6512007)(186003)(6666004)(31696002)(6506007)(53546011)(31686004)(66476007)(508600001)(316002)(38100700002)(6486002)(66556008)(83380400001)(8936002)(8676002)(36756003)(2906002)(2616005)(26005)(5660300002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b2FHVzBmckFOclBSTEdVc3NrSExpZ3FhdnFOZTR0djg4YXduTVV5MC8wSTRN?=
+ =?utf-8?B?cHpFN1pieWRqRHlQSVE3cm0rbEtzTE5VdFdZb2RyV0MxeERPejZJMExDcFgw?=
+ =?utf-8?B?UzJsZkM4a3FOS0libGdOUEVKdHZVcjg4c210ZkVnUm9iOTdlNU5qMDZUYVdx?=
+ =?utf-8?B?aHRaUXo2bzhhN0RTSEN4OS9CbldPVTZxdDFUOXorcXA2ZUlVTjFwUDZqaCta?=
+ =?utf-8?B?V0pvcG8vK1kyZ1hSV2Y1K1pJd3E3L0pnREJneG5Kc0MrQ2JRL2lMRE5hVTNT?=
+ =?utf-8?B?czFGMmlLME5jTThpZHZqdjcwZG5xMnJON0pLVEx1YjFHY0dzMXUzYlVlSC9P?=
+ =?utf-8?B?UEp3azV1MHF0b1I0UXNROEZtUCtBY3ZnWFczT3dEcXpEMFVLUk0wTFpuZ2t3?=
+ =?utf-8?B?Y2o2bngzYjFoanRuSVJkcjdacTkveWhHTmZqSm1ZWlN6Zm9oMzVsakJWa09y?=
+ =?utf-8?B?ZVVnbm1KNGZqNjVOQlkvd3A3ckdsQWpPZjZNSW9GYlAwUjZ0STl5UHNqUVZH?=
+ =?utf-8?B?NDlwRndZSk81eGlKVzB0RlZRQ2huRlZNVHQzdGVKMnJoQlArazlWNTl3YzNV?=
+ =?utf-8?B?SUZSSG5ZVVVUc3VYcis2RS9vN1grb2FrTW9ZT3ZCbytzcDYxTkMreC9obXls?=
+ =?utf-8?B?Wm1qOU5pSW8rZXR3NnNPY0djZUQ5S1RQN2VoK1RwZXpYTWUraHpwSE0rRUdQ?=
+ =?utf-8?B?OUk3WmlJcUZqWnBiMzEwekFCb1VOdStETU5mRDgwMWFNY1NHdTJGa080MUNN?=
+ =?utf-8?B?ZThwSkRqUVhpRElhMEJXUC9mb2JtTTVUOXdDZXZqcE9HdENVWHVDMmJwOXBN?=
+ =?utf-8?B?cVpTRVBsMDk4SEtCUytFbzQ5Z21OS0VHUlZKaVl3MENUVkxkRU56QXFjeVQy?=
+ =?utf-8?B?REFPZi92MGZQb2VhUFphSGVaWHh4Z2w4MUtOTnhGd1kvazdwcWR5dE5nZ29j?=
+ =?utf-8?B?b1BKMmNORnJMVWE5bzJBcUhmMTlIdVp6U3VOS0Zab3BjM2pXOU4ycTlWdUNN?=
+ =?utf-8?B?Q0xGbXNkM29SZlVUY1B2dFdRaDZWWmVYVk5oMWllSXJxbkVwcUgwaEF6TlJx?=
+ =?utf-8?B?cVlrZlpuZ2JpU2RqY3hHdktDYk5KZUJSSDJQTndncXRJbmp4TC9CVDgxS1FX?=
+ =?utf-8?B?SmRzV0VrRXN6SDlVaXlaNXArL0dWKy91MG9qWlE1ZDdrMk9vN2pvMXBHTDI3?=
+ =?utf-8?B?SVFnZDFIQTkyc3JiRkdvWjV3bjcyTGhmMnJveVhWc3I2UnpORU11bC81UnFU?=
+ =?utf-8?B?a3lPdVNJV0R6aGZldU8yNCtuUG5KZm1iR1FrWjdDUHNUb1lPUDFJRlNYZjlp?=
+ =?utf-8?B?YmE2Q3d4K2UxME1yWGh2TGtKdjNzYURUOWo2d1JGY0ZpU000dnAyUWVDQ0dQ?=
+ =?utf-8?B?UTFoZU9TNENOTjR3NHlXYzUzVFgrOGIvaThqY3hYVUU1YnF0ZmRzK0IyTDJI?=
+ =?utf-8?B?dEgyY3BFUjlOOUNPMnU0QjlmalpOelk3Sm9UVDZLckxIREtlS1VrU2VHbWI3?=
+ =?utf-8?B?NVR5THNqODhVNlE5RjZER0xLcGp2ZTVTcmNuZ3dNVEt6YjhYNHdVcVl1UDJY?=
+ =?utf-8?B?ZjR0VUpwWGgxa2U4K21EeWpEWGloZGtGRDZNL2xHcG0yaFBZZEhkN0ViWCtY?=
+ =?utf-8?B?WnJCa1Q2aFB2QjhsY1NjZFJ3NllSOVhqcFBhTEVxdGxKMUhMNHNxNk5vazFq?=
+ =?utf-8?B?V3VGZWtONWVkNnRIMFB1TkplSVVYV0Z2SnhHbDlDMU02OUdaWnVDWXF5eHBJ?=
+ =?utf-8?B?YUFkVmhLNXFkUTRWL1E0cU1nRzNUVnFmUFVNQ3VBaElaTW9QOFBtd29rSmp6?=
+ =?utf-8?B?SzIyT1pqSStHZ3RxZVR2MWsxZVZ3Mi9QemsxNFYwWnhEUU92TG5IY29wU3px?=
+ =?utf-8?B?dU1rYTRYaGN1Q0lIMFFJSHBJRWFsdFYvbUphbHJCZC9YMWVtZDhBVzlYZTlr?=
+ =?utf-8?B?TStBenEvZC8zOEVaeDNnVzZaampOOHl5L0srcGNqd0UxMjZkN1IycmU0K1B1?=
+ =?utf-8?B?NmpraDlZUXM2aURVbWcxZ0I4OVMwcjUwSVBSWGFOWjZsQk03cDJkTzRKWXE2?=
+ =?utf-8?B?Wm5kZ1N2a0FLRG52VlpkVDVLVDJxUUljR29xdHczSUdDL2pCWG1jK016SXc2?=
+ =?utf-8?Q?UTaY=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67cafde7-564f-45e8-9191-08d9dff664a1
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d2c7552-6dbb-4e76-1161-08d9dff0418f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jan 2022 10:48:43.3270 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FrtdYiCPS/Zn1IFP1k8RFJGdk2dlOOmdKwx19EOwklwrBAx5ZPqlcZXpcAEcqVtA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5011
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2022 11:32:39.7269 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BLBfqzZHi4w7qgNv1CPtf0kQkfXtjKrpkAb+tlsUPIFlviyW/siYQTD25727UO6M
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0167
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,196 +126,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Chen,
- Guchun" <Guchun.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SJ0PR12MB54888020E0D600D546BAC634825F9SJ0PR12MB5488namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only]
-
-the issue is introduced in following patch, so add following information is=
- better.
-fixes: (e9669fb78262) drm/amdgpu: Add early fini callback
-
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
-
-Best Regards,
-Kevin
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Tianci Y=
-in <tianci.yin@amd.com>
-Sent: Tuesday, January 25, 2022 6:03 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Yin, Tianci (Rico) <Tia=
-nci.Yin@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix an error message in rmmod
-
-From: "Tianci.Yin" <tianci.yin@amd.com>
-
-[why]
-In rmmod procedure, kfd sends cp a dequeue request, but the
-request does not get response, then an error message "cp
-queue pipe 4 queue 0 preemption failed" printed.
-
-[how]
-Performing kfd suspending after disabling gfxoff can fix it.
-
-Change-Id: I0453f28820542d4a5ab26e38fb5b87ed76ce6930
-Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index b75d67f644e5..77e9837ba342 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2720,11 +2720,11 @@ static int amdgpu_device_ip_fini_early(struct amdgp=
-u_device *adev)
-                 }
-         }
-
--       amdgpu_amdkfd_suspend(adev, false);
--
-         amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
-         amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
-
-+       amdgpu_amdkfd_suspend(adev, false);
-+
-         /* Workaroud for ASICs need to disable SMC first */
-         amdgpu_device_smu_fini_early(adev);
-
---
-2.25.1
 
 
---_000_SJ0PR12MB54888020E0D600D546BAC634825F9SJ0PR12MB5488namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+On 1/20/2022 11:34 PM, Alex Deucher wrote:
+> Some architectures (e.g., ARM) throw an compilation error if the
+> udelay is too long.  In general udelays of longer than 2000us are
+> not recommended on any architecture.  Switch to msleep in these
+> cases.
+> 
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> index aa1c67c3c386..eb4432dca761 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> @@ -6941,7 +6941,7 @@ bool dpcd_write_128b_132b_sst_payload_allocation_table(
+>   			}
+>   		}
+>   		retries++;
+> -		udelay(5000);
+> +		msleep(5);
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-the issue is introduced in following patch, so add following information is=
- better.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<i style=3D"font-size: 12pt; font-variant-ligatures: inherit; font-variant-=
-caps: inherit; font-weight: inherit;">fixes: (e9669fb78262) drm/amdgpu: Add=
- early fini callback</i><br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<i style=3D"font-size: 12pt; font-variant-ligatures: inherit; font-variant-=
-caps: inherit; font-weight: inherit;"><br>
-</i></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-size: 12pt; font-variant-ligatures: inherit; font-varia=
-nt-caps: inherit; font-weight: inherit;">Reviewed-by: Yang Wang &lt;kevinya=
-ng.wang@amd.com&gt;</span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<i style=3D"font-size: 12pt; font-variant-ligatures: inherit; font-variant-=
-caps: inherit; font-weight: inherit;"><br>
-</i></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Kevin</div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Tianci Yin &lt;tianci.yin@amd=
-.com&gt;<br>
-<b>Sent:</b> Tuesday, January 25, 2022 6:03 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Grodzovsky, Andrey &lt;Andrey.Grodzovsky@amd.com&gt;; Yin, Tianc=
-i (Rico) &lt;Tianci.Yin@amd.com&gt;; Chen, Guchun &lt;Guchun.Chen@amd.com&g=
-t;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Fix an error message in rmmod</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">From: &quot;Tianci.Yin&quot; &lt;tianci.yin@amd.co=
-m&gt;<br>
-<br>
-[why]<br>
-In rmmod procedure, kfd sends cp a dequeue request, but the<br>
-request does not get response, then an error message &quot;cp<br>
-queue pipe 4 queue 0 preemption failed&quot; printed.<br>
-<br>
-[how]<br>
-Performing kfd suspending after disabling gfxoff can fix it.<br>
-<br>
-Change-Id: I0453f28820542d4a5ab26e38fb5b87ed76ce6930<br>
-Signed-off-by: Tianci.Yin &lt;tianci.yin@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--<br>
-&nbsp;1 file changed, 2 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index b75d67f644e5..77e9837ba342 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -2720,11 +2720,11 @@ static int amdgpu_device_ip_fini_early(struct amdgp=
-u_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_suspend(adev, false);<b=
-r>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_set_pg_state=
-(adev, AMD_PG_STATE_UNGATE);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_set_cg_state=
-(adev, AMD_CG_STATE_UNGATE);<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_suspend(adev, false);<b=
-r>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Workaroud for ASICs nee=
-d to disable SMC first */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_smu_fini_ear=
-ly(adev);<br>
-&nbsp;<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+msleep is not recommended for sleeps < 20ms. The original code (modified 
+in patch 1) seems to do such a check. As per kernel doc, if precision 
+matters recommendation is to use usleep_range().
 
---_000_SJ0PR12MB54888020E0D600D546BAC634825F9SJ0PR12MB5488namp_--
+Thanks,
+Lijo
+
+>   	}
+>   
+>   	if (!result && retries == max_retries) {
+> @@ -6993,7 +6993,7 @@ bool dpcd_poll_for_allocation_change_trigger(struct dc_link *link)
+>   			break;
+>   		}
+>   
+> -		udelay(5000);
+> +		msleep(5);
+>   	}
+>   
+>   	if (result == ACT_FAILED) {
+> 
