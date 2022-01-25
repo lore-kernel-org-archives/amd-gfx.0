@@ -4,92 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBC3DC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 10:46:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC609C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 10:48:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FDF610E2A5;
-	Tue, 25 Jan 2022 10:46:37 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2046.outbound.protection.outlook.com [40.107.102.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C20B110E2A5
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 10:46:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 845F410E9ED;
+	Tue, 25 Jan 2022 10:48:47 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2064.outbound.protection.outlook.com [40.107.243.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2165110E9F9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 10:48:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Qqz8uDDEFJLRo4unsdHLqmT8z5uSbkY68c05wXQ6+K1rH0ZxUPD88vR08y8ahqg4m8rIF8XQ7l+YIZAXcu3ZGBmN8H2UoTl6Rlu4za28aClD+EWtZhd+ukPY1rFm6CxNe72s8XJXJ/UYvo4w27fEIXE6Iv9k1bRtqGcU/0vjSqRdlzyrv5QNsOUhafMDwQyBFFp41Q1MrryuxneeCocrNZg8LFO9g+YFvo6nstfEgXTNnURVSQeI832JaUPBQl9ianLUbBOVr1LIGsgNnKgISw0PK4tZ7Q0oM4jPKbXbxKUQTQZPaKynUkVQhaxvF7ABwOpT2BOL7G74PeCioCX7Ow==
+ b=JeiQfUqooRI0ApUGQHVsk13FW9idbpi0IdmSVFe28FAfZdXSJeVO0CIZCnFIoXIk8QDtenWnn1eS2u6IstjbRGASE1lK/XgyE8PamSuQ0oRJ03raV+NzkaGTa5TyhykaBXDCWRE4NJjaLNh3Yh5AHvDRYJ7y54q2PxIz5kYZekOZL0gTEdS4LglwWyqLBQVoM5y5dS8yo+nR063n1xStwlTFl98Dtwz6WZggFrO2n8Cf0/7wq5F8gBNNWLmbcymTsV6VIze1RWl4MabrAdDOsEOvUzycpuVfCRBO8e9UCgOTZS86CKP/dauHM3qIk+eNzKM7jlQD5rCX5Tnrn/CBuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m2Ym69Qs/rAeypV1KJfppXBg26+/tY3x/9W5RmkpcpU=;
- b=DqyU/lGqZnMDPV/hjlv8CnSR4+j6aFn6XxDLQlK9eegzgj0cUGsUXJV+ZbTx/AHsie4nOb5kEluO1vPNmDCK7ILmtC3owSBQWkUueQqAkJlDFTdm4nnOtJXh8tmErwH6sZ/50qkMTDthnYIPS2aMktaMnxCqBKP3pn9C8Z1YxfoONrjvqiYK8ddBWDdHa28OfNzZrs/RUJR2hy4meW+4p/AUp1q8QqM0p7h/7fLDBwe5VR0XY1Nh8+Bz6zc57AzbyCs0RgmPWQ6Du2RH2eIXT06KwcZ8mU8ak6q0vUNGNqdyQXCNI6lkOpN+8XAYADYcozNWK3H69R8sFBZrljNOHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=hoertF8N6Bm5uDgcp5teQDbC9jzKhV+WG0f6tcMiUsw=;
+ b=atSDOc0rFWlWVbZS5PAhhOybTvGCa01+zf6Li1iNlbgqIJUn7VfGLUp1HtgEH3kHT8edLiGaNzJbcENYZv4bgUz2y2uD0xK2Ny5+KXPBoVdrH3x+z2lDbL5AkxXcnvXik4e+7L4V0HcifwvcdIQ6om2Sn0pN0OopUOplY77mBCK8D+7rDdRxCk9G9/Gf3zhCS4L6a7hQ1O9boAsWXqWtWUYXSZsimEA8mtgCAPB9TKJ1pyD+T90LPCrtt/yNxMudw328UJ8xTNzw7PfLIHwIJ8pIZBakJOUn7zH9uNexviLza5qjA4b3eCtn8jSgQmXR76G0AOnQwblrqWl4EF8LCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m2Ym69Qs/rAeypV1KJfppXBg26+/tY3x/9W5RmkpcpU=;
- b=oNumhw2kOB3T1J1qBzhqVyC8Edcz+PQhFSRoJQw/F3qdKwAr8Nqhb7beXHq8lmRKK3wAnvj2QQS/U9eIyTBxxbaFtlm4wWeBkdI+6/dmDmN870dBmnpAUkI6QwstRpmikogGGI7r/cAOIdjuAt6hIPRcFqQ43T3FCKl7gjFoHXU=
-Received: from DM5PR1401CA0017.namprd14.prod.outlook.com (2603:10b6:4:4a::27)
- by SN1PR12MB2574.namprd12.prod.outlook.com (2603:10b6:802:26::32)
+ bh=hoertF8N6Bm5uDgcp5teQDbC9jzKhV+WG0f6tcMiUsw=;
+ b=RBvYspSM+ApUemZlTa4oboT7Wy/j0bt6U4PZu7bjzQE/YXs6FraIHflxM9+aFS8C5SRAOe6k36kFKRS1Ws1NQ8TqDGYJ6nwINmYHAMq8HiXbzpFRua8LmQNYt0jnJR/hZcxdvSuBCKYng3gwBNF62j2snfTLE54t6EmEKzOcM/s=
+Received: from SJ0PR12MB5488.namprd12.prod.outlook.com (2603:10b6:a03:3ad::15)
+ by BL0PR12MB5011.namprd12.prod.outlook.com (2603:10b6:208:1c9::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8; Tue, 25 Jan
- 2022 10:46:32 +0000
-Received: from DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:4a:cafe::8d) by DM5PR1401CA0017.outlook.office365.com
- (2603:10b6:4:4a::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7 via Frontend
- Transport; Tue, 25 Jan 2022 10:46:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT054.mail.protection.outlook.com (10.13.173.95) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4909.7 via Frontend Transport; Tue, 25 Jan 2022 10:46:32 +0000
-Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 25 Jan
- 2022 04:46:29 -0600
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
- <stanley.yang@amd.com>, <yipeng.chai@amd.com>, <john.clements@amd.com>
-Subject: [PATCH 4/4] drm/amdgpu: get hash bit for CH4 in umc channel index
-Date: Tue, 25 Jan 2022 18:46:12 +0800
-Message-ID: <20220125104612.27050-4-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220125104612.27050-1-tao.zhou1@amd.com>
-References: <20220125104612.27050-1-tao.zhou1@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d7886731-4509-46b9-d9b0-08d9dfeff349
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2574:EE_
-X-Microsoft-Antispam-PRVS: <SN1PR12MB2574098A61F9A4C8B0D9CB09B05F9@SN1PR12MB2574.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3173;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 78aF4AaXYPJ6ETntgjv8B6GytxqQOL2hnGfXLvx7lepNAh4ltZVEGUnBhIS8mAtJm4ffiyBqCUUWDhoEFvgboLodhcguUGX7559BOXbjn++AbzihfE4b/Q0GAfZEgecU/O/M7BgnNNj3rb6aKYrJWYpEetoc4CqAzWpJRcmTO2616798JBCs5eCsyXxeUoMCV4+4KQjhCP32kaGU0rv4Ot2tlZ5gjhk6MQIOsZy4xT/Qpg0k0plOAZP+BTwMc/hP1RDWtBZ+G1kOaG+MYK1Y5lnnVHSTYYVxySWO7Vs8i1q+6OnxWpL3rZBu9S8gl1G11hNmNElteIqIbt+INGetpIuupwyfY3C7hCV1DhxCpfZMs0cUaGRP2ZmiefpqupR6ZI06aN/L0OEfQ6ZiJbrWBq0Wl34nGOOcd7oZuiws0Pc2pdtYNmYuPJMs1SyuE7WekxxDp4qrj+XiwP4R1lR6mXaD3VVl2DtLwt8WI8A8WVlHmikwpN2wncoUIeI/QvGDmulXPv6m4BGiN1rFBdiX3iDToRxOgu+AwpjbsnlC8zQDYvXbaeU7gIrTl9qLIxKVYFt8+3t4j99yMTS9Ix+k/9TT+vaNJVC4psj/KuvX1ppU8z6ixCNVGAhYZnXxJF8j9+OwiAr+m5XAyq6Kcc3GSsx0ahh/u9USMC8QNRy9HD9ek4OsOjrWdRfQuvb+qL3FT9mCoS8ZX7BWcd7giNacx6qbZTNY8/nnkSEHLjZbYaRXG0YWxx3uo9G9GcEM4vopRVPbwpJLeFC0SDiWhj8Nlpwn5s1lcLsPd1XZyr4LfBQ=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700004)(26005)(110136005)(2616005)(508600001)(47076005)(2906002)(5660300002)(6636002)(36860700001)(336012)(16526019)(8936002)(4326008)(316002)(8676002)(81166007)(1076003)(6666004)(186003)(7696005)(70586007)(70206006)(356005)(40460700003)(83380400001)(36756003)(86362001)(82310400004)(426003)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Tue, 25 Jan
+ 2022 10:48:43 +0000
+Received: from SJ0PR12MB5488.namprd12.prod.outlook.com
+ ([fe80::7c6e:c35a:a136:425e]) by SJ0PR12MB5488.namprd12.prod.outlook.com
+ ([fe80::7c6e:c35a:a136:425e%7]) with mapi id 15.20.4909.019; Tue, 25 Jan 2022
+ 10:48:43 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
+Thread-Topic: [PATCH] drm/amdgpu: Fix an error message in rmmod
+Thread-Index: AQHYEdLe5EW/6tLrTEK1YwVvNwwtJKxzjc2b
+Date: Tue, 25 Jan 2022 10:48:43 +0000
+Message-ID: <SJ0PR12MB54888020E0D600D546BAC634825F9@SJ0PR12MB5488.namprd12.prod.outlook.com>
+References: <20220125100321.450194-1-tianci.yin@amd.com>
+In-Reply-To: <20220125100321.450194-1-tianci.yin@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-01-25T10:48:45.835Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 3d2c7552-6dbb-4e76-1161-08d9dff0418f
+x-ms-traffictypediagnostic: BL0PR12MB5011:EE_
+x-microsoft-antispam-prvs: <BL0PR12MB5011488705C2BBB2609BE5DC825F9@BL0PR12MB5011.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 2MSSdaUdUGM1Ai19PEzDRJ4NrkEo+v+uceoQXnivGvSuM27DMapkfE6LcRzPYvAR0zLgleby6A8lSXYzoMGVScfk6QgHhMXk8qcKBvIh+H6H7VtplL+eqGRLSCzhIYTDmB5yxETExhjJAfplvBP8L5kR78EUCJkr2owePYxy3THf4Y91LUnlofbcfUEdioMAGB8Fup7p1uVxveJjyiEE4lN53YvVSx3qAxjp7UbsFBJQA8DX3ABSO2BJ5bvW482DMfd8k+XjwaIigqdLp4I+R+9hXf1aD2Yu3KpmpKKsrNkrEDoZuqXCFWZgyWcv63afKQ01pEfm4Drd9kSJQQhMqMX0GGmXdfnaZfVhkIN08htg2ZwOM9I4A22xAUucpz+xYP0aU9eF3yWdjx4AMzgLferViixs7SNnkU54H2PNQylGbtG4Ek1e3VlnFX5Q8mYQJIWWvIhenTRYc8fPtQ3xorJFfXmZ34kAfk4ObTSglY9SmaSEcbK2NLtjXp7wHAVQWSW+F7x1IpZDCs1RlSsWZLL2YJOLYvrT/FJ5U/ZpImI9G9yS8KdJyBoXnGhjRvaMBpkQga53xXzV+6dkgh73Ii+0WFysyqSPS5Lxx0AQtPZMCtTa+McqGeChLDeEcjGlKB8viFi6xtToKj4tzwQtsxHT9RyTHLuwP5YMOv8usUTs3Sw9zZkXJqg4M5iJ8UZeU+98K6v+Mq/3QgPcJe1+NA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(38070700005)(52536014)(55016003)(54906003)(53546011)(6506007)(83380400001)(7696005)(86362001)(122000001)(38100700002)(66946007)(4326008)(110136005)(316002)(64756008)(66556008)(66446008)(66476007)(91956017)(76116006)(19627405001)(33656002)(15650500001)(8936002)(71200400001)(26005)(8676002)(9686003)(5660300002)(2906002)(508600001)(186003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?k4FlrIpOsiNgDn1vMmqZLLbkmNWbpiS7iFkmdLGs2NMcJLPUYnld9H9V/S?=
+ =?iso-8859-1?Q?kyxDB18CmgwpsRo4Ci40LiAiljE5HG/2bMS0blTUL9u7gsl96TvpMlivPg?=
+ =?iso-8859-1?Q?9SFu5jhBDlPm7AJDZel66Of8un7misjLgKCbzhAYsG3mfjRB/B4WRI/jBF?=
+ =?iso-8859-1?Q?F4yoIxyMzXF3Oa9fhlLmfOzwPNJmRa7nGcviX+rPjbHqMJN0gnDYDOyf/R?=
+ =?iso-8859-1?Q?6Ev9nBnbEzSxHYm1wwIyc+cKQil7/dV9/oLINtTqbgCZY3pPXNLerxvojT?=
+ =?iso-8859-1?Q?BE3tD2/NuVBUQfSJ4XewJw1G/bYoMMZgfbpm16I5cwdiZjRLIfLH39iNau?=
+ =?iso-8859-1?Q?gtRAdHcmSPtpcYdCPWJ5FwFob+tuW6BTVLOXD1krvLmahUD6aA2pbxJX8a?=
+ =?iso-8859-1?Q?Neovhombwh0rfKhp6LAgUZN/F3vD/69azNHcWY6O6LK4PmPbzIlUz/q4bB?=
+ =?iso-8859-1?Q?6CccHPHNXUkLwMeUjz496JzKrWnIFhQzdaHbybPZVWq3pl5grHAOCT4b//?=
+ =?iso-8859-1?Q?kBtvLf3Ybaoo97yssU+c/IJXwyxHiZw+NsiRU4k+VFEHcu+K+x1pKdTJrp?=
+ =?iso-8859-1?Q?1DNS1AlOoyge55ve/BYg1EBmRnHGJ75FIwmD82gCruqov2p5knfS+VP7P8?=
+ =?iso-8859-1?Q?8JdpFJ96HqQWqpDXI5H0VMEhT/Qt/onegrlJwUh2lBZNshzha3JwZWYoAH?=
+ =?iso-8859-1?Q?33eWLShB1/gDjVdhanR2ntRhArWU2B20d1khVQzrmsszGAzJBGsre4GS+M?=
+ =?iso-8859-1?Q?7w9x+OkP+gNIHEYv9nVX5j6k/B/lUIu7TDNcNwwtGLS+8gStWafYxM8QKJ?=
+ =?iso-8859-1?Q?Rb5bGE9vi8gS0+KlYBAYHWAIHcVRF2+hLg1bm7j4av5fqQ2aBZoE6Ef8Z6?=
+ =?iso-8859-1?Q?xhh1CXHaAND8YvVwcBLBTO9vuqdzrQ3eaUPYh2EymJV+g9XmrzXrwrKfiA?=
+ =?iso-8859-1?Q?zW84VWcll9h/vqfxfEE+mypikE/fg5AeqzqDX6Mbu1JaCbSKMNPrYYTnEw?=
+ =?iso-8859-1?Q?kVRaK162r5mSGqGZxGIni52YTWVUrcMHR3fbrrHCizvggce6w/01WWUwAW?=
+ =?iso-8859-1?Q?GjIcDHoNMje08DQ/m4vpjW4i7JyuVylAYAS9D/VCCSyV6bPMI8F/N+kr+8?=
+ =?iso-8859-1?Q?zUl3DML6pO9SvYFWHXYiIVCWl8YYX5o6oARkgkyfGMXAMc+VVE0aPqPMfp?=
+ =?iso-8859-1?Q?78g3udqUMVbX3/t4rttLLXDQ/hU4fcxoD32ECa0DnUqEz7o9AXxB9D4jy7?=
+ =?iso-8859-1?Q?7G6dfxmwaif9RZV79T7oFVhj/OuE8olZHtgM7V5WuTDEmVjIDQ9vvEbADw?=
+ =?iso-8859-1?Q?52qxUqGAm28DFedmivGopQrvbC5WeKAg8ozNEQ1ZbHE78ebli+P8SnZznq?=
+ =?iso-8859-1?Q?8w1PaGFO6iQs41rb9Di5vCf4oFrGrZn6U1qXxsfDRY9imPM0nkRz2B6Gor?=
+ =?iso-8859-1?Q?o6HlV7uPriwI9y1oXWSqSl0Q8YDTPI43ScxkJzKhdWE/GbnueRvYAYOnrj?=
+ =?iso-8859-1?Q?JKdGDFBMdRIuGCAld6JDlF7GT0tHZq6fXuaXmbFTtXFuFeRWKNmNB3WiXX?=
+ =?iso-8859-1?Q?2Pi0efWXhHfzFcC5ARYliU2v1ZK3QWdge5aqu1nobD1nlAI+hUiSvcp/MF?=
+ =?iso-8859-1?Q?SIX5PFjD+KI44=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_SJ0PR12MB54888020E0D600D546BAC634825F9SJ0PR12MB5488namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2022 10:46:32.0735 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7886731-4509-46b9-d9b0-08d9dfeff349
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2574
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d2c7552-6dbb-4e76-1161-08d9dff0418f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jan 2022 10:48:43.3270 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FrtdYiCPS/Zn1IFP1k8RFJGdk2dlOOmdKwx19EOwklwrBAx5ZPqlcZXpcAEcqVtA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5011
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,77 +124,196 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Chen,
+ Guchun" <Guchun.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On ALDEBARAN, the umc channel bits are not original values, they
-are hashed.
+--_000_SJ0PR12MB54888020E0D600D546BAC634825F9SJ0PR12MB5488namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+[AMD Official Use Only]
+
+the issue is introduced in following patch, so add following information is=
+ better.
+fixes: (e9669fb78262) drm/amdgpu: Add early fini callback
+
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+
+Best Regards,
+Kevin
+
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Tianci Y=
+in <tianci.yin@amd.com>
+Sent: Tuesday, January 25, 2022 6:03 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Yin, Tianci (Rico) <Tia=
+nci.Yin@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix an error message in rmmod
+
+From: "Tianci.Yin" <tianci.yin@amd.com>
+
+[why]
+In rmmod procedure, kfd sends cp a dequeue request, but the
+request does not get response, then an error message "cp
+queue pipe 4 queue 0 preemption failed" printed.
+
+[how]
+Performing kfd suspending after disabling gfxoff can fix it.
+
+Change-Id: I0453f28820542d4a5ab26e38fb5b87ed76ce6930
+Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/umc_v6_7.c |  8 ++++++++
- drivers/gpu/drm/amd/amdgpu/umc_v6_7.h | 15 +++++++++++++++
- 2 files changed, 23 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-index 1ecba7b5df1c..47452b61b615 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-@@ -148,6 +148,10 @@ static void umc_v6_7_ecc_info_query_error_address(struct amdgpu_device *adev,
- 		soc_pa = ADDR_OF_8KB_BLOCK(err_addr) |
- 				ADDR_OF_256B_BLOCK(channel_index) |
- 				OFFSET_IN_256B_BLOCK(err_addr);
-+
-+		/* The umc channel bits are not original values, they are hashed */
-+		SET_CHANNEL_HASH(channel_index, soc_pa);
-+
- 		/* clear [C4 C3 C2] in soc physical address */
- 		soc_pa &= ~(0x7ULL << UMC_V6_7_PA_C2_BIT);
- 
-@@ -379,6 +383,10 @@ static void umc_v6_7_query_error_address(struct amdgpu_device *adev,
- 		soc_pa = ADDR_OF_8KB_BLOCK(err_addr) |
- 				ADDR_OF_256B_BLOCK(channel_index) |
- 				OFFSET_IN_256B_BLOCK(err_addr);
-+
-+		/* The umc channel bits are not original values, they are hashed */
-+		SET_CHANNEL_HASH(channel_index, soc_pa);
-+
- 		/* clear [C4 C3 C2] in soc physical address */
- 		soc_pa &= ~(0x7ULL << UMC_V6_7_PA_C2_BIT);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h
-index b67677867b45..e50f7692bd03 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.h
-@@ -45,12 +45,27 @@
- #define UMC_V6_7_NA_MAP_PA_NUM	8
- /* R14 bit shift should be considered, double the number */
- #define UMC_V6_7_BAD_PAGE_NUM_PER_CHANNEL	(UMC_V6_7_NA_MAP_PA_NUM * 2)
-+/* The CH4 bit in SOC physical address */
-+#define UMC_V6_7_PA_CH4_BIT	12
- /* The C2 bit in SOC physical address */
- #define UMC_V6_7_PA_C2_BIT	17
- /* The R14 bit in SOC physical address */
- #define UMC_V6_7_PA_R14_BIT	34
- /* UMC regiser per channel offset */
- #define UMC_V6_7_PER_CHANNEL_OFFSET		0x400
-+
-+/* XOR bit 20, 25, 34 of PA into CH4 bit (bit 12 of PA),
-+ * hash bit is only effective when related setting is eanbled
-+ */
-+#define CHANNEL_HASH(channel_idx, pa) (((channel_idx) >> 4) ^ \
-+			(((pa)  >> 20) & 0x1ULL & adev->df.hash_status.hash_64k) ^ \
-+			(((pa)  >> 25) & 0x1ULL & adev->df.hash_status.hash_2m) ^ \
-+			(((pa)  >> 34) & 0x1ULL & adev->df.hash_status.hash_1g))
-+#define SET_CHANNEL_HASH(channel_idx, pa) do { \
-+		(pa) &= ~(0x1ULL << UMC_V6_7_PA_CH4_BIT); \
-+		(pa) |= (CHANNEL_HASH(channel_idx, pa) << UMC_V6_7_PA_CH4_BIT); \
-+	} while (0)
-+
- extern struct amdgpu_umc_ras umc_v6_7_ras;
- extern const uint32_t
- 	umc_v6_7_channel_idx_tbl_second[UMC_V6_7_UMC_INSTANCE_NUM][UMC_V6_7_CHANNEL_INSTANCE_NUM];
--- 
-2.17.1
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index b75d67f644e5..77e9837ba342 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2720,11 +2720,11 @@ static int amdgpu_device_ip_fini_early(struct amdgp=
+u_device *adev)
+                 }
+         }
 
+-       amdgpu_amdkfd_suspend(adev, false);
+-
+         amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
+         amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
+
++       amdgpu_amdkfd_suspend(adev, false);
++
+         /* Workaroud for ASICs need to disable SMC first */
+         amdgpu_device_smu_fini_early(adev);
+
+--
+2.25.1
+
+
+--_000_SJ0PR12MB54888020E0D600D546BAC634825F9SJ0PR12MB5488namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+the issue is introduced in following patch, so add following information is=
+ better.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<i style=3D"font-size: 12pt; font-variant-ligatures: inherit; font-variant-=
+caps: inherit; font-weight: inherit;">fixes: (e9669fb78262) drm/amdgpu: Add=
+ early fini callback</i><br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<i style=3D"font-size: 12pt; font-variant-ligatures: inherit; font-variant-=
+caps: inherit; font-weight: inherit;"><br>
+</i></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-size: 12pt; font-variant-ligatures: inherit; font-varia=
+nt-caps: inherit; font-weight: inherit;">Reviewed-by: Yang Wang &lt;kevinya=
+ng.wang@amd.com&gt;</span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<i style=3D"font-size: 12pt; font-variant-ligatures: inherit; font-variant-=
+caps: inherit; font-weight: inherit;"><br>
+</i></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Best Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Kevin</div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Tianci Yin &lt;tianci.yin@amd=
+.com&gt;<br>
+<b>Sent:</b> Tuesday, January 25, 2022 6:03 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Grodzovsky, Andrey &lt;Andrey.Grodzovsky@amd.com&gt;; Yin, Tianc=
+i (Rico) &lt;Tianci.Yin@amd.com&gt;; Chen, Guchun &lt;Guchun.Chen@amd.com&g=
+t;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Fix an error message in rmmod</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">From: &quot;Tianci.Yin&quot; &lt;tianci.yin@amd.co=
+m&gt;<br>
+<br>
+[why]<br>
+In rmmod procedure, kfd sends cp a dequeue request, but the<br>
+request does not get response, then an error message &quot;cp<br>
+queue pipe 4 queue 0 preemption failed&quot; printed.<br>
+<br>
+[how]<br>
+Performing kfd suspending after disabling gfxoff can fix it.<br>
+<br>
+Change-Id: I0453f28820542d4a5ab26e38fb5b87ed76ce6930<br>
+Signed-off-by: Tianci.Yin &lt;tianci.yin@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--<br>
+&nbsp;1 file changed, 2 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index b75d67f644e5..77e9837ba342 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -2720,11 +2720,11 @@ static int amdgpu_device_ip_fini_early(struct amdgp=
+u_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_suspend(adev, false);<b=
+r>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_set_pg_state=
+(adev, AMD_PG_STATE_UNGATE);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_set_cg_state=
+(adev, AMD_CG_STATE_UNGATE);<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_suspend(adev, false);<b=
+r>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Workaroud for ASICs nee=
+d to disable SMC first */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_smu_fini_ear=
+ly(adev);<br>
+&nbsp;<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_SJ0PR12MB54888020E0D600D546BAC634825F9SJ0PR12MB5488namp_--
