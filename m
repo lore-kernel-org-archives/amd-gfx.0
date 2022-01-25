@@ -4,125 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8C47C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 13:34:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55E82C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 14:16:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EBBA10E303;
-	Tue, 25 Jan 2022 13:34:13 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DE5910E303
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 13:34:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB5FD10E67E;
+	Tue, 25 Jan 2022 14:16:42 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A1BC10E23D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 12:56:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1643115414; x=1674651414;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=et9+ZqkMxNyaIinPs3rLA/T1shewefofFV8LdQgNIlw=;
+ b=GURoLVN6k/JC4wvll/9k7GaRxvf2VsWiI7jbZaZ/vsBBFbQga/OEaVum
+ 6MQbNB8HCrr3nTTsXa/6NiIIErSAFBIyDb5hRNImRXSnJrJ4IjW5XaGGX
+ wcu+wruFnoBRAvsdTb2ZIsOs8g8TlIeiqVqBtTpwAcMvLhVBhicspC6In
+ PZvyulhqwBTH2VIm07zIihQzJZLyOlkX66JsGbH4tNjF9CFyhZVLVJkT0
+ 5g5fHo6jYShS6bek40EDNsHP1ykrfnZ7IMFsRijIx+69mK6x9c0FsxHWY
+ 2v18/lIQpvoPYXwHa8ddgZtf6rAHaCjvV/pN/EUs1EsBWjadVtGqiWJFk A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10237"; a="226962340"
+X-IronPort-AV: E=Sophos;i="5.88,315,1635231600"; d="scan'208";a="226962340"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2022 04:56:54 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,315,1635231600"; d="scan'208";a="627918605"
+Received: from fmsmsx606.amr.corp.intel.com ([10.18.126.86])
+ by orsmga004.jf.intel.com with ESMTP; 25 Jan 2022 04:56:53 -0800
+Received: from fmsmsx607.amr.corp.intel.com (10.18.126.87) by
+ fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Tue, 25 Jan 2022 04:56:52 -0800
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx607.amr.corp.intel.com (10.18.126.87) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20 via Frontend Transport; Tue, 25 Jan 2022 04:56:52 -0800
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.108)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.20; Tue, 25 Jan 2022 04:56:52 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aLFFolFZmcr3ILUgzdFEeAW5TMcAqbTihC3mmVg/Gge/PANuwAScPklcn5qU8fEogoyJ21pGR3tUsOQ1Hf9pMSLJiqg22l13ykj2+HY+Kthqzw7s/p3DTje9V02GhqN1gHzbyE5BanAbO60TC6DE2nOq4LZEAFj9Qn3ljJH3XxAIwsqkNefRQyxIHQjwzVUp3Ui70Sz2Cco+SOOFKsy6ABKw/9uS1n6y8quPBizO0vcHAUUy2rwqmVg39Twaf79QYsjRQTbd7APiK2AQFJk0XlP+WMWb2S6DhEaOSYJ47QkfsiJjj+7HZ5yIxs/KiAL/SyOrUNg5d3YIOrMUjcbtpQ==
+ b=BiORTeM0ByWEbS5LwZElUP87ak84FkFyevl7ZvVTz7k6iOkVCm/uGuKUBlrJpDRmm18AUwU0V0hTOP2Z5n+aDXR3lrlhBPDKPMmhkSZvhkOFRQ0sE8JJTQxJ1eGvMSnpi9YOa+XVKlf7FV7D03o/vnN5C5ccEP5RRied/LGTUu8+GRTHXmAvHbk8XqlKVdHVnuqHimGgqyuOzMLgQyy7dMiD022wXltehdlh8RWTrSXavSnhG+yyt5Fke7e/x/QnWsypfrMwcmLEUYJVtkQKuB/Nai8WIrB0nA0Q1arTkIMEvhegCpXULPmaltu75Zb3M79FVvKZjc+IB/DxPXL0Tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vy3XKV6VRRIzvOqKjiNV9hpubTWnFWj6GxmFwd0sI+s=;
- b=iYjDFEX94rfEooE8HRej1QEt2uEalT3LDBb9vIJXPZllAQEPD6F0e3IeMBpExeoW5T4xxLa8nr1ApjQD4DcttUhPJ9TVzLcDMwJk8IakZ/9dbtildPZosOjiUVYwL6ng5cEA8J2QvhEIzToDYUY4Tnuoc1YYzN7fMNkyua9k2EOW365YqmIbJJjcbMU2JvwizlDFsMP3pEUQVxBmsUc4vrQtYj8vnyWw9aDi4XKtSvxPK6GVIh9/aannUg/lTPlyqbjtmMrK0c3otIwX2Ab9BZNdmJC2CCYgCxuTGIAKznwRLYhMoei8SwIunNFqes0emSq8DXjdZXS+0p3QD0TOAw==
+ bh=yoONrviKz6vG5zQ/UkX5bzbT6WkMkSWgzx/0kJBMnwI=;
+ b=NwAWZiS8ybQud206MGr5x0JhbdBkx955KXv2Ja8xt1Q8WVjHTH8l4VSh9h/XLenrkFfhyuBGe0mRWY6yuHuxs/vPkbOoAkBKbdLuIoVVHnP1xg+JKvaYR9dWUIHbsKEw9GMwRkO26wxoVguV+ZLfWTT3sjt09vny+LqflUdDnoDKlhuZsRAUM+9Mrki3HjV/cNFvFteeOcyH2JyOD3iw95dibaQKKpTuOOEnxE0NH5bvrtTJ9s+QtSkfbshY7IDF+ES9zPoyFVO5shHK/EIewCOlKY3aLqJa0mKBZcJAj+gNkPqwQRs7DKuTgE89JfPySUIhPLTUqMiIVStMPiEfww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vy3XKV6VRRIzvOqKjiNV9hpubTWnFWj6GxmFwd0sI+s=;
- b=TBgkaIDQojeyytY4greB3i8dHd2SmrM9aMUGvTz5nr/KZ2GZzntPnLpJ2MNEruj8H5K4QiPcKpZOe52a4DMKDWHGvEKUPU8EmkWg4d1vZiRv1mC07WD5ldmTcfX9FOBmhrJfBfdwIHvWGVh/XHGdN9ZZxTK1XgIxU8wq7hNoIY8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by DM5PR12MB1737.namprd12.prod.outlook.com (2603:10b6:3:10e::15) with
+Received: from DM6PR11MB3660.namprd11.prod.outlook.com (2603:10b6:5:13c::17)
+ by CO1PR11MB5011.namprd11.prod.outlook.com (2603:10b6:303:6d::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8; Tue, 25 Jan
- 2022 13:34:09 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::b07d:3a18:d06d:cb0b]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::b07d:3a18:d06d:cb0b%4]) with mapi id 15.20.4909.017; Tue, 25 Jan 2022
- 13:34:09 +0000
-Message-ID: <4b3ed7f6-d2b6-443c-970e-d963066ebfe3@amd.com>
-Date: Tue, 25 Jan 2022 19:03:52 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [REGRESSION] Too-low frequency limit for AMD GPU
- PCI-passed-through to Windows VM
+ 2022 12:56:50 +0000
+Received: from DM6PR11MB3660.namprd11.prod.outlook.com
+ ([fe80::753b:f9a6:9c93:278c]) by DM6PR11MB3660.namprd11.prod.outlook.com
+ ([fe80::753b:f9a6:9c93:278c%3]) with mapi id 15.20.4909.019; Tue, 25 Jan 2022
+ 12:56:50 +0000
+From: "D, Lakshmi Sowjanya" <lakshmi.sowjanya.d@intel.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: RE: Build regressions/improvements in v5.17-rc1
+Thread-Topic: Build regressions/improvements in v5.17-rc1
+Thread-Index: AQHYEPfSFpmDnQzpgkifGWSL3krxPKxzsmGw
+Date: Tue, 25 Jan 2022 12:56:50 +0000
+Message-ID: <DM6PR11MB3660804C821D7CA7329B6CAFC45F9@DM6PR11MB3660.namprd11.prod.outlook.com>
+References: <20220123125737.2658758-1-geert@linux-m68k.org>
+ <alpine.DEB.2.22.394.2201240851560.2674757@ramsan.of.borg>
+In-Reply-To: <alpine.DEB.2.22.394.2201240851560.2674757@ramsan.of.borg>
+Accept-Language: en-US
 Content-Language: en-US
-To: James Turner <linuxkernel.foss@dmarc-none.turner.link>
-References: <87ee57c8fu.fsf@turner.link>
- <acd2fd5e-d622-948c-82ef-629a8030c9d8@leemhuis.info>
- <87a6ftk9qy.fsf@dmarc-none.turner.link> <87zgnp96a4.fsf@turner.link>
- <fc2b7593-db8f-091c-67a0-ae5ffce71700@leemhuis.info>
- <CADnq5_Nr5-FR2zP1ViVsD_ZMiW=UHC1wO8_HEGm26K_EG2KDoA@mail.gmail.com>
- <87czkk1pmt.fsf@dmarc-none.turner.link>
- <BYAPR12MB46140BE09E37244AE129C01A975C9@BYAPR12MB4614.namprd12.prod.outlook.com>
- <87sftfqwlx.fsf@dmarc-none.turner.link>
- <BYAPR12MB4614E2CFEDDDEAABBAB986A0975E9@BYAPR12MB4614.namprd12.prod.outlook.com>
- <87ee4wprsx.fsf@turner.link>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <87ee4wprsx.fsf@turner.link>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BM1PR01CA0104.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00::20)
- To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.6.200.16
+dlp-reaction: no-action
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 8c2a41c2-48eb-42e3-3acb-08d9e002278e
+x-ms-traffictypediagnostic: CO1PR11MB5011:EE_
+x-microsoft-antispam-prvs: <CO1PR11MB50119942373926B13B967E76C45F9@CO1PR11MB5011.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: TSOxQ8EjKVAuiKHG9e/SKn+DuA76OZBOHZoRNhGzANCWUEUo/3RbCZtp+pYe76uNAyZEiJgEBIOr2/VUItaPbWpJj1+4j2VQheR2dEHy65kc2bXfGe5U1KLrpwHOMxtVu6RM5iwt3tlgEIpvExLdLT6deuBbFSpG8Ot6Y3Ng8S0ouGymtW2H5i2MBH/lJ19EWHtSj04GsGKyVNy14MwK0JUilppfL/RgzaKumfckUr2lhFVyjRM1sfiScgcuQlMjf74hM6MA6MTzkYUhZfztvtdAsw1XXi95fV6xwt70IMv+H4HSaGqoN2wMfG8HzhbRoOg/lLNnTxeEnywWdfCKzGetnkPc/d7mdbicr/8lbrrTGXskicrPOXtCCmIbwjdZoEdMW3vGEJ2OT08XgQ3pW2AIznzTU9mV1YqFUPxHPCx8HlrnQvCi/P60WD7rNcDsgD8BKOAPTRoHaKXEcvmQlGzNThIpvIPFy1fmdLl7uX//m+lMY+iyu5xN8PFvWVGTudADmCoabfzBoo4mO1+Sp6T44oDQvW5mc0TT3WpbaOS6//RwcvFtyvzjaR55tXTZ4yn6NpyQwKUail/QtMRbJUmgQFlYE6DfM+auznAhNPClF19DR0WHWqJ8ML4NhC5y0RcEH749zlomRMNzY7FfI54YrnLOTBwP1Pk9buFttbvVj4tYxewc+4tgEUSQqBD46c1bvXCO6zuj6qU0ieboFzY8GZ5+c4Xeln1LRw2Zx52NZrrwT4bVQ8ii3ZScKDF5BjZVk1vRil0XukQkipYXPwrOtdt5WLz4irz/nyeLOg0=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB3660.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(82960400001)(66946007)(110136005)(8936002)(2906002)(966005)(38070700005)(66574015)(508600001)(38100700002)(52536014)(54906003)(76116006)(8676002)(186003)(86362001)(9686003)(5660300002)(4326008)(71200400001)(33656002)(26005)(66556008)(316002)(6506007)(7696005)(83380400001)(7416002)(55016003)(66446008)(53546011)(66476007)(64756008)(122000001);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-2?Q?fUk/DrnQ8TNg8PT0qbnVaCbMpNxKN1Xauy6bLbJY/zuWKBENB/8jTyrFxL?=
+ =?iso-8859-2?Q?mFyHcaB4Ho/5/6T+v9L4PgBQGNzy2/AC+NTCAZOSQ6Ryl4NFAbaQyL/a03?=
+ =?iso-8859-2?Q?ly0U781i4qhwqLKk9Ood3EJF3zABFPukaN0NaRN6aQU+emZL06t2DY97PE?=
+ =?iso-8859-2?Q?ZshVHce6vU12nrp+k77qW3d9MyV0/iOGjcyyWjTkshm5AzkfV4Vyymit2J?=
+ =?iso-8859-2?Q?JiL8GY5Nh5ASP3/KpCPUls8iR0xJYLWwXtzcpyZ76+kpSUfYs25lEezUfB?=
+ =?iso-8859-2?Q?+DVwTv8i70OjyA5jCujEq/MwjTcx3Be+X3E8xmesIWCSOuOq9u6mo2oP1H?=
+ =?iso-8859-2?Q?vKER5rleLoQHKkgEPtfwU0ChFVCOZjCNbQu/Hcmr6MhKWOaRngwRXKCZG2?=
+ =?iso-8859-2?Q?1uTQAfI8Lazi8azj9eiwMKyTQE7CO4WQtnD+O6QOJS72zA80STFQox/KKG?=
+ =?iso-8859-2?Q?nqX6X+D21cvmBOcJx55WhdCRAavE5EA+jxHC/LlJ2QNU7upc/n7rf2vqFf?=
+ =?iso-8859-2?Q?sNx4p7pgPpBZXcLpsvxyIAdvtFhcL2e9qFI+qfEMjjAfTYZnQNRzCPDN7W?=
+ =?iso-8859-2?Q?8J6fGuhabzOPCzNjVbgYoe4azea56wBJ069lADAnTzTGBfkszrbAOgkzd8?=
+ =?iso-8859-2?Q?Qjnf9fKKJ2JhhFtSdN4jnlQDexUns4P3ad2stAuXJLiVyH5WK+STVtk2Fi?=
+ =?iso-8859-2?Q?Q9xQE9oZe33ElQKSdFWUpQelyij67yaV9CfLGu5ERtKDQLjxOWFq5Vizph?=
+ =?iso-8859-2?Q?1JuFcW2yQGURrszcDwwglo5xsQX5VF/gHBC+Z4U3myvzJyESB6SWLEQwxy?=
+ =?iso-8859-2?Q?/2Jqod4Q9IpLdcWhK6oeOdsjui2UXCKcE93WYA+kExCCiTC5Lx3aLi0hhR?=
+ =?iso-8859-2?Q?Qo7j9UKMf69uX54jWPCw11z0NRU2aZnKCEXLR1rc+rV0QMJttqL1YjzlMF?=
+ =?iso-8859-2?Q?ssn1KCc2RCFdkqk126s+pg34i4c0XRYIEkFT227UJKsHloVND80HGv09b7?=
+ =?iso-8859-2?Q?rBDEl+ZiK5gLmkoRHcZSjh5YSu1EkQ3rp5mP0lUaoTsqRsK8WgPNXuA6Sx?=
+ =?iso-8859-2?Q?ioh4bzVSehS+o2S8N9S+X5lLS7298Mtcun1HWiKE4wcX6fSVxX20IdXr4m?=
+ =?iso-8859-2?Q?bJn6FjPuZTtvGLzZ5DuaIqHvnOLn0lKlcbERck0jwbx6kAQ62dOHHWDahe?=
+ =?iso-8859-2?Q?+4ggTxXk6nr6yHaTQAzdXzA7FYZTKRcUu4u9lUMaAuOe3nWhLP/TZHM5ih?=
+ =?iso-8859-2?Q?K/cNNuQI6igzarCHfQGupU4/gD9YJMqQUNHBZTe8zsplhmjNWbPHrUMiPn?=
+ =?iso-8859-2?Q?/r/NxkpcNdKiDLm4XLjrBs9Ig3T7phHVhgLctqwEtRaA6BpHLffIqjt7uR?=
+ =?iso-8859-2?Q?wyOaPnLYPi7lolnAsf3sfFnRrhJsbrxyEjL7QtOC94lzKupY+S6H7gA1d7?=
+ =?iso-8859-2?Q?c38Mm42mEdTuyHLlsAZKigmBfxIf7CzP6r6YrcQrxm347N3Y2K/7HAu+vy?=
+ =?iso-8859-2?Q?0dWm5ARlTZgxfChpv2lTWZyh9D4+fuEM8CPz5W5XFajOXtmtJWr/f9WLjt?=
+ =?iso-8859-2?Q?FquoCejYxqMMB+9QghdX3ae+XKkEQvrNHcdohJKEnugRfk2jeUrChEOJe/?=
+ =?iso-8859-2?Q?byy4uQdhMbv1lqHjpkraYALlflfD4gtEFKbDkF3YmPxR596G37ttrsRUOj?=
+ =?iso-8859-2?Q?6wO21sJA9KlJ7YvMO8T5S/kmRKXQB+oNWzuqUrLTbcbDIn86U8aL0NkTte?=
+ =?iso-8859-2?Q?G0sg=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dcdca2e8-2026-4be6-a383-08d9e0075d4c
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1737:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1737EC32FE004D1F4FE6B6A5975F9@DM5PR12MB1737.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EOvfatr5hRpZqc8Du7BmcuqJPIAfySbAv2eSl2hBHA994xGJSzNWcHlkcdUsYiPaqHXam6+ZIQkLS28hYttZ/3nNmv2u28Cg6jyfZXmZyVSbW0g8KAlolcHW+dVVl0+0Elr8aJNICxaJTK10TSb8/5biBapn1I8DGlbCjWL+Q8ziD7KDqNTVmuLXHSCIy4455HFO/ysklTAwoAl6QbeJ2eFuS3bF/Q7+Jwo9fYzB0+Wd0nr3+zNnx0Y/j86XXHIRopbdPvh2Y1PeVWndwk0D6NVOlilLY17hZLyncq1CqI/Vue721iyZQQQVip2nvnphdwNlU7x1HxuoodX363uc4NsC1uMv1P4Zwnv49cfLu+2OoxFG7A9+wPOG2/nbZyT+Z7AzuKIGML6bTrA19fEizFlM7b9PlXGhxP2X6Av7wjeNGucbm02U5Ote/dm0zD5ZNscUfwfYWOo5K3QacIWgNnkEawDXpwlrmZZzmI7yJN7E2YJYCIx4R5X7QeGzpxiMFn13huEw9g/UbRJmteQ9k1/vb19CD21UslKGPq+ICe+8v88DR9VW5fGxDQx0STSFwaSptLvCKkA7hfDUYoGj7mJorx40fy3APoB0vlcPkk+VM//YeCB4tMekbieP3hJUdiXBU9CKHMaer0cgQTdebSVlAONrY7XtXpTvSOdm7Hn6A3+mo4OeYq0iPXKTjuU8byZt2a/pq7Lr5LHQgrQ5EsMev9uzO207S12KPbsdnFn1lAJbIdzJShhnjGry9IXIo9tomFmBmklQOhxM8KFh+7+KkDyDa18UrGqL/sjhozc3Riv+DZc7gm7BazC3zSKD7MjlxrH0DnO7QNAenpC6o4dm2ePI8V0+nHdeslmhbnbCckf48H8/yqCFoGMXp8CCn2xVkLKMRVHswYEOrNIbFxedG4AT/RgFbTHIrraSndM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(31696002)(316002)(86362001)(66476007)(8936002)(2616005)(66556008)(31686004)(6506007)(54906003)(36756003)(83380400001)(38100700002)(5660300002)(4326008)(66946007)(53546011)(186003)(6512007)(508600001)(6916009)(6666004)(966005)(26005)(6486002)(2906002)(8676002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RW9JL0kzWXEvaDg3RE5CUnQ3Rmh1N1Nsa2R5NUVhTGRtR2VUV2htRExlc05G?=
- =?utf-8?B?VGxBbEFuSDNQdXArRHdsMmVrZGEzemNkQmxVdzlKZ0gwRGJzNzdhOFJ5TmVI?=
- =?utf-8?B?UlhOcUpiRXBXcXNWZEd5b3gxM3FqVUduUmJTTzlZbW9FNzBqbytNMlJKL1Q4?=
- =?utf-8?B?MENkQ09OWkxHN0xvM01VRzY5UnVWOTZyUkFhdXBqNGY4cDFOUVUxNzkzTnJZ?=
- =?utf-8?B?Y0lPbFhDYUF2Y3RJeXBUcjljNDBLUk1DM0ltZFdhd1Y1MGpZWUZ5Vm9pZ2pw?=
- =?utf-8?B?em9pLzgxM3NQSVBoeENDMWJNbUZwS3AwdlVDeEY5QU5FMlc3M2xjQ2NublRv?=
- =?utf-8?B?aXFBREN3UGFqZ0p0Ymc0Z2xtYi9wcFR4c25OUVlyNVhLY0FJa1VIVk5UYm1x?=
- =?utf-8?B?dHc5U0RwcFllMjUyMlpEL2E1dzRseitKSVh0NUhDcHhnNy90eUZDY2dnV3Yv?=
- =?utf-8?B?M0RRSUNVSGRCMEVBMm5PMkdkMWN0ZGMvY3pJL1k1UnFSdkRlMmhYc1dReS84?=
- =?utf-8?B?UTdsc2swY25YSXRJeWRlSXQxWkY1NjBhZW1OZ1ByME4wWURsQ0JQaldQQzZB?=
- =?utf-8?B?Tk52a1dBRjVJR3VHTDNjd2J5RjFIcmFnTDh6YXV4dFprbm9qVzJKWXl0a2pE?=
- =?utf-8?B?NlVyOG5VdWNOeWxEcFBQQTZUMjYrWlkzMnlSWDVSWnFyRnBTTVp3OFhYaEh0?=
- =?utf-8?B?dHpOMDFNVnJMcUlSMDcvTDZuMUtPeWN1TEYxemxHQ0tDNi8yZTJrWTJINmI2?=
- =?utf-8?B?T2hvdzJ1Q1JaLy84bDJ2VGt2UHYvNFRnRW1vQVJTN09xQk9hUy9jOTVsaVBP?=
- =?utf-8?B?Um55ZUJYTUc0UTEvcHA1bjR3RFN5Q0MrU3dtMm5pZjRJRERjZjBSOTZmODRm?=
- =?utf-8?B?NjVyNEFoL3BWR1VLU2VqUmFuQTY2Rm9QOUdlU1Z4aWVJYkxLVS9tcDBRREVu?=
- =?utf-8?B?ekFUTTJoQ0lCcHFqOWYrWTNVeUJLNHFEbzg4Q2dqSEdwdnNIY092dHZiUmJ1?=
- =?utf-8?B?ZTV2UkZOOENmczNzTkVCb2lhT0hrWGliN3BRcWlqeFAxdDE3akZMcTl3OHNl?=
- =?utf-8?B?WkVBM3VOOXN3Vi9lZFRHcGtHZzBlelJJb25xN2RlUFhpQ216VE5SR1pMdklH?=
- =?utf-8?B?NFU5V3NnZUdIcThPWDV2RUhqb1p6RndJRHFwbG41ZEx6VzFYUVcwNEFFelhB?=
- =?utf-8?B?eGhMekpoZVdYR3RLZTRGNUtWZ0tqNEJrbzhYN0E4K1VLRUlNdHZrU0c3anlU?=
- =?utf-8?B?d0loL1ljb3UwZ3VNUkJkaHNJKzIxM3BxTkNJRUw2YU5xVHBSbXFuTHVjVk5B?=
- =?utf-8?B?amFIRDVEaEF0SzFsY3JvV29tQ09mUVc5L0xOellnaVN5VDRFVzlqcXhBbU5N?=
- =?utf-8?B?UFVNeWxLTVRaU3ZmR2tiakFyV21QZGVNNm5ZS1NiK3FQeGNvR2NRczYvbzBn?=
- =?utf-8?B?b2daeGc2ZkNWWmRPdWRhR1BvR0NtdUI4TWpxSmwwam5oRnEzVUtFMDNIRzhp?=
- =?utf-8?B?K1RpcTN6MXVlZndzYlkyZGJ5NHl5YW1RME9VbGZ1eURSY0YzRFNGU3pscE9j?=
- =?utf-8?B?VnNJZWpMR2swbkM1NmZZcndKcHBqQnJvcnlIQ1h1K25qNGt2QURBVVJzRlVu?=
- =?utf-8?B?RkFaUUdQWkMzQ2hpRjdySU1uK0NUbCtoeHAyNXo1dzNJZHhja2VEL2xBdDFI?=
- =?utf-8?B?S202WGJLbDZETTVic0xPdDArZ2JzM293ZVk4eEVwWU5UWFVncjE5MnYyaVNJ?=
- =?utf-8?B?MjI1d2dtaVc0SHdVMFBBSkp0M3MvWE9Md1VtVzZySStZSXVtSmdHZVQyZmxP?=
- =?utf-8?B?OEV1YTQyaGdlalRiWm1nM0lYZFZVRjk4MHNuaUtpMllIWU5MTHZEZml3NFVC?=
- =?utf-8?B?MjhDSGdoOXhXUFFFUHFxWWgvbm02alNNV1lMRm51YXRTaThZZGoybFgxbzVT?=
- =?utf-8?B?cXNSeTI2TFhKU3oxenpGOU43T1RsRWJFOFN4TDl1a0MzZUR0UmRJdStTVGgy?=
- =?utf-8?B?ZjQvNDVHeUlnbk1iQjMreWRYNXRMY21SbW5HUERyckhaMnlFcWhoejh0QlRP?=
- =?utf-8?B?dGI2K1hGUkdQK2pQM3NIc1V3TVB1OEVKMVVxbE13T2lMb2owZ2pCRXhOcWtI?=
- =?utf-8?Q?9cSI=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcdca2e8-2026-4be6-a383-08d9e0075d4c
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2022 13:34:08.9488 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /6AYg8pYkLtWa82/EQuKa6twuF33Gpg2WJmaY2Rn30kMx600QdA2r/v5viSJKILY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1737
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3660.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c2a41c2-48eb-42e3-3acb-08d9e002278e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jan 2022 12:56:50.6731 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0aLZFmIS/Ikp1vMUBSaHHcYeEvITtt9hICbp8N854aPuAM4V68wOPmFIPJvKukHOD2oPbydxyCdOtOPsKwOEgt0n3hYJRp8B4yuuf+Ok+Lw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5011
+X-OriginatorOrg: intel.com
+X-Mailman-Approved-At: Tue, 25 Jan 2022 14:16:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,93 +152,159 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- Greg KH <gregkh@linuxfoundation.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- Alex Deucher <alexdeucher@gmail.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
+ "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "sparclinux@vger.kernel.org" <sparclinux@vger.kernel.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "Tobin C. Harding" <me@tobin.cc>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 1/25/2022 5:28 AM, James Turner wrote:
-> Hi Lijo,
-> 
->> Not able to relate to how it affects gfx/mem DPM alone. Unless Alex
->> has other ideas, would you be able to enable drm debug messages and
->> share the log?
-> 
-> Sure, I'm happy to provide drm debug messages. Enabling everything
-> (0x1ff) generates *a lot* of log messages, though. Is there a smaller
-> subset that would be useful? Fwiw, I don't see much in the full drm logs
-> about the AMD GPU anyway; it's mostly about the Intel GPU.
-> 
-> All the messages in the system log containing "01:00" or "1002:6981" are
-> identical between the two versions.
-> 
-> I've posted below the only places in the logs which contain "amd". The
-> commit with the issue (f9b7f3703ff9) has a few drm log messages from
-> amdgpu which are not present in the logs for f1688bd69ec4.
-> 
-> 
-> # f1688bd69ec4 ("drm/amd/amdgpu:save psp ring wptr to avoid attack")
-> 
-> [drm] amdgpu kernel modesetting enabled.
-> vga_switcheroo: detected switching method \_SB_.PCI0.GFX0.ATPX handle
-> ATPX version 1, functions 0x00000033
-> amdgpu: CRAT table not found
-> amdgpu: Virtual CRAT table created for CPU
-> amdgpu: Topology: Add CPU node
-> 
-> 
-> # f9b7f3703ff9 ("drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)")
-> 
-> [drm] amdgpu kernel modesetting enabled.
-> vga_switcheroo: detected switching method \_SB_.PCI0.GFX0.ATPX handle
-> ATPX version 1, functions 0x00000033
-> [drm:amdgpu_atif_pci_probe_handle.isra.0 [amdgpu]] Found ATIF handle \_SB_.PCI0.GFX0.ATIF
-> [drm:amdgpu_atif_pci_probe_handle.isra.0 [amdgpu]] ATIF version 1
-> [drm:amdgpu_acpi_detect [amdgpu]] SYSTEM_PARAMS: mask = 0x6, flags = 0x7
-> [drm:amdgpu_acpi_detect [amdgpu]] Notification enabled, command code = 0xd9
-> amdgpu: CRAT table not found
-> amdgpu: Virtual CRAT table created for CPU
-> amdgpu: Topology: Add CPU node
-> 
-> 
+> -----Original Message-----
+> From: Geert Uytterhoeven <geert@linux-m68k.org>
+> Sent: Monday, January 24, 2022 1:26 PM
+> To: linux-kernel@vger.kernel.org
+> Cc: linuxppc-dev@lists.ozlabs.org; sparclinux@vger.kernel.org; linux-
+> um@lists.infradead.org; D, Lakshmi Sowjanya
+> <lakshmi.sowjanya.d@intel.com>; kvm@vger.kernel.org; linux-
+> mips@vger.kernel.org; Tobin C. Harding <me@tobin.cc>; alsa-devel@alsa-
+> project.org; amd-gfx@lists.freedesktop.org; netdev@vger.kernel.org
+> Subject: Re: Build regressions/improvements in v5.17-rc1
+>=20
+> On Sun, 23 Jan 2022, Geert Uytterhoeven wrote:
+> > Below is the list of build error/warning regressions/improvements in
+> > v5.17-rc1[1] compared to v5.16[2].
+> >
+> > Summarized:
+> >  - build errors: +17/-2
+> >  - build warnings: +23/-25
+> >
+> > Note that there may be false regressions, as some logs are incomplete.
+> > Still, they're build errors/warnings.
+> >
+> > Happy fixing! ;-)
+> >
+> > Thanks to the linux-next team for providing the build service.
+> >
+> > [1]
+> > http://kisskb.ellerman.id.au/kisskb/branch/linus/head/e783362eb54cd99b
+> > 2cac8b3a9aeac942e6f6ac07/ (all 99 configs) [2]
+> > http://kisskb.ellerman.id.au/kisskb/branch/linus/head/df0cc57e057f18e4
+> > 4dac8e6c18aba47ab53202f9/ (98 out of 99 configs)
+> >
+> >
+> > *** ERRORS ***
+> >
+> > 17 error regressions:
+> >  + /kisskb/src/arch/powerpc/kernel/stacktrace.c: error: implicit
+> > declaration of function 'nmi_cpu_backtrace'
+> > [-Werror=3Dimplicit-function-declaration]:  =3D> 171:2  +
+> > /kisskb/src/arch/powerpc/kernel/stacktrace.c: error: implicit
+> > declaration of function 'nmi_trigger_cpumask_backtrace'
+> > [-Werror=3Dimplicit-function-declaration]:  =3D> 226:2
+>=20
+> powerpc-gcc5/skiroot_defconfig
+>=20
+> >  + /kisskb/src/arch/sparc/mm/srmmu.c: error: cast between incompatible
+> > function types from 'void (*)(long unsigned int)' to 'void (*)(long
+> > unsigned int,  long unsigned int,  long unsigned int,  long unsigned
+> > int,  long unsigned int)' [-Werror=3Dcast-function-type]:  =3D> 1756:13=
+,
+> > 1639:13  + /kisskb/src/arch/sparc/mm/srmmu.c: error: cast between
+> > incompatible function types from 'void (*)(struct mm_struct *)' to
+> > 'void (*)(long unsigned int,  long unsigned int,  long unsigned int,
+> > long unsigned int,  long unsigned int)' [-Werror=3Dcast-function-type]:
+> > =3D> 1674:29, 1662:29  + /kisskb/src/arch/sparc/mm/srmmu.c: error: cast
+> > between incompatible function types from 'void (*)(struct mm_struct *,
+> > long unsigned int)' to 'void (*)(long unsigned int,  long unsigned
+> > int,  long unsigned int,  long unsigned int,  long unsigned int)'
+> > [-Werror=3Dcast-function-type]:  =3D> 1767:21  +
+> > /kisskb/src/arch/sparc/mm/srmmu.c: error: cast between incompatible
+> > function types from 'void (*)(struct vm_area_struct *, long unsigned
+> > int)' to 'void (*)(long unsigned int,  long unsigned int,  long
+> > unsigned int,  long unsigned int,  long unsigned int)'
+> > [-Werror=3Dcast-function-type]:  =3D> 1741:29, 1726:29  +
+> > /kisskb/src/arch/sparc/mm/srmmu.c: error: cast between incompatible
+> > function types from 'void (*)(struct vm_area_struct *, long unsigned
+> > int,  long unsigned int)' to 'void (*)(long unsigned int,  long
+> > unsigned int,  long unsigned int,  long unsigned int,  long unsigned
+> > int)' [-Werror=3Dcast-function-type]:  =3D> 1694:29, 1711:29
+>=20
+> sparc64-gcc11/sparc-allmodconfig
+>=20
+> >  + /kisskb/src/arch/um/include/asm/processor-generic.h: error: called
+> > object is not a function or function pointer:  =3D> 103:18  +
+> > /kisskb/src/drivers/vfio/pci/vfio_pci_rdwr.c: error: assignment makes
+> > pointer from integer without a cast [-Werror=3Dint-conversion]:  =3D>
+> > 324:9, 317:9  + /kisskb/src/drivers/vfio/pci/vfio_pci_rdwr.c: error:
+> > implicit declaration of function 'ioport_map'
+> > [-Werror=3Dimplicit-function-declaration]:  =3D> 317:11  +
+> > /kisskb/src/drivers/vfio/pci/vfio_pci_rdwr.c: error: implicit
+> > declaration of function 'ioport_unmap'
+> > [-Werror=3Dimplicit-function-declaration]:  =3D> 338:15
+>=20
+> um-x86_64/um-allyesconfig
+>=20
+> >  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:
+> > error: control reaches end of non-void function [-Werror=3Dreturn-type]=
+:
+> > =3D> 1560:1
+>=20
+> um-x86_64/um-all{mod,yes}config
+>=20
+> >  + /kisskb/src/drivers/net/ethernet/freescale/fec_mpc52xx.c: error:
+> > passing argument 2 of 'mpc52xx_fec_set_paddr' discards 'const'
+> > qualifier from pointer target type [-Werror=3Ddiscarded-qualifiers]:  =
+=3D>
+> > 659:29
+>=20
+> powerpc-gcc5/ppc32_allmodconfig
+>=20
+> >  + /kisskb/src/drivers/pinctrl/pinctrl-thunderbay.c: error: assignment
+> > discards 'const' qualifier from pointer target type
+> > [-Werror=3Ddiscarded-qualifiers]:  =3D> 815:8, 815:29
+>=20
+> arm64-gcc5.4/arm64-allmodconfig
+> arm64-gcc8/arm64-allmodconfig
+>=20
 
-Hi James,
+These errors are fixed with the patch set by Rafa=B3 Mi=B3ecki:=20
+https://lore.kernel.org/all/CACRpkdYbR-hpLTcvN1_LuxEH_mgHLqDmopDqo1ddui9o8Z=
+vSPQ@mail.gmail.com/t/
 
-Specifically, I was looking for any events happening at these two places 
-because of the patch-
+Regards,
+Lakshmi Sowjanya
 
-https://elixir.bootlin.com/linux/v5.16/source/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c#L411
-
-https://elixir.bootlin.com/linux/v5.16/source/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c#L653
-
-The patch specifically affects these two. On/before starting VM, if 
-there are invocations of these two functions on your system as a result 
-of the patch, we could navigate from there and check what is the side 
-effect.
-
-Thanks,
-Lijo
-
-> Other things I'm willing to try if they'd be useful:
-> 
-> - I could update to the 21.Q4 Radeon Pro driver in the Windows VM. (The
->    21.Q3 driver is currently installed.)
-> 
-> - I could set up a Linux guest VM with PCI passthrough to compare to the
->    Windows VM and obtain more debugging information.
-> 
-> - I could build a kernel with a patch applied, e.g. to disable some of
->    the changes in f9b7f3703ff9.
-> 
-> James
-> 
+> >  + /kisskb/src/lib/test_printf.c: error: "PTR" redefined [-Werror]:
+> > =3D> 247:0, 247  + /kisskb/src/sound/pci/ca0106/ca0106.h: error: "PTR"
+> > redefined [-Werror]:  =3D> 62, 62:0
+>=20
+> mips-gcc8/mips-allmodconfig
+> mipsel/mips-allmodconfig
+>=20
+> >  + error: arch/powerpc/kvm/book3s_64_entry.o: relocation truncated to
+> > fit: R_PPC64_REL14 (stub) against symbol `machine_check_common'
+> > defined in .text section in arch/powerpc/kernel/head_64.o:  =3D>
+> > (.text+0x3e4)
+>=20
+> powerpc-gcc5/powerpc-allyesconfig
+>=20
+> Gr{oetje,eeting}s,
+>=20
+>  						Geert
+>=20
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-
+> m68k.org
+>=20
+> In personal conversations with technical people, I call myself a hacker. =
+But when
+> I'm talking to journalists I just say "programmer" or something like that=
+.
+>  							    -- Linus Torvalds
