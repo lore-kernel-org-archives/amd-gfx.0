@@ -4,117 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 269F0C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 16:24:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C61C5C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 16:40:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 806D710E24C;
-	Tue, 25 Jan 2022 16:24:12 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E25410E24C
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 16:24:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dvieHJZ+KOIfuuqVJsnaj7vBNVuP/vciJ21/BYfTHCkOpPATCH7Ul9b5ATWa/z/bd+A5ZDotT9GIJbVknL1u+0n2peFty6dk0hDtNq3606clKuE2fjU5NRjLNuVyFshJGYoE4RtcTYaAkq7rC9w7aIeZsO3WRFjf97ih6P2qfqaddX/vZ/mAQFUCUl0A1QGdLpKwI95y5XMgMrJAO9phZmiOsiTzuZldTsWpJAmeRf5USROZsvYKgEiJ4lFGgW/at008q3UR2Ly9u39lRiDHBLRwfiSbzcLfb+3blkrltEhd3159bqgyfBAwXD/Xs9QLN0+7XPh5kxyz4kovnh9WTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G964gytrPeiWVZB1VXj7xvqHNgGTOvhs9i7/A/WRkpU=;
- b=dpv8KXYigI1zAFfCj6SV/ElCHWc8FBGS5SdZGO2SrmAvwNOqwwGp7VL/6PhSrQxqDL8lw2niBjSLJFqvh9WxkcHt8nKauAlz/BnDc9qFPIm6ePlE2ymm53x1MHJJncmhRyxIWlCpFGeXMDNZDM1Fr51+PnUckZivn7J/w1hKhRuuJZ7t/YvgAf57MkQXwDhqsnF2GZ7zI+eBF2QhJpT3GicLnH/1Pp1j3qRYjH5PFD+5wIA6kcG+qJOrXm3u2ewhPY59+KNwdKfy9uA8JlM/OnE2Jwgg5pQORa4w4PxijSiMPdpvBtrkCYpBzsPrQDsvFFg43z5UTnREkcVkAPMkkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G964gytrPeiWVZB1VXj7xvqHNgGTOvhs9i7/A/WRkpU=;
- b=qRbAMRMouy9/tGTHpalvFsGmRhZjvf8hX0+diZtDXaFdRM92BqJqPt39tSY2pYGIPkv4WTzUxtynjsdqKC9h0uXXTJFEw2zpPqTZEWtsNf/wUusC8q2E5qFj8tIlIMINpruPeeZz93RM4gA5RNGK6P9grlPFDL25GGBxRpcEWbA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM6PR12MB5022.namprd12.prod.outlook.com (2603:10b6:5:20e::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Tue, 25 Jan
- 2022 16:24:09 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::971:531c:e4f4:8a9a%7]) with mapi id 15.20.4909.017; Tue, 25 Jan 2022
- 16:24:09 +0000
-Message-ID: <d2868fc0-ea5b-174b-8144-7986af33e7b1@amd.com>
-Date: Tue, 25 Jan 2022 11:24:06 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v2 1/8] drm/amdkfd: Correct SMI event read size
-Content-Language: en-US
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220120231322.10321-1-Philip.Yang@amd.com>
- <20220120231322.10321-2-Philip.Yang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20220120231322.10321-2-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0110.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::19) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35FE010E1A1;
+	Tue, 25 Jan 2022 16:40:06 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CD4010E1A1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 16:40:05 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id bb37so32098300oib.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 08:40:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=MUEjQ8q2rLDcfec63OqfasVusI1JjtiB/r0ZULmRGfs=;
+ b=XF5OFMK0HoAGUt5hI6+jR73qa3W59vtLFC5VuP4QDgtde41j45+kp3wMro138slEJ5
+ a1Qsc0XFXZwct1jAtQY4LUhbgZwNi90Jvs/s8zpCJUhfJuvJRpL6Wb/zPbIvYYf36a8w
+ lmsqq75gnbuII4ORyy+r9qM/Hqts8bYYHa54Z2Bwp9zgFcaUVKK+wPC+4wn1RR5M6vwa
+ J9FsBoprdaBlskYjSbhou0SmfJrYYETJXqkIM8tPn4VklosvbbC5qC/ZLbm95Q8+Zv5f
+ x3kV9UM+ciq+iX/8Nlh72myjHWWTPky6BjMSv0r3c9ezNRVA1f9cwK3iDqvLa+jpkPrj
+ /oPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=MUEjQ8q2rLDcfec63OqfasVusI1JjtiB/r0ZULmRGfs=;
+ b=kx/lteqd4sSVBJyILouDH4XPNbl5sCZaNwOspYdSZJGOk23Rs0hvQT3co02C/FaRw5
+ U9WTECcF7cgxKej9T+IntI0XTmQQ8HhAAMLtOR3Qi/nPHloHyI6XRlLxF85n7jXwFM44
+ 8RO7EVyLyMdMMuV4pF7qjSILWuUb1V0N3IW8n0YP7LCL14DcR69FBCwNVg8q064a/xP6
+ OMlgQDAjt+CuzTNRuKoHvXdgfuswwGfycUI/KLWGcaZW+52w54hxuMkfjh+SV6KMMGEw
+ 8Z8gN4jpbfXT9EboCos+h3cj3xkbgdLER2XKY3Hb7gDzC1F+w8dMGEnQaGrnSqWqpKfS
+ MGmA==
+X-Gm-Message-State: AOAM533HV7mN2pEQPXl36Tt4G97sDpIJginMxf36iPc2kr9jsN3CsfDv
+ DR6FOEIjQhxpyWds8GjUGcifQYtezo4Z8Sw3xepI524gYy8=
+X-Google-Smtp-Source: ABdhPJytA6naab/f+oefa4iRUmPAZ+HOCBNksQFg3PPqzpYWSFmOp1rNA38AMiMeVmHJ9llUUmBGGh0K65gzEdymJfI=
+X-Received: by 2002:a05:6808:2097:: with SMTP id
+ s23mr1165157oiw.132.1643128803200; 
+ Tue, 25 Jan 2022 08:40:03 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f01b1852-8077-43c8-768b-08d9e01f1d23
-X-MS-TrafficTypeDiagnostic: DM6PR12MB5022:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB50222530E3CCBA5E1B607EAB925F9@DM6PR12MB5022.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4I+k/q3ACWBMwQgM7GmpDmykh9Jv8kQuS3q4KH/yAXZZ5P4FV3cUa1Do04X91y81C3JjpQ2HGHYDwsfYCrIXlCLRk8Zmm/E856HKaX7fNt2do7FY1/jpIV92l+4NguxqtGQgDGuMImL2tsuV67stagmsECuNM2Hg616yvueALWUbLZ1xZgi84xFajR0vKTX///VWi7VmbAD2SKBKJjZwPNqiksUjCfMgogR1AQ+U6sAs3tpkmf1fSkrlSplM0b9smw9OYh2hhV/K0Y6VXOguZz43roFObBXVdMh+FAAyP0BxLbNuYFeTgV7ZmK5qurxLqLqBLW8RwiOrg2Xd0f+Wr0jUHh4OefwrRMNPWc96VwS4Pz1QV1PY87u173OPd4lKljAgYzH6dDX1N+fqu1lWVOz1MTjJS1BgGJUj3oUsUZetkXpnU3Y20+uZRBu1GboEPeZ/To8d9hV4FycrtbbsrKUYQWm2uQ8vvtACHaKMcDs635hZ5i/66A+ucUKXkDaQhplrsw9rb44FJyHRJJ0KKtcMI3Yl2foaFDMNVDPd36HHIKOjdjzlUYMUzvjE48+cgwDJqLv3yuWqRFpyPCAxttM0XURJps7nMCAMP3liSW2R+9es7SRUKLnJmgmtwbmT5sILmif3E2+QUSO6BOLPPZ2lejfCXHB3L1xOARDscUE1iuJgxeerZAj6F9y22yJw1We80qY+BYE0JaIBl5JkQqpBJRK3Amljb6VoqB/QIAX5eeHxeGVulppgmcONtj1t
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(186003)(2616005)(2906002)(36756003)(508600001)(26005)(31696002)(5660300002)(316002)(6512007)(38100700002)(8936002)(6666004)(6506007)(86362001)(66476007)(8676002)(83380400001)(66556008)(31686004)(6486002)(44832011)(66946007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTlIemRIWnZ1ajFIT3Z6T3VIbjUwaWlVbFBGaHVVWGxYMVd5RUhVQmpZamZD?=
- =?utf-8?B?S2Qxc2R0SDUrZTJnenlOUXlXaGNVOWZGRXpTcHMvNWtlV29iSXZDeTBIdTYz?=
- =?utf-8?B?VVloR3pRWjVKT1VMYStMRndxT1JrUFBmVThuZDZLeUN3T0NoWThYTzdzMXNH?=
- =?utf-8?B?OVh6SXluYU1QUXRFQ2ZiS1p5QU1LT2FVWTJ3NWZwMktONHdCSExDRFQ3TEIw?=
- =?utf-8?B?NmxNRWo5amhId1JETmd4eEtFM0lkTFlYWll5MkhwTE9xU0FoZUp6dnNSYjg4?=
- =?utf-8?B?TUpDb0MwQzVSM3ZodFdPVlFZSjRzYUo5YUlGTzhwdlJsUWhicUlRaHZRQjhl?=
- =?utf-8?B?OXQrSGd6dUNDYTBkWWp6ZVMvWTMvYyttVGw2T3ExZ3lQQkNnRXdRbThFM0tx?=
- =?utf-8?B?ZmxWV0NRcjR0MjlzTG9hdVdTeVhvT1h6dkxwdlU2SG45dWo3c1dsaWdRc09M?=
- =?utf-8?B?QnBUVlR4ck9SbkR1M09QRXFiQWlJOW5SV2R6SS9PYkxpaXFTOWRWbm5xaXlj?=
- =?utf-8?B?RHRxYVNQQ01jYzFtWDVhUXhiUStIUmFGOVhsamlpbW5MWFhtTWF5VTlGaENU?=
- =?utf-8?B?bmhDV3U4K1lCWnJRNFhSWlgwSElpenMwQUhqMkwwbW1iMmhWRHJrbFlCZ2hz?=
- =?utf-8?B?STlZTkl6UEJ1b1hvSGlMOVk4Y0pYRXQrQmJQWExhMjM4SHBqWmVBY2RBVGp3?=
- =?utf-8?B?ZVNrdnhvV0JFbU1MZFBua1pLVkgzWG5lT3ltcndIZUVpUnVRTFlPN0F6eHVo?=
- =?utf-8?B?dkNCd1hGaVhjSEpjUmpIZ092QXltVGpVampxQmRsOFFiQnBPTkF4QVc1RWlB?=
- =?utf-8?B?cmNFcmVnZ3hmZXJrdHNZMkxjcitFZm9MSXR2NG9PRkgvUkNVNFVTS09jZm4r?=
- =?utf-8?B?R3l3YVZvMUJsSXROQWlkUTZFbmwwUnlRZkdYam5WWHFmbm9ILzZnbHRseDA3?=
- =?utf-8?B?SkF3Wm83eTRlRlF1OVAzLzhONmExcUNETVo2Q0V4cFJFRkhOVWR1VHN3NTAz?=
- =?utf-8?B?V1BHeHptRU1JM3Z0bWdXakZTNlNSSUVYUTVMMXZRUTFjT3BKQTJrelo1eEhh?=
- =?utf-8?B?RTNCUGtQWGx5bHFjYk13Z0t1d2pQd2d0MjB2UllKUEpvQklBT3NWbWdTRnJ6?=
- =?utf-8?B?SDB2N3EvTjZRKzkyN1BUQUcrMVpXekg5UXh5ZXo3aUxIemQ5ME9CeFZxd2RL?=
- =?utf-8?B?Z2U0V3dHWHRDUEZPQVdnckRnRGlFWkJrYVpoNUNGWlZwNVhwSVAzWXRjYkxh?=
- =?utf-8?B?akJ6NEZ3N0hNcE1LbTg5V0p2YWg5eGdQTXZxM3F4dXFray9QcVN1WTYyNzVo?=
- =?utf-8?B?MmZxcGRxWGdoYkdqY2pkNXBhY0FlS0tNK1Q5aVJsOEpweVREeEp6ZDFXZ1pD?=
- =?utf-8?B?M0JUanlPcTlHb0hoK0R4a282Z3hoekt1RHhWaDhScXFNbFZ2Y3J5eFd1K1VW?=
- =?utf-8?B?T2RrNkdoT2ZSdHcrMUk2MUJoRmR2RkFLdGpDRE9VbzlRMzVGQjBmamZMYTFz?=
- =?utf-8?B?K0lxeFRBN0NSemptUVBJQU9YaFZkanE4dUVIUEdDaUprZkMxdGh6ZWxBVnhk?=
- =?utf-8?B?aGpoM2JrMGlHcE1ZbXJ0QnpGQ0Y1c25nZW1ubzV6U3ZVRUpVbTNjbjh1NWg2?=
- =?utf-8?B?ZnRsdFRDc0I4ejhFWHZwTTZJSDF4WkF2R2p3VXdhbjBJRE15dDIvOEhMNE5T?=
- =?utf-8?B?c2FQRzV1T2c2K3lPall1dUJwR2Q4aE5xY09FWUNZdjBwY1lkSEU3WXlubVo4?=
- =?utf-8?B?R1RvMTZXMUZaU3VDNTZFazdsTWZLdSsxckNwOGY3amxWR1hNcmNCc1plWVBw?=
- =?utf-8?B?QlFjT1lDNWdxMHVHS1ZORzl3UkdiWHJ4VGRwdDlEY3dIZEUwalBsV2pBNFVh?=
- =?utf-8?B?bXlLV2RMVHBuK0JVUy9GN1ZjVys2WVhPMkxjSUdVZnBlYmlvUU0vUmxyWDVR?=
- =?utf-8?B?Y0xuR3ZvM002L21aZklVbUZSLy9aZlRUang0ZmRlVE1Gdm1YRTVrNDQ5SUJB?=
- =?utf-8?B?ODVSVnZuZEZLV1lRcjl0OC9Ubms3N3p2N1dCcHZmTmxtMmd1ZzVzK1dmcmtX?=
- =?utf-8?B?SUx4RDVLN0tzMDFqUURDTnZhQ09nejdLRHVENGkwUTFUaG95UmRUTWFBSDds?=
- =?utf-8?B?a1ZxNWRWSnR1UUR3V2haSzJJUXNUQlZZQllFazhwZUx6NTcwYkVLVExQMzky?=
- =?utf-8?Q?R0Vr+JDE4dlDh/3m8aIA96w=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f01b1852-8077-43c8-768b-08d9e01f1d23
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2022 16:24:09.0221 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QPQhtYegfm4cAtl7f582PwQqn7FJqicEOb1sAYUJzZ/+pmMNu2JobxEjD2HZuKeTfyfiQa19ULk8GXuubQby4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5022
+References: <20220124180736.2646458-1-tom.stdenis@amd.com>
+In-Reply-To: <20220124180736.2646458-1-tom.stdenis@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 25 Jan 2022 11:39:52 -0500
+Message-ID: <CADnq5_P66evR0jLhVOg7DmmKbD=xJ-gym0id9ud=s6PTT04G9A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: Add ip_discovery_text sysfs entry
+To: Tom St Denis <tom.stdenis@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,44 +61,220 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-Am 2022-01-20 um 18:13 schrieb Philip Yang:
-> sizeof(buf) is 8 bytes because it is defined as unsigned char *buf,
-> each SMI event read only copy max 8 bytes to user buffer. Correct this
-> by using the buf allocate size.
+On Mon, Jan 24, 2022 at 1:07 PM Tom St Denis <tom.stdenis@amd.com> wrote:
 >
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> Newer hardware has a discovery table in hardware that the kernel will
+> rely on instead of header files for things like IP offsets.  This
+> sysfs entry adds a simple to parse table of IP instances and segment
+> offsets.
+>
+> Produces output that looks like:
+>
+> $ cat ip_discovery_text
+> ATHUB{0} v2.0.0: 00000c00 02408c00
+> CLKA{0} v11.0.0: 00016c00 02401800
+> CLKA{1} v11.0.0: 00016e00 02401c00
+> CLKA{2} v11.0.0: 00017000 02402000
+> CLKA{3} v11.0.0: 00017200 02402400
+> CLKA{4} v11.0.0: 0001b000 0242d800
+> CLKB{0} v11.0.0: 00017e00 0240bc00
+> DBGU_NBIO{0} v3.0.0: 000001c0 02409000
+> DBGU0{0} v3.0.0: 00000180 02409800
+> DBGU1{0} v3.0.0: 000001a0 02409c00
+> DF{0} v3.0.0: 00007000 0240b800
+> DFX{0} v4.1.0: 00000580 02409400
+> DFX_DAP{0} v2.0.0: 000005a0 00b80000 0240c400
+> DMU{0} v2.0.2: 00000012 000000c0 000034c0 00009000 02403c00
+> FUSE{0} v11.0.0: 00017400 02401400
+> GC{0} v10.1.10: 00001260 0000a000 02402c00
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+I'm not opposed to this, but the general rule is one value per file
+with sysfs.  Maybe something like:
 
+$ ls ip_discovery
+ATHUB CLKA CLKB DBGU_NBIO DBGU0 DBGU1
+$ ls ip_discovery/CLKA
+0 1 2 3 4
+$ ls ip_discovery/CLKA/0
+version offset0 offset1
 
+Alex
+
+>
+> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 77 ++++++++++++++++++-
+>  2 files changed, 77 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> index 329a4c89f1e6..18ed1b72f0f7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> @@ -81,7 +81,8 @@ static ssize_t kfd_smi_ev_read(struct file *filep, char __user *user,
->   	struct kfd_smi_client *client = filep->private_data;
->   	unsigned char *buf;
->   
-> -	buf = kmalloc_array(MAX_KFIFO_SIZE, sizeof(*buf), GFP_KERNEL);
-> +	size = min_t(size_t, size, MAX_KFIFO_SIZE);
-> +	buf = kmalloc(size, GFP_KERNEL);
->   	if (!buf)
->   		return -ENOMEM;
->   
-> @@ -95,7 +96,7 @@ static ssize_t kfd_smi_ev_read(struct file *filep, char __user *user,
->   		ret = -EAGAIN;
->   		goto ret_err;
->   	}
-> -	to_copy = min3(size, sizeof(buf), to_copy);
-> +	to_copy = min(size, to_copy);
->   	ret = kfifo_out(&client->fifo, buf, to_copy);
->   	spin_unlock(&client->lock);
->   	if (ret <= 0) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 3bc76759c143..6920f73bbe73 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1019,6 +1019,7 @@ struct amdgpu_device {
+>         struct amdgpu_ip_block          ip_blocks[AMDGPU_MAX_IP_NUM];
+>         uint32_t                        harvest_ip_mask;
+>         int                             num_ip_blocks;
+> +       char                    *ip_discovery_text;
+>         struct mutex    mn_lock;
+>         DECLARE_HASHTABLE(mn_hash, 7);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index 285811509d94..c64cab0ad18e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -267,6 +267,19 @@ static void amdgpu_discovery_harvest_config_quirk(struct amdgpu_device *adev)
+>         }
+>  }
+>
+> +static ssize_t ip_discovery_text_show(struct device *dev,
+> +               struct device_attribute *attr, char *buf)
+> +{
+> +       struct drm_device *ddev = dev_get_drvdata(dev);
+> +       struct amdgpu_device *adev = drm_to_adev(ddev);
+> +
+> +       return sysfs_emit(buf, "%s", adev->ip_discovery_text);
+> +}
+> +
+> +static DEVICE_ATTR(ip_discovery_text, S_IRUGO,
+> +                               ip_discovery_text_show, NULL);
+> +
+> +
+>  static int amdgpu_discovery_init(struct amdgpu_device *adev)
+>  {
+>         struct table_info *info;
+> @@ -351,6 +364,11 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+>                 goto out;
+>         }
+>
+> +       // init sysfs for ip_discovery
+> +       r = sysfs_create_file(&adev->dev->kobj, &dev_attr_ip_discovery_text.attr);
+> +       if (r)
+> +               dev_err(adev->dev, "Could not create amdgpu device attr\n");
+> +
+>         return 0;
+>
+>  out:
+> @@ -363,7 +381,11 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+>  void amdgpu_discovery_fini(struct amdgpu_device *adev)
+>  {
+>         kfree(adev->mman.discovery_bin);
+> +       kfree(adev->ip_discovery_text);
+> +       sysfs_remove_file(&adev->dev->kobj, &dev_attr_ip_discovery_text.attr);
+> +
+>         adev->mman.discovery_bin = NULL;
+> +       adev->ip_discovery_text = NULL;
+>  }
+>
+>  static int amdgpu_discovery_validate_ip(const struct ip *ip)
+> @@ -382,6 +404,20 @@ static int amdgpu_discovery_validate_ip(const struct ip *ip)
+>         return 0;
+>  }
+>
+> +static int add_string(char **dst, unsigned *size, char *src)
+> +{
+> +       if (strlen(src) + strlen(*dst) >= *size) {
+> +               void *tmp = krealloc(*dst, *size + 4096, GFP_KERNEL);
+> +               if (!tmp) {
+> +                       return -1;
+> +               }
+> +               *dst = tmp;
+> +               *size = *size + 4096;
+> +       }
+> +       strcat(*dst, src);
+> +       return 0;
+> +}
+> +
+>  int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>  {
+>         struct binary_header *bhdr;
+> @@ -396,6 +432,8 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>         int hw_ip;
+>         int i, j, k;
+>         int r;
+> +       unsigned txt_size = 4096;
+> +       char *linebuf;
+>
+>         r = amdgpu_discovery_init(adev);
+>         if (r) {
+> @@ -410,6 +448,15 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>
+>         DRM_DEBUG("number of dies: %d\n", num_dies);
+>
+> +       adev->ip_discovery_text = kzalloc(txt_size, GFP_KERNEL);
+> +       linebuf = kzalloc(4096, GFP_KERNEL);
+> +       if (!adev->ip_discovery_text || !linebuf) {
+> +               DRM_ERROR("Out of memory\n");
+> +               kfree(linebuf);
+> +               kfree(adev->ip_discovery_text);
+> +               return -ENOMEM;
+> +       }
+> +
+>         for (i = 0; i < num_dies; i++) {
+>                 die_offset = le16_to_cpu(ihdr->die_info[i].die_offset);
+>                 dhdr = (struct die_header *)(adev->mman.discovery_bin + die_offset);
+> @@ -419,6 +466,8 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>                 if (le16_to_cpu(dhdr->die_id) != i) {
+>                         DRM_ERROR("invalid die id %d, expected %d\n",
+>                                         le16_to_cpu(dhdr->die_id), i);
+> +                       kfree(linebuf);
+> +                       kfree(adev->ip_discovery_text);
+>                         return -EINVAL;
+>                 }
+>
+> @@ -458,6 +507,19 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>                             le16_to_cpu(ip->hw_id) == SDMA3_HWID)
+>                                 adev->sdma.num_instances++;
+>
+> +                       snprintf(linebuf, 4096, "%s{%d} v%d.%d.%d: ",
+> +                                 hw_id_names[le16_to_cpu(ip->hw_id)],
+> +                                 ip->number_instance,
+> +                                 ip->major, ip->minor,
+> +                                 ip->revision);
+> +                       if (add_string(&adev->ip_discovery_text, &txt_size, linebuf)) {
+> +                               DRM_ERROR("Out of memory\n");
+> +                               kfree(linebuf);
+> +                               kfree(adev->ip_discovery_text);
+> +                               return -ENOMEM;
+> +                       }
+> +
+> +
+>                         for (k = 0; k < num_base_address; k++) {
+>                                 /*
+>                                  * convert the endianness of base addresses in place,
+> @@ -465,6 +527,19 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>                                  */
+>                                 ip->base_address[k] = le32_to_cpu(ip->base_address[k]);
+>                                 DRM_DEBUG("\t0x%08x\n", ip->base_address[k]);
+> +                               snprintf(linebuf, 4096, "%08lx ", (unsigned long)ip->base_address[k]);
+> +                               if (add_string(&adev->ip_discovery_text, &txt_size, linebuf)) {
+> +                                       DRM_ERROR("Out of memory\n");
+> +                                       kfree(linebuf);
+> +                                       kfree(adev->ip_discovery_text);
+> +                                       return -ENOMEM;
+> +                               }
+> +                       }
+> +                       if (add_string(&adev->ip_discovery_text, &txt_size, "\n")) {
+> +                               DRM_ERROR("Out of memory\n");
+> +                               kfree(linebuf);
+> +                               kfree(adev->ip_discovery_text);
+> +                               return -ENOMEM;
+>                         }
+>
+>                         for (hw_ip = 0; hw_ip < MAX_HWIP; hw_ip++) {
+> @@ -491,7 +566,7 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>                         ip_offset += sizeof(*ip) + 4 * (ip->num_base_address - 1);
+>                 }
+>         }
+> -
+> +       kfree(linebuf);
+>         return 0;
+>  }
+>
+> --
+> 2.32.0
+>
