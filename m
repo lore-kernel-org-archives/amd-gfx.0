@@ -4,54 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EA26C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 16:47:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84AC5C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jan 2022 17:06:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4F92893D1;
-	Tue, 25 Jan 2022 16:47:08 +0000 (UTC)
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11395893D1
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 16:47:08 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id q186so32122014oih.8
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 08:47:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jlSMe3aFil78QXaMB1VSsOJ3a5Pb1uLQME5lGO68TL0=;
- b=KxmIHOalbc0iq4wzZwnnXayo5nWZK0ZUGgMtwGA7V7fPVxFa4Vu7A92eJbKg3HvRjD
- 5HBXX1BlQWrLcgJT+AXpncXuH3jaWjL7RtzOMySAiAslyYZ8OiDk4YtJzM4gOcmtAHFR
- e278DBKQi+0ut8PKASDdMWd2RAqlvkZ+2dzPTDSDwmPoFrgA+nZP2XhJQGCZ4ufIiWKT
- ZCrFoGbxq2kJI2h24aMzeK2e4vuw30A1o0KCnJDO3tje0ELqUoaW5/LUkFNyXAnr9tFp
- ZikJJzKPv43HmeQbpGhgz5puzzW3PeEL7hmkxzxtU46EKrAiVucf2PkLOg68nQLiP1Hz
- FOkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=jlSMe3aFil78QXaMB1VSsOJ3a5Pb1uLQME5lGO68TL0=;
- b=V5mbWVaOZZljBYFJyFhFGM49Vj+Du9llJu0CZe1f/GlnMVxvpMXogE7Hsk77zZOyM5
- JLA/sVgLyzewyGSj+DgxfQmb+KtIC4zFWerMA1grlBU0YSfi8BHbMRWuFNitXsFwyd5/
- 6tynoU2Q1V1BbnC/GCMcz57Pt2+iYJWK/375+HBf5v95eE8fVaVooDq8SIj+p9G62bvg
- c5Li4/LI5fOJ32djOIVmjYEafefv4DyOBHqQodSAXszHZ7wBa9rBjlFZmeG/vlATjufx
- 8msTBbruRfn5yEUA4SWAFJVt+PMBu13mklNBPO5+UWiIplNucCZlkkgvmn5xz6cumQqS
- RVag==
-X-Gm-Message-State: AOAM533/IOFS2+E+TyEZDJGm1ozpUY3NJ3QHAEQmzDQH6hDrnz7mn/q8
- ZVlrmqckfS8flsdNLRT+3R1gpwTSPyRcsXgai44ixcvb
-X-Google-Smtp-Source: ABdhPJw7UqNccTbqYgj4RT8gXF249TVM3hiCvjcyAi9wmE4TR3D3qon7btqrSbXAfhkyrdGmaGZYex9n/AhSoplFK0I=
-X-Received: by 2002:a05:6808:2189:: with SMTP id
- be9mr1202604oib.93.1643129227326; 
- Tue, 25 Jan 2022 08:47:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F145110E27E;
+	Tue, 25 Jan 2022 17:06:02 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2056.outbound.protection.outlook.com [40.107.244.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2F8010E27E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jan 2022 17:06:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XqyePUlLjqML78IW+egocfrE8ko79GFxt6CqmwRDxX7IwinbfN2wMZyfGwa8oBTf8DdTgLmf8uogR48W6NctUNjUpwKDMfZf2+xVFVDYujCG5jhC2+o2ydmlwWfkBiWrwAmtsNr0hnO7dlWwBGzpuLoDqDdy+pFpqBhhLrEfjzoQCrnJiQexRxv23hxMYY/j5miy4VLI9PCOv2u0Na4iTxr6BR9xJq/r7wFSB9UfdfGKBqIhYtgybZY5MbCT8p07zkwDUz6xJ/LiUeETqpE9lLDpq+RBB0PhKjKQQIsbaQLqgrj0FReS669IUnlTL4eH/06U8qYwolDYnNznily2wQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/fjrSfcvbvvCMl3hwyIBnM0yjHKJ56M87eKRFnpQKzE=;
+ b=ZnCoXvp4t1R+A2kYyc939woBlMV5tBG940aOFJAkTQNbct56/OKXC9PtMcRmzZ/0OFRQFDVVnc+lLnLFhbK7bbaLKF4VjsHtXlw814sT1plQ+x0fbF+FNOYb3F2escgkAOw7xdVAV/HaC4PC6HgarzImDmicBpMKbW7vhoz3UMp/EoJ3dkJqvI4Z7tUuAKQZLlrWvorm1l3Qwi3PCTKS0+utRJT6Fprz8MprkOXRNdF7ye75mVz/Nda/joHKn+pZ6KRN1cSzaF8BwiDCAs4gCswtNsmJaZ/xww6sUbQrcdKnc8s2f8JPzdZgX+2dGwBiYWyDAK75gWA8zqxIdBIGaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/fjrSfcvbvvCMl3hwyIBnM0yjHKJ56M87eKRFnpQKzE=;
+ b=mdMro3ePUjIA7kaJJZ5EVjBTLfy5V0lmewC9z4ey+ATqPubvxETyiyJBNjqwDqE6ZrFArG5LMPx+Ehgmt5j3r7fs0iEFqCDuBrMFnyo9Ine/1TPpNFki6gnAuPiZKMJNK+YtcKBFQEezrAvTI0r+EIo+GPH7pN9be8G7mjwfh8Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BL0PR12MB4722.namprd12.prod.outlook.com (2603:10b6:208:8c::30)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Tue, 25 Jan
+ 2022 17:05:58 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::971:531c:e4f4:8a9a%7]) with mapi id 15.20.4909.017; Tue, 25 Jan 2022
+ 17:05:57 +0000
+Message-ID: <c46296c4-0e7d-cba3-d3f9-0b120b32c326@amd.com>
+Date: Tue, 25 Jan 2022 12:05:55 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH v2 2/8] drm/amdkfd: Add KFD SMI event IDs and triggers
+Content-Language: en-US
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220120231322.10321-1-Philip.Yang@amd.com>
+ <20220120231322.10321-3-Philip.Yang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220120231322.10321-3-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT3PR01CA0120.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:85::13) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20220124180736.2646458-1-tom.stdenis@amd.com>
- <CADnq5_P66evR0jLhVOg7DmmKbD=xJ-gym0id9ud=s6PTT04G9A@mail.gmail.com>
- <DM6PR12MB3547A57A5019D763E35091E4F75F9@DM6PR12MB3547.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB3547A57A5019D763E35091E4F75F9@DM6PR12MB3547.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 25 Jan 2022 11:46:56 -0500
-Message-ID: <CADnq5_Oqz88h+FjvbqUS4x3QteUWc4CyMwxsOip+mjFEjO-SUA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Add ip_discovery_text sysfs entry
-To: "StDenis, Tom" <Tom.StDenis@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 57572ca6-586f-4aa4-7a3f-08d9e024f482
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4722:EE_
+X-Microsoft-Antispam-PRVS: <BL0PR12MB47225A67C85C2D8BA9F1BE9B925F9@BL0PR12MB4722.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2CGRu4tW3rsKIlmt+oQEerrBt3FVU9czF/n9lH60e5T6EqsHOS8ln82SM8NG+iHyh3XjTcxK2Dz51YskoejgDeuddKL6xznmfyN8IChBL7KKv/nAfU4fxofFR/RhdRmDCa4UnSS+ngLhm6tx2HGtboHZTzdFSPr3GLjmSZ7jnLeQthUKKu5cRx3PLhBTEpjwH4E2sCzfGdmaMuYpbYgl2dB2OFYIFEpdxy/yC0OIJ8dt68vVb7zF471h/4EpR9GDG0Np0b79/pR9cyM+Tb2jYYczICW2tcDyMbMLAXrxq26O0RgkDCEdZ0eIZ6N3Ivp56ZeSmWUSu2CrgJAKf3NT5uuuh1KUR0lUaqWCBd1qmLzbeFzsCNaSdd96amXvAEATVGMC3mEgUELuGsqC3ieg6dNmSq0qA3VHFtxH+99D7hSWQjX3Zx9eXWnn6K2SCv5oxp+7aIe+XJJ1W4qSLdHoezwiTpMOYrRh0dLvFZAOdKcRRYgCNgmQvMypl1alCsa5BHpUXJWEAHbXwm7xIEXpSw5yBclQdcgogIEcIBlPo9gLae9IBGHhbJfZkpDCgCuWW8iDsQ6k82CZpeusx1r4Xq5CcbT2y/U3fEYZ3ljZ2BwN3DtSf9AJl2XM7u27jTQczJ33BfhueOXn4aOO2yPK3fMlkCkywECQoHlxn5FKCuL9Pu2f59Oa5uVBX8R6pA5n4l9C+VChBkP7GMnjui81H1FxcbsczhgseQuJrI3zpUpx0jsKJJAa/pxDM4FGZLH0
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(316002)(38100700002)(44832011)(5660300002)(2906002)(66476007)(66946007)(66556008)(31696002)(8676002)(8936002)(86362001)(31686004)(2616005)(83380400001)(508600001)(6486002)(26005)(36756003)(186003)(6506007)(6512007)(45980500001)(43740500002)(20210929001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?clA0NjR1ckdWNFZkUjhFbjZtMFpmb0pSdlp4S09wVjBkcm1kVm5MeTlGL0pH?=
+ =?utf-8?B?NUc2MzY2TC9QekhCVkMwaG40RXlTUVh0Q1pWZHRmS0Zad0V2c3pTV2dvT3Vm?=
+ =?utf-8?B?T1cwckFWc2xXd3BPcWhnM2hwWUFqdWJxL0pTYi9YVVVIbGlhM3h1dm1GZ0Zt?=
+ =?utf-8?B?cFRkdnpVdjJacUdzbzd4d2lLQld1bFdKekRNZm9QdDZOZ1hiM0ZueCtNRDAy?=
+ =?utf-8?B?N05kcEtvYlBNZmp1RGpySkk3d1M4SXJSNnJNYjZrTjJWdjFSYk9rMjZ3SE5p?=
+ =?utf-8?B?OXJhU2pvNEUzMmNLU0hubGZSWGxybFgvek5rME5DV1dpaHdBRy9NL05OYUoy?=
+ =?utf-8?B?a0plbDhRb2pUOXdzUFhhSS84U2NkcEJoY2lKaEgrZ2ovY2JRNjh6dWlYQVJh?=
+ =?utf-8?B?cHF2cWpyS0NydVdLdm1USkl3ZGpHR0d3LzVTaE5aRmdxczI4L0IxVVZkNVEw?=
+ =?utf-8?B?TGh2SnJLcUFsQ1pWSkFEUUZvRGUxYlhUbjlDWTdBTGVaa2Roa2RVUHMzd0E0?=
+ =?utf-8?B?Z3F1RTNvNE1nVW5sSTZEL0F0WmM0c3Nodm9rK1hsUmY4cDBJbXJpaVprWmZY?=
+ =?utf-8?B?czZHVGRDc00zNHAwajhGNHZjb2tZdW0wOE5Dd3JzdXdadUxuOThXYXVuUXpX?=
+ =?utf-8?B?SmlLa28vNlQ0UnBFZUt5b01MaGNDNVFUS1VON1ZoYW9vdnFoQytrbHRTSTFa?=
+ =?utf-8?B?T0ZGdlZZVUNoWExkeU4wRko2NTNFbVJ6WlNwSGFwaGdZUVJHVVM5bzZueU5x?=
+ =?utf-8?B?c01uaTV5YXlSQlVzbzlwN2RSUHBUMUM5L2Eya3VQYlNrbFk4VlhmbDFxbnNH?=
+ =?utf-8?B?NHdmUnduRDB0akQzWC9wdE8zR3B1ZG5Nd1R1cU5JSGw2T0s5UGwvLzNrUUMw?=
+ =?utf-8?B?VEc1STNMSnpMVWxpNzArOU04bjBSMWxGNFdnSHRxNmUyUjBPY2EyMFZqSEp4?=
+ =?utf-8?B?MW1GbjVtbUlPTGZNMWxuWTNVUzVudHdJRW5RS3BPU3FvK3pDL1dYTm4yY0ps?=
+ =?utf-8?B?b21ZK0dyLzhrV0Z5U3lSNkZkN0pDajZyZ0dHVEsyKzBjYWdxN1kyZ25mN3JM?=
+ =?utf-8?B?MXRsUVd4NVNSTVNuMkU2VnVuN0o1anVybVh0Y3hlaWtUSWNxUWtwb1hlYzlr?=
+ =?utf-8?B?Zi9jakJaUUZadlg4aUNJdEk5UXlTNVhqZFdOTEZ2YUdwU3YxemZ0aW5OL2lT?=
+ =?utf-8?B?TGt4RUlza3NwalFNSjdudlJzZUVvSU1BdUFMbUphN3hrYjlzSkJMNVI3Qmx5?=
+ =?utf-8?B?bk5QL2s1N0lBMGNyTExMR2dJQWU3R2o2RHU0Qnd5MjdsM2plbmFOZnorazV6?=
+ =?utf-8?B?R1REQmtTVDF4UTA3NGdDdnJyZU9QeHhXdFZadEF6bWZDOGlqK2dnNHZ0Mzl1?=
+ =?utf-8?B?MmJUYXVWRGFjNzVaRC83SUVkZFNpeTI2VkowVDRqaGJhcGtGck81c096VzJ6?=
+ =?utf-8?B?dWR6MjhONFNpQzJIa2pSY2ZzekNQcUdaOUQzeXliMFFYNTVjU0xWK2VNMEN5?=
+ =?utf-8?B?MEJYQ1JxbjZiVTZJa2k4ZWxFNjM1RWpBZGcrbEVsWnNDbWcvakdzMkx6NXVZ?=
+ =?utf-8?B?czdyeHpjNm5Uemp6UmxUVWVLVTNOUTVaZkNiQzhXbGN4cUt0WnFzbUM3NDN3?=
+ =?utf-8?B?VDVjaldmRXZmVlRnbjViL2xjQzdIbUR5b1JhQVRmRWxFL3pmcUJWWFRiazdj?=
+ =?utf-8?B?OUhSMzM5YVdibXB5YWdIeGFvcG56NnhQVWdtdHhMZFlENGxLYWExU0d4elg0?=
+ =?utf-8?B?QnN3UFRtcHF5SXJpZWtvUjBZTnBzVnZZcis4Qi9RSldreEZ2WG1mQ1RhSXNm?=
+ =?utf-8?B?V1BIMDFFajVUY2hyNDNUU1p4VkNHQXl5WjYrSWI3ejYza1UzUSt4OUw4cWhW?=
+ =?utf-8?B?QlU0U0MyWStZVkRQSjcwcXdGMlczMTNzbThxNjlMTlBDTnZXZHpVSit5RGxQ?=
+ =?utf-8?B?MndyWjVxK1NUUmcyVjhWVzIyWC9XWisrVVAvbDh3cFlVdGpkdTZ4VVRRYmUx?=
+ =?utf-8?B?a043UUVmQURJRDZNMCs1L0g0SUJkUzIzM2h4MlkwdEpGRm9YZlFzajNTMlhs?=
+ =?utf-8?B?WmFLNkNaRnpCaWN1L05wRmdpSExyTVlnc3hVM0NRSkpTdzgxZVVycFQ3eGpm?=
+ =?utf-8?B?SEJ6S01hQVBlaWZOWXBuR2hwaTE5QnNXc2FoRTg2K2lOWXdvU1poL0tqQ3Y2?=
+ =?utf-8?Q?uaxYE0QgDM+Cf96iGQiUUVU=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57572ca6-586f-4aa4-7a3f-08d9e024f482
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2022 17:05:57.7615 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qj1lcxRkP8txJ7nOgmBnfZHurPCwjHP4g3tH6l7TBDyNQuEWlqkUU5YtXxlVCRBxZaQKFtuZKpmooGko8Q9wHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4722
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,248 +126,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 25, 2022 at 11:42 AM StDenis, Tom <Tom.StDenis@amd.com> wrote:
->
-> I literally brought this up in our initial discussion....
->
-> Frankly from umrs point of view a single file is easier.
->
-> But I can't code anything until it's in the tree...
 
-yeah, the single file is arguably easier to deal with.  We could put
-it in debugfs, but then that would make debugging harder on platforms
-like Chrome that don't enable debugfs.
+Am 2022-01-20 um 18:13 schrieb Philip Yang:
+> Define new system management interface event IDs, migration triggers and
+> user queue eviction triggers, those will be implemented in the following
+> patches.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>   include/uapi/linux/kfd_ioctl.h | 27 +++++++++++++++++++++++++++
+>   1 file changed, 27 insertions(+)
+>
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+> index af96af174dc4..de0b5bb95db3 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -459,10 +459,37 @@ enum kfd_smi_event {
+> 	KFD_SMI_EVENT_THERMAL_THROTTLE = 2,
+>   	KFD_SMI_EVENT_GPU_PRE_RESET = 3,
+>   	KFD_SMI_EVENT_GPU_POST_RESET = 4,
+> +	KFD_SMI_EVENT_MIGRATION = 5,
+> +	KFD_SMI_EVENT_PAGE_FAULT_START = 6,
+> +	KFD_SMI_EVENT_PAGE_FAULT_END = 7,
+> +	KFD_SMI_EVENT_QUEUE_EVICTION = 8,
+> +	KFD_SMI_EVENT_QUEUE_EVICTION_RESTORE = 9,
+> +	KFD_SMI_EVENT_UNMAP_FROM_GPU = 10,
+> +
+> +	/*
+> +	 * max event number, as a flag bit to get events from all processes,
+> +	 * this requires super user permission, otherwise will not be able to
+> +	 * receive event from any process. Without this flag to receive events
+> +	 * from same process.
+> +	 */
+> +	KFD_SMI_EVENT_ALL_PROCESS = 64
+>   };
+>   
+>   #define KFD_SMI_EVENT_MASK_FROM_INDEX(i) (1ULL << ((i) - 1))
+>   
+> +enum KFD_MIGRATION_QUEUE_EVICTION_UNMAP_EVENT_TRIGGER {
+> +	MIGRATION_TRIGGER_PREFETCH = 1,
+> +	MIGRATION_TRIGGER_PAGEFAULT,
 
-Alex
+Call this KFD_MIGRATION_TRIGGER_PAGEFAULT_GPU for consistency. Add the 
+KFD_ prefix to all the migration triggers.
 
->
->
-> Tom
->
->
->
->
-> ________________________________
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Tuesday, January 25, 2022 11:39
-> To: StDenis, Tom <Tom.StDenis@amd.com>
-> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH] drm/amd/amdgpu: Add ip_discovery_text sysfs entry
->
-> On Mon, Jan 24, 2022 at 1:07 PM Tom St Denis <tom.stdenis@amd.com> wrote:
-> >
-> > Newer hardware has a discovery table in hardware that the kernel will
-> > rely on instead of header files for things like IP offsets.  This
-> > sysfs entry adds a simple to parse table of IP instances and segment
-> > offsets.
-> >
-> > Produces output that looks like:
-> >
-> > $ cat ip_discovery_text
-> > ATHUB{0} v2.0.0: 00000c00 02408c00
-> > CLKA{0} v11.0.0: 00016c00 02401800
-> > CLKA{1} v11.0.0: 00016e00 02401c00
-> > CLKA{2} v11.0.0: 00017000 02402000
-> > CLKA{3} v11.0.0: 00017200 02402400
-> > CLKA{4} v11.0.0: 0001b000 0242d800
-> > CLKB{0} v11.0.0: 00017e00 0240bc00
-> > DBGU_NBIO{0} v3.0.0: 000001c0 02409000
-> > DBGU0{0} v3.0.0: 00000180 02409800
-> > DBGU1{0} v3.0.0: 000001a0 02409c00
-> > DF{0} v3.0.0: 00007000 0240b800
-> > DFX{0} v4.1.0: 00000580 02409400
-> > DFX_DAP{0} v2.0.0: 000005a0 00b80000 0240c400
-> > DMU{0} v2.0.2: 00000012 000000c0 000034c0 00009000 02403c00
-> > FUSE{0} v11.0.0: 00017400 02401400
-> > GC{0} v10.1.10: 00001260 0000a000 02402c00
->
-> I'm not opposed to this, but the general rule is one value per file
-> with sysfs.  Maybe something like:
->
-> $ ls ip_discovery
-> ATHUB CLKA CLKB DBGU_NBIO DBGU0 DBGU1
-> $ ls ip_discovery/CLKA
-> 0 1 2 3 4
-> $ ls ip_discovery/CLKA/0
-> version offset0 offset1
->
-> Alex
->
-> >
-> > Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 77 ++++++++++++++++++-
-> >  2 files changed, 77 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > index 3bc76759c143..6920f73bbe73 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -1019,6 +1019,7 @@ struct amdgpu_device {
-> >         struct amdgpu_ip_block          ip_blocks[AMDGPU_MAX_IP_NUM];
-> >         uint32_t                        harvest_ip_mask;
-> >         int                             num_ip_blocks;
-> > +       char                    *ip_discovery_text;
-> >         struct mutex    mn_lock;
-> >         DECLARE_HASHTABLE(mn_hash, 7);
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> > index 285811509d94..c64cab0ad18e 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> > @@ -267,6 +267,19 @@ static void amdgpu_discovery_harvest_config_quirk(struct amdgpu_device *adev)
-> >         }
-> >  }
-> >
-> > +static ssize_t ip_discovery_text_show(struct device *dev,
-> > +               struct device_attribute *attr, char *buf)
-> > +{
-> > +       struct drm_device *ddev = dev_get_drvdata(dev);
-> > +       struct amdgpu_device *adev = drm_to_adev(ddev);
-> > +
-> > +       return sysfs_emit(buf, "%s", adev->ip_discovery_text);
-> > +}
-> > +
-> > +static DEVICE_ATTR(ip_discovery_text, S_IRUGO,
-> > +                               ip_discovery_text_show, NULL);
-> > +
-> > +
-> >  static int amdgpu_discovery_init(struct amdgpu_device *adev)
-> >  {
-> >         struct table_info *info;
-> > @@ -351,6 +364,11 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
-> >                 goto out;
-> >         }
-> >
-> > +       // init sysfs for ip_discovery
-> > +       r = sysfs_create_file(&adev->dev->kobj, &dev_attr_ip_discovery_text.attr);
-> > +       if (r)
-> > +               dev_err(adev->dev, "Could not create amdgpu device attr\n");
-> > +
-> >         return 0;
-> >
-> >  out:
-> > @@ -363,7 +381,11 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
-> >  void amdgpu_discovery_fini(struct amdgpu_device *adev)
-> >  {
-> >         kfree(adev->mman.discovery_bin);
-> > +       kfree(adev->ip_discovery_text);
-> > +       sysfs_remove_file(&adev->dev->kobj, &dev_attr_ip_discovery_text.attr);
-> > +
-> >         adev->mman.discovery_bin = NULL;
-> > +       adev->ip_discovery_text = NULL;
-> >  }
-> >
-> >  static int amdgpu_discovery_validate_ip(const struct ip *ip)
-> > @@ -382,6 +404,20 @@ static int amdgpu_discovery_validate_ip(const struct ip *ip)
-> >         return 0;
-> >  }
-> >
-> > +static int add_string(char **dst, unsigned *size, char *src)
-> > +{
-> > +       if (strlen(src) + strlen(*dst) >= *size) {
-> > +               void *tmp = krealloc(*dst, *size + 4096, GFP_KERNEL);
-> > +               if (!tmp) {
-> > +                       return -1;
-> > +               }
-> > +               *dst = tmp;
-> > +               *size = *size + 4096;
-> > +       }
-> > +       strcat(*dst, src);
-> > +       return 0;
-> > +}
-> > +
-> >  int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
-> >  {
-> >         struct binary_header *bhdr;
-> > @@ -396,6 +432,8 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
-> >         int hw_ip;
-> >         int i, j, k;
-> >         int r;
-> > +       unsigned txt_size = 4096;
-> > +       char *linebuf;
-> >
-> >         r = amdgpu_discovery_init(adev);
-> >         if (r) {
-> > @@ -410,6 +448,15 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
-> >
-> >         DRM_DEBUG("number of dies: %d\n", num_dies);
-> >
-> > +       adev->ip_discovery_text = kzalloc(txt_size, GFP_KERNEL);
-> > +       linebuf = kzalloc(4096, GFP_KERNEL);
-> > +       if (!adev->ip_discovery_text || !linebuf) {
-> > +               DRM_ERROR("Out of memory\n");
-> > +               kfree(linebuf);
-> > +               kfree(adev->ip_discovery_text);
-> > +               return -ENOMEM;
-> > +       }
-> > +
-> >         for (i = 0; i < num_dies; i++) {
-> >                 die_offset = le16_to_cpu(ihdr->die_info[i].die_offset);
-> >                 dhdr = (struct die_header *)(adev->mman.discovery_bin + die_offset);
-> > @@ -419,6 +466,8 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
-> >                 if (le16_to_cpu(dhdr->die_id) != i) {
-> >                         DRM_ERROR("invalid die id %d, expected %d\n",
-> >                                         le16_to_cpu(dhdr->die_id), i);
-> > +                       kfree(linebuf);
-> > +                       kfree(adev->ip_discovery_text);
-> >                         return -EINVAL;
-> >                 }
-> >
-> > @@ -458,6 +507,19 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
-> >                             le16_to_cpu(ip->hw_id) == SDMA3_HWID)
-> >                                 adev->sdma.num_instances++;
-> >
-> > +                       snprintf(linebuf, 4096, "%s{%d} v%d.%d.%d: ",
-> > +                                 hw_id_names[le16_to_cpu(ip->hw_id)],
-> > +                                 ip->number_instance,
-> > +                                 ip->major, ip->minor,
-> > +                                 ip->revision);
-> > +                       if (add_string(&adev->ip_discovery_text, &txt_size, linebuf)) {
-> > +                               DRM_ERROR("Out of memory\n");
-> > +                               kfree(linebuf);
-> > +                               kfree(adev->ip_discovery_text);
-> > +                               return -ENOMEM;
-> > +                       }
-> > +
-> > +
-> >                         for (k = 0; k < num_base_address; k++) {
-> >                                 /*
-> >                                  * convert the endianness of base addresses in place,
-> > @@ -465,6 +527,19 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
-> >                                  */
-> >                                 ip->base_address[k] = le32_to_cpu(ip->base_address[k]);
-> >                                 DRM_DEBUG("\t0x%08x\n", ip->base_address[k]);
-> > +                               snprintf(linebuf, 4096, "%08lx ", (unsigned long)ip->base_address[k]);
-> > +                               if (add_string(&adev->ip_discovery_text, &txt_size, linebuf)) {
-> > +                                       DRM_ERROR("Out of memory\n");
-> > +                                       kfree(linebuf);
-> > +                                       kfree(adev->ip_discovery_text);
-> > +                                       return -ENOMEM;
-> > +                               }
-> > +                       }
-> > +                       if (add_string(&adev->ip_discovery_text, &txt_size, "\n")) {
-> > +                               DRM_ERROR("Out of memory\n");
-> > +                               kfree(linebuf);
-> > +                               kfree(adev->ip_discovery_text);
-> > +                               return -ENOMEM;
-> >                         }
-> >
-> >                         for (hw_ip = 0; hw_ip < MAX_HWIP; hw_ip++) {
-> > @@ -491,7 +566,7 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
-> >                         ip_offset += sizeof(*ip) + 4 * (ip->num_base_address - 1);
-> >                 }
-> >         }
-> > -
-> > +       kfree(linebuf);
-> >         return 0;
-> >  }
-> >
-> > --
-> > 2.32.0
-> >
+
+> +	MIGRATION_TRIGGER_PAGEFAULT_CPU,
+> +	MIGRATION_TRIGGER_TTM_EVICTION,
+> +	SVM_RANGE_EVICTION,
+> +	SVM_RANGE_MIGRATION,
+> +	USERPTR_EVICTION,
+> +	TTM_EVICTION,
+> +	UNMAP_FROM_CPU,
+> +	SUSPEND_EVICTION
+Migration triggers and queue eviction triggers should be separate enums. 
+The eviction triggers should have a consistent prefix: 
+KFD_QUEUE_EVICTION_TRIGGER...
+
+I'm not sure the distinction between SVM_RANGE_MIGRATION and 
+SVM_RANGE_EVICTION is useful. It should be clear from the context, since 
+migrations log their own events. If anything, the term 
+SVM_RANGE_EVICTION is misleading. It's really any MMU notifier that's 
+not MMU_NOTIFY_MIGRATE or MMU_NOTIFY_UNMAP.
+
+I'd suggest the following names:
+
+KFD_QUEUE_EVICTION_TRIGGER_SVM
+KFD_QUEUE_EVICTION_TRIGGER_USERPTR
+KFD_QUEUE_EVICTION_TRIGGER_TTM
+KFD_QUEUE_EVICTION_TRIGGER_SUSPEND
+
+Then there are triggers for unmapping from GPU, which seems to have some 
+overlap with queue eviction in svm_range_evict. But that becomes a bit 
+easier if you remove the distinction between SVM_RANGE_MIGRATION and 
+SVM_RANGE_EVICTION. Then you are left with these two unmap triggers:
+
+KFD_SVM_UNMAP_TRIGGER_MMU_NOTIFIER
+KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU
+
+Regards,
+   Felix
+
+
+> +};
+> +
+>   struct kfd_ioctl_smi_events_args {
+>   	__u32 gpuid;	/* to KFD */
+>   	__u32 anon_fd;	/* from KFD */
