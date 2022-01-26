@@ -4,91 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D08E5C2BA4C
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 11:05:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77923C2BA4C
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 11:54:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5486A10E809;
-	Wed, 26 Jan 2022 11:05:05 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2077.outbound.protection.outlook.com [40.107.236.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 237D710E809
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 11:05:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GAt4UHB8syNl6C6FkWDtbTqxZPdm3oMfxRhUmd1Cj+YtiODhlqxz1qHOn1VQm3iFL2xo6+f9do+jLJRN4uPgsJZLBape6d08n1FFbPINlpGWiDLzMa4HBCzMyqbka2F1CNydxJo9qLy3T5JLVQ6pKjpqx6SGvKjo7yGin4ZPyUlKl47oGZyMLavYlThhhCG13U9pWvEVTdgPCiw+2uZ3Y8RjxWKLlCyX0+uoMbDkH1iQ9wQpPE0DTkviWt5wDICWv9PoWFsSV1qmIy8J4hIwO2viAog2PNQfBNasGUqPtr/ZijO6QA+MgBqOkUbDVDVRr8o9eOmSLJDzdfdEmRTEGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ND1HMP4yBmkPVFIJ+YDwaZNljJxNWbwcyCOoEtS3/Ng=;
- b=Ov9ZhafEMNC/WOLyMooocGxEDqcqA9SN/4rdS+zPs88eKDW0bMSfiIiTnyzcSWq27jsb65ibshHrevyxRh6KpoyPIt9QZ3YeyyR2E8IYcnNtyxd5B8COfS3QQt0h8QClyBLV/fLr2NuCOIimn7A8IKDiQfUImfeCmIgf2WQ7QofUfW8cZ4AzYGCjDjIIma2MLK87GXXh1sVZNH8NtSObFbKz//Y2Az6jzeWuLsua9Odd7LOgNlIduH5vMpyqdWOfSZqusVasteOeq4oBNlRmBcGl8HFRWUmbbzUOCg8/q0s3cAJmRZd4NYuZMle6drOqgyFkJebWZYmFkiXlMOJvBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ND1HMP4yBmkPVFIJ+YDwaZNljJxNWbwcyCOoEtS3/Ng=;
- b=gVl5Mp7VoacJvFcirfKvddUIXpNsZ79gNeaNirm8NrvMH37RBiKEKVoyjfBBN6/+Wp8LLbpHxbxn92JCXnLyjaFx6jpTWvRKdQcE2iLj9SABdc8LD2ALcA4hojFKI9gQ5M4D8U4jsUVNFygG98aYqiP+Qc9Tj+/c639avQ7bpwg=
-Received: from BN9PR03CA0590.namprd03.prod.outlook.com (2603:10b6:408:10d::25)
- by DM5PR12MB1833.namprd12.prod.outlook.com (2603:10b6:3:111::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10; Wed, 26 Jan
- 2022 11:04:59 +0000
-Received: from BN8NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10d:cafe::21) by BN9PR03CA0590.outlook.office365.com
- (2603:10b6:408:10d::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15 via Frontend
- Transport; Wed, 26 Jan 2022 11:04:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT006.mail.protection.outlook.com (10.13.177.21) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4930.15 via Frontend Transport; Wed, 26 Jan 2022 11:04:59 +0000
-Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 26 Jan
- 2022 05:04:56 -0600
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
- <stanley.yang@amd.com>, <yipeng.chai@amd.com>, <john.clements@amd.com>,
- <Lijo.Lazar@amd.com>
-Subject: [PATCH] drm/amdgpu: add umc_convert_error_address to simplify code
-Date: Wed, 26 Jan 2022 19:04:47 +0800
-Message-ID: <20220126110447.28973-1-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0043210E36C;
+	Wed, 26 Jan 2022 11:54:51 +0000 (UTC)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91BFB10E36C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 11:54:50 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ i187-20020a1c3bc4000000b0034d2ed1be2aso3597327wma.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 03:54:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=ZXjeQERqvFzlCzz2ruulYh5WcBs9abTexvrOjz95g6o=;
+ b=PV4AjS5DsN1xxLRiYI2l/0g2bhbvMNviJJfB8wGDYg7uvK2YPkAwbd+c3NCWzkgBmX
+ xHFtDtDa5osDOVx6LQNNGdUIUiZ+O4nT7Y0bgQr7xXZazRqASKe5AJ/ZZ5BGDMVthkmO
+ GRY527Aw8zy9Sy5HX9B8P+VY6PyT/1XSvRFQBqCGdNu34Um+tHbSsZDmcPAP//hRk9pz
+ ejINUkmQmlGa+jbtNIr8lTVKE600Nc9jgtbQGAJsSI4b+YbWC2E6b5BBCDqo/qvAbIoG
+ 0DLkU0OxTOxjmiXqqRTVftqp30lmPN+W9fEMlgIWFd/3jpNne8qjtYedPyF/FdvFITUH
+ Tw7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=ZXjeQERqvFzlCzz2ruulYh5WcBs9abTexvrOjz95g6o=;
+ b=XICiGVKXuQPzaE91PL5o/AgNZXH1rG2xikK8EGmdCylVZgp9tvsbtZ3GHowCOWAS7D
+ FuGxYEXhmrVciwJw57DQLPqPM/goY9weJhkWjU1liimytvsIsWpEw9s3PVS+JgN+Hijj
+ Dt5Rbt2lVusRRaHS8HorgBorWmZzYU/r6SuWbeBAArkW1qUh3uffU6zKErTs1eQVgxvj
+ zrr/M9OIhS0un5CwIYiIqftUGoJ9+Rp0sxXGtgme+UhnOvZvWQOcOTv+z298Jjr8ou8f
+ WMUQ/RsuoxB3V6eWVVlUq6jFZNhxRgkFKYS52kCm9uXF4MqB4QONhozD1iJ0a+j3xAdH
+ I7tw==
+X-Gm-Message-State: AOAM530u/e9OSOEwGFSGSfuBkGSD4wIPJB85p+KvXPX2v3m73xt7zZcT
+ NmQoTKZykBrZglk1yZZp96M=
+X-Google-Smtp-Source: ABdhPJz0sYTU93F9TAlBQs4wCIm1lByxQB8czXwaFqb0nOTUP3MNcHAF30mdQWUwXdF9xWSbLdcxuA==
+X-Received: by 2002:a05:600c:b58:: with SMTP id
+ k24mr6327025wmr.6.1643198089054; 
+ Wed, 26 Jan 2022 03:54:49 -0800 (PST)
+Received: from ?IPV6:2a02:908:1252:fb60:6cbd:23a3:7abe:f6e2?
+ ([2a02:908:1252:fb60:6cbd:23a3:7abe:f6e2])
+ by smtp.gmail.com with ESMTPSA id 16sm2933354wmj.12.2022.01.26.03.54.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Jan 2022 03:54:48 -0800 (PST)
+Message-ID: <ef5aa6ef-4fc7-cb7c-019e-01cd77ec0c84@gmail.com>
+Date: Wed, 26 Jan 2022 12:54:47 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 58319d6e-75c3-484a-ef38-08d9e0bbb1cb
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1833:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB183374E0D60F6EE358C6FA81B0209@DM5PR12MB1833.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Fc4mTXlDNBNcmbFj5x6JW4wjlFoK/V/WvYwsL0QOQ1MwePL5q1bgmtomkaokOTGwlJuL2igAuhdCNuA+mLZGvahWfegC1aY/vlc53Yq4EMwsiFZ/snmOWgXzBNF8Ubjr24Ze2kYzRSPtJZmNnxtIb46IOEuRdqHBHYFWXEA0xgZ48QYikq1Srh4GGVpJC/4igcaO3x9R9TdyB1XnzbP/JcugZK7de6/DdcUq5JlVS3e2KnhQKOHSz9YkeVoYU+m15I4NbndM2Og1qOQl3KaLgCS7SoyqkjGkhJuIrygLL4/sBFI9bxzAm8S7ouqJ31eoU0rL6bqLWUKFArDMOJeot6Jc/p3cyVLC5PDCN0uLUp5N2VHo83/3IhMv8U7+z1wHzRb1i2RsbOQOpY2MoOhgMkjOPjXN1L4LHEBDKc5zX6Q72RZ/IcovPvUkiIm0eiAVzIedbcJve49LUnxjJ+kKEYpA9qEqwp/3Rx9DRFo+2dsp8imFUG9j7gfTGeiu/N3gj5le3Qdexpw+utThnHL8WdYjZmHTPSvIoxj25yqw+gWLbeH/cJosi3PKlWweozOYx0K/1JEl9gRUewSPooVwP3kaVScGuixNetZaU/MZbE/AC1wfa+eYqjEo0lJXB04egxHW6oNRSkpzRiQFTCqVpKUyuLRHQYr3UIYd0+lx8OiJ9Z5Fh77x13+2t7rK2H0ehQGy1GrjGDgRKAyx3gsXkPSHY9ILyGHnUPz7E6teavKtqu3SskRAD9864/woxGC1C3o3z2hR7cQ0pb4Fc8aqV0OUJO7GKa5PyS3k+sG6jZI=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(40470700004)(46966006)(82310400004)(316002)(83380400001)(16526019)(26005)(110136005)(186003)(7696005)(5660300002)(86362001)(2616005)(47076005)(8676002)(36860700001)(2906002)(1076003)(6666004)(36756003)(6636002)(81166007)(40460700003)(4326008)(426003)(30864003)(8936002)(336012)(70206006)(70586007)(356005)(508600001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2022 11:04:59.5449 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58319d6e-75c3-484a-ef38-08d9e0bbb1cb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT006.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1833
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] drm/amdgpu: add safeguards for accessing mmhub CG
+ registers
+Content-Language: en-US
+To: Lang Yu <Lang.Yu@amd.com>
+References: <20220126075326.1134770-1-Lang.Yu@amd.com>
+ <fd878564-3f15-ba76-83f1-42284782e7d5@gmail.com>
+ <YfEqQHHo3SGxDJUW@lang-desktop>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <YfEqQHHo3SGxDJUW@lang-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,286 +76,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make code reusable and more simple.
+Am 26.01.22 um 12:02 schrieb Lang Yu:
+> On 01/26/ , Christian König wrote:
+>> Am 26.01.22 um 08:53 schrieb Lang Yu:
+>>> We observed a gpu hang when querying mmhub CG status(i.e.,
+>>> cat amdgpu_pm_info) on cyan skillfish. Acctually, cyan
+>>> skillfish doesn't support any CG features.
+>>>
+>>> Only allow asics which support CG features accessing related
+>>> registers. Will add similar safeguards for other IPs in the
+>>> furture.
+>> I think you should probably add a macro or function for this check, apart
+>> from that looks good to me.
+> Thanks for you advice. Is it fine to use such a macro?
+>
+> #define amdgpu_device_cg_flag_isset(flag) ((adev->cg_flags) & (flag))
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/umc_v6_7.c | 94 +++++++++------------------
- drivers/gpu/drm/amd/amdgpu/umc_v8_7.c | 82 +++++++++--------------
- 2 files changed, 61 insertions(+), 115 deletions(-)
+No, first of all that can also be a function and doesn't need to be a macro.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-index 47452b61b615..4abcdda42ac6 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-@@ -114,21 +114,13 @@ static void umc_v6_7_ecc_info_query_ras_error_count(struct amdgpu_device *adev,
- 	}
- }
- 
--static void umc_v6_7_ecc_info_query_error_address(struct amdgpu_device *adev,
--					 struct ras_err_data *err_data,
--					 uint32_t ch_inst,
--					 uint32_t umc_inst)
-+static void umc_v6_7_convert_error_address(struct amdgpu_device *adev,
-+					struct ras_err_data *err_data, uint32_t ch_inst,
-+					uint32_t umc_inst, uint64_t err_addr,
-+					uint64_t mc_umc_status)
- {
--	uint64_t mc_umc_status, err_addr, soc_pa, retired_page, column;
- 	uint32_t channel_index;
--	uint32_t eccinfo_table_idx;
--	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
--
--	eccinfo_table_idx = umc_inst * adev->umc.channel_inst_num + ch_inst;
--	channel_index =
--		adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num + ch_inst];
--
--	mc_umc_status = ras->umc_ecc.ecc[eccinfo_table_idx].mca_umc_status;
-+	uint64_t soc_pa, retired_page, column;
- 
- 	if (mc_umc_status == 0)
- 		return;
-@@ -136,12 +128,13 @@ static void umc_v6_7_ecc_info_query_error_address(struct amdgpu_device *adev,
- 	if (!err_data->err_addr)
- 		return;
- 
-+	channel_index =
-+			adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num + ch_inst];
-+
- 	/* calculate error address if ue/ce error is detected */
- 	if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
- 	    (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UECC) == 1 ||
- 	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1)) {
--
--		err_addr = ras->umc_ecc.ecc[eccinfo_table_idx].mca_umc_addr;
- 		err_addr = REG_GET_FIELD(err_addr, MCA_UMC_UMC0_MCUMC_ADDRT0, ErrorAddr);
- 
- 		/* translate umc channel address to soc pa, 3 parts are included */
-@@ -173,6 +166,23 @@ static void umc_v6_7_ecc_info_query_error_address(struct amdgpu_device *adev,
- 	}
- }
- 
-+static void umc_v6_7_ecc_info_query_error_address(struct amdgpu_device *adev,
-+					 struct ras_err_data *err_data,
-+					 uint32_t ch_inst,
-+					 uint32_t umc_inst)
-+{
-+	uint64_t mc_umc_status, err_addr;
-+	uint32_t eccinfo_table_idx;
-+	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-+
-+	eccinfo_table_idx = umc_inst * adev->umc.channel_inst_num + ch_inst;
-+	mc_umc_status = ras->umc_ecc.ecc[eccinfo_table_idx].mca_umc_status;
-+	err_addr = ras->umc_ecc.ecc[eccinfo_table_idx].mca_umc_addr;
-+
-+	umc_v6_7_convert_error_address(adev, err_data, ch_inst, umc_inst,
-+			err_addr, mc_umc_status);
-+}
-+
- static void umc_v6_7_ecc_info_query_ras_error_address(struct amdgpu_device *adev,
- 					     void *ras_error_status)
- {
-@@ -348,9 +358,7 @@ static void umc_v6_7_query_error_address(struct amdgpu_device *adev,
- 					 uint32_t umc_inst)
- {
- 	uint32_t mc_umc_status_addr;
--	uint32_t channel_index;
--	uint64_t mc_umc_status, mc_umc_addrt0;
--	uint64_t err_addr, soc_pa, retired_page, column;
-+	uint64_t mc_umc_status, mc_umc_addrt0, err_addr;
- 
- 	mc_umc_status_addr =
- 		SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_STATUST0);
-@@ -358,54 +366,10 @@ static void umc_v6_7_query_error_address(struct amdgpu_device *adev,
- 		SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_ADDRT0);
- 
- 	mc_umc_status = RREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4);
-+	err_addr = RREG64_PCIE((mc_umc_addrt0 + umc_reg_offset) * 4);
- 
--	if (mc_umc_status == 0)
--		return;
--
--	if (!err_data->err_addr) {
--		/* clear umc status */
--		WREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4, 0x0ULL);
--		return;
--	}
--
--	channel_index =
--		adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num + ch_inst];
--
--	/* calculate error address if ue/ce error is detected */
--	if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
--	    (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UECC) == 1 ||
--	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1)) {
--
--		err_addr = RREG64_PCIE((mc_umc_addrt0 + umc_reg_offset) * 4);
--		err_addr = REG_GET_FIELD(err_addr, MCA_UMC_UMC0_MCUMC_ADDRT0, ErrorAddr);
--
--		/* translate umc channel address to soc pa, 3 parts are included */
--		soc_pa = ADDR_OF_8KB_BLOCK(err_addr) |
--				ADDR_OF_256B_BLOCK(channel_index) |
--				OFFSET_IN_256B_BLOCK(err_addr);
--
--		/* The umc channel bits are not original values, they are hashed */
--		SET_CHANNEL_HASH(channel_index, soc_pa);
--
--		/* clear [C4 C3 C2] in soc physical address */
--		soc_pa &= ~(0x7ULL << UMC_V6_7_PA_C2_BIT);
--
--		/* we only save ue error information currently, ce is skipped */
--		if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UECC)
--				== 1) {
--			/* loop for all possibilities of [C4 C3 C2] */
--			for (column = 0; column < UMC_V6_7_NA_MAP_PA_NUM; column++) {
--				retired_page = soc_pa | (column << UMC_V6_7_PA_C2_BIT);
--				amdgpu_umc_fill_error_record(err_data, err_addr,
--					retired_page, channel_index, umc_inst);
--
--				/* shift R14 bit */
--				retired_page ^= (0x1ULL << UMC_V6_7_PA_R14_BIT);
--				amdgpu_umc_fill_error_record(err_data, err_addr,
--					retired_page, channel_index, umc_inst);
--			}
--		}
--	}
-+	umc_v6_7_convert_error_address(adev, err_data, ch_inst, umc_inst,
-+				err_addr, mc_umc_status);
- 
- 	/* clear umc status */
- 	WREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4, 0x0ULL);
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c
-index de85a998ef99..df15b87ae12b 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c
-@@ -115,21 +115,13 @@ static void umc_v8_7_ecc_info_query_ras_error_count(struct amdgpu_device *adev,
- 	}
- }
- 
--static void umc_v8_7_ecc_info_query_error_address(struct amdgpu_device *adev,
--					struct ras_err_data *err_data,
--					uint32_t ch_inst,
--					uint32_t umc_inst)
-+static void umc_v8_7_convert_error_address(struct amdgpu_device *adev,
-+					struct ras_err_data *err_data, uint32_t ch_inst,
-+					uint32_t umc_inst, uint64_t err_addr,
-+					uint64_t mc_umc_status)
- {
--	uint64_t mc_umc_status, err_addr, retired_page;
--	uint32_t channel_index;
--	uint32_t eccinfo_table_idx;
--	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
--
--	eccinfo_table_idx = umc_inst * adev->umc.channel_inst_num + ch_inst;
--	channel_index =
--		adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num + ch_inst];
--
--	mc_umc_status = ras->umc_ecc.ecc[eccinfo_table_idx].mca_umc_status;
-+	uint32_t lsb, channel_index;
-+	uint64_t retired_page;
- 
- 	if (mc_umc_status == 0)
- 		return;
-@@ -137,13 +129,16 @@ static void umc_v8_7_ecc_info_query_error_address(struct amdgpu_device *adev,
- 	if (!err_data->err_addr)
- 		return;
- 
-+	channel_index =
-+			adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num + ch_inst];
-+
- 	/* calculate error address if ue/ce error is detected */
- 	if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
- 	    (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UECC) == 1 ||
- 	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1)) {
--
--		err_addr = ras->umc_ecc.ecc[eccinfo_table_idx].mca_umc_addr;
-+		lsb = REG_GET_FIELD(err_addr, MCA_UMC_UMC0_MCUMC_ADDRT0, LSB);
- 		err_addr = REG_GET_FIELD(err_addr, MCA_UMC_UMC0_MCUMC_ADDRT0, ErrorAddr);
-+		err_addr &= ~((0x1ULL << lsb) - 1);
- 
- 		/* translate umc channel address to soc pa, 3 parts are included */
- 		retired_page = ADDR_OF_4KB_BLOCK(err_addr) |
-@@ -157,6 +152,22 @@ static void umc_v8_7_ecc_info_query_error_address(struct amdgpu_device *adev,
- 					retired_page, channel_index, umc_inst);
- 	}
- }
-+static void umc_v8_7_ecc_info_query_error_address(struct amdgpu_device *adev,
-+					struct ras_err_data *err_data,
-+					uint32_t ch_inst,
-+					uint32_t umc_inst)
-+{
-+	uint64_t mc_umc_status, err_addr;
-+	uint32_t eccinfo_table_idx;
-+	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-+
-+	eccinfo_table_idx = umc_inst * adev->umc.channel_inst_num + ch_inst;
-+	mc_umc_status = ras->umc_ecc.ecc[eccinfo_table_idx].mca_umc_status;
-+	err_addr = ras->umc_ecc.ecc[eccinfo_table_idx].mca_umc_addr;
-+
-+	umc_v8_7_convert_error_address(adev, err_data, ch_inst, umc_inst,
-+				err_addr, mc_umc_status);
-+}
- 
- static void umc_v8_7_ecc_info_query_ras_error_address(struct amdgpu_device *adev,
- 					void *ras_error_status)
-@@ -330,9 +341,8 @@ static void umc_v8_7_query_error_address(struct amdgpu_device *adev,
- 					 uint32_t ch_inst,
- 					 uint32_t umc_inst)
- {
--	uint32_t lsb, mc_umc_status_addr;
--	uint64_t mc_umc_status, err_addr, retired_page, mc_umc_addrt0;
--	uint32_t channel_index = adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num + ch_inst];
-+	uint32_t mc_umc_status_addr;
-+	uint64_t mc_umc_status, err_addr, mc_umc_addrt0;
- 
- 	mc_umc_status_addr =
- 		SOC15_REG_OFFSET(UMC, 0, mmMCA_UMC_UMC0_MCUMC_STATUST0);
-@@ -340,38 +350,10 @@ static void umc_v8_7_query_error_address(struct amdgpu_device *adev,
- 		SOC15_REG_OFFSET(UMC, 0, mmMCA_UMC_UMC0_MCUMC_ADDRT0);
- 
- 	mc_umc_status = RREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4);
-+	err_addr = RREG64_PCIE((mc_umc_addrt0 + umc_reg_offset) * 4);
- 
--	if (mc_umc_status == 0)
--		return;
--
--	if (!err_data->err_addr) {
--		/* clear umc status */
--		WREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4, 0x0ULL);
--		return;
--	}
--
--	/* calculate error address if ue/ce error is detected */
--	if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
--	    (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UECC) == 1 ||
--	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1)) {
--
--		err_addr = RREG64_PCIE((mc_umc_addrt0 + umc_reg_offset) * 4);
--		/* the lowest lsb bits should be ignored */
--		lsb = REG_GET_FIELD(err_addr, MCA_UMC_UMC0_MCUMC_ADDRT0, LSB);
--		err_addr = REG_GET_FIELD(err_addr, MCA_UMC_UMC0_MCUMC_ADDRT0, ErrorAddr);
--		err_addr &= ~((0x1ULL << lsb) - 1);
--
--		/* translate umc channel address to soc pa, 3 parts are included */
--		retired_page = ADDR_OF_4KB_BLOCK(err_addr) |
--				ADDR_OF_256B_BLOCK(channel_index) |
--				OFFSET_IN_256B_BLOCK(err_addr);
--
--		/* we only save ue error information currently, ce is skipped */
--		if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UECC)
--				== 1)
--			amdgpu_umc_fill_error_record(err_data, err_addr,
--					retired_page, channel_index, umc_inst);
--	}
-+	umc_v8_7_convert_error_address(adev, err_data, ch_inst, umc_inst,
-+					err_addr, mc_umc_status);
- 
- 	/* clear umc status */
- 	WREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4, 0x0ULL);
--- 
-2.17.1
+Then we should probably encapsulate more functionality or otherwise it 
+is rather usless.
+
+Think more about a function like amdgpu_gmc_cg_enabled() instead.
+
+Regards,
+Christian.
+
+>
+> Regards,
+> Lang
+>
+>> Christian.
+>>
+>>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 3 +++
+>>>    drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c | 3 +++
+>>>    drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 3 +++
+>>>    drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c | 3 +++
+>>>    drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c | 3 +++
+>>>    5 files changed, 15 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+>>> index 4c9f0c0f3116..1869e2019461 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+>>> @@ -550,6 +550,9 @@ static void mmhub_v1_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
+>>>    {
+>>>    	int data, data1;
+>>> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
+>>> +		return;
+>>> +
+>>>    	if (amdgpu_sriov_vf(adev))
+>>>    		*flags = 0;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+>>> index 3b901f941627..f7b9843b36e6 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+>>> @@ -546,6 +546,9 @@ static void mmhub_v1_7_get_clockgating(struct amdgpu_device *adev, u32 *flags)
+>>>    {
+>>>    	int data, data1;
+>>> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
+>>> +		return;
+>>> +
+>>>    	if (amdgpu_sriov_vf(adev))
+>>>    		*flags = 0;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+>>> index 3718ff610ab2..3f5f326379b7 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+>>> @@ -686,6 +686,9 @@ static void mmhub_v2_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
+>>>    {
+>>>    	int data, data1;
+>>> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
+>>> +		return;
+>>> +
+>>>    	if (amdgpu_sriov_vf(adev))
+>>>    		*flags = 0;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+>>> index 9e16da28505a..b23dd9ddfb5c 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+>>> @@ -580,6 +580,9 @@ static void mmhub_v2_3_get_clockgating(struct amdgpu_device *adev, u32 *flags)
+>>>    {
+>>>    	int data, data1, data2, data3;
+>>> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
+>>> +		return;
+>>> +
+>>>    	if (amdgpu_sriov_vf(adev))
+>>>    		*flags = 0;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+>>> index 619106f7d23d..a2d5c8424e2b 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+>>> @@ -651,6 +651,9 @@ static void mmhub_v9_4_get_clockgating(struct amdgpu_device *adev, u32 *flags)
+>>>    {
+>>>    	int data, data1;
+>>> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
+>>> +		return;
+>>> +
+>>>    	if (amdgpu_sriov_vf(adev))
+>>>    		*flags = 0;
 
