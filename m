@@ -4,93 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08985C28CF5
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 04:55:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3849BC2BA4C
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 05:36:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D38210E51A;
-	Wed, 26 Jan 2022 04:55:14 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2052.outbound.protection.outlook.com [40.107.93.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFFE810E51B
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 04:55:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B874910E42F;
+	Wed, 26 Jan 2022 05:36:04 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2077.outbound.protection.outlook.com [40.107.236.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70B8010E42F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 05:36:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QPK2iKVp7hx7dA6Zed12QTGUv+Lgb/ihns4vpk2ohTOYWrpqhYQ1d+Smy+FrITEuXy1ffxcGd7nTSR9E8UdMiledxQ09vlm43sDV0w0s4azhWk1ykkrgQQxdaVEIfrzpMhJBaEZ39Ja+SL25IRXimHHQIjDNhAJFbMkUNtAim5RJuR/2pR6lxkK06w0r/Fw/uVh/iAPNuajKwuQwxocLOAMoKsms+t9Rv0uN6hmuzdb6bE8nO3qb1cpS9ttoo3KLVKInPxfQsFYIjqt550UtTrllLeyM2ht+hkl7L1m0A07u9Y1TEd96rO2+Uuq15Wjo5RQSYnQMxdpPjaohfbujjQ==
+ b=FWXwirCyvkQdkiBEHOMuFrPy5QUKtTAaixgqZhHfuci+5n9+mOCct+hXCCfv1Ja5ELkWUuBtDtA36AE/di/Q/3nZaS9n6MlVYgbZXvV9BxdLbancFO60TgrC7N/K8P6D9PrWdvn7Bua7X4C1Uh3uj6z9J0FrDc1ecf6/x5GAdiVvV9XXgvGUFK316sB7Jb1QWms35Flma3kNCm934IjAD5X2eF6G91leKhhE/u7+UzMWmDxfabN44PIg7MJAiRmnN/hUsiww1sYBjWpkkXqFZHqfTv6TRvJPjTSdKSu21Y8nELUYW46q5zCXjTnbuU08L91AaRJyFRSQm+6BNSxuDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qyq6reLPfq4oVlb/WMeiVbPNiZUf1tXFAx/MaZlsGKk=;
- b=V75FhveAGh2aTD78MrjuewX5QERLlZ0F+UUJBuN4lmFa7DkZJizZDHqzyNIQGaV8xtAgogbLRalBuEs1BFaAt65BA56tL6yLMyqsX778KQgYw1yFb19NtpdHXv/EwJo9kqxyLCkSdvsR0zwTEPaxMoJeNR7Blm4QopaaHzycfViWVMSOMeZW+e0EYpokXpcLlXUEOfEPtDAFTmI7S75CO4fXitZGHy0hq81Ou9BvRqK1yl4U3apRxo6LKdfRkE6QE82JaiYFtVNMo9JzHbMArFRraXmbQtWt895IDVMrGTZQdYkMoyxV+saz+p9Sb+Gkn6RWRABM8cGfgVxz0RS6AA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=SbnLc0LlhcOZE1G2YmRCccYWES6qWTU7cwY4rvQeiC8=;
+ b=KyvylYKd1Ugdb/+xZKoyOaKa2BeWSugbkFwrcjeyvqRuNsjHZKbGgH3yTjxxbKEwqS7ofioHB2MKhkDWXXTae9HYa5gPnZOn/zkuJglXWKR+nd8jI2ya/vDF+dBN/F0HzUQAwF8Rl6jv39Zh7bgNWJPqKg2yaHUDv0DVjuxBSw5MctZFe1o09rXXeBOHSZOH3QfTRBG43qgNi4FDM/AH6BlKmq90L7G2kDPSwz3wEa6LEtTRPqA5IewyNCNOYD4IizjB7h4omBC8L0mKgQElgwH6fG2Bw7Yj4TxNW13PxeWsxCHcSyq6ejwUGMIFGp8nF3Iu1byB8PIETwE+XHg8KQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qyq6reLPfq4oVlb/WMeiVbPNiZUf1tXFAx/MaZlsGKk=;
- b=xcUbTbd7eQRJiEyah9T9z/f5/s+NN3CeVSBHlcsOKiyIf0EK0NHrVHS0mxl+S8lY6C7mw35zSGt6dxcaxJXHNU+Jv3p5i1z/VZDvF1N0+vZRX1jgpWMCfgRsU2ca2vH+q3f2YkNyasdls/zv/WvbzsC20Ggu3VdHIAbX31X2eYw=
-Received: from MW4PR04CA0183.namprd04.prod.outlook.com (2603:10b6:303:86::8)
- by MN2PR12MB4392.namprd12.prod.outlook.com (2603:10b6:208:264::24) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=SbnLc0LlhcOZE1G2YmRCccYWES6qWTU7cwY4rvQeiC8=;
+ b=lh7sK9DWOOtEuJ3uzmupnGBP4sKNn1dDK3cgsVy/d1amqQ5Kr0nruOoc8faRvu1ojpMz3StoVqUuNkV7KSXuvRkE3s0EWfBTuoKwgHgSq5/08lxcH0fdmB++xj6hKTkrkw4TaPtMeVz24JVa+PrTaGZneJzlrCsfZ4p/W1zXrHU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5157.namprd12.prod.outlook.com (2603:10b6:208:308::15)
+ by MWHPR12MB1440.namprd12.prod.outlook.com (2603:10b6:300:13::11)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Wed, 26 Jan
- 2022 04:55:04 +0000
-Received: from CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:86:cafe::23) by MW4PR04CA0183.outlook.office365.com
- (2603:10b6:303:86::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.12 via Frontend
- Transport; Wed, 26 Jan 2022 04:55:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT035.mail.protection.outlook.com (10.13.175.36) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4930.15 via Frontend Transport; Wed, 26 Jan 2022 04:55:03 +0000
-Received: from dapowell-ubuntu-200400-1.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.18; Tue, 25 Jan 2022 22:54:58 -0600
-From: Darren Powell <darren.powell@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3 3/3] amdgpu/pm: Linked emit_clock_levels to use cases
- amdgpu_get_pp_{dpm_clock, od_clk_voltage}
-Date: Tue, 25 Jan 2022 23:54:41 -0500
-Message-ID: <20220126045441.3891-4-darren.powell@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220126045441.3891-1-darren.powell@amd.com>
-References: <20220126045441.3891-1-darren.powell@amd.com>
+ 2022 05:35:56 +0000
+Received: from BL1PR12MB5157.namprd12.prod.outlook.com
+ ([fe80::42f:534d:e82:b59f]) by BL1PR12MB5157.namprd12.prod.outlook.com
+ ([fe80::42f:534d:e82:b59f%4]) with mapi id 15.20.4930.015; Wed, 26 Jan 2022
+ 05:35:56 +0000
+Message-ID: <4a4917ef-a770-17f0-f72c-e4321792eaef@amd.com>
+Date: Tue, 25 Jan 2022 23:35:54 -0600
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: drm/amd/amdgpu: Add ip_discovery_text sysfs entry (v2)
+Content-Language: en-US
+To: Tom St Denis <tom.stdenis@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220125181835.2735521-1-tom.stdenis@amd.com>
+From: "Limonciello, Mario" <mario.limonciello@amd.com>
+In-Reply-To: <20220125181835.2735521-1-tom.stdenis@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0115.namprd13.prod.outlook.com
+ (2603:10b6:208:2b9::30) To BL1PR12MB5157.namprd12.prod.outlook.com
+ (2603:10b6:208:308::15)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 47556fa8-5144-45f0-a65f-08d9e088042a
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4392:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB43924EAFE567449A2320797DF0209@MN2PR12MB4392.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Office365-Filtering-Correlation-Id: 438250a9-0b86-45bc-0a16-08d9e08db9f4
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1440:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1440AC580E94D3EDAAB8D6E5E2209@MWHPR12MB1440.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:311;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jC3iF5ki7sR9BzEtVwaR3jlfgF147xy4gOXo/xNYokEvKS1jPOtBE9tpOuj7dIpz2jr5CU4UxWcs9EPmZC0CiWxHIu5XZeUfBSsZniiBozHS/DFKBL6T5JbcC7O7LlcBLKbcV8JI5aCp8yu9d49SVlkPewPU5Jb+T1U3eQKlq2fLvDX6DJcu9NJRFIOym80L040eZ7ZkD0tqZFz3TSKNa0B0qhwOvJ+N2TnQw/3nrIbZdrzZb5PNjHLYHrwC/41z17jzNej/PTu1mtnvCEYwgq8Lt5C+z5qLxRU0NODennOeJagL7iqVjRZzv6QMcZu5ki8YtYVF4/GURT1iDkrvqvAEtxaZwwRVdExsxUcwlSW1wvuDt3IrbIaPph1UtH9MNd/etorhKU6L0XAH28DVEf2bQ9jtBfS52XZ0zj1IZLEUWlpV7rI1f11ksDJTSvCJ/0/n9PxX2MfN2sKaT2/Nm0KUZFJINL3QIYMn0U4EzzaXLd6LHXXZ4labCwh/DikIqZL44Mi/RegEC2rkAwaKO0A8NgpxQGhry70BgNCVqeZBd9mfv4MlQ4viZl6UEtKcQjmOaQjf6CjP+V6URZzOVvhdj0nPdBgK6OuXUZGpC9mm5RSN44bGbP9nVg9fbDyefahgFEXJK/wXhDUCyN3lPsDj9LmF2KJ28bQeGXIZF4Bp1gwtBi1OKbe3nVDuBAK+YQCW2lVBTaGNzxTdR++3AQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(40460700003)(316002)(8936002)(8676002)(4326008)(47076005)(83380400001)(16526019)(1076003)(186003)(26005)(6916009)(336012)(426003)(82310400004)(86362001)(81166007)(356005)(70586007)(70206006)(2906002)(36860700001)(44832011)(36756003)(5660300002)(7696005)(508600001)(6666004)(2616005)(36900700001)(20210929001);
+X-Microsoft-Antispam-Message-Info: 5C7V5YXuxofVb8ys60PWgmXNGQlfKiMbl+YHaDC9BlWDeDi3aZN7u4w4t7noHycD2nnSuRjQ9S+DSeECo+30PpnpANhPL7yaCjI2v2bgKrZA+A9CY0ZZXjRg42AjOg11vPJgAKJG28daIE6YhNsXW3wIxgUDxxZuE1QyNRE/oDp5zvwmWtxNSdBJNoYkZN446fJ9s4gnNE0EGqNM/IEyz35QLL6uBi4SOOsneEJnGnn+3VrFNbac4TQ24v5XumVul+Xjv44/j23suhShp/EwCpGtF1XzhNWm8qWgY2Xk3Q3vooAnkCnh7xM+Zr9OhdzPIWgTIvIg/gAhzsPDDw6U/iGM68xiqnPrRPQVAtPYq2aNXnjlFfuNeAR3RfrDZN+HEQzK48pbmnI0pZJB7yH6GzjFLTApD4rMzY/gYVT47RzLsQk5Ijvy7eTsl7BNEThbRNE3NojRFxX3NWjihkTV4JnFWDwDseRFbRicQOeSpBDJobq2yVIG3LaiI3JMY1deewZmFf4du8OwNWkRDYH94DAiv+f5UxZXR28L5VG5fDrOglm545tEwR7a973Z5sGoSPm/2UoDNAYx9J+8+RZoeKVOGUpvyyaa3P3f5IFO/busJSNd+/xPAPu7cMC99NlENlN0T7Ut7w447tlma7wXyPWVuI39NuI+7ryiHanil5ozg1ZcIGX0lna1thUISqtP2x/sA/JQqZaFRC3ZaGnr0qQ8GUZzZoSmTx6MSmjg7KM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5157.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(38100700002)(5660300002)(316002)(2906002)(8676002)(8936002)(31696002)(66556008)(66476007)(66946007)(53546011)(86362001)(31686004)(2616005)(508600001)(83380400001)(26005)(36756003)(6486002)(186003)(6506007)(6512007)(43740500002)(45980500001)(20210929001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YlR4dy9sQm5nelJxdEs1V3NQRytGQmNYYy8vU0RybEkyekgwZXhIcWYrY2dj?=
+ =?utf-8?B?dHB6dWU5QTdpMzhsYW1TVVFoZHBKOWgwZXAwSGhtRUx5UGZtdGtkSGtuUk1j?=
+ =?utf-8?B?RFlkdHJmeUVVUUtodnZRL3VUenRnaE1UQVRhaEZqbkpzTkpVWVdLcFFERE8v?=
+ =?utf-8?B?cGZSWEg0U0lLdVd1Q3lpZHc0ZmxxSUtWTlNJQVRUOFIzSUo2UUJycW82RGp2?=
+ =?utf-8?B?ZitMclpOZkFVVGxOY0ROWUpEL2psS2hkbTAvRTJ3eCswWGVlSVg2Y2hSbHZ6?=
+ =?utf-8?B?YjAydEtqNzRaUDB0YkQwRVlYZnJrNStBMWRYb083THNPVVhPdjgxbng4Yzln?=
+ =?utf-8?B?ak5QYk1pZ21kRWM3VHNzOTgyQnFVUk1uOHErUndmZ09GaDVJQ1lNZ0NoVVZF?=
+ =?utf-8?B?YjZqaFF3YnhrdENlYm1XUm5nLzNBSC9YUjd6L0pjNnM2ZitBdkZUWXhnQlA3?=
+ =?utf-8?B?dkdWWTl4bUN6UnhHN1ZXYVZJakRwdGR0ZUlhQXJBSi9FZTUwVU9OZ0xxdGRo?=
+ =?utf-8?B?VUpKbXZLRXVRT0hPZHRjSHh6VEpndE5RWXNoRmo1NkU5TE5Uazhwa09zd2sw?=
+ =?utf-8?B?cUQ2Tk5TTVJSZlFTM3VsUmZTeWtHYjV1cDk5R28vRlhrQUdWNnNNdW9TVUFn?=
+ =?utf-8?B?dGxBc0p4ci96ZXAvN0lRN21OY1d5V3VJMGl6RmsxRjlzMEdnRGhSNTVkZE1K?=
+ =?utf-8?B?VHIvajNvMXpjZ0xrUS9XWnI2RHlWb3UyVmJ2RGhzZ2Q3S3dMMFlkR0NnL0dE?=
+ =?utf-8?B?SDBWcnRzbUg4cnFMRDViNmgvL2cxNTJQWjY3d1g2WEVURVd3Tkx3K00zS2NI?=
+ =?utf-8?B?dWoyb1pLMVNUbWZBLzVnZWVZOGo4MDJuYklzZ0lzRFEyWHFPY1gzbERzdi9n?=
+ =?utf-8?B?YWoyYWoycDFDYWFXZnNZOEh0OFFlRmhsVkxubzVxMmh1ZGQ2TW11ZmdZdlBC?=
+ =?utf-8?B?Q0xUa0hoYXBnNnRCRWNMTk5aRW03THhNaDE0eFBTdmhYY1duU3Q5QjRqcDRp?=
+ =?utf-8?B?YjlDSHp6VjY1TlVONlBRbGltaXhiOFZjYmp1SmlITWJPcDdvK2c4d3JieFJi?=
+ =?utf-8?B?T2llbXVYTHpWZlRTMW93NUFZNUhyQ2p3WkhHbEpycW1aSnRUbThwUllKOEVo?=
+ =?utf-8?B?cEFxRG9MNlpjcUhCc3k5VVJOZFpyOXVySEpJRjNQSG9HRWNRTmhiaEVlbGJ4?=
+ =?utf-8?B?UENYYTdvd2gyZzVNazRwUkhhQnErZUZ3b1Y5aDB6QUloZ0p2TlNKVkF4T1pV?=
+ =?utf-8?B?U2M3M1Rha3NLRFc4bWd0SEdFVmxjQVJIYWxNSXY2RWFTeFpsVmE3ZllxMHRV?=
+ =?utf-8?B?RkxWRHB5ajloNFVmY3F4Q0s3OFlBYmZKSGhFZXdRSjdyWEF1SEtpdWNrclRX?=
+ =?utf-8?B?OGNxbENvekx4TkMxcUFnV1p4YldrTHlaUFA5Ymo2cWRDNXlhZmpHS2w5bVlU?=
+ =?utf-8?B?MGNoQkFjeVVFUm94TzVORXpEbnJNd1VVcnlJOFpNWDNTaUFNODJaQjloa0Rq?=
+ =?utf-8?B?M1hJU3dqRWJUeWtkU3Y3Zm0yYU1pQWFBYUZWQnVoSDV6RXg2Q0V1dWYvVWE3?=
+ =?utf-8?B?QmhmNlhuL25IWjVuUkd5V0VVcDVEbHdJR3FhSDUyRzMrYVo1QTNrZDRyRG5i?=
+ =?utf-8?B?b3c4ZS95MmZjMlozU3JPVGREYmdpblJYSVUyQjBXV1ByVDZkYk9DYmhzei9N?=
+ =?utf-8?B?V3hZM05EVXkxcVc3N3J1WGJ6R09QYUxRTUt2cEQ1d09Qc29WWmRBZHA0a29D?=
+ =?utf-8?B?VkE2KzI1OGZ0ekh2ZnR1MWh5SWEvRzBndnBTRFZXZlE2YTdKbk02NXJEbENR?=
+ =?utf-8?B?WERraGkrNnlMSlowbld4OEcyTk1PeVM0eWp3NmNGbDJoNUMwYy8wV0pWMG91?=
+ =?utf-8?B?eGJaSFBReFFrRU9leUJvNlNrSmpUZnljcW1rNDg0QUkvTndpVFArditoMmRD?=
+ =?utf-8?B?TTVtZWgvMXZlSGhVUmkyS1VjM0ZuUll1U1hEcjhoMjE0OUF1SzRBK2IwM2Yr?=
+ =?utf-8?B?dXpqUDAzSzM5c25JN1hRRXNHcGtzK0Q0cjgxZWZOMGtZQU53OHpoZGtkU3dx?=
+ =?utf-8?B?SFRjRFlyc0VEdHZaN1phTzBtalBwNFJHK2pKcUNSTG5EOXk4Z2d3WGJ2N1d3?=
+ =?utf-8?B?eXBpQ0pDbVVScG5BMnpjNkxzeUZGVFdGYTVCYXhYQkJlUDRsbGZuL283YnRm?=
+ =?utf-8?Q?tRqA3fq/nTA78GpBZ+xArZ0=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2022 04:55:03.7995 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47556fa8-5144-45f0-a65f-08d9e088042a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 438250a9-0b86-45bc-0a16-08d9e08db9f4
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5157.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2022 05:35:56.6277 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4392
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: O1rOz3BKulog7NznzjwDTWDqpt9Thiw+N7PPNFhE1O3FSJfs9Etx1efxefXDscpalf+C6Ifb4Mtb2JWLGK93kw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1440
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,131 +125,236 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Darren Powell <darren.powell@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-   (v3)
-     Rewrote patchset to order patches as (API, hw impl, usecase)
+A few suggestion ideas inline.
 
-     - modified amdgpu_get_pp_od_clk_voltage to try amdgpu_dpm_emit_clock_levels and
-       fallback to amdgpu_dpm_print_clock_levels if emit is not implemented.
-     - modified amdgpu_get_pp_dpm_clock to try amdgpu_dpm_emit_clock_levels and
-       fallback to amdgpu_dpm_print_clock_levels if emit is not implemented.
-     - Newline is printed to buf if no output produced
+On 1/25/2022 12:18, Tom St Denis wrote:
+> Newer hardware has a discovery table in hardware that the kernel will
+> rely on instead of header files for things like IP offsets.  This
+> sysfs entry adds a simple to parse table of IP instances and segment
+> offsets.
+> 
+> Produces output that looks like:
+> 
+> $ cat ip_discovery_text
+> ATHUB{0} v2.0.0: 00000c00 02408c00
+> CLKA{0} v11.0.0: 00016c00 02401800
+> CLKA{1} v11.0.0: 00016e00 02401c00
+> CLKA{2} v11.0.0: 00017000 02402000
+> CLKA{3} v11.0.0: 00017200 02402400
+> CLKA{4} v11.0.0: 0001b000 0242d800
+> CLKB{0} v11.0.0: 00017e00 0240bc00
+> DBGU_NBIO{0} v3.0.0: 000001c0 02409000
+> DBGU0{0} v3.0.0: 00000180 02409800
+> DBGU1{0} v3.0.0: 000001a0 02409c00
+> DF{0} v3.0.0: 00007000 0240b800
+> DFX{0} v4.1.0: 00000580 02409400
+> DFX_DAP{0} v2.0.0: 000005a0 00b80000 0240c400
+> DMU{0} v2.0.2: 00000012 000000c0 000034c0 00009000 02403c00
+> FUSE{0} v11.0.0: 00017400 02401400
+> GC{0} v10.1.10: 00001260 0000a000 02402c00
+> 
+> (v2): Use a macro for buffer size and fix alignment in amdgpu.h
+> 
+> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 79 ++++++++++++++++++-
+>   2 files changed, 79 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 3bc76759c143..43caeb4bdc07 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1019,6 +1019,7 @@ struct amdgpu_device {
+>   	struct amdgpu_ip_block          ip_blocks[AMDGPU_MAX_IP_NUM];
+>   	uint32_t		        harvest_ip_mask;
+>   	int				num_ip_blocks;
+> +	char            *ip_discovery_text;
+>   	struct mutex	mn_lock;
+>   	DECLARE_HASHTABLE(mn_hash, 7);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index 07623634fdc2..d036977dab8a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -267,6 +267,19 @@ static void amdgpu_discovery_harvest_config_quirk(struct amdgpu_device *adev)
+>   	}
+>   }
+>   
+> +static ssize_t ip_discovery_text_show(struct device *dev,
+> +		struct device_attribute *attr, char *buf)
+> +{
+> +	struct drm_device *ddev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(ddev);
+> +
+> +	return sysfs_emit(buf, "%s", adev->ip_discovery_text);
+> +}
+> +
+> +static DEVICE_ATTR(ip_discovery_text, S_IRUGO,
+> +				ip_discovery_text_show, NULL);
+> +
+> +
+>   static int amdgpu_discovery_init(struct amdgpu_device *adev)
+>   {
+>   	struct table_info *info;
+> @@ -351,6 +364,11 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+>   		goto out;
+>   	}
+>   
+> +	// init sysfs for ip_discovery
+> +	r = sysfs_create_file(&adev->dev->kobj, &dev_attr_ip_discovery_text.attr);
+> +	if (r)
+> +		dev_err(adev->dev, "Could not create amdgpu device attr\n");
+> +
+>   	return 0;
+>   
+>   out:
+> @@ -363,7 +381,11 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+>   void amdgpu_discovery_fini(struct amdgpu_device *adev)
+>   {
+>   	kfree(adev->mman.discovery_bin);
+> +	kfree(adev->ip_discovery_text);
+> +	sysfs_remove_file(&adev->dev->kobj, &dev_attr_ip_discovery_text.attr);
+> +
+>   	adev->mman.discovery_bin = NULL;
+> +	adev->ip_discovery_text = NULL;
+>   }
+>   
+>   static int amdgpu_discovery_validate_ip(const struct ip *ip)
+> @@ -382,6 +404,22 @@ static int amdgpu_discovery_validate_ip(const struct ip *ip)
+>   	return 0;
+>   }
+>   
+> +#define IP_DISCOVERY_BLOCK_SIZE 4096
+> +
+> +static int add_string(char **dst, unsigned *size, char *src)
+> +{
+> +	if (strlen(src) + strlen(*dst) >= *size) {
+> +		void *tmp = krealloc(*dst, *size + IP_DISCOVERY_BLOCK_SIZE, GFP_KERNEL);
+> +		if (!tmp) {
+> +			return -1;
 
- == Test ==
- LOGFILE=pp_clk.test.log
- AMDGPU_PCI_ADDR=`lspci -nn | grep "VGA\|Display" | cut -d " " -f 1`
- AMDGPU_HWMON=`ls -la /sys/class/hwmon | grep $AMDGPU_PCI_ADDR | awk '{print $9}'`
- HWMON_DIR=/sys/class/hwmon/${AMDGPU_HWMON}
+If you take my other suggestion on cleanup, maybe you can also return 
+-ENOMEM here.
 
- lspci -nn | grep "VGA\|Display"  > $LOGFILE
- FILES="pp_od_clk_voltage
- pp_dpm_sclk
- pp_dpm_mclk
- pp_dpm_pcie
- pp_dpm_socclk
- pp_dpm_fclk
- pp_dpm_dcefclk
- pp_dpm_vclk
- pp_dpm_dclk "
+> +		}
+> +		*dst = tmp;
+> +		*size = *size + IP_DISCOVERY_BLOCK_SIZE;
+> +	}
+> +	strcat(*dst, src);
+> +	return 0;
+> +}
+> +
+>   int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   {
+>   	struct binary_header *bhdr;
+> @@ -396,6 +434,8 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   	int hw_ip;
+>   	int i, j, k;
+>   	int r;
+> +	unsigned txt_size = IP_DISCOVERY_BLOCK_SIZE;
+> +	char *linebuf;
+>   
+>   	r = amdgpu_discovery_init(adev);
+>   	if (r) {
+> @@ -410,6 +450,15 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   
+>   	DRM_DEBUG("number of dies: %d\n", num_dies);
+>   
+> +	adev->ip_discovery_text = kzalloc(txt_size, GFP_KERNEL);
+> +	linebuf = kzalloc(IP_DISCOVERY_BLOCK_SIZE, GFP_KERNEL);
+> +	if (!adev->ip_discovery_text || !linebuf) {
+> +		DRM_ERROR("Out of memory\n");
+> +		kfree(linebuf);
+> +		kfree(adev->ip_discovery_text);
 
- for f in $FILES
- do
-   echo === $f === >> $LOGFILE
-   cat $HWMON_DIR/device/$f >> $LOGFILE
- done
- cat $LOGFILE
+You've got a variety of new codepaths that do this freeing of the 
+memory.  Have you considered to add a "goto cleanup" instead at the end
+of the function?
 
-Signed-off-by: Darren Powell <darren.powell@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 49 +++++++++++++++++++++---------
- 1 file changed, 35 insertions(+), 14 deletions(-)
+Then each of these turns into
+	ret = -ENOMEM;
+	goto cleanup;
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index d2823aaeca09..a11def0ee761 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -832,8 +832,17 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	ssize_t size;
-+	int size = 0;
- 	int ret;
-+	enum pp_clock_type od_clocks[6] = {
-+		OD_SCLK,
-+		OD_MCLK,
-+		OD_VDDC_CURVE,
-+		OD_RANGE,
-+		OD_VDDGFX_OFFSET,
-+		OD_CCLK,
-+	};
-+	uint clk_index;
- 
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
-@@ -846,16 +855,25 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
- 		return ret;
- 	}
- 
--	size = amdgpu_dpm_print_clock_levels(adev, OD_SCLK, buf);
--	if (size > 0) {
--		size += amdgpu_dpm_print_clock_levels(adev, OD_MCLK, buf+size);
--		size += amdgpu_dpm_print_clock_levels(adev, OD_VDDC_CURVE, buf+size);
--		size += amdgpu_dpm_print_clock_levels(adev, OD_VDDGFX_OFFSET, buf+size);
--		size += amdgpu_dpm_print_clock_levels(adev, OD_RANGE, buf+size);
--		size += amdgpu_dpm_print_clock_levels(adev, OD_CCLK, buf+size);
--	} else {
--		size = sysfs_emit(buf, "\n");
-+	for(clk_index = 0 ; clk_index < 6 ; clk_index++) {
-+		ret = amdgpu_dpm_emit_clock_levels(adev, od_clocks[clk_index], buf, &size);
-+		if (ret)
-+			break;
-+	}
-+	if (ret == -ENOENT) {
-+		size = amdgpu_dpm_print_clock_levels(adev, OD_SCLK, buf);
-+		if (size > 0) {
-+			size += amdgpu_dpm_print_clock_levels(adev, OD_MCLK, buf+size);
-+			size += amdgpu_dpm_print_clock_levels(adev, OD_VDDC_CURVE, buf+size);
-+			size += amdgpu_dpm_print_clock_levels(adev, OD_VDDGFX_OFFSET, buf+size);
-+			size += amdgpu_dpm_print_clock_levels(adev, OD_RANGE, buf+size);
-+			size += amdgpu_dpm_print_clock_levels(adev, OD_CCLK, buf+size);
-+		}
- 	}
-+
-+	if (size == 0)
-+		size = sysfs_emit(buf, "\n");
-+
- 	pm_runtime_mark_last_busy(ddev->dev);
- 	pm_runtime_put_autosuspend(ddev->dev);
- 
-@@ -980,8 +998,8 @@ static ssize_t amdgpu_get_pp_dpm_clock(struct device *dev,
- {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	ssize_t size;
--	int ret;
-+	int size = 0;
-+	int ret = 0;
- 
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
-@@ -994,8 +1012,11 @@ static ssize_t amdgpu_get_pp_dpm_clock(struct device *dev,
- 		return ret;
- 	}
- 
--	size = amdgpu_dpm_print_clock_levels(adev, type, buf);
--	if (size <= 0)
-+	ret = amdgpu_dpm_emit_clock_levels(adev, type, buf, &size);
-+	if (ret == -ENOENT)
-+		size = amdgpu_dpm_print_clock_levels(adev, type, buf);
-+
-+	if (size == 0)
- 		size = sysfs_emit(buf, "\n");
- 
- 	pm_runtime_mark_last_busy(ddev->dev);
--- 
-2.34.1
+cleanup:
+	DRM_ERROR("Out of memory");
+	kfree(..)
+	kfree(..)
+	return ret;
+
+> +		return -ENOMEM;
+> +	}
+> +
+>   	for (i = 0; i < num_dies; i++) {
+>   		die_offset = le16_to_cpu(ihdr->die_info[i].die_offset);
+>   		dhdr = (struct die_header *)(adev->mman.discovery_bin + die_offset);
+> @@ -419,6 +468,8 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   		if (le16_to_cpu(dhdr->die_id) != i) {
+>   			DRM_ERROR("invalid die id %d, expected %d\n",
+>   					le16_to_cpu(dhdr->die_id), i);
+> +			kfree(linebuf);
+> +			kfree(adev->ip_discovery_text);
+>   			return -EINVAL;
+>   		}
+>   
+> @@ -458,6 +509,19 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   			    le16_to_cpu(ip->hw_id) == SDMA3_HWID)
+>   				adev->sdma.num_instances++;
+>   
+> +			snprintf(linebuf, IP_DISCOVERY_BLOCK_SIZE-1, "%s{%d} v%d.%d.%d: ",
+> +				  hw_id_names[le16_to_cpu(ip->hw_id)],
+> +				  ip->number_instance,
+> +				  ip->major, ip->minor,
+> +				  ip->revision);
+> +			if (add_string(&adev->ip_discovery_text, &txt_size, linebuf)) {
+
+If you take my other suggestion, you could instead do something like
+ret = add_string(..)
+if (ret)
+	goto cleanup;
+
+Here and the other places you use add_string.
+
+> +				DRM_ERROR("Out of memory\n");
+> +				kfree(linebuf);
+> +				kfree(adev->ip_discovery_text);
+> +				return -ENOMEM;
+> +			}
+> +
+> +
+>   			for (k = 0; k < num_base_address; k++) {
+>   				/*
+>   				 * convert the endianness of base addresses in place,
+> @@ -465,6 +529,19 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   				 */
+>   				ip->base_address[k] = le32_to_cpu(ip->base_address[k]);
+>   				DRM_DEBUG("\t0x%08x\n", ip->base_address[k]);
+> +				snprintf(linebuf, IP_DISCOVERY_BLOCK_SIZE-1, "%08lx ", (unsigned long)ip->base_address[k]);
+> +				if (add_string(&adev->ip_discovery_text, &txt_size, linebuf)) {
+> +					DRM_ERROR("Out of memory\n");
+> +					kfree(linebuf);
+> +					kfree(adev->ip_discovery_text);
+> +					return -ENOMEM;
+> +				}
+> +			}
+> +			if (add_string(&adev->ip_discovery_text, &txt_size, "\n")) {
+> +				DRM_ERROR("Out of memory\n");
+> +				kfree(linebuf);
+> +				kfree(adev->ip_discovery_text);
+> +				return -ENOMEM;
+>   			}
+>   
+>   			for (hw_ip = 0; hw_ip < MAX_HWIP; hw_ip++) {
+> @@ -491,7 +568,7 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   			ip_offset += sizeof(*ip) + 4 * (ip->num_base_address - 1);
+>   		}
+>   	}
+> -
+> +	kfree(linebuf);
+>   	return 0;
+>   }
+>   
 
