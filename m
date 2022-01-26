@@ -4,41 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71221C2BA4C
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 13:56:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4014C2BA4C
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 13:56:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C65E710E74C;
-	Wed, 26 Jan 2022 13:56:34 +0000 (UTC)
-X-Greylist: delayed 1826 seconds by postgrey-1.36 at gabe;
- Wed, 26 Jan 2022 09:48:32 UTC
-Received: from m15113.mail.126.com (m15113.mail.126.com [220.181.15.113])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5A52C89AC9;
- Wed, 26 Jan 2022 09:48:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=7+gQH
- ova1ewkBfJn3FFDQ+n/FuOVx0d3gWZmjoaJ1o8=; b=SrQkLJJwtPGN3KkoORFKj
- WpGAqajGI+h9X4EGjpGVijTUKkeY9W3bcNYl01vdk4RtjwdCKishi2PTmBUnWArF
- JAgaDKzuu5Yf773OYnqJK5EEzw3rf8UMwJ2opKWQPifgDkQWiyA+uHflurjo+6pm
- eIlWy1VBseBREQ5jkEzgF8=
-Received: from CD-huangqu.Hygon.cn (unknown [175.152.51.41])
- by smtp3 (Coremail) with SMTP id DcmowAAngeVWEfFh6zUzAA--.15463S2;
- Wed, 26 Jan 2022 17:16:07 +0800 (CST)
-From: jinsdb@126.com
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch
-Subject: [PATCH] drm/amdgpu: Wrong order for config and counter_id parameters
-Date: Wed, 26 Jan 2022 17:16:02 +0800
-Message-Id: <20220126091602.1647-1-jinsdb@126.com>
-X-Mailer: git-send-email 2.22.0.windows.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E590E10E74D;
+	Wed, 26 Jan 2022 13:56:38 +0000 (UTC)
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5232810E6DB;
+ Wed, 26 Jan 2022 10:13:28 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id w14so15276646edd.10;
+ Wed, 26 Jan 2022 02:13:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7of4j6tXJsQTj96IqMsKqWsSKbGVqn3ZKiSJTHPl75E=;
+ b=QHZGNvAuvGw7dVgE+zNRdndvuugGnChjIbsMvjjz/ITotAgWGyNwZuN48EXCo8az5D
+ RWQMdAopz5nv/RRobC4VoRcuLtfo/RrKWSAUysAnG5W/5/9h/OvMXETCBuAkEbn4m9Vh
+ ZRKNjulT52tFSx8jl00TJVZCKzHeKwvhagWm2XuDHHRI67mQUHyXyGjJwC3tgnpudBHK
+ CUPg3gPeW91RE8SwaJcaX/cvKSHU6keIf7UPLJbzDiBXtJyAMK7gupAvOKDHHEKJh+F3
+ 9WpCas3I2OiV7CjbJWwV6SnsGTJS7yhn6+3ULU7z0WtzzLGHTl8R51wyt+Vu1KuStZpj
+ M64Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7of4j6tXJsQTj96IqMsKqWsSKbGVqn3ZKiSJTHPl75E=;
+ b=R/wK78AETYs/snqBq93Ozbl3g6lT6n2WSpbcUv/glAD1tdq00tNe2nXPJJhoza2cYP
+ 2iPnKBr15q/KL6rUt1uvs75td07s/wYsG4Ybhck+RckrYz73z4O/uw3qYA8we1cQOgwV
+ LWubROhJbbyKo7z0aad7psc7/OdlweCwZ5I0lH3lM9j02In/lcR7n4Uaxgk3n4YbOKpC
+ mqtz2Dp4Jx/tc6PuWPpTAAeCINYm96h3c1AusQqlbX9s0xduG2wkjBZhJW3WrM7NUt8X
+ seA4YL8/ZHa/SWa9ATLJxsUrkba0IY3O2lpoNb92M114eMEf+LNvEl7mv+sTT2xbu1lA
+ xwWw==
+X-Gm-Message-State: AOAM533rmhgQ3gIsSLHgjmrqxPwERHIhEe0gfCkhAZRogIvQM+fnpTG2
+ /pMmkvhyzqnPgqfGpq9I9nH9CGgHxQH6uRaoQns=
+X-Google-Smtp-Source: ABdhPJynLKvQGv/H0FG+uuXI+OlMGiphzh5iPLeSuydUEWE4P8tlRcmMs/osAZq4tj+XuWR5dY63TLHMcK+DIJhiiao=
+X-Received: by 2002:a05:6402:35d5:: with SMTP id
+ z21mr17032960edc.29.1643192006805; 
+ Wed, 26 Jan 2022 02:13:26 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: DcmowAAngeVWEfFh6zUzAA--.15463S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7XFWUZr1rZw47Xry5tw48Crg_yoW8JryDpr
- WrJryDtFWkAFnFq3yDua4vvFyDA3ZFva4Skr1UJ34a9a45A34rZrW3JF12yF1UWrWrCrW7
- tFn7GayUuFnFvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziHUDJUUUUU=
-X-Originating-IP: [175.152.51.41]
-X-CM-SenderInfo: pmlq2vbe6rjloofrz/1tbijB+UDlpEGQnX8gAAsi
+References: <20220126093951.1470898-1-lucas.demarchi@intel.com>
+ <20220126093951.1470898-10-lucas.demarchi@intel.com>
+In-Reply-To: <20220126093951.1470898-10-lucas.demarchi@intel.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 26 Jan 2022 12:12:50 +0200
+Message-ID: <CAHp75Vd+TmShx==d_JHZUu0Q-9X7CmZEOFdKnSrcRKs81Gxn3g@mail.gmail.com>
+Subject: Re: [PATCH v2 09/11] drm: Convert open-coded yes/no strings to yesno()
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 26 Jan 2022 13:56:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,44 +63,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jinsdb@126.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
+ Francis Laniel <laniel_francis@privacyrequired.com>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>, amd-gfx@lists.freedesktop.org,
+ Ben Skeggs <bskeggs@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Petr Mladek <pmladek@suse.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Leo Li <sunpeng.li@amd.com>,
+ intel-gfx@lists.freedesktop.org, Raju Rangoju <rajur@chelsio.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Julia Lawall <julia.lawall@lip6.fr>,
+ Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
+ linux-security-module@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ netdev@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: huangqu <jinsdb@126.com>
+On Wed, Jan 26, 2022 at 11:39 AM Lucas De Marchi
+<lucas.demarchi@intel.com> wrote:
+>
+> linux/string_helpers.h provides a helper to return "yes"/"no" strings.
+> Replace the open coded versions with str_yes_no(). The places were
+> identified with the following semantic patch:
+>
+>         @@
+>         expression b;
+>         @@
+>
+>         - b ? "yes" : "no"
+>         + str_yes_no(b)
+>
+> Then the includes were added, so we include-what-we-use, and parenthesis
+> adjusted in drivers/gpu/drm/v3d/v3d_debugfs.c. After the conversion we
+> still see the same binary sizes:
+>
+>    text    data     bss     dec     hex filename
+>   51149    3295     212   54656    d580 virtio/virtio-gpu.ko.old
+>   51149    3295     212   54656    d580 virtio/virtio-gpu.ko
+> 1441491   60340     800 1502631  16eda7 radeon/radeon.ko.old
+> 1441491   60340     800 1502631  16eda7 radeon/radeon.ko
+> 6125369  328538   34000 6487907  62ff63 amd/amdgpu/amdgpu.ko.old
+> 6125369  328538   34000 6487907  62ff63 amd/amdgpu/amdgpu.ko
+>  411986   10490    6176  428652   68a6c drm.ko.old
+>  411986   10490    6176  428652   68a6c drm.ko
+>   98129    1636     264  100029   186bd dp/drm_dp_helper.ko.old
+>   98129    1636     264  100029   186bd dp/drm_dp_helper.ko
+> 1973432  109640    2352 2085424  1fd230 nouveau/nouveau.ko.old
+> 1973432  109640    2352 2085424  1fd230 nouveau/nouveau.ko
 
-Wrong order for config and counter_id parameters was passed, when calling df_v3_6_pmc_set_deferred and df_v3_6_pmc_is_deferred functions.
+This probably won't change for modules, but if you compile in the
+linker may try to optimize it. Would be nice to see the old-new for
+`make allyesconfig` or equivalent.
 
-Signed-off-by: huangqu <jinsdb@126.com>
----
- drivers/gpu/drm/amd/amdgpu/df_v3_6.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+...
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-index 43c5e3ec9..f4dfca013 100644
---- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-+++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-@@ -458,7 +458,7 @@ static int df_v3_6_pmc_add_cntr(struct amdgpu_device *adev,
+>         seq_printf(m, "\tDP branch device present: %s\n",
+> -                  branch_device ? "yes" : "no");
+> +                  str_yes_no(branch_device));
 
- #define DEFERRED_ARM_MASK	(1 << 31)
- static int df_v3_6_pmc_set_deferred(struct amdgpu_device *adev,
--				    int counter_idx, uint64_t config,
-+				    uint64_t config, int counter_idx,
- 				    bool is_deferred)
- {
+Can it be now on one line? Same Q for all similar cases in the entire series.
 
-@@ -476,8 +476,8 @@ static int df_v3_6_pmc_set_deferred(struct amdgpu_device *adev,
- }
-
- static bool df_v3_6_pmc_is_deferred(struct amdgpu_device *adev,
--				    int counter_idx,
--				    uint64_t config)
-+				    uint64_t config,
-+				    int counter_idx)
- {
- 	return	(df_v3_6_pmc_has_counter(adev, config, counter_idx) &&
- 			(adev->df_perfmon_config_assign_mask[counter_idx]
---
-2.31.1
-
+-- 
+With Best Regards,
+Andy Shevchenko
