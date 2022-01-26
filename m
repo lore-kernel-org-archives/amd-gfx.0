@@ -4,48 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54BFCC28CF5
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 09:40:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7214CC2BA4C
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 10:00:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24B5F10E807;
-	Wed, 26 Jan 2022 09:39:51 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1F089E59;
- Wed, 26 Jan 2022 09:39:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643189988; x=1674725988;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=KcRtycUl4lDfGh110lR4XASfjxvG1FP1xhGR1aDDOAA=;
- b=PU2lSpTH4Jxo20A5ScDL5pHTrTTsqIpsypv05LFpK+HDHL7LQpFL6ip+
- MbMuekP0YZIr/BiSPpjPXCzhnVFyJmyedSnQ7CL6sIm3eIuVHee8vYmAi
- PAnzXaUUEaGckofJnc0hX1mIC9xVeUMTG0eYeyvGu/PD4KZ/n0BkE1rTa
- iccbe6/mDgx37tITfuFuJ1oFuuUTwCHhFKmWaJryef/x73RqQtZTE0t90
- dAKcQYBAQn3z95HsQGCq39ByVhq8/lHZ9AjE/ohbZZS/YR1KY+8HeSt47
- R9mm2Abp6wpxR/uwZT2yW5WgsHgk+hiQwb/MLppW/1tppfWXKf5M9xdol Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="246293754"
-X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="246293754"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 01:39:31 -0800
-X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="477433109"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 01:39:30 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-security-module@vger.kernel.org, nouveau@lists.freedesktop.org,
- netdev@vger.kernel.org
-Subject: [PATCH v2 10/11] tomoyo: Use str_yes_no()
-Date: Wed, 26 Jan 2022 01:39:50 -0800
-Message-Id: <20220126093951.1470898-11-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220126093951.1470898-1-lucas.demarchi@intel.com>
-References: <20220126093951.1470898-1-lucas.demarchi@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1691B10E56D;
+	Wed, 26 Jan 2022 10:00:59 +0000 (UTC)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C98510E5C3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 10:00:57 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id f17so24756093wrx.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 02:00:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=sHzrO5QeUCWwN721kkHDna/lNCk9WOdVU+3gbmKQHU8=;
+ b=hmHptA0VUKYuPPMflMXFuqyEcRwKLUuWKlAkZkdFQx1pZdxZNy/S5So46Aopygfg0i
+ 8zVieUNEVNlFX7H1dveUOB/uMSshPQp/3+BANuE0FESMOjGzKI+gmiVMbEiRf+z1QVny
+ 3PbAGvdUqPaqoxW8wv+Z5DOfEFv4qS1iH/wqrCLXa933+6YryOSTjdlO/6dDRwDdbYpG
+ sNt8MJYur+XqIUl1O8GSWF2l0CN460a9QU5NpBwGNcmwMYU1fzUI83DqXChi1X2teNHz
+ U8xkU7g1BOUkFImWy59YLlnHDz63ym6Cuy/AG006vvR6/QLKtSpz9/HlAKQ3MTfZs6Id
+ BF8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=sHzrO5QeUCWwN721kkHDna/lNCk9WOdVU+3gbmKQHU8=;
+ b=czpctlZL6KsNCBMJwSvBotMZVgLyCCdZ11OTaC7r0N7A0SRVgJfQNOpLzYUydXMsKC
+ 22DlS0DON7kdY0fo9E9En/3He0fi86JKbDS0XaU/eFjEKIgcak5NXl7NtRyqgG1OQEGc
+ jQQc9Lb04iM6pcKmX/d3e61/Ak4VvFNZxI3Nl28PVf8e9+hF1uXMTYKfmcMYQOSCoshl
+ R+TZ7PEKkoqxPrViNPnaw2uzrU2eIfDkVTrtiVs3pmwVqm0oYPmPrYiEJSR7YwzXD8lJ
+ 5ikKXeconPXGKxNks+yYE0FES0XnkzTHR9pQ1pHKRjFybSkrawVYjg51zqy+QhACa9WN
+ uZGg==
+X-Gm-Message-State: AOAM531rDMU11KylClbLjmZokhYe9BdYuytjLO8VSO2MgrgsZcCwEYH/
+ 9fY3ViUnXCXa8+ZzBDj4Bw0=
+X-Google-Smtp-Source: ABdhPJx0wQD/MhFbXdTxnIgSZutldFwqR5DwoCUIn3Zn6Lp72wHlP6qcX/hcUOKDplu2qWSDVdBa3A==
+X-Received: by 2002:a05:6000:510:: with SMTP id
+ a16mr22416655wrf.605.1643191255977; 
+ Wed, 26 Jan 2022 02:00:55 -0800 (PST)
+Received: from ?IPV6:2a02:908:1252:fb60:6cbd:23a3:7abe:f6e2?
+ ([2a02:908:1252:fb60:6cbd:23a3:7abe:f6e2])
+ by smtp.gmail.com with ESMTPSA id n18sm4219876wrm.47.2022.01.26.02.00.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Jan 2022 02:00:55 -0800 (PST)
+Message-ID: <fd878564-3f15-ba76-83f1-42284782e7d5@gmail.com>
+Date: Wed, 26 Jan 2022 11:00:54 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] drm/amdgpu: add safeguards for accessing mmhub CG
+ registers
+Content-Language: en-US
+To: Lang Yu <Lang.Yu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220126075326.1134770-1-Lang.Yu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220126075326.1134770-1-Lang.Yu@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,117 +73,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
- Francis Laniel <laniel_francis@privacyrequired.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Ben Skeggs <bskeggs@redhat.com>,
- Jakub Kicinski <kuba@kernel.org>, Harry Wentland <harry.wentland@amd.com>,
- Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Leo Li <sunpeng.li@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Julia Lawall <julia.lawall@lip6.fr>,
- Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
- Steven Rostedt <rostedt@goodmis.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Raju Rangoju <rajur@chelsio.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Huang Rui <ray.huang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the local yesno() implementation and adopt the str_yes_no() from
-linux/string_helpers.h.
+Am 26.01.22 um 08:53 schrieb Lang Yu:
+> We observed a gpu hang when querying mmhub CG status(i.e.,
+> cat amdgpu_pm_info) on cyan skillfish. Acctually, cyan
+> skillfish doesn't support any CG features.
+>
+> Only allow asics which support CG features accessing related
+> registers. Will add similar safeguards for other IPs in the
+> furture.
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- security/tomoyo/audit.c  |  2 +-
- security/tomoyo/common.c | 19 +++++--------------
- security/tomoyo/common.h |  1 -
- 3 files changed, 6 insertions(+), 16 deletions(-)
+I think you should probably add a macro or function for this check, 
+apart from that looks good to me.
 
-diff --git a/security/tomoyo/audit.c b/security/tomoyo/audit.c
-index d79bf07e16be..023bedd9dfa3 100644
---- a/security/tomoyo/audit.c
-+++ b/security/tomoyo/audit.c
-@@ -166,7 +166,7 @@ static char *tomoyo_print_header(struct tomoyo_request_info *r)
- 		       "#%04u/%02u/%02u %02u:%02u:%02u# profile=%u mode=%s granted=%s (global-pid=%u) task={ pid=%u ppid=%u uid=%u gid=%u euid=%u egid=%u suid=%u sgid=%u fsuid=%u fsgid=%u }",
- 		       stamp.year, stamp.month, stamp.day, stamp.hour,
- 		       stamp.min, stamp.sec, r->profile, tomoyo_mode[r->mode],
--		       tomoyo_yesno(r->granted), gpid, tomoyo_sys_getpid(),
-+		       str_yes_no(r->granted), gpid, tomoyo_sys_getpid(),
- 		       tomoyo_sys_getppid(),
- 		       from_kuid(&init_user_ns, current_uid()),
- 		       from_kgid(&init_user_ns, current_gid()),
-diff --git a/security/tomoyo/common.c b/security/tomoyo/common.c
-index 5c64927bf2b3..ff17abc96e5c 100644
---- a/security/tomoyo/common.c
-+++ b/security/tomoyo/common.c
-@@ -8,6 +8,7 @@
- #include <linux/uaccess.h>
- #include <linux/slab.h>
- #include <linux/security.h>
-+#include <linux/string_helpers.h>
- #include "common.h"
- 
- /* String table for operation mode. */
-@@ -174,16 +175,6 @@ static bool tomoyo_manage_by_non_root;
- 
- /* Utility functions. */
- 
--/**
-- * tomoyo_yesno - Return "yes" or "no".
-- *
-- * @value: Bool value.
-- */
--const char *tomoyo_yesno(const unsigned int value)
--{
--	return value ? "yes" : "no";
--}
--
- /**
-  * tomoyo_addprintf - strncat()-like-snprintf().
-  *
-@@ -730,8 +721,8 @@ static void tomoyo_print_config(struct tomoyo_io_buffer *head, const u8 config)
- {
- 	tomoyo_io_printf(head, "={ mode=%s grant_log=%s reject_log=%s }\n",
- 			 tomoyo_mode[config & 3],
--			 tomoyo_yesno(config & TOMOYO_CONFIG_WANT_GRANT_LOG),
--			 tomoyo_yesno(config & TOMOYO_CONFIG_WANT_REJECT_LOG));
-+			 str_yes_no(config & TOMOYO_CONFIG_WANT_GRANT_LOG),
-+			 str_yes_no(config & TOMOYO_CONFIG_WANT_REJECT_LOG));
- }
- 
- /**
-@@ -1354,8 +1345,8 @@ static bool tomoyo_print_condition(struct tomoyo_io_buffer *head,
- 	case 3:
- 		if (cond->grant_log != TOMOYO_GRANTLOG_AUTO)
- 			tomoyo_io_printf(head, " grant_log=%s",
--					 tomoyo_yesno(cond->grant_log ==
--						      TOMOYO_GRANTLOG_YES));
-+					 str_yes_no(cond->grant_log ==
-+						    TOMOYO_GRANTLOG_YES));
- 		tomoyo_set_lf(head);
- 		return true;
- 	}
-diff --git a/security/tomoyo/common.h b/security/tomoyo/common.h
-index 85246b9df7ca..ca285f362705 100644
---- a/security/tomoyo/common.h
-+++ b/security/tomoyo/common.h
-@@ -959,7 +959,6 @@ char *tomoyo_read_token(struct tomoyo_acl_param *param);
- char *tomoyo_realpath_from_path(const struct path *path);
- char *tomoyo_realpath_nofollow(const char *pathname);
- const char *tomoyo_get_exe(void);
--const char *tomoyo_yesno(const unsigned int value);
- const struct tomoyo_path_info *tomoyo_compare_name_union
- (const struct tomoyo_path_info *name, const struct tomoyo_name_union *ptr);
- const struct tomoyo_path_info *tomoyo_get_domainname
--- 
-2.34.1
+Christian.
+
+>
+> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 3 +++
+>   drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c | 3 +++
+>   drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 3 +++
+>   drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c | 3 +++
+>   drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c | 3 +++
+>   5 files changed, 15 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> index 4c9f0c0f3116..1869e2019461 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> @@ -550,6 +550,9 @@ static void mmhub_v1_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
+>   {
+>   	int data, data1;
+>   
+> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
+> +		return;
+> +
+>   	if (amdgpu_sriov_vf(adev))
+>   		*flags = 0;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+> index 3b901f941627..f7b9843b36e6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+> @@ -546,6 +546,9 @@ static void mmhub_v1_7_get_clockgating(struct amdgpu_device *adev, u32 *flags)
+>   {
+>   	int data, data1;
+>   
+> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
+> +		return;
+> +
+>   	if (amdgpu_sriov_vf(adev))
+>   		*flags = 0;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> index 3718ff610ab2..3f5f326379b7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> @@ -686,6 +686,9 @@ static void mmhub_v2_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
+>   {
+>   	int data, data1;
+>   
+> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
+> +		return;
+> +
+>   	if (amdgpu_sriov_vf(adev))
+>   		*flags = 0;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+> index 9e16da28505a..b23dd9ddfb5c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+> @@ -580,6 +580,9 @@ static void mmhub_v2_3_get_clockgating(struct amdgpu_device *adev, u32 *flags)
+>   {
+>   	int data, data1, data2, data3;
+>   
+> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
+> +		return;
+> +
+>   	if (amdgpu_sriov_vf(adev))
+>   		*flags = 0;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+> index 619106f7d23d..a2d5c8424e2b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+> @@ -651,6 +651,9 @@ static void mmhub_v9_4_get_clockgating(struct amdgpu_device *adev, u32 *flags)
+>   {
+>   	int data, data1;
+>   
+> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
+> +		return;
+> +
+>   	if (amdgpu_sriov_vf(adev))
+>   		*flags = 0;
+>   
 
