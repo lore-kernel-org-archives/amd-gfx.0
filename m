@@ -4,50 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 101BDC28CF5
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 14:57:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DE65C2BA4C
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 15:06:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03ED710E65F;
-	Wed, 26 Jan 2022 14:57:35 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6C8210E65A;
- Wed, 26 Jan 2022 14:57:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643209053; x=1674745053;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Naq9bU8Eug7aC4jYDxIsWIp4xb2ekXmzmY6NZVxr3bQ=;
- b=NF+5n6g7TyN6x4uPPJRhvHmPzAPpuRgpfGfmXUvAe2zpL5g6VQgVn382
- HkiA+JEO6OJXZ/fv48jmaQwDYA3JNOsRMt9HUpTv3AJgo8By98p0SaL6o
- ogqY3Oq+SuZiMANp+5XQUlwtpF/ZtrgnfsJ0nK0HBFKoknGNUgJHhg+f/
- aq0pK0w39qfDW5K2crKPhzrRbJk8ZapFam2zdmsgRYsGAM+UljGRfD97l
- Nb4aVzQsKTyr/YNGtF+u2HNJ8KrlXbfDNJb4PWvcxS5LULdht4k3FT9iZ
- xYDHDA54UG4jgcsrFUqBKk7lvWHGS0Shj4VqFTk7N1xtJ90GZ1juD8WPK A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="233941315"
-X-IronPort-AV: E=Sophos;i="5.88,318,1635231600"; d="scan'208";a="233941315"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 06:57:33 -0800
-X-IronPort-AV: E=Sophos;i="5.88,318,1635231600"; d="scan'208";a="628324945"
-Received: from nbasu-mobl.ger.corp.intel.com (HELO localhost) ([10.252.16.197])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 06:57:21 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-security-module@vger.kernel.org, nouveau@lists.freedesktop.org,
- netdev@vger.kernel.org
-Subject: Re: [PATCH v2 09/11] drm: Convert open-coded yes/no strings to yesno()
-In-Reply-To: <20220126093951.1470898-10-lucas.demarchi@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220126093951.1470898-1-lucas.demarchi@intel.com>
- <20220126093951.1470898-10-lucas.demarchi@intel.com>
-Date: Wed, 26 Jan 2022 16:57:18 +0200
-Message-ID: <87y232y27l.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B03410E140;
+	Wed, 26 Jan 2022 15:06:24 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2043.outbound.protection.outlook.com [40.107.237.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D441F10E140
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 15:06:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Eb9NqpiJhv5jwXxROF/PfAlJ3R8KgFa8U2ld7DMYYv3EnManlXFk/gQIMveVy8+bQy/kWyTJXhjLrxy96SMgdLSP8g0jkJGTfP+USUOz4O+1AIyNVuh8sXobCI9YVavEurxXkB+PAxEuKD1jT2eqpH+esl54wugISYmoWdKs8aflcaKJnw9kypfJCi294z81zU+V+4tiibgW4NCPo1eqcj3MgyJoumnzPYdc8uZajxYpRv4XnxXcyB8s9SgQHJ8XKmHh4ZWzU8OvLLCiuB+WPNquZD7F3qlxYd8eyqvECFHQnbbJyORyZolwJkvK53zMSghF+miua/MsF8lC2BK1Sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T2XobhutUnwqxvvPyfu7YYdmSklwW6MnF0rKITfWhsU=;
+ b=hjWkK/ZKFrWvz5YQS4+P0/soyuyUGah+E3+NklIo9tuo892qPpb4HaB69oqYz/QbiNzP6jbBKHHQY/yZ95x2wgHc7izds9dyQaoG+XAMS+GnBfOK6Vb4zXSgHhswA6GhzgxT+CSGcRScLYbq3M6VYJd04ZA0OaSav7O1kbnNTdJ99m4a1V8Te8ZijeLPkwCWsvrELkjr/eTFjmi88TfFj+jHhwhQXRafJYcBONOUuEByeqXmC4EBRwAsVLCxT7/2VWuc0jeT0jzhqWcKSv0PdKsFtNsO7Zw5UnTK4R/TTyWotHI4xZ/i4p58YnvJUjq6d8FwXNv7i30dCWwqKLEW5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T2XobhutUnwqxvvPyfu7YYdmSklwW6MnF0rKITfWhsU=;
+ b=PJ0MSNOx3viYeGNDTFPYaVUnOeWD4goJUs0w5qeEBKa27TMronSxLprY+S6vyGYEU7ss7lSVK0JJ/pOJQVg+0Q6YeUpSeZBOCLRlx0AI7yefkDMzz8wRCUU5UOQesxAYNuY1GinOs8FXIIckkH73+fCfUvwawqzGxvCMDpb40hs=
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by DM6PR12MB3932.namprd12.prod.outlook.com (2603:10b6:5:1c1::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.13; Wed, 26 Jan
+ 2022 15:06:19 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::b07d:3a18:d06d:cb0b]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::b07d:3a18:d06d:cb0b%4]) with mapi id 15.20.4909.017; Wed, 26 Jan 2022
+ 15:06:19 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v5 2/4] drm/amd: add support to check whether the system
+ is set to s3
+Thread-Topic: [PATCH v5 2/4] drm/amd: add support to check whether the system
+ is set to s3
+Thread-Index: AQHYEmqSHwh5iWHEIUyIlQG0NjKWVqx1Z7LA
+Date: Wed, 26 Jan 2022 15:06:19 +0000
+Message-ID: <BYAPR12MB46142C4338D620EE1F7977FB97209@BYAPR12MB4614.namprd12.prod.outlook.com>
+References: <20220126040944.4324-1-mario.limonciello@amd.com>
+ <20220126040944.4324-2-mario.limonciello@amd.com>
+In-Reply-To: <20220126040944.4324-2-mario.limonciello@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-26T15:06:16.4994730Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 9d5a1003-2c3f-4ed7-4ea8-08d9e0dd6896
+x-ms-traffictypediagnostic: DM6PR12MB3932:EE_
+x-microsoft-antispam-prvs: <DM6PR12MB393280927907388BA1FF8FC597209@DM6PR12MB3932.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: qUVoE9RCj4L6KfOUzbW2H7IR1XZETuDWDy8650nQFX/nhvRX7RgQ36guVNjmUu0ZsHPe97olsWu/XfA14xLdfLitvEF+PwmFOc2j2yHqr/j1PTTWfVWdH6fUKLNrvnlqMfoV2qcVYc9titXyua6iufdEpnH8kIQn3c7f3yp7c6NzWkKpuvmRORNlZjgAdgTc9PACluaHgJdXK12HETGyGxvjZ95coC0NXFIFHXuPoSkEya5lKPgTddn4qGwINrxRddlEfzzagjRMKF5j/GNLrTM1/PgoiYsS/iY6WnNK7l/a/CNazGs5vvo0aT9AAHMJMv2nE9sLhv2fsKhJDqCim6gd/+y5GBH5f2BHc5r/NmLq2hHxyas7PWA9yiN1g3fJdLP61eL0YLVetlwFRRo89xOI1wBS4WGMatlCuPwPcFsD0vgz+2JSCoV3wVJ5i9aILkmfBPlAg1ei/Y5nL+Qmdvg3OrYsqp+u+vJgeD628AbFkssna7rXUk7Z0wDbPDjwPQvuDvIgZxZy+bxCBiTtD9Hr7657jHh8qnMYAAVGxeHVp9Oyz7SfVJHA+vNgBCr6wxU+EQW1Zh25rCrW+t4hCQ57gy5V7ipR6nGIw2OFP/i0l9UFWr73zXtZ3r09k+FLhLDL8MdReucsw6qsMfOAFyNQ0fBBS59xGf5B+uPWIW5Xvhv+O+A8awzSKv1hzTJtjWKnXm+E8DByai4uk0DjmA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(64756008)(55016003)(83380400001)(71200400001)(8676002)(9686003)(186003)(33656002)(86362001)(38100700002)(66446008)(316002)(54906003)(38070700005)(6506007)(91956017)(7696005)(66476007)(508600001)(66556008)(122000001)(26005)(53546011)(5660300002)(4326008)(52536014)(2906002)(76116006)(66946007)(8936002)(110136005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tfbP8lwj1IwxHLQcSqF4ugbusns6LKBpVZFg2EfInwtka2DW+wgLL0YUfaK5?=
+ =?us-ascii?Q?TnKnWow80hzFJS/MkxZXfKxCch2wUgwQWizzZq9WOFSP5DRD0+dTv3fVEpL4?=
+ =?us-ascii?Q?NLDGIJ6SedoXROMG8vGTMn8UhxUGDImBgPdk6a4Xz0YKEh4FEwcBBW+a1ZzA?=
+ =?us-ascii?Q?AXZeJfpfZDemXs44bWHMaapurNfFy0pDfx5hiE76vZ71hTYGpZiK47Kn/V25?=
+ =?us-ascii?Q?PrOPle+EHu3XOWmCVVygnUFp3mdB4vfqJqzhZQo0RatA/ScFPwcvt8qjUtO2?=
+ =?us-ascii?Q?HHwrR06FSYdrggVYBjByb7ysgSXkfSgAdgPRZMq5tI58q8xlO7StK/I92WdP?=
+ =?us-ascii?Q?OSUKoy6h5Mobh/oVLlXPPtaMW/6e65s47kQsMQiO/5CKntTSynJqVfmg4Meh?=
+ =?us-ascii?Q?58CWpVcAfAZw02VfAwgnSohH2yrBUUM7QNRb/61YwPpV4Cjkp68TziPF9Ro1?=
+ =?us-ascii?Q?fa1cdIkKxnSPJ17x19vF1H5Y5zikM6CMOLIjGWG4/NEFRMvGh1/EHhoOfwC0?=
+ =?us-ascii?Q?n+pfF7jI+j2RTNn6sm+OAm2l+uQUlabwYeaR73/wDiUvhgqaHx9hIbHM7S/i?=
+ =?us-ascii?Q?xXS1WR8YQf+zUoWHZ+NLpZKhWNw7saX2IeyRHBrzyWFe05mvvzI8K/bUHsBI?=
+ =?us-ascii?Q?4eCYlXIzAOzvmJ65BQTGmYCRnm7UW+OP9HQYNbOqwDfx4GUmJCfVWZn43lmI?=
+ =?us-ascii?Q?jm7aZD+PBq4P4SK56H3sBYbKHHzEMHmXxXZLacBZGfYZzA4eps0+jFO0V1s+?=
+ =?us-ascii?Q?qhqE49PkUSfAYIJIA3RgR5ChLygHb0APVNWoRkK3VlqT85V4RB0eoVZxL+Lu?=
+ =?us-ascii?Q?1+jaIYRWKCeg1FWfTLXgweuqNcnv/LROZIMkGOMk5L3OZ1blWfkSAXdKK00H?=
+ =?us-ascii?Q?63EQIZP/ilvg8piZD9CUKQunpGH3vf2HyN+rAeGyESUo1TKeHnYE2g2DTr68?=
+ =?us-ascii?Q?Phff+V3SWancwgqx1djRKvc2VPz15cmYvMJN1IemPQRtuIYUY5cdPxhOriXz?=
+ =?us-ascii?Q?Ac9azRAoG1watnuvhi0XG5/eHWRgNlYZ4tpkWbEH5vu5uPxteBz5J6jwIenY?=
+ =?us-ascii?Q?JdRvqPkAuPCwflmontG96X9nJ1jm2ypyxXrV50VeaWDJ/r9ITHquzOds2x/G?=
+ =?us-ascii?Q?mXMNBbFjMAvmyJE/gy8CMkW3zR5wgR4mRYCXg0DUmhL4yCx3e1pusWVg6Hyv?=
+ =?us-ascii?Q?uk7ge/STWVFU6V/ebKtE01+/M5aU/Tt9TkKbmsArU0hwVTnCCSN+ih79Lwwo?=
+ =?us-ascii?Q?7RjE8Z437JqjD0a/0vlP9ukeSNVhAHyeWurlAPOhsNv1JSAWM4G0Q1BSPJGD?=
+ =?us-ascii?Q?vD9b9Wu3cgzTdUWo6fGJLkcotxw9cjdUHS/r682ZhLEo40WpP1moF8MQAGTc?=
+ =?us-ascii?Q?6Pc/nKMQfswMQyHThdgKK87lDcB3AKwutsulSFlXfOGilKkVDeAkeLDT9bLG?=
+ =?us-ascii?Q?pyFdfZYEqeLF8X5hmBfvY2un01AcIYCZv03+Uw5wp2Y/4oER22AoU+peNNJW?=
+ =?us-ascii?Q?KmfZ5lDgEN/COlzVNUKCjm9GtvRk+S2yBnlEfuSs7dVHzw2faWxX0gPKjUI/?=
+ =?us-ascii?Q?gL7MbzDaGPA6mPbsKZlWhdmNVL5vPTryJTqj4OR1?=
+Content-Type: multipart/alternative;
+ boundary="_000_BYAPR12MB46142C4338D620EE1F7977FB97209BYAPR12MB4614namp_"
 MIME-Version: 1.0
-Content-Type: text/plain
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d5a1003-2c3f-4ed7-4ea8-08d9e0dd6896
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jan 2022 15:06:19.5773 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0m4TiYR7R4EsYY4YqvpWutqJfWI52FtB3+BauqiUQ+tvxQmJUthS7uQEVnrCWwck
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3932
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,259 +124,225 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
- Francis Laniel <laniel_francis@privacyrequired.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Ben Skeggs <bskeggs@redhat.com>,
- Jakub Kicinski <kuba@kernel.org>, Harry Wentland <harry.wentland@amd.com>,
- Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Leo Li <sunpeng.li@amd.com>, Steven Rostedt <rostedt@goodmis.org>,
- Julia Lawall <julia.lawall@lip6.fr>,
- Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Raju Rangoju <rajur@chelsio.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>, "David
- S. Miller" <davem@davemloft.net>
+Cc: "Liang, Prike" <Prike.Liang@amd.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 26 Jan 2022, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
-> linux/string_helpers.h provides a helper to return "yes"/"no" strings.
-> Replace the open coded versions with str_yes_no(). The places were
-> identified with the following semantic patch:
->
-> 	@@
-> 	expression b;
-> 	@@
->
-> 	- b ? "yes" : "no"
-> 	+ str_yes_no(b)
->
-> Then the includes were added, so we include-what-we-use, and parenthesis
-> adjusted in drivers/gpu/drm/v3d/v3d_debugfs.c. After the conversion we
-> still see the same binary sizes:
->
->    text    data     bss     dec     hex filename
->   51149    3295     212   54656    d580 virtio/virtio-gpu.ko.old
->   51149    3295     212   54656    d580 virtio/virtio-gpu.ko
-> 1441491   60340     800 1502631  16eda7 radeon/radeon.ko.old
-> 1441491   60340     800 1502631  16eda7 radeon/radeon.ko
-> 6125369  328538   34000 6487907  62ff63 amd/amdgpu/amdgpu.ko.old
-> 6125369  328538   34000 6487907  62ff63 amd/amdgpu/amdgpu.ko
->  411986   10490    6176  428652   68a6c drm.ko.old
->  411986   10490    6176  428652   68a6c drm.ko
->   98129    1636     264  100029   186bd dp/drm_dp_helper.ko.old
->   98129    1636     264  100029   186bd dp/drm_dp_helper.ko
-> 1973432  109640    2352 2085424  1fd230 nouveau/nouveau.ko.old
-> 1973432  109640    2352 2085424  1fd230 nouveau/nouveau.ko
->
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+--_000_BYAPR12MB46142C4338D620EE1F7977FB97209BYAPR12MB4614namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+[Public]
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/atom.c             |  4 +++-
->  drivers/gpu/drm/dp/drm_dp.c                   |  3 ++-
->  drivers/gpu/drm/drm_client_modeset.c          |  3 ++-
->  drivers/gpu/drm/drm_gem.c                     |  3 ++-
->  drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c |  5 ++++-
->  drivers/gpu/drm/radeon/atom.c                 |  3 ++-
->  drivers/gpu/drm/v3d/v3d_debugfs.c             | 11 ++++++-----
->  drivers/gpu/drm/virtio/virtgpu_debugfs.c      |  4 +++-
->  8 files changed, 24 insertions(+), 12 deletions(-)
+Returns true for dGPU always. Better to keep the whole check under somethin=
+g like this.
+
+if (pm_suspend_target_state !=3D PM_SUSPEND_ON)
+
+Thanks,
+Lijo
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Mario Li=
+monciello <mario.limonciello@amd.com>
+Sent: Wednesday, January 26, 2022 9:39:42 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Liang, Prike <Prike.Liang@amd.com>; Limonciello, Mario <Mario.Limonciel=
+lo@amd.com>
+Subject: [PATCH v5 2/4] drm/amd: add support to check whether the system is=
+ set to s3
+
+This will be used to help make decisions on what to do in
+misconfigured systems.
+
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 17 +++++++++++++++++
+ 2 files changed, 19 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h
+index 3bc76759c143..f184c88d3d4f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1409,11 +1409,13 @@ int amdgpu_acpi_smart_shift_update(struct drm_devic=
+e *dev, enum amdgpu_ss ss_sta
+ int amdgpu_acpi_pcie_notify_device_ready(struct amdgpu_device *adev);
+
+ void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps *caps)=
+;
++bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev);
+ bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev);
+ void amdgpu_acpi_detect(void);
+ #else
+ static inline int amdgpu_acpi_init(struct amdgpu_device *adev) { return 0;=
+ }
+ static inline void amdgpu_acpi_fini(struct amdgpu_device *adev) { }
++static inline bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev) { =
+return false };
+ static inline bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev) =
+{ return false; }
+ static inline void amdgpu_acpi_detect(void) { }
+ static inline bool amdgpu_acpi_is_power_shift_control_supported(void) { re=
+turn false; }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_acpi.c
+index 2531da6cbec3..df673062bc03 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1031,6 +1031,23 @@ void amdgpu_acpi_detect(void)
+         }
+ }
+
++/**
++ * amdgpu_acpi_is_s3_active
++ *
++ * @adev: amdgpu_device_pointer
++ *
++ * returns true if supported, false if not.
++ */
++bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev)
++{
++#if IS_ENABLED(CONFIG_SUSPEND)
++       return !(adev->flags & AMD_IS_APU) ||
++               pm_suspend_target_state =3D=3D PM_SUSPEND_MEM;
++#else
++       return false;
++#endif
++}
++
+ /**
+  * amdgpu_acpi_is_s0ix_active
+  *
+--
+2.25.1
+
+
+--_000_BYAPR12MB46142C4338D620EE1F7977FB97209BYAPR12MB4614namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-> index 6fa2229b7229..1c5d9388ad0b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-> @@ -25,6 +25,8 @@
->  #include <linux/module.h>
->  #include <linux/sched.h>
->  #include <linux/slab.h>
-> +#include <linux/string_helpers.h>
-> +
->  #include <asm/unaligned.h>
->  
->  #include <drm/drm_util.h>
-> @@ -740,7 +742,7 @@ static void atom_op_jump(atom_exec_context *ctx, int *ptr, int arg)
->  		break;
->  	}
->  	if (arg != ATOM_COND_ALWAYS)
-> -		SDEBUG("   taken: %s\n", execute ? "yes" : "no");
-> +		SDEBUG("   taken: %s\n", str_yes_no(execute));
->  	SDEBUG("   target: 0x%04X\n", target);
->  	if (execute) {
->  		if (ctx->last_jump == (ctx->start + target)) {
-> diff --git a/drivers/gpu/drm/dp/drm_dp.c b/drivers/gpu/drm/dp/drm_dp.c
-> index 6d43325acca5..c43577c8ac4d 100644
-> --- a/drivers/gpu/drm/dp/drm_dp.c
-> +++ b/drivers/gpu/drm/dp/drm_dp.c
-> @@ -28,6 +28,7 @@
->  #include <linux/module.h>
->  #include <linux/sched.h>
->  #include <linux/seq_file.h>
-> +#include <linux/string_helpers.h>
->  
->  #include <drm/dp/drm_dp_helper.h>
->  #include <drm/drm_print.h>
-> @@ -1239,7 +1240,7 @@ void drm_dp_downstream_debug(struct seq_file *m,
->  	bool branch_device = drm_dp_is_branch(dpcd);
->  
->  	seq_printf(m, "\tDP branch device present: %s\n",
-> -		   branch_device ? "yes" : "no");
-> +		   str_yes_no(branch_device));
->  
->  	if (!branch_device)
->  		return;
-> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-> index ced09c7c06f9..e6346a67cd98 100644
-> --- a/drivers/gpu/drm/drm_client_modeset.c
-> +++ b/drivers/gpu/drm/drm_client_modeset.c
-> @@ -11,6 +11,7 @@
->  #include <linux/module.h>
->  #include <linux/mutex.h>
->  #include <linux/slab.h>
-> +#include <linux/string_helpers.h>
->  
->  #include <drm/drm_atomic.h>
->  #include <drm/drm_client.h>
-> @@ -241,7 +242,7 @@ static void drm_client_connectors_enabled(struct drm_connector **connectors,
->  		connector = connectors[i];
->  		enabled[i] = drm_connector_enabled(connector, true);
->  		DRM_DEBUG_KMS("connector %d enabled? %s\n", connector->base.id,
-> -			      connector->display_info.non_desktop ? "non desktop" : enabled[i] ? "yes" : "no");
-> +			      connector->display_info.non_desktop ? "non desktop" : str_yes_no(enabled[i]));
->  
->  		any_enabled |= enabled[i];
->  	}
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 21631c22b374..3c888db59ea4 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -37,6 +37,7 @@
->  #include <linux/pagevec.h>
->  #include <linux/shmem_fs.h>
->  #include <linux/slab.h>
-> +#include <linux/string_helpers.h>
->  #include <linux/types.h>
->  #include <linux/uaccess.h>
->  
-> @@ -1145,7 +1146,7 @@ void drm_gem_print_info(struct drm_printer *p, unsigned int indent,
->  			  drm_vma_node_start(&obj->vma_node));
->  	drm_printf_indent(p, indent, "size=%zu\n", obj->size);
->  	drm_printf_indent(p, indent, "imported=%s\n",
-> -			  obj->import_attach ? "yes" : "no");
-> +			  str_yes_no(obj->import_attach));
->  
->  	if (obj->funcs->print_info)
->  		obj->funcs->print_info(p, indent, obj);
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
-> index a11637b0f6cc..d063d0dc13c5 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
-> @@ -21,6 +21,9 @@
->   *
->   * Authors: Ben Skeggs
->   */
-> +
-> +#include <linux/string_helpers.h>
-> +
->  #include "aux.h"
->  #include "pad.h"
->  
-> @@ -94,7 +97,7 @@ void
->  nvkm_i2c_aux_monitor(struct nvkm_i2c_aux *aux, bool monitor)
->  {
->  	struct nvkm_i2c_pad *pad = aux->pad;
-> -	AUX_TRACE(aux, "monitor: %s", monitor ? "yes" : "no");
-> +	AUX_TRACE(aux, "monitor: %s", str_yes_no(monitor));
->  	if (monitor)
->  		nvkm_i2c_pad_mode(pad, NVKM_I2C_PAD_AUX);
->  	else
-> diff --git a/drivers/gpu/drm/radeon/atom.c b/drivers/gpu/drm/radeon/atom.c
-> index f15b20da5315..c1bbfbe28bda 100644
-> --- a/drivers/gpu/drm/radeon/atom.c
-> +++ b/drivers/gpu/drm/radeon/atom.c
-> @@ -25,6 +25,7 @@
->  #include <linux/module.h>
->  #include <linux/sched.h>
->  #include <linux/slab.h>
-> +#include <linux/string_helpers.h>
->  
->  #include <asm/unaligned.h>
->  
-> @@ -722,7 +723,7 @@ static void atom_op_jump(atom_exec_context *ctx, int *ptr, int arg)
->  		break;
->  	}
->  	if (arg != ATOM_COND_ALWAYS)
-> -		SDEBUG("   taken: %s\n", execute ? "yes" : "no");
-> +		SDEBUG("   taken: %s\n", str_yes_no(execute));
->  	SDEBUG("   target: 0x%04X\n", target);
->  	if (execute) {
->  		if (ctx->last_jump == (ctx->start + target)) {
-> diff --git a/drivers/gpu/drm/v3d/v3d_debugfs.c b/drivers/gpu/drm/v3d/v3d_debugfs.c
-> index e76b24bb8828..29fd13109e43 100644
-> --- a/drivers/gpu/drm/v3d/v3d_debugfs.c
-> +++ b/drivers/gpu/drm/v3d/v3d_debugfs.c
-> @@ -6,6 +6,7 @@
->  #include <linux/debugfs.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/seq_file.h>
-> +#include <linux/string_helpers.h>
->  
->  #include <drm/drm_debugfs.h>
->  
-> @@ -148,15 +149,15 @@ static int v3d_v3d_debugfs_ident(struct seq_file *m, void *unused)
->  		   V3D_GET_FIELD(ident3, V3D_HUB_IDENT3_IPREV),
->  		   V3D_GET_FIELD(ident3, V3D_HUB_IDENT3_IPIDX));
->  	seq_printf(m, "MMU:        %s\n",
-> -		   (ident2 & V3D_HUB_IDENT2_WITH_MMU) ? "yes" : "no");
-> +		   str_yes_no(ident2 & V3D_HUB_IDENT2_WITH_MMU));
->  	seq_printf(m, "TFU:        %s\n",
-> -		   (ident1 & V3D_HUB_IDENT1_WITH_TFU) ? "yes" : "no");
-> +		   str_yes_no(ident1 & V3D_HUB_IDENT1_WITH_TFU));
->  	seq_printf(m, "TSY:        %s\n",
-> -		   (ident1 & V3D_HUB_IDENT1_WITH_TSY) ? "yes" : "no");
-> +		   str_yes_no(ident1 & V3D_HUB_IDENT1_WITH_TSY));
->  	seq_printf(m, "MSO:        %s\n",
-> -		   (ident1 & V3D_HUB_IDENT1_WITH_MSO) ? "yes" : "no");
-> +		   str_yes_no(ident1 & V3D_HUB_IDENT1_WITH_MSO));
->  	seq_printf(m, "L3C:        %s (%dkb)\n",
-> -		   (ident1 & V3D_HUB_IDENT1_WITH_L3C) ? "yes" : "no",
-> +		   str_yes_no(ident1 & V3D_HUB_IDENT1_WITH_L3C),
->  		   V3D_GET_FIELD(ident2, V3D_HUB_IDENT2_L3C_NKB));
->  
->  	for (core = 0; core < cores; core++) {
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-> index b6954e2f75e6..853dd9aa397e 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-> @@ -23,6 +23,8 @@
->   * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
->   */
->  
-> +#include <linux/string_helpers.h>
-> +
->  #include <drm/drm_debugfs.h>
->  #include <drm/drm_file.h>
->  
-> @@ -31,7 +33,7 @@
->  static void virtio_gpu_add_bool(struct seq_file *m, const char *name,
->  				bool value)
->  {
-> -	seq_printf(m, "%-16s : %s\n", name, value ? "yes" : "no");
-> +	seq_printf(m, "%-16s : %s\n", name, str_yes_no(value));
->  }
->  
->  static void virtio_gpu_add_int(struct seq_file *m, const char *name, int value)
+</head>
+<body>
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+Returns true for dGPU always. Better to keep the whole check under somethin=
+g like this.</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+<br>
+</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+if (pm_suspend_target_state !=3D PM_SUSPEND_ON)</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto">
+<div dir=3D"auto"><br>
+</div>
+Thanks,<br>
+Lijo</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Mario Limonciello &lt;mario.l=
+imonciello@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, January 26, 2022 9:39:42 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Liang, Prike &lt;Prike.Liang@amd.com&gt;; Limonciello, Mario &lt=
+;Mario.Limonciello@amd.com&gt;<br>
+<b>Subject:</b> [PATCH v5 2/4] drm/amd: add support to check whether the sy=
+stem is set to s3</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This will be used to help make decisions on what t=
+o do in<br>
+misconfigured systems.<br>
+<br>
+Signed-off-by: Mario Limonciello &lt;mario.limonciello@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&n=
+bsp; 2 ++<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 17 +++++++++++++++++<br>
+&nbsp;2 files changed, 19 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h<br>
+index 3bc76759c143..f184c88d3d4f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+@@ -1409,11 +1409,13 @@ int amdgpu_acpi_smart_shift_update(struct drm_devic=
+e *dev, enum amdgpu_ss ss_sta<br>
+&nbsp;int amdgpu_acpi_pcie_notify_device_ready(struct amdgpu_device *adev);=
+<br>
+&nbsp;<br>
+&nbsp;void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps *=
+caps);<br>
++bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev);<br>
+&nbsp;bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev);<br>
+&nbsp;void amdgpu_acpi_detect(void);<br>
+&nbsp;#else<br>
+&nbsp;static inline int amdgpu_acpi_init(struct amdgpu_device *adev) { retu=
+rn 0; }<br>
+&nbsp;static inline void amdgpu_acpi_fini(struct amdgpu_device *adev) { }<b=
+r>
++static inline bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev) { =
+return false };<br>
+&nbsp;static inline bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *a=
+dev) { return false; }<br>
+&nbsp;static inline void amdgpu_acpi_detect(void) { }<br>
+&nbsp;static inline bool amdgpu_acpi_is_power_shift_control_supported(void)=
+ { return false; }<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_acpi.c<br>
+index 2531da6cbec3..df673062bc03 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c<br>
+@@ -1031,6 +1031,23 @@ void amdgpu_acpi_detect(void)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;}<br>
+&nbsp;<br>
++/**<br>
++ * amdgpu_acpi_is_s3_active<br>
++ *<br>
++ * @adev: amdgpu_device_pointer<br>
++ *<br>
++ * returns true if supported, false if not.<br>
++ */<br>
++bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev)<br>
++{<br>
++#if IS_ENABLED(CONFIG_SUSPEND)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return !(adev-&gt;flags &amp; AMD_IS_=
+APU) ||<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; pm_suspend_target_state =3D=3D PM_SUSPEND_MEM;<br>
++#else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
++#endif<br>
++}<br>
++<br>
+&nbsp;/**<br>
+&nbsp; * amdgpu_acpi_is_s0ix_active<br>
+&nbsp; *<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+--_000_BYAPR12MB46142C4338D620EE1F7977FB97209BYAPR12MB4614namp_--
