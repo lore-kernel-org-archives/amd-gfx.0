@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37DCFC63682
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 09:40:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDE1FC63697
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 09:40:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B707810E870;
-	Wed, 26 Jan 2022 09:39:38 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40A3310E7EA;
- Wed, 26 Jan 2022 09:39:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FBD810E827;
+	Wed, 26 Jan 2022 09:39:36 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F0EB10E7E0;
+ Wed, 26 Jan 2022 09:39:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643189973; x=1674725973;
+ t=1643189971; x=1674725971;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=GYppmqUP4lbR+vsHIMjZKwAtlHKGNb6DyJc+gQD8j4Q=;
- b=Potx5F7RvaPE0IzFcTOStQKQyg7XceEpHKY8sQKkDbYRvs0ElxI4+h6B
- B16goB0mQc4biluD6UN6LBSlk9zO+SQf7NT4r9Gjp4gH3kXOIuA8ZyJuP
- EqAk1DaZ1nxIMO8QqFUh7l98CjZ0NO4HhalG+83jcMKOFd4ey7oBaUBT2
- bkl0slRrNL/RlqF5A3yItzEOyTL2UUCAHJ0hVAxb1+3P7WolUGCox+ydE
- fy3OEOM6XDuITWeqZ1S/dtmTxSSDXIKcsxotuUyZQNDaLgNwDt2GAm2jz
- Pud6F4KdsguR03+fcyp6fHMIMc6mfGIOKBOBjkXurUqqAYSmW6HQBxsuz A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="309830639"
-X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="309830639"
+ bh=Foskk6EIn6vq8IGC7rE4PDZ1eD4o1JqWcBZ5wmWBMJ4=;
+ b=U0fKa03ING2qon1GHxUOuCi30HPZzNSURdEwNzqV+bCpcSkH0O6wjxIE
+ ThOFL2LMz0bUL0P3Nc6wKoS3OmclW131sscruRxbY2Cmv84H7eq2pJIOD
+ fzwS2eZZ2Vbs/qdq8oSiS63aG6NKnJChJjrCsgM7n6bOMCLy2KHXWn0hu
+ CQLztj/CCiA7v5HjoMMR7BVO0ZXcsOAIZMK3zH3fZX/aIBdRMorJNjZm8
+ rWBn72EgwI1aFgtFZKujAgylSwGGw13jdYghlohFZ6GU372o5rAs6k1L3
+ X3/dHNwqbUVWaDUmpEYIoK+fzXKWL/Ng2Dse5tCK+Kqdcoz9qH2aotOjR A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="227188789"
+X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="227188789"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2022 01:39:31 -0800
-X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="477433106"
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 01:39:30 -0800
+X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="477433088"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Jan 2022 01:39:30 -0800
@@ -38,13 +38,14 @@ To: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-security-module@vger.kernel.org, nouveau@lists.freedesktop.org,
  netdev@vger.kernel.org
-Subject: [PATCH v2 09/11] drm: Convert open-coded yes/no strings to yesno()
-Date: Wed, 26 Jan 2022 01:39:49 -0800
-Message-Id: <20220126093951.1470898-10-lucas.demarchi@intel.com>
+Subject: [PATCH v2 04/11] drm/i915: Use str_enable_disable()
+Date: Wed, 26 Jan 2022 01:39:44 -0800
+Message-Id: <20220126093951.1470898-5-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220126093951.1470898-1-lucas.demarchi@intel.com>
 References: <20220126093951.1470898-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,15 +59,16 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
  Francis Laniel <laniel_francis@privacyrequired.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>, Leo Li <sunpeng.li@amd.com>,
  Andy Shevchenko <andy.shevchenko@gmail.com>, Ben Skeggs <bskeggs@redhat.com>,
  Jakub Kicinski <kuba@kernel.org>, Harry Wentland <harry.wentland@amd.com>,
  Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Leo Li <sunpeng.li@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Jani Nikula <jani.nikula@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>,
  Julia Lawall <julia.lawall@lip6.fr>,
  Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
  Steven Rostedt <rostedt@goodmis.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
@@ -81,231 +83,164 @@ Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-linux/string_helpers.h provides a helper to return "yes"/"no" strings.
-Replace the open coded versions with str_yes_no(). The places were
-identified with the following semantic patch:
-
-	@@
-	expression b;
-	@@
-
-	- b ? "yes" : "no"
-	+ str_yes_no(b)
-
-Then the includes were added, so we include-what-we-use, and parenthesis
-adjusted in drivers/gpu/drm/v3d/v3d_debugfs.c. After the conversion we
-still see the same binary sizes:
-
-   text    data     bss     dec     hex filename
-  51149    3295     212   54656    d580 virtio/virtio-gpu.ko.old
-  51149    3295     212   54656    d580 virtio/virtio-gpu.ko
-1441491   60340     800 1502631  16eda7 radeon/radeon.ko.old
-1441491   60340     800 1502631  16eda7 radeon/radeon.ko
-6125369  328538   34000 6487907  62ff63 amd/amdgpu/amdgpu.ko.old
-6125369  328538   34000 6487907  62ff63 amd/amdgpu/amdgpu.ko
- 411986   10490    6176  428652   68a6c drm.ko.old
- 411986   10490    6176  428652   68a6c drm.ko
-  98129    1636     264  100029   186bd dp/drm_dp_helper.ko.old
-  98129    1636     264  100029   186bd dp/drm_dp_helper.ko
-1973432  109640    2352 2085424  1fd230 nouveau/nouveau.ko.old
-1973432  109640    2352 2085424  1fd230 nouveau/nouveau.ko
+Remove the local enabledisable() implementation and adopt the
+str_enable_disable() from linux/string_helpers.h.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/amd/amdgpu/atom.c             |  4 +++-
- drivers/gpu/drm/dp/drm_dp.c                   |  3 ++-
- drivers/gpu/drm/drm_client_modeset.c          |  3 ++-
- drivers/gpu/drm/drm_gem.c                     |  3 ++-
- drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c |  5 ++++-
- drivers/gpu/drm/radeon/atom.c                 |  3 ++-
- drivers/gpu/drm/v3d/v3d_debugfs.c             | 11 ++++++-----
- drivers/gpu/drm/virtio/virtgpu_debugfs.c      |  4 +++-
- 8 files changed, 24 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c           | 4 +++-
+ drivers/gpu/drm/i915/display/intel_display_power.c | 4 +++-
+ drivers/gpu/drm/i915/display/intel_dp.c            | 8 ++++----
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c          | 3 ++-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c          | 4 +++-
+ drivers/gpu/drm/i915/i915_utils.h                  | 5 -----
+ 6 files changed, 15 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index 6fa2229b7229..1c5d9388ad0b 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 2f20abc5122d..4b35a8597632 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
 @@ -25,6 +25,8 @@
- #include <linux/module.h>
- #include <linux/sched.h>
- #include <linux/slab.h>
-+#include <linux/string_helpers.h>
-+
- #include <asm/unaligned.h>
- 
- #include <drm/drm_util.h>
-@@ -740,7 +742,7 @@ static void atom_op_jump(atom_exec_context *ctx, int *ptr, int arg)
- 		break;
- 	}
- 	if (arg != ATOM_COND_ALWAYS)
--		SDEBUG("   taken: %s\n", execute ? "yes" : "no");
-+		SDEBUG("   taken: %s\n", str_yes_no(execute));
- 	SDEBUG("   target: 0x%04X\n", target);
- 	if (execute) {
- 		if (ctx->last_jump == (ctx->start + target)) {
-diff --git a/drivers/gpu/drm/dp/drm_dp.c b/drivers/gpu/drm/dp/drm_dp.c
-index 6d43325acca5..c43577c8ac4d 100644
---- a/drivers/gpu/drm/dp/drm_dp.c
-+++ b/drivers/gpu/drm/dp/drm_dp.c
-@@ -28,6 +28,7 @@
- #include <linux/module.h>
- #include <linux/sched.h>
- #include <linux/seq_file.h>
-+#include <linux/string_helpers.h>
- 
- #include <drm/dp/drm_dp_helper.h>
- #include <drm/drm_print.h>
-@@ -1239,7 +1240,7 @@ void drm_dp_downstream_debug(struct seq_file *m,
- 	bool branch_device = drm_dp_is_branch(dpcd);
- 
- 	seq_printf(m, "\tDP branch device present: %s\n",
--		   branch_device ? "yes" : "no");
-+		   str_yes_no(branch_device));
- 
- 	if (!branch_device)
- 		return;
-diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-index ced09c7c06f9..e6346a67cd98 100644
---- a/drivers/gpu/drm/drm_client_modeset.c
-+++ b/drivers/gpu/drm/drm_client_modeset.c
-@@ -11,6 +11,7 @@
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/slab.h>
-+#include <linux/string_helpers.h>
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_client.h>
-@@ -241,7 +242,7 @@ static void drm_client_connectors_enabled(struct drm_connector **connectors,
- 		connector = connectors[i];
- 		enabled[i] = drm_connector_enabled(connector, true);
- 		DRM_DEBUG_KMS("connector %d enabled? %s\n", connector->base.id,
--			      connector->display_info.non_desktop ? "non desktop" : enabled[i] ? "yes" : "no");
-+			      connector->display_info.non_desktop ? "non desktop" : str_yes_no(enabled[i]));
- 
- 		any_enabled |= enabled[i];
- 	}
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 21631c22b374..3c888db59ea4 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -37,6 +37,7 @@
- #include <linux/pagevec.h>
- #include <linux/shmem_fs.h>
- #include <linux/slab.h>
-+#include <linux/string_helpers.h>
- #include <linux/types.h>
- #include <linux/uaccess.h>
- 
-@@ -1145,7 +1146,7 @@ void drm_gem_print_info(struct drm_printer *p, unsigned int indent,
- 			  drm_vma_node_start(&obj->vma_node));
- 	drm_printf_indent(p, indent, "size=%zu\n", obj->size);
- 	drm_printf_indent(p, indent, "imported=%s\n",
--			  obj->import_attach ? "yes" : "no");
-+			  str_yes_no(obj->import_attach));
- 
- 	if (obj->funcs->print_info)
- 		obj->funcs->print_info(p, indent, obj);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
-index a11637b0f6cc..d063d0dc13c5 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
-@@ -21,6 +21,9 @@
   *
-  * Authors: Ben Skeggs
-  */
-+
-+#include <linux/string_helpers.h>
-+
- #include "aux.h"
- #include "pad.h"
- 
-@@ -94,7 +97,7 @@ void
- nvkm_i2c_aux_monitor(struct nvkm_i2c_aux *aux, bool monitor)
- {
- 	struct nvkm_i2c_pad *pad = aux->pad;
--	AUX_TRACE(aux, "monitor: %s", monitor ? "yes" : "no");
-+	AUX_TRACE(aux, "monitor: %s", str_yes_no(monitor));
- 	if (monitor)
- 		nvkm_i2c_pad_mode(pad, NVKM_I2C_PAD_AUX);
- 	else
-diff --git a/drivers/gpu/drm/radeon/atom.c b/drivers/gpu/drm/radeon/atom.c
-index f15b20da5315..c1bbfbe28bda 100644
---- a/drivers/gpu/drm/radeon/atom.c
-+++ b/drivers/gpu/drm/radeon/atom.c
-@@ -25,6 +25,7 @@
- #include <linux/module.h>
- #include <linux/sched.h>
- #include <linux/slab.h>
-+#include <linux/string_helpers.h>
- 
- #include <asm/unaligned.h>
- 
-@@ -722,7 +723,7 @@ static void atom_op_jump(atom_exec_context *ctx, int *ptr, int arg)
- 		break;
- 	}
- 	if (arg != ATOM_COND_ALWAYS)
--		SDEBUG("   taken: %s\n", execute ? "yes" : "no");
-+		SDEBUG("   taken: %s\n", str_yes_no(execute));
- 	SDEBUG("   target: 0x%04X\n", target);
- 	if (execute) {
- 		if (ctx->last_jump == (ctx->start + target)) {
-diff --git a/drivers/gpu/drm/v3d/v3d_debugfs.c b/drivers/gpu/drm/v3d/v3d_debugfs.c
-index e76b24bb8828..29fd13109e43 100644
---- a/drivers/gpu/drm/v3d/v3d_debugfs.c
-+++ b/drivers/gpu/drm/v3d/v3d_debugfs.c
-@@ -6,6 +6,7 @@
- #include <linux/debugfs.h>
- #include <linux/pm_runtime.h>
- #include <linux/seq_file.h>
-+#include <linux/string_helpers.h>
- 
- #include <drm/drm_debugfs.h>
- 
-@@ -148,15 +149,15 @@ static int v3d_v3d_debugfs_ident(struct seq_file *m, void *unused)
- 		   V3D_GET_FIELD(ident3, V3D_HUB_IDENT3_IPREV),
- 		   V3D_GET_FIELD(ident3, V3D_HUB_IDENT3_IPIDX));
- 	seq_printf(m, "MMU:        %s\n",
--		   (ident2 & V3D_HUB_IDENT2_WITH_MMU) ? "yes" : "no");
-+		   str_yes_no(ident2 & V3D_HUB_IDENT2_WITH_MMU));
- 	seq_printf(m, "TFU:        %s\n",
--		   (ident1 & V3D_HUB_IDENT1_WITH_TFU) ? "yes" : "no");
-+		   str_yes_no(ident1 & V3D_HUB_IDENT1_WITH_TFU));
- 	seq_printf(m, "TSY:        %s\n",
--		   (ident1 & V3D_HUB_IDENT1_WITH_TSY) ? "yes" : "no");
-+		   str_yes_no(ident1 & V3D_HUB_IDENT1_WITH_TSY));
- 	seq_printf(m, "MSO:        %s\n",
--		   (ident1 & V3D_HUB_IDENT1_WITH_MSO) ? "yes" : "no");
-+		   str_yes_no(ident1 & V3D_HUB_IDENT1_WITH_MSO));
- 	seq_printf(m, "L3C:        %s (%dkb)\n",
--		   (ident1 & V3D_HUB_IDENT1_WITH_L3C) ? "yes" : "no",
-+		   str_yes_no(ident1 & V3D_HUB_IDENT1_WITH_L3C),
- 		   V3D_GET_FIELD(ident2, V3D_HUB_IDENT2_L3C_NKB));
- 
- 	for (core = 0; core < cores; core++) {
-diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-index b6954e2f75e6..853dd9aa397e 100644
---- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-@@ -23,6 +23,8 @@
-  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   */
  
 +#include <linux/string_helpers.h>
 +
- #include <drm/drm_debugfs.h>
- #include <drm/drm_file.h>
+ #include <drm/drm_privacy_screen_consumer.h>
+ #include <drm/drm_scdc_helper.h>
  
-@@ -31,7 +33,7 @@
- static void virtio_gpu_add_bool(struct seq_file *m, const char *name,
- 				bool value)
- {
--	seq_printf(m, "%-16s : %s\n", name, value ? "yes" : "no");
-+	seq_printf(m, "%-16s : %s\n", name, str_yes_no(value));
+@@ -2152,7 +2154,7 @@ static void intel_dp_sink_set_msa_timing_par_ignore_state(struct intel_dp *intel
+ 			       enable ? DP_MSA_TIMING_PAR_IGNORE_EN : 0) <= 0)
+ 		drm_dbg_kms(&i915->drm,
+ 			    "Failed to %s MSA_TIMING_PAR_IGNORE in the sink\n",
+-			    enabledisable(enable));
++			    str_enable_disable(enable));
  }
  
- static void virtio_gpu_add_int(struct seq_file *m, const char *name, int value)
+ static void intel_dp_sink_set_fec_ready(struct intel_dp *intel_dp,
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 369317805d24..1f77cb9edddf 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -3,6 +3,8 @@
+  * Copyright © 2019 Intel Corporation
+  */
+ 
++#include <linux/string_helpers.h>
++
+ #include "i915_drv.h"
+ #include "i915_irq.h"
+ #include "intel_cdclk.h"
+@@ -5302,7 +5304,7 @@ static void gen9_dbuf_slice_set(struct drm_i915_private *dev_priv,
+ 	state = intel_de_read(dev_priv, reg) & DBUF_POWER_STATE;
+ 	drm_WARN(&dev_priv->drm, enable != state,
+ 		 "DBuf slice %d power %s timeout!\n",
+-		 slice, enabledisable(enable));
++		 slice, str_enable_disable(enable));
+ }
+ 
+ void gen9_dbuf_slices_update(struct drm_i915_private *dev_priv,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 62c1535d696d..933fc316ea53 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1987,7 +1987,7 @@ void intel_dp_sink_set_decompression_state(struct intel_dp *intel_dp,
+ 	if (ret < 0)
+ 		drm_dbg_kms(&i915->drm,
+ 			    "Failed to %s sink decompression state\n",
+-			    enabledisable(enable));
++			    str_enable_disable(enable));
+ }
+ 
+ static void
+@@ -2463,7 +2463,7 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
+ 	if (drm_dp_dpcd_writeb(&intel_dp->aux,
+ 			       DP_PROTOCOL_CONVERTER_CONTROL_0, tmp) != 1)
+ 		drm_dbg_kms(&i915->drm, "Failed to %s protocol converter HDMI mode\n",
+-			    enabledisable(intel_dp->has_hdmi_sink));
++			    str_enable_disable(intel_dp->has_hdmi_sink));
+ 
+ 	tmp = crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR444 &&
+ 		intel_dp->dfp.ycbcr_444_to_420 ? DP_CONVERSION_TO_YCBCR420_ENABLE : 0;
+@@ -2472,7 +2472,7 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
+ 			       DP_PROTOCOL_CONVERTER_CONTROL_1, tmp) != 1)
+ 		drm_dbg_kms(&i915->drm,
+ 			    "Failed to %s protocol converter YCbCr 4:2:0 conversion mode\n",
+-			    enabledisable(intel_dp->dfp.ycbcr_444_to_420));
++			    str_enable_disable(intel_dp->dfp.ycbcr_444_to_420));
+ 
+ 	tmp = 0;
+ 	if (intel_dp->dfp.rgb_to_ycbcr) {
+@@ -2510,7 +2510,7 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
+ 	if (drm_dp_pcon_convert_rgb_to_ycbcr(&intel_dp->aux, tmp) < 0)
+ 		drm_dbg_kms(&i915->drm,
+ 			   "Failed to %s protocol converter RGB->YCbCr conversion mode\n",
+-			   enabledisable(tmp));
++			   str_enable_disable(tmp));
+ }
+ 
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index de89d40abd38..31c3c3bceb95 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -6,6 +6,7 @@
+ #include <linux/circ_buf.h>
+ #include <linux/ktime.h>
+ #include <linux/time64.h>
++#include <linux/string_helpers.h>
+ #include <linux/timekeeping.h>
+ 
+ #include "i915_drv.h"
+@@ -170,7 +171,7 @@ static int ct_control_enable(struct intel_guc_ct *ct, bool enable)
+ 				     GUC_CTB_CONTROL_ENABLE : GUC_CTB_CONTROL_DISABLE);
+ 	if (unlikely(err))
+ 		CT_PROBE_ERROR(ct, "Failed to control/%s CTB (%pe)\n",
+-			       enabledisable(enable), ERR_PTR(err));
++			       str_enable_disable(enable), ERR_PTR(err));
+ 
+ 	return err;
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c
+index fc805d466d99..f8fc90ea71e7 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c
+@@ -3,6 +3,8 @@
+  * Copyright © 2021 Intel Corporation
+  */
+ 
++#include <linux/string_helpers.h>
++
+ #include "intel_guc_rc.h"
+ #include "gt/intel_gt.h"
+ #include "i915_drv.h"
+@@ -59,7 +61,7 @@ static int __guc_rc_control(struct intel_guc *guc, bool enable)
+ 	ret = guc_action_control_gucrc(guc, enable);
+ 	if (ret) {
+ 		drm_err(drm, "Failed to %s GuC RC (%pe)\n",
+-			enabledisable(enable), ERR_PTR(ret));
++			str_enable_disable(enable), ERR_PTR(ret));
+ 		return ret;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+index c62b64012369..06aac2be49ee 100644
+--- a/drivers/gpu/drm/i915/i915_utils.h
++++ b/drivers/gpu/drm/i915/i915_utils.h
+@@ -404,11 +404,6 @@ static inline const char *onoff(bool v)
+ 	return v ? "on" : "off";
+ }
+ 
+-static inline const char *enabledisable(bool v)
+-{
+-	return v ? "enable" : "disable";
+-}
+-
+ static inline const char *enableddisabled(bool v)
+ {
+ 	return v ? "enabled" : "disabled";
 -- 
 2.34.1
 
