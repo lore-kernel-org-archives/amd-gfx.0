@@ -4,127 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF238C2BA4C
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 14:57:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 101BDC28CF5
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 14:57:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B11D10E62F;
-	Wed, 26 Jan 2022 14:57:32 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2055.outbound.protection.outlook.com [40.107.243.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38E7710E62F
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 14:57:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iLkuY64ig5Zt9b2BdEVIhoPiUVcA6C9iDXAn2CiVbWorscWK+6O0rkBLPJ//ufN3C1BlymmlyoqZ6u+MsRVj6d5Pr/KlXAu1xu5mduEjX5MlugQkVxSMETw6b3lHnyC2SSRVbB57sygTHDjJX6bUb5BY44+LcSVyfFT56YX+1ijBc+a9qCU1bBi9e2Vj+KlBAGwUPVTGLZRQQvBAI90oqSMRDkratfZUCs6xWDp4pRZi9PcE6NRRBGg/XWQ/L2wCD8jmlBd0T3lwl2oc/9zCNVgAkgFOlFe/fH8QjdZ7UJMAPeIro28m4SHWOrl/4LqTv5fSjp+Sf5ZjmA/3RA/dtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/CtYTvzgtGJg84N0yPUmVL7hzX9NiJ6qcRU4FyOtusg=;
- b=Zfy9dNq36MXdrFfzP2JxX/aFFrSc+VqcFl89HwzFqo2FFsfF0qwzWqYbzV6R9CUMxdNGC29weKOjcGB8RlUwtFrZFbqh3rNCK7LTMQXWiFtHfOLp/NxHWaY/FR8C+VWWedYqGo7ywDDgIBWNjBZIU0X3Q9jjRoaO3Y5EjErKXXAY8HBd4mmf2ZiQrJLDIbs4iWg9yVYiqSWIj77kKW7cymPR6SeZ1ADxAAac7RL3DnLQIUXeCHEDJ2sNRFvHyGayoEzHGtwi75QAU32/hFOLow4+i6lECHc/FRivt/U64afWVFYboKVQWYBBarHEBKZHzQLXVhFS0TRZe7Uq+iS+Jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/CtYTvzgtGJg84N0yPUmVL7hzX9NiJ6qcRU4FyOtusg=;
- b=WcCqSxKMAZNDRG2uhtu8ydwoL8xhCg6vsdRkoJL9zr+FqIQLezvCJd9/nIS+wAFVIs9PYzEjTr4RyuX5A5vfV37ka/84T2/FLElh1vRftoYo2pAvKkMNa6XN3eg5p/7BQVZ/Z6orPWw9osI0SHJ7sxmRnix3XYIu9OiqB0Va7Ks=
-Received: from BL1PR12MB5157.namprd12.prod.outlook.com (2603:10b6:208:308::15)
- by CY4PR12MB1445.namprd12.prod.outlook.com (2603:10b6:910:11::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.12; Wed, 26 Jan
- 2022 14:57:27 +0000
-Received: from BL1PR12MB5157.namprd12.prod.outlook.com
- ([fe80::42f:534d:e82:b59f]) by BL1PR12MB5157.namprd12.prod.outlook.com
- ([fe80::42f:534d:e82:b59f%4]) with mapi id 15.20.4930.015; Wed, 26 Jan 2022
- 14:57:27 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v5 4/4] drm/amd: don't reset dGPUs that don't go through
- system S3
-Thread-Topic: [PATCH v5 4/4] drm/amd: don't reset dGPUs that don't go through
- system S3
-Thread-Index: AQHYEmqOPllBJW9FWE+G+a6NlkgKjqx1ZN0A
-Date: Wed, 26 Jan 2022 14:57:27 +0000
-Message-ID: <BL1PR12MB51574B9B0E8DA25C650BEFB5E2209@BL1PR12MB5157.namprd12.prod.outlook.com>
-References: <20220126040944.4324-1-mario.limonciello@amd.com>
- <20220126040944.4324-4-mario.limonciello@amd.com>
-In-Reply-To: <20220126040944.4324-4-mario.limonciello@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-01-26T14:57:25Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=1bcba238-93e2-49af-85c3-5a80207040b7;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-01-26T14:57:26Z
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
- Only-AIP 2.0
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 423b92e6-d128-4104-a836-198e68160201
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2ff52893-504e-440d-af1d-08d9e0dc2b46
-x-ms-traffictypediagnostic: CY4PR12MB1445:EE_
-x-microsoft-antispam-prvs: <CY4PR12MB1445D8CC2F7B1D6CEC4F9C16E2209@CY4PR12MB1445.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gvQ2vICyZUhaf0letfgR7ugfPsp32Au1SVBQiv6VK0SD6iPHa67vl12Tyl6iDcNBn55mvjoHJDXF4l9vSjKdp62rfKvurflfEHZMIKb+bJjSiVo9aN4idQtwt3vb2Nf8GaBp+NNQZJtEDYyXon+rX6lLG9rrrwwCi8Ce/0HO3IAMu6ynNEgn9x/hN/cfqvoW2Qi17d0s5Vg94bMAmSPrJSAw7STOVYRUIwVWBb1ii06NLjCh/uxdGYhzkvZ1nClrC8KHlFQEB83jYs/+PqdAivYqqEyrIFwSfkVL7SdQju2lhIASAMxeNFGQWD0uw/pLKe80CPkeHRMY29/PiwRdQANQeO8v+ugJnX+pJZ/EtmHpgcjrAVw6IgWryfRi/npjafcOmIsc+VTLNcvx8JQf5KJqxMCf4JexUvUBK57IZxNBnjq7X5LLcwwBXDWI0Xlym2FZa48+0zJ2IajPGtzy3euTlZHorCleemHJZTg9W1VndBtzNbWwnd5J1fZODcH0zzo1YyAXTXBKeJJ3zRdd/djG+95qrxaULxFMuvJqv7he7uFdT0MrShDjpexF++VGp1/A/De+Z8HJQfOjjPoLSA8vRF5L31fTLnYFfeMtaLi22pS8ASsrkfpsuanP5ObsoxDdMJOBQeYe6lGTpn1PJeM7MMXTZPs/b6TuOnCVTiR9cqJK9hHmwZST+OaENHxHp726PcmXLavLZoZgVbtc4Q==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5157.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(8676002)(66446008)(9686003)(86362001)(64756008)(66946007)(4326008)(38070700005)(76116006)(66476007)(966005)(66556008)(2906002)(38100700002)(55016003)(53546011)(83380400001)(508600001)(316002)(6506007)(52536014)(7696005)(186003)(33656002)(6916009)(71200400001)(8936002)(5660300002)(122000001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ip6UQtIGBN11nUygzvI6SGaocMb5sRT+xBqK0LblpYlQPQvjKawYTYeGMZjo?=
- =?us-ascii?Q?4rnOrN0zZpALlkQDBAMykDp6XG66Y8moILupCqM+aBcc3VaKy1nWDp7oHokJ?=
- =?us-ascii?Q?xA/pmY4XDIOenFiBTChgqbuj3al/7CI0nXkn69FIDfMvOZbGyNjcsn4HOZ1R?=
- =?us-ascii?Q?GsbF+9hKCJdpxEUklRpQiUwu6IhKZ0qZz6ypYwFjJAISRNOUPwp51kKwYOzV?=
- =?us-ascii?Q?90ptlp8jkpdlZ3ul3uT33Y55ukgFFEhtqYmqwSxoHy6wXLb55pGMyBV4zwUS?=
- =?us-ascii?Q?5iXjDA/2/+Drmu6IaWrgJa9R0AN9yNI6EeAezIj2lod+W3BkuzLUYDTrnsWb?=
- =?us-ascii?Q?b8w6nD8rjV+nKt3zGmtxQgaECfBLXTTn71iRod++TkgknjIswOZXOQ6ej6UH?=
- =?us-ascii?Q?NxeXpOo7Hveu9H0i6ebd/idWb2H6A7NEt28knLD0gqkM+VH966/FlUyOrOda?=
- =?us-ascii?Q?Gk7oUlviUIU/gdNInS2QoByK7b7S3VuhUQ09nrweF/GK7wiJ7oLNCG2r8X6B?=
- =?us-ascii?Q?DRdRVzLIluvg8IsVRxJf73bzpNKeQxM0PNPPgcp7hAMll8T0pr7m9Hjb6zJz?=
- =?us-ascii?Q?zMmQnvozJcr08pMgIcxDiZR2zji0/B92qGfJG2kkvjW8BwkiQf5O7BXqy9RP?=
- =?us-ascii?Q?gfbBwjP+wICPkUDNm6goaDD6z3CkV1j3GGaNoga2oBzVtTn7YSG3+vbSljGU?=
- =?us-ascii?Q?2EE+ZhNUM4F+X3RfchuCBig1xOZDhmXweu5r46ZRIoa/liq9odyGBc+fdU8S?=
- =?us-ascii?Q?I/sbyQWmCM7xHPhWcvHt1Fbu2bcdN3M0ZQOYmqVC+OEFLaTLON9/BOT3n4tY?=
- =?us-ascii?Q?Ysw9CFQsDCeUS/pjAyOfvJLggOEWaCmlj3PY8nPlGcI5u/xMcMOuY1rZuS/V?=
- =?us-ascii?Q?0a8ECiWAOQ19GJYW2kXCv8OZm6yw4jNQfWAtARO3nTbE4uQMz0sNTPZ+zl6k?=
- =?us-ascii?Q?OFSUOPelbKE45GDtHMnm8Vlzt2TQp7Twk+YWiZp7d3kB4ASk3p2YJYCuiB2t?=
- =?us-ascii?Q?ja1wG4drT/Yxt/5e8C7KW0FrGHZ/Ej/Zp75IMGF/IHWg/MR2D5hhPHtzvxWQ?=
- =?us-ascii?Q?HfZxX0RYE7ZipSFaLHc3gQdygxcbVo+r6dxgU+zob5h+NDdxJGTA4JcIOLvk?=
- =?us-ascii?Q?oMSNApJAUHHdK8uk0XLDxByRP8iF7SIIEdxqNajem8oJ+TLVfes3eA7fkijY?=
- =?us-ascii?Q?dXBLejMPIbJQoQrTpvHiKqkyOUx3168eAqELF0nrBgy6xTPBcMXeGLYV+6A3?=
- =?us-ascii?Q?aOnmNOE/yPaTiL0JZl9EjadHmiIqLuXOQbsqw5hLnoxu594U9BnTQfN0WJmy?=
- =?us-ascii?Q?jN6H5kI+vj9N8TFOfVq8xP1b93xUVdlkpyoVu7wnNLbPOOSsuT8iytXnIiuy?=
- =?us-ascii?Q?CoI0UN193DbcQqZleG07rfETi1hevoDM+oV8BqTNbNRk3vkk9Oex3/EcfXmZ?=
- =?us-ascii?Q?1SKnvh82ab1ZPAdBpirmZdByChdn3eD+0zAFARsV3T+tDL42qvuRO4FRaevG?=
- =?us-ascii?Q?6rGYTgYfUwHScr7I9mZkK5eB8brtYOThuJj4tCuf8tngEr1TuVHFQJKeTYEV?=
- =?us-ascii?Q?cImuBLIbQ1pwOtoz1miO99z+A64z/3GBcQgNZAxlEOPnwZDHvGFFK1MW2pp4?=
- =?us-ascii?Q?ehqBQWMJhFDvGV5OlioTLeX7Jcpp0PunrB5tIGEiVBrJAacqFH+bPREfC0sb?=
- =?us-ascii?Q?+OX1L9t37CtJLlP16Jn0Nyv9l/8=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03ED710E65F;
+	Wed, 26 Jan 2022 14:57:35 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6C8210E65A;
+ Wed, 26 Jan 2022 14:57:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1643209053; x=1674745053;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=Naq9bU8Eug7aC4jYDxIsWIp4xb2ekXmzmY6NZVxr3bQ=;
+ b=NF+5n6g7TyN6x4uPPJRhvHmPzAPpuRgpfGfmXUvAe2zpL5g6VQgVn382
+ HkiA+JEO6OJXZ/fv48jmaQwDYA3JNOsRMt9HUpTv3AJgo8By98p0SaL6o
+ ogqY3Oq+SuZiMANp+5XQUlwtpF/ZtrgnfsJ0nK0HBFKoknGNUgJHhg+f/
+ aq0pK0w39qfDW5K2crKPhzrRbJk8ZapFam2zdmsgRYsGAM+UljGRfD97l
+ Nb4aVzQsKTyr/YNGtF+u2HNJ8KrlXbfDNJb4PWvcxS5LULdht4k3FT9iZ
+ xYDHDA54UG4jgcsrFUqBKk7lvWHGS0Shj4VqFTk7N1xtJ90GZ1juD8WPK A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="233941315"
+X-IronPort-AV: E=Sophos;i="5.88,318,1635231600"; d="scan'208";a="233941315"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 06:57:33 -0800
+X-IronPort-AV: E=Sophos;i="5.88,318,1635231600"; d="scan'208";a="628324945"
+Received: from nbasu-mobl.ger.corp.intel.com (HELO localhost) ([10.252.16.197])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 06:57:21 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-security-module@vger.kernel.org, nouveau@lists.freedesktop.org,
+ netdev@vger.kernel.org
+Subject: Re: [PATCH v2 09/11] drm: Convert open-coded yes/no strings to yesno()
+In-Reply-To: <20220126093951.1470898-10-lucas.demarchi@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220126093951.1470898-1-lucas.demarchi@intel.com>
+ <20220126093951.1470898-10-lucas.demarchi@intel.com>
+Date: Wed, 26 Jan 2022 16:57:18 +0200
+Message-ID: <87y232y27l.fsf@intel.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5157.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ff52893-504e-440d-af1d-08d9e0dc2b46
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jan 2022 14:57:27.2021 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XnkKFYe9/xIASx5Vw+kGy5CpD1x2Fn4oRuQ27WU+bE6xnji17inVK5RobZaVjo+r7Lj2JLmAHOuHb/ShtPDfPw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1445
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,51 +59,259 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liang, Prike" <Prike.Liang@amd.com>
+Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
+ Francis Laniel <laniel_francis@privacyrequired.com>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Jakub Kicinski <kuba@kernel.org>, Harry Wentland <harry.wentland@amd.com>,
+ Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Leo Li <sunpeng.li@amd.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Julia Lawall <julia.lawall@lip6.fr>,
+ Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Raju Rangoju <rajur@chelsio.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, "David
+ S. Miller" <davem@davemloft.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+On Wed, 26 Jan 2022, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
+> linux/string_helpers.h provides a helper to return "yes"/"no" strings.
+> Replace the open coded versions with str_yes_no(). The places were
+> identified with the following semantic patch:
+>
+> 	@@
+> 	expression b;
+> 	@@
+>
+> 	- b ? "yes" : "no"
+> 	+ str_yes_no(b)
+>
+> Then the includes were added, so we include-what-we-use, and parenthesis
+> adjusted in drivers/gpu/drm/v3d/v3d_debugfs.c. After the conversion we
+> still see the same binary sizes:
+>
+>    text    data     bss     dec     hex filename
+>   51149    3295     212   54656    d580 virtio/virtio-gpu.ko.old
+>   51149    3295     212   54656    d580 virtio/virtio-gpu.ko
+> 1441491   60340     800 1502631  16eda7 radeon/radeon.ko.old
+> 1441491   60340     800 1502631  16eda7 radeon/radeon.ko
+> 6125369  328538   34000 6487907  62ff63 amd/amdgpu/amdgpu.ko.old
+> 6125369  328538   34000 6487907  62ff63 amd/amdgpu/amdgpu.ko
+>  411986   10490    6176  428652   68a6c drm.ko.old
+>  411986   10490    6176  428652   68a6c drm.ko
+>   98129    1636     264  100029   186bd dp/drm_dp_helper.ko.old
+>   98129    1636     264  100029   186bd dp/drm_dp_helper.ko
+> 1973432  109640    2352 2085424  1fd230 nouveau/nouveau.ko.old
+> 1973432  109640    2352 2085424  1fd230 nouveau/nouveau.ko
+>
+> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 
-> -----Original Message-----
-> From: Limonciello, Mario <Mario.Limonciello@amd.com>
-> Sent: Tuesday, January 25, 2022 22:10
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Liang, Prike <Prike.Liang@amd.com>; Limonciello, Mario
-> <Mario.Limonciello@amd.com>
-> Subject: [PATCH v5 4/4] drm/amd: don't reset dGPUs that don't go through
-> system S3
->=20
-> dGPUs connected to Intel systems configured for suspend to idle
-> will not necessarily have the power rails cut at suspend and
-> resetting the GPU may lead to problematic behaviors.
->=20
-> Fixes: 6dc8265f9803 ("drm/amdgpu: always reset the asic in suspend (v2)")
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1879
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-Testing has failed with this patch on the original issue mentioned above, s=
-o if
-the rest of this series is OK, this one at least should be dropped for now.
-
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 123ec5a07dd5..66290f986544 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2319,7 +2319,7 @@ static int amdgpu_pmops_suspend(struct device
-> *dev)
->  		r =3D amdgpu_device_suspend(drm_dev, true);
->  		if (r)
->  			return r;
-> -		if (!adev->in_s0ix)
-> +		if (!adev->in_s0ix && pm_suspend_via_firmware())
->  			r =3D amdgpu_asic_reset(adev);
+>  drivers/gpu/drm/amd/amdgpu/atom.c             |  4 +++-
+>  drivers/gpu/drm/dp/drm_dp.c                   |  3 ++-
+>  drivers/gpu/drm/drm_client_modeset.c          |  3 ++-
+>  drivers/gpu/drm/drm_gem.c                     |  3 ++-
+>  drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c |  5 ++++-
+>  drivers/gpu/drm/radeon/atom.c                 |  3 ++-
+>  drivers/gpu/drm/v3d/v3d_debugfs.c             | 11 ++++++-----
+>  drivers/gpu/drm/virtio/virtgpu_debugfs.c      |  4 +++-
+>  8 files changed, 24 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+> index 6fa2229b7229..1c5d9388ad0b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+> @@ -25,6 +25,8 @@
+>  #include <linux/module.h>
+>  #include <linux/sched.h>
+>  #include <linux/slab.h>
+> +#include <linux/string_helpers.h>
+> +
+>  #include <asm/unaligned.h>
+>  
+>  #include <drm/drm_util.h>
+> @@ -740,7 +742,7 @@ static void atom_op_jump(atom_exec_context *ctx, int *ptr, int arg)
+>  		break;
 >  	}
->  	return r;
-> --
-> 2.25.1
+>  	if (arg != ATOM_COND_ALWAYS)
+> -		SDEBUG("   taken: %s\n", execute ? "yes" : "no");
+> +		SDEBUG("   taken: %s\n", str_yes_no(execute));
+>  	SDEBUG("   target: 0x%04X\n", target);
+>  	if (execute) {
+>  		if (ctx->last_jump == (ctx->start + target)) {
+> diff --git a/drivers/gpu/drm/dp/drm_dp.c b/drivers/gpu/drm/dp/drm_dp.c
+> index 6d43325acca5..c43577c8ac4d 100644
+> --- a/drivers/gpu/drm/dp/drm_dp.c
+> +++ b/drivers/gpu/drm/dp/drm_dp.c
+> @@ -28,6 +28,7 @@
+>  #include <linux/module.h>
+>  #include <linux/sched.h>
+>  #include <linux/seq_file.h>
+> +#include <linux/string_helpers.h>
+>  
+>  #include <drm/dp/drm_dp_helper.h>
+>  #include <drm/drm_print.h>
+> @@ -1239,7 +1240,7 @@ void drm_dp_downstream_debug(struct seq_file *m,
+>  	bool branch_device = drm_dp_is_branch(dpcd);
+>  
+>  	seq_printf(m, "\tDP branch device present: %s\n",
+> -		   branch_device ? "yes" : "no");
+> +		   str_yes_no(branch_device));
+>  
+>  	if (!branch_device)
+>  		return;
+> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
+> index ced09c7c06f9..e6346a67cd98 100644
+> --- a/drivers/gpu/drm/drm_client_modeset.c
+> +++ b/drivers/gpu/drm/drm_client_modeset.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/module.h>
+>  #include <linux/mutex.h>
+>  #include <linux/slab.h>
+> +#include <linux/string_helpers.h>
+>  
+>  #include <drm/drm_atomic.h>
+>  #include <drm/drm_client.h>
+> @@ -241,7 +242,7 @@ static void drm_client_connectors_enabled(struct drm_connector **connectors,
+>  		connector = connectors[i];
+>  		enabled[i] = drm_connector_enabled(connector, true);
+>  		DRM_DEBUG_KMS("connector %d enabled? %s\n", connector->base.id,
+> -			      connector->display_info.non_desktop ? "non desktop" : enabled[i] ? "yes" : "no");
+> +			      connector->display_info.non_desktop ? "non desktop" : str_yes_no(enabled[i]));
+>  
+>  		any_enabled |= enabled[i];
+>  	}
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index 21631c22b374..3c888db59ea4 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -37,6 +37,7 @@
+>  #include <linux/pagevec.h>
+>  #include <linux/shmem_fs.h>
+>  #include <linux/slab.h>
+> +#include <linux/string_helpers.h>
+>  #include <linux/types.h>
+>  #include <linux/uaccess.h>
+>  
+> @@ -1145,7 +1146,7 @@ void drm_gem_print_info(struct drm_printer *p, unsigned int indent,
+>  			  drm_vma_node_start(&obj->vma_node));
+>  	drm_printf_indent(p, indent, "size=%zu\n", obj->size);
+>  	drm_printf_indent(p, indent, "imported=%s\n",
+> -			  obj->import_attach ? "yes" : "no");
+> +			  str_yes_no(obj->import_attach));
+>  
+>  	if (obj->funcs->print_info)
+>  		obj->funcs->print_info(p, indent, obj);
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
+> index a11637b0f6cc..d063d0dc13c5 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
+> @@ -21,6 +21,9 @@
+>   *
+>   * Authors: Ben Skeggs
+>   */
+> +
+> +#include <linux/string_helpers.h>
+> +
+>  #include "aux.h"
+>  #include "pad.h"
+>  
+> @@ -94,7 +97,7 @@ void
+>  nvkm_i2c_aux_monitor(struct nvkm_i2c_aux *aux, bool monitor)
+>  {
+>  	struct nvkm_i2c_pad *pad = aux->pad;
+> -	AUX_TRACE(aux, "monitor: %s", monitor ? "yes" : "no");
+> +	AUX_TRACE(aux, "monitor: %s", str_yes_no(monitor));
+>  	if (monitor)
+>  		nvkm_i2c_pad_mode(pad, NVKM_I2C_PAD_AUX);
+>  	else
+> diff --git a/drivers/gpu/drm/radeon/atom.c b/drivers/gpu/drm/radeon/atom.c
+> index f15b20da5315..c1bbfbe28bda 100644
+> --- a/drivers/gpu/drm/radeon/atom.c
+> +++ b/drivers/gpu/drm/radeon/atom.c
+> @@ -25,6 +25,7 @@
+>  #include <linux/module.h>
+>  #include <linux/sched.h>
+>  #include <linux/slab.h>
+> +#include <linux/string_helpers.h>
+>  
+>  #include <asm/unaligned.h>
+>  
+> @@ -722,7 +723,7 @@ static void atom_op_jump(atom_exec_context *ctx, int *ptr, int arg)
+>  		break;
+>  	}
+>  	if (arg != ATOM_COND_ALWAYS)
+> -		SDEBUG("   taken: %s\n", execute ? "yes" : "no");
+> +		SDEBUG("   taken: %s\n", str_yes_no(execute));
+>  	SDEBUG("   target: 0x%04X\n", target);
+>  	if (execute) {
+>  		if (ctx->last_jump == (ctx->start + target)) {
+> diff --git a/drivers/gpu/drm/v3d/v3d_debugfs.c b/drivers/gpu/drm/v3d/v3d_debugfs.c
+> index e76b24bb8828..29fd13109e43 100644
+> --- a/drivers/gpu/drm/v3d/v3d_debugfs.c
+> +++ b/drivers/gpu/drm/v3d/v3d_debugfs.c
+> @@ -6,6 +6,7 @@
+>  #include <linux/debugfs.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/seq_file.h>
+> +#include <linux/string_helpers.h>
+>  
+>  #include <drm/drm_debugfs.h>
+>  
+> @@ -148,15 +149,15 @@ static int v3d_v3d_debugfs_ident(struct seq_file *m, void *unused)
+>  		   V3D_GET_FIELD(ident3, V3D_HUB_IDENT3_IPREV),
+>  		   V3D_GET_FIELD(ident3, V3D_HUB_IDENT3_IPIDX));
+>  	seq_printf(m, "MMU:        %s\n",
+> -		   (ident2 & V3D_HUB_IDENT2_WITH_MMU) ? "yes" : "no");
+> +		   str_yes_no(ident2 & V3D_HUB_IDENT2_WITH_MMU));
+>  	seq_printf(m, "TFU:        %s\n",
+> -		   (ident1 & V3D_HUB_IDENT1_WITH_TFU) ? "yes" : "no");
+> +		   str_yes_no(ident1 & V3D_HUB_IDENT1_WITH_TFU));
+>  	seq_printf(m, "TSY:        %s\n",
+> -		   (ident1 & V3D_HUB_IDENT1_WITH_TSY) ? "yes" : "no");
+> +		   str_yes_no(ident1 & V3D_HUB_IDENT1_WITH_TSY));
+>  	seq_printf(m, "MSO:        %s\n",
+> -		   (ident1 & V3D_HUB_IDENT1_WITH_MSO) ? "yes" : "no");
+> +		   str_yes_no(ident1 & V3D_HUB_IDENT1_WITH_MSO));
+>  	seq_printf(m, "L3C:        %s (%dkb)\n",
+> -		   (ident1 & V3D_HUB_IDENT1_WITH_L3C) ? "yes" : "no",
+> +		   str_yes_no(ident1 & V3D_HUB_IDENT1_WITH_L3C),
+>  		   V3D_GET_FIELD(ident2, V3D_HUB_IDENT2_L3C_NKB));
+>  
+>  	for (core = 0; core < cores; core++) {
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
+> index b6954e2f75e6..853dd9aa397e 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
+> @@ -23,6 +23,8 @@
+>   * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+>   */
+>  
+> +#include <linux/string_helpers.h>
+> +
+>  #include <drm/drm_debugfs.h>
+>  #include <drm/drm_file.h>
+>  
+> @@ -31,7 +33,7 @@
+>  static void virtio_gpu_add_bool(struct seq_file *m, const char *name,
+>  				bool value)
+>  {
+> -	seq_printf(m, "%-16s : %s\n", name, value ? "yes" : "no");
+> +	seq_printf(m, "%-16s : %s\n", name, str_yes_no(value));
+>  }
+>  
+>  static void virtio_gpu_add_int(struct seq_file *m, const char *name, int value)
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
