@@ -4,142 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB47BC2BA4C
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 16:31:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD489C2BA4C
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 19:14:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B09610E4BF;
-	Wed, 26 Jan 2022 16:31:53 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2053.outbound.protection.outlook.com [40.107.100.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8294810E4BF
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 16:31:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IcvvazCYBf5979TRB+boBOVgGYbn0UjAu0oeL1N4Ork4diiHK1E+OsWwoDqvWrPd2ezx/aMfXlPU5ZD9vKYd0mlQzVK0LXGYDgYqiuOyjVfnilHkzzw2Z9Cb7OQwNwt4JJEpycrQp2rT+hMc1dk6wCqj1roXimgB2ps5d13SfBcUmWX1VYXxATBCeV4sXc4NgNWdJrTOKZY5MY5hUMXNXDDknxQfjNdqFOqEi88sAXAQRTcOg7clsHhq8kl5FUSpYBwSDQ7LUOiKG9+3YjNZ4K/pGsnojIBVNXDSWcl93bDXiP8YALuVza6BXhfTLOZQQL4qaG22oolnPvpfY49GEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VAVe4ChULP9tOQ0fSWJQojx4MclpMGyKm519HhSGOdg=;
- b=H2C+KB8kPEJc+lHVMCp7XBGuJ6SMdGx/9egexa7FJzNhX3VBZHV+KOxAxiR+n7tIcvBqhhHKIcApEJKw7BsOMUbbYm5GNrX2QW7vXyAxHXfg5KkcX73ni1vrV8PrAB8hmAdIhENil+nGyA1yAD0mqJzS1K2nagUYTxxASNx+ZASpfClBz/MrdF00BFtSEF6Xqci4+VBqpms7O3Yt6gV7EGv4GZ0VQtZlzpJXg8ms2hUWQa9O8Xm8ah6wb4bIBBVCYt0T9H7o0DCbwGig89+Xlx/kCIXqlhIAr8D6z8QYQWkWKx2Iw+RZUnEgd7uGIWTr6/9wGyhY290CuBQGqcDW7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VAVe4ChULP9tOQ0fSWJQojx4MclpMGyKm519HhSGOdg=;
- b=X/GU8+xIMgRPpieGzZAyCn/51tnuF0/iWKLJWAUM77HmMYF5SAnZOSjX936LJ7pGgfzSnTbhlbp2eSvBLmnXMFmpOZZQ79FniiP7hRuus8ZsnVEVV7W75awdiZ2abi7dHa/AnqHYfN9EmwIncTYe0azLVAjjcTVjMhuGBuHrkGs=
-Received: from BL1PR12MB5157.namprd12.prod.outlook.com (2603:10b6:208:308::15)
- by BL0PR12MB2387.namprd12.prod.outlook.com (2603:10b6:207:44::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Wed, 26 Jan
- 2022 16:31:50 +0000
-Received: from BL1PR12MB5157.namprd12.prod.outlook.com
- ([fe80::42f:534d:e82:b59f]) by BL1PR12MB5157.namprd12.prod.outlook.com
- ([fe80::42f:534d:e82:b59f%4]) with mapi id 15.20.4930.015; Wed, 26 Jan 2022
- 16:31:50 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
-Subject: RE: [PATCH v5 2/4] drm/amd: add support to check whether the system
- is set to s3
-Thread-Topic: [PATCH v5 2/4] drm/amd: add support to check whether the system
- is set to s3
-Thread-Index: AQHYEmqNfmkF82KHjk6WjLq0eEjUOax1Z7aAgAAAF+CAAAFNAIAAALAAgAAFRgCAAAJIAIAADYbw
-Date: Wed, 26 Jan 2022 16:31:50 +0000
-Message-ID: <BL1PR12MB515781C80968A9B9A8862ADBE2209@BL1PR12MB5157.namprd12.prod.outlook.com>
-References: <20220126040944.4324-1-mario.limonciello@amd.com>
- <20220126040944.4324-2-mario.limonciello@amd.com>
- <BYAPR12MB46142C4338D620EE1F7977FB97209@BYAPR12MB4614.namprd12.prod.outlook.com>
- <BL1PR12MB5157001FFC7CC78C6AA12DF4E2209@BL1PR12MB5157.namprd12.prod.outlook.com>
- <BYAPR12MB46143045A2226B863E1CCB2997209@BYAPR12MB4614.namprd12.prod.outlook.com>
- <BL1PR12MB515774822861EC1850C31F98E2209@BL1PR12MB5157.namprd12.prod.outlook.com>
- <BYAPR12MB4614586B64F8A716DE4D987597209@BYAPR12MB4614.namprd12.prod.outlook.com>
- <CADnq5_POyZpODYcpD6WyyUYE6y+RCzX0L=N9hU4Y7b7qTHVKxg@mail.gmail.com>
-In-Reply-To: <CADnq5_POyZpODYcpD6WyyUYE6y+RCzX0L=N9hU4Y7b7qTHVKxg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-01-26T16:31:48Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=2394dfd2-0969-4d3a-ae9e-c7d25ce3ca3b;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-01-26T16:31:48Z
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
- Only-AIP 2.0
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: f4459f42-8c9f-4274-bc50-034c90c34603
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0bf8fa2d-96c6-4d4b-b4ce-08d9e0e95ab4
-x-ms-traffictypediagnostic: BL0PR12MB2387:EE_
-x-microsoft-antispam-prvs: <BL0PR12MB2387CAE0BD6152BE38959644E2209@BL0PR12MB2387.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 22zp82eJDAf/AEpf0Oqq+1mQN0R54V+NP0e1ntBkYA5sq3QaPFqkDcYvrJXRT0msFrgAk2kdG+ke3Xr+JceuEx1m/w4awC0Z4ZA7ROXDtUUKcuCVcY/KQs7aUOL0v/f6uxrKeL6UQ0yQVjURKFAmH/xMmiZteGovuwCstPHxIexu0rb09UVEIyN46adSxtkPgzF5ELkGAbtsXavXZnbCd3mAQECWhd88QCzw/5aB40cQoHZLXdZkclYIfrd7t9/hYcryqSBtAFqd842ZUig6+1VL/Xk9rM4yLK1KfyMSkMRGkJHMjoS/d2jJlXzCUYHFnlkPa2xHlJ4KGERN2keHo9DylKAHy9Jvc3U17sMK/mKMRSlAkd9hLUGfau1llWsDeeRGEBccF5Bt+V2B1M4ZU12rB/yuBxt0GeorMofvYBJIjnB70IMg5EbyylHa368tvLv1oM3ZL0LPRdn/BTgyRkFE5SiRbIHoLREABGDAdcZWeecpD3ojvIJUrJghmeLtG8J8I5KNgv3VSpohq58RMwCHxdWw8ZE8fXeCSNDBvSKK61k9FVWbjWXMiX802SZEtwHDRz6IS28N8WhHZYIzuxOA7eC+BLDcqqLsY+YTWgpruXPYif2UF/jKIB8QAAO5QGgZ+mA7H/9FUe5ZPnQ6+m6yANohCPi2w0PflsdBu+83Hm/R1wVGALwzRT25z6kCKaE4947lxCJnNyk7tDmXHQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5157.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(38070700005)(55016003)(66556008)(64756008)(66476007)(66446008)(8936002)(110136005)(86362001)(5660300002)(4326008)(76116006)(54906003)(508600001)(316002)(6636002)(38100700002)(66946007)(33656002)(2906002)(52536014)(71200400001)(8676002)(122000001)(186003)(83380400001)(9686003)(53546011)(6506007)(7696005)(20210929001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dldpVDZyRHp5YVNDWUk0UGk1cEZ1ODlGbi9qeDU5dFN3VU05M3NKdUhTSVp4?=
- =?utf-8?B?MkQzbVZTdDQxbUJ6bENKL1g4UHczTG8veUIydEhLdUxkVGp0MThoR1FDTFBl?=
- =?utf-8?B?MDdGalM5cVJ4V0VKZmlyZFlUNDg2aEpsMUpWcFBFRzFZcHQ5UXNZQ0RqWFRv?=
- =?utf-8?B?OGpzZmFUVURLRTZFRzhZUzJGcHZDTGpiWDB4VjVlYVpobDFpZElrVXhYYzRi?=
- =?utf-8?B?TS9tK1RENk04cFJDa01ZZFU4dmkvQ2xVWmxjRU93eWMveFdXK3psaVRsZWM2?=
- =?utf-8?B?QUlUNHdSRUUrUnhKSGVCZXdUbTRMQi9sbFp2VWh4WFlxNmhkWWluQkV3dEdz?=
- =?utf-8?B?N0R6L3JDcU1VTUNUNm1vRG16RFIxMjd4eFJMWnpqT3VURm9qaThWc3h4cys1?=
- =?utf-8?B?cDZWR084SlVLWkpmVysxbnRiYi95TitweTBSc0hzczdMQ3VVcG5NVUhiZzJt?=
- =?utf-8?B?YnRQQWRycVNUbW5EN2p4SUR1Mi83VHQxL083Mm1XZWhTcjV6a0cxOTVSSENm?=
- =?utf-8?B?Qi9Id3puTzl0ZHBkQ1lVL1dQWmVuTUZpMUR5U3hzZVpnTUJJUENTZGMzeTFs?=
- =?utf-8?B?UnNIV0Q0K0hBY0xiMmx0ZmtRbklwdlc4c1U2aURrYkJOMTNndk1xOCtMRnRu?=
- =?utf-8?B?Y09UYXBraUNQNXZiNVkrTXhDNmdaeDY2UFBXVGc4Sk9vRjVkTnBzR3BVMzNq?=
- =?utf-8?B?SU9Sb1hsR2lTL2tUd2o0cGJQNFB0V1llUm1RMjIxT3NrUUlDT1FWcXZOR3kv?=
- =?utf-8?B?ai9qMkZ1MExlamN1WFNZQkpycTJpNHZOcTBmR1ZEc2k5MVM5SjBxRHdLL1pW?=
- =?utf-8?B?WXgwMVVtUC9sczdseUdteGNTUE5qU0l4WDRxOEMxMjhBWDhLZmYrRjN4WFJr?=
- =?utf-8?B?NTUzWGd0OUE2T09SKzBRNmp5eGp0YVBQV01rNTl6L3dRaGo0cGVIOWhPR1d1?=
- =?utf-8?B?OVJqUkExeEVqY3V5WHNtVzExR2FtNE1DNm1yRUFodzB5cDNhNE40K3pxRjVo?=
- =?utf-8?B?K0VMaEJHNHkySnBRL28zRk9PSUdnaWlQSkZKbHdoRnI3MkkyNytwM0xUOFJO?=
- =?utf-8?B?MUR6NFVvZmRRWERPSXZqWkQrZ2hSS0JwckhLV0VqQy9jZU4wZmZkY09mNGdJ?=
- =?utf-8?B?RFFFYWc0bjhwMFpXS3lrczdFa1hXbzZCbHBvYU81TW9SekJ2L3J4ZnMzajBJ?=
- =?utf-8?B?TERkNkdtRHozbTZFQ2IrNUovQXZuanZEN3o0MFBFRWwvNWNVV3JxS29SU04w?=
- =?utf-8?B?eXEzdFhFMVFFbVB0c1J0L2k1cm9JR216S2hqdFUzLzBxMURLdHZtN1g5RExU?=
- =?utf-8?B?aWxCRzRrMVhJMmNjd1J4ajRlQytCTGNsbE5YaHdEM2VPZHROd0lJV0RtYVdU?=
- =?utf-8?B?Mk9VbERHU2pmeENlbi9DQ3ZYcHM3Ui90bFJHdkRQVGhIWUduVlRhODhWNzJH?=
- =?utf-8?B?KzQrdXdNNWlsRE9WTFBkaUhJaW1HWnRoMEZKZU9oMlpFaWxKS0cxK2N6KzRv?=
- =?utf-8?B?UDVYa1NLV3I1Q3NaUzZmc2psbGRDZkRxTm9oNStIM2ZVcmxIQW5VZTJvWFFw?=
- =?utf-8?B?Wi9Rb2F1VWFWbVc0dnhZYUhlRk84UzRIejFUQmw5dUJ0Sk9hbEFxcVhsTVg0?=
- =?utf-8?B?dTZHaktMWDVNL1JLTENSejFNTmVzMHh0TGMwVDlnVnBiNkRXTlYrWFlIMmNr?=
- =?utf-8?B?OTN4NWhoVGF5MzMvR2hKWFpRQVFOVE9pNjNnZWhEWkNpMjBwb3A0cWhBVGNQ?=
- =?utf-8?B?RGhYaXlRZzBLSUtsVWQxbFNEUWxvUndVUHlWMWprcjBTdzNzMDVFSnRwY1BG?=
- =?utf-8?B?QndqYTZjaWpUaWlVWXhPWUNibGsrY21WMnFwcHVQTEhpVXRqUTNSSjJKK3Ni?=
- =?utf-8?B?M3VHU3o5eTducmpEeHc2UjRKaStkSFBibjRBOFk3YUZ5aGFRQ2czSXJjVlhQ?=
- =?utf-8?B?MEJrT3hjRDhFR1hDcHpyQnNBWC9DSFNtRkM1MElBWTkrU0NOYmdFS2ttcHpl?=
- =?utf-8?B?VEtZRHN5R3BVN2R2RTAwL3ZmMlB1bllXVkFmaGFpZlhDaUluenY0RGpCQmRS?=
- =?utf-8?B?RzVhZ0hOdW1wYnNxdlhUYVpNRktwdzVtVW8zVjJqSTRhYXhpdHRxdUp5VHk1?=
- =?utf-8?B?MHZScUFrekVSNEo0Y29MczNCNFhBWHZ0K0E5OXFubzU5dU82ZE1CL2hLZ0M3?=
- =?utf-8?B?bTlrLzF1Z2R6dUVOSXBPYnNCMTBCekc5Q045VTRlb21kU21mOGNZK3RjTXNI?=
- =?utf-8?Q?DE4F/JMaQ6HbOfU2MvUpm4rPNEdOl1EThnQvOroVfs=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id 638EA10E17E;
+	Wed, 26 Jan 2022 19:14:22 +0000 (UTC)
+Received: from mail-vk1-xa31.google.com (mail-vk1-xa31.google.com
+ [IPv6:2607:f8b0:4864:20::a31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 226DE10E17E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 19:14:21 +0000 (UTC)
+Received: by mail-vk1-xa31.google.com with SMTP id y192so397338vkc.8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 11:14:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=br0q0nb2tGSU3luJpxAux+e+Crd0mPTlsm5pOlMUMAA=;
+ b=DH3g6BAWQz+ApKGF6QDxhJLsCba7NxUsFe01ZVjJbBHBTDgEvTXLwc9V1mIAg+0Ss+
+ TucXAo0OE4YcKgFRHT41jYWhdAzqfmWDR75krvklv1Kl8eYkrUn/eXXIFqEMH7/DPqI4
+ XaqXfq4bI8n4mo1nOj5UwzteqABFdcWYHoAQNKkcPTVdLvdYBYaOc/4g5SE5Z/XAm9ES
+ JOy2zsL1wCqmsWjOMLGYYSL5MNqP8vsdSARp2J3hNZCUtYGbGzLCjOG2XuLBCh1oueQK
+ vRi9awtD535vO92Z1zPxLOFaUsxfRJ5JCTzL/kPCIFrjeKTp0/+6kl6DCuybKSkwWuVL
+ uUZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=br0q0nb2tGSU3luJpxAux+e+Crd0mPTlsm5pOlMUMAA=;
+ b=Q5hz9ORWg/ohhfwalggfk+JYHWI1+F7PjuUjmcapCMdwewWg9XS7rySlAH7+I8AbOi
+ sm7/8m27g+ar+Z4I79vWRxI1HqQqlnobHzj6EGMGDVuyqW675ROJu4w3TJcPeV4RVznx
+ XSE3am4T03L6fwrxdb6qWl2/Kt3pw0i/cJRApZ1KUJ11oOSUZGGhif20CasSKkXppbXZ
+ jUtOiMe9uLomIqcq0FjtHZ84yxAyM0AJ43azN82HhTWdfjQe2g5gfVPo5hNgjUj7E39X
+ 9UNFO/kujFNLCyTK3E6vZRHDDdCMHBMCjAebGi5aiwWyJAby50d+OS4LuZu4qQI/CPUY
+ xVgw==
+X-Gm-Message-State: AOAM530qXOlEn5LLXIVE8zUcQm2b2VyDNWIl9rurVqYz82n3UDnc2hrv
+ Hb0iYiSOAFiPnjf5+BCfYS3LOiGcuzDKXold7jgcUkSl
+X-Google-Smtp-Source: ABdhPJyqgmeahAxL/vfkdFeKJf+RPA2ZlsjXnXD8o5rjkeDrWNy1DreoDCxizeRqxS7bzOuc0CTcRJ6ZaRZ6Qb78aA0=
+X-Received: by 2002:a05:6122:179e:: with SMTP id
+ o30mr219858vkf.18.1643224460066; 
+ Wed, 26 Jan 2022 11:14:20 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5157.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bf8fa2d-96c6-4d4b-b4ce-08d9e0e95ab4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jan 2022 16:31:50.1555 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: C0i04k1xs2anAPp/AojEx43sJrHq0drj/H0/cPQAu10plDINou/6RfJtCCJzue7SUWkiHJrK7vLAZR3PK7MKMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2387
+References: <20220125181835.2735521-1-tom.stdenis@amd.com>
+ <4a4917ef-a770-17f0-f72c-e4321792eaef@amd.com>
+In-Reply-To: <4a4917ef-a770-17f0-f72c-e4321792eaef@amd.com>
+From: Tom St Denis <tstdenis82@gmail.com>
+Date: Wed, 26 Jan 2022 14:14:09 -0500
+Message-ID: <CAAzXoRJW9fVcjhGiEy4UzfgzzH_4OJxvHK1NHOqd+-HKqi36pw@mail.gmail.com>
+Subject: Re: drm/amd/amdgpu: Add ip_discovery_text sysfs entry (v2)
+To: "Limonciello, Mario" <mario.limonciello@amd.com>
+Content-Type: multipart/alternative; boundary="0000000000003a841b05d6810253"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,131 +62,627 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liang, Prike" <Prike.Liang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Tom St Denis <tom.stdenis@amd.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KVGhleSBrZXkgaGVyZSBpcyB0aGF0IHNtYXJ0IHN1
-c3BlbmQgc2VlbXMgdG8gaGF2ZSBhIGRlcGVuZGVuY3kgb24NCnBtX3N1c3BlbmRfdmlhX2Zpcm13
-YXJlKCkuDQoNClNvIGlmIHlvdSBoYXZlIGFuIEFQVSBkb2luZyBTMkkgb3IgSW50ZWwgU09DIGRv
-aW5nIFMySSBpdCB3aWxsIGFsd2F5cyByZXR1cm4gMC4NCkNhbiB3ZSBkcm9wIHRoYXQgZGVwZW5k
-ZW5jeSBvZiBwbV9zdXNwZW5kX3ZpYV9maXJtd2FyZSBmb3IgaXQgcGVyaGFwcz8NCg0KPiBJIGRv
-bid0IHRoaW5rIHNtYXJ0IHN1c3BlbmQgd29ya3MgYXMgZXhwZWN0ZWQuICBJIGFza2VkIFJhcGhh
-ZWwgYWJvdXQNCj4gaXQgc2V2ZXJhbCB0aW1lcywgYnV0IGhlIG5ldmVyIGdvdCBhcm91bmQgdG8g
-Zm9sbG93aW5nIHVwIHdpdGggbWUuICBJDQo+IHRoaW5rIHRoYXQgaXMgcHJvYmFibHkgdGhlIHBy
-ZWZlcnJlZCB3YXkgdG8gZ28sIGJ1dCB0aGUgdHJpY2t5IHBhcnQgaXMNCj4gdGhhdCB0aGUgZEdQ
-VXMgaGF2ZSBpbnRlZ3JhdGVkIGJyaWRnZXMgYW5kIGF1ZGlvIGFuZCB1c2IgYW5kIGFsbCBvZg0K
-PiB0aGF0IHByb2JhYmx5IG5lZWRzIHByb3BlciBzbWFydCBzdXNwZW5kIHN1cHBvcnQgZm9yIHRo
-aXMgdG8gd29yaw0KPiBwcm9wZXJseS4gIEFsdGVybmF0aXZlbHksIHRoZSBPUyBuZWVkcyB0byBw
-cm9wZXJseSB1c2UgdGhlIEFDUEkgX1BSMw0KPiBtZXRob2RzIHRvIHBvd2VyIGRvd24gYWxsIG9m
-IHRoZSBkZXZpY2VzIG9uIHN1c3BlbmQgaWYgdGhlIHN5c3RlbQ0KPiBkb2Vzbid0IGF1dG9tYXRp
-Y2FsbHkgdGFrZSBkb3duIHRoZSBwb3dlciByYWlscyB3aGVuIHRoZSBzeXN0ZW0gZW50ZXJzDQo+
-IHN1c3BlbmQuICBJJ20gbm90IHN1cmUgTGludXggZG9lcyB0aGlzIHRvZGF5Lg0KPiANCj4gQWxl
-eA0KPiANCj4gT24gV2VkLCBKYW4gMjYsIDIwMjIgYXQgMTA6MzIgQU0gTGF6YXIsIExpam8gPExp
-am8uTGF6YXJAYW1kLmNvbT4gd3JvdGU6DQo+ID4NCj4gPiBJIHJlbWVtYmVyIEFsZXggYWRkaW5n
-IGEgcGF0Y2ggZm9yIHNtYXJ0IHN1c3BlbmQgc3VjaCB0aGF0IGl0IHNraXBzIHRoZQ0KPiBzdXNw
-ZW5kIGNhbGwgaWYgcnVudGltZSBwbSBzdXNwZW5kZWQuDQo+ID4NCj4gPiBJbiBzdW1tYXJ5LCB0
-aGUgcmVzdW1lIGRvZXNuJ3Qgd29yayB3aXRoL3dpdGhvdXQgcmVzZXQ/DQo+ID4NCj4gPiBUaGFu
-a3MsDQo+ID4gTGlqbw0KPiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+ID4g
-RnJvbTogTGltb25jaWVsbG8sIE1hcmlvIDxNYXJpby5MaW1vbmNpZWxsb0BhbWQuY29tPg0KPiA+
-IFNlbnQ6IFdlZG5lc2RheSwgSmFudWFyeSAyNiwgMjAyMiA4OjQ3OjA1IFBNDQo+ID4gVG86IExh
-emFyLCBMaWpvIDxMaWpvLkxhemFyQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZyA8YW1kLQ0KPiBnZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KPiA+IENjOiBMaWFuZywg
-UHJpa2UgPFByaWtlLkxpYW5nQGFtZC5jb20+DQo+ID4gU3ViamVjdDogUkU6IFtQQVRDSCB2NSAy
-LzRdIGRybS9hbWQ6IGFkZCBzdXBwb3J0IHRvIGNoZWNrIHdoZXRoZXIgdGhlDQo+IHN5c3RlbSBp
-cyBzZXQgdG8gczMNCj4gPg0KPiA+DQo+ID4gW1B1YmxpY10NCj4gPg0KPiA+DQo+ID4NCj4gPiBS
-aWdodCAtZnJvbSBhbiBBUEkgcGVyc3BlY3RpdmUgYm90aCBhbWRncHVfYWNwaV9pc19zMGl4X2Fj
-dGl2ZSBhbmQNCj4gYW1kZ3B1X2FjcGlfaXNfczNfYWN0aXZlIGFyZSBvbmx5IGluIHN1c3BlbmQg
-b3BzLg0KPiA+DQo+ID4NCj4gPg0KPiA+IEJ1dCBzbyBjb21pbmcgYmFjayB0byB0aGUgNHRoIHBh
-dGNoIChhbmQgdGhlIGFzc29jaWF0ZWQgYnVnKSwgd2hhdCBpcw0KPiBzdXBwb3NlZCB0byBoYXBw
-ZW4gd2l0aCBhIGRHUFUgb24gYW4gSW50ZWwgc3lzdGVtIHRoYXQgZG9lcyBzMmk/DQo+ID4NCj4g
-PiBGb3IgQU1EIEFQVSB3LyBkR1BVIGluIHRoZSBzeXN0ZW0gZG9pbmcgczJpIEkgd291bGQgZXhw
-ZWN0IHRoYXQgcG93ZXIgcmFpbHMNCj4gaGF2ZSBiZWVuIGN1dCBvZmYgZm9yIHRoZSBkR1BVIHNv
-IHB1dHRpbmcgaXQgaW50byBTMyBhbmQgZG9pbmcgYSByZXNldCBtYWtlcw0KPiBzZW5zZSwgYnV0
-IEkgZG9u4oCZdCBrbm93IGFib3V0IG9uIGFuIEludGVsIHN5c3RlbSBpZiB0aGF0IGlzIGxvZ2lj
-YWwuDQo+ID4NCj4gPiBJdCBzZWVtcyBsaWtlIEludGVsIGV4cGVjdHMgbW9yZSB0aGF0IHRoZSBj
-YXJkIGlzIGdvaW5nIHRvIGJlIGluIHJ1bnRpbWUgcG0gYW5kDQo+IHB1dHRpbmcgaXQgaW50byBT
-MyBhbmQgZG9pbmcgcmVzZXQgbWlnaHQgbm90IGJlIHRoZSByaWdodCBtb3ZlLg0KPiA+DQo+ID4N
-Cj4gPg0KPiA+IEZyb206IExhemFyLCBMaWpvIDxMaWpvLkxhemFyQGFtZC5jb20+DQo+ID4gU2Vu
-dDogV2VkbmVzZGF5LCBKYW51YXJ5IDI2LCAyMDIyIDA5OjExDQo+ID4gVG86IExpbW9uY2llbGxv
-LCBNYXJpbyA8TWFyaW8uTGltb25jaWVsbG9AYW1kLmNvbT47IGFtZC0NCj4gZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZw0KPiA+IENjOiBMaWFuZywgUHJpa2UgPFByaWtlLkxpYW5nQGFtZC5jb20+
-DQo+ID4gU3ViamVjdDogUmU6IFtQQVRDSCB2NSAyLzRdIGRybS9hbWQ6IGFkZCBzdXBwb3J0IHRv
-IGNoZWNrIHdoZXRoZXIgdGhlDQo+IHN5c3RlbSBpcyBzZXQgdG8gczMNCj4gPg0KPiA+DQo+ID4N
-Cj4gPiBUYWxraW5nIGZyb20gZ2VuZXJpYyBBUEkgcGVyc3BlY3RpdmUgLSBTMyBpcyBjb25zaWRl
-cmVkIGFjdGl2ZSBmb3IgZEdQVSBvbmx5IGlmDQo+IGl0J3MgZ29pbmcgdG8gbm9uLVMwIHN0YXRl
-LiBJZiBjYWxsZWQgZnJvbSBhbnl3aGVyZSBlbHNlIHRoYW4gc3VzcGVuZCBvcCwgdGhpcw0KPiBz
-aG91bGQgcmV0dXJuIGZhbHNlLg0KPiA+DQo+ID4NCj4gPg0KPiA+IFRoYW5rcywNCj4gPiBMaWpv
-DQo+ID4NCj4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiA+DQo+ID4gRnJv
-bTogTGltb25jaWVsbG8sIE1hcmlvIDxNYXJpby5MaW1vbmNpZWxsb0BhbWQuY29tPg0KPiA+IFNl
-bnQ6IFdlZG5lc2RheSwgSmFudWFyeSAyNiwgMjAyMiA4OjM3OjI4IFBNDQo+ID4gVG86IExhemFy
-LCBMaWpvIDxMaWpvLkxhemFyQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZyA8YW1kLQ0KPiBnZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KPiA+IENjOiBMaWFuZywgUHJp
-a2UgPFByaWtlLkxpYW5nQGFtZC5jb20+DQo+ID4gU3ViamVjdDogUkU6IFtQQVRDSCB2NSAyLzRd
-IGRybS9hbWQ6IGFkZCBzdXBwb3J0IHRvIGNoZWNrIHdoZXRoZXIgdGhlDQo+IHN5c3RlbSBpcyBz
-ZXQgdG8gczMNCj4gPg0KPiA+DQo+ID4NCj4gPiBbUHVibGljXQ0KPiA+DQo+ID4NCj4gPg0KPiA+
-IFRoYXQgd2FzIGludGVudGlvbmFsIOKAkyBzaG91bGRu4oCZdCBkR1BVIGFsd2F5cyBiZSBnb2lu
-ZyB0aHJvdWdoIFMzIHBhdGgNCj4gY3VycmVudGx5Pw0KPiA+DQo+ID4NCj4gPg0KPiA+IEZyb206
-IExhemFyLCBMaWpvIDxMaWpvLkxhemFyQGFtZC5jb20+DQo+ID4gU2VudDogV2VkbmVzZGF5LCBK
-YW51YXJ5IDI2LCAyMDIyIDA5OjA2DQo+ID4gVG86IExpbW9uY2llbGxvLCBNYXJpbyA8TWFyaW8u
-TGltb25jaWVsbG9AYW1kLmNvbT47IGFtZC0NCj4gZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
-PiA+IENjOiBMaWFuZywgUHJpa2UgPFByaWtlLkxpYW5nQGFtZC5jb20+OyBMaW1vbmNpZWxsbywg
-TWFyaW8NCj4gPE1hcmlvLkxpbW9uY2llbGxvQGFtZC5jb20+DQo+ID4gU3ViamVjdDogUmU6IFtQ
-QVRDSCB2NSAyLzRdIGRybS9hbWQ6IGFkZCBzdXBwb3J0IHRvIGNoZWNrIHdoZXRoZXIgdGhlDQo+
-IHN5c3RlbSBpcyBzZXQgdG8gczMNCj4gPg0KPiA+DQo+ID4NCj4gPiBbUHVibGljXQ0KPiA+DQo+
-ID4NCj4gPg0KPiA+IFJldHVybnMgdHJ1ZSBmb3IgZEdQVSBhbHdheXMuIEJldHRlciB0byBrZWVw
-IHRoZSB3aG9sZSBjaGVjayB1bmRlcg0KPiBzb21ldGhpbmcgbGlrZSB0aGlzLg0KPiA+DQo+ID4N
-Cj4gPg0KPiA+IGlmIChwbV9zdXNwZW5kX3RhcmdldF9zdGF0ZSAhPSBQTV9TVVNQRU5EX09OKQ0K
-PiA+DQo+ID4NCj4gPg0KPiA+IFRoYW5rcywNCj4gPiBMaWpvDQo+ID4NCj4gPiBfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXw0KPiA+DQo+ID4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1i
-b3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gb24gYmVoYWxmIG9mIE1hcmlvDQo+IExpbW9u
-Y2llbGxvIDxtYXJpby5saW1vbmNpZWxsb0BhbWQuY29tPg0KPiA+IFNlbnQ6IFdlZG5lc2RheSwg
-SmFudWFyeSAyNiwgMjAyMiA5OjM5OjQyIEFNDQo+ID4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnIDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4NCj4gPiBDYzogTGlhbmcs
-IFByaWtlIDxQcmlrZS5MaWFuZ0BhbWQuY29tPjsgTGltb25jaWVsbG8sIE1hcmlvDQo+IDxNYXJp
-by5MaW1vbmNpZWxsb0BhbWQuY29tPg0KPiA+IFN1YmplY3Q6IFtQQVRDSCB2NSAyLzRdIGRybS9h
-bWQ6IGFkZCBzdXBwb3J0IHRvIGNoZWNrIHdoZXRoZXIgdGhlIHN5c3RlbSBpcw0KPiBzZXQgdG8g
-czMNCj4gPg0KPiA+DQo+ID4NCj4gPiBUaGlzIHdpbGwgYmUgdXNlZCB0byBoZWxwIG1ha2UgZGVj
-aXNpb25zIG9uIHdoYXQgdG8gZG8gaW4NCj4gPiBtaXNjb25maWd1cmVkIHN5c3RlbXMuDQo+ID4N
-Cj4gPiBTaWduZWQtb2ZmLWJ5OiBNYXJpbyBMaW1vbmNpZWxsbyA8bWFyaW8ubGltb25jaWVsbG9A
-YW1kLmNvbT4NCj4gPiAtLS0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-LmggICAgICB8ICAyICsrDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9h
-Y3BpLmMgfCAxNyArKysrKysrKysrKysrKysrKw0KPiA+ICAyIGZpbGVzIGNoYW5nZWQsIDE5IGlu
-c2VydGlvbnMoKykNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHUuaA0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+
-ID4gaW5kZXggM2JjNzY3NTljMTQzLi5mMTg0Yzg4ZDNkNGYgMTAwNjQ0DQo+ID4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPiA+IEBAIC0xNDA5LDExICsxNDA5LDEzIEBAIGludCBh
-bWRncHVfYWNwaV9zbWFydF9zaGlmdF91cGRhdGUoc3RydWN0DQo+IGRybV9kZXZpY2UgKmRldiwg
-ZW51bSBhbWRncHVfc3Mgc3Nfc3RhDQo+ID4gIGludCBhbWRncHVfYWNwaV9wY2llX25vdGlmeV9k
-ZXZpY2VfcmVhZHkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KPiA+DQo+ID4gIHZvaWQg
-YW1kZ3B1X2FjcGlfZ2V0X2JhY2tsaWdodF9jYXBzKHN0cnVjdCBhbWRncHVfZG1fYmFja2xpZ2h0
-X2NhcHMNCj4gKmNhcHMpOw0KPiA+ICtib29sIGFtZGdwdV9hY3BpX2lzX3MzX2FjdGl2ZShzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+ID4gIGJvb2wgYW1kZ3B1X2FjcGlfaXNfczBpeF9h
-Y3RpdmUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KPiA+ICB2b2lkIGFtZGdwdV9hY3Bp
-X2RldGVjdCh2b2lkKTsNCj4gPiAgI2Vsc2UNCj4gPiAgc3RhdGljIGlubGluZSBpbnQgYW1kZ3B1
-X2FjcGlfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikgeyByZXR1cm4gMDsgfQ0KPiA+
-ICBzdGF0aWMgaW5saW5lIHZvaWQgYW1kZ3B1X2FjcGlfZmluaShzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldikgeyB9DQo+ID4gK3N0YXRpYyBpbmxpbmUgYm9vbCBhbWRncHVfYWNwaV9pc19zM19h
-Y3RpdmUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpIHsNCj4gcmV0dXJuIGZhbHNlIH07DQo+
-ID4gIHN0YXRpYyBpbmxpbmUgYm9vbCBhbWRncHVfYWNwaV9pc19zMGl4X2FjdGl2ZShzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldikgew0KPiByZXR1cm4gZmFsc2U7IH0NCj4gPiAgc3RhdGljIGlu
-bGluZSB2b2lkIGFtZGdwdV9hY3BpX2RldGVjdCh2b2lkKSB7IH0NCj4gPiAgc3RhdGljIGlubGlu
-ZSBib29sIGFtZGdwdV9hY3BpX2lzX3Bvd2VyX3NoaWZ0X2NvbnRyb2xfc3VwcG9ydGVkKHZvaWQp
-IHsNCj4gcmV0dXJuIGZhbHNlOyB9DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9hY3BpLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfYWNwaS5jDQo+ID4gaW5kZXggMjUzMWRhNmNiZWMzLi5kZjY3MzA2MmJjMDMgMTAwNjQ0
-DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FjcGkuYw0KPiA+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hY3BpLmMNCj4gPiBAQCAt
-MTAzMSw2ICsxMDMxLDIzIEBAIHZvaWQgYW1kZ3B1X2FjcGlfZGV0ZWN0KHZvaWQpDQo+ID4gICAg
-ICAgICAgfQ0KPiA+ICB9DQo+ID4NCj4gPiArLyoqDQo+ID4gKyAqIGFtZGdwdV9hY3BpX2lzX3Mz
-X2FjdGl2ZQ0KPiA+ICsgKg0KPiA+ICsgKiBAYWRldjogYW1kZ3B1X2RldmljZV9wb2ludGVyDQo+
-ID4gKyAqDQo+ID4gKyAqIHJldHVybnMgdHJ1ZSBpZiBzdXBwb3J0ZWQsIGZhbHNlIGlmIG5vdC4N
-Cj4gPiArICovDQo+ID4gK2Jvb2wgYW1kZ3B1X2FjcGlfaXNfczNfYWN0aXZlKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2KQ0KPiA+ICt7DQo+ID4gKyNpZiBJU19FTkFCTEVEKENPTkZJR19TVVNQ
-RU5EKQ0KPiA+ICsgICAgICAgcmV0dXJuICEoYWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBVKSB8fA0K
-PiA+ICsgICAgICAgICAgICAgICBwbV9zdXNwZW5kX3RhcmdldF9zdGF0ZSA9PSBQTV9TVVNQRU5E
-X01FTTsNCj4gPiArI2Vsc2UNCj4gPiArICAgICAgIHJldHVybiBmYWxzZTsNCj4gPiArI2VuZGlm
-DQo+ID4gK30NCj4gPiArDQo+ID4gIC8qKg0KPiA+ICAgKiBhbWRncHVfYWNwaV9pc19zMGl4X2Fj
-dGl2ZQ0KPiA+ICAgKg0KPiA+IC0tDQo+ID4gMi4yNS4xDQo=
+--0000000000003a841b05d6810253
+Content-Type: text/plain; charset="UTF-8"
+
+Thanks, if we don't end up dropping this patchset I'll incorporate your
+suggestions into a v3.
+
+Tom
+
+On Wed, Jan 26, 2022 at 12:36 AM Limonciello, Mario <
+mario.limonciello@amd.com> wrote:
+
+> A few suggestion ideas inline.
+>
+> On 1/25/2022 12:18, Tom St Denis wrote:
+> > Newer hardware has a discovery table in hardware that the kernel will
+> > rely on instead of header files for things like IP offsets.  This
+> > sysfs entry adds a simple to parse table of IP instances and segment
+> > offsets.
+> >
+> > Produces output that looks like:
+> >
+> > $ cat ip_discovery_text
+> > ATHUB{0} v2.0.0: 00000c00 02408c00
+> > CLKA{0} v11.0.0: 00016c00 02401800
+> > CLKA{1} v11.0.0: 00016e00 02401c00
+> > CLKA{2} v11.0.0: 00017000 02402000
+> > CLKA{3} v11.0.0: 00017200 02402400
+> > CLKA{4} v11.0.0: 0001b000 0242d800
+> > CLKB{0} v11.0.0: 00017e00 0240bc00
+> > DBGU_NBIO{0} v3.0.0: 000001c0 02409000
+> > DBGU0{0} v3.0.0: 00000180 02409800
+> > DBGU1{0} v3.0.0: 000001a0 02409c00
+> > DF{0} v3.0.0: 00007000 0240b800
+> > DFX{0} v4.1.0: 00000580 02409400
+> > DFX_DAP{0} v2.0.0: 000005a0 00b80000 0240c400
+> > DMU{0} v2.0.2: 00000012 000000c0 000034c0 00009000 02403c00
+> > FUSE{0} v11.0.0: 00017400 02401400
+> > GC{0} v10.1.10: 00001260 0000a000 02402c00
+> >
+> > (v2): Use a macro for buffer size and fix alignment in amdgpu.h
+> >
+> > Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 79 ++++++++++++++++++-
+> >   2 files changed, 79 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > index 3bc76759c143..43caeb4bdc07 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > @@ -1019,6 +1019,7 @@ struct amdgpu_device {
+> >       struct amdgpu_ip_block          ip_blocks[AMDGPU_MAX_IP_NUM];
+> >       uint32_t                        harvest_ip_mask;
+> >       int                             num_ip_blocks;
+> > +     char            *ip_discovery_text;
+> >       struct mutex    mn_lock;
+> >       DECLARE_HASHTABLE(mn_hash, 7);
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> > index 07623634fdc2..d036977dab8a 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> > @@ -267,6 +267,19 @@ static void
+> amdgpu_discovery_harvest_config_quirk(struct amdgpu_device *adev)
+> >       }
+> >   }
+> >
+> > +static ssize_t ip_discovery_text_show(struct device *dev,
+> > +             struct device_attribute *attr, char *buf)
+> > +{
+> > +     struct drm_device *ddev = dev_get_drvdata(dev);
+> > +     struct amdgpu_device *adev = drm_to_adev(ddev);
+> > +
+> > +     return sysfs_emit(buf, "%s", adev->ip_discovery_text);
+> > +}
+> > +
+> > +static DEVICE_ATTR(ip_discovery_text, S_IRUGO,
+> > +                             ip_discovery_text_show, NULL);
+> > +
+> > +
+> >   static int amdgpu_discovery_init(struct amdgpu_device *adev)
+> >   {
+> >       struct table_info *info;
+> > @@ -351,6 +364,11 @@ static int amdgpu_discovery_init(struct
+> amdgpu_device *adev)
+> >               goto out;
+> >       }
+> >
+> > +     // init sysfs for ip_discovery
+> > +     r = sysfs_create_file(&adev->dev->kobj,
+> &dev_attr_ip_discovery_text.attr);
+> > +     if (r)
+> > +             dev_err(adev->dev, "Could not create amdgpu device
+> attr\n");
+> > +
+> >       return 0;
+> >
+> >   out:
+> > @@ -363,7 +381,11 @@ static int amdgpu_discovery_init(struct
+> amdgpu_device *adev)
+> >   void amdgpu_discovery_fini(struct amdgpu_device *adev)
+> >   {
+> >       kfree(adev->mman.discovery_bin);
+> > +     kfree(adev->ip_discovery_text);
+> > +     sysfs_remove_file(&adev->dev->kobj,
+> &dev_attr_ip_discovery_text.attr);
+> > +
+> >       adev->mman.discovery_bin = NULL;
+> > +     adev->ip_discovery_text = NULL;
+> >   }
+> >
+> >   static int amdgpu_discovery_validate_ip(const struct ip *ip)
+> > @@ -382,6 +404,22 @@ static int amdgpu_discovery_validate_ip(const
+> struct ip *ip)
+> >       return 0;
+> >   }
+> >
+> > +#define IP_DISCOVERY_BLOCK_SIZE 4096
+> > +
+> > +static int add_string(char **dst, unsigned *size, char *src)
+> > +{
+> > +     if (strlen(src) + strlen(*dst) >= *size) {
+> > +             void *tmp = krealloc(*dst, *size +
+> IP_DISCOVERY_BLOCK_SIZE, GFP_KERNEL);
+> > +             if (!tmp) {
+> > +                     return -1;
+>
+> If you take my other suggestion on cleanup, maybe you can also return
+> -ENOMEM here.
+>
+> > +             }
+> > +             *dst = tmp;
+> > +             *size = *size + IP_DISCOVERY_BLOCK_SIZE;
+> > +     }
+> > +     strcat(*dst, src);
+> > +     return 0;
+> > +}
+> > +
+> >   int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+> >   {
+> >       struct binary_header *bhdr;
+> > @@ -396,6 +434,8 @@ int amdgpu_discovery_reg_base_init(struct
+> amdgpu_device *adev)
+> >       int hw_ip;
+> >       int i, j, k;
+> >       int r;
+> > +     unsigned txt_size = IP_DISCOVERY_BLOCK_SIZE;
+> > +     char *linebuf;
+> >
+> >       r = amdgpu_discovery_init(adev);
+> >       if (r) {
+> > @@ -410,6 +450,15 @@ int amdgpu_discovery_reg_base_init(struct
+> amdgpu_device *adev)
+> >
+> >       DRM_DEBUG("number of dies: %d\n", num_dies);
+> >
+> > +     adev->ip_discovery_text = kzalloc(txt_size, GFP_KERNEL);
+> > +     linebuf = kzalloc(IP_DISCOVERY_BLOCK_SIZE, GFP_KERNEL);
+> > +     if (!adev->ip_discovery_text || !linebuf) {
+> > +             DRM_ERROR("Out of memory\n");
+> > +             kfree(linebuf);
+> > +             kfree(adev->ip_discovery_text);
+>
+> You've got a variety of new codepaths that do this freeing of the
+> memory.  Have you considered to add a "goto cleanup" instead at the end
+> of the function?
+>
+> Then each of these turns into
+>         ret = -ENOMEM;
+>         goto cleanup;
+>
+> cleanup:
+>         DRM_ERROR("Out of memory");
+>         kfree(..)
+>         kfree(..)
+>         return ret;
+>
+> > +             return -ENOMEM;
+> > +     }
+> > +
+> >       for (i = 0; i < num_dies; i++) {
+> >               die_offset = le16_to_cpu(ihdr->die_info[i].die_offset);
+> >               dhdr = (struct die_header *)(adev->mman.discovery_bin +
+> die_offset);
+> > @@ -419,6 +468,8 @@ int amdgpu_discovery_reg_base_init(struct
+> amdgpu_device *adev)
+> >               if (le16_to_cpu(dhdr->die_id) != i) {
+> >                       DRM_ERROR("invalid die id %d, expected %d\n",
+> >                                       le16_to_cpu(dhdr->die_id), i);
+> > +                     kfree(linebuf);
+> > +                     kfree(adev->ip_discovery_text);
+> >                       return -EINVAL;
+> >               }
+> >
+> > @@ -458,6 +509,19 @@ int amdgpu_discovery_reg_base_init(struct
+> amdgpu_device *adev)
+> >                           le16_to_cpu(ip->hw_id) == SDMA3_HWID)
+> >                               adev->sdma.num_instances++;
+> >
+> > +                     snprintf(linebuf, IP_DISCOVERY_BLOCK_SIZE-1,
+> "%s{%d} v%d.%d.%d: ",
+> > +                               hw_id_names[le16_to_cpu(ip->hw_id)],
+> > +                               ip->number_instance,
+> > +                               ip->major, ip->minor,
+> > +                               ip->revision);
+> > +                     if (add_string(&adev->ip_discovery_text,
+> &txt_size, linebuf)) {
+>
+> If you take my other suggestion, you could instead do something like
+> ret = add_string(..)
+> if (ret)
+>         goto cleanup;
+>
+> Here and the other places you use add_string.
+>
+> > +                             DRM_ERROR("Out of memory\n");
+> > +                             kfree(linebuf);
+> > +                             kfree(adev->ip_discovery_text);
+> > +                             return -ENOMEM;
+> > +                     }
+> > +
+> > +
+> >                       for (k = 0; k < num_base_address; k++) {
+> >                               /*
+> >                                * convert the endianness of base
+> addresses in place,
+> > @@ -465,6 +529,19 @@ int amdgpu_discovery_reg_base_init(struct
+> amdgpu_device *adev)
+> >                                */
+> >                               ip->base_address[k] =
+> le32_to_cpu(ip->base_address[k]);
+> >                               DRM_DEBUG("\t0x%08x\n",
+> ip->base_address[k]);
+> > +                             snprintf(linebuf,
+> IP_DISCOVERY_BLOCK_SIZE-1, "%08lx ", (unsigned long)ip->base_address[k]);
+> > +                             if (add_string(&adev->ip_discovery_text,
+> &txt_size, linebuf)) {
+> > +                                     DRM_ERROR("Out of memory\n");
+> > +                                     kfree(linebuf);
+> > +                                     kfree(adev->ip_discovery_text);
+> > +                                     return -ENOMEM;
+> > +                             }
+> > +                     }
+> > +                     if (add_string(&adev->ip_discovery_text,
+> &txt_size, "\n")) {
+> > +                             DRM_ERROR("Out of memory\n");
+> > +                             kfree(linebuf);
+> > +                             kfree(adev->ip_discovery_text);
+> > +                             return -ENOMEM;
+> >                       }
+> >
+> >                       for (hw_ip = 0; hw_ip < MAX_HWIP; hw_ip++) {
+> > @@ -491,7 +568,7 @@ int amdgpu_discovery_reg_base_init(struct
+> amdgpu_device *adev)
+> >                       ip_offset += sizeof(*ip) + 4 *
+> (ip->num_base_address - 1);
+> >               }
+> >       }
+> > -
+> > +     kfree(linebuf);
+> >       return 0;
+> >   }
+> >
+>
+>
+
+--0000000000003a841b05d6810253
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks, if we don&#39;t end up dropping this patchset I&#3=
+9;ll incorporate your suggestions into a v3.<div><br></div><div>Tom</div></=
+div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On=
+ Wed, Jan 26, 2022 at 12:36 AM Limonciello, Mario &lt;<a href=3D"mailto:mar=
+io.limonciello@amd.com">mario.limonciello@amd.com</a>&gt; wrote:<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex">A few suggestion ideas inl=
+ine.<br>
+<br>
+On 1/25/2022 12:18, Tom St Denis wrote:<br>
+&gt; Newer hardware has a discovery table in hardware that the kernel will<=
+br>
+&gt; rely on instead of header files for things like IP offsets.=C2=A0 This=
+<br>
+&gt; sysfs entry adds a simple to parse table of IP instances and segment<b=
+r>
+&gt; offsets.<br>
+&gt; <br>
+&gt; Produces output that looks like:<br>
+&gt; <br>
+&gt; $ cat ip_discovery_text<br>
+&gt; ATHUB{0} v2.0.0: 00000c00 02408c00<br>
+&gt; CLKA{0} v11.0.0: 00016c00 02401800<br>
+&gt; CLKA{1} v11.0.0: 00016e00 02401c00<br>
+&gt; CLKA{2} v11.0.0: 00017000 02402000<br>
+&gt; CLKA{3} v11.0.0: 00017200 02402400<br>
+&gt; CLKA{4} v11.0.0: 0001b000 0242d800<br>
+&gt; CLKB{0} v11.0.0: 00017e00 0240bc00<br>
+&gt; DBGU_NBIO{0} v3.0.0: 000001c0 02409000<br>
+&gt; DBGU0{0} v3.0.0: 00000180 02409800<br>
+&gt; DBGU1{0} v3.0.0: 000001a0 02409c00<br>
+&gt; DF{0} v3.0.0: 00007000 0240b800<br>
+&gt; DFX{0} v4.1.0: 00000580 02409400<br>
+&gt; DFX_DAP{0} v2.0.0: 000005a0 00b80000 0240c400<br>
+&gt; DMU{0} v2.0.2: 00000012 000000c0 000034c0 00009000 02403c00<br>
+&gt; FUSE{0} v11.0.0: 00017400 02401400<br>
+&gt; GC{0} v10.1.10: 00001260 0000a000 02402c00<br>
+&gt; <br>
+&gt; (v2): Use a macro for buffer size and fix alignment in amdgpu.h<br>
+&gt; <br>
+&gt; Signed-off-by: Tom St Denis &lt;<a href=3D"mailto:tom.stdenis@amd.com"=
+ target=3D"_blank">tom.stdenis@amd.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu.h=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0|=C2=A0 1 +<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 79 +++++++=
++++++++++++-<br>
+&gt;=C2=A0 =C2=A02 files changed, 79 insertions(+), 1 deletion(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu.h<br>
+&gt; index 3bc76759c143..43caeb4bdc07 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt; @@ -1019,6 +1019,7 @@ struct amdgpu_device {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_ip_block=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 ip_blocks[AMDGPU_MAX_IP_NUM];<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 harvest_ip_mask;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0num_ip_block=
+s;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *ip=
+_discovery_text;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct mutex=C2=A0 =C2=A0 mn_lock;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0DECLARE_HASHTABLE(mn_hash, 7);<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_discovery.c<br>
+&gt; index 07623634fdc2..d036977dab8a 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c<br>
+&gt; @@ -267,6 +267,19 @@ static void amdgpu_discovery_harvest_config_quirk=
+(struct amdgpu_device *adev)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; +static ssize_t ip_discovery_text_show(struct device *dev,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct device_attribu=
+te *attr, char *buf)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0struct drm_device *ddev =3D dev_get_drvdata(dev);=
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =3D drm_to_adev(ddev);=
+<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0return sysfs_emit(buf, &quot;%s&quot;, adev-&gt;i=
+p_discovery_text);<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static DEVICE_ATTR(ip_discovery_text, S_IRUGO,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ip_discovery_text_show, NULL);<br>
+&gt; +<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0static int amdgpu_discovery_init(struct amdgpu_device *ade=
+v)<br>
+&gt;=C2=A0 =C2=A0{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct table_info *info;<br>
+&gt; @@ -351,6 +364,11 @@ static int amdgpu_discovery_init(struct amdgpu_de=
+vice *adev)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0// init sysfs for ip_discovery<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0r =3D sysfs_create_file(&amp;adev-&gt;dev-&gt;kob=
+j, &amp;dev_attr_ip_discovery_text.attr);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (r)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_err(adev-&gt;dev,=
+ &quot;Could not create amdgpu device attr\n&quot;);<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0out:<br>
+&gt; @@ -363,7 +381,11 @@ static int amdgpu_discovery_init(struct amdgpu_de=
+vice *adev)<br>
+&gt;=C2=A0 =C2=A0void amdgpu_discovery_fini(struct amdgpu_device *adev)<br>
+&gt;=C2=A0 =C2=A0{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(adev-&gt;mman.discovery_bin);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0kfree(adev-&gt;ip_discovery_text);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0sysfs_remove_file(&amp;adev-&gt;dev-&gt;kobj, &am=
+p;dev_attr_ip_discovery_text.attr);<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;mman.discovery_bin =3D NULL;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0adev-&gt;ip_discovery_text =3D NULL;<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0static int amdgpu_discovery_validate_ip(const struct ip *i=
+p)<br>
+&gt; @@ -382,6 +404,22 @@ static int amdgpu_discovery_validate_ip(const str=
+uct ip *ip)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; +#define IP_DISCOVERY_BLOCK_SIZE 4096<br>
+&gt; +<br>
+&gt; +static int add_string(char **dst, unsigned *size, char *src)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (strlen(src) + strlen(*dst) &gt;=3D *size) {<b=
+r>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0void *tmp =3D kreallo=
+c(*dst, *size + IP_DISCOVERY_BLOCK_SIZE, GFP_KERNEL);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!tmp) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0return -1;<br>
+<br>
+If you take my other suggestion on cleanup, maybe you can also return <br>
+-ENOMEM here.<br>
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*dst =3D tmp;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*size =3D *size + IP_=
+DISCOVERY_BLOCK_SIZE;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0strcat(*dst, src);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0int amdgpu_discovery_reg_base_init(struct amdgpu_device *a=
+dev)<br>
+&gt;=C2=A0 =C2=A0{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct binary_header *bhdr;<br>
+&gt; @@ -396,6 +434,8 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_d=
+evice *adev)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int hw_ip;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int i, j, k;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int r;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned txt_size =3D IP_DISCOVERY_BLOCK_SIZE;<br=
+>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *linebuf;<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_discovery_init(adev);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) {<br>
+&gt; @@ -410,6 +450,15 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_=
+device *adev)<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_DEBUG(&quot;number of dies: %d\n&quot;, =
+num_dies);<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0adev-&gt;ip_discovery_text =3D kzalloc(txt_size, =
+GFP_KERNEL);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0linebuf =3D kzalloc(IP_DISCOVERY_BLOCK_SIZE, GFP_=
+KERNEL);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (!adev-&gt;ip_discovery_text || !linebuf) {<br=
+>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR(&quot;Out o=
+f memory\n&quot;);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(linebuf);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(adev-&gt;ip_dis=
+covery_text);<br>
+<br>
+You&#39;ve got a variety of new codepaths that do this freeing of the <br>
+memory.=C2=A0 Have you considered to add a &quot;goto cleanup&quot; instead=
+ at the end<br>
+of the function?<br>
+<br>
+Then each of these turns into<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D -ENOMEM;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 goto cleanup;<br>
+<br>
+cleanup:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 DRM_ERROR(&quot;Out of memory&quot;);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 kfree(..)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 kfree(..)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<br>
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; num_dies; i++) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0die_offset =3D l=
+e16_to_cpu(ihdr-&gt;die_info[i].die_offset);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dhdr =3D (struct=
+ die_header *)(adev-&gt;mman.discovery_bin + die_offset);<br>
+&gt; @@ -419,6 +468,8 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_d=
+evice *adev)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (le16_to_cpu(=
+dhdr-&gt;die_id) !=3D i) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0DRM_ERROR(&quot;invalid die id %d, expected %d\n&quot;,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0le16_t=
+o_cpu(dhdr-&gt;die_id), i);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0kfree(linebuf);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0kfree(adev-&gt;ip_discovery_text);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0return -EINVAL;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; @@ -458,6 +509,19 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_=
+device *adev)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0le16_to_cpu(ip-&gt;hw_id) =3D=3D SDMA3_HWID)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;sdma.num_instances++;<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0snprintf(linebuf, IP_DISCOVERY_BLOCK_SIZE-1, &quot;%s{%d} v%d.%d.%d:=
+ &quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0hw_id_names[le16_to_cpu(ip-&gt;hw=
+_id)],<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ip-&gt;number_instance,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ip-&gt;major, ip-&gt;minor,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ip-&gt;revision);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0if (add_string(&amp;adev-&gt;ip_discovery_text, &amp;txt_size, lineb=
+uf)) {<br>
+<br>
+If you take my other suggestion, you could instead do something like<br>
+ret =3D add_string(..)<br>
+if (ret)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 goto cleanup;<br>
+<br>
+Here and the other places you use add_string.<br>
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR(&quot;Out of memory\n&quot;);<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(linebuf);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(adev-&gt;ip_discovery_text);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0}<br>
+&gt; +<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0for (k =3D 0; k &lt; num_base_address; k++) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * convert the endianness of base =
+addresses in place,<br>
+&gt; @@ -465,6 +529,19 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_=
+device *adev)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ip-&gt;base_address[k] =3D le32_to=
+_cpu(ip-&gt;base_address[k]);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_DEBUG(&quot;\t0x%08x\n&quot;, =
+ip-&gt;base_address[k]);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0snprintf(linebuf, IP_DISCOVERY_BLOCK_SIZ=
+E-1, &quot;%08lx &quot;, (unsigned long)ip-&gt;base_address[k]);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (add_string(&amp;adev-&gt;ip_discover=
+y_text, &amp;txt_size, linebuf)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR(&q=
+uot;Out of memory\n&quot;);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(linebu=
+f);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(adev-&=
+gt;ip_discovery_text);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOM=
+EM;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0}<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0if (add_string(&amp;adev-&gt;ip_discovery_text, &amp;txt_size, &quot=
+;\n&quot;)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR(&quot;Out of memory\n&quot;);<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(linebuf);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(adev-&gt;ip_discovery_text);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0for (hw_ip =3D 0; hw_ip &lt; MAX_HWIP; hw_ip++) {<br>
+&gt; @@ -491,7 +568,7 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_d=
+evice *adev)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0ip_offset +=3D sizeof(*ip) + 4 * (ip-&gt;num_base_address - 1)=
+;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; -<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0kfree(linebuf);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+<br>
+</blockquote></div>
+
+--0000000000003a841b05d6810253--
