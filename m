@@ -4,118 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AC05C28CF5
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 12:12:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3354C28CF5
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 12:37:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F213E10E8F4;
-	Wed, 26 Jan 2022 12:12:32 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2087.outbound.protection.outlook.com [40.107.223.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBB610E805;
- Wed, 26 Jan 2022 12:12:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 699EB10E53D;
+	Wed, 26 Jan 2022 12:37:44 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2084.outbound.protection.outlook.com [40.107.244.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4D2310E53D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 12:37:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IKe0f7m0nurlOqGnHDelbhFA5qhlqkSXGL/aGG1wmHbOALGMrR/tPtCMQdmljk6DavZL+oOCeJiy1XnzLKBuupfpLKTW2I/QgxIzzum73HECtOBrRGiksUlv3iJzMhH0PdqQD2tKYtyjEgSwiq5astLh+GNLN5+deEJSbcHBW21zc42pcFhFN3ZyuG5icG1kMFd8zZg0rDNMu5Z2M4SDY8lXmmgO4FWih48QNJ+bYnlj1Fo8DMniwQd78VCae8mk+/4YOGl80Y5T50ZDdF9yxiyMa/mlZ7tdkEuHhhBArHXrzvOOeWpz+wS0A8KIGxmlvWU8eMXWHfcQo1+asI5ckw==
+ b=MNCJF8E8C+pMpjKaO/TETos5FZKELNk35PPPOxNhE4EKKYQdGwDtAwLUpqx4EUCJpklFL2QvTYgeYB7Y9IfQ8ThMiV/rh2iutz18njD6Rz5Un7EyBJWYxRA2LXA/dBvYzs+n7WuqNh11KOkOuyzXfakyhDLv5QoDd2WSe63TGAfmrzAmOkHTKMtie6DY5GOh5Ybz2cNnVf+ujr4n3Fcec0+yp844fHe84vVsUJfvMENCNBrOCs67mocXSbQAMoWBf4Y9lMJkJXYxtkKQz/pBFtel1O6cQ3aag+GwO84YcJRK1f/sizwYgAJX2dlL0DxAqTp0u7u+MX7NAQfqJo4b1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DSNXkPMEQdJUJiWkKmkobk0mf1E25RxWMDBR3hHWaTs=;
- b=cuNDqXMsm90TRTeG4L312idXB/5BeHBaeUZVgsqDuywsn0X0eBjNStfEDoHoXFAr5D5bHvQEwlsyU/YUzSgGWIsxyoPbRcg0o1zrSdyiNrXjsZHFPbleKIJIwZsxXQynZ1sB2oJsF7/sOWI5D2Cs6QlpQjru4RDQPdMK2ydANxt/Y5outVC5cbg03TUPgJ2vX56Lw1qG2sSmA0FjhhQLJ9/w+y03jPdLUz+4BUiMpDxIICfsHIpnxZ2Okw59CctwhqtKuF1KVtoQWM7lsEuXQiD/TYsHBEOVndZGsOJVb/mA/sKOAjQrl73RHBVUP+Yx99rBwaoAE8I9019qfp2zcA==
+ bh=kQeLmMDXmGWPP/ohqvMGseU57WubFiewttYH5JhZWPU=;
+ b=C3OKxx+/MCGZ/rOz/tBc9RQMb4/f3wfMHPx/BZKgZlP3X0JSCCk1d+k+1Qzx93po9N2ydds1N1rkZQ3As/+S5s0gIyzfewntRz/FMIE3A8vNK8iHFjimVc1iTh01poP8qmzzt5oG9Z7EHKbmdjePXTLC2cR945U8e+FXP6YpKhS3SZfEcEOHvnz5zQrzxXQQvuATaF1wb4T8cv7Clug/5BknYJbuIrburixg2NC5+/Inyvls9kSXmkLL8DFEXfZf9rbmY86dKBJkAqq5kvcHtXE8aRxXCz+GQ1IBF6gYRmNFag0rXKpQwE45mUhdckuxDQD3tmRkUm1s5xDiATSi5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DSNXkPMEQdJUJiWkKmkobk0mf1E25RxWMDBR3hHWaTs=;
- b=wO8RsboqWduRnpvO7zge5VKQm//DxW1V3pFwOLvhDXjKHMZzJZY//R2PRs+VHV1QtUBsjJchKHkU46tBmvlrCJPC0V8k16rqqfp83b96iogxWfBuXi1VK02hZgvS6wShvazg5RhBMfy+86IpRFZFFHpXEXPrBXeWRWO+lQu5EF8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by BY5PR12MB5544.namprd12.prod.outlook.com (2603:10b6:a03:1d9::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Wed, 26 Jan
- 2022 12:12:28 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::d8e7:e6b0:d63c:4a21]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::d8e7:e6b0:d63c:4a21%5]) with mapi id 15.20.4909.019; Wed, 26 Jan 2022
- 12:12:27 +0000
-Message-ID: <e4426f53-43d7-8329-d746-b008b8afc83d@amd.com>
-Date: Wed, 26 Jan 2022 13:12:20 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [RFC v3 08/12] drm/amdgpu: Rework reset domain to be refcounted.
+ bh=kQeLmMDXmGWPP/ohqvMGseU57WubFiewttYH5JhZWPU=;
+ b=TkG1PLEuRa9GG6B7XEFNujntmV1XtjOEmLNiC6mH+m5LPV7xylsb3xD/i9ty7F09i3p8HkWscTEyFYiOBHvtJ5vhEFpH1x13UZQrFdgvT121BXyasx0/u65oamoDZTAqlL3ztv38eomI/c0RHX1l0VHekDtwGRXscZS6KRh69O0=
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
+ BN6PR12MB1505.namprd12.prod.outlook.com (2603:10b6:405:5::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4909.12; Wed, 26 Jan 2022 12:37:41 +0000
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::989c:5eff:f1be:c7ac]) by DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::989c:5eff:f1be:c7ac%5]) with mapi id 15.20.4909.017; Wed, 26 Jan 2022
+ 12:37:41 +0000
+From: "Yu, Lang" <Lang.Yu@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: add safeguards for accessing mmhub CG
+ registers
+Thread-Topic: [PATCH] drm/amdgpu: add safeguards for accessing mmhub CG
+ registers
+Thread-Index: AQHYEoneecc7xFzME02I6HZtGOhQT6x1NPuAgAAG00A=
+Date: Wed, 26 Jan 2022 12:37:41 +0000
+Message-ID: <DM6PR12MB4250B91402EB9297F6178F6BFB209@DM6PR12MB4250.namprd12.prod.outlook.com>
+References: <20220126075326.1134770-1-Lang.Yu@amd.com>
+ <BYAPR12MB461439BFC58135ABF0C42D8597209@BYAPR12MB4614.namprd12.prod.outlook.com>
+In-Reply-To: <BYAPR12MB461439BFC58135ABF0C42D8597209@BYAPR12MB4614.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20220125223752.200211-1-andrey.grodzovsky@amd.com>
- <20220125223752.200211-9-andrey.grodzovsky@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220125223752.200211-9-andrey.grodzovsky@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR08CA0012.eurprd08.prod.outlook.com
- (2603:10a6:20b:b2::24) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9a664b1d-042b-4b21-af37-08d9e0c51e85
-X-MS-TrafficTypeDiagnostic: BY5PR12MB5544:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB554446FF0D27ABA836EE54B483209@BY5PR12MB5544.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: r86eYbv8k0/MlNeqM/pZrZ7OUwVKad9xURp3IyVaoUh729M1mQU1eXjlEossjregeRKW44UONSsegHsIYgbtynTfVYqx7CnRgriVl+BNHpOXfBUnjgiYmuV0CWpxXqHLzYVjXNLeX8IjiElUwcCzNHLiAl97OI13d4B5sReCv8Mnmsv9tNxteRIAQeCB38L0L0upACIF929kHNtFivE5fWxf1EjfCp6DjeShHe8bagbkK268mv176TTX7a+n67v3FiIpjzz4nF+pd0VS8iKTbr1c831z1nQWLCMOA35AUChK+qRnFGCwaPULlAePjP4KHVYbJAC8lFx57V4OnVrz5WOaPKVpYzOGBrJGOHO+qTnLWROY6UL9sBvjMAst/MOs14C3XEZVTxsSkBgJtiBtziU0IsjbAJjt/3AieVe57ekOnLzI8W3rOV7C4c9PA0R9iTjIKTG8KQ6F7QqEDzGWJctd/9HwI0YFkkS+ZK+U17+aKF7KUpHQodzRpZGjsUrbPWI53HVsh6hkqRJVUS0OzJLJHHemHUeip2jmkeRUmD5Oi67z0Kp7e+KbCei6ahwfAJrdJqpoVPZKml+yTe7gf1suHjVqwbylyH8ETVs7Z0+Q/s5VVngfqy9tEDbuSNRLdr4WZvOJWmoKFiKIGr9SNqWm4CnvpOLbH8IfivZJCuojUMYo+Zl73ky94Frazk+xkEFc3X1mZyPyqdoKfsVKBaDqfzRRpqCQZizZVEVQYrvu1ETKYy8l0ZQS36NM8N/iIZxkn67LxHSHcIO9PPgyRm/tXtOAaL9RddGyJnsOnSjd/QxQ0jpA5BV6relcB9TM4QGQRjUSaSLwucm1k96FlA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(316002)(66946007)(186003)(6666004)(6506007)(6512007)(2616005)(6486002)(966005)(4326008)(5660300002)(31686004)(8936002)(30864003)(2906002)(83380400001)(508600001)(86362001)(38100700002)(31696002)(8676002)(66476007)(66556008)(36756003)(43740500002)(45980500001)(20210929001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-26T12:37:38Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-01-26T12:37:38Z
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 68298fa8-ec0f-4daa-9e23-fab512bd01a8
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 501dd91d-05a6-4545-3791-08d9e0c8a4ff
+x-ms-traffictypediagnostic: BN6PR12MB1505:EE_
+x-microsoft-antispam-prvs: <BN6PR12MB15054514C46A42F344AC8F65FB209@BN6PR12MB1505.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 6OtuKr/UHBoHCWnd7JqBxAU9b3tJohYotVB3TVvjN4QmmOxSYF7lmDRw0j/yhlOyCg2+iXhikrldDeXh9pLmoYy6HqDFsFEkhKNhWaoIbODQKm26qafhLn1VTE5K2BF+5wupWUdDZVu/T8TNs08hqQXeh9bYlfHbUn3PK9RZn0pLg4ykWOjGQlDMHAcxe+ZW3eKUyYGxDlsGZBwrysa10ADJluERKWurLnnbgH9jipHp/ArUt8ksI2HQkgOEV9kQWmV5CEuTloKcE6bpsSeaMvYaDGNhs1UJ3EIqlxa7xeAXhCZb6cXyB4FPoFsModz/+YSpVp5hoW+EeDZVvDTbuDjvwczdfeg8SimhNysmGj1gjHGIeriBiCbMKjadocrVuF+N7RGxVRQoSIpgE48CaJa6IgDw/ubHCNWcNYdSWmWFRfjPeHYQwP3NQz20Ez0QOx+YV+wD3X8zLIrdsYHRnmyH1CeAEoCe2eVqLuq3eg6SiscYR2uHOjLgGAL2vmn3Nz4+ru05n0a5PUV/zskjEUDHAIh/EonImdZbbh4opyg96250FEKPtRUyJiTSkgFvJqDDHBrux3kBLKP3RzkdDEFIYAny1MMfIAOfacqUP5ttSFqSknIOPmtzpdHG5GG7zqYD5AqNm3qZFMnbq0zVXUe31/e5qpF2ITsVDPjwxlld7kqULspZcHGtbmrknBBjfEtkk1hB2+ARklJlbfKtLg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(316002)(66446008)(4744005)(7696005)(66556008)(64756008)(110136005)(5660300002)(66946007)(83380400001)(33656002)(86362001)(4326008)(38070700005)(54906003)(8936002)(38100700002)(122000001)(55016003)(186003)(508600001)(9686003)(6506007)(2906002)(52536014)(53546011)(8676002)(76116006)(66476007)(26005)(71200400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b29VWXBnOThLNkpSd25KNnRwdzdaWlRpK3Q3dlN0YlhsYnFMTlNNWUhNOEYz?=
- =?utf-8?B?bExHWll3RnY0NWlVT0pKUXdlT2pRMFdGOTU5akJHUWcrbllmMStzeXJlN0xq?=
- =?utf-8?B?Y1p2ZnJ2Y3dXV21YbUg0SGwxWkltaGlvbVpmcUErY1FlamJ5Yi9sallvYm5v?=
- =?utf-8?B?aTFHRFU1UE1RY2xxcFhjQWw3Unk5c0x4d1lNWG45VEpNWWtiSE5RZDcyQlV2?=
- =?utf-8?B?WnhpTlFLVmFuUThWTWdESVdSaXJMQThaOHhVU01wTFlrYlJmT1dmN0FJVVZl?=
- =?utf-8?B?dWcvMnVHbURCbzY0a01qVTF2KzNWSk1lTTFaMEdUeENaRGlxYndobzdhRUpH?=
- =?utf-8?B?V2V3dFBLWHlYYXNqV1RGcFk1clZCZGpaWVF5eHArWVVEaDhPTUI1VjFoZmJZ?=
- =?utf-8?B?eEt1L25jWko5Smw3bmJEOE4zNEtzRGRWNFBYaHJaVjByUmQ1cG9Wcm91bFlP?=
- =?utf-8?B?MEhIZjVVcVhhWVVzNzg3VGVsNmJFaDdUYTdKeXlMYlBmYVFram1mQlhFaTRL?=
- =?utf-8?B?Qms1NzZxU3NGL0x6N0hjTXZkc3JCaFVzQ0t2SVFtK1hvS0k2ZHFmQUtjUUNp?=
- =?utf-8?B?ejRZWTBVOTFYci82bkVrS0FQRVNiNElTbkF4cmkxWE9JWkxhWmlZYnY3NitN?=
- =?utf-8?B?VG45dUw1a25PQStpcnkzSjVMZ1F5a1FsRGU0Z216OFdITm9wWGxHWmZXbnNW?=
- =?utf-8?B?d3BkN3dyaWdNVEdNZEdGQ3lpSndmVi9WNU10bUtyTXZ4UjFIdHJTZkFTZ2hK?=
- =?utf-8?B?Y0drNDVrYmcrYXFXeldCeW9mNFlpNndIWElqYzJNaDlkeFdtZk5NU1ZyR1g1?=
- =?utf-8?B?M3VLVnVLRkJFSkdtZGxuTDZhNnhnbEFXZyt1Zm42aHdxdXg3KytmUlI1S2Iy?=
- =?utf-8?B?TjJtMGFYTHRPTW5IQStXL3VWRkNMTnE5KzhvdFpJaG54ZXN1bFpIL0ZjQlpB?=
- =?utf-8?B?NTg4WThrZDFzdjNLaThFcytWYXdNcjkxYlQ4b2dlc0lRa0FaRThFT2EybkhU?=
- =?utf-8?B?UGhFQ0xHWG91N1JOOCtFY09VZVd5SFliTnpYL3VENHpvRVdrUXB3ZytJMjAx?=
- =?utf-8?B?SXdDS1EyYXZkekR1ZUlEM1lneUlJOUErVitKSzdPOHd1ZjNHSzkvaUhUTXM5?=
- =?utf-8?B?Z1NkUy9xNFFGY0ZFbCthMXhOL0hkWUNaTStGcmNBVlhJOTRaQUlMRnpscm8w?=
- =?utf-8?B?UVJ3T3VrazJuOEIrM3VaWjlqR2dLTElyMjNUWWZaaWFldURCTVE3ZHBmcnda?=
- =?utf-8?B?THhHQjdLRzhnbDhVdDU2WlE3QkxsRmkvUFYzbktIbGdmdEozK2FwQ2VnU0JD?=
- =?utf-8?B?cGdaNlFzZ0FSaE56Q3F1dUtveWQ3b2ZpQ1JGdDRqdFlVVE1Oa2NreWFXUlJJ?=
- =?utf-8?B?SDlodmw3M2dqQ0dIa3Z2eExNQUdJeXFBOVFMWWU4U0dXSFVpdmpXVTEwUnQ5?=
- =?utf-8?B?aTZsM29mOVhBRHk2YUpGWGRQakJXYUFEcnBIeUJBQmNieG1sZ3lJRnBOWFBs?=
- =?utf-8?B?bkNmd1FVSlRiN2NvVjg2eHNFdE1oNmxDYlNsZERZRUNzcGlUbUo0eTZnM1Br?=
- =?utf-8?B?Zy9sZHBCT0NzcmtUaXJvamNXMVk4Qmt5ZFdVb1g4SXlYaWQrU1pTb1RVbHcr?=
- =?utf-8?B?ZXlGV3pFMklLVXVsaW9OQVFhbFo1WGI5RE90ZG5vNVR4Q0V5YjRoNm84TmZH?=
- =?utf-8?B?MnphQzZrSlB5SDQvcll0L0IyTDVlcFhkUHROcHl6WjlGbEFmSllESmpmSldr?=
- =?utf-8?B?YkIzc2hsM1YyYkNrMXFDRmswT0dLU0xKSEFQVW1sWXU2SW5jQzl3ODhST3Uz?=
- =?utf-8?B?bmVwMTQ1L2UvbHoydHVrNzFNRU5yM3crYktROW43bmNCWmZSaFBBTWlINDlk?=
- =?utf-8?B?Rk1mU1p1ajBVcFlJZlpCS1BvNXp4UGtNcGVtRlAvMDN3NlgvYWdHWTdwQXBO?=
- =?utf-8?B?cVcvaytzMm0rMTk1cUkzQldSMTV5cEhoTm1IQ3NMZ28xdmV0Rm5sUWJ2eFpK?=
- =?utf-8?B?dmlsYXNKZUZsaFJ6MDNGYnFRckJRMXp2RitIcFN3OGZDVjRCNUd3UkpRQ3g3?=
- =?utf-8?B?WFpNcjJHdURzUEl0dzkvRjQvRnBPa2pvWkhLVERjRGFWZlpSRE94ZlY1d3Vs?=
- =?utf-8?B?M2l0cUZvWTl5ekM4dlJ3MS9ucWJxdmx0bVhib3F4WHFtMHNyY3FGRzZwYWI2?=
- =?utf-8?Q?nL7/Oyk4w8H6S8COcSutAWw=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?aQoc5uDfAwgVuXcA5rGYmG3T5Sgn6q27IRYOWCjCY/dZePWKQm8L80ULHqG5?=
+ =?us-ascii?Q?2haczdmhmRfuOrIyIlkYAuPUdLs+xa48Ian9AEJh3TGZcQ0fmPk1fGId8nuq?=
+ =?us-ascii?Q?oWLNFq9TnSuMlBV6BMla4Q/kAlYbam0huhhtVNn2m1+ZbBhsfqW9t6B2GsNl?=
+ =?us-ascii?Q?xhqIgCa8Q48cEs69F30dLBjCIK9D3WFxyQof5nf3g9AcnXw1XGIUO+ACKEdp?=
+ =?us-ascii?Q?FTZf7GXqBZ2FWnWgSIb+Ljt10oYYxqoXe8QchilvrT9Ny+uwoEj0uduM7XhM?=
+ =?us-ascii?Q?yti+e5Mh9YRq6GF8KdBPXS1+h1KLi+0WvGHTMk3JLVPDp21IIsN8iKK3lpQV?=
+ =?us-ascii?Q?XzLMU+G6JQsngybOLetaVaJdWRLBbTMy+Tl3TTRb8D2gND9DDd8mLrc7aHwO?=
+ =?us-ascii?Q?x7BUCeg6nighccJseUGE1c/lvLbFn2WgmCttiTqrO8OIh5B40W+tsi76YRTx?=
+ =?us-ascii?Q?27lz5iegnRM8GFQKKtQUCE6Vxkvp8DQvBkCgAjmmsY7PzYslMvxDwX49ySDX?=
+ =?us-ascii?Q?+okw8MbYulIr1cZrUOdKuNq87DDckj8Sq4xoHT/9jgEOwYSkme0IReCJio4u?=
+ =?us-ascii?Q?JjnAfwNdni/FgZdD5VU8tn8VD0keVSQK8cloObsadSSI7scTijSwLV/LWP0C?=
+ =?us-ascii?Q?2D+TCfm+3SHG9T/87BJ90+9zGYKBW4F+wO5qiKzl5Sinf0YRKVHcB3S7IHfb?=
+ =?us-ascii?Q?8PsCFrwLPEzC0VGRq7mfigMdsKz93D5PeXt8JBcK14pAWJ28wRlAiSv+Favw?=
+ =?us-ascii?Q?zFntT836rXQDaDYc9dsvNbGE4yKVaR3IoKYDF1ybbsqMz+CnTOfdztWFhsVM?=
+ =?us-ascii?Q?dIfym3LvxWU4sPTolKi9njwm3g3z3Hnzwtx6P1EH7lpfsjt7sU/zzBeZKAvA?=
+ =?us-ascii?Q?uioM++XnnqLX3ZrBTl/i9LKtZofhfM7XDXmAOXZ4SNIP/YHQo6EkDEfIuI3u?=
+ =?us-ascii?Q?TLIuDbussKlD2xV/MMva/5854yiPjXajy3My7m7f0yOSg0gCAYgB8CON8Ztr?=
+ =?us-ascii?Q?mBCy4t6TNNvSyv4rCvWLltdHQn9uJ8VrTpsm4rZb2aWujwlw2DRwbZskqJYL?=
+ =?us-ascii?Q?nSrj+BkHFGzAZAsLWh+iExwdz5LaA4c1Ihtpo8uIrfkotteLlmrkTgFYD/bn?=
+ =?us-ascii?Q?SgT1hpe2UkcIMIciw+Q8CTg5sW68vLly16kFyMgYGK6+BtB6bzbw2T0EgC8U?=
+ =?us-ascii?Q?OF7a2+K5dLAs4KLsTbE2WpKczcNuKP/Hi9g6XN+u01zT/oSN0v1LZsuef64q?=
+ =?us-ascii?Q?w65y7v/SJdevp9TAnQl1vBtISYH5o9TwUeKsOuknAGpqEP3rvnyR1M0z93bE?=
+ =?us-ascii?Q?636DMdcNac4M2dBQzafqD8VkldShOtTiHvYiYi8fDf87DvwSBSK+Q11lLGzQ?=
+ =?us-ascii?Q?Lp4mIyWWwWXG82HWG3rZseuTo8dK5CFakFOCmm2RxvEpsKKDnTTc0zQ5Z3p4?=
+ =?us-ascii?Q?zSC6WBo2VC+EvRQ5s6hJUGmzfEDHjn5nJ0B0Nyy54hc2Fd5bJQ7G5CKc5b8x?=
+ =?us-ascii?Q?b7oYOt/gLVAKavVZBN8v23ZQMP55h0jAbWPyMb6QSdiSUvA2ICr65TWI7AXH?=
+ =?us-ascii?Q?RLFDwL7/0YyjxJ0Gwwj4vF/bpnfDq442WyPXAEJGpBIkoJbpXUYQJTTpHHOf?=
+ =?us-ascii?Q?XA=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM6PR12MB4250B91402EB9297F6178F6BFB209DM6PR12MB4250namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a664b1d-042b-4b21-af37-08d9e0c51e85
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2022 12:12:27.6611 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y0ql+zZVGYKfARIZBRd0cjEIFvduh6Qr4f8ocCqNOITJWobgr+wmY34u0EPnggCi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5544
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 501dd91d-05a6-4545-3791-08d9e0c8a4ff
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jan 2022 12:37:41.4500 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xC9WOSRbGt3OmCvq2AdWDwjv+DLU8I48Z79S7CoyJwH9o93bdwAjSIf7E7vY876HBTS2V1CQqv150SlhgS2QUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1505
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,353 +133,185 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: horace.chen@amd.com, lijo.lazar@amd.com, jingwech@amd.com, Monk.Liu@amd.com,
- daniel@ffwll.ch
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Huang,
+ Ray" <Ray.Huang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_DM6PR12MB4250B91402EB9297F6178F6BFB209DM6PR12MB4250namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+[Public]
 
-Am 25.01.22 um 23:37 schrieb Andrey Grodzovsky:
-> The reset domain contains register access semaphor
-> now and so needs to be present as long as each device
-> in a hive needs it and so it cannot be binded to XGMI
-> hive life cycle.
-> Adress this by making reset domain refcounted and pointed
-> by each member of the hive and the hive itself.
->
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  6 +--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 44 +++++++++++++---------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 36 ++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  | 10 +++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   | 26 ++++++++++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h   |  2 +-
->   drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  4 +-
->   drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      |  4 +-
->   drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      |  4 +-
->   9 files changed, 105 insertions(+), 31 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 8e96b9a14452..f2ba460bfd59 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -813,9 +813,7 @@ struct amd_powerplay {
->   #define AMDGPU_RESET_MAGIC_NUM 64
->   #define AMDGPU_MAX_DF_PERFMONS 4
->   
-> -struct amdgpu_reset_domain {
-> -	struct workqueue_struct *wq;
-> -};
-> +struct amdgpu_reset_domain;
->   
->   struct amdgpu_device {
->   	struct device			*dev;
-> @@ -1102,7 +1100,7 @@ struct amdgpu_device {
->   	struct amdgpu_reset_control     *reset_cntl;
->   	uint32_t                        ip_versions[HW_ID_MAX][HWIP_MAX_INSTANCE];
->   
-> -	struct amdgpu_reset_domain	reset_domain;
-> +	struct amdgpu_reset_domain	*reset_domain;
+Hi Lijo,
 
-Ah! Here it is, I was missing that on the initial patch.
-
->   };
->   
->   static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index fef952ca8db5..b24829096359 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2313,7 +2313,7 @@ static int amdgpu_device_init_schedulers(struct amdgpu_device *adev)
->   
->   		r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
->   				   ring->num_hw_submission, amdgpu_job_hang_limit,
-> -				   timeout, adev->reset_domain.wq, ring->sched_score, ring->name);
-> +				   timeout, adev->reset_domain->wq, ring->sched_score, ring->name);
->   		if (r) {
->   			DRM_ERROR("Failed to create scheduler on ring %s.\n",
->   				  ring->name);
-> @@ -2432,24 +2432,22 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
->   	if (r)
->   		goto init_failed;
->   
-> +	/**
-> +	 * In case of XGMI grab extra reference for reset domain for this device
-> +	 */
->   	if (adev->gmc.xgmi.num_physical_nodes > 1) {
-> -		struct amdgpu_hive_info *hive;
-> -
-> -		amdgpu_xgmi_add_device(adev);
-> +		if (amdgpu_xgmi_add_device(adev) == 0) {
-> +			struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev);
->   
-> -		hive = amdgpu_get_xgmi_hive(adev);
-> -		if (!hive || !hive->reset_domain.wq) {
-> -			DRM_ERROR("Failed to obtain reset domain info for XGMI hive:%llx", hive->hive_id);
-> -			r = -EINVAL;
-> -			goto init_failed;
-> -		}
-> +			if (!hive->reset_domain ||
-> +			    !kref_get_unless_zero(&hive->reset_domain->refcount)) {
-> +				r = -ENOENT;
-> +				goto init_failed;
-> +			}
->   
-> -		adev->reset_domain.wq = hive->reset_domain.wq;
-> -	} else {
-> -		adev->reset_domain.wq = alloc_ordered_workqueue("amdgpu-reset-dev", 0);
-> -		if (!adev->reset_domain.wq) {
-> -			r = -ENOMEM;
-> -			goto init_failed;
-> +			/* Drop the early temporary reset domain we created for device */
-> +			kref_put(&adev->reset_domain->refcount, amdgpu_reset_destroy_reset_domain);
-> +			adev->reset_domain = hive->reset_domain;
->   		}
->   	}
->   
-> @@ -3599,6 +3597,15 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   		return r;
->   	}
->   
-> +	/*
-> +	 * Reset domain needs to be present early, before XGMI hive discovered
-> +	 * (if any) and intitialized to use reset sem and in_gpu reset flag
-> +	 * early on during init.
-> +	 */
-> +	adev->reset_domain = amdgpu_reset_create_reset_domain("amdgpu-reset-dev");
-> +	if (!adev->reset_domain)
-> +		return -ENOMEM;
-> +
->   	/* early init functions */
->   	r = amdgpu_device_ip_early_init(adev);
->   	if (r)
-> @@ -3949,6 +3956,9 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
->   	if (adev->mman.discovery_bin)
->   		amdgpu_discovery_fini(adev);
->   
-> +	kref_put(&adev->reset_domain->refcount, amdgpu_reset_destroy_reset_domain);
-> +	adev->reset_domain = NULL;
-> +
->   	kfree(adev->pci_state);
->   
->   }
-> @@ -5186,7 +5196,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   
->   	INIT_WORK(&work.base, amdgpu_device_queue_gpu_recover_work);
->   
-> -	if (!queue_work(adev->reset_domain.wq, &work.base))
-> +	if (!queue_work(adev->reset_domain->wq, &work.base))
->   		return -EAGAIN;
->   
->   	flush_work(&work.base);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> index 02afd4115675..f2d310cd8d40 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> @@ -96,3 +96,39 @@ int amdgpu_reset_perform_reset(struct amdgpu_device *adev,
->   	return reset_handler->restore_hwcontext(adev->reset_cntl,
->   						reset_context);
->   }
-> +
-> +
-> +void amdgpu_reset_destroy_reset_domain(struct kref *ref)
-> +{
-> +	struct amdgpu_reset_domain *reset_domain = container_of(ref,
-> +								struct amdgpu_reset_domain,
-> +								refcount);
-> +	destroy_workqueue(reset_domain->wq);
-> +	kvfree(reset_domain);
-> +}
-> +
-> +struct amdgpu_reset_domain *amdgpu_reset_create_reset_domain(char *wq_name)
-
-Maybe just amdgpu_reset_domain_create()/amdgpu_reset_domain_destroy() ?
-
-Apart from that nit looks good to me on first glance.
+For cyan skillfish, both adev->cg_flags and adev->pg_flags are zero. I just=
+ found "RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG);" in mmhub_v2_0_get_clo=
+ckgating() caused a gpu hang(cat amdgpu_pm_info). I didn't check if it's so=
+me sort of PG which causes the issue.
 
 Regards,
-Christian.
+Lang
 
-> +{
-> +	struct amdgpu_reset_domain *reset_domain;
-> +
-> +	reset_domain = kvzalloc(sizeof(struct amdgpu_reset_domain), GFP_KERNEL);
-> +	if (!reset_domain) {
-> +		DRM_ERROR("Failed to allocate amdgpu_reset_domain!");
-> +		return NULL;
-> +	}
-> +
-> +	kref_init(&reset_domain->refcount);
-> +
-> +	reset_domain->wq = create_singlethread_workqueue(wq_name);
-> +	if (!reset_domain->wq) {
-> +		DRM_ERROR("Failed to allocate wq for amdgpu_reset_domain!");
-> +		kref_put(&reset_domain->refcount, amdgpu_reset_destroy_reset_domain);
-> +		return NULL;
-> +
-> +	}
-> +
-> +	return reset_domain;
-> +}
-> +
-> +
-> +
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> index e00d38d9160a..cd030e63e4c6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> @@ -70,6 +70,12 @@ struct amdgpu_reset_control {
->   	void (*async_reset)(struct work_struct *work);
->   };
->   
-> +struct amdgpu_reset_domain {
-> +	struct kref refcount;
-> +	struct workqueue_struct *wq;
-> +};
-> +
-> +
->   int amdgpu_reset_init(struct amdgpu_device *adev);
->   int amdgpu_reset_fini(struct amdgpu_device *adev);
->   
-> @@ -82,4 +88,8 @@ int amdgpu_reset_perform_reset(struct amdgpu_device *adev,
->   int amdgpu_reset_add_handler(struct amdgpu_reset_control *reset_ctl,
->   			     struct amdgpu_reset_handler *handler);
->   
-> +struct amdgpu_reset_domain *amdgpu_reset_create_reset_domain(char *wq_name);
-> +
-> +void amdgpu_reset_destroy_reset_domain(struct kref *ref);
-> +
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index 9ad742039ac9..5908a3f8208a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -32,6 +32,8 @@
->   #include "wafl/wafl2_4_0_0_smn.h"
->   #include "wafl/wafl2_4_0_0_sh_mask.h"
->   
-> +#include "amdgpu_reset.h"
-> +
->   #define smnPCS_XGMI23_PCS_ERROR_STATUS   0x11a01210
->   #define smnPCS_XGMI3X16_PCS_ERROR_STATUS 0x11a0020c
->   #define smnPCS_GOPX1_PCS_ERROR_STATUS    0x12200210
-> @@ -226,6 +228,9 @@ static void amdgpu_xgmi_hive_release(struct kobject *kobj)
->   	struct amdgpu_hive_info *hive = container_of(
->   		kobj, struct amdgpu_hive_info, kobj);
->   
-> +	kref_put(&hive->reset_domain->refcount, amdgpu_reset_destroy_reset_domain);
-> +	hive->reset_domain = NULL;
-> +
->   	mutex_destroy(&hive->hive_lock);
->   	kfree(hive);
->   }
-> @@ -392,12 +397,21 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
->   		goto pro_end;
->   	}
->   
-> -	hive->reset_domain.wq = alloc_ordered_workqueue("amdgpu-reset-hive", 0);
-> -	if (!hive->reset_domain.wq) {
-> -		dev_err(adev->dev, "XGMI: failed allocating wq for reset domain!\n");
-> -		kfree(hive);
-> -		hive = NULL;
-> -		goto pro_end;
-> +	/**
-> +	 * Avoid recreating reset domain when hive is reconstructed for the case
-> +	 * of reset the devices in the XGMI hive during probe for SRIOV
-> +	 * See https://www.spinics.net/lists/amd-gfx/msg58836.html
-> +	 */
-> +	if (!adev->reset_domain) {
-> +		hive->reset_domain = amdgpu_reset_create_reset_domain("amdgpu-reset-hive");
-> +			if (!hive->reset_domain) {
-> +				dev_err(adev->dev, "XGMI: failed initializing reset domain for xgmi hive\n");
-> +				ret = -ENOMEM;
-> +				kobject_put(&hive->kobj);
-> +				kfree(hive);
-> +				hive = NULL;
-> +				goto pro_end;
-> +			}
->   	}
->   
->   	hive->hive_id = adev->gmc.xgmi.hive_id;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-> index 2f2ce53645a5..dcaad22be492 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-> @@ -42,7 +42,7 @@ struct amdgpu_hive_info {
->   		AMDGPU_XGMI_PSTATE_UNKNOWN
->   	} pstate;
->   
-> -	struct amdgpu_reset_domain reset_domain;
-> +	struct amdgpu_reset_domain *reset_domain;
->   };
->   
->   struct amdgpu_pcs_ras_field {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-> index b2b40e169342..05e98af30b48 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-> @@ -32,6 +32,8 @@
->   #include "soc15_common.h"
->   #include "mxgpu_ai.h"
->   
-> +#include "amdgpu_reset.h"
-> +
->   static void xgpu_ai_mailbox_send_ack(struct amdgpu_device *adev)
->   {
->   	WREG8(AI_MAIBOX_CONTROL_RCV_OFFSET_BYTE, 2);
-> @@ -302,7 +304,7 @@ static int xgpu_ai_mailbox_rcv_irq(struct amdgpu_device *adev,
->   	switch (event) {
->   		case IDH_FLR_NOTIFICATION:
->   		if (amdgpu_sriov_runtime(adev) && !amdgpu_in_reset(adev))
-> -			WARN_ONCE(!queue_work(adev->reset_domain.wq,
-> +			WARN_ONCE(!queue_work(adev->reset_domain->wq,
->   					      &adev->virt.flr_work),
->   				  "Failed to queue work! at %s",
->   				  __func__);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-> index 08411924150d..6e12055f3f4a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-> @@ -31,6 +31,8 @@
->   #include "soc15_common.h"
->   #include "mxgpu_nv.h"
->   
-> +#include "amdgpu_reset.h"
-> +
->   static void xgpu_nv_mailbox_send_ack(struct amdgpu_device *adev)
->   {
->   	WREG8(NV_MAIBOX_CONTROL_RCV_OFFSET_BYTE, 2);
-> @@ -337,7 +339,7 @@ static int xgpu_nv_mailbox_rcv_irq(struct amdgpu_device *adev,
->   	switch (event) {
->   	case IDH_FLR_NOTIFICATION:
->   		if (amdgpu_sriov_runtime(adev) && !amdgpu_in_reset(adev))
-> -			WARN_ONCE(!queue_work(adev->reset_domain.wq,
-> +			WARN_ONCE(!queue_work(adev->reset_domain->wq,
->   					      &adev->virt.flr_work),
->   				  "Failed to queue work! at %s",
->   				  __func__);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-> index 02290febfcf4..fe1570c2146e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-> @@ -42,6 +42,8 @@
->   #include "smu/smu_7_1_3_d.h"
->   #include "mxgpu_vi.h"
->   
-> +#include "amdgpu_reset.h"
-> +
->   /* VI golden setting */
->   static const u32 xgpu_fiji_mgcg_cgcg_init[] = {
->   	mmRLC_CGTT_MGCG_OVERRIDE, 0xffffffff, 0xffffffff,
-> @@ -551,7 +553,7 @@ static int xgpu_vi_mailbox_rcv_irq(struct amdgpu_device *adev,
->   
->   		/* only handle FLR_NOTIFY now */
->   		if (!r && !amdgpu_in_reset(adev))
-> -			WARN_ONCE(!queue_work(adev->reset_domain.wq,
-> +			WARN_ONCE(!queue_work(adev->reset_domain->wq,
->   					      &adev->virt.flr_work),
->   				  "Failed to queue work! at %s",
->   				  __func__);
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Wednesday, January 26, 2022 8:06 PM
+To: Yu, Lang <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray <Ray.Huang@a=
+md.com>; Yu, Lang <Lang.Yu@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: add safeguards for accessing mmhub CG regi=
+sters
 
+
+[Public]
+
+Hi Lang,
+
+There are ASICs in which driver doesn't enable CG, and then these flags wil=
+l be false. However, the CG will be enabled by another component like VBIOS=
+. Driver still reports the CG status eventhough driver doesn't enable it. F=
+or those, this logic doesn't work.
+
+BTW, could you check if it's some sort of PG which causes the issue?
+
+Thanks,
+Lijo
+
+--_000_DM6PR12MB4250B91402EB9297F6178F6BFB209DM6PR12MB4250namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheaderc10f11a2, li.msipheaderc10f11a2, div.msipheaderc10f11a2
+	{mso-style-name:msipheaderc10f11a2;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheaderc10f11a2" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]</s=
+pan><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hi Lijo,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">For cyan skillfish, both adev-&gt;cg_flags and adev-=
+&gt;pg_flags are zero. I just found &#8220;RREG32_SOC15(MMHUB, 0, mmMM_ATC_=
+L2_MISC_CG);&#8221; in mmhub_v2_0_get_clockgating() caused a gpu hang(cat a=
+mdgpu_pm_info). I didn&#8217;t check if it's some sort of
+ PG which causes the issue.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Lang<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt; =
+<br>
+<b>Sent:</b> Wednesday, January 26, 2022 8:06 PM<br>
+<b>To:</b> Yu, Lang &lt;Lang.Yu@amd.com&gt;; amd-gfx@lists.freedesktop.org<=
+br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Huang, Ray=
+ &lt;Ray.Huang@amd.com&gt;; Yu, Lang &lt;Lang.Yu@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: add safeguards for accessing mmhub =
+CG registers<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
+121">Hi L</span><span style=3D"font-size:12.0pt;color:#212121">ang,</span><=
+span style=3D"color:#212121"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
+121"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+12.0pt;color:#212121">There are ASICs in which driver doesn't enable CG, an=
+d then these flags will be false. However, the CG will be enabled by anothe=
+r component like VBIOS. Driver still reports
+ the CG status eventhough driver doesn't enable it.&nbsp;For those, this lo=
+gic doesn't work.&nbsp;</span><span style=3D"color:#212121"><o:p></o:p></sp=
+an></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
+121"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+12.0pt;color:#212121">BTW, could you check if it's some sort of PG which ca=
+uses the issue?</span><span style=3D"color:#212121"><o:p></o:p></span></p>
+</div>
+<div id=3D"ms-outlook-mobile-signature">
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<p class=3D"MsoNormal">Thanks,<br>
+Lijo<o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM6PR12MB4250B91402EB9297F6178F6BFB209DM6PR12MB4250namp_--
