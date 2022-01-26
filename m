@@ -4,118 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C35DAC63684
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 15:17:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0407C28CF5
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 15:32:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52EDF10E700;
-	Wed, 26 Jan 2022 15:17:43 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060.outbound.protection.outlook.com [40.107.220.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D4D510E700
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 15:17:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CF3110E595;
+	Wed, 26 Jan 2022 15:32:42 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2045.outbound.protection.outlook.com [40.107.94.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 792A210E3C2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 15:32:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QLdodyIWYAeX1znSTcqGQz9VwiqrTyVJT508kVBvRZvNDQop3GixWsQ1xHspDJ/feLefmQABs8NnYX8oLuUHnqdiS6bfs4beyuysviTtNENtBMtzTwKGr4viiQmjfUTt5KhWzIXUX0PYxllaLMkM4sQSgEgQ5qvHMyg2ViEVw4rBnUMJSOn+cmcnWix387Task2WL1JWSrR94+q5ulme78riY7mCbkvkKKshjIXLcGawZuTgXqDGOXJ3fFZ0P7WhX7f/1BMyxVhzuzG7SO4cMUX5a+w3AwGqW3sbKzWnV9AE2xGb7ove1leEbMLtYfzuFII1Cecc+ij+0M0E+ws8UA==
+ b=b6TMrdaS0lLFxPhNhMINsHlwPOCHTj21ZaliJxjbvr8hDN/Xd4xmA5jNrHz9JvlbPhR77zsfXdFzLrGu9qT+4HoWMHIwR6p+jpYY/LoKx2p8apVbKznvDntoG65/aod2ob0HoznE1VoQSc01TU5PqNT7EZqTVqxabFgtY8B8ZFbxpQlQIiAoiLZsqdOtzTlugcr5qHJTF9/PXFiQxqZzH4KwsVJqPlUNz7CF56u3Agc955+pxnImDp1fM/UKfNyfiQ70LVTYhgRhitbpeXX6z5Q8zTS7C0MdBpMpQe7PiRs4OyZph8eKVZR1gfCFUQxgP1ACnTYxIyGldv95+/HkSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qTZkp5sV+r+wZD1BfUxI2JC9rn6tNBRUtB//Kc8kSmI=;
- b=BeFOD4I79fDvHt4X6PUp7sOuXcJgO7GaZJnMjyhh8+M+BZIqneNFYz2Q99JeKl16grUyytJWkGUeanp+t9XoqYUY1wfys4Obh6XelyoUEvPQ89GKIx53Quy98Mmxf3p5h14nMIiVwGMZV2kKkrACUTxpQxRHvv6fbbkVrb9luDBXewwa8tVkhuoMp40CkUfJDelOpPGaMl1eyezUPVRosbpQPZrRvbWrzTGypP74qAkGoTtSah6KLPTQIGMnQviowVDP0ywOYwiEy+i/gOKK7nlrvLa9fqA05xvjM4pMY+XHVzdkLb/iVNKXtIGAbTI6bealmv4fpgIdI1plhqTctA==
+ bh=eO1gpkBDv3IQjr1K7yr4NWzzHlHJPjv8UYGnkeZXvhU=;
+ b=TYmXKMNjmUR6rEEWhhlAVn7rx/bfD25FIXvjHPw11nUiSwCSJ764iIafSmlRysz3JmltE4calMYU9w2ZnNL1n75QNgwWmWrdNPQmV69QAc9ba9Mek4t0JnKLtyTOfxWTnLpR89inbFGZQMD2KaswMF8XD2HdnPUplMQbBMckAMuSutEKc9gpuibnauvV7raZrX0rdppCBPWGHsBXWfMQwUok46xuv1u/UZrXFHoQd5Wb4UGSCXpQit6rMRdZfwail1/Tg14sm6GSQOazwQ9Exxm4w9065xOQWlwC5FvxTRSUuaATT9wbz1plEBlMNig+yYsUEBYqcDEQuWr5yBu6yg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qTZkp5sV+r+wZD1BfUxI2JC9rn6tNBRUtB//Kc8kSmI=;
- b=B8HBmMIfFbLqia9iUg5JP+0CE0+psPceoO3GkMtIEGvXxsgSTYlaTnK6I4ESHe+qinL2slzz4Sgh/BNqmVj2p8Oe4uaVsdGWgKyD/zPWU512gm45ZWGHNYK5qmeFuoi4p3PpFQE839TA6F6u0MdVPjaeNdDTXSNfI14N2OdsTts=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by BL1PR12MB5191.namprd12.prod.outlook.com (2603:10b6:208:318::21) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=eO1gpkBDv3IQjr1K7yr4NWzzHlHJPjv8UYGnkeZXvhU=;
+ b=VL5PYsiC0YF/Reiyh6e8sG9J8vgkXsKw7xiUoidhA1i8dg68RJSIioUVaLZ3o0tdvusLMdESigGh09WtJQTUvTqElf4T2fOQxA5Kmh2V9hod1E05FGcgfKSFzokelU5IQ9toE7kbjtRQQ3ItBTiFA4v/DSZvCZ64EsivBRnT00g=
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by BY5PR12MB4306.namprd12.prod.outlook.com (2603:10b6:a03:206::17)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Wed, 26 Jan
- 2022 15:17:39 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::dd4b:b67b:1688:b52]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::dd4b:b67b:1688:b52%9]) with mapi id 15.20.4930.017; Wed, 26 Jan 2022
- 15:17:39 +0000
-Message-ID: <a7a57aa4-5a5d-d7ba-c2b2-ef6d90023978@amd.com>
-Date: Wed, 26 Jan 2022 10:17:36 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] display/amd: decrease message verbosity about watermarks
- table failure
+ 2022 15:32:38 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::b07d:3a18:d06d:cb0b]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::b07d:3a18:d06d:cb0b%4]) with mapi id 15.20.4909.017; Wed, 26 Jan 2022
+ 15:32:38 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v5 2/4] drm/amd: add support to check whether the system
+ is set to s3
+Thread-Topic: [PATCH v5 2/4] drm/amd: add support to check whether the system
+ is set to s3
+Thread-Index: AQHYEmqSHwh5iWHEIUyIlQG0NjKWVqx1Z7LAgAAAVgCAAABYUIAAAliAgAADSVg=
+Date: Wed, 26 Jan 2022 15:32:38 +0000
+Message-ID: <BYAPR12MB4614586B64F8A716DE4D987597209@BYAPR12MB4614.namprd12.prod.outlook.com>
+References: <20220126040944.4324-1-mario.limonciello@amd.com>
+ <20220126040944.4324-2-mario.limonciello@amd.com>
+ <BYAPR12MB46142C4338D620EE1F7977FB97209@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <BL1PR12MB5157001FFC7CC78C6AA12DF4E2209@BL1PR12MB5157.namprd12.prod.outlook.com>
+ <BYAPR12MB46143045A2226B863E1CCB2997209@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <BL1PR12MB515774822861EC1850C31F98E2209@BL1PR12MB5157.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB515774822861EC1850C31F98E2209@BL1PR12MB5157.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220125233547.31314-1-mario.limonciello@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20220125233547.31314-1-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0104.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::13) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e5cecfc6-65b5-47ae-81e3-08d9e0defda6
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5191:EE_
-X-Microsoft-Antispam-PRVS: <BL1PR12MB51918E7741226AEE4E5EAF198C209@BL1PR12MB5191.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Uc+omCCD9UK2z/fXUwOWCWuHeJQl84yR1YhYell/bOAehY+GpASavlkZ/aXPc3fDH+swYPP8RbtlSjlCzDzUaD3h7iUIojODe0QwH5Z5vgHjabs5+OPRsyTWF8ftjoiRycbdBHnhsDHxyjDOBiGX068Lj4+6oWMp2dIbI9nRJvV2JKTmJp1BF3GEo/1kRMHa+TSBdyoCLMKyYMu1dVCv2BcqvBmr+oqn/toMLBt74Cu/dZ1dCbKipjefWHCkLlzAge0c3Ph5SdJzH4G7Ng0sgoIdGMlPOiLxheiSQxNo1462IzNdUZwYO7fxf2nJgBEQCBgcjRyirnJl0ZWOomnzL/XpUwwQOqkHVzP6j8Q76rt95bKLooOIxHEWqKXnT0uMmwr0QDeY03iOQHxtMl8hfYpKop9cqgg1Fb1HtFsNpg+lb5HyUd1BSl26x6G6BwBiBFfpJLYa/GE0vZCghUbvLweu/DXpsO7fk+tyz1MCF+OLQlHeggYPQWkSRUxy78pZBhmCStHQ13ApDhSOI/ZWjrmaQxiwRrsciE4O5OAQpwsMeCCLlcX7Jb+PTYboVnfMBhjAzKhszBfK+Mmgd93HKFrz8Ezf/1IqjS7X/XTuUYL7MzVRF3WAsnqdzwfP2Q6tt9VANvLftbwcvHA8Bpf337pjRFG/FdfqPk78fK+A6qARNPq4BKcUdizvpW7nmN34rcruqyGuYHh3Oi1nLQ5+Q6G3pbbJJCWwf/s5Xma0q16PWW0t0aozMDjfP5SCpMTk
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(83380400001)(508600001)(6486002)(19627235002)(26005)(186003)(36756003)(316002)(66476007)(66556008)(31686004)(66946007)(2616005)(44832011)(86362001)(6512007)(6506007)(6666004)(53546011)(8676002)(4326008)(5660300002)(8936002)(38100700002)(31696002)(2906002)(45980500001)(43740500002)(20210929001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-26T15:07:26.0000000Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0; MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 6aacdeb7-1c11-422e-5112-08d9e0e115bf
+x-ms-traffictypediagnostic: BY5PR12MB4306:EE_
+x-microsoft-antispam-prvs: <BY5PR12MB43061612C069165C3FA7D61F97209@BY5PR12MB4306.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 75eQL9cYiapsnsj6zDsEvf3VuCXDJ7DzNcgEpsFhLVBVGFk7eiK8QAshjX5pvosgYwXofmwM0kTswVklJNARRJhPcaHsN8nsv9vBls6MmUo5IUxA7UsPemCkpUS6XM8NiOZuJabrBow2w39FoxE613HyKrWIVnHmfYKwylbEtC7+Zgn+SDeKc1UpBzCeJh34y44dySlBHm1QiJOkRSp9KS2YJ9WBwlcaeX7ZTkLshSS27AgyM6W4NOorCB2jd340iiy3/kdX5/uKDILYeGTXJ3m6B8SwC0yxFFLD4r05ZZl6Q2ww0bA1gnIQ1TACI+QraSbpshIUUJhUG9AP/dBWD/FTBgyWlj+IKxA1N/rykDJ8wLe/5iE5yXpMb4PjCBGk+jaMJ+YEnWbpIPlpvEsd7RjBGslwybaIV6fV2W+8ZBKsv4BnlzplfCeXSZ66gLRSETQ7o+KxWygWiLkK/g/K9Tw5hdEeHHykz5v1VfIUA3put+DTMg1mbtaSVcKy/xLUQT5CNfoMgbh0PAuRdrxaG5730Xs+EG9SBndkWvp8CUVdfMkDJ7dkB6H141t5EyO/q48YhSbCsnpc+oouWQSLvO10Z5RlE+oswfcq7BD9HWnie9svK4ZvH8Tytvv9HjOe8Kj7OpVjBI4YeXfyjr9BmDIz1a+BBFerb3EeeR/xAjAD8FdFLpgKp5nZgq4jF7xnCZEpY0sYEQQ3SGHFbZYQfQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(86362001)(2906002)(19627235002)(5660300002)(8936002)(8676002)(4326008)(7696005)(316002)(52536014)(9686003)(110136005)(6506007)(26005)(186003)(38070700005)(55016003)(508600001)(53546011)(71200400001)(83380400001)(33656002)(122000001)(38100700002)(76116006)(66556008)(66946007)(91956017)(64756008)(66446008)(66476007)(20210929001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NEZ5UmhRcDN1S2tZOVBNcjlWZVRuY1Ira3Z0cEQxblc3elozc3dYK3hrdE1x?=
- =?utf-8?B?MXRHWlBBQWh2LzFtZXVoYnBXRFRNSEZ2WkJXL2JQNXZVYk95SjBZQTZJYndt?=
- =?utf-8?B?MnFhbmtqN2NTUGgrZTBnUHBvdHliYXVxcU9sanNFUTJCUWFvTllLOGl6TFBM?=
- =?utf-8?B?ODhZWTViVzEwckF5S0hLWnRjTERpdnlmanE4ZDN3d3lxNlR3SGFFaUFYQ1Z4?=
- =?utf-8?B?RE45Q3AvNEdQaUppcjc5amw4SHlBSVZXaUJrT3F1UVBrR3dNU1JER2ViT2s4?=
- =?utf-8?B?MWFxUDhYT2R2YkF2ayt5L25yRHBmblNCd3h5MUFmVVFncGpzdEFua1BOU1Fo?=
- =?utf-8?B?ZEpQdHFnRUhzVEtZRXVwUFh3dCsxMFZXakk2QlhuMnRqcVF3QVowZTdCOHlK?=
- =?utf-8?B?OHQyUldRbGRUdWR5eWgwazlwajc3MUFtNlVnTmNuU3RYSmlPOUU0WThabnRJ?=
- =?utf-8?B?VUJzSHFFTnFQRnh4TTdCaVNJbjM2QjJUZTNiUk93YVorb2hpTUhYMDQ3NWpy?=
- =?utf-8?B?QmJIalFQWnQ3L1FGa0QzSzkvaWdDR1NpTll1ZU9vMDlUT0tQa0pNY3NqczJq?=
- =?utf-8?B?RGhlM3doRzI0R0RpZ29mbnYyNENyTUpkNVJYR2lqTXY5Zjc1dHZTa084dmk0?=
- =?utf-8?B?dWM1c3Z5Z3NQaDFNU1NiaWh2bzg5UTFMNEV3SHB2WGo3TXJkZjdXZ1JSb0Zq?=
- =?utf-8?B?TldPNGppcWFWUmpkSkI0a0lzUkp1OWlyK0E0emNnWmx4QjlKVG9mMVVyMSt0?=
- =?utf-8?B?Mk9zY005SEhrVnJHVWpzZmZtMkhsM211VW4weGs5bnBad0Z4cHdKY0U2RmtB?=
- =?utf-8?B?OHVoWVRaNS9NNWZvb3hIOVFDQXpaSXFtMWJaclBqMCtYbi9oVEJncUhJTTVv?=
- =?utf-8?B?QW9Zai9kYmNMQzljQ1cvMjVKT0x0NnNaSmdkUU9acE1sMVhFNXJDLy9SbThs?=
- =?utf-8?B?c3FwaU02ZW5hRFZLS2h0QjkwdVhhbDRZRE81bGcwS3RrdkI1R3RSYzlFdEtI?=
- =?utf-8?B?dEhOYStsSWtyeDVOTUtHdUZTODBTYVNDSkI3Y1NzTmtKc0s5NzVPVnMxYTE2?=
- =?utf-8?B?dElqZmN5UTg1dlpTWmNiam1hL0NkL21Xb2Q4bVpEMVNaU2o2NWJmNm1KTmNs?=
- =?utf-8?B?ZGJpd0lUZk5EcDF6dlVJR1ZVOUZVNzhNam4wNEUrMTJqbUZkOHBUbURyYXV6?=
- =?utf-8?B?cjJVL3RwdTN1QVRVT1NZMFdLbjdLU004TTlGZ0lQbHZLYjRUU3BBK2MvdmR0?=
- =?utf-8?B?alBVVnp4V2FWcVRWYmFKUW5UQ3JMQklxbDI0WUZML0c2dmhiYjNBUys2dkhw?=
- =?utf-8?B?Vk9rM0VxZmhNRVlEMnFSQ3hYTUpuamNJWG55TVB0MVJBdlZTQmdwUThDK21T?=
- =?utf-8?B?Mll1a3M3bWQwaXMydUxHN0VSMXpNWkxMOXJVVkw2ckk1MlFrQkQwQlkvY2Nk?=
- =?utf-8?B?eEREblQwcWJlT0lxTTQzOC9zMkM0VmZvcVYzam5ldmViQ2dMYnFkUG04V3lu?=
- =?utf-8?B?NVNJbTgyTytqMnVIelE2dkNmQ2JWWHJUOXd3VWVrdEpuWW1wYnVudStoNHhB?=
- =?utf-8?B?WFlZNWR1UEJjWWppL3dlb1ZNYklpcGdmSlQxa3RQbjcyTERXL2FSQjhsa2hJ?=
- =?utf-8?B?Yk0xRWtjWlovcnBCaTROVkVjSFBTemVPbW9WWk55TG5JVjFmK2M0VURFY2xw?=
- =?utf-8?B?ZHc4OXN4MDg3U0ZSamtHbVZZdkEzZVdFVnM5d0dwdVdrUjRmdHRIbm9QK2k2?=
- =?utf-8?B?TFlZVm5raXNQcGtFRldUMU9zMitmeXpKejZOSHJHcjV5ZXkzbC9OYjBKOFAv?=
- =?utf-8?B?YzZCeVU2a0tPVzZMV2h6LzhqYTB2bzhTWHpMNExmWkhobW0wWmpFYjlJdzV3?=
- =?utf-8?B?VTBWZkxSREU0YWdScEN1TUpkRCtUNzVsQWdrdko5QmYxdmNuTjBvMnVWUEJD?=
- =?utf-8?B?MEpoSFJ5RUNMSU1vWmVXeWtUSC9UcG9HUWtCdGZTczBiTmI0ZVExa1Q2dDhI?=
- =?utf-8?B?Ri9DUk5jTityQ0VGdDdQQ3Rld0lpamtQLys1K09MSFBQdDMyRXhudXhOMzgz?=
- =?utf-8?B?cVgxdUh6Mlc0UUM4R0xwMzFmaVMxdW0raXNlTWpseHdMWEVhR1BQMVlSSjdZ?=
- =?utf-8?B?d3BNZllDa3V2Nlg1UXBtbGdmYU51eXR5dEFHWjk5aVZEN0tNUjYwZ3QySzlq?=
- =?utf-8?Q?Su8Yt5CESdfWU48pf4/sgNY=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?DSvcAh/C2ixY/+tqhsCe5clx2WjNpBMk//e2nK3Hy8JdvmUeoKzBoOz6?=
+ =?Windows-1252?Q?vIiJTzDuJ9C5HpvVEoD70pV3QYY5rC6Fm3B2SytOhRxPxK6gIwMytag/?=
+ =?Windows-1252?Q?0pfNIY1+T7i/2ys6MbIBuvfbFRrTU8JRqG3KcUI/5k3Vw+qMKg/D3mtd?=
+ =?Windows-1252?Q?REQpJchcPlR6dmOB5YQYGYAsbQvwWnU6OhGmk5xDpy6AFZgYIAq/ZcyE?=
+ =?Windows-1252?Q?zIUI2/GuUYeTausXL7/sq6fPCvcf7clAUkj3YbAelkI5LIbk7TjlQH38?=
+ =?Windows-1252?Q?+s3yM02ew72AFLF95ba3mwcMTn3KK+66w74hzs1MdZIgDJxiQNsC0Qr/?=
+ =?Windows-1252?Q?ZTTChRwiizhQiPGfmNGAySLsin1AQUswlTDaNI5wO9IeqlHADdWvJDFt?=
+ =?Windows-1252?Q?t4zLnuUy78mqQhNVyAOVh09AOgYUPK62cIAfzxsiTZVEJK/XYINBDJzq?=
+ =?Windows-1252?Q?JYn9WBeEWWQXUdsHqKHnnSwxS8I0jT5eSBF0+Pty1nqfu32SYEAmor5M?=
+ =?Windows-1252?Q?pHLEtOXPVZefV7BEWM2zklESdSV2PHcJteYGYH0aZxUB0oi7sVMRh0I6?=
+ =?Windows-1252?Q?6OqXaVo90JrecQH6kyoqSLCU82xzvaIykOk5e4i1JKTq2niZ5e+QjWC/?=
+ =?Windows-1252?Q?FeFvmlMjv/5jytmNScaOtLLAq/JkW9QzTpyyyDQcg+kAlRgnsXFCF1f3?=
+ =?Windows-1252?Q?HZmcsMk9n9sh5HZC7PWWbEcxc0bHx4eIVSxDdESsyONwrilF5J0hGC07?=
+ =?Windows-1252?Q?HPQwIlaicObKfTRa2CZFnj2bQYKMrYKMocMC9WdW7WYJvQphwdwxZnQd?=
+ =?Windows-1252?Q?CUYSXTaCeLXzLlxtegKWWtdxfu4ep0sq01xyZLWzFMEK2hxfAsFJPMiv?=
+ =?Windows-1252?Q?+ZUoN5CAgxxiHbY9GNxGPfJ8KxIcjp3yMRetl0DO5a8TMUM5kPoJ1/ZX?=
+ =?Windows-1252?Q?4LXSegKNDVs8HalYEPi5V1pqCdf23enWOxiKgPnfQJmDAXN2cj6fUu0N?=
+ =?Windows-1252?Q?ex9/f/UcvZUXk5Zz1tWB/L/yXgpK4cON1MA1wGINnE8nX2jDVjkzGVi1?=
+ =?Windows-1252?Q?b2m0UtlJ4M6lKO5i3DyOFSxRYaxg3+CD+AiDHrXZDI6W/x0K37rbTHXG?=
+ =?Windows-1252?Q?Awd5TRIGzKp85VcIu7N3Ao3GOo0igEnAxr0PR36bWO4gHJDqcfmuskqK?=
+ =?Windows-1252?Q?WW3logZz2z1uZZ0ZZA0XjnjsXs+ua5MSnp+LGXpIxozbao9MiuUXRwro?=
+ =?Windows-1252?Q?OjhFUHbaOuHb6uxCDtEmZXABuOEWR0633U1Ysw9c9uwQSR0i5zMn8Tx4?=
+ =?Windows-1252?Q?/Qabml+SF4rX0tl/l1azcEVLtgP3YafHOTD3w58GBmo0gyQBzQCoZbh7?=
+ =?Windows-1252?Q?Ua1YTsErPNkc6SPrkO9PbCOtTkxofrVibW6bLJOjyVBoduaZeCrfMn0L?=
+ =?Windows-1252?Q?Ztmk3hYxq/iLI0n8X98+EAf1PCrqmuNRa1lC9LDIzac+CWvJwea/1GGa?=
+ =?Windows-1252?Q?8Ycb2bGnLaREbysFNmKi50gk403xlY/1ParTBsUdFcFTEc86lCAWKtgT?=
+ =?Windows-1252?Q?RStN0607emTDWUUOx2rlQTyuOnVNfjC3TAoZnJcwUjVgU6dhZT5oU9Zo?=
+ =?Windows-1252?Q?UyKI8Ghj2XO4nxKK2vI3ACmmoENSHUtBS/2aYz0DqDAluHnKbV2pCXp7?=
+ =?Windows-1252?Q?iELiAr2drzoHZ1Qi8lV6XP6aXpYk/1Lu?=
+Content-Type: multipart/alternative;
+ boundary="_000_BYAPR12MB4614586B64F8A716DE4D987597209BYAPR12MB4614namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5cecfc6-65b5-47ae-81e3-08d9e0defda6
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2022 15:17:39.4744 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /bNXK2RGYWyciGR6dER/ONH6xK37gmM0rgJK3W1PhPGC7xrD8cPzh1/6fyLQlE4PmckBoQHjO64RVa9i57Q0ew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5191
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6aacdeb7-1c11-422e-5112-08d9e0e115bf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jan 2022 15:32:38.6133 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rvhdsvV3g7IHP1p0+flXkPqWzY9H4RRDEbF6UbezT/hrXj33qVqgU/mKxiL9Fazk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4306
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,43 +131,499 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nicholas.Kazlauskas@amd.com
+Cc: "Liang, Prike" <Prike.Liang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_BYAPR12MB4614586B64F8A716DE4D987597209BYAPR12MB4614namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+I remember Alex adding a patch for smart suspend such that it skips the sus=
+pend call if runtime pm suspended.
+
+In summary, the resume doesn't work with/without reset?
+
+Thanks,
+Lijo
+________________________________
+From: Limonciello, Mario <Mario.Limonciello@amd.com>
+Sent: Wednesday, January 26, 2022 8:47:05 PM
+To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
+x@lists.freedesktop.org>
+Cc: Liang, Prike <Prike.Liang@amd.com>
+Subject: RE: [PATCH v5 2/4] drm/amd: add support to check whether the syste=
+m is set to s3
 
 
-On 2022-01-25 18:35, Mario Limonciello wrote:
-> A number of BIOS versions have a problem with the watermarks table not
-> being configured properly.  This manifests as a very scary looking warning
-> during resume from s0i3.  This should be harmless in most cases and is well
-> understood, so decrease the assertion to a clearer warning about the problem.
-> 
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+[Public]
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-Harry
 
-> ---
->  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
-> index 162ae7186124..21d2cbc3cbb2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
-> @@ -120,7 +120,11 @@ int dcn31_smu_send_msg_with_param(
->  	result = dcn31_smu_wait_for_response(clk_mgr, 10, 200000);
->  
->  	if (result == VBIOSSMC_Result_Failed) {
-> -		ASSERT(0);
-> +		if (msg_id == VBIOSSMC_MSG_TransferTableDram2Smu &&
-> +		    param == TABLE_WATERMARKS)
-> +			DC_LOG_WARNING("Watermarks table not configured properly by SMU");
-> +		else
-> +			ASSERT(0);
->  		REG_WRITE(MP1_SMN_C2PMSG_91, VBIOSSMC_Result_OK);
->  		return -1;
->  	}
+Right -from an API perspective both amdgpu_acpi_is_s0ix_active and amdgpu_a=
+cpi_is_s3_active are only in suspend ops.
 
+
+
+But so coming back to the 4th patch (and the associated bug), what is suppo=
+sed to happen with a dGPU on an Intel system that does s2i?
+
+For AMD APU w/ dGPU in the system doing s2i I would expect that power rails=
+ have been cut off for the dGPU so putting it into S3 and doing a reset mak=
+es sense, but I don=92t know about on an Intel system if that is logical.
+
+It seems like Intel expects more that the card is going to be in runtime pm=
+ and putting it into S3 and doing reset might not be the right move.
+
+
+
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Wednesday, January 26, 2022 09:11
+To: Limonciello, Mario <Mario.Limonciello@amd.com>; amd-gfx@lists.freedeskt=
+op.org
+Cc: Liang, Prike <Prike.Liang@amd.com>
+Subject: Re: [PATCH v5 2/4] drm/amd: add support to check whether the syste=
+m is set to s3
+
+
+
+Talking from generic API perspective - S3 is considered active for dGPU onl=
+y if it's going to non-S0 state. If called from anywhere else than suspend =
+op, this should return false.
+
+
+
+Thanks,
+Lijo
+
+________________________________
+
+From: Limonciello, Mario <Mario.Limonciello@amd.com<mailto:Mario.Limonciell=
+o@amd.com>>
+Sent: Wednesday, January 26, 2022 8:37:28 PM
+To: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>; amd-gfx@li=
+sts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.fr=
+eedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Liang, Prike <Prike.Liang@amd.com<mailto:Prike.Liang@amd.com>>
+Subject: RE: [PATCH v5 2/4] drm/amd: add support to check whether the syste=
+m is set to s3
+
+
+
+[Public]
+
+
+
+That was intentional =96 shouldn=92t dGPU always be going through S3 path c=
+urrently?
+
+
+
+From: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>
+Sent: Wednesday, January 26, 2022 09:06
+To: Limonciello, Mario <Mario.Limonciello@amd.com<mailto:Mario.Limonciello@=
+amd.com>>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.o=
+rg>
+Cc: Liang, Prike <Prike.Liang@amd.com<mailto:Prike.Liang@amd.com>>; Limonci=
+ello, Mario <Mario.Limonciello@amd.com<mailto:Mario.Limonciello@amd.com>>
+Subject: Re: [PATCH v5 2/4] drm/amd: add support to check whether the syste=
+m is set to s3
+
+
+
+[Public]
+
+
+
+Returns true for dGPU always. Better to keep the whole check under somethin=
+g like this.
+
+
+
+if (pm_suspend_target_state !=3D PM_SUSPEND_ON)
+
+
+
+Thanks,
+Lijo
+
+________________________________
+
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Mario Limonciello <mario.limonciello@=
+amd.com<mailto:mario.limonciello@amd.com>>
+Sent: Wednesday, January 26, 2022 9:39:42 AM
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Liang, Prike <Prike.Liang@amd.com<mailto:Prike.Liang@amd.com>>; Limonci=
+ello, Mario <Mario.Limonciello@amd.com<mailto:Mario.Limonciello@amd.com>>
+Subject: [PATCH v5 2/4] drm/amd: add support to check whether the system is=
+ set to s3
+
+
+
+This will be used to help make decisions on what to do in
+misconfigured systems.
+
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com<mailto:mario.li=
+monciello@amd.com>>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 17 +++++++++++++++++
+ 2 files changed, 19 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h
+index 3bc76759c143..f184c88d3d4f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1409,11 +1409,13 @@ int amdgpu_acpi_smart_shift_update(struct drm_devic=
+e *dev, enum amdgpu_ss ss_sta
+ int amdgpu_acpi_pcie_notify_device_ready(struct amdgpu_device *adev);
+
+ void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps *caps)=
+;
++bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev);
+ bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev);
+ void amdgpu_acpi_detect(void);
+ #else
+ static inline int amdgpu_acpi_init(struct amdgpu_device *adev) { return 0;=
+ }
+ static inline void amdgpu_acpi_fini(struct amdgpu_device *adev) { }
++static inline bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev) { =
+return false };
+ static inline bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev) =
+{ return false; }
+ static inline void amdgpu_acpi_detect(void) { }
+ static inline bool amdgpu_acpi_is_power_shift_control_supported(void) { re=
+turn false; }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_acpi.c
+index 2531da6cbec3..df673062bc03 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1031,6 +1031,23 @@ void amdgpu_acpi_detect(void)
+         }
+ }
+
++/**
++ * amdgpu_acpi_is_s3_active
++ *
++ * @adev: amdgpu_device_pointer
++ *
++ * returns true if supported, false if not.
++ */
++bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev)
++{
++#if IS_ENABLED(CONFIG_SUSPEND)
++       return !(adev->flags & AMD_IS_APU) ||
++               pm_suspend_target_state =3D=3D PM_SUSPEND_MEM;
++#else
++       return false;
++#endif
++}
++
+ /**
+  * amdgpu_acpi_is_s0ix_active
+  *
+--
+2.25.1
+
+--_000_BYAPR12MB4614586B64F8A716DE4D987597209BYAPR12MB4614namp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+</head>
+<body>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+I remember Alex adding a patch for smart suspend such that it skips the sus=
+pend call if runtime pm suspended.</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+<br>
+</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+In summary, the resume doesn't work with/without reset?</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto">
+<div><br>
+</div>
+Thanks,<br>
+Lijo</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Limonciello, Mario &l=
+t;Mario.Limonciello@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, January 26, 2022 8:47:05 PM<br>
+<b>To:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedeskto=
+p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Liang, Prike &lt;Prike.Liang@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH v5 2/4] drm/amd: add support to check whether th=
+e system is set to s3</font>
+<div>&nbsp;</div>
+</div>
+<style>
+<!--
+@font-face
+	{font-family:"Cambria Math"}
+@font-face
+	{font-family:Calibri}
+p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+a:link, span.x_MsoHyperlink
+	{color:#0563C1;
+	text-decoration:underline}
+p.x_xmsonormal, li.x_xmsonormal, div.x_xmsonormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+p.x_xmsipheaderc10f11a2, li.x_xmsipheaderc10f11a2, div.x_xmsipheaderc10f11a=
+2
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+span.x_EmailStyle20
+	{font-family:"Calibri",sans-serif;
+	color:windowtext}
+p.x_msipheaderc10f11a2, li.x_msipheaderc10f11a2, div.x_msipheaderc10f11a2
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+.x_MsoChpDefault
+	{font-size:10.0pt}
+@page WordSection1
+	{margin:1.0in 1.0in 1.0in 1.0in}
+div.x_WordSection1
+	{}
+-->
+</style>
+<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"purple" style=3D"word-wrap:br=
+eak-word">
+<div class=3D"x_WordSection1">
+<p class=3D"x_msipheaderc10f11a2" style=3D"margin:0in"><span style=3D"font-=
+size:10.0pt; font-family:&quot;Arial&quot;,sans-serif; color:green">[Public=
+]</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">Right -from an API perspective both amdgpu_acpi_is=
+_s0ix_active and amdgpu_acpi_is_s3_active are only in suspend ops.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">But so coming back to the 4<sup>th</sup> patch (an=
+d the associated bug), what is
+<i>supposed</i> to happen with a dGPU on an Intel system that does s2i?&nbs=
+p; </p>
+<p class=3D"x_MsoNormal">For AMD APU w/ dGPU in the system doing s2i I woul=
+d expect that power rails have been cut off for the dGPU so putting it into=
+ S3 and doing a reset makes sense, but I don=92t know about on an Intel sys=
+tem if that is logical.</p>
+<p class=3D"x_MsoNormal">It seems like Intel expects more that the card is =
+going to be in runtime pm and putting it into S3 and doing reset might not =
+be the right move.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<div>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_MsoNormal"><b>From:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt=
+; <br>
+<b>Sent:</b> Wednesday, January 26, 2022 09:11<br>
+<b>To:</b> Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;; amd-gfx@li=
+sts.freedesktop.org<br>
+<b>Cc:</b> Liang, Prike &lt;Prike.Liang@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH v5 2/4] drm/amd: add support to check whether th=
+e system is set to s3</p>
+</div>
+</div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<div>
+<p class=3D"x_MsoNormal" style=3D"background:white"><span style=3D"color:#2=
+12121">Talking from generic API perspective - S3 is considered active for d=
+GPU only if it's going to non-S0 state. If called from anywhere else than s=
+uspend op, this should return false.</span></p>
+</div>
+<div id=3D"x_ms-outlook-mobile-signature">
+<div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+</div>
+<p class=3D"x_MsoNormal">Thanks,<br>
+Lijo</p>
+</div>
+<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"x_MsoNormal"><b><span style=3D"color:black">From:</span></b><sp=
+an style=3D"color:black"> Limonciello, Mario &lt;<a href=3D"mailto:Mario.Li=
+monciello@amd.com">Mario.Limonciello@amd.com</a>&gt;<br>
+<b>Sent:</b> Wednesday, January 26, 2022 8:37:28 PM<br>
+<b>To:</b> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">Lijo.Lazar=
+@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Liang, Prike &lt;<a href=3D"mailto:Prike.Liang@amd.com">Prike.Li=
+ang@amd.com</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH v5 2/4] drm/amd: add support to check whether th=
+e system is set to s3</span>
+</p>
+<div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+</div>
+</div>
+<p class=3D"x_xmsipheaderc10f11a2" style=3D"margin:0in"><span style=3D"font=
+-size:10.0pt; font-family:&quot;Arial&quot;,sans-serif; color:green">[Publi=
+c]</span></p>
+<p class=3D"x_xmsonormal">&nbsp;</p>
+<p class=3D"x_xmsonormal">That was intentional =96 shouldn=92t dGPU always =
+be going through S3 path currently?</p>
+<p class=3D"x_xmsonormal">&nbsp;</p>
+<div>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_xmsonormal"><b>From:</b> Lazar, Lijo &lt;<a href=3D"mailto:Li=
+jo.Lazar@amd.com">Lijo.Lazar@amd.com</a>&gt;
+<br>
+<b>Sent:</b> Wednesday, January 26, 2022 09:06<br>
+<b>To:</b> Limonciello, Mario &lt;<a href=3D"mailto:Mario.Limonciello@amd.c=
+om">Mario.Limonciello@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<b>Cc:</b> Liang, Prike &lt;<a href=3D"mailto:Prike.Liang@amd.com">Prike.Li=
+ang@amd.com</a>&gt;; Limonciello, Mario &lt;<a href=3D"mailto:Mario.Limonci=
+ello@amd.com">Mario.Limonciello@amd.com</a>&gt;<br>
+<b>Subject:</b> Re: [PATCH v5 2/4] drm/amd: add support to check whether th=
+e system is set to s3</p>
+</div>
+</div>
+<p class=3D"x_xmsonormal">&nbsp;</p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
+ot;Arial&quot;,sans-serif; color:green">[Public]</span></p>
+<p class=3D"x_xmsonormal">&nbsp;</p>
+<div>
+<p class=3D"x_xmsonormal" style=3D"background:white"><span style=3D"color:#=
+212121">Returns true for dGPU always. Better to keep the whole check under =
+something like this.</span></p>
+</div>
+<div>
+<p class=3D"x_xmsonormal" style=3D"background:white"><span style=3D"color:#=
+212121">&nbsp;</span></p>
+</div>
+<div>
+<p class=3D"x_xmsonormal" style=3D"background:white"><span style=3D"color:#=
+212121">if (pm_suspend_target_state !=3D PM_SUSPEND_ON)</span></p>
+</div>
+<div id=3D"x_x_ms-outlook-mobile-signature">
+<div>
+<p class=3D"x_xmsonormal">&nbsp;</p>
+</div>
+<p class=3D"x_xmsonormal">Thanks,<br>
+Lijo</p>
+</div>
+<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"x_x_divRplyFwdMsg">
+<p class=3D"x_xmsonormal"><b><span style=3D"color:black">From:</span></b><s=
+pan style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@li=
+sts.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt; on behal=
+f of Mario Limonciello &lt;<a href=3D"mailto:mario.limonciello@amd.com">mar=
+io.limonciello@amd.com</a>&gt;<br>
+<b>Sent:</b> Wednesday, January 26, 2022 9:39:42 AM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Liang, Prike &lt;<a href=3D"mailto:Prike.Liang@amd.com">Prike.Li=
+ang@amd.com</a>&gt;; Limonciello, Mario &lt;<a href=3D"mailto:Mario.Limonci=
+ello@amd.com">Mario.Limonciello@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH v5 2/4] drm/amd: add support to check whether the sy=
+stem is set to s3</span>
+</p>
+<div>
+<p class=3D"x_xmsonormal">&nbsp;</p>
+</div>
+</div>
+<p class=3D"x_xmsonormal" style=3D"margin-bottom:12.0pt">This will be used =
+to help make decisions on what to do in<br>
+misconfigured systems.<br>
+<br>
+Signed-off-by: Mario Limonciello &lt;<a href=3D"mailto:mario.limonciello@am=
+d.com">mario.limonciello@amd.com</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&n=
+bsp; 2 ++<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 17 +++++++++++++++++<br>
+&nbsp;2 files changed, 19 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h<br>
+index 3bc76759c143..f184c88d3d4f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+@@ -1409,11 +1409,13 @@ int amdgpu_acpi_smart_shift_update(struct drm_devic=
+e *dev, enum amdgpu_ss ss_sta<br>
+&nbsp;int amdgpu_acpi_pcie_notify_device_ready(struct amdgpu_device *adev);=
+<br>
+&nbsp;<br>
+&nbsp;void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps *=
+caps);<br>
++bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev);<br>
+&nbsp;bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev);<br>
+&nbsp;void amdgpu_acpi_detect(void);<br>
+&nbsp;#else<br>
+&nbsp;static inline int amdgpu_acpi_init(struct amdgpu_device *adev) { retu=
+rn 0; }<br>
+&nbsp;static inline void amdgpu_acpi_fini(struct amdgpu_device *adev) { }<b=
+r>
++static inline bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev) { =
+return false };<br>
+&nbsp;static inline bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *a=
+dev) { return false; }<br>
+&nbsp;static inline void amdgpu_acpi_detect(void) { }<br>
+&nbsp;static inline bool amdgpu_acpi_is_power_shift_control_supported(void)=
+ { return false; }<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_acpi.c<br>
+index 2531da6cbec3..df673062bc03 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c<br>
+@@ -1031,6 +1031,23 @@ void amdgpu_acpi_detect(void)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;}<br>
+&nbsp;<br>
++/**<br>
++ * amdgpu_acpi_is_s3_active<br>
++ *<br>
++ * @adev: amdgpu_device_pointer<br>
++ *<br>
++ * returns true if supported, false if not.<br>
++ */<br>
++bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev)<br>
++{<br>
++#if IS_ENABLED(CONFIG_SUSPEND)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return !(adev-&gt;flags &amp; AMD_IS_=
+APU) ||<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; pm_suspend_target_state =3D=3D PM_SUSPEND_MEM;<br>
++#else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
++#endif<br>
++}<br>
++<br>
+&nbsp;/**<br>
+&nbsp; * amdgpu_acpi_is_s0ix_active<br>
+&nbsp; *<br>
+-- <br>
+2.25.1</p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BYAPR12MB4614586B64F8A716DE4D987597209BYAPR12MB4614namp_--
