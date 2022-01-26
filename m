@@ -4,64 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7214CC2BA4C
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 10:00:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58157C63682
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 10:43:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1691B10E56D;
-	Wed, 26 Jan 2022 10:00:59 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C98510E5C3
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 10:00:57 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id f17so24756093wrx.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 02:00:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=sHzrO5QeUCWwN721kkHDna/lNCk9WOdVU+3gbmKQHU8=;
- b=hmHptA0VUKYuPPMflMXFuqyEcRwKLUuWKlAkZkdFQx1pZdxZNy/S5So46Aopygfg0i
- 8zVieUNEVNlFX7H1dveUOB/uMSshPQp/3+BANuE0FESMOjGzKI+gmiVMbEiRf+z1QVny
- 3PbAGvdUqPaqoxW8wv+Z5DOfEFv4qS1iH/wqrCLXa933+6YryOSTjdlO/6dDRwDdbYpG
- sNt8MJYur+XqIUl1O8GSWF2l0CN460a9QU5NpBwGNcmwMYU1fzUI83DqXChi1X2teNHz
- U8xkU7g1BOUkFImWy59YLlnHDz63ym6Cuy/AG006vvR6/QLKtSpz9/HlAKQ3MTfZs6Id
- BF8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=sHzrO5QeUCWwN721kkHDna/lNCk9WOdVU+3gbmKQHU8=;
- b=czpctlZL6KsNCBMJwSvBotMZVgLyCCdZ11OTaC7r0N7A0SRVgJfQNOpLzYUydXMsKC
- 22DlS0DON7kdY0fo9E9En/3He0fi86JKbDS0XaU/eFjEKIgcak5NXl7NtRyqgG1OQEGc
- jQQc9Lb04iM6pcKmX/d3e61/Ak4VvFNZxI3Nl28PVf8e9+hF1uXMTYKfmcMYQOSCoshl
- R+TZ7PEKkoqxPrViNPnaw2uzrU2eIfDkVTrtiVs3pmwVqm0oYPmPrYiEJSR7YwzXD8lJ
- 5ikKXeconPXGKxNks+yYE0FES0XnkzTHR9pQ1pHKRjFybSkrawVYjg51zqy+QhACa9WN
- uZGg==
-X-Gm-Message-State: AOAM531rDMU11KylClbLjmZokhYe9BdYuytjLO8VSO2MgrgsZcCwEYH/
- 9fY3ViUnXCXa8+ZzBDj4Bw0=
-X-Google-Smtp-Source: ABdhPJx0wQD/MhFbXdTxnIgSZutldFwqR5DwoCUIn3Zn6Lp72wHlP6qcX/hcUOKDplu2qWSDVdBa3A==
-X-Received: by 2002:a05:6000:510:: with SMTP id
- a16mr22416655wrf.605.1643191255977; 
- Wed, 26 Jan 2022 02:00:55 -0800 (PST)
-Received: from ?IPV6:2a02:908:1252:fb60:6cbd:23a3:7abe:f6e2?
- ([2a02:908:1252:fb60:6cbd:23a3:7abe:f6e2])
- by smtp.gmail.com with ESMTPSA id n18sm4219876wrm.47.2022.01.26.02.00.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jan 2022 02:00:55 -0800 (PST)
-Message-ID: <fd878564-3f15-ba76-83f1-42284782e7d5@gmail.com>
-Date: Wed, 26 Jan 2022 11:00:54 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id A985A10E7C9;
+	Wed, 26 Jan 2022 10:43:52 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 459C610E794;
+ Wed, 26 Jan 2022 10:43:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1643193831; x=1674729831;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Vtg1dgMFp7p9GgxTmw0mrktziInoebLsnCNjJeItTWc=;
+ b=QzbZonJ+gPRdLsAL0hTpqmquRMEbVaNxONmG58nSx1HID6ljvFUmHpTv
+ yJwRPm4crF+mUJ6q82mD10iSZqixbJRdo9alQxMG059v1/9ey8gqZavhR
+ 2ac47zxZKQVXl4kktJUg3uolInOZeIrju60MRTa+dzfcCJX/11eeFchNC
+ gzfUVO3Ma4toFimB58vbo1JAnsGyX4ICD+ZDQbFwLSWu3t9+zqehgkI98
+ E5KQgMmzOTtBUsF3e5eWDzdMmRNtCl8nALgQ5Bggg/+nTBnHglpXA8wYF
+ FfgqhHgh6epkXvW5G3u+RWI5r3WwUdU2HMyTOGwkO/Pf1NJDNUQ8DYzIN w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10238"; a="270975105"
+X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="270975105"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 02:43:50 -0800
+X-IronPort-AV: E=Sophos;i="5.88,317,1635231600"; d="scan'208";a="624796941"
+Received: from richardt-mobl1.amr.corp.intel.com (HELO ldmartin-desk2)
+ ([10.212.143.219])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2022 02:43:48 -0800
+Date: Wed, 26 Jan 2022 02:43:45 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Subject: Re: [Intel-gfx] [PATCH v2 09/11] drm: Convert open-coded yes/no
+ strings to yesno()
+Message-ID: <20220126104345.r6libof7z7tqjqxi@ldmartin-desk2>
+X-Patchwork-Hint: comment
+References: <20220126093951.1470898-1-lucas.demarchi@intel.com>
+ <20220126093951.1470898-10-lucas.demarchi@intel.com>
+ <CAHp75Vd+TmShx==d_JHZUu0Q-9X7CmZEOFdKnSrcRKs81Gxn3g@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/amdgpu: add safeguards for accessing mmhub CG
- registers
-Content-Language: en-US
-To: Lang Yu <Lang.Yu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220126075326.1134770-1-Lang.Yu@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220126075326.1134770-1-Lang.Yu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <CAHp75Vd+TmShx==d_JHZUu0Q-9X7CmZEOFdKnSrcRKs81Gxn3g@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,103 +59,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Huang Rui <ray.huang@amd.com>
+Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Vishal Kulkarni <vishal@chelsio.com>, netdev@vger.kernel.org,
+ Francis Laniel <laniel_francis@privacyrequired.com>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>, amd-gfx@lists.freedesktop.org,
+ Ben Skeggs <bskeggs@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Petr Mladek <pmladek@suse.com>,
+ Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Steven Rostedt <rostedt@goodmis.org>, Julia Lawall <julia.lawall@lip6.fr>,
+ Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
+ linux-security-module@vger.kernel.org,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Raju Rangoju <rajur@chelsio.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 26.01.22 um 08:53 schrieb Lang Yu:
-> We observed a gpu hang when querying mmhub CG status(i.e.,
-> cat amdgpu_pm_info) on cyan skillfish. Acctually, cyan
-> skillfish doesn't support any CG features.
+On Wed, Jan 26, 2022 at 12:12:50PM +0200, Andy Shevchenko wrote:
+>On Wed, Jan 26, 2022 at 11:39 AM Lucas De Marchi
+><lucas.demarchi@intel.com> wrote:
+>>
+>> linux/string_helpers.h provides a helper to return "yes"/"no" strings.
+>> Replace the open coded versions with str_yes_no(). The places were
+
+oops, I replaced yesno() here but forgot to do so in the title
+
+>> identified with the following semantic patch:
+>>
+>>         @@
+>>         expression b;
+>>         @@
+>>
+>>         - b ? "yes" : "no"
+>>         + str_yes_no(b)
+>>
+>> Then the includes were added, so we include-what-we-use, and parenthesis
+>> adjusted in drivers/gpu/drm/v3d/v3d_debugfs.c. After the conversion we
+>> still see the same binary sizes:
+>>
+>>    text    data     bss     dec     hex filename
+>>   51149    3295     212   54656    d580 virtio/virtio-gpu.ko.old
+>>   51149    3295     212   54656    d580 virtio/virtio-gpu.ko
+>> 1441491   60340     800 1502631  16eda7 radeon/radeon.ko.old
+>> 1441491   60340     800 1502631  16eda7 radeon/radeon.ko
+>> 6125369  328538   34000 6487907  62ff63 amd/amdgpu/amdgpu.ko.old
+>> 6125369  328538   34000 6487907  62ff63 amd/amdgpu/amdgpu.ko
+>>  411986   10490    6176  428652   68a6c drm.ko.old
+>>  411986   10490    6176  428652   68a6c drm.ko
+>>   98129    1636     264  100029   186bd dp/drm_dp_helper.ko.old
+>>   98129    1636     264  100029   186bd dp/drm_dp_helper.ko
+>> 1973432  109640    2352 2085424  1fd230 nouveau/nouveau.ko.old
+>> 1973432  109640    2352 2085424  1fd230 nouveau/nouveau.ko
 >
-> Only allow asics which support CG features accessing related
-> registers. Will add similar safeguards for other IPs in the
-> furture.
+>This probably won't change for modules, but if you compile in the
+>linker may try to optimize it. Would be nice to see the old-new for
+>`make allyesconfig` or equivalent.
 
-I think you should probably add a macro or function for this check, 
-apart from that looks good to me.
-
-Christian.
+just like it would already do, no? I can try and see what happens, but
+my feeling is that we won't have any change.
 
 >
-> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 3 +++
->   drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c | 3 +++
->   drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 3 +++
->   drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c | 3 +++
->   drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c | 3 +++
->   5 files changed, 15 insertions(+)
+>...
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-> index 4c9f0c0f3116..1869e2019461 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-> @@ -550,6 +550,9 @@ static void mmhub_v1_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
->   {
->   	int data, data1;
->   
-> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
-> +		return;
-> +
->   	if (amdgpu_sriov_vf(adev))
->   		*flags = 0;
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-> index 3b901f941627..f7b9843b36e6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
-> @@ -546,6 +546,9 @@ static void mmhub_v1_7_get_clockgating(struct amdgpu_device *adev, u32 *flags)
->   {
->   	int data, data1;
->   
-> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
-> +		return;
-> +
->   	if (amdgpu_sriov_vf(adev))
->   		*flags = 0;
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-> index 3718ff610ab2..3f5f326379b7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-> @@ -686,6 +686,9 @@ static void mmhub_v2_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
->   {
->   	int data, data1;
->   
-> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
-> +		return;
-> +
->   	if (amdgpu_sriov_vf(adev))
->   		*flags = 0;
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> index 9e16da28505a..b23dd9ddfb5c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> @@ -580,6 +580,9 @@ static void mmhub_v2_3_get_clockgating(struct amdgpu_device *adev, u32 *flags)
->   {
->   	int data, data1, data2, data3;
->   
-> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
-> +		return;
-> +
->   	if (amdgpu_sriov_vf(adev))
->   		*flags = 0;
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-> index 619106f7d23d..a2d5c8424e2b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-> @@ -651,6 +651,9 @@ static void mmhub_v9_4_get_clockgating(struct amdgpu_device *adev, u32 *flags)
->   {
->   	int data, data1;
->   
-> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
-> +		return;
-> +
->   	if (amdgpu_sriov_vf(adev))
->   		*flags = 0;
->   
+>>         seq_printf(m, "\tDP branch device present: %s\n",
+>> -                  branch_device ? "yes" : "no");
+>> +                  str_yes_no(branch_device));
+>
+>Can it be now on one line? Same Q for all similar cases in the entire series.
 
+I saw that question in the previous version. I think those are very
+subjective is they all go a little bit over 80 chars. Some maintainers
+may prefer one way or the other.
+
+Here we are reducing just 3 chars so I assumed that is the preferred
+style here.  Also keeping it as is helps with the mass conversion since
+it's easily repeatable if another iteration is needed.
+
+thanks
+Lucas De Marchi
