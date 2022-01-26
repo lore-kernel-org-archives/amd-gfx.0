@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E266FC2BA4C
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 04:09:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DBD7C2BA4C
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 04:55:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 022DF10E517;
-	Wed, 26 Jan 2022 04:09:50 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2058.outbound.protection.outlook.com [40.107.237.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54E0910E512
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 04:09:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA12510E26C;
+	Wed, 26 Jan 2022 04:55:05 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2060.outbound.protection.outlook.com [40.107.102.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69CF710E26C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 04:55:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XkSjIKGD/XxFzFPz39UtEaxq112k0cZajajYFRMJpEnkcU7EziXj2SZySQR8XxXfLBCBvfoyDVsyXp3mmECah6QZCXGqgeL0wbrnjZG8Dju0Mssc3ToB0A5jUBnEmd4IBrbSRSK7QKpPH4Y9j/nt2FJbSQAiMTWaQ53jsDGnSU1rPOpvE2hjJFQ0ZfA5SZNg/rbXN7oUYJ0P9kJ5N0jx4hMih4nTvtBt9zZDkXF3rnuCmpfyuS/TIV4YG7W3a7LpxTA+CFJohjT6qAdumZhrHW9/72ZsJm/Et2aGSA5u2b1WUQPNE+3A5kYwt8WrDVuyuqSWR4zBwyQTxiWfn//WHA==
+ b=W8JSFL0KSJYTIP6eRoZ195CUZknh8zAB4B1C5VgTnZm4fH8iirLZf4LeXF5XISlvpNTt/4a2W9oc08LGkvxwVhRMAdSX2MfYJz5cLqDQRnYa5mD8BH1dROUE0XtVy0XNKVzW0PGPuUn/y0vcK5cEoEaBa11KrNlzJk21sigqq9MTZg1wV+Sret2crK0jt5R5dPxTz9t8pgM83K/qZerPYS/lPjm+TXov8jx/xwvbZToYZDhiOjCxty5nCxD8OsGW9Qc6j6KIUdcoT5uj7VPHxdsvC9ndySvpvUG6Ng7hVkTmEpdBxLiC7+25OmSUoeJx1+pELmScPd8uMjiLghD3kg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qvxY0Wk1inb8c8Ax/RU7oE++pYRNFoiBEda5jiJnj6A=;
- b=ajQD43Wck71kYCnqdCjLBD5cpmFO5WV04cHlnR7e7C5UvGe5fFHq4uQR/+PnrY0nSczcumgkI7ZdnmpCYK6LRnkJyC0YIve4DX8IUupyg/ggbJpzAD93K63aGWApMN7PCbKQoSDbiB8yYgs7XaooRHSL3xm0GZqekOTei1o6N0rzlrH2xTTOVf0HGsnh+7nuVc4wKerPHSA/Ye/2J4cK9a9eCQ1zk7Fy3NVZyN5qugLMIcfREg9n4waw/LEqQNAL0tN3QBqmlTpvLJjz8D48QQaGCEpnCP394v/8VnpafldA1DvGC5KN1t0V9ugutDN+gZ3x9+bDkrqTAV8sSjdZgQ==
+ bh=EGWwkyzkogeWESafNIDps7dNncmsIHrNSDvnS/MG6SY=;
+ b=GO5LUh4ZIeJQTyRHDFiTycwISIt490qrS1ohHlL5Dd2vxvha9DSGLvpcBH0pkn3pZcr5Bv9RXXC7NwY+XE/vjn37ApZdPiGjsK409i66fUGWpAJW/rRNms0gq4vvSK5CcO4HNDgLJ3OK0Obg5uv9oD9J595tQCXZ6qR3ZesEtDPmAZI1ImT+MkmYiTKwBcYBYGtRIDUnOzeF5ks118hc/biLyWCbd95OYhkVm6nAf2u1sLcCPXUWwV3rpc+/vcpvUzpx8RrxPN+tRf0jP0HNqzv9D6YAguenefEoJIIVVcVsX9sd7QTj3EmwlhcImvGetBQUXDk7SvodCtWip4IDBA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qvxY0Wk1inb8c8Ax/RU7oE++pYRNFoiBEda5jiJnj6A=;
- b=e1SVA046yhAqB6AA2QTb2BhGes0J9jjj91SuAGHKqaEikvokhtqL8a6KaGCE1v30ANHXMgj3UtlwhRe7rRPrVpOx9UtNDTd7LU9b+TIGvhjRLjKeSqqCThvyCYQEidcDLNOxtzh22hb8ixmQpE11unaZzVJOcUu90Hnn3XrP77c=
-Received: from DM6PR06CA0034.namprd06.prod.outlook.com (2603:10b6:5:120::47)
- by MWHPR1201MB0013.namprd12.prod.outlook.com (2603:10b6:300:e0::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.13; Wed, 26 Jan
- 2022 04:09:43 +0000
-Received: from DM6NAM11FT060.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:120:cafe::5b) by DM6PR06CA0034.outlook.office365.com
- (2603:10b6:5:120::47) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10 via Frontend
- Transport; Wed, 26 Jan 2022 04:09:42 +0000
+ bh=EGWwkyzkogeWESafNIDps7dNncmsIHrNSDvnS/MG6SY=;
+ b=l4cFmRFUxy7pF4LYM9hjBSPUG2LFHfXnbyHSzbF9yA/9iV8fVf2RaZzliio4bAJn1VBFgbmpIuu/ix9ZDKu+cBTHKTtCdehm0yaRY8Y/N8pWfiaehZ87sunLnSrgKF2IQxP1fMekOt93Fjqd7b15L1B0Zqcxh7nGgfIw/nOtwDc=
+Received: from MW4PR04CA0183.namprd04.prod.outlook.com (2603:10b6:303:86::8)
+ by DM5PR12MB1642.namprd12.prod.outlook.com (2603:10b6:4:7::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4909.17; Wed, 26 Jan 2022 04:55:03 +0000
+Received: from CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:86:cafe::2f) by MW4PR04CA0183.outlook.office365.com
+ (2603:10b6:303:86::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.12 via Frontend
+ Transport; Wed, 26 Jan 2022 04:55:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,22 +44,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT060.mail.protection.outlook.com (10.13.173.63) with Microsoft SMTP
+ CO1NAM11FT035.mail.protection.outlook.com (10.13.175.36) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4930.15 via Frontend Transport; Wed, 26 Jan 2022 04:09:42 +0000
-Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 25 Jan
- 2022 22:09:41 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
+ 15.20.4930.15 via Frontend Transport; Wed, 26 Jan 2022 04:55:02 +0000
+Received: from dapowell-ubuntu-200400-1.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.18; Tue, 25 Jan 2022 22:54:58 -0600
+From: Darren Powell <darren.powell@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v5 3/4] drm/amd: Only run s3 or s0ix if system is configured
- properly
-Date: Tue, 25 Jan 2022 22:09:43 -0600
-Message-ID: <20220126040944.4324-3-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220126040944.4324-1-mario.limonciello@amd.com>
-References: <20220126040944.4324-1-mario.limonciello@amd.com>
+Subject: [PATCH v3 2/3] amdgpu/pm: Implemention of emit_clk_levels for navi10
+ that accepts buffer base and write offset
+Date: Tue, 25 Jan 2022 23:54:40 -0500
+Message-ID: <20220126045441.3891-3-darren.powell@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220126045441.3891-1-darren.powell@amd.com>
+References: <20220126045441.3891-1-darren.powell@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -69,28 +68,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8b47cb12-5ced-4e08-7a2e-08d9e081ae28
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0013:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB0013DB659A287AB203513FBAE2209@MWHPR1201MB0013.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Office365-Filtering-Correlation-Id: a163bade-9544-463b-51c3-08d9e088034f
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1642:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB16428F78FB232E98FE85FFB8F0209@DM5PR12MB1642.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:457;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: w0mMhGoy5qqCOF4cRAD44ClFEQRKadS7s0eF1Rp12hbxlao9Rf5aSjJekUO08oB7gCfntqm8SDKAy8sOQkhb3cm4DGE2NW8EvqI1JeXpBdfuO+P6vAzN++atvdyNFQGbqQCOaD3eZW/EI5df8bZ3r/gBDkzsqw0l8UVswupu8vAwHUVgzhoh/ypxkqVLkjhR4dFEsG6UJEkRzXAEVbGyefkxnj8fWT5usxCXry1A+5/krPfjm20ppJcR7KCGGCZIbqCt0qtaoO9bF+uLhqoL5QMzkCe/ZBc2G17MrcdJt2n6vu6MBw8XJF+nXF1j5sGKngULqySz+M4/gHxR4BZy6PGXsFOYM8FZeBc1TtayIAolvqEpFLUZ7Y9fouO/cyGfxx7g7dtvOGHEo+bpFbMCYc2IfdDhL/gASyQtXXLcNCO3qtWWW8ImxNOJxWIm2YdkXz8u0k0QBvkAnoi35fksughHEcVxSgxbtqdNYuanvfaxcTbCu/RQAS0y5EJzKnzVB+clnFbGG0UffnztTesI2OTMEs3EoyIT5pnJDZMiNmrSomQ1GKsdyTzVB4rsv061bhx/li+dMM6UZ3ecIxDfGIYKhzo8Kk19LRMPJtfDFemC+c1jVEk6gcZN58LwA61MScWbyBuElhckTDygplKiqTOjM8CPM1uJ8x210cdX9PZ2cWfJbIiybhIXOhIPk4ssEaOQhNNtB6knI3z7sWyz25s6kqakStusjclqiEt6RONrYBTGArupXTqfXJ8bWyYLE4KGa5ls9g+XNDdeCAYA36qYsyhxPKNPdSMmTHNfGaX5LrthblFK77RNnqoV+wMy
+X-Microsoft-Antispam-Message-Info: B9AjDKMSLNxvfDU5QoAFHfkUT4FVo8NyBj9Txx8NZyCqiNHzEUKsCEQ+5NXzHu0vJfM5ybb4+WoQIvmrz+ZRbgw5gka2Pt2QKR98f8xYKZWqcCOaWPcK060IdmhER/Y6GAXGp9sWseQuDDgKyrgtd2l+5k1yy5jn/hxY+mpv5OeRYYsfUnbG1/sxGKe23Q/Fi7kCBhRt9DfchiWWK3IbxZqDT2pCq2So3hCazlSqY7Hc+WYhYZug8qz2ELc0rZwtA4j+jFVv4wcXpbzkwrw+i2WmjUcy6jw+cCeAQ0w3cFpwI4WaNdEp49QQQgwpIX8j9TBgXv+tXCVZ/MImsjbSiVpmoYPLqM1gNF18YVCDYqHTftbSjJ9XHDDjZxEcLHbNFJlbMT2OU27KosXKfJymvMEnj5Q3qTzLPoiNS8WmTAYhLnZj3v6HUo219aQehpvlRC69oBx/YPf+wvlP4EIKIrPIT65JhmUvVCkEAsVLEG3vQqFREpT46e7MIrEZQdq+FmgrewFU38JzRu+1OppS8DkVLpt4HKwdh50RDmXrPbQKod6AJ2Ovr2pCo+fteu4q2YjorkWT2dw9pr2+g0XaG/mZnu8E0s6NAzF507OOGb5nhdp1Kkoh6IBuBtniewMhEfrlUVWSyy/iPgdtE4axt9eiKTo9gbSrVRyiAK6SiNW54AK9lDX9bz8w5B1C/a3kZkAObsFMkwYyw8lSQd/NYwx65kY/mAAVoJA3xaoepKp4BhLkodGaAqw4Nub3lSGOr7jK4rr/G2YOdLmsb9ZSIo7GanlNSZHiNXAaghQdXHQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(36840700001)(40470700004)(46966006)(6916009)(86362001)(356005)(81166007)(70206006)(316002)(2906002)(54906003)(36860700001)(336012)(40460700003)(508600001)(8936002)(83380400001)(4326008)(47076005)(16526019)(36756003)(186003)(2616005)(82310400004)(5660300002)(1076003)(426003)(8676002)(70586007)(44832011)(26005)(7696005)(32563001)(36900700001);
+ SFS:(4636009)(36840700001)(46966006)(40470700004)(70586007)(70206006)(36756003)(47076005)(356005)(83380400001)(86362001)(2906002)(44832011)(2616005)(4326008)(6916009)(6666004)(26005)(5660300002)(7696005)(8676002)(508600001)(40460700003)(426003)(1076003)(336012)(8936002)(186003)(82310400004)(16526019)(81166007)(36860700001)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2022 04:09:42.6145 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b47cb12-5ced-4e08-7a2e-08d9e081ae28
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2022 04:55:02.3621 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a163bade-9544-463b-51c3-08d9e088034f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT060.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0013
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1642
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,79 +101,227 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: prike.liang@amd.com, Mario Limonciello <mario.limonciello@amd.com>
+Cc: Darren Powell <darren.powell@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This will cause misconfigured systems to not run the GPU suspend
-routines.
+   (v3)
+     Rewrote patchset to order patches as (API, hw impl, usecase)
 
-* In APUs that are properly configured system will go into s2idle.
-* In APUs that are intended to be S3 but user selects
-  s2idle the GPU will stay fully powered for the suspend.
-* In APUs that are intended to be s2idle and system misconfigured
-  the GPU will stay fully powered for the suspend.
-* In systems that are intended to be s2idle, but AMD dGPU is also
-  present, the dGPU will go through S3
+     - implement emit_clk_levels for navi10, based on print_clk_levels, but
+       using sysfs_emit without smu_cmn_get_sysfs() workaround
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Darren Powell <darren.powell@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 24 +++++++++++++-----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 188 ++++++++++++++++++
+ 1 file changed, 188 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index b0a620c26ae2..123ec5a07dd5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2309,17 +2309,19 @@ static int amdgpu_pmops_suspend(struct device *dev)
- {
- 	struct drm_device *drm_dev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
--	int r;
-+	int r = 0;
- 
- 	if (amdgpu_acpi_is_s0ix_active(adev))
- 		adev->in_s0ix = true;
--	else
-+	else if (amdgpu_acpi_is_s3_active(adev))
- 		adev->in_s3 = true;
--	r = amdgpu_device_suspend(drm_dev, true);
--	if (r)
--		return r;
--	if (!adev->in_s0ix)
--		r = amdgpu_asic_reset(adev);
-+	if (adev->in_s0ix || adev->in_s3) {
-+		r = amdgpu_device_suspend(drm_dev, true);
-+		if (r)
-+			return r;
-+		if (!adev->in_s0ix)
-+			r = amdgpu_asic_reset(adev);
-+	}
- 	return r;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 37e11716e919..4bcef7d1a0d6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -1261,6 +1261,193 @@ static void navi10_od_setting_get_range(struct smu_11_0_overdrive_table *od_tabl
+ 		*max = od_table->max[setting];
  }
  
-@@ -2327,17 +2329,17 @@ static int amdgpu_pmops_resume(struct device *dev)
- {
- 	struct drm_device *drm_dev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
--	int r;
-+	int r = 0;
- 
- 	/* Avoids registers access if device is physically gone */
- 	if (!pci_device_is_present(adev->pdev))
- 		adev->no_hw_access = true;
- 
--	r = amdgpu_device_resume(drm_dev, true);
--	if (amdgpu_acpi_is_s0ix_active(adev))
-+	if (adev->in_s0ix || adev->in_s3) {
-+		r = amdgpu_device_resume(drm_dev, true);
- 		adev->in_s0ix = false;
--	else
- 		adev->in_s3 = false;
++static int navi10_emit_clk_levels(struct smu_context *smu,
++			enum smu_clk_type clk_type, char *buf, int *offset)
++{
++	uint16_t *curve_settings;
++	int ret = 0;
++	uint32_t cur_value = 0, value = 0;
++	uint32_t freq_values[3] = {0};
++	uint32_t i, levels, mark_index = 0, count = 0;
++	struct smu_table_context *table_context = &smu->smu_table;
++	uint32_t gen_speed, lane_width;
++	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
++	struct smu_11_0_dpm_context *dpm_context = smu_dpm->dpm_context;
++	PPTable_t *pptable = (PPTable_t *)table_context->driver_pptable;
++	OverDriveTable_t *od_table =
++		(OverDriveTable_t *)table_context->overdrive_table;
++	struct smu_11_0_overdrive_table *od_settings = smu->od_settings;
++	uint32_t min_value, max_value;
++
++	switch (clk_type) {
++	case SMU_GFXCLK:
++	case SMU_SCLK:
++	case SMU_SOCCLK:
++	case SMU_MCLK:
++	case SMU_UCLK:
++	case SMU_FCLK:
++	case SMU_VCLK:
++	case SMU_DCLK:
++	case SMU_DCEFCLK:
++		ret = navi10_get_current_clk_freq_by_table(smu, clk_type, &cur_value);
++		if (ret)
++			return ret;
++
++		ret = smu_v11_0_get_dpm_level_count(smu, clk_type, &count);
++		if (ret)
++			return ret;
++
++		if (!navi10_is_support_fine_grained_dpm(smu, clk_type)) {
++			for (i = 0; i < count; i++) {
++				ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, i, &value);
++				if (ret)
++					return ret;
++
++				*offset += sysfs_emit_at(buf, *offset, "%d: %uMhz %s\n", i, value,
++						cur_value == value ? "*" : "");
++
++			}
++		} else {
++			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0, &freq_values[0]);
++			if (ret)
++				return ret;
++			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_values[2]);
++			if (ret)
++				return ret;
++
++			freq_values[1] = cur_value;
++			mark_index = cur_value == freq_values[0] ? 0 :
++				     cur_value == freq_values[2] ? 2 : 1;
++
++			levels = 3;
++			if (mark_index != 1) {
++				levels = 2;
++				freq_values[1] = freq_values[2];
++			}
++
++			for (i = 0; i < levels; i++) {
++				*offset += sysfs_emit_at(buf, *offset, "%d: %uMhz %s\n", i, freq_values[i],
++						i == mark_index ? "*" : "");
++			}
++		}
++		break;
++	case SMU_PCIE:
++		gen_speed = smu_v11_0_get_current_pcie_link_speed_level(smu);
++		lane_width = smu_v11_0_get_current_pcie_link_width_level(smu);
++		for (i = 0; i < NUM_LINK_LEVELS; i++) {
++			*offset += sysfs_emit_at(buf, *offset, "%d: %s %s %dMhz %s\n", i,
++					(dpm_context->dpm_tables.pcie_table.pcie_gen[i] == 0) ? "2.5GT/s," :
++					(dpm_context->dpm_tables.pcie_table.pcie_gen[i] == 1) ? "5.0GT/s," :
++					(dpm_context->dpm_tables.pcie_table.pcie_gen[i] == 2) ? "8.0GT/s," :
++					(dpm_context->dpm_tables.pcie_table.pcie_gen[i] == 3) ? "16.0GT/s," : "",
++					(dpm_context->dpm_tables.pcie_table.pcie_lane[i] == 1) ? "x1" :
++					(dpm_context->dpm_tables.pcie_table.pcie_lane[i] == 2) ? "x2" :
++					(dpm_context->dpm_tables.pcie_table.pcie_lane[i] == 3) ? "x4" :
++					(dpm_context->dpm_tables.pcie_table.pcie_lane[i] == 4) ? "x8" :
++					(dpm_context->dpm_tables.pcie_table.pcie_lane[i] == 5) ? "x12" :
++					(dpm_context->dpm_tables.pcie_table.pcie_lane[i] == 6) ? "x16" : "",
++					pptable->LclkFreq[i],
++					(gen_speed == dpm_context->dpm_tables.pcie_table.pcie_gen[i]) &&
++					(lane_width == dpm_context->dpm_tables.pcie_table.pcie_lane[i]) ?
++					"*" : "");
++		}
++		break;
++	case SMU_OD_SCLK:
++		if (!smu->od_enabled || !od_table || !od_settings)
++			return -EOPNOTSUPP;
++		if (!navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_GFXCLK_LIMITS))
++			break;
++		*offset += sysfs_emit_at(buf, *offset, "OD_SCLK:\n0: %uMhz\n1: %uMhz\n",
++					  od_table->GfxclkFmin, od_table->GfxclkFmax);
++		break;
++	case SMU_OD_MCLK:
++		if (!smu->od_enabled || !od_table || !od_settings)
++			return -EOPNOTSUPP;
++		if (!navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_UCLK_MAX))
++			break;
++		*offset += sysfs_emit_at(buf, *offset, "OD_MCLK:\n1: %uMHz\n", od_table->UclkFmax);
++		break;
++	case SMU_OD_VDDC_CURVE:
++		if (!smu->od_enabled || !od_table || !od_settings)
++			return -EOPNOTSUPP;
++		if (!navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_GFXCLK_CURVE))
++			break;
++		*offset += sysfs_emit_at(buf, *offset, "OD_VDDC_CURVE:\n");
++		for (i = 0; i < 3; i++) {
++			switch (i) {
++			case 0:
++				curve_settings = &od_table->GfxclkFreq1;
++				break;
++			case 1:
++				curve_settings = &od_table->GfxclkFreq2;
++				break;
++			case 2:
++				curve_settings = &od_table->GfxclkFreq3;
++				break;
++			default:
++				break;
++			}
++			*offset += sysfs_emit_at(buf, *offset, "%d: %uMHz %umV\n",
++						  i, curve_settings[0],
++					curve_settings[1] / NAVI10_VOLTAGE_SCALE);
++		}
++		break;
++	case SMU_OD_RANGE:
++		if (!smu->od_enabled || !od_table || !od_settings)
++			return -EOPNOTSUPP;
++		*offset += sysfs_emit_at(buf, *offset, "%s:\n", "OD_RANGE");
++
++		if (navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_GFXCLK_LIMITS)) {
++			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_GFXCLKFMIN,
++						    &min_value, NULL);
++			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_GFXCLKFMAX,
++						    NULL, &max_value);
++			*offset+= sysfs_emit_at(buf, *offset, "SCLK: %7uMhz %10uMhz\n",
++					min_value, max_value);
++		}
++
++		if (navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_UCLK_MAX)) {
++			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_UCLKFMAX,
++						    &min_value, &max_value);
++			*offset+= sysfs_emit_at(buf, *offset, "MCLK: %7uMhz %10uMhz\n",
++					min_value, max_value);
++		}
++
++		if (navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_GFXCLK_CURVE)) {
++			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_VDDGFXCURVEFREQ_P1,
++						    &min_value, &max_value);
++			*offset += sysfs_emit_at(buf, *offset, "VDDC_CURVE_SCLK[0]: %7uMhz %10uMhz\n",
++					      min_value, max_value);
++			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_VDDGFXCURVEVOLTAGE_P1,
++						    &min_value, &max_value);
++			*offset += sysfs_emit_at(buf, *offset, "VDDC_CURVE_VOLT[0]: %7dmV %11dmV\n",
++					      min_value, max_value);
++			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_VDDGFXCURVEFREQ_P2,
++						    &min_value, &max_value);
++			*offset += sysfs_emit_at(buf, *offset, "VDDC_CURVE_SCLK[1]: %7uMhz %10uMhz\n",
++					      min_value, max_value);
++			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_VDDGFXCURVEVOLTAGE_P2,
++						    &min_value, &max_value);
++			*offset += sysfs_emit_at(buf, *offset, "VDDC_CURVE_VOLT[1]: %7dmV %11dmV\n",
++					      min_value, max_value);
++			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_VDDGFXCURVEFREQ_P3,
++						    &min_value, &max_value);
++			*offset += sysfs_emit_at(buf, *offset, "VDDC_CURVE_SCLK[2]: %7uMhz %10uMhz\n",
++					      min_value, max_value);
++			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_VDDGFXCURVEVOLTAGE_P3,
++						    &min_value, &max_value);
++			*offset += sysfs_emit_at(buf, *offset, "VDDC_CURVE_VOLT[2]: %7dmV %11dmV\n",
++					      min_value, max_value);
++		}
++
++		break;
++	default:
++		break;
 +	}
- 	return r;
- }
- 
++
++	return 0;
++}
++
+ static int navi10_print_clk_levels(struct smu_context *smu,
+ 			enum smu_clk_type clk_type, char *buf)
+ {
+@@ -3238,6 +3425,7 @@ static const struct pptable_funcs navi10_ppt_funcs = {
+ 	.i2c_init = navi10_i2c_control_init,
+ 	.i2c_fini = navi10_i2c_control_fini,
+ 	.print_clk_levels = navi10_print_clk_levels,
++	.emit_clk_levels = navi10_emit_clk_levels,
+ 	.force_clk_levels = navi10_force_clk_levels,
+ 	.populate_umd_state_clk = navi10_populate_umd_state_clk,
+ 	.get_clock_by_type_with_latency = navi10_get_clock_by_type_with_latency,
 -- 
-2.25.1
+2.34.1
 
