@@ -4,66 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77923C2BA4C
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 11:54:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20722C2BA4C
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 11:59:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0043210E36C;
-	Wed, 26 Jan 2022 11:54:51 +0000 (UTC)
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91BFB10E36C
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 11:54:50 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id
- i187-20020a1c3bc4000000b0034d2ed1be2aso3597327wma.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 03:54:50 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFB7310E8DB;
+	Wed, 26 Jan 2022 11:59:20 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06C9B10E8DB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 11:59:20 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ q141-20020a1ca793000000b00347b48dfb53so4113619wme.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 03:59:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=ZXjeQERqvFzlCzz2ruulYh5WcBs9abTexvrOjz95g6o=;
- b=PV4AjS5DsN1xxLRiYI2l/0g2bhbvMNviJJfB8wGDYg7uvK2YPkAwbd+c3NCWzkgBmX
- xHFtDtDa5osDOVx6LQNNGdUIUiZ+O4nT7Y0bgQr7xXZazRqASKe5AJ/ZZ5BGDMVthkmO
- GRY527Aw8zy9Sy5HX9B8P+VY6PyT/1XSvRFQBqCGdNu34Um+tHbSsZDmcPAP//hRk9pz
- ejINUkmQmlGa+jbtNIr8lTVKE600Nc9jgtbQGAJsSI4b+YbWC2E6b5BBCDqo/qvAbIoG
- 0DLkU0OxTOxjmiXqqRTVftqp30lmPN+W9fEMlgIWFd/3jpNne8qjtYedPyF/FdvFITUH
- Tw7g==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=I8ig2JH2eSznFy18lrwYd7NFid347W1bBP5XFs31DOU=;
+ b=kZ9U1UURL6VxnvbbD9jDC7rGn7UfumKkqEIyYucRppEX4K7jTeSYidyxCapyxNjNoM
+ 8wc4JsvVd92H8PtLLRyimtWj1FTeHvJG1d90fjEgmtiUpn8PLFPc4H0n4XeOg2aRXzJr
+ SKRilk/O/6PDbrPHPB4Se35xodujQ9hA3FF7FXvQJxSF0wyQYf914OFCB1XWHkxuc6l7
+ QDgzagFwaZLKrF/CSFIntNsCWfiS+JsVhWha5msPxlWZ7vGgw/k5bNvkGJVquCw2wPYk
+ TSLiHZKnvb0F/bWotXWbZQYeQ1DucqdxMC2jTng7JNB5QPocExUaY0YAecXkyCXLjbf3
+ NIXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=ZXjeQERqvFzlCzz2ruulYh5WcBs9abTexvrOjz95g6o=;
- b=XICiGVKXuQPzaE91PL5o/AgNZXH1rG2xikK8EGmdCylVZgp9tvsbtZ3GHowCOWAS7D
- FuGxYEXhmrVciwJw57DQLPqPM/goY9weJhkWjU1liimytvsIsWpEw9s3PVS+JgN+Hijj
- Dt5Rbt2lVusRRaHS8HorgBorWmZzYU/r6SuWbeBAArkW1qUh3uffU6zKErTs1eQVgxvj
- zrr/M9OIhS0un5CwIYiIqftUGoJ9+Rp0sxXGtgme+UhnOvZvWQOcOTv+z298Jjr8ou8f
- WMUQ/RsuoxB3V6eWVVlUq6jFZNhxRgkFKYS52kCm9uXF4MqB4QONhozD1iJ0a+j3xAdH
- I7tw==
-X-Gm-Message-State: AOAM530u/e9OSOEwGFSGSfuBkGSD4wIPJB85p+KvXPX2v3m73xt7zZcT
- NmQoTKZykBrZglk1yZZp96M=
-X-Google-Smtp-Source: ABdhPJz0sYTU93F9TAlBQs4wCIm1lByxQB8czXwaFqb0nOTUP3MNcHAF30mdQWUwXdF9xWSbLdcxuA==
-X-Received: by 2002:a05:600c:b58:: with SMTP id
- k24mr6327025wmr.6.1643198089054; 
- Wed, 26 Jan 2022 03:54:49 -0800 (PST)
-Received: from ?IPV6:2a02:908:1252:fb60:6cbd:23a3:7abe:f6e2?
- ([2a02:908:1252:fb60:6cbd:23a3:7abe:f6e2])
- by smtp.gmail.com with ESMTPSA id 16sm2933354wmj.12.2022.01.26.03.54.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jan 2022 03:54:48 -0800 (PST)
-Message-ID: <ef5aa6ef-4fc7-cb7c-019e-01cd77ec0c84@gmail.com>
-Date: Wed, 26 Jan 2022 12:54:47 +0100
+ bh=I8ig2JH2eSznFy18lrwYd7NFid347W1bBP5XFs31DOU=;
+ b=GNFP8ARt7hb5uiGjUZATQb5KE3p4XI9SmUUj9NPiWy1PjPhhLEoI5DkjnUBGqO8Y4u
+ p6/q6M3koZzLaOj8DR6wglMGzsic6bppyWYDqhkIHhxpwofd2G1J8Rfad/0Mcto8hNwv
+ 4t+pcQn33n+wE+q+nbgqRRgzbxbRNnd6gaugZhOTt1HclosXmTu16fXFZUeFiFuGo4Ep
+ LGe5/OcDSHt8gRsi2FflqzcZSOoi84FmWrG+EkrizlAE2xSLxj0DmfDEjuF3BwYgYRHw
+ Jadt/xNHCmzuv8uMYvr1/aqtS6L1uda+3a7PApIkfyZRksg8cWn9J7dV3YJow45wpuAp
+ FHlA==
+X-Gm-Message-State: AOAM531cCAgM8qEA2MbCPEveb8LvRl+LT5D9r3RPSytSJKV2OAdpN9BP
+ ZJARxVTg2e+4N6EyFgBTI43+qWuUB5g=
+X-Google-Smtp-Source: ABdhPJx1WDSw9SiW1NPO8mlC+++RGoDG2F4WwM29vVopYCsnmcyK72tLlOL2y65ym4JJPpLRyXVv6w==
+X-Received: by 2002:a05:600c:d7:: with SMTP id
+ u23mr7106009wmm.16.1643198358614; 
+ Wed, 26 Jan 2022 03:59:18 -0800 (PST)
+Received: from baker.fritz.box (p57b0bff8.dip0.t-ipconnect.de.
+ [87.176.191.248])
+ by smtp.gmail.com with ESMTPSA id n26sm3217877wms.13.2022.01.26.03.59.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Jan 2022 03:59:18 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Luben.Tuikov@amd.com,
+	Tom.StDenis@amd.com
+Subject: [PATCH 1/2] drm/amdgpu: cleanup amdgpu_xgmi_sysfs_add_dev_info
+Date: Wed, 26 Jan 2022 12:59:16 +0100
+Message-Id: <20220126115917.60308-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/amdgpu: add safeguards for accessing mmhub CG
- registers
-Content-Language: en-US
-To: Lang Yu <Lang.Yu@amd.com>
-References: <20220126075326.1134770-1-Lang.Yu@amd.com>
- <fd878564-3f15-ba76-83f1-42284782e7d5@gmail.com>
- <YfEqQHHo3SGxDJUW@lang-desktop>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <YfEqQHHo3SGxDJUW@lang-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,110 +71,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 26.01.22 um 12:02 schrieb Lang Yu:
-> On 01/26/ , Christian König wrote:
->> Am 26.01.22 um 08:53 schrieb Lang Yu:
->>> We observed a gpu hang when querying mmhub CG status(i.e.,
->>> cat amdgpu_pm_info) on cyan skillfish. Acctually, cyan
->>> skillfish doesn't support any CG features.
->>>
->>> Only allow asics which support CG features accessing related
->>> registers. Will add similar safeguards for other IPs in the
->>> furture.
->> I think you should probably add a macro or function for this check, apart
->> from that looks good to me.
-> Thanks for you advice. Is it fine to use such a macro?
->
-> #define amdgpu_device_cg_flag_isset(flag) ((adev->cg_flags) & (flag))
+Don't initialize variables if it isn't absolutely necessary.
 
-No, first of all that can also be a function and doesn't need to be a macro.
+Use amdgpu_xgmi_sysfs_rem_dev_info to cleanup when something goes wrong.
 
-Then we should probably encapsulate more functionality or otherwise it 
-is rather usless.
+Drop the explicit warnings since the sysfs core warns about things like
+duplicate files itself.
 
-Think more about a function like amdgpu_gmc_cg_enabled() instead.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 85 +++++++++---------------
+ 1 file changed, 33 insertions(+), 52 deletions(-)
 
-Regards,
-Christian.
-
->
-> Regards,
-> Lang
->
->> Christian.
->>
->>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 3 +++
->>>    drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c | 3 +++
->>>    drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 3 +++
->>>    drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c | 3 +++
->>>    drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c | 3 +++
->>>    5 files changed, 15 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
->>> index 4c9f0c0f3116..1869e2019461 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
->>> @@ -550,6 +550,9 @@ static void mmhub_v1_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
->>>    {
->>>    	int data, data1;
->>> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
->>> +		return;
->>> +
->>>    	if (amdgpu_sriov_vf(adev))
->>>    		*flags = 0;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
->>> index 3b901f941627..f7b9843b36e6 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
->>> @@ -546,6 +546,9 @@ static void mmhub_v1_7_get_clockgating(struct amdgpu_device *adev, u32 *flags)
->>>    {
->>>    	int data, data1;
->>> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
->>> +		return;
->>> +
->>>    	if (amdgpu_sriov_vf(adev))
->>>    		*flags = 0;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
->>> index 3718ff610ab2..3f5f326379b7 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
->>> @@ -686,6 +686,9 @@ static void mmhub_v2_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
->>>    {
->>>    	int data, data1;
->>> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
->>> +		return;
->>> +
->>>    	if (amdgpu_sriov_vf(adev))
->>>    		*flags = 0;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
->>> index 9e16da28505a..b23dd9ddfb5c 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
->>> @@ -580,6 +580,9 @@ static void mmhub_v2_3_get_clockgating(struct amdgpu_device *adev, u32 *flags)
->>>    {
->>>    	int data, data1, data2, data3;
->>> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
->>> +		return;
->>> +
->>>    	if (amdgpu_sriov_vf(adev))
->>>    		*flags = 0;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
->>> index 619106f7d23d..a2d5c8424e2b 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
->>> @@ -651,6 +651,9 @@ static void mmhub_v9_4_get_clockgating(struct amdgpu_device *adev, u32 *flags)
->>>    {
->>>    	int data, data1;
->>> +	if (!(adev->cg_flags & (AMD_CG_SUPPORT_MC_MGCG | AMD_CG_SUPPORT_MC_LS)))
->>> +		return;
->>> +
->>>    	if (amdgpu_sriov_vf(adev))
->>>    		*flags = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 5929d6f528c9..68509f619ba3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -289,61 +289,10 @@ static ssize_t amdgpu_xgmi_show_error(struct device *dev,
+ static DEVICE_ATTR(xgmi_device_id, S_IRUGO, amdgpu_xgmi_show_device_id, NULL);
+ static DEVICE_ATTR(xgmi_error, S_IRUGO, amdgpu_xgmi_show_error, NULL);
+ 
+-static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
+-					 struct amdgpu_hive_info *hive)
+-{
+-	int ret = 0;
+-	char node[10] = { 0 };
+-
+-	/* Create xgmi device id file */
+-	ret = device_create_file(adev->dev, &dev_attr_xgmi_device_id);
+-	if (ret) {
+-		dev_err(adev->dev, "XGMI: Failed to create device file xgmi_device_id\n");
+-		return ret;
+-	}
+-
+-	/* Create xgmi error file */
+-	ret = device_create_file(adev->dev, &dev_attr_xgmi_error);
+-	if (ret)
+-		pr_err("failed to create xgmi_error\n");
+-
+-
+-	/* Create sysfs link to hive info folder on the first device */
+-	if (hive->kobj.parent != (&adev->dev->kobj)) {
+-		ret = sysfs_create_link(&adev->dev->kobj, &hive->kobj,
+-					"xgmi_hive_info");
+-		if (ret) {
+-			dev_err(adev->dev, "XGMI: Failed to create link to hive info");
+-			goto remove_file;
+-		}
+-	}
+-
+-	sprintf(node, "node%d", atomic_read(&hive->number_devices));
+-	/* Create sysfs link form the hive folder to yourself */
+-	ret = sysfs_create_link(&hive->kobj, &adev->dev->kobj, node);
+-	if (ret) {
+-		dev_err(adev->dev, "XGMI: Failed to create link from hive info");
+-		goto remove_link;
+-	}
+-
+-	goto success;
+-
+-
+-remove_link:
+-	sysfs_remove_link(&adev->dev->kobj, adev_to_drm(adev)->unique);
+-
+-remove_file:
+-	device_remove_file(adev->dev, &dev_attr_xgmi_device_id);
+-
+-success:
+-	return ret;
+-}
+-
+ static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgpu_device *adev,
+ 					  struct amdgpu_hive_info *hive)
+ {
+ 	char node[10];
+-	memset(node, 0, sizeof(node));
+ 
+ 	device_remove_file(adev->dev, &dev_attr_xgmi_device_id);
+ 	device_remove_file(adev->dev, &dev_attr_xgmi_error);
+@@ -353,10 +302,42 @@ static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgpu_device *adev,
+ 
+ 	sprintf(node, "node%d", atomic_read(&hive->number_devices));
+ 	sysfs_remove_link(&hive->kobj, node);
+-
+ }
+ 
++static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
++					 struct amdgpu_hive_info *hive)
++{
++	char node[10];
++	int r;
++
++	r = device_create_file(adev->dev, &dev_attr_xgmi_device_id);
++	if (r)
++		return r;
++
++	r = device_create_file(adev->dev, &dev_attr_xgmi_error);
++	if (r)
++		goto error;
+ 
++	/* Create sysfs link to hive info folder on the first device */
++	if (hive->kobj.parent != (&adev->dev->kobj)) {
++		r = sysfs_create_link(&adev->dev->kobj, &hive->kobj,
++				      "xgmi_hive_info");
++		if (r)
++			goto error;
++	}
++
++	/* Create sysfs link form the hive folder to yourself */
++	sprintf(node, "node%d", atomic_read(&hive->number_devices));
++	r = sysfs_create_link(&hive->kobj, &adev->dev->kobj, node);
++	if (r)
++		goto error;
++
++	return 0;
++
++error:
++	amdgpu_xgmi_sysfs_rem_dev_info(adev, hive);
++	return r;
++}
+ 
+ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
+ {
+-- 
+2.25.1
 
