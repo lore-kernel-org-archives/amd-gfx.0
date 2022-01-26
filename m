@@ -4,54 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1D81C3526D
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 13:56:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71221C2BA4C
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 13:56:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8601610E6AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C65E710E74C;
 	Wed, 26 Jan 2022 13:56:34 +0000 (UTC)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B74E10E6DB;
- Wed, 26 Jan 2022 10:23:24 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id a18so68084455edj.7;
- Wed, 26 Jan 2022 02:23:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=ii7o+rApOV9c1TS9mkx6aDYIwS5s1Dz6MCJYhhLsikE=;
- b=Ln8amVerCzYz68x4zhhZMfq3Pzh+9Uxd/aMxebrg76kqFnhS5Y1yQlqRX7BB8j7qfD
- nvKLtBp9Hj8dvf8Pezk6nVo62kXsDWJLhU6xzCclmoOwNgmxquPDs7YXmBxUJPVNoxyt
- cRgDI87fT6C5xCT4r3lORmqRw5CbUFi4CbRkUoLbAbVEDUFE2iCal5gdJ5KOKNCtE1qv
- gxnyrSXzSHn+q88EOMlxmOvElZxknK+WwUDFYJctt8D1L54oVVbkfipcnaJJo9X65zJd
- GfdCnIfQerYPKrPpRhM697M24JcQoWzb9/lMfD8P0a70ZwrDzPtb58tUzSLpfCUHhyBF
- eBSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=ii7o+rApOV9c1TS9mkx6aDYIwS5s1Dz6MCJYhhLsikE=;
- b=pqj1dy0l6Bb8PDvIBvlzoaqO7jysJ3ePSbt+HoRpczg94mXbtXYAiABWiABQ2DSM/T
- azny9qm1uSiz8enfU33JilWFAjIdugyB+T+iXPjmkHwvlAmsd6a2+6DcHcFD4dq//5dE
- tktg0kHIW4h6yXVvuYcb6Ynf4cm6K1sj4unkfLJ7Vh4twImZ4xnxxn3rnwhwKKUt/KZW
- JqbONr9EwsOs5BdrwapMaLMuTaVAwdzLi8FZne7XCuT3taIz7zhnc1Eweh6Ec3rDt4e/
- cmvJwnJL4/f4AzueshrrV30SGspq4jDr+hpCJd8FyahXSJr3OllI02UY1VOVhVyo7Pzj
- L6Zw==
-X-Gm-Message-State: AOAM533LItqc2xsruzPG5739uCyEK3LiBjpLoohpiLb4PyirtDjQUWSl
- C1r9HdWFnnimXclGZdOzFvs1XqUdM2efGUM3VpA=
-X-Google-Smtp-Source: ABdhPJzNoLjMutkiG1rIcRLBMJYXNKAEcChNIpwB1oqibQS0oJJv8RdEKOE0ei2A5eNUb+1fDDzSSnET34BlxoFSA5s=
-X-Received: by 2002:a05:6402:40cd:: with SMTP id
- z13mr1007577edb.158.1643192602670; 
- Wed, 26 Jan 2022 02:23:22 -0800 (PST)
+X-Greylist: delayed 1826 seconds by postgrey-1.36 at gabe;
+ Wed, 26 Jan 2022 09:48:32 UTC
+Received: from m15113.mail.126.com (m15113.mail.126.com [220.181.15.113])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5A52C89AC9;
+ Wed, 26 Jan 2022 09:48:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=7+gQH
+ ova1ewkBfJn3FFDQ+n/FuOVx0d3gWZmjoaJ1o8=; b=SrQkLJJwtPGN3KkoORFKj
+ WpGAqajGI+h9X4EGjpGVijTUKkeY9W3bcNYl01vdk4RtjwdCKishi2PTmBUnWArF
+ JAgaDKzuu5Yf773OYnqJK5EEzw3rf8UMwJ2opKWQPifgDkQWiyA+uHflurjo+6pm
+ eIlWy1VBseBREQ5jkEzgF8=
+Received: from CD-huangqu.Hygon.cn (unknown [175.152.51.41])
+ by smtp3 (Coremail) with SMTP id DcmowAAngeVWEfFh6zUzAA--.15463S2;
+ Wed, 26 Jan 2022 17:16:07 +0800 (CST)
+From: jinsdb@126.com
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch
+Subject: [PATCH] drm/amdgpu: Wrong order for config and counter_id parameters
+Date: Wed, 26 Jan 2022 17:16:02 +0800
+Message-Id: <20220126091602.1647-1-jinsdb@126.com>
+X-Mailer: git-send-email 2.22.0.windows.1
 MIME-Version: 1.0
-References: <20220126093951.1470898-1-lucas.demarchi@intel.com>
-In-Reply-To: <20220126093951.1470898-1-lucas.demarchi@intel.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 26 Jan 2022 12:22:46 +0200
-Message-ID: <CAHp75VcheiM7gNW+zP2Ve8qOj40158aOM0OkhUjyODd+V3sYjQ@mail.gmail.com>
-Subject: Re: [PATCH v2 00/11] lib/string_helpers: Add a few string helpers
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: DcmowAAngeVWEfFh6zUzAA--.15463S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7XFWUZr1rZw47Xry5tw48Crg_yoW8JryDpr
+ WrJryDtFWkAFnFq3yDua4vvFyDA3ZFva4Skr1UJ34a9a45A34rZrW3JF12yF1UWrWrCrW7
+ tFn7GayUuFnFvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziHUDJUUUUU=
+X-Originating-IP: [175.152.51.41]
+X-CM-SenderInfo: pmlq2vbe6rjloofrz/1tbijB+UDlpEGQnX8gAAsi
 X-Mailman-Approved-At: Wed, 26 Jan 2022 13:56:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,191 +51,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, Vishal Kulkarni <vishal@chelsio.com>,
- Francis Laniel <laniel_francis@privacyrequired.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>, amd-gfx@lists.freedesktop.org,
- Ben Skeggs <bskeggs@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>, Petr Mladek <pmladek@suse.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Leo Li <sunpeng.li@amd.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, Raju Rangoju <rajur@chelsio.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Julia Lawall <julia.lawall@lip6.fr>,
- Rahul Lakkireddy <rahul.lakkireddy@chelsio.com>,
- Steven Rostedt <rostedt@goodmis.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- linux-security-module <linux-security-module@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, netdev <netdev@vger.kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>
+Cc: jinsdb@126.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 26, 2022 at 11:39 AM Lucas De Marchi
-<lucas.demarchi@intel.com> wrote:
->
-> Add some helpers under lib/string_helpers.h so they can be used
-> throughout the kernel. When I started doing this there were 2 other
-> previous attempts I know of, not counting the iterations each of them
-> had:
->
-> 1) https://lore.kernel.org/all/20191023131308.9420-1-jani.nikula@intel.co=
-m/
-> 2) https://lore.kernel.org/all/20210215142137.64476-1-andriy.shevchenko@l=
-inux.intel.com/#t
->
-> Now there is also the v1 of this same patch series:
-> https://lore.kernel.org/all/20220119072450.2890107-1-lucas.demarchi@intel=
-.com/
->
-> Going through the comments I tried to find some common ground and
-> justification for what is in here, addressing some of the concerns
-> raised.
->
-> a. This version should be a drop-in replacement for what is currently in
->    the tree, with no change in behavior or binary size. For binary
->    size what I checked was that the linked objects in the end have the
->    same size (gcc 11). From comments in the previous attempts this seems
->    also the case for earlier compiler versions
->
-> b. I didn't change the function name to choice_* as suggested by Andrew
->    Morton in 20191023155619.43e0013f0c8c673a5c508c1e@linux-foundation.org
->    because other people argumented in favor of shorter names for these
->    simple helpers - if they are long and people simply not use due to
->    that, we failed. However as pointed out in v1 of this patchseries,
->    onoff(), yesno(), enabledisable(), enableddisabled() have some
->    issues: the last 2 are hard to read and for the first 2 it would not
->    be hard to have the symbol to clash with variable names.
->    From comments in v1, most people were in favor (or at least not
->    opposed) to using str_on_off(), str_yes_no(), str_enable_disable()
->    and str_enabled_disabled().
->
-> c. Use string_helper.h for these helpers - pulling string.h in the
->    compilations units was one of the concerns and I think re-using this
->    already existing header is better than creating a new string-choice.h
->
-> d. One alternative to all of this suggested by Christian K=C3=B6nig
->    (43456ba7-c372-84cc-4949-dcb817188e21@amd.com) would be to add a
->    printk format. But besides the comment, he also seemed to like
->    the common function. This brought the argument from others that the
->    simple yesno()/enabledisable() already used in the code (or new
->    renamed version) is easier to remember and use than e.g. %py[DOY]
+From: huangqu <jinsdb@126.com>
 
-I do not see any impediments to this series to be pulled.
-Thanks for the work you've done!
+Wrong order for config and counter_id parameters was passed, when calling df_v3_6_pmc_set_deferred and df_v3_6_pmc_is_deferred functions.
 
-> Changes in v2:
->
->   - Use str_ prefix and separate other words with underscore: it's a
->     little bit longer, but should improve readability
->
->   - Patches we re-split due to the rename: first patch adds all the new
->     functions, then additional patches try to do one conversion at a
->     time. While doing so, there were some fixes for issues already
->     present along the way
->
->   - Style suggestions from v1 were adopted
->
-> In v1 it was suggested to apply this in drm-misc. I will leave this to
-> maintainers to decide: maybe it would be simpler to merge the first
-> patches on drm-intel-next, wait for the back merge and merge the rest
-> through drm-misc - my fear is a big conflict with other work going in
-> drm-intel-next since the bulk of the rename is there.
->
-> I tried to figure out acks and reviews from v1 and apply them to how the
-> patches are now split.
->
-> thanks
-> Lucas De Marchi
->
-> Lucas De Marchi (11):
->   lib/string_helpers: Consolidate string helpers implementation
->   drm/i915: Fix trailing semicolon
->   drm/i915: Use str_yes_no()
->   drm/i915: Use str_enable_disable()
->   drm/i915: Use str_enabled_disabled()
->   drm/i915: Use str_on_off()
->   drm/amd/display: Use str_yes_no()
->   drm/gem: Sort includes alphabetically
->   drm: Convert open-coded yes/no strings to yesno()
->   tomoyo: Use str_yes_no()
->   cxgb4: Use str_yes_no()
->
->  drivers/gpu/drm/amd/amdgpu/atom.c             |   4 +-
->  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  14 +-
->  drivers/gpu/drm/dp/drm_dp.c                   |   3 +-
->  drivers/gpu/drm/drm_client_modeset.c          |   3 +-
->  drivers/gpu/drm/drm_gem.c                     |  23 +-
->  drivers/gpu/drm/i915/display/g4x_dp.c         |   6 +-
->  .../gpu/drm/i915/display/intel_backlight.c    |   3 +-
->  drivers/gpu/drm/i915/display/intel_ddi.c      |   4 +-
->  drivers/gpu/drm/i915/display/intel_display.c  |  46 ++--
->  .../drm/i915/display/intel_display_debugfs.c  |  74 +++---
->  .../drm/i915/display/intel_display_power.c    |   4 +-
->  .../drm/i915/display/intel_display_trace.h    |   9 +-
->  drivers/gpu/drm/i915/display/intel_dp.c       |  20 +-
->  drivers/gpu/drm/i915/display/intel_dpll.c     |   3 +-
->  drivers/gpu/drm/i915/display/intel_dpll_mgr.c |   7 +-
->  drivers/gpu/drm/i915/display/intel_dsi_vbt.c  |   7 +-
->  drivers/gpu/drm/i915/display/intel_fbc.c      |   4 +-
->  drivers/gpu/drm/i915/display/intel_fdi.c      |   8 +-
->  drivers/gpu/drm/i915/display/intel_hdmi.c     |   3 +-
->  drivers/gpu/drm/i915/display/intel_sprite.c   |   6 +-
->  drivers/gpu/drm/i915/display/vlv_dsi_pll.c    |   3 +-
->  .../gpu/drm/i915/gem/selftests/huge_pages.c   |   9 +-
->  .../drm/i915/gem/selftests/i915_gem_context.c |   7 +-
->  drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   3 +-
->  drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  11 +-
->  .../drm/i915/gt/intel_execlists_submission.c  |   7 +-
->  drivers/gpu/drm/i915/gt/intel_gt_pm.c         |   3 +-
->  drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c |  52 ++--
->  drivers/gpu/drm/i915/gt/intel_rc6.c           |   5 +-
->  drivers/gpu/drm/i915/gt/intel_reset.c         |   3 +-
->  drivers/gpu/drm/i915/gt/intel_rps.c           |  13 +-
->  drivers/gpu/drm/i915/gt/intel_sseu.c          |   9 +-
->  drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c  |  10 +-
->  drivers/gpu/drm/i915/gt/selftest_timeline.c   |   3 +-
->  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |   5 +-
->  drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    |   5 +-
->  drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c     |   6 +-
->  drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   |   4 +-
->  drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  14 +-
->  drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c |  20 +-
->  drivers/gpu/drm/i915/i915_debugfs.c           |  17 +-
->  drivers/gpu/drm/i915/i915_driver.c            |   4 +-
->  drivers/gpu/drm/i915/i915_gpu_error.c         |   9 +-
->  drivers/gpu/drm/i915/i915_params.c            |   5 +-
->  drivers/gpu/drm/i915/i915_utils.h             |  21 +-
->  drivers/gpu/drm/i915/intel_device_info.c      |   8 +-
->  drivers/gpu/drm/i915/intel_dram.c             |  10 +-
->  drivers/gpu/drm/i915/intel_pm.c               |  14 +-
->  drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c  |   4 +-
->  drivers/gpu/drm/i915/selftests/i915_active.c  |   3 +-
->  drivers/gpu/drm/i915/vlv_suspend.c            |   3 +-
->  drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c |   5 +-
->  drivers/gpu/drm/radeon/atom.c                 |   3 +-
->  drivers/gpu/drm/v3d/v3d_debugfs.c             |  11 +-
->  drivers/gpu/drm/virtio/virtgpu_debugfs.c      |   4 +-
->  .../ethernet/chelsio/cxgb4/cxgb4_debugfs.c    | 249 ++++++++++--------
->  include/linux/string_helpers.h                |  20 ++
->  security/tomoyo/audit.c                       |   2 +-
->  security/tomoyo/common.c                      |  19 +-
->  security/tomoyo/common.h                      |   1 -
->  60 files changed, 482 insertions(+), 373 deletions(-)
->
-> --
-> 2.34.1
->
+Signed-off-by: huangqu <jinsdb@126.com>
+---
+ drivers/gpu/drm/amd/amdgpu/df_v3_6.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+index 43c5e3ec9..f4dfca013 100644
+--- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
++++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+@@ -458,7 +458,7 @@ static int df_v3_6_pmc_add_cntr(struct amdgpu_device *adev,
 
---=20
-With Best Regards,
-Andy Shevchenko
+ #define DEFERRED_ARM_MASK	(1 << 31)
+ static int df_v3_6_pmc_set_deferred(struct amdgpu_device *adev,
+-				    int counter_idx, uint64_t config,
++				    uint64_t config, int counter_idx,
+ 				    bool is_deferred)
+ {
+
+@@ -476,8 +476,8 @@ static int df_v3_6_pmc_set_deferred(struct amdgpu_device *adev,
+ }
+
+ static bool df_v3_6_pmc_is_deferred(struct amdgpu_device *adev,
+-				    int counter_idx,
+-				    uint64_t config)
++				    uint64_t config,
++				    int counter_idx)
+ {
+ 	return	(df_v3_6_pmc_has_counter(adev, config, counter_idx) &&
+ 			(adev->df_perfmon_config_assign_mask[counter_idx]
+--
+2.31.1
+
