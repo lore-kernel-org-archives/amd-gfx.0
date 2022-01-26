@@ -4,116 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91380C2BA4C
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 12:50:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1982EC2BA4C
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jan 2022 12:55:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 346B610E54E;
-	Wed, 26 Jan 2022 12:50:55 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2067.outbound.protection.outlook.com [40.107.92.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCA0110E54E
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 12:50:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D05B10E912;
+	Wed, 26 Jan 2022 12:55:13 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2057.outbound.protection.outlook.com [40.107.95.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE77010E90B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 12:55:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KCDCoPb+nqF6b5BN9bGBrRXUih5+NOalSON9BL3gJvWMRQc2IUA55DsKPs8v/N3ef5v/gxkxDuhPsHbVuMZSviaTLc/xqDtcv9EL8bFx2+zDGy7lIyKK/YVuUA6hnn2gcokNuzWmYX1ZOXd3T3EF6yfQY5AP67m3OxxMtZ67sVPdFGxIArZO58QhhDF6QsQNdtlxn6zJ9zFhYph4DVIdNd9GO9rkA8RNMcvomvVnd14GOLG201xW92oPJhP4nw7dclhbtVv1aykrnY9dN+vhJTPJbTryWTmR49iVFf/sgLGxkUTev+Q7kG6FXOeh5wHwAssSldty+VC5z5KJ8KI10g==
+ b=WEBbulRe9ageVH+1Nn//jaikJBZsaS+jWfj+fTVECD19x1kSykG2SlvIonF+/xqhByY2vO8AlhczXnIgryHZ9HqnfSrgKjoWXDqsfYa1TWsmYc0oxQqPG5on6fEHQ4gY+egQ0uusN2e/Pe0jYc6fryXjD4CQlT62VJ536zwrtn1MH/HdIVxe++exBOthu9XfGCJRxgh0GLI2MURTQU80UwhyhuPdKPHGpA8K4xumNchj4k35Zh+YmA8uk9CoJPnXlUxhbhulEidCuVNcaZx6z3s0JG3qUd0zJQpgwFh7GPkdDZUQo5551Dohlp42eh/XPI6uMr4Fj6Wdfop5QGIOQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H+03dx+l8XNCKr0bMrDxtYAg3LCy1PbuexrMhix22Rw=;
- b=CYp0Ket7dstOOvR3ILH3MuKF5FZtI2d2JLNpyA38NoBiseK4T0wnvOGaawSuqYIZSxb1tt1ggKRYtkZOq5FRa6HSrdjCkiDCyYZK2B/ZC86HuTypNkbFzlt6FpBf7a1D3xQpLmME3DgqdpMsI7d9i6m67QvrsGbduGGVVMWAoKugSJQx/gH8nO4TSH8rgscChnVwUK9MMz6uQpnqrk1mG3bjEGF4oq5L1XWTY1gpxN04IxRaIJRV5WA1TIvp94u84Pj+KCI4fnhvYqE1o89MHO0yAsokyIPDASapRfTLZ59nKC6wy9NluPF5ra53UKfMOGetg1gRvmRJk4Zv3lQxMg==
+ bh=HOGLJq5KzBF+iPLPjC8rgF7s9oholJtIc/5bO7gxSyw=;
+ b=J360VWuHeOkvd9BcbktOYY53oKKHFguN9OVkj8Qt2/C219iymltNGhJv5Fu51IylxVu/vPFN8QhMbdpkIb+Dz6hsTVHk8NeAlhPr2aiL4/aROAs7752wic9Q86CWi2TGVVun+kmYTPGN9v1fNtlRObvuSj3spvQDdI7xlBLvAiWZGyKATS24WxX+GPY5kbs3k3GXHI5sLAgcx9C4h9C4vZvh63xEb6jpu4ZWcMJGVFSkrXB0Bq9T0ZQMCENQFv66jm/s4WdLN39oMYBVOjhVNQrDhFlG/7ine9KT6R1UPOxl3Fv3DePIAnULKQlEXJvUdjXA+vomvHrWvWxNh4c2OQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H+03dx+l8XNCKr0bMrDxtYAg3LCy1PbuexrMhix22Rw=;
- b=cL4Cz+e/neVEg5o5YwjVZiuAHTDofqRJlaF0/hhYbW0DGtYSpASs8IpqwiK56iVEyvZttG55Pr/0CE08vpd+avuJYh35gSVXdJJVYW/QNj5bnByrl29aX91DBAFEQawcRbmQ9ZA9KsKHlNx1y4yz81TYt2A9NjhMNapOUVmD3/o=
+ bh=HOGLJq5KzBF+iPLPjC8rgF7s9oholJtIc/5bO7gxSyw=;
+ b=iVqH8q/qhqn1rdNrbpOvohxtBOmOn4r723VIoL6StJgs7vLbvXOWXy/KC/FjDC/swNx1qkOQtuqbKP43tqVvLDBvwYs5sJMReY1avrS9HA8ySfQrst9KQYIADA1H5I6wpb3NKXLV6N1vnzyWdX/B2KqGQtF7wBUQyM4Cyvo+aIY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- BY5PR12MB4936.namprd12.prod.outlook.com (2603:10b6:a03:1d4::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Wed, 26 Jan
- 2022 12:50:48 +0000
+ DM5PR12MB1241.namprd12.prod.outlook.com (2603:10b6:3:72::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4909.8; Wed, 26 Jan 2022 12:55:10 +0000
 Received: from DM6PR12MB3370.namprd12.prod.outlook.com
  ([fe80::7587:626e:3703:9db8]) by DM6PR12MB3370.namprd12.prod.outlook.com
  ([fe80::7587:626e:3703:9db8%5]) with mapi id 15.20.4930.015; Wed, 26 Jan 2022
- 12:50:48 +0000
-Message-ID: <59e17c29-7bf2-32e2-7300-d110454811d8@amd.com>
-Date: Wed, 26 Jan 2022 07:50:44 -0500
+ 12:55:10 +0000
+Message-ID: <fbf698cf-594a-2980-814f-dc66e576ad62@amd.com>
+Date: Wed, 26 Jan 2022 07:55:07 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.0.1
-Subject: Re: [PATCH 1/2] drm/amdgpu: cleanup amdgpu_xgmi_sysfs_add_dev_info
+Subject: Re: [PATCH 2/2] drm/amdgpu: add sysfs files for XGMI segment size and
+ physical node id
 Content-Language: en-CA
 To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
  Tom.StDenis@amd.com
 References: <20220126115917.60308-1-christian.koenig@amd.com>
+ <20220126115917.60308-2-christian.koenig@amd.com>
 From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <20220126115917.60308-1-christian.koenig@amd.com>
+In-Reply-To: <20220126115917.60308-2-christian.koenig@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YTXPR0101CA0047.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::24) To DM6PR12MB3370.namprd12.prod.outlook.com
+X-ClientProxiedBy: YTXPR0101CA0018.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::31) To DM6PR12MB3370.namprd12.prod.outlook.com
  (2603:10b6:5:38::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 275bc8b5-a1f8-4d2e-37e1-08d9e0ca79ab
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4936:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB4936718F968797FBB60A8FF199209@BY5PR12MB4936.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-MS-Office365-Filtering-Correlation-Id: bda88c01-246c-4322-d3fc-08d9e0cb164b
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1241:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1241E727B1DAA490D58FF73F99209@DM5PR12MB1241.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IcNKDgLkcCgBUBkmSgL4668koCdoHNW8yGevzRLMmnqquLkXf8wl9hZZnbR3WJI9VUo9i6Ikd8gCfr3pyvn5pIn6V/0AkfcqwEfvI9zl+hVMoQj6anAqrkV4RU+Tc1oFek1ZTS9fWdKbCia806NM852scNcTkeK7E6WLXXbpsb77ljqXIazVszgW/GzusYoUQIxy8ZphkqXITDea2CV1m4U58xll3y/k/wc5dW+vpvi+0v03h9P17JGWRphyU9Gb/PK7Ryc+Mm4KK5k2qYzMVw55yqhwcTcrT9RiCkTQh65enCZmApERjWriK2cQJYTOd1Gy1wRfvYPmPW+xH9YswgkWd7mCl+LD6wzwI9wYnUg52eucq5OppcNDnVFFVmS+nxvKafSu7O2uykBTCj2nD+XkV8ywggZNap8AfKvw3PBmXqWhTd95Tsa3WxBrJX4kLwtFajS9Kcqv5XPikuEFtiVPdX4coZTq067boIp8uVGSeQBaoHC7dFx7cPfG4LztFC+z2zW53RmDG/veC/N1NEMdsKZnpc0dJz+o4N1M/RhASGroRgVaSXYQdWracxUw6wsXYmsPm4a+ECjKbcxef6zDCypLYuWTDd3HEu0Ajmr5XIuKr9VpP/m+fJhT69j1y38NvbEtTjRnWhaLYEjocRIjh2VErXAvPBvF2AAmZ7Nz0Cnm5/IgmZLZ6hfcisIdbiWxSn3lY44crejh/7hIIh17Z9+23xNmVA9Svly6E/Q=
+X-Microsoft-Antispam-Message-Info: c32Y0CaNAqlTRt0dFO7+7ftF8tpp3UOsEY2kI8FqOR79cfZ8HzSd9pALshb7yi2AnRIwyvF8R7pHEymN9/cG7VYbOyjA1Dg8Gzk2teD8/scYd+T/HW+KMwrJ5fDAJH+Rxt2XlDW44/xzW2QozOde5IieSrj25P2OqeL3bMfbvNsQWVZEAv6ZzgZfX7wWEmo/Py/wl12aDzcF+IKnd2/etlW6+e2bs86Z4J6M6cSvUaoKG/c6ZAycfGiwBv//9gfEAo+LWCqMIyciXPVLavUkkcL9oDDxvv3iNgFKLpw9Tt5ShRxKqIQgqalo7KV4lsxBBIIXSrHCXHSeC2vHoI1KhLzWD+xSo5+zez67Z9hIhuSrLAvDMLoywnqXzZ4TnIqGIm7wbofMKYtFX6WfOd24qdzfJPcg8Aor6AudKrTjPjdTHrYhIFLHR+5oNgrxdO4Fn0KxpKMiBOYQxuZWbf/epdcVaHpHDCSgmbzcWvSWyLp/pAEQMXY+lyndAxVW9/+uRCdgo6F/QaQauqBCfZK2F1Xx1AY6j7w2uXXOfG7qhQVftQVZ8AwfNi2xxxusckAcvZt5VMNRIxvlexsnmoS2k9JLn5d9zAMbgvUnDKrK59i9/kuz0MbrtrJIXVdi7rOzIsZkiW1yWFBxx1Ozl+zV3RiPKggAf6gapcRm6GnH8uV5YwanzcuCSuxoYvLvFuFFeCvQtAG7aOhDjI01SYJOpViiotiBHPkzHbNqDEzEgUs=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(316002)(4326008)(66476007)(83380400001)(8676002)(8936002)(26005)(6636002)(86362001)(31696002)(38100700002)(186003)(36756003)(44832011)(66946007)(53546011)(2906002)(6512007)(66556008)(31686004)(2616005)(6506007)(508600001)(6666004)(6486002)(5660300002)(43740500002)(45980500001)(20210929001);
+ SFS:(4636009)(366004)(6636002)(66946007)(6506007)(31696002)(86362001)(2906002)(508600001)(66556008)(53546011)(66476007)(186003)(26005)(6666004)(6486002)(6512007)(316002)(36756003)(4326008)(5660300002)(31686004)(44832011)(2616005)(8676002)(38100700002)(8936002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TXorR0VmaG5TMlZJQkhaaVhLSURxQXNFWFA3Rm9nclRPZDJtRWdsb3JIZUpL?=
- =?utf-8?B?YVhUK0VOdnNsWXBQU0E3VFpDdDdmb2Jicm1Nak5lVU9ZeGNnWGE2Y0hHTThU?=
- =?utf-8?B?ODM0Z1BPNFRma0diZDJjVldROUpnM1VXS3NSdzFXaS9QeUt6TmgyQ1FUN1BG?=
- =?utf-8?B?YWRab3lBcG5vL0w3ek1iVkFIYnVkUTI2d2xpUjc2cWhia0M3dXUwc0dSVkRT?=
- =?utf-8?B?dlFqR3Rhc2V2YU1wbm1NbExTdmRRcTVYZUV2RGZHZVV0Q2c4RUhRNldnYVRx?=
- =?utf-8?B?a09mOFVTeVZCZGgvTDdNaitvM3ltRWtUZFA2ZFd5M2dNaGRROVJjZEU5R0Fs?=
- =?utf-8?B?c0J4aGZUWmk5UVRTTFVVbFhUQ2lDRXBkcUVrTE9KSWlYa1NtQ0dzQkFwNUhL?=
- =?utf-8?B?dzF4VTdJVmlCTjNkMnUvS202RVczUFlUMjBGaUQ0VE5qdGNPb3ZRUWhPeGFD?=
- =?utf-8?B?S20vbFFJQ1FrN3grNjgvaERUZFN5YUJiREhCdVhSTWx4bmtFemlzV3h0NEoy?=
- =?utf-8?B?Y0d2SnJaTWFVSTRObDhobFBqaGhBR1lxY1JFTlJ6cVNSWHMweE04NCs0TTYy?=
- =?utf-8?B?aWVBVnlIbkszQzAzM2ozVWF4dnF2SkJnT0FhK3FNd01qOTFsNjI0ZDRucVR6?=
- =?utf-8?B?TmdYUHJkbzhDaTBTT1JubnZSZnV5dmtkRVE1UzNtR3BwMTBLejl6eDhNSncx?=
- =?utf-8?B?UHJqU0ptRWVmYnBUaWZYbGxTTFRCeEZkcERIUkpFVCtwaUkwSkhZVXNuWlBz?=
- =?utf-8?B?cEFIUXFQSS9jSDF1S0pvUzVRVnNocmlQMlJmb0dFRFlsMG9hZ1BzWVl4dmpk?=
- =?utf-8?B?a2lDaUZ5ZXRLREdmR3VBRmV4TzNMdGhTazJpN1N4aGpLejNGUmhvemtYbklt?=
- =?utf-8?B?UGF1ZXIzNGl2SzBRNzVyWHF0QmJoOFI4SlhxOFB6T0Y2RUgzWGtUWGVIcVN6?=
- =?utf-8?B?aXdDZmdVVDNHRFlTME93S2JXL1R6THQ0SjR3M0xZeit0bXJBc1F2MnZhbDFY?=
- =?utf-8?B?QlpRM2V2UGZkdWpKMHRCU2RtWHV2YmQxVGI1bE1pUkRsc2ZLdmtGUlQ5UCtI?=
- =?utf-8?B?TzFMT2x4bTVNTWJldFYwYm5IdHRmSHp6cVVYNitrWnN1UHp1ZFZXSUtaOUli?=
- =?utf-8?B?SHJpYmZ3c1REb2twZ1NOZ0ZyaG51eXJBTmRUR2U2d0FGTmR0VnZkZExQdC9Y?=
- =?utf-8?B?Z0xJSnlxSlAwMFdmeTRlbndXczB6S1lYU2FXS3dEUUVYMW1EdUw2WWpCbTh2?=
- =?utf-8?B?SjFhVUk0Z3FSY0xmRC9hZ0dtSEZsR20yUFRScG1EM2s3WEY4UUk1MkJ1MU9D?=
- =?utf-8?B?b2gyNHVlUE9paUUxZWJDazI1Q0d6YUpxVUFKM3IxTGRIRHNzSFQxYzVjNjNi?=
- =?utf-8?B?KytTTko1bTk3aWg0L2VCampmcWp2dysvTTUwUGE2MXZXcXk1L2w0OEk2YUs3?=
- =?utf-8?B?WUN4SStRb1RCbTNXL3RvSXFsRHRhckZKeWRhNHNDMUt5d0VVUXMyVERYTVZB?=
- =?utf-8?B?SnZkOFljcnl0a1pqZTVIV2grU01qZjF4S0tMWnp3QXA4MWdQaEdkWkhkY3VM?=
- =?utf-8?B?c0llQ3JhbWdRTHlISkYyc1JQbXhHSmorc3VpQzBpU0hUNDIycHFyNm4rbU1Y?=
- =?utf-8?B?VE1zeW9vL0xsMXB6eDBDMTJOL2w3bHZPU3VqeVMwTjBkMEZRSDNMRFVWYTZM?=
- =?utf-8?B?ekswQkE4K25JU1ZtalAyeE5EL0Z6SjNqVXp4akhaRVFWZDZYN21SWlcwaG1L?=
- =?utf-8?B?MkEyQUY3YzdlQ2xPRlhJWFNEY0x1Y1krVGlSVDJoT1A3MHJsL0U0UDRRL3pT?=
- =?utf-8?B?cmhlV1k0TjhyYWptc3lFMzI4VDQ1cGF1ZEZwSTl3Y29MS0FLUWszQTBVK2J3?=
- =?utf-8?B?WVVpclpublhJYUZtRHptSm95Tm1kWGliZU8vbmRHUGY0b3QzQzNVNVZWU1pw?=
- =?utf-8?B?ZDVGdVV2MmZNQWFoVnYram1Da1psZ1FFOGRUVmRqWFp5cGJxN1dJbkl5UFEv?=
- =?utf-8?B?THhKMmk3RnUvN1VsMFg3NTNkRzFOb2kvQ1ZHUE80cGw5T1VyWmRPS1RUTEtB?=
- =?utf-8?B?dkVQRTIrSUlQUHhTTGNsajJvbVEwU0EyaWo1TVZZQlBReEQxMTA0YmpNWnNQ?=
- =?utf-8?Q?CpXI=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WGMzZ2lKSXpJeHdJQ1gzN0lxSHpKdlNUYmVMZU9FRkMwWnFjSmJkZWQ1M21L?=
+ =?utf-8?B?eEtMZ0JKTFRkWUVzZGRLNUZEeW1ySUt6ZGExazAxZ1hIVm1SRGlqd0FmMUZx?=
+ =?utf-8?B?dVR1UE9GUWZjdFVaMzY4bzY0TFFhYnJIMHp4TjlsbGZRTmFYdUZzUWhJZ21j?=
+ =?utf-8?B?SEpZMUM5ZVZiSVc2ejVuOTMrMlY5eG9kT1JKZ3ZoODI2d1BWeHB4RW9RcEto?=
+ =?utf-8?B?Y1Uwa25vUTlOcWpHWHJ6cWIwVzBnazYyaFhGUnBaVkFTTGFKdmdpY1FMb05H?=
+ =?utf-8?B?b0wyNTNXQkNENW1SbjJtZXJYT0tWREZ4TlZmRWp4d0Q5ejg1TTRVQUdmNnJt?=
+ =?utf-8?B?Vm1pc21UclZQUVo1NjNJTHFadTdLNlN0d2pneDFpOGJnU1l2L3JIU2I2b1hR?=
+ =?utf-8?B?Vkt6N0daNVc5V2lmTjIzUXg3b0UvNzh1M0NlaENVbUg0WHpDSEhFelBhSHhj?=
+ =?utf-8?B?MVlzVkk1aUVEaDhnN0ZjS1M0MXU1SFdtaXJ4NnJkT0VnS0k1cGszQ2VIdWUw?=
+ =?utf-8?B?K1V1Rm1nL29UWTNoNTF0TS8rTmw0VlZtRVJnQjBIQ25VbFZSeHE2cjVNVFkv?=
+ =?utf-8?B?VnhWWDRZSnM5LzNlbFA4dGNSMXVqMEpvQXczTFZRR2ZwNkhYL2Z3ZDZhTStn?=
+ =?utf-8?B?VGJRcERWNGt4ZGVWd3c0Rlc1QjFUOHZxajAycnV3bnBLMkJPMWdQNWx2eU5P?=
+ =?utf-8?B?UHRwQ0JKSGo3bXNqSE4vN01Kbis4cVR5amE2azZmNmJDcmpEd29QZWNkS3ZR?=
+ =?utf-8?B?b3VhdnpZZ3liQm5IT01jRWFoTnVPRnJpTDB1cjVrZ0dyVHk1U3IvNXlvMXlU?=
+ =?utf-8?B?ZklURjhGNEMydk1BdHd2VFRBVUlXZ0o4aW1IS0pGcm1nbWVUbDJXSkVTWVRz?=
+ =?utf-8?B?UHNoYmNoTFBzdkZ3M1lTWVg0aG9sZCt5MUNoRlhicWxoM2JPMEFVdnBVdlht?=
+ =?utf-8?B?aE84TEsyUnZCZzJPS3pGbi9iNzJQL3dhT0haWmg5U2M5ZzNxNDFQdUsrMGhH?=
+ =?utf-8?B?UTQvOGZCQjRqaXZxc1JuS3RmY2Uxa1JpUyt3Zm42ZFRCR2RUbDhTa1FydFVP?=
+ =?utf-8?B?N0dFNGNzZVN1aTZwa0d4Zjl1Z2ZadVd1bFpjTXRFaTIwY0l3aXJLUzdvaHp0?=
+ =?utf-8?B?aDlNOHNkVEtacDRORkUrSzBOTG1LVFJKYXhCQkNZZkpKakhZcVNRWHlidEh1?=
+ =?utf-8?B?eWRNTVBlTjQ3bFZiOXJacVNudXRUZTcvVEdoQTdnZU5GSEpvYWl0bFVuc0pa?=
+ =?utf-8?B?TkZBUzJ0Mm9WZUNBLzNiYkJaOXo0TDJjeWtkbmROSFM0UjVsS1ZFTERDejd4?=
+ =?utf-8?B?MkFpOG4yZ2lLbUxkcVVhSnpiS3FYeXo5NUFLQUE0b1ZIVFE4dWZEdU82bTJX?=
+ =?utf-8?B?YXUrVnBsNEU5dDdUZzZGVHUwTXM0b0M3SFFTL1YyaytoUFh3b3RYRnJJU3ZX?=
+ =?utf-8?B?US9pRkVGb3pUY3UycGtBQWhnd0lpc0k2ZkxaZWwzUmRiZW80ckpITUhyYUpp?=
+ =?utf-8?B?NEZlRTZMSGFZUDZsQ2FOVExTcUpvd1JIakhFQUhtY3A2OHRBaFJtL2o0S09E?=
+ =?utf-8?B?THoxZUZ6MDB4UEJqMVcxa285bEdRUU1QbW1tS2hMR2pnK1dFcjJWWUd4bFJI?=
+ =?utf-8?B?c2lkR3hnTnlna0tsR0ZQWStYMHZSRFpHN1krZnEzZDhrV01Ua28wcG9ieStm?=
+ =?utf-8?B?SEhZU1ZQZGNDSDNPeTFpQmovZ2FqV3p5QVVUZWhNS2p5bUtGbzFHNXFwZm9n?=
+ =?utf-8?B?dmJpVWRwUTRUR3V4NjVpaWNDbENPdWQ1VE9XMERFZjNOSkhIbXlOQ1MzaUhj?=
+ =?utf-8?B?UWk0Ui94alV0VmswemdqVUlITDd0MGU3VjMzR05aUkV1bnN3bHpMYk9TRnkv?=
+ =?utf-8?B?Yzl6S1BaWnhBVXRQTU1FYldza2hkOGJuWDN3S3NVd1FOeG5LL1JhaTVLMDdp?=
+ =?utf-8?B?MmhxUjNaNVdxMlBISm5PRVkxOW1ncFVzZTZVN0ZGSTFXeWpETWFPU2pVeHFJ?=
+ =?utf-8?B?cTZBS0ZvRlRoaHlzbmFBbzYrdUdobjhwK296ajlqMWtleTB4dFZjemduMHhZ?=
+ =?utf-8?B?TVMxS3lIMUZyVlRaeE9DZHB3blBQTm9sTXdHc01lR044dkk4bmNudHZIZUMv?=
+ =?utf-8?Q?mpVc=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 275bc8b5-a1f8-4d2e-37e1-08d9e0ca79ab
+X-MS-Exchange-CrossTenant-Network-Message-Id: bda88c01-246c-4322-d3fc-08d9e0cb164b
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2022 12:50:48.0321 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2022 12:55:10.7936 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: icpNVqf6LXskxqP4tNmIjzMd+yl3i7CQOPa2ZByh5P6/fZuiCcxC/953aEhabHXC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4936
+X-MS-Exchange-CrossTenant-UserPrincipalName: LOA8Bo8iSPKmqgnxKwvB7AXvUs24sgq/IGVmmXc4MVJ2WjULAgJY3ZK0dfCeYwE/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1241
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,7 +131,7 @@ Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Yeah, that's cleaner.
+This seems reasonable. Hope it works out for umr.
 
 Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 
@@ -137,128 +139,82 @@ Regards,
 Luben
 
 On 2022-01-26 06:59, Christian König wrote:
-> Don't initialize variables if it isn't absolutely necessary.
+> umr needs that to correctly calculate the VRAM base address
+> inside the MC address space.
 >
-> Use amdgpu_xgmi_sysfs_rem_dev_info to cleanup when something goes wrong.
->
-> Drop the explicit warnings since the sysfs core warns about things like
-> duplicate files itself.
+> Only compile tested!
 >
 > Signed-off-by: Christian König <christian.koenig@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 85 +++++++++---------------
->  1 file changed, 33 insertions(+), 52 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 34 ++++++++++++++++++++++++
+>  1 file changed, 34 insertions(+)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index 5929d6f528c9..68509f619ba3 100644
+> index 68509f619ba3..21a5d07a1abf 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -289,61 +289,10 @@ static ssize_t amdgpu_xgmi_show_error(struct device *dev,
->  static DEVICE_ATTR(xgmi_device_id, S_IRUGO, amdgpu_xgmi_show_device_id, NULL);
->  static DEVICE_ATTR(xgmi_error, S_IRUGO, amdgpu_xgmi_show_error, NULL);
+> @@ -252,6 +252,26 @@ static ssize_t amdgpu_xgmi_show_device_id(struct device *dev,
 >  
-> -static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
-> -					 struct amdgpu_hive_info *hive)
-> -{
-> -	int ret = 0;
-> -	char node[10] = { 0 };
-> -
-> -	/* Create xgmi device id file */
-> -	ret = device_create_file(adev->dev, &dev_attr_xgmi_device_id);
-> -	if (ret) {
-> -		dev_err(adev->dev, "XGMI: Failed to create device file xgmi_device_id\n");
-> -		return ret;
-> -	}
-> -
-> -	/* Create xgmi error file */
-> -	ret = device_create_file(adev->dev, &dev_attr_xgmi_error);
-> -	if (ret)
-> -		pr_err("failed to create xgmi_error\n");
-> -
-> -
-> -	/* Create sysfs link to hive info folder on the first device */
-> -	if (hive->kobj.parent != (&adev->dev->kobj)) {
-> -		ret = sysfs_create_link(&adev->dev->kobj, &hive->kobj,
-> -					"xgmi_hive_info");
-> -		if (ret) {
-> -			dev_err(adev->dev, "XGMI: Failed to create link to hive info");
-> -			goto remove_file;
-> -		}
-> -	}
-> -
-> -	sprintf(node, "node%d", atomic_read(&hive->number_devices));
-> -	/* Create sysfs link form the hive folder to yourself */
-> -	ret = sysfs_create_link(&hive->kobj, &adev->dev->kobj, node);
-> -	if (ret) {
-> -		dev_err(adev->dev, "XGMI: Failed to create link from hive info");
-> -		goto remove_link;
-> -	}
-> -
-> -	goto success;
-> -
-> -
-> -remove_link:
-> -	sysfs_remove_link(&adev->dev->kobj, adev_to_drm(adev)->unique);
-> -
-> -remove_file:
-> -	device_remove_file(adev->dev, &dev_attr_xgmi_device_id);
-> -
-> -success:
-> -	return ret;
-> -}
-> -
->  static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgpu_device *adev,
->  					  struct amdgpu_hive_info *hive)
->  {
->  	char node[10];
-> -	memset(node, 0, sizeof(node));
->  
->  	device_remove_file(adev->dev, &dev_attr_xgmi_device_id);
->  	device_remove_file(adev->dev, &dev_attr_xgmi_error);
-> @@ -353,10 +302,42 @@ static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgpu_device *adev,
->  
->  	sprintf(node, "node%d", atomic_read(&hive->number_devices));
->  	sysfs_remove_link(&hive->kobj, node);
-> -
 >  }
 >  
-> +static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
-> +					 struct amdgpu_hive_info *hive)
+> +static ssize_t amdgpu_xgmi_show_node_segment_size(struct device *dev,
+> +						  struct device_attribute *attr,
+> +						  char *buf)
 > +{
-> +	char node[10];
-> +	int r;
+> +	struct drm_device *ddev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(ddev);
 > +
-> +	r = device_create_file(adev->dev, &dev_attr_xgmi_device_id);
-> +	if (r)
-> +		return r;
-> +
-> +	r = device_create_file(adev->dev, &dev_attr_xgmi_error);
-> +	if (r)
-> +		goto error;
->  
-> +	/* Create sysfs link to hive info folder on the first device */
-> +	if (hive->kobj.parent != (&adev->dev->kobj)) {
-> +		r = sysfs_create_link(&adev->dev->kobj, &hive->kobj,
-> +				      "xgmi_hive_info");
-> +		if (r)
-> +			goto error;
-> +	}
-> +
-> +	/* Create sysfs link form the hive folder to yourself */
-> +	sprintf(node, "node%d", atomic_read(&hive->number_devices));
-> +	r = sysfs_create_link(&hive->kobj, &adev->dev->kobj, node);
-> +	if (r)
-> +		goto error;
-> +
-> +	return 0;
-> +
-> +error:
-> +	amdgpu_xgmi_sysfs_rem_dev_info(adev, hive);
-> +	return r;
+> +	return sysfs_emit(buf, "%llu\n", adev->gmc.xgmi.node_segment_size);
 > +}
+> +
+> +static ssize_t amdgpu_xgmi_show_physical_node_id(struct device *dev,
+> +						 struct device_attribute *attr,
+> +						 char *buf)
+> +{
+> +	struct drm_device *ddev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(ddev);
+> +
+> +	return sysfs_emit(buf, "%u\n", adev->gmc.xgmi.physical_node_id);
+> +}
+> +
+>  #define AMDGPU_XGMI_SET_FICAA(o)	((o) | 0x456801)
+>  static ssize_t amdgpu_xgmi_show_error(struct device *dev,
+>  				      struct device_attribute *attr,
+> @@ -287,6 +307,10 @@ static ssize_t amdgpu_xgmi_show_error(struct device *dev,
 >  
->  struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
->  {
+>  
+>  static DEVICE_ATTR(xgmi_device_id, S_IRUGO, amdgpu_xgmi_show_device_id, NULL);
+> +static DEVICE_ATTR(xgmi_node_segment_size, S_IRUGO,
+> +		   amdgpu_xgmi_show_node_segment_size, NULL);
+> +static DEVICE_ATTR(xgmi_physical_node_id, S_IRUGO,
+> +		   amdgpu_xgmi_show_physical_node_id, NULL);
+>  static DEVICE_ATTR(xgmi_error, S_IRUGO, amdgpu_xgmi_show_error, NULL);
+>  
+>  static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgpu_device *adev,
+> @@ -295,6 +319,8 @@ static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgpu_device *adev,
+>  	char node[10];
+>  
+>  	device_remove_file(adev->dev, &dev_attr_xgmi_device_id);
+> +	device_remove_file(adev->dev, &dev_attr_xgmi_node_segment_size);
+> +	device_remove_file(adev->dev, &dev_attr_xgmi_physical_node_id);
+>  	device_remove_file(adev->dev, &dev_attr_xgmi_error);
+>  
+>  	if (hive->kobj.parent != (&adev->dev->kobj))
+> @@ -318,6 +344,14 @@ static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
+>  	if (r)
+>  		goto error;
+>  
+> +	r = device_create_file(adev->dev, &dev_attr_xgmi_node_segment_size);
+> +	if (r)
+> +		goto error;
+> +
+> +	r = device_create_file(adev->dev, &dev_attr_xgmi_physical_node_id);
+> +	if (r)
+> +		goto error;
+> +
+>  	/* Create sysfs link to hive info folder on the first device */
+>  	if (hive->kobj.parent != (&adev->dev->kobj)) {
+>  		r = sysfs_create_link(&adev->dev->kobj, &hive->kobj,
 
 Regards,
 -- 
