@@ -4,54 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07825C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 15:37:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBC8CC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 17:24:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99D9D10E2C2;
-	Thu, 27 Jan 2022 15:37:15 +0000 (UTC)
-Received: from mail-ua1-x935.google.com (mail-ua1-x935.google.com
- [IPv6:2607:f8b0:4864:20::935])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A68610EDB5
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 15:33:49 +0000 (UTC)
-Received: by mail-ua1-x935.google.com with SMTP id e17so5383576uad.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 07:33:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dYlyRT8MryrVm8WUK1FdOweuPDLL3YnH5oihq3jLfy8=;
- b=faQ/HBXgsVjlFmHlztd/KP6medHPDl1H40RAw4sNhxx4j+v4T9cABadDRt4fqVbS/7
- HoU1auK3P7ZZe+KD5GOYPWBJqxCHKPFu4VIfTE6ubOg/KdtOdnA5XsD0H3GrFIwSzskQ
- 1HHR2PZyk1ZjzKMj/4sqEnXRPeMq8yi4crW/a2ygrh4Z8wUHgvO1Nssnj1ivyXyhJu7Z
- fztbePPUKNZ6KwLJ6xZgjpLsAG9jEtYQp3Jh93mkNl7MbBg429tfNflHYckk2PCGYaYC
- auoz8BlYUWv1v4T/HedGWsASZmhlFtJo6hecLX7KATt16Okxd7KhXXn9/WM2ogNjAGbm
- XH1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=dYlyRT8MryrVm8WUK1FdOweuPDLL3YnH5oihq3jLfy8=;
- b=BinfzaMYXdS4ceVenhNffZUg3k2udvgntC74f9L/1JfI7cFyCroQ73fQoz+Kn+vswP
- rv8VySj8OYfJVGSdazcKvOYEP2QQKfK2tf9yuE5pWDxADP0NaWg29KtymGQFEWfdGPG8
- tu8MqlNrWtATic+QgQc24TE1rJTKhks2ssyqYyHEUdJ76YUyvSLNDcBjgITxU9kvZupk
- w9uBg4/FdHcBRxk093ikSS7caUifWBpCjlisRA9vudf97ugwDJNjD1VqJmB/fY0cK0UA
- YUk/FbdUWTMBxQq3LlJd3fa87Kay0Zchq3AO3mUcKuM8cYi2SvNrY6FQk4V4WqZGi8Mh
- sGIQ==
-X-Gm-Message-State: AOAM532aL4sF8zdcDeq6d6usXMC+WExEXPOq2uL/hbAtt0nKtaqb3TU8
- 7hNUXJk6Zph14i5s8idWS5mDrnEvZ9+Nwodtt6Nj4w==
-X-Google-Smtp-Source: ABdhPJzxLZy3Br1wvhjHjXo3hgQ5U9hjIEoMs8/OZbFqoQCuAXkCrI0wSN6MvtdPsxy1nmjij7CWiPcJFmTRspA9chs=
-X-Received: by 2002:a05:6102:364:: with SMTP id
- f4mr1972935vsa.15.1643297628112; 
- Thu, 27 Jan 2022 07:33:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60F0210E269;
+	Thu, 27 Jan 2022 17:24:10 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2072.outbound.protection.outlook.com [40.107.244.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2EC010E269
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 17:24:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=j9QmLklBk+fAzmDyJa1BwL8NLz5skKjtLmvdR54lFlXviCJZF2u/HVYU+CgNWmkdW0lcyH5bGD3Um3MJIuzLjWXG/fDeuav9ahxTOiAAuKLfBW4jaKBTby7XRCHHF8VGsfvBIbvPF1L0BkMTYCExzx94u7etLzhdUgMnbLraMckis0HkxwQLGIo605S5daP53bPyD1Vg+31ficjVFnjbvXNdh7urPpjIgbnKkGFcHOCI7GlDSZ1Qc7KPkdFHENo8ImOgU0chJMySFNwzamuOJodRALzWY+z3+el8V6rN8n1of+7TD/P5gzVPSFMprkqXt8JR6FRgirScstwreY+bwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ISjbu9m3Bm0FZbX/gEQwZrE0jPbL00qRGUGLk/jW7AM=;
+ b=bmNJsYHJieuBgtZo9Nk/X8NAOWZI/VqfWfZLXsfGvttM/sHcb4s7zONPcUHpJh7ft/vKgEBH9xeTFcBcc1rfEgpTAJzVFo9oSzHPk5rrKDr9KF7dNqThcNCGCRhGj2UTUauLorcftcpET8wSuaugQv3sb5/lNa1Tiahm8oPPLvpjFHpU6RpQDduitZO+1V6qxvaXPUcgTJR9nk4NzAakeGg9H1xkfxTILBMjVza/2QbOZKp/3UV7wSBHwz8nKZwq0cS09IkbNsVHsq+i4ORNqmvFthGS5ezmJbvJagegQNxHezQPAoch9STltUNQGUedWLSbvZGMr09aDdxB0swipw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ISjbu9m3Bm0FZbX/gEQwZrE0jPbL00qRGUGLk/jW7AM=;
+ b=f5tFdZdeo6kGW6HNstvj4HqFk9zKMXN3gWGwM64aAsNWwFuCzrHXg4VrvHpCD10xsWY9g3w2CxjIzWS41xMo5+xbAzPlexp9INh1kP9ff1Z+JD9t6VgTKIxSxA5PEgVmLr5B+aeDgkgcsnybZUsWBO74cFYfPz2QzbSbEpkJxkM=
+Received: from MWHPR13CA0044.namprd13.prod.outlook.com (2603:10b6:300:95::30)
+ by MN2PR12MB4096.namprd12.prod.outlook.com (2603:10b6:208:1dc::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17; Thu, 27 Jan
+ 2022 17:24:07 +0000
+Received: from CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:95:cafe::b5) by MWHPR13CA0044.outlook.office365.com
+ (2603:10b6:300:95::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.5 via Frontend
+ Transport; Thu, 27 Jan 2022 17:24:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT055.mail.protection.outlook.com (10.13.175.129) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4930.15 via Frontend Transport; Thu, 27 Jan 2022 17:24:06 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 27 Jan
+ 2022 11:24:05 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/swsmu/i2c: return an error if the SMU is not
+ running
+Date: Thu, 27 Jan 2022 12:23:53 -0500
+Message-ID: <20220127172353.280369-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220127172353.280369-1-alexander.deucher@amd.com>
+References: <20220127172353.280369-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-References: <20220127081237.13903-1-Tsung-Hua.Lin@amd.com>
-In-Reply-To: <20220127081237.13903-1-Tsung-Hua.Lin@amd.com>
-From: Mark Yacoub <markyacoub@google.com>
-Date: Thu, 27 Jan 2022 10:33:37 -0500
-Message-ID: <CAC0gqY7T=_F=fGRDBEZOhu7thLP_hkWE50w94hC5oahNxNg6ng@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix that issue that the number of the crtc of
- the 3250c is not correct
-To: RyanLin <tsung-hua.lin@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 27 Jan 2022 15:37:14 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 3b9d4498-e1a2-4cbc-a04f-08d9e1b9d2b8
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4096:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4096859ABE9543B5FB3AE238F7219@MN2PR12MB4096.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qpxr2Pgq56t6YpJr24lj6isWREE70SKq+Lzz8iIDw7MC7bXvjsq23XIrjtrX2/zzNWfexdMBguIEqJbfwmbgdciIf45PjetO2zO0cSMRhMObdXK4A94xh+0MP6fo1Iicm8fm+sfE8/Irh2doJBYCoORt6uBK0WwsECDN27xVSzBnPuyh4SQ069qUfOgbylRgiS9Uy8fKHSdxivDnk0iSRXOSeJqBjgaDI6a5gu59OOA5UWezaxvpc5Q0P14Vs/Ro/Sns0YSHS6X46A45DHX3w9QCREbrDlZe439Aiazr+Xm8x1eYCXeqqQH+gYr51/5MnTJ06YkXPj5sxc+gIkGj/xzEtr/7V1FJGMBQbFHmyQpTatxSwOi7yfEzBPVS/QOFF56ek4OalYkAjMIFhjbCV9Q9/oPuaIRXb9Yvpt7OgMaOeNFxwfJ+uqnQvfqKdhfEITQu9I35IU/G0kQY7IvDUTfQQEljitYRqwxKAfQqXovVp2SmkSIZrnXJJHRzNgX118hrPDJaDfXL4d+fm81s3QIHJv6LO4Irs2iztXdTNxXR4w4nE6HLeKg/KnafQLA830QzfzOtt12pb1YYn052eRyJmf9S4J65YUv28YAfFFXQX/THWVzXbQ1IImFO+Rjls47YBXU6fl89k+oWmO6H4R9uY9nr7GyqOOW+PvT1x7kreCbtJ7ajGkqKak8hrEXLnOzAg5lGS5fa3MjspYkyCA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(81166007)(508600001)(356005)(70206006)(6916009)(5660300002)(70586007)(86362001)(54906003)(82310400004)(4326008)(2906002)(8936002)(316002)(8676002)(7696005)(26005)(186003)(16526019)(47076005)(1076003)(36860700001)(6666004)(36756003)(40460700003)(336012)(426003)(2616005)(36900700001)(20210929001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2022 17:24:06.8119 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b9d4498-e1a2-4cbc-a04f-08d9e1b9d2b8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4096
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,58 +102,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sashal@kernel.org, David1.Zhou@amd.com, ddavenport@chromium.org,
- sunpeng.li@amd.com, dri-devel@lists.freedesktop.org, Rodrigo.Siqueira@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- nicholas.kazlauskas@amd.com, airlied@linux.ie, seanpaul@chromium.org,
- ching-shih.li@amd.corp-partner.google.com, daniel@ffwll.ch,
- bas@basnieuwenhuizen.nl, alexander.deucher@amd.com, VictorChengChi.Lu@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, Luben.Tuikov@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 27, 2022 at 3:12 AM RyanLin <Tsung-Hua.Lin@amd.com> wrote:
->
-> [Why]
-> External displays take priority over internal display when there are fewer
-> display controllers than displays.
->
-> [How]
-> The root cause is because of that number of the crtc is not correct.
-> The number of the crtc on the 3250c is 3, but on the 3500c is 4.
-> On the source code, we can see that number of the crtc has been fixed at 4.
-> Needs to set the num_crtc to 3 for 3250c platform.
->
-> Signed-off-by: RyanLin <Tsung-Hua.Lin@amd.com>
-> Change-Id: I837df7101cc4849d2c3021fd529b4061edab4bb1
-Please drop the gerrit ID.
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 40c91b448f7d..dbeef7b57a9b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -2738,9 +2738,15 @@ static int dm_early_init(void *handle)
->                 break;
->  #if defined(CONFIG_DRM_AMD_DC_DCN1_0)
->         case CHIP_RAVEN:
-> -               adev->mode_info.num_crtc = 4;
-> -               adev->mode_info.num_hpd = 4;
-> -               adev->mode_info.num_dig = 4;
-> +               if (adev->rev_id >= 8) { //chip_name = "raven2";
-> +                       adev->mode_info.num_crtc = 3;
-> +                       adev->mode_info.num_hpd = 3;
-> +                       adev->mode_info.num_dig = 3;
-> +               } else {
-> +                       adev->mode_info.num_crtc = 4;
-> +                       adev->mode_info.num_hpd = 4;
-> +                       adev->mode_info.num_dig = 4;
-> +               }
->                 break;
->  #endif
->  #if defined(CONFIG_DRM_AMD_DC_DCN2_0)
-> --
-> 2.25.1
->
+Return an error if someone tries to use the i2c bus when the
+SMU is not running.  Otherwise we can end up sending commands
+to the SMU which will either get ignored or could cause other
+issues depending on what state the GPU and SMU are in.
+
+Cc: Luben.Tuikov@amd.com
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c       | 3 +++
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 3 +++
+ drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 3 +++
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c      | 3 +++
+ 4 files changed, 12 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index 2c78d04d5611..bc20d0da4393 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -2070,6 +2070,9 @@ static int arcturus_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 	int i, j, r, c;
+ 	u16 dir;
+ 
++	if (!adev->pm.dpm_enabled)
++		return -EBUSY;
++
+ 	req = kzalloc(sizeof(*req), GFP_KERNEL);
+ 	if (!req)
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 84834c24a7e9..47a75f9c453e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -2754,6 +2754,9 @@ static int navi10_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 	int i, j, r, c;
+ 	u16 dir;
+ 
++	if (!adev->pm.dpm_enabled)
++		return -EBUSY;
++
+ 	req = kzalloc(sizeof(*req), GFP_KERNEL);
+ 	if (!req)
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 651fe748e423..bca622ca9af4 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -3449,6 +3449,9 @@ static int sienna_cichlid_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 	int i, j, r, c;
+ 	u16 dir;
+ 
++	if (!adev->pm.dpm_enabled)
++		return -EBUSY;
++
+ 	req = kzalloc(sizeof(*req), GFP_KERNEL);
+ 	if (!req)
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 8c02adbf446a..08415de45e16 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -1473,6 +1473,9 @@ static int aldebaran_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 	int i, j, r, c;
+ 	u16 dir;
+ 
++	if (!adev->pm.dpm_enabled)
++		return -EBUSY;
++
+ 	req = kzalloc(sizeof(*req), GFP_KERNEL);
+ 	if (!req)
+ 		return -ENOMEM;
+-- 
+2.34.1
+
