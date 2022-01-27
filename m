@@ -4,63 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D59EFC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 09:12:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F369C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 10:03:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6147B10EE71;
-	Thu, 27 Jan 2022 09:12:33 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6A2410EE7B
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 09:12:31 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id r7so1390700wmq.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 01:12:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=I6GEPCFLwXGuifYDLPqLG6JOYxMz+QHpp6L5IkMtQzI=;
- b=gk1psWrta8HRFRjgqwXgxArXr4slwxQJLO3LvwF5t6UVfeOTg6j0PoW72Lk3+Y6jr5
- 3mwNtPr3NheOcEMh63Ag/iITaBL4BYQx8J2vk4v1RY6LccdJJ/twth8Hpsbx8/2Fqc3y
- gRn4NDn1MpkhrKwL9DxSGz/cfMaXWftHl6LGglfhofqqvkHJb4WLajKNEK49HJu1CFXT
- cP2ar0yO2JM8lM3DAoL4zCwz7DgAZLtp5tmfZeaIDfa0apDEzydG6es5DDpMlFeyaSOO
- lLFJd5+zIbJS6kNKtiV4zbjxRmjxH2qLwDq9a6GU/q+xMhWF0wiUPPlOtB3aimb6khLK
- bkiA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3B6510F004;
+	Thu, 27 Jan 2022 10:03:33 +0000 (UTC)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C0C010F003
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 10:03:32 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id r7so1486086wmq.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 02:03:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=hgAj8AjMrz1A7BDxAJfFuQ4EGSqn2ucoZeTxIYc92rk=;
+ b=Q6vOh8E4uR7I456lRL9xd46Oxh3hEA4vw9DMBgAJlBFtPFLc2lys7DZQTXZA3Weh2T
+ 0ZCv0WZK46pzIyXAbmjOFG5AJ3peSyMI2Er0qQC/Md1poCrDjupHiiq08TIHvhriXkRP
+ QFcc5vS4ZI++Fea3tzi88TKsVzXqwdeIiDBaU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=I6GEPCFLwXGuifYDLPqLG6JOYxMz+QHpp6L5IkMtQzI=;
- b=JFEPWqm4xXovOt8wmwD5NJ3Nf53064WEUMWjpGO1LG/4cRCx2lUxsJBnvGK9ZGsPsZ
- QPdPM+HlCTdEayviJzBrji8uoiz0TJePnohwN6UGQgjXsj2sUM0rg9YClk46xwf0R/Qw
- ntqmO7GsUlnYYO54WY08Rk6B00aY2kJuu2FwZGYot9EfTztLB7wtpnVYDEJwFS42pMA3
- 9mgJwuaH5cG2jrM/mNLpV/pUlM5983oFJHSCz5oL9FY3beHW9NUdgoAIzCRCv9vHNEli
- ADj8IRdHYrjUFmBcL6uS7I0P65gPte1yRawno7RCNwTh20nwt50RojFUWbhCJb63LMps
- IJAA==
-X-Gm-Message-State: AOAM533+AGeAYDp+yFhF7BqMd54v3IzXSH0XVcR7f80eTNXZNbSrBDP8
- xiLuDLVGnMb9jB6QVWT5Sj2KTLj3UlM=
-X-Google-Smtp-Source: ABdhPJyTE5zhAAYvz0Qr7g4UrgWZ9rvV/xIcLNGxjeKwtCu6byopoHvP15ghWjRnM68loioWrBqhbA==
-X-Received: by 2002:a7b:ce0c:: with SMTP id m12mr2374483wmc.83.1643274750401; 
- Thu, 27 Jan 2022 01:12:30 -0800 (PST)
-Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
- [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id y15sm2433816wry.36.2022.01.27.01.12.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Jan 2022 01:12:30 -0800 (PST)
-Message-ID: <956520be-9e4b-a2df-d6d1-65ebfa135a30@gmail.com>
-Date: Thu, 27 Jan 2022 10:12:28 +0100
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=hgAj8AjMrz1A7BDxAJfFuQ4EGSqn2ucoZeTxIYc92rk=;
+ b=AuiYlbBTOZ9iXNm3Ogipk0vkHlYthOvMvys7XR97l0EK1r/oADlVmGJnQh/GnG4Lgg
+ uPB4fGF4k5rSUjJSzpHbhQa4BiFzJTBcZyg7pQ6ToL8jWlx5f3p+upTH7R9/0UecKaD/
+ 8BfR0+XPJXPCvi/aMxFK+zXWunn8UI+A4C5dZGCalUBW8sbV97veY8PsrgHaCx8FsFA1
+ 2dtYZXRKMYLH90JVPtXX7bd5yx7IcD68O6o7CG2jaC+dD9V3bTG/zc7XWn1vIeRaz8Gw
+ RRkB4WNLp23UF5idKWSzZ6pDyoH+X599ZdeTwKf/89WnZBoAjjTpXP0/4WlJOpEM/rUE
+ ZPHQ==
+X-Gm-Message-State: AOAM530We97FVpP2g2XJOJ9A2ofsmI5051knbgkYCPTTRhZ6fahB7dSB
+ DRlJe2G37TcH9JRwOHNeXl+kQA==
+X-Google-Smtp-Source: ABdhPJzSG06zHL7QC0W9qJ4UoSviuojSBNboAnS5fPgZRPU8eJNpqde7XN8cpCkl7ua39RHdPNVpmA==
+X-Received: by 2002:a1c:4b13:: with SMTP id y19mr10758110wma.129.1643277810650; 
+ Thu, 27 Jan 2022 02:03:30 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id s9sm1699065wrr.84.2022.01.27.02.03.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Jan 2022 02:03:30 -0800 (PST)
+Date: Thu, 27 Jan 2022 11:03:27 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Tomohito Esaki <etom@igel.co.jp>
+Subject: Re: [RFC PATCH v5 0/3] Add support modifiers for drivers whose
+ planes only support linear layout
+Message-ID: <YfJt7zQNUnSpMP+l@phenom.ffwll.local>
+Mail-Followup-To: Tomohito Esaki <etom@igel.co.jp>,
+ dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Ben Skeggs <bskeggs@redhat.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
+ Simon Ser <contact@emersion.fr>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Mark Yacoub <markyacoub@chromium.org>,
+ Sean Paul <seanpaul@chromium.org>, Evan Quan <evan.quan@amd.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Petr Mladek <pmladek@suse.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Lee Jones <lee.jones@linaro.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@chromium.org>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
+ Daniel Stone <daniel@fooishbar.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Damian Hobson-Garcia <dhobsong@igel.co.jp>,
+ Takanari Hayama <taki@igel.co.jp>
+References: <20220127032539.9929-1-etom@igel.co.jp>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH V2] drm/amdgpu: move GTT allocation from gmc_sw_init to
- gmc_hw_init(V2)
-Content-Language: en-US
-To: Aaron Liu <aaron.liu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220127075225.3040986-1-aaron.liu@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220127075225.3040986-1-aaron.liu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220127032539.9929-1-etom@igel.co.jp>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,255 +93,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, ruili.ji@amd.com, felix.kuehling@amd.com,
- jonathan.kim@amd.com, Ray.Huang@amd.com
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
+ Daniel Stone <daniel@fooishbar.org>, Lee Jones <lee.jones@linaro.org>,
+ Rob Clark <robdclark@chromium.org>, Evan Quan <evan.quan@amd.com>,
+ amd-gfx@lists.freedesktop.org, Ben Skeggs <bskeggs@redhat.com>,
+ Petr Mladek <pmladek@suse.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Takanari Hayama <taki@igel.co.jp>, Sean Paul <seanpaul@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mark Yacoub <markyacoub@chromium.org>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simon Ser <contact@emersion.fr>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Damian Hobson-Garcia <dhobsong@igel.co.jp>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 27.01.22 um 08:52 schrieb Aaron Liu:
-> The below patch causes system hang for harvested ASICs.
-> d015e9861e55 drm/amdgpu: improve debug VRAM access performance using sdma
->
-> The root cause is that GTT buffer should be allocated after GC SA harvest
-> programming completed.
+On Thu, Jan 27, 2022 at 12:25:36PM +0900, Tomohito Esaki wrote:
+> Some drivers whose planes only support linear layout fb do not support format
+> modifiers.
+> These drivers should support modifiers, however the DRM core should handle this
+> rather than open-coding in every driver.
+> 
+> In this patch series, these drivers expose format modifiers based on the
+> following suggestion[1].
+> 
+> On Thu, Nov 18, 2021 at 01:02:11PM +0000, Daniel Stone wrote:
+> > I think the best way forward here is:
+> >   - add a new mode_config.cannot_support_modifiers flag, and enable
+> > this in radeon (plus any other drivers in the same boat)
+> >   - change drm_universal_plane_init() to advertise the LINEAR modifier
+> > when NULL is passed as the modifier list (including installing a
+> > default .format_mod_supported hook)
+> >   - remove the mode_config.allow_fb_modifiers hook and always
+> > advertise modifier support, unless
+> > mode_config.cannot_support_modifiers is set
+> 
+> 
+> [1] https://patchwork.kernel.org/project/linux-renesas-soc/patch/20190509054518.10781-1-etom@igel.co.jp/#24602575
 
-That doesn't make much sense. We intentionally modified the code so that 
-this is possible.
+Two procedural things:
+- There's an r-b on all the patches from Andy from the last round, please
+  include that.
+- Please also include a changelog per-patch (at least going forward), that
+  helps with judging where a patch series is.
 
-What is the rational that we need to program the HW before allocating 
-system memory?
+But aside from this I think this looks ready.
 
-Regards,
-Christian.
+Cheers, Daniel
 
->
-> For harvested AISC, the GC SA harvest process(see utcl2_harvest) is
-> programmed in gmc_v10_0_hw_init function. This is a hardware programming.
-> Therefore should be located in hw init. Hence need to move GTT allocation
-> from gmc_v*_0_sw_init to gmc_v*_0_hw_init.
->
-> V2: expand to all gmc_v*_0_hw_init functions.
->
-> Signed-off-by: Aaron Liu <aaron.liu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 21 +++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  3 +++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  8 --------
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  4 +++-
->   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   | 13 +++++++++----
->   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   | 13 +++++++++----
->   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 13 +++++++++----
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 13 +++++++++----
->   8 files changed, 63 insertions(+), 25 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index d426de48d299..ac75bde8ac61 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -876,3 +876,24 @@ int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
->   
->   	return 0;
->   }
-> +
-> +int amdgpu_gmc_allocate_sdma_access_gtt(struct amdgpu_device *adev)
-> +{
-> +	int ret;
-> +
-> +	ret = amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
-> +					AMDGPU_GEM_DOMAIN_GTT,
-> +					&adev->mman.sdma_access_bo, NULL,
-> +					&adev->mman.sdma_access_ptr);
-> +
-> +	if (ret)
-> +		DRM_WARN("Debug VRAM access will use slowpath MM access\n");
-> +
-> +	return ret;
-> +}
-> +
-> +void amdgpu_gmc_free_sdma_access_gtt(struct amdgpu_device *adev)
-> +{
-> +	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
-> +					&adev->mman.sdma_access_ptr);
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index 93505bb0a36c..b8ba16de5e1c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -338,4 +338,7 @@ uint64_t amdgpu_gmc_vram_mc2pa(struct amdgpu_device *adev, uint64_t mc_addr);
->   uint64_t amdgpu_gmc_vram_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
->   uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
->   int amdgpu_gmc_vram_checking(struct amdgpu_device *adev);
-> +int amdgpu_gmc_allocate_sdma_access_gtt(struct amdgpu_device *adev);
-> +void amdgpu_gmc_free_sdma_access_gtt(struct amdgpu_device *adev);
-> +
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 3d8a20956b74..7ce0478b2908 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1823,12 +1823,6 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
->   		return r;
->   	}
->   
-> -	if (amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
-> -				AMDGPU_GEM_DOMAIN_GTT,
-> -				&adev->mman.sdma_access_bo, NULL,
-> -				&adev->mman.sdma_access_ptr))
-> -		DRM_WARN("Debug VRAM access will use slowpath MM access\n");
-> -
->   	return 0;
->   }
->   
-> @@ -1850,8 +1844,6 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
->   	if (adev->mman.stolen_reserved_size)
->   		amdgpu_bo_free_kernel(&adev->mman.stolen_reserved_memory,
->   				      NULL, NULL);
-> -	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
-> -					&adev->mman.sdma_access_ptr);
->   	amdgpu_ttm_fw_reserve_vram_fini(adev);
->   
->   	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 73ab0eebe4e2..d923e4127c87 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -1062,7 +1062,7 @@ static int gmc_v10_0_hw_init(void *handle)
->   	if (adev->umc.funcs && adev->umc.funcs->init_registers)
->   		adev->umc.funcs->init_registers(adev);
->   
-> -	return 0;
-> +	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
->   }
->   
->   /**
-> @@ -1082,6 +1082,8 @@ static int gmc_v10_0_hw_fini(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> +	amdgpu_gmc_free_sdma_access_gtt(adev);
-> +
->   	gmc_v10_0_gart_disable(adev);
->   
->   	if (amdgpu_sriov_vf(adev)) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> index ec291d28edff..ca397d4d4aa8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -919,16 +919,21 @@ static int gmc_v6_0_hw_init(void *handle)
->   	if (r)
->   		return r;
->   
-> -	if (amdgpu_emu_mode == 1)
-> -		return amdgpu_gmc_vram_checking(adev);
-> -	else
-> -		return r;
-> +	if (amdgpu_emu_mode == 1) {
-> +		r = amdgpu_gmc_vram_checking(adev);
-> +		if (r)
-> +			return r;
-> +	}
-> +
-> +	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
->   }
->   
->   static int gmc_v6_0_hw_fini(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> +	amdgpu_gmc_free_sdma_access_gtt(adev);
-> +
->   	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
->   	gmc_v6_0_gart_disable(adev);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> index 344d819b4c1b..11f87f8adae8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -1107,16 +1107,21 @@ static int gmc_v7_0_hw_init(void *handle)
->   	if (r)
->   		return r;
->   
-> -	if (amdgpu_emu_mode == 1)
-> -		return amdgpu_gmc_vram_checking(adev);
-> -	else
-> -		return r;
-> +	if (amdgpu_emu_mode == 1) {
-> +		r = amdgpu_gmc_vram_checking(adev);
-> +		if (r)
-> +			return r;
-> +	}
-> +
-> +	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
->   }
->   
->   static int gmc_v7_0_hw_fini(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> +	amdgpu_gmc_free_sdma_access_gtt(adev);
-> +
->   	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
->   	gmc_v7_0_gart_disable(adev);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index ca9841d5669f..c90f9016d093 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -1238,16 +1238,21 @@ static int gmc_v8_0_hw_init(void *handle)
->   	if (r)
->   		return r;
->   
-> -	if (amdgpu_emu_mode == 1)
-> -		return amdgpu_gmc_vram_checking(adev);
-> -	else
-> -		return r;
-> +	if (amdgpu_emu_mode == 1) {
-> +		r = amdgpu_gmc_vram_checking(adev);
-> +		if (r)
-> +			return r;
-> +	}
-> +
-> +	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
->   }
->   
->   static int gmc_v8_0_hw_fini(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> +	amdgpu_gmc_free_sdma_access_gtt(adev);
-> +
->   	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
->   	gmc_v8_0_gart_disable(adev);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 4595027a8c63..9b4b1d9a0769 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1852,10 +1852,13 @@ static int gmc_v9_0_hw_init(void *handle)
->   	if (r)
->   		return r;
->   
-> -	if (amdgpu_emu_mode == 1)
-> -		return amdgpu_gmc_vram_checking(adev);
-> -	else
-> -		return r;
-> +	if (amdgpu_emu_mode == 1) {
-> +		r = amdgpu_gmc_vram_checking(adev);
-> +		if (r)
-> +			return r;
-> +	}
-> +
-> +	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
->   }
->   
->   /**
-> @@ -1875,6 +1878,8 @@ static int gmc_v9_0_hw_fini(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> +	amdgpu_gmc_free_sdma_access_gtt(adev);
-> +
->   	gmc_v9_0_gart_disable(adev);
->   
->   	if (amdgpu_sriov_vf(adev)) {
+> 
+> v5:
+> * rebase to the latest master branch (5.17-rc1+)
+> 	+ "drm/plane: Make format_mod_supported truly optional" patch [2]
+>   [2] https://patchwork.freedesktop.org/patch/467940/?series=98255&rev=3
+> 
+> * change default_modifiers array from non-static to static
+> * remove terminator in default_modifiers array
+> * use ARRAY_SIZE to get the format_modifier_count
+> * keep a sanity check in plane init func
+> * modify several kerneldocs
+> 
+> v4: https://www.spinics.net/lists/dri-devel/msg329508.html
+> * modify documentation for fb_modifiers_not_supported flag in kerneldoc
+> 
+> v3: https://www.spinics.net/lists/dri-devel/msg329102.html
+> * change the order as follows:
+>    1. add fb_modifiers_not_supported flag
+>    2. add default modifiers
+>    3. remove allow_fb_modifiers flag
+> * add a conditional disable in amdgpu_dm_plane_init()
+> 
+> v2: https://www.spinics.net/lists/dri-devel/msg328939.html
+> * rebase to the latest master branch (5.16.0+)
+>       + "drm/plane: Make format_mod_supported truly optional" patch [2]
+> 
+> v1: https://www.spinics.net/lists/dri-devel/msg327352.html
+> * The initial patch set
+> 
+> Tomohito Esaki (3):
+>   drm: introduce fb_modifiers_not_supported flag in mode_config
+>   drm: add support modifiers for drivers whose planes only support
+>     linear layout
+>   drm: remove allow_fb_modifiers
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  6 ++---
+>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  1 +
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  2 ++
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 +++
+>  drivers/gpu/drm/drm_framebuffer.c             |  6 ++---
+>  drivers/gpu/drm/drm_ioctl.c                   |  2 +-
+>  drivers/gpu/drm/drm_plane.c                   | 23 +++++++++++--------
+>  drivers/gpu/drm/nouveau/nouveau_display.c     |  6 +++--
+>  drivers/gpu/drm/radeon/radeon_display.c       |  2 ++
+>  .../gpu/drm/selftests/test-drm_framebuffer.c  |  1 -
+>  include/drm/drm_mode_config.h                 | 18 +++++----------
+>  include/drm/drm_plane.h                       |  3 +++
+>  14 files changed, 45 insertions(+), 32 deletions(-)
+> 
+> -- 
+> 2.25.1
+> 
 
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
