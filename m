@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 332A8C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 03:26:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5FA4C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 03:26:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B138610ED51;
-	Thu, 27 Jan 2022 03:26:09 +0000 (UTC)
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50CF410EDB8
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 03:26:08 +0000 (UTC)
-Received: by mail-pj1-x102b.google.com with SMTP id
- h20-20020a17090adb9400b001b518bf99ffso6221408pjv.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 19:26:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 110A310EE09;
+	Thu, 27 Jan 2022 03:26:18 +0000 (UTC)
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [IPv6:2607:f8b0:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5798B10EDB8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 03:26:16 +0000 (UTC)
+Received: by mail-pg1-x52a.google.com with SMTP id f8so1085603pgf.8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jan 2022 19:26:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=igel-co-jp.20210112.gappssmtp.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=emJGgAZKsXHfbFDFmzqJm+vf0jLHKtmm1jh15gidIuc=;
- b=INAvcROfrUBBxfcEHa4GOL58R5CqSKk73+AcncbMRxk6vIdER/muBwmOVz7Alh2zrF
- ksmuPXiHJrfYC9BysjY+IkOsMUcYkIm8gieWJdNzilKRXVhqt3QTVdS0R53qNkI5X8n/
- BbKUCzXl8L0SzZFt1BPtyCApK2ce2YuK7Rm7BGMlo1+x/+HEdMr8kE4rPkZaRG7kvuqN
- VlP6h6/XKx/4vqmDRLjexXzIJpSvaHahMizDzj0kfS5PLkLYWQOtZeFpry+NXcgOO4BC
- fcyFxirEDPEI1r5wqb93sm6NP/6Fs72qaeSBdNTP06tykOEkj1mCLrnfjkT/qAW9nOOo
- mDZw==
+ bh=UXgGm9s9WWnJocR1csEpEoFP0RYkPEhnyAgndhDwtjc=;
+ b=O4KjoPSuQDZNGBWdQmitA/kZxO0YlbnND4cNyWdlyu4NQbK+BjberWp7inGyjYEFJK
+ V6JfMoxtuIZkIBnyKTfo0YDRqThLerNVvqa+K1pSkgZZvEcRMTgu3/Fla5GeW5IktNNn
+ Bijtm9oz/pYUb5wZ8jBAPSSs4k9N9koKFTfDDcGFPBvT1f6aT69SbDPqjCIOCXPuxmTu
+ 3zWG6DCftxpuLhT0mrnB7Ni8jRvM2RLA+4slw5oHeDn0lLA7Qm21MGiq0iFX+UpbBapn
+ fzZcajgCC/wg3/Mw4zbuNAa0nNAWO80t/e4VHG2oUY2aJnDbWbkuoV/5ZDfxq5gVqZdt
+ hdmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=emJGgAZKsXHfbFDFmzqJm+vf0jLHKtmm1jh15gidIuc=;
- b=NJ+DAIzR6yLFn7pxqLfNX9UH8lh/sQU5Xaqed8bL1GcTs08mcm6CuYC0NHnhwOng0U
- DS0NSLdDXG6m7d5bE/VOkB+mhykxYmvVqAKnOoFA6lO/EsYNndEAQtKkXVM0SMNzS2tU
- n86EafiOcgWhytQW8Im+Q38xZG1jkoa/xZMVFNwEhK1IKmJECNplkFk3a2loWCSN3dIg
- xN6xwPD3Au+T0gd8EwQltEvTCVvEbT1ehCvW112MB56Ms7wlDp+mN7Osi8lGHFQp9rYr
- t2kCh2ehGO1XW7VGw8XhWt6RUrFq3r/LHYRjz3cQGGcgu5/Y6SdXcrkPMEjuliOremoH
- OZIg==
-X-Gm-Message-State: AOAM533U9i7xHeZsTana+lafyaoBquibW2+7t78e9AIEnJEbybtpFrVr
- tAXVz+lpMuEMunrGCxvGzF5ELg==
-X-Google-Smtp-Source: ABdhPJw8vOgqPrHYaIFjHOHDtzomHyPlMOKBVVvXUrYiedbQLuzFiihIHlxPcejPdgoW7kbcn7Huvg==
-X-Received: by 2002:a17:90b:354f:: with SMTP id
- lt15mr11999702pjb.83.1643253967894; 
- Wed, 26 Jan 2022 19:26:07 -0800 (PST)
+ bh=UXgGm9s9WWnJocR1csEpEoFP0RYkPEhnyAgndhDwtjc=;
+ b=qnIx9fRbw0gdc8FcE3Cx3eU+0oT0KNCej1jnB25Wut4pbh0cUC/jno4pukQmp8SA8o
+ aOZTRJDHuzA6KxJxQaFyEwE1fe1wOqKLpqKU1C2FLMUf6zaMWprafzGCuHPA40zZtcDx
+ Hi1ixT3j5uHgF6x/Bidgq5HAK9+gBPwJfE2QdOQrQ7j54/jz6X+8m3mYLyRNwjFbKAQV
+ m6D7lQtoHjqCoci0HcDkQ00uETQVXB5ApTunnUI9zYvhmjWRYobXxBS4TjckcXdCLF/3
+ T+KxebS/am7Eood9Dc5FzseDLXqgPfBgR8qeFA5/kSb/OJH9RQiP0v2xdr1FpWcaNpB/
+ VOrA==
+X-Gm-Message-State: AOAM532iqXJGZnYl7YTCJa7VwSUfu0a6kQHPZpScyOwxC06vvxx/At5X
+ kPuOfKgOlfp1uMk40QWWLynr9Q==
+X-Google-Smtp-Source: ABdhPJysmgOujAl45WjONf68QQ5jRzvfCobqxGtGJ8Z511kMtGA4DmksGOLMeNbJRLJFDxAUzyr1Nw==
+X-Received: by 2002:a63:2c07:: with SMTP id s7mr1356397pgs.181.1643253975979; 
+ Wed, 26 Jan 2022 19:26:15 -0800 (PST)
 Received: from aqua.hq.igel.co.jp (napt.igel.co.jp. [219.106.231.132])
- by smtp.gmail.com with ESMTPSA id t15sm4203111pjy.17.2022.01.26.19.26.00
+ by smtp.gmail.com with ESMTPSA id t15sm4203111pjy.17.2022.01.26.19.26.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jan 2022 19:26:07 -0800 (PST)
+ Wed, 26 Jan 2022 19:26:15 -0800 (PST)
 From: Tomohito Esaki <etom@igel.co.jp>
 To: dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH v5 2/3] drm: add support modifiers for drivers whose
- planes only support linear layout
-Date: Thu, 27 Jan 2022 12:25:38 +0900
-Message-Id: <20220127032539.9929-3-etom@igel.co.jp>
+Subject: [RFC PATCH v5 3/3] drm: remove allow_fb_modifiers
+Date: Thu, 27 Jan 2022 12:25:39 +0900
+Message-Id: <20220127032539.9929-4-etom@igel.co.jp>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220127032539.9929-1-etom@igel.co.jp>
 References: <20220127032539.9929-1-etom@igel.co.jp>
@@ -94,87 +91,54 @@ Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The LINEAR modifier is advertised as default if a driver doesn't specify
-modifiers.
+The allow_fb_modifiers flag is unnecessary since it has been replaced
+with fb_modifiers_not_supported flag.
 
 Signed-off-by: Tomohito Esaki <etom@igel.co.jp>
 ---
- drivers/gpu/drm/drm_plane.c | 23 +++++++++++++----------
- include/drm/drm_plane.h     |  3 +++
- 2 files changed, 16 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/selftests/test-drm_framebuffer.c |  1 -
+ include/drm/drm_mode_config.h                    | 16 ----------------
+ 2 files changed, 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
-index deeec60a3315..bf0daa8d9bbd 100644
---- a/drivers/gpu/drm/drm_plane.c
-+++ b/drivers/gpu/drm/drm_plane.c
-@@ -237,6 +237,9 @@ static int __drm_universal_plane_init(struct drm_device *dev,
- 				      const char *name, va_list ap)
- {
- 	struct drm_mode_config *config = &dev->mode_config;
-+	static const uint64_t default_modifiers[] = {
-+		DRM_FORMAT_MOD_LINEAR,
-+	};
- 	unsigned int format_modifier_count = 0;
- 	int ret;
+diff --git a/drivers/gpu/drm/selftests/test-drm_framebuffer.c b/drivers/gpu/drm/selftests/test-drm_framebuffer.c
+index 61b44d3a6a61..f6d66285c5fc 100644
+--- a/drivers/gpu/drm/selftests/test-drm_framebuffer.c
++++ b/drivers/gpu/drm/selftests/test-drm_framebuffer.c
+@@ -323,7 +323,6 @@ static struct drm_device mock_drm_device = {
+ 		.max_width = MAX_WIDTH,
+ 		.min_height = MIN_HEIGHT,
+ 		.max_height = MAX_HEIGHT,
+-		.allow_fb_modifiers = true,
+ 		.funcs = &mock_config_funcs,
+ 	},
+ };
+diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+index 4a93dac91cf9..6b5e01295348 100644
+--- a/include/drm/drm_mode_config.h
++++ b/include/drm/drm_mode_config.h
+@@ -917,22 +917,6 @@ struct drm_mode_config {
+ 	 */
+ 	bool async_page_flip;
  
-@@ -277,16 +280,16 @@ static int __drm_universal_plane_init(struct drm_device *dev,
- 
- 		while (*temp_modifiers++ != DRM_FORMAT_MOD_INVALID)
- 			format_modifier_count++;
-+	} else {
-+		if (!dev->mode_config.fb_modifiers_not_supported) {
-+			format_modifiers = default_modifiers;
-+			format_modifier_count = ARRAY_SIZE(default_modifiers);
-+		}
- 	}
- 
- 	/* autoset the cap and check for consistency across all planes */
--	if (format_modifier_count) {
--		drm_WARN_ON(dev, !config->allow_fb_modifiers &&
--			    !list_empty(&config->plane_list));
--		config->allow_fb_modifiers = true;
--	} else {
--		drm_WARN_ON(dev, config->allow_fb_modifiers);
--	}
-+	drm_WARN_ON(dev, config->fb_modifiers_not_supported &&
-+				format_modifier_count);
- 
- 	plane->modifier_count = format_modifier_count;
- 	plane->modifiers = kmalloc_array(format_modifier_count,
-@@ -341,7 +344,7 @@ static int __drm_universal_plane_init(struct drm_device *dev,
- 		drm_object_attach_property(&plane->base, config->prop_src_h, 0);
- 	}
- 
--	if (config->allow_fb_modifiers)
-+	if (format_modifier_count)
- 		create_in_format_blob(dev, plane);
- 
- 	return 0;
-@@ -368,8 +371,8 @@ static int __drm_universal_plane_init(struct drm_device *dev,
-  * drm_universal_plane_init() to let the DRM managed resource infrastructure
-  * take care of cleanup and deallocation.
-  *
-- * Drivers supporting modifiers must set @format_modifiers on all their planes,
-- * even those that only support DRM_FORMAT_MOD_LINEAR.
-+ * Drivers that only support the DRM_FORMAT_MOD_LINEAR modifier support may set
-+ * @format_modifiers to NULL. The plane will advertise the linear modifier.
-  *
-  * Returns:
-  * Zero on success, error code on failure.
-diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-index 0c1102dc4d88..a0390b6ad3b4 100644
---- a/include/drm/drm_plane.h
-+++ b/include/drm/drm_plane.h
-@@ -803,6 +803,9 @@ void *__drmm_universal_plane_alloc(struct drm_device *dev,
-  *
-  * The @drm_plane_funcs.destroy hook must be NULL.
-  *
-+ * Drivers that only support the DRM_FORMAT_MOD_LINEAR modifier support may set
-+ * @format_modifiers to NULL. The plane will advertise the linear modifier.
-+ *
-  * Returns:
-  * Pointer to new plane, or ERR_PTR on failure.
-  */
+-	/**
+-	 * @allow_fb_modifiers:
+-	 *
+-	 * Whether the driver supports fb modifiers in the ADDFB2.1 ioctl call.
+-	 * Note that drivers should not set this directly, it is automatically
+-	 * set in drm_universal_plane_init().
+-	 *
+-	 * IMPORTANT:
+-	 *
+-	 * If this is set the driver must fill out the full implicit modifier
+-	 * information in their &drm_mode_config_funcs.fb_create hook for legacy
+-	 * userspace which does not set modifiers. Otherwise the GETFB2 ioctl is
+-	 * broken for modifier aware userspace.
+-	 */
+-	bool allow_fb_modifiers;
+-
+ 	/**
+ 	 * @fb_modifiers_not_supported:
+ 	 *
 -- 
 2.25.1
 
