@@ -4,53 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E42E1C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 20:17:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51B3FC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 22:33:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29B8910E850;
-	Thu, 27 Jan 2022 20:17:03 +0000 (UTC)
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7340010E850;
- Thu, 27 Jan 2022 20:17:02 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- c3-20020a9d6c83000000b00590b9c8819aso3669411otr.6; 
- Thu, 27 Jan 2022 12:17:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=S9nhsDmOcZy3e7k+eV9ednENX32ChQNKTBKlc41Zhe0=;
- b=kr8dlhmEUis7JV/3W40XxogMFWgURfYVZ6PtKuEt2bVDe2fhzo+IfZ4GdfCh2QnGpH
- EUqVMSUZvSt62ur0geqwsV0HRP05IHSXBYIUc1WgIZBILDDyTWi1AyL81wxhXw8icPj1
- ucILHCEkJe8eUpT172hiytFZabGRgvpDTWaRYdj+YlG4wpGufvcY2Cy1DpO4qrSbJDIV
- sxWSxHOxjtVmXsgWBesCgx+I12NVQ0NuZEdwDUCawmumUQL+q9MMh0kwiQeWB2aPH1eX
- dqpzldsOWYQPQv9QS2YsajUKVm2yLj2dMOU8sFzvdfhsEZeigpuzxXl6HtLcgZQzr7nu
- IB8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=S9nhsDmOcZy3e7k+eV9ednENX32ChQNKTBKlc41Zhe0=;
- b=PWoWMZJh35euhoUazfZWmCBOHLL/p50qzAXf+6TAVCrSAXhSJWpJwD/Oj4Jas3+0lp
- nzFYd3Su7Fs7Qz0nvA4jdQcBK19VTAlhXEse15bCnbamBR8jT2jT4hxx/4FE9ZYlEtOk
- TDW9qo9rbNvfrWXuBfbTqVc59aCB/L670rRf8iFr8xP4MnPH/79MmbqvemDvpIslVgW6
- 6zoOZB2CM75Q46Eo7iRqCGpvxscMjNq4M47x4lg9qbhTiKUgxv73BtDMkHQnr6VuhyE8
- Qjp2XwTQWjE4q0TOks/sffMeLt2oy2Zp9SOKR/wTolZVsXa6xMQ7y30GRcxtzTCO0Kdc
- IjMQ==
-X-Gm-Message-State: AOAM530CXmFGyZaNMHPN/oaWOaK4XRGPI8HOKsvblxkWyS+qVwdjEEG6
- 7YaJ925nlhDhwMF/p3kvL/tIG2b07Kt0y1HA6f4=
-X-Google-Smtp-Source: ABdhPJynZsd7uV+C04xwLfNo9ix6iZk4Ifaq05n6r9hKhHX/upZlFUtrfygJJ0gV6h1fLwgfTX38sR9ST76NHj8Ijyc=
-X-Received: by 2002:a9d:e94:: with SMTP id 20mr3015234otj.200.1643314621797;
- Thu, 27 Jan 2022 12:17:01 -0800 (PST)
-MIME-Version: 1.0
-References: <20220126091602.1647-1-jinsdb@126.com>
-In-Reply-To: <20220126091602.1647-1-jinsdb@126.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 27 Jan 2022 15:16:50 -0500
-Message-ID: <CADnq5_PUmz=G2LbCQEF9==K4GLRNbRWAMp+4V3N_ZpgV1DCB3A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Wrong order for config and counter_id
- parameters
-To: Qu Huang <jinsdb@126.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFD6510E389;
+	Thu, 27 Jan 2022 22:33:48 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0424210E339;
+ Thu, 27 Jan 2022 22:33:02 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B34F961B04;
+ Thu, 27 Jan 2022 22:33:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F867C340E4;
+ Thu, 27 Jan 2022 22:32:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
+ s=korg; t=1643322780;
+ bh=KyW09W85IPjR9zNAkKrCh5PNjr0Umrx44954UKFP4jQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=fP5wmZtdgiZu/FrP7PhOokkdSv2iz/JRlELCy8KE3PxjZuPikwpGG5u5M86BQ8QMB
+ YREDewXYuQr0LO2GLNCUrm5xL3I2VEh6uMOCa4PMzmbgQscCQY6FGwQC1Pb/zu6qoU
+ n+kfJ6iphf95sdN39zm7Uy1KfETp70xNuWJ1zn54=
+Date: Thu, 27 Jan 2022 14:32:58 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Alex Sierra <alex.sierra@amd.com>
+Subject: Re: [PATCH v4 00/10] Add MEMORY_DEVICE_COHERENT for coherent device
+ memory mapping
+Message-Id: <20220127143258.8da663659948ad1e6f0c0ea8@linux-foundation.org>
+In-Reply-To: <20220127030949.19396-1-alex.sierra@amd.com>
+References: <20220127030949.19396-1-alex.sierra@amd.com>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.31; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 27 Jan 2022 22:33:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,54 +51,23 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, xinhui pan <Xinhui.Pan@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: rcampbell@nvidia.com, willy@infradead.org, Felix.Kuehling@amd.com,
+ apopple@nvidia.com, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
+ linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
+ jgg@nvidia.com, linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Wed, 26 Jan 2022 21:09:39 -0600 Alex Sierra <alex.sierra@amd.com> wrote:
 
-Alex
+> This patch series introduces MEMORY_DEVICE_COHERENT, a type of memory
+> owned by a device that can be mapped into CPU page tables like
+> MEMORY_DEVICE_GENERIC and can also be migrated like
+> MEMORY_DEVICE_PRIVATE.
 
-On Wed, Jan 26, 2022 at 4:48 AM <jinsdb@126.com> wrote:
->
-> From: huangqu <jinsdb@126.com>
->
-> Wrong order for config and counter_id parameters was passed, when calling df_v3_6_pmc_set_deferred and df_v3_6_pmc_is_deferred functions.
->
-> Signed-off-by: huangqu <jinsdb@126.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/df_v3_6.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> index 43c5e3ec9..f4dfca013 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> @@ -458,7 +458,7 @@ static int df_v3_6_pmc_add_cntr(struct amdgpu_device *adev,
->
->  #define DEFERRED_ARM_MASK      (1 << 31)
->  static int df_v3_6_pmc_set_deferred(struct amdgpu_device *adev,
-> -                                   int counter_idx, uint64_t config,
-> +                                   uint64_t config, int counter_idx,
->                                     bool is_deferred)
->  {
->
-> @@ -476,8 +476,8 @@ static int df_v3_6_pmc_set_deferred(struct amdgpu_device *adev,
->  }
->
->  static bool df_v3_6_pmc_is_deferred(struct amdgpu_device *adev,
-> -                                   int counter_idx,
-> -                                   uint64_t config)
-> +                                   uint64_t config,
-> +                                   int counter_idx)
->  {
->         return  (df_v3_6_pmc_has_counter(adev, config, counter_idx) &&
->                         (adev->df_perfmon_config_assign_mask[counter_idx]
-> --
-> 2.31.1
->
+Some more reviewer input appears to be desirable here.
+
+I was going to tentatively add it to -mm and -next, but problems. 
+5.17-rc1's mm/migrate.c:migrate_vma_check_page() is rather different
+from the tree you patched.  Please redo, refresh and resend?
+
