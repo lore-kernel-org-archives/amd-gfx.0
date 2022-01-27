@@ -4,44 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 859D3C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 08:47:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D59EFC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 09:12:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C944710ED86;
-	Thu, 27 Jan 2022 08:47:30 +0000 (UTC)
-X-Greylist: delayed 431 seconds by postgrey-1.36 at gabe;
- Thu, 27 Jan 2022 07:00:32 UTC
-Received: from qq.com (smtpbg473.qq.com [59.36.132.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE6ED10E49B;
- Thu, 27 Jan 2022 07:00:32 +0000 (UTC)
-X-QQ-mid: bizesmtp40t1643266335tamrph7a
-Received: from localhost.localdomain (unknown [58.240.82.166])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Thu, 27 Jan 2022 14:52:03 +0800 (CST)
-X-QQ-SSF: 0140000000000080E000B00A0000000
-X-QQ-FEAT: 2vDQexJ/FkbCPcVh34DJWyrqgJQoXftLpjju8zpJmmDl16S8eciDAUOBgkzJs
- T0aHwbB9ziLqNdKp9VMj0JoTTIvRHImMNXznEqlHYXEBIZgEtTp/KKfiY+Ss+euBgx6+lmj
- 4uVa1TI234Y+B9BmTy4UkxETxCAg0rjnCVfiJMJesXgQkDxkYDKdMLqyqUhFKJSNIetFQsX
- RqdZ9Y4UxL4RK2o/dQZKYbHmI4SjcgTxDvWjDfsgRiQwXzq4S3gSdi9w17/6/xJcBxO4emV
- aehgVXdLlYiEGorA+WUUrcccSwMtZS3JIN5Xxv5Uw4QY8fJS8LMsu8oLVtjPvwMLqYueXDv
- 7mnW0bvsnn001uVx7w=
-X-QQ-GoodBg: 2
-From: tangmeng <tangmeng@uniontech.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, jsarha@ti.com, tomi.valkeinen@ti.com,
- linux@dominikbrodowski.net, Peter.Chen@nxp.com, gregkh@linuxfoundation.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: [PATCH] drivers: Fix typo in comment
-Date: Thu, 27 Jan 2022 14:51:56 +0800
-Message-Id: <20220127065156.22372-1-tangmeng@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6147B10EE71;
+	Thu, 27 Jan 2022 09:12:33 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6A2410EE7B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 09:12:31 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id r7so1390700wmq.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 01:12:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=I6GEPCFLwXGuifYDLPqLG6JOYxMz+QHpp6L5IkMtQzI=;
+ b=gk1psWrta8HRFRjgqwXgxArXr4slwxQJLO3LvwF5t6UVfeOTg6j0PoW72Lk3+Y6jr5
+ 3mwNtPr3NheOcEMh63Ag/iITaBL4BYQx8J2vk4v1RY6LccdJJ/twth8Hpsbx8/2Fqc3y
+ gRn4NDn1MpkhrKwL9DxSGz/cfMaXWftHl6LGglfhofqqvkHJb4WLajKNEK49HJu1CFXT
+ cP2ar0yO2JM8lM3DAoL4zCwz7DgAZLtp5tmfZeaIDfa0apDEzydG6es5DDpMlFeyaSOO
+ lLFJd5+zIbJS6kNKtiV4zbjxRmjxH2qLwDq9a6GU/q+xMhWF0wiUPPlOtB3aimb6khLK
+ bkiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=I6GEPCFLwXGuifYDLPqLG6JOYxMz+QHpp6L5IkMtQzI=;
+ b=JFEPWqm4xXovOt8wmwD5NJ3Nf53064WEUMWjpGO1LG/4cRCx2lUxsJBnvGK9ZGsPsZ
+ QPdPM+HlCTdEayviJzBrji8uoiz0TJePnohwN6UGQgjXsj2sUM0rg9YClk46xwf0R/Qw
+ ntqmO7GsUlnYYO54WY08Rk6B00aY2kJuu2FwZGYot9EfTztLB7wtpnVYDEJwFS42pMA3
+ 9mgJwuaH5cG2jrM/mNLpV/pUlM5983oFJHSCz5oL9FY3beHW9NUdgoAIzCRCv9vHNEli
+ ADj8IRdHYrjUFmBcL6uS7I0P65gPte1yRawno7RCNwTh20nwt50RojFUWbhCJb63LMps
+ IJAA==
+X-Gm-Message-State: AOAM533+AGeAYDp+yFhF7BqMd54v3IzXSH0XVcR7f80eTNXZNbSrBDP8
+ xiLuDLVGnMb9jB6QVWT5Sj2KTLj3UlM=
+X-Google-Smtp-Source: ABdhPJyTE5zhAAYvz0Qr7g4UrgWZ9rvV/xIcLNGxjeKwtCu6byopoHvP15ghWjRnM68loioWrBqhbA==
+X-Received: by 2002:a7b:ce0c:: with SMTP id m12mr2374483wmc.83.1643274750401; 
+ Thu, 27 Jan 2022 01:12:30 -0800 (PST)
+Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
+ [87.176.191.248])
+ by smtp.gmail.com with ESMTPSA id y15sm2433816wry.36.2022.01.27.01.12.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Jan 2022 01:12:30 -0800 (PST)
+Message-ID: <956520be-9e4b-a2df-d6d1-65ebfa135a30@gmail.com>
+Date: Thu, 27 Jan 2022 10:12:28 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
-X-QQ-Bgrelay: 1
-X-Mailman-Approved-At: Thu, 27 Jan 2022 08:47:29 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH V2] drm/amdgpu: move GTT allocation from gmc_sw_init to
+ gmc_hw_init(V2)
+Content-Language: en-US
+To: Aaron Liu <aaron.liu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220127075225.3040986-1-aaron.liu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220127075225.3040986-1-aaron.liu@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,74 +72,255 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tangmeng <tangmeng@uniontech.com>
+Cc: Alexander.Deucher@amd.com, ruili.ji@amd.com, felix.kuehling@amd.com,
+ jonathan.kim@amd.com, Ray.Huang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace disbale with disable and replace unavaibale with unavailable.
+Am 27.01.22 um 08:52 schrieb Aaron Liu:
+> The below patch causes system hang for harvested ASICs.
+> d015e9861e55 drm/amdgpu: improve debug VRAM access performance using sdma
+>
+> The root cause is that GTT buffer should be allocated after GC SA harvest
+> programming completed.
 
-Signed-off-by: tangmeng <tangmeng@uniontech.com>
----
- drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c | 2 +-
- drivers/gpu/drm/tilcdc/tilcdc_crtc.c  | 2 +-
- drivers/pcmcia/rsrc_nonstatic.c       | 2 +-
- drivers/usb/chipidea/udc.c            | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+That doesn't make much sense. We intentionally modified the code so that 
+this is possible.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-index aef9d059ae52..a642c04cf17d 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-@@ -544,7 +544,7 @@ static int xgpu_vi_mailbox_rcv_irq(struct amdgpu_device *adev,
- {
- 	int r;
- 
--	/* trigger gpu-reset by hypervisor only if TDR disbaled */
-+	/* trigger gpu-reset by hypervisor only if TDR disabled */
- 	if (!amdgpu_gpu_recovery) {
- 		/* see what event we get */
- 		r = xgpu_vi_mailbox_rcv_msg(adev, IDH_FLR_NOTIFICATION);
-diff --git a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-index 29890d704cb4..b986946b3b10 100644
---- a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-+++ b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-@@ -996,7 +996,7 @@ irqreturn_t tilcdc_crtc_irq(struct drm_crtc *crtc)
- 	if (stat & LCDC_FRAME_DONE) {
- 		tilcdc_crtc->frame_done = true;
- 		wake_up(&tilcdc_crtc->frame_done_wq);
--		/* rev 1 lcdc appears to hang if irq is not disbaled here */
-+		/* rev 1 lcdc appears to hang if irq is not disabled here */
- 		if (priv->rev == 1)
- 			tilcdc_clear(dev, LCDC_RASTER_CTRL_REG,
- 				     LCDC_V1_FRAME_DONE_INT_ENA);
-diff --git a/drivers/pcmcia/rsrc_nonstatic.c b/drivers/pcmcia/rsrc_nonstatic.c
-index 6b6c578b5f92..ad1141fddb4c 100644
---- a/drivers/pcmcia/rsrc_nonstatic.c
-+++ b/drivers/pcmcia/rsrc_nonstatic.c
-@@ -394,7 +394,7 @@ static int do_validate_mem(struct pcmcia_socket *s,
-  * do_mem_probe() checks a memory region for use by the PCMCIA subsystem.
-  * To do so, the area is split up into sensible parts, and then passed
-  * into the @validate() function. Only if @validate() and @fallback() fail,
-- * the area is marked as unavaibale for use by the PCMCIA subsystem. The
-+ * the area is marked as unavailable for use by the PCMCIA subsystem. The
-  * function returns the size of the usable memory area.
-  */
- static int do_mem_probe(struct pcmcia_socket *s, u_long base, u_long num,
-diff --git a/drivers/usb/chipidea/udc.c b/drivers/usb/chipidea/udc.c
-index f9ca5010f65b..dc6c96e04bcf 100644
---- a/drivers/usb/chipidea/udc.c
-+++ b/drivers/usb/chipidea/udc.c
-@@ -2152,7 +2152,7 @@ static void udc_id_switch_for_host(struct ci_hdrc *ci)
- {
- 	/*
- 	 * host doesn't care B_SESSION_VALID event
--	 * so clear and disbale BSV irq
-+	 * so clear and disable BSV irq
- 	 */
- 	if (ci->is_otg)
- 		hw_write_otgsc(ci, OTGSC_BSVIE | OTGSC_BSVIS, OTGSC_BSVIS);
--- 
-2.20.1
+What is the rational that we need to program the HW before allocating 
+system memory?
 
+Regards,
+Christian.
 
+>
+> For harvested AISC, the GC SA harvest process(see utcl2_harvest) is
+> programmed in gmc_v10_0_hw_init function. This is a hardware programming.
+> Therefore should be located in hw init. Hence need to move GTT allocation
+> from gmc_v*_0_sw_init to gmc_v*_0_hw_init.
+>
+> V2: expand to all gmc_v*_0_hw_init functions.
+>
+> Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 21 +++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  3 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  8 --------
+>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  4 +++-
+>   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   | 13 +++++++++----
+>   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   | 13 +++++++++----
+>   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 13 +++++++++----
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 13 +++++++++----
+>   8 files changed, 63 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index d426de48d299..ac75bde8ac61 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -876,3 +876,24 @@ int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
+>   
+>   	return 0;
+>   }
+> +
+> +int amdgpu_gmc_allocate_sdma_access_gtt(struct amdgpu_device *adev)
+> +{
+> +	int ret;
+> +
+> +	ret = amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
+> +					AMDGPU_GEM_DOMAIN_GTT,
+> +					&adev->mman.sdma_access_bo, NULL,
+> +					&adev->mman.sdma_access_ptr);
+> +
+> +	if (ret)
+> +		DRM_WARN("Debug VRAM access will use slowpath MM access\n");
+> +
+> +	return ret;
+> +}
+> +
+> +void amdgpu_gmc_free_sdma_access_gtt(struct amdgpu_device *adev)
+> +{
+> +	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
+> +					&adev->mman.sdma_access_ptr);
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> index 93505bb0a36c..b8ba16de5e1c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -338,4 +338,7 @@ uint64_t amdgpu_gmc_vram_mc2pa(struct amdgpu_device *adev, uint64_t mc_addr);
+>   uint64_t amdgpu_gmc_vram_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
+>   uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
+>   int amdgpu_gmc_vram_checking(struct amdgpu_device *adev);
+> +int amdgpu_gmc_allocate_sdma_access_gtt(struct amdgpu_device *adev);
+> +void amdgpu_gmc_free_sdma_access_gtt(struct amdgpu_device *adev);
+> +
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 3d8a20956b74..7ce0478b2908 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1823,12 +1823,6 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+>   		return r;
+>   	}
+>   
+> -	if (amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
+> -				AMDGPU_GEM_DOMAIN_GTT,
+> -				&adev->mman.sdma_access_bo, NULL,
+> -				&adev->mman.sdma_access_ptr))
+> -		DRM_WARN("Debug VRAM access will use slowpath MM access\n");
+> -
+>   	return 0;
+>   }
+>   
+> @@ -1850,8 +1844,6 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+>   	if (adev->mman.stolen_reserved_size)
+>   		amdgpu_bo_free_kernel(&adev->mman.stolen_reserved_memory,
+>   				      NULL, NULL);
+> -	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
+> -					&adev->mman.sdma_access_ptr);
+>   	amdgpu_ttm_fw_reserve_vram_fini(adev);
+>   
+>   	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index 73ab0eebe4e2..d923e4127c87 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -1062,7 +1062,7 @@ static int gmc_v10_0_hw_init(void *handle)
+>   	if (adev->umc.funcs && adev->umc.funcs->init_registers)
+>   		adev->umc.funcs->init_registers(adev);
+>   
+> -	return 0;
+> +	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
+>   }
+>   
+>   /**
+> @@ -1082,6 +1082,8 @@ static int gmc_v10_0_hw_fini(void *handle)
+>   {
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+> +	amdgpu_gmc_free_sdma_access_gtt(adev);
+> +
+>   	gmc_v10_0_gart_disable(adev);
+>   
+>   	if (amdgpu_sriov_vf(adev)) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> index ec291d28edff..ca397d4d4aa8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> @@ -919,16 +919,21 @@ static int gmc_v6_0_hw_init(void *handle)
+>   	if (r)
+>   		return r;
+>   
+> -	if (amdgpu_emu_mode == 1)
+> -		return amdgpu_gmc_vram_checking(adev);
+> -	else
+> -		return r;
+> +	if (amdgpu_emu_mode == 1) {
+> +		r = amdgpu_gmc_vram_checking(adev);
+> +		if (r)
+> +			return r;
+> +	}
+> +
+> +	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
+>   }
+>   
+>   static int gmc_v6_0_hw_fini(void *handle)
+>   {
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+> +	amdgpu_gmc_free_sdma_access_gtt(adev);
+> +
+>   	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
+>   	gmc_v6_0_gart_disable(adev);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> index 344d819b4c1b..11f87f8adae8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> @@ -1107,16 +1107,21 @@ static int gmc_v7_0_hw_init(void *handle)
+>   	if (r)
+>   		return r;
+>   
+> -	if (amdgpu_emu_mode == 1)
+> -		return amdgpu_gmc_vram_checking(adev);
+> -	else
+> -		return r;
+> +	if (amdgpu_emu_mode == 1) {
+> +		r = amdgpu_gmc_vram_checking(adev);
+> +		if (r)
+> +			return r;
+> +	}
+> +
+> +	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
+>   }
+>   
+>   static int gmc_v7_0_hw_fini(void *handle)
+>   {
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+> +	amdgpu_gmc_free_sdma_access_gtt(adev);
+> +
+>   	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
+>   	gmc_v7_0_gart_disable(adev);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> index ca9841d5669f..c90f9016d093 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -1238,16 +1238,21 @@ static int gmc_v8_0_hw_init(void *handle)
+>   	if (r)
+>   		return r;
+>   
+> -	if (amdgpu_emu_mode == 1)
+> -		return amdgpu_gmc_vram_checking(adev);
+> -	else
+> -		return r;
+> +	if (amdgpu_emu_mode == 1) {
+> +		r = amdgpu_gmc_vram_checking(adev);
+> +		if (r)
+> +			return r;
+> +	}
+> +
+> +	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
+>   }
+>   
+>   static int gmc_v8_0_hw_fini(void *handle)
+>   {
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+> +	amdgpu_gmc_free_sdma_access_gtt(adev);
+> +
+>   	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
+>   	gmc_v8_0_gart_disable(adev);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 4595027a8c63..9b4b1d9a0769 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1852,10 +1852,13 @@ static int gmc_v9_0_hw_init(void *handle)
+>   	if (r)
+>   		return r;
+>   
+> -	if (amdgpu_emu_mode == 1)
+> -		return amdgpu_gmc_vram_checking(adev);
+> -	else
+> -		return r;
+> +	if (amdgpu_emu_mode == 1) {
+> +		r = amdgpu_gmc_vram_checking(adev);
+> +		if (r)
+> +			return r;
+> +	}
+> +
+> +	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
+>   }
+>   
+>   /**
+> @@ -1875,6 +1878,8 @@ static int gmc_v9_0_hw_fini(void *handle)
+>   {
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+> +	amdgpu_gmc_free_sdma_access_gtt(adev);
+> +
+>   	gmc_v9_0_gart_disable(adev);
+>   
+>   	if (amdgpu_sriov_vf(adev)) {
 
