@@ -4,91 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBB51C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 07:52:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 769D4C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 08:11:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77AEE10E571;
-	Thu, 27 Jan 2022 07:52:43 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2080.outbound.protection.outlook.com [40.107.236.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E91FC10E571
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 07:52:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AU3wmfRpw+ufKXSjVxdKCUakPqK7zFr+n/s8K8eCidrJ4w4CEio0D+xxHrbDjCJkO2amlUk7hMMCE+69JhnSqDraBLYjPw9BqWkQdyVSCUWNcAEdqbLrxxc2ZJ2AWJnecvxHg6OuYdeT9J4Z3J8rl3a90f5VAngLZKBAo6GT/Kekr/RG2yJMqY7eV2j35+t6jeavGTO2Mjzc+BXZZxWXll1DIxyEBgTuOi36khNyAeYqCz8eUxD0Lp7reZJjtq/cHuhkcMoFfW501W6zz/OpTBcE+CweIC0gZjH+82sKQNAZkZIG69hlUKJbOTkuC/GP8Pshijo5fN2HU9VBiZxCdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zLhLETy3HZbjuMvcn8Pm63qhuJs7whOvEaJ9AyXKqEw=;
- b=V2lRqt6yh772wz3VkEIAzRDf41j3FBEMeezg7RBuRMs9FZmE85rauQ9oZZFnYFsHeJXgjLrxu072C3LGQWBxrMDUSTJZThiGwYvvfHYUcFBfA8sCeEFSUHXDSZHC09RdkpKFomIcgva5hdxFuS41Kl2aIY3ZOFMdxAMBsiE5VPgAfHcaT+R2QXbsJkz2CMZ0W7ArE44PFSNo2amrFQe6N/T9FbK3jZRa/LsWIODrXLBPfZC94ptDqA+/na/sxOwztJdxK4it7m4eTk+Q3giE1MuOd0WvRvYrc6KK62P23GFrfU6S4iy3+YUcEWNTeik76jqYQGCbQrek+OGKJZs7cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zLhLETy3HZbjuMvcn8Pm63qhuJs7whOvEaJ9AyXKqEw=;
- b=VEl1KfehZMuO3DAQ5Tm3U1V0GlrMFCrcAL8l+Tn1jVtbb4QT+Dv0aNqDTxhwSSYzOm2oE9LO8D5SbOYynSoYTHDDPlSg1m2EBr8M3PwXvxbATV2PPCRWWgqEY7+mGGN/vx5NfZH0xffXDzJT1W0q4cAL86BkCu5ZydipyiUkouE=
-Received: from BN0PR04CA0124.namprd04.prod.outlook.com (2603:10b6:408:ed::9)
- by BN6PR12MB1362.namprd12.prod.outlook.com (2603:10b6:404:1a::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Thu, 27 Jan
- 2022 07:52:40 +0000
-Received: from BN8NAM11FT019.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ed:cafe::79) by BN0PR04CA0124.outlook.office365.com
- (2603:10b6:408:ed::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15 via Frontend
- Transport; Thu, 27 Jan 2022 07:52:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT019.mail.protection.outlook.com (10.13.176.158) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4930.15 via Frontend Transport; Thu, 27 Jan 2022 07:52:40 +0000
-Received: from aaliu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 27 Jan
- 2022 01:52:37 -0600
-From: Aaron Liu <aaron.liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V2] drm/amdgpu: move GTT allocation from gmc_sw_init to
- gmc_hw_init(V2)
-Date: Thu, 27 Jan 2022 15:52:25 +0800
-Message-ID: <20220127075225.3040986-1-aaron.liu@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id F25F310E4B5;
+	Thu, 27 Jan 2022 08:11:55 +0000 (UTC)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4AC410E724
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 08:11:54 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id c23so3202418wrb.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 00:11:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=SCeyjR2kms9M93uXOg3g83+7cenWGRLGS6+bPyDFlFg=;
+ b=D/AY2+hh8Ke0eLK03Vyh50hg2/H7/1H8dXTdg6O0PmCjBjNswjPtJYIIzVDFn1pJj7
+ YYvRvNCq7P8xyCttxD6VtznkbO+kgOtNZu7SNr9jlKKRwrQnysJmkxm0N8buFEOEsPWL
+ bF5/WRN+lxsnrHUXFlj+qvKovpeRIAg6aCi1flknTIFNrx78ryRIn4wFxEBF23ISMMSW
+ uV20PZupaFgzGv/7sR2QguS9CJpzzLJBR9WguHozFmom1IuNsYT853mF0lOUz4dD5FXF
+ Uq3R3ss/q8VWlIm8Td2mrOBtK6UZ/mIw0rW0Ga/zXlKJg39Y+kdH3N/1oFU9XB7HL9Oq
+ BVyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=SCeyjR2kms9M93uXOg3g83+7cenWGRLGS6+bPyDFlFg=;
+ b=7J0/U+ueXBZib9fOoVTWLh+5fYHe/Evob8PUsXVU188eopSDFnEO0A9KRgD5ZMVojG
+ bDEuj2fnsW5OfHxeyiEbq4JXNemO/Hbfh22K4dApS0S4kV/S7jFQtWqefBO+3XhmOom1
+ MhqAOFDjqN7JfO2TjPlEAKOlR0Y/FV9G+07S+jRnoq6NERRPW9KeQlqYkEdfLpqfZ8hN
+ CqiCs8aJpnOQ1cmgF7N1XdCKkAErlGi+jGLYLYMzzP1bsFbLJywuM/HZAc3UvlgE75oe
+ GNpcSb5IiPDcRKmf5uMoMRP9GmXxEaDua6ZVv3L5VSpb3widnRBkNSD6EUUdResjp6sm
+ TBSg==
+X-Gm-Message-State: AOAM531EkmGH9Ll0n9Pw7zWTaWU4TRxbmH36sd6ggeK8JIubqa34o3rP
+ 1/VyERjM8GuX/HdDOxn1HxM=
+X-Google-Smtp-Source: ABdhPJxJLqmNmYNXLch67OMvyzmM6l4dQSBtCjdu01Q5w5kGFZofYCRAaRzhTO3a3JKPb0G+EQYZ9w==
+X-Received: by 2002:a05:6000:1548:: with SMTP id
+ 8mr2101321wry.232.1643271112461; 
+ Thu, 27 Jan 2022 00:11:52 -0800 (PST)
+Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
+ [87.176.191.248])
+ by smtp.gmail.com with ESMTPSA id t4sm1463829wro.71.2022.01.27.00.11.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Jan 2022 00:11:52 -0800 (PST)
+Message-ID: <e040dc1e-d865-7f0d-c64b-775ff57de240@gmail.com>
+Date: Thu, 27 Jan 2022 09:11:50 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bac4c78e-3162-405b-6052-08d9e169fe8f
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1362:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR12MB1362E3FCB5A974747E70B824F0219@BN6PR12MB1362.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:569;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Fm5qHZXSg0Rr/5t1pDd/TkjlqbJ2YN/MKkj7eTnZzNPTnqvGwjU+VmSvFQBCsAnRD9WKIWIjEteH4OUXJYH6m1K861SxSCKZw/iwEezTLr2KYjOv7UVadEwzilHHbvIRUMGG0Lx+h/2VVEhC19SO9AdxbpW7Jcv04R06Fci4akxzqQHg09gnADx/7MHUaDVJ+f80DOEXbmvwCb1LeQ5DMxwPJVnNa1yg22xTF7oaZ6xXIS7etXXIS1BYLAzzFWITb5+GWF5Rv0Rk03hytTB/LaQFuMetdcijZ4ALDD2o6UoQLbwBsbklQO2OOMXwTtk6uQJMc0denWulJPels5ZYQpKiHPeZrigcI6AH7lQE7OrsqNUfeGu9Rv3SSNPzK0cUfrhQKSLsjHel9f76gmAgAY3MWRRc4xH1cDmcZL5H3TCYSbYEyH9mhWnhVq+zn/mhiNY2rWKKglpg7UovBjAExMRoyxHxkM8Ck9LstuVLEBqLo6SH5xR2LoW5QoL+vmohlDmxa4ns9w6pyCgiMqX4rxbLuMz9wm5yA/BkvyNmhyzEEBtqSm9WFWxukBePWCPvkzNrDt3WJv6c3L5nIr5QnqrySIcFzCUZeiUi0EEYHlHldkDk+BH+zwwov5F5tmBn1wOUpa5jJB/O9K8P6bMSzthB5OLrgNnVIqS0bWTVEY9xmNYOpLPTQykdJDNnwXlWLoxAP36G4CSlwPtmPZtw0Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(508600001)(47076005)(5660300002)(44832011)(8936002)(8676002)(86362001)(36756003)(54906003)(40460700003)(6916009)(316002)(81166007)(83380400001)(7696005)(356005)(6666004)(82310400004)(26005)(16526019)(70586007)(2616005)(70206006)(336012)(1076003)(2906002)(36860700001)(426003)(4326008)(186003)(36900700001)(20210929001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2022 07:52:40.7635 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bac4c78e-3162-405b-6052-08d9e169fe8f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT019.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1362
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] drm/amd/amdgpu: Add ip_discovery_text sysfs entry (v2)
+Content-Language: en-US
+To: Tom St Denis <tom.stdenis@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220125181835.2735521-1-tom.stdenis@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220125181835.2735521-1-tom.stdenis@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,246 +72,220 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ruili.ji@amd.com, jonathan.kim@amd.com, felix.kuehling@amd.com,
- Aaron Liu <aaron.liu@amd.com>, Ray.Huang@amd.com, Alexander.Deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The below patch causes system hang for harvested ASICs.
-d015e9861e55 drm/amdgpu: improve debug VRAM access performance using sdma
 
-The root cause is that GTT buffer should be allocated after GC SA harvest
-programming completed.
 
-For harvested AISC, the GC SA harvest process(see utcl2_harvest) is
-programmed in gmc_v10_0_hw_init function. This is a hardware programming.
-Therefore should be located in hw init. Hence need to move GTT allocation
-from gmc_v*_0_sw_init to gmc_v*_0_hw_init.
+Am 25.01.22 um 19:18 schrieb Tom St Denis:
+> Newer hardware has a discovery table in hardware that the kernel will
+> rely on instead of header files for things like IP offsets.  This
+> sysfs entry adds a simple to parse table of IP instances and segment
+> offsets.
+>
+> Produces output that looks like:
+>
+> $ cat ip_discovery_text
+> ATHUB{0} v2.0.0: 00000c00 02408c00
+> CLKA{0} v11.0.0: 00016c00 02401800
+> CLKA{1} v11.0.0: 00016e00 02401c00
+> CLKA{2} v11.0.0: 00017000 02402000
+> CLKA{3} v11.0.0: 00017200 02402400
+> CLKA{4} v11.0.0: 0001b000 0242d800
+> CLKB{0} v11.0.0: 00017e00 0240bc00
+> DBGU_NBIO{0} v3.0.0: 000001c0 02409000
+> DBGU0{0} v3.0.0: 00000180 02409800
+> DBGU1{0} v3.0.0: 000001a0 02409c00
+> DF{0} v3.0.0: 00007000 0240b800
+> DFX{0} v4.1.0: 00000580 02409400
+> DFX_DAP{0} v2.0.0: 000005a0 00b80000 0240c400
+> DMU{0} v2.0.2: 00000012 000000c0 000034c0 00009000 02403c00
+> FUSE{0} v11.0.0: 00017400 02401400
+> GC{0} v10.1.10: 00001260 0000a000 02402c00
 
-V2: expand to all gmc_v*_0_hw_init functions.
+Mhm, I'm also leaning more into Alex direction that this should probably 
+better represented as directory structure in sysfs.
 
-Signed-off-by: Aaron Liu <aaron.liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 21 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  8 --------
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  4 +++-
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   | 13 +++++++++----
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   | 13 +++++++++----
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 13 +++++++++----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 13 +++++++++----
- 8 files changed, 63 insertions(+), 25 deletions(-)
+We could expose the IP discovery table as binary, but parsing it first 
+and then not building proper sysfs structures is pretty clearly against 
+the documented rules.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index d426de48d299..ac75bde8ac61 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -876,3 +876,24 @@ int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
- 
- 	return 0;
- }
-+
-+int amdgpu_gmc_allocate_sdma_access_gtt(struct amdgpu_device *adev)
-+{
-+	int ret;
-+
-+	ret = amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
-+					AMDGPU_GEM_DOMAIN_GTT,
-+					&adev->mman.sdma_access_bo, NULL,
-+					&adev->mman.sdma_access_ptr);
-+
-+	if (ret)
-+		DRM_WARN("Debug VRAM access will use slowpath MM access\n");
-+
-+	return ret;
-+}
-+
-+void amdgpu_gmc_free_sdma_access_gtt(struct amdgpu_device *adev)
-+{
-+	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
-+					&adev->mman.sdma_access_ptr);
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index 93505bb0a36c..b8ba16de5e1c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -338,4 +338,7 @@ uint64_t amdgpu_gmc_vram_mc2pa(struct amdgpu_device *adev, uint64_t mc_addr);
- uint64_t amdgpu_gmc_vram_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
- uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
- int amdgpu_gmc_vram_checking(struct amdgpu_device *adev);
-+int amdgpu_gmc_allocate_sdma_access_gtt(struct amdgpu_device *adev);
-+void amdgpu_gmc_free_sdma_access_gtt(struct amdgpu_device *adev);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 3d8a20956b74..7ce0478b2908 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1823,12 +1823,6 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 		return r;
- 	}
- 
--	if (amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
--				AMDGPU_GEM_DOMAIN_GTT,
--				&adev->mman.sdma_access_bo, NULL,
--				&adev->mman.sdma_access_ptr))
--		DRM_WARN("Debug VRAM access will use slowpath MM access\n");
--
- 	return 0;
- }
- 
-@@ -1850,8 +1844,6 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
- 	if (adev->mman.stolen_reserved_size)
- 		amdgpu_bo_free_kernel(&adev->mman.stolen_reserved_memory,
- 				      NULL, NULL);
--	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
--					&adev->mman.sdma_access_ptr);
- 	amdgpu_ttm_fw_reserve_vram_fini(adev);
- 
- 	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 73ab0eebe4e2..d923e4127c87 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -1062,7 +1062,7 @@ static int gmc_v10_0_hw_init(void *handle)
- 	if (adev->umc.funcs && adev->umc.funcs->init_registers)
- 		adev->umc.funcs->init_registers(adev);
- 
--	return 0;
-+	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
- }
- 
- /**
-@@ -1082,6 +1082,8 @@ static int gmc_v10_0_hw_fini(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
-+	amdgpu_gmc_free_sdma_access_gtt(adev);
-+
- 	gmc_v10_0_gart_disable(adev);
- 
- 	if (amdgpu_sriov_vf(adev)) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index ec291d28edff..ca397d4d4aa8 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -919,16 +919,21 @@ static int gmc_v6_0_hw_init(void *handle)
- 	if (r)
- 		return r;
- 
--	if (amdgpu_emu_mode == 1)
--		return amdgpu_gmc_vram_checking(adev);
--	else
--		return r;
-+	if (amdgpu_emu_mode == 1) {
-+		r = amdgpu_gmc_vram_checking(adev);
-+		if (r)
-+			return r;
-+	}
-+
-+	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
- }
- 
- static int gmc_v6_0_hw_fini(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
-+	amdgpu_gmc_free_sdma_access_gtt(adev);
-+
- 	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
- 	gmc_v6_0_gart_disable(adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index 344d819b4c1b..11f87f8adae8 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -1107,16 +1107,21 @@ static int gmc_v7_0_hw_init(void *handle)
- 	if (r)
- 		return r;
- 
--	if (amdgpu_emu_mode == 1)
--		return amdgpu_gmc_vram_checking(adev);
--	else
--		return r;
-+	if (amdgpu_emu_mode == 1) {
-+		r = amdgpu_gmc_vram_checking(adev);
-+		if (r)
-+			return r;
-+	}
-+
-+	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
- }
- 
- static int gmc_v7_0_hw_fini(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
-+	amdgpu_gmc_free_sdma_access_gtt(adev);
-+
- 	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
- 	gmc_v7_0_gart_disable(adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index ca9841d5669f..c90f9016d093 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1238,16 +1238,21 @@ static int gmc_v8_0_hw_init(void *handle)
- 	if (r)
- 		return r;
- 
--	if (amdgpu_emu_mode == 1)
--		return amdgpu_gmc_vram_checking(adev);
--	else
--		return r;
-+	if (amdgpu_emu_mode == 1) {
-+		r = amdgpu_gmc_vram_checking(adev);
-+		if (r)
-+			return r;
-+	}
-+
-+	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
- }
- 
- static int gmc_v8_0_hw_fini(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
-+	amdgpu_gmc_free_sdma_access_gtt(adev);
-+
- 	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
- 	gmc_v8_0_gart_disable(adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 4595027a8c63..9b4b1d9a0769 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1852,10 +1852,13 @@ static int gmc_v9_0_hw_init(void *handle)
- 	if (r)
- 		return r;
- 
--	if (amdgpu_emu_mode == 1)
--		return amdgpu_gmc_vram_checking(adev);
--	else
--		return r;
-+	if (amdgpu_emu_mode == 1) {
-+		r = amdgpu_gmc_vram_checking(adev);
-+		if (r)
-+			return r;
-+	}
-+
-+	return amdgpu_gmc_allocate_sdma_access_gtt(adev);
- }
- 
- /**
-@@ -1875,6 +1878,8 @@ static int gmc_v9_0_hw_fini(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
-+	amdgpu_gmc_free_sdma_access_gtt(adev);
-+
- 	gmc_v9_0_gart_disable(adev);
- 
- 	if (amdgpu_sriov_vf(adev)) {
--- 
-2.25.1
+Regards,
+Christian.
+
+>
+> (v2): Use a macro for buffer size and fix alignment in amdgpu.h
+>
+> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 79 ++++++++++++++++++-
+>   2 files changed, 79 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 3bc76759c143..43caeb4bdc07 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1019,6 +1019,7 @@ struct amdgpu_device {
+>   	struct amdgpu_ip_block          ip_blocks[AMDGPU_MAX_IP_NUM];
+>   	uint32_t		        harvest_ip_mask;
+>   	int				num_ip_blocks;
+> +	char            *ip_discovery_text;
+>   	struct mutex	mn_lock;
+>   	DECLARE_HASHTABLE(mn_hash, 7);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index 07623634fdc2..d036977dab8a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -267,6 +267,19 @@ static void amdgpu_discovery_harvest_config_quirk(struct amdgpu_device *adev)
+>   	}
+>   }
+>   
+> +static ssize_t ip_discovery_text_show(struct device *dev,
+> +		struct device_attribute *attr, char *buf)
+> +{
+> +	struct drm_device *ddev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(ddev);
+> +
+> +	return sysfs_emit(buf, "%s", adev->ip_discovery_text);
+> +}
+> +
+> +static DEVICE_ATTR(ip_discovery_text, S_IRUGO,
+> +				ip_discovery_text_show, NULL);
+> +
+> +
+>   static int amdgpu_discovery_init(struct amdgpu_device *adev)
+>   {
+>   	struct table_info *info;
+> @@ -351,6 +364,11 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+>   		goto out;
+>   	}
+>   
+> +	// init sysfs for ip_discovery
+> +	r = sysfs_create_file(&adev->dev->kobj, &dev_attr_ip_discovery_text.attr);
+> +	if (r)
+> +		dev_err(adev->dev, "Could not create amdgpu device attr\n");
+> +
+>   	return 0;
+>   
+>   out:
+> @@ -363,7 +381,11 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+>   void amdgpu_discovery_fini(struct amdgpu_device *adev)
+>   {
+>   	kfree(adev->mman.discovery_bin);
+> +	kfree(adev->ip_discovery_text);
+> +	sysfs_remove_file(&adev->dev->kobj, &dev_attr_ip_discovery_text.attr);
+> +
+>   	adev->mman.discovery_bin = NULL;
+> +	adev->ip_discovery_text = NULL;
+>   }
+>   
+>   static int amdgpu_discovery_validate_ip(const struct ip *ip)
+> @@ -382,6 +404,22 @@ static int amdgpu_discovery_validate_ip(const struct ip *ip)
+>   	return 0;
+>   }
+>   
+> +#define IP_DISCOVERY_BLOCK_SIZE 4096
+> +
+> +static int add_string(char **dst, unsigned *size, char *src)
+> +{
+> +	if (strlen(src) + strlen(*dst) >= *size) {
+> +		void *tmp = krealloc(*dst, *size + IP_DISCOVERY_BLOCK_SIZE, GFP_KERNEL);
+> +		if (!tmp) {
+> +			return -1;
+> +		}
+> +		*dst = tmp;
+> +		*size = *size + IP_DISCOVERY_BLOCK_SIZE;
+> +	}
+> +	strcat(*dst, src);
+> +	return 0;
+> +}
+> +
+>   int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   {
+>   	struct binary_header *bhdr;
+> @@ -396,6 +434,8 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   	int hw_ip;
+>   	int i, j, k;
+>   	int r;
+> +	unsigned txt_size = IP_DISCOVERY_BLOCK_SIZE;
+> +	char *linebuf;
+>   
+>   	r = amdgpu_discovery_init(adev);
+>   	if (r) {
+> @@ -410,6 +450,15 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   
+>   	DRM_DEBUG("number of dies: %d\n", num_dies);
+>   
+> +	adev->ip_discovery_text = kzalloc(txt_size, GFP_KERNEL);
+> +	linebuf = kzalloc(IP_DISCOVERY_BLOCK_SIZE, GFP_KERNEL);
+> +	if (!adev->ip_discovery_text || !linebuf) {
+> +		DRM_ERROR("Out of memory\n");
+> +		kfree(linebuf);
+> +		kfree(adev->ip_discovery_text);
+> +		return -ENOMEM;
+> +	}
+> +
+>   	for (i = 0; i < num_dies; i++) {
+>   		die_offset = le16_to_cpu(ihdr->die_info[i].die_offset);
+>   		dhdr = (struct die_header *)(adev->mman.discovery_bin + die_offset);
+> @@ -419,6 +468,8 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   		if (le16_to_cpu(dhdr->die_id) != i) {
+>   			DRM_ERROR("invalid die id %d, expected %d\n",
+>   					le16_to_cpu(dhdr->die_id), i);
+> +			kfree(linebuf);
+> +			kfree(adev->ip_discovery_text);
+>   			return -EINVAL;
+>   		}
+>   
+> @@ -458,6 +509,19 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   			    le16_to_cpu(ip->hw_id) == SDMA3_HWID)
+>   				adev->sdma.num_instances++;
+>   
+> +			snprintf(linebuf, IP_DISCOVERY_BLOCK_SIZE-1, "%s{%d} v%d.%d.%d: ",
+> +				  hw_id_names[le16_to_cpu(ip->hw_id)],
+> +				  ip->number_instance,
+> +				  ip->major, ip->minor,
+> +				  ip->revision);
+> +			if (add_string(&adev->ip_discovery_text, &txt_size, linebuf)) {
+> +				DRM_ERROR("Out of memory\n");
+> +				kfree(linebuf);
+> +				kfree(adev->ip_discovery_text);
+> +				return -ENOMEM;
+> +			}
+> +
+> +
+>   			for (k = 0; k < num_base_address; k++) {
+>   				/*
+>   				 * convert the endianness of base addresses in place,
+> @@ -465,6 +529,19 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   				 */
+>   				ip->base_address[k] = le32_to_cpu(ip->base_address[k]);
+>   				DRM_DEBUG("\t0x%08x\n", ip->base_address[k]);
+> +				snprintf(linebuf, IP_DISCOVERY_BLOCK_SIZE-1, "%08lx ", (unsigned long)ip->base_address[k]);
+> +				if (add_string(&adev->ip_discovery_text, &txt_size, linebuf)) {
+> +					DRM_ERROR("Out of memory\n");
+> +					kfree(linebuf);
+> +					kfree(adev->ip_discovery_text);
+> +					return -ENOMEM;
+> +				}
+> +			}
+> +			if (add_string(&adev->ip_discovery_text, &txt_size, "\n")) {
+> +				DRM_ERROR("Out of memory\n");
+> +				kfree(linebuf);
+> +				kfree(adev->ip_discovery_text);
+> +				return -ENOMEM;
+>   			}
+>   
+>   			for (hw_ip = 0; hw_ip < MAX_HWIP; hw_ip++) {
+> @@ -491,7 +568,7 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>   			ip_offset += sizeof(*ip) + 4 * (ip->num_base_address - 1);
+>   		}
+>   	}
+> -
+> +	kfree(linebuf);
+>   	return 0;
+>   }
+>   
 
