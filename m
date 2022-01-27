@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 019D8C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B455EC433EF
 	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jan 2022 08:47:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7709A10ED72;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 451C110ECC3;
 	Thu, 27 Jan 2022 08:47:30 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFEA210E216;
- Thu, 27 Jan 2022 06:56:18 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E84596195B;
- Thu, 27 Jan 2022 06:56:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4F01C340E4;
- Thu, 27 Jan 2022 06:56:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1643266574;
- bh=Bk/ODDsDukInU2AbtJrdGihYhKViotZzVIRZSDiAAZQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=a2ULnNAWI/jgz5yl4AbaijDYmReI+YvOOHvJ9bILRbSw79Kdiquxyni1VMUpSii43
- 5Ba58KaDGsuBRVxdGfhw9BgDItq/OCdIWCu4Vg1F7olfy8Cyuz6dNJ1LpW5uqOzkVt
- FmyBtUkiymestYCsswyzCXqrCvp3d7Lv4It48uC4=
-Date: Thu, 27 Jan 2022 07:56:05 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: tangmeng <tangmeng@uniontech.com>
-Subject: Re: [PATCH] drivers: Fix typo in comment
-Message-ID: <YfJCBZuc9mOZkIVJ@kroah.com>
-References: <20220127065156.22372-1-tangmeng@uniontech.com>
+Received: from qq.com (smtpbg480.qq.com [59.36.132.97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4540D10E3DC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 07:13:55 +0000 (UTC)
+X-QQ-mid: bizesmtp37t1643267572tjg1zcey
+Received: from localhost.localdomain (unknown [58.240.82.166])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Thu, 27 Jan 2022 15:12:41 +0800 (CST)
+X-QQ-SSF: 0140000000000090E000B00A0000000
+X-QQ-FEAT: JWRRigPlP3C2ST/VISuYxlpF+8MYFF6xQgFjVx5xL6ysOicrVfE4j/Mykv4bw
+ eMPUQ14VMRRTqTiYBuu4yLyawDhm5PMBmWELTsdVhz36s4RfcUBshcVWnU8X+ZJ4uEk5nDr
+ Z61h9ujLRT1Twa34a5XabVQ2QdcFv1NAJ8cY8euDpICwNxWEsvrslOXV4gqHZAC5dweZZqq
+ eP4233FhCsVQoAuGChRYCsgIVffHA+OK8DiMSKun5hE0W/9inKwY7KWTq9Usu0KoONb9rcU
+ 6TX9ooMkkzoCeOuKAfCWt0V5aHfBtExXXmzG16AwSS1yTZWYvInFLO6/S4osWGU+4HJdy5o
+ Wb4e9H9lGnmNLZ2RKTIIt43N8hMItkD8tNjh+fm
+X-QQ-GoodBg: 2
+From: tangmeng <tangmeng@uniontech.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/amdgpu: fix spelling mistake "disbale" -> "disable"
+Date: Thu, 27 Jan 2022 15:12:39 +0800
+Message-Id: <20220127071239.30487-1-tangmeng@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220127065156.22372-1-tangmeng@uniontech.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign7
+X-QQ-Bgrelay: 1
 X-Mailman-Approved-At: Thu, 27 Jan 2022 08:47:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,25 +49,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Peter.Chen@nxp.com, amd-gfx@lists.freedesktop.org, airlied@linux.ie,
- dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, jsarha@ti.com, tomi.valkeinen@ti.com,
- linux@dominikbrodowski.net, daniel@ffwll.ch, alexander.deucher@amd.com,
- christian.koenig@amd.com
+Cc: tangmeng <tangmeng@uniontech.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 27, 2022 at 02:51:56PM +0800, tangmeng wrote:
-> Replace disbale with disable and replace unavaibale with unavailable.
-> 
-> Signed-off-by: tangmeng <tangmeng@uniontech.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c | 2 +-
->  drivers/gpu/drm/tilcdc/tilcdc_crtc.c  | 2 +-
->  drivers/pcmcia/rsrc_nonstatic.c       | 2 +-
->  drivers/usb/chipidea/udc.c            | 2 +-
->  4 files changed, 4 insertions(+), 4 deletions(-)
+There is a spelling mistake. Fix it.
 
-This needs to be broken up per-subsystem, thanks.
+Signed-off-by: tangmeng <tangmeng@uniontech.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-greg k-h
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
+index aef9d059ae52..a642c04cf17d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
+@@ -544,7 +544,7 @@ static int xgpu_vi_mailbox_rcv_irq(struct amdgpu_device *adev,
+ {
+ 	int r;
+ 
+-	/* trigger gpu-reset by hypervisor only if TDR disbaled */
++	/* trigger gpu-reset by hypervisor only if TDR disabled */
+ 	if (!amdgpu_gpu_recovery) {
+ 		/* see what event we get */
+ 		r = xgpu_vi_mailbox_rcv_msg(adev, IDH_FLR_NOTIFICATION);
+-- 
+2.20.1
+
+
+)
