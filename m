@@ -4,117 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CCC7C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 09:07:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E773CC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 09:17:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB84A10E5EF;
-	Fri, 28 Jan 2022 09:07:07 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 098ED10E5CB
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 09:07:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8117010F652;
+	Fri, 28 Jan 2022 09:17:07 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2077.outbound.protection.outlook.com [40.107.93.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B58810F652
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 09:17:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KjihDsA33e14k3eE8LPD3kv6rP1UKIm4yQcutQHwbbaQcYEeXn4RJyd+BMEv01I3hxCauKW5nVgBuBU9GegNsu5RfDyBBJiN2kBvoYnG64B5uEZcvzKJWfwes3rlWAefPVaTF/xhpBfeJ4Hc6r88HjHnXOop5K2qd5NpfVDcHrBPRSE8i9nrEcxukQMrSEVFNdgP1OoyDaUfIFTKYgUyBRfLqUiqrVc7mGCF6sHjOYSi9HtpuWOm0j9y0GcQjxtxiYOTA+IiqBEBdP70CTPLsfWaokyCwPw9GgtYyeBiHKLWlCp863TeP2NDQMBxgVqN7A4YUsN+seBssgikrLKlBw==
+ b=nMzibzSTAnkEic+eXXohHj2YlZswQeUVcS18sDoogJMp2capBkBTcUet8ha1ITdOvzyuCAEI6dP8CpDgV/tjrtRFmYwKq6HpO4K8EfovNBWu4+ZmVNCP+HcR3QJ+Uo4T2o1Q2EHo4t0axkMpJ2dwKzNeFcLo/DdGIBVjAKwg20NN/Y94Dcu0fwA25CgEjyxf2Kof1h/oEZrdQ/7YVdhhRaUMObw1N4jvygEUl4RbP3TUlYWnco+JvMnhTBzW87IkvK3TQszFQKUrHYCxTij7816589lXMH9PwQWzBzEl4skOoach8PN9EQ1TGf78VDZjULqAe06JpEy7wlK2+ircvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cQ2cBum6jKM+OJNV07dlRZ92rSwTnFPBSIpgDt/oKYs=;
- b=EKCA7U/H83sPEP1sjqYi8FekgsfasWEbGwtxFffITQcBQwpxgg5+tYG7gURxuaafg59GnuRU46SXteDDJhJVfIEQoJxA2up/07JgSz4nU+yhDpI1ccEivF52R6ZkXoFFtaoTJK3B/4iohfcNPHJMOvncbVhVPO1cafbVHwUMQKWG55sba5/xLmXuMIEqgcGT1I/QtoHSWLkxwWMA2ibLciXHSs5DL5yLDf9K4KvJHsxQeptdyUbmYwHmfxsZKGb3iWtk8f0TzV/dQiHmR/QsVq51fwBBPGpp01KtOEtRFmOytpaMwCnPd/+B6xbB95DFOYhUnca1xSyICZyzf9eRyQ==
+ bh=Qlew3GReGpEIFeFMDLCILjl8jRueWZt8gPD5OgOnm6k=;
+ b=SJf4YVkgQnUkTbblsiiLCROWjhfM88JFwkDLIAB/N6l9dh8Ti6tgmX3+w1l1Cv7IwSgST+L/7YfiQdJOiGEDIsYyaqxGo5nORzgWDIvth5GyvEOV0kAPVcs40je25fKATOHgSsXLNOyF1N2jjY7JqJNwVKMq7B8OsrTfVj30RdVIs/softQlUVaAHZYzgHwWoYUSlx8C02Ohdvx3b7jLY6wA6VwdYNdm0uznCcO0evkRV/wRDKuLcZ+pOiZhSIVbwbs0JO+/HVxeiFibCS2FHTK2IRUHL4OTrVKdnagrRP68iFMnZthFhezlAHUcLdDhtM3w4Or7YSMPmSSSmW4MkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cQ2cBum6jKM+OJNV07dlRZ92rSwTnFPBSIpgDt/oKYs=;
- b=4VGKVlUMoIaT5PDEqDeWo6nFI3pyF0stwYTe01mXfIbbjoJncbGxWCqR7i12kwp1rmVINUk/c4C6QgNpgvMTsu8+tiUL+jF3apsb3hfdO+aN/bOFRxNTD3b9aVI8/ZLMAH4JtPTgkU+aNAZ+5dqxfrUctRkjQAsKVHf+pE4v5YU=
+ bh=Qlew3GReGpEIFeFMDLCILjl8jRueWZt8gPD5OgOnm6k=;
+ b=37/A+nOCzjelKUMVBg95rFyF4ylZSUVtlU05wb9lGJ8gJJs6hBdpLzFA0TwGopT+xIThEH4fV2FFGYRYnA5e+nnjDFTl8+gYAwU/CyJuPZAk03Ag5ad8jKaG18UlkVGGCmVFiagctr49rOUD7yfW/6IPoiTJf6Yyc3J/fXiI3oo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by CH0PR12MB5043.namprd12.prod.outlook.com (2603:10b6:610:e2::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Fri, 28 Jan
- 2022 09:07:04 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::b07d:3a18:d06d:cb0b]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::b07d:3a18:d06d:cb0b%4]) with mapi id 15.20.4909.017; Fri, 28 Jan 2022
- 09:07:04 +0000
-Message-ID: <e2976675-f3a3-084e-2d90-b3000f216098@amd.com>
-Date: Fri, 28 Jan 2022 14:36:48 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
+ MWHPR12MB1469.namprd12.prod.outlook.com (2603:10b6:301:10::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4930.15; Fri, 28 Jan 2022 09:17:03 +0000
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::989c:5eff:f1be:c7ac]) by DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::989c:5eff:f1be:c7ac%8]) with mapi id 15.20.4930.019; Fri, 28 Jan 2022
+ 09:17:03 +0000
+Date: Fri, 28 Jan 2022 17:16:55 +0800
+From: Lang Yu <Lang.Yu@amd.com>
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
 Subject: Re: [PATCH v2] drm/amdgpu: add safeguards for querying GMC CG state
-Content-Language: en-US
-To: Lang Yu <Lang.Yu@amd.com>
+Message-ID: <YfO0h5OHkLZj7Dtn@lang-desktop>
 References: <20220128065409.1479854-1-Lang.Yu@amd.com>
  <d8bf41f2-6aa8-8af5-c5a7-ba0750549a82@amd.com>
  <YfOuy/sVoKBpJI5+@lang-desktop>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <YfOuy/sVoKBpJI5+@lang-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BM1PR0101CA0010.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:b00:18::20) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+ <e2976675-f3a3-084e-2d90-b3000f216098@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e2976675-f3a3-084e-2d90-b3000f216098@amd.com>
+X-ClientProxiedBy: HK2PR03CA0053.apcprd03.prod.outlook.com
+ (2603:1096:202:17::23) To DM6PR12MB4250.namprd12.prod.outlook.com
+ (2603:10b6:5:21a::9)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4d12529a-91db-47cd-58d2-08d9e23d8ce9
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5043:EE_
-X-Microsoft-Antispam-PRVS: <CH0PR12MB50435BE40162166242EE9FA497229@CH0PR12MB5043.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Office365-Filtering-Correlation-Id: c9f7f433-1b33-43f6-54cc-08d9e23ef28d
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1469:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB146960D2E800FD5D9C958263FB229@MWHPR12MB1469.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PGysacrWhAwIa0trNcj12Pgo/LBxaSzT68QMJwfRXMxf8C/yDKmgw7tlFMjoGt3YyeNV3Pylx6hSwojH6Vk5ewjAU4cU8FClHriUalAkQndFyAQ+1hYyXtNUp4l5rZhQ6E5N3khXBvotpLtdR5vX9Ve5SyCk8UakCN3W/VHLIXpd6V4EviGvHDZsMdqaiIiUK6kvAwgoSydFlr4W6SNUau7DnLUwwNiBMo6FAa1dMwqzaBxIVrMiMRduGEgFyI+e+kNkj70C44zmBYrL1JPL4FssP6KI6VdUXAccZIlvAoCEubPnd+rpC3mSTGmoa8NIZ5SHVo9zlkjlqOvKeP16TW2NcX5H0N301VwmLDTeKluK2eVf/PsmQGAC2QExXi/7pka5VAGUleHHcP9UUYz7zJS9vSnZRkLc6GyfAgoLzT02i6BDgFRV9UgrBH/0pXhPkE4PxLFAL3SXkQmyrMwJOKkVx44yOkqYs5w8kLNbAeclb9rWbzSB/p9MYB8R3X0QMQrxH7uF9mA+cB326+cRU7RI67GBhEpz14K+a9Oif5vGF6UkCLD50KnPR5qk5/IOns4AIyI9fFbG3v9rNmHSfMw+yHm54K1Lcs7+MYiX/qF+Z2Cv94KUf8HDb84GQ7D0hsci4Cg3at6x9nCV5L9+MBfFhdMzA4ibUe0eao2XxAZnhCKk7mPAi7mGSB/mtoaeplgoILU+Evcp/M+ABKYs9cRH7m1Oq3e3ThjJVU+SBucrIeM3tWM6TF//Sgn3Eugy
+X-Microsoft-Antispam-Message-Info: LsDFxaiXesa4Npzm0g9lHoVjjGQLGkM+ZDDw2653HCvBQf6Dhr04D4C3fLlSGlzBAzrg4d6bI1WwC4T2nEv5kko6dePuBPfS2nk3pn3GxvtQqW+PzSOACHd7Ma+8NSilZ4gdFQaHEIEgO/HheLsMD/PXMQGgZbOiXLVJBgko3rDnJIcbsokFPlrle/RDBfS2K6KJysbYiw9+q5iq9lO2mxZOUzbNklAxGoJWs1kzLlZhizvOETqc5KXDj5/z3m4u1HFSzUZCzkg+ibdhb6t904M0Ea0G1MA6c2NXie/0D1RjEywNYaAJBKReUBbZ+yWb/D6XZErwSDGnannFCE2M4JqK7mziO3bkC8jYAnUwVuSipO6NDURkbGmesYHUFWGsBni4eFpqT3IRVihWgStLdEzc0folZj7uGHG6eTzmDYk8QWXvJ4+fzBFJt2rfCqGtrbZX+miCHGq5cSIv8bMMdQj/WaYafcf5n3EOibqe+GiBXwSeCq8D4FkDjiHxDQILRGF/CiC8Mb3ytAOvjQ87XfOulHQ/nnk5jR1EeJOXWpB+9POF8apv/GC64Pxn0/PeELPQaWupAunH+xE2M2FNPZphftLZNcuKnzytcqeFghyVpgNMccMZVnvMgTHx3dyKk45BCaI1YCPYQ3uT53k55A==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(2616005)(31686004)(5660300002)(66946007)(4326008)(26005)(8936002)(8676002)(186003)(6862004)(38100700002)(66556008)(66476007)(36756003)(83380400001)(53546011)(2906002)(86362001)(31696002)(6486002)(54906003)(316002)(37006003)(6636002)(508600001)(6666004)(6512007)(6506007)(45980500001)(43740500002)(20210929001);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(7916004)(4636009)(366004)(5660300002)(54906003)(9686003)(316002)(6506007)(6666004)(53546011)(6636002)(8936002)(6512007)(6486002)(8676002)(86362001)(33716001)(6862004)(4326008)(508600001)(2906002)(66556008)(38100700002)(66476007)(66946007)(186003)(26005)(83380400001)(20210929001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NlFORzEwVDNtQ2hvZEpDMmxobFF3cXhLMjVJMm1vVVFSOWRwdHVLcHpMT3hx?=
- =?utf-8?B?ODlxcmg5YlhtcG1ua0FIT3hycHlodmRmYVo1NlR2ZTVDMTZWNUhtaGlscHl5?=
- =?utf-8?B?RlJOVURMVjlyaUgrQ3I2SXZmdDJQZDVCM2Z0bTNBTnpDMXZCWnUrS0V4Q0pl?=
- =?utf-8?B?SmlRdVl6NU9ic3F0MTF6c3BsMUQrcU1pTU9GUTltVEJ6eVNZQ0pKRUo0VDZa?=
- =?utf-8?B?cUlSRlZXN1lpMXFGRzR4Vk5zZThGY2sxZm9rSk1BVTlpTTdLYkhnZDVtdnpM?=
- =?utf-8?B?dGhvZXB1ZVYwMS90Q0NOaldJZ2tvMDVvN1I5aHFFb0N0MEFPOU9mTFJ4ODAv?=
- =?utf-8?B?NFVFUEpNcTNtRHFtZzY1U3dxdGt6bDllaStVTlh2R3YzQVJ1aFRSVXRVZUs0?=
- =?utf-8?B?RVE2V01mdUlRaXE5aE1ZUm5XMDNKeC9DekFTN1o1dmVKaG5KbGF4dmp1MklX?=
- =?utf-8?B?Z1I4ekFSaDBvQTJjZ1lEdWlDdmJLTkdrMCtibXJKTk01emhWNkdmTlE2Sysx?=
- =?utf-8?B?aGN0TjIwZGN2NXZqWms5OXpwWEVHa2owNXhnSEppaHlnMk5XQ0hIRzd5aHBT?=
- =?utf-8?B?WnJjeExsUUtMOFNicEQ5LzZyT0Q0ZFB0N2ErRmhZOENpckszU2pLU2NyQUlp?=
- =?utf-8?B?TEtYRE9tWGd4ME4ySzBOeE1rZ2xtaWlqZGJrZFNRNzJhdmFwUTFrRXBRWWEx?=
- =?utf-8?B?V2lieU9td014VEMxVkRzWi9sRHI1cUo5UWQ5dFBuTGJtK3FhQTkrWUg4RHhM?=
- =?utf-8?B?T0htcnRYZ1JaTms2V2JHT2svam5xQjN6SXdGTnFIeFlOOFZMcjM3YkxaVTZj?=
- =?utf-8?B?K21WUUtUb0oramUrNzlYQkNCYnJIWmdVV0RNMUJkYzliMDg4cmdYSEJ5K1Fu?=
- =?utf-8?B?REttaHBlSG9DQ0I5c0dJa1NPWVZmbGkyQVplN2dHWG5PWXM2Ymlhd0pOYlZU?=
- =?utf-8?B?REpDSnplVUtqd1lHYkZQcjkzYXh3bzlNZGtQcVlFaDJXd3dBWDVMcm11V2xw?=
- =?utf-8?B?YkRSMmdzSjkzSzRUekVBTWl3SXNGWTNIWGdZWWlYZFR6Lzh5elRCbmgvNnRL?=
- =?utf-8?B?NWFqbmRreFpjdXRGUFI5eUtLTFdsUThJaWIyUE44Uk9OeHE1ajk4bzFQdnF5?=
- =?utf-8?B?OEFRK0FGdUR6MmpBQk44UlQraW1FZzFsejRjdTl5a1ZSb1FXZm5xUmVHNUNF?=
- =?utf-8?B?UGdOMC8zM0RTcHY1bi9yZC9oREV5cVhrNkJnV0UzQVVYR252YVR1MGcyblRw?=
- =?utf-8?B?SGxBQkM3MEJjekdDbHZTdEp5bHJCU1c1TTcvRmhEbVR4YklrYmhxNEdLM0E0?=
- =?utf-8?B?YjBRNFJkb3RrQ3ZFaVNldXlyZUVrSWs0d2VZOC9Lb2QvVnpzUWdXZGtpTzFn?=
- =?utf-8?B?WXN3TUZnL0R6NzBRaDBHYUNJTXpMZE9ndDkySWI4c25GWjlpWVBUS3o0WXNV?=
- =?utf-8?B?Vi9VTlo0SFNBS2k5Qmc3aXh5aGVGZTZjTC9OY3ZiVVVGdUE4UW00dkFpZjdD?=
- =?utf-8?B?UUpCb05PSU5IVGs4cHNTT0NucFVOMzltaGxVWEptVVhQUmpTMzJSS1RUaXlY?=
- =?utf-8?B?c3JFMGlGSVhEZjNwWGF6Vk9NTTRYektzTUVtMGxxUVB0bzQvRDYvM2ZvcUJh?=
- =?utf-8?B?dHdOTlZpYzFJSHZZMHNDU21WTWkrN1k5TzRETkZVaXFiQU05SXhnaXFTU1A1?=
- =?utf-8?B?Q05INWN3NllUQzhTYVJyaUxPbDRidi9GK2YzQk9oWlA4V3JyalZFU1BvcDYy?=
- =?utf-8?B?cERzYUd6eGxBVGE2VkI4YnB1RDFLZ0JPeks4RTJER2syWExLL1M0dGU2U1VX?=
- =?utf-8?B?ZWlNQWZUTVFHTkJQcWpNRGdKYkI2cUhDalM3bTczNDNDbHN1V3BOam01RDNJ?=
- =?utf-8?B?SnlFbUtDRnR1bmttVmYxaUt2dGI0eHZUMkNNS0ZHTjdmRXFTRmIwOEtSU0lC?=
- =?utf-8?B?bktpVldpTnlxNWNCVG5lTm0wdWsxTFNFUUcwWXQwN20xRWtaUGZSczhSV1RS?=
- =?utf-8?B?NC9DUm9Ndk9nVEgyTVArYnBrOTcxOUx2emZRQkUxZ2ZZNmRiNXVuTHlwOTJm?=
- =?utf-8?B?K1l4S25sRm9HTFRNV0UzUmExR3hYd0VuZjYrTE1XUGhUZis1eXJKZm80OFRp?=
- =?utf-8?Q?l/BY=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vB+6XnytPGgpwv5RJhd5xYs9h9UXE3XxRPEHAPuHFIgl4Cs/j0IoxbEzFuC+?=
+ =?us-ascii?Q?YplU843TUB11tPW0h7UPKhF6g4dv58bpjR4IROTDxjYrx/3HgJXZRDRdQH5G?=
+ =?us-ascii?Q?E2sxXImz2GrMRRUNgbrgjSRB0k5ro2ehqZUNlDY/2aK+okVPnv5aViS/aSvA?=
+ =?us-ascii?Q?K5ropg5cWBsfKiaj1difHfh/SExC9mOZx34ij2iKRMnnKDrXp9X6o1Ar0yye?=
+ =?us-ascii?Q?nbMy1BkH2dvjwSJyiQzKz8LuMDN586eFo+SEuaRUK25bluO/u/YDD8zOIicc?=
+ =?us-ascii?Q?aND7ACadT8INtf9agncvZJZOH6BV7qKQW4lebtNFRxrm6Gd9TPEK3Flh7Itn?=
+ =?us-ascii?Q?QOoXRyYi94rmdwg670VnoREj7iOho4nJABSASiUcI4kH7/qOEYQVcm5E8DTW?=
+ =?us-ascii?Q?NpVvuD2Tag9+/esgjlDDKXldRpbolRXA8yW7Z1I7K3BpBY9KtpTn3TWChiyj?=
+ =?us-ascii?Q?oLgM16iTAJnq9WZIkKT+qGVSesirJENqNTlB3xpXEpwKyZgn+oMatE2BoYRv?=
+ =?us-ascii?Q?PKiPZehOFhWM9l4E/NSaHBVW3+XqqKTgGoCKiZu5guRjAjAY7E193AjjnBg0?=
+ =?us-ascii?Q?jNr6qBnxDB2RZAmQXTJK4GCAf2UZzYFcKo2I4RGu55ftJcurj30UCBLP9WA/?=
+ =?us-ascii?Q?Qzl2JeMMZ004iwEAn6oB9+8lmsMNA4ptXTFRUEYK1SprvCy/PEov2ZxKWTZY?=
+ =?us-ascii?Q?1Rwy8IfKjMdBctCPxjsn6o5n5jQlzlSZcpl6EnMWSd7zVE4G3Tc8YhaRxAxA?=
+ =?us-ascii?Q?N+xeD6I7cvN5+AoU5d9bbzotoVKP9243u9C51QlXpisaHgUufjJrRtLNENuh?=
+ =?us-ascii?Q?wwxSMwi4ywVI69FNqcTS2+M59wd0m4+wFDj3+AYFS+mlsWKQES7zdurvVUqv?=
+ =?us-ascii?Q?povYxAwjrCWpbPSfNCOmDysanBQUknvKmyGdCGnq0CHr3qgm98w7nsKdiCiq?=
+ =?us-ascii?Q?WmuPFWckWAkQ5ENpJvQj7Xb66MsjOGqgUtM8tWLZpz/Aqv4lGs8t6ryOH0Gq?=
+ =?us-ascii?Q?q/WuyLYzwiuLeY9nuzQ8XXz9lbpn9V0m5kSCHn3xipi+Zd4FcUWf8h3jLs1t?=
+ =?us-ascii?Q?867XmieiA/7NlcxulCLDFP1qdkHF9M13Rt8RGMnztj1P6fe1wRbDb4YBFw1U?=
+ =?us-ascii?Q?CKGKUtxld5ELjCFt9Wm4YOkwvlN70DoU8mF4aoKCCXwK8qsbiNSoCCAUflhb?=
+ =?us-ascii?Q?mPk/bGkFuPcdJgR6v9o482EoUQbgC4djsmymIUSO6yDb4ZevJNdKInyjZvlb?=
+ =?us-ascii?Q?nlT0rm7DvTPmzGJb8jzBrJtkk1/4Ax2Pll8KcT1FCzCs5gHINe1nAdh51+U3?=
+ =?us-ascii?Q?lpftFSa8xWLLcIqsYgf7LYFvdVtfocInOp6LO19Bah1DOceGy/8EnnzR7hnZ?=
+ =?us-ascii?Q?69MdQDS7sfx6LPZqjWU/6qAVlt7XAKxtmYPcplYBzrnZlUhG8mTQlhX4zabz?=
+ =?us-ascii?Q?xSJFdIeSssjg7MV2N9WmVCxCu9GBk+/ShUV9GdgHsZmqnjixyfrW2TYfplzq?=
+ =?us-ascii?Q?vCZ0kW7ydE9FJ8+rdmFqacIm/zmCAeffYW+jnhhHMfCPPQZJ+gFtm5dDhewy?=
+ =?us-ascii?Q?8UdcsByi8r+21vvGJTx0A/S4NWNqOTDaXfzghAzo2+GXRq37GvXBrEGJRMRd?=
+ =?us-ascii?Q?OseSbohzWvmZkXhoabhlhio=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d12529a-91db-47cd-58d2-08d9e23d8ce9
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9f7f433-1b33-43f6-54cc-08d9e23ef28d
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 09:07:03.8527 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 09:17:03.7347 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5OFm85qan40AaO7XDIPC436SgBl1gBTSblXK88iNCIamHun47Xw1bbsdYgezwcRZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5043
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0dUWXKpLhDq9eUUOZ34H14DMEpGJK32wxuH2Eb4L8JP2n954DFiZ00Zy4uChhb0Pmq9low39CZcXK6V9AEzgGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1469
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,133 +121,139 @@ Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 01/28/ , Lazar, Lijo wrote:
+> 
+> 
+> On 1/28/2022 2:22 PM, Lang Yu wrote:
+> > On 01/28/ , Lazar, Lijo wrote:
+> > > 
+> > > 
+> > > On 1/28/2022 12:24 PM, Lang Yu wrote:
+> > > > We observed a GPU hang when querying GMC CG state(i.e.,
+> > > > cat amdgpu_pm_info) on cyan skillfish. Acctually, cyan
+> > > > skillfish doesn't support any CG features.
+> > > > 
+> > > > Only allow ASICs which support GMC CG features accessing
+> > > > related registers. As some ASICs support GMC CG but cg_flags
+> > > > are not set. Use GC IP version instead of cg_flags to
+> > > > determine whether GMC CG is supported or not.
+> > > > 
+> > > > v2:
+> > > >    - Use a function to encapsulate more functionality.(Christian)
+> > > >    - Use IP verion to determine whether CG is supported or not.(Lijo)
+> > > > 
+> > > > Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+> > > > ---
+> > > >    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 ++++++++++
+> > > >    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  1 +
+> > > >    drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  3 +++
+> > > >    drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   |  3 +++
+> > > >    drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |  3 +++
+> > > >    5 files changed, 20 insertions(+)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> > > > index d426de48d299..be1f03b02af6 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> > > > @@ -876,3 +876,13 @@ int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
+> > > >    	return 0;
+> > > >    }
+> > > > +
+> > > > +bool amdgpu_gmc_cg_enabled(struct amdgpu_device *adev)
+> > > > +{
+> > > > +	switch (adev->ip_versions[GC_HWIP][0]) {
+> > > > +	case IP_VERSION(10, 1, 3):
+> > > > +		return false;
+> > > > +	default:
+> > > > +		return true;
+> > > > +	}
+> > > > +}
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> > > > index 93505bb0a36c..b916e73c7de1 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> > > > @@ -338,4 +338,5 @@ uint64_t amdgpu_gmc_vram_mc2pa(struct amdgpu_device *adev, uint64_t mc_addr);
+> > > >    uint64_t amdgpu_gmc_vram_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
+> > > >    uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
+> > > >    int amdgpu_gmc_vram_checking(struct amdgpu_device *adev);
+> > > > +bool amdgpu_gmc_cg_enabled(struct amdgpu_device *adev);
+> > > >    #endif
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> > > > index 73ab0eebe4e2..4e46f618d6c1 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> > > > @@ -1156,6 +1156,9 @@ static void gmc_v10_0_get_clockgating_state(void *handle, u32 *flags)
+> > > >    {
+> > > >    	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> > > > +	if (!amdgpu_gmc_cg_enabled(adev))
+> > > > +		return;
+> > > > +
+> > > 
+> > > I think Christian suggested amdgpu_gmc_cg_enabled function assuming it's a
+> > > common logic for all ASICs based on flags. Now that assumption has changed.
+> > > Now the logic is a specific IP version doesn't enable CG which is known
+> > > beforehand. So we could maintain the check in the specific IP version block
+> > > itself (gmc 10 in this example). No need to call another common function
+> > > which checks IP version again.
+> > 
+> > Thanks. You mean just like this?
+> > 
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> > index 73ab0eebe4e2..bddaf2417344 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> > @@ -1156,6 +1156,9 @@ static void gmc_v10_0_get_clockgating_state(void *handle, u32 *flags)
+> >   {
+> >          struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> > 
+> > +       if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 1, 3))
+> 		*flags = 0;
+> 
+> Yes, add the above line also.
 
+It may clear CG mask of other IP block. Does it make sense? Thanks!
 
-On 1/28/2022 2:22 PM, Lang Yu wrote:
-> On 01/28/ , Lazar, Lijo wrote:
->>
->>
->> On 1/28/2022 12:24 PM, Lang Yu wrote:
->>> We observed a GPU hang when querying GMC CG state(i.e.,
->>> cat amdgpu_pm_info) on cyan skillfish. Acctually, cyan
->>> skillfish doesn't support any CG features.
->>>
->>> Only allow ASICs which support GMC CG features accessing
->>> related registers. As some ASICs support GMC CG but cg_flags
->>> are not set. Use GC IP version instead of cg_flags to
->>> determine whether GMC CG is supported or not.
->>>
->>> v2:
->>>    - Use a function to encapsulate more functionality.(Christian)
->>>    - Use IP verion to determine whether CG is supported or not.(Lijo)
->>>
->>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 ++++++++++
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  1 +
->>>    drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  3 +++
->>>    drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   |  3 +++
->>>    drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |  3 +++
->>>    5 files changed, 20 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>> index d426de48d299..be1f03b02af6 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>> @@ -876,3 +876,13 @@ int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
->>>    	return 0;
->>>    }
->>> +
->>> +bool amdgpu_gmc_cg_enabled(struct amdgpu_device *adev)
->>> +{
->>> +	switch (adev->ip_versions[GC_HWIP][0]) {
->>> +	case IP_VERSION(10, 1, 3):
->>> +		return false;
->>> +	default:
->>> +		return true;
->>> +	}
->>> +}
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>> index 93505bb0a36c..b916e73c7de1 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>> @@ -338,4 +338,5 @@ uint64_t amdgpu_gmc_vram_mc2pa(struct amdgpu_device *adev, uint64_t mc_addr);
->>>    uint64_t amdgpu_gmc_vram_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
->>>    uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
->>>    int amdgpu_gmc_vram_checking(struct amdgpu_device *adev);
->>> +bool amdgpu_gmc_cg_enabled(struct amdgpu_device *adev);
->>>    #endif
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>> index 73ab0eebe4e2..4e46f618d6c1 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->>> @@ -1156,6 +1156,9 @@ static void gmc_v10_0_get_clockgating_state(void *handle, u32 *flags)
->>>    {
->>>    	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>> +	if (!amdgpu_gmc_cg_enabled(adev))
->>> +		return;
->>> +
->>
->> I think Christian suggested amdgpu_gmc_cg_enabled function assuming it's a
->> common logic for all ASICs based on flags. Now that assumption has changed.
->> Now the logic is a specific IP version doesn't enable CG which is known
->> beforehand. So we could maintain the check in the specific IP version block
->> itself (gmc 10 in this example). No need to call another common function
->> which checks IP version again.
-> 
-> Thanks. You mean just like this?
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 73ab0eebe4e2..bddaf2417344 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -1156,6 +1156,9 @@ static void gmc_v10_0_get_clockgating_state(void *handle, u32 *flags)
->   {
->          struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-> 
-> +       if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 1, 3))
-		*flags = 0;
+Regards,
+Lang
 
-Yes, add the above line also.
-
-Thanks,
-Lijo
-> +               return;
-> +
->          adev->mmhub.funcs->get_clockgating(adev, flags);
-> 
->          if (adev->ip_versions[ATHUB_HWIP][0] >= IP_VERSION(2, 1, 0))
-> 
-> Regards,
-> Lang
-> 
->> Thanks,
->> Lijo
->>
->>>    	adev->mmhub.funcs->get_clockgating(adev, flags);
->>>    	if (adev->ip_versions[ATHUB_HWIP][0] >= IP_VERSION(2, 1, 0))
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>> index ca9841d5669f..ff9dff2a6cf1 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>> @@ -1695,6 +1695,9 @@ static void gmc_v8_0_get_clockgating_state(void *handle, u32 *flags)
->>>    	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>>    	int data;
->>> +	if (!amdgpu_gmc_cg_enabled(adev))
->>> +		return;
->>> +
->>>    	if (amdgpu_sriov_vf(adev))
->>>    		*flags = 0;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->>> index 4595027a8c63..faf017609dfe 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->>> @@ -1952,6 +1952,9 @@ static void gmc_v9_0_get_clockgating_state(void *handle, u32 *flags)
->>>    {
->>>    	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>> +	if (!amdgpu_gmc_cg_enabled(adev))
->>> +		return;
->>> +
->>>    	adev->mmhub.funcs->get_clockgating(adev, flags);
->>>    	athub_v1_0_get_clockgating(adev, flags);
->>>
+> Thanks,
+> Lijo
+> > +               return;
+> > +
+> >          adev->mmhub.funcs->get_clockgating(adev, flags);
+> > 
+> >          if (adev->ip_versions[ATHUB_HWIP][0] >= IP_VERSION(2, 1, 0))
+> > 
+> > Regards,
+> > Lang
+> > 
+> > > Thanks,
+> > > Lijo
+> > > 
+> > > >    	adev->mmhub.funcs->get_clockgating(adev, flags);
+> > > >    	if (adev->ip_versions[ATHUB_HWIP][0] >= IP_VERSION(2, 1, 0))
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> > > > index ca9841d5669f..ff9dff2a6cf1 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> > > > @@ -1695,6 +1695,9 @@ static void gmc_v8_0_get_clockgating_state(void *handle, u32 *flags)
+> > > >    	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> > > >    	int data;
+> > > > +	if (!amdgpu_gmc_cg_enabled(adev))
+> > > > +		return;
+> > > > +
+> > > >    	if (amdgpu_sriov_vf(adev))
+> > > >    		*flags = 0;
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> > > > index 4595027a8c63..faf017609dfe 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> > > > @@ -1952,6 +1952,9 @@ static void gmc_v9_0_get_clockgating_state(void *handle, u32 *flags)
+> > > >    {
+> > > >    	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> > > > +	if (!amdgpu_gmc_cg_enabled(adev))
+> > > > +		return;
+> > > > +
+> > > >    	adev->mmhub.funcs->get_clockgating(adev, flags);
+> > > >    	athub_v1_0_get_clockgating(adev, flags);
+> > > > 
