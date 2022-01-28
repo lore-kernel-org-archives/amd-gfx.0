@@ -4,115 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32300C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 14:48:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2D7CC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 14:50:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B62DA10F005;
-	Fri, 28 Jan 2022 14:48:01 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D07E510EFEC
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 14:47:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B4B110F06F;
+	Fri, 28 Jan 2022 14:50:13 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0003310EF65
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 14:50:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mZ14C9H+9bbI6bRBQuPlk5/qPm42+sr1sf+Q07kz8Z/nujByklP7wNK7aLHxw5NGHgySbRTDySbIpE0QuWWP3Wllw8TjngxQztC0S9MhjgyKViYrpa5C+AaGX0UUM86Qz7g03CdN3P0XnuiFGJ2fb6+2DK9bGrnXKEN58oAwjrGPnP1Nm+z/UzzLRXqrBkQvtjkPXrwWsIlSrU6M6hmiRNNLUFDU7xbihQTRqlrMn1icD3Y5nLYvXpKtzmokVTaNtWnu6tLqc3Ju6OsElkv8qV1sZ+Tfg7KwQR2B2OOz22ufP7S7/Y3xDmgbSI8ON5RC5npanCERrr6iE1UiSAU4sQ==
+ b=Oe46wJb0zrXb1kdD1lDTC+O7zLeB5hn8pRqs6NPFL8q61qk23aRqq0fImRjjNibrstKNwWqtn5qSZPnjDWknZro1swXVGvuJGyQPv4r5V8eD/nQDEltb0d3oBt3BV8CV39ihsGLQuYPBC08VAd+fOUu5UhDlLqTA5Nfi4RvdjYJvsVrnssTm4ZpMcnPd8kr427gjMYuZaKk3omeaNBIG9C+x91wr5zMrNaLRXs8S15D19KQgGUykc5v0KkbDihplRIHyC3O05cAkQW3qSqmYmaKXiC1nkbmqqbOlE8mCnLHtCFvFzaLGvKT2Et2l1L6hgWqPedkAl8ac3p1O6PCFVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u4JMGceT2ZNBfVaEXxe5sHrAACFcuEJRdbvG+fvXxdI=;
- b=cUQ5m0Me5gGYVcEudinVAUGp3jywW/XHJd1N2s9zSOnET4VgznFupIKekfOLJM2rix3A5gq0idJCUzW8oqeo3PbYjUVq4JECBmHUIbVgBJnx8l94cWp3s1wA4BOnuPhZNU6MEoDoNS0dEV9YcbYIdB/N1sCYi6lpLME0JbkizcmuDO2Hq8UqF+D/uK5L78QmGcBwjzG09XZ4iNELgR+b+deSGoVjkKPNGlpjwYayZDyXel+S0EqjimUtV7WPku64HJILZUUR9b5TvYI5Z+zxKgiKhetgxaqOWDYc+t2N0C2F3JtreyVNta4HGjKrsN3gJTxWmtwTR5wA9igxixP53A==
+ bh=KRHUV2fctYprWIReq4uof8akLwQcJAb90VjDoYMrGoY=;
+ b=NHck3zrJKmSt1i/W6Dfuoi6Xk/0hsuIXjuic6DM7vUjFrftfEDPZq2vPhXDYeVkYTCaFtAi/v17fIoOSP8GYIqQaUFjpPFcrDFiBsDbM1VlLObWsMo+vcOp5fE+CIi++MUfCTFoXgnTu0NUwVbjYjSR6xvFlm3GbqnzsLeXBFAy6R6gfTcAxPYGq+VtZsJk7eKK+wK/QdgEfeSbgDI3rjDhp+A4bPCltTWkEIU5n1WZXL14g625r6CTxAbF9xZ93vADVugTqWtMtJAgGHIqrKDlEJW5M9GzfiDqtLdAYgkBWKDPIKmQ/iEyAnDfiYxHBr/KwHTraOGC/PB5qzQm86g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u4JMGceT2ZNBfVaEXxe5sHrAACFcuEJRdbvG+fvXxdI=;
- b=VVTbGZfATxwBjOMnkqQo6qt7d1bC/u3/lqRGn+2Bpcg7/uPg9N+RYh0lX3sHYFfRq85esnv9hY0HcSeSh81TbHLj4Gk3Wntwr0YXhyAofGcV6NweANHaYIgkykSChaZ0RGGyULIoSAoziEAhW51TZjQpE5GA7t8gfuDZJe2LK+U=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by DM6PR12MB3339.namprd12.prod.outlook.com (2603:10b6:5:119::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.13; Fri, 28 Jan
- 2022 14:47:57 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::99d4:4d4f:653f:61be]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::99d4:4d4f:653f:61be%6]) with mapi id 15.20.4930.017; Fri, 28 Jan 2022
- 14:47:56 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix uninitialized variable use warning
-Thread-Topic: [PATCH] drm/amdgpu: Fix uninitialized variable use warning
-Thread-Index: AQHYFBH3eDpSkuzHzkGNiKdVtnrh2ax4g9Sb
-Date: Fri, 28 Jan 2022 14:47:56 +0000
-Message-ID: <BL1PR12MB51449BDC8B5304FF6CFB09A6F7229@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20220128064019.2469388-1-lijo.lazar@amd.com>
-In-Reply-To: <20220128064019.2469388-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-28T14:47:56.211Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: 4b7c56da-ad91-41d6-d6bc-d4018996ca6b
-authentication-results: dkim=none (message not signed)
+ bh=KRHUV2fctYprWIReq4uof8akLwQcJAb90VjDoYMrGoY=;
+ b=0Ql+wv0r+YXdSOZkNU5BOZe7J2HZ/sIaUAB4zYQ/NAJsQo+hZ0UxkVP9DO9nhRSHJnMa95TnsqMOoJtv7tTM5Y9zFQfYXkL+myQCVlpUJbyAWuzKk0poGaBv9kCgx2NV5NO8zNOzMMI8rAcnRSuTs1DBh0vCZomJrjCQ/ECxetw=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 61c48a32-5dd8-4579-1e48-08d9e26d2c2b
-x-ms-traffictypediagnostic: DM6PR12MB3339:EE_
-x-microsoft-antispam-prvs: <DM6PR12MB3339202D4FD1A3D489FF484CF7229@DM6PR12MB3339.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:386;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: OA7KGwcFoZd5dOH+EEppxmZ61ZLQb2PpLMAK3jndF2Vq1YKqS3h3sJWhyYhHI4zW+C89laNIvWIzFhGP8duw9ZXg/G4ACImztIRkLpAMB8emKEpUVzro5fPwKArQyj4SOkKe4mTqrofdqdc2r8jWlT3AlzEI6FcPhRClktFQqTNLy3pTUKlDfykrCKnaskURvNIWhrTp6AM88m/64R3lbSCvyYtgtMHyaMiFxXh5vH67lBAL1vsSgg4EApNzb0gl470XDsgwjR/9Ay3m2aOs1d5uZzwjz8ob1ikUHCAt47fifl86Fd80PhA9SD+6CHOaBZydzM5duyk2ESKfgNnQouyPLyWH5si/V0Wrf4Ov/h72uru0fUHQqO13oZy2e/Q1g3sE9WvX3KKFCmlAgFv7pp/9+ZBKqYponEiQkDr1KlxupP3e7yWQH6Uw+BQo585Ue2S7icQa6Rbq9PhZvnviF5WuDWv2m1C+ISjDzFklkBrMYOZX1QB3gOiXhZkQ+u+ebvExN3L+nL2yeubOKPYsgpeAQ4lOYhgBNH4+ST60tR+nrUBkgRFj12p+99gQDMGK3xY1X4FdMuZS+2b8g8uMR0Pdiw18zV9jnlD5wMQFcTSTb92XGA35znVQ+OWv6vRb05ge6wpIfdb8mNqFjKYZtxYTmdn+Yc203EHnUyO8S0n2D3XrvvzjZi5hV+E1x9LBb9A8E7sStr7A1WMT4EN+mA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(52536014)(83380400001)(6506007)(26005)(7696005)(316002)(54906003)(5660300002)(9686003)(19627405001)(186003)(110136005)(66446008)(66556008)(86362001)(71200400001)(2906002)(8676002)(53546011)(66946007)(76116006)(38070700005)(8936002)(508600001)(122000001)(38100700002)(64756008)(4326008)(33656002)(55016003)(66476007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uyfc2DRjpC1oFFTYIgL5wkjyDALKaj9clG+pSBbaHRYV49cJXU2Q7ZftTVcD?=
- =?us-ascii?Q?xIK3VsfPP53wHGbVCj+X93tbXusZN9YH5ArcH4nYxHCxriWTTgKqDrDjQex5?=
- =?us-ascii?Q?6z58ihp9RSwln8Ppxh585Eg24+DJGarQ1gpePJkSEgYuG3Kv0f67tckoaN6w?=
- =?us-ascii?Q?0nnHONI+Lnd89ImUMm44ixNRtZ+q0k5jHmw/G2FrgQa0rQ+DUujWD2st+jkv?=
- =?us-ascii?Q?/AS+I+1VLCEjvIqnQADVS0oN7fTRXt5knL38uvSa03kOdFE7fViN0p68mfVF?=
- =?us-ascii?Q?Vtxfmr1WlsHR8C6YGxB2zPX2vgMxz1elEEko9iS7sbGS0xXJhFh7XnVIqc2a?=
- =?us-ascii?Q?IWwiCnR8h5joTmhEfNt2ZDuk7KIxbwN6IHMZPXyaDOROgOEcBVrJUNEC1bT4?=
- =?us-ascii?Q?PiSrlNZO+6qCeveFSTfJRN7CTlXl1236eGcX8BnXHz23QwzDngJIvOs+lU7g?=
- =?us-ascii?Q?tSFwG99oTlF+vuNXFyxsWFl//JehzWO6/HHDqbJig0EwEhTq6DeSWh7zEMBl?=
- =?us-ascii?Q?Mqcx8y3/UEll9mHlLdV6cdDORIdx82OlHQ2JQSBy0lup21un2b0KVF5z+LFp?=
- =?us-ascii?Q?fG21u8CNbV7YNCN5SVfbxBxLK0JoWlALQAFWuwmlAaSQjg4DesHKXG+oD8J0?=
- =?us-ascii?Q?k+f00CyuURey6zGbfKgCMjVAeFqzr5UYfKyJPmQdY0ee8vsRUiyQWjlePRrH?=
- =?us-ascii?Q?4xk86IU+BoVzxIS15JlrliLw+w+WcljSz3RyzP3pbhxxyqErhwUA5rZAV/jZ?=
- =?us-ascii?Q?2qcsH119pWxZf4ujr22SHb022GqQAP0wyHUXOefCYzGevArHPghIH3DlATtp?=
- =?us-ascii?Q?/wyBVaSzTR0MUzTJhUEW3vMG5SzUi3jtyvE+QPfrI3FscPQdoGMRBMbUcAvV?=
- =?us-ascii?Q?ZWbGndZvZAJNTRONk/aSQ+Xsxf4pTRYIVWdrAr1lWJl5J/G4VntbPs83WHeE?=
- =?us-ascii?Q?R9wP/dl9X9+JlUSexUzsoGlH2LZjQHabrfbv6RwjyRIuxxBBcpFDPnnFVei3?=
- =?us-ascii?Q?2Tuf1xC4COr9oHe8epTaI9NDuGcpedzvUKSxHCQX5XynvNbPJc+oZ7Rg21Er?=
- =?us-ascii?Q?81iB5+Saf0lr5mUVB6elp7nqgUaWKB7IhPVDYaU9pGJc9GNAC7z2NVJEw4Wf?=
- =?us-ascii?Q?huYh1wbzfiDPLfWZUw9o1PmzKdW/qqlRKiU+JYNj6fPMkMrnNdAcSp7BSc1V?=
- =?us-ascii?Q?BPSfbAOY3LuyZwhrY4S8BVkecQHBDeRAg7P5hNljGRPC0IiXomAqZvpqqU6H?=
- =?us-ascii?Q?+ts1KP4R4ubD7nryHpX1zjECDfcjYPcdPRn+DfyGFP8u+/JOsDkWkAN/dhDH?=
- =?us-ascii?Q?S2KX8tl5SyMfc0fWAs45qXxeqEGS0Ha3J9I4uUVPhHu7sM+nk2wSDSDuhGE/?=
- =?us-ascii?Q?uqVx0nPsH7hRrMCkjm9cpIcoq/xP9T4MwewuCXgfbNuwsiHsiIZ0G8ZiGhEz?=
- =?us-ascii?Q?QvyDkdDgBYNtaBUJOeSLugkpIvQ5bEtTYNJr0A5ntOhvvWck1AY4nq0y3vPn?=
- =?us-ascii?Q?EpmzwvrhPUWs+ZWGXWnTmXKKrYcBcnM1vLjVkWoLM3vZmB1+VYjoyYfbxlkj?=
- =?us-ascii?Q?6NORTlQY7K/EXuap81NOuiGd21kbFpUaPQ3KuOoaE7G4o/yWE+ewB4e/uvLy?=
- =?us-ascii?Q?2xqO54F0kNl4RutaYxA9edI=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB51449BDC8B5304FF6CFB09A6F7229BL1PR12MB5144namp_"
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by PH0PR12MB5497.namprd12.prod.outlook.com (2603:10b6:510:eb::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Fri, 28 Jan
+ 2022 14:50:09 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::971:531c:e4f4:8a9a%7]) with mapi id 15.20.4930.019; Fri, 28 Jan 2022
+ 14:50:09 +0000
+Message-ID: <c2762c2f-d467-5d5e-7b24-2a0cafaac19d@amd.com>
+Date: Fri, 28 Jan 2022 09:50:06 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
+Content-Language: en-US
+To: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>,
+ "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20220125100321.450194-1-tianci.yin@amd.com>
+ <SJ0PR12MB54888020E0D600D546BAC634825F9@SJ0PR12MB5488.namprd12.prod.outlook.com>
+ <b5fab406-062f-1fdb-832b-1ba0249e1e10@amd.com>
+ <DM4PR12MB52949E3762DF92C8C747ED8A95209@DM4PR12MB5294.namprd12.prod.outlook.com>
+ <c7a7d79c-c59e-51ed-07fc-22d9b57c1271@amd.com>
+ <DM4PR12MB5294D2C47F12FC897406884295219@DM4PR12MB5294.namprd12.prod.outlook.com>
+ <1f6ae3fe-5463-cf80-063a-2c8a500b9b2a@amd.com>
+ <DM4PR12MB5294035B7A2685C9A1EBBE1895229@DM4PR12MB5294.namprd12.prod.outlook.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <DM4PR12MB5294035B7A2685C9A1EBBE1895229@DM4PR12MB5294.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQXPR0101CA0052.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:14::29) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 58fc4295-0c84-4856-e601-08d9e26d7ada
+X-MS-TrafficTypeDiagnostic: PH0PR12MB5497:EE_
+X-Microsoft-Antispam-PRVS: <PH0PR12MB5497E2194184F0B22E0B676E92229@PH0PR12MB5497.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aaca16O7m9WERh2wQPvb1km1vg1f73vRAaTZ/syljKxCpcWLpAdl2o5QQ6QWDv+L17QmNE1TuHaVZiceL9jVEu0SjqTHu8VEqK2eO5Fmyphg6MUcom7LMb09Rv1UbK2mtPbzHIminUZiRn3Sf3NJxq/CFvgu895qYJf0IcORvImkFcHDSnYgxma7sH/ND507pIZJD8/7sXH9nPZz+pJm/PJ0wIzBd/m1u+CkjGK1aagy/jOKB5W/ZlvUFpbQj+2Xa6VKp+NMvKiNjnGMzkfWiJ+jI8ajDDLYGb6v1wN5sqCsp85zSuVhxfxb54zvMhrIHahgBJdr79vj8GHU0+j71w7S0CwqSj2jiuP+yWPLd6PHC2epYK35ajCx6gs9bNUHZEBLPEaKwBcPI4e3xVPIO+6TqRkwplKKPJUhREU3ECGOh0s7zoG8yaz4PMpjVt1hoY2CPX4Ar6ywza3jNh6N/IqOosNThQhPJnCP6K9c3jhOgZV7AQ3HY5m+Na3Wv/JEQbvFvB0vo4f3+/5nxzWoJltWmcAyyMr4MBgsj/cxmAyeisexnwLj3Xq4mCtz5t4CDfyLlaKTVTMhw7UAGjK7iakjVPuwA7O/Hx0qH3MThm0fpu3sNmxTxJX/cqemfbBGFQl1N4zyWvffbdiwTpnX1inq9WkqoH6Aj3IfXSHVXKDYVImra77kzJzb63OBJ1MgT4WwvfgF+DIcsgvNNaZR9AE5k7aKZ5nu08uxhnHoaE+Su/1RgoriKypbjArMIBkl
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(83380400001)(2616005)(66556008)(66946007)(66476007)(31696002)(36756003)(6512007)(8676002)(6666004)(4326008)(8936002)(31686004)(6506007)(30864003)(110136005)(26005)(316002)(38100700002)(44832011)(54906003)(5660300002)(508600001)(15650500001)(186003)(86362001)(6486002)(2906002)(43740500002)(45980500001)(20210929001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bEg5ZVBLYW5vZWF1VlRHVDZVclJ6RCtqVjFUcUhhSitSRFE5dzhoUkR0ZktC?=
+ =?utf-8?B?Z0NVS3FYditVcVEvZERUYmplUU9uR3k0ejZ6MEhYK1oxS2loQ2ptRnRPTUxW?=
+ =?utf-8?B?bzdDWFFsSkFkVUJ4bnhyaHB6RTNFTzFWYlJCQWw5NVBhOGlJeVZKNml1UktE?=
+ =?utf-8?B?bmhMb042WEVmb0I0aHFacFlDUnRFZEsrdVlXVHZEU01lSkVMUzVqSURXdDZC?=
+ =?utf-8?B?aXdJb25YVUo4Mm5nYkloUlBxMU5LVEFoSXRBVXBaRGpEYlJtbUNjZW11ZzFP?=
+ =?utf-8?B?RzFjc05WcXFSdithVklBakxKY2lJdnJCODQ4dnJWWVRYa1RXT3R1MkgzWHNw?=
+ =?utf-8?B?cHZQYXROUDB6Tlh4cGZvYzZXQ2xtd0hrWXhBSmtTNjRJLzJZRExsWElhRktP?=
+ =?utf-8?B?ZDYzNFNVMzd2Y213cGFQdmh0OE9VVnpiYzdsZCtseVFhUzI5bnNPWFVpcWt1?=
+ =?utf-8?B?NllrV3lJU09uQlhuaEM2Z2M4dGQvZXFWK3RkWU9tais5d0R6U0VsdDVkaDli?=
+ =?utf-8?B?VnFLK2gyaEd1YXRQMFd0V1lsSVFuZWpMOFBiS1hFYzF4N1ZrNC9HR1pxdHJH?=
+ =?utf-8?B?M2llQ3lzYmhDd2h5czdoaUtmYkhqb3VHTnFvMnZFeVdWK3ZYWEhDTllVTVlP?=
+ =?utf-8?B?aTdNRm9UeTBmY0tBMndvaXhhOFBML1Evb3E4T2FhWk5tMjZYc3lOblJ1S3ZZ?=
+ =?utf-8?B?OEM2dHFNWjBEQzNkemRvdUJLdk9lSmE1M2hoNEpGTHpwVWdHTWYvSnlpOUZv?=
+ =?utf-8?B?ZzhNZUJqN3dqK3pYanZIazlXcmdJN3FDd3kyOVNlbDRCLzROMVlhZHpYUnVC?=
+ =?utf-8?B?Mlkya3hBK245bnFud1l4MFIwWjlNelcrQmlUc3dvWTJ3SUVaRWJwNUsvWldo?=
+ =?utf-8?B?S0thZWFPRXlZU1dWejh4a0xoMmtIeEtJbG1MNVBJcEt5Nm92a3l2YzZoZUhY?=
+ =?utf-8?B?MVJ4RzhQYXI3eVRvb1QyckRoc3ZwdUJ6RWdOSXk4N3N3VDR1WmhXdXA2OVVZ?=
+ =?utf-8?B?VHFNdlJEd05pWGhIVTNiUFV2MUFrZTNGM1ltcnM5S0lqTXFGc2pWR0VRRmVs?=
+ =?utf-8?B?emhvL3YxOEkxZmJ1WjI3WmZWWHRZZjFvUXZKb0k0bUtZaVZhak5iRHYrNTZy?=
+ =?utf-8?B?aU94Y1V4ZWtmYlcrZDUyM0hzWndpNk13Q2RkQW9xa3dvZWxqRmdJSFROT3hq?=
+ =?utf-8?B?VkNIWUxtQWFwMU5OUWxSdTBRUkZJNXYzZFUreHdZYk9nSzUyN2p1TDlZRU1Y?=
+ =?utf-8?B?L1AxcmJxdFRiM3E3NnhFc29YRENNbmRleXZreHU0aVEzVktROFlTSG0yL3JS?=
+ =?utf-8?B?TVNINTkvd1JHblNaak5PZExPNlpTT1VweWFoWVcwZlltU2h6WUsrRzFlaG9F?=
+ =?utf-8?B?SXJVb1FvNjRocUxoRUdTNXM5VWZldWR2cDNXTlpVQ3NSNTN5RDlpVXNzU3pP?=
+ =?utf-8?B?R0FybER2a3NqYTRZYnlsUFBWcVdIMkVxVHR1U3oxMWlzM0JVcVlXdXJyUkto?=
+ =?utf-8?B?eEZBSXk4b1Z2STJ1bkdzWEJER0xuNENVbk1EbW9DNk03VFJER2N3cWgyYm1l?=
+ =?utf-8?B?ZDdTZDVaM1lLU25uOWpYWlFUSE1UdWNqUDd5Umt3UllHSmpsRUx6RTZJSjk1?=
+ =?utf-8?B?bit4WlJaaHM1SXpZZVhpUGNlK1A0OGxaUzUyZUtzM2hsQk9oMXpnWUEwSmdX?=
+ =?utf-8?B?UVV3WHFHYS9PWjhhZTJYbEd5QXVER1BsQlk3UUE2S1FzZ3l6U0VpdVFpNG94?=
+ =?utf-8?B?K3l0a0NsYmZLR3pURWROVkZRUXhST2JYZG9XNUFwQ2pZRGt6QzVDejdRQVdQ?=
+ =?utf-8?B?SVp6clZkYXJHMU0yNzhUbWlNM2hCdnJlT1gwVGdVeWNYdUlBT1VEWFFoRFEy?=
+ =?utf-8?B?RExlZGVuZHBkcWxBcmxMcXJHcmJCSE5ZblVOUjQxaUxHamFseUV3NG0xT2hG?=
+ =?utf-8?B?UndPSjB3UjB0NzMxVmhhN0hWV3ZxV0FQbnRDM3E5U1Z5Q0NHdGFkYzhOeSt3?=
+ =?utf-8?B?dFRNSEZWakpnR3ZXVER5MlZXUkxHNk5LZDBKR2ZqOG9wWE12OUNZL29HVUFk?=
+ =?utf-8?B?bUhSODUyNzBQUmJzcGR3ZkI2RXYvdTJ3OW5WY2tOOHhHZ0M5TnMwNzdkRnd5?=
+ =?utf-8?B?ckVQbWl4NDJEWHptTTFCNkVVWWFzZVpvVER6WkhCMzY1SEVsR0hDandBMUpI?=
+ =?utf-8?Q?0ZAA+3923u+Eney/ZGuR4sE=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58fc4295-0c84-4856-e601-08d9e26d7ada
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61c48a32-5dd8-4579-1e48-08d9e26d2c2b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jan 2022 14:47:56.9034 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RhYL/uYrhxPTXl1+3TplknmlN3nX/HRjJW285JInaUuFBXQqiOrlLdz8zhEaa7CeaHvQOD0p0o3mQpV0udaM6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3339
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 14:50:09.1520 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 20T8vqxyCk07EwPSKmhcAgOlLKSlQg2ueMJuTL/RFKYaf5f7tpn4fCN4yz4Utn+ikqnCv8eggc9fz/oA6VjRyA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5497
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,142 +134,269 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <yujie.liu@intel.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Chen,
+ Guchun" <Guchun.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB51449BDC8B5304FF6CFB09A6F7229BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[Public]
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Friday, January 28, 2022 1:40 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; kernel test robot <yujie.liu@intel.com>
-Subject: [PATCH] drm/amdgpu: Fix uninitialized variable use warning
-
-Fix uninitialized variable use
-warning: variable 'reg_access_ctrl' is uninitialized when used here [-Wunin=
-itialized]
-     scratch_reg0 =3D (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->sc=
-ratch_reg0;
-
-Fixes: 51263163eb3f("drm/amdgpu: add helper for rlcg indirect reg
-access")
-
-Reported-by: kernel test robot <yujie.liu@intel.com>
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.c
-index 80c25176c993..c13765218919 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -875,6 +875,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device=
- *adev, u32 offset, u32 v
-                 return 0;
-         }
-
-+       reg_access_ctrl =3D &adev->gfx.rlc.reg_access_ctrl;
-         scratch_reg0 =3D (void __iomem *)adev->rmmio + 4 * reg_access_ctrl=
-->scratch_reg0;
-         scratch_reg1 =3D (void __iomem *)adev->rmmio + 4 * reg_access_ctrl=
-->scratch_reg1;
-         scratch_reg2 =3D (void __iomem *)adev->rmmio + 4 * reg_access_ctrl=
-->scratch_reg2;
---
-2.25.1
+I see, thanks for clarifying. So this is happening because we unmap the 
+HIQ with direct MMIO register writes instead of using the KIQ.
 
 
---_000_BL1PR12MB51449BDC8B5304FF6CFB09A6F7229BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+I'm OK with this patch as a workaround, but as a proper fix, we should 
+probably add a hiq_hqd_destroy function that uses KIQ, similar to how we 
+have hiq_mqd_load functions that use KIQ to map the HIQ.
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+
+Regards,
+   Felix
+
+
+
+Am 2022-01-27 um 21:34 schrieb Yin, Tianci (Rico):
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lazar, Lijo &lt;Lijo.=
-Lazar@amd.com&gt;<br>
-<b>Sent:</b> Friday, January 28, 2022 1:40 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Deucher, Alexander=
- &lt;Alexander.Deucher@amd.com&gt;; kernel test robot &lt;yujie.liu@intel.c=
-om&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Fix uninitialized variable use warning<=
-/font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Fix uninitialized variable use<br>
-warning: variable 'reg_access_ctrl' is uninitialized when used here [-Wunin=
-itialized]<br>
-&nbsp;&nbsp;&nbsp;&nbsp; scratch_reg0 =3D (void __iomem *)adev-&gt;rmmio + =
-4 * reg_access_ctrl-&gt;scratch_reg0;<br>
-<br>
-Fixes: 51263163eb3f(&quot;drm/amdgpu: add helper for rlcg indirect reg<br>
-access&quot;)<br>
-<br>
-Reported-by: kernel test robot &lt;yujie.liu@intel.com&gt;<br>
-Signed-off-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 1 +<br>
-&nbsp;1 file changed, 1 insertion(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.c<br>
-index 80c25176c993..c13765218919 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-@@ -875,6 +875,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device=
- *adev, u32 offset, u32 v<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg_access_ctrl =3D &amp;adev-&gt;gfx=
-.rlc.reg_access_ctrl;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scratch_reg0 =3D (void __i=
-omem *)adev-&gt;rmmio + 4 * reg_access_ctrl-&gt;scratch_reg0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scratch_reg1 =3D (void __i=
-omem *)adev-&gt;rmmio + 4 * reg_access_ctrl-&gt;scratch_reg1;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scratch_reg2 =3D (void __i=
-omem *)adev-&gt;rmmio + 4 * reg_access_ctrl-&gt;scratch_reg2;<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB51449BDC8B5304FF6CFB09A6F7229BL1PR12MB5144namp_--
+> [AMD Official Use Only]
+>
+>
+> The error message is from HIQ dequeue procedure,  not from HCQ, so no 
+> doorbell writing.
+>
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.477067] Call Trace:
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.477072]  dump_stack+0x7d/0x9c
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.477651] 
+>  hqd_destroy_v10_3+0x58/0x254 [amdgpu]
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.477778] 
+>  destroy_mqd+0x1e/0x30 [amdgpu]
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.477884] 
+>  kernel_queue_uninit+0xcf/0x100 [amdgpu]
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.477985] 
+>  pm_uninit+0x1a/0x30 [amdgpu] #kernel_queue_uninit(pm->priv_queue, 
+> hanging); this priv_queue == HIQ
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478127] 
+>  stop_cpsch+0x98/0x100 [amdgpu]
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478242] 
+>  kgd2kfd_suspend.part.0+0x32/0x50 [amdgpu]
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478338] 
+>  kgd2kfd_suspend+0x1b/0x20 [amdgpu]
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478433] 
+>  amdgpu_amdkfd_suspend+0x1e/0x30 [amdgpu]
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478529] 
+>  amdgpu_device_fini_hw+0x182/0x335 [amdgpu]
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478655] 
+>  amdgpu_driver_unload_kms+0x5c/0x80 [amdgpu]
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478732] 
+>  amdgpu_pci_remove+0x27/0x40 [amdgpu]
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478806] 
+>  pci_device_remove+0x3e/0xb0
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478809] 
+>  device_release_driver_internal+0x103/0x1d0
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478813] 
+>  driver_detach+0x4c/0x90
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478814] 
+>  bus_remove_driver+0x5c/0xd0
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478815] 
+>  driver_unregister+0x31/0x50
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478817] 
+>  pci_unregister_driver+0x40/0x90
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478818] 
+>  amdgpu_exit+0x15/0x2d1 [amdgpu]
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478942] 
+>  __x64_sys_delete_module+0x147/0x260
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478944]  ? 
+> exit_to_user_mode_prepare+0x41/0x1d0
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478946]  ? ksys_write+0x67/0xe0
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478948] 
+>  do_syscall_64+0x40/0xb0
+> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478951] 
+>  entry_SYSCALL_64_after_hwframe+0x44/0xae
+>
+> Regards,
+> Rico
+> ------------------------------------------------------------------------
+> *From:* Kuehling, Felix <Felix.Kuehling@amd.com>
+> *Sent:* Thursday, January 27, 2022 23:28
+> *To:* Yin, Tianci (Rico) <Tianci.Yin@amd.com>; Wang, Yang(Kevin) 
+> <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.org 
+> <amd-gfx@lists.freedesktop.org>
+> *Cc:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Chen, Guchun 
+> <Guchun.Chen@amd.com>
+> *Subject:* Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
+> The hang you're seeing is the result of a command submission of an
+> UNMAP_QUEUES and QUERY_STATUS command to the HIQ. This is done using a
+> doorbell. KFD writes commands to the HIQ and rings a doorbell to wake up
+> the HWS (see kq_submit_packet in kfd_kernel_queue.c). Why does this
+> doorbell not trigger gfxoff exit during rmmod?
+>
+>
+> Regards,
+>    Felix
+>
+>
+>
+> Am 2022-01-26 um 22:38 schrieb Yin, Tianci (Rico):
+> >
+> > [AMD Official Use Only]
+> >
+> >
+> > The rmmod ops has prerequisite multi-user target and blacklist amdgpu,
+> > which is IGT requirement so that IGT can make itself DRM master to
+> > test KMS.
+> > igt-gpu-tools/build/tests/amdgpu/amd_module_load --run-subtest reload
+> >
+> > From my understanding, the KFD process belongs to the regular way of
+> > gfxoff exit, which doorbell writing triggers gfxoff exit. For example,
+> > KFD maps HCQ thru cmd on HIQ or KIQ ring, or UMD commits jobs on HCQ,
+> > these both trigger doorbell writing(pls refer to
+> > gfx_v10_0_ring_set_wptr_compute()).
+> >
+> > As to the IGT reload test, the dequeue request is not thru a cmd on a
+> > ring, it directly writes CP registers, so GFX core remains in gfxoff.
+> >
+> > Thanks,
+> > Rico
+> >
+> > ------------------------------------------------------------------------
+> > *From:* Kuehling, Felix <Felix.Kuehling@amd.com>
+> > *Sent:* Wednesday, January 26, 2022 23:08
+> > *To:* Yin, Tianci (Rico) <Tianci.Yin@amd.com>; Wang, Yang(Kevin)
+> > <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.org
+> > <amd-gfx@lists.freedesktop.org>
+> > *Cc:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Chen, Guchun
+> > <Guchun.Chen@amd.com>
+> > *Subject:* Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
+> > My question is, why is this problem only seen during module unload? Why
+> > aren't we seeing HWS hangs due to GFX_OFF all the time in normal
+> > operations? For example when the GPU is idle and a new KFD process is
+> > started, creating a new runlist. Are we just getting lucky because the
+> > process first has to allocate some memory, which maybe makes some HW
+> > access (flushing TLBs etc.) that wakes up the GPU?
+> >
+> >
+> > Regards,
+> >    Felix
+> >
+> >
+> >
+> > Am 2022-01-26 um 01:43 schrieb Yin, Tianci (Rico):
+> > >
+> > > [AMD Official Use Only]
+> > >
+> > >
+> > > Thanks Kevin and Felix!
+> > >
+> > > In gfxoff state, the dequeue request(by cp register writing) can't
+> > > make gfxoff exit, actually the cp is powered off and the cp register
+> > > writing is invalid, doorbell registers writing(regluar way) or
+> > > directly request smu to disable gfx powergate(by invoking
+> > > amdgpu_gfx_off_ctrl) can trigger gfxoff exit.
+> > >
+> > > I have also tryed
+> > >
+> > 
+> amdgpu_dpm_switch_power_profile(adev,PP_SMC_POWER_PROFILE_COMPUTE,false),
+> > > but it has no effect.
+> > >
+> > > [10386.162273] amdgpu: cp queue pipe 4 queue 0 preemption failed
+> > > [10671.225065] amdgpu: mmCP_HQD_ACTIVE : 0xffffffff
+> > > [10386.162290] amdgpu: mmCP_HQD_HQ_STATUS0 : 0xffffffff
+> > > [10386.162297] amdgpu: mmCP_STAT : 0xffffffff
+> > > [10386.162303] amdgpu: mmCP_BUSY_STAT : 0xffffffff
+> > > [10386.162308] amdgpu: mmRLC_STAT : 0xffffffff
+> > > [10386.162314] amdgpu: mmGRBM_STATUS : 0xffffffff
+> > > [10386.162320] amdgpu: mmGRBM_STATUS2: 0xffffffff
+> > >
+> > > Thanks again!
+> > > Rico
+> > > 
+> ------------------------------------------------------------------------
+> > > *From:* Kuehling, Felix <Felix.Kuehling@amd.com>
+> > > *Sent:* Tuesday, January 25, 2022 23:31
+> > > *To:* Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Yin, Tianci (Rico)
+> > > <Tianci.Yin@amd.com>; amd-gfx@lists.freedesktop.org
+> > > <amd-gfx@lists.freedesktop.org>
+> > > *Cc:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Chen, Guchun
+> > > <Guchun.Chen@amd.com>
+> > > *Subject:* Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
+> > > I have no objection to the change. It restores the sequence that was
+> > > used before e9669fb78262. But I don't understand why GFX_OFF is 
+> causing
+> > > a preemption error during module unload, but not when KFD is in normal
+> > > use. Maybe it's because of the compute power profile that's 
+> normally set
+> > > by amdgpu_amdkfd_set_compute_idle before we interact with the HWS.
+> > >
+> > >
+> > > Either way, the patch is
+> > >
+> > > Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> > >
+> > >
+> > >
+> > > Am 2022-01-25 um 05:48 schrieb Wang, Yang(Kevin):
+> > > >
+> > > > [AMD Official Use Only]
+> > > >
+> > > >
+> > > > [AMD Official Use Only]
+> > > >
+> > > >
+> > > > the issue is introduced in following patch, so add following
+> > > > information is better.
+> > > > /fixes: (e9669fb78262) drm/amdgpu: Add early fini callback/
+> > > > /
+> > > > /
+> > > > Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+> > > > /
+> > > > /
+> > > > Best Regards,
+> > > > Kevin
+> > > >
+> > > >
+> > ------------------------------------------------------------------------
+> > > > *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of
+> > > > Tianci Yin <tianci.yin@amd.com>
+> > > > *Sent:* Tuesday, January 25, 2022 6:03 PM
+> > > > *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+> > > > *Cc:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Yin, Tianci
+> > > > (Rico) <Tianci.Yin@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>
+> > > > *Subject:* [PATCH] drm/amdgpu: Fix an error message in rmmod
+> > > > From: "Tianci.Yin" <tianci.yin@amd.com>
+> > > >
+> > > > [why]
+> > > > In rmmod procedure, kfd sends cp a dequeue request, but the
+> > > > request does not get response, then an error message "cp
+> > > > queue pipe 4 queue 0 preemption failed" printed.
+> > > >
+> > > > [how]
+> > > > Performing kfd suspending after disabling gfxoff can fix it.
+> > > >
+> > > > Change-Id: I0453f28820542d4a5ab26e38fb5b87ed76ce6930
+> > > > Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+> > > > ---
+> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+> > > >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > > index b75d67f644e5..77e9837ba342 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > > @@ -2720,11 +2720,11 @@ static int 
+> amdgpu_device_ip_fini_early(struct
+> > > > amdgpu_device *adev)
+> > > >                  }
+> > > >          }
+> > > >
+> > > > -       amdgpu_amdkfd_suspend(adev, false);
+> > > > -
+> > > >          amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
+> > > >          amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
+> > > >
+> > > > +       amdgpu_amdkfd_suspend(adev, false);
+> > > > +
+> > > >          /* Workaroud for ASICs need to disable SMC first */
+> > > > amdgpu_device_smu_fini_early(adev);
+> > > >
+> > > > --
+> > > > 2.25.1
+> > > >
