@@ -4,117 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CECFAC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 15:36:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02D54C4321E
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 15:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5879510F33A;
-	Fri, 28 Jan 2022 15:36:45 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D35BC10F33A
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 15:36:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AB5810EBC0;
+	Fri, 28 Jan 2022 15:56:02 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2079.outbound.protection.outlook.com [40.107.100.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F78610EBC0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 15:56:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I7OaVAXURD0wsH4QDdGCaza0at8K3NQL4L+ozLvcuwLhoBBL20McTiC4j7JPIeDTZZZdyNRxD6TqYcpDRar6FqGtbOUb/U/5ANyHbJc+D9zeVMIAMTg4IUROD9Xn7es1ymqitOSUTmgTWyrW3wGYmdoAbfTDC22RcVwpMRq8BL19k2aLd64hVX8Lvo/gQXUxdM66WB8lhAozVlYB+DLroq1jtleWA0gCrt5us5J5gCSugHdSq46Sb11qvWXRJtVlhOFhhXlJxo/ITOxbtAyaa2vl3TYg568iJDKEe4khaMIR8+NLOoXa11ztv6Rv03q5PXVTyc5tHp39vsBsG7fqmQ==
+ b=RaZkEhVV9wuWHj2ljF/J24+OHxtjG1uInpPJWG+9lsH9DDbVwwaJQaRhU6VOvfZ+sT+m6QR9VoWkSuuKN0iu1jC8p40zxKqBkODKWwcY8/VFFxHTDpCAw6oLuxyypn26UOcH3amShsi2SMpJyq8K3JMA7ZrO9Yj0Rlq5y/YYMcOBAKKLyTahH23h6FRvQGFxyiJMFxDv3sD64xhadBYmSqyRCLZ1sX/DfulUCX2kTnHtLg5wn6P2Pt69wIWSdDNQoaM+yXTw0AUntnniHiqOHVRy203VVP+YrUMFHBZJJicullY2KT4ITsGAxzqZns//4I/vOwkRDZ1U/noSuAW2Kw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3M9PMxdfo5JZIOSfqkcZtko9cQirPDLRhsSRJ+G/8FA=;
- b=G3ULwAH+FYsh3G1QE6OM/vB9l2W7PwLlClFPFrlDm3TXQd1G5lb5zEMknkyMIEOwKNybK1cUxVoExpJxkauzICRStQ2iMMiQytrldPgwL75b9Lo73S515M1pPq+Ob4HbOkugFJm4snC8sENFmzIlZSqUyhToNhr3LIRZbKkqyN/T5d7CtWd6Ol73OWDIDRdUas0Gn8k37zvML3QiF7rDiao7OVDJFr50j0iGJwEgtpif0QuqHrnAj9uaxQIXQfDKnR0NhE5S/yyEM++j/zifXIuspy05D0x3DHgnL5gT017Jm8pHdJhNW4+j6Z4bsF02ebnhcwNytm+yEK5ziu9ARQ==
+ bh=fvhFmi+hqlQjFX2RiPwI6Zj5qLpBJGGXrhlVRhOIdus=;
+ b=KrVCDs6L7akN3UcIMPadHaean+aNSr8n5T2AAzltoo3oNXkyZiAyUiLRYN4lnOQpt4WA2yL5fgYNfr3s69EYy20CxwmyDcYfbBch5fjBwsA3i8ZUgo0FPXUAlf9zcLLn9AsbKisuCwWFUSYKrR2HWrcM1MA089FY1QwjA7f6aP7ci7DRfN6NK2XTFxAOCsb6IsHQs4mJ0OX8MfY4fnOGbqply9dTRASPRTzwwpzxexmSqfWwco4tMXmmbhaiWAmTQu5us68YA8aJHDWIG3U6PdszXdwHHl9H/qajCD9SpqOLnZBdwKgbJij4sjALlPEdl4x42SszoVdN89DGsl6k8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3M9PMxdfo5JZIOSfqkcZtko9cQirPDLRhsSRJ+G/8FA=;
- b=1ZLGALMCy/bTXY9ocvtCjKY+Qk0AbhV03C6A7cWH2oHGKaEZ1cKcBL8Nir1RiAZf0C9mUWKQuRpaqT6fHQdjDYLAl4TfqXZfCfRM68HNLYKeHiSHQKfiOxBcldLPQh3260z5YgODT2L5CB33rQ2/un4QEdxTzp98kbdXRBOA02A=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BN6PR1201MB0178.namprd12.prod.outlook.com (2603:10b6:405:55::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17; Fri, 28 Jan
- 2022 15:36:42 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::99d4:4d4f:653f:61be]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::99d4:4d4f:653f:61be%6]) with mapi id 15.20.4930.017; Fri, 28 Jan 2022
- 15:36:42 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: drop flood print in rlcg reg access function
-Thread-Topic: [PATCH] drm/amdgpu: drop flood print in rlcg reg access function
-Thread-Index: AQHYFFqF3xid4ySHMEmTGURQbngP/qx4kOBn
-Date: Fri, 28 Jan 2022 15:36:42 +0000
-Message-ID: <BL1PR12MB5144D0D8F1A7585ED2C5B4A7F7229@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20220128151937.25577-1-guchun.chen@amd.com>
-In-Reply-To: <20220128151937.25577-1-guchun.chen@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-28T15:36:42.082Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: b03bcca8-385c-b1a0-3d7a-e2355b130150
-authentication-results: dkim=none (message not signed)
+ bh=fvhFmi+hqlQjFX2RiPwI6Zj5qLpBJGGXrhlVRhOIdus=;
+ b=FlHpsykZQ48A7qrRhccpO3R5VzgXpdY04j/HpxSk9cfgxrphsg4DHAPIlgOWQkAlFKvv7vwOfsLWk7JbUC0HbNgHNOmGmMTBbRJhIiTOm5XXGjjQAz0Xl9UIgTL48lhnnen8U+UzqFNq5cHjbKkYuNFRyh8biF57Zbs7OjLCwOk=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9859a0ac-4c8d-4035-9cd6-08d9e273fc1a
-x-ms-traffictypediagnostic: BN6PR1201MB0178:EE_
-x-microsoft-antispam-prvs: <BN6PR1201MB0178033349D86F32E581637EF7229@BN6PR1201MB0178.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:626;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: /17TO8d5MABDNm9z6GxjtUgEe5m19lQp+waSZt1p3quK1iFymxW2gusWGjPQONbrbyIPKazmPYRZhbTfNvNE9kYwUbwBtOYv2GKd4Pn/arR5wIBxhF8l+3s19JYgi+SiCXrebE5hQazbnRdrA+FG7jswfJdud79QUH+6+ugsNopN+0Ai5z2c1EvXDHEVyjRLT4LU9CLZHuUFKpa9LC4DFpdNaNhBAhsQwJjnq6gfmnPPk5KRq+5a1QsSr9Vl+Db0FhahYUnsEabqEqUg52b8fw2f+EtcUtOocwxd3AeQ4/WODnlGl3HXqHp/y44JVRR8tWOYv8LxCnzMcK77+2nrzIMl5UOMGy6J3f5EBTdIXe8Yjm0J6smfGD8M/dKcjbgb+xCaccO/lIe1f4r39Llq1WWipcUpY4JS4QBDkaDUe7ba2cVvfMYgBpdDnbnSKiN+toU0fwehXsnyBLFNqb1Z63IfY5mXsjlCMcuvFv85PnO0rwY+aexyOEUatF2GrVVLAmoT2qfg2mNpKENmTPC4yLVuvF3UHgH3q03yG6LXr/kmIcxmpfAA6eQ9rMVQZVAQKNc/+Y17yhr2sT3fCszs9IJW6Yo08BVpQZ9rdgT+mwOT7cU+9WFjEFMk2laWkGqf0yzltqeD8mhT/i+8jvYxprGG2jghA+t7cgWdzpFOUrDoXAhUobDjvyrZ0qSzrqD0+HZ75yeYsq7dgFYnvc6Fsg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(76116006)(8676002)(8936002)(66476007)(66446008)(55016003)(66556008)(83380400001)(38070700005)(66946007)(64756008)(86362001)(38100700002)(5660300002)(122000001)(110136005)(6636002)(7696005)(186003)(2906002)(52536014)(19627405001)(71200400001)(33656002)(316002)(53546011)(26005)(9686003)(508600001)(6506007)(20210929001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fBlI1bGnUZhlmV3BvUyM7TQt+C5B9l7fz27KhL7aLIaO4mz+bdUCbQbk3BDy?=
- =?us-ascii?Q?Xe0FHW6sv7ZnbQEa7pwRwH2UatGD8MyqHHNE741vCslJoWiO3/KP+BYpEUCj?=
- =?us-ascii?Q?2P0yWh9mOrEzynMnnkdLJn2iCQz6KpT1IoKW646qV0SFWubKE2wtm3H5kJ0u?=
- =?us-ascii?Q?ppngYZJzlguqrv8VKuNo0PkrL164K7IObPeu0zRy2hqxhhUE6HgCZjDC5a2O?=
- =?us-ascii?Q?d/QtbC56iJyAzjFqKmm2E4GbRteb7Twgj3ITyNXxmdhPegoR1rrqYoAkxW5+?=
- =?us-ascii?Q?7DEO7dRSDqb0RgfqxEzE+Vqk5ubvX2AB+pBJHavgbSQy+pJlrVW5JrhgdEgi?=
- =?us-ascii?Q?Q8mz8cUKlPTJhrIJQ6b7rLsn4q6rVUHVfTGtdrx+fPvH6Di8EVAOGFD9oIaT?=
- =?us-ascii?Q?ctUV3vUJMbcKCEILhQ9/m9dkS/KmtZse60y32KWvgVBEbCvzg8xRNKwd4NK5?=
- =?us-ascii?Q?/nwgPEP3zTkp7Lph+FNG5Jzp7DecA6ivh34X6mVu4Af1HCcjaRfcO1J1VY2y?=
- =?us-ascii?Q?pBKYvONwFNikyRU7KwJLEModFqKf/JXZJ6aggvT9P8Vw/5di9EHJoZ60UiQn?=
- =?us-ascii?Q?38ZwWwNFYdALh2UL5DXgQ0zbHE0aOuREHaNxFDEDAW3aDhRfBXmnJbk3VVOe?=
- =?us-ascii?Q?gFO8wSn8D3q3x/R8Z8cpfp+QivbIHfoxWkmAL84+8VBWYTMsc03eQ/K7DBcM?=
- =?us-ascii?Q?XSGBb7PCeX4Ek3AIV+jp0CxvVwEgSk8a3qvAECV0qD50L3uQHwzPNuSi/oKm?=
- =?us-ascii?Q?iCWOygD0yoBDgj3hVzAOs87VC8mMb4ZQqXLbgxogff/WBDEAZxpqxV8+ebCH?=
- =?us-ascii?Q?EOcRvGP/AFT621y3kxpgK8RR67FuEjWeMXq2qvVrEr1kyL3zY/Mz98vXxODZ?=
- =?us-ascii?Q?ZJIEH8ca+Q9nGpAhFn1JOe6h/jmclmWv0NWSalbajWMayzdj+fLaC6/wl4P0?=
- =?us-ascii?Q?7yjQgOibs04wLQrjCLU+5YzFkpbYJA8JgtiONIsvECBKd4Z0GrgsRrFNVFku?=
- =?us-ascii?Q?MH9iyI6qu0U5Y/q6PFjFghAdhKDYBU70D80ROl1s8IaaIIe4HdxfrmseO+Sk?=
- =?us-ascii?Q?2sz/Fc07EV10gU+utbEuvsGiLXGaO8aUQFnS4oWPa2+7YyLpFLBpAcbIhk4f?=
- =?us-ascii?Q?2zN6C72E89yCNIaWAxD9nHFvMtF+oitj9Cvv8S4ZWELDwGnnI6Qpev0Vx/CN?=
- =?us-ascii?Q?i8oNT8/8GASTLzBjO5CxaT+7UWi1pqDIn4VFDnlO5mrffV6z5bpr2TV5U0+O?=
- =?us-ascii?Q?nQF7A+XEOptzolAQ3sfz+OVntLm688LtkuR82XdTmVYoTw+PkAdGpysiOb08?=
- =?us-ascii?Q?x34XgUJhBPiv1WwIA9TA+aLJgoHqvSy/5vWXFPQWdJVvJzjmfCHuvz3eLt+E?=
- =?us-ascii?Q?pYjsgaIO2PC2CEdyuv6lmOPX/MGXkdGjf+OpAeRObtkG8sGCxg1L4POBpqLm?=
- =?us-ascii?Q?91w9aMTFthq1Xqsmoak7YMxZQn4MEymDzxudwTLG5HgZQ2YYcdr4mRfNavWX?=
- =?us-ascii?Q?h0EFR2ivmOxmpzQVndXqAs1MguJdmaB7znWc6leL+GkisXKEV08H7UeN6Anx?=
- =?us-ascii?Q?FQLpPJWc7eZ6/vADaUhiiJBnRRDO0WP2tF9P1aawnY05XqRpfnyrgODussXf?=
- =?us-ascii?Q?0Jpll/IquU3asdsMxdmhaR4=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144D0D8F1A7585ED2C5B4A7F7229BL1PR12MB5144namp_"
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by MN2PR12MB4127.namprd12.prod.outlook.com (2603:10b6:208:1d1::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Fri, 28 Jan
+ 2022 15:55:57 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::971:531c:e4f4:8a9a%7]) with mapi id 15.20.4930.019; Fri, 28 Jan 2022
+ 15:55:57 +0000
+Message-ID: <a08812d4-a464-de08-8b5a-3c13408efff5@amd.com>
+Date: Fri, 28 Jan 2022 10:55:54 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH 2/2] drm/amdgpu: restructure amdgpu_fill_buffer
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ harish.kasiviswanathan@amd.com, benjaminadam.price@amd.com,
+ amd-gfx@lists.freedesktop.org
+References: <20220128151637.1403-1-christian.koenig@amd.com>
+ <20220128151637.1403-2-christian.koenig@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220128151637.1403-2-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0194.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:67::23) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 145d51bc-de98-4950-475b-08d9e276ac3a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4127:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4127CF0EA90E752292F39A1492229@MN2PR12MB4127.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tV6xjZ2XjB1imFTxd13jMyfItaUWEt8+96SEo735o44xhTnDiSUHnqLknrFsM4aa3+SQ3FgAKbwe1TMA5cwlc0Q4Yabbnjg2V28A+S4A1Vg/oVSAKpAdf4ncZx59TB/VXOwvKiIKo3SEiUAn+/5JIV7Yvb27Eo9qBnepdnEtovI2HTWf+BdP9FpDm8o6fXEmuNWOSKwhEQu6L3Tw5IWcScqEryr0eVuYPhO+d8EpJRW5R+LGwOD+Z+vEKa2wcq501hRg9FyR17Zlj5VnbUCKPz7F/f/lIw0IBr121Y4ci3BWrOPrRXNb6cbhzNAk9A/ye4eYQ958y5KEtKh0EtF38O7dBbM675WIkZvta3rPEfT5DY2znOYiJ9+p9Y25kLDgR6sCLq8teSAgE4ty0bgwfsao8Xoi3z9bqCM+wzA91CVHNy1f+m4DzkdgcAEPinqv2yznAd/Jrptkfz+CoQ/o9BGTLWV5DFZPac69OeA64+vL1oxLcMPkBimS3BsrKn17RpihE7AQ3F+5MiMKvXm9E6B5Vop9WWPkuUlcXZdiwkjzX3AFoVmoYnBdmLEvdjCmgQBC23aMo7tMTlk7zfnu17V62ftT6VxUmY1ghzBtQ7V+sWhQoQ7+9SVS0p3ygUxfAHOS0xv1iXw6k6E7FmzBMY1SEtmEBadNSW/2U99pxRV+Zl/ERXOFqbKbLTlbHjykKns8VZpIbzS3IVYbOdFvFQE9WO3s3On45WTyja9XmEU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(31686004)(5660300002)(2616005)(83380400001)(38100700002)(66946007)(316002)(44832011)(36756003)(66556008)(66476007)(30864003)(8676002)(8936002)(2906002)(6506007)(6486002)(508600001)(86362001)(6512007)(31696002)(6666004)(186003)(26005)(66574015)(45980500001)(43740500002)(20210929001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Sk9yTW00SndmYWp4Yy91bEhENzdaam56Tk5EOXpZcDFrK2N0N1drMktpRlVp?=
+ =?utf-8?B?R1RlWmpGNzQraTFMOW45enoxRVNmamZpbVluUEdEYm9TaHRKUWJrRkMvaDRp?=
+ =?utf-8?B?VnJvWGJwWlArU3RKKzB6UFkyTk9WbmM3ZzhyNk44UGc1WXVUNU9sM3Y3Qk1t?=
+ =?utf-8?B?aCtmNGpGVTd0MWFtWjBDOVI4bUl5ZW5LeStDdU1xRWprSUdGM2U5aW9UNkRM?=
+ =?utf-8?B?bkZ5VXAzYkUzazEzUHc1bXVFSVIyaVo5a1dYdk44cEtQUjlqenNHWElVcVha?=
+ =?utf-8?B?dFRDQXVCcmJ0UUV5bjNhOEMzUExSWklJS1JORFhTRWlwSDErZ2JncVNWRkFY?=
+ =?utf-8?B?QURlQTQzYVNGUStHSWVZQjIrMEttcUJCSjJJTUR2ZXNvWHBXbXBJYzl5a3lG?=
+ =?utf-8?B?clhNbUFCVTlyeW9seVhCcUNFUm81QVpHOEFvMW1NT25OTlROQjF0cHJzaWQy?=
+ =?utf-8?B?a0dSMXd3enZpVCsxZ25UUExhWHlqOEdvUTU1V1JJeWNWK0d3S0pvK0FCY21G?=
+ =?utf-8?B?M2FIWnptdzIzS09MaEswbEI5cUZtYitRRnNiSGlwMWRXNTNPWWFnc0dCbFZZ?=
+ =?utf-8?B?ZjZmQmZYck5pTFA4Y1FkUGNFZWlnbUZ1dzlibWIvS1h5OXVCTnB2UFpVdVAy?=
+ =?utf-8?B?YkxLRStoN0Z4NU1NTU5FN1NiOXh1OXJOV3UxaFF3ZTl2MURWaWlsOEFjQjJF?=
+ =?utf-8?B?SVN2MnhWWkpGVVUwNjRkbDB2K1hvUGZqQ3BWQ0pyc2FMbmh5VVU0VldIZ2w1?=
+ =?utf-8?B?Q2ZTWTJmZGwzTG1KRC8yRWIyeS9kZEdRQ0NwRy81Z093Zkt0bVhEYlRNUFdY?=
+ =?utf-8?B?OEk5dGNyRDI1c0lNODk5dUl1SWI3YlA4RjFlZGtBbCtzTXNvOGtLR05EN2sx?=
+ =?utf-8?B?SmdCQzNqbWNDM3RWRzdyWS9UNUVGOWFRVXpkNzlLa0p2UmV2dWF6QTBlY0Jx?=
+ =?utf-8?B?bFpMbWZhWjNtaERibVRqdW5BVWlOcmZZcTV4VlVUa2Nscm5FbG1yY3JsYnpG?=
+ =?utf-8?B?aWcwR1U0c05ZSVYwdW1UL3NmcXdIcDRpTUR4NTVJRFJkWmUxWUF6SE1qRkxJ?=
+ =?utf-8?B?K01raDk4b205QVVyWWEyQnBveUpPeS8zZmpmakU5RUFrazExaS92YVhLK2FU?=
+ =?utf-8?B?LzhRbzNBUXlFS2RBK1dZMm1McmtFbnZiUVRkM1ZsMmNzSGFZdUdNMm9SdHE2?=
+ =?utf-8?B?UVR2UGxYZjhIT3FJN3VjL3JhMk1VSzZELzR0YTU2RjE5WmlkVkhtSXhhUTBx?=
+ =?utf-8?B?WGhBOFkzTm1hTVBBZ0dkU3VRbVZ2OVVTUzNGbTN4RWRGdGI4UFNvNjhiVVRW?=
+ =?utf-8?B?UitNeFBQZkl5WDNYSkhPWXJHQ3laWENFYjdDTVBkQ283blllRkNoUDN1VlQ5?=
+ =?utf-8?B?SGYxaTlPU2FQQ0tmTmFLZllUc1N5TnpwUks1azNJc29KSnNTa1lBYzBvMVdl?=
+ =?utf-8?B?TG16RlFiR1lNdUpOT0pVMGYxVmJ1Y2wyeHR2aXFFSUtscmx1THFOdndOd0lO?=
+ =?utf-8?B?UDFISHJJQkRWTmoxUU5uemp4ZmhBL0xTdVhTOTFhdlYzQjl2L2owS3ZKUE9z?=
+ =?utf-8?B?ZmFxOXMzS3J3eDBkTytSRjZWdVFHa1dWM2hEQlMwTG15cVAwVUpXUm0zbCtm?=
+ =?utf-8?B?YUdFTCtJV25QZjRKVklDQTJuVXJyY2NJZWYrR08xeUI2S0JXYkRwVHlOazN4?=
+ =?utf-8?B?c1owVjNzVkptWjIzSFRrZXlWYzVOcWZkN0J1dG9idEZraDBDc1FJZ0p3Yksr?=
+ =?utf-8?B?d2prdnU4bXQ4aDNJbk1OKzNPNXpZN2NtS1J4TklEU2JzcEN2SmNLZUJHRG14?=
+ =?utf-8?B?b0RBc0NvNmlNWjZQMVJZNldpVnlNaVlqM3JBWUV3WTBrSnp4U1VsaUdLMXRM?=
+ =?utf-8?B?VjJ2ZjlSSmlZVjBGRjVMQkNuMWllYzBpZHBlamZKR1cyT3IwWjFkNmhTK3BH?=
+ =?utf-8?B?UWZxN3BGTng2c0dia0grRnY5NEo2cktzdVY0YlhOQkpTcTc0TXdQT0lmaUlL?=
+ =?utf-8?B?ZkM5Z3pKOGRFdGJ0N2tRelBKalFCaTNtSldNS1AwV3FHRXZ5VHA5a09BaEQ0?=
+ =?utf-8?B?V0wyL3JlNUc2NjJmRjhPUVJvZEl1UE9UdXkzZVk2djMxU0FhK2Jwd2hzR3Mw?=
+ =?utf-8?B?UEM2clNWYzV0S1h4U3AwUDU5U0srcFJ4bkVoL2NvUCs2ZDVibm8zSkdFVWhV?=
+ =?utf-8?Q?toVsMs63IaPPx+WdvKORalo=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 145d51bc-de98-4950-475b-08d9e276ac3a
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9859a0ac-4c8d-4035-9cd6-08d9e273fc1a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jan 2022 15:36:42.7105 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5eYdG/h1xAXC4Nv9Gousqe9eBYFdwsA6D5Fk5zXopClh4i0dFFFAB4UjXtPVtfOgVf+B7DwWs6zCf8apxOsDrg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0178
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 15:55:57.5654 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SlO0uN6WmQ2ytCFn/RPuF0vPvNTevmkCDYiLbDlAUqCIwBKEBSCcllNCiEN7niq4mwiDcaYZJI6gpo2u1mscRg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4127
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,137 +131,336 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144D0D8F1A7585ED2C5B4A7F7229BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 
-[Public]
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Chen, Guchun <Guchun.Chen@amd.com>
-Sent: Friday, January 28, 2022 10:19 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
- Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig=
-@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Zhang, Hawking <Hawking.Zhang@=
-amd.com>
-Cc: Chen, Guchun <Guchun.Chen@amd.com>
-Subject: [PATCH] drm/amdgpu: drop flood print in rlcg reg access function
-
-A lot of below message are outputed in SRIOV case.
-amdgpu: indirect registers access through rlcg is not supported
-
-Also drop redundant ret set, as it's initialized to be false already.
-
-Fixes: d4cd09ca9bce("drm/amdgpu: add helper to query rlcg reg access flag")
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.c
-index 80c25176c993..b56cafb26f4a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -849,9 +849,6 @@ static bool amdgpu_virt_get_rlcg_reg_access_flag(struct=
- amdgpu_device *adev,
-                 }
-                 break;
-         default:
--               dev_err(adev->dev,
--                       "indirect registers access through rlcg is not supp=
-orted\n");
--               ret =3D false;
-                 break;
-         }
-         return ret;
---
-2.17.1
-
-
---_000_BL1PR12MB5144D0D8F1A7585ED2C5B4A7F7229BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+Am 2022-01-28 um 10:16 schrieb Christian König:
+> We ran into the problem that clearing really larger buffer (60GiB) caused an
+> SDMA timeout.
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Chen, Guchun &lt;Guch=
-un.Chen@amd.com&gt;<br>
-<b>Sent:</b> Friday, January 28, 2022 10:19 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Christia=
-n &lt;Christian.Koenig@amd.com&gt;; Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;;=
- Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;<br>
-<b>Cc:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: drop flood print in rlcg reg access fun=
-ction</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">A lot of below message are outputed in SRIOV case.=
-<br>
-amdgpu: indirect registers access through rlcg is not supported<br>
-<br>
-Also drop redundant ret set, as it's initialized to be false already.<br>
-<br>
-Fixes: d4cd09ca9bce(&quot;drm/amdgpu: add helper to query rlcg reg access f=
-lag&quot;)<br>
-Signed-off-by: Guchun Chen &lt;guchun.chen@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 3 ---<br>
-&nbsp;1 file changed, 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.c<br>
-index 80c25176c993..b56cafb26f4a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-@@ -849,9 +849,6 @@ static bool amdgpu_virt_get_rlcg_reg_access_flag(struct=
- amdgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_err(adev-&gt;dev,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;indirect r=
-egisters access through rlcg is not supported\n&quot;);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
--- <br>
-2.17.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> Restructure the function to use the dst window instead of mapping the whole
+> buffer into the GART and then fill only 2MiB chunks at a time.
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 200 +++++++++++++-----------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |   2 +
+>   2 files changed, 114 insertions(+), 88 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 2b0e83e9fa8a..8671ba32fb52 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -296,9 +296,6 @@ int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
+>   			       struct dma_resv *resv,
+>   			       struct dma_fence **f)
+>   {
+> -	const uint32_t GTT_MAX_BYTES = (AMDGPU_GTT_MAX_TRANSFER_SIZE *
+> -					AMDGPU_GPU_PAGE_SIZE);
+> -
+>   	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
+>   	struct amdgpu_res_cursor src_mm, dst_mm;
+>   	struct dma_fence *fence = NULL;
+> @@ -320,12 +317,15 @@ int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
+>   		uint32_t cur_size;
+>   		uint64_t from, to;
+>   
+> -		/* Copy size cannot exceed GTT_MAX_BYTES. So if src or dst
+> -		 * begins at an offset, then adjust the size accordingly
+> +		/*
+> +		 * Copy size cannot exceed AMDGPU_GTT_MAX_TRANSFER_BYTES. So if
+> +		 * src or dst begins at an offset, then adjust the size
+> +		 * accordingly
+>   		 */
+>   		cur_size = max(src_page_offset, dst_page_offset);
+>   		cur_size = min(min3(src_mm.size, dst_mm.size, size),
+> -			       (uint64_t)(GTT_MAX_BYTES - cur_size));
+> +			       (uint64_t)(AMDGPU_GTT_MAX_TRANSFER_BYTES -
+> +					  cur_size));
+>   
+>   		/* Map src to window 0 and dst to window 1. */
+>   		r = amdgpu_ttm_map_buffer(src->bo, src->mem, &src_mm,
+> @@ -395,8 +395,7 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
+>   	    (abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE)) {
+>   		struct dma_fence *wipe_fence = NULL;
+>   
+> -		r = amdgpu_fill_buffer(ttm_to_amdgpu_bo(bo), AMDGPU_POISON,
+> -				       NULL, &wipe_fence);
+> +		r = amdgpu_fill_buffer(abo, AMDGPU_POISON, NULL, &wipe_fence);
+>   		if (r) {
+>   			goto error;
+>   		} else if (wipe_fence) {
+> @@ -1922,19 +1921,51 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
+>   	adev->mman.buffer_funcs_enabled = enable;
+>   }
+>   
+> +static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
+> +				  bool direct_submit,
+> +				  unsigned int num_dw,
+> +				  struct dma_resv *resv,
+> +				  bool vm_needs_flush,
+> +				  struct amdgpu_job **job)
+> +{
+> +	enum amdgpu_ib_pool_type pool = direct_submit ?
+> +		AMDGPU_IB_POOL_DIRECT :
+> +		AMDGPU_IB_POOL_DELAYED;
+> +	int r;
+> +
+> +	r = amdgpu_job_alloc_with_ib(adev, num_dw * 4, pool, job);
+> +	if (r)
+> +		return r;
+> +
+> +	if (vm_needs_flush) {
+> +		(*job)->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gmc.pdb0_bo ?
+> +							adev->gmc.pdb0_bo :
+> +							adev->gart.bo);
+> +		(*job)->vm_needs_flush = true;
+> +	}
+> +	if (resv) {
+> +		r = amdgpu_sync_resv(adev, &(*job)->sync, resv,
+> +				     AMDGPU_SYNC_ALWAYS,
+> +				     AMDGPU_FENCE_OWNER_UNDEFINED);
+> +		if (r) {
+> +			DRM_ERROR("sync failed (%d).\n", r);
+> +			amdgpu_job_free(*job);
+> +			return r;
+> +		}
+> +	}
+> +	return 0;
+> +}
+> +
+>   int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
+>   		       uint64_t dst_offset, uint32_t byte_count,
+>   		       struct dma_resv *resv,
+>   		       struct dma_fence **fence, bool direct_submit,
+>   		       bool vm_needs_flush, bool tmz)
+>   {
+> -	enum amdgpu_ib_pool_type pool = direct_submit ? AMDGPU_IB_POOL_DIRECT :
+> -		AMDGPU_IB_POOL_DELAYED;
+>   	struct amdgpu_device *adev = ring->adev;
+> +	unsigned num_loops, num_dw;
+>   	struct amdgpu_job *job;
+> -
+>   	uint32_t max_bytes;
+> -	unsigned num_loops, num_dw;
+>   	unsigned i;
+>   	int r;
+>   
+> @@ -1946,26 +1977,11 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
+>   	max_bytes = adev->mman.buffer_funcs->copy_max_bytes;
+>   	num_loops = DIV_ROUND_UP(byte_count, max_bytes);
+>   	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->copy_num_dw, 8);
+> -
+> -	r = amdgpu_job_alloc_with_ib(adev, num_dw * 4, pool, &job);
+> +	r = amdgpu_ttm_prepare_job(adev, direct_submit, num_dw,
+> +				   resv, vm_needs_flush, &job);
+>   	if (r)
+>   		return r;
+>   
+> -	if (vm_needs_flush) {
+> -		job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gmc.pdb0_bo ?
+> -					adev->gmc.pdb0_bo : adev->gart.bo);
+> -		job->vm_needs_flush = true;
+> -	}
+> -	if (resv) {
+> -		r = amdgpu_sync_resv(adev, &job->sync, resv,
+> -				     AMDGPU_SYNC_ALWAYS,
+> -				     AMDGPU_FENCE_OWNER_UNDEFINED);
+> -		if (r) {
+> -			DRM_ERROR("sync failed (%d).\n", r);
+> -			goto error_free;
+> -		}
+> -	}
+> -
+>   	for (i = 0; i < num_loops; i++) {
+>   		uint32_t cur_size_in_bytes = min(byte_count, max_bytes);
+>   
+> @@ -1995,77 +2011,35 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
+>   	return r;
+>   }
+>   
+> -int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+> -		       uint32_t src_data,
+> -		       struct dma_resv *resv,
+> -		       struct dma_fence **fence)
+> +static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
+> +			       uint64_t dst_addr, uint32_t byte_count,
+> +			       struct dma_resv *resv,
+> +			       struct dma_fence **fence,
+> +			       bool vm_needs_flush)
+>   {
+> -	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+> -	uint32_t max_bytes = adev->mman.buffer_funcs->fill_max_bytes;
+> -	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
+> -
+> -	struct amdgpu_res_cursor cursor;
+> +	struct amdgpu_device *adev = ring->adev;
+>   	unsigned int num_loops, num_dw;
+> -	uint64_t num_bytes;
+> -
+>   	struct amdgpu_job *job;
+> +	uint32_t max_bytes;
+> +	unsigned int i;
+>   	int r;
+>   
+> -	if (!adev->mman.buffer_funcs_enabled) {
+> -		DRM_ERROR("Trying to clear memory with ring turned off.\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	if (bo->tbo.resource->mem_type == AMDGPU_PL_PREEMPT) {
 
---_000_BL1PR12MB5144D0D8F1A7585ED2C5B4A7F7229BL1PR12MB5144namp_--
+As far as I can see, you didn't add this check back elsewhere. The 
+promise for preemptible BOs is, that we never have to wait for the GPU 
+to finish accessing the BOs because the context using it is preemptible. 
+This was a necessary condition to disable GTT usage accounting for such 
+BOs. If you allow filling such BOs with this function, you're breaking 
+that promise.
+
+
+> -		DRM_ERROR("Trying to clear preemptible memory.\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	if (bo->tbo.resource->mem_type == TTM_PL_TT) {
+> -		r = amdgpu_ttm_alloc_gart(&bo->tbo);
+> -		if (r)
+> -			return r;
+> -	}
+> -
+> -	num_bytes = bo->tbo.resource->num_pages << PAGE_SHIFT;
+> -	num_loops = 0;
+> -
+> -	amdgpu_res_first(bo->tbo.resource, 0, num_bytes, &cursor);
+> -	while (cursor.remaining) {
+> -		num_loops += DIV_ROUND_UP_ULL(cursor.size, max_bytes);
+> -		amdgpu_res_next(&cursor, cursor.size);
+> -	}
+> -	num_dw = num_loops * adev->mman.buffer_funcs->fill_num_dw;
+> -
+> -	/* for IB padding */
+> -	num_dw += 64;
+> -
+> -	r = amdgpu_job_alloc_with_ib(adev, num_dw * 4, AMDGPU_IB_POOL_DELAYED,
+> -				     &job);
+> +	max_bytes = adev->mman.buffer_funcs->fill_max_bytes;
+> +	num_loops = DIV_ROUND_UP_ULL(byte_count, max_bytes);
+> +	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->fill_num_dw, 8);
+> +	r = amdgpu_ttm_prepare_job(adev, false, num_dw, resv, vm_needs_flush,
+> +				   &job);
+>   	if (r)
+>   		return r;
+>   
+> -	if (resv) {
+> -		r = amdgpu_sync_resv(adev, &job->sync, resv,
+> -				     AMDGPU_SYNC_ALWAYS,
+> -				     AMDGPU_FENCE_OWNER_UNDEFINED);
+> -		if (r) {
+> -			DRM_ERROR("sync failed (%d).\n", r);
+> -			goto error_free;
+> -		}
+> -	}
+> -
+> -	amdgpu_res_first(bo->tbo.resource, 0, num_bytes, &cursor);
+> -	while (cursor.remaining) {
+> -		uint32_t cur_size = min_t(uint64_t, cursor.size, max_bytes);
+> -		uint64_t dst_addr = cursor.start;
+> +	for (i = 0; i < num_loops; i++) {
+> +		uint32_t cur_size = min(byte_count, max_bytes);
+>   
+> -		dst_addr += amdgpu_ttm_domain_start(adev,
+> -						    bo->tbo.resource->mem_type);
+>   		amdgpu_emit_fill_buffer(adev, &job->ibs[0], src_data, dst_addr,
+>   					cur_size);
+>   
+> -		amdgpu_res_next(&cursor, cur_size);
+> +		dst_addr += cur_size;
+> +		byte_count -= cur_size;
+>   	}
+>   
+>   	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
+> @@ -2082,6 +2056,56 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>   	return r;
+>   }
+>   
+> +int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+> +			uint32_t src_data,
+> +			struct dma_resv *resv,
+> +			struct dma_fence **f)
+> +{
+> +	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+> +	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
+> +	struct dma_fence *fence = NULL;
+> +	struct amdgpu_res_cursor dst;
+> +	int r;
+> +
+> +	if (!adev->mman.buffer_funcs_enabled) {
+> +		DRM_ERROR("Trying to clear memory with ring turned off.\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &dst);
+> +
+> +	mutex_lock(&adev->mman.gtt_window_lock);
+> +	while (dst.remaining) {
+> +		struct dma_fence *next;
+> +		uint32_t cur_size;
+> +		uint64_t to;
+> +
+> +		cur_size = min_t(u64, dst.size, AMDGPU_GTT_MAX_TRANSFER_BYTES);
+
+For VRAM, the cur_size could be much bigger because we're not limited by 
+the GART transfer window. I'm pretty sure that 2MB is going to add too 
+much overhead. For the extreme 60GB BO example, it would require 
+30-thousand IBs and IB frames to fill the entire buffer. That's a lot of 
+VMID-switching, IB execution, fence signalling, interrupts, etc.
+
+
+> +
+> +		r = amdgpu_ttm_map_buffer(&bo->tbo, bo->tbo.resource, &dst,
+> +					  PFN_UP(cur_size), 1, ring, false,
+> +					  &to);
+> +		if (r)
+> +			goto error;
+> +
+> +		r = amdgpu_ttm_fill_mem(ring, src_data, to, cur_size, resv,
+> +					&next, false);
+
+If amdgpu_ttm_map_buffer updated the page tables, shouldn't the 
+vm_needs_flush parameter be true? This flag should probably be returned 
+by amdgpu_ttm_map_buffer.
+
+Regards,
+   Felix
+
+
+> +		if (r)
+> +			goto error;
+> +
+> +		dma_fence_put(fence);
+> +		fence = next;
+> +
+> +		amdgpu_res_next(&dst, cur_size);
+> +	}
+> +error:
+> +	mutex_unlock(&adev->mman.gtt_window_lock);
+> +	if (f)
+> +		*f = dma_fence_get(fence);
+> +	dma_fence_put(fence);
+> +	return r;
+> +}
+> +
+>   /**
+>    * amdgpu_ttm_evict_resources - evict memory buffers
+>    * @adev: amdgpu device object
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> index d9691f262f16..bcd34592e45d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> @@ -35,6 +35,8 @@
+>   
+>   #define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
+>   #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
+> +#define AMDGPU_GTT_MAX_TRANSFER_BYTES	(AMDGPU_GTT_MAX_TRANSFER_SIZE * \
+> +					 AMDGPU_GPU_PAGE_SIZE)
+>   
+>   #define AMDGPU_POISON	0xd0bed0be
+>   
