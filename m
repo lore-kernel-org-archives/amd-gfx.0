@@ -4,63 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE423C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 15:16:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 196A9C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 15:19:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5313810F4B9;
-	Fri, 28 Jan 2022 15:16:52 +0000 (UTC)
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 829FB10F4B7
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 15:16:49 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id w25so9624430edt.7
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 07:16:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=drzIDe9WPg2oFSv1xriQJUWsj3uynxTRJgNGQU261+s=;
- b=BI6fegvSwMD7MXVYYZFh0iZKW2sbcO54u1RPveZ2heBflksCSEXpVq8UHIuT2YD+6P
- GPp5vGPw6r1sjkPnVbnmT5HDGtMD3l3HjzGzQyrn1jTjCpJQ4VG91HaB5e1pZA40P2yi
- Q1wJSgsirkTdEz06BvDBSzzHxrDLO7h231mpDn54ixwo9eCyGWkiPaWwlEHKYBoQO15E
- q/F5lt7K11X+6AAV4RE5TheeQWDFC0I+h/ubXTOcuKYdOf5t4ckmFVZOhZ8pRd2bqHBd
- Mhk7kCaHObst+8eONmGq7ClRXb1RkPYs5+F/GX1kmnhKZ08w+B3SFxgCp+ZeDccCQFEl
- m4UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=drzIDe9WPg2oFSv1xriQJUWsj3uynxTRJgNGQU261+s=;
- b=AAu8dhHIgKXgzHHae9UMi3BYnPIp6UhuH/IAek7CYfi6V2mDVOzhhkitNaPgDhMCZW
- B7rd+762ewJH1Bb+UTZgaBTmmNH6IdqvYU6f7ECbJolSoNxVDubkV6lxbwu3MGhYUbqx
- IX6XtD3hxPnvUb+sz2dk0mEjvjufBRCACgNfbgOv099mYyO7SS29CFRqChkd/s7KDdB1
- JaZRzpXuvEtnG2CXQS4FgJ9Z/pbygj14pf0EzliWKtUXBQDTVWQ0zzOvQfch9GbYScQo
- 90YjVHY2w+txFOJO1JAdLiw8A0GKK4Snsjh3B27+N00BxuvRjd+HoC6xIZy0f/AdqEkV
- IZrA==
-X-Gm-Message-State: AOAM530tBmXSTG9BuObf9eRWlDVV76J3BtbonKUx62jPCzoVEjCkn77K
- NIPyN8ATv/b0STP748435ag=
-X-Google-Smtp-Source: ABdhPJwrLKHJetXT6jP4je/Iv3z6524X0tnSyg9my1szc+Avhn/Taq4Ay//jHPDXTSdUC2NASFU5fA==
-X-Received: by 2002:a05:6402:3585:: with SMTP id
- y5mr8698570edc.104.1643383007866; 
- Fri, 28 Jan 2022 07:16:47 -0800 (PST)
-Received: from baker.fritz.box (p57b0bff8.dip0.t-ipconnect.de.
- [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id dv14sm2653220ejb.91.2022.01.28.07.16.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Jan 2022 07:16:47 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: harish.kasiviswanathan@amd.com, benjaminadam.price@amd.com,
- felix.kuehling@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: restructure amdgpu_fill_buffer
-Date: Fri, 28 Jan 2022 16:16:37 +0100
-Message-Id: <20220128151637.1403-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220128151637.1403-1-christian.koenig@amd.com>
-References: <20220128151637.1403-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B782010E34B;
+	Fri, 28 Jan 2022 15:19:58 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3261310E34B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 15:19:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Gzfh6CC8XL2Jd/SWsRBqNmD+e1MfIr4sca7jf0yZmSD4P98U/Ye79xXYwBWGSj15KtisrTlJFv57PCQQgwW0sOC2LzxKcPokMdNMmkGfoKC/3LsHc3CT07Vs/Hi+73iL/mfgncP2UlwnQFBlgo9t11T2c/vzM3+MiRoBjMzR5x6xF7ECHE6+KLcd5qnV3Cq7ZV30zr0HQ9Q1+PwY2emkvpBLcJ6BRfOCABBS4+XODbeae3RxqOAwQWHwyLNDMs2qHwNB9/qPCvFqXZ+xD7EBx0C16/RpaBMRYv8i3plf9ukY73Ul5i02e3G5b3Iew6/Km+T5iMSbJ0voIWec/E3ThQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2hsC9svUo4mqIlb4GI7WRHiysYz7/OoJPIS/+OaCOCA=;
+ b=nw1U7QvnWSMUc+N8RguhzKmxT/UpVY/K+js+Jrdh2r0Hr8bcKA+3wdLWAuCNA7vRm+59KAiab+evnHWcshgNUgGA9EXOhCvi8GFldleqnGxEi9ZzDiiUP3Lo4te/eo6dKZTUXmt2Q1hqbDMtQUS9h6b2YfaGfvKKDIfCr6lkAgfZaliH0NniZH8pWXgBtP7zynrA9NnPWv6bYuytr6L2H9sCDIkzfYC2yiXimnU4xvn3xRko3KqGT2upn5bEeMW6S3dMO1dnPwRa8fMGipfiP6VJm+OcStjfY7BTUyRbQb3SQpFLSfAgMuXm4ReZ7VRekLVYpAsXr0m1nIuu1hSN9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2hsC9svUo4mqIlb4GI7WRHiysYz7/OoJPIS/+OaCOCA=;
+ b=oVRGchnRdqzfFE/7rXoGO2vbfMO2ju6pt4hJnhD17s9hXEBZQyPGrC0/ZBJ3ytKdPT0MDc9Bwuaqp7IpeeqW/cy03xA0ZOSyZ+smNncz/JCSktXGftDp8YBEX9i7ciaLF7TYUw23tXGWRAoFKCU9K8NmBAvFk3GbjKpYdAVzaYw=
+Received: from DM5PR10CA0007.namprd10.prod.outlook.com (2603:10b6:4:2::17) by
+ DM6PR12MB2874.namprd12.prod.outlook.com (2603:10b6:5:15e::29) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4909.13; Fri, 28 Jan 2022 15:19:55 +0000
+Received: from DM6NAM11FT065.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:2:cafe::96) by DM5PR10CA0007.outlook.office365.com
+ (2603:10b6:4:2::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17 via Frontend
+ Transport; Fri, 28 Jan 2022 15:19:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT065.mail.protection.outlook.com (10.13.172.109) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4930.15 via Frontend Transport; Fri, 28 Jan 2022 15:19:55 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.18; Fri, 28 Jan 2022 09:19:52 -0600
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <xinhui.pan@amd.com>, <hawking.zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: drop flood print in rlcg reg access function
+Date: Fri, 28 Jan 2022 23:19:37 +0800
+Message-ID: <20220128151937.25577-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2dd2f36f-71a5-4ea9-a2f9-08d9e271a391
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2874:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2874060549BFA6371A8FE9C9F1229@DM6PR12MB2874.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1775;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OiNMWljCrf6hnyZh8GURhsymr/L36bzBPncHUZdQPfZAqfW6pQwVQaWhKzoQn4CE8akM+/z4isWyXDGuV4Ntj6KxSSl2Pebvvhr6LFcD3gWMZObZYcSlc0FkFxrCIDOk4muDx+jzqemUB7XWTFJvsiCPe995YmDirYaXgpwrHZhEGGG0s9oHYm2cD6z3dJlHI5ko1aFKhQGowQmZI3OZLoC7cOPsHgA6D56GQmJEeDZIzUHRUxI3iGVbzly1zykojGMUxVT5/UFhnwq6o7xN7lu2cCv1czdHsmysjX90cGX1/S+hRXw4MiUEw/e0G9vktdju6tIVhglGqkTQTxFJHc/jPbLPwoUgBvZ9zNMzV4kBdKJELkQhyCofQLMuT/9vlDaDmMjH14A//15mJ79NzKT7uz3fM4w397jDxUxKcyz+kEJXNbV7u2W4kc/23QZZnYOGQaWUzj3HzK4+hLHgMnOBZt8yEqj/CgLae0OK9bbSKzEz9mvAQcDrn3IWfODW5/JymN6sAoWtKHQAOnV9a1nu+QAlGQNZb+9apIhJoEx8uwGcGtKBg8AQMzWwVZkayGBHGbvvkoHJ1PUcOmpdtts45wvDEyZ6W77PYHKqXv3WBfcPwZJDxiGrUHjkHRc4iFrUy3L6C+j277UwcCIrdUi+HTW9CplDhKpzevV3CqPktiiiymv7xEiTSEtD/2HYHrcpgwFAJb+319yOw39cSiq7JfFNnDCLGWOs0CFwP+8tfpPs+82vtrZM7lk0Y/wUmkm7wKT98obk60gUziZ6Wukm9l5O2HT+av+00OKtEgpohTK6lejvV3GUrrAPnpD+
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(40470700004)(36840700001)(8676002)(1076003)(508600001)(36756003)(36860700001)(7696005)(16526019)(426003)(40460700003)(86362001)(4744005)(186003)(70206006)(70586007)(2616005)(4326008)(6666004)(47076005)(5660300002)(356005)(2906002)(82310400004)(83380400001)(26005)(336012)(81166007)(44832011)(110136005)(8936002)(316002)(6636002)(36900700001)(2101003);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 15:19:55.1954 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2dd2f36f-71a5-4ea9-a2f9-08d9e271a391
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT065.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2874
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,314 +99,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We ran into the problem that clearing really larger buffer (60GiB) caused an
-SDMA timeout.
+A lot of below message are outputed in SRIOV case.
+amdgpu: indirect registers access through rlcg is not supported
 
-Restructure the function to use the dst window instead of mapping the whole
-buffer into the GART and then fill only 2MiB chunks at a time.
+Also drop redundant ret set, as it's initialized to be false already.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Fixes: d4cd09ca9bce("drm/amdgpu: add helper to query rlcg reg access flag")
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 200 +++++++++++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |   2 +
- 2 files changed, 114 insertions(+), 88 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 2b0e83e9fa8a..8671ba32fb52 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -296,9 +296,6 @@ int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
- 			       struct dma_resv *resv,
- 			       struct dma_fence **f)
- {
--	const uint32_t GTT_MAX_BYTES = (AMDGPU_GTT_MAX_TRANSFER_SIZE *
--					AMDGPU_GPU_PAGE_SIZE);
--
- 	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
- 	struct amdgpu_res_cursor src_mm, dst_mm;
- 	struct dma_fence *fence = NULL;
-@@ -320,12 +317,15 @@ int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
- 		uint32_t cur_size;
- 		uint64_t from, to;
- 
--		/* Copy size cannot exceed GTT_MAX_BYTES. So if src or dst
--		 * begins at an offset, then adjust the size accordingly
-+		/*
-+		 * Copy size cannot exceed AMDGPU_GTT_MAX_TRANSFER_BYTES. So if
-+		 * src or dst begins at an offset, then adjust the size
-+		 * accordingly
- 		 */
- 		cur_size = max(src_page_offset, dst_page_offset);
- 		cur_size = min(min3(src_mm.size, dst_mm.size, size),
--			       (uint64_t)(GTT_MAX_BYTES - cur_size));
-+			       (uint64_t)(AMDGPU_GTT_MAX_TRANSFER_BYTES -
-+					  cur_size));
- 
- 		/* Map src to window 0 and dst to window 1. */
- 		r = amdgpu_ttm_map_buffer(src->bo, src->mem, &src_mm,
-@@ -395,8 +395,7 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
- 	    (abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE)) {
- 		struct dma_fence *wipe_fence = NULL;
- 
--		r = amdgpu_fill_buffer(ttm_to_amdgpu_bo(bo), AMDGPU_POISON,
--				       NULL, &wipe_fence);
-+		r = amdgpu_fill_buffer(abo, AMDGPU_POISON, NULL, &wipe_fence);
- 		if (r) {
- 			goto error;
- 		} else if (wipe_fence) {
-@@ -1922,19 +1921,51 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
- 	adev->mman.buffer_funcs_enabled = enable;
- }
- 
-+static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
-+				  bool direct_submit,
-+				  unsigned int num_dw,
-+				  struct dma_resv *resv,
-+				  bool vm_needs_flush,
-+				  struct amdgpu_job **job)
-+{
-+	enum amdgpu_ib_pool_type pool = direct_submit ?
-+		AMDGPU_IB_POOL_DIRECT :
-+		AMDGPU_IB_POOL_DELAYED;
-+	int r;
-+
-+	r = amdgpu_job_alloc_with_ib(adev, num_dw * 4, pool, job);
-+	if (r)
-+		return r;
-+
-+	if (vm_needs_flush) {
-+		(*job)->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gmc.pdb0_bo ?
-+							adev->gmc.pdb0_bo :
-+							adev->gart.bo);
-+		(*job)->vm_needs_flush = true;
-+	}
-+	if (resv) {
-+		r = amdgpu_sync_resv(adev, &(*job)->sync, resv,
-+				     AMDGPU_SYNC_ALWAYS,
-+				     AMDGPU_FENCE_OWNER_UNDEFINED);
-+		if (r) {
-+			DRM_ERROR("sync failed (%d).\n", r);
-+			amdgpu_job_free(*job);
-+			return r;
-+		}
-+	}
-+	return 0;
-+}
-+
- int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
- 		       uint64_t dst_offset, uint32_t byte_count,
- 		       struct dma_resv *resv,
- 		       struct dma_fence **fence, bool direct_submit,
- 		       bool vm_needs_flush, bool tmz)
- {
--	enum amdgpu_ib_pool_type pool = direct_submit ? AMDGPU_IB_POOL_DIRECT :
--		AMDGPU_IB_POOL_DELAYED;
- 	struct amdgpu_device *adev = ring->adev;
-+	unsigned num_loops, num_dw;
- 	struct amdgpu_job *job;
--
- 	uint32_t max_bytes;
--	unsigned num_loops, num_dw;
- 	unsigned i;
- 	int r;
- 
-@@ -1946,26 +1977,11 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
- 	max_bytes = adev->mman.buffer_funcs->copy_max_bytes;
- 	num_loops = DIV_ROUND_UP(byte_count, max_bytes);
- 	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->copy_num_dw, 8);
--
--	r = amdgpu_job_alloc_with_ib(adev, num_dw * 4, pool, &job);
-+	r = amdgpu_ttm_prepare_job(adev, direct_submit, num_dw,
-+				   resv, vm_needs_flush, &job);
- 	if (r)
- 		return r;
- 
--	if (vm_needs_flush) {
--		job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gmc.pdb0_bo ?
--					adev->gmc.pdb0_bo : adev->gart.bo);
--		job->vm_needs_flush = true;
--	}
--	if (resv) {
--		r = amdgpu_sync_resv(adev, &job->sync, resv,
--				     AMDGPU_SYNC_ALWAYS,
--				     AMDGPU_FENCE_OWNER_UNDEFINED);
--		if (r) {
--			DRM_ERROR("sync failed (%d).\n", r);
--			goto error_free;
--		}
--	}
--
- 	for (i = 0; i < num_loops; i++) {
- 		uint32_t cur_size_in_bytes = min(byte_count, max_bytes);
- 
-@@ -1995,77 +2011,35 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
- 	return r;
- }
- 
--int amdgpu_fill_buffer(struct amdgpu_bo *bo,
--		       uint32_t src_data,
--		       struct dma_resv *resv,
--		       struct dma_fence **fence)
-+static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
-+			       uint64_t dst_addr, uint32_t byte_count,
-+			       struct dma_resv *resv,
-+			       struct dma_fence **fence,
-+			       bool vm_needs_flush)
- {
--	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
--	uint32_t max_bytes = adev->mman.buffer_funcs->fill_max_bytes;
--	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
--
--	struct amdgpu_res_cursor cursor;
-+	struct amdgpu_device *adev = ring->adev;
- 	unsigned int num_loops, num_dw;
--	uint64_t num_bytes;
--
- 	struct amdgpu_job *job;
-+	uint32_t max_bytes;
-+	unsigned int i;
- 	int r;
- 
--	if (!adev->mman.buffer_funcs_enabled) {
--		DRM_ERROR("Trying to clear memory with ring turned off.\n");
--		return -EINVAL;
--	}
--
--	if (bo->tbo.resource->mem_type == AMDGPU_PL_PREEMPT) {
--		DRM_ERROR("Trying to clear preemptible memory.\n");
--		return -EINVAL;
--	}
--
--	if (bo->tbo.resource->mem_type == TTM_PL_TT) {
--		r = amdgpu_ttm_alloc_gart(&bo->tbo);
--		if (r)
--			return r;
--	}
--
--	num_bytes = bo->tbo.resource->num_pages << PAGE_SHIFT;
--	num_loops = 0;
--
--	amdgpu_res_first(bo->tbo.resource, 0, num_bytes, &cursor);
--	while (cursor.remaining) {
--		num_loops += DIV_ROUND_UP_ULL(cursor.size, max_bytes);
--		amdgpu_res_next(&cursor, cursor.size);
--	}
--	num_dw = num_loops * adev->mman.buffer_funcs->fill_num_dw;
--
--	/* for IB padding */
--	num_dw += 64;
--
--	r = amdgpu_job_alloc_with_ib(adev, num_dw * 4, AMDGPU_IB_POOL_DELAYED,
--				     &job);
-+	max_bytes = adev->mman.buffer_funcs->fill_max_bytes;
-+	num_loops = DIV_ROUND_UP_ULL(byte_count, max_bytes);
-+	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->fill_num_dw, 8);
-+	r = amdgpu_ttm_prepare_job(adev, false, num_dw, resv, vm_needs_flush,
-+				   &job);
- 	if (r)
- 		return r;
- 
--	if (resv) {
--		r = amdgpu_sync_resv(adev, &job->sync, resv,
--				     AMDGPU_SYNC_ALWAYS,
--				     AMDGPU_FENCE_OWNER_UNDEFINED);
--		if (r) {
--			DRM_ERROR("sync failed (%d).\n", r);
--			goto error_free;
--		}
--	}
--
--	amdgpu_res_first(bo->tbo.resource, 0, num_bytes, &cursor);
--	while (cursor.remaining) {
--		uint32_t cur_size = min_t(uint64_t, cursor.size, max_bytes);
--		uint64_t dst_addr = cursor.start;
-+	for (i = 0; i < num_loops; i++) {
-+		uint32_t cur_size = min(byte_count, max_bytes);
- 
--		dst_addr += amdgpu_ttm_domain_start(adev,
--						    bo->tbo.resource->mem_type);
- 		amdgpu_emit_fill_buffer(adev, &job->ibs[0], src_data, dst_addr,
- 					cur_size);
- 
--		amdgpu_res_next(&cursor, cur_size);
-+		dst_addr += cur_size;
-+		byte_count -= cur_size;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 80c25176c993..b56cafb26f4a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -849,9 +849,6 @@ static bool amdgpu_virt_get_rlcg_reg_access_flag(struct amdgpu_device *adev,
+ 		}
+ 		break;
+ 	default:
+-		dev_err(adev->dev,
+-			"indirect registers access through rlcg is not supported\n");
+-		ret = false;
+ 		break;
  	}
- 
- 	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
-@@ -2082,6 +2056,56 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
- 	return r;
- }
- 
-+int amdgpu_fill_buffer(struct amdgpu_bo *bo,
-+			uint32_t src_data,
-+			struct dma_resv *resv,
-+			struct dma_fence **f)
-+{
-+	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
-+	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
-+	struct dma_fence *fence = NULL;
-+	struct amdgpu_res_cursor dst;
-+	int r;
-+
-+	if (!adev->mman.buffer_funcs_enabled) {
-+		DRM_ERROR("Trying to clear memory with ring turned off.\n");
-+		return -EINVAL;
-+	}
-+
-+	amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &dst);
-+
-+	mutex_lock(&adev->mman.gtt_window_lock);
-+	while (dst.remaining) {
-+		struct dma_fence *next;
-+		uint32_t cur_size;
-+		uint64_t to;
-+
-+		cur_size = min_t(u64, dst.size, AMDGPU_GTT_MAX_TRANSFER_BYTES);
-+
-+		r = amdgpu_ttm_map_buffer(&bo->tbo, bo->tbo.resource, &dst,
-+					  PFN_UP(cur_size), 1, ring, false,
-+					  &to);
-+		if (r)
-+			goto error;
-+
-+		r = amdgpu_ttm_fill_mem(ring, src_data, to, cur_size, resv,
-+					&next, false);
-+		if (r)
-+			goto error;
-+
-+		dma_fence_put(fence);
-+		fence = next;
-+
-+		amdgpu_res_next(&dst, cur_size);
-+	}
-+error:
-+	mutex_unlock(&adev->mman.gtt_window_lock);
-+	if (f)
-+		*f = dma_fence_get(fence);
-+	dma_fence_put(fence);
-+	return r;
-+}
-+
- /**
-  * amdgpu_ttm_evict_resources - evict memory buffers
-  * @adev: amdgpu device object
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index d9691f262f16..bcd34592e45d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -35,6 +35,8 @@
- 
- #define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
- #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
-+#define AMDGPU_GTT_MAX_TRANSFER_BYTES	(AMDGPU_GTT_MAX_TRANSFER_SIZE * \
-+					 AMDGPU_GPU_PAGE_SIZE)
- 
- #define AMDGPU_POISON	0xd0bed0be
- 
+ 	return ret;
 -- 
-2.25.1
+2.17.1
 
