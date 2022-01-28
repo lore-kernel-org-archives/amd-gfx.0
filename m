@@ -4,123 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0E86C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 02:34:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11329C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 02:50:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 105C610EE12;
-	Fri, 28 Jan 2022 02:34:09 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3857910EE12
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 02:34:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73DCE10EAE8;
+	Fri, 28 Jan 2022 02:50:38 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4CD010E2AA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 02:50:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dHYLx3AiduW0jkhB0Z/MPuBUQolDWJhJ5jJvvQDNBpbzu83zciQoP1hl3lSgZq8XCWpZkUmVHLz8Oz2+Av8ppGg2nGoF0pXHre4DvMZLME6jMTZvoPzUrI6ANW1IgTwbfnKX9KH9vl+SLx02ZAAesJkU887dhOJxyyNIs04hySev6caiZhcth4CpZaV6wQOE65uDhbguxU0NxHtD0i1tuwwWDHWe3GQ6aYpzfXlYIfNjoWK2mL6HXqljK+lGVzB7uuZChteoGW8nN6rvPiV+M49ac1ft3T92tQMAi2IYA3eYkhvMGj8Pt/ZPxpKKozgrP7BinH0dF3rMnAbEtgx/hw==
+ b=aNZhHQ2V2kL8slywOzRFeyV3GL3xttexRBzYhenLoXuMJoQZ/m9MXR+hmgoNN+lCDrp2Sku5UdrW5QF9KM6E/SYHOllfYkRxcghuodB4+Bz3m3anbjj49GjCqBMeU8K7+2qJQqyKfnfEe55lIxMznvA0xS7Ww8PdlVd7gpSjtlc3I8VMa/hoD7uY/iXeoCfaE2IhHrVUF1ILs5flU4b3DHNQQXsj7CgbYovCSt8oCvs9Y4A3LMS/IjHxKPrm1D0fXA4PhjAM/mjO+vy/AR2Nu2xuN09oWxKYzZkF7KTwpjm0pco3mtxjTO7uOMK6WKgZ8OOT6yPC7N2rnFevGyYRGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tIo0E/Yd2cIqZSyjJToxx9VbiglPTYV/qXc88TTDZxQ=;
- b=CMpbSm8U1q8+OxFhrK4P6HReXAOAgWo60fyDfWAfRq883TotH/UVZsAKq9TBGvMYUMgoTPf6OW119hOL5epZxcU2YE6PiRrIQHbXrsKkRJ6Tirj32i7gw/ZJLQ1Nemn56PTwfD5fMn85GEofHHeZJx6KxaIxT5T8GBGVknJz4Ybh7S8z83RyDZeaHCfGDRzY+7qHzZ+qPKsYmLMfFdDNgaccJPL9TwFQ7PCQxqMPLFtT6OIHYeeajNc3e42unVCL9dzOY9ySUYLBR9opCXOWoTt6FaMZbtogrIg61fHxeyqsK8S86LsPQ17kCNPR3UT5lA31I/n1JXoECjgCaoLUZg==
+ bh=wgekm+haYXHIqB8dvlP4gOZ4sJR9+//bIZfDYIE9f2A=;
+ b=IhNewXnth7w0swSZ7x1oud1HLdEYMzDjnNl4zs39AJ0eeFB8x+ekVbYN09lODmvygnZPdenH+xbsQgC1iNC2V2MVysr6GOT9xRPS8b2YcubFhzi/TFzoKNaADe0kQW/IDle+NorjGkt0o8GnORWOxSuuKKFC8H+pSUA50xKCuK83i80oaLtMPLug8+s5pYI6BLBjqctoalG6dJqIK+F193963g0a1z92eYX27Ed10VPBbjs5vxiqB3HEwZIvaKUKxkrUu5bQqyH+eHuHYGehruPuq3dnb29eN6eEjEn28mFZbV3GAkWnlrVVz9f5JHJV/l9eaMG7Y3iUE/I0NoGk4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tIo0E/Yd2cIqZSyjJToxx9VbiglPTYV/qXc88TTDZxQ=;
- b=jnnsmDUXWS9NOcX/kHTYhxgJo7FHouswEubRRdyTd+upnxTAbE7l8isScdSCC1zk/T8ES3qpBcrZQIt0VukNZL246O/kxNGdSscAs3xvkdK3EvhaGK9Z8zZ63VgYMR+DNxCNSR7eJpLlkHOBlZWbyOlPK6b3s99MoHNA6Z32rw8=
-Received: from DM4PR12MB5294.namprd12.prod.outlook.com (2603:10b6:5:39e::15)
- by DM6PR12MB4252.namprd12.prod.outlook.com (2603:10b6:5:211::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17; Fri, 28 Jan
- 2022 02:34:04 +0000
-Received: from DM4PR12MB5294.namprd12.prod.outlook.com
- ([fe80::7dc0:b85f:5c9e:33be]) by DM4PR12MB5294.namprd12.prod.outlook.com
- ([fe80::7dc0:b85f:5c9e:33be%6]) with mapi id 15.20.4888.020; Fri, 28 Jan 2022
- 02:34:04 +0000
-From: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Wang, Yang(Kevin)"
- <KevinYang.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
-Thread-Topic: [PATCH] drm/amdgpu: Fix an error message in rmmod
-Thread-Index: AQHYEdLUqv+l+snVMkWySvGKcSJw8axzjpeAgABPAwCAAL9QMIAAzHQAgADFr7mAANJtgIAAuL53
-Date: Fri, 28 Jan 2022 02:34:04 +0000
-Message-ID: <DM4PR12MB5294035B7A2685C9A1EBBE1895229@DM4PR12MB5294.namprd12.prod.outlook.com>
-References: <20220125100321.450194-1-tianci.yin@amd.com>
- <SJ0PR12MB54888020E0D600D546BAC634825F9@SJ0PR12MB5488.namprd12.prod.outlook.com>
- <b5fab406-062f-1fdb-832b-1ba0249e1e10@amd.com>
- <DM4PR12MB52949E3762DF92C8C747ED8A95209@DM4PR12MB5294.namprd12.prod.outlook.com>
- <c7a7d79c-c59e-51ed-07fc-22d9b57c1271@amd.com>
- <DM4PR12MB5294D2C47F12FC897406884295219@DM4PR12MB5294.namprd12.prod.outlook.com>
- <1f6ae3fe-5463-cf80-063a-2c8a500b9b2a@amd.com>
-In-Reply-To: <1f6ae3fe-5463-cf80-063a-2c8a500b9b2a@amd.com>
-Accept-Language: en-US, zh-CN
+ bh=wgekm+haYXHIqB8dvlP4gOZ4sJR9+//bIZfDYIE9f2A=;
+ b=yg+geHX5scx0g8/NKQJOUzy/vlOPnhOBze5QFbFq/Q2+pnFo735X1tsxxvdTt+lox04tghXXj3jMDn7eraxv0N52UL1P8LwYucAn66vdONqLyDhiReBZThU/JBn56U/DBGXaXd3VLEB5lb/SU3ZCTE4+QYPwLGfz62BdaqkcMh4=
+Received: from DM4PR12MB5214.namprd12.prod.outlook.com (2603:10b6:5:395::22)
+ by DM8PR12MB5415.namprd12.prod.outlook.com (2603:10b6:8:25::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4930.17; Fri, 28 Jan 2022 02:50:31 +0000
+Received: from DM4PR12MB5214.namprd12.prod.outlook.com
+ ([fe80::cc07:fecf:c07d:403b]) by DM4PR12MB5214.namprd12.prod.outlook.com
+ ([fe80::cc07:fecf:c07d:403b%4]) with mapi id 15.20.4930.017; Fri, 28 Jan 2022
+ 02:50:31 +0000
+From: "Liu, Zhan" <Zhan.Liu@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liu,
+ Charlene" <Charlene.Liu@amd.com>
+Subject: [PATCH] drm/amd/display: Keep eDP Vdd on when eDP stream is already
+Thread-Topic: [PATCH] drm/amd/display: Keep eDP Vdd on when eDP stream is
+ already
+Thread-Index: AdgT8XWfBXjrFHKiTZam0fg5m5OR6A==
+Date: Fri, 28 Jan 2022 02:50:31 +0000
+Message-ID: <DM4PR12MB521498A5B7AC85E8BDD6B5269E229@DM4PR12MB5214.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-01-28T02:34:03.985Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: 04f625cf-f77d-27c1-df92-bd3c8fe38570
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=f7fcb149-88cf-4290-a4c5-c00e19c92901;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-28T02:49:55Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 15c45715-2cb9-4ec8-ba29-08d9e206a6ee
-x-ms-traffictypediagnostic: DM6PR12MB4252:EE_
-x-microsoft-antispam-prvs: <DM6PR12MB4252A00FDFBAC5D3A1AD3A2195229@DM6PR12MB4252.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-ms-office365-filtering-correlation-id: a29807e1-385a-44b0-ea5d-08d9e208f31a
+x-ms-traffictypediagnostic: DM8PR12MB5415:EE_
+x-microsoft-antispam-prvs: <DM8PR12MB54153F4615D00DF0601E13C09E229@DM8PR12MB5415.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: W+ZQ+OJoxSVFv+sKndnKCZzt+B7OV3td/WmfSN4v9KemouX12BRb2wWSebuMEEuNLFnp6CUv5S+JAHwlH3BRBhtKnPZ1u25dwdc8m94JWfxGE9foHfrU2knoPi50n6lA3aNXIw6iy0bj2V9ySJ9uctECu9she2kjoHkcZ+5OR0sK5KAgnKQxi3U8aXu/FzcicTsYyq08Olzo5gqPrUTTFGHPKnEtfQQzY3TPH/9pehAKG3e7UiBI04fWxZHovepcL9pl9miAeatb54HwNaupfm0diwpAL3aT4ICrcyogvG3wmklaCG5mxqTdbDW0BrFne2F0mM5ZMjdoRbthL0hNRXjXGhGLxHn4TkoN2zyPcwfC33tAmKMFPjsJMYT++9rlbDPjZh500kzGOh0IQYbbxAk3QSOcrzUGN2TbOyw239Xca9jbkh/iByENHUBNqJsW77iFm/7PO/BY1KfT6xkSSshEoWUrwxztANzYWwW1vl3jxkSPhoOrJmyTlOL7D+6Q5wd/LbsIOnzpcbyudg5CefbemUB2WKg1osisyCk0heo1n+NZ00d3HM8EAGl4idJiZYo94XOh9YhzwXurX9+uO6T9DijrxU5jghJBYCdY1Cn06AQ4S0qjH0WX5F8AWErzhzaJo75AMhw2qH0qkgZ4o2mkC+ghh1BbXGRCgf+SzJ6+5V1gDcf0yN+DbuuJ1DccTLixrOu6kJjZrPHj4P6aSA==
+x-microsoft-antispam-message-info: gwSGXBi88hgqbPfSU0dRx6S32hK4L3A11u7kjA4FMgDV1TjS0ITsRDUgGd0P4wTUpo+Zr1B4RUm9VWK2JVO5Pvl0R8Xu7Z3owncFVVE8zVmAT3DiV0MpsxBTcp8FUZStDhdgwhWOPmqDnaJa72AMrOThrIdkKMx/AngGRobh+CjagOEYxNEYPy/EW9wGLL9o3ty+WkNXHUiHs3D5HgFVBuoNClV89xhEjQIlwRhzdc1QzswM4onlHMAnpebutfZDH7chgiHkBBhn4+ReokOOaL3LnVm/drXZzcuro7b6ZheRs9GyQN7xXxoNoWdVQTG8TqpbR6YrKgIYaeAhmxhLBKQDySUArBPRZ1sJg8SuwfKt552lnazTdNLeXftcTMwg7ACXxSXZ35DCFD1Yu8/aYpqRXLSTFP5tYlYAbenEoVkJPbbOXEmNwh0rLHtNSe7U07qDguJZBO6KaqPVSkGWBgkeHXEgBhdlbgLVFGJ86NfFIaCtyX7fA9ptTpoRAB0+ncIx+rp2k15WDGG25BPlyvw9Ru4TtJMqb6/sWFjSuBZsSLHR5MMQ4QAjW5I4OpDmWvQYHc1/qTFyAdvg0DVu6MZUqPwxf6htIgPCCJ9FRBFWqD6JKs+FdZCjzNgmq3dgQ2NLGUt4eBtbBuu+29cSowv+AchCAJCcdfOYHWXza0iw0cCKvt43nk2krCZ7FH/J5HgUyApY7sdGQxF1D0MTaw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5294.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(64756008)(66446008)(76116006)(66946007)(66556008)(19627405001)(8676002)(8936002)(4326008)(55016003)(66476007)(86362001)(52536014)(316002)(5660300002)(91956017)(122000001)(33656002)(9686003)(15650500001)(2906002)(38100700002)(110136005)(26005)(54906003)(53546011)(508600001)(71200400001)(6506007)(7696005)(186003)(83380400001)(38070700005)(20210929001);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5214.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(38100700002)(186003)(26005)(38070700005)(122000001)(55016003)(33656002)(7696005)(6506007)(2906002)(71200400001)(8936002)(316002)(66446008)(66476007)(64756008)(6636002)(54906003)(4326008)(66556008)(66946007)(52536014)(110136005)(8676002)(508600001)(76116006)(83380400001)(86362001)(9686003)(5660300002)(20210929001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mY/lT+aOxTgnM9U/iKC/bxrG20UJnbAa8CMvn6h7NWmuYcaoG/t5ugP4SY0c?=
- =?us-ascii?Q?73cGXCNiaGrnURu08fp2U1TdCHV5Eo8Bj1sTgpV4NHVw3MthSfxpOJLVeKm4?=
- =?us-ascii?Q?rEEjna9LgWHnUW1YXOp5z3xokxD6RWbGdAx08ds8GWZpPqeQxIc3M7IZvnbL?=
- =?us-ascii?Q?XkmI+Huro8DM0JH315trv/qDxowDpd/Qkro4IYQJuAdAXSqbT/igMtfBYWb2?=
- =?us-ascii?Q?AwVOaVZNol1+q7f4MLWCNjJ9IWnQezaopS5exiX6HoP3lmexHndSd82thB9i?=
- =?us-ascii?Q?KvhXKVb1QBFV5+jce6YaB6zbdINv8D/CazoHsvGv2cy3VUvPhlgh3i1EKobf?=
- =?us-ascii?Q?eZdvHqcJvvi9b4E0iwKRjuR1+DDVD7NjEIZqSgpTnSHCXxtEtd4Qv8W5FRgm?=
- =?us-ascii?Q?n1UsCr/iRPEWJCpx309sn/CvlnHkLYmdzOIyoXJx5yfihhEj3rtUse+CJsxy?=
- =?us-ascii?Q?XLKDLDNePWE6f6xcXAWGln+3DieZwhdLZU5xjP96WMa2zoxm3o1pbW54qtDw?=
- =?us-ascii?Q?ir5FFxDJLbCUamI4Wz+8ovgncIcqAHtv6I3tBedbqJl55q+ajNgAz68Ha2zW?=
- =?us-ascii?Q?TTQpK2KAwcXdoeJEKLluCHrhqPmAY+0G4mJIoKWfJYNAjNfj8mOZayTs7AEu?=
- =?us-ascii?Q?T5A6U4YJEYHrDLyQsyn+brTPCIJfKTvE6GHPxBiMHpBg5PXwZxdrdvjH52u9?=
- =?us-ascii?Q?+/DhNZqwirrUd7FryfIMhkElNBxO06XTu+d4nFHo36gY55RB78nP/zbJ2oRm?=
- =?us-ascii?Q?CYOPLKwAYbCWrYNPkGi/oJePuO1UgRHnC2tmDalKi3Ehj30huoKHREryIN2r?=
- =?us-ascii?Q?4NSau3xLS39aSZMOdwP2UKj9ULQcybgYdm/PqtqaMmUjipkIlITERwaO/YsA?=
- =?us-ascii?Q?CX8QlDpDpZjtYSrrRxvYdGRvIGmY+bZS+Rod2uGzVCRzYB/ELFPUtU39Zevg?=
- =?us-ascii?Q?B6rfussxEQn6Eu5KkGpI0xqVWUz8C16osy/4cdXyzntwYsPvielv8Dbvj6ap?=
- =?us-ascii?Q?FSWQAjY/biKD5kjLTCuKeiBEJcR/wfioF2vWP4LwfexqHlUsvjiTz58HRxyK?=
- =?us-ascii?Q?9mXhAirwOGjhpRqj+gIZIbyIiwVZcQ8tkQ4fXXgNv4tYxxMc15f8ClAdx8hv?=
- =?us-ascii?Q?7Z1p9PlBJFSFLCoc4ENwtST6iE1VddkXXoHYOiR5Iw3prFPFx8LZiuTP+jz0?=
- =?us-ascii?Q?33n0M2qMZLjXaTSmT0mYbO0GOBet3rgtCmjYZySxBd2SFLZ6f5Wy9HCQNwq2?=
- =?us-ascii?Q?YwxDoSCY8FCZAoIwtHIV8iloNQOUO5dEcnFzGimBUOrjGWUdauz23qmeLI2Q?=
- =?us-ascii?Q?Ee3KJTx1sedZunep8IRNuIY94HuhhJ2q8GW5YUvGK/DE5awRYeDrxwBHslFW?=
- =?us-ascii?Q?P5KreT0APzb/dZtHyTWS1SiZAzlBDkxBiSm5xkSTajRi8VcfAvrBul+RH985?=
- =?us-ascii?Q?nLjGVgmRh3LEsLx6YWS+lQma6SsBuSkgq5ijCZms/4f2y4zkWPsRyYR6Twbn?=
- =?us-ascii?Q?6qB/ZeSRDmXTL5/QuHuCc563jKeOL05nArVrrG3i12it5rinI8sGCUmtQDG/?=
- =?us-ascii?Q?6pbgu2Fkthl/1ojncBe3RBkVurMSGyexEnFwd+n5P2Zh3meaeNBVPilrRQH7?=
- =?us-ascii?Q?nZCYhXYDOSmOc7Y4A8FB6s0=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DM4PR12MB5294035B7A2685C9A1EBBE1895229DM4PR12MB5294namp_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?W8wsBtpD5eYlbqMIyxiiy4+rzz2RGDBiuzG/1wAwUXe5O+++oq6uSs86f5Fe?=
+ =?us-ascii?Q?McVMiWL1ROwDJCbB1rsVxX226sEFKNWhVkl7lFO4Z9CgK68kUnNFw5TOjQ2s?=
+ =?us-ascii?Q?eTM1F2t1+BjSxR9/BvMsKoetG7F++cVoFxviYYU5hZuJPLzlpLGsayvo2ccV?=
+ =?us-ascii?Q?EHLqnLcQcPnlE72w1lSSeilLF/Vpwqk3Psf/f2N8LsHgm/8eDBcrJ3JPgreT?=
+ =?us-ascii?Q?/OFSUt6XA2fML2tCRb1hWjfhfxZb3VefqFOviSlLgA7QOCTNgY/QoNY1+vF2?=
+ =?us-ascii?Q?siS9WRQz7vnUXmvE3GbEpLGfVSo65oOBxJObrBiJ+GiQvbuU2hPiBmJVklEq?=
+ =?us-ascii?Q?SgVF7cHoULazZGUntddX5cPI4c2suXfIseRy3D2UlY8IHIgPwRyLUqGlsDTj?=
+ =?us-ascii?Q?xygpinHFmAu7M13k6jMPCZDHCIftUlZlhxrAf1iItzRKuLfST2lozWqpGQoW?=
+ =?us-ascii?Q?NfPFNEGRBRDeXyZQiHhmJPdxA8gcuJM+IdTvnnJZRZvsCPzmoBSWSaQ+BioR?=
+ =?us-ascii?Q?RT2IqOO+EhA8jq65SAA9gd7wXQG7xToHnu3fQgR0X+aU+4F0naUWI1GAG+gc?=
+ =?us-ascii?Q?SdD9uAeFGdeGXaopAo2KsALNcjuY64/x01YBmyrp5xhNTid8I8DTdlzTBmNA?=
+ =?us-ascii?Q?vJiXcBcZE3AJBureIJrFlhaWpDfhNw9PttlJZMtSEAkSPXkLQztcwjy51q8D?=
+ =?us-ascii?Q?XIQ9paJ1aZKR4hcohSt75udlRI/kgagY8aTjocXeByzj6Z/bi27C/arzOPB0?=
+ =?us-ascii?Q?KVfCcWjIXeFeRooWSrzrmdCnDpYx7YsRXDiX2RYbOc1toN+wKh4x8o3cvM8X?=
+ =?us-ascii?Q?28EsilsuUEVy0Rhr71PEOD6k/68MDC6M+7ckcK2Kmw7Ty6rq/gFyJuxC3iMF?=
+ =?us-ascii?Q?gsZPWBnRS/n32uLuDxC9ZE5bk/X0wIbwcUeqosUlZAJV/+QxFOLINGwCah1s?=
+ =?us-ascii?Q?eHhFK+sO2kQcYMX8Tk9/Ufi4PEk6C4YDksmNErgvLZ9jSyB1Ffu0WOgSAoc8?=
+ =?us-ascii?Q?EHuCLajyztCMuTNiUJ0XPnVYYUAYz3Z655R82bnfO7c27npA74iNbG+RAG9L?=
+ =?us-ascii?Q?3cdUxYLGDqRtOupOfIH6FKfRqX+yNKBA1xZ/16wLngRI01XmsXh7fS9p+6jE?=
+ =?us-ascii?Q?AAF5YxP6QSCSVAlYSHXTaItila7RDSN54WZF0Y+DloABFoZ5x7M535vkuIZl?=
+ =?us-ascii?Q?CElRYkpg5HOvG3bsssuX9Eh8Nf9Y7C9r3Je1Q6JQfQpcDVoIGlmVw6NKSeeu?=
+ =?us-ascii?Q?xrAUJ7G1jfqX80j8VZ5ANjuefhdCO9K0bueP8x4G1DTF1fctpuDq+knnTSRW?=
+ =?us-ascii?Q?XpRQnLxBXUaK7T+NoE1zTR3zjnfzyIwHDb1alI/wCmAYgGq5jNbXHuDyRUf6?=
+ =?us-ascii?Q?FPzCQiHdecwmXDwA1HpLFkrmWkPk9TYOZvs/urk7XJPsOIjH6qGcmou+Ck5M?=
+ =?us-ascii?Q?Nsi8jzOCkuqSLECEPzCtXV6h96xhcAdE8NIKVzgpzhXRNdmPogmXO++L+dRl?=
+ =?us-ascii?Q?PjUbUvYv08cUV9fsDvDcuPqNo7xGpoYjMHES0gXWtdCVkWlchGRzzitm0EQu?=
+ =?us-ascii?Q?riBKfQYKIqwIgbELBhc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5294.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15c45715-2cb9-4ec8-ba29-08d9e206a6ee
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jan 2022 02:34:04.7510 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5214.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a29807e1-385a-44b0-ea5d-08d9e208f31a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jan 2022 02:50:31.5097 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: k2s4fmaVr86NyuCLcmpbcmlPv15nKPJXKaLtQsPc5HsdbkKCF/5U2rZXOd7BrG37hVhJlnyLfrOLYUMTkPfntw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4252
+X-MS-Exchange-CrossTenant-userprincipalname: TRhSu3lcTiJCC3Pg7RNQQV1t+n4NoJEQ4DTdAcooYNsY9jboA1MV7uO2PqkPKvei
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5415
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,617 +122,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Chen,
- Guchun" <Guchun.Chen@amd.com>
+Cc: "Kotarac, Pavle" <Pavle.Kotarac@amd.com>, "Gutierrez,
+ Agustin" <Agustin.Gutierrez@amd.com>,
+ Pierre-Loup Griffais <pgriffais@valvesoftware.com>, "Cornij,
+ Nikola" <Nikola.Cornij@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM4PR12MB5294035B7A2685C9A1EBBE1895229DM4PR12MB5294namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+[Public]
 
-[AMD Official Use Only]
+[Why]
+Even if can_apply_edp_fast_boot is set to 1 at boot, this flag will
+be cleared to 0 at S3 resume. However, we still need to keep Vdd on
+at S3 resume. Turning eDP Vdd off at resume will result in black
+screen at S3 resume.
 
-The error message is from HIQ dequeue procedure,  not from HCQ, so no doorb=
-ell writing.
+[How]
+Don't turn eDP Vdd off when there is an existing eDP stream. This can
+assure eDP display come back after S3.
 
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.477067] Call Trace:
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.477072]  dump_stack+0x7d/0x9c
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.477651]  hqd_destroy_v10_3+0x58/=
-0x254 [amdgpu]
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.477778]  destroy_mqd+0x1e/0x30 [=
-amdgpu]
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.477884]  kernel_queue_uninit+0xc=
-f/0x100 [amdgpu]
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.477985]  pm_uninit+0x1a/0x30 [am=
-dgpu] #kernel_queue_uninit(pm->priv_queue, hanging); this priv_queue =3D=3D=
- HIQ
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478127]  stop_cpsch+0x98/0x100 [=
-amdgpu]
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478242]  kgd2kfd_suspend.part.0+=
-0x32/0x50 [amdgpu]
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478338]  kgd2kfd_suspend+0x1b/0x=
-20 [amdgpu]
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478433]  amdgpu_amdkfd_suspend+0=
-x1e/0x30 [amdgpu]
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478529]  amdgpu_device_fini_hw+0=
-x182/0x335 [amdgpu]
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478655]  amdgpu_driver_unload_km=
-s+0x5c/0x80 [amdgpu]
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478732]  amdgpu_pci_remove+0x27/=
-0x40 [amdgpu]
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478806]  pci_device_remove+0x3e/=
-0xb0
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478809]  device_release_driver_i=
-nternal+0x103/0x1d0
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478813]  driver_detach+0x4c/0x90
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478814]  bus_remove_driver+0x5c/=
-0xd0
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478815]  driver_unregister+0x31/=
-0x50
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478817]  pci_unregister_driver+0=
-x40/0x90
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478818]  amdgpu_exit+0x15/0x2d1 =
-[amdgpu]
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478942]  __x64_sys_delete_module=
-+0x147/0x260
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478944]  ? exit_to_user_mode_pre=
-pare+0x41/0x1d0
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478946]  ? ksys_write+0x67/0xe0
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478948]  do_syscall_64+0x40/0xb0
-Jan 25 16:10:58 lnx-ci-node kernel: [18161.478951]  entry_SYSCALL_64_after_=
-hwframe+0x44/0xae
+Signed-off-by: Zhan Liu <zhan.liu@amd.com>
+---
+ .../display/dc/dce110/dce110_hw_sequencer.c   | 23 +++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
 
-Regards,
-Rico
-________________________________
-From: Kuehling, Felix <Felix.Kuehling@amd.com>
-Sent: Thursday, January 27, 2022 23:28
-To: Yin, Tianci (Rico) <Tianci.Yin@amd.com>; Wang, Yang(Kevin) <KevinYang.W=
-ang@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Chen, Guchun <Guchun.Ch=
-en@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/=
+drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+index 72dd41e7a7d6..1aa6f2737534 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+@@ -1796,9 +1796,28 @@ void dce110_enable_accelerated_mode(struct dc *dc, s=
+truct dc_state *context)
+                                break;
+                        }
+                }
+-               // We are trying to enable eDP, don't power down VDD
+-               if (can_apply_edp_fast_boot)
++
++               /*
++                * TO-DO: So far the code logic below only addresses single=
+ eDP case.
++                * For dual eDP case, there are a few things that need to b=
+e
++                * implemented first:
++                *
++                * 1. Change the fastboot logic above, so eDP link[0 or 1]'=
+s
++                * stream[0 or 1] will all be checked.
++                *
++                * 2. Change keep_edp_vdd_on to an array, and maintain keep=
+_edp_vdd_on
++                * for each eDP.
++                *
++                * Once above 2 things are completed, we can then change th=
+e logic below
++                * correspondingly, so dual eDP case will be fully covered.
++                */
++
++               // We are trying to enable eDP, don't power down VDD if the=
+re is an existing eDP stream
++               if ((edp_stream_num =3D 1 && edp_streams[0]) || can_apply_e=
+dp_fast_boot) {
+                        keep_edp_vdd_on =3D true;
++                       DC_LOG_EVENT_LINK_TRAINING("At least 1 eDP stream i=
+s already enabled, will keep eDP Vdd on\n");
++               } else
++                       DC_LOG_EVENT_LINK_TRAINING("No eDP stream enabled, =
+will turn eDP Vdd off\n");
+        }
 
-The hang you're seeing is the result of a command submission of an
-UNMAP_QUEUES and QUERY_STATUS command to the HIQ. This is done using a
-doorbell. KFD writes commands to the HIQ and rings a doorbell to wake up
-the HWS (see kq_submit_packet in kfd_kernel_queue.c). Why does this
-doorbell not trigger gfxoff exit during rmmod?
-
-
-Regards,
-   Felix
-
-
-
-Am 2022-01-26 um 22:38 schrieb Yin, Tianci (Rico):
->
-> [AMD Official Use Only]
->
->
-> The rmmod ops has prerequisite multi-user target and blacklist amdgpu,
-> which is IGT requirement so that IGT can make itself DRM master to
-> test KMS.
-> igt-gpu-tools/build/tests/amdgpu/amd_module_load --run-subtest reload
->
-> From my understanding, the KFD process belongs to the regular way of
-> gfxoff exit, which doorbell writing triggers gfxoff exit. For example,
-> KFD maps HCQ thru cmd on HIQ or KIQ ring, or UMD commits jobs on HCQ,
-> these both trigger doorbell writing(pls refer to
-> gfx_v10_0_ring_set_wptr_compute()).
->
-> As to the IGT reload test, the dequeue request is not thru a cmd on a
-> ring, it directly writes CP registers, so GFX core remains in gfxoff.
->
-> Thanks,
-> Rico
->
-> ------------------------------------------------------------------------
-> *From:* Kuehling, Felix <Felix.Kuehling@amd.com>
-> *Sent:* Wednesday, January 26, 2022 23:08
-> *To:* Yin, Tianci (Rico) <Tianci.Yin@amd.com>; Wang, Yang(Kevin)
-> <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.org
-> <amd-gfx@lists.freedesktop.org>
-> *Cc:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Chen, Guchun
-> <Guchun.Chen@amd.com>
-> *Subject:* Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
-> My question is, why is this problem only seen during module unload? Why
-> aren't we seeing HWS hangs due to GFX_OFF all the time in normal
-> operations? For example when the GPU is idle and a new KFD process is
-> started, creating a new runlist. Are we just getting lucky because the
-> process first has to allocate some memory, which maybe makes some HW
-> access (flushing TLBs etc.) that wakes up the GPU?
->
->
-> Regards,
->    Felix
->
->
->
-> Am 2022-01-26 um 01:43 schrieb Yin, Tianci (Rico):
-> >
-> > [AMD Official Use Only]
-> >
-> >
-> > Thanks Kevin and Felix!
-> >
-> > In gfxoff state, the dequeue request(by cp register writing) can't
-> > make gfxoff exit, actually the cp is powered off and the cp register
-> > writing is invalid, doorbell registers writing(regluar way) or
-> > directly request smu to disable gfx powergate(by invoking
-> > amdgpu_gfx_off_ctrl) can trigger gfxoff exit.
-> >
-> > I have also tryed
-> >
-> amdgpu_dpm_switch_power_profile(adev,PP_SMC_POWER_PROFILE_COMPUTE,false),
-> > but it has no effect.
-> >
-> > [10386.162273] amdgpu: cp queue pipe 4 queue 0 preemption failed
-> > [10671.225065] amdgpu: mmCP_HQD_ACTIVE : 0xffffffff
-> > [10386.162290] amdgpu: mmCP_HQD_HQ_STATUS0 : 0xffffffff
-> > [10386.162297] amdgpu: mmCP_STAT : 0xffffffff
-> > [10386.162303] amdgpu: mmCP_BUSY_STAT : 0xffffffff
-> > [10386.162308] amdgpu: mmRLC_STAT : 0xffffffff
-> > [10386.162314] amdgpu: mmGRBM_STATUS : 0xffffffff
-> > [10386.162320] amdgpu: mmGRBM_STATUS2: 0xffffffff
-> >
-> > Thanks again!
-> > Rico
-> > -----------------------------------------------------------------------=
--
-> > *From:* Kuehling, Felix <Felix.Kuehling@amd.com>
-> > *Sent:* Tuesday, January 25, 2022 23:31
-> > *To:* Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Yin, Tianci (Rico)
-> > <Tianci.Yin@amd.com>; amd-gfx@lists.freedesktop.org
-> > <amd-gfx@lists.freedesktop.org>
-> > *Cc:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Chen, Guchun
-> > <Guchun.Chen@amd.com>
-> > *Subject:* Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
-> > I have no objection to the change. It restores the sequence that was
-> > used before e9669fb78262. But I don't understand why GFX_OFF is causing
-> > a preemption error during module unload, but not when KFD is in normal
-> > use. Maybe it's because of the compute power profile that's normally se=
-t
-> > by amdgpu_amdkfd_set_compute_idle before we interact with the HWS.
-> >
-> >
-> > Either way, the patch is
-> >
-> > Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> >
-> >
-> >
-> > Am 2022-01-25 um 05:48 schrieb Wang, Yang(Kevin):
-> > >
-> > > [AMD Official Use Only]
-> > >
-> > >
-> > > [AMD Official Use Only]
-> > >
-> > >
-> > > the issue is introduced in following patch, so add following
-> > > information is better.
-> > > /fixes: (e9669fb78262) drm/amdgpu: Add early fini callback/
-> > > /
-> > > /
-> > > Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
-> > > /
-> > > /
-> > > Best Regards,
-> > > Kevin
-> > >
-> > >
-> ------------------------------------------------------------------------
-> > > *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of
-> > > Tianci Yin <tianci.yin@amd.com>
-> > > *Sent:* Tuesday, January 25, 2022 6:03 PM
-> > > *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> > > *Cc:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Yin, Tianci
-> > > (Rico) <Tianci.Yin@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>
-> > > *Subject:* [PATCH] drm/amdgpu: Fix an error message in rmmod
-> > > From: "Tianci.Yin" <tianci.yin@amd.com>
-> > >
-> > > [why]
-> > > In rmmod procedure, kfd sends cp a dequeue request, but the
-> > > request does not get response, then an error message "cp
-> > > queue pipe 4 queue 0 preemption failed" printed.
-> > >
-> > > [how]
-> > > Performing kfd suspending after disabling gfxoff can fix it.
-> > >
-> > > Change-Id: I0453f28820542d4a5ab26e38fb5b87ed76ce6930
-> > > Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
-> > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > index b75d67f644e5..77e9837ba342 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > @@ -2720,11 +2720,11 @@ static int amdgpu_device_ip_fini_early(struct
-> > > amdgpu_device *adev)
-> > >                  }
-> > >          }
-> > >
-> > > -       amdgpu_amdkfd_suspend(adev, false);
-> > > -
-> > >          amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
-> > >          amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
-> > >
-> > > +       amdgpu_amdkfd_suspend(adev, false);
-> > > +
-> > >          /* Workaroud for ASICs need to disable SMC first */
-> > >          amdgpu_device_smu_fini_early(adev);
-> > >
-> > > --
-> > > 2.25.1
-> > >
-
---_000_DM4PR12MB5294035B7A2685C9A1EBBE1895229DM4PR12MB5294namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-The error&nbsp;message is from HIQ dequeue procedure,&nbsp; not from HCQ, s=
-o no doorbell writing.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10:58 l=
-nx-ci-node kernel: [18161.477067] Call Trace:</span>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.477072] &nbsp;dump_stack+0x7d/0x9c</span></d=
-iv>
-<span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10:58 l=
-nx-ci-node kernel: [18161.477651] &nbsp;hqd_destroy_v10_3+0x58/0x254 [amdgp=
-u]</span>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.477778] &nbsp;destroy_mqd+0x1e/0x30 [amdgpu]=
-</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.477884] &nbsp;kernel_queue_uninit+0xcf/0x100=
- [amdgpu]</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.477985] &nbsp;pm_uninit+0x1a/0x30 [amdgpu] #=
-kernel_queue_uninit(pm-&gt;priv_queue, hanging); this priv_queue =3D=3D HIQ=
-</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478127] &nbsp;stop_cpsch+0x98/0x100 [amdgpu]=
- &nbsp; &nbsp; &nbsp; &nbsp;</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478242] &nbsp;kgd2kfd_suspend.part.0+0x32/0x=
-50 [amdgpu]</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478338] &nbsp;kgd2kfd_suspend+0x1b/0x20 [amd=
-gpu]</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478433] &nbsp;amdgpu_amdkfd_suspend+0x1e/0x3=
-0 [amdgpu]</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478529] &nbsp;amdgpu_device_fini_hw+0x182/0x=
-335 [amdgpu]</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478655] &nbsp;amdgpu_driver_unload_kms+0x5c/=
-0x80 [amdgpu]</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478732] &nbsp;amdgpu_pci_remove+0x27/0x40 [a=
-mdgpu]</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478806] &nbsp;pci_device_remove+0x3e/0xb0</s=
-pan></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478809] &nbsp;device_release_driver_internal=
-+0x103/0x1d0</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478813] &nbsp;driver_detach+0x4c/0x90</span>=
-</div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478814] &nbsp;bus_remove_driver+0x5c/0xd0</s=
-pan></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478815] &nbsp;driver_unregister+0x31/0x50</s=
-pan></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478817] &nbsp;pci_unregister_driver+0x40/0x9=
-0</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478818] &nbsp;amdgpu_exit+0x15/0x2d1 [amdgpu=
-]</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478942] &nbsp;__x64_sys_delete_module+0x147/=
-0x260</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478944] &nbsp;? exit_to_user_mode_prepare+0x=
-41/0x1d0</span></div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478946] &nbsp;? ksys_write+0x67/0xe0</span><=
-/div>
-<div><span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10=
-:58 lnx-ci-node kernel: [18161.478948] &nbsp;do_syscall_64+0x40/0xb0</span>=
-</div>
-<span style=3D"color: rgb(23, 78, 134); font-size: 10pt;">Jan 25 16:10:58 l=
-nx-ci-node kernel: [18161.478951] &nbsp;entry_SYSCALL_64_after_hwframe+0x44=
-/0xae</span><br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Rico<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
-elix.Kuehling@amd.com&gt;<br>
-<b>Sent:</b> Thursday, January 27, 2022 23:28<br>
-<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;; Wang, Yang(Kevin)=
- &lt;KevinYang.Wang@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@=
-lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Grodzovsky, Andrey &lt;Andrey.Grodzovsky@amd.com&gt;; Chen, Guch=
-un &lt;Guchun.Chen@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Fix an error message in rmmod</font=
->
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">The hang you're seeing is the result of a command =
-submission of an
-<br>
-UNMAP_QUEUES and QUERY_STATUS command to the HIQ. This is done using a <br>
-doorbell. KFD writes commands to the HIQ and rings a doorbell to wake up <b=
-r>
-the HWS (see kq_submit_packet in kfd_kernel_queue.c). Why does this <br>
-doorbell not trigger gfxoff exit during rmmod?<br>
-<br>
-<br>
-Regards,<br>
-&nbsp;&nbsp; Felix<br>
-<br>
-<br>
-<br>
-Am 2022-01-26 um 22:38 schrieb Yin, Tianci (Rico):<br>
-&gt;<br>
-&gt; [AMD Official Use Only]<br>
-&gt;<br>
-&gt;<br>
-&gt; The rmmod ops has prerequisite multi-user target and blacklist amdgpu,=
-<br>
-&gt; which is IGT requirement so that IGT can make itself DRM master to <br=
->
-&gt; test KMS.<br>
-&gt; igt-gpu-tools/build/tests/amdgpu/amd_module_load --run-subtest reload<=
-br>
-&gt;<br>
-&gt; From my understanding, the KFD process belongs to the regular way of <=
-br>
-&gt; gfxoff exit, which doorbell writing triggers gfxoff exit. For example,=
- <br>
-&gt; KFD maps HCQ thru cmd on HIQ or KIQ ring, or UMD commits jobs on HCQ, =
-<br>
-&gt; these both trigger doorbell writing(pls refer to <br>
-&gt; gfx_v10_0_ring_set_wptr_compute()).<br>
-&gt;<br>
-&gt; As to the IGT reload test, the dequeue request is not thru a cmd on a =
-<br>
-&gt; ring, it directly writes CP registers, so GFX core remains in gfxoff.<=
-br>
-&gt;<br>
-&gt; Thanks,<br>
-&gt; Rico<br>
-&gt;<br>
-&gt; ----------------------------------------------------------------------=
---<br>
-&gt; *From:* Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;<br>
-&gt; *Sent:* Wednesday, January 26, 2022 23:08<br>
-&gt; *To:* Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;; Wang, Yang(Kevin)=
- <br>
-&gt; &lt;KevinYang.Wang@amd.com&gt;; amd-gfx@lists.freedesktop.org <br>
-&gt; &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-&gt; *Cc:* Grodzovsky, Andrey &lt;Andrey.Grodzovsky@amd.com&gt;; Chen, Guch=
-un <br>
-&gt; &lt;Guchun.Chen@amd.com&gt;<br>
-&gt; *Subject:* Re: [PATCH] drm/amdgpu: Fix an error message in rmmod<br>
-&gt; My question is, why is this problem only seen during module unload? Wh=
-y<br>
-&gt; aren't we seeing HWS hangs due to GFX_OFF all the time in normal<br>
-&gt; operations? For example when the GPU is idle and a new KFD process is<=
-br>
-&gt; started, creating a new runlist. Are we just getting lucky because the=
-<br>
-&gt; process first has to allocate some memory, which maybe makes some HW<b=
-r>
-&gt; access (flushing TLBs etc.) that wakes up the GPU?<br>
-&gt;<br>
-&gt;<br>
-&gt; Regards,<br>
-&gt; &nbsp;&nbsp; Felix<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt; Am 2022-01-26 um 01:43 schrieb Yin, Tianci (Rico):<br>
-&gt; &gt;<br>
-&gt; &gt; [AMD Official Use Only]<br>
-&gt; &gt;<br>
-&gt; &gt;<br>
-&gt; &gt; Thanks Kevin and Felix!<br>
-&gt; &gt;<br>
-&gt; &gt; In gfxoff state, the dequeue request(by cp register writing) can'=
-t<br>
-&gt; &gt; make gfxoff exit, actually the cp is powered off and the cp regis=
-ter<br>
-&gt; &gt; writing is invalid, doorbell registers writing(regluar way) or<br=
->
-&gt; &gt; directly request smu to disable gfx powergate(by invoking<br>
-&gt; &gt; amdgpu_gfx_off_ctrl) can trigger gfxoff exit.<br>
-&gt; &gt;<br>
-&gt; &gt; I have also tryed<br>
-&gt; &gt; <br>
-&gt; amdgpu_dpm_switch_power_profile(adev,PP_SMC_POWER_PROFILE_COMPUTE,fals=
-e),<br>
-&gt; &gt; but it has no effect.<br>
-&gt; &gt;<br>
-&gt; &gt; [10386.162273] amdgpu: cp queue pipe 4 queue 0 preemption failed<=
-br>
-&gt; &gt; [10671.225065] amdgpu: mmCP_HQD_ACTIVE : 0xffffffff<br>
-&gt; &gt; [10386.162290] amdgpu: mmCP_HQD_HQ_STATUS0 : 0xffffffff<br>
-&gt; &gt; [10386.162297] amdgpu: mmCP_STAT : 0xffffffff<br>
-&gt; &gt; [10386.162303] amdgpu: mmCP_BUSY_STAT : 0xffffffff<br>
-&gt; &gt; [10386.162308] amdgpu: mmRLC_STAT : 0xffffffff<br>
-&gt; &gt; [10386.162314] amdgpu: mmGRBM_STATUS : 0xffffffff<br>
-&gt; &gt; [10386.162320] amdgpu: mmGRBM_STATUS2: 0xffffffff<br>
-&gt; &gt;<br>
-&gt; &gt; Thanks again!<br>
-&gt; &gt; Rico<br>
-&gt; &gt; -----------------------------------------------------------------=
--------<br>
-&gt; &gt; *From:* Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;<br>
-&gt; &gt; *Sent:* Tuesday, January 25, 2022 23:31<br>
-&gt; &gt; *To:* Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; Yin, Tian=
-ci (Rico)<br>
-&gt; &gt; &lt;Tianci.Yin@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
-&gt; &gt; &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-&gt; &gt; *Cc:* Grodzovsky, Andrey &lt;Andrey.Grodzovsky@amd.com&gt;; Chen,=
- Guchun<br>
-&gt; &gt; &lt;Guchun.Chen@amd.com&gt;<br>
-&gt; &gt; *Subject:* Re: [PATCH] drm/amdgpu: Fix an error message in rmmod<=
-br>
-&gt; &gt; I have no objection to the change. It restores the sequence that =
-was<br>
-&gt; &gt; used before e9669fb78262. But I don't understand why GFX_OFF is c=
-ausing<br>
-&gt; &gt; a preemption error during module unload, but not when KFD is in n=
-ormal<br>
-&gt; &gt; use. Maybe it's because of the compute power profile that's norma=
-lly set<br>
-&gt; &gt; by amdgpu_amdkfd_set_compute_idle before we interact with the HWS=
-.<br>
-&gt; &gt;<br>
-&gt; &gt;<br>
-&gt; &gt; Either way, the patch is<br>
-&gt; &gt;<br>
-&gt; &gt; Acked-by: Felix Kuehling &lt;Felix.Kuehling@amd.com&gt;<br>
-&gt; &gt;<br>
-&gt; &gt;<br>
-&gt; &gt;<br>
-&gt; &gt; Am 2022-01-25 um 05:48 schrieb Wang, Yang(Kevin):<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; [AMD Official Use Only]<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; [AMD Official Use Only]<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; the issue is introduced in following patch, so add following=
-<br>
-&gt; &gt; &gt; information is better.<br>
-&gt; &gt; &gt; /fixes: (e9669fb78262) drm/amdgpu: Add early fini callback/<=
-br>
-&gt; &gt; &gt; /<br>
-&gt; &gt; &gt; /<br>
-&gt; &gt; &gt; Reviewed-by: Yang Wang &lt;kevinyang.wang@amd.com&gt;<br>
-&gt; &gt; &gt; /<br>
-&gt; &gt; &gt; /<br>
-&gt; &gt; &gt; Best Regards,<br>
-&gt; &gt; &gt; Kevin<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; <br>
-&gt; ----------------------------------------------------------------------=
---<br>
-&gt; &gt; &gt; *From:* amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt=
-; on behalf of<br>
-&gt; &gt; &gt; Tianci Yin &lt;tianci.yin@amd.com&gt;<br>
-&gt; &gt; &gt; *Sent:* Tuesday, January 25, 2022 6:03 PM<br>
-&gt; &gt; &gt; *To:* amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freede=
-sktop.org&gt;<br>
-&gt; &gt; &gt; *Cc:* Grodzovsky, Andrey &lt;Andrey.Grodzovsky@amd.com&gt;; =
-Yin, Tianci<br>
-&gt; &gt; &gt; (Rico) &lt;Tianci.Yin@amd.com&gt;; Chen, Guchun &lt;Guchun.C=
-hen@amd.com&gt;<br>
-&gt; &gt; &gt; *Subject:* [PATCH] drm/amdgpu: Fix an error message in rmmod=
-<br>
-&gt; &gt; &gt; From: &quot;Tianci.Yin&quot; &lt;tianci.yin@amd.com&gt;<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; [why]<br>
-&gt; &gt; &gt; In rmmod procedure, kfd sends cp a dequeue request, but the<=
-br>
-&gt; &gt; &gt; request does not get response, then an error message &quot;c=
-p<br>
-&gt; &gt; &gt; queue pipe 4 queue 0 preemption failed&quot; printed.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; [how]<br>
-&gt; &gt; &gt; Performing kfd suspending after disabling gfxoff can fix it.=
-<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Change-Id: I0453f28820542d4a5ab26e38fb5b87ed76ce6930<br>
-&gt; &gt; &gt; Signed-off-by: Tianci.Yin &lt;tianci.yin@amd.com&gt;<br>
-&gt; &gt; &gt; ---<br>
-&gt; &gt; &gt; &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--<br=
->
-&gt; &gt; &gt; &nbsp;1 file changed, 2 insertions(+), 2 deletions(-)<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; &gt; index b75d67f644e5..77e9837ba342 100644<br>
-&gt; &gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; &gt; @@ -2720,11 +2720,11 @@ static int amdgpu_device_ip_fini_ear=
-ly(struct<br>
-&gt; &gt; &gt; amdgpu_device *adev)<br>
-&gt; &gt; &gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &gt; &gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_suspend(=
-adev, false);<br>
-&gt; &gt; &gt; -<br>
-&gt; &gt; &gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_devi=
-ce_set_pg_state(adev, AMD_PG_STATE_UNGATE);<br>
-&gt; &gt; &gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_devi=
-ce_set_cg_state(adev, AMD_CG_STATE_UNGATE);<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_suspend(=
-adev, false);<br>
-&gt; &gt; &gt; +<br>
-&gt; &gt; &gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Workarou=
-d for ASICs need to disable SMC first */<br>
-&gt; &gt; &gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_devi=
-ce_smu_fini_early(adev);<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; --<br>
-&gt; &gt; &gt; 2.25.1<br>
-&gt; &gt; &gt;<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_DM4PR12MB5294035B7A2685C9A1EBBE1895229DM4PR12MB5294namp_--
+        // Check seamless boot support
+--
+2.25.1
