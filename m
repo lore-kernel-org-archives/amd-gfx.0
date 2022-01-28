@@ -4,103 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D452AC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 03:47:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 060E9C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 06:08:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DB7E10E336;
-	Fri, 28 Jan 2022 03:47:06 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2077.outbound.protection.outlook.com [40.107.223.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E85C10E336;
- Fri, 28 Jan 2022 03:47:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=li2wl1csbqRa/lMsLst5BPmG9kHMKROwasiaJGpNPjc36h++rzBPVFxHoboN1onKMVwyOR1z9Is2qycv/Dr4NaKwrpQvqPiHfcEB+QXsBekbuaqaz0xqO0GwguqC4P1zGTS+d35HSX5WtPRBVyHvVdAiYS+w9Q9pKswMGsmjWKw7dseRBqyf87yMB3m2h9auvoaSGQDN0kkgOlWoqrx8oDsK+BRZYcPxre7RCtXhNTgl1BF4bJjaNQdI7iYPuIvjBYsss4/dWbuPUN3ljJOUqy+iRlF8d/LHDmhLK1Okh+S8PQXxXP09+RfItdHjcnXrsApAqKX/yr4qxMc7JBcdew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gufNoReGaukTvhnLaKJLok7k6y2bq1db6ZhDiKhPiSM=;
- b=lpZUNGWZ3yHyNkZyfK6S2KCuRMjvAm4LXnwhhtBRgfDaa/HuO0Fz72Ty/01bVFfwOspIF24D5LwLXtD+Q4KjvggTMuUCmC1ybGldbXH9iw0Ap/S6/ietOs1oLV39El56kJRZQ4/Qz77tX9BQo0tQf13XkHrSYmoxG5hvw3vUs+AeC6CFsOUmJqm43XvEfqR75TcDBfcKiU8JcvugNkKQ7oVMJpopWDHKIvhscM4hnu43lcwwpmdPW6dkK1TKJZcXREkgU2+DLllyssX7aana8nS9hFuoHKtJ7ZItzXgq99iz9qHTTa7xo0CUJnkrEmnf5wtRE3xGN5sKOmczlO8fLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.ie smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gufNoReGaukTvhnLaKJLok7k6y2bq1db6ZhDiKhPiSM=;
- b=kH2uO/7qa5iGZB/G4bxYvG5zNYeznuXSES4RDTgk6WuKEfuW4Qvc7V6oD7s1lMOMQKg4bHbrkKh4vIKeBavuVgeK9Vv3w7AMd9u/zNkMo115TnfctJ0Lcif47Bd/qnuHb2gnilYyTe4fJenh1WNHrE/sx4fEG9VkaHbzKZya5TE=
-Received: from BN6PR19CA0058.namprd19.prod.outlook.com (2603:10b6:404:e3::20)
- by DM6PR12MB5567.namprd12.prod.outlook.com (2603:10b6:5:1ba::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.18; Fri, 28 Jan
- 2022 03:47:02 +0000
-Received: from BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:e3:cafe::53) by BN6PR19CA0058.outlook.office365.com
- (2603:10b6:404:e3::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17 via Frontend
- Transport; Fri, 28 Jan 2022 03:47:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT066.mail.protection.outlook.com (10.13.177.138) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4930.15 via Frontend Transport; Fri, 28 Jan 2022 03:47:02 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 27 Jan
- 2022 21:47:01 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 27 Jan
- 2022 21:47:00 -0600
-Received: from tsunglin-chrome.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.18 via
- Frontend Transport; Thu, 27 Jan 2022 21:46:56 -0600
-From: RyanLin <Tsung-Hua.Lin@amd.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <seanpaul@chromium.org>, <bas@basnieuwenhuizen.nl>,
- <nicholas.kazlauskas@amd.com>, <sashal@kernel.org>, <markyacoub@google.com>,
- <victorchengchi.lu@amd.com>, <ching-shih.li@amd.corp-partner.google.com>,
- <Rodrigo.Siqueira@amd.com>, <ddavenport@chromium.org>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <leon.li@amd.com>
-Subject: [PATCH v2 1/28] drm/amdgpu: fix that issue that the number of the
- crtc of the 3250c is not correct
-Date: Fri, 28 Jan 2022 11:47:01 +0800
-Message-ID: <20220128034701.17174-1-Tsung-Hua.Lin@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52D5410F4BB;
+	Fri, 28 Jan 2022 06:08:57 +0000 (UTC)
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BB1210F4BA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 06:08:56 +0000 (UTC)
+Received: by mail-pj1-x1034.google.com with SMTP id
+ d15-20020a17090a110f00b001b4e7d27474so5505554pja.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 22:08:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=igel-co-jp.20210112.gappssmtp.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=q8wXsNp/7NMbRFs+KLl+rPu9p3ssQkCHhvOJ6uRH2qs=;
+ b=af44G74taUkSTN7Cnz4Is52cMn2hLoiNiNoJndFVUqlIY3GigsPlPhih37LyhnvlC5
+ ptQfCP91Dbd6K9wa0+mtPLICSBhi2E/4R+pduM6HnW6XzyhxRwLgkVyJ4n2BoIW64JAG
+ vdrLL/8LoyhE5Lub+9n/p592qgQFtu+KmcNTpTe2RtPqk/rp3+LkOPgXJ46NGXU4z7Hx
+ UHeJqRIbQPlCCtSZZ530Zl9jXN5P1jPzkAF3vtB2xgoSHD44nlIAJ2PBq0EKh/ogP//J
+ 37YkCWirFHWDCnJMX+hTTRqURCME9yJ2C/t52saYZaFSqB98xNv7Fc6Es+BaeW5Mgps/
+ ZN8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=q8wXsNp/7NMbRFs+KLl+rPu9p3ssQkCHhvOJ6uRH2qs=;
+ b=if4jVcHDGw1cziB0sipzMz2ndF2DvnBp9EBJ8EJoYeCmGRtS+sr8vDYtnyt9pTT0Uh
+ gQt3vjjaPAwPA8XXRgrM/PXQq4tjWRYactrKM4mFXe/C2TiITpLxVuw1tCPHjJYHMEW4
+ jchvNQ2CYNNmmO4tRwSO/jeAUghU3GBu/urPCexzO4gu8JZIhSkQERelBrW3bWpdfxnH
+ /6qIyjAWpUenN/mu3+I1AzWyMPPUCDsdCIBK5/XW732bBTnk0mMYJ5hGohkOQCVtIxw1
+ ijoLmZBNEEgkt25atUn+cS4zO3FF2JTvZ7R6SwradvFscsozjD1zj9TScoRdsNcMA3+t
+ Xhrg==
+X-Gm-Message-State: AOAM5323VcRRzoDcgAc+We88tv4ec1YLYP/Aa22/4k7CFk7iEVTeRiNs
+ oNwmp9Ss+jwcPaNYsnKjTSf+ZA==
+X-Google-Smtp-Source: ABdhPJwoeh1k1ZUoFKJdbZmqETX4U7hUdZ2Dft41VHBnmOHKyYN83nZ2eVUcsXqSwfZaTWK2fhD4kQ==
+X-Received: by 2002:a17:902:7e05:: with SMTP id
+ b5mr6770780plm.27.1643350135555; 
+ Thu, 27 Jan 2022 22:08:55 -0800 (PST)
+Received: from aqua.hq.igel.co.jp (napt.igel.co.jp. [219.106.231.132])
+ by smtp.gmail.com with ESMTPSA id h5sm7743182pfi.111.2022.01.27.22.08.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Jan 2022 22:08:55 -0800 (PST)
+From: Tomohito Esaki <etom@igel.co.jp>
+To: dri-devel@lists.freedesktop.org
+Subject: [RFC PATCH v6 0/3] Add support modifiers for drivers whose planes
+ only support linear layout
+Date: Fri, 28 Jan 2022 15:08:33 +0900
+Message-Id: <20220128060836.11216-1-etom@igel.co.jp>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f667e197-ea05-4559-9467-08d9e210d83c
-X-MS-TrafficTypeDiagnostic: DM6PR12MB5567:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB55672D356BB6F998F64524CBB2229@DM6PR12MB5567.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RJZ6gRswcpAiVAxONMUCs7yXwsy5tQovfAYt19hlM8VUOul6QWJUGu0O3SzkH8/BKVOQO3ZSAO2wfFTcibhSF7wuDvAq21NklZ7FwRA8+2MldhxRQk9LWCbhXzYvIm6qxmL2a9DyXJhJwkWqaZGNfQ5ZJvwguqdif2ESpr9mRQYlrJ/GJuMoqPQv1rMlOyEY41quBC3rn5DsMf8xWhSaDPe2lat9gZgKLDVgdJHA6kqXybx5qmm2v4rBFxFjtzcAJMj7IoottPkX+ak83nwwVq5niY03syuuZenarlEc/4Ce7hERxyKrrJDEE0mON+Rxlw4OGh4gcKKgcBAWm5Ktq5JNek5MC1ehVEd+Exfe4CPC3ahksOdGMlxOyYICZ4Yg9sDGS9HKXMgzARDLlMKvVhHwgcJIRqKPZjC0Q4rvYmxOAdCezHjQgSbiRxB8WIYfbA/1CBBKQHvresnh1o9ZFZiMVFKJY3F98LUOsReWC4668RCcbUrE8uCfWWDp2zbuusBlzU1URhIfPTBpg+n5uS9bWD54eoDUOsjnW6fek1I0SdgT94m+72oGy2znOkBi3rNighiNeDx7Oah0IZfLGjoHjasNmBKaSzw/WfCUQ8ydmDQM6kkRIQVIxc1FwBVCO/RSQx9RNMSk0CirSP7B2z9R+xi/sEPc7BzU2Ts8FbRjDriPVmPO9NDKa0u8NCQ+WYUQ2TTx22uzX2FE/mSCFsArkKPliMyVJedJjv7Xrjq+H8zmSrmPVlmFeDQaYTZuTzqrdRM3TKmO2WB7yOoe0Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(81166007)(70206006)(70586007)(5660300002)(8676002)(4326008)(40460700003)(8936002)(356005)(921005)(7416002)(47076005)(36860700001)(316002)(83380400001)(6636002)(36756003)(110136005)(426003)(186003)(26005)(336012)(1076003)(508600001)(2616005)(2906002)(82310400004)(86362001)(6666004)(7696005)(36900700001)(83996005)(2101003)(20210929001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 03:47:02.4057 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f667e197-ea05-4559-9467-08d9e210d83c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5567
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,52 +68,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: RyanLin <Tsung-Hua.Lin@amd.com>
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Daniel Stone <daniel@fooishbar.org>, Lee Jones <lee.jones@linaro.org>,
+ Tomohito Esaki <etom@igel.co.jp>, Rob Clark <robdclark@chromium.org>,
+ Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org,
+ Ben Skeggs <bskeggs@redhat.com>, Petr Mladek <pmladek@suse.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Takanari Hayama <taki@igel.co.jp>, Sean Paul <seanpaul@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mark Yacoub <markyacoub@chromium.org>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simon Ser <contact@emersion.fr>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Damian Hobson-Garcia <dhobsong@igel.co.jp>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-v2:
-  - remove unnecessary comments and Id
+Some drivers whose planes only support linear layout fb do not support format
+modifiers.
+These drivers should support modifiers, however the DRM core should handle this
+rather than open-coding in every driver.
 
-[Why]
-External displays take priority over internal display when there are fewer 
-display controllers than displays.
+In this patch series, these drivers expose format modifiers based on the
+following suggestion[1].
 
-[How]
-The root cause is because of that number of the crtc is not correct.
-The number of the crtc on the 3250c is 3, but on the 3500c is 4.
-From the source code, we can see that number of the crtc has been fixed at 4.
-Needs to set the num_crtc to 3 for 3250c platform.
+On Thu, Nov 18, 2021 at 01:02:11PM +0000, Daniel Stone wrote:
+> I think the best way forward here is:
+>   - add a new mode_config.cannot_support_modifiers flag, and enable
+> this in radeon (plus any other drivers in the same boat)
+>   - change drm_universal_plane_init() to advertise the LINEAR modifier
+> when NULL is passed as the modifier list (including installing a
+> default .format_mod_supported hook)
+>   - remove the mode_config.allow_fb_modifiers hook and always
+> advertise modifier support, unless
+> mode_config.cannot_support_modifiers is set
 
-Signed-off-by: RyanLin <Tsung-Hua.Lin@amd.com>
 
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+[1] https://patchwork.kernel.org/project/linux-renesas-soc/patch/20190509054518.10781-1-etom@igel.co.jp/#24602575
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 40c91b448f7d..455a2c45e8cd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2738,9 +2738,15 @@ static int dm_early_init(void *handle)
- 		break;
- #if defined(CONFIG_DRM_AMD_DC_DCN1_0)
- 	case CHIP_RAVEN:
--		adev->mode_info.num_crtc = 4;
--		adev->mode_info.num_hpd = 4;
--		adev->mode_info.num_dig = 4;
-+		if (adev->rev_id >= 8) {
-+			adev->mode_info.num_crtc = 3;
-+			adev->mode_info.num_hpd = 3;
-+			adev->mode_info.num_dig = 3;
-+		} else {
-+			adev->mode_info.num_crtc = 4;
-+			adev->mode_info.num_hpd = 4;
-+			adev->mode_info.num_dig = 4;
-+		}
- 		break;
- #endif
- #if defined(CONFIG_DRM_AMD_DC_DCN2_0)
+v6:
+* add Reviewed-by and Acked-by
+* add a changelog per-patch
+
+v5: https://www.spinics.net/lists/dri-devel/msg330860.html
+* rebase to the latest master branch (5.17-rc1+)
+	+ "drm/plane: Make format_mod_supported truly optional" patch [2]
+  [2] https://patchwork.freedesktop.org/patch/467940/?series=98255&rev=3
+
+* change default_modifiers array from non-static to static
+* remove terminator in default_modifiers array
+* use ARRAY_SIZE to get the format_modifier_count
+* keep a sanity check in plane init func
+* modify several kerneldocs
+
+v4: https://www.spinics.net/lists/dri-devel/msg329508.html
+* modify documentation for fb_modifiers_not_supported flag in kerneldoc
+
+v3: https://www.spinics.net/lists/dri-devel/msg329102.html
+* change the order as follows:
+   1. add fb_modifiers_not_supported flag
+   2. add default modifiers
+   3. remove allow_fb_modifiers flag
+* add a conditional disable in amdgpu_dm_plane_init()
+
+v2: https://www.spinics.net/lists/dri-devel/msg328939.html
+* rebase to the latest master branch (5.16.0+)
+      + "drm/plane: Make format_mod_supported truly optional" patch [2]
+
+v1: https://www.spinics.net/lists/dri-devel/msg327352.html
+* The initial patch set
+
+Tomohito Esaki (3):
+  drm: introduce fb_modifiers_not_supported flag in mode_config
+  drm: add support modifiers for drivers whose planes only support
+    linear layout
+  drm: remove allow_fb_modifiers
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  6 ++---
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  2 ++
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  2 ++
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  1 +
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  2 ++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 +++
+ drivers/gpu/drm/drm_framebuffer.c             |  6 ++---
+ drivers/gpu/drm/drm_ioctl.c                   |  2 +-
+ drivers/gpu/drm/drm_plane.c                   | 23 +++++++++++--------
+ drivers/gpu/drm/nouveau/nouveau_display.c     |  6 +++--
+ drivers/gpu/drm/radeon/radeon_display.c       |  2 ++
+ .../gpu/drm/selftests/test-drm_framebuffer.c  |  1 -
+ include/drm/drm_mode_config.h                 | 18 +++++----------
+ include/drm/drm_plane.h                       |  3 +++
+ 14 files changed, 45 insertions(+), 32 deletions(-)
+
 -- 
 2.25.1
 
