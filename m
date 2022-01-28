@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7180EC433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 14:05:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF8B9C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 14:05:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE32510EE7A;
-	Fri, 28 Jan 2022 14:05:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D59010EE84;
+	Fri, 28 Jan 2022 14:05:38 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2074.outbound.protection.outlook.com [40.107.237.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 923EC10EE7A
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 14:05:33 +0000 (UTC)
+ (mail-bn8nam12on2061.outbound.protection.outlook.com [40.107.237.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ACD010EE77
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 14:05:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cAi0jOoKwN+Kgxc3IbU7peDoV0Wg3GadpNoFHqyUHpUdq9MNGxKQ8GRjysvXFrT+OU5ieeAtYlacIS9u4DcOoUmkCYPuGqK5+XeVjV/GXXGMoOsQT0CN4sRdCwgnXUEcP8HkhdpVDyZgZYQJr9ordFfnyTt/a22FoJqhPZxSDX5ly+pFv7S2Ggcq4rbF0ivbFv9OVl3ujjqI9EaM6H4BXgQawKcOp1h05ZGQqGltZpo6jeAaNLSiXubgzIQ3/98HsN3JlSimlTI6AYdXHnbqFQJY1Nfg//jriQQ6wVPARuyEzXcjabpywgahyugc9JLcVkhgvop97sX4jplW8+nB0A==
+ b=DTyYkQ8kQajNYLMRKAY+SQTUdz02iF/LJA/8jJ5uwoOEVMyU0oJv5oAeo05xPh+oDOnNUO7IYpMizbqdArrsWTTLybTkndhM8jXZuYO/8MYkQN/PayXLg9T4yl7QQ3zyPnz7v8u3C40TNMY1p7crLJa5PupApkemVlTZYNQszWpx114WSyzkS60//tQAiBnoUzfHABKgr2kkeXEgufMKcfB+ZyOsxMUcP0vTbyZIeCcEKrZBktqFNJr0Zx9l80PLPivUFupFxRzrqZgWo06HpCSJ7OEmdIlXn5h7q6kG/XBmQh3J27cgzKjP1EtC4mfR6FX4pIon+mJl0RCnj4mALA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mhJiZYJARFqafTVnR8t08l48EUBPUJETsBbHw8CYpMI=;
- b=SkP4g6XlRR+ocjWh/7zd7Z4sbcLC53fzMdZdxCoNj6Ygs9iPYz09ni906mgU3a/TkuyQrcrg7TsKh3pxf24wk8onq0bw4qyxUqXTTlDXxRTEtRY3kY0nzIWZwEZ8EguyrPJWEVW4FK/yhPhGNfcIbx+7MV0cbos/7epuqp/x6upszJjju022Kxk05Cl6ofrKXJuAnQlka6Gm+BlgkWlLVP1X1F7tIjuwIiMjT0f7CM2frlkkphZLeDd8IobRMmaU26yNwRCoZaNbcsq3J+qgezTbDjiRY92jh2EvI+ykZEckhJsGKGbS3Pza5QNtgSqz7hG+uoqegEO9vNg1feSaDw==
+ bh=p06vlJd+QRjyn6Vz0JPCxaXXLy5R1urSc6BgqAEdlqI=;
+ b=XmbYC/5A0qtBfYc2BdEv9ZadHW4lX9/2/mZIvvCxlontnQ5Uxr0nyIWRkZX8ANF66uVR7b55FDmljgM1qrwyqvieIEmXR/e0oEp6GMl1DukUuLg2GgrwG3LgjL8F//0blmdlWm5jzHgoYFVtNiCIMJk0lY0XlhmmSSI9LR68KnuxkyZYdi9ulDUBY9cW6js6EgWqY4olnUehh+gzsEZnBWRVkPeDIAU4xJxTKC0edponDn0szgpkeA5RndFuce4y8TQ1HK5oUv1vW67lCXLhqEUAEW3n9OchqulhJKgovMWB+DW2NpLtxLNvqpq2ujbD7f8Ntd6rgtcAhZVTO4RsSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mhJiZYJARFqafTVnR8t08l48EUBPUJETsBbHw8CYpMI=;
- b=d2SOF1+WHy1ow7KBdbbp/O6/DdXJmfn09puTlnfIu68e/4XGCnSHi1ATUuXPsYYM2kZwXp/Xgip84zECOsgxRLLyVOe8ZUfv1DxVrc4DZzE/WnIFpRD3kjASYSq8diAGLye/VDJkvP9cnu6qo0hfqMRdgYJApYfaimvg5DaAwkU=
-Received: from MWHPR10CA0022.namprd10.prod.outlook.com (2603:10b6:301::32) by
- BL1PR12MB5364.namprd12.prod.outlook.com (2603:10b6:208:314::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Fri, 28 Jan
- 2022 14:05:31 +0000
+ bh=p06vlJd+QRjyn6Vz0JPCxaXXLy5R1urSc6BgqAEdlqI=;
+ b=NS6AqK7GP4QXn0VgOy7LTjtBfOVfr20gagff/lllNgEyesvdCpfutENsxWP6PRwtvrafxHgJQH9yPgimKOCAlMoy8S5l5xl1E774jst64YQhChvuzE4N1+dWCSZZtX0fFR5xlejxqjFAatbsTMrCdg1wkPzfNrTzW0mz8ZhV7XM=
+Received: from MWHPR10CA0008.namprd10.prod.outlook.com (2603:10b6:301::18) by
+ BYAPR12MB2679.namprd12.prod.outlook.com (2603:10b6:a03:72::15) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4909.13; Fri, 28 Jan 2022 14:05:32 +0000
 Received: from CO1NAM11FT011.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:0:cafe::5f) by MWHPR10CA0022.outlook.office365.com
- (2603:10b6:301::32) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:301:0:cafe::74) by MWHPR10CA0008.outlook.office365.com
+ (2603:10b6:301::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15 via Frontend
- Transport; Fri, 28 Jan 2022 14:05:31 +0000
+ Transport; Fri, 28 Jan 2022 14:05:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,13 +51,13 @@ Received: from SATLEXMB04.amd.com (165.204.84.17) by
 Received: from stylon-T495.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 28 Jan
- 2022 08:05:22 -0600
+ 2022 08:05:27 -0600
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/17] drm/amd/display: refactor destructive verify link cap
- sequence
-Date: Fri, 28 Jan 2022 22:04:01 +0800
-Message-ID: <20220128140411.3683309-8-stylon.wang@amd.com>
+Subject: [PATCH 08/17] drm/amd/display: add enable/disable dp link output to
+ link_hwss
+Date: Fri, 28 Jan 2022 22:04:02 +0800
+Message-ID: <20220128140411.3683309-9-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220128140411.3683309-1-stylon.wang@amd.com>
 References: <20220128140411.3683309-1-stylon.wang@amd.com>
@@ -69,28 +69,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 26e86a0e-648f-4095-0150-08d9e2673ed5
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5364:EE_
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5364868C8F90D4B900994822FF229@BL1PR12MB5364.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-MS-Office365-Filtering-Correlation-Id: 43ebfd1e-a93f-45d7-abe4-08d9e2673f42
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2679:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB267932F1AC1A33DD39081F7EFF229@BYAPR12MB2679.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1303;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HaWLswxoV6zsKvu9iH/zZQvEWxOAxhVet9Ex0VaVir41d7i6RXsdbqB7ASZ7MgzAwxvewWu6Oq92ZZ9sRp7+xupkZzfZ1QispWx+OXu6yFiHXIatXm7COOB0sJiAKPmSFSokLE4DHV9ilNDxkctBA9cE/0y0KOWwSvYTGP3iOceP3GCkW91RvoSrFD5IOphr2kSMlSuVIW2sqHbMsnXV1Yj8dxxrWIpTFU9krchl0+7CpK5T4WWviTCdNBvJ29Zabq9rWi8XXtmAP5io9OlNeh1H737teczrInPXDp+l0Tz3ML5+Yq5nWJCbg1Li7I+omVbAuEZPh4tLpbSoBkG2Bdc91DC3HEkH+Wp/N6CcUeC8oK+1rYgBmB2VQ2KEfkyIEYmJ3bI10zrBXp7Nd110NXlSGHUICJMHacmu3hNW8pP5Z9XZP/TMoXxzQfA4sEJZkLe7YedTDcVoWcFqN97Vzdx8Cql15jtnlB3wxKjBo+9EeBXJpjGFb/HbfH377wWtG4mYM7sIIujsMXjltdGsDRSotVHbpse21eaO1nF/iFckuT8lL9g5S9kriLD+zrlFzYAnd1lbODw0FWnX9TgbkqzaiaKPMtXpEOF60hWAeuBrJflccnWdate7tuGAnFjLqG7sj9sKE74hiIOX6oCN2Nrj8Mcaqt5Aijnv3ThuqmQKyA9Fn4tHViCFvXatVjUv2amLO7yoYusYTRgmilUxK0ltl9PRjAibdSCdYJ9RxlxuFq1H9yYy1+EiR7a0UPexMys2t+hPrqJN5PpH5264mKmQTfmDLnZPFgTg1oUDP+I=
+X-Microsoft-Antispam-Message-Info: rALtIWx+Y5vibyQcd0jNrcnjuGH7pV17sriSsjreurxkxw8z1l9afL3sldh/T1+DyWMiU3qxk1Te2LKxz8sXeABhYBvvlklhci4eS9NvO4tsVAhWF3Luu2oaVZ2lKOSrZsefOqCKbcmBH6X7bDX3a6sU6YaZ7qkN50ObJ+fUGRtCfs5A4dlwq5SQAUrP6GfxnoFfiC+00NPsoQMW4Gnjpqpe12KHSvjFaV65d93fyevB9ahdcrEW7PCbU780RQDUYH7nnltnr6zN6mDjSj59aT5T4XjpoHXQPt/GKdML0XUF9CIp/g9bdfSMU+MPY0WS1he2eOFdGFHo9tPBiQItY/SMRvaxaVHI8ahTFfSnD3GMMN+1fd+6gle7gLo7QA43mZZyacAwllpbvElD5Mh1se/VkyyXeqKrjlsOzifjV5Gv/UOiaTddCXH3FiOTvjo5+4NxaLo5k/YDvqkEpa6SLRGEn7a2BeS9Wc2SamLcmCRGGqP67rrJEV4+7CB+SGN+yczA6cLFM3UH5tW4MnONa2/Rh47FlqwzCRxJ71KmFzKgeqHI+4YTJB2fkhuvFom/hqiFAcAeul4WXLn541WUsFgOhoIkQTYs720SuMX04U9mzh2slGPn//pEW8qJK2PtG7noCUG1RrTUJyXS4HufMX+vydyknDu5xc7Bzm5CdcR8JeVW1bt9pc76+Hx/uj5u7dS+N4L8Dp4yJ1FEBCgjFFJJQBCNGxK0MqwvEIwqulxeP98jTXJA/HJmQ7iKDU6Cgz8y1lltQYtFJ5QkOtuDQJM9oDfaCI66hzSrjPOJHP0=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(46966006)(36840700001)(40470700004)(4326008)(70206006)(2616005)(316002)(336012)(508600001)(2906002)(47076005)(40460700003)(8676002)(8936002)(36860700001)(82310400004)(86362001)(6666004)(186003)(7696005)(81166007)(83380400001)(6916009)(36756003)(26005)(54906003)(15650500001)(1076003)(356005)(30864003)(16526019)(426003)(44832011)(70586007)(5660300002)(36900700001);
+ SFS:(4636009)(40470700004)(46966006)(36840700001)(508600001)(2906002)(70586007)(4326008)(6916009)(7696005)(8676002)(8936002)(36860700001)(86362001)(83380400001)(316002)(1076003)(186003)(82310400004)(40460700003)(16526019)(47076005)(2616005)(426003)(6666004)(336012)(36756003)(356005)(5660300002)(81166007)(44832011)(26005)(70206006)(54906003)(30864003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 14:05:31.1416 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26e86a0e-648f-4095-0150-08d9e2673ed5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 14:05:31.8603 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43ebfd1e-a93f-45d7-abe4-08d9e2673f42
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT011.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5364
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2679
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,358 +112,410 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Wenjing Liu <wenjing.liu@amd.com>
 
-[how]
-1. move decide det link training link resource before each link training.
-2. move disable link for handling vbios case into set all streams
-dpms off for link sequence.
-3. extract usbc hotplug workaround into its own wa function.
-4. Minor syntax changes to improve code readability.
+[why]
+Factor enable/disable dp link output to link hwss.
 
 Acked-by: Wayne Lin <wayne.lin@amd.com>
 Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c |  17 +--
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 134 +++++++-----------
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  22 ++-
- .../gpu/drm/amd/display/dc/inc/dc_link_dp.h   |   7 -
- drivers/gpu/drm/amd/display/dc/inc/resource.h |   7 +-
- 5 files changed, 83 insertions(+), 104 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |   6 +-
+ .../drm/amd/display/dc/core/dc_link_hwss.c    | 256 +++++++++---------
+ .../gpu/drm/amd/display/dc/inc/link_hwss.h    |   8 +
+ 3 files changed, 139 insertions(+), 131 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 2c5d67abad3e..c99e06afc769 100644
+index c99e06afc769..cb6c91cd6e83 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -893,6 +893,7 @@ static void set_all_streams_dpms_off_for_link(struct dc_link *link)
- 	struct pipe_ctx *pipe_ctx;
- 	struct dc_stream_update stream_update;
- 	bool dpms_off = true;
-+	struct link_resource link_res = {0};
+@@ -4016,8 +4016,10 @@ static void fpga_dp_hpo_enable_link_and_stream(struct dc_state *state, struct pi
+ 	decide_link_settings(stream, &link_settings);
+ 	stream->link->cur_link_settings = link_settings;
  
- 	memset(&stream_update, 0, sizeof(stream_update));
- 	stream_update.dpms_off = &dpms_off;
-@@ -907,33 +908,29 @@ static void set_all_streams_dpms_off_for_link(struct dc_link *link)
- 					link->ctx->dc->current_state);
- 		}
+-	/*  Enable clock, Configure lane count, and Enable Link Encoder*/
+-	enable_dp_hpo_output(stream->link, &pipe_ctx->link_res, &stream->link->cur_link_settings);
++	if (link_hwss->ext.enable_dp_link_output)
++		link_hwss->ext.enable_dp_link_output(stream->link, &pipe_ctx->link_res,
++				stream->signal, pipe_ctx->clock_source->id,
++				&link_settings);
+ 
+ #ifdef DIAGS_BUILD
+ 	/* Workaround for FPGA HPO capture DP link data:
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
+index c26df0a78664..364fa77b85f0 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
+@@ -76,19 +76,15 @@ void dp_enable_link_phy(
+ 	enum clock_source_id clock_source,
+ 	const struct dc_link_settings *link_settings)
+ {
+-	struct link_encoder *link_enc;
+ 	struct dc  *dc = link->ctx->dc;
+ 	struct dmcu *dmcu = dc->res_pool->dmcu;
+-
+ 	struct pipe_ctx *pipes =
+ 			link->dc->current_state->res_ctx.pipe_ctx;
+ 	struct clock_source *dp_cs =
+ 			link->dc->res_pool->dp_clock_source;
++	const struct link_hwss *link_hwss = get_link_hwss(link, link_res);
+ 	unsigned int i;
+ 
+-	link_enc = link_enc_cfg_get_link_enc(link);
+-	ASSERT(link_enc);
+-
+ 	if (link->connector_signal == SIGNAL_TYPE_EDP) {
+ 		link->dc->hwss.edp_power_control(link, true);
+ 		link->dc->hwss.edp_wait_for_hpd_ready(link, true);
+@@ -126,21 +122,9 @@ void dp_enable_link_phy(
+ 	if (dmcu != NULL && dmcu->funcs->lock_phy)
+ 		dmcu->funcs->lock_phy(dmcu);
+ 
+-	if (dp_get_link_encoding_format(link_settings) == DP_128b_132b_ENCODING) {
+-		enable_dp_hpo_output(link, link_res, link_settings);
+-	} else if (dp_get_link_encoding_format(link_settings) == DP_8b_10b_ENCODING) {
+-		if (dc_is_dp_sst_signal(signal)) {
+-			link_enc->funcs->enable_dp_output(
+-					link_enc,
+-					link_settings,
+-					clock_source);
+-		} else {
+-			link_enc->funcs->enable_dp_mst_output(
+-					link_enc,
+-					link_settings,
+-					clock_source);
+-		}
+-	}
++	if (link_hwss->ext.enable_dp_link_output)
++		link_hwss->ext.enable_dp_link_output(link, link_res, signal,
++				clock_source, link_settings);
+ 
+ 	if (dmcu != NULL && dmcu->funcs->unlock_phy)
+ 		dmcu->funcs->unlock_phy(dmcu);
+@@ -221,11 +205,7 @@ void dp_disable_link_phy(struct dc_link *link, const struct link_resource *link_
+ {
+ 	struct dc  *dc = link->ctx->dc;
+ 	struct dmcu *dmcu = dc->res_pool->dmcu;
+-	struct hpo_dp_link_encoder *hpo_link_enc = link_res->hpo_dp_link_enc;
+-	struct link_encoder *link_enc;
+-
+-	link_enc = link_enc_cfg_get_link_enc(link);
+-	ASSERT(link_enc);
++	const struct link_hwss *link_hwss = get_link_hwss(link, link_res);
+ 
+ 	if (!link->wa_flags.dp_keep_receiver_powered)
+ 		dp_receiver_power_ctrl(link, false);
+@@ -234,20 +214,15 @@ void dp_disable_link_phy(struct dc_link *link, const struct link_resource *link_
+ 		if (link->dc->hwss.edp_backlight_control)
+ 			link->dc->hwss.edp_backlight_control(link, false);
+ 
+-		if (dp_get_link_encoding_format(&link->cur_link_settings) == DP_128b_132b_ENCODING)
+-			disable_dp_hpo_output(link, link_res, signal);
+-		else
+-			link_enc->funcs->disable_output(link_enc, signal);
++		if (link_hwss->ext.disable_dp_link_output)
++			link_hwss->ext.disable_dp_link_output(link, link_res, signal);
+ 		link->dc->hwss.edp_power_control(link, false);
+ 	} else {
+ 		if (dmcu != NULL && dmcu->funcs->lock_phy)
+ 			dmcu->funcs->lock_phy(dmcu);
+ 
+-		if (dp_get_link_encoding_format(&link->cur_link_settings) == DP_128b_132b_ENCODING &&
+-				hpo_link_enc)
+-			disable_dp_hpo_output(link, link_res, signal);
+-		else
+-			link_enc->funcs->disable_output(link_enc, signal);
++		if (link_hwss->ext.disable_dp_link_output)
++			link_hwss->ext.disable_dp_link_output(link, link_res, signal);
+ 
+ 		if (dmcu != NULL && dmcu->funcs->unlock_phy)
+ 			dmcu->funcs->unlock_phy(dmcu);
+@@ -702,88 +677,6 @@ static enum phyd32clk_clock_source get_phyd32clk_src(struct dc_link *link)
  	}
-+
-+	/* link can be also enabled by vbios. In this case it is not recorded
-+	 * in pipe_ctx. Disable link phy here to make sure it is completely off
-+	 */
-+	dp_disable_link_phy(link, &link_res, link->connector_signal);
  }
  
- static void verify_link_capability_destructive(struct dc_link *link,
- 		struct dc_sink *sink,
- 		enum dc_detect_reason reason)
+-void enable_dp_hpo_output(struct dc_link *link,
+-		const struct link_resource *link_res,
+-		const struct dc_link_settings *link_settings)
+-{
+-	const struct dc *dc = link->dc;
+-	enum phyd32clk_clock_source phyd32clk;
+-
+-	/* Enable PHY PLL at target bit rate
+-	 *   UHBR10 = 10Gbps (SYMCLK32 = 312.5MHz)
+-	 *   UBR13.5 = 13.5Gbps (SYMCLK32 = 421.875MHz)
+-	 *   UHBR20 = 20Gbps (SYMCLK32 = 625MHz)
+-	 */
+-	if (IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment)) {
+-		switch (link_settings->link_rate) {
+-		case LINK_RATE_UHBR10:
+-			dm_set_phyd32clk(dc->ctx, 312500);
+-			break;
+-		case LINK_RATE_UHBR13_5:
+-			dm_set_phyd32clk(dc->ctx, 412875);
+-			break;
+-		case LINK_RATE_UHBR20:
+-			dm_set_phyd32clk(dc->ctx, 625000);
+-			break;
+-		default:
+-			return;
+-		}
+-	} else {
+-		/* DP2.0 HW: call transmitter control to enable PHY */
+-		link_res->hpo_dp_link_enc->funcs->enable_link_phy(
+-				link_res->hpo_dp_link_enc,
+-				link_settings,
+-				link->link_enc->transmitter,
+-				link->link_enc->hpd_source);
+-	}
+-
+-	/* DCCG muxing and DTBCLK DTO */
+-	if (IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment)) {
+-		dc->res_pool->dccg->funcs->set_physymclk(
+-				dc->res_pool->dccg,
+-				link->link_enc_hw_inst,
+-				PHYSYMCLK_FORCE_SRC_PHYD32CLK,
+-				true);
+-
+-		phyd32clk = get_phyd32clk_src(link);
+-		dc->res_pool->dccg->funcs->enable_symclk32_le(
+-				dc->res_pool->dccg,
+-				link_res->hpo_dp_link_enc->inst,
+-				phyd32clk);
+-		link_res->hpo_dp_link_enc->funcs->link_enable(
+-				link_res->hpo_dp_link_enc,
+-				link_settings->lane_count);
+-	}
+-}
+-
+-void disable_dp_hpo_output(struct dc_link *link,
+-		const struct link_resource *link_res,
+-		enum signal_type signal)
+-{
+-	const struct dc *dc = link->dc;
+-
+-	link_res->hpo_dp_link_enc->funcs->link_disable(link_res->hpo_dp_link_enc);
+-
+-	if (IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment)) {
+-		dc->res_pool->dccg->funcs->disable_symclk32_le(
+-					dc->res_pool->dccg,
+-					link_res->hpo_dp_link_enc->inst);
+-
+-		dc->res_pool->dccg->funcs->set_physymclk(
+-					dc->res_pool->dccg,
+-					link->link_enc_hw_inst,
+-					PHYSYMCLK_FORCE_SRC_SYMCLK,
+-					false);
+-
+-		dm_set_phyd32clk(dc->ctx, 0);
+-	} else {
+-		/* DP2.0 HW: call transmitter control to disable PHY */
+-		link_res->hpo_dp_link_enc->funcs->disable_link_phy(
+-				link_res->hpo_dp_link_enc,
+-				signal);
+-	}
+-}
+-
+ static void virtual_setup_stream_encoder(struct pipe_ctx *pipe_ctx);
+ static void virtual_reset_stream_encoder(struct pipe_ctx *pipe_ctx);
+ 
+@@ -804,21 +697,10 @@ static void set_dio_throttled_vcp_size(struct pipe_ctx *pipe_ctx,
+ 				throttled_vcp_size);
+ }
+ 
+-static struct link_encoder *get_dio_link_encoder(const struct dc_link *link)
+-{
+-	/* Link encoder may have been dynamically assigned to non-physical display endpoint. */
+-	if (link->is_dig_mapping_flexible &&
+-			link->dc->res_pool->funcs->link_encs_assign)
+-		return link_enc_cfg_get_link_enc_used_by_link(link->ctx->dc, link);
+-	else
+-		return link->link_enc;
+-}
+-
+ static void setup_dio_stream_encoder(struct pipe_ctx *pipe_ctx)
  {
--	struct link_resource link_res = { 0 };
- 	bool should_prepare_phy_clocks =
- 			should_prepare_phy_clocks_for_link_verification(link->dc, reason);
+-	struct link_encoder *link_enc = get_dio_link_encoder(pipe_ctx->stream->link);
++	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(pipe_ctx->stream->link);
  
- 	if (should_prepare_phy_clocks)
- 		prepare_phy_clocks_for_destructive_link_verification(link->dc);
+-	ASSERT(link_enc);
+ 	link_enc->funcs->connect_dig_be_to_fe(link_enc,
+ 			pipe_ctx->stream_res.stream_enc->id, true);
+ 	if (dc_is_dp_signal(pipe_ctx->stream->signal))
+@@ -828,7 +710,7 @@ static void setup_dio_stream_encoder(struct pipe_ctx *pipe_ctx)
  
--
- 	if (dc_is_dp_signal(link->local_sink->sink_signal)) {
- 		struct dc_link_settings known_limit_link_setting =
- 				dp_get_max_link_cap(link);
--
- 		set_all_streams_dpms_off_for_link(link);
--		if (dp_get_link_encoding_format(&known_limit_link_setting) ==
--				DP_128b_132b_ENCODING)
--			link_res.hpo_dp_link_enc = resource_get_hpo_dp_link_enc_for_det_lt(
--					&link->dc->current_state->res_ctx,
--					link->dc->res_pool,
--					link);
- 		dp_verify_link_cap_with_retries(
--				link, &link_res, &known_limit_link_setting,
-+				link, &known_limit_link_setting,
- 				LINK_TRAINING_MAX_VERIFY_RETRY);
- 	} else {
- 		ASSERT(0);
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index f1082674bcbf..abec79e80eed 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -97,6 +97,12 @@ static const struct dp_lt_fallback_entry dp_lt_fallbacks[] = {
- 		{LANE_COUNT_ONE, LINK_RATE_LOW},
+ static void reset_dio_stream_encoder(struct pipe_ctx *pipe_ctx)
+ {
+-	struct link_encoder *link_enc = get_dio_link_encoder(pipe_ctx->stream->link);
++	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(pipe_ctx->stream->link);
+ 
+ 	link_enc->funcs->connect_dig_be_to_fe(
+ 			link_enc,
+@@ -840,11 +722,45 @@ static void reset_dio_stream_encoder(struct pipe_ctx *pipe_ctx)
+ 
+ }
+ 
++static void enable_dio_dp_link_output(struct dc_link *link,
++		const struct link_resource *link_res,
++		enum signal_type signal,
++		enum clock_source_id clock_source,
++		const struct dc_link_settings *link_settings)
++{
++	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
++
++	if (dc_is_dp_sst_signal(signal))
++		link_enc->funcs->enable_dp_output(
++				link_enc,
++				link_settings,
++				clock_source);
++	else
++		link_enc->funcs->enable_dp_mst_output(
++				link_enc,
++				link_settings,
++				clock_source);
++	dp_source_sequence_trace(link, DPCD_SOURCE_SEQ_AFTER_ENABLE_LINK_PHY);
++}
++
++
++static void disable_dio_dp_link_output(struct dc_link *link,
++		const struct link_resource *link_res,
++		enum signal_type signal)
++{
++	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
++
++	link_enc->funcs->disable_output(link_enc, signal);
++	dp_source_sequence_trace(link, DPCD_SOURCE_SEQ_AFTER_DISABLE_LINK_PHY);
++}
++
+ static const struct link_hwss dio_link_hwss = {
+ 	.setup_stream_encoder = setup_dio_stream_encoder,
+ 	.reset_stream_encoder = reset_dio_stream_encoder,
+ 	.ext = {
+ 		.set_throttled_vcp_size = set_dio_throttled_vcp_size,
++		.enable_dp_link_output = enable_dio_dp_link_output,
++		.disable_dp_link_output = disable_dio_dp_link_output,
+ 	},
  };
  
-+static const struct dc_link_settings fail_safe_link_settings = {
-+		.lane_count = LANE_COUNT_ONE,
-+		.link_rate = LINK_RATE_LOW,
-+		.link_spread = LINK_SPREAD_DISABLED,
-+};
-+
- static bool decide_fallback_link_setting(
- 		struct dc_link *link,
- 		struct dc_link_settings initial_link_settings,
-@@ -3182,25 +3188,22 @@ bool hpd_rx_irq_check_link_loss_status(
- 	return return_code;
+@@ -933,12 +849,92 @@ static void reset_hpo_dp_stream_encoder(struct pipe_ctx *pipe_ctx)
+ 	dccg->funcs->disable_symclk32_se(dccg, stream_enc->inst);
+ 	dccg->funcs->set_dpstreamclk(dccg, REFCLK, tg->inst);
  }
- 
--bool dp_verify_link_cap(
-+static bool dp_verify_link_cap(
- 	struct dc_link *link,
--	const struct link_resource *link_res,
- 	struct dc_link_settings *known_limit_link_setting,
- 	int *fail_count)
- {
--	struct dc_link_settings cur_link_setting = {0};
--	struct dc_link_settings *cur = &cur_link_setting;
-+	struct dc_link_settings cur_link_settings = {0};
- 	struct dc_link_settings initial_link_settings = *known_limit_link_setting;
--	bool success;
--	bool skip_link_training;
-+	bool success = false;
- 	bool skip_video_pattern;
--	enum clock_source_id dp_cs_id = CLOCK_SOURCE_ID_EXTERNAL;
-+	enum clock_source_id dp_cs_id = get_clock_source_id(link);
- 	enum link_training_result status;
- 	union hpd_irq_data irq_data;
-+	struct link_resource link_res;
- 
- 	memset(&irq_data, 0, sizeof(irq_data));
--	success = false;
--	skip_link_training = false;
-+	cur_link_settings = initial_link_settings;
- 
- 	/* Grant extended timeout request */
- 	if ((link->lttpr_mode == LTTPR_MODE_NON_TRANSPARENT) && (link->dpcd_caps.lttpr_caps.max_ext_timeout > 0)) {
-@@ -3209,100 +3212,72 @@ bool dp_verify_link_cap(
- 		core_link_write_dpcd(link, DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT, &grant, sizeof(grant));
- 	}
- 
--	/* TODO implement override and monitor patch later */
--
--	/* try to train the link from high to low to
--	 * find the physical link capability
--	 */
--	/* disable PHY done possible by BIOS, will be done by driver itself */
--	dp_disable_link_phy(link, link_res, link->connector_signal);
--
--	dp_cs_id = get_clock_source_id(link);
--
--	cur_link_setting = initial_link_settings;
--
--	/* Temporary Renoir-specific workaround for SWDEV-215184;
--	 * PHY will sometimes be in bad state on hotplugging display from certain USB-C dongle,
--	 * so add extra cycle of enabling and disabling the PHY before first link training.
--	 */
--	if (link->link_enc && link->link_enc->features.flags.bits.DP_IS_USB_C &&
--			link->dc->debug.usbc_combo_phy_reset_wa) {
--		dp_enable_link_phy(link, link_res, link->connector_signal, dp_cs_id, cur);
--		dp_disable_link_phy(link, link_res, link->connector_signal);
--	}
--
- 	do {
--		skip_video_pattern = true;
--
--		if (cur->link_rate == LINK_RATE_LOW)
--			skip_video_pattern = false;
-+		if (!get_temp_dp_link_res(link, &link_res, &cur_link_settings))
-+			continue;
- 
-+		skip_video_pattern = cur_link_settings.link_rate != LINK_RATE_LOW;
- 		dp_enable_link_phy(
- 				link,
--				link_res,
-+				&link_res,
- 				link->connector_signal,
- 				dp_cs_id,
--				cur);
-+				&cur_link_settings);
- 
-+		status = dc_link_dp_perform_link_training(
-+				link,
-+				&link_res,
-+				&cur_link_settings,
-+				skip_video_pattern);
- 
--		if (skip_link_training)
-+		if (status == LINK_TRAINING_SUCCESS) {
- 			success = true;
--		else {
--			status = dc_link_dp_perform_link_training(
-+			udelay(1000);
-+			if (read_hpd_rx_irq_data(link, &irq_data) == DC_OK &&
-+					hpd_rx_irq_check_link_loss_status(
- 							link,
--							link_res,
--							cur,
--							skip_video_pattern);
--			if (status == LINK_TRAINING_SUCCESS)
--				success = true;
--			else
-+							&irq_data))
- 				(*fail_count)++;
--		}
- 
--		if (success) {
--			link->verified_link_cap = *cur;
--			udelay(1000);
--			if (read_hpd_rx_irq_data(link, &irq_data) == DC_OK)
--				if (hpd_rx_irq_check_link_loss_status(
--						link,
--						&irq_data))
--					(*fail_count)++;
-+		} else {
-+			(*fail_count)++;
- 		}
--		/* always disable the link before trying another
--		 * setting or before returning we'll enable it later
--		 * based on the actual mode we're driving
--		 */
--		dp_disable_link_phy(link, link_res, link->connector_signal);
-+		dp_disable_link_phy(link, &link_res, link->connector_signal);
- 	} while (!success && decide_fallback_link_setting(link,
--			initial_link_settings, cur, status));
-+			initial_link_settings, &cur_link_settings, status));
- 
--	/* Link Training failed for all Link Settings
--	 *  (Lane Count is still unknown)
--	 */
--	if (!success) {
--		/* If all LT fails for all settings,
--		 * set verified = failed safe (1 lane low)
--		 */
--		link->verified_link_cap.lane_count = LANE_COUNT_ONE;
--		link->verified_link_cap.link_rate = LINK_RATE_LOW;
--
--		link->verified_link_cap.link_spread =
--		LINK_SPREAD_DISABLED;
--	}
-+	link->verified_link_cap = success ?
-+			cur_link_settings : fail_safe_link_settings;
-+	return success;
++
++static void enable_hpo_dp_fpga_link_output(struct dc_link *link,
++		const struct link_resource *link_res,
++		enum signal_type signal,
++		enum clock_source_id clock_source,
++		const struct dc_link_settings *link_settings)
++{
++	const struct dc *dc = link->dc;
++	enum phyd32clk_clock_source phyd32clk = get_phyd32clk_src(link);
++	int phyd32clk_freq_khz = link_settings->link_rate == LINK_RATE_UHBR10 ? 312500 :
++			link_settings->link_rate == LINK_RATE_UHBR13_5 ? 412875 :
++			link_settings->link_rate == LINK_RATE_UHBR20 ? 625000 : 0;
++
++	dm_set_phyd32clk(dc->ctx, phyd32clk_freq_khz);
++	dc->res_pool->dccg->funcs->set_physymclk(
++			dc->res_pool->dccg,
++			link->link_enc_hw_inst,
++			PHYSYMCLK_FORCE_SRC_PHYD32CLK,
++			true);
++	dc->res_pool->dccg->funcs->enable_symclk32_le(
++			dc->res_pool->dccg,
++			link_res->hpo_dp_link_enc->inst,
++			phyd32clk);
++	link_res->hpo_dp_link_enc->funcs->link_enable(
++			link_res->hpo_dp_link_enc,
++			link_settings->lane_count);
++
 +}
- 
-+static void apply_usbc_combo_phy_reset_wa(struct dc_link *link,
-+		struct dc_link_settings *link_settings)
++
++static void enable_hpo_dp_link_output(struct dc_link *link,
++		const struct link_resource *link_res,
++		enum signal_type signal,
++		enum clock_source_id clock_source,
++		const struct dc_link_settings *link_settings)
 +{
-+	/* Temporary Renoir-specific workaround PHY will sometimes be in bad
-+	 * state on hotplugging display from certain USB-C dongle, so add extra
-+	 * cycle of enabling and disabling the PHY before first link training.
-+	 */
-+	struct link_resource link_res = {0};
-+	enum clock_source_id dp_cs_id = get_clock_source_id(link);
- 
--	return success;
-+	dp_enable_link_phy(link, &link_res, link->connector_signal,
-+			dp_cs_id, link_settings);
-+	dp_disable_link_phy(link, &link_res, link->connector_signal);
- }
- 
- bool dp_verify_link_cap_with_retries(
- 	struct dc_link *link,
--	const struct link_resource *link_res,
- 	struct dc_link_settings *known_limit_link_setting,
- 	int attempts)
- {
- 	int i = 0;
- 	bool success = false;
- 
-+	if (link->link_enc && link->link_enc->features.flags.bits.DP_IS_USB_C &&
-+			link->dc->debug.usbc_combo_phy_reset_wa)
-+		apply_usbc_combo_phy_reset_wa(link, known_limit_link_setting);
++	if (IS_FPGA_MAXIMUS_DC(link->dc->ctx->dce_environment))
++		enable_hpo_dp_fpga_link_output(link, link_res, signal,
++				clock_source, link_settings);
++	else
++		link_res->hpo_dp_link_enc->funcs->enable_link_phy(
++				link_res->hpo_dp_link_enc,
++				link_settings,
++				link->link_enc->transmitter,
++				link->link_enc->hpd_source);
++}
 +
- 	for (i = 0; i < attempts; i++) {
- 		int fail_count = 0;
- 		enum dc_connection_type type = dc_connection_none;
-@@ -3310,12 +3285,9 @@ bool dp_verify_link_cap_with_retries(
- 		memset(&link->verified_link_cap, 0,
- 				sizeof(struct dc_link_settings));
- 		if (!dc_link_detect_sink(link, &type) || type == dc_connection_none) {
--			link->verified_link_cap.lane_count = LANE_COUNT_ONE;
--			link->verified_link_cap.link_rate = LINK_RATE_LOW;
--			link->verified_link_cap.link_spread = LINK_SPREAD_DISABLED;
-+			link->verified_link_cap = fail_safe_link_settings;
- 			break;
--		} else if (dp_verify_link_cap(link, link_res,
--				known_limit_link_setting,
-+		} else if (dp_verify_link_cap(link, known_limit_link_setting,
- 				&fail_count) && fail_count == 0) {
- 			success = true;
- 			break;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 3aa6d347d73c..9af8794c5b24 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -3187,9 +3187,9 @@ void get_audio_check(struct audio_info *aud_modes,
- 	}
- }
- 
--struct hpo_dp_link_encoder *resource_get_hpo_dp_link_enc_for_det_lt(
-+static struct hpo_dp_link_encoder *get_temp_hpo_dp_link_enc(
- 		const struct resource_context *res_ctx,
--		const struct resource_pool *pool,
-+		const struct resource_pool *const pool,
- 		const struct dc_link *link)
- {
- 	struct hpo_dp_link_encoder *hpo_dp_link_enc = NULL;
-@@ -3206,6 +3206,24 @@ struct hpo_dp_link_encoder *resource_get_hpo_dp_link_enc_for_det_lt(
- 	return hpo_dp_link_enc;
- }
- 
-+bool get_temp_dp_link_res(struct dc_link *link,
-+		struct link_resource *link_res,
-+		struct dc_link_settings *link_settings)
++
++static void disable_hpo_dp_fpga_link_output(struct dc_link *link,
++		const struct link_resource *link_res,
++		enum signal_type signal)
 +{
-+	const struct dc *dc  = link->dc;
-+	const struct resource_context *res_ctx = &dc->current_state->res_ctx;
++	const struct dc *dc = link->dc;
 +
-+	memset(link_res, 0, sizeof(*link_res));
++	link_res->hpo_dp_link_enc->funcs->link_disable(link_res->hpo_dp_link_enc);
++	dc->res_pool->dccg->funcs->disable_symclk32_le(
++			dc->res_pool->dccg,
++			link_res->hpo_dp_link_enc->inst);
++	dc->res_pool->dccg->funcs->set_physymclk(
++			dc->res_pool->dccg,
++			link->link_enc_hw_inst,
++			PHYSYMCLK_FORCE_SRC_SYMCLK,
++			false);
++	dm_set_phyd32clk(dc->ctx, 0);
++}
 +
-+	if (dp_get_link_encoding_format(link_settings) == DP_128b_132b_ENCODING) {
-+		link_res->hpo_dp_link_enc = get_temp_hpo_dp_link_enc(res_ctx,
-+				dc->res_pool, link);
-+		if (!link_res->hpo_dp_link_enc)
-+			return false;
++static void disable_hpo_dp_link_output(struct dc_link *link,
++		const struct link_resource *link_res,
++		enum signal_type signal)
++{
++	if (IS_FPGA_MAXIMUS_DC(link->dc->ctx->dce_environment)) {
++		disable_hpo_dp_fpga_link_output(link, link_res, signal);
++	} else {
++		link_res->hpo_dp_link_enc->funcs->link_disable(link_res->hpo_dp_link_enc);
++		link_res->hpo_dp_link_enc->funcs->disable_link_phy(
++				link_res->hpo_dp_link_enc, signal);
 +	}
-+	return true;
 +}
 +
- void reset_syncd_pipes_from_disabled_pipes(struct dc *dc,
- 		struct dc_state *context)
- {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-index 3ed2dbbf5642..67286950fe5a 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-@@ -56,15 +56,8 @@ enum {
+ static const struct link_hwss hpo_dp_link_hwss = {
+ 	.setup_stream_encoder = setup_hpo_dp_stream_encoder,
+ 	.reset_stream_encoder = reset_hpo_dp_stream_encoder,
+ 	.ext = {
+ 		.set_throttled_vcp_size = set_dp_hpo_throttled_vcp_size,
+ 		.set_hblank_min_symbol_width = set_dp_hpo_hblank_min_symbol_width,
++		.enable_dp_link_output = enable_hpo_dp_link_output,
++		.disable_dp_link_output = disable_hpo_dp_link_output,
+ 	},
+ };
+ /*********************** below goes to dpia_link_hwss *************************/
+@@ -954,6 +950,8 @@ static const struct link_hwss dpia_link_hwss = {
+ 	.reset_stream_encoder = reset_dio_stream_encoder,
+ 	.ext = {
+ 		.set_throttled_vcp_size = set_dio_throttled_vcp_size,
++		.enable_dp_link_output = enable_dio_dp_link_output,
++		.disable_dp_link_output = disable_dio_dp_link_output,
+ 	},
+ };
  
- struct dc_link_settings dp_get_max_link_cap(struct dc_link *link);
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/link_hwss.h b/drivers/gpu/drm/amd/display/dc/inc/link_hwss.h
+index e9cad1c78b5e..8fe20ee02d9e 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/link_hwss.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/link_hwss.h
+@@ -86,6 +86,14 @@ struct link_hwss_ext {
+ 			struct fixed31_32 throttled_vcp_size);
+ 	void (*set_throttled_vcp_size)(struct pipe_ctx *pipe_ctx,
+ 			struct fixed31_32 throttled_vcp_size);
++	void (*enable_dp_link_output)(struct dc_link *link,
++			const struct link_resource *link_res,
++			enum signal_type signal,
++			enum clock_source_id clock_source,
++			const struct dc_link_settings *link_settings);
++	void (*disable_dp_link_output)(struct dc_link *link,
++			const struct link_resource *link_res,
++			enum signal_type signal);
+ };
  
--bool dp_verify_link_cap(
--	struct dc_link *link,
--	const struct link_resource *link_res,
--	struct dc_link_settings *known_limit_link_setting,
--	int *fail_count);
--
- bool dp_verify_link_cap_with_retries(
- 	struct dc_link *link,
--	const struct link_resource *link_res,
- 	struct dc_link_settings *known_limit_link_setting,
- 	int attempts);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-index 2a123622564d..b2d09330de78 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-@@ -201,10 +201,9 @@ int get_num_mpc_splits(struct pipe_ctx *pipe);
- 
- int get_num_odm_splits(struct pipe_ctx *pipe);
- 
--struct hpo_dp_link_encoder *resource_get_hpo_dp_link_enc_for_det_lt(
--		const struct resource_context *res_ctx,
--		const struct resource_pool *pool,
--		const struct dc_link *link);
-+bool get_temp_dp_link_res(struct dc_link *link,
-+		struct link_resource *link_res,
-+		struct dc_link_settings *link_settings);
- 
- void reset_syncd_pipes_from_disabled_pipes(struct dc *dc,
- 	struct dc_state *context);
+ struct link_hwss {
 -- 
 2.34.1
 
