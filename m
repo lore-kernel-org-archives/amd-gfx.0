@@ -4,51 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34FECC4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 18:51:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D9F9C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 18:53:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6FC910E3CF;
-	Fri, 28 Jan 2022 18:51:00 +0000 (UTC)
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8133110E28C;
- Fri, 28 Jan 2022 18:50:59 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- c3-20020a9d6c83000000b00590b9c8819aso6587585otr.6; 
- Fri, 28 Jan 2022 10:50:59 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96BDE10E6A3;
+	Fri, 28 Jan 2022 18:53:14 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7940110E5CB;
+ Fri, 28 Jan 2022 18:53:12 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id y23so13953831oia.13;
+ Fri, 28 Jan 2022 10:53:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bKX9pAz2N6f1LeV5jE9JpWncxYcfxVHZaRugBIOPKbo=;
- b=JtN7o50xVFQqlIL781UZBwe/EcDEfw8NHpccQlecEyj0wdpmnCb1zGecF/++5xnfMd
- F5ewgBhpYWA7EE1CdbXoz/tt1SrKQSxiwzFdisFm0+t5cF4rI4O8rdxr2JEu4AY7bqcc
- aUHDzqeQCIpziYIE8mPOYNzEo7ATgYzz0JAKl8hSM2CWD17lLcEHpktsFNbgem3tQRYR
- N92AH6vAJfpjvF37rqJaLSbIvpzvWxjpkuPG1Umen3AVtFyoBCwxarMUFv6w2P7mgQlQ
- +WhvsBX8ujfWZi2ogq0C8IHDx4Bde7mPn+l6c2CE1//imvnKK25t3TW1OUrJndUMuaVX
- 7UZA==
+ :cc; bh=pu4NSwnKcN2ktpCmENizSopNqGrtbHMNjwjQQEL3R9o=;
+ b=FMrK316cn1uFMuGw08XpxR3ytnj/a+OHArDyn4WZuTbrMozATGItbEp0OF5NCLdAKs
+ 55wlAj/pLNbR3IY3wNMdQl3KC05xFW3ejCodXst/6aJbcvoC3IM/fFTHJDl7GsH7oQBy
+ H7Y3Ytxd0Q7Nh+hczHmz4zi+PNfK8YcG3iLFzzRqksyG+JcZJSXzEJxqF74+FoHNlcYC
+ jUiQfgStsVfpTNx84W9cfYSSasVqiH0lk2vQqJwoQslYryCMj7ob7TyO/VVc3uORYddv
+ Uau/3O3gWAWmqTVLpvUZ8Mj7cCmj+u/piSuDb5t6UzbGAFPwQzXC7a8fCCwnlP0dK3eC
+ CvOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=bKX9pAz2N6f1LeV5jE9JpWncxYcfxVHZaRugBIOPKbo=;
- b=heOOX1FwxMJKNH2FpRCbzMmJkUida9dDVSCfvZmlCpCix/OoX8fircJ4Uy0oUOJ/2r
- FFc2rR1ZY7KYOObeiPZ27TDgUZFlp/3eXaa/KL8xRB7uzC0uwS8l2S9oyCRnSfL45xFa
- MeboEgrC+OiU+odrUYcGaZHy/A5AHmBB0JZj4wTugoh5aMyR9hlnuvkkwY7qEJ/jzihu
- /elbtGbc0EDeSi24L8dzNvuiwuZBdK0+BiHeWdTiolbJsEPAUGYfcFYrczlmtttbMPcS
- OgST0lazz6vIOG5t3bT9Sejr8X5Uhiaa+ctgGe8df+WN2sWMQZJllJK11/t9mBPkJCjx
- tMIg==
-X-Gm-Message-State: AOAM532+2GAdaHrblCmlwa1VKMoI3Ko78HfIedMM5crErSB0sAYZZ8po
- Jpk5H3JzIoI6mVLtLU+GxE5YHnkd5zkj3/YHJR4=
-X-Google-Smtp-Source: ABdhPJw5/vywGryf/EN4HvDyYic34Z2ylrPo+NRS3fcU525WNAQVjajsZilknfkCeEONCcJK9pI7KZhvlzNa3DWjl2s=
-X-Received: by 2002:a9d:65cb:: with SMTP id z11mr5524190oth.357.1643395857180; 
- Fri, 28 Jan 2022 10:50:57 -0800 (PST)
+ bh=pu4NSwnKcN2ktpCmENizSopNqGrtbHMNjwjQQEL3R9o=;
+ b=c7lb9LP3eD7f21R0RvJHL8izwkAK4LTTgCdGk5zxv6+J69Ak2Q/kdRTBFD/5tAWesR
+ GuVkedOdl8ox1DCd5qjQA2aZ1O8qsfifBUeKaBI8fcMPXBM5RZ9AWJfYruwK3tsDWjSl
+ WeMtgmJqXepkTElNuoBVhFPPJyvxBiuHf0+59kzVL6VwK8gIv3jeupccAxBRxeP0aHWx
+ RsKU9ASnU6W2f8Wutbqc8s9cuOe4tSE4rmiaj7TjUaoDFyKTMDyjUO7tsG7htfji1TWw
+ Ve4N2XJveeHJK6ddANovrzxftBHlqPHQa609cEcuuy+6vxbbjF2IvrnsKcUUHrh4YmFY
+ QFHw==
+X-Gm-Message-State: AOAM531t75clnN+YWl5SmgXnQDskfcGJPWNitofqZOVoB82n+v3dnd2x
+ R+tdVdbDqJCI6H95Yz0c2aa29exZQF14uSk98Wo=
+X-Google-Smtp-Source: ABdhPJwKCzD8Rt5qit1gwag3Yzd6XxPW5CpF0ZA2+xx+dEK0So5xF+3/9NNczU849tHElw52wJ2ouSprPSX7g2wTnww=
+X-Received: by 2002:a05:6808:2189:: with SMTP id
+ be9mr11097293oib.93.1643395991750; 
+ Fri, 28 Jan 2022 10:53:11 -0800 (PST)
 MIME-Version: 1.0
-References: <20220128071936.1210682-1-deng.changcheng@zte.com.cn>
-In-Reply-To: <20220128071936.1210682-1-deng.changcheng@zte.com.cn>
+References: <20220128173502.594099-1-colin.i.king@gmail.com>
+ <6a5b1f8e-22a1-9c26-aea4-6bb38c4aa084@amd.com>
+In-Reply-To: <6a5b1f8e-22a1-9c26-aea4-6bb38c4aa084@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 28 Jan 2022 13:50:46 -0500
-Message-ID: <CADnq5_NMAEvgRKM864Vf+xsLuui8+gr_a6r2jViXYX6B5RGh_g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: remove duplicate include in 'arcturus_ppt.c'
-To: CGEL <cgel.zte@gmail.com>
+Date: Fri, 28 Jan 2022 13:53:00 -0500
+Message-ID: <CADnq5_PxSH6e-QgN7_srR4w47WCNdXTp6VGNZz0=sXp-ivw4Mg@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amd/display: fix spelling mistake: synatpics ->
+ synaptics
+To: Harry Wentland <harry.wentland@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,48 +63,136 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: xinhui pan <Xinhui.Pan@amd.com>, "Chen, Guchun" <guchun.chen@amd.com>,
- Dave Airlie <airlied@linux.ie>, Zeal Robot <zealci@zte.com.cn>, "Lazar,
- Lijo" <lijo.lazar@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Changcheng Deng <deng.changcheng@zte.com.cn>, "Tuikov,
- Luben" <luben.tuikov@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Powell,
- Darren" <darren.powell@amd.com>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, "Quan, Evan" <evan.quan@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, "Nieto,
- David M" <david.nieto@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, kernel-janitors@vger.kernel.org,
+ xinhui pan <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Colin Ian King <colin.i.king@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  thanks!
+Applied.  Thanks!
 
 Alex
 
-On Fri, Jan 28, 2022 at 2:19 AM <cgel.zte@gmail.com> wrote:
+On Fri, Jan 28, 2022 at 12:59 PM Harry Wentland <harry.wentland@amd.com> wrote:
 >
-> From: Changcheng Deng <deng.changcheng@zte.com.cn>
 >
-> 'amdgpu_dpm.h' included in 'arcturus_ppt.c' is duplicated.
 >
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 1 -
->  1 file changed, 1 deletion(-)
+> On 2022-01-28 12:35, Colin Ian King wrote:
+> > There are quite a few spelling mistakes in various function names
+> > and error messages. Fix these.
+> >
+> > Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> index ee296441c5bc..709c32063ef7 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> @@ -46,7 +46,6 @@
->  #include <linux/pci.h>
->  #include "amdgpu_ras.h"
->  #include "smu_cmn.h"
-> -#include "amdgpu_dpm.h"
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 >
->  /*
->   * DO NOT use these for err/warn/info/debug messages.
-> --
-> 2.25.1
+> Harry
+>
+> > ---
+> >  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 32 +++++++++----------
+> >  1 file changed, 16 insertions(+), 16 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> > index 75b5299b3576..db4ab01267e4 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> > @@ -539,7 +539,7 @@ bool dm_helpers_submit_i2c(
+> >  }
+> >
+> >  #if defined(CONFIG_DRM_AMD_DC_DCN)
+> > -static bool execute_synatpics_rc_command(struct drm_dp_aux *aux,
+> > +static bool execute_synaptics_rc_command(struct drm_dp_aux *aux,
+> >               bool is_write_cmd,
+> >               unsigned char cmd,
+> >               unsigned int length,
+> > @@ -578,7 +578,7 @@ static bool execute_synatpics_rc_command(struct drm_dp_aux *aux,
+> >       ret = drm_dp_dpcd_write(aux, SYNAPTICS_RC_COMMAND, &rc_cmd, sizeof(rc_cmd));
+> >
+> >       if (ret < 0) {
+> > -             DRM_ERROR("     execute_synatpics_rc_command - write cmd ..., err = %d\n", ret);
+> > +             DRM_ERROR("     execute_synaptics_rc_command - write cmd ..., err = %d\n", ret);
+> >               return false;
+> >       }
+> >
+> > @@ -600,7 +600,7 @@ static bool execute_synatpics_rc_command(struct drm_dp_aux *aux,
+> >               drm_dp_dpcd_read(aux, SYNAPTICS_RC_DATA, data, length);
+> >       }
+> >
+> > -     DC_LOG_DC("     execute_synatpics_rc_command - success = %d\n", success);
+> > +     DC_LOG_DC("     execute_synaptics_rc_command - success = %d\n", success);
+> >
+> >       return success;
+> >  }
+> > @@ -618,54 +618,54 @@ static void apply_synaptics_fifo_reset_wa(struct drm_dp_aux *aux)
+> >       data[3] = 'U';
+> >       data[4] = 'S';
+> >
+> > -     if (!execute_synatpics_rc_command(aux, true, 0x01, 5, 0, data))
+> > +     if (!execute_synaptics_rc_command(aux, true, 0x01, 5, 0, data))
+> >               return;
+> >
+> >       // Step 3 and 4
+> > -     if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x220998, data))
+> > +     if (!execute_synaptics_rc_command(aux, false, 0x31, 4, 0x220998, data))
+> >               return;
+> >
+> >       data[0] &= (~(1 << 1)); // set bit 1 to 0
+> > -     if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x220998, data))
+> > +     if (!execute_synaptics_rc_command(aux, true, 0x21, 4, 0x220998, data))
+> >               return;
+> >
+> > -     if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x220D98, data))
+> > +     if (!execute_synaptics_rc_command(aux, false, 0x31, 4, 0x220D98, data))
+> >               return;
+> >
+> >       data[0] &= (~(1 << 1)); // set bit 1 to 0
+> > -     if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x220D98, data))
+> > +     if (!execute_synaptics_rc_command(aux, true, 0x21, 4, 0x220D98, data))
+> >               return;
+> >
+> > -     if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x221198, data))
+> > +     if (!execute_synaptics_rc_command(aux, false, 0x31, 4, 0x221198, data))
+> >               return;
+> >
+> >       data[0] &= (~(1 << 1)); // set bit 1 to 0
+> > -     if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x221198, data))
+> > +     if (!execute_synaptics_rc_command(aux, true, 0x21, 4, 0x221198, data))
+> >               return;
+> >
+> >       // Step 3 and 5
+> > -     if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x220998, data))
+> > +     if (!execute_synaptics_rc_command(aux, false, 0x31, 4, 0x220998, data))
+> >               return;
+> >
+> >       data[0] |= (1 << 1); // set bit 1 to 1
+> > -     if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x220998, data))
+> > +     if (!execute_synaptics_rc_command(aux, true, 0x21, 4, 0x220998, data))
+> >               return;
+> >
+> > -     if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x220D98, data))
+> > +     if (!execute_synaptics_rc_command(aux, false, 0x31, 4, 0x220D98, data))
+> >               return;
+> >
+> >       data[0] |= (1 << 1); // set bit 1 to 1
+> >               return;
+> >
+> > -     if (!execute_synatpics_rc_command(aux, false, 0x31, 4, 0x221198, data))
+> > +     if (!execute_synaptics_rc_command(aux, false, 0x31, 4, 0x221198, data))
+> >               return;
+> >
+> >       data[0] |= (1 << 1); // set bit 1 to 1
+> > -     if (!execute_synatpics_rc_command(aux, true, 0x21, 4, 0x221198, data))
+> > +     if (!execute_synaptics_rc_command(aux, true, 0x21, 4, 0x221198, data))
+> >               return;
+> >
+> >       // Step 6
+> > -     if (!execute_synatpics_rc_command(aux, true, 0x02, 0, 0, NULL))
+> > +     if (!execute_synaptics_rc_command(aux, true, 0x02, 0, 0, NULL))
+> >               return;
+> >
+> >       DC_LOG_DC("Done apply_synaptics_fifo_reset_wa\n");
 >
