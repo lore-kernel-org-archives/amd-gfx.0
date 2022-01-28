@@ -4,58 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAE76C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 06:09:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB85FC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 06:40:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B22110F4D1;
-	Fri, 28 Jan 2022 06:09:20 +0000 (UTC)
-Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
- [IPv6:2607:f8b0:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FE0F10F4DD
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 06:09:18 +0000 (UTC)
-Received: by mail-pg1-x531.google.com with SMTP id h23so4324713pgk.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jan 2022 22:09:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=igel-co-jp.20210112.gappssmtp.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=xmJUYGxVIOq2ikN9W5Sr7Lz0nyJ9BNBmKrBR0wxwPTE=;
- b=n52ktlUg3l4qy9m/0Ni0lzQNBoCvDxm+h9y9p5dLfgPUj79JmomeClnGajJBRNzxmI
- RmTKQGeWberRRjud4XfI5FwJ3M1dW6UAT93DdcwU8iUFTJe8cxoE/1go74mWnbYA2rpN
- ObgaBv5dxtL/9CfjgaLbkoUzx2YeVR33SLUsBgiGdJY8219auHHuheS18uX7ZVc5tBRI
- bpCSqfPY4bFEciUcFhrRSRUX2LSAQoAJQgDeyd8SUQkxbTue8yeDx4555WEmKd3iTQ6Z
- JZdNEHmylYt+bZujgRFF1PZ2l7EVhnbCQDbsk2dLaq4Nwn9fseH3PMqlbu9taC0UJtSe
- fD7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=xmJUYGxVIOq2ikN9W5Sr7Lz0nyJ9BNBmKrBR0wxwPTE=;
- b=BZIF6V2R94KIuFVCcip4QET+Jx/hyHvIenkwklcLbz59jKSYh7Ayz8hc6kRzSJomGO
- dKF0crjulyRwkKUiWW6zRhjXyKCNpn6eKPWy314Zom7AJDnb5LhXMKwFfHU5xD/CCS/d
- oqca3c+Gp/3U1mP+09tDMQ7jUW+7kva81g1uU9eFyx3eqfG1mNJxcHK9ynQY4BvnZt4l
- nTtGL9XZWE+E0/nOhKCUVplZkKX+nn689jHL//6Cddk33tYd9pt+OgKom5NU+0H/QqSD
- gPbRoHtMOrXDwRxIIv/EQkJSrbT0U5IQNJqs4Uo+y6VB8mvDWf/w24hRDUz93mBYf2xi
- rCVQ==
-X-Gm-Message-State: AOAM533SjDtqgd2mv3URGFZzlnUQgKgZjXbmboDYRMbsR9C8bc4x9T5Y
- a6TI1nCIXW7x4Sz9emYtuMEbSA==
-X-Google-Smtp-Source: ABdhPJxOswA3kNxXL45GkqcHS4JhxF0KFKbQ4Yl6by2ISkes4m7lp62H+duPcH9WQSM66RTMhk6uqA==
-X-Received: by 2002:a63:6342:: with SMTP id x63mr5500830pgb.148.1643350157903; 
- Thu, 27 Jan 2022 22:09:17 -0800 (PST)
-Received: from aqua.hq.igel.co.jp (napt.igel.co.jp. [219.106.231.132])
- by smtp.gmail.com with ESMTPSA id h5sm7743182pfi.111.2022.01.27.22.09.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jan 2022 22:09:17 -0800 (PST)
-From: Tomohito Esaki <etom@igel.co.jp>
-To: dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH v6 3/3] drm: remove allow_fb_modifiers
-Date: Fri, 28 Jan 2022 15:08:36 +0900
-Message-Id: <20220128060836.11216-4-etom@igel.co.jp>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28BB610F745;
+	Fri, 28 Jan 2022 06:40:43 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2063.outbound.protection.outlook.com [40.107.223.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD0DA10F743
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 06:40:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ddq0Cnb78dsdTofW2OyVpXxbhSpmyYjIVRZ5Dlh4FG3ADRS8c3BLAieIfvScBSIFUWOkUbnl0XwCWVXegf3Oo17XeO1zXQLMPgPYsgaQjH5+WjFn09Awv5QB/O8szYdAMi+7uBQ9gsD6xyWpyiTCK2l3dkXPFJCs3F2i5W1NnAus7DCBM+KeI2VPZEDrwhDXwV1WuLkdaLFybrPRlDk6TnhXPy8xeC296LSnxVUb6+lZM65FRv5uEkH0MWnGQUoDZmCyRxmro44hgNyUysstyaBKNE+yFB0KNdOzRDZonUiyWkYsWMeKeteMD/Hllpy9LkGPkmR/T6Yzii5AcMSo+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/wigVDc28KOF5nHC1DnGEUt59RZhgkqaOtxRTdCvFuM=;
+ b=M0xN7vN3EQLE5aLHsrwzg6QdDRmysmc2dFA20eguChqpZX8rQc/w/bHPcCqkF7rTR460UZ4aOLqiD/TCIfFjeg1dmsScP8ZoLOQrG+6QOvALACVJ0xHFfJrmiWpaUn/v9TpWgHwqXpurMYMLYLvrsETcnBwJs2nOBhdAJucwNhUbZj+4HymJPUdXEei9tu4qt5mzFEua614V5b4mytfp1FkYKApb5td3YzP0iKPRMqp4BL9HcHTRv9JW8FMgmVFBT5MZJ+uWyQm3XA90RRkwRP6LOmFQ2PdyLaBT1KcKJGBqWSVv418Tw3IM/UzMb5cQdJ9IMNRoIVO4pvigOOAX9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/wigVDc28KOF5nHC1DnGEUt59RZhgkqaOtxRTdCvFuM=;
+ b=3mTwqMSeHJNNizif4+3UVR2WlQqOU1dtNa81dmsJDQcVjwL1IPebM/HxwDvaUD6VbV9H/CUyuKwI/oEo+bYP3GGpwqoOTY9wZ01syf3PwJA6o2cXNxzhxrBPXtMIoMjN72jjpllwKKPU7rDiBnyeMdCIG8ZJeEufERvroi6PAB4=
+Received: from BN0PR04CA0105.namprd04.prod.outlook.com (2603:10b6:408:ec::20)
+ by BYAPR12MB2677.namprd12.prod.outlook.com (2603:10b6:a03:69::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.14; Fri, 28 Jan
+ 2022 06:40:39 +0000
+Received: from BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ec:cafe::95) by BN0PR04CA0105.outlook.office365.com
+ (2603:10b6:408:ec::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17 via Frontend
+ Transport; Fri, 28 Jan 2022 06:40:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT023.mail.protection.outlook.com (10.13.177.103) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4930.15 via Frontend Transport; Fri, 28 Jan 2022 06:40:38 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 28 Jan
+ 2022 00:40:36 -0600
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Fix uninitialized variable use warning
+Date: Fri, 28 Jan 2022 12:10:19 +0530
+Message-ID: <20220128064019.2469388-1-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220128060836.11216-1-etom@igel.co.jp>
-References: <20220128060836.11216-1-etom@igel.co.jp>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: abd3cc15-f7fe-49ab-f284-08d9e2291883
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2677:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB2677CA46CEFD5D91CC0767CE97229@BYAPR12MB2677.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1079;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: d1IyhDRLb8cM8iwIZe1q6PQXo+23wVL3famRTNexxoMa8THaE2nCxbjoeFwxbsRjXL4BOvWkmKZN1jgxEHFpjoU73DyuJG8o0LIff9P6n0WsyxUU1yEvZNoNp6+TgKnHAdbJne3wXslK2xkzHr+7FH00TcfFuOM9vDpQ3Tv6eroJiIqnzEYz+FWugqAxfw8uqX5lJrDRPhImVboeUFl7kjS8K75yl07unx+RP3kNfkbxrKghDIdy5P4CbU9rbHGca3dUOHwq6n1tO0N3nC0ZuX/T005LE28ZPjjmdfbSYkP5U8NWWm5o7CnqIMnbcsaLMpjLe/Hy+zaE4qKN0Xx19MCk7CFovN7qCzdBUkvM62YO1Hvdh1lNKXeI7arfAVcT6vHo4tr+SJAwlim88tAYr+puZVZlLP49/ybaEbgDU869EumGASbtleqkhHH2WoHENc2zoWxkK5bUGwoBS1lth7bv22IZ86IwWvp7nu5nPYMdQuwVYcGknIlTeTOYsILmhr+VCuW2Ofl5TBf7Dc2FMoK39w/IGHNI5r3PsedBMJ1xiMiGj3lbc3JOTZMXtZjokSG25W7UOqjDChvM7MoMKKpPTSMxctiphltmyp1wHmKZCTR6WoAzqCifkDJMx/JiJMdySIAwsnbrH9vk8nQjMH4hagwNmFjhcik0rO04ONtFw6h3gGjXrjOyk/spCcl++Exxr2Fz7mFd2pvgQTOU0DxChwD4861sSfzVj86vwin2tdNANewtwpWeJp899AyTuQszFmSV2VxbdALP04YUMs+a2DfkUt67IxLVvnA+7Fc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(46966006)(40470700004)(36840700001)(54906003)(16526019)(2906002)(2616005)(6666004)(8676002)(82310400004)(4326008)(70586007)(356005)(316002)(36860700001)(426003)(508600001)(336012)(70206006)(26005)(6916009)(5660300002)(83380400001)(8936002)(40460700003)(1076003)(44832011)(7696005)(186003)(47076005)(81166007)(86362001)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 06:40:38.1847 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: abd3cc15-f7fe-49ab-f284-08d9e2291883
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2677
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,89 +99,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Daniel Stone <daniel@fooishbar.org>, Lee Jones <lee.jones@linaro.org>,
- Tomohito Esaki <etom@igel.co.jp>, Rob Clark <robdclark@chromium.org>,
- Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org,
- Ben Skeggs <bskeggs@redhat.com>, Petr Mladek <pmladek@suse.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Takanari Hayama <taki@igel.co.jp>, Sean Paul <seanpaul@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mark Yacoub <markyacoub@chromium.org>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Simon Ser <contact@emersion.fr>,
- Alex Deucher <alexander.deucher@amd.com>,
- Damian Hobson-Garcia <dhobsong@igel.co.jp>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Alexander.Deucher@amd.com, kernel test robot <yujie.liu@intel.com>,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The allow_fb_modifiers flag is unnecessary since it has been replaced
-with fb_modifiers_not_supported flag.
+Fix uninitialized variable use
+warning: variable 'reg_access_ctrl' is uninitialized when used here [-Wuninitialized]
+     scratch_reg0 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg0;
 
-v3:
- - change the order as follows:
-   1. add fb_modifiers_not_supported flag
-   2. add default modifiers
-   3. remove allow_fb_modifiers flag
+Fixes: 51263163eb3f("drm/amdgpu: add helper for rlcg indirect reg
+access")
 
-v5:
- - keep a sanity check in plane init func
-
-Signed-off-by: Tomohito Esaki <etom@igel.co.jp>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reported-by: kernel test robot <yujie.liu@intel.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/selftests/test-drm_framebuffer.c |  1 -
- include/drm/drm_mode_config.h                    | 16 ----------------
- 2 files changed, 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/selftests/test-drm_framebuffer.c b/drivers/gpu/drm/selftests/test-drm_framebuffer.c
-index 61b44d3a6a61..f6d66285c5fc 100644
---- a/drivers/gpu/drm/selftests/test-drm_framebuffer.c
-+++ b/drivers/gpu/drm/selftests/test-drm_framebuffer.c
-@@ -323,7 +323,6 @@ static struct drm_device mock_drm_device = {
- 		.max_width = MAX_WIDTH,
- 		.min_height = MIN_HEIGHT,
- 		.max_height = MAX_HEIGHT,
--		.allow_fb_modifiers = true,
- 		.funcs = &mock_config_funcs,
- 	},
- };
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index 4a93dac91cf9..6b5e01295348 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -917,22 +917,6 @@ struct drm_mode_config {
- 	 */
- 	bool async_page_flip;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 80c25176c993..c13765218919 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -875,6 +875,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v
+ 		return 0;
+ 	}
  
--	/**
--	 * @allow_fb_modifiers:
--	 *
--	 * Whether the driver supports fb modifiers in the ADDFB2.1 ioctl call.
--	 * Note that drivers should not set this directly, it is automatically
--	 * set in drm_universal_plane_init().
--	 *
--	 * IMPORTANT:
--	 *
--	 * If this is set the driver must fill out the full implicit modifier
--	 * information in their &drm_mode_config_funcs.fb_create hook for legacy
--	 * userspace which does not set modifiers. Otherwise the GETFB2 ioctl is
--	 * broken for modifier aware userspace.
--	 */
--	bool allow_fb_modifiers;
--
- 	/**
- 	 * @fb_modifiers_not_supported:
- 	 *
++	reg_access_ctrl = &adev->gfx.rlc.reg_access_ctrl;
+ 	scratch_reg0 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg0;
+ 	scratch_reg1 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg1;
+ 	scratch_reg2 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg2;
 -- 
 2.25.1
 
