@@ -4,125 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2D7CC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 14:50:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D1A0C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 14:53:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B4B110F06F;
-	Fri, 28 Jan 2022 14:50:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECFFA10F265;
+	Fri, 28 Jan 2022 14:53:12 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0003310EF65
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 14:50:11 +0000 (UTC)
+ (mail-co1nam11on2082.outbound.protection.outlook.com [40.107.220.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00D5210F259
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 14:53:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Oe46wJb0zrXb1kdD1lDTC+O7zLeB5hn8pRqs6NPFL8q61qk23aRqq0fImRjjNibrstKNwWqtn5qSZPnjDWknZro1swXVGvuJGyQPv4r5V8eD/nQDEltb0d3oBt3BV8CV39ihsGLQuYPBC08VAd+fOUu5UhDlLqTA5Nfi4RvdjYJvsVrnssTm4ZpMcnPd8kr427gjMYuZaKk3omeaNBIG9C+x91wr5zMrNaLRXs8S15D19KQgGUykc5v0KkbDihplRIHyC3O05cAkQW3qSqmYmaKXiC1nkbmqqbOlE8mCnLHtCFvFzaLGvKT2Et2l1L6hgWqPedkAl8ac3p1O6PCFVA==
+ b=PDR/N1RKSk/jz7ykKIGbvC16xr0rhOs/5/dRXVyIm3+IhBzwBwk7sfwiCp2WPRe3xhL1+6P3UnUyXyCoKvSdZQ5rdNuXBH+PA7FJQgY5SbCxPmf8EL/0A6WhcE7tm60LClCpwyej0NkY1B9yFm5XFHzK21uMELaPjF5gyayeCh//pRuwn4fT92/k1f2SkKxpGwlmZWMWRUTpvHlJ2O9WOUDztoh6ZFruDi0fmEIbFEKCaOHAM6dp63Mn907/A76enAHHSSxMjSh1haJKCTvsoqdEPKSe4M9uUs5fh1uTpOPv+IdZPZ1wnVX25AvKvnbComfR9prI1uJPk8zUz2nX3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KRHUV2fctYprWIReq4uof8akLwQcJAb90VjDoYMrGoY=;
- b=NHck3zrJKmSt1i/W6Dfuoi6Xk/0hsuIXjuic6DM7vUjFrftfEDPZq2vPhXDYeVkYTCaFtAi/v17fIoOSP8GYIqQaUFjpPFcrDFiBsDbM1VlLObWsMo+vcOp5fE+CIi++MUfCTFoXgnTu0NUwVbjYjSR6xvFlm3GbqnzsLeXBFAy6R6gfTcAxPYGq+VtZsJk7eKK+wK/QdgEfeSbgDI3rjDhp+A4bPCltTWkEIU5n1WZXL14g625r6CTxAbF9xZ93vADVugTqWtMtJAgGHIqrKDlEJW5M9GzfiDqtLdAYgkBWKDPIKmQ/iEyAnDfiYxHBr/KwHTraOGC/PB5qzQm86g==
+ bh=q8yYoE3H00apzFiEoSfDgkJzhX0tJoFmkYNWB1tnSG8=;
+ b=hCkw/uLd9S2+5Y7olKuIOzoZBFAE7J16d45fw93jAfIHr0ryMyoevrcyn7ozMYITVoVeBxsdSZA+8A6rUQMXyOQd9AoNxQi+Ef7VGSdrPUpVQjtvB6Gm1H0/GGus2ZFHK9J9NOVAZ5IX75Kyp/pfQ3/VdW31ZMCpUmPhxeI8OQ+pp8zTyNoJMWjPPTZ4GRSC1DAlxBhozIx0c+0i2lEm/FS74VSfxCYq3BTSD7EQSETlolJz2Y6wZ9i07HBuKlXHAPTR1qcAIMyC2++lo0sdQKcOpq/fowWcTlkqMQ8ZO41+JAHBsCo1Fzi1RTExuivpUG95RFplJfmjJy/uXaCGDQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KRHUV2fctYprWIReq4uof8akLwQcJAb90VjDoYMrGoY=;
- b=0Ql+wv0r+YXdSOZkNU5BOZe7J2HZ/sIaUAB4zYQ/NAJsQo+hZ0UxkVP9DO9nhRSHJnMa95TnsqMOoJtv7tTM5Y9zFQfYXkL+myQCVlpUJbyAWuzKk0poGaBv9kCgx2NV5NO8zNOzMMI8rAcnRSuTs1DBh0vCZomJrjCQ/ECxetw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by PH0PR12MB5497.namprd12.prod.outlook.com (2603:10b6:510:eb::22)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=q8yYoE3H00apzFiEoSfDgkJzhX0tJoFmkYNWB1tnSG8=;
+ b=mFuQLC9Mm6GDib1HTJCh01WxyBw0XKz1OckeuSPzzwkAcXsEDextxJJPXTBWFJ9dS1GvCMGZwfABvDvxa5Vo8EdHkBF5B66K3NfqgcIsrvR5x/uUu465QFZildxAVYOEf9bowZ+lel4ZrnnFUHlO7w/3d+UK3SAx/RbdyIUrGfA=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by DM6PR12MB4618.namprd12.prod.outlook.com (2603:10b6:5:78::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Fri, 28 Jan
- 2022 14:50:09 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::971:531c:e4f4:8a9a%7]) with mapi id 15.20.4930.019; Fri, 28 Jan 2022
- 14:50:09 +0000
-Message-ID: <c2762c2f-d467-5d5e-7b24-2a0cafaac19d@amd.com>
-Date: Fri, 28 Jan 2022 09:50:06 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
+ 2022 14:53:09 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::99d4:4d4f:653f:61be]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::99d4:4d4f:653f:61be%6]) with mapi id 15.20.4930.017; Fri, 28 Jan 2022
+ 14:53:09 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH V3 2/7] drm/amd/pm: unify the interface for retrieving
+ enabled ppfeatures
+Thread-Topic: [PATCH V3 2/7] drm/amd/pm: unify the interface for retrieving
+ enabled ppfeatures
+Thread-Index: AQHYFBVwXGLEm0K3qUSwOXtI9H4Sgax4hTwe
+Date: Fri, 28 Jan 2022 14:53:09 +0000
+Message-ID: <BL1PR12MB51442EC8ADB50C29B584A7DFF7229@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20220128070455.202014-1-evan.quan@amd.com>
+ <20220128070455.202014-2-evan.quan@amd.com>
+In-Reply-To: <20220128070455.202014-2-evan.quan@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>,
- "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20220125100321.450194-1-tianci.yin@amd.com>
- <SJ0PR12MB54888020E0D600D546BAC634825F9@SJ0PR12MB5488.namprd12.prod.outlook.com>
- <b5fab406-062f-1fdb-832b-1ba0249e1e10@amd.com>
- <DM4PR12MB52949E3762DF92C8C747ED8A95209@DM4PR12MB5294.namprd12.prod.outlook.com>
- <c7a7d79c-c59e-51ed-07fc-22d9b57c1271@amd.com>
- <DM4PR12MB5294D2C47F12FC897406884295219@DM4PR12MB5294.namprd12.prod.outlook.com>
- <1f6ae3fe-5463-cf80-063a-2c8a500b9b2a@amd.com>
- <DM4PR12MB5294035B7A2685C9A1EBBE1895229@DM4PR12MB5294.namprd12.prod.outlook.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <DM4PR12MB5294035B7A2685C9A1EBBE1895229@DM4PR12MB5294.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQXPR0101CA0052.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:14::29) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 58fc4295-0c84-4856-e601-08d9e26d7ada
-X-MS-TrafficTypeDiagnostic: PH0PR12MB5497:EE_
-X-Microsoft-Antispam-PRVS: <PH0PR12MB5497E2194184F0B22E0B676E92229@PH0PR12MB5497.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aaca16O7m9WERh2wQPvb1km1vg1f73vRAaTZ/syljKxCpcWLpAdl2o5QQ6QWDv+L17QmNE1TuHaVZiceL9jVEu0SjqTHu8VEqK2eO5Fmyphg6MUcom7LMb09Rv1UbK2mtPbzHIminUZiRn3Sf3NJxq/CFvgu895qYJf0IcORvImkFcHDSnYgxma7sH/ND507pIZJD8/7sXH9nPZz+pJm/PJ0wIzBd/m1u+CkjGK1aagy/jOKB5W/ZlvUFpbQj+2Xa6VKp+NMvKiNjnGMzkfWiJ+jI8ajDDLYGb6v1wN5sqCsp85zSuVhxfxb54zvMhrIHahgBJdr79vj8GHU0+j71w7S0CwqSj2jiuP+yWPLd6PHC2epYK35ajCx6gs9bNUHZEBLPEaKwBcPI4e3xVPIO+6TqRkwplKKPJUhREU3ECGOh0s7zoG8yaz4PMpjVt1hoY2CPX4Ar6ywza3jNh6N/IqOosNThQhPJnCP6K9c3jhOgZV7AQ3HY5m+Na3Wv/JEQbvFvB0vo4f3+/5nxzWoJltWmcAyyMr4MBgsj/cxmAyeisexnwLj3Xq4mCtz5t4CDfyLlaKTVTMhw7UAGjK7iakjVPuwA7O/Hx0qH3MThm0fpu3sNmxTxJX/cqemfbBGFQl1N4zyWvffbdiwTpnX1inq9WkqoH6Aj3IfXSHVXKDYVImra77kzJzb63OBJ1MgT4WwvfgF+DIcsgvNNaZR9AE5k7aKZ5nu08uxhnHoaE+Su/1RgoriKypbjArMIBkl
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(83380400001)(2616005)(66556008)(66946007)(66476007)(31696002)(36756003)(6512007)(8676002)(6666004)(4326008)(8936002)(31686004)(6506007)(30864003)(110136005)(26005)(316002)(38100700002)(44832011)(54906003)(5660300002)(508600001)(15650500001)(186003)(86362001)(6486002)(2906002)(43740500002)(45980500001)(20210929001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-28T14:53:08.952Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+suggested_attachment_session_id: c3ef5f44-147e-d8e4-d40f-d3efb2c2ee3a
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 86499494-0e59-4239-3828-08d9e26de687
+x-ms-traffictypediagnostic: DM6PR12MB4618:EE_
+x-microsoft-antispam-prvs: <DM6PR12MB4618C008B5DAC388965EAD56F7229@DM6PR12MB4618.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2399;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: jsjpMRPF/nNr45AWYZkvmDveoS+Vf4zuw/Dh/90trc6xJFzuOtnaacR0YeKPR/j25I3O1pqOwaeaoORsfa++yoOVvIG8srYib2he9smPvy82fn0/+oG1e4VmnfDaNm2v1QCilSVfOxGIGmLF2yrVqlonIu12YzDzwRXB2FMx4H6NpWZsRS4Dv1cEv+35OEgCCnTCs9SlGgqrRw+TJdu6LGgPPQsxXlfE37wPmXIaEuqRSfNy8ATowwmEkl0XOw3reUtwCCvsM+VYfDhAA/xkCrMV8t9ISUt/357byp0dOhY6YeXtNH+IgHM86+b23D5ONrLiCwDI18No+cjsSnUJAZiSkB/FI/B5KDYSdlOdLZjAU062KKgOnHPigblOj+KhGfaTSrlUwzdpWoyclvyUV01ah9QoDVLru8llw/hW+hyUZaAHfRhq2H6T/JntmJ+CXwV/HnMXhwOQPl6xF6TQXDPpzbH+kHaFwBaZgI7zEM2GoEtsquLFprD6/YyJm2J9tdfDWFjEfEVEKgWUM3dwqh7Pd39ft9niQswVD5Bphm0KMXiMv0ScbPgLyKhDvukdHr8a0d1UnSukYst8RnzkluZsHmTl86jTD59nRtwy5CLxapshK6epnlXZ4W2BCiLiYL7b2lXVr4OeBDqiicN4eiyjD04wCLIC55bmHCeVlgPHkqL/YsqGa2SR9sASQnQy2Yo0o2//dfukcYwWiFrDqg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(4326008)(316002)(38070700005)(33656002)(122000001)(186003)(38100700002)(86362001)(64756008)(83380400001)(26005)(8936002)(110136005)(8676002)(66476007)(66446008)(6506007)(66946007)(5660300002)(7696005)(53546011)(9686003)(2906002)(76116006)(52536014)(66556008)(19627405001)(508600001)(71200400001)(55016003)(20210929001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bEg5ZVBLYW5vZWF1VlRHVDZVclJ6RCtqVjFUcUhhSitSRFE5dzhoUkR0ZktC?=
- =?utf-8?B?Z0NVS3FYditVcVEvZERUYmplUU9uR3k0ejZ6MEhYK1oxS2loQ2ptRnRPTUxW?=
- =?utf-8?B?bzdDWFFsSkFkVUJ4bnhyaHB6RTNFTzFWYlJCQWw5NVBhOGlJeVZKNml1UktE?=
- =?utf-8?B?bmhMb042WEVmb0I0aHFacFlDUnRFZEsrdVlXVHZEU01lSkVMUzVqSURXdDZC?=
- =?utf-8?B?aXdJb25YVUo4Mm5nYkloUlBxMU5LVEFoSXRBVXBaRGpEYlJtbUNjZW11ZzFP?=
- =?utf-8?B?RzFjc05WcXFSdithVklBakxKY2lJdnJCODQ4dnJWWVRYa1RXT3R1MkgzWHNw?=
- =?utf-8?B?cHZQYXROUDB6Tlh4cGZvYzZXQ2xtd0hrWXhBSmtTNjRJLzJZRExsWElhRktP?=
- =?utf-8?B?ZDYzNFNVMzd2Y213cGFQdmh0OE9VVnpiYzdsZCtseVFhUzI5bnNPWFVpcWt1?=
- =?utf-8?B?NllrV3lJU09uQlhuaEM2Z2M4dGQvZXFWK3RkWU9tais5d0R6U0VsdDVkaDli?=
- =?utf-8?B?VnFLK2gyaEd1YXRQMFd0V1lsSVFuZWpMOFBiS1hFYzF4N1ZrNC9HR1pxdHJH?=
- =?utf-8?B?M2llQ3lzYmhDd2h5czdoaUtmYkhqb3VHTnFvMnZFeVdWK3ZYWEhDTllVTVlP?=
- =?utf-8?B?aTdNRm9UeTBmY0tBMndvaXhhOFBML1Evb3E4T2FhWk5tMjZYc3lOblJ1S3ZZ?=
- =?utf-8?B?OEM2dHFNWjBEQzNkemRvdUJLdk9lSmE1M2hoNEpGTHpwVWdHTWYvSnlpOUZv?=
- =?utf-8?B?ZzhNZUJqN3dqK3pYanZIazlXcmdJN3FDd3kyOVNlbDRCLzROMVlhZHpYUnVC?=
- =?utf-8?B?Mlkya3hBK245bnFud1l4MFIwWjlNelcrQmlUc3dvWTJ3SUVaRWJwNUsvWldo?=
- =?utf-8?B?S0thZWFPRXlZU1dWejh4a0xoMmtIeEtJbG1MNVBJcEt5Nm92a3l2YzZoZUhY?=
- =?utf-8?B?MVJ4RzhQYXI3eVRvb1QyckRoc3ZwdUJ6RWdOSXk4N3N3VDR1WmhXdXA2OVVZ?=
- =?utf-8?B?VHFNdlJEd05pWGhIVTNiUFV2MUFrZTNGM1ltcnM5S0lqTXFGc2pWR0VRRmVs?=
- =?utf-8?B?emhvL3YxOEkxZmJ1WjI3WmZWWHRZZjFvUXZKb0k0bUtZaVZhak5iRHYrNTZy?=
- =?utf-8?B?aU94Y1V4ZWtmYlcrZDUyM0hzWndpNk13Q2RkQW9xa3dvZWxqRmdJSFROT3hq?=
- =?utf-8?B?VkNIWUxtQWFwMU5OUWxSdTBRUkZJNXYzZFUreHdZYk9nSzUyN2p1TDlZRU1Y?=
- =?utf-8?B?L1AxcmJxdFRiM3E3NnhFc29YRENNbmRleXZreHU0aVEzVktROFlTSG0yL3JS?=
- =?utf-8?B?TVNINTkvd1JHblNaak5PZExPNlpTT1VweWFoWVcwZlltU2h6WUsrRzFlaG9F?=
- =?utf-8?B?SXJVb1FvNjRocUxoRUdTNXM5VWZldWR2cDNXTlpVQ3NSNTN5RDlpVXNzU3pP?=
- =?utf-8?B?R0FybER2a3NqYTRZYnlsUFBWcVdIMkVxVHR1U3oxMWlzM0JVcVlXdXJyUkto?=
- =?utf-8?B?eEZBSXk4b1Z2STJ1bkdzWEJER0xuNENVbk1EbW9DNk03VFJER2N3cWgyYm1l?=
- =?utf-8?B?ZDdTZDVaM1lLU25uOWpYWlFUSE1UdWNqUDd5Umt3UllHSmpsRUx6RTZJSjk1?=
- =?utf-8?B?bit4WlJaaHM1SXpZZVhpUGNlK1A0OGxaUzUyZUtzM2hsQk9oMXpnWUEwSmdX?=
- =?utf-8?B?UVV3WHFHYS9PWjhhZTJYbEd5QXVER1BsQlk3UUE2S1FzZ3l6U0VpdVFpNG94?=
- =?utf-8?B?K3l0a0NsYmZLR3pURWROVkZRUXhST2JYZG9XNUFwQ2pZRGt6QzVDejdRQVdQ?=
- =?utf-8?B?SVp6clZkYXJHMU0yNzhUbWlNM2hCdnJlT1gwVGdVeWNYdUlBT1VEWFFoRFEy?=
- =?utf-8?B?RExlZGVuZHBkcWxBcmxMcXJHcmJCSE5ZblVOUjQxaUxHamFseUV3NG0xT2hG?=
- =?utf-8?B?UndPSjB3UjB0NzMxVmhhN0hWV3ZxV0FQbnRDM3E5U1Z5Q0NHdGFkYzhOeSt3?=
- =?utf-8?B?dFRNSEZWakpnR3ZXVER5MlZXUkxHNk5LZDBKR2ZqOG9wWE12OUNZL29HVUFk?=
- =?utf-8?B?bUhSODUyNzBQUmJzcGR3ZkI2RXYvdTJ3OW5WY2tOOHhHZ0M5TnMwNzdkRnd5?=
- =?utf-8?B?ckVQbWl4NDJEWHptTTFCNkVVWWFzZVpvVER6WkhCMzY1SEVsR0hDandBMUpI?=
- =?utf-8?Q?0ZAA+3923u+Eney/ZGuR4sE=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+na8pFA6fgWwne1r7nuEmdBaysLcLBA1XdqYTi5ZCCVWGAhz40uYvMViRakX?=
+ =?us-ascii?Q?CvzaGuDV/S/PjmC9bJi8GjZAWoXEs/xM8IYK13AQxex5F+jl9WpcWqDVys85?=
+ =?us-ascii?Q?pgerGugrpGnd2RR6qibN0KdklVI/RsCRy2ccAk/dmAYF2D7AAr62ClWgqxSg?=
+ =?us-ascii?Q?6zblYDg2PkC8HBFx50Dd2zRdJfWhWaUr9ywmCxPgvY2Sxgq0DSQRS5ewDJVs?=
+ =?us-ascii?Q?PDPOxe2iosliM/yj20jBPuHLWtJ0XKYYLhcjoiHHX2EVTvOXAhXlRERKa1ud?=
+ =?us-ascii?Q?u6XWBG377drT/9RTNSZIIDcF+5I3LMnD3AnDrpZwbNgslPLX1Nkz17U3t5Lr?=
+ =?us-ascii?Q?SmVRi2wjXXxhXuA32m0L4uCcngHIIMOtyN8rx2xRc68ULIyQkBMm4RNDWs/p?=
+ =?us-ascii?Q?DAVNyy5bXofOz4VrW5zPIjuoauItfE0HkvVut3j0YYe+ap897epj7L+0yGPF?=
+ =?us-ascii?Q?37CQ335FMCLddhhUxrP7m+3Knqg3h26G7981goUqXCHbwNlQpn6oljMWN6zh?=
+ =?us-ascii?Q?DUBjLtVw1ySdTo+CVDFRMBk7NVLiqf/sverZrnP4nm/QdfKqzFPYsv7Mh5df?=
+ =?us-ascii?Q?WOkSFDIotxeMmhNKSsmmPOfJD8aSzgOrSqRAWqtTbJn77TVRgDvaGM6dVNZU?=
+ =?us-ascii?Q?ZxdNL+7R9zOAAFk+dfjm55wu4O4IDKh2WwMsVG/QDDKm90ZWzFzsYaVbMi3z?=
+ =?us-ascii?Q?q2DHBr8LvAlpfDKclr42GT//YDo2W8d1T2TWbrwVhReTEYtAsQRlhTTu3wn6?=
+ =?us-ascii?Q?s6IJISKIeJhqSeGtrxsIK+YAq4xFnY8RE+4ee3jlH5tFv35XZbYQnjCrHozV?=
+ =?us-ascii?Q?rwdXSjD+w7aVYCWKvI5yFrb/llC9Q2FLveEzQg6lzIV1o282RLHxUzsEArZs?=
+ =?us-ascii?Q?DKkv0tbIp6/86yBYprBnteNn8fXK70Dg4HBNst1u6OyfJlpEpM15Zu8ajAaY?=
+ =?us-ascii?Q?ZzUAEjBkrdpqFv1y2ghxHKHbPDjGdlCBOAbYhXCRA4NAohPisGhGLmKw+MW8?=
+ =?us-ascii?Q?a65OIuKTTCJsSETyvjLzGxR006Lx7gXDCyhuoBjWHggNZVlXHOAkaT3xd2d4?=
+ =?us-ascii?Q?0XwVg/+XUlzZoVM/wvaF90kLLg8UwW6NQDx/o1q8bhxKLBw4gKqiubBdFwTE?=
+ =?us-ascii?Q?a8BGlClggNecw02LjTgdqwSCncy1i8jnXVByHeZU/n61qdT2xNn7g8ebpoqF?=
+ =?us-ascii?Q?oh9xRBwfWhPWnmaCSnSNbMceyC9WjPh87s34yMgwdh7i2G2qiqIncscOMVts?=
+ =?us-ascii?Q?UX3I88+ezRRpF6H6hytG6ErDRy6p4mZEgzrSb80xTk1ylFdOBJRpwHxPtvfP?=
+ =?us-ascii?Q?YgT10pomRFi4OyopffAKG1hq+E5fcJGAl7DMrYsqF5CqiUH1hhUx6bYRe3xc?=
+ =?us-ascii?Q?+6nfGEzvLuPrdXpAf/oFML+oT7WgoREc6Jf96+uNyKzkXVP1rtNsbctARYsx?=
+ =?us-ascii?Q?1lg6zaQzPMPt79EQXio0HSd7v39fx9jyq2OrnXVnXO31JXAvG4r1V8ornP00?=
+ =?us-ascii?Q?uTOnu5q1HQJQJWi/HTG8U7093FB9eZzyvUENMb+lw7SG8zP5AndCx16c1QSf?=
+ =?us-ascii?Q?Y0wrbhimQl64deyZCk281nWtUJIDaXucYdFYgIHJMlwu9jSSgsBS/KvGmLzt?=
+ =?us-ascii?Q?hWW2swXdMfrhPZjav+ZS5jU=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB51442EC8ADB50C29B584A7DFF7229BL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58fc4295-0c84-4856-e601-08d9e26d7ada
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 14:50:09.1520 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 20T8vqxyCk07EwPSKmhcAgOlLKSlQg2ueMJuTL/RFKYaf5f7tpn4fCN4yz4Utn+ikqnCv8eggc9fz/oA6VjRyA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5497
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86499494-0e59-4239-3828-08d9e26de687
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jan 2022 14:53:09.5476 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: r1VIMxHD+8btDuToJgh7/9BK+mZXc7nZtQtv9i0evyikpIaUKFGNTPkMPiHhV+K16D7Gv5m7eh86RRL8eszBMw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4618
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,269 +127,793 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Chen,
- Guchun" <Guchun.Chen@amd.com>
+Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I see, thanks for clarifying. So this is happening because we unmap the 
-HIQ with direct MMIO register writes instead of using the KIQ.
+--_000_BL1PR12MB51442EC8ADB50C29B584A7DFF7229BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Quan, Evan <Evan.Quan@amd.com>
+Sent: Friday, January 28, 2022 2:04 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo <Lijo.Lazar=
+@amd.com>; Quan, Evan <Evan.Quan@amd.com>
+Subject: [PATCH V3 2/7] drm/amd/pm: unify the interface for retrieving enab=
+led ppfeatures
+
+Instead of having two which do the same thing.
+
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Change-Id: I6302c9b5abdb999c4b7c83a0d1852181208b1c1f
+--
+v1->v2:
+  - use SMU IP version check rather than an asic type check(Alex)
+---
+ .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   |  2 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  6 +-
+ .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |  6 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 95 ++++++++-----------
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  4 -
+ 5 files changed, 46 insertions(+), 67 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/driv=
+ers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+index 2f57333e6071..cc080a0075ee 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+@@ -357,7 +357,7 @@ static bool cyan_skillfish_is_dpm_running(struct smu_co=
+ntext *smu)
+         if (adev->in_suspend)
+                 return false;
+
+-       ret =3D smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
++       ret =3D smu_cmn_get_enabled_mask(smu, feature_mask, 2);
+         if (ret)
+                 return false;
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index 721027917f81..b4a3c9b8b54e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -507,7 +507,7 @@ static bool vangogh_is_dpm_running(struct smu_context *=
+smu)
+         if (adev->in_suspend)
+                 return false;
+
+-       ret =3D smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
++       ret =3D smu_cmn_get_enabled_mask(smu, feature_mask, 2);
+
+         if (ret)
+                 return false;
+@@ -1965,7 +1965,7 @@ static int vangogh_system_features_control(struct smu=
+_context *smu, bool en)
+         if (!en)
+                 return ret;
+
+-       ret =3D smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
++       ret =3D smu_cmn_get_enabled_mask(smu, feature_mask, 2);
+         if (ret)
+                 return ret;
+
+@@ -2182,7 +2182,7 @@ static const struct pptable_funcs vangogh_ppt_funcs =
+=3D {
+         .dpm_set_jpeg_enable =3D vangogh_dpm_set_jpeg_enable,
+         .is_dpm_running =3D vangogh_is_dpm_running,
+         .read_sensor =3D vangogh_read_sensor,
+-       .get_enabled_mask =3D smu_cmn_get_enabled_32_bits_mask,
++       .get_enabled_mask =3D smu_cmn_get_enabled_mask,
+         .get_pp_feature_mask =3D smu_cmn_get_pp_feature_mask,
+         .set_watermarks_table =3D vangogh_set_watermarks_table,
+         .set_driver_table_location =3D smu_v11_0_set_driver_table_location=
+,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+index bd24a2632214..f425827e2361 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+@@ -209,7 +209,7 @@ static int yellow_carp_system_features_control(struct s=
+mu_context *smu, bool en)
+         if (!en)
+                 return ret;
+
+-       ret =3D smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
++       ret =3D smu_cmn_get_enabled_mask(smu, feature_mask, 2);
+         if (ret)
+                 return ret;
+
+@@ -258,7 +258,7 @@ static bool yellow_carp_is_dpm_running(struct smu_conte=
+xt *smu)
+         uint32_t feature_mask[2];
+         uint64_t feature_enabled;
+
+-       ret =3D smu_cmn_get_enabled_32_bits_mask(smu, feature_mask, 2);
++       ret =3D smu_cmn_get_enabled_mask(smu, feature_mask, 2);
+
+         if (ret)
+                 return false;
+@@ -1174,7 +1174,7 @@ static const struct pptable_funcs yellow_carp_ppt_fun=
+cs =3D {
+         .is_dpm_running =3D yellow_carp_is_dpm_running,
+         .set_watermarks_table =3D yellow_carp_set_watermarks_table,
+         .get_gpu_metrics =3D yellow_carp_get_gpu_metrics,
+-       .get_enabled_mask =3D smu_cmn_get_enabled_32_bits_mask,
++       .get_enabled_mask =3D smu_cmn_get_enabled_mask,
+         .get_pp_feature_mask =3D smu_cmn_get_pp_feature_mask,
+         .set_driver_table_location =3D smu_v13_0_set_driver_table_location=
+,
+         .gfx_off_control =3D smu_v13_0_gfx_off_control,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
+m/swsmu/smu_cmn.c
+index c3c679bf9d9f..c2e6c8b603da 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -545,67 +545,59 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,
+                              uint32_t *feature_mask,
+                              uint32_t num)
+ {
+-       uint32_t feature_mask_high =3D 0, feature_mask_low =3D 0;
+         struct smu_feature *feature =3D &smu->smu_feature;
++       struct amdgpu_device *adev =3D smu->adev;
++       uint32_t *feature_mask_high;
++       uint32_t *feature_mask_low;
+         int ret =3D 0;
+
+         if (!feature_mask || num < 2)
+                 return -EINVAL;
+
+-       if (bitmap_empty(feature->enabled, feature->feature_num)) {
+-               ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_GetEnabledSmuFeat=
+uresHigh, &feature_mask_high);
+-               if (ret)
+-                       return ret;
+-
+-               ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_GetEnabledSmuFeat=
+uresLow, &feature_mask_low);
+-               if (ret)
+-                       return ret;
+-
+-               feature_mask[0] =3D feature_mask_low;
+-               feature_mask[1] =3D feature_mask_high;
+-       } else {
+-               bitmap_copy((unsigned long *)feature_mask, feature->enabled=
+,
++       if (!bitmap_empty(feature->enabled, feature->feature_num)) {
++               bitmap_copy((unsigned long *)feature_mask,
++                            feature->enabled,
+                              feature->feature_num);
++               return 0;
+         }
+
+-       return ret;
+-}
+-
+-int smu_cmn_get_enabled_32_bits_mask(struct smu_context *smu,
+-                                       uint32_t *feature_mask,
+-                                       uint32_t num)
+-{
+-       uint32_t feature_mask_en_low =3D 0;
+-       uint32_t feature_mask_en_high =3D 0;
+-       struct smu_feature *feature =3D &smu->smu_feature;
+-       int ret =3D 0;
+-
+-       if (!feature_mask || num < 2)
+-               return -EINVAL;
+-
+-       if (bitmap_empty(feature->enabled, feature->feature_num)) {
+-               ret =3D smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GetEna=
+bledSmuFeatures, 0,
+-                                                                          =
+      &feature_mask_en_low);
++       feature_mask_low =3D &feature_mask[0];
++       feature_mask_high =3D &feature_mask[1];
+
++       switch (adev->ip_versions[MP1_HWIP][0]) {
++       case IP_VERSION(11, 0, 8):
++       case IP_VERSION(11, 5, 0):
++       case IP_VERSION(13, 0, 1):
++       case IP_VERSION(13, 0, 3):
++               ret =3D smu_cmn_send_smc_msg_with_param(smu,
++                                                     SMU_MSG_GetEnabledSmu=
+Features,
++                                                     0,
++                                                     feature_mask_low);
+                 if (ret)
+                         return ret;
+
+-               ret =3D smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GetEna=
+bledSmuFeatures, 1,
+-                                                                          =
+      &feature_mask_en_high);
+-
++               ret =3D smu_cmn_send_smc_msg_with_param(smu,
++                                                     SMU_MSG_GetEnabledSmu=
+Features,
++                                                     1,
++                                                     feature_mask_high);
++               break;
++       case IP_VERSION(12, 0, 0):
++       case IP_VERSION(12, 0, 1):
++       /* other dGPU ASICs */
++       default:
++               ret =3D smu_cmn_send_smc_msg(smu,
++                                          SMU_MSG_GetEnabledSmuFeaturesHig=
+h,
++                                          feature_mask_high);
+                 if (ret)
+                         return ret;
+
+-               feature_mask[0] =3D feature_mask_en_low;
+-               feature_mask[1] =3D feature_mask_en_high;
+-
+-       } else {
+-               bitmap_copy((unsigned long *)feature_mask, feature->enabled=
+,
+-                                feature->feature_num);
++               ret =3D smu_cmn_send_smc_msg(smu,
++                                          SMU_MSG_GetEnabledSmuFeaturesLow=
+,
++                                          feature_mask_low);
++               break;
+         }
+
+         return ret;
+-
+ }
+
+ uint64_t smu_cmn_get_indep_throttler_status(
+@@ -710,20 +702,11 @@ size_t smu_cmn_get_pp_feature_mask(struct smu_context=
+ *smu,
+         size_t size =3D 0;
+         int ret =3D 0, i;
+
+-       if (!smu->is_apu ||
+-           (smu->adev->asic_type =3D=3D CHIP_RENOIR)) {
+-               ret =3D smu_cmn_get_enabled_mask(smu,
+-                                               feature_mask,
+-                                               2);
+-               if (ret)
+-                       return 0;
+-       } else {
+-               ret =3D smu_cmn_get_enabled_32_bits_mask(smu,
+-                                       feature_mask,
+-                                       2);
+-               if (ret)
+-                       return 0;
+-       }
++       ret =3D smu_cmn_get_enabled_mask(smu,
++                                      feature_mask,
++                                      2);
++       if (ret)
++               return 0;
+
+         size =3D  sysfs_emit_at(buf, size, "features high: 0x%08x low: 0x%=
+08x\n",
+                         feature_mask[1], feature_mask[0]);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/p=
+m/swsmu/smu_cmn.h
+index f0b4fb2a0960..4e34c18c6063 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+@@ -61,10 +61,6 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,
+                              uint32_t *feature_mask,
+                              uint32_t num);
+
+-int smu_cmn_get_enabled_32_bits_mask(struct smu_context *smu,
+-                                       uint32_t *feature_mask,
+-                                       uint32_t num);
+-
+ uint64_t smu_cmn_get_indep_throttler_status(
+                                         const unsigned long dep_status,
+                                         const uint8_t *throttler_map);
+--
+2.29.0
 
 
-I'm OK with this patch as a workaround, but as a proper fix, we should 
-probably add a hiq_hqd_destroy function that uses KIQ, similar to how we 
-have hiq_mqd_load functions that use KIQ to map the HIQ.
+--_000_BL1PR12MB51442EC8ADB50C29B584A7DFF7229BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan &lt;Evan.Q=
+uan@amd.com&gt;<br>
+<b>Sent:</b> Friday, January 28, 2022 2:04 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Lazar, Lij=
+o &lt;Lijo.Lazar@amd.com&gt;; Quan, Evan &lt;Evan.Quan@amd.com&gt;<br>
+<b>Subject:</b> [PATCH V3 2/7] drm/amd/pm: unify the interface for retrievi=
+ng enabled ppfeatures</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Instead of having two which do the same thing.<br>
+<br>
+Signed-off-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
+Change-Id: I6302c9b5abdb999c4b7c83a0d1852181208b1c1f<br>
+--<br>
+v1-&gt;v2:<br>
+&nbsp; - use SMU IP version check rather than an asic type check(Alex)<br>
+---<br>
+&nbsp;.../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c&nbsp;&nbsp; |&nbsp; 2 +-<=
+br>
+&nbsp;.../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c&nbsp; |&nbsp; 6 +-<br>
+&nbsp;.../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c&nbsp; |&nbsp; 6 +-<br>
+&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; | 95 ++++++++-----------<br>
+&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; |&nbsp; 4 -<br>
+&nbsp;5 files changed, 46 insertions(+), 67 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/driv=
+ers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c<br>
+index 2f57333e6071..cc080a0075ee 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c<br>
+@@ -357,7 +357,7 @@ static bool cyan_skillfish_is_dpm_running(struct smu_co=
+ntext *smu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;in_suspend)<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return false;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_get_enabled_32_bits_m=
+ask(smu, feature_mask, 2);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_get_enabled_mask(smu,=
+ feature_mask, 2);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return false;<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu11/vangogh_ppt.c<br>
+index 721027917f81..b4a3c9b8b54e 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c<br>
+@@ -507,7 +507,7 @@ static bool vangogh_is_dpm_running(struct smu_context *=
+smu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;in_suspend)<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return false;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_get_enabled_32_bits_m=
+ask(smu, feature_mask, 2);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_get_enabled_mask(smu,=
+ feature_mask, 2);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return false;<br>
+@@ -1965,7 +1965,7 @@ static int vangogh_system_features_control(struct smu=
+_context *smu, bool en)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!en)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_get_enabled_32_bits_m=
+ask(smu, feature_mask, 2);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_get_enabled_mask(smu,=
+ feature_mask, 2);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;<br>
+@@ -2182,7 +2182,7 @@ static const struct pptable_funcs vangogh_ppt_funcs =
+=3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .dpm_set_jpeg_enable =3D v=
+angogh_dpm_set_jpeg_enable,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .is_dpm_running =3D vangog=
+h_is_dpm_running,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_sensor =3D vangogh_r=
+ead_sensor,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_enabled_mask =3D smu_cmn_get_ena=
+bled_32_bits_mask,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_enabled_mask =3D smu_cmn_get_ena=
+bled_mask,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pp_feature_mask =3D s=
+mu_cmn_get_pp_feature_mask,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_watermarks_table =3D =
+vangogh_set_watermarks_table,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_driver_table_location=
+ =3D smu_v11_0_set_driver_table_location,<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c<br>
+index bd24a2632214..f425827e2361 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c<br>
+@@ -209,7 +209,7 @@ static int yellow_carp_system_features_control(struct s=
+mu_context *smu, bool en)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!en)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_get_enabled_32_bits_m=
+ask(smu, feature_mask, 2);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_get_enabled_mask(smu,=
+ feature_mask, 2);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;<br>
+@@ -258,7 +258,7 @@ static bool yellow_carp_is_dpm_running(struct smu_conte=
+xt *smu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t feature_mask[2];<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t feature_enabled;<=
+br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_get_enabled_32_bits_m=
+ask(smu, feature_mask, 2);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_get_enabled_mask(smu,=
+ feature_mask, 2);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return false;<br>
+@@ -1174,7 +1174,7 @@ static const struct pptable_funcs yellow_carp_ppt_fun=
+cs =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .is_dpm_running =3D yellow=
+_carp_is_dpm_running,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_watermarks_table =3D =
+yellow_carp_set_watermarks_table,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_gpu_metrics =3D yello=
+w_carp_get_gpu_metrics,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_enabled_mask =3D smu_cmn_get_ena=
+bled_32_bits_mask,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_enabled_mask =3D smu_cmn_get_ena=
+bled_mask,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pp_feature_mask =3D s=
+mu_cmn_get_pp_feature_mask,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_driver_table_location=
+ =3D smu_v13_0_set_driver_table_location,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .gfx_off_control =3D smu_v=
+13_0_gfx_off_control,<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
+m/swsmu/smu_cmn.c<br>
+index c3c679bf9d9f..c2e6c8b603da 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c<br>
+@@ -545,67 +545,59 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *feature_mask,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; uint32_t num)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t feature_mask_high =3D 0, fea=
+ture_mask_low =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_feature *featur=
+e =3D &amp;smu-&gt;smu_feature;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D smu-&g=
+t;adev;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *feature_mask_high;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *feature_mask_low;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!feature_mask || num &=
+lt; 2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bitmap_empty(feature-&gt;enabled,=
+ feature-&gt;feature_num)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_GetEnabledSmuFeaturesH=
+igh, &amp;feature_mask_high);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_GetEnabledSmuFeaturesL=
+ow, &amp;feature_mask_low);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; feature_mask[0] =3D feature_mask_low;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; feature_mask[1] =3D feature_mask_high;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; bitmap_copy((unsigned long *)feature_mask, feature-&gt;enabled,<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bitmap_empty(feature-&gt;enabled=
+, feature-&gt;feature_num)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; bitmap_copy((unsigned long *)feature_mask,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; feature-&gt;enabled,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; feature-&gt;feature_num);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+-}<br>
+-<br>
+-int smu_cmn_get_enabled_32_bits_mask(struct smu_context *smu,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; uint32_t *feature_mask,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; uint32_t num)<br>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t feature_mask_en_low =3D 0;<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t feature_mask_en_high =3D 0;<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_feature *feature =3D &amp;=
+smu-&gt;smu_feature;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!feature_mask || num &lt; 2)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bitmap_empty(feature-&gt;enabled,=
+ feature-&gt;feature_num)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GetEnabledS=
+muFeatures, 0,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; &amp;feature_mask_en_low);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_mask_low =3D &amp;feature_mas=
+k[0];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_mask_high =3D &amp;feature_ma=
+sk[1];<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;ip_versions[MP1_HWIP=
+][0]) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(11, 0, 8):<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(11, 5, 0):<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(13, 0, 1):<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(13, 0, 3):<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_cmn_send_smc_msg_with_param(smu,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; SMU_MSG_GetEnabledSmuFeatures,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; feature_mask_low);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n ret;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GetEnabledS=
+muFeatures, 1,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; &amp;feature_mask_en_high);<br>
+-<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_cmn_send_smc_msg_with_param(smu,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; SMU_MSG_GetEnabledSmuFeatures,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 1,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; feature_mask_high);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(12, 0, 0):<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(12, 0, 1):<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* other dGPU ASICs */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_cmn_send_smc_msg(smu,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; SMU_MSG_GetEnabledSmuFeaturesHigh,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; feature_mask_high);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n ret;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; feature_mask[0] =3D feature_mask_en_low;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; feature_mask[1] =3D feature_mask_en_high;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; bitmap_copy((unsigned long *)feature_mask, feature-&gt;enabled,<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature-&gt;feature_num);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_cmn_send_smc_msg(smu,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; SMU_MSG_GetEnabledSmuFeaturesLow,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; feature_mask_low);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+-<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;uint64_t smu_cmn_get_indep_throttler_status(<br>
+@@ -710,20 +702,11 @@ size_t smu_cmn_get_pp_feature_mask(struct smu_context=
+ *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size_t size =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0, i;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;is_apu ||<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (smu-&gt;adev=
+-&gt;asic_type =3D=3D CHIP_RENOIR)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_cmn_get_enabled_mask(smu,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_mask,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_cmn_get_enabled_32_bits_mask(smu,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; feature_mask,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; 2);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_get_enabled_mask(smu,=
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; f=
+eature_mask,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2=
+);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size =3D&nbsp; sysfs_emit_=
+at(buf, size, &quot;features high: 0x%08x low: 0x%08x\n&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; featu=
+re_mask[1], feature_mask[0]);<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/p=
+m/swsmu/smu_cmn.h<br>
+index f0b4fb2a0960..4e34c18c6063 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h<br>
+@@ -61,10 +61,6 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *feature_mask,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; uint32_t num);<br>
+&nbsp;<br>
+-int smu_cmn_get_enabled_32_bits_mask(struct smu_context *smu,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; uint32_t *feature_mask,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; uint32_t num);<br>
+-<br>
+&nbsp;uint64_t smu_cmn_get_indep_throttler_status(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; const unsigned long dep_status,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; const uint8_t *throttler_map);<br>
+-- <br>
+2.29.0<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-Regards,
-   Felix
-
-
-
-Am 2022-01-27 um 21:34 schrieb Yin, Tianci (Rico):
->
-> [AMD Official Use Only]
->
->
-> The error message is from HIQ dequeue procedure,  not from HCQ, so no 
-> doorbell writing.
->
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.477067] Call Trace:
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.477072]  dump_stack+0x7d/0x9c
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.477651] 
->  hqd_destroy_v10_3+0x58/0x254 [amdgpu]
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.477778] 
->  destroy_mqd+0x1e/0x30 [amdgpu]
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.477884] 
->  kernel_queue_uninit+0xcf/0x100 [amdgpu]
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.477985] 
->  pm_uninit+0x1a/0x30 [amdgpu] #kernel_queue_uninit(pm->priv_queue, 
-> hanging); this priv_queue == HIQ
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478127] 
->  stop_cpsch+0x98/0x100 [amdgpu]
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478242] 
->  kgd2kfd_suspend.part.0+0x32/0x50 [amdgpu]
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478338] 
->  kgd2kfd_suspend+0x1b/0x20 [amdgpu]
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478433] 
->  amdgpu_amdkfd_suspend+0x1e/0x30 [amdgpu]
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478529] 
->  amdgpu_device_fini_hw+0x182/0x335 [amdgpu]
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478655] 
->  amdgpu_driver_unload_kms+0x5c/0x80 [amdgpu]
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478732] 
->  amdgpu_pci_remove+0x27/0x40 [amdgpu]
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478806] 
->  pci_device_remove+0x3e/0xb0
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478809] 
->  device_release_driver_internal+0x103/0x1d0
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478813] 
->  driver_detach+0x4c/0x90
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478814] 
->  bus_remove_driver+0x5c/0xd0
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478815] 
->  driver_unregister+0x31/0x50
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478817] 
->  pci_unregister_driver+0x40/0x90
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478818] 
->  amdgpu_exit+0x15/0x2d1 [amdgpu]
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478942] 
->  __x64_sys_delete_module+0x147/0x260
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478944]  ? 
-> exit_to_user_mode_prepare+0x41/0x1d0
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478946]  ? ksys_write+0x67/0xe0
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478948] 
->  do_syscall_64+0x40/0xb0
-> Jan 25 16:10:58 lnx-ci-node kernel: [18161.478951] 
->  entry_SYSCALL_64_after_hwframe+0x44/0xae
->
-> Regards,
-> Rico
-> ------------------------------------------------------------------------
-> *From:* Kuehling, Felix <Felix.Kuehling@amd.com>
-> *Sent:* Thursday, January 27, 2022 23:28
-> *To:* Yin, Tianci (Rico) <Tianci.Yin@amd.com>; Wang, Yang(Kevin) 
-> <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.org 
-> <amd-gfx@lists.freedesktop.org>
-> *Cc:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Chen, Guchun 
-> <Guchun.Chen@amd.com>
-> *Subject:* Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
-> The hang you're seeing is the result of a command submission of an
-> UNMAP_QUEUES and QUERY_STATUS command to the HIQ. This is done using a
-> doorbell. KFD writes commands to the HIQ and rings a doorbell to wake up
-> the HWS (see kq_submit_packet in kfd_kernel_queue.c). Why does this
-> doorbell not trigger gfxoff exit during rmmod?
->
->
-> Regards,
->    Felix
->
->
->
-> Am 2022-01-26 um 22:38 schrieb Yin, Tianci (Rico):
-> >
-> > [AMD Official Use Only]
-> >
-> >
-> > The rmmod ops has prerequisite multi-user target and blacklist amdgpu,
-> > which is IGT requirement so that IGT can make itself DRM master to
-> > test KMS.
-> > igt-gpu-tools/build/tests/amdgpu/amd_module_load --run-subtest reload
-> >
-> > From my understanding, the KFD process belongs to the regular way of
-> > gfxoff exit, which doorbell writing triggers gfxoff exit. For example,
-> > KFD maps HCQ thru cmd on HIQ or KIQ ring, or UMD commits jobs on HCQ,
-> > these both trigger doorbell writing(pls refer to
-> > gfx_v10_0_ring_set_wptr_compute()).
-> >
-> > As to the IGT reload test, the dequeue request is not thru a cmd on a
-> > ring, it directly writes CP registers, so GFX core remains in gfxoff.
-> >
-> > Thanks,
-> > Rico
-> >
-> > ------------------------------------------------------------------------
-> > *From:* Kuehling, Felix <Felix.Kuehling@amd.com>
-> > *Sent:* Wednesday, January 26, 2022 23:08
-> > *To:* Yin, Tianci (Rico) <Tianci.Yin@amd.com>; Wang, Yang(Kevin)
-> > <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.org
-> > <amd-gfx@lists.freedesktop.org>
-> > *Cc:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Chen, Guchun
-> > <Guchun.Chen@amd.com>
-> > *Subject:* Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
-> > My question is, why is this problem only seen during module unload? Why
-> > aren't we seeing HWS hangs due to GFX_OFF all the time in normal
-> > operations? For example when the GPU is idle and a new KFD process is
-> > started, creating a new runlist. Are we just getting lucky because the
-> > process first has to allocate some memory, which maybe makes some HW
-> > access (flushing TLBs etc.) that wakes up the GPU?
-> >
-> >
-> > Regards,
-> >    Felix
-> >
-> >
-> >
-> > Am 2022-01-26 um 01:43 schrieb Yin, Tianci (Rico):
-> > >
-> > > [AMD Official Use Only]
-> > >
-> > >
-> > > Thanks Kevin and Felix!
-> > >
-> > > In gfxoff state, the dequeue request(by cp register writing) can't
-> > > make gfxoff exit, actually the cp is powered off and the cp register
-> > > writing is invalid, doorbell registers writing(regluar way) or
-> > > directly request smu to disable gfx powergate(by invoking
-> > > amdgpu_gfx_off_ctrl) can trigger gfxoff exit.
-> > >
-> > > I have also tryed
-> > >
-> > 
-> amdgpu_dpm_switch_power_profile(adev,PP_SMC_POWER_PROFILE_COMPUTE,false),
-> > > but it has no effect.
-> > >
-> > > [10386.162273] amdgpu: cp queue pipe 4 queue 0 preemption failed
-> > > [10671.225065] amdgpu: mmCP_HQD_ACTIVE : 0xffffffff
-> > > [10386.162290] amdgpu: mmCP_HQD_HQ_STATUS0 : 0xffffffff
-> > > [10386.162297] amdgpu: mmCP_STAT : 0xffffffff
-> > > [10386.162303] amdgpu: mmCP_BUSY_STAT : 0xffffffff
-> > > [10386.162308] amdgpu: mmRLC_STAT : 0xffffffff
-> > > [10386.162314] amdgpu: mmGRBM_STATUS : 0xffffffff
-> > > [10386.162320] amdgpu: mmGRBM_STATUS2: 0xffffffff
-> > >
-> > > Thanks again!
-> > > Rico
-> > > 
-> ------------------------------------------------------------------------
-> > > *From:* Kuehling, Felix <Felix.Kuehling@amd.com>
-> > > *Sent:* Tuesday, January 25, 2022 23:31
-> > > *To:* Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Yin, Tianci (Rico)
-> > > <Tianci.Yin@amd.com>; amd-gfx@lists.freedesktop.org
-> > > <amd-gfx@lists.freedesktop.org>
-> > > *Cc:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Chen, Guchun
-> > > <Guchun.Chen@amd.com>
-> > > *Subject:* Re: [PATCH] drm/amdgpu: Fix an error message in rmmod
-> > > I have no objection to the change. It restores the sequence that was
-> > > used before e9669fb78262. But I don't understand why GFX_OFF is 
-> causing
-> > > a preemption error during module unload, but not when KFD is in normal
-> > > use. Maybe it's because of the compute power profile that's 
-> normally set
-> > > by amdgpu_amdkfd_set_compute_idle before we interact with the HWS.
-> > >
-> > >
-> > > Either way, the patch is
-> > >
-> > > Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> > >
-> > >
-> > >
-> > > Am 2022-01-25 um 05:48 schrieb Wang, Yang(Kevin):
-> > > >
-> > > > [AMD Official Use Only]
-> > > >
-> > > >
-> > > > [AMD Official Use Only]
-> > > >
-> > > >
-> > > > the issue is introduced in following patch, so add following
-> > > > information is better.
-> > > > /fixes: (e9669fb78262) drm/amdgpu: Add early fini callback/
-> > > > /
-> > > > /
-> > > > Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
-> > > > /
-> > > > /
-> > > > Best Regards,
-> > > > Kevin
-> > > >
-> > > >
-> > ------------------------------------------------------------------------
-> > > > *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of
-> > > > Tianci Yin <tianci.yin@amd.com>
-> > > > *Sent:* Tuesday, January 25, 2022 6:03 PM
-> > > > *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> > > > *Cc:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Yin, Tianci
-> > > > (Rico) <Tianci.Yin@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>
-> > > > *Subject:* [PATCH] drm/amdgpu: Fix an error message in rmmod
-> > > > From: "Tianci.Yin" <tianci.yin@amd.com>
-> > > >
-> > > > [why]
-> > > > In rmmod procedure, kfd sends cp a dequeue request, but the
-> > > > request does not get response, then an error message "cp
-> > > > queue pipe 4 queue 0 preemption failed" printed.
-> > > >
-> > > > [how]
-> > > > Performing kfd suspending after disabling gfxoff can fix it.
-> > > >
-> > > > Change-Id: I0453f28820542d4a5ab26e38fb5b87ed76ce6930
-> > > > Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
-> > > > ---
-> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
-> > > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > > index b75d67f644e5..77e9837ba342 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > > @@ -2720,11 +2720,11 @@ static int 
-> amdgpu_device_ip_fini_early(struct
-> > > > amdgpu_device *adev)
-> > > >                  }
-> > > >          }
-> > > >
-> > > > -       amdgpu_amdkfd_suspend(adev, false);
-> > > > -
-> > > >          amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
-> > > >          amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
-> > > >
-> > > > +       amdgpu_amdkfd_suspend(adev, false);
-> > > > +
-> > > >          /* Workaroud for ASICs need to disable SMC first */
-> > > > amdgpu_device_smu_fini_early(adev);
-> > > >
-> > > > --
-> > > > 2.25.1
-> > > >
+--_000_BL1PR12MB51442EC8ADB50C29B584A7DFF7229BL1PR12MB5144namp_--
