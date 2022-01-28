@@ -4,93 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9243BC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 14:06:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7422BC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jan 2022 14:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21BD010EFA4;
-	Fri, 28 Jan 2022 14:06:20 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B238810EF95
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jan 2022 14:06:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mk10gImbXIGbPZUNXKNPLorXZdGL7W6tDStqoM+iC+NuGkNlY8cbAs0A+zfPGd35OUQiDBwW+tV8mUGXZm3XCdPRlnGWOrwUucz7zDe2+Ib4lTqK/TLuv/wCXnXkgeA3zA4rBjkr7rTQTnNZf2GVVCN6HUbjcQDsPMCibfQHibzXmrAZ1P0dACcsYHqj0Q/YFoQ0wkB1VcRz3ZkRmISMh2NHfEmOCo7ovLZHoZ1QtQibVvreXd6HXe3w7JLsjiFLFZbhkorRV5tPCcQTUpGMdB6ElFAC13mHIzP69N646E6/w2ib5KQ0rONe+ug+W6iNLkhhxO4F4qWQ/AA8WLMw9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KMRBIp2m48aWtKdZkB8gyZKyfOy8ehlh+iFzvqrypIs=;
- b=amKD91tW8g74TKBp+i2MyueUfmjlZJEpAP7xFxbVlS2VSRUOyj/NrtNyUtHCgz3zywXGW3AgFsR0GoSl3ROSs+Y5TbqSx9dLy9PXgw1kxxg+PfB9CkwpnEy79t8bGsNpwp4mPWaSayWbRykuwbxgCvPZ07BHIYntaZoU4MYDMh5ssEAr8CYxoyA0X2Tx0F+8kNcKvrYnEAPGJ8DvaiZIHkDZm0Y/41fYTPyyUhoXGYObap2+icYGpqFpVLLvepPyQ7Tqp7s6TaclC3iQl5NOwb6i36pLFt7NcJyUMcEhwYxZPPu4nm62/5GPj0a7KgWgWZdif7deaKPLMSb0qtdftA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KMRBIp2m48aWtKdZkB8gyZKyfOy8ehlh+iFzvqrypIs=;
- b=CZ2XCcmjVgMu3GIvK0WV4hpA2j+Nt0F8dKjxOxmKRB1ZOhHQWmA5o7p9m88iDXvEJtFuihA3l3cY93DgiIED6Bw9194j/hneQBSi3z49+ohTHeYsjk3qvCTxuIhKWcoow8kYeKH9M1nFeCQciIkN+oqrWnInxF6w+ivwYD4skfs=
-Received: from DM5PR07CA0110.namprd07.prod.outlook.com (2603:10b6:4:ae::39) by
- BL0PR12MB5539.namprd12.prod.outlook.com (2603:10b6:208:1c3::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17; Fri, 28 Jan
- 2022 14:06:16 +0000
-Received: from DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:ae:cafe::d6) by DM5PR07CA0110.outlook.office365.com
- (2603:10b6:4:ae::39) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17 via Frontend
- Transport; Fri, 28 Jan 2022 14:06:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT062.mail.protection.outlook.com (10.13.173.40) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4930.15 via Frontend Transport; Fri, 28 Jan 2022 14:06:15 +0000
-Received: from stylon-T495.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 28 Jan
- 2022 08:06:10 -0600
-From: Stylon Wang <stylon.wang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 17/17] drm/amd/display: Add Missing HPO Stream Encoder
- Function Hook
-Date: Fri, 28 Jan 2022 22:04:11 +0800
-Message-ID: <20220128140411.3683309-18-stylon.wang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220128140411.3683309-1-stylon.wang@amd.com>
-References: <20220128140411.3683309-1-stylon.wang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C994B10F218;
+	Fri, 28 Jan 2022 14:19:06 +0000 (UTC)
+Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com
+ [IPv6:2607:f8b0:4864:20::f2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D51A210F218;
+ Fri, 28 Jan 2022 14:19:05 +0000 (UTC)
+Received: by mail-qv1-xf2a.google.com with SMTP id g11so5956614qvu.3;
+ Fri, 28 Jan 2022 06:19:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=jUQsg8U803xxQi+7WTLTwoYrIS8iDnNeT3HnG/DG2qA=;
+ b=iNS1uUiHKhmU8/FGRakFDTW3wnJxNWhjbXJQ6K322tY1dkUYixW9kKDCpkaHsAE4ep
+ LZOsBySNAkY5bU/nxpCk96Sw90ykGoxfCX6apnChjdOgpcujATWJUgKjp+8gx88cTRMj
+ 2AXj3GW4hl1+JuVkJj0Bi4lOdmESvxs5fLoh1S1TN2Z3cC9qtU9gxx3gtpKTh4nNIL6q
+ Vq88uhANaQ3RQFaoD/3G6zA9R7IkD75QGAk4eY1C/iQFogcjMNbfQTTgIxCwayC2F23Y
+ 86Gkl0IwELv9P0GJE97lQHNq7dQ9Su9iimZ1knz8IBBLp3UIjQ7P6DTy0K5qsJlD+UCv
+ DLkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=jUQsg8U803xxQi+7WTLTwoYrIS8iDnNeT3HnG/DG2qA=;
+ b=RayaQpgeh42+FgUGqu4MhCkib3zV4qY2j/39VUuz9u666hqTB2CfU33IHUQvrhxhX5
+ owEqyADVHQWh0Bg3ay2obcszFd/+L0DS9q6bApiB35H0kf5K3AcFTOF2mL7ZOIX86ubt
+ e5ApE3fcUla7HUQH46PbfzjnQ9IguKs07ierBd/ewn0TQWzSWvs4KL2eysAS+p7gN458
+ 3A9bAS/o/7exjtyt49iT5Kn/MAgmfGb0F5ShtG/yVc6Qlw44Fs0P8RirQ2Uv1ZHyoKZr
+ KpMHK7wKScjXu99wz3NOwQmnp1fuaCXltzR+fUktI2Kki2YSSNczUNLxoIF3Us/JTuoB
+ qyPQ==
+X-Gm-Message-State: AOAM530bepv4sCd9/K/QKJ8QHjmYN7Wfe4Seg2ZD4NXH5Yk3OZ676qWw
+ 7Th35PqCJDiQ/z5YOKW9IKc4isT5ZAWul4ywaZg=
+X-Google-Smtp-Source: ABdhPJxeDyJn9ocQuxlUu113GEXIY2jLY6fWvpOoL1sRTciC1OZb8mw6N0LL8OkwYJtwT16qL9qPAVQUiieOqMFjT3o=
+X-Received: by 2002:a05:6214:2464:: with SMTP id
+ im4mr7033703qvb.41.1643379544888; 
+ Fri, 28 Jan 2022 06:19:04 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 36d49397-a79b-4fce-cb13-08d9e2675957
-X-MS-TrafficTypeDiagnostic: BL0PR12MB5539:EE_
-X-Microsoft-Antispam-PRVS: <BL0PR12MB55391011A60E11E313BBDFEDFF229@BL0PR12MB5539.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iieyw5zT6//7ZdE0/5SG5UwUKDUDdHC+9MEhMSFdGimN/3h+KKBJIVflQ8dI8OFlBlmqY0Y1IpLZbeDdQuODyg8U5jajUROckTNcV4LLDWasKbyabZKqk6MGsBz62eufBJ24FcJOgusjCET+Q+dB2ZbdzZnHW6pm43PV8oqij+AiptuY88W9VZBNaeygEDwi8xh1uIH53eAn1RDrmoCiD8gGNuyZUzm1UjKGGZ+w6TEr1lOV9JjxbE11betwhFmJcIYEemK1jRq6UDYIJmQfE0KqnJEoQ4OzVgvfuIDtVL/06sXJ7WHw8SalTlth1USRnpUezxkeKZ3sn2RwPpqVfbSho4JElR/LPBGkfH1xGWval+M2n038CDiYvcfp8Gc4HjmZDuNtNBu9iBa1Aia/ZhgEQMnrMkxqV5rlgG/5KHqOLqIwmidFPdnETPTVcbnqTBSvYRM8pJvi34KthzbGZo8vRliM5hfA/pmrYTOmqNutLS3mBL8Y0DdLCqpKdO4fCrWktcYUdH4iwEcP9ijDikWk0zyDKgXtUG7SMsNC3IUejDLeXJPvQoVGWNunrHKUY7Sr1V4GXs8vAK1Uu36UWThrhoL2ft1PMbb7UhWxhTUSDCjfpBaNHvz6vUvEjSJ39uNKhRUa35qjT0IlYR5JBJGPTFKQsf+oeEO64kQ46UoyxQ9m8JsrJ81+IpbuqW6m/1mIbw8xOTvSK/KB2YQCpg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(5660300002)(508600001)(356005)(81166007)(44832011)(54906003)(26005)(316002)(186003)(40460700003)(6916009)(82310400004)(2906002)(86362001)(16526019)(1076003)(70206006)(83380400001)(426003)(336012)(2616005)(70586007)(4326008)(47076005)(8676002)(8936002)(7696005)(36860700001)(36756003)(36900700001)(20210929001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 14:06:15.6820 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36d49397-a79b-4fce-cb13-08d9e2675957
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5539
+References: <20220127141107.173692-1-Arunpravin.PaneerSelvam@amd.com>
+ <20220127141107.173692-5-Arunpravin.PaneerSelvam@amd.com>
+In-Reply-To: <20220127141107.173692-5-Arunpravin.PaneerSelvam@amd.com>
+From: Matthew Auld <matthew.william.auld@gmail.com>
+Date: Fri, 28 Jan 2022 14:18:38 +0000
+Message-ID: <CAM0jSHOdMDQvWxGyHfW01UAe-x_eefFQSJnzU43=t6qL_Ec77g@mail.gmail.com>
+Subject: Re: [PATCH v11 5/5] drm/amdgpu: add drm buddy support to amdgpu
+To: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,93 +62,235 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, solomon.chiu@amd.com, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, Anson.Jacob@amd.com, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>, tzimmermann@suse.de,
+ alexander.deucher@amd.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+On Thu, 27 Jan 2022 at 14:11, Arunpravin
+<Arunpravin.PaneerSelvam@amd.com> wrote:
+>
+> - Remove drm_mm references and replace with drm buddy functionalities
+> - Add res cursor support for drm buddy
+>
+> v2(Matthew Auld):
+>   - replace spinlock with mutex as we call kmem_cache_zalloc
+>     (..., GFP_KERNEL) in drm_buddy_alloc() function
+>
+>   - lock drm_buddy_block_trim() function as it calls
+>     mark_free/mark_split are all globally visible
+>
+> v3(Matthew Auld):
+>   - remove trim method error handling as we address the failure case
+>     at drm_buddy_block_trim() function
+>
+> v4:
+>   - fix warnings reported by kernel test robot <lkp@intel.com>
+>
+> v5:
+>   - fix merge conflict issue
+>
+> v6:
+>   - fix warnings reported by kernel test robot <lkp@intel.com>
+>
+> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>  drivers/gpu/drm/Kconfig                       |   1 +
+>  .../gpu/drm/amd/amdgpu/amdgpu_res_cursor.h    |  97 +++++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |   7 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c  | 259 ++++++++++--------
+>  4 files changed, 231 insertions(+), 133 deletions(-)
 
-[Why]
-configure_dp_hpo_throttled_vcp_size() was missing promotion before, but it was covered by
-not calling the missing function hook in the old interface hpo_dp_link_encoder->funcs.
+<snip>
 
-Recent refactor replaces with new caller link_hwss->set_throttled_vcp_size
-which needs that hook, and that causes null ptr hang.
+>
+> -/**
+> - * amdgpu_vram_mgr_virt_start - update virtual start address
+> - *
+> - * @mem: ttm_resource to update
+> - * @node: just allocated node
+> - *
+> - * Calculate a virtual BO start address to easily check if everything is CPU
+> - * accessible.
+> - */
+> -static void amdgpu_vram_mgr_virt_start(struct ttm_resource *mem,
+> -                                      struct drm_mm_node *node)
+> -{
+> -       unsigned long start;
+> -
+> -       start = node->start + node->size;
+> -       if (start > mem->num_pages)
+> -               start -= mem->num_pages;
+> -       else
+> -               start = 0;
+> -       mem->start = max(mem->start, start);
+> -}
+> -
+>  /**
+>   * amdgpu_vram_mgr_new - allocate new ranges
+>   *
+> @@ -366,13 +357,13 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>                                const struct ttm_place *place,
+>                                struct ttm_resource **res)
+>  {
+> -       unsigned long lpfn, num_nodes, pages_per_node, pages_left, pages;
+> +       unsigned long lpfn, pages_per_node, pages_left, pages, n_pages;
+> +       u64 vis_usage = 0, mem_bytes, max_bytes, min_page_size;
+>         struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
+>         struct amdgpu_device *adev = to_amdgpu_device(mgr);
+> -       uint64_t vis_usage = 0, mem_bytes, max_bytes;
+> -       struct ttm_range_mgr_node *node;
+> -       struct drm_mm *mm = &mgr->mm;
+> -       enum drm_mm_insert_mode mode;
+> +       struct amdgpu_vram_mgr_node *node;
+> +       struct drm_buddy *mm = &mgr->mm;
+> +       struct drm_buddy_block *block;
+>         unsigned i;
+>         int r;
+>
+> @@ -391,10 +382,9 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>                 goto error_sub;
+>         }
+>
+> -       if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+> +       if (place->flags & TTM_PL_FLAG_CONTIGUOUS)
+>                 pages_per_node = ~0ul;
+> -               num_nodes = 1;
+> -       } else {
+> +       else {
+>  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+>                 pages_per_node = HPAGE_PMD_NR;
+>  #else
+> @@ -403,11 +393,9 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>  #endif
+>                 pages_per_node = max_t(uint32_t, pages_per_node,
+>                                        tbo->page_alignment);
+> -               num_nodes = DIV_ROUND_UP_ULL(PFN_UP(mem_bytes), pages_per_node);
+>         }
+>
+> -       node = kvmalloc(struct_size(node, mm_nodes, num_nodes),
+> -                       GFP_KERNEL | __GFP_ZERO);
+> +       node = kzalloc(sizeof(*node), GFP_KERNEL);
+>         if (!node) {
+>                 r = -ENOMEM;
+>                 goto error_sub;
+> @@ -415,9 +403,17 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>
+>         ttm_resource_init(tbo, place, &node->base);
+>
+> -       mode = DRM_MM_INSERT_BEST;
+> +       INIT_LIST_HEAD(&node->blocks);
+> +
+>         if (place->flags & TTM_PL_FLAG_TOPDOWN)
+> -               mode = DRM_MM_INSERT_HIGH;
+> +               node->flags |= DRM_BUDDY_TOPDOWN_ALLOCATION;
+> +
+> +       if (place->fpfn || lpfn != man->size)
+> +               /* Allocate blocks in desired range */
+> +               node->flags |= DRM_BUDDY_RANGE_ALLOCATION;
+> +
+> +       min_page_size = mgr->default_page_size;
+> +       BUG_ON(min_page_size < mm->chunk_size);
+>
+>         pages_left = node->base.num_pages;
+>
+> @@ -425,36 +421,61 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+>         pages = min(pages_left, 2UL << (30 - PAGE_SHIFT));
+>
+>         i = 0;
+> -       spin_lock(&mgr->lock);
+>         while (pages_left) {
+> -               uint32_t alignment = tbo->page_alignment;
+> -
+>                 if (pages >= pages_per_node)
+> -                       alignment = pages_per_node;
+> -
+> -               r = drm_mm_insert_node_in_range(mm, &node->mm_nodes[i], pages,
+> -                                               alignment, 0, place->fpfn,
+> -                                               lpfn, mode);
+> -               if (unlikely(r)) {
+> -                       if (pages > pages_per_node) {
+> -                               if (is_power_of_2(pages))
+> -                                       pages = pages / 2;
+> -                               else
+> -                                       pages = rounddown_pow_of_two(pages);
+> -                               continue;
+> -                       }
+> -                       goto error_free;
+> +                       pages = pages_per_node;
+> +
+> +               n_pages = pages;
+> +
+> +               if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+> +                       n_pages = roundup_pow_of_two(n_pages);
+> +                       min_page_size = (u64)n_pages << PAGE_SHIFT;
+> +
+> +                       if (n_pages > lpfn)
+> +                               lpfn = n_pages;
+>                 }
+>
+> -               vis_usage += amdgpu_vram_mgr_vis_size(adev, &node->mm_nodes[i]);
+> -               amdgpu_vram_mgr_virt_start(&node->base, &node->mm_nodes[i]);
+> +               mutex_lock(&mgr->lock);
+> +               r = drm_buddy_alloc_blocks(mm, (u64)place->fpfn << PAGE_SHIFT,
+> +                                          (u64)lpfn << PAGE_SHIFT,
+> +                                          (u64)n_pages << PAGE_SHIFT,
+> +                                          min_page_size,
+> +                                          &node->blocks,
+> +                                          node->flags);
+> +               mutex_unlock(&mgr->lock);
+> +               if (unlikely(r))
+> +                       goto error_free_blocks;
+> +
+>                 pages_left -= pages;
+>                 ++i;
+>
+>                 if (pages > pages_left)
+>                         pages = pages_left;
+>         }
+> -       spin_unlock(&mgr->lock);
+> +
+> +       /* Free unused pages for contiguous allocation */
+> +       if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+> +               u64 actual_size = (u64)node->base.num_pages << PAGE_SHIFT;
+> +
+> +               mutex_lock(&mgr->lock);
+> +               drm_buddy_block_trim(mm,
+> +                                    actual_size,
+> +                                    &node->blocks);
+> +               mutex_unlock(&mgr->lock);
+> +       }
+> +
+> +       list_for_each_entry(block, &node->blocks, link)
+> +               vis_usage += amdgpu_vram_mgr_vis_size(adev, block);
+> +
+> +       block = list_first_entry_or_null(&node->blocks,
+> +                                        struct drm_buddy_block,
+> +                                        link);
+> +       if (!block) {
+> +               r = -ENOENT;
+> +               goto error_free_res;
+> +       }
+> +
+> +       node->base.start = amdgpu_node_start(block) >> PAGE_SHIFT;
 
-Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Acked-by: Stylon Wang <stylon.wang@amd.com>
----
- .../display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c    | 11 +++++++++++
- .../display/dc/dcn31/dcn31_hpo_dp_stream_encoder.h    |  9 ++++++---
- 2 files changed, 17 insertions(+), 3 deletions(-)
+Hmm, does this work? It looks like there are various places checking
+that res->start + res->num_pages <= visible_size, which IIUC should
+only return true when the entire object is placed in the mappable
+portion. i915 is doing something similar. Also it looks like
+ttm_resource_compat() is potentially relying on this, like when moving
+something from non-mappable -> mappable in
+amdgpu_bo_fault_reserve_notify()?
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
-index 5065904c7833..23621ff08c90 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
-@@ -710,6 +710,16 @@ static void dcn31_hpo_dp_stream_enc_read_state(
- 	}
- }
- 
-+static void dcn31_set_hblank_min_symbol_width(
-+		struct hpo_dp_stream_encoder *enc,
-+		uint16_t width)
-+{
-+	struct dcn31_hpo_dp_stream_encoder *enc3 = DCN3_1_HPO_DP_STREAM_ENC_FROM_HPO_STREAM_ENC(enc);
-+
-+	REG_SET(DP_SYM32_ENC_HBLANK_CONTROL, 0,
-+			HBLANK_MINIMUM_SYMBOL_WIDTH, width);
-+}
-+
- static const struct hpo_dp_stream_encoder_funcs dcn30_str_enc_funcs = {
- 	.enable_stream = dcn31_hpo_dp_stream_enc_enable_stream,
- 	.dp_unblank = dcn31_hpo_dp_stream_enc_dp_unblank,
-@@ -725,6 +735,7 @@ static const struct hpo_dp_stream_encoder_funcs dcn30_str_enc_funcs = {
- 	.dp_audio_enable = dcn31_hpo_dp_stream_enc_audio_enable,
- 	.dp_audio_disable = dcn31_hpo_dp_stream_enc_audio_disable,
- 	.read_state = dcn31_hpo_dp_stream_enc_read_state,
-+	.set_hblank_min_symbol_width = dcn31_set_hblank_min_symbol_width,
- };
- 
- void dcn31_hpo_dp_stream_encoder_construct(
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.h b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.h
-index 70b94fc25304..7c77c71591a0 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.h
-@@ -80,7 +80,8 @@
- 	SRI(DP_SYM32_ENC_SDP_GSP_CONTROL11, DP_SYM32_ENC, id),\
- 	SRI(DP_SYM32_ENC_SDP_METADATA_PACKET_CONTROL, DP_SYM32_ENC, id),\
- 	SRI(DP_SYM32_ENC_SDP_AUDIO_CONTROL0, DP_SYM32_ENC, id),\
--	SRI(DP_SYM32_ENC_VID_CRC_CONTROL, DP_SYM32_ENC, id)
-+	SRI(DP_SYM32_ENC_VID_CRC_CONTROL, DP_SYM32_ENC, id), \
-+	SRI(DP_SYM32_ENC_HBLANK_CONTROL, DP_SYM32_ENC, id)
- 
- #define DCN3_1_HPO_DP_STREAM_ENC_REGS \
- 	uint32_t DP_STREAM_MAPPER_CONTROL0;\
-@@ -116,7 +117,8 @@
- 	uint32_t DP_SYM32_ENC_SDP_GSP_CONTROL11;\
- 	uint32_t DP_SYM32_ENC_SDP_METADATA_PACKET_CONTROL;\
- 	uint32_t DP_SYM32_ENC_SDP_AUDIO_CONTROL0;\
--	uint32_t DP_SYM32_ENC_VID_CRC_CONTROL
-+	uint32_t DP_SYM32_ENC_VID_CRC_CONTROL;\
-+	uint32_t DP_SYM32_ENC_HBLANK_CONTROL
- 
- 
- #define DCN3_1_HPO_DP_STREAM_ENC_MASK_SH_LIST(mask_sh)\
-@@ -202,7 +204,8 @@
- 	type GSP_SOF_REFERENCE;\
- 	type METADATA_PACKET_ENABLE;\
- 	type CRC_ENABLE;\
--	type CRC_CONT_MODE_ENABLE
-+	type CRC_CONT_MODE_ENABLE;\
-+	type HBLANK_MINIMUM_SYMBOL_WIDTH
- 
- 
- struct dcn31_hpo_dp_stream_encoder_registers {
--- 
-2.34.1
+Perhaps something like:
 
+if (vis_usage == num_pages)
+    base.start = 0;
+else
+    base.start = visible_size;
+
+Otherwise I guess just keep amdgpu_vram_mgr_virt_start()?
