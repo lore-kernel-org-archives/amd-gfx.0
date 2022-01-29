@@ -4,39 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C05FC433F5
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Jan 2022 10:50:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0260C433F5
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Jan 2022 10:50:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE1F310E866;
-	Sat, 29 Jan 2022 10:50:45 +0000 (UTC)
-Received: from qq.com (smtpbg474.qq.com [59.36.132.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B903189266;
- Sat, 29 Jan 2022 07:43:50 +0000 (UTC)
-X-QQ-mid: bizesmtp38t1643441745tmhbo8l6
-Received: from localhost.localdomain (unknown [58.240.82.166])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Sat, 29 Jan 2022 15:35:32 +0800 (CST)
-X-QQ-SSF: 0140000000200090G000B00A0000000
-X-QQ-FEAT: bUbfunjy+D9R0CmpzyPUKsRG+w28FZ5+xzS5jLRxjTrEDp7XJQpIJvqOe7KG5
- gBHHcpg37gSpNF19qFhVDzA17mPuRoYbXtLqoxZjDZBTzf439IacU96VH3sJS7/FVTYHMDA
- DLtpExDtvtRUrnV/iZ25AbJwajRMUrCFEvENfLqskTvlxXHtWjnK9X62Klc9dYM8fcHIgcZ
- CLqDG++mVrjE2V/VgEJjaAeZ09qXHM1Y89P4pueINUi7kq/XUpJC+qaQQuYHhrYU/2WprQG
- m7GGnHh1tQra4adeJ8W9qWcJi4bUoMyhVaGoBlr9Z6P+GdZcqdD+1FlnifX/c3GEw9pIK4k
- QnOikdcLcr1f0BPfI/WDqPCvurGyspMVAOEI/Yv
-X-QQ-GoodBg: 2
-From: zhanglianjie <zhanglianjie@uniontech.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] drm/radeon/uvd: Fix forgotten unmap buffer objects
-Date: Sat, 29 Jan 2022 15:35:24 +0800
-Message-Id: <20220129073524.31534-2-zhanglianjie@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20220129073524.31534-1-zhanglianjie@uniontech.com>
-References: <20220129073524.31534-1-zhanglianjie@uniontech.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE0410E8D9;
+	Sat, 29 Jan 2022 10:50:46 +0000 (UTC)
+Received: from out30-131.freemail.mail.aliyun.com
+ (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57BAF10E152;
+ Sat, 29 Jan 2022 01:04:18 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R131e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04395; MF=yang.lee@linux.alibaba.com;
+ NM=1; PH=DS; RN=13; SR=0; TI=SMTPD_---0V34fUPz_1643418255; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0V34fUPz_1643418255) by smtp.aliyun-inc.com(127.0.0.1);
+ Sat, 29 Jan 2022 09:04:15 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: airlied@linux.ie
+Subject: [PATCH -next] drm/amd/display: clean up some inconsistent indenting
+Date: Sat, 29 Jan 2022 09:04:13 +0800
+Message-Id: <20220129010413.97801-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
-X-QQ-Bgrelay: 1
 X-Mailman-Approved-At: Sat, 29 Jan 2022 10:50:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,45 +39,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- zhanglianjie <zhanglianjie@uniontech.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: sunpeng.li@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Yang Li <yang.lee@linux.alibaba.com>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-after the buffer object is successfully mapped, call radeon_bo_kunmap before the function returns.
+Eliminate the follow smatch warning:
+drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c:2246
+dp_perform_8b_10b_link_training() warn: inconsistent indenting
 
-Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/radeon_uvd.c
-index 377f9cdb5b53..c5482f7793db 100644
---- a/drivers/gpu/drm/radeon/radeon_uvd.c
-+++ b/drivers/gpu/drm/radeon/radeon_uvd.c
-@@ -497,6 +497,7 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p, struct radeon_bo *bo,
- 	handle = msg[2];
-
- 	if (handle == 0) {
-+		radeon_bo_kunmap(bo);
- 		DRM_ERROR("Invalid UVD handle!\n");
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index daaec3164875..34ffcd5bb1d7 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -2243,11 +2243,11 @@ static enum link_training_result dp_perform_8b_10b_link_training(
+ 
+ 	if (status == LINK_TRAINING_SUCCESS) {
+ 		status = perform_clock_recovery_sequence(link, link_res, lt_settings, DPRX);
+-	if (status == LINK_TRAINING_SUCCESS) {
+-		status = perform_channel_equalization_sequence(link,
+-					link_res,
+-					lt_settings,
+-					DPRX);
++		if (status == LINK_TRAINING_SUCCESS) {
++			status = perform_channel_equalization_sequence(link,
++								       link_res,
++								       lt_settings,
++								       DPRX);
+ 		}
  	}
-@@ -559,11 +560,10 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p, struct radeon_bo *bo,
- 		return 0;
-
- 	default:
--
- 		DRM_ERROR("Illegal UVD message type (%d)!\n", msg_type);
--		return -EINVAL;
- 	}
-
-+	radeon_bo_kunmap(bo);
- 	BUG();
- 	return -EINVAL;
- }
---
-2.20.1
-
-
+ 
+-- 
+2.20.1.7.g153144c
 
