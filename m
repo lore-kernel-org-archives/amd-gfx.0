@@ -4,99 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B76DC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 08:43:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2020C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 08:43:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0852F112C03;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FBDF112CB9;
 	Mon, 31 Jan 2022 08:43:18 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2046.outbound.protection.outlook.com [40.107.95.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B6ED10E1E7;
- Mon, 31 Jan 2022 06:32:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gvVvXSGe1qDwwi4cpkR2oNbLmtvBwqr6BP2iu3Wy/IeeRyXBJPwzIKHaWYyuhe/nx4Os/JxNM6sGQrBcTGACpaTIXddG5sM8hmmCVBx3nHH1TUaPyIjf+HWAcpcGnCYZgwzUy9qnLVBK3Jnbrgvtmod3Z9/lSPUouQRiqW1eeJstzQuO1HwHZN9gfWtzbTLnGWTSl3krixs4Ar91wJRkYglsSdmiZ3ZOLneg3nbEwk7+8JEq6TbW8NJ/FuGwt3e12HHNiUM7SRjUEFnZMmiG/Xj8EJL6B4Jy5CGHWoHe37YiSBMhWDv+4Kf4iM60EBTVR3xlT2wOx5DauDEZS6EKkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XF1tQEnt7Y+Wzg/b2wgNlDuGIXR9GwjBxX2hjzQN5u0=;
- b=eYMQ8asDzK8XMp23tX/YThG+Bsn3tx2rRV2v6G1yjaZiLga2PrLgv/L4JQryvSDS54j0huA+WCRPL9wylqe3yE56I2mHwomnrXQDY55uJaO0SdHwhx3YZ59ZNcTOUSjrQHAaAjGHWUAzU1fxFpNTLp5ezek1hbg2LTSV22D3h0joBNQsdiJJwcCskRP8Ik+LDSWypELzziLSf2On83D3oQWX7PtWOuxIhT5Isvbhc746+VNauIyHJYBIPnd1L1I3HsPQalEcRqdJCnMO9UeBuV79B5sGTuoSGRm/XnGEytWpmZIyX5V0jEvMGC1ZkHey/wefkhw0p32OTPeIiyYSyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.236) smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XF1tQEnt7Y+Wzg/b2wgNlDuGIXR9GwjBxX2hjzQN5u0=;
- b=Ux6NmGP5qf9vgSppOlaq9fc/g+gq6GYnMpoFYjo4odz22TZkW9y0Guv1GBGfYXwTMIcHYoUbdpDWwgElmzeMD98/wl2DYvh3tZJxx+GlDHH2qWJwDfNdhwiU3OP8BiSqKRmMf8uj2+qxDLTAuDobImq5UbhFTewhFB9pKF8caNcSZoTB38OatbW/idHXOcu2I7Zdr+VJjZn5OGpH5eOPodlqDoRR90CcPp5dGhsVyAAMlVENfUh4pvXY7PrD/VLIS2Gcl758s42l832d4tYuuPOFqkkMrBHIdqzlbrMrkvkk50EkPcGHP8h1dtJawYxY3RbTxplv5bXbkoN6PiAPFA==
-Received: from MW4PR04CA0261.namprd04.prod.outlook.com (2603:10b6:303:88::26)
- by DM6PR12MB4634.namprd12.prod.outlook.com (2603:10b6:5:165::32) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.20; Mon, 31 Jan
- 2022 06:32:44 +0000
-Received: from CO1NAM11FT009.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:88:cafe::56) by MW4PR04CA0261.outlook.office365.com
- (2603:10b6:303:88::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15 via Frontend
- Transport; Mon, 31 Jan 2022 06:32:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.236)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.236 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.236; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (12.22.5.236) by
- CO1NAM11FT009.mail.protection.outlook.com (10.13.175.61) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4930.15 via Frontend Transport; Mon, 31 Jan 2022 06:32:43 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by DRHQMAIL109.nvidia.com
- (10.27.9.19) with Microsoft SMTP Server (TLS) id 15.0.1497.18;
- Mon, 31 Jan 2022 06:32:42 +0000
-Received: from nvdebian.localnet (10.126.230.35) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.9; Sun, 30 Jan 2022
- 22:32:39 -0800
-From: Alistair Popple <apopple@nvidia.com>
-To: <akpm@linux-foundation.org>, <Felix.Kuehling@amd.com>,
- <linux-mm@kvack.org>, <rcampbell@nvidia.com>, <linux-ext4@vger.kernel.org>,
- <linux-xfs@vger.kernel.org>, Alex Sierra <alex.sierra@amd.com>
-Subject: Re: [PATCH v5 02/10] mm: add device coherent vma selection for memory
- migration
-Date: Mon, 31 Jan 2022 17:32:09 +1100
-Message-ID: <1761055.EOaAWAZ9kn@nvdebian>
-In-Reply-To: <20220128200825.8623-3-alex.sierra@amd.com>
-References: <20220128200825.8623-1-alex.sierra@amd.com>
- <20220128200825.8623-3-alex.sierra@amd.com>
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3D0110F3BA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 02:16:24 +0000 (UTC)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.nyi.internal (Postfix) with ESMTP id C60A95800EF;
+ Sun, 30 Jan 2022 21:16:21 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Sun, 30 Jan 2022 21:16:21 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=turner.link; h=
+ cc:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm1; bh=P9iOim4NrWctmEwZ8zPw3HEkn6EbbINyR5zkQ2
+ 23ptE=; b=WhZLbraCfAbAiaXMYxdU0JtimnEgffIECycU2prEgxs57Qiv3otomd
+ LxciAIQ404Tr+R0QA39S0Sh6TphRwSsKbTW/YyVossjjt9UUp71KVqGDjZU9ha2o
+ 5kIawzsFib+RlISzbDxQ5dboN1jldudrXsbVhsDG+LAGRN7ibAMaNBi9eIvrejU3
+ TZwuD2V1Eh8s5VjcaN+mbp91bSPGhAFy5e8xxRyR6lHU7Fgs0FCJehomiy708/iL
+ WotvDHVyRRIPtZo83WBNjzbFgp63qAcmVRjLU0+Zr2lsIUskSzgsjSJ1RqxT/LJc
+ YNOPuVMLmuTLqq5zGyYgqMP+g1t6LuAg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=P9iOim4NrWctmEwZ8
+ zPw3HEkn6EbbINyR5zkQ223ptE=; b=drCIdtq56LgKKAk04BhqRdtXtrABgGh37
+ 2dky3hCczhXDUV0ToEuDeuG4UJO94oDrN1SsnA8QQX5xq5xAjL0K/CEHgYwergbJ
+ 1LpooZ28Gk0+tnyKL0jADrmqTwREg3XvV86Tj1NhzvO9a53TDiCWxd5OsUKBQBLM
+ dLKo/cF+OCSUk8yaumj02qn5zLVMpqLrpMDr00Hy+0CdfnrjHp7xkGVQQ7x08+jD
+ 7+in0yYBg4ohQs9Ffyhjvi742vXn8PBYjVsf8EVmi+GYpoaNhcj8Vu8AlUV1xG74
+ xwY4XgXI7mBo42ThRuNldJDCdYPh6wWlTmiXnE41qDd9C1BPHgZ4w==
+X-ME-Sender: <xms:dUb3YUIhCChgHZeIrE6zkc_6ZfrKQKcLHkLjStd0ZEwlraTF916dKw>
+ <xme:dUb3YUKRJYYPlLanL6aHmp8kkMXnlah7UZR_cBEfcLa5zoGQx0XHdCXw-e-RPt6WZ
+ UexBb3iuIqgvWpskw>
+X-ME-Received: <xmr:dUb3YUt9uPq2KyJJ885awi3jgnQvVZ5VtYouDk-uTK4eGPEAKydpsEZsMQ41>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrgedtgdegvdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpehfhffvufffjgfkgggtsehttdertddttddtnecuhfhrohhmpeflihhmucfvuhhr
+ nhgvrhcuoehlihhnuhigkhgvrhhnvghlrdhfohhsshesughmrghrtgdqnhhonhgvrdhtuh
+ hrnhgvrhdrlhhinhhkqeenucggtffrrghtthgvrhhnpeetheegvdetueefudelffejieff
+ feetuefhveffveffffffhffguddtleehueevleenucffohhmrghinhepsghoohhtlhhinh
+ drtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhm
+ pehlihhnuhigkhgvrhhnvghlrdhfohhsshesughmrghrtgdqnhhonhgvrdhtuhhrnhgvrh
+ drlhhinhhk
+X-ME-Proxy: <xmx:dUb3YRYnJlFBzWHktQ4HgM8Bt_RRoMAMwcO58jagwk9FezN-eHnFng>
+ <xmx:dUb3YbYs6CyZ00DMOTIk1DepRhSGlr0ziQ-wT3HGC6fAlmVs6M4mKQ>
+ <xmx:dUb3YdAptUPRB1unQeUulNxudWKbYRYzLTdQBd3ZfdZUabb-HMGPow>
+ <xmx:dUb3YXqLKN47jCphongm7KUYYsj-mkg-zU2tnMhW-lf3ulkV4JRMIg>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 30 Jan 2022 21:16:21 -0500 (EST)
+References: <87ee57c8fu.fsf@turner.link>
+ <acd2fd5e-d622-948c-82ef-629a8030c9d8@leemhuis.info>
+ <87a6ftk9qy.fsf@dmarc-none.turner.link> <87zgnp96a4.fsf@turner.link>
+ <fc2b7593-db8f-091c-67a0-ae5ffce71700@leemhuis.info>
+ <CADnq5_Nr5-FR2zP1ViVsD_ZMiW=UHC1wO8_HEGm26K_EG2KDoA@mail.gmail.com>
+ <87czkk1pmt.fsf@dmarc-none.turner.link>
+ <BYAPR12MB46140BE09E37244AE129C01A975C9@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <87sftfqwlx.fsf@dmarc-none.turner.link>
+ <BYAPR12MB4614E2CFEDDDEAABBAB986A0975E9@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <87ee4wprsx.fsf@turner.link>
+ <4b3ed7f6-d2b6-443c-970e-d963066ebfe3@amd.com>
+From: Jim Turner <linuxkernel.foss@dmarc-none.turner.link>
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Subject: Re: [REGRESSION] Too-low frequency limit for AMD GPU
+ PCI-passed-through to Windows VM
+Date: Sat, 29 Jan 2022 19:25:07 -0500
+In-reply-to: <4b3ed7f6-d2b6-443c-970e-d963066ebfe3@amd.com>
+Message-ID: <87pmo8r6ob.fsf@turner.link>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-X-Originating-IP: [10.126.230.35]
-X-ClientProxiedBy: drhqmail202.nvidia.com (10.126.190.181) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 428c4fc8-8571-4807-f705-08d9e4837d0b
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4634:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB46346FF5B38114C79CD567BDDF259@DM6PR12MB4634.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hJ1PUShyShlk0fTp1g6E9VvXoeCpImw9IfsEelKsS1vDeIyljNzz+JYQCM6/VZBNoXKg3aqRVk75OSlViqBNNr+GYk1HR1bN1ltaGAn1vtqaT7XiKk6JeTTl3YOo8Yzy9TSv57UBuyKNgR+zrA4/jEZXlIFhyWh624BEWWCrU2ib1/mA6EPOHMSLKMA8uqZA4IVr/+kKRrMkcZJfugf8kBiJR1vF6k3M3iD3qTY1D3Xx5R949yqKLlHZRpk5LH2I4B+ZJ6OD9XjHnVCATaogoJYEOFlkgp3eP6yi4D90VV5OIWkLyFH+DIZCt73hqbeHJLdaPVRxxQC+oq0TQzFwBH9DlWFJtO9oROls6YBqVlyg5Wj+0y8TZhcbnJiKUybBYbmPyJz7htAaNBoxLunlJX5+y3lB3OXDpkL4KTQKANUtLl+ZQ0zXfAytVyFbSzeRG5OjbFEekt350tME5LPwn2vTfKdrHjPo8BUWsULQtrH6tu78+hUP7LdTSOPxaAThPd+OSL9AVmTiaAiGnH43DqihISC9RPMn6Nzh+zRB0ZEVftU0UZ7OnJIjOV+cUlE5tHSKFV8UVpyDqStPGzE5wuFr4H2A5kSaewf3rSveKoIhHS8ZspxhQCoC2IeQDMqG8hLMt0VfGTuNKSFFQgwyUANw4Hc7kebdVHjFYsFOtNmzrIkRn4DXIQ7pXBmRnilkA3/6K2qROG/XzS+WrEZ8kpzv+WoK7CxD/i36uqe7n2P6dCs8ybduBTZL9AVnlPMK
-X-Forefront-Antispam-Report: CIP:12.22.5.236; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(356005)(4326008)(2906002)(9576002)(6666004)(81166007)(9686003)(7416002)(8676002)(5660300002)(8936002)(33716001)(82310400004)(86362001)(70206006)(508600001)(40460700003)(110136005)(47076005)(36860700001)(54906003)(16526019)(70586007)(186003)(26005)(426003)(336012)(316002)(39026012)(36900700001)(20210929001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2022 06:32:43.8327 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 428c4fc8-8571-4807-f705-08d9e4837d0b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.236];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT009.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4634
+Content-Type: text/plain
 X-Mailman-Approved-At: Mon, 31 Jan 2022 08:43:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,57 +91,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, willy@infradead.org, jglisse@redhat.com,
- dri-devel@lists.freedesktop.org, jgg@nvidia.com, hch@lst.de
+Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ Greg KH <gregkh@linuxfoundation.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>,
+ Alex Deucher <alexdeucher@gmail.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Saturday, 29 January 2022 7:08:17 AM AEDT Alex Sierra wrote:
+Hi Lijo,
 
-[...]
+> Specifically, I was looking for any events happening at these two
+> places because of the patch-
+>
+> https://elixir.bootlin.com/linux/v5.16/source/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c#L411
+>
+> https://elixir.bootlin.com/linux/v5.16/source/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c#L653
 
->  struct migrate_vma {
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index cd137aedcfe5..d3cc3589e1e8 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -2264,7 +2264,8 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
->  			if (is_writable_device_private_entry(entry))
->  				mpfn |= MIGRATE_PFN_WRITE;
->  		} else {
-> -			if (!(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM))
-> +			if (!(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM) &&
-> +			    !(migrate->flags & MIGRATE_VMA_SELECT_DEVICE_COHERENT))
->  				goto next;
->  			pfn = pte_pfn(pte);
->  			if (is_zero_pfn(pfn)) {
+I searched the logs generated with all drm debug messages enabled
+(drm.debug=0x1ff) for "device_class", "ATCS", "atcs", "ATIF", and
+"atif", for both f1688bd69ec4 and f9b7f3703ff9. Other than the few lines
+mentioning ATIF from my previous email, there weren't any matches.
 
-Sorry, but I still don't think this is quite right.
+Since "device_class" didn't appear in the logs, we know that
+`amdgpu_atif_handler` was not called for either version.
 
-When specifying MIGRATE_VMA_SELECT_DEVICE_COHERENT we are looking for pages to
-migrate from the device back to system memory. But as currently written I think
-this can also select the zero pfn when MIGRATE_VMA_SELECT_DEVICE_COHERENT is
-specified. As far as I know that can never point to device memory so migration
-of a zero pfn should be also be skipped in that case.
+I also patched f9b7f3703ff9 to add the line
 
-We should only migrate the zero pfn if MIGRATE_VMA_SELECT_SYSTEM is specified.
+  DRM_DEBUG_DRIVER("Entered amdgpu_acpi_pcie_performance_request");
 
-> @@ -2273,6 +2274,13 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
->  				goto next;
->  			}
->  			page = vm_normal_page(migrate->vma, addr, pte);
-> +			if (page && !is_zone_device_page(page) &&
-> +			    !(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM))
-> +				goto next;
-> +			if (page && is_device_coherent_page(page) &&
-> +			    (!(migrate->flags & MIGRATE_VMA_SELECT_DEVICE_COHERENT) ||
-> +			     page->pgmap->owner != migrate->pgmap_owner))
-> +				goto next;
->  			mpfn = migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
->  			mpfn |= pte_write(pte) ? MIGRATE_PFN_WRITE : 0;
->  		}
-> 
+at the top (below the variable declarations) of
+`amdgpu_acpi_pcie_performance_request`, and then tested again with all
+drm debug messages enabled (0x1ff). That debug message didn't show up.
 
+So, `amdgpu_acpi_pcie_performance_request` was not called either, at
+least with f9b7f3703ff9. (I didn't try adding this patch to
+f1688bd69ec4.)
 
+Would anything else be helpful?
 
-
+James
