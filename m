@@ -4,124 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D590FC433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Jan 2022 13:54:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90A36C433EF
+	for <amd-gfx@archiver.kernel.org>; Sun, 30 Jan 2022 03:19:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CA5B10FF08;
-	Sat, 29 Jan 2022 13:54:43 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2046.outbound.protection.outlook.com [40.107.220.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C1BF10FE86
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Jan 2022 13:54:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1CB010E1D5;
+	Sun, 30 Jan 2022 03:19:35 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2076.outbound.protection.outlook.com [40.107.92.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B57C310E1D5
+ for <amd-gfx@lists.freedesktop.org>; Sun, 30 Jan 2022 03:19:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RIYBiT2dhgbBQQMMGKlpjYIB6yz/iZsNnCkCQQpMZwO2PEs668fo38QzhH4tFivq/nhb+6ZmA1eiBsg1PtHl4DOuTki3Hj1QykrCuxqOmW1RWa4XCfOGI08wV5MOXT+Q+H7tmgWscR+M4x36vysQp99VuLw4Mm/R3/pfRTM2fWk57Fu71mTP/bTbE2uu2COerekFQIv2GS6PzJglhKm8cgN/kpGY9dDPcMt4ykC/yyFU1vlH0f/18wA7IQj68lfNbrFNf6GAt47wU65eTg5XyhDbwA6gHaYWpVQP0JXARPaqvgxKcnvplS/kz+JtD5WvkxnCGtTWu6Lhe1LrC5/i8Q==
+ b=oUvAy7G+CLVhLxP1F0G91L8QvOJ2lSQj9fLTNr78D5HQf5HLCEjpsaqJKPznWo36RA05idzQdcjArT9Ivx14kcskjtThtlp0/QCDpoG1cGSsqEAj3+AdzaQzM9bfBUMQMDLPSs9M8FLZ6lNluJi40JEuVNq7/ruheO/wqIL26yRavViwWdToS/J5adi966Gd2QifsaE5XaX3ZwE9U+NGyjRAUVzmJjL+4/OaS5w1WRkdOsKzRToB0Cj6jtJs2+aSPR3JkyPZDm2/EU6FkCkRUCAMHX0wjSyF1u+Vuq6GpVdgchX30pTGWrBpWhnQBwjNSsn5kUe/qYb0EqR/ty/7Cg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6Q/RL/+JwWXAABNz/fDlSVqTA1Yum0Lo3Fzlsx0lcOg=;
- b=XaSvuA+wy10Jsgnt0Sps+t2Sbh+mNQJGH7unrs0/S4CKa9iTADjHcgWOxLIpOYH/IvWwI/OBSNjcWDYb2HhiXxrP0V7r7OepGDFMuFrOR6WeR6UW8ZhfZMpcAV8MFIUte0kfHY5RwBb8x7tNCLMz9lgyTytGm+UmXjUxw0RFmwcRR8HwoiD4Dbzipt6FXHJq9uNyANVlDJpdnAQG9VBQC6v5f/LvS5slhmnXl4IIzXkRfSpaOy+YUiY+vQ1txi7xcYDG4NxWMzW257MxJ4KOs1Ve5uOrx0qIaVkpXZRukWzweRL8hApmew/rHsHJ+Rieuh2xmu5umGOydNfOxhRxVg==
+ bh=JZ9crEOAQ8zC/MoI88fdD3LmVnXJnPwzA/eAppSp7rM=;
+ b=PIGri/V5tQUtMc2Ze5GmGwiq4GCW/mL1cyE5CQ0bOCwk+D9BROhSvYvaJ+l6GB3LnP7fQ7f2V5ZUipSk2iVJ4WnyD4sCIWJIjwzwPF3xXn6MY3SCQmF03VexPMMTjSlpSbOvEOl0kg/TmNiFPw1Cb3clGRRCDnaOfGuqh2yU0IgXTJoUWjCyoIuWctZYHu0P00L7L8+wSHJL5NHz59CHfFoh0RpjEm/WrfxdE6gLVnjiS9NjjehVaQIGYJ/EsigFlpDol8a4fimGJ0u7SprVxuTeoeGAMd8kJMUa29g+/u86zdhI6xj3lU4FNjmNxKqz9qTWdFyLfJ0Hn72iZVOCpw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6Q/RL/+JwWXAABNz/fDlSVqTA1Yum0Lo3Fzlsx0lcOg=;
- b=B67xddxtspZuKdr7MOKHFzpDrdQGzpV3mfNDjqvTuoM5O1BS0MgbW8JTzgifsOX5wSdGNtAw2vinIUEzqnqJCaUOcnn3jTQlEjJoM8Wc9B8RpWwmRS/OR42dYwmXzyrW78K6I9ZHw5D/dq3/isime2EGm0OLQR+064ToDuyge6Q=
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
- MN2PR12MB4047.namprd12.prod.outlook.com (2603:10b6:208:1de::20) with
+ bh=JZ9crEOAQ8zC/MoI88fdD3LmVnXJnPwzA/eAppSp7rM=;
+ b=5Jf/m989pXBKwcXKgY84jKe6zAwUMQboCwvZzzxbtjsbDGRwZA0jX8Qf3H8YNc6+yG+dxgPBqyW3Xnt3lNseNJMDzSYvPms+xpmWtbCPThhlepQLtvh8gq7CpjqsJMAon6emO14Iixh6ooC65+5aSCPcfUx19uNM1f+LaVgvNoQ=
+Received: from DM5PR12MB1770.namprd12.prod.outlook.com (2603:10b6:3:108::22)
+ by DM6PR12MB3099.namprd12.prod.outlook.com (2603:10b6:5:38::31) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.18; Sat, 29 Jan
- 2022 13:54:40 +0000
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::a4:23f1:1652:90c]) by DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::a4:23f1:1652:90c%4]) with mapi id 15.20.4930.019; Sat, 29 Jan 2022
- 13:54:40 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.20; Sun, 30 Jan
+ 2022 03:19:30 +0000
+Received: from DM5PR12MB1770.namprd12.prod.outlook.com
+ ([fe80::1551:5d31:89de:9e7f]) by DM5PR12MB1770.namprd12.prod.outlook.com
+ ([fe80::1551:5d31:89de:9e7f%3]) with mapi id 15.20.4930.020; Sun, 30 Jan 2022
+ 03:19:30 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: Fix uninitialized variable use warning
-Thread-Topic: [PATCH] drm/amdgpu: Fix uninitialized variable use warning
-Thread-Index: AQHYFBH8znevdJ+XiEOYkM3QFlKcAKx6BveQ
-Date: Sat, 29 Jan 2022 13:54:40 +0000
-Message-ID: <DM5PR12MB24696B7A2FF047BE8452C42DF1239@DM5PR12MB2469.namprd12.prod.outlook.com>
-References: <20220128064019.2469388-1-lijo.lazar@amd.com>
-In-Reply-To: <20220128064019.2469388-1-lijo.lazar@amd.com>
+Subject: RE: [PATCH 1/2] drm/amdgpu: Fixed the defect of soft lock caused by
+ infinite loop
+Thread-Topic: [PATCH 1/2] drm/amdgpu: Fixed the defect of soft lock caused by
+ infinite loop
+Thread-Index: AQHYFQyUXmE0Jo0pSk+cIHY0e91wzqx635Fg
+Date: Sun, 30 Jan 2022 03:19:30 +0000
+Message-ID: <DM5PR12MB1770916E530D42230CFB4B9AB0249@DM5PR12MB1770.namprd12.prod.outlook.com>
+References: <20220129123352.3765260-1-YiPeng.Chai@amd.com>
+In-Reply-To: <20220129123352.3765260-1-YiPeng.Chai@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
-X-Mentions: lijo.lazar@amd.com
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-01-29T13:53:15Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=8584dbf9-c6a0-44eb-b973-5e356a2ff8c0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2022-01-29T13:54:37Z
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: f6623c48-4771-4a5b-bac4-3fc504179c8d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-01-30T02:55:26Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=78b4fec1-bd90-43fe-b9c2-bd7da1bd82fe;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-01-30T03:19:28Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 0828e023-a475-4aac-bdab-b6ad8faa87ea
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8578d0a3-1a9c-4b54-ca58-08d9e32ee57f
-x-ms-traffictypediagnostic: MN2PR12MB4047:EE_
-x-microsoft-antispam-prvs: <MN2PR12MB40470DF7EAAE749F5F0AFB4EF1239@MN2PR12MB4047.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1775;
+x-ms-office365-filtering-correlation-id: 88ebb532-d3b8-46a5-ff45-08d9e39f5435
+x-ms-traffictypediagnostic: DM6PR12MB3099:EE_
+x-microsoft-antispam-prvs: <DM6PR12MB30993D4F1D7DCCA0A7616174B0249@DM6PR12MB3099.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2733;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: zcNTliAUbA530eEZCiJb26LN1axn3N76mIQi5ViIhnqmGIKPc4BhKXNbgEKI2bHf9zE8i1H4Epwx+VYEcUjZQbw/0SKNF9zJpuO83DVqeBsC7pXps9D2e1ctj8NeCr3DS41AWTrO07DaEx+kIHFNnkvgoQK/+FX9XY71NoBXBagooV8diGG9xus6ocT6Wt2hSQOd0/s1VGWqEtcxXSI9JInlbx3i54+cmJ9c4vncgLSQAmekedvAG4VXK3A16DlBYlkyZ+ERDDj1BPD+a5QDRQZWrLqqjB+cc4CN3UfI/LRldy2i0NDBxWWwQnZoHisgYhoUOjbVYOTGjLs/MSV9PJo4Umju7C/TrEt4+RSbn5CXy0MvltvCzT1bcb0ntXEqQptGs8e/3uBp+HFv7doNoxh0zZorPrt1QzI/KXMvlsPlc7N/+65hvvqsftX34jw6Vpa7lxdV8lAiZYIP7HabcphCLpkfgyAa194AMUoBJNEWTa411rIi67hUvPav0zE9GH2Bhc5+Y6EcKJrAeZeXFS7wisDOzVC6y9rWyJaZ4poGMsmVMO0iTOTTr0Th73a3eRD7jbNtIkMkmPbYLEPWSzkmphx65IwgvysDHxVmzPEREZREFnhWGfGtRN39rrid08sIcJ8jnqdg6+9bVSKHO6wHv6DqYPKnx9ZWHgOZVMS9AO8oK25CdeCd5oAuAXFJH6Sh7QlGrOfiNFyFv/Qb1g==
+x-microsoft-antispam-message-info: +QnBK6aL3zrysnpJnuE2Ravj+DTW7/TzIyJ9x+cFJFCEtnmSVHwv7ZJkViWTaFxlnONZkb3+cKfoRmf/U6WiYWGT6iQ6bXYTqdV3+NjSxAV4uIV4iuvsV9LpoI4KxkZEUzgAISbn+jXXTMstCUdOXlRVmfVG6KTo16pUPIgt7o3ikMynRtPFvy9ZdASbIYmO3dXiPJzKgzXWi9MtJEybK59TyysbJA7k5GnF9AIFUG/TA+yxOCM2G98FNzM3e7n3Kk+okddl4S0pUQwFxLICqILKv60kt7yg6DjdVJsb2uWPyvzqxeRjjs0q0tKbwW8bOPS1ezFOF534rowV4/sL6xT/HzvWfg0AX+TOq7LuDUowvYD1t6rE2GBQXbA9rlHqOhfRXoX2pKrmd5IAF9oFk+76WhzU4m2cJdEzXqQoWpC3LMRV22WkBzzFgsU1/V7IxpE7ixvpPtyAOw9GQ6gdGxjqkfH9uUuyNj3cU7i6lCjZYgdg2wmD7rrlODtMBjpbP8xNVAcVQaliiCVjkAWheoIwc5Zf2fsAQXohBBplqz5r0DnVxQPA9OeytjaRAbD+Ee1nRhg9qd+oyC+Za+XF+RLbrugZFt0RXGneRztHldi3IaaMlf9RrSIeqm5LMY7ONxlIEae9e9Nx3TBquSoGNhS1HJc4eGOaIV54wm5XLiN5Cts89LGM7EpAuB6FL7+5ND2aQLojS9xY5/gR58rOrA==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(7696005)(53546011)(6506007)(55016003)(71200400001)(9686003)(38070700005)(508600001)(122000001)(33656002)(38100700002)(83380400001)(86362001)(52536014)(54906003)(110136005)(316002)(186003)(5660300002)(4326008)(8936002)(66946007)(66446008)(66476007)(66556008)(64756008)(8676002)(76116006)(2906002)(20210929001);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1770.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(8936002)(64756008)(53546011)(8676002)(66556008)(26005)(76116006)(6506007)(55016003)(186003)(110136005)(66446008)(2906002)(66946007)(122000001)(508600001)(66476007)(9686003)(5660300002)(7696005)(38070700005)(86362001)(71200400001)(52536014)(4326008)(54906003)(316002)(83380400001)(33656002)(38100700002)(20210929001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Shof4xTaG6vFImsSIzhS1yE9v6Juzh8FrYqVgPI2l+PqueLwXwXpIHJEDo+P?=
- =?us-ascii?Q?vJxuuTqjkqEgPGFSGd7G5SfowOM5nbAYsw++m9cEatDV9UHf3Em0nnBTlpLi?=
- =?us-ascii?Q?mI6rUjwHFVf5fk3d+QoC8ea146nemKrCnkDooNmhK0s+ywIYrNU+II+sWCdS?=
- =?us-ascii?Q?BXb906jXbe1GhaKK+lCLJ0LSSPjvlMPPnqLUswC9GyP1diRP2ARBXKRMt/XU?=
- =?us-ascii?Q?mETg4uGqcC2JMAdDuVOzFU8XYAH/t5wzmHayHHm0Zmc1SxzSzemBcH0jpNMx?=
- =?us-ascii?Q?miJ8hc0sAHsUfYIOITuG0cXekLgzyWQbxMUKpkP05cGAHD8dnaqnQz20XjHK?=
- =?us-ascii?Q?SDgl82JqdCnKm/CLEXg2GgKT84zQDVCdLs7pOAYG6hEjE1sLVvnUtbC4Mu9H?=
- =?us-ascii?Q?OIwJp4qz+n9Y1SBuNkl27dSJzwhu82CH9fBcb8sJxPP2Id5j9h1PPu6/7EQf?=
- =?us-ascii?Q?CAbWI0v1j8cHA+FcHduUUq/lI2y4MCBVHEy2iWKwjrVveKgNDoxn6ZtPt81v?=
- =?us-ascii?Q?FCn9LkDWbE9gF7/0s6RO71moQt3sAMcK42KwpAw3c1reeIJtdwvohNh8T0+4?=
- =?us-ascii?Q?WkkeK/GhdHToGfZgJA1xe31RLkeTp/Nf7tJ6YiDSg6k77EZR6gLC1N/TINtf?=
- =?us-ascii?Q?Mtgq5l6fjhR3p8uNYgRwSfQSsDrcHg0DB6Ygu/3AkmQUUAkRKGIaPyQekgmm?=
- =?us-ascii?Q?P0PX1pqLQ/6xEsbr1nMSeV5Px4eE8cRofPmA6d6H7ePT0RNF68dFcE+GKIKG?=
- =?us-ascii?Q?g8Qqw01ILlwyj1htN1WonWVgnmAj/So/2j1j91ost7VxZNZ982mrlkEHRjve?=
- =?us-ascii?Q?8qJH85S8QPmPQUpS9vdd8DJw5uoX4n7E8+aFLalKQusPRmGt8UgErmMqcUB7?=
- =?us-ascii?Q?y4k9p6FXq4XkY44L00j4HbARrngXyoSybaUfHV4fn+RP7fsPOmcL9xkJYk4q?=
- =?us-ascii?Q?IEKkUoQr8TPoDMU8MA+1iDurkPXw3nt4qtNo0ZhA/I4A6nEWG3/tZYoMr8Wr?=
- =?us-ascii?Q?7p9GaPTyJTSQsqoJUito1xMOR0fUAPtGqmtElr54STB2b/8/nbWMQvNwnT+K?=
- =?us-ascii?Q?BgNWJz3jBpwjDzuCvn+5cKtP+N0LQxDoPKL7osYBhq2EGaWKCGIhM9pOT+Id?=
- =?us-ascii?Q?tdfwIXFcDqKzZuelbMhSx/E88uPvPq5lZxqNebQBEM/+dDNMaJg6kJ0N3i7Z?=
- =?us-ascii?Q?kuA9YRJDXBXMb4hXoSdWquF+yApOn0u96P4PU6CKUBOp1yesE6/3194D/rTH?=
- =?us-ascii?Q?ajFe038gnV452zY8uZNjLvUOFxjTzoSu66Nd9A1H84/l3GfqD2ODx8PZf63g?=
- =?us-ascii?Q?V3X6NJlbHraxSSS0zP/VnBAvGB8Qz0W9gB9PCVffRBDf1iEZ1VS5TO1B8ENU?=
- =?us-ascii?Q?OwjZ71xTiZUfmJzMZAYhx+gWRgm7N8Og/jgeceiMVBwQTJ90EGimJjkXqcyA?=
- =?us-ascii?Q?KKFmoBsBDbpgGfTLSZnorsnsXWcuAD6y8kpcqWbe/aEHQcBdindwNl8n2Pgh?=
- =?us-ascii?Q?j4xS0a9GnXWFV+yiohmlUhDie6hG4v3aFFtVvw1X8g12Mzb3E2/Xh2jfkOy4?=
- =?us-ascii?Q?IGORq74f9FUxKogBZ3MRzGuiMvibnQDp/NfXXLDalkeH8Al9TBcCYNuXdxzS?=
- =?us-ascii?Q?XtR2ato5Q8E6Nmhd6DcWiWYhC/6AAP5IDjt1Z6SoWFTSDZjymNsYDQ1rrB9M?=
- =?us-ascii?Q?wKv0E24g408eSRpUr3lxMEKJJTM=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?b7FQdz2xlNWG3ogCtjQ2+7qafpWb8X5Py6P3IdXYlDuxPIygLxx+8pMlNw0F?=
+ =?us-ascii?Q?K5L7CmvK6zMfjhC0HXRFWHQHDLr//sS2WPILC0IeA2LKqRer2+4ggHRFjOvr?=
+ =?us-ascii?Q?YRZaQXEr+hJBm2YxBin7sVKz+843ohYS+bR50pbjfpDvkuJ2Qia1CyPE7Y/G?=
+ =?us-ascii?Q?YXPALDZiGaCACnSMSAQ5rMNg8AkyDbM6YQUExZjOZdhgD55XI7K825+ZHl/Z?=
+ =?us-ascii?Q?1lSjQ1SeZCRshFttd2lOoZZ3YazSh469M5Cl4AnrErVWjmJoRkWBcAPAYFnY?=
+ =?us-ascii?Q?8X1paVWVFeewphwCNjXMz+3ZwFn6naN/Z40KgYcvn/XGMAbluWFF2BIBUxJh?=
+ =?us-ascii?Q?kUWyNAb2u/qoS4gS9Mw3GIOj6SaCPW8Jg+PX0ipoDhIRp+ORbQKOOv5pijWP?=
+ =?us-ascii?Q?oc5BaEd9zOy7nrFxQsBaPEt6sEDz5P0adKhILXUAlFUwcmaHl3mACSxuhx9b?=
+ =?us-ascii?Q?JjQnFhkRaFDOzP/mQJm6b95NLHCoRyjbFSVBzhfp0grc8c3zlb4EflaM1UH2?=
+ =?us-ascii?Q?mviwXJoB0737kPqCiWqTZoFa28ERCbClLQkhTMLhoOO1OMK8/ZvFnlVded2C?=
+ =?us-ascii?Q?hE1gh97YPnlpBe1QoiOtaflT3+TqB+SDCRH3MJN4xKj7DbIpgJi0EphYd8vj?=
+ =?us-ascii?Q?pzp27S9Pua7DDg+ZxQimbW9XR4HOOecgYJxnzm3fj0qX/KRYlX6QFcx+SU/u?=
+ =?us-ascii?Q?drrpcq6chzgKf3cd34Iovvq0PdE96ulZ0dQqUUUfv/xcxb6fED4BN4o1zkok?=
+ =?us-ascii?Q?qObOxHGZ/71UTR0YyiKXwVpR6vgOyBgR21u3rBlpLkMYcejSJUCrk4Td48qS?=
+ =?us-ascii?Q?wJj8/gYF2VrY3daNOu+KF1If+nyFU5hA1WpOp+cW7IOLavTjvwnfBlvLyNkd?=
+ =?us-ascii?Q?QR9HTnWBnqKOenu+jMRnEKQhwVq4Rc/s9ZsCRe3HyFNPlWsbMf3lTm1ME0u6?=
+ =?us-ascii?Q?lkLj3M0s6XmYUs2k2O3zclqOunjht8+496uQ91QEiDwS7s9HIztpGYCTy8l8?=
+ =?us-ascii?Q?UtoEvghem2BLyarwBxCMPwyIYKTR2D5pTGOjmmOPQi+pznbPlDJnuVZv1V+2?=
+ =?us-ascii?Q?n0Nqe3MqUN/0Z78BTaLNp98iBDXaECXOcI6916tNhdlH685uYhl8tFBcTXsg?=
+ =?us-ascii?Q?kKLUOic0xce9lbW4VtbNfVE8fj8Cy0WZvy0LH+JvhA8C0Q01mnVL3IU9ZOMx?=
+ =?us-ascii?Q?E+WQtS8ciJ6haKCK0ZBAYv8ECeYqWI1ZoMYJC8yFsEf1WDXOdNrKAdJBPjJQ?=
+ =?us-ascii?Q?pcz/vBlE/E6eAE7nObY7e80vMemc2djtXfzWuu/gFmVN7+bQDXQfgKD6PTgd?=
+ =?us-ascii?Q?V5TYVnO/iMJ1cXlBZ0LILJ8i8h4Rc7JwgTb/THQnZYfTVLnv5AbCPK1ReZCt?=
+ =?us-ascii?Q?SAfbvtYFHGh1MBkC1ZseVWtdfJOJiD81FYNA6zfGcX8jBSsIz9LjET1nryFW?=
+ =?us-ascii?Q?urIIwsbfIYVOD9ObaeV/2jS/5DOvcJ8hkZAE1sciQSTKcCOfkm+KktjumQSB?=
+ =?us-ascii?Q?F44lkRFnqzoQ4buzmxg9Xb9BBtFqvjjqhSfJUCSRlB9/r0bCZGEAWOXRVw?=
+ =?us-ascii?Q?=3D=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8578d0a3-1a9c-4b54-ca58-08d9e32ee57f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jan 2022 13:54:40.7525 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1770.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88ebb532-d3b8-46a5-ff45-08d9e39f5435
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jan 2022 03:19:30.1141 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rq7Wz2WYGN7nRn2mnM+gExb3k82nYQ4ddFxh0t3Kwc7UXPXfZ2idhae6pTYMTNV3qDhPzF1V+DoHrgqV+UZiUA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4047
+X-MS-Exchange-CrossTenant-userprincipalname: 2EOKpwbW0gclCHfpeXXJy9LDzPBWt9AwtUliTTF5KlbudwMOUCJkCLeTuMq3i+Zc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3099
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,64 +134,181 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- kernel test robot <yujie.liu@intel.com>, "Zhang,
+Cc: "Clements, John" <John.Clements@amd.com>, "Zhang,
  Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+[AMD Official Use Only]
 
-Reviewed-by: Guchun Chen <guchun.chen@amd.com>
 
-Hi @Lijo Lazar,
 
-Can you pls submit your patch to drm-next soon? This indeed fixs the regess=
-ion by rlc indiect reg access related patches.
+> -----Original Message-----
+> From: Chai, Thomas <YiPeng.Chai@amd.com>
+> Sent: Saturday, January 29, 2022 8:34 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhang, Hawking
+> <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements,
+> John <John.Clements@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+> Subject: [PATCH 1/2] drm/amdgpu: Fixed the defect of soft lock caused by
+> infinite loop
+>=20
+> 1. The infinite loop case only occurs on multiple cards support
+>    ras functions.
+> 2. The explanation of root cause refer to 76641cbbf196523b5752c6cf68f86.
+> 3. Create new node to manage each unique ras instance to guarantee
+>    each device .ras_list is completely independent.
+> 4. Fixes:7a6b8ab3231b511915cb94cac1debabf093.
+> 5. The soft locked logs are as follows:
+> [  262.165690] CPU: 93 PID: 758 Comm: kworker/93:1 Tainted: G           O=
+E
+> 5.13.0-27-generic #29~20.04.1-Ubuntu
+> [  262.165695] Hardware name: Supermicro AS -4124GS-TNR/H12DSG-O-CPU,
+> BIOS T20200717143848 07/17/2020 [  262.165698] Workqueue: events
+> amdgpu_ras_do_recovery [amdgpu] [  262.165980] RIP:
+> 0010:amdgpu_ras_get_ras_block+0x86/0xd0 [amdgpu] [  262.166239] Code: 68
+> d8 4c 8d 71 d8 48 39 c3 74 54 49 8b 45 38 48 85 c0 74 32 44 89 fa 44 89 e=
+6 4c 89
+> ef e8 82 e4 9b dc 85 c0 74 3c 49 8b 46 28 <49> 8d 56 28 4d 89 f5 48 83 e8=
+ 28 48
+> 39 d3 74 25 49 89 c6 49 8b 45 [  262.166243] RSP: 0018:ffffac908fa87d80
+> EFLAGS: 00000202 [  262.166247] RAX: ffffffffc1394248 RBX: ffff91e4ab8d6e=
+20
+> RCX: ffffffffc1394248 [  262.166249] RDX: ffff91e4aa356e20 RSI:
+> 000000000000000e RDI: ffff91e4ab8c0000 [  262.166252] RBP:
+> ffffac908fa87da8 R08: 0000000000000007 R09: 0000000000000001
+> [  262.166254] R10: ffff91e4930b64ec R11: 0000000000000000 R12:
+> 000000000000000e [  262.166256] R13: ffff91e4aa356df8 R14: ffffffffc13943=
+20
+> R15: 0000000000000003 [  262.166258] FS:  0000000000000000(0000)
+> GS:ffff92238fb40000(0000) knlGS:0000000000000000 [  262.166261] CS:  0010
+> DS: 0000 ES: 0000 CR0: 0000000080050033 [  262.166264] CR2:
+> 00000001004865d0 CR3: 000000406d796000 CR4: 0000000000350ee0
+> [  262.166267] Call Trace:
+> [  262.166272]  amdgpu_ras_do_recovery+0x130/0x290 [amdgpu]
+> [  262.166529]  ? psi_task_switch+0xd2/0x250 [  262.166537]  ?
+> __switch_to+0x11d/0x460 [  262.166542]  ? __switch_to_asm+0x36/0x70
+> [  262.166549]  process_one_work+0x220/0x3c0 [  262.166556]
+> worker_thread+0x4d/0x3f0 [  262.166560]  ? process_one_work+0x3c0/0x3c0
+> [  262.166563]  kthread+0x12b/0x150 [  262.166568]  ?
+> set_kthread_struct+0x40/0x40 [  262.166571]  ret_from_fork+0x22/0x30
+>=20
+> Signed-off-by: yipechai <YiPeng.Chai@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 37 ++++++++++++++++++++++--
+> -  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  3 --
+>  2 files changed, 33 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index 9d7c778c1a2d..b0aa67308c31 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -75,6 +75,13 @@ const char *ras_mca_block_string[] =3D {
+>  	"mca_iohc",
+>  };
+>=20
+> +struct amdgpu_ras_block_list {
+> +	/* ras block link */
+> +	struct list_head node;
+> +
+> +	struct amdgpu_ras_block_object *ras_obj; };
+> +
+>  const char *get_ras_block_str(struct ras_common_if *ras_block)  {
+>  	if (!ras_block)
+> @@ -880,7 +887,8 @@ static struct amdgpu_ras_block_object
+> *amdgpu_ras_get_ras_block(struct amdgpu_de
+>  					enum amdgpu_ras_block block,
+> uint32_t sub_block_index)  {
+>  	int loop_cnt =3D 0;
+> -	struct amdgpu_ras_block_object *obj, *tmp;
+> +	struct amdgpu_ras_block_list *node, *tmp;
+> +	struct amdgpu_ras_block_object *obj;
+>=20
+>  	if (block >=3D AMDGPU_RAS_BLOCK__LAST)
+>  		return NULL;
+> @@ -888,7 +896,13 @@ static struct amdgpu_ras_block_object
+> *amdgpu_ras_get_ras_block(struct amdgpu_de
+>  	if (!amdgpu_ras_is_supported(adev, block))
+>  		return NULL;
+>=20
+> -	list_for_each_entry_safe(obj, tmp, &adev->ras_list, node) {
+> +	list_for_each_entry_safe(node, tmp, &adev->ras_list, node) {
+> +		if (!node->ras_obj) {
+> +			DRM_ERROR("Warning: abnormal ras list node");
+[Tao]: dev_warn is recommended.
 
-Regards,
-Guchun
+> +			continue;
+> +		}
+> +
+> +		obj =3D node->ras_obj;
+>  		if (obj->ras_block_match) {
+>  			if (obj->ras_block_match(obj, block, sub_block_index)
+> =3D=3D 0)
+>  				return obj;
+> @@ -2527,6 +2541,7 @@ int amdgpu_ras_pre_fini(struct amdgpu_device *adev)
+>=20
+>  int amdgpu_ras_fini(struct amdgpu_device *adev)  {
+> +	struct amdgpu_ras_block_list *ras_node, *tmp;
+>  	struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
+>=20
+>  	if (!adev->ras_enabled || !con)
+> @@ -2545,6 +2560,12 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
+>  	amdgpu_ras_set_context(adev, NULL);
+>  	kfree(con);
+>=20
+> +	/* Clear ras blocks from ras_list and free ras block list node */
+> +	list_for_each_entry_safe(ras_node, tmp, &adev->ras_list, node) {
+> +		list_del(&ras_node->node);
+> +		kfree(ras_node);
+> +	}
+> +
+>  	return 0;
+>  }
+>=20
+> @@ -2754,14 +2775,22 @@ int amdgpu_ras_reset_gpu(struct amdgpu_device
+> *adev)  int amdgpu_ras_register_ras_block(struct amdgpu_device *adev,
+>  		struct amdgpu_ras_block_object *ras_block_obj)  {
+> +	struct amdgpu_ras_block_list *ras_node;
+>  	if (!adev || !ras_block_obj)
+>  		return -EINVAL;
+>=20
+>  	if (!amdgpu_ras_asic_supported(adev))
+>  		return 0;
+>=20
+> -	INIT_LIST_HEAD(&ras_block_obj->node);
+> -	list_add_tail(&ras_block_obj->node, &adev->ras_list);
+> +	ras_node =3D kzalloc(sizeof(*ras_node), GFP_KERNEL);
+> +	if (!ras_node) {
+> +		DRM_ERROR("Failed to allocate ras_node");
+[Tao] dev_err is better.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lijo Laz=
-ar
-Sent: Friday, January 28, 2022 2:40 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; kernel test robot <yuji=
-e.liu@intel.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix uninitialized variable use warning
+> +		return -EINVAL;
+[Tao]: how about return -ENOMEM here?
 
-Fix uninitialized variable use
-warning: variable 'reg_access_ctrl' is uninitialized when used here [-Wunin=
-itialized]
-     scratch_reg0 =3D (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->sc=
-ratch_reg0;
-
-Fixes: 51263163eb3f("drm/amdgpu: add helper for rlcg indirect reg
-access")
-
-Reported-by: kernel test robot <yujie.liu@intel.com>
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.c
-index 80c25176c993..c13765218919 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -875,6 +875,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device=
- *adev, u32 offset, u32 v
- 		return 0;
- 	}
-=20
-+	reg_access_ctrl =3D &adev->gfx.rlc.reg_access_ctrl;
- 	scratch_reg0 =3D (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scrat=
-ch_reg0;
- 	scratch_reg1 =3D (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scrat=
-ch_reg1;
- 	scratch_reg2 =3D (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scrat=
-ch_reg2;
---=20
-2.25.1
+> +	}
+> +
+> +	INIT_LIST_HEAD(&ras_node->node);
+> +	ras_node->ras_obj =3D ras_block_obj;
+> +	list_add_tail(&ras_node->node, &adev->ras_list);
+>=20
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> index a51a281bd91a..a55743b12d57 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> @@ -493,9 +493,6 @@ struct amdgpu_ras_block_object {
+>=20
+>  	uint32_t sub_block_index;
+>=20
+> -	/* ras block link */
+> -	struct list_head node;
+> -
+>  	int (*ras_block_match)(struct amdgpu_ras_block_object *block_obj,
+>  				enum amdgpu_ras_block block, uint32_t
+> sub_block_index);
+>  	int (*ras_late_init)(struct amdgpu_device *adev, void *ras_info);
+> --
+> 2.25.1
