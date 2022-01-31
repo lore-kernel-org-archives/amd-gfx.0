@@ -4,63 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9AE4C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 13:52:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C50FC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 15:11:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DCAB10E3ED;
-	Mon, 31 Jan 2022 13:52:58 +0000 (UTC)
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02E8B10E3ED
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:52:52 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id w25so26054800edt.7
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 05:52:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=JIcjjIb56VCn5nvU/IufBWmDcKji89DqoorZsouPZT4=;
- b=IP6+tQVUJTTHc+YUi2BpX2rfLdLJgbBky3/aZD79pCp7zlgJOYWyA9GtdzEEwstKhR
- tpfYTz5QSFfvx4bOhRaPM8DUXy3QyiE2nV9RfLdM5kT65FHLVN3MqG35ZYvgO8wOLNOc
- NljOK99s56ZciwAAAPkVbVVsamN0pTUW7w0jB0tYI8tEP6nZM5Ic6Hvcg8r1xa9SaCk7
- AweJjr1Dn1C9nW6dVo1oHZau4heHxUokBQ+PuRHl5bev2180wXZswlUv1mXU5uHW8noV
- md0ZtMRbb744wfOiXZWy9y54OtsfrSvOucJ6KYqwMw5Mub0pCLUw+TJSkWzb6GUymwpX
- PneQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=JIcjjIb56VCn5nvU/IufBWmDcKji89DqoorZsouPZT4=;
- b=lIJlMEt4hoXLBclPCi0wE3hZLwMDo2HN4pRIKIi2XbWZXQN4s1uQZN6gSgfqX4Luh6
- nJqrkfv7OVY0koCNAkJi96CZFAAeMXtAROAhHrqKxdd6eMWE7by/vsgtK0+IH7Dn24xT
- 1fifTDWLPqX3iwnjSGnDceB21+iLZEPABIDkm1CzwmC7pEjACHp9j+dukUGG7iAm6ooO
- seWTy0Az0CWAjNFhfDL6b89JnFVtrpp6sLVqKJARjrtD653VGGuHwYrf6rVLgFb8oBrz
- szKtcW2p0yyUQcg8qqdBicyjj4wGLhe4iLEbzQC4JN6vTRSrc0OTzBW0ZIlDWrMpniO7
- jsIQ==
-X-Gm-Message-State: AOAM5310DqwHBqEwsp5b5bns6aCoFvtXo88kUZuFAw5GkYCuUCJSYWJf
- aLSSRh71ZE9AODyxTv+6p50=
-X-Google-Smtp-Source: ABdhPJzSAmP9yN1U9QjzEa2ORSMlwBCPMJiElMvrGjzv01Dy1MrA3kNLVhiYXH7dwxkLSUsoh6BMJg==
-X-Received: by 2002:a05:6402:3511:: with SMTP id
- b17mr20965505edd.244.1643637171563; 
- Mon, 31 Jan 2022 05:52:51 -0800 (PST)
-Received: from baker.fritz.box (p57b0bff8.dip0.t-ipconnect.de.
- [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id co19sm17893557edb.7.2022.01.31.05.52.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Jan 2022 05:52:51 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: harish.kasiviswanathan@amd.com, benjaminadam.price@amd.com,
- felix.kuehling@amd.com
-Subject: [PATCH 4/4] drm/amdgpu: restructure amdgpu_fill_buffer v2
-Date: Mon, 31 Jan 2022 14:52:46 +0100
-Message-Id: <20220131135246.1521-4-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220131135246.1521-1-christian.koenig@amd.com>
-References: <20220131135246.1521-1-christian.koenig@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0A0010E2D5;
+	Mon, 31 Jan 2022 15:11:56 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2050.outbound.protection.outlook.com [40.107.96.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76CD710E2CB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 15:11:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fEXFSJ5+wk81IZf2qQOGSRc/TRPoSoibpDYIvkVrnvbpwFI5lWroz71GpFbCeyPxach67M8srkCmzXU5h5hjsc7VxyQAmnvJq/pfNdY662jNsG0qLIn9137U20jkhf7QjcZvmODfdwlm0uhJFXn0DOrf/HNE9zKz+d7XiLcIGYNRkAdL8cUz888Xvh3TOXdMAyY7/ifb10gQKzoGsMVfhFn2BmmJypy1cVeuXjC2PRM927eGAAEOGEkPWQ5d3CFQ93315p5T4jqbwGdnVJPz/+FifZEuwDMr24L8J0u+Fe41aMFx9I+RSNBvsC3PGGsuuEDHA9DkoSUhREGmmXw1CA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PwgDm8zNIfn3OY/CrbPS79DJrI1fsDEgfdFM3bIBBh0=;
+ b=PL+mdz8ueeEHnF0BDXVsqp8YhCBwnV8GIH3gV+FK+7n3ND6aeBZNtyOx9xkclwv77H14gf2KFIt1tObhbC6Q1MB0T/biJYropTQjBSNoYSkhT03bMXvUO4l6rrXKuDQoJ5QLVKTtXj1C1RTXaOXIOmnFr44ni8BxXBTR/4ektGCClCbPC0tKOoa4SwFRyCCWILnoua6XJtWtAFAi6OL1xKWfG5D+dmg/YHRmYykZOqvfbdyaWSoq/aw9EWYpFmwwdJBd6hY3Rnlu56C3pvBb0yDCktS1ReUXv0hDaDFuj/XC+FgzVaJfY7ARRidJbyU2BqGhyfY1IEr8kUjG1+fHsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PwgDm8zNIfn3OY/CrbPS79DJrI1fsDEgfdFM3bIBBh0=;
+ b=kUaDYyjuPb9iTrBan7jmP0WPJ3shkv5oC8LNEVSAYZSWHJfc1vY583C0pvuG2trbrN5XfWR1xq8FHATUQlQP6RkMgcWWbmgld7zXCJJHHzdz1RN5cm5LgpR+gc2r8NPg5BUde66H7y3kcK72PWAEWIKxPzyGwRrmrAR9JSvq2Ns=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by MWHPR12MB1309.namprd12.prod.outlook.com (2603:10b6:300:10::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.20; Mon, 31 Jan
+ 2022 15:11:50 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::971:531c:e4f4:8a9a%7]) with mapi id 15.20.4930.022; Mon, 31 Jan 2022
+ 15:11:50 +0000
+Message-ID: <a38eeeb8-0103-de62-405e-01a26fef75bd@amd.com>
+Date: Mon, 31 Jan 2022 10:11:48 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] drm/amdkfd: use unmap all queues for poison consumption
+Content-Language: en-US
+To: Tao Zhou <tao.zhou1@amd.com>, amd-gfx@lists.freedesktop.org,
+ hawking.zhang@amd.com, stanley.yang@amd.com, yipeng.chai@amd.com,
+ john.clements@amd.com, Jay.Cornwall@amd.com
+References: <20220130073832.17226-1-tao.zhou1@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220130073832.17226-1-tao.zhou1@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YTXPR0101CA0010.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::23) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f309ae34-09ad-4261-ae61-08d9e4cc018d
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1309:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1309AA29A3380F00B311B3EB92259@MWHPR12MB1309.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: z3xhMXlsjixA/wof5DchfByXJKrfNlpYmSxdqqhL7AH7Hlty+9VasUyAriENJHzccaFXLZKJwS41vsL+jI0OeZ30emLHwFZbGbs09GEDYaDiB9ZRxGUkpzQBQwLxCZUDj6Y1oq0we2fuPFqBIVp0iAObTj0NTHb+vyKr6/x/cxRV6CwDCTy3nYAxN9pQ0qd4P9ZKnM96zPa0tzf+I6earP2k4jWBnNrbOZkzY3lF7VBK40vjUm9HJbiWSiivXXJdVYVpJ+/cjgkbyeTg30oGytPhZ3M0a2Xs/GdNoS32l/koToRK6LhDS4lIyjtttDNmN+oaupRHkUetDVjmJ2x/yDujeFG9fv87soKd130rIlXcFjJIfXjrML07XMHlMnwWo2gBsIdiSXHQRxH1hBZFwSlFYdL5KqsYjoH5CBOQymQsXaiG2YU0Dw+TbFd4vHgbWUsiDnEZA7Jrl7uMeQNt5j0ooBRMgVcTs+djrO4zZQc2Ii/Tql6dpXIpamT1y253AlK1APQAxK+6A1c9nayT9yeyzFfRX1Ngv0Zk7ftTfniABoM8noVg/Edkkicd2IaCdlzh0kD3viie/UcxOlBz7w1w7VAm1gGSLNKBDPuhQshhw+GAnDhl+OpZVSR4wuPAltcFO4ctMAzcqG5vwkHuPAfwZBezXbGTVwcugyNTj4+enPmW8fOWFCI0ayde/mOtwPffdHvhYSZfuv6rfcMxx3VPpKOdELHEZCFEinj2GnY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(83380400001)(66946007)(8936002)(66476007)(31686004)(8676002)(36756003)(6512007)(316002)(508600001)(6506007)(38100700002)(6486002)(66556008)(6636002)(2616005)(2906002)(26005)(186003)(44832011)(31696002)(5660300002)(86362001)(43740500002)(45980500001)(20210929001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SHVMSUN6MVF1cXM4NzN2UktBL1BUUDBrdSt4NXJremJxdnBWb00xQytabzlC?=
+ =?utf-8?B?WW9pdGtlVW8wNHVlWEpqd0M3eURPeFBoZXpDRUFkRno2MlNLYkRPSDJXQ0E3?=
+ =?utf-8?B?TFFFanJHOTQyZUxJVE1sbDJYZ3IzSVpGNm4wUyt5dTZLVjVrdnZwZlBwendB?=
+ =?utf-8?B?RzA0QURuaGh2Mms3VVMzNXJkQ2Y2TEZsN1hhUVQ2bWVhdDZzdlowNXlWVGtV?=
+ =?utf-8?B?cC9XVzJyTU5Sam9NSnIzZDZqc0RTRHM2d1diNkxwZE05cjBsNHB2N0tNdXFP?=
+ =?utf-8?B?KzBSL3IzYW9BWFczSHhvSVN3bWVxOEdsY0R3c09GbEhYMU1acEd5ZUNvaUpi?=
+ =?utf-8?B?TWxHZnZ1cG5qWFpCWnRNS0NtK2tFZUhEZjhPUVpvc01TaTFGcVNpQXYwcWtF?=
+ =?utf-8?B?Q1lTaXEvY1Q2UUxtNkhmOWlGT2UyMmRScjE3d0Jod1hrajhEbmh6MlZxUXBn?=
+ =?utf-8?B?bk0rQWUxRWQrRWhkSmVpYjRBYUVBUVFPOFRLcmx3WlhIMFB0U1Z1aUVLYjZ2?=
+ =?utf-8?B?UXYxVGZrNmszWFNiYXJWbUF5UWZ6by8zZnBMeXE0NnYrOHBRT1BEM2Rodkth?=
+ =?utf-8?B?THVxMHRkWnQ5Qi9XVUd2OG5lM3F2eS9PcEtteU1pd1V0TGFyeGh1RDlCUy9z?=
+ =?utf-8?B?dmhtbURvTndtWDRJUHNET1pNQVMrRVZYWDgyMnNTUm4wK1BBV3d3bHJFTldt?=
+ =?utf-8?B?UC85cVlaMGFFZ2x3bHNzTzhlSGVOaDhiVC9aeVVKc3pWUDFuUkltZE8vRkM1?=
+ =?utf-8?B?c2M0TzRsekd1ODlsVW9OcTYxUXpzSTNIcFc2SnJnei93R3lwSlV5YWZNOGx4?=
+ =?utf-8?B?TnFZUlJUQ0wyemMvNUI0MFVHZytQMC9oY3E2VFRmcVRpQmhwblN1NnpvTjRO?=
+ =?utf-8?B?U1ZRbFgrYy9ZdS80Y1hEMGV0MHR6NWg1MmNibDk1V0pWTmNjT0dUd2lBYVJy?=
+ =?utf-8?B?UFJQdXdUNFR4YVpNTkQ4RkFOUFBjUzVaNC9rcHcyQ0NKL0ZmMGNtaS9Kd0tk?=
+ =?utf-8?B?SWE2ajE1d0thaWgwNE9SVkFvZDJkS0M5S1ZpdGtpczF4SzFQSFk1ODZ4Nmcr?=
+ =?utf-8?B?dHp4WlF2TFJTbDg0OUgrc2lYc0w2NEErMmVYek0zR3R6MWtBbGRSZG9vTlJt?=
+ =?utf-8?B?c1h1bDFMcUJhYkpPZnlGQTl6ZFdDaUxTVFBQUFNieUJFTUgrcE5lYjBURXhY?=
+ =?utf-8?B?R2FOWVNyYVRjMDRTNHprcW55Umx3WXd2eFI4Qld1SDdUdzZoaGJmRXljMkMr?=
+ =?utf-8?B?NEJIdVB5bkVZTGMwWmR5V2U3aU02QXdJbk1QbGYrV1h5KzBOUytDSWpKbWJu?=
+ =?utf-8?B?WURXWG1GQnR4K2Z6SE5KcTNWZUVjSzZPdEg5aDlXVE1TaC8yMUFtdkpDcWpj?=
+ =?utf-8?B?Nk5hMkUxZW9IOXJWaFJYZkpXZThGU1JGd1U1SmZxZ1hyaTVQM3N6ZDR5ZkJE?=
+ =?utf-8?B?TzdrVFl5OWFPQXdNZ1J4d1g0R29DSmY0Wit1eC9iMWxOdDNVUHk5TTVoaHF3?=
+ =?utf-8?B?cGdDZkl4aCtTdGovNW5ydCtlcFFjb0ZSZS9Pa2IrRVJPM3diZ1pEdWo1emo0?=
+ =?utf-8?B?Nk1VeGtUemd3R2pQcWhYOFRCTFU4NnRCdnZRY1JMU1FvSjJoRytkOG5raEp6?=
+ =?utf-8?B?VGdUQVFDempWdGlKQlhPOXorSWxUaVNsOGVmYm1IQnRoMUQxbk1tcVdZc2JN?=
+ =?utf-8?B?MWt0YVJWYXJmUklIMVZKQXk2ZVJVK2xmZzMveEdtdE5jdjlwekk5NDAyQUFL?=
+ =?utf-8?B?WTRreE1TRGdVR0U1M3NQbU5pRS93TVVYbjFxSmJQSCtDV250cFFxeDhXT0ha?=
+ =?utf-8?B?dDNZTEpBTzhNWHhsK0RTNUlkeS9iWnZBWG5WUE53bVpQTExSVStvUFBKMzRi?=
+ =?utf-8?B?ZmFzVFdWTldmTnR6bDVhYWd2V2I4dkp5R25CMEpoblRVMk5VS2V1UCtVelFQ?=
+ =?utf-8?B?VTFheE9zNHM4WmNjb3lDMWN3NXJOSTloYnZVSWgvM3BzbkxHNW1laWVoaGw4?=
+ =?utf-8?B?TU9RV2VjeHdTMkZhUUMva2NlUzV6TlVERDlRZVJBWUNabWk1cFM2L2VLNGhy?=
+ =?utf-8?B?MkM0TzNSVVlLNzBrQXFzYS9DcUY2SzlDVG16ZjdrczczSlIwQ28yK2VNeFJD?=
+ =?utf-8?B?TmNURHh0ZGlQMjhxei81RnZBcjZVSE9NakM1cVovNHBaN1Fwa2VYdzhSeGNB?=
+ =?utf-8?Q?WHyyI/nk6SIqDqK8zB5Ov/I=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f309ae34-09ad-4261-ae61-08d9e4cc018d
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2022 15:11:50.4377 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RUygX/4FHAz01AZB4eOTwNom+qc9ZVMDR86G9K1B0bbaR2d5cTlSCFQf/WTOsmn0zZux/E+El7Ai1BMDHLTc6w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1309
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,273 +127,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We ran into the problem that clearing really larger buffer (60GiB) caused an
-SDMA timeout.
 
-Restructure the function to use the dst window instead of mapping the whole
-buffer into the GART and then fill only 2MiB/256MiB chunks at a time.
+Am 2022-01-30 um 02:38 schrieb Tao Zhou:
+> Replace reset queue for specific PASID with unmap all queues, reset
+> queue could break CP scheduler.
+>
+> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 
-v2: rebase on restructured window map.
+The change looks reasonable, based on what kfd_process_vm_fault does. 
+But the function name is now a bit misleading. Maybe rename it to 
+something more general, e.g. kfd_process_mem_fault or kfd_dqm_evict_pasid.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 187 +++++++++++++-----------
- 1 file changed, 105 insertions(+), 82 deletions(-)
+Regards,
+   Felix
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 26c521cd1092..b9637d1cf147 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -396,8 +396,7 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
- 	    (abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE)) {
- 		struct dma_fence *wipe_fence = NULL;
- 
--		r = amdgpu_fill_buffer(ttm_to_amdgpu_bo(bo), AMDGPU_POISON,
--				       NULL, &wipe_fence);
-+		r = amdgpu_fill_buffer(abo, AMDGPU_POISON, NULL, &wipe_fence);
- 		if (r) {
- 			goto error;
- 		} else if (wipe_fence) {
-@@ -1923,19 +1922,51 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
- 	adev->mman.buffer_funcs_enabled = enable;
- }
- 
-+static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
-+				  bool direct_submit,
-+				  unsigned int num_dw,
-+				  struct dma_resv *resv,
-+				  bool vm_needs_flush,
-+				  struct amdgpu_job **job)
-+{
-+	enum amdgpu_ib_pool_type pool = direct_submit ?
-+		AMDGPU_IB_POOL_DIRECT :
-+		AMDGPU_IB_POOL_DELAYED;
-+	int r;
-+
-+	r = amdgpu_job_alloc_with_ib(adev, num_dw * 4, pool, job);
-+	if (r)
-+		return r;
-+
-+	if (vm_needs_flush) {
-+		(*job)->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gmc.pdb0_bo ?
-+							adev->gmc.pdb0_bo :
-+							adev->gart.bo);
-+		(*job)->vm_needs_flush = true;
-+	}
-+	if (resv) {
-+		r = amdgpu_sync_resv(adev, &(*job)->sync, resv,
-+				     AMDGPU_SYNC_ALWAYS,
-+				     AMDGPU_FENCE_OWNER_UNDEFINED);
-+		if (r) {
-+			DRM_ERROR("sync failed (%d).\n", r);
-+			amdgpu_job_free(*job);
-+			return r;
-+		}
-+	}
-+	return 0;
-+}
-+
- int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
- 		       uint64_t dst_offset, uint32_t byte_count,
- 		       struct dma_resv *resv,
- 		       struct dma_fence **fence, bool direct_submit,
- 		       bool vm_needs_flush, bool tmz)
- {
--	enum amdgpu_ib_pool_type pool = direct_submit ? AMDGPU_IB_POOL_DIRECT :
--		AMDGPU_IB_POOL_DELAYED;
- 	struct amdgpu_device *adev = ring->adev;
-+	unsigned num_loops, num_dw;
- 	struct amdgpu_job *job;
--
- 	uint32_t max_bytes;
--	unsigned num_loops, num_dw;
- 	unsigned i;
- 	int r;
- 
-@@ -1947,26 +1978,11 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
- 	max_bytes = adev->mman.buffer_funcs->copy_max_bytes;
- 	num_loops = DIV_ROUND_UP(byte_count, max_bytes);
- 	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->copy_num_dw, 8);
--
--	r = amdgpu_job_alloc_with_ib(adev, num_dw * 4, pool, &job);
-+	r = amdgpu_ttm_prepare_job(adev, direct_submit, num_dw,
-+				   resv, vm_needs_flush, &job);
- 	if (r)
- 		return r;
- 
--	if (vm_needs_flush) {
--		job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gmc.pdb0_bo ?
--					adev->gmc.pdb0_bo : adev->gart.bo);
--		job->vm_needs_flush = true;
--	}
--	if (resv) {
--		r = amdgpu_sync_resv(adev, &job->sync, resv,
--				     AMDGPU_SYNC_ALWAYS,
--				     AMDGPU_FENCE_OWNER_UNDEFINED);
--		if (r) {
--			DRM_ERROR("sync failed (%d).\n", r);
--			goto error_free;
--		}
--	}
--
- 	for (i = 0; i < num_loops; i++) {
- 		uint32_t cur_size_in_bytes = min(byte_count, max_bytes);
- 
-@@ -1996,77 +2012,35 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
- 	return r;
- }
- 
--int amdgpu_fill_buffer(struct amdgpu_bo *bo,
--		       uint32_t src_data,
--		       struct dma_resv *resv,
--		       struct dma_fence **fence)
-+static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
-+			       uint64_t dst_addr, uint32_t byte_count,
-+			       struct dma_resv *resv,
-+			       struct dma_fence **fence,
-+			       bool vm_needs_flush)
- {
--	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
--	uint32_t max_bytes = adev->mman.buffer_funcs->fill_max_bytes;
--	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
--
--	struct amdgpu_res_cursor cursor;
-+	struct amdgpu_device *adev = ring->adev;
- 	unsigned int num_loops, num_dw;
--	uint64_t num_bytes;
--
- 	struct amdgpu_job *job;
-+	uint32_t max_bytes;
-+	unsigned int i;
- 	int r;
- 
--	if (!adev->mman.buffer_funcs_enabled) {
--		DRM_ERROR("Trying to clear memory with ring turned off.\n");
--		return -EINVAL;
--	}
--
--	if (bo->tbo.resource->mem_type == AMDGPU_PL_PREEMPT) {
--		DRM_ERROR("Trying to clear preemptible memory.\n");
--		return -EINVAL;
--	}
--
--	if (bo->tbo.resource->mem_type == TTM_PL_TT) {
--		r = amdgpu_ttm_alloc_gart(&bo->tbo);
--		if (r)
--			return r;
--	}
--
--	num_bytes = bo->tbo.resource->num_pages << PAGE_SHIFT;
--	num_loops = 0;
--
--	amdgpu_res_first(bo->tbo.resource, 0, num_bytes, &cursor);
--	while (cursor.remaining) {
--		num_loops += DIV_ROUND_UP_ULL(cursor.size, max_bytes);
--		amdgpu_res_next(&cursor, cursor.size);
--	}
--	num_dw = num_loops * adev->mman.buffer_funcs->fill_num_dw;
--
--	/* for IB padding */
--	num_dw += 64;
--
--	r = amdgpu_job_alloc_with_ib(adev, num_dw * 4, AMDGPU_IB_POOL_DELAYED,
--				     &job);
-+	max_bytes = adev->mman.buffer_funcs->fill_max_bytes;
-+	num_loops = DIV_ROUND_UP_ULL(byte_count, max_bytes);
-+	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->fill_num_dw, 8);
-+	r = amdgpu_ttm_prepare_job(adev, false, num_dw, resv, vm_needs_flush,
-+				   &job);
- 	if (r)
- 		return r;
- 
--	if (resv) {
--		r = amdgpu_sync_resv(adev, &job->sync, resv,
--				     AMDGPU_SYNC_ALWAYS,
--				     AMDGPU_FENCE_OWNER_UNDEFINED);
--		if (r) {
--			DRM_ERROR("sync failed (%d).\n", r);
--			goto error_free;
--		}
--	}
--
--	amdgpu_res_first(bo->tbo.resource, 0, num_bytes, &cursor);
--	while (cursor.remaining) {
--		uint32_t cur_size = min_t(uint64_t, cursor.size, max_bytes);
--		uint64_t dst_addr = cursor.start;
-+	for (i = 0; i < num_loops; i++) {
-+		uint32_t cur_size = min(byte_count, max_bytes);
- 
--		dst_addr += amdgpu_ttm_domain_start(adev,
--						    bo->tbo.resource->mem_type);
- 		amdgpu_emit_fill_buffer(adev, &job->ibs[0], src_data, dst_addr,
- 					cur_size);
- 
--		amdgpu_res_next(&cursor, cur_size);
-+		dst_addr += cur_size;
-+		byte_count -= cur_size;
- 	}
- 
- 	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
-@@ -2083,6 +2057,55 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
- 	return r;
- }
- 
-+int amdgpu_fill_buffer(struct amdgpu_bo *bo,
-+			uint32_t src_data,
-+			struct dma_resv *resv,
-+			struct dma_fence **f)
-+{
-+	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
-+	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
-+	struct dma_fence *fence = NULL;
-+	struct amdgpu_res_cursor dst;
-+	int r;
-+
-+	if (!adev->mman.buffer_funcs_enabled) {
-+		DRM_ERROR("Trying to clear memory with ring turned off.\n");
-+		return -EINVAL;
-+	}
-+
-+	amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &dst);
-+
-+	mutex_lock(&adev->mman.gtt_window_lock);
-+	while (dst.remaining) {
-+		struct dma_fence *next;
-+		uint64_t cur_size, to;
-+
-+		/* Never fill more than 256MiB at once to avoid timeouts */
-+		cur_size = min(dst.size, 256ULL << 20);
-+
-+		r = amdgpu_ttm_map_buffer(&bo->tbo, bo->tbo.resource, &dst,
-+					  1, ring, false, &cur_size, &to);
-+		if (r)
-+			goto error;
-+
-+		r = amdgpu_ttm_fill_mem(ring, src_data, to, cur_size, resv,
-+					&next, true);
-+		if (r)
-+			goto error;
-+
-+		dma_fence_put(fence);
-+		fence = next;
-+
-+		amdgpu_res_next(&dst, cur_size);
-+	}
-+error:
-+	mutex_unlock(&adev->mman.gtt_window_lock);
-+	if (f)
-+		*f = dma_fence_get(fence);
-+	dma_fence_put(fence);
-+	return r;
-+}
-+
- /**
-  * amdgpu_ttm_evict_resources - evict memory buffers
-  * @adev: amdgpu device object
--- 
-2.25.1
 
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> index e8bc28009c22..dca0b5fac1db 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> @@ -109,8 +109,7 @@ static void event_interrupt_poison_consumption(struct kfd_dev *dev,
+>   
+>   	switch (source_id) {
+>   	case SOC15_INTSRC_SQ_INTERRUPT_MSG:
+> -		if (dev->dqm->ops.reset_queues)
+> -			ret = dev->dqm->ops.reset_queues(dev->dqm, pasid);
+> +		ret = kfd_process_vm_fault(dev->dqm, pasid);
+>   		break;
+>   	case SOC15_INTSRC_SDMA_ECC:
+>   	default:
