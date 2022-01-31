@@ -4,53 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFB12C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 20:15:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CACAC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 20:18:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CDC510E1B2;
-	Mon, 31 Jan 2022 20:15:49 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36AD910E1B2;
- Mon, 31 Jan 2022 20:15:48 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id m10so3938770oie.2;
- Mon, 31 Jan 2022 12:15:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1F2E10E437;
+	Mon, 31 Jan 2022 20:18:08 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED3A10E437
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 20:18:08 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id q8so14481269oiw.7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 12:18:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TxO4HL3vAUhTJBcsBoRP4TU58IoGPRrYl5E2aI+f7nc=;
- b=bJUvEOlOmzuahvjm4AL/eskyk6nm7kknB7gdgCoRtytffbzI7Y8Umw8GfH8gWjXxv0
- +BraKxwV8fIuPoZdC6KxyIFMs34RKEUsc49ejqN1OZktRqS86vNNW+J2cDRowmICfANz
- 7XOsjc3UEpD2oAb/wKcAYVP3uYxBEb1CVH6POqUvwP9jDgNagLJ1LXHzngSvHuH/CKuZ
- eWs2opiuALnQwFACnDkhZHiQMtkFbL/vWb/9pfp3BvyKvVTLr3omLhmjJ4rNj4i0kokh
- loYtA7IRRYI1wX7m6I0RV+ukTZmXBnn6xaQvEctBRYIj3Ur+hSV7fyo2uYdX4AgWZh2G
- hUnA==
+ :cc; bh=u+6Hlw5bi1mRKnGmEwqEzr0N+3dJ3SBtS+eV/8eoOzY=;
+ b=ePD2H90c1U2FfI6edAE4mJ7tIzRLoeAVgOYLn0Cf8okDIFvKYoylzirAc3R9maIznD
+ O/Je25AqBL6ZOLaZSLRjeN1HHaI8bk2M/jOcoMl2M1GCzhb6bmNgr4dMNrSirQCrMZnn
+ CuufUOFMzg0MF2D57oEhO0yF9xLMeXoLsCaY6FeH9zUJFYtanv86rHaE0MjgJcN/SSqO
+ A5ftWLUzUmyzk0/xbhFyeMbmYLCgrueFQ3DYB4caUCVtMahVHeFMGL9bv4lGjsUjQYc0
+ 0cCDaNVPdVA/F76hB/l1Xv0V9rZJzZzjNUB1vxT2on46W0d/Rxft9O+rrCWTWv2VzzfR
+ 3XzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=TxO4HL3vAUhTJBcsBoRP4TU58IoGPRrYl5E2aI+f7nc=;
- b=rBGSR3hYu0ow9+HuQn7RCuxv7ewGGvnk9Vcd4UNZ/GZL4poAUEq1dLv8D+CocSJKTL
- dvaHds1YyoWciGJG4ZgZcTOV4TXA+3GUAlK9QvEkgRxaDu1lHcReuaezFW1BvCMCJOQ5
- tpQOAYPF1bmlFmQZiG5pcWaZLeyK1d1YB8OLmYwXyeFiwPwj0B3Utv+pD5ZmYjLxz/7W
- u077LpAbcSNaN1xmqWzYzRWSccOM1jsbWtfb02mt7T3PIoQ6F6IzaUiA+7CWBCQf3ZIO
- 2axYZWUar/q+zUJn1MnjkgPVnZqvD4sfLnllr4ef/aCrxjwhmfChTDPvALeKpYrm7c5O
- WdzA==
-X-Gm-Message-State: AOAM531WrvXq8rNEeoPxqYM6McPCpkLoupcSX0QYDHDvxiiwasO434dh
- zV81k1GYiIORx4asQRak98cozdVfBHRYq3ug34s=
-X-Google-Smtp-Source: ABdhPJx02+YhKKrAKsIA1dCwlj38aSZeZERiRuIhZ3Bzmu2lMWl16k7vYqt1gJcAhp3LjC9+q6lVD3Zm3Sd2V5KTaRk=
-X-Received: by 2002:a05:6808:2011:: with SMTP id
- q17mr19415786oiw.199.1643660147527; 
- Mon, 31 Jan 2022 12:15:47 -0800 (PST)
+ bh=u+6Hlw5bi1mRKnGmEwqEzr0N+3dJ3SBtS+eV/8eoOzY=;
+ b=akq7aTob4971guBHERcgbV9FR5sIBjBf/E/vkOcrbJJyuP8SkCPMM+4Fl/zYtOGcz2
+ kuqCDnV/xNfh891euixODORPAGrOIoBgeujmVnngBLnSCeMhUEEmLteWSbNNuMr+D2qp
+ FORPQJkhJTwbjZHvYXoerhQfxOm/414AswkZKrcmwVTkGfJL/FCOb30yY0p6n7+xBOmP
+ UzoBnceTfYjS3O39MzR4wlHiAXGYOW88T4CYVuZd2rMamECLKNl3e0XHyHHJsfLG9wuf
+ /DuufBFjPFdshFBfcBzMLwzaJwdgNPDPrAMjM2UA1tqNDt3iTHe8xnsEyKB+cMnadhyz
+ oUlQ==
+X-Gm-Message-State: AOAM5314AAHXNCckf/atQ3nU6tzPhECuiIuII9IGcinKfkCkF66AQ20m
+ YtIka4+OVbEAdMHI5CbXawZiRwlA5lyKRR0IkkjJtdLC
+X-Google-Smtp-Source: ABdhPJzvGcXiMK6fhyQRD4f8b79aSskovJO2s2WLmPVT+ibyd29b/52aG8mRWZnXNHt/np854hlGLi/yrAnhmpox/tE=
+X-Received: by 2002:a05:6808:2189:: with SMTP id
+ be9mr19136202oib.93.1643660287560; 
+ Mon, 31 Jan 2022 12:18:07 -0800 (PST)
 MIME-Version: 1.0
-References: <20220129010413.97801-1-yang.lee@linux.alibaba.com>
- <75ab0f37-a55e-8e81-8cbf-c0de3002c3e4@amd.com>
-In-Reply-To: <75ab0f37-a55e-8e81-8cbf-c0de3002c3e4@amd.com>
+References: <139A7689-463E-4AD9-A2D1-A9969C3958D0@live.com>
+ <CADnq5_OLpgEJjpN5y9b3gNwCmvdfNTA=puUv8UjOCDH96JgvOQ@mail.gmail.com>
+ <58B7B0D4-BA3B-43EA-9F54-06CCEB7EF833@live.com>
+ <0932bbf6-409e-0d3e-2824-b33914033f81@amd.com>
+ <5CC8BCC9-176A-4478-B03B-3E4B4D7D88E6@live.com>
+In-Reply-To: <5CC8BCC9-176A-4478-B03B-3E4B4D7D88E6@live.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 31 Jan 2022 15:15:36 -0500
-Message-ID: <CADnq5_OhatwsjXzhtb0F0mu0K7BQHCSvH=9nnwkk94njmtda2w@mail.gmail.com>
-Subject: Re: [PATCH -next] drm/amd/display: clean up some inconsistent
- indenting
-To: Harry Wentland <harry.wentland@amd.com>
+Date: Mon, 31 Jan 2022 15:17:56 -0500
+Message-ID: <CADnq5_NsTJm5YazeM8O7C2hUS_7vCVw_CX2ZwYV0w5=iBUMeCA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: Force link_rate as LINK_RATE_RBR2 for
+ 2018 15" Apple Retina panels
+To: Aditya Garg <gargaditya08@live.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,16 +66,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, Abaci Robot <abaci@linux.alibaba.com>,
- xinhui pan <Xinhui.Pan@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
- Yang Li <yang.lee@linux.alibaba.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: Aun-Ali Zaidi <admin@kodeit.net>, "roman.li@amd.com" <roman.li@amd.com>,
+ Orlando Chamberlain <redecorating@protonmail.com>,
+ "evan.quan@amd.com" <evan.quan@amd.com>,
+ "Bhawanpreet.Lakha@amd.com" <Bhawanpreet.Lakha@amd.com>,
+ "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Aurabindo.Pillai@amd.com" <Aurabindo.Pillai@amd.com>,
+ "George.Shen@amd.com" <George.Shen@amd.com>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "stylon.wang@amd.com" <stylon.wang@amd.com>,
+ "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
+ "mikita.lipski@amd.com" <mikita.lipski@amd.com>,
+ Harry Wentland <hwentlan@amd.com>,
+ "agustin.gutierrez@amd.com" <agustin.gutierrez@amd.com>,
+ "pavle.kotarac@amd.com" <pavle.kotarac@amd.com>,
+ "wesley.chalmers@amd.com" <wesley.chalmers@amd.com>,
+ "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>,
+ "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "solomon.chiu@amd.com" <solomon.chiu@amd.com>,
+ "wayne.lin@amd.com" <wayne.lin@amd.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "qingqing.zhuo@amd.com" <qingqing.zhuo@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -80,43 +97,66 @@ Applied.  Thanks!
 
 Alex
 
-On Mon, Jan 31, 2022 at 10:17 AM Harry Wentland <harry.wentland@amd.com> wrote:
+On Sat, Jan 29, 2022 at 12:50 AM Aditya Garg <gargaditya08@live.com> wrote:
 >
-> On 2022-01-28 20:04, Yang Li wrote:
-> > Eliminate the follow smatch warning:
-> > drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c:2246
-> > dp_perform_8b_10b_link_training() warn: inconsistent indenting
-> >
-> > Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> > Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+> From: Aun-Ali Zaidi <admin@kodeit.net>
 >
+> The eDP link rate reported by the DP_MAX_LINK_RATE dpcd register (0xa) is
+> contradictory to the highest rate supported reported by
+> EDID (0xc = LINK_RATE_RBR2). The effects of this compounded with commit
+> '4a8ca46bae8a ("drm/amd/display: Default max bpc to 16 for eDP")' results
+> in no display modes being found and a dark panel.
+>
+> For now, simply force the maximum supported link rate for the eDP attached
+> 2018 15" Apple Retina panels.
+>
+> Additionally, we must also check the firmware revision since the device ID
+> reported by the DPCD is identical to that of the more capable 16,1,
+> incorrectly quirking it. We also use said firmware check to quirk the
+> refreshed 15,1 models with Vega graphics as they use a slightly newer
+> firmware version.
+>
+> Tested-by: Aun-Ali Zaidi <admin@kodeit.net>
 > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> Signed-off-by: Aun-Ali Zaidi <admin@kodeit.net>
+> Signed-off-by: Aditya Garg <gargaditya08@live.com>
+> ---
+> v2 :- Use C styled comments
+>  .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 20 +++++++++++++++++++
+>  1 file changed, 20 insertions(+)
 >
-> Harry
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> index 05e216524..086f7ee2c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> @@ -5597,6 +5597,26 @@ static bool retrieve_link_cap(struct dc_link *link)
+>                 dp_hw_fw_revision.ieee_fw_rev,
+>                 sizeof(dp_hw_fw_revision.ieee_fw_rev));
 >
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 10 +++++-----
-> >  1 file changed, 5 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> > index daaec3164875..34ffcd5bb1d7 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> > @@ -2243,11 +2243,11 @@ static enum link_training_result dp_perform_8b_10b_link_training(
-> >
-> >       if (status == LINK_TRAINING_SUCCESS) {
-> >               status = perform_clock_recovery_sequence(link, link_res, lt_settings, DPRX);
-> > -     if (status == LINK_TRAINING_SUCCESS) {
-> > -             status = perform_channel_equalization_sequence(link,
-> > -                                     link_res,
-> > -                                     lt_settings,
-> > -                                     DPRX);
-> > +             if (status == LINK_TRAINING_SUCCESS) {
-> > +                     status = perform_channel_equalization_sequence(link,
-> > +                                                                    link_res,
-> > +                                                                    lt_settings,
-> > +                                                                    DPRX);
-> >               }
-> >       }
-> >
+> +       /* Quirk for Apple MBP 2018 15" Retina panels: wrong DP_MAX_LINK_RATE */
+> +       {
+> +               uint8_t str_mbp_2018[] = { 101, 68, 21, 103, 98, 97 };
+> +               uint8_t fwrev_mbp_2018[] = { 7, 4 };
+> +               uint8_t fwrev_mbp_2018_vega[] = { 8, 4 };
+> +
+> +               /* We also check for the firmware revision as 16,1 models have an
+> +                * identical device id and are incorrectly quirked otherwise.
+> +                */
+> +               if ((link->dpcd_caps.sink_dev_id == 0x0010fa) &&
+> +                   !memcmp(link->dpcd_caps.sink_dev_id_str, str_mbp_2018,
+> +                            sizeof(str_mbp_2018)) &&
+> +                   (!memcmp(link->dpcd_caps.sink_fw_revision, fwrev_mbp_2018,
+> +                            sizeof(fwrev_mbp_2018)) ||
+> +                   !memcmp(link->dpcd_caps.sink_fw_revision, fwrev_mbp_2018_vega,
+> +                            sizeof(fwrev_mbp_2018_vega)))) {
+> +                       link->reported_link_cap.link_rate = LINK_RATE_RBR2;
+> +               }
+> +       }
+> +
+>         memset(&link->dpcd_caps.dsc_caps, '\0',
+>                         sizeof(link->dpcd_caps.dsc_caps));
+>         memset(&link->dpcd_caps.fec_cap, '\0', sizeof(link->dpcd_caps.fec_cap));
+> --
+> 2.25.1
+>
 >
