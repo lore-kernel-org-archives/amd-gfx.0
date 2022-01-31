@@ -4,77 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91571C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 08:43:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02E2FC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jan 2022 13:39:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D55F2112D62;
-	Mon, 31 Jan 2022 08:43:23 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F4F010E575
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Jan 2022 14:54:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1643468042;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=ug7sd4MyyeKE9edVrNKTjnr3ZIjzipUabJp6vX5YHNg=;
- b=IGysB2KkATyff85mIK5A+JMpNrrQyv94v3GY/ODyGwPvLYAwYNaul3S2sJ4P1uk9UJPC9m
- uSwRSxnNUWttF8oUvEK1hoQyu95DTmACk8SZ2IR3ukOmX/SOI5P7j9Omcfk2XcQFu3h8To
- le89jZRdtXUFfn9LkKf8WME0GTXOEZo=
-Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
- [209.85.166.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-663-0wnp3ELNNjWCS_xDuMAFnA-1; Sat, 29 Jan 2022 09:54:01 -0500
-X-MC-Unique: 0wnp3ELNNjWCS_xDuMAFnA-1
-Received: by mail-io1-f69.google.com with SMTP id
- m185-20020a6bbcc2000000b00605898d6b61so6500946iof.17
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Jan 2022 06:54:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5118410E314;
+	Mon, 31 Jan 2022 13:39:08 +0000 (UTC)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DECB10E314
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 13:39:07 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id k25so42906439ejp.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jan 2022 05:39:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=oTzTzATg2mErR6l1cKB4pE5F5gHmoMv2smtijpvPfEo=;
+ b=iPBcmJA+sM20axYJPJp4zunHiy9IhwtDZcWUtx9PjqvL+BR5PtmjBfNQtEPKD/7eSe
+ 6cUO/wemZ7xg03wf+Yk1VXdMn3idHdr+wiLmRP3m7YPOs6x7YOxUHbhyi8R5EdiEdCxJ
+ 5ypnCPGMs2pFp5sitpb03+voSpW54mj+mVJOts80eGKpfvpoPyxjP8/HUsPJYJ949zaa
+ WsbjK6RFXi0pNYyJvMNNSgqnMJtceeNTflMdqnLfWUZpwbTqJnfotrSsP9aDMpmoq8Jf
+ Obn+a/gdebVHNBmELoBKVfW3Rt4jJuQ2GIMAayD1M1EQmpOThhK/df+3O21eEhqwfQ4q
+ cnDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
  :content-transfer-encoding;
- bh=ug7sd4MyyeKE9edVrNKTjnr3ZIjzipUabJp6vX5YHNg=;
- b=TNWLtP5/fpTMz2MCEDXc9eyl++Cb2ePUpfTy/TqsIXFuqdfBlvNQmxXWY39vTtUgwv
- aGR5pupbKLzR3FNR7jFf/bPPonoBY5cL6zGm08+VJNdlASDzatDjNtX74VltgAFKH2Lz
- 5HI9hqgJmX25L0PDYP3chFMY5Pgatyqps/C3h3dbY4/9JB0lYZ2wfX9FBjQIP/lssMqp
- KJd2nZTrnhcJT5QcQq2MFMeefCmTt6PF4EEVcmPOFyF4aLWJsZ/rMIUHbXzlaZ22MbF1
- VaIbhVF0m7a0gBASxNaTIqkK6oFayi8AVZ0bXgajeGzR7ZCVWHtiQV/J4wUZAXwphNsM
- tiSw==
-X-Gm-Message-State: AOAM530b5EYzwrTGw7eqhfXAwlo4n49fuz+W7LyQ+K2kJe1svSLcLw/y
- 5czaATSDFv7CXcXnUL+i0MWN9p073V+p3mpLPHWvpuLAelgSxF9PcqR7EnEarml4rv0wDQxMk5l
- FA0T1hDoekpyp+BXQ+93NU3Zugg==
-X-Received: by 2002:a05:6638:33a1:: with SMTP id
- h33mr6293236jav.78.1643468040559; 
- Sat, 29 Jan 2022 06:54:00 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwwgXCva834kyAbS4ly/S/GHDc8v1pjp6kH32zHTbUhflIF5l0lCvtPA+s2R8yYYEuRITEFGA==
-X-Received: by 2002:a05:6638:33a1:: with SMTP id
- h33mr6293223jav.78.1643468040391; 
- Sat, 29 Jan 2022 06:54:00 -0800 (PST)
-Received: from localhost.localdomain.com (024-205-208-113.res.spectrum.com.
- [24.205.208.113])
- by smtp.gmail.com with ESMTPSA id p7sm14191616ilo.71.2022.01.29.06.53.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 29 Jan 2022 06:53:59 -0800 (PST)
-From: trix@redhat.com
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, nathan@kernel.org,
- ndesaulniers@google.com, PengJu.Zhou@amd.com, candice.li@amd.com,
- Hawking.Zhang@amd.com, john.clements@amd.com, Jingwen.Chen2@amd.com,
- bokun.zhang@amd.com, victor.skvortsov@amd.com, bernard@vivo.com,
- lijo.lazar@amd.com
-Subject: [PATCH] drm/amdgpu: initialize reg_access_ctrl
-Date: Sat, 29 Jan 2022 06:53:47 -0800
-Message-Id: <20220129145347.1417849-1-trix@redhat.com>
-X-Mailer: git-send-email 2.26.3
+ bh=oTzTzATg2mErR6l1cKB4pE5F5gHmoMv2smtijpvPfEo=;
+ b=PCs3Q1971b8TBFnxN7qeTvOeTokq1DEJAH+q+QKVjsb/wzxXGHCKBqXesT4HJGjiZ9
+ SmErc+z3JQGWwjpbAWoa4R1IHOF5QgFh0wzVNOniGqZYdVJEcGnpLk6Mi6pgB8EsVkmt
+ vGtrLjAqiOBt3/49BQ7AZX6kIdzsQUMOyeL4GOP/RyHfXONBiW6zJ7KgANkacfug8BVY
+ 7HCksCH78sXe6WclzOILPD6/fIht/zdmdTGvYsoaLWLeW9B86BtjG67ZJ8J3UQ3tNPL7
+ WLj/qYUZrJRDb+joix17v7B6FWP0fnKCfis9977VQ3u/4oN261v5p4JWzbVXUUuPIbbO
+ ifMQ==
+X-Gm-Message-State: AOAM531SzayFQUuU8GY2BEbeHCNVCuAeHzX3lhoxR1FUqg9IAm3c7ELp
+ tEfnyBWWGbE5h4ebP6gsNBxNcgcw8vY=
+X-Google-Smtp-Source: ABdhPJxgl8sT1TyP6ZiJOeYEhNRnXpFVfchQbwkT18+cea1euLVFWehmGwZPhOlGQScXIaDMWk7DdA==
+X-Received: by 2002:a17:906:910:: with SMTP id
+ i16mr16418295ejd.677.1643636345988; 
+ Mon, 31 Jan 2022 05:39:05 -0800 (PST)
+Received: from ?IPV6:2a02:908:1252:fb60:a1a5:68e2:5791:313f?
+ ([2a02:908:1252:fb60:a1a5:68e2:5791:313f])
+ by smtp.gmail.com with ESMTPSA id d16sm13313870ejy.135.2022.01.31.05.39.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Jan 2022 05:39:05 -0800 (PST)
+Message-ID: <279aa99d-2146-1362-ac66-0781fafc67e7@gmail.com>
+Date: Mon, 31 Jan 2022 14:39:03 +0100
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH 2/2] drm/amdgpu: restructure amdgpu_fill_buffer
+Content-Language: en-US
+To: Felix Kuehling <felix.kuehling@amd.com>, harish.kasiviswanathan@amd.com,
+ benjaminadam.price@amd.com, amd-gfx@lists.freedesktop.org
+References: <20220128151637.1403-1-christian.koenig@amd.com>
+ <20220128151637.1403-2-christian.koenig@amd.com>
+ <a08812d4-a464-de08-8b5a-3c13408efff5@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <a08812d4-a464-de08-8b5a-3c13408efff5@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
-X-Mailman-Approved-At: Mon, 31 Jan 2022 08:43:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,41 +75,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tom Rix <trix@redhat.com>
 
-clang build fails with
-amdgpu_virt.c:878:51: error: variable 'reg_access_ctrl' is
-  uninitialized when used here
-  ... + 4 * reg_access_ctrl->scratch_reg0;
-            ^~~~~~~~~~~~~~~
 
-The reg_access_ctrl ptr is never initialized, so
-initialize once we know it is supported.
+Am 28.01.22 um 16:55 schrieb Felix Kuehling:
+>
+> Am 2022-01-28 um 10:16 schrieb Christian König:
+>> [SNIP]
+>> -    if (bo->tbo.resource->mem_type == AMDGPU_PL_PREEMPT) {
+>
+> As far as I can see, you didn't add this check back elsewhere. The 
+> promise for preemptible BOs is, that we never have to wait for the GPU 
+> to finish accessing the BOs because the context using it is 
+> preemptible. This was a necessary condition to disable GTT usage 
+> accounting for such BOs. If you allow filling such BOs with this 
+> function, you're breaking that promise.
 
-Fixes: 5d447e296701 ("drm/amdgpu: add helper for rlcg indirect reg access")
-Signed-off-by: Tom Rix <trix@redhat.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 1 +
- 1 file changed, 1 insertion(+)
+That's now part of amdgpu_ttm_map_buffer(), but unfortunately as 
+BUG_ON(). I've added a patch to change that into a warning.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 80c25176c9932..c137652189190 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -875,6 +875,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v
- 		return 0;
- 	}
- 
-+	reg_access_ctrl = &adev->gfx.rlc.reg_access_ctrl;
- 	scratch_reg0 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg0;
- 	scratch_reg1 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg1;
- 	scratch_reg2 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg2;
--- 
-2.26.3
+[SNIP]
+>> +        cur_size = min_t(u64, dst.size, AMDGPU_GTT_MAX_TRANSFER_BYTES);
+>
+> For VRAM, the cur_size could be much bigger because we're not limited 
+> by the GART transfer window. I'm pretty sure that 2MB is going to add 
+> too much overhead. For the extreme 60GB BO example, it would require 
+> 30-thousand IBs and IB frames to fill the entire buffer. That's a lot 
+> of VMID-switching, IB execution, fence signalling, interrupts, etc.
+
+I've restructured the mapping function so that we can now copy/fill in 
+256MiB chunks when no GART window is involved.
+
+>
+>
+>> +
+>> +        r = amdgpu_ttm_map_buffer(&bo->tbo, bo->tbo.resource, &dst,
+>> +                      PFN_UP(cur_size), 1, ring, false,
+>> +                      &to);
+>> +        if (r)
+>> +            goto error;
+>> +
+>> +        r = amdgpu_ttm_fill_mem(ring, src_data, to, cur_size, resv,
+>> +                    &next, false);
+>
+> If amdgpu_ttm_map_buffer updated the page tables, shouldn't the 
+> vm_needs_flush parameter be true? This flag should probably be 
+> returned by amdgpu_ttm_map_buffer.
+
+Ah, yes. That's indeed a typo. For now I've didn't added the 
+vm_needs_flush parameter, but that's something we could optimize.
+
+Regards,
+Christian.
+
+>
+> Regards,
+>   Felix
+>
+>
+>> +        if (r)
+>> +            goto error;
+>> +
+>> +        dma_fence_put(fence);
+>> +        fence = next;
+>> +
+>> +        amdgpu_res_next(&dst, cur_size);
+>> +    }
+>> +error:
+>> +    mutex_unlock(&adev->mman.gtt_window_lock);
+>> +    if (f)
+>> +        *f = dma_fence_get(fence);
+>> +    dma_fence_put(fence);
+>> +    return r;
+>> +}
+>> +
+>>   /**
+>>    * amdgpu_ttm_evict_resources - evict memory buffers
+>>    * @adev: amdgpu device object
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> index d9691f262f16..bcd34592e45d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> @@ -35,6 +35,8 @@
+>>     #define AMDGPU_GTT_MAX_TRANSFER_SIZE    512
+>>   #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS    2
+>> +#define AMDGPU_GTT_MAX_TRANSFER_BYTES (AMDGPU_GTT_MAX_TRANSFER_SIZE * \
+>> +                     AMDGPU_GPU_PAGE_SIZE)
+>>     #define AMDGPU_POISON    0xd0bed0be
 
