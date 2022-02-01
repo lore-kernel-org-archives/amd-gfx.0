@@ -4,105 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE4CBC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 09:21:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE317C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 09:21:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C2B410EA15;
-	Tue,  1 Feb 2022 09:21:08 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2077.outbound.protection.outlook.com [40.107.236.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4BA10EC94;
- Tue,  1 Feb 2022 07:06:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QJBnV8NXSyQ1MNLXhKAy6u8Wx44H8iybl+tjml1WNaYYNk/5pNiWLKCoL5U/GvIraOkFOcF6blZiNqqpQ9BWY0n3SXtYm79UaJLgYsdslQGi0rHa7mRUrIyN+/9Knu1godJ6nnAhz1ndMtxkISNjSGt3COT1ce1wEvYHy/j+0/vPaoOvxACvu31anDdP5QKSfYFwz2E46VaKZL9RmiMe6ZUoiPz4YqqlI14urYgdxwX6ulkP9rlFkl1ZZ1Rc5crOf7CQ1myFIabYu5m+SdX+lvJbwJ7dSIvIA3pDHzLtafKs+Nl/jQZTQBAMe/On9hUzgOJcW0HLTkUFyckc8FvoLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PQ6LFUw58IhtHcaNI9ZjfoZam2GnuJDjPgplnJRKc/Q=;
- b=HbFBHkLkbvP3uRNECwJyBALjfI/UmSLGXUOZ07446n6Rt6iy1IR4GzC/xkTqgurAMWWyyshvK9AnN/sGgwpSqHBtzOfjF85o2AJXteOrnhX2LAlvR45pdigIShR84rHcEfqrcPCohoLfkO11qyTZJcgODn/eJPfiRyt9iQag7RJ1OAjc1WyFTOuduupk0LlTXKtkyOAg3F87ms/jn4e+gb9CbZWr5hQnpQ6cksnD2dIkyjiTVAG5UtOMcTEG/QIfG7vJ3JHsJm62m9L5EW/dn6V1zN4i65e3FDHafYWeVR3ehx+5Keed/82zs5s9qQa1m5b+inq0rxJgYZgA+KSklg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PQ6LFUw58IhtHcaNI9ZjfoZam2GnuJDjPgplnJRKc/Q=;
- b=cmGQ7K5hu7bBBamvK3PlJ4u8sZLtzmWBY7uNB6uL2+hyelaWRt99uwZELD3bvmfMMYZEjlpWl/5H6FO1J8niE/LOKv/qMzjBTEUIsCd8TEOyCFNCjVX3KOWtBurUazExJJw2du+jsIZ6KlRECXA8cE/8AsGAK2KMNUmt316qglOQu2LqKteJ+G22Px8rF++hvYe3A42Vapx68GYZy0u7ZUwfuqzwH637hJ7fvH0MwZImC7hU7fiY/7E4dGT+GpDq5gjINy2Zg5N43e67iGmMDKexyxLT4bXcJWMs7wx5tqPcgaGkKZkgcH+2riGL2mT99H4aNlqRjZy5D4GYihOBbA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BYAPR12MB3176.namprd12.prod.outlook.com (2603:10b6:a03:134::26)
- by CH2PR12MB3991.namprd12.prod.outlook.com (2603:10b6:610:2f::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Tue, 1 Feb
- 2022 07:06:44 +0000
-Received: from BYAPR12MB3176.namprd12.prod.outlook.com
- ([fe80::48bc:2cb6:45e3:41fd]) by BYAPR12MB3176.namprd12.prod.outlook.com
- ([fe80::48bc:2cb6:45e3:41fd%4]) with mapi id 15.20.4930.022; Tue, 1 Feb 2022
- 07:06:44 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: akpm@linux-foundation.org,
-	linux-mm@kvack.org
-Subject: [PATCH 0/3] Migrate device coherent pages on get_user_pages()
-Date: Tue,  1 Feb 2022 18:05:54 +1100
-Message-Id: <cover.516a938ce97eb805791da6e2df508eb0dce413b8.1643698773.git-series.apopple@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BYAPR02CA0065.namprd02.prod.outlook.com
- (2603:10b6:a03:54::42) To BYAPR12MB3176.namprd12.prod.outlook.com
- (2603:10b6:a03:134::26)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0695410EABE;
+	Tue,  1 Feb 2022 09:21:09 +0000 (UTC)
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DAE810E798;
+ Tue,  1 Feb 2022 07:40:28 +0000 (UTC)
+Received: by mail-pl1-x636.google.com with SMTP id d18so14732485plg.2;
+ Mon, 31 Jan 2022 23:40:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:subject:to:cc:message-id:date:user-agent:mime-version
+ :content-transfer-encoding:content-language;
+ bh=SGj9JOZOXXgNtUDRvOLvflNgqKK7vcnNbFrla5kWCKY=;
+ b=HIlMLw6Bavjhij3LFseBLkQcqZ3YtaepttclOGF5d4rpm/iy3NiHIqZRvP/ZM9Xns1
+ gjJmmp3nwlO5oS9+klLmAy3SxtRMjANEhwrGORm6tYLKVqJx1Fz9M+6a3Dqm8swFZ8Nw
+ WQiSbqhvJNXa0dio3ZYUF4Ke09jAII/JFLLuOZ9XGjpuNAgnUpaV49XluTt++n7/Yu7Z
+ EXsZKtEOUa8wItpMU9NLOZBGJk/dF0uCmK67txg9A58OF7rTRbYlhBphNO2pwjwb4ovH
+ CIQVWAg9eLBopT3Rn51YpZ732Jn9LgpBRi+2HQXF3WxGwHracYFOM7BJx+jTrW+zK+mb
+ tGRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:subject:to:cc:message-id:date:user-agent
+ :mime-version:content-transfer-encoding:content-language;
+ bh=SGj9JOZOXXgNtUDRvOLvflNgqKK7vcnNbFrla5kWCKY=;
+ b=w6JsfEyucbNVuWZVPOIy/awcWyTIvb6bbxW3LA8nozWG60eV009C5yq0UIi/DOcqpf
+ Kli0X7mT/YMnGSwcUH5dOWV7qLyoP4JcxkL8V34K7vrQtpMiZLYwvUi8s/24n/DcMimx
+ aYAf8x0gVPh/XhfOeAp6awRMBWlJQheyoYUeRi6O2T81O8MDGsyoevS4Id67rR/vWaiy
+ wBpYhmw+Vz0RuZUqjtLHxL0RpbmvQnAd+wJ/aYQAE5LJ40vM4HmJ5V68Xx2eeTRt5L07
+ dexqK0i2FJ3Wfs/J+pYozb/euWPq991ULqd7fuhTJMLxBNSCDkSQ1/dnADi6WgNQIDNo
+ 6f+A==
+X-Gm-Message-State: AOAM533O7j8MSQ94QTCrXocp9VjxG6zmKVAGXQ/OdN9LRHfy8K/75Uq/
+ TA/iN7IOytUVix4VgL0MeRr7g9TVIcQ=
+X-Google-Smtp-Source: ABdhPJx4vjRVsORMbUQucnv6qLo4yewajUBEplHgzuVDiDorxS65zYYg9m0Qgb54QqAI+xvCwvtKqw==
+X-Received: by 2002:a17:90a:d203:: with SMTP id
+ o3mr884699pju.122.1643701228233; 
+ Mon, 31 Jan 2022 23:40:28 -0800 (PST)
+Received: from [10.59.0.6] ([85.203.23.80])
+ by smtp.gmail.com with ESMTPSA id e14sm21254160pfv.219.2022.01.31.23.40.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Jan 2022 23:40:27 -0800 (PST)
+From: Jia-Ju Bai <baijiaju1990@gmail.com>
+Subject: [BUG] gpu: drm: radeon: two possible deadlocks involving locking and
+ waiting
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch
+Message-ID: <d5e4460f-7e26-81d2-2efe-6f47760b78d2@gmail.com>
+Date: Tue, 1 Feb 2022 15:40:19 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5d45719f-e22e-4606-94f2-08d9e5516789
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3991:EE_
-X-Microsoft-Antispam-PRVS: <CH2PR12MB399131E610CEDB601287B28CDF269@CH2PR12MB3991.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dH9+SqoasWTXDJUfFKYQyJWQZLnV+yCmHB2XtbG01x12nWNBDHhft0B3x98+4WvBxCXD8UnaRC04kdw0E1OxiY1d2eOdns4J6g8DMU28wvT1rlxb1g8cO94kw/iYEQFdtOyJuLZqb2ke9z4zsiR9H5pSU+/Ji4DSwxbwmBX2HANY7iES56lStrQGBvJIpf0/pHkkhl+hPaOXQ4hb42X9K7axuMURnyYt2c05XyDYqiBadhfwq+rJyxtLjBxuXsro9B27YR646H+WPVn/PQJVjB+WVij+WAqcN4qXFt3uXNIvPHMsUr94DsZ11mMSouCNaS9XBgsTH9kktnbh7gla1rXxX4b/26SaK8YYYcbO2qskjsX4HEzV9GeLg2CsiGnbaI2eBcjnlcf/kLlrqPaXNw6y0z2J0BPkCA8olAajqsuJCwC5sETnsDVXVLkArfYiuO/h9FkF+3z0JGbzun/IY+e7pX5mGocD72hs0wYeyw6PlGOOWFsCND7q9ZpGJFYDnSfjiK3DnLBYV/Lh9WxNegJcn+HMgdcSe/na86iF6m9pw78h/87kf8+jAgCnGBeKz9RYlZZ6b5l0Zk8fwrtkMZp8568NYAl6xHOChlkmETwNRqFlAHAgxx2dHJmYTuGLw+tYQYNGg9nwfwyPN1rMgb8yuT2q1y9cwWx/+/cljsAkjhq4HCGfXLj009XNBxih++8LdoLRX4qGr29jeyGXpjNxpAz3PFjPVT7wo7FGhxY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(508600001)(86362001)(6486002)(966005)(7416002)(2906002)(5660300002)(66556008)(8936002)(83380400001)(66946007)(6512007)(4326008)(66476007)(36756003)(8676002)(186003)(2616005)(26005)(107886003)(6506007)(316002)(38100700002)(6666004)(20210929001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yJpSR4Ivpl2uU+CRF8EpOKvxWKNIOO1dh8ovOiqjLTAM7XtAKkh7sLDwu9/w?=
- =?us-ascii?Q?nKQmheOLu2ZJaWAteJWn+LLh4XhVd8H2YLkNrdTXgGV4NmaUb1gX28+ZSeJ5?=
- =?us-ascii?Q?2FynX2U3rm4NI3pX3eTsJ3CdE8bKDMeJ8PVNmhv12GTKiKa6hF3VxVSS2Wqe?=
- =?us-ascii?Q?eHmeAm0FXCzvN+mUi67trz/wvY5UvZgM3o+MmY9XPeHOMJ4/YOuaGxqOqVep?=
- =?us-ascii?Q?wW6i7xXRzT869x63D1yuiWJYSoX9WzMxSj7k9BJ7kvFbrg2TtZRoiHaR2BRF?=
- =?us-ascii?Q?PcH4QOOnlJKujdm3hYx5QoFSUNrAnrpSFc3Lp3HR5/FLM0uVFWVrokNk7fTH?=
- =?us-ascii?Q?oBGmD1U4l1KhM/FXhHe3hJPbz3K3E3v/qI4uOE8VA3fqIJe5L6+ipTovsT2u?=
- =?us-ascii?Q?Yx1KJebu7WdwUPj6qUTQMqqy9VaOuI17t3cu53SKKXACHq4S5YQla4PaalEm?=
- =?us-ascii?Q?Ud6Y4BMCQyHCTB9Zul13GE3mAH1B6qyVClBn3NotpYFkOVleR3uOFW87pEOw?=
- =?us-ascii?Q?ae2P4ZqopsGQh9N7MJ/GlfOqlCQWdM/5ps2kRmFJQqpkWsi3T0dq6l9IdUKS?=
- =?us-ascii?Q?PG6Q7+Z5MLXjhD5Xwrs8XoF0+Nyak6+E0AzcYt18ly/C2E0upKPGmusUhyp0?=
- =?us-ascii?Q?LrYVMZojsUtqUe/b1ewB+Y3fqQFGu64VAa+hpkF0UX8qlkktqCt/GCko+Zxb?=
- =?us-ascii?Q?fCUsGDNDlb7l2jX5RL0O/W913aGVDOQxtpSq26XRXLWTyAfmq+Rtpc7HeXsz?=
- =?us-ascii?Q?2xaGO95FCJXMMJuD5y2T1CBLNSvyCEjlQYipnsR4JqBTTiggpG9TdDmeFz36?=
- =?us-ascii?Q?wpQxheQiaAVF8Zd3loHojKvNt9R+hROhGZDxD0cZDbbAVuLJEQGSiNOcDXiF?=
- =?us-ascii?Q?rZrD5PIWpxyCXSy1qU5WPvEjuMXS8KvA4Pzcrh8y1S1meOWylLV7iGRd5Qut?=
- =?us-ascii?Q?pAhOJewIJXO1n3T2+BEc2lqYgeVti+c6WiP5w9rV1XgYBlmtOtXt7fY6/lzc?=
- =?us-ascii?Q?WQFWoFI3G+wpmCZ8qaqtlCAINkXZrinGN0jcn8MXDyjt6+j/xyK1Uh09v2ml?=
- =?us-ascii?Q?GiyzOqu5mjJemgXq+qRIOfsUr3lmgePDFi+CSYipoaYVFmZaQaxq5PecLQmC?=
- =?us-ascii?Q?2l61T+E3sAD+y2D6dqDVfNxHSX32A1+FA7vePqXjHvZMypGyKzfUh5wOWgVt?=
- =?us-ascii?Q?ag8Z3XyVZOCbe3kkwWw4+Y08icSC0YAPAzYMi12kBNuZC0cdO6iBkd+oeHQo?=
- =?us-ascii?Q?Ky22210gwlVuLXm9x5oXZ1LHLisZJbo8brfnWQJUxYKnO5wM7cbxUqtghfg2?=
- =?us-ascii?Q?Q6hWfQ3JKPaGVRLCqgxPi5I7tauDmx5U399bUbDXAMOPp/cx3y60q3ZGufWu?=
- =?us-ascii?Q?H9p5oCwy/qpeZJrQbxFhzdJhMkXMXx34YlG53XKXIwjImMlEDMJknFyG2jDL?=
- =?us-ascii?Q?xbnVBT9C0Vm9DfUEFxet4jerFG/gbnkxNaK0BKSgmG92+WCr6wJ68mv1SXBx?=
- =?us-ascii?Q?JEgkcpftet5qTm0qCHopN6jeMuWaBuPB7a4iXt86J1yGLhZ1+QkHlvwt6qqN?=
- =?us-ascii?Q?JD38x/CEWTtciUyj62TpdPFklY72YrFHj0TbTBb/4mw5C9Qfdt8XByE3WaUR?=
- =?us-ascii?Q?JYpZ5vOYw0rZoNNvM4abkoo=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d45719f-e22e-4606-94f2-08d9e5516789
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3176.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2022 07:06:44.4473 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uIQg5Zp1O8fPY1y392cb2jjQlTsPm3bFnXXyuTZ19vMOKGGQL2s5X6cQrGWgpBtzTqi65N+TRR5Rm/Js5omEIg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3991
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-Mailman-Approved-At: Tue, 01 Feb 2022 09:21:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,43 +71,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, rcampbell@nvidia.com, willy@infradead.org,
- jhubbard@nvidia.com, Felix.Kuehling@amd.com,
- Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
- linux-xfs@vger.kernel.org, jglisse@redhat.com, amd-gfx@lists.freedesktop.org,
- jgg@nvidia.com, linux-ext4@vger.kernel.org, hch@lst.de
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Device coherent pages represent memory on a coherently attached device such
-as a GPU which is usually under the control of a driver. These pages should
-not be pinned as the driver needs to be able to move pages as required.
-Currently this is enforced by failing any attempt to pin a device coherent
-page.
+Hello,
 
-A similar problem exists for ZONE_MOVABLE pages. In that case though the
-pages are migrated instead of causing failure. There is no reason the
-kernel can't migrate device coherent pages so this series implements
-migration for device coherent pages so the same strategy of migrate and pin
-can be used.
+My static analysis tool reports a possible deadlock in the radeon driver 
+in Linux 5.16:
 
-This series depends on the series "Add MEMORY_DEVICE_COHERENT for coherent
-device memory mapping"[1] and should apply cleanly on top of that.
+#BUG 1
+radeon_dpm_change_power_state_locked()
+   mutex_lock(&rdev->ring_lock); --> Line 1133 (Lock A)
+   radeon_fence_wait_empty()
+     radeon_fence_wait_seq_timeout()
+       wait_event_timeout(rdev->fence_queue, ...) --> Line 504 (Wait X)
 
-[1] - https://lore.kernel.org/linux-mm/20220128200825.8623-1-alex.sierra@amd.com/
+radeon_ring_backup()
+   mutex_lock(&rdev->ring_lock); --> Line 289(Lock A)
+   radeon_fence_count_emitted()
+     radeon_fence_process()
+       wake_up_all(&rdev->fence_queue); --> Line 323 (Wake X)
 
-Alex Sierra (1):
-  tools: add hmm gup test for long term pinned device pages
+When radeon_dpm_change_power_state_locked() is executed, "Wait X" is 
+performed by holding "Lock A". If radeon_ring_backup() is executed at 
+this time, "Wake X" cannot be performed to wake up "Wait X" in 
+radeon_dpm_change_power_state_locked(), because "Lock A" has been 
+already hold by radeon_dpm_change_power_state_locked(), causing a 
+possible deadlock.
+I find that "Wait X" is performed with a timeout MAX_SCHEDULE_TIMEOUT, 
+to relieve the possible deadlock; but I think this timeout can cause 
+inefficient execution.
 
-Alistair Popple (2):
-  migrate.c: Remove vma check in migrate_vma_setup()
-  mm/gup.c: Migrate device coherent pages when pinning instead of failing
+#BUG 2
+radeon_ring_lock()
+   mutex_lock(&rdev->ring_lock); --> Line 147 (Lock A)
+   radeon_ring_alloc()
+     radeon_fence_wait_next()
+       radeon_fence_wait_seq_timeout()
+         wait_event_timeout(rdev->fence_queue, ...) --> Line 504 (Wait X)
 
- mm/gup.c                               | 105 +++++++++++++++++++++++---
- mm/migrate.c                           |  34 ++++----
- tools/testing/selftests/vm/Makefile    |   2 +-
- tools/testing/selftests/vm/hmm-tests.c |  81 ++++++++++++++++++++-
- 4 files changed, 194 insertions(+), 28 deletions(-)
+radeon_ring_backup()
+   mutex_lock(&rdev->ring_lock); --> Line 289(Lock A)
+   radeon_fence_count_emitted()
+     radeon_fence_process()
+       wake_up_all(&rdev->fence_queue); --> Line 323 (Wake X)
 
--- 
-git-series 0.9.1
+When radeon_ring_lock() is executed, "Wait X" is performed by holding 
+"Lock A". If radeon_ring_backup() is executed at this time, "Wake X" 
+cannot be performed to wake up "Wait X" in radeon_ring_lock(), because 
+"Lock A" has been already hold by radeon_ring_lock(), causing a possible 
+deadlock.
+I find that "Wait X" is performed with a timeout MAX_SCHEDULE_TIMEOUT, 
+to relieve the possible deadlock; but I think this timeout can cause 
+inefficient execution.
+
+I am not quite sure whether these possible problems are real and how to 
+fix them if they are real.
+Any feedback would be appreciated, thanks :)
+
+
+Best wishes,
+Jia-Ju Bai
+
