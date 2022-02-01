@@ -4,102 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0BABC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 09:21:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 088DEC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 10:03:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6903710EAE4;
-	Tue,  1 Feb 2022 09:21:09 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CA9410E456;
- Mon, 31 Jan 2022 23:37:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gnWVu/cK0CWlXCJnjStqFO+yMXyNow01hZBIjEDBsupkST/ywOABf5+pd2M2uuyoZ7p9X/ENATeCKSKdHRKVtPSGsw6hQtpTMrD53ah9fVtq84nRClC7UxEVFgfLHGZOIc3aXyULcrpnvBbIXdb4oWFDy065LfcFn26GojWuuGiaQV6jMe3kA150/nh4MizbIn3HUNEpFNjrkBoYzvzUPCkB8HGSvV2t0DdC4ikk21archNaf03ZpCOF9lVqc2++AteGVwKH0RT6Y22cGgKrxpRgisY7vHEKBK59cyeB/YyPSXXS/Do2P1lWM6U4+tpCztkfm4/LNlOvqR2N1lnvHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uhlD9e4vcJB+6I9ww66UQ9a4OTzqlUzS3gcAFVGpk3U=;
- b=P5gPtohaC1R04tSjDgO90tr/2e7ewUxnvZ3ABJPBGwo/UvnU6eBKZWuehBmi2NKgBw2X31+V8YriqITdL0SBngZBhM/wdp+KZYBtAnvC6XF37UZhQg9BDJq9yK62CCbcx0j9thM1+SdreQnXE0vg16ZFxzuesd15CvKT+9j06sSJ4I7IiipnvIy3jDqAsRiptaHHBezJns5fgTBZMny+lqZ1DDSfWTlow3mFivbB22ugKHMGYfWkJ7akVli2jv2YgU1prGXu56h8wKUQccuK1CZGCTKUyfZnotfu18hKHyvta3c6MhlRQBxEB/WIoSETu4zTeiUTN/KkxdLYTudVtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.236) smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uhlD9e4vcJB+6I9ww66UQ9a4OTzqlUzS3gcAFVGpk3U=;
- b=dwjwjWIqXCxyRfKRN7i9DTGbhErKtg5/AtliRaPJJy70fq2B0ub9ddqHWmmPmoO1bAVS2/6a+o7lZL+bAuJ2BuhYRRuDSKy68kV/C1rMGRzyIqnDyI27ohqJPUoohH8X9plaR+tQL8jwl2QiEqy2pZ0BeLIcpKGaPZQJn9U6ualzC5aerf7j9okN7xpWE+gWySvFcA3QPWRnkCC/m3daLLv8KY42rmfmiGkNh0XJtP0Ivt7kV95mpdJHa5YVA9rHqbaOZA0mSjJYk9VMGJJ3zSDOOuiqWNwvgk25EzvvdjgIkqfDSzy6Qb7h6oZ9tDFP8CoCgI0otxvnj13KDYlzRw==
-Received: from MW4PR03CA0106.namprd03.prod.outlook.com (2603:10b6:303:b7::21)
- by MN2PR12MB4157.namprd12.prod.outlook.com (2603:10b6:208:1db::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17; Mon, 31 Jan
- 2022 23:37:55 +0000
-Received: from CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b7:cafe::38) by MW4PR03CA0106.outlook.office365.com
- (2603:10b6:303:b7::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15 via Frontend
- Transport; Mon, 31 Jan 2022 23:37:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.236)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.236 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.236; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (12.22.5.236) by
- CO1NAM11FT006.mail.protection.outlook.com (10.13.174.246) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4930.15 via Frontend Transport; Mon, 31 Jan 2022 23:37:54 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by DRHQMAIL109.nvidia.com
- (10.27.9.19) with Microsoft SMTP Server (TLS) id 15.0.1497.18;
- Mon, 31 Jan 2022 23:37:52 +0000
-Received: from nvdebian.localnet (10.126.231.35) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.9; Mon, 31 Jan 2022
- 15:37:49 -0800
-From: Alistair Popple <apopple@nvidia.com>
-To: <akpm@linux-foundation.org>, <Felix.Kuehling@amd.com>,
- <linux-mm@kvack.org>, <rcampbell@nvidia.com>, <linux-ext4@vger.kernel.org>,
- <linux-xfs@vger.kernel.org>, "Sierra Guiza, Alejandro (Alex)"
- <alex.sierra@amd.com>
-Subject: Re: [PATCH v5 09/10] tools: update hmm-test to support device
- coherent type
-Date: Tue, 1 Feb 2022 10:37:47 +1100
-Message-ID: <45726756.eMkXEF23lS@nvdebian>
-In-Reply-To: <922553fd-a19b-e3a6-2a99-c31ced3b4281@amd.com>
-References: <20220128200825.8623-1-alex.sierra@amd.com>
- <20220128200825.8623-10-alex.sierra@amd.com>
- <922553fd-a19b-e3a6-2a99-c31ced3b4281@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AEA810E955;
+	Tue,  1 Feb 2022 10:03:41 +0000 (UTC)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BEFC10E955
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Feb 2022 10:03:40 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id h7so52543632ejf.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Feb 2022 02:03:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=hZ/GtfJXMJ+uCIFNQdEJss8e2IB9srPFE0xTZ3ZF8L0=;
+ b=Xkepf2f3Uz3Ub2VvRQzpayDbVNdRcgrp34xtNAxtLmi0IIKsABkyJv0A0TgwhW1JeO
+ u57ABXP9p6a2kxVMSLshP7IWZYHY40YLTKwH9J0BG8/WMri+fNXTimgvIWutnZu9+szl
+ ZLJPEcbp7HXYYG3ByiganTO1Y/1VMxNneAf4lLT9Ia2kmfGlt1DbBoOnmp4YI8A9Qw6R
+ 88dTobTyajPOZb2pu119CwIQdDIsVMZ7kayf9BIDRk8lqxXIPXQISP3kPHRZ4BoR2w63
+ MwrPl3oK+bJ8xefBgHtU8BhacmCBiw0730V9P4GvEVo7ZSWXY1h1iWdwVk/6uwjk5+hB
+ 4qLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=hZ/GtfJXMJ+uCIFNQdEJss8e2IB9srPFE0xTZ3ZF8L0=;
+ b=m72qTseeJBuwVyHwVzNcs3WqdQ18H+7ZqnxCCr669DJa2+vNTMiKsrAWqVv7lTlpwI
+ jwl5vbSc3ZVIvGU8NXjW5wsfwE+T4UXkVV55IjN63XKj3wCzNjoK0YTukWZQYoaO8mkT
+ okHaQ+6Kpt8sQg3ptbdmML5OdAS9DvgxI4E1bbGZ3m5dijIlvQGxIwyH0vt0B9VJDV0W
+ ZqpMEKaU6zgxq9a9Lfc/y1bCaRdqmT1N1dzIH3qCw2qDFH5Y40wlyd7fxKDCh7xBZPCq
+ hSq8LG3awyioJphkM4c1CEClKP4mc3H+OakBvQseRN2ejEtlwyJpmw/xSCuFnFCC3lyO
+ 3bIQ==
+X-Gm-Message-State: AOAM530DMJf+XOmp/CEFEmBxCW7nAf3WXmZsIoDHFtFzwUD/ZUQQPUXc
+ j5QdXwvWIfgR7J8WHD2OXVk=
+X-Google-Smtp-Source: ABdhPJzc2d5ZSUhAmL+UZBADEMC9cQJ2W1kFv/jjJ9VAt4BKirAp1wtbbNB4G9EXhn/5Llz5MIQwow==
+X-Received: by 2002:a17:907:3e9c:: with SMTP id
+ hs28mr19968737ejc.735.1643709818972; 
+ Tue, 01 Feb 2022 02:03:38 -0800 (PST)
+Received: from ?IPV6:2a02:908:1252:fb60:da17:c9a1:5359:a5d?
+ ([2a02:908:1252:fb60:da17:c9a1:5359:a5d])
+ by smtp.gmail.com with ESMTPSA id fn3sm14323581ejc.58.2022.02.01.02.03.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 01 Feb 2022 02:03:38 -0800 (PST)
+Message-ID: <b2de251b-6235-f6d9-bba5-ab68c9a6b4c8@gmail.com>
+Date: Tue, 1 Feb 2022 11:03:37 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-X-Originating-IP: [10.126.231.35]
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d6f47f7a-4569-46fd-989e-08d9e512b426
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4157:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB415764CA0EC59B959A93898EDF259@MN2PR12MB4157.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: x/PG4EypagbHjootMahmWfnlL0Nz1VIjCghgIAXhI5rpG05f4La+zgONJJ5pA8C1EJm9eHY3DZKN4XtF6GVxArf+6CsUzUF++gqwxCeJj4OtBG+ZiYOpgDzJ1zslsvnJ++Gfd4C0rtX+Meb0ekQ3hOINWlFk56XebGS1e32ZB1pLrN9vyiU/ziY3oKkwSlb3D6ktWCrT1oiulkrLY35QyXGZkhEjuet6blKT7NNpnADs+wh6CN3tjjJl2FzF/ylr7QNTCk82MPMeHwGpTSTqbUzOeR87Jw6NKPW2ra4WunYQSo1lRRpd7HYNv50ycYlWvx+hfxRBomV5hTdOlBlSb93QimOlKORpFowfeI8/1ETYP+Ng+eypeLaXMPZBf1AinHuvik1pPjIxMUx6eTA3iK/unVsx/9Aa0HB4F2P3B7QK+e9VXoswhhlWN08dVytMrXcb3ZTyRwcgZUouvE1qA4Lb7G+GoVg6skdhhNwQnDQsAzv36RLVUXr6vUU9Zhm/Z5cpa+PfBDxVglI2ppfV8kCSD5fVUgvE6J5fcdJ7eOESWvfct4ss93M595gsLcn3kognyBzbSKs3Dqpn6/JiueJRhIS/yjwYl0Y8fnn3nEw2KaCcY4Er7VIQcMtuE2CEdBO+TgnkG1ao1+j64dlPnXffSoG9CODkRavZv9X8/a+ws/+WFRy1nTWbr/asTsC95J7NcRIEV04ymx0+OkWIAkHKmHhHZL8j7fODpcWeZZLKNLRpeoSnNlTMwXQXU7Fk
-X-Forefront-Antispam-Report: CIP:12.22.5.236; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(26005)(53546011)(186003)(30864003)(33716001)(16526019)(70206006)(70586007)(316002)(15650500001)(508600001)(54906003)(36860700001)(9576002)(5660300002)(110136005)(8936002)(8676002)(7416002)(2906002)(336012)(426003)(83380400001)(9686003)(86362001)(81166007)(47076005)(82310400004)(356005)(40460700003)(4326008)(39026012)(36900700001)(20210929001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2022 23:37:54.3142 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6f47f7a-4569-46fd-989e-08d9e512b426
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.236];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4157
-X-Mailman-Approved-At: Tue, 01 Feb 2022 09:21:06 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] drm/amdgpu: Handle the GPU recovery failure in SRIOV
+ environment.
+Content-Language: en-US
+To: Surbhi Kakarya <surbhi.kakarya@amd.com>, amd-gfx@lists.freedesktop.org,
+ Bokun.Zhang@amd.com, HaiJun.Chang@amd.com, Monk.Liu@amd.com,
+ Alexander.Deucher@amd.com, Kelly.Zytaruk@amd.com,
+ Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+References: <20220131153527.11051-1-surbhi.kakarya@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220131153527.11051-1-surbhi.kakarya@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,330 +76,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: willy@infradead.org, amd-gfx@lists.freedesktop.org, jglisse@redhat.com,
- dri-devel@lists.freedesktop.org, jgg@nvidia.com, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Oh sorry, I had looked at this but forgotten to add my reviewed by:
+Am 31.01.22 um 16:35 schrieb Surbhi Kakarya:
+> This patch handles the GPU recovery faliure in sriov environment by
+> retrying the reset if the first reset fails. To determine the condition of retry, a
+> new function amdgpu_is_retry_sriov_reset() is added which returns true if failure is due
+> to ETIMEDOUT, EINVAL or EBUSY, otherwise return false.
+>
+> It also handles the return status in Post Asic Reset by updating the return code
+> with asic_reset_res and eventually return the return code in amdgpu_job_timedout().
 
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
+That patch is certainly a NAK.
 
-On Tuesday, 1 February 2022 10:27:25 AM AEDT Sierra Guiza, Alejandro (Alex) wrote:
-> Hi Alistair,
-> This is the last patch to be reviewed from this series. It already has 
-> the changes from
-> your last feedback (V3). Would you mind to take a look?
-> Thanks a lot for reviewing the rest!
-> 
-> Regards,
-> Alex Sierra
-> 
-> On 1/28/2022 2:08 PM, Alex Sierra wrote:
-> > Test cases such as migrate_fault and migrate_multiple, were modified to
-> > explicit migrate from device to sys memory without the need of page
-> > faults, when using device coherent type.
-> >
-> > Snapshot test case updated to read memory device type first and based
-> > on that, get the proper returned results migrate_ping_pong test case
-> > added to test explicit migration from device to sys memory for both
-> > private and coherent zone types.
-> >
-> > Helpers to migrate from device to sys memory and vicerversa
-> > were also added.
-> >
-> > Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-> > Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> > ---
-> > v2:
-> > Set FIXTURE_VARIANT to add multiple device types to the FIXTURE. This
-> > will run all the tests for each device type (private and coherent) in
-> > case both existed during hmm-test driver probed.
-> > v4:
-> > Check for the number of pages successfully migrated from coherent
-> > device to system at migrate_multiple test.
-> > ---
-> >   tools/testing/selftests/vm/hmm-tests.c | 123 ++++++++++++++++++++-----
-> >   1 file changed, 102 insertions(+), 21 deletions(-)
-> >
-> > diff --git a/tools/testing/selftests/vm/hmm-tests.c b/tools/testing/selftests/vm/hmm-tests.c
-> > index 203323967b50..84ec8c4a1dc7 100644
-> > --- a/tools/testing/selftests/vm/hmm-tests.c
-> > +++ b/tools/testing/selftests/vm/hmm-tests.c
-> > @@ -44,6 +44,14 @@ struct hmm_buffer {
-> >   	int		fd;
-> >   	uint64_t	cpages;
-> >   	uint64_t	faults;
-> > +	int		zone_device_type;
-> > +};
-> > +
-> > +enum {
-> > +	HMM_PRIVATE_DEVICE_ONE,
-> > +	HMM_PRIVATE_DEVICE_TWO,
-> > +	HMM_COHERENCE_DEVICE_ONE,
-> > +	HMM_COHERENCE_DEVICE_TWO,
-> >   };
-> >   
-> >   #define TWOMEG		(1 << 21)
-> > @@ -60,6 +68,21 @@ FIXTURE(hmm)
-> >   	unsigned int	page_shift;
-> >   };
-> >   
-> > +FIXTURE_VARIANT(hmm)
-> > +{
-> > +	int     device_number;
-> > +};
-> > +
-> > +FIXTURE_VARIANT_ADD(hmm, hmm_device_private)
-> > +{
-> > +	.device_number = HMM_PRIVATE_DEVICE_ONE,
-> > +};
-> > +
-> > +FIXTURE_VARIANT_ADD(hmm, hmm_device_coherent)
-> > +{
-> > +	.device_number = HMM_COHERENCE_DEVICE_ONE,
-> > +};
-> > +
-> >   FIXTURE(hmm2)
-> >   {
-> >   	int		fd0;
-> > @@ -68,6 +91,24 @@ FIXTURE(hmm2)
-> >   	unsigned int	page_shift;
-> >   };
-> >   
-> > +FIXTURE_VARIANT(hmm2)
-> > +{
-> > +	int     device_number0;
-> > +	int     device_number1;
-> > +};
-> > +
-> > +FIXTURE_VARIANT_ADD(hmm2, hmm2_device_private)
-> > +{
-> > +	.device_number0 = HMM_PRIVATE_DEVICE_ONE,
-> > +	.device_number1 = HMM_PRIVATE_DEVICE_TWO,
-> > +};
-> > +
-> > +FIXTURE_VARIANT_ADD(hmm2, hmm2_device_coherent)
-> > +{
-> > +	.device_number0 = HMM_COHERENCE_DEVICE_ONE,
-> > +	.device_number1 = HMM_COHERENCE_DEVICE_TWO,
-> > +};
-> > +
-> >   static int hmm_open(int unit)
-> >   {
-> >   	char pathname[HMM_PATH_MAX];
-> > @@ -81,12 +122,19 @@ static int hmm_open(int unit)
-> >   	return fd;
-> >   }
-> >   
-> > +static bool hmm_is_coherent_type(int dev_num)
-> > +{
-> > +	return (dev_num >= HMM_COHERENCE_DEVICE_ONE);
-> > +}
-> > +
-> >   FIXTURE_SETUP(hmm)
-> >   {
-> >   	self->page_size = sysconf(_SC_PAGE_SIZE);
-> >   	self->page_shift = ffs(self->page_size) - 1;
-> >   
-> > -	self->fd = hmm_open(0);
-> > +	self->fd = hmm_open(variant->device_number);
-> > +	if (self->fd < 0 && hmm_is_coherent_type(variant->device_number))
-> > +		SKIP(exit(0), "DEVICE_COHERENT not available");
-> >   	ASSERT_GE(self->fd, 0);
-> >   }
-> >   
-> > @@ -95,9 +143,11 @@ FIXTURE_SETUP(hmm2)
-> >   	self->page_size = sysconf(_SC_PAGE_SIZE);
-> >   	self->page_shift = ffs(self->page_size) - 1;
-> >   
-> > -	self->fd0 = hmm_open(0);
-> > +	self->fd0 = hmm_open(variant->device_number0);
-> > +	if (self->fd0 < 0 && hmm_is_coherent_type(variant->device_number0))
-> > +		SKIP(exit(0), "DEVICE_COHERENT not available");
-> >   	ASSERT_GE(self->fd0, 0);
-> > -	self->fd1 = hmm_open(1);
-> > +	self->fd1 = hmm_open(variant->device_number1);
-> >   	ASSERT_GE(self->fd1, 0);
-> >   }
-> >   
-> > @@ -144,6 +194,7 @@ static int hmm_dmirror_cmd(int fd,
-> >   	}
-> >   	buffer->cpages = cmd.cpages;
-> >   	buffer->faults = cmd.faults;
-> > +	buffer->zone_device_type = cmd.zone_device_type;
-> >   
-> >   	return 0;
-> >   }
-> > @@ -211,6 +262,20 @@ static void hmm_nanosleep(unsigned int n)
-> >   	nanosleep(&t, NULL);
-> >   }
-> >   
-> > +static int hmm_migrate_sys_to_dev(int fd,
-> > +				   struct hmm_buffer *buffer,
-> > +				   unsigned long npages)
-> > +{
-> > +	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_TO_DEV, buffer, npages);
-> > +}
-> > +
-> > +static int hmm_migrate_dev_to_sys(int fd,
-> > +				   struct hmm_buffer *buffer,
-> > +				   unsigned long npages)
-> > +{
-> > +	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_TO_SYS, buffer, npages);
-> > +}
-> > +
-> >   /*
-> >    * Simple NULL test of device open/close.
-> >    */
-> > @@ -875,7 +940,7 @@ TEST_F(hmm, migrate)
-> >   		ptr[i] = i;
-> >   
-> >   	/* Migrate memory to device. */
-> > -	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
-> > +	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
-> >   	ASSERT_EQ(ret, 0);
-> >   	ASSERT_EQ(buffer->cpages, npages);
-> >   
-> > @@ -923,7 +988,7 @@ TEST_F(hmm, migrate_fault)
-> >   		ptr[i] = i;
-> >   
-> >   	/* Migrate memory to device. */
-> > -	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
-> > +	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
-> >   	ASSERT_EQ(ret, 0);
-> >   	ASSERT_EQ(buffer->cpages, npages);
-> >   
-> > @@ -936,7 +1001,7 @@ TEST_F(hmm, migrate_fault)
-> >   		ASSERT_EQ(ptr[i], i);
-> >   
-> >   	/* Migrate memory to the device again. */
-> > -	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
-> > +	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
-> >   	ASSERT_EQ(ret, 0);
-> >   	ASSERT_EQ(buffer->cpages, npages);
-> >   
-> > @@ -976,7 +1041,7 @@ TEST_F(hmm, migrate_shared)
-> >   	ASSERT_NE(buffer->ptr, MAP_FAILED);
-> >   
-> >   	/* Migrate memory to device. */
-> > -	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
-> > +	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
-> >   	ASSERT_EQ(ret, -ENOENT);
-> >   
-> >   	hmm_buffer_free(buffer);
-> > @@ -1015,7 +1080,7 @@ TEST_F(hmm2, migrate_mixed)
-> >   	p = buffer->ptr;
-> >   
-> >   	/* Migrating a protected area should be an error. */
-> > -	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, npages);
-> > +	ret = hmm_migrate_sys_to_dev(self->fd1, buffer, npages);
-> >   	ASSERT_EQ(ret, -EINVAL);
-> >   
-> >   	/* Punch a hole after the first page address. */
-> > @@ -1023,7 +1088,7 @@ TEST_F(hmm2, migrate_mixed)
-> >   	ASSERT_EQ(ret, 0);
-> >   
-> >   	/* We expect an error if the vma doesn't cover the range. */
-> > -	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 3);
-> > +	ret = hmm_migrate_sys_to_dev(self->fd1, buffer, 3);
-> >   	ASSERT_EQ(ret, -EINVAL);
-> >   
-> >   	/* Page 2 will be a read-only zero page. */
-> > @@ -1055,13 +1120,13 @@ TEST_F(hmm2, migrate_mixed)
-> >   
-> >   	/* Now try to migrate pages 2-5 to device 1. */
-> >   	buffer->ptr = p + 2 * self->page_size;
-> > -	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 4);
-> > +	ret = hmm_migrate_sys_to_dev(self->fd1, buffer, 4);
-> >   	ASSERT_EQ(ret, 0);
-> >   	ASSERT_EQ(buffer->cpages, 4);
-> >   
-> >   	/* Page 5 won't be migrated to device 0 because it's on device 1. */
-> >   	buffer->ptr = p + 5 * self->page_size;
-> > -	ret = hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_MIGRATE, buffer, 1);
-> > +	ret = hmm_migrate_sys_to_dev(self->fd0, buffer, 1);
-> >   	ASSERT_EQ(ret, -ENOENT);
-> >   	buffer->ptr = p;
-> >   
-> > @@ -1070,8 +1135,12 @@ TEST_F(hmm2, migrate_mixed)
-> >   }
-> >   
-> >   /*
-> > - * Migrate anonymous memory to device private memory and fault it back to system
-> > - * memory multiple times.
-> > + * Migrate anonymous memory to device memory and back to system memory
-> > + * multiple times. In case of private zone configuration, this is done
-> > + * through fault pages accessed by CPU. In case of coherent zone configuration,
-> > + * the pages from the device should be explicitly migrated back to system memory.
-> > + * The reason is Coherent device zone has coherent access by CPU, therefore
-> > + * it will not generate any page fault.
-> >    */
-> >   TEST_F(hmm, migrate_multiple)
-> >   {
-> > @@ -1107,8 +1176,7 @@ TEST_F(hmm, migrate_multiple)
-> >   			ptr[i] = i;
-> >   
-> >   		/* Migrate memory to device. */
-> > -		ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer,
-> > -				      npages);
-> > +		ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
-> >   		ASSERT_EQ(ret, 0);
-> >   		ASSERT_EQ(buffer->cpages, npages);
-> >   
-> > @@ -1116,7 +1184,13 @@ TEST_F(hmm, migrate_multiple)
-> >   		for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-> >   			ASSERT_EQ(ptr[i], i);
-> >   
-> > -		/* Fault pages back to system memory and check them. */
-> > +		/* Migrate back to system memory and check them. */
-> > +		if (hmm_is_coherent_type(variant->device_number)) {
-> > +			ret = hmm_migrate_dev_to_sys(self->fd, buffer, npages);
-> > +			ASSERT_EQ(ret, 0);
-> > +			ASSERT_EQ(buffer->cpages, npages);
-> > +		}
-> > +
-> >   		for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-> >   			ASSERT_EQ(ptr[i], i);
-> >   
-> > @@ -1354,13 +1428,13 @@ TEST_F(hmm2, snapshot)
-> >   
-> >   	/* Page 5 will be migrated to device 0. */
-> >   	buffer->ptr = p + 5 * self->page_size;
-> > -	ret = hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_MIGRATE, buffer, 1);
-> > +	ret = hmm_migrate_sys_to_dev(self->fd0, buffer, 1);
-> >   	ASSERT_EQ(ret, 0);
-> >   	ASSERT_EQ(buffer->cpages, 1);
-> >   
-> >   	/* Page 6 will be migrated to device 1. */
-> >   	buffer->ptr = p + 6 * self->page_size;
-> > -	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 1);
-> > +	ret = hmm_migrate_sys_to_dev(self->fd1, buffer, 1);
-> >   	ASSERT_EQ(ret, 0);
-> >   	ASSERT_EQ(buffer->cpages, 1);
-> >   
-> > @@ -1377,9 +1451,16 @@ TEST_F(hmm2, snapshot)
-> >   	ASSERT_EQ(m[2], HMM_DMIRROR_PROT_ZERO | HMM_DMIRROR_PROT_READ);
-> >   	ASSERT_EQ(m[3], HMM_DMIRROR_PROT_READ);
-> >   	ASSERT_EQ(m[4], HMM_DMIRROR_PROT_WRITE);
-> > -	ASSERT_EQ(m[5], HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL |
-> > -			HMM_DMIRROR_PROT_WRITE);
-> > -	ASSERT_EQ(m[6], HMM_DMIRROR_PROT_NONE);
-> > +	if (!hmm_is_coherent_type(variant->device_number0)) {
-> > +		ASSERT_EQ(m[5], HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL |
-> > +				HMM_DMIRROR_PROT_WRITE);
-> > +		ASSERT_EQ(m[6], HMM_DMIRROR_PROT_NONE);
-> > +	} else {
-> > +		ASSERT_EQ(m[5], HMM_DMIRROR_PROT_DEV_COHERENT_LOCAL |
-> > +				HMM_DMIRROR_PROT_WRITE);
-> > +		ASSERT_EQ(m[6], HMM_DMIRROR_PROT_DEV_COHERENT_REMOTE |
-> > +				HMM_DMIRROR_PROT_WRITE);
-> > +	}
-> >   
-> >   	hmm_buffer_free(buffer);
-> >   }
-> 
+The retry should never be in the job, but rather in the device code itself.
 
+Please sync up with Andrey and Monk about that.
 
+Regards,
+Christian.
 
+>
+> Change-Id: I45b9743adb548606aef8774496527d29fb3de0af
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 34 ++++++++++++++++++++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  6 +++-
+>   2 files changed, 36 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 53af2623c58f..8a742b77eef8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5026,6 +5026,21 @@ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
+>   	return 0;
+>   }
+>   
+> +/**
+> + * amdgpu_is_retry_sriov_reset - check if we should retry sriov reset
+> + *
+> + * Check amdgpu_is_retry_sriov_reset and return status to see if we should retry reset.
+> + */
+> +static bool amdgpu_is_retry_sriov_reset(int r)
+> +{
+> +
+> +        if(r == -EBUSY || r == -ETIMEDOUT || r == -EINVAL)
+> +                return true;
+> +        else
+> +                return false;
+> +
+> +}
+> +
+>   static void amdgpu_device_recheck_guilty_jobs(
+>   	struct amdgpu_device *adev, struct list_head *device_list_handle,
+>   	struct amdgpu_reset_context *reset_context)
+> @@ -5064,8 +5079,13 @@ static void amdgpu_device_recheck_guilty_jobs(
+>   			if (amdgpu_sriov_vf(adev)) {
+>   				amdgpu_virt_fini_data_exchange(adev);
+>   				r = amdgpu_device_reset_sriov(adev, false);
+> -				if (r)
+> +				if (r) {
+>   					adev->asic_reset_res = r;
+> +					if (amdgpu_is_retry_sriov_reset(r)) {
+> +						adev->asic_reset_res = 0;
+> +						goto retry;
+> +					}
+> +				}
+>   			} else {
+>   				clear_bit(AMDGPU_SKIP_HW_RESET,
+>   					  &reset_context->flags);
+> @@ -5299,8 +5319,13 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>   	/* Host driver will handle XGMI hive reset for SRIOV */
+>   	if (amdgpu_sriov_vf(adev)) {
+>   		r = amdgpu_device_reset_sriov(adev, job ? false : true);
+> -		if (r)
+> -			adev->asic_reset_res = r;
+> +                if (r) {
+> +                        adev->asic_reset_res = r;
+> +                        if (amdgpu_is_retry_sriov_reset(r)) {
+> +				adev->asic_reset_res = 0;
+> +				goto retry;
+> +                        }
+> +                }
+>   	} else {
+>   		r = amdgpu_do_asic_reset(device_list_handle, &reset_context);
+>   		if (r && r == -EAGAIN)
+> @@ -5341,6 +5366,9 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>   			drm_helper_resume_force_mode(adev_to_drm(tmp_adev));
+>   		}
+>   
+> +		if (tmp_adev->asic_reset_res)
+> +			r = tmp_adev->asic_reset_res;
+> +
+>   		tmp_adev->asic_reset_res = 0;
+>   
+>   		if (r) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> index e0730ea56a8c..1f0fb21ac15a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -37,6 +37,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+>   	struct amdgpu_task_info ti;
+>   	struct amdgpu_device *adev = ring->adev;
+>   	int idx;
+> +	int r = 0;
+>   
+>   	if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
+>   		DRM_INFO("%s - device unplugged skipping recovery on scheduler:%s",
+> @@ -63,7 +64,10 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+>   		  ti.process_name, ti.tgid, ti.task_name, ti.pid);
+>   
+>   	if (amdgpu_device_should_recover_gpu(ring->adev)) {
+> -		amdgpu_device_gpu_recover(ring->adev, job);
+> +		r = amdgpu_device_gpu_recover(ring->adev, job);
+> +		if (r)
+> +			DRM_ERROR("GPU Recovery Failed: %d\n",r);
+> +
+>   	} else {
+>   		drm_sched_suspend_timeout(&ring->sched);
+>   		if (amdgpu_sriov_vf(adev))
 
