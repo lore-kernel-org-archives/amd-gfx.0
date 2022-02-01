@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65446C4167E
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 15:49:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B09EC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 15:49:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26D3410E6A9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57B1610E69E;
 	Tue,  1 Feb 2022 15:49:21 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2088.outbound.protection.outlook.com [40.107.96.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79D7710E69E;
- Tue,  1 Feb 2022 15:49:18 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2080.outbound.protection.outlook.com [40.107.93.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C96F010E6A9;
+ Tue,  1 Feb 2022 15:49:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kpLC1zr9+lNrW1h4YPnfpuoPmOY4fggZGpsjcmByQmn8SwSJnNVBxMmLPs9+8A2E613DgFHWtZTza6RNJg/N6HiRp/cx58nttCMAwODoS3nHb9LwRnEh/LTPWwbrSl3c7M4nBu+d/AlMcK5LwE9l68Nrg6cnKDvLYRELWvIAMMETeOZBhJpJWgCgNiWLpCbJhGWziHa8pN6F4ns26V4rvUlCcTCXSTv4HDqP0vN7lloY7s9ImTvAbWeh5Jyxbb1zXyIwUfUnFnn+wTQ/QCX3Mc3Jc1tojaLgAxRWditLY4fse/y50GSU7epx9+PuWvHJFypDyuJQLTacrcHEng9hKg==
+ b=MGCedzGovX275HUO5JlmwulXCtDtxetFle6FN1YNkUuviqirX8laCZibgKyiFncEpZGMscP13wJWofUFq3GoltRTR25OcNB8ylc8NPE+VPuBBj+7Dz53Ca6F8deAiWV5IZz68SUlp7aCj3ti+O3w71DZaIjVI7O0K9Bj7U5En943GyHndqXzp5xB2oQXGfA1eptgB7PhOaQ7PVh28ne5OPK3pO+62CRJN/Aj77s7zblHcKWzeTeJo0rBM1k3JO/8CvRRbBuv+cePZ5/I06E/rkLILI9s8Thd0htl5OL01MyN7X6L30vOllA7Kwke62x85UDpJNG3huML4BCHfy8n0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8c+snyg1lETNsdQ8VpQ4cgA8WAjjh8EpLlh6CLuAWAg=;
- b=fpz1sG10LX48K0Nmpj4CD813jzPS9rUs/1aXB5RDByvjuiGdPjqTHwQzTX+3Te5NgMVTxA3weY0OrMOPDSfFzmaVDLVWPlHMpfudhyS6c0JgfMOPt9b8SQLoK5yWiyliUM32brEqMvzd0AxQlylBjyTJvTS33PYS0RC1WMJxMYNcxgcKWN6XNoO07RmmMlDP+SK70oab9iNZUnCfy+135qMz473KoHW2ccgKnutQhDRiMXw3WLpUmnO2oQbEgUR1TYwjmwJWNPh4oSks/HBuV/feOo3xid0WxJsUm5xDWxIiMOiTGghXbjFE19K8ynY1+x/utqWku5v8V1uYmBw1Ug==
+ bh=cKdah9ociAAjWA8oWytWUkonkykx0MrDTa+hoh93Wfs=;
+ b=Ja5y8b8OpjFmbBUgRCxhtP9sKpMGU6MeCbQGi93R5lUKxAZd1iTvd77R+ojZiX8s1faKDhRt1Qvvpbug7R/A9waEne1ZZxiCvCwFoFnvUQUmvht541fH5R3sQa0NLQwLh6jzRqRP5L2KhJhiO2EuAWGqOenGNmSBR2Xhkl0M1qmrsHHJFbBvUBKhfe8SM+RwIgpycqGUAxen3YPe4qn3qgi1/Q9WSLwOLQ+lcZlHXp9/HifXZEc6zCI++trn0mvZiimqIaeaX8s31ZwLQOz/clyLsvPge7nWu4achEd7LCKbZ9pbXQ+PJzTkndAStCV4W4MJs14Dkth/jgylKxXbvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=linux-foundation.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8c+snyg1lETNsdQ8VpQ4cgA8WAjjh8EpLlh6CLuAWAg=;
- b=Pky2H2XWsD1tWeuvIStPVda6qmGiVe3w4fE/vyzBzUjU2dePHyZk9L8wRm+OiDm/MXjsiuZz3ErRHXPcOnzRIbe1ULaLPWnry3CbmVy8plIqNHLKOJaFzWxSWJhh69HdWShU9Eobos2yXDvYQT51goTu4gIMdIFnHlfJEuqQY9M=
-Received: from BN0PR04CA0050.namprd04.prod.outlook.com (2603:10b6:408:e8::25)
- by BL1PR12MB5029.namprd12.prod.outlook.com (2603:10b6:208:310::24)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=cKdah9ociAAjWA8oWytWUkonkykx0MrDTa+hoh93Wfs=;
+ b=jvtpZ9Z9t8/Ruk5IksK1InLUGNbmMpXMrBTifmv01iaRyHleXYbmuGkvanNQV152PKq0T0QfUr8wXf9t8MJV1Z6ghl+H766YTotDYahVOqtvk01ux0STmiDfJ9++Jyzml8gukb5DXSgJmvULA4NhX94fhT9ZkbG/Ezmf8WO5bfg=
+Received: from BN0PR04CA0032.namprd04.prod.outlook.com (2603:10b6:408:e8::7)
+ by CY4PR12MB1173.namprd12.prod.outlook.com (2603:10b6:903:41::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11; Tue, 1 Feb
- 2022 15:49:15 +0000
+ 2022 15:49:17 +0000
 Received: from BN8NAM11FT008.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e8:cafe::1a) by BN0PR04CA0050.outlook.office365.com
- (2603:10b6:408:e8::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12 via Frontend
- Transport; Tue, 1 Feb 2022 15:49:15 +0000
+ (2603:10b6:408:e8:cafe::e) by BN0PR04CA0032.outlook.office365.com
+ (2603:10b6:408:e8::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11 via Frontend
+ Transport; Tue, 1 Feb 2022 15:49:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,19 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT008.mail.protection.outlook.com (10.13.177.95) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4930.15 via Frontend Transport; Tue, 1 Feb 2022 15:49:15 +0000
+ 15.20.4930.15 via Frontend Transport; Tue, 1 Feb 2022 15:49:16 +0000
 Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 1 Feb
- 2022 09:49:13 -0600
+ 2022 09:49:15 -0600
 From: Alex Sierra <alex.sierra@amd.com>
 To: <akpm@linux-foundation.org>, <Felix.Kuehling@amd.com>,
  <linux-mm@kvack.org>, <rcampbell@nvidia.com>, <linux-ext4@vger.kernel.org>,
  <linux-xfs@vger.kernel.org>
-Subject: [PATCH v6 03/10] mm/gup: fail get_user_pages for LONGTERM dev
- coherent type
-Date: Tue, 1 Feb 2022 09:48:54 -0600
-Message-ID: <20220201154901.7921-4-alex.sierra@amd.com>
+Subject: [PATCH v6 05/10] drm/amdkfd: coherent type as sys mem on migration to
+ ram
+Date: Tue, 1 Feb 2022 09:48:56 -0600
+Message-ID: <20220201154901.7921-6-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220201154901.7921-1-alex.sierra@amd.com>
 References: <20220201154901.7921-1-alex.sierra@amd.com>
@@ -71,28 +71,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 62171b14-3a04-40fb-0270-08d9e59a669c
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5029:EE_
-X-Microsoft-Antispam-PRVS: <BL1PR12MB502916C0CE34D7F16359CEBBFD269@BL1PR12MB5029.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
+X-MS-Office365-Filtering-Correlation-Id: 7a3f5b76-3736-4d2f-e5f7-08d9e59a6723
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1173:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1173896496AECCA89BA35E3FFD269@CY4PR12MB1173.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lsjwECF0oe/Z5/yZvzizo06o4zbyMLd34IFeEwDMY3GYY5p8y15N0b9i1dkhCRsLSahRW2xs7bn+A4RVziD6yAME8LGVkNskimwXG/OM4LdK2PkhssOYi42OruEHvU/WBkesg9Wex0Z7/4AL+/qvq+Hx1hCeiy6ucSwCkhOAJrJ/bwcPKXS+RFBtSSP/c1nuWlnxRzqwwZkbmI+OnJrEIByH+slqA9f0FNpd6c0tpOcHvTkcYB5INuXJfVEkxUFvykWYcn1ElbUw4/0oeOi4pnei8+keQqEQcwew8nW2Ft6B8Oj6LIf1FUMVgemP8sJDAZgw7IE1TumcnQo4LtGAEYIuWijkyhprPypPDsoLeDy7h5AbltgSMWBVRCR23jjwETV+G3pMxt7jb8OUyiR9DvUoEuYjBC7NrzOJBo3W/Soy9IODSwohU4TTOB4A3Na87Jh7nbA2aH4OCAI7MMYjtTTzwBdSi66ZmaGlcRmm+ieNxLK7MQD23yFdK1edIIH/PSmskgDQw+9aXQrCD0WQsnPgFCCoTC0o3E4HO3Fii+EzlJQTHSdADHdP2umJ5FYMhi9jFauIcifwkFtOOiuexxOETjub2VpHCroa3AhUgtPXemHs9KvkPZwA1ekVEKOr7vh6j/ieeV6r8cfFQsxqEb8LG5FcTF9zyUqAJN3JQmrvQ6TGEG/R71Tq8E/xH8VGm9mpw9TMfLi3Qn3Yr9jBow==
+X-Microsoft-Antispam-Message-Info: WYOdKsIBE2rsmnZoemwhr4trvhjFMbgPvvwllFIx4/ZDIaxundRejzDXP9KxTb37I/UCVKMzU0Vlyt/dvC79CDLbqP2FQVJfmy6Z7GLTtjJ0I0bQgssU9+IlW263IwHl+kCobVsR3sPCgaS/AfOS6eieqqWFayAwltq/XMgwALKcGwF38kHhtVQFMMYm7G5mYczxGeF3uwxs1RJRakHrR4Lf2T+ZeFMacfom3UtBvGEj3nMJ7LaI2MZdvZz4zDSHxHS/FGPt3YTtHHAm5qqT5+0nfOyXeDCLNPAxkKjuKRjaQ/41El1bkGV3iFx6dCT/FlPFXaW+V5ElrAu6y1kJZfC1z5aLKNgSVVLqwZrFCRX4fXBzGEGdpOzePdF0KcW6IO962bYQSTMe/fLKsd9vGOsdstmryZ8idA0cYcgMq7YcN6p50bN3LNtktSbONE8oJ+cYu7j1ZcSO+UkbbgrFBGdLSdh8iC2tMRXaXRk3tERFWeoaEyagU+4fEj2UeiqnI+vYcmKB7gaihrasgUfmnb0ZgrdVtN9pQeNsmXvOiCS13uvwS7WGwvmTHj4Bkn9wYiX2nYy1Y73rQ75wpjPMRCFwnNVvAb3C2Dy3K8ZUhCLds6N0pZAwwlQYq/8s917f7mn1Bf2lRJo/zPNtz2aKsKEKBeBSy35bMm1h2NfvxSsyx5SFFw8LU8DBymycUOQzpB2x+tHJ65lTpeRAa/9Dkg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(4326008)(8676002)(36860700001)(2906002)(8936002)(40460700003)(47076005)(70206006)(70586007)(82310400004)(7696005)(6666004)(186003)(356005)(336012)(26005)(81166007)(1076003)(54906003)(44832011)(16526019)(2616005)(316002)(5660300002)(426003)(86362001)(110136005)(36756003)(508600001)(7416002)(36900700001)(20210929001);
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(26005)(16526019)(186003)(1076003)(336012)(2616005)(36860700001)(426003)(83380400001)(47076005)(81166007)(356005)(82310400004)(86362001)(7416002)(4326008)(508600001)(5660300002)(40460700003)(36756003)(44832011)(54906003)(110136005)(8676002)(70586007)(8936002)(316002)(7696005)(70206006)(2906002)(6666004)(36900700001)(20210929001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2022 15:49:15.8235 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62171b14-3a04-40fb-0270-08d9e59a669c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2022 15:49:16.6984 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a3f5b76-3736-4d2f-e5f7-08d9e59a6723
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT008.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5029
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1173
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,44 +109,35 @@ Cc: willy@infradead.org, apopple@nvidia.com, dri-devel@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Avoid long term pinning for Coherent device type pages. This could
-interfere with their own device memory manager. For now, we are just
-returning error for PIN_LONGTERM Coherent device type pages. Eventually,
-these type of pages will get migrated to system memory, once the device
-migration pages support is added.
+Coherent device type memory on VRAM to RAM migration, has similar access
+as System RAM from the CPU. This flag sets the source from the sender.
+Which in Coherent type case, should be set as
+MIGRATE_VMA_SELECT_DEVICE_COHERENT.
 
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-by: Alistair Poppple <apopple@nvidia.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- mm/gup.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/mm/gup.c b/mm/gup.c
-index f0af462ac1e2..f596b932d7d7 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -1864,6 +1864,12 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
- 		 * If we get a movable page, since we are going to be pinning
- 		 * these entries, try to move them out if possible.
- 		 */
-+		if (is_dev_private_or_coherent_page(head)) {
-+			WARN_ON_ONCE(is_device_private_page(head));
-+			ret = -EFAULT;
-+			goto unpin_pages;
-+		}
-+
- 		if (!is_pinnable_page(head)) {
- 			if (PageHuge(head)) {
- 				if (!isolate_huge_page(head, &movable_page_list))
-@@ -1894,6 +1900,7 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
- 	if (list_empty(&movable_page_list) && !isolation_error_count)
- 		return nr_pages;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 5e8d944d359e..846ba55723fb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -659,9 +659,12 @@ svm_migrate_vma_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
+ 	migrate.vma = vma;
+ 	migrate.start = start;
+ 	migrate.end = end;
+-	migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
+ 	migrate.pgmap_owner = SVM_ADEV_PGMAP_OWNER(adev);
  
-+unpin_pages:
- 	if (gup_flags & FOLL_PIN) {
- 		unpin_user_pages(pages, nr_pages);
- 	} else {
++	if (adev->gmc.xgmi.connected_to_cpu)
++		migrate.flags = MIGRATE_VMA_SELECT_DEVICE_COHERENT;
++	else
++		migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
+ 	size = 2 * sizeof(*migrate.src) + sizeof(uint64_t) + sizeof(dma_addr_t);
+ 	size *= npages;
+ 	buf = kvmalloc(size, GFP_KERNEL | __GFP_ZERO);
 -- 
 2.32.0
 
