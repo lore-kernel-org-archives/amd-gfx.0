@@ -4,118 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9737AC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 07:56:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D35F7C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 09:21:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2237310E6B7;
-	Tue,  1 Feb 2022 07:56:27 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2057.outbound.protection.outlook.com [40.107.237.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1CD710E952;
- Tue,  1 Feb 2022 07:56:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC7210E95D;
+	Tue,  1 Feb 2022 09:21:07 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2063.outbound.protection.outlook.com [40.107.236.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5759C10ECA0;
+ Tue,  1 Feb 2022 07:06:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bHlqAIpBhyRtBdtvdJkNqg/O/H4z4fCHrmWwl+XgNRSxKOsqo1N5Ovxc6+Jv6BaKfR/ApbzWyPmD+j6v3CqDda1pDase1+4fCXp/QyyhjcOz6yz7//ZyTbuYxtqzWQyJYvSg4rxixKrjF8rDq/3clQYBVao0skliPnu+ggQvrsHckJPBxu/Vuxf7o8eY5Eb47KMAGtc9yIOqalOdAjfvyaRsTBigpQAOwwlxgjhMu0+CClBOvIhTYG3Z8F2V9AMQpEpY5MSYB39610N2PyFOuHR15lReCfAfESvuQNb8jL4nKGvZqPugrxyQ7+0z2xxk5QkIleQhVRqjQ/w/HfPL/A==
+ b=LVqnM6q4UGMyG3mVm2JVV+uKvfDsW+vfItdZq1dkjrNB0OUOfLFNM3n79QtsQooxPXMHbd3P6+Vl2MpISWHQ1mYqaqSKhlLhIyr4cpTySbWaTyl07+JVpNtbFCi1AsFJgMSNotBK710Y9N4kZxkeQWPvofDSJ1MGAbv8otXHHNLGj1wpD0nXgzgrLiEmH0Xq3bR30Hig+QGmaVyAT4SnymzDjxmOsqTZ5+2coM3rmsCGd1aBmc+2sLcSyvxco3PRwGWw2ZMuoTB+3lc8mLBg/9KK0hq72s8zYMPn7yRvfT43WaRFrx1Ab+yuJfHOMfPe05TMEaG5CN4JbPCmGWtmtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cQbl0utcsInwkPllsS4Y/kzZowQg55At9NTCPY73+Cw=;
- b=ZAAB7p7amXZKD+nX5E1dMNp53jEWYnHrPi/7XY1HTZBpF4y879ND4Dj3zkBmp7MWtn697U5NBbSbscvIzhu3AzeIKi9Z7tG2OPsrddwF3NBAhKMXVFJj/C0IFPNdmDpFHLO2T/s3eZohzaDVBGoaubKQzZKROYDSVEqFgvxZm0UxDkiiEkRGs1bMAi4QgMGcDwjwC4WFf17XoIvAGGtbaBULYtguKre2jhsnVuqZVCG5d9iEuOon+LomZUPRtvjGGlM1RDvAu9XqC/LV10OOonIc0X33LIRAkkyldy7NOyrAixUtMisKrkaSoGAJquwySIPQVC5/IR2OiUBIrCoQDw==
+ bh=dd81HyG71D8pTfKOZda6N8+bA8ij9IGX6lSZqZkGGWE=;
+ b=U4L4OPtRoiD3DYILyM6ilJGFzYcBBX2+DXA6KwMBaSE8Z31X+phJWroZp2jW/7+cCBtxzhgXbcDq84CVZ13lSS5jIpXkRcFt8bVhFzJdKKJrjN8B3xiehu9mAucwgY6J6ORSTjawoHPeM/IJkq8r6MZhn3GgVCptAzOo65KxFnkUehwhRzqEwHpiWFhncf2ggivqNQXZuvXqn7aGhx5kYIpNb8msxOnGv63xYFSxMbA47KNqgp84UxOrr6yw++X4XvHoX65UhjgEXyETM8kaF4rbGTqa9SdGMsMgvKdMUy8UERBkmpQ+DCXajcpqYD46/rBgn3+kPIJDf5oLL/GmIw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cQbl0utcsInwkPllsS4Y/kzZowQg55At9NTCPY73+Cw=;
- b=LbI2PaqEhzuFkjx+kj5Y6n3goxmqQyUKCEa+nyaDc1+aj0f0oc/kYtFGC4ZwU1zIDsrsf2OKVnAP3Fm2Mqgs2x6mxnwPKi8s2q1Gg+qHYa55ExewJ6FeWXbpojUL9c9LF7mcG5NJ7sypZOIw0qTsCFxGm4aqLfvcGAbaLGRk0KM=
+ bh=dd81HyG71D8pTfKOZda6N8+bA8ij9IGX6lSZqZkGGWE=;
+ b=EaEn71y7itik3sADmPHrxXRcXBVI2U0kM0YneFfYqI9CQ2MyIguUPCZtEZkfu7+3VR/38Jrzd8W6hAjh4xIZy00p8gvWrMUKmElEVy9wt9jCaIhl2VAViM4YfHaRbFgNAgmY6mk4Zn8X4s7FAniWQfHU0+Lp4WQoMqf0EdYLPvYcjXTDvU8C+qlRWpIWLIyH1hCAIeyumaCEX1yT//WWzsPN/zkQOjLKgViYcY8BkfzZ7FrCb9sDsg2cH44JRqDsK4UCXij6KMjEDo3VvfvhgsXu2n2bBpjdoQn4QK6gjBAjISvQ0i5RkmzsbPgTWPZ6HMkPaur1LSet19Xknz8lkQ==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM6PR12MB3371.namprd12.prod.outlook.com (2603:10b6:5:116::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.18; Tue, 1 Feb
- 2022 07:56:23 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::d861:5699:8188:7bd3]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::d861:5699:8188:7bd3%3]) with mapi id 15.20.4930.022; Tue, 1 Feb 2022
- 07:56:23 +0000
-Message-ID: <7cdc2d3f-df52-f7a9-15bf-fe4bc01d3c4f@amd.com>
-Date: Tue, 1 Feb 2022 08:56:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [BUG] gpu: drm: radeon: two possible deadlocks involving locking
- and waiting
-Content-Language: en-US
-To: Jia-Ju Bai <baijiaju1990@gmail.com>, alexander.deucher@amd.com,
- Xinhui.Pan@amd.com, airlied@linux.ie, daniel@ffwll.ch
-References: <d5e4460f-7e26-81d2-2efe-6f47760b78d2@gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <d5e4460f-7e26-81d2-2efe-6f47760b78d2@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BYAPR12MB3176.namprd12.prod.outlook.com (2603:10b6:a03:134::26)
+ by CY4PR1201MB0214.namprd12.prod.outlook.com (2603:10b6:910:25::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.20; Tue, 1 Feb
+ 2022 07:06:54 +0000
+Received: from BYAPR12MB3176.namprd12.prod.outlook.com
+ ([fe80::48bc:2cb6:45e3:41fd]) by BYAPR12MB3176.namprd12.prod.outlook.com
+ ([fe80::48bc:2cb6:45e3:41fd%4]) with mapi id 15.20.4930.022; Tue, 1 Feb 2022
+ 07:06:54 +0000
+From: Alistair Popple <apopple@nvidia.com>
+To: akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Subject: [PATCH 3/3] tools: add hmm gup test for long term pinned device pages
+Date: Tue,  1 Feb 2022 18:05:57 +1100
+Message-Id: <d400bc4c874ff211b8520c51930b5ab78711454a.1643698773.git-series.apopple@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.516a938ce97eb805791da6e2df508eb0dce413b8.1643698773.git-series.apopple@nvidia.com>
+References: <cover.516a938ce97eb805791da6e2df508eb0dce413b8.1643698773.git-series.apopple@nvidia.com>
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM6P191CA0050.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:209:7f::27) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR13CA0012.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c0::17) To BYAPR12MB3176.namprd12.prod.outlook.com
+ (2603:10b6:a03:134::26)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a7f6231c-aba7-4258-0a79-08d9e5585700
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3371:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3371F2320CC6DC492243AEC183269@DM6PR12MB3371.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: 4d5b6f9a-73d4-40f4-1dea-08d9e5516d65
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0214:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB021431C8734A8DF0EBA8BB2ADF269@CY4PR1201MB0214.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pXS1LB7MJBQUxhv8COisTYumkZc7b4AQonAy1dQMfvSwFFxqz9SBqMrvbSf5F6J6+C3TsUHRuxbAS321+nwp2kfKZBcEIkMRJZkeUmwCZKSz/wde3A8h07jO7g9/JVcWISsduPi3dwV5N2qVrXMrsaALqXs6snYlBcOFutsvbxSEzV1twXszolWOqdw1vaWSLbiBuMrmNqpGBuhhm6UapI+vH74TiaXH0wBSfLJB4bPF5sCY0p3K/6PltHrca5HHh4mAxeH2riNVfbCR2vPpJlI9lbWyxC3mwclBcmnMc8isFppbRTuZ6422vbpVDxgpTMS11C6/+fLWwaVTLU+61/CA2DmdsL/v0pnM64+BBJCzQnrzztgQyp+5rfTtu6+RT7beetJMsf6+pF3Yw1IASAmrky6P4PMT7xEUQ9NbkKyYrm1o3DRvT9PuqUBRIErNpdT+PVInkDPWkWj/iXdCGK2HPwdo6eOLR13LLUy+letPbeifw8EOJXAVOuvrmQNEOYZfUAI86j89mhXViT2ZC/gWncJ2S0HFrFw0ikU8K2upoGkKu0uKavFV3as3g9gyDXDlEMbnJMdPcNGUJYd3rPXytTLrJgFRWz8pBRxQVKflNSkHspE0JcIlQu2H1AnE6dPejLunIEd7ySEDtU9DbG/I3meuJFqqNXcIoqXUwO42+V1sND4vJ1LcAA7fFzj1JiHHqQhXqFB7ZR0P9saqZ8PSvRmTwfvTTM2DemcVpLCzVRv8LsXoRBf321Ok+GGo
+X-Microsoft-Antispam-Message-Info: S/QGslVbU7mnyw/nbcWMaIf/h4SxF9AGNdH+dGhwA/nsOtn+ksQTlX0IVAsEJSs0F5bQb9TxEqAq4CRL2+DjWZa47LdG4aELRi31oXVPsa5+X7qaubIDUFydAGthsTi9BCqbqaPFwvxYu2Yt1u2lnUVh5AV+LMPQuQhWWHUGQVGBYq3pGKALcpVn4Ttota8Z93MdMcySMJsKaywNPqSLpGesWlahne3d2NNMH4F0vV+YreGzlxJyEoJeafRWNL4MGEbiR7LngbWkoHVRI5bam8kQ1tCnzx464oEBtHxXPghfbQZP7WYFsau9UmQtiG2ISLuPL7XalSgBemrqbmjQE/GOtCoofmUeDwWtay2AjrMG+/486g2Mm1u2iXQwoZWcZcFJA9+MmH+sWBk3BggOM6nEB2eLfPLqm3Uj7VVhOz5j2+OnuM0m6hryap5mu0HYIkeL9rKMyDnhnzYSnnhX1nG5yC+LuoGa5X3DOWn1ejXyHCtxrgZDCbXlu+MNpnuI+0BQxeS9v3yzJC1LtRMc8T7Z6rJGihAcUjzgfd94jg41nHR1n4JsipuZhDlszrBT+s5ZOOrSeYHrL0rYA4or1il09Xb+SXK+RyzuQXpD0AEoHvPT01nLSeExknhpZTovlJgLrrSTE2khHaCaK22u1g==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(2616005)(2906002)(186003)(83380400001)(6506007)(38100700002)(6666004)(66946007)(31696002)(36756003)(86362001)(316002)(66476007)(8676002)(8936002)(4326008)(66556008)(31686004)(6512007)(6486002)(508600001)(5660300002)(45980500001)(43740500002)(20210929001);
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(107886003)(38100700002)(5660300002)(4326008)(7416002)(316002)(186003)(508600001)(83380400001)(8676002)(2616005)(66946007)(36756003)(2906002)(66476007)(66556008)(86362001)(6486002)(6512007)(6506007)(26005)(8936002)(20210929001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2U0NHBEeXVKSmhLajJqWkVUMkRYYnl0VzJUZHpjWm9FMXFpYVlRZk02MmhF?=
- =?utf-8?B?Vzc5enB3dklvMCtrZFFvdURXcDI3WER3Rm5Ua2lVV2xUUHk5MGs2QmxGbzB5?=
- =?utf-8?B?MEc1Y1VGTUlhTVE4VWM2dGhMalhLQ0hScE9GcjhleUtMakloN2E0WVFZWEFS?=
- =?utf-8?B?aUd5eW16M3luc2JrcU9EYWVVTWdOSzF0czI2K2xCKzl2VzEyQmNVdmhIaGh0?=
- =?utf-8?B?c1JJYXpyNnFXeng2ZG1hYVU1K0d1VWNjS3BMRjB5ZzdyV3d3MjhKOUg0U3pZ?=
- =?utf-8?B?Z3hkK2M2V2pHZFZUTllhOHM4NmZPQ1FXTTNISzJ6V01JTkI0NW9CbUxGd1lv?=
- =?utf-8?B?YzMzODRtdVUxN1JqSk5ldGRlb0xDclkvWjR2MS9LTmNWcDdoQy9DckxCaW5O?=
- =?utf-8?B?MUZkOVlNdGM4R0ZyUHNtQlgxRFhhNUVqd2Nqb2Z2czM1WGN0bmM3ZU50QkJl?=
- =?utf-8?B?YStKS3UzcndBMlIxMnRlRXdaT3FqUHJRbEZHeWd2aWlvaGhtNWVNM0VaUWVr?=
- =?utf-8?B?a0I0d2Rkb0F2UkFWTTg2Tm84NFBKZWZXajRyUjVKYU5rR3UzUTZ4YUFTR2ZY?=
- =?utf-8?B?Zlo0c3k2MnpUTURQZ3p3S3kxREU1cGFiQ3VvYXJ5d2IxYndwT0xLOTZuWlhZ?=
- =?utf-8?B?eUVvVnJ2aXpCVWx1S1N2TktqbXlqcnViMW5vY2RkQ2UwM0c3cHFOL2IwdUho?=
- =?utf-8?B?WHowL3psU0k1Qlg4U3FBamZDeVNVVHZqUlBrYUJPSEpmdW4yUldXREtMNndZ?=
- =?utf-8?B?cXVGcHVUcjFhcTh4VUNRcksreXM3ek1uRkVGeDlST0l5RmJ0cXNBTFFjZjM3?=
- =?utf-8?B?NUZ4dm9jLy9EcjdvSFJISjhDdEI1M0dKcDBXcGh6NU5IM3FJSDR0dFlXS04w?=
- =?utf-8?B?WStqTjZyUUVYOGFEeU45MXlQTU5zVFZodEVaTjVMenNIWTdlMGIwV2ZtNE0r?=
- =?utf-8?B?bFVrcURNRitKUFhRSkFwMEFHWmhxSUptWWw2dFlZYlBiYkJzZWdtdFBmOU9i?=
- =?utf-8?B?dnNuaUJFbElQWVd1R2NPTCtwU2M4WE5MenZkZlFCSERHdjhrRkJOUlFmL0du?=
- =?utf-8?B?NDZja2U5WXloYXdlOUJmd2hvR0RPRHA1S2ZrR3JJNUdMRW43a0tvYkdaWm5Q?=
- =?utf-8?B?YWNKYjNBMnpPZENvU08zU2F3Sk5YaUFlbXRhdTlEZWpWeUU5SWFjV2E3TFNT?=
- =?utf-8?B?WUw4NmdrUGp1SkQrY0VtUk9nVWFydWREdDNwQzFWZFlicXExbE82eVJEUkxN?=
- =?utf-8?B?amloTzZLWWJKUFNvZEhZdDNRNEdxWGNGUWprYVNLRzlqcFJvZnIxalpCRE43?=
- =?utf-8?B?RDFpeEM5RzAyK2xZeUdva3hRb0RoSThQNGtqSk96b3R6dm9DRHRWK1hLZ05l?=
- =?utf-8?B?d2tsMDVQTmw4cTdXbkdQbTh4V1VNdlJ0YWg5ZUlSeGE1SWUxRXhpQlJSMmVq?=
- =?utf-8?B?aTRBM3pKbzc3SEVZdzRIV3M0dzB3N1NadWM2bjdtVWRIT2R0MWNySDZhTEtG?=
- =?utf-8?B?V0RlcnJMaHFtLzFnZytMMWpzeVpXc1JhTVFic2pUdUd1S3RJMHJoMEVnTGky?=
- =?utf-8?B?ek9pSVBvQ3dDQ1hRL1pldElySEIvWnZQRW1vTUIzOHMra0pjaXcwK0laQlBW?=
- =?utf-8?B?NDJ5Y1RKcHpDenlVUnFkUU9VQXBvZmtBS0Z5R0ZZZmlhSTFxNnFTcm9LNEpk?=
- =?utf-8?B?NkV5T253NldEKzQyaHAwbGJndjNpd2pFQXg5SytwL090dk5aWURtYUV2NkNG?=
- =?utf-8?B?S3FiS1J4TFRmbzBYRWRBNmdyS2xGMHZzcExaai9jZDNsaCtXRjlHNERhL0NR?=
- =?utf-8?B?VGIvM3UvWUJkam5FSDlXbHR2dkhsM1BENUdac1JiVC9SQ1BzeTZrL1BTNnIv?=
- =?utf-8?B?VU00a1lRYVoxbHNSTWFIdExNWE9DMzllMWt1bFpPWTA3VU5ROWhZUzRtQllG?=
- =?utf-8?B?MXQvNGZFRUFBcFNVVlk3NHhvZmZ6VnhmNHB3dkI3citlQTFra3R2QWxFcUky?=
- =?utf-8?B?NDBZVjRZTnBQVE5CbnV3MnJncHRnQ0pLVTdOWkNKT050SXhEcDh6T1ZGUUFZ?=
- =?utf-8?B?QUhtaTF5RG5LM2FQRTNUTnR2SnUwUnpSMGo5UWVwVmZIUHg3MHF3WW9pdGdo?=
- =?utf-8?B?Wno4OUw0eStwQ2RtejNBOUVMNmptN3MxaklXMkpEVEU3dFJWRVV0WnVCUEpp?=
- =?utf-8?Q?5gOC8zH8F7um/Qw4Tsdeyh0=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7f6231c-aba7-4258-0a79-08d9e5585700
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?fUfoR9CFruCVMAD/8Z27S6d6haot7/ItGPYj4CKRVx1/qtqalbbNA73FuvDe?=
+ =?us-ascii?Q?8YOqtrQjfcrvDrh1OgSKAFNZD/afvuPfST/R04vraKIUVApGdGuZ/Ffhpc+S?=
+ =?us-ascii?Q?qJJ+mn6ND/WvdoOE11b2NpdrHim7Fc3j49Am3Y+ypSgMT7/2uMHwZuMFwFZ5?=
+ =?us-ascii?Q?88QUOUMntXrFWyW/0HV2sggtOY/7wCpoh6c2g1BklViDS6iE3w7JWJjZb3bi?=
+ =?us-ascii?Q?BkpBvDpRXytEldBU3OoKRGxq8Bk3UmD+rhiN/5ZpD8B4oeHbZfBTNDSLw8ei?=
+ =?us-ascii?Q?WzjBiqN3AmLCrNUex9KfquR4mR2BkQkc7Q34WFHzS+NB/ltq3X/zlCzb48Ns?=
+ =?us-ascii?Q?QfrInPUwpiRXyS9mG0rt9IOEVZIF47KiqeTL67RGZpBa5dSuvbG20FmWg2go?=
+ =?us-ascii?Q?5N9J5Y3SE34plXM31gUJVGqM0rtIjo0NxhVIbXSMfEYoFTyPQh077agVtIog?=
+ =?us-ascii?Q?6Mc4tQigQgHWfFSBBcd0wVsrZlj530C78qIoEC1NOq4JsFlBfjQMd82EWylp?=
+ =?us-ascii?Q?XN7nCHcfvYZ8l+RdIcZNfPYBF+a4iazaKX34NVans2AggfIyPQPTuQ9D7uNm?=
+ =?us-ascii?Q?XUJ8A2LKAajAgIkcLHsPI3nB1j2OeJw7dCPkw/++rH+ZTt1OvyW+DFRRV55u?=
+ =?us-ascii?Q?pD++bMAej8CDn3OoVGvDV55+5iUSWcqZsCgdt0o3y5JmelwQDtIUxT1/dueJ?=
+ =?us-ascii?Q?8BQ/n7oHLRUj6y3SYW0O6B0LvF/qYRodiVHG3qnKAYN70FD/Tq3as4Q7bURF?=
+ =?us-ascii?Q?ka6cTze8LQEhmUCjwznweM5u4oh1jdt3BRmudN6Y/0H5gtKIjvqJz8ZXVQlS?=
+ =?us-ascii?Q?dOROAnUbSGz+61ahwo2nx7wDF1EroVHSOX9kSJ/B7qF+k1v+6etk6KR8XBO2?=
+ =?us-ascii?Q?Ff/0UHlRBe59aAjMQc0ZgyEonzIApOTIeqCOOlMgjB8ceexpzaWAGAkAosle?=
+ =?us-ascii?Q?cQrYgo8gBC+Vf9jlzJSm11SwNxJQQjAq9SLZ44dyhffUBah59eQ2IACFhVrz?=
+ =?us-ascii?Q?/VqC11Ag5bCyLwLY9b1aYxHzmGlmFSmyTtC4y+7jQCPisNbjC0y9GPBdn6x7?=
+ =?us-ascii?Q?ZjsSB1LY4rJvH2A7VdSfF4XdOsIz/duEzhYEGLYubxj+utr6/Z2j263rVQRS?=
+ =?us-ascii?Q?gU46to+u60jtk3aGZgdlJpiAbdBrsZAKDoyPyPOqYK8dD5sGB6lYMgj6iQke?=
+ =?us-ascii?Q?kBRRrEGdK/dCfLwYtEFQKy3+FFBBbQ2o8vmor8JnCLW4EljELAAvGwISk2zm?=
+ =?us-ascii?Q?GeIvex4wMiJjM8IRqmHUYvxS+X0pRZb245TK2lipofZJdtSdEbWnlwLRjvu3?=
+ =?us-ascii?Q?UE2DkK0+G32ZhQ9tSbCrnigsoc1a/bbxwkGMrj+r5K3yjs/AbwaxHO5fP+/6?=
+ =?us-ascii?Q?nkCXHHpAI/KEe9a9/zMHe7HNWRMpQiHn+ASMOjmwjC4Ejl6fpSYW0jfANpI2?=
+ =?us-ascii?Q?l96BdNjbnCSoTyFmCvEK60mw9iO0HSmNW2mRgwL5EZFWX3NR4G1w+SPN0eeW?=
+ =?us-ascii?Q?d0FqAb1uh/6D+0Y5FFOpwstDYkDbBrwr8KQZ9iKgTp4uGWPRUJqr8534zVvs?=
+ =?us-ascii?Q?RZuwCR9E66CxW5v4FGgkpswJX/N21aIMFutxdtnrUJ1F/kSkED4ZceipLoEg?=
+ =?us-ascii?Q?KxCqfUPGBEuOrl8YrRUEgkM=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d5b6f9a-73d4-40f4-1dea-08d9e5516d65
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3176.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2022 07:56:23.1170 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2022 07:06:54.1653 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3TJ4PN2Ls8jgrwfbSLs3Jj/H+K2ixc5UDSeG8cDnn2qQ15Gf4LYN21kcNl2/RgeN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3371
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0CUfUNUf2GXl32hjY+aoYxSxNYL6wq6WtUSlhYMTkt3EJMtjMgT1CPLZEpNkE8mru7QNzyq9AjcT1hX1UVPByA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0214
+X-Mailman-Approved-At: Tue, 01 Feb 2022 09:21:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,83 +117,143 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel <linux-kernel@vger.kernel.org>
+Cc: alex.sierra@amd.com, rcampbell@nvidia.com, willy@infradead.org,
+ jhubbard@nvidia.com, Felix.Kuehling@amd.com,
+ Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, jglisse@redhat.com, amd-gfx@lists.freedesktop.org,
+ jgg@nvidia.com, linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jia-Ju,
+From: Alex Sierra <alex.sierra@amd.com>
 
-interesting that you have found those issues with an automated tool.
+The intention is to test device coherent type pages that have been
+called through get user pages with PIN_LONGTERM flag set. These pages
+should get migrated back to normal system memory.
 
-And yes that is a well design flaw within the radeon driver which can 
-happen on hardware faults, e.g. when radeon_ring_backup() needs to be 
-called.
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
+---
+ tools/testing/selftests/vm/Makefile    |  2 +-
+ tools/testing/selftests/vm/hmm-tests.c | 81 +++++++++++++++++++++++++++-
+ 2 files changed, 82 insertions(+), 1 deletion(-)
 
-But that happens so rarely and the driver is not developed further that 
-we decided to not address this any more.
-
-Regards,
-Christian.
-
-Am 01.02.22 um 08:40 schrieb Jia-Ju Bai:
-> Hello,
->
-> My static analysis tool reports a possible deadlock in the radeon 
-> driver in Linux 5.16:
->
-> #BUG 1
-> radeon_dpm_change_power_state_locked()
->   mutex_lock(&rdev->ring_lock); --> Line 1133 (Lock A)
->   radeon_fence_wait_empty()
->     radeon_fence_wait_seq_timeout()
->       wait_event_timeout(rdev->fence_queue, ...) --> Line 504 (Wait X)
->
-> radeon_ring_backup()
->   mutex_lock(&rdev->ring_lock); --> Line 289(Lock A)
->   radeon_fence_count_emitted()
->     radeon_fence_process()
->       wake_up_all(&rdev->fence_queue); --> Line 323 (Wake X)
->
-> When radeon_dpm_change_power_state_locked() is executed, "Wait X" is 
-> performed by holding "Lock A". If radeon_ring_backup() is executed at 
-> this time, "Wake X" cannot be performed to wake up "Wait X" in 
-> radeon_dpm_change_power_state_locked(), because "Lock A" has been 
-> already hold by radeon_dpm_change_power_state_locked(), causing a 
-> possible deadlock.
-> I find that "Wait X" is performed with a timeout MAX_SCHEDULE_TIMEOUT, 
-> to relieve the possible deadlock; but I think this timeout can cause 
-> inefficient execution.
->
-> #BUG 2
-> radeon_ring_lock()
->   mutex_lock(&rdev->ring_lock); --> Line 147 (Lock A)
->   radeon_ring_alloc()
->     radeon_fence_wait_next()
->       radeon_fence_wait_seq_timeout()
->         wait_event_timeout(rdev->fence_queue, ...) --> Line 504 (Wait X)
->
-> radeon_ring_backup()
->   mutex_lock(&rdev->ring_lock); --> Line 289(Lock A)
->   radeon_fence_count_emitted()
->     radeon_fence_process()
->       wake_up_all(&rdev->fence_queue); --> Line 323 (Wake X)
->
-> When radeon_ring_lock() is executed, "Wait X" is performed by holding 
-> "Lock A". If radeon_ring_backup() is executed at this time, "Wake X" 
-> cannot be performed to wake up "Wait X" in radeon_ring_lock(), because 
-> "Lock A" has been already hold by radeon_ring_lock(), causing a 
-> possible deadlock.
-> I find that "Wait X" is performed with a timeout MAX_SCHEDULE_TIMEOUT, 
-> to relieve the possible deadlock; but I think this timeout can cause 
-> inefficient execution.
->
-> I am not quite sure whether these possible problems are real and how 
-> to fix them if they are real.
-> Any feedback would be appreciated, thanks :)
->
->
-> Best wishes,
-> Jia-Ju Bai
->
-
+diff --git a/tools/testing/selftests/vm/Makefile b/tools/testing/selftests/vm/Makefile
+index 1607322..58c8427 100644
+--- a/tools/testing/selftests/vm/Makefile
++++ b/tools/testing/selftests/vm/Makefile
+@@ -142,7 +142,7 @@ $(OUTPUT)/mlock-random-test $(OUTPUT)/memfd_secret: LDLIBS += -lcap
+ 
+ $(OUTPUT)/gup_test: ../../../../mm/gup_test.h
+ 
+-$(OUTPUT)/hmm-tests: local_config.h
++$(OUTPUT)/hmm-tests: local_config.h ../../../../mm/gup_test.h
+ 
+ # HMM_EXTRA_LIBS may get set in local_config.mk, or it may be left empty.
+ $(OUTPUT)/hmm-tests: LDLIBS += $(HMM_EXTRA_LIBS)
+diff --git a/tools/testing/selftests/vm/hmm-tests.c b/tools/testing/selftests/vm/hmm-tests.c
+index 84ec8c4..11b83a8 100644
+--- a/tools/testing/selftests/vm/hmm-tests.c
++++ b/tools/testing/selftests/vm/hmm-tests.c
+@@ -36,6 +36,7 @@
+  * in the usual include/uapi/... directory.
+  */
+ #include "../../../../lib/test_hmm_uapi.h"
++#include "../../../../mm/gup_test.h"
+ 
+ struct hmm_buffer {
+ 	void		*ptr;
+@@ -60,6 +61,8 @@ enum {
+ #define NTIMES		10
+ 
+ #define ALIGN(x, a) (((x) + (a - 1)) & (~((a) - 1)))
++/* Just the flags we need, copied from mm.h: */
++#define FOLL_WRITE	0x01	/* check pte is writable */
+ 
+ FIXTURE(hmm)
+ {
+@@ -1766,4 +1769,82 @@ TEST_F(hmm, exclusive_cow)
+ 	hmm_buffer_free(buffer);
+ }
+ 
++/*
++ * Test get user device pages through gup_test. Setting PIN_LONGTERM flag.
++ * This should trigger a migration back to system memory for both, private
++ * and coherent type pages.
++ * This test makes use of gup_test module. Make sure GUP_TEST_CONFIG is added
++ * to your configuration before you run it.
++ */
++TEST_F(hmm, hmm_gup_test)
++{
++	struct hmm_buffer *buffer;
++	struct gup_test gup;
++	int gup_fd;
++	unsigned long npages;
++	unsigned long size;
++	unsigned long i;
++	int *ptr;
++	int ret;
++	unsigned char *m;
++
++	gup_fd = open("/sys/kernel/debug/gup_test", O_RDWR);
++	if (gup_fd == -1)
++		SKIP(return, "Skipping test, could not find gup_test driver");
++
++	npages = 4;
++	ASSERT_NE(npages, 0);
++	size = npages << self->page_shift;
++
++	buffer = malloc(sizeof(*buffer));
++	ASSERT_NE(buffer, NULL);
++
++	buffer->fd = -1;
++	buffer->size = size;
++	buffer->mirror = malloc(size);
++	ASSERT_NE(buffer->mirror, NULL);
++
++	buffer->ptr = mmap(NULL, size,
++			   PROT_READ | PROT_WRITE,
++			   MAP_PRIVATE | MAP_ANONYMOUS,
++			   buffer->fd, 0);
++	ASSERT_NE(buffer->ptr, MAP_FAILED);
++
++	/* Initialize buffer in system memory. */
++	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
++		ptr[i] = i;
++
++	/* Migrate memory to device. */
++	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
++	ASSERT_EQ(ret, 0);
++	ASSERT_EQ(buffer->cpages, npages);
++	/* Check what the device read. */
++	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
++		ASSERT_EQ(ptr[i], i);
++
++	gup.nr_pages_per_call = npages;
++	gup.addr = (unsigned long)buffer->ptr;
++	gup.gup_flags = FOLL_WRITE;
++	gup.size = size;
++	/*
++	 * Calling gup_test ioctl. It will try to PIN_LONGTERM these device pages
++	 * causing a migration back to system memory for both, private and coherent
++	 * type pages.
++	 */
++	if (ioctl(gup_fd, PIN_LONGTERM_BENCHMARK, &gup)) {
++		perror("ioctl on PIN_LONGTERM_BENCHMARK\n");
++		goto out_test;
++	}
++
++	/* Take snapshot to make sure pages have been migrated to sys memory */
++	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_SNAPSHOT, buffer, npages);
++	ASSERT_EQ(ret, 0);
++	ASSERT_EQ(buffer->cpages, npages);
++	m = buffer->mirror;
++	for (i = 0; i < npages; i++)
++		ASSERT_EQ(m[i], HMM_DMIRROR_PROT_WRITE);
++out_test:
++	close(gup_fd);
++	hmm_buffer_free(buffer);
++}
+ TEST_HARNESS_MAIN
+-- 
+git-series 0.9.1
