@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D35F7C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 09:21:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00998C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Feb 2022 09:21:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC7210E95D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A83A810E99F;
 	Tue,  1 Feb 2022 09:21:07 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2063.outbound.protection.outlook.com [40.107.236.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5759C10ECA0;
- Tue,  1 Feb 2022 07:06:56 +0000 (UTC)
+ (mail-bn8nam11on2044.outbound.protection.outlook.com [40.107.236.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DFB810EC96;
+ Tue,  1 Feb 2022 07:06:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LVqnM6q4UGMyG3mVm2JVV+uKvfDsW+vfItdZq1dkjrNB0OUOfLFNM3n79QtsQooxPXMHbd3P6+Vl2MpISWHQ1mYqaqSKhlLhIyr4cpTySbWaTyl07+JVpNtbFCi1AsFJgMSNotBK710Y9N4kZxkeQWPvofDSJ1MGAbv8otXHHNLGj1wpD0nXgzgrLiEmH0Xq3bR30Hig+QGmaVyAT4SnymzDjxmOsqTZ5+2coM3rmsCGd1aBmc+2sLcSyvxco3PRwGWw2ZMuoTB+3lc8mLBg/9KK0hq72s8zYMPn7yRvfT43WaRFrx1Ab+yuJfHOMfPe05TMEaG5CN4JbPCmGWtmtQ==
+ b=JV3aoDHinm4UTEceHtn5xpHA0ZWjUKLDIX+M4mrokSECL+uKBEK+7DH4of/YhFPWTkKoaVgBp+YHmGDfN/QPzZAWfqC6+c+55cKYfqdFpgSOrEFksvH7+voKCM74PLG2jftcRKiszzde2UsX2p2zysL3mceg0ADjITQ3Y0uGxY76/DB73Dz9qxVkSs2ppNePiFqfbNM2eYsKBQD8KgzU03vNKoPDyix+hAVQfI1JSaW+0oHoqxtTR79cwWdfTV42Ik5qTjPcoZJdbQ11W+FHGDhxLc10uebVR78WJDyWUKS4i6qsVc9YntHxMkIXL6nyvemdO8i3BTaDexCuFo9RiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dd81HyG71D8pTfKOZda6N8+bA8ij9IGX6lSZqZkGGWE=;
- b=U4L4OPtRoiD3DYILyM6ilJGFzYcBBX2+DXA6KwMBaSE8Z31X+phJWroZp2jW/7+cCBtxzhgXbcDq84CVZ13lSS5jIpXkRcFt8bVhFzJdKKJrjN8B3xiehu9mAucwgY6J6ORSTjawoHPeM/IJkq8r6MZhn3GgVCptAzOo65KxFnkUehwhRzqEwHpiWFhncf2ggivqNQXZuvXqn7aGhx5kYIpNb8msxOnGv63xYFSxMbA47KNqgp84UxOrr6yw++X4XvHoX65UhjgEXyETM8kaF4rbGTqa9SdGMsMgvKdMUy8UERBkmpQ+DCXajcpqYD46/rBgn3+kPIJDf5oLL/GmIw==
+ bh=b51ocJMBk4G9G+uPxYS2c6YPUjtxQDBMQdZVtZ1jMWg=;
+ b=jQCUrNbXvBUXj6iJ4P+4Oi5hv5WRX/eAC4p87sXfEygyA99jD6I3t24MJf1FzU0LiPvvz6KUGGlN5eO7dhFyk9eM+AwMDGYXkUWahnlVYa6JEVGSh6lE24pfWz3Xr/Heftsn7ahcNzNxMEgL8AniUwQ+5OYfBZbIFBf6VXW9urcWE9jpzRJ83EEeewenRDOQplDU50F/O724+SQJ+C0A36FmDeqN7tnv0FLO3sM2QSjX2bNfTz167U12AJRQUZHFwILXXGj+9k7jip6HUWvWUK5F8qOXbW8ygKgN+w1JsCKoEtq0uGjHBfzhV/jjaYT/6hvH+PMzJwfapEr/sP8KMw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dd81HyG71D8pTfKOZda6N8+bA8ij9IGX6lSZqZkGGWE=;
- b=EaEn71y7itik3sADmPHrxXRcXBVI2U0kM0YneFfYqI9CQ2MyIguUPCZtEZkfu7+3VR/38Jrzd8W6hAjh4xIZy00p8gvWrMUKmElEVy9wt9jCaIhl2VAViM4YfHaRbFgNAgmY6mk4Zn8X4s7FAniWQfHU0+Lp4WQoMqf0EdYLPvYcjXTDvU8C+qlRWpIWLIyH1hCAIeyumaCEX1yT//WWzsPN/zkQOjLKgViYcY8BkfzZ7FrCb9sDsg2cH44JRqDsK4UCXij6KMjEDo3VvfvhgsXu2n2bBpjdoQn4QK6gjBAjISvQ0i5RkmzsbPgTWPZ6HMkPaur1LSet19Xknz8lkQ==
+ bh=b51ocJMBk4G9G+uPxYS2c6YPUjtxQDBMQdZVtZ1jMWg=;
+ b=gGBeBuqoct8oeL77wirmELX91j2ntlxFt0bgIzDFUeOXRTULSrJQdE1V7FV6IN7DE1UxwV8dFMQQTVICucvoGgy0iwj1GmQAUsJsAE6bShY0jfoFyFVFHDfybZTkTd57V53fioyF2pAzepFw2P2Fc1+wLC61aawnKI7xuIHeil6F859RGA+Dos7Ds63TYaSniz5YDTxvLNAojUqIpl68NM2zwhTI6a/kkLSZjapkTQ8+wzo533A5YtK4Bs34mTLJrGQFdUGyq4GpAFnl0mu3w/hfjI9qPmKQhjG/iRysDw/QpcXxIqXkliES/9ONHsOz4VVLs1Uz203bhG9rFeX5fg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from BYAPR12MB3176.namprd12.prod.outlook.com (2603:10b6:a03:134::26)
- by CY4PR1201MB0214.namprd12.prod.outlook.com (2603:10b6:910:25::13)
+ by CH2PR12MB3991.namprd12.prod.outlook.com (2603:10b6:610:2f::26)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.20; Tue, 1 Feb
- 2022 07:06:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Tue, 1 Feb
+ 2022 07:06:47 +0000
 Received: from BYAPR12MB3176.namprd12.prod.outlook.com
  ([fe80::48bc:2cb6:45e3:41fd]) by BYAPR12MB3176.namprd12.prod.outlook.com
  ([fe80::48bc:2cb6:45e3:41fd%4]) with mapi id 15.20.4930.022; Tue, 1 Feb 2022
- 07:06:54 +0000
+ 07:06:47 +0000
 From: Alistair Popple <apopple@nvidia.com>
 To: akpm@linux-foundation.org,
 	linux-mm@kvack.org
-Subject: [PATCH 3/3] tools: add hmm gup test for long term pinned device pages
-Date: Tue,  1 Feb 2022 18:05:57 +1100
-Message-Id: <d400bc4c874ff211b8520c51930b5ab78711454a.1643698773.git-series.apopple@nvidia.com>
+Subject: [PATCH 1/3] migrate.c: Remove vma check in migrate_vma_setup()
+Date: Tue,  1 Feb 2022 18:05:55 +1100
+Message-Id: <02339ee87f428688336960d0403059b7af5834fe.1643698773.git-series.apopple@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.516a938ce97eb805791da6e2df508eb0dce413b8.1643698773.git-series.apopple@nvidia.com>
 References: <cover.516a938ce97eb805791da6e2df508eb0dce413b8.1643698773.git-series.apopple@nvidia.com>
@@ -54,57 +54,57 @@ X-ClientProxiedBy: SJ0PR13CA0012.namprd13.prod.outlook.com
  (2603:10b6:a03:134::26)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4d5b6f9a-73d4-40f4-1dea-08d9e5516d65
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0214:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB021431C8734A8DF0EBA8BB2ADF269@CY4PR1201MB0214.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Office365-Filtering-Correlation-Id: 273833b0-db72-497e-fd5f-08d9e5516982
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3991:EE_
+X-Microsoft-Antispam-PRVS: <CH2PR12MB3991C63DEF82DE3858256A76DF269@CH2PR12MB3991.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: S/QGslVbU7mnyw/nbcWMaIf/h4SxF9AGNdH+dGhwA/nsOtn+ksQTlX0IVAsEJSs0F5bQb9TxEqAq4CRL2+DjWZa47LdG4aELRi31oXVPsa5+X7qaubIDUFydAGthsTi9BCqbqaPFwvxYu2Yt1u2lnUVh5AV+LMPQuQhWWHUGQVGBYq3pGKALcpVn4Ttota8Z93MdMcySMJsKaywNPqSLpGesWlahne3d2NNMH4F0vV+YreGzlxJyEoJeafRWNL4MGEbiR7LngbWkoHVRI5bam8kQ1tCnzx464oEBtHxXPghfbQZP7WYFsau9UmQtiG2ISLuPL7XalSgBemrqbmjQE/GOtCoofmUeDwWtay2AjrMG+/486g2Mm1u2iXQwoZWcZcFJA9+MmH+sWBk3BggOM6nEB2eLfPLqm3Uj7VVhOz5j2+OnuM0m6hryap5mu0HYIkeL9rKMyDnhnzYSnnhX1nG5yC+LuoGa5X3DOWn1ejXyHCtxrgZDCbXlu+MNpnuI+0BQxeS9v3yzJC1LtRMc8T7Z6rJGihAcUjzgfd94jg41nHR1n4JsipuZhDlszrBT+s5ZOOrSeYHrL0rYA4or1il09Xb+SXK+RyzuQXpD0AEoHvPT01nLSeExknhpZTovlJgLrrSTE2khHaCaK22u1g==
+X-Microsoft-Antispam-Message-Info: rsBkYo9DX1SiQYRskbiXpG41ptiwVSg7PEBH5boMEiI5RlkF4Oc4KkKziHPSmGA/x1+OMhaYnvwKLYhol19GbUC/AYdhh3B/RIWa0omKhiwcKQ+JHGsbVqvrQe3Ss1KVaDJOZotXEAeK5L11kULFGAeysjLUWCW5qQfilt5nihLHCFfcUyTKmP4/BuQUJhuA1V+YUuI24BPJHz39nTEkiyVLWpcpg87x9VAgaXlgfHdLXMcGblZcvAyQs6+nSjRDMAoDAiy6dkH0el2pagBL+inIuXCGE6z6UCUSrPAXVcBi5UtXpLI9eP4XoKoEvLN5FYX66Q8nf8RFZpeZUQ5jwYr+zd6+/7vsCVX/454xA4vknx1QTJFP9hifwoYKMSqSgztlonkWpS/rfI9dgpMrKbQKYEZO5RGEUhpf1Dr4Hwx6rtZgk6wEz3IM9uIjTgSBwB4ZcufB1/UNXxHB+YA4FTcP0/gGLZ3TD+utzHGcDG2BmM9Xwyj3dSJRbTtTcfCWdPn+4cGGeQnuHTT4sS6fhcofQ+5jtRCk1qhI7Yh3+4gtdaChbmpeio6tnUtZ7g9VGI2XcYvfX779tWDVD9YSXEaqWcU1dFQD4PXSVu87QxdhUv175k4VVvN7spG/FIMGF4d5timu9xtv3A/ojDzoYQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR12MB3176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(107886003)(38100700002)(5660300002)(4326008)(7416002)(316002)(186003)(508600001)(83380400001)(8676002)(2616005)(66946007)(36756003)(2906002)(66476007)(66556008)(86362001)(6486002)(6512007)(6506007)(26005)(8936002)(20210929001);
+ SFS:(13230001)(4636009)(366004)(508600001)(86362001)(6486002)(7416002)(2906002)(5660300002)(66556008)(8936002)(83380400001)(66946007)(6512007)(4326008)(66476007)(36756003)(8676002)(186003)(2616005)(26005)(107886003)(6506007)(316002)(38100700002)(6666004)(20210929001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?fUfoR9CFruCVMAD/8Z27S6d6haot7/ItGPYj4CKRVx1/qtqalbbNA73FuvDe?=
- =?us-ascii?Q?8YOqtrQjfcrvDrh1OgSKAFNZD/afvuPfST/R04vraKIUVApGdGuZ/Ffhpc+S?=
- =?us-ascii?Q?qJJ+mn6ND/WvdoOE11b2NpdrHim7Fc3j49Am3Y+ypSgMT7/2uMHwZuMFwFZ5?=
- =?us-ascii?Q?88QUOUMntXrFWyW/0HV2sggtOY/7wCpoh6c2g1BklViDS6iE3w7JWJjZb3bi?=
- =?us-ascii?Q?BkpBvDpRXytEldBU3OoKRGxq8Bk3UmD+rhiN/5ZpD8B4oeHbZfBTNDSLw8ei?=
- =?us-ascii?Q?WzjBiqN3AmLCrNUex9KfquR4mR2BkQkc7Q34WFHzS+NB/ltq3X/zlCzb48Ns?=
- =?us-ascii?Q?QfrInPUwpiRXyS9mG0rt9IOEVZIF47KiqeTL67RGZpBa5dSuvbG20FmWg2go?=
- =?us-ascii?Q?5N9J5Y3SE34plXM31gUJVGqM0rtIjo0NxhVIbXSMfEYoFTyPQh077agVtIog?=
- =?us-ascii?Q?6Mc4tQigQgHWfFSBBcd0wVsrZlj530C78qIoEC1NOq4JsFlBfjQMd82EWylp?=
- =?us-ascii?Q?XN7nCHcfvYZ8l+RdIcZNfPYBF+a4iazaKX34NVans2AggfIyPQPTuQ9D7uNm?=
- =?us-ascii?Q?XUJ8A2LKAajAgIkcLHsPI3nB1j2OeJw7dCPkw/++rH+ZTt1OvyW+DFRRV55u?=
- =?us-ascii?Q?pD++bMAej8CDn3OoVGvDV55+5iUSWcqZsCgdt0o3y5JmelwQDtIUxT1/dueJ?=
- =?us-ascii?Q?8BQ/n7oHLRUj6y3SYW0O6B0LvF/qYRodiVHG3qnKAYN70FD/Tq3as4Q7bURF?=
- =?us-ascii?Q?ka6cTze8LQEhmUCjwznweM5u4oh1jdt3BRmudN6Y/0H5gtKIjvqJz8ZXVQlS?=
- =?us-ascii?Q?dOROAnUbSGz+61ahwo2nx7wDF1EroVHSOX9kSJ/B7qF+k1v+6etk6KR8XBO2?=
- =?us-ascii?Q?Ff/0UHlRBe59aAjMQc0ZgyEonzIApOTIeqCOOlMgjB8ceexpzaWAGAkAosle?=
- =?us-ascii?Q?cQrYgo8gBC+Vf9jlzJSm11SwNxJQQjAq9SLZ44dyhffUBah59eQ2IACFhVrz?=
- =?us-ascii?Q?/VqC11Ag5bCyLwLY9b1aYxHzmGlmFSmyTtC4y+7jQCPisNbjC0y9GPBdn6x7?=
- =?us-ascii?Q?ZjsSB1LY4rJvH2A7VdSfF4XdOsIz/duEzhYEGLYubxj+utr6/Z2j263rVQRS?=
- =?us-ascii?Q?gU46to+u60jtk3aGZgdlJpiAbdBrsZAKDoyPyPOqYK8dD5sGB6lYMgj6iQke?=
- =?us-ascii?Q?kBRRrEGdK/dCfLwYtEFQKy3+FFBBbQ2o8vmor8JnCLW4EljELAAvGwISk2zm?=
- =?us-ascii?Q?GeIvex4wMiJjM8IRqmHUYvxS+X0pRZb245TK2lipofZJdtSdEbWnlwLRjvu3?=
- =?us-ascii?Q?UE2DkK0+G32ZhQ9tSbCrnigsoc1a/bbxwkGMrj+r5K3yjs/AbwaxHO5fP+/6?=
- =?us-ascii?Q?nkCXHHpAI/KEe9a9/zMHe7HNWRMpQiHn+ASMOjmwjC4Ejl6fpSYW0jfANpI2?=
- =?us-ascii?Q?l96BdNjbnCSoTyFmCvEK60mw9iO0HSmNW2mRgwL5EZFWX3NR4G1w+SPN0eeW?=
- =?us-ascii?Q?d0FqAb1uh/6D+0Y5FFOpwstDYkDbBrwr8KQZ9iKgTp4uGWPRUJqr8534zVvs?=
- =?us-ascii?Q?RZuwCR9E66CxW5v4FGgkpswJX/N21aIMFutxdtnrUJ1F/kSkED4ZceipLoEg?=
- =?us-ascii?Q?KxCqfUPGBEuOrl8YrRUEgkM=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?x18ZnB0Ni1bjxp8kuBxH+E6d9IJ8vlnftoSyjSs0By5M3fpl9HnFsubM61yB?=
+ =?us-ascii?Q?faigWydnmrqP3ZGVBkRgjlFK7q4AewlhNYapwSc4AOpCVFNs1I7w9rPi0wnU?=
+ =?us-ascii?Q?z7yTUN3mpiB95wgj1+ZNHtbHM66nmFU3cdt0voYKu/ym6yaqbDT33THbl1CC?=
+ =?us-ascii?Q?CP3QnW/P0Ge9a7ZEfNRyhJTVDt64J0KVF68LJu2fc86/c24mciX1oLgFv5Hz?=
+ =?us-ascii?Q?nsxY/zfxst7UM9zCDsgnxEFPyA6A4qEpCNubhydk9j7merDJLOdd7swqQdpU?=
+ =?us-ascii?Q?HM9JWDgMTI5kTzNcaCkl41PQr+wh5gO+sPXrRYVlVefSS9VnuEI3BrMDXMP0?=
+ =?us-ascii?Q?izH8sbwggaL+ZH9RydEo4XU0Xl3wjnFHlGDrVd0ccKXADX6gL105ys8lYd5s?=
+ =?us-ascii?Q?y8e+0CA/QzYrD1YoWnF61j9Muoq6+g26fypWAEzgzCVaPd6kIqFLpVD1+h0D?=
+ =?us-ascii?Q?P0ZgGbzi8bj3lazefAPQZkWNesbU+j1biALiWEZdEPTR0AVLqGE0SX3dVB8m?=
+ =?us-ascii?Q?17X6j9acvmhG6BnOPYoFd8JGrH1YVMDEAXS24Is3EaFAbsNqUUp3ohz0QtuJ?=
+ =?us-ascii?Q?YI+OW8DOr2dw02Du+X6LVXLnXMbzZfCsWYshBIxl+LL+dMC5bq6KkKF0Olph?=
+ =?us-ascii?Q?NeZQZUCnb/tEDAIP6BrMaTD7Ydcflhkoxwsz+B7hTTpFQOP2MvGni2LaMC2B?=
+ =?us-ascii?Q?DYZQPz+zGI221PvcAzzlmIdRYlCo4Hrli9FPbC/V0WFLwt5/cuvvHc1kcVJW?=
+ =?us-ascii?Q?yOssgzZ00xKW5tfMjWHSKXjWgMA2VajWZ0mNgy+fI94qWMfVpSomFnkS/bLM?=
+ =?us-ascii?Q?w3dhbX3ji3RilB1/8/xqXv57CcRoZyRehyg4Ku6dJYlPAu1GTj1rPUs1qTHO?=
+ =?us-ascii?Q?Hr/m5GF8dk9UHMjLatAvP6LB4WfCqWF4LP0J3CvuNFuMdlDOvB5R9eY2xUwW?=
+ =?us-ascii?Q?lz5yJ9ZGKTJ2LNSOB+jX8FdAXawukuq3ygsTbnDI1nPtxef3oRrdKENd8vgX?=
+ =?us-ascii?Q?MdcR6htn8EIMgsNtpAdPrut08KMboo2U89xcZk68sDGb+vviTCSwNaapaYVA?=
+ =?us-ascii?Q?+FP47iwixsW+oYLBwPeWkKe9I8GuMBgGqPWbIO/83aQWa03qwR4GDeiXbcm4?=
+ =?us-ascii?Q?oyO6F5ep52IzdhVaf8cX58bO0LOmrbi8ynOsX5LoccS6uvx6nuwIRQYkEp2V?=
+ =?us-ascii?Q?u/hE7muPyejO/ZECtVQ8W3GGbejR77bEgnWPjIVtfHx9Ban9srRoJBiJWMWh?=
+ =?us-ascii?Q?eSfYQFhNEjWspKYJ34yyVblti5oIx5uSAs9GnqOkU6WGxYQrck/lYnl588Pm?=
+ =?us-ascii?Q?NfjbiweetdY3ZSf7EjHJJY2wCFhDWZUs+7mohDImkQ3nEf2hbhtbwGH9/Z7g?=
+ =?us-ascii?Q?Sgv7qcHlUa/b+zuiprmL0MlEyQZu+1itvBigMXPegUYk0MTAjJSdJXRGSZ3Z?=
+ =?us-ascii?Q?VVttCFkp4ZM10UA3kAevywWHKWDaMcBap/LpFYbC7c9nqdc0bQIn0RSbdovL?=
+ =?us-ascii?Q?ZvsoX0dJXQrIKXAWb1HC444v3Itgpqa3YHpBv6hg4++KgkE2/6OAzTAqeK2t?=
+ =?us-ascii?Q?Z8/MS/yuUdHQQbyJ2RYYPuzGktPS0FEx3M1hgypZXg5tT6KUa+p7jvW/YWgQ?=
+ =?us-ascii?Q?nILiOUgUQOPjcyKgD0Be/f4=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d5b6f9a-73d4-40f4-1dea-08d9e5516d65
+X-MS-Exchange-CrossTenant-Network-Message-Id: 273833b0-db72-497e-fd5f-08d9e5516982
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3176.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2022 07:06:54.1653 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2022 07:06:47.6658 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0CUfUNUf2GXl32hjY+aoYxSxNYL6wq6WtUSlhYMTkt3EJMtjMgT1CPLZEpNkE8mru7QNzyq9AjcT1hX1UVPByA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0214
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9zS38548/NKGbLWh86kc/aXLfM+yb2E7n34p9uOoP7BxIK+EK3WJEd5qxJT0D4DnLanfazwsR3gM6Vvo+cATdQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3991
 X-Mailman-Approved-At: Tue, 01 Feb 2022 09:21:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -125,135 +125,70 @@ Cc: alex.sierra@amd.com, rcampbell@nvidia.com, willy@infradead.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Sierra <alex.sierra@amd.com>
+migrate_vma_setup() checks that a valid vma is passed so that the page
+tables can be walked to find the pfns associated with a given address
+range. However in some cases the pfns are already known, such as when
+migrating device coherent pages during pin_user_pages() meaning a valid
+vma isn't required.
 
-The intention is to test device coherent type pages that have been
-called through get user pages with PIN_LONGTERM flag set. These pages
-should get migrated back to normal system memory.
-
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 Signed-off-by: Alistair Popple <apopple@nvidia.com>
 ---
- tools/testing/selftests/vm/Makefile    |  2 +-
- tools/testing/selftests/vm/hmm-tests.c | 81 +++++++++++++++++++++++++++-
- 2 files changed, 82 insertions(+), 1 deletion(-)
+ mm/migrate.c | 34 +++++++++++++++++-----------------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/tools/testing/selftests/vm/Makefile b/tools/testing/selftests/vm/Makefile
-index 1607322..58c8427 100644
---- a/tools/testing/selftests/vm/Makefile
-+++ b/tools/testing/selftests/vm/Makefile
-@@ -142,7 +142,7 @@ $(OUTPUT)/mlock-random-test $(OUTPUT)/memfd_secret: LDLIBS += -lcap
+diff --git a/mm/migrate.c b/mm/migrate.c
+index d3cc358..31ba8ca 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -2581,24 +2581,24 @@ int migrate_vma_setup(struct migrate_vma *args)
  
- $(OUTPUT)/gup_test: ../../../../mm/gup_test.h
- 
--$(OUTPUT)/hmm-tests: local_config.h
-+$(OUTPUT)/hmm-tests: local_config.h ../../../../mm/gup_test.h
- 
- # HMM_EXTRA_LIBS may get set in local_config.mk, or it may be left empty.
- $(OUTPUT)/hmm-tests: LDLIBS += $(HMM_EXTRA_LIBS)
-diff --git a/tools/testing/selftests/vm/hmm-tests.c b/tools/testing/selftests/vm/hmm-tests.c
-index 84ec8c4..11b83a8 100644
---- a/tools/testing/selftests/vm/hmm-tests.c
-+++ b/tools/testing/selftests/vm/hmm-tests.c
-@@ -36,6 +36,7 @@
-  * in the usual include/uapi/... directory.
-  */
- #include "../../../../lib/test_hmm_uapi.h"
-+#include "../../../../mm/gup_test.h"
- 
- struct hmm_buffer {
- 	void		*ptr;
-@@ -60,6 +61,8 @@ enum {
- #define NTIMES		10
- 
- #define ALIGN(x, a) (((x) + (a - 1)) & (~((a) - 1)))
-+/* Just the flags we need, copied from mm.h: */
-+#define FOLL_WRITE	0x01	/* check pte is writable */
- 
- FIXTURE(hmm)
- {
-@@ -1766,4 +1769,82 @@ TEST_F(hmm, exclusive_cow)
- 	hmm_buffer_free(buffer);
- }
- 
-+/*
-+ * Test get user device pages through gup_test. Setting PIN_LONGTERM flag.
-+ * This should trigger a migration back to system memory for both, private
-+ * and coherent type pages.
-+ * This test makes use of gup_test module. Make sure GUP_TEST_CONFIG is added
-+ * to your configuration before you run it.
-+ */
-+TEST_F(hmm, hmm_gup_test)
-+{
-+	struct hmm_buffer *buffer;
-+	struct gup_test gup;
-+	int gup_fd;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+	unsigned char *m;
+ 	args->start &= PAGE_MASK;
+ 	args->end &= PAGE_MASK;
+-	if (!args->vma || is_vm_hugetlb_page(args->vma) ||
+-	    (args->vma->vm_flags & VM_SPECIAL) || vma_is_dax(args->vma))
+-		return -EINVAL;
+-	if (nr_pages <= 0)
+-		return -EINVAL;
+-	if (args->start < args->vma->vm_start ||
+-	    args->start >= args->vma->vm_end)
+-		return -EINVAL;
+-	if (args->end <= args->vma->vm_start || args->end > args->vma->vm_end)
+-		return -EINVAL;
+ 	if (!args->src || !args->dst)
+ 		return -EINVAL;
+-
+-	memset(args->src, 0, sizeof(*args->src) * nr_pages);
+-	args->cpages = 0;
+-	args->npages = 0;
+-
+-	migrate_vma_collect(args);
++	if (args->vma) {
++		if (is_vm_hugetlb_page(args->vma) ||
++			(args->vma->vm_flags & VM_SPECIAL) || vma_is_dax(args->vma))
++			return -EINVAL;
++		if (args->start < args->vma->vm_start ||
++			args->start >= args->vma->vm_end)
++			return -EINVAL;
++		if (args->end <= args->vma->vm_start || args->end > args->vma->vm_end)
++			return -EINVAL;
 +
-+	gup_fd = open("/sys/kernel/debug/gup_test", O_RDWR);
-+	if (gup_fd == -1)
-+		SKIP(return, "Skipping test, could not find gup_test driver");
++		memset(args->src, 0, sizeof(*args->src) * nr_pages);
++		args->cpages = 0;
++		args->npages = 0;
 +
-+	npages = 4;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Migrate memory to device. */
-+	ret = hmm_migrate_sys_to_dev(self->fd, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	/* Check what the device read. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	gup.nr_pages_per_call = npages;
-+	gup.addr = (unsigned long)buffer->ptr;
-+	gup.gup_flags = FOLL_WRITE;
-+	gup.size = size;
-+	/*
-+	 * Calling gup_test ioctl. It will try to PIN_LONGTERM these device pages
-+	 * causing a migration back to system memory for both, private and coherent
-+	 * type pages.
-+	 */
-+	if (ioctl(gup_fd, PIN_LONGTERM_BENCHMARK, &gup)) {
-+		perror("ioctl on PIN_LONGTERM_BENCHMARK\n");
-+		goto out_test;
++		migrate_vma_collect(args);
 +	}
-+
-+	/* Take snapshot to make sure pages have been migrated to sys memory */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_SNAPSHOT, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	m = buffer->mirror;
-+	for (i = 0; i < npages; i++)
-+		ASSERT_EQ(m[i], HMM_DMIRROR_PROT_WRITE);
-+out_test:
-+	close(gup_fd);
-+	hmm_buffer_free(buffer);
-+}
- TEST_HARNESS_MAIN
+ 
+ 	if (args->cpages)
+ 		migrate_vma_unmap(args);
+@@ -2783,7 +2783,7 @@ void migrate_vma_pages(struct migrate_vma *migrate)
+ 			continue;
+ 		}
+ 
+-		if (!page) {
++		if (!page && migrate->vma) {
+ 			if (!(migrate->src[i] & MIGRATE_PFN_MIGRATE))
+ 				continue;
+ 			if (!notified) {
 -- 
 git-series 0.9.1
