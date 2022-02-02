@@ -4,108 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64959C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Feb 2022 16:07:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71CEBC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Feb 2022 16:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFD7210E30E;
-	Wed,  2 Feb 2022 16:07:41 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2070.outbound.protection.outlook.com [40.107.93.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93F2A10E2F4;
- Wed,  2 Feb 2022 15:42:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LW2+kVh19B3dbfh7lckd8cnCCijYj3WUUFSipPPZsrcM9z/BdXjRC0WG6ag6PSFAPXnFoHWiO8eCrWjg+098biabNq/4bwSwP7BH+odIDdpH3rYp0l9VPuwD+inYCNR3RMCFzFyogsVmy/mPaDWnx2oMcvk68PFfpK8NLvDAUgTJK5ltF/UsgnC1hy2tI7cmwjGA8hVcGBjVDJtS51sG38uVu9el70bTRvGp69ruBkEpu5IDtHF7WxFz+vtkYc1rXEB0qaaO9pwMmDVS3nMg0wJJx+OJtrDIrRYuNOsJhBbphtkzbLZESEsek2nRtARYm4hCif+jLwXsxJG26osT/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=84dWaMLqi0sYM3r7jHlhIXKr8PJv4KdwPh7ywKXYAr8=;
- b=al13+AnggNZl+8168U+ePL+Zye5e2RtcGEpfbfjdx/22TBDg4FLq0BoAUfyYeqNGLbwsGp//3ITlumkk4dzHcAF6JQ/PSwmUVU1k4yosox3LlNe0nKP1Ns3T4RCRqxQ3m782ixORal7qXZD6puBDOPmdhligvZea5pwfNywAlZOY6JH3e2kw+Bvvqhld8lsos5vXtFruaW6lsTlUPC4KSaytDBh20WR1bll6Dg3cx5jw2vrx8K2tvYaWLPwwK+0QEBf/pjRxNpvjMJVjV1iruVMlBUTnS1fkcPKkNFqiIOfmA5iHcmKfCDGUlzCrDzZ/O+UFKQuOsg4Fw37h+wGw/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=84dWaMLqi0sYM3r7jHlhIXKr8PJv4KdwPh7ywKXYAr8=;
- b=FBsjB0wel/qO9zm0fRbVbfjMx8jmiKCpLY7Az90jmAREft0/qIs6RCRdJnazaDp6kmBScgL78QM4D6bSge6W1yb1XOpg7gr1n5m3a92pEhhihOr2L7/rEKXNBkzdY13Vi/AUvtTG97vPhh+InBYIFdtP+CHGZd2Dizbs6ia1C4EOQ5jsHNZTF35kt0362M/BJVGYlRYHPIdYXv95+tQQZGP+OarR68fZH3m1Sgz8h3tuLHu95ottheBe5Hk0FI+s0uXmz8ZMZ8mImERmROg13ClnZFRbnsJjgTY9tUZHWLgcLrikmS3XuDiNfCLfD7lCuzVwOME9wV+qe9A4+CwQpw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN2PR12MB4192.namprd12.prod.outlook.com (2603:10b6:208:1d5::15)
- by MWHPR12MB1696.namprd12.prod.outlook.com (2603:10b6:301:8::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Wed, 2 Feb
- 2022 15:42:34 +0000
-Received: from MN2PR12MB4192.namprd12.prod.outlook.com
- ([fe80::e8f4:9793:da37:1bd3]) by MN2PR12MB4192.namprd12.prod.outlook.com
- ([fe80::e8f4:9793:da37:1bd3%4]) with mapi id 15.20.4951.012; Wed, 2 Feb 2022
- 15:42:34 +0000
-Date: Wed, 2 Feb 2022 11:42:32 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH v4 00/10] Add MEMORY_DEVICE_COHERENT for coherent device
- memory mapping
-Message-ID: <20220202154232.GU1786498@nvidia.com>
-References: <20220127030949.19396-1-alex.sierra@amd.com>
- <20220127143258.8da663659948ad1e6f0c0ea8@linux-foundation.org>
- <20220202145750.GA25170@lst.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220202145750.GA25170@lst.de>
-X-ClientProxiedBy: BL1PR13CA0196.namprd13.prod.outlook.com
- (2603:10b6:208:2be::21) To MN2PR12MB4192.namprd12.prod.outlook.com
- (2603:10b6:208:1d5::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 044B910E2F6;
+	Wed,  2 Feb 2022 16:09:43 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A199810E2F6
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Feb 2022 16:09:41 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id t199so23904474oie.10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Feb 2022 08:09:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=v/QTQPcEHdpWqaFG7eNmMHvHsmhoC733KhMGO02MkRA=;
+ b=euOGYUSqjJh9ft+zR7Cy55DhXPCAvtD0Opq//voqrIUE3lilO4sgBHHC0QHF5Amzs9
+ Ozyzxp1FoE5hAZzbn2o0+yiBqJ2+14LQz2KtM8P6hPXAHuxn/Ur5sQnwWWsL/jiRfc9C
+ 8rn6sRA0A/+iFdL9jU8xoxa+f2V9A/whs4hvqAh9oR/4bCfQQ3mbULa5tYG9dmzKgIfZ
+ yDpxl6vkv0l3JgsYTEg9vZLzoTVJenCARFyMnHFL95uR0IBZEexYQxFrurk6Uw5bt1U+
+ tDXnC/WVXtII+Xp2LlnR9qD3iQrfqqtNSENHqDS+IXMMJTzHvdwhSDjSpoTAfiSxk/77
+ 44fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=v/QTQPcEHdpWqaFG7eNmMHvHsmhoC733KhMGO02MkRA=;
+ b=N3YuXfuVxSnZ3q7UtBIx1Q+U8wfdBdWTjpIK2cC38eZcDGiAhstcK7vvyuiNsi7b4z
+ qkdXMD3PY03CvEpg+9QD7vtsHANfdoHz1a7rSofgIzJinxpcp9lyYrT1fQUc1awnwh2s
+ WZxkSOaAmuz8PVCZazEcOyomlE4bLQk5TBG8bYLK4bDK21bUlPduNPNlg4hd9IHh+0kV
+ /EvcgU6E2xkS15rfPH2RZUreqmv07ZKtVR/Kr3XkGLzBsw62b9a6uFR36wlGjkeyKt/U
+ J2Ujp0Pat9dYmVzsHMK9tT5HJLn1tYdw87zu8SNBJq1GFO7h/2GfoMk6LJjsebDVOJb7
+ qAKQ==
+X-Gm-Message-State: AOAM532rL5IYGFClwYqrlja+lQP5gjSuHRpG/WqkNymgVGPSCFob30Lg
+ tfpq621aj0R5Ks/LIrsR8CZ+qhkjxxJUz7An+HwMPMn3
+X-Google-Smtp-Source: ABdhPJxbzXH32rDdVPMTHKHbojDiXAYFbiujjtOAYwClFMKVtkYHh4lOEo7M0YkD6iFdLxPIVYQlbFTm6baEwqZmD44=
+X-Received: by 2002:a05:6808:159e:: with SMTP id
+ t30mr2614344oiw.132.1643818180842; 
+ Wed, 02 Feb 2022 08:09:40 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5eac08dd-255c-4284-cf40-08d9e662a18d
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1696:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1696FC1069AEE966727D8130C2279@MWHPR12MB1696.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: S6OdVtNV6mAIBc/ZdOJQ9CA4luomRVpuL6ZnfLkPSoFSFi7XdgoiphsLUqRsfNNrc5eEos2hEMEb6j24pWj5BNCA+DutcGZWYH8WO0Vb3KDdtJ9qvlcbkJa7WKqcB45VnSwbLkM+sVWQQ7ZjCyHko4gvb/xhaSf7iO+UQ/9sdZ6XDsz6etJZxPI4lBF9BSwnUgbM3N/V1qPLvrKQoWYZ4IRO+H2I2FD3JMRaMDWcJuuCPbrrBnylw5fvxgBA8lc8YvzuAf6Dd2CQuwkK+rXpgGer7J8GLxQDTxUvDa90hoEBlYG5pOv2R0xL6uaFuImR6oS95Tp+6TuJ0wmWA9hk/TRIz4eb3Lif25O/kzz1hTaOWSRN1AGaPk5couIs+ogEYFF1hBGqWwxH+S6GvufUFjupF1HxWmJvYWNJ5JjOnKhIgMCvkZ9aoLGcjgm/rnclrnR27OyZ0rHuggJKId6IdZMwHCcMEEzIJWEeRn0UWgKS2QeQ4oIdzMcaSYENwBcAon0b4fRVUn6pbsEp6RWv0Hxs+hdxO7Zp7YWMGEHjqS50MZEjMR9V3MrlxI73mmH9Ehy7IHhc10aOpin66YDKcSZZ/TwCg8s77OAiNzzWiLF29yoOgyGA54Q9/3+gOgnJIdA3BQAgN8kGI9VcDPkYhA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(54906003)(36756003)(83380400001)(38100700002)(6916009)(26005)(186003)(1076003)(316002)(6512007)(6506007)(2906002)(66946007)(66556008)(4326008)(6486002)(5660300002)(33656002)(2616005)(7416002)(86362001)(508600001)(8676002)(8936002)(66476007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?MljZgnSbz9CVZMjFl6sTom3jpOuzhcAXSTSgTD+EbEzrBwU/onXe0F1o5NVD?=
- =?us-ascii?Q?GVUVqFl621IUg74hGYs5LrFh9mWcNDDFyFmm0Uu8Q0/YCk1T4QSjudzFdEOs?=
- =?us-ascii?Q?rALVI/Dd3mNWEyyQU1ZuazRhlXK9gU5+QwAIrx0ytjpbilW+EXKOfONWypqR?=
- =?us-ascii?Q?umoS2+L5OxMqqATD4i2rukhBNhArxwnL106TZ4wlIqjZEUTMO82EqeG6yOdz?=
- =?us-ascii?Q?EvvvRptWgRSWViC/u1LhjPVpaixIo8IPsowSopHAypRM/R/Rdhv8tuxqXOgq?=
- =?us-ascii?Q?UFfrldMAvTUBtP4VbQcYJcm3BZWdVY+N1QSL/UoVl1h3FRC5fjtkMAjjPfob?=
- =?us-ascii?Q?DepWo73R0q9mjrFjH83klN1RaBjoWdQqePhpBFSovklnG/H+MArn4/kyp6tT?=
- =?us-ascii?Q?gmazBREiP3h3eKf904BVBbxmY27eYGRHZy1Lx+v3RVMVgMakJo0NmCcX9pfW?=
- =?us-ascii?Q?E4CibTIxuQ3wOdyJXiHnohfkCSdRtaUjCaGmMx/34DhsjH0IaQHBImoN69ea?=
- =?us-ascii?Q?YNA9o39q7s/a0jAqX3j3EviMw+4e6mn/Kmv4P1wRds6S23Cd5nOXjqi9nFUU?=
- =?us-ascii?Q?zVEyr5t32qLYVt7SiRWefv+4E4mWWcE8gqoitmcZV4W37c+av2kIgFMJkb83?=
- =?us-ascii?Q?g5zXZKyfhVBxaLXCZjkL0nylPG2VbGsaVprNKApW3kE/QuVWiCWwg1bj0VA2?=
- =?us-ascii?Q?Kq5sQJoaauwd8IHOktySAm+1vNrN7MwK7CnSGUeWrODnRoUkD4sR+RDzagse?=
- =?us-ascii?Q?Waoi4CTNEgCgNQmvYYDwLdgOT+I2NiIJsMSfbz/Pi6kxOZOmp4Ue/VqbvMKe?=
- =?us-ascii?Q?69JIdMYndRh0T36ocNNjbqhF3pMvtmkjunHqJ5d1mWnFoDMRVi0bBW0NEwzp?=
- =?us-ascii?Q?i2otHx4jEsDHiyXu1em+17v1jq48Us9qKDP9Mzz96XICm0ZS2EitIn0FEnA+?=
- =?us-ascii?Q?pDLyDZLN9FihiZFqzMDjsLIEjU6UVqu1w88+FSMy1kDMW4Hd+cMt5ZURf+bh?=
- =?us-ascii?Q?zkiptZ4i5ffHX4r/M2fZoxGBxZi4jNBxk61y+hhlNXKvDWuwVv2i0XewCZMR?=
- =?us-ascii?Q?nXjDJHD223HvamZw+XfjhjSfNEs5oRJE32owu717m6HSe68iNS0HN0mavRD/?=
- =?us-ascii?Q?/3kMZUYKb0MnwiIS/q7xbeJRJ61FQeHqj3HDLekkD5dFM1vgY1UbGIkYkwat?=
- =?us-ascii?Q?TfE7/1rwprcDWSqE5CEyTJNS44JcROgdRh0q3+VmIyqexXqNb3UEBIbW0HD4?=
- =?us-ascii?Q?X0cS74l2xG0AQ0yCnbtLBE25FvyWmJyY644gxcv04eNZwU1hlYbW5j6cbPn4?=
- =?us-ascii?Q?DfIAWSKHH7/P9MIM/HWgql8UHBF3f9oldmct8A4W3XNBCTAUX29VV4r+gHj+?=
- =?us-ascii?Q?eWb0MTqajNT8+Fs+kbzYMLVvcsFduPbRXSbm0WzcrJga7TuGirMPNpE2LK7k?=
- =?us-ascii?Q?9TVZn9CVy4jFXVvMj7D+Lmxmb1VRR4GhGwlClvXCAd8KcBxnvJlvKZvVPtcz?=
- =?us-ascii?Q?vZFgKT4Pzc8RgllmKj7NpvFZXRqHCmAMOWkkqbpSx0BQQYNTg0arBflbUo/E?=
- =?us-ascii?Q?p8AqFVefrRUJ2oiHVng=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5eac08dd-255c-4284-cf40-08d9e662a18d
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4192.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2022 15:42:34.2650 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 61Tsx9IQ4xXRZnK+dqbFW5xS98Lz02L8rtzxtpy3ioSKafm7h4W0teCJz8Y9Txpu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1696
-X-Mailman-Approved-At: Wed, 02 Feb 2022 16:07:40 +0000
+References: <20220202090644.1031115-1-rajib.mahapatra@amd.com>
+ <CADnq5_OhwAXQgNFAmavobSbYEyv6CJ2XeKQ6etot=VqHuGnCjQ@mail.gmail.com>
+ <da52e706-ea62-8362-f658-7d34e0ed0e31@amd.com>
+In-Reply-To: <da52e706-ea62-8362-f658-7d34e0ed0e31@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 2 Feb 2022 11:09:29 -0500
+Message-ID: <CADnq5_NVE7_YMxZ0XY6TXpJCx5qj7-jpxE6UNveqO1iZBA5-Dg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: skipping SDMA IP suspend for S0ix.
+To: "Limonciello, Mario" <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,42 +63,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, rcampbell@nvidia.com,
- willy@infradead.org, Felix.Kuehling@amd.com, apopple@nvidia.com,
- amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org, linux-mm@kvack.org,
- jglisse@redhat.com, dri-devel@lists.freedesktop.org,
- Andrew Morton <akpm@linux-foundation.org>, linux-ext4@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Rajib Mahapatra <rajib.mahapatra@amd.com>, Prike Liang <Prike.Liang@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "S, Shirish" <shirish.s@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 02, 2022 at 03:57:50PM +0100, Christoph Hellwig wrote:
-> On Thu, Jan 27, 2022 at 02:32:58PM -0800, Andrew Morton wrote:
-> > On Wed, 26 Jan 2022 21:09:39 -0600 Alex Sierra <alex.sierra@amd.com> wrote:
-> > 
-> > > This patch series introduces MEMORY_DEVICE_COHERENT, a type of memory
-> > > owned by a device that can be mapped into CPU page tables like
-> > > MEMORY_DEVICE_GENERIC and can also be migrated like
-> > > MEMORY_DEVICE_PRIVATE.
-> > 
-> > Some more reviewer input appears to be desirable here.
-> > 
-> > I was going to tentatively add it to -mm and -next, but problems. 
-> > 5.17-rc1's mm/migrate.c:migrate_vma_check_page() is rather different
-> > from the tree you patched.  Please redo, refresh and resend?
-> 
-> I really hate adding more types with the weird one off page refcount.
-> We need to clean that mess up first.
+On Wed, Feb 2, 2022 at 10:29 AM Limonciello, Mario
+<mario.limonciello@amd.com> wrote:
+>
+> On 2/2/2022 08:16, Alex Deucher wrote:
+> > On Wed, Feb 2, 2022 at 4:07 AM Rajib Mahapatra <rajib.mahapatra@amd.com> wrote:
+> >>
+> >> [Why]
+> >> amdgpu error observed if suspend is aborted during S0i3
+> >> resume.
+> >>
+> >> [How]
+> >> If suspend is aborted for some reason during S0i3 resume
+> >> cycle, it follows amdgpu errors in resume.
+> >> Skipping SDMA ip in suspend solves the issue on RENOIR
+> >> (green sardine apu) chip. This time, the system is
+> >> able to resume gracefully even the suspend is aborted.
+> >>
+> >> Signed-off-by: Rajib Mahapatra <rajib.mahapatra@amd.com>
+> >> ---
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++++++
+> >>   1 file changed, 10 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >> index 7931132ce6e3..f01b1dffff7f 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >> @@ -2927,6 +2927,16 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
+> >>                       adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GFX))
+> >>                          continue;
+> >>
+> >> +               /* skip suspend of sdma for S0ix
+> >> +                * Resume has issues if the suspend is aborted during S0i3 cycle.
+> >> +                * Skipping sdma for RN/CZN/BRC chip - green sardine apu.
+> >> +                */
+> >> +               if (adev->in_s0ix &&
+> >> +                   (adev->asic_type == CHIP_RENOIR &&
+> >> +                    (adev->pdev->device == 0x15e7 || adev->pdev->device == 0x1638) &&
+> >
+> > The check here seems to contradict the comment above.  Is this all
+> > Renoir based APUs or just green sardine?  If it's just green sardine,
+> > you can check the APU flags rather than the PCI ids.  E.g.,
+> > (adev->apu_flags & AMD_APU_IS_GREEN_SARDINE)
+> > Also move this to sdma 4 code as Mario suggested.
+>
+> Both RN and green sardine share the same flows for SMU, I would think it
+> should just be match (adev->in_s0xi && (adev->flags & AMD_IS_APU)) when
+> it's moved to skip suspend.
 
-Is there anyone who could give an outline of what is needed to make
-fsdax use compound pages/folios for its PMD stuff?
+The SDMA 4.0 code is shared with Raven1/2 and Picasso as well.  We
+should verify that it's required for them as well.
 
-I already suggested removing that as a way forward, and was shot down,
-but nobody is standing up to maintain this code and fix it :(
+Alex
 
-We got devdax and the DRM stuff fixed now, so FSDAX is the next
-blocker on this work.
-
-The people who want this to advance have no idea about FSs or what to
-do, unfortunately.
-
-Jason
+>
+> >
+> > Alex
+> >
+> >> +                    adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SDMA))
+> >> +                       continue;
+> >> +
+> >>                  /* XXX handle errors */
+> >>                  r = adev->ip_blocks[i].version->funcs->suspend(adev);
+> >>                  /* XXX handle errors */
+> >> --
+> >> 2.25.1
+> >>
+>
