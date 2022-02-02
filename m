@@ -4,64 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2291C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Feb 2022 08:36:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFE65C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Feb 2022 09:07:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4661210F9CF;
-	Wed,  2 Feb 2022 08:36:08 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AAD910F9CF
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Feb 2022 08:36:06 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id c192so14635640wma.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Feb 2022 00:36:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=5GhMl4b7O5ZSznx3cfYB4JSYQsIHDM59HHa/xHIR7Ow=;
- b=kvK7UAEUeSsmaZ428z47kGlcoz/8zDsxrhf9CcmCPSnnvRNQ93ytbX3kuGT/H7v8dK
- KVGzoxxgJMSRHSrbcODF4+2Qzha5SPMNt0hajcbwufYAPjkhWNneE+WVXucrW04llfj1
- 7b7/RQ/hFd7L1LPC9g0VdQ2NHRZ0+XyHOCjv3BMyWBUXA5f4+9TYbocbV9T9XG7c/cik
- KkWDERAK2pOmHtbjYDXCIQo1CWC/qFzBJfiCl6rnPVzVh6UFf7KDr7PWMBGieJfEv2n7
- jiHjb8qLBSyqiA6Ce871r32RpuuYiq3uUY8kyPP7FJcmfDeBThEJr9kLAIInhlsphfof
- 5j9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=5GhMl4b7O5ZSznx3cfYB4JSYQsIHDM59HHa/xHIR7Ow=;
- b=ZWkPLW+IwRDP70Cp0ScK2ZcKuscxuPhsEaG5lO/K1BjoUfjUgpCVZrDXv9A76Y63aD
- GXMeShAGOxuM86fvSfVWzC2AXOSK+MFdt6kGlyof+7Jd2yvYG88UzBtzWLZZs9GY9USe
- BY4OAOfbA312a0d9TZ45B5o7WcGKpYuAln+kCQHwhCi6SSeQKGnpLUhgk1O4O92Jjwmn
- SegdFFa1wMHBxWa2w+UcYtv3WMD/qPEa1xvBLP+UnZgza1dmaX/OPTmzwTkKHxJp1+sP
- z7of89Z2RAdDByXFxyEQ2i1xuFAnE5JpGLdlvKpLUQ8oWkNyjaAXdm9mBsb73S8VejKN
- EGDg==
-X-Gm-Message-State: AOAM530VASjQbW7FM2rYbmSf9yyz8Urnp6bPEDe8yVJdE3NPBtLu6Yt3
- l2+crwEC3VTgl6JyKSz7W9g=
-X-Google-Smtp-Source: ABdhPJzhqsV9R7xmw1SQo/BthrXpF5JLxaBgluzOdOdexKmMRTU+A+2d8XcbbYu94z9AlzEah8lTWQ==
-X-Received: by 2002:a7b:cb8c:: with SMTP id m12mr5069296wmi.154.1643790965039; 
- Wed, 02 Feb 2022 00:36:05 -0800 (PST)
-Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
- [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id a9sm4746978wmm.32.2022.02.02.00.36.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Feb 2022 00:36:04 -0800 (PST)
-Message-ID: <95da54e0-7406-ea27-a8f9-d99bebd17624@gmail.com>
-Date: Wed, 2 Feb 2022 09:36:02 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 563D010E73F;
+	Wed,  2 Feb 2022 09:07:19 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2086.outbound.protection.outlook.com [40.107.243.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4468D10E740
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Feb 2022 09:07:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Q0me5x1uuqjPelv62n7Y5e9AnIrlpCqfbb30dLM60n3nRaa+wTGjRtz0RMvh+AeYR97k/NkKUkkt0TJ0l0e521BFrugz7ME7c43QE8M4czvXuNjv6yiEzk5VwtH5S7RDTx5KUupVBz0rn2yjL/SI1GGndFNGB2Wh3yjnHTjYoQPT1yETo1odrAiCBm4+8j7pizMAwKQ7JdTDtyIgbw0mn/PFWDnZ5cSngBwQJH+kruIW5WliJOyo736841yWR3Zm+XrSPulAFtUmzZHdG5dVdIiBvgFWL47Kba7CP92TWCWPDI9GOiXw5NqGfIQmrcJfrDOpWMG0EYCrbJKcWhGHxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EVovrMr/wEstSxq0p6czEhB5e0Rcd4icTi9Hw1soZ7k=;
+ b=lEkZUdTkQqHyDGcB1ogns+4kBzxOd8IC3PxywginWASPvt6sxoEDGkqjo68Ti9miFG81rzSHNPfgDWB/NU8vtyg4RislMXR3pwMRrlBmqHlxq3ccpAfq6s5CghZpUJ2j+bjq0xwEnHoa67ld/tZfWD4dO3uz7bE0Q7J7RwmbXU6vcso27n6FhA/XrSo1Dz1HqtmXvg4uDbC8krm0VXIohFybrpvZiVJnOLrKMoj9MFZjrC/hdgQcZSlfdFfeAc//Uao7MNpT8J7TdL2kfC3sNmVPNVHCgOFeBGRG/D86/IeLdznPZwheiX1jrN+YSABZE1duCqI93sKJ2OR7phw2EQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EVovrMr/wEstSxq0p6czEhB5e0Rcd4icTi9Hw1soZ7k=;
+ b=1M+AksdyfeKHvu9N76+peOYOzH1n/+pqLj+PgZvduJzMJJKAKAzAYPj/ebdbDiBTOr3an4IWx8eGk7T5EtVLg7TJ3V3cOFGiV2P37iiujU8xrJyFcrfsW1eX+sA7Lpam4i2bb5z1G+Dhbf+CMKCYkEs+q0S4538NhewnVzmrA8k=
+Received: from MW4PR04CA0374.namprd04.prod.outlook.com (2603:10b6:303:81::19)
+ by BN8PR12MB3235.namprd12.prod.outlook.com (2603:10b6:408:6e::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.20; Wed, 2 Feb
+ 2022 09:07:16 +0000
+Received: from CO1NAM11FT018.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:81:cafe::1e) by MW4PR04CA0374.outlook.office365.com
+ (2603:10b6:303:81::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17 via Frontend
+ Transport; Wed, 2 Feb 2022 09:07:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT018.mail.protection.outlook.com (10.13.175.16) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4951.12 via Frontend Transport; Wed, 2 Feb 2022 09:07:15 +0000
+Received: from ETHANOL-DEBUG-X.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 2 Feb
+ 2022 03:07:12 -0600
+From: Rajib Mahapatra <rajib.mahapatra@amd.com>
+To: <Prike.Liang@amd.com>, <Mario.Limonciello@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: skipping SDMA IP suspend for S0ix.
+Date: Wed, 2 Feb 2022 14:36:44 +0530
+Message-ID: <20220202090644.1031115-1-rajib.mahapatra@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 2/2] drm/amdgpu: rename amdgpu_vm_bo_rmv to _del
-Content-Language: en-US
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <20220201152802.12159-1-christian.koenig@amd.com>
- <20220201152802.12159-2-christian.koenig@amd.com>
- <CAKMK7uEwnC4EzJODd64sXB7ntR3+6jQK+nTHskTWgmv25H=sUA@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAKMK7uEwnC4EzJODd64sXB7ntR3+6jQK+nTHskTWgmv25H=sUA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ac211d69-05e7-4bc0-9752-08d9e62b685a
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3235:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB3235B743F90181429F05B55AF2279@BN8PR12MB3235.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VDTxPsJyloyQYLLIvkE2S4MzaVFSnRHGBI38oEJPYT7xHLyTulP3eN4Fq8hIDfqtiJOZwd7DwnKkYIEfVf+QSOFSSXohyAhXJh8QED8D0LBa0oTHvFoSnl1Vk4RjNy/BBLdnRkXpQR9KfplsuOMt8ePVQV2KWGkuxXfrEXKsrMKFfOByfL5Ou9Wp4H6aFXQWJAHKugDq8BYuld7Jr1E3clm7lDsxAeJeWz8Fv4cnj0wgdHuCWkgX8KOs+kp6HM4FaS1TF62sEZBi5cjFl8oeROsX1G/8KbKj6XR2fCePs0GhIJi3NU0+qIfm1eG0H5gQcxW7YVm9PR2Q+lqYfjecn0lU4QF7H4q3tf9sWIoVi1nM0VpzFtiopd2EZ9pSEs3kDSNgiMGw1ayMTtEA0NbiWfd1Tmm+eej5Wkd9IMDO8fvZ+3brNAMu5vZsX5p1hKjU9FSJR5bJYk8fXE+IxTciTXXXPg8fdDdtlWfq0LZZ0lsU7ZilFgETnettTgjSnCr0k8ln9cJtHsdZLWCa2r6wfJusmCLU2QAssRyBoj7O2tdSLBFuL0v9VwwGHXShTyR2zC/ZHpbjj2EQXqLjCNGL9ICuODk3UPoAcPsH7135YVP34+qI5Kz56gjW7E79hmh843naw/nvz1Vd2ous24N/5svBbrGAqUjXptH4pHzJ0zN1K/cOtVwpQQxeYcwZDFCqi06KKLFDTnHxgNGxwZe6PU5eN8TmeT2W+EIhgptQJup7VF3qDAyPz788M/UhbsXzmKE15VvOV+h7plkfolPLvQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(86362001)(82310400004)(16526019)(1076003)(2616005)(426003)(336012)(186003)(5660300002)(26005)(36860700001)(15650500001)(47076005)(83380400001)(40460700003)(316002)(7696005)(6666004)(8936002)(356005)(6636002)(36756003)(44832011)(8676002)(2906002)(4326008)(54906003)(70206006)(81166007)(110136005)(70586007)(508600001)(21314003)(32563001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2022 09:07:15.6510 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac211d69-05e7-4bc0-9752-08d9e62b685a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT018.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3235
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,142 +100,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Rajib Mahapatra <rajib.mahapatra@amd.com>, amd-gfx@lists.freedesktop.org,
+ shirish.s@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 01.02.22 um 17:27 schrieb Daniel Vetter:
-> On Tue, Feb 1, 2022 at 4:28 PM Christian König
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->> Some people complained about the name and this matches much
->> more Linux naming conventions for object functions.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
-> "some people" sounds mightily ominous :-)
+[Why]
+amdgpu error observed if suspend is aborted during S0i3
+resume.
 
-That's intentional, you were not the only one :)
+[How]
+If suspend is aborted for some reason during S0i3 resume
+cycle, it follows amdgpu errors in resume.
+Skipping SDMA ip in suspend solves the issue on RENOIR
+(green sardine apu) chip. This time, the system is
+able to resume gracefully even the suspend is aborted.
 
-Cheers,
-Christian.
+Signed-off-by: Rajib Mahapatra <rajib.mahapatra@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
->
-> On both patches: Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->
-> Cheers, Daniel
->
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c          | 2 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c          | 2 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c          | 4 ++--
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           | 4 ++--
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h           | 2 +-
->>   6 files changed, 9 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->> index 5df387c4d7fb..5d00a6878ef2 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->> @@ -778,7 +778,7 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
->>                          continue;
->>                  if (attachment[i]->bo_va) {
->>                          amdgpu_bo_reserve(bo[i], true);
->> -                       amdgpu_vm_bo_rmv(adev, attachment[i]->bo_va);
->> +                       amdgpu_vm_bo_del(adev, attachment[i]->bo_va);
->>                          amdgpu_bo_unreserve(bo[i]);
->>                          list_del(&attachment[i]->list);
->>                  }
->> @@ -795,7 +795,7 @@ static void kfd_mem_detach(struct kfd_mem_attachment *attachment)
->>
->>          pr_debug("\t remove VA 0x%llx in entry %p\n",
->>                          attachment->va, attachment);
->> -       amdgpu_vm_bo_rmv(attachment->adev, attachment->bo_va);
->> +       amdgpu_vm_bo_del(attachment->adev, attachment->bo_va);
->>          drm_gem_object_put(&bo->tbo.base);
->>          list_del(&attachment->list);
->>          kfree(attachment);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
->> index da21e60bb827..c6d4d41c4393 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
->> @@ -98,7 +98,7 @@ int amdgpu_map_static_csa(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->>
->>          if (r) {
->>                  DRM_ERROR("failed to do bo_map on static CSA, err=%d\n", r);
->> -               amdgpu_vm_bo_rmv(adev, *bo_va);
->> +               amdgpu_vm_bo_del(adev, *bo_va);
->>                  ttm_eu_backoff_reservation(&ticket, &list);
->>                  return r;
->>          }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index 7c1f1b8ca77d..b4c0a4e77525 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -221,7 +221,7 @@ static void amdgpu_gem_object_close(struct drm_gem_object *obj,
->>          if (!bo_va || --bo_va->ref_count)
->>                  goto out_unlock;
->>
->> -       amdgpu_vm_bo_rmv(adev, bo_va);
->> +       amdgpu_vm_bo_del(adev, bo_va);
->>          if (!amdgpu_vm_ready(vm))
->>                  goto out_unlock;
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> index ee3c17bd02fc..efd13898c83e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> @@ -1194,12 +1194,12 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
->>          if (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_VCE) != NULL)
->>                  amdgpu_vce_free_handles(adev, file_priv);
->>
->> -       amdgpu_vm_bo_rmv(adev, fpriv->prt_va);
->> +       amdgpu_vm_bo_del(adev, fpriv->prt_va);
->>
->>          if (amdgpu_mcbp || amdgpu_sriov_vf(adev)) {
->>                  /* TODO: how to handle reserve failure */
->>                  BUG_ON(amdgpu_bo_reserve(adev->virt.csa_obj, true));
->> -               amdgpu_vm_bo_rmv(adev, fpriv->csa_va);
->> +               amdgpu_vm_bo_del(adev, fpriv->csa_va);
->>                  fpriv->csa_va = NULL;
->>                  amdgpu_bo_unreserve(adev->virt.csa_obj);
->>          }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index 7910046fe11a..8174d71764d7 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -2653,7 +2653,7 @@ void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, struct ww_acquire_ctx *ticket)
->>   }
->>
->>   /**
->> - * amdgpu_vm_bo_rmv - remove a bo to a specific vm
->> + * amdgpu_vm_bo_del - remove a bo to a specific vm
->>    *
->>    * @adev: amdgpu_device pointer
->>    * @bo_va: requested bo_va
->> @@ -2662,7 +2662,7 @@ void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, struct ww_acquire_ctx *ticket)
->>    *
->>    * Object have to be reserved!
->>    */
->> -void amdgpu_vm_bo_rmv(struct amdgpu_device *adev,
->> +void amdgpu_vm_bo_del(struct amdgpu_device *adev,
->>                        struct amdgpu_bo_va *bo_va)
->>   {
->>          struct amdgpu_bo_va_mapping *mapping, *next;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> index 85fcfb8c5efd..a40a6a993bb0 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> @@ -435,7 +435,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
->>   struct amdgpu_bo_va_mapping *amdgpu_vm_bo_lookup_mapping(struct amdgpu_vm *vm,
->>                                                           uint64_t addr);
->>   void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, struct ww_acquire_ctx *ticket);
->> -void amdgpu_vm_bo_rmv(struct amdgpu_device *adev,
->> +void amdgpu_vm_bo_del(struct amdgpu_device *adev,
->>                        struct amdgpu_bo_va *bo_va);
->>   void amdgpu_vm_adjust_size(struct amdgpu_device *adev, uint32_t min_vm_size,
->>                             uint32_t fragment_size_default, unsigned max_level,
->> --
->> 2.25.1
->>
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7931132ce6e3..f01b1dffff7f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2927,6 +2927,16 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
+ 		     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GFX))
+ 			continue;
+ 
++		/* skip suspend of sdma for S0ix
++		 * Resume has issues if the suspend is aborted during S0i3 cycle.
++		 * Skipping sdma for RN/CZN/BRC chip - green sardine apu.
++		 */
++		if (adev->in_s0ix &&
++		    (adev->asic_type == CHIP_RENOIR &&
++		     (adev->pdev->device == 0x15e7 || adev->pdev->device == 0x1638) &&
++		     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SDMA))
++			continue;
++
+ 		/* XXX handle errors */
+ 		r = adev->ip_blocks[i].version->funcs->suspend(adev);
+ 		/* XXX handle errors */
+-- 
+2.25.1
 
