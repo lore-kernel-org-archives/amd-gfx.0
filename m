@@ -4,92 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9FE9C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Feb 2022 17:26:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B9E8C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Feb 2022 17:53:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14A5310E38D;
-	Wed,  2 Feb 2022 17:26:34 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2BAF10E389;
- Wed,  2 Feb 2022 17:26:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB37810E365;
+	Wed,  2 Feb 2022 17:53:12 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32C6A10E365
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Feb 2022 17:53:11 +0000 (UTC)
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 212HYH8F028484; 
+ Wed, 2 Feb 2022 17:53:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
+ bh=9EKPXCmmucC9OFjqoU5z0/e0TkUp9AvV47uZIGl3ZJ8=;
+ b=V7C4f1cjkBTsB/55y4DPmQnjItCEKUuccr7iFE40DDH07uTljF5vCkxuG8P8K58PsWku
+ 2wKfTZ5rsG/Wt7U0agSZ0j9iBdA7InLOoHPfhtBeiZ9Xq9GR2miIpzlUn2L6Ruxfa1xS
+ KuyTzh/4cBJoXzPb99JtnJ8BS9XJVbDPNfjQdmuP+UrQkYLTw5fQKJ+srX6Oh+c59klV
+ 5bRr1zJFZX2wN4UDZb5ZaGPob/XE0S2s+EabchqZH67zbUeyhlZxOru9gukBcAQFi2PS
+ Xdpn8HxQHl/oRp/1M0G38EoHWKZYXawWAWjpTfEvn3TmHxNlJ5CNu4BUVvvfo5cd+95Z XA== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3dxnk2pd4k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 02 Feb 2022 17:53:07 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 212HjSR9099379;
+ Wed, 2 Feb 2022 17:53:06 GMT
+Received: from nam11-co1-obe.outbound.protection.outlook.com
+ (mail-co1nam11lp2170.outbound.protection.outlook.com [104.47.56.170])
+ by userp3030.oracle.com with ESMTP id 3dvtq36p4n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 02 Feb 2022 17:53:06 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HEMXaF3cypkvWQ9VQeoEJ8CuoKvlE+edUIFc12Z1o+5IOWz6x8RB6Q+3UE+ngIyAjUmaXXcE3JAC/h8hdsgFrYd9lJrZz4ucHwk4+4dVyAw716c79TOCexley2uJi48CwhUEa7E4EP0prbOEl0pmqnyWzjz8euw+okQWKr3tFeX2YC7/FiITb1zWMXy6kt7qeZZJZy7R1p1dTz8MZsiGv6zA1HhCr6d7SBTrf5tW5nTauFvZEcKvHTSNH7KKcwHF/rF7yfZJeJxPGn+XK8hE1j4tkw7O3fmmjfJicS8DJnyJDARqkarhQ87qNksivJsbjb2H2Qmxyg+AFGPIJFIehA==
+ b=kIWkW1hb/1F/Ib6bmMhwB0Ci38/PzAwNKRQUkwdgP/vU/M3YQKwNHvlZJJxKxWPg8hbTQGgfNWkyfBEhmZgcvSXi8Qf0gGL8jJXELw0HSSxArKH1C+bUj0n0glq63YJEDJpvVx5Ca4zYwEfDYxOjjfYFu1Hdjx4mUQuivRZke9rnSaoEfgRUlcgdf+JF6Ig/CmGoo1lYzz/k33Ga3w3ZTbj/Iw5jrqmMcoFkVkRmTMdmo2qNIdJMz2wDhPWBU/ERz/HGBDpv95V6Y4mfmZyRUUCGMt1FmC/hi+SkGHT9CfOEmAXxcd3Nban+ON0Sb9xWNGqs4fKBonYZ33YAx9Y1aw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QZoR4DYaC3KM7Uek+cutRn7eJlY+jLTG24OfEQuryl0=;
- b=fUG9/9NWDWggyCemKS+d3V3VOvXyZ8lSoNzJSGc6eP+uK3wrIVXEAciBEAKYgOHBixB85TP2WjYbIM5R+CPxb9/l9U7kXhfDP4liBpScVBudRVbhm1MR0YPYZnwl1scc20mnuDQ313/0/lYg6ZCsW19NnjYRWH6hVo8+fhkBpIFjpZyoZkIbvg9qBCK8cnK15InI0MHWAD3ZeYLXc+eWB8iwrICHTQlRs/Bg08hJQ08Z7fbI17t9iZ86+9G7E8y93e8kXZIeukYgLT0XLE3muUwIXj/0tTaNWC3zWj5pYmvkZhUd7kwEGN9vnrbR9Qd4DTZCRQ6ONM6oCanBbLfyMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=9EKPXCmmucC9OFjqoU5z0/e0TkUp9AvV47uZIGl3ZJ8=;
+ b=Baqt7rapPS+WnQ8AVgSaTnz+jg+z39x4P5VaOWkWw7Jrg/KEshuhk50fxFoQ/7otM+kuafqdTvBka+x+0weORoQ7+rbn0NFsB+xUF5RhMXKrXkkw81GmDJuLwg/27pD1DYGTEdXh2M+ZXcoCmrPe5LN6JsovtlyEfIOymsj2BEdFfIRtOYJ+O06SSvzrSz2DI+jo8Jeb3uHyNRJbFC5k73fJglZX1luOghSAW9IaaYSew7bHnWn2yXmqzYJymzETV4Ctsl9alWXzLRBCBxyFRHqtlL3pSAyreYL0HYwZlqpfF0WtJuMZk8CrFw7doK4vNB1ZMdEeS9R2rs42aZ9RKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QZoR4DYaC3KM7Uek+cutRn7eJlY+jLTG24OfEQuryl0=;
- b=BqDuElo6hedgqFqyxjhdgy33tP7xqwWpalfmGcK78+JjdZrtfCRTsoIayrEiQ50gk9j02geIwQm1hp+9tCqbRpCpZHw+zADB2JDJW8k3G6/IJhi3UtZEeX2aTyS05zsdfVsDiyK+OLkjODlet5P/BYYlPu41Kizi4DFYr9+Xrw4=
-Received: from BN8PR15CA0069.namprd15.prod.outlook.com (2603:10b6:408:80::46)
- by BYAPR12MB3461.namprd12.prod.outlook.com (2603:10b6:a03:da::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11; Wed, 2 Feb
- 2022 17:26:30 +0000
-Received: from BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:80:cafe::ac) by BN8PR15CA0069.outlook.office365.com
- (2603:10b6:408:80::46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12 via Frontend
- Transport; Wed, 2 Feb 2022 17:26:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT018.mail.protection.outlook.com (10.13.176.89) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4951.12 via Frontend Transport; Wed, 2 Feb 2022 17:26:30 +0000
-Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.18; Wed, 2 Feb 2022 11:26:28 -0600
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [RFC v4] drm/amdgpu: Rework reset domain to be refcounted.
-Date: Wed, 2 Feb 2022 12:26:17 -0500
-Message-ID: <20220202172617.16181-1-andrey.grodzovsky@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220125223752.200211-9-andrey.grodzovsky@amd.com>
-References: <20220125223752.200211-9-andrey.grodzovsky@amd.com>
+ bh=9EKPXCmmucC9OFjqoU5z0/e0TkUp9AvV47uZIGl3ZJ8=;
+ b=0GKVtvMoBpekCb12jmWeUwnGbz/tXFmxBUXYKqml8YX9zuauS0G7z1nR5X2VWdVjHMMTDL1QKsQy5IMtkGxGcy9P0yDxl5ntsoFvCzwF0oRXmHk1+p1FOcGgp4OuZMZzwmdUwp/Xiz3wwzhQ+f2G3HH7VAJtC/sV9EIvfvfufQQ=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by MN2PR10MB3343.namprd10.prod.outlook.com
+ (2603:10b6:208:129::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Wed, 2 Feb
+ 2022 17:53:03 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::e5a5:8f49:7ec4:b7b8]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::e5a5:8f49:7ec4:b7b8%5]) with mapi id 15.20.4930.021; Wed, 2 Feb 2022
+ 17:53:03 +0000
+Date: Wed, 2 Feb 2022 20:52:53 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: wenjing.liu@amd.com
+Subject: [bug report] drm/amd/display: refactor destructive verify link cap
+ sequence
+Message-ID: <20220202175253.GB5772@kili>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-ClientProxiedBy: ZR0P278CA0032.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:1c::19) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fe1960a4-f7bd-4020-bf8a-08d9e671267c
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3461:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB3461D3D3BC676C8B9CE784A4EA279@BYAPR12MB3461.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
+X-MS-Office365-Filtering-Correlation-Id: c704965c-68f0-4558-6017-08d9e674dbfa
+X-MS-TrafficTypeDiagnostic: MN2PR10MB3343:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR10MB3343B6CDB767A572FA8F631F8E279@MN2PR10MB3343.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: m38Omzonh5Vq2qrvdX/GW+Z7iYRPVXSaG4QlrTdPrCnlwXolnRpflxELKf4YuN5MIkirrFypkg/3/nFUkczABsnnIvQKVZS1EFrziZrXB5HBmVAmW7qaLmm7aF7XcS+Cntsmvth3jZClwYiM6FY3JAPUO2IWLudgt758MbPEjCN43XwBvJPRX6HmOyh7WA50q364hwJFiTUgPOnEoOjactwDZMCTyOspMWJj6BwtLJssWooRzmrBv8Mpt3CS7znXUcwdkmSncj8ZTW48EOFGhTgBgu8wNqazZkOFClVXlcwXh1NtlhNQFPfRSsfEcvXZnVrcTQaXXef79KgL1rn8pcLU+iz2vNFYAWTIc1nvQuIb1CAg/n3djrQ99y1sEDihyvZGrXM+LDdWtKrFQuUe6aSHpeSnyOCD3auOYuX+esebRpCLhvk79SLrtlj26nGtNSb2/HY7QMPggwndF8OCvEjz0PjkyTGrxyWLuG8U3wWnhv11hFPdNCf/kPvqEM8+UYN5WSaa+3Y33ruPu/EAbdqJs0zmuqXMvZ+rGtQhjjxN7o0nj0cfBEcf65a2vZi4qGAtNtGW5UzNmFvjmzj1V9XDJaCnW5QLoBpg1uFsT5VwyFlwH+E4bo1awzseWtffHv/KczZXNohTE1SP5BSo0C4jNNZRExINpy8Wee4JKcTo20U37mRNTXogdcyq9V+AxGMmn2WiuRbSU4ysOGhTunz2Ldmhi8ui9RaiyNGc5zqpCR0UzhWVOcSgeWstR9JqBo7gsCzkyHa1gvoRxlGw/KBzurztaM96r1eX+ibR+YM=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(8936002)(110136005)(40460700003)(86362001)(36860700001)(70206006)(81166007)(356005)(4326008)(82310400004)(70586007)(8676002)(54906003)(316002)(336012)(186003)(83380400001)(6666004)(30864003)(5660300002)(426003)(1076003)(16526019)(44832011)(508600001)(966005)(2616005)(26005)(7696005)(2906002)(47076005)(36756003)(36900700001);
+X-Microsoft-Antispam-Message-Info: EkAcNsnIMjJ3EYNDQCuNOwrxhihg+7ZIgQnMe9x/su4bbGgPjixNj/bM9Q2DY2LiRhLOyda8C1W2XM1IytN11bIpJyC/4OORutQVaL+NpSH1LGaYQG1+5eEoMLiDai8QWtjrOoHHbdgzFMvZune4nfUJg1dHnvFny4uZIoUL2biaRznlnICnKMIIlgKAbi/yxylKVg9ziKSZoq6c2M5J7RspZamEZWxVvVMFnrNqHvhToeS34Re1z5GMYvAXEIelAnwhY7dzZNscjBAdtqt5O7yCX7G34Q4874Rk0YCR9jVRpzlsLxeVrETOQXFf8jggzXY9N6bpODYKE3UFDx/8VUDn2vPnRRtz2m074xI+csJQAzfAHZNjTewSN6TDd4VIRsSZy194egUB9ygoP7wZLrEtbpWFSabQJOfoGlGr9i23Mg7ppMKGotyf/Ge7vOM7m1N2l6vMHVwR+ZLdKZjohNMtbSlgBvNOI7f9vMdzwBAH+cAZdxv5D6DW0rImo50RTMOA7wrCppSJYSXpyKV/do7jOntJLcpN4fzXav0a/LINsEbUg0WDl2cWoSHtaAuIAIivJje/NHzGzgk0jeB5ZJyICdqeZrvK68B17zUYmYx0HzoI27yI0bHIHY0JXap4e1CovHt3InhFRMk9VA2OMkvfmM0HFzSPw9aqrW7QD+xoMgwf8B8QBiLrCKNH1QYMwXPa10cJToR7LvVBcbFkPg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(7916004)(366004)(66556008)(66476007)(8676002)(8936002)(4326008)(38100700002)(38350700002)(26005)(6512007)(6486002)(66946007)(508600001)(83380400001)(6506007)(9686003)(52116002)(186003)(1076003)(6666004)(33716001)(316002)(6916009)(15650500001)(5660300002)(86362001)(33656002)(44832011)(2906002);
  DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2022 17:26:30.0257 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe1960a4-f7bd-4020-bf8a-08d9e671267c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3461
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Y67ugy2eFcqK1AtEIyqxSlAKf0zrY/W3rUn9UqBOl25HPEmEWhI9SGQOqWwn?=
+ =?us-ascii?Q?M/ORoUbJesvwbuJ5J7SnBewYjJIEXG9eH02/Rla+KWWjfhMniprd6O+keEBf?=
+ =?us-ascii?Q?ov7NqCqBfDVD6i0PfWWH4m3IYeDkFafhW0P18OrZVNP08vqEZDZtZOQJBfwI?=
+ =?us-ascii?Q?yFAHaEjchPBqSYv0H3NUDQozU9IZUlAfVgyoRV2UuFHzaQlCDtd73dwHMFNe?=
+ =?us-ascii?Q?pjOA+0E8BSa5I0IsKjqikGir8a4xcy4mQ69+GkQP3/bndeovlSxvanMWEE5q?=
+ =?us-ascii?Q?FIiCIP1E2S4egQsf6qJHFoR2qHvtVSOFpTy5v/uJi9V2LZpMcCjIXB9gJVz2?=
+ =?us-ascii?Q?liN1gURlBbKC1K/CtqReKwhKqQjLJlTcF0hQJND+qJ6DvRTQ1Ygjz0U4H+5i?=
+ =?us-ascii?Q?grUKl/xqTmpjstomSgWDOUTLviuKdIJ10Y6CflXCyDrcSF2hmUP0buDHdVFi?=
+ =?us-ascii?Q?lsEhr2Dj0kB3xcI/CcySaJjf+zIsko+x41q/5vYbhswUZ/yyAo/vD9oTHTkz?=
+ =?us-ascii?Q?AxfPy5Uyhq1hbDgH2c46ihJ0L9s9QnOpGjNcNM7BtjkJF5Z+s4/iWvCCl+ux?=
+ =?us-ascii?Q?UijrwSAQQWfN62q9NgR58A5EZ0+Si38XdqICxnMF7KSn/21rNO8TQLprhsTR?=
+ =?us-ascii?Q?d19zbu3wM1m4wVLWmDY/89YMY59pOY3GHmxxMrQOxvgGDf2ZFoquOLzkonKv?=
+ =?us-ascii?Q?fCaUyjTUpnT/PSNY27X4fEPT0ltBiunqQIZufL/whwOrhq0+ORYqRUCiF5PT?=
+ =?us-ascii?Q?TFQ4lpGlStR+F1h2Xf4iII1FMHQjWs6G9uHb9GVYrDJ9KFqshT+s/ods1dhC?=
+ =?us-ascii?Q?lVKCJGPSJwiwkuElgovpnEBIpdeQMe9jYRya8x62Lk5ERyKHLQp9+eRs553S?=
+ =?us-ascii?Q?4kcQLR27qrFqyfQBUBnNzvsh2qzqmhNM3QEMcK/i6JXeik25q/0ReUVg1n3E?=
+ =?us-ascii?Q?TglzK/aTT+YTCo+51XUpDUPhTp0BKrtlg4dZz2JIbriAeEIz7D92/crMnRrB?=
+ =?us-ascii?Q?KmiRV5IxuFiQQWGgZOVQm933ENlBKLxWmO4Hujka8MXXlUk/Acc3NC3429rc?=
+ =?us-ascii?Q?S93qQOZb3xZ/vJ+6oNZHDBx63Jk8n+HU2fpJrKjVRDhj7fiSve3nndVTLmf9?=
+ =?us-ascii?Q?QguGy5y4HXSvuRR2jVVzUALhWGqeHyaZ1XJlqDT1zjmLJRxSMtrg7txKghVS?=
+ =?us-ascii?Q?O+2Y+NgX8dAGKCtFKZUn//bZ/atzY4MstKRrc6Q0HXPN3qTYfz0n8AjRgBxI?=
+ =?us-ascii?Q?A4LQsJaYfEla4G3c48AafpO9C/GhnLkCPppfTLXn/ocz/J/N1V4eB3LgAldE?=
+ =?us-ascii?Q?YaxXohvPQDoOg203q0vuGdB2abpS39Y2KVfAFEHo+HlOe0mroL2K57mkf5c1?=
+ =?us-ascii?Q?0i7+hF2whA+4FV4v6xsQWfG1mJTJ07B6u1VmuRrFB7f/vUcQVC+8qLOMT1S0?=
+ =?us-ascii?Q?1XC6SSXJBleH+REuc1FfBh8J04cyt8QkxTQ8hyjoANukW/VX/kn/Y7fbIKCx?=
+ =?us-ascii?Q?RNi6G70a3N9sAqGY2kQaZKuysVcJsOlSI9EZliWAU11IoiwLSb7AFITTXgtQ?=
+ =?us-ascii?Q?3ZyUBL0zVRFJ2ZUk+SznQMcwluPe2Itrk/ZCEnyLlHcNvN1j6r73a6vhk6RH?=
+ =?us-ascii?Q?rbnsh/wqJWt3XYziufZXMjsdZxZhkvDwURj+4NQxEyi4sHjrrFr3kh55ILME?=
+ =?us-ascii?Q?rVek3111/mn7iUeT8UMMSaWpjkQ=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c704965c-68f0-4558-6017-08d9e674dbfa
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2022 17:53:03.3505 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Jn71CsanD2ojGpvssd3NrjHrmnZQG5mXnxcODjinehbSXzwKKwG60mq/epb8sLV3NAJzGBql3SR7qvXkFi+8Uu/HB7aEQfecg05YtgwuH2I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB3343
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10246
+ signatures=673430
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ mlxlogscore=999
+ adultscore=0 malwarescore=0 bulkscore=0 suspectscore=0 mlxscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2201110000 definitions=main-2202020099
+X-Proofpoint-GUID: QEz68gcBBtblCoi2GjUtgvWjU73Lc3Za
+X-Proofpoint-ORIG-GUID: QEz68gcBBtblCoi2GjUtgvWjU73Lc3Za
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,361 +146,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey
- Grodzovsky <andrey.grodzovsky@amd.com>, horace.chen@amd.com, lijo.lazar@amd.com,
- jingwech@amd.com, daniel@ffwll.ch, christian.koenig@amd.com, Monk.Liu@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The reset domain contains register access semaphor
-now and so needs to be present as long as each device
-in a hive needs it and so it cannot be binded to XGMI
-hive life cycle.
-Adress this by making reset domain refcounted and pointed
-by each member of the hive and the hive itself.
+Hello Wenjing Liu,
 
-v4:
-Fix crash on boot with XGMI hive by adding type to reset_domain.
-XGMI will only create a new reset_domain if prevoius was of single
-device type meaning it's first boot. Otherwsie it will take a
-refocunt to exsiting reset_domain from the amdgou device.
+The patch 1a206273c322: "drm/amd/display: refactor destructive verify
+link cap sequence" from Jan 28, 2022, leads to the following Smatch
+static checker warning:
 
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  6 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 44 +++++++++++++---------
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 38 +++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  | 18 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   | 29 +++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h   |  2 +-
- drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  4 +-
- drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      |  4 +-
- drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      |  4 +-
- 9 files changed, 118 insertions(+), 31 deletions(-)
+	drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:3248 dp_verify_link_cap()
+	error: uninitialized symbol 'status'.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 8e96b9a14452..f2ba460bfd59 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -813,9 +813,7 @@ struct amd_powerplay {
- #define AMDGPU_RESET_MAGIC_NUM 64
- #define AMDGPU_MAX_DF_PERFMONS 4
- 
--struct amdgpu_reset_domain {
--	struct workqueue_struct *wq;
--};
-+struct amdgpu_reset_domain;
- 
- struct amdgpu_device {
- 	struct device			*dev;
-@@ -1102,7 +1100,7 @@ struct amdgpu_device {
- 	struct amdgpu_reset_control     *reset_cntl;
- 	uint32_t                        ip_versions[HW_ID_MAX][HWIP_MAX_INSTANCE];
- 
--	struct amdgpu_reset_domain	reset_domain;
-+	struct amdgpu_reset_domain	*reset_domain;
- };
- 
- static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index fef952ca8db5..cd1b7af69c35 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2313,7 +2313,7 @@ static int amdgpu_device_init_schedulers(struct amdgpu_device *adev)
- 
- 		r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
- 				   ring->num_hw_submission, amdgpu_job_hang_limit,
--				   timeout, adev->reset_domain.wq, ring->sched_score, ring->name);
-+				   timeout, adev->reset_domain->wq, ring->sched_score, ring->name);
- 		if (r) {
- 			DRM_ERROR("Failed to create scheduler on ring %s.\n",
- 				  ring->name);
-@@ -2432,24 +2432,22 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 	if (r)
- 		goto init_failed;
- 
-+	/**
-+	 * In case of XGMI grab extra reference for reset domain for this device
-+	 */
- 	if (adev->gmc.xgmi.num_physical_nodes > 1) {
--		struct amdgpu_hive_info *hive;
--
--		amdgpu_xgmi_add_device(adev);
-+		if (amdgpu_xgmi_add_device(adev) == 0) {
-+			struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev);
- 
--		hive = amdgpu_get_xgmi_hive(adev);
--		if (!hive || !hive->reset_domain.wq) {
--			DRM_ERROR("Failed to obtain reset domain info for XGMI hive:%llx", hive->hive_id);
--			r = -EINVAL;
--			goto init_failed;
--		}
-+			if (!hive->reset_domain ||
-+			    !kref_get_unless_zero(&hive->reset_domain->refcount)) {
-+				r = -ENOENT;
-+				goto init_failed;
-+			}
- 
--		adev->reset_domain.wq = hive->reset_domain.wq;
--	} else {
--		adev->reset_domain.wq = alloc_ordered_workqueue("amdgpu-reset-dev", 0);
--		if (!adev->reset_domain.wq) {
--			r = -ENOMEM;
--			goto init_failed;
-+			/* Drop the early temporary reset domain we created for device */
-+			kref_put(&adev->reset_domain->refcount, amdgpu_reset_destroy_reset_domain);
-+			adev->reset_domain = hive->reset_domain;
- 		}
- 	}
- 
-@@ -3599,6 +3597,15 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 		return r;
- 	}
- 
-+	/*
-+	 * Reset domain needs to be present early, before XGMI hive discovered
-+	 * (if any) and intitialized to use reset sem and in_gpu reset flag
-+	 * early on during init.
-+	 */
-+	adev->reset_domain = amdgpu_reset_create_reset_domain(SINGLE_DEVICE ,"amdgpu-reset-dev");
-+	if (!adev->reset_domain)
-+		return -ENOMEM;
-+
- 	/* early init functions */
- 	r = amdgpu_device_ip_early_init(adev);
- 	if (r)
-@@ -3949,6 +3956,9 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- 	if (adev->mman.discovery_bin)
- 		amdgpu_discovery_fini(adev);
- 
-+	kref_put(&adev->reset_domain->refcount, amdgpu_reset_destroy_reset_domain);
-+	adev->reset_domain = NULL;
-+
- 	kfree(adev->pci_state);
- 
- }
-@@ -5186,7 +5196,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 
- 	INIT_WORK(&work.base, amdgpu_device_queue_gpu_recover_work);
- 
--	if (!queue_work(adev->reset_domain.wq, &work.base))
-+	if (!queue_work(adev->reset_domain->wq, &work.base))
- 		return -EAGAIN;
- 
- 	flush_work(&work.base);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-index 02afd4115675..14f003d5ebe8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-@@ -96,3 +96,41 @@ int amdgpu_reset_perform_reset(struct amdgpu_device *adev,
- 	return reset_handler->restore_hwcontext(adev->reset_cntl,
- 						reset_context);
- }
-+
-+
-+void amdgpu_reset_destroy_reset_domain(struct kref *ref)
-+{
-+	struct amdgpu_reset_domain *reset_domain = container_of(ref,
-+								struct amdgpu_reset_domain,
-+								refcount);
-+	destroy_workqueue(reset_domain->wq);
-+	kvfree(reset_domain);
-+}
-+
-+struct amdgpu_reset_domain *amdgpu_reset_create_reset_domain(enum amdgpu_reset_domain_type type,
-+							     char *wq_name)
-+{
-+	struct amdgpu_reset_domain *reset_domain;
-+
-+	reset_domain = kvzalloc(sizeof(struct amdgpu_reset_domain), GFP_KERNEL);
-+	if (!reset_domain) {
-+		DRM_ERROR("Failed to allocate amdgpu_reset_domain!");
-+		return NULL;
-+	}
-+
-+	reset_domain->type = type;
-+	kref_init(&reset_domain->refcount);
-+
-+	reset_domain->wq = create_singlethread_workqueue(wq_name);
-+	if (!reset_domain->wq) {
-+		DRM_ERROR("Failed to allocate wq for amdgpu_reset_domain!");
-+		kref_put(&reset_domain->refcount, amdgpu_reset_destroy_reset_domain);
-+		return NULL;
-+
-+	}
-+
-+	return reset_domain;
-+}
-+
-+
-+
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-index e00d38d9160a..0b310cd963d9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-@@ -70,6 +70,19 @@ struct amdgpu_reset_control {
- 	void (*async_reset)(struct work_struct *work);
- };
- 
-+
-+enum amdgpu_reset_domain_type {
-+	SINGLE_DEVICE,
-+	XGMI_HIVE
-+};
-+
-+struct amdgpu_reset_domain {
-+	struct kref refcount;
-+	struct workqueue_struct *wq;
-+	enum amdgpu_reset_domain_type type;
-+};
-+
-+
- int amdgpu_reset_init(struct amdgpu_device *adev);
- int amdgpu_reset_fini(struct amdgpu_device *adev);
- 
-@@ -82,4 +95,9 @@ int amdgpu_reset_perform_reset(struct amdgpu_device *adev,
- int amdgpu_reset_add_handler(struct amdgpu_reset_control *reset_ctl,
- 			     struct amdgpu_reset_handler *handler);
- 
-+struct amdgpu_reset_domain *amdgpu_reset_create_reset_domain(enum amdgpu_reset_domain_type type,
-+							     char *wq_name);
-+
-+void amdgpu_reset_destroy_reset_domain(struct kref *ref);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 9ad742039ac9..a216e88a7b54 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -32,6 +32,8 @@
- #include "wafl/wafl2_4_0_0_smn.h"
- #include "wafl/wafl2_4_0_0_sh_mask.h"
- 
-+#include "amdgpu_reset.h"
-+
- #define smnPCS_XGMI23_PCS_ERROR_STATUS   0x11a01210
- #define smnPCS_XGMI3X16_PCS_ERROR_STATUS 0x11a0020c
- #define smnPCS_GOPX1_PCS_ERROR_STATUS    0x12200210
-@@ -226,6 +228,9 @@ static void amdgpu_xgmi_hive_release(struct kobject *kobj)
- 	struct amdgpu_hive_info *hive = container_of(
- 		kobj, struct amdgpu_hive_info, kobj);
- 
-+	kref_put(&hive->reset_domain->refcount, amdgpu_reset_destroy_reset_domain);
-+	hive->reset_domain = NULL;
-+
- 	mutex_destroy(&hive->hive_lock);
- 	kfree(hive);
- }
-@@ -392,12 +397,24 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
- 		goto pro_end;
- 	}
- 
--	hive->reset_domain.wq = alloc_ordered_workqueue("amdgpu-reset-hive", 0);
--	if (!hive->reset_domain.wq) {
--		dev_err(adev->dev, "XGMI: failed allocating wq for reset domain!\n");
--		kfree(hive);
--		hive = NULL;
--		goto pro_end;
-+	/**
-+	 * Avoid recreating reset domain when hive is reconstructed for the case
-+	 * of reset the devices in the XGMI hive during probe for SRIOV
-+	 * See https://www.spinics.net/lists/amd-gfx/msg58836.html
-+	 */
-+	if (adev->reset_domain->type != XGMI_HIVE) {
-+		hive->reset_domain = amdgpu_reset_create_reset_domain(XGMI_HIVE, "amdgpu-reset-hive");
-+			if (!hive->reset_domain) {
-+				dev_err(adev->dev, "XGMI: failed initializing reset domain for xgmi hive\n");
-+				ret = -ENOMEM;
-+				kobject_put(&hive->kobj);
-+				kfree(hive);
-+				hive = NULL;
-+				goto pro_end;
-+			}
-+	} else {
-+		kref_get_unless_zero(&adev->reset_domain->refcount);
-+		hive->reset_domain = adev->reset_domain;
- 	}
- 
- 	hive->hive_id = adev->gmc.xgmi.hive_id;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-index 2f2ce53645a5..dcaad22be492 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-@@ -42,7 +42,7 @@ struct amdgpu_hive_info {
- 		AMDGPU_XGMI_PSTATE_UNKNOWN
- 	} pstate;
- 
--	struct amdgpu_reset_domain reset_domain;
-+	struct amdgpu_reset_domain *reset_domain;
- };
- 
- struct amdgpu_pcs_ras_field {
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-index b2b40e169342..05e98af30b48 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-@@ -32,6 +32,8 @@
- #include "soc15_common.h"
- #include "mxgpu_ai.h"
- 
-+#include "amdgpu_reset.h"
-+
- static void xgpu_ai_mailbox_send_ack(struct amdgpu_device *adev)
- {
- 	WREG8(AI_MAIBOX_CONTROL_RCV_OFFSET_BYTE, 2);
-@@ -302,7 +304,7 @@ static int xgpu_ai_mailbox_rcv_irq(struct amdgpu_device *adev,
- 	switch (event) {
- 		case IDH_FLR_NOTIFICATION:
- 		if (amdgpu_sriov_runtime(adev) && !amdgpu_in_reset(adev))
--			WARN_ONCE(!queue_work(adev->reset_domain.wq,
-+			WARN_ONCE(!queue_work(adev->reset_domain->wq,
- 					      &adev->virt.flr_work),
- 				  "Failed to queue work! at %s",
- 				  __func__);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-index 08411924150d..6e12055f3f4a 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-@@ -31,6 +31,8 @@
- #include "soc15_common.h"
- #include "mxgpu_nv.h"
- 
-+#include "amdgpu_reset.h"
-+
- static void xgpu_nv_mailbox_send_ack(struct amdgpu_device *adev)
- {
- 	WREG8(NV_MAIBOX_CONTROL_RCV_OFFSET_BYTE, 2);
-@@ -337,7 +339,7 @@ static int xgpu_nv_mailbox_rcv_irq(struct amdgpu_device *adev,
- 	switch (event) {
- 	case IDH_FLR_NOTIFICATION:
- 		if (amdgpu_sriov_runtime(adev) && !amdgpu_in_reset(adev))
--			WARN_ONCE(!queue_work(adev->reset_domain.wq,
-+			WARN_ONCE(!queue_work(adev->reset_domain->wq,
- 					      &adev->virt.flr_work),
- 				  "Failed to queue work! at %s",
- 				  __func__);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-index 02290febfcf4..fe1570c2146e 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-@@ -42,6 +42,8 @@
- #include "smu/smu_7_1_3_d.h"
- #include "mxgpu_vi.h"
- 
-+#include "amdgpu_reset.h"
-+
- /* VI golden setting */
- static const u32 xgpu_fiji_mgcg_cgcg_init[] = {
- 	mmRLC_CGTT_MGCG_OVERRIDE, 0xffffffff, 0xffffffff,
-@@ -551,7 +553,7 @@ static int xgpu_vi_mailbox_rcv_irq(struct amdgpu_device *adev,
- 
- 		/* only handle FLR_NOTIFY now */
- 		if (!r && !amdgpu_in_reset(adev))
--			WARN_ONCE(!queue_work(adev->reset_domain.wq,
-+			WARN_ONCE(!queue_work(adev->reset_domain->wq,
- 					      &adev->virt.flr_work),
- 				  "Failed to queue work! at %s",
- 				  __func__);
--- 
-2.25.1
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c
+    3192 static bool dp_verify_link_cap(
+    3193         struct dc_link *link,
+    3194         struct dc_link_settings *known_limit_link_setting,
+    3195         int *fail_count)
+    3196 {
+    3197         struct dc_link_settings cur_link_settings = {0};
+    3198         struct dc_link_settings initial_link_settings = *known_limit_link_setting;
+    3199         bool success = false;
+    3200         bool skip_video_pattern;
+    3201         enum clock_source_id dp_cs_id = get_clock_source_id(link);
+    3202         enum link_training_result status;
+    3203         union hpd_irq_data irq_data;
+    3204         struct link_resource link_res;
+    3205 
+    3206         memset(&irq_data, 0, sizeof(irq_data));
+    3207         cur_link_settings = initial_link_settings;
+    3208 
+    3209         /* Grant extended timeout request */
+    3210         if ((link->lttpr_mode == LTTPR_MODE_NON_TRANSPARENT) && (link->dpcd_caps.lttpr_caps.max_ext_timeout > 0)) {
+    3211                 uint8_t grant = link->dpcd_caps.lttpr_caps.max_ext_timeout & 0x80;
+    3212 
+    3213                 core_link_write_dpcd(link, DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT, &grant, sizeof(grant));
+    3214         }
+    3215 
+    3216         do {
+    3217                 if (!get_temp_dp_link_res(link, &link_res, &cur_link_settings))
+    3218                         continue;
 
+"status" is not set on this continure path.
+
+    3219 
+    3220                 skip_video_pattern = cur_link_settings.link_rate != LINK_RATE_LOW;
+    3221                 dp_enable_link_phy(
+    3222                                 link,
+    3223                                 &link_res,
+    3224                                 link->connector_signal,
+    3225                                 dp_cs_id,
+    3226                                 &cur_link_settings);
+    3227 
+    3228                 status = dc_link_dp_perform_link_training(
+    3229                                 link,
+    3230                                 &link_res,
+    3231                                 &cur_link_settings,
+    3232                                 skip_video_pattern);
+    3233 
+    3234                 if (status == LINK_TRAINING_SUCCESS) {
+    3235                         success = true;
+    3236                         udelay(1000);
+    3237                         if (read_hpd_rx_irq_data(link, &irq_data) == DC_OK &&
+    3238                                         hpd_rx_irq_check_link_loss_status(
+    3239                                                         link,
+    3240                                                         &irq_data))
+    3241                                 (*fail_count)++;
+    3242 
+    3243                 } else {
+    3244                         (*fail_count)++;
+    3245                 }
+    3246                 dp_disable_link_phy(link, &link_res, link->connector_signal);
+    3247         } while (!success && decide_fallback_link_setting(link,
+--> 3248                         initial_link_settings, &cur_link_settings, status));
+                                                                            ^^^^^^
+Uninitialized variable
+
+    3249 
+    3250         link->verified_link_cap = success ?
+    3251                         cur_link_settings : fail_safe_link_settings;
+    3252         return success;
+    3253 }
+
+regards,
+dan carpenter
