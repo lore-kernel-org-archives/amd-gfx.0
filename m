@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ECC7C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 20:31:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C62FBC43217
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 20:34:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E72C910E6BA;
-	Thu,  3 Feb 2022 20:31:38 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C89B110E67E;
- Thu,  3 Feb 2022 20:31:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7951F10E714;
+	Thu,  3 Feb 2022 20:34:09 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5337610E714;
+ Thu,  3 Feb 2022 20:34:08 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 56D5961AB9;
- Thu,  3 Feb 2022 20:31:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C9AAC340EF;
- Thu,  3 Feb 2022 20:31:35 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1B72CB83556;
+ Thu,  3 Feb 2022 20:34:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE76EC340E8;
+ Thu,  3 Feb 2022 20:34:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643920297;
- bh=Vv//BExRI3t85Qsd/+tzwcI53cblzmjE6OyXjRNe/UE=;
+ s=k20201202; t=1643920446;
+ bh=a9hRDb8jeBX3+CfUzzLMVZKn6WHEX5RbBWJPBjc8rVk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=guzqe2jqKMS06lrroT4FRQg0LZNUoxZoIQ4whJ91bk137i7hL+u495EIo86FeD9Cb
- 3ADAlKU1yzCfBhOI9N+3547t1juie0WS9McJ4HApZJnDJ4bf/9p00oJ8GlR3c4XjRX
- ZskJymJPMXuYtdGmxIu8fv5RWcX9hifcIP5G77IZR85CBQ6KEgi8RZpNI3nvr29FkS
- Ch1GDuYAkzSEkri6PBzkMX/QetJWi9rfBMckb77SlAsCV2e71O7+21gQ0dhbJ5lynz
- srTG0aP6drX6u+m4B7+5I2Dj4rrgoapiymrQFQom7Ey3bPEzNSX1ywaBoNv8s/MdVc
- ksQXrmP3nx+EQ==
+ b=LfBFJaeeNIQKoD9lPLKdLafhvCD5hnTT2D0F/VyKx8BE15WYyqKFz/UaPrafUPaWg
+ TtXz3qHSGaKvwZKsECNK1JepnMDnEVEdmgDbTAPUH+GnGePfqrB9FB/r5r/iu0jwu1
+ +RupkGb+lt26wswf5QQ0wjaNkIrqzr7XQA3CSicnXP22HXtJzHSmt01PgMRVGJVf7k
+ Fp+wKVohN0J80RTX5mO4sEbo5sVsvQ8iPhdkTHzVnv3l79d2kUI7VbXumnT28RPTeW
+ W1qlJJbpwTgkJnPzBjc9W3Y9JArfMzqZ/NC5Vwey8wm4BxMQQ49kOh2VsN1+OSi4o8
+ bAUJxUdAD+Zbw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.16 40/52] drm/amdgpu/display: use msleep rather than
- udelay for long delays
-Date: Thu,  3 Feb 2022 15:29:34 -0500
-Message-Id: <20220203202947.2304-40-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 35/41] drm/amd/display: Correct MPC split policy
+ for DCN301
+Date: Thu,  3 Feb 2022 15:32:39 -0500
+Message-Id: <20220203203245.3007-35-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220203202947.2304-1-sashal@kernel.org>
-References: <20220203202947.2304-1-sashal@kernel.org>
+In-Reply-To: <20220203203245.3007-1-sashal@kernel.org>
+References: <20220203203245.3007-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -55,54 +55,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, stylon.wang@amd.com,
- Wesley.Chalmers@amd.com, sunpeng.li@amd.com, wenjing.liu@amd.com,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
- airlied@linux.ie, Jerry.Zuo@amd.com, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, George.Shen@amd.com, Alex Deucher <alexander.deucher@amd.com>,
- Jun.Lei@amd.com, Harry Wentland <harry.wentland@amd.com>,
- christian.koenig@amd.com, Jimmy.Kizito@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com, angus.wang@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, Qingqing.Zhuo@amd.com,
+ Xinhui.Pan@amd.com, Zhan Liu <zhan.liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ nikola.cornij@amd.com, charles.sun@amd.com, airlied@linux.ie,
+ Dmytro.Laktyushkin@amd.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Zhan Liu <zhan.liu@amd.com>
 
-[ Upstream commit 98fdcacb45f7cd2092151d6af2e60152811eb79c ]
+[ Upstream commit ac46d93235074a6c5d280d35771c23fd8620e7d9 ]
 
-Some architectures (e.g., ARM) throw an compilation error if the
-udelay is too long.  In general udelays of longer than 2000us are
-not recommended on any architecture.  Switch to msleep in these
-cases.
+[Why]
+DCN301 has seamless boot enabled. With MPC split enabled
+at the same time, system will hang.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+[How]
+Revert MPC split policy back to "MPC_SPLIT_AVOID". Since we have
+ODM combine enabled on DCN301, pipe split is not necessary here.
+
+Signed-off-by: Zhan Liu <zhan.liu@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 01ac1a64c78b9..d1b47c0d7791a 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -6038,7 +6038,7 @@ bool dpcd_write_128b_132b_sst_payload_allocation_table(
- 			}
- 		}
- 		retries++;
--		udelay(5000);
-+		msleep(5);
- 	}
- 
- 	if (!result && retries == max_retries) {
-@@ -6090,7 +6090,7 @@ bool dpcd_poll_for_allocation_change_trigger(struct dc_link *link)
- 			break;
- 		}
- 
--		udelay(5000);
-+		msleep(5);
- 	}
- 
- 	if (result == ACT_FAILED) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+index 9e2f18a0c9483..26ebe00a55f67 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+@@ -863,7 +863,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_clock_gate = true,
+ 	.disable_pplib_clock_request = true,
+ 	.disable_pplib_wm_range = true,
+-	.pipe_split_policy = MPC_SPLIT_DYNAMIC,
++	.pipe_split_policy = MPC_SPLIT_AVOID,
+ 	.force_single_disp_pipe_split = false,
+ 	.disable_dcc = DCC_ENABLE,
+ 	.vsr_support = true,
 -- 
 2.34.1
 
