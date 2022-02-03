@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1DCEC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 09:10:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D261C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 09:10:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25AC110EA78;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 624CA10EA48;
 	Thu,  3 Feb 2022 09:09:51 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2088.outbound.protection.outlook.com [40.107.92.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14F3110EA48;
- Thu,  3 Feb 2022 09:09:48 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2072.outbound.protection.outlook.com [40.107.244.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5BA210EA8A;
+ Thu,  3 Feb 2022 09:09:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QNGc4f3JWzSn9yn3mQP0htPnst0XmJ9BxWQb7adYn/snUvbP0l+xCFm9x9JwopARY5Qi+RHw2HZOwEFXbfvphdotkeBSKGoC/5by6XJTauC2fSoC5pH46VM8bDOzRvDOcXOLdwUNs1F13jj6pQgkbI+HoKnCDogtqAAoyWXc3DBDunp6luARoHX8WktY++9CuQu5Do8MfdMsrTMHyaoBYCXmD2uKbmLtv6uZPmTMlC1+hHErOzMMI4xBopPns14145nuaJbQa/hc3mjpWDpipfNaQHKVJn23efS7SsO1zhuOAIihYoL40/Rc4p/ieiEQIc8YryCM1vPQVpngg3JdMg==
+ b=hfc2V7FcxMZAajLraa8+m+IVC0H3xuMDOkDVG3niJht2wbMogZaOdPZSwdyjkGksC5v57RoxQroYse05C7EN9YnYiqepOSaTpCc9P6UN6u23qU7bbpB4HKJm3diGMY269dRWUb5/gpR9trRM1qV6+3Svkps9N0qDeZUW4AsBl+k/K6UjgV6tr1umT6qJ5YH177cFYhnQL5G1NF9wWNSeVgNlKhY0KXWpU0R4sv8VxGsmWI9lFFHsX2+/WUAa7URCAmfhWJtUlgV8XYNqPsmHXA+gSXmU2Ai567/AOm4m1nADSWKrdYq3CyAVE9Zbd7XexpdwZxwHs/V1a4Dx5PjgOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5VUGSDZgRiljzkkCQxu3xDHLxcmCn7YrvhwD3bcJVm8=;
- b=IMDA+miGvV9Ek8gsrA7IDcAdtoX2hgBzXn+Fnd7TonpQ44+q59cJQYkK1IJ68L93KjMLCGSKY1M5VtDtiGLYs8QUDkRXPBcJnmXL5YN2k/5Q8JVnIFe7QW+0Ubb8JnYK8FBTQMcqzU1tflnLze6XWoBKW+2CHy6z6ShHHzbq9fmBRC6oe6ThWSVkHyqLCD6yDcmGUSU0ei6MHQWH+fMPSNvTtLb0KIblgurdRwuC9lHLeG5eMDwIh//TJLOnVTcRZmXjL/e4VGn6/wRAk5jsnycyIlKgJB26fJfQhQNfBj6LigPozDTaGSKJlQDG7qcva1mrbjvQHlfkC5Q9vYmgxQ==
+ bh=CbSH23+x+aKVw5ei0mnBhBlYj493VV2xdEqJZ+9D7Oo=;
+ b=VnIMlCe8l2D51Ro685F7bPB4yif9122uCNXOvIYgCpwGpGYkF7zrrvg5ImmB4Ttqfi96H+Sncvq5/FRyPhYe5jn2x9kPLGOAzyjjgtyncnUWsmciqX1kVf1RdpR+PeWoNNuEygWE/qcVHFKQqDFZOXRBNKHoRnMn3v9hbiQ/HWqx6giHwg2AjRk0YxIXP9ZTt1jR5qCYg7sQoeO9+trmyLDGvmzySqDXLt0pdSR7YPEUlEvrympKY/38ZlIy99ItGtExQ/jNfM8s9N1Qx3RBLDqK05WOFhhj26dtMViiNf/Jqhs42jh1eHdAdcLyYQDEjHBcBeZldKvXOXOzA+1AKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5VUGSDZgRiljzkkCQxu3xDHLxcmCn7YrvhwD3bcJVm8=;
- b=Sj+VnpUVknzkVKFp9CGeBUP7HnTA6dKsc8w16fZQKFdutb6FlChuisl5xe6uqz90V7lHww85LTEsMH6ZxsqpHK+gIJl4ekepmm+sNDd954I+edvHPNQkFLeNzghC59V1+D00UrrJ/FtAYtRJUCZ2ADRn5t+pXTId5ernV6iWyoQ=
-Received: from BN9PR03CA0368.namprd03.prod.outlook.com (2603:10b6:408:f7::13)
- by MN2PR12MB4656.namprd12.prod.outlook.com (2603:10b6:208:182::32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10; Thu, 3 Feb
- 2022 09:09:45 +0000
+ bh=CbSH23+x+aKVw5ei0mnBhBlYj493VV2xdEqJZ+9D7Oo=;
+ b=LnM3fMwxgfDgRjg8AtGu3c4M6jFgMhtwDTliVg1zRRC5ZyXfur0NtiEX0J/qhHx7xwhcfeAQ0299rPkm2utcVqqRG8zpP8jk65Nv9B4iDFKGi44/SjHnMjYoKH1AGQVuvmASGzDMhAy45/M1ZcTnbNkT3Ow+o3BzNcvBWNq5r5s=
+Received: from BN9PR03CA0370.namprd03.prod.outlook.com (2603:10b6:408:f7::15)
+ by DM6PR12MB2779.namprd12.prod.outlook.com (2603:10b6:5:4f::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Thu, 3 Feb
+ 2022 09:09:44 +0000
 Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f7:cafe::56) by BN9PR03CA0368.outlook.office365.com
- (2603:10b6:408:f7::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12 via Frontend
- Transport; Thu, 3 Feb 2022 09:09:45 +0000
+ (2603:10b6:408:f7:cafe::2a) by BN9PR03CA0370.outlook.office365.com
+ (2603:10b6:408:f7::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.18 via Frontend
+ Transport; Thu, 3 Feb 2022 09:09:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4951.12 via Frontend Transport; Thu, 3 Feb 2022 09:09:45 +0000
+ 15.20.4951.12 via Frontend Transport; Thu, 3 Feb 2022 09:09:44 +0000
 Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 3 Feb
- 2022 03:09:43 -0600
+ 2022 03:09:41 -0600
 From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [Patch v5 21/24] drm/amdkfd: CRIU Save Shared Virtual Memory ranges
-Date: Thu, 3 Feb 2022 04:09:15 -0500
-Message-ID: <20220203090918.11520-22-rajneesh.bhardwaj@amd.com>
+Subject: [Patch v5 17/24] drm/amdkfd: CRIU checkpoint and restore xnack mode
+Date: Thu, 3 Feb 2022 04:09:11 -0500
+Message-ID: <20220203090918.11520-18-rajneesh.bhardwaj@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220203090918.11520-1-rajneesh.bhardwaj@amd.com>
 References: <20220203090918.11520-1-rajneesh.bhardwaj@amd.com>
@@ -67,28 +67,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b06ece78-5464-4e32-ee9e-08d9e6f4ebdd
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4656:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4656F4392A46807340E418C4FE289@MN2PR12MB4656.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: bddaf36e-75b3-4d87-211c-08d9e6f4eb2b
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2779:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2779DA5242A1C05680649D8EFE289@DM6PR12MB2779.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: w5pY4ONlPvHV8YQERLa4C35m1QW9ph+wfu/9ohu230OftgxhinHEQSXPYa/zxUsiRyix5I0QaigrzXVFZTuJnWQS6JWl+yfbAZFcEJaWlXR/mdu5OxuWvCvwmuwNoJZbk1d7SdixLuipl/SS8DH9fvCe0GB1z2xE9lyNJFdc1PNCHatjmycMeLLFRu+mVQYFSCgok7/EEEPox0cI2HeSJTFAILcsajAXOn9k/Yi60xxmZwJeOv+u8TMn81sH2CtpNdWRr9pvo26f2sWWxOdDPDir6IZupFuVi8ml2eQp+ZUF8TUwSLsBJ8VFga9evYytqMsWFPYzToMEBSUXeh95Hi7pwoMF0mMqbqhOBoDub9cDAPWjjyv9mtb4hz45IYWChdBvrozJk4/QmQI9gIl+qUyjmWQPyHSiPRlt28r6Dm9Wzu18GH/bXp4Ahu2YMAaCHrd5bLcx/Xda2WNRIW52VTN3dIAXLRR7eMGEDakGoBOomMapMeyNSz0MMk5fyKtUn59PiDd9US6lsB6fv1xhJ9nRn36hvf9msM3z9D6PKiOnoH4fn52wYcRZvHbjCYgswidsX9puecMfGUsQS54Mx2hm4H/8WWc6wBF2bk+tpUbvOmKqs3eWlNS7KqV6X0Ho091/LqRzQLqPS+QeTYc/hL3464rovTpp5DyAIgM6YU39oChbz0ozgwjOlZcmXHqh0dL2GDbyJ70ATdvYheGIpm8CtAOiHIiI9hSB578MxQiJIhs0r3MCpMSnrRZ/wtjBAXmU9W5Nj5hKSXCOlf46QthN8yVmYU8VnbIxh8XKmC4=
+X-Microsoft-Antispam-Message-Info: wQemcNpHnzwAzpxFsj8Vk83JITANZP8NAGEIddWdjOUbugQFsvF9Ud/LfgoCBHhokWjW0hD5o7XJKh86pz7OcJLgI1kFBvBcNjo/S/zKj8n6T4W+eruYh91+oacJIqJ/9g4YkS+Ot5NiFgTnW8TVhOJinRBxh5h/2YBRvgCUrvgMEAs/J43WsTD7FnXWqdAk/nO9rQnxAPjEbiWsOr4Phnb3xzoNyovh5e0RZpigJPHKP5Mk+5TKKt/tfEwIxnlZosQg23VnRo7iUSUmDwzLuM9T9t9VbGucsG1yLhamqatAOThEDNRd1g9wg1kQD9sBcFpxynqDI3alvG0kCtpwklBdO5ZN/hFIrlh20VVKfWXq5i3FgvTVj0avzytQTVmN6Fe8suirA8XVAiu70B5P4xBtw7YZeS7ZJpfQWMlVmbpQCQ8iXpwhngUJzKzKU/iEpp6ArdfMdhb+lvBdmBS5W+2x4jonAuFuH3AWRhAiZgtdTjH9SnTP+1MfpKlBR0BAwK6MweqzTLfftIYDIASLpPlKskltOmOH9yPfxKEEhaip7MVt4wUfT2apJdRqddTPFNpmOjthqY75KxPDCwySRfbUCD/6p3a4HR+r2qqVXhpivrtDJyAwAKRD8EsV4jr0EIA6ktqn+yjkRjSjBEAQp5/fVUzZ6KB4uIKQ652wRmlzX86TXIoepnkMWU1NGp8XgdR3x0KxAellOEaWOaZQfQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(40470700004)(36840700001)(46966006)(508600001)(8936002)(36860700001)(36756003)(40460700003)(426003)(16526019)(47076005)(6916009)(26005)(336012)(8676002)(44832011)(81166007)(2906002)(5660300002)(1076003)(316002)(7696005)(186003)(70206006)(82310400004)(356005)(70586007)(4326008)(54906003)(83380400001)(450100002)(6666004)(2616005)(86362001)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(8936002)(4326008)(8676002)(356005)(82310400004)(86362001)(70586007)(450100002)(70206006)(81166007)(5660300002)(6916009)(40460700003)(47076005)(2906002)(316002)(36860700001)(36756003)(508600001)(6666004)(83380400001)(44832011)(54906003)(2616005)(186003)(426003)(7696005)(26005)(336012)(1076003)(16526019)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 09:09:45.2609 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b06ece78-5464-4e32-ee9e-08d9e6f4ebdd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 09:09:44.0891 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bddaf36e-75b3-4d87-211c-08d9e6f4eb2b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4656
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2779
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,169 +106,62 @@ Cc: alexander.deucher@amd.com, felix.kuehling@amd.com, david.yatsin@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-During checkpoint stage, save the shared virtual memory ranges and
-attributes for the target process. A process may contain a number of svm
-ranges and each range might contain a number of attributes. While not
-all attributes may be applicable for a given prange but during
-checkpoint we store all possible values for the max possible attribute
-types.
+Recoverable page faults are represented by the xnack mode setting inside
+a kfd process and are used to represent the device page faults. For CR,
+we don't consider negative values which are typically used for querying
+the current xnack mode without modifying it.
 
 Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 95 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h     | 10 +++
- 3 files changed, 108 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 15 +++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  1 +
+ 2 files changed, 16 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index a755ea68a428..721c86ceba22 100644
+index ab5107a3fe36..3ec44f71307d 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2196,7 +2196,9 @@ static int criu_checkpoint(struct file *filep,
- 		if (ret)
- 			goto close_bo_fds;
+@@ -1848,6 +1848,11 @@ static int criu_checkpoint_process(struct kfd_process *p,
+ 	memset(&process_priv, 0, sizeof(process_priv));
  
--		/* TODO: Dump SVM-Ranges */
-+		ret = kfd_criu_checkpoint_svm(p, (uint8_t __user *)args->priv_data, &priv_offset);
-+		if (ret)
-+			goto close_bo_fds;
+ 	process_priv.version = KFD_CRIU_PRIV_VERSION;
++	/* For CR, we don't consider negative xnack mode which is used for
++	 * querying without changing it, here 0 simply means disabled and 1
++	 * means enabled so retry for finding a valid PTE.
++	 */
++	process_priv.xnack_mode = p->xnack_enabled ? 1 : 0;
+ 
+ 	ret = copy_to_user(user_priv_data + *priv_offset,
+ 				&process_priv, sizeof(process_priv));
+@@ -2241,6 +2246,16 @@ static int criu_restore_process(struct kfd_process *p,
+ 		return -EINVAL;
  	}
  
- close_bo_fds:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 64cd7712c098..7cf63995c079 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -3540,6 +3540,101 @@ int svm_range_get_info(struct kfd_process *p, uint32_t *num_svm_ranges,
- 	return 0;
- }
- 
-+int kfd_criu_checkpoint_svm(struct kfd_process *p,
-+			    uint8_t __user *user_priv_data,
-+			    uint64_t *priv_data_offset)
-+{
-+	struct kfd_criu_svm_range_priv_data *svm_priv = NULL;
-+	struct kfd_ioctl_svm_attribute *query_attr = NULL;
-+	uint64_t svm_priv_data_size, query_attr_size = 0;
-+	int index, nattr_common = 4, ret = 0;
-+	struct svm_range_list *svms;
-+	int num_devices = p->n_pdds;
-+	struct svm_range *prange;
-+	struct mm_struct *mm;
-+
-+	svms = &p->svms;
-+	if (!svms)
-+		return -EINVAL;
-+
-+	mm = get_task_mm(p->lead_thread);
-+	if (!mm) {
-+		pr_err("failed to get mm for the target process\n");
-+		return -ESRCH;
-+	}
-+
-+	query_attr_size = sizeof(struct kfd_ioctl_svm_attribute) *
-+				(nattr_common + num_devices);
-+
-+	query_attr = kzalloc(query_attr_size, GFP_KERNEL);
-+	if (!query_attr) {
-+		ret = -ENOMEM;
++	pr_debug("Setting XNACK mode\n");
++	if (process_priv.xnack_mode && !kfd_process_xnack_mode(p, true)) {
++		pr_err("xnack mode cannot be set\n");
++		ret = -EPERM;
 +		goto exit;
++	} else {
++		pr_debug("set xnack mode: %d\n", process_priv.xnack_mode);
++		p->xnack_enabled = process_priv.xnack_mode;
 +	}
 +
-+	query_attr[0].type = KFD_IOCTL_SVM_ATTR_PREFERRED_LOC;
-+	query_attr[1].type = KFD_IOCTL_SVM_ATTR_PREFETCH_LOC;
-+	query_attr[2].type = KFD_IOCTL_SVM_ATTR_SET_FLAGS;
-+	query_attr[3].type = KFD_IOCTL_SVM_ATTR_GRANULARITY;
-+
-+	for (index = 0; index < num_devices; index++) {
-+		struct kfd_process_device *pdd = p->pdds[index];
-+
-+		query_attr[index + nattr_common].type =
-+			KFD_IOCTL_SVM_ATTR_ACCESS;
-+		query_attr[index + nattr_common].value = pdd->user_gpu_id;
-+	}
-+
-+	svm_priv_data_size = sizeof(*svm_priv) + query_attr_size;
-+
-+	svm_priv = kzalloc(svm_priv_data_size, GFP_KERNEL);
-+	if (!svm_priv) {
-+		ret = -ENOMEM;
-+		goto exit_query;
-+	}
-+
-+	index = 0;
-+	list_for_each_entry(prange, &svms->list, list) {
-+
-+		svm_priv->object_type = KFD_CRIU_OBJECT_TYPE_SVM_RANGE;
-+		svm_priv->start_addr = prange->start;
-+		svm_priv->size = prange->npages;
-+		memcpy(&svm_priv->attrs, query_attr, query_attr_size);
-+		pr_debug("CRIU: prange: 0x%p start: 0x%lx\t npages: 0x%llx end: 0x%llx\t size: 0x%llx\n",
-+			 prange, prange->start, prange->npages,
-+			 prange->start + prange->npages - 1,
-+			 prange->npages * PAGE_SIZE);
-+
-+		ret = svm_range_get_attr(p, mm, svm_priv->start_addr,
-+					 svm_priv->size,
-+					 (nattr_common + num_devices),
-+					 svm_priv->attrs);
-+		if (ret) {
-+			pr_err("CRIU: failed to obtain range attributes\n");
-+			goto exit_priv;
-+		}
-+
-+		ret = copy_to_user(user_priv_data + *priv_data_offset,
-+				   svm_priv, svm_priv_data_size);
-+		if (ret) {
-+			pr_err("Failed to copy svm priv to user\n");
-+			goto exit_priv;
-+		}
-+
-+		*priv_data_offset += svm_priv_data_size;
-+
-+	}
-+
-+
-+exit_priv:
-+	kfree(svm_priv);
-+exit_query:
-+	kfree(query_attr);
-+exit:
-+	mmput(mm);
-+	return ret;
-+}
-+
- int
- svm_ioctl(struct kfd_process *p, enum kfd_ioctl_svm_op op, uint64_t start,
- 	  uint64_t size, uint32_t nattrs, struct kfd_ioctl_svm_attribute *attrs)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index f052b6022e76..f36c2fa8469a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -185,6 +185,9 @@ void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm,
- 			void *owner);
- int svm_range_get_info(struct kfd_process *p, uint32_t *num_svm_ranges,
- 		       uint64_t *svm_priv_data_size);
-+int kfd_criu_checkpoint_svm(struct kfd_process *p,
-+			    uint8_t __user *user_priv_data,
-+			    uint64_t *priv_offset);
- struct kfd_process_device *
- svm_range_get_pdd_by_adev(struct svm_range *prange, struct amdgpu_device *adev);
- void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_struct *mm);
-@@ -231,6 +234,13 @@ static inline int svm_range_get_info(struct kfd_process *p,
- 	return 0;
+ exit:
+ 	return ret;
  }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index df68c4274bd9..903ad4a263f0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1056,6 +1056,7 @@ void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
  
-+static inline int kfd_criu_checkpoint_svm(struct kfd_process *p,
-+					  uint8_t __user *user_priv_data,
-+					  uint64_t *priv_offset)
-+{
-+	return 0;
-+}
-+
- #define KFD_IS_SVM_API_SUPPORTED(dev) false
+ struct kfd_criu_process_priv_data {
+ 	uint32_t version;
++	uint32_t xnack_mode;
+ };
  
- #endif /* IS_ENABLED(CONFIG_HSA_AMD_SVM) */
+ struct kfd_criu_device_priv_data {
 -- 
 2.17.1
 
