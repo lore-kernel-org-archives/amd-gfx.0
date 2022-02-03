@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C6E4C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 09:10:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1900BC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 09:10:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DF2E10EA58;
-	Thu,  3 Feb 2022 09:09:45 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4658710EA11;
- Thu,  3 Feb 2022 09:09:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2631A10EA31;
+	Thu,  3 Feb 2022 09:09:47 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EC2410EA48;
+ Thu,  3 Feb 2022 09:09:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SO41+OtUj/NH9YJi00y+YEDmogSWfydO0iPaIdSH5nkoUY3cQMsP2gh9aYj9PtHerIzREETu07lmZ5JLlETuZzfxOStlsDTSAMOAQ8Qdi5RBnauFe9XhL28o7AP2zBDPgR9gcO5ODv892BKWkycl0gPss1WEwp8QCzd1zqSrZhkk66zDOm7qXy46/kJPX/2QKvBmG+kW0xf0/r9HFNG/B69GxAjp9b/mI58iskUMZSbZ9l/Cm5NYTfAzxdBcGgNprd5s+N5b87MkcYAWzJBpiNEtO0scPrQjBfIRMBrQtFf6/AyvM3qyqlXvqzQkzfCHgnCXa2Q7A7Trstwz0q0+7Q==
+ b=dlPIpwVVqJlcrjiYyGxNm44LimqFfdB9hI5TrSXjopXPtII+h8G8URZVXvjnJJZCl1swg4Zgptgn7vP/bmikIuOkxw1klBn6a6FKm7dEMvdnwQnKs9HkVWtu/+pi33IrmfYOz8YbcLcGIWQbKMUYYVn5gIJVgr4Rh52SsMlHkhwJgmVce9XYFZJUud69CJyy79lGC+kDdnS6NEd/maSGlIzjf3n7cWeHh3GxOn54H/VdMHt27e2a41hWbQy6P1aqosmeO9/0+S69H18I05J4fUHkFCjPOWWTRhAGXAhoXDE/EObukaWvVZ20D1TUQGAOKOKvQ15lMWu1JXDgvp27Iw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ap0OzOnJGDR9wYA+QGduIY8kA7jfDnz3ng3AW2go3bA=;
- b=HJfV9gHifjmlrXCJKpeeC6cz0eGF5dOQ4f6cFb8ffc1YQ2OYYPFti5V/8D5aHtHQ4/XXARqQpHDQP7HemY2r2kugbEfjVxGs4Ab4mP4Opc1awhgQAE0WQ0AEavmaoqzmfYhF8uBnOShL9Iv1s75gXDN7ai85qA+yH6ToIDfgdV1yPjls5dblXlrmoomzFc7FAVu4j9gd3uGVo0zHlMp9Mz9ebNFOoqQtnEzYMVZ6JeRwloNXBchUkjPMR4Zb7PEzNhBzo4+thANOO+KJNRW5q0TU9h8txiHAmy/nOtTG0VGAMkWKllYYNpzKzK2LU9p1r8AOSmUqcd8ZNfCM67Jdgw==
+ bh=FVJNpG0VpziNfTKmnPEqXYMLShYGGEIraZ+gBSYdgCM=;
+ b=gtsS6XIKc1pzaj+sKOK/rGTmc5xJVx5Jy/bo9/ZIrYgXGDdIoRIei0DloU+JOF50ML36+XYE/u/71BUa8FXjaGzrAcqwIlOpNt2Lvfj8pzYGZzyygfOqzb02ddjEwCqaOXUNVZK4sX6OpiQzoMAGguF+8i+9Rb7eGzSiVpIEkQ6GCf2hUjIQl3jrhnfwMxYoFAAm5ijtaLsZYxy98CbvhTFVXmOdtbVHtfHMl+eQmAA8EuG5MNS2ueVdv//GA+5rlkQ3fkb53CtJBC3YM7X/uoWF4kl6uJy1xJmu6Fk8PukScmXnMhAgx2ZlCmwIr4b7cI0ZZPsiEIEmv3PHXXFukg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ap0OzOnJGDR9wYA+QGduIY8kA7jfDnz3ng3AW2go3bA=;
- b=u4CHM3Rcg3U7TYT36BPa8rdHEP5NgkqbBLafVTkemc37m+6fJRpsDuopKY6IsD58WQu07T5Yr9r8qaLVKJllKBybEXmi54A+lBKKznje8LoRTuS1FQ1PPN41hcC8xOIYNi8Ylp9gpKGGcGAXRprJTaKMag6WUZ3tQsP9Ee4QLiA=
-Received: from BN9PR03CA0375.namprd03.prod.outlook.com (2603:10b6:408:f7::20)
- by CY4PR12MB1173.namprd12.prod.outlook.com (2603:10b6:903:41::20)
+ bh=FVJNpG0VpziNfTKmnPEqXYMLShYGGEIraZ+gBSYdgCM=;
+ b=dWrZ0uTiRsWvKmwRxdXCnk7vLQVK7v7lBNbHB8aCtwwRvBQ08JnuihF+p0dMUVJt132Pa8ddRWF2WK/YnVSny8T8mssSCUqdwWkpD4trsp1xZonZSKQku0Xj7RTcFFjVk8djY+6QUrj9PAHVXM5Er/gJRxwZIiTBC25Awis2/Hk=
+Received: from BN9PR03CA0384.namprd03.prod.outlook.com (2603:10b6:408:f7::29)
+ by MWHPR1201MB2542.namprd12.prod.outlook.com (2603:10b6:300:e8::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11; Thu, 3 Feb
- 2022 09:09:38 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Thu, 3 Feb
+ 2022 09:09:35 +0000
 Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f7:cafe::8e) by BN9PR03CA0375.outlook.office365.com
- (2603:10b6:408:f7::20) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:f7:cafe::e) by BN9PR03CA0384.outlook.office365.com
+ (2603:10b6:408:f7::29) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12 via Frontend
- Transport; Thu, 3 Feb 2022 09:09:38 +0000
+ Transport; Thu, 3 Feb 2022 09:09:35 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4951.12 via Frontend Transport; Thu, 3 Feb 2022 09:09:38 +0000
+ 15.20.4951.12 via Frontend Transport; Thu, 3 Feb 2022 09:09:35 +0000
 Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 3 Feb
- 2022 03:09:35 -0600
+ 2022 03:09:33 -0600
 From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [Patch v5 06/24] drm/amdkfd: CRIU Implement KFD resume ioctl
-Date: Thu, 3 Feb 2022 04:09:00 -0500
-Message-ID: <20220203090918.11520-7-rajneesh.bhardwaj@amd.com>
+Subject: [Patch v5 02/24] drm/amdkfd: CRIU Introduce Checkpoint-Restore APIs
+Date: Thu, 3 Feb 2022 04:08:56 -0500
+Message-ID: <20220203090918.11520-3-rajneesh.bhardwaj@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220203090918.11520-1-rajneesh.bhardwaj@amd.com>
 References: <20220203090918.11520-1-rajneesh.bhardwaj@amd.com>
@@ -67,28 +67,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 225f235c-d6df-489c-4694-08d9e6f4e795
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1173:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR12MB117320EB17DFAC9D583B6A26FE289@CY4PR12MB1173.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:949;
+X-MS-Office365-Filtering-Correlation-Id: 6ada1f4d-403f-4c59-9cf0-08d9e6f4e5de
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB2542:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB2542EA4AB99DF7AE9E50ADF7FE289@MWHPR1201MB2542.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8A+Uimu2Tud0El8eqTUKo7Ka+CIyz983mmvs4Sly94jWMpBicDKS/8UT0GWpTbTRyMeyjrVinGNSGt7YvTSkrSetTcSVBmr25vWDJYVyKCx6I1KZBNFJv9ubs9A89skqbp3J/6NI06vXLg2yzssEb4pzPhp1JQoEtTGh/daW8iEgW7F19bUYBKsuBinBUq0qTJIy1YlUvkSdth1qoSISUwsddTwafrtb/XJBhpnWaFqAcI9iXD3BkoYDXHwVP/GjYzYZunPEi7znOsagh6FoCO6AudB3Sq8piXtrTGnA2F5pGYXoQc6riGzpGdLQwVrgeNld+cY2IigsgifDVh2RHZVt7HdnI5tRs1Hne0zLH8El9xdNeCEwCsl1nQcypv3CzQJ99Tx1kccJHtgMXCaz//7s7nXSuTHhM6MpKbrBqmHeVunUaoEmNu9Ip73eW5VrAs17/VebNjMLIzqNrPyDA5jFhTL/bzvfnqeX7HXZcF1hXyOmbILBUJ9sLhL2EiR8EUb2V0fq7JqsIEyjlrjy1boGc9Dk06RmPnWoZX4j3D8R8jTLKLl0zeqR1tguRX7+fVOKmLnrwikidJEUlKmndrwokdynDoxLTHtgQPWeIVHB6vkuQA/ZQy6cq+oKOOwerdn7LGAT97ZT9vDeM/2i/KV0DZbbl+dfOF8up89RXfNE7fDKi4rEcy7shtmWCQPZtdW5Oa1mFxjOlu55Nplfqw==
+X-Microsoft-Antispam-Message-Info: ypW6tJE/gptD5j7tCjQZdIbNo5vdXYSbpK6ZzrRhUwpi/+KneZR/pm4ZgA5dhs3Xk17ykTxmf4ZvY3M+oVDvm66sokg298OZQnVkkyM89b8gLdRJMJvPnN8+yeuJ5p1WlG/LpUyemkwajv0/5JYPdPmeYmx/KANZuzkCsivP68MOtl7yWfOZgsXPq5suCju0HR1e3RmoZvwtbuVfRpzkPzVb/HHeHu4/S2ZNHWCdCJfXq1MnI7GbSM3vOSlHuLBG0viG1+7BO/I/oWRnZSSBMCijplCByzDEs3W0/qHJf4jBuNlxxAwOWIRuyIokYk5bvxW1Y/yRFQeOqyrSPXpomMeWJ87ttptvNJKGkWHxqxGfd2LBba6lJk4ghCI/f1Rz17+LzFCdL7WQ7N76DACpA1R8jRG3lSZwhg5ZBQrSVk9iTunm47D1xeDzAg++Xi95FoURoYMCubrg+8S86h+mxLDSl91oZ7MUhxU5OxobR08FvZuOrmVca/nL0G2AqGunYXiOOcTG83fz7VlxSXsvJvtx4r7fheaC4IxatlKaqYs7VR3MmJxkidvs8zK56gOlkocZYq/AvMSzlGAKqtRow5sVEdvdPeIZRwgQRwj3S0AQKEGUQlsA2zobnEpOTbWXJryYL0YAB6Iz01ELlKmrv8UMCO8LDj+1vewRDWlqsHH73fAq3mlPz8K+83BgsYWf8sNsPnQLlvd5E0l84szXqw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(16526019)(1076003)(26005)(47076005)(336012)(83380400001)(36860700001)(356005)(186003)(81166007)(2616005)(426003)(82310400004)(86362001)(5660300002)(54906003)(30864003)(508600001)(4326008)(40460700003)(8676002)(6916009)(8936002)(316002)(2906002)(7696005)(6666004)(70586007)(36756003)(44832011)(70206006)(450100002)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(7696005)(6666004)(2616005)(1076003)(450100002)(16526019)(336012)(186003)(26005)(426003)(316002)(6916009)(82310400004)(81166007)(356005)(54906003)(86362001)(508600001)(2906002)(40460700003)(30864003)(44832011)(5660300002)(8676002)(4326008)(8936002)(36860700001)(83380400001)(47076005)(70206006)(70586007)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 09:09:38.0739 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 225f235c-d6df-489c-4694-08d9e6f4e795
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 09:09:35.1834 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ada1f4d-403f-4c59-9cf0-08d9e6f4e5de
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1173
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB2542
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,344 +106,360 @@ Cc: alexander.deucher@amd.com, felix.kuehling@amd.com, david.yatsin@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This adds support to create userptr BOs on restore and introduces a new
-ioctl op to restart memory notifiers for the restored userptr BOs.
-When doing CRIU restore MMU notifications can happen anytime after we call
-amdgpu_mn_register. Prevent MMU notifications until we reach stage-4 of the
-restore process i.e. criu_resume ioctl op is received, and the process is
-ready to be resumed. This ioctl is different from other KFD CRIU ioctls
-since its called by CRIU master restore process for all the target
-processes being resumed by CRIU.
+Checkpoint-Restore in userspace (CRIU) is a powerful tool that can
+snapshot a running process and later restore it on same or a remote
+machine but expects the processes that have a device file (e.g. GPU)
+associated with them, provide necessary driver support to assist CRIU
+and its extensible plugin interface. Thus, In order to support the
+Checkpoint-Restore of any ROCm process, the AMD Radeon Open Compute
+Kernel driver, needs to provide a set of new APIs that provide
+necessary VRAM metadata and its contents to a userspace component
+(CRIU plugin) that can store it in form of image files.
 
+This introduces some new ioctls which will be used to checkpoint-Restore
+any KFD bound user process. KFD only allows ioctl calls from the same
+process that opened the KFD file descriptor. Since these ioctls are
+expected to be called from a KFD criu plugin which has elevated ptrace
+attached privileges and CAP_CHECKPOINT_RESTORE capabilities attached with
+the file descriptors so modify KFD to allow such calls.
+
+(API redesigned by David Yat Sin)
+Suggested-by: Felix Kuehling <felix.kuehling@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: David Yat Sin <david.yatsin@amd.com>
 Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  6 ++-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 53 +++++++++++++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 41 ++++++++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 35 ++++++++++--
- 5 files changed, 122 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 98 +++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 65 +++++++++++++++-
+ include/uapi/linux/kfd_ioctl.h           | 81 +++++++++++++++++++-
+ 3 files changed, 241 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 395ba9566afe..4cb14c2fe53f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -131,6 +131,7 @@ struct amdkfd_process_info {
- 	atomic_t evicted_bos;
- 	struct delayed_work restore_userptr_work;
- 	struct pid *pid;
-+	bool block_mmu_notifications;
- };
- 
- int amdgpu_amdkfd_init(void);
-@@ -268,7 +269,7 @@ uint64_t amdgpu_amdkfd_gpuvm_get_process_page_dir(void *drm_priv);
- int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 		struct amdgpu_device *adev, uint64_t va, uint64_t size,
- 		void *drm_priv, struct kgd_mem **mem,
--		uint64_t *offset, uint32_t flags);
-+		uint64_t *offset, uint32_t flags, bool criu_resume);
- int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv,
- 		uint64_t *size);
-@@ -298,6 +299,9 @@ int amdgpu_amdkfd_get_tile_config(struct amdgpu_device *adev,
- void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device *adev,
- 				bool reset);
- bool amdgpu_amdkfd_bo_mapped_to_dev(struct amdgpu_device *adev, struct kgd_mem *mem);
-+void amdgpu_amdkfd_block_mmu_notifications(void *p);
-+int amdgpu_amdkfd_criu_resume(void *p);
-+
- #if IS_ENABLED(CONFIG_HSA_AMD)
- void amdgpu_amdkfd_gpuvm_init_mem_limits(void);
- void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 3485ef856860..69dc9e4d841c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -842,7 +842,8 @@ static void remove_kgd_mem_from_kfd_bo_list(struct kgd_mem *mem,
-  *
-  * Returns 0 for success, negative errno for errors.
-  */
--static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr)
-+static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
-+			   bool criu_resume)
- {
- 	struct amdkfd_process_info *process_info = mem->process_info;
- 	struct amdgpu_bo *bo = mem->bo;
-@@ -864,6 +865,18 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr)
- 		goto out;
- 	}
- 
-+	if (criu_resume) {
-+		/*
-+		 * During a CRIU restore operation, the userptr buffer objects
-+		 * will be validated in the restore_userptr_work worker at a
-+		 * later stage when it is scheduled by another ioctl called by
-+		 * CRIU master process for the target pid for restore.
-+		 */
-+		atomic_inc(&mem->invalid);
-+		mutex_unlock(&process_info->lock);
-+		return 0;
-+	}
-+
- 	ret = amdgpu_ttm_tt_get_user_pages(bo, bo->tbo.ttm->pages);
- 	if (ret) {
- 		pr_err("%s: Failed to get user pages: %d\n", __func__, ret);
-@@ -1452,10 +1465,39 @@ uint64_t amdgpu_amdkfd_gpuvm_get_process_page_dir(void *drm_priv)
- 	return avm->pd_phys_addr;
- }
- 
-+void amdgpu_amdkfd_block_mmu_notifications(void *p)
-+{
-+	struct amdkfd_process_info *pinfo = (struct amdkfd_process_info *)p;
-+
-+	mutex_lock(&pinfo->lock);
-+	WRITE_ONCE(pinfo->block_mmu_notifications, true);
-+	mutex_unlock(&pinfo->lock);
-+}
-+
-+int amdgpu_amdkfd_criu_resume(void *p)
-+{
-+	int ret = 0;
-+	struct amdkfd_process_info *pinfo = (struct amdkfd_process_info *)p;
-+
-+	mutex_lock(&pinfo->lock);
-+	pr_debug("scheduling work\n");
-+	atomic_inc(&pinfo->evicted_bos);
-+	if (!READ_ONCE(pinfo->block_mmu_notifications)) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+	WRITE_ONCE(pinfo->block_mmu_notifications, false);
-+	schedule_delayed_work(&pinfo->restore_userptr_work, 0);
-+
-+out_unlock:
-+	mutex_unlock(&pinfo->lock);
-+	return ret;
-+}
-+
- int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 		struct amdgpu_device *adev, uint64_t va, uint64_t size,
- 		void *drm_priv, struct kgd_mem **mem,
--		uint64_t *offset, uint32_t flags)
-+		uint64_t *offset, uint32_t flags, bool criu_resume)
- {
- 	struct amdgpu_vm *avm = drm_priv_to_vm(drm_priv);
- 	enum ttm_bo_type bo_type = ttm_bo_type_device;
-@@ -1558,7 +1600,8 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 	add_kgd_mem_to_kfd_bo_list(*mem, avm->process_info, user_addr);
- 
- 	if (user_addr) {
--		ret = init_user_pages(*mem, user_addr);
-+		pr_debug("creating userptr BO for user_addr = %llu\n", user_addr);
-+		ret = init_user_pages(*mem, user_addr, criu_resume);
- 		if (ret)
- 			goto allocate_init_user_pages_failed;
- 	} else  if (flags & (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
-@@ -2062,6 +2105,10 @@ int amdgpu_amdkfd_evict_userptr(struct kgd_mem *mem,
- 	int evicted_bos;
- 	int r = 0;
- 
-+	/* Do not process MMU notifications until stage-4 IOCTL is received */
-+	if (READ_ONCE(process_info->block_mmu_notifications))
-+		return 0;
-+
- 	atomic_inc(&mem->invalid);
- 	evicted_bos = atomic_inc_return(&process_info->evicted_bos);
- 	if (evicted_bos == 1) {
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 342fc56b1940..95fc5668195c 100644
+index 214a2c67fba4..90e6d9e335a5 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1324,7 +1324,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
- 	err = amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 		dev->adev, args->va_addr, args->size,
- 		pdd->drm_priv, (struct kgd_mem **) &mem, &offset,
--		flags);
-+		flags, false);
- 
- 	if (err)
- 		goto err_unlock;
-@@ -2116,6 +2116,7 @@ static int criu_restore_bos(struct kfd_process *p,
- {
- 	struct kfd_criu_bo_bucket *bo_buckets;
- 	struct kfd_criu_bo_priv_data *bo_privs;
-+	const bool criu_resume = true;
- 	bool flush_tlbs = false;
- 	int ret = 0, j = 0;
- 	uint32_t i;
-@@ -2123,6 +2124,9 @@ static int criu_restore_bos(struct kfd_process *p,
- 	if (*priv_offset + (args->num_bos * sizeof(*bo_privs)) > max_priv_data_size)
- 		return -EINVAL;
- 
-+	/* Prevent MMU notifications until stage-4 IOCTL (CRIU_RESUME) is received */
-+	amdgpu_amdkfd_block_mmu_notifications(p->kgd_process_info);
-+
- 	bo_buckets = kvmalloc_array(args->num_bos, sizeof(*bo_buckets), GFP_KERNEL);
- 	if (!bo_buckets)
- 		return -ENOMEM;
-@@ -2211,7 +2215,6 @@ static int criu_restore_bos(struct kfd_process *p,
- 		} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
- 			offset = bo_priv->user_addr;
- 		}
--
- 		/* Create the BO */
- 		ret = amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(dev->adev,
- 						bo_bucket->addr,
-@@ -2219,7 +2222,8 @@ static int criu_restore_bos(struct kfd_process *p,
- 						pdd->drm_priv,
- 						(struct kgd_mem **) &mem,
- 						&offset,
--						bo_bucket->alloc_flags);
-+						bo_bucket->alloc_flags,
-+						criu_resume);
- 		if (ret) {
- 			pr_err("Could not create the BO\n");
- 			ret = -ENOMEM;
-@@ -2239,7 +2243,6 @@ static int criu_restore_bos(struct kfd_process *p,
- 			amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev,
- 						(struct kgd_mem *)mem,
- 						pdd->drm_priv, NULL);
--
- 			ret = -ENOMEM;
- 			goto exit;
- 		}
-@@ -2392,7 +2395,35 @@ static int criu_resume(struct file *filep,
- 			struct kfd_process *p,
- 			struct kfd_ioctl_criu_args *args)
- {
--	return 0;
-+	struct kfd_process *target = NULL;
-+	struct pid *pid = NULL;
-+	int ret = 0;
-+
-+	pr_debug("Inside %s, target pid for criu restore: %d\n", __func__,
-+		 args->pid);
-+
-+	pid = find_get_pid(args->pid);
-+	if (!pid) {
-+		pr_err("Cannot find pid info for %i\n", args->pid);
-+		return -ESRCH;
-+	}
-+
-+	pr_debug("calling kfd_lookup_process_by_pid\n");
-+	target = kfd_lookup_process_by_pid(pid);
-+
-+	put_pid(pid);
-+
-+	if (!target) {
-+		pr_debug("Cannot find process info for %i\n", args->pid);
-+		return -ESRCH;
-+	}
-+
-+	mutex_lock(&target->mutex);
-+	ret =  amdgpu_amdkfd_criu_resume(target->kgd_process_info);
-+	mutex_unlock(&target->mutex);
-+
-+	kfd_unref_process(target);
-+	return ret;
+@@ -33,6 +33,7 @@
+ #include <linux/time.h>
+ #include <linux/mm.h>
+ #include <linux/mman.h>
++#include <linux/ptrace.h>
+ #include <linux/dma-buf.h>
+ #include <asm/processor.h>
+ #include "kfd_priv.h"
+@@ -1859,6 +1860,75 @@ static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
  }
+ #endif
  
- static int criu_process_info(struct file *filep,
++static int criu_checkpoint(struct file *filep,
++			   struct kfd_process *p,
++			   struct kfd_ioctl_criu_args *args)
++{
++	return 0;
++}
++
++static int criu_restore(struct file *filep,
++			struct kfd_process *p,
++			struct kfd_ioctl_criu_args *args)
++{
++	return 0;
++}
++
++static int criu_unpause(struct file *filep,
++			struct kfd_process *p,
++			struct kfd_ioctl_criu_args *args)
++{
++	return 0;
++}
++
++static int criu_resume(struct file *filep,
++			struct kfd_process *p,
++			struct kfd_ioctl_criu_args *args)
++{
++	return 0;
++}
++
++static int criu_process_info(struct file *filep,
++				struct kfd_process *p,
++				struct kfd_ioctl_criu_args *args)
++{
++	return 0;
++}
++
++static int kfd_ioctl_criu(struct file *filep, struct kfd_process *p, void *data)
++{
++	struct kfd_ioctl_criu_args *args = data;
++	int ret;
++
++	dev_dbg(kfd_device, "CRIU operation: %d\n", args->op);
++	switch (args->op) {
++	case KFD_CRIU_OP_PROCESS_INFO:
++		ret = criu_process_info(filep, p, args);
++		break;
++	case KFD_CRIU_OP_CHECKPOINT:
++		ret = criu_checkpoint(filep, p, args);
++		break;
++	case KFD_CRIU_OP_UNPAUSE:
++		ret = criu_unpause(filep, p, args);
++		break;
++	case KFD_CRIU_OP_RESTORE:
++		ret = criu_restore(filep, p, args);
++		break;
++	case KFD_CRIU_OP_RESUME:
++		ret = criu_resume(filep, p, args);
++		break;
++	default:
++		dev_dbg(kfd_device, "Unsupported CRIU operation:%d\n", args->op);
++		ret = -EINVAL;
++		break;
++	}
++
++	if (ret)
++		dev_dbg(kfd_device, "CRIU operation:%d err:%d\n", args->op, ret);
++
++	return ret;
++}
++
+ #define AMDKFD_IOCTL_DEF(ioctl, _func, _flags) \
+ 	[_IOC_NR(ioctl)] = {.cmd = ioctl, .func = _func, .flags = _flags, \
+ 			    .cmd_drv = 0, .name = #ioctl}
+@@ -1962,6 +2032,10 @@ static const struct amdkfd_ioctl_desc amdkfd_ioctls[] = {
+ 
+ 	AMDKFD_IOCTL_DEF(AMDKFD_IOC_SET_XNACK_MODE,
+ 			kfd_ioctl_set_xnack_mode, 0),
++
++	AMDKFD_IOCTL_DEF(AMDKFD_IOC_CRIU_OP,
++			kfd_ioctl_criu, KFD_IOC_FLAG_CHECKPOINT_RESTORE),
++
+ };
+ 
+ #define AMDKFD_CORE_IOCTL_COUNT	ARRAY_SIZE(amdkfd_ioctls)
+@@ -1976,6 +2050,7 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+ 	char *kdata = NULL;
+ 	unsigned int usize, asize;
+ 	int retcode = -EINVAL;
++	bool ptrace_attached = false;
+ 
+ 	if (nr >= AMDKFD_CORE_IOCTL_COUNT)
+ 		goto err_i1;
+@@ -2001,7 +2076,15 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+ 	 * processes need to create their own KFD device context.
+ 	 */
+ 	process = filep->private_data;
+-	if (process->lead_thread != current->group_leader) {
++
++	rcu_read_lock();
++	if ((ioctl->flags & KFD_IOC_FLAG_CHECKPOINT_RESTORE) &&
++	    ptrace_parent(process->lead_thread) == current)
++		ptrace_attached = true;
++	rcu_read_unlock();
++
++	if (process->lead_thread != current->group_leader
++	    && !ptrace_attached) {
+ 		dev_dbg(kfd_device, "Using KFD FD in wrong process\n");
+ 		retcode = -EBADF;
+ 		goto err_i1;
+@@ -2016,6 +2099,19 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+ 		goto err_i1;
+ 	}
+ 
++	/*
++	 * Versions of docker shipped in Ubuntu 18.xx and 20.xx do not support
++	 * CAP_CHECKPOINT_RESTORE, so we also allow access if CAP_SYS_ADMIN as CAP_SYS_ADMIN is a
++	 * more priviledged access.
++	 */
++	if (unlikely(ioctl->flags & KFD_IOC_FLAG_CHECKPOINT_RESTORE)) {
++		if (!capable(CAP_CHECKPOINT_RESTORE) &&
++						!capable(CAP_SYS_ADMIN)) {
++			retcode = -EACCES;
++			goto err_i1;
++		}
++	}
++
+ 	if (cmd & (IOC_IN | IOC_OUT)) {
+ 		if (asize <= sizeof(stack_kdata)) {
+ 			kdata = stack_kdata;
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index a4d08b6b2e6b..9b347247055c 100644
+index ea68f3b3a4e9..f928878196ef 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -951,6 +951,7 @@ void *kfd_process_device_translate_handle(struct kfd_process_device *p,
- 					int handle);
- void kfd_process_device_remove_obj_handle(struct kfd_process_device *pdd,
- 					int handle);
-+struct kfd_process *kfd_lookup_process_by_pid(struct pid *pid);
- 
- /* PASIDs */
- int kfd_pasid_init(void);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 74f162887d3b..b3198e186622 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -64,7 +64,8 @@ static struct workqueue_struct *kfd_process_wq;
+@@ -121,7 +121,26 @@
   */
- static struct workqueue_struct *kfd_restore_wq;
+ #define KFD_QUEUE_DOORBELL_MIRROR_OFFSET 512
  
--static struct kfd_process *find_process(const struct task_struct *thread);
-+static struct kfd_process *find_process(const struct task_struct *thread,
-+					bool ref);
- static void kfd_process_ref_release(struct kref *ref);
- static struct kfd_process *create_process(const struct task_struct *thread);
- static int kfd_process_init_cwsr_apu(struct kfd_process *p, struct file *filep);
-@@ -715,7 +716,8 @@ static int kfd_process_alloc_gpuvm(struct kfd_process_device *pdd,
- 	int err;
+-
++/**
++ * enum kfd_ioctl_flags - KFD ioctl flags
++ * Various flags that can be set in &amdkfd_ioctl_desc.flags to control how
++ * userspace can use a given ioctl.
++ */
++enum kfd_ioctl_flags {
++	/*
++	 * @KFD_IOC_FLAG_CHECKPOINT_RESTORE:
++	 * Certain KFD ioctls such as AMDKFD_IOC_CRIU_OP can potentially
++	 * perform privileged operations and load arbitrary data into MQDs and
++	 * eventually HQD registers when the queue is mapped by HWS. In order to
++	 * prevent this we should perform additional security checks.
++	 *
++	 * This is equivalent to callers with the CHECKPOINT_RESTORE capability.
++	 *
++	 * Note: Since earlier versions of docker do not support CHECKPOINT_RESTORE,
++	 * we also allow ioctls with SYS_ADMIN capability.
++	 */
++	KFD_IOC_FLAG_CHECKPOINT_RESTORE = BIT(0),
++};
+ /*
+  * Kernel module parameter to specify maximum number of supported queues per
+  * device
+@@ -1006,6 +1025,50 @@ void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
+ 				  uint64_t tba_addr,
+ 				  uint64_t tma_addr);
  
- 	err = amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(kdev->adev, gpu_va, size,
--						 pdd->drm_priv, mem, NULL, flags);
-+						 pdd->drm_priv, mem, NULL,
-+						 flags, false);
- 	if (err)
- 		goto err_alloc_mem;
- 
-@@ -816,7 +818,7 @@ struct kfd_process *kfd_create_process(struct file *filep)
- 	mutex_lock(&kfd_processes_mutex);
- 
- 	/* A prior open of /dev/kfd could have already created the process. */
--	process = find_process(thread);
-+	process = find_process(thread, false);
- 	if (process) {
- 		pr_debug("Process already found\n");
- 	} else {
-@@ -884,7 +886,7 @@ struct kfd_process *kfd_get_process(const struct task_struct *thread)
- 	if (thread->group_leader->mm != thread->mm)
- 		return ERR_PTR(-EINVAL);
- 
--	process = find_process(thread);
-+	process = find_process(thread, false);
- 	if (!process)
- 		return ERR_PTR(-EINVAL);
- 
-@@ -903,13 +905,16 @@ static struct kfd_process *find_process_by_mm(const struct mm_struct *mm)
- 	return NULL;
- }
- 
--static struct kfd_process *find_process(const struct task_struct *thread)
-+static struct kfd_process *find_process(const struct task_struct *thread,
-+					bool ref)
- {
- 	struct kfd_process *p;
- 	int idx;
- 
- 	idx = srcu_read_lock(&kfd_processes_srcu);
- 	p = find_process_by_mm(thread->mm);
-+	if (p && ref)
-+		kref_get(&p->ref);
- 	srcu_read_unlock(&kfd_processes_srcu, idx);
- 
- 	return p;
-@@ -920,6 +925,26 @@ void kfd_unref_process(struct kfd_process *p)
- 	kref_put(&p->ref, kfd_process_ref_release);
- }
- 
-+/* This increments the process->ref counter. */
-+struct kfd_process *kfd_lookup_process_by_pid(struct pid *pid)
-+{
-+	struct task_struct *task = NULL;
-+	struct kfd_process *p    = NULL;
++/* CRIU */
++/*
++ * Need to increment KFD_CRIU_PRIV_VERSION each time a change is made to any of the CRIU private
++ * structures:
++ * kfd_criu_process_priv_data
++ * kfd_criu_device_priv_data
++ * kfd_criu_bo_priv_data
++ * kfd_criu_queue_priv_data
++ * kfd_criu_event_priv_data
++ * kfd_criu_svm_range_priv_data
++ */
 +
-+	if (!pid) {
-+		task = current;
-+		get_task_struct(task);
-+	} else {
-+		task = get_pid_task(pid, PIDTYPE_PID);
-+	}
++#define KFD_CRIU_PRIV_VERSION 1
 +
-+	if (task) {
-+		p = find_process(task, true);
-+		put_task_struct(task);
-+	}
++struct kfd_criu_process_priv_data {
++	uint32_t version;
++};
 +
-+	return p;
-+}
++struct kfd_criu_device_priv_data {
++	/* For future use */
++	uint64_t reserved;
++};
++
++struct kfd_criu_bo_priv_data {
++	uint64_t reserved;
++};
++
++struct kfd_criu_svm_range_priv_data {
++	uint32_t object_type;
++	uint32_t reserved;
++};
++
++struct kfd_criu_queue_priv_data {
++	uint32_t object_type;
++	uint32_t reserved;
++};
++
++struct kfd_criu_event_priv_data {
++	uint32_t object_type;
++	uint32_t reserved;
++};
++
++/* CRIU - End */
++
+ /* Queue Context Management */
+ int init_queue(struct queue **q, const struct queue_properties *properties);
+ void uninit_queue(struct queue *q);
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index af96af174dc4..49429a6c42fc 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -468,6 +468,82 @@ struct kfd_ioctl_smi_events_args {
+ 	__u32 anon_fd;	/* from KFD */
+ };
  
- static void kfd_process_device_free_bos(struct kfd_process_device *pdd)
- {
++/**************************************************************************************************
++ * CRIU IOCTLs (Checkpoint Restore In Userspace)
++ *
++ * When checkpointing a process, the userspace application will perform:
++ * 1. PROCESS_INFO op to determine current process information. This pauses execution and evicts
++ *    all the queues.
++ * 2. CHECKPOINT op to checkpoint process contents (BOs, queues, events, svm-ranges)
++ * 3. UNPAUSE op to un-evict all the queues
++ *
++ * When restoring a process, the CRIU userspace application will perform:
++ *
++ * 1. RESTORE op to restore process contents
++ * 2. RESUME op to start the process
++ *
++ * Note: Queues are forced into an evicted state after a successful PROCESS_INFO. User
++ * application needs to perform an UNPAUSE operation after calling PROCESS_INFO.
++ */
++
++enum kfd_criu_op {
++	KFD_CRIU_OP_PROCESS_INFO,
++	KFD_CRIU_OP_CHECKPOINT,
++	KFD_CRIU_OP_UNPAUSE,
++	KFD_CRIU_OP_RESTORE,
++	KFD_CRIU_OP_RESUME,
++};
++
++/**
++ * kfd_ioctl_criu_args - Arguments perform CRIU operation
++ * @devices:		[in/out] User pointer to memory location for devices information.
++ * 			This is an array of type kfd_criu_device_bucket.
++ * @bos:		[in/out] User pointer to memory location for BOs information
++ * 			This is an array of type kfd_criu_bo_bucket.
++ * @priv_data:		[in/out] User pointer to memory location for private data
++ * @priv_data_size:	[in/out] Size of priv_data in bytes
++ * @num_devices:	[in/out] Number of GPUs used by process. Size of @devices array.
++ * @num_bos		[in/out] Number of BOs used by process. Size of @bos array.
++ * @num_objects:	[in/out] Number of objects used by process. Objects are opaque to
++ *				 user application.
++ * @pid:		[in/out] PID of the process being checkpointed
++ * @op			[in] Type of operation (kfd_criu_op)
++ *
++ * Return: 0 on success, -errno on failure
++ */
++struct kfd_ioctl_criu_args {
++	__u64 devices;		/* Used during ops: CHECKPOINT, RESTORE */
++	__u64 bos;		/* Used during ops: CHECKPOINT, RESTORE */
++	__u64 priv_data;	/* Used during ops: CHECKPOINT, RESTORE */
++	__u64 priv_data_size;	/* Used during ops: PROCESS_INFO, RESTORE */
++	__u32 num_devices;	/* Used during ops: PROCESS_INFO, RESTORE */
++	__u32 num_bos;		/* Used during ops: PROCESS_INFO, RESTORE */
++	__u32 num_objects;	/* Used during ops: PROCESS_INFO, RESTORE */
++	__u32 pid;		/* Used during ops: PROCESS_INFO, RESUME */
++	__u32 op;
++};
++
++struct kfd_criu_device_bucket {
++	__u32 user_gpu_id;
++	__u32 actual_gpu_id;
++	__u32 drm_fd;
++	__u32 pad;
++};
++
++struct kfd_criu_bo_bucket {
++	__u64 addr;
++	__u64 size;
++	__u64 offset;
++	__u64 restored_offset;    /* During restore, updated offset for BO */
++	__u32 gpu_id;             /* This is the user_gpu_id */
++	__u32 alloc_flags;
++	__u32 dmabuf_fd;
++	__u32 pad;
++};
++
++/* CRIU IOCTLs - END */
++/**************************************************************************************************/
++
+ /* Register offset inside the remapped mmio page
+  */
+ enum kfd_mmio_remap {
+@@ -742,7 +818,10 @@ struct kfd_ioctl_set_xnack_mode_args {
+ #define AMDKFD_IOC_SET_XNACK_MODE		\
+ 		AMDKFD_IOWR(0x21, struct kfd_ioctl_set_xnack_mode_args)
+ 
++#define AMDKFD_IOC_CRIU_OP			\
++		AMDKFD_IOWR(0x22, struct kfd_ioctl_criu_args)
++
+ #define AMDKFD_COMMAND_START		0x01
+-#define AMDKFD_COMMAND_END		0x22
++#define AMDKFD_COMMAND_END		0x23
+ 
+ #endif
 -- 
 2.17.1
 
