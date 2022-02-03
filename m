@@ -4,52 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67C28C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Feb 2022 23:10:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F3D2C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 03:06:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3D8710E665;
-	Wed,  2 Feb 2022 23:10:54 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC89C10E663;
- Wed,  2 Feb 2022 23:10:53 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id e81so1267206oia.6;
- Wed, 02 Feb 2022 15:10:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QFPvU3m3nNCphV2xKrhWgV0aqhe4pVrtWvbA9ob9jJA=;
- b=XPwWJPECu0OQvpbmvXKFvImCF/9S/T5giVTWJ73LDI2jTIACSbfixnl/qm9fsPvIV/
- muY2r7sLlegn9A+mZfYx0wdffcufqt5U2SE8zV43u+CsCUJ9frDKlsrybXpubFhbj0Mz
- Bhxgo6+I6nRhmjD/IgmX0J19CEPHf+YG1/AqD2UJtPFlHSZM3LdIsZwOPcMvBnFBtPrz
- FVPqbsB/utqoh2hVHsqM+D7YY1ASQ53wMgfEAQSOgAfWytidX5yL2V/GK/3U98VHeZ7x
- QbD0pYR4EPfOZmei9c6Ixw3ow4IUT1NBOiFjouwIwp/iWhBDbIQeZbwA6TiRNN1xxKJs
- hPyw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08F8510E8A3;
+	Thu,  3 Feb 2022 03:06:17 +0000 (UTC)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9FF310E7FF
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Feb 2022 00:40:03 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id i5so1621554oih.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Feb 2022 16:40:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=usp.br; s=usp-google;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+ :content-transfer-encoding;
+ bh=JtgYLUmjGjXwnUIDY0NrvHIpDAIdltMK/6ylaob6joM=;
+ b=W2xAuzt01oQIDd8B8zkISKfjjEbAwjTpwrFjWW7RBCjQJGcYJjS4LvaFOZ8PsFirH8
+ Lwtl9Ly8amHcqBYkt9FKBtrSHVfr1AxZ5neX9jqadCdBjtCE+nhwFk1fA0SBHgYwJc2Z
+ NI3++jrfTchLnuPivDCgTYyUL3MVptISHZqZHnbZcVjedzdJ6q0o4anZEWxomn2k6Zkw
+ aLEqTMssUeh5RqBA7Teg2uGzWWirHYHqH8AUCo7u1FG+3QuHhy4N66sKJu93XgoxtoY+
+ x4Imtbmpypu6kde8gcIdm1/i6I9RdvIqljMJJcCMJNIC6XFkH3DMPuwJdBevplEicxtI
+ v19w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QFPvU3m3nNCphV2xKrhWgV0aqhe4pVrtWvbA9ob9jJA=;
- b=evBYaIie4uwvGo5cbG4wF7CizDcWrjZYlNfWTr7/R1Sk5Y8ITs1E4CIoI+ZbOZu55E
- TAXTqV2evZkQyJDNImwQOKS+GWkjyxVNn1FipJVFr0YHXwQTFSeHfC5IkFaejV5i5nIm
- GQVH+6nEWHAQHwwPg5a9NoA5g5uXmXUUuO8DXjEW0AR7Esui2s4w16Sn0QOXbF8ZUPsK
- 8eR9ibYBnYs4tITuXrra67q6psZV9ghyJ5ixI/LFtifecHOZESBPtG8CwevinOaaAWa+
- OGwZqa71ZCNjOtavO3lNo/U2LnCpoO1oG00jAtG2Cpxn3mvSCjtugepVB5VANReupVud
- 4dXw==
-X-Gm-Message-State: AOAM531FaOVG3PbHviwR9vDLez9f7JkGaUFPKGKTKxerYTHN9EZokeLG
- Y9174ai9pv1MrqWYC7wDFGlyzwz572e6mxM70YE=
-X-Google-Smtp-Source: ABdhPJxQpJPdMWGuc5v2246SX0mSPx1BcVp8or5TappW5d2BJQ7794woOwsy2AQnf4yWVgn2gfaDHD2seTU1QUHxHIY=
-X-Received: by 2002:a05:6808:159e:: with SMTP id
- t30mr3720621oiw.132.1643843453063; 
- Wed, 02 Feb 2022 15:10:53 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition:content-transfer-encoding;
+ bh=JtgYLUmjGjXwnUIDY0NrvHIpDAIdltMK/6ylaob6joM=;
+ b=WDh960s5EDXWnnB6bDeNWQAxmVVJ9rKIpq96EHtHrBDCpXl+xQs0OdMmvKVoyGRT4P
+ UtIOjHVdIHHCKg3d7yHPYgbOGSHHz20gaYnpZT0hyEBfzAQLG84G5B17DrXC+6HFymSr
+ yd9OANJmTtYTFOYLN7pGiU/taFPLJjcbbrXrVsLwROoAwLh2X3V0bhvuJt+ACXqJmUEg
+ 2ke9Iohfjc1FyfCB7WAhYrUQv/UgSWU61aJ0hrIe9VNztVAMgFWEF3QUkXHV14vQOeQR
+ HAjJ700kt2T0+3J1PR480HVZlRtvqve+6RIrWzdAWPSFao/+XWzRicLhzVlth3O9ZWoJ
+ yn/A==
+X-Gm-Message-State: AOAM530fxmgBwdD7DxlDNwCuoN0OKnga4oxQwutHFQ0fE4hUgHKw3UO6
+ Mt1ryk//SVx01F0a1fojGXFzuw==
+X-Google-Smtp-Source: ABdhPJzud8fgkUET74j2i9qXN9D5nXRf4eLBUEUdRcxNnLj4cIJqe4LurJS/a1Q5CEP+cqQ+GVLvtg==
+X-Received: by 2002:a05:6808:99b:: with SMTP id
+ a27mr6351565oic.116.1643848802563; 
+ Wed, 02 Feb 2022 16:40:02 -0800 (PST)
+Received: from fedora ([187.36.236.204])
+ by smtp.gmail.com with ESMTPSA id n9sm8463545otf.9.2022.02.02.16.39.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Feb 2022 16:40:02 -0800 (PST)
+Date: Wed, 2 Feb 2022 21:39:54 -0300
+From: =?iso-8859-1?Q?Ma=EDra?= Canal <maira.canal@usp.br>
+To: evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ nathan@kernel.org, ndesaulniers@google.com, lijo.lazar@amd.com,
+ luben.tuikov@amd.com, guchun.chen@amd.com, Hawking.Zhang@amd.com,
+ jiapeng.chong@linux.alibaba.com
+Subject: [PATCH] drm/amd/pm: add missing prototypes to amdgpu_dpm_internal
+Message-ID: <YfskWvNqt81rZZpQ@fedora>
 MIME-Version: 1.0
-References: <20220202213856.409403-1-magalilemes00@gmail.com>
-In-Reply-To: <20220202213856.409403-1-magalilemes00@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 2 Feb 2022 18:10:41 -0500
-Message-ID: <CADnq5_N2GtUciR7agvCR6d=C5r9Ek2mcRsT3qcOUFfEYk57ksA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Use NULL pointer instead of plain integer
-To: Magali Lemes <magalilemes00@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 03 Feb 2022 03:06:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,51 +71,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>,
- "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Dave Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, "Wentland,
- Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Include the header with the prototype to silence the following clang
+warnings:
 
-Alex
+drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm_internal.c:29:6: warning: no
+previous prototype for function 'amdgpu_dpm_get_active_displays'
+[-Wmissing-prototypes]
+void amdgpu_dpm_get_active_displays(struct amdgpu_device *adev)
+     ^
+drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm_internal.c:29:1: note: declare
+'static' if the function is not intended to be used outside of this
+translation unit
+void amdgpu_dpm_get_active_displays(struct amdgpu_device *adev)
+^
+static
+drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm_internal.c:76:5: warning: no
+previous prototype for function 'amdgpu_dpm_get_vrefresh'
+[-Wmissing-prototypes]
+u32 amdgpu_dpm_get_vrefresh(struct amdgpu_device *adev)
+    ^
+drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm_internal.c:76:1: note: declare
+'static' if the function is not intended to be used outside of this
+translation unit
+u32 amdgpu_dpm_get_vrefresh(struct amdgpu_device *adev)
+^
+static
+2 warnings generated.
 
-On Wed, Feb 2, 2022 at 5:20 PM Magali Lemes <magalilemes00@gmail.com> wrote:
->
-> Assigning 0L to a pointer variable caused the following warning:
->
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/rc_calc_fpu.c:71:40:
-> warning: Using plain integer as NULL pointer
->
-> In order to remove this warning, this commit assigns a NULL pointer to
-> the pointer variable that caused this issue.
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Magali Lemes <magalilemes00@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-> index ec636d06e18c..ef75eb7d5adc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-> @@ -68,7 +68,7 @@ static void get_qp_set(qp_set qps, enum colour_mode cm, enum bits_per_comp bpc,
->         int sel = table_hash(mode, bpc, max_min);
->         int table_size = 0;
->         int index;
-> -       const struct qp_entry *table = 0L;
-> +       const struct qp_entry *table = NULL;
->
->         // alias enum
->         enum { min = DAL_MM_MIN, max = DAL_MM_MAX };
-> --
-> 2.25.1
->
+Besides that, remove the duplicated prototype of the function
+amdgpu_dpm_get_vblank_time in order to keep the consistency of the
+headers.
+
+fixes: 6ddbd37f ("drm/amd/pm: optimize the amdgpu_pm_compute_clocks()
+implementations")
+
+Signed-off-by: Maíra Canal <maira.canal@usp.br>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c | 1 +
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h      | 1 -
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c   | 1 +
+ 3 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
+index ba5f6413412d..42efe838fa85 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
+@@ -25,6 +25,7 @@
+ #include "amdgpu_display.h"
+ #include "hwmgr.h"
+ #include "amdgpu_smu.h"
++#include "amdgpu_dpm_internal.h"
+ 
+ void amdgpu_dpm_get_active_displays(struct amdgpu_device *adev)
+ {
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index 5cc05110cdae..09790413cbc4 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -343,7 +343,6 @@ struct amdgpu_pm {
+ 	struct amdgpu_ctx       *stable_pstate_ctx;
+ };
+ 
+-u32 amdgpu_dpm_get_vblank_time(struct amdgpu_device *adev);
+ int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors sensor,
+ 			   void *data, uint32_t *size);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index 7427c50409d4..caae54487f9c 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -28,6 +28,7 @@
+ #include "amdgpu_pm.h"
+ #include "amdgpu_dpm.h"
+ #include "amdgpu_atombios.h"
++#include "amdgpu_dpm_internal.h"
+ #include "amd_pcie.h"
+ #include "sid.h"
+ #include "r600_dpm.h"
+-- 
+2.34.1
+
