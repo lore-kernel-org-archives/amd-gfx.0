@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D261C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 09:10:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F0F8C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 09:10:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 624CA10EA48;
-	Thu,  3 Feb 2022 09:09:51 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2072.outbound.protection.outlook.com [40.107.244.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5BA210EA8A;
- Thu,  3 Feb 2022 09:09:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F3AF10EA95;
+	Thu,  3 Feb 2022 09:09:52 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2066.outbound.protection.outlook.com [40.107.94.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2062110EA5E;
+ Thu,  3 Feb 2022 09:09:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hfc2V7FcxMZAajLraa8+m+IVC0H3xuMDOkDVG3niJht2wbMogZaOdPZSwdyjkGksC5v57RoxQroYse05C7EN9YnYiqepOSaTpCc9P6UN6u23qU7bbpB4HKJm3diGMY269dRWUb5/gpR9trRM1qV6+3Svkps9N0qDeZUW4AsBl+k/K6UjgV6tr1umT6qJ5YH177cFYhnQL5G1NF9wWNSeVgNlKhY0KXWpU0R4sv8VxGsmWI9lFFHsX2+/WUAa7URCAmfhWJtUlgV8XYNqPsmHXA+gSXmU2Ai567/AOm4m1nADSWKrdYq3CyAVE9Zbd7XexpdwZxwHs/V1a4Dx5PjgOQ==
+ b=mLH5eJ7reqFYl/Ow1U5fka8HgNPu1kSXeK7BMkH3Vq3rxvJq/PxmzQ7fNzB4+F8Z74LOMThXPm8UneetLu5ioUe6TWzMg4YE1+BVXBe+h2x7TDyot3Jffr/8SEUJoQGWbUp5XIiuQ0avkDYp/pdlVAMKaSUs53HweLBiiObf0Q3FZN1H7eIfSYdesaYQ2t2wFymCwsG9cMIjHmUlSTpWDbgjiajYAZGPQOfdSRfVVvCFJ5Yh3jBcAZPR01uqnbqPncFj05rDl8Wmte0bMe/dDervbQq3hxBZEn4LIu+CKweEuVtplmBvEIJHgXc6l+8g5+/ZYerqei9c51dNC1dchQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CbSH23+x+aKVw5ei0mnBhBlYj493VV2xdEqJZ+9D7Oo=;
- b=VnIMlCe8l2D51Ro685F7bPB4yif9122uCNXOvIYgCpwGpGYkF7zrrvg5ImmB4Ttqfi96H+Sncvq5/FRyPhYe5jn2x9kPLGOAzyjjgtyncnUWsmciqX1kVf1RdpR+PeWoNNuEygWE/qcVHFKQqDFZOXRBNKHoRnMn3v9hbiQ/HWqx6giHwg2AjRk0YxIXP9ZTt1jR5qCYg7sQoeO9+trmyLDGvmzySqDXLt0pdSR7YPEUlEvrympKY/38ZlIy99ItGtExQ/jNfM8s9N1Qx3RBLDqK05WOFhhj26dtMViiNf/Jqhs42jh1eHdAdcLyYQDEjHBcBeZldKvXOXOzA+1AKA==
+ bh=XQ36hr4oL46EzE6jxBw463kiygzsmbLKb9943FpK3bI=;
+ b=d38wsAEAfxwta9nSF4Q+Z43VTgLCo6ge2FMho8LTZ81I+KOtRU0+0922ZVbkz2/2DDKzGOwgh2ZUNCjTPbx0wrW+pgj1plFzFUBZ+GBLZBVbmahf2vJ1U6l+bkTUS7EqMHsQQGMA2MkxanvPx+SFnrC7EmBvdMI58kWbBbLHvOZf27ZqIAoJqkoh2arA+abkXt7qxV4+xV113qpZqfHn0GKKMY5KjCozaNriG5/ZgLIYyYrwpiZ7Fa0rcoYZPAXHnwamQhNWrN6s6QQ6ZoYSCBbd1FeXS/tvQrwrznwhc2TbQk+eyySRy2U3D519RFZZKsWGOU1ysCCP8xnTP3ELpA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CbSH23+x+aKVw5ei0mnBhBlYj493VV2xdEqJZ+9D7Oo=;
- b=LnM3fMwxgfDgRjg8AtGu3c4M6jFgMhtwDTliVg1zRRC5ZyXfur0NtiEX0J/qhHx7xwhcfeAQ0299rPkm2utcVqqRG8zpP8jk65Nv9B4iDFKGi44/SjHnMjYoKH1AGQVuvmASGzDMhAy45/M1ZcTnbNkT3Ow+o3BzNcvBWNq5r5s=
-Received: from BN9PR03CA0370.namprd03.prod.outlook.com (2603:10b6:408:f7::15)
- by DM6PR12MB2779.namprd12.prod.outlook.com (2603:10b6:5:4f::21) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=XQ36hr4oL46EzE6jxBw463kiygzsmbLKb9943FpK3bI=;
+ b=0+A7M1m4SZzLmHHfKYA0eEOjhjvdM+NONkI8mA8OSZLQXN+ri9B5gJhrnI67kamT+iduKB3AI7zJCVyJ9TpH7BunB4zOnc1HI4ffNla3q0DezEfgY/FyaO8bfRd1hVLKcXZfxkdeEqxJPSNdeAR0VXW6oh1AVW6cJbC8G3g5aK4=
+Received: from BN6PR11CA0058.namprd11.prod.outlook.com (2603:10b6:404:f7::20)
+ by BN6PR1201MB0097.namprd12.prod.outlook.com (2603:10b6:405:54::23)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Thu, 3 Feb
- 2022 09:09:44 +0000
-Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f7:cafe::2a) by BN9PR03CA0370.outlook.office365.com
- (2603:10b6:408:f7::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.18 via Frontend
- Transport; Thu, 3 Feb 2022 09:09:44 +0000
+ 2022 09:09:45 +0000
+Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:f7:cafe::6f) by BN6PR11CA0058.outlook.office365.com
+ (2603:10b6:404:f7::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12 via Frontend
+ Transport; Thu, 3 Feb 2022 09:09:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
+ BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4951.12 via Frontend Transport; Thu, 3 Feb 2022 09:09:44 +0000
+ 15.20.4951.12 via Frontend Transport; Thu, 3 Feb 2022 09:09:45 +0000
 Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 3 Feb
- 2022 03:09:41 -0600
+ 2022 03:09:44 -0600
 From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [Patch v5 17/24] drm/amdkfd: CRIU checkpoint and restore xnack mode
-Date: Thu, 3 Feb 2022 04:09:11 -0500
-Message-ID: <20220203090918.11520-18-rajneesh.bhardwaj@amd.com>
+Subject: [Patch v5 22/24] drm/amdkfd: CRIU prepare for svm resume
+Date: Thu, 3 Feb 2022 04:09:16 -0500
+Message-ID: <20220203090918.11520-23-rajneesh.bhardwaj@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220203090918.11520-1-rajneesh.bhardwaj@amd.com>
 References: <20220203090918.11520-1-rajneesh.bhardwaj@amd.com>
@@ -67,28 +67,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bddaf36e-75b3-4d87-211c-08d9e6f4eb2b
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2779:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2779DA5242A1C05680649D8EFE289@DM6PR12MB2779.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Office365-Filtering-Correlation-Id: ae0933f0-e7de-4f90-ee58-08d9e6f4ebe4
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0097:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB0097F7B5744994764509CB09FE289@BN6PR1201MB0097.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wQemcNpHnzwAzpxFsj8Vk83JITANZP8NAGEIddWdjOUbugQFsvF9Ud/LfgoCBHhokWjW0hD5o7XJKh86pz7OcJLgI1kFBvBcNjo/S/zKj8n6T4W+eruYh91+oacJIqJ/9g4YkS+Ot5NiFgTnW8TVhOJinRBxh5h/2YBRvgCUrvgMEAs/J43WsTD7FnXWqdAk/nO9rQnxAPjEbiWsOr4Phnb3xzoNyovh5e0RZpigJPHKP5Mk+5TKKt/tfEwIxnlZosQg23VnRo7iUSUmDwzLuM9T9t9VbGucsG1yLhamqatAOThEDNRd1g9wg1kQD9sBcFpxynqDI3alvG0kCtpwklBdO5ZN/hFIrlh20VVKfWXq5i3FgvTVj0avzytQTVmN6Fe8suirA8XVAiu70B5P4xBtw7YZeS7ZJpfQWMlVmbpQCQ8iXpwhngUJzKzKU/iEpp6ArdfMdhb+lvBdmBS5W+2x4jonAuFuH3AWRhAiZgtdTjH9SnTP+1MfpKlBR0BAwK6MweqzTLfftIYDIASLpPlKskltOmOH9yPfxKEEhaip7MVt4wUfT2apJdRqddTPFNpmOjthqY75KxPDCwySRfbUCD/6p3a4HR+r2qqVXhpivrtDJyAwAKRD8EsV4jr0EIA6ktqn+yjkRjSjBEAQp5/fVUzZ6KB4uIKQ652wRmlzX86TXIoepnkMWU1NGp8XgdR3x0KxAellOEaWOaZQfQ==
+X-Microsoft-Antispam-Message-Info: Ge1AaFIME9KeoDnE79fz1TBcL7MfS8YVjiHNmzTIW26RLBa3s4HO9gbKzkWv4+F+vjjOxiwe0Hlc64SYqrnwtH3jXjuBQ+Sa4uYiwanBNhZxXaARqdAoL/8BBSxXeS8nx2Gm1loPOaCCRf+AW38QZ8l0zVk4DI+EiXgNIDsBJLlXdjjaNxFKZOpDLEw6ZRoK/QgKXJo3QIVIq4cgHHhanf6Y9FTw6mVBDLg6I8Q4DmvSzcV2qq4U7YSkIPF1XUZG5aDb5QM2JIjAxtBpXSKcrfZQM/pqS6T8ucYFwSbwr4XqxiyMaBJWV3dBBe2K0CKJP5QW86zQbTrzbw1gJLKR8jDyRtRnTQDiiqzzDKyCl7UgFUo7dr21WJ2piUZK7EiqCgsW59AiHS5BL5vhEZRWiQspfyL/ev7FWSl2bIlz/Yl4707hHV64G8mOL32x2ML7Z+cXaKzAj/XnKqeSieB0DcYfj2FJPBDKFSg1Cpo0Vf2lgsxVt0tSPaf/LTsTrvNIR5I+XHoFL3el6wSvkgTbXmnvitb8SMyp/IBhos5QJv+9ztu13RqNHYX+Zhonu2r6LEYFPKrNWPnizyo4+yneetjtHty2/7a4QhF9IDaZW+J/D8gwTZdvSGvdsTrwNV2K6glOT6eq7HEdoFMTDknuLbjHpJwPR+7bf2kR3+idpHtiPEm/N3NMw5JUHwUiXNJhGK5GctVnfgziHjnM1wJiwg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(8936002)(4326008)(8676002)(356005)(82310400004)(86362001)(70586007)(450100002)(70206006)(81166007)(5660300002)(6916009)(40460700003)(47076005)(2906002)(316002)(36860700001)(36756003)(508600001)(6666004)(83380400001)(44832011)(54906003)(2616005)(186003)(426003)(7696005)(26005)(336012)(1076003)(16526019)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(44832011)(86362001)(426003)(2906002)(82310400004)(356005)(5660300002)(81166007)(16526019)(26005)(186003)(1076003)(2616005)(83380400001)(336012)(316002)(36860700001)(6666004)(7696005)(508600001)(8676002)(450100002)(8936002)(70586007)(70206006)(54906003)(6916009)(40460700003)(47076005)(4326008)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 09:09:44.0891 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bddaf36e-75b3-4d87-211c-08d9e6f4eb2b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 09:09:45.2912 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae0933f0-e7de-4f90-ee58-08d9e6f4ebe4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2779
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0097
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,62 +106,159 @@ Cc: alexander.deucher@amd.com, felix.kuehling@amd.com, david.yatsin@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Recoverable page faults are represented by the xnack mode setting inside
-a kfd process and are used to represent the device page faults. For CR,
-we don't consider negative values which are typically used for querying
-the current xnack mode without modifying it.
+During CRIU restore phase, the VMAs for the virtual address ranges are
+not at their final location yet so in this stage, only cache the data
+required to successfully resume the svm ranges during an imminent CRIU
+resume phase.
 
 Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 15 +++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  4 +-
  drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  1 +
- 2 files changed, 16 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 58 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h     | 12 +++++
+ 4 files changed, 73 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index ab5107a3fe36..3ec44f71307d 100644
+index 721c86ceba22..c143f242a84d 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1848,6 +1848,11 @@ static int criu_checkpoint_process(struct kfd_process *p,
- 	memset(&process_priv, 0, sizeof(process_priv));
- 
- 	process_priv.version = KFD_CRIU_PRIV_VERSION;
-+	/* For CR, we don't consider negative xnack mode which is used for
-+	 * querying without changing it, here 0 simply means disabled and 1
-+	 * means enabled so retry for finding a valid PTE.
-+	 */
-+	process_priv.xnack_mode = p->xnack_enabled ? 1 : 0;
- 
- 	ret = copy_to_user(user_priv_data + *priv_offset,
- 				&process_priv, sizeof(process_priv));
-@@ -2241,6 +2246,16 @@ static int criu_restore_process(struct kfd_process *p,
- 		return -EINVAL;
- 	}
- 
-+	pr_debug("Setting XNACK mode\n");
-+	if (process_priv.xnack_mode && !kfd_process_xnack_mode(p, true)) {
-+		pr_err("xnack mode cannot be set\n");
-+		ret = -EPERM;
-+		goto exit;
-+	} else {
-+		pr_debug("set xnack mode: %d\n", process_priv.xnack_mode);
-+		p->xnack_enabled = process_priv.xnack_mode;
-+	}
-+
- exit:
- 	return ret;
- }
+@@ -2643,8 +2643,8 @@ static int criu_restore_objects(struct file *filep,
+ 				goto exit;
+ 			break;
+ 		case KFD_CRIU_OBJECT_TYPE_SVM_RANGE:
+-			/* TODO: Implement SVM range */
+-			*priv_offset += sizeof(struct kfd_criu_svm_range_priv_data);
++			ret = kfd_criu_restore_svm(p, (uint8_t __user *)args->priv_data,
++						     priv_offset, max_priv_data_size);
+ 			if (ret)
+ 				goto exit;
+ 			break;
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index df68c4274bd9..903ad4a263f0 100644
+index 715dd0d4fac5..74ff4132a163 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1056,6 +1056,7 @@ void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
+@@ -790,6 +790,7 @@ struct svm_range_list {
+ 	struct list_head		list;
+ 	struct work_struct		deferred_list_work;
+ 	struct list_head		deferred_range_list;
++	struct list_head                criu_svm_metadata_list;
+ 	spinlock_t			deferred_list_lock;
+ 	atomic_t			evicted_ranges;
+ 	atomic_t			drain_pagefaults;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 7cf63995c079..41ac049b3316 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -45,6 +45,11 @@
+  */
+ #define AMDGPU_SVM_RANGE_RETRY_FAULT_PENDING	2000
  
- struct kfd_criu_process_priv_data {
- 	uint32_t version;
-+	uint32_t xnack_mode;
- };
++struct criu_svm_metadata {
++	struct list_head list;
++	struct kfd_criu_svm_range_priv_data data;
++};
++
+ static void svm_range_evict_svm_bo_worker(struct work_struct *work);
+ static bool
+ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
+@@ -2875,6 +2880,7 @@ int svm_range_list_init(struct kfd_process *p)
+ 	INIT_DELAYED_WORK(&svms->restore_work, svm_range_restore_work);
+ 	INIT_WORK(&svms->deferred_list_work, svm_range_deferred_list_work);
+ 	INIT_LIST_HEAD(&svms->deferred_range_list);
++	INIT_LIST_HEAD(&svms->criu_svm_metadata_list);
+ 	spin_lock_init(&svms->deferred_list_lock);
  
- struct kfd_criu_device_priv_data {
+ 	for (i = 0; i < p->n_pdds; i++)
+@@ -3481,6 +3487,58 @@ svm_range_get_attr(struct kfd_process *p, struct mm_struct *mm,
+ 	return 0;
+ }
+ 
++int kfd_criu_restore_svm(struct kfd_process *p,
++			 uint8_t __user *user_priv_ptr,
++			 uint64_t *priv_data_offset,
++			 uint64_t max_priv_data_size)
++{
++	uint64_t svm_priv_data_size, svm_object_md_size, svm_attrs_size;
++	int nattr_common = 4, nattr_accessibility = 1;
++	struct criu_svm_metadata *criu_svm_md = NULL;
++	struct svm_range_list *svms = &p->svms;
++	uint32_t num_devices;
++	int ret = 0;
++
++	num_devices = p->n_pdds;
++	/* Handle one SVM range object at a time, also the number of gpus are
++	 * assumed to be same on the restore node, checking must be done while
++	 * evaluating the topology earlier */
++
++	svm_attrs_size = sizeof(struct kfd_ioctl_svm_attribute) *
++		(nattr_common + nattr_accessibility * num_devices);
++	svm_object_md_size = sizeof(struct criu_svm_metadata) + svm_attrs_size;
++
++	svm_priv_data_size = sizeof(struct kfd_criu_svm_range_priv_data) +
++								svm_attrs_size;
++
++	criu_svm_md = kzalloc(svm_object_md_size, GFP_KERNEL);
++	if (!criu_svm_md) {
++		pr_err("failed to allocate memory to store svm metadata\n");
++		return -ENOMEM;
++	}
++	if (*priv_data_offset + svm_priv_data_size > max_priv_data_size) {
++		ret = -EINVAL;
++		goto exit;
++	}
++
++	ret = copy_from_user(&criu_svm_md->data, user_priv_ptr + *priv_data_offset,
++			     svm_priv_data_size);
++	if (ret) {
++		ret = -EFAULT;
++		goto exit;
++	}
++	*priv_data_offset += svm_priv_data_size;
++
++	list_add_tail(&criu_svm_md->list, &svms->criu_svm_metadata_list);
++
++	return 0;
++
++
++exit:
++	kfree(criu_svm_md);
++	return ret;
++}
++
+ int svm_range_get_info(struct kfd_process *p, uint32_t *num_svm_ranges,
+ 		       uint64_t *svm_priv_data_size)
+ {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index f36c2fa8469a..3b5948f67de2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -188,6 +188,10 @@ int svm_range_get_info(struct kfd_process *p, uint32_t *num_svm_ranges,
+ int kfd_criu_checkpoint_svm(struct kfd_process *p,
+ 			    uint8_t __user *user_priv_data,
+ 			    uint64_t *priv_offset);
++int kfd_criu_restore_svm(struct kfd_process *p,
++			 uint8_t __user *user_priv_ptr,
++			 uint64_t *priv_data_offset,
++			 uint64_t max_priv_data_size);
+ struct kfd_process_device *
+ svm_range_get_pdd_by_adev(struct svm_range *prange, struct amdgpu_device *adev);
+ void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_struct *mm);
+@@ -241,6 +245,14 @@ static inline int kfd_criu_checkpoint_svm(struct kfd_process *p,
+ 	return 0;
+ }
+ 
++static inline int kfd_criu_restore_svm(struct kfd_process *p,
++				       uint8_t __user *user_priv_ptr,
++				       uint64_t *priv_data_offset,
++				       uint64_t max_priv_data_size)
++{
++	return -EINVAL;
++}
++
+ #define KFD_IS_SVM_API_SUPPORTED(dev) false
+ 
+ #endif /* IS_ENABLED(CONFIG_HSA_AMD_SVM) */
 -- 
 2.17.1
 
