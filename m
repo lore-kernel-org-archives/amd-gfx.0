@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ACBDC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 09:10:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFE9FC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 09:10:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E4F510EB71;
-	Thu,  3 Feb 2022 09:09:57 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2055.outbound.protection.outlook.com [40.107.243.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D67010EAE8;
- Thu,  3 Feb 2022 09:09:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B458F10EB1D;
+	Thu,  3 Feb 2022 09:09:58 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2045.outbound.protection.outlook.com [40.107.93.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0795910EA18;
+ Thu,  3 Feb 2022 09:09:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e2pNorFJrGd00cZWjMdoMxQqUMsMv7WLnnb4dWTTFbuJSeXssyE8MwRThJS46ZAzN6K9brMXbqpXeo1mIHkP8h85D+HMk+yURwsA/nuPiR+DPZ+dzI77LELsMAkhPKn109AFOS1O0YYrz/dwr/pfnJZqePsCrnylTTCy1mKUavlEBk7mDGldXXAWSfkZ9Y97ki+8+RcY1Ch+qV06DE8XKuU34V36v14mJZmpFSmE5OiJ2nEyNhyy2Sf6vrRQtQilFUjZclKLbqnB5hBfSUxppKZVP+QvQfhfg4v2Xsth1iQEk5sCBcDW1udg7TdCARfHdf1DT04UXPe1+GFNhnTEeQ==
+ b=N66+T+jHa+wlAZPHMqL+p2sz8RbdMtIYPxfwEma9MX4MdcMAMtOuV5PLdiL1Vxa+c7+wj617dWnNvCY/h9Pug+3Cms3pDReSEFRQ+wfQmtvId1NUJRrb4y70torY1Wjxrf/enMfmvODhUVfcyoinl9xTKAMosrcNmyeGgVKQfmke28zdch+x4lRbAG58R0gXqdJBVHETbHvnB2cGh/CVPI8Ez9smRrNXjH8aW1anzwBnZ6uZMWZV/rIA1Zjaz8HD9JosYP2IQC0iERl0HDIcMx9gIF8NxfNsArPZAfHC41ci/jHU5kaa213N4H8hFbs3spLdpG0UmiTsQv52AvEBnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3AYdtKhDp+k4paR5zvgqi9VsGppBRAUtVXvPR72DlKk=;
- b=KVmYxzykA43EhwGINWc1hnVRQ1qP38CKX1LuCS9CoJDm3GTu6NTpWczVbXQu1w+1hcuwypYsTfJf3VpE3ZD4qAAU6UrbPI17OT5y71Hlx056wrdqOcu/ka5yHNcrl56BPtZtlYD4D5fqtSpr0te/k7mLntuh6K432Cf3OwCZh7LKQL/QDaLwBi0gjxxGdFxDfky0SEzxs4DcP4iMEeuAfNCGFoF8+zWsbkInSgcPNiVlh5nF8wRdVvNu+Jh7rIaF57FyqLBsXXe5oSFf4k9br78/9yYGcbNFhTvvlvggMonodIaFr/InABzeVC4mo5tAadIjMsnco0ogG1Ca3OLLPw==
+ bh=akNoJMjdH9f7x4FPDA5HBfTTKVt9CMBPodh9kOvw3uw=;
+ b=C4SVqSSwTMTWZ2Afkq8bBOY+xnoghkf/9+faPmXQvAbKdINqtaSUB8zhiLeTAZybeJ6+cMD63Anlpq3Q9heKL7M15k+xr3aqujYcNsAeRXlgVO+R+ijyBzJSWEIPJHmOGaFTkrcctAUyJkOVx4jHRzicbaTZTanj85KcCOM3nPZ+XvmJP63Ve73OQCHiPeRrivX02b9tgZp7jziin7WHE1Ki0XmyZWsKyCyo8V3+q5EV9lQCUITnBSfgXXFy2NDCt23nUfK7EjoRh22nUQCUbVWTqGqMAs+CIMqFuj/Yzv/+VKU5+sQFwxRHJp2yc0YG9hocyFpIuTnW8o+VdWM6ew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3AYdtKhDp+k4paR5zvgqi9VsGppBRAUtVXvPR72DlKk=;
- b=ALx2oklXtP9iLaeTIv4P/RKwZaD7nAdY+dGnTePhXIDNKSBc1REltJQZLp/OQqSHNTSjuemgxy9qlXt/NCbpRBkKDhnpr7+DZRMiAUwMswEXiBN3QRlTqEQUXlsdWnkl8mfyMEvnCFmBHdH2Fiz6IvCBmOa98jKu1XThYxuhkzg=
-Received: from BN6PR11CA0060.namprd11.prod.outlook.com (2603:10b6:404:f7::22)
- by DM6PR12MB3899.namprd12.prod.outlook.com (2603:10b6:5:149::32) with
+ bh=akNoJMjdH9f7x4FPDA5HBfTTKVt9CMBPodh9kOvw3uw=;
+ b=XyDY8QrQm7AJ/2EWTIF8le30xkt4wQczuf48hKg5ZcnQT7RBIyoKODlNabQ698tp2/rRTwnefGKIo4hG/3TNimeKFjfZLGJ6HzoK0eNl9P5nVOm32KqqcHn6ENpZAE5vR3olRzosACQmaHxJraooYnXXELblkvlOFtD/fGgZrRY=
+Received: from BN6PR11CA0058.namprd11.prod.outlook.com (2603:10b6:404:f7::20)
+ by DM4PR12MB5231.namprd12.prod.outlook.com (2603:10b6:5:39b::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11; Thu, 3 Feb
- 2022 09:09:44 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Thu, 3 Feb
+ 2022 09:09:46 +0000
 Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:f7:cafe::b5) by BN6PR11CA0060.outlook.office365.com
- (2603:10b6:404:f7::22) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:404:f7:cafe::6f) by BN6PR11CA0058.outlook.office365.com
+ (2603:10b6:404:f7::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12 via Frontend
- Transport; Thu, 3 Feb 2022 09:09:44 +0000
+ Transport; Thu, 3 Feb 2022 09:09:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4951.12 via Frontend Transport; Thu, 3 Feb 2022 09:09:44 +0000
+ 15.20.4951.12 via Frontend Transport; Thu, 3 Feb 2022 09:09:45 +0000
 Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 3 Feb
- 2022 03:09:43 -0600
+ 2022 03:09:44 -0600
 From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [Patch v5 20/24] drm/amdkfd: CRIU Discover svm ranges
-Date: Thu, 3 Feb 2022 04:09:14 -0500
-Message-ID: <20220203090918.11520-21-rajneesh.bhardwaj@amd.com>
+Subject: [Patch v5 23/24] drm/amdkfd: CRIU resume shared virtual memory ranges
+Date: Thu, 3 Feb 2022 04:09:17 -0500
+Message-ID: <20220203090918.11520-24-rajneesh.bhardwaj@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220203090918.11520-1-rajneesh.bhardwaj@amd.com>
 References: <20220203090918.11520-1-rajneesh.bhardwaj@amd.com>
@@ -67,28 +67,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cf05215d-7bde-4b64-7d47-08d9e6f4eb91
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3899:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3899253DE5075F53C4ED8DDEFE289@DM6PR12MB3899.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: cf6a6b15-98fe-476c-2562-08d9e6f4ec1e
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5231:EE_
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5231DF24E22889F03309DCDDFE289@DM4PR12MB5231.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dBNFtLiWXhs9MVOKGYXFqA/BjAPBkB2ZgQvPoTdms1zflp9MLKTEDxYJsKt0zwyikrNbcwU9McHo64YO50H2oWeT47P+AnlvfOtEHRXuK3KNbcGdOWQgJg/p9kn20+SyRw/GGWr8k0OxlCD3JnuC//vc6NeRVbPVU/5RzQsocC9IdsG8fjgOcggSdxwBVx1+xabUkOVfLDISvd0HKE8uXGyPb/sK8jdPbrQwOTEV6lCFnQ6ECz84YM809UgVSb9OMVpMkbWEIHMxzHVtd9l5QeC9l/lS0Fv7VH3VKbYJKSRSv5f5A2p4p54W+N68kuTzu5NzMiD2lrWf+7eWSKymt4v2gZsgw7B774K4rwDAaQ0QOftMWuzyvRw+iqdbBHIo+f32kgkt87Ma0mESYiYQ2/YURKQR02cqEChz8mj5b3nuZ7hrJavZD3z0DiqzCqBGO+DFTwoJLQR2pT6UvVIX+bIdFXgF5vnoYwquW+L/htEdx1jJ9W6VmcqtUxoz9qTolgbtjXRFVuVIz4w3PzdqZLw2LxkRy8CFe7iFEhCQryZvG8F/40HOVJ+eMv/SZWovTUdkS7pyJvcvYKszjIkAJUSf4js6eSHSNNEQq0qql8v2cwLjBDMFaFijIPRFZPhC9quoToVe2u8k/JXrzWihJ+oGUd1GOalXCs1DFI7g21eEtDEauQwJJlt73IOQQ7WS/KNMjjtGxLT5IshWEyB19w==
+X-Microsoft-Antispam-Message-Info: FsRo9e+YTJQ4vZLOoeAxg/R85iIa713JhwsyBq/AjkrW4YI3t03yZ5zNRxqR9bPCSR/+SMKwKmKz0GiaF29xf1ugVoJoM0TbNqmJ1doQj6qum+iaWT7ZQ3Fuy+y/4PCC9wd95nYTygj8olIaFGV1Lns2Gi26BkbL2wj33dpzba5K+SRsda76J1auiOvx5IaWbzifTHgb9Ko+aZ1G4cTfp6Wp4SIU/NlFenwW+W6onUOpcW8Neuz++7OQu92GYCtWZFSmc9thkzhcis1FCAF496UbqqPO4IZhmTuUToU6WKLCx7ETvvfbuDzhpaBYlskjXd5BiYi8lDv76/diOqsescEXYIXnVzhYQ0eH5WCIG3r6TLuD4hoJL7WwVOVJ8vNQaT6dDr2+jXul1y8h3CX8VzI7NN719SJYXQqJfPHE1btuvoV5x12inYzGOZ5Hk7suxMkmWBpfkiAHvlPkVV52WF2bzmC5FrXDmT5vy8dyeVShvvi0qBzBya5Wnta6homvAYt8NfcU3hrWr9pXht6hJxuiKwRF6AH0gd4be4zg1XNW/mr/OiUSA2wj55vpq64llX2Ie8Pr/QDSDhPjFVKMsPJC8E2zOaWFNLeDOZL0qzx+YxCh2/J69vWhxhXphHr1CClWS7ji6a+CjJ4qNfKiKuDZ1ZjZx1OKKEa0KOifZs7EcKTxdbN8EeDGW16csgmQTCYtn0Ve8+9UHWe/vHw38g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(508600001)(16526019)(26005)(8676002)(336012)(426003)(47076005)(86362001)(186003)(450100002)(2906002)(4326008)(44832011)(36860700001)(1076003)(2616005)(70206006)(70586007)(83380400001)(5660300002)(8936002)(36756003)(81166007)(54906003)(6916009)(82310400004)(356005)(7696005)(6666004)(40460700003)(316002)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(16526019)(186003)(26005)(1076003)(2616005)(426003)(336012)(82310400004)(508600001)(316002)(86362001)(70206006)(70586007)(8936002)(7696005)(4326008)(8676002)(450100002)(6666004)(44832011)(81166007)(356005)(2906002)(6916009)(54906003)(47076005)(83380400001)(36860700001)(40460700003)(36756003)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 09:09:44.7600 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf05215d-7bde-4b64-7d47-08d9e6f4eb91
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 09:09:45.6661 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf6a6b15-98fe-476c-2562-08d9e6f4ec1e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3899
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5231
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,170 +106,176 @@ Cc: alexander.deucher@amd.com, felix.kuehling@amd.com, david.yatsin@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A KFD process may contain a number of virtual address ranges for shared
-virtual memory management and each such range can have many SVM
-attributes spanning across various nodes within the process boundary.
-This change reports the total number of such SVM ranges and
-their total private data size by extending the PROCESS_INFO op of the the
-CRIU IOCTL to discover the svm ranges in the target process and a future
-patches brings in the required support for checkpoint and restore for
-SVM ranges.
+In CRIU resume stage, resume all the shared virtual memory ranges from
+the data stored inside the resuming kfd process during CRIU restore
+phase. Also setup xnack mode and free up the resources.
+
+KFD_IOCTL_SVM_ATTR_CLR_FLAGS is not available for querying via get_attr
+interface but we must clear the flags during restore as there might be
+some default flags set when the prange is created. Also handle the
+invalid PREFETCH atribute values saved during checkpoint by replacing
+them with another dummy KFD_IOCTL_SVM_ATTR_SET_FLAGS attribute.
 
 Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 12 +++--
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  5 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 59 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h     | 11 +++++
- 4 files changed, 81 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  10 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 102 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |   6 ++
+ 3 files changed, 118 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 3ec44f71307d..a755ea68a428 100644
+index c143f242a84d..64e3b4e3a712 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2099,10 +2099,9 @@ static int criu_get_process_object_info(struct kfd_process *p,
- 					uint32_t *num_objects,
- 					uint64_t *objs_priv_size)
- {
--	int ret;
--	uint64_t priv_size;
-+	uint64_t queues_priv_data_size, svm_priv_data_size, priv_size;
- 	uint32_t num_queues, num_events, num_svm_ranges;
--	uint64_t queues_priv_data_size;
-+	int ret;
- 
- 	*num_devices = p->n_pdds;
- 	*num_bos = get_process_num_bos(p);
-@@ -2112,7 +2111,10 @@ static int criu_get_process_object_info(struct kfd_process *p,
- 		return ret;
- 
- 	num_events = kfd_get_num_events(p);
--	num_svm_ranges = 0; /* TODO: Implement SVM-Ranges */
-+
-+	ret = svm_range_get_info(p, &num_svm_ranges, &svm_priv_data_size);
-+	if (ret)
-+		return ret;
- 
- 	*num_objects = num_queues + num_events + num_svm_ranges;
- 
-@@ -2122,7 +2124,7 @@ static int criu_get_process_object_info(struct kfd_process *p,
- 		priv_size += *num_bos * sizeof(struct kfd_criu_bo_priv_data);
- 		priv_size += queues_priv_data_size;
- 		priv_size += num_events * sizeof(struct kfd_criu_event_priv_data);
--		/* TODO: Add SVM ranges priv size */
-+		priv_size += svm_priv_data_size;
- 		*objs_priv_size = priv_size;
+@@ -2766,7 +2766,17 @@ static int criu_resume(struct file *filep,
  	}
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 903ad4a263f0..715dd0d4fac5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1082,7 +1082,10 @@ enum kfd_criu_object_type {
  
- struct kfd_criu_svm_range_priv_data {
- 	uint32_t object_type;
--	uint32_t reserved;
-+	uint64_t start_addr;
-+	uint64_t size;
-+	/* Variable length array of attributes */
-+	struct kfd_ioctl_svm_attribute attrs[0];
- };
+ 	mutex_lock(&target->mutex);
++	ret = kfd_criu_resume_svm(target);
++	if (ret) {
++		pr_err("kfd_criu_resume_svm failed for %i\n", args->pid);
++		goto exit;
++	}
++
+ 	ret =  amdgpu_amdkfd_criu_resume(target->kgd_process_info);
++	if (ret)
++		pr_err("amdgpu_amdkfd_criu_resume failed for %i\n", args->pid);
++
++exit:
+ 	mutex_unlock(&target->mutex);
  
- struct kfd_criu_queue_priv_data {
+ 	kfd_unref_process(target);
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index d34508f5e88b..64cd7712c098 100644
+index 41ac049b3316..30ae21953da5 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -3481,6 +3481,65 @@ svm_range_get_attr(struct kfd_process *p, struct mm_struct *mm,
+@@ -3487,6 +3487,108 @@ svm_range_get_attr(struct kfd_process *p, struct mm_struct *mm,
  	return 0;
  }
  
-+int svm_range_get_info(struct kfd_process *p, uint32_t *num_svm_ranges,
-+		       uint64_t *svm_priv_data_size)
++int kfd_criu_resume_svm(struct kfd_process *p)
 +{
-+	uint64_t total_size, accessibility_size, common_attr_size;
++	struct kfd_ioctl_svm_attribute *set_attr = NULL;
 +	int nattr_common = 4, nattr_accessibility = 1;
-+	int num_devices = p->n_pdds;
-+	struct svm_range_list *svms;
-+	struct svm_range *prange;
-+	uint32_t count = 0;
++	struct criu_svm_metadata *criu_svm_md = NULL;
++	struct svm_range_list *svms = &p->svms;
++	struct criu_svm_metadata *next = NULL;
++	uint32_t set_flags = 0xffffffff;
++	int i, j, num_attrs, ret = 0;
++	uint64_t set_attr_size;
++	struct mm_struct *mm;
 +
-+	*svm_priv_data_size = 0;
-+
-+	svms = &p->svms;
-+	if (!svms)
-+		return -EINVAL;
-+
-+	mutex_lock(&svms->lock);
-+	list_for_each_entry(prange, &svms->list, list) {
-+		pr_debug("prange: 0x%p start: 0x%lx\t npages: 0x%llx\t end: 0x%llx\n",
-+			 prange, prange->start, prange->npages,
-+			 prange->start + prange->npages - 1);
-+		count++;
-+	}
-+	mutex_unlock(&svms->lock);
-+
-+	*num_svm_ranges = count;
-+	/* Only the accessbility attributes need to be queried for all the gpus
-+	 * individually, remaining ones are spanned across the entire process
-+	 * regardless of the various gpu nodes. Of the remaining attributes,
-+	 * KFD_IOCTL_SVM_ATTR_CLR_FLAGS need not be saved.
-+	 *
-+	 * KFD_IOCTL_SVM_ATTR_PREFERRED_LOC
-+	 * KFD_IOCTL_SVM_ATTR_PREFETCH_LOC
-+	 * KFD_IOCTL_SVM_ATTR_SET_FLAGS
-+	 * KFD_IOCTL_SVM_ATTR_GRANULARITY
-+	 *
-+	 * ** ACCESSBILITY ATTRIBUTES **
-+	 * (Considered as one, type is altered during query, value is gpuid)
-+	 * KFD_IOCTL_SVM_ATTR_ACCESS
-+	 * KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE
-+	 * KFD_IOCTL_SVM_ATTR_NO_ACCESS
-+	 */
-+	if (*num_svm_ranges > 0) {
-+		common_attr_size = sizeof(struct kfd_ioctl_svm_attribute) *
-+			nattr_common;
-+		accessibility_size = sizeof(struct kfd_ioctl_svm_attribute) *
-+			nattr_accessibility * num_devices;
-+
-+		total_size = sizeof(struct kfd_criu_svm_range_priv_data) +
-+			common_attr_size + accessibility_size;
-+
-+		*svm_priv_data_size = *num_svm_ranges * total_size;
++	if (list_empty(&svms->criu_svm_metadata_list)) {
++		pr_debug("No SVM data from CRIU restore stage 2\n");
++		return ret;
 +	}
 +
-+	pr_debug("num_svm_ranges %u total_priv_size %llu\n", *num_svm_ranges,
-+		 *svm_priv_data_size);
-+	return 0;
++	mm = get_task_mm(p->lead_thread);
++	if (!mm) {
++		pr_err("failed to get mm for the target process\n");
++		return -ESRCH;
++	}
++
++	num_attrs = nattr_common + (nattr_accessibility * p->n_pdds);
++
++	i = j = 0;
++	list_for_each_entry(criu_svm_md, &svms->criu_svm_metadata_list, list) {
++		pr_debug("criu_svm_md[%d]\n\tstart: 0x%llx size: 0x%llx (npages)\n",
++			 i, criu_svm_md->data.start_addr, criu_svm_md->data.size);
++
++		for (j = 0; j < num_attrs; j++) {
++			pr_debug("\ncriu_svm_md[%d]->attrs[%d].type : 0x%x \ncriu_svm_md[%d]->attrs[%d].value : 0x%x\n",
++				 i,j, criu_svm_md->data.attrs[j].type,
++				 i,j, criu_svm_md->data.attrs[j].value);
++			switch (criu_svm_md->data.attrs[j].type) {
++			/* During Checkpoint operation, the query for
++			 * KFD_IOCTL_SVM_ATTR_PREFETCH_LOC attribute might
++			 * return KFD_IOCTL_SVM_LOCATION_UNDEFINED if they were
++			 * not used by the range which was checkpointed. Care
++			 * must be taken to not restore with an invalid value
++			 * otherwise the gpuidx value will be invalid and
++			 * set_attr would eventually fail so just replace those
++			 * with another dummy attribute such as
++			 * KFD_IOCTL_SVM_ATTR_SET_FLAGS.
++			 */
++			case KFD_IOCTL_SVM_ATTR_PREFETCH_LOC:
++				if (criu_svm_md->data.attrs[j].value ==
++				    KFD_IOCTL_SVM_LOCATION_UNDEFINED) {
++					criu_svm_md->data.attrs[j].type =
++						KFD_IOCTL_SVM_ATTR_SET_FLAGS;
++					criu_svm_md->data.attrs[j].value = 0;
++				}
++				break;
++			case KFD_IOCTL_SVM_ATTR_SET_FLAGS:
++				set_flags = criu_svm_md->data.attrs[j].value;
++				break;
++			default:
++				break;
++			}
++		}
++
++		/* CLR_FLAGS is not available via get_attr during checkpoint but
++		 * it needs to be inserted before restoring the ranges so
++		 * allocate extra space for it before calling set_attr
++		 */
++		set_attr_size = sizeof(struct kfd_ioctl_svm_attribute) *
++						(num_attrs + 1);
++		set_attr = krealloc(set_attr, set_attr_size,
++					    GFP_KERNEL);
++		if (!set_attr) {
++			ret = -ENOMEM;
++			goto exit;
++		}
++
++		memcpy(set_attr, criu_svm_md->data.attrs, num_attrs *
++					sizeof(struct kfd_ioctl_svm_attribute));
++		set_attr[num_attrs].type = KFD_IOCTL_SVM_ATTR_CLR_FLAGS;
++		set_attr[num_attrs].value = ~set_flags;
++
++		ret = svm_range_set_attr(p, mm, criu_svm_md->data.start_addr,
++					 criu_svm_md->data.size, num_attrs + 1,
++					 set_attr);
++		if (ret) {
++			pr_err("CRIU: failed to set range attributes\n");
++			goto exit;
++		}
++
++		i++;
++	}
++exit:
++	kfree(set_attr);
++	list_for_each_entry_safe(criu_svm_md, next, &svms->criu_svm_metadata_list, list) {
++		pr_debug("freeing criu_svm_md[]\n\tstart: 0x%llx\n",
++						criu_svm_md->data.start_addr);
++		kfree(criu_svm_md);
++	}
++
++	mmput(mm);
++	return ret;
++
 +}
 +
- int
- svm_ioctl(struct kfd_process *p, enum kfd_ioctl_svm_op op, uint64_t start,
- 	  uint64_t size, uint32_t nattrs, struct kfd_ioctl_svm_attribute *attrs)
+ int kfd_criu_restore_svm(struct kfd_process *p,
+ 			 uint8_t __user *user_priv_ptr,
+ 			 uint64_t *priv_data_offset,
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index 949b477e2f4c..f052b6022e76 100644
+index 3b5948f67de2..66c77f00ac3e 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -183,6 +183,8 @@ void svm_range_dma_unmap(struct device *dev, dma_addr_t *dma_addr,
- void svm_range_free_dma_mappings(struct svm_range *prange);
- void svm_range_prefault(struct svm_range *prange, struct mm_struct *mm,
- 			void *owner);
-+int svm_range_get_info(struct kfd_process *p, uint32_t *num_svm_ranges,
-+		       uint64_t *svm_priv_data_size);
+@@ -192,6 +192,7 @@ int kfd_criu_restore_svm(struct kfd_process *p,
+ 			 uint8_t __user *user_priv_ptr,
+ 			 uint64_t *priv_data_offset,
+ 			 uint64_t max_priv_data_size);
++int kfd_criu_resume_svm(struct kfd_process *p);
  struct kfd_process_device *
  svm_range_get_pdd_by_adev(struct svm_range *prange, struct amdgpu_device *adev);
  void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_struct *mm);
-@@ -220,6 +222,15 @@ static inline int svm_range_schedule_evict_svm_bo(
+@@ -253,6 +254,11 @@ static inline int kfd_criu_restore_svm(struct kfd_process *p,
  	return -EINVAL;
  }
  
-+static inline int svm_range_get_info(struct kfd_process *p,
-+				     uint32_t *num_svm_ranges,
-+				     uint64_t *svm_priv_data_size)
++static inline int kfd_criu_resume_svm(struct kfd_process *p)
 +{
-+	*num_svm_ranges = 0;
-+	*svm_priv_data_size = 0;
 +	return 0;
 +}
 +
