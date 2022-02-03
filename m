@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6911BC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 09:09:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 761DFC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 09:09:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9A3510E9F7;
-	Thu,  3 Feb 2022 09:09:39 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2050.outbound.protection.outlook.com [40.107.223.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E048210E9F4;
- Thu,  3 Feb 2022 09:09:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DD1C10EA04;
+	Thu,  3 Feb 2022 09:09:41 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2068.outbound.protection.outlook.com [40.107.236.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF31710EA00;
+ Thu,  3 Feb 2022 09:09:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M+1VrLoMXrKR172yHA2aJEcHJA8kRvFcU/+VbEAmPfxijlp66/O3BBawD/CvLUwViPS5rN4I/5wDvm2vMFqwgIG2bG1k8vLfIkkRudCH3NKHaUSAMO4AGkce/2T+gauZlY1FFdtJ3yignheu9XXEE8SmQSfn2rHG9p0QW4EwNxrHqM1UIdRnAdYRjPx4xcZJBXbk35W0GwCSHsxXmxrYGLu34gTX3KJAGDwoZGbTV1AIn/4e22OQrA22uJC+8LfQO8L9UYPU9E+tu0ai8Ed8qIGZ327bkkpywtM/pA/9xJociGGlO/m8P9ucVRuIe757+aKK3bRYjtnIdpOzAlrMww==
+ b=BjU+X7gNPPeIzuEzdkIuRQKS3lN5vwM9dWV7Bs8j2WPVBEPK/KxabSaruclcT7MmNgijp/Y9hr15WtC5c9Nzq2qkjCXTXQqC0wn80gUig6/Hrqelyt7aAwci2sXUvKClz6MlSCiLRvx9Wq6+4x8usFoUSXBDX2Goxb+2Z8GHWrX8jqboDaXSD3sFZBt+2vd6R9VmP3vmEs2ru52VtX5W5hzOqhnUgreMLD3fVp9konytiV+XI/YLYKICWbQ2imjE8aCjWkzRtfaVTQikGrv1bTELqFn0W1ptk7BgQqVpCVFP2Di4P9AUs0DIWBjJsBt9Sx89GHmvJsDATbgX3rnlwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rpSJzQd7xyZ/Nv3E8TbdFAw8Zb46eN12DjS6OZHQgr8=;
- b=dAcffa6isMLB5Vk32SQ+V6osJp9nzNE/TrWgzohOSIqjqiKZr/USvzD9sXNoRVa17XVOmbv8XC8uCvB927MzxKvkrz1lsA+olw9oIRolMJrd5EJLsoerj8ftAy69Z8x5V5TYQ2qsykQ3HUpnB3hB60VlKZLp5VXsb3l1A2RjnGyy3w+l8AUfjXJk5hktWzkdLXxrE2Pj9Cv0q1rmUShxOH+d/pRCoNLytPF8mN49kYUtzJAkIJuKddNSe8f0QxDcM7tRvtAPQ9Q5wQrM6VpZdlGroTD8w5vmEY20bJ58ci8J03sx0mEK598i70iSsDc8wSehbQtzegQU7Dc930YJ2w==
+ bh=4Chy5N7t8sYPBHvybcSxfLQQjqwDbn1CXoXSDH7JC5w=;
+ b=fu6OqZOQrCMbNa5b1R7KH+w2ER0Geub/a3GinXQnUHR3+zZQPOw6X/oOKlv+erRCHUpOpx4YqhdmIP0gWmHN2696ZEP5kqMwzbVvccKtmQwQOJPMwTa2FuKMx/QZshBtQBaLNVIqrqbDeCwx4mgDsMZKomr1IgtW5NSUb7ZbR9oKbDfsS3Yfrz1ev+TbOhzLRLAXSAg2VodiYu06huTK2voibmvthc+jr/tAMErMLUM91HjitltEo+zBleHhZnunhCZ7hk+bJag0UmVo3jRT4WQE4ZKTVpHlmXXk5nzgQ9gYv8iuq0lx5r+twAkh/IQsDPy4VhVeMK0ylZaqUqOgEg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rpSJzQd7xyZ/Nv3E8TbdFAw8Zb46eN12DjS6OZHQgr8=;
- b=m4ai1qeKMYf1xw/blJWW+JoZ/Vtxj+XH9f9ZjyOgjOouz/ltPMeSHMvAUflvYO9pZm3Trc/hGc+LnNdf2E5SIhYZrIQ97bWgfMUsTpe5UZVzbAf9kRWToB7u/iFRi4xy3fxC0kPYkVWA+/3yYjrivlzZHy5TghDrIXhk53eow1s=
-Received: from BN9PR03CA0374.namprd03.prod.outlook.com (2603:10b6:408:f7::19)
- by DM5PR12MB2343.namprd12.prod.outlook.com (2603:10b6:4:b3::38) with
+ bh=4Chy5N7t8sYPBHvybcSxfLQQjqwDbn1CXoXSDH7JC5w=;
+ b=Jt2+NLavjy/X+8TYQE0UkbsfcX+LeaCHtVH5kqjSzzP0yKMTlKm8RgJ42xJHZ24heuT+UiwNXf+ni8StcaLfkDKUz8TWWa77QE5d70zN6FuXr5ZRJ1Ib1gptSLn3uHuFYvLinygTY53O4JvRITZfrx0UHT0Asw9Su36W0yrAGfE=
+Received: from BN9PR03CA0367.namprd03.prod.outlook.com (2603:10b6:408:f7::12)
+ by DM5PR12MB1929.namprd12.prod.outlook.com (2603:10b6:3:106::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.19; Thu, 3 Feb
- 2022 09:09:34 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Thu, 3 Feb
+ 2022 09:09:36 +0000
 Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f7:cafe::37) by BN9PR03CA0374.outlook.office365.com
- (2603:10b6:408:f7::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17 via Frontend
- Transport; Thu, 3 Feb 2022 09:09:34 +0000
+ (2603:10b6:408:f7:cafe::34) by BN9PR03CA0367.outlook.office365.com
+ (2603:10b6:408:f7::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12 via Frontend
+ Transport; Thu, 3 Feb 2022 09:09:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4951.12 via Frontend Transport; Thu, 3 Feb 2022 09:09:34 +0000
+ 15.20.4951.12 via Frontend Transport; Thu, 3 Feb 2022 09:09:36 +0000
 Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 3 Feb
- 2022 03:09:32 -0600
+ 2022 03:09:33 -0600
 From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [Patch v5 01/24] x86/configs: CRIU update debug rock defconfig
-Date: Thu, 3 Feb 2022 04:08:55 -0500
-Message-ID: <20220203090918.11520-2-rajneesh.bhardwaj@amd.com>
+Subject: [Patch v5 03/24] drm/amdkfd: CRIU Implement KFD process_info ioctl
+Date: Thu, 3 Feb 2022 04:08:57 -0500
+Message-ID: <20220203090918.11520-4-rajneesh.bhardwaj@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220203090918.11520-1-rajneesh.bhardwaj@amd.com>
 References: <20220203090918.11520-1-rajneesh.bhardwaj@amd.com>
@@ -67,28 +67,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 00c2a851-82d9-4c01-de19-08d9e6f4e57c
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2343:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB23434098C21AE8FB55E7BB57FE289@DM5PR12MB2343.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Office365-Filtering-Correlation-Id: b568d742-67df-48cf-4384-08d9e6f4e68a
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1929:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1929A8298520BED943EAA121FE289@DM5PR12MB1929.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Rt8kM/Mniqs8v94/M5+qVLuCKTnlN+AwxYH35q9KxWOu0OhHPrP8IJy+LDFAilK7HeNuoBx+1YdIh1PlKx7bL7ofGdzlsWDQtqpglggjUuCz6zazxSbG/po5CnjXA3e8RG0jmQGdQm7xjHKZnDmdhjyrXN3Fh4/JFjgOHZnLzLHbjo4rOk2PTzeskMGFrks4UHhMSdULhO2ZSSoteT9KBX7gs9fkyvVnWq23Rn5X0nGEiaopl6ApN3RvhBhDRZ95HfqwgI0K4zJO9exZTYX0eONaZLQODGRmtjL9alxCxirK/l1axi7NpuH/LpKpBPxzslAl8hSGDyTrOSCzOBdkbi2RKLOwm2Cq1i8jTl9iFtS6AurkRRjInnb6DsFziY9lDHHO9ut7gMiQG2BS+DkZVWHJdsGuMQbJF4i1QD0pHRpwAjAh1amWwg82gf9On5qfblo5N7e8mIvGOcvOmZM7pdVh7hyVOeXxDuulAayAKEukDIrtmYCcV7JSNssCRk36lcv+khXOXyRaTE/dplsSovnRzJsjNk3Z3X5Nm33sfA855TTsZpFmjjqiOovEx4IElVdeWDmf7LXWD9r6OaxJx+kXC7u8NwqLf2k35461MkkV9om5PFTJSppZQ9jaWnW7Y4buUDGvnU64Aitw2aF1U6rEPDxJg48KA4yQ5HxaroBbgKE6rPggaYc649iiAcTHF6W8ZNgtVJEuTjRlYXU0Dg==
+X-Microsoft-Antispam-Message-Info: DU1KkGMBl/G/hVxrN8J+4izRP/xrHgwoxmWmmwqxHCkVji9Eg1GAbTjmr3x5uwW85m9zo7t4ppMJb6XEpmMp9dARd18MTfliaVTFwLJNGry8/s3jSViVaWZ6rEWhy18Dh52qPCUR4WZ48daYvHi/aVbKqp+T1oUAGvDxCwSkVM5Qw25YHX7N06UymFaG2Vtq4XiMqnw/ZzRR9iCvQB+nSxn9S5/xIhrNJquxa+hcoFI/JeozyGzIPQm8hjaPeolwsNTkIViZNux73GRaAEqWEHYYK33ev44S4+PZTc7Emu22KTEYEe+gJul706q2crYJJwlizMqp8H8fOVpWLKZ9KDvprlxifZcyJ89YcdmvOcMUMHkp3yLvlU8HO0VDa+52rvB4PMdkrecVTxj3lbiyxCUoDQYjt24n0F1/S5g+XMZv2Gq0aNgKPZPcnlfe+9KycRysxiwtK2YhretGkXHhf01cKmThbXXU5/uBk3TfBeoc9qA7f7aJ5XKNfWGzV7Ta69GG2YskuLSsm9wakA7HM/ApmaGAIkQNU4bf78cxzK5CtREFAgJy0rxS62ml6tmrygTz5/CivDdH/5r0xRs9fms9sjJ5am4Mm4ujdfWPCrzx71I0xXUk1b7uJzP8wDeuASPCCqPODHaWZj3mjP4z1LMegjBvI8Dye9WujV+HyeuoRo/k1mDQCuYQDhFNiQIQJp+Ilf18cW9UOvCgXavcSQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(6666004)(508600001)(36860700001)(8676002)(8936002)(316002)(4326008)(7696005)(36756003)(54906003)(47076005)(40460700003)(66574015)(450100002)(70586007)(70206006)(6916009)(83380400001)(82310400004)(2906002)(15650500001)(44832011)(86362001)(2616005)(26005)(186003)(1076003)(16526019)(336012)(426003)(5660300002)(81166007)(356005)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(6916009)(54906003)(316002)(8936002)(4326008)(70586007)(70206006)(450100002)(7696005)(8676002)(508600001)(2906002)(44832011)(36756003)(5660300002)(2616005)(6666004)(16526019)(426003)(336012)(47076005)(356005)(81166007)(186003)(1076003)(26005)(86362001)(82310400004)(40460700003)(36860700001)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 09:09:34.5585 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00c2a851-82d9-4c01-de19-08d9e6f4e57c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 09:09:36.3084 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b568d742-67df-48cf-4384-08d9e6f4e68a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2343
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1929
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,121 +106,100 @@ Cc: alexander.deucher@amd.com, felix.kuehling@amd.com, david.yatsin@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
- - Update debug config for Checkpoint-Restore (CR) support
- - Also include necessary options for CR with docker containers.
+This IOCTL op is expected to be called as a precursor to the actual
+Checkpoint operation. This does the basic discovery into the target
+process seized by CRIU and relays the information to the userspace that
+utilizes it to start the Checkpoint operation via another dedicated
+IOCTL op.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+The process_info IOCTL op determines the number of GPUs, buffer objects
+that are associated with the target process, its process id in
+caller's namespace since /proc/pid/mem interface maybe used to drain
+the contents of the discovered buffer objects in userspace and getpid
+returns the pid of CRIU dumper process. Also the pid of a process
+inside a container might be different than its global pid so return
+the ns pid.
+
 Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Signed-off-by: David Yat Sin <david.yatsin@amd.com>
 ---
- arch/x86/configs/rock-dbg_defconfig | 53 ++++++++++++++++++-----------
- 1 file changed, 34 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 56 +++++++++++++++++++++++-
+ 1 file changed, 55 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/configs/rock-dbg_defconfig b/arch/x86/configs/rock-dbg_defconfig
-index 4877da183599..bc2a34666c1d 100644
---- a/arch/x86/configs/rock-dbg_defconfig
-+++ b/arch/x86/configs/rock-dbg_defconfig
-@@ -249,6 +249,7 @@ CONFIG_KALLSYMS_ALL=y
- CONFIG_KALLSYMS_ABSOLUTE_PERCPU=y
- CONFIG_KALLSYMS_BASE_RELATIVE=y
- # CONFIG_USERFAULTFD is not set
-+CONFIG_USERFAULTFD=y
- CONFIG_ARCH_HAS_MEMBARRIER_SYNC_CORE=y
- CONFIG_KCMP=y
- CONFIG_RSEQ=y
-@@ -1015,6 +1016,11 @@ CONFIG_PACKET_DIAG=y
- CONFIG_UNIX=y
- CONFIG_UNIX_SCM=y
- CONFIG_UNIX_DIAG=y
-+CONFIG_SMC_DIAG=y
-+CONFIG_XDP_SOCKETS_DIAG=y
-+CONFIG_INET_MPTCP_DIAG=y
-+CONFIG_TIPC_DIAG=y
-+CONFIG_VSOCKETS_DIAG=y
- # CONFIG_TLS is not set
- CONFIG_XFRM=y
- CONFIG_XFRM_ALGO=y
-@@ -1052,15 +1058,17 @@ CONFIG_SYN_COOKIES=y
- # CONFIG_NET_IPVTI is not set
- # CONFIG_NET_FOU is not set
- # CONFIG_NET_FOU_IP_TUNNELS is not set
--# CONFIG_INET_AH is not set
--# CONFIG_INET_ESP is not set
--# CONFIG_INET_IPCOMP is not set
--CONFIG_INET_TUNNEL=y
--CONFIG_INET_DIAG=y
--CONFIG_INET_TCP_DIAG=y
--# CONFIG_INET_UDP_DIAG is not set
--# CONFIG_INET_RAW_DIAG is not set
--# CONFIG_INET_DIAG_DESTROY is not set
-+CONFIG_INET_AH=m
-+CONFIG_INET_ESP=m
-+CONFIG_INET_IPCOMP=m
-+CONFIG_INET_ESP_OFFLOAD=m
-+CONFIG_INET_TUNNEL=m
-+CONFIG_INET_XFRM_TUNNEL=m
-+CONFIG_INET_DIAG=m
-+CONFIG_INET_TCP_DIAG=m
-+CONFIG_INET_UDP_DIAG=m
-+CONFIG_INET_RAW_DIAG=m
-+CONFIG_INET_DIAG_DESTROY=y
- CONFIG_TCP_CONG_ADVANCED=y
- # CONFIG_TCP_CONG_BIC is not set
- CONFIG_TCP_CONG_CUBIC=y
-@@ -1085,12 +1093,14 @@ CONFIG_TCP_MD5SIG=y
- CONFIG_IPV6=y
- # CONFIG_IPV6_ROUTER_PREF is not set
- # CONFIG_IPV6_OPTIMISTIC_DAD is not set
--CONFIG_INET6_AH=y
--CONFIG_INET6_ESP=y
--# CONFIG_INET6_ESP_OFFLOAD is not set
--# CONFIG_INET6_ESPINTCP is not set
--# CONFIG_INET6_IPCOMP is not set
--# CONFIG_IPV6_MIP6 is not set
-+CONFIG_INET6_AH=m
-+CONFIG_INET6_ESP=m
-+CONFIG_INET6_ESP_OFFLOAD=m
-+CONFIG_INET6_IPCOMP=m
-+CONFIG_IPV6_MIP6=m
-+CONFIG_INET6_XFRM_TUNNEL=m
-+CONFIG_INET_DCCP_DIAG=m
-+CONFIG_INET_SCTP_DIAG=m
- # CONFIG_IPV6_ILA is not set
- # CONFIG_IPV6_VTI is not set
- CONFIG_IPV6_SIT=y
-@@ -1146,8 +1156,13 @@ CONFIG_NF_CT_PROTO_UDPLITE=y
- # CONFIG_NF_CONNTRACK_SANE is not set
- # CONFIG_NF_CONNTRACK_SIP is not set
- # CONFIG_NF_CONNTRACK_TFTP is not set
--# CONFIG_NF_CT_NETLINK is not set
--# CONFIG_NF_CT_NETLINK_TIMEOUT is not set
-+CONFIG_COMPAT_NETLINK_MESSAGES=y
-+CONFIG_NF_CT_NETLINK=m
-+CONFIG_NF_CT_NETLINK_TIMEOUT=m
-+CONFIG_NF_CT_NETLINK_HELPER=m
-+CONFIG_NETFILTER_NETLINK_GLUE_CT=y
-+CONFIG_SCSI_NETLINK=y
-+CONFIG_QUOTA_NETLINK_INTERFACE=y
- CONFIG_NF_NAT=m
- CONFIG_NF_NAT_REDIRECT=y
- CONFIG_NF_NAT_MASQUERADE=y
-@@ -1992,7 +2007,7 @@ CONFIG_NETCONSOLE_DYNAMIC=y
- CONFIG_NETPOLL=y
- CONFIG_NET_POLL_CONTROLLER=y
- # CONFIG_RIONET is not set
--# CONFIG_TUN is not set
-+CONFIG_TUN=y
- # CONFIG_TUN_VNET_CROSS_LE is not set
- CONFIG_VETH=y
- # CONFIG_NLMON is not set
-@@ -3990,7 +4005,7 @@ CONFIG_MANDATORY_FILE_LOCKING=y
- CONFIG_FSNOTIFY=y
- CONFIG_DNOTIFY=y
- CONFIG_INOTIFY_USER=y
--# CONFIG_FANOTIFY is not set
-+CONFIG_FANOTIFY=y
- CONFIG_QUOTA=y
- CONFIG_QUOTA_NETLINK_INTERFACE=y
- # CONFIG_PRINT_QUOTA_WARNING is not set
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 90e6d9e335a5..29443419bbf0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1860,6 +1860,42 @@ static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
+ }
+ #endif
+ 
++uint32_t get_process_num_bos(struct kfd_process *p)
++{
++	uint32_t num_of_bos = 0;
++	int i;
++
++	/* Run over all PDDs of the process */
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
++		void *mem;
++		int id;
++
++		idr_for_each_entry(&pdd->alloc_idr, mem, id) {
++			struct kgd_mem *kgd_mem = (struct kgd_mem *)mem;
++
++			if ((uint64_t)kgd_mem->va > pdd->gpuvm_base)
++				num_of_bos++;
++		}
++	}
++	return num_of_bos;
++}
++
++static void criu_get_process_object_info(struct kfd_process *p,
++					 uint32_t *num_bos,
++					 uint64_t *objs_priv_size)
++{
++	uint64_t priv_size;
++
++	*num_bos = get_process_num_bos(p);
++
++	if (objs_priv_size) {
++		priv_size = sizeof(struct kfd_criu_process_priv_data);
++		priv_size += *num_bos * sizeof(struct kfd_criu_bo_priv_data);
++		*objs_priv_size = priv_size;
++	}
++}
++
+ static int criu_checkpoint(struct file *filep,
+ 			   struct kfd_process *p,
+ 			   struct kfd_ioctl_criu_args *args)
+@@ -1892,7 +1928,25 @@ static int criu_process_info(struct file *filep,
+ 				struct kfd_process *p,
+ 				struct kfd_ioctl_criu_args *args)
+ {
+-	return 0;
++	int ret = 0;
++
++	mutex_lock(&p->mutex);
++
++	if (!p->n_pdds) {
++		pr_err("No pdd for given process\n");
++		ret = -ENODEV;
++		goto err_unlock;
++	}
++
++	args->pid = task_pid_nr_ns(p->lead_thread,
++					task_active_pid_ns(p->lead_thread));
++
++	criu_get_process_object_info(p, &args->num_bos, &args->priv_data_size);
++
++	dev_dbg(kfd_device, "Num of bos:%u\n", args->num_bos);
++err_unlock:
++	mutex_unlock(&p->mutex);
++	return ret;
+ }
+ 
+ static int kfd_ioctl_criu(struct file *filep, struct kfd_process *p, void *data)
 -- 
 2.17.1
 
