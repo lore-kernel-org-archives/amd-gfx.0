@@ -4,66 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0C7AC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 13:24:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7606C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 14:28:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C21D89A20;
-	Fri,  4 Feb 2022 13:24:02 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE7B889A20;
- Fri,  4 Feb 2022 13:24:01 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id m14so11247700wrg.12;
- Fri, 04 Feb 2022 05:24:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=QAzK1MUUGHKcfpFP7rcRp+4muNcwL3NdNzqovqg5PAU=;
- b=p6mH8U5HA7kUapYy02V6g8AaZwwyJ93/6MvVkd+ko64iXTnP7alJ559RTTZ9+a/zfV
- PHlMCx/6BoGY1afnMsmfaxxgykh8NjbLhDmo4rVJ0EHcpUYa847vKd2MAQGAlPgshjk7
- bZvELxumhKTdLY34dOeIEUeQ6IFgAmFPMt79Rb/mOZk8dnFgJE1YRNTi63eSpiPL21cu
- uPECaFweLVY1vBPjxxbDY649JyhsYO/U0/QGvS44MzZbNAwzn8yj2A9D+JUreJrK3NFI
- rI1v0yZNtgC0RLapLk41462rDCbTBct+BLxoaF7Nu9CUiIr5GlmgKQo0OMIDpUanpR42
- aSzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=QAzK1MUUGHKcfpFP7rcRp+4muNcwL3NdNzqovqg5PAU=;
- b=mkqK4Y5AHigdZdlBAahkJhN0CpFVJVxraJ+HOs2xWZsu/MpSUwX6hGQUrV8BXmwbgL
- uiA8wnd856wxlSnx7Eya7HqIyueClz1eKWPAhaSmzJEfpNY6sBAUzWIXP/hIpy8ZRiEY
- zkVVJdyK+0zRgK7b12spRFY3i0hYnt5ko/HHvU1wqfqbCmz7itSao9yQlqMOdQVcpddv
- TAqbMnavxyVAbg0WcJOXKJJhdLHf+A5Q5veY1tZ3JqqgidMsOW58wpNBduW2MvvS+uqy
- IxxraKlOElTRnZ28EldHHhCkUkfBgoGISmKqsxJxgCWQ3sMKpA1/Yfp4w5coOJGDuloc
- 66mg==
-X-Gm-Message-State: AOAM532MeSiiHT2czc5EMz+260Jeno/nmQ75cjE26z+o3XUkSYNusNaT
- 37dVpRbsenWB1UyulTSvRnr2hsDJp8A=
-X-Google-Smtp-Source: ABdhPJyvG2AHV76evFDvzMjtPqqO8vrfZ0c1N+q5sVCC+EwLjSavOf7YrpDAfu413/sX9+XAEZFyVw==
-X-Received: by 2002:adf:e0c3:: with SMTP id m3mr903737wri.216.1643981040241;
- Fri, 04 Feb 2022 05:24:00 -0800 (PST)
-Received: from ?IPV6:2a02:908:1252:fb60:7e37:f7a5:7cd9:7eb0?
- ([2a02:908:1252:fb60:7e37:f7a5:7cd9:7eb0])
- by smtp.gmail.com with ESMTPSA id r12sm2058376wrw.73.2022.02.04.05.23.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Feb 2022 05:23:59 -0800 (PST)
-Message-ID: <b9d3da49-a02e-82d4-66c5-d95f824873cd@gmail.com>
-Date: Fri, 4 Feb 2022 14:23:58 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v11 5/5] drm/amdgpu: add drm buddy support to amdgpu
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4690510E272;
+	Fri,  4 Feb 2022 14:28:20 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2060.outbound.protection.outlook.com [40.107.236.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2986A10E272
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Feb 2022 14:28:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=P4aN5VlzCtOT+qfDbXf3ZoVhG2vy6tLPL/uznoZ2Iu4X6/OlPKvZ05CL7zisyO/Hv3/MNHhQ1wMurb70p+oBm/oi+8zHxCPLgCMKpcHWY0CMhu++nyKIShVHft9FyWzw+XypPW0TxGYCvyPO+nNCGpDDMw1xCZPxnG2/JgWmswF3ct+xH8PjSQAMTb7qb74tdZmODwT8VOYmlIZSbCpkmzxUm2EDCgNf61eq9x7HMjEPQSClFwvh6+U0S18iqpSOS1WFbKoU3SLu/1VrOv9+YOPUGdPK3BN9Bj96WTu9L63EVP3Zz+Kkl3QhATOMKvfhv1UJHRH9RaG/l70Aa7yp5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q1gEfX4ooogd6N/Fg6DJ++h+d3aAU4q6j9Vm1mPfLiI=;
+ b=XoWnmVA0wfaJuZaB65/Qhpn4T8nDRK3ukCKyXkqxa1bIYbbLWVAcXv0qjXz2bnPk/rJFBsqB+2ALD77bvYZvSC7tV2nEX5BYROp0V7mSVAZU0x65hkhyjZaLhTdsAPQ+pK4GZriGBXsuLeHTR75xytbqbOx8LXFV9C3LV8oH532sszTX4gqeo4B3i63hHAqL92IqT6R3l0m3zDNF9ooFftSQishZ+R8Sw/HdkC2rYTgI9DkebfpWZaupa47LnVKIvokbMNLPht/lG3qVpmPHNROFOQKy4dVrqG0+caQJg9q1N1KcGsmN4FvXprx6C9bHX1tAFElTtIdmXnJl29IAmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q1gEfX4ooogd6N/Fg6DJ++h+d3aAU4q6j9Vm1mPfLiI=;
+ b=x5LAmKVPOCoih99E0ZQxjp/mK2g8tzR4LeZNBRT8GbthPTcjHJcfC9CSrVKgDsQlcaVcqZ/7Q+9Wz7G4TpT3ixOXzaaqUpNeMXPYqv3SErBzLNkcc2nXIVM1yaEkNNSB4bQkq+qmc+8JPCUlO5+47wtUDeuiwRNGeCTtY+L4OOc=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BN8PR12MB3219.namprd12.prod.outlook.com (2603:10b6:408:9b::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Fri, 4 Feb
+ 2022 14:28:15 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::99d4:4d4f:653f:61be]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::99d4:4d4f:653f:61be%5]) with mapi id 15.20.4951.014; Fri, 4 Feb 2022
+ 14:28:15 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Bhardwaj, Rajneesh" <Rajneesh.Bhardwaj@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: move lockdep assert to the right place.
+Thread-Topic: [PATCH] drm/amdgpu: move lockdep assert to the right place.
+Thread-Index: AQHYGaR+y+hT0TIJWkevMIj9rPb9u6yDc4cB
+Date: Fri, 4 Feb 2022 14:28:15 +0000
+Message-ID: <BL1PR12MB5144317330B14001DCAAD5E5F7299@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20220204085201.30615-1-christian.koenig@amd.com>
+In-Reply-To: <20220204085201.30615-1-christian.koenig@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Arunpravin <arunpravin.paneerselvam@amd.com>,
- Matthew Auld <matthew.william.auld@gmail.com>
-References: <20220127141107.173692-1-Arunpravin.PaneerSelvam@amd.com>
- <20220127141107.173692-5-Arunpravin.PaneerSelvam@amd.com>
- <CAM0jSHOdMDQvWxGyHfW01UAe-x_eefFQSJnzU43=t6qL_Ec77g@mail.gmail.com>
- <c842bcfc-80ff-fafa-7242-cfca3ed65087@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <c842bcfc-80ff-fafa-7242-cfca3ed65087@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-02-04T14:28:15.286Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+suggested_attachment_session_id: e0fc2147-fba5-8520-6dfe-64da5b7b2aee
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 0ba7cbfa-be50-42b5-502f-08d9e7ea9511
+x-ms-traffictypediagnostic: BN8PR12MB3219:EE_
+x-microsoft-antispam-prvs: <BN8PR12MB321987CB8B62EBC849F8AA96F7299@BN8PR12MB3219.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1079;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: TyWS8xM496Si4E0gs0yglus4xqG+sngGfJz6TfuwzWdvrEEdAA63o1zmFtSUrBNvWvfI3iCRstukD7S6gGm/YoCTwOD7Y5gspTUM9Xf1+B4ogmEHgtUlh8KfuG27/zLLlwiB76CHMpgn/866yIEtVENy8zNPGtqtnoZcA7dFBpbUlbeW3n085PRq+Y33uYrEFk6e6wiq3o0GJT4q85Tv+jQa8rbnQ8hppKoMWgUjJUebqtO32ypE9HqAFkUMQypzLenUIA6/t2/Rr4d6S/MDo9x2ATA+vQnvjnWcWJNbt7NzrluiPsmUktKKqOp7qJcuIu2Wy/g4Q7ORbfflWQL3ImrmWileFKVEQ8/ffRAiKtiDVPImBfD84K+Bt1DBR7YZJ5wSrxYAYYIhqlrqMIz4xf+3Hp4QFBJYp7uTz6e74prRCESjRa+juMTV/fScH9GXCSwQk7Al64Zra5JzTqW/7tQ88EpXzPs2FAWG+EosKpqXu0dq3ztM40xycTcULg3OPx9H3MZxwrliH6DrRzA/FSOMBDCVe80E4N3Qq6FhaF9NakZMK62GmesOjHNTLv4wYGjdRuJx2HmjPXIqQwmaFw1lOkNOCQspJTOjDPD1ac3Hri78wqfIVlYZ0SY+wdVCi7okwsZTfk73k48NczvD5VTunOAJ7t+meB54n6hnznipQ9f9fB+30Fia+cvdSQM/e9StgMCPqNzZIygoM+fKXQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(86362001)(316002)(38100700002)(38070700005)(122000001)(83380400001)(19627405001)(55016003)(508600001)(66574015)(66476007)(64756008)(52536014)(6506007)(7696005)(9686003)(66946007)(5660300002)(8936002)(33656002)(8676002)(110136005)(53546011)(66446008)(76116006)(2906002)(71200400001)(26005)(186003)(66556008);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?vw31ZhooHbO8OySx7K1F3ni31EW2pgHo3+prLerQVed3K9NTGSBjJr+FEZ?=
+ =?iso-8859-1?Q?awG0udyMTGWf7j2IpNdGGTcNpApqJSunxujVn6FAb4gGQsMni4g/Yy1wqA?=
+ =?iso-8859-1?Q?LOvTUwdBVtmonwxFBGLOBJ2wn6Ztf0cJZnj7NphHLuWIoklWPT/6q5Ex8X?=
+ =?iso-8859-1?Q?GAQBh/r9tEU4cOXE7AbLTzSw5zqesyOJKdBgiwisXJcmXfnHU9TxY/dlW7?=
+ =?iso-8859-1?Q?e4X7zcjfnMM9MiW7/kQRiIc4vPlmyFiz60LWpRyATRD2LdksOQ8dGr7Vce?=
+ =?iso-8859-1?Q?7nMc7OlU6olM2lA8vWOcU2n8LrCy6FxWpi2+sMiVZTJIPAvknK3bQn0TXd?=
+ =?iso-8859-1?Q?Tbs0M+/jQuVE3/RWe0dPFWqzchblireW4G2Rbo2aseKeqnJgFB8jMn9c1o?=
+ =?iso-8859-1?Q?vqvG7mByvug5KQCEWszWZLB1Syj1GHzbmnPF/avuT3/7nCnQZh3jLIgGMs?=
+ =?iso-8859-1?Q?rH91ue/G77UWDA8nWllqMoat5joA0OiaBWxC7mr6W9bf8uwTlQw83hT9Dd?=
+ =?iso-8859-1?Q?NsTWpaE1LM6D6L6P3RhKEOHozRi7dsq9D7Xh0NzA3fO2adcAUopH9lo1pX?=
+ =?iso-8859-1?Q?Nzn/CBvBagLURezI/tDc/ETeiTuGTLPvtr9C561Bc5ReFPdXv11K9MXxaS?=
+ =?iso-8859-1?Q?L5Ir4KJ5pQx9/ZHx3u54NhVYkxpb2gibvIYcIMa/p/KMNe8rf8mzu8yvTE?=
+ =?iso-8859-1?Q?TdiCxamPP2hsLubr3SfOQaTMvpauPbpHENmckUR2cvSkliRqbH9lr87U3B?=
+ =?iso-8859-1?Q?6nyjmbse/CIUp/AIY/soGQJHqNIORCjoE3VKYaOXJR/dLtSCNbpz6zf0pk?=
+ =?iso-8859-1?Q?0c+yKKI0fcP7cj+OPH3eQ3RQbdDSjGSgiZttsZvQqHWao9T9ume2RdDoH6?=
+ =?iso-8859-1?Q?luwF41ztCk2qdz6HwXigKqssj6BnESxK3b7pNeTwJHjbAI3zxoSPTDHGQQ?=
+ =?iso-8859-1?Q?DVmHp3lpdVP0EpC16SsHaNaUTrz0djPpi8QPgFO79W8CKHvp4H9Lsl+03d?=
+ =?iso-8859-1?Q?SMapgE/REVo0BRbO7IeJJ9JbYnmWI9MQROz6SrkIc5gnkSJORGToYJYgOk?=
+ =?iso-8859-1?Q?zfv+kiHZtWt0g4+QenIGi6TReMWBLBAQHJWE+uOAygTo9pNuNdRqYuMiIM?=
+ =?iso-8859-1?Q?bmOyNrK8TrGE1Wd8EbbRae9MEbk0WdrbBY+EvRNCffRvrsfRSNCplyXWAj?=
+ =?iso-8859-1?Q?b49FW8v6josFFRmSoaM/jWkd3KG70+UIxG/+FG5MJYSxJiNyoKgHtF+OPD?=
+ =?iso-8859-1?Q?aaA9B0xTddgQXA/hYIJRqilHeYuW+ldc4CPDGellT2zS4HE5H2LWhsSzec?=
+ =?iso-8859-1?Q?3jyE7vRBehYFS8SpgJhspPRhvbXtTttTxo2StRAdM3caPeKjQ63ghYxlyd?=
+ =?iso-8859-1?Q?84vFRrr8SgEeN6Lg8vIHQLoZRbdBQ96AKHtBhRuVAkphPBpr++3HRwaeWg?=
+ =?iso-8859-1?Q?8ZxJOeIO2O8UMjJajnulNDWj5EKG3tUJJSKbyudBp3+Hy7UMnNmLf1TZZj?=
+ =?iso-8859-1?Q?lamHk7UebQZrjnAaruLLGufQVL6/EpHIYokivlywB9npPuJiTdeVkmYpI5?=
+ =?iso-8859-1?Q?V7cHh+G7NT3h/ucIYqZg9l7sBP9rYuFg7Jthcop72+CGd6yyVJ8UjbhqFJ?=
+ =?iso-8859-1?Q?hIEPjR4V/n3C91S+EYzQUyrYeg2mRWU4gGdiO0vsk4mdVxXy9bnuHZ3VSg?=
+ =?iso-8859-1?Q?y5Lr4usHHp4qwJLXvjM=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB5144317330B14001DCAAD5E5F7299BL1PR12MB5144namp_"
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ba7cbfa-be50-42b5-502f-08d9e7ea9511
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Feb 2022 14:28:15.8626 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yIdLMESeDICLM1gD0zour/CV5yWKi0eKsDLMVVG8FgkyiQO/1G3/fIuJtR3/wS4HV+kjG4pMYBF0ZlWuXjbDyg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3219
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,272 +126,154 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, tzimmermann@suse.de,
- alexander.deucher@amd.com,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Matthew Auld <matthew.auld@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 04.02.22 um 12:22 schrieb Arunpravin:
-> On 28/01/22 7:48 pm, Matthew Auld wrote:
->> On Thu, 27 Jan 2022 at 14:11, Arunpravin
->> <Arunpravin.PaneerSelvam@amd.com> wrote:
->>> - Remove drm_mm references and replace with drm buddy functionalities
->>> - Add res cursor support for drm buddy
->>>
->>> v2(Matthew Auld):
->>>    - replace spinlock with mutex as we call kmem_cache_zalloc
->>>      (..., GFP_KERNEL) in drm_buddy_alloc() function
->>>
->>>    - lock drm_buddy_block_trim() function as it calls
->>>      mark_free/mark_split are all globally visible
->>>
->>> v3(Matthew Auld):
->>>    - remove trim method error handling as we address the failure case
->>>      at drm_buddy_block_trim() function
->>>
->>> v4:
->>>    - fix warnings reported by kernel test robot <lkp@intel.com>
->>>
->>> v5:
->>>    - fix merge conflict issue
->>>
->>> v6:
->>>    - fix warnings reported by kernel test robot <lkp@intel.com>
->>>
->>> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
->>> ---
->>>   drivers/gpu/drm/Kconfig                       |   1 +
->>>   .../gpu/drm/amd/amdgpu/amdgpu_res_cursor.h    |  97 +++++--
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |   7 +-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c  | 259 ++++++++++--------
->>>   4 files changed, 231 insertions(+), 133 deletions(-)
->> <snip>
->>
->>> -/**
->>> - * amdgpu_vram_mgr_virt_start - update virtual start address
->>> - *
->>> - * @mem: ttm_resource to update
->>> - * @node: just allocated node
->>> - *
->>> - * Calculate a virtual BO start address to easily check if everything is CPU
->>> - * accessible.
->>> - */
->>> -static void amdgpu_vram_mgr_virt_start(struct ttm_resource *mem,
->>> -                                      struct drm_mm_node *node)
->>> -{
->>> -       unsigned long start;
->>> -
->>> -       start = node->start + node->size;
->>> -       if (start > mem->num_pages)
->>> -               start -= mem->num_pages;
->>> -       else
->>> -               start = 0;
->>> -       mem->start = max(mem->start, start);
->>> -}
->>> -
->>>   /**
->>>    * amdgpu_vram_mgr_new - allocate new ranges
->>>    *
->>> @@ -366,13 +357,13 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->>>                                 const struct ttm_place *place,
->>>                                 struct ttm_resource **res)
->>>   {
->>> -       unsigned long lpfn, num_nodes, pages_per_node, pages_left, pages;
->>> +       unsigned long lpfn, pages_per_node, pages_left, pages, n_pages;
->>> +       u64 vis_usage = 0, mem_bytes, max_bytes, min_page_size;
->>>          struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
->>>          struct amdgpu_device *adev = to_amdgpu_device(mgr);
->>> -       uint64_t vis_usage = 0, mem_bytes, max_bytes;
->>> -       struct ttm_range_mgr_node *node;
->>> -       struct drm_mm *mm = &mgr->mm;
->>> -       enum drm_mm_insert_mode mode;
->>> +       struct amdgpu_vram_mgr_node *node;
->>> +       struct drm_buddy *mm = &mgr->mm;
->>> +       struct drm_buddy_block *block;
->>>          unsigned i;
->>>          int r;
->>>
->>> @@ -391,10 +382,9 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->>>                  goto error_sub;
->>>          }
->>>
->>> -       if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
->>> +       if (place->flags & TTM_PL_FLAG_CONTIGUOUS)
->>>                  pages_per_node = ~0ul;
->>> -               num_nodes = 1;
->>> -       } else {
->>> +       else {
->>>   #ifdef CONFIG_TRANSPARENT_HUGEPAGE
->>>                  pages_per_node = HPAGE_PMD_NR;
->>>   #else
->>> @@ -403,11 +393,9 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->>>   #endif
->>>                  pages_per_node = max_t(uint32_t, pages_per_node,
->>>                                         tbo->page_alignment);
->>> -               num_nodes = DIV_ROUND_UP_ULL(PFN_UP(mem_bytes), pages_per_node);
->>>          }
->>>
->>> -       node = kvmalloc(struct_size(node, mm_nodes, num_nodes),
->>> -                       GFP_KERNEL | __GFP_ZERO);
->>> +       node = kzalloc(sizeof(*node), GFP_KERNEL);
->>>          if (!node) {
->>>                  r = -ENOMEM;
->>>                  goto error_sub;
->>> @@ -415,9 +403,17 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->>>
->>>          ttm_resource_init(tbo, place, &node->base);
->>>
->>> -       mode = DRM_MM_INSERT_BEST;
->>> +       INIT_LIST_HEAD(&node->blocks);
->>> +
->>>          if (place->flags & TTM_PL_FLAG_TOPDOWN)
->>> -               mode = DRM_MM_INSERT_HIGH;
->>> +               node->flags |= DRM_BUDDY_TOPDOWN_ALLOCATION;
->>> +
->>> +       if (place->fpfn || lpfn != man->size)
->>> +               /* Allocate blocks in desired range */
->>> +               node->flags |= DRM_BUDDY_RANGE_ALLOCATION;
->>> +
->>> +       min_page_size = mgr->default_page_size;
->>> +       BUG_ON(min_page_size < mm->chunk_size);
->>>
->>>          pages_left = node->base.num_pages;
->>>
->>> @@ -425,36 +421,61 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->>>          pages = min(pages_left, 2UL << (30 - PAGE_SHIFT));
->>>
->>>          i = 0;
->>> -       spin_lock(&mgr->lock);
->>>          while (pages_left) {
->>> -               uint32_t alignment = tbo->page_alignment;
->>> -
->>>                  if (pages >= pages_per_node)
->>> -                       alignment = pages_per_node;
->>> -
->>> -               r = drm_mm_insert_node_in_range(mm, &node->mm_nodes[i], pages,
->>> -                                               alignment, 0, place->fpfn,
->>> -                                               lpfn, mode);
->>> -               if (unlikely(r)) {
->>> -                       if (pages > pages_per_node) {
->>> -                               if (is_power_of_2(pages))
->>> -                                       pages = pages / 2;
->>> -                               else
->>> -                                       pages = rounddown_pow_of_two(pages);
->>> -                               continue;
->>> -                       }
->>> -                       goto error_free;
->>> +                       pages = pages_per_node;
->>> +
->>> +               n_pages = pages;
->>> +
->>> +               if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
->>> +                       n_pages = roundup_pow_of_two(n_pages);
->>> +                       min_page_size = (u64)n_pages << PAGE_SHIFT;
->>> +
->>> +                       if (n_pages > lpfn)
->>> +                               lpfn = n_pages;
->>>                  }
->>>
->>> -               vis_usage += amdgpu_vram_mgr_vis_size(adev, &node->mm_nodes[i]);
->>> -               amdgpu_vram_mgr_virt_start(&node->base, &node->mm_nodes[i]);
->>> +               mutex_lock(&mgr->lock);
->>> +               r = drm_buddy_alloc_blocks(mm, (u64)place->fpfn << PAGE_SHIFT,
->>> +                                          (u64)lpfn << PAGE_SHIFT,
->>> +                                          (u64)n_pages << PAGE_SHIFT,
->>> +                                          min_page_size,
->>> +                                          &node->blocks,
->>> +                                          node->flags);
->>> +               mutex_unlock(&mgr->lock);
->>> +               if (unlikely(r))
->>> +                       goto error_free_blocks;
->>> +
->>>                  pages_left -= pages;
->>>                  ++i;
->>>
->>>                  if (pages > pages_left)
->>>                          pages = pages_left;
->>>          }
->>> -       spin_unlock(&mgr->lock);
->>> +
->>> +       /* Free unused pages for contiguous allocation */
->>> +       if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
->>> +               u64 actual_size = (u64)node->base.num_pages << PAGE_SHIFT;
->>> +
->>> +               mutex_lock(&mgr->lock);
->>> +               drm_buddy_block_trim(mm,
->>> +                                    actual_size,
->>> +                                    &node->blocks);
->>> +               mutex_unlock(&mgr->lock);
->>> +       }
->>> +
->>> +       list_for_each_entry(block, &node->blocks, link)
->>> +               vis_usage += amdgpu_vram_mgr_vis_size(adev, block);
->>> +
->>> +       block = list_first_entry_or_null(&node->blocks,
->>> +                                        struct drm_buddy_block,
->>> +                                        link);
->>> +       if (!block) {
->>> +               r = -ENOENT;
->>> +               goto error_free_res;
->>> +       }
->>> +
->>> +       node->base.start = amdgpu_node_start(block) >> PAGE_SHIFT;
->> Hmm, does this work? It looks like there are various places checking
->> that res->start + res->num_pages <= visible_size, which IIUC should
->> only return true when the entire object is placed in the mappable
->> portion. i915 is doing something similar. Also it looks like
->> ttm_resource_compat() is potentially relying on this, like when moving
->> something from non-mappable -> mappable in
->> amdgpu_bo_fault_reserve_notify()?
->>
->> Perhaps something like:
->>
->> if (vis_usage == num_pages)
->>      base.start = 0;
->> else
->>      base.start = visible_size;
->>
->> Otherwise I guess just keep amdgpu_vram_mgr_virt_start()?
->>
-> hmm, I wonder how it works, may be we didn't go through the corner case
-> where res->start + res->num_pages > visible_size
->
-> in amdgpu if AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED flag is enabled, we
-> set the ttm_place.lpfn = visible_pfn at
-> amdgpu_bo_placement_from_domain(). Hence, in amdgpu_vram_mgr_new()
-> function DRM_BUDDY_RANGE_ALLOCATION flag is enabled, which calls the
-> alloc_range_bias() in drm_buddy.c.
->
-> Here we get blocks chained together in random order complying
-> visible_pfn range. say for instance num_pages = 13
-> we may get,
-> Block 1 addr - 500 (order-3)
-> Block 2 addr - 400 (order-2)
-> Block 3 addr - 600 (order-0)
->
-> I think currently base.start = Block 1 start address fetched from the
-> list and the address 500 assigned to it, which is good for the resource
-> access since we access the blocks using the list link
->
-> But for the check res->start + res->num_pages <= visible_size in few
-> places, this doesn't work. AFAIK, keeping amdgpu_vram_mgr_virt_start()
-> doesn't work since the function looks for nodes in continuous address to
-> calculate the start address. AFAIK, assigning the start address (400 +
-> num_pages <= visible_size) mislead in our case since we use linked list
->
-> how about replacing the check with a bool type return function which
-> checks the each block start address + block size <= visible_size?
+--_000_BL1PR12MB5144317330B14001DCAAD5E5F7299BL1PR12MB5144namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Yeah, we already have that in the TTM code. It's just not used 
-everywhere IIRC.
+[Public]
 
-The node->start can just be set to the invalid offset for now and should 
-be removed as soon as we don't need it any more.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Christia=
+n K=F6nig <ckoenig.leichtzumerken@gmail.com>
+Sent: Friday, February 4, 2022 3:52 AM
+To: Bhardwaj, Rajneesh <Rajneesh.Bhardwaj@amd.com>; amd-gfx@lists.freedeskt=
+op.org <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: move lockdep assert to the right place.
 
-Regards,
-Christian.
+Since newly added BOs don't have any mappings it's ok to add them
+without holding the VM lock. Only when we add per VM BOs the lock is
+mandatory.
 
+Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
+Reported-by: Bhardwaj, Rajneesh <Rajneesh.Bhardwaj@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_vm.c
+index fdc6a1fd74af..dcc80d6e099e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -375,6 +375,8 @@ static void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_=
+base *base,
+         if (bo->tbo.base.resv !=3D vm->root.bo->tbo.base.resv)
+                 return;
+
++       dma_resv_assert_held(vm->root.bo->tbo.base.resv);
++
+         vm->bulk_moveable =3D false;
+         if (bo->tbo.type =3D=3D ttm_bo_type_kernel && bo->parent)
+                 amdgpu_vm_bo_relocated(base);
+@@ -2260,8 +2262,6 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct amdgpu_d=
+evice *adev,
+ {
+         struct amdgpu_bo_va *bo_va;
+
+-       dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+-
+         bo_va =3D kzalloc(sizeof(struct amdgpu_bo_va), GFP_KERNEL);
+         if (bo_va =3D=3D NULL) {
+                 return NULL;
+--
+2.25.1
+
+
+--_000_BL1PR12MB5144317330B14001DCAAD5E5F7299BL1PR12MB5144namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Christian K=F6nig &lt;ckoenig=
+.leichtzumerken@gmail.com&gt;<br>
+<b>Sent:</b> Friday, February 4, 2022 3:52 AM<br>
+<b>To:</b> Bhardwaj, Rajneesh &lt;Rajneesh.Bhardwaj@amd.com&gt;; amd-gfx@li=
+sts.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: move lockdep assert to the right place.=
+</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Since newly added BOs don't have any mappings it's=
+ ok to add them<br>
+without holding the VM lock. Only when we add per VM BOs the lock is<br>
+mandatory.<br>
+<br>
+Signed-off-by: Christian K=F6nig &lt;christian.koenig@amd.com&gt;<br>
+Reported-by: Bhardwaj, Rajneesh &lt;Rajneesh.Bhardwaj@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--<br>
+&nbsp;1 file changed, 2 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_vm.c<br>
+index fdc6a1fd74af..dcc80d6e099e 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+@@ -375,6 +375,8 @@ static void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_=
+base *base,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bo-&gt;tbo.base.resv !=
+=3D vm-&gt;root.bo-&gt;tbo.base.resv)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return;<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dma_resv_assert_held(vm-&gt;root.bo-&=
+gt;tbo.base.resv);<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm-&gt;bulk_moveable =3D f=
+alse;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bo-&gt;tbo.type =3D=3D=
+ ttm_bo_type_kernel &amp;&amp; bo-&gt;parent)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_vm_bo_relocated(base);<br>
+@@ -2260,8 +2262,6 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct amdgpu_d=
+evice *adev,<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo_va *bo_va=
+;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dma_resv_assert_held(vm-&gt;root.bo-&=
+gt;tbo.base.resv);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo_va =3D kzalloc(sizeof(s=
+truct amdgpu_bo_va), GFP_KERNEL);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bo_va =3D=3D NULL) {<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return NULL;<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB5144317330B14001DCAAD5E5F7299BL1PR12MB5144namp_--
