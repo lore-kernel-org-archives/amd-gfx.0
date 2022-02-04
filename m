@@ -4,127 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3110C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 18:44:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22CF5C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 18:47:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F91B10E6BF;
-	Fri,  4 Feb 2022 18:44:58 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2048.outbound.protection.outlook.com [40.107.96.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2DF810E6BF
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Feb 2022 18:44:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C90210E773;
+	Fri,  4 Feb 2022 18:47:25 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2073.outbound.protection.outlook.com [40.107.94.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E143C10E773
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Feb 2022 18:47:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hJiB0vQA1hvx8J6+GC0WT14BUTfGCKDDfIbU9QxORhHQH36ltU4MhJjiec5JppyVQidA5HGn2l5srjBcRQ5e8DhDJbqX9+ZfkrS2sUQN7gvUQbxpPWR+5ui8fUUSp1lY2659EAAk7lSex7B++pmIrXJOS96RvjCTdpjtw66xwFimzfzC4zx2FcrVE2zjEkf5IuhgSFqB9dDQbG5qYYi2Qa3f9fx3WQWzN8o1boJNdJ+EMFpbd3cqA/dWpKRm08RK/zLlf20k6/WFIGs8kVtH0GZKGBXqchjvpaoiN+tLFk0uxceVHZojw7jOiT8O4b7g5oKEMjypEaJoJ0CYlJ0tUA==
+ b=MynI3nzJXTCqUE1jp1drgs7DY+thqAiHc2inIHXds5kH96Xab8lzShYyV+CO2rvi9HqQA33LrXN0Y6tWBZcb9L1cjPQdz1AWe9CUD4JdYb32c5QvaIYBDjtg0wPD365EfUpimDCe49c+AR+sgwcl8dRLsivN2qVFBVU72DkgY0Nobzk4JHOREWuCsWsM+2FZ2Nw7nlCgHFb8JUMgS8shLdR8LZoN5JF6Np4VUOoFJji9M7T0XJMeMUpj3yBERmPAjUUAPVtm8UVOymXdftAekvzPNTVwqXnjxITd8ePcgdX2/AqRVuPotdGIPWjYJsKOOFI7oJNNSfQUllVl0XcpkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4hFtnOiVqLBHdRddmkvxWHWMseWhFhVTWM3ZTVPAvqU=;
- b=XZgT30Iu8NH4JXnUeBeE3zEhrosh7QTUHd5s4zmhWgrGM2hVebwatWmblkQxbjzeXnYCcnyjcdLIir/H7WtY11g1va6ksAGOAr89CMVWKbmkqOHg6FTSPwIDfUFWU0UECHS0Oonpe97e0m04TanrI34RfNighOdQOYM3L83W0ELJdHpORm/6NdT8V7CNWlZH2MSAlE5bTH4UthUfFO0XWkr/YUREAHIWpoe/+qcszo1CkW4QIkJ6Y4WYEbxwdOPOGDM+68JJ5JKx5+YqFHR1U0JRM7h9zPhwD9tfu1fYLeikvRqXUqLhy78zxpUKi5D6cJHY6oCNmHlp+esq7sWrdg==
+ bh=W9mXhpXNltkK65wMVnv5blhqe5uy2urVIC0WQGiG+5Y=;
+ b=a8mg0VYTH/FAKuN9pwW2YNT1+TXDEj1BAwBOCEDxKFJ6AyXUmjcaWs5VVQQDK5OrX0nrNs59QPPrZo+caCX6xdR7vWZwOorzqwNXdYeknw2+0vpVvB6RznNEl9Ce+cioRWxW97Fnav8i8zKoMdvyvFWoD/zue/yf7jWNE4uYQSZvCH/tJFrba4uURiNtdB3G6Xcg0sztGqlUic3xGCz7TLYSIDURuaHt6P3cU83DPhGHhFc/HRMCNyVNhhsnRm0FyyE+rIhkUKoyjNc8oyf+7einJ0LmfgYUdnw5sdx0ff5txHYhtIubeX/hEfNlJbxDLUHJlWtNDbl2I409hymbUg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4hFtnOiVqLBHdRddmkvxWHWMseWhFhVTWM3ZTVPAvqU=;
- b=Sp5ZGLCkfIu7WmZ6SQvgZiFba/tBJ0+WWBgGKJEO4PRKeRS7dGUmwLcpaLsL9FSgn9f3p1LI/cCWxHcJYtXFRgPDoEZ4+WkPwUrsBW2z9Bt6srFIg/ZZXLTXr/tUKcqiVNBGaQQ60jdlg8hJKX121CfqQjtbWeU6/Up63k0qhA4=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by DM6PR12MB4862.namprd12.prod.outlook.com (2603:10b6:5:1b7::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Fri, 4 Feb
- 2022 18:44:52 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::99d4:4d4f:653f:61be]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::99d4:4d4f:653f:61be%5]) with mapi id 15.20.4951.014; Fri, 4 Feb 2022
- 18:44:52 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Sharma, Shashank" <Shashank.Sharma@amd.com>, "Lazar, Lijo"
- <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 4/4] drm/amdgpu/nv: add navi GPU reset handler
-Thread-Topic: [PATCH 4/4] drm/amdgpu/nv: add navi GPU reset handler
-Thread-Index: AQHYDwZgmiM6tPfbKk6pcwThDQVivaxumGUAgBUU44CAAANYgIAAAlUAgAAA3ACAAAFugIAAATOAgAABfoCAAADyAIAAAKOAgAAVUsGAAAEddA==
-Date: Fri, 4 Feb 2022 18:44:52 +0000
-Message-ID: <BL1PR12MB514487E169A1614431BCD1F7F7299@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <146b13d5-f883-6aff-2f3a-0570d9041bf3@amd.com>
- <a0693436-619c-efa1-b3f1-2fca6377e2fe@amd.com>
- <817df2c3-e7af-92cb-53f8-8bc70b69b988@amd.com>
- <BYAPR12MB46149A07EB030CB27FDA8B1397299@BYAPR12MB4614.namprd12.prod.outlook.com>
- <8bada9e4-d6d5-e11a-45fe-aea7615f3356@amd.com>
- <BYAPR12MB4614325D69EACA459547E4F597299@BYAPR12MB4614.namprd12.prod.outlook.com>
- <77fd42df-be70-18bd-ebb8-503214ef6af8@amd.com>
- <BYAPR12MB461419D8152EBBD70BB9BAFC97299@BYAPR12MB4614.namprd12.prod.outlook.com>
- <c28e3fad-29ac-a326-30c3-4f4de0001e47@amd.com>
- <BYAPR12MB4614628DE8E6D39EE53307DF97299@BYAPR12MB4614.namprd12.prod.outlook.com>
- <b885ef98-3ff3-92b3-c238-041a0f5ab2a6@amd.com>
- <BL1PR12MB5144C96658B5B9F3058FCB1AF7299@BL1PR12MB5144.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB5144C96658B5B9F3058FCB1AF7299@BL1PR12MB5144.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-02-04T18:44:52.103Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: 51db91a3-10a6-80f6-8c2c-7a55877ddf82
-authentication-results: dkim=none (message not signed)
+ bh=W9mXhpXNltkK65wMVnv5blhqe5uy2urVIC0WQGiG+5Y=;
+ b=w1LsXPN6s3KeYPyblhDGhEEFN9U/8Y3bdc2NQvViQJxVH+Z8s7x7p3iyCnJOgFog/2l7Ofu3L5QMpf8j5LpatsFNO9DEZMSqqeV7Tyw4JBoKRpY76ssmua8BrnWETxXpt2kb5Hs78FTgm6blCTtZUeYYs5NN+iNcEPEuclKExr4=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d9e3ad58-7740-4b67-b726-08d9e80e6e65
-x-ms-traffictypediagnostic: DM6PR12MB4862:EE_
-x-microsoft-antispam-prvs: <DM6PR12MB486293221A5CB1D97A480E31F7299@DM6PR12MB4862.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: qBdlyy8mlonaisEzVNpLHXT5o9iGpfA3DMfsCeZ3/TEb48XLW4Lcv+9mM90i/kNm6ShcRBjLV4W36K7jxeFwBy9O0Hk2yD6Ae4JJBONiqCda08DaBIeSOY5R+GnviywQ6tsr6R5CGIq+rilHBwFZiyQF0t9NeP9u6cEgDIbrcdH4iJp4mG0rRPr/le7wEqrJ0XqBBoG4Pm74380A6+71XlBfsSHuu0bjHSJAKBHaueu+vQliNgMtc0qavdM38xfmZZ0nZ2JYb4Skz0oMnVlY/bUFGJQfl8WwgaBJ8rQ/6hKa4QsgO/WGtl3dujJ7fJf9Aiqmgvw+s7YdUoh8sZL+XTnuW0Jkj44dmpfhH7bW+ZsTtAbLjfoZGEdV/1B95u/RP4wsjKUk66EWv6Fr/r3vOR36UnDhibvz4MJhnYx1tnAILdABETccjANIvRw7LDQvJf+VTRzCpBsN/fRlw5DNn6xEvNRndUdxwuAnF5XIOp1nZVqUpyQcnaicolJ8Fa1Tn4D/eWnQ7zPFskLV5NLIP0F6UVgP2t8KX7GMkjPOeRju7qllIsSGEEbxiorJtuxRsg3b0nzT7ugTAsSLLpBkGNXxYY8BTPV5qYnUXnmx5asDwrphhEkNrOka1BM2UmJpzx05jgWDpHL93hnsf6QowA6caBvHSe9PF4lQZVAxgyv73UWz7YbxkBweNMZsGTgh/H+XMcs/wWG4zNMLt13M3w==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(5660300002)(38070700005)(2906002)(26005)(53546011)(38100700002)(110136005)(186003)(83380400001)(54906003)(508600001)(55016003)(71200400001)(66446008)(66946007)(66556008)(76116006)(122000001)(316002)(8936002)(86362001)(33656002)(9686003)(2940100002)(52536014)(6506007)(7696005)(64756008)(19627405001)(66476007)(8676002)(4326008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?40sQEmp380jJXybbSok0mQtUGavdEe6czL+47A/gmAPLw/BMPgiMtL8uViAL?=
- =?us-ascii?Q?Df7jnjgelVe4+Kn1wiKkBu2lIpmHPoaR25Rp2u/qlVhJL4CcPkgsETBBYMsk?=
- =?us-ascii?Q?uqJg6jjPj1R83IJZ0Zsx2332iwWZ2qEq/kVUaAuyvp2A+9aE5B19cE+jSYUg?=
- =?us-ascii?Q?hPJYy7bLKx7HEPd3EXYgvqaptuuLo6Bw/MQPfdpktvKUHr+M6yD31zLvd+iY?=
- =?us-ascii?Q?t/51LsRkYgaa0GJ90ReqeQxqnNzUqLjjvCB96nCUC8zDS/SZC44Q/6wjtvAg?=
- =?us-ascii?Q?DBRlf7WUTFRP5HYkEAgJpEpA8OP/Syi+P5Gj/UJ3gI88Cac49BekR83awYOm?=
- =?us-ascii?Q?xU0gM233YqpavxJGWYQ4MECNuTgd0zB2iiEQGKIJ+GE2w0mKD+ou5Wpf2KAq?=
- =?us-ascii?Q?UccErAW65ToSrukU/vRWnRDXmLSjCDAtmmDi35XtoY54GuJNCyt5aBBB+UDd?=
- =?us-ascii?Q?B6GEHhyl7aBQ0aBmXJ2ViE444R7DkB0PXBNrwqSA8GFk1/DECZkyJAoizf3i?=
- =?us-ascii?Q?LSUIeDlMlzIGnCBHjR9ATY5n75NMauaXgpFT8HAexE9IGnTyUwvRKtVISqDJ?=
- =?us-ascii?Q?1Ua9E5cNxQhX6mez1H5UlmXTRKnrWjA547QXWiiew6YEvWb6rYWVj/G66GLn?=
- =?us-ascii?Q?x/1HnXD8vnCOARjiwFGBgp/N5oGASfKFdApIQhiLj9NT8mKRVzWavRkAqnEg?=
- =?us-ascii?Q?XNdqj8FJygMfifbaGke83ODothsMiXzC5HsXCNSjyM2VQDSvH0Ckb5gwgfyp?=
- =?us-ascii?Q?CYVFp8hF5eI7GalRuyJbzPWG17CAtW5XD8eadBNcXzCZ1ZdNbPeaWs9Yj6+Q?=
- =?us-ascii?Q?l9keBITo8Pi08seRkug33VhyNdOfA5oZeerIEdavDeEm1whcYATg73vzj09B?=
- =?us-ascii?Q?ztqX8tAvFkBagSKacmluPKMiOjqT1AffOwD7A9P5deT3u8otqQCeDhuYanme?=
- =?us-ascii?Q?7cDb9xOmTquMvq9ct1M3OA5FkQYdVc43Nu327dn3eg07tosHa18N69Te790h?=
- =?us-ascii?Q?AysFPVYLx0JDQPuIo6AcUWY1BrNZi8AnAWy+BcM1yi0sm9HW6AgzP6aH9rps?=
- =?us-ascii?Q?+2krp8Pf2fgysS8SKAPvs4atAmf2DoSAx/CRpZiwAxREb5lS2CrUQlHRs1JA?=
- =?us-ascii?Q?AxDD4fXOiyWVTSvdJL9WWVktHS1QRyVtvWKeO+sVickdrn3A0VpW74hUMWL3?=
- =?us-ascii?Q?LPa5KXVLUYETEVsoKRsvZkNdbt62p/156SZE9YcHlygqwMVlBkTVqDV6+Pjm?=
- =?us-ascii?Q?eGWa2KgpusiKVvREu3eXjMRUXKwXasQjGv8I4iWi6RfAmo/c2zn43dx/HjJS?=
- =?us-ascii?Q?zirE5ZymPJVKnr7NJL9Cm4X8NLzuYAYTe+Cf5RHvLRjIHIYpIOOJvn1nVvgv?=
- =?us-ascii?Q?n/WHqk5xtTI62Wv+FslWKKObBY/A/ZjPXUzpgNdimikfOR9+mxatc9euzT9v?=
- =?us-ascii?Q?PVm7ofLk7LgCpXXM3Ldhe+1+Uoms0k3b2wpWBo7bNIbs8Jxwjdh8l2YbtsLa?=
- =?us-ascii?Q?N6beA6Pev4tLDMwPT75QGhzdA9khzsQLHmIEuu474tai7lWtt2y7MWp2OYsO?=
- =?us-ascii?Q?GGfx9cVOIrQDqNxC25Yzy3C9ZCImGbff+7BKmpLCRviggYu6g/Xxcb3IAC/V?=
- =?us-ascii?Q?+ZCys8kWjAAxmj3RfEicPtY=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB514487E169A1614431BCD1F7F7299BL1PR12MB5144namp_"
+Received: from DM5PR12MB1531.namprd12.prod.outlook.com (2603:10b6:4:f::8) by
+ DM6PR12MB2874.namprd12.prod.outlook.com (2603:10b6:5:15e::29) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4951.12; Fri, 4 Feb 2022 18:47:22 +0000
+Received: from DM5PR12MB1531.namprd12.prod.outlook.com
+ ([fe80::d01b:f78:ca43:12cb]) by DM5PR12MB1531.namprd12.prod.outlook.com
+ ([fe80::d01b:f78:ca43:12cb%11]) with mapi id 15.20.4930.023; Fri, 4 Feb 2022
+ 18:47:22 +0000
+Message-ID: <df73c8a3-0c85-0402-01e4-38e6bec5af17@amd.com>
+Date: Fri, 4 Feb 2022 13:47:19 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: [PATCH] drm/amdgpu: move lockdep assert to the right place.
+Content-Language: en-CA
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <20220204085201.30615-1-christian.koenig@amd.com>
+ <32b9cdf2-3d71-4228-3471-38584575f41b@amd.com>
+ <668b5be7-de6c-4c47-9756-6452f316cd7e@amd.com>
+ <108a3c26-df8c-c7ea-2228-25ec69afe50a@gmail.com>
+From: "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>
+In-Reply-To: <108a3c26-df8c-c7ea-2228-25ec69afe50a@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR08CA0025.namprd08.prod.outlook.com
+ (2603:10b6:208:239::30) To DM5PR12MB1531.namprd12.prod.outlook.com
+ (2603:10b6:4:f::8)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 01ddfd3a-9ad0-4400-6dcf-08d9e80ec758
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2874:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB287496FD3543A389485B0AC4FE299@DM6PR12MB2874.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UN8FjzWe+rF6XeEY0X9zFPOU2xm8q8wtNqLWrgViyYA2wJGzhkWxpXTRmI7CQc0+OgzHZw7zq4C3yIKaVCCIkklOka2OM9RnLQ5WOSKXCSqpao1o/2MaJKVmVTEd0/+WL2zV/jzT0Vr/42okzsH5ZBqHI+Usmge6nm58EPuXYHvhDvNR0XxOTPhtIP8LL2f4YeMnTYZO/od9qhfS/YqZ8UKAXn1e2aWk+109trlguXxFW+faPW3OArTKtDI9bf/qS8SCg7XGP+gBVNW/46AWwXSIfk8p9PQ252ZrSXfetwg1nQN7tWrtGFVKH6eVE00ksgZqVB/835Q+VyxlA2J69m/ZI6JIj1PhQjF4FD6BILR2slvV6H4RYZzhJbOjmHvZJbq2fvM5M0JubCrRv7OGKc3f++iV+22EpGsNEiikAmBQqEBJEx+zUbum0q63X4RDb6spOjWAb5wqGFzRE4YglCmdA2SPDkU7hMLqfdOmmxsSRjqjiIH1XgusyyVBckXc5zJxyaJyuGGSUg6dvC/douoQJxGvQxom1xcrr+SuTK5nwlILqVK/acO63ccVBGStaZ4cQtLEELwaCtraw4yl+63gWSQOH4WHzWayKz0uxUT/XTnPac1hb0l64fdvncSvx4lBbDehSEFFA1bhUI922Wp/wSrCdPCmX8dsSO/UaPBsZVRUzpkLpmvdfRpWl8z1G1ZOTVoynnGWFym1EsMOKn4XY2S6W80q+/Rf65lpRX4ymZURqbNLLRA7MUjuw5us
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1531.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(83380400001)(66946007)(66476007)(66574015)(8676002)(36756003)(6666004)(6506007)(5660300002)(6512007)(31686004)(110136005)(8936002)(53546011)(66556008)(6636002)(26005)(186003)(6486002)(2906002)(2616005)(86362001)(316002)(38100700002)(508600001)(31696002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ai9UTGNCVER1SWVxOGVBbDYvdnlGRVUxN1AraGlqb2lzaUdkZlFkZGU4TEJJ?=
+ =?utf-8?B?N09ycUYveFhFU1EzUGk0bUN0QXVRYTRZSE4vbFRiVU1oRWwwNTB0a2g3M2Zl?=
+ =?utf-8?B?L1UvNG84aTFTTW5qM1FCNGZXRk5PcmVtWTJVZ25vUWVoWWdZbzRsL1FwNGVx?=
+ =?utf-8?B?amN2QTBDNEMveGlORnVrNzdrZ3NlcEV2LzBlSlhJWDlwM1pRbzB6bmFGVTg5?=
+ =?utf-8?B?STc1SFNhOVh1MVhXekNYY3QyOTdkNkJEUzRENWw4eDJLTi8xNzZzeEJrZDhS?=
+ =?utf-8?B?WStUaW1aZWhWbmRFb0RZZVNDbW5nNjc4Rmw1SmtPMFdCc21TbTVCaXhid21W?=
+ =?utf-8?B?Vi9FVXpETUQxVWpCZEltSTFJL2psS1RnQmt2UEt4d2haVEk1TXlsaEFSVjZv?=
+ =?utf-8?B?ek9oUnJ2SXlQaGh1UFN6Y3ZQVDB5amZwNUgzdEFmZ1dBcm5WTGRMUlVmWVRC?=
+ =?utf-8?B?YTAydkpHbmJNQjVQekV1SzB1YTZFTURFc3V6NitMVWNrZ0VVdU9RT3RvQSth?=
+ =?utf-8?B?WEFpT0lSdmM5UlVMS1V0cEJHSGFKWnhralYyUytSMjk0WVloaDlZa1IxeENC?=
+ =?utf-8?B?ZXFIajB4WmtIRSs0UDlOSENDWUJ1RmZTcVlMK21BcmdDUVpDazJRK0FhVGtQ?=
+ =?utf-8?B?WXlzN3AxQ1dBdEY2VjF2eWpKOVREN1FlQ0Jwa1lwZkVBMzJNL3FXRm42SzNO?=
+ =?utf-8?B?aXg1USs4R3YrTTVPN2dZajFZZjJyMGFja2VLWUhDZGtJSjZGbW1OejJPSWFy?=
+ =?utf-8?B?VitNaExzaWNRczNzRlNVV1ROUDZJREJZQjltMUNVMnFMWEpmL0lZbnBDQ1RF?=
+ =?utf-8?B?c1hRZlp4TFQ0NEtIZzdIUWRvV3F3RGNPbUQwRzVUNTJNc1ZpUUpnbW1hbXVN?=
+ =?utf-8?B?UzN5ZldNRDQ1SFNhNEV0MVhZOGRLWkN3QmRKOWhJelQ5cjhDZVdMTEhmcTd6?=
+ =?utf-8?B?OXFJRWdBNWl1R0VLY0E0YVdHQTgycVRCTms0clVjM3dtVDc3clRpRFY1anRB?=
+ =?utf-8?B?UC80UlZzaCtsWnZFRGJVa2xjN1RLZ1VIYkdnNDEvQUFHaUtUcS9hR2drZjhT?=
+ =?utf-8?B?YUhkTjZ4Z2Q0UnRkZkdTZy94ZDVQRnFBc0YyczkxQS9HWjliV3ZRbW9IcXVV?=
+ =?utf-8?B?MDN0dlREdVdwUkFvRm1oemlIakQrelk3MUZxKzZCc3c1aVFoTGpEVWZVWi9M?=
+ =?utf-8?B?djh4cWhYTGszTWVRSU52NjRCT0c2UWE2SFh0cjUrcUF2bXZXSU9GeVhBREp5?=
+ =?utf-8?B?YWw4c1JYZmw3dGtaN3E1cWlQcFZDTGdhYlJyNU94Zk04c3lDZHFQSVZpK002?=
+ =?utf-8?B?alFjbk5KZXZFZ1lHektJVmFlc0diNC94b1BQWkZvYUtrUzVPTnJHQXB4V29s?=
+ =?utf-8?B?b09FV0drOEJsZUlmRlBMNkh3aDUvd0lpWVV0TmxTWEx5Tk02SEV4bnlwYnRi?=
+ =?utf-8?B?TXZ4bXF4NkgvN2ZQV2E3UU1OQmZVU3A5b1o3WFBIOGtuNStmU2pzNmNJR2x4?=
+ =?utf-8?B?Z2Z5QzZwRVpFUHJWVkdhb2xES0w4U1NNUkhOcFJwSW1hcDBoQXRKMDRWNC9n?=
+ =?utf-8?B?dWpMbzE4OWxKTlNSSDI3cU1nVStMNEhqRTFCejNpeTFacHpWZ0U5K0thQlpH?=
+ =?utf-8?B?dFQxMzZvbURpNXg3US8yMnBnNitJSWlCY1hqV1REU1FiblJQMXY0TGFUSVA0?=
+ =?utf-8?B?TDZYdW9SK3FhOWY3UERNMzVLemZOTmNRQlNEMTh6VHBrcXZyRXBaTTA5Uk13?=
+ =?utf-8?B?VzhkSW82cDV4N3hiVmppeDR3b1lFSmFaK21MU0VFRXRCL1lCUmRTbXdDdHJZ?=
+ =?utf-8?B?Z2I2a2o1Q3pWT25GMldBMjBoVWd2a0V3RjZDNlRSTEYrQ1hET2FxcFo0SVJP?=
+ =?utf-8?B?SXBpckt6Q2hFM0g1Qm56MnUxd1FISVMxZi9VUTgrS0tCcENOMUYzVVE3QVRl?=
+ =?utf-8?B?NDdFZk94bFRkTTVERTFKYVF5cXJUdGdZZ1ZpTnl0M1UzNFQ0MFd4bngvQ3B2?=
+ =?utf-8?B?Qk5IbFd6YkFUTUVvL0hCWjl2aGtPK2QrMVpxY3FXVnFSNFgwZmJlUzVZV3l5?=
+ =?utf-8?B?QllwR29rcEUzaXRweXRaL2ZMejE3Q25LeithWVpCdUlaajJXUklMREl0VStW?=
+ =?utf-8?B?dGlMaUFvQStteFh1cWt2ZklGNi9USjZTMEtrellDOEoyMHR2QkRucUpZNFY4?=
+ =?utf-8?Q?+1gxJ4DIL+Or0zKL0YZk2A0=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01ddfd3a-9ad0-4400-6dcf-08d9e80ec758
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1531.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9e3ad58-7740-4b67-b726-08d9e80e6e65
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Feb 2022 18:44:52.7114 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /aIGOFy8DVwrFz3V0A5z+twgaKmDXKXIx9h/bO9u82/ih/yTxQNnMYTxvfAE4QUF5cK0GfmQPVAiAodXwANNiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4862
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2022 18:47:22.2689 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5hG4RQiwZmf3FuS2jW7jfgfGzbbfxsVUw47AaRzyG9UYN3ls7qz1Kn8WeZ4iF9G6BZBbWiTjLZFMW0deywoT+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2874
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,263 +129,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Somalapuram, Amaranath" <Amaranath.Somalapuram@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB514487E169A1614431BCD1F7F7299BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 
-[Public]
-
-Seems like this functionality should be moved up into the callers.  Maybe a=
-dd new IP callbacks (dump_reset_registers()) so that each IP can specify wh=
-at registers are relevant for a reset debugging and then we can walk the IP=
- list and call the callback before we call the asic_reset callbacks.
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Deucher,=
- Alexander <Alexander.Deucher@amd.com>
-Sent: Friday, February 4, 2022 1:41 PM
-To: Sharma, Shashank <Shashank.Sharma@amd.com>; Lazar, Lijo <Lijo.Lazar@amd=
-.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Somalapuram, Amaranath <Amaranath.Somalapuram@amd.com>; Koenig, Christi=
-an <Christian.Koenig@amd.com>
-Subject: Re: [PATCH 4/4] drm/amdgpu/nv: add navi GPU reset handler
-
-
-[Public]
-
-
-[Public]
-
-In the suspend and hibernate cases, we don't care.  In most cases the power=
- rail will be cut once the system enters suspend so it doesn't really matte=
-r.  That's why we call the asic reset callback directly rather than going t=
-hrough the whole recovery process.  The device is already quiescent at this=
- point we just want to make sure the device is in a known state when we com=
-e out of suspend (in case suspend overall fails).
-
-Alex
-
-
-________________________________
-From: Sharma, Shashank <Shashank.Sharma@amd.com>
-Sent: Friday, February 4, 2022 12:22 PM
-To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
-x@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Somalapuram, Amaranath =
-<Amaranath.Somalapuram@amd.com>; Koenig, Christian <Christian.Koenig@amd.co=
-m>
-Subject: Re: [PATCH 4/4] drm/amdgpu/nv: add navi GPU reset handler
-
-
-
-On 2/4/2022 6:20 PM, Lazar, Lijo wrote:
-> [AMD Official Use Only]
+On 2/4/2022 1:32 PM, Christian König wrote:
+> Am 04.02.22 um 19:12 schrieb Bhardwaj, Rajneesh:
+>> [Sorry for top posting]
+>>
+>> Hi Christian
+>>
+>> I think you forgot the below hunk, without which the issue is not 
+>> fixed completely on a multi GPU system.
 >
-> One more thing
->        In suspend-reset case, won't this cause to schedule a work item on=
- suspend? I don't know if that is a good idea, ideally we would like to cle=
-an up all work items before going to suspend.
->
-> Thanks,
-> Lijo
+> No, that is perfectly intentional. While removing a bo_va structure it 
+> can happen that there are still mappings attached to it (for example 
+> because the application crashed).
 
-Again, this opens scope for discussion. What if there is a GPU error
-during suspend-reset, which is very probable case.
 
-- Shashank
+OK. but for me, at boot time, I see flood of warning messages coming 
+from  amdgpu_vm_bo_del so the previous patch doesn't help.
+
 
 >
-> -----Original Message-----
-> From: Sharma, Shashank <Shashank.Sharma@amd.com>
-> Sent: Friday, February 4, 2022 10:47 PM
-> To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Somalapuram, Amaranat=
-h <Amaranath.Somalapuram@amd.com>; Koenig, Christian <Christian.Koenig@amd.=
-com>
-> Subject: Re: [PATCH 4/4] drm/amdgpu/nv: add navi GPU reset handler
+> Because of this locking the VM before the remove is mandatory. Only 
+> while adding a bo_va structure we can avoid that.
 >
+> Regards,
+> Christian.
 >
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> index dcc80d6e099e..6f68fc9da56a 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> @@ -2670,8 +2670,6 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+>>         struct amdgpu_vm *vm = bo_va->base.vm;
+>>         struct amdgpu_vm_bo_base **base;
+>>
+>> -       dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+>> -
+>>         if (bo) {
+>>                 dma_resv_assert_held(bo->tbo.base.resv);
+>>                 if (bo->tbo.base.resv == vm->root.bo->tbo.base.resv)
+>>
+>>
+>> If you chose to include the above hunk, please feel free to add
+>>
+>> Reviewed-and-tested-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+>>
+>> On 2/4/2022 11:27 AM, Felix Kuehling wrote:
+>>>
+>>> Am 2022-02-04 um 03:52 schrieb Christian König:
+>>>> Since newly added BOs don't have any mappings it's ok to add them
+>>>> without holding the VM lock. Only when we add per VM BOs the lock is
+>>>> mandatory.
+>>>>
+>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>>> Reported-by: Bhardwaj, Rajneesh <Rajneesh.Bhardwaj@amd.com>
+>>>
+>>> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>>>
+>>>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
+>>>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>> index fdc6a1fd74af..dcc80d6e099e 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>> @@ -375,6 +375,8 @@ static void amdgpu_vm_bo_base_init(struct 
+>>>> amdgpu_vm_bo_base *base,
+>>>>       if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv)
+>>>>           return;
+>>>>   + dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+>>>> +
+>>>>       vm->bulk_moveable = false;
+>>>>       if (bo->tbo.type == ttm_bo_type_kernel && bo->parent)
+>>>>           amdgpu_vm_bo_relocated(base);
+>>>> @@ -2260,8 +2262,6 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct 
+>>>> amdgpu_device *adev,
+>>>>   {
+>>>>       struct amdgpu_bo_va *bo_va;
+>>>>   - dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+>>>> -
+>>>>       bo_va = kzalloc(sizeof(struct amdgpu_bo_va), GFP_KERNEL);
+>>>>       if (bo_va == NULL) {
+>>>>           return NULL;
 >
-> On 2/4/2022 6:11 PM, Lazar, Lijo wrote:
->> BTW, since this is already providing a set of values it would be useful =
-to provide one more field as the reset reason - RAS error recovery, GPU hun=
-g recovery or something else.
->
-> Adding this additional parameter instead of blocking something in kernel,=
- seems like a better idea. The app can filter out and read what it is inter=
-ested into.
->
-> - Shashank
-
---_000_BL1PR12MB514487E169A1614431BCD1F7F7299BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Seems like this functionality should be moved up into the callers.&nbsp; Ma=
-ybe add new IP callbacks (dump_reset_registers()) so that each IP can speci=
-fy what registers are relevant for a reset debugging and then we can walk t=
-he IP list and call the callback before
- we call the asic_reset callbacks.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Deucher, Alexander &lt;Alexan=
-der.Deucher@amd.com&gt;<br>
-<b>Sent:</b> Friday, February 4, 2022 1:41 PM<br>
-<b>To:</b> Sharma, Shashank &lt;Shashank.Sharma@amd.com&gt;; Lazar, Lijo &l=
-t;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.f=
-reedesktop.org&gt;<br>
-<b>Cc:</b> Somalapuram, Amaranath &lt;Amaranath.Somalapuram@amd.com&gt;; Ko=
-enig, Christian &lt;Christian.Koenig@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH 4/4] drm/amdgpu/nv: add navi GPU reset handler</=
-font>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#008000=
-; margin:15pt">
-[Public]<br>
-</p>
-<br>
-<div>
-<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#008000=
-; margin:15pt">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-In the suspend and hibernate cases, we don't care.&nbsp; In most cases the =
-power rail will be cut once the system enters suspend so it doesn't really =
-matter.&nbsp; That's why we call the asic reset callback directly rather th=
-an going through the whole recovery process.&nbsp;
- The device is already quiescent at this point we just want to make sure th=
-e device is in a known state when we come out of suspend (in case suspend o=
-verall fails).</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Alex</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div id=3D"x_appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Sharma, Shashank &l=
-t;Shashank.Sharma@amd.com&gt;<br>
-<b>Sent:</b> Friday, February 4, 2022 12:22 PM<br>
-<b>To:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedeskto=
-p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Somalapura=
-m, Amaranath &lt;Amaranath.Somalapuram@amd.com&gt;; Koenig, Christian &lt;C=
-hristian.Koenig@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH 4/4] drm/amdgpu/nv: add navi GPU reset handler</=
-font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText"><br>
-<br>
-On 2/4/2022 6:20 PM, Lazar, Lijo wrote:<br>
-&gt; [AMD Official Use Only]<br>
-&gt; <br>
-&gt; One more thing<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In suspend-reset case, won't=
- this cause to schedule a work item on suspend? I don't know if that is a g=
-ood idea, ideally we would like to clean up all work items before going to =
-suspend.<br>
-&gt; <br>
-&gt; Thanks,<br>
-&gt; Lijo<br>
-<br>
-Again, this opens scope for discussion. What if there is a GPU error <br>
-during suspend-reset, which is very probable case.<br>
-<br>
-- Shashank<br>
-<br>
-&gt; <br>
-&gt; -----Original Message-----<br>
-&gt; From: Sharma, Shashank &lt;Shashank.Sharma@amd.com&gt;<br>
-&gt; Sent: Friday, February 4, 2022 10:47 PM<br>
-&gt; To: Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedesktop.=
-org<br>
-&gt; Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Somalapuram,=
- Amaranath &lt;Amaranath.Somalapuram@amd.com&gt;; Koenig, Christian &lt;Chr=
-istian.Koenig@amd.com&gt;<br>
-&gt; Subject: Re: [PATCH 4/4] drm/amdgpu/nv: add navi GPU reset handler<br>
-&gt; <br>
-&gt; <br>
-&gt; <br>
-&gt; On 2/4/2022 6:11 PM, Lazar, Lijo wrote:<br>
-&gt;&gt; BTW, since this is already providing a set of values it would be u=
-seful to provide one more field as the reset reason - RAS error recovery, G=
-PU hung recovery or something else.<br>
-&gt; <br>
-&gt; Adding this additional parameter instead of blocking something in kern=
-el, seems like a better idea. The app can filter out and read what it is in=
-terested into.<br>
-&gt; <br>
-&gt; - Shashank<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB514487E169A1614431BCD1F7F7299BL1PR12MB5144namp_--
