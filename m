@@ -4,53 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98EE8C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Feb 2022 23:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 382BFC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Feb 2022 01:08:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F24F010E6D4;
-	Thu,  3 Feb 2022 23:16:23 +0000 (UTC)
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C955A10E3BD
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Feb 2022 23:16:22 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id y23so6421908oia.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Feb 2022 15:16:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=HogeXIdHRWsd6XAKxHsi8wvSlU4dTShMRmVW42UR3Os=;
- b=aCr3WOa54YlOr9RuHyWZsBdUaihdIh3OEKRT05se+1TeLJ5/UIQV2YWs9AqevXIDHw
- VH6WHhOuyMl1exL7eD79+tICoY5vlSaHU4JKvjPK3y1H8w346bnks/b1atNHHf2MuTbI
- epcTcGMvMLVJDoc/aI6GTt0qseFESAbiJeuDXMQXDXCADXe8fPbYK5HWjo5qeXyWeBIA
- 2AZr8POM3lMR4tcw9OvuJ8guKpzHSr1EqzYXivPEgg0eASN2kLjfXgSNdspeiGtVFYLf
- G9YSCSUCKOSkK9u5tvyrHhKpImL+sGja5YyARqfnpw99TWoROTU5B4AJ5i05LVssJdql
- DOSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=HogeXIdHRWsd6XAKxHsi8wvSlU4dTShMRmVW42UR3Os=;
- b=5CwgQLm4WQ/z/Apd74W6kAxbE67r56rgVdpyIKXXUf89yRiCs7TznUzqNrLInzDxxF
- dX7cxSTIbXnFehV3EhL5I/1AO/crbN1uah46p7fxFJ4L27pF5cMDJFNboXKCrR+m7HeG
- HVYU7+r7lwPlaGGqICasQCgf4wbPOyukVb8VPPl53TBukcTx0LOPtGCs//wQeEFf2pRx
- RsM3YZ5KS3XLQhRFq5F5yJRuAPKF7rtwOHyj+1raNkgicGcXER9JNiLytABNysclf5as
- Tr2Z5YaycZDxdjR14ViBW0cF4Fq7BXuZc39QmaENYddFkZ3qZhoLTq3mkRy8EGmkZRKp
- VSMg==
-X-Gm-Message-State: AOAM532OauABpg+PASwZL4y01kH/jfg7QbOPl1mBEwaepDz0Omm+Fc8u
- jg5nXVjl19WdVshl6XTr65ufWd9dbiu+t4Kd4zkyTFAO
-X-Google-Smtp-Source: ABdhPJwVyDDwPDMwI3pLQOlJtW0IoE9B71N138gTXs4Kn8ZoXUsNgYCZgi6wfE70soS9LF22TzO/1TqOlMeSvHeJH+c=
-X-Received: by 2002:a05:6808:159e:: with SMTP id
- t30mr18028oiw.132.1643930182086; 
- Thu, 03 Feb 2022 15:16:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A03410E1A5;
+	Fri,  4 Feb 2022 01:08:39 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2089.outbound.protection.outlook.com [40.107.95.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D71510E1A5
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Feb 2022 01:08:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JG+xBYb9S0Cbv4/Q913T9ATkIgVO2Ft534kkOzjBVOaR9mv9fizJLXP5ZkihkcPtfZGdYubRctglRXsF+jBdMEPQs/2c0DSuxKf/IZvfAaHTAXRX5U57SC2rj8bskuB9birWFbXuBGpZk2e7foQRSwef2BxBqVqPx5p7zrkFN1Zk1I1LAhVJ/DFnKccuxtROw/GvjDm04YkLhx0z1kHSmzq9DYYo8FeiwoFRo3UERh29sHFFqdIQqk5KKvZjzf0aEtVumb+YCWrYl0+Fah+tnilAErf7/jusTkxKvpJ7NuhbcojOKaf9Ck7sSnX090S/2/bjOU9ZxYvnzwaD6jxP7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BqHx0g8bwmwqXdArReDM3xg9l/rcTEX7mpstosIHTJY=;
+ b=JoxdwTkfcXPqdbyqBOw8iD5bjahFQiovK3eYScoteVMQf+ApniCb5eaH+G2xT2RdxSeU/DZBJQUZjqbj7YtPzBWafbsvxwmHFdMpWClvznikZz1xlnGRVEWgdtFd921TmcgnDbuc5JCz3WqJpMWCAu69QP0y6IDybrtSBdaJ3VGX28MT8uTjZCWHioozXEefpfUwXy/eKbEI95DJZH4rLo/RqOiuAugGBJuyQPutjG3ad9AKazZaHFx07RTJq5tc5ZT+tD2RRwpYDXRd3sCJro0E/5Piv54SvH8Cd/BN5fKwtxtMIx5mY6ld58qhTjVNbPx1aFQXB7ZZl1bDoujYbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BqHx0g8bwmwqXdArReDM3xg9l/rcTEX7mpstosIHTJY=;
+ b=G1CfB1ydDptVzkFKhAMiqxG7mWTNda5Klw20MFffJwxCsg0XXPqq5zReRfqdw4YN0ekfVnqBOX0HQcS9RxjImK35aBVXXIKCKF3P5hUgZxxeAd8ErFEczQi3Kun2BOuXPYURgRMQsRJjOXadppBum5AhbLtPe97VWk/0tyzvVAI=
+Received: from DM3PR11CA0023.namprd11.prod.outlook.com (2603:10b6:0:54::33) by
+ CH0PR12MB5106.namprd12.prod.outlook.com (2603:10b6:610:bd::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4951.12; Fri, 4 Feb 2022 01:08:35 +0000
+Received: from DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:0:54:cafe::b0) by DM3PR11CA0023.outlook.office365.com
+ (2603:10b6:0:54::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12 via Frontend
+ Transport; Fri, 4 Feb 2022 01:08:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT005.mail.protection.outlook.com (10.13.172.238) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4951.12 via Frontend Transport; Fri, 4 Feb 2022 01:08:34 +0000
+Received: from localhost.localdomain.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.18; Thu, 3 Feb 2022 19:08:33 -0600
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/3] drm/amdgpu: Don't offset by 2 in FRU EEPROM
+Date: Thu, 3 Feb 2022 20:08:18 -0500
+Message-ID: <20220204010820.250829-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.35.0.3.gb23dac905b
 MIME-Version: 1.0
-References: <BL1PR12MB5144C64B0B4E525FC97EB522F7289@BL1PR12MB5144.namprd12.prod.outlook.com>
- <20220203231320.114539-1-luben.tuikov@amd.com>
-In-Reply-To: <20220203231320.114539-1-luben.tuikov@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 3 Feb 2022 18:16:11 -0500
-Message-ID: <CADnq5_PpfcHhEx+S-02SE0cL-SJPg8h6VGdXuKMud3CLC-LXpw@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/amdgpu: Print once if RAS unsupported
-To: Luben Tuikov <luben.tuikov@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8af4e6bc-e546-4f3c-fb8d-08d9e77addf7
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5106:EE_
+X-Microsoft-Antispam-PRVS: <CH0PR12MB5106EF0D5D5CB9AAA0C971B199299@CH0PR12MB5106.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:962;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: twJ/3fURNfgjLnfiNGjYhxGQGeyZ0lIwMAmBXYH/Jw94Ghd2XiJU4CHxroXGyJMJ4gCHpCOzfRbFZ/zAwXJu1b08xfMQcUepBgCfdAwyJ6M1nE3Qb9Q/d6FtQ2Dqv5ee/cKtFPhQ3gg+7WLmvCy4YTYVMEzY5Ty+OZS89Uu9YxSG0i3nhIuQKdTVFbQB/5NuXeP5fSxhxdHxQx4evKlqji3eVrjZa7vxp++axSy0c0omy73MvbsIwWYeQXkfHlzhpZI3axXzGeWTG7tjWkr0nLeyt6jn4k7Z6IBTPDu4xO3a3LzeEQ9uleiMMlePUxJlJUKoyOmNHnGN2i/+pVlsTkSLfh61vmWGChRqHMPc74jfhSVO+mf+rtQ2nyg5OH+OPnFnHW2/cG0A4ujwQ2dFgo0s2igprEWMZaqLBrfzPhyGXE7CrfVZrHpjC/Hb5rgrWlYvocOZA8WBtzWSRT96S08+/nm3aKjggj428IXhJGT+SQcGKwwpELaCA5nLArCCQggaKw19qPgLvHzwuIzSr9BgLWDJpIyE1pkKrtNGkwc+oJdcB1UvfRAaNNRyoa6a8tVPGlJuJn00b1daIIXhNKJgUPMjlnACTU1mN7hy2mpxPYA2/HS1I4QhdUA5yUQWY6Og7x/+dqoKdMz9BgfjUJGhq6PK2RcUilyL0uS/z+6rKJb4okE0PHrYdtONj/XHuooLIhOyJTFBh98kPvnV1A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(6666004)(4326008)(70206006)(8936002)(8676002)(7696005)(356005)(70586007)(5660300002)(186003)(81166007)(336012)(44832011)(2906002)(2616005)(83380400001)(82310400004)(26005)(1076003)(426003)(16526019)(36860700001)(316002)(54906003)(508600001)(6916009)(36756003)(47076005)(86362001)(40460700003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2022 01:08:34.4741 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8af4e6bc-e546-4f3c-fb8d-08d9e77addf7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5106
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,86 +99,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- yipechai <YiPeng.Chai@amd.com>, Alex Deucher <Alexander.Deucher@amd.com>,
- John Clements <john.clements@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>, Andrey
+ Grodzovsky <Andrey.Grodzovsky@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Kent Russell <kent.russell@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 3, 2022 at 6:14 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
->
-> MESA polls for errors every 2-3 seconds. Printing with dev_info() causes
-> the dmesg log to fill up with the same message, e.g,
->
-> [18028.206676] amdgpu 0000:0b:00.0: amdgpu: df doesn't config ras function.
->
-> Make it dev_dbg_once(), as it isn't something correctible during boot or
-> thereafter, so printing just once is sufficient. Also sanitize the message.
->
-> Cc: Alex Deucher <Alexander.Deucher@amd.com>
-> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-> Cc: John Clements <john.clements@amd.com>
-> Cc: Tao Zhou <tao.zhou1@amd.com>
-> Cc: yipechai <YiPeng.Chai@amd.com>
-> Fixes: e93ea3d0cf434b ("drm/amdgpu: Modify gfx block to fit for the unified ras block data and ops")
-> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+Read buffers no longer expose the I2C address, and so we don't need to
+offset by two when we get the read data.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Cc: Kent Russell <kent.russell@amd.com>
+Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Fixes: bd607166af7fe3 ("drm/amdgpu: Enable reading FRU chip via I2C v3")
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 9d7c778c1a2d8e..e440a5268acecf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -952,8 +952,8 @@ int amdgpu_ras_query_error_status(struct amdgpu_device *adev,
->         } else {
->                 block_obj = amdgpu_ras_get_ras_block(adev, info->head.block, 0);
->                 if (!block_obj || !block_obj->hw_ops)   {
-> -                       dev_info(adev->dev, "%s doesn't config ras function.\n",
-> -                                       get_ras_block_str(&info->head));
-> +                       dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
-> +                                    get_ras_block_str(&info->head));
->                         return -EINVAL;
->                 }
->
-> @@ -1028,8 +1028,8 @@ int amdgpu_ras_reset_error_status(struct amdgpu_device *adev,
->                 return -EINVAL;
->
->         if (!block_obj || !block_obj->hw_ops)   {
-> -               dev_info(adev->dev, "%s doesn't config ras function.\n",
-> -                               ras_block_str(block));
-> +               dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
-> +                            ras_block_str(block));
->                 return -EINVAL;
->         }
->
-> @@ -1066,8 +1066,8 @@ int amdgpu_ras_error_inject(struct amdgpu_device *adev,
->                 return -EINVAL;
->
->         if (!block_obj || !block_obj->hw_ops)   {
-> -               dev_info(adev->dev, "%s doesn't config ras function.\n",
-> -                                       get_ras_block_str(&info->head));
-> +               dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
-> +                            get_ras_block_str(&info->head));
->                 return -EINVAL;
->         }
->
-> @@ -1717,8 +1717,8 @@ static void amdgpu_ras_error_status_query(struct amdgpu_device *adev,
->                                         info->head.sub_block_index);
->
->         if (!block_obj || !block_obj->hw_ops) {
-> -               dev_info(adev->dev, "%s doesn't config ras function.\n",
-> -                       get_ras_block_str(&info->head));
-> +               dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
-> +                            get_ras_block_str(&info->head));
->                 return;
->         }
->
->
-> base-commit: cf33ae90884f254d683436fc2538b99dc4932447
-> --
-> 2.35.0.3.gb23dac905b
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+index ce5d5ee336a990..32f38d0dd43dd9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+@@ -103,17 +103,13 @@ static int amdgpu_fru_read_eeprom(struct amdgpu_device *adev, uint32_t addrptr,
+ 
+ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+ {
+-	unsigned char buff[AMDGPU_PRODUCT_NAME_LEN+2];
++	unsigned char buff[AMDGPU_PRODUCT_NAME_LEN];
+ 	u32 addrptr;
+ 	int size, len;
+-	int offset = 2;
+ 
+ 	if (!is_fru_eeprom_supported(adev))
+ 		return 0;
+ 
+-	if (adev->asic_type == CHIP_ALDEBARAN)
+-		offset = 0;
+-
+ 	/* If algo exists, it means that the i2c_adapter's initialized */
+ 	if (!adev->pm.fru_eeprom_i2c_bus || !adev->pm.fru_eeprom_i2c_bus->algo) {
+ 		DRM_WARN("Cannot access FRU, EEPROM accessor not initialized");
+@@ -155,8 +151,8 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+ 				AMDGPU_PRODUCT_NAME_LEN);
+ 		len = AMDGPU_PRODUCT_NAME_LEN - 1;
+ 	}
+-	/* Start at 2 due to buff using fields 0 and 1 for the address */
+-	memcpy(adev->product_name, &buff[offset], len);
++
++	memcpy(adev->product_name, buff, len);
+ 	adev->product_name[len] = '\0';
+ 
+ 	addrptr += size + 1;
+@@ -174,7 +170,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+ 		DRM_WARN("FRU Product Number is larger than 16 characters. This is likely a mistake");
+ 		len = sizeof(adev->product_number) - 1;
+ 	}
+-	memcpy(adev->product_number, &buff[offset], len);
++	memcpy(adev->product_number, buff, len);
+ 	adev->product_number[len] = '\0';
+ 
+ 	addrptr += size + 1;
+@@ -201,7 +197,7 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+ 		DRM_WARN("FRU Serial Number is larger than 16 characters. This is likely a mistake");
+ 		len = sizeof(adev->serial) - 1;
+ 	}
+-	memcpy(adev->serial, &buff[offset], len);
++	memcpy(adev->serial, &buff, len);
+ 	adev->serial[len] = '\0';
+ 
+ 	return 0;
+
+base-commit: 1b768224871f72e594f41eded3a14d682e39f796
+-- 
+2.35.0.3.gb23dac905b
+
