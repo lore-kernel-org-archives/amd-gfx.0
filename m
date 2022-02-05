@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 372B2C433F5
-	for <amd-gfx@archiver.kernel.org>; Sat,  5 Feb 2022 01:51:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90CB7C433EF
+	for <amd-gfx@archiver.kernel.org>; Sat,  5 Feb 2022 01:51:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEAB110E31D;
-	Sat,  5 Feb 2022 01:51:03 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2048.outbound.protection.outlook.com [40.107.100.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A16F510E31D
- for <amd-gfx@lists.freedesktop.org>; Sat,  5 Feb 2022 01:51:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08A0A10E3C0;
+	Sat,  5 Feb 2022 01:51:05 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2044.outbound.protection.outlook.com [40.107.236.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1398A10E31D
+ for <amd-gfx@lists.freedesktop.org>; Sat,  5 Feb 2022 01:51:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YQl8ERbP4XkDY3duCXLaV3qNldHVx6Nn7SfI85yjrqHpIHeDzsWLSPS40PYfe1a12Sih7OMdjp3Yl4YwNBziO0//C+LOwsgX0yoKQ13BRtCgXF8HnyjcqwmHlB4eBukyDdxiCpiSSMQ7yhCtT4vVV/Iu/Z7zwsr5i8Ahm5/edKbghMlkeOLn42BcP/hmTejYSPsPlxnlJXcqSQiLQi/Bzdj/tOM+9D8IU1BDoAS5vc8LGK4AClVjip3FW9VdWmeb8VckYbopK8n0yHG6v/vO7IbW8t+mOgbNeP7iaphxWKLGcXq744j61Y1uTem3uNO9mr4uFKldR7jvEgziLZvtGg==
+ b=i/KvQLmlYzGr6Pk3vhPbfxQWqfbU+0Sa2PqjV7SPc2p8f6QYCZ7rkMgkQKAHenxD/FZnLs0ygQdXR41Du2tbL6Fxzlyp65UBgTMEEss6v5DVnstNvCk0bz+qdjpzV3ouEZ8b6ivpAcoafKsbI/oSRBkicPOhocv4bZK6braQgUF12oGRfvvK73ApTuSsSy4beRE/6FW2lKtinw6KqP4HTKpJKHaG0DYkerJ/pdEppCQTnq1o/5H/n/1kQjI0UWIJRZuHqWCO9LxRhkMSdvMpIP9Arz/ZeLiGtGk+xfqsbLxpy+R6+aszswT6V6hNgWCaL/s30S4Vu+OHyR7gUMGHlA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MmrJIq20LMDaSlikLYg+v0klhr9uiKewVmdkHLxoMoY=;
- b=NLuU5HKcXv2KsRvW//7ygSv6VNJ5MU93c3bLli3xldZ0zKH5FRDvPytdL/YqlMxWy/ByDakJZhDUvpe4NzMuTjRI3M1Uz3Vdl4/VcWxPB3qMUKLGo4DrNhx3dKHdpgs6AgoZtIFF95ZFR3Y1Byrk5ZO9PtNvHngAU2EGDOnTufo9M31JsnZ8OcNHxncdYOXFDjLbmFuVEy/WadLU+DymWVPhQpxU3SP2PWI7gYQ1sOEsYEmJ7A/kJ+K6hskG52eziyT/C4zxtdjR4xZguGG7405h6jPYE4B7TiDEoRHhKTu3fFYN0P9/0YwdNWVLj073zbXx+gSN2ZOHLa/bjKJs5g==
+ bh=uIJ1En4g4buQ0lCRkRyt7He0arc6cYNWZQLwFKqO89M=;
+ b=Qsby0RAenyWewhM36g/VFfeq3PqjCo87u20jeu7oLbknCRUPHg5oKmdV2taWA6r+J6svstXYWpicMYFK1RSN+nyGoDrJduI4IUxBh9NuGMwKExBfHVCnMUhJwerENOynVaXS8VN6/7szE8rRIFXHTqca6lmlLwiJX6F0phE5M6NqS0b+XZ1ZAE38XmAaLs/B1b27WYRK7hw+kMJbm8/K7kxkwdUSaqMOtQp7JZe1gvoxwiRVE8UvZdVZtw6Ceq7GXxrACZ/2bARCNjCPqLipfLzf2/NpAADnR7oorEXZ/IwWAqlw4D2XDCy1vlsC1rfIcWP6klwVpstczrZxHh1puw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MmrJIq20LMDaSlikLYg+v0klhr9uiKewVmdkHLxoMoY=;
- b=3jo/RNmKlZCwuSYhyAfD2VBojz+Hwe55NTthMfgtAHh35Zq8cEcIPsIDhNgiaPSrRbyFn6G9gEoBHg+vVJo3FOC8mzvPwkq41uOTBspWm/inJTFn2dNFcFgBQpdUo4s8Mu0I1CgDPhAKCpKoFa4vbtBV5VS+HPGKEt3KPrRve9Y=
-Received: from MW4PR04CA0337.namprd04.prod.outlook.com (2603:10b6:303:8a::12)
- by DM6PR12MB4794.namprd12.prod.outlook.com (2603:10b6:5:163::27) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=uIJ1En4g4buQ0lCRkRyt7He0arc6cYNWZQLwFKqO89M=;
+ b=zf2VBruxStBu6il7z+QrWXXoQMaPVwCZc6M/VilFlHqQZYRuqYo8eOPWkdRpYD0Shz7kq/RWkaZ+CcsWmdT85UcK+wtNB3bZjYHdsanNR53Zgs5rLfZeBFABlne9eE+NTj2tzzpoH2Z6ly1cEs5D3JSetjOV1zCKabr+72bWQEY=
+Received: from MW4PR04CA0350.namprd04.prod.outlook.com (2603:10b6:303:8a::25)
+ by CY4PR12MB1160.namprd12.prod.outlook.com (2603:10b6:903:38::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11; Sat, 5 Feb
- 2022 01:50:57 +0000
+ 2022 01:50:56 +0000
 Received: from CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8a:cafe::7e) by MW4PR04CA0337.outlook.office365.com
- (2603:10b6:303:8a::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.14 via Frontend
- Transport; Sat, 5 Feb 2022 01:50:57 +0000
+ (2603:10b6:303:8a:cafe::9) by MW4PR04CA0350.outlook.office365.com
+ (2603:10b6:303:8a::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12 via Frontend
+ Transport; Sat, 5 Feb 2022 01:50:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT067.mail.protection.outlook.com (10.13.174.212) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4951.12 via Frontend Transport; Sat, 5 Feb 2022 01:50:56 +0000
+ 15.20.4951.12 via Frontend Transport; Sat, 5 Feb 2022 01:50:55 +0000
 Received: from jasdeep-System-Product-Name.hitronhub.home (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.18; Fri, 4 Feb 2022 19:50:55 -0600
+ 15.1.2375.18; Fri, 4 Feb 2022 19:50:53 -0600
 From: Jasdeep Dhillon <jdhillon@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/14] drm/amd/display: fix yellow carp wm clamping
-Date: Fri, 4 Feb 2022 20:50:22 -0500
-Message-ID: <20220205015029.143768-8-jdhillon@amd.com>
+Subject: [PATCH 06/14] dc: do blocked MST topology discovery at resume from
+ S3/S4
+Date: Fri, 4 Feb 2022 20:50:21 -0500
+Message-ID: <20220205015029.143768-7-jdhillon@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220205015029.143768-1-jdhillon@amd.com>
 References: <20220205015029.143768-1-jdhillon@amd.com>
@@ -68,28 +69,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9839a43a-21e4-45c3-da6e-08d9e849f3d4
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4794:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB479488E519FC3797F67AA357FB2A9@DM6PR12MB4794.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:81;
+X-MS-Office365-Filtering-Correlation-Id: 0b2dad80-b658-4a39-96ac-08d9e849f32b
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1160:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1160C7B69E0169D41834231BFB2A9@CY4PR12MB1160.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1201;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UIdgS0e0YUR2g5gqQZA+BRvakzLHKOQtVZti75kvKFJyqBMmKmNW4X0NPPgKUxHM2IoHur+S2hlT2L44uvAX8FGCuBw3zC+WtuO+1C8fvs0VimlIoV1OgnIIGtuBiWZ0Yjpm22KuI1D1JfRaTHY2+LHngxT+WbcjApOJpxq+i2rrgyll06R5rrD6aIuTCWAiMy3ayyfJGGio3depftJiMGCMd6xhZ2cq/BjLD5a3u9mj3rtYh2rVkydv7a/LTLaj9+RIGDDNC4KKkzruKJ4T/HXr79QLaeNQOy9ZCW7iQV23mhsH4/w4LKP5n1WIsVCT9pTnTS9ZhPRryffpykefCOBqTosfAFNYPdfDIwGrsJGy4JDT79EM3to6v2okuJ2EQB0P8h4ujoAK+Je7xGqJWzDZzUcZbSHuJAxlNJVzO/FAYQvBi20SIT8EStmyVbwp4noF1+oEZuvCpEDronCHOPYosUHgzv6OjhEXNo7wTPDShEWpDJlfyxYaOKpG2JEUUytk+F/fgMulxDjhaL3WFjXUjbNvm3dTiGAr3LL5xl9cX6aEc+fQFIPeF4XVDLeRDLRUEY3Do1K292R64E5YeInLZ4GhHMsvq3wYnJf+p8fbgDQgnxNCuhcyTyLRh4VI79Tz2em/LhRQQISzbOlGBtQkRDPmB6b0NjU4/XuoK6fOTYQ6b/ndTMvoBxR8HZZsOXcbE28s9tLhVmqxkg5PWA==
+X-Microsoft-Antispam-Message-Info: BqgM1V7WlHZ9rJ7lIMYqNYlkpY3jGMegvHyaL8JUONSNH3ividoRZut38KBGT0lhEpUxXJia7nbyb+SWOx7LPX4m5vC0rTKfbWxuNG+hkw/EdrLcRtxozGsU4vwEG0p01BKA4K6Xz33ANDSamzp1LKKiwEy1SKtdmJDNdxhrTsuQ2swtbGGOrodXCRv47ZQJwgGU+7u02MWVEIyMQVCu1a6t3pqrmedksmXk3qqSaVZJ/Q6Yz9wba5rSTLoM389SjuEd5ZpQ4e0dO7CzQHu9/ho/wwlk7HYa67Zx7JcYiWnq8MCdgnqdpWgr3bgb+zkENFtOQEvtbJ4WIwmIPmxx7MVZQFM50e76XsXmXvm61LTe9UWCb1wt0UzMqnoRbNXl0rgoe2TBQv6TVSjNJoGOd70m5476zzXaFZ6Y+ZDiMdd2k+FQVA3xKcdM9Htio80U7wuPSSloNbzixjO9iL2i3LzJMgNsitBuqyLzM6v9nNG4ytgUTTu/jZYx7Gr35Tw7DY1Omktf7Y3RhGQjvmRcH2yAXcrqY187eMaFwAPGuHergyjhxocsgrRHePHx9K+oNYaC6lHWxiCoFcVVpW3n/N4mGsRjRJ49hxZx8E1NDhwNkxsm95PvtLMy2RqTrowaKOnEOmQcDIKKy29EnfWGX+ntolJw6M4fpEcpC7V7qtgpuYl5Nw6qly3SvkxgOlvFe/K+lNaRSjXY9yTg6krrNA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(83380400001)(426003)(5660300002)(81166007)(26005)(36860700001)(47076005)(336012)(186003)(82310400004)(1076003)(2616005)(16526019)(356005)(508600001)(30864003)(4326008)(6916009)(54906003)(70586007)(70206006)(8936002)(8676002)(36756003)(6666004)(2906002)(40460700003)(316002)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(82310400004)(26005)(36860700001)(508600001)(83380400001)(336012)(40460700003)(15650500001)(426003)(1076003)(6666004)(2616005)(186003)(4326008)(70586007)(8936002)(70206006)(6916009)(316002)(5660300002)(36756003)(356005)(47076005)(16526019)(8676002)(81166007)(2906002)(54906003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2022 01:50:56.8830 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9839a43a-21e4-45c3-da6e-08d9e849f3d4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2022 01:50:55.7737 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b2dad80-b658-4a39-96ac-08d9e849f32b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4794
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1160
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,295 +102,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Jasdeep
- Dhillon <jdhillon@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Jasdeep Dhillon <jdhillon@amd.com>,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, Wenjing Liu <Wenjing.Liu@amd.com>,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com, "Guo,
+ Bing" <Bing.Guo@amd.com>, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+From: "Guo, Bing" <Bing.Guo@amd.com>
 
-Fix clamping to match register field size
+Why:
+When resume from sleep or hiberation, blocked MST Topology discovery might
+need to be used.
 
-Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
+How:
+Added "DETECT_REASON_RESUMEFROMS3S4" to enum dc_detect_reason; use it to
+require blocked MST Topology discovery.
+
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
 Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
-Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Signed-off-by: "Bing Guo" <Bing.Guo@amd.com>
 ---
- .../drm/amd/display/dc/dcn31/dcn31_hubbub.c   | 61 ++++++++++---------
- 1 file changed, 32 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/dc_link.h      | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-index 90c73a1cb986..5e3bcaf12cac 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-@@ -138,8 +138,11 @@ static uint32_t convert_and_clamp(
- 	ret_val = wm_ns * refclk_mhz;
- 	ret_val /= 1000;
- 
--	if (ret_val > clamp_value)
-+	if (ret_val > clamp_value) {
-+		/* clamping WMs is abnormal, unexpected and may lead to underflow*/
-+		ASSERT(0);
- 		ret_val = clamp_value;
-+	}
- 
- 	return ret_val;
- }
-@@ -159,7 +162,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->a.urgent_ns > hubbub2->watermarks.a.urgent_ns) {
- 		hubbub2->watermarks.a.urgent_ns = watermarks->a.urgent_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->a.urgent_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, 0,
- 				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, prog_wm_value);
- 
-@@ -193,7 +196,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->a.urgent_latency_ns > hubbub2->watermarks.a.urgent_latency_ns) {
- 		hubbub2->watermarks.a.urgent_latency_ns = watermarks->a.urgent_latency_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->a.urgent_latency_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A, 0,
- 				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A, prog_wm_value);
- 	} else if (watermarks->a.urgent_latency_ns < hubbub2->watermarks.a.urgent_latency_ns)
-@@ -203,7 +206,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->b.urgent_ns > hubbub2->watermarks.b.urgent_ns) {
- 		hubbub2->watermarks.b.urgent_ns = watermarks->b.urgent_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->b.urgent_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_B, 0,
- 				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_B, prog_wm_value);
- 
-@@ -237,7 +240,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->b.urgent_latency_ns > hubbub2->watermarks.b.urgent_latency_ns) {
- 		hubbub2->watermarks.b.urgent_latency_ns = watermarks->b.urgent_latency_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->b.urgent_latency_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B, 0,
- 				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B, prog_wm_value);
- 	} else if (watermarks->b.urgent_latency_ns < hubbub2->watermarks.b.urgent_latency_ns)
-@@ -247,7 +250,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->c.urgent_ns > hubbub2->watermarks.c.urgent_ns) {
- 		hubbub2->watermarks.c.urgent_ns = watermarks->c.urgent_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->c.urgent_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_C, 0,
- 				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_C, prog_wm_value);
- 
-@@ -281,7 +284,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->c.urgent_latency_ns > hubbub2->watermarks.c.urgent_latency_ns) {
- 		hubbub2->watermarks.c.urgent_latency_ns = watermarks->c.urgent_latency_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->c.urgent_latency_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C, 0,
- 				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C, prog_wm_value);
- 	} else if (watermarks->c.urgent_latency_ns < hubbub2->watermarks.c.urgent_latency_ns)
-@@ -291,7 +294,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->d.urgent_ns > hubbub2->watermarks.d.urgent_ns) {
- 		hubbub2->watermarks.d.urgent_ns = watermarks->d.urgent_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->d.urgent_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_D, 0,
- 				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_D, prog_wm_value);
- 
-@@ -325,7 +328,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->d.urgent_latency_ns > hubbub2->watermarks.d.urgent_latency_ns) {
- 		hubbub2->watermarks.d.urgent_latency_ns = watermarks->d.urgent_latency_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->d.urgent_latency_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D, 0,
- 				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D, prog_wm_value);
- 	} else if (watermarks->d.urgent_latency_ns < hubbub2->watermarks.d.urgent_latency_ns)
-@@ -351,7 +354,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_A, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_A calculated =%d\n"
-@@ -367,7 +370,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->a.cstate_pstate.cstate_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.cstate_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_A, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_A calculated =%d\n"
-@@ -383,7 +386,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->a.cstate_pstate.cstate_enter_plus_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.cstate_enter_plus_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_A calculated =%d\n"
-@@ -399,7 +402,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->a.cstate_pstate.cstate_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.cstate_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_A calculated =%d\n"
-@@ -416,7 +419,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_B, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_B calculated =%d\n"
-@@ -432,7 +435,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->b.cstate_pstate.cstate_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.cstate_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_B, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_B calculated =%d\n"
-@@ -448,7 +451,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->b.cstate_pstate.cstate_enter_plus_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.cstate_enter_plus_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_B calculated =%d\n"
-@@ -464,7 +467,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->b.cstate_pstate.cstate_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.cstate_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_B calculated =%d\n"
-@@ -481,7 +484,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_C, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_C calculated =%d\n"
-@@ -497,7 +500,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->c.cstate_pstate.cstate_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.cstate_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_C, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_C calculated =%d\n"
-@@ -513,7 +516,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->c.cstate_pstate.cstate_enter_plus_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.cstate_enter_plus_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_C calculated =%d\n"
-@@ -529,7 +532,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->c.cstate_pstate.cstate_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.cstate_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_C calculated =%d\n"
-@@ -546,7 +549,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_D, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_D calculated =%d\n"
-@@ -562,7 +565,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->d.cstate_pstate.cstate_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.cstate_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_D, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_D calculated =%d\n"
-@@ -578,7 +581,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->d.cstate_pstate.cstate_enter_plus_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.cstate_enter_plus_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_D calculated =%d\n"
-@@ -594,7 +597,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->d.cstate_pstate.cstate_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.cstate_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_D calculated =%d\n"
-@@ -625,7 +628,7 @@ static bool hubbub31_program_pstate_watermarks(
- 				watermarks->a.cstate_pstate.pstate_change_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.pstate_change_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_A, 0,
- 				DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_A calculated =%d\n"
-@@ -642,7 +645,7 @@ static bool hubbub31_program_pstate_watermarks(
- 				watermarks->b.cstate_pstate.pstate_change_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.pstate_change_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_B, 0,
- 				DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_B calculated =%d\n"
-@@ -659,7 +662,7 @@ static bool hubbub31_program_pstate_watermarks(
- 				watermarks->c.cstate_pstate.pstate_change_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.pstate_change_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_C, 0,
- 				DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_C calculated =%d\n"
-@@ -676,7 +679,7 @@ static bool hubbub31_program_pstate_watermarks(
- 				watermarks->d.cstate_pstate.pstate_change_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.pstate_change_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_D, 0,
- 				DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_D calculated =%d\n"
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index cb6c91cd6e83..ec4b300ec067 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -831,7 +831,7 @@ static bool discover_dp_mst_topology(struct dc_link *link, enum dc_detect_reason
+ 	link->type = dc_connection_mst_branch;
+ 	dm_helpers_dp_update_branch_info(link->ctx, link);
+ 	if (dm_helpers_dp_mst_start_top_mgr(link->ctx,
+-			link, reason == DETECT_REASON_BOOT)) {
++			link, (reason == DETECT_REASON_BOOT || reason == DETECT_REASON_RESUMEFROMS3S4))) {
+ 		link_disconnect_sink(link);
+ 	} else {
+ 		link->type = dc_connection_sst_branch;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
+index e7ead9e25318..9ad3ee4079c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_link.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
+@@ -312,6 +312,7 @@ void dc_link_blank_dp_stream(struct dc_link *link, bool hw_init);
+  */
+ enum dc_detect_reason {
+ 	DETECT_REASON_BOOT,
++	DETECT_REASON_RESUMEFROMS3S4,
+ 	DETECT_REASON_HPD,
+ 	DETECT_REASON_HPDRX,
+ 	DETECT_REASON_FALLBACK,
 -- 
 2.25.1
 
