@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88033C433EF
-	for <amd-gfx@archiver.kernel.org>; Sat,  5 Feb 2022 04:33:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B058C433FE
+	for <amd-gfx@archiver.kernel.org>; Sat,  5 Feb 2022 04:33:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB69A10ED0A;
-	Sat,  5 Feb 2022 04:33:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5489F10ED13;
+	Sat,  5 Feb 2022 04:33:39 +0000 (UTC)
 Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2052.outbound.protection.outlook.com [40.107.100.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3096810EB42
- for <amd-gfx@lists.freedesktop.org>; Sat,  5 Feb 2022 04:33:35 +0000 (UTC)
+ (mail-bn8nam08on2069.outbound.protection.outlook.com [40.107.100.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5506010ED0A
+ for <amd-gfx@lists.freedesktop.org>; Sat,  5 Feb 2022 04:33:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nZxAacsE6NMRYpKdwJBG4/kPUq/2Dfwy3/3GTToOIMJdHyjV7BORjQPh2PrrTPIkW6ESoklXcl5aL5XB6D/WLiN3tztwVFwHg47FZ9mwvdrgdzKND4i7dkW7nbb2ADxWKHn2hln4v3Rn8F9Xz1cl38yOUXx1sNJVn46H+Ag0efBfxw1Xe59iEnla34ZJCZcYg2ZZA5QjIqisT3AdapRdlR167JDPnjmJ00zzUNFqwl28+zAo+Y/U7xwWLkAc9jDTAC8YWpLFDlcmAys2+ZeO17GGwdwOaSMkBy6nxQ3OSOiSc1/MRk/XPL/r+ZlwcIE25uhDpnyUfFEEe4PDhQ/iIA==
+ b=gwmbUJyjPk0ixcB/0/0YpW7WOSUNoWzUWY7RazAnyuAsXhoH7ESTf3JJGwqN9epxJvqj8GcL71MsiDWSv8U5uFc2o35tWfAAtHQHvEkqsAV7kAxt0b2fnHRnUuuXWj8Nw1wJ/LzCVmkke6SPIDhd0Xxr30L5h5wMct5a5l0L4QYg5XcBNAzz7lmDBV1nY+baXyLvc0GHBA0MAR95JZhEXlctfgd7CcWJg1CixxQUcTrO/ANGUusowvqB/LG2+skdOYoygoLKeWPFN0qOpxTzPk4Glk1ec1baHf0okkDX8VOSX+VPVFYR6gFVAKbhaEZQghlDFZ6h5IYmxiyZVRQwhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MmrJIq20LMDaSlikLYg+v0klhr9uiKewVmdkHLxoMoY=;
- b=G6cBqCoerwZcD5+v8ZWMCixVwNAQ4PDvDzYdmYpqa+433tDsi/Lu3lrdDXCa22zuprxtI9Xo7EqUWTCRMPl+3wHgIMC4yrsopiA2hV/7SGqZ6ovYbqIo50oxVu4GiowF6W30qoAvS0VY65Ml/0Uv6o85Rdremup8FTlEEas4DlzotXHZ0Xx6NlVOGUeIBFBMSo+4Ud0A8pwQAJUi3rRcCQNGREQ8G8V88L+jDpIm1A86uZ84oludRKDNdsP88mJJEiDJBYLTYlnWg7TqUk0xfESHNosfVB+hsBW1DTPh3Gs2TM4JtldvfXz+KijTbtG+G8HUNXOOzX6BsawDXdEcKg==
+ bh=5B6MW5NlRDcMt43wkoSV5FLSpxf36+2lUkldWeu9NAw=;
+ b=muAVth7c62S6Zn1jaZDOt+Cb4yRDr215qNxhpM2DL+inN0xDL8iUIVLmBLjw2192TMkn2hfprNkH8jkBzBPuzHxKvOLCumr/45wqPW3UYP6eDW6L5wKBLjQ9hkTUd7C50OYfpGIHofu60iCzBqvSdE9nXLxhYEYa3x9OSl5BvfS6UAMAieYHTSuu+zllBW7/HkY/qZmEA5HN/QubD07GSwzo7iAlmumT/zEW/Vi6NhM/lEM9h0wiaky/3oj0cxYerUPaGjnl4arRUB5rESYYKUpA+vGikt9jdhPKCgug1/6OJGW5jqahg4CulbjWRsHS2TrIpt5htX+i6g1jMK1sFg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MmrJIq20LMDaSlikLYg+v0klhr9uiKewVmdkHLxoMoY=;
- b=eXJJl2oh93GHn9JcRWyUIfurBj1TsOyb6yQdKXGbrEkNOm1b1ZxRbEZ2vk5u/bHB4pM+fuAu38weTUtniFmlW262SFzs3JQXLahjS4/i13c0qhF9qurx9WEtsITyS8fsCRHYrMy9vDpocn9UPU9leBoy2fxtv7e557sU4BX8kNg=
-Received: from MWHPR15CA0045.namprd15.prod.outlook.com (2603:10b6:300:ad::31)
- by BL0PR12MB5556.namprd12.prod.outlook.com (2603:10b6:208:1cf::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Sat, 5 Feb
- 2022 04:33:31 +0000
-Received: from CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:ad:cafe::52) by MWHPR15CA0045.outlook.office365.com
- (2603:10b6:300:ad::31) with Microsoft SMTP Server (version=TLS1_2,
+ bh=5B6MW5NlRDcMt43wkoSV5FLSpxf36+2lUkldWeu9NAw=;
+ b=q35bXRuG1B51XmeXHOs/NC//XaQf2ILRIFEOjk63Pk7OFbmoDMxBcesjtvEdGPXCaZLjFMORJLNoUskoZNniB/JLMboio4cVgeC9DB/dkRGN0zllOuv449j+aQMgsKGsb67xn+pzZB7zBRhdrPhqj6qywp8mw/TVrUmqu7GwjT0=
+Received: from MW2PR16CA0009.namprd16.prod.outlook.com (2603:10b6:907::22) by
+ BN6PR12MB1204.namprd12.prod.outlook.com (2603:10b6:404:1b::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4951.11; Sat, 5 Feb 2022 04:33:35 +0000
+Received: from CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:907:0:cafe::18) by MW2PR16CA0009.outlook.office365.com
+ (2603:10b6:907::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.17 via Frontend
- Transport; Sat, 5 Feb 2022 04:33:30 +0000
+ Transport; Sat, 5 Feb 2022 04:33:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT025.mail.protection.outlook.com (10.13.175.232) with Microsoft SMTP
+ CO1NAM11FT055.mail.protection.outlook.com (10.13.175.129) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4951.14 via Frontend Transport; Sat, 5 Feb 2022 04:33:30 +0000
+ 15.20.4951.12 via Frontend Transport; Sat, 5 Feb 2022 04:33:34 +0000
 Received: from jasdeep-System-Product-Name.hitronhub.home (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.18; Fri, 4 Feb 2022 22:33:27 -0600
+ 15.1.2375.18; Fri, 4 Feb 2022 22:33:32 -0600
 From: Jasdeep Dhillon <jdhillon@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/13] drm/amd/display: fix yellow carp wm clamping
-Date: Fri, 4 Feb 2022 23:33:03 -0500
-Message-ID: <20220205043310.165991-7-jdhillon@amd.com>
+Subject: [PATCH 09/13] drm/amd/display: Fix DP LT sequence on EQ fail
+Date: Fri, 4 Feb 2022 23:33:06 -0500
+Message-ID: <20220205043310.165991-10-jdhillon@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220205043310.165991-1-jdhillon@amd.com>
 References: <20220205043310.165991-1-jdhillon@amd.com>
@@ -68,28 +68,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ec610301-8947-4f90-80ed-08d9e860a989
-X-MS-TrafficTypeDiagnostic: BL0PR12MB5556:EE_
-X-Microsoft-Antispam-PRVS: <BL0PR12MB5556BB01FCF18D82EB08539CFB2A9@BL0PR12MB5556.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:81;
+X-MS-Office365-Filtering-Correlation-Id: 67c80dc7-c1eb-4b21-cba9-08d9e860abe9
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1204:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR12MB120423F856B331D566D97A8DFB2A9@BN6PR12MB1204.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J+JMmn1GieWemwvV6h/i7pBq+9EK8YpSI89lCVmlrMB4eFdH/luAcvH5280qICBUd5MUpdtilMvn0mJ7okqXb7netJy6QFlS3TiC9zoN1KECOLN33UkA7xt29lqCmpixusK+KuSRGYv3TJ9gxWjnP7K2JBg+myf7zoXVRVHXzhfUxCFhM4ischGTiNGlhy31ph0RM37iFycPGcEu+77Zn4rSfPbShxM2Ch9i2b8Og6vEVRXN1QOvtP4D5PkDHhK+6S2V16sydDgl/ePVfOyD/itIOh/cL+Go+7VUHNGeH3ezwjLtIHXjYqFmksBoncR460hqImzD4H0mSnYYcUTVamTvQ+s2Ba4T/S0Ifn63+Z2CXZS2gL3BXoH0a9v8SuFA+uJwUM7sHWuFv9SbqjA21A+QsYIzAGtkrMbR+Sk8CUoI0/gJjsomIScFhcLaoGF1ZCKGLrnr7lI/K9ZwRkdNqy/O6y/6BjPcJN2ygVm0xwZWIrvcr3hQlGGlAjltFGzrSZ59rX3j3BbBGLQsi0iNt3HnFh3jYtjHpkdgZxOCoXwX+CBzPJKaZ9oje95/fezC9X8iyZ7E9iDWBUxaj8RyQlZ5CEfUOkMikbVrUaP8A/wbA3cpfFJ9dgFNhXIim834Fx6TxWR5bAAUD0EHIPqetsMdCFqV0l1n1meTRIXw/mBX6o2TEH6bou0ZOuZIYCwL6LlSct9DNlGKny20JBuSog==
+X-Microsoft-Antispam-Message-Info: ZBUYUivWC9F8GPxnbHNRh2D1UTCc+tKYwjSP8PZ/FjYZjYINo7bk1s7UXYm66e3pO25g0Zx2xawsMYh91XFVFbboSDlaKWRM2iJXR8ZJ4hnIHcfDRfbcuCy0YCGnZRuIVq7uELUSos2Ta2FeJcv6DDgeRUxmnyWunYISjgDp5J0K9HPG2MvJL11wBs6CieYa64QRYL1FqHXLjnYc/mWgtvONXdlX8QhA6+f+Je8o2V2UE5HvpMt9U5+x0/v9iPKBmpnvCQTGICVL4pDi65kXPRWXtzgFNjUdG/X9gUR0dBTjZPHQkhsL+H9tVFwww2+HCNlE00zoAGwKBH66uG837e9uwA0hjfsEDWweEtbKzp/JOTNv4tmhvcCvCDn4kRhMbNHl1LZFg/3vu6tSrbDUZA5bf1BrN3cRgB3Y1CWToPsbLTna3Qu9yKdu17idLrN9i641zYjdH0nSKi/GKnE6W56c7azCzacSTK6d5FVJL7QZQcsVXIl4GoZqoVUOlvr8tR6HLsu8TG8Wuaxe2xOXexUeZS/PU1zEzha7LlQDaIhbsdzGn657LaHRkLo0Atfzmqyikdls0WT6w2ylTJGy74vv3B6hXbHRLo9AOa78j9CR08QVFyYqvypP4Dmec3LQussdlhLpe8uX93fSfSKQAMPfPOxhmiGMtZrV/gCYi0KN4LfDvmxd+4oUZ4BMI0mRjc5eX+JSWAbHbjMi/OUGfQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(8936002)(5660300002)(40460700003)(4326008)(8676002)(2906002)(70206006)(70586007)(2616005)(186003)(26005)(83380400001)(16526019)(356005)(47076005)(30864003)(426003)(336012)(1076003)(81166007)(36756003)(54906003)(36860700001)(6916009)(6666004)(82310400004)(316002)(508600001)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(81166007)(47076005)(82310400004)(5660300002)(70586007)(2616005)(6666004)(36860700001)(356005)(508600001)(186003)(1076003)(54906003)(83380400001)(6916009)(26005)(316002)(336012)(426003)(8936002)(70206006)(4326008)(16526019)(40460700003)(36756003)(2906002)(8676002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2022 04:33:30.6626 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec610301-8947-4f90-80ed-08d9e860a989
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2022 04:33:34.6491 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67c80dc7-c1eb-4b21-cba9-08d9e860abe9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5556
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1204
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,295 +101,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Jasdeep
- Dhillon <jdhillon@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Ilya <Ilya.Bakoulin@amd.com>,
+ Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Jasdeep Dhillon <jdhillon@amd.com>,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+From: Ilya <Ilya.Bakoulin@amd.com>
 
-Fix clamping to match register field size
+[Why]
+The number of lanes wasn't being reset to maximum when reducing link
+rate due to an EQ failure. This could result in having fewer lanes in
+the verified link capabilities, a lower maximum link bandwidth, and
+fewer modes being supported.
 
-Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
+[How]
+Reset the number of lanes to max when dropping link rate due to EQ
+failure during link training.
+
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
-Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Signed-off-by: Ilya <Ilya.Bakoulin@amd.com>
 ---
- .../drm/amd/display/dc/dcn31/dcn31_hubbub.c   | 61 ++++++++++---------
- 1 file changed, 32 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-index 90c73a1cb986..5e3bcaf12cac 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-@@ -138,8 +138,11 @@ static uint32_t convert_and_clamp(
- 	ret_val = wm_ns * refclk_mhz;
- 	ret_val /= 1000;
- 
--	if (ret_val > clamp_value)
-+	if (ret_val > clamp_value) {
-+		/* clamping WMs is abnormal, unexpected and may lead to underflow*/
-+		ASSERT(0);
- 		ret_val = clamp_value;
-+	}
- 
- 	return ret_val;
- }
-@@ -159,7 +162,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->a.urgent_ns > hubbub2->watermarks.a.urgent_ns) {
- 		hubbub2->watermarks.a.urgent_ns = watermarks->a.urgent_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->a.urgent_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, 0,
- 				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, prog_wm_value);
- 
-@@ -193,7 +196,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->a.urgent_latency_ns > hubbub2->watermarks.a.urgent_latency_ns) {
- 		hubbub2->watermarks.a.urgent_latency_ns = watermarks->a.urgent_latency_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->a.urgent_latency_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A, 0,
- 				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A, prog_wm_value);
- 	} else if (watermarks->a.urgent_latency_ns < hubbub2->watermarks.a.urgent_latency_ns)
-@@ -203,7 +206,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->b.urgent_ns > hubbub2->watermarks.b.urgent_ns) {
- 		hubbub2->watermarks.b.urgent_ns = watermarks->b.urgent_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->b.urgent_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_B, 0,
- 				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_B, prog_wm_value);
- 
-@@ -237,7 +240,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->b.urgent_latency_ns > hubbub2->watermarks.b.urgent_latency_ns) {
- 		hubbub2->watermarks.b.urgent_latency_ns = watermarks->b.urgent_latency_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->b.urgent_latency_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B, 0,
- 				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B, prog_wm_value);
- 	} else if (watermarks->b.urgent_latency_ns < hubbub2->watermarks.b.urgent_latency_ns)
-@@ -247,7 +250,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->c.urgent_ns > hubbub2->watermarks.c.urgent_ns) {
- 		hubbub2->watermarks.c.urgent_ns = watermarks->c.urgent_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->c.urgent_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_C, 0,
- 				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_C, prog_wm_value);
- 
-@@ -281,7 +284,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->c.urgent_latency_ns > hubbub2->watermarks.c.urgent_latency_ns) {
- 		hubbub2->watermarks.c.urgent_latency_ns = watermarks->c.urgent_latency_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->c.urgent_latency_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C, 0,
- 				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C, prog_wm_value);
- 	} else if (watermarks->c.urgent_latency_ns < hubbub2->watermarks.c.urgent_latency_ns)
-@@ -291,7 +294,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->d.urgent_ns > hubbub2->watermarks.d.urgent_ns) {
- 		hubbub2->watermarks.d.urgent_ns = watermarks->d.urgent_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->d.urgent_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_D, 0,
- 				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_D, prog_wm_value);
- 
-@@ -325,7 +328,7 @@ static bool hubbub31_program_urgent_watermarks(
- 	if (safe_to_lower || watermarks->d.urgent_latency_ns > hubbub2->watermarks.d.urgent_latency_ns) {
- 		hubbub2->watermarks.d.urgent_latency_ns = watermarks->d.urgent_latency_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->d.urgent_latency_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0x3fff);
- 		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D, 0,
- 				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D, prog_wm_value);
- 	} else if (watermarks->d.urgent_latency_ns < hubbub2->watermarks.d.urgent_latency_ns)
-@@ -351,7 +354,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_A, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_A calculated =%d\n"
-@@ -367,7 +370,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->a.cstate_pstate.cstate_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.cstate_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_A, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_A calculated =%d\n"
-@@ -383,7 +386,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->a.cstate_pstate.cstate_enter_plus_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.cstate_enter_plus_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_A calculated =%d\n"
-@@ -399,7 +402,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->a.cstate_pstate.cstate_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.cstate_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_A calculated =%d\n"
-@@ -416,7 +419,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_B, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_B calculated =%d\n"
-@@ -432,7 +435,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->b.cstate_pstate.cstate_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.cstate_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_B, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_B calculated =%d\n"
-@@ -448,7 +451,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->b.cstate_pstate.cstate_enter_plus_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.cstate_enter_plus_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_B calculated =%d\n"
-@@ -464,7 +467,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->b.cstate_pstate.cstate_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.cstate_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_B calculated =%d\n"
-@@ -481,7 +484,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_C, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_C calculated =%d\n"
-@@ -497,7 +500,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->c.cstate_pstate.cstate_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.cstate_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_C, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_C calculated =%d\n"
-@@ -513,7 +516,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->c.cstate_pstate.cstate_enter_plus_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.cstate_enter_plus_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_C calculated =%d\n"
-@@ -529,7 +532,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->c.cstate_pstate.cstate_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.cstate_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_C calculated =%d\n"
-@@ -546,7 +549,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_D, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_D calculated =%d\n"
-@@ -562,7 +565,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->d.cstate_pstate.cstate_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.cstate_exit_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_D, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_D calculated =%d\n"
-@@ -578,7 +581,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->d.cstate_pstate.cstate_enter_plus_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.cstate_enter_plus_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_D calculated =%d\n"
-@@ -594,7 +597,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->d.cstate_pstate.cstate_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.cstate_exit_z8_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_D calculated =%d\n"
-@@ -625,7 +628,7 @@ static bool hubbub31_program_pstate_watermarks(
- 				watermarks->a.cstate_pstate.pstate_change_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.pstate_change_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_A, 0,
- 				DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_A calculated =%d\n"
-@@ -642,7 +645,7 @@ static bool hubbub31_program_pstate_watermarks(
- 				watermarks->b.cstate_pstate.pstate_change_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.pstate_change_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_B, 0,
- 				DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_B calculated =%d\n"
-@@ -659,7 +662,7 @@ static bool hubbub31_program_pstate_watermarks(
- 				watermarks->c.cstate_pstate.pstate_change_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.pstate_change_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_C, 0,
- 				DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_C calculated =%d\n"
-@@ -676,7 +679,7 @@ static bool hubbub31_program_pstate_watermarks(
- 				watermarks->d.cstate_pstate.pstate_change_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.pstate_change_ns,
--				refclk_mhz, 0x1fffff);
-+				refclk_mhz, 0xffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_D, 0,
- 				DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_D calculated =%d\n"
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index d0cb40df60a4..cd9c31b5e55d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -3504,6 +3504,7 @@ static bool decide_fallback_link_setting(
+ 			current_link_setting->link_rate =
+ 				reduce_link_rate(
+ 					current_link_setting->link_rate);
++			current_link_setting->lane_count = initial_link_settings.lane_count;
+ 		} else {
+ 			return false;
+ 		}
+@@ -3516,6 +3517,7 @@ static bool decide_fallback_link_setting(
+ 			current_link_setting->link_rate =
+ 				reduce_link_rate(
+ 					current_link_setting->link_rate);
++			current_link_setting->lane_count = initial_link_settings.lane_count;
+ 		} else {
+ 			return false;
+ 		}
 -- 
 2.25.1
 
