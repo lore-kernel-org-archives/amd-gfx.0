@@ -4,116 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBC01C433F5
-	for <amd-gfx@archiver.kernel.org>; Sun,  6 Feb 2022 16:57:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C83DC433EF
+	for <amd-gfx@archiver.kernel.org>; Sun,  6 Feb 2022 17:11:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2097910E187;
-	Sun,  6 Feb 2022 16:57:36 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2055.outbound.protection.outlook.com [40.107.102.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9432710E187
- for <amd-gfx@lists.freedesktop.org>; Sun,  6 Feb 2022 16:57:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OAbCSzDFa4ZOcdx6UA15aFlT5pLcqz8kynI+fMpNpAma54h229P8JbldeWGsTVHZfH3zk5vvixcmTfhmPE5W4urPmQFlev5j+LOhI7pWGIcK3iIPDiqOtHGqoQAuV6mWKwOj6dHHnS8EoUnUDIIut7aoVT2lca36MjA+8FxstLPBRfF3hEXX6UUILC4q34bEi22wELq+RB91WlYsPAi4oQ1NOyWhv8Wjxl7jfchr9sr7yyguObKOrVOzuECMXRGsailfqAO+9njlwaSuA89P0TUvVoEoo/O6eE1/N9Dia19JmXtyex1+V/ubgfxDbLbb3QQ3QQAfD2w3f77e5ejcVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uUA6aR/CpYgMqnqjfqgtwdtEeY7z9oviZWJ77G9Z/R0=;
- b=jBDsOypAWYIUlaR5k/esbju0GQNGdRe16Fyq48jmICP62r5TFJzUGeen/YYIVYZ3kvpMYnOPuyJ/YsQC574o0FRHllSnXPc2+dKFT1ey5yrhe+EBciMPbZ1ipNn8DZRzzx52+z8esBSeqUinaDq6Hhyr7vHqS4tIoRLQ/18W+UTMbLtR3C5em1nqqs5KQtgk0HIhhlw7+80vujQoTgrxjhqtEgVaRZjCocOA6ZmCT+EYVLobpmjgJcQJGRCu/OAZDfC6UKtPUxK1V2Cs5EFG4v5AfOzOp61+s3qusT+Gb8Gc0xt4fBK7x3qQbJolSNjo1MvxSZLCg354XmFKT9vtfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uUA6aR/CpYgMqnqjfqgtwdtEeY7z9oviZWJ77G9Z/R0=;
- b=wHHvSWfnRVwZCsfMmAsLF43Uo1MA/4ZoF9r0nxQ5omk3BGGeVsvgkb5cYBSzz/g7i19T7bjwjBH7GUFWY/0KFhs5EiYPuAjJqwxG0pFAzXfy7wCiZdiJEdIb2ngyuYXeEsfFBgZgM6l0bwYZ9pcncwyfORHtrrxays5L8PKOZXU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by BY5PR12MB3844.namprd12.prod.outlook.com (2603:10b6:a03:1ad::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Sun, 6 Feb
- 2022 16:57:31 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::d861:5699:8188:7bd3]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::d861:5699:8188:7bd3%3]) with mapi id 15.20.4951.018; Sun, 6 Feb 2022
- 16:57:31 +0000
-Message-ID: <7190426d-0300-da40-963d-af1cc280cd69@amd.com>
-Date: Sun, 6 Feb 2022 17:57:24 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id A714E10E1CB;
+	Sun,  6 Feb 2022 17:11:29 +0000 (UTC)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71CCE10E1CB;
+ Sun,  6 Feb 2022 17:11:28 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id m5so3643033wrb.2;
+ Sun, 06 Feb 2022 09:11:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=lHsscKQ4ZGzwxNKhQRFBOzvu8bkRXQ4hQkkCeKPYhNU=;
+ b=WWt6ftPnLbSvbuk/yUKYIjptnlHotdoRYIcmgWAfiH9GpgH1yLZX5UnnJt7SCHbgeT
+ cKH4y56KMCKgy6c7OE5FcpPBSIb6eU457AMqbmwhxEqf5w1rLR6X2oFkJSgoD141hfN+
+ bO0bYViuOZHEojF3cZeaGKmkRnYp6GMk9Prwe+cTVy8GX2hy/R1cIr2NzPSh0+C5qH9E
+ r9wBbSAOuLAcu9Ki/nGHGx6MzNmBmVltDAkTEGWMIEt+sS1Gys/wyZXrcjL4Z1mYypNd
+ PBeVYbz975IlKRZRUOhheI0G9hkz0d+OuiaUPnU/cLbho+Gu9g5RgOxM1VMw9h7WR08i
+ W34w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=lHsscKQ4ZGzwxNKhQRFBOzvu8bkRXQ4hQkkCeKPYhNU=;
+ b=mufwQs5PXlLMzom5lrZGtPM8q5aYIGYxU0dJI1Upb8QArMAk3PITLTf/eqUlxCJgEF
+ 2QZV1DxHQ+t9L8EOaTkxapkfv114hOzMiDbpijyusVuKEXVMRCBI0ymvy6Cn+iiVqY7F
+ W98XcMLr/G8+qWJKuMn6ndnP1Njg362Fub6B/SjhxTL8wgfHShzqZp0g9+9/irnQabW8
+ H1+eeXpHqrHuwGMWH6oZ0DUuBtJZnTykbNNiZmMOP5JK9Ez8DwKufAsJ9epquAaenmlc
+ 6dRnWdP3N3tU8tjV3wOJ6/tGNUel1jnPxRh1Rz4PvjAZeclLZsNaR5KUtTwwiMDTBCoS
+ 3vkg==
+X-Gm-Message-State: AOAM530GLbUJJtZCi+EsIp2v/Kn1jH3nSqrUfVwVH/rcenhyC294+CQ3
+ 35zxIVratpTCvaq6e4wRK6Y=
+X-Google-Smtp-Source: ABdhPJxsAKssEf1jQGqzBBmAtJH/aSIg27SrOjlgCI8x1BpyAnqmsI28JVcJC5glavbfidCyWeoshw==
+X-Received: by 2002:a05:6000:1a8f:: with SMTP id
+ f15mr6829638wry.349.1644167486876; 
+ Sun, 06 Feb 2022 09:11:26 -0800 (PST)
+Received: from ?IPV6:2a02:908:1252:fb60:17ed:d94c:ce91:f379?
+ ([2a02:908:1252:fb60:17ed:d94c:ce91:f379])
+ by smtp.gmail.com with ESMTPSA id v5sm8716825wrx.114.2022.02.06.09.11.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 06 Feb 2022 09:11:26 -0800 (PST)
+Message-ID: <a3016b01-1456-d571-a44d-6ed6cd6a66a0@gmail.com>
+Date: Sun, 6 Feb 2022 18:11:24 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: Minimal GPU setup
+Subject: Re: [BUG] gpu: drm: radeon: two possible deadlocks involving locking
+ and waiting
 Content-Language: en-US
-To: Amol <suratiamol@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <CA+nuEB_u4G-Nf_nHODoY86anP6s0vRyh=0-yPxphbksbCPJ1Yg@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CA+nuEB_u4G-Nf_nHODoY86anP6s0vRyh=0-yPxphbksbCPJ1Yg@mail.gmail.com>
+To: Jia-Ju Bai <baijiaju1990@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch
+References: <d5e4460f-7e26-81d2-2efe-6f47760b78d2@gmail.com>
+ <7cdc2d3f-df52-f7a9-15bf-fe4bc01d3c4f@amd.com>
+ <8fa82beb-468c-afb0-3eed-4240200395a3@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <8fa82beb-468c-afb0-3eed-4240200395a3@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR04CA0105.eurprd04.prod.outlook.com
- (2603:10a6:20b:31e::20) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 001b5e40-e79b-4b84-f206-08d9e991c337
-X-MS-TrafficTypeDiagnostic: BY5PR12MB3844:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB3844CE94B103A5744034964B832B9@BY5PR12MB3844.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cDu83uurQ7DWsAMrRoraod2aoXk1JcLjHjxVOQWGEuvryrwF0L+XghY7tmzIgjPjg4wC1GDp+OcuMamGnwTmheU1DYo3bd/t8BwWXyf1jr3hsUyKrnLJLCyZMuRcMYRLdR/B6WBo1O9hr5o9mfQJ9MwPD2Qt86ZlNwP+pknJKVYnUoCPEVmseIo/6XirEG9P+cH/f3HQUqIjhtKXMkdeFLaGy+K7ommi2t/wsg8y+hNFS+AXN4wKR+Y4xgZgXe3cjtH/R/pOriygWJ3oUS4AhO7488cwrlMpxzIIkrT/9WbNielSLfHRwMy6GE5p4YWvTwrpEuHtUm3fAiLVvdr6oKvotozD/AOvbLg6MMZKvI5dB8BTkjJ6LVidt95CZ5XPoVBanTkOzMga7FjKwnJkpLA67s0yHLNVda8lkro30shAvv3lEltlihU/a/CaIgBEKnEO6hMXSR3tEyrpyHx3dsfOpqOf1Vi8xiz+BQ9BQ18CIh3wdi3dp7FoZ+ENi+bANQGtc3fBO5kPbJOaSWk8DqkoaroJr6R+psd+iEqSG0ZUyluST6V2OjKH5FPLus8P3qNi7RJeKK9yRXH+9U9m/EsZMDghjmQmOb6QrgnLpXwiweHossrsDEBizzaZD2mc9El0tVwIJGduZqDKyU7p0ICXPz8LwtRJDtGEZpWZYUSMtho5mtiBf1zVyUCZX1VgayvOthTZPId1V+OYW4foKlue915JXcr7qe64Xizzw+M=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66946007)(66476007)(6666004)(66556008)(186003)(8676002)(8936002)(316002)(86362001)(5660300002)(3480700007)(31696002)(6486002)(6512007)(38100700002)(2906002)(7116003)(6506007)(2616005)(83380400001)(508600001)(31686004)(36756003)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M29pemR5TytFbDBjYk5XL3ZpeHZMbWtiTEZUM2NtcS8xZjZKTGtiTGNKN2Np?=
- =?utf-8?B?bjU0L3FtRzZYRXlLVzZoenlEVFlRYXR0OGtOQmtlcTRoUitTZXZ0R3ljWHNI?=
- =?utf-8?B?WTc4ZEoyN1FrNk54dHZLMlExd0daVC9reUxvT2dKWVptUHdsZUNZZUg4czhj?=
- =?utf-8?B?dzRQVGcyRUgrcTRweWN3YnJsUjFsd0p5Q3JnZ0N2Z2N2eWpNVWtqbWdDaS9S?=
- =?utf-8?B?K3YyMWcySWtWdGMxUy9JVEZHMGpWZ3h0MGNkVHV6cjZpT3Z2ZDFpaU5QMHZl?=
- =?utf-8?B?UmYycEE4QnpjL2xoSjF0NGltaVNvcnliUVJ5RFpsQUc1M3grcVBkbVJQMUc5?=
- =?utf-8?B?TXhKeC9vT1hQaDEvZlhLenhmaDRLYlFUZTBrUkhaMmJtbEovSFhYd0l6K01v?=
- =?utf-8?B?cmQwVlBwOXloWE4xcmJMU1orSXk5a0hXbDhWS1ZCWTBaeXE0ZHp2cHM3czha?=
- =?utf-8?B?dWNNSmNLa0IyaEhnNlVBVHpOdjRQOGdWSXJVQ3ByVFNPVDlxVEZIcjRJUHlz?=
- =?utf-8?B?NUNLcDE5bjQ5K2gwR05TZnpsK2pRSVBiNlRSSGlrR29mWE45MFNiZFhIdDMr?=
- =?utf-8?B?VXNKNUF2Wk5TeEl6NFBmZmN1WGdMNW1odlFUQjBkbUhaQlpVL3FUWXFWT0Nq?=
- =?utf-8?B?eUtod3lQa1dNMVVjcVRINVkrWm9DK2NydVVoRWl5QUs1S1c0V2NCeEZpdko0?=
- =?utf-8?B?QXVoY3F5R2I1Y3FxNmpqUHowbkIvR29wU29SVnJsSTRXWFl5VitEdVp6MVVF?=
- =?utf-8?B?cFlEWXBuUm5NTzR1NHdSdVp4SnA3S25yanp1MzhCbjljN0c5QUFRalp4cnZn?=
- =?utf-8?B?dk1vbzFMMmUvRjdQVlYvVkhOaWJaWDJrRzU4dnFQcnY0RG84NVRtTWJHbzdi?=
- =?utf-8?B?WmEydmQ5elVhSTFoV1VBRkYvckFqZzg2S0J3ZkxTNlVUbm5WSStwc2dwQldV?=
- =?utf-8?B?WGY3Ylp0UlFjZkhEYUVUc0ZHM1c4WGl5THpLVEEzYzdieXA5MWg0MWNXTnV2?=
- =?utf-8?B?SkVjZG95akNoWU11QlVVenB1YVJPalFLdXpjcWJVN1UvZGlhOFN3T045b2RO?=
- =?utf-8?B?NGQ4OWZ2VnkrUmhRRHlhMnNoOW5CWSswSVBrTmpJV0RmV2hXVFVUaUk5R3BD?=
- =?utf-8?B?R0EwRis5cEFKTUp1a1d4MnQ1aVRvT3E5dk9aVHJ0bjA3WWorVHA4eHUrMVlL?=
- =?utf-8?B?QlVDQnd0Q1ExUVMwNWZiRlFJS2creVQrZDVpMFJZNHVDYzc5enA3WUxWRE9k?=
- =?utf-8?B?UTREZUlLYllHWjN4QlQ0VTN2MHc4Q3RzTEJFVFdNNWZzUFgwcUIzdnFPcHp2?=
- =?utf-8?B?NzNDRmgvMjc0OVQwMGN6VVZ0ZkZ5VUEvWllMeXhiYVozZWgxc0dvTXp3ZURT?=
- =?utf-8?B?NUpZMDRqTlRkMHhjVHliVEZIZFlwMkdDYVZSd1FIWENmL0dQNEw3cHlkL1dm?=
- =?utf-8?B?c1c0QjJRREtONTJNYlZJZkh4RDVTREtsWFV4MEQvQkdpTVhXVzhDL29TcXhp?=
- =?utf-8?B?U2t0M2tIUDFmc0FHRDlPRkJTRmJlS01YdlF4SXZRaTZDcnV3YlFlaW5JTE5Y?=
- =?utf-8?B?MStFZ20yZWVDYTd2cEtHZkxUcnREUmwxbm1LNlcwMXdob0YzZ3YwcVhPVHhq?=
- =?utf-8?B?dWdlazY4bGNsWG8zSmJDbDlqdWdBaFZGazNtREVBTHhod01WaCtNblA4dWxG?=
- =?utf-8?B?SGJWS01jSkNFU0pYZmdxYUN4RkZOb3BVbEk1Mm9VcHZvbXVKelpVK1BrZnJo?=
- =?utf-8?B?NE0xSkZZYnJsSTBmTzVHV1pHc2x1aWptaDFjM2NaUDh6WkQrUGNCUFZhN2Zi?=
- =?utf-8?B?and6TGtON2ZJWWxPQ3hGbkszMDhhekUvTWRXNFlTRzFCaFlXNWw3aTlRNFBs?=
- =?utf-8?B?Y1JZU1lCYmdrU0twaVpnZk5QTDhHajU3VkMrT21pZ0RGUzVqUlVGV2ZacnQw?=
- =?utf-8?B?VkhaQURWMWIvaG1JYTJyZFUySERxelVLYjdFU3o5NUkxSGlzSEdTZmZtU0Fj?=
- =?utf-8?B?b3dKb2FrMWxzTnoxM3AzLzJ3dWNSeWxrZ2lFM3BvZFk2cVI5TndDelVNVFdo?=
- =?utf-8?B?emUwbTdZTE1Rd1o1VmVXUE50YTZnYjlMRDJncFRFMS9kM2ptTVdHOE0wbUo2?=
- =?utf-8?B?ODQ1UXJtZ0s3UU9mcDU3UmZhdlYvcUJiWGlRQjlyS3hKa2ZvaWgvZjZBdEZD?=
- =?utf-8?Q?EZOWrcygdcXjV5PINjIG3C4=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 001b5e40-e79b-4b84-f206-08d9e991c337
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2022 16:57:31.0013 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IvM1FZm8nBDtcygyZsTZ1uIB4qVBsq9LP0hcaTLi82e21/ty9aNF1A6EkkZ01hxZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3844
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,59 +78,160 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Amol,
 
-Am 05.02.22 um 10:47 schrieb Amol:
-> Hello,
+
+Am 05.02.22 um 02:55 schrieb Jia-Ju Bai:
+> Hi Christian,
 >
-> I am learning to program Radeon HD 7350 by reading the radeon
-> driver source in Linux, and the guides/manuals from AMD.
+> Thanks for the reply :)
 >
-> I understand the general flow of initialization the driver performs. I
-> have also been able to understand and re-implement the ATOM
-> BIOS virtual machine.
-
-That sounds like you already came pretty far.
-
-> I am trying to program the device up from scratch (i.e. bare-metal).
-> Do I need to perform all those steps that the driver does? Reading
-> the evergreen_gpu_init function is demotivating; it initializes many
-> fields and registers which I suspect may not be required for a minimal
-> setup.
+> On 2022/2/1 15:56, Christian König wrote:
+>> Hi Jia-Ju,
+>>
+>> interesting that you have found those issues with an automated tool.
+>>
+>> And yes that is a well design flaw within the radeon driver which can 
+>> happen on hardware faults, e.g. when radeon_ring_backup() needs to be 
+>> called.
 >
-> Is posting the BIOS and loading the microcode enough to get me started
-> with running basic tasks (DMA transfers, simple packet processing, etc.)?
+> In fact, my tool finds dozens of similar possible deadlocks caused by 
+> wait_event_timeout() in radeon_fence_wait_seq_timeout().
 
-Well yes and no. As bare minimum you need the following:
-1. Firmware loading
-2. Memory management
-3. Ring buffer setup
-4. Hardware initialization
+Those are false positives.
 
-When that is done you can write commands into the ring buffers of the CP 
-or SDMA and see if they are executed (see the *_ring_test() functions in 
-the driver). SDMA is usually easier to get working.
+The call to radeon_fence_process() from radeon_fence_count_emitted() for 
+example is just to speed things up, it's not mandatory for correct 
+operation and so it doesn't matter if it isn't called because of the 
+thread is blocked on the pm.mutex.
 
-When you got that working you can worry about IB (indirect buffers) 
-which are basically subroutines calls written into the ring buffers.
+But I also don't see how your tool should be able to figure that out 
+automated.
 
-Most commands (like copy from A to B, fill something, write value X to 
-memory or write X into register Y) can be used from the ring buffers 
-directly, but IIRC some context switching commands which are part of the 
-rendering process require special handling.
-
-But keep in mind that all of this will just be horrible slow because the 
-ASIC runs with the bootup clocks which are something like 100Mhz or even 
-only 17Mhz on very old models. To change that you need to implement 
-power management, interrupt handling etc etc....
-
-Good luck,
+Regards,
 Christian.
 
+> There are three other examples in Linux 5.16:
 >
-> Thanks,
-> Amol
+> #BUG 1
+> radeon_dpm_change_power_state_locked()
+>   mutex_lock(&rdev->ring_lock); --> Line 1133 (Lock A)
+>   radeon_fence_wait_empty()
+>     radeon_fence_wait_seq_timeout()
+>       wait_event_timeout(rdev->fence_queue, ...) --> Line 504 (Wait X)
+>
+> radeon_fence_driver_fini()
+>   mutex_lock(&rdev->ring_lock); --> Line 917 (Lock A)
+>   wake_up_all(&rdev->fence_queue); --> Line 927 (Wake X)
+>
+> #BUG 2
+> radeon_set_pm_profile()
+>   mutex_lock(&rdev->pm.mutex); --> Line 382 (Lock A)
+>   radeon_pm_set_clocks()
+>     radeon_fence_wait_empty()
+>       radeon_fence_wait_seq_timeout()
+>         wait_event_timeout(rdev->fence_queue, ...) --> Line 504 (Wait X)
+>
+> radeon_dynpm_idle_work_handler()
+>   mutex_lock(&rdev->pm.mutex); --> Line 1861 (Lock A)
+>   radeon_fence_count_emitted()
+>     radeon_fence_process()
+>       wake_up_all(&rdev->fence_queue); --> Line 323 (Wake X)
+>
+> #BUG 3
+> radeon_pm_fini_old()
+>   mutex_lock(&rdev->pm.mutex); --> Line 1642 (Lock A)
+>   radeon_pm_set_clocks()
+>     radeon_fence_wait_empty()
+>       radeon_fence_wait_seq_timeout()
+>         wait_event_timeout(rdev->fence_queue, ...) --> Line 504 (Wait X)
+>
+> radeon_dynpm_idle_work_handler()
+>   mutex_lock(&rdev->pm.mutex); --> Line 1861 (Lock A)
+>   radeon_fence_count_emitted()
+>     radeon_fence_process()
+>       wake_up_all(&rdev->fence_queue); --> Line 323 (Wake X)
+>
+> Thus, to fix these possible deadlocks, we could moditify the code 
+> related to radeon_fence_wait_seq_timeout().
+> But I am not quite familar with the radeon driver, so I am not sure 
+> how to moditify the code properly.
+>
+>>
+>> But that happens so rarely and the driver is not developed further 
+>> that we decided to not address this any more.
+>
+> Ah, okay.
+>
+>>
+>> Regards,
+>> Christian.
+>>
+>> Am 01.02.22 um 08:40 schrieb Jia-Ju Bai:
+>>> Hello,
+>>>
+>>> My static analysis tool reports a possible deadlock in the radeon 
+>>> driver in Linux 5.16:
+>>>
+>>> #BUG 1
+>>> radeon_dpm_change_power_state_locked()
+>>>   mutex_lock(&rdev->ring_lock); --> Line 1133 (Lock A)
+>>>   radeon_fence_wait_empty()
+>>>     radeon_fence_wait_seq_timeout()
+>>>       wait_event_timeout(rdev->fence_queue, ...) --> Line 504 (Wait X)
+>>>
+>>> radeon_ring_backup()
+>>>   mutex_lock(&rdev->ring_lock); --> Line 289(Lock A)
+>>>   radeon_fence_count_emitted()
+>>>     radeon_fence_process()
+>>>       wake_up_all(&rdev->fence_queue); --> Line 323 (Wake X)
+>>>
+>>> When radeon_dpm_change_power_state_locked() is executed, "Wait X" is 
+>>> performed by holding "Lock A". If radeon_ring_backup() is executed 
+>>> at this time, "Wake X" cannot be performed to wake up "Wait X" in 
+>>> radeon_dpm_change_power_state_locked(), because "Lock A" has been 
+>>> already hold by radeon_dpm_change_power_state_locked(), causing a 
+>>> possible deadlock.
+>>> I find that "Wait X" is performed with a timeout 
+>>> MAX_SCHEDULE_TIMEOUT, to relieve the possible deadlock; but I think 
+>>> this timeout can cause inefficient execution.
+>>>
+>>> #BUG 2
+>>> radeon_ring_lock()
+>>>   mutex_lock(&rdev->ring_lock); --> Line 147 (Lock A)
+>>>   radeon_ring_alloc()
+>>>     radeon_fence_wait_next()
+>>>       radeon_fence_wait_seq_timeout()
+>>>         wait_event_timeout(rdev->fence_queue, ...) --> Line 504 
+>>> (Wait X)
+>>>
+>>> radeon_ring_backup()
+>>>   mutex_lock(&rdev->ring_lock); --> Line 289(Lock A)
+>>>   radeon_fence_count_emitted()
+>>>     radeon_fence_process()
+>>>       wake_up_all(&rdev->fence_queue); --> Line 323 (Wake X)
+>>>
+>>> When radeon_ring_lock() is executed, "Wait X" is performed by 
+>>> holding "Lock A". If radeon_ring_backup() is executed at this time, 
+>>> "Wake X" cannot be performed to wake up "Wait X" in 
+>>> radeon_ring_lock(), because "Lock A" has been already hold by 
+>>> radeon_ring_lock(), causing a possible deadlock.
+>>> I find that "Wait X" is performed with a timeout 
+>>> MAX_SCHEDULE_TIMEOUT, to relieve the possible deadlock; but I think 
+>>> this timeout can cause inefficient execution.
+>>>
+>>> I am not quite sure whether these possible problems are real and how 
+>>> to fix them if they are real.
+>>> Any feedback would be appreciated, thanks :)
+>>>
+>>>
+>>> Best wishes,
+>>> Jia-Ju Bai
+>>>
+>>
+>
 
