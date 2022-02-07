@@ -4,54 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD2C4C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 19:16:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89943C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 19:35:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47AA710E3BF;
-	Mon,  7 Feb 2022 19:16:10 +0000 (UTC)
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
- [IPv6:2607:f8b0:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8473C10F857
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 19:07:03 +0000 (UTC)
-Received: by mail-pf1-x42b.google.com with SMTP id n32so14609423pfv.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Feb 2022 11:07:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=intel-com.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+WVqg4iM1IK5woHe616yKoTPDV85yaqed+lmC/0zx4Q=;
- b=E8Yv+tJ27QtdnqCiahy1ynDTxSrIHFQS9v3T6SGxOtbvrS4oJdOaAbBOu5WkKuOBfd
- YZVQDjXpyCcHf5TePEiE9WLubJVn7pkXJNntqfcUu0FB+cpVUKi2U/fVQ/r2P4FuKOGP
- rrsKex566q7w8weRBoU0ZAbtyAsexA2NArqSSGJ8aSE3asKbO/kySJdCGSVU84OEGUiB
- QCLOFQgtfcBKBXnXRpXprEE7iAtFckobPiWULixyKadweXpHSIl4fOM/cfTnhyD31lEn
- X5EcS76XqYpJKN3mK9thEa6gK63RHYW8pEdrhtUg2qPw6l/cPnln0K7VaxQOTiViReVV
- h7aA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id E965C10EF97;
+	Mon,  7 Feb 2022 19:35:52 +0000 (UTC)
+Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
+ [IPv6:2607:f8b0:4864:20::833])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 356AA10F817
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 19:22:44 +0000 (UTC)
+Received: by mail-qt1-x833.google.com with SMTP id t17so12684152qto.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Feb 2022 11:22:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=yHQiDHxA3qZlcWTxLN1MgZypNnbjTwUZO2QoeiWP/cI=;
+ b=WalR+vjdCg+8zPlO5aZ1ywuN+woRsi3gerM9e8um5R75M05o/0A4tTPV0sDoS0iLf7
+ MI5Ayh/aUjA3lzGk4knlGcpvrjJkTAzgzCaIVUlu2cLGGSbDhpJ/GrhJhUdc2HnXtmRK
+ stuNg7sUYxLt5HQjP/PwyCP9ZRninXNxW8lX4+8vi6VkUSLgg5BY3Jxg39rH3WH2BDNx
+ g9rpWqR/RtcR0wf2poNmSVgkhRnSCPEG3oCgynxbJlts+OBBSOpC9atYeDDQCpJbBHmV
+ OdyYF8TiYTFFifPNOFO5hE7XJgkPbqKroSw//vj0hDKtL6BLQKT8a9/Jd8uxBZMUHGVb
+ 3Hgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+WVqg4iM1IK5woHe616yKoTPDV85yaqed+lmC/0zx4Q=;
- b=3LzEblYNoCRMWzJuMeHubU21wyLqweBvD0n/mM1KkfKjC7+1iNtxHKAYd7WexCKHsR
- d00kKG5c8YY9/wyIXxbdDcXKpeIdR1TXgX7B+rOyZ+AFaoQ7ji53dUkFz5B88sMT9nib
- hb6ozBR+q+pTv6hxA2WQe2s1yw1+atFGUC/JaacUkyZadFpEsNt22AnY1NFqYTeYKnol
- dhH9ulAuB1mYMEm6VyljpMuk0evOpWjRF7u01QFC34KkYtnMvsLbpYG5VdJ5Sq22SQ8F
- WlXQigl0uNE8OvHif86Bb6qDNEn402ihZdPM/P28iDi3aw1kUGTVXovPNlmPPkSRULEA
- qRLQ==
-X-Gm-Message-State: AOAM5332H65OIW76THLt05/2C3FAwSxhZXpZEwB33e9gL4dCB+GyQWPh
- ROc0M8k9sxNLQemEcYoBOdxYiOej2Z8ofyQzpUZR+Q==
-X-Google-Smtp-Source: ABdhPJx4gFwHpx6eXlK2M23aHGpthiH4fAIYOpnEcI58LRfZznkCnIjyKeDQJsC3Q3CmCC8lC+fdRuCFIdo+hfnPs1A=
-X-Received: by 2002:a62:784b:: with SMTP id t72mr939106pfc.86.1644260822995;
- Mon, 07 Feb 2022 11:07:02 -0800 (PST)
-MIME-Version: 1.0
-References: <20220207063249.1833066-1-hch@lst.de>
- <20220207063249.1833066-5-hch@lst.de>
-In-Reply-To: <20220207063249.1833066-5-hch@lst.de>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Mon, 7 Feb 2022 11:06:52 -0800
-Message-ID: <CAPcyv4ipZUeCjf5teFQuJX5DEs7ViGHW_PKKfoJEK8chjJTZig@mail.gmail.com>
-Subject: Re: [PATCH 4/8] mm: move free_devmap_managed_page to memremap.c
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=yHQiDHxA3qZlcWTxLN1MgZypNnbjTwUZO2QoeiWP/cI=;
+ b=AzVA/OrBO/mVQM4N5JbIqfbqjrO6X+YL4s0ttaS1+DS1So38+jqy3CPzfgVqnHCJIf
+ t9PNlpv1c0Exr4pi0H7lnhqi/7AWu/Yey51a+dKSI6pWBeIsK3MvGZppKSnYBpCJf7QW
+ tmT2rleW+9akmu4bB95+Hj4ZCkQqrXRA2l8vkrWozwD0Z5FMKT2ptGAFjqAheqiNsJed
+ OycXlsepecENKsTuW+/72ytBVy2any9g8WPk0hYmrytRko856ogrBCazyosE+sIMmYYe
+ FKtKS9zGBUKgV1/57jk34yQIuIoEkasK8Z6OzjzWCztoZZP25k/GmSLijQ5PiWjwFz29
+ EZRg==
+X-Gm-Message-State: AOAM530jqOUKDGaRs5000fLhH/H3BKNeKfCVyqfhoDUyQS+P/c+SaNlM
+ ObROTpUFOizc3Jpbpd9APj6SgA==
+X-Google-Smtp-Source: ABdhPJyusc4Y6UBxGsOMvrtpT2MH3zTc6ABg/OaP0sDSZntIjW01XzJV/gLuVV8p/6/141fWu3yUUA==
+X-Received: by 2002:a05:622a:1303:: with SMTP id
+ v3mr740294qtk.294.1644261763197; 
+ Mon, 07 Feb 2022 11:22:43 -0800 (PST)
+Received: from ziepe.ca
+ (hlfxns017vw-142-162-113-129.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.162.113.129])
+ by smtp.gmail.com with ESMTPSA id y5sm5930001qkp.37.2022.02.07.11.22.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Feb 2022 11:22:42 -0800 (PST)
+Received: from jgg by mlx with local (Exim 4.94) (envelope-from <jgg@ziepe.ca>)
+ id 1nH9b0-000HrC-2F; Mon, 07 Feb 2022 15:22:42 -0400
+Date: Mon, 7 Feb 2022 15:22:42 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
 To: Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Mon, 07 Feb 2022 19:16:09 +0000
+Subject: Re: [PATCH 1/8] mm: remove a pointless CONFIG_ZONE_DEVICE check in
+ memremap_pages
+Message-ID: <20220207192242.GC49147@ziepe.ca>
+References: <20220207063249.1833066-1-hch@lst.de>
+ <20220207063249.1833066-2-hch@lst.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220207063249.1833066-2-hch@lst.de>
+X-Mailman-Approved-At: Mon, 07 Feb 2022 19:35:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,27 +74,27 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux NVDIMM <nvdimm@lists.linux.dev>,
- Ralph Campbell <rcampbell@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Karol Herbst <kherbst@redhat.com>, Linux MM <linux-mm@kvack.org>,
- nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
+ Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
+ Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, linux-mm@kvack.org,
  Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- Logan Gunthorpe <logang@deltatee.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ Logan Gunthorpe <logang@deltatee.com>, Dan Williams <dan.j.williams@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Feb 6, 2022 at 10:33 PM Christoph Hellwig <hch@lst.de> wrote:
->
-> free_devmap_managed_page has nothing to do with the code in swap.c,
-> move it to live with the rest of the code for devmap handling.
->
+On Mon, Feb 07, 2022 at 07:32:42AM +0100, Christoph Hellwig wrote:
+> memremap.c is only built when CONFIG_ZONE_DEVICE is set, so remove
+> the superflous extra check.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  mm/memremap.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 
-Looks good.
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
-Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+Jason
