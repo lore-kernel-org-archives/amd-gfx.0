@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0C88C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 09:10:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57E61C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 09:10:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81AEA10F1CD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA75310F4E4;
 	Mon,  7 Feb 2022 09:10:31 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AC8410EAC3;
- Mon,  7 Feb 2022 06:33:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B707310EAC3;
+ Mon,  7 Feb 2022 06:33:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=/czcrmGZ5Lo0qcMzS6TZro4gdhOrCfP1KvQi7PFqQEo=; b=LH3yYlJbFcYdKZGh5fpbD5cyA8
- Vi9YtoYPhluVROnMSefSrKmKevym2zgEQKzyNBtBGvATAe8VUR48cN4jBD5HMQTW1fkjFIgPvwP5k
- Umggu+ttp3KvRZuWB3YwritEyZctL73XUgIeIp84kFtqqjAVIa1nHL8eZdb/s3ZeWRajN43MS0PCv
- 7jKw3NdrrVnL32Dz4gC+yVCvZgLrqkRqvZhvVQJLq0in2Z7OUlUeyHCGVsYNZ+6qndUu2qyEBA7BI
- rDRygKQ3epdxXbnGqU4DVbdYEhlInkWtKtvTWpGbVnkcAst6M2ZI1N5itTfd9ygTLnRkdKiTiOYnm
- ALEETTxQ==;
+ bh=wqaArwblmIFSHxUdNBNekbGuuQV19X++bRGa4XtI21U=; b=lxdZaX9HdECBxS8xbH3caitLbH
+ PgJ/rcSWAsPKp0w4j5ndf9woh4inxdIS2JIDFXPeAEbv6jdzH9Jo2ntSfHkuj6mUQ7HTrOAokh5qc
+ 4is/Xb5dtZG07+ioaAog0Tey/v1edHRBpVlQ/9G50rLriinhvV/d9n8u3P6DkytAHoAIRzQrVcWVu
+ qUeK/m7kl6g5AO82aINiKwrYAOVXXo11IEJlHfxptb1ZQ4JeiUUJojms+atQUIJLsKgoZPQaQcKqS
+ Ppu19zrTCt3BV/fiLaL5lgHLtEmxSGihd4Tx+0ttgGEEJ7i2vxcU+OqN3HDnjubScKNcKlfoiC4Nm
+ uoHWy8CQ==;
 Received: from [2001:4bb8:188:3efc:2cbe:55d7:bb63:46d2] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nGxaA-0099KB-Ir; Mon, 07 Feb 2022 06:33:03 +0000
+ id 1nGxa4-0099Hh-Pj; Mon, 07 Feb 2022 06:32:57 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>,
  Dan Williams <dan.j.williams@intel.com>
-Subject: [PATCH 4/8] mm: move free_devmap_managed_page to memremap.c
-Date: Mon,  7 Feb 2022 07:32:45 +0100
-Message-Id: <20220207063249.1833066-5-hch@lst.de>
+Subject: [PATCH 2/8] mm: remove the __KERNEL__ guard from <linux/mm.h>
+Date: Mon,  7 Feb 2022 07:32:43 +0100
+Message-Id: <20220207063249.1833066-3-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220207063249.1833066-1-hch@lst.de>
 References: <20220207063249.1833066-1-hch@lst.de>
@@ -63,89 +63,33 @@ Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-free_devmap_managed_page has nothing to do with the code in swap.c,
-move it to live with the rest of the code for devmap handling.
+__KERNEL__ ifdefs don't make sense outside of include/uapi/.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- include/linux/mm.h |  1 -
- mm/memremap.c      | 21 +++++++++++++++++++++
- mm/swap.c          | 23 -----------------------
- 3 files changed, 21 insertions(+), 24 deletions(-)
+ include/linux/mm.h | 4 ----
+ 1 file changed, 4 deletions(-)
 
 diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 7b46174989b086..91dd0bc786a9ec 100644
+index 213cc569b19223..7b46174989b086 100644
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -1092,7 +1092,6 @@ static inline bool is_zone_movable_page(const struct page *page)
- }
+@@ -3,9 +3,6 @@
+ #define _LINUX_MM_H
  
- #ifdef CONFIG_DEV_PAGEMAP_OPS
--void free_devmap_managed_page(struct page *page);
- DECLARE_STATIC_KEY_FALSE(devmap_managed_key);
+ #include <linux/errno.h>
+-
+-#ifdef __KERNEL__
+-
+ #include <linux/mmdebug.h>
+ #include <linux/gfp.h>
+ #include <linux/bug.h>
+@@ -3381,5 +3378,4 @@ madvise_set_anon_name(struct mm_struct *mm, unsigned long start,
+ }
+ #endif
  
- static inline bool page_is_devmap_managed(struct page *page)
-diff --git a/mm/memremap.c b/mm/memremap.c
-index 5f04a0709e436e..55d23e9f5c04ec 100644
---- a/mm/memremap.c
-+++ b/mm/memremap.c
-@@ -501,4 +501,25 @@ void free_devmap_managed_page(struct page *page)
- 	page->mapping = NULL;
- 	page->pgmap->ops->page_free(page);
- }
-+
-+void put_devmap_managed_page(struct page *page)
-+{
-+	int count;
-+
-+	if (WARN_ON_ONCE(!page_is_devmap_managed(page)))
-+		return;
-+
-+	count = page_ref_dec_return(page);
-+
-+	/*
-+	 * devmap page refcounts are 1-based, rather than 0-based: if
-+	 * refcount is 1, then the page is free and the refcount is
-+	 * stable because nobody holds a reference on the page.
-+	 */
-+	if (count == 1)
-+		free_devmap_managed_page(page);
-+	else if (!count)
-+		__put_page(page);
-+}
-+EXPORT_SYMBOL(put_devmap_managed_page);
- #endif /* CONFIG_DEV_PAGEMAP_OPS */
-diff --git a/mm/swap.c b/mm/swap.c
-index bcf3ac288b56d5..08058f74cae23e 100644
---- a/mm/swap.c
-+++ b/mm/swap.c
-@@ -1153,26 +1153,3 @@ void __init swap_setup(void)
- 	 * _really_ don't want to cluster much more
- 	 */
- }
--
--#ifdef CONFIG_DEV_PAGEMAP_OPS
--void put_devmap_managed_page(struct page *page)
--{
--	int count;
--
--	if (WARN_ON_ONCE(!page_is_devmap_managed(page)))
--		return;
--
--	count = page_ref_dec_return(page);
--
--	/*
--	 * devmap page refcounts are 1-based, rather than 0-based: if
--	 * refcount is 1, then the page is free and the refcount is
--	 * stable because nobody holds a reference on the page.
--	 */
--	if (count == 1)
--		free_devmap_managed_page(page);
--	else if (!count)
--		__put_page(page);
--}
--EXPORT_SYMBOL(put_devmap_managed_page);
--#endif
+-#endif /* __KERNEL__ */
+ #endif /* _LINUX_MM_H */
 -- 
 2.30.2
 
