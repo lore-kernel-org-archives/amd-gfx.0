@@ -4,74 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D528C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 09:10:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0C88C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 09:10:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D012610F360;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81AEA10F1CD;
 	Mon,  7 Feb 2022 09:10:31 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26E1510F56E
- for <amd-gfx@lists.freedesktop.org>; Sat,  5 Feb 2022 15:00:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1644073220;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=713HQL5x//o/KghlUsgMrDORBx+gP5N718ebtgS9CfI=;
- b=hAle3Hqglukr3X0g/raY0wf7FNeSa20aKiZaBCPeLavEwsb/DS4NPWGS4Y3L+/S5+YCgwQ
- ceMmu2BWBGXSWiKW2bJuCi6GctaP3sFN4gpnVcQM5SH1wWWt1poPD60pzFqCzKA7ysQXIl
- i3W6ZAAf9es9QXUT/kfI2Ar2bCXCkQw=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-274-Y9h_PxY8P_uc9r7RdNUXfQ-1; Sat, 05 Feb 2022 10:00:19 -0500
-X-MC-Unique: Y9h_PxY8P_uc9r7RdNUXfQ-1
-Received: by mail-qk1-f200.google.com with SMTP id
- h10-20020a05620a284a00b0047649c94bc7so4672451qkp.20
- for <amd-gfx@lists.freedesktop.org>; Sat, 05 Feb 2022 07:00:19 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=713HQL5x//o/KghlUsgMrDORBx+gP5N718ebtgS9CfI=;
- b=P4WIdGpOV0aFbDiejj6HebV+s6b+rsi3eb2wKTXbyqj7pgNKQ7zPz0D9esJY71w2+g
- vwhJk/9kpd0fmBbjobdXY5wLHVXZNuqwvmG2GsuB1lh3RtY6gLZoKoUri7lKr/fSh1ux
- hVEuXI5szBH8hW4pCnIw29b8l+dnI/LV8+YcVunXmCU3D8LdkDQzLi5W6bDItKVad9Yr
- UgGllXsfpThoZeE+KCmwsqmr+H2kDc6v9H1mCJicStHFkMnK0c+IMdHg8fnpqfT77dp0
- FKnwDkawSEfz4yg2Z7aHBd/Img9jzrLTFSkQy8VX/5/IbaAhp6qevmzWMLvLUYfSaTSQ
- D/Aw==
-X-Gm-Message-State: AOAM532pvcxrib8ICBuU5yssNpT+GV0o3zOlH+2cGp6IhHLauoOUWxgs
- ace0sGYXmM9QrOHaG2H+LeTpqYkEyqQnTeb+M44vCYuPyR4s6x29TpP4MTBTedus6PFCHNKoPAD
- Ej1b4jRJBEj1rO7/mMTzgswvQOA==
-X-Received: by 2002:a05:620a:371d:: with SMTP id
- de29mr2218858qkb.300.1644073219092; 
- Sat, 05 Feb 2022 07:00:19 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzQMqxJhjsehYnlrGdRYlEx/4uzDQf3AvY1i5RUhxDDhxx+wOwMtIaQmWd3GyZr4OF2gUxNaQ==
-X-Received: by 2002:a05:620a:371d:: with SMTP id
- de29mr2218834qkb.300.1644073218865; 
- Sat, 05 Feb 2022 07:00:18 -0800 (PST)
-Received: from localhost.localdomain.com (024-205-208-113.res.spectrum.com.
- [24.205.208.113])
- by smtp.gmail.com with ESMTPSA id d22sm2657159qkn.112.2022.02.05.07.00.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 05 Feb 2022 07:00:17 -0800 (PST)
-From: trix@redhat.com
-To: evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@linux.ie, daniel@ffwll.ch, nathan@kernel.org,
- ndesaulniers@google.com, lijo.lazar@amd.com, darren.powell@amd.com,
- guchun.chen@amd.com, andrey.grodzovsky@amd.com
-Subject: [PATCH] drm/amd/pm: fix error handling
-Date: Sat,  5 Feb 2022 07:00:08 -0800
-Message-Id: <20220205150008.1968218-1-trix@redhat.com>
-X-Mailer: git-send-email 2.26.3
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AC8410EAC3;
+ Mon,  7 Feb 2022 06:33:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=/czcrmGZ5Lo0qcMzS6TZro4gdhOrCfP1KvQi7PFqQEo=; b=LH3yYlJbFcYdKZGh5fpbD5cyA8
+ Vi9YtoYPhluVROnMSefSrKmKevym2zgEQKzyNBtBGvATAe8VUR48cN4jBD5HMQTW1fkjFIgPvwP5k
+ Umggu+ttp3KvRZuWB3YwritEyZctL73XUgIeIp84kFtqqjAVIa1nHL8eZdb/s3ZeWRajN43MS0PCv
+ 7jKw3NdrrVnL32Dz4gC+yVCvZgLrqkRqvZhvVQJLq0in2Z7OUlUeyHCGVsYNZ+6qndUu2qyEBA7BI
+ rDRygKQ3epdxXbnGqU4DVbdYEhlInkWtKtvTWpGbVnkcAst6M2ZI1N5itTfd9ygTLnRkdKiTiOYnm
+ ALEETTxQ==;
+Received: from [2001:4bb8:188:3efc:2cbe:55d7:bb63:46d2] (helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1nGxaA-0099KB-Ir; Mon, 07 Feb 2022 06:33:03 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Dan Williams <dan.j.williams@intel.com>
+Subject: [PATCH 4/8] mm: move free_devmap_managed_page to memremap.c
+Date: Mon,  7 Feb 2022 07:32:45 +0100
+Message-Id: <20220207063249.1833066-5-hch@lst.de>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220207063249.1833066-1-hch@lst.de>
+References: <20220207063249.1833066-1-hch@lst.de>
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Mon, 07 Feb 2022 09:10:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,52 +51,101 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
+ Karol Herbst <kherbst@redhat.com>, linux-mm@kvack.org,
+ nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Logan Gunthorpe <logang@deltatee.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tom Rix <trix@redhat.com>
+free_devmap_managed_page has nothing to do with the code in swap.c,
+move it to live with the rest of the code for devmap handling.
 
-clang static analysis reports this error
-amdgpu_smu.c:2289:9: warning: Called function pointer
-  is null (null dereference)
-        return smu->ppt_funcs->emit_clk_levels(
-               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-There is a logic error in the earlier check of
-emit_clk_levels.  The error value is set to
-the ret variable but ret is never used.  Return
-directly and remove the unneeded ret variable.
-
-Fixes: 5d64f9bbb628 ("amdgpu/pm: Implement new API function "emit" that accepts buffer base and write offset")
-Signed-off-by: Tom Rix <trix@redhat.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ include/linux/mm.h |  1 -
+ mm/memremap.c      | 21 +++++++++++++++++++++
+ mm/swap.c          | 23 -----------------------
+ 3 files changed, 21 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index af368aa1fd0ae..5f3b3745a9b7a 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2274,7 +2274,6 @@ static int smu_emit_ppclk_levels(void *handle, enum pp_clock_type type, char *bu
- {
- 	struct smu_context *smu = handle;
- 	enum smu_clk_type clk_type;
--	int ret = 0;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 7b46174989b086..91dd0bc786a9ec 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1092,7 +1092,6 @@ static inline bool is_zone_movable_page(const struct page *page)
+ }
  
- 	clk_type = smu_convert_to_smuclk(type);
- 	if (clk_type == SMU_CLK_COUNT)
-@@ -2284,7 +2283,7 @@ static int smu_emit_ppclk_levels(void *handle, enum pp_clock_type type, char *bu
- 		return -EOPNOTSUPP;
+ #ifdef CONFIG_DEV_PAGEMAP_OPS
+-void free_devmap_managed_page(struct page *page);
+ DECLARE_STATIC_KEY_FALSE(devmap_managed_key);
  
- 	if (!smu->ppt_funcs->emit_clk_levels)
--		ret = -ENOENT;
-+		return -ENOENT;
- 
- 	return smu->ppt_funcs->emit_clk_levels(smu, clk_type, buf, offset);
- 
+ static inline bool page_is_devmap_managed(struct page *page)
+diff --git a/mm/memremap.c b/mm/memremap.c
+index 5f04a0709e436e..55d23e9f5c04ec 100644
+--- a/mm/memremap.c
++++ b/mm/memremap.c
+@@ -501,4 +501,25 @@ void free_devmap_managed_page(struct page *page)
+ 	page->mapping = NULL;
+ 	page->pgmap->ops->page_free(page);
+ }
++
++void put_devmap_managed_page(struct page *page)
++{
++	int count;
++
++	if (WARN_ON_ONCE(!page_is_devmap_managed(page)))
++		return;
++
++	count = page_ref_dec_return(page);
++
++	/*
++	 * devmap page refcounts are 1-based, rather than 0-based: if
++	 * refcount is 1, then the page is free and the refcount is
++	 * stable because nobody holds a reference on the page.
++	 */
++	if (count == 1)
++		free_devmap_managed_page(page);
++	else if (!count)
++		__put_page(page);
++}
++EXPORT_SYMBOL(put_devmap_managed_page);
+ #endif /* CONFIG_DEV_PAGEMAP_OPS */
+diff --git a/mm/swap.c b/mm/swap.c
+index bcf3ac288b56d5..08058f74cae23e 100644
+--- a/mm/swap.c
++++ b/mm/swap.c
+@@ -1153,26 +1153,3 @@ void __init swap_setup(void)
+ 	 * _really_ don't want to cluster much more
+ 	 */
+ }
+-
+-#ifdef CONFIG_DEV_PAGEMAP_OPS
+-void put_devmap_managed_page(struct page *page)
+-{
+-	int count;
+-
+-	if (WARN_ON_ONCE(!page_is_devmap_managed(page)))
+-		return;
+-
+-	count = page_ref_dec_return(page);
+-
+-	/*
+-	 * devmap page refcounts are 1-based, rather than 0-based: if
+-	 * refcount is 1, then the page is free and the refcount is
+-	 * stable because nobody holds a reference on the page.
+-	 */
+-	if (count == 1)
+-		free_devmap_managed_page(page);
+-	else if (!count)
+-		__put_page(page);
+-}
+-EXPORT_SYMBOL(put_devmap_managed_page);
+-#endif
 -- 
-2.26.3
+2.30.2
 
