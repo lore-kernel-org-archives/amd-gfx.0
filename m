@@ -4,71 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D663DC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 07:24:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B77C8C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 07:28:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 658C110E158;
-	Mon,  7 Feb 2022 07:24:29 +0000 (UTC)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8365510E158
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 07:24:27 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id og43so15279321ejc.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 06 Feb 2022 23:24:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=7DFsSmfhxx2CnAZra8+8y4ueuuIflofLuI3YXWvefSY=;
- b=c9/D5HNYGWK5QgGQEF9uueSHca8G843NjiYxiSn8aElfBAH6HsWzXFfa05sHKWehZQ
- oIJ/VNkAZ9DdxqGm6ZKhBLZ0qMelHIEV1lGwIeMsboNoEoorfgCdDefs0S/SiZ1/4Tw8
- E+KtJUZ3wgX3aXJ+6GVm9yZwYNbM10WWjNtjeZYbYRFhMyXMpqUNXUhyEDfe3LJo/T5e
- j9Y7F2cHYd4sqleUB4izmiL/0bo4+UE4NAPhBawV/XaRvalfSfX/1xZ14GJcwh5Cs0V1
- 8S9aBlyen/FlawgvekgKyDmAJapFBqT7ZjfHXBmezg7VYWL99YUv2IPZTxCkP8//x5eR
- lSfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
- :content-transfer-encoding;
- bh=7DFsSmfhxx2CnAZra8+8y4ueuuIflofLuI3YXWvefSY=;
- b=7trhiM7je4BpfCJxOh9B/GE9lMKPOMWYcmEI5dcozSOp7WGa2IYVP3Dpe5H9GeWuig
- vKpirMo0SODUV3CklHe4HhELfPBlGRdkijCGWN27i6SrdBzgGAi5aER672Kmm4jl2Lah
- 2L7IKSeD06ytoXOLGgquXNcWvh2nkT8lRqpQMIXxNS3ORdvdihFczcLb0Iv4R7R7oeEZ
- K8qZIU3WKqOnrCqbKvBe7qQlcFfHzIImzZq/sv/hwYVyFIdCIxaSpVfcePmJwuPDZANp
- RRxPP1zWHjKaiMIuXhu6ACuN8bXu/WCq6/qdThicb6xMERSdlJDlpShpSuLWTSXOy1Bb
- BeWQ==
-X-Gm-Message-State: AOAM532SkNcF4aO6i0N3nGPk2Oju3C82LnnqDqsRQAe/yPwcKRILMGTk
- mr0jbLeKV/yZ+YbJxYfo3texaJKPnlM=
-X-Google-Smtp-Source: ABdhPJwF/XLGkOBrDRHqag5qiPHyCOQrKy4zRHx5nepLeVUFXTGa0bM6JX8QG3701GnwaOCd6+UxSg==
-X-Received: by 2002:a17:907:c19:: with SMTP id
- ga25mr9341684ejc.606.1644218665953; 
- Sun, 06 Feb 2022 23:24:25 -0800 (PST)
-Received: from ?IPV6:2a02:908:1252:fb60:880c:5e12:7231:e358?
- ([2a02:908:1252:fb60:880c:5e12:7231:e358])
- by smtp.gmail.com with ESMTPSA id eq19sm785454edb.36.2022.02.06.23.24.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 06 Feb 2022 23:24:25 -0800 (PST)
-Message-ID: <a486054b-9a4a-d628-6810-d5446c78de16@gmail.com>
-Date: Mon, 7 Feb 2022 08:24:23 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5E6010E96C;
+	Mon,  7 Feb 2022 07:28:03 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6455810EFE0
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 07:28:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OACCVieWIdlAbU5FTd/5oRckjxtoecMN9iay5r3TfcNf35HyMltNZ1o31/5BgRYRlUFcEKSIt3inNMC3jejxFmLTZgefyXOgs4uscv1V/GdviAR3oFvNUBycVL4BfKU8FlE8p6nrR+GjlMCANEpMtWpww7Xf2UI46El3rPDlEoG9VG1nn/6sYiN5mA7xSCj8NKINoibv/jKFkZ+U2lpFEDCIESvfzKMt4SqI4OWL1Ao+Jkj7HvZhVZ4ymm/SMkFXwYgGJxZWwpu7XKb2o60CIYz/J8Fn8U+GLshfxiszAbtx/YCeL0mqCjaYu3wB0JT/yAAxkQlMrIT2LKkHln3TaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jeo48DdiVjkifKXTKJ8xnU51MpWXmOma/NLtPaoQ+BE=;
+ b=XzhdIvxEHt7NURL7qgm6jRca/o1mzv40pCr71gCx6vez/0xFlulN0bq+6Z94+iLEFLomb1oP6Px/KbmPN2+fZeuxMw6Triue32tCmf1zclvnmYXaYpEVcCrIF4cNy6obTX507L817W3xCjSaY8kdmRA61ueT/ZfSjt+KBb0A0Ia2wjad3lUnH9GddT+8MVcxTJaSHeoWv/WJdwT+gQD+JY7Zds/86AfgzeylGSMzWMtniH31d2lVBwW+Ul3eLim0UKqMZxk9EJ8BVjxOiGyZ+f9BWUrMduftrmW+3X8iQ48BwwaawN/J4DwmTeNwZP6yKBBn0SQtXuNXTcUT+nyvxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jeo48DdiVjkifKXTKJ8xnU51MpWXmOma/NLtPaoQ+BE=;
+ b=s/0DmIXRvrti6iQ3fw6QO62pIMIm/zgnlvenigQvClbxH9rSHqGn0Dwo3Iv87ft+Gow8UzYAJVzhiGfARgqVj3FwFRIiK2TAGec/B2LdtwtAmDdxkjVA47TS/r+2PeH8CtkrFLEMf0aFDi5VnM6FQ4l6frUMk51DMWhlqN2I728=
+Received: from MW4PR03CA0326.namprd03.prod.outlook.com (2603:10b6:303:dd::31)
+ by BY5PR12MB4020.namprd12.prod.outlook.com (2603:10b6:a03:196::25)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11; Mon, 7 Feb
+ 2022 07:27:59 +0000
+Received: from CO1NAM11FT028.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:dd:cafe::f1) by MW4PR03CA0326.outlook.office365.com
+ (2603:10b6:303:dd::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.14 via Frontend
+ Transport; Mon, 7 Feb 2022 07:27:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT028.mail.protection.outlook.com (10.13.175.214) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4951.12 via Frontend Transport; Mon, 7 Feb 2022 07:27:58 +0000
+Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 7 Feb
+ 2022 01:27:55 -0600
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>,
+ <hawking.zhang@amd.com>, <stanley.yang@amd.com>, <yipeng.chai@amd.com>,
+ <john.clements@amd.com>, <Jay.Cornwall@amd.com>
+Subject: [PATCH 1/2] drm/amdkfd: rename kfd_process_vm_fault to
+ kfd_dqm_evict_pasid
+Date: Mon, 7 Feb 2022 15:27:41 +0800
+Message-ID: <20220207072742.5476-1-tao.zhou1@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/amdgpu: move lockdep assert to the right place.
-Content-Language: en-US
-To: "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20220204085201.30615-1-christian.koenig@amd.com>
- <32b9cdf2-3d71-4228-3471-38584575f41b@amd.com>
- <668b5be7-de6c-4c47-9756-6452f316cd7e@amd.com>
- <108a3c26-df8c-c7ea-2228-25ec69afe50a@gmail.com>
- <df73c8a3-0c85-0402-01e4-38e6bec5af17@amd.com>
- <cc241e74-40a6-7b87-d80d-a338361abd01@gmail.com>
- <c8da9980-c2f3-0a8b-9fb8-2da5a3238c4c@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <c8da9980-c2f3-0a8b-9fb8-2da5a3238c4c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e9e2bc53-aa5f-414e-3a36-08d9ea0b5df6
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4020:EE_
+X-Microsoft-Antispam-PRVS: <BY5PR12MB4020FCB1F59B442C6FCF5D77B02C9@BY5PR12MB4020.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hU22gPHBCJ1hbfx6PtfbHDwQHN2rECJ/sM9AskAh9lUKGOT0ny/g5j0px3vmNp1sJIIbcfCAu8IF1I8ThMKVq4r4frEP5KKvy+y2MT8lSJZHiPwVhhh6CoAjaO0wdc4riI1gqrQ3sbTpn8X4T2I23OaxHdYec9ZQk32WMhrgZiq0I+yCOsIIAmmiScmzKET7ZTJW8sCRQvPreQlQZmviG9O6aT+Md7RakIlZHO27FEV9g/6HEjU1KAxZQBdJqtc6G6Ux7KB44DHKtgEfiV01aRabykXY0LjrVhzJGzejzft4OZXt4b0GpZUITRRb+8fL6J4GKu6gSJ18e9MQuYofXX5Bzn9/xuS+hbu88FL3FkqLTjSRBnx4ec3SvOxboaytEp6o8TyHMJnO6LrGpMd6Rujq1ciJ/E70qjp/bRyrTyXzPCTIxPy8KZJCgThOjdZNjsJ89Dz88+qsmwkP/rw/gtgHzEcbR2yd/S9a4zKOA2sRGtnUnEg7s0ji4BjBDrU3zBAjPTgWP6X7YKU2lrakacZoXRgCAbxd/qXCxrkqBGOvqR0qy928MuLIZ0PibZYQh/be9vIMXpgIhaHdwhiyF7vK+NMGn02iWhWJSXLrFACN5rkQpfsb+wbci38ZJijPFVDuheCSXYdSBEmHSzEyz2+f8jXwLBd2TiZcqQQUKiw3cDP43bnIPrbCFNfjzKbr7kbWzdzoiQBSLk/N6LPOUA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(70586007)(70206006)(336012)(508600001)(40460700003)(86362001)(6666004)(8936002)(4326008)(8676002)(6636002)(316002)(426003)(7696005)(110136005)(5660300002)(36756003)(356005)(81166007)(2616005)(82310400004)(36860700001)(26005)(2906002)(186003)(16526019)(1076003)(47076005)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 07:27:58.9718 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9e2bc53-aa5f-414e-3a36-08d9ea0b5df6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT028.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4020
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,195 +101,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Tao Zhou <tao.zhou1@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ah, yes of course!
+As the function is used in more different cases, use a more general
+name.
 
-When the VM is freed we currently don't lock anything either because 
-nobody should have a reference to that object any more.
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c      | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c       | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h                 | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-Going to fix this as well.
-
-Thanks,
-Christian.
-
-Am 04.02.22 um 20:15 schrieb Bhardwaj, Rajneesh:
->
-> On 2/4/2022 1:50 PM, Christian König wrote:
->> Am 04.02.22 um 19:47 schrieb Bhardwaj, Rajneesh:
->>>
->>> On 2/4/2022 1:32 PM, Christian König wrote:
->>>> Am 04.02.22 um 19:12 schrieb Bhardwaj, Rajneesh:
->>>>> [Sorry for top posting]
->>>>>
->>>>> Hi Christian
->>>>>
->>>>> I think you forgot the below hunk, without which the issue is not 
->>>>> fixed completely on a multi GPU system.
->>>>
->>>> No, that is perfectly intentional. While removing a bo_va structure 
->>>> it can happen that there are still mappings attached to it (for 
->>>> example because the application crashed).
->>>
->>>
->>> OK. but for me, at boot time, I see flood of warning messages coming 
->>> from  amdgpu_vm_bo_del so the previous patch doesn't help.
->>
->> Do you have a backtrace? That should not happen.
->>
->> Could be that we have this buggy at a couple of different places.
->
->
-> This is on Ubuntu 18.04.
->
->
-> [    8.392405] WARNING: CPU: 13 PID: 2732 at 
-> /home/rajneesh/git/compute/kernel/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:2673 
-> amdgpu_vm_bo_del+0x386/0x3b
-> 0 [amdgpu]
-> [    8.392586] Modules linked in: amdgpu ast iommu_v2 gpu_sched 
-> drm_vram_helper drm_ttm_helper ttm drm_kms_helper cfbfillrect 
-> syscopyarea cfbimgblt sy
-> sfillrect sysimgblt fb_sys_fops cfbcopyarea drm 
-> drm_panel_orientation_quirks k10temp nf_tables nfnetlink ip_tables 
-> x_tables i2c_piix4
-> [    8.392628] CPU: 13 PID: 2732 Comm: plymouthd Not tainted 
-> 5.13.0-kfd-rajneesh #1055
-> [    8.392632] Hardware name: GIGABYTE MZ01-CE0-00/MZ01-CE0-00, BIOS 
-> F02 08/29/2018
-> [    8.392635] RIP: 0010:amdgpu_vm_bo_del+0x386/0x3b0 [amdgpu]
-> [    8.392749] Code: 0f 85 56 fe ff ff 48 c7 c2 28 6b b3 c0 be 21 01 
-> 00 00 48 c7 c7 58 6b b3 c0 c6 05 64 64 62 00 01 e8 5f be a4 d4 e9 32 
-> fe ff ff <0f
-> > 0b eb 8a 49 8b be 88 01 00 00 e9 af fc ff ff be 03 00 00 00 e8
-> [    8.392752] RSP: 0018:ffffaf33471d7d98 EFLAGS: 00010246
-> [    8.392756] RAX: 0000000000000000 RBX: ffffa08771600000 RCX: 
-> 0000000000000001
-> [    8.392758] RDX: 0000000000000001 RSI: ffffa08772ae01f8 RDI: 
-> ffffa0800a426f68
-> [    8.392761] RBP: ffffa087691fd980 R08: ffffffffc0a4e2e0 R09: 
-> 000000000000000a
-> [    8.392763] R10: ffffaf33471d7d68 R11: 0000000000000001 R12: 
-> ffffa0801d540010
-> [    8.392765] R13: ffffa08771615c00 R14: ffffa08024166618 R15: 
-> ffffa08771615e60
-> [    8.392768] FS:  00007f7b80179740(0000) GS:ffffa08f3dec0000(0000) 
-> knlGS:0000000000000000
-> [    8.392771] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    8.392773] CR2: 000055839db51eb8 CR3: 000000010f49c000 CR4: 
-> 00000000003506e0
-> [    8.392775] Call Trace:
-> [    8.392779]  ? _raw_spin_unlock_irqrestore+0x30/0x40
-> [    8.392787]  amdgpu_driver_postclose_kms+0x94/0x270 [amdgpu]
-> [    8.392897]  drm_file_free.part.14+0x1e3/0x230 [drm]
-> [    8.392918]  drm_release+0x6e/0xf0 [drm]
-> [    8.392937]  __fput+0xa3/0x250
-> [    8.392942]  task_work_run+0x6d/0xb0
-> [    8.392949]  exit_to_user_mode_prepare+0x1c9/0x1d0
-> [    8.392953]  syscall_exit_to_user_mode+0x19/0x50
-> [    8.392957]  do_syscall_64+0x42/0x70
-> [    8.392960]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-> [    8.392964] RIP: 0033:0x7f7b7f8679e4
-> [    8.392967] Code: eb 89 e8 6f 44 02 00 66 2e 0f 1f 84 00 00 00 00 
-> 00 0f 1f 44 00 00 48 8d 05 21 ff 2d 00 8b 00 85 c0 75 13 b8 03 00 00 
-> 00 0f 05 <48> 3d 00 f0 ff ff 77 3c f3 c3 66 90 53 89 fb 48 83 ec 10 e8 
-> 94 fe
-> [    8.392970] RSP: 002b:00007ffe6bb0cdb8 EFLAGS: 00000246 ORIG_RAX: 
-> 0000000000000003
-> [    8.392973] RAX: 0000000000000000 RBX: 000055839db4b760 RCX: 
-> 00007f7b7f8679e4
-> [    8.392974] RDX: 000055839db4aed0 RSI: 0000000000000000 RDI: 
-> 000000000000000b
-> [    8.392976] RBP: 000000000000000b R08: 000055839db4aee0 R09: 
-> 00007f7b7fb42c40
-> [    8.392978] R10: 0000000000000007 R11: 0000000000000246 R12: 
-> 000000000000e280
-> [    8.392979] R13: 000000000000000d R14: 00007f7b7fb5b1e0 R15: 
-> 00007f7b7fb5b130
-> [    8.392988] irq event stamp: 1264799
-> [    8.392990] hardirqs last  enabled at (1264805): 
-> [<ffffffff951011b9>] console_unlock+0x339/0x530
-> [    8.392994] hardirqs last disabled at (1264810): 
-> [<ffffffff95101226>] console_unlock+0x3a6/0x530
->
->
->>
->> Regards,
->> Christian.
->>
->>>
->>>
->>>>
->>>> Because of this locking the VM before the remove is mandatory. Only 
->>>> while adding a bo_va structure we can avoid that.
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> index dcc80d6e099e..6f68fc9da56a 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> @@ -2670,8 +2670,6 @@ void amdgpu_vm_bo_del(struct amdgpu_device 
->>>>> *adev,
->>>>>         struct amdgpu_vm *vm = bo_va->base.vm;
->>>>>         struct amdgpu_vm_bo_base **base;
->>>>>
->>>>> - dma_resv_assert_held(vm->root.bo->tbo.base.resv);
->>>>> -
->>>>>         if (bo) {
->>>>> dma_resv_assert_held(bo->tbo.base.resv);
->>>>>                 if (bo->tbo.base.resv == vm->root.bo->tbo.base.resv)
->>>>>
->>>>>
->>>>> If you chose to include the above hunk, please feel free to add
->>>>>
->>>>> Reviewed-and-tested-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
->>>>>
->>>>> On 2/4/2022 11:27 AM, Felix Kuehling wrote:
->>>>>>
->>>>>> Am 2022-02-04 um 03:52 schrieb Christian König:
->>>>>>> Since newly added BOs don't have any mappings it's ok to add them
->>>>>>> without holding the VM lock. Only when we add per VM BOs the 
->>>>>>> lock is
->>>>>>> mandatory.
->>>>>>>
->>>>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>>>>>> Reported-by: Bhardwaj, Rajneesh <Rajneesh.Bhardwaj@amd.com>
->>>>>>
->>>>>> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
->>>>>>
->>>>>>
->>>>>>> ---
->>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
->>>>>>>   1 file changed, 2 insertions(+), 2 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>>> index fdc6a1fd74af..dcc80d6e099e 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>>> @@ -375,6 +375,8 @@ static void amdgpu_vm_bo_base_init(struct 
->>>>>>> amdgpu_vm_bo_base *base,
->>>>>>>       if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv)
->>>>>>>           return;
->>>>>>>   + dma_resv_assert_held(vm->root.bo->tbo.base.resv);
->>>>>>> +
->>>>>>>       vm->bulk_moveable = false;
->>>>>>>       if (bo->tbo.type == ttm_bo_type_kernel && bo->parent)
->>>>>>>           amdgpu_vm_bo_relocated(base);
->>>>>>> @@ -2260,8 +2262,6 @@ struct amdgpu_bo_va 
->>>>>>> *amdgpu_vm_bo_add(struct amdgpu_device *adev,
->>>>>>>   {
->>>>>>>       struct amdgpu_bo_va *bo_va;
->>>>>>>   - dma_resv_assert_held(vm->root.bo->tbo.base.resv);
->>>>>>> -
->>>>>>>       bo_va = kzalloc(sizeof(struct amdgpu_bo_va), GFP_KERNEL);
->>>>>>>       if (bo_va == NULL) {
->>>>>>>           return NULL;
->>>>
->>
+diff --git a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
+index d60576ce10cd..5c8023cba196 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
++++ b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
+@@ -110,7 +110,7 @@ static void cik_event_interrupt_wq(struct kfd_dev *dev,
+ 		struct kfd_vm_fault_info info;
+ 
+ 		kfd_smi_event_update_vmfault(dev, pasid);
+-		kfd_process_vm_fault(dev->dqm, pasid);
++		kfd_dqm_evict_pasid(dev->dqm, pasid);
+ 
+ 		memset(&info, 0, sizeof(info));
+ 		amdgpu_amdkfd_gpuvm_get_vm_fault_info(dev->adev, &info);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 63b3c7af681b..219acc818eb4 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -2120,7 +2120,7 @@ void device_queue_manager_uninit(struct device_queue_manager *dqm)
+ 	kfree(dqm);
+ }
+ 
+-int kfd_process_vm_fault(struct device_queue_manager *dqm, u32 pasid)
++int kfd_dqm_evict_pasid(struct device_queue_manager *dqm, u32 pasid)
+ {
+ 	struct kfd_process_device *pdd;
+ 	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+index e8bc28009c22..7a2b6342a8f2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+@@ -308,7 +308,7 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev,
+ 		info.prot_write = ring_id & 0x20;
+ 
+ 		kfd_smi_event_update_vmfault(dev, pasid);
+-		kfd_process_vm_fault(dev->dqm, pasid);
++		kfd_dqm_evict_pasid(dev->dqm, pasid);
+ 		kfd_signal_vm_fault_event(dev, pasid, &info);
+ 	}
+ }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 74ff4132a163..74fb4762c66e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1174,7 +1174,7 @@ void device_queue_manager_uninit(struct device_queue_manager *dqm);
+ struct kernel_queue *kernel_queue_init(struct kfd_dev *dev,
+ 					enum kfd_queue_type type);
+ void kernel_queue_uninit(struct kernel_queue *kq, bool hanging);
+-int kfd_process_vm_fault(struct device_queue_manager *dqm, u32 pasid);
++int kfd_dqm_evict_pasid(struct device_queue_manager *dqm, u32 pasid);
+ 
+ /* Process Queue Manager */
+ struct process_queue_node {
+-- 
+2.17.1
 
