@@ -4,53 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7340DC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 09:10:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08812C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 09:10:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8BF10F516;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F391010F5BA;
 	Mon,  7 Feb 2022 09:10:33 +0000 (UTC)
-Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
- [IPv6:2607:f8b0:4864:20::b2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D09A710E463
- for <amd-gfx@lists.freedesktop.org>; Sun,  6 Feb 2022 08:17:19 +0000 (UTC)
-Received: by mail-yb1-xb2a.google.com with SMTP id m6so31529802ybc.9
- for <amd-gfx@lists.freedesktop.org>; Sun, 06 Feb 2022 00:17:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=oUwhUnseUW+bGQTYIs65iPvnP1JsQG2MNuMaM8NXA2w=;
- b=J88qG9ehqMbKpU/BGb/Cc7ee2LWN6RFY5x1KWxZUll1+0SMHOCWO+H31EvqkY4OXDY
- vG3ml0n9EC71VPLGl2R/ErUFCHfvzEe/0pJiy521qF2HmDGvxdcHOMLqEDlHMaXj+Cq6
- /kpScLLc8tt2uMdt4mSwU/AI/7Gv9y/+xBkUqCsd4Yt2mcRySxxGqALCaVflfWB67MK6
- ftnQJOmJPzD3Iy4v+MFlMWxwkd5cxd1x2FCB47mqTV+eFBjVB8lExBI2Zh3xXnojvk1k
- 5uP+SZ7t6op7yde8AbymnqbwHWkw5xzwyLX4KcLaZNt3svEIW7RAUHWdM+DaGkefoo1M
- gLWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:content-transfer-encoding;
- bh=oUwhUnseUW+bGQTYIs65iPvnP1JsQG2MNuMaM8NXA2w=;
- b=zzjbzsr9lJT1EkD2hgKPNlZL6SnAqgLqWJTLWMkybEO8Fj9nad23XlfTXYtR5DFZ0G
- 3EkkrojkathaToPz1QnJKXROcBqX79Dt0ENNxqbAw82wYoLa+yjCC2LZW3V63CnWVd2D
- 3PwfihcDafVRG1U5UeL/h+tea2Qy7BRQ9MO6qRJ2NEWFBPDcAqmhdpOpQwAxU8kq4lQO
- oSzoHAO6KlrWIG1mddOrkRYi0j0vEQN/lbG7LWGucfXQP1HTCgb9HiUk+zjlmzpHjHVR
- UoJYYow5dH4GcjsXSFRZ2WCJJYeeEHoelv9Z74/+Ps+F00cdT745KT0vqwoUbZqNAl6O
- bzbQ==
-X-Gm-Message-State: AOAM533WP5zZ/qio+/RYjy2/fuayYiykp1gYZSLrkJvHLLcvrYLnCKQ2
- /42CcyL5WXvvj/Ck6Mo8CYpvC5pKtEFkPa9EK+sYFQzr+3o=
-X-Google-Smtp-Source: ABdhPJyg0wOdJ8nQQRHbv7/V+bSVhubm/Kn0XMAET3doH6yT5uEPq8rXgrEmJi5+Z0cwiUC9KgXyzYnny28xvFQnahk=
-X-Received: by 2002:a25:5ca:: with SMTP id 193mr6339820ybf.483.1644135438773; 
- Sun, 06 Feb 2022 00:17:18 -0800 (PST)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2076.outbound.protection.outlook.com [40.107.96.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83F6B10E2B9;
+ Mon,  7 Feb 2022 04:27:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J4uraQ7LjsBKbkr4eDaPptidorMZympWeA313UL9O2iuBjmcjOjh+nTsf6Kxo4eKiIQYRMruBArkTkYf2yMcJbdqQoT+2vpVZJvMQ8ULDeMSyklL2skimrWZPfgx89NMoY6naIC6FWO35U0ax7OZECkm1ORgi5obtESXR81YdJcvIxvIIy63ZXgI18QrChEwyqzpm92GYA8jBBiAzdZWJlBFO6cdHmk4r0q4tMfF+OYTRJ1258uBfJnzeB0Zl13T0O70pjsGWw/AYtyW775v9RJ8sRk8Whkl2r/CpDzjDAaNxQFUuggntRwsdv9sfbVy8N+kugm9wzf+hPwTKWwp9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UdXD7BcRhMXZ2AaqHVINHETP5vTM8yVcghtNkAXs1kk=;
+ b=V4CD1DO+d9EUkNLaPVlnsXjMqpy5BV2ZS7rh97KPa44Bisp4vCMHiiYp4riW7+kH+AxBbp981KwCjAzR9JbcIZIsF0aoBdUMg8B4YzIRe+ImtNQlBJQK8viqyZhIZ+s+zvMgrBF2+Hw1E3EiO15yRg7iLFhhmCNlVEKQKrJ+o8IspT6NOgvsQjafmSo/rNQom9I272gpDeh7LhnchKc8GmCvnYx43FGkkUbUFUGFtjq8XenkDsLD14iAHZ/Z9OYNb3ZVF1cyzOdyy11scCoNxYLYYoSkTEOIjJHAb8uFNmNB1p+OZv29HTPdVE5JDtsBRBc0bRXt7t+MwTuY+vIinw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UdXD7BcRhMXZ2AaqHVINHETP5vTM8yVcghtNkAXs1kk=;
+ b=oB67Wqzs6pmxLB0wzLqJNKCTZ+w2EBiSC6Oq2n4B8A4cOSAI4HRd7jGeg4XZkaUKv6NfDUPG3gMmEda/hiPpfIQDGp1eTkGyyDhMvrIANW2UfK3e2iu8C6Rymfw6hMSmpakM+9te4bZWd/W0W3cvE9uW4oQ6h1IbtlQAJcW33YVuzeQxnq5N/ZuxJ6zDiyX4p6+Hp7sbnlkhYleaRmrkQa4A64XN5DBggfmjA2onndEXyPDCWMUDVjju+eeiUPx37E/dy2bvC5bCRiGH3tpT41ZWgfxJa5loGf3TB7uYGp2Kkbww6Z4RYcbfI0GRlVdbjCzuDv0ItT2mf7bm+8wZMQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BYAPR12MB3176.namprd12.prod.outlook.com (2603:10b6:a03:134::26)
+ by BL0PR12MB4705.namprd12.prod.outlook.com (2603:10b6:208:88::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.14; Mon, 7 Feb
+ 2022 04:27:14 +0000
+Received: from BYAPR12MB3176.namprd12.prod.outlook.com
+ ([fe80::1528:82a2:aa0:7aa6]) by BYAPR12MB3176.namprd12.prod.outlook.com
+ ([fe80::1528:82a2:aa0:7aa6%5]) with mapi id 15.20.4951.018; Mon, 7 Feb 2022
+ 04:27:13 +0000
+From: Alistair Popple <apopple@nvidia.com>
+To: akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Subject: [PATCH v2 0/3] Migrate device coherent pages on get_user_pages()
+Date: Mon,  7 Feb 2022 15:26:45 +1100
+Message-Id: <cover.0d3c846b1c6c294e055ff7ebe221fab9964c1436.1644207242.git-series.apopple@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BY5PR04CA0007.namprd04.prod.outlook.com
+ (2603:10b6:a03:1d0::17) To BYAPR12MB3176.namprd12.prod.outlook.com
+ (2603:10b6:a03:134::26)
 MIME-Version: 1.0
-References: <CAOHtt3_wfx1kpcjA3s63x+TaHS8DmCSk629OAN+Bi5nZzwrb5Q@mail.gmail.com>
-In-Reply-To: <CAOHtt3_wfx1kpcjA3s63x+TaHS8DmCSk629OAN+Bi5nZzwrb5Q@mail.gmail.com>
-From: =?UTF-8?Q?Tomasz_Mo=C5=84?= <desowin@gmail.com>
-Date: Sun, 6 Feb 2022 09:17:07 +0100
-Message-ID: <CAOHtt39VcCNYwHcEj3NB3904tw4cKBDc-wH_CWvGr3NWM_vH=A@mail.gmail.com>
-Subject: Re: Waiting for fences timed out on MacBook Pro 2019
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c481c9bb-c437-48ee-432f-08d9e9f21d5e
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4705:EE_
+X-Microsoft-Antispam-PRVS: <BL0PR12MB4705FC35475EA7129B69BC3ADF2C9@BL0PR12MB4705.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: c70CJ0r61acTppJ1c8FoH9eG0LEIvCEJGVzdra8OgyMC/aeSXUosLof2LJe4RjOGm2CccAL8WGYsu4JhZujMV8JajC62JbK3ueAjI61NHFCBK4aA/7pTt/vIWuX2PKI5jeTmgegr+RTL/nf9TSWfTbpPdNn5RGDRle76OOCBuklKtu+auHFHaXbBKorpwBDREezAV0X7ZDKuvX2EDJON6lW/Re15WS31Vc9vE2CmC+943mQFNhv3e6V9tvcvgiTlCTsVMhUUdmOyRC8gHaoVpirMwkmECjpuVmNnfswfYoP919vcJ5Jdr4ELVtot2EVELqe5C7Uo9naBzPdYebYvLr2geykCjeYDbm0sA6+w23+95v6D8FrGWy6uNhTNCNT6j19+MHBxp+V/ZngephI2qC++kG6SjtQXhCEMeCBNo7n9r9YI2WcEp+5XFzowXnRI3++fGEQMEoUapeZJ0qWl43mxJYHi+dwI7Kecnjy8GKUoR4vfatv6c9a/4fkE7KKF3Jy77Ao57cavN0oJ17WGi/mcCfo1i9Cod67cTSVfD5UXoharOkv8DD72OhApHJJBe3wRngJQ/jtTZOz4lm4amVAgyFpYzbZ8rB0/N4uhgidra8H39a0FqN4jT8ktTAmEXoFhP/MydoSYqoqIwBjyg6K73nhxKbwW1ZXCN8DQLOodob1/4MRrwPnwcPm3GwcUDLTALpwwjce+j1qT50SaEIn82upjr0aJZxlauTtzRRQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(86362001)(107886003)(6486002)(2906002)(508600001)(26005)(186003)(6666004)(6506007)(2616005)(6512007)(316002)(966005)(66946007)(8936002)(36756003)(83380400001)(7416002)(38100700002)(5660300002)(4326008)(66476007)(66556008)(8676002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?nwJAMdTcBFuDl7fbSY9Jd9LJfX/pSRPgWDGSrX5/EyI/dZaOZcD7XQXJ4+pi?=
+ =?us-ascii?Q?sbAez9/NCQITwwhZfCzt8oTDNsAt5hftLiLBqV/Qmzf4cZYCfyH4DmO8aGbx?=
+ =?us-ascii?Q?Nx8Gc3KaIrxfxQ8ZO/VKQswVclV8gVoIHZzp8YVgAHYflXewXuB9PMqL0ilU?=
+ =?us-ascii?Q?BrTj4ITrZ1SO16oN/FtIHwk2q3oMOR2s208cQiiMK0Qq+Tqw7RtLqibjQ0h6?=
+ =?us-ascii?Q?2M7Un5RhBymH6KCwcYNtbDccRsvyPMrjl4quouXP+BqkjpP4sbIWdzKKPfDe?=
+ =?us-ascii?Q?oKLXR0H1y6CPTKlx6yky6fCN1U1m0up0FzjjJlXooBI5nXCD3BPTaq9Atvlu?=
+ =?us-ascii?Q?OoJIlIoJh+LCjzhhgA1cyFuobNGRjfHhBhQgp/8GulgNOPt+vxEhr58BRrsh?=
+ =?us-ascii?Q?RrPRUbo3I96I9mycMHcfdsFKrWCunOcilMBIUuAtWS1UfOJJ1OtnkFASel/Z?=
+ =?us-ascii?Q?cRkCVToXEDNAU2EECgU9fuPyOjLX9+d8J9ablfpLHa1S4e3exnGW4eLvZIk1?=
+ =?us-ascii?Q?YmAR6+JBGWc0i0YKBPChoMpl8lmu5PGWhMT5xlSGnxlXv9SjvIqz4lZvTBjA?=
+ =?us-ascii?Q?wty+bWkzmLxR2sUzkWdkRLJ5OBu3A9NIk9EbR7bQYuSylpyfpbAWjeEUWkuL?=
+ =?us-ascii?Q?xSkMVLVmwcmRR7citYmtQ7VH0/266zA5umzhBu2h821592iEgy0zXlGC/xZ8?=
+ =?us-ascii?Q?ediKvI2SAyz0X2YCcPAC9cgGNXiIaqg+vD2xR4F5PfNnACRYBxN6kgfeV21l?=
+ =?us-ascii?Q?v4ttK0MaXk3wEBj3ONuCPl/bpXSXeEyvwNPM1SC6OxDLGLf/uwi2fbjKiHvn?=
+ =?us-ascii?Q?D0T8yvkKHbdXSkObLo0tZygG8QicPKCCdptDQmhyGUYNXoXHSTLwZYrX6UXk?=
+ =?us-ascii?Q?x0Y7iBaY0NYPOiTnlZSCUc+BFn1bxAb1S/dtbtCcY2syDg0eyOzPok4JW7O4?=
+ =?us-ascii?Q?FgtP0EF2ukFBEZLyyXguogCFF2BDjlxgmJTCnDm6B4qz+/7Qg9Z2tEQTh1gQ?=
+ =?us-ascii?Q?HE5oF+aI8Mim7vrc1S5VQpJXcDVq5AeTr5KtlF6CCjVY+/tdfgK8+It4Q6AN?=
+ =?us-ascii?Q?QcdDqTucRJWykGoZqZvY49bpOSCEP1TmCllJAGbqKPUuHT1yM6ooeHWC9KBX?=
+ =?us-ascii?Q?16cF34hQvUHYWL0qOrtKJhoid+LNnmPttTWsf9Xyr/qgYW1RQDcY5K0w8rIv?=
+ =?us-ascii?Q?SkCUbkkEjbUlbu6po/NXfRFpdIdKKIBvAMUNIqxaDULnCO0/A/Q1nsp0YPRs?=
+ =?us-ascii?Q?dFFFzbLKLkpanq3qlFWcbauX98ReJyFG9tiXWt8Qyhncp8JGP5cyk690LbZk?=
+ =?us-ascii?Q?CmM2ja/HPsYDuQBcCyawYXIn10FDZkM7Harr05SZ4Xwmm7sWpbaUEJnarA6X?=
+ =?us-ascii?Q?oPy1etiyi6G0y3F4pXg0RWlLhZQd+mTz68T3WmcD1++uwuUupcouMdgsEG32?=
+ =?us-ascii?Q?3NlOdM9FAUODGH5dVdnqOs7rtv0n+Ij4yoyCWOE5W0NtSVhBHjWP5JQsHlFZ?=
+ =?us-ascii?Q?aGrE1Kzj/gyt2uAqfHrjQUS4EiZMAtk1rfLHsz1aadT6pLxadmb2R4kihQbD?=
+ =?us-ascii?Q?MiaOuE7oqbBCjKBarN7fj5ZJKaSDaza7619FZFPNHMSjM4X4JNi/VzxS65Z8?=
+ =?us-ascii?Q?svfKaAWb8Yw/jwuJQsSr8Fk=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c481c9bb-c437-48ee-432f-08d9e9f21d5e
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3176.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 04:27:13.4960 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mdUowcG5C0QfD57n+57YC21fXY76ph9j61SwGZtvqIA9iYWZTpCe09PwR2ut/01IiloVw77MdZOCobQd2xiNBQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4705
 X-Mailman-Approved-At: Mon, 07 Feb 2022 09:10:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,176 +115,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alex.sierra@amd.com, rcampbell@nvidia.com, willy@infradead.org,
+ jhubbard@nvidia.com, Felix.Kuehling@amd.com,
+ Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, jglisse@redhat.com, amd-gfx@lists.freedesktop.org,
+ jgg@nvidia.com, linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jul 12, 2021 at 11:56 AM Tomasz Mo=C5=84 <desowin@gmail.com> wrote:
-> I am having trouble getting Linux to run on MacBook Pro 2019 with
-> Radeon Pro Vega 20 4 GB. Basically as soon as graphical user interface
-> starts, the whole system freezes. This happens with every Linux kernel
-> version I have tried over the last few months, including 5.13.
+Device coherent pages represent memory on a coherently attached device such
+as a GPU which is usually under the control of a driver. These pages should
+not be pinned as the driver needs to be able to move pages as required.
+Currently this is enforced by failing any attempt to pin a device coherent
+page.
 
-It is significantly better on 5.17-rc2. That is, the whole system is
-not frozen. just the screen keeps blinking and visual artifacts show.
-Graphical desktop is not usable, but switching between virtual
-terminals works just fine.
+A similar problem exists for ZONE_MOVABLE pages. In that case though the
+pages are migrated instead of causing failure. There is no reason the
+kernel can't migrate device coherent pages so this series implements
+migration for device coherent pages so the same strategy of migrate and pin
+can be used.
 
-dmesg | grep amdgpu shows:
-[    2.310680] [drm] amdgpu kernel modesetting enabled.
-[    2.310888] amdgpu: CRAT table not found
-[    2.310891] amdgpu: Virtual CRAT table created for CPU
-[    2.310902] amdgpu: Topology: Add CPU node
-[    2.310966] fb0: switching to amdgpu from EFI VGA
-[    2.311069] amdgpu 0000:03:00.0: vgaarb: deactivate vga console
-[    2.311161] amdgpu 0000:03:00.0: amdgpu: Trusted Memory Zone (TMZ)
-feature not supported
-[    2.322968] amdgpu 0000:03:00.0: amdgpu: Fetched VBIOS from VFCT
-[    2.322972] amdgpu: ATOM BIOS: 113-D20601MA0T-016
-[    2.325980] amdgpu 0000:03:00.0: BAR 2: releasing [mem
-0xc0000000-0xc01fffff 64bit pref]
-[    2.325983] amdgpu 0000:03:00.0: BAR 0: releasing [mem
-0xb0000000-0xbfffffff 64bit pref]
-[    2.326015] amdgpu 0000:03:00.0: BAR 0: assigned [mem
-0x4100000000-0x41ffffffff 64bit pref]
-[    2.326022] amdgpu 0000:03:00.0: BAR 2: assigned [mem
-0x4080000000-0x40801fffff 64bit pref]
-[    2.326075] amdgpu 0000:03:00.0: amdgpu: VRAM: 4080M
-0x000000F400000000 - 0x000000F4FEFFFFFF (4080M used)
-[    2.326078] amdgpu 0000:03:00.0: amdgpu: GART: 512M
-0x0000000000000000 - 0x000000001FFFFFFF
-[    2.326080] amdgpu 0000:03:00.0: amdgpu: AGP: 267419648M
-0x000000F800000000 - 0x0000FFFFFFFFFFFF
-[    2.326144] [drm] amdgpu: 4080M of VRAM memory ready
-[    2.326145] [drm] amdgpu: 4080M of GTT memory ready.
-[    2.330452] amdgpu 0000:03:00.0: amdgpu: PSP runtime database doesn't ex=
-ist
-[    2.330457] amdgpu: hwmgr_sw_init smu backed is vega12_smu
-[    3.169108] snd_hda_intel 0000:03:00.1: bound 0000:03:00.0 (ops
-amdgpu_dm_audio_component_bind_ops [amdgpu])
-[    4.427470] kfd kfd: amdgpu: Allocated 3969056 bytes on gart
-[    4.462468] amdgpu: HMM registered 4080MB device memory
-[    4.462492] amdgpu: SRAT table not found
-[    4.462492] amdgpu: Virtual CRAT table created for GPU
-[    4.462567] amdgpu: Topology: Add dGPU node [0x69af:0x1002]
-[    4.462572] kfd kfd: amdgpu: added device 1002:69af
-[    4.462587] amdgpu 0000:03:00.0: amdgpu: SE 4, SH per SE 1, CU per
-SH 5, active_cu_number 20
-[    4.462674] amdgpu 0000:03:00.0: amdgpu: ring gfx uses VM inv eng 0 on h=
-ub 0
-[    4.462676] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM
-inv eng 1 on hub 0
-[    4.462678] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM
-inv eng 4 on hub 0
-[    4.462679] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM
-inv eng 5 on hub 0
-[    4.462680] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM
-inv eng 6 on hub 0
-[    4.462682] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM
-inv eng 7 on hub 0
-[    4.462683] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM
-inv eng 8 on hub 0
-[    4.462684] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM
-inv eng 9 on hub 0
-[    4.462685] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM
-inv eng 10 on hub 0
-[    4.462686] amdgpu 0000:03:00.0: amdgpu: ring kiq_2.1.0 uses VM inv
-eng 11 on hub 0
-[    4.462688] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng
-0 on hub 1
-[    4.462689] amdgpu 0000:03:00.0: amdgpu: ring sdma1 uses VM inv eng
-1 on hub 1
-[    4.462690] amdgpu 0000:03:00.0: amdgpu: ring uvd_0 uses VM inv eng
-4 on hub 1
-[    4.462691] amdgpu 0000:03:00.0: amdgpu: ring uvd_enc_0.0 uses VM
-inv eng 5 on hub 1
-[    4.462693] amdgpu 0000:03:00.0: amdgpu: ring uvd_enc_0.1 uses VM
-inv eng 6 on hub 1
-[    4.462694] amdgpu 0000:03:00.0: amdgpu: ring vce0 uses VM inv eng 7 on =
-hub 1
-[    4.462695] amdgpu 0000:03:00.0: amdgpu: ring vce1 uses VM inv eng 8 on =
-hub 1
-[    4.462696] amdgpu 0000:03:00.0: amdgpu: ring vce2 uses VM inv eng 9 on =
-hub 1
-[    4.469544] [drm] Initialized amdgpu 3.44.0 20150101 for
-0000:03:00.0 on minor 0
-[    4.474424] fbcon: amdgpudrmfb (fb0) is primary device
-[    5.547836] amdgpu 0000:03:00.0: [drm] fb0: amdgpudrmfb frame buffer dev=
-ice
-[    5.636489] audit: type=3D1130 audit(1644133454.781:45): pid=3D1 uid=3D0
-auid=3D4294967295 ses=3D4294967295
-msg=3D'unit=3Dsystemd-backlight@backlight:amdgpu_bl0 comm=3D"systemd"
-exe=3D"/usr/lib/systemd/systemd" hostname=3D? addr=3D? terminal=3D?
-res=3Dsuccess'
-[   24.927611] [drm:amdgpu_dm_atomic_commit_tail [amdgpu]] *ERROR*
-Waiting for fences timed out!
-[   24.927611] [drm:amdgpu_dm_atomic_commit_tail [amdgpu]] *ERROR*
-Waiting for fences timed out!
-[   30.057616] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx
-timeout, signaled seq=3D895, emitted seq=3D897
-[   30.057933] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process
-information: process Xorg pid 722 thread Xorg:cs0 pid 723
-[   30.058217] amdgpu 0000:03:00.0: amdgpu: GPU reset begin!
-[   34.058227] amdgpu 0000:03:00.0: amdgpu: failed to suspend display audio
-[   34.314738] amdgpu 0000:03:00.0: amdgpu: MODE1 reset
-[   34.314741] amdgpu 0000:03:00.0: amdgpu: GPU mode1 reset
-[   34.314792] amdgpu 0000:03:00.0: amdgpu: GPU psp mode1 reset
-[   34.892364] amdgpu 0000:03:00.0: amdgpu: GPU reset succeeded,
-trying to resume
-[   36.910260] amdgpu 0000:03:00.0: amdgpu: ring gfx uses VM inv eng 0 on h=
-ub 0
-[   36.910263] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM
-inv eng 1 on hub 0
-[   36.910264] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM
-inv eng 4 on hub 0
-[   36.910266] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM
-inv eng 5 on hub 0
-[   36.910267] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM
-inv eng 6 on hub 0
-[   36.910268] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM
-inv eng 7 on hub 0
-[   36.910269] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM
-inv eng 8 on hub 0
-[   36.910271] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM
-inv eng 9 on hub 0
-[   36.910272] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM
-inv eng 10 on hub 0
-[   36.910273] amdgpu 0000:03:00.0: amdgpu: ring kiq_2.1.0 uses VM inv
-eng 11 on hub 0
-[   36.910274] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng
-0 on hub 1
-[   36.910276] amdgpu 0000:03:00.0: amdgpu: ring sdma1 uses VM inv eng
-1 on hub 1
-[   36.910277] amdgpu 0000:03:00.0: amdgpu: ring uvd_0 uses VM inv eng
-4 on hub 1
-[   36.910278] amdgpu 0000:03:00.0: amdgpu: ring uvd_enc_0.0 uses VM
-inv eng 5 on hub 1
-[   36.910279] amdgpu 0000:03:00.0: amdgpu: ring uvd_enc_0.1 uses VM
-inv eng 6 on hub 1
-[   36.910281] amdgpu 0000:03:00.0: amdgpu: ring vce0 uses VM inv eng 7 on =
-hub 1
-[   36.910282] amdgpu 0000:03:00.0: amdgpu: ring vce1 uses VM inv eng 8 on =
-hub 1
-[   36.910283] amdgpu 0000:03:00.0: amdgpu: ring vce2 uses VM inv eng 9 on =
-hub 1
-[   36.913056] amdgpu 0000:03:00.0: amdgpu: recover vram bo from shadow sta=
-rt
-[   36.913063] amdgpu 0000:03:00.0: amdgpu: recover vram bo from shadow don=
-e
-[   36.913147] amdgpu 0000:03:00.0: amdgpu: GPU reset(2) succeeded!
-[   36.915587] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
-initialize parser -125!
-[   36.916107] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
-initialize parser -125!
-[   36.916471] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
-initialize parser -125!
-[   36.916975] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
-initialize parser -125!
-[   36.917366] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
-initialize parser -125!
-[   36.917735] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
-initialize parser -125!
-[   38.243514] amdgpu_cs_ioctl: 101 callbacks suppressed
-[   38.243517] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
-initialize parser -125!
-[   38.243999] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
-initialize parser -125!
+This series depends on the series "Add MEMORY_DEVICE_COHERENT for coherent
+device memory mapping"[1] which is in linux-next-20220204 and should apply
+cleanly to that.
+
+[1] - https://lore.kernel.org/linux-mm/20220128200825.8623-1-alex.sierra@amd.com/
+
+Changes for v2:
+
+ - Rebased on to linux-next-20220204
+
+Alex Sierra (1):
+  tools: add hmm gup test for long term pinned device pages
+
+Alistair Popple (2):
+  migrate.c: Remove vma check in migrate_vma_setup()
+  mm/gup.c: Migrate device coherent pages when pinning instead of failing
+
+ mm/gup.c                               | 105 +++++++++++++++++++++++---
+ mm/migrate.c                           |  34 ++++----
+ tools/testing/selftests/vm/Makefile    |   2 +-
+ tools/testing/selftests/vm/hmm-tests.c |  81 ++++++++++++++++++++-
+ 4 files changed, 194 insertions(+), 28 deletions(-)
+
+base-commit: ef6b35306dd8f15a7e5e5a2532e665917a43c5d9
+-- 
+git-series 0.9.1
