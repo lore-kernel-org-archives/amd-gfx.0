@@ -4,118 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C4C6C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 21:19:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8396C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 23:22:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D94610F917;
-	Mon,  7 Feb 2022 21:19:36 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2085.outbound.protection.outlook.com [40.107.237.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB52E10F904;
- Mon,  7 Feb 2022 21:19:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B68010E1E2;
+	Mon,  7 Feb 2022 23:22:37 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4C110E1E2
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 23:22:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UZ6YtKuDtUjnGLhA3rysnPZIpbfRIxuEg/4EB0jlOxktmdjOkRSHJf3Dq+ahI6B9P5JEsakXiFupGV9747x9BBoh/rXAZ4JSIIdm7678VfWunlM2f5ijJ4qaK7WieHWyWb9s10jMrStS0C/nyLV3GZB6ptDx9/SShhHRwF+piauNKaymy0P5E/jpMVflOHXXbOysSP1um0YxsZjrqlPphHdG/1L3tRWEI8vBZJWW8wIDaSfeFvJ+JTTCuTKcOi4pDg4QTuOOMcAx7TAqB9i19huyLpJIQ37pV4+60Wya+drckRK53bKW0mZqZOeFFttyaySEwx5bI0zUZNwlJOkEuA==
+ b=LnXRh+xboraYLnxmt2+DckPREL15R1OwFOdG3xXPaY95zLi3VN6ddTUcDoJwpiz2i713Rsa7wt+ql7SAkpG4N288gmkyIyKaG4xqZpL+Z9HgNrnN6AnrnMsQkhjIy0J0mJCF1ZlTPGkKXrsfkG0ucBGCPae/OjzN//022+WY7OBvPkI50fgOc8Y0i86gF8MafROmNdeGQ9tztp5BdvoFipQkTOJkE+/d4EQP1fi1sUHNt5biJ5lGwXm1Yc/cyZVs6VmyWksyEqOYT+8Csnr9BfZDZRqQewGk3urehWRcnFMGCW+Pu0gFBnVUkBdHHQE2ThlJOOySmrKjzG7Ua46Dxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qdTLTDt99eDVa++Z5iH9r+SNIk6aNNfYsy5ueSrK5Zc=;
- b=CvEVcBAN26eKA+q9TdzdpR82deHs7ohIzf8J1ysCUOo0A7kBuWWMO4FDWQvjuEO5Zew8DsEia0XTgGk2kW1fB/0BDp8WA6lOk7aoNEBj7mVY5bKhOdWC+XNRbc1PB5NHQQurGCsGaX6fdH5qmUlPdJXDAgepGyohle2yQPV5CIF5GQZZ1dPpTtcRXgcn/LWjqS6YP9KIpOwbL1IlcuntYrxL9Ox+BmP80KBFaOgC6wIowo/RRznsHw4WExGUt4axhoZsxvjE+MeQ8pei3cVBHiOE9uuDWfSRLfKK4bYsXvPv3jdiAGy+7CNJUI6iGvKrCY+yFZK6Uqe8vjYpgN47Kw==
+ bh=EzSlZ24+Zq9K1JvxYIbofZCYfNJPwQNdXIg9fRmF580=;
+ b=ByVJaA4PIkPIwFbojhNJzEWHOW305FiCdUWVfyU77gADnwUwXW2ND/6Mye972kxPDU0JT2iTNYEOYimUvTZdQcaPEeFHPyVA6NUvyboMuBMuCfRaiT1QgS2DbZICU+Xx6yA7ADffRLsWQQqMZhCmlcGHpw4u0Sfi5slVtphHv14aWyM/03PlyHgfux1Z5fQmjipNDRUnNmoRnClH5OnFmoJOxiL6cwkpwQdiUw1tN6gwlnklUtVF//NNoVLRqnnA3j6d8gT1p04SeWo8D5tKRCnSV95jTxZjariNRL18tH/cPN3n7uEaQ0vGrDpLRvdBUe9k1GmjhfXPlov10qqfaw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qdTLTDt99eDVa++Z5iH9r+SNIk6aNNfYsy5ueSrK5Zc=;
- b=TUoqQoOG5HKdIpeBpD5xa0ftbd7u05yhc85ItYCB7e9ObF1jFou3GF1xLPLBbK0Qa98/dgRFe62lZ/vV6xBff5Ggv0HTSu08FjkuZPizg1gNCYIlpjpNiAzap8jK9NgZgn/YIXhedBYegxRw8QgWD8TqV0NXwfndw0iL634RN3c=
+ bh=EzSlZ24+Zq9K1JvxYIbofZCYfNJPwQNdXIg9fRmF580=;
+ b=Fck2mheyjrzed8pR0TyEqyi4xelks8oHHl/Pj0GJM8Lsf1wo23Ww1dwjNr/WRa0LDMFIP8uI5peyOQpIwGe7R8m+fqTkN6o6zRqWoRLGhlBY7dFDPJ8ZNeTZydJEN32iY6F40fGmTcqlC42xy4onwFp6ObCpVnV9twR0JgFFZsg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MWHPR12MB1776.namprd12.prod.outlook.com (2603:10b6:300:113::7)
+ by BL1PR12MB5223.namprd12.prod.outlook.com (2603:10b6:208:315::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Mon, 7 Feb
- 2022 21:19:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11; Mon, 7 Feb
+ 2022 23:22:31 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::971:531c:e4f4:8a9a%8]) with mapi id 15.20.4951.019; Mon, 7 Feb 2022
- 21:19:31 +0000
-Message-ID: <3287da2f-defa-9adb-e21c-c498972e674d@amd.com>
-Date: Mon, 7 Feb 2022 16:19:29 -0500
+ 23:22:31 +0000
+Message-ID: <f9f182e4-273a-4018-20b7-f8c7ed5ce8e8@amd.com>
+Date: Mon, 7 Feb 2022 18:22:29 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH 6/8] mm: don't include <linux/memremap.h> in <linux/mm.h>
+Subject: Re: [PATCHv2 2/3] drm/amdkfd: Remove unused old debugger
+ implementation
 Content-Language: en-US
-To: Christoph Hellwig <hch@lst.de>, Andrew Morton
- <akpm@linux-foundation.org>, Dan Williams <dan.j.williams@intel.com>
-References: <20220207063249.1833066-1-hch@lst.de>
- <20220207063249.1833066-7-hch@lst.de>
+To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220207195237.11605-1-mukul.joshi@amd.com>
+ <20220207195237.11605-2-mukul.joshi@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20220207063249.1833066-7-hch@lst.de>
+In-Reply-To: <20220207195237.11605-2-mukul.joshi@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0090.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:84::30) To BN9PR12MB5115.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YTOPR0101CA0038.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::15) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d4a84fe0-231b-4598-4e53-08d9ea7f87be
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1776:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1776E2FDC7EA1C5FB68178B5922C9@MWHPR12MB1776.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Office365-Filtering-Correlation-Id: ff334beb-07fc-43ef-86e7-08d9ea90b6c6
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5223:EE_
+X-Microsoft-Antispam-PRVS: <BL1PR12MB522339EF6EFF0E97F92BE4D3922C9@BL1PR12MB5223.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ywv86SR9WAtdng9B1Vr6miNH4FTFFdWV9AKD4DJ9BiEmGBtZeEh3tt0oh0qz5/Hp3xYJlHthXLSHTvEihqcFEVPDpTrFwHSWYVMKUuuSvgwPurxxsZwunYPNZamLNGo10FIOT+qYY8bEWwZq4IzhMQO+rDGr8N6hzF4Bw+XvDMnofzXzgoHjS6taOTpArkgO2SKhUJAPkvTy0lvD3rBZZx221Ra8YUNeLhkG9vCom/pFyyNjPq8uXQ9Q7BlV3tG2hcVqFEYqpMYbhfSCnCmvLiwvxohnFXJUz5q680vHNl5xgNsRExAEipRMPXezA9aKebHu8g4HklmG6B8ERpnxwJqgXs9pRNU8EOhtQtZOKqwT1EuiGJmlSbvfzaeblBRWIqVptUZTVB/h50TC0C/A5pYoG3WamaywBbNYHU6VFbESbBZXJ+L0CCmp+T2J5e0PJUfxwUPVIbqyIdSteIMzYasCnbH8xpOsSxUVm9dWd0Sh5U+n4l6dsD9GMkbSXsQUMf2ChzO7HQ1HM+lJoJYB5f0RXPdJpL1CvXSXboxh7GixEncuVINT1O9GhTC1ctTZCFj5LNeMEzFXQWxAF7/Yz3u/L80NRZfk2p/02Ia6sm4TbcAiRmzxi3EcjM+IyfB0A3suLIyrDdpWDeiRJAQTMGkXc6SS0P7tDzZq8PJexPRNxpxlqsct741tVLEZ1pLhyWDwQyv43wYbQmRlQulgVUh8enAe7aLU8qoHFEXHTDS0l6W8c8wV3DjVNtWXTK24
+X-Microsoft-Antispam-Message-Info: ATxFOoKrRHu/7KB7Ci6qElGXKq1HjhUD1WRdCMPYf+NFZzqKOjkhQm3FbtywS3j0BpcT3CZc+OfkiCmRUzUuRLjjUPMLKbLGOojgzaRJ2bxdvXuths9Iwr43U8A3zYrmH2zcDe24+caue/l32RldTSPrAFAif4ZmjUj94jQE/JPjCjiJqrf0E4vFky1Kgo6KlfOTWBmLblHtioER4iaHWsjoMHththYXuRSdznGw2ep8EVxnXgzy6LR/V3TNJcA5lWx394/8Hfb6tfHOl/lcoJOAXHf5lAwKA3hpEC8vrqGBcTknSJi8Cescv5ojZDS0x94d7U957jFEdjSFkJPOQTDGFzSxWiMlwqCMdiJXfYGL8enAW1Ss2wYIWcEviptQZSK5ikzv9amT2J0Hps4jJi1+w3A8qfOAQMoVciZgecltr7fj1FU7UfVpUGormrEAe85P9GgNqTLCkmfQkTsDJwHzbOW2CQ2OdVBHc7a43rruGNnv0jP7ymQM28gNQfvcxdma1m34xQUiRiLknOCSrjgGwTEbV09+qz6LccRKVKB3/hq1rNPYo9ZFQpB9ObCWnOQiLze2PuTsnpAgN+VJyeQ3nc37i+K9s8rVw51Ctd5c6GN5WT+TOKkym9ThaM45aWK/PQVWqmy/n/ZUdCY0Ue6+8X6xJ4yt1RVG7TVDsrwc5jGXxHWeaL57mxNAydorKgzp9CObpQDOpqfpaSv+IvNvtew7fhaxem5DVgks+y6++8uIOW1kZyUUq19gM7h2
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66574015)(66476007)(26005)(186003)(8676002)(83380400001)(31686004)(36756003)(66556008)(4326008)(54906003)(110136005)(316002)(8936002)(66946007)(5660300002)(6486002)(6512007)(7416002)(31696002)(6506007)(38100700002)(508600001)(44832011)(2616005)(2906002)(86362001)(43740500002)(45980500001);
+ SFS:(13230001)(4636009)(366004)(8936002)(8676002)(83380400001)(66476007)(66556008)(66946007)(6486002)(508600001)(26005)(186003)(6506007)(31696002)(2616005)(6512007)(316002)(19627235002)(36756003)(31686004)(2906002)(86362001)(38100700002)(5660300002)(44832011)(30864003)(43740500002)(45980500001)(559001)(579004);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QW9ocEl0aFZ6bHhraDduU21ndUFzTGdmK21QV1JiMGhIRXh3a0NNUk1oRkp2?=
- =?utf-8?B?cWJxb0d6MmpCcVYyaVI4Wi9URmN1RzNmODZLUlRhcnppRzZKakc3Z0lyNkJt?=
- =?utf-8?B?WDVyVTlESFNoaWI5OWltM1F5Tm5POSsrc2dHVjJQdkZNQ3ZiY0F2cldMUDg0?=
- =?utf-8?B?bEJrdHB5TUxEZ0x3czBJVTB6djA3RU9zUnltaGZWVkxKdUFubHcyT0hRKys4?=
- =?utf-8?B?dUJtZ2tSbkFCWGRvVWY4WEg2clZYV2JHMjJpRm9jcHJubm5jVTJiZUFISGk0?=
- =?utf-8?B?QlhxUlo5c3BpeEJxLzZNa25VYVJUNXlDckZYVnZrMHRjbjNXNmh2emh3TVIr?=
- =?utf-8?B?Z0hWcGxrelhJUkRFR0FobE9NT2xXcWp5V0Z5VlZPS3JNTHYxd1M4eExvME5W?=
- =?utf-8?B?bWlhaTNZc01OMmE1TklycXA0UWZkaVhwUEk0ODZHL0RFWUp1UmdSTUZTbkpQ?=
- =?utf-8?B?RjIxWS9rS1FIc2duQk9qbjN3VFdTeUJNZzRxWlhGZUpvbFhaVUREbzhTWnl0?=
- =?utf-8?B?WnB3Q25XWmtwTysvNTRhdDZiOHkreW56YjY0QUVtRzFFQVVxdUpEQUFYQjdk?=
- =?utf-8?B?N29PYmFXekkwbHc1bDdIUlVTcFdZNm5lTE5LcDZ3b3FraVJTOXhTL0YxZFh5?=
- =?utf-8?B?RXlQUnlGcUUrVTNNbkZBeGloYnZpVmo1WG9ueXd0QWZDZnJvUW4wMElWOXJP?=
- =?utf-8?B?ak00bitCNk5HZDVpQ0hKd0FpYUw5MTZ2WHpXb0dXSmhVYXJHMm9DL1E2Z2hm?=
- =?utf-8?B?Y2M1YVBUajJtZ211WVZkYTVwRU1zV1BTNEtCU0hVVTdsTUxackxmNkk0b3Na?=
- =?utf-8?B?YlpnRTNna3JMdmtwdVJ2TVJzbkI1dFZSY2tKdFJnMGRWd3RGNHYyTDhkSWhm?=
- =?utf-8?B?UGZhSXlITDlldG5KbGVRbTkwa2pGN2FSbkFXWE9YYlhURm1yYnJaMWJTMnNG?=
- =?utf-8?B?NjQ1d1U0QUFQZktqTFhRMEIvZVZGSy9rZUlQdVh2SlBrOHZHcnFFc0k4dnZj?=
- =?utf-8?B?c0pZbUEyOWZrZTBhVTFyUXFqcVUrekRoOTdPYUpOWXZtRnIwbGdhZkorRWVS?=
- =?utf-8?B?ODNKN2h2WU0rbkhHSU5iMHlxVEszcWYxSGNoM1Z5VC94YXhEbGlmWmNqUHQ1?=
- =?utf-8?B?aWNMMXRYMW5kM0trTCtRbXZLQ2pCbU1QYzYvNS82WDlTYkxqeXpFYVdaTzJF?=
- =?utf-8?B?Y3Z1eGd0dEh6VFBqS281VXo0VnZUYXhvcHZUYytXM29jVUtMekwrR0RXYTlE?=
- =?utf-8?B?eXNvRU5sS3dxUm1aNGNqNWdjdmkvWVRGYittaFgzZiszYUIxeUVQVXBLQzJV?=
- =?utf-8?B?bkp0M3R4ZTgzZTRNVWllNjhiYkpnOWJMdTVmWTYralY2YVpLRk5XUm5hT0Yw?=
- =?utf-8?B?VlJSOXArV01pUlZGMFJpSi9SVmpoREo2Njh6anNOcENYWm1NOEJWVDlFNE4v?=
- =?utf-8?B?T0dBajY1U2NTaForMlhJZE5mNjBSSGw1L0VBbUxpbHdkd3VYd0ZVZFBzeUho?=
- =?utf-8?B?TXR0V0t4bXBqZHhlVEgzeDhMaEF0cE5GVUtIbmJmU0RuZURmblllL1JQZndC?=
- =?utf-8?B?R2dhWmJOWmNCL0RZWGVCaFFnQTJnZ0paU3liU0docHFtWkhiUE9XdGRyM2Rk?=
- =?utf-8?B?eUoxdkJycTZyQ0lTcVJuMVJreDhTc2tBanU4UkFHWG5yUlQycmtEQkU4aUF0?=
- =?utf-8?B?ZTZUUGoxYTIzZ1pvR3pPNG9kdGo2bHhYSWJwaVZqcVRDWEdsM0N6aFJvdGJ2?=
- =?utf-8?B?WHdDK1JSd0lwR0sxa1p1TDl5Z3lnWGtXUUxBVU9NdzJVYmQ3NlZFSmhGVzRB?=
- =?utf-8?B?MjAyVnBOS3BWR0V2TWRhMjZ4WFhheER0N1lsVGJSZWNPdkdDNmthWG5MSWNS?=
- =?utf-8?B?cGN5UUFoZGQ5UUlIa0ljcDRWeUd5bEJzME03aXhPZEVSditlTFhmd2I2dStt?=
- =?utf-8?B?TEs2RHVKT0VBcXFLdjRZSjB5SUVoeVd2Y1Y4d2lYR1RNLzBjclc3bC9vOXJ2?=
- =?utf-8?B?U0xkcDhYV3V5TDM4SVRFbVBwamY2aHZvcWNlSkhpWkF5WUNaYWY2VlRHYVJs?=
- =?utf-8?B?OWQ4WVRDdHRKeHJnMUhYSkVjN1A5OUV4NXFobUpNU09kbkxoc2ZqUnEvZnJQ?=
- =?utf-8?B?WkJtVy9oQXFDNGRpeUp0RjdtVHdsdndsS1NsQWhKa01XdGRJcFZiZjdXcUZs?=
- =?utf-8?Q?KPsS9mZfO8MYHsbvr/kirvA=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WjAxTjlOY3BKWkNHT0IxQkFpSktyMDEyMDVJQ201M0NmWjl4WjZIcTBUKzVs?=
+ =?utf-8?B?dkRQaWpoV2dHUlhkUFFXUmVlU2djUlNVTlp3T21RaW85cEk4MGNvUDdzTlMy?=
+ =?utf-8?B?ZE4vTkxlbW4zeG1nVzV1SXpBeHpEMm5OcXh2a3FoQjNoL2xYSXBKK0NQWThj?=
+ =?utf-8?B?K2o1SG50aE5PYkRxT3pNRUpMSktUTGxnSEFKdHNjOWVSbGhSN1U0WllRcjl6?=
+ =?utf-8?B?VnJHWWtJVVRyelJqMURaTTZWYW9lSWFDNHRtU3BrMFRRYlRJcDNabit4RlRi?=
+ =?utf-8?B?M3Faczd2SGdFNVBpNHFObitOa2ROY3Z4L3lJUVRtZG9KaWhkWW52bnRzY2FT?=
+ =?utf-8?B?eDZUTG9KZUh5R0d2aVVWaTFJSkc2NytFUW4vU1ZpSFcwSURMb1pXNmE2Z3hm?=
+ =?utf-8?B?YWIrTFpHejl3RmhUR01NS253Z0VUMFBSRW5QczVFZUxjU2VBeTVJY1FwVFZR?=
+ =?utf-8?B?WVVFcVdEc0Jmc3pHY0FLRGJjSWh0Ujk4QzNneDVqcXFnN2dqeHdlZ05xc3A3?=
+ =?utf-8?B?Z0ZpcGt6K1M3dkVKVVZmRW9OQjhGa3QyUURrQ2xoSGM3NEl2Q3d3Z1BxaWxT?=
+ =?utf-8?B?US94RTFFUkR4ZERnRHpWSnZ4T0tOS3N2QVVBbnV3U1lRYk9ydHR6d2JSYlNY?=
+ =?utf-8?B?TFdvQ3dBZmRENVZVdHpGejRkVGhzcEhxbUpITkVHRThhT20xQnBzK2paUWd1?=
+ =?utf-8?B?d3RPTDFiUkwrNDNISUZGK24vUnJIakVDRzRlOXFINktkR0pFdFRmRXI5Smxw?=
+ =?utf-8?B?L3BIRTYrOEUvamlsVGhkaVNhR2NEYXRxNTZBM0hBMnV1eUpPdzJHeHZsYWtY?=
+ =?utf-8?B?bElMbG5nMG1WVWFqdk05K216dFJBcmhJencyeW9CZjc1bG16SExyOHhVQ0ND?=
+ =?utf-8?B?MmtoTENTMFE2c25RNWM3eUEzRzBEaWJoR2NVMzVESTNHQlBBMkF2cytRRWk1?=
+ =?utf-8?B?M01MTU9sc2RSaERXK1ZZZHpZdDlvZ05mZVZYN05PWmY4RGc4WkhPNkJwR0Q1?=
+ =?utf-8?B?ZGhIcE1GVzVMSTBneG90Q1BzOUFqVjBwZExEVGxydFhUSkxzdmNEYWMzZlN5?=
+ =?utf-8?B?UDJMYllId1U5dFd4OVBQZ3EvYUdGN0toZEVzVmI0ZHhzWXliRHVyWFJFcEl0?=
+ =?utf-8?B?WXpPd042WXN3YXZ3WVFFYnE0ZWY4cXhxZS9Ca0t0VnFBV3Qzb0NLQUpqVVNK?=
+ =?utf-8?B?R21ZZ0pWVTA5THZuTmRxTU5mYk9qUG53dkZ1OEVvM1U5VlJwUFVIbUV3REFy?=
+ =?utf-8?B?dDlwMk4zWXJGY05HYmp1cjUwenRYK3h2RmlxWENRSnVRVHJ6N05hNHRQMWhY?=
+ =?utf-8?B?TGhBUzMxNnZPNE4rNm5pVjBUQ1MwNGJWaFUrOER6UkhmUWo0S1ZQUS9mZ01S?=
+ =?utf-8?B?UFpKRkRlaUxjZnJLeEZDb3pDalVxeURRRmNYVTJPcGlsS09mcXNOU2d2MEs3?=
+ =?utf-8?B?SWJaMjlPZFJIaWhpakhYTDlpU2h6YnhCbTdIMW5IdVFYVXVwK3BrdDJaMkVM?=
+ =?utf-8?B?aEtVcWkvVFBwZGFKL1JkMVVGSTkvUkVUV2M1OWpyN01nMEhnUm1Oc3hIR0x2?=
+ =?utf-8?B?ZGFDNDkxRVEvUXhYWXVTL3hJbjJta1NCOEt6OThBN2R1VGFYNiszT1lkK2Vk?=
+ =?utf-8?B?TUY4YlZUeWNTbVdHb0cvcEJucGJLM0FiU2xuMytKVlNMa3dvN1MrN1U2b0RL?=
+ =?utf-8?B?VTNCTTZzR2JHMlRlUFRROHM1aDRkY3hkZ1V2ck9NVWFtZy9ZWXg3Y3FDbE1F?=
+ =?utf-8?B?K0V1MmNVT2VqekRqUXlDa3AzWlVGQ3FXL2JtNUJFaklOMXJjK1B1ZC9sbDFL?=
+ =?utf-8?B?L3hBOElQSmpxWHRrd25vVlVTU0IzM2NLT3czVHk2eDJRc3RNMW5jMkZSTlRM?=
+ =?utf-8?B?NGRxQnpMdWdQTU1TQXcyVGpGdUtpMldTcVhqY0JFV2Z4d2JIM3FWMzlBVFI0?=
+ =?utf-8?B?ZnNjekdKNUpUb1FSTTdZYXF5TXlrR1pvOVdRUWpMWU5BcGF1bWNCNndiVHlW?=
+ =?utf-8?B?OHExVG96Tm9MUnVkUFJnTjZsclBaZGk0TUllQmRJYUFLS1Viei9HR2w0R2hZ?=
+ =?utf-8?B?V1NIcVFsN3QzM014UW5FMjB5KzFzdlNUZS9PTmdrZHl2eVBFMUg5b1k1ai92?=
+ =?utf-8?B?Z1E1YjN0c3psYS9HV1pucW5sYVNCVjc0eE5jMG9RaEtvWDVobTlYdWM1QzRF?=
+ =?utf-8?Q?k3vumzwXOptUNrXNcxDWjhE=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4a84fe0-231b-4598-4e53-08d9ea7f87be
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff334beb-07fc-43ef-86e7-08d9ea90b6c6
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 21:19:31.1121 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 23:22:31.5276 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1zPO0TBl+3C3l8SLbGp/6FpTuHGuKSAp6rLAUNAI+8pFJZTnQRGOKLETQz2I+QhdcxEk9Rxc2j4iiihUE5QcMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1776
+X-MS-Exchange-CrossTenant-UserPrincipalName: tlaA5J2rnL5fxolXiesIHdPDhlkRUaIJS7uaN03szrTVb+NZskb4/sa5+sLxxZLzLAXBQyc6fekvCTtJvZ0h+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5223
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,292 +127,2616 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Karol Herbst <kherbst@redhat.com>,
- linux-mm@kvack.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Logan Gunthorpe <logang@deltatee.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 2022-02-07 um 14:52 schrieb Mukul Joshi:
+> Cleanup the kfd code by removing the unused old debugger
+> implementation.
 
-Am 2022-02-07 um 01:32 schrieb Christoph Hellwig:
-> Move the check for the actual pgmap types that need the free at refcount
-> one behavior into the out of line helper, and thus avoid the need to
-> pull memremap.h into mm.h.
+You can add here, that address watch was only ever implemented in the 
+upstream driver for GFXv7 (Kaveri). The user mode tools runtime using 
+this API was never open-sourced. Work on the old debugger prototype that 
+used this API has been discontinued years ago.
+
+With that, the patch is
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
+> Only a small piece of resetting wavefronts is kept and
+> is moved to kfd_device_queue_manager.c
 >
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-
-The amdkfd part looks good to me.
-
-It looks like this patch is not based on Alex Sierra's coherent memory 
-series. He added two new helpers is_device_coherent_page and 
-is_dev_private_or_coherent_page that would need to be moved along with 
-is_device_private_page and is_pci_p2pdma_page.
-
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
+> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 > ---
->   arch/arm64/mm/mmu.c                    |  1 +
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h  |  1 +
->   drivers/gpu/drm/drm_cache.c            |  2 +-
->   drivers/gpu/drm/nouveau/nouveau_dmem.c |  1 +
->   drivers/gpu/drm/nouveau/nouveau_svm.c  |  1 +
->   drivers/infiniband/core/rw.c           |  1 +
->   drivers/nvdimm/pmem.h                  |  1 +
->   drivers/nvme/host/pci.c                |  1 +
->   drivers/nvme/target/io-cmd-bdev.c      |  1 +
->   fs/fuse/virtio_fs.c                    |  1 +
->   include/linux/memremap.h               | 18 ++++++++++++++++++
->   include/linux/mm.h                     | 20 --------------------
->   lib/test_hmm.c                         |  1 +
->   mm/memremap.c                          |  6 +++++-
->   14 files changed, 34 insertions(+), 22 deletions(-)
+> v1->v2:
+> - Rename AMDKFD_IOC_DBG_* to AMDKFD_IOC_DBG_*_DEPRECATED.
+> - Cleanup address_watch_disable(), address_watch_execute(),
+>    and address_watch_get_offset() from amdgpu_amdkfd_gfx_* files.
 >
-> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> index acfae9b41cc8c9..580abae6c0b93f 100644
-> --- a/arch/arm64/mm/mmu.c
-> +++ b/arch/arm64/mm/mmu.c
-> @@ -17,6 +17,7 @@
->   #include <linux/mman.h>
->   #include <linux/nodemask.h>
->   #include <linux/memblock.h>
-> +#include <linux/memremap.h>
->   #include <linux/memory.h>
->   #include <linux/fs.h>
->   #include <linux/io.h>
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  |   3 -
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |   3 -
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    |  24 -
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c  |  25 -
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c |  96 --
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c |  24 -
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  24 -
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |  10 -
+>   drivers/gpu/drm/amd/amdkfd/Makefile           |   2 -
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 290 +-----
+>   drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c       | 845 ------------------
+>   drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.h       | 230 -----
+>   drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.c       | 158 ----
+>   drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.h       | 293 ------
+>   drivers/gpu/drm/amd/amdkfd/kfd_device.c       |   2 -
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.c |  59 ++
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.h |  35 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_iommu.c        |  12 -
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   5 -
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  19 -
+>   .../gpu/drm/amd/include/kgd_kfd_interface.h   |   9 -
+>   include/uapi/linux/kfd_ioctl.h                |   8 +-
+>   22 files changed, 106 insertions(+), 2070 deletions(-)
+>   delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
+>   delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.h
+>   delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.c
+>   delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.h
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> index 46cd4ee6bafb..c8935d718207 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> @@ -37,10 +37,7 @@ const struct kfd2kgd_calls aldebaran_kfd2kgd = {
+>   	.hqd_sdma_is_occupied = kgd_arcturus_hqd_sdma_is_occupied,
+>   	.hqd_destroy = kgd_gfx_v9_hqd_destroy,
+>   	.hqd_sdma_destroy = kgd_arcturus_hqd_sdma_destroy,
+> -	.address_watch_disable = kgd_gfx_v9_address_watch_disable,
+> -	.address_watch_execute = kgd_gfx_v9_address_watch_execute,
+>   	.wave_control_execute = kgd_gfx_v9_wave_control_execute,
+> -	.address_watch_get_offset = kgd_gfx_v9_address_watch_get_offset,
+>   	.get_atc_vmid_pasid_mapping_info =
+>   				kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
+>   	.set_vm_context_page_table_base = kgd_gfx_v9_set_vm_context_page_table_base,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> index abe93b3ff765..4191af5a3f13 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> @@ -289,10 +289,7 @@ const struct kfd2kgd_calls arcturus_kfd2kgd = {
+>   	.hqd_sdma_is_occupied = kgd_arcturus_hqd_sdma_is_occupied,
+>   	.hqd_destroy = kgd_gfx_v9_hqd_destroy,
+>   	.hqd_sdma_destroy = kgd_arcturus_hqd_sdma_destroy,
+> -	.address_watch_disable = kgd_gfx_v9_address_watch_disable,
+> -	.address_watch_execute = kgd_gfx_v9_address_watch_execute,
+>   	.wave_control_execute = kgd_gfx_v9_wave_control_execute,
+> -	.address_watch_get_offset = kgd_gfx_v9_address_watch_get_offset,
+>   	.get_atc_vmid_pasid_mapping_info =
+>   				kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
+>   	.set_vm_context_page_table_base =
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> index 7b7f4b2764c1..9378fc79e9ea 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> @@ -671,20 +671,6 @@ static bool get_atc_vmid_pasid_mapping_info(struct amdgpu_device *adev,
+>   	return !!(value & ATC_VMID0_PASID_MAPPING__VALID_MASK);
+>   }
+>   
+> -static int kgd_address_watch_disable(struct amdgpu_device *adev)
+> -{
+> -	return 0;
+> -}
+> -
+> -static int kgd_address_watch_execute(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					uint32_t cntl_val,
+> -					uint32_t addr_hi,
+> -					uint32_t addr_lo)
+> -{
+> -	return 0;
+> -}
+> -
+>   static int kgd_wave_control_execute(struct amdgpu_device *adev,
+>   					uint32_t gfx_index_val,
+>   					uint32_t sq_cmd)
+> @@ -709,13 +695,6 @@ static int kgd_wave_control_execute(struct amdgpu_device *adev,
+>   	return 0;
+>   }
+>   
+> -static uint32_t kgd_address_watch_get_offset(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					unsigned int reg_offset)
+> -{
+> -	return 0;
+> -}
+> -
+>   static void set_vm_context_page_table_base(struct amdgpu_device *adev,
+>   		uint32_t vmid, uint64_t page_table_base)
+>   {
+> @@ -767,10 +746,7 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
+>   	.hqd_sdma_is_occupied = kgd_hqd_sdma_is_occupied,
+>   	.hqd_destroy = kgd_hqd_destroy,
+>   	.hqd_sdma_destroy = kgd_hqd_sdma_destroy,
+> -	.address_watch_disable = kgd_address_watch_disable,
+> -	.address_watch_execute = kgd_address_watch_execute,
+>   	.wave_control_execute = kgd_wave_control_execute,
+> -	.address_watch_get_offset = kgd_address_watch_get_offset,
+>   	.get_atc_vmid_pasid_mapping_info =
+>   			get_atc_vmid_pasid_mapping_info,
+>   	.set_vm_context_page_table_base = set_vm_context_page_table_base,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+> index 1f37d3574001..e9c80ce13f3e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+> @@ -582,21 +582,6 @@ static int hqd_sdma_destroy_v10_3(struct amdgpu_device *adev, void *mqd,
+>   	return 0;
+>   }
+>   
+> -
+> -static int address_watch_disable_v10_3(struct amdgpu_device *adev)
+> -{
+> -	return 0;
+> -}
+> -
+> -static int address_watch_execute_v10_3(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					uint32_t cntl_val,
+> -					uint32_t addr_hi,
+> -					uint32_t addr_lo)
+> -{
+> -	return 0;
+> -}
+> -
+>   static int wave_control_execute_v10_3(struct amdgpu_device *adev,
+>   					uint32_t gfx_index_val,
+>   					uint32_t sq_cmd)
+> @@ -621,13 +606,6 @@ static int wave_control_execute_v10_3(struct amdgpu_device *adev,
+>   	return 0;
+>   }
+>   
+> -static uint32_t address_watch_get_offset_v10_3(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					unsigned int reg_offset)
+> -{
+> -	return 0;
+> -}
+> -
+>   static void set_vm_context_page_table_base_v10_3(struct amdgpu_device *adev,
+>   		uint32_t vmid, uint64_t page_table_base)
+>   {
+> @@ -809,10 +787,7 @@ const struct kfd2kgd_calls gfx_v10_3_kfd2kgd = {
+>   	.hqd_sdma_is_occupied = hqd_sdma_is_occupied_v10_3,
+>   	.hqd_destroy = hqd_destroy_v10_3,
+>   	.hqd_sdma_destroy = hqd_sdma_destroy_v10_3,
+> -	.address_watch_disable = address_watch_disable_v10_3,
+> -	.address_watch_execute = address_watch_execute_v10_3,
+>   	.wave_control_execute = wave_control_execute_v10_3,
+> -	.address_watch_get_offset = address_watch_get_offset_v10_3,
+>   	.get_atc_vmid_pasid_mapping_info = NULL,
+>   	.set_vm_context_page_table_base = set_vm_context_page_table_base_v10_3,
+>   	.program_trap_handler_settings = program_trap_handler_settings_v10_3,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
+> index 36528dad7684..65552bb7d2f2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
+> @@ -45,43 +45,6 @@ enum {
+>   	MAX_WATCH_ADDRESSES = 4
+>   };
+>   
+> -enum {
+> -	ADDRESS_WATCH_REG_ADDR_HI = 0,
+> -	ADDRESS_WATCH_REG_ADDR_LO,
+> -	ADDRESS_WATCH_REG_CNTL,
+> -	ADDRESS_WATCH_REG_MAX
+> -};
+> -
+> -/*  not defined in the CI/KV reg file  */
+> -enum {
+> -	ADDRESS_WATCH_REG_CNTL_ATC_BIT = 0x10000000UL,
+> -	ADDRESS_WATCH_REG_CNTL_DEFAULT_MASK = 0x00FFFFFF,
+> -	ADDRESS_WATCH_REG_ADDLOW_MASK_EXTENSION = 0x03000000,
+> -	/* extend the mask to 26 bits to match the low address field */
+> -	ADDRESS_WATCH_REG_ADDLOW_SHIFT = 6,
+> -	ADDRESS_WATCH_REG_ADDHIGH_MASK = 0xFFFF
+> -};
+> -
+> -static const uint32_t watchRegs[MAX_WATCH_ADDRESSES * ADDRESS_WATCH_REG_MAX] = {
+> -	mmTCP_WATCH0_ADDR_H, mmTCP_WATCH0_ADDR_L, mmTCP_WATCH0_CNTL,
+> -	mmTCP_WATCH1_ADDR_H, mmTCP_WATCH1_ADDR_L, mmTCP_WATCH1_CNTL,
+> -	mmTCP_WATCH2_ADDR_H, mmTCP_WATCH2_ADDR_L, mmTCP_WATCH2_CNTL,
+> -	mmTCP_WATCH3_ADDR_H, mmTCP_WATCH3_ADDR_L, mmTCP_WATCH3_CNTL
+> -};
+> -
+> -union TCP_WATCH_CNTL_BITS {
+> -	struct {
+> -		uint32_t mask:24;
+> -		uint32_t vmid:4;
+> -		uint32_t atc:1;
+> -		uint32_t mode:2;
+> -		uint32_t valid:1;
+> -	} bitfields, bits;
+> -	uint32_t u32All;
+> -	signed int i32All;
+> -	float f32All;
+> -};
+> -
+>   static void lock_srbm(struct amdgpu_device *adev, uint32_t mec, uint32_t pipe,
+>   			uint32_t queue, uint32_t vmid)
+>   {
+> @@ -529,55 +492,6 @@ static int kgd_hqd_sdma_destroy(struct amdgpu_device *adev, void *mqd,
+>   	return 0;
+>   }
+>   
+> -static int kgd_address_watch_disable(struct amdgpu_device *adev)
+> -{
+> -	union TCP_WATCH_CNTL_BITS cntl;
+> -	unsigned int i;
+> -
+> -	cntl.u32All = 0;
+> -
+> -	cntl.bitfields.valid = 0;
+> -	cntl.bitfields.mask = ADDRESS_WATCH_REG_CNTL_DEFAULT_MASK;
+> -	cntl.bitfields.atc = 1;
+> -
+> -	/* Turning off this address until we set all the registers */
+> -	for (i = 0; i < MAX_WATCH_ADDRESSES; i++)
+> -		WREG32(watchRegs[i * ADDRESS_WATCH_REG_MAX +
+> -			ADDRESS_WATCH_REG_CNTL], cntl.u32All);
+> -
+> -	return 0;
+> -}
+> -
+> -static int kgd_address_watch_execute(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					uint32_t cntl_val,
+> -					uint32_t addr_hi,
+> -					uint32_t addr_lo)
+> -{
+> -	union TCP_WATCH_CNTL_BITS cntl;
+> -
+> -	cntl.u32All = cntl_val;
+> -
+> -	/* Turning off this watch point until we set all the registers */
+> -	cntl.bitfields.valid = 0;
+> -	WREG32(watchRegs[watch_point_id * ADDRESS_WATCH_REG_MAX +
+> -		ADDRESS_WATCH_REG_CNTL], cntl.u32All);
+> -
+> -	WREG32(watchRegs[watch_point_id * ADDRESS_WATCH_REG_MAX +
+> -		ADDRESS_WATCH_REG_ADDR_HI], addr_hi);
+> -
+> -	WREG32(watchRegs[watch_point_id * ADDRESS_WATCH_REG_MAX +
+> -		ADDRESS_WATCH_REG_ADDR_LO], addr_lo);
+> -
+> -	/* Enable the watch point */
+> -	cntl.bitfields.valid = 1;
+> -
+> -	WREG32(watchRegs[watch_point_id * ADDRESS_WATCH_REG_MAX +
+> -		ADDRESS_WATCH_REG_CNTL], cntl.u32All);
+> -
+> -	return 0;
+> -}
+> -
+>   static int kgd_wave_control_execute(struct amdgpu_device *adev,
+>   					uint32_t gfx_index_val,
+>   					uint32_t sq_cmd)
+> @@ -602,13 +516,6 @@ static int kgd_wave_control_execute(struct amdgpu_device *adev,
+>   	return 0;
+>   }
+>   
+> -static uint32_t kgd_address_watch_get_offset(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					unsigned int reg_offset)
+> -{
+> -	return watchRegs[watch_point_id * ADDRESS_WATCH_REG_MAX + reg_offset];
+> -}
+> -
+>   static bool get_atc_vmid_pasid_mapping_info(struct amdgpu_device *adev,
+>   					uint8_t vmid, uint16_t *p_pasid)
+>   {
+> @@ -665,10 +572,7 @@ const struct kfd2kgd_calls gfx_v7_kfd2kgd = {
+>   	.hqd_sdma_is_occupied = kgd_hqd_sdma_is_occupied,
+>   	.hqd_destroy = kgd_hqd_destroy,
+>   	.hqd_sdma_destroy = kgd_hqd_sdma_destroy,
+> -	.address_watch_disable = kgd_address_watch_disable,
+> -	.address_watch_execute = kgd_address_watch_execute,
+>   	.wave_control_execute = kgd_wave_control_execute,
+> -	.address_watch_get_offset = kgd_address_watch_get_offset,
+>   	.get_atc_vmid_pasid_mapping_info = get_atc_vmid_pasid_mapping_info,
+>   	.set_scratch_backing_va = set_scratch_backing_va,
+>   	.set_vm_context_page_table_base = set_vm_context_page_table_base,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> index 52832cd69a93..9dc5f2a0cc07 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> @@ -538,20 +538,6 @@ static bool get_atc_vmid_pasid_mapping_info(struct amdgpu_device *adev,
+>   	return !!(value & ATC_VMID0_PASID_MAPPING__VALID_MASK);
+>   }
+>   
+> -static int kgd_address_watch_disable(struct amdgpu_device *adev)
+> -{
+> -	return 0;
+> -}
+> -
+> -static int kgd_address_watch_execute(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					uint32_t cntl_val,
+> -					uint32_t addr_hi,
+> -					uint32_t addr_lo)
+> -{
+> -	return 0;
+> -}
+> -
+>   static int kgd_wave_control_execute(struct amdgpu_device *adev,
+>   					uint32_t gfx_index_val,
+>   					uint32_t sq_cmd)
+> @@ -576,13 +562,6 @@ static int kgd_wave_control_execute(struct amdgpu_device *adev,
+>   	return 0;
+>   }
+>   
+> -static uint32_t kgd_address_watch_get_offset(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					unsigned int reg_offset)
+> -{
+> -	return 0;
+> -}
+> -
+>   static void set_scratch_backing_va(struct amdgpu_device *adev,
+>   					uint64_t va, uint32_t vmid)
+>   {
+> @@ -614,10 +593,7 @@ const struct kfd2kgd_calls gfx_v8_kfd2kgd = {
+>   	.hqd_sdma_is_occupied = kgd_hqd_sdma_is_occupied,
+>   	.hqd_destroy = kgd_hqd_destroy,
+>   	.hqd_sdma_destroy = kgd_hqd_sdma_destroy,
+> -	.address_watch_disable = kgd_address_watch_disable,
+> -	.address_watch_execute = kgd_address_watch_execute,
+>   	.wave_control_execute = kgd_wave_control_execute,
+> -	.address_watch_get_offset = kgd_address_watch_get_offset,
+>   	.get_atc_vmid_pasid_mapping_info =
+>   			get_atc_vmid_pasid_mapping_info,
+>   	.set_scratch_backing_va = set_scratch_backing_va,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> index 1abf662a0e91..53895a41932e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> @@ -622,20 +622,6 @@ bool kgd_gfx_v9_get_atc_vmid_pasid_mapping_info(struct amdgpu_device *adev,
+>   	return !!(value & ATC_VMID0_PASID_MAPPING__VALID_MASK);
+>   }
+>   
+> -int kgd_gfx_v9_address_watch_disable(struct amdgpu_device *adev)
+> -{
+> -	return 0;
+> -}
+> -
+> -int kgd_gfx_v9_address_watch_execute(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					uint32_t cntl_val,
+> -					uint32_t addr_hi,
+> -					uint32_t addr_lo)
+> -{
+> -	return 0;
+> -}
+> -
+>   int kgd_gfx_v9_wave_control_execute(struct amdgpu_device *adev,
+>   					uint32_t gfx_index_val,
+>   					uint32_t sq_cmd)
+> @@ -660,13 +646,6 @@ int kgd_gfx_v9_wave_control_execute(struct amdgpu_device *adev,
+>   	return 0;
+>   }
+>   
+> -uint32_t kgd_gfx_v9_address_watch_get_offset(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					unsigned int reg_offset)
+> -{
+> -	return 0;
+> -}
+> -
+>   void kgd_gfx_v9_set_vm_context_page_table_base(struct amdgpu_device *adev,
+>   			uint32_t vmid, uint64_t page_table_base)
+>   {
+> @@ -888,10 +867,7 @@ const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
+>   	.hqd_sdma_is_occupied = kgd_hqd_sdma_is_occupied,
+>   	.hqd_destroy = kgd_gfx_v9_hqd_destroy,
+>   	.hqd_sdma_destroy = kgd_hqd_sdma_destroy,
+> -	.address_watch_disable = kgd_gfx_v9_address_watch_disable,
+> -	.address_watch_execute = kgd_gfx_v9_address_watch_execute,
+>   	.wave_control_execute = kgd_gfx_v9_wave_control_execute,
+> -	.address_watch_get_offset = kgd_gfx_v9_address_watch_get_offset,
+>   	.get_atc_vmid_pasid_mapping_info =
+>   			kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
+>   	.set_vm_context_page_table_base = kgd_gfx_v9_set_vm_context_page_table_base,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> index 24be49df26fd..c7ed3bc9053c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> @@ -46,19 +46,9 @@ int kgd_gfx_v9_hqd_destroy(struct amdgpu_device *adev, void *mqd,
+>   				enum kfd_preempt_type reset_type,
+>   				unsigned int utimeout, uint32_t pipe_id,
+>   				uint32_t queue_id);
+> -int kgd_gfx_v9_address_watch_disable(struct amdgpu_device *adev);
+> -int kgd_gfx_v9_address_watch_execute(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					uint32_t cntl_val,
+> -					uint32_t addr_hi,
+> -					uint32_t addr_lo);
+>   int kgd_gfx_v9_wave_control_execute(struct amdgpu_device *adev,
+>   					uint32_t gfx_index_val,
+>   					uint32_t sq_cmd);
+> -uint32_t kgd_gfx_v9_address_watch_get_offset(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					unsigned int reg_offset);
+> -
+>   bool kgd_gfx_v9_get_atc_vmid_pasid_mapping_info(struct amdgpu_device *adev,
+>   					uint8_t vmid, uint16_t *p_pasid);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile b/drivers/gpu/drm/amd/amdkfd/Makefile
+> index c4f3aff11072..19cfbf9577b4 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/Makefile
+> +++ b/drivers/gpu/drm/amd/amdkfd/Makefile
+> @@ -51,8 +51,6 @@ AMDKFD_FILES	:= $(AMDKFD_PATH)/kfd_module.o \
+>   		$(AMDKFD_PATH)/kfd_events.o \
+>   		$(AMDKFD_PATH)/cik_event_interrupt.o \
+>   		$(AMDKFD_PATH)/kfd_int_process_v9.o \
+> -		$(AMDKFD_PATH)/kfd_dbgdev.o \
+> -		$(AMDKFD_PATH)/kfd_dbgmgr.o \
+>   		$(AMDKFD_PATH)/kfd_smi_events.o \
+>   		$(AMDKFD_PATH)/kfd_crat.o
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 64e3b4e3a712..13e46631e289 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -39,7 +39,6 @@
+>   #include <asm/processor.h>
+>   #include "kfd_priv.h"
+>   #include "kfd_device_queue_manager.h"
+> -#include "kfd_dbgmgr.h"
+>   #include "kfd_svm.h"
+>   #include "amdgpu_amdkfd.h"
+>   #include "kfd_smi_events.h"
+> @@ -580,299 +579,26 @@ static int kfd_ioctl_set_trap_handler(struct file *filep,
+>   static int kfd_ioctl_dbg_register(struct file *filep,
+>   				struct kfd_process *p, void *data)
+>   {
+> -	struct kfd_ioctl_dbg_register_args *args = data;
+> -	struct kfd_dev *dev;
+> -	struct kfd_dbgmgr *dbgmgr_ptr;
+> -	struct kfd_process_device *pdd;
+> -	bool create_ok;
+> -	long status = 0;
+> -
+> -	mutex_lock(&p->mutex);
+> -	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
+> -	if (!pdd) {
+> -		status = -EINVAL;
+> -		goto err_pdd;
+> -	}
+> -	dev = pdd->dev;
+> -
+> -	if (dev->adev->asic_type == CHIP_CARRIZO) {
+> -		pr_debug("kfd_ioctl_dbg_register not supported on CZ\n");
+> -		status = -EINVAL;
+> -		goto err_chip_unsupp;
+> -	}
+> -
+> -	mutex_lock(kfd_get_dbgmgr_mutex());
+> -
+> -	/*
+> -	 * make sure that we have pdd, if this the first queue created for
+> -	 * this process
+> -	 */
+> -	pdd = kfd_bind_process_to_device(dev, p);
+> -	if (IS_ERR(pdd)) {
+> -		status = PTR_ERR(pdd);
+> -		goto out;
+> -	}
+> -
+> -	if (!dev->dbgmgr) {
+> -		/* In case of a legal call, we have no dbgmgr yet */
+> -		create_ok = kfd_dbgmgr_create(&dbgmgr_ptr, dev);
+> -		if (create_ok) {
+> -			status = kfd_dbgmgr_register(dbgmgr_ptr, p);
+> -			if (status != 0)
+> -				kfd_dbgmgr_destroy(dbgmgr_ptr);
+> -			else
+> -				dev->dbgmgr = dbgmgr_ptr;
+> -		}
+> -	} else {
+> -		pr_debug("debugger already registered\n");
+> -		status = -EINVAL;
+> -	}
+> -
+> -out:
+> -	mutex_unlock(kfd_get_dbgmgr_mutex());
+> -err_pdd:
+> -err_chip_unsupp:
+> -	mutex_unlock(&p->mutex);
+> -
+> -	return status;
+> +	return -EPERM;
+>   }
+>   
+>   static int kfd_ioctl_dbg_unregister(struct file *filep,
+>   				struct kfd_process *p, void *data)
+>   {
+> -	struct kfd_ioctl_dbg_unregister_args *args = data;
+> -	struct kfd_process_device *pdd;
+> -	struct kfd_dev *dev;
+> -	long status;
+> -
+> -	mutex_lock(&p->mutex);
+> -	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
+> -	mutex_unlock(&p->mutex);
+> -	if (!pdd || !pdd->dev->dbgmgr)
+> -		return -EINVAL;
+> -
+> -	dev = pdd->dev;
+> -
+> -	if (dev->adev->asic_type == CHIP_CARRIZO) {
+> -		pr_debug("kfd_ioctl_dbg_unregister not supported on CZ\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	mutex_lock(kfd_get_dbgmgr_mutex());
+> -
+> -	status = kfd_dbgmgr_unregister(dev->dbgmgr, p);
+> -	if (!status) {
+> -		kfd_dbgmgr_destroy(dev->dbgmgr);
+> -		dev->dbgmgr = NULL;
+> -	}
+> -
+> -	mutex_unlock(kfd_get_dbgmgr_mutex());
+> -
+> -	return status;
+> +	return -EPERM;
+>   }
+>   
+> -/*
+> - * Parse and generate variable size data structure for address watch.
+> - * Total size of the buffer and # watch points is limited in order
+> - * to prevent kernel abuse. (no bearing to the much smaller HW limitation
+> - * which is enforced by dbgdev module)
+> - * please also note that the watch address itself are not "copied from user",
+> - * since it be set into the HW in user mode values.
+> - *
+> - */
+>   static int kfd_ioctl_dbg_address_watch(struct file *filep,
+>   					struct kfd_process *p, void *data)
+>   {
+> -	struct kfd_ioctl_dbg_address_watch_args *args = data;
+> -	struct kfd_dev *dev;
+> -	struct kfd_process_device *pdd;
+> -	struct dbg_address_watch_info aw_info;
+> -	unsigned char *args_buff;
+> -	long status;
+> -	void __user *cmd_from_user;
+> -	uint64_t watch_mask_value = 0;
+> -	unsigned int args_idx = 0;
+> -
+> -	memset((void *) &aw_info, 0, sizeof(struct dbg_address_watch_info));
+> -
+> -	mutex_lock(&p->mutex);
+> -	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
+> -	mutex_unlock(&p->mutex);
+> -	if (!pdd) {
+> -		pr_debug("Could not find gpu id 0x%x\n", args->gpu_id);
+> -		return -EINVAL;
+> -	}
+> -	dev = pdd->dev;
+> -
+> -	if (dev->adev->asic_type == CHIP_CARRIZO) {
+> -		pr_debug("kfd_ioctl_dbg_wave_control not supported on CZ\n");
+> -		return -EINVAL;
+> -	}
+> -	cmd_from_user = (void __user *) args->content_ptr;
+> -
+> -	/* Validate arguments */
+> -
+> -	if ((args->buf_size_in_bytes > MAX_ALLOWED_AW_BUFF_SIZE) ||
+> -		(args->buf_size_in_bytes <= sizeof(*args) + sizeof(int) * 2) ||
+> -		(cmd_from_user == NULL))
+> -		return -EINVAL;
+> -
+> -	/* this is the actual buffer to work with */
+> -	args_buff = memdup_user(cmd_from_user,
+> -				args->buf_size_in_bytes - sizeof(*args));
+> -	if (IS_ERR(args_buff))
+> -		return PTR_ERR(args_buff);
+> -
+> -	aw_info.process = p;
+> -
+> -	aw_info.num_watch_points = *((uint32_t *)(&args_buff[args_idx]));
+> -	args_idx += sizeof(aw_info.num_watch_points);
+> -
+> -	aw_info.watch_mode = (enum HSA_DBG_WATCH_MODE *) &args_buff[args_idx];
+> -	args_idx += sizeof(enum HSA_DBG_WATCH_MODE) * aw_info.num_watch_points;
+> -
+> -	/*
+> -	 * set watch address base pointer to point on the array base
+> -	 * within args_buff
+> -	 */
+> -	aw_info.watch_address = (uint64_t *) &args_buff[args_idx];
+> -
+> -	/* skip over the addresses buffer */
+> -	args_idx += sizeof(aw_info.watch_address) * aw_info.num_watch_points;
+> -
+> -	if (args_idx >= args->buf_size_in_bytes - sizeof(*args)) {
+> -		status = -EINVAL;
+> -		goto out;
+> -	}
+> -
+> -	watch_mask_value = (uint64_t) args_buff[args_idx];
+> -
+> -	if (watch_mask_value > 0) {
+> -		/*
+> -		 * There is an array of masks.
+> -		 * set watch mask base pointer to point on the array base
+> -		 * within args_buff
+> -		 */
+> -		aw_info.watch_mask = (uint64_t *) &args_buff[args_idx];
+> -
+> -		/* skip over the masks buffer */
+> -		args_idx += sizeof(aw_info.watch_mask) *
+> -				aw_info.num_watch_points;
+> -	} else {
+> -		/* just the NULL mask, set to NULL and skip over it */
+> -		aw_info.watch_mask = NULL;
+> -		args_idx += sizeof(aw_info.watch_mask);
+> -	}
+> -
+> -	if (args_idx >= args->buf_size_in_bytes - sizeof(args)) {
+> -		status = -EINVAL;
+> -		goto out;
+> -	}
+> -
+> -	/* Currently HSA Event is not supported for DBG */
+> -	aw_info.watch_event = NULL;
+> -
+> -	mutex_lock(kfd_get_dbgmgr_mutex());
+> -
+> -	status = kfd_dbgmgr_address_watch(dev->dbgmgr, &aw_info);
+> -
+> -	mutex_unlock(kfd_get_dbgmgr_mutex());
+> -
+> -out:
+> -	kfree(args_buff);
+> -
+> -	return status;
+> +	return -EPERM;
+>   }
+>   
+>   /* Parse and generate fixed size data structure for wave control */
+>   static int kfd_ioctl_dbg_wave_control(struct file *filep,
+>   					struct kfd_process *p, void *data)
+>   {
+> -	struct kfd_ioctl_dbg_wave_control_args *args = data;
+> -	struct kfd_dev *dev;
+> -	struct kfd_process_device *pdd;
+> -	struct dbg_wave_control_info wac_info;
+> -	unsigned char *args_buff;
+> -	uint32_t computed_buff_size;
+> -	long status;
+> -	void __user *cmd_from_user;
+> -	unsigned int args_idx = 0;
+> -
+> -	memset((void *) &wac_info, 0, sizeof(struct dbg_wave_control_info));
+> -
+> -	/* we use compact form, independent of the packing attribute value */
+> -	computed_buff_size = sizeof(*args) +
+> -				sizeof(wac_info.mode) +
+> -				sizeof(wac_info.operand) +
+> -				sizeof(wac_info.dbgWave_msg.DbgWaveMsg) +
+> -				sizeof(wac_info.dbgWave_msg.MemoryVA) +
+> -				sizeof(wac_info.trapId);
+> -
+> -	mutex_lock(&p->mutex);
+> -	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
+> -	mutex_unlock(&p->mutex);
+> -	if (!pdd) {
+> -		pr_debug("Could not find gpu id 0x%x\n", args->gpu_id);
+> -		return -EINVAL;
+> -	}
+> -	dev = pdd->dev;
+> -
+> -	if (dev->adev->asic_type == CHIP_CARRIZO) {
+> -		pr_debug("kfd_ioctl_dbg_wave_control not supported on CZ\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	/* input size must match the computed "compact" size */
+> -	if (args->buf_size_in_bytes != computed_buff_size) {
+> -		pr_debug("size mismatch, computed : actual %u : %u\n",
+> -				args->buf_size_in_bytes, computed_buff_size);
+> -		return -EINVAL;
+> -	}
+> -
+> -	cmd_from_user = (void __user *) args->content_ptr;
+> -
+> -	if (cmd_from_user == NULL)
+> -		return -EINVAL;
+> -
+> -	/* copy the entire buffer from user */
+> -
+> -	args_buff = memdup_user(cmd_from_user,
+> -				args->buf_size_in_bytes - sizeof(*args));
+> -	if (IS_ERR(args_buff))
+> -		return PTR_ERR(args_buff);
+> -
+> -	/* move ptr to the start of the "pay-load" area */
+> -	wac_info.process = p;
+> -
+> -	wac_info.operand = *((enum HSA_DBG_WAVEOP *)(&args_buff[args_idx]));
+> -	args_idx += sizeof(wac_info.operand);
+> -
+> -	wac_info.mode = *((enum HSA_DBG_WAVEMODE *)(&args_buff[args_idx]));
+> -	args_idx += sizeof(wac_info.mode);
+> -
+> -	wac_info.trapId = *((uint32_t *)(&args_buff[args_idx]));
+> -	args_idx += sizeof(wac_info.trapId);
+> -
+> -	wac_info.dbgWave_msg.DbgWaveMsg.WaveMsgInfoGen2.Value =
+> -					*((uint32_t *)(&args_buff[args_idx]));
+> -	wac_info.dbgWave_msg.MemoryVA = NULL;
+> -
+> -	mutex_lock(kfd_get_dbgmgr_mutex());
+> -
+> -	pr_debug("Calling dbg manager process %p, operand %u, mode %u, trapId %u, message %u\n",
+> -			wac_info.process, wac_info.operand,
+> -			wac_info.mode, wac_info.trapId,
+> -			wac_info.dbgWave_msg.DbgWaveMsg.WaveMsgInfoGen2.Value);
+> -
+> -	status = kfd_dbgmgr_wave_control(dev->dbgmgr, &wac_info);
+> -
+> -	pr_debug("Returned status of dbg manager is %ld\n", status);
+> -
+> -	mutex_unlock(kfd_get_dbgmgr_mutex());
+> -
+> -	kfree(args_buff);
+> -
+> -	return status;
+> +	return -EPERM;
+>   }
+>   
+>   static int kfd_ioctl_get_clock_counters(struct file *filep,
+> @@ -2900,16 +2626,16 @@ static const struct amdkfd_ioctl_desc amdkfd_ioctls[] = {
+>   	AMDKFD_IOCTL_DEF(AMDKFD_IOC_WAIT_EVENTS,
+>   			kfd_ioctl_wait_events, 0),
+>   
+> -	AMDKFD_IOCTL_DEF(AMDKFD_IOC_DBG_REGISTER,
+> +	AMDKFD_IOCTL_DEF(AMDKFD_IOC_DBG_REGISTER_DEPRECATED,
+>   			kfd_ioctl_dbg_register, 0),
+>   
+> -	AMDKFD_IOCTL_DEF(AMDKFD_IOC_DBG_UNREGISTER,
+> +	AMDKFD_IOCTL_DEF(AMDKFD_IOC_DBG_UNREGISTER_DEPRECATED,
+>   			kfd_ioctl_dbg_unregister, 0),
+>   
+> -	AMDKFD_IOCTL_DEF(AMDKFD_IOC_DBG_ADDRESS_WATCH,
+> +	AMDKFD_IOCTL_DEF(AMDKFD_IOC_DBG_ADDRESS_WATCH_DEPRECATED,
+>   			kfd_ioctl_dbg_address_watch, 0),
+>   
+> -	AMDKFD_IOCTL_DEF(AMDKFD_IOC_DBG_WAVE_CONTROL,
+> +	AMDKFD_IOCTL_DEF(AMDKFD_IOC_DBG_WAVE_CONTROL_DEPRECATED,
+>   			kfd_ioctl_dbg_wave_control, 0),
+>   
+>   	AMDKFD_IOCTL_DEF(AMDKFD_IOC_SET_SCRATCH_BACKING_VA,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c b/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
+> deleted file mode 100644
+> index 8eca9ed3ab36..000000000000
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
+> +++ /dev/null
+> @@ -1,845 +0,0 @@
+> -/*
+> - * Copyright 2014 Advanced Micro Devices, Inc.
+> - *
+> - * Permission is hereby granted, free of charge, to any person obtaining a
+> - * copy of this software and associated documentation files (the "Software"),
+> - * to deal in the Software without restriction, including without limitation
+> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> - * and/or sell copies of the Software, and to permit persons to whom the
+> - * Software is furnished to do so, subject to the following conditions:
+> - *
+> - * The above copyright notice and this permission notice shall be included in
+> - * all copies or substantial portions of the Software.
+> - *
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> - * OTHER DEALINGS IN THE SOFTWARE.
+> - *
+> - */
+> -
+> -#include <linux/types.h>
+> -#include <linux/kernel.h>
+> -#include <linux/log2.h>
+> -#include <linux/sched.h>
+> -#include <linux/slab.h>
+> -#include <linux/mutex.h>
+> -#include <linux/device.h>
+> -
+> -#include "kfd_pm4_headers.h"
+> -#include "kfd_pm4_headers_diq.h"
+> -#include "kfd_kernel_queue.h"
+> -#include "kfd_priv.h"
+> -#include "kfd_pm4_opcodes.h"
+> -#include "cik_regs.h"
+> -#include "kfd_dbgmgr.h"
+> -#include "kfd_dbgdev.h"
+> -#include "kfd_device_queue_manager.h"
+> -
+> -static void dbgdev_address_watch_disable_nodiq(struct kfd_dev *dev)
+> -{
+> -	dev->kfd2kgd->address_watch_disable(dev->adev);
+> -}
+> -
+> -static int dbgdev_diq_submit_ib(struct kfd_dbgdev *dbgdev,
+> -				u32 pasid, uint64_t vmid0_address,
+> -				uint32_t *packet_buff, size_t size_in_bytes)
+> -{
+> -	struct pm4__release_mem *rm_packet;
+> -	struct pm4__indirect_buffer_pasid *ib_packet;
+> -	struct kfd_mem_obj *mem_obj;
+> -	size_t pq_packets_size_in_bytes;
+> -	union ULARGE_INTEGER *largep;
+> -	union ULARGE_INTEGER addr;
+> -	struct kernel_queue *kq;
+> -	uint64_t *rm_state;
+> -	unsigned int *ib_packet_buff;
+> -	int status;
+> -
+> -	if (WARN_ON(!size_in_bytes))
+> -		return -EINVAL;
+> -
+> -	kq = dbgdev->kq;
+> -
+> -	pq_packets_size_in_bytes = sizeof(struct pm4__release_mem) +
+> -				sizeof(struct pm4__indirect_buffer_pasid);
+> -
+> -	/*
+> -	 * We acquire a buffer from DIQ
+> -	 * The receive packet buff will be sitting on the Indirect Buffer
+> -	 * and in the PQ we put the IB packet + sync packet(s).
+> -	 */
+> -	status = kq_acquire_packet_buffer(kq,
+> -				pq_packets_size_in_bytes / sizeof(uint32_t),
+> -				&ib_packet_buff);
+> -	if (status) {
+> -		pr_err("kq_acquire_packet_buffer failed\n");
+> -		return status;
+> -	}
+> -
+> -	memset(ib_packet_buff, 0, pq_packets_size_in_bytes);
+> -
+> -	ib_packet = (struct pm4__indirect_buffer_pasid *) (ib_packet_buff);
+> -
+> -	ib_packet->header.count = 3;
+> -	ib_packet->header.opcode = IT_INDIRECT_BUFFER_PASID;
+> -	ib_packet->header.type = PM4_TYPE_3;
+> -
+> -	largep = (union ULARGE_INTEGER *) &vmid0_address;
+> -
+> -	ib_packet->bitfields2.ib_base_lo = largep->u.low_part >> 2;
+> -	ib_packet->bitfields3.ib_base_hi = largep->u.high_part;
+> -
+> -	ib_packet->control = (1 << 23) | (1 << 31) |
+> -			((size_in_bytes / 4) & 0xfffff);
+> -
+> -	ib_packet->bitfields5.pasid = pasid;
+> -
+> -	/*
+> -	 * for now we use release mem for GPU-CPU synchronization
+> -	 * Consider WaitRegMem + WriteData as a better alternative
+> -	 * we get a GART allocations ( gpu/cpu mapping),
+> -	 * for the sync variable, and wait until:
+> -	 * (a) Sync with HW
+> -	 * (b) Sync var is written by CP to mem.
+> -	 */
+> -	rm_packet = (struct pm4__release_mem *) (ib_packet_buff +
+> -			(sizeof(struct pm4__indirect_buffer_pasid) /
+> -					sizeof(unsigned int)));
+> -
+> -	status = kfd_gtt_sa_allocate(dbgdev->dev, sizeof(uint64_t),
+> -					&mem_obj);
+> -
+> -	if (status) {
+> -		pr_err("Failed to allocate GART memory\n");
+> -		kq_rollback_packet(kq);
+> -		return status;
+> -	}
+> -
+> -	rm_state = (uint64_t *) mem_obj->cpu_ptr;
+> -
+> -	*rm_state = QUEUESTATE__ACTIVE_COMPLETION_PENDING;
+> -
+> -	rm_packet->header.opcode = IT_RELEASE_MEM;
+> -	rm_packet->header.type = PM4_TYPE_3;
+> -	rm_packet->header.count = sizeof(struct pm4__release_mem) / 4 - 2;
+> -
+> -	rm_packet->bitfields2.event_type = CACHE_FLUSH_AND_INV_TS_EVENT;
+> -	rm_packet->bitfields2.event_index =
+> -				event_index___release_mem__end_of_pipe;
+> -
+> -	rm_packet->bitfields2.cache_policy = cache_policy___release_mem__lru;
+> -	rm_packet->bitfields2.atc = 0;
+> -	rm_packet->bitfields2.tc_wb_action_ena = 1;
+> -
+> -	addr.quad_part = mem_obj->gpu_addr;
+> -
+> -	rm_packet->bitfields4.address_lo_32b = addr.u.low_part >> 2;
+> -	rm_packet->address_hi = addr.u.high_part;
+> -
+> -	rm_packet->bitfields3.data_sel =
+> -				data_sel___release_mem__send_64_bit_data;
+> -
+> -	rm_packet->bitfields3.int_sel =
+> -			int_sel___release_mem__send_data_after_write_confirm;
+> -
+> -	rm_packet->bitfields3.dst_sel =
+> -			dst_sel___release_mem__memory_controller;
+> -
+> -	rm_packet->data_lo = QUEUESTATE__ACTIVE;
+> -
+> -	kq_submit_packet(kq);
+> -
+> -	/* Wait till CP writes sync code: */
+> -	status = amdkfd_fence_wait_timeout(
+> -			rm_state,
+> -			QUEUESTATE__ACTIVE, 1500);
+> -
+> -	kfd_gtt_sa_free(dbgdev->dev, mem_obj);
+> -
+> -	return status;
+> -}
+> -
+> -static int dbgdev_register_nodiq(struct kfd_dbgdev *dbgdev)
+> -{
+> -	/*
+> -	 * no action is needed in this case,
+> -	 * just make sure diq will not be used
+> -	 */
+> -
+> -	dbgdev->kq = NULL;
+> -
+> -	return 0;
+> -}
+> -
+> -static int dbgdev_register_diq(struct kfd_dbgdev *dbgdev)
+> -{
+> -	struct queue_properties properties;
+> -	unsigned int qid;
+> -	struct kernel_queue *kq = NULL;
+> -	int status;
+> -
+> -	properties.type = KFD_QUEUE_TYPE_DIQ;
+> -
+> -	status = pqm_create_queue(dbgdev->pqm, dbgdev->dev, NULL,
+> -				&properties, &qid, NULL, NULL, NULL, NULL);
+> -
+> -	if (status) {
+> -		pr_err("Failed to create DIQ\n");
+> -		return status;
+> -	}
+> -
+> -	pr_debug("DIQ Created with queue id: %d\n", qid);
+> -
+> -	kq = pqm_get_kernel_queue(dbgdev->pqm, qid);
+> -
+> -	if (!kq) {
+> -		pr_err("Error getting DIQ\n");
+> -		pqm_destroy_queue(dbgdev->pqm, qid);
+> -		return -EFAULT;
+> -	}
+> -
+> -	dbgdev->kq = kq;
+> -
+> -	return status;
+> -}
+> -
+> -static int dbgdev_unregister_nodiq(struct kfd_dbgdev *dbgdev)
+> -{
+> -	/* disable watch address */
+> -	dbgdev_address_watch_disable_nodiq(dbgdev->dev);
+> -	return 0;
+> -}
+> -
+> -static int dbgdev_unregister_diq(struct kfd_dbgdev *dbgdev)
+> -{
+> -	/* todo - disable address watch */
+> -	int status;
+> -
+> -	status = pqm_destroy_queue(dbgdev->pqm,
+> -			dbgdev->kq->queue->properties.queue_id);
+> -	dbgdev->kq = NULL;
+> -
+> -	return status;
+> -}
+> -
+> -static void dbgdev_address_watch_set_registers(
+> -			const struct dbg_address_watch_info *adw_info,
+> -			union TCP_WATCH_ADDR_H_BITS *addrHi,
+> -			union TCP_WATCH_ADDR_L_BITS *addrLo,
+> -			union TCP_WATCH_CNTL_BITS *cntl,
+> -			unsigned int index, unsigned int vmid)
+> -{
+> -	union ULARGE_INTEGER addr;
+> -
+> -	addr.quad_part = 0;
+> -	addrHi->u32All = 0;
+> -	addrLo->u32All = 0;
+> -	cntl->u32All = 0;
+> -
+> -	if (adw_info->watch_mask)
+> -		cntl->bitfields.mask =
+> -			(uint32_t) (adw_info->watch_mask[index] &
+> -					ADDRESS_WATCH_REG_CNTL_DEFAULT_MASK);
+> -	else
+> -		cntl->bitfields.mask = ADDRESS_WATCH_REG_CNTL_DEFAULT_MASK;
+> -
+> -	addr.quad_part = (unsigned long long) adw_info->watch_address[index];
+> -
+> -	addrHi->bitfields.addr = addr.u.high_part &
+> -					ADDRESS_WATCH_REG_ADDHIGH_MASK;
+> -	addrLo->bitfields.addr =
+> -			(addr.u.low_part >> ADDRESS_WATCH_REG_ADDLOW_SHIFT);
+> -
+> -	cntl->bitfields.mode = adw_info->watch_mode[index];
+> -	cntl->bitfields.vmid = (uint32_t) vmid;
+> -	/* for now assume it is an ATC address */
+> -	cntl->u32All |= ADDRESS_WATCH_REG_CNTL_ATC_BIT;
+> -
+> -	pr_debug("\t\t%20s %08x\n", "set reg mask :", cntl->bitfields.mask);
+> -	pr_debug("\t\t%20s %08x\n", "set reg add high :",
+> -			addrHi->bitfields.addr);
+> -	pr_debug("\t\t%20s %08x\n", "set reg add low :",
+> -			addrLo->bitfields.addr);
+> -}
+> -
+> -static int dbgdev_address_watch_nodiq(struct kfd_dbgdev *dbgdev,
+> -				      struct dbg_address_watch_info *adw_info)
+> -{
+> -	union TCP_WATCH_ADDR_H_BITS addrHi;
+> -	union TCP_WATCH_ADDR_L_BITS addrLo;
+> -	union TCP_WATCH_CNTL_BITS cntl;
+> -	struct kfd_process_device *pdd;
+> -	unsigned int i;
+> -
+> -	/* taking the vmid for that process on the safe way using pdd */
+> -	pdd = kfd_get_process_device_data(dbgdev->dev,
+> -					adw_info->process);
+> -	if (!pdd) {
+> -		pr_err("Failed to get pdd for wave control no DIQ\n");
+> -		return -EFAULT;
+> -	}
+> -
+> -	addrHi.u32All = 0;
+> -	addrLo.u32All = 0;
+> -	cntl.u32All = 0;
+> -
+> -	if ((adw_info->num_watch_points > MAX_WATCH_ADDRESSES) ||
+> -			(adw_info->num_watch_points == 0)) {
+> -		pr_err("num_watch_points is invalid\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	if (!adw_info->watch_mode || !adw_info->watch_address) {
+> -		pr_err("adw_info fields are not valid\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	for (i = 0; i < adw_info->num_watch_points; i++) {
+> -		dbgdev_address_watch_set_registers(adw_info, &addrHi, &addrLo,
+> -						&cntl, i, pdd->qpd.vmid);
+> -
+> -		pr_debug("\t\t%30s\n", "* * * * * * * * * * * * * * * * * *");
+> -		pr_debug("\t\t%20s %08x\n", "register index :", i);
+> -		pr_debug("\t\t%20s %08x\n", "vmid is :", pdd->qpd.vmid);
+> -		pr_debug("\t\t%20s %08x\n", "Address Low is :",
+> -				addrLo.bitfields.addr);
+> -		pr_debug("\t\t%20s %08x\n", "Address high is :",
+> -				addrHi.bitfields.addr);
+> -		pr_debug("\t\t%20s %08x\n", "Address high is :",
+> -				addrHi.bitfields.addr);
+> -		pr_debug("\t\t%20s %08x\n", "Control Mask is :",
+> -				cntl.bitfields.mask);
+> -		pr_debug("\t\t%20s %08x\n", "Control Mode is :",
+> -				cntl.bitfields.mode);
+> -		pr_debug("\t\t%20s %08x\n", "Control Vmid is :",
+> -				cntl.bitfields.vmid);
+> -		pr_debug("\t\t%20s %08x\n", "Control atc  is :",
+> -				cntl.bitfields.atc);
+> -		pr_debug("\t\t%30s\n", "* * * * * * * * * * * * * * * * * *");
+> -
+> -		pdd->dev->kfd2kgd->address_watch_execute(
+> -						dbgdev->dev->adev,
+> -						i,
+> -						cntl.u32All,
+> -						addrHi.u32All,
+> -						addrLo.u32All);
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+> -static int dbgdev_address_watch_diq(struct kfd_dbgdev *dbgdev,
+> -				    struct dbg_address_watch_info *adw_info)
+> -{
+> -	struct pm4__set_config_reg *packets_vec;
+> -	union TCP_WATCH_ADDR_H_BITS addrHi;
+> -	union TCP_WATCH_ADDR_L_BITS addrLo;
+> -	union TCP_WATCH_CNTL_BITS cntl;
+> -	struct kfd_mem_obj *mem_obj;
+> -	unsigned int aw_reg_add_dword;
+> -	uint32_t *packet_buff_uint;
+> -	unsigned int i;
+> -	int status;
+> -	size_t ib_size = sizeof(struct pm4__set_config_reg) * 4;
+> -	/* we do not control the vmid in DIQ mode, just a place holder */
+> -	unsigned int vmid = 0;
+> -
+> -	addrHi.u32All = 0;
+> -	addrLo.u32All = 0;
+> -	cntl.u32All = 0;
+> -
+> -	if ((adw_info->num_watch_points > MAX_WATCH_ADDRESSES) ||
+> -			(adw_info->num_watch_points == 0)) {
+> -		pr_err("num_watch_points is invalid\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	if (!adw_info->watch_mode || !adw_info->watch_address) {
+> -		pr_err("adw_info fields are not valid\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	status = kfd_gtt_sa_allocate(dbgdev->dev, ib_size, &mem_obj);
+> -
+> -	if (status) {
+> -		pr_err("Failed to allocate GART memory\n");
+> -		return status;
+> -	}
+> -
+> -	packet_buff_uint = mem_obj->cpu_ptr;
+> -
+> -	memset(packet_buff_uint, 0, ib_size);
+> -
+> -	packets_vec = (struct pm4__set_config_reg *) (packet_buff_uint);
+> -
+> -	packets_vec[0].header.count = 1;
+> -	packets_vec[0].header.opcode = IT_SET_CONFIG_REG;
+> -	packets_vec[0].header.type = PM4_TYPE_3;
+> -	packets_vec[0].bitfields2.vmid_shift = ADDRESS_WATCH_CNTL_OFFSET;
+> -	packets_vec[0].bitfields2.insert_vmid = 1;
+> -	packets_vec[1].ordinal1 = packets_vec[0].ordinal1;
+> -	packets_vec[1].bitfields2.insert_vmid = 0;
+> -	packets_vec[2].ordinal1 = packets_vec[0].ordinal1;
+> -	packets_vec[2].bitfields2.insert_vmid = 0;
+> -	packets_vec[3].ordinal1 = packets_vec[0].ordinal1;
+> -	packets_vec[3].bitfields2.vmid_shift = ADDRESS_WATCH_CNTL_OFFSET;
+> -	packets_vec[3].bitfields2.insert_vmid = 1;
+> -
+> -	for (i = 0; i < adw_info->num_watch_points; i++) {
+> -		dbgdev_address_watch_set_registers(adw_info,
+> -						&addrHi,
+> -						&addrLo,
+> -						&cntl,
+> -						i,
+> -						vmid);
+> -
+> -		pr_debug("\t\t%30s\n", "* * * * * * * * * * * * * * * * * *");
+> -		pr_debug("\t\t%20s %08x\n", "register index :", i);
+> -		pr_debug("\t\t%20s %08x\n", "vmid is :", vmid);
+> -		pr_debug("\t\t%20s %p\n", "Add ptr is :",
+> -				adw_info->watch_address);
+> -		pr_debug("\t\t%20s %08llx\n", "Add     is :",
+> -				adw_info->watch_address[i]);
+> -		pr_debug("\t\t%20s %08x\n", "Address Low is :",
+> -				addrLo.bitfields.addr);
+> -		pr_debug("\t\t%20s %08x\n", "Address high is :",
+> -				addrHi.bitfields.addr);
+> -		pr_debug("\t\t%20s %08x\n", "Control Mask is :",
+> -				cntl.bitfields.mask);
+> -		pr_debug("\t\t%20s %08x\n", "Control Mode is :",
+> -				cntl.bitfields.mode);
+> -		pr_debug("\t\t%20s %08x\n", "Control Vmid is :",
+> -				cntl.bitfields.vmid);
+> -		pr_debug("\t\t%20s %08x\n", "Control atc  is :",
+> -				cntl.bitfields.atc);
+> -		pr_debug("\t\t%30s\n", "* * * * * * * * * * * * * * * * * *");
+> -
+> -		aw_reg_add_dword =
+> -				dbgdev->dev->kfd2kgd->address_watch_get_offset(
+> -					dbgdev->dev->adev,
+> -					i,
+> -					ADDRESS_WATCH_REG_CNTL);
+> -
+> -		packets_vec[0].bitfields2.reg_offset =
+> -					aw_reg_add_dword - AMD_CONFIG_REG_BASE;
+> -
+> -		packets_vec[0].reg_data[0] = cntl.u32All;
+> -
+> -		aw_reg_add_dword =
+> -				dbgdev->dev->kfd2kgd->address_watch_get_offset(
+> -					dbgdev->dev->adev,
+> -					i,
+> -					ADDRESS_WATCH_REG_ADDR_HI);
+> -
+> -		packets_vec[1].bitfields2.reg_offset =
+> -					aw_reg_add_dword - AMD_CONFIG_REG_BASE;
+> -		packets_vec[1].reg_data[0] = addrHi.u32All;
+> -
+> -		aw_reg_add_dword =
+> -				dbgdev->dev->kfd2kgd->address_watch_get_offset(
+> -					dbgdev->dev->adev,
+> -					i,
+> -					ADDRESS_WATCH_REG_ADDR_LO);
+> -
+> -		packets_vec[2].bitfields2.reg_offset =
+> -				aw_reg_add_dword - AMD_CONFIG_REG_BASE;
+> -		packets_vec[2].reg_data[0] = addrLo.u32All;
+> -
+> -		/* enable watch flag if address is not zero*/
+> -		if (adw_info->watch_address[i] > 0)
+> -			cntl.bitfields.valid = 1;
+> -		else
+> -			cntl.bitfields.valid = 0;
+> -
+> -		aw_reg_add_dword =
+> -				dbgdev->dev->kfd2kgd->address_watch_get_offset(
+> -					dbgdev->dev->adev,
+> -					i,
+> -					ADDRESS_WATCH_REG_CNTL);
+> -
+> -		packets_vec[3].bitfields2.reg_offset =
+> -					aw_reg_add_dword - AMD_CONFIG_REG_BASE;
+> -		packets_vec[3].reg_data[0] = cntl.u32All;
+> -
+> -		status = dbgdev_diq_submit_ib(
+> -					dbgdev,
+> -					adw_info->process->pasid,
+> -					mem_obj->gpu_addr,
+> -					packet_buff_uint,
+> -					ib_size);
+> -
+> -		if (status) {
+> -			pr_err("Failed to submit IB to DIQ\n");
+> -			break;
+> -		}
+> -	}
+> -
+> -	kfd_gtt_sa_free(dbgdev->dev, mem_obj);
+> -	return status;
+> -}
+> -
+> -static int dbgdev_wave_control_set_registers(
+> -				struct dbg_wave_control_info *wac_info,
+> -				union SQ_CMD_BITS *in_reg_sq_cmd,
+> -				union GRBM_GFX_INDEX_BITS *in_reg_gfx_index)
+> -{
+> -	int status = 0;
+> -	union SQ_CMD_BITS reg_sq_cmd;
+> -	union GRBM_GFX_INDEX_BITS reg_gfx_index;
+> -	struct HsaDbgWaveMsgAMDGen2 *pMsg;
+> -
+> -	reg_sq_cmd.u32All = 0;
+> -	reg_gfx_index.u32All = 0;
+> -	pMsg = &wac_info->dbgWave_msg.DbgWaveMsg.WaveMsgInfoGen2;
+> -
+> -	switch (wac_info->mode) {
+> -	/* Send command to single wave */
+> -	case HSA_DBG_WAVEMODE_SINGLE:
+> -		/*
+> -		 * Limit access to the process waves only,
+> -		 * by setting vmid check
+> -		 */
+> -		reg_sq_cmd.bits.check_vmid = 1;
+> -		reg_sq_cmd.bits.simd_id = pMsg->ui32.SIMD;
+> -		reg_sq_cmd.bits.wave_id = pMsg->ui32.WaveId;
+> -		reg_sq_cmd.bits.mode = SQ_IND_CMD_MODE_SINGLE;
+> -
+> -		reg_gfx_index.bits.sh_index = pMsg->ui32.ShaderArray;
+> -		reg_gfx_index.bits.se_index = pMsg->ui32.ShaderEngine;
+> -		reg_gfx_index.bits.instance_index = pMsg->ui32.HSACU;
+> -
+> -		break;
+> -
+> -	/* Send command to all waves with matching VMID */
+> -	case HSA_DBG_WAVEMODE_BROADCAST_PROCESS:
+> -
+> -		reg_gfx_index.bits.sh_broadcast_writes = 1;
+> -		reg_gfx_index.bits.se_broadcast_writes = 1;
+> -		reg_gfx_index.bits.instance_broadcast_writes = 1;
+> -
+> -		reg_sq_cmd.bits.mode = SQ_IND_CMD_MODE_BROADCAST;
+> -
+> -		break;
+> -
+> -	/* Send command to all CU waves with matching VMID */
+> -	case HSA_DBG_WAVEMODE_BROADCAST_PROCESS_CU:
+> -
+> -		reg_sq_cmd.bits.check_vmid = 1;
+> -		reg_sq_cmd.bits.mode = SQ_IND_CMD_MODE_BROADCAST;
+> -
+> -		reg_gfx_index.bits.sh_index = pMsg->ui32.ShaderArray;
+> -		reg_gfx_index.bits.se_index = pMsg->ui32.ShaderEngine;
+> -		reg_gfx_index.bits.instance_index = pMsg->ui32.HSACU;
+> -
+> -		break;
+> -
+> -	default:
+> -		return -EINVAL;
+> -	}
+> -
+> -	switch (wac_info->operand) {
+> -	case HSA_DBG_WAVEOP_HALT:
+> -		reg_sq_cmd.bits.cmd = SQ_IND_CMD_CMD_HALT;
+> -		break;
+> -
+> -	case HSA_DBG_WAVEOP_RESUME:
+> -		reg_sq_cmd.bits.cmd = SQ_IND_CMD_CMD_RESUME;
+> -		break;
+> -
+> -	case HSA_DBG_WAVEOP_KILL:
+> -		reg_sq_cmd.bits.cmd = SQ_IND_CMD_CMD_KILL;
+> -		break;
+> -
+> -	case HSA_DBG_WAVEOP_DEBUG:
+> -		reg_sq_cmd.bits.cmd = SQ_IND_CMD_CMD_DEBUG;
+> -		break;
+> -
+> -	case HSA_DBG_WAVEOP_TRAP:
+> -		if (wac_info->trapId < MAX_TRAPID) {
+> -			reg_sq_cmd.bits.cmd = SQ_IND_CMD_CMD_TRAP;
+> -			reg_sq_cmd.bits.trap_id = wac_info->trapId;
+> -		} else {
+> -			status = -EINVAL;
+> -		}
+> -		break;
+> -
+> -	default:
+> -		status = -EINVAL;
+> -		break;
+> -	}
+> -
+> -	if (status == 0) {
+> -		*in_reg_sq_cmd = reg_sq_cmd;
+> -		*in_reg_gfx_index = reg_gfx_index;
+> -	}
+> -
+> -	return status;
+> -}
+> -
+> -static int dbgdev_wave_control_diq(struct kfd_dbgdev *dbgdev,
+> -					struct dbg_wave_control_info *wac_info)
+> -{
+> -
+> -	int status;
+> -	union SQ_CMD_BITS reg_sq_cmd;
+> -	union GRBM_GFX_INDEX_BITS reg_gfx_index;
+> -	struct kfd_mem_obj *mem_obj;
+> -	uint32_t *packet_buff_uint;
+> -	struct pm4__set_config_reg *packets_vec;
+> -	size_t ib_size = sizeof(struct pm4__set_config_reg) * 3;
+> -
+> -	reg_sq_cmd.u32All = 0;
+> -
+> -	status = dbgdev_wave_control_set_registers(wac_info, &reg_sq_cmd,
+> -							&reg_gfx_index);
+> -	if (status) {
+> -		pr_err("Failed to set wave control registers\n");
+> -		return status;
+> -	}
+> -
+> -	/* we do not control the VMID in DIQ, so reset it to a known value */
+> -	reg_sq_cmd.bits.vm_id = 0;
+> -
+> -	pr_debug("\t\t %30s\n", "* * * * * * * * * * * * * * * * * *");
+> -
+> -	pr_debug("\t\t mode      is: %u\n", wac_info->mode);
+> -	pr_debug("\t\t operand   is: %u\n", wac_info->operand);
+> -	pr_debug("\t\t trap id   is: %u\n", wac_info->trapId);
+> -	pr_debug("\t\t msg value is: %u\n",
+> -			wac_info->dbgWave_msg.DbgWaveMsg.WaveMsgInfoGen2.Value);
+> -	pr_debug("\t\t vmid      is: N/A\n");
+> -
+> -	pr_debug("\t\t chk_vmid  is : %u\n", reg_sq_cmd.bitfields.check_vmid);
+> -	pr_debug("\t\t command   is : %u\n", reg_sq_cmd.bitfields.cmd);
+> -	pr_debug("\t\t queue id  is : %u\n", reg_sq_cmd.bitfields.queue_id);
+> -	pr_debug("\t\t simd id   is : %u\n", reg_sq_cmd.bitfields.simd_id);
+> -	pr_debug("\t\t mode      is : %u\n", reg_sq_cmd.bitfields.mode);
+> -	pr_debug("\t\t vm_id     is : %u\n", reg_sq_cmd.bitfields.vm_id);
+> -	pr_debug("\t\t wave_id   is : %u\n", reg_sq_cmd.bitfields.wave_id);
+> -
+> -	pr_debug("\t\t ibw       is : %u\n",
+> -			reg_gfx_index.bitfields.instance_broadcast_writes);
+> -	pr_debug("\t\t ii        is : %u\n",
+> -			reg_gfx_index.bitfields.instance_index);
+> -	pr_debug("\t\t sebw      is : %u\n",
+> -			reg_gfx_index.bitfields.se_broadcast_writes);
+> -	pr_debug("\t\t se_ind    is : %u\n", reg_gfx_index.bitfields.se_index);
+> -	pr_debug("\t\t sh_ind    is : %u\n", reg_gfx_index.bitfields.sh_index);
+> -	pr_debug("\t\t sbw       is : %u\n",
+> -			reg_gfx_index.bitfields.sh_broadcast_writes);
+> -
+> -	pr_debug("\t\t %30s\n", "* * * * * * * * * * * * * * * * * *");
+> -
+> -	status = kfd_gtt_sa_allocate(dbgdev->dev, ib_size, &mem_obj);
+> -
+> -	if (status != 0) {
+> -		pr_err("Failed to allocate GART memory\n");
+> -		return status;
+> -	}
+> -
+> -	packet_buff_uint = mem_obj->cpu_ptr;
+> -
+> -	memset(packet_buff_uint, 0, ib_size);
+> -
+> -	packets_vec =  (struct pm4__set_config_reg *) packet_buff_uint;
+> -	packets_vec[0].header.count = 1;
+> -	packets_vec[0].header.opcode = IT_SET_UCONFIG_REG;
+> -	packets_vec[0].header.type = PM4_TYPE_3;
+> -	packets_vec[0].bitfields2.reg_offset =
+> -			GRBM_GFX_INDEX / 4 - USERCONFIG_REG_BASE;
+> -
+> -	packets_vec[0].bitfields2.insert_vmid = 0;
+> -	packets_vec[0].reg_data[0] = reg_gfx_index.u32All;
+> -
+> -	packets_vec[1].header.count = 1;
+> -	packets_vec[1].header.opcode = IT_SET_CONFIG_REG;
+> -	packets_vec[1].header.type = PM4_TYPE_3;
+> -	packets_vec[1].bitfields2.reg_offset = SQ_CMD / 4 - AMD_CONFIG_REG_BASE;
+> -
+> -	packets_vec[1].bitfields2.vmid_shift = SQ_CMD_VMID_OFFSET;
+> -	packets_vec[1].bitfields2.insert_vmid = 1;
+> -	packets_vec[1].reg_data[0] = reg_sq_cmd.u32All;
+> -
+> -	/* Restore the GRBM_GFX_INDEX register */
+> -
+> -	reg_gfx_index.u32All = 0;
+> -	reg_gfx_index.bits.sh_broadcast_writes = 1;
+> -	reg_gfx_index.bits.instance_broadcast_writes = 1;
+> -	reg_gfx_index.bits.se_broadcast_writes = 1;
+> -
+> -
+> -	packets_vec[2].ordinal1 = packets_vec[0].ordinal1;
+> -	packets_vec[2].bitfields2.reg_offset =
+> -				GRBM_GFX_INDEX / 4 - USERCONFIG_REG_BASE;
+> -
+> -	packets_vec[2].bitfields2.insert_vmid = 0;
+> -	packets_vec[2].reg_data[0] = reg_gfx_index.u32All;
+> -
+> -	status = dbgdev_diq_submit_ib(
+> -			dbgdev,
+> -			wac_info->process->pasid,
+> -			mem_obj->gpu_addr,
+> -			packet_buff_uint,
+> -			ib_size);
+> -
+> -	if (status)
+> -		pr_err("Failed to submit IB to DIQ\n");
+> -
+> -	kfd_gtt_sa_free(dbgdev->dev, mem_obj);
+> -
+> -	return status;
+> -}
+> -
+> -static int dbgdev_wave_control_nodiq(struct kfd_dbgdev *dbgdev,
+> -					struct dbg_wave_control_info *wac_info)
+> -{
+> -	int status;
+> -	union SQ_CMD_BITS reg_sq_cmd;
+> -	union GRBM_GFX_INDEX_BITS reg_gfx_index;
+> -	struct kfd_process_device *pdd;
+> -
+> -	reg_sq_cmd.u32All = 0;
+> -
+> -	/* taking the VMID for that process on the safe way using PDD */
+> -	pdd = kfd_get_process_device_data(dbgdev->dev, wac_info->process);
+> -
+> -	if (!pdd) {
+> -		pr_err("Failed to get pdd for wave control no DIQ\n");
+> -		return -EFAULT;
+> -	}
+> -	status = dbgdev_wave_control_set_registers(wac_info, &reg_sq_cmd,
+> -							&reg_gfx_index);
+> -	if (status) {
+> -		pr_err("Failed to set wave control registers\n");
+> -		return status;
+> -	}
+> -
+> -	/* for non DIQ we need to patch the VMID: */
+> -
+> -	reg_sq_cmd.bits.vm_id = pdd->qpd.vmid;
+> -
+> -	pr_debug("\t\t %30s\n", "* * * * * * * * * * * * * * * * * *");
+> -
+> -	pr_debug("\t\t mode      is: %u\n", wac_info->mode);
+> -	pr_debug("\t\t operand   is: %u\n", wac_info->operand);
+> -	pr_debug("\t\t trap id   is: %u\n", wac_info->trapId);
+> -	pr_debug("\t\t msg value is: %u\n",
+> -			wac_info->dbgWave_msg.DbgWaveMsg.WaveMsgInfoGen2.Value);
+> -	pr_debug("\t\t vmid      is: %u\n", pdd->qpd.vmid);
+> -
+> -	pr_debug("\t\t chk_vmid  is : %u\n", reg_sq_cmd.bitfields.check_vmid);
+> -	pr_debug("\t\t command   is : %u\n", reg_sq_cmd.bitfields.cmd);
+> -	pr_debug("\t\t queue id  is : %u\n", reg_sq_cmd.bitfields.queue_id);
+> -	pr_debug("\t\t simd id   is : %u\n", reg_sq_cmd.bitfields.simd_id);
+> -	pr_debug("\t\t mode      is : %u\n", reg_sq_cmd.bitfields.mode);
+> -	pr_debug("\t\t vm_id     is : %u\n", reg_sq_cmd.bitfields.vm_id);
+> -	pr_debug("\t\t wave_id   is : %u\n", reg_sq_cmd.bitfields.wave_id);
+> -
+> -	pr_debug("\t\t ibw       is : %u\n",
+> -			reg_gfx_index.bitfields.instance_broadcast_writes);
+> -	pr_debug("\t\t ii        is : %u\n",
+> -			reg_gfx_index.bitfields.instance_index);
+> -	pr_debug("\t\t sebw      is : %u\n",
+> -			reg_gfx_index.bitfields.se_broadcast_writes);
+> -	pr_debug("\t\t se_ind    is : %u\n", reg_gfx_index.bitfields.se_index);
+> -	pr_debug("\t\t sh_ind    is : %u\n", reg_gfx_index.bitfields.sh_index);
+> -	pr_debug("\t\t sbw       is : %u\n",
+> -			reg_gfx_index.bitfields.sh_broadcast_writes);
+> -
+> -	pr_debug("\t\t %30s\n", "* * * * * * * * * * * * * * * * * *");
+> -
+> -	return dbgdev->dev->kfd2kgd->wave_control_execute(dbgdev->dev->adev,
+> -							reg_gfx_index.u32All,
+> -							reg_sq_cmd.u32All);
+> -}
+> -
+> -int dbgdev_wave_reset_wavefronts(struct kfd_dev *dev, struct kfd_process *p)
+> -{
+> -	int status = 0;
+> -	unsigned int vmid;
+> -	uint16_t queried_pasid;
+> -	union SQ_CMD_BITS reg_sq_cmd;
+> -	union GRBM_GFX_INDEX_BITS reg_gfx_index;
+> -	struct kfd_process_device *pdd;
+> -	struct dbg_wave_control_info wac_info;
+> -	int first_vmid_to_scan = dev->vm_info.first_vmid_kfd;
+> -	int last_vmid_to_scan = dev->vm_info.last_vmid_kfd;
+> -
+> -	reg_sq_cmd.u32All = 0;
+> -	status = 0;
+> -
+> -	wac_info.mode = HSA_DBG_WAVEMODE_BROADCAST_PROCESS;
+> -	wac_info.operand = HSA_DBG_WAVEOP_KILL;
+> -
+> -	pr_debug("Killing all process wavefronts\n");
+> -
+> -	/* Scan all registers in the range ATC_VMID8_PASID_MAPPING ..
+> -	 * ATC_VMID15_PASID_MAPPING
+> -	 * to check which VMID the current process is mapped to.
+> -	 */
+> -
+> -	for (vmid = first_vmid_to_scan; vmid <= last_vmid_to_scan; vmid++) {
+> -		status = dev->kfd2kgd->get_atc_vmid_pasid_mapping_info
+> -				(dev->adev, vmid, &queried_pasid);
+> -
+> -		if (status && queried_pasid == p->pasid) {
+> -			pr_debug("Killing wave fronts of vmid %d and pasid 0x%x\n",
+> -					vmid, p->pasid);
+> -			break;
+> -		}
+> -	}
+> -
+> -	if (vmid > last_vmid_to_scan) {
+> -		pr_err("Didn't find vmid for pasid 0x%x\n", p->pasid);
+> -		return -EFAULT;
+> -	}
+> -
+> -	/* taking the VMID for that process on the safe way using PDD */
+> -	pdd = kfd_get_process_device_data(dev, p);
+> -	if (!pdd)
+> -		return -EFAULT;
+> -
+> -	status = dbgdev_wave_control_set_registers(&wac_info, &reg_sq_cmd,
+> -			&reg_gfx_index);
+> -	if (status != 0)
+> -		return -EINVAL;
+> -
+> -	/* for non DIQ we need to patch the VMID: */
+> -	reg_sq_cmd.bits.vm_id = vmid;
+> -
+> -	dev->kfd2kgd->wave_control_execute(dev->adev,
+> -					reg_gfx_index.u32All,
+> -					reg_sq_cmd.u32All);
+> -
+> -	return 0;
+> -}
+> -
+> -void kfd_dbgdev_init(struct kfd_dbgdev *pdbgdev, struct kfd_dev *pdev,
+> -			enum DBGDEV_TYPE type)
+> -{
+> -	pdbgdev->dev = pdev;
+> -	pdbgdev->kq = NULL;
+> -	pdbgdev->type = type;
+> -	pdbgdev->pqm = NULL;
+> -
+> -	switch (type) {
+> -	case DBGDEV_TYPE_NODIQ:
+> -		pdbgdev->dbgdev_register = dbgdev_register_nodiq;
+> -		pdbgdev->dbgdev_unregister = dbgdev_unregister_nodiq;
+> -		pdbgdev->dbgdev_wave_control = dbgdev_wave_control_nodiq;
+> -		pdbgdev->dbgdev_address_watch = dbgdev_address_watch_nodiq;
+> -		break;
+> -	case DBGDEV_TYPE_DIQ:
+> -	default:
+> -		pdbgdev->dbgdev_register = dbgdev_register_diq;
+> -		pdbgdev->dbgdev_unregister = dbgdev_unregister_diq;
+> -		pdbgdev->dbgdev_wave_control =  dbgdev_wave_control_diq;
+> -		pdbgdev->dbgdev_address_watch = dbgdev_address_watch_diq;
+> -		break;
+> -	}
+> -
+> -}
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.h b/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.h
+> deleted file mode 100644
+> index 0619c777b47e..000000000000
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.h
+> +++ /dev/null
+> @@ -1,230 +0,0 @@
+> -/*
+> - * Copyright 2014 Advanced Micro Devices, Inc.
+> - *
+> - * Permission is hereby granted, free of charge, to any person obtaining a
+> - * copy of this software and associated documentation files (the "Software"),
+> - * to deal in the Software without restriction, including without limitation
+> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> - * and/or sell copies of the Software, and to permit persons to whom the
+> - * Software is furnished to do so, subject to the following conditions:
+> - *
+> - * The above copyright notice and this permission notice shall be included in
+> - * all copies or substantial portions of the Software.
+> - *
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> - * OTHER DEALINGS IN THE SOFTWARE.
+> - */
+> -
+> -#ifndef KFD_DBGDEV_H_
+> -#define KFD_DBGDEV_H_
+> -
+> -enum {
+> -	SQ_CMD_VMID_OFFSET = 28,
+> -	ADDRESS_WATCH_CNTL_OFFSET = 24
+> -};
+> -
+> -enum {
+> -	PRIV_QUEUE_SYNC_TIME_MS = 200
+> -};
+> -
+> -/* CONTEXT reg space definition */
+> -enum {
+> -	CONTEXT_REG_BASE = 0xA000,
+> -	CONTEXT_REG_END = 0xA400,
+> -	CONTEXT_REG_SIZE = CONTEXT_REG_END - CONTEXT_REG_BASE
+> -};
+> -
+> -/* USER CONFIG reg space definition */
+> -enum {
+> -	USERCONFIG_REG_BASE = 0xC000,
+> -	USERCONFIG_REG_END = 0x10000,
+> -	USERCONFIG_REG_SIZE = USERCONFIG_REG_END - USERCONFIG_REG_BASE
+> -};
+> -
+> -/* CONFIG reg space definition */
+> -enum {
+> -	AMD_CONFIG_REG_BASE = 0x2000,	/* in dwords */
+> -	AMD_CONFIG_REG_END = 0x2B00,
+> -	AMD_CONFIG_REG_SIZE = AMD_CONFIG_REG_END - AMD_CONFIG_REG_BASE
+> -};
+> -
+> -/* SH reg space definition */
+> -enum {
+> -	SH_REG_BASE = 0x2C00,
+> -	SH_REG_END = 0x3000,
+> -	SH_REG_SIZE = SH_REG_END - SH_REG_BASE
+> -};
+> -
+> -/* SQ_CMD definitions */
+> -#define SQ_CMD						0x8DEC
+> -
+> -enum SQ_IND_CMD_CMD {
+> -	SQ_IND_CMD_CMD_NULL = 0x00000000,
+> -	SQ_IND_CMD_CMD_HALT = 0x00000001,
+> -	SQ_IND_CMD_CMD_RESUME = 0x00000002,
+> -	SQ_IND_CMD_CMD_KILL = 0x00000003,
+> -	SQ_IND_CMD_CMD_DEBUG = 0x00000004,
+> -	SQ_IND_CMD_CMD_TRAP = 0x00000005,
+> -};
+> -
+> -enum SQ_IND_CMD_MODE {
+> -	SQ_IND_CMD_MODE_SINGLE = 0x00000000,
+> -	SQ_IND_CMD_MODE_BROADCAST = 0x00000001,
+> -	SQ_IND_CMD_MODE_BROADCAST_QUEUE = 0x00000002,
+> -	SQ_IND_CMD_MODE_BROADCAST_PIPE = 0x00000003,
+> -	SQ_IND_CMD_MODE_BROADCAST_ME = 0x00000004,
+> -};
+> -
+> -union SQ_IND_INDEX_BITS {
+> -	struct {
+> -		uint32_t wave_id:4;
+> -		uint32_t simd_id:2;
+> -		uint32_t thread_id:6;
+> -		 uint32_t:1;
+> -		uint32_t force_read:1;
+> -		uint32_t read_timeout:1;
+> -		uint32_t unindexed:1;
+> -		uint32_t index:16;
+> -
+> -	} bitfields, bits;
+> -	uint32_t u32All;
+> -	signed int i32All;
+> -	float f32All;
+> -};
+> -
+> -union SQ_IND_CMD_BITS {
+> -	struct {
+> -		uint32_t data:32;
+> -	} bitfields, bits;
+> -	uint32_t u32All;
+> -	signed int i32All;
+> -	float f32All;
+> -};
+> -
+> -union SQ_CMD_BITS {
+> -	struct {
+> -		uint32_t cmd:3;
+> -		 uint32_t:1;
+> -		uint32_t mode:3;
+> -		uint32_t check_vmid:1;
+> -		uint32_t trap_id:3;
+> -		 uint32_t:5;
+> -		uint32_t wave_id:4;
+> -		uint32_t simd_id:2;
+> -		 uint32_t:2;
+> -		uint32_t queue_id:3;
+> -		 uint32_t:1;
+> -		uint32_t vm_id:4;
+> -	} bitfields, bits;
+> -	uint32_t u32All;
+> -	signed int i32All;
+> -	float f32All;
+> -};
+> -
+> -union SQ_IND_DATA_BITS {
+> -	struct {
+> -		uint32_t data:32;
+> -	} bitfields, bits;
+> -	uint32_t u32All;
+> -	signed int i32All;
+> -	float f32All;
+> -};
+> -
+> -union GRBM_GFX_INDEX_BITS {
+> -	struct {
+> -		uint32_t instance_index:8;
+> -		uint32_t sh_index:8;
+> -		uint32_t se_index:8;
+> -		 uint32_t:5;
+> -		uint32_t sh_broadcast_writes:1;
+> -		uint32_t instance_broadcast_writes:1;
+> -		uint32_t se_broadcast_writes:1;
+> -	} bitfields, bits;
+> -	uint32_t u32All;
+> -	signed int i32All;
+> -	float f32All;
+> -};
+> -
+> -union TCP_WATCH_ADDR_H_BITS {
+> -	struct {
+> -		uint32_t addr:16;
+> -		 uint32_t:16;
+> -
+> -	} bitfields, bits;
+> -	uint32_t u32All;
+> -	signed int i32All;
+> -	float f32All;
+> -};
+> -
+> -union TCP_WATCH_ADDR_L_BITS {
+> -	struct {
+> -		uint32_t:6;
+> -		uint32_t addr:26;
+> -	} bitfields, bits;
+> -	uint32_t u32All;
+> -	signed int i32All;
+> -	float f32All;
+> -};
+> -
+> -enum {
+> -	QUEUESTATE__INVALID = 0, /* so by default we'll get invalid state */
+> -	QUEUESTATE__ACTIVE_COMPLETION_PENDING,
+> -	QUEUESTATE__ACTIVE
+> -};
+> -
+> -union ULARGE_INTEGER {
+> -	struct {
+> -		uint32_t low_part;
+> -		uint32_t high_part;
+> -	} u;
+> -	unsigned long long quad_part;
+> -};
+> -
+> -
+> -#define KFD_CIK_VMID_START_OFFSET (8)
+> -#define KFD_CIK_VMID_END_OFFSET (KFD_CIK_VMID_START_OFFSET + (8))
+> -
+> -
+> -void kfd_dbgdev_init(struct kfd_dbgdev *pdbgdev, struct kfd_dev *pdev,
+> -			enum DBGDEV_TYPE type);
+> -
+> -union TCP_WATCH_CNTL_BITS {
+> -	struct {
+> -		uint32_t mask:24;
+> -		uint32_t vmid:4;
+> -		uint32_t atc:1;
+> -		uint32_t mode:2;
+> -		uint32_t valid:1;
+> -	} bitfields, bits;
+> -	uint32_t u32All;
+> -	signed int i32All;
+> -	float f32All;
+> -};
+> -
+> -enum {
+> -	ADDRESS_WATCH_REG_CNTL_ATC_BIT = 0x10000000UL,
+> -	ADDRESS_WATCH_REG_CNTL_DEFAULT_MASK = 0x00FFFFFF,
+> -	ADDRESS_WATCH_REG_ADDLOW_MASK_EXTENSION = 0x03000000,
+> -	/* extend the mask to 26 bits in order to match the low address field */
+> -	ADDRESS_WATCH_REG_ADDLOW_SHIFT = 6,
+> -	ADDRESS_WATCH_REG_ADDHIGH_MASK = 0xFFFF
+> -};
+> -
+> -enum {
+> -	MAX_TRAPID = 8,		/* 3 bits in the bitfield. */
+> -	MAX_WATCH_ADDRESSES = 4
+> -};
+> -
+> -enum {
+> -	ADDRESS_WATCH_REG_ADDR_HI = 0,
+> -	ADDRESS_WATCH_REG_ADDR_LO,
+> -	ADDRESS_WATCH_REG_CNTL,
+> -	ADDRESS_WATCH_REG_MAX
+> -};
+> -
+> -#endif	/* KFD_DBGDEV_H_ */
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.c b/drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.c
+> deleted file mode 100644
+> index 9bfa50633654..000000000000
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.c
+> +++ /dev/null
+> @@ -1,158 +0,0 @@
+> -/*
+> - * Copyright 2014 Advanced Micro Devices, Inc.
+> - *
+> - * Permission is hereby granted, free of charge, to any person obtaining a
+> - * copy of this software and associated documentation files (the "Software"),
+> - * to deal in the Software without restriction, including without limitation
+> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> - * and/or sell copies of the Software, and to permit persons to whom the
+> - * Software is furnished to do so, subject to the following conditions:
+> - *
+> - * The above copyright notice and this permission notice shall be included in
+> - * all copies or substantial portions of the Software.
+> - *
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> - * OTHER DEALINGS IN THE SOFTWARE.
+> - *
+> - */
+> -#include <linux/types.h>
+> -#include <linux/kernel.h>
+> -#include <linux/log2.h>
+> -#include <linux/sched.h>
+> -#include <linux/slab.h>
+> -#include <linux/device.h>
+> -
+> -#include "kfd_priv.h"
+> -#include "cik_regs.h"
+> -#include "kfd_pm4_headers.h"
+> -#include "kfd_pm4_headers_diq.h"
+> -#include "kfd_dbgmgr.h"
+> -#include "kfd_dbgdev.h"
+> -#include "kfd_device_queue_manager.h"
+> -
+> -static DEFINE_MUTEX(kfd_dbgmgr_mutex);
+> -
+> -struct mutex *kfd_get_dbgmgr_mutex(void)
+> -{
+> -	return &kfd_dbgmgr_mutex;
+> -}
+> -
+> -
+> -static void kfd_dbgmgr_uninitialize(struct kfd_dbgmgr *pmgr)
+> -{
+> -	kfree(pmgr->dbgdev);
+> -
+> -	pmgr->dbgdev = NULL;
+> -	pmgr->pasid = 0;
+> -	pmgr->dev = NULL;
+> -}
+> -
+> -void kfd_dbgmgr_destroy(struct kfd_dbgmgr *pmgr)
+> -{
+> -	if (pmgr) {
+> -		kfd_dbgmgr_uninitialize(pmgr);
+> -		kfree(pmgr);
+> -	}
+> -}
+> -
+> -bool kfd_dbgmgr_create(struct kfd_dbgmgr **ppmgr, struct kfd_dev *pdev)
+> -{
+> -	enum DBGDEV_TYPE type = DBGDEV_TYPE_DIQ;
+> -	struct kfd_dbgmgr *new_buff;
+> -
+> -	if (WARN_ON(!pdev->init_complete))
+> -		return false;
+> -
+> -	new_buff = kfd_alloc_struct(new_buff);
+> -	if (!new_buff) {
+> -		pr_err("Failed to allocate dbgmgr instance\n");
+> -		return false;
+> -	}
+> -
+> -	new_buff->pasid = 0;
+> -	new_buff->dev = pdev;
+> -	new_buff->dbgdev = kfd_alloc_struct(new_buff->dbgdev);
+> -	if (!new_buff->dbgdev) {
+> -		pr_err("Failed to allocate dbgdev instance\n");
+> -		kfree(new_buff);
+> -		return false;
+> -	}
+> -
+> -	/* get actual type of DBGDevice cpsch or not */
+> -	if (pdev->dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS)
+> -		type = DBGDEV_TYPE_NODIQ;
+> -
+> -	kfd_dbgdev_init(new_buff->dbgdev, pdev, type);
+> -	*ppmgr = new_buff;
+> -
+> -	return true;
+> -}
+> -
+> -long kfd_dbgmgr_register(struct kfd_dbgmgr *pmgr, struct kfd_process *p)
+> -{
+> -	if (pmgr->pasid != 0) {
+> -		pr_debug("H/W debugger is already active using pasid 0x%x\n",
+> -				pmgr->pasid);
+> -		return -EBUSY;
+> -	}
+> -
+> -	/* remember pasid */
+> -	pmgr->pasid = p->pasid;
+> -
+> -	/* provide the pqm for diq generation */
+> -	pmgr->dbgdev->pqm = &p->pqm;
+> -
+> -	/* activate the actual registering */
+> -	pmgr->dbgdev->dbgdev_register(pmgr->dbgdev);
+> -
+> -	return 0;
+> -}
+> -
+> -long kfd_dbgmgr_unregister(struct kfd_dbgmgr *pmgr, struct kfd_process *p)
+> -{
+> -	/* Is the requests coming from the already registered process? */
+> -	if (pmgr->pasid != p->pasid) {
+> -		pr_debug("H/W debugger is not registered by calling pasid 0x%x\n",
+> -				p->pasid);
+> -		return -EINVAL;
+> -	}
+> -
+> -	pmgr->dbgdev->dbgdev_unregister(pmgr->dbgdev);
+> -
+> -	pmgr->pasid = 0;
+> -
+> -	return 0;
+> -}
+> -
+> -long kfd_dbgmgr_wave_control(struct kfd_dbgmgr *pmgr,
+> -				struct dbg_wave_control_info *wac_info)
+> -{
+> -	/* Is the requests coming from the already registered process? */
+> -	if (pmgr->pasid != wac_info->process->pasid) {
+> -		pr_debug("H/W debugger support was not registered for requester pasid 0x%x\n",
+> -				wac_info->process->pasid);
+> -		return -EINVAL;
+> -	}
+> -
+> -	return (long) pmgr->dbgdev->dbgdev_wave_control(pmgr->dbgdev, wac_info);
+> -}
+> -
+> -long kfd_dbgmgr_address_watch(struct kfd_dbgmgr *pmgr,
+> -				struct dbg_address_watch_info *adw_info)
+> -{
+> -	/* Is the requests coming from the already registered process? */
+> -	if (pmgr->pasid != adw_info->process->pasid) {
+> -		pr_debug("H/W debugger support was not registered for requester pasid 0x%x\n",
+> -				adw_info->process->pasid);
+> -		return -EINVAL;
+> -	}
+> -
+> -	return (long) pmgr->dbgdev->dbgdev_address_watch(pmgr->dbgdev,
+> -							adw_info);
+> -}
+> -
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.h b/drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.h
+> deleted file mode 100644
+> index f9c6df1fdc5c..000000000000
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.h
+> +++ /dev/null
+> @@ -1,293 +0,0 @@
+> -/*
+> - * Copyright 2014 Advanced Micro Devices, Inc.
+> - *
+> - * Permission is hereby granted, free of charge, to any person obtaining a
+> - * copy of this software and associated documentation files (the "Software"),
+> - * to deal in the Software without restriction, including without limitation
+> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> - * and/or sell copies of the Software, and to permit persons to whom the
+> - * Software is furnished to do so, subject to the following conditions:
+> - *
+> - * The above copyright notice and this permission notice shall be included in
+> - * all copies or substantial portions of the Software.
+> - *
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> - * OTHER DEALINGS IN THE SOFTWARE.
+> - *
+> - */
+> -
+> -#ifndef KFD_DBGMGR_H_
+> -#define KFD_DBGMGR_H_
+> -
+> -#include "kfd_priv.h"
+> -
+> -/* must align with hsakmttypes definition */
+> -#pragma pack(push, 4)
+> -
+> -enum HSA_DBG_WAVEOP {
+> -	HSA_DBG_WAVEOP_HALT = 1,   /* Halts a wavefront */
+> -	HSA_DBG_WAVEOP_RESUME = 2, /* Resumes a wavefront */
+> -	HSA_DBG_WAVEOP_KILL = 3,   /* Kills a wavefront */
+> -	HSA_DBG_WAVEOP_DEBUG = 4,  /* Causes wavefront to enter dbg mode */
+> -	HSA_DBG_WAVEOP_TRAP = 5,   /* Causes wavefront to take a trap */
+> -	HSA_DBG_NUM_WAVEOP = 5,
+> -	HSA_DBG_MAX_WAVEOP = 0xFFFFFFFF
+> -};
+> -
+> -enum HSA_DBG_WAVEMODE {
+> -	/* send command to a single wave */
+> -	HSA_DBG_WAVEMODE_SINGLE = 0,
+> -	/*
+> -	 * Broadcast to all wavefronts of all processes is not
+> -	 * supported for HSA user mode
+> -	 */
+> -
+> -	/* send to waves within current process */
+> -	HSA_DBG_WAVEMODE_BROADCAST_PROCESS = 2,
+> -	/* send to waves within current process on CU  */
+> -	HSA_DBG_WAVEMODE_BROADCAST_PROCESS_CU = 3,
+> -	HSA_DBG_NUM_WAVEMODE = 3,
+> -	HSA_DBG_MAX_WAVEMODE = 0xFFFFFFFF
+> -};
+> -
+> -enum HSA_DBG_WAVEMSG_TYPE {
+> -	HSA_DBG_WAVEMSG_AUTO = 0,
+> -	HSA_DBG_WAVEMSG_USER = 1,
+> -	HSA_DBG_WAVEMSG_ERROR = 2,
+> -	HSA_DBG_NUM_WAVEMSG,
+> -	HSA_DBG_MAX_WAVEMSG = 0xFFFFFFFF
+> -};
+> -
+> -enum HSA_DBG_WATCH_MODE {
+> -	HSA_DBG_WATCH_READ = 0,		/* Read operations only */
+> -	HSA_DBG_WATCH_NONREAD = 1,	/* Write or Atomic operations only */
+> -	HSA_DBG_WATCH_ATOMIC = 2,	/* Atomic Operations only */
+> -	HSA_DBG_WATCH_ALL = 3,		/* Read, Write or Atomic operations */
+> -	HSA_DBG_WATCH_NUM,
+> -	HSA_DBG_WATCH_SIZE = 0xFFFFFFFF
+> -};
+> -
+> -/* This structure is hardware specific and may change in the future */
+> -struct HsaDbgWaveMsgAMDGen2 {
+> -	union {
+> -		struct ui32 {
+> -			uint32_t UserData:8;	/* user data */
+> -			uint32_t ShaderArray:1;	/* Shader array */
+> -			uint32_t Priv:1;	/* Privileged */
+> -			uint32_t Reserved0:4;	/* Reserved, should be 0 */
+> -			uint32_t WaveId:4;	/* wave id */
+> -			uint32_t SIMD:2;	/* SIMD id */
+> -			uint32_t HSACU:4;	/* Compute unit */
+> -			uint32_t ShaderEngine:2;/* Shader engine */
+> -			uint32_t MessageType:2;	/* see HSA_DBG_WAVEMSG_TYPE */
+> -			uint32_t Reserved1:4;	/* Reserved, should be 0 */
+> -		} ui32;
+> -		uint32_t Value;
+> -	};
+> -	uint32_t Reserved2;
+> -};
+> -
+> -union HsaDbgWaveMessageAMD {
+> -	struct HsaDbgWaveMsgAMDGen2 WaveMsgInfoGen2;
+> -	/* for future HsaDbgWaveMsgAMDGen3; */
+> -};
+> -
+> -struct HsaDbgWaveMessage {
+> -	void *MemoryVA;		/* ptr to associated host-accessible data */
+> -	union HsaDbgWaveMessageAMD DbgWaveMsg;
+> -};
+> -
+> -/*
+> - * TODO: This definitions to be MOVED to kfd_event, once it is implemented.
+> - *
+> - * HSA sync primitive, Event and HW Exception notification API definitions.
+> - * The API functions allow the runtime to define a so-called sync-primitive,
+> - * a SW object combining a user-mode provided "syncvar" and a scheduler event
+> - * that can be signaled through a defined GPU interrupt. A syncvar is
+> - * a process virtual memory location of a certain size that can be accessed
+> - * by CPU and GPU shader code within the process to set and query the content
+> - * within that memory. The definition of the content is determined by the HSA
+> - * runtime and potentially GPU shader code interfacing with the HSA runtime.
+> - * The syncvar values may be commonly written through an PM4 WRITE_DATA packet
+> - * in the user mode instruction stream. The OS scheduler event is typically
+> - * associated and signaled by an interrupt issued by the GPU, but other HSA
+> - * system interrupt conditions from other HW (e.g. IOMMUv2) may be surfaced
+> - * by the KFD by this mechanism, too.
+> - */
+> -
+> -/* these are the new definitions for events */
+> -enum HSA_EVENTTYPE {
+> -	HSA_EVENTTYPE_SIGNAL = 0,	/* user-mode generated GPU signal */
+> -	HSA_EVENTTYPE_NODECHANGE = 1,	/* HSA node change (attach/detach) */
+> -	HSA_EVENTTYPE_DEVICESTATECHANGE = 2,	/* HSA device state change
+> -						 * (start/stop)
+> -						 */
+> -	HSA_EVENTTYPE_HW_EXCEPTION = 3,	/* GPU shader exception event */
+> -	HSA_EVENTTYPE_SYSTEM_EVENT = 4,	/* GPU SYSCALL with parameter info */
+> -	HSA_EVENTTYPE_DEBUG_EVENT = 5,	/* GPU signal for debugging */
+> -	HSA_EVENTTYPE_PROFILE_EVENT = 6,/* GPU signal for profiling */
+> -	HSA_EVENTTYPE_QUEUE_EVENT = 7,	/* GPU signal queue idle state
+> -					 * (EOP pm4)
+> -					 */
+> -	/* ...  */
+> -	HSA_EVENTTYPE_MAXID,
+> -	HSA_EVENTTYPE_TYPE_SIZE = 0xFFFFFFFF
+> -};
+> -
+> -/* Sub-definitions for various event types: Syncvar */
+> -struct HsaSyncVar {
+> -	union SyncVar {
+> -		void *UserData;	/* pointer to user mode data */
+> -		uint64_t UserDataPtrValue; /* 64bit compatibility of value */
+> -	} SyncVar;
+> -	uint64_t SyncVarSize;
+> -};
+> -
+> -/* Sub-definitions for various event types: NodeChange */
+> -
+> -enum HSA_EVENTTYPE_NODECHANGE_FLAGS {
+> -	HSA_EVENTTYPE_NODECHANGE_ADD = 0,
+> -	HSA_EVENTTYPE_NODECHANGE_REMOVE = 1,
+> -	HSA_EVENTTYPE_NODECHANGE_SIZE = 0xFFFFFFFF
+> -};
+> -
+> -struct HsaNodeChange {
+> -	/* HSA node added/removed on the platform */
+> -	enum HSA_EVENTTYPE_NODECHANGE_FLAGS Flags;
+> -};
+> -
+> -/* Sub-definitions for various event types: DeviceStateChange */
+> -enum HSA_EVENTTYPE_DEVICESTATECHANGE_FLAGS {
+> -	/* device started (and available) */
+> -	HSA_EVENTTYPE_DEVICESTATUSCHANGE_START = 0,
+> -	/* device stopped (i.e. unavailable) */
+> -	HSA_EVENTTYPE_DEVICESTATUSCHANGE_STOP = 1,
+> -	HSA_EVENTTYPE_DEVICESTATUSCHANGE_SIZE = 0xFFFFFFFF
+> -};
+> -
+> -enum HSA_DEVICE {
+> -	HSA_DEVICE_CPU = 0,
+> -	HSA_DEVICE_GPU = 1,
+> -	MAX_HSA_DEVICE = 2
+> -};
+> -
+> -struct HsaDeviceStateChange {
+> -	uint32_t NodeId;	/* F-NUMA node that contains the device */
+> -	enum HSA_DEVICE Device;	/* device type: GPU or CPU */
+> -	enum HSA_EVENTTYPE_DEVICESTATECHANGE_FLAGS Flags; /* event flags */
+> -};
+> -
+> -struct HsaEventData {
+> -	enum HSA_EVENTTYPE EventType; /* event type */
+> -	union EventData {
+> -		/*
+> -		 * return data associated with HSA_EVENTTYPE_SIGNAL
+> -		 * and other events
+> -		 */
+> -		struct HsaSyncVar SyncVar;
+> -
+> -		/* data associated with HSA_EVENTTYPE_NODE_CHANGE */
+> -		struct HsaNodeChange NodeChangeState;
+> -
+> -		/* data associated with HSA_EVENTTYPE_DEVICE_STATE_CHANGE */
+> -		struct HsaDeviceStateChange DeviceState;
+> -	} EventData;
+> -
+> -	/* the following data entries are internal to the KFD & thunk itself */
+> -
+> -	/* internal thunk store for Event data (OsEventHandle) */
+> -	uint64_t HWData1;
+> -	/* internal thunk store for Event data (HWAddress) */
+> -	uint64_t HWData2;
+> -	/* internal thunk store for Event data (HWData) */
+> -	uint32_t HWData3;
+> -};
+> -
+> -struct HsaEventDescriptor {
+> -	/* event type to allocate */
+> -	enum HSA_EVENTTYPE EventType;
+> -	/* H-NUMA node containing GPU device that is event source */
+> -	uint32_t NodeId;
+> -	/* pointer to user mode syncvar data, syncvar->UserDataPtrValue
+> -	 * may be NULL
+> -	 */
+> -	struct HsaSyncVar SyncVar;
+> -};
+> -
+> -struct HsaEvent {
+> -	uint32_t EventId;
+> -	struct HsaEventData EventData;
+> -};
+> -
+> -#pragma pack(pop)
+> -
+> -enum DBGDEV_TYPE {
+> -	DBGDEV_TYPE_ILLEGAL = 0,
+> -	DBGDEV_TYPE_NODIQ = 1,
+> -	DBGDEV_TYPE_DIQ = 2,
+> -	DBGDEV_TYPE_TEST = 3
+> -};
+> -
+> -struct dbg_address_watch_info {
+> -	struct kfd_process *process;
+> -	enum HSA_DBG_WATCH_MODE *watch_mode;
+> -	uint64_t *watch_address;
+> -	uint64_t *watch_mask;
+> -	struct HsaEvent *watch_event;
+> -	uint32_t num_watch_points;
+> -};
+> -
+> -struct dbg_wave_control_info {
+> -	struct kfd_process *process;
+> -	uint32_t trapId;
+> -	enum HSA_DBG_WAVEOP operand;
+> -	enum HSA_DBG_WAVEMODE mode;
+> -	struct HsaDbgWaveMessage dbgWave_msg;
+> -};
+> -
+> -struct kfd_dbgdev {
+> -
+> -	/* The device that owns this data. */
+> -	struct kfd_dev *dev;
+> -
+> -	/* kernel queue for DIQ */
+> -	struct kernel_queue *kq;
+> -
+> -	/* a pointer to the pqm of the calling process */
+> -	struct process_queue_manager *pqm;
+> -
+> -	/* type of debug device ( DIQ, non DIQ, etc. ) */
+> -	enum DBGDEV_TYPE type;
+> -
+> -	/* virtualized function pointers to device dbg */
+> -	int (*dbgdev_register)(struct kfd_dbgdev *dbgdev);
+> -	int (*dbgdev_unregister)(struct kfd_dbgdev *dbgdev);
+> -	int (*dbgdev_address_watch)(struct kfd_dbgdev *dbgdev,
+> -				struct dbg_address_watch_info *adw_info);
+> -	int (*dbgdev_wave_control)(struct kfd_dbgdev *dbgdev,
+> -				struct dbg_wave_control_info *wac_info);
+> -
+> -};
+> -
+> -struct kfd_dbgmgr {
+> -	u32 pasid;
+> -	struct kfd_dev *dev;
+> -	struct kfd_dbgdev *dbgdev;
+> -};
+> -
+> -/* prototypes for debug manager functions */
+> -struct mutex *kfd_get_dbgmgr_mutex(void);
+> -void kfd_dbgmgr_destroy(struct kfd_dbgmgr *pmgr);
+> -bool kfd_dbgmgr_create(struct kfd_dbgmgr **ppmgr, struct kfd_dev *pdev);
+> -long kfd_dbgmgr_register(struct kfd_dbgmgr *pmgr, struct kfd_process *p);
+> -long kfd_dbgmgr_unregister(struct kfd_dbgmgr *pmgr, struct kfd_process *p);
+> -long kfd_dbgmgr_wave_control(struct kfd_dbgmgr *pmgr,
+> -				struct dbg_wave_control_info *wac_info);
+> -long kfd_dbgmgr_address_watch(struct kfd_dbgmgr *pmgr,
+> -			struct dbg_address_watch_info *adw_info);
+> -#endif /* KFD_DBGMGR_H_ */
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index 5a47f437b455..dbb877fba724 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -575,8 +575,6 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+>   	if (kfd_resume(kfd))
+>   		goto kfd_resume_error;
+>   
+> -	kfd->dbgmgr = NULL;
+> -
+>   	if (kfd_topology_add_device(kfd)) {
+>   		dev_err(kfd_device, "Error adding device to topology\n");
+>   		goto kfd_topology_add_device_error;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 63b3c7af681b..f5d82f257dbb 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -480,6 +480,65 @@ static inline void deallocate_hqd(struct device_queue_manager *dqm,
+>   	dqm->allocated_queues[q->pipe] |= (1 << q->queue);
+>   }
+>   
+> +#define SQ_IND_CMD_CMD_KILL		0x00000003
+> +#define SQ_IND_CMD_MODE_BROADCAST	0x00000001
+> +
+> +static int dbgdev_wave_reset_wavefronts(struct kfd_dev *dev, struct kfd_process *p)
+> +{
+> +	int status = 0;
+> +	unsigned int vmid;
+> +	uint16_t queried_pasid;
+> +	union SQ_CMD_BITS reg_sq_cmd;
+> +	union GRBM_GFX_INDEX_BITS reg_gfx_index;
+> +	struct kfd_process_device *pdd;
+> +	int first_vmid_to_scan = dev->vm_info.first_vmid_kfd;
+> +	int last_vmid_to_scan = dev->vm_info.last_vmid_kfd;
+> +
+> +	reg_sq_cmd.u32All = 0;
+> +	reg_gfx_index.u32All = 0;
+> +
+> +	pr_debug("Killing all process wavefronts\n");
+> +
+> +	/* Scan all registers in the range ATC_VMID8_PASID_MAPPING ..
+> +	 * ATC_VMID15_PASID_MAPPING
+> +	 * to check which VMID the current process is mapped to.
+> +	 */
+> +
+> +	for (vmid = first_vmid_to_scan; vmid <= last_vmid_to_scan; vmid++) {
+> +		status = dev->kfd2kgd->get_atc_vmid_pasid_mapping_info
+> +				(dev->adev, vmid, &queried_pasid);
+> +
+> +		if (status && queried_pasid == p->pasid) {
+> +			pr_debug("Killing wave fronts of vmid %d and pasid 0x%x\n",
+> +					vmid, p->pasid);
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (vmid > last_vmid_to_scan) {
+> +		pr_err("Didn't find vmid for pasid 0x%x\n", p->pasid);
+> +		return -EFAULT;
+> +	}
+> +
+> +	/* taking the VMID for that process on the safe way using PDD */
+> +	pdd = kfd_get_process_device_data(dev, p);
+> +	if (!pdd)
+> +		return -EFAULT;
+> +
+> +	reg_gfx_index.bits.sh_broadcast_writes = 1;
+> +	reg_gfx_index.bits.se_broadcast_writes = 1;
+> +	reg_gfx_index.bits.instance_broadcast_writes = 1;
+> +	reg_sq_cmd.bits.mode = SQ_IND_CMD_MODE_BROADCAST;
+> +	reg_sq_cmd.bits.cmd = SQ_IND_CMD_CMD_KILL;
+> +	reg_sq_cmd.bits.vm_id = vmid;
+> +
+> +	dev->kfd2kgd->wave_control_execute(dev->adev,
+> +					reg_gfx_index.u32All,
+> +					reg_sq_cmd.u32All);
+> +
+> +	return 0;
+> +}
+> +
+>   /* Access to DQM has to be locked before calling destroy_queue_nocpsch_locked
+>    * to avoid asynchronized access
+>    */
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> index a7d2e3323977..05a9c17daa3e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> @@ -39,6 +39,41 @@ struct device_process_node {
+>   	struct list_head list;
+>   };
+>   
+> +union SQ_CMD_BITS {
+> +	struct {
+> +		uint32_t cmd:3;
+> +		uint32_t:1;
+> +		uint32_t mode:3;
+> +		uint32_t check_vmid:1;
+> +		uint32_t trap_id:3;
+> +		uint32_t:5;
+> +		uint32_t wave_id:4;
+> +		uint32_t simd_id:2;
+> +		uint32_t:2;
+> +		uint32_t queue_id:3;
+> +		uint32_t:1;
+> +		uint32_t vm_id:4;
+> +	} bitfields, bits;
+> +	uint32_t u32All;
+> +	signed int i32All;
+> +	float f32All;
+> +};
+> +
+> +union GRBM_GFX_INDEX_BITS {
+> +	struct {
+> +		uint32_t instance_index:8;
+> +		uint32_t sh_index:8;
+> +		uint32_t se_index:8;
+> +		uint32_t:5;
+> +		uint32_t sh_broadcast_writes:1;
+> +		uint32_t instance_broadcast_writes:1;
+> +		uint32_t se_broadcast_writes:1;
+> +	} bitfields, bits;
+> +	uint32_t u32All;
+> +	signed int i32All;
+> +	float f32All;
+> +};
+> +
+>   /**
+>    * struct device_queue_manager_ops
+>    *
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+> index 66ad8d0b8f7f..fe62407dacb2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+> @@ -30,7 +30,6 @@
+>   #include <linux/pci.h>
+>   #include <linux/amd-iommu.h>
+>   #include "kfd_priv.h"
+> -#include "kfd_dbgmgr.h"
+>   #include "kfd_topology.h"
+>   #include "kfd_iommu.h"
+>   
+> @@ -163,17 +162,6 @@ static void iommu_pasid_shutdown_callback(struct pci_dev *pdev, u32 pasid)
+>   
+>   	pr_debug("Unbinding process 0x%x from IOMMU\n", pasid);
+>   
+> -	mutex_lock(kfd_get_dbgmgr_mutex());
+> -
+> -	if (dev->dbgmgr && dev->dbgmgr->pasid == p->pasid) {
+> -		if (!kfd_dbgmgr_unregister(dev->dbgmgr, p)) {
+> -			kfd_dbgmgr_destroy(dev->dbgmgr);
+> -			dev->dbgmgr = NULL;
+> -		}
+> -	}
+> -
+> -	mutex_unlock(kfd_get_dbgmgr_mutex());
+> -
+>   	mutex_lock(&p->mutex);
+>   
+>   	pdd = kfd_get_process_device_data(dev, p);
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index ea68f3b3a4e9cb..6d643b4b791d87 100644
+> index 74ff4132a163..465aae8e5697 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -25,6 +25,7 @@
+> @@ -300,9 +300,6 @@ struct kfd_dev {
+>   	 */
+>   	bool interrupts_active;
 >   
->   #include <linux/hashtable.h>
->   #include <linux/mmu_notifier.h>
-> +#include <linux/memremap.h>
->   #include <linux/mutex.h>
->   #include <linux/types.h>
->   #include <linux/atomic.h>
-> diff --git a/drivers/gpu/drm/drm_cache.c b/drivers/gpu/drm/drm_cache.c
-> index f19d9acbe95936..50b8a088f763a6 100644
-> --- a/drivers/gpu/drm/drm_cache.c
-> +++ b/drivers/gpu/drm/drm_cache.c
-> @@ -27,11 +27,11 @@
->   /*
->    * Authors: Thomas Hellström <thomas-at-tungstengraphics-dot-com>
->    */
+> -	/* Debug manager */
+> -	struct kfd_dbgmgr *dbgmgr;
 > -
->   #include <linux/dma-buf-map.h>
->   #include <linux/export.h>
->   #include <linux/highmem.h>
->   #include <linux/cc_platform.h>
-> +#include <linux/ioport.h>
->   #include <xen/xen.h>
+>   	/* Firmware versions */
+>   	uint16_t mec_fw_version;
+>   	uint16_t mec2_fw_version;
+> @@ -1331,8 +1328,6 @@ void kfd_signal_poison_consumed_event(struct kfd_dev *dev, u32 pasid);
 >   
->   #include <drm/drm_cache.h>
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> index e886a3b9e08c7d..a5cdfbe32b5e54 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> @@ -39,6 +39,7 @@
+>   void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE type);
 >   
->   #include <linux/sched/mm.h>
->   #include <linux/hmm.h>
-> +#include <linux/memremap.h>
->   #include <linux/migrate.h>
->   
->   /*
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-> index 266809e511e2c1..090b9b47708cca 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-> @@ -35,6 +35,7 @@
->   #include <linux/sched/mm.h>
->   #include <linux/sort.h>
->   #include <linux/hmm.h>
-> +#include <linux/memremap.h>
->   #include <linux/rmap.h>
->   
->   struct nouveau_svm {
-> diff --git a/drivers/infiniband/core/rw.c b/drivers/infiniband/core/rw.c
-> index 5a3bd41b331c93..4d98f931a13ddd 100644
-> --- a/drivers/infiniband/core/rw.c
-> +++ b/drivers/infiniband/core/rw.c
-> @@ -2,6 +2,7 @@
->   /*
->    * Copyright (c) 2016 HGST, a Western Digital Company.
->    */
-> +#include <linux/memremap.h>
->   #include <linux/moduleparam.h>
->   #include <linux/slab.h>
->   #include <linux/pci-p2pdma.h>
-> diff --git a/drivers/nvdimm/pmem.h b/drivers/nvdimm/pmem.h
-> index 59cfe13ea8a85c..1f51a23614299b 100644
-> --- a/drivers/nvdimm/pmem.h
-> +++ b/drivers/nvdimm/pmem.h
-> @@ -3,6 +3,7 @@
->   #define __NVDIMM_PMEM_H__
->   #include <linux/page-flags.h>
->   #include <linux/badblocks.h>
-> +#include <linux/memremap.h>
->   #include <linux/types.h>
->   #include <linux/pfn_t.h>
->   #include <linux/fs.h>
-> diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-> index 6a99ed68091589..ab15bc72710dbe 100644
-> --- a/drivers/nvme/host/pci.c
-> +++ b/drivers/nvme/host/pci.c
-> @@ -15,6 +15,7 @@
->   #include <linux/init.h>
->   #include <linux/interrupt.h>
->   #include <linux/io.h>
-> +#include <linux/memremap.h>
->   #include <linux/mm.h>
->   #include <linux/module.h>
->   #include <linux/mutex.h>
-> diff --git a/drivers/nvme/target/io-cmd-bdev.c b/drivers/nvme/target/io-cmd-bdev.c
-> index 70ca9dfc1771a9..a141446db1bea3 100644
-> --- a/drivers/nvme/target/io-cmd-bdev.c
-> +++ b/drivers/nvme/target/io-cmd-bdev.c
-> @@ -6,6 +6,7 @@
->   #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
->   #include <linux/blkdev.h>
->   #include <linux/blk-integrity.h>
-> +#include <linux/memremap.h>
->   #include <linux/module.h>
->   #include "nvmet.h"
->   
-> diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-> index 9d737904d07c0b..86b7dbb6a0d43e 100644
-> --- a/fs/fuse/virtio_fs.c
-> +++ b/fs/fuse/virtio_fs.c
-> @@ -8,6 +8,7 @@
->   #include <linux/dax.h>
->   #include <linux/pci.h>
->   #include <linux/pfn_t.h>
-> +#include <linux/memremap.h>
->   #include <linux/module.h>
->   #include <linux/virtio.h>
->   #include <linux/virtio_fs.h>
-> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
-> index 1fafcc38acbad6..514ab46f597e5c 100644
-> --- a/include/linux/memremap.h
-> +++ b/include/linux/memremap.h
-> @@ -1,6 +1,8 @@
->   /* SPDX-License-Identifier: GPL-2.0 */
->   #ifndef _LINUX_MEMREMAP_H_
->   #define _LINUX_MEMREMAP_H_
-> +
-> +#include <linux/mm.h>
->   #include <linux/range.h>
->   #include <linux/ioport.h>
->   #include <linux/percpu-refcount.h>
-> @@ -129,6 +131,22 @@ static inline unsigned long pgmap_vmemmap_nr(struct dev_pagemap *pgmap)
->   	return 1 << pgmap->vmemmap_shift;
->   }
->   
-> +static inline bool is_device_private_page(const struct page *page)
-> +{
-> +	return IS_ENABLED(CONFIG_DEV_PAGEMAP_OPS) &&
-> +		IS_ENABLED(CONFIG_DEVICE_PRIVATE) &&
-> +		is_zone_device_page(page) &&
-> +		page->pgmap->type == MEMORY_DEVICE_PRIVATE;
-> +}
-> +
-> +static inline bool is_pci_p2pdma_page(const struct page *page)
-> +{
-> +	return IS_ENABLED(CONFIG_DEV_PAGEMAP_OPS) &&
-> +		IS_ENABLED(CONFIG_PCI_P2PDMA) &&
-> +		is_zone_device_page(page) &&
-> +		page->pgmap->type == MEMORY_DEVICE_PCI_P2PDMA;
-> +}
-> +
->   #ifdef CONFIG_ZONE_DEVICE
->   void *memremap_pages(struct dev_pagemap *pgmap, int nid);
->   void memunmap_pages(struct dev_pagemap *pgmap);
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 26baadcef4556b..80fccfe31c3444 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -23,7 +23,6 @@
->   #include <linux/err.h>
->   #include <linux/page-flags.h>
->   #include <linux/page_ref.h>
-> -#include <linux/memremap.h>
->   #include <linux/overflow.h>
->   #include <linux/sizes.h>
->   #include <linux/sched.h>
-> @@ -1101,9 +1100,6 @@ static inline bool put_devmap_managed_page(struct page *page)
->   		return false;
->   	if (!is_zone_device_page(page))
->   		return false;
-> -	if (page->pgmap->type != MEMORY_DEVICE_PRIVATE &&
-> -	    page->pgmap->type != MEMORY_DEVICE_FS_DAX)
-> -		return false;
->   	return __put_devmap_managed_page(page);
->   }
->   
-> @@ -1114,22 +1110,6 @@ static inline bool put_devmap_managed_page(struct page *page)
->   }
->   #endif /* CONFIG_DEV_PAGEMAP_OPS */
->   
-> -static inline bool is_device_private_page(const struct page *page)
-> -{
-> -	return IS_ENABLED(CONFIG_DEV_PAGEMAP_OPS) &&
-> -		IS_ENABLED(CONFIG_DEVICE_PRIVATE) &&
-> -		is_zone_device_page(page) &&
-> -		page->pgmap->type == MEMORY_DEVICE_PRIVATE;
-> -}
+> -int dbgdev_wave_reset_wavefronts(struct kfd_dev *dev, struct kfd_process *p);
 > -
-> -static inline bool is_pci_p2pdma_page(const struct page *page)
-> -{
-> -	return IS_ENABLED(CONFIG_DEV_PAGEMAP_OPS) &&
-> -		IS_ENABLED(CONFIG_PCI_P2PDMA) &&
-> -		is_zone_device_page(page) &&
-> -		page->pgmap->type == MEMORY_DEVICE_PCI_P2PDMA;
-> -}
-> -
->   /* 127: arbitrary random number, small enough to assemble well */
->   #define folio_ref_zero_or_close_to_overflow(folio) \
->   	((unsigned int) folio_ref_count(folio) + 127u <= 127u)
-> diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-> index 396beee6b061d4..e5fc14ba71f33e 100644
-> --- a/lib/test_hmm.c
-> +++ b/lib/test_hmm.c
-> @@ -12,6 +12,7 @@
->   #include <linux/kernel.h>
->   #include <linux/cdev.h>
->   #include <linux/device.h>
-> +#include <linux/memremap.h>
->   #include <linux/mutex.h>
->   #include <linux/rwsem.h>
->   #include <linux/sched.h>
-> diff --git a/mm/memremap.c b/mm/memremap.c
-> index f41233a67edb12..a0ece2344c2cab 100644
-> --- a/mm/memremap.c
-> +++ b/mm/memremap.c
-> @@ -4,7 +4,7 @@
->   #include <linux/io.h>
->   #include <linux/kasan.h>
->   #include <linux/memory_hotplug.h>
-> -#include <linux/mm.h>
-> +#include <linux/memremap.h>
->   #include <linux/pfn_t.h>
->   #include <linux/swap.h>
->   #include <linux/mmzone.h>
-> @@ -504,6 +504,10 @@ void free_devmap_managed_page(struct page *page)
+>   bool kfd_is_locked(void);
 >   
->   bool __put_devmap_managed_page(struct page *page)
+>   /* Compute profile */
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 8e2780d2f735..8c6a48add76e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -40,7 +40,6 @@ struct mm_struct;
+>   
+>   #include "kfd_priv.h"
+>   #include "kfd_device_queue_manager.h"
+> -#include "kfd_dbgmgr.h"
+>   #include "kfd_iommu.h"
+>   #include "kfd_svm.h"
+>   
+> @@ -1158,7 +1157,6 @@ static void kfd_process_notifier_release(struct mmu_notifier *mn,
+>   					struct mm_struct *mm)
 >   {
-> +	if (page->pgmap->type != MEMORY_DEVICE_PRIVATE &&
-> +	    page->pgmap->type != MEMORY_DEVICE_FS_DAX)
-> +		return false;
-> +
+>   	struct kfd_process *p;
+> -	int i;
+>   
 >   	/*
->   	 * devmap page refcounts are 1-based, rather than 0-based: if
->   	 * refcount is 1, then the page is free and the refcount is
+>   	 * The kfd_process structure can not be free because the
+> @@ -1178,23 +1176,6 @@ static void kfd_process_notifier_release(struct mmu_notifier *mn,
+>   
+>   	mutex_lock(&p->mutex);
+>   
+> -	/* Iterate over all process device data structures and if the
+> -	 * pdd is in debug mode, we should first force unregistration,
+> -	 * then we will be able to destroy the queues
+> -	 */
+> -	for (i = 0; i < p->n_pdds; i++) {
+> -		struct kfd_dev *dev = p->pdds[i]->dev;
+> -
+> -		mutex_lock(kfd_get_dbgmgr_mutex());
+> -		if (dev && dev->dbgmgr && dev->dbgmgr->pasid == p->pasid) {
+> -			if (!kfd_dbgmgr_unregister(dev->dbgmgr, p)) {
+> -				kfd_dbgmgr_destroy(dev->dbgmgr);
+> -				dev->dbgmgr = NULL;
+> -			}
+> -		}
+> -		mutex_unlock(kfd_get_dbgmgr_mutex());
+> -	}
+> -
+>   	kfd_process_dequeue_from_all_devices(p);
+>   	pqm_uninit(&p->pqm);
+>   
+> diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> index ac941f62cbed..2f60cf35a444 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> @@ -269,18 +269,9 @@ struct kfd2kgd_calls {
+>   	int (*hqd_sdma_destroy)(struct amdgpu_device *adev, void *mqd,
+>   				unsigned int timeout);
+>   
+> -	int (*address_watch_disable)(struct amdgpu_device *adev);
+> -	int (*address_watch_execute)(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					uint32_t cntl_val,
+> -					uint32_t addr_hi,
+> -					uint32_t addr_lo);
+>   	int (*wave_control_execute)(struct amdgpu_device *adev,
+>   					uint32_t gfx_index_val,
+>   					uint32_t sq_cmd);
+> -	uint32_t (*address_watch_get_offset)(struct amdgpu_device *adev,
+> -					unsigned int watch_point_id,
+> -					unsigned int reg_offset);
+>   	bool (*get_atc_vmid_pasid_mapping_info)(struct amdgpu_device *adev,
+>   					uint8_t vmid,
+>   					uint16_t *p_pasid);
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+> index e6a56c146920..6e4268f5e482 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -756,16 +756,16 @@ struct kfd_ioctl_set_xnack_mode_args {
+>   #define AMDKFD_IOC_WAIT_EVENTS			\
+>   		AMDKFD_IOWR(0x0C, struct kfd_ioctl_wait_events_args)
+>   
+> -#define AMDKFD_IOC_DBG_REGISTER			\
+> +#define AMDKFD_IOC_DBG_REGISTER_DEPRECATED	\
+>   		AMDKFD_IOW(0x0D, struct kfd_ioctl_dbg_register_args)
+>   
+> -#define AMDKFD_IOC_DBG_UNREGISTER		\
+> +#define AMDKFD_IOC_DBG_UNREGISTER_DEPRECATED	\
+>   		AMDKFD_IOW(0x0E, struct kfd_ioctl_dbg_unregister_args)
+>   
+> -#define AMDKFD_IOC_DBG_ADDRESS_WATCH		\
+> +#define AMDKFD_IOC_DBG_ADDRESS_WATCH_DEPRECATED	\
+>   		AMDKFD_IOW(0x0F, struct kfd_ioctl_dbg_address_watch_args)
+>   
+> -#define AMDKFD_IOC_DBG_WAVE_CONTROL		\
+> +#define AMDKFD_IOC_DBG_WAVE_CONTROL_DEPRECATED	\
+>   		AMDKFD_IOW(0x10, struct kfd_ioctl_dbg_wave_control_args)
+>   
+>   #define AMDKFD_IOC_SET_SCRATCH_BACKING_VA	\
