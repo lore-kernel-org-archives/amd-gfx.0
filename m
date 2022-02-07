@@ -4,122 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D87BC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 03:30:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F10C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 04:03:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36A4110F478;
-	Mon,  7 Feb 2022 03:30:08 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2057.outbound.protection.outlook.com [40.107.244.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38B9510EACB;
- Mon,  7 Feb 2022 03:30:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4145C10E7C6;
+	Mon,  7 Feb 2022 04:03:15 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2059.outbound.protection.outlook.com [40.107.223.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC8C10E7C6
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 04:03:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=og5qCXKHzIixIoG93zAnExYLejGK8IL3CrpfgAe4TbKrMEqktYJbWZtFFaTZWt9TqWPy5iinVGJc9Vsy8iZXgfFBlp3sjN3RQGLIVqdwkdynv0aAMt2WfLS/ZICFw0yXneWs/s5M5mJXrEfB66K0n5ykyw4qFQGLfIyYQPYZ/Re3VmuiksGO+f1eXiOqwQyaOm7wYbwIkrHP2UH5Wt2SKIwGJ3o3qkA+sPKCdxEGTMbpKLkw4Mt8hIo5YgMThLm+guNzIS8YTZF7OujObEfzoBb3NauBfSqY2Pl9Zqyp9T0QAjNjsL+uWdfxn0zE2mRX26ZiwyGUGXC9N1HWCtZL8w==
+ b=cR0rLxVquUl+ps5djBa9XTetIlRLoI1LyLUGKWT8Y8qroKhbcm1b6OMzE9+uTQYPIGU3YbtLJEMgaB/rDCoxlgVHv6oEvdhhz6nAc1WPbxzNVUm0fBjnbIp/M5ovYWitKjQGljPkSIK3MQSehtNmjRV/zeZhTqBKxVOeE+D+BuC8/QjevCCACqSxNDAWo/qGwzRaZ40WNxprHauEEu7m1T835kj7mBE0Re2OBGjEROhJSs0I212x1tH53Hlczea9L3i4zqGIyKTHmuA8fKnsEyonQdvZlCrLu5EPeCbDB+R4CJLukIm4ywA3wCwBgNde97tv8XRCU0sNI/b0mWHmsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jzWVgmpPJlmPMecU3JhUV57rCwC0Lay5y4PVz93VGpE=;
- b=OQlI2c7/kfgkW6dImkHxz3ZdYVHpph1co1c4mGfhzkVaFbfU22O7e5lO0Ks26McmIGtt9++a97gs7yrDnncTs/Kl9uBql5HAVLYPM7Twu/iud1oZ//tKUn0FeoCDJ6mkiFqYAvgAf3VahmEEl/TykuAZrjlr4pgxXttwkNjjGD57sVDu0GcJD8d6B8e72tHLtFW+hmqElGioeg93LuBu1dFomNemVoiIv5v8drp14DHyHT3G6g+C4Oas4Vu5QhZGBD1tJtKSOla/mTrlaW4SkoaGt573LiWbz6mdpKy0p/2E29w+E94aASSNNMP8Bxqg4S1We3O6Oy5Ai+cxph8ncQ==
+ bh=5qP2x8xsi/X9MhR5vfVi7k8tqIWWtJtIG/1AcnwPi8Q=;
+ b=iOI7OKzt8C8xY0XwpA/q6ZFUNjoU/zJ0Ka5UUfFHI+BDmLkBjBwosUi+GlfDQILZbD/B4LcklkUCQjR4lvdrVKhPVnhfW9B/eqNDQ9zuKGA5lznm8LzDQ0ruw8+fvJiog2mQ1+3EgsQKKvdNUeEoZpt5dlH0R69VOT6eE+6fONCHXEVYkTC/ikqf3R4f454Zz6gq4AQW8OPH4ai9IjsnbOjpwBmP1v6i5o3LFvw2w0SCBlUd0X5jPXoQ99T6rvPwuvrAYjj+pHGijAy7RrguIBlD6i0OLkxFRqGRpgVvhLJiERqCCLz9/ShA2AGopQaFRA0v618S9E8e+o4viT8FsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jzWVgmpPJlmPMecU3JhUV57rCwC0Lay5y4PVz93VGpE=;
- b=ZofT7zHhWc1Oxah5HOTXFuwP1okKytDW87eNo0j4nOMrIqlBUcmF1ZYOV4xjvF413S3f43+n6852mUj2K9sOpycybMVshpo6ScR+fd1/TYonazqlwkG6VwvTLP7AYTjI/rTAGnP7f3MJVhLjltLUqRXlG6suyxpOPKWnRo4RO8Q=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM5PR12MB1916.namprd12.prod.outlook.com (2603:10b6:3:112::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4951.12; Mon, 7 Feb 2022 03:30:01 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::a894:300e:5c16:5639]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::a894:300e:5c16:5639%6]) with mapi id 15.20.4951.018; Mon, 7 Feb 2022
- 03:30:01 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: =?iso-8859-1?Q?Ma=EDra_Canal?= <maira.canal@usp.br>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "airlied@linux.ie" <airlied@linux.ie>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "nathan@kernel.org" <nathan@kernel.org>, 
- "ndesaulniers@google.com" <ndesaulniers@google.com>, "Lazar, Lijo"
- <Lijo.Lazar@amd.com>, "Tuikov, Luben" <Luben.Tuikov@amd.com>, "Chen, Guchun"
- <Guchun.Chen@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "jiapeng.chong@linux.alibaba.com" <jiapeng.chong@linux.alibaba.com>
-Subject: RE: [PATCH] drm/amd/pm: add missing prototypes to amdgpu_dpm_internal
-Thread-Topic: [PATCH] drm/amd/pm: add missing prototypes to amdgpu_dpm_internal
-Thread-Index: AQHYGJaXQ42Lm1VvwEmwNUASEbtx+KyHdI7w
-Date: Mon, 7 Feb 2022 03:30:01 +0000
-Message-ID: <DM6PR12MB26199543AD01C2DA18CCFB64E42C9@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <YfskWvNqt81rZZpQ@fedora>
-In-Reply-To: <YfskWvNqt81rZZpQ@fedora>
-Accept-Language: en-US, zh-CN
+ bh=5qP2x8xsi/X9MhR5vfVi7k8tqIWWtJtIG/1AcnwPi8Q=;
+ b=WxW6xkZRbwaLK5HgJ8qCBndMEBr1Whviov58rn6MaRjT7C6mRSVtA7fP3aUy27thBL8sTmJ4KbdKALFGigFJFScB72H3+c93/mONHhIXSHOlMxFeoMnL4CNokJvQWGIJmpSTIMXLjCLh8b5l/oFHFIpTjZ8chmyHg0Yd0QDNcfU=
+Received: from DM5PR12MB1770.namprd12.prod.outlook.com (2603:10b6:3:108::22)
+ by MN2PR12MB4815.namprd12.prod.outlook.com (2603:10b6:208:1bf::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Mon, 7 Feb
+ 2022 04:03:11 +0000
+Received: from DM5PR12MB1770.namprd12.prod.outlook.com
+ ([fe80::1551:5d31:89de:9e7f]) by DM5PR12MB1770.namprd12.prod.outlook.com
+ ([fe80::1551:5d31:89de:9e7f%3]) with mapi id 15.20.4951.018; Mon, 7 Feb 2022
+ 04:03:11 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v1] drm/amdgpu: Print once if RAS unsupported
+Thread-Topic: [PATCH v1] drm/amdgpu: Print once if RAS unsupported
+Thread-Index: AQHYGVPDwhneeu/wbEeLyQteCDMHaayHfCPA
+Date: Mon, 7 Feb 2022 04:03:11 +0000
+Message-ID: <DM5PR12MB1770E49AA079902EB1ECC6FEB02C9@DM5PR12MB1770.namprd12.prod.outlook.com>
+References: <BL1PR12MB5144C64B0B4E525FC97EB522F7289@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <20220203231320.114539-1-luben.tuikov@amd.com>
+In-Reply-To: <20220203231320.114539-1-luben.tuikov@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-07T03:29:57Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-07T04:01:34Z; 
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
  Only-AIP 2.0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=ad92e81e-ea20-44bd-89a5-ec95d51ef386;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=56037f82-0a52-459c-a4e6-6f2ea9443f6e;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-02-07T04:03:08Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 2372aa8f-8e18-4171-acac-5e4b84a1791f
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3c95d8c5-d6ed-4db9-fe23-08d9e9ea1fd4
-x-ms-traffictypediagnostic: DM5PR12MB1916:EE_
-x-microsoft-antispam-prvs: <DM5PR12MB1916D8B0AF426A7040C6DAFCE42C9@DM5PR12MB1916.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4941;
+x-ms-office365-filtering-correlation-id: 8064cdab-413a-4c83-a368-08d9e9eec21b
+x-ms-traffictypediagnostic: MN2PR12MB4815:EE_
+x-microsoft-antispam-prvs: <MN2PR12MB481592144D83A262025052E3B02C9@MN2PR12MB4815.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:24;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: RPLQs25PhX2D5evhmAxJgAMvhZ4QtIrq5Y/8JB96JJDl/6tRAWSeosystKKONrnBIOyv/YmcDrtEyzFfmec6mD66s0Xp3VAqoA0NGT4FsgfImes0T4RVS6fQM8Sl1GELKmmfwgglHEaVvBzMf9pSONWhw2esczFNQqRnePg8h73W9pNbq01SezcwcDISaMqVlrPCxzd90y+slBlfptMcygZU+qvnr+fwZIdvX/vgNeOdT59PwiuCI13H5+1s00AMCIpiTydnF2ZKZGcgyTZG2zu5kS8f2Zz6JqUexI3pcM27T3zHu198LqMPlDalGaKy1ECMfZFSCW/ic29Zgtx5eEaKJCXdJs4s/753xwFqB7yL+jOgKSM6715qoHTHoV0u3Z5hKS0ADDmrqC0j6KwYlFbxSDnjtnd/Ouz+DZDdWyGVshak5DXHjpRuMFwPeJdNgQAXjlXphzd/PBnWQjFjAPLZgHxoGCjAY6/c8xclfUcVpONX/JN3HrNNfTrheD53ydmQKYbUNoRsyNLte4PKbIxbfbUTlX3GN8RIFNMpHowv7ygoHg5C8PP+UdMRwajg728cAFfXYwcIbw5ZDdd6NbJzQDP0ymMo1OIgyKghR/7kixz991Y5d08CPtdbddH6AZCB08eWPCTU/uPum6bpVxsjPj46SWL/NYOiWiROpkW0BrQyxoeFNBfa4XpY10TXb19xCIN+VtPw91Wr5S3Y0IqPXESmW8Af2mzmN4dUmA4=
+x-microsoft-antispam-message-info: I8pJDfDNWxeipMi2jxR/fNlmr3qDvwicRFTDYFfDFlOXysHV3kY6b6DenPLH1CXzJ5KgmAd7FRZaEJLIQsl5uN4IVxxqnlpTCcZcAcDEyTSDSA4Dk6cnHOglTeyfStz6tf5oEBFGF8BEi23n9RkPxE+SMP/7Sfnwonry82oQvMIZ5FBFtyoHXCXZaBVm3W6Ai3msS5Sr4F0L+qE1RZr2jKq0E3id1VLNmholQMK39HxDiZns0mKS0lnwsLo9meS2QNF/9YD7k1+7WyU65L1vhZWvniS54pSyCYK+rqxHnkx29HQaxQlWOpuqdo0yOppUT/i2euFKejbc30NO3rZ/xDWX7Q9HNsdnQZZ1k9KSV3hhpQpUZU2Ikj+ll5u1EQIoA9wo27FGhyr3oH3r2rEjAfMCw9lTQfGX608bxiI1aPgcGoGMszhObDn9bUMiLq1GUJGM358yB1qvVV1vWPZMfD1KIFd6kAb5+qaTvdKSk1Thh/1brINrbud7jpuBS7GZWkAaFBc+FN24FXEboAcS0/ecFcXNMe15M4vkLTwzb658HI0g5lu5W1ixk0K7MBZWp3HLvZAAsqBTz/IJ/nK2Tm20bvBy3+RPk/2sNA4pq02D986JjAInpXywxivjqYMS25BXCXgSHLKdPhl1RcCyLpNqa+o5YztMrOoIETHhr9WlPZz59GOhZ7VfX720rVBP20mDSAOnAxeEJKvF8tzQ8Q==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66556008)(8936002)(4326008)(83380400001)(52536014)(66476007)(66574015)(66446008)(64756008)(55016003)(8676002)(508600001)(33656002)(26005)(6506007)(38100700002)(38070700005)(110136005)(86362001)(53546011)(122000001)(9686003)(921005)(5660300002)(76116006)(66946007)(54906003)(7696005)(316002)(186003)(2906002)(71200400001);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1770.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(122000001)(55016003)(5660300002)(83380400001)(33656002)(26005)(186003)(2906002)(508600001)(316002)(8936002)(8676002)(4326008)(71200400001)(38070700005)(9686003)(66476007)(66556008)(66946007)(64756008)(76116006)(54906003)(66446008)(38100700002)(6506007)(86362001)(110136005)(52536014)(53546011)(7696005);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?ZwjK+uiHDSWCPXeoJ8gX4ymigSKew65Kkj369/OOz6PPL5vEe7m9VtiX+W?=
- =?iso-8859-1?Q?r93Uu+pwD47KpQREZTtoSFAAOOagHgC8B+MOaR7nAPjmwq/9GVljHD+G/8?=
- =?iso-8859-1?Q?GpPnb+EMzAwN54Q3FqoZdMOTwRWWBmz/FcyHCzD7TXPnMG7N7bHtns/ZLe?=
- =?iso-8859-1?Q?0XQNSRk4rOaH7+bA+tJc/CGmqtSvyyzE5IfYmBfblzZWJGcH+hGu205T5p?=
- =?iso-8859-1?Q?Kny6FT/rYERSxzYisfoglsUCOY1rQ0ZvI3mA61OKRhixlr2mcN4j4sba7v?=
- =?iso-8859-1?Q?ZRIKGLpt4Zy726rCbwD/VPx/QQ9iMqyZl5YWsNdqkqeAla2TbjDeJeSDMN?=
- =?iso-8859-1?Q?Y8561OQXVOYtox12wBd9O0g++v5xVbJpU5noIdGt4Xpkdqx04f40nUbi03?=
- =?iso-8859-1?Q?e0MGGQCmJeABzfaLi0ijvuWrgKX5wvLKr/1O2WlUohx1kF/xF+Tth4zOZI?=
- =?iso-8859-1?Q?gKd0K6aA3Eiph4Al02EqW0v1r+KQGXO01c8/StY65xy0KjJTGcvFaHQ1cr?=
- =?iso-8859-1?Q?r8zagcfxtI8J7OWfSSMq/4D2GqHOhJ2SkB22mTKz+OZl1789WrsGhSpgdu?=
- =?iso-8859-1?Q?5DJjwcX9741OnCtfaLL7rD5uRRX4E6Ea+vDpo8IYc1GGi6zFN7EbNLnBVi?=
- =?iso-8859-1?Q?heHwJzn4c3gzNEdJ/9noV5ME5vUvDf9vnQX+gP3QX60FjfLjPPsd2IB+Oa?=
- =?iso-8859-1?Q?9SB27ghaudrz1e5GgxOY6z2WsaT7fXHkAcrYUfClDg5DNaJCqYSCcuImwi?=
- =?iso-8859-1?Q?upZRvD/DcxXq1aPGmGydbwiByj23Q9UF7ffypNLUdFaGW9HmRO+fHUNyXN?=
- =?iso-8859-1?Q?E93JEmCGdE9iAexVLRbG4JcA/mDUOve1hC2MyAhQF27QEv1vnif/OSJmR7?=
- =?iso-8859-1?Q?Fb+B0f7G3XE1x37h1SgriQU7fe5YR8b5IczYY3PaMB+d0/P1Ca8KWOrhdW?=
- =?iso-8859-1?Q?SND9NsCL75/KKNzdreVCasJLqQzLHWOAjgMH0r/JBrVTNiekcpL7cxDqrt?=
- =?iso-8859-1?Q?xJ5lQHQs4EF6irdRh9dM2y+trZ8Q+D85iaMOTf40VWMcOIeBMCadP/Gtp3?=
- =?iso-8859-1?Q?AA/ctLXy8HebPQn21RpKyO/otcbMisbqRXGhoZWSZMrBcN9ilPU+oqQIQX?=
- =?iso-8859-1?Q?Gqxj0lNyanJZS6Gy77ImN5Rlo4vwGKdt3nTrcqTH0X8T6RSoKlSwogq1Zj?=
- =?iso-8859-1?Q?BUryDQF7SsoyFlMk9SmNv/EE8uq9DmjA3tBOsLUvm7TqpQGV91Zb1y+u0z?=
- =?iso-8859-1?Q?ESm5INa87eJJ3Mhi7K+vYRoxp1fMiTONsJG3E6pnxaG21dfzCWKSWtAWAe?=
- =?iso-8859-1?Q?1UI7rqdM9nhsWRlcqQabyFs61E4uUo/2pvDlaSK0qZq/eUT/SftDWQP+l1?=
- =?iso-8859-1?Q?qsZuaHzLGemYM9zFFWBuTHzq8aoof/uLCkczDHdZA3M67bVv3NADrXGhD1?=
- =?iso-8859-1?Q?vjEuvfag9WjQWEhI1f5UtUcft/Zr75jEEwyT2Y15gm8KFO8bezA10F/Ere?=
- =?iso-8859-1?Q?chQWSaXa4j08UTJl7OSaQeDk7lodhYpDJczsNadz0D0VxSPJ1fHtTuU5oC?=
- =?iso-8859-1?Q?OfiaJb3dNeggX5uHcWlEXHyA4BqPHJzOAReibR9/ro9wn/K0nfnzjt6YA6?=
- =?iso-8859-1?Q?X0Dp+ULPpwO5g=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?qNo712K/JU9aR8nt9hEmXzZu+M59vcGkiG9B0q91Ij/lgB5mHetXK0NQ5j83?=
+ =?us-ascii?Q?8dyTMY2KoSVWqyWxLaxtEgk6FrWxKV21/JkYtUI3Fp2N9RSXZN+1VOn+DoEr?=
+ =?us-ascii?Q?sOOSP1lh4vQOH/6KX8KG4XzvZLU3gPG0DSxZ2hZghIy+zYHoBBkaPmbnCOTc?=
+ =?us-ascii?Q?LwzIBOUmPq37ChUZuxX61HVrmgpntk9HgCDQNbsvtJIP20Z2CInrVZ7ywXFl?=
+ =?us-ascii?Q?nHcD4jX25f+7wR/bT/RBRNdmZL8XyB1M4cQPn3n/A9uAwgU38efiAx4uIhza?=
+ =?us-ascii?Q?ig52umDnxfhSWtJMnPQ1Wu7g/7xIZMikMvdsa5QmlRbPT81CfQFyKeUm8SDs?=
+ =?us-ascii?Q?0gvGtVivwaz4V7rVY1p+CjOLiSYyDcD+It0koQmk54J6xWt847N1cmEpNcnu?=
+ =?us-ascii?Q?up7G4VYbQofT7kQP2OxAYG0NNdTM9bXgxs+4alL6zmWw+l/MXe8RKt+MijaX?=
+ =?us-ascii?Q?VzUdtZ7GZoANQ7Z8c3+UfpRO2KIDaVnvhPgBTqxmxBSSZMFKahkEkjFvfCRz?=
+ =?us-ascii?Q?ASQyhyxbo5H/W/GoIyePibsrCHaxpBZmbzlY2aoAnE8WbK9JIWVa0oFlctqD?=
+ =?us-ascii?Q?6UvFSs8QKvLUfX5fQ3jZwPrPLV9tjddnjVJcWxG8J9/Vg/Hmlr/ue4ScrCiC?=
+ =?us-ascii?Q?5Ta2X0nSophqO7dp+bsp5ek0kABXGPsmPW+kKEkw6uu723bmHNeUNo+Dk5Cm?=
+ =?us-ascii?Q?Hj34NPLyuD4BqNlcbljzKVxL35Ywgmc67a5+3OpsMkk9mhe3Ix/ynm+4zhtD?=
+ =?us-ascii?Q?wYXmgMfjICs3IH7igzeW3eq/Z3rR8VAhAMEKEbTc3egKWBS9grDeE2HKZn9Y?=
+ =?us-ascii?Q?ovmtFNH7Gn2hPvHNsLdIN5cQebOMDNWu8c10ePT+qAEtU0WD8i3f2dM2NXuf?=
+ =?us-ascii?Q?tNFOQnIrRrfauusX8hKZyagCdJe8fWIIL/PNK+XaMVGFZg99002HHuFxLyNi?=
+ =?us-ascii?Q?c9Ry9EWKuTa4L6eR1Ckoy/bji4JkwjpRWVfnH/3ez1QFe8ut1/FBBCZHiqwD?=
+ =?us-ascii?Q?uhG+ucbPHp41+Bul+RH3MIOd/WgAT9vq+hEbA/YLpf48cPgPp51Sbn7RzC+J?=
+ =?us-ascii?Q?YGSKoRDQ4CEc42brmITYQk9H7D3/JN9cxxCWIllXep6Uh5uXPfBFqu8Rgc4y?=
+ =?us-ascii?Q?jVWp/CxD7VoNJnru0Hekrl9jQFfMdCNctf2hQI9rlpGltmKHeqP8YlkoCpVZ?=
+ =?us-ascii?Q?zXcyG5MyKcyiEXOar5L+n95FX06Ao/8mPyg04Q59J957MafQ4gMYCeRQU9PS?=
+ =?us-ascii?Q?84UxhejxQoorBv/yJMgPsSA4XpxBcL2PJYhnneuAvM2zTVcg90WS2UKM2UKT?=
+ =?us-ascii?Q?lXzttPbpy6OAuvUkuEr5CNA08FoEFQhyvuAW5jHqqANlpIjsELoTLBm2f5k5?=
+ =?us-ascii?Q?PoIG3ZEfVDJek/YctN3JyXyaDyb3cvkNoz765RNaptmPvk0bzRlsdNGjxLlk?=
+ =?us-ascii?Q?WHFxcnAWFYa5HkszskJ/lj1IBCYQeznKwnITfc480p6n8Vqoarayq7+cJzKu?=
+ =?us-ascii?Q?vxepAfBMitrH660Rjq3tiWdNGjnLXFbj8anHo3MM1WyrzGLgIlVwvQPMpInk?=
+ =?us-ascii?Q?pMYoXL20KefZhCV8vBE=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c95d8c5-d6ed-4db9-fe23-08d9e9ea1fd4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Feb 2022 03:30:01.4369 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1770.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8064cdab-413a-4c83-a368-08d9e9eec21b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Feb 2022 04:03:11.5996 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bRnGRLBidpl8e6F8yrO2zVwcLD0xITVqUzE3/TBSN/tycuuzlaoXxFpQ+IaqDeRZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1916
+X-MS-Exchange-CrossTenant-userprincipalname: o4M4cY0bmev1wpXU1n9UtUD8UuNnhAsSQq8OLQVPLweQLWag8kbNkgQB4S2QjH3c
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4815
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,118 +133,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Chai,
+ Thomas" <YiPeng.Chai@amd.com>, "Clements, John" <John.Clements@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only]
 
-Thanks for the fix!
-Reviewed-by: Evan Quan <evan.quan@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 
 > -----Original Message-----
-> From: Ma=EDra Canal <maira.canal@usp.br>
-> Sent: Thursday, February 3, 2022 8:40 AM
-> To: Quan, Evan <Evan.Quan@amd.com>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>;
-> airlied@linux.ie; daniel@ffwll.ch; nathan@kernel.org;
-> ndesaulniers@google.com; Lazar, Lijo <Lijo.Lazar@amd.com>; Tuikov, Luben
-> <Luben.Tuikov@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>;
-> Zhang, Hawking <Hawking.Zhang@amd.com>;
-> jiapeng.chong@linux.alibaba.com
-> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux=
--
-> kernel@vger.kernel.org
-> Subject: [PATCH] drm/amd/pm: add missing prototypes to
-> amdgpu_dpm_internal
+> From: Tuikov, Luben <Luben.Tuikov@amd.com>
+> Sent: Friday, February 4, 2022 7:13 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Tuikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander
+> <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>;
+> Clements, John <John.Clements@amd.com>; Zhou1, Tao
+> <Tao.Zhou1@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+> Subject: [PATCH v1] drm/amdgpu: Print once if RAS unsupported
 >=20
-> Include the header with the prototype to silence the following clang
-> warnings:
+> MESA polls for errors every 2-3 seconds. Printing with dev_info() causes =
+the
+> dmesg log to fill up with the same message, e.g,
 >=20
-> drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm_internal.c:29:6:
-> warning: no
-> previous prototype for function 'amdgpu_dpm_get_active_displays'
-> [-Wmissing-prototypes]
-> void amdgpu_dpm_get_active_displays(struct amdgpu_device *adev)
->      ^
-> drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm_internal.c:29:1: note:
-> declare
-> 'static' if the function is not intended to be used outside of this
-> translation unit
-> void amdgpu_dpm_get_active_displays(struct amdgpu_device *adev)
-> ^
-> static
-> drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm_internal.c:76:5:
-> warning: no
-> previous prototype for function 'amdgpu_dpm_get_vrefresh'
-> [-Wmissing-prototypes]
-> u32 amdgpu_dpm_get_vrefresh(struct amdgpu_device *adev)
->     ^
-> drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_dpm_internal.c:76:1: note:
-> declare
-> 'static' if the function is not intended to be used outside of this
-> translation unit
-> u32 amdgpu_dpm_get_vrefresh(struct amdgpu_device *adev)
-> ^
-> static
-> 2 warnings generated.
+> [18028.206676] amdgpu 0000:0b:00.0: amdgpu: df doesn't config ras functio=
+n.
 >=20
-> Besides that, remove the duplicated prototype of the function
-> amdgpu_dpm_get_vblank_time in order to keep the consistency of the
-> headers.
+> Make it dev_dbg_once(), as it isn't something correctible during boot or
+> thereafter, so printing just once is sufficient. Also sanitize the messag=
+e.
 >=20
-> fixes: 6ddbd37f ("drm/amd/pm: optimize the amdgpu_pm_compute_clocks()
-> implementations")
->=20
-> Signed-off-by: Ma=EDra Canal <maira.canal@usp.br>
+> Cc: Alex Deucher <Alexander.Deucher@amd.com>
+> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Cc: John Clements <john.clements@amd.com>
+> Cc: Tao Zhou <tao.zhou1@amd.com>
+> Cc: yipechai <YiPeng.Chai@amd.com>
+> Fixes: e93ea3d0cf434b ("drm/amdgpu: Modify gfx block to fit for the unifi=
+ed ras
+> block data and ops")
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 > ---
->  drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c | 1 +
->  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h      | 1 -
->  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c   | 1 +
->  3 files changed, 2 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
-> b/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
-> index ba5f6413412d..42efe838fa85 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
-> @@ -25,6 +25,7 @@
->  #include "amdgpu_display.h"
->  #include "hwmgr.h"
->  #include "amdgpu_smu.h"
-> +#include "amdgpu_dpm_internal.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index 9d7c778c1a2d8e..e440a5268acecf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -952,8 +952,8 @@ int amdgpu_ras_query_error_status(struct
+> amdgpu_device *adev,
+>  	} else {
+>  		block_obj =3D amdgpu_ras_get_ras_block(adev, info->head.block,
+> 0);
+>  		if (!block_obj || !block_obj->hw_ops)   {
+> -			dev_info(adev->dev, "%s doesn't config ras function.\n",
+> -					get_ras_block_str(&info->head));
+> +			dev_dbg_once(adev->dev, "%s doesn't config RAS
+> function\n",
+> +				     get_ras_block_str(&info->head));
+>  			return -EINVAL;
+>  		}
 >=20
->  void amdgpu_dpm_get_active_displays(struct amdgpu_device *adev)
->  {
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> index 5cc05110cdae..09790413cbc4 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> @@ -343,7 +343,6 @@ struct amdgpu_pm {
->  	struct amdgpu_ctx       *stable_pstate_ctx;
->  };
+> @@ -1028,8 +1028,8 @@ int amdgpu_ras_reset_error_status(struct
+> amdgpu_device *adev,
+>  		return -EINVAL;
 >=20
-> -u32 amdgpu_dpm_get_vblank_time(struct amdgpu_device *adev);
->  int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum
-> amd_pp_sensors sensor,
->  			   void *data, uint32_t *size);
+>  	if (!block_obj || !block_obj->hw_ops)   {
+> -		dev_info(adev->dev, "%s doesn't config ras function.\n",
+> -				ras_block_str(block));
+> +		dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
+> +			     ras_block_str(block));
+>  		return -EINVAL;
+>  	}
 >=20
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> index 7427c50409d4..caae54487f9c 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> @@ -28,6 +28,7 @@
->  #include "amdgpu_pm.h"
->  #include "amdgpu_dpm.h"
->  #include "amdgpu_atombios.h"
-> +#include "amdgpu_dpm_internal.h"
->  #include "amd_pcie.h"
->  #include "sid.h"
->  #include "r600_dpm.h"
+> @@ -1066,8 +1066,8 @@ int amdgpu_ras_error_inject(struct amdgpu_device
+> *adev,
+>  		return -EINVAL;
+>=20
+>  	if (!block_obj || !block_obj->hw_ops)	{
+> -		dev_info(adev->dev, "%s doesn't config ras function.\n",
+> -					get_ras_block_str(&info->head));
+> +		dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
+> +			     get_ras_block_str(&info->head));
+>  		return -EINVAL;
+>  	}
+>=20
+> @@ -1717,8 +1717,8 @@ static void amdgpu_ras_error_status_query(struct
+> amdgpu_device *adev,
+>  					info->head.sub_block_index);
+>=20
+>  	if (!block_obj || !block_obj->hw_ops) {
+> -		dev_info(adev->dev, "%s doesn't config ras function.\n",
+> -			get_ras_block_str(&info->head));
+> +		dev_dbg_once(adev->dev, "%s doesn't config RAS function\n",
+> +			     get_ras_block_str(&info->head));
+>  		return;
+>  	}
+>=20
+>=20
+> base-commit: cf33ae90884f254d683436fc2538b99dc4932447
 > --
-> 2.34.1
+> 2.35.0.3.gb23dac905b
