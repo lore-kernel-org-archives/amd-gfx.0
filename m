@@ -4,56 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F620C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 18:44:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E07F1C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 18:44:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9228510F9C2;
-	Mon,  7 Feb 2022 18:44:17 +0000 (UTC)
-X-Greylist: delayed 2640 seconds by postgrey-1.36 at gabe;
- Mon, 07 Feb 2022 18:22:14 UTC
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28C9710E3A2;
- Mon,  7 Feb 2022 18:22:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=deltatee.com; s=20200525; h=Subject:In-Reply-To:MIME-Version:Date:
- Message-ID:From:References:Cc:To:content-disposition;
- bh=fEpCgCTX3h2p5UN6S8G2mb2i3aC8G4ppdXgJ4LAUOGU=; b=XtZxNl7rveoZfo3hm92UT9KtIn
- TtfEzS/obXfk3nfrPZQaNcvNJUwwbQ6FzvaeEldi8mcXvPcHXrxfFOT99cxGORMyDdpOVPqYgWzhi
- NJnUpgdumuFyV2Tyl4IQts6oBLVaEJ6HMSLjCaSC8BxCiLvC8sRYx1T5KoSKEkaCFuFOKFauwDLJT
- qDYAHUO9NbVOKwEI0y/pDnprLXyf0uJTBMutoNPy5QjfIiwWCMAn64wh72jOJz0AvGzbx5ngPzJla
- 9IgNxQUju0gJaTa8Q0ExQHFh65YjcZN7/8ClykiaX2fTLk5f5rYdLc6sSPtEu6A4YR4u/mO5qpQUx
- bob8LGjg==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
- by ale.deltatee.com with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <logang@deltatee.com>)
- id 1nH7xp-00EVc6-C4; Mon, 07 Feb 2022 10:38:09 -0700
-To: Christoph Hellwig <hch@lst.de>, Andrew Morton
- <akpm@linux-foundation.org>, Dan Williams <dan.j.williams@intel.com>
-References: <20220207063249.1833066-1-hch@lst.de>
- <20220207063249.1833066-7-hch@lst.de>
-From: Logan Gunthorpe <logang@deltatee.com>
-Message-ID: <a8c54032-3347-c999-d644-02e6e7d2bfa4@deltatee.com>
-Date: Mon, 7 Feb 2022 10:38:06 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC54210F9C8;
+	Mon,  7 Feb 2022 18:44:18 +0000 (UTC)
+X-Greylist: delayed 316 seconds by postgrey-1.36 at gabe;
+ Mon, 07 Feb 2022 16:40:49 UTC
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF8ED10E15E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 16:40:49 +0000 (UTC)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 5C5CE5801D7;
+ Mon,  7 Feb 2022 11:35:33 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Mon, 07 Feb 2022 11:35:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to; s=fm2; bh=Wpd1pV4OsjXu8K
+ McYu4OFX/LXZsN9ht6MuXhmtDiIss=; b=G3gXMr3hhK3OOVvFZPTeerAsvAvUCu
+ kMSa5zdkFOj9aaeOhzi60jweTJmoCykNAaiHfw7fulEF220dv5rJCVNTJYnndgPd
+ QbfU/GHkFdq/SqHGhQm0+L9eg66SmI2459Frurycm7dhpbibcQNIneGPGPB9AHU/
+ mWW7pIvowLPNfLJhiMeel8NoWeGeTnkny2CrN0CDSizPcKCX2fMHI4tbTNfrGX4L
+ tfLfqc484vOsdjj+mmEZcuJHDI5cA1rnUsnmBE98ej4LJo0oo2dJeafDAmGqieNg
+ Cm+cpLceW3op0q2nGLHfhjGJpxIeS2tWMgI+Wtznl1huSaDjbEy521gA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=Wpd1pV4OsjXu8KMcYu4OFX/LXZsN9ht6MuXhmtDiI
+ ss=; b=hd++mgzAKPZOLRfy1uneFgd6GEK9UpS28tHfJsl4slEo5OJ3Lvz9cCWQt
+ HNZzfpOoAYPH5bYUHU6Vhn1Skmdyl2HvFIQR0Phl8LN/QPTx5PuK2un4NOPMhU2Y
+ OVBtMK2NclveoGfX520xZ/3Q/RSg/ik+KksqhBaj36XSFmxeMMjUh6eRYUl5Nnl8
+ vOwEHUs1A31ibgErbeYSYg5aLw5dYS8RLyXQ2uXl3hcS6oBxdlTFXabE/KHb5a1X
+ nJzKfRKlBE4HhPKjgBv7fxEVxI6r/7Sz5oPbUhh7sPId+Z1Gl5VW1aPPaXxDePI7
+ +lIfzAAA30eUw5rFo8P1zyIW01IXg==
+X-ME-Sender: <xms:VUoBYpIpehjqCa6BjbCzT2ls3_ufHCfCItC769j43cFlncQMRjM-Tw>
+ <xme:VUoBYlL76mOF9Oc3pCN63oE3kUdX7f40WC4yEa6xXVmzEoBaZVpI438hHGMPT5kKn
+ TclXPRVwt3-px4wL6g>
+X-ME-Received: <xmr:VUoBYhsG0WuKByK4SSVriFxXdSAmAnlkdJL6Q7IG7Kn6az3_babENcTCVqUePpAaovhMrvt8dduNKcjy3fIc7s0Yeu9dffu5q3tWBVM>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrheehgdekjecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefhvffufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepjeeugfegkeffgfeuvedtvddufffhjeffjeejvddvudduteehhfefhfefgeei
+ keeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
+ grgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:VUoBYqZHQwMjXncR4bh3EW_0PFXmgyDW9bFelYCwDy1HwvVNbpRBlw>
+ <xmx:VUoBYgZqUBOFp5xgkQtjdRAnvPE7-ommJuOThMzVallwpjO2uyVOdw>
+ <xmx:VUoBYuAk7eq4pfRamPQ1AnljgOXXSNTU_jTCKWXKuzFF9P8xCdhRBA>
+ <xmx:VUoBYtJ9IE3UyeMCROSBzPB7h0QnA-nYkRAA1K7StnCmMaEgrw687w>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 7 Feb 2022 11:35:32 -0500 (EST)
+From: Maxime Ripard <maxime@cerno.tech>
+To: Daniel Vetter <daniel.vetter@intel.com>,
+	David Airlie <airlied@linux.ie>
+Subject: [PATCH 05/23] drm/amd/display: Fix color encoding mismatch
+Date: Mon,  7 Feb 2022 17:34:57 +0100
+Message-Id: <20220207163515.1038648-6-maxime@cerno.tech>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220207163515.1038648-1-maxime@cerno.tech>
+References: <20220207163515.1038648-1-maxime@cerno.tech>
 MIME-Version: 1.0
-In-Reply-To: <20220207063249.1833066-7-hch@lst.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-CA
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: linux-mm@kvack.org, nvdimm@lists.linux.dev,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rcampbell@nvidia.com, apopple@nvidia.com, jgg@ziepe.ca, lyude@redhat.com,
- kherbst@redhat.com, bskeggs@redhat.com, Xinhui.Pan@amd.com,
- christian.koenig@amd.com, alexander.deucher@amd.com, Felix.Kuehling@amd.com,
- dan.j.williams@intel.com, akpm@linux-foundation.org, hch@lst.de
-X-SA-Exim-Mail-From: logang@deltatee.com
-Subject: Re: [PATCH 6/8] mm: don't include <linux/memremap.h> in <linux/mm.h>
-X-SA-Exim-Version: 4.2.1 (built Sat, 13 Feb 2021 17:57:42 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 07 Feb 2022 18:44:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,27 +84,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
- Karol Herbst <kherbst@redhat.com>, linux-mm@kvack.org,
- nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Dom Cobley <dom@raspberrypi.com>,
+ Tim Gover <tim.gover@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Maxime Ripard <maxime@cerno.tech>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Phil Elwell <phil@raspberrypi.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The amdgpu KMS driver calls drm_plane_create_color_properties() with a
+default encoding set to BT709.
 
+However, the core will ignore it and the driver doesn't force it in its
+plane state reset hook, so the initial value will be 0, which represents
+BT601.
 
-On 2022-02-06 11:32 p.m., Christoph Hellwig wrote:
-> Move the check for the actual pgmap types that need the free at refcount
-> one behavior into the out of line helper, and thus avoid the need to
-> pull memremap.h into mm.h.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+Fix the mismatch by using an initial value of BT601 in
+drm_plane_create_color_properties().
 
-I've noticed mm/memcontrol.c uses is_device_private_page() and also
-needs a memremap.h include added to compile with my configuration.
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Logan
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index feccf2b555d2..86b27a355e90 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7914,7 +7914,7 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+ 			BIT(DRM_COLOR_YCBCR_BT2020),
+ 			BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
+ 			BIT(DRM_COLOR_YCBCR_FULL_RANGE),
+-			DRM_COLOR_YCBCR_BT709, DRM_COLOR_YCBCR_LIMITED_RANGE);
++			DRM_COLOR_YCBCR_BT601, DRM_COLOR_YCBCR_LIMITED_RANGE);
+ 	}
+ 
+ 	supported_rotations =
+-- 
+2.34.1
+
