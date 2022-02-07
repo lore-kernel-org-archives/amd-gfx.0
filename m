@@ -4,104 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46126C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 06:35:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D663DC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 07:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D50D310E157;
-	Mon,  7 Feb 2022 06:35:03 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D0F810E157
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 06:35:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cZw48TVe/iUgg5RwuCDon3L9BWN/j71AwpUDrx9cELYYg3YmTL40WPrY4bNCYwYvGMY9qwU2lkLpMFEJFiECSE/xNvkgMjH49yYeZG2gMj4c9h/1OR2t6cpuWcKyycdFkxlPnlYYhbbBWtNuaSUvekaMz/HjRVoHfllV2ZIQgRCBqgl79nyiOf/270QP9iwYvaoPQS5c+zghcwhQCp+obuRT9L030VDsCDemDuWwyy4wuSo41lpcJBzG2vGfgWcyfpa8MWvLQcnrRLcP0yNtm35M1tQuallQATDST7n5dmJZjSVEucQc7RRwHcEpbwtOe3P4n9/wgk/7jJnOwUhQUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wrDHAZfOPmhVPWI3NHXOgNqPTn2ZdhLrTOcUiBnWfg8=;
- b=TJ96YDGuZTpZwXUretOenZCDNQ9gsv5BoXxhxaY/9Z6KFSQdYAdyR+Zy8wZnQe7aR3vx2oGp98bRwl7Q8vBHUXoKPSlE0sP4xTBgYkEYen36yJByPq7M922hKiVHyefje1cSl5De5pVNPyh0jcI66vcW+/A0QAFxvbYHn68KsM9WUbnZ+8E4QzhVGgVG9aaD6BWKflli2UVrHlETZZ0uFFR/sWwZ/0INLaKIeuyrV/TrMvxJe4HqGd1Yar4YpQC6UST0Bztoo6ceA4gnZRlHpYdCVobtO8jMjBtd5KVypab1ocRiAn7SIWuPR9/Qw/kCsgaUFdlC3Qrv92xNFgC30g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wrDHAZfOPmhVPWI3NHXOgNqPTn2ZdhLrTOcUiBnWfg8=;
- b=yi8p3MeqmGZ7rneKFcDePwEzLp/Z0XloruKbqvR96FbIeNOwJOv3eho3cGyuyq5Nr8OGPEzvC9d268xDNaEb2pl4dqEe1upZytk8ToHS5NmClIumcIO79/NKSEsqQCGC2CE3DQyzar/5HmxNsM2a17yLJ+EDF7VdHK0N/F3JrtE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB2504.namprd12.prod.outlook.com (2603:10b6:4:b5::19) by
- SN6PR12MB2686.namprd12.prod.outlook.com (2603:10b6:805:72::30) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4951.18; Mon, 7 Feb 2022 06:35:00 +0000
-Received: from DM5PR12MB2504.namprd12.prod.outlook.com
- ([fe80::f02e:2cba:7c63:e368]) by DM5PR12MB2504.namprd12.prod.outlook.com
- ([fe80::f02e:2cba:7c63:e368%4]) with mapi id 15.20.4951.018; Mon, 7 Feb 2022
- 06:35:00 +0000
-Date: Mon, 7 Feb 2022 14:34:38 +0800
-From: Huang Rui <ray.huang@amd.com>
-To: "Liu, Aaron" <Aaron.Liu@amd.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: add utcl2_harvest to gc 10.3.1
-Message-ID: <YgC9fq0k5K7TlKaB@amd.com>
-References: <20220207024155.414712-1-aaron.liu@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220207024155.414712-1-aaron.liu@amd.com>
-X-ClientProxiedBy: SG2P153CA0038.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c6::7)
- To DM5PR12MB2504.namprd12.prod.outlook.com
- (2603:10b6:4:b5::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 658C110E158;
+	Mon,  7 Feb 2022 07:24:29 +0000 (UTC)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8365510E158
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 07:24:27 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id og43so15279321ejc.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 06 Feb 2022 23:24:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=7DFsSmfhxx2CnAZra8+8y4ueuuIflofLuI3YXWvefSY=;
+ b=c9/D5HNYGWK5QgGQEF9uueSHca8G843NjiYxiSn8aElfBAH6HsWzXFfa05sHKWehZQ
+ oIJ/VNkAZ9DdxqGm6ZKhBLZ0qMelHIEV1lGwIeMsboNoEoorfgCdDefs0S/SiZ1/4Tw8
+ E+KtJUZ3wgX3aXJ+6GVm9yZwYNbM10WWjNtjeZYbYRFhMyXMpqUNXUhyEDfe3LJo/T5e
+ j9Y7F2cHYd4sqleUB4izmiL/0bo4+UE4NAPhBawV/XaRvalfSfX/1xZ14GJcwh5Cs0V1
+ 8S9aBlyen/FlawgvekgKyDmAJapFBqT7ZjfHXBmezg7VYWL99YUv2IPZTxCkP8//x5eR
+ lSfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=7DFsSmfhxx2CnAZra8+8y4ueuuIflofLuI3YXWvefSY=;
+ b=7trhiM7je4BpfCJxOh9B/GE9lMKPOMWYcmEI5dcozSOp7WGa2IYVP3Dpe5H9GeWuig
+ vKpirMo0SODUV3CklHe4HhELfPBlGRdkijCGWN27i6SrdBzgGAi5aER672Kmm4jl2Lah
+ 2L7IKSeD06ytoXOLGgquXNcWvh2nkT8lRqpQMIXxNS3ORdvdihFczcLb0Iv4R7R7oeEZ
+ K8qZIU3WKqOnrCqbKvBe7qQlcFfHzIImzZq/sv/hwYVyFIdCIxaSpVfcePmJwuPDZANp
+ RRxPP1zWHjKaiMIuXhu6ACuN8bXu/WCq6/qdThicb6xMERSdlJDlpShpSuLWTSXOy1Bb
+ BeWQ==
+X-Gm-Message-State: AOAM532SkNcF4aO6i0N3nGPk2Oju3C82LnnqDqsRQAe/yPwcKRILMGTk
+ mr0jbLeKV/yZ+YbJxYfo3texaJKPnlM=
+X-Google-Smtp-Source: ABdhPJwF/XLGkOBrDRHqag5qiPHyCOQrKy4zRHx5nepLeVUFXTGa0bM6JX8QG3701GnwaOCd6+UxSg==
+X-Received: by 2002:a17:907:c19:: with SMTP id
+ ga25mr9341684ejc.606.1644218665953; 
+ Sun, 06 Feb 2022 23:24:25 -0800 (PST)
+Received: from ?IPV6:2a02:908:1252:fb60:880c:5e12:7231:e358?
+ ([2a02:908:1252:fb60:880c:5e12:7231:e358])
+ by smtp.gmail.com with ESMTPSA id eq19sm785454edb.36.2022.02.06.23.24.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 06 Feb 2022 23:24:25 -0800 (PST)
+Message-ID: <a486054b-9a4a-d628-6810-d5446c78de16@gmail.com>
+Date: Mon, 7 Feb 2022 08:24:23 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 15bd3955-76d7-4d37-59ba-08d9ea03f751
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2686:EE_
-X-Microsoft-Antispam-PRVS: <SN6PR12MB26860CD743FCEAB17382D9EDEC2C9@SN6PR12MB2686.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:338;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZkKNRT5hnwtTT67q7YA+V0S84KBy3g7VMCe1ImPJPhEurtw2Qsv7rHIWRl7zL2x2Q/EyhKvS3gSe/rIO5vOk+ctP5xIylYw2X/5G/iaU5Rf9Xk0dcxVA+RAjlFHKUA6O4yoS9THTK/UrxigotDMhaG6QB3Ug6/41RwmPXW8QjMl1R+5ce5a1un0nvxjxnys5iwXZZ1h1enTlUj9uUM76nDnY9fFmerzR32Nwg9fOwFQvgfKZSz+9+zSM1frN7phkYe5HJjROvFAYR2vAoSpEcQOoTTSJjQJIG3WqilnKFgPA2rjjMKTeP6wTchERbBi3csEEv+Y6jQ4rZWlQvaFMlxtnHgo9DEaGuvFAmjVQxYMabeIEKlbBfdU2JnEVlE+PKNgnMMQqUn/K8OLQFt4QuTk9Uav86yLcvVtmZMxtQtx2y0DYCl5NxW2yk9gdiWgw/2e99dz0ZIK4EqfWyyPrE1qTw46SKlAcQYVWRQCAz5gMWZK0Prb1z+vEkxFr3LFts7vFGog+oksXgooeHLwsnx2fSRr46L3lkgv2/q/VwCRavoP1NIVU+PqoNvJhbNu6gMmTUX/VQmT4JCWxg7yJrTpZNSdSohgdEi+E9fQXKvYS7wKJcMbgEeE876UUvSM99AhARPUDH46tPcd1fUFJyA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2504.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(36756003)(66946007)(6636002)(8936002)(66476007)(66556008)(8676002)(6862004)(4326008)(38100700002)(37006003)(83380400001)(54906003)(5660300002)(2906002)(508600001)(6486002)(26005)(186003)(86362001)(316002)(6666004)(6506007)(6512007)(2616005);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?HFF37mPaaK0jbw6k/5eOC5plrlWRmxEMftOwA72s0a7/RM4AHHSDSCojow2k?=
- =?us-ascii?Q?/tQLXWQIR4o4SelW32n33mhCsDGx0h4wCJ+cn9O+DX2LphC6WWbuFfCdr3Cb?=
- =?us-ascii?Q?qnteRBaQc7sqWPGhBlhM5bs28wsLHz6SiJlMol1J0eWnZocDj5IfmsMSYcIk?=
- =?us-ascii?Q?JAKAqzVxaBea/wUUhxjjtTQN/8WG/EKYDoVBt8JIToKn/WTSiYEGq+ApzhtQ?=
- =?us-ascii?Q?+9H4RhJe78w8MZIBjnm5/aihALDj64Qlg+64iyOWugKXViz8dIjboPew3fSs?=
- =?us-ascii?Q?OSBluHqQ6vnIOxL8ogO4TOA7nhwBKn0afrrwPW9+9lEBHXXYv2+XNkNO2Iu0?=
- =?us-ascii?Q?NPOVNhwLpJyQHZelkjjDjo5FtGKREyIiYs+UhtYwYuO4FMsN9eagZoH6Bks6?=
- =?us-ascii?Q?YrBO7r5stXatpRWL31l4LLUzhG4Zli0gTxQizrQQUJDzYyAa1oRHKJJjwf2w?=
- =?us-ascii?Q?MtG6Jv9+MuddcTEqI7eIhaQO2qxbwlscLA7gOL0AhYDIU8iStVctKHegP8Vp?=
- =?us-ascii?Q?01KwP5MyhdVqT4KmyGdu2Jk+VM2zN+8Ouzfd+6Jl7eRCnNAujqde2k8Nvycm?=
- =?us-ascii?Q?1nDjDVNeEu3LkrmtjlOHELNnTGnTCYy1+/IJHFaHsCV+gZ9tuqdYn30+rjGr?=
- =?us-ascii?Q?0Tuzns28R7aXMGma2zyW+Y8UhbNsPWGIwj4Sn/7oZE7ZR3i6NMG6hnnDCNIM?=
- =?us-ascii?Q?oup1jousKKTOinN/hwN8lo4/biJ9n0mUMdaYAaITCa5QuJODPxUa7UTH1g3i?=
- =?us-ascii?Q?awWWaQapNDNiczP7FcjlnOX4ze/T/cFqcPyOWmu3DgRDS35AOYGA453IkCnV?=
- =?us-ascii?Q?RGU18+lmqgG1SW+rujLkz1OGFN5lqtuNyuRFIKZ6N2nrs/Q+iu7zeOq0zmcW?=
- =?us-ascii?Q?NvPCKsuxpZDNn1ZM3nmT5JIF9e7ddaBNCBvFzxrtc40xZi4HiyywsSkr/21G?=
- =?us-ascii?Q?6q+oOPRrpiIzQkBViLczhCJCAk1HvSk56xYLDoUxKS8Pkk1+sFVW8wFDtvlO?=
- =?us-ascii?Q?Xoh0J5mSnyosVBBtZ1JvmgrXJ/IKnRlqPJHYlvvfiEUYHYnZrS/s8CQj0eTy?=
- =?us-ascii?Q?xMMYizZ1MZ6SH2IkdUV+UsY7Jb7kDXdwhk/5H4cPQVuqXEhvGU5xtwnIO8Ss?=
- =?us-ascii?Q?sKtap2RwQGX7S7aKdGc+NwyueFj+IGAnaUccLPoBhiHhIYesI0VMsej27TIS?=
- =?us-ascii?Q?VtWq6PG9E1tjOePr8G/IBOXIuDHY4tCMmX7JiCvF3JjpuAiiU/TKH65fJ5Wb?=
- =?us-ascii?Q?XtpXHshCUFOYcs9U1ID1lt0Z/4ESPGBeQGKoaHg0kXdEzgakivHZiQO8jwPw?=
- =?us-ascii?Q?G5tBs5Ub0+Xzw+VtCtntfCWSsPzsaBhFb+u8FQk/+Un1nntpWrx24nr2BByr?=
- =?us-ascii?Q?YrZbUk1bwXf6RjXNN3abE5K4YBbugnOOj/bESgmNdNNWwx8AhtX03M7AZATN?=
- =?us-ascii?Q?nBTSp+JsGwZB3KM8jI3vQ8InwjqvmeL4Av4qW3Zz6SMnmmjRPh0tBEkL9kuC?=
- =?us-ascii?Q?rqm0JYAHZi1hL0Z8//oPMNRhMQBLJzH7N2gH+qBFJPzSTO7RZOyaSFSk1fwA?=
- =?us-ascii?Q?lGaSTir+ZKfAaBy408Y1OHcE+fdJjPrv9kIyV81IZG14M3/3vKHkST14xtvy?=
- =?us-ascii?Q?rYSNDubYpNkB3nQJBPc8Ybk=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15bd3955-76d7-4d37-59ba-08d9ea03f751
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2504.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 06:35:00.5990 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gRCjmUlKfMBKaPutRLuiggp4FJVLZWOKde+z8jIVv0Nx5UYz7TVbGIzTptMuHGM2p88XKachTWiChU+aXc53rw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2686
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] drm/amdgpu: move lockdep assert to the right place.
+Content-Language: en-US
+To: "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <20220204085201.30615-1-christian.koenig@amd.com>
+ <32b9cdf2-3d71-4228-3471-38584575f41b@amd.com>
+ <668b5be7-de6c-4c47-9756-6452f316cd7e@amd.com>
+ <108a3c26-df8c-c7ea-2228-25ec69afe50a@gmail.com>
+ <df73c8a3-0c85-0402-01e4-38e6bec5af17@amd.com>
+ <cc241e74-40a6-7b87-d80d-a338361abd01@gmail.com>
+ <c8da9980-c2f3-0a8b-9fb8-2da5a3238c4c@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <c8da9980-c2f3-0a8b-9fb8-2da5a3238c4c@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,49 +80,195 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 07, 2022 at 10:41:54AM +0800, Liu, Aaron wrote:
-> Confirmed with hardware team, there is harvesting for gc 10.3.1.
-> 
-> Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+Ah, yes of course!
 
-Reviewed-by: Huang Rui <ray.huang@amd.com>
+When the VM is freed we currently don't lock anything either because 
+nobody should have a reference to that object any more.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-> index b4eddf6e98a6..ff738e9725ee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-> @@ -543,7 +543,9 @@ static void gfxhub_v2_1_utcl2_harvest(struct amdgpu_device *adev)
->  		adev->gfx.config.max_sh_per_se *
->  		adev->gfx.config.max_shader_engines);
->  
-> -	if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 3, 3)) {
-> +	switch (adev->ip_versions[GC_HWIP][0]) {
-> +	case IP_VERSION(10, 3, 1):
-> +	case IP_VERSION(10, 3, 3):
->  		/* Get SA disabled bitmap from eFuse setting */
->  		efuse_setting = RREG32_SOC15(GC, 0, mmCC_GC_SA_UNIT_DISABLE);
->  		efuse_setting &= CC_GC_SA_UNIT_DISABLE__SA_DISABLE_MASK;
-> @@ -566,6 +568,9 @@ static void gfxhub_v2_1_utcl2_harvest(struct amdgpu_device *adev)
->  		disabled_sa = tmp;
->  
->  		WREG32_SOC15(GC, 0, mmGCUTCL2_HARVEST_BYPASS_GROUPS_YELLOW_CARP, disabled_sa);
-> +		break;
-> +	default:
-> +		break;
->  	}
->  }
->  
-> -- 
-> 2.25.1
-> 
+Going to fix this as well.
+
+Thanks,
+Christian.
+
+Am 04.02.22 um 20:15 schrieb Bhardwaj, Rajneesh:
+>
+> On 2/4/2022 1:50 PM, Christian König wrote:
+>> Am 04.02.22 um 19:47 schrieb Bhardwaj, Rajneesh:
+>>>
+>>> On 2/4/2022 1:32 PM, Christian König wrote:
+>>>> Am 04.02.22 um 19:12 schrieb Bhardwaj, Rajneesh:
+>>>>> [Sorry for top posting]
+>>>>>
+>>>>> Hi Christian
+>>>>>
+>>>>> I think you forgot the below hunk, without which the issue is not 
+>>>>> fixed completely on a multi GPU system.
+>>>>
+>>>> No, that is perfectly intentional. While removing a bo_va structure 
+>>>> it can happen that there are still mappings attached to it (for 
+>>>> example because the application crashed).
+>>>
+>>>
+>>> OK. but for me, at boot time, I see flood of warning messages coming 
+>>> from  amdgpu_vm_bo_del so the previous patch doesn't help.
+>>
+>> Do you have a backtrace? That should not happen.
+>>
+>> Could be that we have this buggy at a couple of different places.
+>
+>
+> This is on Ubuntu 18.04.
+>
+>
+> [    8.392405] WARNING: CPU: 13 PID: 2732 at 
+> /home/rajneesh/git/compute/kernel/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:2673 
+> amdgpu_vm_bo_del+0x386/0x3b
+> 0 [amdgpu]
+> [    8.392586] Modules linked in: amdgpu ast iommu_v2 gpu_sched 
+> drm_vram_helper drm_ttm_helper ttm drm_kms_helper cfbfillrect 
+> syscopyarea cfbimgblt sy
+> sfillrect sysimgblt fb_sys_fops cfbcopyarea drm 
+> drm_panel_orientation_quirks k10temp nf_tables nfnetlink ip_tables 
+> x_tables i2c_piix4
+> [    8.392628] CPU: 13 PID: 2732 Comm: plymouthd Not tainted 
+> 5.13.0-kfd-rajneesh #1055
+> [    8.392632] Hardware name: GIGABYTE MZ01-CE0-00/MZ01-CE0-00, BIOS 
+> F02 08/29/2018
+> [    8.392635] RIP: 0010:amdgpu_vm_bo_del+0x386/0x3b0 [amdgpu]
+> [    8.392749] Code: 0f 85 56 fe ff ff 48 c7 c2 28 6b b3 c0 be 21 01 
+> 00 00 48 c7 c7 58 6b b3 c0 c6 05 64 64 62 00 01 e8 5f be a4 d4 e9 32 
+> fe ff ff <0f
+> > 0b eb 8a 49 8b be 88 01 00 00 e9 af fc ff ff be 03 00 00 00 e8
+> [    8.392752] RSP: 0018:ffffaf33471d7d98 EFLAGS: 00010246
+> [    8.392756] RAX: 0000000000000000 RBX: ffffa08771600000 RCX: 
+> 0000000000000001
+> [    8.392758] RDX: 0000000000000001 RSI: ffffa08772ae01f8 RDI: 
+> ffffa0800a426f68
+> [    8.392761] RBP: ffffa087691fd980 R08: ffffffffc0a4e2e0 R09: 
+> 000000000000000a
+> [    8.392763] R10: ffffaf33471d7d68 R11: 0000000000000001 R12: 
+> ffffa0801d540010
+> [    8.392765] R13: ffffa08771615c00 R14: ffffa08024166618 R15: 
+> ffffa08771615e60
+> [    8.392768] FS:  00007f7b80179740(0000) GS:ffffa08f3dec0000(0000) 
+> knlGS:0000000000000000
+> [    8.392771] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    8.392773] CR2: 000055839db51eb8 CR3: 000000010f49c000 CR4: 
+> 00000000003506e0
+> [    8.392775] Call Trace:
+> [    8.392779]  ? _raw_spin_unlock_irqrestore+0x30/0x40
+> [    8.392787]  amdgpu_driver_postclose_kms+0x94/0x270 [amdgpu]
+> [    8.392897]  drm_file_free.part.14+0x1e3/0x230 [drm]
+> [    8.392918]  drm_release+0x6e/0xf0 [drm]
+> [    8.392937]  __fput+0xa3/0x250
+> [    8.392942]  task_work_run+0x6d/0xb0
+> [    8.392949]  exit_to_user_mode_prepare+0x1c9/0x1d0
+> [    8.392953]  syscall_exit_to_user_mode+0x19/0x50
+> [    8.392957]  do_syscall_64+0x42/0x70
+> [    8.392960]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+> [    8.392964] RIP: 0033:0x7f7b7f8679e4
+> [    8.392967] Code: eb 89 e8 6f 44 02 00 66 2e 0f 1f 84 00 00 00 00 
+> 00 0f 1f 44 00 00 48 8d 05 21 ff 2d 00 8b 00 85 c0 75 13 b8 03 00 00 
+> 00 0f 05 <48> 3d 00 f0 ff ff 77 3c f3 c3 66 90 53 89 fb 48 83 ec 10 e8 
+> 94 fe
+> [    8.392970] RSP: 002b:00007ffe6bb0cdb8 EFLAGS: 00000246 ORIG_RAX: 
+> 0000000000000003
+> [    8.392973] RAX: 0000000000000000 RBX: 000055839db4b760 RCX: 
+> 00007f7b7f8679e4
+> [    8.392974] RDX: 000055839db4aed0 RSI: 0000000000000000 RDI: 
+> 000000000000000b
+> [    8.392976] RBP: 000000000000000b R08: 000055839db4aee0 R09: 
+> 00007f7b7fb42c40
+> [    8.392978] R10: 0000000000000007 R11: 0000000000000246 R12: 
+> 000000000000e280
+> [    8.392979] R13: 000000000000000d R14: 00007f7b7fb5b1e0 R15: 
+> 00007f7b7fb5b130
+> [    8.392988] irq event stamp: 1264799
+> [    8.392990] hardirqs last  enabled at (1264805): 
+> [<ffffffff951011b9>] console_unlock+0x339/0x530
+> [    8.392994] hardirqs last disabled at (1264810): 
+> [<ffffffff95101226>] console_unlock+0x3a6/0x530
+>
+>
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>>
+>>>>
+>>>> Because of this locking the VM before the remove is mandatory. Only 
+>>>> while adding a bo_va structure we can avoid that.
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>> index dcc80d6e099e..6f68fc9da56a 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>> @@ -2670,8 +2670,6 @@ void amdgpu_vm_bo_del(struct amdgpu_device 
+>>>>> *adev,
+>>>>>         struct amdgpu_vm *vm = bo_va->base.vm;
+>>>>>         struct amdgpu_vm_bo_base **base;
+>>>>>
+>>>>> - dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+>>>>> -
+>>>>>         if (bo) {
+>>>>> dma_resv_assert_held(bo->tbo.base.resv);
+>>>>>                 if (bo->tbo.base.resv == vm->root.bo->tbo.base.resv)
+>>>>>
+>>>>>
+>>>>> If you chose to include the above hunk, please feel free to add
+>>>>>
+>>>>> Reviewed-and-tested-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+>>>>>
+>>>>> On 2/4/2022 11:27 AM, Felix Kuehling wrote:
+>>>>>>
+>>>>>> Am 2022-02-04 um 03:52 schrieb Christian König:
+>>>>>>> Since newly added BOs don't have any mappings it's ok to add them
+>>>>>>> without holding the VM lock. Only when we add per VM BOs the 
+>>>>>>> lock is
+>>>>>>> mandatory.
+>>>>>>>
+>>>>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>>>>>> Reported-by: Bhardwaj, Rajneesh <Rajneesh.Bhardwaj@amd.com>
+>>>>>>
+>>>>>> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>>>>>>
+>>>>>>
+>>>>>>> ---
+>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
+>>>>>>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>>> index fdc6a1fd74af..dcc80d6e099e 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>>> @@ -375,6 +375,8 @@ static void amdgpu_vm_bo_base_init(struct 
+>>>>>>> amdgpu_vm_bo_base *base,
+>>>>>>>       if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv)
+>>>>>>>           return;
+>>>>>>>   + dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+>>>>>>> +
+>>>>>>>       vm->bulk_moveable = false;
+>>>>>>>       if (bo->tbo.type == ttm_bo_type_kernel && bo->parent)
+>>>>>>>           amdgpu_vm_bo_relocated(base);
+>>>>>>> @@ -2260,8 +2262,6 @@ struct amdgpu_bo_va 
+>>>>>>> *amdgpu_vm_bo_add(struct amdgpu_device *adev,
+>>>>>>>   {
+>>>>>>>       struct amdgpu_bo_va *bo_va;
+>>>>>>>   - dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+>>>>>>> -
+>>>>>>>       bo_va = kzalloc(sizeof(struct amdgpu_bo_va), GFP_KERNEL);
+>>>>>>>       if (bo_va == NULL) {
+>>>>>>>           return NULL;
+>>>>
+>>
+
