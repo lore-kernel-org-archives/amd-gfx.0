@@ -4,120 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72062C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 17:42:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EF97C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 17:50:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 006AB10F7C4;
-	Mon,  7 Feb 2022 17:42:47 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2087.outbound.protection.outlook.com [40.107.236.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D54A110F7C4
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 17:42:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B6B310F01A;
+	Mon,  7 Feb 2022 17:50:30 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2045.outbound.protection.outlook.com [40.107.94.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B08C10E5C1
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 17:50:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Fqh8JmKhpFc3eLwnoazQI9f71yXS/YOVAPriBUQ6Ix4/MZr1xvAF0emEAqbxqTZEOWuk9vp8bj7kCc+7SOpyUFX0LmqLJwET2lwG5P4gJYDiwsMv/6iCIk6Dy3HvK0gHk1ko+If9KZ/MvasjjHK2LaGTGUBpFCCR7HsCBI7v04HJJjcXPoGPoglhqDCbQNZ02QWRQy7h1AzY3xN65j5nx8MvT1VhwQ7GilwwEb9SKNBfgd916XTai8HN0DcJIzP9rdhrLiIasJgcgOBwJtf7VeNPMX0dQLZoHEFWGjRHkEj8tj8GpS4Pv05pWNI6o7VWp2kRyCnqOEpaDR983+Z19w==
+ b=Y8CeScy0jdZ+TMj7QAHVQ2KDEBV56WoGMjQR3jh8T3o8oiInAHbFDL6OX/z3weEpKIGLGDWpgFaxZlYdhiZ7bCb09pTpVuFCtWeBMse6q2Clwr9LDTYBTLy44wCyasRtgD3h5hMqsEsqudPZNLfLYJqEUir8RWE5yZBmmcm9HiZXVWUMoovbkajrNxfY/4p/2ylq1s3sRgIWGZLDgJwO0aXcRk/BXUDMFU6wFL4ZQ8mm8WvTW8HVrp9i6WCOjxGjXkY3PHR82scYeoMw7T7V8etDAckS9dkT/cLdPUHY+P5ZbZaAtlc2WF1jqRQnjpxEt2ZKROiGuHdsJX4CknMdgQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cbift93JnaIDQ5HATWr712IIX+/JKOBvrZdwwRWIbPQ=;
- b=FhAnKd3ew5h/DKVm840qTuPdnRFKJ4WQ9n/L68Fr6n/gV1WXL4AA2XBE5czCfrScZ0cNGKUsD93OAg0OlxDOU1xSE59PshcUeaHBdKb/gDutBCdnCRaYO2xfl+vnUQTga1Zy2Ims0p1f/+3dIxzAO0bRSqlyBPy7bOxDBZiI7MiMDnB/CdUMfzO7bB0kJyk/TMKvmciiZVqzEp7f2U9mwQp4RHXxq+yeaDdTntpWM/q8iMmQfHogD6QNjhr5tjjY/Wf6i95ukBlf4qAPvSNX7Ct+zoo6qsDUuehIAZYWKvWbMsm1y0wZsiOSsTESOll+SKhMuLi51Xhm90FmZ0C1Ug==
+ bh=p0Oyu3aXqu19YKpaXXBkKuvaIBmBK9IUkBmo0Jdzvv4=;
+ b=RQ6Xc3rBOSltSkxsJtNZCVuGJvOjEU9C2s74/TRUVRjBJUYxRH/l56Ve2Jhqu1M5PAj1oirKfbZkV7gJmudJ/roanEKNnhIg2KxbUQEUyiFzCUjvnNZJlzfCbftjUWOi38RBDdK8/5FkV9MNH5WeIaD+wxx9yBOqffcEzHbQBkNnl0QxhN/Zspj/Td463yt0EoYc7HXQReko7yf+eIxqmj6dGHFcEu1TtvQoYGBDwdB3aUWb/Zg5zuaj3iN0CndcW7GDPBTBYf6e+OcOHhCqYgqLyWU8UgwMQIh/FzeF5ilbYDtn4znWNJiRjqiwGC/3vhQPnIfKNQyVQTjvOnZenQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cbift93JnaIDQ5HATWr712IIX+/JKOBvrZdwwRWIbPQ=;
- b=G2NL20sbM2cKn3scJFoBYMfkvzNq8YvJBMUvewIOrT+1esnm7Ih89YN9X/49QG+lrszHOxAxs5irVZibJL108pSGpWrNCduVL/ZT7GobRtfKZdQKg+kM+sp+fiWp7KhwNaGqHwI1THp1jl2gF+bHCUsWbALQWaMGmWwy2psxjIQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BL0PR12MB4916.namprd12.prod.outlook.com (2603:10b6:208:1ce::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Mon, 7 Feb
- 2022 17:42:41 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::971:531c:e4f4:8a9a]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::971:531c:e4f4:8a9a%8]) with mapi id 15.20.4951.019; Mon, 7 Feb 2022
- 17:42:41 +0000
-Message-ID: <0a019435-1d43-e12f-cc8c-213b37292110@amd.com>
-Date: Mon, 7 Feb 2022 12:42:39 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 2/3] drm/amdkfd: Remove unused old debugger implementation
-Content-Language: en-US
-To: "Joshi, Mukul" <Mukul.Joshi@amd.com>,
+ bh=p0Oyu3aXqu19YKpaXXBkKuvaIBmBK9IUkBmo0Jdzvv4=;
+ b=sXmtWVfq7js4HXgm7QFTSbeC2wMIR4YwWlzwX+qNTIX0s2NZ0rdXy9Sg8UqwnjD63R1+MPIN7cdUfNo2mEYZ5qDQ3KZ1iOLioQsbklEgvAuC4ZJMt7+yQhvutoO1Rf9XTsvUFWtLAcrFuIfjN/ncA15bR0lPArcm8oF+zQS+tdU=
+Received: from DM5PR12MB1786.namprd12.prod.outlook.com (2603:10b6:3:112::14)
+ by BY5PR12MB4065.namprd12.prod.outlook.com (2603:10b6:a03:202::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11; Mon, 7 Feb
+ 2022 17:50:20 +0000
+Received: from DM5PR12MB1786.namprd12.prod.outlook.com
+ ([fe80::ac17:1f9c:5e1:2fa7]) by DM5PR12MB1786.namprd12.prod.outlook.com
+ ([fe80::ac17:1f9c:5e1:2fa7%5]) with mapi id 15.20.4951.019; Mon, 7 Feb 2022
+ 17:50:20 +0000
+From: "Joshi, Mukul" <Mukul.Joshi@amd.com>
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 3/3] drm/amdkfd: Consolidate MQD manager functions
+Thread-Topic: [PATCH 3/3] drm/amdkfd: Consolidate MQD manager functions
+Thread-Index: AQHYGiFKxXftrhpyIUmNwCfyzEitUqyIPo2AgAAiGxA=
+Date: Mon, 7 Feb 2022 17:50:19 +0000
+Message-ID: <DM5PR12MB178612B34A80D84B71AC955DEE2C9@DM5PR12MB1786.namprd12.prod.outlook.com>
 References: <20220204234513.11714-1-mukul.joshi@amd.com>
- <20220204234513.11714-2-mukul.joshi@amd.com>
- <d2a2c767-6733-332e-24c9-a1a09df4f7ef@amd.com>
- <DM5PR12MB1786A9ECA1AB390FAC75443FEE2C9@DM5PR12MB1786.namprd12.prod.outlook.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <DM5PR12MB1786A9ECA1AB390FAC75443FEE2C9@DM5PR12MB1786.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YTXPR0101CA0059.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::36) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 370d13cc-7697-4b83-3503-08d9ea613d0d
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4916:EE_
-X-Microsoft-Antispam-PRVS: <BL0PR12MB491682F883E04B366D63D8F4922C9@BL0PR12MB4916.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: k4i8eJ9Ek9s+8b+Rc9T7z25jdJ4ycXm8+RKndSjlnULDtWPH5mcj8f6s+T6Cd41i+NiEVL1FrvSu5EL6X2uw9uuuf7et9z3+N91ZgP5/mbjltS+FarPiOLch/HwHax7UiuUY7X/BnuTg5LtRUA7WoHzoqCLrt9ImiqK7ad3FVLg1mTRX7A2WV054+iqBSdxY2jBgu+51IwBHcfUP0rqQ/KX2dvMLlqMeOoflYLJhxx1XL1PcsAqAxb/FHqTY4MFUbw5E64CsD9iGYjud4u19TLeFYB4g9tPVcOn0N1XvQpTUtNhe1uasnApclGxz14mt44yivfILrgpYnQmik3XgJ15hXvon0BEElv7GS6t17SpDaDKiaAXXi8laBMF7cbv8hoUZs8DEjw0Lj9W+XVS7C64hyCE67X5ZyATGIyWZIpG4IdL2TCD8xqB6eBmvJy8rFoGpbQ8INSiWr9eLtBYgdPRN6xSjI/XyNa6lme7j2oZ8tyOElcszafhWUhcVzh1RrOnN3PEn8EoauhEEbgzW3X3iIbQqRjqBHaSIpYDZZiTJDVgu0pd4PMI2pFKLqgmOPXeA2mCM78xma3aYbYaGfGrp/mYFiAOnlAjjwHPj1t3C9h2/qrmzMskAQzACDpFFzqJNkU41IA5vBBzhMyoGSHtdJBsTfAOwX88cHAAjrQ5GKyTIk2sQkRmNSKd/a/tPufFfvNsK/4J/MMPHCMGagYqRuyMmnYh80Pd3WHIwQkb07I5D080C29/IYxvTBiiD
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6506007)(38100700002)(2906002)(53546011)(6512007)(8676002)(8936002)(6486002)(66946007)(66476007)(66556008)(316002)(36756003)(19627235002)(110136005)(44832011)(30864003)(508600001)(26005)(5660300002)(2616005)(186003)(83380400001)(86362001)(31686004)(31696002)(45980500001)(43740500002)(559001)(579004);
+ <20220204234513.11714-3-mukul.joshi@amd.com>
+ <68544466-9816-e94d-2506-19a378b38a9d@amd.com>
+In-Reply-To: <68544466-9816-e94d-2506-19a378b38a9d@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-07T17:45:13Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=1ac21752-42c3-44e9-99e2-000725de2393;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-02-07T17:50:13Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: c966fa77-606b-4b53-a687-ac2fa5a18bc9
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 66bf2380-e97e-460e-36bb-08d9ea624eed
+x-ms-traffictypediagnostic: BY5PR12MB4065:EE_
+x-microsoft-antispam-prvs: <BY5PR12MB406530580969E116207F8AA5EE2C9@BY5PR12MB4065.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: wNgKmQnomkbscwjeJrvSoMJ4moWBeo/P13ggNz5SpP3kXh/ekdBiVNasnguzF0ULyQCxL6rhNGHFruxbZpGekTm5RJ9YeRHJKWwZ7vZGZR65JWpwKZwBy30WJeLrWtzbowd6b8L7K9cyLj9hJrVxVZeLfABSoJ4cUnZ71iVAKt7n6U38W7qz8FmXEMP1eugIT2JdqWxNFGmO0aaMpAo4C9PbIZKLUgkUEpre5AbO/AhvyVWx+TTw1elq8Xk4SEUFl3xyHi3KufPVQSQ3U8zZdw85I+3zcx/wCLh9xiYiGkuoCm1Y7oqGMwbRGNVJHEfHMdasyqZDP+B63TOrUm1Cx5kSIKN3725SGyZntLmYuMcPFIfsCVZajPmU5QNgWgqhkaBSM22L1bg8bYxSY5Jhp5YClvZX18bBfTk7awe4Qb6lFeeD1wDTVlkKlO6q2Tnsbv3tpXjU2RPb5DMFN+WG+hpR9ALIzXk4cB/7lpq6TLtYtNhWOnGPEfycFdw8SJQKihvsPuEhiq0aFhqMXikFKAi5yAoaA1vIr8A+RpAcdlIOvE4TE0DyHyam/7ntj7lOv1jhy1vxficYMUkZRhM2o2e9jQbwqD2PNG4pIo/yfXpNTaERA9+0UqAj9diUb6/e/9bCyoqoNPwwNLUsZEBBCV65d7ftAy++rod+DDYhZvhHbyrZhhF+BcmOVD6cU5IYEAe2dmOYegbsko72jozXtw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1786.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6506007)(38100700002)(2906002)(53546011)(7696005)(8676002)(9686003)(8936002)(76116006)(66946007)(66476007)(64756008)(66556008)(66446008)(316002)(110136005)(122000001)(52536014)(30864003)(508600001)(26005)(38070700005)(5660300002)(55016003)(186003)(83380400001)(71200400001)(86362001)(33656002)(579004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?azFSbXk1TjNoUWNrY1lHOTUzajVaWU5GczVJRlRMOXNBUVlNYzhmUXFlSEF1?=
- =?utf-8?B?NlBtQzgwNDBIZExKZ0JIMlNPWkk4SWhCTzZKTzliRyttRXlQODhTNnVoeHdp?=
- =?utf-8?B?TDd6S0NYK2RDYk8ybmNEWEUwQzNjNkJobldrY2dCTWRhcm92b3BtdllHVFJ4?=
- =?utf-8?B?WHo2VDJINkJQK2paNXc4elZ6azdFOTF2WnlTbDE5ZitRSWcxQ2FYb3NXeHFX?=
- =?utf-8?B?K2NDS1NSL0tBTGpvUitGWFd3ZS9vYVlyQ1B5L1pMdFZzcjNGQldoMUYwdk1T?=
- =?utf-8?B?RHdQNWdpYzZ6dXNVZURBM2R3YWxXTW10Z3VIVGowL3dMcW52eUtZUTdlV1JY?=
- =?utf-8?B?UzF6OEp6eUptbk41Rld1Y2kzdXpuSjNXaDVZZUNycFpZVzhpY0RJSFVuTzNO?=
- =?utf-8?B?OCtsTm1pVkF0bGRPSTFhQXQzYWM1dlJLbmRHWTNMZFZId29YVnhDOW5SK3ox?=
- =?utf-8?B?VTJVK3dHWFhDdUV5MHpIaUF4R2VJTERIRkNqTkg4YWM5cE92bnhLa0lGaHdK?=
- =?utf-8?B?anFPK2I2dStOeS9td0xkL1cwQWVJdTdFNmRvVSsydkVRTkRMNGNrNHFlQzBy?=
- =?utf-8?B?OHlwZEQzaDBVTGRuRFZaVjFKMmNPdnhVTXd0U1NjOWttekxQb2lvYzk2VERR?=
- =?utf-8?B?NUc3YmJmekNQRzJ4aXhJYXdZaktWM1lneE5kckdaNTdNMCtPR1ZOVVhzRXp3?=
- =?utf-8?B?c2U1RUVDRTdGb0x0UjU5YjQ5V0g2U1JSN0x4cUlybTRFZndrRW4zYlc1TWo3?=
- =?utf-8?B?OHcyeklWaUlxeWNqVGRJeWE2ZzJjWUNrd0Fab1lBbXRiTjZ0dG80MEZiMkZH?=
- =?utf-8?B?dEppei85Vmc5K085cFZtdGNkOEdJTWp3NStvanptbUYwQnFvMVIwOER1aWtV?=
- =?utf-8?B?YXpuV05CRkphTVRqUW9ia0dySmJzdGVLUVhWVFRwWjhmcVR3a0RTSUEwY0sx?=
- =?utf-8?B?d2FJeEhVYVluSEcxZlhwQkFSSmhra3BVQWRLblNIaVJJTHgzWjVhRHdhb2ls?=
- =?utf-8?B?b0k3WTNMS2x3UXNPSnFUaWpuQkszS2txbVRmNGY2dGw5SVdJVitGU1FhR0N1?=
- =?utf-8?B?NHE3TCtLYnNtM2RTNzFJUVF4MCt5Nk45UUZwYjBScUZUVVJMQldBcllGMVJS?=
- =?utf-8?B?WlVxclIyTzdMK0E0UTJDZHpkbnNJcFcvd2xFeDM0dVkzQllaZnVlYXN4cnkw?=
- =?utf-8?B?aG1kdnh2bmhHZ2NhOEZFclhDeDZWNHpjNDZJYzljMGpJZXVteTM1eWVkZVIr?=
- =?utf-8?B?NTNlSGgzdUphcXBOTHA5ZE9DWVlvNGtjS2VRNUFMaGpWOXMvZ0xUbXp5MVZ2?=
- =?utf-8?B?NElzcCtxcXR2a0JJcmFnWWhQWE9GS25lVEZPczhMUFFpSVM1MEJZZ3BKdTRp?=
- =?utf-8?B?bnFseWNnQTAxM3JITm5uUERTdTVHMnhxOSsyVFlOVVZHTFg4YzgzSXhhMS94?=
- =?utf-8?B?MTRSUldrUkR4S3FMSDVNemFyVXJBeDJPV1JmRVoxN1QzaVgrd1R6UVdqeXRU?=
- =?utf-8?B?cUFTV3p4aFNrYlZhZmluUDNEc0lqbjJzOUNYdVROeU96NE5hdU1oMGU4bnVB?=
- =?utf-8?B?eWtVOHUxTDI0ZUczZkhKS2VoRWgvcFo2Yys0TmFCT2xnUEd3TEVlWGhZM0N2?=
- =?utf-8?B?OHNyS3lIL0g5cXF6ODFVTWl2WGJpYVFpZ3dURzczczQ0eU93bytPVFVaQkhD?=
- =?utf-8?B?VTUwdDRhaDVDM05nNXZ3VVVqdkNLcmlnMHNpanJncVRWMGU5K245MFRRbnI1?=
- =?utf-8?B?aENkNjJhSEdpYk9yd2M1SENvcWlDdVB0ZkMreEFsMUg5di9rNGxGcndpbXZ3?=
- =?utf-8?B?YStzVlZKNWozQzBoWTQ4Qk0xUlFDdlhUSG5XaWwvREo5QWZ3Z3dUbTB1bGhQ?=
- =?utf-8?B?TzNZODZzYVJyUHJ0NHMvOVh2YlB5d0cyd3cxbHdEbTkwOCtQR05BZW56UHJE?=
- =?utf-8?B?MFhYUUhFdWdmSng1RHNyN21rT3kySlJ6TWhNSUFQQ2hBRUxRcGQzbzVxYXVs?=
- =?utf-8?B?UENtamlDVEUrUDZON3o1NzlyYTNnWFo0V1d5VUNyM09JZGtzZ2ZuV2dTOEVQ?=
- =?utf-8?B?NGh1ajd1eUh4SE9MMFE4bjhGNlp0aFU5eE16SzV1SStIa09sTmZXVmhsV25I?=
- =?utf-8?B?b1ZyNkttNktoMzlzWENrSW1IYWRaQVlUMDlKYjRQTTFaRVdKUk5uK040dVdW?=
- =?utf-8?Q?gxvw9pUHgf/OI+pN/PJPI0g=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eWRoc2UxemszQytkSU1MK2c4ZXZMNmxQNEZ1YmVZYlRJSkpKb3Z4OHZ0QnVZ?=
+ =?utf-8?B?UmtiL2FJREJjcW1UT0t3SEcwaTl6b1VqVTdNK0pRQ3ZwRXc5S3owc2dDY2p0?=
+ =?utf-8?B?WEduMm1MNGpSbnZna3RtbmVzVTZzZ1lNTlJQdGZmZncwS3pJMHQ3NFJHSlJV?=
+ =?utf-8?B?U3JDM3NMSVFJTzdUdk1sWmZGcVNaZGhaSENzbGRTSUNyR3N5T0tQSENTbFdo?=
+ =?utf-8?B?eWxLTGZPQWFGaU9BakcrWUZ0aUlzeTV5c0thQzlBYTlMM3NYZnVjU1VBend3?=
+ =?utf-8?B?UVJ3WVFCais3NEJya3ZMKzM0THNjYkNOdmhJVDY1MDJSQWVBcm5VOWNYajJT?=
+ =?utf-8?B?c2JpMi8wRFF1OHBWdk0vRGlTWEdmWnkydW51WTlLSkJNbUlVbzdVN2RJQUxa?=
+ =?utf-8?B?R2hVUjNSUTRuUk94MmtnZzNDTTRSYUhGVk8wSkRIeGMwV0hNbjIrY1lHbnlI?=
+ =?utf-8?B?NE9rYnlUOVZJSUdSS09zbDlWQkI2N3dHVkx4emRMK2FIOHY0TFBWcGpOYlJG?=
+ =?utf-8?B?WHRqdnBFbDFXT2VpaE9RWk9CY0Fya2JFcnRBK2pFanJzV2ZXbXRLcXp1TnVl?=
+ =?utf-8?B?YmxYQzVCMVBCMjQ5WE1sc2FPSzdZRTE0S2NzNk9MRXAzaXZwcUZMM0NWbWNV?=
+ =?utf-8?B?cmNnU1p1ajI2Y2drWHpUNUtiVG1UdUx0cnJmU0F0L3BTa1pJN0RDeXFWYzVv?=
+ =?utf-8?B?bERzT3EzQjlGMVNJc3VTNEdmdDIyWDBrL1RmbmlnUkUxSmwwWDFJNldaTWdr?=
+ =?utf-8?B?NldKS3ZJS1dlM0tmcXlpeGEwRGJoMXUyNTQrb0VRbjhGNnRuYkF2MVd6RmVW?=
+ =?utf-8?B?NjM1QnpBcG5yRXl1Yyt5UW9sYW5yYXNkamNVTWNaUVpVOWhKc0lKSjg5ZHJE?=
+ =?utf-8?B?WE9MdXJXR1ZwOHNMa1JzTXhtZGpuTk1BZWl5WVRidzlaSFdIRUZ3Rjd2dmky?=
+ =?utf-8?B?MjJ2TU1zNFpydngrOXVwc3hvOVFLVEJnV0RKN0Ruelp0VjFWYVZLd2w0SlVR?=
+ =?utf-8?B?L3FsOHF6K3pIdW9JcU5zNUVkOHBSNkpzaGVBUjJFcmZSL080NCtJSCtuSjND?=
+ =?utf-8?B?TGdyRWs2RjVuWFFLZ3ZnWTBlYnRpN3I2Z0pUUnZPeE5yVzNNNHhuVm4xbU1Z?=
+ =?utf-8?B?MlZKWE84cUhaVW96RS9EVXdqSDl0Wkd0b0xOYTdKSmJINUtTSWNZWnJ5Y1VI?=
+ =?utf-8?B?SkhjYitxZFJCajVzWmFnbnlYZWRLQ0NSUW1oNk5FVldndkJCNFliTGV1dlNB?=
+ =?utf-8?B?OS8zbXo1MWQvYVF5Ny9MbGU3WlJDL2FKZ2s3VXdtUjlmNzZuZWVhTFliTjN0?=
+ =?utf-8?B?Z3Rqc0IxTGo4V2xLNUt0SGRNeTF2WWpTUXlQNVdmZ2k0WXRoUVFxVlJlZUdC?=
+ =?utf-8?B?akVYVkFsVUFpMDJVUVdzU3BZd2NQa29WSm13dzg5OCsvSnMrRzdGK2dxSGJS?=
+ =?utf-8?B?cnNOS0dDUXZTVkR2ZldLVkxlblNudTBaZmlEeEhCUm9FUDFsWmlsMkVjTGFN?=
+ =?utf-8?B?MEJYc29qVWxRWjBOS2tXUXRrWlpjVUxTRFh3OTlNa0VOUi9NajltU3BKQWhG?=
+ =?utf-8?B?dmJYSGY1RjgvNG56OG5ZSWZreks3ZXVDeDdham12R2ZKSTlRbVhTL3pqa3NB?=
+ =?utf-8?B?SzYzbFVCRjZWSHRsK2VNbEVwY0c3b29OMG9UR2hJQXZTbXpOS0V2alIxdkJS?=
+ =?utf-8?B?cEtYS1ZkQlRLNGk3RW5mcUg3Z1JnenlvRVdNVHhxcXMvUkRNMGM0eEtxNHRk?=
+ =?utf-8?B?QkFySnh1OHBtcHZvMi9RY0RYLytxRFIza1F1b25FR05zNjhZd09kZW1KMGww?=
+ =?utf-8?B?bHd1Tk1vUVViWEFFQkdsVW03ZlF6MEppdFMrenYzNjR2RE8xSEdBYU52ZVRZ?=
+ =?utf-8?B?L0l3RjNQUW9iVitrZ2xnMGMrRTFsZFlpbmRodE1zRnZlcVBLVW9MNDdMemY1?=
+ =?utf-8?B?VXNCL2dBdXp4OG10aUYzYkJXVENMN3RJdk14RnlMaE0xUXNrakc1SDNUVTZF?=
+ =?utf-8?B?WFdQSlNsNDVpMnp2UzdJMlZFa05uNnJmWVZmeVJKZmtEbVJrZXlRSmRZOXha?=
+ =?utf-8?B?ZW5FYTZSdU1xaCt2QTRLNWFsQ3lNTVZTS3ZYdHBNY1FyZmsyMkpqOVByN0E0?=
+ =?utf-8?B?ZkpNQzlIVjZ6ZFhpZDhyYkxCQjZOZ0phdHEvdEFRbTZ2QVh1TTVWOCt1NkNW?=
+ =?utf-8?Q?CpXoKLIIrPr7ONfnpsXgWJ0=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 370d13cc-7697-4b83-3503-08d9ea613d0d
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 17:42:40.9138 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UDXNfUaWLMHVu8L8RbubUJjtPFZze52SrGwGSQaoNT+/5bAnUV863eluMZz8YSdrRwLp5Univvb6aXd2pwZtMg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4916
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1786.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66bf2380-e97e-460e-36bb-08d9ea624eed
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Feb 2022 17:50:20.0249 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: zEqz38l1mst0g90xlAIldgX8W0/kef/oFyJTIBzbvUN2fDrf5xNVPwQXZE3dQ2LPgX//6N2T98v3l0/KzC2NpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4065
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,2296 +147,343 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-02-07 um 12:10 schrieb Joshi, Mukul:
-> [AMD Official Use Only]
->
->
->
->> -----Original Message-----
->> From: Kuehling, Felix <Felix.Kuehling@amd.com>
->> Sent: Monday, February 7, 2022 10:33 AM
->> To: Joshi, Mukul <Mukul.Joshi@amd.com>; amd-gfx@lists.freedesktop.org
->> Subject: Re: [PATCH 2/3] drm/amdkfd: Remove unused old debugger
->> implementation
->>
->>
->> Am 2022-02-04 um 18:45 schrieb Mukul Joshi:
->>> Cleanup the kfd code by removing the unused old debugger
->>> implementation.
->>> Only a small piece of resetting wavefronts is kept and
->>> is moved to kfd_device_queue_manager.c
->>>
->>> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
->> We should update include/uapi/linux/kfd_ioctl.h as well to mark the
->> ioctls as deprecated. Just rename the AMDKFD_IOC_DBG_* macros to
->> AMDKFD_IOC_DBG_*_DEPRECATED. A corresponding update to the Thunk
->> would
->> be good as a follow up.
->>
-> Would it require an update to the KFD ioctl minor version?
-> Wouldn't it be better to just increment the minor version for ioctl and say these aren't
-> supported after this version instead of changing the name?
-
-I don't think that would help anyone. If existing (really old) user mode 
-was using it, they would not be checking the version number. All they 
-get is -EPERM from the ioctls. And new user mode code will not be using 
-these APIs and has no reason to check the version number.
-
-Regards,
-   Felix
-
-
->
-> Regards,
-> Mukul
->
->> I think there is also some more code you can remove in
->> amdgpu_amdkfd_gfx_v*.c and kgd_kfd_interface.h:
->>
->>           int (*address_watch_disable)(struct amdgpu_device *adev);
->>           int (*address_watch_execute)(struct amdgpu_device *adev,
->>                                           unsigned int watch_point_id,
->>                                           uint32_t cntl_val,
->>                                           uint32_t addr_hi,
->>                                           uint32_t addr_lo);
->>           uint32_t (*address_watch_get_offset)(struct amdgpu_device *adev,
->>                                           unsigned int watch_point_id,
->>                                           unsigned int reg_offset);
->>
->> It seems wave_control_execute is still used in dbgdev_wave_reset_wavefronts.
->>
->> Regards,
->>     Felix
->>
->>
->>> ---
->>>    drivers/gpu/drm/amd/amdkfd/Makefile           |   2 -
->>>    drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 282 +-----
->>>    drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c       | 845 ------------------
->>>    drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.h       | 230 -----
->>>    drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.c       | 158 ----
->>>    drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.h       | 293 ------
->>>    drivers/gpu/drm/amd/amdkfd/kfd_device.c       |   2 -
->>>    .../drm/amd/amdkfd/kfd_device_queue_manager.c |  59 ++
->>>    .../drm/amd/amdkfd/kfd_device_queue_manager.h |  35 +
->>>    drivers/gpu/drm/amd/amdkfd/kfd_iommu.c        |  12 -
->>>    drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   5 -
->>>    drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  19 -
->>>    12 files changed, 98 insertions(+), 1844 deletions(-)
->>>    delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
->>>    delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.h
->>>    delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.c
->>>    delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.h
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile
->> b/drivers/gpu/drm/amd/amdkfd/Makefile
->>> index c4f3aff11072..19cfbf9577b4 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/Makefile
->>> +++ b/drivers/gpu/drm/amd/amdkfd/Makefile
->>> @@ -51,8 +51,6 @@ AMDKFD_FILES	:= $(AMDKFD_PATH)/kfd_module.o \
->>>    		$(AMDKFD_PATH)/kfd_events.o \
->>>    		$(AMDKFD_PATH)/cik_event_interrupt.o \
->>>    		$(AMDKFD_PATH)/kfd_int_process_v9.o \
->>> -		$(AMDKFD_PATH)/kfd_dbgdev.o \
->>> -		$(AMDKFD_PATH)/kfd_dbgmgr.o \
->>>    		$(AMDKFD_PATH)/kfd_smi_events.o \
->>>    		$(AMDKFD_PATH)/kfd_crat.o
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> index 64e3b4e3a712..cfe12525165f 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> @@ -39,7 +39,6 @@
->>>    #include <asm/processor.h>
->>>    #include "kfd_priv.h"
->>>    #include "kfd_device_queue_manager.h"
->>> -#include "kfd_dbgmgr.h"
->>>    #include "kfd_svm.h"
->>>    #include "amdgpu_amdkfd.h"
->>>    #include "kfd_smi_events.h"
->>> @@ -580,299 +579,26 @@ static int kfd_ioctl_set_trap_handler(struct file
->> *filep,
->>>    static int kfd_ioctl_dbg_register(struct file *filep,
->>>    				struct kfd_process *p, void *data)
->>>    {
->>> -	struct kfd_ioctl_dbg_register_args *args = data;
->>> -	struct kfd_dev *dev;
->>> -	struct kfd_dbgmgr *dbgmgr_ptr;
->>> -	struct kfd_process_device *pdd;
->>> -	bool create_ok;
->>> -	long status = 0;
->>> -
->>> -	mutex_lock(&p->mutex);
->>> -	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
->>> -	if (!pdd) {
->>> -		status = -EINVAL;
->>> -		goto err_pdd;
->>> -	}
->>> -	dev = pdd->dev;
->>> -
->>> -	if (dev->adev->asic_type == CHIP_CARRIZO) {
->>> -		pr_debug("kfd_ioctl_dbg_register not supported on CZ\n");
->>> -		status = -EINVAL;
->>> -		goto err_chip_unsupp;
->>> -	}
->>> -
->>> -	mutex_lock(kfd_get_dbgmgr_mutex());
->>> -
->>> -	/*
->>> -	 * make sure that we have pdd, if this the first queue created for
->>> -	 * this process
->>> -	 */
->>> -	pdd = kfd_bind_process_to_device(dev, p);
->>> -	if (IS_ERR(pdd)) {
->>> -		status = PTR_ERR(pdd);
->>> -		goto out;
->>> -	}
->>> -
->>> -	if (!dev->dbgmgr) {
->>> -		/* In case of a legal call, we have no dbgmgr yet */
->>> -		create_ok = kfd_dbgmgr_create(&dbgmgr_ptr, dev);
->>> -		if (create_ok) {
->>> -			status = kfd_dbgmgr_register(dbgmgr_ptr, p);
->>> -			if (status != 0)
->>> -				kfd_dbgmgr_destroy(dbgmgr_ptr);
->>> -			else
->>> -				dev->dbgmgr = dbgmgr_ptr;
->>> -		}
->>> -	} else {
->>> -		pr_debug("debugger already registered\n");
->>> -		status = -EINVAL;
->>> -	}
->>> -
->>> -out:
->>> -	mutex_unlock(kfd_get_dbgmgr_mutex());
->>> -err_pdd:
->>> -err_chip_unsupp:
->>> -	mutex_unlock(&p->mutex);
->>> -
->>> -	return status;
->>> +	return -EPERM;
->>>    }
->>>
->>>    static int kfd_ioctl_dbg_unregister(struct file *filep,
->>>    				struct kfd_process *p, void *data)
->>>    {
->>> -	struct kfd_ioctl_dbg_unregister_args *args = data;
->>> -	struct kfd_process_device *pdd;
->>> -	struct kfd_dev *dev;
->>> -	long status;
->>> -
->>> -	mutex_lock(&p->mutex);
->>> -	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
->>> -	mutex_unlock(&p->mutex);
->>> -	if (!pdd || !pdd->dev->dbgmgr)
->>> -		return -EINVAL;
->>> -
->>> -	dev = pdd->dev;
->>> -
->>> -	if (dev->adev->asic_type == CHIP_CARRIZO) {
->>> -		pr_debug("kfd_ioctl_dbg_unregister not supported on CZ\n");
->>> -		return -EINVAL;
->>> -	}
->>> -
->>> -	mutex_lock(kfd_get_dbgmgr_mutex());
->>> -
->>> -	status = kfd_dbgmgr_unregister(dev->dbgmgr, p);
->>> -	if (!status) {
->>> -		kfd_dbgmgr_destroy(dev->dbgmgr);
->>> -		dev->dbgmgr = NULL;
->>> -	}
->>> -
->>> -	mutex_unlock(kfd_get_dbgmgr_mutex());
->>> -
->>> -	return status;
->>> +	return -EPERM;
->>>    }
->>>
->>> -/*
->>> - * Parse and generate variable size data structure for address watch.
->>> - * Total size of the buffer and # watch points is limited in order
->>> - * to prevent kernel abuse. (no bearing to the much smaller HW limitation
->>> - * which is enforced by dbgdev module)
->>> - * please also note that the watch address itself are not "copied from user",
->>> - * since it be set into the HW in user mode values.
->>> - *
->>> - */
->>>    static int kfd_ioctl_dbg_address_watch(struct file *filep,
->>>    					struct kfd_process *p, void *data)
->>>    {
->>> -	struct kfd_ioctl_dbg_address_watch_args *args = data;
->>> -	struct kfd_dev *dev;
->>> -	struct kfd_process_device *pdd;
->>> -	struct dbg_address_watch_info aw_info;
->>> -	unsigned char *args_buff;
->>> -	long status;
->>> -	void __user *cmd_from_user;
->>> -	uint64_t watch_mask_value = 0;
->>> -	unsigned int args_idx = 0;
->>> -
->>> -	memset((void *) &aw_info, 0, sizeof(struct dbg_address_watch_info));
->>> -
->>> -	mutex_lock(&p->mutex);
->>> -	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
->>> -	mutex_unlock(&p->mutex);
->>> -	if (!pdd) {
->>> -		pr_debug("Could not find gpu id 0x%x\n", args->gpu_id);
->>> -		return -EINVAL;
->>> -	}
->>> -	dev = pdd->dev;
->>> -
->>> -	if (dev->adev->asic_type == CHIP_CARRIZO) {
->>> -		pr_debug("kfd_ioctl_dbg_wave_control not supported on
->> CZ\n");
->>> -		return -EINVAL;
->>> -	}
->>> -	cmd_from_user = (void __user *) args->content_ptr;
->>> -
->>> -	/* Validate arguments */
->>> -
->>> -	if ((args->buf_size_in_bytes > MAX_ALLOWED_AW_BUFF_SIZE) ||
->>> -		(args->buf_size_in_bytes <= sizeof(*args) + sizeof(int) * 2) ||
->>> -		(cmd_from_user == NULL))
->>> -		return -EINVAL;
->>> -
->>> -	/* this is the actual buffer to work with */
->>> -	args_buff = memdup_user(cmd_from_user,
->>> -				args->buf_size_in_bytes - sizeof(*args));
->>> -	if (IS_ERR(args_buff))
->>> -		return PTR_ERR(args_buff);
->>> -
->>> -	aw_info.process = p;
->>> -
->>> -	aw_info.num_watch_points = *((uint32_t *)(&args_buff[args_idx]));
->>> -	args_idx += sizeof(aw_info.num_watch_points);
->>> -
->>> -	aw_info.watch_mode = (enum HSA_DBG_WATCH_MODE *)
->> &args_buff[args_idx];
->>> -	args_idx += sizeof(enum HSA_DBG_WATCH_MODE) *
->> aw_info.num_watch_points;
->>> -
->>> -	/*
->>> -	 * set watch address base pointer to point on the array base
->>> -	 * within args_buff
->>> -	 */
->>> -	aw_info.watch_address = (uint64_t *) &args_buff[args_idx];
->>> -
->>> -	/* skip over the addresses buffer */
->>> -	args_idx += sizeof(aw_info.watch_address) *
->> aw_info.num_watch_points;
->>> -
->>> -	if (args_idx >= args->buf_size_in_bytes - sizeof(*args)) {
->>> -		status = -EINVAL;
->>> -		goto out;
->>> -	}
->>> -
->>> -	watch_mask_value = (uint64_t) args_buff[args_idx];
->>> -
->>> -	if (watch_mask_value > 0) {
->>> -		/*
->>> -		 * There is an array of masks.
->>> -		 * set watch mask base pointer to point on the array base
->>> -		 * within args_buff
->>> -		 */
->>> -		aw_info.watch_mask = (uint64_t *) &args_buff[args_idx];
->>> -
->>> -		/* skip over the masks buffer */
->>> -		args_idx += sizeof(aw_info.watch_mask) *
->>> -				aw_info.num_watch_points;
->>> -	} else {
->>> -		/* just the NULL mask, set to NULL and skip over it */
->>> -		aw_info.watch_mask = NULL;
->>> -		args_idx += sizeof(aw_info.watch_mask);
->>> -	}
->>> -
->>> -	if (args_idx >= args->buf_size_in_bytes - sizeof(args)) {
->>> -		status = -EINVAL;
->>> -		goto out;
->>> -	}
->>> -
->>> -	/* Currently HSA Event is not supported for DBG */
->>> -	aw_info.watch_event = NULL;
->>> -
->>> -	mutex_lock(kfd_get_dbgmgr_mutex());
->>> -
->>> -	status = kfd_dbgmgr_address_watch(dev->dbgmgr, &aw_info);
->>> -
->>> -	mutex_unlock(kfd_get_dbgmgr_mutex());
->>> -
->>> -out:
->>> -	kfree(args_buff);
->>> -
->>> -	return status;
->>> +	return -EPERM;
->>>    }
->>>
->>>    /* Parse and generate fixed size data structure for wave control */
->>>    static int kfd_ioctl_dbg_wave_control(struct file *filep,
->>>    					struct kfd_process *p, void *data)
->>>    {
->>> -	struct kfd_ioctl_dbg_wave_control_args *args = data;
->>> -	struct kfd_dev *dev;
->>> -	struct kfd_process_device *pdd;
->>> -	struct dbg_wave_control_info wac_info;
->>> -	unsigned char *args_buff;
->>> -	uint32_t computed_buff_size;
->>> -	long status;
->>> -	void __user *cmd_from_user;
->>> -	unsigned int args_idx = 0;
->>> -
->>> -	memset((void *) &wac_info, 0, sizeof(struct dbg_wave_control_info));
->>> -
->>> -	/* we use compact form, independent of the packing attribute value */
->>> -	computed_buff_size = sizeof(*args) +
->>> -				sizeof(wac_info.mode) +
->>> -				sizeof(wac_info.operand) +
->>> -				sizeof(wac_info.dbgWave_msg.DbgWaveMsg)
->> +
->>> -				sizeof(wac_info.dbgWave_msg.MemoryVA) +
->>> -				sizeof(wac_info.trapId);
->>> -
->>> -	mutex_lock(&p->mutex);
->>> -	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
->>> -	mutex_unlock(&p->mutex);
->>> -	if (!pdd) {
->>> -		pr_debug("Could not find gpu id 0x%x\n", args->gpu_id);
->>> -		return -EINVAL;
->>> -	}
->>> -	dev = pdd->dev;
->>> -
->>> -	if (dev->adev->asic_type == CHIP_CARRIZO) {
->>> -		pr_debug("kfd_ioctl_dbg_wave_control not supported on
->> CZ\n");
->>> -		return -EINVAL;
->>> -	}
->>> -
->>> -	/* input size must match the computed "compact" size */
->>> -	if (args->buf_size_in_bytes != computed_buff_size) {
->>> -		pr_debug("size mismatch, computed : actual %u : %u\n",
->>> -				args->buf_size_in_bytes, computed_buff_size);
->>> -		return -EINVAL;
->>> -	}
->>> -
->>> -	cmd_from_user = (void __user *) args->content_ptr;
->>> -
->>> -	if (cmd_from_user == NULL)
->>> -		return -EINVAL;
->>> -
->>> -	/* copy the entire buffer from user */
->>> -
->>> -	args_buff = memdup_user(cmd_from_user,
->>> -				args->buf_size_in_bytes - sizeof(*args));
->>> -	if (IS_ERR(args_buff))
->>> -		return PTR_ERR(args_buff);
->>> -
->>> -	/* move ptr to the start of the "pay-load" area */
->>> -	wac_info.process = p;
->>> -
->>> -	wac_info.operand = *((enum HSA_DBG_WAVEOP
->> *)(&args_buff[args_idx]));
->>> -	args_idx += sizeof(wac_info.operand);
->>> -
->>> -	wac_info.mode = *((enum HSA_DBG_WAVEMODE
->> *)(&args_buff[args_idx]));
->>> -	args_idx += sizeof(wac_info.mode);
->>> -
->>> -	wac_info.trapId = *((uint32_t *)(&args_buff[args_idx]));
->>> -	args_idx += sizeof(wac_info.trapId);
->>> -
->>> -	wac_info.dbgWave_msg.DbgWaveMsg.WaveMsgInfoGen2.Value =
->>> -					*((uint32_t *)(&args_buff[args_idx]));
->>> -	wac_info.dbgWave_msg.MemoryVA = NULL;
->>> -
->>> -	mutex_lock(kfd_get_dbgmgr_mutex());
->>> -
->>> -	pr_debug("Calling dbg manager process %p, operand %u, mode %u,
->> trapId %u, message %u\n",
->>> -			wac_info.process, wac_info.operand,
->>> -			wac_info.mode, wac_info.trapId,
->>> -
->> 	wac_info.dbgWave_msg.DbgWaveMsg.WaveMsgInfoGen2.Value);
->>> -
->>> -	status = kfd_dbgmgr_wave_control(dev->dbgmgr, &wac_info);
->>> -
->>> -	pr_debug("Returned status of dbg manager is %ld\n", status);
->>> -
->>> -	mutex_unlock(kfd_get_dbgmgr_mutex());
->>> -
->>> -	kfree(args_buff);
->>> -
->>> -	return status;
->>> +	return -EPERM;
->>>    }
->>>
->>>    static int kfd_ioctl_get_clock_counters(struct file *filep,
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
->>> deleted file mode 100644
->>> index 8eca9ed3ab36..000000000000
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
->>> +++ /dev/null
->>> @@ -1,845 +0,0 @@
->>> -/*
->>> - * Copyright 2014 Advanced Micro Devices, Inc.
->>> - *
->>> - * Permission is hereby granted, free of charge, to any person obtaining a
->>> - * copy of this software and associated documentation files (the "Software"),
->>> - * to deal in the Software without restriction, including without limitation
->>> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
->>> - * and/or sell copies of the Software, and to permit persons to whom the
->>> - * Software is furnished to do so, subject to the following conditions:
->>> - *
->>> - * The above copyright notice and this permission notice shall be included in
->>> - * all copies or substantial portions of the Software.
->>> - *
->>> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
->> EXPRESS OR
->>> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
->> MERCHANTABILITY,
->>> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
->> EVENT SHALL
->>> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
->> DAMAGES OR
->>> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
->> OTHERWISE,
->>> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
->> THE USE OR
->>> - * OTHER DEALINGS IN THE SOFTWARE.
->>> - *
->>> - */
->>> -
->>> -#include <linux/types.h>
->>> -#include <linux/kernel.h>
->>> -#include <linux/log2.h>
->>> -#include <linux/sched.h>
->>> -#include <linux/slab.h>
->>> -#include <linux/mutex.h>
->>> -#include <linux/device.h>
->>> -
->>> -#include "kfd_pm4_headers.h"
->>> -#include "kfd_pm4_headers_diq.h"
->>> -#include "kfd_kernel_queue.h"
->>> -#include "kfd_priv.h"
->>> -#include "kfd_pm4_opcodes.h"
->>> -#include "cik_regs.h"
->>> -#include "kfd_dbgmgr.h"
->>> -#include "kfd_dbgdev.h"
->>> -#include "kfd_device_queue_manager.h"
->>> -
->>> -static void dbgdev_address_watch_disable_nodiq(struct kfd_dev *dev)
->>> -{
->>> -	dev->kfd2kgd->address_watch_disable(dev->adev);
->>> -}
->>> -
->>> -static int dbgdev_diq_submit_ib(struct kfd_dbgdev *dbgdev,
->>> -				u32 pasid, uint64_t vmid0_address,
->>> -				uint32_t *packet_buff, size_t size_in_bytes)
->>> -{
->>> -	struct pm4__release_mem *rm_packet;
->>> -	struct pm4__indirect_buffer_pasid *ib_packet;
->>> -	struct kfd_mem_obj *mem_obj;
->>> -	size_t pq_packets_size_in_bytes;
->>> -	union ULARGE_INTEGER *largep;
->>> -	union ULARGE_INTEGER addr;
->>> -	struct kernel_queue *kq;
->>> -	uint64_t *rm_state;
->>> -	unsigned int *ib_packet_buff;
->>> -	int status;
->>> -
->>> -	if (WARN_ON(!size_in_bytes))
->>> -		return -EINVAL;
->>> -
->>> -	kq = dbgdev->kq;
->>> -
->>> -	pq_packets_size_in_bytes = sizeof(struct pm4__release_mem) +
->>> -				sizeof(struct pm4__indirect_buffer_pasid);
->>> -
->>> -	/*
->>> -	 * We acquire a buffer from DIQ
->>> -	 * The receive packet buff will be sitting on the Indirect Buffer
->>> -	 * and in the PQ we put the IB packet + sync packet(s).
->>> -	 */
->>> -	status = kq_acquire_packet_buffer(kq,
->>> -				pq_packets_size_in_bytes / sizeof(uint32_t),
->>> -				&ib_packet_buff);
->>> -	if (status) {
->>> -		pr_err("kq_acquire_packet_buffer failed\n");
->>> -		return status;
->>> -	}
->>> -
->>> -	memset(ib_packet_buff, 0, pq_packets_size_in_bytes);
->>> -
->>> -	ib_packet = (struct pm4__indirect_buffer_pasid *) (ib_packet_buff);
->>> -
->>> -	ib_packet->header.count = 3;
->>> -	ib_packet->header.opcode = IT_INDIRECT_BUFFER_PASID;
->>> -	ib_packet->header.type = PM4_TYPE_3;
->>> -
->>> -	largep = (union ULARGE_INTEGER *) &vmid0_address;
->>> -
->>> -	ib_packet->bitfields2.ib_base_lo = largep->u.low_part >> 2;
->>> -	ib_packet->bitfields3.ib_base_hi = largep->u.high_part;
->>> -
->>> -	ib_packet->control = (1 << 23) | (1 << 31) |
->>> -			((size_in_bytes / 4) & 0xfffff);
->>> -
->>> -	ib_packet->bitfields5.pasid = pasid;
->>> -
->>> -	/*
->>> -	 * for now we use release mem for GPU-CPU synchronization
->>> -	 * Consider WaitRegMem + WriteData as a better alternative
->>> -	 * we get a GART allocations ( gpu/cpu mapping),
->>> -	 * for the sync variable, and wait until:
->>> -	 * (a) Sync with HW
->>> -	 * (b) Sync var is written by CP to mem.
->>> -	 */
->>> -	rm_packet = (struct pm4__release_mem *) (ib_packet_buff +
->>> -			(sizeof(struct pm4__indirect_buffer_pasid) /
->>> -					sizeof(unsigned int)));
->>> -
->>> -	status = kfd_gtt_sa_allocate(dbgdev->dev, sizeof(uint64_t),
->>> -					&mem_obj);
->>> -
->>> -	if (status) {
->>> -		pr_err("Failed to allocate GART memory\n");
->>> -		kq_rollback_packet(kq);
->>> -		return status;
->>> -	}
->>> -
->>> -	rm_state = (uint64_t *) mem_obj->cpu_ptr;
->>> -
->>> -	*rm_state = QUEUESTATE__ACTIVE_COMPLETION_PENDING;
->>> -
->>> -	rm_packet->header.opcode = IT_RELEASE_MEM;
->>> -	rm_packet->header.type = PM4_TYPE_3;
->>> -	rm_packet->header.count = sizeof(struct pm4__release_mem) / 4 - 2;
->>> -
->>> -	rm_packet->bitfields2.event_type =
->> CACHE_FLUSH_AND_INV_TS_EVENT;
->>> -	rm_packet->bitfields2.event_index =
->>> -				event_index___release_mem__end_of_pipe;
->>> -
->>> -	rm_packet->bitfields2.cache_policy =
->> cache_policy___release_mem__lru;
->>> -	rm_packet->bitfields2.atc = 0;
->>> -	rm_packet->bitfields2.tc_wb_action_ena = 1;
->>> -
->>> -	addr.quad_part = mem_obj->gpu_addr;
->>> -
->>> -	rm_packet->bitfields4.address_lo_32b = addr.u.low_part >> 2;
->>> -	rm_packet->address_hi = addr.u.high_part;
->>> -
->>> -	rm_packet->bitfields3.data_sel =
->>> -				data_sel___release_mem__send_64_bit_data;
->>> -
->>> -	rm_packet->bitfields3.int_sel =
->>> -
->> 	int_sel___release_mem__send_data_after_write_confirm;
->>> -
->>> -	rm_packet->bitfields3.dst_sel =
->>> -			dst_sel___release_mem__memory_controller;
->>> -
->>> -	rm_packet->data_lo = QUEUESTATE__ACTIVE;
->>> -
->>> -	kq_submit_packet(kq);
->>> -
->>> -	/* Wait till CP writes sync code: */
->>> -	status = amdkfd_fence_wait_timeout(
->>> -			rm_state,
->>> -			QUEUESTATE__ACTIVE, 1500);
->>> -
->>> -	kfd_gtt_sa_free(dbgdev->dev, mem_obj);
->>> -
->>> -	return status;
->>> -}
->>> -
->>> -static int dbgdev_register_nodiq(struct kfd_dbgdev *dbgdev)
->>> -{
->>> -	/*
->>> -	 * no action is needed in this case,
->>> -	 * just make sure diq will not be used
->>> -	 */
->>> -
->>> -	dbgdev->kq = NULL;
->>> -
->>> -	return 0;
->>> -}
->>> -
->>> -static int dbgdev_register_diq(struct kfd_dbgdev *dbgdev)
->>> -{
->>> -	struct queue_properties properties;
->>> -	unsigned int qid;
->>> -	struct kernel_queue *kq = NULL;
->>> -	int status;
->>> -
->>> -	properties.type = KFD_QUEUE_TYPE_DIQ;
->>> -
->>> -	status = pqm_create_queue(dbgdev->pqm, dbgdev->dev, NULL,
->>> -				&properties, &qid, NULL, NULL, NULL, NULL);
->>> -
->>> -	if (status) {
->>> -		pr_err("Failed to create DIQ\n");
->>> -		return status;
->>> -	}
->>> -
->>> -	pr_debug("DIQ Created with queue id: %d\n", qid);
->>> -
->>> -	kq = pqm_get_kernel_queue(dbgdev->pqm, qid);
->>> -
->>> -	if (!kq) {
->>> -		pr_err("Error getting DIQ\n");
->>> -		pqm_destroy_queue(dbgdev->pqm, qid);
->>> -		return -EFAULT;
->>> -	}
->>> -
->>> -	dbgdev->kq = kq;
->>> -
->>> -	return status;
->>> -}
->>> -
->>> -static int dbgdev_unregister_nodiq(struct kfd_dbgdev *dbgdev)
->>> -{
->>> -	/* disable watch address */
->>> -	dbgdev_address_watch_disable_nodiq(dbgdev->dev);
->>> -	return 0;
->>> -}
->>> -
->>> -static int dbgdev_unregister_diq(struct kfd_dbgdev *dbgdev)
->>> -{
->>> -	/* todo - disable address watch */
->>> -	int status;
->>> -
->>> -	status = pqm_destroy_queue(dbgdev->pqm,
->>> -			dbgdev->kq->queue->properties.queue_id);
->>> -	dbgdev->kq = NULL;
->>> -
->>> -	return status;
->>> -}
->>> -
->>> -static void dbgdev_address_watch_set_registers(
->>> -			const struct dbg_address_watch_info *adw_info,
->>> -			union TCP_WATCH_ADDR_H_BITS *addrHi,
->>> -			union TCP_WATCH_ADDR_L_BITS *addrLo,
->>> -			union TCP_WATCH_CNTL_BITS *cntl,
->>> -			unsigned int index, unsigned int vmid)
->>> -{
->>> -	union ULARGE_INTEGER addr;
->>> -
->>> -	addr.quad_part = 0;
->>> -	addrHi->u32All = 0;
->>> -	addrLo->u32All = 0;
->>> -	cntl->u32All = 0;
->>> -
->>> -	if (adw_info->watch_mask)
->>> -		cntl->bitfields.mask =
->>> -			(uint32_t) (adw_info->watch_mask[index] &
->>> -
->> 	ADDRESS_WATCH_REG_CNTL_DEFAULT_MASK);
->>> -	else
->>> -		cntl->bitfields.mask =
->> ADDRESS_WATCH_REG_CNTL_DEFAULT_MASK;
->>> -
->>> -	addr.quad_part = (unsigned long long) adw_info-
->>> watch_address[index];
->>> -
->>> -	addrHi->bitfields.addr = addr.u.high_part &
->>> -
->> 	ADDRESS_WATCH_REG_ADDHIGH_MASK;
->>> -	addrLo->bitfields.addr =
->>> -			(addr.u.low_part >>
->> ADDRESS_WATCH_REG_ADDLOW_SHIFT);
->>> -
->>> -	cntl->bitfields.mode = adw_info->watch_mode[index];
->>> -	cntl->bitfields.vmid = (uint32_t) vmid;
->>> -	/* for now assume it is an ATC address */
->>> -	cntl->u32All |= ADDRESS_WATCH_REG_CNTL_ATC_BIT;
->>> -
->>> -	pr_debug("\t\t%20s %08x\n", "set reg mask :", cntl->bitfields.mask);
->>> -	pr_debug("\t\t%20s %08x\n", "set reg add high :",
->>> -			addrHi->bitfields.addr);
->>> -	pr_debug("\t\t%20s %08x\n", "set reg add low :",
->>> -			addrLo->bitfields.addr);
->>> -}
->>> -
->>> -static int dbgdev_address_watch_nodiq(struct kfd_dbgdev *dbgdev,
->>> -				      struct dbg_address_watch_info *adw_info)
->>> -{
->>> -	union TCP_WATCH_ADDR_H_BITS addrHi;
->>> -	union TCP_WATCH_ADDR_L_BITS addrLo;
->>> -	union TCP_WATCH_CNTL_BITS cntl;
->>> -	struct kfd_process_device *pdd;
->>> -	unsigned int i;
->>> -
->>> -	/* taking the vmid for that process on the safe way using pdd */
->>> -	pdd = kfd_get_process_device_data(dbgdev->dev,
->>> -					adw_info->process);
->>> -	if (!pdd) {
->>> -		pr_err("Failed to get pdd for wave control no DIQ\n");
->>> -		return -EFAULT;
->>> -	}
->>> -
->>> -	addrHi.u32All = 0;
->>> -	addrLo.u32All = 0;
->>> -	cntl.u32All = 0;
->>> -
->>> -	if ((adw_info->num_watch_points > MAX_WATCH_ADDRESSES) ||
->>> -			(adw_info->num_watch_points == 0)) {
->>> -		pr_err("num_watch_points is invalid\n");
->>> -		return -EINVAL;
->>> -	}
->>> -
->>> -	if (!adw_info->watch_mode || !adw_info->watch_address) {
->>> -		pr_err("adw_info fields are not valid\n");
->>> -		return -EINVAL;
->>> -	}
->>> -
->>> -	for (i = 0; i < adw_info->num_watch_points; i++) {
->>> -		dbgdev_address_watch_set_registers(adw_info, &addrHi,
->> &addrLo,
->>> -						&cntl, i, pdd->qpd.vmid);
->>> -
->>> -		pr_debug("\t\t%30s\n", "* * * * * * * * * * * * * * * * * *");
->>> -		pr_debug("\t\t%20s %08x\n", "register index :", i);
->>> -		pr_debug("\t\t%20s %08x\n", "vmid is :", pdd->qpd.vmid);
->>> -		pr_debug("\t\t%20s %08x\n", "Address Low is :",
->>> -				addrLo.bitfields.addr);
->>> -		pr_debug("\t\t%20s %08x\n", "Address high is :",
->>> -				addrHi.bitfields.addr);
->>> -		pr_debug("\t\t%20s %08x\n", "Address high is :",
->>> -				addrHi.bitfields.addr);
->>> -		pr_debug("\t\t%20s %08x\n", "Control Mask is :",
->>> -				cntl.bitfields.mask);
->>> -		pr_debug("\t\t%20s %08x\n", "Control Mode is :",
->>> -				cntl.bitfields.mode);
->>> -		pr_debug("\t\t%20s %08x\n", "Control Vmid is :",
->>> -				cntl.bitfields.vmid);
->>> -		pr_debug("\t\t%20s %08x\n", "Control atc  is :",
->>> -				cntl.bitfields.atc);
->>> -		pr_debug("\t\t%30s\n", "* * * * * * * * * * * * * * * * * *");
->>> -
->>> -		pdd->dev->kfd2kgd->address_watch_execute(
->>> -						dbgdev->dev->adev,
->>> -						i,
->>> -						cntl.u32All,
->>> -						addrHi.u32All,
->>> -						addrLo.u32All);
->>> -	}
->>> -
->>> -	return 0;
->>> -}
->>> -
->>> -static int dbgdev_address_watch_diq(struct kfd_dbgdev *dbgdev,
->>> -				    struct dbg_address_watch_info *adw_info)
->>> -{
->>> -	struct pm4__set_config_reg *packets_vec;
->>> -	union TCP_WATCH_ADDR_H_BITS addrHi;
->>> -	union TCP_WATCH_ADDR_L_BITS addrLo;
->>> -	union TCP_WATCH_CNTL_BITS cntl;
->>> -	struct kfd_mem_obj *mem_obj;
->>> -	unsigned int aw_reg_add_dword;
->>> -	uint32_t *packet_buff_uint;
->>> -	unsigned int i;
->>> -	int status;
->>> -	size_t ib_size = sizeof(struct pm4__set_config_reg) * 4;
->>> -	/* we do not control the vmid in DIQ mode, just a place holder */
->>> -	unsigned int vmid = 0;
->>> -
->>> -	addrHi.u32All = 0;
->>> -	addrLo.u32All = 0;
->>> -	cntl.u32All = 0;
->>> -
->>> -	if ((adw_info->num_watch_points > MAX_WATCH_ADDRESSES) ||
->>> -			(adw_info->num_watch_points == 0)) {
->>> -		pr_err("num_watch_points is invalid\n");
->>> -		return -EINVAL;
->>> -	}
->>> -
->>> -	if (!adw_info->watch_mode || !adw_info->watch_address) {
->>> -		pr_err("adw_info fields are not valid\n");
->>> -		return -EINVAL;
->>> -	}
->>> -
->>> -	status = kfd_gtt_sa_allocate(dbgdev->dev, ib_size, &mem_obj);
->>> -
->>> -	if (status) {
->>> -		pr_err("Failed to allocate GART memory\n");
->>> -		return status;
->>> -	}
->>> -
->>> -	packet_buff_uint = mem_obj->cpu_ptr;
->>> -
->>> -	memset(packet_buff_uint, 0, ib_size);
->>> -
->>> -	packets_vec = (struct pm4__set_config_reg *) (packet_buff_uint);
->>> -
->>> -	packets_vec[0].header.count = 1;
->>> -	packets_vec[0].header.opcode = IT_SET_CONFIG_REG;
->>> -	packets_vec[0].header.type = PM4_TYPE_3;
->>> -	packets_vec[0].bitfields2.vmid_shift =
->> ADDRESS_WATCH_CNTL_OFFSET;
->>> -	packets_vec[0].bitfields2.insert_vmid = 1;
->>> -	packets_vec[1].ordinal1 = packets_vec[0].ordinal1;
->>> -	packets_vec[1].bitfields2.insert_vmid = 0;
->>> -	packets_vec[2].ordinal1 = packets_vec[0].ordinal1;
->>> -	packets_vec[2].bitfields2.insert_vmid = 0;
->>> -	packets_vec[3].ordinal1 = packets_vec[0].ordinal1;
->>> -	packets_vec[3].bitfields2.vmid_shift =
->> ADDRESS_WATCH_CNTL_OFFSET;
->>> -	packets_vec[3].bitfields2.insert_vmid = 1;
->>> -
->>> -	for (i = 0; i < adw_info->num_watch_points; i++) {
->>> -		dbgdev_address_watch_set_registers(adw_info,
->>> -						&addrHi,
->>> -						&addrLo,
->>> -						&cntl,
->>> -						i,
->>> -						vmid);
->>> -
->>> -		pr_debug("\t\t%30s\n", "* * * * * * * * * * * * * * * * * *");
->>> -		pr_debug("\t\t%20s %08x\n", "register index :", i);
->>> -		pr_debug("\t\t%20s %08x\n", "vmid is :", vmid);
->>> -		pr_debug("\t\t%20s %p\n", "Add ptr is :",
->>> -				adw_info->watch_address);
->>> -		pr_debug("\t\t%20s %08llx\n", "Add     is :",
->>> -				adw_info->watch_address[i]);
->>> -		pr_debug("\t\t%20s %08x\n", "Address Low is :",
->>> -				addrLo.bitfields.addr);
->>> -		pr_debug("\t\t%20s %08x\n", "Address high is :",
->>> -				addrHi.bitfields.addr);
->>> -		pr_debug("\t\t%20s %08x\n", "Control Mask is :",
->>> -				cntl.bitfields.mask);
->>> -		pr_debug("\t\t%20s %08x\n", "Control Mode is :",
->>> -				cntl.bitfields.mode);
->>> -		pr_debug("\t\t%20s %08x\n", "Control Vmid is :",
->>> -				cntl.bitfields.vmid);
->>> -		pr_debug("\t\t%20s %08x\n", "Control atc  is :",
->>> -				cntl.bitfields.atc);
->>> -		pr_debug("\t\t%30s\n", "* * * * * * * * * * * * * * * * * *");
->>> -
->>> -		aw_reg_add_dword =
->>> -				dbgdev->dev->kfd2kgd-
->>> address_watch_get_offset(
->>> -					dbgdev->dev->adev,
->>> -					i,
->>> -					ADDRESS_WATCH_REG_CNTL);
->>> -
->>> -		packets_vec[0].bitfields2.reg_offset =
->>> -					aw_reg_add_dword -
->> AMD_CONFIG_REG_BASE;
->>> -
->>> -		packets_vec[0].reg_data[0] = cntl.u32All;
->>> -
->>> -		aw_reg_add_dword =
->>> -				dbgdev->dev->kfd2kgd-
->>> address_watch_get_offset(
->>> -					dbgdev->dev->adev,
->>> -					i,
->>> -					ADDRESS_WATCH_REG_ADDR_HI);
->>> -
->>> -		packets_vec[1].bitfields2.reg_offset =
->>> -					aw_reg_add_dword -
->> AMD_CONFIG_REG_BASE;
->>> -		packets_vec[1].reg_data[0] = addrHi.u32All;
->>> -
->>> -		aw_reg_add_dword =
->>> -				dbgdev->dev->kfd2kgd-
->>> address_watch_get_offset(
->>> -					dbgdev->dev->adev,
->>> -					i,
->>> -					ADDRESS_WATCH_REG_ADDR_LO);
->>> -
->>> -		packets_vec[2].bitfields2.reg_offset =
->>> -				aw_reg_add_dword -
->> AMD_CONFIG_REG_BASE;
->>> -		packets_vec[2].reg_data[0] = addrLo.u32All;
->>> -
->>> -		/* enable watch flag if address is not zero*/
->>> -		if (adw_info->watch_address[i] > 0)
->>> -			cntl.bitfields.valid = 1;
->>> -		else
->>> -			cntl.bitfields.valid = 0;
->>> -
->>> -		aw_reg_add_dword =
->>> -				dbgdev->dev->kfd2kgd-
->>> address_watch_get_offset(
->>> -					dbgdev->dev->adev,
->>> -					i,
->>> -					ADDRESS_WATCH_REG_CNTL);
->>> -
->>> -		packets_vec[3].bitfields2.reg_offset =
->>> -					aw_reg_add_dword -
->> AMD_CONFIG_REG_BASE;
->>> -		packets_vec[3].reg_data[0] = cntl.u32All;
->>> -
->>> -		status = dbgdev_diq_submit_ib(
->>> -					dbgdev,
->>> -					adw_info->process->pasid,
->>> -					mem_obj->gpu_addr,
->>> -					packet_buff_uint,
->>> -					ib_size);
->>> -
->>> -		if (status) {
->>> -			pr_err("Failed to submit IB to DIQ\n");
->>> -			break;
->>> -		}
->>> -	}
->>> -
->>> -	kfd_gtt_sa_free(dbgdev->dev, mem_obj);
->>> -	return status;
->>> -}
->>> -
->>> -static int dbgdev_wave_control_set_registers(
->>> -				struct dbg_wave_control_info *wac_info,
->>> -				union SQ_CMD_BITS *in_reg_sq_cmd,
->>> -				union GRBM_GFX_INDEX_BITS
->> *in_reg_gfx_index)
->>> -{
->>> -	int status = 0;
->>> -	union SQ_CMD_BITS reg_sq_cmd;
->>> -	union GRBM_GFX_INDEX_BITS reg_gfx_index;
->>> -	struct HsaDbgWaveMsgAMDGen2 *pMsg;
->>> -
->>> -	reg_sq_cmd.u32All = 0;
->>> -	reg_gfx_index.u32All = 0;
->>> -	pMsg = &wac_info->dbgWave_msg.DbgWaveMsg.WaveMsgInfoGen2;
->>> -
->>> -	switch (wac_info->mode) {
->>> -	/* Send command to single wave */
->>> -	case HSA_DBG_WAVEMODE_SINGLE:
->>> -		/*
->>> -		 * Limit access to the process waves only,
->>> -		 * by setting vmid check
->>> -		 */
->>> -		reg_sq_cmd.bits.check_vmid = 1;
->>> -		reg_sq_cmd.bits.simd_id = pMsg->ui32.SIMD;
->>> -		reg_sq_cmd.bits.wave_id = pMsg->ui32.WaveId;
->>> -		reg_sq_cmd.bits.mode = SQ_IND_CMD_MODE_SINGLE;
->>> -
->>> -		reg_gfx_index.bits.sh_index = pMsg->ui32.ShaderArray;
->>> -		reg_gfx_index.bits.se_index = pMsg->ui32.ShaderEngine;
->>> -		reg_gfx_index.bits.instance_index = pMsg->ui32.HSACU;
->>> -
->>> -		break;
->>> -
->>> -	/* Send command to all waves with matching VMID */
->>> -	case HSA_DBG_WAVEMODE_BROADCAST_PROCESS:
->>> -
->>> -		reg_gfx_index.bits.sh_broadcast_writes = 1;
->>> -		reg_gfx_index.bits.se_broadcast_writes = 1;
->>> -		reg_gfx_index.bits.instance_broadcast_writes = 1;
->>> -
->>> -		reg_sq_cmd.bits.mode = SQ_IND_CMD_MODE_BROADCAST;
->>> -
->>> -		break;
->>> -
->>> -	/* Send command to all CU waves with matching VMID */
->>> -	case HSA_DBG_WAVEMODE_BROADCAST_PROCESS_CU:
->>> -
->>> -		reg_sq_cmd.bits.check_vmid = 1;
->>> -		reg_sq_cmd.bits.mode = SQ_IND_CMD_MODE_BROADCAST;
->>> -
->>> -		reg_gfx_index.bits.sh_index = pMsg->ui32.ShaderArray;
->>> -		reg_gfx_index.bits.se_index = pMsg->ui32.ShaderEngine;
->>> -		reg_gfx_index.bits.instance_index = pMsg->ui32.HSACU;
->>> -
->>> -		break;
->>> -
->>> -	default:
->>> -		return -EINVAL;
->>> -	}
->>> -
->>> -	switch (wac_info->operand) {
->>> -	case HSA_DBG_WAVEOP_HALT:
->>> -		reg_sq_cmd.bits.cmd = SQ_IND_CMD_CMD_HALT;
->>> -		break;
->>> -
->>> -	case HSA_DBG_WAVEOP_RESUME:
->>> -		reg_sq_cmd.bits.cmd = SQ_IND_CMD_CMD_RESUME;
->>> -		break;
->>> -
->>> -	case HSA_DBG_WAVEOP_KILL:
->>> -		reg_sq_cmd.bits.cmd = SQ_IND_CMD_CMD_KILL;
->>> -		break;
->>> -
->>> -	case HSA_DBG_WAVEOP_DEBUG:
->>> -		reg_sq_cmd.bits.cmd = SQ_IND_CMD_CMD_DEBUG;
->>> -		break;
->>> -
->>> -	case HSA_DBG_WAVEOP_TRAP:
->>> -		if (wac_info->trapId < MAX_TRAPID) {
->>> -			reg_sq_cmd.bits.cmd = SQ_IND_CMD_CMD_TRAP;
->>> -			reg_sq_cmd.bits.trap_id = wac_info->trapId;
->>> -		} else {
->>> -			status = -EINVAL;
->>> -		}
->>> -		break;
->>> -
->>> -	default:
->>> -		status = -EINVAL;
->>> -		break;
->>> -	}
->>> -
->>> -	if (status == 0) {
->>> -		*in_reg_sq_cmd = reg_sq_cmd;
->>> -		*in_reg_gfx_index = reg_gfx_index;
->>> -	}
->>> -
->>> -	return status;
->>> -}
->>> -
->>> -static int dbgdev_wave_control_diq(struct kfd_dbgdev *dbgdev,
->>> -					struct dbg_wave_control_info
->> *wac_info)
->>> -{
->>> -
->>> -	int status;
->>> -	union SQ_CMD_BITS reg_sq_cmd;
->>> -	union GRBM_GFX_INDEX_BITS reg_gfx_index;
->>> -	struct kfd_mem_obj *mem_obj;
->>> -	uint32_t *packet_buff_uint;
->>> -	struct pm4__set_config_reg *packets_vec;
->>> -	size_t ib_size = sizeof(struct pm4__set_config_reg) * 3;
->>> -
->>> -	reg_sq_cmd.u32All = 0;
->>> -
->>> -	status = dbgdev_wave_control_set_registers(wac_info, &reg_sq_cmd,
->>> -							&reg_gfx_index);
->>> -	if (status) {
->>> -		pr_err("Failed to set wave control registers\n");
->>> -		return status;
->>> -	}
->>> -
->>> -	/* we do not control the VMID in DIQ, so reset it to a known value */
->>> -	reg_sq_cmd.bits.vm_id = 0;
->>> -
->>> -	pr_debug("\t\t %30s\n", "* * * * * * * * * * * * * * * * * *");
->>> -
->>> -	pr_debug("\t\t mode      is: %u\n", wac_info->mode);
->>> -	pr_debug("\t\t operand   is: %u\n", wac_info->operand);
->>> -	pr_debug("\t\t trap id   is: %u\n", wac_info->trapId);
->>> -	pr_debug("\t\t msg value is: %u\n",
->>> -			wac_info-
->>> dbgWave_msg.DbgWaveMsg.WaveMsgInfoGen2.Value);
->>> -	pr_debug("\t\t vmid      is: N/A\n");
->>> -
->>> -	pr_debug("\t\t chk_vmid  is : %u\n", reg_sq_cmd.bitfields.check_vmid);
->>> -	pr_debug("\t\t command   is : %u\n", reg_sq_cmd.bitfields.cmd);
->>> -	pr_debug("\t\t queue id  is : %u\n", reg_sq_cmd.bitfields.queue_id);
->>> -	pr_debug("\t\t simd id   is : %u\n", reg_sq_cmd.bitfields.simd_id);
->>> -	pr_debug("\t\t mode      is : %u\n", reg_sq_cmd.bitfields.mode);
->>> -	pr_debug("\t\t vm_id     is : %u\n", reg_sq_cmd.bitfields.vm_id);
->>> -	pr_debug("\t\t wave_id   is : %u\n", reg_sq_cmd.bitfields.wave_id);
->>> -
->>> -	pr_debug("\t\t ibw       is : %u\n",
->>> -			reg_gfx_index.bitfields.instance_broadcast_writes);
->>> -	pr_debug("\t\t ii        is : %u\n",
->>> -			reg_gfx_index.bitfields.instance_index);
->>> -	pr_debug("\t\t sebw      is : %u\n",
->>> -			reg_gfx_index.bitfields.se_broadcast_writes);
->>> -	pr_debug("\t\t se_ind    is : %u\n", reg_gfx_index.bitfields.se_index);
->>> -	pr_debug("\t\t sh_ind    is : %u\n", reg_gfx_index.bitfields.sh_index);
->>> -	pr_debug("\t\t sbw       is : %u\n",
->>> -			reg_gfx_index.bitfields.sh_broadcast_writes);
->>> -
->>> -	pr_debug("\t\t %30s\n", "* * * * * * * * * * * * * * * * * *");
->>> -
->>> -	status = kfd_gtt_sa_allocate(dbgdev->dev, ib_size, &mem_obj);
->>> -
->>> -	if (status != 0) {
->>> -		pr_err("Failed to allocate GART memory\n");
->>> -		return status;
->>> -	}
->>> -
->>> -	packet_buff_uint = mem_obj->cpu_ptr;
->>> -
->>> -	memset(packet_buff_uint, 0, ib_size);
->>> -
->>> -	packets_vec =  (struct pm4__set_config_reg *) packet_buff_uint;
->>> -	packets_vec[0].header.count = 1;
->>> -	packets_vec[0].header.opcode = IT_SET_UCONFIG_REG;
->>> -	packets_vec[0].header.type = PM4_TYPE_3;
->>> -	packets_vec[0].bitfields2.reg_offset =
->>> -			GRBM_GFX_INDEX / 4 - USERCONFIG_REG_BASE;
->>> -
->>> -	packets_vec[0].bitfields2.insert_vmid = 0;
->>> -	packets_vec[0].reg_data[0] = reg_gfx_index.u32All;
->>> -
->>> -	packets_vec[1].header.count = 1;
->>> -	packets_vec[1].header.opcode = IT_SET_CONFIG_REG;
->>> -	packets_vec[1].header.type = PM4_TYPE_3;
->>> -	packets_vec[1].bitfields2.reg_offset = SQ_CMD / 4 -
->> AMD_CONFIG_REG_BASE;
->>> -
->>> -	packets_vec[1].bitfields2.vmid_shift = SQ_CMD_VMID_OFFSET;
->>> -	packets_vec[1].bitfields2.insert_vmid = 1;
->>> -	packets_vec[1].reg_data[0] = reg_sq_cmd.u32All;
->>> -
->>> -	/* Restore the GRBM_GFX_INDEX register */
->>> -
->>> -	reg_gfx_index.u32All = 0;
->>> -	reg_gfx_index.bits.sh_broadcast_writes = 1;
->>> -	reg_gfx_index.bits.instance_broadcast_writes = 1;
->>> -	reg_gfx_index.bits.se_broadcast_writes = 1;
->>> -
->>> -
->>> -	packets_vec[2].ordinal1 = packets_vec[0].ordinal1;
->>> -	packets_vec[2].bitfields2.reg_offset =
->>> -				GRBM_GFX_INDEX / 4 -
->> USERCONFIG_REG_BASE;
->>> -
->>> -	packets_vec[2].bitfields2.insert_vmid = 0;
->>> -	packets_vec[2].reg_data[0] = reg_gfx_index.u32All;
->>> -
->>> -	status = dbgdev_diq_submit_ib(
->>> -			dbgdev,
->>> -			wac_info->process->pasid,
->>> -			mem_obj->gpu_addr,
->>> -			packet_buff_uint,
->>> -			ib_size);
->>> -
->>> -	if (status)
->>> -		pr_err("Failed to submit IB to DIQ\n");
->>> -
->>> -	kfd_gtt_sa_free(dbgdev->dev, mem_obj);
->>> -
->>> -	return status;
->>> -}
->>> -
->>> -static int dbgdev_wave_control_nodiq(struct kfd_dbgdev *dbgdev,
->>> -					struct dbg_wave_control_info
->> *wac_info)
->>> -{
->>> -	int status;
->>> -	union SQ_CMD_BITS reg_sq_cmd;
->>> -	union GRBM_GFX_INDEX_BITS reg_gfx_index;
->>> -	struct kfd_process_device *pdd;
->>> -
->>> -	reg_sq_cmd.u32All = 0;
->>> -
->>> -	/* taking the VMID for that process on the safe way using PDD */
->>> -	pdd = kfd_get_process_device_data(dbgdev->dev, wac_info->process);
->>> -
->>> -	if (!pdd) {
->>> -		pr_err("Failed to get pdd for wave control no DIQ\n");
->>> -		return -EFAULT;
->>> -	}
->>> -	status = dbgdev_wave_control_set_registers(wac_info, &reg_sq_cmd,
->>> -							&reg_gfx_index);
->>> -	if (status) {
->>> -		pr_err("Failed to set wave control registers\n");
->>> -		return status;
->>> -	}
->>> -
->>> -	/* for non DIQ we need to patch the VMID: */
->>> -
->>> -	reg_sq_cmd.bits.vm_id = pdd->qpd.vmid;
->>> -
->>> -	pr_debug("\t\t %30s\n", "* * * * * * * * * * * * * * * * * *");
->>> -
->>> -	pr_debug("\t\t mode      is: %u\n", wac_info->mode);
->>> -	pr_debug("\t\t operand   is: %u\n", wac_info->operand);
->>> -	pr_debug("\t\t trap id   is: %u\n", wac_info->trapId);
->>> -	pr_debug("\t\t msg value is: %u\n",
->>> -			wac_info-
->>> dbgWave_msg.DbgWaveMsg.WaveMsgInfoGen2.Value);
->>> -	pr_debug("\t\t vmid      is: %u\n", pdd->qpd.vmid);
->>> -
->>> -	pr_debug("\t\t chk_vmid  is : %u\n", reg_sq_cmd.bitfields.check_vmid);
->>> -	pr_debug("\t\t command   is : %u\n", reg_sq_cmd.bitfields.cmd);
->>> -	pr_debug("\t\t queue id  is : %u\n", reg_sq_cmd.bitfields.queue_id);
->>> -	pr_debug("\t\t simd id   is : %u\n", reg_sq_cmd.bitfields.simd_id);
->>> -	pr_debug("\t\t mode      is : %u\n", reg_sq_cmd.bitfields.mode);
->>> -	pr_debug("\t\t vm_id     is : %u\n", reg_sq_cmd.bitfields.vm_id);
->>> -	pr_debug("\t\t wave_id   is : %u\n", reg_sq_cmd.bitfields.wave_id);
->>> -
->>> -	pr_debug("\t\t ibw       is : %u\n",
->>> -			reg_gfx_index.bitfields.instance_broadcast_writes);
->>> -	pr_debug("\t\t ii        is : %u\n",
->>> -			reg_gfx_index.bitfields.instance_index);
->>> -	pr_debug("\t\t sebw      is : %u\n",
->>> -			reg_gfx_index.bitfields.se_broadcast_writes);
->>> -	pr_debug("\t\t se_ind    is : %u\n", reg_gfx_index.bitfields.se_index);
->>> -	pr_debug("\t\t sh_ind    is : %u\n", reg_gfx_index.bitfields.sh_index);
->>> -	pr_debug("\t\t sbw       is : %u\n",
->>> -			reg_gfx_index.bitfields.sh_broadcast_writes);
->>> -
->>> -	pr_debug("\t\t %30s\n", "* * * * * * * * * * * * * * * * * *");
->>> -
->>> -	return dbgdev->dev->kfd2kgd->wave_control_execute(dbgdev->dev-
->>> adev,
->>> -							reg_gfx_index.u32All,
->>> -							reg_sq_cmd.u32All);
->>> -}
->>> -
->>> -int dbgdev_wave_reset_wavefronts(struct kfd_dev *dev, struct kfd_process
->> *p)
->>> -{
->>> -	int status = 0;
->>> -	unsigned int vmid;
->>> -	uint16_t queried_pasid;
->>> -	union SQ_CMD_BITS reg_sq_cmd;
->>> -	union GRBM_GFX_INDEX_BITS reg_gfx_index;
->>> -	struct kfd_process_device *pdd;
->>> -	struct dbg_wave_control_info wac_info;
->>> -	int first_vmid_to_scan = dev->vm_info.first_vmid_kfd;
->>> -	int last_vmid_to_scan = dev->vm_info.last_vmid_kfd;
->>> -
->>> -	reg_sq_cmd.u32All = 0;
->>> -	status = 0;
->>> -
->>> -	wac_info.mode = HSA_DBG_WAVEMODE_BROADCAST_PROCESS;
->>> -	wac_info.operand = HSA_DBG_WAVEOP_KILL;
->>> -
->>> -	pr_debug("Killing all process wavefronts\n");
->>> -
->>> -	/* Scan all registers in the range ATC_VMID8_PASID_MAPPING ..
->>> -	 * ATC_VMID15_PASID_MAPPING
->>> -	 * to check which VMID the current process is mapped to.
->>> -	 */
->>> -
->>> -	for (vmid = first_vmid_to_scan; vmid <= last_vmid_to_scan; vmid++) {
->>> -		status = dev->kfd2kgd->get_atc_vmid_pasid_mapping_info
->>> -				(dev->adev, vmid, &queried_pasid);
->>> -
->>> -		if (status && queried_pasid == p->pasid) {
->>> -			pr_debug("Killing wave fronts of vmid %d and pasid
->> 0x%x\n",
->>> -					vmid, p->pasid);
->>> -			break;
->>> -		}
->>> -	}
->>> -
->>> -	if (vmid > last_vmid_to_scan) {
->>> -		pr_err("Didn't find vmid for pasid 0x%x\n", p->pasid);
->>> -		return -EFAULT;
->>> -	}
->>> -
->>> -	/* taking the VMID for that process on the safe way using PDD */
->>> -	pdd = kfd_get_process_device_data(dev, p);
->>> -	if (!pdd)
->>> -		return -EFAULT;
->>> -
->>> -	status = dbgdev_wave_control_set_registers(&wac_info, &reg_sq_cmd,
->>> -			&reg_gfx_index);
->>> -	if (status != 0)
->>> -		return -EINVAL;
->>> -
->>> -	/* for non DIQ we need to patch the VMID: */
->>> -	reg_sq_cmd.bits.vm_id = vmid;
->>> -
->>> -	dev->kfd2kgd->wave_control_execute(dev->adev,
->>> -					reg_gfx_index.u32All,
->>> -					reg_sq_cmd.u32All);
->>> -
->>> -	return 0;
->>> -}
->>> -
->>> -void kfd_dbgdev_init(struct kfd_dbgdev *pdbgdev, struct kfd_dev *pdev,
->>> -			enum DBGDEV_TYPE type)
->>> -{
->>> -	pdbgdev->dev = pdev;
->>> -	pdbgdev->kq = NULL;
->>> -	pdbgdev->type = type;
->>> -	pdbgdev->pqm = NULL;
->>> -
->>> -	switch (type) {
->>> -	case DBGDEV_TYPE_NODIQ:
->>> -		pdbgdev->dbgdev_register = dbgdev_register_nodiq;
->>> -		pdbgdev->dbgdev_unregister = dbgdev_unregister_nodiq;
->>> -		pdbgdev->dbgdev_wave_control =
->> dbgdev_wave_control_nodiq;
->>> -		pdbgdev->dbgdev_address_watch =
->> dbgdev_address_watch_nodiq;
->>> -		break;
->>> -	case DBGDEV_TYPE_DIQ:
->>> -	default:
->>> -		pdbgdev->dbgdev_register = dbgdev_register_diq;
->>> -		pdbgdev->dbgdev_unregister = dbgdev_unregister_diq;
->>> -		pdbgdev->dbgdev_wave_control =  dbgdev_wave_control_diq;
->>> -		pdbgdev->dbgdev_address_watch =
->> dbgdev_address_watch_diq;
->>> -		break;
->>> -	}
->>> -
->>> -}
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.h
->> b/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.h
->>> deleted file mode 100644
->>> index 0619c777b47e..000000000000
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.h
->>> +++ /dev/null
->>> @@ -1,230 +0,0 @@
->>> -/*
->>> - * Copyright 2014 Advanced Micro Devices, Inc.
->>> - *
->>> - * Permission is hereby granted, free of charge, to any person obtaining a
->>> - * copy of this software and associated documentation files (the "Software"),
->>> - * to deal in the Software without restriction, including without limitation
->>> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
->>> - * and/or sell copies of the Software, and to permit persons to whom the
->>> - * Software is furnished to do so, subject to the following conditions:
->>> - *
->>> - * The above copyright notice and this permission notice shall be included in
->>> - * all copies or substantial portions of the Software.
->>> - *
->>> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
->> EXPRESS OR
->>> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
->> MERCHANTABILITY,
->>> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
->> EVENT SHALL
->>> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
->> DAMAGES OR
->>> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
->> OTHERWISE,
->>> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
->> THE USE OR
->>> - * OTHER DEALINGS IN THE SOFTWARE.
->>> - */
->>> -
->>> -#ifndef KFD_DBGDEV_H_
->>> -#define KFD_DBGDEV_H_
->>> -
->>> -enum {
->>> -	SQ_CMD_VMID_OFFSET = 28,
->>> -	ADDRESS_WATCH_CNTL_OFFSET = 24
->>> -};
->>> -
->>> -enum {
->>> -	PRIV_QUEUE_SYNC_TIME_MS = 200
->>> -};
->>> -
->>> -/* CONTEXT reg space definition */
->>> -enum {
->>> -	CONTEXT_REG_BASE = 0xA000,
->>> -	CONTEXT_REG_END = 0xA400,
->>> -	CONTEXT_REG_SIZE = CONTEXT_REG_END - CONTEXT_REG_BASE
->>> -};
->>> -
->>> -/* USER CONFIG reg space definition */
->>> -enum {
->>> -	USERCONFIG_REG_BASE = 0xC000,
->>> -	USERCONFIG_REG_END = 0x10000,
->>> -	USERCONFIG_REG_SIZE = USERCONFIG_REG_END -
->> USERCONFIG_REG_BASE
->>> -};
->>> -
->>> -/* CONFIG reg space definition */
->>> -enum {
->>> -	AMD_CONFIG_REG_BASE = 0x2000,	/* in dwords */
->>> -	AMD_CONFIG_REG_END = 0x2B00,
->>> -	AMD_CONFIG_REG_SIZE = AMD_CONFIG_REG_END -
->> AMD_CONFIG_REG_BASE
->>> -};
->>> -
->>> -/* SH reg space definition */
->>> -enum {
->>> -	SH_REG_BASE = 0x2C00,
->>> -	SH_REG_END = 0x3000,
->>> -	SH_REG_SIZE = SH_REG_END - SH_REG_BASE
->>> -};
->>> -
->>> -/* SQ_CMD definitions */
->>> -#define SQ_CMD						0x8DEC
->>> -
->>> -enum SQ_IND_CMD_CMD {
->>> -	SQ_IND_CMD_CMD_NULL = 0x00000000,
->>> -	SQ_IND_CMD_CMD_HALT = 0x00000001,
->>> -	SQ_IND_CMD_CMD_RESUME = 0x00000002,
->>> -	SQ_IND_CMD_CMD_KILL = 0x00000003,
->>> -	SQ_IND_CMD_CMD_DEBUG = 0x00000004,
->>> -	SQ_IND_CMD_CMD_TRAP = 0x00000005,
->>> -};
->>> -
->>> -enum SQ_IND_CMD_MODE {
->>> -	SQ_IND_CMD_MODE_SINGLE = 0x00000000,
->>> -	SQ_IND_CMD_MODE_BROADCAST = 0x00000001,
->>> -	SQ_IND_CMD_MODE_BROADCAST_QUEUE = 0x00000002,
->>> -	SQ_IND_CMD_MODE_BROADCAST_PIPE = 0x00000003,
->>> -	SQ_IND_CMD_MODE_BROADCAST_ME = 0x00000004,
->>> -};
->>> -
->>> -union SQ_IND_INDEX_BITS {
->>> -	struct {
->>> -		uint32_t wave_id:4;
->>> -		uint32_t simd_id:2;
->>> -		uint32_t thread_id:6;
->>> -		 uint32_t:1;
->>> -		uint32_t force_read:1;
->>> -		uint32_t read_timeout:1;
->>> -		uint32_t unindexed:1;
->>> -		uint32_t index:16;
->>> -
->>> -	} bitfields, bits;
->>> -	uint32_t u32All;
->>> -	signed int i32All;
->>> -	float f32All;
->>> -};
->>> -
->>> -union SQ_IND_CMD_BITS {
->>> -	struct {
->>> -		uint32_t data:32;
->>> -	} bitfields, bits;
->>> -	uint32_t u32All;
->>> -	signed int i32All;
->>> -	float f32All;
->>> -};
->>> -
->>> -union SQ_CMD_BITS {
->>> -	struct {
->>> -		uint32_t cmd:3;
->>> -		 uint32_t:1;
->>> -		uint32_t mode:3;
->>> -		uint32_t check_vmid:1;
->>> -		uint32_t trap_id:3;
->>> -		 uint32_t:5;
->>> -		uint32_t wave_id:4;
->>> -		uint32_t simd_id:2;
->>> -		 uint32_t:2;
->>> -		uint32_t queue_id:3;
->>> -		 uint32_t:1;
->>> -		uint32_t vm_id:4;
->>> -	} bitfields, bits;
->>> -	uint32_t u32All;
->>> -	signed int i32All;
->>> -	float f32All;
->>> -};
->>> -
->>> -union SQ_IND_DATA_BITS {
->>> -	struct {
->>> -		uint32_t data:32;
->>> -	} bitfields, bits;
->>> -	uint32_t u32All;
->>> -	signed int i32All;
->>> -	float f32All;
->>> -};
->>> -
->>> -union GRBM_GFX_INDEX_BITS {
->>> -	struct {
->>> -		uint32_t instance_index:8;
->>> -		uint32_t sh_index:8;
->>> -		uint32_t se_index:8;
->>> -		 uint32_t:5;
->>> -		uint32_t sh_broadcast_writes:1;
->>> -		uint32_t instance_broadcast_writes:1;
->>> -		uint32_t se_broadcast_writes:1;
->>> -	} bitfields, bits;
->>> -	uint32_t u32All;
->>> -	signed int i32All;
->>> -	float f32All;
->>> -};
->>> -
->>> -union TCP_WATCH_ADDR_H_BITS {
->>> -	struct {
->>> -		uint32_t addr:16;
->>> -		 uint32_t:16;
->>> -
->>> -	} bitfields, bits;
->>> -	uint32_t u32All;
->>> -	signed int i32All;
->>> -	float f32All;
->>> -};
->>> -
->>> -union TCP_WATCH_ADDR_L_BITS {
->>> -	struct {
->>> -		uint32_t:6;
->>> -		uint32_t addr:26;
->>> -	} bitfields, bits;
->>> -	uint32_t u32All;
->>> -	signed int i32All;
->>> -	float f32All;
->>> -};
->>> -
->>> -enum {
->>> -	QUEUESTATE__INVALID = 0, /* so by default we'll get invalid state */
->>> -	QUEUESTATE__ACTIVE_COMPLETION_PENDING,
->>> -	QUEUESTATE__ACTIVE
->>> -};
->>> -
->>> -union ULARGE_INTEGER {
->>> -	struct {
->>> -		uint32_t low_part;
->>> -		uint32_t high_part;
->>> -	} u;
->>> -	unsigned long long quad_part;
->>> -};
->>> -
->>> -
->>> -#define KFD_CIK_VMID_START_OFFSET (8)
->>> -#define KFD_CIK_VMID_END_OFFSET (KFD_CIK_VMID_START_OFFSET + (8))
->>> -
->>> -
->>> -void kfd_dbgdev_init(struct kfd_dbgdev *pdbgdev, struct kfd_dev *pdev,
->>> -			enum DBGDEV_TYPE type);
->>> -
->>> -union TCP_WATCH_CNTL_BITS {
->>> -	struct {
->>> -		uint32_t mask:24;
->>> -		uint32_t vmid:4;
->>> -		uint32_t atc:1;
->>> -		uint32_t mode:2;
->>> -		uint32_t valid:1;
->>> -	} bitfields, bits;
->>> -	uint32_t u32All;
->>> -	signed int i32All;
->>> -	float f32All;
->>> -};
->>> -
->>> -enum {
->>> -	ADDRESS_WATCH_REG_CNTL_ATC_BIT = 0x10000000UL,
->>> -	ADDRESS_WATCH_REG_CNTL_DEFAULT_MASK = 0x00FFFFFF,
->>> -	ADDRESS_WATCH_REG_ADDLOW_MASK_EXTENSION = 0x03000000,
->>> -	/* extend the mask to 26 bits in order to match the low address field */
->>> -	ADDRESS_WATCH_REG_ADDLOW_SHIFT = 6,
->>> -	ADDRESS_WATCH_REG_ADDHIGH_MASK = 0xFFFF
->>> -};
->>> -
->>> -enum {
->>> -	MAX_TRAPID = 8,		/* 3 bits in the bitfield. */
->>> -	MAX_WATCH_ADDRESSES = 4
->>> -};
->>> -
->>> -enum {
->>> -	ADDRESS_WATCH_REG_ADDR_HI = 0,
->>> -	ADDRESS_WATCH_REG_ADDR_LO,
->>> -	ADDRESS_WATCH_REG_CNTL,
->>> -	ADDRESS_WATCH_REG_MAX
->>> -};
->>> -
->>> -#endif	/* KFD_DBGDEV_H_ */
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.c
->>> deleted file mode 100644
->>> index 9bfa50633654..000000000000
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.c
->>> +++ /dev/null
->>> @@ -1,158 +0,0 @@
->>> -/*
->>> - * Copyright 2014 Advanced Micro Devices, Inc.
->>> - *
->>> - * Permission is hereby granted, free of charge, to any person obtaining a
->>> - * copy of this software and associated documentation files (the "Software"),
->>> - * to deal in the Software without restriction, including without limitation
->>> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
->>> - * and/or sell copies of the Software, and to permit persons to whom the
->>> - * Software is furnished to do so, subject to the following conditions:
->>> - *
->>> - * The above copyright notice and this permission notice shall be included in
->>> - * all copies or substantial portions of the Software.
->>> - *
->>> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
->> EXPRESS OR
->>> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
->> MERCHANTABILITY,
->>> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
->> EVENT SHALL
->>> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
->> DAMAGES OR
->>> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
->> OTHERWISE,
->>> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
->> THE USE OR
->>> - * OTHER DEALINGS IN THE SOFTWARE.
->>> - *
->>> - */
->>> -#include <linux/types.h>
->>> -#include <linux/kernel.h>
->>> -#include <linux/log2.h>
->>> -#include <linux/sched.h>
->>> -#include <linux/slab.h>
->>> -#include <linux/device.h>
->>> -
->>> -#include "kfd_priv.h"
->>> -#include "cik_regs.h"
->>> -#include "kfd_pm4_headers.h"
->>> -#include "kfd_pm4_headers_diq.h"
->>> -#include "kfd_dbgmgr.h"
->>> -#include "kfd_dbgdev.h"
->>> -#include "kfd_device_queue_manager.h"
->>> -
->>> -static DEFINE_MUTEX(kfd_dbgmgr_mutex);
->>> -
->>> -struct mutex *kfd_get_dbgmgr_mutex(void)
->>> -{
->>> -	return &kfd_dbgmgr_mutex;
->>> -}
->>> -
->>> -
->>> -static void kfd_dbgmgr_uninitialize(struct kfd_dbgmgr *pmgr)
->>> -{
->>> -	kfree(pmgr->dbgdev);
->>> -
->>> -	pmgr->dbgdev = NULL;
->>> -	pmgr->pasid = 0;
->>> -	pmgr->dev = NULL;
->>> -}
->>> -
->>> -void kfd_dbgmgr_destroy(struct kfd_dbgmgr *pmgr)
->>> -{
->>> -	if (pmgr) {
->>> -		kfd_dbgmgr_uninitialize(pmgr);
->>> -		kfree(pmgr);
->>> -	}
->>> -}
->>> -
->>> -bool kfd_dbgmgr_create(struct kfd_dbgmgr **ppmgr, struct kfd_dev *pdev)
->>> -{
->>> -	enum DBGDEV_TYPE type = DBGDEV_TYPE_DIQ;
->>> -	struct kfd_dbgmgr *new_buff;
->>> -
->>> -	if (WARN_ON(!pdev->init_complete))
->>> -		return false;
->>> -
->>> -	new_buff = kfd_alloc_struct(new_buff);
->>> -	if (!new_buff) {
->>> -		pr_err("Failed to allocate dbgmgr instance\n");
->>> -		return false;
->>> -	}
->>> -
->>> -	new_buff->pasid = 0;
->>> -	new_buff->dev = pdev;
->>> -	new_buff->dbgdev = kfd_alloc_struct(new_buff->dbgdev);
->>> -	if (!new_buff->dbgdev) {
->>> -		pr_err("Failed to allocate dbgdev instance\n");
->>> -		kfree(new_buff);
->>> -		return false;
->>> -	}
->>> -
->>> -	/* get actual type of DBGDevice cpsch or not */
->>> -	if (pdev->dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS)
->>> -		type = DBGDEV_TYPE_NODIQ;
->>> -
->>> -	kfd_dbgdev_init(new_buff->dbgdev, pdev, type);
->>> -	*ppmgr = new_buff;
->>> -
->>> -	return true;
->>> -}
->>> -
->>> -long kfd_dbgmgr_register(struct kfd_dbgmgr *pmgr, struct kfd_process *p)
->>> -{
->>> -	if (pmgr->pasid != 0) {
->>> -		pr_debug("H/W debugger is already active using pasid 0x%x\n",
->>> -				pmgr->pasid);
->>> -		return -EBUSY;
->>> -	}
->>> -
->>> -	/* remember pasid */
->>> -	pmgr->pasid = p->pasid;
->>> -
->>> -	/* provide the pqm for diq generation */
->>> -	pmgr->dbgdev->pqm = &p->pqm;
->>> -
->>> -	/* activate the actual registering */
->>> -	pmgr->dbgdev->dbgdev_register(pmgr->dbgdev);
->>> -
->>> -	return 0;
->>> -}
->>> -
->>> -long kfd_dbgmgr_unregister(struct kfd_dbgmgr *pmgr, struct kfd_process *p)
->>> -{
->>> -	/* Is the requests coming from the already registered process? */
->>> -	if (pmgr->pasid != p->pasid) {
->>> -		pr_debug("H/W debugger is not registered by calling pasid
->> 0x%x\n",
->>> -				p->pasid);
->>> -		return -EINVAL;
->>> -	}
->>> -
->>> -	pmgr->dbgdev->dbgdev_unregister(pmgr->dbgdev);
->>> -
->>> -	pmgr->pasid = 0;
->>> -
->>> -	return 0;
->>> -}
->>> -
->>> -long kfd_dbgmgr_wave_control(struct kfd_dbgmgr *pmgr,
->>> -				struct dbg_wave_control_info *wac_info)
->>> -{
->>> -	/* Is the requests coming from the already registered process? */
->>> -	if (pmgr->pasid != wac_info->process->pasid) {
->>> -		pr_debug("H/W debugger support was not registered for
->> requester pasid 0x%x\n",
->>> -				wac_info->process->pasid);
->>> -		return -EINVAL;
->>> -	}
->>> -
->>> -	return (long) pmgr->dbgdev->dbgdev_wave_control(pmgr->dbgdev,
->> wac_info);
->>> -}
->>> -
->>> -long kfd_dbgmgr_address_watch(struct kfd_dbgmgr *pmgr,
->>> -				struct dbg_address_watch_info *adw_info)
->>> -{
->>> -	/* Is the requests coming from the already registered process? */
->>> -	if (pmgr->pasid != adw_info->process->pasid) {
->>> -		pr_debug("H/W debugger support was not registered for
->> requester pasid 0x%x\n",
->>> -				adw_info->process->pasid);
->>> -		return -EINVAL;
->>> -	}
->>> -
->>> -	return (long) pmgr->dbgdev->dbgdev_address_watch(pmgr->dbgdev,
->>> -							adw_info);
->>> -}
->>> -
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.h
->> b/drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.h
->>> deleted file mode 100644
->>> index f9c6df1fdc5c..000000000000
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_dbgmgr.h
->>> +++ /dev/null
->>> @@ -1,293 +0,0 @@
->>> -/*
->>> - * Copyright 2014 Advanced Micro Devices, Inc.
->>> - *
->>> - * Permission is hereby granted, free of charge, to any person obtaining a
->>> - * copy of this software and associated documentation files (the "Software"),
->>> - * to deal in the Software without restriction, including without limitation
->>> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
->>> - * and/or sell copies of the Software, and to permit persons to whom the
->>> - * Software is furnished to do so, subject to the following conditions:
->>> - *
->>> - * The above copyright notice and this permission notice shall be included in
->>> - * all copies or substantial portions of the Software.
->>> - *
->>> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
->> EXPRESS OR
->>> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
->> MERCHANTABILITY,
->>> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
->> EVENT SHALL
->>> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
->> DAMAGES OR
->>> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
->> OTHERWISE,
->>> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
->> THE USE OR
->>> - * OTHER DEALINGS IN THE SOFTWARE.
->>> - *
->>> - */
->>> -
->>> -#ifndef KFD_DBGMGR_H_
->>> -#define KFD_DBGMGR_H_
->>> -
->>> -#include "kfd_priv.h"
->>> -
->>> -/* must align with hsakmttypes definition */
->>> -#pragma pack(push, 4)
->>> -
->>> -enum HSA_DBG_WAVEOP {
->>> -	HSA_DBG_WAVEOP_HALT = 1,   /* Halts a wavefront */
->>> -	HSA_DBG_WAVEOP_RESUME = 2, /* Resumes a wavefront */
->>> -	HSA_DBG_WAVEOP_KILL = 3,   /* Kills a wavefront */
->>> -	HSA_DBG_WAVEOP_DEBUG = 4,  /* Causes wavefront to enter dbg
->> mode */
->>> -	HSA_DBG_WAVEOP_TRAP = 5,   /* Causes wavefront to take a trap */
->>> -	HSA_DBG_NUM_WAVEOP = 5,
->>> -	HSA_DBG_MAX_WAVEOP = 0xFFFFFFFF
->>> -};
->>> -
->>> -enum HSA_DBG_WAVEMODE {
->>> -	/* send command to a single wave */
->>> -	HSA_DBG_WAVEMODE_SINGLE = 0,
->>> -	/*
->>> -	 * Broadcast to all wavefronts of all processes is not
->>> -	 * supported for HSA user mode
->>> -	 */
->>> -
->>> -	/* send to waves within current process */
->>> -	HSA_DBG_WAVEMODE_BROADCAST_PROCESS = 2,
->>> -	/* send to waves within current process on CU  */
->>> -	HSA_DBG_WAVEMODE_BROADCAST_PROCESS_CU = 3,
->>> -	HSA_DBG_NUM_WAVEMODE = 3,
->>> -	HSA_DBG_MAX_WAVEMODE = 0xFFFFFFFF
->>> -};
->>> -
->>> -enum HSA_DBG_WAVEMSG_TYPE {
->>> -	HSA_DBG_WAVEMSG_AUTO = 0,
->>> -	HSA_DBG_WAVEMSG_USER = 1,
->>> -	HSA_DBG_WAVEMSG_ERROR = 2,
->>> -	HSA_DBG_NUM_WAVEMSG,
->>> -	HSA_DBG_MAX_WAVEMSG = 0xFFFFFFFF
->>> -};
->>> -
->>> -enum HSA_DBG_WATCH_MODE {
->>> -	HSA_DBG_WATCH_READ = 0,		/* Read operations only */
->>> -	HSA_DBG_WATCH_NONREAD = 1,	/* Write or Atomic operations
->> only */
->>> -	HSA_DBG_WATCH_ATOMIC = 2,	/* Atomic Operations only */
->>> -	HSA_DBG_WATCH_ALL = 3,		/* Read, Write or Atomic
->> operations */
->>> -	HSA_DBG_WATCH_NUM,
->>> -	HSA_DBG_WATCH_SIZE = 0xFFFFFFFF
->>> -};
->>> -
->>> -/* This structure is hardware specific and may change in the future */
->>> -struct HsaDbgWaveMsgAMDGen2 {
->>> -	union {
->>> -		struct ui32 {
->>> -			uint32_t UserData:8;	/* user data */
->>> -			uint32_t ShaderArray:1;	/* Shader array */
->>> -			uint32_t Priv:1;	/* Privileged */
->>> -			uint32_t Reserved0:4;	/* Reserved, should be 0 */
->>> -			uint32_t WaveId:4;	/* wave id */
->>> -			uint32_t SIMD:2;	/* SIMD id */
->>> -			uint32_t HSACU:4;	/* Compute unit */
->>> -			uint32_t ShaderEngine:2;/* Shader engine */
->>> -			uint32_t MessageType:2;	/* see
->> HSA_DBG_WAVEMSG_TYPE */
->>> -			uint32_t Reserved1:4;	/* Reserved, should be 0 */
->>> -		} ui32;
->>> -		uint32_t Value;
->>> -	};
->>> -	uint32_t Reserved2;
->>> -};
->>> -
->>> -union HsaDbgWaveMessageAMD {
->>> -	struct HsaDbgWaveMsgAMDGen2 WaveMsgInfoGen2;
->>> -	/* for future HsaDbgWaveMsgAMDGen3; */
->>> -};
->>> -
->>> -struct HsaDbgWaveMessage {
->>> -	void *MemoryVA;		/* ptr to associated host-accessible
->> data */
->>> -	union HsaDbgWaveMessageAMD DbgWaveMsg;
->>> -};
->>> -
->>> -/*
->>> - * TODO: This definitions to be MOVED to kfd_event, once it is implemented.
->>> - *
->>> - * HSA sync primitive, Event and HW Exception notification API definitions.
->>> - * The API functions allow the runtime to define a so-called sync-primitive,
->>> - * a SW object combining a user-mode provided "syncvar" and a scheduler
->> event
->>> - * that can be signaled through a defined GPU interrupt. A syncvar is
->>> - * a process virtual memory location of a certain size that can be accessed
->>> - * by CPU and GPU shader code within the process to set and query the
->> content
->>> - * within that memory. The definition of the content is determined by the HSA
->>> - * runtime and potentially GPU shader code interfacing with the HSA runtime.
->>> - * The syncvar values may be commonly written through an PM4
->> WRITE_DATA packet
->>> - * in the user mode instruction stream. The OS scheduler event is typically
->>> - * associated and signaled by an interrupt issued by the GPU, but other HSA
->>> - * system interrupt conditions from other HW (e.g. IOMMUv2) may be
->> surfaced
->>> - * by the KFD by this mechanism, too.
->>> - */
->>> -
->>> -/* these are the new definitions for events */
->>> -enum HSA_EVENTTYPE {
->>> -	HSA_EVENTTYPE_SIGNAL = 0,	/* user-mode generated GPU signal */
->>> -	HSA_EVENTTYPE_NODECHANGE = 1,	/* HSA node change
->> (attach/detach) */
->>> -	HSA_EVENTTYPE_DEVICESTATECHANGE = 2,	/* HSA device state
->> change
->>> -						 * (start/stop)
->>> -						 */
->>> -	HSA_EVENTTYPE_HW_EXCEPTION = 3,	/* GPU shader exception event
->> */
->>> -	HSA_EVENTTYPE_SYSTEM_EVENT = 4,	/* GPU SYSCALL with
->> parameter info */
->>> -	HSA_EVENTTYPE_DEBUG_EVENT = 5,	/* GPU signal for debugging */
->>> -	HSA_EVENTTYPE_PROFILE_EVENT = 6,/* GPU signal for profiling */
->>> -	HSA_EVENTTYPE_QUEUE_EVENT = 7,	/* GPU signal queue idle state
->>> -					 * (EOP pm4)
->>> -					 */
->>> -	/* ...  */
->>> -	HSA_EVENTTYPE_MAXID,
->>> -	HSA_EVENTTYPE_TYPE_SIZE = 0xFFFFFFFF
->>> -};
->>> -
->>> -/* Sub-definitions for various event types: Syncvar */
->>> -struct HsaSyncVar {
->>> -	union SyncVar {
->>> -		void *UserData;	/* pointer to user mode data */
->>> -		uint64_t UserDataPtrValue; /* 64bit compatibility of value */
->>> -	} SyncVar;
->>> -	uint64_t SyncVarSize;
->>> -};
->>> -
->>> -/* Sub-definitions for various event types: NodeChange */
->>> -
->>> -enum HSA_EVENTTYPE_NODECHANGE_FLAGS {
->>> -	HSA_EVENTTYPE_NODECHANGE_ADD = 0,
->>> -	HSA_EVENTTYPE_NODECHANGE_REMOVE = 1,
->>> -	HSA_EVENTTYPE_NODECHANGE_SIZE = 0xFFFFFFFF
->>> -};
->>> -
->>> -struct HsaNodeChange {
->>> -	/* HSA node added/removed on the platform */
->>> -	enum HSA_EVENTTYPE_NODECHANGE_FLAGS Flags;
->>> -};
->>> -
->>> -/* Sub-definitions for various event types: DeviceStateChange */
->>> -enum HSA_EVENTTYPE_DEVICESTATECHANGE_FLAGS {
->>> -	/* device started (and available) */
->>> -	HSA_EVENTTYPE_DEVICESTATUSCHANGE_START = 0,
->>> -	/* device stopped (i.e. unavailable) */
->>> -	HSA_EVENTTYPE_DEVICESTATUSCHANGE_STOP = 1,
->>> -	HSA_EVENTTYPE_DEVICESTATUSCHANGE_SIZE = 0xFFFFFFFF
->>> -};
->>> -
->>> -enum HSA_DEVICE {
->>> -	HSA_DEVICE_CPU = 0,
->>> -	HSA_DEVICE_GPU = 1,
->>> -	MAX_HSA_DEVICE = 2
->>> -};
->>> -
->>> -struct HsaDeviceStateChange {
->>> -	uint32_t NodeId;	/* F-NUMA node that contains the device */
->>> -	enum HSA_DEVICE Device;	/* device type: GPU or CPU */
->>> -	enum HSA_EVENTTYPE_DEVICESTATECHANGE_FLAGS Flags; /* event
->> flags */
->>> -};
->>> -
->>> -struct HsaEventData {
->>> -	enum HSA_EVENTTYPE EventType; /* event type */
->>> -	union EventData {
->>> -		/*
->>> -		 * return data associated with HSA_EVENTTYPE_SIGNAL
->>> -		 * and other events
->>> -		 */
->>> -		struct HsaSyncVar SyncVar;
->>> -
->>> -		/* data associated with HSA_EVENTTYPE_NODE_CHANGE */
->>> -		struct HsaNodeChange NodeChangeState;
->>> -
->>> -		/* data associated with
->> HSA_EVENTTYPE_DEVICE_STATE_CHANGE */
->>> -		struct HsaDeviceStateChange DeviceState;
->>> -	} EventData;
->>> -
->>> -	/* the following data entries are internal to the KFD & thunk itself */
->>> -
->>> -	/* internal thunk store for Event data (OsEventHandle) */
->>> -	uint64_t HWData1;
->>> -	/* internal thunk store for Event data (HWAddress) */
->>> -	uint64_t HWData2;
->>> -	/* internal thunk store for Event data (HWData) */
->>> -	uint32_t HWData3;
->>> -};
->>> -
->>> -struct HsaEventDescriptor {
->>> -	/* event type to allocate */
->>> -	enum HSA_EVENTTYPE EventType;
->>> -	/* H-NUMA node containing GPU device that is event source */
->>> -	uint32_t NodeId;
->>> -	/* pointer to user mode syncvar data, syncvar->UserDataPtrValue
->>> -	 * may be NULL
->>> -	 */
->>> -	struct HsaSyncVar SyncVar;
->>> -};
->>> -
->>> -struct HsaEvent {
->>> -	uint32_t EventId;
->>> -	struct HsaEventData EventData;
->>> -};
->>> -
->>> -#pragma pack(pop)
->>> -
->>> -enum DBGDEV_TYPE {
->>> -	DBGDEV_TYPE_ILLEGAL = 0,
->>> -	DBGDEV_TYPE_NODIQ = 1,
->>> -	DBGDEV_TYPE_DIQ = 2,
->>> -	DBGDEV_TYPE_TEST = 3
->>> -};
->>> -
->>> -struct dbg_address_watch_info {
->>> -	struct kfd_process *process;
->>> -	enum HSA_DBG_WATCH_MODE *watch_mode;
->>> -	uint64_t *watch_address;
->>> -	uint64_t *watch_mask;
->>> -	struct HsaEvent *watch_event;
->>> -	uint32_t num_watch_points;
->>> -};
->>> -
->>> -struct dbg_wave_control_info {
->>> -	struct kfd_process *process;
->>> -	uint32_t trapId;
->>> -	enum HSA_DBG_WAVEOP operand;
->>> -	enum HSA_DBG_WAVEMODE mode;
->>> -	struct HsaDbgWaveMessage dbgWave_msg;
->>> -};
->>> -
->>> -struct kfd_dbgdev {
->>> -
->>> -	/* The device that owns this data. */
->>> -	struct kfd_dev *dev;
->>> -
->>> -	/* kernel queue for DIQ */
->>> -	struct kernel_queue *kq;
->>> -
->>> -	/* a pointer to the pqm of the calling process */
->>> -	struct process_queue_manager *pqm;
->>> -
->>> -	/* type of debug device ( DIQ, non DIQ, etc. ) */
->>> -	enum DBGDEV_TYPE type;
->>> -
->>> -	/* virtualized function pointers to device dbg */
->>> -	int (*dbgdev_register)(struct kfd_dbgdev *dbgdev);
->>> -	int (*dbgdev_unregister)(struct kfd_dbgdev *dbgdev);
->>> -	int (*dbgdev_address_watch)(struct kfd_dbgdev *dbgdev,
->>> -				struct dbg_address_watch_info *adw_info);
->>> -	int (*dbgdev_wave_control)(struct kfd_dbgdev *dbgdev,
->>> -				struct dbg_wave_control_info *wac_info);
->>> -
->>> -};
->>> -
->>> -struct kfd_dbgmgr {
->>> -	u32 pasid;
->>> -	struct kfd_dev *dev;
->>> -	struct kfd_dbgdev *dbgdev;
->>> -};
->>> -
->>> -/* prototypes for debug manager functions */
->>> -struct mutex *kfd_get_dbgmgr_mutex(void);
->>> -void kfd_dbgmgr_destroy(struct kfd_dbgmgr *pmgr);
->>> -bool kfd_dbgmgr_create(struct kfd_dbgmgr **ppmgr, struct kfd_dev *pdev);
->>> -long kfd_dbgmgr_register(struct kfd_dbgmgr *pmgr, struct kfd_process *p);
->>> -long kfd_dbgmgr_unregister(struct kfd_dbgmgr *pmgr, struct kfd_process
->> *p);
->>> -long kfd_dbgmgr_wave_control(struct kfd_dbgmgr *pmgr,
->>> -				struct dbg_wave_control_info *wac_info);
->>> -long kfd_dbgmgr_address_watch(struct kfd_dbgmgr *pmgr,
->>> -			struct dbg_address_watch_info *adw_info);
->>> -#endif /* KFD_DBGMGR_H_ */
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>> index 5a47f437b455..dbb877fba724 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>> @@ -575,8 +575,6 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
->>>    	if (kfd_resume(kfd))
->>>    		goto kfd_resume_error;
->>>
->>> -	kfd->dbgmgr = NULL;
->>> -
->>>    	if (kfd_topology_add_device(kfd)) {
->>>    		dev_err(kfd_device, "Error adding device to topology\n");
->>>    		goto kfd_topology_add_device_error;
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->>> index 63b3c7af681b..f5d82f257dbb 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->>> @@ -480,6 +480,65 @@ static inline void deallocate_hqd(struct
->> device_queue_manager *dqm,
->>>    	dqm->allocated_queues[q->pipe] |= (1 << q->queue);
->>>    }
->>>
->>> +#define SQ_IND_CMD_CMD_KILL		0x00000003
->>> +#define SQ_IND_CMD_MODE_BROADCAST	0x00000001
->>> +
->>> +static int dbgdev_wave_reset_wavefronts(struct kfd_dev *dev, struct
->> kfd_process *p)
->>> +{
->>> +	int status = 0;
->>> +	unsigned int vmid;
->>> +	uint16_t queried_pasid;
->>> +	union SQ_CMD_BITS reg_sq_cmd;
->>> +	union GRBM_GFX_INDEX_BITS reg_gfx_index;
->>> +	struct kfd_process_device *pdd;
->>> +	int first_vmid_to_scan = dev->vm_info.first_vmid_kfd;
->>> +	int last_vmid_to_scan = dev->vm_info.last_vmid_kfd;
->>> +
->>> +	reg_sq_cmd.u32All = 0;
->>> +	reg_gfx_index.u32All = 0;
->>> +
->>> +	pr_debug("Killing all process wavefronts\n");
->>> +
->>> +	/* Scan all registers in the range ATC_VMID8_PASID_MAPPING ..
->>> +	 * ATC_VMID15_PASID_MAPPING
->>> +	 * to check which VMID the current process is mapped to.
->>> +	 */
->>> +
->>> +	for (vmid = first_vmid_to_scan; vmid <= last_vmid_to_scan; vmid++) {
->>> +		status = dev->kfd2kgd->get_atc_vmid_pasid_mapping_info
->>> +				(dev->adev, vmid, &queried_pasid);
->>> +
->>> +		if (status && queried_pasid == p->pasid) {
->>> +			pr_debug("Killing wave fronts of vmid %d and pasid
->> 0x%x\n",
->>> +					vmid, p->pasid);
->>> +			break;
->>> +		}
->>> +	}
->>> +
->>> +	if (vmid > last_vmid_to_scan) {
->>> +		pr_err("Didn't find vmid for pasid 0x%x\n", p->pasid);
->>> +		return -EFAULT;
->>> +	}
->>> +
->>> +	/* taking the VMID for that process on the safe way using PDD */
->>> +	pdd = kfd_get_process_device_data(dev, p);
->>> +	if (!pdd)
->>> +		return -EFAULT;
->>> +
->>> +	reg_gfx_index.bits.sh_broadcast_writes = 1;
->>> +	reg_gfx_index.bits.se_broadcast_writes = 1;
->>> +	reg_gfx_index.bits.instance_broadcast_writes = 1;
->>> +	reg_sq_cmd.bits.mode = SQ_IND_CMD_MODE_BROADCAST;
->>> +	reg_sq_cmd.bits.cmd = SQ_IND_CMD_CMD_KILL;
->>> +	reg_sq_cmd.bits.vm_id = vmid;
->>> +
->>> +	dev->kfd2kgd->wave_control_execute(dev->adev,
->>> +					reg_gfx_index.u32All,
->>> +					reg_sq_cmd.u32All);
->>> +
->>> +	return 0;
->>> +}
->>> +
->>>    /* Access to DQM has to be locked before calling
->> destroy_queue_nocpsch_locked
->>>     * to avoid asynchronized access
->>>     */
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
->> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
->>> index a7d2e3323977..05a9c17daa3e 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
->>> @@ -39,6 +39,41 @@ struct device_process_node {
->>>    	struct list_head list;
->>>    };
->>>
->>> +union SQ_CMD_BITS {
->>> +	struct {
->>> +		uint32_t cmd:3;
->>> +		uint32_t:1;
->>> +		uint32_t mode:3;
->>> +		uint32_t check_vmid:1;
->>> +		uint32_t trap_id:3;
->>> +		uint32_t:5;
->>> +		uint32_t wave_id:4;
->>> +		uint32_t simd_id:2;
->>> +		uint32_t:2;
->>> +		uint32_t queue_id:3;
->>> +		uint32_t:1;
->>> +		uint32_t vm_id:4;
->>> +	} bitfields, bits;
->>> +	uint32_t u32All;
->>> +	signed int i32All;
->>> +	float f32All;
->>> +};
->>> +
->>> +union GRBM_GFX_INDEX_BITS {
->>> +	struct {
->>> +		uint32_t instance_index:8;
->>> +		uint32_t sh_index:8;
->>> +		uint32_t se_index:8;
->>> +		uint32_t:5;
->>> +		uint32_t sh_broadcast_writes:1;
->>> +		uint32_t instance_broadcast_writes:1;
->>> +		uint32_t se_broadcast_writes:1;
->>> +	} bitfields, bits;
->>> +	uint32_t u32All;
->>> +	signed int i32All;
->>> +	float f32All;
->>> +};
->>> +
->>>    /**
->>>     * struct device_queue_manager_ops
->>>     *
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
->>> index 66ad8d0b8f7f..fe62407dacb2 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
->>> @@ -30,7 +30,6 @@
->>>    #include <linux/pci.h>
->>>    #include <linux/amd-iommu.h>
->>>    #include "kfd_priv.h"
->>> -#include "kfd_dbgmgr.h"
->>>    #include "kfd_topology.h"
->>>    #include "kfd_iommu.h"
->>>
->>> @@ -163,17 +162,6 @@ static void iommu_pasid_shutdown_callback(struct
->> pci_dev *pdev, u32 pasid)
->>>    	pr_debug("Unbinding process 0x%x from IOMMU\n", pasid);
->>>
->>> -	mutex_lock(kfd_get_dbgmgr_mutex());
->>> -
->>> -	if (dev->dbgmgr && dev->dbgmgr->pasid == p->pasid) {
->>> -		if (!kfd_dbgmgr_unregister(dev->dbgmgr, p)) {
->>> -			kfd_dbgmgr_destroy(dev->dbgmgr);
->>> -			dev->dbgmgr = NULL;
->>> -		}
->>> -	}
->>> -
->>> -	mutex_unlock(kfd_get_dbgmgr_mutex());
->>> -
->>>    	mutex_lock(&p->mutex);
->>>
->>>    	pdd = kfd_get_process_device_data(dev, p);
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> index 74ff4132a163..465aae8e5697 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> @@ -300,9 +300,6 @@ struct kfd_dev {
->>>    	 */
->>>    	bool interrupts_active;
->>>
->>> -	/* Debug manager */
->>> -	struct kfd_dbgmgr *dbgmgr;
->>> -
->>>    	/* Firmware versions */
->>>    	uint16_t mec_fw_version;
->>>    	uint16_t mec2_fw_version;
->>> @@ -1331,8 +1328,6 @@ void kfd_signal_poison_consumed_event(struct
->> kfd_dev *dev, u32 pasid);
->>>    void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE
->> type);
->>> -int dbgdev_wave_reset_wavefronts(struct kfd_dev *dev, struct kfd_process
->> *p);
->>> -
->>>    bool kfd_is_locked(void);
->>>
->>>    /* Compute profile */
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> index 8e2780d2f735..8c6a48add76e 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> @@ -40,7 +40,6 @@ struct mm_struct;
->>>
->>>    #include "kfd_priv.h"
->>>    #include "kfd_device_queue_manager.h"
->>> -#include "kfd_dbgmgr.h"
->>>    #include "kfd_iommu.h"
->>>    #include "kfd_svm.h"
->>>
->>> @@ -1158,7 +1157,6 @@ static void kfd_process_notifier_release(struct
->> mmu_notifier *mn,
->>>    					struct mm_struct *mm)
->>>    {
->>>    	struct kfd_process *p;
->>> -	int i;
->>>
->>>    	/*
->>>    	 * The kfd_process structure can not be free because the
->>> @@ -1178,23 +1176,6 @@ static void kfd_process_notifier_release(struct
->> mmu_notifier *mn,
->>>    	mutex_lock(&p->mutex);
->>>
->>> -	/* Iterate over all process device data structures and if the
->>> -	 * pdd is in debug mode, we should first force unregistration,
->>> -	 * then we will be able to destroy the queues
->>> -	 */
->>> -	for (i = 0; i < p->n_pdds; i++) {
->>> -		struct kfd_dev *dev = p->pdds[i]->dev;
->>> -
->>> -		mutex_lock(kfd_get_dbgmgr_mutex());
->>> -		if (dev && dev->dbgmgr && dev->dbgmgr->pasid == p->pasid) {
->>> -			if (!kfd_dbgmgr_unregister(dev->dbgmgr, p)) {
->>> -				kfd_dbgmgr_destroy(dev->dbgmgr);
->>> -				dev->dbgmgr = NULL;
->>> -			}
->>> -		}
->>> -		mutex_unlock(kfd_get_dbgmgr_mutex());
->>> -	}
->>> -
->>>    	kfd_process_dequeue_from_all_devices(p);
->>>    	pqm_uninit(&p->pqm);
->>>
+W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0t
+LS0NCj4gRnJvbTogS3VlaGxpbmcsIEZlbGl4IDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPg0KPiBT
+ZW50OiBNb25kYXksIEZlYnJ1YXJ5IDcsIDIwMjIgMTA6NDMgQU0NCj4gVG86IEpvc2hpLCBNdWt1
+bCA8TXVrdWwuSm9zaGlAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+
+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMy8zXSBkcm0vYW1ka2ZkOiBDb25zb2xpZGF0ZSBNUUQgbWFu
+YWdlciBmdW5jdGlvbnMNCj4gDQo+IA0KPiBBbSAyMDIyLTAyLTA0IHVtIDE4OjQ1IHNjaHJpZWIg
+TXVrdWwgSm9zaGk6DQo+ID4gQSBmZXcgTVFEIG1hbmFnZXIgZnVuY3Rpb25zIGFyZSBkdXBsaWNh
+dGVkIGZvciBhbGwgdmVyc2lvbnMgb2YgTVFEDQo+ID4gbWFuYWdlci4gUmVtb3ZlIHRoaXMgZHVw
+bGljYXRpb24gYnkgbW92aW5nIHRoZSBjb21tb24gZnVuY3Rpb25zIGludG8NCj4gPiBrZmRfbXFk
+X21hbmFnZXIuYyBmaWxlLg0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogTXVrdWwgSm9zaGkgPG11
+a3VsLmpvc2hpQGFtZC5jb20+DQo+ID4gLS0tDQo+ID4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGtmZC9rZmRfbXFkX21hbmFnZXIuYyAgfCA2Mw0KPiArKysrKysrKysrKysrKysrKw0KPiA+ICAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyLmggIHwgMjcgKysrKysr
+KysNCj4gPiAgIC4uLi9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX2Npay5jICB8
+IDU0IC0tLS0tLS0tLS0tLS0tLQ0KPiA+ICAgLi4uL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFk
+X21hbmFnZXJfdjEwLmMgIHwgNjEgLS0tLS0tLS0tLS0tLS0tLS0NCj4gPiAgIC4uLi9ncHUvZHJt
+L2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3Y5LmMgICB8IDY4IC0tLS0tLS0tLS0tLS0tLS0t
+LS0NCj4gPiAgIC4uLi9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3ZpLmMgICB8
+IDUzIC0tLS0tLS0tLS0tLS0tLQ0KPiA+ICAgNiBmaWxlcyBjaGFuZ2VkLCA5MCBpbnNlcnRpb25z
+KCspLCAyMzYgZGVsZXRpb25zKC0pDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlci5jDQo+ID4gaW5kZXggZTI4MjVhZDRkNjk5Li5mNGE2
+YWY5OGRiMmQgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
+X21xZF9tYW5hZ2VyLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
+bXFkX21hbmFnZXIuYw0KPiA+IEBAIC0xNzMsMyArMTczLDY2IEBAIHZvaWQgbXFkX3N5bW1ldHJp
+Y2FsbHlfbWFwX2N1X21hc2soc3RydWN0DQo+IG1xZF9tYW5hZ2VyICptbSwNCj4gPiAgIAkJfQ0K
+PiA+ICAgCX0NCj4gPiAgIH0NCj4gPiArDQo+ID4gK2ludCBoaXFfbG9hZF9tcWRfa2lxKHN0cnVj
+dCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCj4gPiArCQkgICAgIHVpbnQzMl90IHBpcGVf
+aWQsIHVpbnQzMl90IHF1ZXVlX2lkLA0KPiA+ICsJCSAgICAgc3RydWN0IHF1ZXVlX3Byb3BlcnRp
+ZXMgKnAsIHN0cnVjdCBtbV9zdHJ1Y3QgKm1tcykNCj4gDQo+IFNpbmNlIHRoZXNlIGZ1bmN0aW9u
+cyBhcmUgbm8gbG9uZ2VyIHN0YXRpYywgdGhleSBzaG91bGQgZ2V0IGFuIGFwcHJvcHJpYXRlIG5h
+bWUNCj4gcHJlZml4IHRvIGF2b2lkIGZ1dHVyZSBuYW1lc3BhY2UgY29sbGlzaW9ucy4gSnVzdCBh
+IGtmZF8gcHJlZml4IHdpbGwgZG8uDQo+IA0KPiBJIHRoaW5rIHRoZXJlIGFyZSBleGlzdGluZyBm
+dW5jdGlvbnMgaW4gdGhpcyBmaWxlIHRoYXQgY291bGQgdXNlIHRoZSBzYW1lIHRyZWF0bWVudA0K
+PiAoaW4gYSBzZXBhcmF0ZSBwYXRjaCkuDQo+IA0KPiANCj4gPiArew0KPiA+ICsJcmV0dXJuIG1t
+LT5kZXYtPmtmZDJrZ2QtPmhpcV9tcWRfbG9hZChtbS0+ZGV2LT5hZGV2LCBtcWQsDQo+IHBpcGVf
+aWQsDQo+ID4gKwkJCQkJICAgICAgcXVldWVfaWQsIHAtPmRvb3JiZWxsX29mZik7DQo+ID4gK30N
+Cj4gPiArDQo+ID4gK2ludCBkZXN0cm95X21xZChzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lk
+ICptcWQsDQo+ID4gKwkJZW51bSBrZmRfcHJlZW1wdF90eXBlIHR5cGUsIHVuc2lnbmVkIGludCB0
+aW1lb3V0LA0KPiA+ICsJCXVpbnQzMl90IHBpcGVfaWQsdWludDMyX3QgcXVldWVfaWQpDQo+IA0K
+PiBUaGlzIGZ1bmN0aW9uIGlzIG9ubHkgYXBwbGljYWJsZSB0byBDUCBxdWV1ZXMuIFRoZXJlZm9y
+ZSBJJ2QgZ2l2ZSBpdCBhDQo+IG1vcmUgc3BlY2lmaWMgbmFtZSwgZS5nLiBrZmRfZGVzdHJveV9j
+cF9tcWQuIFNpbWlsYXIgZm9yIHRoZSBvdGhlcg0KPiBub24tU0RNQSBmdW5jdGlvbnMgYmVsb3cu
+DQo+IA0KV2UgZGVmaW5lIGRlc3Ryb3lfaHFkIGZvciBISVEgKGFuZCBESVEgKSBhbHNvLiBTYW1l
+IGZvciBmcmVlX21xZCBhbmQgb3RoZXIgZnVuY3Rpb25zLg0KSSBndWVzcyB0aGF04oCZcyB3aHkg
+d2UgaGF2ZSBfc2RtYSBmb3IgU0RNQSBxdWV1ZXMsIGFuZCB0aGUgcmVzdCB1c2UgYSBnZW5lcmlj
+IG5hbWUuDQpNYXliZSBsZWF2aW5nIGl0IHdpdGhvdXQgJ19jcCcgaXMgYmV0dGVyIGhlcmUuIFdo
+YXQgZG8geW91IHRoaW5rPw0KDQpSZWdhcmRzLA0KTXVrdWwNCg0KPiBSZWdhcmRzLA0KPiAgwqAg
+RmVsaXgNCj4gDQo+IA0KPiA+ICt7DQo+ID4gKwlyZXR1cm4gbW0tPmRldi0+a2ZkMmtnZC0+aHFk
+X2Rlc3Ryb3kobW0tPmRldi0+YWRldiwgbXFkLCB0eXBlLA0KPiB0aW1lb3V0LA0KPiA+ICsJCQkJ
+CQlwaXBlX2lkLCBxdWV1ZV9pZCk7DQo+ID4gK30NCj4gPiArDQo+ID4gK3ZvaWQgZnJlZV9tcWQo
+c3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZCAqbXFkLA0KPiA+ICsJICAgICAgc3RydWN0IGtm
+ZF9tZW1fb2JqICptcWRfbWVtX29iaikNCj4gPiArew0KPiA+ICsJaWYgKG1xZF9tZW1fb2JqLT5n
+dHRfbWVtKSB7DQo+ID4gKwkJYW1kZ3B1X2FtZGtmZF9mcmVlX2d0dF9tZW0obW0tPmRldi0+YWRl
+diwNCj4gbXFkX21lbV9vYmotPmd0dF9tZW0pOw0KPiA+ICsJCWtmcmVlKG1xZF9tZW1fb2JqKTsN
+Cj4gPiArCX0gZWxzZSB7DQo+ID4gKwkJa2ZkX2d0dF9zYV9mcmVlKG1tLT5kZXYsIG1xZF9tZW1f
+b2JqKTsNCj4gPiArCX0NCj4gPiArfQ0KPiA+ICsNCj4gPiArYm9vbCBpc19vY2N1cGllZChzdHJ1
+Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICptcWQsDQo+ID4gKwkJIHVpbnQ2NF90IHF1ZXVlX2Fk
+ZHJlc3MsIHVpbnQzMl90IHBpcGVfaWQsDQo+ID4gKwkJIHVpbnQzMl90IHF1ZXVlX2lkKQ0KPiA+
+ICt7DQo+ID4gKwlyZXR1cm4gbW0tPmRldi0+a2ZkMmtnZC0+aHFkX2lzX29jY3VwaWVkKG1tLT5k
+ZXYtPmFkZXYsDQo+IHF1ZXVlX2FkZHJlc3MsDQo+ID4gKwkJCQkJCXBpcGVfaWQsIHF1ZXVlX2lk
+KTsNCj4gPiArfQ0KPiA+ICsNCj4gPiAraW50IGxvYWRfbXFkX3NkbWEoc3RydWN0IG1xZF9tYW5h
+Z2VyICptbSwgdm9pZCAqbXFkLA0KPiA+ICsJCSAgdWludDMyX3QgcGlwZV9pZCwgdWludDMyX3Qg
+cXVldWVfaWQsDQo+ID4gKwkJICBzdHJ1Y3QgcXVldWVfcHJvcGVydGllcyAqcCwgc3RydWN0IG1t
+X3N0cnVjdCAqbW1zKQ0KPiA+ICt7DQo+ID4gKwlyZXR1cm4gbW0tPmRldi0+a2ZkMmtnZC0+aHFk
+X3NkbWFfbG9hZChtbS0+ZGV2LT5hZGV2LCBtcWQsDQo+ID4gKwkJCQkJCSh1aW50MzJfdCBfX3Vz
+ZXIgKilwLQ0KPiA+d3JpdGVfcHRyLA0KPiA+ICsJCQkJCQltbXMpOw0KPiA+ICt9DQo+ID4gKw0K
+PiA+ICsvKg0KPiA+ICsgKiBwcmVlbXB0IHR5cGUgaGVyZSBpcyBpZ25vcmVkIGJlY2F1c2UgdGhl
+cmUgaXMgb25seSBvbmUgd2F5DQo+ID4gKyAqIHRvIHByZWVtcHQgc2RtYSBxdWV1ZQ0KPiA+ICsg
+Ki8NCj4gPiAraW50IGRlc3Ryb3lfbXFkX3NkbWEoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9p
+ZCAqbXFkLA0KPiA+ICsJCSAgICAgZW51bSBrZmRfcHJlZW1wdF90eXBlIHR5cGUsDQo+ID4gKwkJ
+ICAgICB1bnNpZ25lZCBpbnQgdGltZW91dCwgdWludDMyX3QgcGlwZV9pZCwNCj4gPiArCQkgICAg
+IHVpbnQzMl90IHF1ZXVlX2lkKQ0KPiA+ICt7DQo+ID4gKwlyZXR1cm4gbW0tPmRldi0+a2ZkMmtn
+ZC0+aHFkX3NkbWFfZGVzdHJveShtbS0+ZGV2LT5hZGV2LCBtcWQsDQo+IHRpbWVvdXQpOw0KPiA+
+ICt9DQo+ID4gKw0KPiA+ICtib29sIGlzX29jY3VwaWVkX3NkbWEoc3RydWN0IG1xZF9tYW5hZ2Vy
+ICptbSwgdm9pZCAqbXFkLA0KPiA+ICsJCSAgICAgIHVpbnQ2NF90IHF1ZXVlX2FkZHJlc3MsIHVp
+bnQzMl90IHBpcGVfaWQsDQo+ID4gKwkJICAgICAgdWludDMyX3QgcXVldWVfaWQpDQo+ID4gK3sN
+Cj4gPiArCXJldHVybiBtbS0+ZGV2LT5rZmQya2dkLT5ocWRfc2RtYV9pc19vY2N1cGllZChtbS0+
+ZGV2LT5hZGV2LA0KPiBtcWQpOw0KPiA+ICt9DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlci5oDQo+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyLmgNCj4gPiBpbmRleCAyMzQ4NmEyM2RmODQuLjc2ZjIw
+NjM3YjkzOCAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
+bXFkX21hbmFnZXIuaA0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9t
+cWRfbWFuYWdlci5oDQo+ID4gQEAgLTEzNiw0ICsxMzYsMzEgQEAgdm9pZCBtcWRfc3ltbWV0cmlj
+YWxseV9tYXBfY3VfbWFzayhzdHJ1Y3QNCj4gbXFkX21hbmFnZXIgKm1tLA0KPiA+ICAgCQljb25z
+dCB1aW50MzJfdCAqY3VfbWFzaywgdWludDMyX3QgY3VfbWFza19jb3VudCwNCj4gPiAgIAkJdWlu
+dDMyX3QgKnNlX21hc2spOw0KPiA+DQo+ID4gK2ludCBoaXFfbG9hZF9tcWRfa2lxKHN0cnVjdCBt
+cWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCj4gPiArCQl1aW50MzJfdCBwaXBlX2lkLCB1aW50
+MzJfdCBxdWV1ZV9pZCwNCj4gPiArCQlzdHJ1Y3QgcXVldWVfcHJvcGVydGllcyAqcCwgc3RydWN0
+IG1tX3N0cnVjdCAqbW1zKTsNCj4gPiArDQo+ID4gK2ludCBkZXN0cm95X21xZChzdHJ1Y3QgbXFk
+X21hbmFnZXIgKm1tLCB2b2lkICptcWQsDQo+ID4gKwkJZW51bSBrZmRfcHJlZW1wdF90eXBlIHR5
+cGUsIHVuc2lnbmVkIGludCB0aW1lb3V0LA0KPiA+ICsJCXVpbnQzMl90IHBpcGVfaWQsdWludDMy
+X3QgcXVldWVfaWQpOw0KPiA+ICsNCj4gPiArdm9pZCBmcmVlX21xZChzdHJ1Y3QgbXFkX21hbmFn
+ZXIgKm1tLCB2b2lkICptcWQsDQo+ID4gKwkJc3RydWN0IGtmZF9tZW1fb2JqICptcWRfbWVtX29i
+aik7DQo+ID4gKw0KPiA+ICtib29sIGlzX29jY3VwaWVkKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0s
+IHZvaWQgKm1xZCwNCj4gPiArCQkgdWludDY0X3QgcXVldWVfYWRkcmVzcywgdWludDMyX3QgcGlw
+ZV9pZCwNCj4gPiArCQkgdWludDMyX3QgcXVldWVfaWQpOw0KPiA+ICsNCj4gPiAraW50IGxvYWRf
+bXFkX3NkbWEoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZCAqbXFkLA0KPiA+ICsJCXVpbnQz
+Ml90IHBpcGVfaWQsIHVpbnQzMl90IHF1ZXVlX2lkLA0KPiA+ICsJCXN0cnVjdCBxdWV1ZV9wcm9w
+ZXJ0aWVzICpwLCBzdHJ1Y3QgbW1fc3RydWN0ICptbXMpOw0KPiA+ICsNCj4gPiAraW50IGRlc3Ry
+b3lfbXFkX3NkbWEoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZCAqbXFkLA0KPiA+ICsJCWVu
+dW0ga2ZkX3ByZWVtcHRfdHlwZSB0eXBlLHVuc2lnbmVkIGludCB0aW1lb3V0LA0KPiA+ICsJCXVp
+bnQzMl90IHBpcGVfaWQsIHVpbnQzMl90IHF1ZXVlX2lkKTsNCj4gPiArDQo+ID4gK2Jvb2wgaXNf
+b2NjdXBpZWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICptcWQsDQo+ID4gKwkJ
+dWludDY0X3QgcXVldWVfYWRkcmVzcywgdWludDMyX3QgcGlwZV9pZCwNCj4gPiArCQl1aW50MzJf
+dCBxdWV1ZV9pZCk7DQo+ID4gKw0KPiA+ICAgI2VuZGlmIC8qIEtGRF9NUURfTUFOQUdFUl9IXyAq
+Lw0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21h
+bmFnZXJfY2lrLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFn
+ZXJfY2lrLmMNCj4gPiBpbmRleCA5NmUzMzAzZmEyN2MuLjgxYjZiM2Q1ZjJlNyAxMDA2NDQNCj4g
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfY2lrLmMN
+Cj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfY2lr
+LmMNCj4gPiBAQCAtMTU2LDEzICsxNTYsNiBAQCBzdGF0aWMgdm9pZCBpbml0X21xZF9zZG1hKHN0
+cnVjdCBtcWRfbWFuYWdlcg0KPiAqbW0sIHZvaWQgKiptcWQsDQo+ID4gICAJbW0tPnVwZGF0ZV9t
+cWQobW0sIG0sIHEsIE5VTEwpOw0KPiA+ICAgfQ0KPiA+DQo+ID4gLXN0YXRpYyB2b2lkIGZyZWVf
+bXFkKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCj4gPiAtCQkJc3RydWN0IGtm
+ZF9tZW1fb2JqICptcWRfbWVtX29iaikNCj4gPiAtew0KPiA+IC0Ja2ZkX2d0dF9zYV9mcmVlKG1t
+LT5kZXYsIG1xZF9tZW1fb2JqKTsNCj4gPiAtfQ0KPiA+IC0NCj4gPiAtDQo+ID4gICBzdGF0aWMg
+aW50IGxvYWRfbXFkKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwgdWludDMyX3Qg
+cGlwZV9pZCwNCj4gPiAgIAkJICAgIHVpbnQzMl90IHF1ZXVlX2lkLCBzdHJ1Y3QgcXVldWVfcHJv
+cGVydGllcyAqcCwNCj4gPiAgIAkJICAgIHN0cnVjdCBtbV9zdHJ1Y3QgKm1tcykNCj4gPiBAQCAt
+MTc2LDE1ICsxNjksNiBAQCBzdGF0aWMgaW50IGxvYWRfbXFkKHN0cnVjdCBtcWRfbWFuYWdlciAq
+bW0sIHZvaWQNCj4gKm1xZCwgdWludDMyX3QgcGlwZV9pZCwNCj4gPiAgIAkJCQkJICB3cHRyX3No
+aWZ0LCB3cHRyX21hc2ssIG1tcyk7DQo+ID4gICB9DQo+ID4NCj4gPiAtc3RhdGljIGludCBsb2Fk
+X21xZF9zZG1hKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCj4gPiAtCQkJIHVp
+bnQzMl90IHBpcGVfaWQsIHVpbnQzMl90IHF1ZXVlX2lkLA0KPiA+IC0JCQkgc3RydWN0IHF1ZXVl
+X3Byb3BlcnRpZXMgKnAsIHN0cnVjdCBtbV9zdHJ1Y3QgKm1tcykNCj4gPiAtew0KPiA+IC0JcmV0
+dXJuIG1tLT5kZXYtPmtmZDJrZ2QtPmhxZF9zZG1hX2xvYWQobW0tPmRldi0+YWRldiwgbXFkLA0K
+PiA+IC0JCQkJCSAgICAgICAodWludDMyX3QgX191c2VyICopcC0+d3JpdGVfcHRyLA0KPiA+IC0J
+CQkJCSAgICAgICBtbXMpOw0KPiA+IC19DQo+ID4gLQ0KPiA+ICAgc3RhdGljIHZvaWQgX191cGRh
+dGVfbXFkKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCj4gPiAgIAkJCXN0cnVj
+dCBxdWV1ZV9wcm9wZXJ0aWVzICpxLCBzdHJ1Y3QgbXFkX3VwZGF0ZV9pbmZvDQo+ICptaW5mbywN
+Cj4gPiAgIAkJCXVuc2lnbmVkIGludCBhdGNfYml0KQ0KPiA+IEBAIC0yNzEsMTUgKzI1NSw2IEBA
+IHN0YXRpYyB2b2lkIHVwZGF0ZV9tcWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFnZXINCj4gKm1tLCB2
+b2lkICptcWQsDQo+ID4gICAJcS0+aXNfYWN0aXZlID0gUVVFVUVfSVNfQUNUSVZFKCpxKTsNCj4g
+PiAgIH0NCj4gPg0KPiA+IC1zdGF0aWMgaW50IGRlc3Ryb3lfbXFkKHN0cnVjdCBtcWRfbWFuYWdl
+ciAqbW0sIHZvaWQgKm1xZCwNCj4gPiAtCQkJZW51bSBrZmRfcHJlZW1wdF90eXBlIHR5cGUsDQo+
+ID4gLQkJCXVuc2lnbmVkIGludCB0aW1lb3V0LCB1aW50MzJfdCBwaXBlX2lkLA0KPiA+IC0JCQl1
+aW50MzJfdCBxdWV1ZV9pZCkNCj4gPiAtew0KPiA+IC0JcmV0dXJuIG1tLT5kZXYtPmtmZDJrZ2Qt
+PmhxZF9kZXN0cm95KG1tLT5kZXYtPmFkZXYsIG1xZCwgdHlwZSwNCj4gdGltZW91dCwNCj4gPiAt
+CQkJCQlwaXBlX2lkLCBxdWV1ZV9pZCk7DQo+ID4gLX0NCj4gPiAtDQo+ID4gICBzdGF0aWMgdm9p
+ZCBjaGVja3BvaW50X21xZChzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICptcWQsIHZvaWQN
+Cj4gKm1xZF9kc3QsIHZvaWQgKmN0bF9zdGFja19kc3QpDQo+ID4gICB7DQo+ID4gICAJc3RydWN0
+IGNpa19tcWQgKm07DQo+ID4gQEAgLTM1MSwzNSArMzI2LDYgQEAgc3RhdGljIHZvaWQgcmVzdG9y
+ZV9tcWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFnZXINCj4gKm1tLCB2b2lkICoqbXFkLA0KPiA+ICAg
+CXFwLT5pc19hY3RpdmUgPSAwOw0KPiA+ICAgfQ0KPiA+DQo+ID4gLS8qDQo+ID4gLSAqIHByZWVt
+cHQgdHlwZSBoZXJlIGlzIGlnbm9yZWQgYmVjYXVzZSB0aGVyZSBpcyBvbmx5IG9uZSB3YXkNCj4g
+PiAtICogdG8gcHJlZW1wdCBzZG1hIHF1ZXVlDQo+ID4gLSAqLw0KPiA+IC1zdGF0aWMgaW50IGRl
+c3Ryb3lfbXFkX3NkbWEoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZCAqbXFkLA0KPiA+IC0J
+CQkJZW51bSBrZmRfcHJlZW1wdF90eXBlIHR5cGUsDQo+ID4gLQkJCQl1bnNpZ25lZCBpbnQgdGlt
+ZW91dCwgdWludDMyX3QgcGlwZV9pZCwNCj4gPiAtCQkJCXVpbnQzMl90IHF1ZXVlX2lkKQ0KPiA+
+IC17DQo+ID4gLQlyZXR1cm4gbW0tPmRldi0+a2ZkMmtnZC0+aHFkX3NkbWFfZGVzdHJveShtbS0+
+ZGV2LT5hZGV2LCBtcWQsDQo+IHRpbWVvdXQpOw0KPiA+IC19DQo+ID4gLQ0KPiA+IC1zdGF0aWMg
+Ym9vbCBpc19vY2N1cGllZChzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICptcWQsDQo+ID4g
+LQkJCXVpbnQ2NF90IHF1ZXVlX2FkZHJlc3MsCXVpbnQzMl90IHBpcGVfaWQsDQo+ID4gLQkJCXVp
+bnQzMl90IHF1ZXVlX2lkKQ0KPiA+IC17DQo+ID4gLQ0KPiA+IC0JcmV0dXJuIG1tLT5kZXYtPmtm
+ZDJrZ2QtPmhxZF9pc19vY2N1cGllZChtbS0+ZGV2LT5hZGV2LA0KPiBxdWV1ZV9hZGRyZXNzLA0K
+PiA+IC0JCQkJCXBpcGVfaWQsIHF1ZXVlX2lkKTsNCj4gPiAtDQo+ID4gLX0NCj4gPiAtDQo+ID4g
+LXN0YXRpYyBib29sIGlzX29jY3VwaWVkX3NkbWEoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9p
+ZCAqbXFkLA0KPiA+IC0JCQl1aW50NjRfdCBxdWV1ZV9hZGRyZXNzLAl1aW50MzJfdCBwaXBlX2lk
+LA0KPiA+IC0JCQl1aW50MzJfdCBxdWV1ZV9pZCkNCj4gPiAtew0KPiA+IC0JcmV0dXJuIG1tLT5k
+ZXYtPmtmZDJrZ2QtPmhxZF9zZG1hX2lzX29jY3VwaWVkKG1tLT5kZXYtPmFkZXYsDQo+IG1xZCk7
+DQo+ID4gLX0NCj4gPiAtDQo+ID4gICAvKg0KPiA+ICAgICogSElRIE1RRCBJbXBsZW1lbnRhdGlv
+biwgY29uY3JldGUgaW1wbGVtZW50YXRpb24gZm9yIEhJUSBNUUQNCj4gaW1wbGVtZW50YXRpb24u
+DQo+ID4gICAgKiBUaGUgSElRIHF1ZXVlIGluIEthdmVyaSBpcyB1c2luZyB0aGUgc2FtZSBNUUQg
+c3RydWN0dXJlIGFzIGFsbCB0aGUgdXNlcg0KPiBtb2RlDQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYw0KPiBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYw0KPiA+IGluZGV4IDBjYzg2
+NzljMjRmYS4uODMyNDc1N2ExY2Y1IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYw0KPiA+IEBAIC0xNTQsMTQgKzE1NCw2
+IEBAIHN0YXRpYyBpbnQgbG9hZF9tcWQoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZA0KPiAq
+bXFkLA0KPiA+ICAgCXJldHVybiByOw0KPiA+ICAgfQ0KPiA+DQo+ID4gLXN0YXRpYyBpbnQgaGlx
+X2xvYWRfbXFkX2tpcShzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICptcWQsDQo+ID4gLQkJ
+CSAgICB1aW50MzJfdCBwaXBlX2lkLCB1aW50MzJfdCBxdWV1ZV9pZCwNCj4gPiAtCQkJICAgIHN0
+cnVjdCBxdWV1ZV9wcm9wZXJ0aWVzICpwLCBzdHJ1Y3QgbW1fc3RydWN0ICptbXMpDQo+ID4gLXsN
+Cj4gPiAtCXJldHVybiBtbS0+ZGV2LT5rZmQya2dkLT5oaXFfbXFkX2xvYWQobW0tPmRldi0+YWRl
+diwgbXFkLA0KPiBwaXBlX2lkLA0KPiA+IC0JCQkJCSAgICAgIHF1ZXVlX2lkLCBwLT5kb29yYmVs
+bF9vZmYpOw0KPiA+IC19DQo+ID4gLQ0KPiA+ICAgc3RhdGljIHZvaWQgdXBkYXRlX21xZChzdHJ1
+Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICptcWQsDQo+ID4gICAJCQlzdHJ1Y3QgcXVldWVfcHJv
+cGVydGllcyAqcSwNCj4gPiAgIAkJCXN0cnVjdCBtcWRfdXBkYXRlX2luZm8gKm1pbmZvKQ0KPiA+
+IEBAIC0yMzMsMzEgKzIyNSw2IEBAIHN0YXRpYyB1aW50MzJfdCByZWFkX2Rvb3JiZWxsX2lkKHZv
+aWQgKm1xZCkNCj4gPiAgIAlyZXR1cm4gbS0+cXVldWVfZG9vcmJlbGxfaWQwOw0KPiA+ICAgfQ0K
+PiA+DQo+ID4gLXN0YXRpYyBpbnQgZGVzdHJveV9tcWQoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwg
+dm9pZCAqbXFkLA0KPiA+IC0JCSAgICAgICBlbnVtIGtmZF9wcmVlbXB0X3R5cGUgdHlwZSwNCj4g
+PiAtCQkgICAgICAgdW5zaWduZWQgaW50IHRpbWVvdXQsIHVpbnQzMl90IHBpcGVfaWQsDQo+ID4g
+LQkJICAgICAgIHVpbnQzMl90IHF1ZXVlX2lkKQ0KPiA+IC17DQo+ID4gLQlyZXR1cm4gbW0tPmRl
+di0+a2ZkMmtnZC0+aHFkX2Rlc3Ryb3kNCj4gPiAtCQkobW0tPmRldi0+YWRldiwgbXFkLCB0eXBl
+LCB0aW1lb3V0LA0KPiA+IC0JCSBwaXBlX2lkLCBxdWV1ZV9pZCk7DQo+ID4gLX0NCj4gPiAtDQo+
+ID4gLXN0YXRpYyB2b2lkIGZyZWVfbXFkKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1x
+ZCwNCj4gPiAtCQkJc3RydWN0IGtmZF9tZW1fb2JqICptcWRfbWVtX29iaikNCj4gPiAtew0KPiA+
+IC0Ja2ZkX2d0dF9zYV9mcmVlKG1tLT5kZXYsIG1xZF9tZW1fb2JqKTsNCj4gPiAtfQ0KPiA+IC0N
+Cj4gPiAtc3RhdGljIGJvb2wgaXNfb2NjdXBpZWQoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9p
+ZCAqbXFkLA0KPiA+IC0JCQl1aW50NjRfdCBxdWV1ZV9hZGRyZXNzLAl1aW50MzJfdCBwaXBlX2lk
+LA0KPiA+IC0JCQl1aW50MzJfdCBxdWV1ZV9pZCkNCj4gPiAtew0KPiA+IC0JcmV0dXJuIG1tLT5k
+ZXYtPmtmZDJrZ2QtPmhxZF9pc19vY2N1cGllZCgNCj4gPiAtCQltbS0+ZGV2LT5hZGV2LCBxdWV1
+ZV9hZGRyZXNzLA0KPiA+IC0JCXBpcGVfaWQsIHF1ZXVlX2lkKTsNCj4gPiAtfQ0KPiA+IC0NCj4g
+PiAgIHN0YXRpYyBpbnQgZ2V0X3dhdmVfc3RhdGUoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9p
+ZCAqbXFkLA0KPiA+ICAgCQkJICB2b2lkIF9fdXNlciAqY3RsX3N0YWNrLA0KPiA+ICAgCQkJICB1
+MzIgKmN0bF9zdGFja191c2VkX3NpemUsDQo+ID4gQEAgLTM1MiwxNSArMzE5LDYgQEAgc3RhdGlj
+IHZvaWQgaW5pdF9tcWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFnZXINCj4gKm1tLCB2b2lkICoqbXFk
+LA0KPiA+ICAgCW1tLT51cGRhdGVfbXFkKG1tLCBtLCBxLCBOVUxMKTsNCj4gPiAgIH0NCj4gPg0K
+PiA+IC1zdGF0aWMgaW50IGxvYWRfbXFkX3NkbWEoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9p
+ZCAqbXFkLA0KPiA+IC0JCXVpbnQzMl90IHBpcGVfaWQsIHVpbnQzMl90IHF1ZXVlX2lkLA0KPiA+
+IC0JCXN0cnVjdCBxdWV1ZV9wcm9wZXJ0aWVzICpwLCBzdHJ1Y3QgbW1fc3RydWN0ICptbXMpDQo+
+ID4gLXsNCj4gPiAtCXJldHVybiBtbS0+ZGV2LT5rZmQya2dkLT5ocWRfc2RtYV9sb2FkKG1tLT5k
+ZXYtPmFkZXYsIG1xZCwNCj4gPiAtCQkJCQkgICAgICAgKHVpbnQzMl90IF9fdXNlciAqKXAtPndy
+aXRlX3B0ciwNCj4gPiAtCQkJCQkgICAgICAgbW1zKTsNCj4gPiAtfQ0KPiA+IC0NCj4gPiAgICNk
+ZWZpbmUgU0RNQV9STENfRFVNTVlfREVGQVVMVCAweGYNCj4gPg0KPiA+ICAgc3RhdGljIHZvaWQg
+dXBkYXRlX21xZF9zZG1hKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCj4gPiBA
+QCAtMzkwLDI1ICszNDgsNiBAQCBzdGF0aWMgdm9pZCB1cGRhdGVfbXFkX3NkbWEoc3RydWN0IG1x
+ZF9tYW5hZ2VyDQo+ICptbSwgdm9pZCAqbXFkLA0KPiA+ICAgCXEtPmlzX2FjdGl2ZSA9IFFVRVVF
+X0lTX0FDVElWRSgqcSk7DQo+ID4gICB9DQo+ID4NCj4gPiAtLyoNCj4gPiAtICogICogcHJlZW1w
+dCB0eXBlIGhlcmUgaXMgaWdub3JlZCBiZWNhdXNlIHRoZXJlIGlzIG9ubHkgb25lIHdheQ0KPiA+
+IC0gKiAgKiB0byBwcmVlbXB0IHNkbWEgcXVldWUNCj4gPiAtICovDQo+ID4gLXN0YXRpYyBpbnQg
+ZGVzdHJveV9tcWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICptcWQsDQo+ID4g
+LQkJZW51bSBrZmRfcHJlZW1wdF90eXBlIHR5cGUsDQo+ID4gLQkJdW5zaWduZWQgaW50IHRpbWVv
+dXQsIHVpbnQzMl90IHBpcGVfaWQsDQo+ID4gLQkJdWludDMyX3QgcXVldWVfaWQpDQo+ID4gLXsN
+Cj4gPiAtCXJldHVybiBtbS0+ZGV2LT5rZmQya2dkLT5ocWRfc2RtYV9kZXN0cm95KG1tLT5kZXYt
+PmFkZXYsIG1xZCwNCj4gdGltZW91dCk7DQo+ID4gLX0NCj4gPiAtDQo+ID4gLXN0YXRpYyBib29s
+IGlzX29jY3VwaWVkX3NkbWEoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZCAqbXFkLA0KPiA+
+IC0JCXVpbnQ2NF90IHF1ZXVlX2FkZHJlc3MsIHVpbnQzMl90IHBpcGVfaWQsDQo+ID4gLQkJdWlu
+dDMyX3QgcXVldWVfaWQpDQo+ID4gLXsNCj4gPiAtCXJldHVybiBtbS0+ZGV2LT5rZmQya2dkLT5o
+cWRfc2RtYV9pc19vY2N1cGllZChtbS0+ZGV2LT5hZGV2LA0KPiBtcWQpOw0KPiA+IC19DQo+ID4g
+LQ0KPiA+ICAgc3RhdGljIHZvaWQgY2hlY2twb2ludF9tcWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFn
+ZXIgKm1tLA0KPiA+ICAgCQkJCXZvaWQgKm1xZCwNCj4gPiAgIAkJCQl2b2lkICptcWRfZHN0LA0K
+PiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFn
+ZXJfdjkuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92
+OS5jDQo+ID4gaW5kZXggODdkYTQzMjlkYmYyLi4wMDc4ODZiMjk2MWUgMTAwNjQ0DQo+ID4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3Y5LmMNCj4gPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjkuYw0KPiA+
+IEBAIC0yMDQsMTQgKzIwNCw2IEBAIHN0YXRpYyBpbnQgbG9hZF9tcWQoc3RydWN0IG1xZF9tYW5h
+Z2VyICptbSwgdm9pZA0KPiAqbXFkLA0KPiA+ICAgCQkJCQkgIHdwdHJfc2hpZnQsIDAsIG1tcyk7
+DQo+ID4gICB9DQo+ID4NCj4gPiAtc3RhdGljIGludCBoaXFfbG9hZF9tcWRfa2lxKHN0cnVjdCBt
+cWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCj4gPiAtCQkJICAgIHVpbnQzMl90IHBpcGVfaWQs
+IHVpbnQzMl90IHF1ZXVlX2lkLA0KPiA+IC0JCQkgICAgc3RydWN0IHF1ZXVlX3Byb3BlcnRpZXMg
+KnAsIHN0cnVjdCBtbV9zdHJ1Y3QgKm1tcykNCj4gPiAtew0KPiA+IC0JcmV0dXJuIG1tLT5kZXYt
+PmtmZDJrZ2QtPmhpcV9tcWRfbG9hZChtbS0+ZGV2LT5hZGV2LCBtcWQsDQo+IHBpcGVfaWQsDQo+
+ID4gLQkJCQkJICAgICAgcXVldWVfaWQsIHAtPmRvb3JiZWxsX29mZik7DQo+ID4gLX0NCj4gPiAt
+DQo+ID4gICBzdGF0aWMgdm9pZCB1cGRhdGVfbXFkKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZv
+aWQgKm1xZCwNCj4gPiAgIAkJCXN0cnVjdCBxdWV1ZV9wcm9wZXJ0aWVzICpxLA0KPiA+ICAgCQkJ
+c3RydWN0IG1xZF91cGRhdGVfaW5mbyAqbWluZm8pDQo+ID4gQEAgLTI4NSwzOCArMjc3LDYgQEAg
+c3RhdGljIHVpbnQzMl90IHJlYWRfZG9vcmJlbGxfaWQodm9pZCAqbXFkKQ0KPiA+ICAgCXJldHVy
+biBtLT5xdWV1ZV9kb29yYmVsbF9pZDA7DQo+ID4gICB9DQo+ID4NCj4gPiAtc3RhdGljIGludCBk
+ZXN0cm95X21xZChzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICptcWQsDQo+ID4gLQkJCWVu
+dW0ga2ZkX3ByZWVtcHRfdHlwZSB0eXBlLA0KPiA+IC0JCQl1bnNpZ25lZCBpbnQgdGltZW91dCwg
+dWludDMyX3QgcGlwZV9pZCwNCj4gPiAtCQkJdWludDMyX3QgcXVldWVfaWQpDQo+ID4gLXsNCj4g
+PiAtCXJldHVybiBtbS0+ZGV2LT5rZmQya2dkLT5ocWRfZGVzdHJveQ0KPiA+IC0JCShtbS0+ZGV2
+LT5hZGV2LCBtcWQsIHR5cGUsIHRpbWVvdXQsDQo+ID4gLQkJcGlwZV9pZCwgcXVldWVfaWQpOw0K
+PiA+IC19DQo+ID4gLQ0KPiA+IC1zdGF0aWMgdm9pZCBmcmVlX21xZChzdHJ1Y3QgbXFkX21hbmFn
+ZXIgKm1tLCB2b2lkICptcWQsDQo+ID4gLQkJCXN0cnVjdCBrZmRfbWVtX29iaiAqbXFkX21lbV9v
+YmopDQo+ID4gLXsNCj4gPiAtCXN0cnVjdCBrZmRfZGV2ICprZmQgPSBtbS0+ZGV2Ow0KPiA+IC0N
+Cj4gPiAtCWlmIChtcWRfbWVtX29iai0+Z3R0X21lbSkgew0KPiA+IC0JCWFtZGdwdV9hbWRrZmRf
+ZnJlZV9ndHRfbWVtKGtmZC0+YWRldiwgbXFkX21lbV9vYmotDQo+ID5ndHRfbWVtKTsNCj4gPiAt
+CQlrZnJlZShtcWRfbWVtX29iaik7DQo+ID4gLQl9IGVsc2Ugew0KPiA+IC0JCWtmZF9ndHRfc2Ff
+ZnJlZShtbS0+ZGV2LCBtcWRfbWVtX29iaik7DQo+ID4gLQl9DQo+ID4gLX0NCj4gPiAtDQo+ID4g
+LXN0YXRpYyBib29sIGlzX29jY3VwaWVkKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1x
+ZCwNCj4gPiAtCQkJdWludDY0X3QgcXVldWVfYWRkcmVzcywJdWludDMyX3QgcGlwZV9pZCwNCj4g
+PiAtCQkJdWludDMyX3QgcXVldWVfaWQpDQo+ID4gLXsNCj4gPiAtCXJldHVybiBtbS0+ZGV2LT5r
+ZmQya2dkLT5ocWRfaXNfb2NjdXBpZWQoDQo+ID4gLQkJbW0tPmRldi0+YWRldiwgcXVldWVfYWRk
+cmVzcywNCj4gPiAtCQlwaXBlX2lkLCBxdWV1ZV9pZCk7DQo+ID4gLX0NCj4gPiAtDQo+ID4gICBz
+dGF0aWMgaW50IGdldF93YXZlX3N0YXRlKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1x
+ZCwNCj4gPiAgIAkJCSAgdm9pZCBfX3VzZXIgKmN0bF9zdGFjaywNCj4gPiAgIAkJCSAgdTMyICpj
+dGxfc3RhY2tfdXNlZF9zaXplLA0KPiA+IEBAIC00MjIsMTUgKzM4Miw2IEBAIHN0YXRpYyB2b2lk
+IGluaXRfbXFkX3NkbWEoc3RydWN0IG1xZF9tYW5hZ2VyDQo+ICptbSwgdm9pZCAqKm1xZCwNCj4g
+PiAgIAltbS0+dXBkYXRlX21xZChtbSwgbSwgcSwgTlVMTCk7DQo+ID4gICB9DQo+ID4NCj4gPiAt
+c3RhdGljIGludCBsb2FkX21xZF9zZG1hKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1x
+ZCwNCj4gPiAtCQl1aW50MzJfdCBwaXBlX2lkLCB1aW50MzJfdCBxdWV1ZV9pZCwNCj4gPiAtCQlz
+dHJ1Y3QgcXVldWVfcHJvcGVydGllcyAqcCwgc3RydWN0IG1tX3N0cnVjdCAqbW1zKQ0KPiA+IC17
+DQo+ID4gLQlyZXR1cm4gbW0tPmRldi0+a2ZkMmtnZC0+aHFkX3NkbWFfbG9hZChtbS0+ZGV2LT5h
+ZGV2LCBtcWQsDQo+ID4gLQkJCQkJICAgICAgICh1aW50MzJfdCBfX3VzZXIgKilwLT53cml0ZV9w
+dHIsDQo+ID4gLQkJCQkJICAgICAgIG1tcyk7DQo+ID4gLX0NCj4gPiAtDQo+ID4gICAjZGVmaW5l
+IFNETUFfUkxDX0RVTU1ZX0RFRkFVTFQgMHhmDQo+ID4NCj4gPiAgIHN0YXRpYyB2b2lkIHVwZGF0
+ZV9tcWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICptcWQsDQo+ID4gQEAgLTQ2
+MCwyNSArNDExLDYgQEAgc3RhdGljIHZvaWQgdXBkYXRlX21xZF9zZG1hKHN0cnVjdCBtcWRfbWFu
+YWdlcg0KPiAqbW0sIHZvaWQgKm1xZCwNCj4gPiAgIAlxLT5pc19hY3RpdmUgPSBRVUVVRV9JU19B
+Q1RJVkUoKnEpOw0KPiA+ICAgfQ0KPiA+DQo+ID4gLS8qDQo+ID4gLSAqICAqIHByZWVtcHQgdHlw
+ZSBoZXJlIGlzIGlnbm9yZWQgYmVjYXVzZSB0aGVyZSBpcyBvbmx5IG9uZSB3YXkNCj4gPiAtICog
+ICogdG8gcHJlZW1wdCBzZG1hIHF1ZXVlDQo+ID4gLSAqLw0KPiA+IC1zdGF0aWMgaW50IGRlc3Ry
+b3lfbXFkX3NkbWEoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZCAqbXFkLA0KPiA+IC0JCWVu
+dW0ga2ZkX3ByZWVtcHRfdHlwZSB0eXBlLA0KPiA+IC0JCXVuc2lnbmVkIGludCB0aW1lb3V0LCB1
+aW50MzJfdCBwaXBlX2lkLA0KPiA+IC0JCXVpbnQzMl90IHF1ZXVlX2lkKQ0KPiA+IC17DQo+ID4g
+LQlyZXR1cm4gbW0tPmRldi0+a2ZkMmtnZC0+aHFkX3NkbWFfZGVzdHJveShtbS0+ZGV2LT5hZGV2
+LCBtcWQsDQo+IHRpbWVvdXQpOw0KPiA+IC19DQo+ID4gLQ0KPiA+IC1zdGF0aWMgYm9vbCBpc19v
+Y2N1cGllZF9zZG1hKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCj4gPiAtCQl1
+aW50NjRfdCBxdWV1ZV9hZGRyZXNzLCB1aW50MzJfdCBwaXBlX2lkLA0KPiA+IC0JCXVpbnQzMl90
+IHF1ZXVlX2lkKQ0KPiA+IC17DQo+ID4gLQlyZXR1cm4gbW0tPmRldi0+a2ZkMmtnZC0+aHFkX3Nk
+bWFfaXNfb2NjdXBpZWQobW0tPmRldi0+YWRldiwNCj4gbXFkKTsNCj4gPiAtfQ0KPiA+IC0NCj4g
+PiAgIHN0YXRpYyB2b2lkIGNoZWNrcG9pbnRfbXFkX3NkbWEoc3RydWN0IG1xZF9tYW5hZ2VyICpt
+bSwNCj4gPiAgIAkJCQl2b2lkICptcWQsDQo+ID4gICAJCQkJdm9pZCAqbXFkX2RzdCwNCj4gPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3Zp
+LmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdmkuYw0K
+PiA+IGluZGV4IDEzN2IyMDgxMzVhMC4uYzA0MDViYmU4ZTM2IDEwMDY0NA0KPiA+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92aS5jDQo+ID4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3ZpLmMNCj4gPiBAQCAt
+MjU5LDMxICsyNTksNiBAQCBzdGF0aWMgdm9pZCB1cGRhdGVfbXFkX3RvbmdhKHN0cnVjdCBtcWRf
+bWFuYWdlcg0KPiAqbW0sIHZvaWQgKm1xZCwNCj4gPiAgIAlfX3VwZGF0ZV9tcWQobW0sIG1xZCwg
+cSwgbWluZm8sIE1UWVBFX1VDLCAwKTsNCj4gPiAgIH0NCj4gPg0KPiA+IC1zdGF0aWMgaW50IGRl
+c3Ryb3lfbXFkKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCj4gPiAtCQkJZW51
+bSBrZmRfcHJlZW1wdF90eXBlIHR5cGUsDQo+ID4gLQkJCXVuc2lnbmVkIGludCB0aW1lb3V0LCB1
+aW50MzJfdCBwaXBlX2lkLA0KPiA+IC0JCQl1aW50MzJfdCBxdWV1ZV9pZCkNCj4gPiAtew0KPiA+
+IC0JcmV0dXJuIG1tLT5kZXYtPmtmZDJrZ2QtPmhxZF9kZXN0cm95DQo+ID4gLQkJKG1tLT5kZXYt
+PmFkZXYsIG1xZCwgdHlwZSwgdGltZW91dCwNCj4gPiAtCQlwaXBlX2lkLCBxdWV1ZV9pZCk7DQo+
+ID4gLX0NCj4gPiAtDQo+ID4gLXN0YXRpYyB2b2lkIGZyZWVfbXFkKHN0cnVjdCBtcWRfbWFuYWdl
+ciAqbW0sIHZvaWQgKm1xZCwNCj4gPiAtCQkJc3RydWN0IGtmZF9tZW1fb2JqICptcWRfbWVtX29i
+aikNCj4gPiAtew0KPiA+IC0Ja2ZkX2d0dF9zYV9mcmVlKG1tLT5kZXYsIG1xZF9tZW1fb2JqKTsN
+Cj4gPiAtfQ0KPiA+IC0NCj4gPiAtc3RhdGljIGJvb2wgaXNfb2NjdXBpZWQoc3RydWN0IG1xZF9t
+YW5hZ2VyICptbSwgdm9pZCAqbXFkLA0KPiA+IC0JCQl1aW50NjRfdCBxdWV1ZV9hZGRyZXNzLAl1
+aW50MzJfdCBwaXBlX2lkLA0KPiA+IC0JCQl1aW50MzJfdCBxdWV1ZV9pZCkNCj4gPiAtew0KPiA+
+IC0JcmV0dXJuIG1tLT5kZXYtPmtmZDJrZ2QtPmhxZF9pc19vY2N1cGllZCgNCj4gPiAtCQltbS0+
+ZGV2LT5hZGV2LCBxdWV1ZV9hZGRyZXNzLA0KPiA+IC0JCXBpcGVfaWQsIHF1ZXVlX2lkKTsNCj4g
+PiAtfQ0KPiA+IC0NCj4gPiAgIHN0YXRpYyBpbnQgZ2V0X3dhdmVfc3RhdGUoc3RydWN0IG1xZF9t
+YW5hZ2VyICptbSwgdm9pZCAqbXFkLA0KPiA+ICAgCQkJICB2b2lkIF9fdXNlciAqY3RsX3N0YWNr
+LA0KPiA+ICAgCQkJICB1MzIgKmN0bF9zdGFja191c2VkX3NpemUsDQo+ID4gQEAgLTM4NSwxNSAr
+MzYwLDYgQEAgc3RhdGljIHZvaWQgaW5pdF9tcWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFnZXINCj4g
+Km1tLCB2b2lkICoqbXFkLA0KPiA+ICAgCW1tLT51cGRhdGVfbXFkKG1tLCBtLCBxLCBOVUxMKTsN
+Cj4gPiAgIH0NCj4gPg0KPiA+IC1zdGF0aWMgaW50IGxvYWRfbXFkX3NkbWEoc3RydWN0IG1xZF9t
+YW5hZ2VyICptbSwgdm9pZCAqbXFkLA0KPiA+IC0JCXVpbnQzMl90IHBpcGVfaWQsIHVpbnQzMl90
+IHF1ZXVlX2lkLA0KPiA+IC0JCXN0cnVjdCBxdWV1ZV9wcm9wZXJ0aWVzICpwLCBzdHJ1Y3QgbW1f
+c3RydWN0ICptbXMpDQo+ID4gLXsNCj4gPiAtCXJldHVybiBtbS0+ZGV2LT5rZmQya2dkLT5ocWRf
+c2RtYV9sb2FkKG1tLT5kZXYtPmFkZXYsIG1xZCwNCj4gPiAtCQkJCQkgICAgICAgKHVpbnQzMl90
+IF9fdXNlciAqKXAtPndyaXRlX3B0ciwNCj4gPiAtCQkJCQkgICAgICAgbW1zKTsNCj4gPiAtfQ0K
+PiA+IC0NCj4gPiAgIHN0YXRpYyB2b2lkIHVwZGF0ZV9tcWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFn
+ZXIgKm1tLCB2b2lkICptcWQsDQo+ID4gICAJCQlzdHJ1Y3QgcXVldWVfcHJvcGVydGllcyAqcSwN
+Cj4gPiAgIAkJCXN0cnVjdCBtcWRfdXBkYXRlX2luZm8gKm1pbmZvKQ0KPiA+IEBAIC00MjIsMjUg
+KzM4OCw2IEBAIHN0YXRpYyB2b2lkIHVwZGF0ZV9tcWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFnZXIN
+Cj4gKm1tLCB2b2lkICptcWQsDQo+ID4gICAJcS0+aXNfYWN0aXZlID0gUVVFVUVfSVNfQUNUSVZF
+KCpxKTsNCj4gPiAgIH0NCj4gPg0KPiA+IC0vKg0KPiA+IC0gKiAgKiBwcmVlbXB0IHR5cGUgaGVy
+ZSBpcyBpZ25vcmVkIGJlY2F1c2UgdGhlcmUgaXMgb25seSBvbmUgd2F5DQo+ID4gLSAqICAqIHRv
+IHByZWVtcHQgc2RtYSBxdWV1ZQ0KPiA+IC0gKi8NCj4gPiAtc3RhdGljIGludCBkZXN0cm95X21x
+ZF9zZG1hKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCj4gPiAtCQllbnVtIGtm
+ZF9wcmVlbXB0X3R5cGUgdHlwZSwNCj4gPiAtCQl1bnNpZ25lZCBpbnQgdGltZW91dCwgdWludDMy
+X3QgcGlwZV9pZCwNCj4gPiAtCQl1aW50MzJfdCBxdWV1ZV9pZCkNCj4gPiAtew0KPiA+IC0JcmV0
+dXJuIG1tLT5kZXYtPmtmZDJrZ2QtPmhxZF9zZG1hX2Rlc3Ryb3kobW0tPmRldi0+YWRldiwgbXFk
+LA0KPiB0aW1lb3V0KTsNCj4gPiAtfQ0KPiA+IC0NCj4gPiAtc3RhdGljIGJvb2wgaXNfb2NjdXBp
+ZWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICptcWQsDQo+ID4gLQkJdWludDY0
+X3QgcXVldWVfYWRkcmVzcywgdWludDMyX3QgcGlwZV9pZCwNCj4gPiAtCQl1aW50MzJfdCBxdWV1
+ZV9pZCkNCj4gPiAtew0KPiA+IC0JcmV0dXJuIG1tLT5kZXYtPmtmZDJrZ2QtPmhxZF9zZG1hX2lz
+X29jY3VwaWVkKG1tLT5kZXYtPmFkZXYsDQo+IG1xZCk7DQo+ID4gLX0NCj4gPiAtDQo+ID4gICBz
+dGF0aWMgdm9pZCBjaGVja3BvaW50X21xZF9zZG1hKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sDQo+
+ID4gICAJCQkJdm9pZCAqbXFkLA0KPiA+ICAgCQkJCXZvaWQgKm1xZF9kc3QsDQo=
