@@ -4,117 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0BAAC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 16:27:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBEBDC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 16:29:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5828510F84C;
-	Mon,  7 Feb 2022 16:27:11 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2088.outbound.protection.outlook.com [40.107.92.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 304FC10F84C
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 16:27:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3E2510F829;
+	Mon,  7 Feb 2022 16:29:01 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2084.outbound.protection.outlook.com [40.107.220.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE3B910F829
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 16:29:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h05wwbc7TrfIV3H/6W6XdkN3t4rgw1/G0/t5uWrVIedqFDb2ddwkoDRkHh6J/3yyaTxxY3mUQY2T2qWKYVDzyhJ8Pg51Id1SnK6bcnpVxCcYw1y85BMhlcVD3T76q6zCYbhsaMFFUOy2vs04oc2bZtXT+qPvL7xjMZMXLlupeYjRUwn18uO4xqwQqNBArMpepmOtGOeL5g6s7awrX6If+sosUKq4RKXdR8dkTOGTdRtBiA0A98l8EwxEgUepT5+b2S2OY9x7TQDWtVBFVf6XRqSvLIOC9/4qodWNtD5WiUYHuJmi0lMcvOs7/XUaRuwJdrDEAoJzQb0QlL8fz4riUQ==
+ b=aUj49PmPMYhDXgEM4pVK19JnX4xvAAs44vhKKSpJ2OqGnIY39ticHhzwSmJtpdSIh4zG5JOQXvKzbrK7cS0OIIt3c2n7RDSyOCmLQW7h0egbgO4nEqvD6o2GegX9DgXp9H7FJMQ1v+eBzMJmjNS72gDBMJbMoSaRQ9sx3vurDwNXIvzo0SMCKROwmc7pdRWJ07EK4Ruws2SyFeliDgbAbxMKr32avEX/I8/WWP2oZa2KyUACtTd4xvL4pSZobHZcxYTqHEETJFzb2aHTYcA91FQQAcbd1IoxUB+meRuBHjbJdIziThyQL5j/OQNn2+7OCaskGKEtgDwdicAaKTbuiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b23farzzCy2FcHlaGcQPTDIVSA0lRPVScNDebAdRryA=;
- b=Tgzv7zR+dfb3/JbHcqQSQzYeEPe2PgPfx/hL26QhxlBCHYobzkCvn9/wCcfc/O9U5ZW92QRr+tQLYpW7FPDhr0QCdWHTF8/B//MTEV42DdbpKANULpPAqwzLx7ZzHp0E40XIResj6V4b1HY3cOU2aa4CevRtbtOc0tDej/DaETmFs97GO4ku4McU26abiX+rGmOywNP5kBJ+Dl6T2VQWkEQg83B4QnBM0jG4V7iwh9591HgXXV2PBLOat2X/IFyonwu/bskFzkN6C4L090UVq57Ssbpwr+ZeplWTLcB9Bhsed2jvOc7wKs3cYHiLIb9Q4hMxmDmtNJ+umdpPnumprg==
+ bh=kQzY9F0oEgFIKRE4PzF6dxhWoJbxKN7WaKk6h+WmQkc=;
+ b=IOzz1k4M/clmlkWnDZqkOoK0PhhwJ39StO5Ork6Hpaq2sT2CeKSBhDGSJsXwL7KSnJ8Vt/Q/18YdZys/oLqGObIzAM4JoRNBI79MlvuIyLV5QWEynAtyswPGp9c5R5Z8JBF8I748ULRJVXEatd3rwk1rdqbs2a7Xo6MzocZFvGJV7O4j8dIjRHGe/djvrZfB+5UvwQuIxSwA/QMxIbT+sDpt1kQz0g/lLeQuQEE6FCSh5+Fxf+Lthzg/CsQ30BUydcxokdzLjF+aCRd+qNr2+9fy5vgSVpR+y0N9Mz2dc0QFrNB9345RzmNdpcdJRx9YqVbY6+Ow+oiY6v0+JVJqtw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b23farzzCy2FcHlaGcQPTDIVSA0lRPVScNDebAdRryA=;
- b=SZHo15sQDTgdfcKtDl1fVuKb5n30TYG9PkiDUFoaTH1KI5IcTkNAebOA9FNpT1YWGVoFejPtHXdciFtpXM5DiUQTDdvtpU8CoYH8/fxjfOa3hW5OYZcVAYRAo7O5KFfr19nMnHYReIxv2JQPIIq17cjIpQKgPvlF12DLK1+y114=
+ bh=kQzY9F0oEgFIKRE4PzF6dxhWoJbxKN7WaKk6h+WmQkc=;
+ b=julqCcl3GC+Ewa5kaqBq23ysh/mGa7q5j650n0Ik8q7mqWjT5CvPCauxgTeFKNyVbi63JdsYlq0VhiYp2RircfcihzpIl6bnwa+/PcMnyKwUChYmhTgqjQeWgyxxOSPGGV+UkW/K+StUn87LCpSuJ/hsc8s2hrBEjx+4EcB0Gbg=
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by CH2PR12MB4279.namprd12.prod.outlook.com (2603:10b6:610:af::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Mon, 7 Feb
- 2022 16:27:07 +0000
+ by CY4PR12MB1142.namprd12.prod.outlook.com (2603:10b6:903:40::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11; Mon, 7 Feb
+ 2022 16:28:58 +0000
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::99d4:4d4f:653f:61be]) by BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::99d4:4d4f:653f:61be%5]) with mapi id 15.20.4951.019; Mon, 7 Feb 2022
- 16:27:07 +0000
+ 16:28:58 +0000
 From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Amol <suratiamol@gmail.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: Minimal GPU setup
-Thread-Topic: Minimal GPU setup
-Thread-Index: AQHYGnVmlqCINGTv1kiEStr/P3/lrqyIRtjV
-Date: Mon, 7 Feb 2022 16:27:07 +0000
-Message-ID: <BL1PR12MB514403668180CB26983C25A7F72C9@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <CA+nuEB_u4G-Nf_nHODoY86anP6s0vRyh=0-yPxphbksbCPJ1Yg@mail.gmail.com>
-In-Reply-To: <CA+nuEB_u4G-Nf_nHODoY86anP6s0vRyh=0-yPxphbksbCPJ1Yg@mail.gmail.com>
+To: "Dhillon, Jasdeep" <Jasdeep.Dhillon@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 0/1] Revert Patch from Feb 7 2022 Patchset
+Thread-Topic: [PATCH 0/1] Revert Patch from Feb 7 2022 Patchset
+Thread-Index: AQHYHD8U6YW6GWJfrUqOn8qqxjSyq6yIRwdt
+Date: Mon, 7 Feb 2022 16:28:58 +0000
+Message-ID: <BL1PR12MB51441DCA39B3A6FBA4A7CCA2F72C9@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20220207162325.37401-1-jdhillon@amd.com>
+In-Reply-To: <20220207162325.37401-1-jdhillon@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-07T16:27:06.780Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-07T16:28:57.577Z;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
  Official Use
  Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: 05e6fd0d-c607-6ee9-295e-79e61abea1cb
+suggested_attachment_session_id: d77e0ce0-127c-bd69-6cb5-b39908424a9a
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 02ef054d-3bf5-4cc1-94a9-08d9ea56af14
-x-ms-traffictypediagnostic: CH2PR12MB4279:EE_
-x-microsoft-antispam-prvs: <CH2PR12MB427991F4223EA8B018585E9BF72C9@CH2PR12MB4279.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-ms-office365-filtering-correlation-id: 17e090fd-1e1b-4196-9cdf-08d9ea56f128
+x-ms-traffictypediagnostic: CY4PR12MB1142:EE_
+x-microsoft-antispam-prvs: <CY4PR12MB1142E77641F8A7D5FDD9412AF72C9@CY4PR12MB1142.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:792;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: V7oeC3lYvyaOB99NavbK9aDAxbsGe89cwmJCpGmmZ0eOthKSAnTjZ+xPnZsgyfYIugcX/nG8lGZj2Pz6E7GUb7gZ/ltBJxtxFaDRhYL9kK5FeTYiqgm82SVwA5L2xhlU1PPonhsRREJFBLHObAkCm+P7bA3Cz7SiESrXrKNrLRwkW3k5+bpORxcEgMXBcY+y7O5LjMJVXgaQ3xHIbcpQ1llGtdblMM6CoV6uGpr2SPR0qsxuPVrPeBqhnRFx+KrBxHjt8OP+ClV3scK6UaXm9tng1OIWPCdSqKUIBMZA5uwIHO4VO+NYom+2zjhuJmz9KyVu3m733q9/K2SyqEOg/WV9ASW4MD6S78l+4rgKwtfkTEZnLl16ivSQblqTnfYncspmtRtcs2Jdiq+lprJs1Wy+G0uhUv2B6IY3LY0gJQC0ty0LywBl26gkKwKOj33O8pSExYgprGtQgsyiGQW9WIZ/fhbCfAjUDPKHufU0pqhHhQTJegsbdkXBYu36KKFnjjb3NABKgKbv8kXPW+4Y8HMrDSfHokMtkNI4PK+IDhgFZEryXzczDvgXAkcd2s+hFS6asclzVmGihHmzXbmQwgc9RMv57iANGLnWsVhtq/wOpdDmlLK7E+eCpw+dz/CQVKeqorVEA+nmRBq9bOOmmeOaM2HJ0+vAVaBLl/16EfrGzQRkP+JPKkrGYUtzfmI7vKnQ4liXS5CGkEXR0rHamw==
+x-microsoft-antispam-message-info: SrvmwJBSDZXs4jAJhOqlhBL4zPOy9XLdTA7BNR4vU/+lVu5FoY0+FyqD0c8wRRSDqve1KKqWv1UwhDbgD/S4LdtAYomDneqUvZ7hIi/3J+hRjO79lG1UzOYniFfyQd+tj1cA7xKbwNDpJl7vxD+cyCMYgLCClz5wmttmb1oaarjSAtP4wVlKb/PRZiDgPWvcGP9BIxgzJ/IA2kx4hCcilmxTSBdIs7YohAmsRygvDC20IKKPWDNvuuPJqsMHyYZQshxVkA/k2DF9foY8kW28qupC+78+t/4lVeUFGBtpEIMQN7oSWdgm+fLgJgjssM1BktEtRmv5Ah4k64N+BcN9fGnxVHHJ2ffc692vlY0P48Fc7btGGBR0jobXx3VEfAI1VXjz/dlkkWAFCeRRvg9N/vjjHcFbkR8M3zSK4Vm3uGmTEJhCxoIfQ6W30lMj/+NMjESU1TyQcy06eSrrCN3UsuTAt/ll0D048IB/bTzAmzkXe3h09AwIupq66fBTeSmwUTAAuAZMyCVzzEGgG4tEy5NASEKeqgcNqUXq7kR7j7KeOsIAtWix27sBeU6XwrWSlaLyoC4AOkJtihZJVD2AByCDefRYCxeqkDgS2UQXyVWUmkzNvJX2oXMCGF6+ltspNZdM7Ce5tSj4MMu7l6XGaRINPhU/By8/+s8XSoj+nx0P708/ANA6Po+TpZHyriMhOXd0U5Wkrr0AYKJQ0mQQgg==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(508600001)(53546011)(66476007)(55016003)(86362001)(66556008)(71200400001)(7696005)(9686003)(6506007)(83380400001)(38070700005)(33656002)(26005)(186003)(3480700007)(316002)(5660300002)(76116006)(66446008)(66946007)(8676002)(110136005)(8936002)(122000001)(38100700002)(7116003)(64756008)(52536014)(2906002)(19627405001);
+ SFS:(13230001)(4636009)(366004)(52536014)(55016003)(4326008)(66556008)(33656002)(8676002)(66476007)(64756008)(8936002)(19627405001)(110136005)(76116006)(316002)(54906003)(66446008)(66946007)(9686003)(508600001)(2906002)(53546011)(71200400001)(5660300002)(6506007)(7696005)(38070700005)(186003)(26005)(122000001)(38100700002)(86362001)(83380400001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?o/sc03jXe4822zaXSXyZCMXG5L9Et5m+LBqF782nQKzb7vYMz7R9+ZfRvJ?=
- =?iso-8859-1?Q?4C05TcbYdh6Z4O1tTwT7nDLbBqpMdni+HxCnZpGDpmziJTKvBcv3hO5U2S?=
- =?iso-8859-1?Q?gffRpy1mL9jrzGV7W0zdM+awNkjTRYUsmOfZuW7tMt9JatJ7Kxqyr9j77I?=
- =?iso-8859-1?Q?MXqq5oTnBIO8zcMb0xoC+EjkeJRYPXJljAA32iamuLYCsjcz/Us783nXwK?=
- =?iso-8859-1?Q?FHvWIsNeODoOpkArgFcBIFaS0YhjGAQQNmweD+MqWxRoLouAk0CLawpmQO?=
- =?iso-8859-1?Q?qNs3L3byYnqaf7kkz8q3FHWg3G5lQvnr7YwN2WudCW32iiwREGl97Xs3wv?=
- =?iso-8859-1?Q?XfOj32U2dtPRU8/x/aBM9jMkpuFND2fAcMUGGtNZNVupqkkLmUMpuF/Q/H?=
- =?iso-8859-1?Q?xn7XNXLqgXZ/SrgQTtGBon66OdEgYGpXLZc9rwmAhSxMExE3p1CYdgNt75?=
- =?iso-8859-1?Q?lFxLoIpxBaN0JOGe8y4mWopQNtVDZOeRa9tH3m8HX5WTZCh+0lAjQC+x48?=
- =?iso-8859-1?Q?gVH/rFjMralIwDNB00qKhdGUxVYhAqHs4XPHaeu35e2Ojas1wb4WaPfOp6?=
- =?iso-8859-1?Q?vUKu4cZjHd8U6h4uxFpA1Z02dbxsy44hBKSJkYan6q0IYdNjXFpcKWF6fv?=
- =?iso-8859-1?Q?vjZl0CuNp00JDMGyOmvpKLEHavP48ZAwBn8njHK1+XTIKZYsYYAFzMeExB?=
- =?iso-8859-1?Q?7Wg7OdsMosCs7HQnao57b00cq11omYvbEpI+lUpMgWrtAaSyAFjUakpXF3?=
- =?iso-8859-1?Q?jLUHIr/1PdRX7BZ/y10roVCjQ9GnkTro0T8YKTcmcNx7xxjforQwHHK/EG?=
- =?iso-8859-1?Q?wtRYUMt5dxtgQNP9yxYOj5cyYE8rhYNOfurxZna6J11RiQDLSy/Y+nsua4?=
- =?iso-8859-1?Q?Y5hCc9PgWe/6FSsofEP9cD9tHxStrRLvCQK49446o/lvVvVHiVU7N+4fED?=
- =?iso-8859-1?Q?ILZSxRpfZJxk71zhTMUapDX7GN0JDnXvqX0NHjp05McQ1lxFEBV6rfPS80?=
- =?iso-8859-1?Q?VAAQ1zHWGNHgnOZIgTjHVCMhfh1WiNkPhbAJJlaXl2neLKMq11UBLrmywT?=
- =?iso-8859-1?Q?Xld1M14zWu9IvPFu7cvG9i8Jag7sOaplYwjNR4vwEvLp+VXjUR57vehlVM?=
- =?iso-8859-1?Q?0UsBSvyZ79+nqId396xJCXsSXpcDngb06nEwsBS2/zS0+MBYVVGvsj/qZZ?=
- =?iso-8859-1?Q?bh7HGqy6jbQnK1qEI4gHyp+mBOzCFwlCBqYYp03YXsGVVmroS0viFD3xZn?=
- =?iso-8859-1?Q?ZPNTnhJ/dizmo4La3wzE4KJ1/JStsvI972u7oVkHH2UTz8yLFYlOHUPIS0?=
- =?iso-8859-1?Q?7PsADsOq9NgO5GN5Xekic0gB0qJBTjRShEscFe6D/HGrPgJhY0VrF+xXLI?=
- =?iso-8859-1?Q?EbXitJcXPPEcTC6742PZfthnKKOPUdNeE+bjXXJwCFlQEaD3t2YOBUgLNf?=
- =?iso-8859-1?Q?fA3An0yonvUVswoEdcyP/ri+8Qz25AZzNu3eZkIwVE+KzszF1SI76FUOcW?=
- =?iso-8859-1?Q?KzHcz03GHCdBAtZCEntjoVPm9cSg/ceTeJqRpadOMK9POenOosXrt8+Ov3?=
- =?iso-8859-1?Q?dqLbq/7ihclhvNfiwdJVEVliu2gkv0Wx4ZsK0Qw/WRYk8x5f1chIKJKM8g?=
- =?iso-8859-1?Q?nfhtDWteKCVCZvDbbVx83uvReboemzLbnV8B8wkdz8n6JSWREvy7edWxEr?=
- =?iso-8859-1?Q?Tl/nYudryNBwzgPSGYo=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7UKw6YRj2DeqzW+Hoc3KZib7abYvJFc2pGiBXnBjGsR+bXrUaqZpNMqkC1cd?=
+ =?us-ascii?Q?t+2cMkN11f2MLt7v61PQc6sp7padnKc0DOPVd45tVhMeQSU+PSWIaysIPASu?=
+ =?us-ascii?Q?7p0/BH6Br8y3DLZTuqML6BbEtp+Xjh3YhhNAZNQ0V5aagsC38gtCbffyjcxd?=
+ =?us-ascii?Q?py0gBQIthFt7YvhfikHGLxGZRe+C2bIcR2K/OHfXJxB97cw21zgOuNYXoZ1y?=
+ =?us-ascii?Q?bH1GwKOA/8VGrVwtmez33OVhlFHpio/0KPBfzivUbHyZSxS1CdtLDHJ5HYtx?=
+ =?us-ascii?Q?a92GXAcePbS6MKiU8BWgeqR/OoDOHUZUCtyeC2iwd93BapV0vC+iXjhSUeR/?=
+ =?us-ascii?Q?kJuEhhjt4Q0keurrvuqTyJAGYP64s7USIPc/MMKIyEpkrY1eJn3f9MiBgo8i?=
+ =?us-ascii?Q?kBKhYgqI97c6rrpfwkxvPjZyZUOraao7v51vdysBDhHRxs/sAJZzbaZpaz46?=
+ =?us-ascii?Q?i7jW/U7JENQP2Hg26lmJRU1VeIe84WTi9xQJn5PK46F4Lgn+Y+8mfiVpz2Vz?=
+ =?us-ascii?Q?kwPbkDuOm6rlpa+G5JDmoaaOWcMbWboB3jkUKoJwm0DG8dCedpf+Nb4xw/zS?=
+ =?us-ascii?Q?eX1Xclq30YJG206JxKMjH6rBxU8lcmPiDVIinlijxGi1oHLGRH2KpaNGFBMe?=
+ =?us-ascii?Q?Aslb3jgR9DL7Ieav2D5On1Tc7pzLfiJO8PqDdpt8MEiK9IOylA4wAMZCJKxD?=
+ =?us-ascii?Q?tXFfm3vCHeqN0v3wXgPmN8qGzYd6svv5ykLGNXPgDX782HMDDj1AKZQhQv5u?=
+ =?us-ascii?Q?uGKXYdxk8GG6O/OklqdxEc/fvWelxydvWOsnYZ1OjtOTiSYYXP49mjjQdhhm?=
+ =?us-ascii?Q?3bMlsMm7vq8hQiXBpcIzgox8VVp314QZ8Q4XV4lYLhHkPPMF+0lf+PghMbnx?=
+ =?us-ascii?Q?wa5mqSDc/dEs/TSxVGrO3a204dGwsFUXAqC7l/SuzfTyggoUlEfBKUdLFyD+?=
+ =?us-ascii?Q?rDlb9KvBv3OieugJMedcx31K3RH/OOQ9j3/c/BbjKWfJEVpMJJxebYwZtvdA?=
+ =?us-ascii?Q?ItZuK4cdxI+Tq/GkVP9IHUY7ckAhiIUC0N/gqdBdl5x7oJQbwFq3tXO/kqiE?=
+ =?us-ascii?Q?yz4ucDZnhxCkrldfj1Tg+q5nGQrNP/lqPC+e3fGIbZzed+A6fdCAwtVH+5VR?=
+ =?us-ascii?Q?oVT2V711pBQyhhdxdJX+2/V+uJOkvGit/ZuWVHZIVqI+04QtseMrx1XWowgz?=
+ =?us-ascii?Q?EebWfZrVjMM5ZwW604sWxSv3k3UCHFm59CH7pMvyJ+pcLV+b4GtCVkbqWwZV?=
+ =?us-ascii?Q?GBwFZNIDWKT8HGkiJahDAhUy5DusCHM5XTaNYbrISTTnPIQoG2t59YP3aWxw?=
+ =?us-ascii?Q?POem+iPo2njcdAJbjUiaDT3C1OaJWG9x8SHvzLH8RS8emsow4ki+djMQSWEh?=
+ =?us-ascii?Q?hWXs2cf/9n1fXPs6MLtGc1UDtvTFDzw+0xYWj/v1mqba0tuDKo6revEtuu7W?=
+ =?us-ascii?Q?kKmTm+M/pi7nc8IV6JD1uzGxbZq5SW0cMnzLqReLYuZAn33/2md8d6TaPBEK?=
+ =?us-ascii?Q?h8SWL6CEEh3AFiwhFxqE4w+zMCHz82W4fY7SFILWf8j0s4FepGMZjdXyEWK0?=
+ =?us-ascii?Q?umLAzTTfL/kgf74wm1Ek1gjk+RAkExf4vRHnEngHOWpZ6ovslxSUjexUsrBe?=
+ =?us-ascii?Q?rgCRDgSYeskEGDWbc2+5z4Q=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB514403668180CB26983C25A7F72C9BL1PR12MB5144namp_"
+ boundary="_000_BL1PR12MB51441DCA39B3A6FBA4A7CCA2F72C9BL1PR12MB5144namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02ef054d-3bf5-4cc1-94a9-08d9ea56af14
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Feb 2022 16:27:07.4303 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17e090fd-1e1b-4196-9cdf-08d9ea56f128
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Feb 2022 16:28:58.2599 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 3Z39tm86XMYpXHZGa0BtMp+yH21PyVNzMYTDliT4Bk855xTWt5tbH8TaJJQ2ULY1Vrb9heZhhjPwejBeqHwV+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4279
+X-MS-Exchange-CrossTenant-userprincipalname: guzTj9JvPCsd38tx4NpOwiVHzBXkQhgr0zqsl++w0J5NpwLdPZnE6CoptGF5sG29ft69v7xU2l9hD5OZ8Wa+HQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1142
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,71 +125,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Li,
+ Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Zhuo, 
+ Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>, "Lakha,
+ Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Chiu,
+ Solomon" <Solomon.Chiu@amd.com>, "Pillai,
+ Aurabindo" <Aurabindo.Pillai@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>,
+ "Dhillon, Jasdeep" <Jasdeep.Dhillon@amd.com>, "Gutierrez,
+ Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB514403668180CB26983C25A7F72C9BL1PR12MB5144namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_BL1PR12MB51441DCA39B3A6FBA4A7CCA2F72C9BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Official Use Only]
 
-Most of the register programming in evergreen_gpu_init is required.  That c=
-ode handles things like harvesting (e.g., disabling bad hardware resources)=
- and setting sane asic specific settings in some registers.  If you don't d=
-o it, work may get scheduled to bad or incorrectly configured hardware bloc=
-ks which will lead to hangs or corrupted results.  You can probably skip so=
-me of them, but I don't remember what is minimally required off hand.  It's=
- generally a good idea to re-initialize those registers anyway in case some=
-one has previously messed with them (e.g., manual register munging or GPU p=
-assed through to a VM etc.).
-
-Posting the bios is enough to get you a working memory controller and enoug=
-h asic setup to light up displays (basically what you need for pre-OS conso=
-le).  As Christian mentioned, loading the ucodes will get the associated en=
-gines working so that you can start feeding commands to the GPU, but withou=
-t proper configuration of the various hardware blocks on the GPU, you may n=
-ot have success in feeding data to the GPU.
-
-Alex
-
-
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 ________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Amol <su=
-ratiamol@gmail.com>
-Sent: Saturday, February 5, 2022 4:47 AM
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Jasdeep =
+Dhillon <jdhillon@amd.com>
+Sent: Monday, February 7, 2022 11:23 AM
 To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Subject: Minimal GPU setup
+Cc: Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Li, Sun peng (Leo) <Sunp=
+eng.Li@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Zhuo, Qingqing (=
+Lillian) <Qingqing.Zhuo@amd.com>; Dhillon, Jasdeep <Jasdeep.Dhillon@amd.com=
+>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Li, Roman <Roman.Li@amd.co=
+m>; Chiu, Solomon <Solomon.Chiu@amd.com>; Pillai, Aurabindo <Aurabindo.Pill=
+ai@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Lakha, Bhawanpreet <Bhawanpree=
+t.Lakha@amd.com>; Gutierrez, Agustin <Agustin.Gutierrez@amd.com>; Kotarac, =
+Pavle <Pavle.Kotarac@amd.com>
+Subject: [PATCH 0/1] Revert Patch from Feb 7 2022 Patchset
 
-Hello,
+Reverting patch
 
-I am learning to program Radeon HD 7350 by reading the radeon
-driver source in Linux, and the guides/manuals from AMD.
+Jasdeep Dhillon (1):
+  Revert "drm/amd/display: Basic support with device ID"
 
-I understand the general flow of initialization the driver performs. I
-have also been able to understand and re-implement the ATOM
-BIOS virtual machine.
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 24 ++-----------------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  2 +-
+ .../gpu/drm/amd/display/include/dal_asic_id.h |  3 +--
+ 4 files changed, 5 insertions(+), 26 deletions(-)
 
-I am trying to program the device up from scratch (i.e. bare-metal).
-Do I need to perform all those steps that the driver does? Reading
-the evergreen_gpu_init function is demotivating; it initializes many
-fields and registers which I suspect may not be required for a minimal
-setup.
+--
+2.25.1
 
-Is posting the BIOS and loading the microcode enough to get me started
-with running basic tasks (DMA transfers, simple packet processing, etc.)?
 
-Thanks,
-Amol
-
---_000_BL1PR12MB514403668180CB26983C25A7F72C9BL1PR12MB5144namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_BL1PR12MB51441DCA39B3A6FBA4A7CCA2F72C9BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
 <style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
 ttom:0;} </style>
 </head>
@@ -203,85 +195,51 @@ gn=3D"Left">
 <div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Most of the register programming in evergreen_gpu_init is required.&nbsp; T=
-hat code handles things like harvesting (e.g., disabling bad hardware resou=
-rces) and setting sane asic specific settings in some registers.&nbsp; If y=
-ou don't do it, work may get scheduled to
- bad or incorrectly configured hardware blocks which will lead to hangs or =
-corrupted results.&nbsp; You can probably skip some of them, but I don't re=
-member what is minimally required off hand.&nbsp; It's generally a good ide=
-a to re-initialize those registers anyway
- in case someone has previously messed with them (e.g., manual register mun=
-ging or GPU passed through to a VM etc.).<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Posting the bios is enough to get you a working memory controller and enoug=
-h asic setup to light up displays (basically what you need for pre-OS conso=
-le).&nbsp; As Christian mentioned, loading the ucodes will get the associat=
-ed engines working so that you can start
- feeding commands to the GPU, but without proper configuration of the vario=
-us hardware blocks on the GPU, you may not have success in feeding data to =
-the GPU.<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
 </div>
 <div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces@lists.freedesktop.org&gt; on behalf of Amol &lt;suratiamol@gmail.c=
-om&gt;<br>
-<b>Sent:</b> Saturday, February 5, 2022 4:47 AM<br>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Jasdeep Dhillon &lt;jdhillon@=
+amd.com&gt;<br>
+<b>Sent:</b> Monday, February 7, 2022 11:23 AM<br>
 <b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
 gt;<br>
-<b>Subject:</b> Minimal GPU setup</font>
+<b>Cc:</b> Wang, Chao-kai (Stylon) &lt;Stylon.Wang@amd.com&gt;; Li, Sun pen=
+g (Leo) &lt;Sunpeng.Li@amd.com&gt;; Wentland, Harry &lt;Harry.Wentland@amd.=
+com&gt;; Zhuo, Qingqing (Lillian) &lt;Qingqing.Zhuo@amd.com&gt;; Dhillon, J=
+asdeep &lt;Jasdeep.Dhillon@amd.com&gt;; Siqueira, Rodrigo &lt;Rodrigo.Sique=
+ira@amd.com&gt;;
+ Li, Roman &lt;Roman.Li@amd.com&gt;; Chiu, Solomon &lt;Solomon.Chiu@amd.com=
+&gt;; Pillai, Aurabindo &lt;Aurabindo.Pillai@amd.com&gt;; Lin, Wayne &lt;Wa=
+yne.Lin@amd.com&gt;; Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;; =
+Gutierrez, Agustin &lt;Agustin.Gutierrez@amd.com&gt;; Kotarac, Pavle
+ &lt;Pavle.Kotarac@amd.com&gt;<br>
+<b>Subject:</b> [PATCH 0/1] Revert Patch from Feb 7 2022 Patchset</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Hello,<br>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Reverting patch<br>
 <br>
-I am learning to program Radeon HD 7350 by reading the radeon<br>
-driver source in Linux, and the guides/manuals from AMD.<br>
+Jasdeep Dhillon (1):<br>
+&nbsp; Revert &quot;drm/amd/display: Basic support with device ID&quot;<br>
 <br>
-I understand the general flow of initialization the driver performs. I<br>
-have also been able to understand and re-implement the ATOM<br>
-BIOS virtual machine.<br>
+&nbsp;.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 24 ++----------------=
+-<br>
+&nbsp;.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |&nbsp; 2 +-<br>
+&nbsp;.../gpu/drm/amd/display/dc/core/dc_resource.c |&nbsp; 2 +-<br>
+&nbsp;.../gpu/drm/amd/display/include/dal_asic_id.h |&nbsp; 3 +--<br>
+&nbsp;4 files changed, 5 insertions(+), 26 deletions(-)<br>
 <br>
-I am trying to program the device up from scratch (i.e. bare-metal).<br>
-Do I need to perform all those steps that the driver does? Reading<br>
-the evergreen_gpu_init function is demotivating; it initializes many<br>
-fields and registers which I suspect may not be required for a minimal<br>
-setup.<br>
+-- <br>
+2.25.1<br>
 <br>
-Is posting the BIOS and loading the microcode enough to get me started<br>
-with running basic tasks (DMA transfers, simple packet processing, etc.)?<b=
-r>
-<br>
-Thanks,<br>
-Amol<br>
 </div>
 </span></font></div>
 </div>
 </body>
 </html>
 
---_000_BL1PR12MB514403668180CB26983C25A7F72C9BL1PR12MB5144namp_--
+--_000_BL1PR12MB51441DCA39B3A6FBA4A7CCA2F72C9BL1PR12MB5144namp_--
