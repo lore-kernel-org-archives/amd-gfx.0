@@ -4,35 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEE87C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED5E3C433FE
 	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 09:10:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02DB410F61B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 557BC10F5DA;
 	Mon,  7 Feb 2022 09:10:41 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD3CB10E99F;
- Mon,  7 Feb 2022 06:33:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5868410EF87;
+ Mon,  7 Feb 2022 06:33:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=OAyNE091yCbn5wGWEV3bEarGLGijE2hU2ufW9HOL5jw=; b=WGwvHWbsXwe5wqUsSmyCBTNueH
- xk61jWDsclmQ3MXQmxsiFbu7uwHqSJFlej9Qi/rp8m99Hw0XniTY4A3Grnbh0Jpf1VGSxuMJfmUYm
- ReqqD/bAe6zwXBv/R5upJOQ70pLXbkMeYTzwwq4aNSgZRXW50435OU8wfWZmtiH9zyihvpaAef/c2
- f6w1YXhaNOSTsMQILzMse2D6uGCZM5oEEQZ/xpWwfHUziH6xa1jBRLQm7OyXnhPuzWDdfaOOTiCP6
- 7AOcgAjdJsbIAuZ1YHMjx3F+HE0yRYwKzMGjA9gEucL9tbBUAcfeQjrYaEbc0IpLFJ2GpP5tb3eKs
- ZwA+tflg==;
+ MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=bye3hAU4tARWJK8GmttNb5Jb+L/Xg96ScGQILFEZXqw=; b=hsJ7H9lud+lJDZXvl9Bclp2Nqf
+ 7jlPjB3wm3Z5RnVEJNWD8OVt91a6wwmFBSrcXW/E+1s+bvv/JNDulU7CkWa0kVtiZmFU2OuT5Ybm3
+ vyx5w+ZFrQlmXczMoI5kDDlIEt2+e7OgRqvnhALgxZJaiuBkzEUeBek5tlsNs5TnOG5Ar0cWEwd/b
+ wxIcQQlRyGpDNQaZdj2p+JNAu8ke5GtIOqd3VEK85teirrOPsAyJ4k+Pn888fsrx+UTw5x0ZPAHkK
+ bGRYmlzn8b7/29Y1/dmntmyxysGYtek4tnWS1yLQdmp/OR1mWJUTCwCs33K3C5ulw6SK1H2S8TZqI
+ bEEL+rEA==;
 Received: from [2001:4bb8:188:3efc:2cbe:55d7:bb63:46d2] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nGxZz-0099GK-6j; Mon, 07 Feb 2022 06:32:51 +0000
+ id 1nGxa7-0099Iq-NG; Mon, 07 Feb 2022 06:33:00 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>,
  Dan Williams <dan.j.williams@intel.com>
-Subject: start sorting out the ZONE_DEVICE refcount mess
-Date: Mon,  7 Feb 2022 07:32:41 +0100
-Message-Id: <20220207063249.1833066-1-hch@lst.de>
+Subject: [PATCH 3/8] mm: remove pointless includes from <linux/hmm.h>
+Date: Mon,  7 Feb 2022 07:32:44 +0100
+Message-Id: <20220207063249.1833066-4-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220207063249.1833066-1-hch@lst.de>
+References: <20220207063249.1833066-1-hch@lst.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
@@ -61,38 +63,75 @@ Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+hmm.h pulls in the world for no good reason at all.  Remove the
+includes and push a few ones into the users instead.
 
-this series removes the offset by one refcount for ZONE_DEVICE pages
-that are freed back to the driver owning them, which is just device
-private ones for now, but also the planned device coherent pages
-and the ehanced p2p ones pending.
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 1 +
+ drivers/gpu/drm/nouveau/nouveau_dmem.c   | 1 +
+ include/linux/hmm.h                      | 9 ++-------
+ lib/test_hmm.c                           | 2 ++
+ 4 files changed, 6 insertions(+), 7 deletions(-)
 
-It does not address the fsdax pages yet, which will be attacked in a
-follow on series.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index ed5385137f4831..cb835f95a76e66 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -24,6 +24,7 @@
+ #include <linux/hmm.h>
+ #include <linux/dma-direction.h>
+ #include <linux/dma-mapping.h>
++#include <linux/migrate.h>
+ #include "amdgpu_sync.h"
+ #include "amdgpu_object.h"
+ #include "amdgpu_vm.h"
+diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+index 3828aafd3ac46f..e886a3b9e08c7d 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+@@ -39,6 +39,7 @@
+ 
+ #include <linux/sched/mm.h>
+ #include <linux/hmm.h>
++#include <linux/migrate.h>
+ 
+ /*
+  * FIXME: this is ugly right now we are using TTM to allocate vram and we pin
+diff --git a/include/linux/hmm.h b/include/linux/hmm.h
+index 2fd2e91d5107c0..d5a6f101f843e6 100644
+--- a/include/linux/hmm.h
++++ b/include/linux/hmm.h
+@@ -9,14 +9,9 @@
+ #ifndef LINUX_HMM_H
+ #define LINUX_HMM_H
+ 
+-#include <linux/kconfig.h>
+-#include <linux/pgtable.h>
++#include <linux/mm.h>
+ 
+-#include <linux/device.h>
+-#include <linux/migrate.h>
+-#include <linux/memremap.h>
+-#include <linux/completion.h>
+-#include <linux/mmu_notifier.h>
++struct mmu_interval_notifier;
+ 
+ /*
+  * On output:
+diff --git a/lib/test_hmm.c b/lib/test_hmm.c
+index 767538089a62e4..396beee6b061d4 100644
+--- a/lib/test_hmm.c
++++ b/lib/test_hmm.c
+@@ -26,6 +26,8 @@
+ #include <linux/sched/mm.h>
+ #include <linux/platform_device.h>
+ #include <linux/rmap.h>
++#include <linux/mmu_notifier.h>
++#include <linux/migrate.h>
+ 
+ #include "test_hmm_uapi.h"
+ 
+-- 
+2.30.2
 
-Diffstat:
- arch/arm64/mm/mmu.c                      |    1 
- arch/powerpc/kvm/book3s_hv_uvmem.c       |    1 
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |    2 
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |    1 
- drivers/gpu/drm/drm_cache.c              |    2 
- drivers/gpu/drm/nouveau/nouveau_dmem.c   |    3 -
- drivers/gpu/drm/nouveau/nouveau_svm.c    |    1 
- drivers/infiniband/core/rw.c             |    1 
- drivers/nvdimm/pmem.h                    |    1 
- drivers/nvme/host/pci.c                  |    1 
- drivers/nvme/target/io-cmd-bdev.c        |    1 
- fs/Kconfig                               |    2 
- fs/fuse/virtio_fs.c                      |    1 
- include/linux/hmm.h                      |    9 ----
- include/linux/memremap.h                 |   22 +++++++++-
- include/linux/mm.h                       |   59 ++++-------------------------
- lib/test_hmm.c                           |    4 +
- mm/Kconfig                               |    4 -
- mm/internal.h                            |    2 
- mm/memcontrol.c                          |   11 +----
- mm/memremap.c                            |   63 ++++++++++++++++---------------
- mm/migrate.c                             |    6 --
- mm/swap.c                                |   49 ++----------------------
- 23 files changed, 90 insertions(+), 157 deletions(-)
