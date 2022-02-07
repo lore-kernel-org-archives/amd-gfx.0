@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F9A4C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 02:41:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33BE0C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Feb 2022 02:42:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8553110E1EF;
-	Mon,  7 Feb 2022 02:41:24 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F4ED10E1EF;
- Mon,  7 Feb 2022 02:41:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C666110EF7B;
+	Mon,  7 Feb 2022 02:42:18 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2065.outbound.protection.outlook.com [40.107.93.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC86510EF7B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 02:42:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=enZFgQlhHlU/XULpMO7or8L6yWercERAKjvUys0rMxf3E7uF3vf+bB2gudKFldyWIx27briOiD9raC0u4mwJgMucC/oVB1E6I1qWany6XUcppk6aFc9ASWRR2Ytiv/muDIahqI47ZK7oFEHC7oWbjV7xAd2GB2vu1h6k65M9Pr7UBcQB8xKvJTunb7+5GoLDQTLxuudkqERB7fgIbMbYL3rGN9VwZR7jPuS7TUbQcYF8AyeTCjhxUoutqhqjG9Y8iGkQRhB5+iWhzwqaNyBWqlNxJfj9oVMNaOgQEZS9mRv0bsXzODZsCKpk0aDMyq1cJrj1dnGnjr5h2ApvHiYm/w==
+ b=jUihr0EMxQM6q7wTGjwCgdAojlFIxWVUwGtd8H7DfYN+7+dQwXlivBNx4c9QPOKzm13Flu9GH8wNf8x5AjJQXGo4jzQ1ZwHcNhJ5R1fd6nljZL3yImw3VkIPINXCgq2hei7jA1p90zhRi4Ghw+m2bJkFdH13kGBpICW3Qs067Tn05P0StmQ+cr6RGV6wevQORb+DPW96EsWCXgX2iLs8eBAUsrQuD7fggWN2rNpWZxQTCU1ZrsjEnapPNKjVKggAHiugGc97WPONHil8HO/MkpcOX2IZCMup598G0ZOgCNe5eRSBfZO/k5+rSZnY6ZqfxchUZsRG8aDEkQt+vh2f4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dws72lJh5PtnSRVA4urluuHMpTm8bfs52n6OqewPMh0=;
- b=BjIhF/XGc/rzoOFCGYSbqrs20s4yhdcvq5Mi4Q8sN2OkPMOkACIYL6jb3KGQHOvF8hcf01hx9l8r724BAYzOUTwzjJmjVvaed6NbjbyrnOgYM79jq+9aXSZt+S4oGSCWu2LtqW1ngilMmUl8QFuu4PnFRTJDnenpNLzzjp6Kg9wSDlo93dGM0zmwJLQj0JcVLBQKdCpBWUpQPzLIUMPWzV5RjWRLzQDS8mq9EBhNUOZLz9uku+0DoUcfA+NlWcIzTDdbxdSlMf2AjlHDtiQvmViOGQvmJoRmfUlAOh2zjEOCHbgLFvqOsTMRXJS3aiyEbbZDTOhamVJMO/mui0eDHw==
+ bh=Ln/8tEVw+/d5NLlNaB1K9Tq1Mx8lGdscULIbETRyCeo=;
+ b=J4JOttishNIaNKGmT0i7eQrmsiUe5BNuD+1ayQeUBA44phjKFARrt3GdXkoWrrSolL+udNrJO7GIFmSt+VSsrxCxRolCTO/sKmEvm+HF0VRI8Zer1ZAkkP+r1NKegoTggzAMNVCVj3A59j+LnZIVGz+vjB5ieJFrsgrDpo+h/NK44OzY/yMqaJ80TNaUaDhpoWJUTC9JNZ2hB/KgXvYHRAngYHoG2ltTYQYq0s5CEK2eJodZS7SRs26Q4ZPlOHTR0jzRA77ZaymyiBPEVuPqPII6SlAsbxyGnwH4A0foHpxHtFRpdXMIZZbUv3AIKi2pi6Aq6iZY6mjI1orxbACAnw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dws72lJh5PtnSRVA4urluuHMpTm8bfs52n6OqewPMh0=;
- b=KS/30Eu2I/sIJQ/XeG205PcWZi4QQQ2K+qWzEB+TLfLTsNaHQjAP2t02f5J3stK0+gHdxeCkBU6cK8J6MkYIJLxOX0PTshXhv7sg08/DxkqmUoT6gqQmKAJZflu7MQlhWJLo/5RTXb62Cnp86aEKtYOcuOTFUpf1xoR5CTNtZmo=
-Received: from DM5PR16CA0047.namprd16.prod.outlook.com (2603:10b6:4:15::33) by
- BYAPR12MB3352.namprd12.prod.outlook.com (2603:10b6:a03:a8::25) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4951.11; Mon, 7 Feb 2022 02:41:20 +0000
-Received: from DM6NAM11FT046.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:15:cafe::7c) by DM5PR16CA0047.outlook.office365.com
- (2603:10b6:4:15::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.18 via Frontend
- Transport; Mon, 7 Feb 2022 02:41:20 +0000
+ bh=Ln/8tEVw+/d5NLlNaB1K9Tq1Mx8lGdscULIbETRyCeo=;
+ b=nx03l7mreQl1lbcR4faaW0mIUCsJcT4wRzGXVNBmAVh8Q6XAsEzGFgWauG/0iOjA0f9gmkA3ELC+RtcO02Q3GtUq9L2AB7TXfG14znvcfMjIOnSRu+Vog/dETenM2cUIwneDmzdVuph8H6TiMQPualYeYr/961r1VBLdUz8M3sM=
+Received: from MW4PR04CA0103.namprd04.prod.outlook.com (2603:10b6:303:83::18)
+ by SJ0PR12MB5423.namprd12.prod.outlook.com (2603:10b6:a03:301::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Mon, 7 Feb
+ 2022 02:42:16 +0000
+Received: from CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:83:cafe::ae) by MW4PR04CA0103.outlook.office365.com
+ (2603:10b6:303:83::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.14 via Frontend
+ Transport; Mon, 7 Feb 2022 02:42:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,67 +45,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT046.mail.protection.outlook.com (10.13.172.121) with Microsoft SMTP
+ CO1NAM11FT032.mail.protection.outlook.com (10.13.174.218) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4951.12 via Frontend Transport; Mon, 7 Feb 2022 02:41:20 +0000
-Received: from [10.65.96.204] (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.4951.12 via Frontend Transport; Mon, 7 Feb 2022 02:42:15 +0000
+Received: from aaliu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Sun, 6 Feb
- 2022 20:41:16 -0600
-Subject: Re: [RFC v2 4/8] drm/amdgpu: Serialize non TDR gpu recovery with TDRs
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>, "Koenig, 
- Christian" <Christian.Koenig@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chen,
- JingWen" <JingWen.Chen2@amd.com>
-References: <20211222220506.789133-1-andrey.grodzovsky@amd.com>
- <20211222220506.789133-5-andrey.grodzovsky@amd.com>
- <639bd7c3-e946-65eb-afae-dd619f6429d6@amd.com>
- <9dc55576-19b1-d5e3-f4da-eede4db8b289@amd.com>
- <c64c933f-498d-a2d9-fe63-058c6f1bed9c@amd.com>
- <62f9f1c2-312b-760e-75f7-e86421333be3@amd.com>
- <096c0884-7e32-40ed-7570-b65f19104f5f@gmail.com>
- <769b97dd-c6f9-88fe-a26b-34bfd617e257@amd.com>
- <17b6f133-1b7b-7fcb-5fb2-17edcac50a72@amd.com>
- <DM5PR12MB19474AEFB824C4C97DCD7AABEA229@DM5PR12MB1947.namprd12.prod.outlook.com>
-From: JingWen Chen <jingwech@amd.com>
-Message-ID: <4119e53a-29c5-bb80-10c4-d1e66b91d83b@amd.com>
-Date: Mon, 7 Feb 2022 10:41:14 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ 2022 20:42:12 -0600
+From: Aaron Liu <aaron.liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: add utcl2_harvest to gc 10.3.1
+Date: Mon, 7 Feb 2022 10:41:54 +0800
+Message-ID: <20220207024155.414712-1-aaron.liu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <DM5PR12MB19474AEFB824C4C97DCD7AABEA229@DM5PR12MB1947.namprd12.prod.outlook.com>
-Content-Type: multipart/alternative;
- boundary="------------FB78EBE1506D7E8EE87F0D30"
-Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9e2be0a0-a562-4e52-7715-08d9e9e352bd
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3352:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB3352B4A16C297832A327FB9EB72C9@BYAPR12MB3352.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Office365-Filtering-Correlation-Id: 8b010d32-8d6a-4d51-cf7f-08d9e9e37396
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5423:EE_
+X-Microsoft-Antispam-PRVS: <SJ0PR12MB5423D898FE6FCD605946B6ECF02C9@SJ0PR12MB5423.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:541;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ahONRInLscQEpx3R1x+rBNSGIDOo5lG/xs3oge04/vZw2RCwI1tt/ZwgdotRwCcl0M3duPWWZYxulSVnWCOIWpq/sVLFSRpFY+Nc73MPfzyCGmf8KYcx3KD5rSeD3u0Sd/x8me0bSAIaosC7EvKsvGClPLDIGjj06pbSihklnu1CjGNByBuC0fdqhEEhJwAwKkynJWv1OE4MnYB/K7FJTfJa773ieByzaH0upDKWkuGK+r6DsY4H8qmpkyXphrY6gv5AQV6VJPNG/b5cz9JIZzd0yzjJLcAkH4+Af7kAZvgddkHWwNgEipuYUEcbMpZMkcVxb+WuPsg3g1TVoW306nj27kbMLOnyFKAssgGbANyaQ/e8TfKsfl09Zu1xxa5gQi3gIigFKFALJKR9oed8YOhovodkjqk8JeuVPzAZQJOyGbB2+2sb1AvVOyRabEX7d87uk9EWVUeWkI/zPHv8HTXr55wu+qTKcbwMcw9qMXIQlF10dtAwPkyeIusowuI5B78qWY+0yskr6NfwFKar8eSyYq9DRhLg8rrHYW4igKGJw+QgRmsNylShjYDlH6xCqgLi3VX5qov+eP9FfXY4m7yC5V9w05esFciW6VCILWcR+/E6nbhZxui4YjyLNpsGuGJ8NGfyMytWfbJP3vS3f3YuHTegb1Tv7sz+4fB2boa5jC9i6UZS2WFTqWrYBaR9tPir5EukhRDvbHZKDVTg+8gsWUbRrZaR+HmaZHZ6M18UnI0VJaE85fCRfEqKwBMU
+X-Microsoft-Antispam-Message-Info: PydEvj/Xro07HMe8hjWqqM9P4iDr0A/ary6B+0KSam9XfU1qNym+9TKPW804DzmVRtUF2rqd4SXw8BTfYxjdouV/zpi2wv3gjFrJsB3epPFcVcWtA6JNT6gYG4SCLjXJU0GaKC+uGKyWMI+h948oSR02aXqPYeF5uy4lPZNn6iRLSM8geLV+QTHQuWZXkokS7Hju+HiHkKh3rsamgJQTAIay/Gq182PAT/xcHumKdwLD2aYwk3L1ywWqSFK7GabJ9MCJonvJt5T9vCFXWU7eip2R7fsjqLMa+JXJDdRq2U5i9g5wEz9J56MlRT2VW5mwpzNZQFNCalbc9HbiGrMG/1P3l7xdu+G+X2dbjc2FX/TVDu1d8qnJRX/SrN/dI2gHP+Ju4Gum+hy7fEwZ1GhX1r+R24bMa8kYQ0AO7piDalUGpwogOi35gmV33db+qn3k9vVxqGdBQpS/0b3lyo3faXt9rDV9QNJbzX9mu+JZo7aANVKtKA2rcL3nVcSt6g9VM7HTD/5hqRnhki1Qo3ah4IFAkZ6SLkUMFPEHQS6crAyb7gVTwXnV//AGCE7Dv0/c692tQYZYSWMosGsCBYiFTIDSUDX5UfaDj/uZZTIlX5RnoHLxHJcHZFJFGr3dkCyoi2kPr3D9DHw2VV1anjMiyTUq1NH7WIr/E3dIQgGUxLp4zk5SD2PgQgGoL4OONxkkrEzkn//ax777sUFR9ft7tA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(110136005)(6636002)(31686004)(36756003)(81166007)(33964004)(31696002)(53546011)(508600001)(36860700001)(54906003)(316002)(16576012)(2906002)(2616005)(26005)(16526019)(82310400004)(70206006)(70586007)(336012)(186003)(921005)(47076005)(426003)(4326008)(8676002)(83380400001)(8936002)(40460700003)(66574015)(5660300002)(356005)(43740500002)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(36756003)(356005)(81166007)(2616005)(44832011)(5660300002)(47076005)(83380400001)(82310400004)(26005)(186003)(2906002)(1076003)(36860700001)(16526019)(6666004)(40460700003)(508600001)(316002)(8936002)(8676002)(4326008)(70586007)(70206006)(54906003)(6916009)(336012)(86362001)(426003)(7696005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 02:41:20.3538 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e2be0a0-a562-4e52-7715-08d9e9e352bd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 02:42:15.3872 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b010d32-8d6a-4d51-cf7f-08d9e9e37396
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT046.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3352
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5423
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,247 +99,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Chen, Horace" <Horace.Chen@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>
+Cc: Alexander.Deucher@amd.com, felix.kuehling@amd.com, Ray.Huang@amd.com,
+ christian.koenig@amd.com, Aaron Liu <aaron.liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------FB78EBE1506D7E8EE87F0D30
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Confirmed with hardware team, there is harvesting for gc 10.3.1.
 
-Hi Andrey,
+Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-I don't have any XGMI machines here, maybe you can reach out shaoyun for =
-help.
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+index b4eddf6e98a6..ff738e9725ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+@@ -543,7 +543,9 @@ static void gfxhub_v2_1_utcl2_harvest(struct amdgpu_device *adev)
+ 		adev->gfx.config.max_sh_per_se *
+ 		adev->gfx.config.max_shader_engines);
+ 
+-	if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 3, 3)) {
++	switch (adev->ip_versions[GC_HWIP][0]) {
++	case IP_VERSION(10, 3, 1):
++	case IP_VERSION(10, 3, 3):
+ 		/* Get SA disabled bitmap from eFuse setting */
+ 		efuse_setting = RREG32_SOC15(GC, 0, mmCC_GC_SA_UNIT_DISABLE);
+ 		efuse_setting &= CC_GC_SA_UNIT_DISABLE__SA_DISABLE_MASK;
+@@ -566,6 +568,9 @@ static void gfxhub_v2_1_utcl2_harvest(struct amdgpu_device *adev)
+ 		disabled_sa = tmp;
+ 
+ 		WREG32_SOC15(GC, 0, mmGCUTCL2_HARVEST_BYPASS_GROUPS_YELLOW_CARP, disabled_sa);
++		break;
++	default:
++		break;
+ 	}
+ }
+ 
+-- 
+2.25.1
 
-On 2022/1/29 =E4=B8=8A=E5=8D=8812:57, Grodzovsky, Andrey wrote:
-> Just a gentle ping.
->
-> Andrey
-> -----------------------------------------------------------------------=
--------------------------------------------------------------------------=
--------------------------------------------------------------------------=
--------------------------------------------------------------------------=
--------------------------------------------------------------------------=
--------------------------------------------------------------------------=
--------------------------------------------------------------------------=
--------------------------------------------------------------------------=
--------------------------------------------------------------------------=
--------------------------------------------------------------------------=
--------------------------------------------------------------------------=
--------------------------------------------------------------------------=
--------------------------------------------------------------------------=
--------------------------------------------
-> *From:* Grodzovsky, Andrey
-> *Sent:* 26 January 2022 10:52
-> *To:* Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>; Koenig, =
-Christian <Christian.Koenig@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; d=
-ri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; amd-gfx=
-@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Chen, JingWen <Ji=
-ngWen.Chen2@amd.com>
-> *Cc:* Chen, Horace <Horace.Chen@amd.com>; Liu, Monk <Monk.Liu@amd.com>
-> *Subject:* Re: [RFC v2 4/8] drm/amdgpu: Serialize non TDR gpu recovery =
-with TDRs
-> =C2=A0
->
-> JingWen - could you maybe give those patches a try on SRIOV XGMI system=
- ? If you see issues maybe you could let me connect and debug. My SRIOV X=
-GMI system which Shayun kindly arranged for me is not loading the driver =
-with my drm-misc-next branch even without my patches.
->
-> Andrey
->
-> On 2022-01-17 14:21, Andrey Grodzovsky wrote:
->>
->>
->> On 2022-01-17 2:17 p.m., Christian K=C3=B6nig wrote:
->>> Am 17.01.22 um 20:14 schrieb Andrey Grodzovsky:
->>>>
->>>> Ping on the question
->>>>
->>>
->>> Oh, my! That was already more than a week ago and is completely swapp=
-ed out of my head again.
->>>
->>>> Andrey
->>>>
->>>> On 2022-01-05 1:11 p.m., Andrey Grodzovsky wrote:
->>>>>>> Also, what about having the reset_active or in_reset flag in the =
-reset_domain itself?
->>>>>>
->>>>>> Of hand that sounds like a good idea.
->>>>>
->>>>>
->>>>> What then about the adev->reset_sem semaphore ? Should we also move=
- this to reset_domain ?=C2=A0 Both of the moves have functional
->>>>> implications only for XGMI case because there will be contention ov=
-er accessing those single instance variables from multiple devices
->>>>> while now each device has it's own copy.
->>>
->>> Since this is a rw semaphore that should be unproblematic I think. It=
- could just be that the cache line of the lock then plays ping/pong betwe=
-en the CPU cores.
->>>
->>>>>
->>>>> What benefit the centralization into reset_domain gives - is it for=
- example to prevent one device in a hive trying to access through MMIO an=
-other one's
->>>>> VRAM (shared FB memory) while the other one goes through reset ?
->>>
->>> I think that this is the killer argument for a centralized lock, yes.=
-
->>
->>
->> np, i will add a patch with centralizing both flag into reset domain a=
-nd resend.
->>
->> Andrey
->>
->>
->>>
->>> Christian.
->>>
->>>>>
->>>>> Andrey=20
->>>
-
---------------FB78EBE1506D7E8EE87F0D30
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html data-lt-installed="true">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body spellcheck="false" data-gramm="false">
-    <p>Hi Andrey,</p>
-    <p>I don't have any XGMI machines here, maybe you can reach out
-      shaoyun for help.<br>
-    </p>
-    <div class="moz-cite-prefix">On 2022/1/29 上午12:57, Grodzovsky,
-      Andrey wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:DM5PR12MB19474AEFB824C4C97DCD7AABEA229@DM5PR12MB1947.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <div>Just a gentle ping.</div>
-      <div><br>
-      </div>
-      <div>Andrey</div>
-      <hr style="display:inline-block;width:98%" tabindex="-1">
-      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-          face="Calibri, sans-serif" color="#000000"><b>From:</b>
-          Grodzovsky, Andrey<br>
-          <b>Sent:</b> 26 January 2022 10:52<br>
-          <b>To:</b> Christian König
-          <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a>; Koenig, Christian
-          <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>; Lazar, Lijo
-          <a class="moz-txt-link-rfc2396E" href="mailto:Lijo.Lazar@amd.com">&lt;Lijo.Lazar@amd.com&gt;</a>; <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a>
-          <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel@lists.freedesktop.org">&lt;dri-devel@lists.freedesktop.org&gt;</a>;
-          <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Chen, JingWen
-          <a class="moz-txt-link-rfc2396E" href="mailto:JingWen.Chen2@amd.com">&lt;JingWen.Chen2@amd.com&gt;</a><br>
-          <b>Cc:</b> Chen, Horace <a class="moz-txt-link-rfc2396E" href="mailto:Horace.Chen@amd.com">&lt;Horace.Chen@amd.com&gt;</a>; Liu, Monk
-          <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu@amd.com">&lt;Monk.Liu@amd.com&gt;</a><br>
-          <b>Subject:</b> Re: [RFC v2 4/8] drm/amdgpu: Serialize non TDR
-          gpu recovery with TDRs</font>
-        <div> </div>
-      </div>
-      <div>
-        <p>JingWen - could you maybe give those patches a try on SRIOV
-          XGMI system ? If you see issues maybe you could let me connect
-          and debug. My SRIOV XGMI system which Shayun kindly arranged
-          for me is not loading the driver with my drm-misc-next branch
-          even without my patches.<br>
-        </p>
-        <p>Andrey<br>
-        </p>
-        <div class="x_moz-cite-prefix">On 2022-01-17 14:21, Andrey
-          Grodzovsky wrote:<br>
-        </div>
-        <blockquote type="cite">
-          <p><br>
-          </p>
-          <div class="x_moz-cite-prefix">On 2022-01-17 2:17 p.m.,
-            Christian König wrote:<br>
-          </div>
-          <blockquote type="cite">Am 17.01.22 um 20:14 schrieb Andrey
-            Grodzovsky:<br>
-            <blockquote type="cite">
-              <p>Ping on the question</p>
-            </blockquote>
-            <br>
-            Oh, my! That was already more than a week ago and is
-            completely swapped out of my head again.<br>
-            <br>
-            <blockquote type="cite">
-              <p>Andrey<br>
-              </p>
-              <div class="x_moz-cite-prefix">On 2022-01-05 1:11 p.m.,
-                Andrey Grodzovsky wrote:<br>
-              </div>
-              <blockquote type="cite">
-                <blockquote type="cite" style="color:#007cff">
-                  <blockquote type="cite" style="color:#007cff">Also,
-                    what about having the reset_active or in_reset flag
-                    in the reset_domain itself?
-                    <br>
-                  </blockquote>
-                  <br>
-                  Of hand that sounds like a good idea. <br>
-                </blockquote>
-                <br>
-                <br>
-                What then about the adev-&gt;reset_sem semaphore ?
-                Should we also move this to reset_domain ?  Both of the
-                moves have functional
-                <br>
-                implications only for XGMI case because there will be
-                contention over accessing those single instance
-                variables from multiple devices
-                <br>
-                while now each device has it's own copy. <br>
-              </blockquote>
-            </blockquote>
-            <br>
-            Since this is a rw semaphore that should be unproblematic I
-            think. It could just be that the cache line of the lock then
-            plays ping/pong between the CPU cores.<br>
-            <br>
-            <blockquote type="cite">
-              <blockquote type="cite"><br>
-                What benefit the centralization into reset_domain gives
-                - is it for example to prevent one device in a hive
-                trying to access through MMIO another one's
-                <br>
-                VRAM (shared FB memory) while the other one goes through
-                reset ? <br>
-              </blockquote>
-            </blockquote>
-            <br>
-            I think that this is the killer argument for a centralized
-            lock, yes.<br>
-          </blockquote>
-          <p><br>
-          </p>
-          <p>np, i will add a patch with centralizing both flag into
-            reset domain and resend.</p>
-          <p>Andrey</p>
-          <p><br>
-          </p>
-          <blockquote type="cite"><br>
-            Christian.<br>
-            <br>
-            <blockquote type="cite">
-              <blockquote type="cite"><br>
-                Andrey </blockquote>
-            </blockquote>
-            <br>
-          </blockquote>
-        </blockquote>
-      </div>
-    </blockquote>
-  </body>
-</html>
-
---------------FB78EBE1506D7E8EE87F0D30--
