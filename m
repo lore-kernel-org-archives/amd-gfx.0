@@ -4,54 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BDE5C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 09:34:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0239DC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 09:40:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B5E110E391;
-	Tue,  8 Feb 2022 09:34:47 +0000 (UTC)
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
- [IPv6:2607:f8b0:4864:20::b33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE41110E391
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 09:34:45 +0000 (UTC)
-Received: by mail-yb1-xb33.google.com with SMTP id g14so48013541ybs.8
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 01:34:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=noI1PcHzCdkqKtF+a8s3ELESPLsfd1ymjI1ROP4v338=;
- b=FNn5U/WRMTf3NQHm3srAVMpNnDU+RVeSGZdSBvoAlqexPj14vl+cahh5QyFYU6i1Pb
- 9S+75ILZj24KjgyHRgLs45/IcqgBd4wsNouNycqJdHx2TVoKhBfxC/DK6JT73CiVs/9m
- U28+ATV/uVOWF0pDed0rmSeffwD8LKjQlovRAycsgodp5DvraB8HxouNWkvkRDgUEdT4
- Ys6XRSf5svLSbGYaCKX4/7QZo5EhCfMnLMCpJ5g7WpE4KuDCALZUYJuosIjRo5uJA3wU
- 3TvKbub4Xfkrw35GOs3kTPb++d2oGPmGVTcMH0kIE4NE+KllZd/sSDo9gDfSZD1jujLS
- 0KQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=noI1PcHzCdkqKtF+a8s3ELESPLsfd1ymjI1ROP4v338=;
- b=4KoDdX7O+1tbjMD7Xxdr8a/4SBBhmC2xJn+G4DBQe4gHQ+h5BUZugYcqQBPhgWm+2t
- IOoYP+h7ds3KfHeo9eQuk8rW3Y5HIYqR4yF437jsF/SbF8sdOAa5NTQTv7PztZVgLJBv
- YX1GH7VgHLLXBjrtEfur+818tvsySy04X1je/B93/nFFY/uI++UiP3H8P2Od0T2KWx+q
- jvwshHp294yqVovgj1/kfNy5v0DLGNkcLHvwpWUh95uiedOTGVL8f9uVGsKdcUz0u5dg
- qKZcH16MVS2TvqgrEHaD/BeCxFeMm8pW5illptCrpk/wj+AShcgcEwyYZgwj3r1SmZ4y
- WnnQ==
-X-Gm-Message-State: AOAM530U5LVPZnUyXyFnQs74nLguU1xH19BWbYMGbo4iugJi6ecujaBv
- 0HItQFBKm1rdESTsN2j4cH+6KMO9F3vnVxLzCoZE+La/TS4=
-X-Google-Smtp-Source: ABdhPJxJqrkW6iqR+XEJ+yOkrV8ILMkQnGtorZzWsxnoAIyir0lAmhU+tyoS+yAp10GGDztVKDlire2aIxqlHqBPbGo=
-X-Received: by 2002:a81:cb05:: with SMTP id q5mr3833949ywi.486.1644312884796; 
- Tue, 08 Feb 2022 01:34:44 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9EDB10E5DA;
+	Tue,  8 Feb 2022 09:40:16 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D55DD10E12F;
+ Tue,  8 Feb 2022 09:40:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1644313214; x=1675849214;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=UBEa6bnATc1XckSSrH+Ga3bve1upbhNguIC65V8cxtY=;
+ b=SHasuJMu4LaBRujQr5mno8sg6B+r6Nef137k5/EpkA7wyDdAHY3c/Lx1
+ 0fO4lo8qs1opYZTZR/IXytfaPa+RrvAJxXk2rpS02Z2UfYpAvxpUet3zl
+ I00wGq+zMyM3sade87KlROJWNPiAffiS828kDvXSMpmMQCExEypnEJ35x
+ Ex/BFT7gYy/bjOL03AE5Ov8vRYIHiIa1iCtn/ElYwZoqsJw+BuTDjBvFZ
+ D954yw9Y6I8tuTdOsC0VePfSytD47ktpwJAXZsKaVWozA4smTiwI+XLTV
+ X/DKlw3WqPwwj/9JgMhc6MMTSA8vEnJuq2wHWh+RIO4SnEV0mi8LdMFxQ A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="249119116"
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="249119116"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2022 01:40:14 -0800
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="585133118"
+Received: from amcgrat2-mobl1.ger.corp.intel.com (HELO [10.252.10.21])
+ ([10.252.10.21])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2022 01:40:12 -0800
+Message-ID: <644ce762-cb6a-0cf1-d1e0-1e799a3405bf@intel.com>
+Date: Tue, 8 Feb 2022 09:40:10 +0000
 MIME-Version: 1.0
-Received: by 2002:a05:7000:3601:0:0:0:0 with HTTP; Tue, 8 Feb 2022 01:34:44
- -0800 (PST)
-In-Reply-To: <BL1PR12MB514403668180CB26983C25A7F72C9@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <CA+nuEB_u4G-Nf_nHODoY86anP6s0vRyh=0-yPxphbksbCPJ1Yg@mail.gmail.com>
- <BL1PR12MB514403668180CB26983C25A7F72C9@BL1PR12MB5144.namprd12.prod.outlook.com>
-From: Amol <suratiamol@gmail.com>
-Date: Tue, 8 Feb 2022 15:04:44 +0530
-Message-ID: <CA+nuEB_DBc77-UCsE-fgVJHn5-StUj+h3EUR0kBQxjj+sTi=3Q@mail.gmail.com>
-Subject: Re: Minimal GPU setup
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH 2/7] drm/selftests: add drm buddy alloc limit testcase
+Content-Language: en-GB
+To: Arunpravin <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20220203133234.3350-1-Arunpravin.PaneerSelvam@amd.com>
+ <20220203133234.3350-2-Arunpravin.PaneerSelvam@amd.com>
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20220203133234.3350-2-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,72 +61,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: alexander.deucher@amd.com, tzimmermann@suse.de, christian.koenig@amd.com,
+ daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thank you Alex.
+On 03/02/2022 13:32, Arunpravin wrote:
+> add a test to check the maximum allocation limit
+> 
+> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   .../gpu/drm/selftests/drm_buddy_selftests.h   |  1 +
+>   drivers/gpu/drm/selftests/test-drm_buddy.c    | 60 +++++++++++++++++++
+>   2 files changed, 61 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/selftests/drm_buddy_selftests.h b/drivers/gpu/drm/selftests/drm_buddy_selftests.h
+> index a4bcf3a6dfe3..ebe16162762f 100644
+> --- a/drivers/gpu/drm/selftests/drm_buddy_selftests.h
+> +++ b/drivers/gpu/drm/selftests/drm_buddy_selftests.h
+> @@ -7,3 +7,4 @@
+>    * Tests are executed in order by igt/drm_buddy
+>    */
+>   selftest(sanitycheck, igt_sanitycheck) /* keep first (selfcheck for igt) */
+> +selftest(buddy_alloc_limit, igt_buddy_alloc_limit)
+> diff --git a/drivers/gpu/drm/selftests/test-drm_buddy.c b/drivers/gpu/drm/selftests/test-drm_buddy.c
+> index 51e4d393d22c..fd7d1a112458 100644
+> --- a/drivers/gpu/drm/selftests/test-drm_buddy.c
+> +++ b/drivers/gpu/drm/selftests/test-drm_buddy.c
+> @@ -16,6 +16,66 @@
+>   
+>   static unsigned int random_seed;
+>   
+> +static int igt_buddy_alloc_limit(void *arg)
+> +{
+> +	u64 end, size = U64_MAX, start = 0;
+> +	struct drm_buddy_block *block;
+> +	unsigned long flags = 0;
+> +	LIST_HEAD(allocated);
+> +	struct drm_buddy mm;
+> +	int err;
+> +
+> +	size = end = round_down(size, 4096);
+> +	err = drm_buddy_init(&mm, size, PAGE_SIZE);
+> +	if (err)
+> +		return err;
+> +
+> +	if (mm.max_order != DRM_BUDDY_MAX_ORDER) {
+> +		pr_err("mm.max_order(%d) != %d\n",
+> +		       mm.max_order, DRM_BUDDY_MAX_ORDER);
+> +		err = -EINVAL;
+> +		goto out_fini;
+> +	}
+> +
+> +	err = drm_buddy_alloc_blocks(&mm, start, end, size,
+> +				     PAGE_SIZE, &allocated, flags);
+> +
+> +	if (unlikely(err))
+> +		goto out_free;
+> +
+> +	block = list_first_entry_or_null(&allocated,
+> +					 struct drm_buddy_block,
+> +					 link);
+> +
+> +	if (!block)
 
-On 07/02/2022, Deucher, Alexander <Alexander.Deucher@amd.com> wrote:
-> [AMD Official Use Only]
->
-> Most of the register programming in evergreen_gpu_init is required.  That
-> code handles things like harvesting (e.g., disabling bad hardware resources)
-> and setting sane asic specific settings in some registers.  If you don't do
-> it, work may get scheduled to bad or incorrectly configured hardware blocks
-> which will lead to hangs or corrupted results.  You can probably skip some
-> of them, but I don't remember what is minimally required off hand.  It's
-> generally a good idea to re-initialize those registers anyway in case
-> someone has previously messed with them (e.g., manual register munging or
-> GPU passed through to a VM etc.).
+err = -EINVAL;
 
-Understood.
+> +		goto out_fini;
+> +
+> +	if (drm_buddy_block_order(block) != mm.max_order) {
+> +		pr_err("block order(%d) != %d\n",
+> +		       drm_buddy_block_order(block), mm.max_order);
+> +		err = -EINVAL;
+> +		goto out_free;
+> +	}
+> +
+> +	if (drm_buddy_block_size(&mm, block) !=
+> +	    BIT_ULL(mm.max_order) * PAGE_SIZE) {
+> +		pr_err("block size(%llu) != %llu\n",
+> +		       drm_buddy_block_size(&mm, block),
+> +		       BIT_ULL(mm.max_order) * PAGE_SIZE);
+> +		err = -EINVAL;
+> +		goto out_free;
+> +	}
+> +
+> +	if (!err)
 
->
-> Posting the bios is enough to get you a working memory controller and enough
-> asic setup to light up displays (basically what you need for pre-OS
-> console).  As Christian mentioned, loading the ucodes will get the
-> associated engines working so that you can start feeding commands to the
-> GPU, but without proper configuration of the various hardware blocks on the
-> GPU, you may not have success in feeding data to the GPU.
+Always true AFAICT?
 
-Understood. I think I wanted a confirmation that the steps I took so far are not
-completely incorrect and may be just enough to see some GPU activity,
-before I spend more effort programming other blocks. The feedback and a small
-but working test helps restore the motivation.
+> +		pr_info("%s - succeeded\n", __func__);
 
-Thanks,
-Amol
+I guess this could be made part of the run_selftests()? It looks like it 
+already prints the current test, perhaps that is already enough?
 
->
-> Alex
->
->
-> ________________________________
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Amol
-> <suratiamol@gmail.com>
-> Sent: Saturday, February 5, 2022 4:47 AM
-> To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> Subject: Minimal GPU setup
->
-> Hello,
->
-> I am learning to program Radeon HD 7350 by reading the radeon
-> driver source in Linux, and the guides/manuals from AMD.
->
-> I understand the general flow of initialization the driver performs. I
-> have also been able to understand and re-implement the ATOM
-> BIOS virtual machine.
->
-> I am trying to program the device up from scratch (i.e. bare-metal).
-> Do I need to perform all those steps that the driver does? Reading
-> the evergreen_gpu_init function is demotivating; it initializes many
-> fields and registers which I suspect may not be required for a minimal
-> setup.
->
-> Is posting the BIOS and loading the microcode enough to get me started
-> with running basic tasks (DMA transfers, simple packet processing, etc.)?
->
-> Thanks,
-> Amol
->
+With the err = -EINVAL change, feel free to add,
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
+> +
+> +out_free:
+> +	drm_buddy_free_list(&mm, &allocated);
+> +out_fini:
+> +	drm_buddy_fini(&mm);
+> +	return err;
+> +}
+> +
+>   static int igt_sanitycheck(void *ignored)
+>   {
+>   	pr_info("%s - ok!\n", __func__);
