@@ -4,59 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E01C7C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 08:27:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 716E4C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 08:27:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 311F910E585;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEC7210E595;
 	Tue,  8 Feb 2022 08:26:48 +0000 (UTC)
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [IPv6:2607:f8b0:4864:20::1034])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 000B110E56B
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 07:37:23 +0000 (UTC)
-Received: by mail-pj1-x1034.google.com with SMTP id
- p22-20020a17090adf9600b001b8783b2647so1326199pjv.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Feb 2022 23:37:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=B51vztbAqanx3odcGYslN+f+8QXuSl3IGdZkOcgCEP4=;
- b=B11JIsqRugzE1lPzLbVrLBxQRW5fnSgxLSLKgwr1IROc+g9ZzYhWrC1z2DTdGwYxxc
- zTZC5C6/ehGlzMo1J6qtuwveXNMaFeY7njbnbEiu43w4jwaanMcHAXwYob4oTe4haPpH
- OSqw2rNF9vvlgVMfdSEmvclOIi10EZASOCcpU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=B51vztbAqanx3odcGYslN+f+8QXuSl3IGdZkOcgCEP4=;
- b=kMwIec2W64W7PFOGg0IDFMRaWymBcCoY3DNw7rocn1jL6U69ysvy/gFnvDRYOgnwmW
- YrLmaUSnf6mJ6r0r3HeTvuRfJfdMkywK/hT3dhJgrwMIPBy7lYPyxiwESRxz3FNYBPI6
- h9CgoYcHhDsimCRBpMiz5GKLrehYtCZiJTffwZ+NaJHKtyPM8zdYh+ItahI8+liFxzf4
- oW0zTeVDxnCDKndyQr0FBwG4+5d/LHS5osj6ylvM1BT5DxwKlz2trbbusSqNsPDbDw/T
- qvQ+5WAZusC+zA7fQ4Y0fWaOl4dnFhJEcSICO6zUPGurEjU+vAJoQst7WcXBHUiuoUCo
- Erng==
-X-Gm-Message-State: AOAM533tpf+1UhKwY/Grua2306D4T7L+3//pnHVyoM9fxi+m+B9neSir
- AWKzf0hlO38xFNKpR0nj1R84qg==
-X-Google-Smtp-Source: ABdhPJxwrTpJBtY7yw1Sd0APOFBVLEGy3Kepc+/jvxRR/t7rzd5FBc9Yf4VRdbT05jYEsKVObL+Oiw==
-X-Received: by 2002:a17:902:7609:: with SMTP id
- k9mr2997567pll.143.1644305843446; 
- Mon, 07 Feb 2022 23:37:23 -0800 (PST)
-Received: from hsinyi-z840.tpe.corp.google.com
- ([2401:fa00:1:10:7d9a:166e:9d34:ff4f])
- by smtp.gmail.com with ESMTPSA id ip5sm1677243pjb.13.2022.02.07.23.37.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Feb 2022 23:37:23 -0800 (PST)
-From: Hsin-Yi Wang <hsinyi@chromium.org>
-To: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Subject: [PATCH v7 2/3] drm/mediatek: init panel orientation property
-Date: Tue,  8 Feb 2022 15:37:13 +0800
-Message-Id: <20220208073714.1540390-2-hsinyi@chromium.org>
-X-Mailer: git-send-email 2.35.0.263.gb82422642f-goog
-In-Reply-To: <20220208073714.1540390-1-hsinyi@chromium.org>
-References: <20220208073714.1540390-1-hsinyi@chromium.org>
+X-Greylist: delayed 15949 seconds by postgrey-1.36 at gabe;
+ Tue, 08 Feb 2022 08:03:05 UTC
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40F9C10E13A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 08:03:05 +0000 (UTC)
+X-QQ-mid: bizesmtp33t1644307361t10mqirs
+Received: from localhost.localdomain (unknown [58.240.82.166])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 08 Feb 2022 16:02:37 +0800 (CST)
+X-QQ-SSF: 00400000002000B0H000B00A0000000
+X-QQ-FEAT: zD6y7hNAcUB0CO7eAtJeOBqOod74zZzxKc9Z5p7I4/HrPepLCfJzCWjdo72xF
+ gQZlUSwaOM05cGmmj58PWwdBNEHju8GTAvTUnuOAqnawnSBQQMYzyUeUjy3u8Hc/rfjzBcL
+ Ee66Z2FskkgLFReyfCgL4+rMBCxm9KMZrSNk8hvZ41FhZQ0j+bVPh9UTUNy/FWBVE2dgxje
+ 07ap/9lyPyQnGQFbHOEiOb5F3/yQNStKnYkbzIXteJpKJpLHB8R7et1eU0JMjAFmmes8im8
+ uMqPeuvzCr6NOSWvkzw4/qtkAi8WX0oufIDctkJTwwcZOOY9Ao6bTUOu/VSREoQ2ZhODd8y
+ FN2DwSkR/lqc2673+vk6htik4RUikaU+zjxdwhR
+X-QQ-GoodBg: 2
+From: zhanglianjie <zhanglianjie@uniontech.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH v3 2/2] drm/radeon/uvd: Fix forgotten unmap buffer objects
+Date: Tue,  8 Feb 2022 16:02:35 +0800
+Message-Id: <20220208080235.26349-1-zhanglianjie@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=y
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
+X-QQ-Bgrelay: 1
 X-Mailman-Approved-At: Tue, 08 Feb 2022 08:26:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,46 +50,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, devicetree@vger.kernel.org,
- Simon Ser <contact@emersion.fr>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Harry Wentland <harry.wentland@amd.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org
+Cc: David Airlie <airlied@linux.ie>, PanXinhui <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ zhanglianjie <zhanglianjie@uniontech.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Init panel orientation property after connector is initialized. Let the
-panel driver decides the orientation value later.
+after the buffer object is successfully mapped, call radeon_bo_kunmap before the function returns.
 
-Signed-off-by: Hsin-Yi Wang <hsinyi@chromium.org>
-Acked-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
----
- drivers/gpu/drm/mediatek/mtk_dsi.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 5d90d2eb001935..491bf5b0a2b984 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -965,6 +965,13 @@ static int mtk_dsi_encoder_init(struct drm_device *drm, struct mtk_dsi *dsi)
- 		ret = PTR_ERR(dsi->connector);
- 		goto err_cleanup_encoder;
+diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/radeon_uvd.c
+index 377f9cdb5b53..0558d928d98d 100644
+--- a/drivers/gpu/drm/radeon/radeon_uvd.c
++++ b/drivers/gpu/drm/radeon/radeon_uvd.c
+@@ -497,6 +497,7 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p, struct radeon_bo *bo,
+ 	handle = msg[2];
+
+ 	if (handle == 0) {
++		radeon_bo_kunmap(bo);
+ 		DRM_ERROR("Invalid UVD handle!\n");
+ 		return -EINVAL;
  	}
-+
-+	ret = drm_connector_init_panel_orientation_property(dsi->connector);
-+	if (ret) {
-+		DRM_ERROR("Unable to init panel orientation\n");
-+		goto err_cleanup_encoder;
-+	}
-+
- 	drm_connector_attach_encoder(dsi->connector, &dsi->encoder);
- 
- 	return 0;
--- 
-2.35.0.263.gb82422642f-goog
+@@ -559,12 +560,10 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p, struct radeon_bo *bo,
+ 		return 0;
+
+ 	default:
+-
+ 		DRM_ERROR("Illegal UVD message type (%d)!\n", msg_type);
+-		return -EINVAL;
+ 	}
+
+-	BUG();
++	radeon_bo_kunmap(bo);
+ 	return -EINVAL;
+ }
+
+--
+2.20.1
+
+
 
