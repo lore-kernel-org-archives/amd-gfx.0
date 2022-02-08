@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0C41C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 14:38:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51AA4C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 14:38:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAD7A10E4D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0D6E10E4DF;
 	Tue,  8 Feb 2022 14:38:03 +0000 (UTC)
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60E3510E55A
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 08:42:40 +0000 (UTC)
-Received: by mail-pl1-x636.google.com with SMTP id x4so5683899plb.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 00:42:40 -0800 (PST)
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD5DB10E5C3
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 08:42:46 +0000 (UTC)
+Received: by mail-pf1-x434.google.com with SMTP id p43so124927pfw.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 00:42:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ZhwLsKgmug/LRenPO4tfGgZqEWLMYU+fvdrOVAURH3s=;
- b=Vkl+vynjUM51RqMEm6hc747W8khYbhvL5/qYvEKRlmgrdaUW3Os9zs0yzSi/jaG+F0
- ZjQMv2fVx+TMavj/WOX1KvUW+Cm94gUvefnTe1HzIaWZbhMNTyHbhFtCgj66jqFb4CzX
- QOTw4Gp0OM2viucwhKZdwqXz6HkS3kdf2VGcA=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=RKltf19DtHiRc15a3iaZ/NnDb+6ppKujiVxWZQto3YU=;
+ b=O2UDOpBeBJRbX3+DaQG7mIxxaEO05L1HTD48WquGaDuYWsSttm9JTTNF7a+lc8KdMj
+ tJRuDchff9o48V7UXFNQVgoxZ/rNJPLVl8KQxtPWFS7zVK0sOis64KFrKb3J8stVpjkN
+ Pk7y7Sj69FXDSqgG4hJ/qiPJrJRpnz6L6YEME=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ZhwLsKgmug/LRenPO4tfGgZqEWLMYU+fvdrOVAURH3s=;
- b=IjZAlT3gpeHHhhMs4LmcFdmkcIwTybVYiLQaNTqmwfT8rvlMxIxxwjoXhV9kiRpVqA
- gexVBQgQJpgsgLxY9YeFdqvcvMIuDzEhmgA2emNZQEV1uIxyGKaqFXFRdDvufKxnDfit
- 3rcebklW6zqPhoaNhiWYd9Aq+4YeiYfPydlXWzlPjpmwOAoAz0aeKniVBLhP8bxRT0S0
- MyzMoxkNxG8x0ZNLX002Ux9qqN6COOrJFrJmpDx/WjZ3PSjFQPbq1EL6u83gVGpyo9jf
- lx0vfykU2DaoRa+qd97PlbGJFdgO0mb9nQbuVQOPW3nhBRydsrnuVvMXsWKV5muofFxJ
- /DfQ==
-X-Gm-Message-State: AOAM531W6ermcLSjmw5tJxR4B+x1+o6wLmIv/kLmqkhefU52sO5PK5I6
- 0d1YZ3kYaACMaxvPtJRgunvRMw==
-X-Google-Smtp-Source: ABdhPJwzo+N00PLczwH8aUY/AY0oPF2jSOF6dGlpW/jQcDkmK7hKjrKYCbbfX5ATisM8Z14A9ENepg==
-X-Received: by 2002:a17:90b:1c06:: with SMTP id
- oc6mr143971pjb.213.1644309759797; 
- Tue, 08 Feb 2022 00:42:39 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=RKltf19DtHiRc15a3iaZ/NnDb+6ppKujiVxWZQto3YU=;
+ b=UbczhzCn9CgUVhn8IZAgIsWkrAzhufv5OV1EeAhqZ7xCfmcY2Mbi0tg90knUKPcC7Y
+ Wb/PTm86zy5Cso+hDg7V0r0/aeLWTnPwv7xY1gukyUb6i3hdWwxCjaxoxt4/kpArLWqR
+ TW34AikJhMxpzUzBXvdoGfcgC67NIiLUZEToM5LEVxK43iLwnrbesb6vbbtD8UbCS37X
+ 2ZrPSFDwn7KUopBfg4csWSH4yGdlCwIdhYx8YQx3oqRI7SIdJ6LF9Dasqlj4CBr6mCwq
+ kCkiMH1MBmMqecP8ZdhN/UDs14Y7dWy31u322kSDlRui/o5w+p0E+2uYnOfUK3DGP3Ga
+ VCeg==
+X-Gm-Message-State: AOAM5300cszjIRU+Sgv+GyjaN5vRPTnAPXBSRjxUPyhEeN08uU62Pq7o
+ vuDsE5mGQ9CzLX9czyya+ISjWg==
+X-Google-Smtp-Source: ABdhPJxJuhyNGgn/8M1tkfbfnImy5ANlW87FCMT9C5ygmikEd8cwYFifi2WHJ+zYaY+iMKeTEIBo9Q==
+X-Received: by 2002:a63:2ad6:: with SMTP id q205mr2651010pgq.46.1644309766435; 
+ Tue, 08 Feb 2022 00:42:46 -0800 (PST)
 Received: from hsinyi-z840.tpe.corp.google.com
  ([2401:fa00:1:10:7d9a:166e:9d34:ff4f])
- by smtp.gmail.com with ESMTPSA id m14sm15362390pfc.170.2022.02.08.00.42.36
+ by smtp.gmail.com with ESMTPSA id m14sm15362390pfc.170.2022.02.08.00.42.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Feb 2022 00:42:39 -0800 (PST)
+ Tue, 08 Feb 2022 00:42:46 -0800 (PST)
 From: Hsin-Yi Wang <hsinyi@chromium.org>
 To: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v8 1/3] gpu: drm: separate panel orientation property creating
- and value setting
-Date: Tue,  8 Feb 2022 16:42:32 +0800
-Message-Id: <20220208084234.1684930-1-hsinyi@chromium.org>
+Subject: [PATCH v8 3/3] arm64: dts: mt8183: Add panel rotation
+Date: Tue,  8 Feb 2022 16:42:34 +0800
+Message-Id: <20220208084234.1684930-3-hsinyi@chromium.org>
 X-Mailer: git-send-email 2.35.0.263.gb82422642f-goog
+In-Reply-To: <20220208084234.1684930-1-hsinyi@chromium.org>
+References: <20220208084234.1684930-1-hsinyi@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 08 Feb 2022 14:38:02 +0000
@@ -80,194 +80,27 @@ Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, devicetree@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_dev_register() sets connector->registration_state to
-DRM_CONNECTOR_REGISTERED and dev->registered to true. If
-drm_connector_set_panel_orientation() is first called after
-drm_dev_register(), it will fail several checks and results in following
-warning.
-
-Add a function to create panel orientation property and set default value
-to UNKNOWN, so drivers can call this function to init the property earlier
-, and let the panel set the real value later.
-
-[    4.480976] ------------[ cut here ]------------
-[    4.485603] WARNING: CPU: 5 PID: 369 at drivers/gpu/drm/drm_mode_object.c:45 __drm_mode_object_add+0xb4/0xbc
-<snip>
-[    4.609772] Call trace:
-[    4.612208]  __drm_mode_object_add+0xb4/0xbc
-[    4.616466]  drm_mode_object_add+0x20/0x2c
-[    4.620552]  drm_property_create+0xdc/0x174
-[    4.624723]  drm_property_create_enum+0x34/0x98
-[    4.629241]  drm_connector_set_panel_orientation+0x64/0xa0
-[    4.634716]  boe_panel_get_modes+0x88/0xd8
-[    4.638802]  drm_panel_get_modes+0x2c/0x48
-[    4.642887]  panel_bridge_get_modes+0x1c/0x28
-[    4.647233]  drm_bridge_connector_get_modes+0xa0/0xd4
-[    4.652273]  drm_helper_probe_single_connector_modes+0x218/0x700
-[    4.658266]  drm_mode_getconnector+0x1b4/0x45c
-[    4.662699]  drm_ioctl_kernel+0xac/0x128
-[    4.666611]  drm_ioctl+0x268/0x410
-[    4.670002]  drm_compat_ioctl+0xdc/0xf0
-[    4.673829]  __arm64_compat_sys_ioctl+0xc8/0x100
-[    4.678436]  el0_svc_common+0xf4/0x1c0
-[    4.682174]  do_el0_svc_compat+0x28/0x3c
-[    4.686088]  el0_svc_compat+0x10/0x1c
-[    4.689738]  el0_sync_compat_handler+0xa8/0xcc
-[    4.694171]  el0_sync_compat+0x178/0x180
-[    4.698082] ---[ end trace b4f2db9d9c88610b ]---
-[    4.702721] ------------[ cut here ]------------
-[    4.707329] WARNING: CPU: 5 PID: 369 at drivers/gpu/drm/drm_mode_object.c:243 drm_object_attach_property+0x48/0xb8
-<snip>
-[    4.833830] Call trace:
-[    4.836266]  drm_object_attach_property+0x48/0xb8
-[    4.840958]  drm_connector_set_panel_orientation+0x84/0xa0
-[    4.846432]  boe_panel_get_modes+0x88/0xd8
-[    4.850516]  drm_panel_get_modes+0x2c/0x48
-[    4.854600]  panel_bridge_get_modes+0x1c/0x28
-[    4.858946]  drm_bridge_connector_get_modes+0xa0/0xd4
-[    4.863984]  drm_helper_probe_single_connector_modes+0x218/0x700
-[    4.869978]  drm_mode_getconnector+0x1b4/0x45c
-[    4.874410]  drm_ioctl_kernel+0xac/0x128
-[    4.878320]  drm_ioctl+0x268/0x410
-[    4.881711]  drm_compat_ioctl+0xdc/0xf0
-[    4.885536]  __arm64_compat_sys_ioctl+0xc8/0x100
-[    4.890142]  el0_svc_common+0xf4/0x1c0
-[    4.893879]  do_el0_svc_compat+0x28/0x3c
-[    4.897791]  el0_svc_compat+0x10/0x1c
-[    4.901441]  el0_sync_compat_handler+0xa8/0xcc
-[    4.905873]  el0_sync_compat+0x178/0x180
-[    4.909783] ---[ end trace b4f2db9d9c88610c ]---
+krane, kakadu, and kodama boards have a default panel rotation.
 
 Signed-off-by: Hsin-Yi Wang <hsinyi@chromium.org>
-Reviewed-by: Sean Paul <seanpaul@chromium.org>
+Reviewed-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Tested-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
 ---
-v7->v8:
-- check if the prop is created to avoid leak issue when called multiple
-  times.
-- attempt to create prop in drm_connector_set_panel_orientation if prop
-  is not created before, so driver don't need to call
-  drm_connector_init_panel_orientation_property if they don't need to
-  set the property earlier.
----
- drivers/gpu/drm/drm_connector.c | 62 ++++++++++++++++++++++++---------
- include/drm/drm_connector.h     |  2 ++
- 2 files changed, 48 insertions(+), 16 deletions(-)
+ arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index a50c82bc2b2fec..572ead7ac10690 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1252,7 +1252,7 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
-  *	INPUT_PROP_DIRECT) will still map 1:1 to the actual LCD panel
-  *	coordinates, so if userspace rotates the picture to adjust for
-  *	the orientation it must also apply the same transformation to the
-- *	touchscreen input coordinates. This property is initialized by calling
-+ *	touchscreen input coordinates. This property value is set by calling
-  *	drm_connector_set_panel_orientation() or
-  *	drm_connector_set_panel_orientation_with_quirk()
-  *
-@@ -2341,8 +2341,8 @@ EXPORT_SYMBOL(drm_connector_set_vrr_capable_property);
-  * @connector: connector for which to set the panel-orientation property.
-  * @panel_orientation: drm_panel_orientation value to set
-  *
-- * This function sets the connector's panel_orientation and attaches
-- * a "panel orientation" property to the connector.
-+ * This function sets the connector's panel_orientation value. If the property
-+ * doesn't exist, it will try to create one.
-  *
-  * Calling this function on a connector where the panel_orientation has
-  * already been set is a no-op (e.g. the orientation has been overridden with
-@@ -2373,19 +2373,12 @@ int drm_connector_set_panel_orientation(
- 	info->panel_orientation = panel_orientation;
- 
- 	prop = dev->mode_config.panel_orientation_property;
--	if (!prop) {
--		prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
--				"panel orientation",
--				drm_panel_orientation_enum_list,
--				ARRAY_SIZE(drm_panel_orientation_enum_list));
--		if (!prop)
--			return -ENOMEM;
--
--		dev->mode_config.panel_orientation_property = prop;
--	}
-+	if (!prop &&
-+	    drm_connector_init_panel_orientation_property(connector) < 0)
-+		return -ENOMEM;
- 
--	drm_object_attach_property(&connector->base, prop,
--				   info->panel_orientation);
-+	drm_object_property_set_value(&connector->base, prop,
-+				      info->panel_orientation);
- 	return 0;
- }
- EXPORT_SYMBOL(drm_connector_set_panel_orientation);
-@@ -2393,7 +2386,7 @@ EXPORT_SYMBOL(drm_connector_set_panel_orientation);
- /**
-  * drm_connector_set_panel_orientation_with_quirk - set the
-  *	connector's panel_orientation after checking for quirks
-- * @connector: connector for which to init the panel-orientation property.
-+ * @connector: connector for which to set the panel-orientation property.
-  * @panel_orientation: drm_panel_orientation value to set
-  * @width: width in pixels of the panel, used for panel quirk detection
-  * @height: height in pixels of the panel, used for panel quirk detection
-@@ -2420,6 +2413,43 @@ int drm_connector_set_panel_orientation_with_quirk(
- }
- EXPORT_SYMBOL(drm_connector_set_panel_orientation_with_quirk);
- 
-+/**
-+ * drm_connector_init_panel_orientation_property -
-+ * 	create the connector's panel orientation property
-+ *
-+ * This function attaches a "panel orientation" property to the connector
-+ * and initializes its value to DRM_MODE_PANEL_ORIENTATION_UNKNOWN.
-+ *
-+ * The value of the property can be set by drm_connector_set_panel_orientation()
-+ * or drm_connector_set_panel_orientation_with_quirk() later.
-+ *
-+ * Returns:
-+ * Zero on success, negative errno on failure.
-+ */
-+int drm_connector_init_panel_orientation_property(
-+	struct drm_connector *connector)
-+{
-+	struct drm_device *dev = connector->dev;
-+	struct drm_property *prop;
-+
-+	if(dev->mode_config.panel_orientation_property)
-+		return 0;
-+
-+	prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
-+			"panel orientation",
-+			drm_panel_orientation_enum_list,
-+			ARRAY_SIZE(drm_panel_orientation_enum_list));
-+	if (!prop)
-+		return -ENOMEM;
-+
-+	dev->mode_config.panel_orientation_property = prop;
-+	drm_object_attach_property(&connector->base, prop,
-+				   DRM_MODE_PANEL_ORIENTATION_UNKNOWN);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_connector_init_panel_orientation_property);
-+
- static const struct drm_prop_enum_list privacy_screen_enum[] = {
- 	{ PRIVACY_SCREEN_DISABLED,		"Disabled" },
- 	{ PRIVACY_SCREEN_ENABLED,		"Enabled" },
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 64cf5f88c05b6a..d3448a71bb4d85 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1798,6 +1798,8 @@ int drm_connector_set_panel_orientation_with_quirk(
- 	struct drm_connector *connector,
- 	enum drm_panel_orientation panel_orientation,
- 	int width, int height);
-+int drm_connector_init_panel_orientation_property(
-+	struct drm_connector *connector);
- int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
- 					  int min, int max);
- void drm_connector_create_privacy_screen_properties(struct drm_connector *conn);
+diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
+index b42d81d26d7211..d29d4378170971 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
+@@ -276,6 +276,7 @@ panel: panel@0 {
+ 		avee-supply = <&ppvarp_lcd>;
+ 		pp1800-supply = <&pp1800_lcd>;
+ 		backlight = <&backlight_lcd0>;
++		rotation = <270>;
+ 		port {
+ 			panel_in: endpoint {
+ 				remote-endpoint = <&dsi_out>;
 -- 
 2.35.0.263.gb82422642f-goog
 
