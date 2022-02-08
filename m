@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94C25C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 03:20:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 532ADC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 03:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92F8F10E249;
-	Tue,  8 Feb 2022 03:20:34 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2054.outbound.protection.outlook.com [40.107.223.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D53010E249
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 03:20:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFF8510E2D2;
+	Tue,  8 Feb 2022 03:20:39 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2082.outbound.protection.outlook.com [40.107.244.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F9D610E259
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 03:20:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kjX9Rix25L/1artC5QWKyJ6ui1DDL+ZKNcEnvQLRNKtB0gssxUWm4dFzVf4wgbFCv1sljadZManTC9EZAvd1GAyugZ5WqTSy8RhxuzVnk5x6c5f+CPdsi7f8wPPWxHVfIT6McLRAh7ATIe5ANCkvwRjIT15Q0tU4GFb8NGZWgoyB1AL13P8wnObcuB45+DIPlBxW2fUpUb6wt/rcN77gDZCqkgNd0K9X7Qcb/Tcd7SbODXJ4w3S/+Ckl5ZcEMvOoeEKStChR3Vg8KJiEUhR5AwU39WuxawzhPy3X1Icq1x9JHtvFyKid/o4y166GON69Ua8YbgCIlH1UaGYO0Lqudg==
+ b=VoAnG3eO7BLkYBEdJtKP9ml249XcJLkeXULcTTILOfjcRyhro65+qYVq9lFpGjTN6sC38bPfuiahJ+ifpWJADcdq+ji+Ga2rySF82PMafQfhczzptlJXYH86be7AM9OVERdyUDaETR2SXxKU1lL1FhbsZi9dQLb1hzG2YA6JQ0adL9APwN36BR8+E+SjFB0mXA9OxWKw26/4Rf7vO7+VZvRa3s4ZvRbT9fZspBHP4gGHls7IjaFOIeLFKmdt2rkzOXtN9PAZm6hp9bKO9VTE906gjXjRrNQdmwwqDM+UWc8azBJ/Kxf3umQ2dQTmPjiTHuGAcU9Y3mh3wqiQ/C4eHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N3v/c5J5v6dW2yTsMjE/InG0kkL6Y6Y2OhxNz8375DQ=;
- b=IUII2OmwPfMlxXxTpWSlHm18L3RXZgoNUE2UW4arQorHwwVqQjYgB93E7ZO3V5mIMnonYKPDpB2YR5AA8I7i4IAVeq75Q3w/+mFNeiYj/BOm7xtYfeQbqKZWWc1TFV4zXl/KfPRdNmxER/HPh8tj5axXGL5++6uet8mQ2lTkX/18O8Md7aN5BkW/M7aLl4k1fkvvza1IIUEfhbl0eq821GQlWoeO2gqQJ7gdWnOziFFTlgM81GGf7julW2tksFUl/lXZB0kBLMZNke72pZivXP1o42eU3LJ5VOFUYroEd/Jk+oeMxnJtVQr5dEPrnM5uJinhALltXa6qR/gohuC4QQ==
+ bh=mbquW0u7F6Hz0TiycveTfpo6aDB5IihUx1Xeb1bqPRY=;
+ b=U9ifFBkxncJr1RgYxPxe+NgixnmJgq6AOIQLmCjh0rrzGDBBtOQAVtV1/71IRm+QLZQS9Hk9JN51C6LULoKtauzPkf8Hw/JAd3KvRWms8ZddYErgD3VA6B3yIJJeosdfBZXICRcHgszEneg1sfnQXdgYJy3U6zwwiskB1llfnGY6FvgZhqB4uogix8Qr1VwIl/jZeBAsVvxRpIvagQJbu+DPHC0BUAzeIJmoB7SqboqnkP6es5z/w1Eg5V6uw00bSzwa//DdId9MNSuizWFvniveFR0b0AIEwZnzVo03v9mTWO60d5Z5+7n5l25funmM0ay2SnG0M8bgX8p5E6lHUA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N3v/c5J5v6dW2yTsMjE/InG0kkL6Y6Y2OhxNz8375DQ=;
- b=NnoTQCkQtI8Xm3cxG97KtqhpPZ+c/ctXp1k15tXwwAg6RVitMrpQPyDXWcbkkVBy+9Y5MtuIgkGDHJjYmVouN7jdrQbJtPI7sw3YY4QIBSgxSUqSlF1+Pd5eiY1cDke5V9hHuX15FeySNTD9P7qA/6VL+babpL97GYvhRHmBMqU=
-Received: from DM6PR03CA0063.namprd03.prod.outlook.com (2603:10b6:5:100::40)
- by DM6PR12MB4236.namprd12.prod.outlook.com (2603:10b6:5:212::14) with
+ bh=mbquW0u7F6Hz0TiycveTfpo6aDB5IihUx1Xeb1bqPRY=;
+ b=tRtG6m0z7hwicmzLVM4rRsT2ua9xPiSPydzmLcfbcjHWIokY4hxWALT8WI5PeIdA5kOtvG43Rye99f4dq0hYecK5wJTsBKIK9kmENjdghrpYnx+5Ezhj4VD8zgICcviHUMz1DifbBoXhU8Xqu2rEcjWpf3t0i61suZxNiYtyIss=
+Received: from DM5PR18CA0096.namprd18.prod.outlook.com (2603:10b6:3:3::34) by
+ MWHPR1201MB2542.namprd12.prod.outlook.com (2603:10b6:300:e8::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Tue, 8 Feb
- 2022 03:20:31 +0000
-Received: from DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:100:cafe::73) by DM6PR03CA0063.outlook.office365.com
- (2603:10b6:5:100::40) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11 via Frontend
- Transport; Tue, 8 Feb 2022 03:20:31 +0000
+ 2022 03:20:36 +0000
+Received: from DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:3:cafe::23) by DM5PR18CA0096.outlook.office365.com
+ (2603:10b6:3:3::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.19 via Frontend
+ Transport; Tue, 8 Feb 2022 03:20:35 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT057.mail.protection.outlook.com (10.13.172.252) with Microsoft SMTP
+ DM6NAM11FT037.mail.protection.outlook.com (10.13.172.122) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4951.12 via Frontend Transport; Tue, 8 Feb 2022 03:20:31 +0000
+ 15.20.4951.12 via Frontend Transport; Tue, 8 Feb 2022 03:20:35 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 7 Feb
- 2022 21:20:29 -0600
+ 2022 21:20:33 -0600
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/7] drm/amd/pm: fulfill the support for DriverSmuConfig table
-Date: Tue, 8 Feb 2022 11:20:04 +0800
-Message-ID: <20220208032009.763982-2-evan.quan@amd.com>
+Subject: [PATCH 3/7] drm/amd/pm: correct the default DriverSmuConfig table
+ settings
+Date: Tue, 8 Feb 2022 11:20:05 +0800
+Message-ID: <20220208032009.763982-3-evan.quan@amd.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20220208032009.763982-1-evan.quan@amd.com>
 References: <20220208032009.763982-1-evan.quan@amd.com>
@@ -68,28 +69,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ff1323d1-a44a-413a-566d-08d9eab1f69c
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4236:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4236139F8674EA01A34FC172E42D9@DM6PR12MB4236.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
+X-MS-Office365-Filtering-Correlation-Id: 24f682ae-cc3a-4831-d5aa-08d9eab1f8f6
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB2542:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB2542A6BEEAB8006FD68108ACE42D9@MWHPR1201MB2542.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:751;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Y2EM0CBt6l4f2v7s4MQJf+ebQbEvxZSZgIbyVtUDIGdcNt6SVEQY+jO/X77DSL6WrDDl/W39yP33thANZgDKycf189ehSjxAJw1kLaWAcNTssPOwXknLCRYayH/9dRDd/Mr+6XsWpQy3JSfL3A+I/jKXLZks/O/sd7sNIYjvGUNWWD+00CyYfHYtKwl6KrqmRvRNfKxcxNS9BocXyp/SDXcoS2ogUFtMZElVCLWeLB2eWZ7p+or7v/2kaNyOz5D6WHN9z/xlKwSo+SkJwcL4YlODsxNqEZ4j2z6r3RyVaYFv8oP3A25rxfiCE+P6IwecZ0VjeAh8QanTRoMv8OXAsESoYir569fQI79ebQRCHqo0qIa5Sp0Bx/uVzLErb50B2S7/TI5/c8RrMPGCoSXCFiXBceVrw2mzWZZ2Wq/YhBnxK3ZgggXahMiUDRS0+59DqI4i80RLHWzR08YSxXT2lmkBmi79mo6fBbVwdF3YTOBao7TZC3zscjgZCQLnxTK9CFSl9lo4MF37IYw06TCG7ZI9qG4chl9HPvZ2KG7t5codvMO5bP0izXs78r0m0HOj1BHIq5sdHghUd40bxqnirGECsG8ZO38cJcORSw/8+SGMj2aCZ3QFw5rwROgA4ozufcA+JOk9s1W0cIdjqNpZ0MXC/9zRf9EdVjg8aaLk7sLLS71UVw5PzGy7pkbj+VhRfLKAil0+7fu8UwyZ374YFw==
+X-Microsoft-Antispam-Message-Info: HBnbgYEzZKiMKTD2esZ40HGDs3bubwVeZd7V6LhHOw1EZQiZGnTlpmVL+xXy5Od/a4j3QZq19b4+6I52DAeE5h82gomyal40hyljOFX9AHXc71lBzFkdVQjMH4rmryOQXK0XV4AnY2cvdmOLrIrewsoO8Va4Qn2LkZM3GNqXtFoK4nUTmqQHDQYe/L2EjBTfb+wwwjFdbtsL+ofIe1OUYd+JCpioT1JjkFf03tUrtaYkOFUYBP+SSHDdXTxFkPZUqSJlYGhzNKr/Eg5Y+yEIwvHGKKX5OILZuvCa9UDKTajaNTC+TBPN0CE2A1ViWjbTO7SQYFAaXy/VWUpmx1qIkM+5EwMxRUBlL6zm5T2Q9Gz1qr/fy5TYt+6v6D3T+yn4spYuPjJ8Cb9Tbgk0CN3iTmMr1rm/WYnM9CjrulT+8lu9oq1n3L3V834JePvsyhDGXO2uqU9ucogSRtdf6JHXlkCy5+5qdlGFvetJirSrfGGQgZwEs75tFdZrIE2gh3/ATHh+fpJfGRc+N+SZ9lEAjfeO4uKzusUSe++A5B24acniyujVIEv0+ADU7jkd//e7kgryptbTkSOf4fTz+Llkx2VjRojaQgv0grr9dI4jr43iFx4T3faAzc5VCKMeSvmR5ZGsGziGwjmRtZuwiJBU9hi1cArMTamzRmTlgQByR9NgxL0hTo7zKbB0SB8piP4JMdpCLGAskrUcHavZFkbt8w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(70206006)(2906002)(6666004)(36756003)(6916009)(4326008)(316002)(70586007)(54906003)(356005)(81166007)(508600001)(7696005)(82310400004)(426003)(336012)(26005)(86362001)(44832011)(36860700001)(8936002)(5660300002)(186003)(47076005)(2616005)(8676002)(83380400001)(40460700003)(1076003)(16526019)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(508600001)(4326008)(8676002)(81166007)(8936002)(356005)(5660300002)(70206006)(70586007)(2906002)(6916009)(316002)(44832011)(86362001)(54906003)(336012)(47076005)(26005)(36756003)(2616005)(426003)(1076003)(82310400004)(6666004)(7696005)(36860700001)(83380400001)(16526019)(186003)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2022 03:20:31.6250 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff1323d1-a44a-413a-566d-08d9eab1f69c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2022 03:20:35.5579 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24f682ae-cc3a-4831-d5aa-08d9eab1f8f6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4236
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB2542
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,109 +106,122 @@ Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable the support for DriverSmuConfig table on Navi1x and
-Sienna_Cichlid.
+For Some ASICs, with the PMFW default settings, we may see the
+power consumption reported via metrics table is "Very Erratic".
+With the socket power alpha filter set as 10/100ms, we can correct
+that issue.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
-Change-Id: Ie510f8b06b7a4910b1574b6e9affa875805ef868
+Change-Id: Ia352579e1cc7a531cb1de5c835fe5bf132d5dd20
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h       |  1 +
- drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c     |  9 +++++++++
- .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 13 ++++++++++++-
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c      |  2 ++
- 4 files changed, 24 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       | 14 ++++++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 18 ++++++++++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 10 ++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |  2 ++
+ 4 files changed, 44 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index ef44c8c3d616..d3424cc586aa 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -293,6 +293,18 @@ struct amdgpu_smu_i2c_bus {
+ 	struct mutex mutex;
+ };
+ 
++struct config_table_setting
++{
++	uint16_t gfxclk_average_tau;
++	uint16_t socclk_average_tau;
++	uint16_t uclk_average_tau;
++	uint16_t gfx_activity_average_tau;
++	uint16_t mem_activity_average_tau;
++	uint16_t socket_power_average_tau;
++	uint16_t apu_socket_power_average_tau;
++	uint16_t fclk_average_tau;
++};
++
+ struct amdgpu_pm {
+ 	struct mutex		mutex;
+ 	u32                     current_sclk;
+@@ -341,6 +353,8 @@ struct amdgpu_pm {
+ 
+ 	struct mutex            stable_pstate_ctx_lock;
+ 	struct amdgpu_ctx       *stable_pstate_ctx;
++
++	struct config_table_setting config_table;
+ };
+ 
+ int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors sensor,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index c6a42ac8ba78..9e1ea9d54f50 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -601,6 +601,18 @@ static int smu_set_default_dpm_table(struct smu_context *smu)
+ 	return ret;
+ }
+ 
++static int smu_apply_default_config_table_settings(struct smu_context *smu)
++{
++	struct amdgpu_device *adev = smu->adev;
++	int ret = 0;
++
++	ret = smu_get_default_config_table_settings(smu,
++						    &adev->pm.config_table);
++	if (ret)
++		return ret;
++
++	return smu_set_config_table(smu, &adev->pm.config_table);
++}
+ 
+ static int smu_late_init(void *handle)
+ {
+@@ -655,6 +667,12 @@ static int smu_late_init(void *handle)
+ 			smu->smu_dpm.dpm_level,
+ 			AMD_PP_TASK_COMPLETE_INIT);
+ 
++	ret = smu_apply_default_config_table_settings(smu);
++	if (ret && (ret != -EOPNOTSUPP)) {
++		dev_err(adev->dev, "Failed to apply default DriverSmuConfig settings!\n");
++		return ret;
++	}
++
+ 	smu_restore_dpm_user_profile(smu);
+ 
+ 	return 0;
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index fd38f628da3f..51a32ac39990 100644
+index 51a32ac39990..f0894676b20e 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
 +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -337,6 +337,7 @@ struct smu_table_context
- 	struct smu_bios_boot_up_values	boot_values;
- 	void                            *driver_pptable;
- 	void                            *ecc_table;
-+	void				*driver_smu_config_table;
- 	struct smu_table		tables[SMU_TABLE_COUNT];
- 	/*
- 	 * The driver table is just a staging buffer for
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 467477974962..4aff185f0cea 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -510,6 +510,8 @@ static int navi10_tables_init(struct smu_context *smu)
- 	SMU_TABLE_INIT(tables, SMU_TABLE_ACTIVITY_MONITOR_COEFF,
- 		       sizeof(DpmActivityMonitorCoeffInt_t), PAGE_SIZE,
- 		       AMDGPU_GEM_DOMAIN_VRAM);
-+	SMU_TABLE_INIT(tables, SMU_TABLE_DRIVER_SMU_CONFIG, sizeof(DriverSmuConfig_t),
-+		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
- 
- 	smu_table->metrics_table = kzalloc(sizeof(SmuMetrics_NV1X_t),
- 					   GFP_KERNEL);
-@@ -526,8 +528,15 @@ static int navi10_tables_init(struct smu_context *smu)
- 	if (!smu_table->watermarks_table)
- 		goto err2_out;
- 
-+	smu_table->driver_smu_config_table =
-+		kzalloc(tables[SMU_TABLE_DRIVER_SMU_CONFIG].size, GFP_KERNEL);
-+	if (!smu_table->driver_smu_config_table)
-+		goto err3_out;
+@@ -1275,6 +1275,16 @@ struct pptable_funcs {
+ 	 * @stb_collect_info: Collects Smart Trace Buffers data.
+ 	 */
+ 	int (*stb_collect_info)(struct smu_context *smu, void *buf, uint32_t size);
 +
- 	return 0;
- 
-+err3_out:
-+	kfree(smu_table->watermarks_table);
- err2_out:
- 	kfree(smu_table->gpu_metrics_table);
- err1_out:
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index c335f398ba4c..978c0ebe9d19 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -475,6 +475,8 @@ static int sienna_cichlid_tables_init(struct smu_context *smu)
- 	               AMDGPU_GEM_DOMAIN_VRAM);
- 	SMU_TABLE_INIT(tables, SMU_TABLE_ECCINFO, sizeof(EccInfoTable_t),
- 			PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
-+	SMU_TABLE_INIT(tables, SMU_TABLE_DRIVER_SMU_CONFIG, sizeof(DriverSmuConfigExternal_t),
-+		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
- 
- 	smu_table->metrics_table = kzalloc(sizeof(SmuMetricsExternal_t), GFP_KERNEL);
- 	if (!smu_table->metrics_table)
-@@ -492,10 +494,19 @@ static int sienna_cichlid_tables_init(struct smu_context *smu)
- 
- 	smu_table->ecc_table = kzalloc(tables[SMU_TABLE_ECCINFO].size, GFP_KERNEL);
- 	if (!smu_table->ecc_table)
--		return -ENOMEM;
-+		goto err3_out;
++	/**
++	 * @get_default_config_table_settings: Get the ASIC default DriverSmuConfig table settings.
++	 */
++	int (*get_default_config_table_settings)(struct smu_context *smu, struct config_table_setting *table);
 +
-+	smu_table->driver_smu_config_table =
-+		kzalloc(tables[SMU_TABLE_DRIVER_SMU_CONFIG].size, GFP_KERNEL);
-+	if (!smu_table->driver_smu_config_table)
-+		goto err4_out;
++	/**
++	 * @set_config_table: Apply the input DriverSmuConfig table settings.
++	 */
++	int (*set_config_table)(struct smu_context *smu, struct config_table_setting *table);
+ };
  
- 	return 0;
+ typedef enum {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+index 48e80ec9b258..2d18b39d7c2a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+@@ -92,6 +92,8 @@
+ #define smu_gpo_control(smu, enablement)				smu_ppt_funcs(gpo_control, 0, smu, enablement)
+ #define smu_set_fine_grain_gfx_freq_parameters(smu)					smu_ppt_funcs(set_fine_grain_gfx_freq_parameters, 0, smu)
+ #define smu_bump_power_profile_mode(smu, param, param_size)		smu_ppt_funcs(set_power_profile_mode, -EOPNOTSUPP, smu, param, param_size)
++#define smu_get_default_config_table_settings(smu, config_table)	smu_ppt_funcs(get_default_config_table_settings, -EOPNOTSUPP, smu, config_table)
++#define smu_set_config_table(smu, config_table)				smu_ppt_funcs(set_config_table, -EOPNOTSUPP, smu, config_table)
  
-+err4_out:
-+	kfree(smu_table->ecc_table);
-+err3_out:
-+	kfree(smu_table->watermarks_table);
- err2_out:
- 	kfree(smu_table->gpu_metrics_table);
- err1_out:
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index d71155a66f97..b87f550af26b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -473,9 +473,11 @@ int smu_v11_0_fini_smc_tables(struct smu_context *smu)
- 	kfree(smu_table->hardcode_pptable);
- 	smu_table->hardcode_pptable = NULL;
- 
-+	kfree(smu_table->driver_smu_config_table);
- 	kfree(smu_table->ecc_table);
- 	kfree(smu_table->metrics_table);
- 	kfree(smu_table->watermarks_table);
-+	smu_table->driver_smu_config_table = NULL;
- 	smu_table->ecc_table = NULL;
- 	smu_table->metrics_table = NULL;
- 	smu_table->watermarks_table = NULL;
+ #endif
+ #endif
 -- 
 2.29.0
 
