@@ -4,117 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0C32C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 14:46:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E992CC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 14:51:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A19810E60E;
-	Tue,  8 Feb 2022 14:46:52 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2087.outbound.protection.outlook.com [40.107.92.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08B0B895C4
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 14:46:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F53C10E331;
+	Tue,  8 Feb 2022 14:51:40 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3DD310E331
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 14:51:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Pu21HlB3K5x/AyxG10qbDHQzfIIgQ4YxAOZof/Vd/N5j7NjtzU2X9x+eRmN/JbsdKOxL6buQScuTi+8N11oVTF7xY35xcywKjDOlzFBRb+NtvUjAHDwKrl8+uTQ6k/petjUpBWDYWR8xwtsHX6Fze3vmedEj7eOTEv6EvRFp931VPqYuU/Ffg7BakKbXVLea4Xp/k8+jGc7KVqqs/T4gXB6BxkkVTSxCMysIuJituiowiC00+EcLlvnUqDtgGjXZR7+2Ukn6YeVo+ZmQRvCb8gY0NXjq0YE3idNESbEwfizaVd7i7tzH1qNyUCvUrlA7kGEcbWnRPFP1QT/l1iSu9w==
+ b=JXTROu5ZTHJ2mhLZWIALeV547lks4Iyga8NE6ff4s3cqxiPLUKiHabRBDLWRH4LPOojoNv6RZEIpE+tbNzUJHYS495IQBk3RisBxf1tCsESQdfFe/GyfEFQDp9VnG9KPjsP1lmW6qK8PyBFd8wp2fXN4oTXiGo0o0SDBd6kB8iidSZzLnJgBJI1AcZgseFw6dDesASEL8myaDausT2lXqjbWitIyNY48sx3TspK2q0d20C852Fvo4gAcqkk3EqGjA8MQwZO2EZCQC5rvFAQx4/OW/KlCUDyymaMtUIbuZT9su0m/hQFgA4QImNzzkuFVGeszF2hxkvGfzZn+5ERLqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X5q1+UsTisEwIDmNbqWRnlyLmQDZe+1xNqBcyjaUAEQ=;
- b=hXDqpqD5pZAcdKTM9by3s+joM5zfe3seCn4TI88VS+5YU/NkCBYMruWJ/NwBtMNWDRmDlNWc3YECFLqCSmR9NNXIhlc5Y7jmF9ZGliEHiLexzVjMrs+4yY3Eo/HexYUONvUaELjczvl1QkxMcsvpaveppEJes8+fLv1ghTKELxACCR20Gxf00w7W4+tJ6Y0nIacaoHwFxnyqiwOaIfgpUid7FqKJ/9VhavzBBl6ij7+YoRVk6bcmofEjKifLv8UWUnTIrjlEzdqXxEx2HN88geEeXvZjHIWIRridhE6IejgIqv4ye8FPJPTPTtMoqkLu+dFXcEwPA9euMZf4MM5Krg==
+ bh=NCMH9/II7VbWDveSoB7oLX9E5TwCk/JaPTKCibnL8g4=;
+ b=myqRSHI1T8le66fIqfHP/20nJNaAf6aCSPUpZC7FrQS4D0D9p4D24lVnZ8QofZJQI4eEKJOuk383Bb3Rxojbyd8DeISJi2xyc+ub84bnwwt3uI2mPGX9/jPFOuDn2i8LD7pazvhZ5obEKe+W6MP75MqadMejp0Fcl7AQZs96BjK922lHy136OwqJSLydXAbKqbEbU5AigBkiMa4TAiMbrX/f/9VjzCknk4EbvbJTTreEBKZ3thMG4bUIq8fKpViyhajpospSkn4woZI6exDAJuV/aKFvxhlZn+8A/bMwv2Wd3L+0axm/ZrRRjraTmTA4Im4GlbLvYgiKnWJKMj5LoQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X5q1+UsTisEwIDmNbqWRnlyLmQDZe+1xNqBcyjaUAEQ=;
- b=5GHvL5MHkxx0y+EZJqtjfVpq8LAGjy2H5UYZswkJw36DVzqkbuFOjeGA1AOC0iuuRXHE8zNzGg8Ziy0Q9N5ojM3GBUZ2LdxQ7jeTtjEGX56uNXSLnTd4At5gnSCbZHWZiEjFMUGzg0vHLvaXA6K2HV5mg2Xc8NLdEUoqHZtoqT8=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BY5PR12MB3777.namprd12.prod.outlook.com (2603:10b6:a03:1a9::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Tue, 8 Feb
- 2022 14:46:48 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::99d4:4d4f:653f:61be]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::99d4:4d4f:653f:61be%5]) with mapi id 15.20.4951.019; Tue, 8 Feb 2022
- 14:46:47 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 7/7] drm/amd/pm: fix some OEM SKU specific stability issues
-Thread-Topic: [PATCH 7/7] drm/amd/pm: fix some OEM SKU specific stability
- issues
-Thread-Index: AQHYHJrdDeDP1F9HZUK2y5V9AAv+H6yJvAz+
-Date: Tue, 8 Feb 2022 14:46:47 +0000
-Message-ID: <BL1PR12MB5144AB04704A7D7F4D5E95CDF72D9@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20220208032009.763982-1-evan.quan@amd.com>
- <20220208032009.763982-7-evan.quan@amd.com>
-In-Reply-To: <20220208032009.763982-7-evan.quan@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-02-08T14:46:47.035Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: 6eb9c131-b14b-0370-2a1b-0b9636bf3b8d
-authentication-results: dkim=none (message not signed)
+ bh=NCMH9/II7VbWDveSoB7oLX9E5TwCk/JaPTKCibnL8g4=;
+ b=RW+2dEMJrwUUuLSNwokc01+Kophya47fQkwi72qipOJ7VwbPS+xfzZd70Hb0Jqk9dWRTUDsCvrRreoB3wnJXftaksqcaHIHt8nbO+dWr3IVTA4P8onRv2DDxAh3YeK8SP4KU9+KpWOMd1k7AjbHRQWrrs2xqhRyJIk4Rflsumxo=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 281cc0c8-8050-4c65-472e-08d9eb11d564
-x-ms-traffictypediagnostic: BY5PR12MB3777:EE_
-x-microsoft-antispam-prvs: <BY5PR12MB3777ABB9C1C5A31154522C60F72D9@BY5PR12MB3777.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:546;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 7t1xHg7ZeRgkuwa9Q4U3XOzRAB6nYeGNp5YEh/Cf4H9OnOiApXalMoiHGeihvpCCBD+8ch3cpTuo6V/kKWPcdNpq/Vvw13aG9XsfDp3W+6vDRFK7qyahaPxAUXlRX1fO62ufT172M7II5MW9/XI8JYets2QZwDkXE9lId8BSfdMgVCLHFPE69hpBM0BxBTdFDKDbJRb/7A9rlz8YJjIsShgFRkN1YNO/GfSgwb4JZlFiiHouxBucHAgZ8uLZnIhXFp/4hi/3wsFvmGv10nCcnuJrHo4UyVYgOqiC679MwCY2Jk5zay4jCUGl80ViuI0nEXRrA4VlpShBr3xKsV3pXRsh71Aa9JE1a2FkYngQ3Diu0VA2DX1CziHcZSLtwFIXLST66Y5ZlY1WnECRFVE0zVFsyKoLXFxDpBF5ffaF9KHDZClBLpfGf4QMhI23+DqvHTSMlN06UaGxugDfGnIJ0+XVbTnTizk2j1MzAJgWT959IIe36g+GBgBARjVdMyoJ6JwOkccrtxbZuHgTJxcAdhRqe9tW7nNGo6JJ0bczkMxzOq4LRj8GKxBAmjP9cJWpvpPTHbmSMcB7ORoNGqtJhU10y89dEhjMrO9SRUPpJvjkNd2n28o/UU2mq9qqe1ktQ5jHQ8tFlCpaAVq1MVXFYhvVGGu047kmvYn2u6nOGjFJnuBonGnO7rGr9h5pCiwCFMO2end8vyjSfR7KuQEDFQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(122000001)(66946007)(110136005)(2906002)(5660300002)(316002)(76116006)(53546011)(66476007)(8676002)(38070700005)(52536014)(33656002)(6506007)(7696005)(71200400001)(38100700002)(19627405001)(9686003)(66556008)(55016003)(86362001)(66446008)(508600001)(26005)(8936002)(186003)(64756008)(83380400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mi0ttEbvgpOrUp1ejUxfufmqNvHA8NmaiffMKZ3A5e9WtwVAVTPc2imCMlrJ?=
- =?us-ascii?Q?UK/RBko5GKp9881/wahrkQulZIZ6wPc+MZnU0Z/l62atAIB+1eP9ZT5ON1wz?=
- =?us-ascii?Q?FNtgz+qS5mo7DQh1sz/lyyt1XIYKgvXJ7Y7wxcvKZEqPIe303dBAwZz2HGma?=
- =?us-ascii?Q?7C6w17/f0uuiWgKCQfvYG9sfUXnyx4XOeHhk0In3y1anNtcp0VioHTABpM4w?=
- =?us-ascii?Q?taXnitMhc7z1hjOP98f4/OH3blei1jUO1RcSPfbnuTpumhlBIUZ3NOfa2lfg?=
- =?us-ascii?Q?+4SCwWlYCA+FXRWrJ9eOLI81W1e45ZZc1Nka0qtQFljIg3GD/osb1lC2Az/J?=
- =?us-ascii?Q?s0GvgmLjc/J3idxcDABK5yAB525o47TjWEzTkXQnp1kTfmJdu6zt/xu+kd4c?=
- =?us-ascii?Q?wFymK4cBzRoTwodjOb20KSbXs+bxo0pXiciuX8O1ysxrf7sql2iC8sCbo3gn?=
- =?us-ascii?Q?9VlwC9mh+CEJ8XpWImfnTwZZk8zQ4m/+chJPKNdhTnfzyxg1gxU8fEnmmBbm?=
- =?us-ascii?Q?gRB87vO9ZfKdyu3S8rQJG4B4R1y/B62y6wIa7vEJqWkImZE8WhYAU2qmzihZ?=
- =?us-ascii?Q?u85kyud5c/i3psMqy8uCPfn9iE0gs8Zt5/DND58IuHoYnU1UwNM7YclW50+j?=
- =?us-ascii?Q?bB+FeuCX8/rfTIG81MtPlK4VVpNDikg22iEfkKyVSxWFAujd5Q1ZDxWsnB2E?=
- =?us-ascii?Q?NaWeGDH/xLVdx4CDGXNchoATm2dUiJ+7S8kfge0EE7+U/1VmCNpCLJkjvgUk?=
- =?us-ascii?Q?WiuC9SbpM/wpqPThg1MtovF45zvkIlBSht42S1a7Uy+Bu/oX713jI2veRc5N?=
- =?us-ascii?Q?hlo+wcbLR6hFhGUpLI7mkV60P8Q95+FMxIDVHZ03LjVd2oW7n3AyDvMEkjIJ?=
- =?us-ascii?Q?/CJk2v657XBwsT7rMcrsONON3EHxiONaH0HQqy4Grnq7OlHMqC/ZfSYXNWCN?=
- =?us-ascii?Q?5mRq6eDMwzCX3OPc5h6vbsGvo2kriahYdeZVsSAkxKJkhGPeQJmtSjp2pHHj?=
- =?us-ascii?Q?fvz9MFoJtFNNcwJfbm7/kM1J6Snt4p6y7JnhRULPYqwmE6Txvgun4e+B8u6m?=
- =?us-ascii?Q?iyi9v/S6dpHJ7duR3lOmnx3dL5RVaFK0fkAK+UAl3GrBnPKQWEB4jrTB8DfA?=
- =?us-ascii?Q?G05UYD1ZnNu//e9LOi7BB18s6s2l4dEu1XOUbQ/Bms1a7HR7DEju9p5cj9pn?=
- =?us-ascii?Q?Ge5/E1S6EQ+Z7IRIctIVFpUHFshm/yejmG3z+H7REpgfHlWzySbbSnRbqsVr?=
- =?us-ascii?Q?7f+6PfAIFgOjw7dzwcWHHt9gGzo3vqKptPFt708ZPxM02Ex+Tvs6gvphHa1X?=
- =?us-ascii?Q?wttQU6W/oDr+DpVNgs5FoNDTV0DwJvEsGirlPJB2Ay3IdO0pMcf5lwVW1KgU?=
- =?us-ascii?Q?inQ8LCJmECif7QFOtbkyrPcLqMURhJgnyW1+I93hEBmcxm6mray+qoxz0TYc?=
- =?us-ascii?Q?rHmtfIbKWQdi7Wjz5YHhL4i6zBLV26aNwX63UItfqB4W2IN8+Gb5wgRIkxJ6?=
- =?us-ascii?Q?on2blC31DEJl5Kd2H1WLmM3g/ALXPrbKzpgOzA7tuTZzf8liUvn/MpAj43Lz?=
- =?us-ascii?Q?hYh89FZ1VJfoOwpmXAI7rd7KYj2S7y3BaU87kTlZK3lJcDxMp11DrbujdiBA?=
- =?us-ascii?Q?wf/cT/86P7wdbcsRpdLsM2Y=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144AB04704A7D7F4D5E95CDF72D9BL1PR12MB5144namp_"
+Received: from DM4PR12MB5040.namprd12.prod.outlook.com (2603:10b6:5:38b::19)
+ by CY4PR12MB1320.namprd12.prod.outlook.com (2603:10b6:903:40::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Tue, 8 Feb
+ 2022 14:51:37 +0000
+Received: from DM4PR12MB5040.namprd12.prod.outlook.com
+ ([fe80::84cf:cad7:192:8089]) by DM4PR12MB5040.namprd12.prod.outlook.com
+ ([fe80::84cf:cad7:192:8089%8]) with mapi id 15.20.4951.018; Tue, 8 Feb 2022
+ 14:51:37 +0000
+Message-ID: <3bc4fdcd-68c6-818f-2bb8-7672aa8b18d5@amd.com>
+Date: Tue, 8 Feb 2022 15:51:30 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH 1/2] drm/amdgpu: add debugfs for reset registers list
+Content-Language: en-US
+From: "Sharma, Shashank" <shashank.sharma@amd.com>
+To: "Somalapuram, Amaranath" <asomalap@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20220208081647.3025-1-Amaranath.Somalapuram@amd.com>
+ <385688f4-2165-ba58-8928-5774a44044e7@amd.com>
+ <e700ecfd-1935-7545-f962-b6decd4377c5@amd.com>
+ <52c555ab-ec80-bcfc-5811-270b3b23c5c8@amd.com>
+ <e92cd376-2cf3-f7ed-3dee-a39f0f5c7cbc@amd.com>
+ <48646543-ac47-bfc1-ee09-54c22fd5ac6c@amd.com>
+In-Reply-To: <48646543-ac47-bfc1-ee09-54c22fd5ac6c@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM5PR0601CA0045.eurprd06.prod.outlook.com
+ (2603:10a6:203:68::31) To DM4PR12MB5040.namprd12.prod.outlook.com
+ (2603:10b6:5:38b::19)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fbeb6743-66f9-4f9f-982e-08d9eb1281d9
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1320:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1320ABACF96595F101F8B03DF22D9@CY4PR12MB1320.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: lHFhaD9w0legqdWSWheOjMjIK5IJ1zvipSqP4ff4J+mX+Fd/N9314fyNSScHLIWQRFB2t26E8UVf6fJ87/1C2wlRLabmssgD3luzWTK3CuBKU/6A+bFgWs8ZqefJq7Qf5X78j8WmNDDMqOauYEW1eZrX/33apYPav/vTRA2kCvZ047ViYBlQCJEwdO4z1wL22uh62YY7KAwJ3+mTfBauAKq1PZ7gcbIUTsvOCR35Aa5HiepzpUQoNq+hg9wRVM7O5iEGSTcDlecRyGWKPKx8lIeV7F8dT4Iz9LACJ4d8Rmd2XZxadETa8K55XdRtRoHRklfxB0RHZikcssXmNkCpqFkQlux6RSg64AOWV3LZqXWU4Zx4Q00ZsaJ0GsTeHV0X73i486Rq0HxszcTkzVd8Kk9nrirENyOHaLY8uacK990e34sYH8WLeyZAkvcxEmcdaAeaJbvVvnUa2m9TX8YH9n9fpz0sXGt1e309IUHPJYK551y8SyE604GOWyXCHrC8SCQqTIjo15pjtsyuhd/1ZKTpBfIHeqFEYeF/uzR6y6vArcxhxILWfunM4mBio0h+O82dhCFMANK1n58na3cy5R8f1sQmKD0uaPS4A66vQql2WfQO6dYbSyyZhtuVIuu0QfTCsxAt85ncEPWDX/mbfIWlZxO152eKFwA1XRwdDQD1TryGqRH05++hyUizSQRwrxbc/+XiaWCi1rcD9ll9GvYJZGgLyPyMklfVgxBSZKKATyz2uP6MRAqu1bl7z3KP
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5040.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(508600001)(86362001)(31696002)(8936002)(6666004)(6486002)(66574015)(6512007)(6506007)(8676002)(66556008)(66476007)(83380400001)(4326008)(53546011)(31686004)(5660300002)(316002)(36756003)(110136005)(2616005)(186003)(26005)(66946007)(2906002)(38100700002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OTBMRXRaVkZLRksxRFpvUStPNWFQMXRTVytXbHNwaUsvVDVaU3dpZjhjNGF0?=
+ =?utf-8?B?dHcvQ1RjK3pJaUJKZlNRaitRa0NYc1ZGRWc2blNUcXd6cUdEaWZmZmRTYUdY?=
+ =?utf-8?B?MWdVOWgzanJpejFkZGgrcEZ3SXExVjJTYTFIeDhRdXlobHFQR3dLdXlXQnNL?=
+ =?utf-8?B?RE1KY3lxeFR0VU1aRi9jalpnYzR4TDM5QUp2K2x5SHRtS2tlbjhlVU0xb1Js?=
+ =?utf-8?B?amFNRTFjcDVrR2JtaVg2bC9jMnFLOGZyNWFsNFhPVi9HODN0VmQ0UStpZm1R?=
+ =?utf-8?B?NmFtOFFGL3FIWGNRT1FpR2FxSTZmUWEwMmM1NmNvc1gvcnZBZ1ovbHFJazI5?=
+ =?utf-8?B?eFVkU2Z5bUZSTXBCQit1aVJDaGhEbjlzRjRtNU5DREFwRjFDY0NjK3htQlNy?=
+ =?utf-8?B?c0xnTFdjb05lbDBsZDBFakFLVTd0Ymg0cG5nQStJMno3L1JwMmdFeUh5NEVQ?=
+ =?utf-8?B?ZER5b1htK0dVVjZkNS9BdzhXV0R6ajJ6Zy85a0tRbWFrd2R1TnVFRTRMVEQ0?=
+ =?utf-8?B?d3pLOTRZdjhqVjgyZ1pnSEtYTEVuU1JHRUxqekpHeUlWOFB0VVBwNTJNdWY2?=
+ =?utf-8?B?RFcra2JRdC9aN0xkbkFWcHI3d0lucDFCd2dNUHR4b3FmdTZma2hFVnJvZE5p?=
+ =?utf-8?B?SWRoS1lHOHJDY3NOdndyanA1cjZJWC90aGNRUnZVc3ZBVHF6SDhKNWxMK05o?=
+ =?utf-8?B?NTZreTJwamhkQy94UHRDbEo1bWx4cUFlRkN6WU9meWo2cjRXRmIyYnFCWmZP?=
+ =?utf-8?B?OXF4N1ZnWEgrUXFMZ3V2bWoyTWx4eDNVRDIrd2xpUVVNYnBxcUxKQnBEcjhK?=
+ =?utf-8?B?NmlVdDlXbnh0WnJIK2NuMXdiNkxpbXgvWTJaN3FOaWYrdTJ5Rmc3SmdZSnYx?=
+ =?utf-8?B?Q3VYdE92VGJBVFM3Tk9aRmdiWG5sTFVXakgwS2J3ZGpnUCtySXJVOVlIQ2R4?=
+ =?utf-8?B?eUxZcWJjZW93dDRvN3QwQm5vSGFEUk10L0QvS1Y2RG42ckRmN0NHbU5NZ0ZI?=
+ =?utf-8?B?c2kwWXlxSCs3c3BRcnZvdkRnNWUrUjhYRG9heWViTmRuZlA3MGwxc2cyN3hI?=
+ =?utf-8?B?YmcvQ1JhbFYycmc1RG5HSFJaYmJnWHA5dVNqd3N0T2RBOXhpWmMrYmVFL1BQ?=
+ =?utf-8?B?YUtHUHE1U1hyd1hnNkN2RnV0Uk1WTmxrM1VwM005VW9JY3BadlhmYjVjdUtl?=
+ =?utf-8?B?Q3Byd29uRWpEejV3YWhEV0JHdG03VnQ3TEVsNkNzS1VWeEdjdnRsRW96NnpX?=
+ =?utf-8?B?Tzg1TWZWWmY4MnpTaHJBbkpzSVlYSkdwSUp3cDJZd2h5anNNNmxDeGFmVHpL?=
+ =?utf-8?B?NlEyckpKUmlVcEpGNm05Y3djS2lhMlIxdXBQR0phMzhNeEpGTFhTZGJMUHlJ?=
+ =?utf-8?B?N04xeUpLRkM3UTJnaEh2Tlg5aFhsUERUZTYrV2VqOG5sU29nc0VNQ3ZaTHIw?=
+ =?utf-8?B?YjlONVlQYm40Q0g3S2FmaGRPSzAyQ29ubjAzQ1ZXRW1XdGV4b2RuM3pFUTVI?=
+ =?utf-8?B?ZEE1R1lPRXV6ekkrZThMd3lCazVkcUhGM3hab0VYTzRVc2k4cXllMEdIb21S?=
+ =?utf-8?B?bERab3ZVamM2RVE1dFBUR2Z6d0RqNCtUaVdnQW1zdFdvZFczeVdaVjZlSm5Y?=
+ =?utf-8?B?REpRbGZSVFJZT2t3OXpCdTk5WVNMRE5ITU5sWkRubGJQM3RmRlpjRFJTNVdN?=
+ =?utf-8?B?MFQvMlZEK3VwUUhJMXBXcnZzSTJ4NnJwK09MQzhia0E0NnNPWXpkbHlyRDBp?=
+ =?utf-8?B?TmRCYmltVkZSMGJDNUJ3NmRvVlAydkZ6OHNmSFY4SFJPS1FScUlKdGtlMkpx?=
+ =?utf-8?B?NDNFZDYvRW0rYkpwVzFoR3htQUR4a2pyNEhsWis2NTZTWWhiNGVlQVI5OGVt?=
+ =?utf-8?B?UXZkcVBRdjNCMlFwZjh6d204UG9LOXdYbGJNVmhtZzRpbGEwdUczd1dHSHdF?=
+ =?utf-8?B?WkV6UWhqZm95cGNBVmh2eVp3dHhsMjcyZS9kTm4xNklwbEgwcWZMVVY3Z0Jj?=
+ =?utf-8?B?K0VublQwc2paUTcxbDlPYWg1M2l2Ukx4eno2SFhZYzg2a1pmQmRzamJjL0FF?=
+ =?utf-8?B?M29OQ3I5VFdHclBnMmx6cDdyMDNndmtFcTRsRUtFdkxBNUoraUFWdHFmUU1w?=
+ =?utf-8?B?THkvOUZEVytlVnpOOHZZeTZ0Q2x2RU92OWxmMmpjcWVtM3F0UzYzYnBsN0sz?=
+ =?utf-8?Q?cuYAMk2Nk82QfG3anBu4Ycs=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbeb6743-66f9-4f9f-982e-08d9eb1281d9
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5040.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 281cc0c8-8050-4c65-472e-08d9eb11d564
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Feb 2022 14:46:47.5476 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zO33L4yYySFvRQjNLQXbNrb7Cg53AJ5DWnHefaMbKofHpqi+05RYoWojqp+vyAVua2Jyv9pV9o8eCxPGw43vug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3777
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2022 14:51:37.2126 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6Nz6prZZL4+QiOJiDGPqpmPvpqZufpBchTB7OWebryYvjPL2rLF3NDjDJuA7IesRb0tRkfpB/WdOby7LkG6XMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1320
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,225 +133,251 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144AB04704A7D7F4D5E95CDF72D9BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Based on confirmation from Christian, it seems my understanding of the 
+design was not correct, and user must add a list of registers to dump.
 
-[Public]
+That resolves most of my comments automatically, @Amar, please fix a max 
+register condition in the loop, to handle the negative testing case and 
+the uint32_t stuff. With those two changes in place, feel free to use 
+for this patch:
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Quan, Evan <Evan.Quan@amd.com>
-Sent: Monday, February 7, 2022 10:20 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@a=
-md.com>
-Subject: [PATCH 7/7] drm/amd/pm: fix some OEM SKU specific stability issues
+Reviewed-by: Shashank Sharma <shashank.sharma@amd.com>
 
-Add a quirk in sienna_cichlid_ppt.c to fix some OEM SKU
-specific stability issues.
+- Shashank
 
-Signed-off-by: Evan Quan <evan.quan@amd.com>
-Change-Id: I172c6429c54253788dbf28f7acf877375f2bfc5b
----
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 32 ++++++++++++++++++-
- 1 file changed, 31 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/driv=
-ers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index a7bb5358d4a4..f964af05f376 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -428,6 +428,36 @@ static int sienna_cichlid_store_powerplay_table(struct=
- smu_context *smu)
-         return 0;
- }
-
-+static int sienna_cichlid_patch_pptable_quirk(struct smu_context *smu)
-+{
-+       struct amdgpu_device *adev =3D smu->adev;
-+       uint32_t *board_reserved;
-+       uint16_t *freq_table_gfx;
-+       uint32_t i;
-+
-+       /* Fix some OEM SKU specific stability issues */
-+       GET_PPTABLE_MEMBER(BoardReserved, &board_reserved);
-+       if ((adev->pdev->device =3D=3D 0x73DF) &&
-+           (adev->pdev->revision =3D=3D 0XC3) &&
-+           (adev->pdev->subsystem_device =3D=3D 0x16C2) &&
-+           (adev->pdev->subsystem_vendor =3D=3D 0x1043))
-+               board_reserved[0] =3D 1387;
-+
-+       GET_PPTABLE_MEMBER(FreqTableGfx, &freq_table_gfx);
-+       if ((adev->pdev->device =3D=3D 0x73DF) &&
-+           (adev->pdev->revision =3D=3D 0XC3) &&
-+           ((adev->pdev->subsystem_device =3D=3D 0x16C2) ||
-+           (adev->pdev->subsystem_device =3D=3D 0x133C)) &&
-+           (adev->pdev->subsystem_vendor =3D=3D 0x1043)) {
-+               for (i =3D 0; i < NUM_GFXCLK_DPM_LEVELS; i++) {
-+                       if (freq_table_gfx[i] > 2500)
-+                               freq_table_gfx[i] =3D 2500;
-+               }
-+       }
-+
-+       return 0;
-+}
-+
- static int sienna_cichlid_setup_pptable(struct smu_context *smu)
- {
-         int ret =3D 0;
-@@ -448,7 +478,7 @@ static int sienna_cichlid_setup_pptable(struct smu_cont=
-ext *smu)
-         if (ret)
-                 return ret;
-
--       return ret;
-+       return sienna_cichlid_patch_pptable_quirk(smu);
- }
-
- static int sienna_cichlid_tables_init(struct smu_context *smu)
---
-2.29.0
-
-
---_000_BL1PR12MB5144AB04704A7D7F4D5E95CDF72D9BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Series is:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan &lt;Evan.Q=
-uan@amd.com&gt;<br>
-<b>Sent:</b> Monday, February 7, 2022 10:20 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Quan, Evan=
- &lt;Evan.Quan@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 7/7] drm/amd/pm: fix some OEM SKU specific stability=
- issues</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Add a quirk in sienna_cichlid_ppt.c to fix some OE=
-M SKU<br>
-specific stability issues.<br>
-<br>
-Signed-off-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
-Change-Id: I172c6429c54253788dbf28f7acf877375f2bfc5b<br>
----<br>
-&nbsp;.../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c&nbsp;&nbsp; | 32 ++++++++=
-++++++++++-<br>
-&nbsp;1 file changed, 31 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/driv=
-ers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c<br>
-index a7bb5358d4a4..f964af05f376 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c<br>
-@@ -428,6 +428,36 @@ static int sienna_cichlid_store_powerplay_table(struct=
- smu_context *smu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-+static int sienna_cichlid_patch_pptable_quirk(struct smu_context *smu)<br>
-+{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D smu-&g=
-t;adev;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *board_reserved;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t *freq_table_gfx;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Fix some OEM SKU specific stabilit=
-y issues */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GET_PPTABLE_MEMBER(BoardReserved, &am=
-p;board_reserved);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((adev-&gt;pdev-&gt;device =3D=3D =
-0x73DF) &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pde=
-v-&gt;revision =3D=3D 0XC3) &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pde=
-v-&gt;subsystem_device =3D=3D 0x16C2) &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pde=
-v-&gt;subsystem_vendor =3D=3D 0x1043))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; board_reserved[0] =3D 1387;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GET_PPTABLE_MEMBER(FreqTableGfx, &amp=
-;freq_table_gfx);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((adev-&gt;pdev-&gt;device =3D=3D =
-0x73DF) &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pde=
-v-&gt;revision =3D=3D 0XC3) &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((adev-&gt;pd=
-ev-&gt;subsystem_device =3D=3D 0x16C2) ||<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pde=
-v-&gt;subsystem_device =3D=3D 0x133C)) &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pde=
-v-&gt;subsystem_vendor =3D=3D 0x1043)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; for (i =3D 0; i &lt; NUM_GFXCLK_DPM_LEVELS; i++) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (freq_table_g=
-fx[i] &gt; 2500)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; freq_table_gfx[i] =3D 2500;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-+}<br>
-+<br>
-&nbsp;static int sienna_cichlid_setup_pptable(struct smu_context *smu)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-@@ -448,7 +478,7 @@ static int sienna_cichlid_setup_pptable(struct smu_cont=
-ext *smu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sienna_cichlid_patch_pptable_q=
-uirk(smu);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int sienna_cichlid_tables_init(struct smu_context *smu)<br>
--- <br>
-2.29.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB5144AB04704A7D7F4D5E95CDF72D9BL1PR12MB5144namp_--
+On 2/8/2022 3:31 PM, Sharma, Shashank wrote:
+>  >> User only update the list of reg offsets on init, there is no
+>  >> predefined reg offset from kernel code.
+> 
+> I missed this comment in the last patch, and this makes me a bit 
+> confused. During the design phase, did we agree to have this whole list 
+> loaded from user ? which means that if user doesn't define the list at 
+> init, we will not send the trace_event().
+> 
+> Or was it kernel has a list, and user can modify if he wants to, and we 
+> will dump the values as per the register list.
+> 
+> @Christian ?
+> 
+> Regards
+> Shashank
+> On 2/8/2022 3:18 PM, Sharma, Shashank wrote:
+>>
+>>
+>> On 2/8/2022 2:39 PM, Somalapuram, Amaranath wrote:
+>>>
+>>>
+>>> On 2/8/2022 4:43 PM, Sharma, Shashank wrote:
+>>>> I thought we spoke and agreed about:
+>>>> - Not doing dynamic memory allocation during a reset call,
+>>> as there is a redesign debugfs call will happen during the 
+>>> application initialization and not during reset.
+>>>> - Not doing string operations, but just dumping register values by 
+>>>> index.
+>>> I think your referring to the second patch which happens during reset 
+>>> and no string operation in second patch.
+>>
+>> Pls see my comment in the end.
+>>
+>>>> NACK !
+>>>>
+>>>> - Shashank
+>>>>
+>>>> Amar,
+>>>> Apart from the long comment,there are a few more bugs in the patch, 
+>>>> which I have mentioned here inline. Please check them out.
+>>>>
+>>>> - Shashank
+>>>>
+>>>> On 2/8/2022 9:18 AM, Christian König wrote:
+>>>>> Am 08.02.22 um 09:16 schrieb Somalapuram Amaranath:
+>>>>>> List of register to be populated for dump collection during the 
+>>>>>> GPU reset.
+>>>>>>
+>>>>>> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+>>>>>> ---
+>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  3 ++
+>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 60 
+>>>>>> +++++++++++++++++++++
+>>>>>>   2 files changed, 63 insertions(+)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>> index b85b67a88a3d..78fa46f959c5 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>> @@ -1097,6 +1097,9 @@ struct amdgpu_device {
+>>>>>>       struct amdgpu_reset_control     *reset_cntl;
+>>>>>>       uint32_t ip_versions[HW_ID_MAX][HWIP_MAX_INSTANCE];
+>>>>>> +
+>>>>>> +    /* reset dump register */
+>>>>>> +    long            reset_dump_reg_list[128];
+>>>>>
+>>>>> I don't have time for a full review, but using long here certainly 
+>>>>> makes no sense.
+>>>>>
+>>>>> long is either 32bit or 64bit depending on the CPU architecture.
+>>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>
+>>> will change uint32_t.
+>>>>>>   };
+>>>>>>   static inline struct amdgpu_device *drm_to_adev(struct 
+>>>>>> drm_device *ddev)
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c 
+>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>> index 164d6a9e9fbb..dad268e8a81a 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>> @@ -1609,6 +1609,64 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, 
+>>>>>> NULL,
+>>>>>>   DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
+>>>>>>               amdgpu_debugfs_sclk_set, "%llu\n");
+>>>>>> +static ssize_t amdgpu_reset_dump_register_list_read(struct file *f,
+>>>>>> +                char __user *buf, size_t size, loff_t *pos)
+>>>>>> +{
+>>>>>> +    struct amdgpu_device *adev = (struct amdgpu_device 
+>>>>>> *)file_inode(f)->i_private;
+>>>>>> +    char *reg_offset;
+>>>>>> +    int i, r, len;
+>>>>>> +
+>>>>>> +    reg_offset = kmalloc(2048, GFP_KERNEL);
+>>
+>> We also want to understand how does the value 2048 came into picture, 
+>> probably a macro which calculates the size preprocessing time will 
+>> work better.
+>>
+>> #define #define N_REGS_DUMP_GPU_RESET 10
+>> #define BUFFER_SZ(N_REGS_DUMP_GPU_RESET * (sizeof uint64_t) + 1)
+>>
+>> This first macro can be used later for the loop count for registers as 
+>> well.
+>>
+>>>>>> +    memset(reg_offset,  0, 2048);
+>>>>>> +    for (i = 0; adev->reset_dump_reg_list[i] != 0; i++)
+>>>>
+>>>> This loop termination condition is incorrect, why are we running the 
+>>>> loop until adev->reset_dump_reg_list[i] != 0 ?
+>>>>
+>>>> What if I have 10 registers to dump, but my 4th register value is 0 
+>>>> ? It will break the loop at 4 and we will not get all values.
+>>>>
+>>> agreed, i try to avoid one more variable in adev
+>>
+>> Not by the cost of logic of course :).
+>>
+>> Now you can run this loop here.
+>>
+>> for (i = 0; i < N_REGS...; i++) {
+>>      register_value_copy_here;
+>> }
+>>
+>>>>>> +        sprintf(reg_offset + strlen(reg_offset), "0x%lx ", 
+>>>>>> adev->reset_dump_reg_list[i]);
+>>>>>> +
+>>
+>>>>>> +    sprintf(reg_offset + strlen(reg_offset), "\n");
+>>>>>> +    len = strlen(reg_offset);
+>>>>>> +
+>>>>>> +    if (*pos >=  len)
+>>>>>> +        return 0;
+>>>>>> +
+>>>>>> +    r = copy_to_user(buf, reg_offset, len);
+>>>>>> +    *pos += len - r;
+>>>>>> +    kfree(reg_offset);
+>>>>
+>>>> Also, why are we doing a dynamic memory allocation for reg_offest ? 
+>>>> We can simply use adev->reset_dump_reg_list[i] isnt't it ?
+>>>>
+>>>> simply
+>>>> for (i=0; i<num_of_regs;i++) {
+>>>>     copy_to_user(buf, adev->reg_list[i], sizeof(uint64_t));
+>>>> }
+>>>>
+>>>> Or without even a loop, simply:
+>>>> copy_to_user(buf, &adev->reg_list, num_regs * sizeof(uint64_t));
+>>>>
+>>>> - Shashank
+>>>
+>>> it will not be in user readable format for debugfs, (if non readable 
+>>> is acceptable I will change this)
+>>>
+>>
+>> We are just adding 0x in front of the reg value, so honestly I don't 
+>> see a huge improvement in the user readability, but if you still want 
+>> to do the dynamic allocation of memory, add the register offset or 
+>> name as well, I mean then it should read like:
+>>
+>> 0x1234 = 0xABCD
+>> 0x1238 = 0xFFFF
+>>
+>> - Shashank
+>>
+>>>> +
+>>>>>>
+>>>>>> +    return len - r;
+>>>>>> +}
+>>>>>> +
+>>>>>> +static ssize_t amdgpu_reset_dump_register_list_write(struct file 
+>>>>>> *f, const char __user *buf,
+>>>>>> +        size_t size, loff_t *pos)
+>>>>>> +{
+>>>>>> +    struct amdgpu_device *adev = (struct amdgpu_device 
+>>>>>> *)file_inode(f)->i_private;
+>>>>>> +    char *reg_offset, *reg;
+>>>>>> +    int ret, i = 0;
+>>>>>> +
+>>>>>> +    reg_offset = kmalloc(size, GFP_KERNEL);
+>>>>>> +    memset(reg_offset,  0, size);
+>>>>>> +    ret = copy_from_user(reg_offset, buf, size);
+>>>>>> +
+>>>>
+>>>> We are not allowing user to write into the list, so this whole 
+>>>> function can just be a NOOP.
+>>>>
+>>>> - Shashank
+>>> User only update the list of reg offsets on init, there is no 
+>>> predefined reg offset from kernel code.
+>>>>
+>>>>>> +    if (ret)
+>>>>>> +        return -EFAULT;
+>>>>>> +
+>>>>>> +    while ((reg = strsep(&reg_offset, " ")) != NULL) {
+>>>>>> +        ret  = kstrtol(reg, 16, &adev->reset_dump_reg_list[i]);
+>>>>>> +        if (ret)
+>>>>>> +            return -EINVAL;
+>>>>>> +        i++;
+>>>>>> +    }
+>>>>>> +
+>>>>>> +    kfree(reg_offset);
+>>>>>> +
+>>>>>> +    return size;
+>>>>>> +}
+>>>>>> +
+>>>>>> +static const struct file_operations 
+>>>>>> amdgpu_reset_dump_register_list = {
+>>>>>> +    .owner = THIS_MODULE,
+>>>>>> +    .read = amdgpu_reset_dump_register_list_read,
+>>>>>> +    .write = amdgpu_reset_dump_register_list_write,
+>>>>>> +    .llseek = default_llseek
+>>>>>> +};
+>>>>>> +
+>>>>>>   int amdgpu_debugfs_init(struct amdgpu_device *adev)
+>>>>>>   {
+>>>>>>       struct dentry *root = adev_to_drm(adev)->primary->debugfs_root;
+>>>>>> @@ -1672,6 +1730,8 @@ int amdgpu_debugfs_init(struct amdgpu_device 
+>>>>>> *adev)
+>>>>>>                   &amdgpu_debugfs_test_ib_fops);
+>>>>>>       debugfs_create_file("amdgpu_vm_info", 0444, root, adev,
+>>>>>>                   &amdgpu_debugfs_vm_info_fops);
+>>>>>> +    debugfs_create_file("amdgpu_reset_dump_register_list", 0644, 
+>>>>>> root, adev,
+>>>>>> +                &amdgpu_reset_dump_register_list);
+>>>>>>       adev->debugfs_vbios_blob.data = adev->bios;
+>>>>>>       adev->debugfs_vbios_blob.size = adev->bios_size;
+>>>>>
