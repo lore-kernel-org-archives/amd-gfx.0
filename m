@@ -4,40 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E27D4C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 08:26:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82D42C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 08:26:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 043A010E552;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63214891B3;
 	Tue,  8 Feb 2022 08:26:47 +0000 (UTC)
-X-Greylist: delayed 1142 seconds by postgrey-1.36 at gabe;
- Tue, 08 Feb 2022 03:22:42 UTC
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 785CD10E280;
- Tue,  8 Feb 2022 03:22:42 +0000 (UTC)
-Received: from canpemm500002.china.huawei.com (unknown [172.30.72.57])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Jt78W1rN6z9rvT;
- Tue,  8 Feb 2022 11:02:03 +0800 (CST)
-Received: from [10.174.177.76] (10.174.177.76) by
- canpemm500002.china.huawei.com (7.192.104.244) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Tue, 8 Feb 2022 11:03:33 +0800
-Subject: Re: start sorting out the ZONE_DEVICE refcount mess
-To: Christoph Hellwig <hch@lst.de>
-References: <20220207063249.1833066-1-hch@lst.de>
-From: Miaohe Lin <linmiaohe@huawei.com>
-Message-ID: <8efd8321-8f0b-e5c3-8837-b0fe62f36c14@huawei.com>
-Date: Tue, 8 Feb 2022 11:03:32 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
+ [IPv6:2607:f8b0:4864:20::b34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAFA910E284
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 08:07:07 +0000 (UTC)
+Received: by mail-yb1-xb34.google.com with SMTP id 192so21375669ybd.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 00:07:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance-com.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=lrJ/uUGCKgoKFH52TnhTE0iJcbWnNbC2//ZX4wls2Dw=;
+ b=kNP/DVt8Qf+7bUY3UT5ZfqP8u/Zt0jSOyRJstDT02WFgtxz0uQpIo4XqdFFTnYfT/M
+ F2Df9FQ1s1DpZs0sKfObwDOAAXfKQ7/T2yeAjlKR3i/reWmzZVjWKP3xdxDfOd3jfA7b
+ tz5+cjBNS6/V6VXodt+MN/KM9Uxi0esuP7iu1e3jkfmQt4QdsMTpVKtJq5SLYiKaO6wV
+ GdLTObr64l6FVPZjPzvdKBJR2Rjj+n9hO45a68l8DCZafC6+U2M4uJdIA6MbLvDKJRJZ
+ DYHtfhyDzmb+GdSk9jY5Magnd6SN2eMgQm2n0M1xh1E5HMRa0EDjVN/rUBMFIXJjqzfO
+ gYMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=lrJ/uUGCKgoKFH52TnhTE0iJcbWnNbC2//ZX4wls2Dw=;
+ b=5504/0qXx81AJWy7Tu8vQnFob0Wn5FdS30N8PSnTM2q+9gttaLq+7KONhriBY51DEd
+ pqH20gDPcXcxO0isBiDU0HPJY5Uoc6NvTZJRDbHXxK4Rfy8Q6vfVWyJNZEDJw7AUaqUL
+ sjg3474L19dIPKf9YzS4AhKKZpNKD+XSq8zhU2DE/mbVdFVF5eHnIyBmICz5geBs3dk/
+ 05NsFih27fM/Pjf6xHYYWc17vjXdizxLT0lw3+Msvn0NVxOgjnT9rfGYAqKRrm7ep7lv
+ UjL5LG6RmJC5lm3vuRITcsM3VT2+NYDMO+EdVEOfh5BxV8FCoMKt3rpRFbXjh6ZLhzhK
+ aLAQ==
+X-Gm-Message-State: AOAM533rx5rtIbj/WP0Qvvo290chuJ6OqdNCkqDDLoIpS/XK14mO8/vo
+ Og45+J+6lbZcpfRbxKrgZ7bPmuhevJKj3aWyc5tv4w==
+X-Google-Smtp-Source: ABdhPJyc0mkGJILuXoiCncxc7dUnInOYzU71tTwuAgOjc/Gz6ioJ07N3R1Qa59huN3y/0lYz2j4xsFCGHPxb7jwVlxY=
+X-Received: by 2002:a25:e406:: with SMTP id b6mr3405161ybh.703.1644307626738; 
+ Tue, 08 Feb 2022 00:07:06 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20220207063249.1833066-1-hch@lst.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.174.177.76]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- canpemm500002.china.huawei.com (7.192.104.244)
-X-CFilter-Loop: Reflected
+References: <20220207063249.1833066-1-hch@lst.de>
+ <20220207063249.1833066-2-hch@lst.de>
+In-Reply-To: <20220207063249.1833066-2-hch@lst.de>
+From: Muchun Song <songmuchun@bytedance.com>
+Date: Tue, 8 Feb 2022 16:06:30 +0800
+Message-ID: <CAMZfGtUfqoaJ7L7rLP2Vdfy_nvr30qppRX-RfTFUh8TeO3ZznA@mail.gmail.com>
+Subject: Re: [PATCH 1/8] mm: remove a pointless CONFIG_ZONE_DEVICE check in
+ memremap_pages
+To: Christoph Hellwig <hch@lst.de>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 08 Feb 2022 08:26:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,58 +66,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
  Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
- Karol Herbst <kherbst@redhat.com>, linux-mm@kvack.org,
+ Karol Herbst <kherbst@redhat.com>,
+ Linux Memory Management List <linux-mm@kvack.org>,
  nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Dan Williams <dan.j.williams@intel.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- Logan Gunthorpe <logang@deltatee.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+ Logan Gunthorpe <logang@deltatee.com>, Dan Williams <dan.j.williams@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022/2/7 14:32, Christoph Hellwig wrote:
-> Hi all,
-> 
-> this series removes the offset by one refcount for ZONE_DEVICE pages
-> that are freed back to the driver owning them, which is just device
-> private ones for now, but also the planned device coherent pages
-> and the ehanced p2p ones pending.
-> 
+On Mon, Feb 7, 2022 at 2:36 PM Christoph Hellwig <hch@lst.de> wrote:
+>
+> memremap.c is only built when CONFIG_ZONE_DEVICE is set, so remove
+> the superflous extra check.
+>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-Many thanks for doing this, I remember the hard time when I read the relevant code. :)
+Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 
-> It does not address the fsdax pages yet, which will be attacked in a
-> follow on series.
-> 
-> Diffstat:
->  arch/arm64/mm/mmu.c                      |    1 
->  arch/powerpc/kvm/book3s_hv_uvmem.c       |    1 
->  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |    2 
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |    1 
->  drivers/gpu/drm/drm_cache.c              |    2 
->  drivers/gpu/drm/nouveau/nouveau_dmem.c   |    3 -
->  drivers/gpu/drm/nouveau/nouveau_svm.c    |    1 
->  drivers/infiniband/core/rw.c             |    1 
->  drivers/nvdimm/pmem.h                    |    1 
->  drivers/nvme/host/pci.c                  |    1 
->  drivers/nvme/target/io-cmd-bdev.c        |    1 
->  fs/Kconfig                               |    2 
->  fs/fuse/virtio_fs.c                      |    1 
->  include/linux/hmm.h                      |    9 ----
->  include/linux/memremap.h                 |   22 +++++++++-
->  include/linux/mm.h                       |   59 ++++-------------------------
->  lib/test_hmm.c                           |    4 +
->  mm/Kconfig                               |    4 -
->  mm/internal.h                            |    2 
->  mm/memcontrol.c                          |   11 +----
->  mm/memremap.c                            |   63 ++++++++++++++++---------------
->  mm/migrate.c                             |    6 --
->  mm/swap.c                                |   49 ++----------------------
->  23 files changed, 90 insertions(+), 157 deletions(-)
-> 
-> .
-> 
-
+Thanks.
