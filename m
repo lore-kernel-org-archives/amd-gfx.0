@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61174C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 08:26:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AEDFC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 08:26:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB90D10E541;
-	Tue,  8 Feb 2022 08:26:46 +0000 (UTC)
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
- [IPv6:2607:f8b0:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2512210E162
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Feb 2022 23:42:51 +0000 (UTC)
-Received: by mail-pf1-x42e.google.com with SMTP id e6so15750119pfc.7
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Feb 2022 15:42:51 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 810778909F;
+	Tue,  8 Feb 2022 08:26:45 +0000 (UTC)
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [IPv6:2607:f8b0:4864:20::b36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7F1110E342
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 08:09:40 +0000 (UTC)
+Received: by mail-yb1-xb36.google.com with SMTP id v47so22605471ybi.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 00:09:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=intel-com.20210112.gappssmtp.com; s=20210112;
+ d=bytedance-com.20210112.gappssmtp.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xL7zYBxlDA9OyfIUt1+hVo3jnzbaDpzhjP+X9npLjjg=;
- b=wphYccQt9nxerxeU/p5xPEp3OdfAMZRtra+QtigCBGV2rEpNVW9+U6vtvsejhTgn8e
- AjHdHHleGcguuyudfB/EYL8nXm+kpV8ZcSykDngC+byWUyRxqjSZ/RPjTH8AXc+RnLns
- uIgVupROuzl/7/rcKGowF45+b0zBguco1bdtkEO3QuTU6AEph9xDvvOseyxx2hOke+gU
- uNJF3+A19rkf9glt328qDrxjnlD9a+5MH5956bLQ7wt6C83PtpfdJpKPQIdDraMVj14L
- rYSrK3ggYTWNdNsRn2y7f5gnAE9dOOC2PJVNruXRQWVHXWccOP1/uFHHzbWsGMDwZaME
- cPJg==
+ :cc; bh=DC5h5QPa2MMSD8jMuUZaOZTMv0rKCEv7tr+WwakctiM=;
+ b=UKt/5gqtEQEDR+I4jR//5bWv57hPVaW9KmAr8xHRshFW+V9PDSWkFrBE8Hyb8wlSkA
+ QQKQ+stzgyEgp5J4DyVY4bvPNBtHP4wSzJ6uJck+8cplu8GPkuIVWQ+Y8zm1xv27s0Zu
+ cR2ljgqob8w9EmBGVw0EdJVkId5N+xNPUHeADg5epuSLdcXTrW9Tqo5OcA22EaRu8U3K
+ l3cuLzKBbOc9GbQXk+h497gXyT6KtsqpW966ysKE5jotsGOXr7l3B+dKnggATk5GoyUy
+ KJOt1xwxzqYiEqEVIBRmXg0oLWnTj4m1q1+iR+FtOucXjtQu9GfhLJMBe3O/kYgazNfR
+ tnQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=xL7zYBxlDA9OyfIUt1+hVo3jnzbaDpzhjP+X9npLjjg=;
- b=0PeOAbU3OjR9zNKxlg6cA/aGEo3RB2JV0nsg4lLsFkb5fparw5PXbiaj9FNQwGY3cA
- L2ManIGmdf1Em48egswgUoujD9cYSV0jJi4t1elV1iwDS4dhapN2+qCWXXL3FXE3dyNQ
- 8sSnL2s5rH2nSb641iuXeIxE5yWAqJLGJwheJQKqO3HHl4leZbOF8n0lZiVpPq8LRKmH
- BTFjyLXzuZLUW6sWaOuGuJZ1bTWjOvD8S8qQlj1/N2AlJJekKAVnkYQDnjIywIjRpVP7
- rOxT97dJ4EGxslCOZ2d+jxdIF7DrZJrWWMo0VHdkPYvD5LRdPtZpVsHZsEK5X9eA8491
- hbNA==
-X-Gm-Message-State: AOAM533ZSQQvGteozE4ExkdUpMYapdcSwKqDccwZbglNr/sy9QDUm7pb
- 4QYY0v8TQDUNfibyCRWZJb9yKV9TrQ/owwSX5agt3w==
-X-Google-Smtp-Source: ABdhPJwrqWzltx/fzSQ9DuX2BTfk2qmQ+rOek9DuscJqYjd5cc23devekMbaCYKV7qKyZJb3bcu/cjHgnw2J/KhyG60=
-X-Received: by 2002:a65:484b:: with SMTP id i11mr1385516pgs.40.1644277370737; 
- Mon, 07 Feb 2022 15:42:50 -0800 (PST)
+ bh=DC5h5QPa2MMSD8jMuUZaOZTMv0rKCEv7tr+WwakctiM=;
+ b=cvmMu932hc9WUmfNa8q0DQ/1REpAEQNcbl3g3AIC+cYVMhsRbFIjPU0pjbsJ9TBdUD
+ +2HGk0R/UFuU/1Nt/Ake+CAjvrou9/3c79FrVJVwWfwiPUlgoIJcPnVFA6i5bXU6WWXN
+ p792g0ZXD3/fd9oDtIQLFCVp77Dl0S3FC9qdnU1eyHHA7sDHdPAq053m+h/jXsRcozAj
+ zrJS8AUMI2iGfAfGxYMqtHxSk5mXx9O73+TCRyaMTVGRKEnnrgBmEn4pA8fVort6zMuZ
+ Yzh9/eBmclPbxThx5sUG0LRF/USXTq4YJYZ7V7jDY6OcDv3nxU796TCn7G9w14+i5Kcw
+ sL0Q==
+X-Gm-Message-State: AOAM531yV/5YZPsvJInaX3slhkPwwXnT0nRcKN7LsPPhM0EvgfRaxKKK
+ Q4E+x+juIELVhNS+5pCuvD4armtwDRNBVJ57grLgqA==
+X-Google-Smtp-Source: ABdhPJyFSmuR7M4HIJ31YSJoOUpobAKTBK69kzVotLKdLdB2NRipgBTZ2XLKWECEqSNiqnwAnFetqc4Ion8CCMp0OGY=
+X-Received: by 2002:a81:ad46:: with SMTP id l6mr3668263ywk.31.1644307779769;
+ Tue, 08 Feb 2022 00:09:39 -0800 (PST)
 MIME-Version: 1.0
 References: <20220207063249.1833066-1-hch@lst.de>
- <20220207063249.1833066-6-hch@lst.de>
-In-Reply-To: <20220207063249.1833066-6-hch@lst.de>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Mon, 7 Feb 2022 15:42:39 -0800
-Message-ID: <CAPcyv4iP=+jtVgdnuZjR3b-jM27zH5uk167HM=wz+=PBfvA49Q@mail.gmail.com>
-Subject: Re: [PATCH 5/8] mm: simplify freeing of devmap managed pages
+ <20220207063249.1833066-5-hch@lst.de>
+In-Reply-To: <20220207063249.1833066-5-hch@lst.de>
+From: Muchun Song <songmuchun@bytedance.com>
+Date: Tue, 8 Feb 2022 16:09:03 +0800
+Message-ID: <CAMZfGtUqbU9VpCOA-9bdU6d1CoQ7n8D+26v4j79uLcH1uc5Q2w@mail.gmail.com>
+Subject: Re: [PATCH 4/8] mm: move free_devmap_managed_page to memremap.c
 To: Christoph Hellwig <hch@lst.de>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 08 Feb 2022 08:26:44 +0000
@@ -63,26 +63,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux NVDIMM <nvdimm@lists.linux.dev>,
- Ralph Campbell <rcampbell@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Karol Herbst <kherbst@redhat.com>, Linux MM <linux-mm@kvack.org>,
+Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
+ Karol Herbst <kherbst@redhat.com>,
+ Linux Memory Management List <linux-mm@kvack.org>,
  nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- Logan Gunthorpe <logang@deltatee.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ Logan Gunthorpe <logang@deltatee.com>, Dan Williams <dan.j.williams@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Feb 6, 2022 at 10:33 PM Christoph Hellwig <hch@lst.de> wrote:
+On Mon, Feb 7, 2022 at 2:42 PM Christoph Hellwig <hch@lst.de> wrote:
 >
-> Make put_devmap_managed_page return if it took charge of the page
-> or not and remove the separate page_is_devmap_managed helper.
+> free_devmap_managed_page has nothing to do with the code in swap.c,
+> move it to live with the rest of the code for devmap handling.
+>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-Looks good to me:
+Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 
-Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+Thanks.
