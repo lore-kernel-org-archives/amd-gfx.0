@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BAEAC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 10:17:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3F50C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 10:22:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 221EA10E586;
-	Tue,  8 Feb 2022 10:17:23 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF33410E53E;
- Tue,  8 Feb 2022 10:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3193010E5EC;
+	Tue,  8 Feb 2022 10:22:56 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20D8310E5EC;
+ Tue,  8 Feb 2022 10:22:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644315442; x=1675851442;
+ t=1644315775; x=1675851775;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=j9UFpiUGF83y12TxvdSa/flOAudt3+Yqiepae5utlss=;
- b=YcndQx2aJw3Qq/4iLm6WVzg2tVTwR4XMjup9IzPjo7z+7QkGX1KAUgrD
- WWNL2Z0bNMvIXZqENPOR0IDbyQBCxWPfBckfKihmUaQf66jbyQdXsK9Vv
- wWkO10Yef6IMRbjhVI2FFVYIqo7Av1pFl2SNSU1I95V+k0k/OqN7BQ3dW
- qaxeWKwAEQ88ITw4NXCeLcFdGD6x31PRLgw5Rmh2UPxpUgy8vxgF+JESK
- EtoExQvFbUXF9s4KxbZe9aQRMqBLZqaGasltmp8SPrMEri144NtFV25yR
- 1YyVG1HSNRQ7Gs5nebrvjuS1Wgrse09GmcUTohRmJlQhuXpuxM+ltVBMy A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="248682574"
-X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="248682574"
+ bh=JCXABi+tpibiwShYKgzJVnhKmDF39ceB4X9aawwqezE=;
+ b=j2I5bMvKWs8UOzsvW5CXSQAc+a8m9R3z/R9rq77YhhV6W0jVcHaM0mdf
+ BIZjNFXGQvZaDxIi4A84hzMetMo/wNGTyXGVxcjRuPC1g1sVBzlMgQ5bq
+ LOorLQK9rYGcnQZW2Wz8j0jwunRQiEWULwUX5NffoO5UHQZevV8wUBotU
+ cP1+q+Ugm9kw8GUBkl3H0Hy1fp+R03pucb3xKkW7DbRRFVi9ZGiZbRRDt
+ xm8faObZo1sluyldVnubZygz2a1L2AYaosKDb61O6xYg97B97z96MY1HQ
+ St8WXENxggyyfMe8zNB/oN7BQe6EV38rk3UPuL9KhE/mAq8sjC1uFwjtd A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="248868134"
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="248868134"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 02:17:21 -0800
-X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="585144601"
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2022 02:22:54 -0800
+X-IronPort-AV: E=Sophos;i="5.88,352,1635231600"; d="scan'208";a="585145777"
 Received: from amcgrat2-mobl1.ger.corp.intel.com (HELO [10.252.10.21])
  ([10.252.10.21])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 02:17:19 -0800
-Message-ID: <1f9eff31-8c79-599b-d4dc-f36f47639dd5@intel.com>
-Date: Tue, 8 Feb 2022 10:17:17 +0000
+ 08 Feb 2022 02:22:52 -0800
+Message-ID: <5cf820ed-1a15-15bc-f4b1-6635773d2264@intel.com>
+Date: Tue, 8 Feb 2022 10:22:50 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH 5/7] drm/selftests: add drm buddy pessimistic testcase
+Subject: Re: [PATCH 6/7] drm/selftests: add drm buddy smoke testcase
 Content-Language: en-GB
 To: Arunpravin <Arunpravin.PaneerSelvam@amd.com>,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
 References: <20220203133234.3350-1-Arunpravin.PaneerSelvam@amd.com>
- <20220203133234.3350-5-Arunpravin.PaneerSelvam@amd.com>
+ <20220203133234.3350-6-Arunpravin.PaneerSelvam@amd.com>
 From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20220203133234.3350-5-Arunpravin.PaneerSelvam@amd.com>
+In-Reply-To: <20220203133234.3350-6-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,191 +67,203 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 03/02/2022 13:32, Arunpravin wrote:
-> create a pot-sized mm, then allocate one of each possible
-> order within. This should leave the mm with exactly one
-> page left.
+> - add a test to ascertain that the critical functionalities
+>    of the program is working fine
+> - add a timeout helper function
 > 
 > Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 > ---
 >   .../gpu/drm/selftests/drm_buddy_selftests.h   |   1 +
->   drivers/gpu/drm/selftests/test-drm_buddy.c    | 153 ++++++++++++++++++
->   2 files changed, 154 insertions(+)
+>   drivers/gpu/drm/selftests/test-drm_buddy.c    | 143 ++++++++++++++++++
+>   2 files changed, 144 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/selftests/drm_buddy_selftests.h b/drivers/gpu/drm/selftests/drm_buddy_selftests.h
-> index 21a6bd38864f..b14f04a1de19 100644
+> index b14f04a1de19..411d072cbfc5 100644
 > --- a/drivers/gpu/drm/selftests/drm_buddy_selftests.h
 > +++ b/drivers/gpu/drm/selftests/drm_buddy_selftests.h
-> @@ -10,3 +10,4 @@ selftest(sanitycheck, igt_sanitycheck) /* keep first (selfcheck for igt) */
->   selftest(buddy_alloc_limit, igt_buddy_alloc_limit)
+> @@ -11,3 +11,4 @@ selftest(buddy_alloc_limit, igt_buddy_alloc_limit)
 >   selftest(buddy_alloc_range, igt_buddy_alloc_range)
 >   selftest(buddy_alloc_optimistic, igt_buddy_alloc_optimistic)
-> +selftest(buddy_alloc_pessimistic, igt_buddy_alloc_pessimistic)
+>   selftest(buddy_alloc_pessimistic, igt_buddy_alloc_pessimistic)
+> +selftest(buddy_alloc_smoke, igt_buddy_alloc_smoke)
 > diff --git a/drivers/gpu/drm/selftests/test-drm_buddy.c b/drivers/gpu/drm/selftests/test-drm_buddy.c
-> index b193d9556fb4..e97f583ed0cd 100644
+> index e97f583ed0cd..2074e8c050a4 100644
 > --- a/drivers/gpu/drm/selftests/test-drm_buddy.c
 > +++ b/drivers/gpu/drm/selftests/test-drm_buddy.c
-> @@ -314,6 +314,159 @@ static void igt_mm_config(u64 *size, u64 *chunk_size)
+> @@ -7,6 +7,7 @@
+>   
+>   #include <linux/module.h>
+>   #include <linux/prime_numbers.h>
+> +#include <linux/sched/signal.h>
+>   
+>   #include <drm/drm_buddy.h>
+>   
+> @@ -15,6 +16,9 @@
+>   #define TESTS "drm_buddy_selftests.h"
+>   #include "drm_selftest.h"
+>   
+> +#define IGT_TIMEOUT(name__) \
+> +	unsigned long name__ = jiffies + MAX_SCHEDULE_TIMEOUT
+> +
+>   static unsigned int random_seed;
+>   
+>   static inline u64 get_size(int order, u64 chunk_size)
+> @@ -22,6 +26,26 @@ static inline u64 get_size(int order, u64 chunk_size)
+>   	return (1 << order) * chunk_size;
+>   }
+>   
+> +__printf(2, 3)
+> +static bool __igt_timeout(unsigned long timeout, const char *fmt, ...)
+> +{
+> +	va_list va;
+> +
+> +	if (!signal_pending(current)) {
+> +		cond_resched();
+> +		if (time_before(jiffies, timeout))
+> +			return false;
+> +	}
+> +
+> +	if (fmt) {
+> +		va_start(va, fmt);
+> +		vprintk(fmt, va);
+> +		va_end(va);
+> +	}
+> +
+> +	return true;
+> +}
+> +
+>   static inline const char *yesno(bool v)
+>   {
+>   	return v ? "yes" : "no";
+> @@ -314,6 +338,125 @@ static void igt_mm_config(u64 *size, u64 *chunk_size)
 >   	*size = (u64)s << 12;
 >   }
 >   
-> +static int igt_buddy_alloc_pessimistic(void *arg)
+> +static int igt_buddy_alloc_smoke(void *arg)
 > +{
-> +	u64 mm_size, size, min_page_size, start = 0;
-> +	struct drm_buddy_block *block, *bn;
-> +	const unsigned int max_order = 16;
+> +	u64 mm_size, min_page_size, chunk_size, start = 0;
 > +	unsigned long flags = 0;
 > +	struct drm_buddy mm;
-> +	unsigned int order;
-> +	LIST_HEAD(blocks);
-> +	LIST_HEAD(tmp);
-> +	int err;
+> +	int *order;
+> +	int err, i;
 > +
-> +	/*
-> +	 * Create a pot-sized mm, then allocate one of each possible
-> +	 * order within. This should leave the mm with exactly one
-> +	 * page left.
-> +	 */
+> +	DRM_RND_STATE(prng, random_seed);
+> +	IGT_TIMEOUT(end_time);
 > +
-> +	mm_size = PAGE_SIZE << max_order;
-> +	err = drm_buddy_init(&mm, mm_size, PAGE_SIZE);
+> +	igt_mm_config(&mm_size, &chunk_size);
+> +
+> +	err = drm_buddy_init(&mm, mm_size, chunk_size);
 > +	if (err) {
 > +		pr_err("buddy_init failed(%d)\n", err);
 > +		return err;
 > +	}
-> +	BUG_ON(mm.max_order != max_order);
 > +
-> +	for (order = 0; order < max_order; order++) {
-> +		size = min_page_size = get_size(order, PAGE_SIZE);
-> +		err = drm_buddy_alloc_blocks(&mm, start, mm_size, size, min_page_size, &tmp, flags);
+> +	order = drm_random_order(mm.max_order + 1, &prng);
+> +	if (!order)
+> +		goto out_fini;
+> +
+> +	for (i = 0; i <= mm.max_order; ++i) {
+> +		struct drm_buddy_block *block;
+> +		int max_order = order[i];
+> +		bool timeout = false;
+> +		LIST_HEAD(blocks);
+> +		u64 total, size;
+> +		LIST_HEAD(tmp);
+> +		int order;
+> +
+> +		err = igt_check_mm(&mm);
 > +		if (err) {
-> +			pr_info("buddy_alloc hit -ENOMEM with order=%d\n",
-> +				order);
-> +			goto err;
+> +			pr_err("pre-mm check failed, abort\n");
+> +			break;
 > +		}
 > +
-> +		block = list_first_entry_or_null(&tmp,
-> +						 struct drm_buddy_block,
-> +						 link);
-> +		if (!block) {
-> +			pr_err("alloc_blocks has no blocks\n");
-> +			err = -EINVAL;
-> +			goto err;
-> +		}
+> +		order = max_order;
+> +		total = 0;
 > +
-> +		list_del(&block->link);
-> +		list_add_tail(&block->link, &blocks);
-> +	}
+> +		do {
+> +retry:
+> +			size = min_page_size = get_size(order, chunk_size);
+> +			err = drm_buddy_alloc_blocks(&mm, start, mm_size, size,
+> +						     min_page_size, &tmp, flags);
+> +			if (err) {
+> +				if (err == -ENOMEM) {
+> +					pr_info("buddy_alloc hit -ENOMEM with order=%d\n",
+> +						order);
+> +				} else {
+> +					if (order--) {
+> +						err = 0;
+> +						goto retry;
+> +					}
 > +
-> +	/* And now the last remaining block available */
-> +	size = min_page_size = get_size(0, PAGE_SIZE);
-> +	err = drm_buddy_alloc_blocks(&mm, start, mm_size, size, min_page_size, &tmp, flags);
-> +	if (err) {
-> +		pr_info("buddy_alloc hit -ENOMEM on final alloc\n");
-> +		goto err;
-> +	}
+> +					pr_err("buddy_alloc with order=%d failed(%d)\n",
+> +					       order, err);
+> +				}
 > +
-> +	block = list_first_entry_or_null(&tmp,
-> +					 struct drm_buddy_block,
-> +					 link);
-> +	if (!block) {
-> +		pr_err("alloc_blocks has no blocks\n");
-> +		err = -EINVAL;
-> +		goto err;
-> +	}
+> +				break;
+> +			}
 > +
-> +	list_del(&block->link);
-> +	list_add_tail(&block->link, &blocks);
-> +
-> +	/* Should be completely full! */
-> +	for (order = max_order; order--; ) {
-> +		size = min_page_size = get_size(order, PAGE_SIZE);
-> +		err = drm_buddy_alloc_blocks(&mm, start, mm_size, size, min_page_size, &tmp, flags);
-> +		if (!err) {
-> +			pr_info("buddy_alloc unexpectedly succeeded at order %d, it should be full!",
-> +				order);
 > +			block = list_first_entry_or_null(&tmp,
 > +							 struct drm_buddy_block,
 > +							 link);
 > +			if (!block) {
 > +				pr_err("alloc_blocks has no blocks\n");
 > +				err = -EINVAL;
-> +				goto err;
+> +				break;
 > +			}
 > +
 > +			list_del(&block->link);
 > +			list_add_tail(&block->link, &blocks);
-> +			err = -EINVAL;
-> +			goto err;
-> +		}
-> +	}
-> +
-> +	block = list_last_entry(&blocks, typeof(*block), link);
-> +	list_del(&block->link);
-> +	drm_buddy_free_block(&mm, block);
-> +
-> +	/* As we free in increasing size, we make available larger blocks */
-> +	order = 1;
-> +	list_for_each_entry_safe(block, bn, &blocks, link) {
-> +		list_del(&block->link);
-> +		drm_buddy_free_block(&mm, block);
-> +
-> +		size = min_page_size = get_size(order, PAGE_SIZE);
-> +		err = drm_buddy_alloc_blocks(&mm, start, mm_size, size, min_page_size, &tmp, flags);
-> +		if (err) {
-> +			pr_info("buddy_alloc (realloc) hit -ENOMEM with order=%d\n",
-> +				order);
-> +			goto err;
-> +		}
-> +
-> +		block = list_first_entry_or_null(&tmp,
-> +						 struct drm_buddy_block,
-> +						 link);
-> +		if (!block) {
-> +			pr_err("alloc_blocks has no blocks\n");
-> +			err = -EINVAL;
-> +			goto err;
-> +		}
-> +
-> +		list_del(&block->link);
-> +		drm_buddy_free_block(&mm, block);
-> +		order++;
-> +	}
-> +
-> +	/* To confirm, now the whole mm should be available */
-> +	size = min_page_size = get_size(max_order, PAGE_SIZE);
-> +	err = drm_buddy_alloc_blocks(&mm, start, mm_size, size, min_page_size, &tmp, flags);
-> +	if (err) {
-> +		pr_info("buddy_alloc (realloc) hit -ENOMEM with order=%d\n",
-> +			max_order);
-> +		goto err;
-> +	}
-> +
-> +	block = list_first_entry_or_null(&tmp,
-> +					 struct drm_buddy_block,
-> +					 link);
-> +	if (!block) {
-> +		pr_err("alloc_blocks has no blocks\n");
-> +		err = -EINVAL;
-> +		goto err;
-> +	}
-> +
-> +	list_del(&block->link);
-> +	drm_buddy_free_block(&mm, block);
-> +
-> +	if (!err)
 
-Always true?
+Could just make this list_move_tail()? Elsewhere also.
 
+Anyway,
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 
+> +
+> +			if (drm_buddy_block_order(block) != order) {
+> +				pr_err("buddy_alloc order mismatch\n");
+> +				err = -EINVAL;
+> +				break;
+> +			}
+> +
+> +			total += drm_buddy_block_size(&mm, block);
+> +
+> +			if (__igt_timeout(end_time, NULL)) {
+> +				timeout = true;
+> +				break;
+> +			}
+> +		} while (total < mm.size);
+> +
+> +		if (!err)
+> +			err = igt_check_blocks(&mm, &blocks, total, false);
+> +
+> +		drm_buddy_free_list(&mm, &blocks);
+> +
+> +		if (!err) {
+> +			err = igt_check_mm(&mm);
+> +			if (err)
+> +				pr_err("post-mm check failed\n");
+> +		}
+> +
+> +		if (err || timeout)
+> +			break;
+> +
+> +		cond_resched();
+> +	}
+> +
+> +	if (err == -ENOMEM)
+> +		err = 0;
+> +
+> +	if (!err)
 > +		pr_info("%s - succeeded\n", __func__);
 > +
-> +err:
-> +	drm_buddy_free_list(&mm, &blocks);
+> +	kfree(order);
+> +out_fini:
 > +	drm_buddy_fini(&mm);
+> +
 > +	return err;
 > +}
 > +
->   static int igt_buddy_alloc_optimistic(void *arg)
+>   static int igt_buddy_alloc_pessimistic(void *arg)
 >   {
 >   	u64 mm_size, size, min_page_size, start = 0;
