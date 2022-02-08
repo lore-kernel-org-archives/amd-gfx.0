@@ -4,40 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 716E4C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 08:27:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E903C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Feb 2022 08:27:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEC7210E595;
-	Tue,  8 Feb 2022 08:26:48 +0000 (UTC)
-X-Greylist: delayed 15949 seconds by postgrey-1.36 at gabe;
- Tue, 08 Feb 2022 08:03:05 UTC
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40F9C10E13A
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 08:03:05 +0000 (UTC)
-X-QQ-mid: bizesmtp33t1644307361t10mqirs
-Received: from localhost.localdomain (unknown [58.240.82.166])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 08 Feb 2022 16:02:37 +0800 (CST)
-X-QQ-SSF: 00400000002000B0H000B00A0000000
-X-QQ-FEAT: zD6y7hNAcUB0CO7eAtJeOBqOod74zZzxKc9Z5p7I4/HrPepLCfJzCWjdo72xF
- gQZlUSwaOM05cGmmj58PWwdBNEHju8GTAvTUnuOAqnawnSBQQMYzyUeUjy3u8Hc/rfjzBcL
- Ee66Z2FskkgLFReyfCgL4+rMBCxm9KMZrSNk8hvZ41FhZQ0j+bVPh9UTUNy/FWBVE2dgxje
- 07ap/9lyPyQnGQFbHOEiOb5F3/yQNStKnYkbzIXteJpKJpLHB8R7et1eU0JMjAFmmes8im8
- uMqPeuvzCr6NOSWvkzw4/qtkAi8WX0oufIDctkJTwwcZOOY9Ao6bTUOu/VSREoQ2ZhODd8y
- FN2DwSkR/lqc2673+vk6htik4RUikaU+zjxdwhR
-X-QQ-GoodBg: 2
-From: zhanglianjie <zhanglianjie@uniontech.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH v3 2/2] drm/radeon/uvd: Fix forgotten unmap buffer objects
-Date: Tue,  8 Feb 2022 16:02:35 +0800
-Message-Id: <20220208080235.26349-1-zhanglianjie@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6123510E598;
+	Tue,  8 Feb 2022 08:26:49 +0000 (UTC)
+Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
+ [IPv6:2607:f8b0:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D446110E25E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Feb 2022 08:07:25 +0000 (UTC)
+Received: by mail-il1-x12f.google.com with SMTP id f13so1046638ilq.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Feb 2022 00:07:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=2nn1yw6s4IptKKkqexjsVuYGnZXdnpYECt5wmy4nCLI=;
+ b=RbemnSrhXrKKcmiNAQChCDTCfg6l6ls5LgDIaRQkZLTLaWYDjG6MM8osL8JkLF3bCp
+ /Kq4sd9uU0NEZm+Wz8RgynFJAbap5ItA1CILACu+hFiwrULXgQ7eCzkQ14TNBanKSWIw
+ TjONrz2gQtSvRje+DKUublwrHeFhbhnyVgZ3k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=2nn1yw6s4IptKKkqexjsVuYGnZXdnpYECt5wmy4nCLI=;
+ b=g560+q5SXqbbv7fIUGFH2SXW4O8KK4ImcGZ2JVu1UEu0x4eT0LpL1vN7wbuZ6dlSsa
+ L19czJwlwtijzOliLNNulp8g227iL4kiMsWakls6sWvG9AEFKr52mg96gTkp1kgGhK0h
+ YJJfXouxh2lMldC+NcN6pqJ4Z9dFuCuB8XzXaM/6FVJLPAudxeBLEt4VgC0gj2ZNu4rC
+ uU0xKYNUdjgPFCPQZy/+SPKdYmYg9l6ML3npFf3eExIdTkMVl+QVRaA04qRh+QrIw/gs
+ 9JYN1A6XYpPMhyIGUHwwPgXlbVk6q4PsLYod3KYC+f73NTCSL+1Oc0t929re/lz8+wVj
+ 3s+w==
+X-Gm-Message-State: AOAM5323cUdWO+QNMuBOT24bgNWxLfb4JhiQ3qm/6e1TLUtSZ1pt3qAy
+ CjBOt8pa9y+t9JE3i0DYIqQwJoTkq/FpKYZbOvEtWQ==
+X-Google-Smtp-Source: ABdhPJzX6bk4eNvEnp69aytew5yHADtPJVvGPNtbE4EZRnOFljwbLJwfYxI5lISAClkMzxAfRIq8Gdm85/RAs5cGYNM=
+X-Received: by 2002:a05:6e02:18c6:: with SMTP id
+ s6mr1637885ilu.230.1644307645048; 
+ Tue, 08 Feb 2022 00:07:25 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=y
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
-X-QQ-Bgrelay: 1
+References: <20220208073714.1540390-1-hsinyi@chromium.org>
+ <YgIhJb3+MckKD4dC@intel.com>
+In-Reply-To: <YgIhJb3+MckKD4dC@intel.com>
+From: Hsin-Yi Wang <hsinyi@chromium.org>
+Date: Tue, 8 Feb 2022 16:06:59 +0800
+Message-ID: <CAJMQK-hzjtZrXC+sdcs39kF6nvUzkNcgNXFXPzTUQHzr8f6ZkA@mail.gmail.com>
+Subject: Re: [Intel-gfx] [PATCH v7 1/3] gpu: drm: separate panel orientation
+ property creating and value setting
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 08 Feb 2022 08:26:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,46 +63,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, PanXinhui <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- zhanglianjie <zhanglianjie@uniontech.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>
+Cc: Maxime Ripard <mripard@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, Simon Ser <contact@emersion.fr>,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-after the buffer object is successfully mapped, call radeon_bo_kunmap before the function returns.
+On Tue, Feb 8, 2022 at 3:52 PM Ville Syrj=C3=A4l=C3=A4
+<ville.syrjala@linux.intel.com> wrote:
+>
+> On Tue, Feb 08, 2022 at 03:37:12PM +0800, Hsin-Yi Wang wrote:
+> > +int drm_connector_init_panel_orientation_property(
+> > +     struct drm_connector *connector)
+> > +{
+> > +     struct drm_device *dev =3D connector->dev;
+> > +     struct drm_property *prop;
+> > +
+> > +     prop =3D drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
+> > +                     "panel orientation",
+> > +                     drm_panel_orientation_enum_list,
+> > +                     ARRAY_SIZE(drm_panel_orientation_enum_list));
+> > +     if (!prop)
+> > +             return -ENOMEM;
+> > +
+> > +     dev->mode_config.panel_orientation_property =3D prop;
+>
+> Leak when called multiple times. I guess you could just put
+> this into drm_connector_create_standard_properties() instead
+> and avoid that issue entirely.
+>
+I'll add a check for dev->mode_config.panel_orientation_property to
+avoid the leak issue if called multiple times.
+If we add in drm_connector_create_standard_properties(), we still need
+another function to attach the property earlier for bridge/connectors
+that require this property, since not all bridge/connectors need this
+property.
 
-Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/radeon_uvd.c
-index 377f9cdb5b53..0558d928d98d 100644
---- a/drivers/gpu/drm/radeon/radeon_uvd.c
-+++ b/drivers/gpu/drm/radeon/radeon_uvd.c
-@@ -497,6 +497,7 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p, struct radeon_bo *bo,
- 	handle = msg[2];
-
- 	if (handle == 0) {
-+		radeon_bo_kunmap(bo);
- 		DRM_ERROR("Invalid UVD handle!\n");
- 		return -EINVAL;
- 	}
-@@ -559,12 +560,10 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p, struct radeon_bo *bo,
- 		return 0;
-
- 	default:
--
- 		DRM_ERROR("Illegal UVD message type (%d)!\n", msg_type);
--		return -EINVAL;
- 	}
-
--	BUG();
-+	radeon_bo_kunmap(bo);
- 	return -EINVAL;
- }
-
---
-2.20.1
-
-
-
+> --
+> Ville Syrj=C3=A4l=C3=A4
+> Intel
