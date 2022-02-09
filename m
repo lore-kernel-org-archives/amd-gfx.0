@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2D14C43217
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 08:41:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE089C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 08:41:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AD5B10E563;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C91710E565;
 	Wed,  9 Feb 2022 08:41:10 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55D9F10E516;
- Wed,  9 Feb 2022 08:41:06 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id u20so851730ejx.3;
- Wed, 09 Feb 2022 00:41:06 -0800 (PST)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36DE510E555;
+ Wed,  9 Feb 2022 08:41:08 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id u18so3579571edt.6;
+ Wed, 09 Feb 2022 00:41:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=uPJcgYWMrSUSwC5p5fw75h45Q3R2OpgVjkYF+E55tvI=;
- b=GTSYjuhWofzEQdmidGY+KoHLIVz5H1kUUnIBag9oU/kDEaeDc4GGlBGKfw77jIezrl
- sHGt1Mgc8ZZzmLG6dPdEjtcnyQ/naNFR/QEV9eLbP//3ZqdJHE64JpXCq8+21Yf7bUvR
- HJEanoBFoACIp/X5sEqjo5LD9UNGzekIdkn49Xelh/rqPo5+pQXzK4rgD9wThLHS9HhS
- pT1l8caPbIRAaDCC3yJWfCepSHyiZ2Es4RJJ97GLAPWx+5bkSlsinCR/YMPKyzHMbOpW
- KdMUusO4uPfpfGBvU5XiWS1s7HS4pxfmqqYY7OeeKEzknUqNqxQy508mBPOzCsYmfE4K
- lKcg==
+ bh=0Ur+a0XB6YGOgN2+nHGAvG//MoKUjko0kbsrGToRzp0=;
+ b=lgp9E9gspBtG94nTYNVzQtMLcDMX38LkceQkcNjpLrLRSfaKKsYUfojPfXl9lzXJiT
+ 2NL2M9cRNahhdHweSUJabm/IAbDGXS+U1BFGNj7QLTQOhANACptR4gP+ARF3sNzWM+gV
+ A8ykA/TUuW42Nga1FajPooMMnJgB/wYJ1Jr//lmmHjkXwQ12pRJMNWfCjh9zvYVkP/Er
+ elWpdFrrMkyqoa6hMgTbZlJN2qeF5HervWL8HW9vX4xwZK6XzqvXyaggy+3XwDkFeDTU
+ J/LBb7BIWASaGCN3tPyywa3zhaS86Q94GCHkNxMJbx/icjNvPyFH3AKvP2TMUc9gXUnU
+ Ab+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=uPJcgYWMrSUSwC5p5fw75h45Q3R2OpgVjkYF+E55tvI=;
- b=je/pu1HD0u/tCG/8HffrMtP7y+MQexB2xpmw9EooDWVk3gz88LuufYwKPd1K0M8arj
- MtA4gHHZyxYck7kHK3c4qybzO/GtfmGqGumDFQJgSrOyAXnWa62CNc9xY2Fs8f4J1k6U
- XtpAJtcJXCWyZ6yAPq9JpqAwU0mKxWRUkt8uyFAeetJZ0VotjLEWE5z/4GB8gkcd8+3v
- s+uXAzWw+Z2RMWmb+LaQBsbiX2Ry1aJuk1SUsPk6t1CD8pcOlvDIzAoImnNAg5gnZE6K
- K6xdU+0cSoBOZdfiTwd1W6OzyKfgRxwiouAKuh0663Ne/oVuepiTBDIzUgopdgHvxqvZ
- iK8A==
-X-Gm-Message-State: AOAM533xLzOmi9+5gx39OVO1VIuQQJW+kh3Gz82KmgvkS4cSExO8Clad
- nWCp1Oz8+7IgPQc0jIkks4agj0V6Oqw=
-X-Google-Smtp-Source: ABdhPJzyvLtt/uBPdosWLYZdJlwwUOdxcIWdjVcvQO/L0dqAPUCmubzfs18J1QwjZR27gCff7cVRDQ==
-X-Received: by 2002:a17:907:1b0b:: with SMTP id
- mp11mr977392ejc.382.1644396064874; 
- Wed, 09 Feb 2022 00:41:04 -0800 (PST)
+ bh=0Ur+a0XB6YGOgN2+nHGAvG//MoKUjko0kbsrGToRzp0=;
+ b=vPaffswozMLjzXhg9Si8kY8agsNn3DzqOMKyThEeN2gDQCR7x+sD2MOqV7cow/Dnt/
+ jDsm3RvzGVxy9fjSxah76tCXIxtZdj40KdGHhW03oaVZm3DSjlqilRpg8rFXIjvxnRn7
+ 423ZrLFAUrEU3C5cMWlAhLqrfv6SrUYeT0S/tb1pg93fGTJBBI3ZQ9phl0vA5Rv195hj
+ iKq/Op43YM/nn1ILTFxf4x2wSeyxT/o5neHX6uJ0FGpL/uXXkP8QosK2jJO5P7v1P/ql
+ ZdJvMyys2ozFQ1Vg/A6uIuNwb4054BWlZooZD77yi96StfR7bfIyJPBhz4CFecTQVwzL
+ eGtA==
+X-Gm-Message-State: AOAM531IeIIxBL3S9RdpMSE8/sMIji4EwuW5gIyuGdvICG2aI/6LZ8GY
+ qMubCgeFFAvhS0Tt6mnpcOM=
+X-Google-Smtp-Source: ABdhPJxO6EiGKTuRpYo/jqOcy+jN3xUsZL4VGYzfwZ8jrYCMWXzbkkLDBHhdWVC4LG/XzM1gsvwCJA==
+X-Received: by 2002:a50:fb04:: with SMTP id d4mr1215770edq.303.1644396066632; 
+ Wed, 09 Feb 2022 00:41:06 -0800 (PST)
 Received: from able.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id u6sm3807958eje.101.2022.02.09.00.41.04
+ by smtp.gmail.com with ESMTPSA id u6sm3807958eje.101.2022.02.09.00.41.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Feb 2022 00:41:04 -0800 (PST)
+ Wed, 09 Feb 2022 00:41:06 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: ray.huang@amd.com,
 	daniel@ffwll.ch,
 	thomas.hellstrom@linux.intel.com
-Subject: [PATCH 3/9] drm/ttm: add resource iterator v2
-Date: Wed,  9 Feb 2022 09:40:53 +0100
-Message-Id: <20220209084059.1042345-4-christian.koenig@amd.com>
+Subject: [PATCH 5/9] drm/amdgpu: remove GTT accounting
+Date: Wed,  9 Feb 2022 09:40:55 +0100
+Message-Id: <20220209084059.1042345-6-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220209084059.1042345-1-christian.koenig@amd.com>
 References: <20220209084059.1042345-1-christian.koenig@amd.com>
@@ -76,228 +75,188 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of duplicating that at different places add an iterator over all
-the resources in a resource manager.
+This is provided by TTM now.
 
-v2: add lockdep annotation and kerneldoc
+Also switch man->size to bytes instead of pages and fix the double
+printing of size and usage in debugfs.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 Tested-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/ttm/ttm_bo.c       | 41 ++++++++++---------------
- drivers/gpu/drm/ttm/ttm_device.c   | 26 +++++++---------
- drivers/gpu/drm/ttm/ttm_resource.c | 49 ++++++++++++++++++++++++++++++
- include/drm/ttm/ttm_resource.h     | 23 ++++++++++++++
- 4 files changed, 99 insertions(+), 40 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 49 +++++----------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |  8 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  2 -
+ 3 files changed, 15 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index cb0fa932d495..599be3dda8a9 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -579,38 +579,29 @@ int ttm_mem_evict_first(struct ttm_device *bdev,
- 			struct ww_acquire_ctx *ticket)
- {
- 	struct ttm_buffer_object *bo = NULL, *busy_bo = NULL;
-+	struct ttm_resource_cursor cursor;
- 	struct ttm_resource *res;
- 	bool locked = false;
--	unsigned i;
- 	int ret;
- 
- 	spin_lock(&bdev->lru_lock);
--	for (i = 0; i < TTM_MAX_BO_PRIORITY; ++i) {
--		list_for_each_entry(res, &man->lru[i], lru) {
--			bool busy;
--
--			bo = res->bo;
--			if (!ttm_bo_evict_swapout_allowable(bo, ctx, place,
--							    &locked, &busy)) {
--				if (busy && !busy_bo && ticket !=
--				    dma_resv_locking_ctx(bo->base.resv))
--					busy_bo = bo;
--				continue;
--			}
--
--			if (!ttm_bo_get_unless_zero(bo)) {
--				if (locked)
--					dma_resv_unlock(bo->base.resv);
--				continue;
--			}
--			break;
-+	ttm_resource_manager_for_each_res(man, &cursor, res) {
-+		bool busy;
-+
-+		if (!ttm_bo_evict_swapout_allowable(res->bo, ctx, place,
-+						    &locked, &busy)) {
-+			if (busy && !busy_bo && ticket !=
-+			    dma_resv_locking_ctx(bo->base.resv))
-+				busy_bo = res->bo;
-+			continue;
- 		}
- 
--		/* If the inner loop terminated early, we have our candidate */
--		if (&res->lru != &man->lru[i])
--			break;
--
--		bo = NULL;
-+		if (!ttm_bo_get_unless_zero(res->bo)) {
-+			if (locked)
-+				dma_resv_unlock(res->bo->base.resv);
-+			continue;
-+		}
-+		bo = res->bo;
- 	}
- 
- 	if (!bo) {
-diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
-index ba35887147ba..a0562ab386f5 100644
---- a/drivers/gpu/drm/ttm/ttm_device.c
-+++ b/drivers/gpu/drm/ttm/ttm_device.c
-@@ -142,10 +142,10 @@ EXPORT_SYMBOL(ttm_global_swapout);
- int ttm_device_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
- 		       gfp_t gfp_flags)
- {
-+	struct ttm_resource_cursor cursor;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+index e0c7fbe01d93..3bcd27ae379d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+@@ -60,7 +60,7 @@ static ssize_t amdgpu_mem_info_gtt_total_show(struct device *dev,
  	struct ttm_resource_manager *man;
--	struct ttm_buffer_object *bo;
- 	struct ttm_resource *res;
--	unsigned i, j;
-+	unsigned i;
- 	int ret;
  
- 	spin_lock(&bdev->lru_lock);
-@@ -154,20 +154,16 @@ int ttm_device_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
- 		if (!man || !man->use_tt)
- 			continue;
- 
--		for (j = 0; j < TTM_MAX_BO_PRIORITY; ++j) {
--			list_for_each_entry(res, &man->lru[j], lru) {
--				uint32_t num_pages;
--
--				bo = res->bo;
--				num_pages = PFN_UP(bo->base.size);
-+		ttm_resource_manager_for_each_res(man, &cursor, res) {
-+			struct ttm_buffer_object *bo = res->bo;
-+			uint32_t num_pages = PFN_UP(bo->base.size);
- 
--				ret = ttm_bo_swapout(bo, ctx, gfp_flags);
--				/* ttm_bo_swapout has dropped the lru_lock */
--				if (!ret)
--					return num_pages;
--				if (ret != -EBUSY)
--					return ret;
--			}
-+			ret = ttm_bo_swapout(bo, ctx, gfp_flags);
-+			/* ttm_bo_swapout has dropped the lru_lock */
-+			if (!ret)
-+				return num_pages;
-+			if (ret != -EBUSY)
-+				return ret;
- 		}
- 	}
- 	spin_unlock(&bdev->lru_lock);
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index c124db5039f0..e3301f6277ba 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -385,6 +385,55 @@ void ttm_resource_manager_debug(struct ttm_resource_manager *man,
+ 	man = ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
+-	return sysfs_emit(buf, "%llu\n", man->size * PAGE_SIZE);
++	return sysfs_emit(buf, "%llu\n", man->size);
  }
- EXPORT_SYMBOL(ttm_resource_manager_debug);
  
-+/**
-+ * ttm_resource_manager_first
-+ *
-+ * @man: resource manager to iterate over
-+ * @cursor: cursor to record the position
-+ *
-+ * Returns the first resource from the resource manager.
-+ */
-+struct ttm_resource *
-+ttm_resource_manager_first(struct ttm_resource_manager *man,
-+			   struct ttm_resource_cursor *cursor)
-+{
-+	struct ttm_resource *res;
+ /**
+@@ -77,8 +77,9 @@ static ssize_t amdgpu_mem_info_gtt_used_show(struct device *dev,
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
++	struct ttm_resource_manager *man = &adev->mman.gtt_mgr.manager;
+ 
+-	return sysfs_emit(buf, "%llu\n", amdgpu_gtt_mgr_usage(&adev->mman.gtt_mgr));
++	return sysfs_emit(buf, "%llu\n", ttm_resource_manager_usage(man));
+ }
+ 
+ static DEVICE_ATTR(mem_info_gtt_total, S_IRUGO,
+@@ -130,20 +131,17 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
+ 	struct amdgpu_gtt_node *node;
+ 	int r;
+ 
+-	if (!(place->flags & TTM_PL_FLAG_TEMPORARY) &&
+-	    atomic64_add_return(num_pages, &mgr->used) >  man->size) {
+-		atomic64_sub(num_pages, &mgr->used);
+-		return -ENOSPC;
+-	}
+-
+ 	node = kzalloc(struct_size(node, base.mm_nodes, 1), GFP_KERNEL);
+-	if (!node) {
+-		r = -ENOMEM;
+-		goto err_out;
+-	}
++	if (!node)
++		return -ENOMEM;
+ 
+ 	node->tbo = tbo;
+ 	ttm_resource_init(tbo, place, &node->base.base);
++	if (!(place->flags & TTM_PL_FLAG_TEMPORARY) &&
++	    ttm_resource_manager_usage(man) > man->size) {
++		r = -ENOSPC;
++		goto err_free;
++	}
+ 
+ 	if (place->lpfn) {
+ 		spin_lock(&mgr->lock);
+@@ -169,11 +167,6 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
+ err_free:
+ 	ttm_resource_fini(man, &node->base.base);
+ 	kfree(node);
+-
+-err_out:
+-	if (!(place->flags & TTM_PL_FLAG_TEMPORARY))
+-		atomic64_sub(num_pages, &mgr->used);
+-
+ 	return r;
+ }
+ 
+@@ -196,25 +189,10 @@ static void amdgpu_gtt_mgr_del(struct ttm_resource_manager *man,
+ 		drm_mm_remove_node(&node->base.mm_nodes[0]);
+ 	spin_unlock(&mgr->lock);
+ 
+-	if (!(res->placement & TTM_PL_FLAG_TEMPORARY))
+-		atomic64_sub(res->num_pages, &mgr->used);
+-
+ 	ttm_resource_fini(man, res);
+ 	kfree(node);
+ }
+ 
+-/**
+- * amdgpu_gtt_mgr_usage - return usage of GTT domain
+- *
+- * @mgr: amdgpu_gtt_mgr pointer
+- *
+- * Return how many bytes are used in the GTT domain
+- */
+-uint64_t amdgpu_gtt_mgr_usage(struct amdgpu_gtt_mgr *mgr)
+-{
+-	return atomic64_read(&mgr->used) * PAGE_SIZE;
+-}
+-
+ /**
+  * amdgpu_gtt_mgr_recover - re-init gart
+  *
+@@ -260,9 +238,6 @@ static void amdgpu_gtt_mgr_debug(struct ttm_resource_manager *man,
+ 	spin_lock(&mgr->lock);
+ 	drm_mm_print(&mgr->mm, printer);
+ 	spin_unlock(&mgr->lock);
+-
+-	drm_printf(printer, "man size:%llu pages,  gtt used:%llu pages\n",
+-		   man->size, atomic64_read(&mgr->used));
+ }
+ 
+ static const struct ttm_resource_manager_func amdgpu_gtt_mgr_func = {
+@@ -288,14 +263,12 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
+ 	man->use_tt = true;
+ 	man->func = &amdgpu_gtt_mgr_func;
+ 
+-	ttm_resource_manager_init(man, &adev->mman.bdev,
+-				  gtt_size >> PAGE_SHIFT);
++	ttm_resource_manager_init(man, &adev->mman.bdev, gtt_size);
+ 
+ 	start = AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS;
+ 	size = (adev->gmc.gart_size >> PAGE_SHIFT) - start;
+ 	drm_mm_init(&mgr->mm, start, size);
+ 	spin_lock_init(&mgr->lock);
+-	atomic64_set(&mgr->used, 0);
+ 
+ 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_TT, &mgr->manager);
+ 	ttm_resource_manager_set_used(man, true);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 1ebb91db2274..9ff4aced5da7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -684,7 +684,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		ui64 = amdgpu_vram_mgr_vis_usage(&adev->mman.vram_mgr);
+ 		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
+ 	case AMDGPU_INFO_GTT_USAGE:
+-		ui64 = amdgpu_gtt_mgr_usage(&adev->mman.gtt_mgr);
++		ui64 = ttm_resource_manager_usage(&adev->mman.gtt_mgr.manager);
+ 		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
+ 	case AMDGPU_INFO_GDS_CONFIG: {
+ 		struct drm_amdgpu_info_gds gds_info;
+@@ -716,7 +716,8 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 	case AMDGPU_INFO_MEMORY: {
+ 		struct drm_amdgpu_memory_info mem;
+ 		struct ttm_resource_manager *gtt_man =
+-			ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
++			&adev->mman.gtt_mgr.manager;
 +
-+	lockdep_assert_held(&man->bdev->lru_lock);
-+
-+	for (cursor->priority = 0; cursor->priority < TTM_MAX_BO_PRIORITY;
-+	     ++cursor->priority)
-+		list_for_each_entry(res, &man->lru[cursor->priority], lru)
-+			return res;
-+
-+	return NULL;
-+}
-+
-+/**
-+ * ttm_resource_manager_next
-+ *
-+ * @man: resource manager to iterate over
-+ * @cursor: cursor to record the position
-+ *
-+ * Returns the next resource from the resource manager.
-+ */
-+struct ttm_resource *
-+ttm_resource_manager_next(struct ttm_resource_manager *man,
-+			  struct ttm_resource_cursor *cursor,
-+			  struct ttm_resource *res)
-+{
-+	lockdep_assert_held(&man->bdev->lru_lock);
-+
-+	list_for_each_entry_continue(res, &man->lru[cursor->priority], lru)
-+		return res;
-+
-+	for (; cursor->priority < TTM_MAX_BO_PRIORITY; ++cursor->priority)
-+		list_for_each_entry(res, &man->lru[cursor->priority], lru)
-+			return res;
-+
-+	return NULL;
-+}
-+
- static void ttm_kmap_iter_iomap_map_local(struct ttm_kmap_iter *iter,
- 					  struct dma_buf_map *dmap,
- 					  pgoff_t i)
-diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
-index 9bc5c0280a09..cd3a6ed0c82c 100644
---- a/include/drm/ttm/ttm_resource.h
-+++ b/include/drm/ttm/ttm_resource.h
-@@ -184,6 +184,17 @@ struct ttm_resource {
- 	struct list_head lru;
+ 		memset(&mem, 0, sizeof(mem));
+ 		mem.vram.total_heap_size = adev->gmc.real_vram_size;
+ 		mem.vram.usable_heap_size = adev->gmc.real_vram_size -
+@@ -741,8 +742,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		mem.gtt.total_heap_size *= PAGE_SIZE;
+ 		mem.gtt.usable_heap_size = mem.gtt.total_heap_size -
+ 			atomic64_read(&adev->gart_pin_size);
+-		mem.gtt.heap_usage =
+-			amdgpu_gtt_mgr_usage(&adev->mman.gtt_mgr);
++		mem.gtt.heap_usage = ttm_resource_manager_usage(gtt_man);
+ 		mem.gtt.max_allocation = mem.gtt.usable_heap_size * 3 / 4;
+ 
+ 		return copy_to_user(out, &mem,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index f8f48be16d80..120b69ec9885 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -52,7 +52,6 @@ struct amdgpu_gtt_mgr {
+ 	struct ttm_resource_manager manager;
+ 	struct drm_mm mm;
+ 	spinlock_t lock;
+-	atomic64_t used;
  };
  
-+/**
-+ * struct ttm_resource_cursor
-+ *
-+ * @priority: the current priority
-+ *
-+ * Cursor to iterate over the resources in a manager.
-+ */
-+struct ttm_resource_cursor {
-+	unsigned int priority;
-+};
-+
- /**
-  * struct ttm_lru_bulk_move_pos
-  *
-@@ -328,6 +339,18 @@ uint64_t ttm_resource_manager_usage(struct ttm_resource_manager *man);
- void ttm_resource_manager_debug(struct ttm_resource_manager *man,
- 				struct drm_printer *p);
+ struct amdgpu_preempt_mgr {
+@@ -114,7 +113,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev);
+ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev);
  
-+struct ttm_resource *
-+ttm_resource_manager_first(struct ttm_resource_manager *man,
-+			   struct ttm_resource_cursor *cursor);
-+struct ttm_resource *
-+ttm_resource_manager_next(struct ttm_resource_manager *man,
-+			  struct ttm_resource_cursor *cursor,
-+			  struct ttm_resource *res);
-+
-+#define ttm_resource_manager_for_each_res(man, cursor, res)		\
-+	for (res = ttm_resource_manager_first(man, cursor); res;	\
-+	     res = ttm_resource_manager_next(man, cursor, res))
-+
- struct ttm_kmap_iter *
- ttm_kmap_iter_iomap_init(struct ttm_kmap_iter_iomap *iter_io,
- 			 struct io_mapping *iomap,
+ bool amdgpu_gtt_mgr_has_gart_addr(struct ttm_resource *mem);
+-uint64_t amdgpu_gtt_mgr_usage(struct amdgpu_gtt_mgr *mgr);
+ int amdgpu_gtt_mgr_recover(struct amdgpu_gtt_mgr *mgr);
+ 
+ uint64_t amdgpu_preempt_mgr_usage(struct ttm_resource_manager *man);
 -- 
 2.25.1
 
