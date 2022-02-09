@@ -4,72 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED8CAC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 14:55:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98F58C4332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 14:55:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D5D710E401;
-	Wed,  9 Feb 2022 14:55:48 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D10510E50A
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 14:53:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1644418384;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=j/VJVwJcabH5SXTn4ZvXEnmPqcRm07U+dAsv8ELCv4A=;
- b=ZUnUbGvowMVxiMUCtLP03qoHy6wxoZ6IRx0YRR+xyr6NIeQpVmtBtPFpKoTsynWVV0vJTA
- 9e9RXqe3CQSeU/mCBx5aeNQfD0A3/Xxmtvu++orFB/63qZSNxQN1w+0FAyzHDXncRyROa/
- X8Z7M31HL3DsQeFNupNW4PNTO0Yp0rw=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-264-w4mvEufLPQuUfbG8xTIpFQ-1; Wed, 09 Feb 2022 09:53:03 -0500
-X-MC-Unique: w4mvEufLPQuUfbG8xTIpFQ-1
-Received: by mail-qt1-f199.google.com with SMTP id
- j30-20020ac84c9e000000b002cf986622d1so1895225qtv.6
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Feb 2022 06:53:03 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05B2510E454;
+	Wed,  9 Feb 2022 14:55:50 +0000 (UTC)
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [IPv6:2607:f8b0:4864:20::731])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4257210E50C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 14:14:29 +0000 (UTC)
+Received: by mail-qk1-x731.google.com with SMTP id bs32so1684359qkb.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Feb 2022 06:14:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=c8BMy3fH62yXJxfHY+j4P80h5ALqrjcvX+ObTuKf0iA=;
+ b=V7onSa8ruWkEtkdB8irRTbQO5EhI5+EN5mjt3u01+vlKyYcQfcNp9aFh92tP1OzUTh
+ ScFSSPOJZDc270JM0jq7Rhgv2t8FwpCHJ20+6gStJqzqZxWKPGAiZe6G30wozCGKb6G+
+ ZLQWTS1Ro4hAfH5OwcrYeqPEFEKYoHUMzawcDJx2RgUNBo1ohb8nkxONIHkbUDMBpr5o
+ apeGjKCH5BBxtNM0aA8Q1I0DV6rlydLedHpS7mVvMx/qFqliS9UfDYoHrCMy5D2aCL3F
+ 0jecgeDZDBF6tjcMyMnIYAGizQnperLp47omGbCJq3v5uCCpJ63E6XzU+sfOUF4jG60Y
+ /F8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=j/VJVwJcabH5SXTn4ZvXEnmPqcRm07U+dAsv8ELCv4A=;
- b=3FtmihrX/qU36z8n4AvUsVnaRuTs/Zyhm+SQyhEdDlaOtAfKSkpt1lD76p4zCLV4GH
- R34Gv+1FZ4933kw3ErOFpKRRCcCkBu8HRA2+SDNwHaXlhGKD+yT2Ab/CLDGpoiZJDZic
- HvrbupPcxWx8/ovt3pfuQ5E2n3FeTiFlQKohnc2wfF9vbi9DN5e/vzsS1khINlzcfMr/
- 05SWba/Jp64HNS7otSLM4NyKyGlYQcR2Cr51SOcx6uXlXG2UM2oTmbJUersXdfhOF1Vs
- fqg0/o5AinjLtjssy7Sbt6ucjflB19GfNQcdBWMrnIPIS9FBD32Zwqc2thqOPGfMmzgi
- dkMg==
-X-Gm-Message-State: AOAM531RcJVGmwQnMuUxUgK3nn54jty97DBaCEKKYhNSGeahnK2I4yoA
- S8QPzHuPCJHQ7g04wgchQ6R/nn42KnJw0Xav+HRV8uOp2A4+qRUrdXtEi1kpuAJi//yC6eYJvpq
- 2DAO658DPnnBcmRAiS6ue2JQJ7g==
-X-Received: by 2002:a05:622a:87:: with SMTP id o7mr1562247qtw.38.1644418382984; 
- Wed, 09 Feb 2022 06:53:02 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJw5wcZMgzdbV24kPRKWlIzraNFqysXb9opnZC+c5gQEfuzVCDVwwO+VOEAL5ibZQMRfOE0JJw==
-X-Received: by 2002:a05:622a:87:: with SMTP id o7mr1562236qtw.38.1644418382803; 
- Wed, 09 Feb 2022 06:53:02 -0800 (PST)
-Received: from localhost.localdomain.com (024-205-208-113.res.spectrum.com.
- [24.205.208.113])
- by smtp.gmail.com with ESMTPSA id bk19sm8421478qkb.125.2022.02.09.06.53.00
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=c8BMy3fH62yXJxfHY+j4P80h5ALqrjcvX+ObTuKf0iA=;
+ b=HYhYhGElkWu6DRuzlZUqrddLitbyv9Eab18Bt3ftinh8VuRJsCaIl7f3RYTtwwjAe+
+ 8EfdZ0+DwuSkPzB9k0DMMselBjm9Ec4QlHh4B2kyBmFcHGFpeuHFLinc5C1XFqEhbG+/
+ x1WuaJuaDRIa789X8Cimz6+qisVw+UptercJ94v1NY6up7EsimXvmXswi/3bRdPrVriJ
+ zvaGsxViDhfDSfJO5KwgoWbgi/Fjmnj7QZjhzBA5/QTeL8FzUGHHqaZTG1Uo2vjtTj8c
+ ID+FC339HbgY5WcH6Zi3q0SSSxbIGtVBRY7kYOHBjP3mHYTfp154DaOADtCiLcF48oWE
+ XSjQ==
+X-Gm-Message-State: AOAM530bv/DFFTVg2tpI7HVtFDJpAgjTDWxtc6yauasoMKDUZOSdCHWP
+ yh09QthZ0/t4F2m920lgr7KayA==
+X-Google-Smtp-Source: ABdhPJzQ+iaZjCKRuCc0J8n0Ck+TXJ7O0pFZ7w0y3yYzv/vscWA+Im2JaGH4eENvWOVqnzWKMTNFCg==
+X-Received: by 2002:a05:620a:1351:: with SMTP id
+ c17mr1137673qkl.460.1644416068212; 
+ Wed, 09 Feb 2022 06:14:28 -0800 (PST)
+Received: from ziepe.ca
+ (hlfxns017vw-142-162-113-129.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.162.113.129])
+ by smtp.gmail.com with ESMTPSA id a14sm9094374qtb.92.2022.02.09.06.14.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Feb 2022 06:53:02 -0800 (PST)
-From: trix@redhat.com
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, nathan@kernel.org, ndesaulniers@google.com,
- david.yatsin@amd.com, rajneesh.bhardwaj@amd.com
-Subject: [PATCH] drm/amdkfd: fix freeing an unset pointer
-Date: Wed,  9 Feb 2022 06:52:54 -0800
-Message-Id: <20220209145254.2291158-1-trix@redhat.com>
-X-Mailer: git-send-email 2.26.3
+ Wed, 09 Feb 2022 06:14:27 -0800 (PST)
+Received: from jgg by mlx with local (Exim 4.94) (envelope-from <jgg@ziepe.ca>)
+ id 1nHnjn-001FdR-1z; Wed, 09 Feb 2022 10:14:27 -0400
+Date: Wed, 9 Feb 2022 10:14:27 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 7/8] mm: remove the extra ZONE_DEVICE struct page refcount
+Message-ID: <20220209141427.GJ49147@ziepe.ca>
+References: <20220207063249.1833066-1-hch@lst.de>
+ <20220207063249.1833066-8-hch@lst.de>
+ <CAPcyv4h_axDTmkZ35KFfCdzMoOp8V3dc6btYGq6gCj1OmLXM=g@mail.gmail.com>
+ <20220209062345.GB7739@lst.de> <20220209122956.GI49147@ziepe.ca>
+ <20220209135351.GA20631@lst.de>
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220209135351.GA20631@lst.de>
 X-Mailman-Approved-At: Wed, 09 Feb 2022 14:55:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,48 +76,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Linux NVDIMM <nvdimm@lists.linux.dev>,
+ Ralph Campbell <rcampbell@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
+ Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Linux MM <linux-mm@kvack.org>, Ben Skeggs <bskeggs@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Dan Williams <dan.j.williams@intel.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Andrew Morton <akpm@linux-foundation.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tom Rix <trix@redhat.com>
+On Wed, Feb 09, 2022 at 02:53:51PM +0100, Christoph Hellwig wrote:
+> On Wed, Feb 09, 2022 at 08:29:56AM -0400, Jason Gunthorpe wrote:
+> > It is nice, but the other series are still impacted by the fsdax mess
+> > - they still stuff pages into ptes without proper refcounts and have
+> > to carry nonsense to dance around this problem.
+> > 
+> > I certainly would be unhappy if the amd driver, for instance, gained
+> > the fsdax problem as well and started pushing 4k pages into PMDs.
+> 
+> As said before: I think this all needs to be fixed.  But I'd rather
+> fix it gradually and I think this series is a nice step forward.
+> After that we can look at the pte mappings.
 
-clang static analysis reports this problem
-kfd_chardev.c:2092:2: warning: 1st function call argument
-  is an uninitialized value
-        kvfree(bo_privs);
-        ^~~~~~~~~~~~~~~~
+Right, I agree with this
 
-When bo_buckets alloc fails, it jumps to an error handler
-that frees the yet to be allocated bo_privs.  Because
-bo_buckets is the first error, return directly.
-
-Fixes: 5ccbb057c0a1 ("drm/amdkfd: CRIU Implement KFD checkpoint ioctl")
-
-Signed-off-by: Tom Rix <trix@redhat.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 64e3b4e3a7126..636391c61cafb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1982,10 +1982,8 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- 	void *mem;
- 
- 	bo_buckets = kvzalloc(num_bos * sizeof(*bo_buckets), GFP_KERNEL);
--	if (!bo_buckets) {
--		ret = -ENOMEM;
--		goto exit;
--	}
-+	if (!bo_buckets)
-+		return -ENOMEM;
- 
- 	bo_privs = kvzalloc(num_bos * sizeof(*bo_privs), GFP_KERNEL);
- 	if (!bo_privs) {
--- 
-2.26.3
-
+Jason
