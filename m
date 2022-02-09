@@ -4,119 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13A85C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 21:36:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93F8CC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 22:52:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81B2589D84;
-	Wed,  9 Feb 2022 21:36:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 231D210E645;
+	Wed,  9 Feb 2022 22:52:05 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2044.outbound.protection.outlook.com [40.107.94.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F276E89CCB;
- Wed,  9 Feb 2022 21:36:29 +0000 (UTC)
+ (mail-mw2nam10on2042.outbound.protection.outlook.com [40.107.94.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFAD210E645
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 22:52:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I8Q6oQgKrh3sUSwIIvmqn7j/6HAjtocv7MRxqFshjiEl/sE8uX0q73Eqrdw33FUPz3B//hXgUovnUc0dLB08PJwPxw1WM1v+KrC8IRMrs0C44am+wcI9YrShXsKntH5DWJe16KEZuhJxp3r7uhVi4BCxKmNmJDg6QXh4P+5BpT8HkEgmJl5/qygVS/lycwcTeO9KXW3s0VvNcfnMn1ONeU/yPu5wi3zYsX4zqT747W6ws6Nr5xiJCDd7MxLCIzc702eyi5TaoA7fm0dnmRSdlzCKFnvi6tLHMmxG2m32tNgdj/Vw8Wk/I+r86rv934zKpdIPrs8KuBh1Tfui1R3qXg==
+ b=SoeuqgJhX0lOTGdngR8+/fozYEGCcTjcXbnK7NvP3EYyCLf38ZobBFPyxa4NvBKnY2OalqoTZfYhCAMD961cC/qHfOw+7Nx28XYMYmLwBpapZQ666V5BZhIk9wnjfeFqyGMOWhjykVN39+oKGBLEyQUJ9jm0OVx9hOHLdiV7EJYtUmmu13PZFYHaW9wNy+u0jtWNOxK6fTeIhVkTe6+KL7EhMlUP1q+WVup2YQQ2adu8EYArhfJk0plaLAOSMEWmiucw/WY7Jas9zhLK0QMfmqVanZQDNH4oeX4WbUm9D2VfvzpAK8VcIlDzBNHB+mZFxxIpWkJ5++mBFBYSL6O2oA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QLbfPQHS/ETmYb/+9D8qF2agvslwqYNjjBj6wAknSLo=;
- b=a24a/oiVLjbYwsz+m8aM4t5WFeMIYZwXL59pyldLPUXwQWUuuEipJsvb8I57O+A6MYbkI7wHjCGN/t3JmCbhKJSN7l0VeSM8iHMfDLIVP96sCnne6ZD9XdLUN9NmshObd6Ef0mWs0UkNcY4uW7CzPS/MUCWwHCnm3W9mpUwndbSO5r2uzp+UtR0NWENC4dt7ejSNSaYNa9QBRPQ9/ZR3ziwzfGMQ7DPauJ2mkYQSGgG7DQNHZFJ5QMqpK46qVcedhsEdVLJ7dO0KS+1NW14MT4qpW3nKuG8YbgY/IN+HybcinxJS8UXRT4jp/E1Vh1T27NWUR1O0nnssZ/OdmdWEpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
+ bh=5JKZnK/keLiA3bmMy6HYEPVtYk4oFt+9EpdcWYuuFdA=;
+ b=VfA2VtLB5l5I1vcr2eSHhiZnWwROqoHM3bU/H6qLLvdqV322Mqyh8aWYvwesVFY0D0e7idmuszzs+3QSmxO/DqB2+0EGSAO+7bMTVUNVFmi0dkUuAnla3tli2AvN4n7wPERCBLsyZ/2kiv3NqkZzSvFgbjJ5W/PZVa+eHZbbiQotSvPCXPnW/kcmRRpkfuAl/Mvd/194F9j1FKfWrtOurZPR7mXlX6Ah9OWliPe7/eOoUgSb3IUIhQS3YcGz7elYQZ3mL+bWsP1K+S8doHuWD15dzZqrs/73Oik7EaqCeosbsFiQ7vdLhvtQXXh0myPq8Nww24QxAMWIrj9lUqbR3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QLbfPQHS/ETmYb/+9D8qF2agvslwqYNjjBj6wAknSLo=;
- b=Kpbqrf7dhQeuBdLvhydvVUcfIcpzSU7Ao6nmREv+NrNOcYH1x+oLviqyjjVauHch5xXuIEGZ82cgyjD4HI1J8WogitAUIr6sP296x8mDUDKUtMoVAkKeUj4GYufMGY+FYX0VbSVcm/frgQhRBu0utyjy7XASDEOICkTFIybm7qc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
- by BN6PR12MB1236.namprd12.prod.outlook.com (2603:10b6:404:1f::7) with
+ bh=5JKZnK/keLiA3bmMy6HYEPVtYk4oFt+9EpdcWYuuFdA=;
+ b=yKp+6UEvBRO6gfUfKl7/QTOCji2EDPZORKMMydmIO8MjIQEx6WHlUQapYGeMGecNGQ/EVmqdrPxn7nSi0AbhuaD9aT5IA7zYnsBNKpcXxGRtKhrMkpczTV78F72HO5uDXlxypU/13yPJQf603yg76s4U1nfFZ1esrk+uARBaEAQ=
+Received: from DS7PR05CA0014.namprd05.prod.outlook.com (2603:10b6:5:3b9::19)
+ by MN2PR12MB4288.namprd12.prod.outlook.com (2603:10b6:208:1d2::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Wed, 9 Feb
- 2022 21:36:28 +0000
-Received: from BL1PR12MB5112.namprd12.prod.outlook.com
- ([fe80::f071:728c:3813:3376]) by BL1PR12MB5112.namprd12.prod.outlook.com
- ([fe80::f071:728c:3813:3376%9]) with mapi id 15.20.4975.011; Wed, 9 Feb 2022
- 21:36:28 +0000
-Message-ID: <14f30ae6-addc-bd8a-001a-a005042047d7@amd.com>
-Date: Wed, 9 Feb 2022 16:36:25 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 5/9] drm/amdgpu: remove GTT accounting
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- ray.huang@amd.com, daniel@ffwll.ch, thomas.hellstrom@linux.intel.com
-References: <20220209084059.1042345-1-christian.koenig@amd.com>
- <20220209084059.1042345-6-christian.koenig@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20220209084059.1042345-6-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR04CA0054.namprd04.prod.outlook.com
- (2603:10b6:610:77::29) To BL1PR12MB5112.namprd12.prod.outlook.com
- (2603:10b6:208:316::16)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Wed, 9 Feb
+ 2022 22:52:01 +0000
+Received: from DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b9:cafe::47) by DS7PR05CA0014.outlook.office365.com
+ (2603:10b6:5:3b9::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.6 via Frontend
+ Transport; Wed, 9 Feb 2022 22:52:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT012.mail.protection.outlook.com (10.13.173.109) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4975.11 via Frontend Transport; Wed, 9 Feb 2022 22:52:01 +0000
+Received: from localhost.localdomain.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.18; Wed, 9 Feb 2022 16:51:59 -0600
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v1 1/1] drm/amdgpu: Show IP discovery in sysfs
+Date: Wed, 9 Feb 2022 17:51:44 -0500
+Message-ID: <20220209225144.8433-2-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.35.0.3.gb23dac905b
+In-Reply-To: <20220209225144.8433-1-luben.tuikov@amd.com>
+References: <20220209225144.8433-1-luben.tuikov@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c6b95f1c-c356-4952-cee4-08d9ec143ac1
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1236:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR12MB123676CD50CEC2CCB76D4E9D922E9@BN6PR12MB1236.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Office365-Filtering-Correlation-Id: 65475957-b6d7-4ffe-4239-08d9ec1ec8de
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4288:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB42884C849A796F68AAB650AE992E9@MN2PR12MB4288.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:318;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9JJHw7J1T/KVuG1cDcdv3tD6SMM0TryH0nP3ldGL8Rh0BKdn4hDvw/+UyQGtC1hj2W0EsYvNOJWSO0s0/IR9HsgMyGNqCzfo8MdK6wdx/71Z5Es28SQIAMotDHeUX0d24UxHol60HEfk1jJYL3XWvQa1uNwwobuWcVtskwkmecgtuXZ97orXsY8p3fABCen5BcTkDC51gK9Yxc54whAsemRWzwvv7l0AttKuP8D6wczXmyfd4Blt82ejrSztzFpKlTKWRJdpcMmrRRKOWj77zDxpN5bnUZtkLCtVlx8iqnIWDa6GDhfSHu0mkPGytTK3X9Pc17Xn/ScV27gsH9k/ePhdsVv5J40235rONTmy7pveKG/CBxfBiUMW0aol/Ub3Y/YoETQjejKBNOz0GKAjbpdRxdNUHv4Sy14J3+AB4puS03rv22NFznM1aOU+4ts4cO+migZtBafNWvQBaVYbECS3QLvp9OL3GDRSLjz/CX4GslDko+pKbhmf9YJmgVfMnBDM01mAX9xeEBDH21P543qCUjEWmhg8X8s+q5GBrJNbae8WuGwNRMb5zw1z/pRDKVx0hrpON0EyHbTlo3OAmXu14iqRFC8p17Gu95s9C5SytvOSmCK1e7RMSGd0DjfDPRW7CVfhJZvGvvWMSX9PyceVJGvQkkvKqBu0V9AUWjyVMfy35tTWbob1XSL8ARjk3UZurwR7ZKJePO/2Rqlo0ah8VY9O67rYZw3ScL3TCT/2LjvJWfRCbJ2Uq4mzrbTG
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5112.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(15650500001)(508600001)(31686004)(66946007)(36756003)(6666004)(4326008)(8676002)(66476007)(66556008)(5660300002)(8936002)(6486002)(44832011)(2906002)(316002)(6506007)(38100700002)(31696002)(26005)(53546011)(36916002)(2616005)(86362001)(6512007)(66574015)(186003)(83380400001)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: l4yfIPm9C3nH6UKx62FDdJcXgJ+8hZylPsJk6ooPA6YwbitlhSKzyYhZLnRfM7TWtvBoDuPOwSDgRtXZinpdD4niQu2f0vLYbMqtuaDQnxL4Ng+9DQvejXrXY5rmwXTmnnSGWvX3YK6F7CMdQ+xeqXDVE41IJv5WBIyZGe5wLiOtzBOTXpIqDiA552DcxQeuP5Y45xpCcZsf1GKllv4lMXdvLL+WecFCI9JGkljuoQFO/WKxhQzHsKwPKLh/cMgiF74YGVMsx0r3JVqSKi0yAkRndDfthuuMnttOnrpHpqNqKDYpp2hdXV9PecrjcLX0EwLUJAqWC7g0DrRdsWyZH1OKDRETdOHPaCDhsjNfe6q3Ac71OBc+cFi0ne4NNi3YKuJaqoXrbtlspjEnAt6fsWGpbh/tdM9+J2hvlz3Qc9LjNIpSjHyRMgDOU/lc0wMnprWP5VgrZFNenl3JrU86fYakEPJ/NbL/p+RD42cpJbZU9c/J7WzfOVmRByFkFK5ejQKD8Lbf5S3nEUV3Mz9DRDqNY3QZqV93k0zO2qVnXIHwynl/Yt42Q5dwYbSGH5ObwmwTIxigq8hLjHG46YBkmnYnaMuNac9uVoOEPe6c6jL6ZSWAp/pfRYj7Pm3PazFSk+k2XMhoN0Kg84HT0paWO5oAQWoPZtFdheonZy3uk6HNcgo5yBF1sl8Qb8RtX+TA+Gw6IqRCQHKORuF97ySKww==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(54906003)(4326008)(8936002)(336012)(7696005)(5660300002)(47076005)(316002)(40460700003)(83380400001)(8676002)(426003)(70586007)(70206006)(81166007)(86362001)(16526019)(1076003)(2616005)(36756003)(508600001)(186003)(26005)(356005)(44832011)(6666004)(6916009)(36860700001)(82310400004)(30864003)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEU2MTNDNG82M2tPVGpHU1JLYTdOVmpxbnQvOGd0ZFZGMHNzWENmWTJKZkg5?=
- =?utf-8?B?cnkxT2RyVE1XNndhUGNkeFVFWlBLYjBjZ1IvWm1NZGFCQnNtdS9XcVczTnM0?=
- =?utf-8?B?NHpsakZQdUtHRy9ySWFIdkRrOVFxRm5hcG9WRURmbmJuRFl2dFJOZTgyNWJs?=
- =?utf-8?B?TlFBd1kzSEpIczR6YWZzMk8vMDJ5c1JtUkwvK2xneEJweHRMT3orSmRDdlFC?=
- =?utf-8?B?RXJqUnI0RWQxZ0xYV0xGblRtMmpuaGVkVng2MmtWZFpUdkoyRVY0SjBrOXY3?=
- =?utf-8?B?ZWttMi81VzJGWXhYZHYyc2NXaUJ5UDFPeUpMcWxCeXg3b0FHYk0rZnI3UXZT?=
- =?utf-8?B?RG5QdE1tdTdvbFRVc3lZbjhvdVNRTnJLazhUVlJRZUpxak53d3c0aS9QYjBR?=
- =?utf-8?B?b0lhQUJvbjQ5Y0tQTFVlUE1veXlST3ZnNlRLQ1ZUWk9VSndhVmRrclY4VlJO?=
- =?utf-8?B?c3o0K2hJMkZKQnhzVjRkNFhQaStjV24wdStIVWVJSzNaVnViTTJ5dWsyemww?=
- =?utf-8?B?UEo2UTQramE4dVA2akN6cXB2akRCYkdPOXZIM0lyaUljVlJCekN1RnAxMGhm?=
- =?utf-8?B?Umx4Y29NbDRKb1lZZ0NldDlaVW5QbFhrdVh0T3QxdTJ4RFlnRHhHTUxHbFB2?=
- =?utf-8?B?TUUzcVp6c0g2MGdTZ00wQVZWNnlReVkyaU1ycTA1dDJJcWY5cS9RRXVoN3ZV?=
- =?utf-8?B?SStHNW15Zk1kWWozd3VNQnZSTHJwTGhlaUc5emRaYWl3NlBpR25adjdqRmI1?=
- =?utf-8?B?bDFXa1JCdGlpN3I1VU44cTZ5L1F0VGZjUXpnblM4d3czWWtITUtFME5wNEZQ?=
- =?utf-8?B?cFNiSnBWTnh2UTFLVlFsbGtNZ0hFUE9iTVZIOTlTaUxheENDaXdQeEVqZndF?=
- =?utf-8?B?WjlyRE5qeHpzTUZJdGRLVnhoY0h1M0FFNXl0SlJQaitnaHNnaWoxcHI4b3Zl?=
- =?utf-8?B?L013ZXFjWWRTVFZZWmlDbjVDcldwYUxEZzl0VFMzVmdoV0EzeEtiZGZJU2lL?=
- =?utf-8?B?Lzl2c3F3MzVXT0VZMy9RYlhOR0pEc2RPUDdsWHA1MExOTmRhc2dmWDVTYklw?=
- =?utf-8?B?dVpJcnpPaUxrMEhpb1ZWV2tKVXNkeitKNEdkTjF2VHpBeFUrZy9lK21FTU1O?=
- =?utf-8?B?Nkp3Z2ZXZ3ZXdjZXMVZ1ZVRTUENEaXBES09IeVpITHhhSlNibVhsQVJPWU9P?=
- =?utf-8?B?a0cxMEZtZTN0S3hRdEVydXRDSXpaOXdyZVdERS9NRVg2V2Z4dk9EdVdtdVhN?=
- =?utf-8?B?Y3JiMUcyM2FLR3VhV1VoUTUwcElPVy9EZXVMRzEwbDNPcHdHdVhrZldjMzQ1?=
- =?utf-8?B?QUJLd0ZzRXFybjhYc0RhcDVVMnYxUHduN3B0M2NPS1hwRGgyc2VKaW03UmVB?=
- =?utf-8?B?aHEzTFhoRUNUVThMeDlEMVpsb3k0YURGYmFWYkZRU01hR204YkdyZzVUa2FT?=
- =?utf-8?B?MjE4SkF1eGNKUXhhdFhRWVhha01SMDJaRzFZMVpqSlR4cjFmbTg4THBnS3Fm?=
- =?utf-8?B?QWkwK1FxWVIrSFZWaS9Sd2FET0kxQVlOWGtISW1xb3RVUHNvYjVQM2pEOThW?=
- =?utf-8?B?RWtsK1prRGVSRGRqYmx0SE85QlNuY3djNHczbE5UanNLamZkelEyLzcvUncx?=
- =?utf-8?B?SmoyUTNobFZ1K21xaU5kWllaRVJGT0QyZVRrNGdidjR6cHVCWUQxdTcxNVNl?=
- =?utf-8?B?aFRHd0Ivekl5MnZCanVzNmpWVldPdXpYdkxvV3VCVjN2ZE4vcktqanZ3U3hn?=
- =?utf-8?B?ZFAzQVhJN1lTdUFraUJqa2ZVU0hmUEZkbTBPNlgzQWdUR3JhQk9jbFF4aTgy?=
- =?utf-8?B?T2ptRUdwa1lsOXppREtMeC9PSXZiaWI3eE9VWEZXY1h0eHMxVFY1OE9vTlFt?=
- =?utf-8?B?K2YzSVhTdWwyNDgvNWNLTWM0bm5GM3JPMHJ5ZTZQV0dCNFdZSlpkeHEyeUJD?=
- =?utf-8?B?THp1RXZ2WXNlMUhWQVBrUXY4aTNLaDRzV2RzeUxpY0taendxTWs5Yzh4bWpR?=
- =?utf-8?B?WjQ5dnBTTkRYaWdJdXJiNllEZG90Z25iQkxKMWdVdE1ySDVSeXN5ZEpCV3NX?=
- =?utf-8?B?UEV3ell4d1QxNDhFZEJHSkxkNGl6WXlsL041UEdSd01aRWRkeHFrRWQ2dFpo?=
- =?utf-8?B?dWRYK0VoMWxnWVNlZW9rNjBoRGFnMk5TVCtQQ1dCTkVNaEtxdG5XZmViRWNm?=
- =?utf-8?Q?6POXikQfKj5U+D5RuRrZYEI=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6b95f1c-c356-4952-cee4-08d9ec143ac1
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5112.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2022 21:36:28.1728 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2022 22:52:01.1725 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65475957-b6d7-4ffe-4239-08d9ec1ec8de
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: idXu0DIeUDNd+GjoD6DP6m9BQZOfo14i8o9uIxjA2Kc6sfJ4WZAgTghaWPl15231iRBltQPJ8vh2tglxOB6iJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1236
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4288
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,197 +101,568 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <Alexander.Deucher@amd.com>, Tom StDenis <tom.stdenis@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Add IP discovery data in sysfs. The format is:
+/sys/class/drm/cardX/device/ip_discovery/die/D/B/I/<attrs>
+where,
+X is the card ID, an integer,
+D is the die ID, an integer,
+B is the IP HW ID, an integer, aka block type,
+I is the IP HW ID instance, an integer.
+<attrs> are the attributes of the block instance. At the moment these
+include HW ID, instance number, major, minor, revision, number of base
+addresses, and the base addresses themselves.
 
-On 2022-02-09 03:40, Christian König wrote:
-> This is provided by TTM now.
->
-> Also switch man->size to bytes instead of pages and fix the double
-> printing of size and usage in debugfs.
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Tested-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 49 +++++----------------
-Should amdgpu_preempt_mgr also be updated?
+A symbolic link of the acronym HW ID is also created, under D/, if you
+prefer to browse by something humanly accessible.
 
-Regards,
-   Felix
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Cc: Tom StDenis <tom.stdenis@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 486 ++++++++++++++++++
+ 2 files changed, 490 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index e4eb812ade2fa4..3a126dce8a2fe9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -772,6 +772,8 @@ struct amd_powerplay {
+ 	const struct amd_pm_funcs *pp_funcs;
+ };
+ 
++struct ip_discovery_top;
++
+ /* polaris10 kickers */
+ #define ASICID_IS_P20(did, rid)		(((did == 0x67DF) && \
+ 					 ((rid == 0xE3) || \
+@@ -1097,6 +1099,8 @@ struct amdgpu_device {
+ 	bool				ram_is_direct_mapped;
+ 
+ 	struct list_head                ras_list;
++
++	struct ip_discovery_top         *ip_top;
+ };
+ 
+ static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 07623634fdc2f1..46e6e1352574f6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -360,8 +360,11 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+ 	return r;
+ }
+ 
++static void amdgpu_discovery_sysfs_fini(struct amdgpu_device *adev);
++
+ void amdgpu_discovery_fini(struct amdgpu_device *adev)
+ {
++	amdgpu_discovery_sysfs_fini(adev);
+ 	kfree(adev->mman.discovery_bin);
+ 	adev->mman.discovery_bin = NULL;
+ }
+@@ -382,6 +385,487 @@ static int amdgpu_discovery_validate_ip(const struct ip *ip)
+ 	return 0;
+ }
+ 
++/* ================================================== */
++
++struct ip_hw_instance {
++	struct kobject kobj; /* ip_discovery/die/#die/#hw_id/#instance/<attrs...> */
++
++	int hw_id;
++	u8  num_instance;
++	u8  major, minor, revision;
++
++	int num_base_addresses;
++	u32 base_addr[0];
++};
++
++struct ip_hw_id {
++	struct kset hw_id_kset;  /* ip_discovery/die/#die/#hw_id/, contains ip_hw_instance */
++	int hw_id;
++};
++
++struct ip_die_entry {
++	struct kset ip_kset;     /* ip_discovery/die/#die/, contains ip_hw_id  */
++	u16 num_ips;
++};
++
++/* -------------------------------------------------- */
++
++struct ip_hw_instance_attr {
++	struct attribute attr;
++	ssize_t (*show)(struct ip_hw_instance *ip_hw_instance, char *buf);
++};
++
++static ssize_t hw_id_show(struct ip_hw_instance *ip_hw_instance, char *buf)
++{
++	return sprintf(buf, "%d\n", ip_hw_instance->hw_id);
++}
++
++static ssize_t num_instance_show(struct ip_hw_instance *ip_hw_instance, char *buf)
++{
++	return sprintf(buf, "%d\n", ip_hw_instance->num_instance);
++}
++
++static ssize_t major_show(struct ip_hw_instance *ip_hw_instance, char *buf)
++{
++	return sprintf(buf, "%d\n", ip_hw_instance->major);
++}
++
++static ssize_t minor_show(struct ip_hw_instance *ip_hw_instance, char *buf)
++{
++	return sprintf(buf, "%d\n", ip_hw_instance->minor);
++}
++
++static ssize_t revision_show(struct ip_hw_instance *ip_hw_instance, char *buf)
++{
++	return sprintf(buf, "%d\n", ip_hw_instance->revision);
++}
++
++static ssize_t num_base_addresses_show(struct ip_hw_instance *ip_hw_instance, char *buf)
++{
++	return sprintf(buf, "%d\n", ip_hw_instance->num_base_addresses);
++}
++
++static ssize_t base_addr_show(struct ip_hw_instance *ip_hw_instance, char *buf)
++{
++	ssize_t res = 0;
++	int ii;
++
++	for (ii = 0; ii < ip_hw_instance->num_base_addresses; ii++) {
++		if (res + 12 >= PAGE_SIZE)
++			break;
++		res += sprintf(buf + res, "0x%08X\n", ip_hw_instance->base_addr[ii]);
++	}
++
++	return res;
++}
++
++static struct ip_hw_instance_attr ip_hw_attr[] = {
++	__ATTR_RO(hw_id),
++	__ATTR_RO(num_instance),
++	__ATTR_RO(major),
++	__ATTR_RO(minor),
++	__ATTR_RO(revision),
++	__ATTR_RO(num_base_addresses),
++	__ATTR_RO(base_addr),
++};
++
++static struct attribute *ip_hw_instance_attrs[] = {
++	&ip_hw_attr[0].attr,
++	&ip_hw_attr[1].attr,
++	&ip_hw_attr[2].attr,
++	&ip_hw_attr[3].attr,
++	&ip_hw_attr[4].attr,
++	&ip_hw_attr[5].attr,
++	&ip_hw_attr[6].attr,
++	NULL,
++};
++ATTRIBUTE_GROUPS(ip_hw_instance);
++
++#define to_ip_hw_instance(x) container_of(x, struct ip_hw_instance, kobj)
++#define to_ip_hw_instance_attr(x) container_of(x, struct ip_hw_instance_attr, attr)
++
++static ssize_t ip_hw_instance_attr_show(struct kobject *kobj,
++					struct attribute *attr,
++					char *buf)
++{
++	struct ip_hw_instance *ip_hw_instance = to_ip_hw_instance(kobj);
++	struct ip_hw_instance_attr *ip_hw_attr = to_ip_hw_instance_attr(attr);
++
++	if (!ip_hw_attr->show)
++		return -EIO;
++
++	return ip_hw_attr->show(ip_hw_instance, buf);
++}
++
++static const struct sysfs_ops ip_hw_instance_sysfs_ops = {
++	.show = ip_hw_instance_attr_show,
++};
++
++static void ip_hw_instance_release(struct kobject *kobj)
++{
++	struct ip_hw_instance *ip_hw_instance = to_ip_hw_instance(kobj);
++
++	kfree(ip_hw_instance);
++}
++
++static struct kobj_type ip_hw_instance_ktype = {
++	.release = ip_hw_instance_release,
++	.sysfs_ops = &ip_hw_instance_sysfs_ops,
++	.default_groups = ip_hw_instance_groups,
++};
++
++/* -------------------------------------------------- */
++
++#define to_ip_hw_id(x)  container_of(to_kset(x), struct ip_hw_id, hw_id_kset)
++
++static void ip_hw_id_release(struct kobject *kobj)
++{
++	struct ip_hw_id *ip_hw_id = to_ip_hw_id(kobj);
++
++	if (!list_empty(&ip_hw_id->hw_id_kset.list))
++		DRM_ERROR("ip_hw_id->hw_id_kset is not empty");
++	kfree(ip_hw_id);
++}
++
++static struct kobj_type ip_hw_id_ktype = {
++	.release = ip_hw_id_release,
++	.sysfs_ops = &kobj_sysfs_ops,
++};
++
++/* -------------------------------------------------- */
++
++static void die_kobj_release(struct kobject *kobj);
++static void ip_disc_release(struct kobject *kobj);
++
++struct ip_die_entry_attribute {
++	struct attribute attr;
++	ssize_t (*show)(struct ip_die_entry *ip_die_entry, char *buf);
++};
++
++#define to_ip_die_entry_attr(x)  container_of(x, struct ip_die_entry_attribute, attr)
++
++static ssize_t num_ips_show(struct ip_die_entry *ip_die_entry, char *buf)
++{
++	return sprintf(buf, "%d\n", ip_die_entry->num_ips);
++}
++
++/* If there are more ip_die_entry attrs, other than the number of IPs,
++ * we can make this intro an array of attrs, and then initialize
++ * ip_die_entry_attrs in a loop.
++ */
++static struct ip_die_entry_attribute num_ips_attr =
++	__ATTR_RO(num_ips);
++
++static struct attribute *ip_die_entry_attrs[] = {
++	&num_ips_attr.attr,
++	NULL,
++};
++ATTRIBUTE_GROUPS(ip_die_entry); /* ip_die_entry_groups */
++
++#define to_ip_die_entry(x) container_of(to_kset(x), struct ip_die_entry, ip_kset)
++
++static ssize_t ip_die_entry_attr_show(struct kobject *kobj,
++				      struct attribute *attr,
++				      char *buf)
++{
++	struct ip_die_entry_attribute *ip_die_entry_attr = to_ip_die_entry_attr(attr);
++	struct ip_die_entry *ip_die_entry = to_ip_die_entry(kobj);
++
++	if (!ip_die_entry_attr->show)
++		return -EIO;
++
++	return ip_die_entry_attr->show(ip_die_entry, buf);
++}
++
++static void ip_die_entry_release(struct kobject *kobj)
++{
++	struct ip_die_entry *ip_die_entry = to_ip_die_entry(kobj);
++
++	if (!list_empty(&ip_die_entry->ip_kset.list))
++		DRM_ERROR("ip_die_entry->ip_kset is not empty");
++	kfree(ip_die_entry);
++}
++
++static const struct sysfs_ops ip_die_entry_sysfs_ops = {
++	.show = ip_die_entry_attr_show,
++};
++
++static struct kobj_type ip_die_entry_ktype = {
++	.release = ip_die_entry_release,
++	.sysfs_ops = &ip_die_entry_sysfs_ops,
++	.default_groups = ip_die_entry_groups,
++};
++
++static struct kobj_type die_kobj_ktype = {
++	.release = die_kobj_release,
++	.sysfs_ops = &kobj_sysfs_ops,
++};
++
++static struct kobj_type ip_discovery_ktype = {
++	.release = ip_disc_release,
++	.sysfs_ops = &kobj_sysfs_ops,
++};
++
++struct ip_discovery_top {
++	struct kobject kobj;    /* ip_discovery/ */
++	struct kset die_kset;   /* ip_discovery/die/, contains ip_die_entry */
++	struct amdgpu_device *adev;
++};
++
++static void die_kobj_release(struct kobject *kobj)
++{
++	struct ip_discovery_top *ip_top = container_of(to_kset(kobj),
++						       struct ip_discovery_top,
++						       die_kset);
++	if (!list_empty(&ip_top->die_kset.list))
++		DRM_ERROR("ip_top->die_kset is not empty");
++}
++
++static void ip_disc_release(struct kobject *kobj)
++{
++	struct ip_discovery_top *ip_top = container_of(kobj, struct ip_discovery_top,
++						       kobj);
++	struct amdgpu_device *adev = ip_top->adev;
++
++	adev->ip_top = NULL;
++	kfree(ip_top);
++}
++
++static int amdgpu_discovery_sysfs_ips(struct amdgpu_device *adev,
++				      struct ip_die_entry *ip_die_entry,
++				      const size_t _ip_offset, const int num_ips)
++{
++	int ii, jj, kk, res;
++
++	DRM_DEBUG("num_ips:%d", num_ips);
++
++	/* Find all IPs of a given HW ID, and add their instance to
++	 * #die/#hw_id/#instance/<attributes>
++	 */
++	for (ii = 0; ii < HW_ID_MAX; ii++) {
++		struct ip_hw_id *ip_hw_id = NULL;
++		size_t ip_offset = _ip_offset;
++
++		for (jj = 0; jj < num_ips; jj++) {
++			struct ip *ip;
++			struct ip_hw_instance *ip_hw_instance;
++
++			ip = (struct ip *)(adev->mman.discovery_bin + ip_offset);
++			if (amdgpu_discovery_validate_ip(ip) ||
++			    le16_to_cpu(ip->hw_id) != ii)
++				goto next_ip;
++
++			DRM_DEBUG("match:%d @ ip_offset:%ld", ii, ip_offset);
++
++			/* We have a hw_id match; register the hw
++			 * block if not yet registered.
++			 */
++			if (!ip_hw_id) {
++				ip_hw_id = kzalloc(sizeof(*ip_hw_id), GFP_KERNEL);
++				if (!ip_hw_id)
++					return -ENOMEM;
++				ip_hw_id->hw_id = ii;
++
++				kobject_set_name(&ip_hw_id->hw_id_kset.kobj, "%d", ii);
++				ip_hw_id->hw_id_kset.kobj.kset = &ip_die_entry->ip_kset;
++				ip_hw_id->hw_id_kset.kobj.ktype = &ip_hw_id_ktype;
++				res = kset_register(&ip_hw_id->hw_id_kset);
++				if (res) {
++					DRM_ERROR("Couldn't register ip_hw_id kset");
++					kfree(ip_hw_id);
++					return res;
++				}
++				if (hw_id_names[ii]) {
++					res = sysfs_create_link(&ip_die_entry->ip_kset.kobj,
++								&ip_hw_id->hw_id_kset.kobj,
++								hw_id_names[ii]);
++					if (res) {
++						DRM_ERROR("Couldn't create IP link %s in IP Die:%s\n",
++							  hw_id_names[ii],
++							  kobject_name(&ip_die_entry->ip_kset.kobj));
++					}
++				}
++			}
++
++			/* Now register its instance.
++			 */
++			ip_hw_instance = kzalloc(sizeof(*ip_hw_instance) +
++						 sizeof(u32) * ip->num_base_address,
++						 GFP_KERNEL);
++			if (!ip_hw_instance) {
++				DRM_ERROR("no memory for ip_hw_instance");
++				return -ENOMEM;
++			}
++			ip_hw_instance->hw_id = le16_to_cpu(ip->hw_id); /* == ii */
++			ip_hw_instance->num_instance = ip->number_instance;
++			ip_hw_instance->major = ip->major;
++			ip_hw_instance->minor = ip->minor;
++			ip_hw_instance->revision = ip->revision;
++			ip_hw_instance->num_base_addresses = ip->num_base_address;
++
++			for (kk = 0; kk < ip_hw_instance->num_base_addresses; kk++)
++				ip_hw_instance->base_addr[kk] = ip->base_address[kk];
++
++			kobject_init(&ip_hw_instance->kobj, &ip_hw_instance_ktype);
++			ip_hw_instance->kobj.kset = &ip_hw_id->hw_id_kset;
++			res = kobject_add(&ip_hw_instance->kobj, NULL,
++					  "%d", ip_hw_instance->num_instance);
++next_ip:
++			ip_offset += sizeof(*ip) + 4 * (ip->num_base_address - 1);
++		}
++	}
++
++	return 0;
++}
++
++static int amdgpu_discovery_sysfs_recurse(struct amdgpu_device *adev)
++{
++	struct binary_header *bhdr;
++	struct ip_discovery_header *ihdr;
++	struct die_header *dhdr;
++	struct kset *die_kset = &adev->ip_top->die_kset;
++	u16 num_dies, die_offset, num_ips;
++	size_t ip_offset;
++	int ii, res;
++
++	bhdr = (struct binary_header *)adev->mman.discovery_bin;
++	ihdr = (struct ip_discovery_header *)(adev->mman.discovery_bin +
++					      le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
++	num_dies = le16_to_cpu(ihdr->num_dies);
++
++	DRM_DEBUG("number of dies: %d\n", num_dies);
++
++	for (ii = 0; ii < num_dies; ii++) {
++		struct ip_die_entry *ip_die_entry;
++
++		die_offset = le16_to_cpu(ihdr->die_info[ii].die_offset);
++		dhdr = (struct die_header *)(adev->mman.discovery_bin + die_offset);
++		num_ips = le16_to_cpu(dhdr->num_ips);
++		ip_offset = die_offset + sizeof(*dhdr);
++
++		/* Add the die to the kset.
++		 *
++		 * dhdr->die_id == ii, which was checked in
++		 * amdgpu_discovery_reg_base_init().
++		 */
++
++		ip_die_entry = kzalloc(sizeof(*ip_die_entry), GFP_KERNEL);
++		if (!ip_die_entry)
++			return -ENOMEM;
++
++		ip_die_entry->num_ips = num_ips;
++
++		kobject_set_name(&ip_die_entry->ip_kset.kobj, "%d", le16_to_cpu(dhdr->die_id));
++		ip_die_entry->ip_kset.kobj.kset = die_kset;
++		ip_die_entry->ip_kset.kobj.ktype = &ip_die_entry_ktype;
++		res = kset_register(&ip_die_entry->ip_kset);
++		if (res) {
++			DRM_ERROR("Couldn't register ip_die_entry kset");
++			kfree(ip_die_entry);
++			return res;
++		}
++
++		amdgpu_discovery_sysfs_ips(adev, ip_die_entry, ip_offset, num_ips);
++	}
++
++	return 0;
++}
++
++static int amdgpu_discovery_sysfs_init(struct amdgpu_device *adev)
++{
++	struct kset *die_kset;
++	int res;
++
++	adev->ip_top = kzalloc(sizeof(*adev->ip_top), GFP_KERNEL);
++	if (!adev->ip_top)
++		return -ENOMEM;
++
++	adev->ip_top->adev = adev;
++
++	res = kobject_init_and_add(&adev->ip_top->kobj, &ip_discovery_ktype,
++				   &adev->dev->kobj, "ip_discovery");
++	if (res) {
++		DRM_ERROR("Couldn't init and add ip_discovery/");
++		goto Err;
++	}
++
++	die_kset = &adev->ip_top->die_kset;
++	kobject_set_name(&die_kset->kobj, "%s", "die");
++	die_kset->kobj.parent = &adev->ip_top->kobj;
++	die_kset->kobj.ktype = &die_kobj_ktype;
++	res = kset_register(&adev->ip_top->die_kset);
++	if (res) {
++		DRM_ERROR("Couldn't register die_kset");
++		goto Err;
++	}
++
++	res = amdgpu_discovery_sysfs_recurse(adev);
++
++	return res;
++Err:
++	kobject_put(&adev->ip_top->kobj);
++	return res;
++}
++
++/* -------------------------------------------------- */
++
++#define list_to_kobj(el) container_of(el, struct kobject, entry)
++
++static void amdgpu_discovery_sysfs_ip_hw_free(struct ip_hw_id *ip_hw_id)
++{
++	struct list_head *el, *tmp;
++	struct kset *hw_id_kset;
++
++	hw_id_kset = &ip_hw_id->hw_id_kset;
++	spin_lock(&hw_id_kset->list_lock);
++	list_for_each_prev_safe(el, tmp, &hw_id_kset->list) {
++		list_del_init(el);
++		spin_unlock(&hw_id_kset->list_lock);
++		/* kobject is embedded in ip_hw_instance */
++		kobject_put(list_to_kobj(el));
++		spin_lock(&hw_id_kset->list_lock);
++	}
++	spin_unlock(&hw_id_kset->list_lock);
++	kobject_put(&ip_hw_id->hw_id_kset.kobj);
++}
++
++static void amdgpu_discovery_sysfs_die_free(struct ip_die_entry *ip_die_entry)
++{
++	struct list_head *el, *tmp;
++	struct kset *ip_kset;
++
++	ip_kset = &ip_die_entry->ip_kset;
++	spin_lock(&ip_kset->list_lock);
++	list_for_each_prev_safe(el, tmp, &ip_kset->list) {
++		list_del_init(el);
++		spin_unlock(&ip_kset->list_lock);
++		amdgpu_discovery_sysfs_ip_hw_free(to_ip_hw_id(list_to_kobj(el)));
++		spin_lock(&ip_kset->list_lock);
++	}
++	spin_unlock(&ip_kset->list_lock);
++	kobject_put(&ip_die_entry->ip_kset.kobj);
++}
++
++static void amdgpu_discovery_sysfs_fini(struct amdgpu_device *adev)
++{
++	struct list_head *el, *tmp;
++	struct kset *die_kset;
++
++	die_kset = &adev->ip_top->die_kset;
++	spin_lock(&die_kset->list_lock);
++	list_for_each_prev_safe(el, tmp, &die_kset->list) {
++		list_del_init(el);
++		spin_unlock(&die_kset->list_lock);
++		amdgpu_discovery_sysfs_die_free(to_ip_die_entry(list_to_kobj(el)));
++		spin_lock(&die_kset->list_lock);
++	}
++	spin_unlock(&die_kset->list_lock);
++	kobject_put(&adev->ip_top->die_kset.kobj);
++	kobject_put(&adev->ip_top->kobj);
++}
++
++/* ================================================== */
++
+ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+ {
+ 	struct binary_header *bhdr;
+@@ -492,6 +976,8 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+ 		}
+ 	}
+ 
++	amdgpu_discovery_sysfs_init(adev);
++
+ 	return 0;
+ }
+ 
+-- 
+2.35.0.3.gb23dac905b
 
->   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |  8 ++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  2 -
->   3 files changed, 15 insertions(+), 44 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> index e0c7fbe01d93..3bcd27ae379d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> @@ -60,7 +60,7 @@ static ssize_t amdgpu_mem_info_gtt_total_show(struct device *dev,
->   	struct ttm_resource_manager *man;
->   
->   	man = ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
-> -	return sysfs_emit(buf, "%llu\n", man->size * PAGE_SIZE);
-> +	return sysfs_emit(buf, "%llu\n", man->size);
->   }
->   
->   /**
-> @@ -77,8 +77,9 @@ static ssize_t amdgpu_mem_info_gtt_used_show(struct device *dev,
->   {
->   	struct drm_device *ddev = dev_get_drvdata(dev);
->   	struct amdgpu_device *adev = drm_to_adev(ddev);
-> +	struct ttm_resource_manager *man = &adev->mman.gtt_mgr.manager;
->   
-> -	return sysfs_emit(buf, "%llu\n", amdgpu_gtt_mgr_usage(&adev->mman.gtt_mgr));
-> +	return sysfs_emit(buf, "%llu\n", ttm_resource_manager_usage(man));
->   }
->   
->   static DEVICE_ATTR(mem_info_gtt_total, S_IRUGO,
-> @@ -130,20 +131,17 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
->   	struct amdgpu_gtt_node *node;
->   	int r;
->   
-> -	if (!(place->flags & TTM_PL_FLAG_TEMPORARY) &&
-> -	    atomic64_add_return(num_pages, &mgr->used) >  man->size) {
-> -		atomic64_sub(num_pages, &mgr->used);
-> -		return -ENOSPC;
-> -	}
-> -
->   	node = kzalloc(struct_size(node, base.mm_nodes, 1), GFP_KERNEL);
-> -	if (!node) {
-> -		r = -ENOMEM;
-> -		goto err_out;
-> -	}
-> +	if (!node)
-> +		return -ENOMEM;
->   
->   	node->tbo = tbo;
->   	ttm_resource_init(tbo, place, &node->base.base);
-> +	if (!(place->flags & TTM_PL_FLAG_TEMPORARY) &&
-> +	    ttm_resource_manager_usage(man) > man->size) {
-> +		r = -ENOSPC;
-> +		goto err_free;
-> +	}
->   
->   	if (place->lpfn) {
->   		spin_lock(&mgr->lock);
-> @@ -169,11 +167,6 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
->   err_free:
->   	ttm_resource_fini(man, &node->base.base);
->   	kfree(node);
-> -
-> -err_out:
-> -	if (!(place->flags & TTM_PL_FLAG_TEMPORARY))
-> -		atomic64_sub(num_pages, &mgr->used);
-> -
->   	return r;
->   }
->   
-> @@ -196,25 +189,10 @@ static void amdgpu_gtt_mgr_del(struct ttm_resource_manager *man,
->   		drm_mm_remove_node(&node->base.mm_nodes[0]);
->   	spin_unlock(&mgr->lock);
->   
-> -	if (!(res->placement & TTM_PL_FLAG_TEMPORARY))
-> -		atomic64_sub(res->num_pages, &mgr->used);
-> -
->   	ttm_resource_fini(man, res);
->   	kfree(node);
->   }
->   
-> -/**
-> - * amdgpu_gtt_mgr_usage - return usage of GTT domain
-> - *
-> - * @mgr: amdgpu_gtt_mgr pointer
-> - *
-> - * Return how many bytes are used in the GTT domain
-> - */
-> -uint64_t amdgpu_gtt_mgr_usage(struct amdgpu_gtt_mgr *mgr)
-> -{
-> -	return atomic64_read(&mgr->used) * PAGE_SIZE;
-> -}
-> -
->   /**
->    * amdgpu_gtt_mgr_recover - re-init gart
->    *
-> @@ -260,9 +238,6 @@ static void amdgpu_gtt_mgr_debug(struct ttm_resource_manager *man,
->   	spin_lock(&mgr->lock);
->   	drm_mm_print(&mgr->mm, printer);
->   	spin_unlock(&mgr->lock);
-> -
-> -	drm_printf(printer, "man size:%llu pages,  gtt used:%llu pages\n",
-> -		   man->size, atomic64_read(&mgr->used));
->   }
->   
->   static const struct ttm_resource_manager_func amdgpu_gtt_mgr_func = {
-> @@ -288,14 +263,12 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
->   	man->use_tt = true;
->   	man->func = &amdgpu_gtt_mgr_func;
->   
-> -	ttm_resource_manager_init(man, &adev->mman.bdev,
-> -				  gtt_size >> PAGE_SHIFT);
-> +	ttm_resource_manager_init(man, &adev->mman.bdev, gtt_size);
->   
->   	start = AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS;
->   	size = (adev->gmc.gart_size >> PAGE_SHIFT) - start;
->   	drm_mm_init(&mgr->mm, start, size);
->   	spin_lock_init(&mgr->lock);
-> -	atomic64_set(&mgr->used, 0);
->   
->   	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_TT, &mgr->manager);
->   	ttm_resource_manager_set_used(man, true);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 1ebb91db2274..9ff4aced5da7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -684,7 +684,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->   		ui64 = amdgpu_vram_mgr_vis_usage(&adev->mman.vram_mgr);
->   		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
->   	case AMDGPU_INFO_GTT_USAGE:
-> -		ui64 = amdgpu_gtt_mgr_usage(&adev->mman.gtt_mgr);
-> +		ui64 = ttm_resource_manager_usage(&adev->mman.gtt_mgr.manager);
->   		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
->   	case AMDGPU_INFO_GDS_CONFIG: {
->   		struct drm_amdgpu_info_gds gds_info;
-> @@ -716,7 +716,8 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->   	case AMDGPU_INFO_MEMORY: {
->   		struct drm_amdgpu_memory_info mem;
->   		struct ttm_resource_manager *gtt_man =
-> -			ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
-> +			&adev->mman.gtt_mgr.manager;
-> +
->   		memset(&mem, 0, sizeof(mem));
->   		mem.vram.total_heap_size = adev->gmc.real_vram_size;
->   		mem.vram.usable_heap_size = adev->gmc.real_vram_size -
-> @@ -741,8 +742,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->   		mem.gtt.total_heap_size *= PAGE_SIZE;
->   		mem.gtt.usable_heap_size = mem.gtt.total_heap_size -
->   			atomic64_read(&adev->gart_pin_size);
-> -		mem.gtt.heap_usage =
-> -			amdgpu_gtt_mgr_usage(&adev->mman.gtt_mgr);
-> +		mem.gtt.heap_usage = ttm_resource_manager_usage(gtt_man);
->   		mem.gtt.max_allocation = mem.gtt.usable_heap_size * 3 / 4;
->   
->   		return copy_to_user(out, &mem,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index f8f48be16d80..120b69ec9885 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -52,7 +52,6 @@ struct amdgpu_gtt_mgr {
->   	struct ttm_resource_manager manager;
->   	struct drm_mm mm;
->   	spinlock_t lock;
-> -	atomic64_t used;
->   };
->   
->   struct amdgpu_preempt_mgr {
-> @@ -114,7 +113,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev);
->   void amdgpu_vram_mgr_fini(struct amdgpu_device *adev);
->   
->   bool amdgpu_gtt_mgr_has_gart_addr(struct ttm_resource *mem);
-> -uint64_t amdgpu_gtt_mgr_usage(struct amdgpu_gtt_mgr *mgr);
->   int amdgpu_gtt_mgr_recover(struct amdgpu_gtt_mgr *mgr);
->   
->   uint64_t amdgpu_preempt_mgr_usage(struct ttm_resource_manager *man);
