@@ -4,62 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22CABC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 08:41:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01DF4C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 08:51:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 222A410E583;
-	Wed,  9 Feb 2022 08:41:14 +0000 (UTC)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC91610E57D;
- Wed,  9 Feb 2022 08:41:11 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id e7so1089609ejn.13;
- Wed, 09 Feb 2022 00:41:11 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 367C510E59A;
+	Wed,  9 Feb 2022 08:51:32 +0000 (UTC)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 000C110E59A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Feb 2022 08:51:30 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id f17so2801635wrx.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Feb 2022 00:51:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=i4zUiJGhel/vI+3nzynSDA7j7o+Qb7ATZDl3lnniuPY=;
- b=P3aABcxnByktMSYZTG3KEdEuhldcz+SGGoaklsiOUUMPAxuY7Sd6FL+guarTZutKB0
- 6YmJGDGCD3/tnUcgpL7Wg/cbVvuLE2PYj9VjIbxpb29iyUrJ3ALikFSvtwr5eYNUj1RY
- yMK80AZQ3tUQGSCKmWs87dapfE0UoAzaelcfzLywxmXgdjfpPd3ojSkhwp/nZyd7QBCW
- o/Fz6WKGfGTMCo8CUho1cB9WE1q/1UHJ45wIkwFdr82CKUsv7X3GbHYztLg6uCcfnPeu
- MpAZ5F8yl07Me5O1LJn9Ur1BsuLotyzVtOHGydywJH9I+tSBPpW40c0cY2zZL794e8tX
- qveQ==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=L4p4mNdlHkZdnI3jg3HE31kstXWWzI9gaefBIe+5co4=;
+ b=GN2kruB/uG3yKxMzWN9GWJ476mLzL8jgQ3Nl/REdrLq5bRnV/LjQdk+HV1mqMXlF6m
+ FwnEx38IfxOY/fyC5iqrGMfs0OZwMyGsyw7/EDgHkszcvPyxv4og2sCSbw/TGtlaECHE
+ FL3fXcnNilPqlgnf77CqEbJKr9My6gx+/5YzzN8ICyUOTDZCT3UwUR5Lk4sHxeWREbtL
+ ZNuAm+XB68bMutK+iguE/VZCq7SqDkdcsavPYZzhtU33anW4qGnLxrbpna/weEUD4aXU
+ 2oEZpoTJKkh0UVADiD+OoZmvUAs2Kd8g2CubJV3nCeAII4EHhCDgtPn1/v4sH9TD066R
+ rIBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=i4zUiJGhel/vI+3nzynSDA7j7o+Qb7ATZDl3lnniuPY=;
- b=V3Wsf6pDWuxpBcaw5RmZq9+j5taWZjFBBFvzevMUOXvrg2XP84vV5xN7pCmI92JLd5
- byp/cLXr3YvNwH/4za5sjfCE5Hfcsajy9XmRqTquH/86Ep09sW9GFhnEnBhbqWGaVCgh
- xizd/Fg5WhDNaPQ1FgS4scLP13YhWNnx33y63eFtyGnoANEwhINMPY6zx6aiQunAzv9I
- pOpXWvLzFSTVMz4m2l2/G3PPRx9vGYY4MaiadRxSoJIm+Js/upxcZjGKjfyzxLReJQd/
- xD9tSSnqaCzuOjzvb+IO22OmCNaaU4Q4rVkpm1yZ6tynE8kbBK9kS2grUfLscKhwV4KY
- lRXA==
-X-Gm-Message-State: AOAM533vt5tUtv4xGiGq/LhbqHhw8JfQiOx+5vWkyrt7+VGeMbdRgN23
- 2fx/6hzqBu8ECwwLb5jLfcQ=
-X-Google-Smtp-Source: ABdhPJy2hR4pBYx59T3IBE3kLi6WBEmZ3JVS3SfZj+s06PAqmUo+defi+zlvhlWaZ7kpaPXYK6pPGg==
-X-Received: by 2002:a17:907:2d0e:: with SMTP id
- gs14mr936239ejc.225.1644396070207; 
- Wed, 09 Feb 2022 00:41:10 -0800 (PST)
-Received: from able.fritz.box (p57b0bff8.dip0.t-ipconnect.de. [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id u6sm3807958eje.101.2022.02.09.00.41.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Feb 2022 00:41:09 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: ray.huang@amd.com,
-	daniel@ffwll.ch,
-	thomas.hellstrom@linux.intel.com
-Subject: [PATCH 9/9] drm/ttm: rework bulk move handling v2
-Date: Wed,  9 Feb 2022 09:40:59 +0100
-Message-Id: <20220209084059.1042345-10-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220209084059.1042345-1-christian.koenig@amd.com>
-References: <20220209084059.1042345-1-christian.koenig@amd.com>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=L4p4mNdlHkZdnI3jg3HE31kstXWWzI9gaefBIe+5co4=;
+ b=cZ+U6Bz5vOI15KdopLCrrUeVmpom2g5tU52S5D5y8ipYPMAJmOMw/fGa3mahRTvU2y
+ y+e8FkaMUETyPE5AyNVM+UE3HEnkQclCby2AdRlzQGQXpMhwQ07v+JzB0HeQR7CwpUYq
+ 9ekk2Wdlyx51wKT1gMnwCJfpJBD5Zw8Hb0TvVS9ovHrsRS7cWEDvOqMtMPIKMA/JPcuc
+ Gg2/JbrUDiiAbheDbwIfKJBjdrvVEy5n/0MRpjK1MjCzvnU1UBo0rMaYg/DCdEuRUNzC
+ Y2R7mESvQzSuztXUwxn4Z9AkwZD9ExupaSeo4y6AQuEAjJ8s928MJXFFvjOOFDvETwQ4
+ OkxQ==
+X-Gm-Message-State: AOAM533ETXa884X+xYZKW+RstH8x6jHyyIes00bWAp2o/7rahTZpe5nE
+ dR/8/dWtVE64LKZ0kITeSLk=
+X-Google-Smtp-Source: ABdhPJymi9WzsBQz76E3rfyXU9u+APnbGxqFvqzraO/2TPfp9hh1weXvNqvtCV7harVGdXPiETV/TQ==
+X-Received: by 2002:adf:f18f:: with SMTP id h15mr445298wro.513.1644396689488; 
+ Wed, 09 Feb 2022 00:51:29 -0800 (PST)
+Received: from ?IPV6:2a02:908:1252:fb60:5f8a:b8f9:e10:2aaa?
+ ([2a02:908:1252:fb60:5f8a:b8f9:e10:2aaa])
+ by smtp.gmail.com with ESMTPSA id y3sm16512478wry.109.2022.02.09.00.51.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Feb 2022 00:51:29 -0800 (PST)
+Message-ID: <84b638db-8101-7acc-c5c3-77961ef892e5@gmail.com>
+Date: Wed, 9 Feb 2022 09:51:27 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH 2/2] drm/amdgpu: add sysfs files for XGMI segment size and
+ physical node id
+Content-Language: en-US
+To: "StDenis, Tom" <Tom.StDenis@amd.com>,
+ Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+References: <20220126115917.60308-1-christian.koenig@amd.com>
+ <20220126115917.60308-2-christian.koenig@amd.com>
+ <fbf698cf-594a-2980-814f-dc66e576ad62@amd.com>
+ <DM6PR12MB3547491395B2ABB676CC9000F7209@DM6PR12MB3547.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <DM6PR12MB3547491395B2ABB676CC9000F7209@DM6PR12MB3547.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,524 +76,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: "Tuikov, Luben" <Luben.Tuikov@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of providing the bulk move structure for each LRU update set
-this as property of the BO. This should avoid costly bulk move rebuilds
-with some games under RADV.
+Can anybody give me a Tested-by for this set?
 
-v2: some name polishing, add a few more kerneldoc words.
-v3: add some lockdep
+I would really like to push it, but it would be nice to have at least 
+somebody with access to an xgmi system tries it first.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Tested-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 72 +++-----------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  3 -
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c |  2 +-
- drivers/gpu/drm/ttm/ttm_bo.c            | 47 +++++++++++--
- drivers/gpu/drm/ttm/ttm_resource.c      | 87 ++++++++++++++++++-------
- include/drm/ttm/ttm_bo_api.h            | 16 ++---
- include/drm/ttm/ttm_bo_driver.h         |  2 +-
- include/drm/ttm/ttm_device.h            |  9 ---
- include/drm/ttm/ttm_resource.h          |  9 ++-
- 10 files changed, 128 insertions(+), 120 deletions(-)
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 5859ed0552a4..57ac118fc266 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1498,7 +1498,6 @@ static struct ttm_device_funcs amdgpu_bo_driver = {
- 	.io_mem_reserve = &amdgpu_ttm_io_mem_reserve,
- 	.io_mem_pfn = amdgpu_ttm_io_mem_pfn,
- 	.access_memory = &amdgpu_ttm_access_memory,
--	.del_from_lru_notify = &amdgpu_vm_del_from_lru_notify
- };
- 
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index f2ce5a0defd9..28f5e8b21a99 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -375,7 +375,7 @@ static void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
- 	if (bo->tbo.base.resv != vm->root.bo->tbo.base.resv)
- 		return;
- 
--	vm->bulk_moveable = false;
-+	ttm_bo_set_bulk_move(&bo->tbo, &vm->lru_bulk_move);
- 	if (bo->tbo.type == ttm_bo_type_kernel && bo->parent)
- 		amdgpu_vm_bo_relocated(base);
- 	else
-@@ -637,36 +637,6 @@ void amdgpu_vm_get_pd_bo(struct amdgpu_vm *vm,
- 	list_add(&entry->tv.head, validated);
- }
- 
--/**
-- * amdgpu_vm_del_from_lru_notify - update bulk_moveable flag
-- *
-- * @bo: BO which was removed from the LRU
-- *
-- * Make sure the bulk_moveable flag is updated when a BO is removed from the
-- * LRU.
-- */
--void amdgpu_vm_del_from_lru_notify(struct ttm_buffer_object *bo)
--{
--	struct amdgpu_bo *abo;
--	struct amdgpu_vm_bo_base *bo_base;
--
--	if (!amdgpu_bo_is_amdgpu_bo(bo))
--		return;
--
--	if (bo->pin_count)
--		return;
--
--	abo = ttm_to_amdgpu_bo(bo);
--	if (!abo->parent)
--		return;
--	for (bo_base = abo->vm_bo; bo_base; bo_base = bo_base->next) {
--		struct amdgpu_vm *vm = bo_base->vm;
--
--		if (abo->tbo.base.resv == vm->root.bo->tbo.base.resv)
--			vm->bulk_moveable = false;
--	}
--
--}
- /**
-  * amdgpu_vm_move_to_lru_tail - move all BOs to the end of LRU
-  *
-@@ -679,33 +649,9 @@ void amdgpu_vm_del_from_lru_notify(struct ttm_buffer_object *bo)
- void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
- 				struct amdgpu_vm *vm)
- {
--	struct amdgpu_vm_bo_base *bo_base;
--
--	if (vm->bulk_moveable) {
--		spin_lock(&adev->mman.bdev.lru_lock);
--		ttm_lru_bulk_move_tail(&vm->lru_bulk_move);
--		spin_unlock(&adev->mman.bdev.lru_lock);
--		return;
--	}
--
--	ttm_lru_bulk_move_init(&vm->lru_bulk_move);
--
- 	spin_lock(&adev->mman.bdev.lru_lock);
--	list_for_each_entry(bo_base, &vm->idle, vm_status) {
--		struct amdgpu_bo *bo = bo_base->bo;
--		struct amdgpu_bo *shadow = amdgpu_bo_shadowed(bo);
--
--		if (!bo->parent)
--			continue;
--
--		ttm_bo_move_to_lru_tail(&bo->tbo, &vm->lru_bulk_move);
--		if (shadow)
--			ttm_bo_move_to_lru_tail(&shadow->tbo,
--						&vm->lru_bulk_move);
--	}
-+	ttm_lru_bulk_move_tail(&vm->lru_bulk_move);
- 	spin_unlock(&adev->mman.bdev.lru_lock);
--
--	vm->bulk_moveable = true;
- }
- 
- /**
-@@ -728,8 +674,6 @@ int amdgpu_vm_validate_pt_bos(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	struct amdgpu_vm_bo_base *bo_base, *tmp;
- 	int r;
- 
--	vm->bulk_moveable &= list_empty(&vm->evicted);
--
- 	list_for_each_entry_safe(bo_base, tmp, &vm->evicted, vm_status) {
- 		struct amdgpu_bo *bo = bo_base->bo;
- 		struct amdgpu_bo *shadow = amdgpu_bo_shadowed(bo);
-@@ -1047,10 +991,16 @@ static void amdgpu_vm_free_table(struct amdgpu_vm_bo_base *entry)
- 
- 	if (!entry->bo)
- 		return;
-+
- 	shadow = amdgpu_bo_shadowed(entry->bo);
-+	if (shadow) {
-+		ttm_bo_set_bulk_move(&shadow->tbo, NULL);
-+		amdgpu_bo_unref(&shadow);
-+	}
-+
-+	ttm_bo_set_bulk_move(&entry->bo->tbo, NULL);
- 	entry->bo->vm_bo = NULL;
- 	list_del(&entry->vm_status);
--	amdgpu_bo_unref(&shadow);
- 	amdgpu_bo_unref(&entry->bo);
- }
- 
-@@ -1070,8 +1020,6 @@ static void amdgpu_vm_free_pts(struct amdgpu_device *adev,
- 	struct amdgpu_vm_pt_cursor cursor;
- 	struct amdgpu_vm_bo_base *entry;
- 
--	vm->bulk_moveable = false;
--
- 	for_each_amdgpu_vm_pt_dfs_safe(adev, vm, start, cursor, entry)
- 		amdgpu_vm_free_table(entry);
- 
-@@ -2651,7 +2599,7 @@ void amdgpu_vm_bo_rmv(struct amdgpu_device *adev,
- 
- 	if (bo) {
- 		if (bo->tbo.base.resv == vm->root.bo->tbo.base.resv)
--			vm->bulk_moveable = false;
-+			ttm_bo_set_bulk_move(&bo->tbo, NULL);
- 
- 		for (base = &bo_va->base.bo->vm_bo; *base;
- 		     base = &(*base)->next) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 85fcfb8c5efd..4d236682a118 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -317,8 +317,6 @@ struct amdgpu_vm {
- 
- 	/* Store positions of group of BOs */
- 	struct ttm_lru_bulk_move lru_bulk_move;
--	/* mark whether can do the bulk move */
--	bool			bulk_moveable;
- 	/* Flag to indicate if VM is used for compute */
- 	bool			is_compute_context;
- };
-@@ -454,7 +452,6 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
- 
- void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
- 				struct amdgpu_vm *vm);
--void amdgpu_vm_del_from_lru_notify(struct ttm_buffer_object *bo);
- void amdgpu_vm_get_memory(struct amdgpu_vm *vm, uint64_t *vram_mem,
- 				uint64_t *gtt_mem, uint64_t *cpu_mem);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 582e8dc9bc8c..6fc192082d8c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -849,7 +849,7 @@ void i915_ttm_adjust_lru(struct drm_i915_gem_object *obj)
- 			bo->priority = I915_TTM_PRIO_NO_PAGES;
- 	}
- 
--	ttm_bo_move_to_lru_tail(bo, NULL);
-+	ttm_bo_move_to_lru_tail(bo);
- 	spin_unlock(&bo->bdev->lru_lock);
- }
- 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 599be3dda8a9..d445a6c534d7 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -69,16 +69,53 @@ static void ttm_bo_mem_space_debug(struct ttm_buffer_object *bo,
- 	}
- }
- 
--void ttm_bo_move_to_lru_tail(struct ttm_buffer_object *bo,
--			     struct ttm_lru_bulk_move *bulk)
-+/**
-+ * ttm_bo_move_to_lru_tail
-+ *
-+ * @bo: The buffer object.
-+ *
-+ * Move this BO to the tail of all lru lists used to lookup and reserve an
-+ * object. This function must be called with struct ttm_global::lru_lock
-+ * held, and is used to make a BO less likely to be considered for eviction.
-+ */
-+void ttm_bo_move_to_lru_tail(struct ttm_buffer_object *bo)
- {
- 	dma_resv_assert_held(bo->base.resv);
- 
- 	if (bo->resource)
--		ttm_resource_move_to_lru_tail(bo->resource, bulk);
-+		ttm_resource_move_to_lru_tail(bo->resource);
- }
- EXPORT_SYMBOL(ttm_bo_move_to_lru_tail);
- 
-+/**
-+ * ttm_bo_set_bulk_move - update BOs bulk move object
-+ *
-+ * @bo: The buffer object.
-+ *
-+ * Update the BOs bulk move object, making sure that resources are added/removed
-+ * as well. A bulk move allows to move many resource on the LRU at once,
-+ * resulting in much less overhead of maintaining the LRU.
-+ * The only requirement is that the resources stay together on the LRU and are
-+ * never separated. This is enforces by setting the bulk_move structure on a BO.
-+ */
-+void ttm_bo_set_bulk_move(struct ttm_buffer_object *bo,
-+			  struct ttm_lru_bulk_move *bulk)
-+{
-+	dma_resv_assert_held(bo->base.resv);
-+
-+	if (bo->bulk_move == bulk)
-+		return;
-+
-+	spin_lock(&bo->bdev->lru_lock);
-+	if (bo->bulk_move && bo->resource)
-+		ttm_lru_bulk_move_del(bo->bulk_move, bo->resource);
-+	bo->bulk_move = bulk;
-+	if (bo->bulk_move && bo->resource)
-+		ttm_lru_bulk_move_add(bo->bulk_move, bo->resource);
-+	spin_unlock(&bo->bdev->lru_lock);
-+}
-+EXPORT_SYMBOL(ttm_bo_set_bulk_move);
-+
- static int ttm_bo_handle_move_mem(struct ttm_buffer_object *bo,
- 				  struct ttm_resource *mem, bool evict,
- 				  struct ttm_operation_ctx *ctx,
-@@ -316,6 +353,7 @@ static void ttm_bo_release(struct kref *kref)
- 	int ret;
- 
- 	WARN_ON_ONCE(bo->pin_count);
-+	WARN_ON_ONCE(bo->bulk_move);
- 
- 	if (!bo->deleted) {
- 		ret = ttm_bo_individualize_resv(bo);
-@@ -352,7 +390,7 @@ static void ttm_bo_release(struct kref *kref)
- 		 */
- 		if (bo->pin_count) {
- 			bo->pin_count = 0;
--			ttm_resource_move_to_lru_tail(bo->resource, NULL);
-+			ttm_resource_move_to_lru_tail(bo->resource);
- 		}
- 
- 		kref_init(&bo->kref);
-@@ -874,6 +912,7 @@ int ttm_bo_init_reserved(struct ttm_device *bdev,
- 	bo->moving = NULL;
- 	bo->pin_count = 0;
- 	bo->sg = sg;
-+	bo->bulk_move = NULL;
- 	if (resv) {
- 		bo->base.resv = resv;
- 		dma_resv_assert_held(bo->base.resv);
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index 5e732a509b4b..13771f177fc1 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -73,42 +73,77 @@ void ttm_lru_bulk_move_tail(struct ttm_lru_bulk_move *bulk)
- }
- EXPORT_SYMBOL(ttm_lru_bulk_move_tail);
- 
--/* Record a resource position in a bulk move structure */
--static void ttm_lru_bulk_move_set_pos(struct ttm_lru_bulk_move_pos *pos,
--				      struct ttm_resource *res)
-+/* Return the bulk move pos object for this resource */
-+static struct ttm_lru_bulk_move_pos *
-+ttm_lru_bulk_move_pos(struct ttm_lru_bulk_move *bulk, struct ttm_resource *res)
- {
--	if (!pos->first)
-+	return &bulk->pos[res->mem_type][res->bo->priority];
-+}
-+
-+/* Move the resource to the tail of the bulk move range */
-+static void ttm_lru_bulk_move_pos_tail(struct ttm_lru_bulk_move_pos *pos,
-+				       struct ttm_resource *res)
-+{
-+	if (pos->last != res) {
-+		list_move(&res->lru, &pos->last->lru);
-+		pos->last = res;
-+	}
-+}
-+
-+/* Add the resource to a bulk_move cursor */
-+void ttm_lru_bulk_move_add(struct ttm_lru_bulk_move *bulk,
-+			   struct ttm_resource *res)
-+{
-+	struct ttm_lru_bulk_move_pos *pos = ttm_lru_bulk_move_pos(bulk, res);
-+
-+	if (!pos->first) {
- 		pos->first = res;
--	pos->last = res;
-+		pos->last = res;
-+	} else {
-+		ttm_lru_bulk_move_pos_tail(pos, res);
-+	}
-+}
-+
-+/* Remove the resource from a bulk_move range */
-+void ttm_lru_bulk_move_del(struct ttm_lru_bulk_move *bulk,
-+			   struct ttm_resource *res)
-+{
-+	struct ttm_lru_bulk_move_pos *pos = ttm_lru_bulk_move_pos(bulk, res);
-+
-+	if (unlikely(pos->first == res && pos->last == res)) {
-+		pos->first = NULL;
-+		pos->last = NULL;
-+	} else if (pos->first == res) {
-+		pos->first = list_next_entry(res, lru);
-+	} else if (pos->last == res) {
-+		pos->last = list_prev_entry(res, lru);
-+	} else {
-+		list_move(&res->lru, &pos->last->lru);
-+	}
- }
- 
--/* Move a resource to the LRU tail and track the bulk position */
--void ttm_resource_move_to_lru_tail(struct ttm_resource *res,
--				   struct ttm_lru_bulk_move *bulk)
-+/* Move a resource to the LRU or bulk tail */
-+void ttm_resource_move_to_lru_tail(struct ttm_resource *res)
- {
- 	struct ttm_buffer_object *bo = res->bo;
- 	struct ttm_device *bdev = bo->bdev;
--	struct ttm_resource_manager *man;
- 
- 	lockdep_assert_held(&bo->bdev->lru_lock);
- 
- 	if (bo->pin_count) {
- 		list_move_tail(&res->lru, &bdev->pinned);
--		if (bdev->funcs->del_from_lru_notify)
--			bdev->funcs->del_from_lru_notify(res->bo);
--		return;
--	}
- 
--	man = ttm_manager_type(bdev, res->mem_type);
--	list_move_tail(&res->lru, &man->lru[bo->priority]);
-+	} else	if (bo->bulk_move) {
-+		struct ttm_lru_bulk_move_pos *pos =
-+			ttm_lru_bulk_move_pos(bo->bulk_move, res);
- 
--	if (bdev->funcs->del_from_lru_notify)
--		bdev->funcs->del_from_lru_notify(bo);
--
--	if (!bulk)
--		return;
-+		ttm_lru_bulk_move_pos_tail(pos, res);
-+	} else {
-+		struct ttm_resource_manager *man;
- 
--	ttm_lru_bulk_move_set_pos(&bulk->pos[res->mem_type][bo->priority], res);
-+		man = ttm_manager_type(bdev, res->mem_type);
-+		list_move_tail(&res->lru, &man->lru[bo->priority]);
-+	}
- }
- 
- /**
-@@ -139,7 +174,7 @@ void ttm_resource_init(struct ttm_buffer_object *bo,
- 	man = ttm_manager_type(bo->bdev, place->mem_type);
- 	spin_lock(&bo->bdev->lru_lock);
- 	man->usage += bo->base.size;
--	ttm_resource_move_to_lru_tail(res, NULL);
-+	ttm_resource_move_to_lru_tail(res);
- 	spin_unlock(&bo->bdev->lru_lock);
- }
- EXPORT_SYMBOL(ttm_resource_init);
-@@ -161,8 +196,6 @@ void ttm_resource_fini(struct ttm_resource_manager *man,
- 
- 	spin_lock(&bdev->lru_lock);
- 	list_del_init(&res->lru);
--	if (res->bo && bdev->funcs->del_from_lru_notify)
--		bdev->funcs->del_from_lru_notify(res->bo);
- 	man->usage -= res->num_pages << PAGE_SHIFT;
- 	spin_unlock(&bdev->lru_lock);
- }
-@@ -185,6 +218,12 @@ void ttm_resource_free(struct ttm_buffer_object *bo, struct ttm_resource **res)
- 	if (!*res)
- 		return;
- 
-+	if (bo->bulk_move) {
-+		spin_lock(&bo->bdev->lru_lock);
-+		ttm_lru_bulk_move_del(bo->bulk_move, *res);
-+		spin_unlock(&bo->bdev->lru_lock);
-+	}
-+
- 	man = ttm_manager_type(bo->bdev, (*res)->mem_type);
- 	man->func->free(man, *res);
- 	*res = NULL;
-diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
-index 3da77fc54552..a6d335895685 100644
---- a/include/drm/ttm/ttm_bo_api.h
-+++ b/include/drm/ttm/ttm_bo_api.h
-@@ -135,6 +135,7 @@ struct ttm_buffer_object {
- 	struct ttm_resource *resource;
- 	struct ttm_tt *ttm;
- 	bool deleted;
-+	struct ttm_lru_bulk_move *bulk_move;
- 
- 	/**
- 	 * Members protected by the bdev::lru_lock.
-@@ -287,18 +288,9 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
-  */
- void ttm_bo_put(struct ttm_buffer_object *bo);
- 
--/**
-- * ttm_bo_move_to_lru_tail
-- *
-- * @bo: The buffer object.
-- * @bulk: optional bulk move structure to remember BO positions
-- *
-- * Move this BO to the tail of all lru lists used to lookup and reserve an
-- * object. This function must be called with struct ttm_global::lru_lock
-- * held, and is used to make a BO less likely to be considered for eviction.
-- */
--void ttm_bo_move_to_lru_tail(struct ttm_buffer_object *bo,
--			     struct ttm_lru_bulk_move *bulk);
-+void ttm_bo_move_to_lru_tail(struct ttm_buffer_object *bo);
-+void ttm_bo_set_bulk_move(struct ttm_buffer_object *bo,
-+			  struct ttm_lru_bulk_move *bulk);
- 
- /**
-  * ttm_bo_lock_delayed_workqueue
-diff --git a/include/drm/ttm/ttm_bo_driver.h b/include/drm/ttm/ttm_bo_driver.h
-index 6c7352e13708..059a595e14e5 100644
---- a/include/drm/ttm/ttm_bo_driver.h
-+++ b/include/drm/ttm/ttm_bo_driver.h
-@@ -155,7 +155,7 @@ static inline void
- ttm_bo_move_to_lru_tail_unlocked(struct ttm_buffer_object *bo)
- {
- 	spin_lock(&bo->bdev->lru_lock);
--	ttm_bo_move_to_lru_tail(bo, NULL);
-+	ttm_bo_move_to_lru_tail(bo);
- 	spin_unlock(&bo->bdev->lru_lock);
- }
- 
-diff --git a/include/drm/ttm/ttm_device.h b/include/drm/ttm/ttm_device.h
-index 425150f35fbe..95b3c04b1ab9 100644
---- a/include/drm/ttm/ttm_device.h
-+++ b/include/drm/ttm/ttm_device.h
-@@ -198,15 +198,6 @@ struct ttm_device_funcs {
- 	int (*access_memory)(struct ttm_buffer_object *bo, unsigned long offset,
- 			     void *buf, int len, int write);
- 
--	/**
--	 * struct ttm_bo_driver member del_from_lru_notify
--	 *
--	 * @bo: the buffer object deleted from lru
--	 *
--	 * notify driver that a BO was deleted from LRU.
--	 */
--	void (*del_from_lru_notify)(struct ttm_buffer_object *bo);
--
- 	/**
- 	 * Notify the driver that we're about to release a BO
- 	 *
-diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
-index 5f93a16acfd6..b45b3ddc558d 100644
---- a/include/drm/ttm/ttm_resource.h
-+++ b/include/drm/ttm/ttm_resource.h
-@@ -202,7 +202,7 @@ struct ttm_resource_cursor {
-  * @first: first res in the bulk move range
-  * @last: last res in the bulk move range
-  *
-- * Positions for a lru bulk move.
-+ * Range of resources for a lru bulk move.
-  */
- struct ttm_lru_bulk_move_pos {
- 	struct ttm_resource *first;
-@@ -308,10 +308,13 @@ ttm_resource_manager_cleanup(struct ttm_resource_manager *man)
- }
- 
- void ttm_lru_bulk_move_init(struct ttm_lru_bulk_move *bulk);
-+void ttm_lru_bulk_move_add(struct ttm_lru_bulk_move *bulk,
-+			   struct ttm_resource *res);
-+void ttm_lru_bulk_move_del(struct ttm_lru_bulk_move *bulk,
-+			   struct ttm_resource *res);
- void ttm_lru_bulk_move_tail(struct ttm_lru_bulk_move *bulk);
- 
--void ttm_resource_move_to_lru_tail(struct ttm_resource *res,
--				   struct ttm_lru_bulk_move *bulk);
-+void ttm_resource_move_to_lru_tail(struct ttm_resource *res);
- 
- void ttm_resource_init(struct ttm_buffer_object *bo,
-                        const struct ttm_place *place,
--- 
-2.25.1
+Am 26.01.22 um 13:57 schrieb StDenis, Tom:
+> [AMD Official Use Only]
+>
+> Sadly I don't control any XGMI hosts to try it out.  So if they pick it up in their builds I can but otherwise we'll have to wait.
+>
+> Tom
+>
+> ________________________________________
+> From: Tuikov, Luben <Luben.Tuikov@amd.com>
+> Sent: Wednesday, January 26, 2022 07:55
+> To: Christian König; StDenis, Tom
+> Cc: amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH 2/2] drm/amdgpu: add sysfs files for XGMI segment size and physical node id
+>
+> This seems reasonable. Hope it works out for umr.
+>
+> Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+>
+> Regards,
+> Luben
+>
+> On 2022-01-26 06:59, Christian König wrote:
+>> umr needs that to correctly calculate the VRAM base address
+>> inside the MC address space.
+>>
+>> Only compile tested!
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 34 ++++++++++++++++++++++++
+>>   1 file changed, 34 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+>> index 68509f619ba3..21a5d07a1abf 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+>> @@ -252,6 +252,26 @@ static ssize_t amdgpu_xgmi_show_device_id(struct device *dev,
+>>
+>>   }
+>>
+>> +static ssize_t amdgpu_xgmi_show_node_segment_size(struct device *dev,
+>> +                                               struct device_attribute *attr,
+>> +                                               char *buf)
+>> +{
+>> +     struct drm_device *ddev = dev_get_drvdata(dev);
+>> +     struct amdgpu_device *adev = drm_to_adev(ddev);
+>> +
+>> +     return sysfs_emit(buf, "%llu\n", adev->gmc.xgmi.node_segment_size);
+>> +}
+>> +
+>> +static ssize_t amdgpu_xgmi_show_physical_node_id(struct device *dev,
+>> +                                              struct device_attribute *attr,
+>> +                                              char *buf)
+>> +{
+>> +     struct drm_device *ddev = dev_get_drvdata(dev);
+>> +     struct amdgpu_device *adev = drm_to_adev(ddev);
+>> +
+>> +     return sysfs_emit(buf, "%u\n", adev->gmc.xgmi.physical_node_id);
+>> +}
+>> +
+>>   #define AMDGPU_XGMI_SET_FICAA(o)     ((o) | 0x456801)
+>>   static ssize_t amdgpu_xgmi_show_error(struct device *dev,
+>>                                      struct device_attribute *attr,
+>> @@ -287,6 +307,10 @@ static ssize_t amdgpu_xgmi_show_error(struct device *dev,
+>>
+>>
+>>   static DEVICE_ATTR(xgmi_device_id, S_IRUGO, amdgpu_xgmi_show_device_id, NULL);
+>> +static DEVICE_ATTR(xgmi_node_segment_size, S_IRUGO,
+>> +                amdgpu_xgmi_show_node_segment_size, NULL);
+>> +static DEVICE_ATTR(xgmi_physical_node_id, S_IRUGO,
+>> +                amdgpu_xgmi_show_physical_node_id, NULL);
+>>   static DEVICE_ATTR(xgmi_error, S_IRUGO, amdgpu_xgmi_show_error, NULL);
+>>
+>>   static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgpu_device *adev,
+>> @@ -295,6 +319,8 @@ static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgpu_device *adev,
+>>        char node[10];
+>>
+>>        device_remove_file(adev->dev, &dev_attr_xgmi_device_id);
+>> +     device_remove_file(adev->dev, &dev_attr_xgmi_node_segment_size);
+>> +     device_remove_file(adev->dev, &dev_attr_xgmi_physical_node_id);
+>>        device_remove_file(adev->dev, &dev_attr_xgmi_error);
+>>
+>>        if (hive->kobj.parent != (&adev->dev->kobj))
+>> @@ -318,6 +344,14 @@ static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
+>>        if (r)
+>>                goto error;
+>>
+>> +     r = device_create_file(adev->dev, &dev_attr_xgmi_node_segment_size);
+>> +     if (r)
+>> +             goto error;
+>> +
+>> +     r = device_create_file(adev->dev, &dev_attr_xgmi_physical_node_id);
+>> +     if (r)
+>> +             goto error;
+>> +
+>>        /* Create sysfs link to hive info folder on the first device */
+>>        if (hive->kobj.parent != (&adev->dev->kobj)) {
+>>                r = sysfs_create_link(&adev->dev->kobj, &hive->kobj,
+> Regards,
+> --
+> Luben
+>
 
