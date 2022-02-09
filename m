@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C95DC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 09:21:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6870C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Feb 2022 09:21:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D3C210E689;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 298BC10E68C;
 	Wed,  9 Feb 2022 09:21:51 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CBAE10E364;
- Wed,  9 Feb 2022 06:23:48 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 87E2668AFE; Wed,  9 Feb 2022 07:23:45 +0100 (CET)
-Date: Wed, 9 Feb 2022 07:23:45 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [PATCH 7/8] mm: remove the extra ZONE_DEVICE struct page refcount
-Message-ID: <20220209062345.GB7739@lst.de>
-References: <20220207063249.1833066-1-hch@lst.de>
- <20220207063249.1833066-8-hch@lst.de>
- <CAPcyv4h_axDTmkZ35KFfCdzMoOp8V3dc6btYGq6gCj1OmLXM=g@mail.gmail.com>
+Received: from out30-56.freemail.mail.aliyun.com
+ (out30-56.freemail.mail.aliyun.com [115.124.30.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CE4710E119;
+ Wed,  9 Feb 2022 01:39:45 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426; MF=yang.lee@linux.alibaba.com;
+ NM=1; PH=DS; RN=11; SR=0; TI=SMTPD_---0V3yNqjc_1644370781; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0V3yNqjc_1644370781) by smtp.aliyun-inc.com(127.0.0.1);
+ Wed, 09 Feb 2022 09:39:42 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: daniel@ffwll.ch
+Subject: [PATCH -next] drm/amdkfd: Fix NULL but dereferenced coccicheck error
+Date: Wed,  9 Feb 2022 09:39:40 +0800
+Message-Id: <20220209013940.71348-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPcyv4h_axDTmkZ35KFfCdzMoOp8V3dc6btYGq6gCj1OmLXM=g@mail.gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 09 Feb 2022 09:21:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -39,29 +39,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux NVDIMM <nvdimm@lists.linux.dev>,
- Ralph Campbell <rcampbell@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Karol Herbst <kherbst@redhat.com>, Linux MM <linux-mm@kvack.org>,
- nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Logan Gunthorpe <logang@deltatee.com>, Christoph Hellwig <hch@lst.de>
+Cc: airlied@linux.ie, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
+ Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Yang Li <yang.lee@linux.alibaba.com>,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 08, 2022 at 07:30:11PM -0800, Dan Williams wrote:
-> Interesting. I had expected that to really fix the refcount problem
-> that fs/dax.c would need to start taking real page references as pages
-> were added to a mapping, just like page cache.
+Eliminate the following coccicheck warning:
+./drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:2087:27-38: ERROR: bo_buckets
+is NULL but dereferenced.
 
-I think we should do that eventually.  But I think this series that
-just attacks the device private type and extends to the device coherent
-and p2p enhacements is a good first step to stop the proliferation of
-the one off refcount and to allow to deal with the fsdax pages in another
-more focuessed series.
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 64e3b4e3a712..636391c61caf 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1982,10 +1982,8 @@ static int criu_checkpoint_bos(struct kfd_process *p,
+ 	void *mem;
+ 
+ 	bo_buckets = kvzalloc(num_bos * sizeof(*bo_buckets), GFP_KERNEL);
+-	if (!bo_buckets) {
+-		ret = -ENOMEM;
+-		goto exit;
+-	}
++	if (!bo_buckets)
++		return -ENOMEM;
+ 
+ 	bo_privs = kvzalloc(num_bos * sizeof(*bo_privs), GFP_KERNEL);
+ 	if (!bo_privs) {
+-- 
+2.20.1.7.g153144c
+
