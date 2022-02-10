@@ -4,90 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B75A6C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 08:23:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C48C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 08:30:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DFC910E614;
-	Thu, 10 Feb 2022 08:23:20 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2082.outbound.protection.outlook.com [40.107.92.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5FF110E614
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 08:23:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bk1Qj/JkTCNwf6UwdX4EXfwi90tAyhsZ990+DYMUH9BEThNE3SFfSCgMx5oQncLzMafS8eD3FbEOGjaH+Re1Ys+9yqZGgGN1+WtknDwUWYuHsf84BfUaxBq3Id1ZhePws77gu8X0XcZ/e4BhoxqtvGfm4yckABMznXdObWp6H8Fqi/oPVBV0lcZyVVxsgBPLuK/G3Q4+X7yR7OVcVCqCGaO+d4BmLnr0lFZfoaPgG7IUv1OZWOhwSDPXC3alp5Cc6F5xFJJmXewDz6mKYBw18QtumXEGafP4fyP0jhEVSneyIFK6puSd8bUenHn4v+ydaT432V0/HTbPkzyT08Hzvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r8MzE0BJ4awIdVjXjX1a1n/aZvl1PTaSnUrc2Kcsurk=;
- b=FU7gJMwOOaxiuthwgBketN4vO4lo9Kg4jmXJ4i346LbOzWb7cUfwILJ5d/h2t/t7IdDt8QpR2BFaOON151sbTHDW+t3AVSg12yFg9t3pRhsbEbETQBX86sz+5wZQWR9T0Nj+yywyd/m+AA+ZGcqlhxHxmkEhgq7EUK+hLexu6tuAEGHzBwM3Kmm8vUx4wZP0nc6ouoa6ugQapZNRDo20XhsFbq4KmUxQQ/LuxhyJ+m6vm5CZYy8P93ptbdhrFoMc4fijwmdUIgqRSUM+0cOg3VzLiO/y+MrE72r/jlIoRsMI0Jn6SsXdAXhQ+5fyok1/Ddq8ExMkVg/zBxWjuGV6JQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r8MzE0BJ4awIdVjXjX1a1n/aZvl1PTaSnUrc2Kcsurk=;
- b=DOvKx0xF2RVVfE3V5DfcOsYD1QCzDfhdSyQ99J4yy+bK7beqq4YBkcmalhUtuug3FRsn8/9CUwnkw5tsaqGq2+2KRs38M1t1FfBLSoiesAz3yDacsE6DFUYzeqbr2b5LNBafqTIZUhVosUdP7EFTfRnDKuzhYUaNuPCXoPAW05E=
-Received: from DS7PR03CA0300.namprd03.prod.outlook.com (2603:10b6:5:3ad::35)
- by MN2PR12MB2974.namprd12.prod.outlook.com (2603:10b6:208:c1::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.12; Thu, 10 Feb
- 2022 08:23:12 +0000
-Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3ad:cafe::54) by DS7PR03CA0300.outlook.office365.com
- (2603:10b6:5:3ad::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11 via Frontend
- Transport; Thu, 10 Feb 2022 08:23:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4975.11 via Frontend Transport; Thu, 10 Feb 2022 08:23:12 +0000
-Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 10 Feb
- 2022 02:23:08 -0600
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
- <stanley.yang@amd.com>, <yipeng.chai@amd.com>, <john.clements@amd.com>
-Subject: [PATCH] drm/amdgpu: loose check for umc poison mode
-Date: Thu, 10 Feb 2022 16:22:56 +0800
-Message-ID: <20220210082256.31081-1-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4879310E75F;
+	Thu, 10 Feb 2022 08:30:06 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B70CA10E731;
+ Thu, 10 Feb 2022 07:28:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=biUf35pL02wIFMpMNWoBBONHWDySppy4KeY+mmnFunE=; b=z0PPCQlEy7lZgPcobsomDHfrD2
+ RfCT6XQEVnCdXpUKaH7lF2CfDOqvdrFvk/NRPjx4QMJse63pAgHxXes+8qnPvqXD6aWDtGL76LZpx
+ FNG8IhXHir0qeZeptI2V2APw9kdTX3mSqBOwlkyeLemuPxU54GKco1WhxGAlkpxo7XFIMatZOfEAt
+ p3ImLSt8j1xkULdRUb1hVXqme3Bhrxvp4qKoBJa/zO9aDPMVcygwcZXnQHE+NnuaMBowY9HByj45j
+ SOaU+8T1vGw4nb1PnKFoB0mXf1G61P2/YvFVsLwzDKNtnDwpLaq0mDNwb5PWlFqSJLbEbtB6KgQDq
+ UdATH8qQ==;
+Received: from [2001:4bb8:188:3efc:8014:b2f2:fdfd:57ea] (helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1nI3sd-002rlb-Lk; Thu, 10 Feb 2022 07:28:40 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Dan Williams <dan.j.williams@intel.com>
+Subject: [PATCH 03/27] mm: remove pointless includes from <linux/hmm.h>
+Date: Thu, 10 Feb 2022 08:28:04 +0100
+Message-Id: <20220210072828.2930359-4-hch@lst.de>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220210072828.2930359-1-hch@lst.de>
+References: <20220210072828.2930359-1-hch@lst.de>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0a75533a-5a52-4273-6fb6-08d9ec6e940f
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2974:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB297493BAC9B6693CB58AAA0DB02F9@MN2PR12MB2974.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:747;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: STuQPh58V/QrK5FB5zHEseQ0DfDE4agOjACqF0yN4SASslOwGT4adt30CSys/Usy8zPZcO/MSV44OuHclUzZcXNubVLLl+jKCQL+5CuyEiC19UavWJ5Hr2pKoOFzI+4LaIciYC4SMkA1EsoZUKJa7p93E4VvWhLhvxP6sN1GCyvqhIHcxYluAAoHafFHZ/aPZ4qBrVlCrApXJMYjgBOqKgBYhr0hnblQdsgnJbxzTVksivIs4ewGJ6GquoACiWTANX2djhNKnyl7xLmFKrZAMczcbBX1p73HHl9S0XWU2bQBawj+vBlf3hECCo7Qs/EjeeTXi6idFFM7zvAjw6cPPnWVp+vxelDPSp6oZJ7D2nM8ytOGDD373CZolJzLfW7Ei+hDWcfPdDWOlJbSR7ekF2qNas4AiobrIJWmauEtqU2BbNRy/rRVo9cTFcczpTi1LQStq1ytLKhTSf2wtlpaic+80jc0G0Y71s43YHMpvvI8OnFH4fB47JHPa0mfIZtdCcQQ+p42kg4EgAHJ8KxYwCq0lNzmHc+kvjKm1o2LCAQElVKdL9SKodYSdlBShQrpfmfme1nWDLvVA1qKKBrjGS4fA5Q4qCNItCjgf/SW3+xYTWrbG53Ht31HhGdMKmHGyXqYe9kH+DZRH8zXQL34u6gZTZZTnhLDK1rwZvkRzk2/BHOx6ZxG20Oj6jnfWvPqyqNN5l6BK8Gwrgl5Ll1rQA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(36756003)(40460700003)(16526019)(1076003)(186003)(508600001)(36860700001)(26005)(2616005)(336012)(426003)(7696005)(83380400001)(47076005)(316002)(81166007)(110136005)(6636002)(82310400004)(2906002)(6666004)(86362001)(5660300002)(70586007)(70206006)(356005)(4326008)(8676002)(8936002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2022 08:23:12.3139 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a75533a-5a52-4273-6fb6-08d9ec6e940f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB2974
+Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Mailman-Approved-At: Thu, 10 Feb 2022 08:30:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,49 +51,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
+ Karol Herbst <kherbst@redhat.com>, linux-mm@kvack.org,
+ nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ Ben Skeggs <bskeggs@redhat.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Chaitanya Kulkarni <kch@nvidia.com>,
+ Logan Gunthorpe <logang@deltatee.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No need to check poison setting for each channel, check for umc0
-channel0 is enough.
+hmm.h pulls in the world for no good reason at all.  Remove the
+includes and push a few ones into the users instead.
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/umc_v6_7.c | 18 +++++-------------
- 1 file changed, 5 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 1 +
+ drivers/gpu/drm/nouveau/nouveau_dmem.c   | 1 +
+ include/linux/hmm.h                      | 9 ++-------
+ lib/test_hmm.c                           | 2 ++
+ 4 files changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-index 47452b61b615..e613511e07e1 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-@@ -451,21 +451,13 @@ static uint32_t umc_v6_7_query_ras_poison_mode_per_channel(
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index ed5385137f4831..cb835f95a76e66 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -24,6 +24,7 @@
+ #include <linux/hmm.h>
+ #include <linux/dma-direction.h>
+ #include <linux/dma-mapping.h>
++#include <linux/migrate.h>
+ #include "amdgpu_sync.h"
+ #include "amdgpu_object.h"
+ #include "amdgpu_vm.h"
+diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+index 3828aafd3ac46f..e886a3b9e08c7d 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+@@ -39,6 +39,7 @@
  
- static bool umc_v6_7_query_ras_poison_mode(struct amdgpu_device *adev)
- {
--	uint32_t umc_inst        = 0;
--	uint32_t ch_inst         = 0;
- 	uint32_t umc_reg_offset  = 0;
+ #include <linux/sched/mm.h>
+ #include <linux/hmm.h>
++#include <linux/migrate.h>
  
--	LOOP_UMC_INST_AND_CH(umc_inst, ch_inst) {
--		umc_reg_offset = get_umc_v6_7_reg_offset(adev,
--							umc_inst,
--							ch_inst);
--		/* Enabling fatal error in one channel will be considered
--		   as fatal error mode */
--		if (umc_v6_7_query_ras_poison_mode_per_channel(adev, umc_reg_offset))
--			return false;
--	}
--
--	return true;
-+	/* Enabling fatal error in umc instance0 channel0 will be
-+	 * considered as fatal error mode
-+	 */
-+	umc_reg_offset = get_umc_v6_7_reg_offset(adev, 0, 0);
-+	return !umc_v6_7_query_ras_poison_mode_per_channel(adev, umc_reg_offset);
- }
+ /*
+  * FIXME: this is ugly right now we are using TTM to allocate vram and we pin
+diff --git a/include/linux/hmm.h b/include/linux/hmm.h
+index 2fd2e91d5107c0..d5a6f101f843e6 100644
+--- a/include/linux/hmm.h
++++ b/include/linux/hmm.h
+@@ -9,14 +9,9 @@
+ #ifndef LINUX_HMM_H
+ #define LINUX_HMM_H
  
- const struct amdgpu_ras_block_hw_ops umc_v6_7_ras_hw_ops = {
+-#include <linux/kconfig.h>
+-#include <linux/pgtable.h>
++#include <linux/mm.h>
+ 
+-#include <linux/device.h>
+-#include <linux/migrate.h>
+-#include <linux/memremap.h>
+-#include <linux/completion.h>
+-#include <linux/mmu_notifier.h>
++struct mmu_interval_notifier;
+ 
+ /*
+  * On output:
+diff --git a/lib/test_hmm.c b/lib/test_hmm.c
+index 767538089a62e4..396beee6b061d4 100644
+--- a/lib/test_hmm.c
++++ b/lib/test_hmm.c
+@@ -26,6 +26,8 @@
+ #include <linux/sched/mm.h>
+ #include <linux/platform_device.h>
+ #include <linux/rmap.h>
++#include <linux/mmu_notifier.h>
++#include <linux/migrate.h>
+ 
+ #include "test_hmm_uapi.h"
+ 
 -- 
-2.17.1
+2.30.2
 
