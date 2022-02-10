@@ -4,90 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E9E3C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 06:24:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1A1AC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 06:27:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAEFB89F77;
-	Thu, 10 Feb 2022 06:24:01 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 586B989F1B
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 06:24:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 441CB89E15;
+	Thu, 10 Feb 2022 06:27:29 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2074.outbound.protection.outlook.com [40.107.237.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD96089E15
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 06:27:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NtR/IYp6yDrsBfOi4t42Us92QmE2yirms+sJPHbMwyjVFyfwpPEfjr1grtoMfykkZ8aGxk8edUCIvnVPl6xn5GW/zk/kasUi1p6fwNb1NwyjFmoUnhb/kQFppwquouOHTCUqX7IBLNJXBF/wUWWpkEZenm5V/IrNM7WTuBgstk9++R28kgzBnlxUFocdkIax3ScWqRdAMPWM45CMRCGe/n0ZEgCClK9gptevQ3KM675EctHeofV8ln/1dwwH0I1V3Od8nG1gm2Q1Xs3b8616y1xVux1jdS7rlETDDUyflydij6+Qwrv9O9e2F8UUnKHVWY3b0NBdZN1bSEElo1vPgQ==
+ b=UJDJbfdBNd0qEgcE2J2VgnTzRIMUBxumjf0gPyWY4qHDIMfxS2zugUtjmAsbG3vubr2HLg927aEvwreV93yAXo1Ft34OGpHYku2H57ys3AhgFVlK3TKnkMOglLEY8Tne6b8NxUMKSoJ9ixlDdtb6izV8Xh3UVMe9lFDWUVC4IYe/2Rj5GPLZ8e5hbH7iPMo97+/Ol7G+W4Q4PNz5qJaYnbJxG6jF+k4yH8R15rItyEhDS5YEgM6UQxHKSrx6Dww0hG6thul1uUhoN02EfK04+/AR6jEzNXdTIVSYUdQpIEjjoYF00QmAgB3TG3Qm9XMmLtBCnFUivKbbAW4F8SedAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WtYMH72PatThH3hmGmrdRUazmr6+x1Dajm2zxHMLILI=;
- b=HM9Vc3vDf9OhL7FgbXYVfwuR3L+LKY//DpGEKTtwP2tytui0uSEFIFJFMEpspfF8m3LXx+ln97JtVsz+Zj/AVw/2I2zT6aRYL9l19sD8ZqVKhLANs0k23F4Jr5BZpZUWDK8ZcRPDUftWtDmu8GFY0IQXbSduUguZ/EJgQ716kDBk9K/dwnySWQ2Nfu/Kzp8DgP7xaPNrNeMymn66tqdvm0OZ7Jij7EOc8JQReQFNGMjccK0tSABHTJxq9PxaAU9elKVboFUJSbbQh8V1m/EUnvOi4E69cj7tKVO6cfj4cyurOYInoAxDf0j4gRRjTHXUMAdPdjQRMhpkiEQ8JxDSGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=rcXwTOMCInlH3no1wYFyom6eIjsstQMZpVGmBHy0zrE=;
+ b=KVsYNUwdbShLS2oo1twmU05+Eub3baEbgDnNj3Wq/1LKR2Bt6rF0fiCXpBc2I1+ufm7kY6OOxqcVScW8ydrtc3G7srS6/KyLT5riqCRGSP4ENPwR+BpNb7XwIEkdNNVRv4dE2LHJvMjBW+5qeM7vyzmNnf+/b6F6p66zFUerzWw8+NFCr5+97wER8qC5nIu2v8MFEUq5MycBl/zzqGKsiCAAMnxV3Vb1SdiLYLhc8FhzoPs8ZkTOJbo1liBxCeaRizqgbsdXtH6howNmAKgxRPePh3/PqrbwpZ8moXlz2aXq/j2TKb+vo9is2OVnUansr8Kf0MabfpIVqpU7zp5uMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WtYMH72PatThH3hmGmrdRUazmr6+x1Dajm2zxHMLILI=;
- b=2aZ1gBxkbL1IppItT95nsZ8neZhVe1U+Y8WgZkczLinFW1nwCT3o7RUeH2pgaTs0y6p5fP47PBaP5FMZpXmMtYZTwCTlUzCVoo8Ts+M2GH+dFmWTi5MSHr3PFXsJEW7/oPcrfKJCmnPWxmx6xphy/3VqS8WP+gWaFzbvh5WQ3e4=
-Received: from DM3PR11CA0020.namprd11.prod.outlook.com (2603:10b6:0:54::30) by
- DM5PR12MB2534.namprd12.prod.outlook.com (2603:10b6:4:b4::31) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4975.11; Thu, 10 Feb 2022 06:23:56 +0000
-Received: from DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
- (2603:10b6:0:54:cafe::97) by DM3PR11CA0020.outlook.office365.com
- (2603:10b6:0:54::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12 via Frontend
- Transport; Thu, 10 Feb 2022 06:23:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT041.mail.protection.outlook.com (10.13.172.98) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4975.11 via Frontend Transport; Thu, 10 Feb 2022 06:23:56 +0000
-Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 10 Feb
- 2022 00:23:53 -0600
-From: Lang Yu <Lang.Yu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: add support for GC 10.1.4
-Date: Thu, 10 Feb 2022 14:20:15 +0800
-Message-ID: <20220210062015.3798430-1-Lang.Yu@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2fc23e69-0470-4b28-33e7-08d9ec5deaa1
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2534:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB2534697333637B1ECF794305FB2F9@DM5PR12MB2534.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:48;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: i4Jj/4LyNMjRyDNooVhr8cTC7CIXLvYx2nvfYZxol9wpsC4DzC2VehpIVkpBLA8F1pfGIWMdwH3NqP5EEBIBy1XsR7FuKo65zjpBjkewbKQpfu4j7yupnkFVgyu07tQB4YmkIcMneXlTBMU6cKHmGk7LYekxzB8/t7iET8VT67WY9i4iGB9mTC2AQKsWsnGITvWEoDPQvncByQ4vB/CIF9Ue/N3aXeu8k7JeyzLURLeBMm135PQNu0V3ulGvKkaRGiz1jyHXYFvXml9dMfq82wpAlPiAnsE+a0+LyqqaK42RM6Y0YORRqk34QzQNZite18ChxzsiIMlkVhRPEFf9w9Rpzx63x0xJCAPVNLJGJJDlAC7OSlaTZxtx+MnYc8ZYwaEJ4BEFNcKV3qROOGAAEBpOl0RqubGlVdoOk5bcGvttZo5wDyCBv/e2RLhB3UflQaCUQn2tESeMjMJJ+CkjOKz3p/aj0sAL9YwvHA02pmGxpf2eyq/pQMAKAXB3Ru2rDjEDmNwv0Uy+MTtnq3c3vPcWF43oT9mdU2FMXvPUr6yKbwMQlNmgDfikwJ2YSafeS4F8KVhTZLwQC2rhPvykJdVqIA3gYd5YHEY+D+0SOtrnOQqZUxiP6BZpyDOYpSLOAiJx3q70nsp3uPB/+JP+LQxMtEbCNgN3sfnzZkX9ieZxxrW3a0NgpLl9oFj22U4xzdjcwsPv8SPHQQHs20tgkQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(6666004)(82310400004)(83380400001)(54906003)(6916009)(86362001)(70206006)(40460700003)(70586007)(356005)(47076005)(81166007)(2906002)(36756003)(8676002)(7696005)(26005)(8936002)(316002)(4326008)(426003)(336012)(186003)(508600001)(1076003)(16526019)(36860700001)(2616005)(5660300002)(36900700001);
+ bh=rcXwTOMCInlH3no1wYFyom6eIjsstQMZpVGmBHy0zrE=;
+ b=MqZaZW2A/E9DRIx1sb9y7fHSKZlnASjcZyxlIV2pn+T2M70stxbRZt2QlJ1QiVvwd2uA3gHSvxIMZu+T09Z8EdHZItLP60pRg0D4lseodMzsvmCzHiQBnK+tZYEyoLbDAf4IhhE+Y7I/thWgoBbt+N07OyGz5NzuXvy1EbCJc5M=
+Received: from DM5PR12MB1770.namprd12.prod.outlook.com (2603:10b6:3:108::22)
+ by CH2PR12MB4070.namprd12.prod.outlook.com (2603:10b6:610:ae::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Thu, 10 Feb
+ 2022 06:27:24 +0000
+Received: from DM5PR12MB1770.namprd12.prod.outlook.com
+ ([fe80::1551:5d31:89de:9e7f]) by DM5PR12MB1770.namprd12.prod.outlook.com
+ ([fe80::1551:5d31:89de:9e7f%3]) with mapi id 15.20.4951.019; Thu, 10 Feb 2022
+ 06:27:24 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 03/11] drm/amdgpu: Optimize
+ amdgpu_hdp_ras_late_init/amdgpu_hdp_ras_fini function code
+Thread-Topic: [PATCH 03/11] drm/amdgpu: Optimize
+ amdgpu_hdp_ras_late_init/amdgpu_hdp_ras_fini function code
+Thread-Index: AQHYHXoBCChifOVpoEe3cZvNUkmvCqyK6XxggAEvvACAADneQA==
+Date: Thu, 10 Feb 2022 06:27:24 +0000
+Message-ID: <DM5PR12MB1770798D362D16A2C05EED4BB02F9@DM5PR12MB1770.namprd12.prod.outlook.com>
+References: <20220209055644.1873011-1-YiPeng.Chai@amd.com>
+ <20220209055644.1873011-3-YiPeng.Chai@amd.com>
+ <DM5PR12MB177097DBFDF292BAA390B8C3B02E9@DM5PR12MB1770.namprd12.prod.outlook.com>
+ <CH2PR12MB421531EBE2D44382D2E712AAFC2F9@CH2PR12MB4215.namprd12.prod.outlook.com>
+In-Reply-To: <CH2PR12MB421531EBE2D44382D2E712AAFC2F9@CH2PR12MB4215.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-09T08:54:17Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=f99db08d-6001-4c76-961d-99fb74e09471;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-02-10T06:27:20Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 307474e9-3dc4-4174-a578-db0a1ee14eee
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 2bd2a03c-17bf-4e83-11f6-08d9ec5e6701
+x-ms-traffictypediagnostic: CH2PR12MB4070:EE_
+x-microsoft-antispam-prvs: <CH2PR12MB4070EDDCF34D39CB2B4A7528B02F9@CH2PR12MB4070.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:352;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Sx1Vz5csCnfo+F5Zgi/WWQ7LSUVpry7nM3MJqqlmnJoHQ7AcYz4qPzMXyaMimGEvnon+zJrcQPHNKWIUL8YlEdupkbCfr7p3YE0/yfCMYasGMGhMEHF4V1WE/OzbwuGxIBMIgycHpXEAS7aXCj+19EGEB/jARAAFNYF1Nku2izAhlmU7rXUzY62BdBg4frYiQz9pKtr8aYjQ4FFdzig8lYZ5SCh/CL3GgtGkexJmk7bjzBW4pOJzWMKYpT5brkvMUwrQt1IsqT0CLKRigdaFUc+fRwhvohg5jyoTDeCLG6BdsSm1M85UROvjmIY1PiOqPJ4T6ggOvBcxmKb9DQ5b9pSlubTPJO90bU2K4sssJ9sqcS5e/1S5HD8eH4Em8Ni55/WEP9p9zzewQH7kOFZ39RHvzZM2ZkOJ0hj0m6pJUqCRBzqSxEDrvKznB1kBdDx7WqmgmaGZnLs+kUKR6LVLa+Rkzul2UjpogFIh+HRq3UMQn+rFujG2oINAoJorEhDgJQeISO78XHujLZ8Qi4DWICytK3HiKWBpLOZ2Hn9m5b3FuceM3buc+r+S+wia/63dkRLxcH7HazrBK1X6eYviV14j+568IkDwKagHNVthmW6V0RHBw08ipqPwT37yYpOOYnVDHY7E0oQZ1+sTvP4rc1FbdQZ2VVxPiiMD+Sdfx852dg5+MgauQcOMsF3VJUevc6WEs4FKulP0UunWfCxtOg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1770.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(316002)(52536014)(66946007)(76116006)(66446008)(66556008)(66476007)(8936002)(4326008)(54906003)(110136005)(86362001)(33656002)(186003)(26005)(8676002)(64756008)(38070700005)(38100700002)(5660300002)(55016003)(6506007)(7696005)(122000001)(9686003)(2906002)(508600001)(83380400001)(71200400001)(53546011);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?pj2ViK+yNX53VZBUx3+91CIQ6gBPg8wPvqIy9CQeparOh8vOU0ENZQwpfXbn?=
+ =?us-ascii?Q?pinsmubGOlTuTd32wgsCuemePWnyZIQGroj0KJh6QbZmJZy96m2MElnzntLU?=
+ =?us-ascii?Q?JuAohH6OtB7Mp8MEFaDUxATMlDru6/bqNisILgQ/WMLCheZFNIgtAWyu/eZ+?=
+ =?us-ascii?Q?dDtAaoX4oCAvNYsXlHiChO6AL0KBkU7EIBHFGjczxj36kluxrfUuFW4n/mVV?=
+ =?us-ascii?Q?ZEXV9jAGtaoxXUufwucDW3NBYAyrWvuwjVbfI+oDyxfk8D7cJbbm4oJF0l1W?=
+ =?us-ascii?Q?vCdGMKHz7QEHnedXBFMPMV69Qe0QylsdoY8xbca9m1P4uN5z/V9ncrIgGI4L?=
+ =?us-ascii?Q?7IfidLpkfDIu0E4pX4I0/l61+TqMa3symBbvPOkg7kIUknZeHcEq7Sf6T2Vr?=
+ =?us-ascii?Q?TWVLgtAQgqtdYPdZb10QEo1BxJCqcl1JZUqWmiLuGIytuwUZOI/KqjrDhBsu?=
+ =?us-ascii?Q?8rxBB5ApaOHnVm6/vjfWOo4eKFD18AzeN6vuYcd1rzbgKyoALhiwWdok/4xc?=
+ =?us-ascii?Q?1L3/r+M7dFqnIbUVuOwn0E/fbNNSMXKgfIH1gUmIt62mFAyK9qL8XB7AzLxw?=
+ =?us-ascii?Q?3dVcLCmqS0ncsloS0vODrQRWclbM2IPoU4V2Y+uCI8i4Zp73jcfYxsB5wB0w?=
+ =?us-ascii?Q?zdwbykzKNkz6bNo1aJGC+TCPWJG4CMiA9uh6Y1tvYhKGnE7X0omkPXie54S8?=
+ =?us-ascii?Q?YY65HDDngl6OWjHRoFY3G86hRnpB5acXrBEwMMzKuR+2yvg72hgQcrTwGcL1?=
+ =?us-ascii?Q?6DY4nQb0AF43ysM+HTu8FRvtkRXczzF0b8fsrhQRwesGi9dGT3dKZ/gNZJLs?=
+ =?us-ascii?Q?rpgN4dNYzHU0zf+TgcbWjUKzL3fVyOtUN/2joElO0qQXbJJaYHRI7uUmMzTD?=
+ =?us-ascii?Q?YccB2tbXN74r5W0/UQ3Fo943pz++Vifh7b5SElR7twpN5bTSq4OHdNJFQhaU?=
+ =?us-ascii?Q?PCcWEYSxBpQKOC7+1z3rmP6XTtrXKrnCmMuXP0l7gLQBK3I2ZWPPP4GtfvfD?=
+ =?us-ascii?Q?zTQqQK88tEarwP87qg1wwGtfY28NlVAMGwc/Fx0l69bgcUXjC0X5tOABRu0N?=
+ =?us-ascii?Q?fUAmZKuW4KaZp+kEbo1XIqXcutOEtli0IcYoxWobJFZIFiBMwzERKia5h77N?=
+ =?us-ascii?Q?ZuozW/6IRCcSpWhuxOU4L8WljFDIFx8Xn+FJeEisUxopRSvAU0sw0NBEWxI5?=
+ =?us-ascii?Q?+T57JDwvJxBBmEqqFcFGLtzp4VoqVsa49FNNjROYQXbaiB4eIyCibuEbEXwd?=
+ =?us-ascii?Q?ex7Sg4trsWWVHiALcT1mnDTx+5l2JmvyI7lf9HnmjunYkFg4W+dhx6ScSpwf?=
+ =?us-ascii?Q?YC/HFgqpOYiNAC1yxNyMNI3UqWOFhKBLGPvml4xwaZA3v6M6BX5q9vNMksxl?=
+ =?us-ascii?Q?ej95CBVNIz4H+qUJurAfNee5kcif55hksASXbMPR/1THo3u0Ic8vLX+hX73M?=
+ =?us-ascii?Q?IzkG1AnDHOcp8SITQ82awjPu3DCRF6AmxC4LPEwCUrONzvISa19LaoCKMMN6?=
+ =?us-ascii?Q?okW86r0sZgl++PZiADSG0tlBLyhw46xQG5b+CCDQuAAtByyCZKBtt9cQaiL0?=
+ =?us-ascii?Q?HKx+Aw7PkMuBLDulU2Y=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2022 06:23:56.1088 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fc23e69-0470-4b28-33e7-08d9ec5deaa1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2534
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1770.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2bd2a03c-17bf-4e83-11f6-08d9ec5e6701
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Feb 2022 06:27:24.7434 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: cBv3yxd3dCbCxL1n5rrqWoMs5gaOdC5Tx5eOo5/1xYCL73fmBy4+SMpg1aX4sZC4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4070
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,234 +137,150 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
- Lang Yu <Lang.Yu@amd.com>
+Cc: "Clements, John" <John.Clements@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add basic support for GC 10.1.4,
-it uses same IP blocks with GC 10.1.3
+[AMD Official Use Only]
 
-Signed-off-by: Lang Yu <Lang.Yu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 6 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 3 ++-
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 9 +++++++++
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        | 4 +++-
- drivers/gpu/drm/amd/amdgpu/nv.c               | 1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c         | 1 +
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       | 2 ++
- 8 files changed, 26 insertions(+), 3 deletions(-)
+OK, if there is further refinement, the series is:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index eb4b7059633d..cd7e8522c130 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -674,6 +674,7 @@ static int amdgpu_discovery_set_common_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(10, 1, 1):
- 	case IP_VERSION(10, 1, 2):
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 	case IP_VERSION(10, 3, 0):
- 	case IP_VERSION(10, 3, 1):
- 	case IP_VERSION(10, 3, 2):
-@@ -709,6 +710,7 @@ static int amdgpu_discovery_set_gmc_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(10, 1, 1):
- 	case IP_VERSION(10, 1, 2):
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 	case IP_VERSION(10, 3, 0):
- 	case IP_VERSION(10, 3, 1):
- 	case IP_VERSION(10, 3, 2):
-@@ -910,6 +912,7 @@ static int amdgpu_discovery_set_gc_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(10, 1, 2):
- 	case IP_VERSION(10, 1, 1):
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 	case IP_VERSION(10, 3, 0):
- 	case IP_VERSION(10, 3, 2):
- 	case IP_VERSION(10, 3, 1):
-@@ -1044,6 +1047,7 @@ static int amdgpu_discovery_set_mes_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(10, 1, 1):
- 	case IP_VERSION(10, 1, 2):
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 	case IP_VERSION(10, 3, 0):
- 	case IP_VERSION(10, 3, 1):
- 	case IP_VERSION(10, 3, 2):
-@@ -1243,6 +1247,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(10, 1, 1):
- 	case IP_VERSION(10, 1, 2):
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 	case IP_VERSION(10, 3, 0):
- 	case IP_VERSION(10, 3, 2):
- 	case IP_VERSION(10, 3, 4):
-@@ -1264,6 +1269,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(9, 2, 2):
- 	case IP_VERSION(9, 3, 0):
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 	case IP_VERSION(10, 3, 1):
- 	case IP_VERSION(10, 3, 3):
- 		adev->flags |= AMD_IS_APU;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index f2806959736a..9bc9155cbf06 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -137,7 +137,8 @@ static int psp_early_init(void *handle)
- 		psp->autoload_supported = true;
- 		break;
- 	case IP_VERSION(11, 0, 8):
--		if (adev->apu_flags & AMD_APU_IS_CYAN_SKILLFISH2) {
-+		if (adev->apu_flags & AMD_APU_IS_CYAN_SKILLFISH2 ||
-+		    adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 1, 4)) {
- 			psp_v11_0_8_set_psp_funcs(psp);
- 			psp->autoload_supported = false;
- 		}
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 3d8c5fea572e..8fb4528c741f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -3641,6 +3641,7 @@ static void gfx_v10_0_init_golden_registers(struct amdgpu_device *adev)
- 						(const u32)ARRAY_SIZE(golden_settings_gc_10_3_5));
- 		break;
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 		soc15_program_register_sequence(adev,
- 						golden_settings_gc_10_0_cyan_skillfish,
- 						(const u32)ARRAY_SIZE(golden_settings_gc_10_0_cyan_skillfish));
-@@ -3819,6 +3820,7 @@ static void gfx_v10_0_check_fw_write_wait(struct amdgpu_device *adev)
- 	case IP_VERSION(10, 1, 2):
- 	case IP_VERSION(10, 1, 1):
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 		if ((adev->gfx.me_fw_version >= 0x00000046) &&
- 		    (adev->gfx.me_feature_version >= 27) &&
- 		    (adev->gfx.pfp_fw_version >= 0x00000068) &&
-@@ -3959,6 +3961,9 @@ static int gfx_v10_0_init_microcode(struct amdgpu_device *adev)
- 		else
- 			chip_name = "cyan_skillfish";
- 		break;
-+	case IP_VERSION(10, 1, 4):
-+		chip_name = "cyan_skillfish2";
-+		break;
- 	default:
- 		BUG();
- 	}
-@@ -4565,6 +4570,7 @@ static void gfx_v10_0_gpu_early_init(struct amdgpu_device *adev)
- 			1 << REG_GET_FIELD(gb_addr_config, GB_ADDR_CONFIG, NUM_PKRS);
- 		break;
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 		adev->gfx.config.max_hw_contexts = 8;
- 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
- 		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
-@@ -4677,6 +4683,7 @@ static int gfx_v10_0_sw_init(void *handle)
- 	case IP_VERSION(10, 1, 1):
- 	case IP_VERSION(10, 1, 2):
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 		adev->gfx.me.num_me = 1;
- 		adev->gfx.me.num_pipe_per_me = 1;
- 		adev->gfx.me.num_queue_per_pipe = 1;
-@@ -7658,6 +7665,7 @@ static int gfx_v10_0_early_init(void *handle)
- 	case IP_VERSION(10, 1, 1):
- 	case IP_VERSION(10, 1, 2):
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 		adev->gfx.num_gfx_rings = GFX10_NUM_GFX_RINGS_NV1X;
- 		break;
- 	case IP_VERSION(10, 3, 0):
-@@ -9418,6 +9426,7 @@ static void gfx_v10_0_set_rlc_funcs(struct amdgpu_device *adev)
- 	case IP_VERSION(10, 1, 10):
- 	case IP_VERSION(10, 1, 1):
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 	case IP_VERSION(10, 3, 2):
- 	case IP_VERSION(10, 3, 1):
- 	case IP_VERSION(10, 3, 4):
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index bddaf2417344..c64e3a391c99 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -881,6 +881,7 @@ static int gmc_v10_0_sw_init(void *handle)
- 	case IP_VERSION(10, 1, 1):
- 	case IP_VERSION(10, 1, 2):
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 	case IP_VERSION(10, 3, 0):
- 	case IP_VERSION(10, 3, 2):
- 	case IP_VERSION(10, 3, 1):
-@@ -1156,7 +1157,8 @@ static void gmc_v10_0_get_clockgating_state(void *handle, u32 *flags)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
--	if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 1, 3))
-+	if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 1, 3) ||
-+	    adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 1, 4))
- 		return;
- 
- 	adev->mmhub.funcs->get_clockgating(adev, flags);
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index f76834085b34..5e9ab31fee6b 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -902,6 +902,7 @@ static int nv_common_early_init(void *handle)
- 			adev->external_rev_id = adev->rev_id + 0x01;
- 		break;
- 	case IP_VERSION(10, 1, 3):
-+	case IP_VERSION(10, 1, 4):
- 		adev->cg_flags = 0;
- 		adev->pg_flags = 0;
- 		adev->external_rev_id = adev->rev_id + 0x82;
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index 81e033549dda..45e10d5028c5 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -264,7 +264,8 @@ static int sdma_v5_0_init_microcode(struct amdgpu_device *adev)
- 		chip_name = "navi12";
- 		break;
- 	case IP_VERSION(5, 0, 1):
--		if (adev->apu_flags & AMD_APU_IS_CYAN_SKILLFISH2)
-+		if (adev->apu_flags & AMD_APU_IS_CYAN_SKILLFISH2 ||
-+		    adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 1, 4))
- 			chip_name = "cyan_skillfish2";
- 		else
- 			chip_name = "cyan_skillfish";
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 9624bbe8b501..bb6e49661d13 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1411,6 +1411,7 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev,
- 		case IP_VERSION(10, 1, 10):
- 		case IP_VERSION(10, 1, 2):
- 		case IP_VERSION(10, 1, 3):
-+		case IP_VERSION(10, 1, 4):
- 			pcache_info = navi10_cache_info;
- 			num_of_cache_types = ARRAY_SIZE(navi10_cache_info);
- 			break;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index dbb877fba724..7f1746289989 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -110,6 +110,7 @@ static void kfd_device_info_set_event_interrupt_class(struct kfd_dev *kfd)
- 	case IP_VERSION(10, 3, 1): /* VANGOGH */
- 	case IP_VERSION(10, 3, 3): /* YELLOW_CARP */
- 	case IP_VERSION(10, 1, 3): /* CYAN_SKILLFISH */
-+	case IP_VERSION(10, 1, 4):
- 	case IP_VERSION(10, 1, 10): /* NAVI10 */
- 	case IP_VERSION(10, 1, 2): /* NAVI12 */
- 	case IP_VERSION(10, 1, 1): /* NAVI14 */
-@@ -307,6 +308,7 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
- 			break;
- 		/* Cyan Skillfish */
- 		case IP_VERSION(10, 1, 3):
-+		case IP_VERSION(10, 1, 4):
- 			gfx_target_version = 100103;
- 			if (!vf)
- 				f2g = &gfx_v10_kfd2kgd;
--- 
-2.25.1
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 
+> -----Original Message-----
+> From: Chai, Thomas <YiPeng.Chai@amd.com>
+> Sent: Thursday, February 10, 2022 10:59 AM
+> To: Zhou1, Tao <Tao.Zhou1@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Clements, John
+> <John.Clements@amd.com>
+> Subject: RE: [PATCH 03/11] drm/amdgpu: Optimize
+> amdgpu_hdp_ras_late_init/amdgpu_hdp_ras_fini function code
+>=20
+> [AMD Official Use Only]
+>=20
+>=20
+>=20
+> -----Original Message-----
+> From: Zhou1, Tao <Tao.Zhou1@amd.com>
+> Sent: Wednesday, February 9, 2022 4:54 PM
+> To: Chai, Thomas <YiPeng.Chai@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Clements, John
+> <John.Clements@amd.com>
+> Subject: RE: [PATCH 03/11] drm/amdgpu: Optimize
+> amdgpu_hdp_ras_late_init/amdgpu_hdp_ras_fini function code
+>=20
+> [AMD Official Use Only]
+>=20
+>=20
+>=20
+> > -----Original Message-----
+> > From: Chai, Thomas <YiPeng.Chai@amd.com>
+> > Sent: Wednesday, February 9, 2022 1:57 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhang, Hawking
+> > <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements,
+> > John <John.Clements@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+> > Subject: [PATCH 03/11] drm/amdgpu: Optimize
+> > amdgpu_hdp_ras_late_init/amdgpu_hdp_ras_fini function code
+> >
+> > Optimize amdgpu_hdp_ras_late_init/amdgpu_hdp_ras_fini function code.
+> >
+> > Signed-off-by: yipechai <YiPeng.Chai@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c | 37 ++-----------------------
+> >  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |  1 +
+> >  drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c   |  1 +
+> >  3 files changed, 5 insertions(+), 34 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+> > index 518966a26130..21a5f884dd2a 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+> > @@ -26,43 +26,12 @@
+> >
+> >  int amdgpu_hdp_ras_late_init(struct amdgpu_device *adev, void *ras_inf=
+o)  {
+> > -	int r;
+> > -	struct ras_ih_if ih_info =3D {
+> > -		.cb =3D NULL,
+> > -	};
+> > -	struct ras_fs_if fs_info =3D {
+> > -		.sysfs_name =3D "hdp_err_count",
+> > -	};
+> > -
+> > -	if (!adev->hdp.ras_if) {
+> > -		adev->hdp.ras_if =3D kmalloc(sizeof(struct ras_common_if),
+> > GFP_KERNEL);
+> > -		if (!adev->hdp.ras_if)
+> > -			return -ENOMEM;
+> > -		adev->hdp.ras_if->block =3D AMDGPU_RAS_BLOCK__HDP;
+> > -		adev->hdp.ras_if->type =3D
+> > AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+> > -		adev->hdp.ras_if->sub_block_index =3D 0;
+> > -	}
+> > -	ih_info.head =3D fs_info.head =3D *adev->hdp.ras_if;
+> > -	r =3D amdgpu_ras_late_init(adev, adev->hdp.ras_if,
+> > -				 &fs_info, &ih_info);
+> > -	if (r || !amdgpu_ras_is_supported(adev, adev->hdp.ras_if->block)) {
+> > -		kfree(adev->hdp.ras_if);
+> > -		adev->hdp.ras_if =3D NULL;
+> > -	}
+> > -
+> > -	return r;
+> > +	return amdgpu_ras_block_late_init(adev, adev->hdp.ras_if);
+> >  }
+> >
+> >  void amdgpu_hdp_ras_fini(struct amdgpu_device *adev)  {
+> >  	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__HDP) &&
+> > -	    adev->hdp.ras_if) {
+> > -		struct ras_common_if *ras_if =3D adev->hdp.ras_if;
+> > -		struct ras_ih_if ih_info =3D {
+> > -			.cb =3D NULL,
+> > -		};
+> > -
+> > -		amdgpu_ras_late_fini(adev, ras_if, &ih_info);
+> > -		kfree(ras_if);
+> > -	}
+> > +	    adev->hdp.ras_if)
+> > +		amdgpu_ras_block_late_fini(adev, adev->hdp.ras_if);
+> >  }
+> >[Tao]: Since hdp_ras_late_init/fini are simple wrapper, can we remove th=
+em
+> and call amdgpu_ras_block_late_init/fini directly?
+> >The same comment to other blocks.
+>=20
+> [Thomas] Compared with amdgpu_ras_block_late_init/fin,
+> hdp_ras_late_init/fini have different function interface parameters.
+>                  But can do it as a new ticket later.
+>=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> > index af873c99d5e4..b12fe6703f02 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> > @@ -1302,6 +1302,7 @@ static void gmc_v9_0_set_hdp_ras_funcs(struct
+> > amdgpu_device *adev)  {
+> >  	adev->hdp.ras =3D &hdp_v4_0_ras;
+> >  	amdgpu_ras_register_ras_block(adev, &adev->hdp.ras->ras_block);
+> > +	adev->hdp.ras_if =3D &adev->hdp.ras->ras_block.ras_comm;
+> >  }
+> >
+> >  static void gmc_v9_0_set_mca_funcs(struct amdgpu_device *adev) diff
+> > --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+> > index 503c292b321e..a9ed4232cdeb 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+> > @@ -160,6 +160,7 @@ struct amdgpu_hdp_ras hdp_v4_0_ras =3D {
+> >  		.ras_comm =3D {
+> >  			.name =3D "hdp",
+> >  			.block =3D AMDGPU_RAS_BLOCK__HDP,
+> > +			.type =3D
+> > AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE,
+> >  		},
+> >  		.hw_ops =3D &hdp_v4_0_ras_hw_ops,
+> >  		.ras_late_init =3D amdgpu_hdp_ras_late_init,
+> > --
+> > 2.25.1
