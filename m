@@ -4,99 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0808DC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 14:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99140C4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 14:11:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4EE110E8DE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48E4510E8DB;
 	Thu, 10 Feb 2022 14:11:35 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2082.outbound.protection.outlook.com [40.107.243.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A15510E808;
- Thu, 10 Feb 2022 11:39:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c1wem+Cmp5Pd9SLzgfS/Lo2KV+gitgWXEegFSDPwLw3XizOWEI+TS7hkTNlEjZhSODm7dKnpeuUC9zkmGzfOt71VOvS52fPC0UmlUYBVBQxeWZzibpl+TS3dh61uC781roChby75ZA1y37Juz2IePPV5oecO9UJliNvUgF0Htr5HlxIRvgEv4wgpS8DVOi1XCfPVZdHxr5OeNSvY6b0jc7FIYb2mSd1RV2+I8tVI/LXSncSi/PpSqExn077E2doGwbQ3ghpUquXeXCiWga6zd0WNi9p2UbjkGtdyOUApQuYBkFRiB9SjXRnAAGMZmSdlCDoZHSx0dd2XN5wsa3jegw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rrRq/xMsoEokzAdO8WVchrp0z7dpGiQ3Xj25Yw+pj54=;
- b=mXIhkNLAYOHGvQkOslk1iJqL20aWOJhOBhQH4ekCGxIOVXk40EcpaVm4t5jALVaGPi9xmrNE5pyvRiFe/FaCMr+k6w5Rek59cVDOS11fJSluLVrwdzjqjXz/ktaGgCoNiqJRQ38MAF81Hdlm0ndMgeVld1CLqvO2VYC5iLz5gsTnqLaZYethjXNNlYHlJw4SVSVvy0CqwOShenfrV7gOuoqXfMtyEHbl3lctRhWBXA8Rq4hAXIZMj8xtTFIcJKHWytwUnwtuzYoc8ZB417AgIbrHi2dvSZo6/wInK1kllcpweaKQvBJ1FH+l7Mpssq8KBVBfsG3Xak4I3Nt2k179KA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.234) smtp.rcpttodomain=lst.de smtp.mailfrom=nvidia.com; dmarc=pass
- (p=reject sp=reject pct=100) action=none header.from=nvidia.com; dkim=none
- (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rrRq/xMsoEokzAdO8WVchrp0z7dpGiQ3Xj25Yw+pj54=;
- b=ICrJ8CjbuUmFX8DUtM2T61H9wKfPu3hP8e+kcnQAsZTGmBx2JUfrQX/NojvgyrBYz0bZGvVMZBV3JjlIpzicnoVDzIou83CTAqOsUXexh+ZU0Gs0jTvW1S5uYeLatyFvj+ivTh2rgF2w/cL7TzVqb174RP01sPVnzCa0EfrHx/LoblVsaGpWTet/8jnN/ihhDrCAJGSwqgoRxTMetEuFvYFTwbyGooedWYTes7ewpuN3G5F4A3J8yp/Vl0wrvTmwSEVLKsbTxeYogIwFK6HYI76QrLcgaVC2EvwRZRmEGZ+Y+i/2Qa68cdIXVow/oxDgP07jeZwPPuJVurApTSyoTQ==
-Received: from BN9PR03CA0357.namprd03.prod.outlook.com (2603:10b6:408:f6::32)
- by DS7PR12MB5886.namprd12.prod.outlook.com (2603:10b6:8:79::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4975.11; Thu, 10 Feb 2022 11:39:25 +0000
-Received: from BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f6:cafe::b8) by BN9PR03CA0357.outlook.office365.com
- (2603:10b6:408:f6::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11 via Frontend
- Transport; Thu, 10 Feb 2022 11:39:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.234)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.234 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.234; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (12.22.5.234) by
- BN8NAM11FT032.mail.protection.outlook.com (10.13.177.88) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4975.11 via Frontend Transport; Thu, 10 Feb 2022 11:39:25 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by DRHQMAIL101.nvidia.com
- (10.27.9.10) with Microsoft SMTP Server (TLS) id 15.0.1497.18;
- Thu, 10 Feb 2022 11:39:24 +0000
-Received: from nvdebian.localnet (10.126.230.35) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.9; Thu, 10 Feb 2022
- 03:39:20 -0800
-From: Alistair Popple <apopple@nvidia.com>
-To: <akpm@linux-foundation.org>, <linux-mm@kvack.org>, David Hildenbrand
- <david@redhat.com>
-Subject: Re: [PATCH v2 2/3] mm/gup.c: Migrate device coherent pages when
- pinning instead of failing
-Date: Thu, 10 Feb 2022 22:39:18 +1100
-Message-ID: <1894939.704c7Wv018@nvdebian>
-In-Reply-To: <9117b387-3c73-0236-51d1-9e6baf43b34e@redhat.com>
-References: <cover.0d3c846b1c6c294e055ff7ebe221fab9964c1436.1644207242.git-series.apopple@nvidia.com>
- <dd9960b327ca49a9103d9f97868ea7b0b81186c4.1644207242.git-series.apopple@nvidia.com>
- <9117b387-3c73-0236-51d1-9e6baf43b34e@redhat.com>
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB5710E79B;
+ Thu, 10 Feb 2022 08:42:47 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 786B1580162;
+ Thu, 10 Feb 2022 03:42:46 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Thu, 10 Feb 2022 03:42:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm2; bh=8UmB/0ivT0J8zqbGGFQS2Ruey/l6Z0P8AFKloL
+ LCMgA=; b=V2ZJBt1VA11btQmfjyO0mhTP3qZyF6OlfzA3V0Yn0BqcZx71YHuZVk
+ +JhBITlcoXhGeJwQAjC/tHOzCapnDi4KT46i0Q/dm+ycqgK0lhCi+w8la2V9eGRh
+ KsWEoZfS45Tefej/RW2O/sEDzmXvREe7LYE0x5PHxQIztJ0C1dyhJqG8w3u1B6Is
+ 4R44tdJ+ESOEzbZPkqVFoIB7gZNjVA1Fnf1Uhb4ulUmzvJdP0XliU6fwScMyMSt8
+ q7TQHFDWizOF2RdRdJqJ9c3FaFPD4ZC4uXIvUB4FHo1vsF4sjV24jaoHta7jGGHb
+ suBQaBHv/EfzmDJsCsa5kUvZD/KLTwfA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=8UmB/0ivT0J8zqbGG
+ FQS2Ruey/l6Z0P8AFKloLLCMgA=; b=KQQzmRJVllZnBpcnVd3MjVhgIWssn7oPK
+ qwOrY3T13EitF4yzwN4Uinvj5zqUkg2XxknpoLzGO6+D1LW/I/D7DQkmQL3iAhmV
+ TinFNTAZyn4pG5K8XHq5Hgx80O8fhFTD16pqSgfvwsfLgfUPdFx6to0tn6km+kiw
+ G8VyrkV5F28FiYolOc1MiTDCJ8DXJYSmzYAa5/8z/8bq/Fe9fnNY9giKljL5Z5gJ
+ 9XPHjCTKMQJzypmbZmSRTe5+NgikFdJe6KwYDuxV2KfOx80ySi3pAP/mul9HLNzW
+ /VVJgGxhVS6Py6NVuOfrLFubcgQluUn08BtCbLGmS1XURQcY6SlYQ==
+X-ME-Sender: <xms:BtAEYkv_F3qBcQUSEmKXTM-wkw6rgpoz5qdMpb3w3kUGDZiw_-wkmQ>
+ <xme:BtAEYhcxrzaWujr41iuEAwDqdhUJ_-jQ3QEf28K1Dqpv2dpNXHspL6hF7FJCZqIrH
+ zXl7ND7TXqcw0LZyzI>
+X-ME-Received: <xmr:BtAEYvzoRtn19X6FFsHaZKUBT-SI_KjaitBiH9nDAJQwLmYOIyvfOwaxqdJfbmrPrWTmUUfBMdOrLubo3l5K5ara7bV4mBC2EIwTml0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddriedtgdduvdduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
+ gedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
+ grgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:BtAEYnMHt83zZ4SjuOS5BT_2PCFBNrvRZ-yszzg1XY1UKxYkLfBjnw>
+ <xmx:BtAEYk9C59ubWdp_QCdPFitqLJCaPM6Q0MClTwYA0lV_ra2B-gI4OQ>
+ <xmx:BtAEYvXRxIpXtBLIO0-iKainjjVRPzyQW_S_HToLPK5iNWDcNWtKjQ>
+ <xmx:BtAEYoWS6keON82kSNH2Tm4GqIQfQT_x-eBFHpKbQ1YLwkuWu7dTrw>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 10 Feb 2022 03:42:45 -0500 (EST)
+Date: Thu, 10 Feb 2022 09:42:43 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH 05/23] drm/amd/display: Fix color encoding mismatch
+Message-ID: <20220210084243.grmjum55qc6sei52@houat>
+References: <20220207163515.1038648-1-maxime@cerno.tech>
+ <20220207163515.1038648-6-maxime@cerno.tech>
+ <8aa30074-6039-ba5c-c25d-38a0c2f52619@amd.com>
+ <3a9f5ff6-52fd-25f5-2714-8801eba13dab@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-X-Originating-IP: [10.126.230.35]
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dfa76de3-00aa-4ec5-495d-08d9ec89fd4a
-X-MS-TrafficTypeDiagnostic: DS7PR12MB5886:EE_
-X-Microsoft-Antispam-PRVS: <DS7PR12MB5886677F60CE96DFA6D2FB28DF2F9@DS7PR12MB5886.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jpOXKQNCFGRobsLONo+QHet/JVcedciN0Deq8Pe3xEVnFsc4cj7Agn0zJi9fXI5kqMiV07w6rx2ahnjpP4OGHoY1x6ejrTXmhcJIlM2lL3rYWIzQIvKIB+9lV4VxdKZJkAt3YKH7WjG9Ps6zYPOgyx4HGk0SZQaqw7kzbWyETGOTqySNBtrWB7uopTCgZgvAs4XbBmVw0umjgN9PFJkk77gpW5S6QGp1/oUX4x3oyM8bCwhBvx0HODu0qnqpkmCc1pb7j7iBQYDaHiY3EGKVts+KhrEIRYghJNQw9tbkGCb+SpYa+MRbPI1fwKkqN8ZVskr1AlVBWxZVo5CcPAcGuwIVlqSGf64DbgbGVNszGmUaSCzdDcy0K1Zuq1hWeeh6WH/IZKyWGXuWiHS45TGY6XuuMCBPT3bQF6dGhNcqDpsIWFO45RmXWgWj9FXGGMxvzSE2YOwfJGeaEjIPNd7stUbI1q8MwrcL2lP4Z4B7MsJNSvrvvJ/7HKgvKOociFElul9GxYns/hUN8sRVIUc3xpwAWZHU7D90cql/sGZL9QBMtyA6KeK3hSh9Y1es+Cqoez7536ZHD2HMyBoCX2CVrNAq6xlXdAsixTgtrH2o4Jf0uvFXY8i+Tohr6ngwVAnJ1CkIZdO2gWeiLld87JCtsx4bUm12OuUZKO8cVlYZLLsGK7CLdQ9fuEzHCTZFyY+sodip5uX/pG23Xp96lorn7g==
-X-Forefront-Antispam-Report: CIP:12.22.5.234; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(54906003)(70586007)(40460700003)(86362001)(316002)(81166007)(70206006)(33716001)(356005)(186003)(26005)(336012)(82310400004)(4326008)(426003)(16526019)(36860700001)(8676002)(83380400001)(107886003)(8936002)(5660300002)(53546011)(2906002)(110136005)(9576002)(7416002)(47076005)(508600001)(9686003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2022 11:39:25.2095 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfa76de3-00aa-4ec5-495d-08d9ec89fd4a
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.234];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5886
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="zqzqaf7ypljyfqok"
+Content-Disposition: inline
+In-Reply-To: <3a9f5ff6-52fd-25f5-2714-8801eba13dab@amd.com>
 X-Mailman-Approved-At: Thu, 10 Feb 2022 14:11:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,148 +83,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, rcampbell@nvidia.com, willy@infradead.org,
- jhubbard@nvidia.com, Felix.Kuehling@amd.com, dri-devel@lists.freedesktop.org,
- linux-xfs@vger.kernel.org, jglisse@redhat.com, amd-gfx@lists.freedesktop.org,
- jgg@nvidia.com, linux-ext4@vger.kernel.org, hch@lst.de
+Cc: Dom Cobley <dom@raspberrypi.com>, Tim Gover <tim.gover@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ David Airlie <airlied@linux.ie>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ dri-devel@lists.freedesktop.org, Phil Elwell <phil@raspberrypi.com>,
+ Leo Li <sunpeng.li@amd.com>, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thursday, 10 February 2022 9:53:38 PM AEDT David Hildenbrand wrote:
-> On 07.02.22 05:26, Alistair Popple wrote:
-> > Currently any attempts to pin a device coherent page will fail. This is
-> > because device coherent pages need to be managed by a device driver, and
-> > pinning them would prevent a driver from migrating them off the device.
-> > 
-> > However this is no reason to fail pinning of these pages. These are
-> > coherent and accessible from the CPU so can be migrated just like
-> > pinning ZONE_MOVABLE pages. So instead of failing all attempts to pin
-> > them first try migrating them out of ZONE_DEVICE.
-> > 
-> > Signed-off-by: Alistair Popple <apopple@nvidia.com>
-> > Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> > ---
-> > 
-> > Changes for v2:
-> > 
-> >  - Added Felix's Acked-by
-> >  - Fixed missing check for dpage == NULL
-> > 
-> >  mm/gup.c | 105 ++++++++++++++++++++++++++++++++++++++++++++++++++------
-> >  1 file changed, 95 insertions(+), 10 deletions(-)
-> > 
-> > diff --git a/mm/gup.c b/mm/gup.c
-> > index 56d9577..5e826db 100644
-> > --- a/mm/gup.c
-> > +++ b/mm/gup.c
-> > @@ -1861,6 +1861,60 @@ struct page *get_dump_page(unsigned long addr)
-> >  
-> >  #ifdef CONFIG_MIGRATION
-> >  /*
-> > + * Migrates a device coherent page back to normal memory. Caller should have a
-> > + * reference on page which will be copied to the new page if migration is
-> > + * successful or dropped on failure.
-> > + */
-> > +static struct page *migrate_device_page(struct page *page,
-> > +					unsigned int gup_flags)
-> > +{
-> > +	struct page *dpage;
-> > +	struct migrate_vma args;
-> > +	unsigned long src_pfn, dst_pfn = 0;
-> > +
-> > +	lock_page(page);
-> > +	src_pfn = migrate_pfn(page_to_pfn(page)) | MIGRATE_PFN_MIGRATE;
-> > +	args.src = &src_pfn;
-> > +	args.dst = &dst_pfn;
-> > +	args.cpages = 1;
-> > +	args.npages = 1;
-> > +	args.vma = NULL;
-> > +	migrate_vma_setup(&args);
-> > +	if (!(src_pfn & MIGRATE_PFN_MIGRATE))
-> > +		return NULL;
-> > +
-> > +	dpage = alloc_pages(GFP_USER | __GFP_NOWARN, 0);
-> > +
-> > +	/*
-> > +	 * get/pin the new page now so we don't have to retry gup after
-> > +	 * migrating. We already have a reference so this should never fail.
-> > +	 */
-> > +	if (dpage && WARN_ON_ONCE(!try_grab_page(dpage, gup_flags))) {
-> > +		__free_pages(dpage, 0);
-> > +		dpage = NULL;
-> > +	}
-> > +
-> > +	if (dpage) {
-> > +		lock_page(dpage);
-> > +		dst_pfn = migrate_pfn(page_to_pfn(dpage));
-> > +	}
-> > +
-> > +	migrate_vma_pages(&args);
-> > +	if (src_pfn & MIGRATE_PFN_MIGRATE)
-> > +		copy_highpage(dpage, page);
-> > +	migrate_vma_finalize(&args);
-> > +	if (dpage && !(src_pfn & MIGRATE_PFN_MIGRATE)) {
-> > +		if (gup_flags & FOLL_PIN)
-> > +			unpin_user_page(dpage);
-> > +		else
-> > +			put_page(dpage);
-> > +		dpage = NULL;
-> > +	}
-> > +
-> > +	return dpage;
-> > +}
-> > +
-> > +/*
-> >   * Check whether all pages are pinnable, if so return number of pages.  If some
-> >   * pages are not pinnable, migrate them, and unpin all pages. Return zero if
-> >   * pages were migrated, or if some pages were not successfully isolated.
-> > @@ -1888,15 +1942,40 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
-> >  			continue;
-> >  		prev_head = head;
-> >  		/*
-> > -		 * If we get a movable page, since we are going to be pinning
-> > -		 * these entries, try to move them out if possible.
-> > +		 * Device coherent pages are managed by a driver and should not
-> > +		 * be pinned indefinitely as it prevents the driver moving the
-> > +		 * page. So when trying to pin with FOLL_LONGTERM instead try
-> > +		 * migrating page out of device memory.
-> >  		 */
-> >  		if (is_dev_private_or_coherent_page(head)) {
-> > +			/*
-> > +			 * device private pages will get faulted in during gup
-> > +			 * so it shouldn't be possible to see one here.
-> > +			 */
-> >  			WARN_ON_ONCE(is_device_private_page(head));
-> > -			ret = -EFAULT;
-> > -			goto unpin_pages;
-> > +			WARN_ON_ONCE(PageCompound(head));
-> > +
-> > +			/*
-> > +			 * migration will fail if the page is pinned, so convert
-> > +			 * the pin on the source page to a normal reference.
-> > +			 */
-> > +			if (gup_flags & FOLL_PIN) {
-> > +				get_page(head);
-> > +				unpin_user_page(head);
-> > +			}
-> > +
-> > +			pages[i] = migrate_device_page(head, gup_flags);
-> 
-> For ordinary migrate_pages(), we'll unpin all pages and return 0 so the
-> caller will retry pinning by walking the page tables again.
-> 
-> Why can't we apply the same mechanism here? This "let's avoid another
-> walk" looks unnecessary complicated to me, but I might be wrong.
 
-There's no reason we couldn't. I figured we have the page in the right spot
-anyway so it was easy to do, and looking at this rebased on top of Christoph's
-ZONE_DEVICE refcount simplification I'm not sure it would be any simpler
-anyway.
+--zqzqaf7ypljyfqok
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-It would remove the call to try_grab_page(), but we'd still have to return an
-error on migration failures whilst also ensuring we putback any non-device
-pages that may have been isolated. I might have overlooked something though,
-so certainly happy for suggestions.
+Hi Harry,
 
+On Mon, Feb 07, 2022 at 01:59:38PM -0500, Harry Wentland wrote:
+> On 2022-02-07 13:57, Harry Wentland wrote:
+> > On 2022-02-07 11:34, Maxime Ripard wrote:
+> >> The amdgpu KMS driver calls drm_plane_create_color_properties() with a
+> >> default encoding set to BT709.
+> >>
+> >> However, the core will ignore it and the driver doesn't force it in its
+> >> plane state reset hook, so the initial value will be 0, which represen=
+ts
+> >> BT601.
+> >>
+> >=20
+> > Isn't this a core issue? Should __drm_atomic_helper_plane_state_reset
+> > reset all plane_state members to their properties' default values?
+> >=20
+>=20
+> Ah, looks like that's exactly what you do in the later patches, which is
+> perfect. With that, I don't think you'll need this patch anymore.
 
+Ok, I'll squash it into the patch that removes the reset code.
 
+Thanks!
+Maxime
+
+--zqzqaf7ypljyfqok
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYgTQAwAKCRDj7w1vZxhR
+xS9UAQDxZHzWI/TgE+H2KV94xkGKONXDoO5HPthQTVHFCaxKvwEA6xiQuQcP6y+S
+9Kw6J1AxwVSzFV1awfCbQ5WIgtv24wI=
+=d0Xh
+-----END PGP SIGNATURE-----
+
+--zqzqaf7ypljyfqok--
