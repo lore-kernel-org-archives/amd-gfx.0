@@ -4,82 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4306DC43217
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 14:11:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD50FC433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 14:11:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A137D10E8DA;
-	Thu, 10 Feb 2022 14:11:36 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 169B810E7FA
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 10:53:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1644490427;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JCuMYRkRk63t/uEdzFuVnTeGbIgzIgM+Be/IRayUXNE=;
- b=a0/GjYJgVX/qxgYPyX3rAuEVWMBAPotAKG3Rl4M0UhDtvCU2kghYuJdeiqZm5/H+GS2i8Q
- SieNUh0Q8XShGOn1ypPhe6zocB2pGGRBhCE6TVVlo7cwxJpLh2Jc5p63IJORGvUVnSx/Bw
- paTKe5Y5pbgodVjseaklQTeInvbG2AM=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-635-1LCmXJRbNWqrgUvDxgzQ6g-1; Thu, 10 Feb 2022 05:53:41 -0500
-X-MC-Unique: 1LCmXJRbNWqrgUvDxgzQ6g-1
-Received: by mail-wm1-f71.google.com with SMTP id
- l4-20020a05600c4f0400b0037bb2ce79d8so4142332wmq.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 02:53:40 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:organization:in-reply-to
- :content-transfer-encoding;
- bh=JCuMYRkRk63t/uEdzFuVnTeGbIgzIgM+Be/IRayUXNE=;
- b=jb/GVz+bfVz6jYgmDWFvyEJDoL+94wu2lHcJmk5bNVepxIsusC+nm6g+QQcZ0lHpsF
- f8hiBaWYnHmYmfTWt2MgViQKKqqW+Hev7rooFmOrIz0tmKbJUp4RY/lsFV4McjTwY29i
- +NWfnNObv3GgojAAXFvZdQihpm71edthcBQTY+FpES6YaEoI/VaOyvpzJuhq9zbN0yZb
- 9RWKbmpi7qrnJ6V65pFwbkNscUl9Nq1slwmpbwSm4ZSo7mUoldbNZ+6B6e46GFkS2va1
- CGvsEJjmP9DBTxBF/zpEtnVyz/IrtSlnyAr11oAp1PW1eqojRekvJOX73GGLP8VTnEzB
- lAUg==
-X-Gm-Message-State: AOAM533eVzESim8cMXAhAOBMwHGcVx0eeeAJLcl5Encnybx5B+dHZPoP
- jghDbnLR59PbsEKY9Taqs1UB2KvUyk9K24W5Ew66kRD+ve4D54+dYxxYLMmlYJN6rGjUtxc7PtC
- /H9Nt2SletI66mzNJLJCaSQx45A==
-X-Received: by 2002:a05:600c:1988:: with SMTP id
- t8mr1662387wmq.66.1644490419925; 
- Thu, 10 Feb 2022 02:53:39 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwkvT5JZHYXYtY2UOZZws+goRiFcmq1p9MqivWc75eF2pkGueO44gfahvAR0YnoX7ep2nRGuw==
-X-Received: by 2002:a05:600c:1988:: with SMTP id
- t8mr1662365wmq.66.1644490419644; 
- Thu, 10 Feb 2022 02:53:39 -0800 (PST)
-Received: from ?IPV6:2003:cb:c70b:f900:7b04:69ec:2caf:3b42?
- (p200300cbc70bf9007b0469ec2caf3b42.dip0.t-ipconnect.de.
- [2003:cb:c70b:f900:7b04:69ec:2caf:3b42])
- by smtp.gmail.com with ESMTPSA id 11sm21492095wrb.30.2022.02.10.02.53.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Feb 2022 02:53:39 -0800 (PST)
-Message-ID: <9117b387-3c73-0236-51d1-9e6baf43b34e@redhat.com>
-Date: Thu, 10 Feb 2022 11:53:38 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83EC910E8DC;
+	Thu, 10 Feb 2022 14:11:35 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E25D410E811;
+ Thu, 10 Feb 2022 11:37:29 +0000 (UTC)
+Received: from canpemm500002.china.huawei.com (unknown [172.30.72.56])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4JvZT42pQKzcckG;
+ Thu, 10 Feb 2022 19:36:24 +0800 (CST)
+Received: from [10.174.177.76] (10.174.177.76) by
+ canpemm500002.china.huawei.com (7.192.104.244) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Thu, 10 Feb 2022 19:37:24 +0800
+Subject: Re: [PATCH 01/27] mm: remove a pointless CONFIG_ZONE_DEVICE check in
+ memremap_pages
+To: Christoph Hellwig <hch@lst.de>
+References: <20220210072828.2930359-1-hch@lst.de>
+ <20220210072828.2930359-2-hch@lst.de>
+From: Miaohe Lin <linmiaohe@huawei.com>
+Message-ID: <fcd1848f-19af-6572-942f-bdcd51bf143c@huawei.com>
+Date: Thu, 10 Feb 2022 19:37:24 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Subject: Re: [PATCH v2 2/3] mm/gup.c: Migrate device coherent pages when
- pinning instead of failing
-To: Alistair Popple <apopple@nvidia.com>, akpm@linux-foundation.org,
- linux-mm@kvack.org
-References: <cover.0d3c846b1c6c294e055ff7ebe221fab9964c1436.1644207242.git-series.apopple@nvidia.com>
- <dd9960b327ca49a9103d9f97868ea7b0b81186c4.1644207242.git-series.apopple@nvidia.com>
-From: David Hildenbrand <david@redhat.com>
-Organization: Red Hat
-In-Reply-To: <dd9960b327ca49a9103d9f97868ea7b0b81186c4.1644207242.git-series.apopple@nvidia.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+In-Reply-To: <20220210072828.2930359-2-hch@lst.de>
+Content-Type: text/plain; charset="utf-8"
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.174.177.76]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ canpemm500002.china.huawei.com (7.192.104.244)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Thu, 10 Feb 2022 14:11:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,142 +50,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, rcampbell@nvidia.com, willy@infradead.org,
- jhubbard@nvidia.com, Felix.Kuehling@amd.com, dri-devel@lists.freedesktop.org,
- linux-xfs@vger.kernel.org, jglisse@redhat.com, amd-gfx@lists.freedesktop.org,
- jgg@nvidia.com, linux-ext4@vger.kernel.org, hch@lst.de
+Cc: nvdimm@lists.linux.dev, Karol Herbst <kherbst@redhat.com>,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-mm@kvack.org, Chaitanya Kulkarni <kch@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, amd-gfx@lists.freedesktop.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Ralph Campbell <rcampbell@nvidia.com>,
+ Muchun Song <songmuchun@bytedance.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Logan Gunthorpe <logang@deltatee.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 07.02.22 05:26, Alistair Popple wrote:
-> Currently any attempts to pin a device coherent page will fail. This is
-> because device coherent pages need to be managed by a device driver, and
-> pinning them would prevent a driver from migrating them off the device.
+On 2022/2/10 15:28, Christoph Hellwig wrote:
+> memremap.c is only built when CONFIG_ZONE_DEVICE is set, so remove
+> the superflous extra check.
 > 
-> However this is no reason to fail pinning of these pages. These are
-> coherent and accessible from the CPU so can be migrated just like
-> pinning ZONE_MOVABLE pages. So instead of failing all attempts to pin
-> them first try migrating them out of ZONE_DEVICE.
-> 
-> Signed-off-by: Alistair Popple <apopple@nvidia.com>
-> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
+> Reviewed-by: Muchun Song <songmuchun@bytedance.com>
+> Reviewed-by: Dan Williams <dan.j.williams@intel.com>
 > ---
+>  mm/memremap.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> Changes for v2:
+> diff --git a/mm/memremap.c b/mm/memremap.c
+> index 6aa5f0c2d11fda..5f04a0709e436e 100644
+> --- a/mm/memremap.c
+> +++ b/mm/memremap.c
+> @@ -328,8 +328,7 @@ void *memremap_pages(struct dev_pagemap *pgmap, int nid)
+>  		}
+>  		break;
+>  	case MEMORY_DEVICE_FS_DAX:
+> -		if (!IS_ENABLED(CONFIG_ZONE_DEVICE) ||
+> -		    IS_ENABLED(CONFIG_FS_DAX_LIMITED)) {
+> +		if (IS_ENABLED(CONFIG_FS_DAX_LIMITED)) {
+>  			WARN(1, "File system DAX not supported\n");
+>  			return ERR_PTR(-EINVAL);
+>  		}
 > 
->  - Added Felix's Acked-by
->  - Fixed missing check for dpage == NULL
-> 
->  mm/gup.c | 105 ++++++++++++++++++++++++++++++++++++++++++++++++++------
->  1 file changed, 95 insertions(+), 10 deletions(-)
-> 
-> diff --git a/mm/gup.c b/mm/gup.c
-> index 56d9577..5e826db 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -1861,6 +1861,60 @@ struct page *get_dump_page(unsigned long addr)
->  
->  #ifdef CONFIG_MIGRATION
->  /*
-> + * Migrates a device coherent page back to normal memory. Caller should have a
-> + * reference on page which will be copied to the new page if migration is
-> + * successful or dropped on failure.
-> + */
-> +static struct page *migrate_device_page(struct page *page,
-> +					unsigned int gup_flags)
-> +{
-> +	struct page *dpage;
-> +	struct migrate_vma args;
-> +	unsigned long src_pfn, dst_pfn = 0;
-> +
-> +	lock_page(page);
-> +	src_pfn = migrate_pfn(page_to_pfn(page)) | MIGRATE_PFN_MIGRATE;
-> +	args.src = &src_pfn;
-> +	args.dst = &dst_pfn;
-> +	args.cpages = 1;
-> +	args.npages = 1;
-> +	args.vma = NULL;
-> +	migrate_vma_setup(&args);
-> +	if (!(src_pfn & MIGRATE_PFN_MIGRATE))
-> +		return NULL;
-> +
-> +	dpage = alloc_pages(GFP_USER | __GFP_NOWARN, 0);
-> +
-> +	/*
-> +	 * get/pin the new page now so we don't have to retry gup after
-> +	 * migrating. We already have a reference so this should never fail.
-> +	 */
-> +	if (dpage && WARN_ON_ONCE(!try_grab_page(dpage, gup_flags))) {
-> +		__free_pages(dpage, 0);
-> +		dpage = NULL;
-> +	}
-> +
-> +	if (dpage) {
-> +		lock_page(dpage);
-> +		dst_pfn = migrate_pfn(page_to_pfn(dpage));
-> +	}
-> +
-> +	migrate_vma_pages(&args);
-> +	if (src_pfn & MIGRATE_PFN_MIGRATE)
-> +		copy_highpage(dpage, page);
-> +	migrate_vma_finalize(&args);
-> +	if (dpage && !(src_pfn & MIGRATE_PFN_MIGRATE)) {
-> +		if (gup_flags & FOLL_PIN)
-> +			unpin_user_page(dpage);
-> +		else
-> +			put_page(dpage);
-> +		dpage = NULL;
-> +	}
-> +
-> +	return dpage;
-> +}
-> +
-> +/*
->   * Check whether all pages are pinnable, if so return number of pages.  If some
->   * pages are not pinnable, migrate them, and unpin all pages. Return zero if
->   * pages were migrated, or if some pages were not successfully isolated.
-> @@ -1888,15 +1942,40 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
->  			continue;
->  		prev_head = head;
->  		/*
-> -		 * If we get a movable page, since we are going to be pinning
-> -		 * these entries, try to move them out if possible.
-> +		 * Device coherent pages are managed by a driver and should not
-> +		 * be pinned indefinitely as it prevents the driver moving the
-> +		 * page. So when trying to pin with FOLL_LONGTERM instead try
-> +		 * migrating page out of device memory.
->  		 */
->  		if (is_dev_private_or_coherent_page(head)) {
-> +			/*
-> +			 * device private pages will get faulted in during gup
-> +			 * so it shouldn't be possible to see one here.
-> +			 */
->  			WARN_ON_ONCE(is_device_private_page(head));
-> -			ret = -EFAULT;
-> -			goto unpin_pages;
-> +			WARN_ON_ONCE(PageCompound(head));
-> +
-> +			/*
-> +			 * migration will fail if the page is pinned, so convert
-> +			 * the pin on the source page to a normal reference.
-> +			 */
-> +			if (gup_flags & FOLL_PIN) {
-> +				get_page(head);
-> +				unpin_user_page(head);
-> +			}
-> +
-> +			pages[i] = migrate_device_page(head, gup_flags);
 
+LGTM. Thanks.
 
-
-For ordinary migrate_pages(), we'll unpin all pages and return 0 so the
-caller will retry pinning by walking the page tables again.
-
-Why can't we apply the same mechanism here? This "let's avoid another
-walk" looks unnecessary complicated to me, but I might be wrong.
-
--- 
-Thanks,
-
-David / dhildenb
-
+Reviewed-by: Miaohe Lin <linmiaohe@huawei.com>
