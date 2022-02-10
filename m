@@ -4,81 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7308EC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 14:11:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD889C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 14:11:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A47FD10E8D6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7D1710E8D7;
 	Thu, 10 Feb 2022 14:11:34 +0000 (UTC)
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on2122.outbound.protection.outlook.com [40.107.255.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73E3210E79C;
- Thu, 10 Feb 2022 08:30:29 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2063.outbound.protection.outlook.com [40.107.237.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7B06898C4;
+ Thu, 10 Feb 2022 10:46:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TJ3MXsHv0MWU1shpo5N6ClSxNLSByFvpl1x25MsckzysGdNmstPW6ihH1AIcDWUmFyWKt/AOR/I5fAaI4seig43FppiVWkeIFRTTHz54Qug0xeTmbgxLmtYONs+vhtrpmkhmV+01Rys0gbn4o1ScP+sroET5fznzs0EOOqmmlNynN6HBvBIS1es7Y9GFlBSoTd2IKDwmGXL2MusiyZnadCieZdOVX09s5xOgoGC6GjRK3MA07rlSxn3y/NrcfU8vDT8KcWhbQ+qXd4IBZ/9yua85dzO/ScEa8iFi/Kth81aW1u+LNw2kU2vTLTWL8f9B7P4ZIhZtnnd5iP1L+c5aaw==
+ b=hjToKzJo6aAJNlUy8oBFNkXFdJkw9SHGPfqjgQxo0xreISaR0rBuaKi/MMASr4dmt7AOUN9jGOwJYqWTzJ9qvpVZAjGSddlku2olcn71b8f/helyOArqPbwkuFJ3W86ETqLB6ti2P4DVtNu1g9oYDUMDB6E+EqEIowipkw36FV9md9mFajzb73nSpQr0sjZCnFr6kogi7i2CN+WTad6fxCZKF6fU6TXjCiT3tWmB5k9rFrCaBlYvVC1PhoPj/063+d5ZnJUYSbq3JVSs7KIXnaWWlxvbhwDr5I3zIOrR/h+03VKevAVxcAI5An9YPd9cmMx1dbwJbwuJ4zmhXwEQ8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eSrZrMejNhwSEpVtiYbEvG+nnbQJCjcunapuQFmhY2E=;
- b=diWvzTd183pAf9y7+2A6AYWPW+qk7beWQ6w9uHN3PrbwwZg8EHDV0rWmSdNHIXJq12tSv+etceUpfVBtpmAAz8NxDWt1k2Kcmzj8qjCsFWCl3gJkbLQU2KYx0PsglnWSttsm9ilVsG1qzcp5NcfxT2AFs0RPzOCYKbSk+kTMfq7ad6tL9kAuSTgqzJrhZNaB+BiuJb3xRUd1G1ZFv+YeJBf3qIV/55d9RpsRjmhoaeNj3vhl0LkxzEya50IQ8DknxQQ/0YrcU8cwbwMcMs/bPOO32zPn5XnXp8l1PWCvz09r1XBkNLgx6FhySWkdVDROQt4p0aIcpS/pbQWVw2M+uA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
- s=selector2-vivo0-onmicrosoft-com;
+ bh=bHJdHP3XsDlfuJQe2q73BClNb8AfWL94Ii6kL948ayI=;
+ b=LtcPoxwkaRjehZSTD7JdnXQMJgP3VY1A+b91VYRhqTqDV8TVl66nnFfbNZZuF44829+rnWXoURG/GDxXgyOXviTSDmUnveH5jyofsq57AWSzyvIfJ82CRSfUScx5QZdHDYpqmMz3jJiLSNKRpjUgZD5PFVSpbrX0rkMbat/OxhIv5eEoUTLTHgHFz9rkJILTco03Lp4S9wa4wt16v/Y2UM5rK2zPAWW0WgKlmQhYTJV9dg59IIX+Oi9t1hyejWyKyvShVW0uXJ3aVnJcnH9ha2YrjM5roDpIn5VkAVJfpHxsgDlkDo5RHTholib0nQKjZpzeRHCQLeQXEZ6TbOyupw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 12.22.5.238) smtp.rcpttodomain=amd.com smtp.mailfrom=nvidia.com; dmarc=pass
+ (p=reject sp=reject pct=100) action=none header.from=nvidia.com; dkim=none
+ (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eSrZrMejNhwSEpVtiYbEvG+nnbQJCjcunapuQFmhY2E=;
- b=Yu6ta2ilLZQvnkQM02Ww/BzXW5gWLE1f3WdOR972ObqZfpBD4rjvrs+zSMQJa32ymV7DxZmwOaICwSV3aBISDFfwJOv+4vKfHgaq7kPd2blbcyVqKOOuwwu2/DsLa/CFC5z9yJDJUtaefVk4tAZkAz5NGXem8T3IyelHqVXvV74=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
- by PSAPR06MB4005.apcprd06.prod.outlook.com (2603:1096:301:3a::14)
+ bh=bHJdHP3XsDlfuJQe2q73BClNb8AfWL94Ii6kL948ayI=;
+ b=t08YNwMf5i9ZNa/uMOjZPhXqIJjY0dOhIOONX79TkOQJ0jqVDbblePK4d2coGYabr5y/3ZfF467QkdC3eGvlZcKe2FJZThmxNgxQOAzNVgdO02jCEcA0IFU4OagruqrXRqKvKu38lLim1oOSRqTThLn5fLoYDjT00Gd3lFw9SjN+OhfYi6qVtHztn1bB95gGIhuxzpm5s9fuhwmyF90ps09zalTZ2SLEL+D/TboXUIQqSAiEADGr0vukOHkZKMr4I6AIC9nCdMr6YoGW3BqHFDNfyay9XyA2k73kXXg50tCQ+DA1KX8COtHf5ofgVXEMPGeA9USGEoOOCnp5bJ0fUg==
+Received: from MW4PR03CA0174.namprd03.prod.outlook.com (2603:10b6:303:8d::29)
+ by BL1PR12MB5378.namprd12.prod.outlook.com (2603:10b6:208:31d::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Thu, 10 Feb
- 2022 08:30:26 +0000
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.011; Thu, 10 Feb 2022
- 08:30:26 +0000
-From: Qing Wang <wangqing@vivo.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] gpu: drm: radeon: use time_after_eq() instead of jiffies
- judgment
-Date: Thu, 10 Feb 2022 00:30:17 -0800
-Message-Id: <1644481817-14624-1-git-send-email-wangqing@vivo.com>
-X-Mailer: git-send-email 2.7.4
-Content-Type: text/plain
-X-ClientProxiedBy: SG2PR0401CA0011.apcprd04.prod.outlook.com
- (2603:1096:3:1::21) To SL2PR06MB3082.apcprd06.prod.outlook.com
- (2603:1096:100:37::17)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.14; Thu, 10 Feb
+ 2022 10:46:13 +0000
+Received: from CO1NAM11FT058.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8d:cafe::10) by MW4PR03CA0174.outlook.office365.com
+ (2603:10b6:303:8d::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11 via Frontend
+ Transport; Thu, 10 Feb 2022 10:46:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.238)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 12.22.5.238 as permitted sender) receiver=protection.outlook.com;
+ client-ip=12.22.5.238; helo=mail.nvidia.com;
+Received: from mail.nvidia.com (12.22.5.238) by
+ CO1NAM11FT058.mail.protection.outlook.com (10.13.174.164) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.4975.11 via Frontend Transport; Thu, 10 Feb 2022 10:46:12 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by DRHQMAIL105.nvidia.com
+ (10.27.9.14) with Microsoft SMTP Server (TLS) id 15.0.1497.18;
+ Thu, 10 Feb 2022 10:46:12 +0000
+Received: from nvdebian.localnet (10.126.230.35) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.9; Thu, 10 Feb 2022
+ 02:46:08 -0800
+From: Alistair Popple <apopple@nvidia.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Dan Williams
+ <dan.j.williams@intel.com>, Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 12/27] mm: refactor the ZONE_DEVICE handling in
+ migrate_vma_pages
+Date: Thu, 10 Feb 2022 21:46:05 +1100
+Message-ID: <2486253.gG6I7sY731@nvdebian>
+In-Reply-To: <20220210072828.2930359-13-hch@lst.de>
+References: <20220210072828.2930359-1-hch@lst.de>
+ <20220210072828.2930359-13-hch@lst.de>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+X-Originating-IP: [10.126.230.35]
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 80895627-6212-4cff-cfb2-08d9ec6f964f
-X-MS-TrafficTypeDiagnostic: PSAPR06MB4005:EE_
-X-Microsoft-Antispam-PRVS: <PSAPR06MB400519D5B59F66D7775895D7BD2F9@PSAPR06MB4005.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
+X-MS-Office365-Filtering-Correlation-Id: 77d714c6-ed32-4c04-57fb-08d9ec828e85
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5378:EE_
+X-Microsoft-Antispam-PRVS: <BL1PR12MB537860F44DF5F20D4F6BD0E5DF2F9@BL1PR12MB5378.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DiPzyRK7tKjmRwy+11U9pKmSllGvyE78ghHE+xvBfa9cNTC/PJg3b1iVC3O+yBxpxI8ARzQl6Yj6kOZrMiE7dapljOtWQKNz1DAAQWFSsT0HgKoMn26q5XlvKj66Qagk2kOShbeU6us6uYK8dnnnO9U6FmogJ+UMzrwXqGTS5AMJhFRbb2Fk4+oh0x96n1/cO5G+C2tNtfTNOWjBwgZpjP+SH+lyVxabZm3Apk/W13gy6pZ9qyuhRFLAnn2Dzd7/sJI97G4xJnYdTRDl957S5RqGMP1HsBSvrDuF4JeQB3NQHJalRRS8WiZeXvhYUsKRZQalyTaNnDt5XlIiaWpxy8D4LNhuNGSQHyZQResAfLhg2EsuYU5NE1xz+wy1ZiZia8PjxExxDsAXSyvEaXIard/22zN6yQzYnmMjhzLuZef2KnoH3SYR4gRcd5u/UZiddI0eFA7Yrno3zJx1I30PwGfmWqMYn9XnSMokfq7M8nfeKtqFRQmSnP1CzD0QCaG3+U3iT0YgBQZdu+yY/EkiZ29hA0l9AMPnXRHIY/ZRocIMwv96DfM7WrrlkZvCxcycsNl35uAmtRbQCl+QXeI/e+Pr/zdnzvF1tICW/RQxQKScTPPfOi/UerQT1ZUtfn+T5ti2SxnyySEzC1LbP+WXFg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(2906002)(8676002)(66946007)(5660300002)(4744005)(52116002)(8936002)(38100700002)(38350700002)(66556008)(6666004)(6512007)(6506007)(4326008)(6486002)(316002)(186003)(2616005)(110136005)(36756003)(86362001)(508600001)(83380400001)(107886003)(26005)(66476007)(21314003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Xmbz4nGi3dVb4Tx8T3hawf8RX6a6h3z/rDicCgQ6xOgDT9xbhaRRejk9lLpPCM7izIuwMV1R+DPx2usRsPIZVLb5dU0Y2AmJF7vNMkwgxp3mGdC5i+PU6yF+XeWVF653db+Dj38Jt1chRpN+bTSkrkMotym5iwxtthYcUKPIZTPLsk6BztSfT4d3Qz9Bw1CAAi2uPoasWPoKMpWdxNlTLkNfBLX+4xEga6M5hQajwSVFPRntdGKk4flWBMwfSr7fwjrmwVRuKs3lbjeZuJlVBl8O6XgtYAS0QjjrPJKQoNhUKxzNrfcdnb8No7zpIYgu03DgopWn3rz4vvCTl6q+//aVDWJUBGgbi9DriH2eWqa11u/mmLlNFZjsTsK3/L/yU/HaESDD2hubJOYMxIJRl6I4AVgapxwZJvVUksT06X0UHHdLmgoDwaR50kCRNqVS
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80895627-6212-4cff-cfb2-08d9ec6f964f
-X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2022 08:30:26.0098 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Sxj0umM1itkF1T2g9R+PcW4OjIxSelzMkm96DB6j8UubZ1A7zbjNg/NrqdMuvSZ6rNL60mo7lu8gjuAfLPP8Sg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PSAPR06MB4005
+X-Microsoft-Antispam-Message-Info: kcbEHdE6kpF7sxS6GDIcAxii/TzCQjGIOv1TKIZtg6Ntv2mjMBwPQzOd7uEpxfJFW9kF/q1L5hMlfd+jjQdqHYfi0m4HivdKa2wvwAlxw5L2Yl7kldWjwvsMm7yferitovqh8uxPP8jrJlImtwkVA9B/MtmzGNy7K1dmoqcxjk9KK6VgBjxiq80R81cJKsxuu9HhQDb96prDtj93rHwLt/EEVIhTC4mwOFymNZ8ZFozxwS3sfvoQlnc/kL4PE9DrHTu+iaVFHSHaT18A7Cnz2jdgMWU42dfr35WOnYsGQQa9fO51z5H+5/IFFQZJUbytM95QfblP/PHlYKsb7eYSrJcvkfIPpSdtQe06Mi9GMX+gZBIrTTNDAP7Zd19+DbEQpAsx+7KUr4JmcfKohfrOS4VQndBluxggjQSCnpA/+Iw2l151ToUohfESZprkWngb6FnR5ZFgUVpDurSVTFnIfjoV/w1aDW+cY5NA+Byztjfth5DRsGx3Q8sZDCMKu8saQQWNwrDBlS6nWZX2N9FVfp6vh83uMzQny+zcUElG6z4gLMI0X6kwxhRBN7mYj0kGjUSo1qM9B5gGI7K03X6hcr+ZQjarYXAmD/41iZeuhx7X7XsyzezEIqrEBKjTGvOGrzUKtDD9P8IVqdobW0rwPQ/6UaYvcth/3SvXre8GrN21GFJRhUiBvvV90U+V4T9SPwJTSp4OM5sJoTZWqLJ8Zg==
+X-Forefront-Antispam-Report: CIP:12.22.5.238; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(508600001)(26005)(5660300002)(54906003)(81166007)(186003)(426003)(336012)(7416002)(316002)(40460700003)(86362001)(356005)(16526019)(110136005)(70206006)(8676002)(33716001)(70586007)(9686003)(83380400001)(6666004)(36860700001)(47076005)(4326008)(82310400004)(2906002)(8936002)(9576002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2022 10:46:12.7518 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77d714c6-ed32-4c04-57fb-08d9ec828e85
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.238];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT058.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5378
 X-Mailman-Approved-At: Thu, 10 Feb 2022 14:11:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,41 +108,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wang Qing <wangqing@vivo.com>
+Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
+ dri-devel@lists.freedesktop.org, Karol Herbst <kherbst@redhat.com>,
+ linux-mm@kvack.org, nouveau@lists.freedesktop.org,
+ Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Logan Gunthorpe <logang@deltatee.com>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wang Qing <wangqing@vivo.com>
+Reviewed-by: Alistair Popple <apopple@nvidia.com>
 
-It is better to use time_xxx() directly instead of jiffies judgment
-for understanding.
+On Thursday, 10 February 2022 6:28:13 PM AEDT Christoph Hellwig wrote:
+> Make the flow a little more clear and prepare for adding a new
+> ZONE_DEVICE memory type.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  mm/migrate.c | 27 ++++++++++++---------------
+>  1 file changed, 12 insertions(+), 15 deletions(-)
+> 
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index 30ecd7223656c1..746e1230886ddb 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -2788,24 +2788,21 @@ void migrate_vma_pages(struct migrate_vma *migrate)
+>  
+>  		mapping = page_mapping(page);
+>  
+> -		if (is_zone_device_page(newpage)) {
+> -			if (is_device_private_page(newpage)) {
+> -				/*
+> -				 * For now only support private anonymous when
+> -				 * migrating to un-addressable device memory.
+> -				 */
+> -				if (mapping) {
+> -					migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
+> -					continue;
+> -				}
+> -			} else {
+> -				/*
+> -				 * Other types of ZONE_DEVICE page are not
+> -				 * supported.
+> -				 */
+> +		if (is_device_private_page(newpage)) {
+> +			/*
+> +			 * For now only support private anonymous when migrating
+> +			 * to un-addressable device memory.
+> +			 */
+> +			if (mapping) {
+>  				migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
+>  				continue;
+>  			}
+> +		} else if (is_zone_device_page(newpage)) {
+> +			/*
+> +			 * Other types of ZONE_DEVICE page are not supported.
+> +			 */
+> +			migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
+> +			continue;
+>  		}
+>  
+>  		r = migrate_page(mapping, newpage, page, MIGRATE_SYNC_NO_COPY);
+> 
 
-Signed-off-by: Wang Qing <wangqing@vivo.com>
----
- drivers/gpu/drm/radeon/radeon_pm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_pm.c b/drivers/gpu/drm/radeon/radeon_pm.c
-index c67b6dd..53d536a
---- a/drivers/gpu/drm/radeon/radeon_pm.c
-+++ b/drivers/gpu/drm/radeon/radeon_pm.c
-@@ -25,6 +25,7 @@
- #include <linux/hwmon.h>
- #include <linux/pci.h>
- #include <linux/power_supply.h>
-+#include <linux/jiffies.h>
- 
- #include <drm/drm_vblank.h>
- 
-@@ -1899,7 +1900,7 @@ static void radeon_dynpm_idle_work_handler(struct work_struct *work)
- 		 * to false since we want to wait for vbl to avoid flicker.
- 		 */
- 		if (rdev->pm.dynpm_planned_action != DYNPM_ACTION_NONE &&
--		    jiffies > rdev->pm.dynpm_action_timeout) {
-+		    time_after(jiffies, rdev->pm.dynpm_action_timeout)) {
- 			radeon_pm_get_dynpm_state(rdev);
- 			radeon_pm_set_clocks(rdev);
- 		}
--- 
-2.7.4
+
 
