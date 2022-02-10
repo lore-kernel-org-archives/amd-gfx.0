@@ -4,96 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1851C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 14:11:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92B45C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 14:11:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3256510E8D0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5031B10E8D3;
 	Thu, 10 Feb 2022 14:11:34 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2080.outbound.protection.outlook.com [40.107.93.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D150910E7FB;
- Thu, 10 Feb 2022 10:56:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JVQ+wnP8gxI5POHQOyGATzCZuyaaJ7i+na8temlj2Sj8B0gBrUk7SFXKXxe0aKmRjuXzCTs1JO1eV+vXxnzfgYtheXSD4CGl1hu47CseVOkphjUJ8cu+/lVkrBwhBz1RNK/re/rzLDKlCn50ksIOQ1iSFTQyrSOf+vzM9douH4BdZx9wJ0ltn2fwr9lKEvknII0HUMjiB+PiqC/ZM2dGYeg3YsDCeU914hVAUsOv0HdzrS3cIjFtDAQJ4X+A8/swcJZJb94ACHkt9gFPm7SswIv0ptAffgfX4IyNWncnK1EqEc60MGShcYSOCkmfolQF/4O1zNbSKMcVQ1rDtGHlLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ag4H1VFrJjRfxOy5JvMEM+Q+U/NlkfVgNPrcLDz1DR8=;
- b=axZlSIMPqYrQKcrVkssqi7Pc9IG0sgzx2cnzaJh/PQXxX19/MfSoINGB3P8lFZr+3XLTcf/MhSYPQJSmfYqqK84c79+/zQ2pVU3sl0zMwpnOciiTMZcAbDHz82TFbwWLsPtnhVCa7pmVVx0GCPpACgj840uLqGv9MXpPDnACTQBkHlFP4ypc0kLAmXIQ5rcjt5fugYvtcMAqx7W4puF1c3yNiSNpo0ceWCVKxjhO3u3yAGjfuBCkimYHKUKS4IiCMCHx3QsF/oyHhsrNApwOQEQde7Zdq1AXrzqsL6Xs0fIzHQz02Xc6p2EqVyHKZvbGqV6sIE8+S9pqCt63Ioy9SQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.234) smtp.rcpttodomain=amd.com smtp.mailfrom=nvidia.com; dmarc=pass
- (p=reject sp=reject pct=100) action=none header.from=nvidia.com; dkim=none
- (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ag4H1VFrJjRfxOy5JvMEM+Q+U/NlkfVgNPrcLDz1DR8=;
- b=CiUxiNanCU3WzPK7pgz7x2PUFOElSJvGWnE6/71xamtooFi3klDw01rW6zqTuWQ1vw41qLxb7hHCOc81CpUCKR8huQDdTjaoKHKtU2yPYba/dd9pYu7bnK0krkblMzP/Lrb9eUVsZz7QGIYesr4nZ2sh554SrFgRcMG79lqOQefQrJGlHiVkFm5NoYlX1SWg2ktd9i6+lLhgxHKVRi2u4WlcPQbqfJ0i4zicL3bjAwmw+mS5rd+brh8lJ4rc2atrzmWN/wU35g//9lS7o8/5RIVHmctZ/fpAK6mu9A0WrJ36O0nRbrWKDm8AN5tKFwv7BtfO5Fpez5v9Z0HdvmsfPQ==
-Received: from MWHPR20CA0031.namprd20.prod.outlook.com (2603:10b6:300:ed::17)
- by BYAPR12MB3223.namprd12.prod.outlook.com (2603:10b6:a03:138::31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Thu, 10 Feb
- 2022 10:56:11 +0000
-Received: from CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:ed:cafe::ce) by MWHPR20CA0031.outlook.office365.com
- (2603:10b6:300:ed::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11 via Frontend
- Transport; Thu, 10 Feb 2022 10:56:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.234)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.234 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.234; helo=mail.nvidia.com;
-Received: from mail.nvidia.com (12.22.5.234) by
- CO1NAM11FT023.mail.protection.outlook.com (10.13.175.35) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.4975.11 via Frontend Transport; Thu, 10 Feb 2022 10:56:10 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by DRHQMAIL101.nvidia.com
- (10.27.9.10) with Microsoft SMTP Server (TLS) id 15.0.1497.18;
- Thu, 10 Feb 2022 10:56:10 +0000
-Received: from nvdebian.localnet (10.126.230.35) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.9; Thu, 10 Feb 2022
- 02:56:06 -0800
-From: Alistair Popple <apopple@nvidia.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Dan Williams
- <dan.j.williams@intel.com>, Christoph Hellwig <hch@lst.de>
-Subject: Re: start sorting out the ZONE_DEVICE refcount mess v2
-Date: Thu, 10 Feb 2022 21:56:04 +1100
-Message-ID: <1873253.3FHD7cURoh@nvdebian>
-In-Reply-To: <20220210072828.2930359-1-hch@lst.de>
-References: <20220210072828.2930359-1-hch@lst.de>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E690210E81C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 11:47:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1644493660;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=voWjPDpl6rgnyPEWRLZY/zlAv4le197CBv6xEpGwtjU=;
+ b=RcPSaKANNLfeUA/+o6yEUdRSuc+upunU7BiqqUl+b1102vmF84vB/Pg2pNMvA6Mw5yRn2g
+ a3SJ/k1mpoEo4OC7GJ6MTRtmRw+tRAkMNu7pzAHFRr0faleFSgl/rDytCw5u0DJNTQikpd
+ R5GIajaSiAbHelpBFfxJbJiMs6v1FIw=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-296-edKY_r3xMGmfunvkfhsdxw-1; Thu, 10 Feb 2022 06:47:38 -0500
+X-MC-Unique: edKY_r3xMGmfunvkfhsdxw-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ l20-20020a05600c1d1400b0035153bf34c3so4220661wms.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 03:47:38 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:organization:in-reply-to
+ :content-transfer-encoding;
+ bh=voWjPDpl6rgnyPEWRLZY/zlAv4le197CBv6xEpGwtjU=;
+ b=PZwPyse6C9Ps0dSYmjyrZGAkPKliLbOrih6COoG/ZKkLYXvGxjx2RtfX+59E5KAhdR
+ 18UC06E7ycitEQ2+tQ2np2sa8otDmZQko8EIZyRJ+hyzsDAIQvctfreNxWmeBCGH+dNJ
+ n3s6uaMT7cmZpUatN5XxvUSbBJ7SbtJsPCFYN0iypUpLhkt/jA4SKyMUArZN3Cz5zI85
+ 1dKImWMwdPHvqUy/G8PLkwqx3yJSlBnZNZzVpkTSDNhcTg2x0G6rKzhp41RjxERJkz5h
+ YVlb8ZpSaHsLR8Z6HOfvQiXB6beLXU2tu7Zjhh0+oRzeeRYkCJ4WzgpMj9kx1c7sq5X3
+ kF0g==
+X-Gm-Message-State: AOAM531eIuseJkIpTpqd/6Qd72H3BHywlr22Xc4sQSQpuAKaqtGUZWZ1
+ FkrDjrRo9bcTVFgfXkiqciqJatI7hf/tOnxMvvwNvtgZkimv+ZSIwpb5R7yp8lvMDo3bVIrv67g
+ fiwQMObQI3+e4mVE7JRhL9u7IlQ==
+X-Received: by 2002:a7b:c778:: with SMTP id x24mr1808295wmk.181.1644493657672; 
+ Thu, 10 Feb 2022 03:47:37 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJx6UoEwYIvoo+UYxUGhTbqYutAgt1KtSHP64o6sBNKHzXr+dVyYnHTL0HD0CFRSHfFSJsuJrw==
+X-Received: by 2002:a7b:c778:: with SMTP id x24mr1808265wmk.181.1644493657358; 
+ Thu, 10 Feb 2022 03:47:37 -0800 (PST)
+Received: from ?IPV6:2003:cb:c70b:f900:7b04:69ec:2caf:3b42?
+ (p200300cbc70bf9007b0469ec2caf3b42.dip0.t-ipconnect.de.
+ [2003:cb:c70b:f900:7b04:69ec:2caf:3b42])
+ by smtp.gmail.com with ESMTPSA id h6sm1323620wmq.26.2022.02.10.03.47.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Feb 2022 03:47:36 -0800 (PST)
+Message-ID: <fb557284-bcab-6d95-ac60-acd7459e9e80@redhat.com>
+Date: Thu, 10 Feb 2022 12:47:35 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-X-Originating-IP: [10.126.230.35]
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 150ddfd2-cdf3-4084-5dd2-08d9ec83f31b
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3223:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB322377E7532637D6A05E3A56DF2F9@BYAPR12MB3223.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Dx1/xQHl7FjgVb/X8zA03zgxAIpXM4l/XS9C6ibWPaATsU6uG0Siy3lgok194X1tGtLsTD/HDVNAyuB7e1N6vwsL/qTGKSIXPuMdPjS60Ib3BLEjb8qRBW+YP25PtEMBouWxvRXsQAOit1saOyrb3CjMeJYZSlALTIECR9zTLkQqzNAoF+/XjUGgwIOim85X+Afm4eQo6J7WCSaVuHcnv+qq9GYB7dP5seWG18JHqSjnjMuhGgUKL23TQ/uUjeIquYXs37yTESi4Xpza4f+32yqN5g/Qs3PuhtA04mGCMOgSSLx8INEzhyRIq3AtsYXoh3zle6trSbKHru1MFm6L0t1y5ydkvah/qxuxS5YPH+zw0l24wDbGWuXkKSCXpGXGqkxMfT/qRBpEm3pEeTaG7plZXpVqkQj2j+t3eHMJ3ov0V6B1hIsewLvYbeEsp1IpnChcqfCaRI2heW4Fi4f9vaNaiQL6H85/N9cH/79KlgycR0S4tCTsm6ayFyj97NKofQ9Ny8oeaWx7V3ILn8Wj8oHjvusAF7bGzgLIGHA9wh3SCxBKhOm8jcR13BDDv8KKab5PxAvcvtxTRAciU/aqdEa28Cfif3zY7ZCWOYXK9P1VEA4ra0oJZGrZEeviZWpbeVy0svT8aEjcYPRj+4KiY4WXf89KWPvphuJMzPlWCrxPVWRnocMCfyc5zFgkxbmYQxQNIZjNj8T+HOwfCpdOohSRc2vwJdEOCVEHBG2pTkmbhtUx4eMv322Z0hRxaLzz
-X-Forefront-Antispam-Report: CIP:12.22.5.234; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(7416002)(83380400001)(81166007)(110136005)(356005)(47076005)(5660300002)(9576002)(2906002)(336012)(426003)(186003)(16526019)(26005)(9686003)(54906003)(70206006)(508600001)(8676002)(8936002)(82310400004)(36860700001)(86362001)(70586007)(316002)(40460700003)(4326008)(33716001)(39026012)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2022 10:56:10.8476 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 150ddfd2-cdf3-4084-5dd2-08d9ec83f31b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.234];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3223
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Subject: Re: [PATCH v2 2/3] mm/gup.c: Migrate device coherent pages when
+ pinning instead of failing
+To: Alistair Popple <apopple@nvidia.com>, akpm@linux-foundation.org,
+ linux-mm@kvack.org
+References: <cover.0d3c846b1c6c294e055ff7ebe221fab9964c1436.1644207242.git-series.apopple@nvidia.com>
+ <dd9960b327ca49a9103d9f97868ea7b0b81186c4.1644207242.git-series.apopple@nvidia.com>
+ <9117b387-3c73-0236-51d1-9e6baf43b34e@redhat.com>
+ <1894939.704c7Wv018@nvdebian>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+In-Reply-To: <1894939.704c7Wv018@nvdebian>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 10 Feb 2022 14:11:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,68 +92,163 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
- dri-devel@lists.freedesktop.org, Karol Herbst <kherbst@redhat.com>,
- linux-mm@kvack.org, nouveau@lists.freedesktop.org,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Logan Gunthorpe <logang@deltatee.com>,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: alex.sierra@amd.com, rcampbell@nvidia.com, willy@infradead.org,
+ jhubbard@nvidia.com, Felix.Kuehling@amd.com, dri-devel@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, jglisse@redhat.com, amd-gfx@lists.freedesktop.org,
+ jgg@nvidia.com, linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thursday, 10 February 2022 6:28:01 PM AEDT Christoph Hellwig wrote:
-
-[...]
-
-> Changes since v1:
->  - add a missing memremap.h include in memcontrol.c
->  - include rebased versions of the device coherent support and
->    device coherent migration support series as well as additional
->    cleanup patches
-
-Thanks for the rebase. I will take a closer look at it tomorrow but I just
-ran the hmm-tests and they are all still passing for me with this series.
-
-> Diffstt:
->  arch/arm64/mm/mmu.c                      |    1 
->  arch/powerpc/kvm/book3s_hv_uvmem.c       |    1 
->  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |   35 -
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |    1 
->  drivers/gpu/drm/drm_cache.c              |    2 
->  drivers/gpu/drm/nouveau/nouveau_dmem.c   |    3 
->  drivers/gpu/drm/nouveau/nouveau_svm.c    |    1 
->  drivers/infiniband/core/rw.c             |    1 
->  drivers/nvdimm/pmem.h                    |    1 
->  drivers/nvme/host/pci.c                  |    1 
->  drivers/nvme/target/io-cmd-bdev.c        |    1 
->  fs/Kconfig                               |    2 
->  fs/fuse/virtio_fs.c                      |    1 
->  include/linux/hmm.h                      |    9 
->  include/linux/memremap.h                 |   36 +
->  include/linux/migrate.h                  |    1 
->  include/linux/mm.h                       |   59 --
->  lib/test_hmm.c                           |  353 ++++++++++---
->  lib/test_hmm_uapi.h                      |   22 
->  mm/Kconfig                               |    7 
->  mm/Makefile                              |    1 
->  mm/gup.c                                 |  127 +++-
->  mm/internal.h                            |    3 
->  mm/memcontrol.c                          |   19 
->  mm/memory-failure.c                      |    8 
->  mm/memremap.c                            |   75 +-
->  mm/migrate.c                             |  763 ----------------------------
->  mm/migrate_device.c                      |  822 +++++++++++++++++++++++++++++++
->  mm/rmap.c                                |    5 
->  mm/swap.c                                |   49 -
->  tools/testing/selftests/vm/Makefile      |    2 
->  tools/testing/selftests/vm/hmm-tests.c   |  204 ++++++-
->  tools/testing/selftests/vm/test_hmm.sh   |   24 
->  33 files changed, 1552 insertions(+), 1088 deletions(-)
+On 10.02.22 12:39, Alistair Popple wrote:
+> On Thursday, 10 February 2022 9:53:38 PM AEDT David Hildenbrand wrote:
+>> On 07.02.22 05:26, Alistair Popple wrote:
+>>> Currently any attempts to pin a device coherent page will fail. This is
+>>> because device coherent pages need to be managed by a device driver, and
+>>> pinning them would prevent a driver from migrating them off the device.
+>>>
+>>> However this is no reason to fail pinning of these pages. These are
+>>> coherent and accessible from the CPU so can be migrated just like
+>>> pinning ZONE_MOVABLE pages. So instead of failing all attempts to pin
+>>> them first try migrating them out of ZONE_DEVICE.
+>>>
+>>> Signed-off-by: Alistair Popple <apopple@nvidia.com>
+>>> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>>> ---
+>>>
+>>> Changes for v2:
+>>>
+>>>  - Added Felix's Acked-by
+>>>  - Fixed missing check for dpage == NULL
+>>>
+>>>  mm/gup.c | 105 ++++++++++++++++++++++++++++++++++++++++++++++++++------
+>>>  1 file changed, 95 insertions(+), 10 deletions(-)
+>>>
+>>> diff --git a/mm/gup.c b/mm/gup.c
+>>> index 56d9577..5e826db 100644
+>>> --- a/mm/gup.c
+>>> +++ b/mm/gup.c
+>>> @@ -1861,6 +1861,60 @@ struct page *get_dump_page(unsigned long addr)
+>>>  
+>>>  #ifdef CONFIG_MIGRATION
+>>>  /*
+>>> + * Migrates a device coherent page back to normal memory. Caller should have a
+>>> + * reference on page which will be copied to the new page if migration is
+>>> + * successful or dropped on failure.
+>>> + */
+>>> +static struct page *migrate_device_page(struct page *page,
+>>> +					unsigned int gup_flags)
+>>> +{
+>>> +	struct page *dpage;
+>>> +	struct migrate_vma args;
+>>> +	unsigned long src_pfn, dst_pfn = 0;
+>>> +
+>>> +	lock_page(page);
+>>> +	src_pfn = migrate_pfn(page_to_pfn(page)) | MIGRATE_PFN_MIGRATE;
+>>> +	args.src = &src_pfn;
+>>> +	args.dst = &dst_pfn;
+>>> +	args.cpages = 1;
+>>> +	args.npages = 1;
+>>> +	args.vma = NULL;
+>>> +	migrate_vma_setup(&args);
+>>> +	if (!(src_pfn & MIGRATE_PFN_MIGRATE))
+>>> +		return NULL;
+>>> +
+>>> +	dpage = alloc_pages(GFP_USER | __GFP_NOWARN, 0);
+>>> +
+>>> +	/*
+>>> +	 * get/pin the new page now so we don't have to retry gup after
+>>> +	 * migrating. We already have a reference so this should never fail.
+>>> +	 */
+>>> +	if (dpage && WARN_ON_ONCE(!try_grab_page(dpage, gup_flags))) {
+>>> +		__free_pages(dpage, 0);
+>>> +		dpage = NULL;
+>>> +	}
+>>> +
+>>> +	if (dpage) {
+>>> +		lock_page(dpage);
+>>> +		dst_pfn = migrate_pfn(page_to_pfn(dpage));
+>>> +	}
+>>> +
+>>> +	migrate_vma_pages(&args);
+>>> +	if (src_pfn & MIGRATE_PFN_MIGRATE)
+>>> +		copy_highpage(dpage, page);
+>>> +	migrate_vma_finalize(&args);
+>>> +	if (dpage && !(src_pfn & MIGRATE_PFN_MIGRATE)) {
+>>> +		if (gup_flags & FOLL_PIN)
+>>> +			unpin_user_page(dpage);
+>>> +		else
+>>> +			put_page(dpage);
+>>> +		dpage = NULL;
+>>> +	}
+>>> +
+>>> +	return dpage;
+>>> +}
+>>> +
+>>> +/*
+>>>   * Check whether all pages are pinnable, if so return number of pages.  If some
+>>>   * pages are not pinnable, migrate them, and unpin all pages. Return zero if
+>>>   * pages were migrated, or if some pages were not successfully isolated.
+>>> @@ -1888,15 +1942,40 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
+>>>  			continue;
+>>>  		prev_head = head;
+>>>  		/*
+>>> -		 * If we get a movable page, since we are going to be pinning
+>>> -		 * these entries, try to move them out if possible.
+>>> +		 * Device coherent pages are managed by a driver and should not
+>>> +		 * be pinned indefinitely as it prevents the driver moving the
+>>> +		 * page. So when trying to pin with FOLL_LONGTERM instead try
+>>> +		 * migrating page out of device memory.
+>>>  		 */
+>>>  		if (is_dev_private_or_coherent_page(head)) {
+>>> +			/*
+>>> +			 * device private pages will get faulted in during gup
+>>> +			 * so it shouldn't be possible to see one here.
+>>> +			 */
+>>>  			WARN_ON_ONCE(is_device_private_page(head));
+>>> -			ret = -EFAULT;
+>>> -			goto unpin_pages;
+>>> +			WARN_ON_ONCE(PageCompound(head));
+>>> +
+>>> +			/*
+>>> +			 * migration will fail if the page is pinned, so convert
+>>> +			 * the pin on the source page to a normal reference.
+>>> +			 */
+>>> +			if (gup_flags & FOLL_PIN) {
+>>> +				get_page(head);
+>>> +				unpin_user_page(head);
+>>> +			}
+>>> +
+>>> +			pages[i] = migrate_device_page(head, gup_flags);
+>>
+>> For ordinary migrate_pages(), we'll unpin all pages and return 0 so the
+>> caller will retry pinning by walking the page tables again.
+>>
+>> Why can't we apply the same mechanism here? This "let's avoid another
+>> walk" looks unnecessary complicated to me, but I might be wrong.
 > 
+> There's no reason we couldn't. I figured we have the page in the right spot
+> anyway so it was easy to do, and looking at this rebased on top of Christoph's
+> ZONE_DEVICE refcount simplification I'm not sure it would be any simpler
+> anyway.
+> 
+> It would remove the call to try_grab_page(), but we'd still have to return an
+> error on migration failures whilst also ensuring we putback any non-device
+> pages that may have been isolated. I might have overlooked something though,
+> so certainly happy for suggestions.
 
+Staring at the code, I was wondering if we could either
 
+* build a second list of device coherent pages to migrate and call a
+  migrate_device_pages() bulk function
+* simply use movable_page_list() and teach migrate_pages() how to handle
+  them.
 
+I'd really appreciate as little special casing as possible for the ever
+growing list of new DEVICE types all over the place. E.g., just staring
+at fork even before the new device coherent made my head spin.
+
+-- 
+Thanks,
+
+David / dhildenb
 
