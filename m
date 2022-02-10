@@ -4,53 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CC86C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 04:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1050EC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 04:12:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2A8110E3EB;
-	Thu, 10 Feb 2022 04:09:01 +0000 (UTC)
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DD0510E3EB
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Feb 2022 04:09:00 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id x193so4785721oix.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Feb 2022 20:09:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zc0OhJe+0kPHEDXiXSnmplSzL4cLFdiYwvqvNqemGE0=;
- b=bInW5Gbf4ffXCMuudCNDF70vL/uLa6+MpAXTihiAQcdR/i5zCqIImg7BE2gcVaI/U7
- c7UQJtIw15BTQ73cQ+n4Ch/23VD7w+8stQCau+1cqcX5B+iIBVyCz0DiOONKa2zE521O
- UuSDUlLJ6d/5QTGyDsIqzElTSIkpTiTU34SC+rZIQmdsz0m1vWsRjuk0rL8jpx2GrsA+
- dR0ZIisYchRCPMktWJKI4dw14BZ60XMRRnE9z5ImqjMH4FrO+sTfDD6edodhLuimvvxx
- XXorPgl+bUtpuX692kauRqUgXdgcO5OJBbIaZX7Iuv0I6dvHm2LCDyXgagG5AJp0PBF+
- bohg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=zc0OhJe+0kPHEDXiXSnmplSzL4cLFdiYwvqvNqemGE0=;
- b=khh/60C2nFA+UGGokUf1CeEiG1Of8vGstDARIKJVTC9MfZJLE9QeK0UhVQCk8iM0w6
- yUnsQmUbF0RBTNfYwesHyWI890izkbghsfq3XBlZBIsry6iaXsjJNdJctZSldhHpIG8g
- hIqZaPbHpLDQrhPUwHZ+oxj5ACcTel3nqkKvk+N6ABYW+ijWp3uHguH8hRlpYEareZCD
- PI8TWKb7wAKLqQ+GYA6MmhW5YQl1ypUOI8N0d2NqAwsuRq3C+CUh7CammZif38pG2RQS
- s11CESFOI8C0C3CV6B1UXUAXxVFNhU/zvfx2hZfoF963A10eALQKISBJbgeF36bR/exm
- IalQ==
-X-Gm-Message-State: AOAM530yD68pjIQ9Vj5rlqMTtvej39XevviuHuKDXLFLar2gJxAPN2Wp
- DX9/Bd1z1Ikxm2NLJY85NWOF7iBHdMSoj8RYypD8sQeh
-X-Google-Smtp-Source: ABdhPJyCTyeeDoim+BqySwVpvzvCmMoq4LKOKRe14gH8yNysXfMIGbwdXPRqfyIsJU0KpLzkcA2pcgJEZicF60NGJS0=
-X-Received: by 2002:a05:6808:2011:: with SMTP id
- q17mr294604oiw.199.1644466139288; 
- Wed, 09 Feb 2022 20:08:59 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 251E710E3F4;
+	Thu, 10 Feb 2022 04:11:59 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2068.outbound.protection.outlook.com [40.107.223.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83D8510E3EF;
+ Thu, 10 Feb 2022 04:11:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XlzRbmdjJNyhz6NdGzF2glFIzY6Oq52BkvbdbzEmm8CWxjybApsMTKm3viX4OVBjWld7d29QMq+tE2CxLmVqWlaJ2JZtSggoKJDFAvCn8BRv6dwAYV8ebeOz3BlktAt4WWXbzsuk9szyOaSQU3i1rdMVTiAK2VGcT/cCkR7XQ/yGLjUcWfs5OTG51/RTx5FXna70Dam/wmgb8SawFvUa2+/oz2ZprBbItM6Iq2/r8owQTPoIBH5K4bze5m3W5LkJGH318W31tMggRG1yUtxop1LIb4Uzoy/l+2bh3i6EIz7Bv7qIzkIaXM//Du3S/AkMVXmHmN/8USkj3mn37q84tA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GHWbi92/puk1zdctF0nLEfm2eOR3IkGNLM43e2KbH7A=;
+ b=mqBFwcTwxkZx8yHutaGk1s90/wKElN9+89+ahPBIDmpVygYq15VgEHWvHFLlpGHrRJExsEPMb4C8Sh/66RulE9da0bPE5zGSNKnsBrlzYsHSS7A8FdyiLS4r3aH1MunUNWPG5aukoiOiMVb4rDLbQETLzjECe+ED00qGCHw7SXw1tkPkIzJXzje4KauEx3usM3wJhdoWnA/L3dBUDtE0g5FBGBC5XYkTr1ji9tlElS6iuLnhLPeKxkOnkm99DPSbl6wY+8zyq2evIaJSlsQTws9WdvtG9X0pyB7bZddYhI9A0YiXTeA7zK8+SvbJ8TwXxQTCaPpVrjapDNkSfI2Wlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GHWbi92/puk1zdctF0nLEfm2eOR3IkGNLM43e2KbH7A=;
+ b=bgc8t75GFwhY9E6WrYwnHhnFkSpeUjpLkyKJONSfhSjyQupWpaSvZkuZKwl0t5S+vP2smo5RpDfwjOWSUtwVu6JU6CZZBjmCL2WoK4xG5q7Ipg3VzwF0edq18i2xVFHIvwcCNN0WSFRc9cnZnZ0jfsGXNkxmWZDZ1sUmzsaSsPs=
+Received: from BN6PR14CA0017.namprd14.prod.outlook.com (2603:10b6:404:79::27)
+ by MN2PR12MB4503.namprd12.prod.outlook.com (2603:10b6:208:264::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Thu, 10 Feb
+ 2022 04:11:53 +0000
+Received: from BN8NAM11FT065.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:79:cafe::5c) by BN6PR14CA0017.outlook.office365.com
+ (2603:10b6:404:79::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11 via Frontend
+ Transport; Thu, 10 Feb 2022 04:11:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT065.mail.protection.outlook.com (10.13.177.63) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4975.11 via Frontend Transport; Thu, 10 Feb 2022 04:11:53 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 9 Feb
+ 2022 22:11:50 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu drm-fixes-5.17
+Date: Wed, 9 Feb 2022 23:11:37 -0500
+Message-ID: <20220210041137.5926-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20220210014700.856667-1-evan.quan@amd.com>
-In-Reply-To: <20220210014700.856667-1-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 9 Feb 2022 23:08:47 -0500
-Message-ID: <CADnq5_P+f7-MzvtvORc-XkbUxoZP0Kxsj7MFfhtnZqUyN_+2OA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: fix enabled features retrieving on Renoir and
- Cyan Skillfish
-To: Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6aca9433-87cd-4b3f-5b7d-08d9ec4b7845
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4503:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4503B0C7C01A6593224B8A11F72F9@MN2PR12MB4503.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:393;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6OCIRUmhE9ESjCtU7WPDaV3N9CjjLye0GB+Uc68uEPLyWMZqfLF1oJPdcWt7cyGmSxa3SKalW2DLuG2Ft8DWa/Q8CpnHFAnatgM3W7WLeoLd7XXkuIdlXL/FxJCwgqdepl00fveqCyzqpmaHji5kReyo/FBcsxY2PQxJ8ZtX1iHPvAzqKf0Z5oE+a//vYXadeeZadFxVuvCqTkUaT9IqC9Cith4J02UJwEEo1u1rxrTv1AHMsE7ghyJ1w7bwGCcfrD4iXJefZ/imdSq2FqSXhQRcU2xwdEdqMwbtTQ6ZlYXYVWaYvPpi3lS+g5BudJhUDHWW045dI7x6IxFrGGfAxWMt2xml0nnZcO6RypxwUFC9sI3dqv2i3JACaEZ0RnIrs0S9tpO8w2DwNaJv3YOOMpnlOQPFddEC/0SFeCRMyXcNynmmyUGHa8rKTuV/eA6yWcUk3fzSyJ3wJCDENLHUIJaebjcOtem61pfwtOhpGNo6LCJcKaYokpCgh1FlDGsG1pZaHxWaVWulo8bLBkPNKQrmp5mz/Nkoia4M0OMaDjEXPbzhOrNNeze3I6pOZKhglK001NFbhwqQJQc7OeCcJllX4Qlj1RTdSLKdhPDwXeMtu+J8G8ZruJqHroIOKGuWkrejDOCiMRj4/XCtQCM+kZglXYHcvezCLPGNNUYqykHXVcj3F48M74WPEAmNwXl/A8R58RzFAfClFhKW70ttQg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(47076005)(36860700001)(2906002)(81166007)(6666004)(356005)(36756003)(70206006)(70586007)(4326008)(8676002)(40460700003)(86362001)(316002)(110136005)(508600001)(966005)(26005)(186003)(426003)(16526019)(336012)(83380400001)(2616005)(5660300002)(7696005)(8936002)(1076003)(82310400004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2022 04:11:53.3368 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6aca9433-87cd-4b3f-5b7d-08d9ec4b7845
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT065.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4503
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,125 +100,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Nathan Chancellor <nathan@kernel.org>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- Roman Li <Roman.Li@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 9, 2022 at 8:47 PM Evan Quan <evan.quan@amd.com> wrote:
->
-> For Cyan Skillfish and Renoir, there is no interface provided by PMFW
-> to retrieve the enabled features. So, we assume all features are enabled.
->
-> Fixes: 7ade3ca9cdb5 ("drm/amd/pm: correct the usage for 'supported' member of smu_feature structure")
->
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
+Hi Dave, Daniel,
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Fixes for 5.17.
 
-> Change-Id: I1231f146405a229a11aa7ac608c8c932d3c90ee4
-> --
-> v1->v2:
->   - add back the logic for supporting those ASICs which have
->     no feature_map available
-> v2->v3:
->   - update the check for smu_cmn_feature_is_enabled to use a more
->     generic way instead of asic type
->
-> Change-Id: I7dfa453ffc086f5364848f7f32decd57a5a5b0e6
-> ---
->  .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   |  1 +
->  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 27 ++++++++++++++-----
->  drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |  2 +-
->  3 files changed, 22 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-> index 2b38a9154dd4..b3a0f3fb3e65 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-> @@ -562,6 +562,7 @@ static const struct pptable_funcs cyan_skillfish_ppt_funcs = {
->         .fini_smc_tables = smu_v11_0_fini_smc_tables,
->         .read_sensor = cyan_skillfish_read_sensor,
->         .print_clk_levels = cyan_skillfish_print_clk_levels,
-> +       .get_enabled_mask = smu_cmn_get_enabled_mask,
->         .is_dpm_running = cyan_skillfish_is_dpm_running,
->         .get_gpu_metrics = cyan_skillfish_get_gpu_metrics,
->         .od_edit_dpm_table = cyan_skillfish_od_edit_dpm_table,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> index 2a6b752a6996..4c12abcd995d 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> @@ -500,7 +500,17 @@ int smu_cmn_feature_is_enabled(struct smu_context *smu,
->         uint64_t enabled_features;
->         int feature_id;
->
-> -       if (smu->is_apu && adev->family < AMDGPU_FAMILY_VGH)
-> +       if (smu_cmn_get_enabled_mask(smu, &enabled_features)) {
-> +               dev_err(adev->dev, "Failed to retrieve enabled ppfeatures!\n");
-> +               return 0;
-> +       }
-> +
-> +       /*
-> +        * For Renoir and Cyan Skillfish, they are assumed to have all features
-> +        * enabled. Also considering they have no feature_map available, the
-> +        * check here can avoid unwanted feature_map check below.
-> +        */
-> +       if (enabled_features == ULLONG_MAX)
->                 return 1;
->
->         feature_id = smu_cmn_to_asic_specific_index(smu,
-> @@ -509,11 +519,6 @@ int smu_cmn_feature_is_enabled(struct smu_context *smu,
->         if (feature_id < 0)
->                 return 0;
->
-> -       if (smu_cmn_get_enabled_mask(smu, &enabled_features)) {
-> -               dev_err(adev->dev, "Failed to retrieve enabled ppfeatures!\n");
-> -               return 0;
-> -       }
-> -
->         return test_bit(feature_id, (unsigned long *)&enabled_features);
->  }
->
-> @@ -559,7 +564,7 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,
->         feature_mask_high = &((uint32_t *)feature_mask)[1];
->
->         switch (adev->ip_versions[MP1_HWIP][0]) {
-> -       case IP_VERSION(11, 0, 8):
-> +       /* For Vangogh and Yellow Carp */
->         case IP_VERSION(11, 5, 0):
->         case IP_VERSION(13, 0, 1):
->         case IP_VERSION(13, 0, 3):
-> @@ -575,8 +580,16 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,
->                                                       1,
->                                                       feature_mask_high);
->                 break;
-> +       /*
-> +        * For Cyan Skillfish and Renoir, there is no interface provided by PMFW
-> +        * to retrieve the enabled features. So, we assume all features are enabled.
-> +        * TODO: add other APU ASICs which suffer from the same issue here
-> +        */
-> +       case IP_VERSION(11, 0, 8):
->         case IP_VERSION(12, 0, 0):
->         case IP_VERSION(12, 0, 1):
-> +               memset(feature_mask, 0xff, sizeof(*feature_mask));
-> +               break;
->         /* other dGPU ASICs */
->         default:
->                 ret = smu_cmn_send_smc_msg(smu,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-> index 530be44e00ec..15bcf72b8e56 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-> @@ -55,7 +55,7 @@
->  #define smu_send_smc_msg(smu, msg, read_arg)                           smu_ppt_funcs(send_smc_msg, 0, smu, msg, read_arg)
->  #define smu_init_display_count(smu, count)                             smu_ppt_funcs(init_display_count, 0, smu, count)
->  #define smu_feature_set_allowed_mask(smu)                              smu_ppt_funcs(set_allowed_mask, 0, smu)
-> -#define smu_feature_get_enabled_mask(smu, mask)                                smu_ppt_funcs(get_enabled_mask, 0, smu, mask)
-> +#define smu_feature_get_enabled_mask(smu, mask)                                smu_ppt_funcs(get_enabled_mask, -EOPNOTSUPP, smu, mask)
->  #define smu_feature_is_enabled(smu, mask)                              smu_ppt_funcs(feature_is_enabled, 0, smu, mask)
->  #define smu_disable_all_features_with_exception(smu, mask)             smu_ppt_funcs(disable_all_features_with_exception, 0, smu, mask)
->  #define smu_is_dpm_running(smu)                                                smu_ppt_funcs(is_dpm_running, 0 , smu)
-> --
-> 2.29.0
->
+The following changes since commit dfd42facf1e4ada021b939b4e19c935dcdd55566:
+
+  Linux 5.17-rc3 (2022-02-06 12:20:50 -0800)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.17-2022-02-09
+
+for you to fetch changes up to 6e7545ddb13416fd200e0b91c0acfd0404e2e27b:
+
+  drm/amdgpu/display: change pipe policy for DCN 2.0 (2022-02-09 17:20:47 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-5.17-2022-02-09:
+
+amdgpu:
+- DCN 3.1 display fixes
+- GC 10.3.1 harvest fix
+- Page flip irq fix
+- hwmon label fix
+- DCN 2.0 display fix
+
+----------------------------------------------------------------
+Aaron Liu (1):
+      drm/amdgpu: add utcl2_harvest to gc 10.3.1
+
+Alex Deucher (1):
+      drm/amdgpu/display: change pipe policy for DCN 2.0
+
+Dmytro Laktyushkin (1):
+      drm/amd/display: fix yellow carp wm clamping
+
+Mario Limonciello (1):
+      display/amd: decrease message verbosity about watermarks table failure
+
+Roman Li (1):
+      drm/amd/display: Cap pflip irqs per max otg number
+
+Yang Wang (1):
+      drm/amd/pm: fix hwmon node of power1_label create issue
+
+Zhan Liu (1):
+      drm/amd/display: keep eDP Vdd on when eDP stream is already enabled
+
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c           |  7 ++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  2 +-
+ .../drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c   |  6 ++-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  2 +
+ drivers/gpu/drm/amd/display/dc/dc.h                |  1 +
+ .../amd/display/dc/dce110/dce110_hw_sequencer.c    | 24 ++++++++-
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |  2 +-
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c    | 61 ++++++++++++----------
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  3 +-
+ 9 files changed, 71 insertions(+), 37 deletions(-)
