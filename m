@@ -4,42 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57181C43217
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 08:30:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52ECBC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 09:25:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F422110E785;
-	Thu, 10 Feb 2022 08:30:25 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9920610E76F;
- Thu, 10 Feb 2022 07:29:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=jUampNuN0AAfy565dU6BaB5W601SZBgSqrEDAPl/+vc=; b=sDnGGhHbueSF3Ak0EohahA9BV4
- rqaWiiPucO1EyVfXvpG5bVDtmX6Yd3CSVEQmrwHdbSLa5+QpAUXIvVH7LtwHdLXngY/sK/NbnxiaY
- 4prWu/9NtnKuMr/o/Kw2RD0ICezVdRCaAyzcCDqSukrxAUshHCIt6sx7MqRb82MaPMRNJq5bDI07S
- /U8WRjhnQROEK1Av44QWdwlN7RaTDxSO20qmeAKfQxkWWvE9GP3z9LMcPS2uV8X7d9h0f6XvF6dXl
- l0VoAuAyX1iyPbWaLNnFaT7OT9zw9Hvqkbxw0sLTGxsYFnL3lxu6nY+f8XedbOG3RuA1cbR+3ezZw
- RwbalyQw==;
-Received: from [2001:4bb8:188:3efc:8014:b2f2:fdfd:57ea] (helo=localhost)
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nI3tN-002sCq-6Z; Thu, 10 Feb 2022 07:29:25 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Andrew Morton <akpm@linux-foundation.org>,
- Dan Williams <dan.j.williams@intel.com>
-Subject: [PATCH 19/27] drm/amdkfd: coherent type as sys mem on migration to ram
-Date: Thu, 10 Feb 2022 08:28:20 +0100
-Message-Id: <20220210072828.2930359-20-hch@lst.de>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220210072828.2930359-1-hch@lst.de>
-References: <20220210072828.2930359-1-hch@lst.de>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id B45B910E7A9;
+	Thu, 10 Feb 2022 09:25:15 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2060.outbound.protection.outlook.com [40.107.223.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE72D10E7A9;
+ Thu, 10 Feb 2022 09:25:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I0aqoRE7R8jm5NNJtSvID4/S4nafs+4rKG9ysy7mn/OE2wRFHSAIBjDyUGNE2v8zO2jdmz7By5wGonW8MPTDMx3r/LDc6+D4g1aeqcabyCzM7liUn4vxfhKST5XkML0SIalC2xtXCxQ1DvgVvJUAOxGFLxtjBrGOqCqy54nyTnoEKtFAl4KKbo5rJ7+unCmbm69QxuzaYdFQfwfLQUVDB/oCEpBoq09o9srlpqxEnbehjHHnlFiAqHAMNBg9K33z/1IMmbjBpmqCWDBpy/EMyjDMrStSFPRRNc16EoNxEpwgyKQgjXUBWjF3s3jUo/q1mhNjaxN6kzc0yz3zzJO+7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gFs08hKh2rHU2KHRULQT5WbM2fzzaMglTHEzvcC1gCg=;
+ b=N/+sSaSqVydGNs8bYVk2I3SpJDeXXMnYR3PKr8ZzHrSxd97vlJycQyETdXX0HK8YvKcV+Dj+1YuOBAzwelxybBEnlkz4zaza4gZ0yZQ4FBDm0eQA1AUew4MRB8pDcpp7HRFZhAUoEsPOx8QZol7FQGZ3HIUFz80Lz/6BLCRm42M1CoaKQFvGVI3L+uq6HIMC/OEPuWWVN1aPZdGjMQolhNds4X9+M6WQ/c/96fa020OUzmhu0G28W4m1p90H3r9e7PQl8BC5XNbXimggsF374LE6AqPsR1OiJYs64bk1kPKU26DbqRdcBl1GprJocgLQYhNqKzTZB3VtPY8AtL99pQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gFs08hKh2rHU2KHRULQT5WbM2fzzaMglTHEzvcC1gCg=;
+ b=tc3kcl2si1qMWrMxrR3yek9wspO/zLnYbGnVzVX61g73fOI/24tOhRq1A6L5h3aLXRbJ4gqljNk2V5hTg8/MSKQYsgmOiDKGB8zMkgU172Pjoxi7EjbaFVSBcQDRJj2Moko6ooEV5mGxcXObs7yVu/62J3SViYJK6KPZRMTJBWw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by BN8PR12MB3171.namprd12.prod.outlook.com (2603:10b6:408:99::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Thu, 10 Feb
+ 2022 09:25:13 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d861:5699:8188:7bd3]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d861:5699:8188:7bd3%3]) with mapi id 15.20.4975.012; Thu, 10 Feb 2022
+ 09:25:13 +0000
+Message-ID: <6b4e20d5-205b-760d-5313-00ed76e01c49@amd.com>
+Date: Thu, 10 Feb 2022 10:25:06 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] drm/amdgpu: Fix compile error.
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20220210031724.440943-1-andrey.grodzovsky@amd.com>
+ <8b125a02-3fff-b3c3-0827-c31748446ce0@amd.com>
+In-Reply-To: <8b125a02-3fff-b3c3-0827-c31748446ce0@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Mailman-Approved-At: Thu, 10 Feb 2022 08:30:06 +0000
+X-ClientProxiedBy: AM6PR02CA0007.eurprd02.prod.outlook.com
+ (2603:10a6:20b:6e::20) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c7950848-08b3-4311-6c45-08d9ec773daa
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3171:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB3171F84B2EB5E70AC7C96F13832F9@BN8PR12MB3171.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:160;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ynQbDkmcjNx4mPdeBUNT4kfzdILSOqaflELCJyFSbQfJS545EasOYJ3uHsyVPZ/RfjOKMNWNO8rFMpfrWERqCu2ngMAvcSgljFp9y3xX8nqipoaN41O5dPUy+Jxb7A67815r3KmTRRabGiG7YkICGzgokPVFP9tbRetMrCjcOkdsbQVB8sggRFq9HeqsSK5cBCrDkcfoNO4U2tbaRL7r8H4z20K62m9TBAurE9dTB9BFeHzi2rdmGGXt+3HUoq8SvtBh3S2ztKkZ44c2pj5jodIwcPYTo6Z5+nbOzGmgVMk3rMd/9KfRWTM+Nq27JXobix1qL/P5ZRIdo6ANR2hF7QrOWsJpbx1A+NvLCPymEKNn0Kc5hRDhZot2p9sl+HVCs9ys4m3hVupAAIsn2aichA4bK+rBHns3Oq5c38zJpvUEKCIDIlROapG/0GsIztJ0kX9JlgcCC5UXycVKn0Y9zaDDWcuNnWcry9JfoLS+xU+1zm3pZwqDR9u32HC4gdkHHrmaqYf5oINlQF4PPOb3P+gbHINF/GRtQkoI+hUTENRoaWdylaf7dBaoB4dlenqq/vkoX3tunS30fwaba6aAQIPy5qFF1kSqHq2CvQVtVVBeJWJjp9XX0c520sPLQ4AkBlmDE8QHS99fdedkK/+RQ17mD3nI1d5T1x4y2MywGIv/wwjjqcREZPLQ9gDx5GT+lGWi2Dt/3xOTEK3VU1ibCDuyRgUtTVPuekP1xM3MTCw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(66574015)(6512007)(2906002)(38100700002)(6666004)(31696002)(36756003)(8676002)(66556008)(66476007)(4326008)(86362001)(316002)(31686004)(66946007)(508600001)(186003)(6486002)(26005)(2616005)(5660300002)(83380400001)(6506007)(8936002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Yk9TaDF1bjRRbzhkUk5IV0VZazFjWnhOU2dadlQveTM0L0xvMTlYVmZHb1dK?=
+ =?utf-8?B?WTJGTG9MdmJFRDdMb0x3bkRpS3E3Vi9HdVUrWG13Z2hGN0IzYTY4VUpHbEI3?=
+ =?utf-8?B?Y043cENJTS9IbkhUczgwVWRnS1dsOEdGNTRnd1NsWFFBTndaYjBGWkNKOFdW?=
+ =?utf-8?B?TDBWSVhJV2xwYjZ0VnJ0S2JyaTFTaTFVaVBJRndBSHVJSjFCaVpGZ2hBaVRY?=
+ =?utf-8?B?Um90aWZFcUFrTEFZR3ZVQlNPaHZjUVFvQzdOT0RGZmtXa0VSZFNkcWVxMlZU?=
+ =?utf-8?B?dit3WnR6MnFhZkV6WnR0QWhHUU9DdW5xSnpocUpubHE2WVAyaTBNY2praGNo?=
+ =?utf-8?B?bjl1ZFROTUdQYjkzeEVTSkVUL3BrQ2NLb1NicTFyTGRqalpMbmVlUHp4MXRR?=
+ =?utf-8?B?eVJhdDBQZndOWXV5N1hQSW1kTXliVmc5VGJRSnNLZ2VvUVp3NUNDVlp4b1pz?=
+ =?utf-8?B?Zk5kcXp4ZGMwYXJkOUttNjduQnYyOVlMNlNrdmwyd3dENjBwanJrQmg1R0lU?=
+ =?utf-8?B?N3N2L1c3OXhLT0RLWmsrNGxFRGhxQjRzUFgydE00eE1EdzVyaE05MzYzbU1s?=
+ =?utf-8?B?d0liR3VoOW40SEFsdXNQRDh4a3lCbjFuRHVVUlVLZnhnV05JanhGTG9nY0lO?=
+ =?utf-8?B?Q3MwMVlvWHZsUXdkQWdQNGhrZThFZUg0R1VxVmphc1hjRWtGMUpsRVQ1R1Rw?=
+ =?utf-8?B?azM2U1dJQXBmU1lIcUt2S3FYRDRRZkRkV3ZzRzU3Zk0welY2Rm5nK2tId3Iz?=
+ =?utf-8?B?Snd6ZFgySVEwODN5aEhEcm9Bc3k2aTFWUTFMTjZvQmZET2t5NU1zVnM3elY1?=
+ =?utf-8?B?dVl0bWwwS2hSeStOc3EvNWZYcDIwU2dpRXp0cDVPb0diOXhNWkhPYkU0Y2lr?=
+ =?utf-8?B?OEN6ZnR6SXFtQzcwbGF1cm5VV0RNeDJSWGt3cEJVdHplWU0xUjN5M0dwNzgv?=
+ =?utf-8?B?OTBndXczR3hrVko3UjRWQXF2NFd4UzBBYWxRUlp5bkUwejc3V0hqajNYcXN4?=
+ =?utf-8?B?amRqMmZKU0x5eTJhUVVKSnZ6R21vd3NZNkhBL0IrcVd5Y1huTUhId0YzUVBJ?=
+ =?utf-8?B?clpuVWNIbStBVzNBUDNqZUd0ZGJNTGh3N3BISnlDMTFGS095WVFRQSt5NkdZ?=
+ =?utf-8?B?NktGMUNZVTJKeWxWcEtqZTk4eTVkQWd5UHlvSVBZMTFaZmhsT3VEWEhQQW9o?=
+ =?utf-8?B?UE1pWXRKUXBwVkJmQmFZZG5xQTlZWHpkQ3FLQUhSVWhUb095VnFwMTUvaUJl?=
+ =?utf-8?B?dmdEYVkrN3Z0Yjh2d3hpNEI2THNGYWpZUTJEUFg5MCsrL2VNZTBvQkpQUjRD?=
+ =?utf-8?B?cVJFWVVsa0xVeFFUMU5DM2FLWGwxNEdPM3NySnlwM1RJOVY0d2RJaTRuWm91?=
+ =?utf-8?B?RkRaYm1VbkRCbkQxMEJDbStLRENlTlM1Q3NsSTV6NGVnNDFQREJvYlZWcStP?=
+ =?utf-8?B?dk96ODZxRkFYMnlxYzFpOTEzVDB0c3ovZFRsWTVzM2R0cFZ5RUcwTlRQZklZ?=
+ =?utf-8?B?S0J3NEJSRUIwVGo1bFVJT2Fra3I4MElMaGFuZEw5eE5YRWxRVTdYNGdWMnM4?=
+ =?utf-8?B?WlI1dWt6ZjVzM1FOUnpQbW5CMlBaOXlxam83MitVL24zUHZKVTlUeDVpRGk2?=
+ =?utf-8?B?MmY2TUNSdWJIbTB1Qi9xVm15aW1jTzllRmljZWI4WUFKTmpJSEU5ZVJrelg5?=
+ =?utf-8?B?WHdXbnRSd0J1Z00wNUJtbWlMWmdFbDlmWDNwK1VqYXhNUUg0cjdjL0F3MXNG?=
+ =?utf-8?B?SjVXRnlCSlllWHFGK2VwTFBPakhhcnRTQTEzeGJBNG5RWStDNlBIa3l0UTJO?=
+ =?utf-8?B?KzIydUpCWExBQzNSRTY4elpIeTQ0N0hpcWtJcEY3Zngwc1FPd2ROVUhka0pP?=
+ =?utf-8?B?NklZS20vcG1EY3RZQmlqMEZiK1ZiSythdVo5RHQ5Qjlib2gyVzh4Y1VWQ2Ux?=
+ =?utf-8?B?bmttUXFvekFNU3Z6YVNYdjJ3N2pUbGtuNUZYbzBoMlVWbHk3L084dzJPY3Bw?=
+ =?utf-8?B?M2Q3akZLVjRscmU3MXBRdE1yQU1YMzVDdUdKcmkxdWErNnJnTHg5ekRDckF0?=
+ =?utf-8?B?dWVCQnMwVmpnb1RCSEs2REE2SlFRdkp0eVhLcWVhMzVtV05FODF2cnptZk96?=
+ =?utf-8?Q?YfHY=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7950848-08b3-4311-6c45-08d9ec773daa
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2022 09:25:13.3696 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oKUL1HWpVmVjdH105mwgRf1hSXlTcjcJWf2Mpua3VzIgNxrysHcgYxw/55jHqJ0X
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3171
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,51 +126,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, nvdimm@lists.linux.dev,
- Ralph Campbell <rcampbell@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- dri-devel@lists.freedesktop.org, Karol Herbst <kherbst@redhat.com>,
- linux-mm@kvack.org, nouveau@lists.freedesktop.org,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Logan Gunthorpe <logang@deltatee.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: kernel test robot <lkp@intel.com>, horace.chen@amd.com, lijo.lazar@amd.com,
+ jingwech@amd.com, daniel@ffwll.ch, Monk.Liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Sierra <alex.sierra@amd.com>
+Am 10.02.22 um 08:06 schrieb Christian König:
+> Am 10.02.22 um 04:17 schrieb Andrey Grodzovsky:
+>> Seems I forgot to add this to the relevant commit
+>> when submitting.
+>
+> Rebase/merge issue? Looks like it.
+>
+>>
+>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>> Reported-by: kernel test robot <lkp@intel.com>
+>
+> Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Coherent device type memory on VRAM to RAM migration, has similar access
-as System RAM from the CPU. This flag sets the source from the sender.
-Which in Coherent type case, should be set as
-MIGRATE_VMA_SELECT_DEVICE_COHERENT.
+BTW: I've gone ahead and pushed this to drm-misc-next because I just 
+broke basically every build :)
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 2c51f2ac3b46ac..6646291d75d574 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -659,9 +659,12 @@ svm_migrate_vma_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
- 	migrate.vma = vma;
- 	migrate.start = start;
- 	migrate.end = end;
--	migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
- 	migrate.pgmap_owner = SVM_ADEV_PGMAP_OWNER(adev);
- 
-+	if (adev->gmc.xgmi.connected_to_cpu)
-+		migrate.flags = MIGRATE_VMA_SELECT_DEVICE_COHERENT;
-+	else
-+		migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
- 	size = 2 * sizeof(*migrate.src) + sizeof(uint64_t) + sizeof(dma_addr_t);
- 	size *= npages;
- 	buf = kvmalloc(size, GFP_KERNEL | __GFP_ZERO);
--- 
-2.30.2
+>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h | 3 +--
+>>   1 file changed, 1 insertion(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+>> index 92de3b7965a1..1949dbe28a86 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+>> @@ -118,8 +118,7 @@ static inline bool 
+>> amdgpu_reset_domain_schedule(struct amdgpu_reset_domain *doma
+>>       return queue_work(domain->wq, work);
+>>   }
+>>   -void amdgpu_device_lock_reset_domain(struct amdgpu_reset_domain 
+>> *reset_domain,
+>> -                     struct amdgpu_hive_info *hive);
+>> +void amdgpu_device_lock_reset_domain(struct amdgpu_reset_domain 
+>> *reset_domain);
+>>     void amdgpu_device_unlock_reset_domain(struct amdgpu_reset_domain 
+>> *reset_domain);
+>
 
