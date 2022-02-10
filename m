@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED273C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 08:30:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98089C433FE
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 08:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1405610E78A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 372B510E78F;
 	Thu, 10 Feb 2022 08:30:18 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 876E110E746;
- Thu, 10 Feb 2022 07:29:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60EA310E73B;
+ Thu, 10 Feb 2022 07:28:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=5BT1VhMsKQ57XBFQJbfrqK4zo18mFRPCaq80IIKGtZM=; b=SSJRE2Q1buf3E6rq0VHL1cbd0L
- T8NIsWBHWlFqL6djWQXIqGVU2bb7D/UBPbDotCjLku05qjhuV6H9gl9myrvy0lhhV2to2APnJvbph
- eNACFAjUCD9z69xwMUuTA6gsDsj7qV6hpp5eb/Lu+yRFOBykAGGTDRNJOuFrttijKLc68Yv1derwG
- Nb0K+ndz8fr2u/P/z7cPWg7In+rjOVodvxV2oGSWENS3+DmihSj3KsPs1YW9v2XBLWKgqei7OOmLd
- 1z6OhSywM3Jnuzi3w8TEfJuvUnApusKWYnfZsx2dCWMKQAisbqKmaJ5A3I2uEPQChymNHvMX1bwRl
- Eg2M4Trg==;
+ bh=C///xZ3+TITjSxyh3y8Q4LCkclrtiG/6WkLtdkMN5H8=; b=1K0aXTJH978QGa743NcTZ3JvOe
+ f7AtT5DYKnUGEa/vdvhJQ6PxUUbhJS92qUc9R2c3fb+m1MhBSqRTkCxa3IQe61LMhtV7ZdEuuzbZT
+ V3CMqrP0ChR31mj0QeD9a74YCd+uIT8aGMzo2Yz7TzMwyYQ6GJUQV8eqwIDrGFzv8YQwsE/uElvI+
+ kS3ytlOl+sGSaEYsKLG6e3w1PU76o0bLPUNVBrsDvr6STcnqm1QjNHl/BBZkuadO8JTStiFH4zs0v
+ w2FktCi1xMFaTth2tRisGRaV+W2Hmelk9Z5+btBa7DNy+ohLePdib0C5T5gEHqlk+oS6FemEc0M1l
+ eTTsKZ5Q==;
 Received: from [2001:4bb8:188:3efc:8014:b2f2:fdfd:57ea] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nI3tB-002s5T-SD; Thu, 10 Feb 2022 07:29:14 +0000
+ id 1nI3sj-002rmo-7q; Thu, 10 Feb 2022 07:28:45 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>,
  Dan Williams <dan.j.williams@intel.com>
-Subject: [PATCH 15/27] mm: add zone device coherent type memory support
-Date: Thu, 10 Feb 2022 08:28:16 +0100
-Message-Id: <20220210072828.2930359-16-hch@lst.de>
+Subject: [PATCH 05/27] mm: simplify freeing of devmap managed pages
+Date: Thu, 10 Feb 2022 08:28:06 +0100
+Message-Id: <20220210072828.2930359-6-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220210072828.2930359-1-hch@lst.de>
 References: <20220210072828.2930359-1-hch@lst.de>
@@ -51,215 +51,158 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, nvdimm@lists.linux.dev,
- Ralph Campbell <rcampbell@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- dri-devel@lists.freedesktop.org, Karol Herbst <kherbst@redhat.com>,
- linux-mm@kvack.org, nouveau@lists.freedesktop.org,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
+Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
+ Karol Herbst <kherbst@redhat.com>, linux-mm@kvack.org,
+ nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ Ben Skeggs <bskeggs@redhat.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Chaitanya Kulkarni <kch@nvidia.com>,
  Logan Gunthorpe <logang@deltatee.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Sierra <alex.sierra@amd.com>
+Make put_devmap_managed_page return if it took charge of the page
+or not and remove the separate page_is_devmap_managed helper.
 
-Device memory that is cache coherent from device and CPU point of view.
-This is used on platforms that have an advanced system bus (like CAPI
-or CXL). Any page of a process can be migrated to such memory. However,
-no one should be allowed to pin such memory so that it can always be
-evicted.
-
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
-[hch: rebased ontop of the refcount changes,
-      removed is_dev_private_or_coherent_page]
 Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
+Reviewed-by: Dan Williams <dan.j.williams@intel.com>
 ---
- include/linux/memremap.h | 14 ++++++++++++++
- mm/memcontrol.c          |  7 ++++---
- mm/memory-failure.c      |  8 ++++++--
- mm/memremap.c            | 10 ++++++++++
- mm/migrate_device.c      | 16 +++++++---------
- mm/rmap.c                |  5 +++--
- 6 files changed, 44 insertions(+), 16 deletions(-)
+ include/linux/mm.h | 34 ++++++++++------------------------
+ mm/memremap.c      | 20 +++++++++-----------
+ mm/swap.c          | 10 +---------
+ 3 files changed, 20 insertions(+), 44 deletions(-)
 
-diff --git a/include/linux/memremap.h b/include/linux/memremap.h
-index d6a114dd5ea8b7..eb73630a49da39 100644
---- a/include/linux/memremap.h
-+++ b/include/linux/memremap.h
-@@ -41,6 +41,13 @@ struct vmem_altmap {
-  * A more complete discussion of unaddressable memory may be found in
-  * include/linux/hmm.h and Documentation/vm/hmm.rst.
-  *
-+ * MEMORY_DEVICE_COHERENT:
-+ * Device memory that is cache coherent from device and CPU point of view. This
-+ * is used on platforms that have an advanced system bus (like CAPI or CXL). A
-+ * driver can hotplug the device memory using ZONE_DEVICE and with that memory
-+ * type. Any page of a process can be migrated to such memory. However no one
-+ * should be allowed to pin such memory so that it can always be evicted.
-+ *
-  * MEMORY_DEVICE_FS_DAX:
-  * Host memory that has similar access semantics as System RAM i.e. DMA
-  * coherent and supports page pinning. In support of coordinating page
-@@ -61,6 +68,7 @@ struct vmem_altmap {
- enum memory_type {
- 	/* 0 is reserved to catch uninitialized type fields */
- 	MEMORY_DEVICE_PRIVATE = 1,
-+	MEMORY_DEVICE_COHERENT,
- 	MEMORY_DEVICE_FS_DAX,
- 	MEMORY_DEVICE_GENERIC,
- 	MEMORY_DEVICE_PCI_P2PDMA,
-@@ -138,6 +146,12 @@ static inline bool is_device_private_page(const struct page *page)
- 		page->pgmap->type == MEMORY_DEVICE_PRIVATE;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 91dd0bc786a9ec..26baadcef4556b 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1094,33 +1094,24 @@ static inline bool is_zone_movable_page(const struct page *page)
+ #ifdef CONFIG_DEV_PAGEMAP_OPS
+ DECLARE_STATIC_KEY_FALSE(devmap_managed_key);
+ 
+-static inline bool page_is_devmap_managed(struct page *page)
++bool __put_devmap_managed_page(struct page *page);
++static inline bool put_devmap_managed_page(struct page *page)
+ {
+ 	if (!static_branch_unlikely(&devmap_managed_key))
+ 		return false;
+ 	if (!is_zone_device_page(page))
+ 		return false;
+-	switch (page->pgmap->type) {
+-	case MEMORY_DEVICE_PRIVATE:
+-	case MEMORY_DEVICE_FS_DAX:
+-		return true;
+-	default:
+-		break;
+-	}
+-	return false;
++	if (page->pgmap->type != MEMORY_DEVICE_PRIVATE &&
++	    page->pgmap->type != MEMORY_DEVICE_FS_DAX)
++		return false;
++	return __put_devmap_managed_page(page);
  }
  
-+static inline bool is_device_coherent_page(const struct page *page)
-+{
-+	return is_zone_device_page(page) &&
-+		page->pgmap->type == MEMORY_DEVICE_COHERENT;
-+}
-+
- static inline bool is_pci_p2pdma_page(const struct page *page)
+-void put_devmap_managed_page(struct page *page);
+-
+ #else /* CONFIG_DEV_PAGEMAP_OPS */
+-static inline bool page_is_devmap_managed(struct page *page)
++static inline bool put_devmap_managed_page(struct page *page)
  {
- 	return IS_ENABLED(CONFIG_PCI_P2PDMA) &&
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 510cbfb82bb62a..10259c35fde20d 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -5687,8 +5687,8 @@ static int mem_cgroup_move_account(struct page *page,
-  *   2(MC_TARGET_SWAP): if the swap entry corresponding to this pte is a
-  *     target for charge migration. if @target is not NULL, the entry is stored
-  *     in target->ent.
-- *   3(MC_TARGET_DEVICE): like MC_TARGET_PAGE  but page is MEMORY_DEVICE_PRIVATE
-- *     (so ZONE_DEVICE page and thus not on the lru).
-+ *   3(MC_TARGET_DEVICE): like MC_TARGET_PAGE  but page is device memory and
-+ *   thus not on the lru.
-  *     For now we such page is charge like a regular page would be as for all
-  *     intent and purposes it is just special memory taking the place of a
-  *     regular page.
-@@ -5722,7 +5722,8 @@ static enum mc_target_type get_mctgt_type(struct vm_area_struct *vma,
- 		 */
- 		if (page_memcg(page) == mc.from) {
- 			ret = MC_TARGET_PAGE;
--			if (is_device_private_page(page))
-+			if (is_device_private_page(page) ||
-+			    is_device_coherent_page(page))
- 				ret = MC_TARGET_DEVICE;
- 			if (target)
- 				target->page = page;
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index 97a9ed8f87a96a..f498ed3ece79ae 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -1617,12 +1617,16 @@ static int memory_failure_dev_pagemap(unsigned long pfn, int flags,
- 		goto unlock;
- 	}
+ 	return false;
+ }
+-
+-static inline void put_devmap_managed_page(struct page *page)
+-{
+-}
+ #endif /* CONFIG_DEV_PAGEMAP_OPS */
  
--	if (pgmap->type == MEMORY_DEVICE_PRIVATE) {
-+	switch (pgmap->type) {
-+	case MEMORY_DEVICE_PRIVATE:
-+	case MEMORY_DEVICE_COHERENT:
- 		/*
--		 * TODO: Handle HMM pages which may need coordination
-+		 * TODO: Handle device pages which may need coordination
- 		 * with device-side memory.
- 		 */
- 		goto unlock;
-+	default:
-+		break;
- 	}
+ static inline bool is_device_private_page(const struct page *page)
+@@ -1220,16 +1211,11 @@ static inline void put_page(struct page *page)
+ 	struct folio *folio = page_folio(page);
  
  	/*
+-	 * For devmap managed pages we need to catch refcount transition from
+-	 * 2 to 1, when refcount reach one it means the page is free and we
+-	 * need to inform the device driver through callback. See
+-	 * include/linux/memremap.h and HMM for details.
++	 * For some devmap managed pages we need to catch refcount transition
++	 * from 2 to 1:
+ 	 */
+-	if (page_is_devmap_managed(&folio->page)) {
+-		put_devmap_managed_page(&folio->page);
++	if (put_devmap_managed_page(&folio->page))
+ 		return;
+-	}
+-
+ 	folio_put(folio);
+ }
+ 
 diff --git a/mm/memremap.c b/mm/memremap.c
-index e00ffcdba7b632..d00bb21a0630cd 100644
+index 55d23e9f5c04ec..f41233a67edb12 100644
 --- a/mm/memremap.c
 +++ b/mm/memremap.c
-@@ -313,6 +313,16 @@ void *memremap_pages(struct dev_pagemap *pgmap, int nid)
- 			return ERR_PTR(-EINVAL);
- 		}
- 		break;
-+	case MEMORY_DEVICE_COHERENT:
-+		if (!pgmap->ops->page_free) {
-+			WARN(1, "Missing page_free method\n");
-+			return ERR_PTR(-EINVAL);
-+		}
-+		if (!pgmap->owner) {
-+			WARN(1, "Missing owner\n");
-+			return ERR_PTR(-EINVAL);
-+		}
-+		break;
- 	case MEMORY_DEVICE_FS_DAX:
- 		if (IS_ENABLED(CONFIG_FS_DAX_LIMITED)) {
- 			WARN(1, "File system DAX not supported\n");
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index 749e0bab8e4779..bfd66e7d830b02 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -494,7 +494,7 @@ EXPORT_SYMBOL(migrate_vma_setup);
-  *     handle_pte_fault()
-  *       do_anonymous_page()
-  * to map in an anonymous zero page but the struct page will be a ZONE_DEVICE
-- * private page.
-+ * private or coherent page.
-  */
- static void migrate_vma_insert_page(struct migrate_vma *migrate,
- 				    unsigned long addr,
-@@ -570,11 +570,8 @@ static void migrate_vma_insert_page(struct migrate_vma *migrate,
- 						page_to_pfn(page));
- 		entry = swp_entry_to_pte(swp_entry);
- 	} else {
--		/*
--		 * For now we only support migrating to un-addressable device
--		 * memory.
--		 */
--		if (is_zone_device_page(page)) {
-+		if (is_zone_device_page(page) &&
-+		    !is_device_coherent_page(page)) {
- 			pr_warn_once("Unsupported ZONE_DEVICE page type.\n");
- 			goto abort;
- 		}
-@@ -677,10 +674,11 @@ void migrate_vma_pages(struct migrate_vma *migrate)
+@@ -502,24 +502,22 @@ void free_devmap_managed_page(struct page *page)
+ 	page->pgmap->ops->page_free(page);
+ }
  
- 		mapping = page_mapping(page);
- 
--		if (is_device_private_page(newpage)) {
-+		if (is_device_private_page(newpage) ||
-+		    is_device_coherent_page(newpage)) {
- 			/*
--			 * For now only support private anonymous when migrating
--			 * to un-addressable device memory.
-+			 * For now only support anonymous memory migrating to
-+			 * device private or coherent memory.
- 			 */
- 			if (mapping) {
- 				migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 6a1e8c7f621361..c34de7bd22393e 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -1835,7 +1835,7 @@ static bool try_to_migrate_one(struct page *page, struct vm_area_struct *vma,
- 		/* Update high watermark before we lower rss */
- 		update_hiwater_rss(mm);
- 
--		if (is_zone_device_page(page)) {
-+		if (is_device_private_page(page)) {
- 			unsigned long pfn = page_to_pfn(page);
- 			swp_entry_t entry;
- 			pte_t swp_pte;
-@@ -1976,7 +1976,8 @@ void try_to_migrate(struct page *page, enum ttu_flags flags)
- 					TTU_SYNC)))
- 		return;
- 
--	if (is_zone_device_page(page) && !is_device_private_page(page))
-+	if (is_zone_device_page(page) &&
-+	    (!is_device_private_page(page) && !is_device_coherent_page(page)))
- 		return;
- 
+-void put_devmap_managed_page(struct page *page)
++bool __put_devmap_managed_page(struct page *page)
+ {
+-	int count;
+-
+-	if (WARN_ON_ONCE(!page_is_devmap_managed(page)))
+-		return;
+-
+-	count = page_ref_dec_return(page);
+-
  	/*
+ 	 * devmap page refcounts are 1-based, rather than 0-based: if
+ 	 * refcount is 1, then the page is free and the refcount is
+ 	 * stable because nobody holds a reference on the page.
+ 	 */
+-	if (count == 1)
++	switch (page_ref_dec_return(page)) {
++	case 1:
+ 		free_devmap_managed_page(page);
+-	else if (!count)
++		break;
++	case 0:
+ 		__put_page(page);
++		break;
++	}
++	return true;
+ }
+-EXPORT_SYMBOL(put_devmap_managed_page);
++EXPORT_SYMBOL(__put_devmap_managed_page);
+ #endif /* CONFIG_DEV_PAGEMAP_OPS */
+diff --git a/mm/swap.c b/mm/swap.c
+index 08058f74cae23e..25b55c56614311 100644
+--- a/mm/swap.c
++++ b/mm/swap.c
+@@ -930,16 +930,8 @@ void release_pages(struct page **pages, int nr)
+ 				unlock_page_lruvec_irqrestore(lruvec, flags);
+ 				lruvec = NULL;
+ 			}
+-			/*
+-			 * ZONE_DEVICE pages that return 'false' from
+-			 * page_is_devmap_managed() do not require special
+-			 * processing, and instead, expect a call to
+-			 * put_page_testzero().
+-			 */
+-			if (page_is_devmap_managed(page)) {
+-				put_devmap_managed_page(page);
++			if (put_devmap_managed_page(page))
+ 				continue;
+-			}
+ 			if (put_page_testzero(page))
+ 				put_dev_pagemap(page->pgmap);
+ 			continue;
 -- 
 2.30.2
 
