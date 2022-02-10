@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98089C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 08:30:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24A4BC43217
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 08:30:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 372B510E78F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A298910E793;
 	Thu, 10 Feb 2022 08:30:18 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60EA310E73B;
- Thu, 10 Feb 2022 07:28:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D324E10E76F;
+ Thu, 10 Feb 2022 07:29:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=C///xZ3+TITjSxyh3y8Q4LCkclrtiG/6WkLtdkMN5H8=; b=1K0aXTJH978QGa743NcTZ3JvOe
- f7AtT5DYKnUGEa/vdvhJQ6PxUUbhJS92qUc9R2c3fb+m1MhBSqRTkCxa3IQe61LMhtV7ZdEuuzbZT
- V3CMqrP0ChR31mj0QeD9a74YCd+uIT8aGMzo2Yz7TzMwyYQ6GJUQV8eqwIDrGFzv8YQwsE/uElvI+
- kS3ytlOl+sGSaEYsKLG6e3w1PU76o0bLPUNVBrsDvr6STcnqm1QjNHl/BBZkuadO8JTStiFH4zs0v
- w2FktCi1xMFaTth2tRisGRaV+W2Hmelk9Z5+btBa7DNy+ohLePdib0C5T5gEHqlk+oS6FemEc0M1l
- eTTsKZ5Q==;
+ bh=d7JEV9g6FagbAy7BLuLDmxhABbLNf/qjm2yclJRobs4=; b=NsrcsBjBYrVK0+TjIg3TNfTpq9
+ yyLK/3W8AROR2TPxYST10BrvfQkd0orEWxq2FeDy67Lw/upW1zhPgvB4K43xPz2ffY/cOkIZZRsVf
+ e+IxVLBKWm23JJzgDMZHQneZCVlUC9LYXVxRRbozkaj0x73gdIQnpR59aYHypNWPx+WAwWcYugXFy
+ +r8R+9d3vpUGmzBRsjOCRtaL9i9V7n/DOfnI6TTMDTBB5yU3brMLUO7MxOMKlj9GNlGu9Kq8uasqN
+ twpwFhQtBAUM82nP4d21c8S/a/Z3Wy+K7oqyiaiAlWKG2BT598h4PLLO6bQoyV9LB3ea3grlxX7F7
+ pvTsUmYw==;
 Received: from [2001:4bb8:188:3efc:8014:b2f2:fdfd:57ea] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nI3sj-002rmo-7q; Thu, 10 Feb 2022 07:28:45 +0000
+ id 1nI3tP-002sEb-W5; Thu, 10 Feb 2022 07:29:28 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>,
  Dan Williams <dan.j.williams@intel.com>
-Subject: [PATCH 05/27] mm: simplify freeing of devmap managed pages
-Date: Thu, 10 Feb 2022 08:28:06 +0100
-Message-Id: <20220210072828.2930359-6-hch@lst.de>
+Subject: [PATCH 20/27] lib: test_hmm add ioctl to get zone device type
+Date: Thu, 10 Feb 2022 08:28:21 +0100
+Message-Id: <20220210072828.2930359-21-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220210072828.2930359-1-hch@lst.de>
 References: <20220210072828.2930359-1-hch@lst.de>
@@ -51,158 +51,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
- Karol Herbst <kherbst@redhat.com>, linux-mm@kvack.org,
- nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Ben Skeggs <bskeggs@redhat.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Deucher <alexander.deucher@amd.com>, Chaitanya Kulkarni <kch@nvidia.com>,
+Cc: Alex Sierra <alex.sierra@amd.com>, nvdimm@lists.linux.dev,
+ Ralph Campbell <rcampbell@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ dri-devel@lists.freedesktop.org, Karol Herbst <kherbst@redhat.com>,
+ linux-mm@kvack.org, nouveau@lists.freedesktop.org,
+ Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
  Logan Gunthorpe <logang@deltatee.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make put_devmap_managed_page return if it took charge of the page
-or not and remove the separate page_is_devmap_managed helper.
+From: Alex Sierra <alex.sierra@amd.com>
 
+new ioctl cmd added to query zone device type. This will be
+used once the test_hmm adds zone device coherent type.
+
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Alistair Poppple <apopple@nvidia.com>
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
-Reviewed-by: Dan Williams <dan.j.williams@intel.com>
 ---
- include/linux/mm.h | 34 ++++++++++------------------------
- mm/memremap.c      | 20 +++++++++-----------
- mm/swap.c          | 10 +---------
- 3 files changed, 20 insertions(+), 44 deletions(-)
+ lib/test_hmm.c      | 23 +++++++++++++++++++++--
+ lib/test_hmm_uapi.h |  8 ++++++++
+ 2 files changed, 29 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 91dd0bc786a9ec..26baadcef4556b 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1094,33 +1094,24 @@ static inline bool is_zone_movable_page(const struct page *page)
- #ifdef CONFIG_DEV_PAGEMAP_OPS
- DECLARE_STATIC_KEY_FALSE(devmap_managed_key);
+diff --git a/lib/test_hmm.c b/lib/test_hmm.c
+index cfe63204783918..7a27584484ce0f 100644
+--- a/lib/test_hmm.c
++++ b/lib/test_hmm.c
+@@ -87,6 +87,7 @@ struct dmirror_chunk {
+ struct dmirror_device {
+ 	struct cdev		cdevice;
+ 	struct hmm_devmem	*devmem;
++	unsigned int            zone_device_type;
  
--static inline bool page_is_devmap_managed(struct page *page)
-+bool __put_devmap_managed_page(struct page *page);
-+static inline bool put_devmap_managed_page(struct page *page)
- {
- 	if (!static_branch_unlikely(&devmap_managed_key))
- 		return false;
- 	if (!is_zone_device_page(page))
- 		return false;
--	switch (page->pgmap->type) {
--	case MEMORY_DEVICE_PRIVATE:
--	case MEMORY_DEVICE_FS_DAX:
--		return true;
--	default:
--		break;
--	}
--	return false;
-+	if (page->pgmap->type != MEMORY_DEVICE_PRIVATE &&
-+	    page->pgmap->type != MEMORY_DEVICE_FS_DAX)
-+		return false;
-+	return __put_devmap_managed_page(page);
+ 	unsigned int		devmem_capacity;
+ 	unsigned int		devmem_count;
+@@ -1026,6 +1027,15 @@ static int dmirror_snapshot(struct dmirror *dmirror,
+ 	return ret;
  }
  
--void put_devmap_managed_page(struct page *page);
--
- #else /* CONFIG_DEV_PAGEMAP_OPS */
--static inline bool page_is_devmap_managed(struct page *page)
-+static inline bool put_devmap_managed_page(struct page *page)
- {
- 	return false;
- }
--
--static inline void put_devmap_managed_page(struct page *page)
--{
--}
- #endif /* CONFIG_DEV_PAGEMAP_OPS */
++static int dmirror_get_device_type(struct dmirror *dmirror,
++			    struct hmm_dmirror_cmd *cmd)
++{
++	mutex_lock(&dmirror->mutex);
++	cmd->zone_device_type = dmirror->mdevice->zone_device_type;
++	mutex_unlock(&dmirror->mutex);
++
++	return 0;
++}
+ static long dmirror_fops_unlocked_ioctl(struct file *filp,
+ 					unsigned int command,
+ 					unsigned long arg)
+@@ -1076,6 +1086,9 @@ static long dmirror_fops_unlocked_ioctl(struct file *filp,
+ 		ret = dmirror_snapshot(dmirror, &cmd);
+ 		break;
  
- static inline bool is_device_private_page(const struct page *page)
-@@ -1220,16 +1211,11 @@ static inline void put_page(struct page *page)
- 	struct folio *folio = page_folio(page);
- 
- 	/*
--	 * For devmap managed pages we need to catch refcount transition from
--	 * 2 to 1, when refcount reach one it means the page is free and we
--	 * need to inform the device driver through callback. See
--	 * include/linux/memremap.h and HMM for details.
-+	 * For some devmap managed pages we need to catch refcount transition
-+	 * from 2 to 1:
- 	 */
--	if (page_is_devmap_managed(&folio->page)) {
--		put_devmap_managed_page(&folio->page);
-+	if (put_devmap_managed_page(&folio->page))
- 		return;
--	}
--
- 	folio_put(folio);
- }
- 
-diff --git a/mm/memremap.c b/mm/memremap.c
-index 55d23e9f5c04ec..f41233a67edb12 100644
---- a/mm/memremap.c
-+++ b/mm/memremap.c
-@@ -502,24 +502,22 @@ void free_devmap_managed_page(struct page *page)
- 	page->pgmap->ops->page_free(page);
- }
- 
--void put_devmap_managed_page(struct page *page)
-+bool __put_devmap_managed_page(struct page *page)
- {
--	int count;
--
--	if (WARN_ON_ONCE(!page_is_devmap_managed(page)))
--		return;
--
--	count = page_ref_dec_return(page);
--
- 	/*
- 	 * devmap page refcounts are 1-based, rather than 0-based: if
- 	 * refcount is 1, then the page is free and the refcount is
- 	 * stable because nobody holds a reference on the page.
- 	 */
--	if (count == 1)
-+	switch (page_ref_dec_return(page)) {
-+	case 1:
- 		free_devmap_managed_page(page);
--	else if (!count)
++	case HMM_DMIRROR_GET_MEM_DEV_TYPE:
++		ret = dmirror_get_device_type(dmirror, &cmd);
 +		break;
-+	case 0:
- 		__put_page(page);
-+		break;
-+	}
-+	return true;
- }
--EXPORT_SYMBOL(put_devmap_managed_page);
-+EXPORT_SYMBOL(__put_devmap_managed_page);
- #endif /* CONFIG_DEV_PAGEMAP_OPS */
-diff --git a/mm/swap.c b/mm/swap.c
-index 08058f74cae23e..25b55c56614311 100644
---- a/mm/swap.c
-+++ b/mm/swap.c
-@@ -930,16 +930,8 @@ void release_pages(struct page **pages, int nr)
- 				unlock_page_lruvec_irqrestore(lruvec, flags);
- 				lruvec = NULL;
- 			}
--			/*
--			 * ZONE_DEVICE pages that return 'false' from
--			 * page_is_devmap_managed() do not require special
--			 * processing, and instead, expect a call to
--			 * put_page_testzero().
--			 */
--			if (page_is_devmap_managed(page)) {
--				put_devmap_managed_page(page);
-+			if (put_devmap_managed_page(page))
- 				continue;
--			}
- 			if (put_page_testzero(page))
- 				put_dev_pagemap(page->pgmap);
- 			continue;
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1260,14 +1273,20 @@ static void dmirror_device_remove(struct dmirror_device *mdevice)
+ static int __init hmm_dmirror_init(void)
+ {
+ 	int ret;
+-	int id;
++	int id = 0;
++	int ndevices = 0;
+ 
+ 	ret = alloc_chrdev_region(&dmirror_dev, 0, DMIRROR_NDEVICES,
+ 				  "HMM_DMIRROR");
+ 	if (ret)
+ 		goto err_unreg;
+ 
+-	for (id = 0; id < DMIRROR_NDEVICES; id++) {
++	memset(dmirror_devices, 0, DMIRROR_NDEVICES * sizeof(dmirror_devices[0]));
++	dmirror_devices[ndevices++].zone_device_type =
++				HMM_DMIRROR_MEMORY_DEVICE_PRIVATE;
++	dmirror_devices[ndevices++].zone_device_type =
++				HMM_DMIRROR_MEMORY_DEVICE_PRIVATE;
++	for (id = 0; id < ndevices; id++) {
+ 		ret = dmirror_device_init(dmirror_devices + id, id);
+ 		if (ret)
+ 			goto err_chrdev;
+diff --git a/lib/test_hmm_uapi.h b/lib/test_hmm_uapi.h
+index f14dea5dcd062b..17f842f1aa02c7 100644
+--- a/lib/test_hmm_uapi.h
++++ b/lib/test_hmm_uapi.h
+@@ -19,6 +19,7 @@
+  * @npages: (in) number of pages to read/write
+  * @cpages: (out) number of pages copied
+  * @faults: (out) number of device page faults seen
++ * @zone_device_type: (out) zone device memory type
+  */
+ struct hmm_dmirror_cmd {
+ 	__u64		addr;
+@@ -26,6 +27,7 @@ struct hmm_dmirror_cmd {
+ 	__u64		npages;
+ 	__u64		cpages;
+ 	__u64		faults;
++	__u64		zone_device_type;
+ };
+ 
+ /* Expose the address space of the calling process through hmm device file */
+@@ -35,6 +37,7 @@ struct hmm_dmirror_cmd {
+ #define HMM_DMIRROR_SNAPSHOT		_IOWR('H', 0x03, struct hmm_dmirror_cmd)
+ #define HMM_DMIRROR_EXCLUSIVE		_IOWR('H', 0x04, struct hmm_dmirror_cmd)
+ #define HMM_DMIRROR_CHECK_EXCLUSIVE	_IOWR('H', 0x05, struct hmm_dmirror_cmd)
++#define HMM_DMIRROR_GET_MEM_DEV_TYPE	_IOWR('H', 0x06, struct hmm_dmirror_cmd)
+ 
+ /*
+  * Values returned in hmm_dmirror_cmd.ptr for HMM_DMIRROR_SNAPSHOT.
+@@ -62,4 +65,9 @@ enum {
+ 	HMM_DMIRROR_PROT_DEV_PRIVATE_REMOTE	= 0x30,
+ };
+ 
++enum {
++	/* 0 is reserved to catch uninitialized type fields */
++	HMM_DMIRROR_MEMORY_DEVICE_PRIVATE = 1,
++};
++
+ #endif /* _LIB_TEST_HMM_UAPI_H */
 -- 
 2.30.2
 
