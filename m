@@ -4,38 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADF68C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 08:30:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FA3CC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 08:30:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17EEA10E784;
-	Thu, 10 Feb 2022 08:30:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92F8310E792;
+	Thu, 10 Feb 2022 08:30:18 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50CA810E737;
- Thu, 10 Feb 2022 07:29:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2AF210E727;
+ Thu, 10 Feb 2022 07:28:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=zGyKKbpob2jKuUoVhg21xS0brp0ZuvbpPYxyQsLpvrY=; b=iJGuHG0f0lD7DoQncmPS2ParR5
- KxCks+Bp5nJENeFnI4VlZU9TuxI3ve9mj03FG6U7WpDS92xIoLF7uKO6UFMuXnHvzmdmocQW3BDy+
- 493NiErvPKBDX7e4tdCzX6+mKgsc9YcD8xxsiq26BWP/+hAuRU5GAvnE1Ona+4KghRp8m58WECJCE
- wpxIn0by2WrZttMVtHFMFk4CwasYSLanhvoWdHa/JPPo+H3E+k7Z6njMlEnvzPeDjjEctHSRHiX/g
- lCS6jqLsBWkXhw6wOT3p4S0KafLAs/9eWHggPdIRwc2tFevhnT6M2jVXY0TmUVm+Hb4tv7LeyXms+
- c3GmYNRw==;
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=fKwV65Fx615k5LuIXkLcfiAVy//BhvLpTdyb0R61khg=; b=UBIrT7SYvmrOGapKs/IMJGZMJP
+ rULomygyaaC55QDvs3eY68CeMZN8/C+Un5dhwOktX57xJXfoja7le1xanp8IT24T92jgKNogsi73U
+ Vs9CL78FLc7OFzeln9OiPi/7vaiOEWqV6C55F6pZVXdbLeEo8ldf619JOUh2kLdEvFbEbfs4LZxZ3
+ 5qvQi9MVLtXFESagqUxWxaF5WV+V5JcZMy4pHRWVG/clCxw7rfcEHb30WuSh5pYSBuzRIj8PeF+Sn
+ rhE6DpzHH+K5CChoU7tggXhlh61KLf/GmLxZLyL2cNDul5XrR+6rl7Cq4CkAIe4DZ9r8zj1m7ij2G
+ Wyu4LoIQ==;
 Received: from [2001:4bb8:188:3efc:8014:b2f2:fdfd:57ea] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nI3tH-002s8p-Jo; Thu, 10 Feb 2022 07:29:20 +0000
+ id 1nI3sV-002rks-4y; Thu, 10 Feb 2022 07:28:31 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>,
  Dan Williams <dan.j.williams@intel.com>
-Subject: [PATCH 17/27] mm/gup: fail get_user_pages for LONGTERM dev coherent
- type
-Date: Thu, 10 Feb 2022 08:28:18 +0100
-Message-Id: <20220210072828.2930359-18-hch@lst.de>
+Subject: start sorting out the ZONE_DEVICE refcount mess v2
+Date: Thu, 10 Feb 2022 08:28:01 +0100
+Message-Id: <20220210072828.2930359-1-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220210072828.2930359-1-hch@lst.de>
-References: <20220210072828.2930359-1-hch@lst.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
@@ -52,69 +49,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, nvdimm@lists.linux.dev,
- Ralph Campbell <rcampbell@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- dri-devel@lists.freedesktop.org, Karol Herbst <kherbst@redhat.com>,
- linux-mm@kvack.org, nouveau@lists.freedesktop.org,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
+Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
+ Karol Herbst <kherbst@redhat.com>, linux-mm@kvack.org,
+ nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
  Logan Gunthorpe <logang@deltatee.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Sierra <alex.sierra@amd.com>
+Hi all,
 
-Avoid long term pinning for Coherent device type pages. This could
-interfere with their own device memory manager. For now, we are just
-returning error for PIN_LONGTERM Coherent device type pages. Eventually,
-these type of pages will get migrated to system memory, once the device
-migration pages support is added.
+this series removes the offset by one refcount for ZONE_DEVICE pages
+that are freed back to the driver owning them, which is just device
+private ones for now, but also the planned device coherent pages
+and the ehanced p2p ones pending.
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-by: Alistair Poppple <apopple@nvidia.com>
-[hch: rebased on previous cleanups, split the two checks]
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- mm/gup.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+It does not address the fsdax pages yet, which will be attacked in a
+follow on series.
 
-diff --git a/mm/gup.c b/mm/gup.c
-index 37d6c24ca71225..39b23ad39a7bde 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -1881,6 +1881,19 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
- 			continue;
- 		prev_head = head;
- 
-+		/*
-+		 * Device private pages will get faulted in during gup so it
-+		 * shouldn't be possible to see one here.
-+		 */
-+		if (WARN_ON_ONCE(is_device_private_page(head))) {
-+			ret = -EFAULT;
-+			goto unpin_pages;
-+		}
-+		if (is_device_coherent_page(head)) {
-+			ret = -EFAULT;
-+			goto unpin_pages;
-+		}
-+
- 		if (is_pinnable_page(head))
- 			continue;
- 
-@@ -1925,7 +1938,7 @@ static long check_and_migrate_movable_pages(unsigned long nr_pages,
- 			put_page(pages[i]);
- 	}
- 
--	if (!list_empty(&movable_page_list)) {
-+	if (!ret && !list_empty(&movable_page_list)) {
- 		struct migration_target_control mtc = {
- 			.nid = NUMA_NO_NODE,
- 			.gfp_mask = GFP_USER | __GFP_NOWARN,
--- 
-2.30.2
+Note that if we want to get the p2p series rebased on top of this
+we'll need a git branch for this series.  I could offer to host one.
 
+A git tree is available here:
+
+    git://git.infradead.org/users/hch/misc.git pgmap-refcount
+
+Gitweb:
+
+    http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/pgmap-refcount
+
+Changes since v1:
+ - add a missing memremap.h include in memcontrol.c
+ - include rebased versions of the device coherent support and
+   device coherent migration support series as well as additional
+   cleanup patches
+
+Diffstt:
+ arch/arm64/mm/mmu.c                      |    1 
+ arch/powerpc/kvm/book3s_hv_uvmem.c       |    1 
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |   35 -
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |    1 
+ drivers/gpu/drm/drm_cache.c              |    2 
+ drivers/gpu/drm/nouveau/nouveau_dmem.c   |    3 
+ drivers/gpu/drm/nouveau/nouveau_svm.c    |    1 
+ drivers/infiniband/core/rw.c             |    1 
+ drivers/nvdimm/pmem.h                    |    1 
+ drivers/nvme/host/pci.c                  |    1 
+ drivers/nvme/target/io-cmd-bdev.c        |    1 
+ fs/Kconfig                               |    2 
+ fs/fuse/virtio_fs.c                      |    1 
+ include/linux/hmm.h                      |    9 
+ include/linux/memremap.h                 |   36 +
+ include/linux/migrate.h                  |    1 
+ include/linux/mm.h                       |   59 --
+ lib/test_hmm.c                           |  353 ++++++++++---
+ lib/test_hmm_uapi.h                      |   22 
+ mm/Kconfig                               |    7 
+ mm/Makefile                              |    1 
+ mm/gup.c                                 |  127 +++-
+ mm/internal.h                            |    3 
+ mm/memcontrol.c                          |   19 
+ mm/memory-failure.c                      |    8 
+ mm/memremap.c                            |   75 +-
+ mm/migrate.c                             |  763 ----------------------------
+ mm/migrate_device.c                      |  822 +++++++++++++++++++++++++++++++
+ mm/rmap.c                                |    5 
+ mm/swap.c                                |   49 -
+ tools/testing/selftests/vm/Makefile      |    2 
+ tools/testing/selftests/vm/hmm-tests.c   |  204 ++++++-
+ tools/testing/selftests/vm/test_hmm.sh   |   24 
+ 33 files changed, 1552 insertions(+), 1088 deletions(-)
