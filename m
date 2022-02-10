@@ -4,34 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAD68C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 08:30:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6294C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Feb 2022 08:30:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE28A10E765;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 109BE10E766;
 	Thu, 10 Feb 2022 08:30:06 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB2510E767;
- Thu, 10 Feb 2022 07:29:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D01DF10E742;
+ Thu, 10 Feb 2022 07:29:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=nwQK8rTzBeKvGcrtCRWh1dh2jjlfr7yyGwSU0Am+w+s=; b=HpIhsMcgR2ml6ZX6xWqvoyf1/O
- JYbbjkJeGj+Vr2y7NNas0msPbsv7XIDfhYm/ASJ2vOYm9xc+NnDrDB5b9TDYBwhApZnQ8388w+VMC
- oV4R477KDNIdE8Lctpl7xV0S2GA4ZImCbTINY00BJFrJRL2sZxyRSw/y+xxkn1mK9yZh5vDkDDfJ7
- yE7oQ92FoD5PiopPrvkomGyl+xLc+e56mzByFPCIS0GaxRV2G2ppPSXe8bJsNC+nc+AlDD7noP8qw
- 9ZyBl+/C/fiuzpkjde64hfsOYBI43MFjAHA922mCys8kjTfXl5CJIxWQRspbVqIlB6t/25F45NZLI
- YoiVjs8w==;
+ bh=7G8J3RPmwqONc2HXCUGJwHrFv6lx9mr3fODzxz3GZ8Y=; b=uUYieNnJaHfU8LFV1HvS+chCMy
+ jcAqrinM6uesfhHoQXNQ/yIbALOtnqg/X7rgXJFF6HmxAU0+4dzexPBN2EnDi2dapZPLQOWgiAeOf
+ tzVORYmrL7VdJLyW6S053AW0DDzF7ZmU1dwjhi7rK+HqXEtwduphWLaaWJ2i9FXW1FL/pTVPhl6u3
+ LE+m2AisM2E2hg6ORWM9biX6jJgiGfqln2ncrqHbXOopuoXLSc1S3T1+fNmZtbayRnW6HXsAIFF0m
+ nvn1VGJiJ6QqjxIbHtJmIW7tSVeSa7IIbBXeRBYA674ZY5WukXl78wQ6Z+MIK6VEYF2kn6OeA5Q60
+ +XxfFLEg==;
 Received: from [2001:4bb8:188:3efc:8014:b2f2:fdfd:57ea] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nI3su-002rtD-Me; Thu, 10 Feb 2022 07:28:57 +0000
+ id 1nI3t3-002s0C-1N; Thu, 10 Feb 2022 07:29:05 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Andrew Morton <akpm@linux-foundation.org>,
  Dan Williams <dan.j.williams@intel.com>
-Subject: [PATCH 09/27] mm: generalize the pgmap based page_free infrastructure
-Date: Thu, 10 Feb 2022 08:28:10 +0100
-Message-Id: <20220210072828.2930359-10-hch@lst.de>
+Subject: [PATCH 12/27] mm: refactor the ZONE_DEVICE handling in
+ migrate_vma_pages
+Date: Thu, 10 Feb 2022 08:28:13 +0100
+Message-Id: <20220210072828.2930359-13-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220210072828.2930359-1-hch@lst.de>
 References: <20220210072828.2930359-1-hch@lst.de>
@@ -63,36 +64,55 @@ Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Key off on the existence of ->page_free to prepare for adding support for
-more pgmap types that are device managed and thus need the free callback.
+Make the flow a little more clear and prepare for adding a new
+ZONE_DEVICE memory type.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- mm/memremap.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/migrate.c | 27 ++++++++++++---------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
-diff --git a/mm/memremap.c b/mm/memremap.c
-index fef5734d5e4933..e00ffcdba7b632 100644
---- a/mm/memremap.c
-+++ b/mm/memremap.c
-@@ -452,7 +452,7 @@ EXPORT_SYMBOL_GPL(get_dev_pagemap);
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 30ecd7223656c1..746e1230886ddb 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -2788,24 +2788,21 @@ void migrate_vma_pages(struct migrate_vma *migrate)
  
- void free_zone_device_page(struct page *page)
- {
--	if (WARN_ON_ONCE(!is_device_private_page(page)))
-+	if (WARN_ON_ONCE(!page->pgmap->ops || !page->pgmap->ops->page_free))
- 		return;
+ 		mapping = page_mapping(page);
  
- 	__ClearPageWaiters(page);
-@@ -460,7 +460,7 @@ void free_zone_device_page(struct page *page)
- 	mem_cgroup_uncharge(page_folio(page));
+-		if (is_zone_device_page(newpage)) {
+-			if (is_device_private_page(newpage)) {
+-				/*
+-				 * For now only support private anonymous when
+-				 * migrating to un-addressable device memory.
+-				 */
+-				if (mapping) {
+-					migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
+-					continue;
+-				}
+-			} else {
+-				/*
+-				 * Other types of ZONE_DEVICE page are not
+-				 * supported.
+-				 */
++		if (is_device_private_page(newpage)) {
++			/*
++			 * For now only support private anonymous when migrating
++			 * to un-addressable device memory.
++			 */
++			if (mapping) {
+ 				migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
+ 				continue;
+ 			}
++		} else if (is_zone_device_page(newpage)) {
++			/*
++			 * Other types of ZONE_DEVICE page are not supported.
++			 */
++			migrate->src[i] &= ~MIGRATE_PFN_MIGRATE;
++			continue;
+ 		}
  
- 	/*
--	 * When a device_private page is freed, the page->mapping field
-+	 * When a device managed page is freed, the page->mapping field
- 	 * may still contain a (stale) mapping value. For example, the
- 	 * lower bits of page->mapping may still identify the page as an
- 	 * anonymous page. Ultimately, this entire field is just stale
+ 		r = migrate_page(mapping, newpage, page, MIGRATE_SYNC_NO_COPY);
 -- 
 2.30.2
 
