@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0CA0C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 18:59:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 821F8C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 18:59:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DDB210EAF3;
-	Fri, 11 Feb 2022 18:59:43 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2067.outbound.protection.outlook.com [40.107.96.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9C6C10EAF3
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 18:59:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8989F10EAF6;
+	Fri, 11 Feb 2022 18:59:46 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2044.outbound.protection.outlook.com [40.107.237.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 368B310EAF5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 18:59:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B3UTEdHk3z6gnJ4v0RnAsU+o2AFeUHjeEFB825yswdTIowRkWctTZktEPxTTBfXzMMgeqaItVTbcrkVNPJwZCEMFb9rc67S9y9F4Zu27/vskIdBoxi1H/0KGhViVw9e/Nvast3Vgp3d36tvWyirlmv9grCE8gDDIeOGaxwAyvoAnO6aLaa+wU21AiLVONwXWDHvZqF6115/aPuKZ2ZjS2nQaPohIrTP4XY9/ZP8/n9z/0Zfd+eHK081rJxWNB0EUVCNHmH94SUJPJjOj6yS41ysmsUjo7Xpf/ch1xlVwygN2HceaYMUFKPN6wNhXDnCYLu20UpKk0HEspCvYSaXqkg==
+ b=UCAqvX2QJWaPtnxeTaXKVzxKmLTLhPW7rAQn2DSjh10hbarMzurKX5TVXjWiGstmm/AfCt7ExobBh0mxMb4IeHJDlN7spiqZp4B7a9pACk87GbX4AKbqf2XSl9kK/HPJuZkiN0+kuotAn8WbxXsWJmo8q+tXetzSaoJl3OgifDfQi4Xx+zCKBx80CvpZqMyqocKCN7AVMPwwxKm3Agx5zx/cCtmghN4ckk8F2ERZFCXkxwy1V23rvtTSxcHjQZdHKRnoeOl10GtgJDq+j4p5Xvs1/QuDWMa1gdUuWZeBDulUeQDKEl/UXNCtTDj2NoTvPnYxODBP9ilYjq1YXCCcaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FsuOKdDyyyKaa15luj7FrWMy9pFxggz5I/jm0zyY4TQ=;
- b=jlaDKzyfhSY55ooUihepUf3ZyNbArz/X3dI9GoD6YgZNiwJcK0v0SjDKn7NlflXnMPTl/2yCGKoqW/v8jJY2rtX7bsNxcNCbzjrYsO4hCMigXJzaZG4qDMg6U1HtSYOgEWdrytOb01hxMdU438WW3jSfh/JBhi61k+9Grn1mqc25pL5qey2yykneTozQAIs2Bqe4+Ga1wtenSEUP6XXFV0HOM/KP2B7TZrUG/Gwol7CeVZ4JSJU+P2b340U9zN6YkW6UODsnZP6LCR6nZyAFXcdudq23ybNQLE0Z6pStoYroTEnISd+fPPd96Z5cO5tsxduK2ImUV4rn7JCo2e5rzg==
+ bh=R2K8MzK0mgnGiUUWWqpT0aPYY9ePvpWYS186HJE1gOg=;
+ b=bgGy0fGRlrgzV/LiWHvcsUndkKHTBzQsH2hWk/8UwO9dsohI8PvaCQWDzP8s2jKATJnI1dScmmESByn5YuPkDpTDqUXolRBLpN2J9dMwbtjzgLn+G4T/lG6jjaAZKRiRFB8Do2G4IHEdzVYwbWRNCIHa0MwHXuMi7KNvqJMjTvVe5fsWz+zxK2pANjrBixin2PL8VHfmHYlKH4eIQ4VMnbgS6MnxZbpk22pg8QIv4t1qNanVqTEbmkuAMNH7V4mRuwqD9nqc5O6t8mVc0zH55gn6IhpkjX27xcAFHtVau6HNzg/X3g3Hd1Hv5VeY6V8MYa9h+pdr9LXel4sWfPm0Xg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FsuOKdDyyyKaa15luj7FrWMy9pFxggz5I/jm0zyY4TQ=;
- b=lHP9pLZR12Y9Mjb03ekiczxPzKA5f9IlWIlC4Iuzom3044V/nQlgW2bFR+ZEwq5wknlGVw6xZ0YvrCdJY79yGX4GLVjLK/cQqEuQF8ksLkNg+9jaB86ig9n0WVM9O6NF218O3UP0ND5CNXOHSTy4BM6T4QteNfbt2fKbJJLVzwk=
-Received: from MW2PR16CA0042.namprd16.prod.outlook.com (2603:10b6:907:1::19)
- by DM5PR12MB1609.namprd12.prod.outlook.com (2603:10b6:4:10::15) with
+ bh=R2K8MzK0mgnGiUUWWqpT0aPYY9ePvpWYS186HJE1gOg=;
+ b=mXFT0YE+Ux4jKj/GsEhBfThoRGsyQSpU5CQU7N0YO6VVOIPXiTkEwtC7aUPeOzDbEcXaK7E7ZxESbovHyMCCrTid/2nD/RWbFliwfR9zpngt/K17rkbH/TCD+N7jYZLls660VasERzVX49RJEbKu8/Tpn8+cjEf4Mulr+vOEU5o=
+Received: from MW2PR16CA0043.namprd16.prod.outlook.com (2603:10b6:907:1::20)
+ by BN8PR12MB2868.namprd12.prod.outlook.com (2603:10b6:408:9c::30) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.16; Fri, 11 Feb
- 2022 18:59:38 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Fri, 11 Feb
+ 2022 18:59:43 +0000
 Received: from CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:1:cafe::c6) by MW2PR16CA0042.outlook.office365.com
- (2603:10b6:907:1::19) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:907:1:cafe::bf) by MW2PR16CA0043.outlook.office365.com
+ (2603:10b6:907:1::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.12 via Frontend
- Transport; Fri, 11 Feb 2022 18:59:38 +0000
+ Transport; Fri, 11 Feb 2022 18:59:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT035.mail.protection.outlook.com (10.13.175.36) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 18:59:38 +0000
+ 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 18:59:42 +0000
 Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 11 Feb
- 2022 12:59:37 -0600
+ 2022 12:59:38 -0600
 From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/4] drm/amdgpu: Fix some kerneldoc warnings
-Date: Fri, 11 Feb 2022 13:59:22 -0500
-Message-ID: <20220211185925.4178-2-rajneesh.bhardwaj@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: Fix a kerneldoc warning
+Date: Fri, 11 Feb 2022 13:59:25 -0500
+Message-ID: <20220211185925.4178-5-rajneesh.bhardwaj@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220211185925.4178-1-rajneesh.bhardwaj@amd.com>
 References: <20220211185925.4178-1-rajneesh.bhardwaj@amd.com>
@@ -67,28 +67,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8fc82fb5-290a-44e2-9a2e-08d9ed90a750
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1609:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1609166A33E3AF48EA793AFEFE309@DM5PR12MB1609.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 974fd40a-3dd6-44e6-5d56-08d9ed90a9c8
+X-MS-TrafficTypeDiagnostic: BN8PR12MB2868:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB2868BE3D9858B5BD8670E980FE309@BN8PR12MB2868.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uin3fUewEe+A58pfXzA5d3d0nq/demuTUxYlHWss/xBY3K/M8TbuLuhKzVzqhVV5PExQEfCaPBqsKDSVzKWX+AHSQmCjgILwigSpYH08Vn2Jmt5F8XbRtVBg6Yy7zLokFE3RTsGzZiVRG7ipm1LbOUwWY1Zx4tlkUZioyYNH/Dj7Xp/md96fvHO2AOjUdIZBVL6XoMOoNqVcvlEH85ABZQZo2pjZKlReiWYDvvE7AM2yH3VR2wgd9KfiVpSrAau3el7vFxXfQpnjrw/ssw9z7kGJiBQnOVOjBlfra4FMmHAn0NDLR269DujQIovJw8lra+LL/++JcbSzNgt6KWBhkC4f3bWtBeO8DT9dq7ijXIeo9W2nZlvuf7i9uko/PoVDabgKQYQcCGlIJfY+/qNNU4w127xRe9xZtO3slKPd/NJME5k4ejqbLmpsb1uquRf+pMslsBqH5nVmjHus3rSkBe6Adi+WUiU79c5bAYkYHj7Ji1n3iq0GdAklI1xN20vgIPtFNlyC7dBCI6yFEAfoJntL9+xkBAt/qbtkHEUOdhqGNopEiGK0lp6TKIX9VdlVfSJD1gUu3szzedpwjAF5wRnmNIvy/aWf4yExJB50zGh4UM4V9tXIxs3Phz1yjPUPSlPWzCCZQcWChVECpR6w1/rYKfB8C20zyQv1o9y+U1Vu6STyuKZBbGjlXUTqEqY4lyYQ+nw2Xg6WOEdoRhCNrw==
+X-Microsoft-Antispam-Message-Info: bFf9TombfZ8taImmFg6VEeQ7muw+A4hViGLiQqV0q9OIA8Q2DFddB/F4C34g3GfIsV9NLoS/d4moM4u+vrmZi4WvHhkNsqm7e8k3LKhjSP2c55zjRJdykdjNL+rPPmYTa1XuUzYtx/K0OR4IZfaM/bbC81tmkV/41/4wu+DvxhHVTy59QV/YV0g9bdxzfOK9KtjHVQNO7BQUQN+OyOr43cpqWwBQALWrse0GL4Kms/TLicuzIKBpSbyWJR2+ED1V2Flg7RL1i/FEtj616eOB5rCf0e8KusLD7hgaw6fUMJv5sLMW8Ph8e52g2o9LpD0TbSq1y14gvD7iJ39TeypaXp3JwAxJ4y2alWb3Dk8g9rbb4E0F2SyYZcghJYZjAhWFgx7n7T1oOJzDULfH8NNL6hKv8mSZ8DA3mzjiEIgA09VAepUIkAAhO337PrlFO6H5lUs8YihlgzSZkxCYVE0LckiAv8HdpQwd5eW4ivyaOx4IJS5Ypo0tPf2JJHm1wNiMzaLyodI2ZUVootiLDwVJt1pDo+u3E/rZt7q6Yq/3V3QWfH+Mbf2xfBGm0BSXSK6eijm2LIIVQuGjJiEKyWBkPN0pE+fVgRW3+hbnscsDJIcyjHv51twIbIEHwzr6LfbNEN3vJwaSJsZaoVM8lmfCKjwtavBurWjqy1FzZcIWAbQYdH+4Z9GTn6itcO5FIYCGPMRqAdwgNPIFR2eW9q/XMg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(82310400004)(6916009)(316002)(54906003)(8936002)(336012)(83380400001)(426003)(7696005)(4326008)(70206006)(70586007)(356005)(8676002)(26005)(2616005)(186003)(16526019)(86362001)(6666004)(40460700003)(508600001)(1076003)(2906002)(47076005)(36756003)(5660300002)(81166007)(44832011)(36860700001)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(5660300002)(81166007)(44832011)(356005)(508600001)(86362001)(2616005)(6666004)(8936002)(16526019)(186003)(26005)(82310400004)(7696005)(1076003)(4744005)(2906002)(36860700001)(316002)(83380400001)(8676002)(47076005)(54906003)(36756003)(40460700003)(6916009)(426003)(336012)(4326008)(70206006)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 18:59:38.5911 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fc82fb5-290a-44e2-9a2e-08d9ed90a750
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 18:59:42.7315 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 974fd40a-3dd6-44e6-5d56-08d9ed90a9c8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1609
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2868
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,49 +104,30 @@ Cc: felix.kuehling@amd.com, Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix few kerneldoc warnings and one typo.
+Add missing parameters to fix a kerneldoc warning
 
 Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 53895a41932e..81e3b528bbc9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -715,7 +715,7 @@ static void get_wave_count(struct amdgpu_device *adev, int queue_idx,
-  * process whose pasid is provided as a parameter. The process could have ZERO
-  * or more queues running and submitting waves to compute units.
-  *
-- * @kgd: Handle of device from which to get number of waves in flight
-+ * @adev: Handle of device from which to get number of waves in flight
-  * @pasid: Identifies the process for which this query call is invoked
-  * @pasid_wave_cnt: Output parameter updated with number of waves in flight that
-  * belong to process with given pasid
-@@ -724,7 +724,7 @@ static void get_wave_count(struct amdgpu_device *adev, int queue_idx,
-  *
-  * Note: It's possible that the device has too many queues (oversubscription)
-  * in which case a VMID could be remapped to a different PASID. This could lead
-- * to an iaccurate wave count. Following is a high-level sequence:
-+ * to an inaccurate wave count. Following is a high-level sequence:
-  *    Time T1: vmid = getVmid(); vmid is associated with Pasid P1
-  *    Time T2: passId = getPasId(vmid); vmid is associated with Pasid P2
-  * In the sequence above wave count obtained from time T1 will be incorrectly
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 2e00c3fb4bd3..cd89d2e46852 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -121,7 +121,7 @@ static size_t amdgpu_amdkfd_acc_size(uint64_t size)
- }
- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7931132ce6e3..a74a1b74a172 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -554,7 +554,11 @@ void amdgpu_device_wreg(struct amdgpu_device *adev,
  /**
-- * @amdgpu_amdkfd_reserve_mem_limit() - Decrease available memory by size
-+ * amdgpu_amdkfd_reserve_mem_limit() - Decrease available memory by size
-  * of buffer including any reserved for control structures
+  * amdgpu_mm_wreg_mmio_rlc -  write register either with direct/indirect mmio or with RLC path if in range
   *
-  * @adev: Device to which allocated BO belongs to
+- * this function is invoked only the debugfs register access
++ * @adev: amdgpu_device pointer
++ * @reg: mmio/rlc register
++ * @v: value to write
++ *
++ * this function is invoked only for the debugfs register access
+  */
+ void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev,
+ 			     uint32_t reg, uint32_t v)
 -- 
 2.17.1
 
