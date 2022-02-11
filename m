@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65508C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 07:53:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BAF7C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 07:53:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 011D510EA0D;
-	Fri, 11 Feb 2022 07:53:06 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2064.outbound.protection.outlook.com [40.107.94.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F4EF10EA0C
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 07:53:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3B5410EA0A;
+	Fri, 11 Feb 2022 07:53:07 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2076.outbound.protection.outlook.com [40.107.236.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0B3410EA0A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 07:53:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FulEG188uws9WFaNMKXQazafeTF4nMZ6CWLR/cnb2AVeAI1lssmDyb0vNkW3/EsFEMhxEuwoR/lX857yZhyo9h7BGuyhzVTZTkdYd6zHDwh7vD08u93pMt+DatJErDWinl5vUFN0WEDLwcRTOr9GBf913HDWyTO3qgRyLGghOXz85yMmV09HwAIlznZmGhPsK60AqY3B2KaPIfWvmVowi7tQaVQ5epqgWwJGttHyV0nvM69wrgCC2+pW1VMFspbiSdOqs+MPWRDVhQatIkhsJLNnHAzggHb5egL56E/cL+YO9JzVe6TQma4cLXBGDYImDLxBx3Oo08VTt/R9BlccCg==
+ b=gnHdYQcBdBqDZMeSSqgZnZ2hZ8HUrLCbNm/hdu+ELDe8vPbWnZ39U7/jXTQ3UfsO2kc2xkry786YMji2fyqJzGxOxl9e4rPq+VyZCG2TVxLwU4MPJ4Y2Ofad80zzBq3ms3kYaudUf+AWW2GMhHjZ1SV0I9EtID05m6acfoRkZCdQxIWNC4a33Vk6LDyKVpsESXoxtnk8ThSX78DtoSJVBhu+SbYa9axVlXmi2BCarl4Lhl9wHFIQ5eglT+z7P2xuLRRKp1kfWxPjJWcZ1Gq3vGnxvP2BHpnAB2gsPInbaRGHUzOmbWU8F38vpYI43llh5bvdIXSrz0lJqNR85Uieew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3W5ZF1DFZtXY8XKkcxGVDwHY/qStLrgo44TJYNEn5Rc=;
- b=YYYoY/R+T0zS4D2BglhspL1fY/SVVPsCYzaLiRW3awAneU+825IG7dR/zOHAuGc6GdfjzYpvWNaSbk25RsVMGEuZriF3pBLeivhaP/FKMGzi68HtE/QCxSsqj/d2oJv9CIL1qH7SNW7GhxxTocHOR059FwysHOGOXy/O79qBVFpkmQDLt78iLek4a+OJUnpkkCMSHWUUUKEz4w3uWPhC0lc0zd/v0Yrmf3SJA1tJAd++QRUkCmOKd9HfIZsVWuzMINRS5KlN1tXDyFtCuqBZxbrCaD6w7iYsWHPe2vNGYYya9ae5R/lfLKXpK2V3K99lekQz2e5rhcchuehbcMJ3hQ==
+ bh=+Jvut1uEtE0tO/+ksuhDpqWZniWQ5afW4wsWqqh8fi4=;
+ b=CBTVBQ+Qg0kSXK7UPidXbtNBYAqFxnCiY5qn6+H/rWQEKhwQox/gbjlaVB9dY824xSNFSyDd42SfZHdzBSsccO7C3hG9TURDjvkE3o6UKcZvEy24n8Mqzj0Tdl6KLnQckfkOmCMGL/4O1pRfm5Bu+lmzxDC6YoL2Kbt65J/DByx8hrUzAhOmDslgfDeI72Gtm3sVe5yYOHsu/HdlaF70LL2eBIa+GZKgpxrrpxziACvgF94Xcvxd67VuD4cFJTIF2uysKbw3mSeYGboT8xc9liQX7mzKHKaP2KYs9jRuig74Dsd9x+gZdUW3rpC8gxJ2VsPsgaJROnZrKIo0X/rqVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3W5ZF1DFZtXY8XKkcxGVDwHY/qStLrgo44TJYNEn5Rc=;
- b=XE2W+QmvOsy2NriLoE/Kx3gnoLqrFRpTeGB+oYpfdU5YzNGUAPrquP6VOYxn/K2c8HJzQgh+Oc9xGNtjx8qycZ8QiQHXGIXgw+WOe/04hTJB8ppg/UuL1yfb2/gm1sYiF4h/ylP+54cf3+V1fnOavFmwrmSVAcjN+3qKOQOOiA4=
-Received: from DM5PR07CA0133.namprd07.prod.outlook.com (2603:10b6:3:13e::23)
- by MN0PR12MB5834.namprd12.prod.outlook.com (2603:10b6:208:379::11) with
+ bh=+Jvut1uEtE0tO/+ksuhDpqWZniWQ5afW4wsWqqh8fi4=;
+ b=KYzkYCpJMELt1gL4oro/mSR0OHZYNNVdHlglNgdVJNvx6qe3BSkCZuKUZmpc7AQ6eCbAVPGCe4+VrZMW4MGXdCMwYub28tmXOi1c0QobltnqDPa0GerZ44/BXQGz1cz5Ys9kGozACOAfby1+Ur+6EkVQb3TyFbnCYdcApsmonHc=
+Received: from DS7PR07CA0015.namprd07.prod.outlook.com (2603:10b6:5:3af::26)
+ by CH2PR12MB3878.namprd12.prod.outlook.com (2603:10b6:610:2a::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.14; Fri, 11 Feb
- 2022 07:53:01 +0000
-Received: from DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:13e:cafe::d8) by DM5PR07CA0133.outlook.office365.com
- (2603:10b6:3:13e::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.12 via Frontend
- Transport; Fri, 11 Feb 2022 07:53:00 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Fri, 11 Feb
+ 2022 07:53:02 +0000
+Received: from DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3af:cafe::7b) by DS7PR07CA0015.outlook.office365.com
+ (2603:10b6:5:3af::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11 via Frontend
+ Transport; Fri, 11 Feb 2022 07:53:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT020.mail.protection.outlook.com (10.13.172.224) with Microsoft SMTP
+ DM6NAM11FT050.mail.protection.outlook.com (10.13.173.111) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 07:53:00 +0000
+ 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 07:53:02 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 11 Feb
- 2022 01:52:57 -0600
+ 2022 01:53:00 -0600
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 11/12] drm/amd/pm: drop extra non-necessary null pointers
- checks
-Date: Fri, 11 Feb 2022 15:52:08 +0800
-Message-ID: <20220211075209.894833-11-evan.quan@amd.com>
+Subject: [PATCH 12/12] drm/amd/pm: revise the implementations for asic reset
+Date: Fri, 11 Feb 2022 15:52:09 +0800
+Message-ID: <20220211075209.894833-12-evan.quan@amd.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20220211075209.894833-1-evan.quan@amd.com>
 References: <20220211075209.894833-1-evan.quan@amd.com>
@@ -69,28 +68,28 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dfb638fc-5fe4-4d92-9284-08d9ed338690
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5834:EE_
-X-Microsoft-Antispam-PRVS: <MN0PR12MB58345059BA8E2CA6DB97821CE4309@MN0PR12MB5834.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:88;
+X-MS-Office365-Filtering-Correlation-Id: d92035ca-edf6-4570-1d37-08d9ed3387e9
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3878:EE_
+X-Microsoft-Antispam-PRVS: <CH2PR12MB3878ACC7E5F6F0958C9DC514E4309@CH2PR12MB3878.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:431;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TfIXshBhNzbv/TkzmV9XptWS0EBwZmaweTq5MEBppGqkK5NsDtVRyYX3MJPq4K8kf5cRSPOgQT1TPyqn7BePYDsuIGilCZZ7FCsTe5dZ0hh+AVcGZCO7qOta2OMhBb8DddcgKlYFiP5i/MUx5P8iSbIjBsEMbB7AZDxpq6kyXk1P/XB9sXizOUPDDuIl0BzcOJka/60DQbqNcg6siuRiDaOg/SiYYXTTKSW9IeLLu9apJ2n4mt0QO5dQqRvZS4eJwvW1rx+vcsYGH9ta9bVk2OVv5D3W6g+7eeji4b8iJfxRSZq9ZZ7gI0Hek4+uoIKojCbJa0elyFwYUAKuGCL5eCfQA+z1qalCveVFDpcUYRZoHgNRpaXLO+yWPUI5yeMCddisM2IZgM3AUnXnvs0KeaxLvUTy/R2eyhf28k9QD7oCiKiKZRCvtCrkILN9ZqMz3n0Q3+z6tJ7UdEKfPlMPsJvY34mo2R/IlI/OMdPmyseoTYzRr+BYxv5kmntWiA9O0ZpdlWruKKMU58ZX4G5kY0J6XWo+4Elyt4WY76XEGubbt7daFHr7FJo2F/moxJ7nj4rvdh2kCACqj7aojDft7i3qvJRlcmM1fGdftZ9VzVKDr+IPG13WeEHHsDN5q5zu6dJImZB0Q9ZIPbIeVzXoYRy/OTDrScEttFVVNlbbe09EOPhBuFSbNh0ciYUECEk1rYt7agtYSffpyEuxV/rQEA==
+X-Microsoft-Antispam-Message-Info: 0W6jn4ErVT3mHier6+sGCEJTaiJtwhgvJTOrs1BwQ1YQuF3AYPMJHmtd6CeXJqBw4Bbfc5Qf5i71nkVrOmKXhenIUSX48ByGgFRIYSm75T8lk2vJO70bpFtmQPH8HIBQi8ytO75DOnzWn8vtDQK3hpYc/M+QBluLbK8o27PezXJDnHHBTRUvUevJpRpPbMRcFIyeZ/zZEaQqgnVuElMHGg2mow2EVdXeJQr53/SPGkfw67gS4OXantJnksclMRwJTt+f4z8PT+ixNIyolVPrUuVnegvHYHCtUElJNOis5qiUMwP1UQRcjkMqw+J4y5YUHD7VjTaL+WEf8mf9CS1UWfuFzFDxFEVWvjlxWaW8yCspgrvSa0i5A6ZLTL/+Az3gnv6lNhFoQ3Uax7sKgf9uBuX8HQZm2LBq4sM146zA1SG/+g3OphaCAfBYhLw/df92Fbl+kSO1UnUtnMP3YfudqwRzHmAR9qbm+EFSF/ITLRtN+m6vJJeAeBxecvCt/et8ZTMm1+kbpCFGwQJ22cEzkr2JeZmoNYdZZslHy22mVpF8FA/fBMzTIDec6Sk9kHaHPTaT6u+w0vufADvVoKk5I2Gm7Bo8blgVUbFJBZf+Sf6yK2JLs1oQ6C38F2Dr/vgT79TEVHwHtNM7XSLCngG4Pv6S3PD9xxex3L542Emv+QbmvYemd3IzRSGWOziD5i5xj9va6ksM650LUpDsDoCWmg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(6666004)(8676002)(36756003)(4326008)(83380400001)(86362001)(7696005)(54906003)(2906002)(16526019)(5660300002)(2616005)(426003)(186003)(26005)(1076003)(336012)(81166007)(6916009)(47076005)(36860700001)(30864003)(40460700003)(316002)(356005)(8936002)(70586007)(70206006)(82310400004)(44832011)(508600001)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(186003)(336012)(426003)(1076003)(2616005)(26005)(7696005)(5660300002)(36756003)(82310400004)(16526019)(86362001)(508600001)(44832011)(30864003)(6916009)(4326008)(70586007)(83380400001)(36860700001)(70206006)(81166007)(8936002)(8676002)(47076005)(54906003)(356005)(40460700003)(316002)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 07:53:00.5278 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfb638fc-5fe4-4d92-9284-08d9ed338690
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 07:53:02.7858 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d92035ca-edf6-4570-1d37-08d9ed3387e9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5834
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3878
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,1039 +106,711 @@ Cc: Alexander.Deucher@amd.com, Lijo.Lazar@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-They are totally redundant. The checks before them can guard
-they cannot be NULL.
+Instead of having an interface for every reset method, we replace them
+with a new interface which can support all reset methods.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
-Change-Id: I9f31734f49a8093582fc321ef3d93233946006e3
+Change-Id: I4c8a7121dd65c2671085673dd7c13cf7e4286f3d
 ---
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 182 ++----------------
- .../amd/pm/powerplay/hwmgr/hardwaremanager.c  |  42 ----
- .../gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c    |  17 +-
- .../amd/pm/powerplay/hwmgr/processpptables.c  |   2 +-
- .../gpu/drm/amd/pm/powerplay/smumgr/smumgr.c  |   6 +-
- 5 files changed, 22 insertions(+), 227 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/aldebaran.c        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   4 +-
+ drivers/gpu/drm/amd/amdgpu/cik.c              |   4 +-
+ drivers/gpu/drm/amd/amdgpu/nv.c               |  13 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c            |  12 +-
+ drivers/gpu/drm/amd/amdgpu/vi.c               |   6 +-
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |   7 +-
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  89 ++-----------
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  13 +-
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  86 ++++++++----
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 126 +++++++++++-------
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |   3 -
+ 12 files changed, 180 insertions(+), 185 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index e95893556147..81ec5464b679 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -40,9 +40,6 @@ static int amd_powerplay_create(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+index a545df4efce1..22b787de313a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
++++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+@@ -128,7 +128,7 @@ static int aldebaran_mode2_reset(struct amdgpu_device *adev)
  {
- 	struct pp_hwmgr *hwmgr;
- 
--	if (adev == NULL)
--		return -EINVAL;
--
- 	hwmgr = kzalloc(sizeof(struct pp_hwmgr), GFP_KERNEL);
- 	if (hwmgr == NULL)
- 		return -ENOMEM;
-@@ -281,7 +278,7 @@ static int pp_dpm_load_fw(void *handle)
- 	if (!hwmgr->pm_en)
- 		return -EOPNOTSUPP;
- 
--	if (!hwmgr || !hwmgr->smumgr_funcs || !hwmgr->smumgr_funcs->start_smu)
-+	if (!hwmgr->smumgr_funcs->start_smu)
- 		return -EINVAL;
- 
- 	if (hwmgr->smumgr_funcs->start_smu(hwmgr)) {
-@@ -301,9 +298,6 @@ static int pp_set_clockgating_by_smu(void *handle, uint32_t msg_id)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (hwmgr->hwmgr_func->update_clock_gatings == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
-@@ -341,9 +335,6 @@ static int pp_dpm_force_performance_level(void *handle,
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (level == hwmgr->dpm_level)
- 		return 0;
- 
-@@ -359,9 +350,6 @@ static enum amd_dpm_forced_level pp_dpm_get_performance_level(
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	return hwmgr->dpm_level;
+ 	/* disable BM */
+ 	pci_clear_master(adev->pdev);
+-	adev->asic_reset_res = amdgpu_dpm_mode2_reset(adev);
++	adev->asic_reset_res = amdgpu_dpm_asic_reset(adev, AMD_RESET_METHOD_MODE2);
+ 	return adev->asic_reset_res;
  }
  
-@@ -369,9 +357,6 @@ static uint32_t pp_dpm_get_sclk(void *handle, bool low)
- {
- 	struct pp_hwmgr *hwmgr = handle;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7931132ce6e3..b19bfdf81500 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4504,9 +4504,9 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
  
--	if (!hwmgr)
--		return 0;
--
- 	if (hwmgr->hwmgr_func->get_sclk == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
-@@ -383,9 +368,6 @@ static uint32_t pp_dpm_get_mclk(void *handle, bool low)
- {
- 	struct pp_hwmgr *hwmgr = handle;
+         amdgpu_device_cache_pci_state(adev->pdev);
  
--	if (!hwmgr)
--		return 0;
--
- 	if (hwmgr->hwmgr_func->get_mclk == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
-@@ -397,9 +379,6 @@ static void pp_dpm_powergate_vce(void *handle, bool gate)
- {
- 	struct pp_hwmgr *hwmgr = handle;
+-        if (amdgpu_dpm_is_mode1_reset_supported(adev)) {
++        if (amdgpu_dpm_is_asic_reset_supported(adev, AMD_RESET_METHOD_MODE1)) {
+                 dev_info(adev->dev, "GPU smu mode1 reset\n");
+-                ret = amdgpu_dpm_mode1_reset(adev);
++                ret = amdgpu_dpm_asic_reset(adev, AMD_RESET_METHOD_MODE1);
+         } else {
+                 dev_info(adev->dev, "GPU psp mode1 reset\n");
+                 ret = psp_gpu_reset(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
+index f10ce740a29c..786975716eb9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+@@ -1380,7 +1380,7 @@ static bool cik_asic_supports_baco(struct amdgpu_device *adev)
+ 	switch (adev->asic_type) {
+ 	case CHIP_BONAIRE:
+ 	case CHIP_HAWAII:
+-		return amdgpu_dpm_is_baco_supported(adev);
++		return amdgpu_dpm_is_asic_reset_supported(adev, AMD_RESET_METHOD_BACO);
+ 	default:
+ 		return false;
+ 	}
+@@ -1434,7 +1434,7 @@ static int cik_asic_reset(struct amdgpu_device *adev)
  
--	if (!hwmgr)
--		return;
--
- 	if (hwmgr->hwmgr_func->powergate_vce == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return;
-@@ -411,9 +390,6 @@ static void pp_dpm_powergate_uvd(void *handle, bool gate)
- {
- 	struct pp_hwmgr *hwmgr = handle;
+ 	if (cik_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
+ 		dev_info(adev->dev, "BACO reset\n");
+-		r = amdgpu_dpm_baco_reset(adev);
++		r = amdgpu_dpm_asic_reset(adev, AMD_RESET_METHOD_BACO);
+ 	} else {
+ 		dev_info(adev->dev, "PCI CONFIG reset\n");
+ 		r = cik_asic_pci_config_reset(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 494e17f65fc3..2e590008d3ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -414,7 +414,7 @@ static int nv_asic_mode2_reset(struct amdgpu_device *adev)
  
--	if (!hwmgr)
--		return;
--
- 	if (hwmgr->hwmgr_func->powergate_uvd == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return;
-@@ -426,9 +402,6 @@ static int pp_dpm_dispatch_tasks(void *handle, enum amd_pp_task task_id,
- {
- 	struct pp_hwmgr *hwmgr = handle;
+ 	amdgpu_device_cache_pci_state(adev->pdev);
  
--	if (!hwmgr)
--		return -EINVAL;
--
- 	return hwmgr_handle_task(hwmgr, task_id, user_state);
- }
+-	ret = amdgpu_dpm_mode2_reset(adev);
++	ret = amdgpu_dpm_asic_reset(adev, AMD_RESET_METHOD_MODE2);
+ 	if (ret)
+ 		dev_err(adev->dev, "GPU mode2 reset failed\n");
  
-@@ -438,7 +411,7 @@ static enum amd_pm_state_type pp_dpm_get_current_power_state(void *handle)
- 	struct pp_power_state *state;
- 	enum amd_pm_state_type pm_type;
- 
--	if (!hwmgr || !hwmgr->current_ps)
-+	if (!hwmgr->current_ps)
- 		return -EINVAL;
- 
- 	state = hwmgr->current_ps;
-@@ -468,9 +441,6 @@ static int pp_dpm_set_fan_control_mode(void *handle, uint32_t mode)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EOPNOTSUPP;
--
- 	if (hwmgr->hwmgr_func->set_fan_control_mode == NULL)
- 		return -EOPNOTSUPP;
- 
-@@ -486,9 +456,6 @@ static int pp_dpm_get_fan_control_mode(void *handle, uint32_t *fan_mode)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EOPNOTSUPP;
--
- 	if (hwmgr->hwmgr_func->get_fan_control_mode == NULL)
- 		return -EOPNOTSUPP;
- 
-@@ -503,9 +470,6 @@ static int pp_dpm_set_fan_speed_pwm(void *handle, uint32_t speed)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EOPNOTSUPP;
--
- 	if (hwmgr->hwmgr_func->set_fan_speed_pwm == NULL)
- 		return -EOPNOTSUPP;
- 
-@@ -519,9 +483,6 @@ static int pp_dpm_get_fan_speed_pwm(void *handle, uint32_t *speed)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EOPNOTSUPP;
--
- 	if (hwmgr->hwmgr_func->get_fan_speed_pwm == NULL)
- 		return -EOPNOTSUPP;
- 
-@@ -535,9 +496,6 @@ static int pp_dpm_get_fan_speed_rpm(void *handle, uint32_t *rpm)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EOPNOTSUPP;
--
- 	if (hwmgr->hwmgr_func->get_fan_speed_rpm == NULL)
- 		return -EOPNOTSUPP;
- 
-@@ -551,9 +509,6 @@ static int pp_dpm_set_fan_speed_rpm(void *handle, uint32_t rpm)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EOPNOTSUPP;
--
- 	if (hwmgr->hwmgr_func->set_fan_speed_rpm == NULL)
- 		return -EOPNOTSUPP;
- 
-@@ -571,7 +526,7 @@ static int pp_dpm_get_pp_num_states(void *handle,
- 
- 	memset(data, 0, sizeof(*data));
- 
--	if (!hwmgr || !hwmgr->ps)
-+	if (!hwmgr->ps)
- 		return -EINVAL;
- 
- 	data->nums = hwmgr->num_ps;
-@@ -603,7 +558,7 @@ static int pp_dpm_get_pp_table(void *handle, char **table)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr || !hwmgr->soft_pp_table)
-+	if (!hwmgr->soft_pp_table)
- 		return -EINVAL;
- 
- 	*table = (char *)hwmgr->soft_pp_table;
-@@ -631,9 +586,6 @@ static int pp_dpm_set_pp_table(void *handle, const char *buf, size_t size)
- 	struct pp_hwmgr *hwmgr = handle;
- 	int ret = -ENOMEM;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (!hwmgr->hardcode_pp_table) {
- 		hwmgr->hardcode_pp_table = kmemdup(hwmgr->soft_pp_table,
- 						   hwmgr->soft_pp_table_size,
-@@ -661,9 +613,6 @@ static int pp_dpm_force_clock_level(void *handle,
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (hwmgr->hwmgr_func->force_clock_level == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
-@@ -682,9 +631,6 @@ static int pp_dpm_print_clock_levels(void *handle,
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (hwmgr->hwmgr_func->print_clock_levels == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
-@@ -696,9 +642,6 @@ static int pp_dpm_get_sclk_od(void *handle)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (hwmgr->hwmgr_func->get_sclk_od == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
-@@ -710,9 +653,6 @@ static int pp_dpm_set_sclk_od(void *handle, uint32_t value)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (hwmgr->hwmgr_func->set_sclk_od == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
-@@ -725,9 +665,6 @@ static int pp_dpm_get_mclk_od(void *handle)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (hwmgr->hwmgr_func->get_mclk_od == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
-@@ -739,9 +676,6 @@ static int pp_dpm_set_mclk_od(void *handle, uint32_t value)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (hwmgr->hwmgr_func->set_mclk_od == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
-@@ -754,7 +688,7 @@ static int pp_dpm_read_sensor(void *handle, int idx,
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr || !value)
-+	if (!value)
- 		return -EINVAL;
- 
- 	switch (idx) {
-@@ -780,9 +714,6 @@ pp_dpm_get_vce_clock_state(void *handle, unsigned idx)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return NULL;
--
- 	if (idx < hwmgr->num_vce_state_tables)
- 		return &hwmgr->vce_states[idx];
- 	return NULL;
-@@ -792,7 +723,7 @@ static int pp_get_power_profile_mode(void *handle, char *buf)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr || !hwmgr->hwmgr_func->get_power_profile_mode)
-+	if (!hwmgr->hwmgr_func->get_power_profile_mode)
- 		return -EOPNOTSUPP;
- 	if (!buf)
- 		return -EINVAL;
-@@ -804,7 +735,7 @@ static int pp_set_power_profile_mode(void *handle, long *input, uint32_t size)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr || !hwmgr->hwmgr_func->set_power_profile_mode)
-+	if (!hwmgr->hwmgr_func->set_power_profile_mode)
- 		return -EOPNOTSUPP;
- 
- 	if (hwmgr->dpm_level != AMD_DPM_FORCED_LEVEL_MANUAL) {
-@@ -819,9 +750,6 @@ static int pp_set_fine_grain_clk_vol(void *handle, uint32_t type, long *input, u
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (hwmgr->hwmgr_func->set_fine_grain_clk_vol == NULL)
- 		return 0;
- 
-@@ -832,9 +760,6 @@ static int pp_odn_edit_dpm_table(void *handle, uint32_t type, long *input, uint3
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (hwmgr->hwmgr_func->odn_edit_dpm_table == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
-@@ -847,9 +772,6 @@ static int pp_dpm_set_mp1_state(void *handle, enum pp_mp1_state mp1_state)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (hwmgr->hwmgr_func->set_mp1_state)
- 		return hwmgr->hwmgr_func->set_mp1_state(hwmgr, mp1_state);
- 
-@@ -863,9 +785,6 @@ static int pp_dpm_switch_power_profile(void *handle,
- 	long workload;
- 	uint32_t index;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (hwmgr->hwmgr_func->set_power_profile_mode == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return -EINVAL;
-@@ -903,9 +822,6 @@ static int pp_set_power_limit(void *handle, uint32_t limit)
- 	struct pp_hwmgr *hwmgr = handle;
- 	uint32_t max_power_limit;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	if (hwmgr->hwmgr_func->set_power_limit == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return -EINVAL;
-@@ -935,7 +851,7 @@ static int pp_get_power_limit(void *handle, uint32_t *limit,
- 	struct pp_hwmgr *hwmgr = handle;
- 	int ret = 0;
- 
--	if (!hwmgr || !limit)
-+	if (!limit)
- 		return -EINVAL;
- 
- 	if (power_type != PP_PWR_TYPE_SUSTAINED)
-@@ -968,9 +884,6 @@ static int pp_display_configuration_change(void *handle,
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
--
- 	phm_store_dal_configuration_data(hwmgr, display_config);
+@@ -458,7 +458,7 @@ nv_asic_reset_method(struct amdgpu_device *adev)
+ 	case IP_VERSION(11, 0, 13):
+ 		return AMD_RESET_METHOD_MODE1;
+ 	default:
+-		if (amdgpu_dpm_is_baco_supported(adev))
++		if (amdgpu_dpm_is_asic_reset_supported(adev, AMD_RESET_METHOD_BACO))
+ 			return AMD_RESET_METHOD_BACO;
+ 		else
+ 			return AMD_RESET_METHOD_MODE1;
+@@ -476,7 +476,7 @@ static int nv_asic_reset(struct amdgpu_device *adev)
+ 		break;
+ 	case AMD_RESET_METHOD_BACO:
+ 		dev_info(adev->dev, "BACO reset\n");
+-		ret = amdgpu_dpm_baco_reset(adev);
++		ret = amdgpu_dpm_asic_reset(adev, AMD_RESET_METHOD_BACO);
+ 		break;
+ 	case AMD_RESET_METHOD_MODE2:
+ 		dev_info(adev->dev, "MODE2 reset\n");
+@@ -641,6 +641,11 @@ static int nv_update_umd_stable_pstate(struct amdgpu_device *adev,
  	return 0;
  }
-@@ -980,7 +893,7 @@ static int pp_get_display_power_level(void *handle,
+ 
++static bool nv_asic_supports_baco(struct amdgpu_device *adev)
++{
++	return amdgpu_dpm_is_asic_reset_supported(adev, AMD_RESET_METHOD_BACO);
++}
++
+ static const struct amdgpu_asic_funcs nv_asic_funcs =
  {
- 	struct pp_hwmgr *hwmgr = handle;
+ 	.read_disabled_bios = &nv_read_disabled_bios,
+@@ -657,7 +662,7 @@ static const struct amdgpu_asic_funcs nv_asic_funcs =
+ 	.need_full_reset = &nv_need_full_reset,
+ 	.need_reset_on_init = &nv_need_reset_on_init,
+ 	.get_pcie_replay_count = &nv_get_pcie_replay_count,
+-	.supports_baco = &amdgpu_dpm_is_baco_supported,
++	.supports_baco = &nv_asic_supports_baco,
+ 	.pre_asic_init = &nv_pre_asic_init,
+ 	.update_umd_stable_pstate = &nv_update_umd_stable_pstate,
+ 	.query_video_codecs = &nv_query_video_codecs,
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index a216e625c89c..15ee56406bc1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -508,7 +508,7 @@ static int soc15_asic_baco_reset(struct amdgpu_device *adev)
+ 	if (ras && adev->ras_enabled)
+ 		adev->nbio.funcs->enable_doorbell_interrupt(adev, false);
  
--	if (!hwmgr || !output)
-+	if (!output)
- 		return -EINVAL;
+-	ret = amdgpu_dpm_baco_reset(adev);
++	ret = amdgpu_dpm_asic_reset(adev, AMD_RESET_METHOD_BACO);
+ 	if (ret)
+ 		return ret;
  
- 	return phm_get_dal_power_level(hwmgr, output);
-@@ -994,9 +907,6 @@ static int pp_get_current_clocks(void *handle,
- 	struct pp_hwmgr *hwmgr = handle;
+@@ -553,7 +553,7 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
+ 	case IP_VERSION(11, 0, 2):
+ 		if (adev->asic_type == CHIP_VEGA20) {
+ 			if (adev->psp.sos.fw_version >= 0x80067)
+-				baco_reset = amdgpu_dpm_is_baco_supported(adev);
++				baco_reset = amdgpu_dpm_is_asic_reset_supported(adev, AMD_RESET_METHOD_BACO);
+ 			/*
+ 			 * 1. PMFW version > 0x284300: all cases use baco
+ 			 * 2. PMFW version <= 0x284300: only sGPU w/o RAS use baco
+@@ -562,7 +562,7 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
+ 			    adev->pm.fw_version <= 0x283400)
+ 				baco_reset = false;
+ 		} else {
+-			baco_reset = amdgpu_dpm_is_baco_supported(adev);
++			baco_reset = amdgpu_dpm_is_asic_reset_supported(adev, AMD_RESET_METHOD_BACO);
+ 		}
+ 		break;
+ 	case IP_VERSION(13, 0, 2):
+@@ -599,7 +599,7 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
+ 		return soc15_asic_baco_reset(adev);
+ 	case AMD_RESET_METHOD_MODE2:
+ 		dev_info(adev->dev, "MODE2 reset\n");
+-		return amdgpu_dpm_mode2_reset(adev);
++		return amdgpu_dpm_asic_reset(adev, AMD_RESET_METHOD_MODE2);
+ 	default:
+ 		dev_info(adev->dev, "MODE1 reset\n");
+ 		return amdgpu_device_mode1_reset(adev);
+@@ -613,10 +613,10 @@ static bool soc15_supports_baco(struct amdgpu_device *adev)
+ 	case IP_VERSION(11, 0, 2):
+ 		if (adev->asic_type == CHIP_VEGA20) {
+ 			if (adev->psp.sos.fw_version >= 0x80067)
+-				return amdgpu_dpm_is_baco_supported(adev);
++				return amdgpu_dpm_is_asic_reset_supported(adev, AMD_RESET_METHOD_BACO);
+ 			return false;
+ 		} else {
+-			return amdgpu_dpm_is_baco_supported(adev);
++			return amdgpu_dpm_is_asic_reset_supported(adev, AMD_RESET_METHOD_BACO);
+ 		}
+ 		break;
+ 	default:
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index 6645ebbd2696..de510de5e62a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -904,7 +904,7 @@ static bool vi_asic_supports_baco(struct amdgpu_device *adev)
+ 	case CHIP_POLARIS11:
+ 	case CHIP_POLARIS12:
+ 	case CHIP_TOPAZ:
+-		return amdgpu_dpm_is_baco_supported(adev);
++		return amdgpu_dpm_is_asic_reset_supported(adev, AMD_RESET_METHOD_BACO);
+ 	default:
+ 		return false;
+ 	}
+@@ -930,7 +930,7 @@ vi_asic_reset_method(struct amdgpu_device *adev)
+ 	case CHIP_POLARIS11:
+ 	case CHIP_POLARIS12:
+ 	case CHIP_TOPAZ:
+-		baco_reset = amdgpu_dpm_is_baco_supported(adev);
++		baco_reset = amdgpu_dpm_is_asic_reset_supported(adev, AMD_RESET_METHOD_BACO);
+ 		break;
+ 	default:
+ 		baco_reset = false;
+@@ -962,7 +962,7 @@ static int vi_asic_reset(struct amdgpu_device *adev)
+ 
+ 	if (vi_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
+ 		dev_info(adev->dev, "BACO reset\n");
+-		r = amdgpu_dpm_baco_reset(adev);
++		r = amdgpu_dpm_asic_reset(adev, AMD_RESET_METHOD_BACO);
+ 	} else {
+ 		dev_info(adev->dev, "PCI CONFIG reset\n");
+ 		r = vi_asic_pci_config_reset(adev);
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index 892648a4a353..8d9c32e70532 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -300,6 +300,7 @@ struct amd_pp_clocks;
+ struct pp_smu_wm_range_sets;
+ struct pp_smu_nv_clock_table;
+ struct dpm_clocks;
++enum amd_reset_method;
+ 
+ struct amd_pm_funcs {
+ /* export for dpm on ci and si */
+@@ -387,12 +388,10 @@ struct amd_pm_funcs {
+ 	int (*set_hard_min_dcefclk_by_freq)(void *handle, uint32_t clock);
+ 	int (*set_hard_min_fclk_by_freq)(void *handle, uint32_t clock);
+ 	int (*set_min_deep_sleep_dcefclk)(void *handle, uint32_t clock);
+-	int (*get_asic_baco_capability)(void *handle, bool *cap);
+ 	int (*get_asic_baco_state)(void *handle, int *state);
+ 	int (*set_asic_baco_state)(void *handle, int state);
+ 	int (*get_ppfeature_status)(void *handle, char *buf);
+ 	int (*set_ppfeature_status)(void *handle, uint64_t ppfeature_masks);
+-	int (*asic_reset_mode_2)(void *handle);
+ 	int (*set_df_cstate)(void *handle, enum pp_df_cstate state);
+ 	int (*set_xgmi_pstate)(void *handle, uint32_t pstate);
+ 	ssize_t (*get_gpu_metrics)(void *handle, void **table);
+@@ -410,6 +409,10 @@ struct amd_pm_funcs {
+ 	int (*get_smu_prv_buf_details)(void *handle, void **addr, size_t *size);
+ 	void (*pm_compute_clocks)(void *handle);
+ 	bool (*is_smc_alive)(void *handle);
++	int (*is_asic_reset_supported)(void *handle,
++				       enum amd_reset_method reset_method);
++	int (*asic_reset)(void *handle,
++			  enum amd_reset_method reset_method);
+ };
+ 
+ struct metrics_table_header {
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index f237dd3a3f66..b72945f6a338 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -196,107 +196,42 @@ int amdgpu_dpm_set_mp1_state(struct amdgpu_device *adev,
+ 	return ret;
+ }
+ 
+-bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
++int amdgpu_dpm_is_asic_reset_supported(struct amdgpu_device *adev,
++				       enum amd_reset_method reset_method)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	void *pp_handle = adev->powerplay.pp_handle;
+-	bool baco_cap;
+-	int ret = 0;
++	int reset_supported = false;
+ 
+ 	if (!amdgpu_dpm_is_smc_alive(adev))
+ 		return false;
+ 
+-	if (!pp_funcs || !pp_funcs->get_asic_baco_capability)
++	if (!pp_funcs || !pp_funcs->is_asic_reset_supported)
+ 		return false;
+ 
+ 	mutex_lock(&adev->pm.mutex);
+-
+-	ret = pp_funcs->get_asic_baco_capability(pp_handle,
+-						 &baco_cap);
+-
++	reset_supported = pp_funcs->is_asic_reset_supported(adev->powerplay.pp_handle,
++							    reset_method);
+ 	mutex_unlock(&adev->pm.mutex);
+ 
+-	return ret ? false : baco_cap;
++	return reset_supported;
+ }
+ 
+-int amdgpu_dpm_mode2_reset(struct amdgpu_device *adev)
++int amdgpu_dpm_asic_reset(struct amdgpu_device *adev,
++			  enum amd_reset_method reset_method)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	void *pp_handle = adev->powerplay.pp_handle;
  	int ret = 0;
  
--	if (!hwmgr)
--		return -EINVAL;
+ 	if (!amdgpu_dpm_is_smc_alive(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	if (!pp_funcs || !pp_funcs->asic_reset_mode_2)
+-		return -ENOENT;
 -
- 	phm_get_dal_power_level(hwmgr, &simple_clocks);
- 
- 	if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps,
-@@ -1038,9 +948,6 @@ static int pp_get_clock_by_type(void *handle, enum amd_pp_clock_type type, struc
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-	mutex_lock(&adev->pm.mutex);
 -
- 	if (clocks == NULL)
- 		return -EINVAL;
- 
-@@ -1053,7 +960,7 @@ static int pp_get_clock_by_type_with_latency(void *handle,
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr || !clocks)
-+	if (!clocks)
- 		return -EINVAL;
- 
- 	return phm_get_clock_by_type_with_latency(hwmgr, type, clocks);
-@@ -1065,7 +972,7 @@ static int pp_get_clock_by_type_with_voltage(void *handle,
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr || !clocks)
-+	if (!clocks)
- 		return -EINVAL;
- 
- 	return phm_get_clock_by_type_with_voltage(hwmgr, type, clocks);
-@@ -1076,7 +983,7 @@ static int pp_set_watermarks_for_clocks_ranges(void *handle,
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr || !clock_ranges)
-+	if (!clock_ranges)
- 		return -EINVAL;
- 
- 	return phm_set_watermarks_for_clocks_ranges(hwmgr,
-@@ -1088,7 +995,7 @@ static int pp_display_clock_voltage_request(void *handle,
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr || !clock)
-+	if (!clock)
- 		return -EINVAL;
- 
- 	return phm_display_clock_voltage_request(hwmgr, clock);
-@@ -1100,7 +1007,7 @@ static int pp_get_display_mode_validation_clocks(void *handle,
- 	struct pp_hwmgr *hwmgr = handle;
- 	int ret = 0;
- 
--	if (!hwmgr || !clocks)
-+	if (!clocks)
- 		return -EINVAL;
- 
- 	clocks->level = PP_DAL_POWERLEVEL_7;
-@@ -1115,9 +1022,6 @@ static int pp_dpm_powergate_mmhub(void *handle)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-	ret = pp_funcs->asic_reset_mode_2(pp_handle);
 -
- 	if (hwmgr->hwmgr_func->powergate_mmhub == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
-@@ -1130,9 +1034,6 @@ static int pp_dpm_powergate_gfx(void *handle, bool gate)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return 0;
+-	mutex_unlock(&adev->pm.mutex);
 -
- 	if (hwmgr->hwmgr_func->powergate_gfx == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
-@@ -1145,9 +1046,6 @@ static void pp_dpm_powergate_acp(void *handle, bool gate)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return;
+-	return ret;
+-}
 -
- 	if (hwmgr->hwmgr_func->powergate_acp == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return;
-@@ -1160,9 +1058,6 @@ static void pp_dpm_powergate_sdma(void *handle, bool gate)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return;
+-int amdgpu_dpm_baco_reset(struct amdgpu_device *adev)
+-{
+-	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	void *pp_handle = adev->powerplay.pp_handle;
+-	int ret = 0;
 -
- 	if (hwmgr->hwmgr_func->powergate_sdma == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return;
-@@ -1211,9 +1106,6 @@ static int pp_notify_smu_enable_pwe(void *handle)
- {
- 	struct pp_hwmgr *hwmgr = handle;
+-	if (!amdgpu_dpm_is_smc_alive(adev))
++	if (!pp_funcs || !pp_funcs->asic_reset)
+ 		return -EOPNOTSUPP;
  
--	if (!hwmgr)
--		return -EINVAL;
+-	if (!pp_funcs || !pp_funcs->set_asic_baco_state)
+-		return -ENOENT;
 -
- 	if (hwmgr->hwmgr_func->smus_notify_pwe == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return -EINVAL;
-@@ -1228,9 +1120,6 @@ static int pp_enable_mgpu_fan_boost(void *handle)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+ 	mutex_lock(&adev->pm.mutex);
 -
- 	if (hwmgr->hwmgr_func->enable_mgpu_fan_boost == NULL)
- 		return 0;
- 
-@@ -1243,9 +1132,6 @@ static int pp_set_min_deep_sleep_dcefclk(void *handle, uint32_t clock)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-	/* enter BACO state */
+-	ret = pp_funcs->set_asic_baco_state(pp_handle, 1);
+-	if (ret)
+-		goto out;
 -
- 	if (hwmgr->hwmgr_func->set_min_deep_sleep_dcefclk == NULL) {
- 		pr_debug("%s was not implemented.\n", __func__);
- 		return -EINVAL;
-@@ -1260,9 +1146,6 @@ static int pp_set_hard_min_dcefclk_by_freq(void *handle, uint32_t clock)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-	/* exit BACO state */
+-	ret = pp_funcs->set_asic_baco_state(pp_handle, 0);
 -
- 	if (hwmgr->hwmgr_func->set_hard_min_dcefclk_by_freq == NULL) {
- 		pr_debug("%s was not implemented.\n", __func__);
- 		return -EINVAL;
-@@ -1277,9 +1160,6 @@ static int pp_set_hard_min_fclk_by_freq(void *handle, uint32_t clock)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-out:
++	ret = pp_funcs->asic_reset(adev->powerplay.pp_handle,
++				   reset_method);
+ 	mutex_unlock(&adev->pm.mutex);
+-	return ret;
+-}
 -
- 	if (hwmgr->hwmgr_func->set_hard_min_fclk_by_freq == NULL) {
- 		pr_debug("%s was not implemented.\n", __func__);
- 		return -EINVAL;
-@@ -1294,9 +1174,6 @@ static int pp_set_active_display_count(void *handle, uint32_t count)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-bool amdgpu_dpm_is_mode1_reset_supported(struct amdgpu_device *adev)
+-{
+-	struct smu_context *smu = adev->powerplay.pp_handle;
+-	bool support_mode1_reset = false;
 -
+-	if (!amdgpu_dpm_is_smc_alive(adev))
+-		return false;
+-
+-	if (is_support_sw_smu(adev)) {
+-		mutex_lock(&adev->pm.mutex);
+-		support_mode1_reset = smu_mode1_reset_is_support(smu);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
+-
+-	return support_mode1_reset;
+-}
+-
+-int amdgpu_dpm_mode1_reset(struct amdgpu_device *adev)
+-{
+-	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = -EOPNOTSUPP;
+-
+-	if (!amdgpu_dpm_is_smc_alive(adev))
+-		return -EOPNOTSUPP;
+-
+-	if (is_support_sw_smu(adev)) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = smu_mode1_reset(smu);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index 49488aebd350..bda8b8149497 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -374,15 +374,6 @@ int amdgpu_dpm_switch_power_profile(struct amdgpu_device *adev,
+ 				    enum PP_SMC_POWER_PROFILE type,
+ 				    bool en);
+ 
+-int amdgpu_dpm_baco_reset(struct amdgpu_device *adev);
+-
+-int amdgpu_dpm_mode2_reset(struct amdgpu_device *adev);
+-
+-bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev);
+-
+-bool amdgpu_dpm_is_mode1_reset_supported(struct amdgpu_device *adev);
+-int amdgpu_dpm_mode1_reset(struct amdgpu_device *adev);
+-
+ int amdgpu_dpm_set_mp1_state(struct amdgpu_device *adev,
+ 			     enum pp_mp1_state mp1_state);
+ 
+@@ -542,4 +533,8 @@ enum pp_smu_status amdgpu_dpm_get_uclk_dpm_states(struct amdgpu_device *adev,
+ 						  unsigned int *num_states);
+ int amdgpu_dpm_get_dpm_clock_table(struct amdgpu_device *adev,
+ 				   struct dpm_clocks *clock_table);
++int amdgpu_dpm_is_asic_reset_supported(struct amdgpu_device *adev,
++				       enum amd_reset_method reset_method);
++int amdgpu_dpm_asic_reset(struct amdgpu_device *adev,
++			  enum amd_reset_method reset_method);
+ #endif
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index 81ec5464b679..3edc05296e01 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -1177,20 +1177,6 @@ static int pp_set_active_display_count(void *handle, uint32_t count)
  	return phm_set_active_display_count(hwmgr, count);
  }
  
-@@ -1305,8 +1182,6 @@ static int pp_get_asic_baco_capability(void *handle, bool *cap)
- 	struct pp_hwmgr *hwmgr = handle;
- 
- 	*cap = false;
--	if (!hwmgr)
--		return -EINVAL;
- 
- 	if (!hwmgr->hwmgr_func->get_asic_baco_capability)
- 		return 0;
-@@ -1320,9 +1195,6 @@ static int pp_get_asic_baco_state(void *handle, int *state)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-static int pp_get_asic_baco_capability(void *handle, bool *cap)
+-{
+-	struct pp_hwmgr *hwmgr = handle;
 -
- 	if (!hwmgr->hwmgr_func->get_asic_baco_state)
- 		return 0;
- 
-@@ -1335,9 +1207,6 @@ static int pp_set_asic_baco_state(void *handle, int state)
+-	*cap = false;
+-
+-	if (!hwmgr->hwmgr_func->get_asic_baco_capability)
+-		return 0;
+-
+-	hwmgr->hwmgr_func->get_asic_baco_capability(hwmgr, cap);
+-
+-	return 0;
+-}
+-
+ static int pp_get_asic_baco_state(void *handle, int *state)
  {
  	struct pp_hwmgr *hwmgr = handle;
+@@ -1242,18 +1228,6 @@ static int pp_set_ppfeature_status(void *handle, uint64_t ppfeature_masks)
+ 	return hwmgr->hwmgr_func->set_ppfeature_status(hwmgr, ppfeature_masks);
+ }
  
--	if (!hwmgr)
--		return -EINVAL;
+-static int pp_asic_reset_mode_2(void *handle)
+-{
+-	struct pp_hwmgr *hwmgr = handle;
 -
- 	if (!hwmgr->hwmgr_func->set_asic_baco_state)
- 		return 0;
- 
-@@ -1350,7 +1219,7 @@ static int pp_get_ppfeature_status(void *handle, char *buf)
+-	if (hwmgr->hwmgr_func->asic_reset == NULL) {
+-		pr_info_ratelimited("%s was not implemented.\n", __func__);
+-		return -EINVAL;
+-	}
+-
+-	return hwmgr->hwmgr_func->asic_reset(hwmgr, SMU_ASIC_RESET_MODE_2);
+-}
+-
+ static int pp_smu_i2c_bus_access(void *handle, bool acquire)
  {
  	struct pp_hwmgr *hwmgr = handle;
+@@ -1394,6 +1368,62 @@ static bool pp_is_smc_alive(void *handle)
+ 	return false;
+ }
  
--	if (!hwmgr || !buf)
-+	if (!buf)
- 		return -EINVAL;
++static int pp_is_asic_reset_supported(void *handle,
++				       enum amd_reset_method reset_method)
++{
++	struct pp_hwmgr *hwmgr = handle;
++	bool reset_supported = false;
++
++	switch (reset_method) {
++	case AMD_RESET_METHOD_BACO:
++		if (hwmgr->hwmgr_func->get_asic_baco_capability)
++			hwmgr->hwmgr_func->get_asic_baco_capability(hwmgr,
++								    &reset_supported);
++		break;
++	case AMD_RESET_METHOD_MODE1:
++	case AMD_RESET_METHOD_MODE2:
++	default:
++		break;
++	}
++
++	return reset_supported;
++}
++
++static int pp_asic_reset(void *handle,
++			 enum amd_reset_method reset_method)
++{
++	struct pp_hwmgr *hwmgr = handle;
++	int ret = 0;
++
++	switch (reset_method) {
++	case AMD_RESET_METHOD_MODE1:
++		return -EOPNOTSUPP;
++	case AMD_RESET_METHOD_MODE2:
++		if (!hwmgr->hwmgr_func->asic_reset)
++			return -EOPNOTSUPP;
++
++		ret = hwmgr->hwmgr_func->asic_reset(hwmgr,
++						    SMU_ASIC_RESET_MODE_2);
++		break;
++	case AMD_RESET_METHOD_BACO:
++		if (!hwmgr->hwmgr_func->set_asic_baco_state)
++			return -EOPNOTSUPP;
++
++		ret = hwmgr->hwmgr_func->set_asic_baco_state(hwmgr,
++							     BACO_STATE_IN);
++		if (ret)
++			return ret;
++
++		ret = hwmgr->hwmgr_func->set_asic_baco_state(hwmgr,
++							     BACO_STATE_OUT);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return ret;
++}
++
+ static const struct amd_pm_funcs pp_dpm_funcs = {
+ 	.load_firmware = pp_dpm_load_fw,
+ 	.wait_for_fw_loading_complete = pp_dpm_fw_loading_complete,
+@@ -1446,12 +1476,10 @@ static const struct amd_pm_funcs pp_dpm_funcs = {
+ 	.set_min_deep_sleep_dcefclk = pp_set_min_deep_sleep_dcefclk,
+ 	.set_hard_min_dcefclk_by_freq = pp_set_hard_min_dcefclk_by_freq,
+ 	.set_hard_min_fclk_by_freq = pp_set_hard_min_fclk_by_freq,
+-	.get_asic_baco_capability = pp_get_asic_baco_capability,
+ 	.get_asic_baco_state = pp_get_asic_baco_state,
+ 	.set_asic_baco_state = pp_set_asic_baco_state,
+ 	.get_ppfeature_status = pp_get_ppfeature_status,
+ 	.set_ppfeature_status = pp_set_ppfeature_status,
+-	.asic_reset_mode_2 = pp_asic_reset_mode_2,
+ 	.smu_i2c_bus_access = pp_smu_i2c_bus_access,
+ 	.set_df_cstate = pp_set_df_cstate,
+ 	.set_xgmi_pstate = pp_set_xgmi_pstate,
+@@ -1460,4 +1488,6 @@ static const struct amd_pm_funcs pp_dpm_funcs = {
+ 	.get_smu_prv_buf_details = pp_get_prv_buffer_details,
+ 	.pm_compute_clocks = pp_pm_compute_clocks,
+ 	.is_smc_alive = pp_is_smc_alive,
++	.is_asic_reset_supported = pp_is_asic_reset_supported,
++	.asic_reset = pp_asic_reset,
+ };
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 3773e95a18bf..bab5ddc667f9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2503,18 +2503,6 @@ static int smu_set_xgmi_pstate(void *handle,
+ 	return ret;
+ }
  
- 	if (hwmgr->hwmgr_func->get_ppfeature_status == NULL) {
-@@ -1365,9 +1234,6 @@ static int pp_set_ppfeature_status(void *handle, uint64_t ppfeature_masks)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-static int smu_get_baco_capability(void *handle, bool *cap)
+-{
+-	struct smu_context *smu = handle;
 -
- 	if (hwmgr->hwmgr_func->set_ppfeature_status == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return -EINVAL;
-@@ -1380,9 +1246,6 @@ static int pp_asic_reset_mode_2(void *handle)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-	*cap = false;
 -
- 	if (hwmgr->hwmgr_func->asic_reset == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return -EINVAL;
-@@ -1395,9 +1258,6 @@ static int pp_smu_i2c_bus_access(void *handle, bool acquire)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-	if (smu->ppt_funcs->baco_is_support)
+-		*cap = smu->ppt_funcs->baco_is_support(smu);
 -
- 	if (hwmgr->hwmgr_func->smu_i2c_bus_access == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return -EINVAL;
-@@ -1410,9 +1270,6 @@ static int pp_set_df_cstate(void *handle, enum pp_df_cstate state)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-	return 0;
+-}
 -
- 	if (!hwmgr->hwmgr_func->set_df_cstate)
- 		return 0;
- 
-@@ -1425,9 +1282,6 @@ static int pp_set_xgmi_pstate(void *handle, uint32_t pstate)
+ static int smu_baco_set_state(void *handle, int state)
  {
- 	struct pp_hwmgr *hwmgr = handle;
+ 	struct smu_context *smu = handle;
+@@ -2537,40 +2525,6 @@ static int smu_baco_set_state(void *handle, int state)
+ 	return ret;
+ }
  
--	if (!hwmgr)
--		return -EINVAL;
+-bool smu_mode1_reset_is_support(struct smu_context *smu)
+-{
+-	bool ret = false;
 -
- 	if (!hwmgr->hwmgr_func->set_xgmi_pstate)
- 		return 0;
- 
-@@ -1440,9 +1294,6 @@ static ssize_t pp_get_gpu_metrics(void *handle, void **table)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-	if (smu->ppt_funcs->mode1_reset_is_support)
+-		ret = smu->ppt_funcs->mode1_reset_is_support(smu);
 -
- 	if (!hwmgr->hwmgr_func->get_gpu_metrics)
- 		return -EOPNOTSUPP;
- 
-@@ -1453,9 +1304,6 @@ static int pp_gfx_state_change_set(void *handle, uint32_t state)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-	return ret;
+-}
 -
- 	if (hwmgr->hwmgr_func->gfx_state_change == NULL) {
- 		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hardwaremanager.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hardwaremanager.c
-index 981dc8c7112d..f1d6b4b174b6 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hardwaremanager.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hardwaremanager.c
-@@ -30,16 +30,8 @@
- #define TEMP_RANGE_MIN (0)
- #define TEMP_RANGE_MAX (80 * 1000)
- 
--#define PHM_FUNC_CHECK(hw) \
--	do {							\
--		if ((hw) == NULL || (hw)->hwmgr_func == NULL)	\
--			return -EINVAL;				\
--	} while (0)
+-int smu_mode1_reset(struct smu_context *smu)
+-{
+-	int ret = 0;
 -
- int phm_setup_asic(struct pp_hwmgr *hwmgr)
- {
--	PHM_FUNC_CHECK(hwmgr);
+-	if (smu->ppt_funcs->mode1_reset)
+-		ret = smu->ppt_funcs->mode1_reset(smu);
 -
- 	if (NULL != hwmgr->hwmgr_func->asic_setup)
- 		return hwmgr->hwmgr_func->asic_setup(hwmgr);
- 
-@@ -48,8 +40,6 @@ int phm_setup_asic(struct pp_hwmgr *hwmgr)
- 
- int phm_power_down_asic(struct pp_hwmgr *hwmgr)
- {
--	PHM_FUNC_CHECK(hwmgr);
+-	return ret;
+-}
 -
- 	if (NULL != hwmgr->hwmgr_func->power_off_asic)
- 		return hwmgr->hwmgr_func->power_off_asic(hwmgr);
- 
-@@ -62,7 +52,6 @@ int phm_set_power_state(struct pp_hwmgr *hwmgr,
- {
- 	struct phm_set_power_state_input states;
- 
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	states.pcurrent_state = pcurrent_state;
- 	states.pnew_state = pnew_power_state;
-@@ -77,7 +66,6 @@ int phm_enable_dynamic_state_management(struct pp_hwmgr *hwmgr)
- {
- 	struct amdgpu_device *adev = NULL;
- 	int ret = -EINVAL;
--	PHM_FUNC_CHECK(hwmgr);
- 	adev = hwmgr->adev;
- 
- 	/* Skip for suspend/resume case */
-@@ -98,7 +86,6 @@ int phm_disable_dynamic_state_management(struct pp_hwmgr *hwmgr)
- {
- 	int ret = -EINVAL;
- 
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (!hwmgr->not_vf)
- 		return 0;
-@@ -118,7 +105,6 @@ int phm_force_dpm_levels(struct pp_hwmgr *hwmgr, enum amd_dpm_forced_level level
- {
- 	int ret = 0;
- 
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (hwmgr->hwmgr_func->force_dpm_level != NULL)
- 		ret = hwmgr->hwmgr_func->force_dpm_level(hwmgr, level);
-@@ -130,7 +116,6 @@ int phm_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
- 				   struct pp_power_state *adjusted_ps,
- 			     const struct pp_power_state *current_ps)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (hwmgr->hwmgr_func->apply_state_adjust_rules != NULL)
- 		return hwmgr->hwmgr_func->apply_state_adjust_rules(
-@@ -142,7 +127,6 @@ int phm_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
- 
- int phm_apply_clock_adjust_rules(struct pp_hwmgr *hwmgr)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (hwmgr->hwmgr_func->apply_clocks_adjust_rules != NULL)
- 		return hwmgr->hwmgr_func->apply_clocks_adjust_rules(hwmgr);
-@@ -151,7 +135,6 @@ int phm_apply_clock_adjust_rules(struct pp_hwmgr *hwmgr)
- 
- int phm_powerdown_uvd(struct pp_hwmgr *hwmgr)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (hwmgr->hwmgr_func->powerdown_uvd != NULL)
- 		return hwmgr->hwmgr_func->powerdown_uvd(hwmgr);
-@@ -161,7 +144,6 @@ int phm_powerdown_uvd(struct pp_hwmgr *hwmgr)
- 
- int phm_disable_clock_power_gatings(struct pp_hwmgr *hwmgr)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (NULL != hwmgr->hwmgr_func->disable_clock_power_gating)
- 		return hwmgr->hwmgr_func->disable_clock_power_gating(hwmgr);
-@@ -171,7 +153,6 @@ int phm_disable_clock_power_gatings(struct pp_hwmgr *hwmgr)
- 
- int phm_pre_display_configuration_changed(struct pp_hwmgr *hwmgr)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (NULL != hwmgr->hwmgr_func->pre_display_config_changed)
- 		hwmgr->hwmgr_func->pre_display_config_changed(hwmgr);
-@@ -182,7 +163,6 @@ int phm_pre_display_configuration_changed(struct pp_hwmgr *hwmgr)
- 
- int phm_display_configuration_changed(struct pp_hwmgr *hwmgr)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (NULL != hwmgr->hwmgr_func->display_config_changed)
- 		hwmgr->hwmgr_func->display_config_changed(hwmgr);
-@@ -192,7 +172,6 @@ int phm_display_configuration_changed(struct pp_hwmgr *hwmgr)
- 
- int phm_notify_smc_display_config_after_ps_adjustment(struct pp_hwmgr *hwmgr)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (NULL != hwmgr->hwmgr_func->notify_smc_display_config_after_ps_adjustment)
- 			hwmgr->hwmgr_func->notify_smc_display_config_after_ps_adjustment(hwmgr);
-@@ -202,7 +181,6 @@ int phm_notify_smc_display_config_after_ps_adjustment(struct pp_hwmgr *hwmgr)
- 
- int phm_stop_thermal_controller(struct pp_hwmgr *hwmgr)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (!hwmgr->not_vf)
- 		return 0;
-@@ -215,7 +193,6 @@ int phm_stop_thermal_controller(struct pp_hwmgr *hwmgr)
- 
- int phm_register_irq_handlers(struct pp_hwmgr *hwmgr)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (hwmgr->hwmgr_func->register_irq_handlers != NULL)
- 		return hwmgr->hwmgr_func->register_irq_handlers(hwmgr);
-@@ -272,10 +249,6 @@ int phm_start_thermal_controller(struct pp_hwmgr *hwmgr)
- 
- bool phm_check_smc_update_required_for_display_configuration(struct pp_hwmgr *hwmgr)
- {
--	if (hwmgr == NULL ||
--	    hwmgr->hwmgr_func == NULL)
--		return false;
+-static int smu_mode2_reset(void *handle)
+-{
+-	struct smu_context *smu = handle;
+-	int ret = 0;
 -
- 	if (hwmgr->pp_one_vf)
- 		return false;
- 
-@@ -291,7 +264,6 @@ int phm_check_states_equal(struct pp_hwmgr *hwmgr,
- 				 const struct pp_hw_power_state *pstate2,
- 				 bool *equal)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (hwmgr->hwmgr_func->check_states_equal == NULL)
- 		return -EINVAL;
-@@ -305,7 +277,6 @@ int phm_store_dal_configuration_data(struct pp_hwmgr *hwmgr,
- 	int index = 0;
- 	int number_of_active_display = 0;
- 
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (display_config == NULL)
- 		return -EINVAL;
-@@ -339,7 +310,6 @@ int phm_store_dal_configuration_data(struct pp_hwmgr *hwmgr,
- int phm_get_dal_power_level(struct pp_hwmgr *hwmgr,
- 		struct amd_pp_simple_clock_info *info)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (info == NULL || hwmgr->hwmgr_func->get_dal_power_level == NULL)
- 		return -EINVAL;
-@@ -348,7 +318,6 @@ int phm_get_dal_power_level(struct pp_hwmgr *hwmgr,
- 
- int phm_set_cpu_power_state(struct pp_hwmgr *hwmgr)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (hwmgr->hwmgr_func->set_cpu_power_state != NULL)
- 		return hwmgr->hwmgr_func->set_cpu_power_state(hwmgr);
-@@ -361,7 +330,6 @@ int phm_get_performance_level(struct pp_hwmgr *hwmgr, const struct pp_hw_power_s
- 				PHM_PerformanceLevelDesignation designation, uint32_t index,
- 				PHM_PerformanceLevel *level)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 	if (hwmgr->hwmgr_func->get_performance_level == NULL)
- 		return -EINVAL;
- 
-@@ -386,7 +354,6 @@ int phm_get_clock_info(struct pp_hwmgr *hwmgr, const struct pp_hw_power_state *s
- 	int result;
- 	PHM_PerformanceLevel performance_level = {0};
- 
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	PP_ASSERT_WITH_CODE((NULL != state), "Invalid Input!", return -EINVAL);
- 	PP_ASSERT_WITH_CODE((NULL != pclock_info), "Invalid Input!", return -EINVAL);
-@@ -415,7 +382,6 @@ int phm_get_clock_info(struct pp_hwmgr *hwmgr, const struct pp_hw_power_state *s
- 
- int phm_get_current_shallow_sleep_clocks(struct pp_hwmgr *hwmgr, const struct pp_hw_power_state *state, struct pp_clock_info *clock_info)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (hwmgr->hwmgr_func->get_current_shallow_sleep_clocks == NULL)
- 		return -EINVAL;
-@@ -426,7 +392,6 @@ int phm_get_current_shallow_sleep_clocks(struct pp_hwmgr *hwmgr, const struct pp
- 
- int phm_get_clock_by_type(struct pp_hwmgr *hwmgr, enum amd_pp_clock_type type, struct amd_pp_clocks *clocks)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (hwmgr->hwmgr_func->get_clock_by_type == NULL)
- 		return -EINVAL;
-@@ -439,7 +404,6 @@ int phm_get_clock_by_type_with_latency(struct pp_hwmgr *hwmgr,
- 		enum amd_pp_clock_type type,
- 		struct pp_clock_levels_with_latency *clocks)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (hwmgr->hwmgr_func->get_clock_by_type_with_latency == NULL)
- 		return -EINVAL;
-@@ -452,7 +416,6 @@ int phm_get_clock_by_type_with_voltage(struct pp_hwmgr *hwmgr,
- 		enum amd_pp_clock_type type,
- 		struct pp_clock_levels_with_voltage *clocks)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (hwmgr->hwmgr_func->get_clock_by_type_with_voltage == NULL)
- 		return -EINVAL;
-@@ -464,7 +427,6 @@ int phm_get_clock_by_type_with_voltage(struct pp_hwmgr *hwmgr,
- int phm_set_watermarks_for_clocks_ranges(struct pp_hwmgr *hwmgr,
- 					void *clock_ranges)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (!hwmgr->hwmgr_func->set_watermarks_for_clocks_ranges)
- 		return -EINVAL;
-@@ -476,7 +438,6 @@ int phm_set_watermarks_for_clocks_ranges(struct pp_hwmgr *hwmgr,
- int phm_display_clock_voltage_request(struct pp_hwmgr *hwmgr,
- 		struct pp_display_clock_request *clock)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (!hwmgr->hwmgr_func->display_clock_voltage_request)
- 		return -EINVAL;
-@@ -486,7 +447,6 @@ int phm_display_clock_voltage_request(struct pp_hwmgr *hwmgr,
- 
- int phm_get_max_high_clocks(struct pp_hwmgr *hwmgr, struct amd_pp_simple_clock_info *clocks)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (hwmgr->hwmgr_func->get_max_high_clocks == NULL)
- 		return -EINVAL;
-@@ -496,7 +456,6 @@ int phm_get_max_high_clocks(struct pp_hwmgr *hwmgr, struct amd_pp_simple_clock_i
- 
- int phm_disable_smc_firmware_ctf(struct pp_hwmgr *hwmgr)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (!hwmgr->not_vf)
- 		return 0;
-@@ -509,7 +468,6 @@ int phm_disable_smc_firmware_ctf(struct pp_hwmgr *hwmgr)
- 
- int phm_set_active_display_count(struct pp_hwmgr *hwmgr, uint32_t count)
- {
--	PHM_FUNC_CHECK(hwmgr);
- 
- 	if (!hwmgr->hwmgr_func->set_active_display_count)
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
-index c0c2f36094fa..10f9b8fb93f2 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
-@@ -79,9 +79,6 @@ int hwmgr_early_init(struct pp_hwmgr *hwmgr)
- {
- 	struct amdgpu_device *adev;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-	if (smu->ppt_funcs->mode2_reset)
+-		ret = smu->ppt_funcs->mode2_reset(smu);
 -
- 	hwmgr->usec_timeout = AMD_MAX_USEC_TIMEOUT;
- 	hwmgr->pp_table_version = PP_TABLE_V1;
- 	hwmgr->dpm_level = AMD_DPM_FORCED_LEVEL_AUTO;
-@@ -195,7 +192,7 @@ int hwmgr_early_init(struct pp_hwmgr *hwmgr)
- 
- int hwmgr_sw_init(struct pp_hwmgr *hwmgr)
- {
--	if (!hwmgr|| !hwmgr->smumgr_funcs || !hwmgr->smumgr_funcs->smu_init)
-+	if (!hwmgr->smumgr_funcs->smu_init)
- 		return -EINVAL;
- 
- 	phm_register_irq_handlers(hwmgr);
-@@ -207,7 +204,7 @@ int hwmgr_sw_init(struct pp_hwmgr *hwmgr)
- 
- int hwmgr_sw_fini(struct pp_hwmgr *hwmgr)
- {
--	if (hwmgr && hwmgr->smumgr_funcs && hwmgr->smumgr_funcs->smu_fini)
-+	if (hwmgr->smumgr_funcs->smu_fini)
- 		hwmgr->smumgr_funcs->smu_fini(hwmgr);
- 
- 	return 0;
-@@ -275,7 +272,7 @@ int hwmgr_hw_init(struct pp_hwmgr *hwmgr)
- 
- int hwmgr_hw_fini(struct pp_hwmgr *hwmgr)
- {
--	if (!hwmgr || !hwmgr->pm_en || !hwmgr->not_vf)
-+	if (!hwmgr->pm_en || !hwmgr->not_vf)
- 		return 0;
- 
- 	((struct amdgpu_device *)hwmgr->adev)->pm.dpm_enabled = false;
-@@ -297,7 +294,7 @@ int hwmgr_suspend(struct pp_hwmgr *hwmgr)
- {
- 	int ret = 0;
- 
--	if (!hwmgr || !hwmgr->pm_en || !hwmgr->not_vf)
-+	if (!hwmgr->pm_en || !hwmgr->not_vf)
- 		return 0;
- 
- 	((struct amdgpu_device *)hwmgr->adev)->pm.dpm_enabled = false;
-@@ -318,9 +315,6 @@ int hwmgr_resume(struct pp_hwmgr *hwmgr)
- {
- 	int ret = 0;
- 
--	if (!hwmgr)
--		return -EINVAL;
+-	if (ret)
+-		dev_err(smu->adev->dev, "Mode2 reset failed!\n");
 -
- 	if (!hwmgr->not_vf || !hwmgr->pm_en)
- 		return 0;
- 
-@@ -362,9 +356,6 @@ int hwmgr_handle_task(struct pp_hwmgr *hwmgr, enum amd_pp_task task_id,
- {
- 	int ret = 0;
- 
--	if (hwmgr == NULL)
--		return -EINVAL;
+-	return ret;
+-}
 -
- 	switch (task_id) {
- 	case AMD_PP_TASK_DISPLAY_CONFIG_CHANGE:
- 		if (!hwmgr->not_vf)
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
-index 182118e3fd5f..991fc4633e0b 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
-@@ -1484,7 +1484,7 @@ static int get_cac_leakage_table(struct pp_hwmgr *hwmgr,
- 	struct phm_cac_leakage_table  *cac_leakage_table;
- 	unsigned long i;
- 
--	if (!hwmgr || !table || !ptable)
-+	if (!table || !ptable)
- 		return -EINVAL;
- 
- 	cac_leakage_table = kzalloc(struct_size(cac_leakage_table, entries, table->ucNumEntries),
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smumgr.c
-index b6921db3c130..f2ec9282aff6 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smumgr.c
-@@ -131,8 +131,7 @@ int smum_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg, uint32_t *resp)
+ static int smu_get_max_sustainable_clocks_by_dc(void *handle,
+ 						struct pp_smu_nv_clock_table *max_clocks)
  {
- 	int ret = 0;
+@@ -2705,6 +2659,82 @@ static bool smu_is_smc_alive(void *handle)
+ 	return false;
+ }
  
--	if (hwmgr == NULL ||
--	    hwmgr->smumgr_funcs->send_msg_to_smc == NULL ||
-+	if (hwmgr->smumgr_funcs->send_msg_to_smc == NULL ||
- 	    (resp && !hwmgr->smumgr_funcs->get_argument))
- 		return -EINVAL;
++static int smu_is_asic_reset_supported(void *handle,
++				       enum amd_reset_method reset_method)
++{
++	struct smu_context *smu = handle;
++	struct amdgpu_device *adev = smu->adev;
++	int reset_supported = false;
++
++	switch (reset_method) {
++	case AMD_RESET_METHOD_MODE1:
++		if (smu->ppt_funcs->mode1_reset_is_support)
++			reset_supported = smu->ppt_funcs->mode1_reset_is_support(smu);
++		break;
++	case AMD_RESET_METHOD_MODE2:
++		switch (adev->ip_versions[MP1_HWIP][0]) {
++		case IP_VERSION(11, 5, 0):
++		case IP_VERSION(12, 0, 0):
++		case IP_VERSION(12, 0, 1):
++		case IP_VERSION(13, 0, 2):
++		case IP_VERSION(13, 0, 1):
++		case IP_VERSION(13, 0, 3):
++			reset_supported = true;
++			break;
++		default:
++			break;
++		}
++		break;
++	case AMD_RESET_METHOD_BACO:
++		if (smu->ppt_funcs->baco_is_support)
++			reset_supported = smu->ppt_funcs->baco_is_support(smu);
++		break;
++	default:
++		break;
++	}
++
++	return reset_supported;
++}
++
++static int smu_asic_reset(void *handle,
++			  enum amd_reset_method reset_method)
++{
++	struct smu_context *smu = handle;
++	int ret = 0;
++
++	switch (reset_method) {
++	case AMD_RESET_METHOD_MODE1:
++		if (!smu->ppt_funcs->mode1_reset)
++			return -EOPNOTSUPP;
++
++		ret = smu->ppt_funcs->mode1_reset(smu);
++		break;
++	case AMD_RESET_METHOD_MODE2:
++		if (!smu->ppt_funcs->mode2_reset)
++			return -EOPNOTSUPP;
++
++		ret = smu->ppt_funcs->mode2_reset(smu);
++		if (ret)
++			dev_err(smu->adev->dev, "Mode2 reset failed!\n");
++		break;
++	case AMD_RESET_METHOD_BACO:
++		if (!smu->ppt_funcs->baco_enter ||
++		    !smu->ppt_funcs->baco_exit)
++			return -EOPNOTSUPP;
++
++		ret = smu->ppt_funcs->baco_enter(smu);
++		if (ret)
++			return ret;
++
++		ret = smu->ppt_funcs->baco_exit(smu);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return ret;
++}
++
+ static const struct amd_pm_funcs swsmu_pm_funcs = {
+ 	/* export for sysfs */
+ 	.set_fan_control_mode    = smu_set_fan_control_mode,
+@@ -2744,11 +2774,9 @@ static const struct amd_pm_funcs swsmu_pm_funcs = {
+ 	.enable_mgpu_fan_boost            = smu_enable_mgpu_fan_boost,
+ 	.set_active_display_count         = smu_set_display_count,
+ 	.set_min_deep_sleep_dcefclk       = smu_set_deep_sleep_dcefclk,
+-	.get_asic_baco_capability         = smu_get_baco_capability,
+ 	.set_asic_baco_state              = smu_baco_set_state,
+ 	.get_ppfeature_status             = smu_sys_get_pp_feature_mask,
+ 	.set_ppfeature_status             = smu_sys_set_pp_feature_mask,
+-	.asic_reset_mode_2                = smu_mode2_reset,
+ 	.set_df_cstate                    = smu_set_df_cstate,
+ 	.set_xgmi_pstate                  = smu_set_xgmi_pstate,
+ 	.get_gpu_metrics                  = smu_sys_get_gpu_metrics,
+@@ -2759,6 +2787,8 @@ static const struct amd_pm_funcs swsmu_pm_funcs = {
+ 	.get_dpm_clock_table              = smu_get_dpm_clock_table,
+ 	.get_smu_prv_buf_details = smu_get_prv_buffer_details,
+ 	.is_smc_alive = smu_is_smc_alive,
++	.is_asic_reset_supported = smu_is_asic_reset_supported,
++	.asic_reset              = smu_asic_reset,
+ };
  
-@@ -159,8 +158,7 @@ int smum_send_msg_to_smc_with_parameter(struct pp_hwmgr *hwmgr,
- {
- 	int ret = 0;
+ int smu_wait_for_event(struct smu_context *smu, enum smu_event_type event,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index bced761f3f96..ce9cd0522a40 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -1392,9 +1392,6 @@ int smu_get_power_limit(void *handle,
+ 			enum pp_power_limit_level pp_limit_level,
+ 			enum pp_power_type pp_power_type);
  
--	if (hwmgr == NULL ||
--	    hwmgr->smumgr_funcs->send_msg_to_smc_with_parameter == NULL ||
-+	if (hwmgr->smumgr_funcs->send_msg_to_smc_with_parameter == NULL ||
- 	    (resp && !hwmgr->smumgr_funcs->get_argument))
- 		return -EINVAL;
+-bool smu_mode1_reset_is_support(struct smu_context *smu);
+-int smu_mode1_reset(struct smu_context *smu);
+-
+ extern const struct amd_ip_funcs smu_ip_funcs;
  
+ bool is_support_sw_smu(struct amdgpu_device *adev);
 -- 
 2.29.0
 
