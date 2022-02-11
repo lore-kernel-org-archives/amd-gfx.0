@@ -4,91 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD91C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 18:59:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55BEBC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 19:00:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 105EC10EAFA;
-	Fri, 11 Feb 2022 18:59:47 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCED010EAF5
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 18:59:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0B9210EAF9;
+	Fri, 11 Feb 2022 19:00:53 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2060.outbound.protection.outlook.com [40.107.102.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFFAD10EAF9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 19:00:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KCQow7xrYtaVw/svfHEVN2GX1DgOZi7G0E7IYM1fOG0paU5we1juOZ7MGXT5TuicMGPV60YNhZZRi1bimHHo2OcH7402PrFnqJfGIRj4a96ijS1zk0HfPGUhzR4nAj3iz62v4m2irw7tjbmxu/K6ej0314UF2UmotZI8Ju/pd2ueNCPAIc2g4QeukMG9xzBgcbJiERIkMz61fEXDosnmmsw2yWQezWQbJrTenEz/5sp+E0YqMricIAC965Ku2ij4uw6Lt80T0yZ079X0lugImhYUuMMBd1q86XhKyKp6l2HkCof4fMaWLjD52D3+qFCpMq0iRAXrXP027q9mCe0VGA==
+ b=FQDI2LhUXpqu8IiKW3JUXwZjwVaSv02+PYg1H1MzCmFVEF7Ziyi9bPJLqJUVGUt+SpxXCm8shHnUjwLS2i9KcCaagyStLYSVWgjv2fnYB49xfWkmTnWIxUHC8V+ZVlNincrOMt/+RlbYkajxkqvI3Mr9KNMvmu0N/BEieAZd6SutEbPE4LOgG4UAPKutGAy6Gy8Tu6jAm7ULi2wlIjP8Xh6TdV+zRwqhzj+SXiUZ47HWXGzIAAW5UMXnp44poDzvaItVxUpbzjEq1FY7uBlp7yN/T1z2nMrjrur3i/G7uvOMSSltfds89yZoWU0I8dRhXA2Fm3R8aMbLD1hf71jaZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hTcQ8s18eFo65thvAR6X0JjqhIgfA10ABMWacXvnFYc=;
- b=XaKzMxRdFaCeQeNcGwKoV7McZflIQza15197XvZGZISr9lGR1zeaYDU4+C96+a2QlCe7QX7Lrj7w5+Bhyb5TgoLl4kKudZLK/UAKIATbYRUWzyxzB3gTYqeBxOFNfMkuX0uTGR/5ekeERQIkMZMU76NO8k3R4V+vy+7gYbXP55cwARYwoeED92wRQTlcvRMuppyCfKui9OBFS7lkkOeaujFM2uSAMWFnJCrkQOYAQ3oEv/uh/X+m5cIacZ2i4IF0Ev0q7JiEDVmGGd9DBYZ6r9VsiSlaWAq3klXHe1Z1FGBtDAwtN6prhQ0nC2P4HYzMigxuBKPwmeBE6K6qllqb8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=wPs2h6XgYiBNzsGNDPF2JvTYD2p+PYTKtuhP8TNoYDY=;
+ b=fe/bzHwtH9i0r+KJoaaTXTAGuhBET2NDHQ9dqeYkprqLvNbg3hosoT832JQ5V58PYTveIkD5gNYCGXC3XO9jPDxvHxcfO8q52vEpq7Kc6454IEnqiwqrm5SzmoSzUDxE5IZMRnMQNxx2qvLwnPnQtV2jg1341tjRqd9DBO7KoP3zvgWqX+ePn2b0g3886XS0Nv77wE6lrkt6TY3pC+TItu4dwHLUhjcypDJxor2caP3b6bjLm6wWdBD1vX2AK687VpnuyfBRcp1wNExHoMC3tWTOkI87erZZVQ6tM6Id1y56Ww0q66m/JEsQ5dXhQZaUCyDfrwMx1vYMswmh9EgEmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hTcQ8s18eFo65thvAR6X0JjqhIgfA10ABMWacXvnFYc=;
- b=xjhbw0U62cNOmYxdB7Grf7RjOQtgK/FhQqkPBXXPCuCc2kU4s7p5CXzsHDg+non+EfOXdJ7f3NIDhPfGHDXAXkqpv6IE/Lmlwtjpav8d1hMog6amO54Qv3zfF8NxdX4jy6JNc+PB95yqDB0pTjwVYPfn3gMmOXLuJmipFrQDTgA=
-Received: from MW2PR16CA0050.namprd16.prod.outlook.com (2603:10b6:907:1::27)
- by MN2PR12MB3070.namprd12.prod.outlook.com (2603:10b6:208:c1::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.17; Fri, 11 Feb
- 2022 18:59:40 +0000
-Received: from CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:1:cafe::80) by MW2PR16CA0050.outlook.office365.com
- (2603:10b6:907:1::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.22 via Frontend
- Transport; Fri, 11 Feb 2022 18:59:39 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT035.mail.protection.outlook.com (10.13.175.36) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 18:59:39 +0000
-Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 11 Feb
- 2022 12:59:37 -0600
-From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/4] drm/amdkfd: updade SPDX license header
-Date: Fri, 11 Feb 2022 13:59:23 -0500
-Message-ID: <20220211185925.4178-3-rajneesh.bhardwaj@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220211185925.4178-1-rajneesh.bhardwaj@amd.com>
-References: <20220211185925.4178-1-rajneesh.bhardwaj@amd.com>
+ bh=wPs2h6XgYiBNzsGNDPF2JvTYD2p+PYTKtuhP8TNoYDY=;
+ b=rQRDzPl7cuas1VAdrqSSl//n3bb0LQOirrEJB595BHHyyMMzo9bzUSc4zGv4jRpcW9C4okHBywTjaGgSf4trkxIhJE6eljk+Z84NLTKKbLNSKRzyxHBjcRNbCJz074OTlGbHBsuhIqzT2FcSilEzcadSvdXUGPOXX7v3rQejo/s=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by SN6PR12MB2624.namprd12.prod.outlook.com (2603:10b6:805:70::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Fri, 11 Feb
+ 2022 19:00:50 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::38ec:3a46:f85e:6cfa]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::38ec:3a46:f85e:6cfa%4]) with mapi id 15.20.4975.014; Fri, 11 Feb 2022
+ 19:00:50 +0000
+Message-ID: <ccb9663d-ff66-d5ac-c7ba-923ffc7e8eb9@amd.com>
+Date: Fri, 11 Feb 2022 14:00:48 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH 2/2] drm/amdkfd: navi2x requires extended engines to map
+ and unmap sdma queues
+Content-Language: en-US
+To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220211171529.923453-1-jonathan.kim@amd.com>
+ <20220211171529.923453-2-jonathan.kim@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220211171529.923453-2-jonathan.kim@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YTOPR0101CA0018.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:15::31) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9d1c2b8d-8daf-4161-1d55-08d9ed90a7b7
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3070:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB30706BE49E6B63B7182EDC1AFE309@MN2PR12MB3070.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:820;
+X-MS-Office365-Filtering-Correlation-Id: 51f14a2e-b12a-4f9f-f97c-08d9ed90d1ba
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2624:EE_
+X-Microsoft-Antispam-PRVS: <SN6PR12MB26243E211CB51625C1042AB992309@SN6PR12MB2624.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Rl2yl2l3lvsb7w2jkab8evGJG4Zz4hofKSb5CQrUfidWhUNfUp2x+pr3Wn7GWIdsBRF1iv/3YYCY9WEWR97Xnjd5F6XpMBcdIYSHGz2RiGFvnetK8IkB6qW8zkUfbHvlAsyBEdRrO1SJSZoa0id3DFjk0kyguhSP+bCQKygaB2Y/BVKYewF4TTZwCbwQHevcaUau/uLbJX4RZl7lgS2ryt26zb/r/WwF84d2QKSVwUwJWvWApO1jUyipufmThBzAMmWTFLzOj2n3hkbN7ML3CvmuZn7POJaPP2138ShufdCzcBCZiu7veq4pMpvD9HNzP1ASAd8U6YcAtWj5wzpPVF+510hapdByaZ3mri54T5kiGvQ9W4KfLp8yI+3ntWuE8WWRNQpU1EZjH0ls2eOqLX63gCp8hwmqrT2yQQAnIohtLTSZ6/rJ4h4Au777H3v/kBEAu1FosXz75MYfp2xIhsAPrKSYfsTzFWGHbDvFWFvS6D06SS1P2K4yl9jQ41WB/m00QicbMtC45sckVpjPZRCe+AMwQTfuswiGftsKcr28UXpAAq0zk64ZBR0dGuX82nlAtlhjXVoXNUjw9o+tBNR1Tf2SWVTLrND+0aTSauY2/nVjoTxuOOaTkAgvcpsCZl3u6cHk8frcsKSu5xNJ+dNZnCqTV8ibClzG583j792l664W/ggf26/jAPvmiOKV/uVap8rB3Fdtw301DXvBqQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(2616005)(47076005)(16526019)(83380400001)(36860700001)(8936002)(70206006)(36756003)(8676002)(26005)(336012)(426003)(1076003)(186003)(44832011)(70586007)(81166007)(5660300002)(40460700003)(316002)(508600001)(356005)(6666004)(86362001)(2906002)(4326008)(7696005)(54906003)(30864003)(82310400004)(6916009)(36900700001);
+X-Microsoft-Antispam-Message-Info: OrMhmeuDRavjC1kruUocj1wn/ualfKK/Jj+bzHvbIZQKk+PnHXEjofTYBLZXk17Snn0UdgXZFlTZTRJAihbhBDZ6VcNaA/ZICxISHwz5g6zFSdghNZvFAiOLcGAyhUn+y++q2mxPBgnvFwDan5qeyykocLJpce7v6imW8/HG7jTyBJNWyyszPl7RSgQlY4+0DLVrha6TeZAbVQIeL+I7sFUH9xFJaYrgSJfsLOoPZRyfsMSf0Da1c4GOyUTIJ+R6oAJmitG6YVadj7Og1zHofjUvL1wnjC9x9Yv7Rr+B/yusZzce5nZYzucjNOyfNtOmwD4pt3iHI2UN05huXOol594PTmTYwKacz/qYbqiRweENZROw+UMQLW+ciIQv32QbdBCh7VzZc0KylQcW79Mv5lGRTW+IUvWEVf6EmhRFljUdYYTSuHvosF2TbK/TFMe3AtJxm5jRMnb9dcj2SJQFBZOZPP8MRnyKdvioDW9QvfX39+cQVIKzCtkIN1r/oXn/OBwDX4TNer0KLEv5C6yWxK3ecNwRUie0aa/1zcspzeHhXfZzu2DDXBLXJ5MQCZWDfl+9hHvrn/Lzetp5S/23u8yJ8a7TwdYFCnSifg4LER2dwF9gFRNsg26h3LdUlBQ1o8OLkvXkEW0FC4oL7vmTSw2NPsqGNXskKQD8k7QyRVwTAT3pi4XgNz+vWd3yXenTqq4+/2Mg5TzcbJ9Sz2i1viydrcbGpSKgwrJxf7KIkOIuebU33719ZbzSzvEJ2vdD
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(31696002)(186003)(38100700002)(26005)(36756003)(2616005)(316002)(5660300002)(2906002)(6506007)(6512007)(83380400001)(44832011)(66946007)(6486002)(31686004)(8936002)(66556008)(8676002)(66476007)(508600001)(86362001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZG5DeXRtcExrY2xhN0dzOGEwbVlIWllXQnJ6TVlpd1BPWENJV3NwWjR1TC9R?=
+ =?utf-8?B?dHBWdlM5bmhVT0Q3VGlISjc0YjREajZLRzZza3RML1prNmlXWGlDUXFUVzdk?=
+ =?utf-8?B?MzE1ZkdOTkozek9nd29iYU1oa3VFRlFZOUI1YVhpRnhiazBjV2swOXRWQmpN?=
+ =?utf-8?B?ak5YQVJBUFVzYVJNbFVBMmhGaklVekhPV3VFMVdpWU13cVlESDU1enhCbXpJ?=
+ =?utf-8?B?TkFHNGVZUjNmeDNYbEtuU2VXV1FBOWk5RkxlMzBLdlRIMk1tb3IybzBNMzBR?=
+ =?utf-8?B?S2V3cWZSZFM5ZFZhRVQ1MkdKYXQ3OEhxUG1ySTBpRVZnWlRmYktGekNpVTQ3?=
+ =?utf-8?B?QjlrbW9qR2hCd2ExelJzbmNIdVoyUTRWUjMrZnExN1ZYMlJ5Z3FyNkJRTHZN?=
+ =?utf-8?B?Uys4TnVSc3hNaHNwK2lRWDJKdmh5dmZreFVHTTFKMjFtczkxSUJkQytXOWRx?=
+ =?utf-8?B?S0pzWkRqR0NkMnRtTUtXWG0zOWV5TEtleCt5dzB6OXJCeGF6bll1Zk90dE5Q?=
+ =?utf-8?B?VkhZWDJEUmtuTjQ5eUVLZno3Z3EzbWwrejdITVhtQTQ4Q2xYT0RJOTRhbmJZ?=
+ =?utf-8?B?b0tDZldPc21oMTFJNXRSL3poVFZOeVpQcngrRjVrcGxNYkxqd1YwQUtNTzkv?=
+ =?utf-8?B?TlZhbjQycWJ0S0NsYW16a055VlBzVVMrVWg2TEpVdk5ENjBPeURnK25yU09F?=
+ =?utf-8?B?eE1kbERJZ0l0Tk1sSzVRS1JueDF3SGxGN1drbWRyamZsYjJ1eHk4SktLQmRo?=
+ =?utf-8?B?TUdYQmdRUGRMcEpQKzcraExIMzhrTUJsNmJHSUVBVE9JRERXN3lKTVFzajA1?=
+ =?utf-8?B?RWVWUkhCTndXdGgzbjg4WnFGUlRuRW5PRUFmOTd6bzN1cU1vRFhrdy8zTTR3?=
+ =?utf-8?B?akFoS3AvRi9jRjQ4SFZIMVowWXRRdW1HSTJRMHZjUE5GUkFFZTVVK0pnSzNZ?=
+ =?utf-8?B?STAwNEJzcUdqWW1LNS9kSXllWTJlUC91NmlUMEFoRWpBVWZ5Y3BBNGVhV00z?=
+ =?utf-8?B?bFRZN2l4dmZ5ZStvK05DRFlTTUVXSTljZ1pFclNiUzdUSUF5bVd0STlIWXRs?=
+ =?utf-8?B?ZlRveFIxOFJKRGx3SkRwSFg2QmpTbUNaK05qYUN0OVU1Uk90Wnh2ZjVnQzRx?=
+ =?utf-8?B?d3Q2NVRPRGc2QU03Y1c4TExZNWN3QnRPMXVWTjRkckkrbDJBMWNpWnNKV3Vv?=
+ =?utf-8?B?RmtYTkRWS3Ewd2lNOTlDRXhvYlQzV1JrK2dOUHM5a29VcDg2NVozQjQwRWNK?=
+ =?utf-8?B?MXdWNEFILytnOGZhUEhIZGdpajQ0RzdkRlpEYVB2UkFGNk50TG8ranlCS0hT?=
+ =?utf-8?B?ZlhiSTJjN085dkxMZUFVSERNRVFXNTdhUCtyVUVxcElPakNDaDN1aFNGa1pK?=
+ =?utf-8?B?WUpPdlJpZU1pY2ZxMmFNa20xb09ZcnZOcEdaT053ZjdjQXFSb3NmYnExbG04?=
+ =?utf-8?B?QWdSM0VwMlMwR2lQZWRSQ0NnUjFCc1g2WFJ3MS8wSDE5QklCS3RUZThYdkRq?=
+ =?utf-8?B?YjRnbXVJVW5TaDNaY1NJZnh2dUtwbG5IZmJ1OG1TQzZ6a0x1NmZIK2ljNTBN?=
+ =?utf-8?B?VkhrRVRqV3VnUzBEbk9qbm55bkVJaWVSY292dGIyMW9mb0FCdlVjNUZFNDk0?=
+ =?utf-8?B?Rk5BNjJWZGZQUkJFd0ZvcFVvcjNYY3duNXNxMXl2My9jUGFta0dLOEZkSkpv?=
+ =?utf-8?B?dm93cUtSVW1ySHp2UkdFRXJpWHZndlNSU3c5bHNOdk9vQ3lFelJaZ2t4TlZi?=
+ =?utf-8?B?UDlJWUUySHhabC95SVQ3dVVmYUpSWEJPb1U0MEZwQml6bEJVd1lxalphQ2M0?=
+ =?utf-8?B?RXpYRWp0Y2NsaVN0OUJVMDBOMG1HL1YzV3pJWGlwWDB1NVhlM1pVcnBTcDYv?=
+ =?utf-8?B?c3cvRVNHNVhRaEQyMng0YmpYeXoydnE1R0FWanB2aDA0cXlYcFpBOVgwMkJr?=
+ =?utf-8?B?K0lNMjRsZE90bURxZjkwQjhweVFkWm5DWFVyRUtsanU5aExwanQxdDdPYmIr?=
+ =?utf-8?B?Qm5WVWFkQ1ZUZW1ZUGlvUTA4U1RqMlc1WjRqOHpnQ3dMWlI3d3pabGVVNTZ6?=
+ =?utf-8?B?YUpTRTBIOXFncmJ5cUtUUXFsaExidkpqL2NYOWZjNzlnWUh3a2xoWXNrSmZM?=
+ =?utf-8?B?WlpxbkJ5cVk5VlZ2a0l1V2JUa28vc0syT21yL1VpUjRoM0tOMWpQYUx6TW83?=
+ =?utf-8?Q?iWXQO/tZpcH5FEU8NNCOJaQ=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 18:59:39.2630 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d1c2b8d-8daf-4161-1d55-08d9ed90a7b7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51f14a2e-b12a-4f9f-f97c-08d9ed90d1ba
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 19:00:50.7055 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3070
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oQC3Pkg+fGp5+yIYt8lEiJ2Ftv85FtfQBfx+OXqKouOgqel6ITyGePWKm00MfKplt7TlC0LtupaAnPW8XHZ/4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2624
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,614 +127,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: felix.kuehling@amd.com, Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update the SPDX License header for all the KFD files.
 
-Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c                  | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c                     | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_crat.h                     | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c                  | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_device.c                   | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c     | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h     | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_cik.c | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c  | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c  | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c                 | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_events.c                   | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_events.h                   | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c              | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c           | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c                | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_iommu.c                    | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_iommu.h                    | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c             | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h             | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_module.c                   | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c              | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h              | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c          | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c          | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c           | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c           | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c           | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c        | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c        | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_pasid.c                    | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers.h              | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h           | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_aldebaran.h    | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h          | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_vi.h           | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_pm4_opcodes.h              | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h                     | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c                  | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c    | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c                    | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c               | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h               | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c                 | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_topology.h                 | 3 ++-
- 46 files changed, 92 insertions(+), 46 deletions(-)
+Am 2022-02-11 um 12:15 schrieb Jonathan Kim:
+> SDMA 5.2.x queues are required to be mapped and unmapped from the extended
+> engines.
+>
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c | 8 ++++++--
+>   1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> index ed4f2d3c6dcc..645d42af8849 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+> @@ -183,6 +183,7 @@ static int pm_map_queues_v9(struct packet_manager *pm, uint32_t *buffer,
+>   {
+>   	struct pm4_mes_map_queues *packet;
+>   	bool use_static = is_static;
+> +	bool use_ext_eng = q->device->adev->ip_versions[SDMA0_HWIP][0] >= IP_VERSION(5, 2, 0);
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 54d997f304b5..33bd13a75bb5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index bb6e49661d13..093305534d04 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2015-2017 Advanced Micro Devices, Inc.
-+ * Copyright 2015-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-index d54ceebd346b..015ada3a0d54 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-index 673d5e34f213..36371fb03778 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2016-2017 Advanced Micro Devices, Inc.
-+ * Copyright 2016-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 7f1746289989..8e3efb8518fb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 7f6f1a842b0b..33d8389701e0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index 05a9c17daa3e..977e1d471c50 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_cik.c
-index 0d26506798cf..b1ab5b0775e1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_cik.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_cik.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c
-index ad0593342333..d5aa4c30e87d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v10.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2018 Advanced Micro Devices, Inc.
-+ * Copyright 2018-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-index f20434d9980e..d119070956fb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2016-2018 Advanced Micro Devices, Inc.
-+ * Copyright 2016-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c
-index 3a7cb2f88366..d7d45832df0f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-index 0dbcf54657ed..5401b6317f25 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index b5eda1e04f34..deecccebe5b6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.h b/drivers/gpu/drm/amd/amdkfd/kfd_events.h
-index c8fe5dbdad55..1238af11916e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-index 2e2b7ceb71db..c8aefeb37a38 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-index 68ee923a440b..34a185269ff6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2016-2018 Advanced Micro Devices, Inc.
-+ * Copyright 2016-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-index 81887c2013c9..9defdbbb4ff8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-index fe62407dacb2..fbd0afe4da42 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2018 Advanced Micro Devices, Inc.
-+ * Copyright 2018-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
-index afd420b01a0c..8cf0fcbe87c2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2018 Advanced Micro Devices, Inc.
-+ * Copyright 2018-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-index 16f8bc4ca7f6..bcf7bc3302c9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
-index f4cfe9f1871c..383202fd1ea2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_module.c b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
-index 5e90fe642192..09b966dc3768 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_module.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-index 9b7544ddced7..3f95c4354cfb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-index d81ae0699300..57f900ccaa10 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-index 06aae5df6a37..4889865c725c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-index 88228009ded4..c354d6bb7553 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2018 Advanced Micro Devices, Inc.
-+ * Copyright 2018-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index dff58ee53557..0778e587a2d6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2016-2018 Advanced Micro Devices, Inc.
-+ * Copyright 2016-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-index 86fc5decacf0..589ee9594728 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-index 1439420925a0..a8a1ac5aff48 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-index 7ea3f671b325..fee1c91bff15 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2016-2018 Advanced Micro Devices, Inc.
-+ * Copyright 2016-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-index 3c0658e32e93..324624a8537c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c b/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c
-index af5816f51e55..e3b250918f39 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers.h b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers.h
-index e50f73d25de6..7274edfd3f38 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h
-index 4d7add843746..a666710ed403 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2016 Advanced Micro Devices, Inc.
-+ * Copyright 2016-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_aldebaran.h b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_aldebaran.h
-index f795ec815e2a..38f5cb6a222a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_aldebaran.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_aldebaran.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2020 Advanced Micro Devices, Inc.
-+ * Copyright 2020-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h
-index a0ff34878163..f9cd28690151 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_vi.h b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_vi.h
-index 5466cfe1c3cc..40971c5ecced 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_vi.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_vi.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_opcodes.h b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_opcodes.h
-index b72fa3b8c2d4..5bfd0f9cbe23 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_opcodes.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_opcodes.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index b6790a637f5c..08df70452379 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 8c6a48add76e..59c04b2d383b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 70ea4849e6a2..c3f252fc337b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index 6dcd621e5b71..0f6992b1895c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-index 329a4c89f1e6..f9eafc796e70 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2020 Advanced Micro Devices, Inc.
-+ * Copyright 2020-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-index bffd0c32b060..dfe101c21166 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2020 Advanced Micro Devices, Inc.
-+ * Copyright 2020-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 948fbb39336e..9d10d0c04ecc 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1,5 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-index f0cc59d2fd5d..4f80d2ea1000 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-@@ -1,5 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
- /*
-- * Copyright 2014 Advanced Micro Devices, Inc.
-+ * Copyright 2014-2022 Advanced Micro Devices, Inc.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
--- 
-2.17.1
+I'd put this in a macro or helper function to avoid duplicating the 
+condition in case we ever need to update it. With that fixed, the patch is
 
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
+>   
+>   	packet = (struct pm4_mes_map_queues *)buffer;
+>   	memset(buffer, 0, sizeof(struct pm4_mes_map_queues));
+> @@ -214,7 +215,7 @@ static int pm_map_queues_v9(struct packet_manager *pm, uint32_t *buffer,
+>   	case KFD_QUEUE_TYPE_SDMA:
+>   	case KFD_QUEUE_TYPE_SDMA_XGMI:
+>   		use_static = false; /* no static queues under SDMA */
+> -		if (q->properties.sdma_engine_id < 2)
+> +		if (q->properties.sdma_engine_id < 2 && !use_ext_eng)
+>   			packet->bitfields2.engine_sel = q->properties.sdma_engine_id +
+>   				engine_sel__mes_map_queues__sdma0_vi;
+>   		else {
+> @@ -250,6 +251,7 @@ static int pm_unmap_queues_v9(struct packet_manager *pm, uint32_t *buffer,
+>   			uint32_t filter_param, bool reset)
+>   {
+>   	struct pm4_mes_unmap_queues *packet;
+> +	bool use_ext_eng = pm->dqm->dev->adev->ip_versions[SDMA0_HWIP][0] >= IP_VERSION(5, 2, 0);
+>   
+>   	packet = (struct pm4_mes_unmap_queues *)buffer;
+>   	memset(buffer, 0, sizeof(struct pm4_mes_unmap_queues));
+> @@ -257,8 +259,10 @@ static int pm_unmap_queues_v9(struct packet_manager *pm, uint32_t *buffer,
+>   	packet->header.u32All = pm_build_pm4_header(IT_UNMAP_QUEUES,
+>   					sizeof(struct pm4_mes_unmap_queues));
+>   
+> -	packet->bitfields2.extended_engine_sel =
+> +	packet->bitfields2.extended_engine_sel = use_ext_eng ?
+> +		extended_engine_sel__mes_map_queues__sdma0_to_7_sel :
+>   		extended_engine_sel__mes_unmap_queues__legacy_engine_sel;
+> +
+>   	packet->bitfields2.engine_sel =
+>   		engine_sel__mes_unmap_queues__compute;
+>   
