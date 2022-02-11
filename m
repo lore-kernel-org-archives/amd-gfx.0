@@ -4,117 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE7E4C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 20:07:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27DC4C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 20:53:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F05210EB42;
-	Fri, 11 Feb 2022 20:07:00 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2082.outbound.protection.outlook.com [40.107.100.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D18C10EB42
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 20:06:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4506110E235;
+	Fri, 11 Feb 2022 20:53:31 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2048.outbound.protection.outlook.com [40.107.94.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 692B810E214
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 20:53:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D7FAMIwL8t5zyBgdsyE+zHkLGC2soWW5CyIKLd73lChdb5A+z3yWGwPwlFLrl83s4z+7w75Ir+9JzxgoBh4S/XmYb2oR/Dhft+WY5NhZZgptNMZ0UrEgMlJwVTmWNvueUAQdFKppPtUJve3z85HSvCyevU3sdtWTxqfw2icHrlr43k/O6vcRBjASBAuv8dJ3vFTLkNgVIT3eYCO9aAWOWeL9FUAWnlO31N9I7lTQtbVNugHXTV0gDnrRTHR8vW88X6htqLkeAnyEbsqhxwZO9naPclY9KC3+fISIR0QmBhNZ95I1kzDj2PO/826Vw0FSLU22ur9YjIy67AcW0fmIKA==
+ b=Cicjyj0jN4mn6/ZgnVOjueB68G/gy1xN/JkDN1mtzijzZfEoWZdmzyqNTxof73FNh77fKr/IzhMleWMx0wbletmu4FUZaLZJ4CzgnH3N4Dze06Zzb1jOzVAo2TXkhmLtDbTusVaq0p7TXWWe4hajGPHokDX6Nllic6y7cPa1wtKsiZYOStjytoT+i6HyY6RPBqkFgrtFtfac0aR25DmopEiixoPg8G7tV5gyq5t+QCww7HqLBTARFQJ/mBZHgWbRhX9ZixBz4Q2fDOeX4HuLEWONmHfH9hBpvqXmgMLLE8Ob5/C2skqEu0o8PBGIUrxMhudQDTbjiA8ux/q3TMYlOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LKVKmo6skdrsDkJDHIzDNUFj+OLho2A3yAIyWNMmKUk=;
- b=ZFY/o6Wtj0paA1VM59pSvGEbOQ+Oo7ZB0GrLf73FN/4gLBsaNY5OXzwV2sdvzbKQh0+MhFKu+hFPNYNkhctn7yIWoIJmxwdTUKY6t61Tkp9eRQXlgnk/DObOik0myMMgYUBhIue2Y33n2si2Z0OxZpPKIs1RX8mqdK2E/bEthzqXR7kgmVaDqVtwEz3BfL2Ztpx7hTpBGREWGNIHfzw67kFfakYd0lbMZJUS6CxWQ3M2vMk54hnnXTBNE0Kb7s3esLe7JYiqj8TEDeWmuOtxkmYRCHCa4lMDDDwkz4OPwCIHZ7IEIU19d9csRsOporKI2OHkjMeEWKmpd1NK/AvpoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
+ bh=07XIp/KdO64ViDMP3Ri9S1cg3IDD+TnygTrgcllhgf0=;
+ b=RTLKdOT6n94nnpT4EURV/bsxPo8NyG/16SiE5ZmrX1o5HdZ1roB65yjR3I1RoFvvAfvorN9gQmYgBPrOhYLrlomTciO//jNM8iRPQAGUWRmNH1kTaaXS53lEy1m1QDIUdp7DP3Q2cbKx3jvx0/91pw++8lFPd+1EnOo4fhoxa41Di5L6qVGg+PjNg/H7gtN2t1QtKLVqmtTMEn776DrCkej+r2wludxTYkY8RFBxoOhO0Pi32ieyLvV2PUOQSJ5q03zFp9h5tiebcLXxuzYLLpX6zxIjj7WPsSQN7X1i3eHHSJRwLKi82C3sc9DPb3MqSxIcdaGu1ZhtgHMXdpGOwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LKVKmo6skdrsDkJDHIzDNUFj+OLho2A3yAIyWNMmKUk=;
- b=liQFRFjgU94StDmPkKQ6DwOa6sfL62+2P9ZKzz2Sxi8BmiS67f7K9pHJHafU4p0GZrzVvOiRM7m5Rz/EFYMofBxmrSVV8pWfAipLBnb0FAZ4EC1B0r1wjW4iYEZCvKh5ftxVznNl4eto52mcDu8oYTLyGCU7U21AZ/vyAxlxBoU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MN2PR12MB3214.namprd12.prod.outlook.com (2603:10b6:208:106::17)
+ bh=07XIp/KdO64ViDMP3Ri9S1cg3IDD+TnygTrgcllhgf0=;
+ b=D8r9ViHJn2Z2fzygKTAOfFp9oFL1ILO1M3QejbAJRD6bR4QwC3wR1cpbaHDWT35TUdKwCck/N3ZXA8ny/dn9uKwJIJs0rR36ZhcjpYR5eKuRnWJvuEVQhVKw/2oGLxgyFGGa/l9+3kWkGIS1V5pN098hFeE/aKmbn9IpjdD0lqk=
+Received: from BN9PR03CA0979.namprd03.prod.outlook.com (2603:10b6:408:109::24)
+ by MW3PR12MB4457.namprd12.prod.outlook.com (2603:10b6:303:2e::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Fri, 11 Feb
- 2022 20:06:56 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::38ec:3a46:f85e:6cfa]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::38ec:3a46:f85e:6cfa%4]) with mapi id 15.20.4975.014; Fri, 11 Feb 2022
- 20:06:56 +0000
-Message-ID: <edcc4ab9-5876-d882-e6bb-edd52bb0bf38@amd.com>
-Date: Fri, 11 Feb 2022 15:06:54 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 0/4] General cleanup and SPDX update
-Content-Language: en-US
-To: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220211185925.4178-1-rajneesh.bhardwaj@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20220211185925.4178-1-rajneesh.bhardwaj@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0080.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:84::23) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ 2022 20:53:27 +0000
+Received: from BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:109:cafe::c7) by BN9PR03CA0979.outlook.office365.com
+ (2603:10b6:408:109::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11 via Frontend
+ Transport; Fri, 11 Feb 2022 20:53:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT051.mail.protection.outlook.com (10.13.177.66) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 20:53:26 +0000
+Received: from localhost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 11 Feb
+ 2022 14:53:25 -0600
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2 0/1] drm/amdgpu: Show IP discovery in sysfs
+Date: Fri, 11 Feb 2022 15:53:11 -0500
+Message-ID: <20220211205312.6410-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.35.0.3.gb23dac905b
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d5727f07-3a60-43af-a9a8-08d9ed9a0dd9
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3214:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB321432418E6C2B1FB171500492309@MN2PR12MB3214.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2331;
+X-MS-Office365-Filtering-Correlation-Id: f86ccef0-051c-4b5d-6388-08d9eda08d08
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4457:EE_
+X-Microsoft-Antispam-PRVS: <MW3PR12MB4457C36B769F84B4B5F9538C99309@MW3PR12MB4457.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:276;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UP/ZENnxsy5fJsk8KYvin+auCdeyntJBnW7QYki786T4uN2EKIwQtY0SGxaub4FOi+VkouWX2WIHOpA8Mh00h+NNZFGMLMwuPZvF4Wk14bax8KGOJLJW07v2xojgNBy/mA+sByrRIQKYPi4GnoF+oIipuu5kqsuZNxTPgxtNXrouEONzKSFsy8kAU6z0h135ukRq1o1QVNfk75Qo9EOVCq44nDy1Vjgcgy2wF9kT02vIPRwLTgeBcBi7VY6qR/xH/e+eHc416ZQ2dSH5xoWD1z1j0V77fv64TLlG04M76LfctUdu7Iz3kr9zOq3Yhez6P1fw3CvucPSCy01ICMaTWzxNX9yyWtEPPqVwi9F6omrHeuaGU0Tnjp8Nch8MO7WjxmSXMOgS87uQIKb9reiAe8uGB7yjhMN5v3RMElBCOkqZT4yFGrPEy23ahbNZARQzeAgHXqeS10S/sRQ0SSuuc/ZPZP8wmyKfQAtofgi9MDcgdAVWq3zG2YsY8a5siShmZA1cC7VklIvKKbvdWT8Sst9LnoAqeZv1F1Xth56NzPZAQAjYQtdiNDvcKxStRZAbZESKkrp8YI7anTL4MTFrM/qs3OQATfzhokpC+LiLKJ7WcjSD1LJIHYR98qqd1Zza7t3+6DzpQMPNoZu8u14Zd9uHMNz2CugJfNuTSBuaSYFfD3b6LdHY/WWgkhHX36p9Xr2/Gjp3TW3xM1su+YjN/EWYUNXCJZI7tC9dv9NWhqfBsW2Yp1Xtz2qGyGkEfN30
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66946007)(8676002)(6506007)(26005)(186003)(66556008)(66476007)(6486002)(6512007)(31696002)(2616005)(86362001)(2906002)(316002)(8936002)(38100700002)(508600001)(36756003)(31686004)(44832011)(83380400001)(15650500001)(5660300002)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: CTJvCbW9BdoXjpbh/KLU+WlaY2TxPuss9abKEkF5nYFeZ2ExEsErKOnOyCmUbuAtdlOoMT1qsz88pnAvcbbE5cBU/KOv0U3k6vOk98IF1XbFWehPDn5Fv1HBb/F21rT5OLqMZmzeS0TBGr+7EYarc+1pjdr/Yh13i651JEU7yHzPoqvxqoLlKxbG11Ry28lnpEpQ9eCVWF7Ug+0XO7JitoiOWcVcIuwl+dbi+JvDb+ycsk4uRFRgLvN1IY/dbJvNt57ue9u2Y2oCYZHXiA/p1bunoG2/M8lpryWXOQTnjMMwwtovylQp4y2D1HFxzomZzhPY/fNoL5GI6CnJcppdIQohAqpWg8I4xsNeq41RJ6dywFpQ3gm4MsvJgdiflW8De+1rsd8BuzgpWiyVbA6a6oKCTKqisLc6TJmcmWfBtWBZk2vFx7nRVzCegMpZ+GT3MO+rYSszedZOprH0oX6CTlQkXpkdEJNpOBQdtk/3FExNnAmK91XxKla0uremSV3HypK6YEUNtlTSn9TlWPepwC1Qg2tglupZOgicX+JPWJbkc83Bq01I3Y4OgM6neN0j/cWRrfHcgiaKRzk+oaiuIad/+1zY543qLcA1Mm67ztqFTZOk1ApsMX23n58SC60jUs3IdnxvWmo1+83TAgBSHEOdCapMFqju0kkBNcmzIUOvRPnWq2rUy8Zui9zSQDJs3ahchoDarvyRUwLkqfXZ5A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(47076005)(81166007)(508600001)(316002)(336012)(36860700001)(356005)(40460700003)(6916009)(86362001)(70586007)(7696005)(70206006)(44832011)(83380400001)(186003)(82310400004)(1076003)(16526019)(6666004)(4326008)(54906003)(8676002)(2906002)(5660300002)(2616005)(36756003)(8936002)(26005)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RXVJUUlvZUIyQm4xRlhwYVhXM1BxU2NJVHh0Mk5aTTBWRXNNcUtreWFsTXBJ?=
- =?utf-8?B?TThKcmhxSm1XSTl5dXVENnp1dlp2RGpLM0dXQm5kVzNWRm8xNmRPWjc3M0Vk?=
- =?utf-8?B?aHpuWE5jYXl5MnlWZTFzeHl3dVVTUkloK3VTVVNpbWlua01Nb1RGcWU2VTlR?=
- =?utf-8?B?T0MvaHd5SXc5YVBXL2hrbWE1YllMVFBDeHdod3k2OWc5cUN5LzFQNGVXNGZr?=
- =?utf-8?B?UWE1RU9yZzVaTDh0akhFVmhtdG1YRCtLZFBiYkx0eVIxUWQ4UHBicVFtcUFR?=
- =?utf-8?B?TFVkZ1I1SEJTWUUrZzV3YTF0UVVXd3p4czNSajVETWlhWTNvcHdqSm5QcVI4?=
- =?utf-8?B?K3RZa2ZmaDhsdTYxTGhFemtFUGVvanphbjI4ZTAreStiSTBMQW5ya2RMUVF3?=
- =?utf-8?B?UGE2MGhyblErOGJzSVNyYXRvTFhmUGlWL0RXZWFnTjJvUVhQWXdpbStVbDlH?=
- =?utf-8?B?d2cxYzdFcWZwa2IxZFB2UnBBdkRJVDdQQ0ZWUXRrOVF2S0xmR3F0YTQ4MnpW?=
- =?utf-8?B?Wm5mYVlGWGJGK2N6TW5QcllsUDBtN1BNbWhWNWV1MC9OaEdLMURmMHlGNjVx?=
- =?utf-8?B?NWNnQ0JXZStxNmxFcHloS1ZkZnE2V2t0TE1VQVE5NW1GRW1KczlORmNiTHN1?=
- =?utf-8?B?amkwek43VUNibXVPUEZpbkd4QzFPZ2VyOGlUZ3cxMlRkNnBrRERHUGozV01i?=
- =?utf-8?B?L3ZsQ3J5Sis2VWlXcGdRMXNISXBxRG40LzkxRHpTVVZsYWxRRkJOZndiSHV4?=
- =?utf-8?B?RkNvTXhJNEhkNVQzK0M2T3M2Sys3bmgyVUF1c2tJY1dtaWYxRjNWQktUTHdQ?=
- =?utf-8?B?OUMwYjVWRTlRUzVCSkZDQkwzb0MxNEc3d25uRThWSGpmRUFMKzJpOGtFb3V3?=
- =?utf-8?B?NUZxZEFPRDFqWmhXVGYyWWYwT1lCQ2VJaWFkbFhGenNHS3c3NTUwZTFXZU13?=
- =?utf-8?B?NkJNTWJzT0VaV3ROdFlTeTRPVXJFYlFVd0U0ejBYbzdObDZnMWs1aklFZlIz?=
- =?utf-8?B?K2RRbXRSZnA4ZUhWb3BHV3dtcHFkQ0htVytJT2ExRUtsdUp5aUh2ZlJDTGtY?=
- =?utf-8?B?RkJzSzNMNzM3NGpWNFNsOTV6Sm05NXJORXJDNk5yU0VSNk1EUHFYcC9XKzg4?=
- =?utf-8?B?K1AzenhsendqaEZRZEFJN0VsREhHY1NCczRWTmI4SDlHRDAwYkwwYi9yZGE0?=
- =?utf-8?B?ZUJYcmxNd3R2SkU3TWs5cUFHaWVYK0RyOFlPODJ0a1gvUDRyLzlINmVJSHlI?=
- =?utf-8?B?cUNncmhjYUk2RTVkMHE0K2tDbmtxLytLc2JiMmRYdERqTDlNdng2WXBDTDMz?=
- =?utf-8?B?M0RxblMxM2ZUQ0E0S2VwTXJqWWF6NVY1QlhxQTFDc1hNU1A2MGtPc2RnakVL?=
- =?utf-8?B?SnRBelZnaExMZ05rYXpobUxJaHJrZ3EwTFVKZHZqQUtZQnFVZzN3Q0taK1hS?=
- =?utf-8?B?VUFiRkRHQ1hNZk1EakV5NCtseCs4OTlSKzdGNDdHckU2SzExZmZwSlRMU2tj?=
- =?utf-8?B?VWdQdGxyeHNvaWE5QVJsdXRpdXE5ZE00Mm5BYkVnT0tTNmpIZjF4MGJ0d3J3?=
- =?utf-8?B?dks0TW8xV3FiVGkvaXFUZ3dzeWhnWTR3V0ZINkxBSjdXRHNhTStPUnptR1Zm?=
- =?utf-8?B?cEZIVU9MYjdKYkgzM2NYNkgvSmd3TGZzMDV2WEYxSEFOWDZSTzZuMjdMRE11?=
- =?utf-8?B?SUEzcmxBK1pjcjhnQjBlc3l6bFFIRWdJQlpuVW9vUUJFaWlHb0ZmNVVwb01H?=
- =?utf-8?B?b3JQNEdPLytBWXE4S3Y1Mjk3NS9uRXNiTy82OVdUK2JiclhDQXlvbE1zOGhy?=
- =?utf-8?B?WUNER2NPK2o0cDNVQ2VKSU5FQW5SWHV0TmUxQ0V3YU1qOVFNMmlmdElpZm9P?=
- =?utf-8?B?eTZqejdFaWo1dk8rczVmZm1wZlpnTjdrbTVOVUttYit4enE4Z3VOK0tIZ3FI?=
- =?utf-8?B?MVNhUmFpc2FjNUU5d1J5Q2Q2NmVHVlFrbWsrOE9CbWh0MlFZWjFSNWg2V3ky?=
- =?utf-8?B?VlViNFIyNWM3elZZbERZbllRUERPMkNVSjFOdHovMkl2TWJzRU9LUW9MOUhn?=
- =?utf-8?B?eHFoQ21lbUNIOHBTcXNsZ1gzRHZKZEJ0aWppb1V4amVOQ1g5d21WMFlsVmlt?=
- =?utf-8?B?TzRhZjc4UVBRWWEzOTFpNjJET1ppeFB0b0NjQWwzZnAwSjZSOUxKWU96aE9O?=
- =?utf-8?Q?ZbffUjBoeP0w1Rog0ZBWhDQ=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5727f07-3a60-43af-a9a8-08d9ed9a0dd9
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 20:06:56.4625 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 20:53:26.5542 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f86ccef0-051c-4b5d-6388-08d9eda08d08
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MfJ/KqaaN7U3YzaboEu6rmyIyt6XRpLdPOfxhGX9o2lfeNJyiMI8OaZSeH7vmf+jdwEd7JVSQ9m1GtJQMDB4hg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3214
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4457
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,77 +99,549 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>, Tom StDenis <tom.stdenis@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Version 2, this version, integrates community feedback.
+Version 1, adds sysfs tear-down on rmmod.
 
-Am 2022-02-11 um 13:59 schrieb Rajneesh Bhardwaj:
-> There are a bunch of warnings from checkpatch and kerneldoc style issues
-> that this cleanup series tries to address and also update the SPDX
-> License header for all the KFD files within amdgpu driver.
+Show IP discovery in sysfs. See the commit message for the layout
+format.
 
-The series is
+For instance, on a Sienna Cichlid, the layout looks like this:
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+$tree /sys/class/drm/card0/device/ip_discovery/
+/sys/class/drm/card0/device/ip_discovery/
+└── die
+    └── 0
+        ├── 1
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 108
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 11
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 12
+        │   ├── 0
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   └── 1
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 128
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 150
+        │   ├── 0
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 1
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 2
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 3
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 4
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 5
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 6
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   └── 7
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 170
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 200
+        │   ├── 0
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   └── 1
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 255
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 271
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 3
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 34
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 35
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 36
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 37
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 4
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 40
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 41
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 42
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 43
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 46
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 47
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 49
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 5
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 6
+        │   ├── 0
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 1
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 2
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 3
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 4
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 5
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 6
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 7
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 8
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   └── 9
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 66
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 68
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 69
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 70
+        │   └── 0
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── 80
+        │   ├── 0
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 1
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 2
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   ├── 3
+        │   │   ├── base_addr
+        │   │   ├── hw_id
+        │   │   ├── major
+        │   │   ├── minor
+        │   │   ├── num_base_addresses
+        │   │   ├── num_instance
+        │   │   └── revision
+        │   └── 4
+        │       ├── base_addr
+        │       ├── hw_id
+        │       ├── major
+        │       ├── minor
+        │       ├── num_base_addresses
+        │       ├── num_instance
+        │       └── revision
+        ├── ATHUB -> 35
+        ├── CLKA -> 6
+        ├── CLKB -> 47
+        ├── DBGU_NBIO -> 36
+        ├── DF -> 46
+        ├── DFX -> 37
+        ├── DFX_DAP -> 49
+        ├── DMU -> 271
+        ├── FUSE -> 5
+        ├── GC -> 11
+        ├── HDP -> 41
+        ├── MMHUB -> 34
+        ├── MP0 -> 255
+        ├── MP1 -> 1
+        ├── NBIF -> 108
+        ├── num_ips
+        ├── OSSSYS -> 40
+        ├── PCIE -> 70
+        ├── PCS -> 80
+        ├── SDMA0 -> 42
+        ├── SDMA1 -> 43
+        ├── SDMA2 -> 68
+        ├── SDMA3 -> 69
+        ├── SMUIO -> 4
+        ├── SYSTEMHUB -> 128
+        ├── THM -> 3
+        ├── UMC -> 150
+        ├── USB -> 170
+        ├── UVD -> 12
+        ├── WAFLC -> 66
+        └── XGMI -> 200
+
+114 directories, 365 files
+$_
+
+"num_ips" shows the total number of IPs, as this count exists by the
+same name in the binary data.
+
+Typycal contents of IP attributes is,
+
+$head /sys/class/drm/card0/device/ip_discovery/die/0/DMU/0/*
+==> /sys/class/drm/card0/device/ip_discovery/die/0/DMU/0/base_addr <==
+0x00000012
+0x000000C0
+0x000034C0
+0x00009000
+0x02403C00
+
+==> /sys/class/drm/card0/device/ip_discovery/die/0/DMU/0/hw_id <==
+271
+
+==> /sys/class/drm/card0/device/ip_discovery/die/0/DMU/0/major <==
+3
+
+==> /sys/class/drm/card0/device/ip_discovery/die/0/DMU/0/minor <==
+0
+
+==> /sys/class/drm/card0/device/ip_discovery/die/0/DMU/0/num_base_addresses <==
+5
+
+==> /sys/class/drm/card0/device/ip_discovery/die/0/DMU/0/num_instance <==
+0
+
+==> /sys/class/drm/card0/device/ip_discovery/die/0/DMU/0/revision <==
+0
+$_
+
+Luben Tuikov (1):
+  drm/amdgpu: Show IP discovery in sysfs
+
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Cc: Tom StDenis <tom.stdenis@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 493 ++++++++++++++++++
+ 2 files changed, 497 insertions(+)
 
 
->
->
-> Rajneesh Bhardwaj (4):
->    drm/amdgpu: Fix some kerneldoc warnings
->    drm/amdkfd: updade SPDX license header
->    drm/amdkfd: Fix leftover errors and warnings
->    drm/amdgpu: Fix a kerneldoc warning
->
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  4 ++--
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  6 +++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 14 +++++++------
->   drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |  5 +++--
->   drivers/gpu/drm/amd/amdkfd/kfd_crat.h         |  5 +++--
->   drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c      |  5 +++--
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  8 +++++---
->   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 20 +++++++++----------
->   .../drm/amd/amdkfd/kfd_device_queue_manager.h | 11 +++++-----
->   .../amd/amdkfd/kfd_device_queue_manager_cik.c |  3 ++-
->   .../amd/amdkfd/kfd_device_queue_manager_v10.c | 12 ++---------
->   .../amd/amdkfd/kfd_device_queue_manager_v9.c  |  3 ++-
->   .../amd/amdkfd/kfd_device_queue_manager_vi.c  |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c     |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_events.c       |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_events.h       |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |  5 +++--
->   .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   |  6 ++++--
->   drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c    |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_iommu.c        |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_iommu.h        |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |  2 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_module.c       |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  |  4 +++-
->   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h  |  3 ++-
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c  |  3 ++-
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  5 +++--
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  3 ++-
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   |  4 +++-
->   .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |  3 ++-
->   .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |  3 ++-
->   .../drm/amd/amdkfd/kfd_packet_manager_vi.c    |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_pasid.c        |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers.h  |  3 ++-
->   .../gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h   |  3 ++-
->   .../amd/amdkfd/kfd_pm4_headers_aldebaran.h    |  3 ++-
->   .../gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h  |  3 ++-
->   .../gpu/drm/amd/amdkfd/kfd_pm4_headers_vi.h   |  7 ++++---
->   drivers/gpu/drm/amd/amdkfd/kfd_pm4_opcodes.h  |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  7 ++++---
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  3 ++-
->   .../amd/amdkfd/kfd_process_queue_manager.c    |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_queue.c        |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c   |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h   |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |  9 +++++----
->   drivers/gpu/drm/amd/amdkfd/kfd_topology.h     |  3 ++-
->   50 files changed, 137 insertions(+), 94 deletions(-)
->
+base-commit: 5c0feae0fd9dc4095b4fae81a82932597b36a760
+-- 
+2.35.0.3.gb23dac905b
+
