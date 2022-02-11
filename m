@@ -4,121 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74756C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 17:07:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92092C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 17:15:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F196710EAD9;
-	Fri, 11 Feb 2022 17:07:16 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2084.outbound.protection.outlook.com [40.107.220.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40F5310EAD7;
- Fri, 11 Feb 2022 17:07:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2A6D10E187;
+	Fri, 11 Feb 2022 17:15:43 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F68510E187
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 17:15:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Qce9LY45lLdRVZoG0GgO+NX0CIFRUGdzvmfCEyk0wYbOdYUeufF8QZgb8UYHxIuOpEPGaWblkPff2KB0uBlhNnMytuDBgMt5wkPaEcKYiMoILn2ASXWgTGjCPYqDTiEXF+tJP/yFnT5TFav8gupf7ODCFsG+qzghKS3WPZ2ngrULLx19VQaDXWX+ceAHDGkisucrFlgJCFYIfFGJxjfHeetH3TjIyB1gAg01OsvEAIMz51ahJVxyesmGhGCM0TdH6lJeu8VfqtfEYYOkcdCsuwXR1uaBc251ly3lFhj93LQSyBpVG5ccgjNEzPzvMuO/L5S13tSHe+rV2tETbXB7CA==
+ b=aw1Pr8/T0fMe0rCf1XnqZLsYvW00X5tv57/ettTmumixgD8T19PlqZ9NbuKWrX1vJ/+21RrPG0WqfjdyhxuMsNj3ocU3uXhIGRrla/CKGHTAtNA0ApxC/euHwY4zcchk64ZqWgwLEhMU4KiOjznukUkmXFpOZ4qa7FddNyE1eYxddWpatGnA9upuVPHqrGr0ekR6ZlJ1XNth6m3sdB1OlyCDo2Ln6IPPwbIYeiZY+N0X2ruWKofMN+NdiHglxIS3uh82VrjSYmIX5M61rdgx9QoZhcB6+AwtkYCSgdwkCcDhD0T3WQYi6D604AUAHgyCC8KEami/8z8WpxRJeS4V/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=49+uABlHoF/XzoYLH/FogMU5ku/SkUq3CWWdN4lxGb4=;
- b=ecH7HNJD3/1pSO03tShMA1I+eqbiVzG7uYe9BNYDPncZomfO2XhysP8ysL351+naLqwUB7XYjCxLsBl48KF0E+zT+OrsPQy2fdShhZLDNirSOP5+DeGR56lJ/3bQ+7GMK4jdAocaPM9lAMNOHpk4XoUNj8ls5u0kLApqgK7ryXmVw5SNwigl0rxIflj5R35cTP4mJVjwjB7JG0GTROYp95gb8QFKBlLmWqx8RQsmcyArTqWlHyyj+ZGbcE7PfQdRol2PPbLdNmLkaTW4OY/4f2IYUxy48bt5Ax6GOgtuHHpdmaO1iTBwdnzBi/OlZplAmofmU0PAKSjkNRzwXsun+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
+ bh=LegoYLBG5vkYDLhn+w18tz0rKv9G5rpeJCMPIkdHF5s=;
+ b=N45oqBCk5ima959svBWEOEwcNLItX3fUgWPp/tM99/d8/5LfNc0OZFtWyJzM2xpWXaSqv1XL1lrqOvFqAMOLyqyJRpLkWmtmqJrPh9H/nl36YS/niTviOKqZaZazhDbYvOlvLH5Gu9/HlXS4T+tMIjtpDdXKZUW920rNq12w3TWqjhzeTDyarsSX3rFLQoX75Ub34pV+Usy/J+WKAXLFx/kR7Jgg6D3bd202g0lOyg3JHE+CtrM4CqH0FibM/fwvenTldxtzRgJb9Cv3wdp9tgOgsSXmNQ4Yiq8S6ShNhCCNpKdKyJXDCBDaS32hnGiUMqAn4yvZBNGrS4QCjFaQOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=49+uABlHoF/XzoYLH/FogMU5ku/SkUq3CWWdN4lxGb4=;
- b=xqhN/kBBxNi/jcTiBdZTM9Df3L5fBL741kiHIbs/uPn4PDnygUTLjq5fl1yFCNC5ObnzMoc2763Sfg5k1Kk1j2ej3HrMd8h86gFx/8lfvNjrz4xiJbzGy2z84JCdEdMFzPyB0HtYDLVsfpz6fL/xedva6MAPAWRxBEfOq3CYUEs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CY4PR12MB1925.namprd12.prod.outlook.com (2603:10b6:903:120::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.17; Fri, 11 Feb
- 2022 17:07:13 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::38ec:3a46:f85e:6cfa]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::38ec:3a46:f85e:6cfa%4]) with mapi id 15.20.4975.014; Fri, 11 Feb 2022
- 17:07:13 +0000
-Message-ID: <a24d82d9-daf9-fa1a-8b9d-5db7fe10655e@amd.com>
-Date: Fri, 11 Feb 2022 12:07:11 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v6 01/10] mm: add zone device coherent type memory support
-Content-Language: en-US
-To: David Hildenbrand <david@redhat.com>, Alex Sierra <alex.sierra@amd.com>,
- akpm@linux-foundation.org, linux-mm@kvack.org, rcampbell@nvidia.com,
- linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org
-References: <20220201154901.7921-1-alex.sierra@amd.com>
- <20220201154901.7921-2-alex.sierra@amd.com>
- <beb38138-2266-1ff8-cc82-8fe914bed862@redhat.com>
- <f2af73c1-396b-168f-7f86-eb10b3b68a26@redhat.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <f2af73c1-396b-168f-7f86-eb10b3b68a26@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0064.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:84::10) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ bh=LegoYLBG5vkYDLhn+w18tz0rKv9G5rpeJCMPIkdHF5s=;
+ b=fXdYdzpjPoNP0JyJbvUg+qzRLahS8FJFc/5Fiii6hPzyGIVTYggkqJSFOLWqByz4Xe0JLN97WyJb4Jr1FfGvz6icTsG565eeuR083AMYWR1E/SNtOl9osSxF9VXVWKRg+gUA2KQcjvjawMmpVeW8tTm8qclxGAWy3IGMjuHRoec=
+Received: from DM5PR20CA0034.namprd20.prod.outlook.com (2603:10b6:3:13d::20)
+ by BY5PR12MB4147.namprd12.prod.outlook.com (2603:10b6:a03:205::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Fri, 11 Feb
+ 2022 17:15:39 +0000
+Received: from DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:13d:cafe::4a) by DM5PR20CA0034.outlook.office365.com
+ (2603:10b6:3:13d::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11 via Frontend
+ Transport; Fri, 11 Feb 2022 17:15:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT041.mail.protection.outlook.com (10.13.172.98) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 17:15:39 +0000
+Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 11 Feb
+ 2022 11:15:38 -0600
+From: Jonathan Kim <jonathan.kim@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdkfd: remove unneeded unmap single queue option
+Date: Fri, 11 Feb 2022 12:15:28 -0500
+Message-ID: <20220211171529.923453-1-jonathan.kim@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5b65f081-ee5b-49bf-546e-08d9ed80f2a8
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1925:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1925241C51B7366D3470B40392309@CY4PR12MB1925.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: 4252b5f8-3a88-4038-377a-08d9ed82209d
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4147:EE_
+X-Microsoft-Antispam-PRVS: <BY5PR12MB4147735BCF12795D8BE052BD85309@BY5PR12MB4147.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:418;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IHOSERCs1T0TNGvbXZkqFmAw9k3kTcVZ0xA3R6NKOPhhiWUFiv2NLTjk8TQCbOf/4JQ0KbskB2kKorkmbLgAtzHKDetAvKEADfomArP82dz7E0henlwQgkisVktVeTgs0/EQ+VQuLvj4JlRyGkOpTv4bNJbVq4WsWwtNsUoID7FT7G9mL5DIIJralLC9pnz9dsQEc1CL3TmHz+11JR8gVaV9si74E/L5fmqaZS8Nvqpa8uxTBdBrpAh43KkKuzxoiqF8d6IE0xxSZOFiTH4JYFYTIdp0PM9ml4FghiyTkKe8VP9zC6hqX2QwXjaEEJUYQY+Iwhq4rEXAE74s/fYm1YHBpg/14s1pAID3APsytaRZ2SxdtXfW02P4/5Y0xvD0g02e09jrGZh+23limhvjRh8SwDZsD2CYTQp7mK2N8R9owpjEkOmmdeH58J45a8wYiOHJt2MFT5Rn571mKW6ikhTfzVlM+JpNYBumqZlOYziUZ4jLlVju+LjgFQnNLzsq/XlwLs6EE/2baGuv2pHNRqrqaOU/e9ycKvjNqGS8dRum3s62OrOOFIRqihPLC6EWfYjTZA3Fi+uoOur19BPRZK4N6rfaAZmWMFpXzJxH3FBN13mLFcXcKQ8O1wRxIJCxAC/WDLguF5fOaB6jVR9psXEsZRalxZ64YrzTOayc6LP3re8oD586MCGg1/jDS2pBJh5GxUJ9Pdf/eb1z5JhInuIRuBJPJYmSINHOuG4JU0eUdg3DDA3UuA0J3C6tj9TY
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66556008)(6486002)(110136005)(53546011)(508600001)(8676002)(6506007)(38100700002)(31686004)(6512007)(66946007)(2906002)(66476007)(83380400001)(26005)(31696002)(36756003)(44832011)(2616005)(5660300002)(8936002)(316002)(7416002)(86362001)(186003)(4326008)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: MhES4onpOGIHVjhnmyJPLkJteyotjoTRFl5yw3QY7woi5vWgf85noC+sONxioJmwlR3KN6E//2onPJLMX1cr7n7M9nSC5ECKDVExnepWBWxBMd+FSoGZrnlMvdRZPRW2eTikR4W84PpulMidNbVlIvqJdS7M/cj9PNGOnMcf6larbxwW5fNaS70rZDzviOWwJ8pFuxk06It7oW0IL9AVmqCudSG7Xe+EkCHiwU/JJ/jgr20GksqwGI4PTobHxJ2H+ZvUx09AWU+1vYsR3O9j2c404LeK3bLsLBodlY2lJOX1r+ocQwmE5HZjegNdPFMyRfD4s3T599x+r9eNAFD5bfY7kf357jiLK5GFG57dIVfbreJqYQ2/ZdyPFJmYxqcvnKDjUm7XenOCZKEv/7xmssHDn/yPOq4fwcWQU5w8l9nhhgOb54/ArkWy+9oFMcLw8Uoppq5Y2mq9SPTD3zuSEBe/sh0f1Dzi5AGtmb/QO3/bLuuyzrJ5STagmJ3CDaXtc+NWjsv1dvDmm+iwTML5HJCO+jTDf8s6Ke9hOKDBT6NJKKybBRHOkCgX6+SzhEPfkuCXo8cjONr3V3+ACpPbt1hU9KL8WYVYyz90cz4jju9LGjAc1P8ZoSpQifRCC8BzI8YZA6I1J3PNT3eXg+7JoQZsFnPCoj9sai1mMUMupap4vwpksKls4oG2STv9L5MwqVhTldTL/Hd0VXdUr8tj1Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(70586007)(5660300002)(47076005)(8936002)(8676002)(83380400001)(4326008)(44832011)(82310400004)(70206006)(2906002)(36860700001)(508600001)(356005)(426003)(186003)(54906003)(16526019)(36756003)(336012)(1076003)(7696005)(316002)(26005)(86362001)(2616005)(40460700003)(81166007)(6916009)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dHdKdjRFVkYyTnY2R2ZvVWwzMTJiOGZyZlo2RjNWako3VWlpV3VRdWhVK2Zj?=
- =?utf-8?B?WFYwdWNrbDk4U3ArSlAwVWV5QUxoUmhBNFluem9uYXpZS1ZVc0JXQkRLbUdw?=
- =?utf-8?B?YnF6SGlXbVBSMmRUcnFyQ0I1dGRycm5PbGdXRFVGc0FnaUlqOTZlN2NsYXky?=
- =?utf-8?B?TlpVK3djL0R6ME5HYmxYQVlBMC9KeVdFcTAvVmpQQmNBUEZHNE9FNDlmWTlJ?=
- =?utf-8?B?K0E4cWRMczBrSmlrTGFkeXZzY3VibG5MWGZkMmltNkVDWkpZdVFKcEVMUS9G?=
- =?utf-8?B?cjQza2t4SlhweXV1dTh2Zi8rMnU0bVBZM2xRcW5ESUhybGQva1ZrVmF4YzNN?=
- =?utf-8?B?UnFlS3NlSFVldURSamR0a1djME9QdTFhL2UwdVlKMnp5QllZcUo2ZEh1YWNW?=
- =?utf-8?B?RlNyNjRpbkJickJZRmhoTmpEZlJ5SXRxckNkbDU5QWxQRXZabENYVnBFampu?=
- =?utf-8?B?bWRZWnoxdWw5T0ZKZW11ZDkvdEVxYkEyem5sZzgvR1JLaXl6ZTEyMkpFTjZG?=
- =?utf-8?B?Q09sM0NqWHZXY3NRRkJ3RTI3eWJ0MjR2cDZKRFh0eDgxRHRtVmVDNmtKeU1L?=
- =?utf-8?B?REVqRUdUa2xGWDQ5YVpjRnZONGpQaGorb1ExdjlhMlVIWCtaaTF2QXdmNXQr?=
- =?utf-8?B?NEVvR0k1MlVIQStsZCt3cm83alNoWGNaRWdsQUxVdmV6dTdXYXJmTlJTMFY0?=
- =?utf-8?B?MGVtV040bzJ2REJQU0hTdDJWN2pMV3BmbnRxRGdTZWFDd0pWVGkzbWNWWldB?=
- =?utf-8?B?cEQ4a2tXeUFnbS9rOU9yZk1kTHRyRk92K1dnYm9DTUVpNlhDYm9JaEltVGRQ?=
- =?utf-8?B?eHpsM3hGeVdMa0FEWC9wTjRHNWVQVmw3Y21ZVVUwMnRBaUhnb2txelJiNCs0?=
- =?utf-8?B?KzlYYzdXYlFTWnVSamJpSVUvSE40Q2Z6ZnIwRlRLQTdyYzNINEkzZk1ncWlv?=
- =?utf-8?B?UkNUb243VTBWbzA4MUxUR1krTEU0YlZjVmxWelFuOVlNb3cwS0Z6LzBuQVdq?=
- =?utf-8?B?L0dwWGQrVzB5VmFHbDEyUzErVFZ4aU9nVGI0Ylp3OTRSQWh6ZW1yZkJiczAw?=
- =?utf-8?B?a21iQ2pUb085UUVZNlJQQktzOXQ3S0d2NVVINkJNRTJ5OFB4UVJrVnIycDdp?=
- =?utf-8?B?b21sVFZjTDVFRlVTSytQV21RVUpqajNCYlhKWkZnZldJMUxaOTY2YU5kZzMz?=
- =?utf-8?B?cDJkSDAxSWd1dGNObXdlZjVDTXFKbFBtRmtwR1VQeXpyM20wL3RKRHdFck9j?=
- =?utf-8?B?R0c0NGxyNW5GMEdmdlRkaXRuck5tZmF3cldwUXkyYzhnQmZ6NVhhb0ZxSHRM?=
- =?utf-8?B?bkE1SDcrM2s3K1dxUDBYWTF0RWQyTnRnN1hBdElMcHdXUDRDeHpPK1lGTmE1?=
- =?utf-8?B?THlBV2ZlR1oxVkNCbVRtRG1MN3ZWeC9vcHl4SVhZbnVMV3FLTVpwRlFKZ05C?=
- =?utf-8?B?eElpY3R0c2UvNE1aNE1SeWt4THlmVlU1QUMwek11d1lPdkx6NFYrTDZGYy9k?=
- =?utf-8?B?QTJsK1E4UlAyZW5qTUN5bWkxNWpvNzVNd3FmOXkvblo0cGd5M0krNjBUYWlz?=
- =?utf-8?B?UmFWN1dFOFd1V1JVL09zUWN6eWhwSWZpc0grSWNkNGtOVjJnNE9kbnVhMUti?=
- =?utf-8?B?WjI4RnE5RHViMmQ0UGRMSUdKS29yZ200VXh4UlFHUitXMms0bklnRGVJNDJr?=
- =?utf-8?B?MlNtbERLTE1hRWZob0YvbmtwTFBMT3lEYWYybFJDUHl3QXhrSUtwR2RGd004?=
- =?utf-8?B?Vzh1YUdMOGlwNHQ0akVOcUhHNjNET3Uwd2hsOXhoTWtFWFlWSVM1S0c1azdp?=
- =?utf-8?B?R1FEVTRtZWR4RytTVVNRdjZQWlFGRTRmZzV3Z1E3dUtMWFVJZXpVSUlPRUlq?=
- =?utf-8?B?OGpGUzVBR1dvZkU2dGxmQXMvMXFDMVc0ZEVsM1NUd3ppdVRnUkUzRXl0dHpx?=
- =?utf-8?B?aE43SDFaNlZ5ZHdBd0F2WUpuYUsvS3NON2s0WG5pZWM4WmtwQnM3SmY1bk9S?=
- =?utf-8?B?alhhK0xzWHd4MFRFMnY4ejJMVUZ6UDVmQytTOUVMN0pnVy9yN3dKSHpZbEpU?=
- =?utf-8?B?RE55MnpkUkVGNXZkR0pDVmdxRlJzR2xTUU04SkRYRGdKcUJNQUM5TTZQZm5U?=
- =?utf-8?B?empneGxieGQ1Nkh0SC9RUmkzRklCOGpqdXNSTVVjQTd1V0hpSnM4TitqUFgr?=
- =?utf-8?Q?fQEqHi9zliDap43iP9X5btI=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b65f081-ee5b-49bf-546e-08d9ed80f2a8
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 17:07:13.3444 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 17:15:39.7247 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4252b5f8-3a88-4038-377a-08d9ed82209d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uKbA+uuO0Vvo3mqirdvZIipYvNqwJxlwnWZXPzzlghUj1nZWX72Vqk/fQ35SUd7yHstsoudwIQhRK2F/HX4yQg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1925
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4147
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,70 +99,213 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: willy@infradead.org, apopple@nvidia.com, dri-devel@lists.freedesktop.org,
- jglisse@redhat.com, amd-gfx@lists.freedesktop.org, jgg@nvidia.com, hch@lst.de
+Cc: Felix.Kuehling@amd.com, Jonathan Kim <jonathan.kim@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The KFD only unmaps all queues, all dynamics queues or all process queues
+since RUN_LIST is mapped with all KFD queues.
 
-Am 2022-02-11 um 11:39 schrieb David Hildenbrand:
-> On 11.02.22 17:15, David Hildenbrand wrote:
->> On 01.02.22 16:48, Alex Sierra wrote:
->>> Device memory that is cache coherent from device and CPU point of view.
->>> This is used on platforms that have an advanced system bus (like CAPI
->>> or CXL). Any page of a process can be migrated to such memory. However,
->>> no one should be allowed to pin such memory so that it can always be
->>> evicted.
->>>
->>> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
->>> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
->>> Reviewed-by: Alistair Popple <apopple@nvidia.com>
->> So, I'm currently messing with PageAnon() pages and CoW semantics ...
->> all these PageAnon() ZONE_DEVICE variants don't necessarily make my life
->> easier but I'm not sure yet if they make my life harder. I hope you can
->> help me understand some of that stuff.
->>
->> 1) What are expected CoW semantics for DEVICE_COHERENT?
->>
->> I assume we'll share them just like other PageAnon() pages during fork()
->> readable, and the first sharer writing to them receives an "ordinary"
->> !ZONE_DEVICE copy.
->>
->> So this would be just like DEVICE_EXCLUSIVE CoW handling I assume, just
->> that we don't have to go through the loop of restoring a device
->> exclusive entry?
->>
->> 2) How are these pages freed to clear/invalidate PageAnon() ?
->>
->> I assume for PageAnon() ZONE_DEVICE pages we'll always for via
->> free_devmap_managed_page(), correct?
->>
->>
->> 3) FOLL_PIN
->>
->> While you write "no one should be allowed to pin such memory", patch #2
->> only blocks FOLL_LONGTERM. So I assume we allow ordinary FOLL_PIN and
->> you might want to be a bit more precise?
->>
->>
->> ... I'm pretty sure we cannot FOLL_PIN DEVICE_PRIVATE pages, but can we
->> FILL_PIN DEVICE_EXCLUSIVE pages? I strongly assume so?
->>
->>
->> Thanks for any information.
->>
-> (digging a bit more, I realized that device exclusive pages are not
-> actually/necessarily ZONE_DEVICE pages -- so I assume DEVICE_COHERENT
-> will be the actual first PageAnon() ZONE_DEVICE pages that can be
-> present in a page table.)
+There's no need to provide a single type unmap so remove this option.
 
-I think DEVICE_GENERIC pages can also be mapped in the page table. In 
-fact, the first version of our patches attempted to add migration 
-support to DEVICE_GENERIC. But we were convinced to create a new 
-ZONE_DEVICE page type for our use case instead.
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+---
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c |  3 +-
+ .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |  8 ++--
+ .../drm/amd/amdkfd/kfd_packet_manager_v9.c    | 40 +++----------------
+ .../drm/amd/amdkfd/kfd_packet_manager_vi.c    | 26 ++----------
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  9 ++---
+ 5 files changed, 16 insertions(+), 70 deletions(-)
 
-Regards,
-   Felix
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 7f6f1a842b0b..c8201638fca5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1554,8 +1554,7 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
+ 	if (!dqm->active_runlist)
+ 		return retval;
+ 
+-	retval = pm_send_unmap_queue(&dqm->packet_mgr, KFD_QUEUE_TYPE_COMPUTE,
+-			filter, filter_param, reset, 0);
++	retval = pm_send_unmap_queue(&dqm->packet_mgr, filter, filter_param, reset);
+ 	if (retval)
+ 		return retval;
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+index 1439420925a0..9a44b34abaed 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+@@ -368,10 +368,9 @@ int pm_send_query_status(struct packet_manager *pm, uint64_t fence_address,
+ 	return retval;
+ }
+ 
+-int pm_send_unmap_queue(struct packet_manager *pm, enum kfd_queue_type type,
++int pm_send_unmap_queue(struct packet_manager *pm,
+ 			enum kfd_unmap_queues_filter filter,
+-			uint32_t filter_param, bool reset,
+-			unsigned int sdma_engine)
++			uint32_t filter_param, bool reset)
+ {
+ 	uint32_t *buffer, size;
+ 	int retval = 0;
+@@ -386,8 +385,7 @@ int pm_send_unmap_queue(struct packet_manager *pm, enum kfd_queue_type type,
+ 		goto out;
+ 	}
+ 
+-	retval = pm->pmf->unmap_queues(pm, buffer, type, filter, filter_param,
+-				       reset, sdma_engine);
++	retval = pm->pmf->unmap_queues(pm, buffer, filter, filter_param, reset);
+ 	if (!retval)
+ 		kq_submit_packet(pm->priv_queue);
+ 	else
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+index 7ea3f671b325..ed4f2d3c6dcc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+@@ -246,10 +246,8 @@ static int pm_map_queues_v9(struct packet_manager *pm, uint32_t *buffer,
+ }
+ 
+ static int pm_unmap_queues_v9(struct packet_manager *pm, uint32_t *buffer,
+-			enum kfd_queue_type type,
+ 			enum kfd_unmap_queues_filter filter,
+-			uint32_t filter_param, bool reset,
+-			unsigned int sdma_engine)
++			uint32_t filter_param, bool reset)
+ {
+ 	struct pm4_mes_unmap_queues *packet;
+ 
+@@ -258,31 +256,11 @@ static int pm_unmap_queues_v9(struct packet_manager *pm, uint32_t *buffer,
+ 
+ 	packet->header.u32All = pm_build_pm4_header(IT_UNMAP_QUEUES,
+ 					sizeof(struct pm4_mes_unmap_queues));
+-	switch (type) {
+-	case KFD_QUEUE_TYPE_COMPUTE:
+-	case KFD_QUEUE_TYPE_DIQ:
+-		packet->bitfields2.extended_engine_sel =
+-			extended_engine_sel__mes_unmap_queues__legacy_engine_sel;
+-		packet->bitfields2.engine_sel =
+-			engine_sel__mes_unmap_queues__compute;
+-		break;
+-	case KFD_QUEUE_TYPE_SDMA:
+-	case KFD_QUEUE_TYPE_SDMA_XGMI:
+-		if (sdma_engine < 2) {
+-			packet->bitfields2.extended_engine_sel =
+-				extended_engine_sel__mes_unmap_queues__legacy_engine_sel;
+-			packet->bitfields2.engine_sel =
+-				engine_sel__mes_unmap_queues__sdma0 + sdma_engine;
+-		} else {
+-			packet->bitfields2.extended_engine_sel =
+-				extended_engine_sel__mes_unmap_queues__sdma0_to_7_sel;
+-			packet->bitfields2.engine_sel = sdma_engine;
+-		}
+-		break;
+-	default:
+-		WARN(1, "queue type %d", type);
+-		return -EINVAL;
+-	}
++
++	packet->bitfields2.extended_engine_sel =
++		extended_engine_sel__mes_unmap_queues__legacy_engine_sel;
++	packet->bitfields2.engine_sel =
++		engine_sel__mes_unmap_queues__compute;
+ 
+ 	if (reset)
+ 		packet->bitfields2.action =
+@@ -292,12 +270,6 @@ static int pm_unmap_queues_v9(struct packet_manager *pm, uint32_t *buffer,
+ 			action__mes_unmap_queues__preempt_queues;
+ 
+ 	switch (filter) {
+-	case KFD_UNMAP_QUEUES_FILTER_SINGLE_QUEUE:
+-		packet->bitfields2.queue_sel =
+-			queue_sel__mes_unmap_queues__perform_request_on_specified_queues;
+-		packet->bitfields2.num_queues = 1;
+-		packet->bitfields3b.doorbell_offset0 = filter_param;
+-		break;
+ 	case KFD_UNMAP_QUEUES_FILTER_BY_PASID:
+ 		packet->bitfields2.queue_sel =
+ 			queue_sel__mes_unmap_queues__perform_request_on_pasid_queues;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
+index 3c0658e32e93..131f685acf41 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
+@@ -197,10 +197,8 @@ static int pm_map_queues_vi(struct packet_manager *pm, uint32_t *buffer,
+ }
+ 
+ static int pm_unmap_queues_vi(struct packet_manager *pm, uint32_t *buffer,
+-			enum kfd_queue_type type,
+ 			enum kfd_unmap_queues_filter filter,
+-			uint32_t filter_param, bool reset,
+-			unsigned int sdma_engine)
++			uint32_t filter_param, bool reset)
+ {
+ 	struct pm4_mes_unmap_queues *packet;
+ 
+@@ -209,21 +207,9 @@ static int pm_unmap_queues_vi(struct packet_manager *pm, uint32_t *buffer,
+ 
+ 	packet->header.u32All = pm_build_pm4_header(IT_UNMAP_QUEUES,
+ 					sizeof(struct pm4_mes_unmap_queues));
+-	switch (type) {
+-	case KFD_QUEUE_TYPE_COMPUTE:
+-	case KFD_QUEUE_TYPE_DIQ:
+-		packet->bitfields2.engine_sel =
++
++	packet->bitfields2.engine_sel =
+ 			engine_sel__mes_unmap_queues__compute;
+-		break;
+-	case KFD_QUEUE_TYPE_SDMA:
+-	case KFD_QUEUE_TYPE_SDMA_XGMI:
+-		packet->bitfields2.engine_sel =
+-			engine_sel__mes_unmap_queues__sdma0 + sdma_engine;
+-		break;
+-	default:
+-		WARN(1, "queue type %d", type);
+-		return -EINVAL;
+-	}
+ 
+ 	if (reset)
+ 		packet->bitfields2.action =
+@@ -233,12 +219,6 @@ static int pm_unmap_queues_vi(struct packet_manager *pm, uint32_t *buffer,
+ 			action__mes_unmap_queues__preempt_queues;
+ 
+ 	switch (filter) {
+-	case KFD_UNMAP_QUEUES_FILTER_SINGLE_QUEUE:
+-		packet->bitfields2.queue_sel =
+-			queue_sel__mes_unmap_queues__perform_request_on_specified_queues;
+-		packet->bitfields2.num_queues = 1;
+-		packet->bitfields3b.doorbell_offset0 = filter_param;
+-		break;
+ 	case KFD_UNMAP_QUEUES_FILTER_BY_PASID:
+ 		packet->bitfields2.queue_sel =
+ 			queue_sel__mes_unmap_queues__perform_request_on_pasid_queues;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index b6790a637f5c..5989b5df8402 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1246,10 +1246,8 @@ struct packet_manager_funcs {
+ 	int (*map_queues)(struct packet_manager *pm, uint32_t *buffer,
+ 			struct queue *q, bool is_static);
+ 	int (*unmap_queues)(struct packet_manager *pm, uint32_t *buffer,
+-			enum kfd_queue_type type,
+ 			enum kfd_unmap_queues_filter mode,
+-			uint32_t filter_param, bool reset,
+-			unsigned int sdma_engine);
++			uint32_t filter_param, bool reset);
+ 	int (*query_status)(struct packet_manager *pm, uint32_t *buffer,
+ 			uint64_t fence_address,	uint64_t fence_value);
+ 	int (*release_mem)(uint64_t gpu_addr, uint32_t *buffer);
+@@ -1276,10 +1274,9 @@ int pm_send_runlist(struct packet_manager *pm, struct list_head *dqm_queues);
+ int pm_send_query_status(struct packet_manager *pm, uint64_t fence_address,
+ 				uint64_t fence_value);
+ 
+-int pm_send_unmap_queue(struct packet_manager *pm, enum kfd_queue_type type,
++int pm_send_unmap_queue(struct packet_manager *pm,
+ 			enum kfd_unmap_queues_filter mode,
+-			uint32_t filter_param, bool reset,
+-			unsigned int sdma_engine);
++			uint32_t filter_param, bool reset);
+ 
+ void pm_release_ib(struct packet_manager *pm);
+ 
+-- 
+2.25.1
 
-
->
