@@ -4,90 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCEB6C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 20:55:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C676C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 21:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C000310E214;
-	Fri, 11 Feb 2022 20:55:14 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7137D10E278;
- Fri, 11 Feb 2022 20:55:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DbJxnjzUAd2R5Q2E2N35DQ7IkW17VFlQ1RKDnHnPOkzmXMh/cNjbKwchhPJaLxy0h1KO2x+0sabzTOsC6EALlDaeMTxyg5tcOi+ZnemDeETCjkCqazk5Hwm8DbRMpysOXIDxiXmud6yWuKiID12wFzAk3iSDelPaURtyhfoapoNkmSI3uTMSGQwpaN0C1Ms/D962+r7UT5kUSBUY4U+rc3e62kPMITHuFpUo0cQWlMqeu9MmUrAPL3NBetiVG1jKzsA+Ym5xWIPWsfEa/UvPiQmiIrPwz274YC+OiMTG76m6IiEBQQYtED/5ir9RFIZkwP/7fLhyYEIPnKxRumb0MA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hy9Xa8RKN13sWuWAMiADOBc6gqH7rdhBYOwhNT3G6mY=;
- b=NiqDSdtE5V2z7Pd1R6gzi3ZlMWjMJRju4Qp3zo7tvN8KGLHlKJWFL0yYGZ6mMfiV1IKhFETIy+SvdoqZLU0Pw4XR87VpwQjD0g6/g78hjYxwe1ce0leCkMyS3aSWz8jBsMM9FtMDcLhCUnY3o1OfHG+9Nswx1hvTN5xHRpFsQn1SKFYmrluIoiVyES7yU7vRG6VdZ/hq31WrNzSVzgefMGcNqNP6f4pJs2zTX2Hftv8W2mYO9dVEJmN6qMTVbcjFn1SD+koSzwu/qVV89klFfhHK/uVkoGHZwafwMJyT7JN7Vai05bpFQGAoX6iM6VIYer07t3oNbPbqDzrpDRikDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hy9Xa8RKN13sWuWAMiADOBc6gqH7rdhBYOwhNT3G6mY=;
- b=tYWEFlwaLrY3N8xxPZU0m6kKmxdY8lRc6xSDeWCe0KUTf0oMss0d3dy1LsNNvinRTXATfZHnQTOrCpGAS7sevIy8mEkzNOQt+EGTjG6L+poVG77eSYMV0eDSVPxBsu7YZlrOnhn4EO/vJUZ/Ob1yT4oly4DkafNeHEVlHvNWMoA=
-Received: from BN6PR13CA0018.namprd13.prod.outlook.com (2603:10b6:404:10a::28)
- by BN9PR12MB5051.namprd12.prod.outlook.com (2603:10b6:408:134::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.12; Fri, 11 Feb
- 2022 20:55:12 +0000
-Received: from BN8NAM11FT014.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:10a:cafe::bb) by BN6PR13CA0018.outlook.office365.com
- (2603:10b6:404:10a::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11 via Frontend
- Transport; Fri, 11 Feb 2022 20:55:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT014.mail.protection.outlook.com (10.13.177.142) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 20:55:11 +0000
-Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.18; Fri, 11 Feb 2022 14:55:10 -0600
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Fix htmldoc warning
-Date: Fri, 11 Feb 2022 15:55:00 -0500
-Message-ID: <20220211205500.601391-1-andrey.grodzovsky@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3061110E25F;
+	Fri, 11 Feb 2022 21:02:02 +0000 (UTC)
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E519E10E25F;
+ Fri, 11 Feb 2022 21:02:00 +0000 (UTC)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ o192-20020a4a2cc9000000b00300af40d795so11749120ooo.13; 
+ Fri, 11 Feb 2022 13:02:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=tZeO5hcWCdKqnU1f53zfjTVOnwSJ9Wni2OfkSK8g/8Q=;
+ b=i+UWfjEQcDeuesQh/b//2h18FVQeOfplmzqnZ7epGa5e7mL+spCmv8hW8ZCJEJbGnb
+ fuZTG4ZmXDCq3x0dhVpdQFKpkOAW24uBhY9txj7Bhdk37MEZkcyBvh3b1wTudvW1ScvI
+ PLz+SFDo6HfogYYHrR+PUCo4t/Ryf1TZZCp/ISRKM9Ss7LByNL69MSp6zP2QLO/FpjJC
+ sEpp6Jny/qd+URXdU2xQO/BRgNs/6TsyTXV0JzabnH1A+q8Sn4GLK9e9sU7cCkACrpYe
+ Ufparf1dN8Bc7neAF7dlBXcNQJqCz0o21JeZAL72G/FRe+TBjYJfBwFP1BiOWb1g4e0Q
+ NVQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=tZeO5hcWCdKqnU1f53zfjTVOnwSJ9Wni2OfkSK8g/8Q=;
+ b=YaaqqMTCLr3Fe9DjQHvCninQKQ7l2V4lIkde1WluHehCxiT7Jhn+Am3RRnbto9lu0v
+ RhMXaYN085R8op+bBTSg4nj/s1dhYK8863jnL4zGUWtlYPkLJ0IEsAev3/de12yc17nI
+ LDyF6SKDWYSgtYxFB8h58OtphBsZPg5BpBJYjcC3T3D4ULXdJZ5Le2Y7FigLw46+YaK0
+ QaIqsjsKf4PQ0P2tClyg9MDDFSGLvf+YErn1VWfnVq8vWXYpENZXBdDxdzN6dTqmYIqd
+ 3cq2VYP8aiz746RqEvxV2MOH97A14w/CVDJ/vYLI7K2aCMs2OBI4kpPxZezj8w+fpV7b
+ fRHw==
+X-Gm-Message-State: AOAM531LJf9fzvxZA+BxWknjFQBSn1fSBqeMSNsHelawF4rv3ID0Ergb
+ 0axWe7AEcPnDlPtp2MpPIvL23X1Udl8EmL1S9V0=
+X-Google-Smtp-Source: ABdhPJx6q5W7dUdt31D6F8NEoc/p0VYD4pB6N0hi8Fs2KtDaR1R+ZoIzn1O4otKGJ/bl7zzIYys1+cJ9DKrKTC1keM8=
+X-Received: by 2002:a05:6870:54d6:: with SMTP id
+ g22mr716407oan.225.1644613319800; 
+ Fri, 11 Feb 2022 13:01:59 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6586de1f-94d5-4ca5-89f2-08d9eda0cbdc
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5051:EE_
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5051E0615DA6539C3CE8E4D4EA309@BN9PR12MB5051.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:862;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YIpr5lvvTGN4ulh1l1RWv76kV+eeSqZKFX7zYMBLsXiHYJwsbYWW33molIvvGIFfVgCo2oaGWVHa3loKuypq1cIgy51abiq4opnY0iU+9Bc9nf7MdHV06j84B9N9w3PoGblyG9ysJ8htb++pVZxxaWuMLjnSD7WikkoPVONHvi+1nMtG6gUclPpWoLqUj5gY19v4ayAMUSE3Y7HdrYgce71hNCUMnoC++8eaJPTQa0bdVshIIWcp31tjhFIWyFc0Y4WvLuoIEfclv4u8fuot/qZozUn/4dBb8LBQDk/DOqpFhbXAox4wtiB53f1dMT6sDtG+M2Cyr2NPppqnO9mP/l/rBZ/B0qBWwSKpGsTR9YVoeMVdGkhzJMTxUGPKMM0gS+uzucKaJdWhQuLL2godmOme8COfNAAYUHjxieLtoPWr9Fxuz/Fwss8zIAMBJNyzJOn6KT8MX7smYj6DYFJ9DqdR/+uxprjProryCNTN0zmS4SfGMwred5MXG08YkDlqjDE2FrLfdd7MSKdj1rR/aA34rc7IGzySSLB6k1TQIbP97Yc+sx+WVhEQy4Wx/88W94cogRVEhQMyqJrlDK4o7GUt+UkOgH4GxyTNfHChICPQfo26k+zlearKYOEq8xzs0XIWeIo7syJ7EY9iq/3qJdaog0RVS/2+1+4OY7nyJAsgecZVRSa2NZEv2FiCiHQ/ZL1LFPSYFKz/5z//N65tQw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(83380400001)(508600001)(1076003)(44832011)(47076005)(6666004)(4744005)(5660300002)(2906002)(40460700003)(36860700001)(36756003)(356005)(8936002)(70586007)(86362001)(70206006)(4326008)(8676002)(316002)(82310400004)(16526019)(110136005)(54906003)(336012)(426003)(81166007)(2616005)(26005)(186003)(7696005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 20:55:11.9789 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6586de1f-94d5-4ca5-89f2-08d9eda0cbdc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT014.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5051
+References: <20220211205500.601391-1-andrey.grodzovsky@amd.com>
+In-Reply-To: <20220211205500.601391-1-andrey.grodzovsky@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 11 Feb 2022 16:01:48 -0500
+Message-ID: <CADnq5_OCVUUoeBvQQBwK52HA-fVXkF+MMu7ssEqzEuGPajCfJg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix htmldoc warning
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,32 +62,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
  kernel test robot <lkp@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update function name.
+On Fri, Feb 11, 2022 at 3:55 PM Andrey Grodzovsky
+<andrey.grodzovsky@amd.com> wrote:
+>
+> Update function name.
+>
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> Reported-by: kernel test robot <lkp@intel.com>
 
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Reported-by: kernel test robot <lkp@intel.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 54f8e1fa4cae..d78141e2c509 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4978,7 +4978,7 @@ static void amdgpu_device_recheck_guilty_jobs(
- }
- 
- /**
-- * amdgpu_device_gpu_recover - reset the asic and recover scheduler
-+ * amdgpu_device_gpu_recover_imp - reset the asic and recover scheduler
-  *
-  * @adev: amdgpu_device pointer
-  * @job: which job trigger hang
--- 
-2.25.1
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 54f8e1fa4cae..d78141e2c509 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4978,7 +4978,7 @@ static void amdgpu_device_recheck_guilty_jobs(
+>  }
+>
+>  /**
+> - * amdgpu_device_gpu_recover - reset the asic and recover scheduler
+> + * amdgpu_device_gpu_recover_imp - reset the asic and recover scheduler
+>   *
+>   * @adev: amdgpu_device pointer
+>   * @job: which job trigger hang
+> --
+> 2.25.1
+>
