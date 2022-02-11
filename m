@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A811BC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 19:35:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89470C4332F
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 19:35:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F12A010EB02;
-	Fri, 11 Feb 2022 19:35:13 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2077.outbound.protection.outlook.com [40.107.220.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5282010EAFE;
- Fri, 11 Feb 2022 19:35:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 638BD10EB04;
+	Fri, 11 Feb 2022 19:35:14 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2088.outbound.protection.outlook.com [40.107.243.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E80C010EB02;
+ Fri, 11 Feb 2022 19:35:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MO/PdqVF9DEgSaIfkcSjEdf6+71zCNpyF6hq72JKWspse1FwsqwnNf1ipPuWQimHlT4YKij5lij9T8BOu+izzF4kf/8fiBds44br/gFAu+6GjALEn0fXtV/F63ay0LjDwnGqQcEWBo9xxgLCMlLNCZKUC9MHm8nVxqxmkM1DREo7x6jfo/zIFQqZSGLMVHAlHa7zsA9R5WsId9I6jujCUJe4wDcOpk5mRxQrMXW8C8NtfMrGzlPeREecjO8iKJ9KWxmzqCJ3mKzjNE5wsv+qa70qtas1dj51vwEA4eK88ZauBn3YmeP2nG3Z3v9v1t7xYmsIln9JJsO0IvnI55+lkg==
+ b=oZy8MyFSrkZHOFgRxq0cIWARgggmesxdgc7UR3jVZTYntAg1OmvfhJFIKd8Is06RX7lh5VDAP/Nu3XQPkZSeKW/CVDKkp8P7J/mbTUIugnVuhGvomFLI/JzAMwu8KIQxQt6Pt/QziaJIknlDaTRARbYDBqRPb3sQsnfjJ5sbOuLOrYKEAIWj+XoP3sqXtbW8/V4uY/W8oB73o1mVm3y2VOtuOXwPWeFIqCPSpvFTiQVE6zeBoKqIs1qpItFeJTcPDyDScoaEK/AtMyPuGiNSAunyZQIco+XFlX+D/d62lT9UQnNz88R7UbfmvGjCvdx6pblsXnfLUTJgpMedfHJUeA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qpI5Xy+GcTJMt/Vmrooq7MpFhVOKwe9xhlaC3EvijRo=;
- b=OdgId7VdP7rPsGzIPgvv9ILCz8Bd8cfgnxbLfa6LUcGQw1RnbvJHUZnsuTdhqg8IqTvIiT2lKQrMMf+tqVcSNIfXiBkQGT1SM6qjpNPip+AH0D4/V8KEU36dSyrE2ESTTFi6NxKuuKCW/TdIVUqw6IabGLiFH8N0va+kof1oqZpNaR9C9HUrVXUYDwsHRdsDszj9hnDWheHnx0Nyb0ymXs4X1iqQBc8xOldDt7QiilJK3E8KzXDTz+5qHsqPmPoeeCrCk8PlVyN9BgM+wa8pBB+gjGcZ+uzlhGZMrIodaDsqky/xgiWnwCoZk2Ue+BBN10rsG27gmdcaqwD2f1zSsQ==
+ bh=j+yYlcNVjrRyhSY8nGocSvKs3OLExLa17+KyA6OwVXE=;
+ b=Au9/ivhg143laH0TyCcBqcTFtFc7oBOzWhEfN42btTVtSlkHzZ7Pyh6vdo8wD23potuVIRrJmrYrQtGHp6P+Pnze/0LX0wAjanex4QiTHjR2OcF/0i43TnK/M1ZegufURRbklaQ5pqXfWdlkhXewJop6825GJdybn6uyBBVtLf+qIsIFdfnlEOVWCghRU1ObFkJ43VI8hayEaxMyjbHRKkG/QGjDo6vBD6Jh/KhX/DgX+/7XdPUn3ejilziqJVw3nT41dNmo0wVjblp6anLMH5jwQf2BmjR5Y8REhdyq/1ddjZaa3q/ZVCwXxQMAO5K3atzZeAz7GtGd3TgYrPWIHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qpI5Xy+GcTJMt/Vmrooq7MpFhVOKwe9xhlaC3EvijRo=;
- b=3RDUupwvtlcbN2SO1EV1B6+azmn3aAaBQ6fjv6/1WMmGxoKc6HrZpmr3Mvv9EF72WBiQG6Xnnl4HZ2CslkExvlE1t/8q7mOSkTQgx4yuOE0nSz5DvVhdhLRQ+ER6js+TxjBuOkfhKnKwqg5X/9F9IPrJGn9NqzkA1sJ3SGhinqQ=
-Received: from DS7PR03CA0228.namprd03.prod.outlook.com (2603:10b6:5:3ba::23)
- by DM5PR12MB1433.namprd12.prod.outlook.com (2603:10b6:3:73::22) with
+ bh=j+yYlcNVjrRyhSY8nGocSvKs3OLExLa17+KyA6OwVXE=;
+ b=nTSWaxHPNl7qxo6ThxyLTOHcZUtskH6/eUZ78AEeJ3drOkksbkcIpt79KBgm0HJ+ZmOMwRs0vtxm2XwW6cTeykq314UQW+3vVa1zVPXzT1MuxW4ijtmHgWL+ExC8w/QBxHPJhR/Xws2z4MEL8udS2Z5+AmQHvPYuHCam83wnZtw=
+Received: from DS7PR07CA0008.namprd07.prod.outlook.com (2603:10b6:5:3af::21)
+ by CY4PR1201MB2548.namprd12.prod.outlook.com (2603:10b6:903:d8::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.15; Fri, 11 Feb
- 2022 19:35:07 +0000
-Received: from DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3ba:cafe::20) by DS7PR03CA0228.outlook.office365.com
- (2603:10b6:5:3ba::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12 via Frontend
- Transport; Fri, 11 Feb 2022 19:35:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.16; Fri, 11 Feb
+ 2022 19:35:11 +0000
+Received: from DM6NAM11FT024.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3af:cafe::ec) by DS7PR07CA0008.outlook.office365.com
+ (2603:10b6:5:3af::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.13 via Frontend
+ Transport; Fri, 11 Feb 2022 19:35:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,13 +45,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT027.mail.protection.outlook.com (10.13.172.205) with Microsoft SMTP
+ DM6NAM11FT024.mail.protection.outlook.com (10.13.172.159) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 19:35:06 +0000
+ 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 19:35:10 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 11 Feb
- 2022 13:35:05 -0600
+ 2022 13:35:09 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Bjorn Helgaas <bhelgaas@google.com>, Mika Westerberg
  <mika.westerberg@linux.intel.com>, "open list:PCI SUBSYSTEM"
@@ -60,10 +60,10 @@ To: Bjorn Helgaas <bhelgaas@google.com>, Mika Westerberg
  <amd-gfx@lists.freedesktop.org>, "open list:DRM DRIVERS"
  <dri-devel@lists.freedesktop.org>, "open list:DRM DRIVER FOR NVIDIA
  GEFORCE/QUADRO GPUS" <nouveau@lists.freedesktop.org>
-Subject: [PATCH v3 01/12] thunderbolt: move definition of
- PCI_CLASS_SERIAL_USB_USB4
-Date: Fri, 11 Feb 2022 13:32:39 -0600
-Message-ID: <20220211193250.1904843-2-mario.limonciello@amd.com>
+Subject: [PATCH v3 07/12] PCI: Set ports for discrete USB4 controllers
+ appropriately
+Date: Fri, 11 Feb 2022 13:32:45 -0600
+Message-ID: <20220211193250.1904843-8-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220211193250.1904843-1-mario.limonciello@amd.com>
 References: <20220211193250.1904843-1-mario.limonciello@amd.com>
@@ -75,28 +75,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 39e683f8-bf9d-475d-188c-08d9ed959bdc
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1433:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1433BB39806DE0B6E4493F09E2309@DM5PR12MB1433.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
+X-MS-Office365-Filtering-Correlation-Id: 434e9cb5-fad7-4bc9-c74c-08d9ed959e19
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB2548:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB25487007F73CE19F320B5AB3E2309@CY4PR1201MB2548.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yGO1zUtB1IfAJOibPkDKYeJQgnDIUvN8xlhG9Mib0rY0xg9eBMQwy8XP8OdGjeqHKwShmKG+t3xc6OsS2WvsDs5066NBHjFbffzF2H0NwN7kTyrbiWrx1T9VgiR0PuEe76mrFDmPfR5HrE0Yd1AZb/l1YtrAhfGudRV0Cbx/QSYbq7w3CIkydiwq+XHcLznfp1QCTZx9h+TTFEXrW7dRNwoPWZ46io3ckLcFuA1i5+nYHIP0iHbYtnaqStAMwvaeRsoVVTFGwDjbSDFiedza9uD4Yn3nXJ9NSyJ7OPU67dK981BbERWCB+B4rtP7RZd86J9gt2p4J4adhEh4elpRrJEsvBCEE7h6bcZKAhG6vM2dvPZ/XYRLT9OC9JibJ84uqbvopJFScMxFrclDCRpWGgf5qQwZP2K/2kdJsFCSLz1JIvtSXCnN1bx6gRtmCNfrsXxc3CkafBQlFBfYv4ng+XFANKSqifG0NvtEWrDnUAh4I/Kelx34Wd7HEbmRKna9rBM+1O3EmLGfOZInxNniV4JsAJOKsiRzYyxKrE3tQZQb9HcjEe3VxvVuOsgxRNInkjOyqkoaIeyJhA24bRDQI1EQshJ6LHCbJ2QHDJZhXXL97O/iovM0K7Lmz4l0cMqqEhpy+HJiSq/ssS7TZWk5GzHMtkKx9K924eHeh7rgpRpylOozD5zf9RJ6Tfkbra5tMr1XRXr63C4Qot9/WfKrzg==
+X-Microsoft-Antispam-Message-Info: F5O6+QgxGR36QvHLaPGl32x5V8Y/U1B3WT1YxOi7BZAcMYe4vaeY/vvm3PHY295srBCocPGFAm1whwu/Hb7Q3ED17b8G+OlG++0YRY6HmtsedICbsn/116k3zGpJn7LUE2EZnAJDgFO4hmLpZgQ2fpjLvU0Yl0y6Fo1pbD2A9WOtCNWkkdzi1mrZlUQHV9JNVFUzovdcbuMOri3J2KrNOTF5/V3qBB61VxuOnLsoY6b7Y5efFQhM1WDLJAU5S2F9qZS23hT9hX1C/e89Bw09Js4L1rHjXr3A8bEa8ohBu5GnQc3hI2JPwyFaFzmVkvIkSP9rV7uBX+MpCQ6XZdBf+7diFkNcLgushx746Ikh4DDkys/4SZEyJuAqMgRZvHaikKaWI1/pqfYiAxAVNYbD8u7cJxXTsIKMH5Z67J6UMQkcDKdH687eptkhs6reRVm9CDjc/96FsFzOo2a5Xkrd3juJbDCAPSF/o/fJYW3orpqYuqQz2ZwI9XDKV8c5/F23vzZT/e19wkvGF3rCz10apnPsS0AfAP8qVaHvuOeZU0fbrtrmmgQgg8dbjTD1HSj1DWSazCCCcS3trBXZHbbXN7hROsIImmM8oAIJ7EXuNnyg0xMnUI+qcVs6Wu5YyK3GomnRIekuezHTx06IWpfxE/91ZH7TJUz1TU6v/RvdHpR5COWiKAKiupVOw5ureuUTViI263y/2ydmc5v6KHPxT+GHrpfrf2dvWrihoJen7TDIXd3bOyG8UzVopyEIRu+SNsXdgH3O7PlWd8gN0KorYl5LIejA9AjS82+97Vnna8E=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(36860700001)(82310400004)(47076005)(40460700003)(86362001)(2906002)(54906003)(110136005)(316002)(356005)(81166007)(70586007)(8676002)(70206006)(4326008)(44832011)(6666004)(83380400001)(508600001)(8936002)(7416002)(5660300002)(2616005)(426003)(336012)(36756003)(26005)(16526019)(186003)(1076003)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(16526019)(336012)(186003)(26005)(1076003)(44832011)(316002)(356005)(2906002)(7416002)(47076005)(81166007)(966005)(2616005)(36860700001)(426003)(86362001)(36756003)(8936002)(70586007)(5660300002)(83380400001)(82310400004)(54906003)(110136005)(4326008)(8676002)(6666004)(508600001)(40460700003)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 19:35:06.9344 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39e683f8-bf9d-475d-188c-08d9ed959bdc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 19:35:10.6941 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 434e9cb5-fad7-4bc9-c74c-08d9ed959e19
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT024.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1433
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2548
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,50 +110,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Hans de Goede <hdegoede@redhat.com>,
  Michael Jamet <michael.jamet@intel.com>,
- Yehezkel Bernat <YehezkelShB@gmail.com>, Alex
- Deucher <alexander.deucher@amd.com>, Lukas
+ Yehezkel Bernat <YehezkelShB@gmail.com>, Alexander.Deucher@amd.com, Lukas
  Wunner <lukas@wunner.de>, Mario Limonciello <mario.limonciello@amd.com>,
  Andreas Noever <andreas.noever@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This PCI class definition of the USB4 device is currently located only in
-the thunderbolt driver.
+Discrete USB4 controllers won't have ACPI nodes specifying which
+PCIe or XHCI port they are linked with.
 
-It will be needed by a few other drivers for upcoming changes. Move it into
-the common include file.
+In order to set the removable attribute appropriately, use the
+USB4 DVSEC extended capabability set on these root ports to determine
+if they are located on a discrete USB4 controller.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Suggested-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Link: https://usb.org/sites/default/files/USB4%20Specification%2020211116.zip
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/thunderbolt/nhi.h | 2 --
- include/linux/pci_ids.h   | 1 +
- 2 files changed, 1 insertion(+), 2 deletions(-)
+ drivers/pci/probe.c     | 33 +++++++++++++++++++++++++++++++++
+ include/linux/pci_ids.h |  2 ++
+ 2 files changed, 35 insertions(+)
 
-diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
-index 69083aab2736..79e980b51f94 100644
---- a/drivers/thunderbolt/nhi.h
-+++ b/drivers/thunderbolt/nhi.h
-@@ -81,6 +81,4 @@ extern const struct tb_nhi_ops icl_nhi_ops;
- #define PCI_DEVICE_ID_INTEL_TGL_H_NHI0			0x9a1f
- #define PCI_DEVICE_ID_INTEL_TGL_H_NHI1			0x9a21
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index 67ca33188cba..1ed3e24db11e 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -25,6 +25,8 @@
+ #define CARDBUS_LATENCY_TIMER	176	/* secondary latency timer */
+ #define CARDBUS_RESERVE_BUSNR	3
  
--#define PCI_CLASS_SERIAL_USB_USB4			0x0c0340
--
- #endif
++#define PCI_DVSEC_ID_USB4	0x23
++
+ static struct resource busn_resource = {
+ 	.name	= "PCI busn",
+ 	.start	= 0,
+@@ -1590,6 +1592,36 @@ static void set_pcie_untrusted(struct pci_dev *dev)
+ 		dev->untrusted = true;
+ }
+ 
++static bool pci_is_discrete_usb4(struct pci_dev *dev)
++{
++	int dvsec_val = 0, pos;
++	u32 hdr;
++
++	/* USB4 spec says vendors can use either */
++	pos = pci_find_dvsec_capability(dev,
++					PCI_VENDOR_ID_INTEL,
++					PCI_DVSEC_ID_USB4);
++	if (pos) {
++		dvsec_val = 0x06;
++	} else {
++		pos = pci_find_dvsec_capability(dev,
++						PCI_VENDOR_ID_USB_IF,
++						PCI_DVSEC_ID_USB4);
++		if (pos)
++			dvsec_val = 0x01;
++	}
++	if (!dvsec_val)
++		return false;
++
++	pci_read_config_dword(dev, pos + PCI_DVSEC_HEADER2, &hdr);
++	if ((hdr & GENMASK(15, 0)) != dvsec_val)
++		return false;
++	/* this port is used for either NHI/PCIe tunnel/USB tunnel */
++	if (hdr & GENMASK(18, 16))
++		return true;
++	return false;
++}
++
+ static void pci_set_removable(struct pci_dev *dev)
+ {
+ 	struct pci_dev *parent = pci_upstream_bridge(dev);
+@@ -1612,6 +1644,7 @@ static void pci_set_removable(struct pci_dev *dev)
+ 	if (vsec ||
+ 	    dev->class == PCI_CLASS_SERIAL_USB_USB4 ||
+ 	    pci_acpi_is_usb4(dev) ||
++	    pci_is_discrete_usb4(dev) ||
+ 	    (parent &&
+ 	    (parent->external_facing || dev_is_removable(&parent->dev))))
+ 		dev_set_removable(&dev->dev, DEVICE_REMOVABLE);
 diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-index aad54c666407..61b161d914f0 100644
+index 61b161d914f0..271326e058b9 100644
 --- a/include/linux/pci_ids.h
 +++ b/include/linux/pci_ids.h
-@@ -116,6 +116,7 @@
- #define PCI_CLASS_SERIAL_USB_OHCI	0x0c0310
- #define PCI_CLASS_SERIAL_USB_EHCI	0x0c0320
- #define PCI_CLASS_SERIAL_USB_XHCI	0x0c0330
-+#define PCI_CLASS_SERIAL_USB_USB4	0x0c0340
- #define PCI_CLASS_SERIAL_USB_DEVICE	0x0c03fe
- #define PCI_CLASS_SERIAL_FIBER		0x0c04
- #define PCI_CLASS_SERIAL_SMBUS		0x0c05
+@@ -3097,4 +3097,6 @@
+ 
+ #define PCI_VENDOR_ID_NCUBE		0x10ff
+ 
++#define PCI_VENDOR_ID_USB_IF		0x1EC0
++
+ #endif /* _LINUX_PCI_IDS_H */
 -- 
 2.34.1
 
