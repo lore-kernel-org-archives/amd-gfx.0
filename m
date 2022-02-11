@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC073C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 18:59:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0CA0C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 18:59:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 220F410EAF4;
-	Fri, 11 Feb 2022 18:59:41 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060.outbound.protection.outlook.com [40.107.223.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77BE010EAF3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DDB210EAF3;
+	Fri, 11 Feb 2022 18:59:43 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2067.outbound.protection.outlook.com [40.107.96.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9C6C10EAF3
  for <amd-gfx@lists.freedesktop.org>; Fri, 11 Feb 2022 18:59:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ibSMI3ia7067J2ykd+XwpLruCrunqveMGrE5f8QztqZSc9WRDGSIXFK8swJ15JoUlicRjqIaAkehLPphYA4rhnOYUM1GZDPwwX9eN9mAcArOtZrSi4vD/nLQRWfhlAWFpsjexZ024IUjafS+pCUFO6Uj86NRRVYI+ePsjdEWpN7qxFn5Omwo3EQtfIT7+jV+jgYamSZdeITdWSEzo0CAiMrDdak0g08wCWBstiOxDM0f7YyEUrGHhDgYYWLmkWLUuVn0cMr3ML9NVSPrcCjlONUkwgcaYcxlgC3nQPLPVOpxgjyChSBrtwrWMcsryvEIMBE4XfeG1m08fe7QiPgv+w==
+ b=B3UTEdHk3z6gnJ4v0RnAsU+o2AFeUHjeEFB825yswdTIowRkWctTZktEPxTTBfXzMMgeqaItVTbcrkVNPJwZCEMFb9rc67S9y9F4Zu27/vskIdBoxi1H/0KGhViVw9e/Nvast3Vgp3d36tvWyirlmv9grCE8gDDIeOGaxwAyvoAnO6aLaa+wU21AiLVONwXWDHvZqF6115/aPuKZ2ZjS2nQaPohIrTP4XY9/ZP8/n9z/0Zfd+eHK081rJxWNB0EUVCNHmH94SUJPJjOj6yS41ysmsUjo7Xpf/ch1xlVwygN2HceaYMUFKPN6wNhXDnCYLu20UpKk0HEspCvYSaXqkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9H69xwrYtt1P8iTFL9gmnUs1qqXPDsWY7HAXP4zDOPY=;
- b=nif4pngR8UGp0PV+AnzXkARyCIY/7YtsZbS0fj5C50KpFmfnOAzHZh+ONsMqPj317CLk4F4gcB2k3YlRBo2t8b6UzLy54Pm6icAqaUB32nQkMsuqOtjXf0hEPW1HfTy+tqNwAHFJ8cx5jSHZ8zb+q8AedXeXbDa44vOClKJJctNHD50hcclJmYx3tecPaP24s8vUdwHi/ad3SDjuO92ergG17J91MnGM5poJ+4wIrv+Ae0LSbD622pcfv8Lv0fIRXV9dmTqy3kQgdbAhyjcSjX8ZPSH1ZPShoZP1zFAezcJGsU30er/KEMpnaMF/xrxMMR5IhUCfv2OH0iebTPx0ig==
+ bh=FsuOKdDyyyKaa15luj7FrWMy9pFxggz5I/jm0zyY4TQ=;
+ b=jlaDKzyfhSY55ooUihepUf3ZyNbArz/X3dI9GoD6YgZNiwJcK0v0SjDKn7NlflXnMPTl/2yCGKoqW/v8jJY2rtX7bsNxcNCbzjrYsO4hCMigXJzaZG4qDMg6U1HtSYOgEWdrytOb01hxMdU438WW3jSfh/JBhi61k+9Grn1mqc25pL5qey2yykneTozQAIs2Bqe4+Ga1wtenSEUP6XXFV0HOM/KP2B7TZrUG/Gwol7CeVZ4JSJU+P2b340U9zN6YkW6UODsnZP6LCR6nZyAFXcdudq23ybNQLE0Z6pStoYroTEnISd+fPPd96Z5cO5tsxduK2ImUV4rn7JCo2e5rzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9H69xwrYtt1P8iTFL9gmnUs1qqXPDsWY7HAXP4zDOPY=;
- b=eX4pYCZC4r6KfSDo7b8upoN86hUnQGMxB+nJZ8kNLY2d0EigAOBNrNr0nV216sKTsLBWgriXjKgqCVyXSJtUJlyvfCSZLBbirVdAi+7UXsiL800REoinKu1E8q787TQLfMXVJAb3STnhIUu5LeJd+lsfSW9zGNpTFCQse2uZHDc=
+ bh=FsuOKdDyyyKaa15luj7FrWMy9pFxggz5I/jm0zyY4TQ=;
+ b=lHP9pLZR12Y9Mjb03ekiczxPzKA5f9IlWIlC4Iuzom3044V/nQlgW2bFR+ZEwq5wknlGVw6xZ0YvrCdJY79yGX4GLVjLK/cQqEuQF8ksLkNg+9jaB86ig9n0WVM9O6NF218O3UP0ND5CNXOHSTy4BM6T4QteNfbt2fKbJJLVzwk=
 Received: from MW2PR16CA0042.namprd16.prod.outlook.com (2603:10b6:907:1::19)
- by BY5PR12MB4193.namprd12.prod.outlook.com (2603:10b6:a03:20c::19) with
+ by DM5PR12MB1609.namprd12.prod.outlook.com (2603:10b6:4:10::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Fri, 11 Feb
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.16; Fri, 11 Feb
  2022 18:59:38 +0000
 Received: from CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:1:cafe::e2) by MW2PR16CA0042.outlook.office365.com
+ (2603:10b6:907:1:cafe::c6) by MW2PR16CA0042.outlook.office365.com
  (2603:10b6:907:1::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.12 via Frontend
  Transport; Fri, 11 Feb 2022 18:59:38 +0000
@@ -47,17 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT035.mail.protection.outlook.com (10.13.175.36) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 18:59:37 +0000
+ 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 18:59:38 +0000
 Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 11 Feb
- 2022 12:59:36 -0600
+ 2022 12:59:37 -0600
 From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 0/4] General cleanup and SPDX update
-Date: Fri, 11 Feb 2022 13:59:21 -0500
-Message-ID: <20220211185925.4178-1-rajneesh.bhardwaj@amd.com>
+Subject: [PATCH 1/4] drm/amdgpu: Fix some kerneldoc warnings
+Date: Fri, 11 Feb 2022 13:59:22 -0500
+Message-ID: <20220211185925.4178-2-rajneesh.bhardwaj@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220211185925.4178-1-rajneesh.bhardwaj@amd.com>
+References: <20220211185925.4178-1-rajneesh.bhardwaj@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
@@ -65,28 +67,28 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 87a1a704-df13-491c-f21d-08d9ed90a6c3
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4193:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB41930F764E5BF3E1DB6DD966FE309@BY5PR12MB4193.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2331;
+X-MS-Office365-Filtering-Correlation-Id: 8fc82fb5-290a-44e2-9a2e-08d9ed90a750
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1609:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1609166A33E3AF48EA793AFEFE309@DM5PR12MB1609.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lYaTn8ewjjUUB+puFcAvA7Gbp82rKwYz81DeY2iVegDyiuRpKK6V6KGKlki22Ec8VG0pDUJIfM17XSHRgLPdUBBXHVXfAWa6uQXhY54kcGXRW9EjCuFbsqnWKoyRqabRverId1br5++x+W3NpYZL7y+i9tFYD+InXtYPEqdGIASSA4S+gpfHun7E1MIiVAddDRxZFIEfyjuKBFYF7OfcCT03l4kcz/otAvcRmzcCzPotsd50DNm9Yy472hnet+mncCbOOfENyasjz3bsCX5fIhZotvZe8+8XgkiRAA+uwIN8u5i1nxff7sKEqrvACi4JVRNcC8sa47CNvhP+7DtUJTMiuH1PoGvxrps/skLzkHv5N5hZib2UsvXIZdJYnUYvh/KNZ8EaAEMC9V1+IQW4V2a/On1eVzkTm8T5Npka7ONXUa6wj09DSoT5ze1WsJwsrolWT20yt3gSUq/y7t9V5prfnQHmaWEdpenNcXqwvcebWj4x8HZ531ouXN6WBA1DK+9MMzpuxHXYZBXPkmibDERGvROJHr9WqUkQ7yO+Vu7CCBB9q1w8TwpaO5f7ucSHx9WfHrG+yF/Y0Ueqw81dR+spYaWVn4lpxd0kh2fA7Yyx8KdvQSgqh5Qq9uSlgQlq60ow2PEx18ZBT1jTUNZIiY297M1dIx/IqcA7rwd5V93+b2CqgzRl04ySsFqmY4LPE+POtvw3bFsq6fkr3iw8bA==
+X-Microsoft-Antispam-Message-Info: uin3fUewEe+A58pfXzA5d3d0nq/demuTUxYlHWss/xBY3K/M8TbuLuhKzVzqhVV5PExQEfCaPBqsKDSVzKWX+AHSQmCjgILwigSpYH08Vn2Jmt5F8XbRtVBg6Yy7zLokFE3RTsGzZiVRG7ipm1LbOUwWY1Zx4tlkUZioyYNH/Dj7Xp/md96fvHO2AOjUdIZBVL6XoMOoNqVcvlEH85ABZQZo2pjZKlReiWYDvvE7AM2yH3VR2wgd9KfiVpSrAau3el7vFxXfQpnjrw/ssw9z7kGJiBQnOVOjBlfra4FMmHAn0NDLR269DujQIovJw8lra+LL/++JcbSzNgt6KWBhkC4f3bWtBeO8DT9dq7ijXIeo9W2nZlvuf7i9uko/PoVDabgKQYQcCGlIJfY+/qNNU4w127xRe9xZtO3slKPd/NJME5k4ejqbLmpsb1uquRf+pMslsBqH5nVmjHus3rSkBe6Adi+WUiU79c5bAYkYHj7Ji1n3iq0GdAklI1xN20vgIPtFNlyC7dBCI6yFEAfoJntL9+xkBAt/qbtkHEUOdhqGNopEiGK0lp6TKIX9VdlVfSJD1gUu3szzedpwjAF5wRnmNIvy/aWf4yExJB50zGh4UM4V9tXIxs3Phz1yjPUPSlPWzCCZQcWChVECpR6w1/rYKfB8C20zyQv1o9y+U1Vu6STyuKZBbGjlXUTqEqY4lyYQ+nw2Xg6WOEdoRhCNrw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(70206006)(26005)(70586007)(2616005)(8676002)(54906003)(6666004)(8936002)(508600001)(356005)(6916009)(186003)(7696005)(82310400004)(426003)(316002)(1076003)(15650500001)(86362001)(40460700003)(36756003)(2906002)(16526019)(83380400001)(81166007)(36860700001)(5660300002)(47076005)(4326008)(336012)(44832011)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(82310400004)(6916009)(316002)(54906003)(8936002)(336012)(83380400001)(426003)(7696005)(4326008)(70206006)(70586007)(356005)(8676002)(26005)(2616005)(186003)(16526019)(86362001)(6666004)(40460700003)(508600001)(1076003)(2906002)(47076005)(36756003)(5660300002)(81166007)(44832011)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 18:59:37.6693 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87a1a704-df13-491c-f21d-08d9ed90a6c3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 18:59:38.5911 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fc82fb5-290a-44e2-9a2e-08d9ed90a750
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4193
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1609
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,69 +104,49 @@ Cc: felix.kuehling@amd.com, Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are a bunch of warnings from checkpatch and kerneldoc style issues
-that this cleanup series tries to address and also update the SPDX
-License header for all the KFD files within amdgpu driver.
+Fix few kerneldoc warnings and one typo.
 
+Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-Rajneesh Bhardwaj (4):
-  drm/amdgpu: Fix some kerneldoc warnings
-  drm/amdkfd: updade SPDX license header
-  drm/amdkfd: Fix leftover errors and warnings
-  drm/amdgpu: Fix a kerneldoc warning
-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  4 ++--
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  6 +++++-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 14 +++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |  5 +++--
- drivers/gpu/drm/amd/amdkfd/kfd_crat.h         |  5 +++--
- drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c      |  5 +++--
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  8 +++++---
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 20 +++++++++----------
- .../drm/amd/amdkfd/kfd_device_queue_manager.h | 11 +++++-----
- .../amd/amdkfd/kfd_device_queue_manager_cik.c |  3 ++-
- .../amd/amdkfd/kfd_device_queue_manager_v10.c | 12 ++---------
- .../amd/amdkfd/kfd_device_queue_manager_v9.c  |  3 ++-
- .../amd/amdkfd/kfd_device_queue_manager_vi.c  |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c     |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_events.c       |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_events.h       |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |  5 +++--
- .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   |  6 ++++--
- drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c    |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_iommu.c        |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_iommu.h        |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_module.c       |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  |  4 +++-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h  |  3 ++-
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c  |  3 ++-
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  5 +++--
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  3 ++-
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   |  4 +++-
- .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |  3 ++-
- .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |  3 ++-
- .../drm/amd/amdkfd/kfd_packet_manager_vi.c    |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_pasid.c        |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers.h  |  3 ++-
- .../gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h   |  3 ++-
- .../amd/amdkfd/kfd_pm4_headers_aldebaran.h    |  3 ++-
- .../gpu/drm/amd/amdkfd/kfd_pm4_headers_diq.h  |  3 ++-
- .../gpu/drm/amd/amdkfd/kfd_pm4_headers_vi.h   |  7 ++++---
- drivers/gpu/drm/amd/amdkfd/kfd_pm4_opcodes.h  |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  7 ++++---
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  3 ++-
- .../amd/amdkfd/kfd_process_queue_manager.c    |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c        |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c   |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h   |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |  9 +++++----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.h     |  3 ++-
- 50 files changed, 137 insertions(+), 94 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+index 53895a41932e..81e3b528bbc9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+@@ -715,7 +715,7 @@ static void get_wave_count(struct amdgpu_device *adev, int queue_idx,
+  * process whose pasid is provided as a parameter. The process could have ZERO
+  * or more queues running and submitting waves to compute units.
+  *
+- * @kgd: Handle of device from which to get number of waves in flight
++ * @adev: Handle of device from which to get number of waves in flight
+  * @pasid: Identifies the process for which this query call is invoked
+  * @pasid_wave_cnt: Output parameter updated with number of waves in flight that
+  * belong to process with given pasid
+@@ -724,7 +724,7 @@ static void get_wave_count(struct amdgpu_device *adev, int queue_idx,
+  *
+  * Note: It's possible that the device has too many queues (oversubscription)
+  * in which case a VMID could be remapped to a different PASID. This could lead
+- * to an iaccurate wave count. Following is a high-level sequence:
++ * to an inaccurate wave count. Following is a high-level sequence:
+  *    Time T1: vmid = getVmid(); vmid is associated with Pasid P1
+  *    Time T2: passId = getPasId(vmid); vmid is associated with Pasid P2
+  * In the sequence above wave count obtained from time T1 will be incorrectly
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 2e00c3fb4bd3..cd89d2e46852 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -121,7 +121,7 @@ static size_t amdgpu_amdkfd_acc_size(uint64_t size)
+ }
+ 
+ /**
+- * @amdgpu_amdkfd_reserve_mem_limit() - Decrease available memory by size
++ * amdgpu_amdkfd_reserve_mem_limit() - Decrease available memory by size
+  * of buffer including any reserved for control structures
+  *
+  * @adev: Device to which allocated BO belongs to
 -- 
 2.17.1
 
