@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67661C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 14:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C42F5C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Feb 2022 14:19:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 727B910EA81;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CBF910EA8B;
 	Fri, 11 Feb 2022 14:19:21 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B83A10EA78;
- Fri, 11 Feb 2022 10:35:08 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 415F010EA64;
+ Fri, 11 Feb 2022 10:27:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644575708; x=1676111708;
+ t=1644575250; x=1676111250;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=xZqL227qrEuXaCf1lVm11orizsim7DciTShq3TaFFQU=;
- b=eeyO/68fNLY1JnPX+CHAQlf6NovwcuVtBtW/6SnkVOnpBHHDtUuaTAjF
- h5Gbcv1130O8jLfo+PD/PkBQZKUAa6NH5iqmEVRS1vZRVVQjyCZ8q4n+S
- 0OEEiUKTJlTY1KZT2f9FAx/aqpT1pMufjcgGGIXtVfdMaxWcPSL5tfr+/
- jt+WlfdSAbidBjjmTulKdYBOHu6e1mNWD/B9xCLudssRuIKkSarD043rW
- YeZ7i6XRR4bfn6d1iJDP2K1/4+Aquae2dDBdVvoqqEi8Awk3wY7FO4f6S
- C9qhNzlLtXrjpU9WgNv03j1/moLp85YLX1TrH5yYES7aIC+rXAi5ZVy3+ g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="249459672"
-X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="249459672"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2022 02:35:07 -0800
-X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="623185131"
+ bh=RCuCxhjV4esmnxdab6oU2vPqQ9Idnpu43es31WIDuUM=;
+ b=UyPdhbHmFGfbZf1OgdeHBGCnppPDm7DXtkeUR0EzWHH8mj8/AAfQoFv/
+ UBRdDBAf3NCHdjL+ciHrAq+ACbFaNX2QUCf4+CIYgVAN+IiIaZM1QGWhp
+ ngRmL3IH6H9zMNJyNIab45Mpt9aqxgsaPtMnZS+s2f0q7SyN581jdgzJD
+ LoUY88Eaeg38GvQ3yA+OKu4sFPzcaxOMvHsLu1JHZ9Sx3D1fEJz/hqycB
+ l+uZROKZo6ogr2QOVcHAAd5dWofBlyX2t/cmlZu3+PaI3xrlZSUAZOVbf
+ /ZpyZLDT5pSvtqBrDLn8rg7gykdlLPQY2LM3e7RaDyCaJFQs74/xteNHe g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="274265058"
+X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="274265058"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2022 02:27:13 -0800
+X-IronPort-AV: E=Sophos;i="5.88,360,1635231600"; d="scan'208";a="542034263"
 Received: from lahna.fi.intel.com (HELO lahna) ([10.237.72.162])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2022 02:35:03 -0800
-Received: by lahna (sSMTP sendmail emulation); Fri, 11 Feb 2022 12:35:00 +0200
-Date: Fri, 11 Feb 2022 12:35:00 +0200
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2022 02:27:08 -0800
+Received: by lahna (sSMTP sendmail emulation); Fri, 11 Feb 2022 12:23:51 +0200
+Date: Fri, 11 Feb 2022 12:23:51 +0200
 From: Mika Westerberg <mika.westerberg@linux.intel.com>
 To: Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v2 4/9] PCI: mark USB4 devices as removable
-Message-ID: <YgY71Lw4ZFOtdBVj@lahna>
+Subject: Re: [PATCH v2 3/9] PCI: drop `is_thunderbolt` attribute
+Message-ID: <YgY5N1eVWmi0Xyuw@lahna>
 References: <20220210224329.2793-1-mario.limonciello@amd.com>
- <20220210224329.2793-5-mario.limonciello@amd.com>
+ <20220210224329.2793-4-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220210224329.2793-5-mario.limonciello@amd.com>
+In-Reply-To: <20220210224329.2793-4-mario.limonciello@amd.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mailman-Approved-At: Fri, 11 Feb 2022 14:19:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -74,28 +74,60 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Hi Mario,
 
-On Thu, Feb 10, 2022 at 04:43:24PM -0600, Mario Limonciello wrote:
-> USB4 class devices are also removable like Intel Thunderbolt devices.
+On Thu, Feb 10, 2022 at 04:43:23PM -0600, Mario Limonciello wrote:
+> The `is_thunderbolt` attribute is currently a dumping ground for a
+> variety of things.
 > 
-> Drivers of downstream devices use this information to declare functional
-> differences in how the drivers perform by knowing that they are connected
-> to an upstream TBT/USB4 port.
+> Instead use the driver core removable attribute to indicate the
+> detail a device is attached to a thunderbolt or USB4 chain.
+> 
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/pci/pci.c                 |  2 +-
+>  drivers/pci/probe.c               | 20 +++++++-------------
+>  drivers/platform/x86/apple-gmux.c |  2 +-
+>  include/linux/pci.h               |  5 ++---
+>  4 files changed, 11 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 9ecce435fb3f..1264984d5e6d 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -2955,7 +2955,7 @@ bool pci_bridge_d3_possible(struct pci_dev *bridge)
+>  			return true;
+>  
+>  		/* Even the oldest 2010 Thunderbolt controller supports D3. */
+> -		if (bridge->is_thunderbolt)
+> +		if (dev_is_removable(&bridge->dev))
 
-This may not be covering the integrated controllers. For discrete, yes
-but if it is the PCIe root ports that start the PCIe topology (over the
-PCIe tunnels) this does not work.
+For this, I'm not entirely sure this is what we want. The purpose of
+this check is to enable port power management of Apple systems with
+Intel Thunderbolt controller and therefore checking for "removable" here
+is kind of misleading IMHO.
 
-For integrated we have the "usb4-host-interface" ACPI property that
-tells this for each port:
+I wonder if we could instead remove the check completely here and rely
+on the below:
 
-https://docs.microsoft.com/en-us/windows-hardware/drivers/pci/dsd-for-pcie-root-ports#mapping-native-protocols-pcie-displayport-tunneled-through-usb4-to-usb4-host-routers
+	if (platform_pci_bridge_d3(bridge))
+		return true;
 
-and for discrete there is the PCIe DVSEC that can be used (see the USB4
-spec archive it includes the "USB4 DVSEC Version 1.0.pdf" that has more
-information). I would expect AMD controller (assuming it is discrete)
-implements this too.
+and that would then look like:
 
-So I'm proposing that we mark the devices that are below  PCIe ports
-(root, downstream) that fall in the above categories as "removable".
-This is then not dependent on checking the USB4 controller and how it is
-setup in a particular system.
+static inline bool platform_pci_bridge_d3(struct pci_dev *dev)
+{
+	if (pci_use_mid_pm())
+		return false;
+
+	if (acpi_pci_bridge_d3(dev))
+		return true;
+
+	if (device_property_read_bool(&dev->dev, "HotPlugSupportInD3"))
+		return true;
+
+	return false;
+}
+
+and then make a quirk in quirks.c that adds the software node property
+for the Apple systems? Or something along those lines.
+
+@Lukas, what do you think?
