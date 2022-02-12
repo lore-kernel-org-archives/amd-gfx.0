@@ -4,49 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C554C4321E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1842C433FE
 	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 08:44:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B05C710E22F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E418210E231;
 	Mon, 14 Feb 2022 08:44:00 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFAC110E322;
- Mon, 14 Feb 2022 06:23:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644819784; x=1676355784;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ogk0u9WIs4rRYT5evD6jDJdiJEu7Wt/pIAhA9485lVQ=;
- b=ethgj9uOKOmh/Vur01mgsf50XYwrm/5NhDSoNQdEzfoOJdRS6YhSllQq
- dftO26JQn2VppFKqD2PXoC/XeAZMAymCoUgobe4STqZGxs8TN30I/hFgi
- rq8AujnNN8OCpwIvxXYwe7SqofXDfz0U3Kf90TnLIo9OAFUKCPn0f+2Mn
- Pzk1em5WLCeIk8Wo6Wj2IGy6hnRVaiKqScP+7d2AbCFhdMcd6vZKOiv6k
- qVDFr0WujmarjI0uerfBuF5jwBau4bi0xWZTwhjllcsaHAZMEYKn3RsHh
- 6emCDolp3UwFlRd2xJ7maOKqVbbNrm4dnbL1n6YkJR9O3MGO0Q/zHjM9F A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="230662342"
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="230662342"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2022 22:23:03 -0800
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="527922292"
-Received: from lahna.fi.intel.com (HELO lahna) ([10.237.72.162])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2022 22:22:59 -0800
-Received: by lahna (sSMTP sendmail emulation); Mon, 14 Feb 2022 08:22:56 +0200
-Date: Mon, 14 Feb 2022 08:22:56 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Lukas Wunner <lukas@wunner.de>
-Subject: Re: [PATCH v2 3/9] PCI: drop `is_thunderbolt` attribute
-Message-ID: <Ygn1QHF3aGsHpkS9@lahna>
-References: <20220210224329.2793-1-mario.limonciello@amd.com>
- <20220210224329.2793-4-mario.limonciello@amd.com>
- <YgY5N1eVWmi0Xyuw@lahna> <20220213083928.GB23572@wunner.de>
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E4DE10E151;
+ Sat, 12 Feb 2022 18:23:41 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ m126-20020a1ca384000000b0037bb8e379feso9148204wme.5; 
+ Sat, 12 Feb 2022 10:23:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=sender:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition;
+ bh=9OHuOKJbgH8itw9N7Okbk0KMW/V0yB0rDcvgbCzUOV0=;
+ b=A7o0J6x2xfgsnZEqjw3jFbuYBBni4Tv+mlsISCbWTKTCGRdMPyC1txf4R148E4SF6h
+ /cSII785FMECRtktBQiY7VW2WDOqPI4O1l6QkyE8gDfKOVGsJV7uy0kgZOLmkzb6eu7k
+ NdOJBX68lVa5KpKEWGfK9ul/LuwblEI3mEKbUkqyysyt0xVUu1iLTp5b3j7WJ0B08Lv4
+ 4Hg8hQbfuZsaPFZiy6nW3fUbeTeBPu3D7pEGFlfyDoBmMg1aZD4BUWeWOt3v5YjP2EwF
+ 18l3LuMpXxpr2OaKU3lMyL1fNw47mI1Fb+wKyeMnuhkaO4s+9vIJTHFDXnMXNV7EcFMN
+ mqBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :mime-version:content-disposition;
+ bh=9OHuOKJbgH8itw9N7Okbk0KMW/V0yB0rDcvgbCzUOV0=;
+ b=I4CMZlHD24myy0Te6E+ikm23y8wk265V3na51T8E7nyQ+hLmSD0cPte0Mx4mbIb8Dv
+ IG3e7l87G6ve+7EcSbihui0JBjvSMk4AzTwMoXEwfj2oeYD+17OUJrixwTcwd40IZxrZ
+ id6qweGNf2NGzeis2BSEmVPlKV2KrK+TVhKU49S0rv6Y26MeMscFxsdpJIHHVAqEqVV5
+ S1prfmPliHEJyY8SjlYwpHu3gCgz4wVJk1npVyg0tpYOP82jHO3LdA/bEwiyNcy+XkMQ
+ KJZvpJcX1T65qLaURIqw9N+ok7eCMyv/CV2oobf27kLiAFQpC+vu7/ZA1Qe+/gXDu6Xv
+ 5nrA==
+X-Gm-Message-State: AOAM533ZSvN2mXhhy+bprjk9Uy74lfQM2l/mmLX6Vh4NGU1RT/rlg7we
+ VRnrql4ZmBf6t8KIkDG8NLc=
+X-Google-Smtp-Source: ABdhPJzxmTgOVXXFWsejdulN4FAuR4wJNcyd7X7eM/NZoFOfS9+zOBb6XM7tmDaofyQGvmR+rJEgQA==
+X-Received: by 2002:a05:600c:4e16:: with SMTP id
+ b22mr4832663wmq.31.1644690220157; 
+ Sat, 12 Feb 2022 10:23:40 -0800 (PST)
+Received: from eldamar (80-218-24-251.dclient.hispeed.ch. [80.218.24.251])
+ by smtp.gmail.com with ESMTPSA id c8sm8619122wmq.34.2022.02.12.10.23.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 12 Feb 2022 10:23:39 -0800 (PST)
+Date: Sat, 12 Feb 2022 19:23:38 +0100
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: Regression from 3c196f056666 ("drm/amdgpu: always reset the asic in
+ suspend (v2)") on suspend?
+Message-ID: <Ygf7KuWyc0d4HIFu@eldamar.lan>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220213083928.GB23572@wunner.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mailman-Approved-At: Mon, 14 Feb 2022 08:43:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,58 +68,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Michael Jamet <michael.jamet@intel.com>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:THUNDERBOLT DRIVER" <linux-usb@vger.kernel.org>,
- Yehezkel Bernat <YehezkelShB@gmail.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>,
- Andreas Noever <andreas.noever@gmail.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Alexander.Deucher@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, 1005005@bugs.debian.org,
+ Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Evan Quan <evan.quan@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Dominique Dumont <dod@debian.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Alex, hi all
 
-On Sun, Feb 13, 2022 at 09:39:28AM +0100, Lukas Wunner wrote:
-> On Fri, Feb 11, 2022 at 12:23:51PM +0200, Mika Westerberg wrote:
-> > On Thu, Feb 10, 2022 at 04:43:23PM -0600, Mario Limonciello wrote:
-> > > @@ -2955,7 +2955,7 @@ bool pci_bridge_d3_possible(struct pci_dev *bridge)
-> > >  			return true;
-> > >  
-> > >  		/* Even the oldest 2010 Thunderbolt controller supports D3. */
-> > > -		if (bridge->is_thunderbolt)
-> > > +		if (dev_is_removable(&bridge->dev))
-> > 
-> > For this, I'm not entirely sure this is what we want. The purpose of
-> > this check is to enable port power management of Apple systems with
-> > Intel Thunderbolt controller and therefore checking for "removable" here
-> > is kind of misleading IMHO.
-> [...]
-> > and then make a quirk in quirks.c that adds the software node property
-> > for the Apple systems? Or something along those lines.
-> 
-> Honestly, that feels wrong to me.
-> 
-> There are non-Apple products with Thunderbolt controllers,
-> e.g. Supermicro X10SAT was a Xeon board with Redwood Ridge
-> which was introduced in 2013.  This was way before Microsoft
-> came up with the HotPlugSupportInD3 property.  It was also way
-> before the 2015 BIOS cut-off date that we use to disable
-> power management on older boards.
-> 
-> Still, we currently whitelist the Thunderbolt ports on that
-> board for D3 because we know it works.  What if products like
-> this one use their own power management scheme and we'd cause
-> a power regression if we needlessly disable D3 for them now?
+In Debian we got a regression report from Dominique Dumont, CC'ed in
+https://bugs.debian.org/1005005 that afer an update to 5.15.15 based
+kernel, his machine noe longer suspends correctly, after screen going
+black as usual it comes back. The Debian bug above contians a trace.
 
-All the non-Apple Thunderbolt products before "HotPlugSupportInD3" use
-ACPI "assisted" hotplug which means all the PM is done in the BIOS.
-Essentially it means the controller is only present if there is anything
-connected and in that case it is always in D0. Unplugging the device
-makes the controller to be hot-removed (ACPI hotplug) too and that's the
-only way early Thunderbolt used to save energy.
+Dominique confirmed that this issue persisted after updating to 5.16.7
+furthermore he bisected the issue and found 
+
+	3c196f05666610912645c7c5d9107706003f67c3 is the first bad commit
+	commit 3c196f05666610912645c7c5d9107706003f67c3
+	Author: Alex Deucher <alexander.deucher@amd.com>
+	Date:   Fri Nov 12 11:25:30 2021 -0500
+
+	    drm/amdgpu: always reset the asic in suspend (v2)
+
+	    [ Upstream commit daf8de0874ab5b74b38a38726fdd3d07ef98a7ee ]
+
+	    If the platform suspend happens to fail and the power rail
+	    is not turned off, the GPU will be in an unknown state on
+	    resume, so reset the asic so that it will be in a known
+	    good state on resume even if the platform suspend failed.
+
+	    v2: handle s0ix
+
+	    Acked-by: Luben Tuikov <luben.tuikov@amd.com>
+	    Acked-by: Evan Quan <evan.quan@amd.com>
+	    Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+	    Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+	 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 ++++-
+	 1 file changed, 4 insertions(+), 1 deletion(-)
+
+to be the first bad commit, see https://bugs.debian.org/1005005#34 .
+
+Does this ring any bell? Any idea on the problem?
+
+Regards,
+Salvatore
