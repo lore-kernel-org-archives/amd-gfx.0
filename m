@@ -4,49 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C08CC433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24D3EC433EF
 	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 08:43:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FD47890BF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 342A888F16;
 	Mon, 14 Feb 2022 08:43:57 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A8D710E1AF;
- Mon, 14 Feb 2022 07:36:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644824170; x=1676360170;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=TtIgUTAIsXJ4XGN4YguPnu9VZqX5t+e944YjPkCfnAQ=;
- b=iHWvdIoZgHtfCTj4Jhhc+qlls93Fz+d/JUxueLUUn8/tXAy5kpGvPD5m
- hDk77VZ969/eUntwWODJEVAPujFNLKiqDxzh8UaU5YJeCcUVZ/sm2Qpth
- O+bu3Ka7g0O0JOAHkEDRNRztD7xpUlF+0hM0Ppv9eEK6G31gy934aZteB
- DnNNLDen94uiAE/ZJhMk1hku2IFLGZqqMVcufsUP25GtzN2RLCwuL/BWp
- fihVxxIPBGVZgLlmqxoZAYDGcO3gNivagm1JPAnw54MXBOKCKEtdsM+iC
- 1mcf98RTRzTXfk5f6oV25/aJKjr1xbuD7JkzLCdz9In4Yl/Eh4rGaQjih A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="247628391"
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="247628391"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2022 23:36:09 -0800
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="772875545"
-Received: from lahna.fi.intel.com (HELO lahna) ([10.237.72.162])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2022 23:36:04 -0800
-Received: by lahna (sSMTP sendmail emulation); Mon, 14 Feb 2022 09:34:26 +0200
-Date: Mon, 14 Feb 2022 09:34:26 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: [PATCH v3 05/12] PCI: Detect root port of internal USB4 devices
- by `usb4-host-interface`
-Message-ID: <YgoGAkjZgCob8Mdl@lahna>
-References: <20220211193250.1904843-6-mario.limonciello@amd.com>
- <20220211214546.GA737137@bhelgaas>
+X-Greylist: delayed 330 seconds by postgrey-1.36 at gabe;
+ Sat, 12 Feb 2022 16:52:58 UTC
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E459010E151;
+ Sat, 12 Feb 2022 16:52:58 +0000 (UTC)
+Received: from cwcc.thunk.org (pool-108-7-220-252.bstnma.fios.verizon.net
+ [108.7.220.252]) (authenticated bits=0)
+ (User authenticated as tytso@ATHENA.MIT.EDU)
+ by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 21CGkxsP010096
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 12 Feb 2022 11:47:00 -0500
+Received: by cwcc.thunk.org (Postfix, from userid 15806)
+ id 1847215C0040; Sat, 12 Feb 2022 11:46:59 -0500 (EST)
+Date: Sat, 12 Feb 2022 11:46:59 -0500
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: Qing Wang <wangqing@vivo.com>
+Subject: Re: [PATCH V2 00/13] use time_is_xxx() instead of jiffies judgment
+Message-ID: <Ygfkg0n6RvvJYMJa@mit.edu>
+References: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220211214546.GA737137@bhelgaas>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+In-Reply-To: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
 X-Mailman-Approved-At: Mon, 14 Feb 2022 08:43:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,71 +44,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andreas Noever <andreas.noever@gmail.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Michael Jamet <michael.jamet@intel.com>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- "open list:THUNDERBOLT DRIVER" <linux-usb@vger.kernel.org>,
- Yehezkel Bernat <YehezkelShB@gmail.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Hans de Goede <hdegoede@redhat.com>, Lukas Wunner <lukas@wunner.de>,
- Mario Limonciello <mario.limonciello@amd.com>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Alexander.Deucher@amd.com
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Mike Snitzer <snitzer@redhat.com>, David Airlie <airlied@linux.ie>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Hans Verkuil <hverkuil@xs4all.nl>,
+ dm-devel@redhat.com, Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ linux-clk@vger.kernel.org, Alasdair Kergon <agk@redhat.com>,
+ amd-gfx@lists.freedesktop.org, linux-input@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-media@vger.kernel.org,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ intel-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>, linux-block@vger.kernel.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Stephen Boyd <sboyd@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Bjorn,
-
-On Fri, Feb 11, 2022 at 03:45:46PM -0600, Bjorn Helgaas wrote:
-> On Fri, Feb 11, 2022 at 01:32:43PM -0600, Mario Limonciello wrote:
-> > The root port used for PCIe tunneling should be marked as removable to
-> > ensure that the entire chain is marked removable.
-> > 
-> > This can be done by looking for the device property specified in
-> > the ACPI tables `usb4-host-interface`.
-> > 
-> > Suggested-by: Mika Westerberg <mika.westerberg@linux.intel.com>
-> > Link: https://docs.microsoft.com/en-us/windows-hardware/drivers/pci/dsd-for-pcie-root-ports#mapping-native-protocols-pcie-displayport-tunneled-through-usb4-to-usb4-host-routers
-> > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> > ---
-> >  drivers/pci/pci-acpi.c | 10 ++++++++++
-> >  drivers/pci/pci.h      |  5 +++++
-> >  drivers/pci/probe.c    |  1 +
-> >  3 files changed, 16 insertions(+)
-> > 
-> > diff --git a/drivers/pci/pci-acpi.c b/drivers/pci/pci-acpi.c
-> > index a42dbf448860..6368e5633b1b 100644
-> > --- a/drivers/pci/pci-acpi.c
-> > +++ b/drivers/pci/pci-acpi.c
-> > @@ -1391,6 +1391,16 @@ void pci_acpi_cleanup(struct device *dev, struct acpi_device *adev)
-> >  	}
-> >  }
-> >  
-> > +bool pci_acpi_is_usb4(struct pci_dev *dev)
-> > +{
-> > +	struct acpi_device *adev = ACPI_COMPANION(&dev->dev);
-> > +
-> > +	if (!adev)
-> > +		return false;
-> > +	return fwnode_property_present(acpi_fwnode_handle(adev),
-> > +				       "usb4-host-interface");
+On Thu, Feb 10, 2022 at 06:30:23PM -0800, Qing Wang wrote:
+> From: Wang Qing <wangqing@vivo.com>
 > 
-> Maybe it's obvious to everybody but me that "USB4" means this device
-> is removable.  The Microsoft reference above doesn't say anything
-> about removability.
-> 
-> My expectation is that "USB" (like "PCI" and "PCIe") tells me
-> something about how a device is electrically connected and how
-> software can operate it.  It doesn't really tell me anything about
-> whether those electrical connections are permanent, made through an
-> internal slot, or made through an external connector and cable.
+> It is better to use time_is_xxx() directly instead of jiffies judgment
+> for understanding.
 
-It is used to identify "tunneled" ports (whether PCIe, USB 3.x or
-DisplayPort). Tunnels are created by software (in Linux it is the
-Thunderbolt driver) and are dynamic in nature. The USB4 links go over
-USB Type-C cable which also is something user can plug/unplug freely.
+Hi Wang,
 
-I would say it is reasonable expectation that anything behind these
-ports can be assumed as "removable".
+"judgement" doesn't really make sense as a description to an English
+speaker.  The following a commit desription (for all of these series)
+is probably going to be a bit more understable:
+
+Use the helper function time_is_{before,after}_jiffies() to improve
+code readability.
+
+Cheers,
+
+						- Ted
