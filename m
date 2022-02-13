@@ -4,51 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64B18C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 08:43:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91FC0C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 08:43:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBA7510E21C;
-	Mon, 14 Feb 2022 08:43:43 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CA6A10E207;
- Mon, 14 Feb 2022 07:27:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644823640; x=1676359640;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=3D+QYO7Pwm9FAUWke5CmBKJRJaBzCTD4KK+GctzE02M=;
- b=bEqDs83K67onjru0NlXVJuUGM4pDLdgmNUjEQJEAPrsXxBwQm+8f4ZLk
- kyv6ICmHtAhLetWaPEnS16MkAzyneeMUu11ExmQvgT0gNzpCupRS7DjsY
- t9ktakhkAnF54MR0PyY8rn+op+hgP9WycH0b6Mz5DMmvLSq6Qosj41Vct
- sGBjfXvI7KIHyLwPrO1SLfUrPWl0XqwG1ciMPCbd4uRCDg1NxhsTG6Ntm
- xoxgrMXFIizIaGl68y7eibLhKzXdZJ/KShtuk6In0SCkolQDqbvYBAAKa
- svx6diikkFLj3YqWvoEn5eWSGP/p3lRyNAsC7v9rcwflT3AZu/IWZC9et A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="336459435"
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="336459435"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2022 23:27:19 -0800
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="634979853"
-Received: from lahna.fi.intel.com (HELO lahna) ([10.237.72.162])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2022 23:27:15 -0800
-Received: by lahna (sSMTP sendmail emulation); Mon, 14 Feb 2022 09:27:13 +0200
-Date: Mon, 14 Feb 2022 09:27:13 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: "Limonciello, Mario" <mario.limonciello@amd.com>
-Subject: Re: [PATCH v3 04/12] PCI: Drop the `is_thunderbolt` attribute from
- PCI core
-Message-ID: <YgoEUYLbYUbk5A6Q@lahna>
-References: <20220211193250.1904843-1-mario.limonciello@amd.com>
- <20220211193250.1904843-5-mario.limonciello@amd.com>
- <20220213082056.GA23572@wunner.de>
- <0ef8f2cb-1978-f469-71d3-2cf7469eb8b6@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C86A510E1F1;
+	Mon, 14 Feb 2022 08:43:52 +0000 (UTC)
+X-Greylist: delayed 863 seconds by postgrey-1.36 at gabe;
+ Sun, 13 Feb 2022 23:38:31 UTC
+Received: from mslow1.mail.gandi.net (mslow1.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::240])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC18A10E1E6
+ for <amd-gfx@lists.freedesktop.org>; Sun, 13 Feb 2022 23:38:31 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (unknown [217.70.183.199])
+ by mslow1.mail.gandi.net (Postfix) with ESMTP id 91720C5946
+ for <amd-gfx@lists.freedesktop.org>; Sun, 13 Feb 2022 23:27:02 +0000 (UTC)
+Received: (Authenticated sender: ash@heyquark.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id 9A7ADFF802;
+ Sun, 13 Feb 2022 23:26:51 +0000 (UTC)
+Message-ID: <992dccb9-590a-c7b7-146f-d134fb399f7e@heyquark.com>
+Date: Mon, 14 Feb 2022 10:26:47 +1100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0ef8f2cb-1978-f469-71d3-2cf7469eb8b6@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [RFC] Upstreaming Linux for Nintendo Wii U
+Content-Language: en-US
+To: Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ "benh@kernel.crashing.org" <benh@kernel.crashing.org>,
+ "paulus@samba.org" <paulus@samba.org>
+References: <0020d47c-0e23-822c-33f5-ccb7ea4c1072@heyquark.com>
+ <87ee49sktb.fsf@mpe.ellerman.id.au>
+ <41c696de-0e04-61e1-610c-73e9440c5c19@csgroup.eu>
+From: Ash Logan <ash@heyquark.com>
+In-Reply-To: <41c696de-0e04-61e1-610c-73e9440c5c19@csgroup.eu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 14 Feb 2022 08:43:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,51 +51,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hans de Goede <hdegoede@redhat.com>,
- Michael Jamet <michael.jamet@intel.com>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- "open list:THUNDERBOLT DRIVER" <linux-usb@vger.kernel.org>,
- Yehezkel Bernat <YehezkelShB@gmail.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Andreas Noever <andreas.noever@gmail.com>, Lukas Wunner <lukas@wunner.de>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Alexander.Deucher@amd.com
+Cc: "linkmauve@linkmauve.fr" <linkmauve@linkmauve.fr>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "j.ne@posteo.net" <j.ne@posteo.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mario,
+Hi Christophe,
 
-On Sun, Feb 13, 2022 at 11:26:56AM -0600, Limonciello, Mario wrote:
-> On 2/13/2022 02:20, Lukas Wunner wrote:
-> > On Fri, Feb 11, 2022 at 01:32:42PM -0600, Mario Limonciello wrote:
-> > > The `is_thunderbolt` attribute is currently a dumping ground for a
-> > > variety of things.
-> > 
-> > It's not as arbitrary as it may seem.  Quite a bit of thought went into
-> > the current design.
-> > 
-> > 
-> > > Instead use the driver core removable attribute to indicate the
-> > > detail a device is attached to a thunderbolt or USB4 chain.
-> > 
-> > You're missing the point that "is_thunderbolt" is set on the *controller*
-> > (i.e. its upstream and downstream ports).
-> > 
-> > The controller itself is *not* removable if it's the host controller.
-> > 
-> > However a device can be assumed to be removable if it has an ancestor
-> > which has the "is_thunderbolt" flag set.
-> > 
+On 12/2/22 00:11, Christophe Leroy wrote:
+> Hi Ash,
 > 
-> Ah right... I wonder if really what this series should be about then is
-> setting up the the PCIe endpoints for PCIe tunneling and XHCI tunneling to
-> be marked as "external" instead then.  It would mean that existing code will
-> apply the removable attribute to everything downstream (and presumably at
-> least some of those drivers it will continue to make sense to drop
-> "pcie_is_thunderbolt_attached" and instead check dev_is_removable.
+> Le 11/02/2022 à 12:29, Michael Ellerman a écrit :
+>> Ash Logan <ash@heyquark.com> writes:
+>>> - Like the Wii before it, the Wii U has a small amount of RAM at address
+>>> zero, a gap, then a large amount of RAM at a higher address. Instead of
+>>> the "map everything and reserve the gap" approach of the Wii, we loop
+>>> over each memblock and map only true RAM[9]. This seems to work, but as
+>>> far as I can tell is unique amongst powerpc32 platforms, so it's worth
+>>> pointing out. (Note: I've been told this doesn't work anymore after some
+>>> KUAP changes[10], so this point might be moot; haven't investigated)
+>>
+>> We'd need more detail on that I guess. Currently all the 32-bit
+>> platforms use the flat memory model, which assumes RAM is a single
+>> contiguous block. Though that doesn't mean it all has to be used or
+>> mapped, like the Wii does. To properly support your layout you should be
+>> using sparsemem, but it's possible that's more trouble than it's worth,
+>> I'm not sure. How far apart are the low and high blocks of RAM, and what
+>> are their sizes?
+> 
+> Can you provide details on what's happening with KUAP changes ?
+> 
+> You are pointing to series https://lkml.org/lkml/2021/6/3/204
+> 
+> Does it work when CONFIG_PPC_KUAP is not selected or doesn't it work
+> either ?
+> 
+> Are you able to bisect which commit of that series is the culprit ?
 
-Yes, I think this is the right thing to do. Anything connected over
-PCIe/USB 3.x tunnel is pretty much "removable" whereas the host
-controllers may or may not. Typically they are not.
+Emmanuel told me about this during their work on 5.13 which I wasn't 
+involved in, and now can't remember any of the details, so I guess I 
+don't actually have any more information.
+I'm working on getting a baseline setup for 5.15 (just udbg and the 
+like), so if there is an issue I should soon find out about it and will 
+get back to you.
+
+> Thanks
+> Christophe
+
+Thanks,
+Ash
