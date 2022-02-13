@@ -4,40 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91FC0C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89F4EC433F5
 	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 08:43:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C86A510E1F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D62B610E222;
 	Mon, 14 Feb 2022 08:43:52 +0000 (UTC)
-X-Greylist: delayed 863 seconds by postgrey-1.36 at gabe;
- Sun, 13 Feb 2022 23:38:31 UTC
-Received: from mslow1.mail.gandi.net (mslow1.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::240])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC18A10E1E6
- for <amd-gfx@lists.freedesktop.org>; Sun, 13 Feb 2022 23:38:31 +0000 (UTC)
-Received: from relay9-d.mail.gandi.net (unknown [217.70.183.199])
- by mslow1.mail.gandi.net (Postfix) with ESMTP id 91720C5946
- for <amd-gfx@lists.freedesktop.org>; Sun, 13 Feb 2022 23:27:02 +0000 (UTC)
-Received: (Authenticated sender: ash@heyquark.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 9A7ADFF802;
- Sun, 13 Feb 2022 23:26:51 +0000 (UTC)
-Message-ID: <992dccb9-590a-c7b7-146f-d134fb399f7e@heyquark.com>
-Date: Mon, 14 Feb 2022 10:26:47 +1100
+X-Greylist: delayed 352 seconds by postgrey-1.36 at gabe;
+ Sun, 13 Feb 2022 13:38:09 UTC
+Received: from forward100p.mail.yandex.net (forward100p.mail.yandex.net
+ [IPv6:2a02:6b8:0:1472:2741:0:8b7:100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02EDF10E13E
+ for <amd-gfx@lists.freedesktop.org>; Sun, 13 Feb 2022 13:38:08 +0000 (UTC)
+Received: from forward101q.mail.yandex.net (forward101q.mail.yandex.net
+ [IPv6:2a02:6b8:c0e:4b:0:640:4012:bb98])
+ by forward100p.mail.yandex.net (Yandex) with ESMTP id 480ED4F08177;
+ Sun, 13 Feb 2022 16:32:13 +0300 (MSK)
+Received: from vla1-25221a47e1d2.qloud-c.yandex.net
+ (vla1-25221a47e1d2.qloud-c.yandex.net
+ [IPv6:2a02:6b8:c0d:3c06:0:640:2522:1a47])
+ by forward101q.mail.yandex.net (Yandex) with ESMTP id 4305513E80002;
+ Sun, 13 Feb 2022 16:32:13 +0300 (MSK)
+Received: from vla5-047c0c0d12a6.qloud-c.yandex.net
+ (vla5-047c0c0d12a6.qloud-c.yandex.net [2a02:6b8:c18:3484:0:640:47c:c0d])
+ by vla1-25221a47e1d2.qloud-c.yandex.net (mxback/Yandex) with ESMTP id
+ iarXuVZ1oX-WCd0hlAt; Sun, 13 Feb 2022 16:32:13 +0300
+X-Yandex-Fwd: 2
+Authentication-Results: vla1-25221a47e1d2.qloud-c.yandex.net; dkim=pass
+Received: by vla5-047c0c0d12a6.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
+ id lKwSmfPfvd-WAIGJwTH; Sun, 13 Feb 2022 16:32:11 +0300
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (Client certificate not present)
+From: Yaroslav Bolyukin <iam@lach.pw>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] edid: parse DRM VESA dsc bpp target
+Date: Sun, 13 Feb 2022 16:31:27 +0300
+Message-Id: <20220213133128.5833-1-iam@lach.pw>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [RFC] Upstreaming Linux for Nintendo Wii U
-Content-Language: en-US
-To: Christophe Leroy <christophe.leroy@csgroup.eu>,
- Michael Ellerman <mpe@ellerman.id.au>,
- "benh@kernel.crashing.org" <benh@kernel.crashing.org>,
- "paulus@samba.org" <paulus@samba.org>
-References: <0020d47c-0e23-822c-33f5-ccb7ea4c1072@heyquark.com>
- <87ee49sktb.fsf@mpe.ellerman.id.au>
- <41c696de-0e04-61e1-610c-73e9440c5c19@csgroup.eu>
-From: Ash Logan <ash@heyquark.com>
-In-Reply-To: <41c696de-0e04-61e1-610c-73e9440c5c19@csgroup.eu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 14 Feb 2022 08:43:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -51,56 +55,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "linkmauve@linkmauve.fr" <linkmauve@linkmauve.fr>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "j.ne@posteo.net" <j.ne@posteo.net>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Leo Li <sunpeng.li@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Yaroslav Bolyukin <iam@lach.pw>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christophe,
+As per DisplayID v2.0 Errata E9 spec
 
-On 12/2/22 00:11, Christophe Leroy wrote:
-> Hi Ash,
-> 
-> Le 11/02/2022 à 12:29, Michael Ellerman a écrit :
->> Ash Logan <ash@heyquark.com> writes:
->>> - Like the Wii before it, the Wii U has a small amount of RAM at address
->>> zero, a gap, then a large amount of RAM at a higher address. Instead of
->>> the "map everything and reserve the gap" approach of the Wii, we loop
->>> over each memblock and map only true RAM[9]. This seems to work, but as
->>> far as I can tell is unique amongst powerpc32 platforms, so it's worth
->>> pointing out. (Note: I've been told this doesn't work anymore after some
->>> KUAP changes[10], so this point might be moot; haven't investigated)
->>
->> We'd need more detail on that I guess. Currently all the 32-bit
->> platforms use the flat memory model, which assumes RAM is a single
->> contiguous block. Though that doesn't mean it all has to be used or
->> mapped, like the Wii does. To properly support your layout you should be
->> using sparsemem, but it's possible that's more trouble than it's worth,
->> I'm not sure. How far apart are the low and high blocks of RAM, and what
->> are their sizes?
-> 
-> Can you provide details on what's happening with KUAP changes ?
-> 
-> You are pointing to series https://lkml.org/lkml/2021/6/3/204
-> 
-> Does it work when CONFIG_PPC_KUAP is not selected or doesn't it work
-> either ?
-> 
-> Are you able to bisect which commit of that series is the culprit ?
+Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+---
+ drivers/gpu/drm/drm_edid.c  | 31 ++++++++++++++++++++-----------
+ include/drm/drm_connector.h |  6 ++++++
+ include/drm/drm_displayid.h |  4 ++++
+ 3 files changed, 30 insertions(+), 11 deletions(-)
 
-Emmanuel told me about this during their work on 5.13 which I wasn't 
-involved in, and now can't remember any of the details, so I guess I 
-don't actually have any more information.
-I'm working on getting a baseline setup for 5.15 (just udbg and the 
-like), so if there is an issue I should soon find out about it and will 
-get back to you.
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index a7663f9a1..83ee685c8 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -5270,7 +5270,7 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
+ 	if (oui(vesa->oui[0], vesa->oui[1], vesa->oui[2]) != VESA_IEEE_OUI)
+ 		return;
+ 
+-	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
++	if (block->num_bytes < 5) {
+ 		drm_dbg_kms(connector->dev, "Unexpected VESA vendor block size\n");
+ 		return;
+ 	}
+@@ -5290,20 +5290,29 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
+ 		break;
+ 	}
+ 
+-	if (!info->mso_stream_count) {
+-		info->mso_pixel_overlap = 0;
+-		return;
++	info->mso_pixel_overlap = 0;
++
++	if (info->mso_stream_count) {
++		info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
++		if (info->mso_pixel_overlap > 8) {
++			drm_dbg_kms(connector->dev, "Reserved MSO pixel overlap value %u\n",
++				info->mso_pixel_overlap);
++			info->mso_pixel_overlap = 8;
++		}
++
++		drm_dbg_kms(connector->dev, "MSO stream count %u, pixel overlap %u\n",
++			info->mso_stream_count, info->mso_pixel_overlap);
+ 	}
+ 
+-	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
+-	if (info->mso_pixel_overlap > 8) {
+-		drm_dbg_kms(connector->dev, "Reserved MSO pixel overlap value %u\n",
+-			    info->mso_pixel_overlap);
+-		info->mso_pixel_overlap = 8;
++	if (block->num_bytes < 7) {
++		/* DSC bpp is optional */
++		return;
+ 	}
+ 
+-	drm_dbg_kms(connector->dev, "MSO stream count %u, pixel overlap %u\n",
+-		    info->mso_stream_count, info->mso_pixel_overlap);
++	info->dp_dsc_bpp = FIELD_GET(DISPLAYID_VESA_DSC_BPP_INT, vesa->dsc_bpp_int) * 16 +
++		FIELD_GET(DISPLAYID_VESA_DSC_BPP_FRACT, vesa->dsc_bpp_fract);
++
++	drm_dbg_kms(connector->dev, "DSC bits per pixel %u\n", info->dp_dsc_bpp);
+ }
+ 
+ static void drm_update_mso(struct drm_connector *connector, const struct edid *edid)
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 5e36eb3df..04ef0e995 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -634,6 +634,12 @@ struct drm_display_info {
+ 	 * @mso_pixel_overlap: eDP MSO segment pixel overlap, 0-8 pixels.
+ 	 */
+ 	u8 mso_pixel_overlap;
++
++	/**
++	 * @dp_dsc_bpp: DP Display-Stream-Compression (DSC) timing's target
++	 * DST bits per pixel in 6.4 fixed point format. 0 means undefined
++	 */
++	u16 dp_dsc_bpp;
+ };
+ 
+ int drm_display_info_set_bus_formats(struct drm_display_info *info,
+diff --git a/include/drm/drm_displayid.h b/include/drm/drm_displayid.h
+index 7ffbd9f7b..1be6deddc 100644
+--- a/include/drm/drm_displayid.h
++++ b/include/drm/drm_displayid.h
+@@ -131,12 +131,16 @@ struct displayid_detailed_timing_block {
+ 
+ #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
+ #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
++#define DISPLAYID_VESA_DSC_BPP_INT	GENMASK(5, 0)
++#define DISPLAYID_VESA_DSC_BPP_FRACT GENMASK(3, 0)
+ 
+ struct displayid_vesa_vendor_specific_block {
+ 	struct displayid_block base;
+ 	u8 oui[3];
+ 	u8 data_structure_type;
+ 	u8 mso;
++	u8 dsc_bpp_int;
++	u8 dsc_bpp_fract;
+ } __packed;
+ 
+ /* DisplayID iteration */
 
-> Thanks
-> Christophe
+base-commit: 1528038385c0a706aac9ac165eeb24044fef6825
+-- 
+2.35.1
 
-Thanks,
-Ash
