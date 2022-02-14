@@ -4,52 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0627C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 17:53:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0FBBC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 18:24:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 702C410E23E;
-	Mon, 14 Feb 2022 17:53:40 +0000 (UTC)
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [IPv6:2607:f8b0:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B996310E267
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Feb 2022 17:53:38 +0000 (UTC)
-Received: by mail-ot1-x32e.google.com with SMTP id
- s6-20020a0568301e0600b0059ea5472c98so12074811otr.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Feb 2022 09:53:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YkAymclSJFAMZRqYY8ohNwit8Ona1sT8MPkkfXD2QQ8=;
- b=qR66O0SkVDvLqyoYNSiRdI9iy6ZYNDcrrfsl6uO6N/tAZEsP4MRrN5PIRy6mEUHFSO
- YLDK+rs6q/tIpPGR/VcnOGl6Ia46hvMQ7yclw8NAsdlismEKcClsEGm4yw3UgXZMv4LA
- Jn6a3hDu2aDWssgwBOBlH4Qqrke3pq3+fQ1p+r20vObWq0jOsbapT4iqztxfJ69d+VkE
- xVKfJvYQHG7ez5SrdhT/35a9iDz79PVDJYwoprlHL6HJ3JwU162zo1lYDE3AJpOwnRwe
- QEoZsj2LzO53B7WhWn4VX8THLZRbInPKOHPsFtVMgA/VyOwZdUISz3Mn+HAIBmihemRI
- YKLg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3092D10E258;
+	Mon, 14 Feb 2022 18:24:33 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE9B10E28C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Feb 2022 18:22:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1644862961;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=6KphgiHwgRe3NkAsq1kWFGjvzJI/mlc7nnNKh2wAjkA=;
+ b=VSFm4sibOIjm3A+++6v3bbR9bj12ka0JterZOKWd6oaGWkmJ2MQkaPjPusIelVpgMTvwBf
+ yCZcIf5WWFge+Be0HuIbx+qeXWIbzExELpYANWA6E3fBRm+yiuOXDW8zlvgyfDEgRc4X+g
+ TKmH5ShZdzLYvQhfSNrs7dEmtFnj7Os=
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
+ [209.85.210.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-675-NHe1S0zxNvuf4oSGszHMIA-1; Mon, 14 Feb 2022 13:22:38 -0500
+X-MC-Unique: NHe1S0zxNvuf4oSGszHMIA-1
+Received: by mail-ot1-f69.google.com with SMTP id
+ l34-20020a0568302b2200b005a22eb442daso10789875otv.15
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Feb 2022 10:22:38 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=YkAymclSJFAMZRqYY8ohNwit8Ona1sT8MPkkfXD2QQ8=;
- b=uJQVtCCImCGbroVQ+Ipi3uzFU8oPml5/nJRkrRaGQ1/60fQcso58Mi//rBfTF5f8SN
- GJwfCOj+FtQCnrWLfXxF532eelLGvcNa5crXBP2Q6dxDUAWoriA4C7Ag/MrcDeJVX1Ze
- l+qnXdGBBdgcFAB06dsKwn/WoCMLYWFTUvwcvUopzJv5FOWJrPtQE36YgEpdFMu9HIau
- vqD7PyOG0B5YzSiUN7kxlCHadYgoyQ/nBVJkuIxcmewozk5nBsft9dhmnmm2iRPlrEf0
- 9DV0JL6sYTcobr2C674tIFKAl3Rls32F0ZfHtn6mTUKpSeFY8w31UsdxjCW6VshBEOZB
- /qjA==
-X-Gm-Message-State: AOAM531HgMM1CtA0uSN7hnPdXnFg/JuZnGKlN96d+ZQUgmYuWWyciwdd
- LnFyg1ilt7xp7W/mxOVEUtYRo/4jPcP9hnlnwhOktXmN
-X-Google-Smtp-Source: ABdhPJyKRsEcJGTTJHWv2sRO46JbCt5Azw4ipcKouQudfS/w89LKsUIFVVHPjbqObDD/r9WBWm2IrjDHUvMdI2S3Yw8=
-X-Received: by 2002:a9d:65cb:: with SMTP id z11mr11676oth.357.1644861218038;
- Mon, 14 Feb 2022 09:53:38 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=6KphgiHwgRe3NkAsq1kWFGjvzJI/mlc7nnNKh2wAjkA=;
+ b=ss7kbowxYHO/mSWH292Q4LJ8388BD3JuwvMEm0DGunKS6JHqFSI8mobEy61xjSIEK/
+ 5XpJj9pS5yi16+Lw3/ig/GQ1RXP9MGm9YKKgnC2cenJQ+CSuWY1kxUdsOgobEqw5LWPj
+ dJTV/wwd1UZC8LJhprxTwX2Jeo/rTr5IvIth0so0BYaexfS6MHKP5u/fNCkomTb96qcC
+ ghtnG0m+D0NgmGRepJnOdm9EtC+ywiaJ6UBS0P+pqfBIv07pRXO4TKSqkWUyKiV6yLeh
+ Xl9oZ55SAIuQhsZyQq1PZ4fj+Fh91iW4xRDfQlvJk8Z/QPeT+XIc2AAmgAgZTnI3R3E9
+ RdRA==
+X-Gm-Message-State: AOAM531kLpQf8pCto+75uMGLNrJKmmCeTRLdxK/Dfgu/BI6opG4Vhcy4
+ 2LRWVAZtAuU4BgudciSjc6hr7z/MevT5vWThzICbZoBzNrB80fvyjjFkTWJSZd0DQSIK49MxAzt
+ Q1e72iW1KOfxVFG2h7YoawXZJXg==
+X-Received: by 2002:a05:6808:2227:: with SMTP id
+ bd39mr64705oib.142.1644862956380; 
+ Mon, 14 Feb 2022 10:22:36 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyVpfes2LLHqPuaIsi0+RkM/zs2xkzYjID6G+ExdR/vMlhePhV1G0FpY7aHAfq8EanEFOo3Eg==
+X-Received: by 2002:a05:6808:2227:: with SMTP id
+ bd39mr64640oib.142.1644862954708; 
+ Mon, 14 Feb 2022 10:22:34 -0800 (PST)
+Received: from localhost.localdomain.com (024-205-208-113.res.spectrum.com.
+ [24.205.208.113])
+ by smtp.gmail.com with ESMTPSA id j6sm12673419otq.76.2022.02.14.10.22.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 14 Feb 2022 10:22:34 -0800 (PST)
+From: trix@redhat.com
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, nathan@kernel.org,
+ ndesaulniers@google.com, luben.tuikov@amd.com, david.nieto@amd.com,
+ nirmoy.das@amd.com, Ken.Xue@amd.com, Roy.Sun@amd.com, evan.quan@amd.com
+Subject: [PATCH] drm/amdgpu: check return status before using stable_pstate
+Date: Mon, 14 Feb 2022 10:22:24 -0800
+Message-Id: <20220214182224.2906060-1-trix@redhat.com>
+X-Mailer: git-send-email 2.26.3
 MIME-Version: 1.0
-References: <20220212154000.2102141-1-bas@basnieuwenhuizen.nl>
-In-Reply-To: <20220212154000.2102141-1-bas@basnieuwenhuizen.nl>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 14 Feb 2022 12:53:27 -0500
-Message-ID: <CADnq5_PxGFVVJdaYE1UF4jR+rjM2FhK1BKxkaH_dcGffrOk1rw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Protect update_bw_bounding_box FPU code.
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Content-Type: text/plain; charset="UTF-8"
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
+X-Mailman-Approved-At: Mon, 14 Feb 2022 18:24:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,57 +84,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+From: Tom Rix <trix@redhat.com>
 
-Alex
+Clang static analysis reports this problem
+amdgpu_ctx.c:616:26: warning: Assigned value is garbage
+  or undefined
+  args->out.pstate.flags = stable_pstate;
+                         ^ ~~~~~~~~~~~~~
+amdgpu_ctx_stable_pstate can fail without setting
+stable_pstate.  So check.
 
-On Sat, Feb 12, 2022 at 10:40 AM Bas Nieuwenhuizen
-<bas@basnieuwenhuizen.nl> wrote:
->
-> For DCN3/3.01/3.02 at least these use the fpu.
->
-> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> ---
->  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c | 2 ++
->  drivers/gpu/drm/amd/display/dc/core/dc.c                     | 5 ++++-
->  2 files changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
-> index 589131d415fd..220682e45b8d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
-> @@ -474,8 +474,10 @@ static void dcn3_get_memclk_states_from_smu(struct clk_mgr *clk_mgr_base)
->         clk_mgr_base->bw_params->dc_mode_softmax_memclk = dcn30_smu_get_dc_mode_max_dpm_freq(clk_mgr, PPCLK_UCLK);
->
->         /* Refresh bounding box */
-> +       DC_FP_START();
->         clk_mgr_base->ctx->dc->res_pool->funcs->update_bw_bounding_box(
->                         clk_mgr->base.ctx->dc, clk_mgr_base->bw_params);
-> +       DC_FP_END();
->  }
->
->  static bool dcn3_is_smu_present(struct clk_mgr *clk_mgr_base)
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 467f606ba2c7..e46ec8cc2d0a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -987,8 +987,11 @@ static bool dc_construct(struct dc *dc,
->         dc->clk_mgr->force_smu_not_present = init_params->force_smu_not_present;
->  #endif
->
-> -       if (dc->res_pool->funcs->update_bw_bounding_box)
-> +       if (dc->res_pool->funcs->update_bw_bounding_box) {
-> +               DC_FP_START();
->                 dc->res_pool->funcs->update_bw_bounding_box(dc, dc->clk_mgr->bw_params);
-> +               DC_FP_END();
-> +       }
->
->         /* Creation of current_state must occur after dc->dml
->          * is initialized in dc_create_resource_pool because
-> --
-> 2.35.1
->
+Fixes: 8cda7a4f96e4 ("drm/amdgpu/UAPI: add new CTX OP to get/set stable pstates")
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 1c72f6095f08..f522b52725e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -613,7 +613,8 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ 		if (args->in.flags)
+ 			return -EINVAL;
+ 		r = amdgpu_ctx_stable_pstate(adev, fpriv, id, false, &stable_pstate);
+-		args->out.pstate.flags = stable_pstate;
++		if (!r)
++			args->out.pstate.flags = stable_pstate;
+ 		break;
+ 	case AMDGPU_CTX_OP_SET_STABLE_PSTATE:
+ 		if (args->in.flags & ~AMDGPU_CTX_STABLE_PSTATE_FLAGS_MASK)
+-- 
+2.26.3
+
