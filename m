@@ -4,50 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58D69C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 14:19:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 115E1C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 14:19:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82A2E10E4F2;
-	Mon, 14 Feb 2022 14:19:39 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C413D10E329;
- Mon, 14 Feb 2022 11:12:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644837121; x=1676373121;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=uhliuFcKaGT4XB0ts+0U1iHxKFUOKpgSPOQ3kJVrBqw=;
- b=UlwnlLd7Kt5onKh/gt6YHt4vaeoAv2mfWKHqiMKJlm0XTlFhmNw8farZ
- smdR5+QtyKGbtW7hRkyBc22mcd9/nIIHf5jjH0joZJH4gBnydiSdGudJm
- e614cm02q6eDo8QYtwzHc4S5SCG1ww1tqv0Tkzz0xUe/k2gUBPYRglBOR
- Rclx2Besk9IKaDHTaKfKSdo9sVIpJN6vYMOQ6LU92vGA/ROQaQ21LKE+1
- +Y+zyeUxZPv9lVyADmfhMUC+FV8fxGe6Jy6HhhNJbLIbtf4sJWUYt1LRT
- 8qD3jX5Q8Sx2De/8GCD90ncDaPmjz/QVITQLazrUSAHprVIp0OPE1MGI8 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="250015643"
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="250015643"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 03:12:01 -0800
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="538542216"
-Received: from lahna.fi.intel.com (HELO lahna) ([10.237.72.162])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 03:11:56 -0800
-Received: by lahna (sSMTP sendmail emulation); Mon, 14 Feb 2022 13:11:54 +0200
-Date: Mon, 14 Feb 2022 13:11:54 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Lukas Wunner <lukas@wunner.de>
-Subject: Re: [PATCH v3 05/12] PCI: Detect root port of internal USB4 devices
- by `usb4-host-interface`
-Message-ID: <Ygo4+sfeHhQeSUEa@lahna>
-References: <20220211193250.1904843-6-mario.limonciello@amd.com>
- <20220211214546.GA737137@bhelgaas> <YgoGAkjZgCob8Mdl@lahna>
- <20220214085202.GA21533@wunner.de> <Ygo1eoVe8D0b80QF@lahna>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D674C10E4F9;
+	Mon, 14 Feb 2022 14:19:41 +0000 (UTC)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [IPv6:2a01:488:42:1000:50ed:8234::])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FF1910E15E;
+ Mon, 14 Feb 2022 12:17:37 +0000 (UTC)
+Received: from ip4d144895.dynamic.kabel-deutschland.de ([77.20.72.149]
+ helo=[192.168.66.200]); authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1nJaIN-0007Q1-BJ; Mon, 14 Feb 2022 13:17:31 +0100
+Message-ID: <73e05c99-eece-12ff-1755-98c6f3fc6564@leemhuis.info>
+Date: Mon, 14 Feb 2022 13:17:29 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Ygo1eoVe8D0b80QF@lahna>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: Regression from 3c196f056666 ("drm/amdgpu: always reset the asic
+ in suspend (v2)") on suspend?
+Content-Language: en-US
+To: Salvatore Bonaccorso <carnil@debian.org>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <Ygf7KuWyc0d4HIFu@eldamar.lan>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+In-Reply-To: <Ygf7KuWyc0d4HIFu@eldamar.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1644841057;
+ fc2ac325; 
+X-HE-SMSGID: 1nJaIN-0007Q1-BJ
 X-Mailman-Approved-At: Mon, 14 Feb 2022 14:19:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,38 +48,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andreas Noever <andreas.noever@gmail.com>,
- Michael Jamet <michael.jamet@intel.com>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:THUNDERBOLT DRIVER" <linux-usb@vger.kernel.org>,
- Yehezkel Bernat <YehezkelShB@gmail.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Hans de Goede <hdegoede@redhat.com>, Bjorn Helgaas <helgaas@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Alexander.Deucher@amd.com
+Cc: Sasha Levin <sashal@kernel.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ 1005005@bugs.debian.org, Luben Tuikov <luben.tuikov@amd.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Dominique Dumont <dod@debian.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 14, 2022 at 01:11:05PM +0200, Mika Westerberg wrote:
-> > > It is used to identify "tunneled" ports (whether PCIe, USB 3.x or
-> > > DisplayPort). Tunnels are created by software (in Linux it is the
-> > > Thunderbolt driver) and are dynamic in nature. The USB4 links go over
-> > > USB Type-C cable which also is something user can plug/unplug freely.
-> > > 
-> > > I would say it is reasonable expectation that anything behind these
-> > > ports can be assumed as "removable".
-> > 
-> > USB gadgets may be soldered to the mainboard.  Those cannot be
-> > unplugged freely.  It is common practice to solder USB Ethernet
-> > or USB FTDI serial ports and nothing's preventing a vendor to solder
-> > USB4/Thunderbolt gadgets.
-> 
-> Right, that's why I say it is "reasonable expectation" that anything
-> behind these ports can be assumed "removable" :) Of course they don't
-> have to be but if we assume that in the driver where this actually
-> matters we should be on the safe side, no?
 
-Also the tunnels are not permanent anyway.
+[TLDR: I'm adding the regression report below to regzbot, the Linux
+kernel regression tracking bot; all text you find below is compiled from
+a few templates paragraphs you might have encountered already already
+from similar mails.]
+
+Hi, this is your Linux kernel regression tracker speaking.
+
+CCing the regression mailing list, as it should be in the loop for all
+regressions, as explained here:
+https://www.kernel.org/doc/html/latest/admin-guide/reporting-issues.html
+
+To be sure this issue doesn't fall through the cracks unnoticed, I'm
+adding it to regzbot, my Linux kernel regression tracking bot:
+
+#regzbot ^introduced 3c196f056666
+#regzbot title amdgfx: suspend stopped working
+#regzbot ignore-activity
+#regzbot link: https://bugs.debian.org/1005005
+
+Reminder for developers: when fixing the issue, please add a 'Link:'
+tags pointing to the report (the mail quoted above) using
+lore.kernel.org/r/, as explained in
+'Documentation/process/submitting-patches.rst' and
+'Documentation/process/5.Posting.rst'. This allows the bot to connect
+the report with any patches posted or committed to fix the issue; this
+again allows the bot to show the current status of regressions and
+automatically resolve the issue when the fix hits the right tree.
+
+I'm sending this to everyone that got the initial report, to make them
+aware of the tracking. I also hope that messages like this motivate
+people to directly get at least the regression mailing list and ideally
+even regzbot involved when dealing with regressions, as messages like
+this wouldn't be needed then.
+
+Don't worry, I'll send further messages wrt to this regression just to
+the lists (with a tag in the subject so people can filter them away), if
+they are relevant just for regzbot. With a bit of luck no such messages
+will be needed anyway.
+
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+
+P.S.: As the Linux kernel's regression tracker I'm getting a lot of
+reports on my table. I can only look briefly into most of them and lack
+knowledge about most of the areas they concern. I thus unfortunately
+will sometimes get things wrong or miss something important. I hope
+that's not the case here; if you think it is, don't hesitate to tell me
+in a public reply, it's in everyone's interest to set the public record
+straight.
+
+
+On 12.02.22 19:23, Salvatore Bonaccorso wrote:
+> Hi Alex, hi all
+> 
+> In Debian we got a regression report from Dominique Dumont, CC'ed in
+> https://bugs.debian.org/1005005 that afer an update to 5.15.15 based
+> kernel, his machine noe longer suspends correctly, after screen going
+> black as usual it comes back. The Debian bug above contians a trace.
+> 
+> Dominique confirmed that this issue persisted after updating to 5.16.7
+> furthermore he bisected the issue and found 
+> 
+> 	3c196f05666610912645c7c5d9107706003f67c3 is the first bad commit
+> 	commit 3c196f05666610912645c7c5d9107706003f67c3
+> 	Author: Alex Deucher <alexander.deucher@amd.com>
+> 	Date:   Fri Nov 12 11:25:30 2021 -0500
+> 
+> 	    drm/amdgpu: always reset the asic in suspend (v2)
+> 
+> 	    [ Upstream commit daf8de0874ab5b74b38a38726fdd3d07ef98a7ee ]
+> 
+> 	    If the platform suspend happens to fail and the power rail
+> 	    is not turned off, the GPU will be in an unknown state on
+> 	    resume, so reset the asic so that it will be in a known
+> 	    good state on resume even if the platform suspend failed.
+> 
+> 	    v2: handle s0ix
+> 
+> 	    Acked-by: Luben Tuikov <luben.tuikov@amd.com>
+> 	    Acked-by: Evan Quan <evan.quan@amd.com>
+> 	    Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> 	    Signed-off-by: Sasha Levin <sashal@kernel.org>
+> 
+> 	 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 ++++-
+> 	 1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> to be the first bad commit, see https://bugs.debian.org/1005005#34 .
+> 
+> Does this ring any bell? Any idea on the problem?
+> 
+> Regards,
+> Salvatore
+
+-- 
+Additional information about regzbot:
+
+If you want to know more about regzbot, check out its web-interface, the
+getting start guide, and the references documentation:
+
+https://linux-regtracking.leemhuis.info/regzbot/
+https://gitlab.com/knurd42/regzbot/-/blob/main/docs/getting_started.md
+https://gitlab.com/knurd42/regzbot/-/blob/main/docs/reference.md
+
+The last two documents will explain how you can interact with regzbot
+yourself if your want to.
+
+Hint for reporters: when reporting a regression it's in your interest to
+CC the regression list and tell regzbot about the issue, as that ensures
+the regression makes it onto the radar of the Linux kernel's regression
+tracker -- that's in your interest, as it ensures your report won't fall
+through the cracks unnoticed.
+
+Hint for developers: you normally don't need to care about regzbot once
+it's involved. Fix the issue as you normally would, just remember to
+include 'Link:' tag in the patch descriptions pointing to all reports
+about the issue. This has been expected from developers even before
+regzbot showed up for reasons explained in
+'Documentation/process/submitting-patches.rst' and
+'Documentation/process/5.Posting.rst'.
