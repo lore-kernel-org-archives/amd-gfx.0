@@ -4,53 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6EE4C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 21:52:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B60C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 21:55:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC82610E2F7;
-	Mon, 14 Feb 2022 21:52:39 +0000 (UTC)
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7BEC10E2F7;
- Mon, 14 Feb 2022 21:52:38 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id m10so18933197oie.2;
- Mon, 14 Feb 2022 13:52:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5zmZMNg8yirylbypUIIKEO/EPeXpVI509iUbW2YvzzY=;
- b=fPfvpg6iu+DE1UjGM06KRdvsHlYCBjpXnM+qLTt9zo8a/r2MjOmsrxXUdY6KBrj/RK
- BtQe8Ph4IzCbya/WerKt8rmQy60UVxTmSLFYVFpcS0ZoAZxXg4H92peuRNGcjyUegGnQ
- e8G8YQ5Dwp6OPnyCO/QTspf2dYhEiTZVXTe/yQDelafJvHg78pQqymlyLEM+9coslaBJ
- yTS2v740JPRRx8H6bqPhzWaRulVwuK0YZI4WY5MDxhxGtyw0sQ0FHZ8jNaS0Rpw+nNP5
- n6trpn8ogmloXG4d3l9wj7v5l0J7gS/G8Oj/yQpoNp32kDmkJ2hfoaaesoc8TuHW7SEC
- zfvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5zmZMNg8yirylbypUIIKEO/EPeXpVI509iUbW2YvzzY=;
- b=Mlps9yJEUskvzGdqP3DgI4d+uIzjTh97rPT8Spx2/FY1+wpIT5aNEn5KO96T5q8IhU
- w6NO3noSzQv3usSdE/acfr44GWBLmMZu4RLNYg9rZ/UifjhlBfEEg7vHhawuO8zGcu1v
- 3q92feLXAy0oPrJnMKnGSEXHxGlo3M1lN5ozRic0xx8Ct06B0JR2t9oVZsQW9zg2dL8F
- DKfi91vkeM53svzxktPqoUJGVQ5C0BToOAj0TaHAox/ALtukBgCE5aYfJFhvgb/ubyRl
- TRrRIZFRQgZte0krt1fuMCH6jgRXhmortTKrFYs+/0mnG48cnL+5WMo/5mhmTqOuUE2j
- bJ4A==
-X-Gm-Message-State: AOAM5312Vka9sAY8Kav+YmTnF6x1w0xa2QQjPAeCjf3nIGCec3AVAXGj
- v96FD4a696t1tVwUtazrZVquHokCxMROfhSlB5s=
-X-Google-Smtp-Source: ABdhPJzA3uzspnOYFs6i9DW+fiv36kgx3jpnJcTh6jp5Esnikv18hVw4BUzWj0HpJxRzAX/q+tTul5ga/gaDmADiO9w=
-X-Received: by 2002:a05:6808:159e:: with SMTP id
- t30mr414528oiw.132.1644875558252; 
- Mon, 14 Feb 2022 13:52:38 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B80710E30A;
+	Mon, 14 Feb 2022 21:55:30 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2083.outbound.protection.outlook.com [40.107.237.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7462D10E30A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Feb 2022 21:55:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d/8yc1MRJM4aFUGByBYnBB3iD201MwKIlh2eKaiMMu/FCBAYotbRmYrvCr0BA3nHAg/+53WGrEKLXjVh3FOM0crulhhXfnEe8cnxVsHuNesD/GDYTaqzhBv4YUQ0vtF0gvOMVdMSs3N0YGIaD0DPUykISak8RLCZQuuN8uBWPKiyyqAqhBFuH98qLb4MxoxWcNlhGUizAF2cHgLLn7341Rqlp1MsqMrOwLkYsY9vvV+oAkcqP3XvxCQFmboWgKhsgutOT/RoG7v1AQIY0oe7z0EbOw66CK+LtNCNpG0VOhby1OTOOPH8BUO/AYlfcopdp1WFu4JrFR9liwBGO2rxzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rtry13JbSOY9QlJAzjx1XkpE+O16+vYNfqpvzJsaA6M=;
+ b=akjC3784a7ThnwgNsztUP+DB9V+VmffoxMywA6vqLVCb0FqlQyr6t6yZ1VcIel6WDb2GzKRobjSlxFpwa3Y3galjVA3vdINpwwctP339/V/fzHIp8Kql8V3+dH1tbkbVdurH6UfUL6YArdk2evczqSe5uxEhruxoDA5y/Hsb6aEd+3151j0rAtJ71d8lfF8IN1tfCBsjVFplUOe+H6AJzt2rC1ZNFQDliZlk6ngvlsHKQ2zE7c+/3j1LdDJCOSzBekl6RanmWwQiXz9qvzMxbIKZ/1I7ZLlPjIRT+yuzf6mIPxbekVolWusEELitxumbZ8+5zDV18HfcWBcL6W9Img==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rtry13JbSOY9QlJAzjx1XkpE+O16+vYNfqpvzJsaA6M=;
+ b=TFNHR2F0SHtzqEB+8p0eqsczV8OUgvTP7wk25EsuO7dvf63d8ON5GQkNt2lI7m4LNhZhfJ99gDq+WCKGBZB9k4mNvEPvduU7avb6X2QNz8mBx5fBm1rU8JxKxpqfQRHz4F1RFQhCzPAAEPw/MzcRNgPXFzefCa8yzV8Ns3cyTqE=
+Received: from DM5PR04CA0061.namprd04.prod.outlook.com (2603:10b6:3:ef::23) by
+ CH2PR12MB3896.namprd12.prod.outlook.com (2603:10b6:610:25::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4975.15; Mon, 14 Feb 2022 21:55:26 +0000
+Received: from DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:ef:cafe::2f) by DM5PR04CA0061.outlook.office365.com
+ (2603:10b6:3:ef::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11 via Frontend
+ Transport; Mon, 14 Feb 2022 21:55:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT004.mail.protection.outlook.com (10.13.172.217) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4975.11 via Frontend Transport; Mon, 14 Feb 2022 21:55:25 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 14 Feb
+ 2022 15:55:24 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/discovery: add nbio sw func for 7.5.1 nbio
+Date: Mon, 14 Feb 2022 16:55:12 -0500
+Message-ID: <20220214215512.2116676-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <Ygf7KuWyc0d4HIFu@eldamar.lan>
-In-Reply-To: <Ygf7KuWyc0d4HIFu@eldamar.lan>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 14 Feb 2022 16:52:27 -0500
-Message-ID: <CADnq5_MfR99OhjumQESCO7Oq+JVOHOVgyVQHX4FpGFDnPu6CyQ@mail.gmail.com>
-Subject: Re: Regression from 3c196f056666 ("drm/amdgpu: always reset the asic
- in suspend (v2)") on suspend?
-To: Salvatore Bonaccorso <carnil@debian.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2e1303ac-3e0b-403e-c96c-08d9f004b514
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3896:EE_
+X-Microsoft-Antispam-PRVS: <CH2PR12MB3896FE6A2B20F103E64180F0F7339@CH2PR12MB3896.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cNCtWPkKBe1NcqeH7rkuPPSqvMjVuFgM7OYPLaU90yg2z8hKvFwVOBZlvmof5sJpqWPXaJk5VlrWbg14d8NDfEey0CfVUP2aSHx3BHgVJEeZh/j4MWIy/TuTak0PBnSTpKF6KzTfakJFVC59EC7WhZoFuWwWc+mfGcyd3fdN1tDool1uldeLWO1VJhxBQOfZDfaZl70w/YZXRR8KGfLS4qv9FKVch4egMpz/fXuFl0QZraklcR3OjCNNVzE8XhuCQGGOGk23gGAQwJWb09NHhttyn8QDKYC/OwXvUGfn7M/j7/huu8zteJHP8GGMc/5sJZ4cK/9MU6zb1v0eikZqFXQYC01NmlRg2pd5uJMi5cR8QAAaQMNZpMezXAFK65iRW4qmWGe/eKgjUIiQvPhHLRjwePlu2nJKmFGKf5C+nYZbRHanX3qMASB9j3Uj7crgri1fI8xOmvbyb1KGK2R+cr4lxHf3tsrwYVarOPDo0HhM1mzLXEP4lnoU3eR6BX+/n5QR7su6Y9I+geRxdvfG311K+bT3T9z/7ssrH75zX1LvC+D5dKgdkbbyzrPmvAiLiq546OBrsCuqV3s8Gy7WBXiSSrFnfb4Uvc8chViO3LYpR3Bt6W9Waf+w5TAPDBPc1Ca4sg2xgU0BOMO0vJXIlDR4FPR8tvT13/M+uBRvhzAChKVHowkuk1Ji3gHU47p81D6fpLMkxdkYRLnzGHntlA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(40460700003)(356005)(86362001)(26005)(426003)(81166007)(47076005)(82310400004)(186003)(336012)(2616005)(1076003)(83380400001)(508600001)(16526019)(36756003)(6666004)(7696005)(8936002)(316002)(70586007)(70206006)(6916009)(5660300002)(2906002)(4744005)(4326008)(54906003)(36860700001)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2022 21:55:25.7272 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e1303ac-3e0b-403e-c96c-08d9f004b514
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3896
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,66 +99,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Luben Tuikov <luben.tuikov@amd.com>, 1005005@bugs.debian.org,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Dominique Dumont <dod@debian.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Prike Liang <Prike.Liang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Feb 12, 2022 at 1:23 PM Salvatore Bonaccorso <carnil@debian.org> wrote:
->
-> Hi Alex, hi all
->
-> In Debian we got a regression report from Dominique Dumont, CC'ed in
-> https://bugs.debian.org/1005005 that afer an update to 5.15.15 based
-> kernel, his machine noe longer suspends correctly, after screen going
-> black as usual it comes back. The Debian bug above contians a trace.
->
-> Dominique confirmed that this issue persisted after updating to 5.16.7
-> furthermore he bisected the issue and found
->
->         3c196f05666610912645c7c5d9107706003f67c3 is the first bad commit
->         commit 3c196f05666610912645c7c5d9107706003f67c3
->         Author: Alex Deucher <alexander.deucher@amd.com>
->         Date:   Fri Nov 12 11:25:30 2021 -0500
->
->             drm/amdgpu: always reset the asic in suspend (v2)
->
->             [ Upstream commit daf8de0874ab5b74b38a38726fdd3d07ef98a7ee ]
->
->             If the platform suspend happens to fail and the power rail
->             is not turned off, the GPU will be in an unknown state on
->             resume, so reset the asic so that it will be in a known
->             good state on resume even if the platform suspend failed.
->
->             v2: handle s0ix
->
->             Acked-by: Luben Tuikov <luben.tuikov@amd.com>
->             Acked-by: Evan Quan <evan.quan@amd.com>
->             Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->             Signed-off-by: Sasha Levin <sashal@kernel.org>
->
->          drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 ++++-
->          1 file changed, 4 insertions(+), 1 deletion(-)
->
-> to be the first bad commit, see https://bugs.debian.org/1005005#34 .
->
-> Does this ring any bell? Any idea on the problem?
+From: Prike Liang <Prike.Liang@amd.com>
 
-Does the system actually suspend?  Putting the GPU into reset on
-suspend shouldn't cause any problems since the power rail will
-presumably be cut by the platform.  Is this system S0i3 or regular S3?
- Does this patch help by any chance?
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=e55a3aea418269266d84f426b3bd70794d3389c8
+add nbio sw func for the new 7.5.1 nbio block.
 
-Alex
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index c8dbdb78988c..7b4f8e89a1a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -1798,6 +1798,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+ 	case IP_VERSION(7, 2, 0):
+ 	case IP_VERSION(7, 2, 1):
+ 	case IP_VERSION(7, 5, 0):
++	case IP_VERSION(7, 5, 1):
+ 		adev->nbio.funcs = &nbio_v7_2_funcs;
+ 		adev->nbio.hdp_flush_reg = &nbio_v7_2_hdp_flush_reg;
+ 		break;
+-- 
+2.34.1
 
->
-> Regards,
-> Salvatore
