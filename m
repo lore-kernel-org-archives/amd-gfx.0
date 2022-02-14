@@ -4,45 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89F4EC433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE005C433FE
 	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 08:43:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D62B610E222;
-	Mon, 14 Feb 2022 08:43:52 +0000 (UTC)
-X-Greylist: delayed 352 seconds by postgrey-1.36 at gabe;
- Sun, 13 Feb 2022 13:38:09 UTC
-Received: from forward100p.mail.yandex.net (forward100p.mail.yandex.net
- [IPv6:2a02:6b8:0:1472:2741:0:8b7:100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02EDF10E13E
- for <amd-gfx@lists.freedesktop.org>; Sun, 13 Feb 2022 13:38:08 +0000 (UTC)
-Received: from forward101q.mail.yandex.net (forward101q.mail.yandex.net
- [IPv6:2a02:6b8:c0e:4b:0:640:4012:bb98])
- by forward100p.mail.yandex.net (Yandex) with ESMTP id 480ED4F08177;
- Sun, 13 Feb 2022 16:32:13 +0300 (MSK)
-Received: from vla1-25221a47e1d2.qloud-c.yandex.net
- (vla1-25221a47e1d2.qloud-c.yandex.net
- [IPv6:2a02:6b8:c0d:3c06:0:640:2522:1a47])
- by forward101q.mail.yandex.net (Yandex) with ESMTP id 4305513E80002;
- Sun, 13 Feb 2022 16:32:13 +0300 (MSK)
-Received: from vla5-047c0c0d12a6.qloud-c.yandex.net
- (vla5-047c0c0d12a6.qloud-c.yandex.net [2a02:6b8:c18:3484:0:640:47c:c0d])
- by vla1-25221a47e1d2.qloud-c.yandex.net (mxback/Yandex) with ESMTP id
- iarXuVZ1oX-WCd0hlAt; Sun, 13 Feb 2022 16:32:13 +0300
-X-Yandex-Fwd: 2
-Authentication-Results: vla1-25221a47e1d2.qloud-c.yandex.net; dkim=pass
-Received: by vla5-047c0c0d12a6.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
- id lKwSmfPfvd-WAIGJwTH; Sun, 13 Feb 2022 16:32:11 +0300
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (Client certificate not present)
-From: Yaroslav Bolyukin <iam@lach.pw>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] edid: parse DRM VESA dsc bpp target
-Date: Sun, 13 Feb 2022 16:31:27 +0300
-Message-Id: <20220213133128.5833-1-iam@lach.pw>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2070110E226;
+	Mon, 14 Feb 2022 08:43:53 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBFCF10E27D;
+ Mon, 14 Feb 2022 07:23:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1644823410; x=1676359410;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=8986kutyorRgf8bSEArW0prD8GIGUUBjn9XYUWWmt7s=;
+ b=S6gyWVUKIKFSIFAmHmCZdVpijjktxzf1F650EyriakbjV7mmmHEPufOn
+ TIT6HDo5fYIp88uEuxvUFme4l43NshibKeFO9rsew1j1cNaTNBU8rC65V
+ XT4Ns3hPA7afw3g66dr0gz2hm3F68EBlnq/My3ALwIBSMrEPhE30cbq1k
+ Y6qCiNtOmx6ZJGMN4GpxzBVYscj85vDDuK2DKJNrbX7Iw4ezQYEVhYCkx
+ 7Vi0mvL7zlAJ4Dsb2q4dJnD58VLqwQFK4p+TB36DOnbZRrBPYw0BmWFpY
+ bYqfDtBCfesoV8PyKjeVg+RSUQLv6KJ7clmGdIxB25e4mRQQjRaZPGxEz w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="313312256"
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="313312256"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2022 23:23:29 -0800
+X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="587076655"
+Received: from lahna.fi.intel.com (HELO lahna) ([10.237.72.162])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2022 23:23:25 -0800
+Received: by lahna (sSMTP sendmail emulation); Mon, 14 Feb 2022 09:23:22 +0200
+Date: Mon, 14 Feb 2022 09:23:22 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Lukas Wunner <lukas@wunner.de>
+Subject: Re: [PATCH v3 03/12] PCI: Move check for old Apple Thunderbolt
+ controllers into a quirk
+Message-ID: <YgoDauh7rd18OvrM@lahna>
+References: <20220211193250.1904843-1-mario.limonciello@amd.com>
+ <20220211193250.1904843-4-mario.limonciello@amd.com>
+ <20220213091920.GA15535@wunner.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220213091920.GA15535@wunner.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mailman-Approved-At: Mon, 14 Feb 2022 08:43:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,120 +60,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Leo Li <sunpeng.li@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Yaroslav Bolyukin <iam@lach.pw>
+Cc: "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Hans de Goede <hdegoede@redhat.com>, Michael Jamet <michael.jamet@intel.com>,
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ "open list:THUNDERBOLT DRIVER" <linux-usb@vger.kernel.org>,
+ Yehezkel Bernat <YehezkelShB@gmail.com>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Andreas Noever <andreas.noever@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Alexander.Deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As per DisplayID v2.0 Errata E9 spec
+Hi Lukas,
 
-Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
----
- drivers/gpu/drm/drm_edid.c  | 31 ++++++++++++++++++++-----------
- include/drm/drm_connector.h |  6 ++++++
- include/drm/drm_displayid.h |  4 ++++
- 3 files changed, 30 insertions(+), 11 deletions(-)
+On Sun, Feb 13, 2022 at 10:19:20AM +0100, Lukas Wunner wrote:
+> On Fri, Feb 11, 2022 at 01:32:41PM -0600, Mario Limonciello wrote:
+> > `pci_bridge_d3_possible` currently checks explicitly for a Thunderbolt
+> > controller to indicate that D3 is possible.  As this is used solely
+> > for older Apple systems, move it into a quirk that enumerates across
+> > all Intel TBT controllers.
+> 
+> I'm not so sure if it is only needed on Apple systems.
+> 
+> 
+> > @@ -2954,10 +2960,6 @@ bool pci_bridge_d3_possible(struct pci_dev *bridge)
+> >  		if (pci_bridge_d3_force)
+> >  			return true;
+> >  
+> > -		/* Even the oldest 2010 Thunderbolt controller supports D3. */
+> > -		if (bridge->is_thunderbolt)
+> > -			return true;
+> > -
+> >  		/* Platform might know better if the bridge supports D3 */
+> >  		if (platform_pci_bridge_d3(bridge))
+> >  			return true;
+> 
+> The fact that Thunderbolt PCIe ports support D3 is a property of those
+> devices.  It's not a property of the platform or a quirk of a particular
+> vendor.
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index a7663f9a1..83ee685c8 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -5270,7 +5270,7 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
- 	if (oui(vesa->oui[0], vesa->oui[1], vesa->oui[2]) != VESA_IEEE_OUI)
- 		return;
- 
--	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
-+	if (block->num_bytes < 5) {
- 		drm_dbg_kms(connector->dev, "Unexpected VESA vendor block size\n");
- 		return;
- 	}
-@@ -5290,20 +5290,29 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
- 		break;
- 	}
- 
--	if (!info->mso_stream_count) {
--		info->mso_pixel_overlap = 0;
--		return;
-+	info->mso_pixel_overlap = 0;
-+
-+	if (info->mso_stream_count) {
-+		info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
-+		if (info->mso_pixel_overlap > 8) {
-+			drm_dbg_kms(connector->dev, "Reserved MSO pixel overlap value %u\n",
-+				info->mso_pixel_overlap);
-+			info->mso_pixel_overlap = 8;
-+		}
-+
-+		drm_dbg_kms(connector->dev, "MSO stream count %u, pixel overlap %u\n",
-+			info->mso_stream_count, info->mso_pixel_overlap);
- 	}
- 
--	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
--	if (info->mso_pixel_overlap > 8) {
--		drm_dbg_kms(connector->dev, "Reserved MSO pixel overlap value %u\n",
--			    info->mso_pixel_overlap);
--		info->mso_pixel_overlap = 8;
-+	if (block->num_bytes < 7) {
-+		/* DSC bpp is optional */
-+		return;
- 	}
- 
--	drm_dbg_kms(connector->dev, "MSO stream count %u, pixel overlap %u\n",
--		    info->mso_stream_count, info->mso_pixel_overlap);
-+	info->dp_dsc_bpp = FIELD_GET(DISPLAYID_VESA_DSC_BPP_INT, vesa->dsc_bpp_int) * 16 +
-+		FIELD_GET(DISPLAYID_VESA_DSC_BPP_FRACT, vesa->dsc_bpp_fract);
-+
-+	drm_dbg_kms(connector->dev, "DSC bits per pixel %u\n", info->dp_dsc_bpp);
- }
- 
- static void drm_update_mso(struct drm_connector *connector, const struct edid *edid)
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 5e36eb3df..04ef0e995 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -634,6 +634,12 @@ struct drm_display_info {
- 	 * @mso_pixel_overlap: eDP MSO segment pixel overlap, 0-8 pixels.
- 	 */
- 	u8 mso_pixel_overlap;
-+
-+	/**
-+	 * @dp_dsc_bpp: DP Display-Stream-Compression (DSC) timing's target
-+	 * DST bits per pixel in 6.4 fixed point format. 0 means undefined
-+	 */
-+	u16 dp_dsc_bpp;
- };
- 
- int drm_display_info_set_bus_formats(struct drm_display_info *info,
-diff --git a/include/drm/drm_displayid.h b/include/drm/drm_displayid.h
-index 7ffbd9f7b..1be6deddc 100644
---- a/include/drm/drm_displayid.h
-+++ b/include/drm/drm_displayid.h
-@@ -131,12 +131,16 @@ struct displayid_detailed_timing_block {
- 
- #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
- #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
-+#define DISPLAYID_VESA_DSC_BPP_INT	GENMASK(5, 0)
-+#define DISPLAYID_VESA_DSC_BPP_FRACT GENMASK(3, 0)
- 
- struct displayid_vesa_vendor_specific_block {
- 	struct displayid_block base;
- 	u8 oui[3];
- 	u8 data_structure_type;
- 	u8 mso;
-+	u8 dsc_bpp_int;
-+	u8 dsc_bpp_fract;
- } __packed;
- 
- /* DisplayID iteration */
+It is in fact platform specific. For instance the non-Apple systems
+without "HotPlugSupportInD3" property have not been wired to support
+entering/exiting D3 runtime so putting these ports into D3 may actually
+lead into problems as we are in non-validated territory.
 
-base-commit: 1528038385c0a706aac9ac165eeb24044fef6825
--- 
-2.35.1
+> Hence in my view the current location of the check (pci_bridge_d3_possible())
+> makes sense wheras the location you're moving it to does not.
+> 
+> 
+> > +/* Apple machines as old as 2010 can do D3 with Thunderbolt controllers, but don't specify
+> > + * it in the ACPI tables
+> > + */
+> 
+> Apple started shipping Thunderbolt in 2011.
+> Intel brought the first chips to market in 2010.
+> 
+> The date is meaningful at the code's current location in
+> pci_bridge_d3_possible() because a few lines further down
+> there's a 2015 BIOS cut-off date.
+> 
+> Microsoft came up with an ACPI property that BIOS vendors may set
+> so that Windows knows it may put a Thunderbolt controller into D3cold.
+> I'm not even sure if that property was ever officially adopted by the
+> ACPI spec or if it's just a Microsoft-defined "standard".
 
+AFAIK It was invented by Intel Windows folks but Microsoft "documented"
+it. We use the same property in ChromeOS (and therefore Linux) too so it
+can be thought of as "de facto" way of declaring such port. 
