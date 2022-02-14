@@ -4,51 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7250FC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 14:19:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 551B6C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Feb 2022 17:44:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39F7510E51A;
-	Mon, 14 Feb 2022 14:19:43 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46ADB10E4FA;
- Mon, 14 Feb 2022 10:58:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644836301; x=1676372301;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=fqstnbilWmleOnIjJb3aDPlLE84EFgpMrS7YjBM/2dk=;
- b=IvgyhlIAVyqiOEPZXCmb4uonwoA85Jcdc5s/4b7laEPWIUs/+35Mffuu
- S4G+knTiUJKADgopzVw0k+/SHp3N6Jkh8nEuTEqY7r4TMZpKAHqepmtH9
- 5jXLXjyIn0HUarHtLgXm4EDrqqBM5QkHc+L0VR375kuThCFVyxAXZt1q7
- 4Tkwa1SUNE41sKHB9pf3x5Rhj2VZ80Ow/pSQmr9f/mRLTExA2AhE0b48T
- 7OclePP3BUye17yi6yCNCG8EHZwbzde2W7wCRZQTWv9C9aDnovC5UJeM2
- iVMGwEsXeaCexXHvX+F8ps/wksDGGyAW4uo6P/MBT1kyPKjST0kuzlWY+ Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10257"; a="310803286"
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="310803286"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 02:58:20 -0800
-X-IronPort-AV: E=Sophos;i="5.88,367,1635231600"; d="scan'208";a="528087732"
-Received: from lahna.fi.intel.com (HELO lahna) ([10.237.72.162])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2022 02:58:15 -0800
-Received: by lahna (sSMTP sendmail emulation); Mon, 14 Feb 2022 12:56:58 +0200
-Date: Mon, 14 Feb 2022 12:56:58 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Lukas Wunner <lukas@wunner.de>
-Subject: Re: [PATCH v3 05/12] PCI: Detect root port of internal USB4 devices
- by `usb4-host-interface`
-Message-ID: <Ygo1eoVe8D0b80QF@lahna>
-References: <20220211193250.1904843-6-mario.limonciello@amd.com>
- <20220211214546.GA737137@bhelgaas> <YgoGAkjZgCob8Mdl@lahna>
- <20220214085202.GA21533@wunner.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ECF910E272;
+	Mon, 14 Feb 2022 17:44:05 +0000 (UTC)
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56C6210E23E;
+ Mon, 14 Feb 2022 17:37:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=deltatee.com; s=20200525; h=Subject:In-Reply-To:MIME-Version:Date:
+ Message-ID:From:References:Cc:To:content-disposition;
+ bh=81T6G2gHhfqrUwjVu5v8ouNRyx7VLTFiBZVLTO5rh/c=; b=Xd5rMP5hIZ0JwEE5p27UvD5QtH
+ uCKd6i9XJg/PaBgi6VN01LvkTgzF6dtOL5wLEtbJtX37eKseK5Y7oQ9o/s1OPdTKqfznafrAyROqV
+ MvNbDVdIgTbNEkyIOgzIBP6oTlTRCMIEBnG1ruZ9t2c+8ikid2c3sF1JDRXcbRnWRXDMHGWWDcI1t
+ p6ha2v4ejdP6uPSa5r0VHjlrYpIXkaGki0cX0XXachfz6/U5Ll/GgQATG132vKqIk5mo62p6fk+SE
+ gfw5DLnPL8RNLsPVhaaXiA+obF/x9nVyln4voBum/rQ3jkIgpv60w8nBYNSDluMB6z4KrGgNUk6NQ
+ OxLOcjaw==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+ by ale.deltatee.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
+ (envelope-from <logang@deltatee.com>)
+ id 1nJfIJ-0004H9-Iu; Mon, 14 Feb 2022 10:37:48 -0700
+To: Christoph Hellwig <hch@lst.de>, Andrew Morton
+ <akpm@linux-foundation.org>, Dan Williams <dan.j.williams@intel.com>
+References: <20220210072828.2930359-1-hch@lst.de>
+ <20220210072828.2930359-10-hch@lst.de>
+From: Logan Gunthorpe <logang@deltatee.com>
+Message-ID: <fd1338fb-ed28-19c3-bd86-350939d58226@deltatee.com>
+Date: Mon, 14 Feb 2022 10:37:43 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220214085202.GA21533@wunner.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-X-Mailman-Approved-At: Mon, 14 Feb 2022 14:19:38 +0000
+In-Reply-To: <20220210072828.2930359-10-hch@lst.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-CA
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: linux-mm@kvack.org, nvdimm@lists.linux.dev,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rcampbell@nvidia.com, apopple@nvidia.com, jgg@ziepe.ca, lyude@redhat.com,
+ kherbst@redhat.com, bskeggs@redhat.com, Xinhui.Pan@amd.com,
+ christian.koenig@amd.com, alexander.deucher@amd.com, Felix.Kuehling@amd.com,
+ dan.j.williams@intel.com, akpm@linux-foundation.org, hch@lst.de
+X-SA-Exim-Mail-From: logang@deltatee.com
+Subject: Re: [PATCH 09/27] mm: generalize the pgmap based page_free
+ infrastructure
+X-SA-Exim-Version: 4.2.1 (built Sat, 13 Feb 2021 17:57:42 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+X-Mailman-Approved-At: Mon, 14 Feb 2022 17:44:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,45 +65,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andreas Noever <andreas.noever@gmail.com>,
- Michael Jamet <michael.jamet@intel.com>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:THUNDERBOLT DRIVER" <linux-usb@vger.kernel.org>,
- Yehezkel Bernat <YehezkelShB@gmail.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Hans de Goede <hdegoede@redhat.com>, Bjorn Helgaas <helgaas@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Alexander.Deucher@amd.com
+Cc: nvdimm@lists.linux.dev, Ralph Campbell <rcampbell@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
+ Karol Herbst <kherbst@redhat.com>, linux-mm@kvack.org,
+ nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20220214105658.SZVkYiUe_KUEOdFuOqnr0-ntfoCLQrQIIaO94WD1AHo@z>
 
-On Mon, Feb 14, 2022 at 09:52:02AM +0100, Lukas Wunner wrote:
-> On Mon, Feb 14, 2022 at 09:34:26AM +0200, Mika Westerberg wrote:
-> > On Fri, Feb 11, 2022 at 03:45:46PM -0600, Bjorn Helgaas wrote:
-> > > My expectation is that "USB" (like "PCI" and "PCIe") tells me
-> > > something about how a device is electrically connected and how
-> > > software can operate it.  It doesn't really tell me anything about
-> > > whether those electrical connections are permanent, made through an
-> > > internal slot, or made through an external connector and cable.
-> > 
-> > It is used to identify "tunneled" ports (whether PCIe, USB 3.x or
-> > DisplayPort). Tunnels are created by software (in Linux it is the
-> > Thunderbolt driver) and are dynamic in nature. The USB4 links go over
-> > USB Type-C cable which also is something user can plug/unplug freely.
-> > 
-> > I would say it is reasonable expectation that anything behind these
-> > ports can be assumed as "removable".
+
+
+On 2022-02-10 12:28 a.m., Christoph Hellwig wrote:
+> Key off on the existence of ->page_free to prepare for adding support for
+> more pgmap types that are device managed and thus need the free callback.
 > 
-> USB gadgets may be soldered to the mainboard.  Those cannot be
-> unplugged freely.  It is common practice to solder USB Ethernet
-> or USB FTDI serial ports and nothing's preventing a vendor to solder
-> USB4/Thunderbolt gadgets.
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-Right, that's why I say it is "reasonable expectation" that anything
-behind these ports can be assumed "removable" :) Of course they don't
-have to be but if we assume that in the driver where this actually
-matters we should be on the safe side, no?
+Great! This makes my patch simpler.
+
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+
+
+> ---
+>  mm/memremap.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/memremap.c b/mm/memremap.c
+> index fef5734d5e4933..e00ffcdba7b632 100644
+> --- a/mm/memremap.c
+> +++ b/mm/memremap.c
+> @@ -452,7 +452,7 @@ EXPORT_SYMBOL_GPL(get_dev_pagemap);
+>  
+>  void free_zone_device_page(struct page *page)
+>  {
+> -	if (WARN_ON_ONCE(!is_device_private_page(page)))
+> +	if (WARN_ON_ONCE(!page->pgmap->ops || !page->pgmap->ops->page_free))
+>  		return;
+>  
+>  	__ClearPageWaiters(page);
+> @@ -460,7 +460,7 @@ void free_zone_device_page(struct page *page)
+>  	mem_cgroup_uncharge(page_folio(page));
+>  
+>  	/*
+> -	 * When a device_private page is freed, the page->mapping field
+> +	 * When a device managed page is freed, the page->mapping field
+>  	 * may still contain a (stale) mapping value. For example, the
+>  	 * lower bits of page->mapping may still identify the page as an
+>  	 * anonymous page. Ultimately, this entire field is just stale
+> 
