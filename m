@@ -4,57 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F417DC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 22:31:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0EB8C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 22:34:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E7EF10E592;
-	Tue, 15 Feb 2022 22:31:14 +0000 (UTC)
-Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
- [IPv6:2607:f8b0:4864:20::c30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 065EC10E5A0
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 22:31:13 +0000 (UTC)
-Received: by mail-oo1-xc30.google.com with SMTP id
- f11-20020a4abb0b000000b002e9abf6bcbcso439638oop.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 14:31:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65BC710E5B5;
+	Tue, 15 Feb 2022 22:34:48 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFF1310E5B5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 22:34:47 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id q8so581868oiw.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 14:34:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=/7raSjc8QbAjtU9uWq/Z0TpUzi3K0+IoF2oSrKWrorU=;
- b=jD3/vnBIQpWNKxOvkROOP4KWxzgOLcDMDmzd+ywJBZKslEBJPIZTPnRobVhR7d4vs1
- l1OP1Mkls4od9HePVrRd8uL4SNpEDG5nmga5arOlinu9F+8gZKMzlqTpp7OlfqrOJDYK
- +3wwa9zDfH9GCmmK61pyknAbLDySJY1n6I+huhQoyOMafcEKzAJvpGo3OPDkM4YPxTAN
- t/SUGnTAEbSms4RBKsVOV1vehvsEKti8TME3KJ1eGQJnPxrQGdBabt52gjQTv1zkUF8+
- tExFjwEX3OUpPUtavlu/Ns51SnyK++TiuUvzxpSmUl9pzKYg0DeNp/vGZSi5p7TLsSSi
- ScCg==
+ :cc; bh=PM01xRfPlPQhvuKoxVaDqHcXW28N5TE/rK/+piVBWeI=;
+ b=D6pN7ynxS3IEP6C1alemfY0Qg+cbEb1eB624WTa650XMYDSHUAqj6iSsnZbhuI9pSZ
+ aDrSLPpLwXQdu1s72Buiyja351+8ALyzxw9S91vrRFQb5Dp/c8Z9m7ZIhCQVNoiC+0YZ
+ 6lbeIksn+gRwKHkd92bfe0D0GiVsySdwgOheLoEhpKTlmkoj4U67ASeEpL0SvrQCidYh
+ vQgpuDmbOxG+QSwxTt70eUuesLwD+LqLaNdqePWyV2sJ50E8IlVpEsZ7BnEXlHBIzAYv
+ uRznZKksu39NnJ6ZwTZA84K27Fjegn+h+6iB1+vdAoEeYnqLZeCziLthRCth2M9BGMT8
+ CFzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=/7raSjc8QbAjtU9uWq/Z0TpUzi3K0+IoF2oSrKWrorU=;
- b=Uclg+y5pAcWKNUeyY01RpS2Kp846fzRPRZALlacEB4s/mSjlhNrhvg/LMuoxEIBlHx
- /vduAkW6COWvv1WvpnApH/Po5+nSwzebCU00TAAwbF0AviWx0t6nHpY51/DZpXOMSlrE
- fdHy0CUAfjoo7bKjgQxmWpuBI9i5VG9WQVjWuBFYElFJhZcO4m2TPVX2X67BY7EQZGSd
- ydJVGMW5Eax2AHzQ5a/SanCND9KF8Ua3yD/xotuoIxo9KQQs05Kqgc2r+VSMBoXcdScp
- 6WBz4VpT+MS/oJRHrI57Z3Ud1YIn8G2fod8S7qULdEQLsGtQVLIBTofoRM3PU1oDtrkm
- o6WQ==
-X-Gm-Message-State: AOAM533cemOJfHRp2Mgid+sT9nkr4a1lsiNsQfCwOPpTADWrXYsaG4ND
- YxMo04Y7487F09ippZfD48DtLb43LciEmYQ/x18=
-X-Google-Smtp-Source: ABdhPJxEjQyMWZhwTEmyxIT+3L0vWJ0jaaeiN0PXH6ZfE4Y60j8na+UHUt978e+F2mpeN5CMU5H5NSDmkoNO9KAn7s0=
-X-Received: by 2002:a05:6870:912c:b0:d3:44be:7256 with SMTP id
- o44-20020a056870912c00b000d344be7256mr28092oae.73.1644964272254; Tue, 15 Feb
- 2022 14:31:12 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=PM01xRfPlPQhvuKoxVaDqHcXW28N5TE/rK/+piVBWeI=;
+ b=qXWEj1Zqea0qD1Ym5uw7xpQySlsUr/wDavTfCjh8ZX1XXJ7CP1TU/WQ4NFaUh/zgHe
+ kmIwDWSgqF201eSgQSktn8T97xEoDG8/sUsB8KaP3rRrnNH+kMvB18UJ0lon5723zke2
+ u4ABfMTS7If9HkbvtenGSZDUbo/FiaOj1UWQAsIXHhfh8yWaiDq1gci+s1Ag/R17VsHe
+ BraSyExePm4cwf375NlBw9WVDTO38NKdoi5F2MdDNwhqpYXPaqk/09iPR/FHLJD1avmm
+ Of9DqKVPvzuS8kjcZm4/2F7bdvo7Xw0sW80F7TsWjm7eT2IZChO2KTdL/bc4ZwIEYKKf
+ jvyA==
+X-Gm-Message-State: AOAM532PGC5+bhWuB5vvk9+CPaD6rWHgccvUg3aGYNkNfPc6waejTojw
+ 5E7XOOQZzziPAqkgNzHdGaklu5WWRnjXmjImYOEd+0Mz
+X-Google-Smtp-Source: ABdhPJxqei952ZEUSxu9GZ0TaAVTpBwQU660LEbLxrXAw3ah/Hry3UVZQRxozsuQf4i/dSxARMoe6zZ6EjWBcYCixQM=
+X-Received: by 2002:a05:6808:f8b:b0:2ce:6ee7:2c99 with SMTP id
+ o11-20020a0568080f8b00b002ce6ee72c99mr2768375oiw.199.1644964487117; Tue, 15
+ Feb 2022 14:34:47 -0800 (PST)
 MIME-Version: 1.0
-References: <20220215185337.1873778-1-michel@daenzer.net>
- <a23eda9f-f1a9-4884-360e-d8d22d3b81f6@amd.com>
-In-Reply-To: <a23eda9f-f1a9-4884-360e-d8d22d3b81f6@amd.com>
+References: <20220215152859.1519226-1-tom.stdenis@amd.com>
+In-Reply-To: <20220215152859.1519226-1-tom.stdenis@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Feb 2022 17:31:01 -0500
-Message-ID: <CADnq5_N4=P2giYtsEhhYx6LtUDUH5EagVURt3Evq02UNcSnGnw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: For vblank_disable_immediate, check PSR
- is really used
-To: Harry Wentland <harry.wentland@amd.com>
+Date: Tue, 15 Feb 2022 17:34:36 -0500
+Message-ID: <CADnq5_NxSpbt7+2Tc7QJruuSe4iDX8v6wz-GykddCFRqiJpJTg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: Add APU flag and asic_type to gca_config
+ debugfs data
+To: Tom St Denis <tom.stdenis@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,87 +62,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Tue, Feb 15, 2022 at 10:29 AM Tom St Denis <tom.stdenis@amd.com> wrote:
+>
+> Needed by umr to detect if ip discovered ASIC is an APU or not.
+>
+> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+
+I'm not sure we want to expose the asic_type outside of the driver as
+we may theoretically change the ordering in the kernel and then
+userspace would need to be aware of this.  We already expose the
+asic_family and external revision id which encodes basically the same
+information.
 
 Alex
 
-On Tue, Feb 15, 2022 at 2:41 PM Harry Wentland <harry.wentland@amd.com> wro=
-te:
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
 >
-> On 2022-02-15 13:53, Michel D=C3=A4nzer wrote:
-> > From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
-> >
-> > Even if PSR is allowed for a present GPU, there might be no eDP link
-> > which supports PSR.
-> >
-> > Fixes: 9b510908e420 ("drm/amdgpu/display: Only set vblank_disable_immed=
-iate when PSR is not enabled")
-> > Signed-off-by: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index 4b950de9bf66..3b2341610c16 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -728,7 +728,7 @@ static ssize_t amdgpu_debugfs_gca_config_read(struct file *f, char __user *buf,
+>                 return -ENOMEM;
 >
-> Looks reasonable to me.
+>         /* version, increment each time something is added */
+> -       config[no_regs++] = 3;
+> +       config[no_regs++] = 4;
+>         config[no_regs++] = adev->gfx.config.max_shader_engines;
+>         config[no_regs++] = adev->gfx.config.max_tile_pipes;
+>         config[no_regs++] = adev->gfx.config.max_cu_per_sh;
+> @@ -768,6 +768,11 @@ static ssize_t amdgpu_debugfs_gca_config_read(struct file *f, char __user *buf,
+>         config[no_regs++] = adev->pdev->subsystem_device;
+>         config[no_regs++] = adev->pdev->subsystem_vendor;
 >
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> +       /* rev==4 asic_type and APU flag */
+> +       config[no_regs++] = adev->flags & 0xFF;
+> +       config[no_regs++] = (adev->flags >> 8) & 0xFF;
+> +       config[no_regs++] = adev->flags & AMD_IS_APU ? 1 : 0;
+> +
+>         while (size && (*pos < no_regs * 4)) {
+>                 uint32_t value;
 >
-> Harry
->
-> > ---
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   | 17 +++++++++--------
-> >  1 file changed, 9 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
-s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index cd8b0d9eb19c..df86517dd532 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -4256,6 +4256,9 @@ static int amdgpu_dm_initialize_drm_device(struct=
- amdgpu_device *adev)
-> >       }
-> >  #endif
-> >
-> > +     /* Disable vblank IRQs aggressively for power-saving. */
-> > +     adev_to_drm(adev)->vblank_disable_immediate =3D true;
-> > +
-> >       /* loops over all connectors on the board */
-> >       for (i =3D 0; i < link_cnt; i++) {
-> >               struct dc_link *link =3D NULL;
-> > @@ -4301,19 +4304,17 @@ static int amdgpu_dm_initialize_drm_device(stru=
-ct amdgpu_device *adev)
-> >                               update_connector_ext_caps(aconnector);
-> >                       if (psr_feature_enabled)
-> >                               amdgpu_dm_set_psr_caps(link);
-> > +
-> > +                     /* TODO: Fix vblank control helpers to delay PSR =
-entry to allow this when
-> > +                      * PSR is also supported.
-> > +                      */
-> > +                     if (link->psr_settings.psr_feature_enabled)
-> > +                             adev_to_drm(adev)->vblank_disable_immedia=
-te =3D false;
-> >               }
-> >
-> >
-> >       }
-> >
-> > -     /*
-> > -      * Disable vblank IRQs aggressively for power-saving.
-> > -      *
-> > -      * TODO: Fix vblank control helpers to delay PSR entry to allow t=
-his when PSR
-> > -      * is also supported.
-> > -      */
-> > -     adev_to_drm(adev)->vblank_disable_immediate =3D !psr_feature_enab=
-led;
-> > -
-> >       /* Software is initialized. Now we can register interrupt handler=
-s. */
-> >       switch (adev->asic_type) {
-> >  #if defined(CONFIG_DRM_AMD_DC_SI)
+> --
+> 2.32.0
 >
