@@ -4,62 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B8F5C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 14:09:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0141FC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 14:09:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18F3710E5AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD7610E5AC;
 	Tue, 15 Feb 2022 14:09:11 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92C8410E3F4
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 08:48:07 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88FCF10E416
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 08:48:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1644914886;
+ s=mimecast20190719; t=1644914919;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=+0eleqiUVBeAPaQGD2Q6ihFW/Z9JIAN0Kj0GeNRsLaA=;
- b=gqpKXfdlEc4cCkHyZC5Qx6KpkJukaXvvD5DUos0e4q5b80Ks+tCUQ/RnLRUIMWx2NW330p
- dWzNYCUBzzYtAtE6NIvk/LlFD9TqNmzK7DFVdY6VUCLSACTj7hXKp83ZVgdgK5AjBwcg4A
- 539pEOmcCG3I3CsD7MEKB2Xn+Zylsko=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=cAghCw6nMXIP8DbPC2ZTmMjVdzgtfdV0Q4rDuIo9NkY=;
+ b=DSqmbLSAwCAJVngxiscPK3AI83fBvtKyU1g0AilU1+5l1HWqSms+MFHSUGa0sZO/SfGwjz
+ MTARKord6OnXu1SikYooOuoDXp45WeVwP+NSyH7Y/dELylzZWdS76PxZnMHKfa6/B5mtm0
+ Kk9NNo2FFnT7z/6lrYWi3bCEQd9gsF4=
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-591-90mBv_OvMcS6xazYJ1yr2A-1; Tue, 15 Feb 2022 03:47:55 -0500
-X-MC-Unique: 90mBv_OvMcS6xazYJ1yr2A-1
-Received: by mail-pj1-f71.google.com with SMTP id
- s10-20020a17090a948a00b001b96be201f6so1369095pjo.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 00:47:55 -0800 (PST)
+ us-mta-446-IbLILVvXNYOUBiRKynogrQ-1; Tue, 15 Feb 2022 03:48:36 -0500
+X-MC-Unique: IbLILVvXNYOUBiRKynogrQ-1
+Received: by mail-pj1-f70.google.com with SMTP id
+ f6-20020a17090a654600b001b9e4758439so2947904pjs.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 00:48:36 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=+0eleqiUVBeAPaQGD2Q6ihFW/Z9JIAN0Kj0GeNRsLaA=;
- b=XCLEgXcjKQKfMmep/LYAQhN/cixKFuDQK8n4sHyCAW1oRHi4rahUzFTEybX5PomFU6
- euXMh/qOiHXkpIyPKlTntLeQstS6d9+D1gQMf6pgz3yhALD6zyzelC22YpwT8TBaINvd
- FRyPIQagLeBSM3yC6Zs+QInjlalgA8MoSjADBaSGdI2prTsZQPolamdX02Q87Od7PyrO
- XwJTBVFDQOR4AiYL08lPsddqVbLRfGqbVYeDy7Lu9tGLaGTBhg4mQjSBsMS6TpJwMrp0
- PvkyH413VwvLrERD3SaP+7MzM7Dy2bqQBszDirhk5b/14zAH7NE5BYULdHxNeCnjzzGP
- jJuQ==
-X-Gm-Message-State: AOAM531QEfqu+1W6A3ejc4eA2RgFHo+tiBpkIvGV6/gbxBd3cBJlDYZx
- F5Su2ud6dwI4b7fQKQFJ7gqdDd0HqMYxtEJiLGcbF/dp4EdNWPCf68729iKkjD3kIw5Om7Eu3KJ
- qdRCZSSDrFx9waC4DsohaTkCZMs7JKESTUgq3TY6p5A==
-X-Received: by 2002:a05:6a00:9a9:: with SMTP id
- u41mr3233706pfg.83.1644914874667; 
- Tue, 15 Feb 2022 00:47:54 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJy1RXfHqGKUOwHiOd9TXDCmkRfLOApnv8+NP4UBdUIs2zHseVmQ3Z770IwhZgE/Zg1NSmgYeteqUdN9fAOzix8=
-X-Received: by 2002:a05:6a00:9a9:: with SMTP id
- u41mr3233676pfg.83.1644914874405; 
- Tue, 15 Feb 2022 00:47:54 -0800 (PST)
+ bh=cAghCw6nMXIP8DbPC2ZTmMjVdzgtfdV0Q4rDuIo9NkY=;
+ b=BY9pcFiZ4JGUtVlqgg6NKLkn6Un7GGlBTM0qRQ3jMRS4G2GvScnnLPdHjt7GuywLXN
+ ++4+B0g0ASfQzdWwSYmtC2F4MGMPzKVKZ8743IFZ8wobK+GqGJ4ngY+o1Nxj8r7K8m/l
+ WuJacLnosW2T2xcqT0hemva/Yu25xELdS47PTqtqYVjeH4vhQTWjv7wBAvj5g8zV5fRb
+ HkW+yiQbHae8dxrkNPNc8yHVVCQxjx0cctHkhHmg8F/+EwJ63+wCTeqdnz2s7GDOINgC
+ 006NpoABbkdJSo4bztOz9peuzU7PCYrA8Kao72xCzjQTbz+XP05EdyY9C46yaI3Ju0Z3
+ NL/g==
+X-Gm-Message-State: AOAM5333RQBkhnEhaVEOzipG/UYgJZBl20/4SRDVZysKL5XQftBnRgH1
+ 7TLR022jKFVauFeTsertEdq760Qt7735t9NmBF4hg9q1/Km+1B2aOZYe2KseaIVothpAlIlu4cs
+ ZA1HEU6YTi7fKxzmHMe7EiUfprmriiGksalWMrhtE8A==
+X-Received: by 2002:a63:2bc5:: with SMTP id r188mr2644600pgr.363.1644914915604; 
+ Tue, 15 Feb 2022 00:48:35 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxNykZwzg4bf+5n8EbXDkY7JRsdOTnLNDPgNJlOcTDejNQ8sWs8DiYpM4W3ztHYleOanIdgFMhO3Rj6Rj63QAs=
+X-Received: by 2002:a63:2bc5:: with SMTP id r188mr2644575pgr.363.1644914915393; 
+ Tue, 15 Feb 2022 00:48:35 -0800 (PST)
 MIME-Version: 1.0
 References: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
- <1644890154-64915-6-git-send-email-wangqing@vivo.com>
-In-Reply-To: <1644890154-64915-6-git-send-email-wangqing@vivo.com>
+ <1644890154-64915-7-git-send-email-wangqing@vivo.com>
+In-Reply-To: <1644890154-64915-7-git-send-email-wangqing@vivo.com>
 From: Benjamin Tissoires <benjamin.tissoires@redhat.com>
-Date: Tue, 15 Feb 2022 09:47:43 +0100
-Message-ID: <CAO-hwJJK5yeW+K_vLpWV9t3TsEdk0xCO-ETxeJsXM2c117JzNw@mail.gmail.com>
-Subject: Re: [PATCH V3 5/13] hid: use time_is_after_jiffies() instead of open
- coding it
+Date: Tue, 15 Feb 2022 09:48:24 +0100
+Message-ID: <CAO-hwJLwomyHyjza8x3cEhR97HkK7Z7yPWVXwA4-1jmM=WKqeQ@mail.gmail.com>
+Subject: Re: [PATCH V3 6/13] input: serio: use time_is_before_jiffies()
+ instead of open coding it
 To: Qing Wang <wangqing@vivo.com>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=btissoir@redhat.com
@@ -101,7 +99,7 @@ Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 15, 2022 at 2:56 AM Qing Wang <wangqing@vivo.com> wrote:
+On Tue, Feb 15, 2022 at 2:57 AM Qing Wang <wangqing@vivo.com> wrote:
 >
 > From: Wang Qing <wangqing@vivo.com>
 >
@@ -109,34 +107,38 @@ On Tue, Feb 15, 2022 at 2:56 AM Qing Wang <wangqing@vivo.com> wrote:
 > code readability.
 >
 > Signed-off-by: Wang Qing <wangqing@vivo.com>
-> Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+> ---
 
-FWIW, this one is
-Acked-by: Benjamin Tissoires <benjamin.tissoires@redhat.com>
-
-Wang, is there any plan to take this series through the trivial tree
-or should each maintainer take the matching patches?
+Reviewed-by: Benjamin Tissoires <benjamin.tissoires@redhat.com>
 
 Cheers,
 Benjamin
 
-> ---
->  drivers/hid/intel-ish-hid/ipc/ipc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/input/serio/ps2-gpio.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/hid/intel-ish-hid/ipc/ipc.c b/drivers/hid/intel-ish-hid/ipc/ipc.c
-> index 8ccb246..15e1423
-> --- a/drivers/hid/intel-ish-hid/ipc/ipc.c
-> +++ b/drivers/hid/intel-ish-hid/ipc/ipc.c
-> @@ -578,7 +578,7 @@ static void _ish_sync_fw_clock(struct ishtp_device *dev)
->         static unsigned long    prev_sync;
->         uint64_t        usec;
+> diff --git a/drivers/input/serio/ps2-gpio.c b/drivers/input/serio/ps2-gpio.c
+> index 8970b49..7834296
+> --- a/drivers/input/serio/ps2-gpio.c
+> +++ b/drivers/input/serio/ps2-gpio.c
+> @@ -136,7 +136,7 @@ static irqreturn_t ps2_gpio_irq_rx(struct ps2_gpio_data *drvdata)
+>         if (old_jiffies == 0)
+>                 old_jiffies = jiffies;
 >
-> -       if (prev_sync && jiffies - prev_sync < 20 * HZ)
-> +       if (prev_sync && time_is_after_jiffies(prev_sync + 20 * HZ))
->                 return;
+> -       if ((jiffies - old_jiffies) > usecs_to_jiffies(100)) {
+> +       if (time_is_before_jiffies(old_jiffies + usecs_to_jiffies(100))) {
+>                 dev_err(drvdata->dev,
+>                         "RX: timeout, probably we missed an interrupt\n");
+>                 goto err;
+> @@ -237,7 +237,7 @@ static irqreturn_t ps2_gpio_irq_tx(struct ps2_gpio_data *drvdata)
+>         if (old_jiffies == 0)
+>                 old_jiffies = jiffies;
 >
->         prev_sync = jiffies;
+> -       if ((jiffies - old_jiffies) > usecs_to_jiffies(100)) {
+> +       if (time_is_before_jiffies(old_jiffies + usecs_to_jiffies(100))) {
+>                 dev_err(drvdata->dev,
+>                         "TX: timeout, probably we missed an interrupt\n");
+>                 goto err;
 > --
 > 2.7.4
 >
