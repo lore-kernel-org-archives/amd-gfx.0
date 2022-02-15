@@ -4,66 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0141FC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 14:09:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0426BC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 14:09:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD7610E5AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05FAE10E5A8;
 	Tue, 15 Feb 2022 14:09:11 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88FCF10E416
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 08:48:40 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE6F6892D5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 12:15:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1644914919;
+ s=mimecast20190719; t=1644927344;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cAghCw6nMXIP8DbPC2ZTmMjVdzgtfdV0Q4rDuIo9NkY=;
- b=DSqmbLSAwCAJVngxiscPK3AI83fBvtKyU1g0AilU1+5l1HWqSms+MFHSUGa0sZO/SfGwjz
- MTARKord6OnXu1SikYooOuoDXp45WeVwP+NSyH7Y/dELylzZWdS76PxZnMHKfa6/B5mtm0
- Kk9NNo2FFnT7z/6lrYWi3bCEQd9gsF4=
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=li59JkksonHEim8N19eLLyTcVUoQZhmnR79T7jisS84=;
+ b=N0ndL/Cn1apaefDfSHrZwZ2y/ErqTpF5dQFg/JTMuuDjJ/uaY4s7boj386eVVG10LTOelr
+ Fo/kIn2mSDeYLpZ6VOJ2Ueau3MKKrbpJDLxEx5Ewzw+gmEvmPeYACdAIYd7XHJ0oaRJ/As
+ r3YA2PQpQXoZZRHW77or5x2WGv9Rmuc=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-446-IbLILVvXNYOUBiRKynogrQ-1; Tue, 15 Feb 2022 03:48:36 -0500
-X-MC-Unique: IbLILVvXNYOUBiRKynogrQ-1
-Received: by mail-pj1-f70.google.com with SMTP id
- f6-20020a17090a654600b001b9e4758439so2947904pjs.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 00:48:36 -0800 (PST)
+ us-mta-59-tvkpFWvTPViGs7VYWAfnmw-1; Tue, 15 Feb 2022 07:15:41 -0500
+X-MC-Unique: tvkpFWvTPViGs7VYWAfnmw-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ a17-20020a05600c069100b0037bb7eb6944so1978436wmn.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 04:15:40 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=cAghCw6nMXIP8DbPC2ZTmMjVdzgtfdV0Q4rDuIo9NkY=;
- b=BY9pcFiZ4JGUtVlqgg6NKLkn6Un7GGlBTM0qRQ3jMRS4G2GvScnnLPdHjt7GuywLXN
- ++4+B0g0ASfQzdWwSYmtC2F4MGMPzKVKZ8743IFZ8wobK+GqGJ4ngY+o1Nxj8r7K8m/l
- WuJacLnosW2T2xcqT0hemva/Yu25xELdS47PTqtqYVjeH4vhQTWjv7wBAvj5g8zV5fRb
- HkW+yiQbHae8dxrkNPNc8yHVVCQxjx0cctHkhHmg8F/+EwJ63+wCTeqdnz2s7GDOINgC
- 006NpoABbkdJSo4bztOz9peuzU7PCYrA8Kao72xCzjQTbz+XP05EdyY9C46yaI3Ju0Z3
- NL/g==
-X-Gm-Message-State: AOAM5333RQBkhnEhaVEOzipG/UYgJZBl20/4SRDVZysKL5XQftBnRgH1
- 7TLR022jKFVauFeTsertEdq760Qt7735t9NmBF4hg9q1/Km+1B2aOZYe2KseaIVothpAlIlu4cs
- ZA1HEU6YTi7fKxzmHMe7EiUfprmriiGksalWMrhtE8A==
-X-Received: by 2002:a63:2bc5:: with SMTP id r188mr2644600pgr.363.1644914915604; 
- Tue, 15 Feb 2022 00:48:35 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxNykZwzg4bf+5n8EbXDkY7JRsdOTnLNDPgNJlOcTDejNQ8sWs8DiYpM4W3ztHYleOanIdgFMhO3Rj6Rj63QAs=
-X-Received: by 2002:a63:2bc5:: with SMTP id r188mr2644575pgr.363.1644914915393; 
- Tue, 15 Feb 2022 00:48:35 -0800 (PST)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent
+ :content-language:to:cc:references:from:organization:subject
+ :in-reply-to:content-transfer-encoding;
+ bh=li59JkksonHEim8N19eLLyTcVUoQZhmnR79T7jisS84=;
+ b=u8qKGC/Jy59kX1IK6u+nkGOaWMVU+FExGaaYMKigqBY+YfS2WESwJC6ZvWLHn47yEi
+ 8Mz3DDvnERyi0kPnOkuy505LeA+7owFWylnXXLFjCaI0FhRTVqVLUpfvxrmz9/uQk8sH
+ FKXSBEcwjEE6gLA04mcbLdCyDnL6VtR9vkQSbb9EqFCXYyqnZBidgLWsfcY/Pxdla4Hz
+ p3XDIdTzJmaR7tY0Gbo5fzAo91iFkY4qxoxUKuErRBL63Xw1Wpy8CH0e9becwq2fF4Ib
+ idwKcg9yLtsf0lpgqWTqaYp6w2T9oatNNi3fojIQpS0f9Klbcl0EyR1rFK6zcix+bx9e
+ 4mzQ==
+X-Gm-Message-State: AOAM530lxF1xRO1RkV58dszYyQ4qQHMWpZ6i3UHiqjzTX8ArbYLlMz/a
+ otTmwYSNnMGhPIF1KFMS4EYi9VyyY1l2Gj+XY9zevRnzuVklY1myLVwu8+XFnfjo9NWrXX2lBD2
+ yswRpVp/ZYasbpNjbUJOlle5iQg==
+X-Received: by 2002:a05:6000:2ac:: with SMTP id
+ l12mr3048029wry.639.1644927339846; 
+ Tue, 15 Feb 2022 04:15:39 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzkXiKIPDmUKc3peLAnxWMPOpVfO+YZVnwiubxG8ybWR9d1yWHVTQW3fpFRYPoIV1z4/FG1xQ==
+X-Received: by 2002:a05:6000:2ac:: with SMTP id
+ l12mr3047997wry.639.1644927339488; 
+ Tue, 15 Feb 2022 04:15:39 -0800 (PST)
+Received: from ?IPV6:2003:cb:c70e:3700:9260:2fb2:742d:da3e?
+ (p200300cbc70e370092602fb2742dda3e.dip0.t-ipconnect.de.
+ [2003:cb:c70e:3700:9260:2fb2:742d:da3e])
+ by smtp.gmail.com with ESMTPSA id u3sm18392835wmm.0.2022.02.15.04.15.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Feb 2022 04:15:39 -0800 (PST)
+Message-ID: <7b830dc4-37bc-fb7b-c094-16595bd2a128@redhat.com>
+Date: Tue, 15 Feb 2022 13:15:37 +0100
 MIME-Version: 1.0
-References: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
- <1644890154-64915-7-git-send-email-wangqing@vivo.com>
-In-Reply-To: <1644890154-64915-7-git-send-email-wangqing@vivo.com>
-From: Benjamin Tissoires <benjamin.tissoires@redhat.com>
-Date: Tue, 15 Feb 2022 09:48:24 +0100
-Message-ID: <CAO-hwJLwomyHyjza8x3cEhR97HkK7Z7yPWVXwA4-1jmM=WKqeQ@mail.gmail.com>
-Subject: Re: [PATCH V3 6/13] input: serio: use time_is_before_jiffies()
- instead of open coding it
-To: Qing Wang <wangqing@vivo.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+To: Jason Gunthorpe <jgg@nvidia.com>
+References: <20220201154901.7921-1-alex.sierra@amd.com>
+ <20220201154901.7921-2-alex.sierra@amd.com>
+ <beb38138-2266-1ff8-cc82-8fe914bed862@redhat.com>
+ <20220211164537.GO4160@nvidia.com>
+ <6a8df47e-96d0-ffaf-247a-acc504e2532b@redhat.com>
+ <20220211165624.GP4160@nvidia.com>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+Subject: Re: [PATCH v6 01/10] mm: add zone device coherent type memory support
+In-Reply-To: <20220211165624.GP4160@nvidia.com>
 Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=btissoir@redhat.com
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 15 Feb 2022 14:09:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,70 +94,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Mike Snitzer <snitzer@redhat.com>, David Airlie <airlied@linux.ie>,
- Michael Turquette <mturquette@baylibre.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Hans Verkuil <hverkuil@xs4all.nl>,
- dm-devel@redhat.com, Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- linux-clk@vger.kernel.org, Alasdair Kergon <agk@redhat.com>,
- amd-gfx@lists.freedesktop.org,
- "open list:HID CORE LAYER" <linux-input@vger.kernel.org>,
- xen-devel@lists.xenproject.org, linux-media@vger.kernel.org,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- intel-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, linux-block@vger.kernel.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Stephen Boyd <sboyd@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- lkml <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Alex Sierra <alex.sierra@amd.com>, rcampbell@nvidia.com,
+ willy@infradead.org, Felix.Kuehling@amd.com, apopple@nvidia.com,
+ amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org, linux-mm@kvack.org,
+ jglisse@redhat.com, dri-devel@lists.freedesktop.org, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 15, 2022 at 2:57 AM Qing Wang <wangqing@vivo.com> wrote:
->
-> From: Wang Qing <wangqing@vivo.com>
->
-> Use the helper function time_is_{before,after}_jiffies() to improve
-> code readability.
->
-> Signed-off-by: Wang Qing <wangqing@vivo.com>
-> ---
+On 11.02.22 17:56, Jason Gunthorpe wrote:
+> On Fri, Feb 11, 2022 at 05:49:08PM +0100, David Hildenbrand wrote:
+>> On 11.02.22 17:45, Jason Gunthorpe wrote:
+>>> On Fri, Feb 11, 2022 at 05:15:25PM +0100, David Hildenbrand wrote:
+>>>
+>>>> ... I'm pretty sure we cannot FOLL_PIN DEVICE_PRIVATE pages
+>>>
+>>> Currently the only way to get a DEVICE_PRIVATE page out of the page
+>>> tables is via hmm_range_fault() and that doesn't manipulate any ref
+>>> counts.
+>>
+>> Thanks for clarifying Jason! ... and AFAIU, device exclusive entries are
+>> essentially just pointers at ordinary PageAnon() pages. So with DEVICE
+>> COHERENT we'll have the first PageAnon() ZONE_DEVICE pages mapped as
+>> present in the page tables where GUP could FOLL_PIN them.
+> 
+> This is my understanding
+> 
+> Though you probably understand what PageAnon means alot better than I
+> do.. I wonder if it really makes sense to talk about that together
+> with ZONE_DEVICE which has alot in common with filesystem originated
+> pages too.
 
-Reviewed-by: Benjamin Tissoires <benjamin.tissoires@redhat.com>
+For me, PageAnon() means that modifications are visible only to the
+modifying process. On actual CoW, the underlying page will get replaced
+-- in the world of DEVICE_COHERENT that would mean that once you write
+to a DEVICE_COHERENT you could suddenly have a !DEVICE_COHERENT page.
 
-Cheers,
-Benjamin
+PageAnon() pages don't have a mapping, thus they can only be found in
+MAP_ANON VMAs or in MAP_SHARED VMAs with MAP_PRIVATE. They can only be
+found via a page table, and not looked up via the page cache (excluding
+the swap cache).
 
->  drivers/input/serio/ps2-gpio.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/input/serio/ps2-gpio.c b/drivers/input/serio/ps2-gpio.c
-> index 8970b49..7834296
-> --- a/drivers/input/serio/ps2-gpio.c
-> +++ b/drivers/input/serio/ps2-gpio.c
-> @@ -136,7 +136,7 @@ static irqreturn_t ps2_gpio_irq_rx(struct ps2_gpio_data *drvdata)
->         if (old_jiffies == 0)
->                 old_jiffies = jiffies;
->
-> -       if ((jiffies - old_jiffies) > usecs_to_jiffies(100)) {
-> +       if (time_is_before_jiffies(old_jiffies + usecs_to_jiffies(100))) {
->                 dev_err(drvdata->dev,
->                         "RX: timeout, probably we missed an interrupt\n");
->                 goto err;
-> @@ -237,7 +237,7 @@ static irqreturn_t ps2_gpio_irq_tx(struct ps2_gpio_data *drvdata)
->         if (old_jiffies == 0)
->                 old_jiffies = jiffies;
->
-> -       if ((jiffies - old_jiffies) > usecs_to_jiffies(100)) {
-> +       if (time_is_before_jiffies(old_jiffies + usecs_to_jiffies(100))) {
->                 dev_err(drvdata->dev,
->                         "TX: timeout, probably we missed an interrupt\n");
->                 goto err;
-> --
-> 2.7.4
->
+So if we have PageAnon() pages on ZONE_DEVICE, they generally have the
+exact same semantics as !ZONE_DEVICE pages, but the way they "appear" in
+the page tables the allocation/freeing path differs -- I guess :)
+
+... and as we want pinning semantics to be different we have to touch GUP.
+
+> 
+> I'm not sure what AMDs plan is here, is there an expecation that a GPU
+> driver will somehow stuff these pages into an existing anonymous
+> memory VMA or do they always come from a driver originated VMA?
+
+My understanding is that a driver can just decide to replace "ordinary"
+PageAnon() pages e.g., in a MAP_ANON VMA by these pages. Hopefully AMD
+can clarify.
+
+
+-- 
+Thanks,
+
+David / dhildenb
 
