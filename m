@@ -4,41 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F832C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 08:31:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8E57C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 08:31:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0991410E3FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D05210E3FF;
 	Tue, 15 Feb 2022 08:31:34 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F16810E14D;
- Tue, 15 Feb 2022 04:03:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: krisman) with ESMTPSA id A6AEC1F43572
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1644897824;
- bh=VG0gC/LlBYOoQhn5utxIdgmPSt7IfHbptUv0GV7NTBo=;
- h=From:To:Cc:Subject:References:Date:In-Reply-To:From;
- b=Ub6dmZitRz45cR9qIKXjTsVXU7KmUgK7H9oGw3VoIqMVy2lNgKyINSxJJ4Mxa9LeQ
- OSnaNgDQeenPnKVsHAu7FJW2ksmbmmFKxFZ9DhHBEOytGwf5+mTHiU3/rYyeYKZgAI
- 353erPgVFDlsdFJrWkpczRGLtWgrEDwEWidKsuTfjbzacs2ubqbjvCv53HpQkQgTDO
- sveWRuEs68cTQpVqRLx8QCaXWu0m6E77IzTClO5SoAIoZgIg7biB2Noa4C7YbpiD3/
- +EhnyHcdKXZg/HDB7nczR4ihB2+cz0qN/2Cx4c4omJOGZErQyt9d55dDNGrym2WOmM
- PBwrKU+TudUGg==
-From: Gabriel Krisman Bertazi <krisman@collabora.com>
-To: Hsin-Yi Wang <hsinyi@chromium.org>
-Subject: Re: [PATCH v8 1/3] gpu: drm: separate panel orientation property
- creating and value setting
-Organization: Collabora
-References: <20220208084234.1684930-1-hsinyi@chromium.org>
- <87leydhqt3.fsf@collabora.com>
- <CAJMQK-igpiYj-pkgG9amrQuVzf1Mc9BDDOwOdKLUbceKr=CHiQ@mail.gmail.com>
-Date: Mon, 14 Feb 2022 23:03:39 -0500
-In-Reply-To: <CAJMQK-igpiYj-pkgG9amrQuVzf1Mc9BDDOwOdKLUbceKr=CHiQ@mail.gmail.com>
- (Hsin-Yi Wang's message of "Tue, 15 Feb 2022 11:15:02 +0800")
-Message-ID: <87czjoixno.fsf@collabora.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
-MIME-Version: 1.0
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01on2117.outbound.protection.outlook.com [40.107.255.117])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8B2010E3C5;
+ Tue, 15 Feb 2022 01:56:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MxA1FYlZRTfHHcOF7CgxsgWWUo1k8b5FiN30TeKrsLsOWhIlaqO3Ti/dkmbLoLB7bAiPE0W9UZxVhAl+Jnsj2hd3n+thtMBCJqJyj+LPhr3FpAaasrfUsf6iIpUmBSM8sb3uIclxxUSRNlq4B9Z5VPYqHLN4kqXGhASZCCkxj7XjL1scOV3ii2McT6CxrllRndvOy9ZDBepS6vI7TktQcU9fITKSat57t7g5vRZbgVANrKUqA8L8yIKnqflRohi6LX2EY34zaazvfyaUgRR8Se+ys7ScRkiRr6heE99RBNAXf35IKJZgNYHaaSOpUK4/RFzWg9Ff3tF56oZ2cvWLpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gil4quij7qcTMvszTKjOs9aSAoYCJFZ2VUFmpkKPVQo=;
+ b=LzmwAhHbFyr919Yuyc8qKzovA+u8YdMFxf62k6o651Ig/sGH7L3oOQa/oqGV7u4SynMzlO3C1dpbueBVB9JeKmBx1Ms/ye3AXyxuouVHM7BwlqBJ5SXGmoMbOjyWhVniomFaGHXjpHksIDReizbjmygyR7KJozAdJZYrEhIjTIrRGDG052P/A/zNt/eG393kLOqBXZESFhULOh+L8OSB4mFW+EE36JeKd2nZsFB9hH4ddTmuVyqHR3rrbmpzHyZWGmd8Gd9y9OEicDCIFegTHFMwJHbud0q3rf0qyW/8blspcr6nlNlXWYUR/u3u/vbIHQH5ZZ5sV9uW63/VENNaBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
+ s=selector2-vivo0-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gil4quij7qcTMvszTKjOs9aSAoYCJFZ2VUFmpkKPVQo=;
+ b=n+wiVQk3Zy+KKpr19yc14kwIla5guhnQIjDr0SK8pmXIapT7m89WTmxGqeZb/OcOTiQbiF6i/R/rwRQ5oSQWWuSEwupVS5XZIKUaUzGSQlRcgoW/T89tsLSuXTPp0jUG4JAi5fd8x9dx9iZOtnx4nlXGDswtqKVTJk9jnV8M/nY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
+ by HK0PR06MB2771.apcprd06.prod.outlook.com (2603:1096:203:58::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Tue, 15 Feb
+ 2022 01:56:41 +0000
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.019; Tue, 15 Feb 2022
+ 01:56:41 +0000
+From: Qing Wang <wangqing@vivo.com>
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+ dm-devel@redhat.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, xen-devel@lists.xenproject.org,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org
+Subject: [PATCH V3 6/13] input: serio: use time_is_before_jiffies() instead of
+ open coding it
+Date: Mon, 14 Feb 2022 17:55:43 -0800
+Message-Id: <1644890154-64915-7-git-send-email-wangqing@vivo.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
+References: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
 Content-Type: text/plain
+X-ClientProxiedBy: HK2PR06CA0012.apcprd06.prod.outlook.com
+ (2603:1096:202:2e::24) To SL2PR06MB3082.apcprd06.prod.outlook.com
+ (2603:1096:100:37::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 223ce6e0-9445-4c31-3457-08d9f02668ee
+X-MS-TrafficTypeDiagnostic: HK0PR06MB2771:EE_
+X-Microsoft-Antispam-PRVS: <HK0PR06MB2771C3D0F113D3DA4472A8D3BD349@HK0PR06MB2771.apcprd06.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cDMxHup5yWOHw8mFcFUIaQfoxyQKud4jrkTMFg0CUJIXPvP58tsdTdGcIPk6yl2u0h3zsSGhDm59qTDw1/o+vkc5hLhThbG+y8cUIRSBF4zBFbj4JTj4r0Ryq8RTF6prBUlIBAsXDYTtcK5jq0oUUaPm1SJi8uVupnocTn33UXOvKQOcNF4kH31q1XkG2vl1qev+hzrXLR9VxrJ1KVh1rd4e53A/iuAR23UZU7V9qPI9XFaJ+8I/3Zeg7wG4S7HaBtJXjiIdoRnVbIMoMy51/WiMdEaMEmY7uD4/uza6Ea0bgj+01tm3mOEScGl8Qj4nEi2euZtMfeVr68/6pgY74Wngu4Vm4y/QrNGWYHZ8P8ZXklpGJF0hEYlZCdOObcyOGKGduZczot8wEs7b7100+D6I3eqzSwex303n/63KCjeGBo8d8PCPORcic8FZwyzuqi99yT2n1xmIhqxpsPIs5bQkY2792VFGr1AT+k2O5q4j8tuwROSGkQIEZEmMTqIDsLaglNeKbtpIMVI2AA9plEMwQURwJZs0INhcCkZxFja4Y5C+WmTFiW/ytBTVwCsUNLnk68k3lbn7SWYnVJH0UfiV1iq82wofwKcxaBfMJlUwycgzL8u01S7pBZlqKHK84uHHo7QLSauT8PZNX63zosBVkCBgWMZ5SUHjaeLSp/IYhJwkFLHHT+qyeuYMd07i2++Wi8wYtdMmNXcDSpmDOxinS+DDxJCgNXzlPYzTRho=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(8936002)(83380400001)(26005)(186003)(6486002)(508600001)(107886003)(5660300002)(2906002)(7416002)(7406005)(921005)(110136005)(316002)(66476007)(8676002)(36756003)(66946007)(4326008)(66556008)(6506007)(6512007)(52116002)(86362001)(2616005)(38100700002)(38350700002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?/hNMObMNqtwdyZN+b6AB7PMwEkk/ZcXye09kWae6WhE+yHoUl9Og9KQwn+um?=
+ =?us-ascii?Q?p69J/+02qfDjjMtfbZTJ+7qmPm4+sfTDBW5WszpyAdBt8tpcb+/Uilh8YLb1?=
+ =?us-ascii?Q?ZfDGpFwdHwEuOLZMMHgcGZJZwYeseT8iqRidtMx+YJcw1nS1EQJv8MwJt82Y?=
+ =?us-ascii?Q?nE/75Ib7WEdeOtZZn7R/7qiYlPm1oSx5xarIC9FphLxn7tFlwBURQfMMSIx0?=
+ =?us-ascii?Q?L6S9EtQNkPa6nSs9Vid/eUrEO4uQFTai8yf4WCRXJNwZILUaVfQyxLJDwJ0r?=
+ =?us-ascii?Q?+vWUuE2h79Bnl+ikhlQmeuDhJkQAWsBENQf0BQ/Tk41kUSe8hjSccMba5dvB?=
+ =?us-ascii?Q?1/LkpNf3prN+1BhNe6cYvTvplggzF+TmwaN/8Oon/RD/s8ub7mNrFw+6GWJe?=
+ =?us-ascii?Q?WaIWsbnVqaXgfTJQEfY8Qe0IVDAjVlGIKaJOJ4APCeMo65VlASSMLkxkSSpA?=
+ =?us-ascii?Q?9I0B09poREZyCN13zM+AGYHU20po3ZLu/E2Tzm/CiI2iLbRoW/UtvlYExXa/?=
+ =?us-ascii?Q?MGFdRNNm8as0FSAhp6QV7kzpXugurT5bXRr/kJC+zoXt14EEzL1JPWbtLZzW?=
+ =?us-ascii?Q?ySOjdo2jFaJKbgnSiCbn9ymIy4IIsX3EFMqJ3qxvBPu94MdW8VKse7MMcmdz?=
+ =?us-ascii?Q?+0WQ3PR/xFAprd6Rs8nYHX6kbQUBt8KvFhDn4S08X8+yC1sZ3gm//xkArc6D?=
+ =?us-ascii?Q?aFQL5omXkj1dogbyz8AdqtZeIOz9yS/o0+EDbikm+jrBAVRyWZf6JS13Xj6M?=
+ =?us-ascii?Q?xB2zwBdyyguCeimCO+detEuLS3ueLQJm4RusdxCttplqZcd9AYkkU7MSV0S4?=
+ =?us-ascii?Q?cOupaSmB9wDwIgrY0U4GTbpIwIJXSqV/iVUMdAQdY0Tm9rGhyPRiM6NnuyXt?=
+ =?us-ascii?Q?cJyXSflP8+eb3/oPEmVUzyVm0j2a0YyBLTodxUudr7wQpHLF38g+mMIiJtzz?=
+ =?us-ascii?Q?DQO9gPfn0zM8f3HU+S8hhXBlql2p/vb2SaQ4l0N9YLnkTRTv48gPblxKRmy2?=
+ =?us-ascii?Q?bjf3cOAsYmRRAZO6lwx5TpXT7Pjf8NY3aG4f/FfmZ9cM3Lj0s7AIvH1qhYfF?=
+ =?us-ascii?Q?znSwef88plc5VWdwzuPGIoASNK/cA0zF58aBA5ORjsY8/jM84VnlVibQ4XAu?=
+ =?us-ascii?Q?6WZKwyrQL4acUhcBhbUdhRAWWlfQIbSgRKxANboe9zhCVgQemb0jRnYlZv+i?=
+ =?us-ascii?Q?5b3v8leeD/rUZVFDVsxk8j5e/n13FPYmrlRObxpaJEY0WroB9v7tS6Uhc/O4?=
+ =?us-ascii?Q?vdSoJT9f+1rEQwYaoC0Q759b5yMtht1/BDjcO0B8j2l86QZNVlnrchlGyrxA?=
+ =?us-ascii?Q?bxHk4NDGk+taU67w62VNRHeZKQkeyGgQCKXnQw3trcmhXLrcBAdZKiiLbdK4?=
+ =?us-ascii?Q?o59tRU+2es5UaEe6y5qn53dnlOFv2HUM1Yc6//VKm1G1GJAA+bTsbkUDdYFS?=
+ =?us-ascii?Q?PLgwUyE9/Rlnmk3Jplmyw1RyEjCDLdJmNSHuC2DQBLklc26boLSZ+QqV2VgS?=
+ =?us-ascii?Q?1Y6EhFeXNAFCTllsecc2Hdq3oJ3tYjL4UOwgBeFLr5Nxg41mSs3/UOc2SuDV?=
+ =?us-ascii?Q?X7mWIjKLMI8Ts+RIQ9ZMkZO07PbE/RWxPj1cBpRlgvEEyi1KuVrUWrr89j1+?=
+ =?us-ascii?Q?BzOD0j2m0Nov7hSAX3g5+GM=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 223ce6e0-9445-4c31-3457-08d9f02668ee
+X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2022 01:56:41.3563 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tDMorbaPLABqnTTpOwm40CBkcz4dtMZpZlZYde5e3nsJXS1ZDx0+p2Hseebj67OCT6NIyc0pHCU7ReC2G7pQNA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK0PR06MB2771
 X-Mailman-Approved-At: Tue, 15 Feb 2022 08:31:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,110 +135,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, Simon Ser <contact@emersion.fr>,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org
+Cc: Wang Qing <wangqing@vivo.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hsin-Yi Wang <hsinyi@chromium.org> writes:
+From: Wang Qing <wangqing@vivo.com>
 
-> On Tue, Feb 15, 2022 at 9:17 AM Gabriel Krisman Bertazi
-> <krisman@collabora.com> wrote:
->>
->> Hsin-Yi Wang <hsinyi@chromium.org> writes:
->>
->> > drm_dev_register() sets connector->registration_state to
->> > DRM_CONNECTOR_REGISTERED and dev->registered to true. If
->> > drm_connector_set_panel_orientation() is first called after
->> > drm_dev_register(), it will fail several checks and results in following
->> > warning.
->>
->> Hi,
->>
->> I stumbled upon this when investigating the same WARN_ON on amdgpu.
->> Thanks for the patch :)
->>
->> > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
->> > index a50c82bc2b2fec..572ead7ac10690 100644
->> > --- a/drivers/gpu/drm/drm_connector.c
->> > +++ b/drivers/gpu/drm/drm_connector.c
->> > @@ -1252,7 +1252,7 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
->> >   *   INPUT_PROP_DIRECT) will still map 1:1 to the actual LCD panel
->> >   *   coordinates, so if userspace rotates the picture to adjust for
->> >   *   the orientation it must also apply the same transformation to the
->> > - *   touchscreen input coordinates. This property is initialized by calling
->> > + *   touchscreen input coordinates. This property value is set by calling
->> >   *   drm_connector_set_panel_orientation() or
->> >   *   drm_connector_set_panel_orientation_with_quirk()
->> >   *
->> > @@ -2341,8 +2341,8 @@ EXPORT_SYMBOL(drm_connector_set_vrr_capable_property);
->> >   * @connector: connector for which to set the panel-orientation property.
->> >   * @panel_orientation: drm_panel_orientation value to set
->> >   *
->> > - * This function sets the connector's panel_orientation and attaches
->> > - * a "panel orientation" property to the connector.
->> > + * This function sets the connector's panel_orientation value. If the property
->> > + * doesn't exist, it will try to create one.
->> >   *
->> >   * Calling this function on a connector where the panel_orientation has
->> >   * already been set is a no-op (e.g. the orientation has been overridden with
->> > @@ -2373,19 +2373,12 @@ int drm_connector_set_panel_orientation(
->> >       info->panel_orientation = panel_orientation;
->> >
->> >       prop = dev->mode_config.panel_orientation_property;
->> > -     if (!prop) {
->> > -             prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
->> > -                             "panel orientation",
->> > -                             drm_panel_orientation_enum_list,
->> > -                             ARRAY_SIZE(drm_panel_orientation_enum_list));
->> > -             if (!prop)
->> > -                     return -ENOMEM;
->> > -
->> > -             dev->mode_config.panel_orientation_property = prop;
->> > -     }
->> > +     if (!prop &&
->> > +         drm_connector_init_panel_orientation_property(connector) < 0)
->> > +             return -ENOMEM;
->> >
->>
->> In the case where the property has not been created beforehand, you
->> forgot to reinitialize prop here, after calling
->> drm_connector_init_panel_orientation_property().  This means
-> hi Gabriel,
->
-> drm_connector_init_panel_orientation_property() will create prop if
-> it's null. If prop fails to be created there, it will return -ENOMEM.
+Use the helper function time_is_{before,after}_jiffies() to improve
+code readability.
 
-Yes.  But *after the property is successfully created*, the prop variable is still
-NULL.  And then you call the following, using prop, which is still NULL:
+Signed-off-by: Wang Qing <wangqing@vivo.com>
+---
+ drivers/input/serio/ps2-gpio.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
->> > +     drm_object_property_set_value(&connector->base, prop,
->> > +                                   info->panel_orientation);
-
-This will do property->dev right on the first line of code, and dereference the
-null prop pointer.
-
-You must do
-
-  prop = dev->mode_config.panel_orientation_property;
-
-again after drm_connector_init_panel_orientation_property successfully
-returns, or call drm_object_property_set_value using
-dev->mode_config.panel_orientation_property directly:
-
-  drm_object_property_set_value(&connector->base,
-			dev->mode_config.panel_orientation_property
-		        info->panel_orientation);
-
+diff --git a/drivers/input/serio/ps2-gpio.c b/drivers/input/serio/ps2-gpio.c
+index 8970b49..7834296
+--- a/drivers/input/serio/ps2-gpio.c
++++ b/drivers/input/serio/ps2-gpio.c
+@@ -136,7 +136,7 @@ static irqreturn_t ps2_gpio_irq_rx(struct ps2_gpio_data *drvdata)
+ 	if (old_jiffies == 0)
+ 		old_jiffies = jiffies;
+ 
+-	if ((jiffies - old_jiffies) > usecs_to_jiffies(100)) {
++	if (time_is_before_jiffies(old_jiffies + usecs_to_jiffies(100))) {
+ 		dev_err(drvdata->dev,
+ 			"RX: timeout, probably we missed an interrupt\n");
+ 		goto err;
+@@ -237,7 +237,7 @@ static irqreturn_t ps2_gpio_irq_tx(struct ps2_gpio_data *drvdata)
+ 	if (old_jiffies == 0)
+ 		old_jiffies = jiffies;
+ 
+-	if ((jiffies - old_jiffies) > usecs_to_jiffies(100)) {
++	if (time_is_before_jiffies(old_jiffies + usecs_to_jiffies(100))) {
+ 		dev_err(drvdata->dev,
+ 			"TX: timeout, probably we missed an interrupt\n");
+ 		goto err;
 -- 
-Gabriel Krisman Bertazi
+2.7.4
+
