@@ -4,83 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E45FC4332F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9A26C433EF
 	for <amd-gfx@archiver.kernel.org>; Wed, 16 Feb 2022 08:25:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5815910E8E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F84D10E8EA;
 	Wed, 16 Feb 2022 08:25:15 +0000 (UTC)
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6537610E610
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Feb 2022 02:35:37 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.nyi.internal (Postfix) with ESMTP id 9F8F85807BE;
- Tue, 15 Feb 2022 21:35:36 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 15 Feb 2022 21:35:36 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=turner.link; h=
- cc:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; bh=TpzoZfj+lZpZb5YGW+c6JSSTWLLq+cAVLwcjig
- xN9pY=; b=jiY6nB/NMb6omuUrZ2iOKgx4BbWJggRnkdloVQUzEadTZD6Y3BR7Jk
- EZTCBJ4BDhiLiWb18ZMU5KT9xwNe8xuCvZEKDxztTdd105SjxyPLXxiZc0SJBMuG
- c8iRyD9HeafaZyHvEmEpvh3gRBibrxf9++GUFfO6jzIvSNhZQqVNk7FakBL0/nWv
- ANql/suOXiiUpqutrz1iLxyICCGG91Itt4Z4g1TBAzrim1exHR8N8e/sgMhzx8Zl
- eYd09z3r0CjAJhsVc7k6gbnARAB3VXOBb6KQnarMlwKmXc4crpvCjsI7v+09LWOu
- zxoykbDKpDLzcxAEg5g2uye4uSMAop4w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=TpzoZfj+lZpZb5YGW
- +c6JSSTWLLq+cAVLwcjigxN9pY=; b=h0KErPn8bm9yjFrMk5wE+nKKL/iyvwXec
- tymAVZw6TaLuzEl7K7QASX8htJQl9wZYj+T7CK1MLW9cHAGfwetvWJ9YcHPdGFiT
- +eMKUPMX+VVOwjA6t3fvaj6UKa7bbohA7KYJYsQnnXNA8lPpZr9dSs7UAPqb7UYM
- k7x9FxLj4NUB8P0zw63F6mDvvqUYSmGNUeWT4LElt/7ok6if8OJFIIGO/ucud868
- q9MGxnNxnIGGk2zWk7/WLmkfd25vdBRpEfzRGoiU0ukiIUUJ71aKHkaBWLJNB+RB
- VREzWzdcCwCn9Th5o8CZwQ4VGRIhL1jTiQA4glsTiFaXnENq54Opw==
-X-ME-Sender: <xms:-GIMYofFCTNIFq1AeLdSRz6qqWwjIOA1HWmQ0CB5iHvdTE1eAMDrwQ>
- <xme:-GIMYqOACvUOsMDdVAoKAcyo3sQSQXBQq8zVXPQAXp_7qeOkHMo4-pbrBdsqO01Em
- 7_HDZryHMCR3Z2KdQ>
-X-ME-Received: <xmr:-GIMYpiPr6y8rkkCkM5IKlHorXFG1D_RG5eYtMp9_GM9F55NGBCXd-snTl3V>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrjeehgdegjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpehfhffvufffjgfkgggtsehttdertddttddtnecuhfhrohhmpeflrghmvghsucff
- rdcuvfhurhhnvghruceolhhinhhugihkvghrnhgvlhdrfhhoshhssegumhgrrhgtqdhnoh
- hnvgdrthhurhhnvghrrdhlihhnkheqnecuggftrfgrthhtvghrnhepudfhgedvtdduieek
- tdegieetfefhteeukedvieefteelheevveffgeeutddvkeegnecuvehluhhsthgvrhfuih
- iivgeptdenucfrrghrrghmpehmrghilhhfrhhomheplhhinhhugihkvghrnhgvlhdrfhho
- shhssegumhgrrhgtqdhnohhnvgdrthhurhhnvghrrdhlihhnkh
-X-ME-Proxy: <xmx:-GIMYt8fxrYSfpsig9tl3ceOYL_nX_EwxiEMadaX5Wj3xVE4PNpatQ>
- <xmx:-GIMYkuw1dIcVVUcyvoloB0hbDK4Fuz78dNlZ-BUxFw4N-KulLiIiw>
- <xmx:-GIMYkEOatGXYXzOwmzkLXts25_mEsiRyt4H6QfyxZaH7P4rMyoMNg>
- <xmx:-GIMYhNwugAdty2yJUPqUEt1xabyBMcWe0cMxwrZ66jWILoRePewcw>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Feb 2022 21:35:36 -0500 (EST)
-References: <87ee57c8fu.fsf@turner.link>
- <acd2fd5e-d622-948c-82ef-629a8030c9d8@leemhuis.info>
- <87a6ftk9qy.fsf@dmarc-none.turner.link> <87zgnp96a4.fsf@turner.link>
- <fc2b7593-db8f-091c-67a0-ae5ffce71700@leemhuis.info>
- <CADnq5_Nr5-FR2zP1ViVsD_ZMiW=UHC1wO8_HEGm26K_EG2KDoA@mail.gmail.com>
- <87czkk1pmt.fsf@dmarc-none.turner.link>
- <BYAPR12MB46140BE09E37244AE129C01A975C9@BYAPR12MB4614.namprd12.prod.outlook.com>
- <87sftfqwlx.fsf@dmarc-none.turner.link>
- <BYAPR12MB4614E2CFEDDDEAABBAB986A0975E9@BYAPR12MB4614.namprd12.prod.outlook.com>
- <87ee4wprsx.fsf@turner.link>
- <4b3ed7f6-d2b6-443c-970e-d963066ebfe3@amd.com>
- <87pmo8r6ob.fsf@turner.link>
- <5a68afe4-1e9e-c683-e06d-30afc2156f14@leemhuis.info>
- <CADnq5_MCKTLOfWKWvi94Q9-d5CGdWBoWVxEYL3YXOpMiPnLOyg@mail.gmail.com>
-From: James D. Turner <linuxkernel.foss@dmarc-none.turner.link>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [REGRESSION] Too-low frequency limit for AMD GPU
- PCI-passed-through to Windows VM
-Date: Tue, 15 Feb 2022 19:25:31 -0500
-In-reply-to: <CADnq5_MCKTLOfWKWvi94Q9-d5CGdWBoWVxEYL3YXOpMiPnLOyg@mail.gmail.com>
-Message-ID: <87pmnnpmh5.fsf@dmarc-none.turner.link>
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [IPv6:2607:f8b0:4864:20::1035])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4441010E608;
+ Tue, 15 Feb 2022 22:59:29 +0000 (UTC)
+Received: by mail-pj1-x1035.google.com with SMTP id
+ d9-20020a17090a498900b001b8bb1d00e7so652656pjh.3; 
+ Tue, 15 Feb 2022 14:59:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=Ydg/QaEHk+YtzGHqWPzjDmBjfyy2f1JmjiAxPzP8crc=;
+ b=neA8UZ+ztvqI+c9Y0GhuINKiFZbH9bwEKDbDdCj/aBEOg8Je4KJR2FY7wqhQqcBAYk
+ 3Wy+WGL8h5hMZhHiRrJnELKEzNVne+rWwRiNSK+LaaB40t3gKAMZ5iPl6SH4z0sCF1sK
+ WeebZKAyrtHxpGEBt52RHDKoImWcRYibqiE5YdJSrERCh5ErepkYhiOc7Yw8VRa7JtSJ
+ adEHSUdt8ZETIXkSrLoXpm9wbvKFejNQ1Fv3M/q0bRnt69wRrVeApz/eynGg7QDAnCzT
+ uJF8lE/RahbG4H9xVfC7Tm4Wgh1nT1vyrj+ukgd4F45LFSngNGYO0nz3bd1+0RfzB/uo
+ Q/xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Ydg/QaEHk+YtzGHqWPzjDmBjfyy2f1JmjiAxPzP8crc=;
+ b=V+tcmYagwQfeTZ4kkh7wjDtuNyeaQWxpoAvGPgBRojc/TqL3HbJVaQ169BpRdCRF8q
+ Jl5JGiEWN+JSGARykgkHGLGpFBHLTZeqB7frYgEGQuY750wsq1UXqhTdWx7lZPDC6KmS
+ WU+lwvRSVIzHYfeFJC4DT0aMQkLZb3+jlDcA6oZ5UqUGeSbQw+RzglcW+shJPOtPPS5P
+ DzcKoriYOcc4RdUZXJ8IIrGpkae5UPjpig0GJLfmFDTFsCAcZHntJuTMUEa9k9uU/tDW
+ ELO0t0Q9g+rM/ifb6+sYcf7cznyn032e0+cB8IMtOmy5QrfibvgVSXo944Y+SSS2YiNf
+ EemA==
+X-Gm-Message-State: AOAM532vb9dC4TP0q4NNwSKAEuZF3AN6N+xHpOOTVv8NTTmJyrM7DiY0
+ 4ZrFzctNOGCMbFjf2nEiT+I=
+X-Google-Smtp-Source: ABdhPJzD5VTWuMUJjUi6d0x1rXiN3okRfTcvfy3+tsDIIsH6bfb6SZ+FiyUr2n1wCBp6WTu5fGOOUA==
+X-Received: by 2002:a17:902:f686:: with SMTP id l6mr1079179plg.7.1644965965923; 
+ Tue, 15 Feb 2022 14:59:25 -0800 (PST)
+Received: from google.com ([2620:15c:202:201:4e4a:b0ff:e926:40e2])
+ by smtp.gmail.com with ESMTPSA id n85sm10430319pfd.142.2022.02.15.14.59.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Feb 2022 14:59:25 -0800 (PST)
+Date: Tue, 15 Feb 2022 14:59:21 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Qing Wang <wangqing@vivo.com>
+Subject: Re: [PATCH V3 6/13] input: serio: use time_is_before_jiffies()
+ instead of open coding it
+Message-ID: <YgwwSUlZVakiYF8j@google.com>
+References: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
+ <1644890154-64915-7-git-send-email-wangqing@vivo.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1644890154-64915-7-git-send-email-wangqing@vivo.com>
 X-Mailman-Approved-At: Wed, 16 Feb 2022 08:25:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,45 +70,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- Greg KH <gregkh@linuxfoundation.org>, "Lazar, Lijo" <lijo.lazar@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Alex Williamson <alex.williamson@redhat.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: Mike Snitzer <snitzer@redhat.com>, David Airlie <airlied@linux.ie>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Hans Verkuil <hverkuil@xs4all.nl>,
+ dm-devel@redhat.com, Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ linux-clk@vger.kernel.org, Alasdair Kergon <agk@redhat.com>,
+ amd-gfx@lists.freedesktop.org, linux-input@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-media@vger.kernel.org,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ intel-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>, linux-block@vger.kernel.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Stephen Boyd <sboyd@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
+Hi Wang,
 
-> I guess just querying the ATIF method does something that negatively
-> influences the windows driver in the guest. Perhaps the platform
-> thinks the driver has been loaded since the method has been called so
-> it enables certain behaviors that require ATIF interaction that never
-> happen because the ACPI methods are not available in the guest.
+On Mon, Feb 14, 2022 at 05:55:43PM -0800, Qing Wang wrote:
+> From: Wang Qing <wangqing@vivo.com>
+> 
+> Use the helper function time_is_{before,after}_jiffies() to improve
+> code readability.
 
-Do you mean the `amdgpu_atif_pci_probe_handle` function? If it would be
-helpful, I could try disabling that function and testing again.
+I applied changes by Danilo Krummrich converting the driver to use
+ktime_t (see https://lore.kernel.org/r/20220215160208.34826-3-danilokrummrich@dk-develop.de)
+which makes this change not applicable.
 
-> I don't really have a good workaround other than blacklisting the
-> driver since on bare metal the driver needs to use this interface for
-> platform interactions.
+Thanks.
 
-I'm not familiar with ATIF, but should `amdgpu_atif_pci_probe_handle`
-really be called for PCI devices which are bound to vfio-pci? I'd expect
-amdgpu to ignore such devices.
-
-As I understand it, starting with
-f9b7f3703ff9 ("drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)"),
-the `amdgpu_acpi_detect` function loops over all PCI devices in the
-`PCI_CLASS_DISPLAY_VGA` and `PCI_CLASS_DISPLAY_OTHER` classes to find
-the ATIF and ATCS handles. Maybe skipping over any PCI devices bound to
-vfio-pci would fix the issue? On a related note, shouldn't it also skip
-over any PCI devices with non-AMD vendor IDs?
-
-Regards,
-James
+-- 
+Dmitry
