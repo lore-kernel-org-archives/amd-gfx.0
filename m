@@ -4,52 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B7FAC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 16:46:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AF11C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 17:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E45BF10E4F0;
-	Tue, 15 Feb 2022 16:46:56 +0000 (UTC)
-X-Greylist: delayed 567 seconds by postgrey-1.36 at gabe;
- Tue, 15 Feb 2022 16:46:55 UTC
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3296A10E513
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 16:46:55 +0000 (UTC)
-Received: from mail-0301.mail-europe.com (mail-0301.mail-europe.com
- [188.165.51.139])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- by mail-4321.protonmail.ch (Postfix) with ESMTPS id 4Jymw60x08z4x6KX
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 16:37:26 +0000 (UTC)
-Authentication-Results: mail-4321.protonmail.ch;
- dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
- header.b="E9V91jN8"
-Date: Tue, 15 Feb 2022 16:37:19 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1644943039;
- bh=f1kG4y1Pad9UaeKLlKedqj/sm+OCsoIlrgJXYL6aSeI=;
- h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
- References:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID;
- b=E9V91jN86xK6pzcMltPM69/bOQFFQNJV14lQwmcL2FYT3foga5gLBN44BK4oxAPri
- Vd8zuw1PuCIPGRg2//vtiVX9F2F6j/JTJL3odWwNmjV4QndYJ/cNzlL994kRk5oss4
- t+oB5svlaOh0xBX9GF7yyVj1AjeFwDYEvnfX4LlK0wXUUANzluIiX7MMssmf+EtKXg
- j3TEQWNZHHEFFnC96soVMV8mnPbtAkLt2VhY0qKE/ctXlMHsckdPLAA5vi0D16WsVW
- ELSgf6c8NzeavnNPc22BI1Gvf+qHdGR5FmKWYe1aX8Wak2lhTUG3wpbv4id1Yx/OtQ
- 5XOlTjjx0fyLA==
-To: Emil Velikov <emil.l.velikov@gmail.com>
-From: Simon Ser <contact@emersion.fr>
-Subject: Re: [Intel-gfx] [PATCH v8 1/3] gpu: drm: separate panel orientation
- property creating and value setting
-Message-ID: <GYG6EVT1MqtmfKiPpMhDG9mpuATnmwVDq2PuE_dpDat5oQW_t1tUfm39lSWHj32D5r7mrog27sL4dkgdMYQ5BN830TfVOrgQ4Ts8LcO8Hcs=@emersion.fr>
-In-Reply-To: <CACvgo532-pC+7DLFCo=DWTX-OnJEJvSoTmQnt3_qLhiT4cqEMg@mail.gmail.com>
-References: <20220208084234.1684930-1-hsinyi@chromium.org>
- <CACvgo53u01BK_D0ZssV+gCepjxSz23Nr5Dy1qXeaAoJuu6VCFQ@mail.gmail.com>
- <KW6DNh6IRRgVJx9DfOFBnEqc4a0x-AnDXEbMxwpfEbk8dOn_KGVzAfo-slJWq-4nWW728Uc-OVpFh2w4fDE4-bxfkDuz1hFILRVvbcuXqaw=@emersion.fr>
- <CACvgo532-pC+7DLFCo=DWTX-OnJEJvSoTmQnt3_qLhiT4cqEMg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11CB310E4D6;
+	Tue, 15 Feb 2022 17:00:07 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2051.outbound.protection.outlook.com [40.107.94.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFA9B10E4D7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 17:00:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=na99Pa4MX/rU1XUdHBnxcbRsS0jDwXh/Q4n48ix2t1EGeK+s8TFO8+rFI9aELDBJA8pYRzBfAsnCa8SOHu8Mv60/PAPKfRYBrDrELFHaItvFxTzgM0PTSaJxrB1rjk8Ngty+W2GFZKmWll6+vpd3IeSt4Zxy0HlwbRUrZ+JxNa2ucWt5KavelTvhwmXdTNINYqv8vrsQ4adS/JEZDum1LgSOTCj6TolkA23xjearWeinv5WtETilzKH4JbGkgrfVy+iA2qi8jrortqGpw9K0DJxcPowEcxijPmVvF8QzVK7Rie4YQYEpxLkY0uSG6FHnCi/yUpU5GukIzAyqufjtiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5uBroYBk+0jNUNbpWe4OpzbkNaGtShAQaB+Eh0TwLzo=;
+ b=RDsNPH8m3ouGuuwEK57p3okQxA4wrgj9+yGz7y35ly6zBaNYtnjQ7OhZ8i1+y0/we1/+8teafTK+pS/re6Wbu9qoPZlFvtJcPFkv4Qzvk9BZouUst1JNad1uuD+AKBlVZw42I+27UZXxT2xABcZe3cUdW743JPrjXnJgexbeEyq6KdScyYmQBINwcpGnlUhAkeMdW0BtMeoG3xU/0LsuEjt+kMZazWLMSTX54XqeoksvO/C3aFuzAlI6Y6GGvjhRPUAyE3u78/vrHGVJi+KiC1B6XpKQF65hB/sfbdu+1ZAD2x2z85xnWpJov+auKfWj0Kx9mz9snqWweVZwm3MQ9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5uBroYBk+0jNUNbpWe4OpzbkNaGtShAQaB+Eh0TwLzo=;
+ b=OeIRStqeZGxr21W+nGKNZDwoXEgxq+72cLppDbj0Y5b/6GiQp6YRFyd7rMHWHJ4G3LjRQ7mTPYTk6eSz1OclCZAIvJMdfOHdvCflTUv3kfeYS12QfRwfqXzUco4We5cfMEqw2NHRQDABkltwXMGiad0jptfRjBCCY6sFz95LuDM=
+Received: from CH0PR12MB5372.namprd12.prod.outlook.com (2603:10b6:610:d7::10)
+ by MN2PR12MB4048.namprd12.prod.outlook.com (2603:10b6:208:1d5::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.14; Tue, 15 Feb
+ 2022 17:00:04 +0000
+Received: from CH0PR12MB5372.namprd12.prod.outlook.com
+ ([fe80::2dcd:d54f:4409:f1ff]) by CH0PR12MB5372.namprd12.prod.outlook.com
+ ([fe80::2dcd:d54f:4409:f1ff%7]) with mapi id 15.20.4975.019; Tue, 15 Feb 2022
+ 17:00:04 +0000
+From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+To: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>, "Zhang, Bokun"
+ <Bokun.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Fix wait for RLCG command completion
+Thread-Topic: [PATCH] drm/amdgpu: Fix wait for RLCG command completion
+Thread-Index: AQHYGUSr1saRIXC33E2OsmSa9FJxf6yTm54AgAE6WQCAABH44A==
+Date: Tue, 15 Feb 2022 17:00:03 +0000
+Message-ID: <CH0PR12MB5372F0D34DCB5C3B88693DA3F4349@CH0PR12MB5372.namprd12.prod.outlook.com>
+References: <20220203212525.12738-1-victor.skvortsov@amd.com>
+ <MN2PR12MB29570E798C089D8BCDBEF3ADF4339@MN2PR12MB2957.namprd12.prod.outlook.com>
+ <BN9PR12MB5324CD23FDB86F765A3DE12E8B349@BN9PR12MB5324.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB5324CD23FDB86F765A3DE12E8B349@BN9PR12MB5324.namprd12.prod.outlook.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-14T21:08:54Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=7f65bd2e-5151-4039-8183-af86cb5a44ab;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-02-15T17:00:02Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: feb8a700-1261-47ec-aad8-b393e05f6350
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f67698ca-2a49-47fb-f981-08d9f0a49c9d
+x-ms-traffictypediagnostic: MN2PR12MB4048:EE_
+x-microsoft-antispam-prvs: <MN2PR12MB4048F1596864A63888311C55F4349@MN2PR12MB4048.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2958;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: zRcnHftMfR2Y1EU6KOVf/O9TsMQsGE5mK+3jjnplwVyYkzZra+/axVWe8P8bJ8lVKEEHjMgXaB6PyLPlssq746ndh4QE3jaIttqSBSlv3OumXCiHVRNggnppfkI2YZmXlxumk8tH6DJhRT4urSBqczMS1TXwAF+M2W5FKEf8SX2sS4HiuOiTnyH/UHu5aX6Jgn+8rW93U7WYFnJAApcWjWyDKjhtnBixRJbYu6cToy9Avs2CIe/h/CM42XSOSr1UR+Lrydhr368llkKqjKTjqRdCgXEu+4NQLRi8G7jl9FfV2Eu7NYIl1NrxyhBu+w11uBiynvBzZuCuf75zz1Zo+rkyCWLROZfuZv6vkYj3tk6bFPYucve42WFqcxykYf7YBc/zhryileY9Omv/S+WuTvkDDwKcxf4fpzGesKg0Dvny7ud4eMZMNGRpzPnWAksXE6U+nVxsQqdn9OKg0r4sf1FW6Uh9ea70wEUKPWLxX5+Zpeeb2M48fIYDJKhq4wM/3URoeQdcaTgCRuUrnODiYr+HlDjgxICLyJfAzJGX51dG0IM2mMkfWv63a2AWm2lMyc+Ucy0zyPMTMGtDHOczTvkZ/u2XYXtQeyOJzWkSwtXrBmTQXmZ/BwW/tNZIohLT4AQ/rfODb+uMjYC0wOomjAlIWGFGRURk18hfVj+gNs5iopBnvLml6KfFpaXmZKqzxywnY9LAMJa2fXH2MjqYyQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(8676002)(64756008)(66446008)(38070700005)(316002)(76116006)(66556008)(508600001)(110136005)(33656002)(66946007)(86362001)(38100700002)(122000001)(9686003)(2906002)(26005)(186003)(53546011)(7696005)(71200400001)(6506007)(83380400001)(5660300002)(55016003)(52536014)(66476007)(8936002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?iJRHm1zuQCiIpNo3SD3yURUE+y6laCOuFh1+e12RvXKlRDcrCRLjPW5iIZwn?=
+ =?us-ascii?Q?OU9cY5RDQG0TaeJHEaI9XKI5Fo+gkI4uf7245mtI2vzrB2qH22oVc+IOKDfg?=
+ =?us-ascii?Q?92G11NmLUaYX8+bHaM32YfPlssQtP2fha4UVo+tkaLtKW1Mm5esgi/YA9TQ8?=
+ =?us-ascii?Q?YW1tQ44lxPKwsAI6y7WH7DGWDBZod7Zo0snnPVNXpoQ1+QnwktwKVR77pyDT?=
+ =?us-ascii?Q?cxCXfR0kMmoawoc+Da32OOVHNok7SuiaTg1wYRPtHnwXfngXrfXC8uJCQVLP?=
+ =?us-ascii?Q?EPxgUgjVq5ah5qjOjnA705MlmYFIj0yefij/NPwqawTTHaWIy6MoKXms9esS?=
+ =?us-ascii?Q?LO+/Gfh5wjaORyftafwRWYpSJzQw6BcqRLcjxDGF/thIrZFv4+Dj+0+/ss5W?=
+ =?us-ascii?Q?QmGX0/tWxJ1oTvEqesoBoo80KpfbCT0snf1OQi3QhIJXIhyNXMZipv5362G9?=
+ =?us-ascii?Q?Qh9BlTGE6S2TAZw9lc/LDq/JoGSA5CA6N6tgt1JAoyN3JmEpZtT8ubFAvAkM?=
+ =?us-ascii?Q?30ci5md7P4cxHL6kR2Mfj2ja60gDSQQBVv96UGZhoWS78GuAuV7DC28kVJeV?=
+ =?us-ascii?Q?5bQykfyqhvnDfMgqgkhni6ssvLkSX1e2qLbBKmHyC46iQTKH4cWmftWO/ELh?=
+ =?us-ascii?Q?eZTGyIuZVHInC4rrQdqBp18PgAMHsiJSzzhhpQmR+DxfLfHtPssXtmla1nwR?=
+ =?us-ascii?Q?cJQ6ntjTxh7gF5VFu4sSr/fwDPSoXh8dl73CY0L1+5PvF6hZH9b1pdbGuPWx?=
+ =?us-ascii?Q?L6qoT5+MVjZ4UM1SUDe87n1VyDxpi6bXc1Z7RnDGIVI3lZVxEkyhUO5XmfXj?=
+ =?us-ascii?Q?A2NE9ULVZU/9bAtBqmObC8NpccAh7ciO5jSBz0mQ4kC3SE2+EoYmzKTyQ9PP?=
+ =?us-ascii?Q?gD4f6ogm+RqsEMTWgqlySNNlqf4+ph4p2IZf3lx9K6Dtub2KEEEImdRxJqnA?=
+ =?us-ascii?Q?lXYwcFq+bky3aze/n6bkS/1WlaJOeyPnyaPFo/nnRUW6ynajXuIj10QxUl8I?=
+ =?us-ascii?Q?I0oArQ2L0zGI2r0evelReefeMAf/X8ZyB0rwvQvRzxWNuMDrnEXBcZilLqkp?=
+ =?us-ascii?Q?0BavQkuvr2LzNy3grj1DZpt2ygXwzPS3pa7AmQ4GXWYhxxbkDskw3A2GnSDw?=
+ =?us-ascii?Q?y127G38Dc8osOw13toxflP9qlBhaOuqA3XbDZann4Na7ii3kVzYHtSpBmwSV?=
+ =?us-ascii?Q?Hgp1TgblkVf82BKij0BVAza3/rKavwjbQzJB0Rgtcf5HXY/iRNmQORP+ERhj?=
+ =?us-ascii?Q?ePcbeaVEN/VnmtjpR8cs03IccyBAcHBYjEVHhcniRtRfJ3m2HRAuArcGN8B6?=
+ =?us-ascii?Q?2Gg1qCGeJLiWcTTnOMK4XjPCdksKtA2eni8GDJo4Zw+4Zaz8jdlMn9/SrrGU?=
+ =?us-ascii?Q?BV9qOKaqiU02YDS08ojdLluRh5WJcc+dJ/0R9s1/7iTm6qEg+lD4pBNB8k7W?=
+ =?us-ascii?Q?aigo+vXqQ7J3t1jY6Zv6rvIN3tTdA2YZjydRgPSbEygbONnaZ9xRrLQt2dD7?=
+ =?us-ascii?Q?GSZmxXAEJDq0vFDR+ce7e0WCw1+dxFoAltwoCEElnsaz5uqYyHcnSVwBTED9?=
+ =?us-ascii?Q?stZMv3nSCzulrgKSZwi191K2wyNxt0C7KaW/TSP7/1kjo2Tb0OYoX/cCTyf+?=
+ =?us-ascii?Q?qA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5372.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f67698ca-2a49-47fb-f981-08d9f0a49c9d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Feb 2022 17:00:04.0337 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2Hk7WJcuW8VKmjMZdHY+BpZO44T1r65Cj5oagTXnXft6IrXEGBPwmFLUML8kIFeC3sPycpexQ+tR+zgv9SmBbg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4048
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,118 +136,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Simon Ser <contact@emersion.fr>
-Cc: Maxime Ripard <mripard@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- devicetree <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Hsin-Yi Wang <hsinyi@chromium.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- LAKML <linux-arm-kernel@lists.infradead.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, February 15th, 2022 at 15:38, Emil Velikov <emil.l.velikov@gmai=
-l.com> wrote:
+[AMD Official Use Only]
 
-> On Tue, 15 Feb 2022 at 13:55, Simon Ser <contact@emersion.fr> wrote:
-> >
-> > On Tuesday, February 15th, 2022 at 13:04, Emil Velikov <emil.l.velikov@=
-gmail.com> wrote:
-> >
-> > > Greetings everyone,
-> > >
-> > > Padron for joining in so late o/
-> > >
-> > > On Tue, 8 Feb 2022 at 08:42, Hsin-Yi Wang <hsinyi@chromium.org> wrote=
-:
-> > > >
-> > > > drm_dev_register() sets connector->registration_state to
-> > > > DRM_CONNECTOR_REGISTERED and dev->registered to true. If
-> > > > drm_connector_set_panel_orientation() is first called after
-> > > > drm_dev_register(), it will fail several checks and results in foll=
-owing
-> > > > warning.
-> > > >
-> > > > Add a function to create panel orientation property and set default=
- value
-> > > > to UNKNOWN, so drivers can call this function to init the property =
-earlier
-> > > > , and let the panel set the real value later.
-> > > >
-> > >
-> > > The warning illustrates a genuine race condition, where userspace wil=
-l
-> > > read the old/invalid property value/state. So this patch masks away
-> > > the WARNING without addressing the actual issue.
-> > > Instead can we fix the respective drivers, so that no properties are
-> > > created after drm_dev_register()?
-> > >
-> > > Longer version:
-> > > As we look into drm_dev_register() it's in charge of creating the
-> > > dev/sysfs nodes (et al). Note that connectors cannot disappear at
-> > > runtime.
-> > > For panel orientation, we are creating an immutable connector
-> > > properly, meaning that as soon as drm_dev_register() is called we mus=
-t
-> > > ensure that the property is available (if applicable) and set to the
-> > > correct value.
-> >
-> > Unfortunately we can't quite do this. To apply the panel orientation qu=
-irks we
-> > need to grab the EDID of the eDP connector, and this happened too late =
-in my
-> > testing.
-> >
-> > What we can do is create the prop early during module load, and update =
-it when
-> > we read the EDID (at the place where we create it right now). User-spac=
-e will
-> > receive a hotplug event after the EDID is read, so will be able to pick=
- up the
-> > new value if any.
->
-> Didn't quite get that, are you saying that a GETPROPERTY for the EDID,
-> the ioctl blocks or that we get an empty EDID?
+So driver will use the flag on write but use the new way to check on read.=
+=20
 
-I'm not referring to GETPROPERTY, I'm referring to the driver getting the E=
-DID
-from the sink (here, the eDP panel). In my experimentations with amdgpu I
-noticed that the driver module load finished before the EDID was available =
-to
-the driver. Maybe other drivers behave differently and probe connectors whe=
-n
-loaded, not sure.
+Looks good to me . Reviewed by : Shaoyun.liu    <Shaoyun.liu@amd.com>
 
-> The EDID hotplug even thing is neat - sounds like it also signals on
-> panel orientation, correct?
-> On such an event, which properties userspace should be re-fetching -
-> everything or guess randomly?
->
-> Looking through the documentation, I cannot see a clear answer :-\
 
-User-space should re-fetch *all* properties. In practice some user-space ma=
-y
-only be fetching some properties, but that should get fixed in user-space.
+-----Original Message-----
+From: Skvortsov, Victor <Victor.Skvortsov@amd.com>=20
+Sent: Tuesday, February 15, 2022 10:54 AM
+To: Zhang, Bokun <Bokun.Zhang@amd.com>; amd-gfx@lists.freedesktop.org; Liu,=
+ Shaoyun <Shaoyun.Liu@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Fix wait for RLCG command completion
 
-Also the kernel can indicate that only a single connector changed via the
-"CONNECTOR" uevent prop, or even a single connector property via "PROPERTY"=
-.
-See [1] for a user-space implementation. But all of this is purely an optio=
-nal
-optimization. Re-fetching all properties is a bit slower (especially if som=
-e
-drmModeGetConnector calls force-probe connectors) but works perfectly fine.
+[AMD Official Use Only]
 
-It would be nice to document, if you have the time feel free to send a patc=
-h
-and CC danvet, pq and me.
++Shaoyun
 
-[1]: https://gitlab.freedesktop.org/wlroots/wlroots/-/blob/252b2348bd62170d=
-97c4e81fb2050f757b56d67e/backend/session/session.c#L144
+-----Original Message-----
+From: Zhang, Bokun <Bokun.Zhang@amd.com>=20
+Sent: Monday, February 14, 2022 4:09 PM
+To: Skvortsov, Victor <Victor.Skvortsov@amd.com>; amd-gfx@lists.freedesktop=
+.org
+Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Fix wait for RLCG command completion
+
+[AMD Official Use Only]
+
+Tested-by: Bokun Zhang <bokun.zhang@amd.com>
+
+The test configuration is 8VF with 100 loops of VM reboot.
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Victor S=
+kvortsov
+Sent: Thursday, February 3, 2022 4:25 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix wait for RLCG command completion
+
+if (!(tmp & flag)) condition will always evaluate to true when the flag is =
+0x0 (AMDGPU_RLCG_GC_WRITE). Instead check that address bits are cleared to =
+determine whether the command is complete.
+
+Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 2 +-  drivers/gpu/drm/amd/amdgp=
+u/amdgpu_virt.h | 2 ++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_virt.c
+index e1288901beb6..a8babe3bccb8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -902,7 +902,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device=
+ *adev, u32 offset, u32 v
+=20
+ 		for (i =3D 0; i < timeout; i++) {
+ 			tmp =3D readl(scratch_reg1);
+-			if (!(tmp & flag))
++			if (!(tmp & AMDGPU_RLCG_SCRATCH1_ADDRESS_MASK))
+ 				break;
+ 			udelay(10);
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_virt.h
+index 40803aab136f..68f592f0e992 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -43,6 +43,8 @@
+ #define AMDGPU_RLCG_WRONG_OPERATION_TYPE	0x2000000
+ #define AMDGPU_RLCG_REG_NOT_IN_RANGE		0x1000000
+=20
++#define AMDGPU_RLCG_SCRATCH1_ADDRESS_MASK	0xFFFFF
++
+ /* all asic after AI use this offset */  #define mmRCC_IOV_FUNC_IDENTIFIER=
+ 0xDE5
+ /* tonga/fiji use this offset */
+--
+2.25.1
