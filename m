@@ -4,108 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 416F6C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA9E2C433FE
 	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 08:31:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F36F910E3FC;
-	Tue, 15 Feb 2022 08:31:40 +0000 (UTC)
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01on2109.outbound.protection.outlook.com [40.107.215.109])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4537310E3DB;
- Tue, 15 Feb 2022 01:59:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bOEsEjMnZUdHIVJozAC9HEAL892/IpiZs78f5TEX/db3+4sFfvZVFd/Soddb9zaURSO4IvCp/fypiKVrWaK2wyshrNf+dBSLQbK+GqHYC3lhocj+EihstlMne7BBagjGXFFJSZYBdq45hP2NUfgN2+pMt38agVJW1N2rXTGZ0GY3hdyqNMdAj5IgJcVSr8eyPgv4YrtyVyBurWsn6m+5i7o70nUMNYuSkTUiyJW0lJto335bVC6paGijeIkskyAceLd7KiAvo3ff8AqOOPHT0+//Mp2NFzTw+dDeo4onHyfXe8nr5RyQgmWamuzhDv/HG3nRuTp2+bjTOEsA43e3RA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TEgS2l7JwvLEYxVw0xhJ0CQANs4fwijmiVoB0ViRTJI=;
- b=g+vuSdnGqz1g2QGukRYlia5hP2fYu7GZ8Ok1OeJFGqlEumsFGDTUEdtoJyBxMC0QmCa3JkDV7LxxNSaUksLhl2ubaLJ1X5b/qe6k4f1tvPrg8TLvdhPWjJ0KdKDaiMtFvh4EHut5igPkt02u+UuPozSSrrVkCnbmX+VUcFP3vzFMVRwx44bl3eCRFc1OaFIMhscvmUb6GMfe8RUwaLbjSKXELFA9uw52wSwaqOrBzQbU7ZzzxsBnfLRmdapj013z0b5bXDxj2Rl5mvr8tfFguzjL2K3EDJpEbBI73/GyczW8hMAoEZWLrerTJHQOaXYSGXy9Td88an4AhKec7/ZTLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
- s=selector2-vivo0-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TEgS2l7JwvLEYxVw0xhJ0CQANs4fwijmiVoB0ViRTJI=;
- b=PxOzwk0DixU0eXeynXLjhUuBUERUNqNnUBRi2xvq2TV2w5N84S6TmD4Gb/Fno5HTqLMO4Xn3Rk5uUZRsDw5gv8+vNOcdEJvcIHa4Y3ndpOEHRDFnwwAV8Pt1T4LQlx4/bYf/pgcxOt9xMIAfmMSjQe6xyjCl9yEeC+p1UHZBam8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
- by SG2PR06MB5240.apcprd06.prod.outlook.com (2603:1096:4:1da::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.17; Tue, 15 Feb
- 2022 01:59:40 +0000
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.019; Tue, 15 Feb 2022
- 01:59:40 +0000
-From: Qing Wang <wangqing@vivo.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] amdgpu: assign adev after null check
-Date: Mon, 14 Feb 2022 17:59:21 -0800
-Message-Id: <1644890361-65071-1-git-send-email-wangqing@vivo.com>
-X-Mailer: git-send-email 2.7.4
-Content-Type: text/plain
-X-ClientProxiedBy: HK0PR01CA0056.apcprd01.prod.exchangelabs.com
- (2603:1096:203:a6::20) To SL2PR06MB3082.apcprd06.prod.outlook.com
- (2603:1096:100:37::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5771310E3F6;
+	Tue, 15 Feb 2022 08:31:41 +0000 (UTC)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEBDA10E40E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Feb 2022 03:15:30 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id u20so5766954lff.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Feb 2022 19:15:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=n+P11z1Rjs9Tcih/Zook2fZ60KP4QhmCWOTSK5iKxWk=;
+ b=N4nYj7rNTC5uHpVcGL9QlugWcvGRZTp+CiKvYeKf6QUKM4NHmpN97jHR5JAyLwHU0G
+ majfPSjK77b6t7X4lhovHCqFEO9SKlCLRi0DdE6BDr2pljCbwZc8Y9ndC4l5LcpZmSKW
+ hvN2WlQweb/oFJ9OJ7+bDCb4FLOS9Ok0j1ryA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=n+P11z1Rjs9Tcih/Zook2fZ60KP4QhmCWOTSK5iKxWk=;
+ b=c/of/mJc0qJpbZ/zx3IAdwP2rwSz7KjNhRPL4sNoVaQh3H5QENfV+H2io6TM7buxGu
+ j/ncMkH2sXYhiVY8uIeKp3vIidIjkkMLI7SaRpMTXug1llKX3uB6x+fbYwqNLGDQg0Ft
+ WOgDnFPORbELwIQBwhgnVfYwlzQxIoXUVktllHTtv60XhHN2WhlrQkOxZ6V3nQT3YdxH
+ IVtrsZydTXzkbxPPXMOh7lmtL4a0H4sIl5YfZsP1IrPwi9PEU7jN79RitMTgeXDTJEhn
+ GGuPtc+iDcLsWShIIUt3d0D0G03p7oitDspw8RMoX2qy9IxVnw1ZtSVZ3m5yyke5g2eJ
+ Esdg==
+X-Gm-Message-State: AOAM533AWxlxWqKe+jG17hJi0Jmo7YRGfqXW6nh1VWnAdGOjQ7X6hCVZ
+ nBjIaHBG6wAvYJ2WYiWyrERVkApEGWZxJz9ZUNVH3Q==
+X-Google-Smtp-Source: ABdhPJzcbB9EByvT8Z4nbkpVZTyBXtRJOPYoyd47w64TJMSIQNnBwmZMUvf0GIvBRqtwNFPqBweHvkB8bEuLFTrC7OU=
+X-Received: by 2002:a05:6512:1699:: with SMTP id
+ bu25mr1543879lfb.403.1644894928818; 
+ Mon, 14 Feb 2022 19:15:28 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 33efb96c-39b3-4e48-413e-08d9f026d3bf
-X-MS-TrafficTypeDiagnostic: SG2PR06MB5240:EE_
-X-Microsoft-Antispam-PRVS: <SG2PR06MB52403DEF16547A00435FE1B1BD349@SG2PR06MB5240.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:415;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Mwyb7IC2tPOXkXuWftZFRcsm0PK5gygtlh4L7U0EyFQpUVUh/W/y9NSfWuztG05bwS6ervdC8yjsthHH/yGgZC11yXoV9V+TD6ot4hgUK9cpjYcIRACVQKClVnODsD0ai5F/Lmw6nDC0aYHXQR3HX3HfPz18S4rQRKByYSNkUlIPaA6Apz1tAbJKWJiXjKdbCAt92oTuS9XuF+vSIQ+45iDv4USH219+tDVoERR4TU8Ian6Fg9qT8ed/hzt1eAFdtSjh74hyIZrD+wVloHgqHInSrFbRjBbhzppPNyoFXOSRWG/V+YZ1dZKB949OYpJvSuRQGh02n26NSrp88819AR6+Wx+v0ekeexr712ZjJHz7kakamo+SOpT6uiyA+V39Z1WAB8JjG5YlEiJAwqkmsRjYc/Gw72MObjK61aosk78gpIY56CVfe/5o6t/fqL1Kh5eIAgViU5rls1iwWXiMu/KBpOcF36qLLENiwtQWuM9G9m8m5IdL30Bsyhjw1bw5VRb/NhlQSZszqpft17Pum8OfQda8dgU+61ebgBlmnjTLxcCiGNDK0Yg9y2nerM//GbdmwzYeh2qcHcCw57w266Oy0luUTVLYfzgNqYzkfOjSzfaTsJd2j+TFkOdJmgVlpLN78/+ZbpfuCw4ZNzvBqDCP6wwSh3pUTMP40BX8iYZ+2z4Qj8oP9ERvdDkntQVmFQMZWy/EW754aOaVMKP0TQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(38350700002)(36756003)(66946007)(38100700002)(316002)(2616005)(6486002)(66476007)(4326008)(66556008)(107886003)(186003)(26005)(6666004)(8676002)(2906002)(6512007)(86362001)(110136005)(508600001)(5660300002)(8936002)(83380400001)(52116002)(6506007);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?fFHBWhIPFbckyobrPcevvMI15p8tuQKf++rjKnHfVcAZ13t6i1SGBykNL2I+?=
- =?us-ascii?Q?gon4+9Gh8kV3j2A1FOPFxt/dhTZZDOS9DktamzpNCLEKAPRupoiWzHYdng0Y?=
- =?us-ascii?Q?I03yDkGhqSaYom0aQgrQT3+biRrSDIlQ16+kv9fvNdNIvOkIlW8bQASyODwu?=
- =?us-ascii?Q?AFLh4tlgm48yL0HcGHPR/X4WaeFb8hzTihgAio5ZgkWAWc7AdGFX2SAyTOzi?=
- =?us-ascii?Q?n5Gh6Zm2jh+xcSlbCT5oeKGhepuQ7FwAiSDhFOXa8c/8uVi/SvcKs/mSZRHj?=
- =?us-ascii?Q?JDAheEBl39JRkCaLh5BwrvdOBOVGfe25psaYdcfAYPTD589sKjGhtcjidMiP?=
- =?us-ascii?Q?jMTEJXIDizRFGi00mwENTG518HPWX97yts9WujkO+ksNMpTnIjtp1ente9H/?=
- =?us-ascii?Q?5rC4dqr6P2xms66t1fs5FSLPaskmNEql6xBN4iAB8vevj7DOYfCJfaN0N0a0?=
- =?us-ascii?Q?NaiukAFbZgO+Tz4yEehQXHrpDvKDoxHx2kEJzVx92uICh3m+VJreYuu3ukHq?=
- =?us-ascii?Q?qfUkgpSt/bk2fzii9Ig9ybaNE3hK1fkQvgRWtvrskurvNTSImfpYcC6Q20No?=
- =?us-ascii?Q?gF8gzvsyeaGu95AEvdrmjQvgCaueBO9QGRTvYx8gRiMFbIldaumB66HAGXD0?=
- =?us-ascii?Q?tGTqjXDlkFOhBXR0EijJf+KojBdK0jQ2qbA38lbYm9i015wOrBsz9hyUedqk?=
- =?us-ascii?Q?kOGbHALgzWEgk/G+8xZozVoOPVj98lPMkIE5bUt5JFzuvQx1eheFfm/y2zXA?=
- =?us-ascii?Q?TVBFWaABN3kGVQDdJ5zyuNFhP65Pl4yTGIaUZ0t1pUmNGOcNQgx7IQUUYS1M?=
- =?us-ascii?Q?WyWLdHDVwoSAGn53BMQQmg6vU9Dbg8xOBu9vgXejLhgFV4OswbTLDrU60fC6?=
- =?us-ascii?Q?1+YbY40m0Zmpcbs+CLBvaODf4HXawVgsRRILgUI1qkjg5nYCT1VZ+xtLkBwW?=
- =?us-ascii?Q?o3iQObWbkGwM4PIb0sEx4M+BSTSn7ZCBRcQP7f2HNzbGoMkT9YQk+DcKFgJV?=
- =?us-ascii?Q?BiseV10l6UsQS7EJC1I/vy4+0+AwCR84jpKzg3EzwDXhdkVddugCpiDRZFza?=
- =?us-ascii?Q?HRrL3kL1p/rLMhu3X9nacxg4JFOqwqyZKJOD2B6ky0o5HR8eGAJndZojBirl?=
- =?us-ascii?Q?vZ0ZJwBjiyB/i3dTpYggpDbdFqyb8t0LxDY0X/7niYnD9IFZbXAXGoLlvrDw?=
- =?us-ascii?Q?fyXov5QI68KuAMprh5Udo1PKvKmb+vXuVUbEM7uS9Rn3rZuqjAhcxQY0OSDW?=
- =?us-ascii?Q?7wVs+fh1dylkTUmuMcwTj8kXYoakV8/YYigippX3cJ/GXCApfKXnVy7UNhSA?=
- =?us-ascii?Q?Yh5enOzknKq++UlWC/am+h/4xnuNQjxSZpUj0OE30zbWhQPJjKYfdwagljp4?=
- =?us-ascii?Q?pflgQUpN4Xsj9zwQ9CGoBDgOivV11diD4orLtHOJnmS1q5FIftwYzF7PDx9B?=
- =?us-ascii?Q?sBE8Dv0Ah7pM+wje9S4WSw6VWhla3ApOhBrylqAWqPUPv/3toEmkfa06n/w8?=
- =?us-ascii?Q?xOPLkHLl9oQmr0j8Qb39iKyQifxWH+tJXwaXWYgXlqH72mPPAjjnboAPfZpz?=
- =?us-ascii?Q?ezHk+b+9z1aaEUwmUHUSPIE0a+gM0FK24P0st8Eg0MJ/AYfDcFlEnH5dXtuR?=
- =?us-ascii?Q?93NixRACXCWEGvBjhDG6JKI=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33efb96c-39b3-4e48-413e-08d9f026d3bf
-X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2022 01:59:40.2992 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hl9el+svImp7Ta6odRpLkKDhZK3HlnkVmjRvExjrO9dhQ7M1qe0LNxvfLW4jcuS/cfLlBRyeR0HjjpVJ54lsvQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR06MB5240
-X-Mailman-Approved-At: Tue, 15 Feb 2022 08:31:32 +0000
+References: <20220208084234.1684930-1-hsinyi@chromium.org>
+ <87leydhqt3.fsf@collabora.com>
+In-Reply-To: <87leydhqt3.fsf@collabora.com>
+From: Hsin-Yi Wang <hsinyi@chromium.org>
+Date: Tue, 15 Feb 2022 11:15:02 +0800
+Message-ID: <CAJMQK-igpiYj-pkgG9amrQuVzf1Mc9BDDOwOdKLUbceKr=CHiQ@mail.gmail.com>
+Subject: Re: [PATCH v8 1/3] gpu: drm: separate panel orientation property
+ creating and value setting
+To: Gabriel Krisman Bertazi <krisman@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 15 Feb 2022 08:31:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,54 +61,97 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wang Qing <wangqing@vivo.com>
+Cc: Maxime Ripard <mripard@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, Simon Ser <contact@emersion.fr>,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wang Qing <wangqing@vivo.com>
+On Tue, Feb 15, 2022 at 9:17 AM Gabriel Krisman Bertazi
+<krisman@collabora.com> wrote:
+>
+> Hsin-Yi Wang <hsinyi@chromium.org> writes:
+>
+> > drm_dev_register() sets connector->registration_state to
+> > DRM_CONNECTOR_REGISTERED and dev->registered to true. If
+> > drm_connector_set_panel_orientation() is first called after
+> > drm_dev_register(), it will fail several checks and results in following
+> > warning.
+>
+> Hi,
+>
+> I stumbled upon this when investigating the same WARN_ON on amdgpu.
+> Thanks for the patch :)
+>
+> > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> > index a50c82bc2b2fec..572ead7ac10690 100644
+> > --- a/drivers/gpu/drm/drm_connector.c
+> > +++ b/drivers/gpu/drm/drm_connector.c
+> > @@ -1252,7 +1252,7 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
+> >   *   INPUT_PROP_DIRECT) will still map 1:1 to the actual LCD panel
+> >   *   coordinates, so if userspace rotates the picture to adjust for
+> >   *   the orientation it must also apply the same transformation to the
+> > - *   touchscreen input coordinates. This property is initialized by calling
+> > + *   touchscreen input coordinates. This property value is set by calling
+> >   *   drm_connector_set_panel_orientation() or
+> >   *   drm_connector_set_panel_orientation_with_quirk()
+> >   *
+> > @@ -2341,8 +2341,8 @@ EXPORT_SYMBOL(drm_connector_set_vrr_capable_property);
+> >   * @connector: connector for which to set the panel-orientation property.
+> >   * @panel_orientation: drm_panel_orientation value to set
+> >   *
+> > - * This function sets the connector's panel_orientation and attaches
+> > - * a "panel orientation" property to the connector.
+> > + * This function sets the connector's panel_orientation value. If the property
+> > + * doesn't exist, it will try to create one.
+> >   *
+> >   * Calling this function on a connector where the panel_orientation has
+> >   * already been set is a no-op (e.g. the orientation has been overridden with
+> > @@ -2373,19 +2373,12 @@ int drm_connector_set_panel_orientation(
+> >       info->panel_orientation = panel_orientation;
+> >
+> >       prop = dev->mode_config.panel_orientation_property;
+> > -     if (!prop) {
+> > -             prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
+> > -                             "panel orientation",
+> > -                             drm_panel_orientation_enum_list,
+> > -                             ARRAY_SIZE(drm_panel_orientation_enum_list));
+> > -             if (!prop)
+> > -                     return -ENOMEM;
+> > -
+> > -             dev->mode_config.panel_orientation_property = prop;
+> > -     }
+> > +     if (!prop &&
+> > +         drm_connector_init_panel_orientation_property(connector) < 0)
+> > +             return -ENOMEM;
+> >
+>
+> In the case where the property has not been created beforehand, you
+> forgot to reinitialize prop here, after calling
+> drm_connector_init_panel_orientation_property().  This means
+hi Gabriel,
 
-adev should be assigned after a null check
+drm_connector_init_panel_orientation_property() will create prop if
+it's null. If prop fails to be created there, it will return -ENOMEM.
 
-Signed-off-by: Wang Qing <wangqing@vivo.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 2c929fa..da114f7
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -259,12 +259,13 @@ static void amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
- static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
- 					u32 *stable_pstate)
- {
--	struct amdgpu_device *adev = ctx->adev;
-+	struct amdgpu_device *adev;
- 	enum amd_dpm_forced_level current_level;
- 
- 	if (!ctx)
- 		return -EINVAL;
- 
-+	adev = ctx->adev;
- 	current_level = amdgpu_dpm_get_performance_level(adev);
- 
- 	switch (current_level) {
-@@ -290,13 +291,14 @@ static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
- static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
- 					u32 stable_pstate)
- {
--	struct amdgpu_device *adev = ctx->adev;
-+	struct amdgpu_device *adev;
- 	enum amd_dpm_forced_level level;
- 	int r;
- 
- 	if (!ctx)
- 		return -EINVAL;
- 
-+	adev = ctx->adev;
- 	mutex_lock(&adev->pm.stable_pstate_ctx_lock);
- 	if (adev->pm.stable_pstate_ctx && adev->pm.stable_pstate_ctx != ctx) {
- 		r = -EBUSY;
--- 
-2.7.4
-
+> drm_object_property_set_value() will be called with a NULL second argument
+> and Oops the kernel.
+>
+>
+> > -     drm_object_attach_property(&connector->base, prop,
+> > -                                info->panel_orientation);
+> > +     drm_object_property_set_value(&connector->base, prop,
+> > +                                   info->panel_orientation);
+>
+>
+> --
+> Gabriel Krisman Bertazi
