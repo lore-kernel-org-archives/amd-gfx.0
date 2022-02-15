@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B54D3C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 08:31:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84697C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Feb 2022 08:31:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86C0010E405;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8086710E3F9;
 	Tue, 15 Feb 2022 08:31:41 +0000 (UTC)
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01on2115.outbound.protection.outlook.com [40.107.215.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 313DF10E122;
- Tue, 15 Feb 2022 01:56:21 +0000 (UTC)
+Received: from APC01-HK2-obe.outbound.protection.outlook.com
+ (mail-eopbgr1300093.outbound.protection.outlook.com [40.107.130.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A573010E3D1;
+ Tue, 15 Feb 2022 01:57:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jpBhjiCt+TR1oD+9SisslBFxuxAzwP3RmV1SRP2G35tgwo3R8fP4B9vzyGNa4CXV8TJzmAPqnAUKZpl2Xu54jNM2zh8RVy/ccZxhfw4Rk+PS2s2WS9im5Tuge5eS18YtijToo3lcSi96fEE7kO/OfYjAodylEiGL3YpJ7hHAeDuvGAOX8LK/NOBIST9pBIs5AnNeCCxPeHizn6a6/pSOzHnFnzMgckyaf16pYdwnfya9NvN2RE53MQ7zKULQlYT7Dro9BMzONtBqoJAg5dVPNHgjELhKhgsY5KseFRPpwCXi0M8sVojwkDpcy8oM+FC7TAMdwJpMOoq5cpZq8q1nRA==
+ b=dDQX/hEsHJxF5/lqLvlvQWVFnfxcVzalF2MOEQk9WAOky4Zy58o2P8w/HIYNSPnaZgQ0j6YAuR0hFOBULYXQg4jJEOh42EVAyECyaNxLG/XP3FTR+oouzW+v+KEA+j2d0ipmds/eu41YEvbg+xpysI3y3Z/R3hEocadj6eU3unR717lX6ExfGYvh0NYCvI5nEwEwJsVs2bXRBV5csw6vTaAUSPJ3pafoINzPgvTbKDDkbpdimk0WjjhzXK13+IYlqIEzff2ubnpFt2X5FIKFFxOVJAbi0QzVnKQj5FAq+KsbxgXeUxTisGoxFerNxq4IfslApDD9A2npyD1yG5jP2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cVSv4id1XvIEsR0JQdTE4jLw7iNsPW85tN4HhR4261s=;
- b=nkElgxMN/UGeiy+TNa1IpvRPTSijX06B9X34/RBnWhhWtWs7/8uk9Ey6Sy3ZrSDROP8IP7ZvRbHhqxDYYTCBtiMM5826UfGHvyzDvg7JwEaTScq85nKY8hMfgMxmJtKJvICyYHqWeKQbBffzh+07ObzmWUwiXTs/IaThnhIxivZJ27nL1zGT5hkdV9loo5RG684YJmY5UQS5bZWSUrIOHxf0XemLHNleQnsd6Q2MMdJHc7HWcKsd1TPbQKF64Y4rrvHSqAcsk7O3p5lXWOw/Oq9KhqOLUkJY523lq0/r9CCHEINJb6klbTakDo3BN9yjfbi5tEKSTGwneaL/tLgpew==
+ bh=USQtAH68lHNFd3aYmSwp/cn7GBKkIYnpqmGQauOL91M=;
+ b=UvHJDA+jXMtoEsBh0+NRbfgfb4F+QUqdWZMt/8tG1HbdRc5ppCgOzwIZ9iDQI+eK9o1jn/VZhRR72c11usrzchFONpuYsxeWJFpS75rJCYvQ7JlFKYTkJutuiRwgd/CMl0U+Aj/oxXW7SQthZn6dFCU1MuydpzMQ1+FwixA1y0oG2s3G5nwEiUva+EHw/5yzFmyt6Oy2/wsgJ5fl7U4VnQOK68if5UhIiFPsC/FqtlO8CxaSicjO7tA0r5Dp5ffZgsomAHcTli2WwBFN0pdlJhBsnu/wKE8ydQ0NkFqBxY3nasB1GtsoNoSgXqW6HaBdcEppOGP3IN+/QMOyYgcVtw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
  s=selector2-vivo0-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cVSv4id1XvIEsR0JQdTE4jLw7iNsPW85tN4HhR4261s=;
- b=ddeIggz159DjpX/qqvxxJYqJtFtsN43d6T9NtxuKvj68eYi+qLHLsuFfwuAYqqNwtMJWWvUaUMM3fPfgYUscS1qeI788JtE/gJNxsLTOZdi/fKedL4RSJSf5qN5X0113yXBL7HGeT+Cnd8ceU+4fSUG9L1CwGVvfFzqATsWgG0w=
+ bh=USQtAH68lHNFd3aYmSwp/cn7GBKkIYnpqmGQauOL91M=;
+ b=aD7znasnxuncrTApwoFimee0bVRQBhdOTCGj13m5201OThul4vY0qmJSew9JgNrjQPetc86yHlDs/v0Li9UsSqnMFG22JhvixYTUBGxVdiTVuNNJvTx6ER0Snysgyr2Owf5YoxyVz1XeVbotW0FF0iMPsOt7aB6nfSjf64OReL0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=vivo.com;
 Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
- by PS1PR06MB2742.apcprd06.prod.outlook.com (2603:1096:803:44::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.17; Tue, 15 Feb
- 2022 01:56:14 +0000
+ by HK0PR06MB2771.apcprd06.prod.outlook.com (2603:1096:203:58::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Tue, 15 Feb
+ 2022 01:57:08 +0000
 Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
  ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
  ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.019; Tue, 15 Feb 2022
- 01:56:14 +0000
+ 01:57:08 +0000
 From: Qing Wang <wangqing@vivo.com>
 To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -59,68 +59,70 @@ To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-input@vger.kernel.org, linux-media@vger.kernel.org
-Subject: [PATCH V3 00/13] use time_is_{before,
- after}_jiffies() instead of open coding it
-Date: Mon, 14 Feb 2022 17:55:37 -0800
-Message-Id: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
+Subject: [PATCH V3 12/13] media: wl128x: use time_is_before_jiffies() instead
+ of open coding it
+Date: Mon, 14 Feb 2022 17:55:49 -0800
+Message-Id: <1644890154-64915-13-git-send-email-wangqing@vivo.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
+References: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
 Content-Type: text/plain
 X-ClientProxiedBy: HK2PR06CA0012.apcprd06.prod.outlook.com
  (2603:1096:202:2e::24) To SL2PR06MB3082.apcprd06.prod.outlook.com
  (2603:1096:100:37::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 065ee1a7-5587-4384-3f5f-08d9f0265906
-X-MS-TrafficTypeDiagnostic: PS1PR06MB2742:EE_
-X-Microsoft-Antispam-PRVS: <PS1PR06MB274236C9FD5C5DEA7D6B7C36BD349@PS1PR06MB2742.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
+X-MS-Office365-Filtering-Correlation-Id: 6296c2c9-2fb7-4819-0f42-08d9f026793f
+X-MS-TrafficTypeDiagnostic: HK0PR06MB2771:EE_
+X-Microsoft-Antispam-PRVS: <HK0PR06MB2771C677E22165241E79FC93BD349@HK0PR06MB2771.apcprd06.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2150;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9FIrSayWKZ8j6bJaLnXRVXkxeeoaz+2X+fZyNQFaN2kAW+pPY/0SPu6gBiWhwkTARxPQYDMiLe7MDAlnDaK9iwA6DRW7gnvyXovboKtpHm8pLj52x86aGG0bObeKgRoYNhGdsEIbC8SykF4gclyrpz1Me95ioEx6fgC+f7IeoqW2S8ZKzyMiN2KqFWOBJT3pdxbLP7f82Om51xkL84/3ZHlEr3ycdBKj8vOuaDoyARYD+GYYFqehvDjMsRaorDvdIRDD5tmheAft+0JH4MniHMzLGU5KUXUXGAII3RYwRJVbCKUOADLDK73l5PVvy1ecateULtyFx4fNppHpT9tp374A42+QdGhPaQjAbnMUNKq3/QS6J9KZzKExKOoaUXCsw9q3ETf1emX/KqP/rPptzrrTblp+ME8t5szEDZSFGdy6Qx9JqAosvQXcU8dQ+B66GG9Fy0WDRONz20q6y74ZHN6z7ZF7zQxWsyBDMuICdsHUFlTZYNsZorIP6vR9U8dZvrOew/f0Wfxr+A/Jgiz/n2VYBd8qz/8cJsVYjTJamhEKqncdho/8uOowl49POqBccEicoLsbHdGcSeALavTLX4QvUKbB/lMKcpyvWyb8URypSBvEqfyqxM0OalztZvQFH9nFKQFkGIPhZWnT2my4bw/w0k//BJRCkXn38klTTYjP9epuJFrCKfwl1R1VdgMB+7lVXiRJpl2oPpEVTigTUyi1uHHRqfvkxP8q5YdvZe4a5taTmNQj1gZ7PNGdCvU0
+X-Microsoft-Antispam-Message-Info: qSjKbwTeUefY/5XfnMzQWYZgsd45DfT8L6x6Klg3SnsN1cieMmLcMaWkL4xYkeLO7W0x3iSqkVTk5khQ2XrDoAAw8tIwQj1hQw+hbkc3oYFQ4tumhkZQd20Muyvh6xRWy71DAfkr+z9tRqzGPAX3rF5qXLAn88hJsTu4F8Bg+Qh03pBatNcKD8zWhWr9QwKenkblxg0RpG/uaAUmMQ11DFqY+kGPyqMtYOMukqt90XCYThQuO3Xlxp1diCO8QcJo48PgjQ7kikry7VEjKOY4/iCwju6LBew5PGHh94abvrpIUzzp+YFRF5oRp0RtMGbGgLfV7+UlQb8VfFcqVQTJia033kQXr05fh+CPxnR5gK94KnqKLTeGpsu7ufOt7PhhmsFk7FfarnTNcsCj/vAXINrDiYimDTJskKjYzRXfh33EDNBJytnv9HhHBRYqBbjtWFH2EPsovF3jQhBPDESxoyIgZeKryIw28JtKEn1Awzbh/URMnC8gRsTWtU+hoUP5o+l/J8pxs7PuNJr3SzJYbdSpOUkAP5m0PtnZCCk0OHzsBKRSODbvATPDmunC0Ifo4Sk54bRPDpnABrdVAb4nzBJK0Ixb8wKZ48KHS41d1KOhwfsmXz7tY+kkaRwmxL0F0IDUmC5RPAPHhSjkAv754GZSGxzHtnLNyYYw8aa7fl8GgJ+Cw62svRUVFvCxRlutSV6/WgbN4U8n88eE+glQ4vZ46yFh/3TRmid7v8lAlUo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(7406005)(66476007)(66556008)(6512007)(6506007)(6666004)(110136005)(8936002)(66946007)(508600001)(52116002)(6486002)(8676002)(316002)(86362001)(4326008)(36756003)(921005)(83380400001)(107886003)(26005)(5660300002)(7416002)(38350700002)(186003)(2616005)(2906002)(38100700002)(21314003);
+ SFS:(13230001)(4636009)(366004)(6666004)(8936002)(83380400001)(26005)(186003)(6486002)(508600001)(107886003)(5660300002)(2906002)(7416002)(7406005)(921005)(110136005)(316002)(66476007)(8676002)(36756003)(66946007)(4326008)(66556008)(6506007)(6512007)(52116002)(86362001)(2616005)(38100700002)(38350700002);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Q0EMyZeaFN8KzbL3iUiyuXPn4zqLctRDhl2oM5AW81nmgOD27y6wA7I4jWFQ?=
- =?us-ascii?Q?L/JmXvMM7fXf9FIBfT8clFjwl2ObyWCRjD082rlUj7fY5v5UW99lf17J5K2/?=
- =?us-ascii?Q?6C522xph54B69Iv086pvlvD/LIW31Ub5rZAweDorV+ArkNO4A8631QKXOZwR?=
- =?us-ascii?Q?+Z4em4VVp0eI5Y7of7plCtAXS6fv12u7Uw15BDQJQIlzbxx1ltsmro9HRX3O?=
- =?us-ascii?Q?G75/yk/Uy4vTPpGmQSOZ9Mos80QWLZjvjXs7v+05yTWa80Nxm5y2G6LQxpaU?=
- =?us-ascii?Q?4CJ0/bcAhAWwBXtOzoIG9lp7wZm1vZXUVjUtmkiPBcsoWN0I2zgGHBtzwJDA?=
- =?us-ascii?Q?HG8fIEu/RNd7XoiblVt0lElA+/l4ycyIUfoaKrSwzJfeTJCDp/ozPbEXCqlP?=
- =?us-ascii?Q?p6OnIUSEOAcUFan4XGYJFE8QNnsw5BQ0zFnnXa0SSMR0WeRm2kUoB7NCFcNK?=
- =?us-ascii?Q?loJux/gTqUKclmp3Y/Qd4kN6IfATycXhVZlME67YogTSgipOdXzftv1vewL5?=
- =?us-ascii?Q?TMuw9GrkCXMvgjuWpnNLzI8TrzDDZEjk9zBuan6vSROm5cLkJFShVlM50CQN?=
- =?us-ascii?Q?7s/Zji0QPKLBKN/Ym1TLhw/C+y8g+yTcrJta2rLpVa7jpB5cWIu4FrXewQaa?=
- =?us-ascii?Q?Zu5U/p7f8B7qM0vu340BWF6h914Zx4E0AXkJ+Ktf9Y70NLWWnTWr4Yg178YG?=
- =?us-ascii?Q?Ao44D6aBw8WvrCz2JYaU3s04jLPgg750gEnQbMPU6DgN6kwZW0PH++HNyKpX?=
- =?us-ascii?Q?EUrGDUbmDk09CeKg4QVKEkZ54a/CoPjWa6xAXN69rbUY5q5nK79qUvlhJ1Ii?=
- =?us-ascii?Q?amvnKiO1w+Q2nVfQOznlRnizCBvaaarVIsyYCM1umbhU9VJYbTeloNdzaKCj?=
- =?us-ascii?Q?yu4KokjHBflkqOrZuOXcFo34eM80O/Opn8Y3ZErXMKfPZ4oDKOfd8oErQDIb?=
- =?us-ascii?Q?m9J2LrQYQeA/22B4bmdWDgbeBVNZDs/YKpmc8tZ14dNCWUBFk6IUO7HGsJwM?=
- =?us-ascii?Q?w3+07a62+MwaBwTCPZiV8t0ZIB3/Bk+elgvS9/HgYjQVfOJzsbjBLBEUQ1dM?=
- =?us-ascii?Q?xCt+xBR6GqeLUwTC+kSiFbxcurTN8p0CO44zccVd+S5r/K1zCVclEWcq8ooq?=
- =?us-ascii?Q?M68U+WXMet0TcDXTg1b21vB7zgSX76mzz7+uMvuKSFRltiSmjRCHfAgCZWip?=
- =?us-ascii?Q?SMTu2CLkcwsogr1KKjGobV0THR1qErMZTaPAuukgM9DyCPAPIH2iLL6/CkDy?=
- =?us-ascii?Q?bHMV2FLqtNpYrs1Pg5DhgAdTj977S6rxjzxxHvPbdJpa7yafdzPFJxpdW3/w?=
- =?us-ascii?Q?WzGNnzm0bxYlpx6KeouswMDEO3OpP+CAIUoVsAikPUgCIpNLK2WuYBg/I0iX?=
- =?us-ascii?Q?k7NOFXfYi6tBRHOJIOQ0wzvfc9TNEu3NuWfcDFHUtw60v++Ki2raC0MxihKV?=
- =?us-ascii?Q?qkE2EeOgmMJpCLF8t2cQOAEVppaXY9Kb+9hpBWodqJx8aKCXkNgaPPHvV1fr?=
- =?us-ascii?Q?jCDj0jzgYwfG+BscxhhqGbMyJJvXw+ScPdOUNrE3hkTk49CVkB4doNZ0RCin?=
- =?us-ascii?Q?w5VgF4OhvN9xLBUH9LBkYElj9+/Q4f+giXNum49N1ORdUIG7cFIZSa0bJhJd?=
- =?us-ascii?Q?c9m71z/pz9iCb0mjbni885k=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?fEdToDFzbgvbvN7qWxtjGGi+QazY9e97o1YF7YbhRPDsHggHUFqbf9v2tSy0?=
+ =?us-ascii?Q?d2ZGrpigbm0f2NJZv8hrs3xIIpSq4defvWJ5m/jKqSluy1qRFLyf7WZTkxgK?=
+ =?us-ascii?Q?1kpJZhJnVAUOJVC7cOdGF9BQMpwylJk30xJO/cotOM8z12sJo/6htGgZI1M7?=
+ =?us-ascii?Q?KnoNAbBPqNEk+1m4aMhLXaSya/i7/2kmoBEGkNzTZS6S0Ym2eOBZ46y/VIgq?=
+ =?us-ascii?Q?OZ6WH8Xeazc/ug7gipHmHIw0lIeYV9zTTkFvxH9vnsWcTynmBPHGYIBVEQLl?=
+ =?us-ascii?Q?chPR+ez21rlfD0QIGSpc25+HUDb+4Rky2UiwNGKSf4y0uNtoH1IfZkYyHif5?=
+ =?us-ascii?Q?NPOnTjBiCqRVloVgsnF/ZkgW7j/yuMq6miQCEYA0UBao568Egiyy/fXuc9ST?=
+ =?us-ascii?Q?ntu4Y5NmqZNWysp2NOMtiHWhPEehR5lREWlPqauiZgMHQIbmEklbZ9IOIJE3?=
+ =?us-ascii?Q?HRxcH6eeGLAfGs3kM/m1aSPfsGuz/AXgQboEJDiGHCOstX2n2arLJWEdZk47?=
+ =?us-ascii?Q?gOnHXIbgdlrNtvBuT273N5GMnbqaaRXX0gc6U5AGxf8zJA0uN/5/8MWQHV8U?=
+ =?us-ascii?Q?+1EHaF6ChDy0SLN9BHn6jYH/Q5Ot6TFZf2/6uq0U/yCPTKbXfsGpnRp2xud0?=
+ =?us-ascii?Q?cpPWBuXs+xagybrMbZQlBAqa22pozi0oJvIrUuRHOsd8rLk2Zy9T5ttMSC/W?=
+ =?us-ascii?Q?Rp0I7cgA4siVVzFd9nIOXR/tb/njBnQ2rzOdRXY5Aoy3dzKMOwBf6ujAMKFV?=
+ =?us-ascii?Q?0tWb/sjiMR4uAi2bN0nNFbrc5lZbQ8bGCMdRsBFMKZwfHRYPOfGzbFlkKVNH?=
+ =?us-ascii?Q?vkH0559fck0kRQQA2oQCOwnqyc8Y9T/ewAv/hiRyWaZO2lP1V0OmZhdUUPIi?=
+ =?us-ascii?Q?/HAj6gT9WrA693LTWyVwjLanMYeh+bgmd0Drgi0TN4AZIQGq49skb0f+H0CD?=
+ =?us-ascii?Q?1ugVpJJZY6si8TRkwuPXYNHmvZjZuhsKNyRJwROZvt3ud9qpA3bnBOyqOcYW?=
+ =?us-ascii?Q?wPsABG5MyRt4I57cYHU1e9bfnPRtzuAvxlsaKuD1Y0kOSvnBdadn3Qsq3ILw?=
+ =?us-ascii?Q?lCYZOGZJnb6jSo65CdWTJYpwWkP3B9ayXxd7f2DO1IQq7wxSHAw5vZoiAZb1?=
+ =?us-ascii?Q?4fEwE76LG45UYaHqpzE4WRLqe2fvhZTMOrphwU+KfHetNBnkE6e+MQ3qB+Qz?=
+ =?us-ascii?Q?293af7kMgOSEgXpViCWBwzmmJYm8m3OKjAzQ2M0HE2AhRaIV6oy8xqbSY2+a?=
+ =?us-ascii?Q?0oKHPKZ2IBuRkelqeyOnG3OlGWOxmoXRp1ojFTcLt3h+emJbIrH9Q19pl/qu?=
+ =?us-ascii?Q?ymHx/B+sp3By1upwlc9MNyBIvXKA0qjk7a502R6ECmjbIYZ6us9G/PQU2YLb?=
+ =?us-ascii?Q?mTDgMdHNEUqHoOUzIvn0JZZZN0SSIxhAvSlkT8v8tjlKNccNa6aRohJcLcuY?=
+ =?us-ascii?Q?aumtCEyaQczqIH49OyUXAJAT55x+uxs93P1DNwvHkbkJlxdnPzVC4gKMJA4y?=
+ =?us-ascii?Q?xCSNkacsN0noFqG9IlNI+4r2irT5eoICIQjMNyG5gIzNBNCurke5DNW9gtbG?=
+ =?us-ascii?Q?nDlx7B/sSQVeii6pRBkbjgOEm6YnyedmWaIVRw/C/kAZWr1wpBpBkIxAg1KR?=
+ =?us-ascii?Q?mK45CnaeHOrIaYoivIWnXNY=3D?=
 X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 065ee1a7-5587-4384-3f5f-08d9f0265906
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6296c2c9-2fb7-4819-0f42-08d9f026793f
 X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2022 01:56:14.6859 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2022 01:57:08.5734 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FwX9eHgjgcKWIuhu3mKyHYT0zeOt0HhV6v9Ys1mfhzViOMm3Ws3VRWJM56jBXfEPoJeNw+K7OVowG0jYVHi6CA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PR06MB2742
+X-MS-Exchange-CrossTenant-UserPrincipalName: SZUQJ3DpGBlABktVULOZhxTm+OFwKEbGKvDe4gjCg8LI6oJ6aIWEVBqVVBcDqxwPhShvhFs7+tS0SH5zdQOGTw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK0PR06MB2771
 X-Mailman-Approved-At: Tue, 15 Feb 2022 08:31:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,46 +144,32 @@ From: Wang Qing <wangqing@vivo.com>
 Use the helper function time_is_{before,after}_jiffies() to improve
 code readability.
 
-V2:
-Batch them in a series suggested by Joe.
-Use time_xxx_jiffies() instead of time_xxx() suggested by Kieran.
+Signed-off-by: Wang Qing <wangqing@vivo.com>
+---
+ drivers/media/radio/wl128x/fmdrv_common.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-V3:
-Fix subject and description suggested by Ted.
-
-Wang Qing (14):
-  block: xen: use time_is_before_eq_jiffies() instead of open coding it
-  clk: mvebu: use time_is_before_eq_jiffies() instead of open coding it
-  gpu: drm: i915: use time_is_after_jiffies() instead of open coding it
-  gpu: drm: radeon: use time_is_before_jiffies() instead open coding it
-  hid: use time_is_after_jiffies() instead of open coding it
-  input: serio: use time_is_before_jiffies() instead of open coding it
-  md: use time_is_before_jiffies(() instead of open coding it
-  md: use time_is_before_eq_jiffies() instead of open coding it
-  media: si21xx: use time_is_before_jiffies() instead of open coding it
-  media: stv0299: use time_is_before_jiffies() instead of open coding it
-  media: tda8083: use time_is_after_jiffies() instead of open coding it
-  media: wl128x: use time_is_before_jiffies() instead of open coding it
-  media: vivid: use time_is_after_jiffies() instead of open coding it
-
- drivers/block/xen-blkback/blkback.c                    | 5 +++--
- drivers/clk/mvebu/armada-37xx-periph.c                 | 3 ++-
- drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c         | 2 +-
- drivers/gpu/drm/radeon/radeon_pm.c                     | 3 ++-
- drivers/hid/intel-ish-hid/ipc/ipc.c                    | 2 +-
- drivers/input/serio/ps2-gpio.c                         | 4 ++--
- drivers/md/dm-thin.c                                   | 2 +-
- drivers/md/dm-writecache.c                             | 5 +++--
- drivers/media/dvb-frontends/si21xx.c                   | 2 +-
- drivers/media/dvb-frontends/stv0299.c                  | 4 ++--
- drivers/media/dvb-frontends/tda8083.c                  | 2 +-
- drivers/media/radio/wl128x/fmdrv_common.c              | 3 ++-
- drivers/media/test-drivers/vivid/vivid-kthread-cap.c   | 3 ++-
- drivers/media/test-drivers/vivid/vivid-kthread-out.c   | 3 ++-
- drivers/media/test-drivers/vivid/vivid-kthread-touch.c | 3 ++-
- drivers/media/test-drivers/vivid/vivid-sdr-cap.c       | 3 ++-
- 17 files changed, 31 insertions(+), 22 deletions(-)
-
+diff --git a/drivers/media/radio/wl128x/fmdrv_common.c b/drivers/media/radio/wl128x/fmdrv_common.c
+index 6142484d..a599d08
+--- a/drivers/media/radio/wl128x/fmdrv_common.c
++++ b/drivers/media/radio/wl128x/fmdrv_common.c
+@@ -23,6 +23,7 @@
+ #include <linux/firmware.h>
+ #include <linux/module.h>
+ #include <linux/nospec.h>
++#include <linux/jiffies.h>
+ 
+ #include "fmdrv.h"
+ #include "fmdrv_v4l2.h"
+@@ -342,7 +343,7 @@ static void send_tasklet(struct tasklet_struct *t)
+ 		return;
+ 
+ 	/* Check, is there any timeout happened to last transmitted packet */
+-	if ((jiffies - fmdev->last_tx_jiffies) > FM_DRV_TX_TIMEOUT) {
++	if (time_is_before_jiffies(fmdev->last_tx_jiffies + FM_DRV_TX_TIMEOUT)) {
+ 		fmerr("TX timeout occurred\n");
+ 		atomic_set(&fmdev->tx_cnt, 1);
+ 	}
 -- 
 2.7.4
 
