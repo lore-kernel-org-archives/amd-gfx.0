@@ -4,75 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60580C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 16:46:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 158FCC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 16:49:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF70510EBA4;
-	Thu, 17 Feb 2022 16:46:23 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABB8610EC7A
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 16:41:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1645116078;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=NZLivYuLnXFIGdCejA7zd1S5U4NvNvoWvtuXURyH+rc=;
- b=ANwOpszvGgMH85e/RgQTJmSWnzxMIOhlJMt/oW1a4kJwXmQxR7jInZxaVd/rCe1Ql1hLxu
- TgCGZ94taC1j2+fKZR69+jAGdT5vsxk8qLxYL0jZbRwE0IidWBjUYTz2Pja+VTKvUzhqLg
- L+Dy9S66bzNPY0DJiQD+p5lQxb4Cssg=
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-201-UNOf5jWHMNSc2Pfevr7YgQ-1; Thu, 17 Feb 2022 11:41:17 -0500
-X-MC-Unique: UNOf5jWHMNSc2Pfevr7YgQ-1
-Received: by mail-ot1-f72.google.com with SMTP id
- w25-20020a9d70d9000000b0059fa6c78406so54710otj.22
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 08:41:17 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9843A899DC;
+	Thu, 17 Feb 2022 16:49:35 +0000 (UTC)
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
+ [IPv6:2607:f8b0:4864:20::c36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B274899DC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 16:49:34 +0000 (UTC)
+Received: by mail-oo1-xc36.google.com with SMTP id
+ u47-20020a4a9732000000b00316d0257de0so238848ooi.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 08:49:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=5Ak8J2lfIkTj6OgGGZbJVSzhEA6GuV5ZpORtuVPyDlw=;
+ b=mE4j3C7CUuvVxIgr6DgV0BuFU3Gv2uy2ewy0aGUhkIwPQkdQFzuRgI22BqQttrdAc9
+ 2fopfflw85bHlSV75HzVq9QaNzJw/AheH3Up8iB2OqZPqN86nGY/2YAhxFTyJvGWGjq8
+ IUfo5m8IVxQ7CuSOPEpXwh82MWFReK9u0Yx3L7GHuQ6s+b+uR4WXvC7KwV42cIlo/qyJ
+ pKDXSMvWlgHOkprs/8l9UagKpAOUSskcxJPaRok9fOYOblPWOANC8o3l/FbqGImwdkXE
+ TUP7dXiZhHmWepihv/LJ7QStfWtmRcxvWLTuJGOY1RtKX58o23ILy2L9dN7K/Co3pVgW
+ cUEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=NZLivYuLnXFIGdCejA7zd1S5U4NvNvoWvtuXURyH+rc=;
- b=5U/u4Y/lwQiCJ9R7SydZRbBuSw6FbYHl816FUMkZquCOx9bGCdmF5Izsdb0UzgwYWP
- 8fNh1SR14vO4annJps6yW8uGFGomiM3xkGyLg652xQPYUMozfkXQYxLJtvIB7kEu+Ac2
- OdgzQfq/uYIEGlFFiACxaVZ7EPPU2/3nRCYf+lFpqx4+wUQRf+N5pWd72/lzypHJNXox
- Aba4k+1j5G/MhpqaJzwyf228aqGXuZOeRQosIOqZgFos9RxJ+HRL1PAnLM632ZAU2lGA
- roHmTlqeR+J/nMZQtsXTB52humF4Ctgt96IXofaqX8p/a7TsEJmWKBh4n+fqULua9num
- +zyA==
-X-Gm-Message-State: AOAM533aczBC91cDin9HuC6Th7fs9DicufkfoaOxgf85AUQkhbQn1Toq
- DjD4CKGsy1C8Ba7WCIPUjJXrXJlTWnDqxZhVB3BYKhmVMHX0XjnFW+1LBt7+fGsGHohFSptwUhK
- +j8F5mfZjdzaD+FKG01UwkVJFGg==
-X-Received: by 2002:a05:6808:1808:b0:2d4:6241:4b68 with SMTP id
- bh8-20020a056808180800b002d462414b68mr1459845oib.144.1645116076618; 
- Thu, 17 Feb 2022 08:41:16 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzY81YLz3R+btUH+HwXzqO3VuFqto6H0t4DtW0M3Mj5JPgoD/uw4ueVsQaD+uGA6bBPpr4M4w==
-X-Received: by 2002:a05:6808:1808:b0:2d4:6241:4b68 with SMTP id
- bh8-20020a056808180800b002d462414b68mr1459828oib.144.1645116076436; 
- Thu, 17 Feb 2022 08:41:16 -0800 (PST)
-Received: from localhost.localdomain.com (024-205-208-113.res.spectrum.com.
- [24.205.208.113])
- by smtp.gmail.com with ESMTPSA id p23sm106844otk.17.2022.02.17.08.41.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Feb 2022 08:41:16 -0800 (PST)
-From: trix@redhat.com
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, nathan@kernel.org, ndesaulniers@google.com,
- jonathan.kim@amd.com
-Subject: [PATCH] drm/amdkfd: fix typo in setting enum value
-Date: Thu, 17 Feb 2022 08:41:10 -0800
-Message-Id: <20220217164110.3258269-1-trix@redhat.com>
-X-Mailer: git-send-email 2.26.3
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5Ak8J2lfIkTj6OgGGZbJVSzhEA6GuV5ZpORtuVPyDlw=;
+ b=13rbMGXYpBWN2awhyhFTkeKhoId3sKygUP3Z2soFMiCZ63HL87iAUV/E+8gtRK7oUS
+ c2BUPL2bs9BwBv2Aap2Sn1bikkIGX2V5N1wdoL1DHgIXXJH4A3w3YYnzf/R1r9skdwF3
+ HG3EzTuxBRWwYMj9LLjfEpxkvvoEai6AUmwvQzrll62ve5FiIeHEsDA+tlnEXg63qSqC
+ KH4LWRP1AcnCiIQTxiijaPsyWlnwX64TnJa+/S2cecmEg9fw9m4Zt2VVxPu3e8WZOlac
+ kJBDdaciVnzhMEch4gv9BkQP7LqpNEXeJzmbBRarRZ8NVaqtGfdp9kkBOgvhUj1lwldc
+ P4Pg==
+X-Gm-Message-State: AOAM531mjbSetZnCXp6pW7jl3MAthvSPRo4w/g06xfYUTfQr8J4mWDFp
+ 1PAQfGiOMYGeQQT/Oqx24qVq6su0iwVpAnyht/ZzM9ff
+X-Google-Smtp-Source: ABdhPJwQbSbG6YMV4bvMoa21TL7ObNJDXraP7XyLS1H1FsYEvXrR+9bw9RC2is5JsQOp5n2dPfvbYmfb9B8qBZV1e/I=
+X-Received: by 2002:a05:6870:912c:b0:d3:44be:7256 with SMTP id
+ o44-20020a056870912c00b000d344be7256mr1396074oae.73.1645116573838; Thu, 17
+ Feb 2022 08:49:33 -0800 (PST)
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
-X-Mailman-Approved-At: Thu, 17 Feb 2022 16:46:23 +0000
+References: <20220217163556.6491-1-luben.tuikov@amd.com>
+In-Reply-To: <20220217163556.6491-1-luben.tuikov@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 17 Feb 2022 11:49:23 -0500
+Message-ID: <CADnq5_OFoU=kDLdL_QUjRQG32hPHrHEuqyK3-zUz-asrznVV+A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Dynamically initialize IP instance attributes
+To: Luben Tuikov <luben.tuikov@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,46 +62,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Alex Deucher <Alexander.Deucher@amd.com>, Tom StDenis <tom.stdenis@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tom Rix <trix@redhat.com>
+On Thu, Feb 17, 2022 at 11:36 AM Luben Tuikov <luben.tuikov@amd.com> wrote:
+>
+> Dynamically initialize IP instance attributes. This eliminates bugs
+> stemming from adding new attributes to an IP instance.
+>
+> Cc: Alex Deucher <Alexander.Deucher@amd.com>
+> Reported-by: Tom StDenis <tom.stdenis@amd.com>
+> Fixes: c10b6aa7417b0a ("drm/amdgpu: Add "harvest" to IP discovery sysfs")
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 
-Clang build fails with
-kfd_packet_manager_v9.c:267:3: error: implicit conversion
-  from enumeration type 'enum mes_map_queues_extended_engine_sel_enum'
-  to different enumeration type
-  'enum mes_unmap_queues_extended_engine_sel_enum'
-   extended_engine_sel__mes_map_queues__sdma0_to_7_sel :
-   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Acked-by: Alex Deucher ,alexander.deucher@amd.com>
 
-This looks like a typo, the function is _unmap_, the enum
-extended_engine_sel__mes_map_queues__sdma0_to_7_sel  is _map_.
-To match the packet->bitfields2.extended_engine_set type
-it should be extended_engine_sel__mes_unmap_queues__sdma0_to_7_sel.
-
-Fixes: 009e9a158505 ("drm/amdkfd: navi2x requires extended engines to map and unmap sdma queues")
-Signed-off-by: Tom Rix <trix@redhat.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-index 806a03566a24..18250845a989 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-@@ -264,7 +264,7 @@ static int pm_unmap_queues_v9(struct packet_manager *pm, uint32_t *buffer,
- 					sizeof(struct pm4_mes_unmap_queues));
- 
- 	packet->bitfields2.extended_engine_sel = pm_use_ext_eng(pm->dqm->dev) ?
--		extended_engine_sel__mes_map_queues__sdma0_to_7_sel :
-+		extended_engine_sel__mes_unmap_queues__sdma0_to_7_sel :
- 		extended_engine_sel__mes_unmap_queues__legacy_engine_sel;
- 
- 	packet->bitfields2.engine_sel =
--- 
-2.26.3
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 17 ++++++-----------
+>  1 file changed, 6 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index 6c7ec058125e1d..5848fec5c39251 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -482,16 +482,7 @@ static struct ip_hw_instance_attr ip_hw_attr[] = {
+>         __ATTR_RO(base_addr),
+>  };
+>
+> -static struct attribute *ip_hw_instance_attrs[] = {
+> -       &ip_hw_attr[0].attr,
+> -       &ip_hw_attr[1].attr,
+> -       &ip_hw_attr[2].attr,
+> -       &ip_hw_attr[3].attr,
+> -       &ip_hw_attr[4].attr,
+> -       &ip_hw_attr[5].attr,
+> -       &ip_hw_attr[6].attr,
+> -       NULL,
+> -};
+> +static struct attribute *ip_hw_instance_attrs[ARRAY_SIZE(ip_hw_attr) + 1];
+>  ATTRIBUTE_GROUPS(ip_hw_instance);
+>
+>  #define to_ip_hw_instance(x) container_of(x, struct ip_hw_instance, kobj)
+> @@ -789,7 +780,7 @@ static int amdgpu_discovery_sysfs_recurse(struct amdgpu_device *adev)
+>  static int amdgpu_discovery_sysfs_init(struct amdgpu_device *adev)
+>  {
+>         struct kset *die_kset;
+> -       int res;
+> +       int res, ii;
+>
+>         adev->ip_top = kzalloc(sizeof(*adev->ip_top), GFP_KERNEL);
+>         if (!adev->ip_top)
+> @@ -814,6 +805,10 @@ static int amdgpu_discovery_sysfs_init(struct amdgpu_device *adev)
+>                 goto Err;
+>         }
+>
+> +       for (ii = 0; ii < ARRAY_SIZE(ip_hw_attr); ii++)
+> +               ip_hw_instance_attrs[ii] = &ip_hw_attr[ii].attr;
+> +       ip_hw_instance_attrs[ii] = NULL;
+> +
+>         res = amdgpu_discovery_sysfs_recurse(adev);
+>
+>         return res;
+>
+> base-commit: f736148ca7bf82654141a4411409c2d7a9e2269b
+> --
+> 2.35.1.129.gb80121027d
+>
