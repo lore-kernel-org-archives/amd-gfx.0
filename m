@@ -4,57 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0448DC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 10:13:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1CB5C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 10:38:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9374410F055;
-	Thu, 17 Feb 2022 10:13:37 +0000 (UTC)
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78D1310F053;
- Thu, 17 Feb 2022 10:13:36 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id y7so1639580oih.5;
- Thu, 17 Feb 2022 02:13:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=FVhqmkH6yc31MloKbV/NsodtEi0k7Jmsk5XVPv0CBzk=;
- b=Vo1V1cH5WWS/Rldjvk0N7Q8JDm1Uad2uP3jDgcyuHEOXedhkZOMxejMfFjVa5Cubt6
- U1eBSItErjVYqgOt+h5Ex6pdRJmYl6mwABclufO9w77bbSXcv1ch6UedDg+UfoILGENR
- /wA8hirqYV8zYA5gIzAFDxnyLgIGQHU5/udM7vJdiZR2hDD2m01ZriCiVIL2ue8Y8CmN
- IEpbJKv1zIPQFlEeojUtE9DgQS3+MVv3KBlfUeYL0aD4fY7hEWpsndcf3c6YwG3ZxclH
- +kjUZ+ZbS7cJ/qSu9Id7eNbbIkmTSllXAlEFqsrcI4n8ztcNfSrqwKee74Re5hskuQ6a
- 76hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=FVhqmkH6yc31MloKbV/NsodtEi0k7Jmsk5XVPv0CBzk=;
- b=2b6h7SB7JbkbNsbWYKai2J5War2OYNhsnUQIZmapHhag/4l/QRLbGdKbu2Q2A6HY7i
- WXxYFMweARov7cbgVhN1H8OoiNn5MLNmvbW8CBnjj41S3Eh6t9p/qFpYLfsIEFZp+BXy
- mZkzZ6deVtNMYvEwK6b9gS1gs3QQn3A4XUq8yipUGDxl1/Dafhuk+FGbgIK473mDZ/5Y
- PZxlea1WiYvrGVJGQCYOutENOJey02q7dHIn2SFAOvAbsldqLVTD4RzAvlH6LFm1knIC
- FrECBEBMW4wTXAZc0hxi7HxmuO0uG4O5KEnMGF+Eg9RmWUPn5rlHoaxWxivolGiAIKFo
- LwuA==
-X-Gm-Message-State: AOAM531MZ6pk7neq6hu9psKCYBTkrn2VH51gHKZ8/MoXLHEvBsFbwscb
- 86YLnhsDDqCrYFvPSyMzGYxycnnU7oMXHFCIJ78=
-X-Google-Smtp-Source: ABdhPJyaOqfQDKcFfPHx4hBWWA9Y6opcSZuE49en9BS0Q2xUMsYy9e0p9OD+i2zArzALhou6jM77HogzK9E0aRQETYk=
-X-Received: by 2002:a05:6808:188b:b0:2d4:70f2:3cfa with SMTP id
- bi11-20020a056808188b00b002d470f23cfamr824941oib.168.1645092815615; Thu, 17
- Feb 2022 02:13:35 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B59C10EBB5;
+	Thu, 17 Feb 2022 10:38:14 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2073.outbound.protection.outlook.com [40.107.223.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A310910EBB5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 10:38:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bdk8wsoYOx17ekDkYVLDRSx8Bs0+A+Egl9Ygriicm3HLJsUhErVkrZBwVFryVpmpP04ubdmKr1wpbQuJVYqeLuq0dqxEFtUGIWARmm1X1YnbM9ImCkzwN3wja020Oq10ohkfXQfsSqrivi61gY5lHNkUyY0utAYdwZvqIELdnOpsYnEipLfeRFNbkSE4p9aQRkwic2459yeiYmSWSwsXac+ZMNsRLM7S0Jgrm7e6AX+F6aF+4wxYcbyKerTLDp9Yf9THlqv8QzSH00qPuqEmfn0CHX4bRIqKYBed2jA/CSBqpWAP7Y15yDS/nrqp0hLYeDwz1H4EXJmhMlKAFIKe1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0c51CkAFJdka9VkxLGD+QIh9TTX9Z8GTWkf08iAJ8eI=;
+ b=T2WcEX4jkkRUIKk9Jj9IwqpVfw1Hse7VAbZqb9CuchqY6J5J+HiVkYDwAihTduxTbtlOwwtYdmQF5VgBT8hX3WsCkjVpFflgmt5UjAgwURdnRxdcB2jUYMf4GdqeIoFJnV37v5lyK3UT5UwuFq8O7PdZi1NKfsFIEuDF/tBvZ2IEqJybkk1/VLVRLJsmV14JfTHyTaq62PQnvB2tY8yw2iluH4HSifrR/eQ0NozQBT2fCJw2VUOtuHYfQrOe5vt3TVfauV1F+Ze87WnqvuTfY9AxAcaD/VLxZ5ulstHcoEopaK2jMcIbzU0t8PJ8syF+HRYy7x7ATU9fRDS/0wzB7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0c51CkAFJdka9VkxLGD+QIh9TTX9Z8GTWkf08iAJ8eI=;
+ b=rPtFgpjJgAKgmNsgOHsfARFJO1OrPlMjSnUNRV3/764ZbUMLNny7p2zfgu4609TX4AFi7ZLgMFegiOeOCcGZPD5Jl03vCv+17FokPmAj59L2O0fTZIbZNZ59sSguM6LmNeEY8i6fr6vNe7AubT1nhQvLXXtlhTMAQWMG6SST9hg=
+Received: from DM5PR15CA0038.namprd15.prod.outlook.com (2603:10b6:4:4b::24) by
+ MN2PR12MB3184.namprd12.prod.outlook.com (2603:10b6:208:100::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Thu, 17 Feb
+ 2022 10:38:10 +0000
+Received: from DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:4b:cafe::91) by DM5PR15CA0038.outlook.office365.com
+ (2603:10b6:4:4b::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.19 via Frontend
+ Transport; Thu, 17 Feb 2022 10:38:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT020.mail.protection.outlook.com (10.13.172.224) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4995.15 via Frontend Transport; Thu, 17 Feb 2022 10:38:09 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 17 Feb
+ 2022 04:38:07 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 17 Feb
+ 2022 02:38:07 -0800
+Received: from willgu.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.18 via Frontend
+ Transport; Thu, 17 Feb 2022 04:38:05 -0600
+From: Jiawei Gu <Jiawei.Gu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Christian.Koenig@amd.com>,
+ <Andrey.Grodzovsky@amd.com>, <Monk.Liu@amd.com>, <Emily.Deng@amd.com>,
+ <Horace.Chen@amd.com>
+Subject: [PATCH] drm/sched: Add device pointer to drm_gpu_scheduler
+Date: Thu, 17 Feb 2022 18:38:02 +0800
+Message-ID: <20220217103802.5918-1-Jiawei.Gu@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20220217090440.4468-1-qiang.yu@amd.com>
- <5d3fdd2c-e74a-49f4-2b28-32c06483236f@amd.com>
- <CAKGbVbtLTBJPF5eTu4rABUTBa8eqjQvqjo1AEUrzgPgYgCREuA@mail.gmail.com>
- <dac70c05-e712-d2e3-2267-278380895f1e@amd.com>
-In-Reply-To: <dac70c05-e712-d2e3-2267-278380895f1e@amd.com>
-From: Qiang Yu <yuq825@gmail.com>
-Date: Thu, 17 Feb 2022 18:13:24 +0800
-Message-ID: <CAKGbVbvtLbDiKrX80-dMnipdLkTE+FP=g_mx37e12fuMtA1Y4Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: check vm bo eviction valuable at last
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: adefe376-75d1-42c3-e3a8-08d9f2019744
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3184:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB31845081C4646387A9BDF692F8369@MN2PR12MB3184.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:87;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hWHCnKITg76ELutByVfpo6ChFEF9jfBcu4tkEIqKLIJSNca4zKsVCnBTHRRSjbm1G20Y7ZrPS3/Q+cE4MXvMWC0XcQrti38q7ldY7Va3KzGGzixTiiCwrg7CRFdBHBqhdnpQdh5XQ9cXanu1MxAArJNPHyHtH3fQSryPb8dYU62PQEJ4CagqdOUYrxw7ZS61RMIF4y7yRZAAb6W0Y0NUqgqDbe5W1JBLSZJM4T6Iam42OlUUC0rlRCsSdy/GUzp+3YvHwV74T9MZsLxzmfExlQydZFXrWsohexrtgRD3f7d0TjHy9Gb8Mc8V+qDkzBOw+jNBmUocGfTTJQcyBSOWEwhfRlX4la07Oo4QV2AHiXjRsdaTBPTMO9F8jWhYPu3cZ+9KzSurOYLbX6mSBzQR7rEqrD2x0HgTk5kFa8LOBo5MCLcaFEzcQKsmnz2XqzjTllLTxr0DNlk/roneN6yzbcvgT4qgva/q7LC6H/DdSjZeI55+HJe2HacJuwGFig1dt4sVOtv0SnhjLi0OKASKBVuDCbRJPSn/OiTmakJSbtSOx3DxUlKecTPPsnVE5fKq0CqMje6V4B1ABHEqPwBhwxYElVXYbqNhc2qieCp3YPdgxN27R1dwpXBqI56cr3cdyW9viuXOUxHqVPjnS0wK6L3m/ZoqZVynKoX/QVuc6TfYLRYASWCPbfkLf163umJKLkpWazipLwN+me5USDJ57A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(70206006)(83380400001)(8676002)(7696005)(426003)(47076005)(336012)(508600001)(86362001)(36756003)(36860700001)(5660300002)(110136005)(1076003)(70586007)(316002)(6636002)(26005)(186003)(81166007)(356005)(2906002)(40460700003)(82310400004)(6666004)(2616005)(8936002)(4326008)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 10:38:09.5461 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: adefe376-75d1-42c3-e3a8-08d9f2019744
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3184
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,222 +104,195 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, linaro-mm-sig@lists.linaro.org,
- Qiang Yu <qiang.yu@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org
+Cc: Jiawei Gu <Jiawei.Gu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 17, 2022 at 5:46 PM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Am 17.02.22 um 10:40 schrieb Qiang Yu:
-> > On Thu, Feb 17, 2022 at 5:15 PM Christian K=C3=B6nig
-> > <christian.koenig@amd.com> wrote:
-> >> Am 17.02.22 um 10:04 schrieb Qiang Yu:
-> >>> Workstation application ANSA/META get this error dmesg:
-> >>> [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO_VA (-16=
-)
-> >>>
-> >>> This is caused by:
-> >>> 1. create a 256MB buffer in invisible VRAM
-> >>> 2. CPU map the buffer and access it causes vm_fault and try to move
-> >>>      it to visible VRAM
-> >>> 3. force visible VRAM space and traverse all VRAM bos to check if
-> >>>      evicting this bo is valuable
-> >>> 4. when checking a VM bo (in invisible VRAM), amdgpu_vm_evictable()
-> >>>      will set amdgpu_vm->evicting, but latter due to not in visible
-> >>>      VRAM, won't really evict it so not add it to amdgpu_vm->evicted
-> >>> 5. before next CS to clear the amdgpu_vm->evicting, user VM ops
-> >>>      ioctl will pass amdgpu_vm_ready() (check amdgpu_vm->evicted)
-> >>>      but fail in amdgpu_vm_bo_update_mapping() (check
-> >>>      amdgpu_vm->evicting) and get this error log
-> >>>
-> >>> This error won't affect functionality as next CS will finish the
-> >>> waiting VM ops. But we'd better make the amdgpu_vm->evicting
-> >>> correctly reflact the vm status and clear the error log.
-> >> Well NAK, that is intentional behavior.
-> >>
-> >> The VM page tables where considered for eviction, so setting the flag =
-is
-> >> correct even when the page tables later on are not actually evicted.
-> >>
-> > But this will unnecessarily stop latter user VM ops in ioctl before CS
-> > even when the VM bos are not evicted.
-> > Won't this have any negative effect when could do better?
->
-> No, this will have a positive effect. See the VM was already considered
-> for eviction because it is idle.
->
-> Updating it immediately doesn't necessarily make sense, we should wait
-> with that until its next usage.
->
-> Additional to that this patch doesn't really fix the problem, it just
-> mitigates it.
->
-> Eviction can fail later on for a couple of reasons and we absolutely
-> need to check the flag instead of the list in amdgpu_vm_ready().
-The flag only for both flag and list? Looks like should be both as
-the list indicate some vm page table need to be updated and could
-delay the user update with the same logic as you described above.
+Add device pointer so scheduler's printing can use
+DRM_DEV_ERROR() instead, which makes life easier under multiple GPU
+scenario.
 
-Regards,
-Qiang
+v2: amend all calls of drm_sched_init()
 
->
-> Regards,
-> Christian.
->
-> >
-> > Regards,
-> > Qiang
-> >
-> >> What we should rather do is to fix amdgpu_vm_ready() to take a look at
-> >> the flag instead of the linked list.
-> >>
-> >> Regards,
-> >> Christian.
-> >>
-> >>> Signed-off-by: Qiang Yu <qiang.yu@amd.com>
-> >>> ---
-> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 85 ++++++++++++++-------=
-----
-> >>>    1 file changed, 47 insertions(+), 38 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_ttm.c
-> >>> index 5a32ee66d8c8..88a27911054f 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> >>> @@ -1306,45 +1306,11 @@ uint64_t amdgpu_ttm_tt_pte_flags(struct amdgp=
-u_device *adev, struct ttm_tt *ttm,
-> >>>        return flags;
-> >>>    }
-> >>>
-> >>> -/*
-> >>> - * amdgpu_ttm_bo_eviction_valuable - Check to see if we can evict a =
-buffer
-> >>> - * object.
-> >>> - *
-> >>> - * Return true if eviction is sensible. Called by ttm_mem_evict_firs=
-t() on
-> >>> - * behalf of ttm_bo_mem_force_space() which tries to evict buffer ob=
-jects until
-> >>> - * it can find space for a new object and by ttm_bo_force_list_clean=
-() which is
-> >>> - * used to clean out a memory space.
-> >>> - */
-> >>> -static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object=
- *bo,
-> >>> -                                         const struct ttm_place *pla=
-ce)
-> >>> +static bool amdgpu_ttm_mem_eviction_valuable(struct ttm_buffer_objec=
-t *bo,
-> >>> +                                          const struct ttm_place *pl=
-ace)
-> >>>    {
-> >>>        unsigned long num_pages =3D bo->resource->num_pages;
-> >>>        struct amdgpu_res_cursor cursor;
-> >>> -     struct dma_resv_list *flist;
-> >>> -     struct dma_fence *f;
-> >>> -     int i;
-> >>> -
-> >>> -     /* Swapout? */
-> >>> -     if (bo->resource->mem_type =3D=3D TTM_PL_SYSTEM)
-> >>> -             return true;
-> >>> -
-> >>> -     if (bo->type =3D=3D ttm_bo_type_kernel &&
-> >>> -         !amdgpu_vm_evictable(ttm_to_amdgpu_bo(bo)))
-> >>> -             return false;
-> >>> -
-> >>> -     /* If bo is a KFD BO, check if the bo belongs to the current pr=
-ocess.
-> >>> -      * If true, then return false as any KFD process needs all its =
-BOs to
-> >>> -      * be resident to run successfully
-> >>> -      */
-> >>> -     flist =3D dma_resv_shared_list(bo->base.resv);
-> >>> -     if (flist) {
-> >>> -             for (i =3D 0; i < flist->shared_count; ++i) {
-> >>> -                     f =3D rcu_dereference_protected(flist->shared[i=
-],
-> >>> -                             dma_resv_held(bo->base.resv));
-> >>> -                     if (amdkfd_fence_check_mm(f, current->mm))
-> >>> -                             return false;
-> >>> -             }
-> >>> -     }
-> >>>
-> >>>        switch (bo->resource->mem_type) {
-> >>>        case AMDGPU_PL_PREEMPT:
-> >>> @@ -1377,10 +1343,53 @@ static bool amdgpu_ttm_bo_eviction_valuable(s=
-truct ttm_buffer_object *bo,
-> >>>                return false;
-> >>>
-> >>>        default:
-> >>> -             break;
-> >>> +             return ttm_bo_eviction_valuable(bo, place);
-> >>>        }
-> >>> +}
-> >>>
-> >>> -     return ttm_bo_eviction_valuable(bo, place);
-> >>> +/*
-> >>> + * amdgpu_ttm_bo_eviction_valuable - Check to see if we can evict a =
-buffer
-> >>> + * object.
-> >>> + *
-> >>> + * Return true if eviction is sensible. Called by ttm_mem_evict_firs=
-t() on
-> >>> + * behalf of ttm_bo_mem_force_space() which tries to evict buffer ob=
-jects until
-> >>> + * it can find space for a new object and by ttm_bo_force_list_clean=
-() which is
-> >>> + * used to clean out a memory space.
-> >>> + */
-> >>> +static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object=
- *bo,
-> >>> +                                         const struct ttm_place *pla=
-ce)
-> >>> +{
-> >>> +     struct dma_resv_list *flist;
-> >>> +     struct dma_fence *f;
-> >>> +     int i;
-> >>> +
-> >>> +     /* Swapout? */
-> >>> +     if (bo->resource->mem_type =3D=3D TTM_PL_SYSTEM)
-> >>> +             return true;
-> >>> +
-> >>> +     /* If bo is a KFD BO, check if the bo belongs to the current pr=
-ocess.
-> >>> +      * If true, then return false as any KFD process needs all its =
-BOs to
-> >>> +      * be resident to run successfully
-> >>> +      */
-> >>> +     flist =3D dma_resv_shared_list(bo->base.resv);
-> >>> +     if (flist) {
-> >>> +             for (i =3D 0; i < flist->shared_count; ++i) {
-> >>> +                     f =3D rcu_dereference_protected(flist->shared[i=
-],
-> >>> +                             dma_resv_held(bo->base.resv));
-> >>> +                     if (amdkfd_fence_check_mm(f, current->mm))
-> >>> +                             return false;
-> >>> +             }
-> >>> +     }
-> >>> +
-> >>> +     /* Check by different mem type. */
-> >>> +     if (!amdgpu_ttm_mem_eviction_valuable(bo, place))
-> >>> +             return false;
-> >>> +
-> >>> +     /* VM bo should be checked at last because it will mark VM evic=
-ting. */
-> >>> +     if (bo->type =3D=3D ttm_bo_type_kernel)
-> >>> +             return amdgpu_vm_evictable(ttm_to_amdgpu_bo(bo));
-> >>> +
-> >>> +     return true;
-> >>>    }
-> >>>
-> >>>    static void amdgpu_ttm_vram_mm_access(struct amdgpu_device *adev, =
-loff_t pos,
->
+Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c |  2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c   |  2 +-
+ drivers/gpu/drm/lima/lima_sched.c         |  2 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c   |  2 +-
+ drivers/gpu/drm/scheduler/sched_main.c    |  9 +++++----
+ drivers/gpu/drm/v3d/v3d_sched.c           | 10 +++++-----
+ include/drm/gpu_scheduler.h               |  3 ++-
+ 7 files changed, 16 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 4787cb3acaed..98217b1487fe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -508,7 +508,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+ 
+ 	r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
+ 			   num_hw_submission, amdgpu_job_hang_limit,
+-			   timeout, sched_score, ring->name);
++			   timeout, sched_score, ring->name, adev->dev);
+ 	if (r) {
+ 		DRM_ERROR("Failed to create scheduler on ring %s.\n",
+ 			  ring->name);
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+index 19826e504efc..4240f2ae0ab3 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+@@ -190,7 +190,7 @@ int etnaviv_sched_init(struct etnaviv_gpu *gpu)
+ 
+ 	ret = drm_sched_init(&gpu->sched, &etnaviv_sched_ops,
+ 			     etnaviv_hw_jobs_limit, etnaviv_job_hang_limit,
+-			     msecs_to_jiffies(500), NULL, dev_name(gpu->dev));
++			     msecs_to_jiffies(500), NULL, dev_name(gpu->dev), NULL);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+index ecf3267334ff..4b3a43a2b3e3 100644
+--- a/drivers/gpu/drm/lima/lima_sched.c
++++ b/drivers/gpu/drm/lima/lima_sched.c
+@@ -509,7 +509,7 @@ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, const char *name)
+ 
+ 	return drm_sched_init(&pipe->base, &lima_sched_ops, 1,
+ 			      lima_job_hang_limit, msecs_to_jiffies(timeout),
+-			      NULL, name);
++			      NULL, name, NULL);
+ }
+ 
+ void lima_sched_pipe_fini(struct lima_sched_pipe *pipe)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 2df3e999a38d..215709d61315 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -627,7 +627,7 @@ int panfrost_job_init(struct panfrost_device *pfdev)
+ 		ret = drm_sched_init(&js->queue[j].sched,
+ 				     &panfrost_sched_ops,
+ 				     1, 0, msecs_to_jiffies(JOB_TIMEOUT_MS),
+-				     NULL, "pan_js");
++				     NULL, "pan_js", NULL);
+ 		if (ret) {
+ 			dev_err(pfdev->dev, "Failed to create scheduler: %d.", ret);
+ 			goto err_sched;
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 3e0bbc797eaa..4404af323321 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -489,7 +489,7 @@ void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
+ 			if (r == -ENOENT)
+ 				drm_sched_job_done(s_job);
+ 			else if (r)
+-				DRM_ERROR("fence add callback failed (%d)\n",
++				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
+ 					  r);
+ 		} else
+ 			drm_sched_job_done(s_job);
+@@ -815,7 +815,7 @@ static int drm_sched_main(void *param)
+ 			if (r == -ENOENT)
+ 				drm_sched_job_done(sched_job);
+ 			else if (r)
+-				DRM_ERROR("fence add callback failed (%d)\n",
++				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
+ 					  r);
+ 			dma_fence_put(fence);
+ 		} else {
+@@ -846,7 +846,7 @@ static int drm_sched_main(void *param)
+ int drm_sched_init(struct drm_gpu_scheduler *sched,
+ 		   const struct drm_sched_backend_ops *ops,
+ 		   unsigned hw_submission, unsigned hang_limit, long timeout,
+-		   atomic_t *score, const char *name)
++		   atomic_t *score, const char *name, struct device *dev)
+ {
+ 	int i, ret;
+ 	sched->ops = ops;
+@@ -855,6 +855,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
+ 	sched->timeout = timeout;
+ 	sched->hang_limit = hang_limit;
+ 	sched->score = score ? score : &sched->_score;
++	sched->dev = dev;
+ 	for (i = DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_COUNT; i++)
+ 		drm_sched_rq_init(sched, &sched->sched_rq[i]);
+ 
+@@ -872,7 +873,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
+ 	if (IS_ERR(sched->thread)) {
+ 		ret = PTR_ERR(sched->thread);
+ 		sched->thread = NULL;
+-		DRM_ERROR("Failed to create scheduler for %s.\n", name);
++		DRM_DEV_ERROR(sched->dev, "Failed to create scheduler for %s.\n", name);
+ 		return ret;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index 8992480c88fa..6d68b155c3cc 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -403,7 +403,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 			     &v3d_bin_sched_ops,
+ 			     hw_jobs_limit, job_hang_limit,
+ 			     msecs_to_jiffies(hang_limit_ms),
+-			     NULL, "v3d_bin");
++			     NULL, "v3d_bin", NULL);
+ 	if (ret) {
+ 		dev_err(v3d->drm.dev, "Failed to create bin scheduler: %d.", ret);
+ 		return ret;
+@@ -413,7 +413,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 			     &v3d_render_sched_ops,
+ 			     hw_jobs_limit, job_hang_limit,
+ 			     msecs_to_jiffies(hang_limit_ms),
+-			     NULL, "v3d_render");
++			     NULL, "v3d_render", NULL);
+ 	if (ret) {
+ 		dev_err(v3d->drm.dev, "Failed to create render scheduler: %d.",
+ 			ret);
+@@ -425,7 +425,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 			     &v3d_tfu_sched_ops,
+ 			     hw_jobs_limit, job_hang_limit,
+ 			     msecs_to_jiffies(hang_limit_ms),
+-			     NULL, "v3d_tfu");
++			     NULL, "v3d_tfu", NULL);
+ 	if (ret) {
+ 		dev_err(v3d->drm.dev, "Failed to create TFU scheduler: %d.",
+ 			ret);
+@@ -438,7 +438,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 				     &v3d_csd_sched_ops,
+ 				     hw_jobs_limit, job_hang_limit,
+ 				     msecs_to_jiffies(hang_limit_ms),
+-				     NULL, "v3d_csd");
++				     NULL, "v3d_csd", NULL);
+ 		if (ret) {
+ 			dev_err(v3d->drm.dev, "Failed to create CSD scheduler: %d.",
+ 				ret);
+@@ -450,7 +450,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 				     &v3d_cache_clean_sched_ops,
+ 				     hw_jobs_limit, job_hang_limit,
+ 				     msecs_to_jiffies(hang_limit_ms),
+-				     NULL, "v3d_cache_clean");
++				     NULL, "v3d_cache_clean", NULL);
+ 		if (ret) {
+ 			dev_err(v3d->drm.dev, "Failed to create CACHE_CLEAN scheduler: %d.",
+ 				ret);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index d18af49fd009..38a479879fdb 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -302,12 +302,13 @@ struct drm_gpu_scheduler {
+ 	atomic_t                        _score;
+ 	bool				ready;
+ 	bool				free_guilty;
++	struct device			*dev;
+ };
+ 
+ int drm_sched_init(struct drm_gpu_scheduler *sched,
+ 		   const struct drm_sched_backend_ops *ops,
+ 		   uint32_t hw_submission, unsigned hang_limit, long timeout,
+-		   atomic_t *score, const char *name);
++		   atomic_t *score, const char *name, struct device *dev);
+ 
+ void drm_sched_fini(struct drm_gpu_scheduler *sched);
+ int drm_sched_job_init(struct drm_sched_job *job,
+-- 
+2.17.1
+
