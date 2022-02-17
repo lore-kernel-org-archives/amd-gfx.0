@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23B84C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 03:49:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38234C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 03:49:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45E2B10E759;
-	Thu, 17 Feb 2022 03:48:50 +0000 (UTC)
-Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
- [IPv6:2607:f8b0:4864:20::d2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71CA710E789;
- Thu, 17 Feb 2022 03:48:46 +0000 (UTC)
-Received: by mail-io1-xd2b.google.com with SMTP id q8so2225760iod.2;
- Wed, 16 Feb 2022 19:48:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C412510E794;
+	Thu, 17 Feb 2022 03:48:51 +0000 (UTC)
+Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
+ [IPv6:2607:f8b0:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 278F910E798;
+ Thu, 17 Feb 2022 03:48:49 +0000 (UTC)
+Received: by mail-il1-x12b.google.com with SMTP id p11so1386872ils.1;
+ Wed, 16 Feb 2022 19:48:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=cv79QYaUsMAAW7S/s1dtOMu7WJ+uJ1+n4LJB7u+qFpQ=;
- b=dKgXzlD3UZyGeg9LfmO72MXogRWhEZS2KgD9Ny8xfRLtb8Z5bKD9lA3kZkFSI91Vbz
- Q65LdonvyeE2wmCVSYSgWkh2CvnZyHORYp9iYjjydxqtAFVEHOzZhi/8pcGTOj7qXRpj
- DeHvqoFfNamaUr46tuAOy0X/O2rz4vbFD0JZdEg7C9s3V79ErcXFC6hX0hF++2z7HK9G
- fw2dLHdl4ktkYuBfcUfFpxm8Y8L/SRSOdE9Slb4ul1wW2Uff+wtsh39mwB1tCLWjRkyU
- wM6a3PWLRZFfiT78Afc0X7WSLIxynX2x1rsFRTsoRJEFMrFUbL5+z1SsPolWyBtYL3lR
- r2Hw==
+ bh=eZXNUqubAB8NNsFmaxywjAoPOWysBIvPMcZdY6L3itE=;
+ b=AwrxFJhmF4G+MvuDdELRdQNvbWui/ZmZm5aRVhg7QpY32AwSFVlNWa7zOXHeQ0e+cH
+ wtknls6AXe3/sQ615mZwc3LxxjbFp5vdYoENvncru8NXiKtvRjVHDHOcc1czRzm11p/d
+ 5gMpGvKHvpvTD5QXZ7+3u0PE5bimGbjnxkwavRK/JEbo5dFnfHPVsji4YrIJWXz9uBRO
+ 0Lp/qC0XJyvGgMXBUJNhtBQzXfDabdhJ0aiT0Xn/+2m7taSwrj79YKTaGPXihjNwuE6y
+ l5mZvDvxxG7gI/At8IpBjPFc32pigevpyz8mtnKwBqem5o0q5ZZ/unnFLYHjoX5mUiqL
+ 5kIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=cv79QYaUsMAAW7S/s1dtOMu7WJ+uJ1+n4LJB7u+qFpQ=;
- b=23LFuMmUimGSErhda3d3fOvTn2MJCd9Y1oPmL6jY05Mfc/SFjNS+kV73wmo9ALPTDF
- niuSpKb/s6ArnUW+o8QekqEPxjB3k6s7jUrmpiku5WYhTZJ6ESauwNnPONcD2tT2v7Av
- FZy32TDDsoP1MznE0taL19FVjmxxuPVYrnzlpppRScubQcqWCuE4BU24T0y/atbvTrtq
- QS3SZgyLoL6uohXH+96sE1Fh72G/SFB7d6S2giCfeha7TGTYkCJhRaotJiUBNdD/I6eU
- u77+J/mEtALuI4DCsTQ8Q7cUmWq1gGhCR4E2cosjgTYvppQFoMitocqjHSUNaeRHp/Kb
- r/zA==
-X-Gm-Message-State: AOAM532rm6n8b3V0g+JAEHVvKBwsVSQ2U+8ZGepyhmpihBhPF/JOL5xY
- TPdfSoAmSahqsohprxsPAfQ=
-X-Google-Smtp-Source: ABdhPJw97wYH8FJ7BpO7tlo6qMx3uqv2AZ/tNfoqW4OM6ihOD9Tnv+wrk2lKNzvVE03mCxmq0Bugog==
-X-Received: by 2002:a05:6638:1489:b0:30c:b8a4:90a5 with SMTP id
- j9-20020a056638148900b0030cb8a490a5mr772639jak.8.1645069725780; 
- Wed, 16 Feb 2022 19:48:45 -0800 (PST)
+ bh=eZXNUqubAB8NNsFmaxywjAoPOWysBIvPMcZdY6L3itE=;
+ b=1B8sGp3kUY1idIH7GsOdkhjxjNn6nluR+0iUpgKAEBRghZq7ME3IRax4SSzTvjPS6n
+ 5CDHl9D/zTuMiXkalTdhJZRH9aCViVgqyxCFG38F5FXKxuLjXb/130LpEiR7YwaPAqXN
+ /rkKK4tCncn6zlUKFFOVzW9ygfcM2/rBYA1MFH5PQnxv9CnpjaeUWabI9KyWgiJg6Btg
+ qLpkCJMs3CpMtttyBZVST9gUe52rvyhaPGvP4XYAJE+fq8ESAuyU5bR3F1CPezKd6mx1
+ IonA9IB/CKgBEYRt+NxzJsQk2EIbiDBM2NR5dfSPIacTrvUEzWfNUoK9JiGDXdu3DNtQ
+ v6QQ==
+X-Gm-Message-State: AOAM533d3EqW5UmmHEfcRvOz4a4kBiEBBjrekF89jfefpK7wbq6u+5QC
+ bzBWQV0I5Gbxcbej65vkeXKlIG1QWxQmQg==
+X-Google-Smtp-Source: ABdhPJy1Fv4risoix7swzSlE1sOKWWdc6gcHljvdxt8ZU2IPf0XZA3hS8LpNHrUIAPX2AlZXkOxl1A==
+X-Received: by 2002:a05:6e02:1a0d:b0:2bf:58c2:97af with SMTP id
+ s13-20020a056e021a0d00b002bf58c297afmr770183ild.85.1645069728378; 
+ Wed, 16 Feb 2022 19:48:48 -0800 (PST)
 Received: from frodo.hsd1.co.comcast.net ([2601:284:8204:2010::1b19])
- by smtp.googlemail.com with ESMTPSA id l16sm1127874ilc.54.2022.02.16.19.48.44
+ by smtp.googlemail.com with ESMTPSA id l16sm1127874ilc.54.2022.02.16.19.48.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Feb 2022 19:48:45 -0800 (PST)
+ Wed, 16 Feb 2022 19:48:48 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH 04/13] dyndbg: drop EXPORTed dynamic_debug_exec_queries
-Date: Wed, 16 Feb 2022 20:48:20 -0700
-Message-Id: <20220217034829.64395-5-jim.cromie@gmail.com>
+Subject: [PATCH 07/13] drm_print: condense enum drm_debug_category
+Date: Wed, 16 Feb 2022 20:48:23 -0700
+Message-Id: <20220217034829.64395-8-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220217034829.64395-1-jim.cromie@gmail.com>
 References: <20220217034829.64395-1-jim.cromie@gmail.com>
@@ -76,99 +76,86 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This exported fn is effectively obsoleted by Commit:HEAD~2, so remove it.
+enum drm_debug_category has 10 "classes", explicitly initialized with
+0x-bitmasks which could be simplified as BIT(X)s.  But lets go
+further: use natural enumeration (int, starting at 0), and do the
+BIT(cat) in drm_debug_enabled(cat) at runtime.
 
-The export was added here:
-  commit a2d375eda771 ("dyndbg: refine export, rename to dynamic_debug_exec_queries()")
-  commit 4c0d77828d4f ("dyndbg: export ddebug_exec_queries")
-
-Its intent was to allow drm.debug to use the exported function to
-implement its drm.debug bitmap api using dynamic_debug.
-
-Instead, HEAD~2 implements the bitmap inside dyndbg, and exposes it in
-a macro declarator, and HEAD~1 uses the macro to connect __drm_debug
-to the supporting callbacks.
-
-Since there are no other expected users, and any prospects would
-likely reuse the bitmap or a straightforward extension of it, we can
-drop this function until its really needed.
-
-This also drops the CONFIG_DYNAMIC_DEBUG=N stub-func, and its
-pr_warn(), which I avoided in 2012, then added in 2020 :-/
+While this slightly pessimizes the bit-test, the category now fits in
+4 bits, allowing it in struct _ddebug.class_id:4.  This sets us up to
+adapt drm to use dyndbg with JUMP_LABEL, thus avoiding all those
+bit-tests anyway.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h |  9 ---------
- lib/dynamic_debug.c           | 29 -----------------------------
- 2 files changed, 38 deletions(-)
+ include/drm/drm_print.h | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index e83c4e36ad29..664bb83778d2 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -60,9 +60,6 @@ struct _ddebug {
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 22fabdeed297..b3b470440e46 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -279,49 +279,49 @@ enum drm_debug_category {
+ 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+ 	 * drm_memory.c, ...
+ 	 */
+-	DRM_UT_CORE		= 0x01,
++	DRM_UT_CORE,
+ 	/**
+ 	 * @DRM_UT_DRIVER: Used in the vendor specific part of the driver: i915,
+ 	 * radeon, ... macro.
+ 	 */
+-	DRM_UT_DRIVER		= 0x02,
++	DRM_UT_DRIVER,
+ 	/**
+ 	 * @DRM_UT_KMS: Used in the modesetting code.
+ 	 */
+-	DRM_UT_KMS		= 0x04,
++	DRM_UT_KMS,
+ 	/**
+ 	 * @DRM_UT_PRIME: Used in the prime code.
+ 	 */
+-	DRM_UT_PRIME		= 0x08,
++	DRM_UT_PRIME,
+ 	/**
+ 	 * @DRM_UT_ATOMIC: Used in the atomic code.
+ 	 */
+-	DRM_UT_ATOMIC		= 0x10,
++	DRM_UT_ATOMIC,
+ 	/**
+ 	 * @DRM_UT_VBL: Used for verbose debug message in the vblank code.
+ 	 */
+-	DRM_UT_VBL		= 0x20,
++	DRM_UT_VBL,
+ 	/**
+ 	 * @DRM_UT_STATE: Used for verbose atomic state debugging.
+ 	 */
+-	DRM_UT_STATE		= 0x40,
++	DRM_UT_STATE,
+ 	/**
+ 	 * @DRM_UT_LEASE: Used in the lease code.
+ 	 */
+-	DRM_UT_LEASE		= 0x80,
++	DRM_UT_LEASE,
+ 	/**
+ 	 * @DRM_UT_DP: Used in the DP code.
+ 	 */
+-	DRM_UT_DP		= 0x100,
++	DRM_UT_DP,
+ 	/**
+ 	 * @DRM_UT_DRMRES: Used in the drm managed resources code.
+ 	 */
+-	DRM_UT_DRMRES		= 0x200,
++	DRM_UT_DRMRES
+ };
  
- #if defined(CONFIG_DYNAMIC_DEBUG_CORE)
- 
--/* exported for module authors to exercise >control */
--int dynamic_debug_exec_queries(const char *query, const char *modname);
--
- int ddebug_add_module(struct _ddebug *tab, unsigned int n,
- 				const char *modname);
- extern int ddebug_remove_module(const char *mod_name);
-@@ -253,12 +250,6 @@ static inline int ddebug_dyndbg_module_param_cb(char *param, char *val,
- 				rowsize, groupsize, buf, len, ascii);	\
- 	} while (0)
- 
--static inline int dynamic_debug_exec_queries(const char *query, const char *modname)
--{
--	pr_warn("kernel not built with CONFIG_DYNAMIC_DEBUG_CORE\n");
--	return 0;
--}
--
- struct kernel_param;
- static inline int param_set_dyndbg_classbits(const char *instr, const struct kernel_param *kp)
- { return 0; }
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 262178167358..b72632212a65 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -582,35 +582,6 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 	return nfound;
+ static inline bool drm_debug_enabled(enum drm_debug_category category)
+ {
+-	return unlikely(__drm_debug & category);
++	return unlikely(__drm_debug & BIT(category));
  }
  
--/**
-- * dynamic_debug_exec_queries - select and change dynamic-debug prints
-- * @query: query-string described in admin-guide/dynamic-debug-howto
-- * @modname: string containing module name, usually &module.mod_name
-- *
-- * This uses the >/proc/dynamic_debug/control reader, allowing module
-- * authors to modify their dynamic-debug callsites. The modname is
-- * canonically struct module.mod_name, but can also be null or a
-- * module-wildcard, for example: "drm*".
-- */
--int dynamic_debug_exec_queries(const char *query, const char *modname)
--{
--	int rc;
--	char *qry; /* writable copy of query */
--
--	if (!query) {
--		pr_err("non-null query/command string expected\n");
--		return -EINVAL;
--	}
--	qry = kstrndup(query, PAGE_SIZE, GFP_KERNEL);
--	if (!qry)
--		return -ENOMEM;
--
--	rc = ddebug_exec_queries(qry, modname);
--	kfree(qry);
--	return rc;
--}
--EXPORT_SYMBOL_GPL(dynamic_debug_exec_queries);
--
- #ifdef CONFIG_MODULES
- #define KP_MOD_NAME kp->mod->name
- #else
+ /*
 -- 
 2.35.1
 
