@@ -4,90 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDCB2C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 03:46:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97BEFC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 03:48:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4414210E21B;
-	Thu, 17 Feb 2022 03:46:04 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0242F10E21B
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 03:46:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D5HuDKleS02c2wQtLRmz19+z/CqQEYbl93Tq74y44KIIXgWp+FJocMeTk3vVOdSDBTeumRSFlgkbf+sfVu0Kh0bKr8Ag4lmw8f6w30lis06wLCs9Uh1CfF7Dz2EdxAe5THu091M4kWa7A5o/84mmIwV0MtounYKdT9bbY5utfmQ62rYEGuyOHNrTGP1PwmUdG8RZfE1MYLDHLhYrCR2J5sezewey8uXvAcvPnw4f+m8lKUbYm7QR/DaXLLXIpLuyit5zNUuEOkhoIvojX8997xDvjvdbmAGRpOodqQoi32uZqr37UDzqZG9gIazmOnTxZ76WcnCyFQKl7lwYnNCz/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iWHrR71RunsqnEWOhRxEgPUP0Tb7zJgEISTyta5+2CY=;
- b=a8U5yztAAIJ0qlyHObvYGK0zGhYCNCd5UdjQ8gpEarJOOqt0cuQbD83j5RTpDowClLt6sKWGENVGvflcHYwZT0+W7cOw0Bl8DDhiy9/T5knX4seY0/nn5TEQs546g4t2uR7urhod+AKG6IhkX0BM93NRUAyj0TLEAuMQx2yYftgWcASRQlzRNb2wZESp4tueLXdkwX34xvHhsvfJ/zgelK3/0ZB847OmJVydHvkaKWC6rEz8E9XqS6BTy6QoaOdmjX7qYacD9Q4+qhuw6j+UTat2h9lrC00bkePdcaM34dLSyUhgz7i5/wcw6LR5YvB9qFT/mb6OABI2OUgxo7KWAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iWHrR71RunsqnEWOhRxEgPUP0Tb7zJgEISTyta5+2CY=;
- b=LCeGoYcSdd6IF1GMTtvD0KLvCJ6k7AeMs2dPGkRQc0+7A7chWyex/cIVAe6Npq6EGdGipm2F69nzr+J2Kh9aS8BQ9DjgbMNNfzQi2vScDkczMgHKcqTpypJ6v5Q3SSECBRygvFUixlCyj4PQcEiebyAf8Y5kbpcLFv/kAMZxfgU=
-Received: from DS7PR06CA0010.namprd06.prod.outlook.com (2603:10b6:8:2a::17) by
- DM6PR12MB4420.namprd12.prod.outlook.com (2603:10b6:5:2a7::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4995.16; Thu, 17 Feb 2022 03:45:56 +0000
-Received: from DM6NAM11FT011.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2a:cafe::6d) by DS7PR06CA0010.outlook.office365.com
- (2603:10b6:8:2a::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.14 via Frontend
- Transport; Thu, 17 Feb 2022 03:45:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT011.mail.protection.outlook.com (10.13.172.108) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4995.15 via Frontend Transport; Thu, 17 Feb 2022 03:45:56 +0000
-Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 16 Feb
- 2022 21:45:55 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd: Check if ASPM is enabled from PCIe subsystem
-Date: Wed, 16 Feb 2022 21:46:08 -0600
-Message-ID: <20220217034608.14733-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C32610E74C;
+	Thu, 17 Feb 2022 03:48:38 +0000 (UTC)
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A83D510E731;
+ Thu, 17 Feb 2022 03:48:36 +0000 (UTC)
+Received: by mail-io1-xd29.google.com with SMTP id h5so2214902ioj.3;
+ Wed, 16 Feb 2022 19:48:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=WX6MJz/RVmu5KU05M8p6pw0cbdiL13QxNy+cJ91otYI=;
+ b=d4W6T2hoWi2DLEPWhP29U01f7jjXpO4/jxusulpHAFgBnZJxEhulxoG73pLteKLv37
+ A6Kn/eoMG2/dmrz3GmCi0UlCls1b1zotKBOdUG+LGBu8tRssVfmRMz9hYnOjFhHdZYX1
+ rTGjsGMetAi3icEEes4488Yy9smVgBBYU+F2k5ckupGqYYYeFYUJkqTGvLku1cfzL4+E
+ HL6Ocww7mMvh1aDzPezp19by7fjpAYeDzGTAqepvgPqUHaZMs2ZjcbKmjJ1gN+FFcmLL
+ bH5y1D488kTn3eBtI+ilfKEqDsC5nLMbIwgkUVFbKaxulzzRCyFlfucOa2JHpjKRZdit
+ ABYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=WX6MJz/RVmu5KU05M8p6pw0cbdiL13QxNy+cJ91otYI=;
+ b=JtY1oMQtYJ3xQoaDygqR6h+nCchBAHZkFwksbpPvj7u0gB0vUEOHqYZwIs6ldpxygA
+ wb0nOCYNDMJoUgoXiIhWC9dkLb+0kR8YK08yAv8AdhqbEO9gpIX2jLGRePp2lxXp2est
+ pKSxhAeiFrywLuRKp3MnOQ1bMQzqCrO3xqOaLh6VqnlscjxEjEO8uz/Es+IamwRLPNZB
+ 8cFmm7ErHQlUEiRUsiD74UtDSi6HD/V5XwJjkzHqs7GkHsBUaBx+g4c2UYFYci410biU
+ 2+jOagz2rifpVWRciQeyjMWAZcqRD1o+tQFfo6uCqjToGehL9iu0t6vijKLZrNTofkOy
+ dTzQ==
+X-Gm-Message-State: AOAM530Z0JJAuxilBlwOiuE/rvtyhbYCNn4vKT5NYxm+eddrgPhOJrFL
+ /fLYw5cIONjr9ZE9i0HndYEOmh3w6nvXGQ==
+X-Google-Smtp-Source: ABdhPJxyyYVp2cpU+u+Brn6vc+Sa2k3avtGDvXSzA1PMgl1XvLDtup0SaBDOqBlcJQLSAvD+iRZDHw==
+X-Received: by 2002:a02:7163:0:b0:314:3b74:525a with SMTP id
+ n35-20020a027163000000b003143b74525amr701416jaf.260.1645069715755; 
+ Wed, 16 Feb 2022 19:48:35 -0800 (PST)
+Received: from frodo.hsd1.co.comcast.net ([2601:284:8204:2010::1b19])
+ by smtp.googlemail.com with ESMTPSA id l16sm1127874ilc.54.2022.02.16.19.48.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Feb 2022 19:48:35 -0800 (PST)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Subject: [PATCH 00/12] use dynamic-debug under drm.debug api
+Date: Wed, 16 Feb 2022 20:48:16 -0700
+Message-Id: <20220217034829.64395-1-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 43726c72-edd6-454c-1220-08d9f1c80148
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4420:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB442056FDD305C6AB8A38D2ADE2369@DM6PR12MB4420.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:475;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zn/3VszuU48pkZOOsfd5HWO3t55jney3OtmzOSBn11ugR0OAyZYYv/n8FBUnOBjyMIv1UG+tYZQXbw2setQHtBNCz2lIm6vd592QEGsqny2iqw2+6fV5sLmSOQhiWXSCS0Z0mxWi5TZ+5oIZPl9aICHEQiOxZ2rRjONSUu/TEgNXorNQXyGv1mCTvx/O2ldSpw1WfNx8vbGMt9cL1M1yZ8joBC48KR53wUJy4QUjPcRp1PYNNxzrhu/WIm91q90da8H9cKTRhg57c2shWgCPW+wk/p9TIRu8a7Y0gc1EJ/xyeVS/1o1HDQc4LhYkhOIC5wJhTWxNhNWvXXeoYnK3db0AsTJCrUr3z2lODZiMk/87WnKv6EroxUpUaqd3JY+1TB4i8aZCfxJTqhU87bV9+SnRRDuSgWzbjOIVcXdkkr5DrUMEl9/LEsSkLUQB/FJYwPfjOHGNgxRy2UHiuvRopXLfkngXN8BnolfNwLSCfsdISfG8eNWuMo/5K1iXaQnIbBQ0BUDZc/EXUsZm+wInmvgY/KVhKAnWgrqLR6oTbM+7Lk7szGefEfo0BfWTaeF/x7bsxJYnq+i3tGh8vfaGX/KCEwt+jil77QAjlT053vzr+k5ireaZGdFJUHL9bok3r2E8Sxz5SNN3JaH3pw7f/KLYtHnTQdNftWpPkHFg+9F1Pi6zzwaF7FGoDKNfgeRGH7+WgTGmfCPDVQ4/13STOOmtx0rllfxYft1JNoKP5MgyKTha4z54sutR1gLXdipZBYlgYd4aZPDinkU/GkT8XZ4Pp9ZZgzUJO2pljrsJxto=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(83380400001)(47076005)(36860700001)(36756003)(86362001)(70586007)(356005)(82310400004)(81166007)(316002)(70206006)(40460700003)(966005)(2906002)(54906003)(6916009)(8936002)(5660300002)(44832011)(8676002)(4326008)(426003)(7696005)(2616005)(6666004)(336012)(16526019)(26005)(186003)(508600001)(1076003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 03:45:56.5639 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43726c72-edd6-454c-1220-08d9f1c80148
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT011.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4420
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,48 +68,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: koba.ko@canonical.com, Mario Limonciello <mario.limonciello@amd.com>
+Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
+ linux@rasmusvillemoes.dk, robdclark@gmail.com, seanpaul@chromium.org,
+ joe@perches.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-commit 0064b0ce85bb ("drm/amd/pm: enable ASPM by default") enabled ASPM
-by default but a variety of hardware configurations it turns out that this
-caused a regression.
+drm.debug api provides ~23 macros to issue 10 categories of debug
+messages, each enabled by a bit in /sys/module/drm/parameters/debug.
+drm_debug_enabled(category) tests these bits at runtime; while cheap
+individually, the costs accumulate.
 
-* PPC64LE hardware does not support ASPM at a hardware level.
-  CONFIG_PCIEASPM is often disabled on these architectures.
-* Some dGPUs on ALD platforms don't work with ASPM enabled and PCIe
-  subsystem disables it
+For CONFIG_DRM_USE_DYNAMIC_DEBUG=y, this patchset obsoletes those
+runtime tests (inside drm_*dbg) by wrapping the 2 fns in one of the
+dynamic_func_call* Factory macros.  The config dependence is due to
+the .data footprint cost of the tables; AMDGPU has ~4k callsites, at
+56 bytes each.
 
-Check with the PCIe subsystem to see that ASPM has been enabled
-or not.
+This creates entries in /proc/dynamic_debug/control for each callsite,
+and each has .class_id = macros'-category.  This, and a new query
+keyword, allow (1st):
 
-Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
-Link: https://wiki.raptorcs.com/w/images/a/ad/P9_PHB_version1.0_27July2018_pub.pdf
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1723
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1739
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1907
-Tested-by: koba.ko@canonical.com
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 +++
- 1 file changed, 3 insertions(+)
+  # 1=DRM_UT_KMS (iirc)
+  #> echo "module drm class 1 +p  > /proc/dynamic_debug/control
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 5acd0473ed01..d2548fab51c5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2008,6 +2008,9 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
- 			return -ENODEV;
- 	}
- 
-+	if (amdgpu_aspm == -1 && !pcie_aspm_enabled(pdev))
-+		amdgpu_aspm = 0;
-+
- 	if (amdgpu_virtual_display ||
- 	    amdgpu_device_asic_has_dc_support(flags & AMD_ASIC_MASK))
- 		supports_atomic = true;
+Then equivalently:
+  # except it also clears other flags
+  #> echo 0x01 > /sys/module/drm/parameters/debug
+
+dyndbg:
+ - fixes a bug in dyndbg static_key toggling, @stable cc'd
+ - adds support for distinct classes to dyndbg (new,unused feature)
+ - add DECLARE_DYNAMIC_DEBUG_CLASSBITS macro and callbacks
+   to implement bitmap -> classid sysfs knob
+dyndbg:
+ - drops exported fn: dynamic_debug_exec_queries()
+   any potential users would just use macro, or a tweak on it.
+ - improve info-msg to print both "old -> new" flags
+drm:
+ - adapts drm to use that support (link category to class_id)
+ - wraps drm_*dbg() in a dyndbg Factory macro to get NOOP optimized debugs
+   this disconnects drm.debug sysfs knob
+ - uses DECLARE_DYNAMIC_DEBUG_CLASSBITS macro
+   this reconnects sysfs knob
+
+This could be -v12, but the focus and subject has wandered a bit, and
+patchwork CI had multiple different notions of the version.
+Noteworthy changes:
+
+- no tracefs stuff here, refocus
+  split out already, needs maturation, more attention.
+  its competing with a diet plan, to reduce 56 bytes/callsite. RFC.
+
+Previous drm.debug approach:
+
+- avoided drm_dbg & drm_devdbg by splicing in pr_debug & dev_dbg
+  this preserved the optional decorations: module:function:line:
+
+- used DRM_UT_CORE => "drm:core:" prefix-string, cpp cat'd to formats
+  this made sites selectable by matching to that format prefix
+
+This version:
+
+- .class_id is easier to explain, and no config/format-string diffs
+
+- wraps drm_dbg & drm_devdbg callsites for jumplabel enablement
+  efficiency was original goal.
+
+- loses the optional decorations.
+  drm has its own logmsg standards, doesnt need decorations slapped on
+  later: could recast flags for drm specific decorations
+
+This is based on 5.17-rc4
+
+Its also here: in (dd-drm branch)
+  ghlinux-ro	https://github.com/jimc/linux.git (fetch)
+
+I'll push further fixes there as they come.
+
+Jim Cromie (13):
+  dyndbg: fix static_branch manipulation @stable
+  dyndbg: add class_id field and query support
+  dyndbg: add DEFINE_DYNAMIC_DEBUG_CLASSBITS macro and callbacks
+  dyndbg: drop EXPORTed dynamic_debug_exec_queries
+  dyndbg: improve change-info to have old and new
+  dyndbg: abstract dyndbg_site_is_printing
+  drm_print: condense enum drm_debug_category
+  drm_print: interpose drm_*dbg with forwarding macros
+  drm_print: wrap drm_*_dbg in dyndbg jumplabel
+  drm_print: refine drm_debug_enabled for dyndbg+jump-label
+  drm_print: prefer bare printk KERN_DEBUG on generic fn
+  drm_print: add _ddebug desc to drm_*dbg prototypes
+  drm_print: use DEFINE_DYNAMIC_DEBUG_CLASSBITS for drm.debug
+
+ .../admin-guide/dynamic-debug-howto.rst       |   7 +
+ drivers/gpu/drm/Kconfig                       |  12 ++
+ drivers/gpu/drm/Makefile                      |   2 +
+ drivers/gpu/drm/drm_print.c                   |  56 ++++---
+ include/drm/drm_print.h                       |  80 +++++++---
+ include/linux/dynamic_debug.h                 | 113 +++++++++++---
+ lib/dynamic_debug.c                           | 140 ++++++++++++++----
+ 7 files changed, 323 insertions(+), 87 deletions(-)
+
 -- 
-2.25.1
+2.35.1
 
