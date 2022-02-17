@@ -4,53 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ED4CC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 13:08:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF494C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 14:17:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8456910E8A0;
-	Thu, 17 Feb 2022 13:08:13 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D0CE10EE49;
- Thu, 17 Feb 2022 09:33:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645090396; x=1676626396;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=aK1+Q/gQ7IRjnFowKiBbew/57gZX+Oj3JZ/5IP7bGqU=;
- b=VsVRdtipIrnRGpjERKeNEHk9QKOq6dpUeoJbt1tz0M4L1lhCZ6KMVH5J
- hfY2zpWGTvYyAdd0wFVPVK5MzBlmFQWTcltX7JWhJfTWUamv9mfpRUvvk
- GiOzAAPX4mb3TUbrYFTS2SaKWUl9oZA0iCcwKfWfbuoJJY3iVZjl//YBO
- OaZCOz4H3TILNfhBY+p56wAKaNw0n2GCzTu9WsaztB4CzDp/EqzEHCtQu
- kK/VFUSk5dLaXo+ZphwWpqd6zKoGktl7Cgpb7ngAVgYKB0E52ILub5nw4
- ISHJ/wu0bpUY8es5o1RRP/Xcm8DR+458ZgltGGqMsH14ylNkVovnL2fkV g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10260"; a="234365368"
-X-IronPort-AV: E=Sophos;i="5.88,375,1635231600"; d="scan'208";a="234365368"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2022 01:33:15 -0800
-X-IronPort-AV: E=Sophos;i="5.88,375,1635231600"; d="scan'208";a="704711274"
-Received: from lahna.fi.intel.com (HELO lahna) ([10.237.72.162])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2022 01:33:11 -0800
-Received: by lahna (sSMTP sendmail emulation); Thu, 17 Feb 2022 11:33:09 +0200
-Date: Thu, 17 Feb 2022 11:33:09 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: "Limonciello, Mario" <mario.limonciello@amd.com>
-Subject: Re: [PATCH v4 00/10] Overhaul `is_thunderbolt`
-Message-ID: <Yg4WVXw84aLK5Knp@lahna>
-References: <20220215000200.242799-1-mario.limonciello@amd.com>
- <20220215072911.GA13892@wunner.de>
- <3078823e-4ab4-27b6-b1c7-c6552fbfdb2e@amd.com>
- <Yg0LaujhftM0b8N/@lahna>
- <CADnq5_Ov3T9WH29MjgC2byqgTGkn-ux7iUaK3z5s2v4At_b3Ow@mail.gmail.com>
- <8da992ac-c241-1fe2-41a9-579c845608db@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5450710E37C;
+	Thu, 17 Feb 2022 14:17:57 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A64A810E37C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 14:17:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RxhharaWXrL1EFXq2UEOHIOCJkR5ytZcw9Az2NLoJooCkRui1/F5Jbq3M6XXGydcJCigEJ288SaEhol8jWqLEtM3RMfESpxOLB1xuDrYrFi6/nuOvtB6y3byvnFIDbnacT8BCm8p+4zFqwwsdL1ye568JON/LOneKJekjDx4l3x6olxBDfz9kN+mbMMcOsfugVTqIREy7Kcdz47U6AmmIMgrYYAiH9aL/bQaxi6sk9J+djhKUi9GnaQ1mAwL+7iw1pE/sL4MOPsnnnxW5Ndu5sIRgrlQlbdY9UxR6UzrOEjm4JXoxBYqjPKHWZIKO8WGfSpbhDmyjgrnCkNF9Szmog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OS25pPozWJk5CilcG6MMKfHAxTgieuwwrISH5PPXMmw=;
+ b=NrV1vF57z/+uQ4ajO2eWccRkTJ0OF8B8l+6YdHyxpAtyqXDqE6UemlWNJ5/4Pn0aCfbi/9Ir3PT7Pc4sF2/D4mVOqDkswm3s2slxT01DyIJSHDXssR7hX4UzbhyU7OX7v9zfGawhBhUc0KXEJVNlBNVYHGLcRle5QbyzaTJxdxk9ySxGJWwHqTEs8XV3ZBGAoITrSC/ZX6FZU5Zim9ZEStVL/8XleUpHpD5GqW/ZmNc0SN2VR979IaxXXPXK93y6A2eCKN4LWQpdUThEcwrfJBU3TU4otjjHP4tMB9xfSRVPYpmNSNhiSWeNpoAJVP9/vz3wl9dikYoj+y6N2Rl0Rg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OS25pPozWJk5CilcG6MMKfHAxTgieuwwrISH5PPXMmw=;
+ b=S86lzJv2b+HIPOGfpDfFW2ZM90ZXKBOs/hdDLwk3K2olMxN10j2SAQ9EfdykIcm08jI76mpAR/ShgnzdiWyBdUZOTKeabGgi09UumSdYTkl5BhV6dpKM7qDTKJHPg0FE/TyclZ17p4YWk5ldNnL5GOeniGsNl/PvDhEhF9tZFMw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MWHPR12MB1662.namprd12.prod.outlook.com (2603:10b6:301:11::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.19; Thu, 17 Feb
+ 2022 14:17:53 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e03f:901a:be6c:b581]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e03f:901a:be6c:b581%6]) with mapi id 15.20.4995.018; Thu, 17 Feb 2022
+ 14:17:53 +0000
+Message-ID: <de9952a6-cba1-4927-f8e0-fcd7f115267e@amd.com>
+Date: Thu, 17 Feb 2022 15:17:47 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: AMDGPU: RX 6500 XT: System reset when loading module
+Content-Language: en-US
+To: Cal Peake <cp@absolutedigital.net>
+References: <alpine.LNX.2.00.2202131848490.20545@lancer.cnet.absolutedigital.net>
+ <b30922e2-04f5-2135-695c-2ea84d9307ac@amd.com>
+ <alpine.LNX.2.00.2202141223020.10303@lancer.cnet.absolutedigital.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <alpine.LNX.2.00.2202141223020.10303@lancer.cnet.absolutedigital.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM5P194CA0013.EURP194.PROD.OUTLOOK.COM
+ (2603:10a6:203:8f::23) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8da992ac-c241-1fe2-41a9-579c845608db@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-X-Mailman-Approved-At: Thu, 17 Feb 2022 13:08:11 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7aeddf3e-c95e-4d41-b174-08d9f22048fb
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1662:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB166291935CCF9484B80D0AD183369@MWHPR12MB1662.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ivPBpPH5j2SE2xpF8euTVnjAIy/WZhr6jeEETGVJY3fX3qOHL2NGhY/NU8SM18I2d7R40CpnyiBTKUG2o1STRvsvo+xjBvmWQPXqBfwCb9mGye2M3LdYgBcET8BvVvy7iHmsR+JX3CcwY3SrXRk2YeyOoMegyRd5XKIQRMnwXQiRCcFQ/Tt0o3MrM5VYx8fvsQBkJ+71hAohfoWEPM0y44S8mfDuNv/c8hSE6eN23yDsXxTk3ex22Lp6pvPzQZTWKspVY6WEKdm7gnuQMrm8NtigQwNL5A77Fjfjr3oIdb8d0C+s83moV6M+XuH6B6NuphCvTHZ0zBMXEf3NhXTHNvHkC120nHKHL01tcj/8B6pgdo5fl3OgOpYab5lTTYKoPOT6ZcK/BuYo+UHPpUHoOd6F+RkTMdi5ijNyT2biK2LZL8J/HqnRMRGTA2iCZLuOFZlIcUYDLCSJ8hBVOo0AWiu05Z+1Qhg4E8f382eEXsrdx/7tdj85LGO9CrphZ9AZXejgaz0NVxKABgvZPjfqWKPD6bBNvAYoUuahQ8isrKYuNPdbB9WUDBNKAtBraGyylW0BtQBdX/0wDSvKLUp+2esnqVXioXa/nZXO8UfdFzZ2LMu9nSsu3QCwv9WFF8I490U4mm+1QR0jspOADP4ojxYEsM1g3HjTfNPPLZG728MDGW1qi7RpzmFa5fiumdRmiW8YTiFvL4hjCxXAks1sL2B/yHD61EFbQuDInQuCXjQmY/AWOtdvedIokYZsQM+U
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(38100700002)(2906002)(316002)(66556008)(6486002)(83380400001)(31686004)(508600001)(66946007)(31696002)(6916009)(8676002)(66476007)(4326008)(6666004)(6506007)(2616005)(86362001)(186003)(36756003)(8936002)(6512007)(5660300002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnErZUdBRzJENmRCQkhPM09vS2hXNzFmRXJTMDBnUVNBUTI2c3FLbE1vd2Jm?=
+ =?utf-8?B?VWZsdFc3aFFuZk9PQW5HWkFVM1RCazRDMTRxQlI5OGttS0dLNWlydnVUY1Uy?=
+ =?utf-8?B?TTgwMGpYUG94cDVWUGJVSzI2YnpXeTRrRlVOOVFXVzlnTUxvaFVmbDJadGxu?=
+ =?utf-8?B?M2ROcWlLNkY2bTN4TFhJbGtYWVQ1RU1DY21OR2hVb2lQdUxNUWVHMzJaRlVp?=
+ =?utf-8?B?cmp5L2JkeWd5dVovMzlKS241RkViajVMaDRZSVE3NzVyVDhlUDdzYnhKUUd2?=
+ =?utf-8?B?Y1hvbEcwZXVhMVpWVGJHSFJRYUh0QWwxZVRqNkdzM1AzeVpySnBUNGVhVWVV?=
+ =?utf-8?B?cjdJUHppUXpUbldQcEdlOWU1NE1lWkxQaGtXZUFycVhlMjQzY0JxUWVXMFB0?=
+ =?utf-8?B?ajhUcW9MTC8vVjBuY0U4dkthT1FxTjliVFdFMjhDRGFyc3NtUEtBOUQxSDgv?=
+ =?utf-8?B?NUlTZk5jTEFCK0thSU9lNWMzRHFWeHlid1ZxZW5PZHcrdFdrblFvcDlIbko2?=
+ =?utf-8?B?ZE1sQnVVanZuUkMwbEd1UTkvc3ZtaHdob3QyMU1mOXFTK1AyWmVnNDdRTUMw?=
+ =?utf-8?B?ek43TFhndVQ1aFE1YURQZXVxMS9vWlhCKzZQQnkrV21VMnkzaE41VlA3a0xV?=
+ =?utf-8?B?SEhHenFvZTcwc0VnOE1yaWEyQnpuZitObzVreGVzT3NCMmpYa09jdDhNb3Jz?=
+ =?utf-8?B?MmlPYzF3Nklnd1psaGd6WHJxbHFkY3BQdFcydWxreWUzeTZ2azJqeENDUVpU?=
+ =?utf-8?B?eVZHQkkwVExFbU9Zd2lqRU1vRDRMWDdNcHZ1aCtzMmtWNFFOY0VhcmlaQjdW?=
+ =?utf-8?B?NC9pN1FPTU9VcTM1WitnV001ZHdISXlydW5xUStjSm81c3FldjZYdWlldWMz?=
+ =?utf-8?B?NjhCZGl4cGIvT3QrdWVrMkh2OEhSdXNOUWRpVndwVkJzVCtjZU8vK01PUUtr?=
+ =?utf-8?B?ZXczMmdqQUttUUJod0VxR0hGZFJyaG1tbjVpenBwT0NTblhoQ3FPUGtPN2VX?=
+ =?utf-8?B?YjFIWlc1TzZZQVppU04wTHlzRzRkWkZJbnl0K3ozc2FZRUI0dWRML1crSEN2?=
+ =?utf-8?B?UkI4WHRzbU94aDJkK2h4QXpHeGxkbG9wbWd0Z210SFZpbHp2WngwRGNGVXEx?=
+ =?utf-8?B?UGZRNERwWGJDNGd6Sk9mVTFHY3hPd3BQK0dUZVhtS1g0ZG9YRk1XL3dzaVdq?=
+ =?utf-8?B?a0dJYkxHY2tOamo5Qm1iWGptdGJQM0tTbytia2N4ZnJ5VWh4d1ZBemI0K3lI?=
+ =?utf-8?B?V2pncVJIbFpITGVLTnpJZHpEVDFjanYvK29kbHN2eFVsNjVtRUUwTFBuang5?=
+ =?utf-8?B?WFdDL1d4bjFFU1hQdWhtbGxwbnFMNGROeUpvTHNMdlIySzErc1djYnJGZUc2?=
+ =?utf-8?B?UzlMUjhaQlZVSGVUU3RFbGRMbW9paUdGRVZOUnhrWWpCZDNZNkFvU1U3anN6?=
+ =?utf-8?B?VHlaVDgvM1NkeitKT0Z4TTVYd3dCaFRrZkFVcEM2MTRJdGM3b0JUMnFvUTBh?=
+ =?utf-8?B?T2VwbCtSS25lalVINWtzL0JpVUk3UkZ6TzJ5M0hDbXpVbU5tR3dTV1VBWGFa?=
+ =?utf-8?B?MWZhSHQzYXJvejVQWDBxaDBod1IwT2lqZWt0TnYvaVN1V25KcW1IRGcwRlRP?=
+ =?utf-8?B?N01tZUxRaGtIb3V0QUNFNDBwcTZvTHhFTEhxaXBTZDY2Y091Q1FZcFRZZGhy?=
+ =?utf-8?B?RUhZR1JwMDA2ZmhodVZIczhrQnY2R1NVMDZDMnVhakNMYk02cGFxaGR2UmxR?=
+ =?utf-8?B?TTRDcisyUklwcFVlUTV6WWxySjh1UzBaazVuZ3Rab3JJbXRUMmZjSHVpWFRV?=
+ =?utf-8?B?S1piVS9QcXdBV1JxS0dxU25NWmRFeDlaUXowM1phQjVQNm9uek1KVmRmQU44?=
+ =?utf-8?B?VFNhOCtnZ2UwZ05aVit6cGhoeWxYelV4dTFCSDJ4TDU5YXpEam1SUi9oclRm?=
+ =?utf-8?B?UFlwdmp2NHkxZmVtUXQxLzhVNkU4ZUZoTDFDTDhrK28wZ3hPNXkwVk1GaWhh?=
+ =?utf-8?B?SG52NmxMWjFtWUhzSlE4YW8zM0Mwb1BETGM3ZGU1cGNWMk05bTYwdTNRRGo4?=
+ =?utf-8?B?QmtpTHRHWWE2L2lxS25IOXE0YXpGa3EwZlZWQ21DNDRqeERxbENac1BSWTN0?=
+ =?utf-8?B?RkFkNDNBWnQ5bWMrOWtJSEpNSWFkMzlLalZGaHVpVEJWNlM3ajZBQWZQdVRw?=
+ =?utf-8?Q?s9NT5bAsNINL3lDcUxnQ184=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7aeddf3e-c95e-4d41-b174-08d9f22048fb
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 14:17:53.0090 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zd450IQtMLHOvkAkmVL91TdahdDjQgREQg+g/VWdRLqMqCZqURssR10uXtSCPhPZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1662
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,154 +127,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andreas Noever <andreas.noever@gmail.com>,
- Michael Jamet <michael.jamet@intel.com>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- "open list:THUNDERBOLT DRIVER" <linux-usb@vger.kernel.org>,
- Yehezkel Bernat <YehezkelShB@gmail.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- Hans de Goede <hdegoede@redhat.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, Alex Deucher <alexdeucher@gmail.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mario,
+Hi Cal,
 
-On Wed, Feb 16, 2022 at 10:50:31AM -0600, Limonciello, Mario wrote:
-> On 2/16/2022 08:44, Alex Deucher wrote:
-> > On Wed, Feb 16, 2022 at 9:34 AM Mika Westerberg
-> > <mika.westerberg@linux.intel.com> wrote:
-> > > 
-> > > Hi all,
-> > > 
-> > > On Tue, Feb 15, 2022 at 01:07:00PM -0600, Limonciello, Mario wrote:
-> > > > On 2/15/2022 01:29, Lukas Wunner wrote:
-> > > > > On Mon, Feb 14, 2022 at 06:01:50PM -0600, Mario Limonciello wrote:
-> > > > > >    drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  2 +-
-> > > > > >    drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c  |  2 +-
-> > > > > >    drivers/gpu/drm/nouveau/nouveau_vga.c   |  4 +-
-> > > > > >    drivers/gpu/drm/radeon/radeon_device.c  |  4 +-
-> > > > > >    drivers/gpu/drm/radeon/radeon_kms.c     |  2 +-
-> > > > > >    drivers/pci/hotplug/pciehp_hpc.c        |  6 +-
-> > > > > >    drivers/pci/pci-acpi.c                  | 15 ++++-
-> > > > > >    drivers/pci/pci.c                       | 17 +++--
-> > > > > >    drivers/pci/probe.c                     | 52 ++++++++++++++-
-> > > > > >    drivers/pci/quirks.c                    | 84 +++++++++++++++++++++++++
-> > > > > >    drivers/platform/x86/apple-gmux.c       |  2 +-
-> > > > > >    drivers/thunderbolt/nhi.h               |  2 -
-> > > > > >    include/linux/pci.h                     | 25 +-------
-> > > > > >    include/linux/pci_ids.h                 |  3 +
-> > > > > >    14 files changed, 173 insertions(+), 47 deletions(-)
-> > > > > 
-> > > > > That's an awful lot of additional LoC for what is primarily
-> > > > > a refactoring job with the intent to simplify things.
-> > > > 
-> > > > You may recall the first version of this series was just for adding
-> > > > USB4 matches to the existing code paths, and that's when it was noted
-> > > > that is_thunderbolt is a bit overloaded.
-> > > > 
-> > > > > 
-> > > > > Honestly this looks like an attempt to fix something that
-> > > > > isn't broken.  Specifically, the is_thunderbolt bit apparently
-> > > > > can't be removed without adding new bits to struct pci_dev.
-> > > > > Not sure if that can be called progress. >
-> > > > > Thanks,
-> > > > > 
-> > > > > Lukas
-> > > > 
-> > > > Within this series there are two new material patches; setting up root ports
-> > > > for both integrated and discrete USB4 controllers to behave well with all
-> > > > the existing drivers that rely upon a hint of how they're connected to
-> > > > configure devices differently.
-> > > > 
-> > > > If y'all collectively prefer this direction to not refactor is_thunderbolt
-> > > > and push into quirks, a simpler version of this series would be to leave all
-> > > > the quirks in place, just drop dev->is_thunderbolt, and set
-> > > > dev->external_facing on all 3 cases:
-> > > > 
-> > > > * Intel TBT controller
-> > > > * USB4 integrated PCIe tunneling root port/XHCI tunneling root port
-> > > > * USB4 disctete PCIe tunneling root port/XHCI tunneling root port
-> > > > 
-> > > > All the other drivers and symbols can stay the same then.
-> > > 
-> > > If I understand correctly the original intention of this patch series is
-> > > to be able to differentiate whether the device is "permanently"
-> > > connected to the motherboard, or it is connected over some hot-pluggable
-> > > bus (PCIe, USB, USB4 for example but I'm sure there are other buses that
-> > > fit into this picture too). Specifically this is needed for discrete
-> > > GPUs because of power management differences or so (please correct me if
-> > > I'm mistaken).
-> 
-> Correct.  It might be possible to drop the patch for the integrated case
-> (patch 3) because I do think that by Microsoft having the _DSD for
-> "ExternalFacingPort" it's very likely that most implementations will have
-> used it for the appropriate PCIe root ports.  If something shows up in the
-> wild that this isn't the case it could be revisited.  If it's found
-> pre-production presumably the OEM can still fix it and if it's post
-> production and there are problems we can dust it off then.
+Am 14.02.22 um 18:45 schrieb Cal Peake:
+> Hi Christian,
+>
+> Thanks for the reply.
+>
+> On Mon, 14 Feb 2022, Christian König wrote:
+>
+>> well that sounds strongly like some hardware problem. What power supply do you
+>> have in that system?
+>>
+> Right now, I've got it hooked up to a Corsair VX550W. It's on a test bench
+> so the only things hanging off the mobo at the moment are the GPU and a
+> pair of NVMe drives.
+>
+> I'm also testing this system with a RTX 2060 Super and I have no problems
+> with that card, even under heavy load.
 
-Yeah, that's most likely the case.
+Ok, at least it doesn't sounds like it is the power supply.
 
-> The discrete USB4 controller I would be more concerned that this isn't
-> populated, and that (patch 4) should be more important to let the driver
-> core set it removable.
+>>  From your dmesg it looks like the kernel driver actually initializes fines. So
+>> my educated guess is that as soon as the desktop tries to draw we suck to much
+>> power and go into brown out reset.
+>>
+> I'm not even trying for a desktop yet, it's currently booting to runlevel 3 :-)
+>
+> As mentioned above, the 2060 does just fine and its power needs are
+> significantly higher than that of the 6500.
+>
+> It's possible that it's something with my particular motherboard. Michael
+> Larabel over at Phoronix did some performance testing[1] with this same
+> model card running on Ubuntu 22.04, seemingly without problem.
+>
+> Do you have any suggestions for further troubleshooting?
 
-Agreed.
+Unfortunately not of hand. You could try to play around with the power 
+flags, but from your description it sounds like you already did that.
 
-[I actually only now noticed that the PCI core actually already marks
- devices connected to external facing ports as "removable" in
- pci_set_removable().]
+Only other option I see is to try a different motherboard and/or Windows 
+with that hardware. If that also doesn't work there must be some 
+hardware fault on the RX6500.
 
-> > > If we set the is_thunderbolt debate aside and concentrate on that issue,
-> > > I think the way to do this is to check whether the root port the GPU is
-> > > connected to has an ACPI power resource (returned from _PR3() method).
-> > > IF it is present then most likely the platform has provided all the
-> > > necessary wiring to move the GPU into D3cold (and the BIOS knows this).
-> > > If it is not present then the device cannot even go into D3cold as there
-> > > is not means to power of the device in PCIe spec.
-> > > 
-> > > Perhaps we can simply use pci_pr3_present() here as nouveau is already
-> > > doing? Granted it is not too elegant solution either but better than
-> > > using is_thunderbolt IMHO. Since this seem to be common for many GPUs,
-> > > perhaps we can have a helper in DRM core that handles this.
-> > 
-> > The tricky part is that there were AMD and NVIDIA specific proprietary
-> > _PR3-like ACPI methods (plus whatever Apple did) prior to GPU power
-> > control standardizing on _PR3.  Currently those methods are handled in
-> > the drivers directly, sort of tangled up with vga_switcheroo.  I think
-> > ideally that logic would move to the ACPI core and be handled the same
-> > way as _PR3, but I'm not sure how well that would work because of the
-> > various bios date checks around _PR3 and the lack of general _PR3
-> > support in those older platforms.  So I think we still need some sort
-> > of "is this soldered in" check.
-> 
-> Considering that limitation if `dev->external_facing` already exists in PCI
-> core may as well use it for this instead of `is_thunderbolt`.
+Christian.
 
-Indeed.
+>
+> Thanks,
+>
 
-> > Alex
-> > 
-> > 
-> > > 
-> > > Then going back to is_thunderbolt debate :) I really don't think the
-> > > drivers should care whether they are connected over a tunnel or not.
-> > > They should work regardless of the underlying transport of the native
-> > > protocol. They should also be prepared for the fact that the hardware
-> > > can vanish under them at any point (e.g user unplugs the device). For
-> > > this reason I don't really like to see is_thunderbolt to be used more
-> > > and prefer to get rid if it completely if possible at all. If there is
-> > > still need to differentiate whether the device can be hot-removed or
-> > > not, I think "removable" in the driver core is the way to go. That is
-> > > not dependent on any single transport.
-> 
-> Hopefully that is what the patch series does right now as of v4. As I
-
-It does yes. I think the detection of internal and discrete tunneled
-ports can be dropped from this series for now to make this leaner. We
-can add those later when needed.
