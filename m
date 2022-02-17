@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6470C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 03:49:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAEE2C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 03:49:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC6A610E798;
-	Thu, 17 Feb 2022 03:48:58 +0000 (UTC)
-Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
- [IPv6:2607:f8b0:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 960AF10E7B5;
- Thu, 17 Feb 2022 03:48:53 +0000 (UTC)
-Received: by mail-il1-x12d.google.com with SMTP id p11so1386945ils.1;
- Wed, 16 Feb 2022 19:48:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78E2F10E7F6;
+	Thu, 17 Feb 2022 03:49:01 +0000 (UTC)
+Received: from mail-il1-x12a.google.com (mail-il1-x12a.google.com
+ [IPv6:2607:f8b0:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62A6A10E7D3;
+ Thu, 17 Feb 2022 03:48:54 +0000 (UTC)
+Received: by mail-il1-x12a.google.com with SMTP id 9so658920ily.11;
+ Wed, 16 Feb 2022 19:48:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=m+1diemf3MRoXdblNNavyGZGnh4l9BWi+2yg35q/w2I=;
- b=piNFTBhwQ7mhrk0SHb3PWRDl5OjBX/bAyNasGSPh1MsbJOAUlq4M54/Ycs9JEz1OkK
- ajhk18Y44UImCvX03at6dUQBwc5j8vy67kAtnKDCOYHUbW3oNqVu5AQYP1CNBcWAJXyx
- 7ATDZmawW4xanGN6qmHekUzUPlIwkViD3xOIQiA9DMIvaFoN//ASa3mFsYgEglo1/2wS
- FriiPIYnPHJvQnETNxtDTyeu0G+YT4qQXT6YzncWfiy55/qVnfJYcUY7uI45Z/ZaMfJ+
- XKf9lW5gCeT4210yp9SCnnt0FkxKMe9FDNoK3D32OZBZfcoopIMU3gCIg3tOjq2EODRt
- hGUA==
+ bh=Al57ZNKX5lnblKHtWXH/Bsh3z6Q/ha1M5NnWcexkJRI=;
+ b=V0r7t+t0Kk8YqhDL5yttmCVdcakOAJfOvunaP5rUIXFehX50brE0txV/ZP/yfOIiJ0
+ OZOMuTviWiLPhKj6tYIt+g1vii30xz4wooVCZaC1Sf0se7ci4nGLIYuNE2MHe+fqWJv6
+ SUd9Gn7k9KBrlbJ51tAD6K8Rn9LOerLRVIIlqlxyQOioGqU8chuma2FAB0o2HF0mpXOs
+ EabrXT7RY8/P2i99gy5Ft3xcRe1gpyfpDE9jfckgpO9vjSLMN83CqB2PQRC6rwXFly/M
+ +lEeEu1AtjaTnaxUJFl7Ucop5hD5N/MkNhLu+FTKEb6ZI/OBs3rZe9v4rgSYKctmBxgf
+ FeMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=m+1diemf3MRoXdblNNavyGZGnh4l9BWi+2yg35q/w2I=;
- b=EG/MMyVxN0gAKjjYNcVrR2YNd+xGqwyxnp4BPN2Ctpl3Aqz4YrzfRgTDfJohC4vLDd
- 5NkCrygHx80EFdiZ9yVRglYziXc1ZDXHqKCUidXaCH+dOanBpLYbV7Taw0c6DVoiG8aD
- Wi4GFH3IQcI7CfWerOma7g5j1Av2mQh3zjwZP2YlTo/QOPApmXN3SHjAa6gZlF2LN4jh
- PwQH/ju75gncG0iaR9mZ4vSWNZF4snoyE4++ADhhHHmBoAJE15ozQOCnNAeMst1YhsRF
- w7D7z0yR3ZqEjRcu/XnoFH1miW9xYhxfPkSx0QKFvqcqauo0IVNKs20lqmjUIXrB+ykx
- dGxw==
-X-Gm-Message-State: AOAM533iBbhtTDP1Fsu7Ily1I5p8vx4c8uQu4loQy0wXjQJHbY3neTli
- /5VRhojyOGjzUpIHkJjug/g=
-X-Google-Smtp-Source: ABdhPJzlC3U68DCLsbYeOcinMvhFhlX0fVCV6UVlgNQZ/JDGtbLNJFcAGBXvUWtwMqJomXO85pvLPw==
-X-Received: by 2002:a92:cece:0:b0:2be:a529:d457 with SMTP id
- z14-20020a92cece000000b002bea529d457mr750693ilq.154.1645069732006; 
- Wed, 16 Feb 2022 19:48:52 -0800 (PST)
+ bh=Al57ZNKX5lnblKHtWXH/Bsh3z6Q/ha1M5NnWcexkJRI=;
+ b=RdzAP1Rf0qeLatHAJM6FLZK+1kSEHYkKI+mYFibvg5YTv4Ds2AutlVhImPfJMUJt9O
+ fUnaXkvbKPacNjiaGxmT8XZg2WpIKWOfdNL7ZQCX/3ugEVhbjdS+sjhdAaaApTWu4Xab
+ R3lm80mKrC0zEVgQ5mWMZCEdP30R2aytZqJGG/qJeBP92IIy1PCd3Vcusmna40pdL8V0
+ dEaA5xzG5XyvDL8RL/cSAOegachyfO3IpL1nSN1pMg1bRFx0b8R2H5WCEeBTqs0ofl7Y
+ xKR8fipr9nltjAsCE027pkA1y/n68pALued2HfngOlgBdSDuGWkSh//pZSGQWNHuMtZE
+ cblg==
+X-Gm-Message-State: AOAM533rxkYsHOd37p6MYvCByYzizkTXCfwRMwcRnP2u7oPGg+JCyBYY
+ jrjf7WZEUJIMVrpi+DPH1jw=
+X-Google-Smtp-Source: ABdhPJwpadjkqlwkn/peOpycjU/cPxWs8v84Mc4rTvbPvVHvXR0owgAgjr32VA6mTQgW+Q005SRNiQ==
+X-Received: by 2002:a92:d242:0:b0:2b9:a33b:9068 with SMTP id
+ v2-20020a92d242000000b002b9a33b9068mr786669ilg.144.1645069733685; 
+ Wed, 16 Feb 2022 19:48:53 -0800 (PST)
 Received: from frodo.hsd1.co.comcast.net ([2601:284:8204:2010::1b19])
- by smtp.googlemail.com with ESMTPSA id l16sm1127874ilc.54.2022.02.16.19.48.51
+ by smtp.googlemail.com with ESMTPSA id l16sm1127874ilc.54.2022.02.16.19.48.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Feb 2022 19:48:51 -0800 (PST)
+ Wed, 16 Feb 2022 19:48:53 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH 11/13] drm_print: prefer bare printk KERN_DEBUG on generic fn
-Date: Wed, 16 Feb 2022 20:48:27 -0700
-Message-Id: <20220217034829.64395-12-jim.cromie@gmail.com>
+Subject: [PATCH 13/13] drm_print: use DEFINE_DYNAMIC_DEBUG_CLASSBITS for
+ drm.debug
+Date: Wed, 16 Feb 2022 20:48:29 -0700
+Message-Id: <20220217034829.64395-14-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220217034829.64395-1-jim.cromie@gmail.com>
 References: <20220217034829.64395-1-jim.cromie@gmail.com>
@@ -76,58 +77,103 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_print.c calls pr_debug() just once, from __drm_printfn_debug(),
-which is a generic/service fn.  The callsite is compile-time enabled
-by DEBUG in both DYNAMIC_DEBUG=y/n builds.
+if CONFIG_DRM_USE_DYNAMIC_DEBUG=y, use new macro to create the sysfs
+bitmap to control drm.debug callsites.
 
-For dyndbg builds, reverting this callsite back to bare printk is
-correcting a few anti-features:
+DEFINE_DYNAMIC_DEBUG_CLASSBITS( debug, __drm_debug, "p",
+	"drm.debug - control summary",
+	/* inline vector of _ddebug.class_id's to be controlled, max 14 vals */
+	DRM_UT_CORE,
+	DRM_UT_DRIVER,
+	DRM_UT_KMS,
+	DRM_UT_PRIME,
+	DRM_UT_ATOMIC,
+	DRM_UT_VBL,
+	DRM_UT_STATE,
+	DRM_UT_LEASE,
+	DRM_UT_DP,
+	DRM_UT_DRMRES );
 
-1- callsite is generic, serves multiple drm users.
-   its hardwired on currently
-   could accidentally: #> echo -p > /proc/dynamic_debug/control
+NOTES:
 
-2- optional "decorations" by dyndbg are unhelpful/misleading
-   they describe only the generic site, not end users
+The @_flgs used here is "p", so this bitmap enables input to syslog
+only, matching legacy behavior.
 
-IOW, 1,2 are unhelpful at best, and possibly confusing.
+Also, no "fmlt" decorator flags are used here; that is discouraged, as
+it then toggles those flags along with the "p".  This would undo any
+customizations a user added once the sysfs-knob is used.  Still, there
+may be cases/reasons.
 
-reverting yields a nominal data and text shrink:
-
-   text    data     bss     dec     hex filename
- 462583   36604   54592 553779   87333 /lib/modules/5.16.0-rc4-lm1-00008-ged3eac8ceeea/kernel/drivers/gpu/drm/drm.ko
- 462515   36532   54592 553639   872a7 /lib/modules/5.16.0-rc4-lm1-00009-g6ce0b88d2539-dirty/kernel/drivers/gpu/drm/drm.ko
-
-NB: this was noticed using _drm_debug_enabled(), added earlier.
+_ddebug.class_id is uint:4, values 0-14 are valid. 15 is reserved for
+non-classified callsites (regular pr_debugs).  Using it terminates the
+scan, don't use it halfway through your list.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_print.c | 20 ++++++++++++++++++--
+ include/drm/drm_print.h     |  4 ++--
+ 2 files changed, 20 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 92e6e18026da..24c57b92dc69 100644
+index c9b2a2ab0d3d..d916daa384e5 100644
 --- a/drivers/gpu/drm/drm_print.c
 +++ b/drivers/gpu/drm/drm_print.c
-@@ -23,8 +23,6 @@
-  * Rob Clark <robdclark@gmail.com>
+@@ -38,7 +38,7 @@
+  * __drm_debug: Enable debug output.
+  * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
   */
+-unsigned int __drm_debug;
++unsigned long __drm_debug;
+ EXPORT_SYMBOL(__drm_debug);
  
--#define DEBUG /* for pr_debug() */
--
- #include <linux/stdarg.h>
+ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
+@@ -50,7 +50,23 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
+ "\t\tBit 5 (0x20)  will enable VBL messages (vblank code)\n"
+ "\t\tBit 7 (0x80)  will enable LEASE messages (leasing code)\n"
+ "\t\tBit 8 (0x100) will enable DP messages (displayport code)");
+-module_param_named(debug, __drm_debug, int, 0600);
++
++#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
++module_param_named(debug, __drm_debug, ulong, 0600);
++#else
++DEFINE_DYNAMIC_DEBUG_CLASSBITS(debug, __drm_debug, "p",
++	"enable drm.debug categories - 1 bit per category",
++	DRM_UT_CORE,
++	DRM_UT_DRIVER,
++	DRM_UT_KMS,
++	DRM_UT_PRIME,
++	DRM_UT_ATOMIC,
++	DRM_UT_VBL,
++	DRM_UT_STATE,
++	DRM_UT_LEASE,
++	DRM_UT_DP,
++	DRM_UT_DRMRES);
++#endif
  
- #include <linux/io.h>
-@@ -162,7 +160,8 @@ EXPORT_SYMBOL(__drm_printfn_info);
- 
- void __drm_printfn_debug(struct drm_printer *p, struct va_format *vaf)
+ void __drm_puts_coredump(struct drm_printer *p, const char *str)
  {
--	pr_debug("%s %pV", p->prefix, vaf);
-+	/* pr_debug callsite decorations are unhelpful here */
-+	printk(KERN_DEBUG "%s %pV", p->prefix, vaf);
- }
- EXPORT_SYMBOL(__drm_printfn_debug);
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 13d52b60f388..419140bf992d 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -36,7 +36,7 @@
+ #include <drm/drm.h>
  
+ /* Do *not* use outside of drm_print.[ch]! */
+-extern unsigned int __drm_debug;
++extern unsigned long __drm_debug;
+ 
+ /**
+  * DOC: print
+@@ -527,7 +527,7 @@ __printf(1, 2)
+ void __drm_err(const char *format, ...);
+ 
+ #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+-#define __drm_dbg(fmt, ...)		___drm_dbg(NULL, fmt, ##__VA_ARGS__)
++#define __drm_dbg(cat, fmt, ...)	___drm_dbg(NULL, cat, fmt, ##__VA_ARGS__)
+ #else
+ #define __drm_dbg(cat, fmt, ...)					\
+ 	_dynamic_func_call_cls(cat, fmt, ___drm_dbg,			\
 -- 
 2.35.1
 
