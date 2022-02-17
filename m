@@ -4,52 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F04CBC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 17:17:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8788EC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 18:11:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 374E510EC0F;
-	Thu, 17 Feb 2022 17:17:23 +0000 (UTC)
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E9C510EC0F;
- Thu, 17 Feb 2022 17:17:22 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id ay7so299877oib.8;
- Thu, 17 Feb 2022 09:17:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=k9zgQPfz8LOJwvyN9TkCqdRl9MbRaNDX/aR5wunJ990=;
- b=DINAnzkZ3yxrbaFtDAYZmhpuXrR/mzBHe+vr2DEiBG3ftwzLyGNCDwNo0aWdundMlY
- sYYPRo2ua/mUlkwsglmxpqxr04T8gzaIFbZPVILJZWFtt6KG8gOjF3ltKVAs7NB4Ll5A
- EYztNyGCg/NYX3KCvFPleeQ8mjTULOIut+sofWlAJbUmSJoGUrcL1hBg30XDPTzG2P4w
- UWMCShLbWEJwlle7OziBionFS3Twi3vfDUcs+1sPf0IUcWblXibpCNNarLcSJGdhlNIm
- 72+weM6Yxvsi1mB0VDx+GRhGhoxE3g+vEl5TjBcOqh2X+IF/XQmtQZkwcqnFb9FB84W5
- fZfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=k9zgQPfz8LOJwvyN9TkCqdRl9MbRaNDX/aR5wunJ990=;
- b=w7CQUZMVahWVKgw4cETluO0BREUiL9W8XLYtJCJ93Q59NIXsaKl/PVmOmdAOmhWRpg
- lRhWRlElnJxn7gQr6mGyP/B9DAPeXmJkfWJ4QIkys3p0Qlwg+FOdQKiYf5utHsI7XqI7
- vtcOP7eIntXfuYQ30t9jrR/CQLmkUyPWSF1uO+LRwwFRA4iBAkP5nhItI8jRM3TCDRKG
- rm6HhqOJS9Kf4HLWEKym6z7hBh04X8acn6381ldKWL/3KHzLg1WrbqB4klOEGGLIbV77
- VLwJYLb9Zc9mmkAqB+mO9u9aDljmhcFkAh+2h5h4IXv187/ecyq9UBPbcdzTj1a6BPb7
- UzhQ==
-X-Gm-Message-State: AOAM531I5y65js+svss22cq2jfHB25YeSMXXQgeBdlW5YdtPV6euNKdK
- j5w0VpThJiwKPw5UbjlDDwpgn9hJVwOFjI6lPM0=
-X-Google-Smtp-Source: ABdhPJw6jj/QGKAkol2tdthTwTYyyoP4CDqrp37TKDAO46tPjdL6fNFaDwTVUFznUtAy4H33vyaax1MFxyQNLygI+KE=
-X-Received: by 2002:a05:6808:f8b:b0:2ce:6ee7:2c99 with SMTP id
- o11-20020a0568080f8b00b002ce6ee72c99mr3309777oiw.199.1645118241433; Thu, 17
- Feb 2022 09:17:21 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED50F10E2F1;
+	Thu, 17 Feb 2022 18:11:26 +0000 (UTC)
+Received: from mx2.absolutedigital.net (mx2.absolutedigital.net
+ [50.242.207.105])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A85DF10E2F1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 18:11:24 +0000 (UTC)
+Received: from lancer.cnet.absolutedigital.net
+ (lancer.cnet.absolutedigital.net [10.7.5.10])
+ by luxor.inet.absolutedigital.net (8.14.4/8.14.4) with ESMTP id 21HIBB6m023774
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL);
+ Thu, 17 Feb 2022 13:11:11 -0500
+Received: from localhost (localhost [127.0.0.1])
+ by lancer.cnet.absolutedigital.net (8.14.4/8.14.4) with ESMTP id
+ 21HIAppH022234
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+ Thu, 17 Feb 2022 13:10:51 -0500
+Date: Thu, 17 Feb 2022 13:10:51 -0500 (EST)
+From: Cal Peake <cp@absolutedigital.net>
+To: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: AMDGPU: RX 6500 XT: System reset when loading module
+In-Reply-To: <de9952a6-cba1-4927-f8e0-fcd7f115267e@amd.com>
+Message-ID: <alpine.LNX.2.00.2202171254420.21576@lancer.cnet.absolutedigital.net>
+References: <alpine.LNX.2.00.2202131848490.20545@lancer.cnet.absolutedigital.net>
+ <b30922e2-04f5-2135-695c-2ea84d9307ac@amd.com>
+ <alpine.LNX.2.00.2202141223020.10303@lancer.cnet.absolutedigital.net>
+ <de9952a6-cba1-4927-f8e0-fcd7f115267e@amd.com>
+User-Agent: Alpine 2.00 (LNX 1167 2008-08-23)
 MIME-Version: 1.0
-References: <20220217164110.3258269-1-trix@redhat.com>
-In-Reply-To: <20220217164110.3258269-1-trix@redhat.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 17 Feb 2022 12:17:10 -0500
-Message-ID: <CADnq5_OasHZ=P_tkZrSSA87HACHJhQ49oMGSdFxzQ5g7GhjWMw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: fix typo in setting enum value
-To: Tom Rix <trix@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: MULTIPART/MIXED; BOUNDARY="118098437-1486817-1645121451=:21576"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,58 +47,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, "Kim, Jonathan" <jonathan.kim@amd.com>,
- Dave Airlie <airlied@linux.ie>, "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- xinhui pan <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Nathan Chancellor <nathan@kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Nathan just sent out the same patch and I already applied it.  Thanks!
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Alex
+--118098437-1486817-1645121451=:21576
+Content-Type: TEXT/PLAIN; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-On Thu, Feb 17, 2022 at 11:41 AM <trix@redhat.com> wrote:
->
-> From: Tom Rix <trix@redhat.com>
->
-> Clang build fails with
-> kfd_packet_manager_v9.c:267:3: error: implicit conversion
->   from enumeration type 'enum mes_map_queues_extended_engine_sel_enum'
->   to different enumeration type
->   'enum mes_unmap_queues_extended_engine_sel_enum'
->    extended_engine_sel__mes_map_queues__sdma0_to_7_sel :
->    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->
-> This looks like a typo, the function is _unmap_, the enum
-> extended_engine_sel__mes_map_queues__sdma0_to_7_sel  is _map_.
-> To match the packet->bitfields2.extended_engine_set type
-> it should be extended_engine_sel__mes_unmap_queues__sdma0_to_7_sel.
->
-> Fixes: 009e9a158505 ("drm/amdkfd: navi2x requires extended engines to map and unmap sdma queues")
-> Signed-off-by: Tom Rix <trix@redhat.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> index 806a03566a24..18250845a989 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> @@ -264,7 +264,7 @@ static int pm_unmap_queues_v9(struct packet_manager *pm, uint32_t *buffer,
->                                         sizeof(struct pm4_mes_unmap_queues));
->
->         packet->bitfields2.extended_engine_sel = pm_use_ext_eng(pm->dqm->dev) ?
-> -               extended_engine_sel__mes_map_queues__sdma0_to_7_sel :
-> +               extended_engine_sel__mes_unmap_queues__sdma0_to_7_sel :
->                 extended_engine_sel__mes_unmap_queues__legacy_engine_sel;
->
->         packet->bitfields2.engine_sel =
-> --
-> 2.26.3
->
+On Thu, 17 Feb 2022, Christian König wrote:
+
+> Ok, at least it doesn't sounds like it is the power supply.
+
+I was able to procure an 800W PSU just to give it a try, and at first it 
+seemed to make a difference. The drivers would fully load, but after a 
+short amount of time things would become unstable and the system would 
+crash or reset. Very bizarre...
+
+> Unfortunately not of hand. You could try to play around with the power flags,
+> but from your description it sounds like you already did that.
+> 
+> Only other option I see is to try a different motherboard and/or Windows with
+> that hardware. If that also doesn't work there must be some hardware fault on
+> the RX6500.
+
+That was my thinking too. I got the idea to try Windows after I did the 
+PSU swap and, like Linux, it was okay at first, but then started crashing 
+and resetting. Either the card is defective or it really doesn't like my 
+motherboard.
+
+Thanks very much for your help!
+
+-- 
+Cal Peake
+
+--118098437-1486817-1645121451=:21576--
