@@ -4,118 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF494C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 14:17:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A39F7C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 14:24:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5450710E37C;
-	Thu, 17 Feb 2022 14:17:57 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A64A810E37C
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 14:17:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 122CE10E87B;
+	Thu, 17 Feb 2022 14:24:11 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2040.outbound.protection.outlook.com [40.107.212.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 467A910E8C6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 14:24:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RxhharaWXrL1EFXq2UEOHIOCJkR5ytZcw9Az2NLoJooCkRui1/F5Jbq3M6XXGydcJCigEJ288SaEhol8jWqLEtM3RMfESpxOLB1xuDrYrFi6/nuOvtB6y3byvnFIDbnacT8BCm8p+4zFqwwsdL1ye568JON/LOneKJekjDx4l3x6olxBDfz9kN+mbMMcOsfugVTqIREy7Kcdz47U6AmmIMgrYYAiH9aL/bQaxi6sk9J+djhKUi9GnaQ1mAwL+7iw1pE/sL4MOPsnnnxW5Ndu5sIRgrlQlbdY9UxR6UzrOEjm4JXoxBYqjPKHWZIKO8WGfSpbhDmyjgrnCkNF9Szmog==
+ b=NDNFkuMv6sChN3hGn3pGI/63rGr3vRi5+F9ByoWkqe3xiV4FMe1CJK/sqRdGcFtuM9n6eN8nyeLRM7kSONwxW+lwVDJcMhsStFRy98tXNyDA2eXlK2iYUARrXGyZxRTYdKHtM8JuBpGstMKDWG65dqJlhMW02WYcMbX2ibnUzJs6T78EdhRsEa7K/Qd7we+X2crj1AmgximTqsH5gx5r2zOk9cpXSa+11Sig1SNOe87k3fxr8jtRVidZzeum5A6Ptbxb7O1Q/SQcuztiF3Jn79mnwNxFa2LQSy90X6RErbRVug6O7SYc+M7vqXhp3x3aZ1ZU79SK3HNU38fROj7qgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OS25pPozWJk5CilcG6MMKfHAxTgieuwwrISH5PPXMmw=;
- b=NrV1vF57z/+uQ4ajO2eWccRkTJ0OF8B8l+6YdHyxpAtyqXDqE6UemlWNJ5/4Pn0aCfbi/9Ir3PT7Pc4sF2/D4mVOqDkswm3s2slxT01DyIJSHDXssR7hX4UzbhyU7OX7v9zfGawhBhUc0KXEJVNlBNVYHGLcRle5QbyzaTJxdxk9ySxGJWwHqTEs8XV3ZBGAoITrSC/ZX6FZU5Zim9ZEStVL/8XleUpHpD5GqW/ZmNc0SN2VR979IaxXXPXK93y6A2eCKN4LWQpdUThEcwrfJBU3TU4otjjHP4tMB9xfSRVPYpmNSNhiSWeNpoAJVP9/vz3wl9dikYoj+y6N2Rl0Rg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
+ bh=DkDN08pk52WIiSXgBhlMml3tx6VJocp/q+2lfctynr0=;
+ b=IgFdLbcznLcNb1YKuvXsCpTeJG4V659T2GmNCAvqSOsyXDo3uRa+TwrNVyogjOLqeMmwO88CpVa5MoGl6cexf8s+/LFecysjA54BLi4mINrIsVH+mj2pUHUp5lsxG7hEZ38KkcluJZgx91qL9PajfHYt6avOheyaYl2kY3g5H+UE5nbiA/Km3BQrgztiTsHy4wqKze4hrmqOqeRVTCLDTKzFXNUIzi4lVo9GAiNNGzDKIGn6X6wNwRDJ9kaxQpF8LMH+M+geokMY/n64z3zu0rXOHG08XleYV2L3hDHmbVjdShI/WrLoW6r+QUBl28CyIRRWa1Rup/fSbkJdF62y0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OS25pPozWJk5CilcG6MMKfHAxTgieuwwrISH5PPXMmw=;
- b=S86lzJv2b+HIPOGfpDfFW2ZM90ZXKBOs/hdDLwk3K2olMxN10j2SAQ9EfdykIcm08jI76mpAR/ShgnzdiWyBdUZOTKeabGgi09UumSdYTkl5BhV6dpKM7qDTKJHPg0FE/TyclZ17p4YWk5ldNnL5GOeniGsNl/PvDhEhF9tZFMw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MWHPR12MB1662.namprd12.prod.outlook.com (2603:10b6:301:11::10)
+ bh=DkDN08pk52WIiSXgBhlMml3tx6VJocp/q+2lfctynr0=;
+ b=DB7aOTIXMpBXQEy1raRN1eSO4VMamusbzQ5/hdrmOK2RAwjFCJ/cmexFZe8Q9VA3mM3xc0dgWXxoYhlF+3HMY2ydlgk5n5Q0hbHrs3otzhyCNmqxTTpoj63Nusj3X6qgBmF/8b4XIToVIbO8u68aaxI1ZHOQOoGtmGcwIU18kM8=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BY5PR12MB4836.namprd12.prod.outlook.com (2603:10b6:a03:1fc::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.19; Thu, 17 Feb
- 2022 14:17:53 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e03f:901a:be6c:b581]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e03f:901a:be6c:b581%6]) with mapi id 15.20.4995.018; Thu, 17 Feb 2022
- 14:17:53 +0000
-Message-ID: <de9952a6-cba1-4927-f8e0-fcd7f115267e@amd.com>
-Date: Thu, 17 Feb 2022 15:17:47 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: AMDGPU: RX 6500 XT: System reset when loading module
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Thu, 17 Feb
+ 2022 14:24:06 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::2877:73e4:31e7:cecf]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::2877:73e4:31e7:cecf%5]) with mapi id 15.20.4975.019; Thu, 17 Feb 2022
+ 14:24:06 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Gong, Curry" <Curry.Gong@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: do not enable asic reset for raven2
+Thread-Topic: [PATCH] drm/amdgpu: do not enable asic reset for raven2
+Thread-Index: AQHYI93FM3vgYQrqy0K+2q+VzMjAI6yXzC8j
+Date: Thu, 17 Feb 2022 14:24:06 +0000
+Message-ID: <BL1PR12MB51445A299696F1C4EB9EBE18F7369@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20220217090702.1573034-1-curry.gong@amd.com>
+In-Reply-To: <20220217090702.1573034-1-curry.gong@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Cal Peake <cp@absolutedigital.net>
-References: <alpine.LNX.2.00.2202131848490.20545@lancer.cnet.absolutedigital.net>
- <b30922e2-04f5-2135-695c-2ea84d9307ac@amd.com>
- <alpine.LNX.2.00.2202141223020.10303@lancer.cnet.absolutedigital.net>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <alpine.LNX.2.00.2202141223020.10303@lancer.cnet.absolutedigital.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM5P194CA0013.EURP194.PROD.OUTLOOK.COM
- (2603:10a6:203:8f::23) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7aeddf3e-c95e-4d41-b174-08d9f22048fb
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1662:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB166291935CCF9484B80D0AD183369@MWHPR12MB1662.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ivPBpPH5j2SE2xpF8euTVnjAIy/WZhr6jeEETGVJY3fX3qOHL2NGhY/NU8SM18I2d7R40CpnyiBTKUG2o1STRvsvo+xjBvmWQPXqBfwCb9mGye2M3LdYgBcET8BvVvy7iHmsR+JX3CcwY3SrXRk2YeyOoMegyRd5XKIQRMnwXQiRCcFQ/Tt0o3MrM5VYx8fvsQBkJ+71hAohfoWEPM0y44S8mfDuNv/c8hSE6eN23yDsXxTk3ex22Lp6pvPzQZTWKspVY6WEKdm7gnuQMrm8NtigQwNL5A77Fjfjr3oIdb8d0C+s83moV6M+XuH6B6NuphCvTHZ0zBMXEf3NhXTHNvHkC120nHKHL01tcj/8B6pgdo5fl3OgOpYab5lTTYKoPOT6ZcK/BuYo+UHPpUHoOd6F+RkTMdi5ijNyT2biK2LZL8J/HqnRMRGTA2iCZLuOFZlIcUYDLCSJ8hBVOo0AWiu05Z+1Qhg4E8f382eEXsrdx/7tdj85LGO9CrphZ9AZXejgaz0NVxKABgvZPjfqWKPD6bBNvAYoUuahQ8isrKYuNPdbB9WUDBNKAtBraGyylW0BtQBdX/0wDSvKLUp+2esnqVXioXa/nZXO8UfdFzZ2LMu9nSsu3QCwv9WFF8I490U4mm+1QR0jspOADP4ojxYEsM1g3HjTfNPPLZG728MDGW1qi7RpzmFa5fiumdRmiW8YTiFvL4hjCxXAks1sL2B/yHD61EFbQuDInQuCXjQmY/AWOtdvedIokYZsQM+U
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(38100700002)(2906002)(316002)(66556008)(6486002)(83380400001)(31686004)(508600001)(66946007)(31696002)(6916009)(8676002)(66476007)(4326008)(6666004)(6506007)(2616005)(86362001)(186003)(36756003)(8936002)(6512007)(5660300002)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-17T14:24:05.548Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+suggested_attachment_session_id: 37cdf5cc-2dde-a41d-2dc4-301b9aaed835
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 4c3a4bcd-cefd-4407-162c-08d9f22127a3
+x-ms-traffictypediagnostic: BY5PR12MB4836:EE_
+x-microsoft-antispam-prvs: <BY5PR12MB4836A1767174307CAE62E554F7369@BY5PR12MB4836.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 9RrhSCI/7BjqOeQ40BTZvSHHfh8IDCB4ynixu/Vo+YzNRhi3k7bZxI6j1bbyck0t9rSvRTlCSlio54aec550hhsL4VAIR2d1B5M6kgjVSW7+v3MnhB1N5WV5X96YRI+yd8gOFQY9MRjzq2X1A81IRvygM0cHMkKwIvRBqtgljpniVNTn6i9s8Wfm1+kKsNlP7fcOQE0Igg7pnOcvExXNS0h+rM9raEwtOU6qzmTFsmrMi6VTCuSLDuhyytpB+xr2IIeTWkZfAKJWB5A9RRck8m2slUxKjZ7HiRDP5EXMyTHnIyqMfdsyRMHZvh6Sl/TMuHBqh7a8fQyy8VftGqKPQ2p/RIo+rYE8T6CCic4H6YsSojCfq8ptrC9Hjf14uQEIY/8Gr1ebqlmkqydXv88m7ZMVQkjfw0CbO49KU62uKAG4p9u56mN01cJ46MFC/MwL54RDbUHFk1luCRmwZn6YKg0a3WsorCD6gEjW2NlPRQmSfUyEnk1HSF+QyOZx069+AQQb6kOv+S0phrm6T4SmwjLaHHCvjQ3KP9GQdMzKyuI93Q57k/MMsg2yb6p4bl2gsOuqSWeEhy9VEmNzjDH0DnfHxWBHRQ5R+51ljy49gAb4mCzDHABiJDREa2AOnClR1qvzBU51Y3kjVDS7KX+fWFaKZgGiS/rLkh/HNJMGalvcCgjp3C/8iytHtm7b86gisuIeswz3AWV1dxI2SvL9QA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(38070700005)(19627405001)(122000001)(64756008)(38100700002)(8676002)(76116006)(66946007)(110136005)(66556008)(66476007)(66446008)(316002)(55016003)(5660300002)(86362001)(33656002)(2906002)(52536014)(8936002)(83380400001)(6506007)(7696005)(71200400001)(508600001)(53546011)(26005)(186003)(9686003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnErZUdBRzJENmRCQkhPM09vS2hXNzFmRXJTMDBnUVNBUTI2c3FLbE1vd2Jm?=
- =?utf-8?B?VWZsdFc3aFFuZk9PQW5HWkFVM1RCazRDMTRxQlI5OGttS0dLNWlydnVUY1Uy?=
- =?utf-8?B?TTgwMGpYUG94cDVWUGJVSzI2YnpXeTRrRlVOOVFXVzlnTUxvaFVmbDJadGxu?=
- =?utf-8?B?M2ROcWlLNkY2bTN4TFhJbGtYWVQ1RU1DY21OR2hVb2lQdUxNUWVHMzJaRlVp?=
- =?utf-8?B?cmp5L2JkeWd5dVovMzlKS241RkViajVMaDRZSVE3NzVyVDhlUDdzYnhKUUd2?=
- =?utf-8?B?Y1hvbEcwZXVhMVpWVGJHSFJRYUh0QWwxZVRqNkdzM1AzeVpySnBUNGVhVWVV?=
- =?utf-8?B?cjdJUHppUXpUbldQcEdlOWU1NE1lWkxQaGtXZUFycVhlMjQzY0JxUWVXMFB0?=
- =?utf-8?B?ajhUcW9MTC8vVjBuY0U4dkthT1FxTjliVFdFMjhDRGFyc3NtUEtBOUQxSDgv?=
- =?utf-8?B?NUlTZk5jTEFCK0thSU9lNWMzRHFWeHlid1ZxZW5PZHcrdFdrblFvcDlIbko2?=
- =?utf-8?B?ZE1sQnVVanZuUkMwbEd1UTkvc3ZtaHdob3QyMU1mOXFTK1AyWmVnNDdRTUMw?=
- =?utf-8?B?ek43TFhndVQ1aFE1YURQZXVxMS9vWlhCKzZQQnkrV21VMnkzaE41VlA3a0xV?=
- =?utf-8?B?SEhHenFvZTcwc0VnOE1yaWEyQnpuZitObzVreGVzT3NCMmpYa09jdDhNb3Jz?=
- =?utf-8?B?MmlPYzF3Nklnd1psaGd6WHJxbHFkY3BQdFcydWxreWUzeTZ2azJqeENDUVpU?=
- =?utf-8?B?eVZHQkkwVExFbU9Zd2lqRU1vRDRMWDdNcHZ1aCtzMmtWNFFOY0VhcmlaQjdW?=
- =?utf-8?B?NC9pN1FPTU9VcTM1WitnV001ZHdISXlydW5xUStjSm81c3FldjZYdWlldWMz?=
- =?utf-8?B?NjhCZGl4cGIvT3QrdWVrMkh2OEhSdXNOUWRpVndwVkJzVCtjZU8vK01PUUtr?=
- =?utf-8?B?ZXczMmdqQUttUUJod0VxR0hGZFJyaG1tbjVpenBwT0NTblhoQ3FPUGtPN2VX?=
- =?utf-8?B?YjFIWlc1TzZZQVppU04wTHlzRzRkWkZJbnl0K3ozc2FZRUI0dWRML1crSEN2?=
- =?utf-8?B?UkI4WHRzbU94aDJkK2h4QXpHeGxkbG9wbWd0Z210SFZpbHp2WngwRGNGVXEx?=
- =?utf-8?B?UGZRNERwWGJDNGd6Sk9mVTFHY3hPd3BQK0dUZVhtS1g0ZG9YRk1XL3dzaVdq?=
- =?utf-8?B?a0dJYkxHY2tOamo5Qm1iWGptdGJQM0tTbytia2N4ZnJ5VWh4d1ZBemI0K3lI?=
- =?utf-8?B?V2pncVJIbFpITGVLTnpJZHpEVDFjanYvK29kbHN2eFVsNjVtRUUwTFBuang5?=
- =?utf-8?B?WFdDL1d4bjFFU1hQdWhtbGxwbnFMNGROeUpvTHNMdlIySzErc1djYnJGZUc2?=
- =?utf-8?B?UzlMUjhaQlZVSGVUU3RFbGRMbW9paUdGRVZOUnhrWWpCZDNZNkFvU1U3anN6?=
- =?utf-8?B?VHlaVDgvM1NkeitKT0Z4TTVYd3dCaFRrZkFVcEM2MTRJdGM3b0JUMnFvUTBh?=
- =?utf-8?B?T2VwbCtSS25lalVINWtzL0JpVUk3UkZ6TzJ5M0hDbXpVbU5tR3dTV1VBWGFa?=
- =?utf-8?B?MWZhSHQzYXJvejVQWDBxaDBod1IwT2lqZWt0TnYvaVN1V25KcW1IRGcwRlRP?=
- =?utf-8?B?N01tZUxRaGtIb3V0QUNFNDBwcTZvTHhFTEhxaXBTZDY2Y091Q1FZcFRZZGhy?=
- =?utf-8?B?RUhZR1JwMDA2ZmhodVZIczhrQnY2R1NVMDZDMnVhakNMYk02cGFxaGR2UmxR?=
- =?utf-8?B?TTRDcisyUklwcFVlUTV6WWxySjh1UzBaazVuZ3Rab3JJbXRUMmZjSHVpWFRV?=
- =?utf-8?B?S1piVS9QcXdBV1JxS0dxU25NWmRFeDlaUXowM1phQjVQNm9uek1KVmRmQU44?=
- =?utf-8?B?VFNhOCtnZ2UwZ05aVit6cGhoeWxYelV4dTFCSDJ4TDU5YXpEam1SUi9oclRm?=
- =?utf-8?B?UFlwdmp2NHkxZmVtUXQxLzhVNkU4ZUZoTDFDTDhrK28wZ3hPNXkwVk1GaWhh?=
- =?utf-8?B?SG52NmxMWjFtWUhzSlE4YW8zM0Mwb1BETGM3ZGU1cGNWMk05bTYwdTNRRGo4?=
- =?utf-8?B?QmtpTHRHWWE2L2lxS25IOXE0YXpGa3EwZlZWQ21DNDRqeERxbENac1BSWTN0?=
- =?utf-8?B?RkFkNDNBWnQ5bWMrOWtJSEpNSWFkMzlLalZGaHVpVEJWNlM3ajZBQWZQdVRw?=
- =?utf-8?Q?s9NT5bAsNINL3lDcUxnQ184=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?E7vY6WX2rH2KAv+Mki9QpboZJg+zZBxz3s8umR5EiXDKuwC0Tv9/0aquale4?=
+ =?us-ascii?Q?oNkdaAHzDiykJ7WLFwvk2F1qzZTwqs5++24rVqri6lEEJ1GRAO+3MXiKpKgu?=
+ =?us-ascii?Q?nRbg0oheGY6NNnF0Xd69GnrfRlwItdHjJbIZHY7eepL2WMGBY+Jh33ns9qiV?=
+ =?us-ascii?Q?0KX/mOFsUw7JZ8GgR9NtE7YOomaDG5uJH0a4pGCizsmdeDzGVFCsd2Bj9dCr?=
+ =?us-ascii?Q?/C44HdX/ccvgo0Q8GdnbbxJhZr31fI90iSO7Pe0JpzlGvIQFKy5jzX17h4nw?=
+ =?us-ascii?Q?xDWkwcVBuEiQU+47axQBHqzIidyilzxAquv4SfRylnvc3jbFMblcX9C2nWUV?=
+ =?us-ascii?Q?XbR+rP6AtVxLu30HpRvFwK4XdRqnWL8VDSTksBGN+u1L93FcLDqpRn+2sldr?=
+ =?us-ascii?Q?2GOXVwp9a5z5tchoeNuoX1s4IkMvfJJqnk2IbsydnnZ7MyHtxLt/Q7WmfkpV?=
+ =?us-ascii?Q?8YdgRvpKdFnpFOc5ZPzX3/jYtIefwgMlmhVYrun/zN0EOP5idyDmHY+G8R2V?=
+ =?us-ascii?Q?67Uz0ieljhaaMCtj0IooOppM/ImxFxtRPfY6vwuLHOzTcSziNNqqDSIYkxD3?=
+ =?us-ascii?Q?efTZuXdBfWa1jfe22KT7RlqUqbyh2GE0sFOoruFMrnuG55m0NRxVKIfltLsi?=
+ =?us-ascii?Q?8FJCdxHfJeSYW1YriiBxkttU//EOBBJjbJ73TA/iy3KQTmT+xCQUt0lumcdj?=
+ =?us-ascii?Q?nlY+GbzVMAB/4ebSZS0gaKZ+0wgHiGLzdtg+0PFG4fwjV+exlZm0kVVTaQdz?=
+ =?us-ascii?Q?B+iiGoy2MDwGqCuiAIVpJgKjkrLbEOAwMYvL21mNppBjzCneESsheRsnmT9+?=
+ =?us-ascii?Q?UF4cL8vg/Si7TLDhRi8OcWo/8npAuX0ZdaWytcd0gKojKQv9EubGsOPxi09h?=
+ =?us-ascii?Q?PDR+g9Y5vO7hu/UfFA57cITgZs2mAlXlQaLZom6h0OAGxgkmebwC0vrakbav?=
+ =?us-ascii?Q?4XNVRC7cj5YfdRvfxNRXSxTLdsmG3n+Gxa5ZwSel7BSlvfYQ5ojg0kccGuQ2?=
+ =?us-ascii?Q?lIZByAb+ZnR9tgOLmERmIYLikU/tBrcrIRC2zeMRAEb1CmmN+qX+7qNw8HII?=
+ =?us-ascii?Q?7kVRgM50UVGeOYAmK8Zg3+AAZ4WTgjQDNTB8yOqIfpKE7T+cb6y/oTte23im?=
+ =?us-ascii?Q?zuGwkqHZ1xSNxle52bCF5DyHPGJ5TL+hGZ0IIx5rT7TAWeLoEofdPZyQU9N3?=
+ =?us-ascii?Q?zGoG/RwE6/sWkJVE3BjmKsaNquOjWPW71dF8nrAZi6YFcXhXuz9KdTPpgFtu?=
+ =?us-ascii?Q?hJaTWdlA1cl+gmuOcq3VHFtJhU4/oJ8XRtaBdNa5yqduD6UpAR8lvE3EGKB3?=
+ =?us-ascii?Q?oZf5wltoDuFjFSvCJAbyd8jKYj9P08SDgB8yZs0yQFYTgqiPEbeeUZCqb0+g?=
+ =?us-ascii?Q?jAxQRU55A/44+/PQ9yhT6LQHt2zKEbU+e5dG6rn7rHDgmcPqETDOME/PXp1N?=
+ =?us-ascii?Q?yy8djIWApXPR8+VyTJMse8w7uy3bBoSbFiaNNsV7RzUZK2x79KCmQHFXDOMf?=
+ =?us-ascii?Q?kdkk+Y0O2EB8/RnZ0E1TU8LdC1UmJ21Wf7YWjoBN3dM1fpO4ADyC2RHU+nWK?=
+ =?us-ascii?Q?t+zJ0aJxibgsj82qKGdHwoQNe6KkV7haQSZL63MmaE7TIhRsF6vSEdEroTGD?=
+ =?us-ascii?Q?yOzvdZjbDN3HW/Pjeu6I22Q=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB51445A299696F1C4EB9EBE18F7369BL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7aeddf3e-c95e-4d41-b174-08d9f22048fb
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 14:17:53.0090 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zd450IQtMLHOvkAkmVL91TdahdDjQgREQg+g/VWdRLqMqCZqURssR10uXtSCPhPZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1662
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c3a4bcd-cefd-4407-162c-08d9f22127a3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Feb 2022 14:24:06.0915 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /qc8P5wkqisXEPJmmXr7VRhDt3JL7dZki2M0Z1zmjudziKc8xrCp/nIpgsHhoQSh9WrWnKHte4CHHhNCHchC3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4836
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,56 +126,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Cal,
+--_000_BL1PR12MB51445A299696F1C4EB9EBE18F7369BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Am 14.02.22 um 18:45 schrieb Cal Peake:
-> Hi Christian,
->
-> Thanks for the reply.
->
-> On Mon, 14 Feb 2022, Christian König wrote:
->
->> well that sounds strongly like some hardware problem. What power supply do you
->> have in that system?
->>
-> Right now, I've got it hooked up to a Corsair VX550W. It's on a test bench
-> so the only things hanging off the mobo at the moment are the GPU and a
-> pair of NVMe drives.
->
-> I'm also testing this system with a RTX 2060 Super and I have no problems
-> with that card, even under heavy load.
+[AMD Official Use Only]
 
-Ok, at least it doesn't sounds like it is the power supply.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Gong, Curry <Curry.Gong@amd.com>
+Sent: Thursday, February 17, 2022 4:07 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Gong, Curry <Curry.Gong=
+@amd.com>
+Subject: [PATCH] drm/amdgpu: do not enable asic reset for raven2
 
->>  From your dmesg it looks like the kernel driver actually initializes fines. So
->> my educated guess is that as soon as the desktop tries to draw we suck to much
->> power and go into brown out reset.
->>
-> I'm not even trying for a desktop yet, it's currently booting to runlevel 3 :-)
+The GPU reset function of raven2 is not maintained or tested, so it should =
+be
+very unstable.
+
+Now the amdgpu_asic_reset function is added to amdgpu_pmops_suspend, which
+causes the S3 test of raven2 to fail, so the asic_reset of raven2 is ignore=
+d
+here.
+
+Signed-off-by: Chen Gong <curry.gong@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
+u/soc15.c
+index 25e1ee2bd2f7..4c6775ff7619 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -586,8 +586,8 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
+ static int soc15_asic_reset(struct amdgpu_device *adev)
+ {
+         /* original raven doesn't have full asic reset */
+-       if ((adev->apu_flags & AMD_APU_IS_RAVEN) &&
+-           !(adev->apu_flags & AMD_APU_IS_RAVEN2))
++       if ((adev->apu_flags & AMD_APU_IS_RAVEN) ||
++           (adev->apu_flags & AMD_APU_IS_RAVEN2))
+                 return 0;
+
+         switch (soc15_asic_reset_method(adev)) {
+--
+2.25.1
+
+
+--_000_BL1PR12MB51445A299696F1C4EB9EBE18F7369BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> As mentioned above, the 2060 does just fine and its power needs are
-> significantly higher than that of the 6500.
->
-> It's possible that it's something with my particular motherboard. Michael
-> Larabel over at Phoronix did some performance testing[1] with this same
-> model card running on Ubuntu 22.04, seemingly without problem.
->
-> Do you have any suggestions for further troubleshooting?
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Gong, Curry &lt;Curry=
+.Gong@amd.com&gt;<br>
+<b>Sent:</b> Thursday, February 17, 2022 4:07 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Gong, Curr=
+y &lt;Curry.Gong@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: do not enable asic reset for raven2</fo=
+nt>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">The GPU reset function of raven2 is not maintained=
+ or tested, so it should be<br>
+very unstable.<br>
+<br>
+Now the amdgpu_asic_reset function is added to amdgpu_pmops_suspend, which<=
+br>
+causes the S3 test of raven2 to fail, so the asic_reset of raven2 is ignore=
+d<br>
+here.<br>
+<br>
+Signed-off-by: Chen Gong &lt;curry.gong@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c | 4 ++--<br>
+&nbsp;1 file changed, 2 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
+u/soc15.c<br>
+index 25e1ee2bd2f7..4c6775ff7619 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+@@ -586,8 +586,8 @@ soc15_asic_reset_method(struct amdgpu_device *adev)<br>
+&nbsp;static int soc15_asic_reset(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* original raven doesn't =
+have full asic reset */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((adev-&gt;apu_flags &amp; AMD_APU=
+_IS_RAVEN) &amp;&amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !(adev-&gt;ap=
+u_flags &amp; AMD_APU_IS_RAVEN2))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((adev-&gt;apu_flags &amp; AMD_APU=
+_IS_RAVEN) ||<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;apu=
+_flags &amp; AMD_APU_IS_RAVEN2))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (soc15_asic_reset_m=
+ethod(adev)) {<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-Unfortunately not of hand. You could try to play around with the power 
-flags, but from your description it sounds like you already did that.
-
-Only other option I see is to try a different motherboard and/or Windows 
-with that hardware. If that also doesn't work there must be some 
-hardware fault on the RX6500.
-
-Christian.
-
->
-> Thanks,
->
-
+--_000_BL1PR12MB51445A299696F1C4EB9EBE18F7369BL1PR12MB5144namp_--
