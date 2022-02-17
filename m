@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B0E2C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 03:49:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CE4EC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 03:49:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3A4A10E7D4;
-	Thu, 17 Feb 2022 03:48:54 +0000 (UTC)
-Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
- [IPv6:2607:f8b0:4864:20::d2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CFD710E78E;
- Thu, 17 Feb 2022 03:48:47 +0000 (UTC)
-Received: by mail-io1-xd2d.google.com with SMTP id m185so2182860iof.10;
- Wed, 16 Feb 2022 19:48:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C81D010E7C3;
+	Thu, 17 Feb 2022 03:48:53 +0000 (UTC)
+Received: from mail-il1-x12a.google.com (mail-il1-x12a.google.com
+ [IPv6:2607:f8b0:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF7BE10E75F;
+ Thu, 17 Feb 2022 03:48:51 +0000 (UTC)
+Received: by mail-il1-x12a.google.com with SMTP id n5so1348965ilk.12;
+ Wed, 16 Feb 2022 19:48:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=losT24laQK9QPGecBoWrVc+10iJJY8vD90LsvY3Cts8=;
- b=YDLt3Q4XVCU3SNY6uD7/FtoBt1YQ4vttc8gh9hCegP9KTPTewYcgxbnMNm35qs3sAN
- 83UuPyJiUycHSA5bqOW/TvnLpQ8ZL3hOV9hye+FMmwPZAsKyYaddsz4SNiz5qTk7zw+B
- V3zhfseOndqMAok28xM0o/fGD/E3AZIxhNC/DXcYBPUGtMnP1DEgi34hn45krZaAVCYh
- A0krsFznnlGBVOsrhLynW7/WtLAXCEiEqme6dgmGmAzf2kxKEThugOK0qfV1r2FpW2mD
- r8HYUa4v0OFsi6wanQA50eghIq6p284MDyFzJ4I76OeLxkDX1pmk806sJvl9H4j4X1Ln
- gf1w==
+ bh=0+vGdwnLXxq+vC4sl8UqWBm6MtHqZ6WUpG5Xunn2VjE=;
+ b=aWO7UUGoKdXAsOZ3ARe2QJZJsrpeOf90ACB+ee6E79imlC7MDWWeD+AJr3qahesHxu
+ nJovj3uldI2xz69oSyxx+syBvSgbjfhTqygbS8A0KPRXtBpX0LMFKLZ6CB+56OaSzBqb
+ hfTdtez1ED7QAtIvGY62HlNG2fIjyr7ow9Skk12dszA/e817Qatb3b1lQgFjQQZ0JiZj
+ WWc36Ta/bs/CspzWamVlOMcvgjtO94zzf8D8v9NxDy0gmnlhRwmPysV4iMJOn928huyw
+ /tizg//HbxArKb+EFHMAnLKG/J1xmrK4YIYMjh//d11ltRHZXwWiLDMFTkhaeV9fDWZs
+ a1Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=losT24laQK9QPGecBoWrVc+10iJJY8vD90LsvY3Cts8=;
- b=SsAZ7o/KllrTej8DhgvMMf2YfK5iCNrnNwQUoaRaVNyJiKerH/jnsG5Q5dqNCUsbBa
- QuWmJpoTjPXTSCWP5zexnrIDhMK0Srck7LQrRIFLCLLgLSYtWVqnFMDUlcKkpKncsaNu
- +3RCaVFB4S5eUIzUCGWIyJsz/OxjCKGLRTZZwn6FxQEmVlVecV5RFcvRKKXxo3F3AzAf
- PHHhSCM+ogj+JESSpiSOIgHy6Yl8XY5m6N7Pa08KJ2MJDJsyh9G88EKKBp95iFmMcGAa
- 7rJZg8slWJD1Ezoqa6rbDItJhTJuppnCUM+HDH0Y2/b4qDJibLi2/U11TCbHgUuy8pJF
- QeuA==
-X-Gm-Message-State: AOAM532Xtp90DQNsX40cb8IeywVt0iTYbAKtMVpmUqnijEOrtW2h+mxA
- lDei+ZrNKvSXU1ThbPH79bQ=
-X-Google-Smtp-Source: ABdhPJx/Tr8OkP8qQpMLDvFxZS1XzdR9P911qy0L55Cd/GZXU+ZPYahqdvxDhccEVXq+mEUJ/as2nA==
-X-Received: by 2002:a05:6638:2387:b0:314:7ce4:1be8 with SMTP id
- q7-20020a056638238700b003147ce41be8mr745234jat.286.1645069726592; 
- Wed, 16 Feb 2022 19:48:46 -0800 (PST)
+ bh=0+vGdwnLXxq+vC4sl8UqWBm6MtHqZ6WUpG5Xunn2VjE=;
+ b=YunTNwfndcDpRdNFswAi1e/dxJRtihvYTsypcmRCa5eQMBjDlH0irg1v9IjfHcs6kp
+ GotVQkcxpTUtG+mwrFWQsRTEbPw2xw73tKFaNT4YlddkggO84G5KSWhkumamj57y4XX9
+ 5BRTdF9pmeLj8xF7BY5R9CDEwSC1HyDVMWqybdVttEPp6a6Ub2bh5G0TZEwF5bWTZCUs
+ GAMjCBQVzwE96tpqLCIyGmI6PgLGgf8TveTV3mB0+mxmu4zjWZEpbwfEdsJfsBr+Doy8
+ YbnOnoR+VekhqGwMFbWCL21XkbVqNczOnT+AWe90OgOu0Bf2ffXFVmLICP6oFl5SsvqP
+ B00w==
+X-Gm-Message-State: AOAM530oNs09zC/aVhfgRpzRYoUrSnZg1QsS3E94ur8KgILNuzG6Oauc
+ QfI0ps18ASJeXQNO+DKMWWY=
+X-Google-Smtp-Source: ABdhPJz3VeOj8gAqU2/ZIke90ZJ3eMraSlFGZ9r9Aru1QvXJbSIWXwhnlF3/c5ShXmdBBtEfbc0lQA==
+X-Received: by 2002:a05:6e02:1a41:b0:2be:6abe:103d with SMTP id
+ u1-20020a056e021a4100b002be6abe103dmr765171ilv.204.1645069730202; 
+ Wed, 16 Feb 2022 19:48:50 -0800 (PST)
 Received: from frodo.hsd1.co.comcast.net ([2601:284:8204:2010::1b19])
- by smtp.googlemail.com with ESMTPSA id l16sm1127874ilc.54.2022.02.16.19.48.45
+ by smtp.googlemail.com with ESMTPSA id l16sm1127874ilc.54.2022.02.16.19.48.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Feb 2022 19:48:46 -0800 (PST)
+ Wed, 16 Feb 2022 19:48:49 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH 05/13] dyndbg: improve change-info to have old and new
-Date: Wed, 16 Feb 2022 20:48:21 -0700
-Message-Id: <20220217034829.64395-6-jim.cromie@gmail.com>
+Subject: [PATCH 09/13] drm_print: wrap drm_*_dbg in dyndbg jumplabel
+Date: Wed, 16 Feb 2022 20:48:25 -0700
+Message-Id: <20220217034829.64395-10-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220217034829.64395-1-jim.cromie@gmail.com>
 References: <20220217034829.64395-1-jim.cromie@gmail.com>
@@ -76,47 +76,98 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-move site.flag update after the v4pr_info("change") message, and
-improve the message to print both old and new flag values.
+For CONFIG_DRM_USE_DYNAMIC_DEBUG=y, wrap drm_dbg() & drm_dev_dbg() in
+one of dyndbg's Factory macros: _dynamic_func_call_no_desc().
+This makes the (~4000) callsites controllable, typically by class:
 
-Heres new form:
-  dyndbg: changed net/ipv4/tcp.c:2424 [tcp]tcp_recvmsg_locked pT -> _
+  # 0 is DRM_UT_CORE
+  #> echo module drm class 0 +p > /proc/dynamic_debug/control
+
+ =N: keeps direct forwarding: drm_*_dbg -> __drm_*_dbg()
+
+I added the CONFIG_DRM_USE_DYNAMIC_DEBUG item because of the .data
+footprint cost of per-callsite control; 56 bytes/site * ~2k,4k
+callsites (for i915, amdgpu), which is significant enough that a user
+might not want it.  Using CONFIG_DYNAMIC_DEBUG_CORE only eliminates
+the builtin portion, leaving only drm modules, but still 200k of
+module data is a lot.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/Kconfig  | 12 ++++++++++++
+ drivers/gpu/drm/Makefile |  2 ++
+ include/drm/drm_print.h  | 12 ++++++++++++
+ 3 files changed, 26 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index b72632212a65..77db640396a8 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -158,7 +158,7 @@ static int ddebug_change(const struct ddebug_query *query,
- 	struct ddebug_table *dt;
- 	unsigned int newflags;
- 	unsigned int nfound = 0;
--	struct flagsbuf fbuf;
-+	struct flagsbuf fbuf, nbuf;
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index b1f22e457fd0..ec14a1cd4449 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -63,6 +63,18 @@ config DRM_DEBUG_MM
  
- 	/* search for matching ddebugs */
- 	mutex_lock(&ddebug_lock);
-@@ -223,11 +223,12 @@ static int ddebug_change(const struct ddebug_query *query,
- 				static_branch_enable(&dp->key.dd_key_true);
- 			}
- #endif
-+			v4pr_info("changed %s:%d [%s]%s %s -> %s\n",
-+				  trim_prefix(dp->filename), dp->lineno,
-+				  dt->mod_name, dp->function,
-+				  ddebug_describe_flags(dp->flags, &fbuf),
-+				  ddebug_describe_flags(newflags, &nbuf));
- 			dp->flags = newflags;
--			v4pr_info("changed %s:%d [%s]%s =%s\n",
--				 trim_prefix(dp->filename), dp->lineno,
--				 dt->mod_name, dp->function,
--				 ddebug_describe_flags(dp->flags, &fbuf));
- 		}
- 	}
- 	mutex_unlock(&ddebug_lock);
+ 	  If in doubt, say "N".
+ 
++config DRM_USE_DYNAMIC_DEBUG
++	bool "use dynamic debug to implement drm.debug"
++	default y
++	depends on DRM
++	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
++	depends on JUMP_LABEL
++	help
++	  Use dynamic-debug to avoid drm_debug_enabled() runtime overheads.
++	  Due to callsite counts in DRM drivers (~4k in amdgpu) and 56
++	  bytes per callsite, the .data costs can be substantial, and
++	  are therefore configurable.
++
+ config DRM_DEBUG_SELFTEST
+ 	tristate "kselftests for DRM"
+ 	depends on DRM
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 301a44dc18e3..24e6410d6c0e 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -3,6 +3,8 @@
+ # Makefile for the drm device driver.  This driver provides support for the
+ # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
+ 
++CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
++
+ drm-y       :=	drm_aperture.o drm_auth.o drm_cache.o \
+ 		drm_file.o drm_gem.o drm_ioctl.o \
+ 		drm_drv.o \
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 4bed99326631..06f0ee06be1f 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -383,8 +383,14 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 	}								\
+ })
+ 
++#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+ #define drm_dev_dbg(dev, cat, fmt, ...)				\
+ 	__drm_dev_dbg(dev, cat, fmt, ##__VA_ARGS__)
++#else
++#define drm_dev_dbg(dev, cat, fmt, ...)				\
++	_dynamic_func_call_no_desc(fmt, __drm_dev_dbg,			\
++				   dev, cat, fmt, ##__VA_ARGS__)
++#endif
+ 
+ /**
+  * DRM_DEV_DEBUG() - Debug output for generic drm code
+@@ -491,7 +497,13 @@ void ___drm_dbg(enum drm_debug_category category, const char *format, ...);
+ __printf(1, 2)
+ void __drm_err(const char *format, ...);
+ 
++#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+ #define __drm_dbg(fmt, ...)		___drm_dbg(fmt, ##__VA_ARGS__)
++#else
++#define __drm_dbg(cat, fmt, ...)					\
++	_dynamic_func_call_no_desc(fmt, ___drm_dbg,			\
++				   cat, fmt, ##__VA_ARGS__)
++#endif
+ 
+ /* Macros to make printk easier */
+ 
 -- 
 2.35.1
 
