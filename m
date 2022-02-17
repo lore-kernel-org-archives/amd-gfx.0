@@ -4,119 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 117AAC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 05:02:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD411C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 05:44:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 750A210EA20;
-	Thu, 17 Feb 2022 05:02:56 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2080.outbound.protection.outlook.com [40.107.92.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1FCA10EA20
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 05:02:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7351710E373;
+	Thu, 17 Feb 2022 05:44:57 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2057.outbound.protection.outlook.com [40.107.95.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADE7710E843
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 05:44:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=azMHZHJkEuOkWvyeiNvP1MrSA3jygq8WfbkFE8xKf3PfsY9xFfSuJ/eByLyXFUgJyqRjH5FwuF7HxI0nPsIE1//PUuXGXdCY0LkZ/TMvrZjY9dHH2pphnF3451pLy3HKlU6t7xGCNM8/OqQ2fsxkRWpERqk56gDeS6JxnB+vYL2itPpEZVPPe1gnfOdHeLs4CL4NUQ9vo1aSY/c9ejrhyZvVekcfgsYaTcj+P1eRyqi8iiZy6GqNRLAqamnfcBfhRxNgmwrs5CF8jGyhjj9Go/SlM0L160vFWtaYIjkWVVUu6nkTXejgHnP7m6v0q7XpMHdtWg2l7q7R4R30EjVM9Q==
+ b=SbSIZHUuLtENb7Qk7BHkRvRaCrqCdgQ6JqJnYODhvZ6jwvSvUo9H/ru1U7QXLMR+mOghYrpgi8mA+cgDT2c5dWpnSjUxm+M5pMTuj6xA1AJ+Awk51qOj9pchmbB6DupPaQLpwd7vb4GnxpwVdzsWmVcrbea0Na4ui9g1x8AlnG0h6e57nn0inGED00WIpHUODU5T/ROO7usGx+wmiuPISGxyK8LAtnOTRK+ubRZ+CdIPzo9OR1d50ZZlw9ayx3ZUOCu3nHvORuKMLkJKph45nT8DXyQk31lsRKoiYJRNSDz5sLeajYxVyKQuzV7F28nBy5UAD3SPE6N0nJqP+9XnEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5l0hGCM5Ad1dwRwz/4pHxZSlPZFRzCCXgh6bXeR8rpg=;
- b=Ut5k8uf6aFhpdNPlpCTRgfvmc8nCWn4ghf03fQsYGx+UY/OXRVNP+wwBEgZLmznf+z1P+5+V+WVenhCEWH7VrQA0e6VydcGro7pylXh8T9laNRJVzvKhQnw6+/BdqXQLp2JPeKfHZJMI38z30x+hUo+lZPMZunz96K9v6bpafEPz+z4OaT4XH5HCFxIljp8zOJceEXNYBjA/r1YGkH8C6LLOggMjEO9SQuAZoQiEs4wgm5xsv2Xg7M6p0QcuBA3PvXvxfkzF1LnYdihHScVD+a0DIj+ems6+26kvl/7RT0F/cqb4tH0x31Zzk8uZJJCRJaM3a6p3/AI8QDVqpui/zg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=mDBu4sW7gH5IkQ47hfIk6NU3XdLOB2uOIo/oVD5jTkk=;
+ b=XSzpMYbnENXRdwU6R+b+hJCTpvBZ2PyHsuUSfRXvwMBWX5/zXeUUTEnKfGvi277iKALPY2rJfXgGnoRie1q5LPhhfgFqSZWpJZpa3cbsiqMPXhgMcr1+WPnZvGlWpInyjbf7jkAqHaqZkTtgHkqMjUO+3+b0hwSV6vvr8CYLerqe+29XYFWzBnxggmkysBzR6uINbg6T2DLl7IZpbC0QDPJVWl20vEmmPFLerGMAuQkQbFmDdHT+W6k/PBrGgp3/YP7Xu9P3v8H+frGEX1fZ0+Y866A13YtHwP5U82vdDb2yOF5fDdKXhU2etDP28rSqUu9+vDuvkErN5xQqOeuE/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5l0hGCM5Ad1dwRwz/4pHxZSlPZFRzCCXgh6bXeR8rpg=;
- b=NCPCHqZjk+eC+i7jfI4cjjgis3k34AcWa3tvq7xekeEhg9aDxMKsFdeFtNIuCEw/uRCyu8yAQyF+oxWm0+KpRQB0IgvXMx2R2i6Gwei1mgiPEQVEbuuVAJdVMuF7E6oX6L+S83FHpn2jppLmWQ4WjRCtmhXzAogZRXcCgqB7E7w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by CH2PR12MB3848.namprd12.prod.outlook.com (2603:10b6:610:16::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Thu, 17 Feb
- 2022 05:02:52 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::bcfd:825e:23e7:698c]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::bcfd:825e:23e7:698c%7]) with mapi id 15.20.4995.015; Thu, 17 Feb 2022
- 05:02:52 +0000
-Message-ID: <e6e10507-5569-46e8-edc0-cbcabf32cdbe@amd.com>
-Date: Thu, 17 Feb 2022 10:32:40 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH] drm/amd: Check if ASPM is enabled from PCIe subsystem
-Content-Language: en-US
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20220217034608.14733-1-mario.limonciello@amd.com>
- <cec9eb28-a5ff-52e4-8753-5d8ef0a669b2@amd.com>
- <BL1PR12MB5157B914453FD1DCBAF5B5A3E2369@BL1PR12MB5157.namprd12.prod.outlook.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <BL1PR12MB5157B914453FD1DCBAF5B5A3E2369@BL1PR12MB5157.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN1PR0101CA0047.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c00:c::33) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+ bh=mDBu4sW7gH5IkQ47hfIk6NU3XdLOB2uOIo/oVD5jTkk=;
+ b=AtffeTHJG6e4yHbITJOlTmPOFnQPd787hPIs3BtPceOSA/hFHhaLglclHaLgu1T8dPk+mJq5W4tZKlZQHaP6Mb5c+ERx7QBt3+TDAyn92GDuh+mtAkWejKSLpIc8pcU7HWmkL9q2upmCfMV1j8ZIY2H17omiup6VEtwbYQ4xNV8=
+Received: from DM6PR02CA0160.namprd02.prod.outlook.com (2603:10b6:5:332::27)
+ by MN0PR12MB6003.namprd12.prod.outlook.com (2603:10b6:208:37f::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.12; Thu, 17 Feb
+ 2022 05:44:55 +0000
+Received: from DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:332:cafe::7) by DM6PR02CA0160.outlook.office365.com
+ (2603:10b6:5:332::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.14 via Frontend
+ Transport; Thu, 17 Feb 2022 05:44:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT012.mail.protection.outlook.com (10.13.173.109) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4995.15 via Frontend Transport; Thu, 17 Feb 2022 05:44:54 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 16 Feb
+ 2022 23:44:53 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 2/2] drm/amd: Use amdgpu_device_should_use_aspm on navi umd
+ pstate switching
+Date: Wed, 16 Feb 2022 23:45:04 -0600
+Message-ID: <20220217054504.10535-2-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220217054504.10535-1-mario.limonciello@amd.com>
+References: <20220217054504.10535-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e6aefe6e-c0f6-4241-df08-08d9f1d2c065
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3848:EE_
-X-Microsoft-Antispam-PRVS: <CH2PR12MB3848E35489F9D3BC2DE87A1E97369@CH2PR12MB3848.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: cb758e30-285c-48d2-1ef8-08d9f1d8a00e
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6003:EE_
+X-Microsoft-Antispam-PRVS: <MN0PR12MB6003AAA86205519A094D05EBE2369@MN0PR12MB6003.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nPfepz+uf//VqjJnFhELSjhE/47lwbGDWEWg36zRYBRY6Aj1qkeJmWVhaHXxnjdb8w+eJ/DQZjKVGbwwwYaUinxdCpxMBskdABC0mJmIVZKezZoAWtrz3qEQbwrf2YrqpeFjjWv775gVS/quubPsLwSljgwJQXiAHm2xCjCAGJqPaSBxJPQqgjYte9IfFpedq32PDka6DA87tyIeoepQC37Tw56wHs/2wyS8n6jI9vRdVOtPcxSBvak5blvS5y0PjPLxjW3l/1Na9I8boiTbijEhj39a2kg2/gTD8NIzFl1RO+3bwmog/4f32tM1N3Q8y/+OCkcSfVXjsBW38fMLDjSPrJECJxnwDQ1sF3jeRC7j/vPQzqOmXtLFMA6T/03I/S1XLryD8x0NDzDz1e4cpceTzK+shIdNJXMpbxDmMyrSG68/y7/N0nqUxFh8RpgsV5AROXACZESTqTyWIhiXBOv2eKO1D/WF74gBbeoQZty/xvULBhGZ/maMjyObqgThDnyWryGymkN+kpZeGNt/HNNkZAh+i+zsaqTS9kjLL65YOue74oQZqMXcm3gSBt/W8Qy9O5V/mp2KMbJGtVRSRYbSnwyzH1328DDJqp11hESDKhAD0ztuknRA6biVR8rnZ/LI9nREBYXg2wxDbMoqqbrCgGSa8LmKgZEyTHpN+P+2AnsiZNj65Cg8e4C5carYGdkoedNEYRmW8HJ4jTYITu+JANPe7REzdj5HqOdUNOWb1EV0O3s/yNMuI3Q2LoVx98v7Om26wJHJ8pgVJZkl8bPO/SUK2fUfN6IyhM8wX/qt+gfhqPhKKi/I+j3gCz0FT2/b+g4XOmAElfqT4RbudA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(31696002)(66556008)(66476007)(6512007)(5660300002)(31686004)(86362001)(508600001)(8676002)(4326008)(66946007)(2616005)(36756003)(83380400001)(6486002)(186003)(38100700002)(110136005)(316002)(6506007)(2906002)(6666004)(26005)(966005)(53546011)(8936002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: QNnnrDwOTtqmJXLRx5v2FqXt8h6y0qppks9QIzcfUWzphBXYx6tt6UTOecFEEn6xfVxr2z2AVgBksvqPWSPEN3SNcS7x1QlybpisV2OVV0Myo3Q/eF1w9U4N+Ed4C6Le0V9PN0p34zPgjUmO+5RoCBdO3WceEV4mVNX+4sHPSzn5dHMllwSJtHeWDl8bzMw5MAxOQnXr1zp8vhTbyvqtNy6azKhFd5rLnGoslug8g9+Dc4LYLBhDikkxTLoNOJol34GKz6mKlOZFxyeRGXoWI3FKH9DRRrAclrMn/AUqvZCxytP+6bGOqnptCFiR6ZAAfLGBkKh+ClMco9OJ2FoDhtZA5ZxSmM8affd/w3ADI0rp+oi8hzlZMZzlgSXgHSbUTRThVuQoc830lR8Qa6SMlBo09YR7Nyge2QQIa0WQOo1CmNTijv3cvaCebCvX1ZsvWTUYAhF2Oa7grj/kTbKT92nNl0GmbB3togCS2hOPXxhRWdS8cWnGI9JtgNwDoII0t0oa7Z838W9jpNyMcb1Ulk3razoFlBigQ/RmDv+0GxrezA+AsLqfG/8Syg28p28SjWZPubjYu/5+GKXvZcGs9G3XpUWOwvCM5nSr2Zynuc7B6aituDm/3Xy+9Oj2q7IGgZgc9P8pSNcwNxwuaCxD2yvThJyhFH6241NqfCTjSMGoORq4D41s0uZBh98cZC3aZfwik588Ltl3j79WHqkPbw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(26005)(508600001)(81166007)(36860700001)(1076003)(2616005)(336012)(6666004)(186003)(47076005)(7696005)(16526019)(40460700003)(83380400001)(5660300002)(4744005)(6916009)(86362001)(8676002)(70206006)(4326008)(70586007)(356005)(36756003)(316002)(2906002)(44832011)(426003)(82310400004)(8936002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WmZjK0hEVFNlTnB0MnlsSTQ0VkJRM1VlYTlVWG4ydE94c0c1UWc2c3lzU3FL?=
- =?utf-8?B?NHlSTTlRZ3dXcU52RkRqSS93YkJFclV3KzBzMVFkWlE4cDA0cTlDK2Z1NUhF?=
- =?utf-8?B?V0g3alZzZFNWS3NPbFZWMHppTjRYZFdIU3A0OUh5ZTZHeFRKczNBVWM3cVdY?=
- =?utf-8?B?MGlFM1hoYmh0Qjk3eEJJbU9MbkNtM2gxY241K3RSOElhQnpXVnFzaTFpQlA2?=
- =?utf-8?B?aDVCRTBRbWtlQXVnRkdRWFVTMGpyN2N0NVEwVktrdm1BUmppTERVSkpZaU81?=
- =?utf-8?B?ZGRsTEdNbUtBTmlNaG9NdXNiM2VpMFdERHhPVVpZYnl5Qnc5c3pCUUh2MjlM?=
- =?utf-8?B?bmhDUHJUa2tNMk94Y3JnS1lmN0pKa0swR1h5YjRkWGt2d09FWW5Wb0dMcys2?=
- =?utf-8?B?S3lscm1uRVR4V0IrQ1hncVdlQkl5ZW9BczgvZ3BuSXBwNTd1cmdVT1cybHZ1?=
- =?utf-8?B?UlVEenZlWGl4K1dvVC8zamp2RlV6YXFRVlh4d1J1T21LcVVIWGFTeUM5Z3p2?=
- =?utf-8?B?N3dKOFVKUWVuY1NTMitBKy9YZjJSczUzVlA0OFN0NDVNU2V5Y1cyK0J3b2xD?=
- =?utf-8?B?UWo5dXI0Si9keTZXS093VUthQjIrWUp3Q0FHVHUxNTlCeEo5bmhwbnJFalpS?=
- =?utf-8?B?MlpXM3BOekU4OUd3ZDRNVmtCN2Z1WWJnVndpNlNvSEJzenNJMHdTSzJ1TXh0?=
- =?utf-8?B?eEl2dG5JdVdpOVpZRVFIYVhnWElNblgrT1lzajJyYUMvTGQwa0RoSmU5T0wr?=
- =?utf-8?B?dkhJQittVm9iWjV4MFVXeGZoTCtKRXdONjc1M1U1ZWhSaUgrOGEyZWUxSlpG?=
- =?utf-8?B?YVBUaEhyc0tGWVgyeXhvZzlQR1prRDB3MVB5WmFhbGZSOEl2WVExNml1Qk8z?=
- =?utf-8?B?UFArakxPTzl2NnZwcGtteXpQZUU4b1lZTjNjZkUwd3dObkw4TDhabFhoalFP?=
- =?utf-8?B?WHVpZ1NVS1ZyWWIyZ1VidDZPemRqek1aL0UyaTF3cjU1V0xmU3Z6d1pxZWxC?=
- =?utf-8?B?WWVXaUFGR0I3czdHWmF1eU82UEdRZkp1UnFEZHVtY3pxUEN4cVhDNGNxTytt?=
- =?utf-8?B?ZDVEam1oS200bVhHWkxkMENVcXduWkwyeVJMdEhMYW5HMkYrM3QxN05zNHd5?=
- =?utf-8?B?ODNXWllYUHdoYU5FVHRmSXdzOE5KMWZUdU9wZ0VkUjJpK1psYVlTdkVIZGg1?=
- =?utf-8?B?LytjbENMSVlSK3NIVERHSzRCdkNWTkEvTHluSVFHSW5Bd3ZLSzVHaEhGMTYx?=
- =?utf-8?B?MURIalhpVkU0VTJsa2lJc2EzanY3YkFvckNJVDIwQjdtMTUvL05kVkNSN0VG?=
- =?utf-8?B?UHdNNXk4cEhTRGVTY2Zrcm1kckZXbmM1NnRqQlU1ZUVIdSswL1lncGZiS1pz?=
- =?utf-8?B?SFl2T3lhdkdaOGh5b0h4Ti9pNjQvTy9xTkdGemJyN2hUTkJBVXNnV2FzazVh?=
- =?utf-8?B?M2pybFpiaVJsZ0JsVHJaYnFjUzlMOTRVNjVhMmd5b0NKWFlUdWNIVVpXNVli?=
- =?utf-8?B?Z0R3K3BGM0JKZEQwTVNwMHM4Zi9vQXNnd3FlVlhFcTJlREF5c0I0VFNqYjdl?=
- =?utf-8?B?ZUh2bWlCWjhQRUJ4c0lVL2pKZTFMbVVwZTVzNVR3aXQvSXdCeGFRVU1VV3ZJ?=
- =?utf-8?B?QVRqUWd3SUhCL3lwTHV2end5VUE1MGdJTzJySk1VVmZlYnZ1OWRKL0xHVEx2?=
- =?utf-8?B?dTBmZndKV3BDTGlXNk1FaFZNYnVJQU4yelZNVS9sU1luaGtmeWpHTjZVTEd5?=
- =?utf-8?B?RHBXUHdtQXFvRmdpUWZyMHVKK1VOQTJ2QU5kTlBpUTJuMjYvRWlCODJ6Y05l?=
- =?utf-8?B?V2JpYkJjRm5wZVhWYlpKRXVwdWlkSG1TWVdSK3JhNFN4Mm1zbWV3MkhGQUxP?=
- =?utf-8?B?U0J6cXVKSTd3N1AvUnhNaDFwb3c4cjF5TEhFY2FHUkM0SDE5cm9BVFRzRk16?=
- =?utf-8?B?VVZvTzZHazhBejM2bk4raVlBaWhOalZuWmMrUnVyQmlFRmhYcFZYVjhJSERi?=
- =?utf-8?B?RTNXYWRzeXhyNjJuTGQ3Nm5ROUZyZTZoU0JqWjhMbFY4SlVHQkhVbm8zay9L?=
- =?utf-8?B?TWdwN1JITzl3eU1OS3ZQQ0xmSGwyZTIzZnluVmtrWGRrblJhaEMwWEhlWnVu?=
- =?utf-8?Q?0DLo=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6aefe6e-c0f6-4241-df08-08d9f1d2c065
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 05:02:52.6557 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 05:44:54.9052 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb758e30-285c-48d2-1ef8-08d9f1d8a00e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 35Cy/B+dxyZGIzlozqem36v1rAI/NP9FcA4FUU/8mp5n+msWmvTgBrcija3Xq8vS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3848
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6003
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,78 +102,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "koba.ko@canonical.com" <koba.ko@canonical.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The `program_aspm` callback is already guarded for aspm, but the
+`enable_aspm` callback doesn't follow the module parameter.
 
+Update it to use the helper `amdgpu_device_should_use_aspm`.
 
-On 2/17/2022 10:28 AM, Limonciello, Mario wrote:
-> [AMD Official Use Only]
-> 
->>> commit 0064b0ce85bb ("drm/amd/pm: enable ASPM by default") enabled
->> ASPM
->>> by default but a variety of hardware configurations it turns out that this
->>> caused a regression.
->>>
->>> * PPC64LE hardware does not support ASPM at a hardware level.
->>>     CONFIG_PCIEASPM is often disabled on these architectures.
->>> * Some dGPUs on ALD platforms don't work with ASPM enabled and PCIe
->>>     subsystem disables it
->>>
->>> Check with the PCIe subsystem to see that ASPM has been enabled
->>> or not.
->>>
->>> Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
->>> Link:
->> https://wiki.raptorcs.com/w/images/a/ad/P9_PHB_version1.0_27July2018_p
->> ub.pdf
->>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1723
->>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1739
->>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
->>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1907
->>> Tested-by: koba.ko@canonical.com
->>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 +++
->>>    1 file changed, 3 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> index 5acd0473ed01..d2548fab51c5 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> @@ -2008,6 +2008,9 @@ static int amdgpu_pci_probe(struct pci_dev
->> *pdev,
->>>    			return -ENODEV;
->>>    	}
->>>
->>> +	if (amdgpu_aspm == -1 && !pcie_aspm_enabled(pdev))
->>> +		amdgpu_aspm = 0;
->>> +
->>
->> Doesn't this disable aspm for all devices even though only one of the
->> bridges doesn't have support?
-> 
-> At least with how it's a global parameter today I don't think we can do
-> much better without a refactor.
-> 
-> As it's actively breaking people I think I would prefer to get this in as it
-> is now (which can go to stable trees too), and then do the refactor as a
-> follow up.
-> 
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/nv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-There is enable_aspm/program_aspm calls and the check could be in one of 
-those places. I agree that for now this is the easier path.
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index ebed9c84db04..b246a37f4f39 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -635,7 +635,8 @@ static int nv_update_umd_stable_pstate(struct amdgpu_device *adev,
+ 		adev->gfx.funcs->update_perfmon_mgcg(adev, !enter);
+ 
+ 	if (!(adev->flags & AMD_IS_APU) &&
+-	    (adev->nbio.funcs->enable_aspm))
++	    (adev->nbio.funcs->enable_aspm) &&
++	     amdgpu_device_should_use_aspm(adev))
+ 		adev->nbio.funcs->enable_aspm(adev, !enter);
+ 
+ 	return 0;
+-- 
+2.25.1
 
-Thanks,
-Lijo
-
->>
->> Thanks,
->> Lijo
->>
->>>    	if (amdgpu_virtual_display ||
->>>    	    amdgpu_device_asic_has_dc_support(flags & AMD_ASIC_MASK))
->>>    		supports_atomic = true;
->>>
