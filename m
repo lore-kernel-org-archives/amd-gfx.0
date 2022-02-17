@@ -4,89 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6477DC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 14:51:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FD7BC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 14:56:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D94CF10E940;
-	Thu, 17 Feb 2022 14:51:56 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0502C10E940
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 14:51:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U8j440+6ytlHSaT36IyPLGpbgzVfNIISGLhGv8bkockljnvNCOTTBplWuuiT/8StMCxwC6LCDhM6RP7Wqf+XGrztHL3otswU2+AgASvFz6t3pej1sHGW0L4xqHQMoEbsiqPSwuiL4+XFedhONZgTfodPPLGFdNN0wPos0UsUIAiDdeGg20E4E/w/01hK+lP13/Tbx9NwIVaob7k1gHFS0sa1m85jpdC8f2FTvUJEjpb4Jm/DTxuzvT6332jygY2loIO8cwefireUEo5f1zCJNLMDshI/p4z1an/YuUM7dQWlepPx+xyDe5O7MIhesA+lVIt76K+w+E8Luv/KUr+Ieg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Qqy1N+6bQCn6377qhPD7jlo/HTAfepKn4Qcl1AGFXA=;
- b=ihe17LIzavH9eJFBd8vNAuw0wA0JW/pnXwtfu8jyM6Vf1HC6Sb45NlfCyAgVmn2rSN6fWW/bmHwID3hKbCgGfNJM2FAjKxGIq7CcIeNPZ2TwzsTgoL20wBhLj6G+3zVXGHX+CjURGLU5KZm8h0bJcG5lLgVtNNVsap+OPAMvki1CtELaKndqtu0CCO10J7JmW7XOtBnnIph7XCIiPSeLn3Vuj1XBS0u0BoP6zA727PuTVz4S45IBlDPcW2Ve22f6aZb3nsAXFuH3BlREAHyCLSrjuBi7DiO1ESgHzJJ6ruh0HF6ronaVVlwhTXSba7jHGJOMwiiEpqT6Uv1AHqC3mQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Qqy1N+6bQCn6377qhPD7jlo/HTAfepKn4Qcl1AGFXA=;
- b=5QC5BfaIVfTcFfEWtL2Z7rmy+5HzGqz8V+VSGUSkIUZ2bDBz8AElHSQCGWPEBsU++Knia4jJ8DPoMhyLthM29UFlqxY3wGWEyQ0wDrFf6S7gZxeHmtW/pvjCTSi7lrUmb0mYz9u9wbZFjRpVINqSDAxHU5RfAOedzKUi+RgSRDg=
-Received: from DM6PR06CA0031.namprd06.prod.outlook.com (2603:10b6:5:120::44)
- by DM5PR12MB1483.namprd12.prod.outlook.com (2603:10b6:4:d::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4975.15; Thu, 17 Feb 2022 14:51:52 +0000
-Received: from DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:120:cafe::8c) by DM6PR06CA0031.outlook.office365.com
- (2603:10b6:5:120::44) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.15 via Frontend
- Transport; Thu, 17 Feb 2022 14:51:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT052.mail.protection.outlook.com (10.13.172.111) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4995.15 via Frontend Transport; Thu, 17 Feb 2022 14:51:52 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 17 Feb
- 2022 08:51:51 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: enable vcn pg and cg for vcn 3.1.2
-Date: Thu, 17 Feb 2022 09:51:40 -0500
-Message-ID: <20220217145140.11988-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28BD710EAF4;
+	Thu, 17 Feb 2022 14:56:53 +0000 (UTC)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76D5B10EAF4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 14:56:51 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ j8-20020a056830014800b005ad00ef6d5dso2867719otp.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 06:56:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Y+TAhGiubsj5R3nWL5oLl84Iaz6mSkj3I86l2w+6p1I=;
+ b=gLB4kuB8ti4LrTo8UGI+kkIsCs8xWvM15b/hLo/ejkSS5ndgUBwKP4f5CYZL86qg/f
+ cTsBNCHkKv+AjWH0qc79yKXW6wqReKwTmOmiOm3EFdmPvyvHwO3d20pYvaNMSdyUUsRD
+ 4sV45ENn73aikHRuReLJJClk0U3TX+wv3p/IXgDdevrjV0NR8iey+lE1lv/xbgjStp4V
+ WW+T3k5tnYtXL2Fav69GnCeRJcNDK2QaBsrNCUs63g4YeE0IleRbR5IYdp8D89wYsXOB
+ 4TDo6UtjEGU2BQ5AUV+h3fbZWs7q9AGgyCxnsS8kYr3bYJtbLLHxrTNOzyjkWkIKkEKS
+ xDlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Y+TAhGiubsj5R3nWL5oLl84Iaz6mSkj3I86l2w+6p1I=;
+ b=pHh851csgfRBieJI5tpmMyw3F0KPS8WgzQ9tVEBrsSsF86Wt6syw26DxMZ2ZgHZL2d
+ uwXu0d7pAOGemOk+nIVLRFfItXUoWd83zd+6m7N9HDDKAPxtvCp40j0pW7qhBiw9e4L0
+ kIBReWv/9AZTddBkDI/w80HT3U2vu1yeEuZdgmvr3ORlzlirqzg+5T/VWcDzngZhAbgg
+ aAyXRmcJrHdmyH3tbmcnUZ3OwrchUACv+/czUJUbue8mcwXNiSaSSy084QLhtWn8b43E
+ XkRmO6Kz6w23HFgv4TDv7eaJdpcqzUC4ERU9+gfNAN9d+4BLqJuSv4RMylV6lddiDgDd
+ NTtQ==
+X-Gm-Message-State: AOAM533pTr1bDHHi3ZKvAASWxqA8j+6UvmOx61vDdMf3Ii3IyOZKOBhO
+ myIRCkBgeW2wT8szMnMw0r1K+qLfOKNbmS7Ys9Q=
+X-Google-Smtp-Source: ABdhPJy0gP5+ojYt7HjpSmQLACZ0CfnwL1zniaPSZlrN1XPPeODEJtjO2hcYhMod5fwvf4US9I7tV7GlE6MwtzLOYic=
+X-Received: by 2002:a05:6830:54a:b0:5ac:f770:5ac5 with SMTP id
+ l10-20020a056830054a00b005acf7705ac5mr982311otb.200.1645109810522; Thu, 17
+ Feb 2022 06:56:50 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 04ee1dd1-5cf6-4a8f-0b09-08d9f22508d2
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1483:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB148387C2887CEB5475D60185F7369@DM5PR12MB1483.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1079;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: k+4DZCrM+rmdZbaJ7SndWGpkDgArp19f6MdgmYUYGb2BKRXaeNyyQpyzcfd70KRN/vCx5GMqQb7J858ZZuI1pz36IFQZpJvvousIXruBcZZsMgaVXx67v1Fbbmnot0fZNGcA7flQ4uyx8jJDssfhDXgHJqwN7Vtv1Kxsl5FIa76ciBaORHJKbDovw2s6XwbvqYKgrAtDtsmUOZhQeMs1gM/vopx9f0VEntnHTAfg/CJde5Xg1oJOFgCt59MhFSAQiW6dxIWbqrlwTrmvFWZzT6JENse6VjmC8AePT/rX/t73kxj8lYUHiIc3IFWGPpnWK8ITNK5HjB+aYo9sZHogzme+E/dV7I4CBIGhrStzAQSZQk2RFolZBcXMRou7YPT8L1exp9kcZxiA6EbTARPVvo/i93j69oyOnS8gcxc+C0D9+uA35etckBDuFLh9fvR4igDA1MrF5a2PpawrjEmvzuGxaFXiyXFjakD3lZjnQs9/kHKsS5GF25eFtVbF7mACFIBqdgj3CbGgFW4WLE8KWLrLGhbqg9WRFIB3+4vsew97PWNfxWVs01qIbSpm07iU2JWxsFCXNLWY01FEONv3ZRQE+Ey/xRnAyDN1ZseDEUZ5JeaFQBoqixy4SibykTXWrRO9aaXkQHz/M2SWE0JlpcdNPnB4JHEzwpMmkBBZIQHZt5+4wPAmarTVzzUpP5cR7ZqB1kkLAf2nnZDoA3RtUA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(8676002)(426003)(26005)(4326008)(36860700001)(47076005)(2616005)(2906002)(1076003)(186003)(40460700003)(70586007)(16526019)(336012)(86362001)(8936002)(82310400004)(6666004)(54906003)(5660300002)(6916009)(316002)(83380400001)(7696005)(81166007)(356005)(36756003)(508600001)(70206006)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 14:51:52.4237 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04ee1dd1-5cf6-4a8f-0b09-08d9f22508d2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1483
+References: <20220217054504.10535-1-mario.limonciello@amd.com>
+In-Reply-To: <20220217054504.10535-1-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 17 Feb 2022 09:56:39 -0500
+Message-ID: <CADnq5_PjDeGP7vmgz3NtFJAYZ+MVJUULN82L_b=e9+v=6LhCGA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amd: Refactor `amdgpu_aspm` to be evaluated per
+ device
+To: Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,43 +63,180 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Boyuan Zhang <boyuan.zhang@amd.com>, Huang Rui <ray.huang@amd.com>
+Cc: Lijo Lazar <lijo.lazar@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Boyuan Zhang <boyuan.zhang@amd.com>
-
-Enable PG and CG for VCN/JPEG
-
-Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
+Series is:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Huang Rui <ray.huang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/nv.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 1a25db6958a5..782e5b5267b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -923,8 +923,13 @@ static int nv_common_early_init(void *handle)
- 			AMD_CG_SUPPORT_HDP_LS |
- 			AMD_CG_SUPPORT_ATHUB_MGCG |
- 			AMD_CG_SUPPORT_ATHUB_LS |
--			AMD_CG_SUPPORT_IH_CG;
--		adev->pg_flags = AMD_PG_SUPPORT_GFX_PG;
-+			AMD_CG_SUPPORT_IH_CG |
-+			AMD_CG_SUPPORT_VCN_MGCG |
-+			AMD_CG_SUPPORT_JPEG_MGCG;
-+		adev->pg_flags = AMD_PG_SUPPORT_GFX_PG |
-+			AMD_PG_SUPPORT_VCN |
-+			AMD_PG_SUPPORT_VCN_DPG |
-+			AMD_PG_SUPPORT_JPEG;
- 		adev->external_rev_id = adev->rev_id + 0x01;
- 		break;
- 	case IP_VERSION(10, 3, 7):
--- 
-2.35.1
-
+On Thu, Feb 17, 2022 at 12:44 AM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> Evaluating `pcie_aspm_enabled` as part of driver probe has the implication
+> that if one PCIe bridge with an AMD GPU connected doesn't support ASPM
+> then none of them do.  This is an invalid assumption as the PCIe core will
+> configure ASPM for individual PCIe bridges.
+>
+> Create a new helper function that can be called by individual dGPUs to
+> react to the `amdgpu_aspm` module parameter without having negative results
+> for other dGPUs on the PCIe bus.
+>
+> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 25 +++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  3 ---
+>  drivers/gpu/drm/amd/amdgpu/cik.c              |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/nv.c               |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/si.c               |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/soc15.c            |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/vi.c               |  2 +-
+>  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  2 +-
+>  9 files changed, 32 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 3a126dce8a2f..f0a34aa4af78 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1297,6 +1297,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>  void amdgpu_device_pci_config_reset(struct amdgpu_device *adev);
+>  int amdgpu_device_pci_reset(struct amdgpu_device *adev);
+>  bool amdgpu_device_need_post(struct amdgpu_device *adev);
+> +bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev);
+>
+>  void amdgpu_cs_report_moved_bytes(struct amdgpu_device *adev, u64 num_bytes,
+>                                   u64 num_vis_bytes);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 4667c992a4cc..283d7a7a5249 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1318,6 +1318,31 @@ bool amdgpu_device_need_post(struct amdgpu_device *adev)
+>         return true;
+>  }
+>
+> +/**
+> + * amdgpu_device_should_use_aspm - check if the device should program ASPM
+> + *
+> + * @adev: amdgpu_device pointer
+> + *
+> + * Confirm whether the module parameter and pcie bridge agree that ASPM should
+> + * be set for this device.
+> + *
+> + * Returns true if it should be used or false if not.
+> + */
+> +bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
+> +{
+> +       switch (amdgpu_aspm) {
+> +       case -1:
+> +               break;
+> +       case 0:
+> +               return false;
+> +       case 1:
+> +               return true;
+> +       default:
+> +               return false;
+> +       }
+> +       return pcie_aspm_enabled(adev->pdev);
+> +}
+> +
+>  /* if we get transitioned to only one device, take VGA back */
+>  /**
+>   * amdgpu_device_vga_set_decode - enable/disable vga decode
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index d2548fab51c5..5acd0473ed01 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2008,9 +2008,6 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>                         return -ENODEV;
+>         }
+>
+> -       if (amdgpu_aspm == -1 && !pcie_aspm_enabled(pdev))
+> -               amdgpu_aspm = 0;
+> -
+>         if (amdgpu_virtual_display ||
+>             amdgpu_device_asic_has_dc_support(flags & AMD_ASIC_MASK))
+>                 supports_atomic = true;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
+> index f10ce740a29c..de6d10390ab2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/cik.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+> @@ -1719,7 +1719,7 @@ static void cik_program_aspm(struct amdgpu_device *adev)
+>         bool disable_l0s = false, disable_l1 = false, disable_plloff_in_l1 = false;
+>         bool disable_clkreq = false;
+>
+> -       if (amdgpu_aspm == 0)
+> +       if (!amdgpu_device_should_use_aspm(adev))
+>                 return;
+>
+>         if (pci_is_root_bus(adev->pdev->bus))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+> index 8a5642f2daa6..ebed9c84db04 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> @@ -520,7 +520,7 @@ static void nv_pcie_gen3_enable(struct amdgpu_device *adev)
+>
+>  static void nv_program_aspm(struct amdgpu_device *adev)
+>  {
+> -       if (!amdgpu_aspm)
+> +       if (!amdgpu_device_should_use_aspm(adev))
+>                 return;
+>
+>         if (!(adev->flags & AMD_IS_APU) &&
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+> index e6d2f74a7976..7f99e130acd0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+> @@ -2453,7 +2453,7 @@ static void si_program_aspm(struct amdgpu_device *adev)
+>         bool disable_l0s = false, disable_l1 = false, disable_plloff_in_l1 = false;
+>         bool disable_clkreq = false;
+>
+> -       if (amdgpu_aspm == 0)
+> +       if (!amdgpu_device_should_use_aspm(adev))
+>                 return;
+>
+>         if (adev->flags & AMD_IS_APU)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> index 99a88f4d8050..fe21397323b0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> @@ -670,7 +670,7 @@ static void soc15_pcie_gen3_enable(struct amdgpu_device *adev)
+>
+>  static void soc15_program_aspm(struct amdgpu_device *adev)
+>  {
+> -       if (!amdgpu_aspm)
+> +       if (!amdgpu_device_should_use_aspm(adev))
+>                 return;
+>
+>         if (!(adev->flags & AMD_IS_APU) &&
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+> index 6645ebbd2696..039b90cdc3bc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -1140,7 +1140,7 @@ static void vi_program_aspm(struct amdgpu_device *adev)
+>         bool bL1SS = false;
+>         bool bClkReqSupport = true;
+>
+> -       if (!amdgpu_aspm)
+> +       if (!amdgpu_device_should_use_aspm(adev))
+>                 return;
+>
+>         if (adev->flags & AMD_IS_APU ||
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index 4f0bc1841283..d9d634ce9575 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -348,7 +348,7 @@ sienna_cichlid_get_allowed_feature_mask(struct smu_context *smu,
+>         if (smu->dc_controlled_by_gpio)
+>         *(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_ACDC_BIT);
+>
+> -       if (amdgpu_aspm)
+> +       if (amdgpu_device_should_use_aspm(adev))
+>                 *(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DS_LCLK_BIT);
+>
+>         return 0;
+> --
+> 2.25.1
+>
