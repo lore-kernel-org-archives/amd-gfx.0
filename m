@@ -4,54 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDEB4C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 15:51:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF8D4C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 15:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EA2910E338;
-	Thu, 17 Feb 2022 15:51:48 +0000 (UTC)
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A75910E338
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 15:51:47 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id r27so45421oiw.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 07:51:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UdV3hFuj5NlhQcY893fy+cS0jeu6vcwZ7hqAkbbJXjY=;
- b=llldqhHduSeBHO9qCbxU9jDBesd+RGdW8lmcTFkcnrWCyH29CCYj1/9QRsLIqFkjAM
- hEcMN/LF9lGgRWnO5a+/SoHCZML6Z7srbGTlyceyuLwlGDn2he6hN1UL2Ajy15owX6wK
- u8jr0tBSfXDB91ZdgldzmVY06ifAWp2yovBc1ONZ2/27AYVzSKEwp3E8v2/0ei9CySsn
- DGOXFRahmhYhB+sWUI6S0nPH4l6qqGj8oP1TqqNRtM7WrqbdLL22oCkL939DcTHJTSFk
- 0H5ITEHYOiaXn27qP8YTcSW/tBia73/TfUmLm361U6b1Bp4GkpEU/u/F/TqZkrVR0Cd2
- aPkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=UdV3hFuj5NlhQcY893fy+cS0jeu6vcwZ7hqAkbbJXjY=;
- b=PXVoyzz3pwMvunonuephI6qDmVWn6aqTgroBDs6LILVK4FjXS2KfjTbWhK6a27c6uv
- fAni5PeXQ3QggyDbvjIjYWXvCQDFLp05M/ZoEpM1JhvzNfM+DjCo4Ke/yaXQE50wfoqb
- 684vZNk+l/rIR5qHpVLz1uMubsRlz5oBkml56NjqxRW+fKV7WwfUzI2WjXx8V3e96YmP
- Gjfq55ScRVAWma0hkbV3dBvqBnzccX5IofVMMmB2HF8lN8WtSnsZyZmbeJZoTIjHrxVF
- ByBq9Ya7WagYBhBJPCWwVX4WwD4ra3VeXel+sGD3+8Fh7rHdRvKgxCwdZwxgY2amtdc0
- rPFw==
-X-Gm-Message-State: AOAM5333lqGyM+Vpw65ljP+5QvWf7FLtatbqwQ4B9uhCQa3RoZFPgVxv
- nPH5K9ipqYX0gymzei9q0vsarG6IycB5+okoihmwTE+g
-X-Google-Smtp-Source: ABdhPJwF5xSlDcJz7rHhnIvr1FDWqwEsdxx0dOID26Lp4V4d24m2urFilw4WZwnBf7F8NLzEPf87JAyWFtbrGbUlhPM=
-X-Received: by 2002:a05:6808:f8b:b0:2ce:6ee7:2c99 with SMTP id
- o11-20020a0568080f8b00b002ce6ee72c99mr3102531oiw.199.1645113106875; Thu, 17
- Feb 2022 07:51:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 007B510EB9D;
+	Thu, 17 Feb 2022 15:57:47 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2055.outbound.protection.outlook.com [40.107.93.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD34C10EADE;
+ Thu, 17 Feb 2022 15:57:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JJjgNfkusBhobFpKtgpP7ezlH5gcC3sDWgjsVl5NvaUJYTfQeSHOEGEg6iiycHmPqoTiexWCuVuiU6HPmqiLlh9l8K4gnelIIJFcncswyKzunz7bD1H4ERo3bLqTpquHZ6+cbiwi0WdUQfXBdkAsqVJ6j3XvNa60U6+TLAh/bUSiM8k7/zxN/VPoSt8NqXL4KO1Z1LV+JCGJWZhTCB3eA8SyRF710dqOkvhrxQx7TjLMMqHde43m2C8CfeoWeEbfalU70EgCMCxwy+f4PLj8P97U7OtqyTEpam0DfJmp2bPtG2o/soN0vFgC3/M6OXWg5GFQpIhNwnOWWmG4RFmovQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q+i6bECYWWQjty61Gx1DCW2U19UxTafa6Jkq7rfmavE=;
+ b=Bo2HSecTTUBrWihBxuwdfa8PMZFFDzxqU6p0DJVTfu77iFChLD00l9Ndm9XY94XPXV38lIf7N+bQ7MMJ4akz78G+vdCG4LFrjcxuTuHFPaxis6yO78m1Z1YRJ7bbY8yoy2pOMBUbBmHQD5NM+mewknUtdNWQi97Xz5xFmf3esTVW/2i+Bj67yIy0Lp6UBPl2U50weNpm7rwTKLmvRpzHtOxGJ0FkJomy+k0oTxUWpKeVThP0L0HdRrLEOsBA+/kYPS0F6HRwnUx9vOBa/y9fofALKaSkBQSY1vQ28331HzOVWEzNZVfz8EYdI0Cry6hiQ48VfpRLQKq660APZiy90w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q+i6bECYWWQjty61Gx1DCW2U19UxTafa6Jkq7rfmavE=;
+ b=M8gqBp8tJakP4Yb+tcywl8G2tZCyh3YoCVH2M7lVuxGoloDA3+bE4OKhkwNbXorcr4Ps/YlY1VYZANLKfpHWMnuvU71Pre4nxMGzItO1ZisxrjFJep2y0jVRfdLbIPAmOEJ6SJCH2U2/UBQxVXnw+x3SbRlZpWbq5cFX3TeK9Pg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
+ MN2PR12MB4143.namprd12.prod.outlook.com (2603:10b6:208:1d0::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Thu, 17 Feb
+ 2022 15:57:34 +0000
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::7587:626e:3703:9db8]) by DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::7587:626e:3703:9db8%6]) with mapi id 15.20.4995.016; Thu, 17 Feb 2022
+ 15:57:34 +0000
+Message-ID: <51018469-3bab-e56d-7407-b16170b5d74c@amd.com>
+Date: Thu, 17 Feb 2022 10:57:28 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Subject: Re: [PATCH] drm/amdgpu: fix amdgpu_ras_block_late_init error handler
+Content-Language: en-CA
+To: trix@redhat.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@linux.ie, daniel@ffwll.ch, nathan@kernel.org,
+ ndesaulniers@google.com, Hawking.Zhang@amd.com, john.clements@amd.com,
+ tao.zhou1@amd.com, YiPeng.Chai@amd.com, Stanley.Yang@amd.com,
+ Dennis.Li@amd.com, mukul.joshi@amd.com, nirmoy.das@amd.com
+References: <20220217153842.3252424-1-trix@redhat.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+In-Reply-To: <20220217153842.3252424-1-trix@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT1PR01CA0106.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2c::15) To DM6PR12MB3370.namprd12.prod.outlook.com
+ (2603:10b6:5:38::25)
 MIME-Version: 1.0
-References: <20220217152412.825286-1-jdhillon@amd.com>
- <20220217152412.825286-2-jdhillon@amd.com>
- <5ac96026-1dd1-7c8e-b18a-5ec4a0631147@amd.com>
-In-Reply-To: <5ac96026-1dd1-7c8e-b18a-5ec4a0631147@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 17 Feb 2022 10:51:35 -0500
-Message-ID: <CADnq5_PqUZqjsyYnKu4vYn6xygKAwaQg1ecrX_YPzhG90HnPuQ@mail.gmail.com>
-Subject: Re: [PATCH 1/1] Revert "drm/amd/display: extend dcn201 support"
-To: Harry Wentland <harry.wentland@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: cd575a32-4c9c-4d36-9d5e-08d9f22e363d
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4143:EE_
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4143517FAF62DD654FABC16399369@MN2PR12MB4143.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: JhGP4cxzDQqImneR3dDbpcuNtLraoYiFx1kmEOUFTLO4qh+tJ1n9D9tFdaeHHWMEVcBTOJKj8W5cO39TQ34jo4r92sSYEtuP2XKdkc+1qVh+GBEfsSkfhw3pj2i2n33XpxEsTqOgVd7PS3jFmDPu/Cj9a+LfH7sO7V9iq/Zvp/vvSwrw47ok6NcH9OAoABAsaPBpouD4FrpRHtiE80wcI27yTt063HSkpsVZ9bFfYYo9X+ednANmTH5qpMYFK6xCgP6Jb2Fc4xVQdBSd0Hs9mkEa+XXOWsd8bRJWuOo6Aas98aCa+7aWlHrthQcJNsf+Hu+wr4VnCxjepaFVQNB2VODzbEzuZy8Zn5AeEDcdYJrmlM+8MXdTLSa8birOK29Op3BNwTgD0muMZIjxZM78Y+zNr5e6a09p04Ov4qVZXYpce6VEotoipeUA7jo4D+myId0jvTDZe7UN1Ex3M9sA5MyZcWArq0yC5lc4DQk2iyfl/JKcSmNGjo/q+kqkrlCGGqXwoJT9A2MWWn/BHBBcjeV722b6eqAVibQQFgCwKrsL4ss1eehHPgBNsp//rDW1wO/qpvbjT6lvnzRqa+qwc2B66zNKOCZ46HLlBFmRnqi4ZE4TGNf6QrxsMYov31jsyQp+0pGyAGuYn9IUbbKGafw86yFqyEWJ70YldqGyIbzPo4wIcuwBSOqrnwiiKr/2sRJ5KCX1rE3Ee71ONXgp7PWuDwGlTJicUjpyZ8/PRbpWvM94IhGdwhdAvJCReItO
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(83380400001)(53546011)(26005)(2616005)(38100700002)(6506007)(6512007)(6666004)(186003)(4326008)(8676002)(66556008)(66476007)(2906002)(66946007)(5660300002)(8936002)(44832011)(921005)(31686004)(86362001)(31696002)(6486002)(316002)(6636002)(36756003)(508600001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXc2aXMzK0xMVmhhMDY3YmE0OFhMajhrVUtYeTlseVBxZ2xXZUtmalJwN09D?=
+ =?utf-8?B?bXpiK0NZWUtBVHkzbVNVa1RqaEc1K1NObmg2YzB1MmVRVHg4RFdzY0lvcVRU?=
+ =?utf-8?B?dVJZcjMrZXBXc1pHN05IWmt1TkNnZ0JndkhDbWdNRzh0ZXFybVpiT3hMQndP?=
+ =?utf-8?B?aVlrOVhZd0pJa05oZmJlZDNLZjd4K2EvaUU5TDkyQTd3UWdrZVMyc09uTkVM?=
+ =?utf-8?B?d2VveEZTM01aQWNHbVdpY2ttNTVZekQ2K28yL3c1bzhOZ1dwc1RaNFlyNzhw?=
+ =?utf-8?B?WHpCTHhiMnVLdENCVS9Nc3lUS0NhdUxNUjhQNHV6TmpVUHNvdXFIeU9INmt0?=
+ =?utf-8?B?QWJSc2huQnpycmx3eUJRbUtyMVZJbldvOEFVZnF4WW9ON1kyaWRlSUhQdEdJ?=
+ =?utf-8?B?Y1UrMUswRXBlWVZCS0dtVmw1bzJXS3p6bEVDSDRrVmxxdjRCdmdUV1F4WGx6?=
+ =?utf-8?B?b2ErL29DRzdidVF5dEhXQUxPVWFkODZOczFpOGx2bHZkZHJFd0tmeVZpZVNu?=
+ =?utf-8?B?cE13aGJSOWx4Y0ZXam1CNmI3cEk2QXF0cHoveHJHZkdzMDNQU0lFNnN2NEJo?=
+ =?utf-8?B?T2xSS0xDL2U0RCt2NjlJbTJ6TVhBc0p1L1psZlZQU2h0amhyRU1EdE0xUWkx?=
+ =?utf-8?B?ZENEYTlPSzU1TThwQVkzQjlGQm1iekVlTDRJQTYwNEwzZnNzS0RZbGp6WkM5?=
+ =?utf-8?B?NU9UalJ4Z3hJQWtuUXJtdVFJd1NKdXpZa24vQnR4aXNtMUgzTFhFbXljWGdL?=
+ =?utf-8?B?ODgrMk5HWUtBSU4vNEEzN1VaSjRxU1VsY2NmUHhDZTVDRy9VNDdWbytpamxM?=
+ =?utf-8?B?TWMvL2hHSzExYVc3YitLenBPTXF1YzJFQ21GbmdNMGVPaStUMENGMTNnUllM?=
+ =?utf-8?B?U29nOFp6UmZmWXcrcWsrMzZYYy8xNVBIanJqSmZWeU84clNtQTI2T2x1MG5l?=
+ =?utf-8?B?SVQyUW9UYklBZlVTZzBHTHc0RDRmZUdPZGh2UzlLTml4dWx6RGpncWdPZWFp?=
+ =?utf-8?B?S2c4SFpzaFFWaUVGR1FHMkpGTktjWmUzTjlXZWR1MFlqTndTZUphY3VwVWM3?=
+ =?utf-8?B?MkNEZjNYc09xNnhudGkxamhvRXpodEpKbUVYaCtmdTFHL3lXcFRDakpDZlRo?=
+ =?utf-8?B?cTY3Nk11Qm9kQU42eGczK3RNd2xmNHNkajUyVi9WQTZocVlDeng0NVhQWXE0?=
+ =?utf-8?B?a011WWlkaGFjNktDLzBFeDZmT01nb1FwTmhVT1duUkJud1pTcUdzMzM2N2pC?=
+ =?utf-8?B?NWxsYTQ5UlQ0R2drVGtDNlNyakhyNkQ1TVkwWXZqdmxoWVNHdURBVGJmSUtk?=
+ =?utf-8?B?RVlYOXIrRUdsUmM5RXdSRi9FOXBVRWtsYTRsWmdPSDNUUW8vbkdMTGlEWEx2?=
+ =?utf-8?B?WlR1N2tHaVl2YnIrRDErT3JWQThEYm1wcEQxNFN5dVFOSnk2cjdzK09OZ1Jo?=
+ =?utf-8?B?UEdpWjVtMnRBVGJkMlZZOGZSajJsVzc2VjFYbzFTTTZORXRzK2gzb29WZ2Va?=
+ =?utf-8?B?NXZsTk5EVzdUMFdzVmxHaS8vN3BwM0YzNnIvdGp4NVo0eFc3T0R6dUowZ2hG?=
+ =?utf-8?B?ckk0eGpJZmdkck05aWcrV09NNUpOamR6RWttMzIyZnF5WEswbE12NHJKYWRL?=
+ =?utf-8?B?N0IzaG1ueGdvYkpxelpkZTYzWSthU2czN3pQRXBnWkJBbWFLQUJsdU1nSFpo?=
+ =?utf-8?B?ZnB4UFc0ajJic1VWOFZUNnF2ZnV6YlFpKzZ1MDlUMTN4dWQxMmV3Vm95d29t?=
+ =?utf-8?B?cHUxdHB0NGxuZ200dnNid1ZBdU0yZ3VQTy8wdldBUTNSZHdBS1VwL1RDdGk2?=
+ =?utf-8?B?ZTduckxFT3M0aXRtMDdVd2NJV1V3OTNyWVltVjJqK0RhNWxNTWNSSk5vWE5L?=
+ =?utf-8?B?K1lwU0tMQ3RwenBVR0p4eEFFQWEyVWpoSXE5V1RDNmlZMnQ0bk1KNkVwU2Qr?=
+ =?utf-8?B?S3FLbElQUU43VzltUFF0SGtGbFBHNDVMNG5NL3E4aUN1VGdQQkFNQkZoN0sx?=
+ =?utf-8?B?REZuZEN2dlFBM2w0aFNHcy9DWmR6RTFWemt0OWZvRFNRZjRhYzhNc3U5THRF?=
+ =?utf-8?B?Q0lEeTQ1ajNyWnRlT1NNY0NycUw3cGxXcVhKcDFGamNYUU9nQlgrZGtieUJR?=
+ =?utf-8?Q?/EBI=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd575a32-4c9c-4d36-9d5e-08d9f22e363d
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 15:57:34.4560 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CiHVWl3PS1NsXqqsX4Cpd8QsQVG0CGQr6OvDMo1Rqm9gjoYGTmzQEcGazLcYAg+s
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4143
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,67 +130,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>,
- "Leo \(Sunpeng\) Li" <Sunpeng.Li@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, Wayne Lin <wayne.lin@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Solomon Chiu <solomon.chiu@amd.com>,
- Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
- Jasdeep Dhillon <jdhillon@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "Gutierrez,
- Agustin" <agustin.gutierrez@amd.com>, "Kotarac, Pavle" <pavle.kotarac@amd.com>
+Cc: llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 17, 2022 at 10:26 AM Harry Wentland <harry.wentland@amd.com> wrote:
->
-> On 2022-02-17 10:24, Jasdeep Dhillon wrote:
-> > This reverts commit e4a10691948030fc92b11b563cf62144d8d7cb8b.
-> >
->
-> It would be good to have a commit description here that mentions
-> that this is reverting the wrong device ID definition.
->
-> > Signed-off-by: Jasdeep Dhillon <jdhillon@amd.com>
->
-> Either way, this is
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Thanks for catching this.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 
->
-> Harry
->
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
-> >  drivers/gpu/drm/amd/display/include/dal_asic_id.h | 2 +-
-> >  2 files changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> > index a2a25d444574..0d0df7271732 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> > @@ -135,7 +135,7 @@ enum dce_version resource_parse_asic_id(struct hw_asic_id asic_id)
-> >
-> >       case FAMILY_NV:
-> >               dc_version = DCN_VERSION_2_0;
-> > -             if (asic_id.chip_id == DEVICE_ID_NV_13FE || asic_id.chip_id == DEVICE_ID_NV_1400) {
-> > +             if (asic_id.chip_id == DEVICE_ID_NV_13FE || asic_id.chip_id == DEVICE_ID_NV_143F) {
-> >                       dc_version = DCN_VERSION_2_01;
-> >                       break;
-> >               }
-> > diff --git a/drivers/gpu/drm/amd/display/include/dal_asic_id.h b/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-> > index a8dcd6d439c6..e672be6327cb 100644
-> > --- a/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-> > +++ b/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-> > @@ -212,7 +212,7 @@ enum {
-> >  #define ASICREV_IS_GREEN_SARDINE(eChipRev) ((eChipRev >= GREEN_SARDINE_A0) && (eChipRev < 0xFF))
-> >  #endif
-> >  #define DEVICE_ID_NV_13FE 0x13FE  // CYAN_SKILLFISH
-> > -#define DEVICE_ID_NV_1400 0x1400
-> > +#define DEVICE_ID_NV_143F 0x143F
-> >  #define FAMILY_VGH 144
-> >  #define DEVICE_ID_VGH_163F 0x163F
-> >  #define VANGOGH_A0 0x01
->
+Regards,
+Luben
+
+On 2022-02-17 10:38, trix@redhat.com wrote:
+> From: Tom Rix <trix@redhat.com>
+> 
+> Clang build fails with
+> amdgpu_ras.c:2416:7: error: variable 'ras_obj' is used uninitialized
+>   whenever 'if' condition is true
+>   if (adev->in_suspend || amdgpu_in_reset(adev)) {
+>   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> 
+> amdgpu_ras.c:2453:6: note: uninitialized use occurs here
+>  if (ras_obj->ras_cb)
+>      ^~~~~~~
+> 
+> There is a logic error in the error handler's labels.
+> ex/ The sysfs: is the last goto label in the normal code but
+> is the middle of error handler.  Rework the error handler.
+> 
+> cleanup: is the first error, so it's handler should be last.
+> 
+> interrupt: is the second error, it's handler is next.  interrupt:
+> handles the failure of amdgpu_ras_interrupt_add_hander() by
+> calling amdgpu_ras_interrupt_remove_handler().  This is wrong,
+> remove() assumes the interrupt has been setup, not torn down by
+> add().  Change the goto label to cleanup.
+> 
+> sysfs is the last error, it's handler should be first.  sysfs:
+> handles the failure of amdgpu_ras_sysfs_create() by calling
+> amdgpu_ras_sysfs_remove().  But when the create() fails there
+> is nothing added so there is nothing to remove.  This error
+> handler is not needed. Remove the error handler and change
+> goto label to interrupt.
+> 
+> Fixes: b293e891b057 ("drm/amdgpu: add helper function to do common ras_late_init/fini (v3)")
+> Signed-off-by: Tom Rix <trix@redhat.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index b5cd21cb6e58..c5c8a666110f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -2432,12 +2432,12 @@ int amdgpu_ras_block_late_init(struct amdgpu_device *adev,
+>  	if (ras_obj->ras_cb) {
+>  		r = amdgpu_ras_interrupt_add_handler(adev, ras_block);
+>  		if (r)
+> -			goto interrupt;
+> +			goto cleanup;
+>  	}
+>  
+>  	r = amdgpu_ras_sysfs_create(adev, ras_block);
+>  	if (r)
+> -		goto sysfs;
+> +		goto interrupt;
+>  
+>  	/* Those are the cached values at init.
+>  	 */
+> @@ -2447,12 +2447,11 @@ int amdgpu_ras_block_late_init(struct amdgpu_device *adev,
+>  	}
+>  
+>  	return 0;
+> -cleanup:
+> -	amdgpu_ras_sysfs_remove(adev, ras_block);
+> -sysfs:
+> +
+> +interrupt:
+>  	if (ras_obj->ras_cb)
+>  		amdgpu_ras_interrupt_remove_handler(adev, ras_block);
+> -interrupt:
+> +cleanup:
+>  	amdgpu_ras_feature_enable(adev, ras_block, 0);
+>  	return r;
+>  }
+
