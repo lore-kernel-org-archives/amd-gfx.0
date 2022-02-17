@@ -4,119 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57C03C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 09:46:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FFE9C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Feb 2022 09:48:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B65D110EE5A;
-	Thu, 17 Feb 2022 09:46:42 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2056.outbound.protection.outlook.com [40.107.237.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B5C810EE5A;
- Thu, 17 Feb 2022 09:46:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D440C10EECE;
+	Thu, 17 Feb 2022 09:48:28 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A341310EED0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 09:48:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NZGw3vaDVJ0I9Sg22ySG4v6iB6SVdhtfDI6UUDnT9LWCYlfwqjmSIJb7vPAtRYmDx3zqjOo1ZGdaKvHW1XOwqMkQVNcuY+/najT/b8MhHJryrjErhz4bo8DhGsQ0CKPUWjl3C7lp1s6exg46aWEWfUcpwt7349MD0SlvqBEgycL5itNp4W+6ln0V/1VuNHFG3M2eBM5sAib1cXZ2MvsbRZuny2DjbRphr0PFY6LAlejRBMa+OEgUGaRJ1rhYpOWF/ewFuWtADN3JLSMse3RO1/J9JyW/rvoh8crn8Sd/SM37RtrTlgCBVfFfERYGT4qTaTUhOMRtRKlmSjWDITvwyA==
+ b=Mbr5J3cODhugNe39ksDFoCwHneLW0pyyUXozgU+ac4neycsukvn0T1BcsRCpyVY8P2+b5xnU9bZyXRmgJ42xEmKoN4X6DYd3WUx+LDqjM5v3erxzOVRz532W2laPrtMcXPUS8a1OumUyaNDZIVyTPAwKTntm6GbYwJdKhFkVXl3FjnI6fp/jyCGdFDPTk2+LrVf595JB44FettWp0qmcLT+zg04ZOPzs5J7WfRi5ezKF9LzvUUokceju1uQ0cu4/jXgwoEgBkSyaB9GbptFW3U689jvEiVTayA6IO7lIaVyEnKY0QskiG99Eb/ysKYatAKRGX/+hNsTLnaW2Nuzl0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nDCQKPFJ9AoXjJSg42Nmw4xUypytnINKD6rjNfDG2/U=;
- b=k1QGRfVU1j3s1lAj2co4hRiRq12mCVNDTXmniuabjTyWosuCq6mZIo9X7BLKnct+3/iH1aJ8XS+U6FMmHw7B2jsy2Ioria2I0VON1CRm1vz/+4y8B7umEe+W2hPEv8xIv7ync5S7DjDTFz9E0qK9S5C+JF+YStOzF/HZ5JqqCoe6BNkuqhYIYLUn9dVwhZvQ8yKKEM45PML8jxuexpszGqMl7KFrtg8Rt+iSMWSzN93//awnMMwK7Kmp6ePkVHYUPf1qMTiSk4082KiWxRedgq6O4M1hehdv7azn0ERugTZlJXVTTxar/ffwvyZSHQVGOfec7tntmw+57Om08hDy1A==
+ bh=bSMeUWq05AJuSkjPtBsRdBtSIEYL3nx7F1xazCXnq3I=;
+ b=h1//YQVsnFAcLTX6AX6H1A8jgyba/svD2vwjzyTu5WGZKx7PPfLGD/hWWYgchb2M//5GplUmFsfNv+lWDAjeArwjqGDbKx2KHNKjStQyqrOj4BkB5qjUHq4CsTD4CKW4IV8ifI5WtykYyh7n9nxIPcpoP36FcsJrJqApVwKrf09jwlmq7o3R4XtCX1fnqYkTCQI9vU64900GS3wI7qUQILMOuqTm0BWl25TYFy8aCOkQ84ec1wVMwPJiTQDZKj3h4pbhhGtzs/txHCIqueC8cvRx9NK/X8HCxqyv17b8s37kmVMsM9PCqELp0j3n7e4oUxg6lWvzMXy2W7OJECAlsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nDCQKPFJ9AoXjJSg42Nmw4xUypytnINKD6rjNfDG2/U=;
- b=LM6V9W4QCONfc7t+uHTr32lNSVSDrqS5ST3Vst6ZcIFC++tTwxPmCNTWFTE9yHIoqo+zNDak2ypGjw5iSeLGz95L2MoCh0q3qftA9323FQPy8Ru0EpJ3+zfX8CSS7+kMnwzbfCBeJmyW8BbaSQWaRmvEDro+1tIH+xjVqaAQnwU=
+ bh=bSMeUWq05AJuSkjPtBsRdBtSIEYL3nx7F1xazCXnq3I=;
+ b=QBGKBlZVICbLdwP7DfjDEg0ws6mAWbwa09p8l1wDPyyGBpXndOdBgHNFSpEfk+ZhEsH6XaNR33yCWSbPgIoBe6QGHjQVimIJdS/IHHrfTy/GGwZ6uIrziMkfg4HZuPqb9jJcFG152INW9AMEPtFxzUKj2WLz1FkKBsGqsBA7aAQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by BN8PR12MB3108.namprd12.prod.outlook.com (2603:10b6:408:40::20)
+ by BN6PR12MB1714.namprd12.prod.outlook.com (2603:10b6:404:107::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Thu, 17 Feb
- 2022 09:46:37 +0000
+ 2022 09:48:22 +0000
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::e03f:901a:be6c:b581]) by BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::e03f:901a:be6c:b581%6]) with mapi id 15.20.4995.017; Thu, 17 Feb 2022
- 09:46:37 +0000
-Message-ID: <dac70c05-e712-d2e3-2267-278380895f1e@amd.com>
-Date: Thu, 17 Feb 2022 10:46:31 +0100
+ 09:48:22 +0000
+Message-ID: <dedecd79-ca3d-7b1c-595a-a6e5e56d2161@amd.com>
+Date: Thu, 17 Feb 2022 10:48:17 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/amdgpu: check vm bo eviction valuable at last
+Subject: Re: [PATCH v6 1/2] drm/amdgpu: add debugfs for reset registers list
 Content-Language: en-US
-To: Qiang Yu <yuq825@gmail.com>
-References: <20220217090440.4468-1-qiang.yu@amd.com>
- <5d3fdd2c-e74a-49f4-2b28-32c06483236f@amd.com>
- <CAKGbVbtLTBJPF5eTu4rABUTBa8eqjQvqjo1AEUrzgPgYgCREuA@mail.gmail.com>
+To: "Lazar, Lijo" <lijo.lazar@amd.com>,
+ "Somalapuram, Amaranath" <asomalap@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20220216094949.3169-1-Amaranath.Somalapuram@amd.com>
+ <e9f1e95f-5aac-4a25-51f1-b971a8189d79@amd.com>
+ <ed1103b1-835c-e56a-3118-17bd60f0f5f9@amd.com>
+ <d531c825-332d-036d-c4b4-5e2cf39edb52@gmail.com>
+ <94eeed88-69ad-5823-0505-dc86b36c4007@amd.com>
+ <09a4d26f-04be-2a84-343a-32166d21afd1@amd.com>
+ <b19700b6-3f68-1654-a07a-371351fe3652@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAKGbVbtLTBJPF5eTu4rABUTBa8eqjQvqjo1AEUrzgPgYgCREuA@mail.gmail.com>
+In-Reply-To: <b19700b6-3f68-1654-a07a-371351fe3652@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM6PR01CA0047.eurprd01.prod.exchangelabs.com
- (2603:10a6:20b:e0::24) To BN8PR12MB3587.namprd12.prod.outlook.com
+X-ClientProxiedBy: AM6PR01CA0049.eurprd01.prod.exchangelabs.com
+ (2603:10a6:20b:e0::26) To BN8PR12MB3587.namprd12.prod.outlook.com
  (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2f26afc9-e465-4cd5-8470-08d9f1fa6404
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3108:EE_
-X-Microsoft-Antispam-PRVS: <BN8PR12MB310895BA2E6724C2AF1950AC83369@BN8PR12MB3108.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Office365-Filtering-Correlation-Id: cb5a2ede-d124-430c-0615-08d9f1faa2c4
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1714:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR12MB171401B9D4C02EE3CFA10CCF83369@BN6PR12MB1714.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jmhueIeJvyguxbqMyTLwLl/nJS5PptxCmRb3SfEvozrYoSH4MM79U0bMeV/ejtCpsjkJ1LSz7DCMwVfYI2Hgv0I2y7sUjSpcVUiZvHicBjO74RQK63P995NC4YRrWkW4Ep3WPoPz52f/MlEyPP5ceD4egF94ZxiCRX0/4yPt2wGlcTX/V7h+IgaH5z/URE7OT4a9+SghZZCNnzBEvfv+lORH8OgNapS2ODQYTBePjL25zrjl4HHby9Th4Ty1/KchHSI6TRNBPl68/EUwbRD7uSY31csTLROZp83IsQl/jAAYNhrWYcvjInlbMkdZhhuJTNr3HQCrecN8+oPaDmmgYyzfqcwn+ZBbYeKlWFnFoSrUvm9TKBjGnEMmCEfELHiPy97SNHNF5PSTPmA8qKEQyWMA/ZZWTgFHSJqen26Wng5dDlEGpUWuv7Mj+CnW2rwhA0RDwig2yNKkXehvNN4hPChGqpc+paxkXb0NRUIXHIVgdnvCFm0hOjpy+ikES63u37bgqpul28jUpEPQurmDfo5hKKT30iEpA5hIM+IoWBl/EK1ZBqr29z3qrhurHym/9x0SOXIy6QXp6lgL2fr4V39nTKbQCaWYWhl5vQ2hzfzsCtIrfSG7v2eMjvJ16c+AmJM3gulj9kcYAv3SEq33cvHZWk0dC4ETfyU5ksEDNCI03XBxr1K6a9oaiQDYCLsb64A5X2UuvPGkBKWn3q05QcvcKpLKLnVTy4u774qiKmqOVyOK8H1TIgpeBbzqFmQz
+X-Microsoft-Antispam-Message-Info: SfdJ7dbaAY0ttsbLKqphEtOOQogRp1tAryKOzPq4pc2bQP5RnEXulSjVXkb8g2ZHHj7zIp9BmJB1a0tY4p0flqfi+sQEc0tyRpfq1F+wXBnz9765XZmIMCBgyIjNkMY8EdaUeKX4nmA7rzrYDNlOVcmlLTleo3Bp0muRZs6ugJUUm6AhR/tKuNURItr9dsO9keByJmhra802WvYdsRMXVWxqw/2ZX1TaLVKJLYxyIQHfsfXVtkLVOMqSS0jg+a+wh5jx6qZKI97Mizn2eQtR69VDvmVrRpR0J87ki3zbr6ka5qoeYu3bdNB3dBirF9En5mjz+8oqCQ4g7y9rvxqmMTBcvAnbzXYOAbivwiFvBs4yEXG7350jGDl32rpgH80JK/zlNQN/Pe2tFQE0NyUAqBj7YiZ4P6HLzHqKtjObHmB5On6Nw10ie1HCj3N9skbJNab0WmZjF+UFmncyzXsFpxVuQJ6hTCSiu4H6gDtcwIITasSjErpEhF8gYRVFpvgOEDKpIRJfhLZNsSktKkjDYCkl1WesQ/wU2o7QWQJmhrbCoD51MbaQ4wJbAvlXKVa+uuEoTS3A+wlpt1Gge4f6akuoWmlHnz5rLq79NafK54kGF+EwoeOedL8pQB9+s/iKAxlkpYCnEZOghExIeK//+77TOb0TGKtOpH2EC1vImdt+0y/r4+u9f9FrIRVeOP+BmlOaaTRfedSkJI5ppvAZDe83ymYB8uMRF4SVpcURW/EXqM7vivYVBM54+VTXZQyv
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(4326008)(38100700002)(66574015)(54906003)(83380400001)(5660300002)(36756003)(2906002)(31686004)(66946007)(8936002)(316002)(66556008)(508600001)(31696002)(6506007)(53546011)(8676002)(6916009)(6666004)(186003)(6512007)(2616005)(86362001)(6486002)(66476007)(43740500002)(45980500001);
+ SFS:(13230001)(4636009)(366004)(66476007)(83380400001)(36756003)(66574015)(66946007)(66556008)(8676002)(4326008)(53546011)(6512007)(6506007)(86362001)(2906002)(31686004)(6666004)(38100700002)(5660300002)(6486002)(2616005)(186003)(508600001)(8936002)(316002)(110136005)(31696002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZUVmRVhmU1ZqRmk1TFM4OS9vTDNRUE1rVGNZektrdFRxYkVYcEFxNzc1K3dW?=
- =?utf-8?B?TnhDMVNmcWJ0VVEzcVUvc2hCTEVjS1V4UHBCZjRmV0NXdUFaYmdjKy9ONjda?=
- =?utf-8?B?Nm1ZbFQvQWNpSDdHSmc0Sy80Qml2Znc5cjkwRmk3aVVEWS85M2Q0SUZoME12?=
- =?utf-8?B?eVgrWTRJM1pKZ3JieDdrZm4wS01SY01kZy9IZmhHSElhNXM3NFQ1MFZEalJx?=
- =?utf-8?B?dXQ1Tm1NNHJ1eFpHcmNKR3h6VFEvbnFNSGw4VFNmWk9BQUxvbG1KN1YvSGto?=
- =?utf-8?B?U3duZndpVGlGWlgvNnFyKzZvSlpYZlRobGVRdUVaaE9PdXV5TDl4MDhKZFpz?=
- =?utf-8?B?L2RuNVB4amFzTHNEVEhtMThVc2FXYmg5azVkRlRqT0N5UExhYkVZdW1VWDhy?=
- =?utf-8?B?T1A0dDE0bFVjWUtqUEpZZFo3Tks1VDZJUy9iN081c2NQZ21VSWI0aU9kbDZF?=
- =?utf-8?B?aWNzWTZ0YmZleVMzMjNaQzM3VkRqVmxub1hIVTNZcGl4cHJXZGdsUytFc2cz?=
- =?utf-8?B?OVpMakZPR2tJOHQwU3pPK1VITlRqSUo1dGdyVVJtblJoLzI3L3JJdHNvRFVn?=
- =?utf-8?B?djVsOERUWS83cmdRNE82cDg0Z1RRbXBKSHR0TTRyc3hKRmlLdjc1dXA2V1U5?=
- =?utf-8?B?amhyQW9XUlF1Vk5peFVHbFNtTVFRN0UvKzJCNzkwZ1V2OXE4TmEvQTIrb1o2?=
- =?utf-8?B?RW1aTStVUDlqK2MzajRXcWIrdkZ4UG1Jcldvd0xoTFNSN1dMVUpRM0JxZDZI?=
- =?utf-8?B?U0NsWkJJM0pWbm5lbTVNVE1XeXpVaW5nSEg5Vnc0Q0N3MzlRTFZtZFE4WjlK?=
- =?utf-8?B?ckNsZFFYVVQrb2RneEppME13RllLYzNtRzY1YXY5dzdiL0ROcVljUHUzSkxJ?=
- =?utf-8?B?SnFSdFJRbFBNL2IzSG1ldHJ0WTVnMU5Fc3F6Y2dDU1N4K0RxY0JjTm9JZDB6?=
- =?utf-8?B?aVZGS1BMSTRMbzF1SWJwSElHYnZFSG9TTUJmR3pRdllEc2oxYTluOUVzMFZv?=
- =?utf-8?B?MVlqaHVGeHo3a2ZBbzFJQzMzR3FnVTlFWnRyRFZKWGEwdHMxZ3lCZlYzWU1G?=
- =?utf-8?B?cWpiZGJzazFiY1pQeDc1Qko1SkprQ3RQSk5tc21GajFFWTE4Q20ydndhT0NT?=
- =?utf-8?B?YkRzdEdUcVZ2QmNrRm1aQ1c3UnczMUVpU2FOeDdYWTg3K1BLbDRGZ2V5SVQ3?=
- =?utf-8?B?ZGtwRzRGc25RSUFkdDVrUkdOWGxEenozSmFuVzdVeGZZSFFPWnhFM2ZaZHpE?=
- =?utf-8?B?bVhGUEpmSzRoaU00blBtYkpLZkMwZ3VneEtNK2dRczlKYk4vT1JsbU1nYW5o?=
- =?utf-8?B?Sm41Yk1jeWk0c2FWK2NLSUNpYlh3aHFFalBhNmt1c2NON3dPcVBPWGgxbXpi?=
- =?utf-8?B?YnVVeks4Uk9XRGh5bEI4ZVpVdks5bnBmMGd1YU5UZ0lJZXZnTjJmcUxyUXJZ?=
- =?utf-8?B?NVU0VWVuT2pIU2FLZGcvVGtBYitwT1NtU2tDWFE0VGNEQTJRVWtwWGlDLzYx?=
- =?utf-8?B?N0kyMjJaSDJhVEV3WUZBclNxRFV1OXZibnZ0ck9lVDByaHp6YW92dEJzZnVm?=
- =?utf-8?B?Z2gvd2EvSWhQMGk5VXArRW95cTMzUlVxcWd1UUdKYS9rUFFrT2M1eERKN1V1?=
- =?utf-8?B?dDVLd2Y2aVdkSm5MWWU5SWpDZElvcWZ4YXlqQzRXaFFLckpzbEU1cFlYS1hx?=
- =?utf-8?B?Ynl2aG9EWGQ5VGg1N1JyZXBvU0tJM3pJWFZVSWZNMWpqcjJlMVJVTkY5bERu?=
- =?utf-8?B?YWduMnk4czBrektkTzFaNXV2Wml2b3I0TjduM0lENkdWcWVsQ3V0SkxNcGF1?=
- =?utf-8?B?TCtMYi92eERkcW5nU3pFMCtJemltTGgwQ2NkeUNVd0U3WXlGUlliai85S1lC?=
- =?utf-8?B?RlNPRm1DdUpEdTdWWHh1cVlicG5wQWp2bTBmZ2V6YTE4SFliOUxlMXQ0OWwy?=
- =?utf-8?B?d1p3YlBUcXM4WkpIUDBUTnczL1JlMjhXNnBhZU4yMncrbFlodnZjK2NGaWhE?=
- =?utf-8?B?K09KSnpXbStEUzJsTDVYOWZVbFUwRmQzNE1ra3ZSRHBmamg2SWE2emZTNERG?=
- =?utf-8?B?d2oreUpxc1hxWW5WcjFqa2VDd2FiSDRjZXV0OTd6cG5YbjNFNmZ6Yk8zaTFs?=
- =?utf-8?B?eUJBakkzUjlKM25JRmsycS9sbS9oVXFKYVlwYVIrQnAwRlNpcjlpbURsRncx?=
- =?utf-8?Q?X9WFoc4UL1XnFkSRYdk1POI=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V0RlaHlHeTJ4UnRoZmRXQlJiVmg5WjhkSTh6Tk1vTTlScEEveWJGOXV3Zldh?=
+ =?utf-8?B?a1QySnJEOTJZV2wzUWY4ZTFyTXVTWDFwcUJyS2RyVzBNQW9qazJjdU02WStm?=
+ =?utf-8?B?aER3QUVNcmJSVkVwNHRQWWtCR3E0eXpEQTYwTHgxOE5qQTlkdEtpdTJvNG5x?=
+ =?utf-8?B?cTF4QW5WOUo5d084MUUxTXg0dTc0VSswQVRYRXdOWDRWMmVySlFRRi9kSG5x?=
+ =?utf-8?B?UWYvYms5eU5xbDdpcXFRMUVmdnhJd1VRaVZlaUZJWTZCbXg4RXc0VUVrUXgr?=
+ =?utf-8?B?R2pFS0ZiVWFtRnFIekxROUpzc3lXWnM4VVUwSjdUZUppTzRIZUZqWkY3ZFV0?=
+ =?utf-8?B?K2dXQ1N0K1Jia3RnRVJVNlY3aWpPemxLV09Vd0RscjBiRDBZR1FnakVabXJP?=
+ =?utf-8?B?eEpKR0t4UVE0ZkFFMTJuOERNTkxPcU1vMlFEVmRTMjZuS1hiMnhYZk9pQkVN?=
+ =?utf-8?B?dE9IV1FHLy9nS0cyNGhWUHdyMm9NZ2loekZsWWwrb1MxRVB6ZzMyZGVvZjdL?=
+ =?utf-8?B?S1hrY0hRU0RJVjEvRzk4eTNFQlY4MkJ0REJHRWNXWGZiWTZYMDFrQmxpQlgx?=
+ =?utf-8?B?Ym41bUM3R3ZQQU9TbzIzRUd5YlVISWZIN1NPN2trWUtpWFQ1VWM1R29aWmVm?=
+ =?utf-8?B?YmhwRGJaQUIwU0FWR3U3em0rSFBXZDFYK0c2SUdVeVB2ZGMrWnlzRUhzelQz?=
+ =?utf-8?B?UW50QnhqQXJHSDVDRFZ5N1dQMHJrbjFaMjNJeHlsRzFPOWwvWGY0S0RQRmV6?=
+ =?utf-8?B?eFl0KzRUVXFLOXlUWUppMUgvcnV2bWYzSzlaL1ZlNHo2Z1V1YkY1S3JZQ1cv?=
+ =?utf-8?B?S0N2UXIzdnYwbVBpKzU5SmJLTDN4akNrbDZMYTA1MU5GeVVFMmJqZWFlMStu?=
+ =?utf-8?B?UmtpRFZoS0lUaDJaTE14Z2RXdXh6ak5ETy8wV3lYbWNtQWlsV3ZWZ2hoT3N0?=
+ =?utf-8?B?alJ1c2FLZnhCOXNqZHk0SGcxR2RLUjZrTVYrWlFFSnZiV3o5cHorM0JZdm1x?=
+ =?utf-8?B?TlQyWEc3bFpPZ2NkN3dEWXBsTG8xRnJwM1NvOVZTaDQ5TmRnY2dBK3lZLzMy?=
+ =?utf-8?B?Ukpvc0pmc3RRMFBBa3FLRldvelcxL0Vlc2duaTh3MnI4bUlqR3RyZUFyU1Yv?=
+ =?utf-8?B?eVh6NjBrcnIrTVMzaGU1c3Yzb29pUlQxZVN6NXdsWGUrcG1SaW5teHJnNE14?=
+ =?utf-8?B?a01JYk1hWHRLV2xVR0NBYkFiZUpSK3NLODZRd2xNNEJBaFFnNkcwcXFXaEFJ?=
+ =?utf-8?B?cmZLaHhZMGllWTFsMlIwYXFVY3FrZW5rZGpLdmtMclVlTjFURk5UNjlyMmY5?=
+ =?utf-8?B?UEUvRkFkcVN4MEdFejJVSTZuMjRhSDhndEMrVlJuYWNEUU9EVnBWeFFETUF6?=
+ =?utf-8?B?VXM2RTZUSUNVQ2ZnRzduTHZ4QzNTV1hXMWxJTDVxb2I2MW1LTWlWV2pib0tQ?=
+ =?utf-8?B?RnhpRVY1SitRMjN1aXBUcm5ka2VTVWpqeUpySGphTU1vZldTZDlmRjUrR2ZK?=
+ =?utf-8?B?QzJSeGo2ekUzMEUyQjhmcGNpTFhTaUZnVGJuY2FnbzZvcmNwM01DVFAvN1FD?=
+ =?utf-8?B?VkNOc0pVUGdIZkJXOWF6K1FhbWdvL2ZnUFFONUxYMGhDbmZ2ZWM2TGIrVUlx?=
+ =?utf-8?B?Y2pxM3dpTG1hcTl4M0o5cVdDd2dGTTk4QWFyVEM0RXp3Qjd2UXhtZkxVZDJ3?=
+ =?utf-8?B?RGkrRGRsVnppY1F6OGpRdEFNNnNSTDRQbFMxOWE0SDIrWlJtREVqam5zS2JL?=
+ =?utf-8?B?cUsycTVnNStIbGYxdFNtMXdFeWE0ejVVZ3JXWkEwNTRDaENIZEswdEQzUFdm?=
+ =?utf-8?B?VEloSUlIcncreFhYK1RwMlZnM0gwR0YzRUpOMTRtOFhzdU16dlZDcFZHRWtR?=
+ =?utf-8?B?RVlCaVlxdE9GN050T3UrdUZPQ0FzeWs4MjRseklhM1BBRUVSU0tSSkVKUXZm?=
+ =?utf-8?B?TW5uTENYNkU2WmZqQ0FmYnR4emgwNjVHMGZaZ3g0R1NVclVNQmdPLzJ6U01E?=
+ =?utf-8?B?UGJyS1Fya0xYV3N1b2FQMDBaREVSZFZYQ3lJZTd5clJKWnhlUEZPUnR4S0dN?=
+ =?utf-8?B?amJtSUtuQ2dGc2xzVjVZQWF0SG54aWV3bmhZSjhZQVRqZTdMZzNkV055M1gr?=
+ =?utf-8?B?TG4xdHVKRGdTKzFpT003Um1maXB1QmRTcnpGRmMrREtodnhxZ1d5OFBGcVFa?=
+ =?utf-8?Q?tuUElXxosh4XoYeojYEIQfs=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f26afc9-e465-4cd5-8470-08d9f1fa6404
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb5a2ede-d124-430c-0615-08d9f1faa2c4
 X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 09:46:37.2865 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 09:48:22.6853 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R08kytptxOt9aY6O5jI7+LfE6aMQL8vY2F6NRbq1zm6qQ5pjEVGj1Nfb9vG3fkRI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3108
+X-MS-Exchange-CrossTenant-UserPrincipalName: paTIidGD9O+G7cJW852tmoXWjTmoISkfDhR1yeGkNNUmLEeTBhIUNkKycE7hNIu7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1714
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,184 +136,278 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, linaro-mm-sig@lists.linaro.org,
- Qiang Yu <qiang.yu@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org
+Cc: alexander.deucher@amd.com, shashank.sharma@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.02.22 um 10:40 schrieb Qiang Yu:
-> On Thu, Feb 17, 2022 at 5:15 PM Christian König
-> <christian.koenig@amd.com> wrote:
->> Am 17.02.22 um 10:04 schrieb Qiang Yu:
->>> Workstation application ANSA/META get this error dmesg:
->>> [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO_VA (-16)
->>>
->>> This is caused by:
->>> 1. create a 256MB buffer in invisible VRAM
->>> 2. CPU map the buffer and access it causes vm_fault and try to move
->>>      it to visible VRAM
->>> 3. force visible VRAM space and traverse all VRAM bos to check if
->>>      evicting this bo is valuable
->>> 4. when checking a VM bo (in invisible VRAM), amdgpu_vm_evictable()
->>>      will set amdgpu_vm->evicting, but latter due to not in visible
->>>      VRAM, won't really evict it so not add it to amdgpu_vm->evicted
->>> 5. before next CS to clear the amdgpu_vm->evicting, user VM ops
->>>      ioctl will pass amdgpu_vm_ready() (check amdgpu_vm->evicted)
->>>      but fail in amdgpu_vm_bo_update_mapping() (check
->>>      amdgpu_vm->evicting) and get this error log
->>>
->>> This error won't affect functionality as next CS will finish the
->>> waiting VM ops. But we'd better make the amdgpu_vm->evicting
->>> correctly reflact the vm status and clear the error log.
->> Well NAK, that is intentional behavior.
+Am 17.02.22 um 10:44 schrieb Lazar, Lijo:
+>
+>
+> On 2/17/2022 1:30 PM, Christian König wrote:
 >>
->> The VM page tables where considered for eviction, so setting the flag is
->> correct even when the page tables later on are not actually evicted.
 >>
-> But this will unnecessarily stop latter user VM ops in ioctl before CS
-> even when the VM bos are not evicted.
-> Won't this have any negative effect when could do better?
+>> Am 17.02.22 um 08:54 schrieb Somalapuram, Amaranath:
+>>>
+>>>
+>>> On 2/16/2022 8:26 PM, Christian König wrote:
+>>>> Am 16.02.22 um 14:11 schrieb Somalapuram, Amaranath:
+>>>>>
+>>>>> On 2/16/2022 3:41 PM, Christian König wrote:
+>>>>>
+>>>>>> Am 16.02.22 um 10:49 schrieb Somalapuram Amaranath:
+>>>>>>> List of register populated for dump collection during the GPU 
+>>>>>>> reset.
+>>>>>>>
+>>>>>>> Signed-off-by: Somalapuram Amaranath 
+>>>>>>> <Amaranath.Somalapuram@amd.com>
+>>>>>>> ---
+>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  5 ++
+>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 95 
+>>>>>>> +++++++++++++++++++++
+>>>>>>>   2 files changed, 100 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> index b85b67a88a3d..57965316873b 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> @@ -1097,6 +1097,11 @@ struct amdgpu_device {
+>>>>>>>         struct amdgpu_reset_control     *reset_cntl;
+>>>>>>>       uint32_t ip_versions[HW_ID_MAX][HWIP_MAX_INSTANCE];
+>>>>>>> +
+>>>>>>> +    /* reset dump register */
+>>>>>>> +    uint32_t            *reset_dump_reg_list;
+>>>>>>> +    int                             n_regs;
+>>>>>>> +    struct mutex            reset_dump_mutex;
+>>>>>>
+>>>>>> I think we should rather use the reset lock for this instead of 
+>>>>>> introducing just another mutex.
+>>>>>>
+>>>>>>>   };
+>>>>>>>     static inline struct amdgpu_device *drm_to_adev(struct 
+>>>>>>> drm_device *ddev)
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c 
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>>> index 164d6a9e9fbb..faf985c7cb93 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>>>>>> @@ -1609,6 +1609,98 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, 
+>>>>>>> NULL,
+>>>>>>>   DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
+>>>>>>>               amdgpu_debugfs_sclk_set, "%llu\n");
+>>>>>>>   +static ssize_t amdgpu_reset_dump_register_list_read(struct 
+>>>>>>> file *f,
+>>>>>>> +                char __user *buf, size_t size, loff_t *pos)
+>>>>>>> +{
+>>>>>>> +    struct amdgpu_device *adev = (struct amdgpu_device 
+>>>>>>> *)file_inode(f)->i_private;
+>>>>>>> +    char reg_offset[11];
+>>>>>>> +    int i, r, len = 0;
+>>>>>>> +
+>>>>>>> +    if (*pos)
+>>>>>>> +        return 0;
+>>>>>>> +
+>>>>>>> +    if (adev->n_regs == 0)
+>>>>>>> +        return 0;
+>>>>>>> +
+>>>>>>> +    for (i = 0; i < adev->n_regs; i++) {
+>>>>>>> +        sprintf(reg_offset, "0x%x ", 
+>>>>>>> adev->reset_dump_reg_list[i]);
+>>>>>>> +        r = copy_to_user(buf + len, reg_offset, 
+>>>>>>> strlen(reg_offset));
+>>>>>>> +
+>>>>>>> +        if (r)
+>>>>>>> +            return -EFAULT;
+>>>>>>> +
+>>>>>>> +        len += strlen(reg_offset);
+>>>>>>> +    }
+>>>>>>
+>>>>>> You need to hold the lock protecting adev->reset_dump_reg_list 
+>>>>>> and adev->n_regs while accessing those.
+>>>>>>
+>>>>>> (BTW: num_regs instead of n_regs would match more what we use 
+>>>>>> elsewhere, but is not a must have).
+>>>>>>
+>>>>> This is read function for user and returns only list of reg 
+>>>>> offsets, I did not understand correctly !
+>>>>>>> +
+>>>>>>> +    r = copy_to_user(buf + len, "\n", 1);
+>>>>>>> +
+>>>>>>> +    if (r)
+>>>>>>> +        return -EFAULT;
+>>>>>>> +
+>>>>>>> +    len++;
+>>>>>>> +    *pos += len;
+>>>>>>> +
+>>>>>>> +    return len;
+>>>>>>> +}
+>>>>>>> +
+>>>>>>> +static ssize_t amdgpu_reset_dump_register_list_write(struct 
+>>>>>>> file *f,
+>>>>>>> +            const char __user *buf, size_t size, loff_t *pos)
+>>>>>>> +{
+>>>>>>> +    struct amdgpu_device *adev = (struct amdgpu_device 
+>>>>>>> *)file_inode(f)->i_private;
+>>>>>>> +    char *reg_offset, *reg, reg_temp[11];
+>>>>>>> +    static int alloc_count;
+>>>>>>> +    int ret, i = 0, len = 0;
+>>>>>>> +
+>>>>>>> +    do {
+>>>>>>> +        reg_offset = reg_temp;
+>>>>>>> +        memset(reg_offset,  0, 11);
+>>>>>>> +        ret = copy_from_user(reg_offset, buf + len, min(11, 
+>>>>>>> ((int)size-len)));
+>>>>>>> +
+>>>>>>> +        if (ret)
+>>>>>>> +            goto failed;
+>>>>>>> +
+>>>>>>> +        reg = strsep(&reg_offset, " ");
+>>>>>>> +
+>>>>>>> +        if (alloc_count <= i) {
+>>>>>>
+>>>>>>> + adev->reset_dump_reg_list =  krealloc_array(
+>>>>>>> + adev->reset_dump_reg_list, 1,
+>>>>>>> +                            sizeof(uint32_t), GFP_KERNEL);
+>>>>>>> +            alloc_count++;
+>>>>>>> +        }
+>>>>>>> +
+>>>>>>> +        ret = kstrtouint(reg, 16, &adev->reset_dump_reg_list[i]);
+>>>>>>
+>>>>>> This here is modifying adev->reset_dump_reg_list as well and so 
+>>>>>> must be protected by a lock as well.
+>>>>>>
+>>>>>> The tricky part is that we can't allocate memory while holding 
+>>>>>> this lock (because we need it during reset as well).
+>>>>>>
+>>>>>> One solution for this is to read the register list into a local 
+>>>>>> array first and when that's done swap the local array with the 
+>>>>>> one in adev->reset_dump_reg_list while holding the lock.
+>>>>>>
+>>> krealloc_array should be inside lock or outside lock? this may be 
+>>> problem.
+>>>
+>>
+>> This *must* be outside the lock because we need to take the lock 
+>> during GPU reset which has a dependency to not allocate memory or 
+>> wait for locks under which memory is allocated.
+>>
+>> That's why I said you need an approach which first parses the string 
+>> from userspace, build up the register list and then swap that with 
+>> the existing one while holding the lock.
+>>
+>
+> Another approach would be to just protect debugfs write with 
+> down_read(&adev->reset_sem) or reset domain semaphore.
 
-No, this will have a positive effect. See the VM was already considered 
-for eviction because it is idle.
+No, exactly that doesn't work.
 
-Updating it immediately doesn't necessarily make sense, we should wait 
-with that until its next usage.
-
-Additional to that this patch doesn't really fix the problem, it just 
-mitigates it.
-
-Eviction can fail later on for a couple of reasons and we absolutely 
-need to check the flag instead of the list in amdgpu_vm_ready().
+See the down_write(&adev->reset_sem) would then wait for this reader and 
+the reader is allocating memory and allocating memory might wait for the 
+reset to finish => deadlock.
 
 Regards,
 Christian.
 
 >
-> Regards,
-> Qiang
+> Other than that if apps are trying to read and modify the list at the 
+> same time, probably we should leave that to user mode since this is 
+> mainly a debug feature.
 >
->> What we should rather do is to fix amdgpu_vm_ready() to take a look at
->> the flag instead of the linked list.
->>
+> Thanks,
+> Lijo
+>
 >> Regards,
 >> Christian.
 >>
->>> Signed-off-by: Qiang Yu <qiang.yu@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 85 ++++++++++++++-----------
->>>    1 file changed, 47 insertions(+), 38 deletions(-)
+>>> Regards,
 >>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>> index 5a32ee66d8c8..88a27911054f 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>> @@ -1306,45 +1306,11 @@ uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct ttm_tt *ttm,
->>>        return flags;
->>>    }
+>>> S.Amarnath
 >>>
->>> -/*
->>> - * amdgpu_ttm_bo_eviction_valuable - Check to see if we can evict a buffer
->>> - * object.
->>> - *
->>> - * Return true if eviction is sensible. Called by ttm_mem_evict_first() on
->>> - * behalf of ttm_bo_mem_force_space() which tries to evict buffer objects until
->>> - * it can find space for a new object and by ttm_bo_force_list_clean() which is
->>> - * used to clean out a memory space.
->>> - */
->>> -static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
->>> -                                         const struct ttm_place *place)
->>> +static bool amdgpu_ttm_mem_eviction_valuable(struct ttm_buffer_object *bo,
->>> +                                          const struct ttm_place *place)
->>>    {
->>>        unsigned long num_pages = bo->resource->num_pages;
->>>        struct amdgpu_res_cursor cursor;
->>> -     struct dma_resv_list *flist;
->>> -     struct dma_fence *f;
->>> -     int i;
->>> -
->>> -     /* Swapout? */
->>> -     if (bo->resource->mem_type == TTM_PL_SYSTEM)
->>> -             return true;
->>> -
->>> -     if (bo->type == ttm_bo_type_kernel &&
->>> -         !amdgpu_vm_evictable(ttm_to_amdgpu_bo(bo)))
->>> -             return false;
->>> -
->>> -     /* If bo is a KFD BO, check if the bo belongs to the current process.
->>> -      * If true, then return false as any KFD process needs all its BOs to
->>> -      * be resident to run successfully
->>> -      */
->>> -     flist = dma_resv_shared_list(bo->base.resv);
->>> -     if (flist) {
->>> -             for (i = 0; i < flist->shared_count; ++i) {
->>> -                     f = rcu_dereference_protected(flist->shared[i],
->>> -                             dma_resv_held(bo->base.resv));
->>> -                     if (amdkfd_fence_check_mm(f, current->mm))
->>> -                             return false;
->>> -             }
->>> -     }
->>>
->>>        switch (bo->resource->mem_type) {
->>>        case AMDGPU_PL_PREEMPT:
->>> @@ -1377,10 +1343,53 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
->>>                return false;
->>>
->>>        default:
->>> -             break;
->>> +             return ttm_bo_eviction_valuable(bo, place);
->>>        }
->>> +}
->>>
->>> -     return ttm_bo_eviction_valuable(bo, place);
->>> +/*
->>> + * amdgpu_ttm_bo_eviction_valuable - Check to see if we can evict a buffer
->>> + * object.
->>> + *
->>> + * Return true if eviction is sensible. Called by ttm_mem_evict_first() on
->>> + * behalf of ttm_bo_mem_force_space() which tries to evict buffer objects until
->>> + * it can find space for a new object and by ttm_bo_force_list_clean() which is
->>> + * used to clean out a memory space.
->>> + */
->>> +static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
->>> +                                         const struct ttm_place *place)
->>> +{
->>> +     struct dma_resv_list *flist;
->>> +     struct dma_fence *f;
->>> +     int i;
->>> +
->>> +     /* Swapout? */
->>> +     if (bo->resource->mem_type == TTM_PL_SYSTEM)
->>> +             return true;
->>> +
->>> +     /* If bo is a KFD BO, check if the bo belongs to the current process.
->>> +      * If true, then return false as any KFD process needs all its BOs to
->>> +      * be resident to run successfully
->>> +      */
->>> +     flist = dma_resv_shared_list(bo->base.resv);
->>> +     if (flist) {
->>> +             for (i = 0; i < flist->shared_count; ++i) {
->>> +                     f = rcu_dereference_protected(flist->shared[i],
->>> +                             dma_resv_held(bo->base.resv));
->>> +                     if (amdkfd_fence_check_mm(f, current->mm))
->>> +                             return false;
->>> +             }
->>> +     }
->>> +
->>> +     /* Check by different mem type. */
->>> +     if (!amdgpu_ttm_mem_eviction_valuable(bo, place))
->>> +             return false;
->>> +
->>> +     /* VM bo should be checked at last because it will mark VM evicting. */
->>> +     if (bo->type == ttm_bo_type_kernel)
->>> +             return amdgpu_vm_evictable(ttm_to_amdgpu_bo(bo));
->>> +
->>> +     return true;
->>>    }
->>>
->>>    static void amdgpu_ttm_vram_mm_access(struct amdgpu_device *adev, loff_t pos,
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>> There are 2 situations:
+>>>>> 1st time creating list n_regs will be 0 and trace event will not 
+>>>>> be triggered
+>>>>> 2nd time while updating list n_regs is already set and 
+>>>>> adev->reset_dump_reg_list will have some offsets address 
+>>>>> (hypothetically speaking *during reset + update* read values from 
+>>>>> RREG32 will mix up of old list and new list)
+>>>>> its only critical when its freed and n_regs is not 0
+>>>>
+>>>> No, that won't work like this. See you *must* always hold a lock 
+>>>> when reading or writing the array.
+>>>>
+>>>> Otherwise it is perfectly possible that one thread sees only halve 
+>>>> of the updates of another thread.
+>>>>
+>>>> The only alternative would be RCU, atomic replace and manual 
+>>>> barrier handling, but that would be complete overkill for that 
+>>>> feature.
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>>
+>>>>> Regards,
+>>>>> S.Amarnath
+>>>>>>> +
+>>>>>>> +        if (ret)
+>>>>>>> +            goto failed;
+>>>>>>> +
+>>>>>>> +        len += strlen(reg) + 1;
+>>>>>>> +        i++;
+>>>>>>> +
+>>>>>>> +    } while (len < size);
+>>>>>>> +
+>>>>>>> +    adev->n_regs = i;
+>>>>>>> +
+>>>>>>> +    return size;
+>>>>>>> +
+>>>>>>> +failed:
+>>>>>>> +    mutex_lock(&adev->reset_dump_mutex);
+>>>>>>> +    kfree(adev->reset_dump_reg_list);
+>>>>>>> +    adev->reset_dump_reg_list = NULL;
+>>>>>>> +    alloc_count = 0;
+>>>>>>> +    adev->n_regs = 0;
+>>>>>>> +    mutex_unlock(&adev->reset_dump_mutex);
+>>>>>>> +    return -EFAULT;
+>>>>>>> +}
+>>>>>>> +
+>>>>>>> +
+>>>>>>> +
+>>>>>>> +static const struct file_operations 
+>>>>>>> amdgpu_reset_dump_register_list = {
+>>>>>>> +    .owner = THIS_MODULE,
+>>>>>>> +    .read = amdgpu_reset_dump_register_list_read,
+>>>>>>> +    .write = amdgpu_reset_dump_register_list_write,
+>>>>>>> +    .llseek = default_llseek
+>>>>>>> +};
+>>>>>>> +
+>>>>>>>   int amdgpu_debugfs_init(struct amdgpu_device *adev)
+>>>>>>>   {
+>>>>>>>       struct dentry *root = 
+>>>>>>> adev_to_drm(adev)->primary->debugfs_root;
+>>>>>>> @@ -1618,6 +1710,7 @@ int amdgpu_debugfs_init(struct 
+>>>>>>> amdgpu_device *adev)
+>>>>>>>       if (!debugfs_initialized())
+>>>>>>>           return 0;
+>>>>>>>   +    mutex_init(&adev->reset_dump_mutex);
+>>>>>>>       ent = debugfs_create_file("amdgpu_preempt_ib", 0600, root, 
+>>>>>>> adev,
+>>>>>>>                     &fops_ib_preempt);
+>>>>>>>       if (IS_ERR(ent)) {
+>>>>>>> @@ -1672,6 +1765,8 @@ int amdgpu_debugfs_init(struct 
+>>>>>>> amdgpu_device *adev)
+>>>>>>>                   &amdgpu_debugfs_test_ib_fops);
+>>>>>>>       debugfs_create_file("amdgpu_vm_info", 0444, root, adev,
+>>>>>>>                   &amdgpu_debugfs_vm_info_fops);
+>>>>>>> + debugfs_create_file("amdgpu_reset_dump_register_list", 0644, 
+>>>>>>> root, adev,
+>>>>>>> + &amdgpu_reset_dump_register_list);
+>>>>>>>         adev->debugfs_vbios_blob.data = adev->bios;
+>>>>>>>       adev->debugfs_vbios_blob.size = adev->bios_size;
+>>>>>>
+>>>>
+>>
 
