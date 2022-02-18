@@ -4,121 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81374C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 15:16:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E08C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 15:25:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A92910F0F7;
-	Fri, 18 Feb 2022 15:16:53 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2058.outbound.protection.outlook.com [40.107.94.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9135010F0F7
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 15:16:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KA/95yhMbJPh3ack89jx/c8DpzqMVNN1v7Fd/88F0oU0dr4Qwc/JoPWs8WiZNMdlR/2j4j6f5/un/PK+8n7nqhox+5io4Ev7NJc41HV4JYAjA3Wa5D6RugH/QY0c1lfJoFA6fXHlQhHONtQgXCo0khYNZkBmbh/XvaIZaKp+rVKXuv47G3zNPMP7X/1Kzct4ZZKhpLldVHE0SGohVsyllW52Ad3D1+9jhndp9T2+SjezI/OduXYavrtb3KgC3Wr5L2UQlpKGUYV8w/NMn/9vnJowg1mEoZfTX7IgWk9AHyo35hm4j9wtFsVyaHquVZ8cun8CeIyrIns0Bvkm3sM01w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sv5DAJNbOVoZCQx1HK0cFcDx8ASR7QFBakiVozvCZZ0=;
- b=cCJ5Ch6HcfOw6wQVGRceAlYG+s6ly69cFDSNILJ8JfocnmlttyicYiXswKHx7n4Oyhoy7bcKfx3f54FiIwr0TQFVsiZfvUInJk/l/7UkU6BhL4NN9wclD5UyxRmJyqG1Bq9EKDenGEL7eesi8r7ilepIIR3ATtLf9G/KXxd6bYetegE1vwmzWiOPCvm6K2/a+11iaHJqsASs7kZRddrIwbo1jq/4bv8E0edKMujhUFDCHoMznQbEpEb+h5e555sU4WnzNhNOv/V4k7iwTYkBImUcDEHQtOHszRu+O6Hi7xlO4z5h2GXzu8yGyI5YUIMfGodINM9iaQ1k9ArkLBBTfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sv5DAJNbOVoZCQx1HK0cFcDx8ASR7QFBakiVozvCZZ0=;
- b=tMf7T4kaAxYJzvW2qfI8NWefoNfycmkFSaP3ViLiL2/5GoyGVkxHalPkwwTk7MUB74vbSALY0nE/uryZyWnOBx+LWjGsI+6Aqt3CIc4yfj565ekAyzGQDv4PrfdNtn8ZulSTLqs915b224+CoX70DyR807ex/NzG4Dx9R+Zgqqw=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BN6PR1201MB0226.namprd12.prod.outlook.com (2603:10b6:405:56::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Fri, 18 Feb
- 2022 15:16:51 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::2877:73e4:31e7:cecf]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::2877:73e4:31e7:cecf%7]) with mapi id 15.20.4995.024; Fri, 18 Feb 2022
- 15:16:51 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Shi, Leslie" <Yuliang.Shi@amd.com>, "Cui, Flora" <Flora.Cui@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: bypass tiling flag check in virtual
- display case (v2)
-Thread-Topic: [PATCH 2/2] drm/amdgpu: bypass tiling flag check in virtual
- display case (v2)
-Thread-Index: AQHYJNb/wBKxGp7eqESMDwr+Md2BmqyZa1Yg
-Date: Fri, 18 Feb 2022 15:16:50 +0000
-Message-ID: <BL1PR12MB5144972616A871EC4F15CDDDF7379@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20220218145103.7593-1-guchun.chen@amd.com>
-In-Reply-To: <20220218145103.7593-1-guchun.chen@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-02-18T15:16:50.274Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: 45efe9bc-a885-d5ec-53e5-196fc25e2cf4
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b8271ac6-8e1f-4119-1a4b-08d9f2f1b06a
-x-ms-traffictypediagnostic: BN6PR1201MB0226:EE_
-x-microsoft-antispam-prvs: <BN6PR1201MB022627E0F68E3A0DA555E4B0F7379@BN6PR1201MB0226.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4303;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ZD3TFvO+IDsULmRIZAuEta+4P4GcPL510fSRT4SSs/apjrc6rwqJkcTp2lIq3GGymZOYd0mENU8/1Td5JUI0KO58ZcnrqCmeLS6KaUrWA91X15lfx+LqrzLOndT781Nx+Zg0vi1PGHz1R4XoNibW8as0b1pCFncHNufSmGFJe3cjgJHldSZdnnvrxTnVR1atwx39ZR1GGxdgjuR1I2eKLGxnMdrCnqm9oELi7/TClX1Y/JH+I0DOI4tEkapHg9VWS9bWyaMmLE3etBPFph7c/NNik7BlzOZucLZS8yXEw+ZuW/cXi2HVSfkiG+iYFt9JivtxmJxWSRXVSkJZmEI7XYhP6wvGwxfclZA0Dty3khWGN5LUH+71LdfHIoK6eVFqo3Eq5cVL8uYxyD94UNv3C0qnCF9Z+O8Bt0C0c3lYRpucAc9foK/U5VGmSxKEroAuvSa9M2YxXZ6FrGtzI/qKbTyPZ6CLTAQG8DY+WK2/Ow0gMYpkjXnaf38KFLF1cJ6bmehfV47Ve51qjaVQfqXyhCjm7WjGw1FFAH0hQgJjhahGRbXghhuIm414lbxr40bAJ+i79n+gBOyfBtbZZuxc6ZHr6d+8vHenlXEausnndmAPEpttlEQcrrAflP7Tyh6MLj2LCjWWyEVVlGUM3FL+XLJy0DtM03VWWclS0LiGkJdD1NMKXQ/oNSJMCTVikO6l3MBeZjHCisTxK/Mfx9PUAwj39zTo6ZQgmvqCVcGDnyM=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(9686003)(5660300002)(83380400001)(38070700005)(53546011)(33656002)(52536014)(8936002)(19627405001)(186003)(26005)(921005)(122000001)(2906002)(55016003)(38100700002)(110136005)(508600001)(6636002)(66476007)(64756008)(66446008)(86362001)(71200400001)(66946007)(66556008)(76116006)(8676002)(316002)(7696005)(6506007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?T/mlHa8cbHBpStdSDxQPf/7BxJNR+oyAgbzOP/zwIeM7KiAYjxR/WZ3F1YVG?=
- =?us-ascii?Q?o03GbBy1eHIXhJ+KTLNTeB4ue9e/dvTF3JCCY2imbIfMxWIpQGPVwNhAKqOC?=
- =?us-ascii?Q?wkubtV5euaMf8xRmteUMulUk5eMJAERy8j778KFu10pOZmjk0mG0T9EcZFrY?=
- =?us-ascii?Q?8Okqbc1jfH5m0TiCkNgCXRvEBnmWUJ1h988Asa9jGFHGtmgil/SAfYtiMRxi?=
- =?us-ascii?Q?ok7qR8qngvZh70rCEz2I5gvKSYfT5nbo/1geFm02gRYtATJja64Sv0OjEryV?=
- =?us-ascii?Q?ZGTwADNMVu0RM8cYAgQjB1v2UEWhRjmK1K74GPJ0kCmBim/wrd4A6Pnp9GT4?=
- =?us-ascii?Q?FA4v2PXrpqdBhobKuVWTc7rV/5XiJY1kHMFk8BpIpzKS7MT2mvS4WDRKUBI/?=
- =?us-ascii?Q?3VAA/hZIyaqef00Q7Enhddig5SsKURp3fOB6R/KJW/PBGMVEo2GEli3onSkR?=
- =?us-ascii?Q?BYfkH2QF5KE1BWu/uKPwuRd8WtNdcwMbKIwatTKPLYYrdcgEaCJpUfk+FDQf?=
- =?us-ascii?Q?sHI5mvv1IaKuUCASIa87a2O9Rnbd/EA9vVJTQr/V+IsmM5YXABk7lyoy2f0c?=
- =?us-ascii?Q?+m9ltXNvr63R2Ua/uCLr1Ki9SA0/FR7yHwUvQL+4zeMlWnXyoB7+/zVrGVdS?=
- =?us-ascii?Q?ktCp3WhM/iSlI83LrBZ0b+QmZUZO4O1ibXArmkeAwLkykvelso0FHc8N0r5r?=
- =?us-ascii?Q?qh6kiEh+xVhWbcS2AOAQbRb53MUO8rIK/JNyumUQyT853GvlSfp0J/bw9RPT?=
- =?us-ascii?Q?tpft7u2YjdxzTBfkaUnu8ZqE1m6y1MWN+6PcP3WRDPTdEtqqc6v1t8G5hJC2?=
- =?us-ascii?Q?R7Yn0i64n+dSkmcvmtgaR6CwxDNlXWVl1ePYLPBnMTSGXfMhHJcG27ZB1MSF?=
- =?us-ascii?Q?zI/sI4KAddg3XldRWc9ArwhDssbFe0nd30k/nu4AZiJyLJvi0VhI9QOwkiEU?=
- =?us-ascii?Q?rq+qGzSktbGJQQcqk/TC+cvzDj55e7C1JbiQ7LRQ9rZnjsjRiXc5YTKbhu4e?=
- =?us-ascii?Q?5iOK1zotINUVlndLoLIINwwSLFHUlhYag3HBVoj48FlwAMs1w98PoAlnMHjR?=
- =?us-ascii?Q?WHjvqiTrrj/26IwxU1dfC4ZOMK3xvrWa9GaadGJQmfQJ3TTMIYXe67uqCZDu?=
- =?us-ascii?Q?cds3iTRBnaGRVfJUNpbXtsNmbXKGeUiCumlXV+LhFIWESMNQDlkRk/AbyH0X?=
- =?us-ascii?Q?dLb2JrGHUJNgOic0NRJ5ntjjVSDLKfd5W8qdMHPEW8abnvsJoo7jDGjF6s2u?=
- =?us-ascii?Q?rwAlPaFUzJCwAFhNMm7ntJuULsPA74wQLC63T+U8rXOZoYzrjTqthgvf2Szi?=
- =?us-ascii?Q?UoDDSWNMjK5ebJkh4g421XY1SJLp66rVqfvJIE7v2aV8d1E8u5h7MAEvMOft?=
- =?us-ascii?Q?BCNTBu/dhzahsvSUrTGIyXwbayELojB6dLNtDYICDP4diJfT0OkqtDMN/8qp?=
- =?us-ascii?Q?NCFpcabTUmMVxAozFNqiv2ZmpYzbyioO9GLG6VerHVcu+CoY3+d+lf5X+HyR?=
- =?us-ascii?Q?up5PS+MCTar+yAK5dheo4lcxkdlCsVBuwopPI3undvxK7NeJOet2pTZq3NQh?=
- =?us-ascii?Q?OUwCyrWlBSv0zs5rEtGx4sleisBFm8/7wwgsKbKvDw4S0lTaq0ncM89hifYo?=
- =?us-ascii?Q?kQi7gKIGtLXU3NsNfZjj1tw=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144972616A871EC4F15CDDDF7379BL1PR12MB5144namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5928B10F11C;
+	Fri, 18 Feb 2022 15:25:34 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E14610F2DF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 10:38:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1645180731;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=BB3RvaNyELHc5+cbc7+hBFpImVt+dcbvRUKC71NhhxA=;
+ b=HI5YskYZA93PlBOywea2cgXOu0zC9iztARNh//bqI2Tji9DPcoESpxTnt79EUbdQhu00cG
+ U1RCCNSVBbVWkuMdNq50g5DHV4Tu8cuniJPj8XErOl8PfQI7YRBowaf7Lhd7YrgCKG0kkS
+ RCryavCCz5BUnISBIcEhUngg1K0slvQ=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-310-npZ6TZYGPnS5xkvA0aVIHQ-1; Fri, 18 Feb 2022 05:38:50 -0500
+X-MC-Unique: npZ6TZYGPnS5xkvA0aVIHQ-1
+Received: by mail-ej1-f69.google.com with SMTP id
+ k16-20020a170906971000b006d0118d857aso2857757ejx.14
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 02:38:49 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=BB3RvaNyELHc5+cbc7+hBFpImVt+dcbvRUKC71NhhxA=;
+ b=ccDqcT/KqmRK23Cp7lahyfY2bm7trXNjjVKylMw5902QN2kaGBD2fCcWqeQiT6aEoY
+ midIBSWM7ujDnx5FKDQnYv112AyJwVhBM2/cQWTdOFjP3wJnodgoFdKFIu480KcWudLU
+ GBuVxPsmljJew+9AKdFv5FHBSUPnA8yEB7G2B9vyUayFxWNJVudmd1MHB5Hj7k51PSYm
+ xmaSdbaLOWDL4lY/Vq2QcLYMWoTqo5ERzODtLxVCmsZ8t1LdY4CPb6E2Vb6mv2hU25Ll
+ IgD1fMhrxcmX26Zw4M7OBpNg5idwU9tBiOjxxMzDnQGoGPxxeJiPfi7l8bd21UDZ7ejM
+ omWg==
+X-Gm-Message-State: AOAM53161fqk/ZEZBRjyB//sEbEGi+/K51ek+prt4eoyvcU6Y0/reAqb
+ yvlDG2N7WmwC4PT5k3amDF5EUEqCiky1GjnGuSuX4a8t0oEWSfHA0/M4u5XEzvNEQxi1H+KJpxi
+ 0JTfFUD0PdwG8LET6WPE5HjawUQ==
+X-Received: by 2002:aa7:c7c4:0:b0:407:52cc:3b32 with SMTP id
+ o4-20020aa7c7c4000000b0040752cc3b32mr7361680eds.397.1645180728886; 
+ Fri, 18 Feb 2022 02:38:48 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJykfGhd50F9wQIvpfwSV02IuVtosrF0JYSvVlOA9FaeEpZTbChuHWqvZILt6ivHs5QKeNBX5w==
+X-Received: by 2002:aa7:c7c4:0:b0:407:52cc:3b32 with SMTP id
+ o4-20020aa7c7c4000000b0040752cc3b32mr7361656eds.397.1645180728579; 
+ Fri, 18 Feb 2022 02:38:48 -0800 (PST)
+Received: from ?IPV6:2001:1c00:c1e:bf00:1db8:22d3:1bc9:8ca1?
+ (2001-1c00-0c1e-bf00-1db8-22d3-1bc9-8ca1.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:1db8:22d3:1bc9:8ca1])
+ by smtp.gmail.com with ESMTPSA id t4sm4835504edd.7.2022.02.18.02.38.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 18 Feb 2022 02:38:48 -0800 (PST)
+Message-ID: <d3f0cc20-d226-ee42-cc98-b469949cec9e@redhat.com>
+Date: Fri, 18 Feb 2022 11:38:47 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8271ac6-8e1f-4119-1a4b-08d9f2f1b06a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Feb 2022 15:16:50.8029 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pcuoQe0KqCvwKstq/OcKNQDvroJqN9LMa5MMi26YiXUvKtZH/j+iyOa49TgwC8nealpcgdqTabpeWok5raLeSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0226
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Subject: Re: [Intel-gfx] [PATCH v8 1/3] gpu: drm: separate panel orientation
+ property creating and value setting
+To: Emil Velikov <emil.l.velikov@gmail.com>, Simon Ser <contact@emersion.fr>
+References: <20220208084234.1684930-1-hsinyi@chromium.org>
+ <CACvgo53u01BK_D0ZssV+gCepjxSz23Nr5Dy1qXeaAoJuu6VCFQ@mail.gmail.com>
+ <KW6DNh6IRRgVJx9DfOFBnEqc4a0x-AnDXEbMxwpfEbk8dOn_KGVzAfo-slJWq-4nWW728Uc-OVpFh2w4fDE4-bxfkDuz1hFILRVvbcuXqaw=@emersion.fr>
+ <CACvgo532-pC+7DLFCo=DWTX-OnJEJvSoTmQnt3_qLhiT4cqEMg@mail.gmail.com>
+ <GYG6EVT1MqtmfKiPpMhDG9mpuATnmwVDq2PuE_dpDat5oQW_t1tUfm39lSWHj32D5r7mrog27sL4dkgdMYQ5BN830TfVOrgQ4Ts8LcO8Hcs=@emersion.fr>
+ <CACvgo52+o9_ETC+1RKzqKkyw3ZJ28RjH0BqC9DfmNAKqByud8Q@mail.gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <CACvgo52+o9_ETC+1RKzqKkyw3ZJ28RjH0BqC9DfmNAKqByud8Q@mail.gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 18 Feb 2022 15:25:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,166 +94,158 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ devicetree <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Hsin-Yi Wang <hsinyi@chromium.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ LAKML <linux-arm-kernel@lists.infradead.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144972616A871EC4F15CDDDF7379BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-[Public]
+Sorry for jumping in in the middle of the thread I did
+not notice this thread before.
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Chen, Guchun <Guchun.Chen@amd.com>
-Sent: Friday, February 18, 2022 9:51 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
- Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
-om>; Shi, Leslie <Yuliang.Shi@amd.com>; Cui, Flora <Flora.Cui@amd.com>; Koe=
-nig, Christian <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>
-Cc: Chen, Guchun <Guchun.Chen@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: bypass tiling flag check in virtual displa=
-y case (v2)
+On 2/16/22 13:00, Emil Velikov wrote:
+> On Tue, 15 Feb 2022 at 16:37, Simon Ser <contact@emersion.fr> wrote:
+>>
+>> On Tuesday, February 15th, 2022 at 15:38, Emil Velikov <emil.l.velikov@gmail.com> wrote:
+>>
+>>> On Tue, 15 Feb 2022 at 13:55, Simon Ser <contact@emersion.fr> wrote:
+>>>>
+>>>> On Tuesday, February 15th, 2022 at 13:04, Emil Velikov <emil.l.velikov@gmail.com> wrote:
+>>>>
+>>>>> Greetings everyone,
+>>>>>
+>>>>> Padron for joining in so late o/
+>>>>>
+>>>>> On Tue, 8 Feb 2022 at 08:42, Hsin-Yi Wang <hsinyi@chromium.org> wrote:
+>>>>>>
+>>>>>> drm_dev_register() sets connector->registration_state to
+>>>>>> DRM_CONNECTOR_REGISTERED and dev->registered to true. If
+>>>>>> drm_connector_set_panel_orientation() is first called after
+>>>>>> drm_dev_register(), it will fail several checks and results in following
+>>>>>> warning.
+>>>>>>
+>>>>>> Add a function to create panel orientation property and set default value
+>>>>>> to UNKNOWN, so drivers can call this function to init the property earlier
+>>>>>> , and let the panel set the real value later.
+>>>>>>
+>>>>>
+>>>>> The warning illustrates a genuine race condition, where userspace will
+>>>>> read the old/invalid property value/state. So this patch masks away
+>>>>> the WARNING without addressing the actual issue.
+>>>>> Instead can we fix the respective drivers, so that no properties are
+>>>>> created after drm_dev_register()?
+>>>>>
+>>>>> Longer version:
+>>>>> As we look into drm_dev_register() it's in charge of creating the
+>>>>> dev/sysfs nodes (et al). Note that connectors cannot disappear at
+>>>>> runtime.
+>>>>> For panel orientation, we are creating an immutable connector
+>>>>> properly, meaning that as soon as drm_dev_register() is called we must
+>>>>> ensure that the property is available (if applicable) and set to the
+>>>>> correct value.
+>>>>
+>>>> Unfortunately we can't quite do this. To apply the panel orientation quirks we
+>>>> need to grab the EDID of the eDP connector, and this happened too late in my
+>>>> testing.
+>>>>
+>>>> What we can do is create the prop early during module load, and update it when
+>>>> we read the EDID (at the place where we create it right now). User-space will
+>>>> receive a hotplug event after the EDID is read, so will be able to pick up the
+>>>> new value if any.
+>>>
+>>> Didn't quite get that, are you saying that a GETPROPERTY for the EDID,
+>>> the ioctl blocks or that we get an empty EDID?
+>>
+>> I'm not referring to GETPROPERTY, I'm referring to the driver getting the EDID
+>> from the sink (here, the eDP panel). In my experimentations with amdgpu I
+>> noticed that the driver module load finished before the EDID was available to
+>> the driver. Maybe other drivers behave differently and probe connectors when
+>> loaded, not sure.
+>>
+> I see thanks.
+> 
+>>> The EDID hotplug even thing is neat - sounds like it also signals on
+>>> panel orientation, correct?
+>>> On such an event, which properties userspace should be re-fetching -
+>>> everything or guess randomly?
+>>>
+>>> Looking through the documentation, I cannot see a clear answer :-\
+>>
+>> User-space should re-fetch *all* properties. In practice some user-space may
+>> only be fetching some properties, but that should get fixed in user-space.
+>>
+>> Also the kernel can indicate that only a single connector changed via the
+>> "CONNECTOR" uevent prop, or even a single connector property via "PROPERTY".
+>> See [1] for a user-space implementation. But all of this is purely an optional
+>> optimization. Re-fetching all properties is a bit slower (especially if some
+>> drmModeGetConnector calls force-probe connectors) but works perfectly fine
 
-vkms leverages common amdgpu framebuffer creation, and
-also as it does not support FB modifier, there is no need
-to check tiling flags when initing framebuffer when virtual
-display is enabled.
+What I'm reading in the above is that it is being considered to allow
+changing the panel-orientation value after the connector has been made
+available to userspace; and let userspace know about this through a uevent.
 
-This can fix below calltrace:
+I believe that this is a bad idea, it is important to keep in mind here
+what userspace (e.g. plymouth) uses this prorty for. This property is
+used to rotate the image being rendered / shown on the framebuffer to
+adjust for the panel orientation.
 
-amdgpu 0000:00:08.0: GFX9+ requires FB check based on format modifier
-WARNING: CPU: 0 PID: 1023 at drivers/gpu/drm/amd/amdgpu/amdgpu_display.c:11=
-50 amdgpu_display_framebuffer_init+0x8e7/0xb40 [amdgpu]
+So now lets assume we apply the correct upside-down orientation later
+on a device with an upside-down mounted LCD panel. Then on boot the
+following could happen:
 
-v2: check adev->enable_virtual_display instead as vkms can be
-        enabled in bare metal as well.
+1. amdgpu exports a connector for the LCD panel to userspace without
+setting panel-orient=upside-down
+2. plymouth sees this and renders its splash normally, but since the
+panel is upside-down it will now actually show upside-down
+3. amdgpu adjusts the panel-orient prop to upside-down, sends out
+uevents
+4. Lets assume plymouth handles this well (i) and now adjust its
+rendering and renders the next frame of the bootsplash 180° rotated
+to compensate for the panel being upside down. Then from now on
+the user will see the splash normally
 
-Signed-off-by: Leslie Shi <Yuliang.Shi@amd.com>
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+So this means that the user will briefly see the bootsplash rendered
+upside down which IMHO is not acceptable behavior. Also see my footnote
+about how I seriously doubt plymouth will see the panel-orient change
+at all.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_display.c
-index 0d4ad1ee8348..1043e599b734 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1150,7 +1150,7 @@ int amdgpu_display_framebuffer_init(struct drm_device=
- *dev,
-         if (ret)
-                 return ret;
+I'm also a bit unsure about:
 
--       if (!dev->mode_config.allow_fb_modifiers) {
-+       if (!dev->mode_config.allow_fb_modifiers && !adev->enable_virtual_d=
-isplay) {
-                 drm_WARN_ONCE(dev, adev->family >=3D AMDGPU_FAMILY_AI,
-                               "GFX9+ requires FB check based on format mod=
-ifier\n");
-                 ret =3D check_tiling_flags_gfx6(rfb);
---
-2.17.1
+a) How you can register the panel connector with userspace before
+reading the edid, don't you need the edid to give the physical size +
+modeline to userspace, which you cannot just leave out ?
+
+I guess the initial modeline is inherited from the video-bios, but
+what about the physical size? Note that you cannot just change the
+physical size later either, that gets used to determine the hidpi
+scaling factor in the bootsplash, and changing that after the initial
+bootsplash dislay will also look ugly
+
+b) Why you need the edid for the panel-orientation property at all,
+typically the edid prom is part of the panel and the panel does not
+know that it is mounted e.g. upside down at all, that is a property
+of the system as a whole not of the panel as a standalone unit so
+in my experience getting panel-orient info is something which comes
+from the firmware /video-bios not from edid ?
+
+Regards,
+
+Hans
 
 
---_000_BL1PR12MB5144972616A871EC4F15CDDDF7379BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Series is:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Chen, Guchun &lt;Guch=
-un.Chen@amd.com&gt;<br>
-<b>Sent:</b> Friday, February 18, 2022 9:51 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Hawking &=
-lt;Hawking.Zhang@amd.com&gt;; Shi, Leslie &lt;Yuliang.Shi@amd.com&gt;; Cui,=
- Flora &lt;Flora.Cui@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@am=
-d.com&gt;;
- Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;<br>
-<b>Cc:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 2/2] drm/amdgpu: bypass tiling flag check in virtual=
- display case (v2)</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">vkms leverages common amdgpu framebuffer creation,=
- and<br>
-also as it does not support FB modifier, there is no need<br>
-to check tiling flags when initing framebuffer when virtual<br>
-display is enabled.<br>
-<br>
-This can fix below calltrace:<br>
-<br>
-amdgpu 0000:00:08.0: GFX9+ requires FB check based on format modifier<br>
-WARNING: CPU: 0 PID: 1023 at drivers/gpu/drm/amd/amdgpu/amdgpu_display.c:11=
-50 amdgpu_display_framebuffer_init+0x8e7/0xb40 [amdgpu]<br>
-<br>
-v2: check adev-&gt;enable_virtual_display instead as vkms can be<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enabled in bare metal as well.<b=
-r>
-<br>
-Signed-off-by: Leslie Shi &lt;Yuliang.Shi@amd.com&gt;<br>
-Signed-off-by: Guchun Chen &lt;guchun.chen@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 +-<br>
-&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_display.c<br>
-index 0d4ad1ee8348..1043e599b734 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
-@@ -1150,7 +1150,7 @@ int amdgpu_display_framebuffer_init(struct drm_device=
- *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dev-&gt;mode_config.allow_fb_mod=
-ifiers) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dev-&gt;mode_config.allow_fb_mod=
-ifiers &amp;&amp; !adev-&gt;enable_virtual_display) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; drm_WARN_ONCE(dev, adev-&gt;family &gt;=3D AMDGPU_FAM=
-ILY_AI,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;GFX9+ requires FB check based on forma=
-t modifier\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D check_tiling_flags_gfx6(rfb);<br>
--- <br>
-2.17.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+i) I don't think plymouth will handle this well though, since it tries to
+skip unchanged connectors and I believe it only checks the crtc routing +
+preferred modeline to determine "unchanged".
 
---_000_BL1PR12MB5144972616A871EC4F15CDDDF7379BL1PR12MB5144namp_--
