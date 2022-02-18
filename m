@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 137AFC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 16:54:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BCC7C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 16:59:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E1EE10E19B;
-	Fri, 18 Feb 2022 16:54:08 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8CBF10E19B
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 16:54:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 865DA10EE6B;
+	Fri, 18 Feb 2022 16:59:14 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C85C710EE4D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 16:59:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NKgaKF81IvLRf8EbcFGyc19fktd4Tp/0X/8H1+UUUTpBlctwKYp5UB6W/s4dW3yKIEIzb37MiuBRID0sRN6RwaBcaBD2UXee/rCB9nAh5KkoUwI50P/U9YhUm9YcJ1hQIQyPTrz3rACTROUaZ7WtNnMk+IklFZkOEFjHI0SNvXtCQnvph0BEOWMJzBVkWFUbJYjcFyk7tFdn9UBVDwO+OXhDN2TM7XOK+3MsjAOeQYE+UUdS9jRMKxjVQDBkZts3lXcIU9FOC+PQEH8TZpGjRpdi8N+nR9lXOx3uCa96Z/8kf+HXGqY1XKpPe1kCtJkEq6UqYNhyp52RzohwStFmZg==
+ b=c1P+Qw1+jwf+pFUwPK8NiPr3WtPJU0p/Hys1uiKH2Cb6KaGMleD8V9ujaCF94edoW/dV9K0GIfqtEBnK1P0/sNNlDuPCfBcDPSs2ov3wHijJPiD6n0Rq6LMxTnipfTVhDJYemjMtebucYWNpf37g2agMIECsywkvJbmNiQaqRY4skhiW4q1m9mMh0oyZPxk1KNr9rKGKB3mUg1VA6hRVklrcfq/iM0JGBdi9ED91DFg+5f/q1cmVXSwNev4bWDO9ldqmwTl2g/eZq3a5z29XJBGH7huvsCk++mA+B6jMRdRtEQZqVpTHVG7sYuNKcvxsNT3UG+XqNrKctxl1yh8J4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3MTbrfVSTz4dKODWxiSC+RVE2+hyLsp4KGgthxMna1Y=;
- b=dI6iYhoBIRUveweuL+lWzN68YIBFTSL+sgayzWSW1Mi4MQUJuZW6vSm4IVbJgQWg8KjTrNue1DCnCRvyTt9KkEwMupRHr5TCPNSuGnAx6N6GDeRBzMxZJ8l3F1g1FBv1Sl/ihcW2PrHKnXtfh//vRIxWT6AQGUy/D5f4sUInh0EpTBPRFmm4H879V24fHJKrTKkrZVG7lDaPru0NGXYEOmBEDzYDzSXP3R8OIoKNoScZkwcKzwtQlpXQqmRKB61fSXOgdPsBUTI8EB4sQGYgg5fuJJkNUC35QI7Ufcij3oFebM4E2n+teyiNJCb+Dv5CFEDd0U46FdX2eRz5jEU0CA==
+ bh=DSi49gaesEHi8GquQOhQ7eyALdu7lIEL0RkyiJJQ76Y=;
+ b=HW3JY9TUFn0AJ/s1cuA6PHD5VIdTbXPjEUMqe0QwWQd1XbgW99Rvaidnuub4J8u0YcNkmb9NilqF2R9sqmwEdnEWj5C/66PZ2S1g+961ot78CuNbvSmz6b3Uf7vFbILXMr/52L5Gs+Tyzu/52MCmypJwOlr3rd0PZxFTPC8CBUvLPs04c+7H7U7JueIvWXO7wro2TR4nUkvx5NvKijNMQRZ6DLEPDA6Df29V8gjXoZj2FbMKKWp60e/WANo2yZZNc0hBzieIDdam0yp/dXQtM5UnHdZjzMY54cyCD9ni2aZ6obloG04hbMX3RQZZKyS7yZG2McsivlLa4yuOK5ctXw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3MTbrfVSTz4dKODWxiSC+RVE2+hyLsp4KGgthxMna1Y=;
- b=imgYX57GvTqtQumW3L3qbMmIKZCsIt4SKRoqX35/QWtKAM2+Tm972R/Z4S5k0LOh3PfbzmdNDlra+aX0FPHuFOsHm8qu1E09qXmQYKiWJefc0IhLkQvtWGypeqWBfuBV7KN6BJAzZ+9KVPPf0Kh1CArlKC10BtFgd+NO9bb1bpc=
-Received: from MW4PR04CA0227.namprd04.prod.outlook.com (2603:10b6:303:87::22)
- by CH0PR12MB5171.namprd12.prod.outlook.com (2603:10b6:610:ba::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.22; Fri, 18 Feb
- 2022 16:54:04 +0000
-Received: from CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:87:cafe::df) by MW4PR04CA0227.outlook.office365.com
- (2603:10b6:303:87::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16 via Frontend
- Transport; Fri, 18 Feb 2022 16:54:03 +0000
+ bh=DSi49gaesEHi8GquQOhQ7eyALdu7lIEL0RkyiJJQ76Y=;
+ b=pvPhUykzGSKl2I0f5TwGjkaD64nFNa3oZCsKbGaTySfRYoNZMtURAIwXAP0DSld/85L+Hov1NJYNZf7vvCu2WeKaVVqHooieD4O991rBuonizIo4gAtQ8lNgvwIIovPxov+jSjJfx9TfF6FICVpx7rsLbAhK6amONyW2pwUNduI=
+Received: from MW4PR04CA0331.namprd04.prod.outlook.com (2603:10b6:303:8a::6)
+ by BN6PR1201MB0161.namprd12.prod.outlook.com (2603:10b6:405:55::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.15; Fri, 18 Feb
+ 2022 16:59:10 +0000
+Received: from CO1NAM11FT019.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8a:cafe::6) by MW4PR04CA0331.outlook.office365.com
+ (2603:10b6:303:8a::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.15 via Frontend
+ Transport; Fri, 18 Feb 2022 16:59:09 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,49 +45,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT064.mail.protection.outlook.com (10.13.175.77) with Microsoft SMTP
+ CO1NAM11FT019.mail.protection.outlook.com (10.13.175.57) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4995.15 via Frontend Transport; Fri, 18 Feb 2022 16:54:03 +0000
-Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.4995.15 via Frontend Transport; Fri, 18 Feb 2022 16:59:09 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 18 Feb
- 2022 10:54:01 -0600
-From: Alex Sierra <alex.sierra@amd.com>
+ 2022 10:59:08 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Add use_xgmi_p2p module parameter
-Date: Fri, 18 Feb 2022 10:53:49 -0600
-Message-ID: <20220218165349.7489-1-alex.sierra@amd.com>
-X-Mailer: git-send-email 2.32.0
+Subject: [PATCH 00/13] Update DCN 3.1 support for 3.1.5
+Date: Fri, 18 Feb 2022 11:58:43 -0500
+Message-ID: <20220218165854.1417733-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7fd5e0b6-5001-430d-d6cc-08d9f2ff44e2
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5171:EE_
-X-Microsoft-Antispam-PRVS: <CH0PR12MB51710396F6A5A55863BED7F5FD379@CH0PR12MB5171.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Office365-Filtering-Correlation-Id: 89bf3970-3e18-46bb-42ed-08d9f2fffb64
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0161:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB0161D8D9F78B36B72DE634ABF7379@BN6PR1201MB0161.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Gwq3CBCYEfR+4dbh3ZAyWoI7DmBv3aQfiZPJdOPKtf+Id6o+4KeodjlD82jiL0jNZmWgKaQ8rAQ674qgMho2JQU920F5NcFGfRtCLcS4wprBE8d4rfAp15lO8X35eJBhQIpm8XOxZ0b6OMl38EYb+Q7Ee19dwfCYVh6D8ri3XdhIUb0TSy/quZDZ2uyjhEvyA+3Oi+19XnkCiKKtqKN922UFZcsfjv9/Nati4l68hh20/EmMNgRZ4SGNoaUsrneX8pTH9fLm3M/fXRrYocTf7asPaoixRCEOcICKGQCAyH0GFqcUEHTrF5wDxnWi/llanXryHNHWyrW6OkbbXmftbw8Oul5zx0CGdtoDoAZ+vYBvbZKAazLduVfOvnzN0WcrhUNXZLwbRlPhvoZ2EbPkKnufFFhyzmHMpqGOEgCoi9njvVs6Q8UYgbDdMOyVnv081rOX9JhenogrfXAbNxVUgs0egBgEbQOR5FvDHSlFHH7n0V8Op53OFokAio0m3tc7DV8wHZ1VnHUQK1o2eZ/NCCMNxFwOpppQtqZuPGdeD/KB4TTV3K9SRwf3Fw8rEVu0j2FdejX0MOXKZ+zfy0WceJyegA7j2jf5m9T+xe4rFFLghyBN9fqSclaLshNbpS3ebEWmEO8nEqUbI+SqY0MDra2FS1tI4EUBKGixArgWP5BaR2NYkCKWjJN7N+4t2jJqEktXq+HJ5OF7hL+1Orkr/w==
+X-Microsoft-Antispam-Message-Info: X/BuwuN1e14ClC8jePkVuMxSKcNBi0J4ZYCT1Ph4m+Ep3b6M2/Lmj2Kg8TPgdG+PBon9qxrGSViYPFPTvnQ3J0Orr+YPyQLmsbM8qFdj0Mxn+m9vScYRct/0bsAMqlwRGYyQvXXJp3rGU3sxE86KRRKx3wW6KTJwkf1jk+GoggWrVg+1hRJNmyM9urpqEegRnIINE9k+3HWIHNCUbtQ56Gopz/586aK/94/QJQCMMCTZpqSNXD1jPzdfU6rMNdFdwegFKrIaENWhfvbHUCGiM5l5Yx1gysbtjt9uoET0ewpHlzy91KK4YzLehuZE53+SDMEEeoTcIqHQx7+Uji37dEeoLPOP5asD/U+fl0QCamEejF8cXVKraf2LZDI2bBJWRcl53IFgRUH4nk1JdlFZQqiGzxSTj7T0qwNaDue228j0sGQfPCsmVr6abfgaSJYfuleb1t/H0zOO4LF4lVDJ6R+HDclWfV6F+34XooTL6P1+VOAaljeBzRzgaHODCy+pD9QYlC3zei8+lEMUzRzl5rLbRxngsAeFxP85Vwr2sD97CdzD0B1ge9mkKIfDCYkdka6xY3Us2MZmYkuy4gKYdj8rmg6zNniFDXcDzv0mMXg4ztxstF/dzDmr9XWUDSskpRJeceBRCld1sdlQy4CGFsy+mzQHJrLjySikPK9EPqtN3Bce5i0jDuL5Gfl2h5TGJLw3+1lLbgt88TWwABGaIQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(5660300002)(336012)(426003)(316002)(47076005)(6666004)(83380400001)(8936002)(7696005)(4326008)(82310400004)(8676002)(70206006)(70586007)(1076003)(81166007)(356005)(508600001)(36860700001)(40460700003)(16526019)(54906003)(6916009)(36756003)(186003)(86362001)(44832011)(26005)(2906002)(2616005)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(2906002)(26005)(316002)(356005)(6916009)(81166007)(15650500001)(86362001)(4326008)(8676002)(82310400004)(70206006)(70586007)(336012)(36756003)(1076003)(5660300002)(8936002)(426003)(47076005)(6666004)(2616005)(83380400001)(186003)(16526019)(7696005)(40460700003)(36860700001)(508600001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2022 16:54:03.4060 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7fd5e0b6-5001-430d-d6cc-08d9f2ff44e2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2022 16:59:09.5995 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89bf3970-3e18-46bb-42ed-08d9f2fffb64
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT019.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5171
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0161
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,80 +99,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, jonathan.kim@amd.com,
- Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com, luben.tuikov@amd.com,
- aurabindo.pillai@amd.com, Christian.Koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This parameter controls xGMI p2p communication, which is enabled by
-default. However, it can be disabled by setting it to 0. In case xGMI
-p2p is disabled in a dGPU, PCIe p2p interface will be used instead.
-This parameter is ignored in GPUs that do not support xGMI
-p2p configuration.
+Update DCN 3.1 for 3.1.5.  This is a minor update
+to DCN 3.1 display support in amdgpu.
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Acked-by: Luben Tuikov <luben.tuikov@amd.com>
-Acked-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 4 ++--
- 3 files changed, 11 insertions(+), 2 deletions(-)
+The first two patches are register headers so I did not
+send them out due to size.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index f97848a0ed14..7e95d8bd2338 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -217,6 +217,7 @@ extern int amdgpu_mes;
- extern int amdgpu_noretry;
- extern int amdgpu_force_asic_type;
- extern int amdgpu_smartshift_bias;
-+extern int amdgpu_use_xgmi_p2p;
- #ifdef CONFIG_HSA_AMD
- extern int sched_policy;
- extern bool debug_evictions;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 2f8eafb6cf22..6156265f3178 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -181,6 +181,7 @@ int amdgpu_tmz = -1; /* auto */
- int amdgpu_reset_method = -1; /* auto */
- int amdgpu_num_kcq = -1;
- int amdgpu_smartshift_bias;
-+int amdgpu_use_xgmi_p2p = -1;
- 
- static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
- 
-@@ -677,6 +678,13 @@ MODULE_PARM_DESC(force_asic_type,
- 	"A non negative value used to specify the asic type for all supported GPUs");
- module_param_named(force_asic_type, amdgpu_force_asic_type, int, 0444);
- 
-+/**
-+ * DOC: use_xgmi_p2p (int)
-+ * Enables/disables XGMI P2P interface (0 = disable, 1 = enable). The Default is -1 (enabled).
-+ */
-+MODULE_PARM_DESC(use_xgmi_p2p,
-+	"Disable XGMI P2P interface (0 = disable; 1 = enable; -1 default, enabled)");
-+module_param_named(use_xgmi_p2p, amdgpu_use_xgmi_p2p, int, 0444);
- 
- 
- #ifdef CONFIG_HSA_AMD
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 207cd01435b5..bbe1bac61f15 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2330,8 +2330,8 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct amdgpu_device *adev,
- #else
- 	dma_resv_assert_held(amdkcl_ttm_resvp(&vm->root.bo->tbo));
- #endif
--
--	if (amdgpu_dmabuf_is_xgmi_accessible(adev, bo)) {
-+	if (amdgpu_use_xgmi_p2p &&
-+	    amdgpu_dmabuf_is_xgmi_accessible(adev, bo)) {
- 		bo_va->is_xgmi = true;
- 		/* Power up XGMI if it can be potentially used */
- 		amdgpu_xgmi_set_pstate(adev, AMDGPU_XGMI_PSTATE_MAX_VEGA20);
+Qingqing Zhuo (11):
+  drm/amd/include: add DCN 3.1.5 registers
+  drm/amd/display: Add DCN315 family information
+  drm/amd/display: Add DCN315 CLK_MGR
+  drm/amd/display: Add DCN315 GPIO
+  drm/amd/display: Add DCN315 IRQ
+  drm/amd/display: Add DCN315 DMUB
+  drm/amd/display: Add DCN315 Resource
+  drm/amd/display: Add DCN315 Command Table Helper
+  drm/amd/display: Add DCN315 blocks to Makefile
+  drm/amd/display: Add DCN315 CORE
+  drm/amd/display: Add DCN315 DM Support
+
+Yifan Zhang (2):
+  drm/amdgpu: add mp 13.0.5 header files
+  drm/amdgpu: add dm ip block for dcn 3.1.5
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |      1 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |     14 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |      1 +
+ drivers/gpu/drm/amd/display/dc/Makefile       |      1 +
+ .../display/dc/bios/command_table_helper2.c   |      1 +
+ .../gpu/drm/amd/display/dc/clk_mgr/Makefile   |      9 +
+ .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |     23 +-
+ .../dc/clk_mgr/dcn315/dcn315_clk_mgr.c        |    607 +
+ .../dc/clk_mgr/dcn315/dcn315_clk_mgr.h        |     49 +
+ .../display/dc/clk_mgr/dcn315/dcn315_smu.c    |    329 +
+ .../display/dc/clk_mgr/dcn315/dcn315_smu.h    |    126 +
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |     13 +-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |      8 +
+ .../gpu/drm/amd/display/dc/dcn315/Makefile    |     56 +
+ .../amd/display/dc/dcn315/dcn315_resource.c   |   2302 +
+ .../amd/display/dc/dcn315/dcn315_resource.h   |     42 +
+ drivers/gpu/drm/amd/display/dc/gpio/Makefile  |      8 +
+ .../dc/gpio/dcn315/hw_factory_dcn315.c        |    260 +
+ .../dc/gpio/dcn315/hw_factory_dcn315.h        |     31 +
+ .../dc/gpio/dcn315/hw_translate_dcn315.c      |    374 +
+ .../dc/gpio/dcn315/hw_translate_dcn315.h      |     33 +
+ .../gpu/drm/amd/display/dc/gpio/hw_factory.c  |      4 +
+ .../drm/amd/display/dc/gpio/hw_translate.c    |      4 +
+ drivers/gpu/drm/amd/display/dc/irq/Makefile   |      8 +
+ .../dc/irq/dcn315/irq_service_dcn315.c        |    438 +
+ .../dc/irq/dcn315/irq_service_dcn315.h        |     34 +
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |      1 +
+ drivers/gpu/drm/amd/display/dmub/src/Makefile |      4 +-
+ .../drm/amd/display/dmub/src/dmub_dcn315.c    |     62 +
+ .../drm/amd/display/dmub/src/dmub_dcn315.h    |     68 +
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |      9 +-
+ .../gpu/drm/amd/display/include/dal_asic_id.h |      6 +
+ .../gpu/drm/amd/display/include/dal_types.h   |      1 +
+ .../include/asic_reg/dcn/dcn_3_1_5_offset.h   |  15191 +++
+ .../include/asic_reg/dcn/dcn_3_1_5_sh_mask.h  |  62061 +++++++++
+ .../include/asic_reg/dpcs/dpcs_4_2_2_offset.h |  11957 ++
+ .../asic_reg/dpcs/dpcs_4_2_2_sh_mask.h        | 103633 +++++++++++++++
+ .../include/asic_reg/mp/mp_13_0_5_offset.h    |    455 +
+ .../include/asic_reg/mp/mp_13_0_5_sh_mask.h   |    672 +
+ 39 files changed, 198885 insertions(+), 11 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn315/Makefile
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_translate_dcn315.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_translate_dcn315.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.h
+ create mode 100644 drivers/gpu/drm/amd/display/dmub/src/dmub_dcn315.c
+ create mode 100644 drivers/gpu/drm/amd/display/dmub/src/dmub_dcn315.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_1_5_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_1_5_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_2_2_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_2_2_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_5_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_5_sh_mask.h
+
 -- 
-2.32.0
+2.35.1
 
