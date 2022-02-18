@@ -4,48 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02FA2C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:04:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E52B9C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3157E10EE34;
-	Fri, 18 Feb 2022 10:04:45 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD6910ED5F;
- Fri, 18 Feb 2022 10:04:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645178683; x=1676714683;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=gnaFiawqbtPeA4zYVazfV1H8TuJOkHMSyuVfRyekoys=;
- b=hCPzQA8EGAKw6el/goGN+iMkaWe50oYrO12kdMK/ebpLWDeM7gobSaM/
- wajKXMtMKiW2OUlft4cqx7l9B8UibSVVbzN35nPuBwD21sATbQzVuztv+
- Kc/5XBi9RG2XS8lO6K2m+gL8x04+3tUqz7iUkXkjnAwaTRcbciklkzuZ7
- VoD+8r1aVDUFN31NS0gB2vlU/uYv0laajWtsIj40WkntBd2qpJHGeVBLY
- 3lvqdrZ3AC7178LQq08xiGCsq9osJ24W20tXRv1StL4OV7nNnB5jjvFjF
- hVj7hkGmvbTWJNNzaP8o/ivjfMDr52Zlt8SE+r3p73apX2b4Cyt9ogu+m A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="311839771"
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="311839771"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 02:04:30 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="572251815"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga001.jf.intel.com with SMTP; 18 Feb 2022 02:04:27 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 18 Feb 2022 12:04:26 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Subject: [PATCH 04/22] drm/amdgpu: Use drm_mode_copy()
-Date: Fri, 18 Feb 2022 12:03:45 +0200
-Message-Id: <20220218100403.7028-5-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
-References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C67A10F227;
+	Fri, 18 Feb 2022 10:16:24 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44BAA10F227;
+ Fri, 18 Feb 2022 10:16:23 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ l12-20020a0568302b0c00b005a4856ff4ceso1607954otv.13; 
+ Fri, 18 Feb 2022 02:16:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=2NUwjlP/vOuIBV1np9NiJ3HRb/wklk2YI9wob6stFns=;
+ b=homC/eRQJMsRMmXyrAPjGInfnbZQD9EX04WzWGdutnjhIOt9SnqRsvqzHNgL5SOqaU
+ g9YQOytY9SRRGbgGijzgUot4R0+VAAEhYu151SIewSwj6KwD9c8IjZTOBM0tTr2Gid3P
+ 5ywlkMam0o7fAty02Se9WbQI1EM+ZVX4pe2h2aUUkrIu3YA/BZ+vb7o5AHiOxQSXE55I
+ 260Z4QLQyx7NpLODLhTJgeEShtTych73O10QrU1wqTAHksMfF/5lTZGCcUnGFCIqmdMN
+ UVmK2j6Jc+0Nw8q44oeeeTs7YU0KXzw2CE27SMh2Dr9TP2xcnO/HWbF4yVJwuONt8BU8
+ B0KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=2NUwjlP/vOuIBV1np9NiJ3HRb/wklk2YI9wob6stFns=;
+ b=llJKXaf0IQIa7yU73CLJaZ+Ip93UHBJ67hpIBacs4tq1cFP1zoUPvNQZCz/+gVujeZ
+ poKpVRvVho/nDdzuG9p2AXWMOH5Vex1/BIjmIbSwjGAPzARS83y0gxoryPuURlI7uu5l
+ a0SAW7CNFIjDzbpiiIjhXeUQ+dG92l4UZYNwua4mCgeIet8ysNqyk7mklxB8O+thkUc2
+ sQKRy0ZvLRnpWWw7YGspTYE3EmYqEMfQTvOmTMih0MkGE5uitBGAj59qjgzbLvFautM0
+ IPvBETf4cDZI/0ssCFm/0rJ0/T90xVe0ROTHhq9GG0QoeWnupETD+2b01h/7xK94fRVx
+ 4q9g==
+X-Gm-Message-State: AOAM533Qc1sf8WCWNaLf1KklkGG0mAMbuRood5xmppuU/CSPvJfaTTYf
+ 0yUlhKiNwpgzH4SrmbGyc29OIN8AVl7Xhg0wWIs=
+X-Google-Smtp-Source: ABdhPJzKvLoIqaAD1pjU/Y2GIdqxyPc1AmXHCETzPtV8646Pvii6g1eF/y7/BKZCV9VB5g7KOAbhoImt527Fphqlz38=
+X-Received: by 2002:a9d:715c:0:b0:5ad:3858:4d54 with SMTP id
+ y28-20020a9d715c000000b005ad38584d54mr251368otj.214.1645179382348; Fri, 18
+ Feb 2022 02:16:22 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20220217090440.4468-1-qiang.yu@amd.com>
+ <5d3fdd2c-e74a-49f4-2b28-32c06483236f@amd.com>
+ <CAKGbVbtLTBJPF5eTu4rABUTBa8eqjQvqjo1AEUrzgPgYgCREuA@mail.gmail.com>
+ <dac70c05-e712-d2e3-2267-278380895f1e@amd.com>
+ <CAKGbVbvtLbDiKrX80-dMnipdLkTE+FP=g_mx37e12fuMtA1Y4Q@mail.gmail.com>
+ <ca27a9c6-f390-a938-dd66-ac23f3b44dc4@amd.com>
+ <CAKGbVbv4UFCybS_OFj5UkDgevbrB5qe3pv+0nHv9WdefYhy6Ww@mail.gmail.com>
+ <6711073b-8771-5750-33f7-b72333b411c6@amd.com>
+ <CAKGbVbvR+msXjrsXmDM8QTmsCP03hL5-q5CTJBYu4mm=NQd01A@mail.gmail.com>
+ <a11b7073-6597-8e87-b724-33acab32e791@gmail.com>
+ <CAKGbVbuJ-QdeoMTg=_O=1x5A5tbqZftsjt8aCCoVkAekci0USA@mail.gmail.com>
+ <d830bb82-63ea-2de6-6d10-3a401ac0dcf0@amd.com>
+In-Reply-To: <d830bb82-63ea-2de6-6d10-3a401ac0dcf0@amd.com>
+From: Qiang Yu <yuq825@gmail.com>
+Date: Fri, 18 Feb 2022 18:16:08 +0800
+Message-ID: <CAKGbVbtorRius+Sq1_3SPUF3JzA00U747noSGhx7eP8Vn1rSDg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: check vm bo eviction valuable at last
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,128 +75,357 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
+Cc: David Airlie <airlied@linux.ie>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, linaro-mm-sig@lists.linaro.org,
+ Qiang Yu <qiang.yu@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Fri, Feb 18, 2022 at 5:27 PM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 18.02.22 um 09:58 schrieb Qiang Yu:
+> > On Fri, Feb 18, 2022 at 3:46 PM Christian K=C3=B6nig
+> > <ckoenig.leichtzumerken@gmail.com> wrote:
+> >> Am 18.02.22 um 04:08 schrieb Qiang Yu:
+> >>> On Thu, Feb 17, 2022 at 8:22 PM Christian K=C3=B6nig
+> >>> <christian.koenig@amd.com> wrote:
+> >>>> Am 17.02.22 um 11:58 schrieb Qiang Yu:
+> >>>>> On Thu, Feb 17, 2022 at 6:39 PM Christian K=C3=B6nig
+> >>>>> <christian.koenig@amd.com> wrote:
+> >>>>>> Am 17.02.22 um 11:13 schrieb Qiang Yu:
+> >>>>>>> On Thu, Feb 17, 2022 at 5:46 PM Christian K=C3=B6nig
+> >>>>>>> <christian.koenig@amd.com> wrote:
+> >>>>>>>> Am 17.02.22 um 10:40 schrieb Qiang Yu:
+> >>>>>>>>> On Thu, Feb 17, 2022 at 5:15 PM Christian K=C3=B6nig
+> >>>>>>>>> <christian.koenig@amd.com> wrote:
+> >>>>>>>>>> Am 17.02.22 um 10:04 schrieb Qiang Yu:
+> >>>>>>>>>>> Workstation application ANSA/META get this error dmesg:
+> >>>>>>>>>>> [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO=
+_VA (-16)
+> >>>>>>>>>>>
+> >>>>>>>>>>> This is caused by:
+> >>>>>>>>>>> 1. create a 256MB buffer in invisible VRAM
+> >>>>>>>>>>> 2. CPU map the buffer and access it causes vm_fault and try t=
+o move
+> >>>>>>>>>>>          it to visible VRAM
+> >>>>>>>>>>> 3. force visible VRAM space and traverse all VRAM bos to chec=
+k if
+> >>>>>>>>>>>          evicting this bo is valuable
+> >>>>>>>>>>> 4. when checking a VM bo (in invisible VRAM), amdgpu_vm_evict=
+able()
+> >>>>>>>>>>>          will set amdgpu_vm->evicting, but latter due to not =
+in visible
+> >>>>>>>>>>>          VRAM, won't really evict it so not add it to amdgpu_=
+vm->evicted
+> >>>>>>>>>>> 5. before next CS to clear the amdgpu_vm->evicting, user VM o=
+ps
+> >>>>>>>>>>>          ioctl will pass amdgpu_vm_ready() (check amdgpu_vm->=
+evicted)
+> >>>>>>>>>>>          but fail in amdgpu_vm_bo_update_mapping() (check
+> >>>>>>>>>>>          amdgpu_vm->evicting) and get this error log
+> >>>>>>>>>>>
+> >>>>>>>>>>> This error won't affect functionality as next CS will finish =
+the
+> >>>>>>>>>>> waiting VM ops. But we'd better make the amdgpu_vm->evicting
+> >>>>>>>>>>> correctly reflact the vm status and clear the error log.
+> >>>>>>>>>> Well NAK, that is intentional behavior.
+> >>>>>>>>>>
+> >>>>>>>>>> The VM page tables where considered for eviction, so setting t=
+he flag is
+> >>>>>>>>>> correct even when the page tables later on are not actually ev=
+icted.
+> >>>>>>>>>>
+> >>>>>>>>> But this will unnecessarily stop latter user VM ops in ioctl be=
+fore CS
+> >>>>>>>>> even when the VM bos are not evicted.
+> >>>>>>>>> Won't this have any negative effect when could do better?
+> >>>>>>>> No, this will have a positive effect. See the VM was already con=
+sidered
+> >>>>>>>> for eviction because it is idle.
+> >>>>>>>>
+> >>>>>>>> Updating it immediately doesn't necessarily make sense, we shoul=
+d wait
+> >>>>>>>> with that until its next usage.
+> >>>>>>>>
+> >>>>>>>> Additional to that this patch doesn't really fix the problem, it=
+ just
+> >>>>>>>> mitigates it.
+> >>>>>>>>
+> >>>>>>>> Eviction can fail later on for a couple of reasons and we absolu=
+tely
+> >>>>>>>> need to check the flag instead of the list in amdgpu_vm_ready().
+> >>>>>>> The flag only for both flag and list? Looks like should be both a=
+s
+> >>>>>>> the list indicate some vm page table need to be updated and could
+> >>>>>>> delay the user update with the same logic as you described above.
+> >>>>>> I think checking the flag should be enough. The issue is that the =
+list
+> >>>>>> was there initially, but to avoid race conditions we added the fla=
+g with
+> >>>>>> separate lock protection later on.
+> >>>>>>
+> >>>>> But list and flag does not align always, there are cases like
+> >>>>> list-empty/flag-set (this problem) and list-non-empty/flag-unset (n=
+on-vm bo
+> >>>>> eviction). If only check flag list-non-empty/flag-unset change beha=
+vior.
+> >>>> Yeah, but I think that the flag unset list-non-empty case would be
+> >>>> correctly handled if we only test the flag.
+> >>>>
+> >>>> In other words we can update the page tables as long as they are not
+> >>>> partially or fully evicted and that's not the case when non-vm BOs a=
+re
+> >>>> evicted.
+> >>>>
+> >>> This sounds like two standard for the same thing, because this proble=
+m
+> >>> does not evict page tables too. But I see your point is:
+> >>> There's a difference that this problem's case can make sure vm is idl=
+e,
+> >>> and we prefer to delay vm updates when vm is idle.
+> >>>
+> >>> If so, why not just stop user vm update by checking vm busy in
+> >>> amdgpu_gem_va_ioctl() to skip amdgpu_gem_va_update_vm()?
+> >> That's exactly what amdgpu_gem_va_update_vm() is doing by calling
+> >> amdgpu_vm_ready(). The problem is that amdgpu_vm_ready() looks at the
+> >> wrong thing.
+> >>
+> > If amdgpu_vm_ready() use evicting flag, it's still not equivalent to ch=
+eck
+> > vm idle: true -> vm idle, false -> vm may be idle or busy.
+>
+> Yeah, but why should that be relevant?
+>
+> The amdgpu_vm_ready() return if we can do page table updates or not. If
+> the VM is idle or not is only relevant for eviction.
+>
+> In other words any CS or page table update makes the VM busy, but that
+> only affects if the VM can be evicted or not.
+>
+My point is: we can't use amdgpu_vm_ready() to replace vm_is_busy(), so
+currently we update vm even when vm is busy. So why not use:
+if (!amdgpu_vm_ready() || vm_is_busy()) return;
+in amdgpu_gem_va_update_vm(), as you mentioned we prefer to not
+update vm when it's idle.
 
-struct drm_display_mode embeds a list head, so overwriting
-the full struct with another one will corrupt the list
-(if the destination mode is on a list). Use drm_mode_copy()
-instead which explicitly preserves the list head of
-the destination mode.
+> >>> Then we can keep the evicting flag accurate (after solving your
+> >>> concern for this patch that eviction may fail latter by further delay
+> >>> the flag update after eviction success).
+> >> That won't work. See we need to mark the VM as evicted before we
+> >> actually evict them because otherwise somebody could use the VM in
+> >> parallel and add another fence to it.
+> >>
+> > I see, make this too accurate should cost too much like holding the
+> > eviction_lock when eviction. But just delay it in
+> > amdgpu_ttm_bo_eviction_valuable()
+> > could avoid most false positive case.
+>
+> Partially correct. Another fundamental problem is that we can't hold the
+> eviction lock because that would result in lock inversion and potential
+> deadlock.
+>
+> We could set the flag later on, but as I said before that when we set
+> the evicted flag when the VM is already idle is a desired effect.
+>
+As above, this confuse me as we can explicitly check vm idle when
+user update vm, why bother to embed it in evicting flag implicitly?
 
-Even if we know the destination mode is not on any list
-using drm_mode_copy() seems decent as it sets a good
-example. Bad examples of not using it might eventually
-get copied into code where preserving the list head
-actually matters.
+Check vm idle need to hold resv lock. Read your patch for adding
+evicting flag is to update vm without resv lock. But user vm ops in
+amdgpu_gem_va_update_vm() do hold the resv lock, so the difference
+happens when calling amdgpu_vm_bo_update_mapping() from
+svm_range_(un)map_to_gpu(). So embed vm idle in evicting flag
+is for svm_range_(un)map_to_gpu() also do nothing when vm idle?
 
-Obviously one case not covered here is when the mode
-itself is embedded in a larger structure and the whole
-structure is copied. But if we are careful when copying
-into modes embedded in structures I think we can be a
-little more reassured that bogus list heads haven't been
-propagated in.
+Regards,
+Qiang
 
-@is_mode_copy@
-@@
-drm_mode_copy(...)
-{
-...
-}
-
-@depends on !is_mode_copy@
-struct drm_display_mode *mode;
-expression E, S;
-@@
-(
-- *mode = E
-+ drm_mode_copy(mode, &E)
-|
-- memcpy(mode, E, S)
-+ drm_mode_copy(mode, E)
-)
-
-@depends on !is_mode_copy@
-struct drm_display_mode mode;
-expression E;
-@@
-(
-- mode = E
-+ drm_mode_copy(&mode, &E)
-|
-- memcpy(&mode, E, S)
-+ drm_mode_copy(&mode, E)
-)
-
-@@
-struct drm_display_mode *mode;
-@@
-- &*mode
-+ mode
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 4 ++--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
- 2 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-index fa20261aa928..673078faa27a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-@@ -626,7 +626,7 @@ amdgpu_connector_fixup_lcd_native_mode(struct drm_encoder *encoder,
- 		if (mode->type & DRM_MODE_TYPE_PREFERRED) {
- 			if (mode->hdisplay != native_mode->hdisplay ||
- 			    mode->vdisplay != native_mode->vdisplay)
--				memcpy(native_mode, mode, sizeof(*mode));
-+				drm_mode_copy(native_mode, mode);
- 		}
- 	}
- 
-@@ -635,7 +635,7 @@ amdgpu_connector_fixup_lcd_native_mode(struct drm_encoder *encoder,
- 		list_for_each_entry_safe(mode, t, &connector->probed_modes, head) {
- 			if (mode->hdisplay == native_mode->hdisplay &&
- 			    mode->vdisplay == native_mode->vdisplay) {
--				*native_mode = *mode;
-+				drm_mode_copy(native_mode, mode);
- 				drm_mode_set_crtcinfo(native_mode, CRTC_INTERLACE_HALVE_V);
- 				DRM_DEBUG_KMS("Determined LVDS native mode details from EDID\n");
- 				break;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bd23c9e481eb..514280699ad5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6318,7 +6318,7 @@ get_highest_refresh_rate_mode(struct amdgpu_dm_connector *aconnector,
- 		}
- 	}
- 
--	aconnector->freesync_vid_base = *m_pref;
-+	drm_mode_copy(&aconnector->freesync_vid_base, m_pref);
- 	return m_pref;
- }
- 
-@@ -6432,8 +6432,8 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
- 		recalculate_timing = is_freesync_video_mode(&mode, aconnector);
- 		if (recalculate_timing) {
- 			freesync_mode = get_highest_refresh_rate_mode(aconnector, false);
--			saved_mode = mode;
--			mode = *freesync_mode;
-+			drm_mode_copy(&saved_mode, &mode);
-+			drm_mode_copy(&mode, freesync_mode);
- 		} else {
- 			decide_crtc_timing_for_drm_display_mode(
- 				&mode, preferred_mode, scale);
--- 
-2.34.1
-
+> Regards,
+> Christian.
+>
+> >
+> > Regards,
+> > Qiang
+> >
+> >> Regards,
+> >> Christian.
+> >>
+> >>> Regards,
+> >>> Qiang
+> >>>
+> >>>
+> >>>> Regards,
+> >>>> Christian.
+> >>>>
+> >>>>> Regards,
+> >>>>> Qiang
+> >>>>>
+> >>>>>> Regards,
+> >>>>>> Christian.
+> >>>>>>
+> >>>>>>> Regards,
+> >>>>>>> Qiang
+> >>>>>>>
+> >>>>>>>> Regards,
+> >>>>>>>> Christian.
+> >>>>>>>>
+> >>>>>>>>> Regards,
+> >>>>>>>>> Qiang
+> >>>>>>>>>
+> >>>>>>>>>> What we should rather do is to fix amdgpu_vm_ready() to take a=
+ look at
+> >>>>>>>>>> the flag instead of the linked list.
+> >>>>>>>>>>
+> >>>>>>>>>> Regards,
+> >>>>>>>>>> Christian.
+> >>>>>>>>>>
+> >>>>>>>>>>> Signed-off-by: Qiang Yu <qiang.yu@amd.com>
+> >>>>>>>>>>> ---
+> >>>>>>>>>>>        drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 85 +++++++++=
++++++-----------
+> >>>>>>>>>>>        1 file changed, 47 insertions(+), 38 deletions(-)
+> >>>>>>>>>>>
+> >>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/driver=
+s/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >>>>>>>>>>> index 5a32ee66d8c8..88a27911054f 100644
+> >>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >>>>>>>>>>> @@ -1306,45 +1306,11 @@ uint64_t amdgpu_ttm_tt_pte_flags(stru=
+ct amdgpu_device *adev, struct ttm_tt *ttm,
+> >>>>>>>>>>>            return flags;
+> >>>>>>>>>>>        }
+> >>>>>>>>>>>
+> >>>>>>>>>>> -/*
+> >>>>>>>>>>> - * amdgpu_ttm_bo_eviction_valuable - Check to see if we can =
+evict a buffer
+> >>>>>>>>>>> - * object.
+> >>>>>>>>>>> - *
+> >>>>>>>>>>> - * Return true if eviction is sensible. Called by ttm_mem_ev=
+ict_first() on
+> >>>>>>>>>>> - * behalf of ttm_bo_mem_force_space() which tries to evict b=
+uffer objects until
+> >>>>>>>>>>> - * it can find space for a new object and by ttm_bo_force_li=
+st_clean() which is
+> >>>>>>>>>>> - * used to clean out a memory space.
+> >>>>>>>>>>> - */
+> >>>>>>>>>>> -static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffe=
+r_object *bo,
+> >>>>>>>>>>> -                                         const struct ttm_pl=
+ace *place)
+> >>>>>>>>>>> +static bool amdgpu_ttm_mem_eviction_valuable(struct ttm_buff=
+er_object *bo,
+> >>>>>>>>>>> +                                          const struct ttm_p=
+lace *place)
+> >>>>>>>>>>>        {
+> >>>>>>>>>>>            unsigned long num_pages =3D bo->resource->num_page=
+s;
+> >>>>>>>>>>>            struct amdgpu_res_cursor cursor;
+> >>>>>>>>>>> -     struct dma_resv_list *flist;
+> >>>>>>>>>>> -     struct dma_fence *f;
+> >>>>>>>>>>> -     int i;
+> >>>>>>>>>>> -
+> >>>>>>>>>>> -     /* Swapout? */
+> >>>>>>>>>>> -     if (bo->resource->mem_type =3D=3D TTM_PL_SYSTEM)
+> >>>>>>>>>>> -             return true;
+> >>>>>>>>>>> -
+> >>>>>>>>>>> -     if (bo->type =3D=3D ttm_bo_type_kernel &&
+> >>>>>>>>>>> -         !amdgpu_vm_evictable(ttm_to_amdgpu_bo(bo)))
+> >>>>>>>>>>> -             return false;
+> >>>>>>>>>>> -
+> >>>>>>>>>>> -     /* If bo is a KFD BO, check if the bo belongs to the cu=
+rrent process.
+> >>>>>>>>>>> -      * If true, then return false as any KFD process needs =
+all its BOs to
+> >>>>>>>>>>> -      * be resident to run successfully
+> >>>>>>>>>>> -      */
+> >>>>>>>>>>> -     flist =3D dma_resv_shared_list(bo->base.resv);
+> >>>>>>>>>>> -     if (flist) {
+> >>>>>>>>>>> -             for (i =3D 0; i < flist->shared_count; ++i) {
+> >>>>>>>>>>> -                     f =3D rcu_dereference_protected(flist->=
+shared[i],
+> >>>>>>>>>>> -                             dma_resv_held(bo->base.resv));
+> >>>>>>>>>>> -                     if (amdkfd_fence_check_mm(f, current->m=
+m))
+> >>>>>>>>>>> -                             return false;
+> >>>>>>>>>>> -             }
+> >>>>>>>>>>> -     }
+> >>>>>>>>>>>
+> >>>>>>>>>>>            switch (bo->resource->mem_type) {
+> >>>>>>>>>>>            case AMDGPU_PL_PREEMPT:
+> >>>>>>>>>>> @@ -1377,10 +1343,53 @@ static bool amdgpu_ttm_bo_eviction_va=
+luable(struct ttm_buffer_object *bo,
+> >>>>>>>>>>>                    return false;
+> >>>>>>>>>>>
+> >>>>>>>>>>>            default:
+> >>>>>>>>>>> -             break;
+> >>>>>>>>>>> +             return ttm_bo_eviction_valuable(bo, place);
+> >>>>>>>>>>>            }
+> >>>>>>>>>>> +}
+> >>>>>>>>>>>
+> >>>>>>>>>>> -     return ttm_bo_eviction_valuable(bo, place);
+> >>>>>>>>>>> +/*
+> >>>>>>>>>>> + * amdgpu_ttm_bo_eviction_valuable - Check to see if we can =
+evict a buffer
+> >>>>>>>>>>> + * object.
+> >>>>>>>>>>> + *
+> >>>>>>>>>>> + * Return true if eviction is sensible. Called by ttm_mem_ev=
+ict_first() on
+> >>>>>>>>>>> + * behalf of ttm_bo_mem_force_space() which tries to evict b=
+uffer objects until
+> >>>>>>>>>>> + * it can find space for a new object and by ttm_bo_force_li=
+st_clean() which is
+> >>>>>>>>>>> + * used to clean out a memory space.
+> >>>>>>>>>>> + */
+> >>>>>>>>>>> +static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffe=
+r_object *bo,
+> >>>>>>>>>>> +                                         const struct ttm_pl=
+ace *place)
+> >>>>>>>>>>> +{
+> >>>>>>>>>>> +     struct dma_resv_list *flist;
+> >>>>>>>>>>> +     struct dma_fence *f;
+> >>>>>>>>>>> +     int i;
+> >>>>>>>>>>> +
+> >>>>>>>>>>> +     /* Swapout? */
+> >>>>>>>>>>> +     if (bo->resource->mem_type =3D=3D TTM_PL_SYSTEM)
+> >>>>>>>>>>> +             return true;
+> >>>>>>>>>>> +
+> >>>>>>>>>>> +     /* If bo is a KFD BO, check if the bo belongs to the cu=
+rrent process.
+> >>>>>>>>>>> +      * If true, then return false as any KFD process needs =
+all its BOs to
+> >>>>>>>>>>> +      * be resident to run successfully
+> >>>>>>>>>>> +      */
+> >>>>>>>>>>> +     flist =3D dma_resv_shared_list(bo->base.resv);
+> >>>>>>>>>>> +     if (flist) {
+> >>>>>>>>>>> +             for (i =3D 0; i < flist->shared_count; ++i) {
+> >>>>>>>>>>> +                     f =3D rcu_dereference_protected(flist->=
+shared[i],
+> >>>>>>>>>>> +                             dma_resv_held(bo->base.resv));
+> >>>>>>>>>>> +                     if (amdkfd_fence_check_mm(f, current->m=
+m))
+> >>>>>>>>>>> +                             return false;
+> >>>>>>>>>>> +             }
+> >>>>>>>>>>> +     }
+> >>>>>>>>>>> +
+> >>>>>>>>>>> +     /* Check by different mem type. */
+> >>>>>>>>>>> +     if (!amdgpu_ttm_mem_eviction_valuable(bo, place))
+> >>>>>>>>>>> +             return false;
+> >>>>>>>>>>> +
+> >>>>>>>>>>> +     /* VM bo should be checked at last because it will mark=
+ VM evicting. */
+> >>>>>>>>>>> +     if (bo->type =3D=3D ttm_bo_type_kernel)
+> >>>>>>>>>>> +             return amdgpu_vm_evictable(ttm_to_amdgpu_bo(bo)=
+);
+> >>>>>>>>>>> +
+> >>>>>>>>>>> +     return true;
+> >>>>>>>>>>>        }
+> >>>>>>>>>>>
+> >>>>>>>>>>>        static void amdgpu_ttm_vram_mm_access(struct amdgpu_de=
+vice *adev, loff_t pos,
+>
