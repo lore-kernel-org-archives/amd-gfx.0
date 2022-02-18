@@ -4,62 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62AF8C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4465BC433F5
 	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 15:25:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA54E10F124;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFB1E10F129;
 	Fri, 18 Feb 2022 15:25:58 +0000 (UTC)
-Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
- [IPv6:2607:f8b0:4864:20::1149])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9210510EA96
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 07:57:59 +0000 (UTC)
-Received: by mail-yw1-x1149.google.com with SMTP id
- 00721157ae682-2d6bca75aa2so14408027b3.18
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 23:57:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc:content-transfer-encoding;
- bh=nLaO1ES61pLgsguF+4DTJU+VhEtdELLQod+MClOiJ5Q=;
- b=QgOXTfy53ySH2/dyIH2l+tfO/OAsBlufB2qIsHbOmsYYbDw2UXU5AZ/cacVONQRqg6
- 52vlpV9EeMa5fdyh5Fk8iRKC9yDjyuCi6ouKKXFaMSCHNee6X67xQ9TwArpL1yia/ZUS
- gy91I4oai27l+/Z1dyQgqME/KV9QVE+0bVeo7eOAnRe+Ck/rAQlzQcnfR99Eo3jnpjCT
- 9zCAz3b35ihKFwof2zBnUOPq1EfT7CKgi2FOSdBqFKH95ccdlzJo8Bixva0dE2CAued7
- 1PVgntfAs6raojL01pZRNYSqcm9LYs/jkwR4YG9Tk4LzOVe4JcVX1TJM9C611NXmkyG9
- QBYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc:content-transfer-encoding;
- bh=nLaO1ES61pLgsguF+4DTJU+VhEtdELLQod+MClOiJ5Q=;
- b=Vjk7DQazHUPk2DuOclo7qRW72lHc0IG64W4gDGMQJjs2SZGJH4cPyJFw95OfnOoJ0j
- MwkUkWSZ70qKuVBeR6fzCi6zdZcf95ydWIQRlkUOnKPYabHzTY1GDiwi7gn+GgNAVsCs
- lUEhzR4L12I1BFXHOv1h26qEV7U+rL+MqPx1Acq3ye0qqKOhgFR39RGdyL6fye1PelyV
- fW/oZAEriaaKes/wqivUAicLY117T/0rJyYlt3VTT0BphMCXX14Rrep+1SV8g4V/W4Ea
- yCwTpRJqr7zO2qR1T9THC+X2xq7lJiE9HBb6WgTegK9fyvaBGLJqLqIxlhult0OFBuCI
- sOEw==
-X-Gm-Message-State: AOAM530ia1K7yl1zHhLImhdkl+uSGUEM368mk/fmS3apLTEnsOXbW2zJ
- nFB72MeFUOnp9jnMcBUJw6D/qmZfhccT3w==
-X-Google-Smtp-Source: ABdhPJy2Cw5Ad+CWrEChO3m15k6rfDvFDIW8eMR878jYte+bmMTWDNc8tAipvJmzYUhsBJaIzCB+wr+3RPHBUw==
-X-Received: from slicestar.c.googlers.com
- ([fda3:e722:ac3:cc00:4f:4b78:c0a8:20a1])
- (user=davidgow job=sendgmr) by 2002:a81:8543:0:b0:2d0:2d5c:c07f with SMTP id
- v64-20020a818543000000b002d02d5cc07fmr6684543ywf.111.1645171078671; Thu, 17
- Feb 2022 23:57:58 -0800 (PST)
-Date: Fri, 18 Feb 2022 15:57:24 +0800
-In-Reply-To: <20220218075727.2737623-1-davidgow@google.com>
-Message-Id: <20220218075727.2737623-2-davidgow@google.com>
-Mime-Version: 1.0
+X-Greylist: delayed 2460 seconds by postgrey-1.36 at gabe;
+ Fri, 18 Feb 2022 13:07:53 UTC
+Received: from sipsolutions.net (s3.sipsolutions.net
+ [IPv6:2a01:4f8:191:4433::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD05010EE83
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 13:07:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sipsolutions.net; s=mail; h=Content-Transfer-Encoding:MIME-Version:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+ Resent-Cc:Resent-Message-ID; bh=MVaFoxpSrw0lXOFRf60il59+xXDuimORkK161w41iNc=; 
+ t=1645189673; x=1646399273; b=KUYRYSXHnUMCCoRsbEm+I7s1mHvWL+cJrX2Z46vce5RPJ7X
+ 7a8ll+QmXcnogHt1fcbhL98mpr60zNUwiSbq4WNjM44cSx3+zSL6LJ1VaeRt1me/l9FlLxfuvSCZ+
+ pRCu0YpflLdMNQ+nk/pomgw6jXTN80QNzQiOC2RNilcqyM2EPw0//3jls7GnjVaGgVGkG0nrgT6z7
+ 60U+FXdY0SbTLMD1TsvoO3IZ7+G4OVpDZG0QQCjM4S47nGxDkDXmgc3Sxb3V9ireRq7k+vNZa5+ZR
+ hfBzGZNVP86VlSkyYRiDD+UFF4rQKYF+9x49ogXiBjhcLfv42/PYoNoWiXpd6gAQ==;
+Received: by sipsolutions.net with esmtpsa
+ (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.95) (envelope-from <johannes@sipsolutions.net>)
+ id 1nL2LH-002du1-NQ; Fri, 18 Feb 2022 13:26:31 +0100
+Message-ID: <ac4c5f8c890e5bdd7ad7ecc04a51e72fa3ac1703.camel@sipsolutions.net>
+Subject: Re: [PATCH 4/4] kunit: tool: Disable broken options for --alltests
+From: Johannes Berg <johannes@sipsolutions.net>
+To: David Gow <davidgow@google.com>, Jeff Dike <jdike@addtoit.com>, Richard
+ Weinberger <richard@nod.at>, Anton Ivanov
+ <anton.ivanov@cambridgegreys.com>, Shuah Khan <skhan@linuxfoundation.org>,
+ Brendan Higgins <brendanhiggins@google.com>,  Randy Dunlap
+ <rdunlap@infradead.org>
+Date: Fri, 18 Feb 2022 13:26:30 +0100
+In-Reply-To: <20220218075727.2737623-5-davidgow@google.com>
 References: <20220218075727.2737623-1-davidgow@google.com>
-X-Mailer: git-send-email 2.35.1.265.g69c8d7142f-goog
-Subject: [PATCH 1/4] drm/amdgpu: Fix compilation under UML
-From: David Gow <davidgow@google.com>
-To: Jeff Dike <jdike@addtoit.com>, Richard Weinberger <richard@nod.at>, 
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Shuah Khan <skhan@linuxfoundation.org>, 
- Brendan Higgins <brendanhiggins@google.com>,
- Randy Dunlap <rdunlap@infradead.org>
+ <20220218075727.2737623-5-davidgow@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.42.3 (3.42.3-1.fc35) 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-malware-bazaar: not-scanned
 X-Mailman-Approved-At: Fri, 18 Feb 2022 15:25:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,114 +58,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Gow <davidgow@google.com>, linux-rdma@vger.kernel.org,
- felix.kuehling@amd.com, x86@kernel.org, linux-um@lists.infradead.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com
+Cc: linux-rdma@vger.kernel.org, felix.kuehling@amd.com, x86@kernel.org,
+ linux-um@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Randy Dunlap <rdunlap@infradead.org>
+On Fri, 2022-02-18 at 15:57 +0800, David Gow wrote:
+> 
+> Note that, while this does build again, it still segfaults on startup,
+> so more work remains to be done.
 
-cpuinfo_x86 and its associated macros are not available under ARCH=3Dum,
-even though CONFIG_X86_64 is defined.
+That's probably just a lot more stuff getting included somehow?
 
-This patch (and discussion) were originally posted here:
-https://lkml.org/lkml/2022/1/24/1547
+> They are:
+> - CONFIG_VFIO_PCI: Needs ioport_map/ioport_unmap.
+> - CONFIG_INFINIBAND_RDMAVT: Needs cpuinfo_x86 and __copy_user_nocache
+> - CONFIG_BNXT: Failing under UML with -Werror
+> ERROR:root:../drivers/net/ethernet/broadcom/bnxt/bnxt_ptp.c: In function ‘bnxt_ptp_enable’:
+> ../drivers/net/ethernet/broadcom/bnxt/bnxt_ptp.c:400:43: error: array subscript 255 is above array bounds of ‘struct pps_pin[4]’ [-Werror=array-bounds]
+>   400 |                         ptp->pps_info.pins[pin_id].event = BNXT_PPS_EVENT_EXTERNAL;
+>       |                         ~~~~~~~~~~~~~~~~~~^~~~~~~~
+> - CONFIG_PATA_CS5535: Needs MSR access (__tracepoint_{read,write}_msr)
+> - CONFIG_VDPA: Enables CONFIG_DMA_OPS, which is unimplemented. ('dma_ops' is not defined)
+> 
+> These are all issues which should be investigated properly and the
+> corresponding options either fixed or disabled under UML. Having this
+> list of broken options should act as a good to-do list here, and will
+> allow these issues to be worked on independently, and other tests to
+> work in the meantime.
+> 
 
-This produces the following build errors:
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1556:9: note: in exp=
-ansion of macro =E2=80=98cpu_data=E2=80=99
-  return cpu_data(first_cpu_of_numa_node).apicid;
-         ^~~~~~~~
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1560:1: error: contr=
-ol reaches end of non-void function [-Werror=3Dreturn-type]
+I'm not really sure it makes sense to even do anything other than
+disabling these.
 
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function =E2=80=98kf=
-d_fill_iolink_info_for_cpu=E2=80=99:
-../arch/um/include/asm/processor-generic.h:103:19: error: called object is =
-not a function or function pointer
- #define cpu_data (&boot_cpu_data)
-                  ~^~~~~~~~~~~~~~~
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1688:27: note: in expans=
-ion of macro =E2=80=98cpu_data=E2=80=99
-  struct cpuinfo_x86 *c =3D &cpu_data(0);
-                           ^~~~~~~~
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:7: error: dereferen=
-cing pointer to incomplete type =E2=80=98struct cpuinfo_x86=E2=80=99
-  if (c->x86_vendor =3D=3D X86_VENDOR_AMD)
-       ^~
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:23: error: =E2=80=
-=98X86_VENDOR_AMD=E2=80=99 undeclared (first use in this function); did you=
- mean =E2=80=98X86_VENDOR_ANY=E2=80=99?
-  if (c->x86_vendor =3D=3D X86_VENDOR_AMD)
-                       ^~~~~~~~~~~~~~
-                       X86_VENDOR_ANY
+It looks like all of them are just exposed by now being able to build
+PCI drivers on UML. Surely the people writing the driver didn't expect
+their drivers to run over simulated PCI (which is what the UML PCI
+support is all about).
 
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function =E2=80=98kf=
-d_create_vcrat_image_cpu=E2=80=99:
-../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1742:11: warning: unused=
- variable =E2=80=98entries=E2=80=99 [-Wunused-variable]
-  uint32_t entries =3D 0;
+Now from a PCI driver point of view you can't really tell the difference
+(and anyway the driver won't be probed), but the issues (at least the
+build time ones) come from having
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Signed-off-by: David Gow <davidgow@google.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 6 +++---
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+    UML && PCI && X86_64
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/am=
-dkfd/kfd_crat.c
-index 9624bbe8b501..b1e2d117be3d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1682,7 +1682,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_id=
-, int *avail_size,
- 	return 0;
- }
-=20
--#ifdef CONFIG_X86_64
-+#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
- static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
- 				uint32_t *num_entries,
- 				struct crat_subtype_iolink *sub_type_hdr)
-@@ -1741,7 +1741,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_ima=
-ge, size_t *size)
- 	struct crat_subtype_generic *sub_type_hdr;
- 	int avail_size =3D *size;
- 	int numa_node_id;
--#ifdef CONFIG_X86_64
-+#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
- 	uint32_t entries =3D 0;
- #endif
- 	int ret =3D 0;
-@@ -1806,7 +1806,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_ima=
-ge, size_t *size)
- 			sub_type_hdr->length);
-=20
- 		/* Fill in Subtype: IO Link */
--#ifdef CONFIG_X86_64
-+#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
- 		ret =3D kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
- 				&entries,
- 				(struct crat_subtype_iolink *)sub_type_hdr);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
-d/amdkfd/kfd_topology.c
-index 948fbb39336e..b38fc530ffe2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1552,7 +1552,7 @@ static int kfd_cpumask_to_apic_id(const struct cpumas=
-k *cpumask)
- 	first_cpu_of_numa_node =3D cpumask_first(cpumask);
- 	if (first_cpu_of_numa_node >=3D nr_cpu_ids)
- 		return -1;
--#ifdef CONFIG_X86_64
-+#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
- 	return cpu_data(first_cpu_of_numa_node).apicid;
- #else
- 	return first_cpu_of_numa_node;
---=20
-2.35.1.265.g69c8d7142f-goog
+or
 
+    UML && PCI && X86_32
+
+because drivers typically depend on X86_64 or X86_32, rather than on
+"X86 && X86_64" or "X86 && X86_32". In a sense thus, the issue is those
+drivers don't know that "!X86 && (X86_32 || X86_64)" can happen (with
+UML).
+
+
+Now you could say that's the driver bug, or you could say that they
+should just add "depends on !UML" (though that's basically equivalent to
+adding "depends on X86" and the latter may be preferable in some cases).
+
+Or actually in the three patches you have (1-3) it's in the code, but
+same thing, you can either add && !UML (like you did) or add && X86.
+
+
+Arguably, however, building PCI drivers by default is somewhat
+questionable in the first place?
+
+So maybe you should just add
+
+    # CONFIG_UML_PCI_OVER_VIRTIO is not set
+
+to the broken_on_uml.config since it exposes all these issues, and
+really is not very useful since you're not going to actually run with
+any simulated PCI devices anyway, so drivers will not be probed.
+
+johannes
