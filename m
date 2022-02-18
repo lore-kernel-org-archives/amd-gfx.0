@@ -4,115 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 344E3C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 22:45:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69A14C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 23:09:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C49EC10EF76;
-	Fri, 18 Feb 2022 22:45:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2FA110E17B;
+	Fri, 18 Feb 2022 23:09:13 +0000 (UTC)
 Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2057.outbound.protection.outlook.com [40.107.100.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54E9610EF76
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 22:45:34 +0000 (UTC)
+ (mail-bn8nam08on2040.outbound.protection.outlook.com [40.107.100.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B621F10E17B;
+ Fri, 18 Feb 2022 23:09:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Zx0SATbTgQRnWQ6zxPcqVcm+VZOtBT/In41jageUYs3DDAOOBl1ZreL5hr4TEpdGjEmI1VIzhVa4NySpTspb/pu7ArmdDEhcxg8u+GuBuFd8JAPwiM7RQBknBjYKrH2SvFjPJns3HK/AObz0SwCOJIG5wu63EKBXRtFsuV7qU+FVM0wyTzQwgKbv8pXTW36usuZIhVWy+L9TeA6kRxdpoSSciwRDzN4wskh33aiRJ7KQiqYRQhTYfDl6zLs62K69qEEMxSWUAoSgi7S7APxva/BovZLSlWSw9LsALglaJ1yLnD1AlZ3uz8q56rRb+R3umckPr+tLClQ8YJSntAGb9g==
+ b=VWD8o8pWpDzeJGaCkZ4+VTeaO0kNg5+6SVFyvR3c89A3dAjdZbMPhw8qnIjnYNZjC+Crt3Y063PyGKsjUraRbYauXIh9fbSKH/2jyH+F09IGRDMPYdBZuRYkFgpZA1G3YsHq9127CU2rIE8+vD9vIvmzo45R6ErtaFATw1H02gCX75DZd3wTHBChX6asO0TEO64S8f4pk7nY9HlgQ94Z/XhQBGyu0d/zyjpgAxqJq223AbQvvbYsOegTGXNWoqNeizs0cS0j8lDoyjZTSbs7NExAp+bAHyCLdAOFlzAwClj6eKAHnle/C5h5LWypq4yzbmgB51QpoRfv7KhIuC+B7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WDi1q04XFf/JbLMJk6ZRslzIYtBynJ0BOxrOkJOV2MA=;
- b=hFoebvXluhHIIDXrG11H5HnuWTn0+DcfgnpxbNgivhw1eDRiEZh5WYJNOKS/r5t7ilc0a+qvlwfHDQVoGRXMJ0ZaO4Szbgg+Mx2Et189v5mvzMaLqT8TNO5qZ/apWKAJufuqmuTUPpR9jNXRunTWTSEpTpoz5iWmfMe0KpOcezQ5SwgcipHmWrmDCwteifeqQU0GgWWH0tc94Tyb/Y/Qi6dIqm3nEx+A4LzyMb2kyXFmaq5WmuTglFSi2B8d3tiAbYJNLcBDYvsKwtjTM9ihTexxP/1vOnf1aJTaL0qO3rzmdsM/nE97O6d2TsF62+TZUNVNmI1dmoapIH5q26kqzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Ylcaq/EMeDfYCm4U1cYe9AzZBcigc7FwMqc0lyRPdVc=;
+ b=HhaL8qSZS36eyiKIWAYb3N3Elkq0XavprujXC1xjJuyCq/IFi5QWY8wVlj2hSnvSv1llMigufKAfZkf4AgHEFl4v37fXl311CtVwL720yQO0geL764Yvt/+83+sYypdWkeEUSXsWNW0Luoe0hgQ0CNz8dvNttn2mMtSp2MRuj9kKpzGuID3ZWwNR5yovvjvKULYqxRmYbjYBI+dsu3Q/yVYqWCRdwvsc5IbLFkiJf0hegFmjA/jOnDch9ustWmWcgE3I/2HYJxy1FDybVtHyfv7O/mde+Gi6xj0HiHLhG019I+F//mpUs2ZZujQsxkY8/djcLxXuWbtf7VCbppSIsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WDi1q04XFf/JbLMJk6ZRslzIYtBynJ0BOxrOkJOV2MA=;
- b=y70UyYNzTLBu6aq7cHFcALXADXNRlbCVmOTa6sZwfnJPHOcBLp49Zqs/QY9AbAO2WiZiUi9vls63HoRTs2QltDBG94iAfD0C7mF9MkckY6EOBQ0RDnVPt6S+jPor0WkFEhXE1jAfxSWCMglJM7AmuMbCyCR0Tygi1MFcNCiAIQo=
-Received: from DS7PR12MB5933.namprd12.prod.outlook.com (2603:10b6:8:7c::14) by
- BN7PR12MB2753.namprd12.prod.outlook.com (2603:10b6:408:31::33) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4995.17; Fri, 18 Feb 2022 22:45:32 +0000
-Received: from DS7PR12MB5933.namprd12.prod.outlook.com
- ([fe80::3896:be71:4770:3b0]) by DS7PR12MB5933.namprd12.prod.outlook.com
- ([fe80::3896:be71:4770:3b0%6]) with mapi id 15.20.4995.024; Fri, 18 Feb 2022
- 22:45:31 +0000
-From: "Bhardwaj, Rajneesh" <Rajneesh.Bhardwaj@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 1/1] drm/amdkfd: Fix criu_restore_bo error handling
-Thread-Topic: [PATCH 1/1] drm/amdkfd: Fix criu_restore_bo error handling
-Thread-Index: AQHYJRdt9OPB0mVAfE+ayHxH2qzgn6yZ56XN
-Date: Fri, 18 Feb 2022 22:45:31 +0000
-Message-ID: <DS7PR12MB5933324DE755A72DCFC33093FE379@DS7PR12MB5933.namprd12.prod.outlook.com>
-References: <20220218223218.1548615-1-Felix.Kuehling@amd.com>
-In-Reply-To: <20220218223218.1548615-1-Felix.Kuehling@amd.com>
-Accept-Language: en-US
-Content-Language: en-CA
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-18T22:43:14.0402692Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8cfbfe26-0699-4164-f4e9-08d9f3305e69
-x-ms-traffictypediagnostic: BN7PR12MB2753:EE_
-x-microsoft-antispam-prvs: <BN7PR12MB2753E3C0AD1F8E53FC257D74FE379@BN7PR12MB2753.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1923;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: pyKIrN3miphhNb80Byb007PgjG7kxHJKOdHJcTVTZPTww11tMrbgNR7klpfuDQ9IAw3gtbtD38Br/YxbgtQtcvIFndlOaUEexbsMUZowAFuj0r/drUogx3VG5kow+UVA5PX1Dpud2GA/qs9DhIEGMQ52ZoUazql/A+9m5VUYKO60zM2pyzeBgZBl4DljqSUN4TC9vgZtIC3WJ3ktFBkpx6Eo7j8ILpIZNVRv/zZl5m2xvd7tA2sNaxui65vjVCl/pQiGvr6s6b4JSsASBmJDEWUznaByJ8NhYou2t8LCk+87sMivsK/z6tH/4xRe8s19+mCumN50yPJFGLoUh9fDHyCo1c9jhIOHLuoFzxFsDe4Qlks8FLYIE5EgRMR/nleG2KS5wPmWFggFW963h5PsHfT3d5M5BKBMtM1ZebJaGivSSuXfO/LdAiHER7Kh4swWjL2Pt3kw7Fi9s5PrHXVt3wCospwuzIF1IPK7o41lm5q/UHsG49P1uX04UDBwOLFRsmXUr06B2YawSMj0nSyD/ddT+OgnPx/WJQ3lRGDaTOYeyiot0ZAIpGAho0WMToYNWUwk5Byi4Pf3dn24dD18kj0eWhUz51Idp2fYZLNzUYG09gvMfIdQp9YRXUg6wMTKeBOGz5OXjl9DXbSl9IIiJzYPOThBwU1Lil1HyvmPViJBeHyPrRuglkUD8vvS6wnndBQ5GHbOnCWgzRecUMU9kw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB5933.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(38100700002)(186003)(66556008)(38070700005)(83380400001)(33656002)(8936002)(52536014)(55016003)(5660300002)(2906002)(110136005)(8676002)(122000001)(64756008)(66446008)(7696005)(6506007)(9686003)(91956017)(53546011)(66476007)(76116006)(66946007)(4326008)(316002)(71200400001)(86362001)(508600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kxPUtU4+oU6p7utyTgBy/nYiMe9s3vnTmqTlMszQ5MyZWcZ1RI20kG43ySk1?=
- =?us-ascii?Q?+a/ucJ2Rz9w/76eW9hwCQTOMXvrwDH/nPJh4kFK021oV0fQZBYAVtnDNN6k+?=
- =?us-ascii?Q?KIMao+GRKZzHD+yuGhiLWsr8QehBzWTbr8Aq7yeq5cjB2IRU+nO8SbQTo8Dh?=
- =?us-ascii?Q?cQEYod5mnRC5axZqWWdFOoUkUxzRfv84hbPhpMsINtTQap9jUb/g3bJ7cDMg?=
- =?us-ascii?Q?uyUTFfNqT3pGzBp4AsecZtS0W+OZb7PvDmlcvpsgQzJ1J5wQl5mc4IAt5Ev8?=
- =?us-ascii?Q?kSLvQEya6Nf/L/zUhC6fnLH/voR8dEFKW1FkLcSOB2mq96dHNZ4KFw08HZn1?=
- =?us-ascii?Q?hFwDg8FL8zaDLWkriQJ0cwUnJ19wMq9+WzBBNDP3HQszgja4rnE1Pnf7v3S8?=
- =?us-ascii?Q?IIv43r7/7f2uFjbED/uV2w7UpnWOhXFZmUVeGnc+2Gq4OXxKN6PB1ncPSQBl?=
- =?us-ascii?Q?MJXROpRR/Uz8oLxuEOqp1FfzL8zZNJMNMv9q8JKdIzACtMfeKXoXyR+YYF98?=
- =?us-ascii?Q?2tq7J3Ab15IsLxblYU08vR/7f7SNYcuW8kD6MRrFFR7WLd0cfWYASl6EEILN?=
- =?us-ascii?Q?44e/ZJK49ov6IpW0wuikvXueBLQkYA2plYRMdA9vnrhs/ngXsjen1kfRpprd?=
- =?us-ascii?Q?hB8URq/e/BjTHaqJmX65x3PD43BQrfKPgYtcrowaM3QhRgoSObEvEBxb/J9m?=
- =?us-ascii?Q?d4aRzqd5TiX8owrZeYvzXpHN3fq7TuIe25Kv/2YQdYvtrZ95/9a4fdk+Mx+l?=
- =?us-ascii?Q?qMmh/uaOkx1g3faNNDdAzaIQYO6pm1iw/Mn4ZNQKh/3zC7wdhaPT1irVKxk5?=
- =?us-ascii?Q?wDDZi29kyqhTubi+55yBDzzhxRuCG2eMDWTzpl0lbwzL11KgopAn7eMdMiHB?=
- =?us-ascii?Q?CiMMDLqSO34s8aYCO3bhQIasNzVfNKgRYC1laP3IDy5XbMuCDhIlsHuk/PbQ?=
- =?us-ascii?Q?JgTnCEVHWtqEKCEWGvV9wpvJW/ayOj7fcqcXHATqSu4H+eJ6PYw3FXx+a0o8?=
- =?us-ascii?Q?F9Kq8EDhy+mXJJsPneHeWFxH0ASpp0kh8gwE3V1/hEa4lVfv4mUKQOiIV1ap?=
- =?us-ascii?Q?+U1l2ayPAshGIWZGauns40dpCPwsrO9TRgnsgFwRMFToMSmfrNZL4FHQC/bJ?=
- =?us-ascii?Q?myJsGsdjCeidrC/UH4U1toeJZ7UyYzevHfyc+eIpcYx0w9mI1yahgcQvS25n?=
- =?us-ascii?Q?1ytDvaVXKKFfpunJC0wNv1InuTRIa6vD9yuq313JdaOEGf3TIB3M5jBkKfF6?=
- =?us-ascii?Q?tosAeCJaEfuRrC9jPohkPlRKok3cb62T/MkHhG8v/LV5WYry2R/72Ze7+cWc?=
- =?us-ascii?Q?QjgsQwXOkye6x7DxIIq3BA9OyoquNGLxVr0+vdCb/l0diwr3ZPmvVuRArLD/?=
- =?us-ascii?Q?42r74qa7ROvQPatAVXX+Xvo7qnmDaVILjI7di6r+QaH475bB1Z8zV4KDF3KC?=
- =?us-ascii?Q?LKlfXLc2cmHVMQu9PtNehB8jf/Ly3LM5e7t8VLP7PIoJEl2i+DVpU6y73oj6?=
- =?us-ascii?Q?vx5t+vDVpyucyN1+XboRzdQRDesELpscx2aS9ewxFoRRDCgC+9OzTfyyE9t+?=
- =?us-ascii?Q?R/GleU3RcImmg/SdWuDTX2eT1RIMX93uU2uSQfqOcNAnSIdTQHxGXoHP+SYS?=
- =?us-ascii?Q?PTi/8nQltFev7f6CDAgC9ikYnsncKPCURAUK0d+EFh9nTZ4pt+s+rYGz0lCD?=
- =?us-ascii?Q?HteDZczu9gm1p0G/f7jf3s0UzYXbbXUY2uLhDVwmu2vq2ccA?=
-Content-Type: multipart/alternative;
- boundary="_000_DS7PR12MB5933324DE755A72DCFC33093FE379DS7PR12MB5933namp_"
+ bh=Ylcaq/EMeDfYCm4U1cYe9AzZBcigc7FwMqc0lyRPdVc=;
+ b=NvKPC7LIeQtclhvSwri9fyqV7aUZUUItQ0ulxv8YiBo5L+5GpruvadE8GGY4Jvu7sPIsUowomfjUI7GSbZKaegtO3tc/+4yuDaIxOkaC0eUm6CoEK1QtYQPqyfevcCWpKkcpSuz/GeMCD/znMhw+gwxvVdEVKjvPAx8aHiXUVSI=
+Received: from DM6PR06CA0097.namprd06.prod.outlook.com (2603:10b6:5:336::30)
+ by BY5PR12MB4081.namprd12.prod.outlook.com (2603:10b6:a03:20e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.14; Fri, 18 Feb
+ 2022 23:09:09 +0000
+Received: from DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:336:cafe::c2) by DM6PR06CA0097.outlook.office365.com
+ (2603:10b6:5:336::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.15 via Frontend
+ Transport; Fri, 18 Feb 2022 23:09:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT056.mail.protection.outlook.com (10.13.173.99) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4995.20 via Frontend Transport; Fri, 18 Feb 2022 23:09:09 +0000
+Received: from dayatsin-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 18 Feb
+ 2022 17:09:08 -0600
+From: David Yat Sin <david.yatsin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/amdkfd: Fix for possible integer overflow
+Date: Fri, 18 Feb 2022 18:08:35 -0500
+Message-ID: <20220218230835.9914-1-david.yatsin@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 251c2559-db2f-4e44-b150-08d9f333ab6a
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4081:EE_
+X-Microsoft-Antispam-PRVS: <BY5PR12MB4081D1CB835486FB5F0C583B95379@BY5PR12MB4081.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1303;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DhTe/zJnzgy/eKzynh6ldJLybs0+w0C3p6UdSes1B2Ba969Vzp8VN4cRwHGs9Tb9x0WtCowM9t3Wv5STu9P0OtPZ6Qkioy5KVZGK9T90amTjTeRJkTmY+H7txscP/DyGvbCQA3BeDTIqDM/+YKhDDeUGdOon9oybtd0c51OhMZzTlDHTp3xircJ4ReOFhXIU5NhbUypllpuSqZ6+MSM9bm9UHd1r49LrPfqso/IzL/UfffZ9EbSzmQ6d352KpRvD9j5ATmw/O3N6SiRyW4eOzpaZmM+MKpTnXtQup/c/b/I639HsFPLf5nUbhf9fXhFFto1Q8isjI1QWE6Q6u5ymX/P/zxGhVBZZL/qUbgJaw5odiUxt6nt7kjJRabQhf8/oK7THu1dSH0BQ5GTZekZ3AGIHGy0Ez8n5CEVeLNzcWYnsSYhindTwuVS5M58N+cJkBj99njWx6DwYuP0T1ddRqCo4AEFxANCMjkriVf5vA2uj65sfAxLx2X+/zD9t3za03WgUiqz4xH2tb06J0j7isRZOjZTbtKEsoVqN/QyeIy/4wVghXbQmHhk8lvCBeVd04/YHh77dzaMK19OEE5qxUqkRptqLpqcv5wXZd7aYPSm1YKdJlS0i26ZhH9Aq+YmE0eH2MCwlenCzsUf3mGAOWll4ew5q/dKOp2k7KfsoEx44w5+9uLjAxB0AI4R9zAdnMtxa7sGy7/E6rT44w65AMQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(40460700003)(86362001)(508600001)(8676002)(4744005)(4326008)(7696005)(16526019)(82310400004)(36860700001)(70586007)(70206006)(26005)(426003)(186003)(47076005)(336012)(356005)(2616005)(8936002)(2906002)(83380400001)(6666004)(54906003)(110136005)(36756003)(81166007)(1076003)(5660300002)(316002)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB5933.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8cfbfe26-0699-4164-f4e9-08d9f3305e69
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Feb 2022 22:45:31.6055 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6fT31cpLjSZrMeEjd7TEpkt30Ii9CX1J50s+XGXCvH/f+Uno2OtupVcXzERuKbXNMl1ls5fOX97JlNS3u98ofw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2753
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2022 23:09:09.3476 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 251c2559-db2f-4e44-b150-08d9f333ab6a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4081
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,165 +98,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>
+Cc: Felix.Kuehling@amd.com, David Yat Sin <david.yatsin@amd.com>,
+ dan.carpenter@oracle.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DS7PR12MB5933324DE755A72DCFC33093FE379DS7PR12MB5933namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Fix for possible integer overflow when doing addition.
 
-[AMD Official Use Only]
-
-Reviewed-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-
-Regards,
-Rajneesh
-________________________________
-From: Kuehling, Felix <Felix.Kuehling@amd.com>
-Sent: Friday, February 18, 2022 5:32:18 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Bhardwaj, Rajneesh <Rajneesh.Bhardwaj@amd.com>; Tom Rix <trix@redhat.co=
-m>
-Subject: [PATCH 1/1] drm/amdkfd: Fix criu_restore_bo error handling
-
-Clang static analysis reports this problem
-kfd_chardev.c:2327:2: warning: 1st function call argument
-  is an uninitialized value
-  kvfree(bo_privs);
-  ^~~~~~~~~~~~~~~~
-
-Make sure bo_buckets and bo_privs are initialized so freeing them in the
-error handling code path will never result in undefined behaviour.
-
-Fixes: 73fa13b6a511 ("drm/amdkfd: CRIU Implement KFD restore ioctl")
-Reported-by: Tom Rix <trix@redhat.com>
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: David Yat Sin <david.yatsin@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_chardev.c
-index fead2ed46dc6..ceeb0d5e9060 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2092,8 +2092,8 @@ static int criu_restore_bos(struct kfd_process *p,
-                             uint64_t *priv_offset,
-                             uint64_t max_priv_data_size)
- {
--       struct kfd_criu_bo_bucket *bo_buckets;
--       struct kfd_criu_bo_priv_data *bo_privs;
-+       struct kfd_criu_bo_bucket *bo_buckets =3D NULL;
-+       struct kfd_criu_bo_priv_data *bo_privs =3D NULL;
-         const bool criu_resume =3D true;
-         bool flush_tlbs =3D false;
-         int ret =3D 0, j =3D 0;
---
-2.32.0
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index c3f252fc337b..6eca9509f2e3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -786,7 +786,7 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ 	}
+ 
+ 	*priv_data_offset += sizeof(*q_data);
+-	q_extra_data_size = q_data->ctl_stack_size + q_data->mqd_size;
++	q_extra_data_size = (uint64_t)q_data->ctl_stack_size + q_data->mqd_size;
+ 
+ 	if (*priv_data_offset + q_extra_data_size > max_priv_data_size) {
+ 		ret = -EINVAL;
+-- 
+2.17.1
 
-
---_000_DS7PR12MB5933324DE755A72DCFC33093FE379DS7PR12MB5933namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div>
-<div>
-<div style=3D"color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" d=
-ir=3D"ltr">
-Reviewed-by: Rajneesh Bhardwaj &lt;rajneesh.bhardwaj@amd.com&gt;</div>
-</div>
-<div id=3D"ms-outlook-mobile-signature">
-<div><br>
-</div>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
-" dir=3D"auto">
-Regards,</div>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
-" dir=3D"auto">
-Rajneesh</div>
-</div>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
-elix.Kuehling@amd.com&gt;<br>
-<b>Sent:</b> Friday, February 18, 2022 5:32:18 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Bhardwaj, Rajneesh &lt;Rajneesh.Bhardwaj@amd.com&gt;; Tom Rix &l=
-t;trix@redhat.com&gt;<br>
-<b>Subject:</b> [PATCH 1/1] drm/amdkfd: Fix criu_restore_bo error handling<=
-/font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Clang static analysis reports this problem<br>
-kfd_chardev.c:2327:2: warning: 1st function call argument<br>
-&nbsp; is an uninitialized value<br>
-&nbsp; kvfree(bo_privs);<br>
-&nbsp; ^~~~~~~~~~~~~~~~<br>
-<br>
-Make sure bo_buckets and bo_privs are initialized so freeing them in the<br=
->
-error handling code path will never result in undefined behaviour.<br>
-<br>
-Fixes: 73fa13b6a511 (&quot;drm/amdkfd: CRIU Implement KFD restore ioctl&quo=
-t;)<br>
-Reported-by: Tom Rix &lt;trix@redhat.com&gt;<br>
-Signed-off-by: Felix Kuehling &lt;Felix.Kuehling@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 4 ++--<br>
-&nbsp;1 file changed, 2 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_chardev.c<br>
-index fead2ed46dc6..ceeb0d5e9060 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-@@ -2092,8 +2092,8 @@ static int criu_restore_bos(struct kfd_process *p,<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; uint64_t *priv_offset,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; uint64_t max_priv_data_size)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_criu_bo_bucket *bo_buckets=
-;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_criu_bo_priv_data *bo_priv=
-s;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_criu_bo_bucket *bo_buckets=
- =3D NULL;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_criu_bo_priv_data *bo_priv=
-s =3D NULL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const bool criu_resume =3D=
- true;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool flush_tlbs =3D false;=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0, j =3D 0;<br=
->
--- <br>
-2.32.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_DS7PR12MB5933324DE755A72DCFC33093FE379DS7PR12MB5933namp_--
