@@ -4,62 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73477C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 15:25:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 885B8C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 15:25:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB2510F123;
-	Fri, 18 Feb 2022 15:25:35 +0000 (UTC)
-Received: from mail-yw1-x114a.google.com (mail-yw1-x114a.google.com
- [IPv6:2607:f8b0:4864:20::114a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FBAB10EBA1
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 07:58:12 +0000 (UTC)
-Received: by mail-yw1-x114a.google.com with SMTP id
- 00721157ae682-2d07ae11460so36398147b3.7
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 23:58:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc:content-transfer-encoding;
- bh=URNN4JDAS2rJK/SsmuwfW0pd7j7Yza7iayBlpkhGFLc=;
- b=EBGQU4gek4jI2VHo57UusHs/wBde2oMRrnCtCmvYuBRGiig/b+r8mypTt+pMzb70F+
- eui57kZL0D/54jmqGjPrmsWd0gCCmIddw38zfF9pbmDCKJlhAdFSEiYaxzW6GmFO49Yu
- 4RQaHEq87uRGZVdETZV+edy95vXUKC33J17G8BU6e3WahR+nFckwqtWorOj6MMQ/YOvZ
- gl2yOMRPf+OuLe+iUFLdgXX42Wt9q4ukxNsPwtPrcQkgE8bBuiANjsLn54dhHyW0HIeI
- DXlmWM+XgNzhDKEWkVKRqXrhzm++Sv6+QkC4DoMdzkdUGfb51BKxH9jR5kdWZcjQ0pa2
- EbYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc:content-transfer-encoding;
- bh=URNN4JDAS2rJK/SsmuwfW0pd7j7Yza7iayBlpkhGFLc=;
- b=oNxa/qhvguOxeztUCjMkOl+uVqmapxKOLOQ7H75FxfrM253nMRLzwSYUWVjNZLtLLq
- 3s0GJCXIVjWA5xHMpOhOSr3F00/RGtbcaNtGbt4zEbTnGyGfiFMJDu/s0KsfW+c37xMg
- iJfnhmkvdT7wIybO7NuAA33Sng7ID81ftaQbeEBUV5f/DrkzSW+rUyGIIniLbzrMFy3x
- bd2ABnEAWwMhY+cnj7EEy52msgg3D1svuHlSeS/Exd83KdKHC81yyUJkABLPJfMWqmoa
- 79VVIJy5LK6TdYy45nc7UtZXgvwbYIl977RnNlzFqvMvNo5erMYyV4GZiOaBuJAvTCVx
- DTVA==
-X-Gm-Message-State: AOAM532c7zP+O+XsZzV8xZqGqCrkBEvvC5S2cdsaPTsFLTWZb+MmrFtG
- eURES6SBSYOXwHfdNW01ZDcuY1xDFY7q5w==
-X-Google-Smtp-Source: ABdhPJzkXNI0mIB4QIL1eB63wzi9+92ViwlJdKnUh9PGSnuYSdteX3Ps478m374ivFv5Kh1qd98wF5JtWHxwTw==
-X-Received: from slicestar.c.googlers.com
- ([fda3:e722:ac3:cc00:4f:4b78:c0a8:20a1])
- (user=davidgow job=sendgmr) by 2002:a81:f611:0:b0:2cf:aa3c:ab17 with SMTP id
- w17-20020a81f611000000b002cfaa3cab17mr658303ywm.410.1645171091604; Thu, 17
- Feb 2022 23:58:11 -0800 (PST)
-Date: Fri, 18 Feb 2022 15:57:27 +0800
-In-Reply-To: <20220218075727.2737623-1-davidgow@google.com>
-Message-Id: <20220218075727.2737623-5-davidgow@google.com>
-Mime-Version: 1.0
-References: <20220218075727.2737623-1-davidgow@google.com>
-X-Mailer: git-send-email 2.35.1.265.g69c8d7142f-goog
-Subject: [PATCH 4/4] kunit: tool: Disable broken options for --alltests
-From: David Gow <davidgow@google.com>
-To: Jeff Dike <jdike@addtoit.com>, Richard Weinberger <richard@nod.at>, 
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Shuah Khan <skhan@linuxfoundation.org>, 
- Brendan Higgins <brendanhiggins@google.com>,
- Randy Dunlap <rdunlap@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id E329410F126;
+	Fri, 18 Feb 2022 15:25:52 +0000 (UTC)
+Received: from desiato.infradead.org (desiato.infradead.org
+ [IPv6:2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF03310EF84
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 06:25:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
+ :In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:
+ Sender:Reply-To:Content-ID:Content-Description;
+ bh=POm9JYmsLrxFoP9B+CGxuYMAxAilfVuUdXuMegBj6uY=; b=FW6CR8247cKApPgjySAL04P8Ar
+ LE1MqNA79IoQvj8RJQX2J/EI0CL4LlNJyed1yaPqFXp96Wgmz1YJXbvmZwA876C3fckVdTYNsCVFM
+ YvLktLNAeSI15c5gM9kOhYS/Q2dqRtCHEwtFidCfjFoWwzOo2cwDuUBqmqcmLnjY3IegqZsLeO5Vp
+ lYJtMpdH5W2QqGmLl3ah0BqCFntlvxsA/av9ogOviEI2JKghsJnFFQY6vL97ypKpbMsHOHlmcP2HV
+ BiAMSSWWpGPx7UrF9HaNrW9cWjVCOu/W5B5S6RW5bxDW3qlJXa+77YdTnzDsGbVPQ5k+kMQnQvk7D
+ 55wohEHA==;
+Received: from [2601:1c0:6280:3f0::aa0b]
+ by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1nKwiC-00AlTE-A8; Fri, 18 Feb 2022 06:25:48 +0000
+Message-ID: <cc01ec4c-c95c-fae4-0231-8b92d572d1da@infradead.org>
+Date: Thu, 17 Feb 2022 22:25:43 -0800
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: [PATCH] drm/amdgpu: Fix ARM compilation warning
+Content-Language: en-US
+To: Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org
+References: <202202160733.1Egjqp9Y-lkp@intel.com>
+ <20220216220853.59961-1-luben.tuikov@amd.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20220216220853.59961-1-luben.tuikov@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 18 Feb 2022 15:25:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,65 +52,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Gow <davidgow@google.com>, linux-rdma@vger.kernel.org,
- felix.kuehling@amd.com, x86@kernel.org, linux-um@lists.infradead.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com
+Cc: Alex Deucher <Alexander.Deucher@amd.com>, kbuild-all@lists.01.org,
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are a number of Kconfig options which break compilation under UML wit=
-h
-allyesconfig.  As kunit_tool's --alltests option is based on allyesconfig a=
-nd
-UML, we need to update the list of broken options to make --alltests build
-again.
+Also seen on i386.
 
-Note that, while this does build again, it still segfaults on startup,
-so more work remains to be done.
+On 2/16/22 14:08, Luben Tuikov wrote:
+> Fix this ARM warning:
+> 
+> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:664:35: warning: format '%ld'
+> expects argument of type 'long int', but argument 4 has type 'size_t' {aka
+> 'unsigned int'} [-Wformat=]
+> 
+> Cc: Alex Deucher <Alexander.Deucher@amd.com>
+> Cc: kbuild-all@lists.01.org
+> Cc: linux-kernel@vger.kernel.org
+> Reported-by: kernel test robot <lkp@intel.com>
+> Fixes: 7e60fbfbdc10a0 ("drm/amdgpu: Show IP discovery in sysfs")
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 
-They are:
-- CONFIG_VFIO_PCI: Needs ioport_map/ioport_unmap.
-- CONFIG_INFINIBAND_RDMAVT: Needs cpuinfo_x86 and __copy_user_nocache
-- CONFIG_BNXT: Failing under UML with -Werror
-ERROR:root:../drivers/net/ethernet/broadcom/bnxt/bnxt_ptp.c: In function =
-=E2=80=98bnxt_ptp_enable=E2=80=99:
-../drivers/net/ethernet/broadcom/bnxt/bnxt_ptp.c:400:43: error: array subsc=
-ript 255 is above array bounds of =E2=80=98struct pps_pin[4]=E2=80=99 [-Wer=
-ror=3Darray-bounds]
-  400 |                         ptp->pps_info.pins[pin_id].event =3D BNXT_P=
-PS_EVENT_EXTERNAL;
-      |                         ~~~~~~~~~~~~~~~~~~^~~~~~~~
-- CONFIG_PATA_CS5535: Needs MSR access (__tracepoint_{read,write}_msr)
-- CONFIG_VDPA: Enables CONFIG_DMA_OPS, which is unimplemented. ('dma_ops' i=
-s not defined)
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index ad2355b0037f52..6c3a3c74e0231f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -668,7 +668,7 @@ static int amdgpu_discovery_sysfs_ips(struct amdgpu_device *adev,
+>  			    le16_to_cpu(ip->hw_id) != ii)
+>  				goto next_ip;
+>  
+> -			DRM_DEBUG("match:%d @ ip_offset:%ld", ii, ip_offset);
+> +			DRM_DEBUG("match:%d @ ip_offset:%zu", ii, ip_offset);
+>  
+>  			/* We have a hw_id match; register the hw
+>  			 * block if not yet registered.
+> 
+> base-commit: f723076ae13011a23d9a586899e38bc68feeb6b2
 
-These are all issues which should be investigated properly and the
-corresponding options either fixed or disabled under UML. Having this
-list of broken options should act as a good to-do list here, and will
-allow these issues to be worked on independently, and other tests to
-work in the meantime.
-
-Signed-off-by: David Gow <davidgow@google.com>
----
- tools/testing/kunit/configs/broken_on_uml.config | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/tools/testing/kunit/configs/broken_on_uml.config b/tools/testi=
-ng/kunit/configs/broken_on_uml.config
-index 690870043ac0..546482b0bc4d 100644
---- a/tools/testing/kunit/configs/broken_on_uml.config
-+++ b/tools/testing/kunit/configs/broken_on_uml.config
-@@ -42,3 +42,8 @@
- # CONFIG_ADI_AXI_ADC is not set
- # CONFIG_DEBUG_PAGEALLOC is not set
- # CONFIG_PAGE_POISONING is not set
-+# CONFIG_VFIO_PCI is not set
-+# CONFIG_INFINIBAND_RDMAVT is not set
-+# CONFIG_BNXT is not set
-+# CONFIG_PATA_CS5535 is not set
-+# CONFIG_VDPA is not set
---=20
-2.35.1.265.g69c8d7142f-goog
-
+thanks.
+-- 
+~Randy
