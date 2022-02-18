@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C54A7C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 15:25:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5579AC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 15:25:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 179FC10F125;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F86D10F128;
 	Fri, 18 Feb 2022 15:25:54 +0000 (UTC)
-Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
- [IPv6:2607:f8b0:4864:20::72b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD1A10EA91;
- Fri, 18 Feb 2022 03:09:53 +0000 (UTC)
-Received: by mail-qk1-x72b.google.com with SMTP id de39so6691298qkb.13;
- Thu, 17 Feb 2022 19:09:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=smgI3MOP3ZExWA5vhZDRgT/sxoUbszVrY843KRx6UAg=;
- b=LD9RgfrJLO3yiJqzb0a/d85Ea/mQa6ykDAloz/d7bw2cxwQ/GLWKDDF6lHPBtQT1en
- Jyoxwiofg1/Rei0oCty7JNAK2/hYSrKLAnZR7+AG0GGz6GN95Fn//ed2HKf7p1eyuBTz
- NOkLHT6HidkAjcDphEeoN+VKyd1FKDXmDq4Rp/Knhcisjq9ViwkGwiBsrSa3WtuFS+gu
- oIMWT0KN6n5+99MHCyLUvN3ma4zsLNZnV216Pz+Z/FOsSa1aHNySa6kSbHkHKEFm4Zat
- voFG48IDr0WMp0EYu3WUaKtnybxQibI1g0twdGQZuJw37hNyfmx63Na9LYudiDFrYOMP
- uTTA==
+Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
+ [IPv6:2607:f8b0:4864:20::1049])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF5F010EA96
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 07:57:54 +0000 (UTC)
+Received: by mail-pj1-x1049.google.com with SMTP id
+ hi22-20020a17090b30d600b001b8b33cf0efso4990330pjb.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 23:57:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=pzssXhX8riGRjAd4+3metqANF5chmN7DhU3KIG19plk=;
+ b=BXYHGO/apr1trZ7ANJF1Lt6pYKglG4Ybyk1oIZRHZKKVSqoKSXgrBXlJ+1OM+32L9t
+ MU8n7K+r76s0oXflCxISCV1ICc0UvMWkHQwSTytgu8Evx0a2e982roAPsTJGWM6fb62G
+ 4xiTSYukPeiMTehnCZ8Ef6urhW9UdAhyCH8qBQH/Z3umLv0xdGv2JPdSLHgNuZnc3YDQ
+ m26WTBm81XDNmFpY/glb5MBqUkdfdOBU4PUPqt6iZ2jAhWr3J7itrrkNCi44IwFV8KeU
+ S94sCD0t8mfXDphKvuDMvw2otQeqJUpd7l5aT+oeKWADzDv5u6Czmms69AvfX5QGDeUK
+ NAmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=smgI3MOP3ZExWA5vhZDRgT/sxoUbszVrY843KRx6UAg=;
- b=ZBbs1Jxsf0FYc25n6Nd53JJhb6aYkWbv/PbVp6PE+vZmCGW1YgYFywXsGOtQo5lI+8
- tXOx28yX5k5eHqOTtjhDLZdF9ZTaiLcCD6XgLREZd85r/KGVtjicl0X+aWpkIOdVF0F8
- 23Uyd6VV1aONz9Z+aqEINgetl5BCRJ2WJ1q0TuEXD135PNYJVrtLmqDJ+I3wNqQL6R2F
- he0jF6tPC6w50dkcs71Z7PhzpZl/IBfoD6EdYZP0EDiASjGNulf3utwlGvfws49kZH+k
- n5tZbdofIQyPnqlr+6D7jXF4HQiDXgpiXSSPkux27gsTx0WrceBwQEh4afPsnlKJElqa
- /6lA==
-X-Gm-Message-State: AOAM532/6EijLWtft6RZ3r/rkrREIRpewG2HpwPqw0BMQ+juE52SVCFR
- 3YLbiYfrD9iZs6nG8Exs6iY=
-X-Google-Smtp-Source: ABdhPJw1Q3QSxbTpFYTAMVPiPbtJT/XnqEZtz0Oe56QkRWMBRMl8AHCPp743iOr09CjOYbqSk++aSw==
-X-Received: by 2002:a05:620a:11a7:b0:60d:df4a:f732 with SMTP id
- c7-20020a05620a11a700b0060ddf4af732mr2948880qkk.244.1645153792105; 
- Thu, 17 Feb 2022 19:09:52 -0800 (PST)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id x13sm22366287qko.114.2022.02.17.19.09.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Feb 2022 19:09:51 -0800 (PST)
-From: cgel.zte@gmail.com
-X-Google-Original-From: deng.changcheng@zte.com.cn
-To: Felix.Kuehling@amd.com
-Subject: [PATCH] drm/amdkfd: Replace one-element array with flexible-array
- member
-Date: Fri, 18 Feb 2022 03:09:43 +0000
-Message-Id: <20220218030943.1905838-1-deng.changcheng@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=pzssXhX8riGRjAd4+3metqANF5chmN7DhU3KIG19plk=;
+ b=IPMa2hnIxQGVEGEHoS0YuNt1UtXIBt4kx8ZKRm6QNTNMAxBJSrD35magfJjbXFwTY7
+ k4lWROg8gtPnuMkZIa0sLu1AMDOfriezXqxHI0LsIY/6y9A0nxOhtbWaqfOf4cLcUK1c
+ udRo5VY5OHhgCUFOVRHUeg11d8xQ4fZbbGg2JvZWgBI5vxcxZ6GCHhTqBy4t+HYe2dCp
+ ijb49fVssNVCkVKO5dTMRDvcPNAR8+CgyVKL0uHKU4Mc1geVE27LLDBu1tPRcH1V2Ib6
+ ksXs0ToS8zfxJkCtJ2aYzyCXoGmWoJP4zxSEkxQZu7SC+9uo0rJ6p2gqpFOb41DR4cZY
+ BhAA==
+X-Gm-Message-State: AOAM532p2L7OVE7gbeTBsmGE7QN5PhMhYdgx5SsRA6WeDnsNZbLisqss
+ 37V+JYbkQX0kuBYwEnO1qutw6jZOb6u5cg==
+X-Google-Smtp-Source: ABdhPJw0UMsgszZC5yB3naBv5jFWjYWF4uP6hg8QghCa4W6xT10Nwxg2nhu4SD1k1Vghgej18o9lOhbEem5LzA==
+X-Received: from slicestar.c.googlers.com
+ ([fda3:e722:ac3:cc00:4f:4b78:c0a8:20a1])
+ (user=davidgow job=sendgmr) by 2002:a17:90a:a50f:b0:1b8:e6ad:f63c with SMTP
+ id a15-20020a17090aa50f00b001b8e6adf63cmr333880pjq.1.1645171074073; Thu, 17
+ Feb 2022 23:57:54 -0800 (PST)
+Date: Fri, 18 Feb 2022 15:57:23 +0800
+Message-Id: <20220218075727.2737623-1-davidgow@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.35.1.265.g69c8d7142f-goog
+Subject: [PATCH 0/4] kunit,um: Fix kunit.py build --alltests
+From: David Gow <davidgow@google.com>
+To: Jeff Dike <jdike@addtoit.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Brendan Higgins <brendanhiggins@google.com>,
+ Randy Dunlap <rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 18 Feb 2022 15:25:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,41 +67,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, Zeal Robot <zealci@zte.com.cn>, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Changcheng Deng <deng.changcheng@zte.com.cn>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: David Gow <davidgow@google.com>, linux-rdma@vger.kernel.org,
+ felix.kuehling@amd.com, x86@kernel.org, linux-um@lists.infradead.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kselftest@vger.kernel.org,
+ kunit-dev@googlegroups.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Changcheng Deng <deng.changcheng@zte.com.cn>
+kunit_tool's --alltests option uses UML and make allyesconfig to produce
+a configuration which enables as many tests as possible. However, make
+ARCH=um allyesconfig is broken for a number of reasons.
 
-There is a regular need in the kernel to provide a way to declare having
-a dynamically sized set of trailing elements in a structure. Kernel code
-should always use "flexible array members" for these cases. The older
-style of one-element or zero-length arrays should no longer be used.
-Reference:
-https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays
+Fix a few different UML build breakages, and disable a few config
+options in kunit_tool in order to get this kernel compiling again.
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Note that the resulting kernel still doesn't run, but having it compile
+is the first step to fixing that.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-index 482ba84a728d..d7c38fbc533e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-@@ -310,7 +310,7 @@ struct cdit_header {
- 	uint32_t	creator_revision;
- 	uint32_t	total_entries;
- 	uint16_t	num_domains;
--	uint8_t		entry[1];
-+	uint8_t		entry[];
- };
- 
- #pragma pack()
+David Gow (3):
+  drm/amdgpu: Make smu7_hwmgr build on UML
+  IB/qib: Compile under User-Mode Linux
+  kunit: tool: Disable broken options for --alltests
+
+Randy Dunlap (1):
+  drm/amdgpu: Fix compilation under UML
+
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c               | 6 +++---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c           | 2 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 2 +-
+ drivers/infiniband/hw/qib/qib_wc_x86_64.c           | 4 ++++
+ tools/testing/kunit/configs/broken_on_uml.config    | 5 +++++
+ 5 files changed, 14 insertions(+), 5 deletions(-)
+
 -- 
-2.25.1
+2.35.1.265.g69c8d7142f-goog
 
