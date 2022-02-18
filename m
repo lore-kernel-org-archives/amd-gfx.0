@@ -4,124 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFAC2C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 02:26:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7DAAC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 03:08:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3434C10EB52;
-	Fri, 18 Feb 2022 02:26:59 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2048.outbound.protection.outlook.com [40.107.243.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A86A810EB52
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 02:26:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g40Bfozt1TsFhoXNmZ4fjOfwTGqLKrb55DaJ+ONA8XwZjYlaF6UBJOhY0/fzb4WJlrV2syYN76cOcihVwGyljMAMXOA68cf8DlY2l/jEOQC33OmW6vPC+mQzmyhHp0a22b/vxP2Uac/8vqM1vQMvAKx2kzqaXyaw8ue+0M/khqNXp+Brw7kO0PEEaVnh1vgeN6ZlwJdc+9J0qQiKm3wWxeitHlB9pUR0L9grJSqPcd/3EArWq36FOSBvGOxGtCjFBnZA7FSy9t7HRqbhYZfxRCbSqCXDAe8ZzqMBdYI50e06YBhI/oT5wjfkT0ITQJpPSuWjIrcDBeEAbcb5i87rgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CDv12/HX4gmC1+B/lFqw8+KxwJIbbqFpN8uSC0Rw04w=;
- b=J2X8+CXU2q/PJQhb/YW3S4qshHwxYFp7KoBbgVVlZ6KczFE/m5X4KoZRY+cEC0J192fUbet4ymKGHykItHnBksUFJtavM6fvEhIh4WXQR9saBej9LQdoGoEz5/75I8TmUVICjgLvjiE38YuzpVNeCwxNNlkCc46glak5blvWeOoGfAvCMXN5lW878qPIlpFEjbMWKSKc0wDUTqIbj8lQR3PX80K+Uo3VJxrVRW0uK07o/A2bwvUve7EnLzcX86mzoYSkqSZOfeoURFwtBqCeFk6rVjH6EZpHSdqQZFVUCa+T1wUilP/afMzBkjNeaD57C0p4w87I5YuL5Nm5wMgk5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CDv12/HX4gmC1+B/lFqw8+KxwJIbbqFpN8uSC0Rw04w=;
- b=vLgZKc54kzPeBPBvpNIzgGYkzdkjx37INYh+AQc74dXadvn3URkri8y4ap9rJO0vSPdFRh2wBpdqnJ2yQoN33mcP7omGiW/1pRTPCHVLE5JJbiR6evTilcfUnoOHnD/91rVBsQFThKNOUKIcXOhQgfT/QcPYwF5wKG8q3BjMXgA=
-Received: from BL1PR12MB5237.namprd12.prod.outlook.com (2603:10b6:208:30b::18)
- by DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Fri, 18 Feb
- 2022 02:26:56 +0000
-Received: from BL1PR12MB5237.namprd12.prod.outlook.com
- ([fe80::c5a5:a37a:8817:4587]) by BL1PR12MB5237.namprd12.prod.outlook.com
- ([fe80::c5a5:a37a:8817:4587%4]) with mapi id 15.20.4995.016; Fri, 18 Feb 2022
- 02:26:56 +0000
-From: "Liu, Aaron" <Aaron.Liu@amd.com>
-To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: enable TMZ option for onwards asic
-Thread-Topic: [PATCH] drm/amdgpu: enable TMZ option for onwards asic
-Thread-Index: AQHYJGy6NTYfva9jzkW/S1RLpeC0layYlRLA
-Date: Fri, 18 Feb 2022 02:26:56 +0000
-Message-ID: <BL1PR12MB523778BDB1ADFBFB5C3CB0E2F0379@BL1PR12MB5237.namprd12.prod.outlook.com>
-References: <1645150097-18020-1-git-send-email-Prike.Liang@amd.com>
-In-Reply-To: <1645150097-18020-1-git-send-email-Prike.Liang@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-18T02:26:53Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=756bc974-8e4a-40ba-bbd4-a93f81b1504a;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-02-18T02:26:53Z
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
- Only-AIP 2.0
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 318d7b48-4c07-4652-b4bf-3be0a5e992d0
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 5fb43fea-209a-4765-f1ff-08d9f2862256
-x-ms-traffictypediagnostic: DM6PR12MB3370:EE_
-x-microsoft-antispam-prvs: <DM6PR12MB33703DFDD110B8BF08B59B41F0379@DM6PR12MB3370.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1051;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: +jsQrimghQu2J3oOm7G3ZaNf0eVEc3r5in2aIVS28R0lFJH70Usbqe9Jj3w4wC+bBVDwWnZskmCGFLblG4+6hPMAtNkIhAjF5MhsL+LakX8Jjy45jMu/6dVd7376LWfd8jZuIVOi8lOwsjI2xsPIukywuKE6qhLO0EtfHkAYLZYaWouc0INHG1mu8WhNXIPG+nxwQwKzlOG/K6NFn/l1Hqe9rkOdOj6PGH8jEJsIfw4z7NYDZZk7lIWFR6H6n66H2UJjJ65t0tldBo8aQl1U/3Xrft5JqbpMzBVWXBKi2fj9poFxtWpGnhHbbgOvO2ndyW21k0qaGj82h/kHVS92lmPAGikYk+Q0VALdV3rkzP5Vy1ynE7sRmwzHGcqGCkQAzEUKAy4QfoQgruvJuOkoaWj2rYOjgJnk7y74gi/ExEerb7gWOh+DECIonA4qOLp7bG757bt9xUavZl8RtmZKRp+GWNFnBX/FCl272zX5tmq7JfPyoM7CWKkOo/yJvX4y1olmRQd7TNpboVGnEEFBgYBBmeBCHY1LansIAtimW8haNtYokQhy8qu3Xtj10I9uy27dqVQU9nSP3sonVybdjom3UJvU1CDXDGpKEQBTK4mncpai4ecubN8O0zYKZhdMDnPsACqAsLZQjqjdChs3c3MZjuT7b9X4yqYyhxkJK+NayfIOkydOVDrOhLbSTwVWy1V28lraZdPgiUD4PJcpZQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5237.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(38070700005)(122000001)(6506007)(26005)(55016003)(7696005)(52536014)(9686003)(53546011)(33656002)(38100700002)(71200400001)(508600001)(2906002)(316002)(83380400001)(86362001)(8676002)(76116006)(8936002)(66946007)(186003)(66556008)(66446008)(66476007)(110136005)(54906003)(64756008)(4326008)(5660300002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?khVjcoREWTZT2r5pHfGCNYF2hz3wWftZUoAZYNzOP+4NgQy2Q9/2B3gxv2cl?=
- =?us-ascii?Q?VLhaw27jeiYSxtuHd1JlFiT6PYHdTaDapVfmOyv3Zw6HIE6oyVe82/JVtxZ7?=
- =?us-ascii?Q?51fSWsVkPVV8AE8tCKuw/GGwo1dztsq3SW1ix60JWdF0zWgxqzN9FaDI1/BA?=
- =?us-ascii?Q?XMPt3RCHpZwrzu2HiDsfLqFoa2kQoYQR9q/VZ4kKrSIyh5whGpUCBbQ1EmjI?=
- =?us-ascii?Q?zSgY9jHFIVf01a9cR3pcMv5d31WLOU/Qy2Ex71L7KU/ZMOniOU1ZGihJikrf?=
- =?us-ascii?Q?HfjbMFxomi403LT0RfESQxIsXotHqBwXl36YrGbPhmfDfoKiwuu+C2q+msaa?=
- =?us-ascii?Q?9IgtVfRRY2+yFyIKdTyNEoaQXA/WssH2yxgpyhp/rShnVcnAaTYND1DyozTj?=
- =?us-ascii?Q?hu1TDzOb+4vSM433wIRxc771Cce6m+xj/5bUSemwnBRNQbUh8ilwJvSbXrfj?=
- =?us-ascii?Q?ADni7qybZy6pH1Fbq+fpvn2O2aodXvgNsQibnCbOP3ckcBkKpYPm3atZTSU+?=
- =?us-ascii?Q?X0bcqJPMMd41DbvmErHilKMR4iTySM2Zx/8sviILTUpKRK85IvxiZ+XIz+U6?=
- =?us-ascii?Q?yKDpLVKNiORZRz5ge92moRtCRYLzR9wiLxTjkv/2X3wHX6tg2yT5TiAds2ci?=
- =?us-ascii?Q?dCuxw3SAGXB2YrcIPu+0h61WrBcJtMEP4S+hf8lHQxpqEeHOWZ8z1RAU+t9b?=
- =?us-ascii?Q?vb7FXAs3jfWCp5S9oYSvj8iGdPkmYUs+gflD34H+evygm6uQqk84+qB0os8p?=
- =?us-ascii?Q?qPbK5vkXnuN7AYyrdwXaWxzK6/DS2spgbk8zah9Pxk5ZRQ7uqIGqwrpw5lOt?=
- =?us-ascii?Q?BtTqv+zaNmS0gu/Z4WmRJ5I5h6hQZvbMOVcKB0mYNEBaYw0e2BpdLeGyeMOS?=
- =?us-ascii?Q?W8weazoOlpm4j+4ggbC9Qe3nbmCHT6XSGCVtMz3On/poBU5bkvz+cw9SCrIw?=
- =?us-ascii?Q?oywwcfxxe3TGFruWJ6+WitULXWqYSa9thZko7/eyzinoedhWOzg28RoUeepW?=
- =?us-ascii?Q?4xw9CJKhiMd9TehqqbhL6ne9/ujaoUMx0+0oxT/1NTWSQU9WQ8l3iJf+uEbm?=
- =?us-ascii?Q?JNnhAZNm+x6el2dQhX+Un2/0W/u8cKMd01yERLYGgA67ftOIcX5c53RN+v3v?=
- =?us-ascii?Q?31lxw1F+DlZCa3Ci3wdHDBI2VfvB6EIQk8sSY8esMC/vyNGd6nmykvTbll1g?=
- =?us-ascii?Q?d4gQjI7S3KOAJ6Qnk6LEPl3WBUDPuCUAD6UkODlwEVUw+bqs8pcxBx/ZC0fG?=
- =?us-ascii?Q?4zKNkfwYUc7BYnrjrDSGF3e2dUXcGAsRHNKUE/8wIjiEfQLE3BFJ1oWpEyEa?=
- =?us-ascii?Q?6ZCYqwFYjboaaiLattM0pM9s4hd+PD1v1NeIkbtg5d8EUjAz7cBw285DhwT3?=
- =?us-ascii?Q?w/10IKSOqOhHOmHpzNiNL3PlxmfpiDB8Sj4K8lO7FyTM3YWk+Ekva/qfU9Sv?=
- =?us-ascii?Q?1y6LDiyTSIPkkxKQr6ylX++MQCfDy265HcuaRvoZKk/SexYkllyZRe6n0nJn?=
- =?us-ascii?Q?8Zu2oTKRxE1t+X4z7MovjkrQtQwAIB6GMJs1WAXEJPBXPoA9V3HYFn0yMJ7u?=
- =?us-ascii?Q?Clgn+jf3Kz/ioYoBmIU=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93C9B10E9F8;
+	Fri, 18 Feb 2022 03:08:32 +0000 (UTC)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BA5110E9F8;
+ Fri, 18 Feb 2022 03:08:31 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ l12-20020a0568302b0c00b005a4856ff4ceso1077004otv.13; 
+ Thu, 17 Feb 2022 19:08:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=7NtFuMkC0v+umA0r2Z9wwdYfloaxCJo3MlkADJvxZNU=;
+ b=SXJMDJViICup6JW1yK7qoZkGrOxj2/lnPdz13+a6GFTIAGDvuPzkKofUo2xG6GuoR0
+ TrYYJMw6ipmoGl6xHR/eDY3PynqYNE+KZ3gmnJUXs3wq4K3+/MsQsqaUt0gscKt/mTI0
+ X0JztZ2AUSTRU/bRvWUyIb/GxLIGAaj0RfD3x7xeD0JJFGy3g3E4eTe4FoJWGvAf6ZUA
+ jE0YdzHRyZnx6BZyw2CwNXMNUyiGJpgE4p+2Z9IG2T0kNZgU96vw0QkFtlTJI8GKQi/W
+ a7N31YN/tIjdEo1Evd4yMBplL91hQdAgx0juJoMODcyU4ksb3w7eLD+bQBThJskaf9Up
+ TJew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=7NtFuMkC0v+umA0r2Z9wwdYfloaxCJo3MlkADJvxZNU=;
+ b=xY/n0orM3BigZ6x6gT+ukUpvg9sbNLmKlFHxL9TF+YZzUbl6yxzbpmRSvrBIbYvZmj
+ mSYU8N+s/z4z2ef92y9JiJCOmPntYozv4F313lqjo4eCCIZgn+3fDDM5hX4v6W8EcAWk
+ YMakxDcAD5mOSulRsglzkeCKBCI/hYbhXsf7NkSbTJYXVF/IjiD2zq87FEnPLVeWdWxo
+ HR9Orel+JYiTRIEuI46MEqyEXd2s04/rjHXfxlQVT9FI3YOFj1YVlR9wq9mCDu4y5GLO
+ zHrjzlXX3NPusM0CWF64e98Q5fRvyQp74vVxO9qN1t5pAjI2l9t53h73ijWkCnTW588M
+ GR8g==
+X-Gm-Message-State: AOAM531YkVWi6u8Q4vW75o6APvcnwlJ6ceHy9fFQh4KDCO67GTjBdvo4
+ F0sK+PoaHlVNEmVTPAZKqAqEleul/M8EuVfqk5M=
+X-Google-Smtp-Source: ABdhPJy+HKsYdlrtET3RMKtN7jSsmxokjX0+qXeY3PfQvy9JLMrgmsvCt9foGefr2crXrDSrEeTZOKad7+5MjqRb7Xc=
+X-Received: by 2002:a05:6830:401a:b0:5a4:c82a:bc53 with SMTP id
+ h26-20020a056830401a00b005a4c82abc53mr1932169ots.214.1645153710695; Thu, 17
+ Feb 2022 19:08:30 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5237.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fb43fea-209a-4765-f1ff-08d9f2862256
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Feb 2022 02:26:56.4504 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Y160/hikXwEul6eH5lu7fmHEA0Ov5gjDwOq9uCXR8dxn+rvrinPhFTFrSt7rnT/4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3370
+References: <20220217090440.4468-1-qiang.yu@amd.com>
+ <5d3fdd2c-e74a-49f4-2b28-32c06483236f@amd.com>
+ <CAKGbVbtLTBJPF5eTu4rABUTBa8eqjQvqjo1AEUrzgPgYgCREuA@mail.gmail.com>
+ <dac70c05-e712-d2e3-2267-278380895f1e@amd.com>
+ <CAKGbVbvtLbDiKrX80-dMnipdLkTE+FP=g_mx37e12fuMtA1Y4Q@mail.gmail.com>
+ <ca27a9c6-f390-a938-dd66-ac23f3b44dc4@amd.com>
+ <CAKGbVbv4UFCybS_OFj5UkDgevbrB5qe3pv+0nHv9WdefYhy6Ww@mail.gmail.com>
+ <6711073b-8771-5750-33f7-b72333b411c6@amd.com>
+In-Reply-To: <6711073b-8771-5750-33f7-b72333b411c6@amd.com>
+From: Qiang Yu <yuq825@gmail.com>
+Date: Fri, 18 Feb 2022 11:08:18 +0800
+Message-ID: <CAKGbVbvR+msXjrsXmDM8QTmsCP03hL5-q5CTJBYu4mm=NQd01A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: check vm bo eviction valuable at last
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,49 +71,281 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Huang,
- Ray" <Ray.Huang@amd.com>
+Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, linaro-mm-sig@lists.linaro.org,
+ Qiang Yu <qiang.yu@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+On Thu, Feb 17, 2022 at 8:22 PM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 17.02.22 um 11:58 schrieb Qiang Yu:
+> > On Thu, Feb 17, 2022 at 6:39 PM Christian K=C3=B6nig
+> > <christian.koenig@amd.com> wrote:
+> >>
+> >>
+> >> Am 17.02.22 um 11:13 schrieb Qiang Yu:
+> >>> On Thu, Feb 17, 2022 at 5:46 PM Christian K=C3=B6nig
+> >>> <christian.koenig@amd.com> wrote:
+> >>>> Am 17.02.22 um 10:40 schrieb Qiang Yu:
+> >>>>> On Thu, Feb 17, 2022 at 5:15 PM Christian K=C3=B6nig
+> >>>>> <christian.koenig@amd.com> wrote:
+> >>>>>> Am 17.02.22 um 10:04 schrieb Qiang Yu:
+> >>>>>>> Workstation application ANSA/META get this error dmesg:
+> >>>>>>> [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO_VA =
+(-16)
+> >>>>>>>
+> >>>>>>> This is caused by:
+> >>>>>>> 1. create a 256MB buffer in invisible VRAM
+> >>>>>>> 2. CPU map the buffer and access it causes vm_fault and try to mo=
+ve
+> >>>>>>>        it to visible VRAM
+> >>>>>>> 3. force visible VRAM space and traverse all VRAM bos to check if
+> >>>>>>>        evicting this bo is valuable
+> >>>>>>> 4. when checking a VM bo (in invisible VRAM), amdgpu_vm_evictable=
+()
+> >>>>>>>        will set amdgpu_vm->evicting, but latter due to not in vis=
+ible
+> >>>>>>>        VRAM, won't really evict it so not add it to amdgpu_vm->ev=
+icted
+> >>>>>>> 5. before next CS to clear the amdgpu_vm->evicting, user VM ops
+> >>>>>>>        ioctl will pass amdgpu_vm_ready() (check amdgpu_vm->evicte=
+d)
+> >>>>>>>        but fail in amdgpu_vm_bo_update_mapping() (check
+> >>>>>>>        amdgpu_vm->evicting) and get this error log
+> >>>>>>>
+> >>>>>>> This error won't affect functionality as next CS will finish the
+> >>>>>>> waiting VM ops. But we'd better make the amdgpu_vm->evicting
+> >>>>>>> correctly reflact the vm status and clear the error log.
+> >>>>>> Well NAK, that is intentional behavior.
+> >>>>>>
+> >>>>>> The VM page tables where considered for eviction, so setting the f=
+lag is
+> >>>>>> correct even when the page tables later on are not actually evicte=
+d.
+> >>>>>>
+> >>>>> But this will unnecessarily stop latter user VM ops in ioctl before=
+ CS
+> >>>>> even when the VM bos are not evicted.
+> >>>>> Won't this have any negative effect when could do better?
+> >>>> No, this will have a positive effect. See the VM was already conside=
+red
+> >>>> for eviction because it is idle.
+> >>>>
+> >>>> Updating it immediately doesn't necessarily make sense, we should wa=
+it
+> >>>> with that until its next usage.
+> >>>>
+> >>>> Additional to that this patch doesn't really fix the problem, it jus=
+t
+> >>>> mitigates it.
+> >>>>
+> >>>> Eviction can fail later on for a couple of reasons and we absolutely
+> >>>> need to check the flag instead of the list in amdgpu_vm_ready().
+> >>> The flag only for both flag and list? Looks like should be both as
+> >>> the list indicate some vm page table need to be updated and could
+> >>> delay the user update with the same logic as you described above.
+> >> I think checking the flag should be enough. The issue is that the list
+> >> was there initially, but to avoid race conditions we added the flag wi=
+th
+> >> separate lock protection later on.
+> >>
+> > But list and flag does not align always, there are cases like
+> > list-empty/flag-set (this problem) and list-non-empty/flag-unset (non-v=
+m bo
+> > eviction). If only check flag list-non-empty/flag-unset change behavior=
+.
+>
+> Yeah, but I think that the flag unset list-non-empty case would be
+> correctly handled if we only test the flag.
+>
+> In other words we can update the page tables as long as they are not
+> partially or fully evicted and that's not the case when non-vm BOs are
+> evicted.
+>
+This sounds like two standard for the same thing, because this problem
+does not evict page tables too. But I see your point is:
+There's a difference that this problem's case can make sure vm is idle,
+and we prefer to delay vm updates when vm is idle.
 
-Reviewed-by: Aaron Liu <aaron.liu@amd.com>
+If so, why not just stop user vm update by checking vm busy in
+amdgpu_gem_va_ioctl() to skip amdgpu_gem_va_update_vm()?
 
---
-Best Regards
-Aaron Liu
+Then we can keep the evicting flag accurate (after solving your
+concern for this patch that eviction may fail latter by further delay
+the flag update after eviction success).
 
-> -----Original Message-----
-> From: Liang, Prike <Prike.Liang@amd.com>
-> Sent: Friday, February 18, 2022 10:08 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Aaron
-> <Aaron.Liu@amd.com>; Huang, Ray <Ray.Huang@amd.com>; Liang, Prike
-> <Prike.Liang@amd.com>
-> Subject: [PATCH] drm/amdgpu: enable TMZ option for onwards asic
->=20
-> The TMZ is disabled by default and enable TMZ option for the IP discovery
-> based asic will help on the TMZ function verification.
->=20
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index 956cc994ca7d..2cbb8c432168 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -581,6 +581,7 @@ void amdgpu_gmc_tmz_set(struct amdgpu_device
-> *adev)
->  	case CHIP_NAVI12:
->  	case CHIP_VANGOGH:
->  	case CHIP_YELLOW_CARP:
-> +	case CHIP_IP_DISCOVERY:
->  		/* Don't enable it by default yet.
->  		 */
->  		if (amdgpu_tmz < 1) {
-> --
-> 2.17.1
+Regards,
+Qiang
+
+
+> Regards,
+> Christian.
+>
+> >
+> > Regards,
+> > Qiang
+> >
+> >> Regards,
+> >> Christian.
+> >>
+> >>> Regards,
+> >>> Qiang
+> >>>
+> >>>> Regards,
+> >>>> Christian.
+> >>>>
+> >>>>> Regards,
+> >>>>> Qiang
+> >>>>>
+> >>>>>> What we should rather do is to fix amdgpu_vm_ready() to take a loo=
+k at
+> >>>>>> the flag instead of the linked list.
+> >>>>>>
+> >>>>>> Regards,
+> >>>>>> Christian.
+> >>>>>>
+> >>>>>>> Signed-off-by: Qiang Yu <qiang.yu@amd.com>
+> >>>>>>> ---
+> >>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 85 ++++++++++++++-=
+----------
+> >>>>>>>      1 file changed, 47 insertions(+), 38 deletions(-)
+> >>>>>>>
+> >>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_ttm.c
+> >>>>>>> index 5a32ee66d8c8..88a27911054f 100644
+> >>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >>>>>>> @@ -1306,45 +1306,11 @@ uint64_t amdgpu_ttm_tt_pte_flags(struct a=
+mdgpu_device *adev, struct ttm_tt *ttm,
+> >>>>>>>          return flags;
+> >>>>>>>      }
+> >>>>>>>
+> >>>>>>> -/*
+> >>>>>>> - * amdgpu_ttm_bo_eviction_valuable - Check to see if we can evic=
+t a buffer
+> >>>>>>> - * object.
+> >>>>>>> - *
+> >>>>>>> - * Return true if eviction is sensible. Called by ttm_mem_evict_=
+first() on
+> >>>>>>> - * behalf of ttm_bo_mem_force_space() which tries to evict buffe=
+r objects until
+> >>>>>>> - * it can find space for a new object and by ttm_bo_force_list_c=
+lean() which is
+> >>>>>>> - * used to clean out a memory space.
+> >>>>>>> - */
+> >>>>>>> -static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_ob=
+ject *bo,
+> >>>>>>> -                                         const struct ttm_place =
+*place)
+> >>>>>>> +static bool amdgpu_ttm_mem_eviction_valuable(struct ttm_buffer_o=
+bject *bo,
+> >>>>>>> +                                          const struct ttm_place=
+ *place)
+> >>>>>>>      {
+> >>>>>>>          unsigned long num_pages =3D bo->resource->num_pages;
+> >>>>>>>          struct amdgpu_res_cursor cursor;
+> >>>>>>> -     struct dma_resv_list *flist;
+> >>>>>>> -     struct dma_fence *f;
+> >>>>>>> -     int i;
+> >>>>>>> -
+> >>>>>>> -     /* Swapout? */
+> >>>>>>> -     if (bo->resource->mem_type =3D=3D TTM_PL_SYSTEM)
+> >>>>>>> -             return true;
+> >>>>>>> -
+> >>>>>>> -     if (bo->type =3D=3D ttm_bo_type_kernel &&
+> >>>>>>> -         !amdgpu_vm_evictable(ttm_to_amdgpu_bo(bo)))
+> >>>>>>> -             return false;
+> >>>>>>> -
+> >>>>>>> -     /* If bo is a KFD BO, check if the bo belongs to the curren=
+t process.
+> >>>>>>> -      * If true, then return false as any KFD process needs all =
+its BOs to
+> >>>>>>> -      * be resident to run successfully
+> >>>>>>> -      */
+> >>>>>>> -     flist =3D dma_resv_shared_list(bo->base.resv);
+> >>>>>>> -     if (flist) {
+> >>>>>>> -             for (i =3D 0; i < flist->shared_count; ++i) {
+> >>>>>>> -                     f =3D rcu_dereference_protected(flist->shar=
+ed[i],
+> >>>>>>> -                             dma_resv_held(bo->base.resv));
+> >>>>>>> -                     if (amdkfd_fence_check_mm(f, current->mm))
+> >>>>>>> -                             return false;
+> >>>>>>> -             }
+> >>>>>>> -     }
+> >>>>>>>
+> >>>>>>>          switch (bo->resource->mem_type) {
+> >>>>>>>          case AMDGPU_PL_PREEMPT:
+> >>>>>>> @@ -1377,10 +1343,53 @@ static bool amdgpu_ttm_bo_eviction_valuab=
+le(struct ttm_buffer_object *bo,
+> >>>>>>>                  return false;
+> >>>>>>>
+> >>>>>>>          default:
+> >>>>>>> -             break;
+> >>>>>>> +             return ttm_bo_eviction_valuable(bo, place);
+> >>>>>>>          }
+> >>>>>>> +}
+> >>>>>>>
+> >>>>>>> -     return ttm_bo_eviction_valuable(bo, place);
+> >>>>>>> +/*
+> >>>>>>> + * amdgpu_ttm_bo_eviction_valuable - Check to see if we can evic=
+t a buffer
+> >>>>>>> + * object.
+> >>>>>>> + *
+> >>>>>>> + * Return true if eviction is sensible. Called by ttm_mem_evict_=
+first() on
+> >>>>>>> + * behalf of ttm_bo_mem_force_space() which tries to evict buffe=
+r objects until
+> >>>>>>> + * it can find space for a new object and by ttm_bo_force_list_c=
+lean() which is
+> >>>>>>> + * used to clean out a memory space.
+> >>>>>>> + */
+> >>>>>>> +static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_ob=
+ject *bo,
+> >>>>>>> +                                         const struct ttm_place =
+*place)
+> >>>>>>> +{
+> >>>>>>> +     struct dma_resv_list *flist;
+> >>>>>>> +     struct dma_fence *f;
+> >>>>>>> +     int i;
+> >>>>>>> +
+> >>>>>>> +     /* Swapout? */
+> >>>>>>> +     if (bo->resource->mem_type =3D=3D TTM_PL_SYSTEM)
+> >>>>>>> +             return true;
+> >>>>>>> +
+> >>>>>>> +     /* If bo is a KFD BO, check if the bo belongs to the curren=
+t process.
+> >>>>>>> +      * If true, then return false as any KFD process needs all =
+its BOs to
+> >>>>>>> +      * be resident to run successfully
+> >>>>>>> +      */
+> >>>>>>> +     flist =3D dma_resv_shared_list(bo->base.resv);
+> >>>>>>> +     if (flist) {
+> >>>>>>> +             for (i =3D 0; i < flist->shared_count; ++i) {
+> >>>>>>> +                     f =3D rcu_dereference_protected(flist->shar=
+ed[i],
+> >>>>>>> +                             dma_resv_held(bo->base.resv));
+> >>>>>>> +                     if (amdkfd_fence_check_mm(f, current->mm))
+> >>>>>>> +                             return false;
+> >>>>>>> +             }
+> >>>>>>> +     }
+> >>>>>>> +
+> >>>>>>> +     /* Check by different mem type. */
+> >>>>>>> +     if (!amdgpu_ttm_mem_eviction_valuable(bo, place))
+> >>>>>>> +             return false;
+> >>>>>>> +
+> >>>>>>> +     /* VM bo should be checked at last because it will mark VM =
+evicting. */
+> >>>>>>> +     if (bo->type =3D=3D ttm_bo_type_kernel)
+> >>>>>>> +             return amdgpu_vm_evictable(ttm_to_amdgpu_bo(bo));
+> >>>>>>> +
+> >>>>>>> +     return true;
+> >>>>>>>      }
+> >>>>>>>
+> >>>>>>>      static void amdgpu_ttm_vram_mm_access(struct amdgpu_device *=
+adev, loff_t pos,
+>
