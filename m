@@ -4,119 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A00BC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 16:32:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23689C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 16:39:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A176610F2E4;
-	Fri, 18 Feb 2022 16:32:27 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2064.outbound.protection.outlook.com [40.107.223.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D10F210F2E2;
- Fri, 18 Feb 2022 16:32:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D97B10E250;
+	Fri, 18 Feb 2022 16:39:10 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AB7610E1F0;
+ Fri, 18 Feb 2022 16:39:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TICDcrbOcSyStsNsfSKAjMDl3yFuNvpckhBpz8pAvy8s3ss+KdFhuYG+8OdaC0YrmFD2H9KamgsoG/YY1Qs+9KntlNIjP5RlQHR6SMtPIG6fe4oKL4FjEhNsBhUf+o28AD5ZgGOsPkRnbz5j/sNpzM/90xg1CwP6r6PF0TlZHFDGlcNdIWsey+RYYLRzD1JcacH+b8P5d9s+RB2UKwE/VteBV8AYMtk5gDUL0EJFF9XscMGU6pjm7MR2ic2e9t0LXQtx/AuJCACNU3fhhLmlu9KINV80ZYM3Zlt3NHPqibOekkuROJr2OCZCmab6s5Wsl0iZt5Ec05j70HQNzJRkZg==
+ b=L5F7le7eREqrop8ZcIdsfsQzhY7lk+0bETgrrau/6FHhd9z3gkO8r3aTmYLbBGRMK+HQe9IipsDOOXKB0kjyh+KlEUNalxDe8UC4R/mnldr6w2vX2TevRfluWYZ5etMmo/nBhdovWjqCLQL/mtfmvw6VsvN10mv4QvjaHDVVonDwj1GUivIdHL5siBaSMcb4ucC4AV816+EBeRFrLS0Y/Xoo9czIohEnkwYKPOh+j3CnkYplcv6IigoTBcvKsvpNQD5Mo391ndQPBqj94gKgtq6gtO7YHIBirLM0JwcWjq9DK2rG0SgJzS1rTBQWpBqkmra4xoGi/ugykyWEiS3zgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fqj0bwuaonPmDUZx/zK0P+rN+SycqmYHYTwJ1mWBGk8=;
- b=jYbophevz+CgBwjExaiMhdJwPV89ZhTo8/5qnevbBEvul4T98o+LdgpJLMTwx7cnZDbsbfVFo7iTEcG847ck6Rusv2N3A5SrXpvvcSSGgGRXsYQF7uDyTxa0z6lH4bZY2YRF6sQP1k7UP17GX1BFjnGOB0jioTtSP13IKBdlM/vklz34Km4KuHHFQzm70EdEU9f/2SkxnBd2NFzEif905ty09BAvE3oV+hI8HWXdxeF2PyfGdO+TqrsFjV3fEnvxB8/QroNDPGEWokiFuoFfp+Q0XjFQYjkBAp+px4qo0+eSKW5KWoIHwV8CUiUKi9r1/20I+el0T0GdmK5qE0rBzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=U8K4nHhF3MUtPwGga/Rwo8zRVwIJcrjcAIiAlEDOjaQ=;
+ b=kseZo0Oxq3FYdxKVdaO7GQhc+9vRVJvsMGoADOufNKXxi9+X7m1MkKlSjWOaVZDzOxdxW//gU1IFZFaaMcAyk52PoFA4dw/judQHpNw/fiV5aCgRLPKdxW8PsQRDhcGGymqRlTwOHbQprRSMhBH7Ieu56ulos46MYBp6Dlf+bTbMofwGv9SK2oXR8agBbj9Vr97l49S9CmICCJ5/eC/+JKTLp4nS+T0OXqTSZy5CH5EsEErJoYXYgSIBMTXJr5BWWmB76dP4g/JGtqWe00+u+Bf9RWsiO/EK2SNpU4vPlf7RQglyAeAnPNCUyQzl6bFA+1g00UcJYWgxu+jpqCuMLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fqj0bwuaonPmDUZx/zK0P+rN+SycqmYHYTwJ1mWBGk8=;
- b=VrUzqffx9fVKoCxwkPvJE4A8YlTwqS0bXrhIAYjzD0eg0asoMexVQtgXwx4+wmobXxIMGOIOl5X2oYbGDv5+mp2pMyIJTUF5V0BUuBzV5K6qB+mJqovtDrnqyrkDRKjbsPyD7d/XzBU4ao5ps5Nzhl/PDCxyuHaxJBTqIfnNFro=
+ bh=U8K4nHhF3MUtPwGga/Rwo8zRVwIJcrjcAIiAlEDOjaQ=;
+ b=io4QpOdoMs9A+D6vWx3lQTOI84Me4sE5eq9ZKTVZQFnKBHgI+ImLPdd9tFbcbhj8ErqY/cBXmIiQJ2Oez8K+eL9sspD9G4tcKDRNFhWerxDiStVnBrGrjoJb0a0bzA4XGuXofIT0ihCv06lIKihgyB2XD/Jlq1rqM9WD1ptRI30=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by BN8PR12MB3140.namprd12.prod.outlook.com (2603:10b6:408:67::30) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Fri, 18 Feb
- 2022 16:32:23 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::192:5346:4ece:7ca3]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::192:5346:4ece:7ca3%4]) with mapi id 15.20.4995.016; Fri, 18 Feb 2022
- 16:32:23 +0000
-Message-ID: <b3f6777d-7a0d-3109-9312-8059e6ba8e3a@amd.com>
-Date: Fri, 18 Feb 2022 11:32:19 -0500
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DS7PR12MB5886.namprd12.prod.outlook.com (2603:10b6:8:79::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4975.11; Fri, 18 Feb 2022 16:39:08 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::38ec:3a46:f85e:6cfa]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::38ec:3a46:f85e:6cfa%4]) with mapi id 15.20.4995.016; Fri, 18 Feb 2022
+ 16:39:08 +0000
+Message-ID: <ef8eee23-ba8c-e76a-d32d-68658841708d@amd.com>
+Date: Fri, 18 Feb 2022 11:39:05 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH 04/22] drm/amdgpu: Use drm_mode_copy()
+ Thunderbird/91.5.0
+Subject: Re: [PATCH 1/4] drm/amdgpu: Fix compilation under UML
 Content-Language: en-US
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
- <20220218100403.7028-5-ville.syrjala@linux.intel.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20220218100403.7028-5-ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
+To: David Gow <davidgow@google.com>, Jeff Dike <jdike@addtoit.com>,
+ Richard Weinberger <richard@nod.at>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Brendan Higgins <brendanhiggins@google.com>,
+ Randy Dunlap <rdunlap@infradead.org>
+References: <20220218075727.2737623-1-davidgow@google.com>
+ <20220218075727.2737623-2-davidgow@google.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220218075727.2737623-2-davidgow@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0253.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:68::15) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+X-ClientProxiedBy: YT3PR01CA0039.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:82::16) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2ea49e09-312e-4fe7-be52-08d9f2fc3d8a
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3140:EE_
-X-Microsoft-Antispam-PRVS: <BN8PR12MB314076F6AB0CD4B0B0400BC08C379@BN8PR12MB3140.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: e5f41edb-2fa2-47b6-f61c-08d9f2fd2f49
+X-MS-TrafficTypeDiagnostic: DS7PR12MB5886:EE_
+X-Microsoft-Antispam-PRVS: <DS7PR12MB58867608D812DC6B688EB29192379@DS7PR12MB5886.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: m7B8zKYlJlgGh8BO2GbLp+bU+sRN2aAPYwbye+GSeRDzLqBSFlN0XFk6GyTHhf91lvo91Lr+9eEULlN18BqFdlGweA+WiJ2RTKdDMUW77s4Mav9G2MTf5eJjVE4/lHhcDDCMos4m4ugI2elNCa9EJw5UpbNQ4uyeeMBgSEGdApPEBdmL9ikEmMfMbsclfxnwj9liO/WZifYSMBRwiRDWREpDgsr3UQ+cENZPXS/YAWYG/nmybPotaZEUPwGc/X43An4IIo5xNLd+iMjr1Kg9S45gxtKTII0bwB2wlHIbkOLXBqnA0oTPNIieCcd7EIdzdsmkEhYizuwwIvDRFwK9DV7L1H0ulrb7I4RMvtUP2Vty9g9e38T7iZtthHw+DPUkGGi8eE+KAd8q45kisNYNplWbopR8+4CSi/GDXKAKerDzgRc1vHDymQUWJC7prhDZowSYCZxVPayziOli2vRoO9t3hAiztJLaTOvYTXfVpfJFmSSd9jQaOXAB/O0UkNqn5G3F79rzQtd98RgfQwKk4ilM6ZCtkX0ugRoqaiRq0LmC8Bk8kP9q3Wj6Sl+iEDVp6tRTOyfdG6MCN2YLKo5LLK5hUuEP8e5h+L0RKkm1kH33gHTVMZ2+/Z7i9/mFlK2gwRq0iI6NaPWmyZDAg7p2Cp+Ffq2N+ZjjvI+jcGt2UNHdQQh/9YoOAtwLbgVkMvgB2FNDsIN43xfbak1I5LcC6RiDTyHSw1yPeh0VfvCR5ntNWxEEwrYbdHgwGUx09CAZ
+X-Microsoft-Antispam-Message-Info: hQDQLpEIC4kW/aO8RI3YuutEkW/NVAJceC/3IqLTGiMjlCm/sSKjsBUm8ZQ2PDl+lUJQ4ZUqbVaMNOiL9ldg6LOUYoWkSHrHTi5I/ozldfAWXVB+cz4/iKG4R/d2TohPG5Yc1ocyUzZLrl1FM/fub3F5fteLfs9+aU/IohZQ19WvigSRE407mWDDjJPwGwaBKPGZzG2SdBhOmbbt8MlXL8ZNrWdavKgw6SRwKma9wQdAFRneXeMBhyPM/hWWadpRLX0lmIAyiy0T4h/tNFNEHG6kBYd4ivLF4RlbVQXSYTaOPZvzuD/GPbt6MdN5VfesTzLp/+mPS3dm4aF0WZsUXMfo2tyr/eD+ktSqJImMeFq5zKM6H6z+DA2LynL1vuxxNQmWB85NDGC4ry+39Asbqg/G3FdoxDFeQIf1mID0QVVwa645eV4xnp3GKhsLLtTzdst+pAH8QVINDA3nVTqT7juoCq8jQuFwx+xkHxLqjFSoZifXe8tD4OPXb2aZMSodWhubKWI/M6zkJbRjI2+omRGgW8aCwQLFM2erSGpZCNqG4mOSsHuv0B4l0HrDKOTEeXEADnZuZXVqRF+rBBE4j0OhNiwlkkHvMOSyf0+Rjqa8Gl0+UTFjYtzxi3bz+R4SSpv6P1jv3ATAUL3LtsyPfbXJMTEaqsFrUbqEwbN3JKT2pfAOzkFHRiLwPm4K/Rv/ZIi78+KiQl10DHId1UrkHfNYoUhUTaEmDz0RytGtcczkXHlWoCcTZyZsJUf6O3YlH3Sp7JXvvE4UcbFaa1gEtDBVEBO8AEhp2sseWwGiNd4HxsUZqSLNnpzb/FF3PUPm7xzMbC9zk2p0pPAxJ6Zo4Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6506007)(5660300002)(26005)(186003)(53546011)(8936002)(2906002)(83380400001)(6512007)(6666004)(44832011)(38100700002)(31686004)(66556008)(66476007)(66946007)(4326008)(8676002)(508600001)(54906003)(316002)(6486002)(31696002)(2616005)(36756003)(86362001)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(316002)(38100700002)(36756003)(186003)(86362001)(66946007)(26005)(4326008)(966005)(66556008)(8676002)(8936002)(83380400001)(6486002)(508600001)(66476007)(6512007)(6506007)(6666004)(31696002)(7416002)(31686004)(110136005)(5660300002)(44832011)(2906002)(2616005)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmhRNmhjWWFCY1FqYzZ6YXNaa3hWL0VqSHFhdlFsczhZUHdxMTM0bmtZVGpH?=
- =?utf-8?B?WUNMSGxIQmFlR2w2SXhjaFBEMVV6ejZteVArUmJ5c3NXa3hOc0pUckd0UzUw?=
- =?utf-8?B?VWYzN01SNU9sdjEyZ05MZzNmKzRFZVMzZ2JPTGdDQ1RkRVJ0WXZmV3ZMblRq?=
- =?utf-8?B?Ris1b2x4MlVOSkRRUGVtc2JZTWtnZ3R2ZmIwMys1WGpwTnJPRlBvYVhQMnp1?=
- =?utf-8?B?b3pzcWl2L0J6dXFyNDNka2Q2Rk5wTDllaDE5ZzU1RFpOank4Yll5bUxZcHhY?=
- =?utf-8?B?MjJwd2U1b1NoYTQ0NXkrTytnSEhkUXBXTytCOUs3Uy9KTitITGhmRVBsbnh5?=
- =?utf-8?B?bmpyb2QvUnd5U1Z6VEphZmplOW1sa2ZNNlU1R3hZcGZCR1BZWWJOUEFxNlpH?=
- =?utf-8?B?RGhuSGRiT3BZaklDUVNQbklXQVZkWkhRcEF1eCtkcUdxalc0d2tNYkRRM0ta?=
- =?utf-8?B?UlVyRVd4dld4eWQ2TDJKdVFJaWJWNVFHRFYxcFRHd3FEVjd1Vzdqdm1rTWdo?=
- =?utf-8?B?czRHaE9MTHpuajYxVWdjNXZiZzBESllscUR6TnFUMG53VGN6Wk5ydzhQMEdj?=
- =?utf-8?B?d3I2MURUSmhaeS9kTGFpQ0Z6WExEbW1ualA1MC9ONWEwSjFySnhmT3U5c1ZE?=
- =?utf-8?B?M2daL0d2Y3BkeElRYnhpOGM3V0Q2ZXZWQ0hqTnZvVUNKNktLMk9mT2VZajVa?=
- =?utf-8?B?c3Z0QXNtVnViNEcrR251aFFvRkRHNE52WS9CQXZqZzB1ZEJnQ1k4QjhrYm1k?=
- =?utf-8?B?bnY3a2thbnV6R2xrWHNadElRMmdCNTIwanV3T2N2WDE0aHV2N2s5c0lIM3Vx?=
- =?utf-8?B?MkJkdkNvR2h6NzBTcTNEV0krTnNoY0RhdzlOVWZjVlFDSENQRGFQYU01am5Y?=
- =?utf-8?B?bDZYQ2doLzRHd2ZQTzJFWGxpK2taZU1xVi9hQUg3TjJtS1FDL0ZNaHJwTk9i?=
- =?utf-8?B?d0tXc3JUb0ZjQ3dOdlJDNVRRaUNZLzhNYmZLTEl6djMzRHZ3bC9BZmlvNlRJ?=
- =?utf-8?B?bllaUE9pYVE0NGNUckI1T25MQmtVODZNbXJJdkxNd0ZCZitOdVYzeDBucGtJ?=
- =?utf-8?B?NWNZWHprTmJxbE5pYk5yWFJubmY0Q2JLREdrUFYwTUp4SVNlaVYyN3B4YTBQ?=
- =?utf-8?B?RS9sVHJPRzdrWXQwWU4vKy9yOHVOVHNoSERVeXhxNG9iR3hpdEtlY01WOGFP?=
- =?utf-8?B?Vnc3b3dpZ0Ezck4wdWNLbnZiYmplUlBsSjdTeldReGdUZkp5Vk1ZSS9IODIv?=
- =?utf-8?B?WG1mMEEyS05OYTl5TXNtQ1lsVFdsUGMvbXJ3eXJsOFJOMjJrSXQvY1pwSEhT?=
- =?utf-8?B?cHkvdkZ0OWVxdVd0VDRuelh2SGtuTHROMXdEaCtOSUw5THdUZ2N6TEY0M2ND?=
- =?utf-8?B?eTBrOHdYWTF6R2ZNdnRVUElXQ1JIc3lsRmQwODZwdmNDUXRwRGMxT09VcWZn?=
- =?utf-8?B?VTU1dmc0L0NWWloybU05VURTblUvQ0dkUHVTMnh3VFprVlFnV3pmWkRobmdD?=
- =?utf-8?B?TnROaXlRYlRDUEFQSVcvTkpnM0FhbkttUllmd2tYYStzc0JEcEdtUnNGVmY4?=
- =?utf-8?B?alBhNnhWUDhTT3F4bU0yQ3IvR1lTbVQrQnY2YTQ2dnhnaENDUHprYXFWdU40?=
- =?utf-8?B?eXlZYnhURm04REZmS2VjUzNBWmhUZlFVQkE3MU5MV3hLeDM2VmRjV0ZuQlVH?=
- =?utf-8?B?MVpyNGFWc09BbUQ1Qjdkai85cjBUV2hFbytXdDBYaXFRREZKVFk4anFpNmVC?=
- =?utf-8?B?NnJabm1VODRmOXVhTDBiTktWVG9GVVNaSlhqTWZQVnF1NjdrZ00vRGR0VGdk?=
- =?utf-8?B?NnErSFJYV1k2aG1DdkY4dmJtWVJHQ2dLaVNmZFh6bzlGdmp6c2xiU2xrZzZ4?=
- =?utf-8?B?UEw4R1I1Vmw5Y2Jld1JmeGxDYnpyMmRId2pmTkNrdFJHdldNL3g2ZmlybXBN?=
- =?utf-8?B?OHFIWHZ2V0F3bEVkcis5U2x2WHBxV3VSYjNOSERsVlIrbHBQSERldGZFUk10?=
- =?utf-8?B?MkFXMHNDM1huakxZSTdmeVhQL3B3eFlHZnRreHVwUk91MTMzcUNqVnB3SXNz?=
- =?utf-8?B?cm5JRnZCaVl5RmFwNzNDVEc2S3BLUkRFc0xVWEZyNFZrd200Nis4alRrajQr?=
- =?utf-8?B?YzRVd3VGNkpPRFBvWU15Y0RrV3V6SHlRbmQxQWx2SXFzaDBMSm1wWnpMY05Y?=
- =?utf-8?Q?miyysLFWI3jZydA7jW1Ks74=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bFdpZ2ZzRXdBU0lDdjE5ZHZXQjZ0bXdSQWFXSGUzbnV0eHFkZ09lcS9YbCtq?=
+ =?utf-8?B?L09DbVI1TWxvMzdPMXhJZWc0NU1OOFdUR1BPRjZjQ09hR2lpRitBY0Y5cHhw?=
+ =?utf-8?B?ajU0azBLMDJ2YVV0Lys3dSs4R0ZMU3VIaVowVmUreUtuQ3dUUHBLREU5Z1hU?=
+ =?utf-8?B?LzMrSlVNTW8xRHBLOW1MSWRJdGpTZG9udm5yMnVDSjc4anJuRjJhMjMyWkVC?=
+ =?utf-8?B?aGUxcEMyMWpjcXdEOWtobXFnazZycWZEZWVLZWhRVUFMNkw1RzE3b3JSNnJn?=
+ =?utf-8?B?Z2RFd2Z3Zy9xU2gyaWJPbmFtc0lJU0dZZ0Nkd2RJWVRCL1dXV3lYUmNaamZL?=
+ =?utf-8?B?VHJUaitSY1E2UHFGdUFHaURDT3cxSjdaSytWNllDTEpaN1ppOTRDRTd2NnV5?=
+ =?utf-8?B?TDRRUjFyNkcvSHZyRTFkOFQvd2w4UTlyc2IzTjIrUzdDREVzbWVtNEd1UUVw?=
+ =?utf-8?B?MWVoUTNwVXhaZUdrWWpON1pxWnNTNGZtNXVkcGpVbWxwRmVocU5pTjZKYlNR?=
+ =?utf-8?B?V1plS0JpalpVenZTMEt0UW5Xd3VTSnRHSmU1ZGRIcm8vMWRGUjdtNlVlUDhB?=
+ =?utf-8?B?TnVtOVh4TlJONGt6VHg4U1REdjhKMmp2SS9JVU5FdzlNTkJzbkpnRnYxejZx?=
+ =?utf-8?B?WlZQSkJFUDVINE5FVFlYRE9sNVpranNJZnZqVnZpOVFDb1AwR0h5eU85Wlo5?=
+ =?utf-8?B?VXNhQ0FlUFcrbUYyZWdxNVJGQXpjZmZ2UUY3dWQvU3d0dWJSTlV1NHVmbHBa?=
+ =?utf-8?B?NHhkTmVHYU5aandaTDV2Tm5xcmtybk5DUTkxY1BDYUx5Qk1tcEFUSzZMT1Z5?=
+ =?utf-8?B?aGRhNEYxSGNNbVhEVVBoR0F3R0VwSFowOVEreEp3YmFJSDJkM0FvTEkwM3pZ?=
+ =?utf-8?B?V1R4YnhMWUkrekUwdml0MFlNaksvRWttUjJVSElqWVNHRzV1a0xtbDFWSzk0?=
+ =?utf-8?B?eXVzZGRUc1RnaTRHcWQvNyt4YWZtMGxTcGl2Y0pzajNId21tR1lqckhWVXdH?=
+ =?utf-8?B?M2V3MUFRb0w5dWk1anluaWFJbDlwUi9vdG5BT0ZBR3EyUUlUSGZJMlErcjl6?=
+ =?utf-8?B?WEoyYU5uY0xtblh6U0tJeDNIdmVkL3VEbnVVa2ZrWE9LZHVoc211cUFmRGdZ?=
+ =?utf-8?B?RUN3YlpHOVp5UHNobndlSnRjNEUwNTBSckh1Sm9iY1VNdlpDaUE4YWM0Z21l?=
+ =?utf-8?B?dzdUV08vYTRHdlpQbHpBZTZKYStxN2t1SVdyNGRMajNsWUNFL0tiOXQxYTZH?=
+ =?utf-8?B?d2M3N3NpK09YRmlVbnlaSzlnRlpxc0U1cTk4cWFrNUQvclVIcUxWR3hJVjJn?=
+ =?utf-8?B?cGdpdFdnY1NLTFRmOEdvTFpYNll2L2ZPWWZiUnBTMWFtOFBIUjRScGlEZzFz?=
+ =?utf-8?B?SUR6dUVXMlNEa2J5VUFiSGlESnpjWEo1OUc0ZnNkQ3VsTFZTTk9RblJ2enh5?=
+ =?utf-8?B?Y3dMRytQN3dmN3hXWXM1Vno5TGNLWEZCbGxjaTRqTGNsZlgwNE56RldBdHgv?=
+ =?utf-8?B?MjNRb0ljSlV5T2NZVy9pSmhhcnEvQVNDOFM5cmhkU1pGdUlmbDZXMFQ3Y2tC?=
+ =?utf-8?B?aC9EUm9NWVgyQ3U2MHFHd1NmT00vOHdGeGRXS3BFdEN4RGVUK2ZJZmFJSTUr?=
+ =?utf-8?B?L0JJdDRmUnEvbkdxVGpEeHJGc2hWelVtNkN2RVZTY3Y3WEdMYjIyYjVOQ2NS?=
+ =?utf-8?B?WGJzcnQxdmN3WFRJQXd0ay9tVFJlcGlkOVpIRnFyRGhjd3RCb09hZHdnU2VZ?=
+ =?utf-8?B?MmhhcGxrMGQ4ZVhSZkNSYXNlZGVwd245VUlEd1huYWJwUGZEUGdIY2FUNHpY?=
+ =?utf-8?B?UDhDVzI0ZS8yU2lNWWRVQXcxUzluSVNWdHAzUlgvcTV1bi92cVRGZUoyTXYz?=
+ =?utf-8?B?ajV3S1dEQlFMa093amh3NmVpcnhBWVJQRHNPNlVwSUkzTng1aWhwOVVuRTRJ?=
+ =?utf-8?B?MGh6RVlKU0lPamhBWnYrdy83RGJrQVFHMWRyZ1pDUVJVN1VyMkNWQmVsNlV4?=
+ =?utf-8?B?ZTBwbVh0anlndXlsaTJQL25NTmVIeTRrZ3l6bWtVazdVaTlVNnNZVHRDYTNC?=
+ =?utf-8?B?dXpLZ1diV1RxYWEzdnluS0g2UlgvR1dpYXlTU2J4anpKc1NhMmJyaWpacE1z?=
+ =?utf-8?B?NnM0NGlhMEx2bGc3emkvcTlhb2tJd3ppVVJaMXUwOEF2Y2hjTkl0V0lEdG1n?=
+ =?utf-8?Q?VFXwckF1+YS4jO4WUcmZTGo=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ea49e09-312e-4fe7-be52-08d9f2fc3d8a
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5f41edb-2fa2-47b6-f61c-08d9f2fd2f49
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2022 16:32:22.9562 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2022 16:39:08.4597 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 83M5ATXz9nbh6woWTwebF7Uwvr5JuXsvJWiUZgdfx8KeGiONcHBdIJZ8VLscB30RpDf5XiN/Ms8XiQoczizIwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3140
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ck24OJR4xwM5fo5sFpOg7/6EE7mGzMS+Zv3DWSFenVwkuTAT41zmfyrL0fp0MCJmkX/ynLJKpbU3KM5rW5J9kw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5886
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,133 +131,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- intel-gfx@lists.freedesktop.org, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: linux-rdma@vger.kernel.org, x86@kernel.org, linux-um@lists.infradead.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kselftest@vger.kernel.org,
+ kunit-dev@googlegroups.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-
-On 2022-02-18 05:03, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> struct drm_display_mode embeds a list head, so overwriting
-> the full struct with another one will corrupt the list
-> (if the destination mode is on a list). Use drm_mode_copy()
-> instead which explicitly preserves the list head of
-> the destination mode.
-> 
-> Even if we know the destination mode is not on any list
-> using drm_mode_copy() seems decent as it sets a good
-> example. Bad examples of not using it might eventually
-> get copied into code where preserving the list head
-> actually matters.
-> 
-> Obviously one case not covered here is when the mode
-> itself is embedded in a larger structure and the whole
-> structure is copied. But if we are careful when copying
-> into modes embedded in structures I think we can be a
-> little more reassured that bogus list heads haven't been
-> propagated in.
-> 
-> @is_mode_copy@
-> @@
-> drm_mode_copy(...)
-> {
-> ...
-> }
-> 
-> @depends on !is_mode_copy@
-> struct drm_display_mode *mode;
-> expression E, S;
-> @@
-> (
-> - *mode = E
-> + drm_mode_copy(mode, &E)
-> |
-> - memcpy(mode, E, S)
-> + drm_mode_copy(mode, E)
-> )
-> 
-> @depends on !is_mode_copy@
-> struct drm_display_mode mode;
-> expression E;
-> @@
-> (
-> - mode = E
-> + drm_mode_copy(&mode, &E)
-> |
-> - memcpy(&mode, E, S)
-> + drm_mode_copy(&mode, E)
-> )
-> 
-> @@
-> struct drm_display_mode *mode;
-> @@
-> - &*mode
-> + mode
-> 
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Leo Li <sunpeng.li@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-
-Harry
-
+Am 2022-02-18 um 02:57 schrieb David Gow:
+> From: Randy Dunlap <rdunlap@infradead.org>
+>
+> cpuinfo_x86 and its associated macros are not available under ARCH=um,
+> even though CONFIG_X86_64 is defined.
+>
+> This patch (and discussion) were originally posted here:
+> https://lkml.org/lkml/2022/1/24/1547
+>
+> This produces the following build errors:
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1556:9: note: in expansion of macro ‘cpu_data’
+>    return cpu_data(first_cpu_of_numa_node).apicid;
+>           ^~~~~~~~
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1560:1: error: control reaches end of non-void function [-Werror=return-type]
+>
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function ‘kfd_fill_iolink_info_for_cpu’:
+> ../arch/um/include/asm/processor-generic.h:103:19: error: called object is not a function or function pointer
+>   #define cpu_data (&boot_cpu_data)
+>                    ~^~~~~~~~~~~~~~~
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1688:27: note: in expansion of macro ‘cpu_data’
+>    struct cpuinfo_x86 *c = &cpu_data(0);
+>                             ^~~~~~~~
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:7: error: dereferencing pointer to incomplete type ‘struct cpuinfo_x86’
+>    if (c->x86_vendor == X86_VENDOR_AMD)
+>         ^~
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:23: error: ‘X86_VENDOR_AMD’ undeclared (first use in this function); did you mean ‘X86_VENDOR_ANY’?
+>    if (c->x86_vendor == X86_VENDOR_AMD)
+>                         ^~~~~~~~~~~~~~
+>                         X86_VENDOR_ANY
+>
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function ‘kfd_create_vcrat_image_cpu’:
+> ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1742:11: warning: unused variable ‘entries’ [-Wunused-variable]
+>    uint32_t entries = 0;
+>
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Signed-off-by: David Gow <davidgow@google.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 4 ++--
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
->  2 files changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> index fa20261aa928..673078faa27a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> @@ -626,7 +626,7 @@ amdgpu_connector_fixup_lcd_native_mode(struct drm_encoder *encoder,
->  		if (mode->type & DRM_MODE_TYPE_PREFERRED) {
->  			if (mode->hdisplay != native_mode->hdisplay ||
->  			    mode->vdisplay != native_mode->vdisplay)
-> -				memcpy(native_mode, mode, sizeof(*mode));
-> +				drm_mode_copy(native_mode, mode);
->  		}
->  	}
->  
-> @@ -635,7 +635,7 @@ amdgpu_connector_fixup_lcd_native_mode(struct drm_encoder *encoder,
->  		list_for_each_entry_safe(mode, t, &connector->probed_modes, head) {
->  			if (mode->hdisplay == native_mode->hdisplay &&
->  			    mode->vdisplay == native_mode->vdisplay) {
-> -				*native_mode = *mode;
-> +				drm_mode_copy(native_mode, mode);
->  				drm_mode_set_crtcinfo(native_mode, CRTC_INTERLACE_HALVE_V);
->  				DRM_DEBUG_KMS("Determined LVDS native mode details from EDID\n");
->  				break;
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index bd23c9e481eb..514280699ad5 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6318,7 +6318,7 @@ get_highest_refresh_rate_mode(struct amdgpu_dm_connector *aconnector,
->  		}
->  	}
->  
-> -	aconnector->freesync_vid_base = *m_pref;
-> +	drm_mode_copy(&aconnector->freesync_vid_base, m_pref);
->  	return m_pref;
->  }
->  
-> @@ -6432,8 +6432,8 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
->  		recalculate_timing = is_freesync_video_mode(&mode, aconnector);
->  		if (recalculate_timing) {
->  			freesync_mode = get_highest_refresh_rate_mode(aconnector, false);
-> -			saved_mode = mode;
-> -			mode = *freesync_mode;
-> +			drm_mode_copy(&saved_mode, &mode);
-> +			drm_mode_copy(&mode, freesync_mode);
->  		} else {
->  			decide_crtc_timing_for_drm_display_mode(
->  				&mode, preferred_mode, scale);
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 6 +++---
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
+>   2 files changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> index 9624bbe8b501..b1e2d117be3d 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> @@ -1682,7 +1682,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_id, int *avail_size,
+>   	return 0;
+>   }
+>   
+> -#ifdef CONFIG_X86_64
+> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
 
+I don't think it makes sense to compile a hardware device driver in a 
+UML config. Instead of scattering UML #ifdefs through our code, I would 
+recommend adding this to Kconfig:
+
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -254,7 +254,7 @@ source "drivers/gpu/drm/radeon/Kconfig"
+  
+  config DRM_AMDGPU
+         tristate "AMD GPU"
+-       depends on DRM && PCI && MMU
++       depends on DRM && PCI && MMU && !UML
+         select FW_LOADER
+         select DRM_KMS_HELPER
+         select DRM_SCHED
+
+That would address patch 2 of this series as well.
+
+Regards,
+   Felix
+
+
+>   static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
+>   				uint32_t *num_entries,
+>   				struct crat_subtype_iolink *sub_type_hdr)
+> @@ -1741,7 +1741,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+>   	struct crat_subtype_generic *sub_type_hdr;
+>   	int avail_size = *size;
+>   	int numa_node_id;
+> -#ifdef CONFIG_X86_64
+> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>   	uint32_t entries = 0;
+>   #endif
+>   	int ret = 0;
+> @@ -1806,7 +1806,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+>   			sub_type_hdr->length);
+>   
+>   		/* Fill in Subtype: IO Link */
+> -#ifdef CONFIG_X86_64
+> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>   		ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
+>   				&entries,
+>   				(struct crat_subtype_iolink *)sub_type_hdr);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index 948fbb39336e..b38fc530ffe2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -1552,7 +1552,7 @@ static int kfd_cpumask_to_apic_id(const struct cpumask *cpumask)
+>   	first_cpu_of_numa_node = cpumask_first(cpumask);
+>   	if (first_cpu_of_numa_node >= nr_cpu_ids)
+>   		return -1;
+> -#ifdef CONFIG_X86_64
+> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>   	return cpu_data(first_cpu_of_numa_node).apicid;
+>   #else
+>   	return first_cpu_of_numa_node;
