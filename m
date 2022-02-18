@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 921A9C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:04:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02FA2C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:04:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C005910EC38;
-	Fri, 18 Feb 2022 10:04:36 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6836A10EB87;
- Fri, 18 Feb 2022 10:04:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3157E10EE34;
+	Fri, 18 Feb 2022 10:04:45 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD6910ED5F;
+ Fri, 18 Feb 2022 10:04:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645178675; x=1676714675;
+ t=1645178683; x=1676714683;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ip7yh9TtqNGqyNAUmnumyaTaXv9TKkgX3VCmbjFMhFc=;
- b=GV1lrokZGa3Yvuxx60iyg+ldMrCkBlIlToYtnMTYqQ6pxqNMp4i8VTW5
- 1trpWr14dFv3ojNCmcHoj7vobv2YO+2Mi0PbXN9Nc2QMS0wi8379bePuw
- B2ebdoYQwuuB7yd+f4s4HLFHkDh4ZogF7lL4SgoRN2lg86S0t3w/4hDuK
- EMskQgye+1Iq6T61UJKAhgAj6Z5AIbaYvYbM+UgqA0ZpuRKQ/OLq5GZHq
- TaC+KaQNDggtmjIF/DO8rE35QBH+PMvT41sWoofMJbuYQBsZvi1uPHjNR
- /MARanwwjp3I12xCmA7oRZ6/qlgzEAKh/HsXtVFwu7RtSPkkLUOA3CAxX Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="337541322"
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="337541322"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 02:04:34 -0800
+ bh=gnaFiawqbtPeA4zYVazfV1H8TuJOkHMSyuVfRyekoys=;
+ b=hCPzQA8EGAKw6el/goGN+iMkaWe50oYrO12kdMK/ebpLWDeM7gobSaM/
+ wajKXMtMKiW2OUlft4cqx7l9B8UibSVVbzN35nPuBwD21sATbQzVuztv+
+ Kc/5XBi9RG2XS8lO6K2m+gL8x04+3tUqz7iUkXkjnAwaTRcbciklkzuZ7
+ VoD+8r1aVDUFN31NS0gB2vlU/uYv0laajWtsIj40WkntBd2qpJHGeVBLY
+ 3lvqdrZ3AC7178LQq08xiGCsq9osJ24W20tXRv1StL4OV7nNnB5jjvFjF
+ hVj7hkGmvbTWJNNzaP8o/ivjfMDr52Zlt8SE+r3p73apX2b4Cyt9ogu+m A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="311839771"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="311839771"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 02:04:30 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="503950870"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="572251815"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga002.jf.intel.com with SMTP; 18 Feb 2022 02:04:31 -0800
+ by orsmga001.jf.intel.com with SMTP; 18 Feb 2022 02:04:27 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 18 Feb 2022 12:04:31 +0200
+ Fri, 18 Feb 2022 12:04:26 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH 05/22] drm/radeon: Use drm_mode_copy()
-Date: Fri, 18 Feb 2022 12:03:46 +0200
-Message-Id: <20220218100403.7028-6-ville.syrjala@linux.intel.com>
+Subject: [PATCH 04/22] drm/amdgpu: Use drm_mode_copy()
+Date: Fri, 18 Feb 2022 12:03:45 +0200
+Message-Id: <20220218100403.7028-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
@@ -57,8 +57,10 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -121,17 +123,21 @@ struct drm_display_mode *mode;
 + mode
 
 Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/radeon/radeon_connectors.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 4 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
-index a7925a8290b2..0cb1345c6ba4 100644
---- a/drivers/gpu/drm/radeon/radeon_connectors.c
-+++ b/drivers/gpu/drm/radeon/radeon_connectors.c
-@@ -777,7 +777,7 @@ static void radeon_fixup_lvds_native_mode(struct drm_encoder *encoder,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+index fa20261aa928..673078faa27a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+@@ -626,7 +626,7 @@ amdgpu_connector_fixup_lcd_native_mode(struct drm_encoder *encoder,
  		if (mode->type & DRM_MODE_TYPE_PREFERRED) {
  			if (mode->hdisplay != native_mode->hdisplay ||
  			    mode->vdisplay != native_mode->vdisplay)
@@ -140,7 +146,7 @@ index a7925a8290b2..0cb1345c6ba4 100644
  		}
  	}
  
-@@ -786,7 +786,7 @@ static void radeon_fixup_lvds_native_mode(struct drm_encoder *encoder,
+@@ -635,7 +635,7 @@ amdgpu_connector_fixup_lcd_native_mode(struct drm_encoder *encoder,
  		list_for_each_entry_safe(mode, t, &connector->probed_modes, head) {
  			if (mode->hdisplay == native_mode->hdisplay &&
  			    mode->vdisplay == native_mode->vdisplay) {
@@ -149,6 +155,30 @@ index a7925a8290b2..0cb1345c6ba4 100644
  				drm_mode_set_crtcinfo(native_mode, CRTC_INTERLACE_HALVE_V);
  				DRM_DEBUG_KMS("Determined LVDS native mode details from EDID\n");
  				break;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index bd23c9e481eb..514280699ad5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6318,7 +6318,7 @@ get_highest_refresh_rate_mode(struct amdgpu_dm_connector *aconnector,
+ 		}
+ 	}
+ 
+-	aconnector->freesync_vid_base = *m_pref;
++	drm_mode_copy(&aconnector->freesync_vid_base, m_pref);
+ 	return m_pref;
+ }
+ 
+@@ -6432,8 +6432,8 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+ 		recalculate_timing = is_freesync_video_mode(&mode, aconnector);
+ 		if (recalculate_timing) {
+ 			freesync_mode = get_highest_refresh_rate_mode(aconnector, false);
+-			saved_mode = mode;
+-			mode = *freesync_mode;
++			drm_mode_copy(&saved_mode, &mode);
++			drm_mode_copy(&mode, freesync_mode);
+ 		} else {
+ 			decide_crtc_timing_for_drm_display_mode(
+ 				&mode, preferred_mode, scale);
 -- 
 2.34.1
 
