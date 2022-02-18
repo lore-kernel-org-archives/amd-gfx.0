@@ -4,56 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BAC5C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 16:41:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 137AFC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 16:54:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D22B010E549;
-	Fri, 18 Feb 2022 16:41:00 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7603210E549;
- Fri, 18 Feb 2022 16:40:59 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id q5so3655997oij.6;
- Fri, 18 Feb 2022 08:40:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=rNaBJ9SnSvmZZKSwg6WQat2Owwd2UUbUCqyH0KfuOto=;
- b=kXIJR1VVI1XhgIIaZUlneyHM3X3buYUA7XCemDc9ucaRmzz8ONqODjfD63dgA6Uz7I
- JGCLsNIzj3TPe5u1rRwE7I68n2NOLP8cG6cwwBxaWpD/7/KQhulAy3aIdVRFiKKnPJRL
- F9Mtdrd19Av4GRUz4BmSedmdWtTATBar25fZBre2drr7cYkUcyBVCa6NzVK1Rmlu/8Az
- z5zRG45WCjs7wfcixIQyjPRUaXkrjU9eWBKPjwHdldM02m2y/h64+PWaFXnPpu9BdrZL
- 3aOc8ZXdk7cm7clD5BWUDnP9//zj0zjQ+Zsaw/tZxX9oAPon8I3MG1N89RXSQaxntURb
- Jpeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=rNaBJ9SnSvmZZKSwg6WQat2Owwd2UUbUCqyH0KfuOto=;
- b=tK0NblFoKTLt/oHAhBsI8eV+KV6WD4elyZs4Wj0ErVX/HRuihcw4+YN9rLK+4T/HpL
- V9RNlRVdz0+V/7QIWZkTAC/290Bcc+/4i4hcy59h6vMN4h74/w84w+L5ePdl6+Q7dtb4
- Q+d3+jYob26xEDrpHMHzYChuYYp/G2yRCWqPk9C/yxt/hGdzzffbV5wyfoxWfAbRr5VK
- H5L7qBXWTbba0MforlBzzXL3PF/LBmHN7Gu1fn9clhttG4+EYFfcZ9K6etinnUlFHs/X
- xCjAJhcXeIjvx0TwjexXaDMNVQ3etKm59b/Es3Q+/f5RXPMHFqQdY9LGNi7IFzD6kqDy
- P5vw==
-X-Gm-Message-State: AOAM531P3ilGG6PicOUnKz2mQxrTN53piHJaNF+IzHAg2WK3yWnD+1Xc
- u69qyvTAUZiOGn4Td32k77LT0Tkxg0KoKEBOZ1U=
-X-Google-Smtp-Source: ABdhPJxGdJJUhTI3XRP5VaihJS7Seu7yXxagtZb6DliIInQyt6iXbc8RzCTpzgqxNG88jJEeiR1ivtOfCwh5hfuFLo8=
-X-Received: by 2002:a05:6808:f8b:b0:2ce:6ee7:2c99 with SMTP id
- o11-20020a0568080f8b00b002ce6ee72c99mr5655117oiw.199.1645202458758; Fri, 18
- Feb 2022 08:40:58 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E1EE10E19B;
+	Fri, 18 Feb 2022 16:54:08 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8CBF10E19B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 16:54:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NKgaKF81IvLRf8EbcFGyc19fktd4Tp/0X/8H1+UUUTpBlctwKYp5UB6W/s4dW3yKIEIzb37MiuBRID0sRN6RwaBcaBD2UXee/rCB9nAh5KkoUwI50P/U9YhUm9YcJ1hQIQyPTrz3rACTROUaZ7WtNnMk+IklFZkOEFjHI0SNvXtCQnvph0BEOWMJzBVkWFUbJYjcFyk7tFdn9UBVDwO+OXhDN2TM7XOK+3MsjAOeQYE+UUdS9jRMKxjVQDBkZts3lXcIU9FOC+PQEH8TZpGjRpdi8N+nR9lXOx3uCa96Z/8kf+HXGqY1XKpPe1kCtJkEq6UqYNhyp52RzohwStFmZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3MTbrfVSTz4dKODWxiSC+RVE2+hyLsp4KGgthxMna1Y=;
+ b=dI6iYhoBIRUveweuL+lWzN68YIBFTSL+sgayzWSW1Mi4MQUJuZW6vSm4IVbJgQWg8KjTrNue1DCnCRvyTt9KkEwMupRHr5TCPNSuGnAx6N6GDeRBzMxZJ8l3F1g1FBv1Sl/ihcW2PrHKnXtfh//vRIxWT6AQGUy/D5f4sUInh0EpTBPRFmm4H879V24fHJKrTKkrZVG7lDaPru0NGXYEOmBEDzYDzSXP3R8OIoKNoScZkwcKzwtQlpXQqmRKB61fSXOgdPsBUTI8EB4sQGYgg5fuJJkNUC35QI7Ufcij3oFebM4E2n+teyiNJCb+Dv5CFEDd0U46FdX2eRz5jEU0CA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3MTbrfVSTz4dKODWxiSC+RVE2+hyLsp4KGgthxMna1Y=;
+ b=imgYX57GvTqtQumW3L3qbMmIKZCsIt4SKRoqX35/QWtKAM2+Tm972R/Z4S5k0LOh3PfbzmdNDlra+aX0FPHuFOsHm8qu1E09qXmQYKiWJefc0IhLkQvtWGypeqWBfuBV7KN6BJAzZ+9KVPPf0Kh1CArlKC10BtFgd+NO9bb1bpc=
+Received: from MW4PR04CA0227.namprd04.prod.outlook.com (2603:10b6:303:87::22)
+ by CH0PR12MB5171.namprd12.prod.outlook.com (2603:10b6:610:ba::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.22; Fri, 18 Feb
+ 2022 16:54:04 +0000
+Received: from CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:87:cafe::df) by MW4PR04CA0227.outlook.office365.com
+ (2603:10b6:303:87::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16 via Frontend
+ Transport; Fri, 18 Feb 2022 16:54:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT064.mail.protection.outlook.com (10.13.175.77) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4995.15 via Frontend Transport; Fri, 18 Feb 2022 16:54:03 +0000
+Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 18 Feb
+ 2022 10:54:01 -0600
+From: Alex Sierra <alex.sierra@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Add use_xgmi_p2p module parameter
+Date: Fri, 18 Feb 2022 10:53:49 -0600
+Message-ID: <20220218165349.7489-1-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-References: <20220218075727.2737623-1-davidgow@google.com>
- <20220218075727.2737623-2-davidgow@google.com>
- <ef8eee23-ba8c-e76a-d32d-68658841708d@amd.com>
-In-Reply-To: <ef8eee23-ba8c-e76a-d32d-68658841708d@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 18 Feb 2022 11:40:47 -0500
-Message-ID: <CADnq5_Nxjq6+8k1bjs3LJfTzXgX1YRd0-=Fd55224V3_nOshAg@mail.gmail.com>
-Subject: Re: [PATCH 1/4] drm/amdgpu: Fix compilation under UML
-To: Felix Kuehling <felix.kuehling@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7fd5e0b6-5001-430d-d6cc-08d9f2ff44e2
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5171:EE_
+X-Microsoft-Antispam-PRVS: <CH0PR12MB51710396F6A5A55863BED7F5FD379@CH0PR12MB5171.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Gwq3CBCYEfR+4dbh3ZAyWoI7DmBv3aQfiZPJdOPKtf+Id6o+4KeodjlD82jiL0jNZmWgKaQ8rAQ674qgMho2JQU920F5NcFGfRtCLcS4wprBE8d4rfAp15lO8X35eJBhQIpm8XOxZ0b6OMl38EYb+Q7Ee19dwfCYVh6D8ri3XdhIUb0TSy/quZDZ2uyjhEvyA+3Oi+19XnkCiKKtqKN922UFZcsfjv9/Nati4l68hh20/EmMNgRZ4SGNoaUsrneX8pTH9fLm3M/fXRrYocTf7asPaoixRCEOcICKGQCAyH0GFqcUEHTrF5wDxnWi/llanXryHNHWyrW6OkbbXmftbw8Oul5zx0CGdtoDoAZ+vYBvbZKAazLduVfOvnzN0WcrhUNXZLwbRlPhvoZ2EbPkKnufFFhyzmHMpqGOEgCoi9njvVs6Q8UYgbDdMOyVnv081rOX9JhenogrfXAbNxVUgs0egBgEbQOR5FvDHSlFHH7n0V8Op53OFokAio0m3tc7DV8wHZ1VnHUQK1o2eZ/NCCMNxFwOpppQtqZuPGdeD/KB4TTV3K9SRwf3Fw8rEVu0j2FdejX0MOXKZ+zfy0WceJyegA7j2jf5m9T+xe4rFFLghyBN9fqSclaLshNbpS3ebEWmEO8nEqUbI+SqY0MDra2FS1tI4EUBKGixArgWP5BaR2NYkCKWjJN7N+4t2jJqEktXq+HJ5OF7hL+1Orkr/w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(5660300002)(336012)(426003)(316002)(47076005)(6666004)(83380400001)(8936002)(7696005)(4326008)(82310400004)(8676002)(70206006)(70586007)(1076003)(81166007)(356005)(508600001)(36860700001)(40460700003)(16526019)(54906003)(6916009)(36756003)(186003)(86362001)(44832011)(26005)(2906002)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2022 16:54:03.4060 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7fd5e0b6-5001-430d-d6cc-08d9f2ff44e2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5171
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,152 +99,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: X86 ML <x86@kernel.org>, linux-kselftest@vger.kernel.org,
- linux-rdma <linux-rdma@vger.kernel.org>, Richard Weinberger <richard@nod.at>,
- Jeff Dike <jdike@addtoit.com>, Randy Dunlap <rdunlap@infradead.org>,
- Brendan Higgins <brendanhiggins@google.com>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- linux-um@lists.infradead.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- David Gow <davidgow@google.com>, Shuah Khan <skhan@linuxfoundation.org>,
- kunit-dev@googlegroups.com, Anton Ivanov <anton.ivanov@cambridgegreys.com>
+Cc: Alex Sierra <alex.sierra@amd.com>, jonathan.kim@amd.com,
+ Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com, luben.tuikov@amd.com,
+ aurabindo.pillai@amd.com, Christian.Koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 18, 2022 at 11:39 AM Felix Kuehling <felix.kuehling@amd.com> wr=
-ote:
->
->
-> Am 2022-02-18 um 02:57 schrieb David Gow:
-> > From: Randy Dunlap <rdunlap@infradead.org>
-> >
-> > cpuinfo_x86 and its associated macros are not available under ARCH=3Dum=
-,
-> > even though CONFIG_X86_64 is defined.
-> >
-> > This patch (and discussion) were originally posted here:
-> > https://lkml.org/lkml/2022/1/24/1547
-> >
-> > This produces the following build errors:
-> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1556:9: note: in=
- expansion of macro =E2=80=98cpu_data=E2=80=99
-> >    return cpu_data(first_cpu_of_numa_node).apicid;
-> >           ^~~~~~~~
-> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1560:1: error: c=
-ontrol reaches end of non-void function [-Werror=3Dreturn-type]
-> >
-> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function =E2=80=
-=98kfd_fill_iolink_info_for_cpu=E2=80=99:
-> > ../arch/um/include/asm/processor-generic.h:103:19: error: called object=
- is not a function or function pointer
-> >   #define cpu_data (&boot_cpu_data)
-> >                    ~^~~~~~~~~~~~~~~
-> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1688:27: note: in ex=
-pansion of macro =E2=80=98cpu_data=E2=80=99
-> >    struct cpuinfo_x86 *c =3D &cpu_data(0);
-> >                             ^~~~~~~~
-> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:7: error: deref=
-erencing pointer to incomplete type =E2=80=98struct cpuinfo_x86=E2=80=99
-> >    if (c->x86_vendor =3D=3D X86_VENDOR_AMD)
-> >         ^~
-> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:23: error: =E2=
-=80=98X86_VENDOR_AMD=E2=80=99 undeclared (first use in this function); did =
-you mean =E2=80=98X86_VENDOR_ANY=E2=80=99?
-> >    if (c->x86_vendor =3D=3D X86_VENDOR_AMD)
-> >                         ^~~~~~~~~~~~~~
-> >                         X86_VENDOR_ANY
-> >
-> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function =E2=80=
-=98kfd_create_vcrat_image_cpu=E2=80=99:
-> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1742:11: warning: un=
-used variable =E2=80=98entries=E2=80=99 [-Wunused-variable]
-> >    uint32_t entries =3D 0;
-> >
-> > Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> > Signed-off-by: David Gow <davidgow@google.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 6 +++---
-> >   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
-> >   2 files changed, 4 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/am=
-d/amdkfd/kfd_crat.c
-> > index 9624bbe8b501..b1e2d117be3d 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> > @@ -1682,7 +1682,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_nod=
-e_id, int *avail_size,
-> >       return 0;
-> >   }
-> >
-> > -#ifdef CONFIG_X86_64
-> > +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->
-> I don't think it makes sense to compile a hardware device driver in a
-> UML config. Instead of scattering UML #ifdefs through our code, I would
-> recommend adding this to Kconfig:
->
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-> @@ -254,7 +254,7 @@ source "drivers/gpu/drm/radeon/Kconfig"
->
->   config DRM_AMDGPU
->          tristate "AMD GPU"
-> -       depends on DRM && PCI && MMU
-> +       depends on DRM && PCI && MMU && !UML
->          select FW_LOADER
->          select DRM_KMS_HELPER
->          select DRM_SCHED
->
-> That would address patch 2 of this series as well.
+This parameter controls xGMI p2p communication, which is enabled by
+default. However, it can be disabled by setting it to 0. In case xGMI
+p2p is disabled in a dGPU, PCIe p2p interface will be used instead.
+This parameter is ignored in GPUs that do not support xGMI
+p2p configuration.
 
-I agree.  Otherwise, we are always going to be chasing these issues.
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Acked-by: Luben Tuikov <luben.tuikov@amd.com>
+Acked-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 4 ++--
+ 3 files changed, 11 insertions(+), 2 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index f97848a0ed14..7e95d8bd2338 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -217,6 +217,7 @@ extern int amdgpu_mes;
+ extern int amdgpu_noretry;
+ extern int amdgpu_force_asic_type;
+ extern int amdgpu_smartshift_bias;
++extern int amdgpu_use_xgmi_p2p;
+ #ifdef CONFIG_HSA_AMD
+ extern int sched_policy;
+ extern bool debug_evictions;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 2f8eafb6cf22..6156265f3178 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -181,6 +181,7 @@ int amdgpu_tmz = -1; /* auto */
+ int amdgpu_reset_method = -1; /* auto */
+ int amdgpu_num_kcq = -1;
+ int amdgpu_smartshift_bias;
++int amdgpu_use_xgmi_p2p = -1;
+ 
+ static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
+ 
+@@ -677,6 +678,13 @@ MODULE_PARM_DESC(force_asic_type,
+ 	"A non negative value used to specify the asic type for all supported GPUs");
+ module_param_named(force_asic_type, amdgpu_force_asic_type, int, 0444);
+ 
++/**
++ * DOC: use_xgmi_p2p (int)
++ * Enables/disables XGMI P2P interface (0 = disable, 1 = enable). The Default is -1 (enabled).
++ */
++MODULE_PARM_DESC(use_xgmi_p2p,
++	"Disable XGMI P2P interface (0 = disable; 1 = enable; -1 default, enabled)");
++module_param_named(use_xgmi_p2p, amdgpu_use_xgmi_p2p, int, 0444);
+ 
+ 
+ #ifdef CONFIG_HSA_AMD
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 207cd01435b5..bbe1bac61f15 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2330,8 +2330,8 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct amdgpu_device *adev,
+ #else
+ 	dma_resv_assert_held(amdkcl_ttm_resvp(&vm->root.bo->tbo));
+ #endif
+-
+-	if (amdgpu_dmabuf_is_xgmi_accessible(adev, bo)) {
++	if (amdgpu_use_xgmi_p2p &&
++	    amdgpu_dmabuf_is_xgmi_accessible(adev, bo)) {
+ 		bo_va->is_xgmi = true;
+ 		/* Power up XGMI if it can be potentially used */
+ 		amdgpu_xgmi_set_pstate(adev, AMDGPU_XGMI_PSTATE_MAX_VEGA20);
+-- 
+2.32.0
 
->
-> Regards,
->    Felix
->
->
-> >   static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_=
-size,
-> >                               uint32_t *num_entries,
-> >                               struct crat_subtype_iolink *sub_type_hdr)
-> > @@ -1741,7 +1741,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat=
-_image, size_t *size)
-> >       struct crat_subtype_generic *sub_type_hdr;
-> >       int avail_size =3D *size;
-> >       int numa_node_id;
-> > -#ifdef CONFIG_X86_64
-> > +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
-> >       uint32_t entries =3D 0;
-> >   #endif
-> >       int ret =3D 0;
-> > @@ -1806,7 +1806,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat=
-_image, size_t *size)
-> >                       sub_type_hdr->length);
-> >
-> >               /* Fill in Subtype: IO Link */
-> > -#ifdef CONFIG_X86_64
-> > +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
-> >               ret =3D kfd_fill_iolink_info_for_cpu(numa_node_id, &avail=
-_size,
-> >                               &entries,
-> >                               (struct crat_subtype_iolink *)sub_type_hd=
-r);
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/dr=
-m/amd/amdkfd/kfd_topology.c
-> > index 948fbb39336e..b38fc530ffe2 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> > @@ -1552,7 +1552,7 @@ static int kfd_cpumask_to_apic_id(const struct cp=
-umask *cpumask)
-> >       first_cpu_of_numa_node =3D cpumask_first(cpumask);
-> >       if (first_cpu_of_numa_node >=3D nr_cpu_ids)
-> >               return -1;
-> > -#ifdef CONFIG_X86_64
-> > +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
-> >       return cpu_data(first_cpu_of_numa_node).apicid;
-> >   #else
-> >       return first_cpu_of_numa_node;
