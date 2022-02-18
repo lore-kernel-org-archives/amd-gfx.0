@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BC13C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:04:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 921A9C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 10:04:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 000C310EECF;
-	Fri, 18 Feb 2022 10:04:29 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6325F10EB78;
- Fri, 18 Feb 2022 10:04:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C005910EC38;
+	Fri, 18 Feb 2022 10:04:36 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6836A10EB87;
+ Fri, 18 Feb 2022 10:04:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645178667; x=1676714667;
+ t=1645178675; x=1676714675;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=kSQdB0vwC6YXJ2Jhjl2aK0gT9Jca40OlOstRdm+C/6E=;
- b=RhTvp3VWJOxMSVNY7kIf7rQMCZ2LA9qvsxgK/JHGw7tLay0B7EGiUV5R
- Wl1ynFOv8iElAirkbL6Ziu0tldHHw+m+pIvrG1C9sk9xM7fkByFdJJHf9
- pYgnqG42oh51Vq12ahOJxX1TJlYptl2LiaLf9ffI1UQVx5V95lQMfKtIH
- pFIFxAZWsbq99n4JQ6ka5Knf57i40bsrJwpN1aAVlqe2wGuskXm4QJuQN
- HAY3EbBzapyS6XHdJWvogo9+5SHmCx/bprpXPovHozEOEU/9pDGJL4/FW
- WuyJGM6fC9xbSdKrBAu8tYoHeyToM/fwUpk9EgS3JJwsQxAQHRHYkIhP9 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="275693599"
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="275693599"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2022 02:04:26 -0800
+ bh=ip7yh9TtqNGqyNAUmnumyaTaXv9TKkgX3VCmbjFMhFc=;
+ b=GV1lrokZGa3Yvuxx60iyg+ldMrCkBlIlToYtnMTYqQ6pxqNMp4i8VTW5
+ 1trpWr14dFv3ojNCmcHoj7vobv2YO+2Mi0PbXN9Nc2QMS0wi8379bePuw
+ B2ebdoYQwuuB7yd+f4s4HLFHkDh4ZogF7lL4SgoRN2lg86S0t3w/4hDuK
+ EMskQgye+1Iq6T61UJKAhgAj6Z5AIbaYvYbM+UgqA0ZpuRKQ/OLq5GZHq
+ TaC+KaQNDggtmjIF/DO8rE35QBH+PMvT41sWoofMJbuYQBsZvi1uPHjNR
+ /MARanwwjp3I12xCmA7oRZ6/qlgzEAKh/HsXtVFwu7RtSPkkLUOA3CAxX Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="337541322"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="337541322"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 02:04:34 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="505337204"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="503950870"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga006.jf.intel.com with SMTP; 18 Feb 2022 02:04:23 -0800
+ by orsmga002.jf.intel.com with SMTP; 18 Feb 2022 02:04:31 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 18 Feb 2022 12:04:22 +0200
+ Fri, 18 Feb 2022 12:04:31 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH 03/22] drm/amdgpu: Use drm_mode_init() for on-stack modes
-Date: Fri, 18 Feb 2022 12:03:44 +0200
-Message-Id: <20220218100403.7028-4-ville.syrjala@linux.intel.com>
+Subject: [PATCH 05/22] drm/radeon: Use drm_mode_copy()
+Date: Fri, 18 Feb 2022 12:03:46 +0200
+Message-Id: <20220218100403.7028-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
 References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
@@ -57,75 +57,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Initialize on-stack modes with drm_mode_init() to guarantee
-no stack garbage in the list head, or that we aren't copying
-over another mode's list head.
+struct drm_display_mode embeds a list head, so overwriting
+the full struct with another one will corrupt the list
+(if the destination mode is on a list). Use drm_mode_copy()
+instead which explicitly preserves the list head of
+the destination mode.
 
-Based on the following cocci script, with manual fixups:
-@decl@
-identifier M;
+Even if we know the destination mode is not on any list
+using drm_mode_copy() seems decent as it sets a good
+example. Bad examples of not using it might eventually
+get copied into code where preserving the list head
+actually matters.
+
+Obviously one case not covered here is when the mode
+itself is embedded in a larger structure and the whole
+structure is copied. But if we are careful when copying
+into modes embedded in structures I think we can be a
+little more reassured that bogus list heads haven't been
+propagated in.
+
+@is_mode_copy@
+@@
+drm_mode_copy(...)
+{
+...
+}
+
+@depends on !is_mode_copy@
+struct drm_display_mode *mode;
+expression E, S;
+@@
+(
+- *mode = E
++ drm_mode_copy(mode, &E)
+|
+- memcpy(mode, E, S)
++ drm_mode_copy(mode, E)
+)
+
+@depends on !is_mode_copy@
+struct drm_display_mode mode;
 expression E;
 @@
-- struct drm_display_mode M = E;
-+ struct drm_display_mode M;
+(
+- mode = E
++ drm_mode_copy(&mode, &E)
+|
+- memcpy(&mode, E, S)
++ drm_mode_copy(&mode, E)
+)
 
 @@
-identifier decl.M;
-expression decl.E;
-statement S, S1;
+struct drm_display_mode *mode;
 @@
-struct drm_display_mode M;
-... when != S
-+ drm_mode_init(&M, &E);
-+
-S1
+- &*mode
++ mode
 
-@@
-expression decl.E;
-@@
-- &*E
-+ E
-
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/radeon_connectors.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 65aab0d086b6..bd23c9e481eb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6361,7 +6361,7 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
- 	const struct drm_connector_state *con_state =
- 		dm_state ? &dm_state->base : NULL;
- 	struct dc_stream_state *stream = NULL;
--	struct drm_display_mode mode = *drm_mode;
-+	struct drm_display_mode mode;
- 	struct drm_display_mode saved_mode;
- 	struct drm_display_mode *freesync_mode = NULL;
- 	bool native_mode_found = false;
-@@ -6374,6 +6374,7 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
- #endif
- 	struct dc_sink *sink = NULL;
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index a7925a8290b2..0cb1345c6ba4 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -777,7 +777,7 @@ static void radeon_fixup_lvds_native_mode(struct drm_encoder *encoder,
+ 		if (mode->type & DRM_MODE_TYPE_PREFERRED) {
+ 			if (mode->hdisplay != native_mode->hdisplay ||
+ 			    mode->vdisplay != native_mode->vdisplay)
+-				memcpy(native_mode, mode, sizeof(*mode));
++				drm_mode_copy(native_mode, mode);
+ 		}
+ 	}
  
-+	drm_mode_init(&mode, drm_mode);
- 	memset(&saved_mode, 0, sizeof(saved_mode));
- 
- 	if (aconnector == NULL) {
+@@ -786,7 +786,7 @@ static void radeon_fixup_lvds_native_mode(struct drm_encoder *encoder,
+ 		list_for_each_entry_safe(mode, t, &connector->probed_modes, head) {
+ 			if (mode->hdisplay == native_mode->hdisplay &&
+ 			    mode->vdisplay == native_mode->vdisplay) {
+-				*native_mode = *mode;
++				drm_mode_copy(native_mode, mode);
+ 				drm_mode_set_crtcinfo(native_mode, CRTC_INTERLACE_HALVE_V);
+ 				DRM_DEBUG_KMS("Determined LVDS native mode details from EDID\n");
+ 				break;
 -- 
 2.34.1
 
