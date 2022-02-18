@@ -4,42 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 885B8C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 15:25:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C54A7C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 15:25:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E329410F126;
-	Fri, 18 Feb 2022 15:25:52 +0000 (UTC)
-Received: from desiato.infradead.org (desiato.infradead.org
- [IPv6:2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF03310EF84
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 06:25:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
- :In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=POm9JYmsLrxFoP9B+CGxuYMAxAilfVuUdXuMegBj6uY=; b=FW6CR8247cKApPgjySAL04P8Ar
- LE1MqNA79IoQvj8RJQX2J/EI0CL4LlNJyed1yaPqFXp96Wgmz1YJXbvmZwA876C3fckVdTYNsCVFM
- YvLktLNAeSI15c5gM9kOhYS/Q2dqRtCHEwtFidCfjFoWwzOo2cwDuUBqmqcmLnjY3IegqZsLeO5Vp
- lYJtMpdH5W2QqGmLl3ah0BqCFntlvxsA/av9ogOviEI2JKghsJnFFQY6vL97ypKpbMsHOHlmcP2HV
- BiAMSSWWpGPx7UrF9HaNrW9cWjVCOu/W5B5S6RW5bxDW3qlJXa+77YdTnzDsGbVPQ5k+kMQnQvk7D
- 55wohEHA==;
-Received: from [2601:1c0:6280:3f0::aa0b]
- by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nKwiC-00AlTE-A8; Fri, 18 Feb 2022 06:25:48 +0000
-Message-ID: <cc01ec4c-c95c-fae4-0231-8b92d572d1da@infradead.org>
-Date: Thu, 17 Feb 2022 22:25:43 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 179FC10F125;
+	Fri, 18 Feb 2022 15:25:54 +0000 (UTC)
+Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
+ [IPv6:2607:f8b0:4864:20::72b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD1A10EA91;
+ Fri, 18 Feb 2022 03:09:53 +0000 (UTC)
+Received: by mail-qk1-x72b.google.com with SMTP id de39so6691298qkb.13;
+ Thu, 17 Feb 2022 19:09:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=smgI3MOP3ZExWA5vhZDRgT/sxoUbszVrY843KRx6UAg=;
+ b=LD9RgfrJLO3yiJqzb0a/d85Ea/mQa6ykDAloz/d7bw2cxwQ/GLWKDDF6lHPBtQT1en
+ Jyoxwiofg1/Rei0oCty7JNAK2/hYSrKLAnZR7+AG0GGz6GN95Fn//ed2HKf7p1eyuBTz
+ NOkLHT6HidkAjcDphEeoN+VKyd1FKDXmDq4Rp/Knhcisjq9ViwkGwiBsrSa3WtuFS+gu
+ oIMWT0KN6n5+99MHCyLUvN3ma4zsLNZnV216Pz+Z/FOsSa1aHNySa6kSbHkHKEFm4Zat
+ voFG48IDr0WMp0EYu3WUaKtnybxQibI1g0twdGQZuJw37hNyfmx63Na9LYudiDFrYOMP
+ uTTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=smgI3MOP3ZExWA5vhZDRgT/sxoUbszVrY843KRx6UAg=;
+ b=ZBbs1Jxsf0FYc25n6Nd53JJhb6aYkWbv/PbVp6PE+vZmCGW1YgYFywXsGOtQo5lI+8
+ tXOx28yX5k5eHqOTtjhDLZdF9ZTaiLcCD6XgLREZd85r/KGVtjicl0X+aWpkIOdVF0F8
+ 23Uyd6VV1aONz9Z+aqEINgetl5BCRJ2WJ1q0TuEXD135PNYJVrtLmqDJ+I3wNqQL6R2F
+ he0jF6tPC6w50dkcs71Z7PhzpZl/IBfoD6EdYZP0EDiASjGNulf3utwlGvfws49kZH+k
+ n5tZbdofIQyPnqlr+6D7jXF4HQiDXgpiXSSPkux27gsTx0WrceBwQEh4afPsnlKJElqa
+ /6lA==
+X-Gm-Message-State: AOAM532/6EijLWtft6RZ3r/rkrREIRpewG2HpwPqw0BMQ+juE52SVCFR
+ 3YLbiYfrD9iZs6nG8Exs6iY=
+X-Google-Smtp-Source: ABdhPJw1Q3QSxbTpFYTAMVPiPbtJT/XnqEZtz0Oe56QkRWMBRMl8AHCPp743iOr09CjOYbqSk++aSw==
+X-Received: by 2002:a05:620a:11a7:b0:60d:df4a:f732 with SMTP id
+ c7-20020a05620a11a700b0060ddf4af732mr2948880qkk.244.1645153792105; 
+ Thu, 17 Feb 2022 19:09:52 -0800 (PST)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id x13sm22366287qko.114.2022.02.17.19.09.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Feb 2022 19:09:51 -0800 (PST)
+From: cgel.zte@gmail.com
+X-Google-Original-From: deng.changcheng@zte.com.cn
+To: Felix.Kuehling@amd.com
+Subject: [PATCH] drm/amdkfd: Replace one-element array with flexible-array
+ member
+Date: Fri, 18 Feb 2022 03:09:43 +0000
+Message-Id: <20220218030943.1905838-1-deng.changcheng@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH] drm/amdgpu: Fix ARM compilation warning
-Content-Language: en-US
-To: Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org
-References: <202202160733.1Egjqp9Y-lkp@intel.com>
- <20220216220853.59961-1-luben.tuikov@amd.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20220216220853.59961-1-luben.tuikov@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 18 Feb 2022 15:25:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,49 +68,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>, kbuild-all@lists.01.org,
- linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
+Cc: airlied@linux.ie, Zeal Robot <zealci@zte.com.cn>, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Changcheng Deng <deng.changcheng@zte.com.cn>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Also seen on i386.
+From: Changcheng Deng <deng.changcheng@zte.com.cn>
 
-On 2/16/22 14:08, Luben Tuikov wrote:
-> Fix this ARM warning:
-> 
-> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:664:35: warning: format '%ld'
-> expects argument of type 'long int', but argument 4 has type 'size_t' {aka
-> 'unsigned int'} [-Wformat=]
-> 
-> Cc: Alex Deucher <Alexander.Deucher@amd.com>
-> Cc: kbuild-all@lists.01.org
-> Cc: linux-kernel@vger.kernel.org
-> Reported-by: kernel test robot <lkp@intel.com>
-> Fixes: 7e60fbfbdc10a0 ("drm/amdgpu: Show IP discovery in sysfs")
-> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+There is a regular need in the kernel to provide a way to declare having
+a dynamically sized set of trailing elements in a structure. Kernel code
+should always use "flexible array members" for these cases. The older
+style of one-element or zero-length arrays should no longer be used.
+Reference:
+https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index ad2355b0037f52..6c3a3c74e0231f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -668,7 +668,7 @@ static int amdgpu_discovery_sysfs_ips(struct amdgpu_device *adev,
->  			    le16_to_cpu(ip->hw_id) != ii)
->  				goto next_ip;
->  
-> -			DRM_DEBUG("match:%d @ ip_offset:%ld", ii, ip_offset);
-> +			DRM_DEBUG("match:%d @ ip_offset:%zu", ii, ip_offset);
->  
->  			/* We have a hw_id match; register the hw
->  			 * block if not yet registered.
-> 
-> base-commit: f723076ae13011a23d9a586899e38bc68feeb6b2
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-thanks.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
+index 482ba84a728d..d7c38fbc533e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
+@@ -310,7 +310,7 @@ struct cdit_header {
+ 	uint32_t	creator_revision;
+ 	uint32_t	total_entries;
+ 	uint16_t	num_domains;
+-	uint8_t		entry[1];
++	uint8_t		entry[];
+ };
+ 
+ #pragma pack()
 -- 
-~Randy
+2.25.1
+
