@@ -4,84 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E08C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B67FFC433EF
 	for <amd-gfx@archiver.kernel.org>; Fri, 18 Feb 2022 15:25:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5928B10F11C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ED6010F11D;
 	Fri, 18 Feb 2022 15:25:34 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E14610F2DF
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 10:38:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1645180731;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BB3RvaNyELHc5+cbc7+hBFpImVt+dcbvRUKC71NhhxA=;
- b=HI5YskYZA93PlBOywea2cgXOu0zC9iztARNh//bqI2Tji9DPcoESpxTnt79EUbdQhu00cG
- U1RCCNSVBbVWkuMdNq50g5DHV4Tu8cuniJPj8XErOl8PfQI7YRBowaf7Lhd7YrgCKG0kkS
- RCryavCCz5BUnISBIcEhUngg1K0slvQ=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-310-npZ6TZYGPnS5xkvA0aVIHQ-1; Fri, 18 Feb 2022 05:38:50 -0500
-X-MC-Unique: npZ6TZYGPnS5xkvA0aVIHQ-1
-Received: by mail-ej1-f69.google.com with SMTP id
- k16-20020a170906971000b006d0118d857aso2857757ejx.14
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 02:38:49 -0800 (PST)
+Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com
+ [IPv6:2607:f8b0:4864:20::64a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BACED10EB68
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Feb 2022 07:58:07 +0000 (UTC)
+Received: by mail-pl1-x64a.google.com with SMTP id
+ c22-20020a170902849600b0014eff3fd4bcso3230138plo.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Feb 2022 23:58:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:in-reply-to:message-id:mime-version:references:subject:from:to
+ :cc; bh=j0CZufvSyGMkqIs03zWz3SOrzF5QkxrcKJyKN+3F6DU=;
+ b=DnvEEpeLGT7C5chE/iFqLg1oxG7vGRUWbZEgwmeFp5/uBfxwHZ4WKh+ARdG0TZevOn
+ S8V+kTXByBAPADfiBUy8qdYWtbxpPbyjuahrqoW5Y+jx4Ka3f2ix+XYBDPLErajyCmGc
+ WhsTS3GeBvKSmJU24IW3jl4Eitt4U8L46TqvxavzKDg0M7fao2jGz5UhpxjTsQKN5dwB
+ 3pcbMsevsoyi2PABytqDtcFfB+sDZF7+PctoUcSKimkNVz6fqrYV63g+hOOmzfycxYWD
+ GeQLc8fwAtfGcxSsJO76HpBCHUOMxWvmRj95XUCGtf7GYhrl8yZF035C7XUfj6JbBWPA
+ VPkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=BB3RvaNyELHc5+cbc7+hBFpImVt+dcbvRUKC71NhhxA=;
- b=ccDqcT/KqmRK23Cp7lahyfY2bm7trXNjjVKylMw5902QN2kaGBD2fCcWqeQiT6aEoY
- midIBSWM7ujDnx5FKDQnYv112AyJwVhBM2/cQWTdOFjP3wJnodgoFdKFIu480KcWudLU
- GBuVxPsmljJew+9AKdFv5FHBSUPnA8yEB7G2B9vyUayFxWNJVudmd1MHB5Hj7k51PSYm
- xmaSdbaLOWDL4lY/Vq2QcLYMWoTqo5ERzODtLxVCmsZ8t1LdY4CPb6E2Vb6mv2hU25Ll
- IgD1fMhrxcmX26Zw4M7OBpNg5idwU9tBiOjxxMzDnQGoGPxxeJiPfi7l8bd21UDZ7ejM
- omWg==
-X-Gm-Message-State: AOAM53161fqk/ZEZBRjyB//sEbEGi+/K51ek+prt4eoyvcU6Y0/reAqb
- yvlDG2N7WmwC4PT5k3amDF5EUEqCiky1GjnGuSuX4a8t0oEWSfHA0/M4u5XEzvNEQxi1H+KJpxi
- 0JTfFUD0PdwG8LET6WPE5HjawUQ==
-X-Received: by 2002:aa7:c7c4:0:b0:407:52cc:3b32 with SMTP id
- o4-20020aa7c7c4000000b0040752cc3b32mr7361680eds.397.1645180728886; 
- Fri, 18 Feb 2022 02:38:48 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJykfGhd50F9wQIvpfwSV02IuVtosrF0JYSvVlOA9FaeEpZTbChuHWqvZILt6ivHs5QKeNBX5w==
-X-Received: by 2002:aa7:c7c4:0:b0:407:52cc:3b32 with SMTP id
- o4-20020aa7c7c4000000b0040752cc3b32mr7361656eds.397.1645180728579; 
- Fri, 18 Feb 2022 02:38:48 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c1e:bf00:1db8:22d3:1bc9:8ca1?
- (2001-1c00-0c1e-bf00-1db8-22d3-1bc9-8ca1.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:1db8:22d3:1bc9:8ca1])
- by smtp.gmail.com with ESMTPSA id t4sm4835504edd.7.2022.02.18.02.38.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Feb 2022 02:38:48 -0800 (PST)
-Message-ID: <d3f0cc20-d226-ee42-cc98-b469949cec9e@redhat.com>
-Date: Fri, 18 Feb 2022 11:38:47 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Subject: Re: [Intel-gfx] [PATCH v8 1/3] gpu: drm: separate panel orientation
- property creating and value setting
-To: Emil Velikov <emil.l.velikov@gmail.com>, Simon Ser <contact@emersion.fr>
-References: <20220208084234.1684930-1-hsinyi@chromium.org>
- <CACvgo53u01BK_D0ZssV+gCepjxSz23Nr5Dy1qXeaAoJuu6VCFQ@mail.gmail.com>
- <KW6DNh6IRRgVJx9DfOFBnEqc4a0x-AnDXEbMxwpfEbk8dOn_KGVzAfo-slJWq-4nWW728Uc-OVpFh2w4fDE4-bxfkDuz1hFILRVvbcuXqaw=@emersion.fr>
- <CACvgo532-pC+7DLFCo=DWTX-OnJEJvSoTmQnt3_qLhiT4cqEMg@mail.gmail.com>
- <GYG6EVT1MqtmfKiPpMhDG9mpuATnmwVDq2PuE_dpDat5oQW_t1tUfm39lSWHj32D5r7mrog27sL4dkgdMYQ5BN830TfVOrgQ4Ts8LcO8Hcs=@emersion.fr>
- <CACvgo52+o9_ETC+1RKzqKkyw3ZJ28RjH0BqC9DfmNAKqByud8Q@mail.gmail.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <CACvgo52+o9_ETC+1RKzqKkyw3ZJ28RjH0BqC9DfmNAKqByud8Q@mail.gmail.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ h=x-gm-message-state:date:in-reply-to:message-id:mime-version
+ :references:subject:from:to:cc;
+ bh=j0CZufvSyGMkqIs03zWz3SOrzF5QkxrcKJyKN+3F6DU=;
+ b=A2lG59Dlhte1UDac3wxVk0w38drE0OA3JHoYaXek+P37n7rqgfxVICD80BZ+Dk1rvF
+ fDKI5GnuPbP/gz5T4tqv9BbxUDZ9uSLo+z7ienKB/xHrfyVNmRysO5Sf5PWBCyadQZ0P
+ SSE3Idw3OX7oiwkvaafqsNbGd2IbFSddGnSe45dtfZzDHALbdMfquMw1BoA3GmWdsjRq
+ wNopCN4U+8pJaFMOlu0ML8Mt3mwWeakHvXrTccC8G298TuyVFgHj48volk4MMJEq7wfa
+ paDQ1Es/rf9gyLiXRKQ37kOwIghVEg6Rgm27Ffa9SyapIHwe585rA/hysv0cqObhs4Pg
+ Hgkg==
+X-Gm-Message-State: AOAM533mFBTBlVoWMP425v2ufiw262vevvDj62NqGl5fvcz/b/CzIM0+
+ 3hb78kzYUOMjWyZ9xl4SID5UcNsH4S0ImQ==
+X-Google-Smtp-Source: ABdhPJweI7iurcA3Hbq+nFlKuGo4v8cSMtTOOIZv9Y5cBs/yQBBEnAM5KLK3GgPSvT5VxuN+hAiv//qPBNXQEg==
+X-Received: from slicestar.c.googlers.com
+ ([fda3:e722:ac3:cc00:4f:4b78:c0a8:20a1])
+ (user=davidgow job=sendgmr) by 2002:a17:90a:581:b0:1b9:b85e:94df with SMTP id
+ i1-20020a17090a058100b001b9b85e94dfmr7115153pji.195.1645171087194; Thu, 17
+ Feb 2022 23:58:07 -0800 (PST)
+Date: Fri, 18 Feb 2022 15:57:26 +0800
+In-Reply-To: <20220218075727.2737623-1-davidgow@google.com>
+Message-Id: <20220218075727.2737623-4-davidgow@google.com>
+Mime-Version: 1.0
+References: <20220218075727.2737623-1-davidgow@google.com>
+X-Mailer: git-send-email 2.35.1.265.g69c8d7142f-goog
+Subject: [PATCH 3/4] IB/qib: Compile under User-Mode Linux
+From: David Gow <davidgow@google.com>
+To: Jeff Dike <jdike@addtoit.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Brendan Higgins <brendanhiggins@google.com>,
+ Randy Dunlap <rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 18 Feb 2022 15:25:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,158 +70,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- devicetree <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Hsin-Yi Wang <hsinyi@chromium.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>,
- LAKML <linux-arm-kernel@lists.infradead.org>
+Cc: David Gow <davidgow@google.com>, linux-rdma@vger.kernel.org,
+ felix.kuehling@amd.com, x86@kernel.org, linux-um@lists.infradead.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kselftest@vger.kernel.org,
+ kunit-dev@googlegroups.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+The User-Mode-Linux architecture (with the x86_64 subarch) defines
+CONFIG_X86_64, but doesn't expose the cpuinfo_x86 struct (instead
+there's a cpuinfo_um struct).
 
-Sorry for jumping in in the middle of the thread I did
-not notice this thread before.
+In order to allow UML to build with allyesconfig, only check cpuinfo_x86
+on non-UML architectures.
 
-On 2/16/22 13:00, Emil Velikov wrote:
-> On Tue, 15 Feb 2022 at 16:37, Simon Ser <contact@emersion.fr> wrote:
->>
->> On Tuesday, February 15th, 2022 at 15:38, Emil Velikov <emil.l.velikov@gmail.com> wrote:
->>
->>> On Tue, 15 Feb 2022 at 13:55, Simon Ser <contact@emersion.fr> wrote:
->>>>
->>>> On Tuesday, February 15th, 2022 at 13:04, Emil Velikov <emil.l.velikov@gmail.com> wrote:
->>>>
->>>>> Greetings everyone,
->>>>>
->>>>> Padron for joining in so late o/
->>>>>
->>>>> On Tue, 8 Feb 2022 at 08:42, Hsin-Yi Wang <hsinyi@chromium.org> wrote:
->>>>>>
->>>>>> drm_dev_register() sets connector->registration_state to
->>>>>> DRM_CONNECTOR_REGISTERED and dev->registered to true. If
->>>>>> drm_connector_set_panel_orientation() is first called after
->>>>>> drm_dev_register(), it will fail several checks and results in following
->>>>>> warning.
->>>>>>
->>>>>> Add a function to create panel orientation property and set default value
->>>>>> to UNKNOWN, so drivers can call this function to init the property earlier
->>>>>> , and let the panel set the real value later.
->>>>>>
->>>>>
->>>>> The warning illustrates a genuine race condition, where userspace will
->>>>> read the old/invalid property value/state. So this patch masks away
->>>>> the WARNING without addressing the actual issue.
->>>>> Instead can we fix the respective drivers, so that no properties are
->>>>> created after drm_dev_register()?
->>>>>
->>>>> Longer version:
->>>>> As we look into drm_dev_register() it's in charge of creating the
->>>>> dev/sysfs nodes (et al). Note that connectors cannot disappear at
->>>>> runtime.
->>>>> For panel orientation, we are creating an immutable connector
->>>>> properly, meaning that as soon as drm_dev_register() is called we must
->>>>> ensure that the property is available (if applicable) and set to the
->>>>> correct value.
->>>>
->>>> Unfortunately we can't quite do this. To apply the panel orientation quirks we
->>>> need to grab the EDID of the eDP connector, and this happened too late in my
->>>> testing.
->>>>
->>>> What we can do is create the prop early during module load, and update it when
->>>> we read the EDID (at the place where we create it right now). User-space will
->>>> receive a hotplug event after the EDID is read, so will be able to pick up the
->>>> new value if any.
->>>
->>> Didn't quite get that, are you saying that a GETPROPERTY for the EDID,
->>> the ioctl blocks or that we get an empty EDID?
->>
->> I'm not referring to GETPROPERTY, I'm referring to the driver getting the EDID
->> from the sink (here, the eDP panel). In my experimentations with amdgpu I
->> noticed that the driver module load finished before the EDID was available to
->> the driver. Maybe other drivers behave differently and probe connectors when
->> loaded, not sure.
->>
-> I see thanks.
-> 
->>> The EDID hotplug even thing is neat - sounds like it also signals on
->>> panel orientation, correct?
->>> On such an event, which properties userspace should be re-fetching -
->>> everything or guess randomly?
->>>
->>> Looking through the documentation, I cannot see a clear answer :-\
->>
->> User-space should re-fetch *all* properties. In practice some user-space may
->> only be fetching some properties, but that should get fixed in user-space.
->>
->> Also the kernel can indicate that only a single connector changed via the
->> "CONNECTOR" uevent prop, or even a single connector property via "PROPERTY".
->> See [1] for a user-space implementation. But all of this is purely an optional
->> optimization. Re-fetching all properties is a bit slower (especially if some
->> drmModeGetConnector calls force-probe connectors) but works perfectly fine
+Signed-off-by: David Gow <davidgow@google.com>
+---
+ drivers/infiniband/hw/qib/qib_wc_x86_64.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-What I'm reading in the above is that it is being considered to allow
-changing the panel-orientation value after the connector has been made
-available to userspace; and let userspace know about this through a uevent.
-
-I believe that this is a bad idea, it is important to keep in mind here
-what userspace (e.g. plymouth) uses this prorty for. This property is
-used to rotate the image being rendered / shown on the framebuffer to
-adjust for the panel orientation.
-
-So now lets assume we apply the correct upside-down orientation later
-on a device with an upside-down mounted LCD panel. Then on boot the
-following could happen:
-
-1. amdgpu exports a connector for the LCD panel to userspace without
-setting panel-orient=upside-down
-2. plymouth sees this and renders its splash normally, but since the
-panel is upside-down it will now actually show upside-down
-3. amdgpu adjusts the panel-orient prop to upside-down, sends out
-uevents
-4. Lets assume plymouth handles this well (i) and now adjust its
-rendering and renders the next frame of the bootsplash 180° rotated
-to compensate for the panel being upside down. Then from now on
-the user will see the splash normally
-
-So this means that the user will briefly see the bootsplash rendered
-upside down which IMHO is not acceptable behavior. Also see my footnote
-about how I seriously doubt plymouth will see the panel-orient change
-at all.
-
-I'm also a bit unsure about:
-
-a) How you can register the panel connector with userspace before
-reading the edid, don't you need the edid to give the physical size +
-modeline to userspace, which you cannot just leave out ?
-
-I guess the initial modeline is inherited from the video-bios, but
-what about the physical size? Note that you cannot just change the
-physical size later either, that gets used to determine the hidpi
-scaling factor in the bootsplash, and changing that after the initial
-bootsplash dislay will also look ugly
-
-b) Why you need the edid for the panel-orientation property at all,
-typically the edid prom is part of the panel and the panel does not
-know that it is mounted e.g. upside down at all, that is a property
-of the system as a whole not of the panel as a standalone unit so
-in my experience getting panel-orient info is something which comes
-from the firmware /video-bios not from edid ?
-
-Regards,
-
-Hans
-
-
-
-i) I don't think plymouth will handle this well though, since it tries to
-skip unchanged connectors and I believe it only checks the crtc routing +
-preferred modeline to determine "unchanged".
+diff --git a/drivers/infiniband/hw/qib/qib_wc_x86_64.c b/drivers/infiniband/hw/qib/qib_wc_x86_64.c
+index edd0ddbd4481..76fef1321c26 100644
+--- a/drivers/infiniband/hw/qib/qib_wc_x86_64.c
++++ b/drivers/infiniband/hw/qib/qib_wc_x86_64.c
+@@ -146,5 +146,9 @@ void qib_disable_wc(struct qib_devdata *dd)
+  */
+ int qib_unordered_wc(void)
+ {
++#ifndef CONFIG_UML
+ 	return boot_cpu_data.x86_vendor != X86_VENDOR_AMD;
++#else
++	return 0;
++#endif
+ }
+-- 
+2.35.1.265.g69c8d7142f-goog
 
