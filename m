@@ -4,31 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB05AC4332F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AC5DC433FE
 	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 08:30:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF4BF112408;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED34A11240E;
 	Mon, 21 Feb 2022 08:30:48 +0000 (UTC)
-Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [IPv6:2a01:e0c:1:1599::10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 510C610E380;
- Sun, 20 Feb 2022 15:48:58 +0000 (UTC)
-Received: from ylum.localnet (unknown
- [IPv6:2a01:e0a:3d9:ddd0:37f3:7f74:639b:b0a3])
- (Authenticated sender: domi.dumont@free.fr)
- by smtp1-g21.free.fr (Postfix) with ESMTPSA id 4BF65B004EE;
- Sun, 20 Feb 2022 16:48:43 +0100 (CET)
-From: Dominique Dumont <dod@debian.org>
-To: Salvatore Bonaccorso <carnil@debian.org>
-Subject: Re: Regression from 3c196f056666 ("drm/amdgpu: always reset the asic
- in suspend (v2)") on suspend?
-Date: Sun, 20 Feb 2022 16:48:43 +0100
-Message-ID: <5164225.DI6hChFYCN@ylum>
-In-Reply-To: <CADnq5_MfR99OhjumQESCO7Oq+JVOHOVgyVQHX4FpGFDnPu6CyQ@mail.gmail.com>
-References: <Ygf7KuWyc0d4HIFu@eldamar.lan>
- <CADnq5_MfR99OhjumQESCO7Oq+JVOHOVgyVQHX4FpGFDnPu6CyQ@mail.gmail.com>
+Received: from sipsolutions.net (s3.sipsolutions.net
+ [IPv6:2a01:4f8:191:4433::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A81110FDB8;
+ Sat, 19 Feb 2022 15:43:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sipsolutions.net; s=mail; h=Content-Transfer-Encoding:MIME-Version:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+ Resent-Cc:Resent-Message-ID; bh=51IuRnSgtWxZG2Jmu2renXJr42JUA6j1ZiqJaCkpimM=; 
+ t=1645285432; x=1646495032; b=CCQuzFjfzzGzKzALC8gLp5pp112w4BkUR6KmRHZIROZVE6I
+ c1gRY6yuWrz0XKcNwx1DVuuQNNf/vmX0uZuFolheBVyp/luKoUSun8Ud2M+OfKrYfR+1SyJzzpkFE
+ y/15PMIK3CCKYdF4guFpo61h4xZcYXDj4dftgomQjUEU//wTTeVpQ1GV+98KHNeDJ1sZA/BzMMu5o
+ H3lf2Dc3L7TspquHZOxdFSWwIv3wJVhVUICZL2CDcgMQQjvPqM9JVzmDImQJCvphOKlPIWYAp1bvL
+ fd8xmWf8xNkbeTJX3l6wdiPUcp6OUiw1AsPP/n73vJoKnfwVeKawYwNGuKF3KJhg==;
+Received: by sipsolutions.net with esmtpsa
+ (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.95) (envelope-from <johannes@sipsolutions.net>)
+ id 1nLRtJ-0035Fb-Ex; Sat, 19 Feb 2022 16:43:21 +0100
+Message-ID: <d14b6a0c72788e78bab2bd1f0bc2c49891ded5d7.camel@sipsolutions.net>
+Subject: Re: [PATCH 4/4] kunit: tool: Disable broken options for --alltests
+From: Johannes Berg <johannes@sipsolutions.net>
+To: David Gow <davidgow@google.com>
+Date: Sat, 19 Feb 2022 16:43:19 +0100
+In-Reply-To: <CABVgOSnBq0QE+Cq+SDeV-LxOQYbGZ6Bqbjix6h-UpNj0GMicPA@mail.gmail.com>
+References: <20220218075727.2737623-1-davidgow@google.com>
+ <20220218075727.2737623-5-davidgow@google.com>
+ <ac4c5f8c890e5bdd7ad7ecc04a51e72fa3ac1703.camel@sipsolutions.net>
+ <CABVgOSnBq0QE+Cq+SDeV-LxOQYbGZ6Bqbjix6h-UpNj0GMicPA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.42.3 (3.42.3-1.fc35) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 8bit
+X-malware-bazaar: not-scanned
 X-Mailman-Approved-At: Mon, 21 Feb 2022 08:30:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -41,51 +54,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: dod@debian.org
-Cc: Sasha Levin <sashal@kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Luben Tuikov <luben.tuikov@amd.com>, 1005005@bugs.debian.org,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: x86@kernel.org, linux-rdma@vger.kernel.org,
+ Richard Weinberger <richard@nod.at>, Jeff Dike <jdike@addtoit.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Brendan Higgins <brendanhiggins@google.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org, linux-um <linux-um@lists.infradead.org>,
+ dri-devel@lists.freedesktop.org,
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ KUnit Development <kunit-dev@googlegroups.com>, felix.kuehling@amd.com,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, 14 February 2022 22:52:27 CET Alex Deucher wrote:
-> Does the system actually suspend?  
+On Sat, 2022-02-19 at 16:00 +0800, David Gow wrote:
+> On Fri, Feb 18, 2022 at 8:26 PM Johannes Berg <johannes@sipsolutions.net> wrote:
+> > 
+> > On Fri, 2022-02-18 at 15:57 +0800, David Gow wrote:
+> > > 
+> > > Note that, while this does build again, it still segfaults on startup,
+> > > so more work remains to be done.
+> > 
+> > That's probably just a lot more stuff getting included somehow?
+> > 
+> 
+> Yeah: it used to work (a couple of years ago), but something has
+> broken it in the meantime. It's just a shame that bisecting things
+> with allyesconfig takes so long...
 
-Not really. The screens looks like it's going to suspend, but it does come 
-back after 10s or so. The light mounted in the middle of the power button does 
-not switch off.
+Heh, right.
 
-> Is this system S0i3 or regular S3?
+But I guess you could "Kconfig bisect" first, i.e. see what option
+breaks it? It might not even help to bisect, if it's just some option
+getting enabled over time. Or perhaps the kernel is just too big for the
+address space layout if you have allyesconfig? Though that shouldn't be
+an issue, I think.
 
-I'm not sure how to check that. After a bit of reading on the Internet [1], I 
-hope that the following information answers that question. Please get back to 
-me if that's not the case.
+> I didn't realise X86 wasn't defined in UML: 
 
-Looks like my system supports both Soi3 and S3
+X86 is the architecture, X86_{32,64} is kind of a selection for how you
+want things to be built, and it's thus required for UML on x86, because
+UML imports stuff from X86.
 
-$ cat /sys/power/state 
-freeze mem disk
+> that's definitely a bit
+> cleaner than !UML in a number of these cases.
 
-I get the same result running these 2 commands as root:
-# echo freeze > /sys/power/state
-# echo mem > /sys/power/state
+It looks like some (most?) of them don't really work that way though
+since they're not really platform specific, they just know only about a
+handful of platforms that they're compatible with.
 
->  Does this patch help by any chance?
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?i
-> d=e55a3aea418269266d84f426b3bd70794d3389c8
+> Not all of those issues are fundamentally solved by "depends on X86",
+> though: there are a few which might be other missing things in UML
+> (maybe the 'dma_ops' issues?), and/or might be the result of -Werror
+> being enabled.
 
-yes, with this patch:
-- the suspend issue is solved
-- kernel logs no longer show messages like "failed to send message" or 
-"*ERROR* suspend of IP block <powerplay> failed" while suspending
+Right.
 
-All the best
+> We do want the ability to build PCI drivers under UML, as it makes
+> running KUnit tests for PCI drivers much simpler and more pleasant.
 
-[1] https://01.org/blogs/rzhang/2015/best-practice-debug-linux-suspend/
-hibernate-issues
+OK, fair point. I'm thinking about this area in general also right now
+for iwlwifi, and obviously we're probably the only user of the virtual
+PCI code that lets us connect the driver to a simulated device on UML
+(but the driver doesn't really know) :-)
 
+> And indeed, it does work for KUnit in general, it's just that some
+> drivers do have the issues mentioned above, so allyesconfig picks up
+> every broken driver.
 
+Right.
+
+> We don't actually build the PCI drivers by default, only if the
+> "--alltests" option is passed, which does include them, as we do have
+> tests which depend on PCI we'd like to run (like the thunderbolt
+> test).
+
+Makes sense.
+> 
+> I did try this as well, and it just got us a different set of issues
+> (there are a bunch of drivers which depend on IOMEM but don't state it
+> -- I'll try to send fixes for those out next week). 
+> 
+
+Fun.
+
+> Ultimately, the 'broken_on_uml.config' file is just there to pare back
+> allyesconfig a bit for KUnit's purposes, but we still definitely want
+> as many options (and hence tests) enabled as possible long-term. So I
+> think actual fixes to either the code or Kconfig do make sense.
+
+Makes sense.
+
+> Is 'make ARCH=um allyesconfig' something we actually want to be able
+> to build? If so, no amount of adding things to KUnit's
+> broken_on_uml.config will solve the underlying issues, and we'll need
+> to at least update the Kconfig entries.
+> 
+
+That's a good point, as long as people are doing allyes/randconfig
+builds on UML, we probably need to have these fixes anyway rather than
+disabling something for KUnit specifically.
+
+johannes
