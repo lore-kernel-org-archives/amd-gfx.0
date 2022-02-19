@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3819AC433FE
-	for <amd-gfx@archiver.kernel.org>; Sat, 19 Feb 2022 10:02:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AD07C433FE
+	for <amd-gfx@archiver.kernel.org>; Sat, 19 Feb 2022 10:02:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD74C10F681;
-	Sat, 19 Feb 2022 10:02:16 +0000 (UTC)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC78B10EFC9
- for <amd-gfx@lists.freedesktop.org>; Sat, 19 Feb 2022 08:00:16 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id
- l67-20020a1c2546000000b00353951c3f62so7920119wml.5
- for <amd-gfx@lists.freedesktop.org>; Sat, 19 Feb 2022 00:00:16 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55D9910F68D;
+	Sat, 19 Feb 2022 10:02:25 +0000 (UTC)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC32610EFC9
+ for <amd-gfx@lists.freedesktop.org>; Sat, 19 Feb 2022 08:00:35 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id x5so13301550wrg.13
+ for <amd-gfx@lists.freedesktop.org>; Sat, 19 Feb 2022 00:00:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=h1mmQDu/mrLrcCnc1+SB4G7/WyvbGK5D4ywOeMgvWNg=;
- b=ArFOA3tW1xFvYpFwrguPxmrkAQeec+1aUVj11dEQkEt06g3JOShU6vqdqSmDNwH+fn
- X1S9PXxJVY05fa0r5jQ9d2RvKwclOSom9lKngCw2JLCnq9cxUPOA6nYSeRfZ31VJAO7U
- +rZMJga7XCcyGsLh9KTWry+5YRwFgrAcrBdbiDfMIQrN/F6SadgrArEDjHWRsgNHMbpF
- vAZQrbQnKz+7/sk2NYxJ8v9K1kMzytinhokgk5IW4UPOvczK5bgxvFzNGklwWJ0+aBmE
- qEWif258SS/lv8FYX5Zyjd7tMISTkxbOYw67B1U5nVtjXj6bbbMg/ysHLf/p4Ud75S0L
- qXgw==
+ :cc; bh=ZSJvfotdCjUWrF4mVP9+A9qImMlAemW9nGiM28VmacE=;
+ b=bsPsyg3W4pKdl6wOdQ0UpuaiKuL6BPouGQJIrI/f9IwmDjH8W/s7Fek04evjvZVA7W
+ a6YiWoHOiUiC+zOgF604JSoSrpLnljHvL0kzz0uqs26OonQZcb3A1pV4wVlIuR4Xn341
+ WpmjW1wb28UmxsySTBxxQs4QwuuvXfgz/wkYS6JId1V8pwLDg6jaQ8+9UrGh86rmi/cX
+ qsWvFv5vaaF564jWcZJQnx94HBLN8vNjxrjvy46d0T+hPR1ICvDN7A0iAi6eXNp4Yj0u
+ nwTYkYE1rN8+UCAX06dYkoO3PlcBpNWROmBakJInGxWv1hD5C/pJ65arog+W+JgxX7tI
+ U2EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=h1mmQDu/mrLrcCnc1+SB4G7/WyvbGK5D4ywOeMgvWNg=;
- b=7fKiwtRA6CrUUJ+bOcwGnA146dqhuya7Wr9QaG6s403AmZ3iYn62SQV7GwiWdIrFHY
- BUNZGGcpkvsaTh3fRZz0YPNslo3L57F2C4mmOBPv/0muK8Xg8LWTGi2JxA+xLh9pLsbn
- fVWfS6XtX2of+J6+3XQeErRoYMBtyfs0ZjJp4runqerjq2y8e+mV+M1UiXx06LpvFlCm
- DCKttAaI/ci/S2ueQPAXW1FZT46fmdZFg9eeLvhqlmsb/SPJg7y+ZhPYIjnFR2pGqk2m
- VomTn7f4/qTgUw/P0CkjV11Z0xeRqP+bTXuKBE/dCUnDo35R6+RWafS2180zZeBqnC07
- RFYQ==
-X-Gm-Message-State: AOAM532ddGP4ebrMvuGdA9vfvwmh74ZQGy6SK3sRegFekOEL87kOnge0
- mzB0blrfLFhSYXh5HWniQwuPZiVmwC/3Sw5qQuuEcQ==
-X-Google-Smtp-Source: ABdhPJzbJOrM/2OLBtDRNHfACqh08uaaCdcmb5NeBmC69hAFuvYRavqZoqsRXsCrlc74PcOn8wHgcFrPuLcM4oK0IOY=
-X-Received: by 2002:a05:600c:215:b0:37c:729:f84d with SMTP id
- 21-20020a05600c021500b0037c0729f84dmr9399022wmi.131.1645257615313; Sat, 19
- Feb 2022 00:00:15 -0800 (PST)
+ bh=ZSJvfotdCjUWrF4mVP9+A9qImMlAemW9nGiM28VmacE=;
+ b=hjbcwdQRPev+n6VcQO5pfa6vb4cRDRYVZAlbpe6+eIUqlJLcekECdQMcxkHW8LFvTW
+ RGgOZJtULWeXZWEgrW1iPCxYPv4B1zfg4lRJnFpgXgSXIwWdCxM3ImSbDOiZRmKXpZnP
+ FQbrrU4t2Bhy63T89SqdDdsSnW5Kwo/fbIyqhyvMza5w5ucG3Cgkw23Cc5XnFO9cLojC
+ dvffh6GhmSL67IXHgiVKE8QYl42WXplP/8Z5ZVwEDxr81zbB84/70RjXu+DJhtmsmpaf
+ bopVXE+TzLzvfTErKOVLPaZ1Ik4A0FY6Xqo6WFL7Mt3xxCsRbXzKl+eeENJweJAkfFQz
+ Ojfg==
+X-Gm-Message-State: AOAM530eLvVeNopeuKdy1zhq9CELIYX92ejRoxRiWuuTKVFrNCRm1aBd
+ cdOQpC5WV8VKH3HD5Jxm7nkxSh0LSm7SKEYDysT/QQ==
+X-Google-Smtp-Source: ABdhPJwZr3Wnjgl9INswmRX8j6PE+U9N5T0seoUM0s29l+SpYSFVVzVA2VAhljcYE2g84EpAA0a4jn2GXa2Q4MVs80M=
+X-Received: by 2002:adf:f109:0:b0:1e3:e2d:e6e0 with SMTP id
+ r9-20020adff109000000b001e30e2de6e0mr8501855wro.177.1645257634157; Sat, 19
+ Feb 2022 00:00:34 -0800 (PST)
 MIME-Version: 1.0
 References: <20220218075727.2737623-1-davidgow@google.com>
- <20220218075727.2737623-5-davidgow@google.com>
- <ac4c5f8c890e5bdd7ad7ecc04a51e72fa3ac1703.camel@sipsolutions.net>
-In-Reply-To: <ac4c5f8c890e5bdd7ad7ecc04a51e72fa3ac1703.camel@sipsolutions.net>
+ <20220218075727.2737623-2-davidgow@google.com>
+ <ef8eee23-ba8c-e76a-d32d-68658841708d@amd.com>
+In-Reply-To: <ef8eee23-ba8c-e76a-d32d-68658841708d@amd.com>
 From: David Gow <davidgow@google.com>
-Date: Sat, 19 Feb 2022 16:00:04 +0800
-Message-ID: <CABVgOSnBq0QE+Cq+SDeV-LxOQYbGZ6Bqbjix6h-UpNj0GMicPA@mail.gmail.com>
-Subject: Re: [PATCH 4/4] kunit: tool: Disable broken options for --alltests
-To: Johannes Berg <johannes@sipsolutions.net>
+Date: Sat, 19 Feb 2022 16:00:22 +0800
+Message-ID: <CABVgOSnFjDnjbPh_E+GSzp-8WoRVPFa36=5GUpPtC-ba-fGkaw@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/amdgpu: Fix compilation under UML
+To: Felix Kuehling <felix.kuehling@amd.com>
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000becf0b05d85a630a"
+ micalg=sha-256; boundary="000000000000ddef3005d85a64ee"
 X-Mailman-Approved-At: Sat, 19 Feb 2022 10:02:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,136 +74,117 @@ Cc: x86@kernel.org, linux-rdma@vger.kernel.org,
  dri-devel@lists.freedesktop.org,
  "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
  Shuah Khan <skhan@linuxfoundation.org>,
- KUnit Development <kunit-dev@googlegroups.com>, felix.kuehling@amd.com,
+ KUnit Development <kunit-dev@googlegroups.com>,
  Anton Ivanov <anton.ivanov@cambridgegreys.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000becf0b05d85a630a
+--000000000000ddef3005d85a64ee
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Feb 18, 2022 at 8:26 PM Johannes Berg <johannes@sipsolutions.net> w=
-rote:
+On Sat, Feb 19, 2022 at 12:39 AM Felix Kuehling <felix.kuehling@amd.com> wr=
+ote:
 >
-> On Fri, 2022-02-18 at 15:57 +0800, David Gow wrote:
+>
+> Am 2022-02-18 um 02:57 schrieb David Gow:
+> > From: Randy Dunlap <rdunlap@infradead.org>
 > >
-> > Note that, while this does build again, it still segfaults on startup,
-> > so more work remains to be done.
->
-> That's probably just a lot more stuff getting included somehow?
->
-
-Yeah: it used to work (a couple of years ago), but something has
-broken it in the meantime. It's just a shame that bisecting things
-with allyesconfig takes so long...
-
-> > They are:
-> > - CONFIG_VFIO_PCI: Needs ioport_map/ioport_unmap.
-> > - CONFIG_INFINIBAND_RDMAVT: Needs cpuinfo_x86 and __copy_user_nocache
-> > - CONFIG_BNXT: Failing under UML with -Werror
-> > ERROR:root:../drivers/net/ethernet/broadcom/bnxt/bnxt_ptp.c: In functio=
-n =E2=80=98bnxt_ptp_enable=E2=80=99:
-> > ../drivers/net/ethernet/broadcom/bnxt/bnxt_ptp.c:400:43: error: array s=
-ubscript 255 is above array bounds of =E2=80=98struct pps_pin[4]=E2=80=99 [=
--Werror=3Darray-bounds]
-> >   400 |                         ptp->pps_info.pins[pin_id].event =3D BN=
-XT_PPS_EVENT_EXTERNAL;
-> >       |                         ~~~~~~~~~~~~~~~~~~^~~~~~~~
-> > - CONFIG_PATA_CS5535: Needs MSR access (__tracepoint_{read,write}_msr)
-> > - CONFIG_VDPA: Enables CONFIG_DMA_OPS, which is unimplemented. ('dma_op=
-s' is not defined)
+> > cpuinfo_x86 and its associated macros are not available under ARCH=3Dum=
+,
+> > even though CONFIG_X86_64 is defined.
 > >
-> > These are all issues which should be investigated properly and the
-> > corresponding options either fixed or disabled under UML. Having this
-> > list of broken options should act as a good to-do list here, and will
-> > allow these issues to be worked on independently, and other tests to
-> > work in the meantime.
+> > This patch (and discussion) were originally posted here:
+> > https://lkml.org/lkml/2022/1/24/1547
 > >
+> > This produces the following build errors:
+> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1556:9: note: in=
+ expansion of macro =E2=80=98cpu_data=E2=80=99
+> >    return cpu_data(first_cpu_of_numa_node).apicid;
+> >           ^~~~~~~~
+> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:1560:1: error: c=
+ontrol reaches end of non-void function [-Werror=3Dreturn-type]
+> >
+> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function =E2=80=
+=98kfd_fill_iolink_info_for_cpu=E2=80=99:
+> > ../arch/um/include/asm/processor-generic.h:103:19: error: called object=
+ is not a function or function pointer
+> >   #define cpu_data (&boot_cpu_data)
+> >                    ~^~~~~~~~~~~~~~~
+> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1688:27: note: in ex=
+pansion of macro =E2=80=98cpu_data=E2=80=99
+> >    struct cpuinfo_x86 *c =3D &cpu_data(0);
+> >                             ^~~~~~~~
+> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:7: error: deref=
+erencing pointer to incomplete type =E2=80=98struct cpuinfo_x86=E2=80=99
+> >    if (c->x86_vendor =3D=3D X86_VENDOR_AMD)
+> >         ^~
+> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1691:23: error: =E2=
+=80=98X86_VENDOR_AMD=E2=80=99 undeclared (first use in this function); did =
+you mean =E2=80=98X86_VENDOR_ANY=E2=80=99?
+> >    if (c->x86_vendor =3D=3D X86_VENDOR_AMD)
+> >                         ^~~~~~~~~~~~~~
+> >                         X86_VENDOR_ANY
+> >
+> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c: In function =E2=80=
+=98kfd_create_vcrat_image_cpu=E2=80=99:
+> > ../drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1742:11: warning: un=
+used variable =E2=80=98entries=E2=80=99 [-Wunused-variable]
+> >    uint32_t entries =3D 0;
+> >
+> > Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> > Signed-off-by: David Gow <davidgow@google.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 6 +++---
+> >   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
+> >   2 files changed, 4 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_crat.c
+> > index 9624bbe8b501..b1e2d117be3d 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> > @@ -1682,7 +1682,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_nod=
+e_id, int *avail_size,
+> >       return 0;
+> >   }
+> >
+> > -#ifdef CONFIG_X86_64
+> > +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
 >
-> I'm not really sure it makes sense to even do anything other than
-> disabling these.
->
-> It looks like all of them are just exposed by now being able to build
-> PCI drivers on UML. Surely the people writing the driver didn't expect
-> their drivers to run over simulated PCI (which is what the UML PCI
-> support is all about).
->
-> Now from a PCI driver point of view you can't really tell the difference
-> (and anyway the driver won't be probed), but the issues (at least the
-> build time ones) come from having
->
->     UML && PCI && X86_64
->
-> or
->
->     UML && PCI && X86_32
->
-> because drivers typically depend on X86_64 or X86_32, rather than on
-> "X86 && X86_64" or "X86 && X86_32". In a sense thus, the issue is those
-> drivers don't know that "!X86 && (X86_32 || X86_64)" can happen (with
-> UML).
->
->
-> Now you could say that's the driver bug, or you could say that they
-> should just add "depends on !UML" (though that's basically equivalent to
-> adding "depends on X86" and the latter may be preferable in some cases).
->
-> Or actually in the three patches you have (1-3) it's in the code, but
-> same thing, you can either add && !UML (like you did) or add && X86.
+> I don't think it makes sense to compile a hardware device driver in a
+> UML config. Instead of scattering UML #ifdefs through our code, I would
+> recommend adding this to Kconfig:
 >
 
-I didn't realise X86 wasn't defined in UML: that's definitely a bit
-cleaner than !UML in a number of these cases.
+There are cases where I think it could make sense to have a hardware
+driver under UML, though I agree they're pretty rare.
 
-Not all of those issues are fundamentally solved by "depends on X86",
-though: there are a few which might be other missing things in UML
-(maybe the 'dma_ops' issues?), and/or might be the result of -Werror
-being enabled.
+In particular, there's the virtio PCI support in UML, which one could
+potentially hook up a GPU to. The case I care more about is the
+ability to run KUnit tests under UML: if amdgpu wanted to have KUnit
+tests, it could still run them in qemu (or on real hardware), but UML
+is faster and more convenient, if the code being tested can compile
+under it.
 
->
-> Arguably, however, building PCI drivers by default is somewhat
-> questionable in the first place?
+So I have a slight preference personally for fixing this, to unblock those =
+uses.
 
-We do want the ability to build PCI drivers under UML, as it makes
-running KUnit tests for PCI drivers much simpler and more pleasant.
-And indeed, it does work for KUnit in general, it's just that some
-drivers do have the issues mentioned above, so allyesconfig picks up
-every broken driver.
-
-We don't actually build the PCI drivers by default, only if the
-"--alltests" option is passed, which does include them, as we do have
-tests which depend on PCI we'd like to run (like the thunderbolt
-test).
-
->
-> So maybe you should just add
->
->     # CONFIG_UML_PCI_OVER_VIRTIO is not set
->
-> to the broken_on_uml.config since it exposes all these issues, and
-> really is not very useful since you're not going to actually run with
-> any simulated PCI devices anyway, so drivers will not be probed.
-
-I did try this as well, and it just got us a different set of issues
-(there are a bunch of drivers which depend on IOMEM but don't state it
--- I'll try to send fixes for those out next week). And we'd lose
-things like the thunderbolt test if PCI
-
-Ultimately, the 'broken_on_uml.config' file is just there to pare back
-allyesconfig a bit for KUnit's purposes, but we still definitely want
-as many options (and hence tests) enabled as possible long-term. So I
-think actual fixes to either the code or Kconfig do make sense.
-
-Is 'make ARCH=3Dum allyesconfig' something we actually want to be able
-to build? If so, no amount of adding things to KUnit's
-broken_on_uml.config will solve the underlying issues, and we'll need
-to at least update the Kconfig entries.
+That being said, it's definitely not worth placing a significant
+burden on you maintaining these things if no-one uses them. And since
+there doesn't appear to be any such use at the moment[1], I've no
+strong objection to just disabling this for now (it can always be
+re-enabled and fixed if it becomes useful later).
 
 Cheers,
 -- David
 
---000000000000becf0b05d85a630a
+[1] The proposed DRM KUnit tests don't require any actual hardware
+drivers, as I understand it:
+https://lore.kernel.org/all/20220117232259.180459-5-michal.winiarski@intel.=
+com/T/
+
+--000000000000ddef3005d85a64ee
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -271,14 +251,14 @@ jZstNF/BUnI3864fATiXSbnNqBwlJS3YkoaCTpbI9qNTrf5VIvnbryT69xJ6f25yfmxrXNJJe5OG
 ncB34Cwnb7xQyk+uRLZ465yUBkbjk9pC/yamL0O7SOGYUclrQl2c5zzGuVBD84YcQGDOK6gSPj6w
 QuBfOooZPOyZZZ8AMih7J980MYICajCCAmYCAQEwaDBUMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQ
 R2xvYmFsU2lnbiBudi1zYTEqMCgGA1UEAxMhR2xvYmFsU2lnbiBBdGxhcyBSMyBTTUlNRSBDQSAy
-MDIwAhABQeVybOOpR4bOOXZYL5T3MA0GCWCGSAFlAwQCAQUAoIHUMC8GCSqGSIb3DQEJBDEiBCC1
-hK5mkWbXD3kQGhQArPS3EpKnqjuOZpFfFWnAx7DK6DAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcB
-MBwGCSqGSIb3DQEJBTEPFw0yMjAyMTkwODAwMTVaMGkGCSqGSIb3DQEJDzFcMFowCwYJYIZIAWUD
+MDIwAhABQeVybOOpR4bOOXZYL5T3MA0GCWCGSAFlAwQCAQUAoIHUMC8GCSqGSIb3DQEJBDEiBCAD
+bDG4S/ht/giejbOZGd/p6/lp8S/M/DHA3U+Ot88qtDAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcB
+MBwGCSqGSIb3DQEJBTEPFw0yMjAyMTkwODAwMzRaMGkGCSqGSIb3DQEJDzFcMFowCwYJYIZIAWUD
 BAEqMAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEKMAsG
-CSqGSIb3DQEBBzALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEAjnpewcuZUJVS6VIu0yi4
-03UYYnjQhPEECv0bhdeu4hsYPRtRxIiCLf3pHo16X6hgQixHb8uSkg5VJDcLfSKM6CCkOQLj8Zt8
-tZ1qXXWuD2yF+nWgcW0zHG9zpfGy2g5v0H3e4z3XswHVBQdgFcsY/N2v/m+7FlSlIKp4eKHVUyWQ
-QDocj2QwLwrPTzvToOVgfvnPDNf3CuMwA80C7v9WEX/syUDQMaQSWCyfuxTiaUHfBdvRCGgZt+M7
-XGmNI+IWcxeYhj5xZo4LWkK8APgeCTs5d+MhF0JpZK1QqJnb9rWSjyf7hOJdwPpedIOyrjQDfmbx
-pB+HTOm+2IxT/N2jYA==
---000000000000becf0b05d85a630a--
+CSqGSIb3DQEBBzALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEAKANLJk4i7jUMAjnEhFHl
+o2f9h+XHj1vfL7KVXEc1ciAAUdpZxezlv2cCZEdq9krX+jtap9bTVtJzyLMbVr5SixD3Ob5tVk0f
+E8+a8irhK9+YVAQchpYBa8+RJdqH0J1HeFb80T5P1jN73CevRgcoGDjd1izkE9NKJ0l6lvoHv8LF
+0p0HA2IHK6nYYs3xdRkVCL7Nu8cFQxkDf7TjmBiqrIH2GxVwU84dpMTrkzBqT7ZswXYZ/LrcUcNp
+Jr3U0AY9S11MadPemWc97d53FMqEtCy2rLB/pEIcKioSUIKRbbtLM/QKotZO07I6xLDzGnXHDP2T
+kczRI/2I9zlFWB7rVg==
+--000000000000ddef3005d85a64ee--
