@@ -4,36 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E7FEC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 08:30:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF0BEC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 08:30:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10BDA11240B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DC9311240D;
 	Mon, 21 Feb 2022 08:30:48 +0000 (UTC)
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [IPv6:2a01:488:42:1000:50ed:8234::])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2698B10E1DB
- for <amd-gfx@lists.freedesktop.org>; Sun, 20 Feb 2022 17:33:55 +0000 (UTC)
-Received: from ip4d144895.dynamic.kabel-deutschland.de ([77.20.72.149]
- helo=[192.168.66.200]); authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1nLq5p-0007yD-E6; Sun, 20 Feb 2022 18:33:53 +0100
-Message-ID: <978944b7-4e71-475a-2fe6-c414d3e8f64e@leemhuis.info>
-Date: Sun, 20 Feb 2022 18:33:52 +0100
+Received: from forward107p.mail.yandex.net (forward107p.mail.yandex.net
+ [IPv6:2a02:6b8:0:1472:2741:0:8b7:115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2A9510EAD5
+ for <amd-gfx@lists.freedesktop.org>; Sun, 20 Feb 2022 15:19:58 +0000 (UTC)
+Received: from myt5-f0e8352497c8.qloud-c.yandex.net
+ (myt5-f0e8352497c8.qloud-c.yandex.net
+ [IPv6:2a02:6b8:c12:3c22:0:640:f0e8:3524])
+ by forward107p.mail.yandex.net (Yandex) with ESMTP id 207A5556CE46;
+ Sun, 20 Feb 2022 18:19:56 +0300 (MSK)
+Received: from myt5-aad1beefab42.qloud-c.yandex.net
+ (myt5-aad1beefab42.qloud-c.yandex.net [2a02:6b8:c12:128:0:640:aad1:beef])
+ by myt5-f0e8352497c8.qloud-c.yandex.net (mxback/Yandex) with ESMTP id
+ D6W9P1iVZ4-Jtdmn38c; Sun, 20 Feb 2022 18:19:56 +0300
+X-Yandex-Fwd: 2
+Authentication-Results: myt5-f0e8352497c8.qloud-c.yandex.net; dkim=pass
+Received: by myt5-aad1beefab42.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
+ id M6K5BEkQDc-JqH8q7d8; Sun, 20 Feb 2022 18:19:54 +0300
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (Client certificate not present)
+From: Yaroslav Bolyukin <iam@lach.pw>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v2 2/2] drm/amd: use fixed dsc bits-per-pixel from edid
+Date: Sun, 20 Feb 2022 18:19:40 +0300
+Message-Id: <20220220151940.58327-2-iam@lach.pw>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220220151940.58327-1-iam@lach.pw>
+References: <20220213133128.5833-1-iam@lach.pw>
+ <20220220151940.58327-1-iam@lach.pw>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-BS
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Subject: Bug 215600 - Radeon - *ERROR* Failed waiting for UVD message
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1645378436;
- 67278621; 
-X-HE-SMSGID: 1nLq5p-0007yD-E6
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 21 Feb 2022 08:30:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -46,86 +52,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Leo Li <sunpeng.li@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "Lin, Wayne" <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Yaroslav Bolyukin <iam@lach.pw>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, this is your Linux kernel regression tracker.
+VESA vendor header from DisplayID spec may contain fixed bit per pixel
+rate, it should be respected by drm driver
 
-I noticed a regression report in bugzilla.kernel.org that afaics nobody
-acted upon since it was reported about a week ago, that's why I decided
-to forward it to the lists and all the relevant people. To quote
-https://bugzilla.kernel.org/show_bug.cgi?id=215600 :
+Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 ++
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c           | 3 ++-
+ drivers/gpu/drm/amd/display/dc/dc_types.h                 | 3 +++
+ 3 files changed, 7 insertions(+), 1 deletion(-)
 
->  Richard Herbert 2022-02-12 22:13:07 UTC
-> 
-> Created attachment 300445 [details]
-> Details
-> 
-> When attempting to play some types of videos with VLC 3.0.16 (eg. *.flv, *.mp4), when running kernels 5.17-rc1 to 5.17-rc3, only the audio portion is heard and the VLC video screen remains black. Meanwhile, many of these entries are written per second to /var/log/syslog:
-> 
-> 2/12/22 3:41 PM	starbug	kernel	[drm:radeon_uvd_cs_parse [radeon]] *ERROR* Failed waiting for UVD message (-1)!
-> 2/12/22 3:41 PM	starbug	kernel	[drm:radeon_cs_ioctl [radeon]] *ERROR* Invalid command stream !
-> 2/12/22 3:41 PM	starbug	kernel	[drm:radeon_uvd_cs_parse [radeon]] *ERROR* Failed waiting for UVD message (-1)!
-> 2/12/22 3:41 PM	starbug	kernel	[drm:radeon_cs_ioctl [radeon]] *ERROR* Invalid command stream !
-> 2/12/22 3:41 PM	starbug	kernel	[drm:radeon_uvd_cs_parse [radeon]] *ERROR* Failed waiting for UVD message (-1)!
-> 2/12/22 3:41 PM	starbug	kernel	[drm:radeon_cs_ioctl [radeon]] *ERROR* Invalid command stream !
-> 
-> 
-> The problem doesn't occur in kernels of the 5.16 series.  It may have been introduced here:
-> 
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/diff/drivers/gpu/drm/radeon/radeon_uvd.c?id=v5.16&id2=v5.17-rc1
-> 
-> 
-> Thanks!
-
-Could somebody take a look into this? Or was this discussed somewhere
-else already? Or even fixed?
-
-Anyway, to get this tracked:
-
-#regzbot introduced: v5.16..v5.17-rc1
-#regzbot from:  Richard Herbert <rherbert@sympatico.ca>
-#regzbot title: drm: radeon: no sound on video, *ERROR* Failed waiting
-for UVD message
-#regzbot link: https://bugzilla.kernel.org/show_bug.cgi?id=215600
-
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
-
-P.S.: As the Linux kernel's regression tracker I'm getting a lot of
-reports on my table. I can only look briefly into most of them and lack
-knowledge about most of the areas they concern. I thus unfortunately
-will sometimes get things wrong or miss something important. I hope
-that's not the case here; if you think it is, don't hesitate to tell me
-in a public reply, it's in everyone's interest to set the public record
-straight.
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 29f07c26d..b34dd89ae 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -118,6 +118,8 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 
+ 	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
+ 
++	edid_caps->dsc_fixed_bits_per_pixel_x16 = connector->display_info.dp_dsc_bpp;
++
+ 	sad_count = drm_edid_to_sad((struct edid *) edid->raw_edid, &sads);
+ 	if (sad_count <= 0)
+ 		return result;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index 57cf4cb82..f8516ec70 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -105,6 +105,8 @@ static bool dc_stream_construct(struct dc_stream_state *stream,
+ 
+ 	/* EDID CAP translation for HDMI 2.0 */
+ 	stream->timing.flags.LTE_340MCSC_SCRAMBLE = dc_sink_data->edid_caps.lte_340mcsc_scramble;
++	stream->timing.dsc_fixed_bits_per_pixel_x16 =
++		dc_sink_data->edid_caps.dsc_fixed_bits_per_pixel_x16;
+ 
+ 	memset(&stream->timing.dsc_cfg, 0, sizeof(stream->timing.dsc_cfg));
+ 	stream->timing.dsc_cfg.num_slices_h = 0;
+@@ -738,4 +740,3 @@ void dc_stream_log(const struct dc *dc, const struct dc_stream_state *stream)
+ 			"\tlink: %d\n",
+ 			stream->link->link_index);
+ }
+-
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index 0285a4b38..ce2e11d70 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -227,6 +227,9 @@ struct dc_edid_caps {
+ 	bool edid_hdmi;
+ 	bool hdr_supported;
+ 
++	/* DisplayPort caps */
++	uint32_t dsc_fixed_bits_per_pixel_x16;
++
+ 	struct dc_panel_patch panel_patch;
+ };
+ 
 -- 
-Additional information about regzbot:
+2.35.1
 
-If you want to know more about regzbot, check out its web-interface, the
-getting start guide, and the references documentation:
-
-https://linux-regtracking.leemhuis.info/regzbot/
-https://gitlab.com/knurd42/regzbot/-/blob/main/docs/getting_started.md
-https://gitlab.com/knurd42/regzbot/-/blob/main/docs/reference.md
-
-The last two documents will explain how you can interact with regzbot
-yourself if your want to.
-
-Hint for reporters: when reporting a regression it's in your interest to
-CC the regression list and tell regzbot about the issue, as that ensures
-the regression makes it onto the radar of the Linux kernel's regression
-tracker -- that's in your interest, as it ensures your report won't fall
-through the cracks unnoticed.
-
-Hint for developers: you normally don't need to care about regzbot once
-it's involved. Fix the issue as you normally would, just remember to
-include 'Link:' tag in the patch descriptions pointing to all reports
-about the issue. This has been expected from developers even before
-regzbot showed up for reasons explained in
-'Documentation/process/submitting-patches.rst' and
-'Documentation/process/5.Posting.rst'.
