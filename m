@@ -4,41 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4AFCC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 08:30:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68D67C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 08:30:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90C10112411;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28AE6112410;
 	Mon, 21 Feb 2022 08:30:49 +0000 (UTC)
-Received: from forward103o.mail.yandex.net (forward103o.mail.yandex.net
- [IPv6:2a02:6b8:0:1a2d::606])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37B1710EADD;
- Sun, 20 Feb 2022 15:19:53 +0000 (UTC)
-Received: from myt6-640abdf8240b.qloud-c.yandex.net
- (myt6-640abdf8240b.qloud-c.yandex.net
- [IPv6:2a02:6b8:c12:238c:0:640:640a:bdf8])
- by forward103o.mail.yandex.net (Yandex) with ESMTP id 337BD10A8B42;
- Sun, 20 Feb 2022 18:19:50 +0300 (MSK)
-Received: from myt5-aad1beefab42.qloud-c.yandex.net
- (myt5-aad1beefab42.qloud-c.yandex.net [2a02:6b8:c12:128:0:640:aad1:beef])
- by myt6-640abdf8240b.qloud-c.yandex.net (mxback/Yandex) with ESMTP id
- ULTItrHxDE-JmdWIfit; Sun, 20 Feb 2022 18:19:50 +0300
-X-Yandex-Fwd: 2
-Authentication-Results: myt6-640abdf8240b.qloud-c.yandex.net; dkim=pass
-Received: by myt5-aad1beefab42.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
- id M6K5BEkQDc-JkH89QTQ; Sun, 20 Feb 2022 18:19:47 +0300
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (Client certificate not present)
-From: Yaroslav Bolyukin <iam@lach.pw>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 1/2] drm/edid: parse DRM VESA dsc bpp target
-Date: Sun, 20 Feb 2022 18:19:39 +0300
-Message-Id: <20220220151940.58327-1-iam@lach.pw>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220213133128.5833-1-iam@lach.pw>
-References: <20220213133128.5833-1-iam@lach.pw>
+Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [IPv6:2a01:e0c:1:1599::14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD5B610E15A;
+ Sun, 20 Feb 2022 18:03:38 +0000 (UTC)
+Received: from [192.168.8.33] (unknown [90.19.9.37])
+ (Authenticated sender: eric.valette@free.fr)
+ by smtp5-g21.free.fr (Postfix) with ESMTPSA id 7A5715FF33;
+ Sun, 20 Feb 2022 19:03:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+ s=smtp-20201208; t=1645380216;
+ bh=IukDJ5h4L2PHp9stLtKdlNNaLlvJkJUdojizUPTPeKM=;
+ h=Date:Reply-To:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=rhWZ1j23EvxNsTknNLs/om+90oVmS28biKPyhdT0QbJKoeCDCPP/IkJNUAT/7Iiws
+ nwFNm3+uHfm6F5dEPB+CiraRY8nhNVeGMhiNc1H4WmVJXdtxvKd11zFwtqbQYhrjB+
+ tP8jetzDa2dp08glWC1IjM63nqUJ7yWbxHXMCNkjt0C2NA8aMAIHMZx2zjTU6gE+D4
+ iRs3ese+SaeryZ7VV0NPAMLHjFcKoFVb/AtQybhKlngF7GnyrRPoQrIrQPIbJT7c3Q
+ 9Pq4H0XINOZM9iesgyddmAcGAzy155Jrx9IYRprJG212qCesOH0Se9anppF4NwLiU0
+ 44zHDMMtzfZwQ==
+Message-ID: <c62d4ba9-2214-ca7d-ee78-ee19a9bf51e6@free.fr>
+Date: Sun, 20 Feb 2022 19:03:23 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: Regression from 3c196f056666 ("drm/amdgpu: always reset the asic
+ in suspend (v2)") on suspend?
+Content-Language: en-US
+To: dod@debian.org, Salvatore Bonaccorso <carnil@debian.org>
+References: <Ygf7KuWyc0d4HIFu@eldamar.lan>
+ <CADnq5_MfR99OhjumQESCO7Oq+JVOHOVgyVQHX4FpGFDnPu6CyQ@mail.gmail.com>
+ <5164225.DI6hChFYCN@ylum>
+From: Eric Valette <eric.valette@free.fr>
+Organization: HOME
+In-Reply-To: <5164225.DI6hChFYCN@ylum>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 21 Feb 2022 08:30:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,132 +55,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Leo Li <sunpeng.li@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- "Lin, Wayne" <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Yaroslav Bolyukin <iam@lach.pw>
+Reply-To: eric.valette@free.fr
+Cc: Sasha Levin <sashal@kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Luben Tuikov <luben.tuikov@amd.com>, 1005005@bugs.debian.org,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As per DisplayID v2.0 Errata E9 spec "DSC pass-through timing support"
-VESA vendor-specific data block may contain target DSC bits per pixel
-fields
+On 20/02/2022 16:48, Dominique Dumont wrote:
+> On Monday, 14 February 2022 22:52:27 CET Alex Deucher wrote:
+>> Does the system actually suspend?
+> 
+> Not really. The screens looks like it's going to suspend, but it does come
+> back after 10s or so. The light mounted in the middle of the power button does
+> not switch off.
 
-Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
----
- drivers/gpu/drm/drm_edid.c  | 33 ++++++++++++++++++++++-----------
- include/drm/drm_connector.h |  6 ++++++
- include/drm/drm_displayid.h |  4 ++++
- 3 files changed, 32 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index a7663f9a1..ee8c2b911 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -5270,7 +5270,7 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
- 	if (oui(vesa->oui[0], vesa->oui[1], vesa->oui[2]) != VESA_IEEE_OUI)
- 		return;
- 
--	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
-+	if (block->num_bytes < 5) {
- 		drm_dbg_kms(connector->dev, "Unexpected VESA vendor block size\n");
- 		return;
- 	}
-@@ -5290,20 +5290,29 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
- 		break;
- 	}
- 
--	if (!info->mso_stream_count) {
--		info->mso_pixel_overlap = 0;
--		return;
-+	info->mso_pixel_overlap = 0;
-+
-+	if (info->mso_stream_count) {
-+		info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
-+		if (info->mso_pixel_overlap > 8) {
-+			drm_dbg_kms(connector->dev, "Reserved MSO pixel overlap value %u\n",
-+				info->mso_pixel_overlap);
-+			info->mso_pixel_overlap = 8;
-+		}
-+
-+		drm_dbg_kms(connector->dev, "MSO stream count %u, pixel overlap %u\n",
-+			info->mso_stream_count, info->mso_pixel_overlap);
- 	}
- 
--	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
--	if (info->mso_pixel_overlap > 8) {
--		drm_dbg_kms(connector->dev, "Reserved MSO pixel overlap value %u\n",
--			    info->mso_pixel_overlap);
--		info->mso_pixel_overlap = 8;
-+	if (block->num_bytes < 7) {
-+		/* DSC bpp is optional */
-+		return;
- 	}
- 
--	drm_dbg_kms(connector->dev, "MSO stream count %u, pixel overlap %u\n",
--		    info->mso_stream_count, info->mso_pixel_overlap);
-+	info->dp_dsc_bpp = FIELD_GET(DISPLAYID_VESA_DSC_BPP_INT, vesa->dsc_bpp_int) * 16 +
-+		FIELD_GET(DISPLAYID_VESA_DSC_BPP_FRACT, vesa->dsc_bpp_fract);
-+
-+	drm_dbg_kms(connector->dev, "DSC bits per pixel %u\n", info->dp_dsc_bpp);
- }
- 
- static void drm_update_mso(struct drm_connector *connector, const struct edid *edid)
-@@ -5348,6 +5357,8 @@ drm_reset_display_info(struct drm_connector *connector)
- 
- 	info->mso_stream_count = 0;
- 	info->mso_pixel_overlap = 0;
-+
-+	info->dp_dsc_bpp = 0;
- }
- 
- u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edid)
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 5e36eb3df..04ef0e995 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -634,6 +634,12 @@ struct drm_display_info {
- 	 * @mso_pixel_overlap: eDP MSO segment pixel overlap, 0-8 pixels.
- 	 */
- 	u8 mso_pixel_overlap;
-+
-+	/**
-+	 * @dp_dsc_bpp: DP Display-Stream-Compression (DSC) timing's target
-+	 * DST bits per pixel in 6.4 fixed point format. 0 means undefined
-+	 */
-+	u16 dp_dsc_bpp;
- };
- 
- int drm_display_info_set_bus_formats(struct drm_display_info *info,
-diff --git a/include/drm/drm_displayid.h b/include/drm/drm_displayid.h
-index 7ffbd9f7b..1be6deddc 100644
---- a/include/drm/drm_displayid.h
-+++ b/include/drm/drm_displayid.h
-@@ -131,12 +131,16 @@ struct displayid_detailed_timing_block {
- 
- #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
- #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
-+#define DISPLAYID_VESA_DSC_BPP_INT	GENMASK(5, 0)
-+#define DISPLAYID_VESA_DSC_BPP_FRACT GENMASK(3, 0)
- 
- struct displayid_vesa_vendor_specific_block {
- 	struct displayid_block base;
- 	u8 oui[3];
- 	u8 data_structure_type;
- 	u8 mso;
-+	u8 dsc_bpp_int;
-+	u8 dsc_bpp_fract;
- } __packed;
- 
- /* DisplayID iteration */
+As I have a very similar problem and also commented on the original 
+debian bug report 
+(https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1005005), I will add 
+some information here on another amd only laptop (renoir AMD Ryzen 7 
+4800H with Radeon Graphics + Radeon RX 5500/5500M / Pro 5500M).
 
-base-commit: 1528038385c0a706aac9ac165eeb24044fef6825
--- 
-2.35.1
+For me the suspend works once, but after the first resume (I do know 
+know if it is in the suspend path or the resume path I see a RIP in the 
+dmesg (see aditional info in debian bug))  and later suspend do not 
+work: It only go to the kde login screen.
+
+I was unable due to network connectivity to do a full bisect but tested 
+with the patch I had on my laptop:
+
+5.10.101 works, 5.10 from debian works
+5.11 works
+5.12 works
+5.13 suspend works but when resuming the PC is dead I have to reboot
+5.14 seems to work but looking at dmesg it is full of RIP messages at 
+various places.
+5.15.24 is a described 5.15 from debian is behaving identically
+5.16 from debian is behaving identically.
+
+>> Is this system S0i3 or regular S3?
+
+For me it is real S3.
+
+The proposed patch is intended for INTEl + intel gpu + amdgpu but I have 
+dual amd GPU.
+
+--eric
+
 
