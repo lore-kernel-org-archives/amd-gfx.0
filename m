@@ -4,92 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E5B4C43217
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 10:17:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D536FC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 10:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6FB110F293;
-	Mon, 21 Feb 2022 10:17:21 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2048.outbound.protection.outlook.com [40.107.212.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7D7010F279
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 10:17:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6176D10E5AD;
+	Mon, 21 Feb 2022 10:31:14 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2083.outbound.protection.outlook.com [40.107.223.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA0CA10E5AD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 10:31:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ioiLy2xY3Jp8e6WMo+3l38T9rd9VJpiDNDMe3Tt6WEsWcrZB+hcjxTM0NcE4ysovwA2rX61dyriyilLcdF787xp4ubqL1fXhKg8pRmOlJ+EQqPbw/SL+UfBAzkTlDQAYTPLhcJ1Pps9xwv58li1ZYkDVQEwWspXRHxqRpjVVa0DKvMO5BS/wCINUWvavUbGiDaBIGGvKyRlnlOmM8F8fUNPNj+J77JeBF84jxxBGQ0qCt7UtdaJuuj2kzdfswOTaqlNI0a75f8zGS5EZ6zbVYUETX8yW9GlKjCAm2vX0A0AXFrkW7q4i0lqAldrK2jz2xPGX6t6ZmE8fDaNILDf7kQ==
+ b=kkkFk180Jf57jKDmKYY8u681RKNgkE2Ld3uohCPL63uV+YvYmSmJI0r01ybEGJYyn36A7Bj3DBm8qalAp1D1gv5/jBIaz+tzJjRZo7pbxccAh34kR2Ap48XHwpq1/8l09h3IHpx+UAayuIf8dFhIpSibHEzJZymZ2+2eZ6FSqhHmPFDsdqq4DIEYMapkhLpDAQ+kBp+pnwcqlVPlfcm8HGvxqf60mxhP08tQ0GSrneeOBJ5r6mv1pvmvv9K5tC3hHY8Sth9zyUQyKwLc5pxK7doaMDo24+pvlL2aMp/YcCca5hAKe0CCK8BxPcV+wpKPN47V9HnngZwRYTulPKd7pw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kxstEAvevrKUFdJwfEPNKAw7nFgmAHwE3BtcxaVppPE=;
- b=crV331zbKOY96XJ1mAIMqc4DDE09L29TiUPcybx/Vbchiz6Qo0/tD8TiDd6+mAEOCUTlZkrhH1V5l6lmYTmSnaXJGmuNMjeLmgqFy3N59ZZ7952TsnFyS4JJalPlpec3HETVpYGqc877kPJVzbWdWKRJK3nRS2gqdZY8c8C3nRisWha9wkznOJcd4BiVCbDOszornQWHh6G3oyV+gES3seRVRHScNLoyFCXlZnIy3Xa3f2+oM499e3EmDgLiOro0UuRU40UMBesOm77Lndlg5DF27tqUP64QI7XKJaAv6E6GQxUMnNgYfzDg+Rj2sdVfrtVto6FfJd4yv79hr5utlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=Ixonh78RAQq/e8kATkf0QCuVbNp9YcuyHSkPwCwUFbk=;
+ b=mHAPXK7EZrW0e48NVUZ6A9KV8/qsksK9aYbDv5dE/t54YW0sHmoxe9OibopssLtZ1h0+4sf0HewejiAef34uRQwrPw51dAr9AKpM1f4KGFmQkUfJMw0nuNtTBgQjn5TMUeV63X5htq11y1rieZm8HlKjR06gFDKRY68vABNs4IlDfg3W0Qz7u+B2vgyCPtuNmb5VraZ/7HYobqStCVqif7FssXZkvdeC8j5yBUM93FaPgLXWcJq9jSciba0dF7KAlZssikp2yI+/xQ2RLzffjNxfD0Ay2pL28Su6nCMGra281CtOHxbUif9HhMyElok1xiObD7bBxqrlhTlozitYmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kxstEAvevrKUFdJwfEPNKAw7nFgmAHwE3BtcxaVppPE=;
- b=lTAE2K0brXC7pstQEczpr3b4WmySrYE9PtUS/xP12HHUdJT2/vdtazE9ddZfr3uZx26W6f1UiYY/Qx/N/VIidkUfzjRczCW2GbkVHIZ2CdyrYKmi482cCYuyfv9tWkbs/wNpXN7bJTfgsonAuTltGyD347T1wZOWqhyYXeNmRKQ=
-Received: from DM5PR19CA0004.namprd19.prod.outlook.com (2603:10b6:3:151::14)
- by BN8PR12MB3523.namprd12.prod.outlook.com (2603:10b6:408:69::22) with
+ bh=Ixonh78RAQq/e8kATkf0QCuVbNp9YcuyHSkPwCwUFbk=;
+ b=s8WIDbnawEik2E2N+Tt+IKoV3PeGSIwy2fq2RpYfk+F4h+5hXoY/X4w08Tvxr+5HqjSq1+EsHO0Pwlp2aGwBmninxl/24eSnnAI1QISdU3ni9jxtpeg7UtJ0+B6DHZ8NVnTOpjcN0EM6fhzbaShniJGry5ZVJ/14zAHJy8UQJ3Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by CO6PR12MB5475.namprd12.prod.outlook.com (2603:10b6:5:354::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.17; Mon, 21 Feb
- 2022 10:17:18 +0000
-Received: from DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:151:cafe::7f) by DM5PR19CA0004.outlook.office365.com
- (2603:10b6:3:151::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.12 via Frontend
- Transport; Mon, 21 Feb 2022 10:17:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT033.mail.protection.outlook.com (10.13.172.221) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4995.15 via Frontend Transport; Mon, 21 Feb 2022 10:17:17 +0000
-Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 21 Feb
- 2022 04:17:15 -0600
-From: yipechai <YiPeng.Chai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 12/12] drm/amdgpu: Remove redundant .ras_fini initialization
- in some ras blocks
-Date: Mon, 21 Feb 2022 18:16:20 +0800
-Message-ID: <20220221101620.3269611-12-YiPeng.Chai@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220221101620.3269611-1-YiPeng.Chai@amd.com>
-References: <20220221101620.3269611-1-YiPeng.Chai@amd.com>
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.14; Mon, 21 Feb
+ 2022 10:31:10 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e03f:901a:be6c:b581]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e03f:901a:be6c:b581%6]) with mapi id 15.20.4995.027; Mon, 21 Feb 2022
+ 10:31:10 +0000
+Message-ID: <e7264e6b-09a9-7d22-ff81-8dcc8f830be9@amd.com>
+Date: Mon, 21 Feb 2022 11:31:04 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH v8 1/2] drm/amdgpu: add debugfs for reset registers list
+Content-Language: en-US
+To: "Somalapuram, Amaranath" <Amaranath.Somalapuram@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20220221071540.2485-1-Amaranath.Somalapuram@amd.com>
+ <a588e193-3509-73b3-b0d6-962c2b72dc4c@amd.com>
+ <DM6PR12MB389702E53C862BAE2FA8B840F83A9@DM6PR12MB3897.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <DM6PR12MB389702E53C862BAE2FA8B840F83A9@DM6PR12MB3897.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: AS8PR05CA0021.eurprd05.prod.outlook.com
+ (2603:10a6:20b:311::26) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 54248f3c-91a3-468b-268f-08d9f52356f0
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3523:EE_
-X-Microsoft-Antispam-PRVS: <BN8PR12MB3523DB716100ED0337C4CE2CFC3A9@BN8PR12MB3523.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: f81c7fe2-f137-4361-fc54-08d9f52546a1
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5475:EE_
+X-Microsoft-Antispam-PRVS: <CO6PR12MB5475C200F2BABB1C3A0BC6A1833A9@CO6PR12MB5475.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6xhjHoq7jlKc+tjePlSb1xB0EG1G/rAet8F55LaP29tu/L/W7fu2wtlYKenfYvWmQ3G2vy1+KaF1ORgga0WpjCMIUeSvm3VxB655y9TNMChzdzBGHlrg0fLd4EnfU02mP4W8/eoYp4XGPuJ2mJYJfOqTOX+bq/E1XYdyg7u7Zz9tCVaJlbznGM3SK83ivm73UgmYOaqots6d86U08NJFRAeISXBuLRSM5fNSTDfHM7SeJUMbsL2L+HIPjaqVB1/L3RnAdp16Y9Fi9Zbh2y2wrs4yNFoWbUSWv6ogbScbGTS07+x5hvUvwOPFcQRrQehpzYs2OvB2qm92iwm8sftpHIV7A3jb6bOQ8UwSOy9yavg6x6rHvgeeOLIfyEa6x0aV5NIsUu8uv911WypnS0ZUg1mgnC4cupZemiQqCb0hCdrEBSe3cMuzmSgh21iIWTn3xNmL0rtyj8+tHVGGg0wBJGZCSkTCBmmNEkPkLZ/j2zOVSpvdhrP67LJGemZ8/4fh1TGDRfKVYi0bnxswl5w9BgXcQl0b9Fj8zRroO/JsEYDBcqThOTIqccV89/tP3B50WS9kT1p7GxuDi8cJYGQV5/yFpvBtyHx0CBsQVdjs1XmghUQfPiSvjr+3uN4YOFz5U8KC9QzwkR7BCmvPPybaCU+2gth3i20Krc83c3xoBnafboRTd4SBHpqcBEBqorbUMdeyJlAVIFLx1Wuv0p8sYtUgCpHqeOxf0GzCsnPmKtdVfY6Vi4MESAwHEU23SoR4
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(36756003)(2906002)(2616005)(82310400004)(1076003)(86362001)(26005)(16526019)(4326008)(70586007)(6666004)(8936002)(426003)(8676002)(186003)(336012)(508600001)(7696005)(81166007)(70206006)(356005)(5660300002)(54906003)(316002)(83380400001)(6916009)(36860700001)(47076005)(40460700003)(43062005)(142923001)(36900700001);
+X-Microsoft-Antispam-Message-Info: M6bbCgyT7Jx/rGkX35nVcvw8GTnOoHzXCUTxHCyOufQdUNHWseZUDZM57KJGDfHrLJRKx5n8tqTcZepJvCNgMcsRYYgXToZ1jLwW/jrlXslYnQRLKdEO/3OXgREzV5qaDn7ZGhQ6rTYJukrITOY/U1aZWxDfHAW8Zuby9cByshsl5H99Twl0aDSA2+KIrtpkSJQdNNEFRPMmMthkhPtzy7EMJDKXmwMQ6nlA8pelyk1Jw9RFfWOx6YA5pk+T0BdEgwppoTF52P/ZXMjiUKA2W6lS76bM1DJlvcRx5gv6CIdXYOSdLEzqZAFgPm5gaPWogZqLp5WqGr2k8GNa5Xca1YxCCeFfunofx+JFxvWtupw6UyqKtkqPH1RLGmqiEBcX9msh6tFLLlXprzl6YmZOazTFAgVWRxf9FIoh+KCsTn6mTfVH3JwQR/xZinNXOY8xB9pMVdpVOd9liqIX3q2XPaPd84aOfSOKhtFI1W3Oyk+cxcUtDH5RV3iN7IL6P3X8nKH938pct2pYcvAAY5iu8IepIoa7qCTYCoDQg3n0QYoy56AHp1QCzlkk9JQOl/sWIDERJ5U5Zz+NgNG3SY5MX5Ue2jmifAZUuYaKB0r4LPU+dXNDspC0Nq0pIfVOlct0i1ArW6t1zs2nxnjdClamTPvjzPVyQ5YIbVZwVnXqU0ncR4AjHbp6WPoCCIpLC6v++3BLjhj9hnIYUQklqflHi7ZL92GfqOYH+9iIy9CGBq1n/0FHUEe5BiqE83BngB5b
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(5660300002)(31696002)(2906002)(2616005)(8936002)(38100700002)(186003)(26005)(86362001)(6512007)(316002)(66476007)(31686004)(66556008)(6666004)(83380400001)(110136005)(54906003)(66574015)(53546011)(6506007)(6486002)(8676002)(508600001)(4326008)(36756003)(66946007)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZkJFakVnSzN0WU11QVdMMHFsSEEzMlZSMEZpMWZBbktDaUtiYW1qZFZzNit4?=
+ =?utf-8?B?R0lMcVdSc0NOSENZT2x1bHA0QjZnQzBIQVN2VGh2UjVhSnlkYXFZNlpJbE1R?=
+ =?utf-8?B?RjRVSkVzMllpNk9jSHlPYW1rMnM0OE9Lb01XWVBtK0RSd1FlRjdDb3Qvb3dW?=
+ =?utf-8?B?cWRDb001eW8vUzdKRlZNczZ0clRxM3JWeDJab1J3QW14NkVpWFFVM0tHZkRq?=
+ =?utf-8?B?WlpzRHN2MmJ2a1hMZmxjZzZMNWRKeUlhYklKMjhncHJsNWE5WThTbWV5RWgz?=
+ =?utf-8?B?T1RZYW5mMUdpNWJhY05leWMxMWxJbXlRTEpQOXBDaWhpTEgvSlVYR2QvTTRP?=
+ =?utf-8?B?TUZBMklTUThuYkRhSXBkSENmMUJNQkZyRG1ETkszQ3Y5enc4MVZ5Mnp1cVNs?=
+ =?utf-8?B?NkVzR1BSR3VaYVorL2FCbWtzSnZpZGlJZEFQakppRjl0RzdYZER3azg3SnZ3?=
+ =?utf-8?B?cDFsQlZIV3NLUjY1SzJpWk03aU5VeThPSm9RWVRjMDVxVWN5dWRKMGlxTmlG?=
+ =?utf-8?B?OTBKL3hHVmM2Um1iYlMzZlphUFBqNDU1Y2Z0Q1RyTU9jcnJEb0lpSVV2ODl2?=
+ =?utf-8?B?WjlpZWpoRFhFbnNYSUtjNk9JcGpGRzQ1aHZBSm9oR2czajU5UnVUR1pyY3Nm?=
+ =?utf-8?B?K2hUSXZ6bkJsRGNSLzdYbVVJdml6QzBhQ24zRGpDTDEwZm9kai9YemNxdE1m?=
+ =?utf-8?B?SlJySEhsODV5L2k1S3VpSk56YVg0TzBkWXRRblEzUlV1ZW13ckpaWDJHZjJ2?=
+ =?utf-8?B?UWU3MjZMOUdCVTFjRVNVZU5jUTY1Y0NPY0g3dERRK0JZY2huNTh3ajNHWjNX?=
+ =?utf-8?B?b0FraGMzbXhXUUtjNGFQSFJXYUxnVWxVZ1U3ejRYRVFiS2N6cnp3ajZIOHRE?=
+ =?utf-8?B?cVE3bWNNWHFCQXpUYzJTVGczdW5ISVUva3lZRHVYR0FIL05EMUs2WXdHKzRF?=
+ =?utf-8?B?bGpRaFdsYXo5WEtnVFlMbjFJa3NQQmtSWnVUMG4rRFlpSW1wYmQyVWNiT2VR?=
+ =?utf-8?B?dk5meEI0SG03S25lZDJCL0R4RzRxNldXdVUrbnVzenBTMzJyVVhYYU9XV094?=
+ =?utf-8?B?WHlJQmNMbUtKa05KWGY1NVdpWUdzd29KOTdvdjdYdUd2aWxpWkh0czZrYnJz?=
+ =?utf-8?B?TWVVZ1pXalkrNjFabDNRdmM5eThLSzhITERDMU4rVUxKb2RqUGZ3b01NbnZi?=
+ =?utf-8?B?Tnc3MjdsTlJmQkdMZkNsc0VGRlAwckZRMzk4dGdUT1ZZeWVDNTBCS2djT2Z5?=
+ =?utf-8?B?UVkzZVJHOFlaQzVnVzNiYVA1ei9YUDhmdzUvaGw4eFhsSlNyQXhJQzZJVGM0?=
+ =?utf-8?B?c2IvMEtZY3JmQm1sbkFEcTB4NHBTTGlHaVVtR0d3dmVTSVBScmMrY2VGcW02?=
+ =?utf-8?B?c1NWdGJvd2NQVGI2Qko4TEthd1I5QUMxMlRjcDV4cjZzd1pkeUVGSUVyeGxp?=
+ =?utf-8?B?VVBISWxIa2lKN0dYeUNWUHNyWXJDT3V6SThuNHJIemx1MGV3OFdjdEhoRUNZ?=
+ =?utf-8?B?K3NqcDdadXlnNUdOakZjc3hkcnFpQzBHRHdmUmJlVlhlRDMvV2RXR2prK0Nj?=
+ =?utf-8?B?dWJNeEx5bE81dkhGME1laEVXYTFnZEduTER0cnkxbkZ4dWZvVWtCTkd4Q0s3?=
+ =?utf-8?B?L3Eyc2g1b000bFFqUStITFFsdHBzYVN3Wm5ERHBNSUMwTHk4UW1VOE8yOWlj?=
+ =?utf-8?B?VVFVTHZtUHJTbVBYQUgycWFETTdxYkovdithSWsvTkVuMDV6L3orYjk0cnJh?=
+ =?utf-8?B?WUJxVmhxeVgyaEJpc0wxUGdqS0c4a2FJYUFsSVVEaDhQNC8vUUVZOXZqN3hv?=
+ =?utf-8?B?RnlqdTBWNDl4YjhmZFY3ZWxmUHFzUWh2SHpYK3VOUVZKd1MzUmJ6TzhRaFpo?=
+ =?utf-8?B?TGpjUHo5M0xDbDgvTUlaaUtFbHZhU3VTQVNqdllOSkVKemYxUkJJWlRHSDJp?=
+ =?utf-8?B?NFpxL2dHTXQrdVBDVEs0RkJ0dnlPVmc3eC9QcVlmV2hHNFRnTGJpNFlKSjBE?=
+ =?utf-8?B?M1VCWUY2QUptQ21OTk9iVXFlYzR5bU4wdERjN1ljOVFsRDdqd3BoajhseFZS?=
+ =?utf-8?B?L2loYWxIS1JDOXhNdXhJZlpHQlZFSGQrSzZtOXNVek8xZDdVcXF5OEplWVJG?=
+ =?utf-8?Q?3pag=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2022 10:17:17.9937 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54248f3c-91a3-468b-268f-08d9f52356f0
+X-MS-Exchange-CrossTenant-Network-Message-Id: f81c7fe2-f137-4361-fc54-08d9f52546a1
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2022 10:31:09.8658 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3523
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hohO0DjiIu8AlIoyEWUDbY0K//FH6spSSsh5UlyadnXfIQFEAuFn8/ug/D0RBFiv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5475
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,190 +127,302 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao.Zhou1@amd.com, Hawking.Zhang@amd.com, John.Clements@amd.com,
- yipechai <YiPeng.Chai@amd.com>, yipechai@amd.com
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Sharma,
+ Shashank" <Shashank.Sharma@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-1. Define amdgpu_ras_block_late_fini_default in amdgpu_ras.c as
-   .ras_fini common function, which is called when
-   .ras_fini of ras block isn't initialized.
-2. Remove the code of using amdgpu_ras_block_late_fini to
-   initialize .ras_fini in ras blocks.
+Am 21.02.22 um 11:06 schrieb Somalapuram, Amaranath:
+> [AMD Official Use Only]
+>
+>
+> On 2/21/2022 2:45 PM, Christian König wrote:
+>>
+>> Am 21.02.22 um 08:15 schrieb Somalapuram Amaranath:
+>>> List of register populated for dump collection during the GPU reset.
+>>>
+>>> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h         |   4 +
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 114 ++++++++++++++++++++
+>>>    2 files changed, 118 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> index b85b67a88a3d..6e35f2c4c869 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> @@ -1097,6 +1097,10 @@ struct amdgpu_device {
+>>>          struct amdgpu_reset_control     *reset_cntl;
+>>>        uint32_t ip_versions[HW_ID_MAX][HWIP_MAX_INSTANCE];
+>>> +
+>>> +    /* reset dump register */
+>>> +    uint32_t            *reset_dump_reg_list;
+>>> +    int                             num_regs;
+>>>    };
+>>>      static inline struct amdgpu_device *drm_to_adev(struct drm_device
+>>> *ddev)
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>> index 164d6a9e9fbb..14ad9610f805 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+>>> @@ -1609,6 +1609,118 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
+>>>    DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
+>>>                amdgpu_debugfs_sclk_set, "%llu\n");
+>>>    +static ssize_t amdgpu_reset_dump_register_list_read(struct file *f,
+>>> +                char __user *buf, size_t size, loff_t *pos)
+>>> +{
+>>> +    struct amdgpu_device *adev = (struct amdgpu_device
+>>> *)file_inode(f)->i_private;
+>>> +    char reg_offset[11];
+>>> +    uint32_t num_regs;
+>>> +    int i, ret, len = 0;
+>>> +
+>>> +    if (*pos)
+>>> +        return 0;
+>>> +
+>>> +    ret = down_read_killable(&adev->reset_sem);
+>>> +
+>>> +    if (ret)
+>>> +        return ret;
+>>> +
+>>> +    num_regs = adev->num_regs;
+>>> +
+>>> +    up_read(&adev->reset_sem);
+>>> +
+>>> +    if (num_regs == 0)
+>>> +        return 0;
+>> I think we should drop that cause it just avoids the final \n.
+>>
+> ok.
+>>> +
+>>> +    for (i = 0; i < num_regs; i++) {
+>> That's pretty close, but one problem is still that it is possible that
+>> the number of register becomes much smaller while this loop runs.
+>>
+>> Try it like this instead:
+>>
+>> down_read_killable(...)
+>> for (i = 0; i < adev->num_regs; ++i) {
+>>      sprintf(...)
+>>      up_read(...);
+>>
+>>      copy_to_user(
+>>
+>>      down_read_killable(...)
+>> }
+>> up_read().
+>>
+> I created local num_regs to avoid lock ousted the loop. I guess you me
+> to remove ?
+>
+> so we can hold up_read inside the loop ?
 
-Signed-off-by: yipechai <YiPeng.Chai@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  | 8 ++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 1 -
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 4 ----
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   | 4 ----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 8 --------
- drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c    | 1 -
- drivers/gpu/drm/amd/amdgpu/mca_v3_0.c    | 3 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c   | 1 -
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   | 4 ----
- 9 files changed, 8 insertions(+), 26 deletions(-)
+Yes to both. See num_regs and the pointer always needs to be consistent.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 846f51b0c013..17f7c0259115 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2477,6 +2477,12 @@ void amdgpu_ras_block_late_fini(struct amdgpu_device *adev,
- 		amdgpu_ras_interrupt_remove_handler(adev, ras_block);
- }
- 
-+void amdgpu_ras_block_late_fini_default(struct amdgpu_device *adev,
-+			  struct ras_common_if *ras_block)
-+{
-+	return amdgpu_ras_block_late_fini(adev, ras_block);
-+}
-+
- /* do some init work after IP late init as dependence.
-  * and it runs in resume/gpu reset/booting up cases.
-  */
-@@ -2586,6 +2592,8 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
- 			if (amdgpu_ras_is_supported(adev, obj->ras_comm.block) &&
- 				obj->ras_fini)
- 				obj->ras_fini(adev, &obj->ras_comm);
-+			else
-+				amdgpu_ras_block_late_fini_default(adev, &obj->ras_comm);
- 		}
- 
- 		/* Clear ras blocks from ras_list and free ras block list node */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index c04d98e3bd9d..8abdab6869e9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -950,6 +950,5 @@ struct amdgpu_xgmi_ras xgmi_ras = {
- 		},
- 		.hw_ops = &xgmi_ras_hw_ops,
- 		.ras_late_init = amdgpu_xgmi_ras_late_init,
--		.ras_fini = amdgpu_ras_block_late_fini,
- 	},
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index f0cc073e6bb0..8def7f630d4c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2204,10 +2204,6 @@ static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
- 		if (!adev->gfx.ras->ras_block.ras_late_init)
- 			adev->gfx.ras->ras_block.ras_late_init = amdgpu_gfx_ras_late_init;
- 
--		/* If not define special ras_fini function, use gfx default ras_fini */
--		if (!adev->gfx.ras->ras_block.ras_fini)
--			adev->gfx.ras->ras_block.ras_fini = amdgpu_ras_block_late_fini;
--
- 		/* If not defined special ras_cb function, use default ras_cb */
- 		if (!adev->gfx.ras->ras_block.ras_cb)
- 			adev->gfx.ras->ras_block.ras_cb = amdgpu_gfx_process_ras_data_cb;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index c8ad824328d7..d9353bb99314 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -681,10 +681,6 @@ static void gmc_v10_0_set_umc_funcs(struct amdgpu_device *adev)
- 		if (!adev->umc.ras->ras_block.ras_late_init)
- 				adev->umc.ras->ras_block.ras_late_init = amdgpu_umc_ras_late_init;
- 
--		/* If don't define special ras_fini function, use default ras_fini */
--		if (!adev->umc.ras->ras_block.ras_fini)
--			adev->umc.ras->ras_block.ras_fini = amdgpu_ras_block_late_fini;
--
- 		/* If not defined special ras_cb function, use default ras_cb */
- 		if (!adev->umc.ras->ras_block.ras_cb)
- 			adev->umc.ras->ras_block.ras_cb = amdgpu_umc_process_ras_data_cb;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index b01767d78153..4c3483fbe613 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1241,10 +1241,6 @@ static void gmc_v9_0_set_umc_funcs(struct amdgpu_device *adev)
- 		if (!adev->umc.ras->ras_block.ras_late_init)
- 				adev->umc.ras->ras_block.ras_late_init = amdgpu_umc_ras_late_init;
- 
--		/* If don't define special ras_fini function, use default ras_fini */
--		if (!adev->umc.ras->ras_block.ras_fini)
--			adev->umc.ras->ras_block.ras_fini = amdgpu_ras_block_late_fini;
--
- 		/* If not defined special ras_cb function, use default ras_cb */
- 		if (!adev->umc.ras->ras_block.ras_cb)
- 			adev->umc.ras->ras_block.ras_cb = amdgpu_umc_process_ras_data_cb;
-@@ -1290,10 +1286,6 @@ static void gmc_v9_0_set_mmhub_ras_funcs(struct amdgpu_device *adev)
- 		adev->mmhub.ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MMHUB;
- 		adev->mmhub.ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
- 		adev->mmhub.ras_if = &adev->mmhub.ras->ras_block.ras_comm;
--
--		/* If don't define special ras_fini function, use default ras_fini */
--		if (!adev->mmhub.ras->ras_block.ras_fini)
--			adev->mmhub.ras->ras_block.ras_fini = amdgpu_ras_block_late_fini;
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-index 86c166ae794a..04bc615f3af0 100644
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-@@ -163,7 +163,6 @@ struct amdgpu_hdp_ras hdp_v4_0_ras = {
- 			.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE,
- 		},
- 		.hw_ops = &hdp_v4_0_ras_hw_ops,
--		.ras_fini = amdgpu_ras_block_late_fini,
- 	},
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mca_v3_0.c b/drivers/gpu/drm/amd/amdgpu/mca_v3_0.c
-index 5ce6778a821d..d4bd7d1d2649 100644
---- a/drivers/gpu/drm/amd/amdgpu/mca_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mca_v3_0.c
-@@ -66,7 +66,6 @@ struct amdgpu_mca_ras_block mca_v3_0_mp0_ras = {
- 		},
- 		.hw_ops = &mca_v3_0_mp0_hw_ops,
- 		.ras_block_match = mca_v3_0_ras_block_match,
--		.ras_fini = amdgpu_ras_block_late_fini,
- 	},
- };
- 
-@@ -93,7 +92,6 @@ struct amdgpu_mca_ras_block mca_v3_0_mp1_ras = {
- 		},
- 		.hw_ops = &mca_v3_0_mp1_hw_ops,
- 		.ras_block_match = mca_v3_0_ras_block_match,
--		.ras_fini = amdgpu_ras_block_late_fini,
- 	},
- };
- 
-@@ -120,7 +118,6 @@ struct amdgpu_mca_ras_block mca_v3_0_mpio_ras = {
- 		},
- 		.hw_ops = &mca_v3_0_mpio_hw_ops,
- 		.ras_block_match = mca_v3_0_ras_block_match,
--		.ras_fini = amdgpu_ras_block_late_fini,
- 	},
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-index 485fd9239cd5..b31df4db01fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-@@ -671,7 +671,6 @@ struct amdgpu_nbio_ras nbio_v7_4_ras = {
- 		},
- 		.hw_ops = &nbio_v7_4_ras_hw_ops,
- 		.ras_late_init = amdgpu_nbio_ras_late_init,
--		.ras_fini = amdgpu_ras_block_late_fini,
- 	},
- 	.handle_ras_controller_intr_no_bifring = nbio_v7_4_handle_ras_controller_intr_no_bifring,
- 	.handle_ras_err_event_athub_intr_no_bifring = nbio_v7_4_handle_ras_err_event_athub_intr_no_bifring,
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index 206acb6a5b20..01b385568c14 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -2822,10 +2822,6 @@ static void sdma_v4_0_set_ras_funcs(struct amdgpu_device *adev)
- 		if (!adev->sdma.ras->ras_block.ras_late_init)
- 			adev->sdma.ras->ras_block.ras_late_init = amdgpu_sdma_ras_late_init;
- 
--		/* If don't define special ras_fini function, use default ras_fini */
--		if (!adev->sdma.ras->ras_block.ras_fini)
--			adev->sdma.ras->ras_block.ras_fini = amdgpu_ras_block_late_fini;
--
- 		/* If not defined special ras_cb function, use default ras_cb */
- 		if (!adev->sdma.ras->ras_block.ras_cb)
- 			adev->sdma.ras->ras_block.ras_cb = amdgpu_sdma_process_ras_data_cb;
--- 
-2.25.1
+In other words you need to read both while in the same instance of the 
+critical section:
+
+down..
+num_regs =...
+up
+...
+down
+x = array[num_regs]
+up
+
+That above is illegal since you read num_regs and the array in two 
+different critical sections.
+
+But when you do:
+down..
+for(i=0; i < num_regs; ++i) {
+     x = array[i]
+     up..
+     ....
+     down..
+}
+up...
+
+You still have multiple critical sections, but the read of both num_regs 
+and the array happens in the same one and because of that this is legal.
+
+>>> +
+>>> +        ret = down_read_killable(&adev->reset_sem);
+>>> +
+>>> +        if (ret)
+>>> +            return ret;
+>>> +
+>>> +        sprintf(reg_offset, "0x%x ", adev->reset_dump_reg_list[i]);
+>>> +
+>>> +        up_read(&adev->reset_sem);
+>>> +
+>>> +        ret = copy_to_user(buf + len, reg_offset, strlen(reg_offset));
+>>> +
+>>> +        if (ret)
+>>> +            return -EFAULT;
+>>> +
+>>> +        len += strlen(reg_offset);
+>>> +    }
+>>> +
+>>> +    ret = copy_to_user(buf + len, "\n", 1);
+>>> +
+>>> +    if (ret)
+>>> +        return -EFAULT;
+>>> +
+>>> +    len++;
+>>> +    *pos += len;
+>>> +
+>>> +    return len;
+>>> +}
+>>> +
+>>> +static ssize_t amdgpu_reset_dump_register_list_write(struct file *f,
+>>> +            const char __user *buf, size_t size, loff_t *pos)
+>>> +{
+>>> +    struct amdgpu_device *adev = (struct amdgpu_device
+>>> *)file_inode(f)->i_private;
+>>> +    char *reg_offset, *reg, reg_temp[11];
+>>> +    uint32_t *tmp_list;
+>>> +    int ret, i = 0, len = 0;
+>>> +
+>>> +    do {
+>>> +        reg_offset = reg_temp;
+>>> +        memset(reg_offset, 0, 11);
+>>> +        ret = copy_from_user(reg_offset, buf + len, min(11,
+>>> ((int)size-len)));
+>>> +
+>>> +        if (ret) {
+>>> +            kfree(tmp_list);
+>>> +            return -EFAULT;
+>>> +        }
+>>> +
+>>> +        reg = strsep(&reg_offset, " ");
+>>> +        tmp_list = krealloc_array(tmp_list,
+>>> +                    1, sizeof(uint32_t), GFP_KERNEL);
+>>> +        ret = kstrtouint(reg, 16, &tmp_list[i]);
+>>> +
+>>> +        if (ret) {
+>>> +            kfree(tmp_list);
+>>> +            return -EFAULT;
+>>> +        }
+>>> +
+>>> +        len += strlen(reg) + 1;
+>>> +        i++;
+>>> +
+>>> +    } while (len < size);
+>>> +
+>>> +    ret = down_read_killable(&adev->reset_sem);
+>>> +
+>>> +    if (ret) {
+>>> +        kfree(tmp_list);
+>>> +        return ret;
+>>> +    }
+>>> +
+>>> +    kfree(adev->reset_dump_reg_list);
+>>> +
+>>> +    swap(adev->reset_dump_reg_list, tmp_list);
+>> Just an assignment is sufficient here if you do the kfree before since
+>> tmp_list isn't used after that.
+> This is required. what happens when the function is called for the
+> second time (the old tmp_list will never be freed)
+>
+> tmp_list is also freed as its can return from the middle of the loop and
+> tmp_list  will never be freed.
+
+The swap macro doesn't frees anything, a call to swap(a, b) just 
+exchanges a and b. If b isn't used after that it's the same as a=b.
+
+What you can do and is usually considered rather elegant is something 
+like this:
+
+r = down_write_killable(..)
+if (r)
+     goto error_free;
+
+swap(adev->regs, tmp);
+adev->num_regs = i;
+up_write();
+
+error_free:
+kfree(tmp);
+return r;
+
+Since swap() exchanges the old array with the new one the following 
+kfree() will always be correct. In other words in the error case it 
+frees the temporary one and in the good case it frees the replaced one.
+
+>
+>>> +    adev->num_regs = i;
+>>> +
+>>> +    up_read(&adev->reset_sem);
+>> This should be a down_write_killable() and up_write() to avoid
+>> concurrent reads.
+> I tried but some time it was deadlock while testing. (some on in driver
+> holding reset_sem).
+>
+> Let me test it once again.
+
+Try to enable CONFIG_LOCKDEP (under kernel hacking) that usually yields 
+a nice backtrace into the system log when you do something wrong.
+
+>> Apart from that the write function now looks clean.
+>>
+> do we need down_read_killable in the below function (second patch) ?
+>
+>
+> +static int amdgpu_reset_reg_dumps(struct amdgpu_device *adev)
+> +{
+> +	uint32_t reg_value;
+> +	int i;
+> +
+> +	for (i = 0; i < adev->num_regs; i++) {
+> +		reg_value = RREG32(adev->reset_dump_reg_list[i]);
+> +		trace_amdgpu_reset_reg_dumps(adev->reset_dump_reg_list[i], reg_value);
+> +	}
+> +
+> +	return 0;
+> +}
+
+I don't think so since that function should be called during reset with 
+the reset_sem held.
+
+What you can do is to add a lockdep_assert_held(adev->reset_sem); which 
+will give you a nice warning when somebody calls this function without 
+holding the lock.
+
+Regards,
+Christian.
+
+>
+>> Regards,
+>> Christian.
+>>
+>>> +
+>>> +    return size;
+>>> +}
+>>> +
+>>> +
+>>> +
+>>> +static const struct file_operations amdgpu_reset_dump_register_list = {
+>>> +    .owner = THIS_MODULE,
+>>> +    .read = amdgpu_reset_dump_register_list_read,
+>>> +    .write = amdgpu_reset_dump_register_list_write,
+>>> +    .llseek = default_llseek
+>>> +};
+>>> +
+>>>    int amdgpu_debugfs_init(struct amdgpu_device *adev)
+>>>    {
+>>>        struct dentry *root = adev_to_drm(adev)->primary->debugfs_root;
+>>> @@ -1672,6 +1784,8 @@ int amdgpu_debugfs_init(struct amdgpu_device
+>>> *adev)
+>>>                    &amdgpu_debugfs_test_ib_fops);
+>>>        debugfs_create_file("amdgpu_vm_info", 0444, root, adev,
+>>>                    &amdgpu_debugfs_vm_info_fops);
+>>> +    debugfs_create_file("amdgpu_reset_dump_register_list", 0644,
+>>> root, adev,
+>>> +                &amdgpu_reset_dump_register_list);
+>>>          adev->debugfs_vbios_blob.data = adev->bios;
+>>>        adev->debugfs_vbios_blob.size = adev->bios_size;
+> >
 
