@@ -4,128 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F891C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 03:32:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F885C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 05:23:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE8EC10E29D;
-	Mon, 21 Feb 2022 03:32:27 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2054.outbound.protection.outlook.com [40.107.243.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E60A810E29B;
- Mon, 21 Feb 2022 03:32:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C11B710E1B7;
+	Mon, 21 Feb 2022 05:22:59 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2040.outbound.protection.outlook.com [40.107.101.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E31E10E1B7;
+ Mon, 21 Feb 2022 05:22:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FSzCBputKfpArmppDL0fMGxpXeA0/h6y2nxQ1stwQ1LQTMcwcJRvh9UNAQg1kGa9mwbWDkOTXcoN7feDZnp5WHJA1nSELY9qnF0Y4jnsmJ28Z4YvBNwWe68dvVcuE4/W2YWA6nOMEISNBBJunukJIqu75twZ2KgXh9yDWU4qLJC0h3MCd4t+eoaOHxl2T3zpxhsCWebXd1jweeByBzGlPYVcvkqnFQYFienz1bXJXWenDA9anKWebvRdHHZXMZKL8JbNv7Tg8ziMZxB9HZzwuiMoH1vHZNcZgGq8Jt8DzIXvsYdyMK+cUGyIFjaF14c20TX9XGcQ+wfo8eFB0mntEA==
+ b=UbsRIMriJGaMFVh/i8xU6Uvsm26zCMqzNCQZhMNWPZKP6pK8c/rxmbG90i+8yb8h+vuc9EjZQjX8gDRubsn5Z+PO2Y97Hx3y+wk6SFEKld3xp/lAS93p4tuXSbk1l+s0e6P7FpKGvPZa+CvSwHHdelk3M/elFwMZWqLEkdpFResk9M78XDq/IVYb5BcFAP9oqN7qIkraT7yP5AtoDSiKGBzu/hvsuEPHodPljCR8LGDFkCXrRR93JSlMxgr/wdPpejLK4UGa0nRAGvlbORIvE7mgVa1nu/OPx5N84YNnn1YUNzGUS3cOHFhM7LXFGf86g553NgSzPmXXvoiaC645wQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a5Oc66Oahg4aIKGbkLJRQC2+FqFDB3fHYsnZwGEa6tI=;
- b=QAj9hOpV89Nb2QsoqVlEeLeAxVPUlnIKbLsahri4BZ8pRyCb9OrLlGvMzk1KGGGL0ZuXj1sI7XfGjY5nKMgJxwP5RRTEDz/5qFM7VS5XCEZkXSBHhXA9VgvM49dNSAMREBz9V/psHdeDAimLq1Yb+cAHqN+XCzaBlpIwJ+LYjpntmeHAfxwJlHQG39LYPx50qd/UGNN2ZkCeVb9XRbCdeFysQLcRZVbfbTArQZgLAVg9SB/4WbbATxfy3XVjtKRQiub1osJJvFjzZyj6e3FHDN1E/IUUXcF5P+mJtWBHR2lszpESBUujP2R+StioNAlixkRrFrL46HKAA6/lIKJ1lw==
+ bh=uNnOPlO5YptDhnpM4MtutFxg77hof0uyyNKAM8sKL2A=;
+ b=SZ4RwjgLFCCtXsWj3+eioJIBxtVebC4ApaXBD+LnjSF8uY7uQLz+4plUC7PCigOLoMk863QcLNS39dXt9HgKjHTPlWlkaNnM/AzaD4Kbbrf/iBO71fu96FwLkjCAb8J0DKIRB3aZpVadLwwiQPl2p7CQMGl/+fvJSX9GpdH0xDebaU82RBfmBvA/zEtCypN+qEC22BPBeD9l5GIC8+cUT1ZEBsW0NpXPO/uKe83w1Vn6lHv1t4QPhiQmbRnv07f6onFw7iySmh3Ssq31ezjYb1x7QI8CSbm/8mL8iojwX77SFNtWO+WIxrBB9myQhiZsxctAe9aEMcmXTHttr+/TCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a5Oc66Oahg4aIKGbkLJRQC2+FqFDB3fHYsnZwGEa6tI=;
- b=N5psSQlFIogR1p5xY7/5WIyE2toEwb4UgAAyCmCmFgSfyqeGD2nBqDridiriqCopkCM0AZ6KatsYJzp+gsD0/7htUhHF4Aa7nH+gXkpnMQFQxivLrpEjk6bX7D0LhiYdIxoNfhXHb7qZA6iUyvlAvU6NkmnNfi3dbij7uZtaYLM=
-Received: from CH0PR12MB5156.namprd12.prod.outlook.com (2603:10b6:610:bb::17)
- by BY5PR12MB4642.namprd12.prod.outlook.com (2603:10b6:a03:1f6::29)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.22; Mon, 21 Feb
- 2022 03:32:23 +0000
-Received: from CH0PR12MB5156.namprd12.prod.outlook.com
- ([fe80::f0bc:3a8f:2662:931a]) by CH0PR12MB5156.namprd12.prod.outlook.com
- ([fe80::f0bc:3a8f:2662:931a%3]) with mapi id 15.20.4995.027; Mon, 21 Feb 2022
- 03:32:23 +0000
-From: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>
-To: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, 
- "Liu, Monk" <Monk.Liu@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>, "Chen,
- Horace" <Horace.Chen@amd.com>
-Subject: RE: [PATCH] drm/sched: Add device pointer to drm_gpu_scheduler
-Thread-Topic: [PATCH] drm/sched: Add device pointer to drm_gpu_scheduler
-Thread-Index: AQHYI+tMSa7fUqVieUuv3WSOe+KAMKydX1jA
-Date: Mon, 21 Feb 2022 03:32:22 +0000
-Message-ID: <CH0PR12MB5156A295D22DB349CA263A75F83A9@CH0PR12MB5156.namprd12.prod.outlook.com>
-References: <20220217104331.6455-1-Jiawei.Gu@amd.com>
-In-Reply-To: <20220217104331.6455-1-Jiawei.Gu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-21T03:32:18Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=159312de-d32b-4c23-b059-49c32975ac14;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-02-21T03:32:18Z
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
- Only-AIP 2.0
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 16059eaa-0990-4449-9678-928d6fb1139d
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
-authentication-results: dkim=none (message not signed)
+ bh=uNnOPlO5YptDhnpM4MtutFxg77hof0uyyNKAM8sKL2A=;
+ b=ZGOarFL/fHwJ5QRsggyQc+z7D52y5lSjFWeeyXQBGO2QG5t9HLRJTObivoGcrnJWz7Wq26Ns8xGB/P6HZYoszB+Di/09QK953yQTP84YiAo/lsa3CZPSUkJTTZxmlb64lh61byxh85Poiwcw5zqvI4o4HIYgVFRB1kl/4OxrVZk=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 4dd6a37b-2cac-4608-2d84-08d9f4eac5f4
-x-ms-traffictypediagnostic: BY5PR12MB4642:EE_
-x-microsoft-antispam-prvs: <BY5PR12MB464274CA1E36CF575C63E59BF83A9@BY5PR12MB4642.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: xMfs2IqqkSGCrYaHTaYopvENgVEpDgiReu2nf3z2SHtd8iLx4dHlkvRrMIQ03mNEDaMGXYWr46l7nE2KaOmK68mnvp45VfSzvtKDuW63D/m2K4atOIADJSpmnG8mS//n8fj7F21YqxiYWuR8BR1QBiA4Ffi4Alz139/KUTab96RHxzUbprEXeOfFhyHBRfCVA+VC9buIzaXvJDmya1UAzNKRL2CAPuo3nyRUnkmHnMvTDdXptxzilxrZQi+TaD7uh42u3jlg9cAf0+dVLZ9UGm6mgn3kPU5iTIzVND89/1u0HL71C63n/oE5rrF4VwOMmvHwZVKtukfnJ4fIvhaVYHvQPxYUiPXSa+l1cbB5/2hR+sssxR7aazEnz+1NNElFMFop8OvxcB6d7VMVqb2I5TkbvpNS3h6iLimQfsytESIQS/iV4spwbeLlwYcy6wcAuKyhDJ7+B6TQATkaJnDlzVj4dfw+/IweQWak0kv/MScDMO4e+rjOMPPq4B0DE6dW4ldNc5xlzIIa7QBeMQ0JKTCnzN/d+f/y0EwiZ4a8HNzwA5XAvTWGqzTxxiQoR12OHkA5GJ5+8Ij9p3/o7Fo7vKV+qYGpw0nc+yo624VId2GcAx784wnMMaPj2wBiO9yPTZww5ZyWmyCjCUbk9AijNPv1GYPYhstAH+Z6ofhzmDKssRkDJXZasl6eUHWiwhSOrRABoiMrZFAqFeZ1U8A/TILXIHBcSWMwZW21n7b9eEc=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5156.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(2906002)(52536014)(5660300002)(921005)(38100700002)(508600001)(83380400001)(122000001)(8936002)(71200400001)(9686003)(110136005)(55016003)(6636002)(53546011)(450100002)(86362001)(316002)(38070700005)(186003)(26005)(33656002)(8676002)(64756008)(66446008)(66556008)(76116006)(66946007)(66476007)(6506007)(7696005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GoJpZZjw1/hKZOw3SvXbb/iewnSE8wl5OWMbXCNpL3OtbN8NC5RrGai+oASn?=
- =?us-ascii?Q?UZndSRAvrHEtwcCarc9YZPAh5MJe2coQtGNi0TFxVXJR8zO78jCxvpJ3tlV/?=
- =?us-ascii?Q?RPm+LXjW3hjcfJ6D8rQbTQsFSXIhEQo7xoAEwsDfXSj9sJUrVCHX8MB1vXSf?=
- =?us-ascii?Q?k/vsx8CfOR+cG0GfjSqLBoUTpB5Mkklw4dfjjtZ8C4qz4+uOAbR0n5zLnMBf?=
- =?us-ascii?Q?JJUcDrRk11eDjKTnpLl1Ho+cRxy0rJlPvsC3lOvUzTDs+VawxR0+H57LBjpu?=
- =?us-ascii?Q?VVbk9W8EOhqLOrglv6/u0Sb/Oa276BGsenAHwGpb2eYASiJ5aAWoR2g+z5Rf?=
- =?us-ascii?Q?1Izk1uXibE/LnQJziJAwOAhR1TARQsGZ6s1A7BMmzfZGAz7hWAiRJiJx7k2D?=
- =?us-ascii?Q?NnNHTWBrR6W6Z1IGE6LkPpioYZ4jlrj1nYEaZIbExCImBoBw5qwlpOFxdNGQ?=
- =?us-ascii?Q?lxph53a7PqlpOZnXRPhs3V4BnYOfh95X+8CMa0PiYCQahY0lB9rTWu+dYG0o?=
- =?us-ascii?Q?TkWX/ifalkZDTphWTs4YuhEoivSTZuwZxfzSQFIJaJz248aBVfDgAtc9b2Uz?=
- =?us-ascii?Q?2luEfbLvjyS8vaFkwSlDkQF/i5G9htFqctqHjJsg9XmvdKc4paFkTrKl1At1?=
- =?us-ascii?Q?bhpg8RUj5KKV8yzW/3l5Sv+GMhBAtQLSPXyIgfWbcwOeVyCvpP4BF+RxbUBK?=
- =?us-ascii?Q?Ohz8TNcJw44D3i0TAWkbvvBY9pZwZMyDobVCzawy/l2XMbNzwx9/snPnybNY?=
- =?us-ascii?Q?hC/07T1cdueq9UNZWFcqdwHYg8K8h0VjiARTnt02huev7yA0udQBGlokwY6t?=
- =?us-ascii?Q?L7kfjNr73rx+Glup/mrU1Z6RweD04di+nqA2DhzQgmc32aq/V3DuKODeShBi?=
- =?us-ascii?Q?rLaOUqPryDBj2ccyHI6NNwrOkV5uVdknpiTqFHJJw/EjS2bqZxKezbtfQ6iE?=
- =?us-ascii?Q?6a7e5CRsTK9DK1Af07pEKl6Ue9S4Z63kibqcGSiotbMiFMDpTg1CsP7B4359?=
- =?us-ascii?Q?tLFU2kN5RKBsxDQD3vmXsZRybXGWcPPL2/HvORuzxXyQ7f8Z+KFZfXONYv/U?=
- =?us-ascii?Q?rcjEXE3d9lY7ukWdCRxc14//hdgKDYskqULOoLMPzqRSVAKCoildKJ6tVR1q?=
- =?us-ascii?Q?pYnHFnw2v225MPZm9izfoBoV1WVUBM5GgJp6bXtE0KeCZ9qAaXB4U1HykkP2?=
- =?us-ascii?Q?KJFhS5deVPnYoDO9/K0hR/WhS3BFIDvJ7tmcmvFtdgLQ1pC+lIG5yED4fLMO?=
- =?us-ascii?Q?XYZrfBw7AlTN4OQcSDs5JJM6MM32dw778Ih9uCXnmwI2bBR2AgicCgBxB4+m?=
- =?us-ascii?Q?AGANRhKOx1NoqqRfkrtA0g8gBP1yvOtzXYpKCF8GFAqVny3h1qe0MmlOw2je?=
- =?us-ascii?Q?uhROgpalx0eUjV6/t/ZVDg7mnnJ/s2GFn07mEyniH/ERRZfCNqmGl4BprOgL?=
- =?us-ascii?Q?m7AeEoc9+ouFf4lrVBA4XXeSxsZja+MrC6+1KMuY+4uKrMZsCdKO+XKz+w3T?=
- =?us-ascii?Q?ieVM1BaEd+qqQpaPQBulQoa7HvsKRWQT50XPwpCAjyvAjJXbpxKTp03LrcmQ?=
- =?us-ascii?Q?ttliOh+GRVs/PotFCLwlYd1ggxmTYaJ8Yy4fYwWg3kJWgd2Ti3QBaowT839b?=
- =?us-ascii?Q?GFPxcY36kB7acXA91hgnLKU=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
+ by DM6PR12MB3594.namprd12.prod.outlook.com (2603:10b6:5:11f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.24; Mon, 21 Feb
+ 2022 05:22:56 +0000
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::a105:faab:243:1dd3]) by DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::a105:faab:243:1dd3%11]) with mapi id 15.20.4995.027; Mon, 21 Feb 2022
+ 05:22:56 +0000
+Message-ID: <e7715707-6293-fae4-cb4e-1d92040db634@amd.com>
+Date: Mon, 21 Feb 2022 00:22:53 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] drm/sched: Add device pointer to drm_gpu_scheduler
+Content-Language: en-US
+To: "Gu, JiaWei (Will)" <JiaWei.Gu@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Liu, Monk"
+ <Monk.Liu@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>,
+ "Chen, Horace" <Horace.Chen@amd.com>
+References: <20220217104331.6455-1-Jiawei.Gu@amd.com>
+ <CH0PR12MB5156A295D22DB349CA263A75F83A9@CH0PR12MB5156.namprd12.prod.outlook.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+In-Reply-To: <CH0PR12MB5156A295D22DB349CA263A75F83A9@CH0PR12MB5156.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT1PR01CA0143.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::22) To DM5PR12MB1947.namprd12.prod.outlook.com
+ (2603:10b6:3:111::23)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 89345cb6-cf55-4d06-f08d-08d9f4fa3751
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3594:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB359434F392E93056F70E2CBCEA3A9@DM6PR12MB3594.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7y1IYzkXb/7NCWJOBHPWo/xW+AwKcHRtKDMJ42OL3UmhhPKDA7XiQbXEKfYOusM1bYgH0Di0mtHVE4ks+6k8haYL25KnetWpQmm5CSuV/WPqsaUvjqclEeMJB72PS4R96rdAM/U9Nwy9aTq56m0AsFY6yPPFD2yPEzrGNfWCn27C9aPTHCBQS7qV8F0tVGmJugM/f2/VdY4sxaLzG1A7mMA3WjP2onjEj631mi8jv7QHV7cGD1TvDqQQVHVyFZfpJavBvAGpDAjnkO/VtSjQwJBNpEVsDj+MSryD6sd/Tea7Pr0s1SP/n1hhLgo//3ICo7kDp0Q9ugO6rpVSP/ghU/GjUD40Fg4p1g5UEPr8BC9pUDVVX8oC0YhzyBFtnuSRYwMFtwD1oLs4sn+76j4E5LGAyxPgNmAciWUs2ZIN7OlyDBhg8c0uAnhE9dwSa5mzrpuXrZm0tnt6Nz7ehZgRJReI6w+F73EKk/GSWFWhYwraQ+Q9xVSF1bMGRvJ9nVJyRG6lKdd6E821Uv2QCqEmBvIikMiHScB/JyUpMJ3Ykz29RaWTAjgP4fr4YpwYAvUSB/knqGeNlU2zrwqDNxaRcXT1LHTYwGQuAu+D2wMCkC+P4NJURZx7zmsw+ZEb7FXwh2GAmWtMioCqtl+A+PZMsbyKMK13Q3O4jJ250EprKoPFa08+Cw916n6PYfpDM3jx0GHMv09sHcB+Ey16Sn6evCpWyRn1pkVxNuVI71UsYcUlti1p/UxMd6G8pEQAGANU
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(8676002)(450100002)(66476007)(66556008)(186003)(66946007)(508600001)(6486002)(2616005)(921005)(316002)(6512007)(38100700002)(86362001)(31696002)(6506007)(53546011)(6666004)(83380400001)(2906002)(110136005)(8936002)(31686004)(5660300002)(36756003)(44832011)(6636002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NWZoNUgwZWZPaE15aGRSaGVQY1FtOHRRcnYycUI5VjNwSm9SamtDUVBnV2ZX?=
+ =?utf-8?B?TU1aMjNNN0o2eFRjck1KSUtCQUN6STA0SGQyZ0ViVUMwdm55dXIwcElpV0NB?=
+ =?utf-8?B?TWpzMXViQVcvcDVWSWozZ0RqTXFOTVUxVFBxdElxSGhVMVhPVjFHZWlUMEto?=
+ =?utf-8?B?Q0xGU1pjbEo3YXR1Z1huTmpjOTdUWVdxNURUNTFIdkN1Y2NBVjNEN1c0azBD?=
+ =?utf-8?B?c0llblVyaUV2anpJdnEzSitRVDdneE1jQitOKy9aTStxd2RqY012bzRUcEJk?=
+ =?utf-8?B?NFBlN29hRVNXNGE2ejBTMkNsNnlYRWVoY29DdXBLUW1CdFNqS0Vja1RoUEJV?=
+ =?utf-8?B?SEQyM210V3FLZ3Nvdllpb09vZzJvVUg5cG1GSHdZbVBsN2lBOFIvSW9XTU82?=
+ =?utf-8?B?UStCdXhaUlJVV2FpbDVadnpWb3U0RkRyeWpiV3pRRXZ4WHZvS1dwVktyRzgv?=
+ =?utf-8?B?L0cyM1drMkVrSGxlVTh1WHZtVDN4Kzl0dURlVGYwYVZkRU1scUdHRklKZXRw?=
+ =?utf-8?B?SVo3eklBcVN1Um9aZzlaWTZleXdPTmNpTFJ0SDhXY055eUtYUEVoUEdkSlZ5?=
+ =?utf-8?B?aXl5UEdmZGVCK0V4bG1nbWhOY3hVWTVJbUw3cU85a01XeTNjdkFJaVc5QjQr?=
+ =?utf-8?B?VDl5NUhFUnhXMXJ0aTJ2RU1PVW15MlBHK25LRDVYUjdBOVlkenJScTBNZDhz?=
+ =?utf-8?B?YkpNK2wwT0c0OEQ5cHlaaUdZZmp4VjRNSWUwMEdsMjVxbGZrTUpVQVNVdGhy?=
+ =?utf-8?B?QlpnTGRrRmsyU3E1eldhWVlCdlMxVGFuU1ZES3J6SFRWUlZaUmpQVEFON0hq?=
+ =?utf-8?B?cVJrc05TV0FQVzBNeEVkWUZuRENxU3FlUURHVWpPZS96M3gycTVDMlFMY0Q3?=
+ =?utf-8?B?a1BuNitwSFYzUUtIN1hMazR4UVN1bVprMU9tcGhnOEVxejhXRVdEa2ZUd1Ro?=
+ =?utf-8?B?RHIzLzV6RVFGOXFycHVydWw1aFFDKzhtMTcxNGhpalpXSGppcEVZakRKN2Fw?=
+ =?utf-8?B?NHVPVVk2RlZzT0ZoVEJHNlJuQjYyS3M0V0FsRExvT2NENnRvVFVrYStrUCti?=
+ =?utf-8?B?cXdKL0o5bmZ4VU1NTlBmS3RuTUkrb0piKzRYMGJvQkxEblhYajZEV1UvOEJa?=
+ =?utf-8?B?OUtZVitsOWh6bVhrVjJ1NUdzS3pMZi95SVFXOWVnSnIvbWZCMlZzUHJSRHVy?=
+ =?utf-8?B?c2ZTb3BWYW95bHBDdkx2TTRPcFVwNWwxY2J3a3F4eE85QXRiWU5EM3ZvYTZn?=
+ =?utf-8?B?MHFSaThJZUI0MVhDQkI2czkxMDFNYnI4MVk5dnFCNS92c3FIWk1TRUpWSTlY?=
+ =?utf-8?B?ZW1vSHJEcUlYWlUzKzFqMllQeDRzU1pHZTkzY1lxQmttbHN1cG9aNWFlNzJI?=
+ =?utf-8?B?dVBiYm91dWgrWW5CSU15Mk5Lamo5dU5oODBPUnkvdkR1c0ljaWtRVVVwOHB0?=
+ =?utf-8?B?OGdqUjBoay81OU9keUFvcWNLQ3p5UE1TYnVwaFl3V0tlT2hlc3VOMVV5L3Vy?=
+ =?utf-8?B?R3F5VEg4K2I0MzRacmFyNXhCWXhIeUM1aGM2azAybjhSUUx6U0ZkRTZIVFhV?=
+ =?utf-8?B?a2hCcjd0c28rTU1nTE9qbW81RFhBSlhFRnZxcG5tR29rbWZ6ZVBwemo2M2ky?=
+ =?utf-8?B?TE51dysrcW5TdmdEK3BMenRkYStGNTVlMVYwc05hZTMyNHZJdTBMQXBxeHdH?=
+ =?utf-8?B?bHhYQlRzRjR1RDdwUmdVTHFJSjYxWU9Jd1M3emwrdEN2WDcxamQ2UmFrTHYv?=
+ =?utf-8?B?dE40Qjh4VHB6Z0NtQkpRM01QemNSTHE0Y3dXaElvdW1SVHRhTE85SGV2ajVL?=
+ =?utf-8?B?VkQ0S1dWYTVJMW9FSlBXM1ExeHBiTUhVSHhwMmRyOUVzRm1sRWNMeEpIVHc1?=
+ =?utf-8?B?V3pEUTZzbXY0VmxxdlZxaXkyVDFUNnMza01WaFFKa3ZNbDVzV09iNWl4T3Jz?=
+ =?utf-8?B?WmtqK1oyRDlDcFlrVWp5dzUrWFNWaGRHQndzMVArRjFkQTBoRStLK1ZvMFJE?=
+ =?utf-8?B?ckFDOTd6eVp3Vi96cU5jdTNud2IvdC8zWFFIZVdOeTNzVUV3N29adVg1ekkw?=
+ =?utf-8?B?UkpOQkh4S2FIM0xDZkhrQ24ybllRcDN5Mzg0eHdvYVlSKzZiVjNWcVU1eFZz?=
+ =?utf-8?B?bm9tWkpFYWY0ZUhDVTBqTllDODc5UlpQZXhtVjF1MS9JUU9GK2JySk5xUjlq?=
+ =?utf-8?B?dzQ4ay80QnlRWEpFVHNlVXU4Z3JlY240ZzhhK01MbWRNSlN3UUQ3WTFpVDFk?=
+ =?utf-8?Q?u6njDWb0OyHnmpsOCQdPanRF4LWEUsiNTpmmCWTXK8=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89345cb6-cf55-4d06-f08d-08d9f4fa3751
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5156.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4dd6a37b-2cac-4608-2d84-08d9f4eac5f4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Feb 2022 03:32:22.8243 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kNXA1zDw+iklz0akVmQHKcy0Non3I0O26BT0RqRvjDpGYxH4Wq9KhoJdrp3lqtvk+s9yeSXKkAlwscmU2/6dTQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4642
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2022 05:22:55.9566 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I4xoLTBE/aLOJPxkdj3YmMHo8d7r4OpyX0q5QjcTs0/XvA/wBHdtiusD5SzkIx5U7NtVD1EhsQoUTWZcNzEvrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3594
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,213 +135,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+On 2022-02-20 22:32, Gu, JiaWei (Will) wrote:
 
-Pinging.
+> [AMD Official Use Only]
+>
+> Pinging.
+>
+> -----Original Message-----
+> From: Jiawei Gu <Jiawei.Gu@amd.com>
+> Sent: Thursday, February 17, 2022 6:44 PM
+> To: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Koenig, Christian <Christian.Koenig@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Chen, Horace <Horace.Chen@amd.com>
+> Cc: Gu, JiaWei (Will) <JiaWei.Gu@amd.com>
+> Subject: [PATCH] drm/sched: Add device pointer to drm_gpu_scheduler
+>
+> Add device pointer so scheduler's printing can use
+> DRM_DEV_ERROR() instead, which makes life easier under multiple GPU scenario.
+>
+> v2: amend all calls of drm_sched_init()
+>
+> Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c |  2 +-
+>   drivers/gpu/drm/etnaviv/etnaviv_sched.c   |  2 +-
+>   drivers/gpu/drm/lima/lima_sched.c         |  2 +-
+>   drivers/gpu/drm/panfrost/panfrost_job.c   |  2 +-
+>   drivers/gpu/drm/scheduler/sched_main.c    |  9 +++++----
+>   drivers/gpu/drm/v3d/v3d_sched.c           | 10 +++++-----
+>   include/drm/gpu_scheduler.h               |  3 ++-
+>   7 files changed, 16 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> index 4787cb3acaed..98217b1487fe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -508,7 +508,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+>   
+>   	r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
+>   			   num_hw_submission, amdgpu_job_hang_limit,
+> -			   timeout, sched_score, ring->name);
+> +			   timeout, sched_score, ring->name, adev->dev);
+>   	if (r) {
+>   		DRM_ERROR("Failed to create scheduler on ring %s.\n",
+>   			  ring->name);
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+> index 19826e504efc..4240f2ae0ab3 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+> @@ -190,7 +190,7 @@ int etnaviv_sched_init(struct etnaviv_gpu *gpu)
+>   
+>   	ret = drm_sched_init(&gpu->sched, &etnaviv_sched_ops,
+>   			     etnaviv_hw_jobs_limit, etnaviv_job_hang_limit,
+> -			     msecs_to_jiffies(500), NULL, dev_name(gpu->dev));
+> +			     msecs_to_jiffies(500), NULL, dev_name(gpu->dev), NULL);
+>   	if (ret)
+>   		return ret;
+>   
+> diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+> index ecf3267334ff..4b3a43a2b3e3 100644
+> --- a/drivers/gpu/drm/lima/lima_sched.c
+> +++ b/drivers/gpu/drm/lima/lima_sched.c
+> @@ -509,7 +509,7 @@ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, const char *name)
+>   
+>   	return drm_sched_init(&pipe->base, &lima_sched_ops, 1,
+>   			      lima_job_hang_limit, msecs_to_jiffies(timeout),
+> -			      NULL, name);
+> +			      NULL, name, NULL);
+>   }
+>   
+>   void lima_sched_pipe_fini(struct lima_sched_pipe *pipe) diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+> index 2df3e999a38d..215709d61315 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> @@ -627,7 +627,7 @@ int panfrost_job_init(struct panfrost_device *pfdev)
+>   		ret = drm_sched_init(&js->queue[j].sched,
+>   				     &panfrost_sched_ops,
+>   				     1, 0, msecs_to_jiffies(JOB_TIMEOUT_MS),
+> -				     NULL, "pan_js");
+> +				     NULL, "pan_js", NULL);
 
------Original Message-----
-From: Jiawei Gu <Jiawei.Gu@amd.com>=20
-Sent: Thursday, February 17, 2022 6:44 PM
-To: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Koenig,=
- Christian <Christian.Koenig@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsk=
-y@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Deng, Emily <Emily.Deng@amd.com>;=
- Chen, Horace <Horace.Chen@amd.com>
-Cc: Gu, JiaWei (Will) <JiaWei.Gu@amd.com>
-Subject: [PATCH] drm/sched: Add device pointer to drm_gpu_scheduler
 
-Add device pointer so scheduler's printing can use
-DRM_DEV_ERROR() instead, which makes life easier under multiple GPU scenari=
-o.
+You can extract dev from pfdev  here so no reason to skip it. Please
+see in other driver if it's also possible to do.
 
-v2: amend all calls of drm_sched_init()
+Andrey
 
-Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c |  2 +-
- drivers/gpu/drm/etnaviv/etnaviv_sched.c   |  2 +-
- drivers/gpu/drm/lima/lima_sched.c         |  2 +-
- drivers/gpu/drm/panfrost/panfrost_job.c   |  2 +-
- drivers/gpu/drm/scheduler/sched_main.c    |  9 +++++----
- drivers/gpu/drm/v3d/v3d_sched.c           | 10 +++++-----
- include/drm/gpu_scheduler.h               |  3 ++-
- 7 files changed, 16 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_fence.c
-index 4787cb3acaed..98217b1487fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -508,7 +508,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *r=
-ing,
-=20
- 	r =3D drm_sched_init(&ring->sched, &amdgpu_sched_ops,
- 			   num_hw_submission, amdgpu_job_hang_limit,
--			   timeout, sched_score, ring->name);
-+			   timeout, sched_score, ring->name, adev->dev);
- 	if (r) {
- 		DRM_ERROR("Failed to create scheduler on ring %s.\n",
- 			  ring->name);
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etna=
-viv/etnaviv_sched.c
-index 19826e504efc..4240f2ae0ab3 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-@@ -190,7 +190,7 @@ int etnaviv_sched_init(struct etnaviv_gpu *gpu)
-=20
- 	ret =3D drm_sched_init(&gpu->sched, &etnaviv_sched_ops,
- 			     etnaviv_hw_jobs_limit, etnaviv_job_hang_limit,
--			     msecs_to_jiffies(500), NULL, dev_name(gpu->dev));
-+			     msecs_to_jiffies(500), NULL, dev_name(gpu->dev), NULL);
- 	if (ret)
- 		return ret;
-=20
-diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_=
-sched.c
-index ecf3267334ff..4b3a43a2b3e3 100644
---- a/drivers/gpu/drm/lima/lima_sched.c
-+++ b/drivers/gpu/drm/lima/lima_sched.c
-@@ -509,7 +509,7 @@ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, =
-const char *name)
-=20
- 	return drm_sched_init(&pipe->base, &lima_sched_ops, 1,
- 			      lima_job_hang_limit, msecs_to_jiffies(timeout),
--			      NULL, name);
-+			      NULL, name, NULL);
- }
-=20
- void lima_sched_pipe_fini(struct lima_sched_pipe *pipe) diff --git a/drive=
-rs/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.=
-c
-index 2df3e999a38d..215709d61315 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -627,7 +627,7 @@ int panfrost_job_init(struct panfrost_device *pfdev)
- 		ret =3D drm_sched_init(&js->queue[j].sched,
- 				     &panfrost_sched_ops,
- 				     1, 0, msecs_to_jiffies(JOB_TIMEOUT_MS),
--				     NULL, "pan_js");
-+				     NULL, "pan_js", NULL);
- 		if (ret) {
- 			dev_err(pfdev->dev, "Failed to create scheduler: %d.", ret);
- 			goto err_sched;
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sched=
-uler/sched_main.c
-index 3e0bbc797eaa..4404af323321 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -489,7 +489,7 @@ void drm_sched_start(struct drm_gpu_scheduler *sched, b=
-ool full_recovery)
- 			if (r =3D=3D -ENOENT)
- 				drm_sched_job_done(s_job);
- 			else if (r)
--				DRM_ERROR("fence add callback failed (%d)\n",
-+				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
- 					  r);
- 		} else
- 			drm_sched_job_done(s_job);
-@@ -815,7 +815,7 @@ static int drm_sched_main(void *param)
- 			if (r =3D=3D -ENOENT)
- 				drm_sched_job_done(sched_job);
- 			else if (r)
--				DRM_ERROR("fence add callback failed (%d)\n",
-+				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
- 					  r);
- 			dma_fence_put(fence);
- 		} else {
-@@ -846,7 +846,7 @@ static int drm_sched_main(void *param)  int drm_sched_i=
-nit(struct drm_gpu_scheduler *sched,
- 		   const struct drm_sched_backend_ops *ops,
- 		   unsigned hw_submission, unsigned hang_limit, long timeout,
--		   atomic_t *score, const char *name)
-+		   atomic_t *score, const char *name, struct device *dev)
- {
- 	int i, ret;
- 	sched->ops =3D ops;
-@@ -855,6 +855,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
- 	sched->timeout =3D timeout;
- 	sched->hang_limit =3D hang_limit;
- 	sched->score =3D score ? score : &sched->_score;
-+	sched->dev =3D dev;
- 	for (i =3D DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_COUNT; i++)
- 		drm_sched_rq_init(sched, &sched->sched_rq[i]);
-=20
-@@ -872,7 +873,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
- 	if (IS_ERR(sched->thread)) {
- 		ret =3D PTR_ERR(sched->thread);
- 		sched->thread =3D NULL;
--		DRM_ERROR("Failed to create scheduler for %s.\n", name);
-+		DRM_DEV_ERROR(sched->dev, "Failed to create scheduler for %s.\n",=20
-+name);
- 		return ret;
- 	}
-=20
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sche=
-d.c index 8992480c88fa..6d68b155c3cc 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -403,7 +403,7 @@ v3d_sched_init(struct v3d_dev *v3d)
- 			     &v3d_bin_sched_ops,
- 			     hw_jobs_limit, job_hang_limit,
- 			     msecs_to_jiffies(hang_limit_ms),
--			     NULL, "v3d_bin");
-+			     NULL, "v3d_bin", NULL);
- 	if (ret) {
- 		dev_err(v3d->drm.dev, "Failed to create bin scheduler: %d.", ret);
- 		return ret;
-@@ -413,7 +413,7 @@ v3d_sched_init(struct v3d_dev *v3d)
- 			     &v3d_render_sched_ops,
- 			     hw_jobs_limit, job_hang_limit,
- 			     msecs_to_jiffies(hang_limit_ms),
--			     NULL, "v3d_render");
-+			     NULL, "v3d_render", NULL);
- 	if (ret) {
- 		dev_err(v3d->drm.dev, "Failed to create render scheduler: %d.",
- 			ret);
-@@ -425,7 +425,7 @@ v3d_sched_init(struct v3d_dev *v3d)
- 			     &v3d_tfu_sched_ops,
- 			     hw_jobs_limit, job_hang_limit,
- 			     msecs_to_jiffies(hang_limit_ms),
--			     NULL, "v3d_tfu");
-+			     NULL, "v3d_tfu", NULL);
- 	if (ret) {
- 		dev_err(v3d->drm.dev, "Failed to create TFU scheduler: %d.",
- 			ret);
-@@ -438,7 +438,7 @@ v3d_sched_init(struct v3d_dev *v3d)
- 				     &v3d_csd_sched_ops,
- 				     hw_jobs_limit, job_hang_limit,
- 				     msecs_to_jiffies(hang_limit_ms),
--				     NULL, "v3d_csd");
-+				     NULL, "v3d_csd", NULL);
- 		if (ret) {
- 			dev_err(v3d->drm.dev, "Failed to create CSD scheduler: %d.",
- 				ret);
-@@ -450,7 +450,7 @@ v3d_sched_init(struct v3d_dev *v3d)
- 				     &v3d_cache_clean_sched_ops,
- 				     hw_jobs_limit, job_hang_limit,
- 				     msecs_to_jiffies(hang_limit_ms),
--				     NULL, "v3d_cache_clean");
-+				     NULL, "v3d_cache_clean", NULL);
- 		if (ret) {
- 			dev_err(v3d->drm.dev, "Failed to create CACHE_CLEAN scheduler: %d.",
- 				ret);
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h inde=
-x d18af49fd009..38a479879fdb 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -302,12 +302,13 @@ struct drm_gpu_scheduler {
- 	atomic_t                        _score;
- 	bool				ready;
- 	bool				free_guilty;
-+	struct device			*dev;
- };
-=20
- int drm_sched_init(struct drm_gpu_scheduler *sched,
- 		   const struct drm_sched_backend_ops *ops,
- 		   uint32_t hw_submission, unsigned hang_limit, long timeout,
--		   atomic_t *score, const char *name);
-+		   atomic_t *score, const char *name, struct device *dev);
-=20
- void drm_sched_fini(struct drm_gpu_scheduler *sched);  int drm_sched_job_i=
-nit(struct drm_sched_job *job,
---
-2.17.1
+>   		if (ret) {
+>   			dev_err(pfdev->dev, "Failed to create scheduler: %d.", ret);
+>   			goto err_sched;
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index 3e0bbc797eaa..4404af323321 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -489,7 +489,7 @@ void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
+>   			if (r == -ENOENT)
+>   				drm_sched_job_done(s_job);
+>   			else if (r)
+> -				DRM_ERROR("fence add callback failed (%d)\n",
+> +				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
+>   					  r);
+>   		} else
+>   			drm_sched_job_done(s_job);
+> @@ -815,7 +815,7 @@ static int drm_sched_main(void *param)
+>   			if (r == -ENOENT)
+>   				drm_sched_job_done(sched_job);
+>   			else if (r)
+> -				DRM_ERROR("fence add callback failed (%d)\n",
+> +				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
+>   					  r);
+>   			dma_fence_put(fence);
+>   		} else {
+> @@ -846,7 +846,7 @@ static int drm_sched_main(void *param)  int drm_sched_init(struct drm_gpu_scheduler *sched,
+>   		   const struct drm_sched_backend_ops *ops,
+>   		   unsigned hw_submission, unsigned hang_limit, long timeout,
+> -		   atomic_t *score, const char *name)
+> +		   atomic_t *score, const char *name, struct device *dev)
+>   {
+>   	int i, ret;
+>   	sched->ops = ops;
+> @@ -855,6 +855,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
+>   	sched->timeout = timeout;
+>   	sched->hang_limit = hang_limit;
+>   	sched->score = score ? score : &sched->_score;
+> +	sched->dev = dev;
+>   	for (i = DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_COUNT; i++)
+>   		drm_sched_rq_init(sched, &sched->sched_rq[i]);
+>   
+> @@ -872,7 +873,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
+>   	if (IS_ERR(sched->thread)) {
+>   		ret = PTR_ERR(sched->thread);
+>   		sched->thread = NULL;
+> -		DRM_ERROR("Failed to create scheduler for %s.\n", name);
+> +		DRM_DEV_ERROR(sched->dev, "Failed to create scheduler for %s.\n",
+> +name);
+>   		return ret;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c index 8992480c88fa..6d68b155c3cc 100644
+> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> @@ -403,7 +403,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+>   			     &v3d_bin_sched_ops,
+>   			     hw_jobs_limit, job_hang_limit,
+>   			     msecs_to_jiffies(hang_limit_ms),
+> -			     NULL, "v3d_bin");
+> +			     NULL, "v3d_bin", NULL);
+>   	if (ret) {
+>   		dev_err(v3d->drm.dev, "Failed to create bin scheduler: %d.", ret);
+>   		return ret;
+> @@ -413,7 +413,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+>   			     &v3d_render_sched_ops,
+>   			     hw_jobs_limit, job_hang_limit,
+>   			     msecs_to_jiffies(hang_limit_ms),
+> -			     NULL, "v3d_render");
+> +			     NULL, "v3d_render", NULL);
+>   	if (ret) {
+>   		dev_err(v3d->drm.dev, "Failed to create render scheduler: %d.",
+>   			ret);
+> @@ -425,7 +425,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+>   			     &v3d_tfu_sched_ops,
+>   			     hw_jobs_limit, job_hang_limit,
+>   			     msecs_to_jiffies(hang_limit_ms),
+> -			     NULL, "v3d_tfu");
+> +			     NULL, "v3d_tfu", NULL);
+>   	if (ret) {
+>   		dev_err(v3d->drm.dev, "Failed to create TFU scheduler: %d.",
+>   			ret);
+> @@ -438,7 +438,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+>   				     &v3d_csd_sched_ops,
+>   				     hw_jobs_limit, job_hang_limit,
+>   				     msecs_to_jiffies(hang_limit_ms),
+> -				     NULL, "v3d_csd");
+> +				     NULL, "v3d_csd", NULL);
+>   		if (ret) {
+>   			dev_err(v3d->drm.dev, "Failed to create CSD scheduler: %d.",
+>   				ret);
+> @@ -450,7 +450,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+>   				     &v3d_cache_clean_sched_ops,
+>   				     hw_jobs_limit, job_hang_limit,
+>   				     msecs_to_jiffies(hang_limit_ms),
+> -				     NULL, "v3d_cache_clean");
+> +				     NULL, "v3d_cache_clean", NULL);
+>   		if (ret) {
+>   			dev_err(v3d->drm.dev, "Failed to create CACHE_CLEAN scheduler: %d.",
+>   				ret);
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h index d18af49fd009..38a479879fdb 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -302,12 +302,13 @@ struct drm_gpu_scheduler {
+>   	atomic_t                        _score;
+>   	bool				ready;
+>   	bool				free_guilty;
+> +	struct device			*dev;
+>   };
+>   
+>   int drm_sched_init(struct drm_gpu_scheduler *sched,
+>   		   const struct drm_sched_backend_ops *ops,
+>   		   uint32_t hw_submission, unsigned hang_limit, long timeout,
+> -		   atomic_t *score, const char *name);
+> +		   atomic_t *score, const char *name, struct device *dev);
+>   
+>   void drm_sched_fini(struct drm_gpu_scheduler *sched);  int drm_sched_job_init(struct drm_sched_job *job,
+> --
+> 2.17.1
