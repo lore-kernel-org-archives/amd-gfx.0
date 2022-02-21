@@ -4,73 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9382CC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 14:01:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33522C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 14:16:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 272E210E7F4;
-	Mon, 21 Feb 2022 14:01:09 +0000 (UTC)
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF02D10E30C;
- Mon, 21 Feb 2022 09:59:34 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.nyi.internal (Postfix) with ESMTP id 11AAA58025E;
- Mon, 21 Feb 2022 04:59:34 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Mon, 21 Feb 2022 04:59:34 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm2; bh=5jbMvBKOooB/lW
- j7uJ4wxAWbNyVnkj0TRTyAtZi08Nk=; b=hucw/Cu6oXCXDrfRJMASYx+9qACy0d
- p7MKmT+rh3JbUpH+y/xYBf8oL05V5W/mGP99uzyGnKRD1x26vE4rHb4QImcCWboX
- aLATHROwfqg7gC4um9Epct6NzxFQ8tC7uljwl5FaoMLlevyJxzKBjz25KsElfr02
- U1zpGyaBsAeDWXvhI+nsIoSQrT5MPOyzpsM4PvObed3k9nNeMO7/s/ek4ft4BJOv
- TfJUzOx7omQqeOb8V67RehFQNLzYrJwg0MYLFu8HoDnUMHW8Cz/aOEI6ouKKc9Za
- +YVzpZ0IzrSMfAQTY89264Xb3UWe3vhrZwrrVL5EOMKQYS3V0lBG5W8Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=5jbMvBKOooB/lWj7uJ4wxAWbNyVnkj0TRTyAtZi08
- Nk=; b=YJfCDao3ZChAkW7ALM/GGAPdf6HdpT4yraTIfqodn1NuchtK8BFWupQt1
- eMfDLn1zoctTUOeBfRch5T+IKkWR5qPtZDsbyo9x0vp7ev+dPvZy5+tnWiByszZ+
- pfG/X8s/2Jq7oyVfPJ2g9tJTdvqUJJJXyFXKOz2jd5IyYy8ShvQjHEmiXGgw8vVC
- LZ0da71GiQKr2vQ49Z9RiRwF8u+rbQT9d8FgZpeeCCI5Gb8ilbBwAkeXL1NIKCAr
- O8iugVx9hXBxz8+HT/CutLdmR0jAh3QxWg1F3+oyOrTsS2F4cB3a8/J7cghFhKeA
- TUlHH7Pvjpaf/TVf2GIkfnc2L/JRw==
-X-ME-Sender: <xms:hWITYjNOJQpt2oAqnKr7KD875lsxNaRbtzNm6BzOrut5C5OAFzrQ4A>
- <xme:hWITYt85Hm_LDw70omxbNGsWTPaumWzrT6YgHXvPmctx1LDWfsEZ09nVTezyOgn7-
- FLCi7vpEu3posdfAR4>
-X-ME-Received: <xmr:hWITYiRW0SoUh6AGYbhAf7pFCZfjZmPHHRWe__qbONkPMcxIQwuvkBA4gC8TqRNSYLkh1yekANVOFh-J17QEtzc5Ccbg0kx-QWBXXiA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrkeeigddutdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefhvffufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepjeeugfegkeffgfeuvedtvddufffhjeffjeejvddvudduteehhfefhfefgeei
- keeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:hWITYntxmTSj78-gLaDJLYOgcCD1Z3-ek3rWrwaP-U0nQ7l1614zNA>
- <xmx:hWITYreX8cQcFazSURSws2rxTc_eU30XRghu5C4kgHDDGFeVEJFVNw>
- <xmx:hWITYj2fxvhOVpVANRErmgO-sZmvRSFtv06AvO1In5m8khzLXH90Hw>
- <xmx:hmITYj9GCWGBFKvMfOSFQgsoTaKIntiPTw0krVYBHZGel0q_841hxw>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 21 Feb 2022 04:59:33 -0500 (EST)
-From: Maxime Ripard <maxime@cerno.tech>
-To: Daniel Vetter <daniel.vetter@intel.com>,
-	David Airlie <airlied@linux.ie>
-Subject: [PATCH v2 05/22] drm/amd/display: Fix color encoding mismatch
-Date: Mon, 21 Feb 2022 10:59:01 +0100
-Message-Id: <20220221095918.18763-6-maxime@cerno.tech>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220221095918.18763-1-maxime@cerno.tech>
-References: <20220221095918.18763-1-maxime@cerno.tech>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53C5910E344;
+	Mon, 21 Feb 2022 14:16:56 +0000 (UTC)
+Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
+ [IPv6:2607:f8b0:4864:20::c2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3741C10E73C;
+ Mon, 21 Feb 2022 14:16:54 +0000 (UTC)
+Received: by mail-oo1-xc2b.google.com with SMTP id
+ 189-20020a4a03c6000000b003179d7b30d8so13362409ooi.2; 
+ Mon, 21 Feb 2022 06:16:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=pB155swSBk49PDT+eCV95gPkeDDn9OZawdG0rhDIJRE=;
+ b=pTEm/Q5ZcaImrNLul2uOOW3JIgCy8oOGT2jyBGg61wUnKrLHJQTr05kDrMDQgV695N
+ 1te6tuy7pP04E4lnDUN9mOiIFJsZcHM4yPrnagdJJyeWQ3w9iYRLb9QiPeBjGcenXbhr
+ lQgeSWXKjMHcGBBdrupKXsEi1ihBo0LY1BTVIWnM/bumbva0Poc/3R8uP8e1KmUPX2aZ
+ Ztj6Tr4JjzBiycTk7ncfqLhVq6MM1XdPoQe0PMQ0Z5IoAFBRw2kN8FLLksCzy1OabSdM
+ H4f4vw+p3WEOFEjUG3LaZaruVUYe78BU3dIWogDIMp5ISBHKnTXi0lrZuY66Pp7Cxphk
+ THMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=pB155swSBk49PDT+eCV95gPkeDDn9OZawdG0rhDIJRE=;
+ b=5kI7j19JoALnuuUHj7g+UiiaJIucXcsSmnG6ggRl9qg1fz9O3XFMfZzctYHU5HTPcD
+ KN7qV5j7zbD6R0l/CNvnBInSaCSXesu4XZs5U2m3ael0jEeL7tLfJstS1thcwK8UKMBH
+ ZTeCaevtxlglr+WkiWo6TSPPZvwfHstcd8OW+oor7YSfAFwA+gHikWk0KzMHpJ1QqVXO
+ cQ3R9UOEQ4qn84RJ6hu+EwOgd0Ek1/7ZZJh7HfImkKyP+LwhsUBDPWiD5xITrn3if3+S
+ tpb+KUmvCttN0BxPl7BqXgxwsGT1s+ubjuiSWFhtWYUNSFX5EmaOKsD8XifC+redTDYG
+ w0mA==
+X-Gm-Message-State: AOAM531JCs5DPInFOlKMdOJ1E5pvTedsivJPNe6mBzikly0uPtekLV5S
+ bZCBbpN6lWtlckbuyScmhJyzNLYucYrpDjeoKho=
+X-Google-Smtp-Source: ABdhPJypp4tgFBhtPOEyXtKE+mSjCfOtfvyT3B8a+mk8Lpv2kJcJdY6EchpMEPfdODZ6aUglmLiR483wlIqkrDv6GFw=
+X-Received: by 2002:a05:6870:3e0d:b0:d3:fe6d:57c3 with SMTP id
+ lk13-20020a0568703e0d00b000d3fe6d57c3mr4707614oab.225.1645453013462; Mon, 21
+ Feb 2022 06:16:53 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 21 Feb 2022 14:01:07 +0000
+References: <Ygf7KuWyc0d4HIFu@eldamar.lan>
+ <CADnq5_MfR99OhjumQESCO7Oq+JVOHOVgyVQHX4FpGFDnPu6CyQ@mail.gmail.com>
+ <5164225.DI6hChFYCN@ylum> <c62d4ba9-2214-ca7d-ee78-ee19a9bf51e6@free.fr>
+In-Reply-To: <c62d4ba9-2214-ca7d-ee78-ee19a9bf51e6@free.fr>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 21 Feb 2022 09:16:42 -0500
+Message-ID: <CADnq5_MWqz7-XhOS4zfuzi3=_nKa72iYaO0BcKNcVDwEvZ+YHw@mail.gmail.com>
+Subject: Re: Regression from 3c196f056666 ("drm/amdgpu: always reset the asic
+ in suspend (v2)") on suspend?
+To: Eric Valette <eric.valette@free.fr>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,55 +65,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Dom Cobley <dom@raspberrypi.com>,
- Tim Gover <tim.gover@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Maxime Ripard <maxime@cerno.tech>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Phil Elwell <phil@raspberrypi.com>
+Cc: Sasha Levin <sashal@kernel.org>, David Airlie <airlied@linux.ie>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>, 1005005@bugs.debian.org,
+ Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dominique Dumont <dod@debian.org>, Salvatore Bonaccorso <carnil@debian.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The amdgpu KMS driver calls drm_plane_create_color_properties() with a
-default encoding set to BT709.
+On Mon, Feb 21, 2022 at 3:29 AM Eric Valette <eric.valette@free.fr> wrote:
+>
+> On 20/02/2022 16:48, Dominique Dumont wrote:
+> > On Monday, 14 February 2022 22:52:27 CET Alex Deucher wrote:
+> >> Does the system actually suspend?
+> >
+> > Not really. The screens looks like it's going to suspend, but it does come
+> > back after 10s or so. The light mounted in the middle of the power button does
+> > not switch off.
+>
+>
+> As I have a very similar problem and also commented on the original
+> debian bug report
+> (https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1005005), I will add
+> some information here on another amd only laptop (renoir AMD Ryzen 7
+> 4800H with Radeon Graphics + Radeon RX 5500/5500M / Pro 5500M).
+>
+> For me the suspend works once, but after the first resume (I do know
+> know if it is in the suspend path or the resume path I see a RIP in the
+> dmesg (see aditional info in debian bug))  and later suspend do not
+> work: It only go to the kde login screen.
+>
+> I was unable due to network connectivity to do a full bisect but tested
+> with the patch I had on my laptop:
+>
+> 5.10.101 works, 5.10 from debian works
+> 5.11 works
+> 5.12 works
+> 5.13 suspend works but when resuming the PC is dead I have to reboot
+> 5.14 seems to work but looking at dmesg it is full of RIP messages at
+> various places.
+> 5.15.24 is a described 5.15 from debian is behaving identically
+> 5.16 from debian is behaving identically.
+>
+> >> Is this system S0i3 or regular S3?
+>
+> For me it is real S3.
+>
+> The proposed patch is intended for INTEl + intel gpu + amdgpu but I have
+> dual amd GPU.
 
-However, the core will ignore it and the driver doesn't force it in its
-plane state reset hook, so the initial value will be 0, which represents
-BT601.
+It doesn't really matter what the platform is, it could still
+potentially help on your system, it depends on the bios implementation
+for your platform and how it handles suspend. You can try the patch,
+but I don't think you are hitting the same issue.  I bisect would be
+helpful in your case.
 
-Fix the mismatch by using an initial value of BT601 in
-drm_plane_create_color_properties().
-
-Cc: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Maxime Ripard <maxime@cerno.tech>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index feccf2b555d2..86b27a355e90 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7914,7 +7914,7 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
- 			BIT(DRM_COLOR_YCBCR_BT2020),
- 			BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
- 			BIT(DRM_COLOR_YCBCR_FULL_RANGE),
--			DRM_COLOR_YCBCR_BT709, DRM_COLOR_YCBCR_LIMITED_RANGE);
-+			DRM_COLOR_YCBCR_BT601, DRM_COLOR_YCBCR_LIMITED_RANGE);
- 	}
- 
- 	supported_rotations =
--- 
-2.35.1
-
+Alex
