@@ -4,62 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A12FC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 10:59:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A95C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 11:01:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 581E010E306;
-	Mon, 21 Feb 2022 10:59:47 +0000 (UTC)
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7014710E3A7
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 10:59:46 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id h15so11519439edv.7
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 02:59:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5255710E5F3;
+	Mon, 21 Feb 2022 11:01:39 +0000 (UTC)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D6D410E5F3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 11:01:38 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id qx21so32151505ejb.13
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 03:01:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=mUdNpXHwwYbl0lQ2OQCwIVMjnOn+wVcs0MPRAAYZCY4=;
- b=TNMwILEynJznu7VGiry2LPjib7iu8Dr1Qo5vCGZYVwe8TOD5V1VHKStJy2zeLkMfHB
- KxRoeddMf3zEt4W4pOnkCoXkpWP8iH5UIJ1tCopMAOdYSVrautO6QNiP/RPuyWNn84RK
- 0o2rcSOeYA2L/YDmyKC7pNsGbeccCeE1/LQdN9Dz7Z4up+eMTCtS5Hz7QCKj8W9J7/Cr
- /Alj+mFtJLg/OMlXmObwKuq+5NjehsmtoP/QsZjYE1tyR0gjkrTFmQ6xOz4Ggqnx+ptM
- a8aZHO2MTBZslGvi9fMuZo+hXQlUW4hBtAC9BiJgdclt8kom0/LaTWvT/m83K5J1CMK8
- lJVw==
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=C/CLNl4+iRuvmq+JJPxd7+n179pvdHrRPYeRoqFWhmI=;
+ b=JrWBaXC2roero/8Cur2F57VGNVGBNdjnMqYTCWu1CQ0Vr5jFUPxquJYxRUGzqlbonV
+ G6cdmkZT9yRY3hK7n22NQRQcpE0Hv74gLTcldn0h8eJ1RFhKkNCB9dBz9t0oy3LDMGVE
+ Rkb67WKU+YCZCwZq9cVGD8bno/UcHIFW+Woqdse1djZ0lPUr7wWs9bWnGoyHvL+e+dB/
+ g0cG34dmzZHKf07lhzgpXUPt9GLKwtf1VeklTuUNTlLtfLfF59cR93tIkIRgIfwReL6M
+ rKWqts/Je/v+4Chbrnul6N1TIk+nR4XMTxett+Aym4GZgVAeO7E7fsB7CnsYBQVbBuWg
+ jm0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
+ :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=mUdNpXHwwYbl0lQ2OQCwIVMjnOn+wVcs0MPRAAYZCY4=;
- b=Ovd+RZNAu7GClAWR1/t3HfFbYNahtrz2buC8TbPC4sw5GZwEBGObt2wLzvmvZw/Vhj
- 2yytcy0FPfkooYWZpxhE/jdg68gyGwifjToQjDBWuMmzrUsGVj/fOx0qFWYs/75RckGU
- 0qD95bmRr+s8AKJ0uq5jjyhfU6R4cPI3o+an1X4XPt80H4zX8LW9cmxPMfBsijZNF8WN
- c9iqo0RI/jq6DpAJ797MjFw/xgjjDH2r1+/664/Qi/E0QnsdvC2sO9uLKZXlxC1tO2yH
- tTXQpZg4JT30JoJ5YhhnpUYBZl5TXkiFfA6Ocv7u/PG5JfyyQXD1F6SRDbZCAB9sTNcZ
- txvg==
-X-Gm-Message-State: AOAM532JrYeAXoI66rd/moB93Pc0XsPTkUUMzRxs+PjdeA26CJVsvnTb
- il4QGn3F7XOGemUSXf0h1do=
-X-Google-Smtp-Source: ABdhPJwyWD8UZT1cH1hlijCzpjrZg82/MWbVJpyRSJXD5y4XpOh2pU+rIzIaP0pt8R6XaHbTg48CXg==
-X-Received: by 2002:a05:6402:198:b0:410:83e3:21d7 with SMTP id
- r24-20020a056402019800b0041083e321d7mr20989259edv.159.1645441184768; 
- Mon, 21 Feb 2022 02:59:44 -0800 (PST)
+ bh=C/CLNl4+iRuvmq+JJPxd7+n179pvdHrRPYeRoqFWhmI=;
+ b=HA1DrvHDsl2rBdCoBLqlNdaIRU5WiR+tPV1TYmVHF3vN94eDcF4dfwuWztIhOIIodk
+ UIHU+MFf89nyGjIo4bfdumLO3X7k1n9T3L6MjdkwAtL66f7HEOf4exhnmqFnf9L2JcVN
+ lXEjfQ+9xr280hugzxrD6ZxFtHgDyBby6PLJUbfGlnTVpKev8Khhkk1uvtKgsz9xVCNe
+ A5NtActTzkTwBLgq/U/vqh/NODnyQpOZHyrZgAZAAHvsUU13fME5py/QCLubNMndJqNf
+ qEermKnB2D2730HIynW1aaSlCPA2VIjnFKGfACivFrIKF8aMhWsjo+0pu6r2u+r7Cj5f
+ PhWw==
+X-Gm-Message-State: AOAM531IVI/wi7KXh94maimrAWo9dXshqcIzzOex4TB+kWfBde85IzY+
+ 2906v4SGOiqDILzHy+TCHXSGUE/MCcI=
+X-Google-Smtp-Source: ABdhPJzlv+CBk5IYshgvHwRg2biTn9NODrRhYYT1Uhi6SJy1N4e6WlQnn+nqoQDMOkbUKVP4KMzVng==
+X-Received: by 2002:a17:906:5a94:b0:6c5:5aa4:da87 with SMTP id
+ l20-20020a1709065a9400b006c55aa4da87mr15923431ejq.381.1645441296876; 
+ Mon, 21 Feb 2022 03:01:36 -0800 (PST)
 Received: from [192.168.178.21] (p57b0bff8.dip0.t-ipconnect.de.
  [87.176.191.248])
- by smtp.gmail.com with ESMTPSA id 5sm8658247edx.32.2022.02.21.02.59.44
+ by smtp.gmail.com with ESMTPSA id hs25sm5053025ejc.172.2022.02.21.03.01.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Feb 2022 02:59:44 -0800 (PST)
-Message-ID: <857111a1-c8a9-4b05-aa06-cbca68761a25@gmail.com>
-Date: Mon, 21 Feb 2022 11:59:39 +0100
+ Mon, 21 Feb 2022 03:01:36 -0800 (PST)
+Message-ID: <28606dfa-bb93-d78c-df28-51fe79c9b2e8@gmail.com>
+Date: Mon, 21 Feb 2022 12:01:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH 1/7] drm/amdgpu/benchmark: use dev_info rather than DRM
- macros for logging
+Subject: Re: [PATCH 1/1] drm/amdkfd: Use real device for messages
 Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220218222603.25470-1-alexander.deucher@amd.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220219005745.1559114-1-Felix.Kuehling@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220218222603.25470-1-alexander.deucher@amd.com>
+In-Reply-To: <20220219005745.1559114-1-Felix.Kuehling@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -73,78 +72,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: kent.russell@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.02.22 um 23:25 schrieb Alex Deucher:
-> So we can tell which output goes to which device when multiple GPUs
-> are present.  Also while we are here, convert DRM_ERROR to dev_info.
-> The error cases are not critical.
+Am 19.02.22 um 01:57 schrieb Felix Kuehling:
+> kfd_chardev() doesn't provide much useful information in dev_... messages
+> on multi-GPU systems because there is only one KFD device, which doesn't
+> correspond to any particular GPU. Use the actual GPU device to indicate
+> the GPU that caused a message.
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com> for the entire 
-series.
+Ah, yes somebody noted that to me as well a while ago. Good to see that 
+changed.
 
-As a follow up we should probably replace the create, reserve, pin, 
-alloc_gart dance in amdgpu_benchmark_move() with a call to 
-amdgpu_bo_create_kernel() and amdgpu_bo_free_kernel().
-
-And using ktime() instead of jiffies would protect us against wrap 
-arounds in amdgpu_benchmark_do_move().
-
-Regards,
-Christian.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c | 12 +++++++-----
->   1 file changed, 7 insertions(+), 5 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   | 5 -----
+>   drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c | 8 ++++----
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h      | 1 -
+>   3 files changed, 4 insertions(+), 10 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-> index 313517f7cf10..b38783278a99 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-> @@ -56,13 +56,15 @@ static int amdgpu_benchmark_do_move(struct amdgpu_device *adev, unsigned size,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 7affec907fd1..ceeb0d5e9060 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -104,11 +104,6 @@ void kfd_chardev_exit(void)
+>   	kfd_device = NULL;
 >   }
 >   
+> -struct device *kfd_chardev(void)
+> -{
+> -	return kfd_device;
+> -}
+> -
 >   
-> -static void amdgpu_benchmark_log_results(int n, unsigned size,
-> +static void amdgpu_benchmark_log_results(struct amdgpu_device *adev,
-> +					 int n, unsigned size,
->   					 unsigned int time,
->   					 unsigned sdomain, unsigned ddomain,
->   					 char *kind)
+>   static int kfd_open(struct inode *inode, struct file *filep)
 >   {
->   	unsigned int throughput = (n * (size >> 10)) / time;
-> -	DRM_INFO("amdgpu: %s %u bo moves of %u kB from"
-> +
-> +	dev_info(adev->dev, "amdgpu: %s %u bo moves of %u kB from"
->   		 " %d to %d in %u ms, throughput: %u Mb/s or %u MB/s\n",
->   		 kind, n, size >> 10, sdomain, ddomain, time,
->   		 throughput * 8, throughput);
-> @@ -131,14 +133,14 @@ static void amdgpu_benchmark_move(struct amdgpu_device *adev, unsigned size,
->   		if (time < 0)
->   			goto out_cleanup;
->   		if (time > 0)
-> -			amdgpu_benchmark_log_results(n, size, time,
-> +			amdgpu_benchmark_log_results(adev, n, size, time,
->   						     sdomain, ddomain, "dma");
->   	}
->   
->   out_cleanup:
->   	/* Check error value now. The value can be overwritten when clean up.*/
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
+> index 7041a6714baa..9178cfe34f20 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
+> @@ -58,14 +58,14 @@ int kfd_interrupt_init(struct kfd_dev *kfd)
+>   		KFD_IH_NUM_ENTRIES * kfd->device_info.ih_ring_entry_size,
+>   		GFP_KERNEL);
 >   	if (r) {
-> -		DRM_ERROR("Error while benchmarking BO move.\n");
-> +		dev_info(adev->dev, "Error while benchmarking BO move.\n");
+> -		dev_err(kfd_chardev(), "Failed to allocate IH fifo\n");
+> +		dev_err(kfd->adev->dev, "Failed to allocate IH fifo\n");
+>   		return r;
 >   	}
 >   
->   	if (sobj) {
-> @@ -239,6 +241,6 @@ void amdgpu_benchmark(struct amdgpu_device *adev, int test_number)
->   		break;
->   
->   	default:
-> -		DRM_ERROR("Unknown benchmark\n");
-> +		dev_info(adev->dev, "Unknown benchmark\n");
+>   	kfd->ih_wq = alloc_workqueue("KFD IH", WQ_HIGHPRI, 1);
+>   	if (unlikely(!kfd->ih_wq)) {
+>   		kfifo_free(&kfd->ih_fifo);
+> -		dev_err(kfd_chardev(), "Failed to allocate KFD IH workqueue\n");
+> +		dev_err(kfd->adev->dev, "Failed to allocate KFD IH workqueue\n");
+>   		return -ENOMEM;
 >   	}
->   }
+>   	spin_lock_init(&kfd->interrupt_lock);
+> @@ -117,7 +117,7 @@ bool enqueue_ih_ring_entry(struct kfd_dev *kfd,	const void *ih_ring_entry)
+>   	count = kfifo_in(&kfd->ih_fifo, ih_ring_entry,
+>   				kfd->device_info.ih_ring_entry_size);
+>   	if (count != kfd->device_info.ih_ring_entry_size) {
+> -		dev_dbg_ratelimited(kfd_chardev(),
+> +		dev_dbg_ratelimited(kfd->adev->dev,
+>   			"Interrupt ring overflow, dropping interrupt %d\n",
+>   			count);
+>   		return false;
+> @@ -148,7 +148,7 @@ static void interrupt_wq(struct work_struct *work)
+>   	uint32_t ih_ring_entry[KFD_MAX_RING_ENTRY_SIZE];
+>   
+>   	if (dev->device_info.ih_ring_entry_size > sizeof(ih_ring_entry)) {
+> -		dev_err_once(kfd_chardev(), "Ring entry too small\n");
+> +		dev_err_once(dev->adev->dev, "Ring entry too small\n");
+>   		return;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 783d53a3dd9e..f36062be9ca8 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -355,7 +355,6 @@ enum kfd_mempool {
+>   /* Character device interface */
+>   int kfd_chardev_init(void);
+>   void kfd_chardev_exit(void);
+> -struct device *kfd_chardev(void);
+>   
+>   /**
+>    * enum kfd_unmap_queues_filter - Enum for queue filters.
 
