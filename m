@@ -4,116 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BF62C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 15:19:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 509C2C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 15:52:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F320A10E2FF;
-	Mon, 21 Feb 2022 15:19:03 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2088.outbound.protection.outlook.com [40.107.243.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 472AD10E2FF
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 15:19:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FcuX0KtA+RFU9wg/FcDHHlaaoUjiTyQlpufZbgLCMtxKG3Qpsg8irWGXqIhPvQpv86bPhwsunm6ygzeAGMjZTfYkPd1CsSdghRVofOi84vfXRpddzak9Ne4ieKlpA3aIihnOu4397vdPrU7qVqql0y7oFgyVlFJ+oiqm5UFJ+IQJzwLRn96vvTSf3VpE9LodDr/tOzvsGkGnpqvoCspNHJnsHVX6/SgTbvQqQQMmeDhtNrw51/XNt9yLym+jwY7LPpmS1Y4nSmdirwW6zKRSphbriyqAOsgwmleegr3XuLdrL9JQGcCi+FtFXMUT8HjmK1R0RJjdL8lLlS+oKCWbeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w4n5gISsv8yTaCmVzmXUocW57JMWEUOdRmLur4xwwok=;
- b=XQGvEKEYtwg8jft6VYxl8Qe6rsglfW++OuWKw/heszc9tM1whGindth9jNfl6cusT32zmwddit/ltQn3tKNGlpDYLS1g1QJeYujxiZDUPG8cxSb4qOY+/BAtMhn8oklp9P85bDZaXTSzCzXk0sdtrb+u3pAgNrz6NRAMwIaC6DmtH/nKOstgT985ebNZQxiOMErGqcjO6/hKkGIR5LzMI5Xeout3Z7qW+8OGqmmwUGRdTenIIlSxDOolg4AumV2AnPhGuh4oTNKkivFuCde3mNYIfSAlwlvOIU4K5Wti88sc0GwOtdJG2i1uHrOUD5e/MP1POUU1dtcpPbXXSI5GpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w4n5gISsv8yTaCmVzmXUocW57JMWEUOdRmLur4xwwok=;
- b=QCmlUy8DVn9yiAfJ+ROfBOnQ5Dy4wTQtw6BNFDFUUvB/0MDnWnagEOeiplEehN4DqLEhy7fLqtIL63AhD5p8uc+BWiviFTAxGDNNP334cRklm4mwGZhBFnW/GWCfaTXrmuOMQ9XFFxRzgsD/sy1kIuOXY9WYbKvXWM4wlLdDvGM=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BYAPR12MB3078.namprd12.prod.outlook.com (2603:10b6:a03:a8::31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.22; Mon, 21 Feb
- 2022 15:18:58 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::2877:73e4:31e7:cecf]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::2877:73e4:31e7:cecf%7]) with mapi id 15.20.4995.027; Mon, 21 Feb 2022
- 15:18:58 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/radeon: fix variable type
-Thread-Topic: [PATCH] drm/radeon: fix variable type
-Thread-Index: AQHYJxLktRZoyRo+H0mzRwilrLrWkKyeHjYY
-Date: Mon, 21 Feb 2022 15:18:58 +0000
-Message-ID: <BL1PR12MB5144B8FE3E902A7903194937F73A9@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20220221110503.2803-1-christian.koenig@amd.com>
-In-Reply-To: <20220221110503.2803-1-christian.koenig@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-02-21T15:18:57.952Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: 40f2c534-ec13-b224-9c95-7b689f833582
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: cfbedd12-cf05-4d50-1f91-08d9f54d7bb7
-x-ms-traffictypediagnostic: BYAPR12MB3078:EE_
-x-microsoft-antispam-prvs: <BYAPR12MB30782B8FFC4F2997592743BFF73A9@BYAPR12MB3078.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Z/6djkcWyzzymFwHdmGdA2TOFeRdPzy07hRYzYvGi3EkZaYBkWxqk+dRVHN+DDFz+afUU30tkKJdbQy7w0bGr9CUOIA7K6tg2viEaHANOXG5w1JPeArhuNzYWbSBzoyMvakhUXd4t7HXx9Ki+4BbVlFHTXQY0wG+DBNf1TQHrIp/SEe5Q+6eOVHMR04xfF8NzKM+5RJkZnKyDRzMAhdNq3DZqu4X5XtVuUy1IpJsxv2n807gfbk201dObH3qzb61DFXlC9xeYkAyTBZQa8widrj+oE4Cjk2K4HM3bXSm0REs7LddJrwGu1L13VbI/2H1EDzYTqwxKtEzYACAqCosJE2CvdQ3JPvGsH/KRb6eogtf6qcs5T3L8ISR1+xkEwL0/DIdEovGq1xu4f23wBdldJJrdjRuM7MNlujH3iYodG25Me3WTW2o8SMSUg1nPIg/pYyZRHHyh3GjayTiOi/z7ts/cfGNF/8TS5MH01+K1vUiZVq/heYFMHC4XyUeWVdAo0tpzgMpSUcCuA3iflMRGLuqtTspixDmpXb1NjeBIw6qVZAIob++Vd96qHNWjbLclkfNQ2HsllKsA1+Po8HyyyaD6dJkOVaGpCRRZ5wWxUUMJXmh8PcLyRWlU6GYyE1xUs9a3WVn/TE48JM28OtHsvqVOZIypfqjnitbWxntk0cLgwdw/pckqMbNSCBTKSaG5W3Xn5birW4kxkoxyrcnkbA5kdRcoLom1IjvXjWrkyaS+f7sPwuEe5sx37ntbWOyzMgtkzmzVxH5gSQyic/4Oyf7O2JEIX7rZ444pxUSWvM=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66476007)(6506007)(52536014)(66556008)(9686003)(19627405001)(2906002)(66446008)(86362001)(26005)(66946007)(8676002)(5660300002)(122000001)(4326008)(186003)(966005)(508600001)(38100700002)(7696005)(64756008)(53546011)(8936002)(71200400001)(83380400001)(166002)(33656002)(76116006)(38070700005)(55016003)(316002)(110136005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?Vww3fPJugTEh2vyi0Dj+UGDwtgkVd1A/14gW+guMRpttcqFmpeNnbsEcGZ?=
- =?iso-8859-1?Q?LXT3VNOzHKdzSqrzOv/p1cyKjzqOcWrhEKgndM7Gqsbm2LH8bWNfQZe5bU?=
- =?iso-8859-1?Q?XEzSG3Ijug7LEQDzxb4azpId9RA48EC+/n5At3+ZLB1MRpxrxbNjcDhFnH?=
- =?iso-8859-1?Q?SjLTjrwGwuvyKyYnC9ivFAXKX7X3SngTnSkalsKovamenJadhMJ2S9by2z?=
- =?iso-8859-1?Q?rYRBxpux+xwLgBraGvogU0yV9o/OgejbdL3POWvdD2ZdFHCGSJxoQdyIel?=
- =?iso-8859-1?Q?laCsItTxkemykw1OOGTIlrPTNhFEznPeLztXz+AOvq1d7gtNxkf9W73WB7?=
- =?iso-8859-1?Q?0rF5fnyAdyNzdXI9Qg2Xl0H4bWSpopbGp4eSuzI+uRsMeQn7YNk4GT2V37?=
- =?iso-8859-1?Q?x77VhiSRWVN7+oFti3TKELyaWRN5GLJ0OAiFZ45VypTvoOq6AfKdR3ivG2?=
- =?iso-8859-1?Q?FBF0VUHoQIT/cDro6dXWk23V9zr+bRK3x4lTDbWzBNBelsUI8UTFTTHfqZ?=
- =?iso-8859-1?Q?MSOgQOBatbNRoUuBuTuJGwy/GD8Y1qAexPddm+hI0hfVdaY2wTQGgjhWv+?=
- =?iso-8859-1?Q?E4V/IMETwKpN+bEJL4VdX1LcbcCmPoQv2McuBPoxKiwP8dBdZ8/gC7y74m?=
- =?iso-8859-1?Q?5hJa5O12d8jNtjbKQCA6S+ECom12b3vXPD6zAzLDSYQXi1HyUiJb5bVfOq?=
- =?iso-8859-1?Q?xcdVoLoGMSYzT2YtJyO3t0x07RTIzezsJPJFo8HIzk/lo4G6M9xfuWArFN?=
- =?iso-8859-1?Q?FZllf0ytcTmboLPr5guxoRJQC9fGoFtbInnoAcwUHn5x/wVGnSMQIRR+tE?=
- =?iso-8859-1?Q?vHvU6NFMANojlVI0j/aRxPQs5krd0b+J3+jL32PzMOO4pRwE8qw9uD2W22?=
- =?iso-8859-1?Q?ZyWQY2GexomMDTBEiTHeb3vMJa/z4YRq6O3egQ8HMcgXxXbcw7eHjYKCGn?=
- =?iso-8859-1?Q?Mg7Y3m9dwum39JpVVckO8xFrCoEogbxgfv9Mlxjxv/pSzl9f8YqQfzLhC5?=
- =?iso-8859-1?Q?cuPPWXeedPH+nR0K+Bns7W8rlnHW/OT59F1rAdxygRZe076e9oco473yeL?=
- =?iso-8859-1?Q?zedg1uHaijvJfRAE4oYw5mk/EGOCgIMC2+zrLbK7kd5DwnrEEaBpqWCV0q?=
- =?iso-8859-1?Q?TpNeVINSewkItk/ZRgM4LiLlmUIZfN7iIRxo1p3QU9NIqVgT+bm50a8t5P?=
- =?iso-8859-1?Q?OylCMU4aHdqoDLRC/wQn5vDhwWRigdU+HwGziinycWDIBvTEXCQbrTDHuo?=
- =?iso-8859-1?Q?xiuSH0EJzJ8WrTLSUlLNK4zDoFpL3o9ynHjWHyUrMrM6Fyxz1Fn+0Q+7Bj?=
- =?iso-8859-1?Q?MRyv8ryeKQGl1zYN6UTfNidBB8ubGhT4mdu5p4juuTdGC3CvAa7OSfdekv?=
- =?iso-8859-1?Q?JAUPMELq0mepBQ2+xEaUo5sZPFj6ou+Tv7s4IY1qqFOM2m4uZgEfob6PRj?=
- =?iso-8859-1?Q?e+P0UciazCTJnhahyR8gJGoy05UGesPTelE8GogJeUPOU4cbp0JSHntCNJ?=
- =?iso-8859-1?Q?vbVZ/8yJiYRNj6gfPRVjoc6Bv5DQuEnJHan5ekpDlfJLFvLtHuYpJKe81g?=
- =?iso-8859-1?Q?9lzg/owMQusCtiHdJZsEw0h8Spba8t+x7YFsSlfuRZTFRaf6o5pTD86NoW?=
- =?iso-8859-1?Q?fU1hs3xmTgw7QN1ruOOYfvUIILzyNQOPMScAogui1TkRM5b2Gx0AYc9Q?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144B8FE3E902A7903194937F73A9BL1PR12MB5144namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 742A110E189;
+	Mon, 21 Feb 2022 15:52:24 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA777891A3;
+ Mon, 21 Feb 2022 15:52:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1645458742; x=1676994742;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=CmD1J91AVg6HNHjRE8qq03Qh0DZxCscIpsU4YFaAMwQ=;
+ b=Stcu7YxxaJUIfzzeq/aILLuT615/Eb78iiDZeeLFwT0WKnBFVZRK6a4B
+ EnTMcfoMyIChAUOOGU19yxvSodgeFo6b/UMg8wnjvFcz548QhhhtmMTG1
+ pmiayt4Ryfs+69gJvd175Ei9m6CiuW4V8BzLEOmm+tG1qY4JRChJ6Fw7w
+ 2aKhMeLXl8RKA5SrOGTKR1NVMjWHvrxV7Sx0V2QPGjhIaJ754d+bd0xm3
+ GgPh8fOttOeWT1tPxL/cNu8NgQy1DGYcAQmqXJhltyVwLVxoQPARe5uVS
+ I6HsGCXg6P6q3Jj/B5Yf4G49583x/Hy8RvYZuM0Rfua9Oz2GXXrzci626 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10265"; a="312276278"
+X-IronPort-AV: E=Sophos;i="5.88,386,1635231600"; d="scan'208";a="312276278"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Feb 2022 07:52:22 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,386,1635231600"; d="scan'208";a="505124752"
+Received: from lkp-server01.sh.intel.com (HELO da3212ac2f54) ([10.239.97.150])
+ by orsmga002.jf.intel.com with ESMTP; 21 Feb 2022 07:52:19 -0800
+Received: from kbuild by da3212ac2f54 with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nMAz5-0001k5-5i; Mon, 21 Feb 2022 15:52:19 +0000
+Date: Mon, 21 Feb 2022 23:51:42 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jiawei Gu <Jiawei.Gu@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com,
+ Andrey.Grodzovsky@amd.com, Monk.Liu@amd.com, Emily.Deng@amd.com,
+ Horace.Chen@amd.com
+Subject: Re: [PATCH] drm/sched: Add device pointer to drm_gpu_scheduler
+Message-ID: <202202212330.nxcvFWEe-lkp@intel.com>
+References: <20220221095705.5290-1-Jiawei.Gu@amd.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfbedd12-cf05-4d50-1f91-08d9f54d7bb7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Feb 2022 15:18:58.5897 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bA1pP6sOAbix6/U7In2DpXZwpdX95uDi+RohswWSflAnPkYrxTlUp7jjt9vPaGBxJ+449fpq6C/FpptFtV4Ufg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3078
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220221095705.5290-1-Jiawei.Gu@amd.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,199 +61,145 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Jiawei Gu <Jiawei.Gu@amd.com>, kbuild-all@lists.01.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144B8FE3E902A7903194937F73A9BL1PR12MB5144namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Hi Jiawei,
 
-[Public]
+Thank you for the patch! Yet something to improve:
 
-Add:
-Bug: https://bugzilla.kernel.org/show_bug.cgi?id=3D215600
-With that:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Christia=
-n K=F6nig <ckoenig.leichtzumerken@gmail.com>
-Sent: Monday, February 21, 2022 6:05 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Koenig, Christian <Christian.Koenig@amd.com>
-Subject: [PATCH] drm/radeon: fix variable type
+[auto build test ERROR on drm/drm-next]
+[also build test ERROR on drm-intel/for-linux-next drm-exynos/exynos-drm-next tegra-drm/drm/tegra/for-next v5.17-rc5 next-20220217]
+[cannot apply to drm-tip/drm-tip]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-When we switch to dma_resv_wait_timeout() the returned type changes as
-well.
+url:    https://github.com/0day-ci/linux/commits/Jiawei-Gu/drm-sched-Add-device-pointer-to-drm_gpu_scheduler/20220221-175818
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+config: ia64-allmodconfig (https://download.01.org/0day-ci/archive/20220221/202202212330.nxcvFWEe-lkp@intel.com/config)
+compiler: ia64-linux-gcc (GCC) 11.2.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/0day-ci/linux/commit/9fdafca855faca0a3b8f213f024985c4112fa0bb
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Jiawei-Gu/drm-sched-Add-device-pointer-to-drm_gpu_scheduler/20220221-175818
+        git checkout 9fdafca855faca0a3b8f213f024985c4112fa0bb
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=ia64 SHELL=/bin/bash drivers/gpu/drm/msm/ drivers/gpu/drm/v3d/
 
-Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
-Fixes: 89aae41d740f ("drm/radeon: use dma_resv_wait_timeout() instead of ma=
-nually waiting")
----
- drivers/gpu/drm/radeon/radeon_uvd.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/r=
-adeon_uvd.c
-index 377f9cdb5b53..84013faa4756 100644
---- a/drivers/gpu/drm/radeon/radeon_uvd.c
-+++ b/drivers/gpu/drm/radeon/radeon_uvd.c
-@@ -470,8 +470,8 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p=
-, struct radeon_bo *bo,
-         int32_t *msg, msg_type, handle;
-         unsigned img_size =3D 0;
-         void *ptr;
--
--       int i, r;
-+       long r;
-+       int i;
+All errors (new ones prefixed by >>):
 
-         if (offset & 0x3F) {
-                 DRM_ERROR("UVD messages must be 64 byte aligned!\n");
-@@ -481,13 +481,13 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser =
-*p, struct radeon_bo *bo,
-         r =3D dma_resv_wait_timeout(bo->tbo.base.resv, false, false,
-                                   MAX_SCHEDULE_TIMEOUT);
-         if (r <=3D 0) {
--               DRM_ERROR("Failed waiting for UVD message (%d)!\n", r);
-+               DRM_ERROR("Failed waiting for UVD message (%ld)!\n", r);
-                 return r ? r : -ETIME;
-         }
-
-         r =3D radeon_bo_kmap(bo, &ptr);
-         if (r) {
--               DRM_ERROR("Failed mapping the UVD message (%d)!\n", r);
-+               DRM_ERROR("Failed mapping the UVD message (%ld)!\n", r);
-                 return r;
-         }
-
+   drivers/gpu/drm/msm/msm_ringbuffer.c: In function 'msm_ringbuffer_new':
+>> drivers/gpu/drm/msm/msm_ringbuffer.c:90:15: error: too few arguments to function 'drm_sched_init'
+      90 |         ret = drm_sched_init(&ring->sched, &msm_sched_ops,
+         |               ^~~~~~~~~~~~~~
+   In file included from drivers/gpu/drm/msm/msm_ringbuffer.h:10,
+                    from drivers/gpu/drm/msm/msm_ringbuffer.c:7:
+   include/drm/gpu_scheduler.h:463:5: note: declared here
+     463 | int drm_sched_init(struct drm_gpu_scheduler *sched,
+         |     ^~~~~~~~~~~~~~
 --
-2.25.1
+   In file included from drivers/gpu/drm/v3d/v3d_sched.c:23:
+   drivers/gpu/drm/v3d/v3d_sched.c: In function 'v3d_sched_init':
+>> drivers/gpu/drm/v3d/v3d_drv.h:158:26: error: implicit declaration of function 'to_platform_device' [-Werror=implicit-function-declaration]
+     158 | #define v3d_to_pdev(v3d) to_platform_device((v3d)->drm.dev)
+         |                          ^~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/v3d/v3d_sched.c:394:49: note: in expansion of macro 'v3d_to_pdev'
+     394 |                              NULL, "v3d_bin", &(v3d_to_pdev(v3d)->dev));
+         |                                                 ^~~~~~~~~~~
+>> drivers/gpu/drm/v3d/v3d_sched.c:394:65: error: invalid type argument of '->' (have 'int')
+     394 |                              NULL, "v3d_bin", &(v3d_to_pdev(v3d)->dev));
+         |                                                                 ^~
+   drivers/gpu/drm/v3d/v3d_sched.c:404:68: error: invalid type argument of '->' (have 'int')
+     404 |                              NULL, "v3d_render", &(v3d_to_pdev(v3d)->dev));
+         |                                                                    ^~
+   drivers/gpu/drm/v3d/v3d_sched.c:416:65: error: invalid type argument of '->' (have 'int')
+     416 |                              NULL, "v3d_tfu", &(v3d_to_pdev(v3d)->dev));
+         |                                                                 ^~
+   drivers/gpu/drm/v3d/v3d_sched.c:429:73: error: invalid type argument of '->' (have 'int')
+     429 |                                      NULL, "v3d_csd", &(v3d_to_pdev(v3d)->dev));
+         |                                                                         ^~
+   drivers/gpu/drm/v3d/v3d_sched.c:441:81: error: invalid type argument of '->' (have 'int')
+     441 |                                      NULL, "v3d_cache_clean", &(v3d_to_pdev(v3d)->dev));
+         |                                                                                 ^~
+   cc1: some warnings being treated as errors
 
 
---_000_BL1PR12MB5144B8FE3E902A7903194937F73A9BL1PR12MB5144namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+vim +/drm_sched_init +90 drivers/gpu/drm/msm/msm_ringbuffer.c
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Add:<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Bug: <a href=3D"https://bugzilla.kernel.org/show_bug.cgi?id=3D215600" id=3D=
-"LPlnk149304">
-https://bugzilla.kernel.org/show_bug.cgi?id=3D215600</a><br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-With that:<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Christian K=F6nig &lt;ckoenig=
-.leichtzumerken@gmail.com&gt;<br>
-<b>Sent:</b> Monday, February 21, 2022 6:05 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/radeon: fix variable type</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">When we switch to dma_resv_wait_timeout() the retu=
-rned type changes as<br>
-well.<br>
-<br>
-Signed-off-by: Christian K=F6nig &lt;christian.koenig@amd.com&gt;<br>
-Fixes: 89aae41d740f (&quot;drm/radeon: use dma_resv_wait_timeout() instead =
-of manually waiting&quot;)<br>
----<br>
-&nbsp;drivers/gpu/drm/radeon/radeon_uvd.c | 8 ++++----<br>
-&nbsp;1 file changed, 4 insertions(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/r=
-adeon_uvd.c<br>
-index 377f9cdb5b53..84013faa4756 100644<br>
---- a/drivers/gpu/drm/radeon/radeon_uvd.c<br>
-+++ b/drivers/gpu/drm/radeon/radeon_uvd.c<br>
-@@ -470,8 +470,8 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p=
-, struct radeon_bo *bo,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int32_t *msg, msg_type, ha=
-ndle;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned img_size =3D 0;<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *ptr;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, r;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long r;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (offset &amp; 0x3F) {<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;UVD messages must be 64 byte aligned!=
-\n&quot;);<br>
-@@ -481,13 +481,13 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser =
-*p, struct radeon_bo *bo,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D dma_resv_wait_timeou=
-t(bo-&gt;tbo.base.resv, false, false,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MAX_SCHEDULE_TIMEOUT=
-);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r &lt;=3D 0) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;Failed waiting for UVD message (%d)!\n&quot;, r)=
-;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;Failed waiting for UVD message (%ld)!\n&quot;, r=
-);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r ? r : -ETIME;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D radeon_bo_kmap(bo, &=
-amp;ptr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;Failed mapping the UVD message (%d)!\n&quot;, r)=
-;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;Failed mapping the UVD message (%ld)!\n&quot;, r=
-);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+1d8a5ca436ee4a Rob Clark     2021-07-27   47  
+f97decac5f4c2d Jordan Crouse 2017-10-20   48  struct msm_ringbuffer *msm_ringbuffer_new(struct msm_gpu *gpu, int id,
+f97decac5f4c2d Jordan Crouse 2017-10-20   49  		void *memptrs, uint64_t memptrs_iova)
+7198e6b03155f6 Rob Clark     2013-07-19   50  {
+7198e6b03155f6 Rob Clark     2013-07-19   51  	struct msm_ringbuffer *ring;
+1d8a5ca436ee4a Rob Clark     2021-07-27   52  	long sched_timeout;
+f97decac5f4c2d Jordan Crouse 2017-10-20   53  	char name[32];
+7198e6b03155f6 Rob Clark     2013-07-19   54  	int ret;
+7198e6b03155f6 Rob Clark     2013-07-19   55  
+f97decac5f4c2d Jordan Crouse 2017-10-20   56  	/* We assume everwhere that MSM_GPU_RINGBUFFER_SZ is a power of 2 */
+f97decac5f4c2d Jordan Crouse 2017-10-20   57  	BUILD_BUG_ON(!is_power_of_2(MSM_GPU_RINGBUFFER_SZ));
+7198e6b03155f6 Rob Clark     2013-07-19   58  
+7198e6b03155f6 Rob Clark     2013-07-19   59  	ring = kzalloc(sizeof(*ring), GFP_KERNEL);
+7198e6b03155f6 Rob Clark     2013-07-19   60  	if (!ring) {
+7198e6b03155f6 Rob Clark     2013-07-19   61  		ret = -ENOMEM;
+7198e6b03155f6 Rob Clark     2013-07-19   62  		goto fail;
+7198e6b03155f6 Rob Clark     2013-07-19   63  	}
+7198e6b03155f6 Rob Clark     2013-07-19   64  
+7198e6b03155f6 Rob Clark     2013-07-19   65  	ring->gpu = gpu;
+f97decac5f4c2d Jordan Crouse 2017-10-20   66  	ring->id = id;
+84c6127580c1ce Jordan Crouse 2018-11-07   67  
+f97decac5f4c2d Jordan Crouse 2017-10-20   68  	ring->start = msm_gem_kernel_new(gpu->dev, MSM_GPU_RINGBUFFER_SZ,
+604234f33658cd Jordan Crouse 2020-09-03   69  		check_apriv(gpu, MSM_BO_WC | MSM_BO_GPU_READONLY),
+604234f33658cd Jordan Crouse 2020-09-03   70  		gpu->aspace, &ring->bo, &ring->iova);
+8223286d62e296 Jordan Crouse 2017-07-27   71  
+69a834c28fb514 Rob Clark     2016-05-24   72  	if (IS_ERR(ring->start)) {
+69a834c28fb514 Rob Clark     2016-05-24   73  		ret = PTR_ERR(ring->start);
+375f9a63a66bae Rob Clark     2021-07-27   74  		ring->start = NULL;
+69a834c28fb514 Rob Clark     2016-05-24   75  		goto fail;
+69a834c28fb514 Rob Clark     2016-05-24   76  	}
+0815d7749a6852 Jordan Crouse 2018-11-07   77  
+0815d7749a6852 Jordan Crouse 2018-11-07   78  	msm_gem_object_set_name(ring->bo, "ring%d", id);
+0815d7749a6852 Jordan Crouse 2018-11-07   79  
+f97decac5f4c2d Jordan Crouse 2017-10-20   80  	ring->end   = ring->start + (MSM_GPU_RINGBUFFER_SZ >> 2);
+4c7085a5d581a5 Jordan Crouse 2017-10-20   81  	ring->next  = ring->start;
+7198e6b03155f6 Rob Clark     2013-07-19   82  	ring->cur   = ring->start;
+7198e6b03155f6 Rob Clark     2013-07-19   83  
+f97decac5f4c2d Jordan Crouse 2017-10-20   84  	ring->memptrs = memptrs;
+f97decac5f4c2d Jordan Crouse 2017-10-20   85  	ring->memptrs_iova = memptrs_iova;
+f97decac5f4c2d Jordan Crouse 2017-10-20   86  
+1d8a5ca436ee4a Rob Clark     2021-07-27   87  	 /* currently managing hangcheck ourselves: */
+1d8a5ca436ee4a Rob Clark     2021-07-27   88  	sched_timeout = MAX_SCHEDULE_TIMEOUT;
+1d8a5ca436ee4a Rob Clark     2021-07-27   89  
+1d8a5ca436ee4a Rob Clark     2021-07-27  @90  	ret = drm_sched_init(&ring->sched, &msm_sched_ops,
+1d8a5ca436ee4a Rob Clark     2021-07-27   91  			num_hw_submissions, 0, sched_timeout,
+f1b7996551a40a Dave Airlie   2021-07-30   92  			NULL, NULL, to_msm_bo(ring->bo)->name);
+1d8a5ca436ee4a Rob Clark     2021-07-27   93  	if (ret) {
+1d8a5ca436ee4a Rob Clark     2021-07-27   94  		goto fail;
+1d8a5ca436ee4a Rob Clark     2021-07-27   95  	}
+1d8a5ca436ee4a Rob Clark     2021-07-27   96  
+f97decac5f4c2d Jordan Crouse 2017-10-20   97  	INIT_LIST_HEAD(&ring->submits);
+77d205290aa944 Rob Clark     2020-10-23   98  	spin_lock_init(&ring->submit_lock);
+77c406038e830a Rob Clark     2020-10-23   99  	spin_lock_init(&ring->preempt_lock);
+f97decac5f4c2d Jordan Crouse 2017-10-20  100  
+f97decac5f4c2d Jordan Crouse 2017-10-20  101  	snprintf(name, sizeof(name), "gpu-ring-%d", ring->id);
+f97decac5f4c2d Jordan Crouse 2017-10-20  102  
+da3d378dec8634 Rob Clark     2021-07-26  103  	ring->fctx = msm_fence_context_alloc(gpu->dev, &ring->memptrs->fence, name);
+7198e6b03155f6 Rob Clark     2013-07-19  104  
+7198e6b03155f6 Rob Clark     2013-07-19  105  	return ring;
+7198e6b03155f6 Rob Clark     2013-07-19  106  
+7198e6b03155f6 Rob Clark     2013-07-19  107  fail:
+7198e6b03155f6 Rob Clark     2013-07-19  108  	msm_ringbuffer_destroy(ring);
+7198e6b03155f6 Rob Clark     2013-07-19  109  	return ERR_PTR(ret);
+7198e6b03155f6 Rob Clark     2013-07-19  110  }
+7198e6b03155f6 Rob Clark     2013-07-19  111  
 
---_000_BL1PR12MB5144B8FE3E902A7903194937F73A9BL1PR12MB5144namp_--
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
