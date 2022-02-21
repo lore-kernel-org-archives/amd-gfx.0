@@ -4,84 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4DF4C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 21:58:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49BA5C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 22:29:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA1EB10E446;
-	Mon, 21 Feb 2022 21:58:55 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1609C10E270
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 21:02:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1645477331;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=wDRxqxZuWPSaCv6rqIdjrfVOR7wM38/w+tQeZAITHHI=;
- b=IrwQVkRSrc9zut0SOKiS3xt/oSgTSh5aiucBlsfUDr+FzwU3m4ZlvXihzfrSJxO0HRcSg4
- s5P7WTQMzFpOaecTb/tbCN0gzmophpy8dn5hA/XOvPBShOoOz3jaP6MOfbNmTeSB4o2NEo
- 4yln+U1XnQvV/JLP/M0uZSTyQcn9PhM=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-400-ayDD1jf5MJu8kpHnV42-dA-1; Mon, 21 Feb 2022 16:02:07 -0500
-X-MC-Unique: ayDD1jf5MJu8kpHnV42-dA-1
-Received: by mail-qk1-f197.google.com with SMTP id
- 199-20020a3703d0000000b005f17c5b0356so12276141qkd.16
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 13:02:07 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=wDRxqxZuWPSaCv6rqIdjrfVOR7wM38/w+tQeZAITHHI=;
- b=A916TzkoG/EEKpFIpzqttR63bSeX15Op8CevavK+4RQopsZVFy4Dsn15ITGzydUmWn
- Mf/6vctZXVOUL7OrpTVbP+n0VbUO3yRCUD41UvTSNLTnRlX65IYBcMdKvlkKXhiiBXYY
- dXl5GPYwnUzkVHqyG7I8HKmOzRGG5sJ1rr0qHtWyc13RksCZtO+vgyft0ap88Jn5RsQx
- fhppIfb2fQZ4ZUpjOAs6SOwIi5KrB1neDEJloosb8laevVIPHnH4HyWfBt3l1MYdPxkE
- fiqy+vh3P+y9n36f4PPyUs4eqobm1NhKvvyFMuOLF21lAthMKE2EA6pXojjLoDWXo+Jy
- QpnQ==
-X-Gm-Message-State: AOAM533tJlqX7mcXCBsmeIgM56j9LULTj7+foBidMVKYoIc5gK2Ll8tU
- Bic+z55pygO2mEe+wrtIRHr27PgHgLXf3BWeuCgjBG6ybZwkW9wbbkEZKlEt7vneiEokx1IZzm7
- Kfd1oFCXAMw13LnCQtVgATN74vA==
-X-Received: by 2002:a05:620a:c4a:b0:508:ab56:416a with SMTP id
- u10-20020a05620a0c4a00b00508ab56416amr13105363qki.635.1645477327453; 
- Mon, 21 Feb 2022 13:02:07 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyMWVJJ3w7YQ16IhiKVsRJpXk3MDA7O6OtbGiyG5NMXzYhn7xuySqMgh6EnOg/tCrpRwnWHzw==
-X-Received: by 2002:a05:620a:c4a:b0:508:ab56:416a with SMTP id
- u10-20020a05620a0c4a00b00508ab56416amr13105346qki.635.1645477327212; 
- Mon, 21 Feb 2022 13:02:07 -0800 (PST)
-Received: from localhost.localdomain (024-205-208-113.res.spectrum.com.
- [24.205.208.113])
- by smtp.gmail.com with ESMTPSA id a20sm4639202qtx.6.2022.02.21.13.02.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Feb 2022 13:02:06 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: fix printk format for size_t variable
-To: Luben Tuikov <luben.tuikov@amd.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, guchun.chen@amd.com, Prike.Liang@amd.com,
- Hawking.Zhang@amd.com
-References: <20220221173737.3725760-1-trix@redhat.com>
- <84e354ec-cfbf-a23f-ddd5-417d6f029873@amd.com>
- <e490241d-9a22-f873-2b15-18b12896ea65@redhat.com>
- <84b3679e-8900-ae51-e700-867631618829@amd.com>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <24848c09-8cee-5df1-bf4c-9d187ac107af@redhat.com>
-Date: Mon, 21 Feb 2022 13:02:03 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E0B710E498;
+	Mon, 21 Feb 2022 22:29:50 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE99F10E498
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 22:29:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bgoENLXOLmLNLULqjrKPbyikCv9T6QgTOQioQqCd5UZLTWaahGdFcrlURqT7TcQzZGlMVu9DM1kPnGlQ0IcJNHrJSb8oJTnj4AwfeD5UtbNgPjkgwjYK03uHhOM3kX3x6EkdFwWTV8n04XVe86qRMoMuaXReM0GBZfcHSFVnzbXdr3RkaSkxb5sujRKgeTLhLZa/dVdmAZVG2WhCqgmROPow4Iv/pBkHrDHd5fDZ1/O7WTz0K1R9JboE/iG1pGKrxSTrJP2RQFpyDoHFmEW8YOkwD29Gd/ypml2UszqKsbJJbeaSp6k9tHRfb2VJbTak/h2lReHGoDi1f/4lMD2xPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IVU/x10bXd+RUarY6vaaSq4RgqaW4NEylKOi8JtTH1Q=;
+ b=cxQG7otfVPqKi1+A4dFONi+kfr8D1GqMdThdg5hOloWfmRHQnKu0le5N8/LlP0nqaafRF8Ua/Dnqntjj0rRa39YtuPlwO5OKiiJAXkHjpoWE6JXSJMV5RvQjBOnIOZ7TLy772mMoCCu007juwLykcD+VX05zX9iwDzyhp+zGqNEN1mSY3zYAITSdfSPy2XS5TzM3ms3gUqJyM2bGwoD4t3WCOKAcydkURNiM6rDVDwIw28yHXxM5ZZjBbLJEzEKv/i6yl7RzmZzdO5lYy3T5Snyz/mrNuiHm1f3F6aw6rZ5FM+k6wK56zbebTeTQRM3LyvS2aJhqNpQxmfjBmgsCiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IVU/x10bXd+RUarY6vaaSq4RgqaW4NEylKOi8JtTH1Q=;
+ b=FnWn3zNbkio0FnO7N5HUInGN+K1IhkNTCGDm229+18OH2jDU7KnJmD+0Ah8V9vTvGrjnQqH3Q31HXt1aAfj8TuF+4rb3UT3G+jV0d59WazymvthrwLQhhyd+Yw/378xst1HrvjbQwYZ7wV1H8+hHhS2iQyzKX1q8Y+5Ao4wadkI=
+Received: from MW4PR04CA0362.namprd04.prod.outlook.com (2603:10b6:303:81::7)
+ by DM6PR12MB2985.namprd12.prod.outlook.com (2603:10b6:5:116::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.24; Mon, 21 Feb
+ 2022 22:29:43 +0000
+Received: from CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:81:cafe::b0) by MW4PR04CA0362.outlook.office365.com
+ (2603:10b6:303:81::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.19 via Frontend
+ Transport; Mon, 21 Feb 2022 22:29:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT005.mail.protection.outlook.com (10.13.174.147) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4995.20 via Frontend Transport; Mon, 21 Feb 2022 22:29:42 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 21 Feb
+ 2022 16:29:41 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/test: convert amdgpu_test.c to use dev_info
+Date: Mon, 21 Feb 2022 17:29:22 -0500
+Message-ID: <20220221222922.5655-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-In-Reply-To: <84b3679e-8900-ae51-e700-867631618829@amd.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Mailman-Approved-At: Mon, 21 Feb 2022 21:58:53 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0f65364b-2a49-4299-ad2e-08d9f589a822
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2985:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2985673BD1DB6A7C756C42EFF73A9@DM6PR12MB2985.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RkzBAsbupC8tZK3el+SSgEHKsTAoDACrLKdm1krylL1H9qY2ZZzovPNzux8vzk7ORlLrPmhPhtIdP7qiq5Kum3y5eIGd668g/+04SWGFlC3RDBoeUPusYiq2IORt2gvP8CVlNzU8Oqc2ybBicPIFrzNQDIr/t9yFfSRlFvJnknFma/Z6srutV9ilh9QsVyr6iXIS6M2+LScyFggEchjnLpdR0FUxxez87oFkH5P2YXuJHFJfdhaPafmZIVgHCMCheo261kOOjIGPElyyq+DpjT3T8cXpaMBpIiu11MRE5bk5551LaqOuSWHiFtB6dlG/+sYuc16Nde0syft0p9TNaKP/o06CyhhebFyZea+S3F04LGb+NyQXXXNT+fICjx+vP48L8B+6uH0Z4SzmKmOo138xi66gX4FMxM1/1CHMoc9/Nwj9OFlz58wm6UAjMCEBTWhtBixFSNnITVu43Pu6PDUpDWYlxWeh2x3qqFadDtXqeKCDpDK+gRvno/V0kuEcVvOtIa2u4TJoDXt+t80cF2p83PHbJYitcfjVbVswpz1weuMn6dq76+sknReSPxGdPyMpnertSGqpethb0GD8eHsWF24+HuBA6ojMPKJW29OCQyqBdnVOQWOuPkf7Bhjn7Lsgbrjc5g5l9I9UuLWmEfy8eJYU5+/FlkNP0Hj0fxegh4hJxc8g8kr0nd6RuLTOSgTNQpq/ZmOND2QfOE8pZw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(4326008)(426003)(47076005)(336012)(83380400001)(36756003)(40460700003)(5660300002)(2906002)(8936002)(26005)(6916009)(2616005)(1076003)(36860700001)(186003)(70206006)(70586007)(16526019)(7696005)(81166007)(356005)(508600001)(316002)(6666004)(86362001)(8676002)(82310400004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2022 22:29:42.7618 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f65364b-2a49-4299-ad2e-08d9f589a822
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2985
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,119 +98,196 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Rather than the old DRM_INFO/ERROR macros.  This makes it
+easier to differentiate the output when there are multiple
+GPUs in a system.
 
-On 2/21/22 12:53 PM, Luben Tuikov wrote:
-> On 2022-02-21 15:36, Tom Rix wrote:
->> On 2/21/22 11:57 AM, Luben Tuikov wrote:
->>> Hi Tom,
->>>
->>> This was already fixed with this patch, and LKML was CC-ed. See the CC tags in the patch below,
->>>
->>> commit 4f7d7cda90cbd7
->>> Author: Luben Tuikov <luben.tuikov@amd.com>
->>> Date:   Wed Feb 16 16:47:32 2022 -0500
->>>
->>>       drm/amdgpu: Fix ARM compilation warning
->>>       
->>>       Fix this ARM warning:
->> I glad it wasn't just mips ;)
->>
->> There have been a couple of build breaks with amdgpu recently.
->>
->> Nick asked about adding clang to your ci.
->>
->> Could at least one non x86_64 gcc also be added, maybe aarch64 ?
-> Yeah, that's a great idea. I tried the make.cross (for ARM) as per
-> the initial breakage report, but when I tried it, it got into a loop of
-> "make ARCH=arm mrproper" --> "make prepare" --> "make ARCH=arm mrproper" --> "make prepare" --> ...
-> and I couldn't figure out why.
-Maybe need to set CROSS_COMPILE ?
-> I don't mind adding ARM cross compilation into my local setup.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_test.c | 69 ++++++++++++------------
+ 1 file changed, 35 insertions(+), 34 deletions(-)
 
-For crosses, I generate a 'make' script like
-
-#!/bin/sh
-
-export PATH=<path-to-cross-tools>/bin:$PATH
-
-make ARCH=arm64 CROSS_COMPILE=aarch64-elf- $@
-
-so workflow looks like normal, replacing make with ./make
-
-Tom
-
->
-> Regards,
-> Luben
->
->
->> Tom
->>
->>>       
->>>       drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:664:35: warning: format '%ld'
->>>       expects argument of type 'long int', but argument 4 has type 'size_t' {aka
->>>       'unsigned int'} [-Wformat=]
->>>       
->>>       Cc: Alex Deucher <Alexander.Deucher@amd.com>
->>>       Cc: kbuild-all@lists.01.org
->>>       Cc: linux-kernel@vger.kernel.org
->>>       Reported-by: kernel test robot <lkp@intel.com>
->>>       Fixes: 7e60fbfbdc10a0 ("drm/amdgpu: Show IP discovery in sysfs")
->>>       Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
->>>       Acked-by: Alex Deucher <Alexander.Deucher@amd.com>
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->>> index 2506bcf36c870c..6c7ec058125e1d 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->>> @@ -668,7 +668,7 @@ static int amdgpu_discovery_sysfs_ips(struct amdgpu_device *adev,
->>>                               le16_to_cpu(ip->hw_id) != ii)
->>>                                   goto next_ip;
->>>    
->>> -                       DRM_DEBUG("match:%d @ ip_offset:%ld", ii, ip_offset);
->>> +                       DRM_DEBUG("match:%d @ ip_offset:%zu", ii, ip_offset);
->>>    
->>>                           /* We have a hw_id match; register the hw
->>>                            * block if not yet registered.
->>>
->>> Regards,
->>> Luben
->>>
->>> On 2022-02-21 12:37, trix@redhat.com wrote:
->>>> From: Tom Rix <trix@redhat.com>
->>>>
->>>> On mips64 allyesconfig, there is this build break
->>>> amdgpu_discovery.c:671:35: error: format '%ld' expects
->>>>     argument of type 'long int', but argument 4 has
->>>>     type 'size_t' {aka 'unsigned int'}
->>>>     DRM_DEBUG("match:%d @ ip_offset:%ld", ii, ip_offset);
->>>>
->>>> For size_t, use %zu.
->>>>
->>>> Fixes: a6c40b178092 ("drm/amdgpu: Show IP discovery in sysfs")
->>>> Signed-off-by: Tom Rix <trix@redhat.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 +-
->>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->>>> index 7c7e28fd912e..58238f67b1d3 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->>>> @@ -668,7 +668,7 @@ static int amdgpu_discovery_sysfs_ips(struct amdgpu_device *adev,
->>>>    			    le16_to_cpu(ip->hw_id) != ii)
->>>>    				goto next_ip;
->>>>    
->>>> -			DRM_DEBUG("match:%d @ ip_offset:%ld", ii, ip_offset);
->>>> +			DRM_DEBUG("match:%d @ ip_offset:%zu", ii, ip_offset);
->>>>    
->>>>    			/* We have a hw_id match; register the hw
->>>>    			 * block if not yet registered.
->>> Regards,
-> Regards,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
+index 909d830b513e..2c212b740a17 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
+@@ -51,7 +51,7 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 
+ 	gtt_obj = kcalloc(n, sizeof(*gtt_obj), GFP_KERNEL);
+ 	if (!gtt_obj) {
+-		DRM_ERROR("Failed to allocate %d pointers\n", n);
++		dev_info(adev->dev, "Failed to allocate %d pointers\n", n);
+ 		r = 1;
+ 		goto out_cleanup;
+ 	}
+@@ -66,7 +66,7 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 
+ 	r = amdgpu_bo_create(adev, &bp, &vram_obj);
+ 	if (r) {
+-		DRM_ERROR("Failed to create VRAM object\n");
++		dev_info(adev->dev, "Failed to create VRAM object\n");
+ 		goto out_cleanup;
+ 	}
+ 	r = amdgpu_bo_reserve(vram_obj, false);
+@@ -74,7 +74,7 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 		goto out_unref;
+ 	r = amdgpu_bo_pin(vram_obj, AMDGPU_GEM_DOMAIN_VRAM);
+ 	if (r) {
+-		DRM_ERROR("Failed to pin VRAM object\n");
++		dev_info(adev->dev, "Failed to pin VRAM object\n");
+ 		goto out_unres;
+ 	}
+ 	vram_addr = amdgpu_bo_gpu_offset(vram_obj);
+@@ -87,7 +87,7 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 		bp.domain = AMDGPU_GEM_DOMAIN_GTT;
+ 		r = amdgpu_bo_create(adev, &bp, gtt_obj + i);
+ 		if (r) {
+-			DRM_ERROR("Failed to create GTT object %d\n", i);
++			dev_info(adev->dev, "Failed to create GTT object %d\n", i);
+ 			goto out_lclean;
+ 		}
+ 
+@@ -96,19 +96,19 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 			goto out_lclean_unref;
+ 		r = amdgpu_bo_pin(gtt_obj[i], AMDGPU_GEM_DOMAIN_GTT);
+ 		if (r) {
+-			DRM_ERROR("Failed to pin GTT object %d\n", i);
++			dev_info(adev->dev, "Failed to pin GTT object %d\n", i);
+ 			goto out_lclean_unres;
+ 		}
+ 		r = amdgpu_ttm_alloc_gart(&gtt_obj[i]->tbo);
+ 		if (r) {
+-			DRM_ERROR("%p bind failed\n", gtt_obj[i]);
++			dev_info(adev->dev, "%p bind failed\n", gtt_obj[i]);
+ 			goto out_lclean_unpin;
+ 		}
+ 		gart_addr = amdgpu_bo_gpu_offset(gtt_obj[i]);
+ 
+ 		r = amdgpu_bo_kmap(gtt_obj[i], &gtt_map);
+ 		if (r) {
+-			DRM_ERROR("Failed to map GTT object %d\n", i);
++			dev_info(adev->dev, "Failed to map GTT object %d\n", i);
+ 			goto out_lclean_unpin;
+ 		}
+ 
+@@ -123,13 +123,13 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 				       size, NULL, &fence, false, false, false);
+ 
+ 		if (r) {
+-			DRM_ERROR("Failed GTT->VRAM copy %d\n", i);
++			dev_info(adev->dev, "Failed GTT->VRAM copy %d\n", i);
+ 			goto out_lclean_unpin;
+ 		}
+ 
+ 		r = dma_fence_wait(fence, false);
+ 		if (r) {
+-			DRM_ERROR("Failed to wait for GTT->VRAM fence %d\n", i);
++			dev_info(adev->dev, "Failed to wait for GTT->VRAM fence %d\n", i);
+ 			goto out_lclean_unpin;
+ 		}
+ 
+@@ -138,7 +138,7 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 
+ 		r = amdgpu_bo_kmap(vram_obj, &vram_map);
+ 		if (r) {
+-			DRM_ERROR("Failed to map VRAM object after copy %d\n", i);
++			dev_info(adev->dev, "Failed to map VRAM object after copy %d\n", i);
+ 			goto out_lclean_unpin;
+ 		}
+ 
+@@ -147,16 +147,16 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 		     vram_start < vram_end;
+ 		     gart_start++, vram_start++) {
+ 			if (*vram_start != gart_start) {
+-				DRM_ERROR("Incorrect GTT->VRAM copy %d: Got 0x%p, "
+-					  "expected 0x%p (GTT/VRAM offset "
+-					  "0x%16llx/0x%16llx)\n",
+-					  i, *vram_start, gart_start,
+-					  (unsigned long long)
+-					  (gart_addr - adev->gmc.gart_start +
+-					   (void *)gart_start - gtt_map),
+-					  (unsigned long long)
+-					  (vram_addr - adev->gmc.vram_start +
+-					   (void *)gart_start - gtt_map));
++				dev_info(adev->dev, "Incorrect GTT->VRAM copy %d: Got 0x%p, "
++					 "expected 0x%p (GTT/VRAM offset "
++					 "0x%16llx/0x%16llx)\n",
++					 i, *vram_start, gart_start,
++					 (unsigned long long)
++					 (gart_addr - adev->gmc.gart_start +
++					  (void *)gart_start - gtt_map),
++					 (unsigned long long)
++					 (vram_addr - adev->gmc.vram_start +
++					  (void *)gart_start - gtt_map));
+ 				amdgpu_bo_kunmap(vram_obj);
+ 				goto out_lclean_unpin;
+ 			}
+@@ -169,13 +169,13 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 				       size, NULL, &fence, false, false, false);
+ 
+ 		if (r) {
+-			DRM_ERROR("Failed VRAM->GTT copy %d\n", i);
++			dev_info(adev->dev, "Failed VRAM->GTT copy %d\n", i);
+ 			goto out_lclean_unpin;
+ 		}
+ 
+ 		r = dma_fence_wait(fence, false);
+ 		if (r) {
+-			DRM_ERROR("Failed to wait for VRAM->GTT fence %d\n", i);
++			dev_info(adev->dev, "Failed to wait for VRAM->GTT fence %d\n", i);
+ 			goto out_lclean_unpin;
+ 		}
+ 
+@@ -184,7 +184,7 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 
+ 		r = amdgpu_bo_kmap(gtt_obj[i], &gtt_map);
+ 		if (r) {
+-			DRM_ERROR("Failed to map GTT object after copy %d\n", i);
++			dev_info(adev->dev, "Failed to map GTT object after copy %d\n", i);
+ 			goto out_lclean_unpin;
+ 		}
+ 
+@@ -193,16 +193,16 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 		     gart_start < gart_end;
+ 		     gart_start++, vram_start++) {
+ 			if (*gart_start != vram_start) {
+-				DRM_ERROR("Incorrect VRAM->GTT copy %d: Got 0x%p, "
+-					  "expected 0x%p (VRAM/GTT offset "
+-					  "0x%16llx/0x%16llx)\n",
+-					  i, *gart_start, vram_start,
+-					  (unsigned long long)
+-					  (vram_addr - adev->gmc.vram_start +
+-					   (void *)vram_start - vram_map),
+-					  (unsigned long long)
+-					  (gart_addr - adev->gmc.gart_start +
+-					   (void *)vram_start - vram_map));
++				dev_info(adev->dev, "Incorrect VRAM->GTT copy %d: Got 0x%p, "
++					 "expected 0x%p (VRAM/GTT offset "
++					 "0x%16llx/0x%16llx)\n",
++					 i, *gart_start, vram_start,
++					 (unsigned long long)
++					 (vram_addr - adev->gmc.vram_start +
++					  (void *)vram_start - vram_map),
++					 (unsigned long long)
++					 (gart_addr - adev->gmc.gart_start +
++					  (void *)vram_start - vram_map));
+ 				amdgpu_bo_kunmap(gtt_obj[i]);
+ 				goto out_lclean_unpin;
+ 			}
+@@ -210,7 +210,8 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 
+ 		amdgpu_bo_kunmap(gtt_obj[i]);
+ 
+-		DRM_INFO("Tested GTT->VRAM and VRAM->GTT copy for GTT offset 0x%llx\n",
++		dev_info(adev->dev,
++			 "Tested GTT->VRAM and VRAM->GTT copy for GTT offset 0x%llx\n",
+ 			 gart_addr - adev->gmc.gart_start);
+ 		continue;
+ 
+-- 
+2.35.1
 
