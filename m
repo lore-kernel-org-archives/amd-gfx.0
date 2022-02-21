@@ -4,117 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC74C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 10:17:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E5B4C43217
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 10:17:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FC3E10F272;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6FB110F293;
 	Mon, 21 Feb 2022 10:17:21 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2048.outbound.protection.outlook.com [40.107.223.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2F8610F26F;
- Mon, 21 Feb 2022 10:17:17 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2048.outbound.protection.outlook.com [40.107.212.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7D7010F279
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 10:17:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gxNMuIHU4UQoSqP+mYoruVsbJIsV+O2X8O0QBp5vBf651pzkS5XX3zJDR3zRt5BkL3uqPPOvbciljfNPhsmlhZBbjZESQEKOlkgN5TGYhGss1x/M5j3xfq+0CUV8JXAs997GKtFsW/4Tb1RKFls8G0RpURc2eM/UBQYI/JzEu1n3J1dabEq8TUpjkfSH3W6osxhFrs3gDd95dVgrfqIJteRDxu8opmhLuKtDg2aUS/tunstvtTzZ80kefwGSUSX+bsDbsQnxnWLxRGCS7Z7UKO+2GDYzUhpqlOeygXZJFCdCsuYhvRort75g0INMz9UR70Hc925w1wgDk+e4842lwA==
+ b=ioiLy2xY3Jp8e6WMo+3l38T9rd9VJpiDNDMe3Tt6WEsWcrZB+hcjxTM0NcE4ysovwA2rX61dyriyilLcdF787xp4ubqL1fXhKg8pRmOlJ+EQqPbw/SL+UfBAzkTlDQAYTPLhcJ1Pps9xwv58li1ZYkDVQEwWspXRHxqRpjVVa0DKvMO5BS/wCINUWvavUbGiDaBIGGvKyRlnlOmM8F8fUNPNj+J77JeBF84jxxBGQ0qCt7UtdaJuuj2kzdfswOTaqlNI0a75f8zGS5EZ6zbVYUETX8yW9GlKjCAm2vX0A0AXFrkW7q4i0lqAldrK2jz2xPGX6t6ZmE8fDaNILDf7kQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4j1bR2/3ird+1iz/aWgpnp3JHm4B+AAzHFtVSEddkVI=;
- b=XZRVMWpfNt0rkDNQBEvUykHmfJ8yl3CDAqhKGvoGYGQhqmvbVwJD4V1GVXnyZBU1iAiLyCVQdG4Qcvf8NBS2T5CyCJ9holAoQp9HpHPiqT2+vBMj4dZBseI0XqaXvYZsjl+Q7tB23/Wrw4LB89b7jSHe1fjIJ0kePSfqw3/NLnzGblxQ428wVan509lpjCzMMpyGwFNxdRk1XEcyX063ut9732vIGNWypOKVl7n/4qBnYSjVz+98+Recs6TouSfbgEV9PE8XjDWJAxEZ0aC4sP0kATTx16P4pLIBzSjUCZAAMru1oAYmmf/5ixzkRU2SbQUS1ydY3zLe1n2Nq2c05A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=kxstEAvevrKUFdJwfEPNKAw7nFgmAHwE3BtcxaVppPE=;
+ b=crV331zbKOY96XJ1mAIMqc4DDE09L29TiUPcybx/Vbchiz6Qo0/tD8TiDd6+mAEOCUTlZkrhH1V5l6lmYTmSnaXJGmuNMjeLmgqFy3N59ZZ7952TsnFyS4JJalPlpec3HETVpYGqc877kPJVzbWdWKRJK3nRS2gqdZY8c8C3nRisWha9wkznOJcd4BiVCbDOszornQWHh6G3oyV+gES3seRVRHScNLoyFCXlZnIy3Xa3f2+oM499e3EmDgLiOro0UuRU40UMBesOm77Lndlg5DF27tqUP64QI7XKJaAv6E6GQxUMnNgYfzDg+Rj2sdVfrtVto6FfJd4yv79hr5utlg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4j1bR2/3ird+1iz/aWgpnp3JHm4B+AAzHFtVSEddkVI=;
- b=h/+e5VDkI0h477bDn09YHkG0gT2ReXhALHVSmzJjOgYAA7er2PFZUtN+aQ9N2pnehhqsFPPaFhVGUTkaGf+2UfxLqHqulUTyODPODw6pBH9z5Mmzm6aq3dw+e7ng0KeaQY8LQwdnhsA2GeXsA3tuxkRMpwAPqz2GqBS9svM3X24=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by PH7PR12MB5975.namprd12.prod.outlook.com (2603:10b6:510:1da::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Mon, 21 Feb
- 2022 10:17:15 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e03f:901a:be6c:b581]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e03f:901a:be6c:b581%6]) with mapi id 15.20.4995.027; Mon, 21 Feb 2022
- 10:17:15 +0000
-Message-ID: <47dc8f0a-cdd2-39e5-5ffe-ac9da38951d9@amd.com>
-Date: Mon, 21 Feb 2022 11:17:08 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/sched: Add device pointer to drm_gpu_scheduler
-Content-Language: en-US
-To: Jiawei Gu <Jiawei.Gu@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Andrey.Grodzovsky@amd.com, Monk.Liu@amd.com,
- Emily.Deng@amd.com, Horace.Chen@amd.com
-References: <20220221095705.5290-1-Jiawei.Gu@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220221095705.5290-1-Jiawei.Gu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM5PR0502CA0021.eurprd05.prod.outlook.com
- (2603:10a6:203:91::31) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ bh=kxstEAvevrKUFdJwfEPNKAw7nFgmAHwE3BtcxaVppPE=;
+ b=lTAE2K0brXC7pstQEczpr3b4WmySrYE9PtUS/xP12HHUdJT2/vdtazE9ddZfr3uZx26W6f1UiYY/Qx/N/VIidkUfzjRczCW2GbkVHIZ2CdyrYKmi482cCYuyfv9tWkbs/wNpXN7bJTfgsonAuTltGyD347T1wZOWqhyYXeNmRKQ=
+Received: from DM5PR19CA0004.namprd19.prod.outlook.com (2603:10b6:3:151::14)
+ by BN8PR12MB3523.namprd12.prod.outlook.com (2603:10b6:408:69::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.17; Mon, 21 Feb
+ 2022 10:17:18 +0000
+Received: from DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:151:cafe::7f) by DM5PR19CA0004.outlook.office365.com
+ (2603:10b6:3:151::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.12 via Frontend
+ Transport; Mon, 21 Feb 2022 10:17:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT033.mail.protection.outlook.com (10.13.172.221) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4995.15 via Frontend Transport; Mon, 21 Feb 2022 10:17:17 +0000
+Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 21 Feb
+ 2022 04:17:15 -0600
+From: yipechai <YiPeng.Chai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 12/12] drm/amdgpu: Remove redundant .ras_fini initialization
+ in some ras blocks
+Date: Mon, 21 Feb 2022 18:16:20 +0800
+Message-ID: <20220221101620.3269611-12-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220221101620.3269611-1-YiPeng.Chai@amd.com>
+References: <20220221101620.3269611-1-YiPeng.Chai@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f0ee4ccf-86c1-435b-89f9-08d9f523556a
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5975:EE_
-X-Microsoft-Antispam-PRVS: <PH7PR12MB5975F608490FC10259E3FCB5833A9@PH7PR12MB5975.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 54248f3c-91a3-468b-268f-08d9f52356f0
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3523:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB3523DB716100ED0337C4CE2CFC3A9@BN8PR12MB3523.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: t5yPHt4JjJzvszXvpookGX4SYOO+iMHQv1URGmahQBpKu76aZBho591VzSwQDiNbRjm+R78AVO/b6hA/i/ndnbnBesyb7HA5zV6+Vymdt8ctr8HFobSX4U8vLcfnmL0v/9ABD0ONYh/UKqoMekiMVTZpS+aOa17XHOMuzZLs8QnrBjlesAnF94Qd4JUefc+EYyHsob+fH4V4A5xEMGoH+fOXu7DGNYfJyc1j+jUeYfCR+4+S0QA0OHHuxx7RRzuNz9v6esPpNu1uswm70iRrmzhyXRUF0SybCIes6NJfw0Kp/sGPbM0muqCB8ZCanuEVfPVs9q1DpU0bA04igoWW+4RFgv+qrszDvvD0yokJoBd5Dv3PVW/o1K67MzJvA514/advlEwEn/bvOmpPf3ksm7uzc14CIMenWb6qugg3CpSyiZzWOmP162RPwcLZ3627p5OksiT+/P1vNmuwpTwAW7qgVPniV2OsP0Q62xjCcAoZ+SpPINk2xLZD4R/cok6iFpzCJO0SUTF+XKYhC/ifj0HOLjrMT2qzbJmNryXfnw0n/sMjfAFwYaooncJHf4zSIOUlX4gUKeCNauapXxgvK4IpnNWi0I/DnUcaMvABEgb0MT47k5CZ+p8ydlDDXKCbVA5NgRIebiAicUNrhx1hz44+srZZmRPAPCR6gS68dwJoLyBFaVQz+RCAcvu7nEi4Uv5r6jTsUL0M6+RG8lRiGtclSzm5yDtZgB0+JbbNtEQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(83380400001)(2906002)(6636002)(36756003)(66574015)(6512007)(316002)(508600001)(38100700002)(31696002)(6486002)(186003)(8936002)(450100002)(6666004)(26005)(8676002)(66946007)(66556008)(66476007)(86362001)(31686004)(5660300002)(2616005)(6506007)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: 6xhjHoq7jlKc+tjePlSb1xB0EG1G/rAet8F55LaP29tu/L/W7fu2wtlYKenfYvWmQ3G2vy1+KaF1ORgga0WpjCMIUeSvm3VxB655y9TNMChzdzBGHlrg0fLd4EnfU02mP4W8/eoYp4XGPuJ2mJYJfOqTOX+bq/E1XYdyg7u7Zz9tCVaJlbznGM3SK83ivm73UgmYOaqots6d86U08NJFRAeISXBuLRSM5fNSTDfHM7SeJUMbsL2L+HIPjaqVB1/L3RnAdp16Y9Fi9Zbh2y2wrs4yNFoWbUSWv6ogbScbGTS07+x5hvUvwOPFcQRrQehpzYs2OvB2qm92iwm8sftpHIV7A3jb6bOQ8UwSOy9yavg6x6rHvgeeOLIfyEa6x0aV5NIsUu8uv911WypnS0ZUg1mgnC4cupZemiQqCb0hCdrEBSe3cMuzmSgh21iIWTn3xNmL0rtyj8+tHVGGg0wBJGZCSkTCBmmNEkPkLZ/j2zOVSpvdhrP67LJGemZ8/4fh1TGDRfKVYi0bnxswl5w9BgXcQl0b9Fj8zRroO/JsEYDBcqThOTIqccV89/tP3B50WS9kT1p7GxuDi8cJYGQV5/yFpvBtyHx0CBsQVdjs1XmghUQfPiSvjr+3uN4YOFz5U8KC9QzwkR7BCmvPPybaCU+2gth3i20Krc83c3xoBnafboRTd4SBHpqcBEBqorbUMdeyJlAVIFLx1Wuv0p8sYtUgCpHqeOxf0GzCsnPmKtdVfY6Vi4MESAwHEU23SoR4
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(36756003)(2906002)(2616005)(82310400004)(1076003)(86362001)(26005)(16526019)(4326008)(70586007)(6666004)(8936002)(426003)(8676002)(186003)(336012)(508600001)(7696005)(81166007)(70206006)(356005)(5660300002)(54906003)(316002)(83380400001)(6916009)(36860700001)(47076005)(40460700003)(43062005)(142923001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TytmSytyM2hxblUvK3lwUkU3eXMvQ1Q1SDhoRHNqNWx4c2hEY0NNVkFkcTEy?=
- =?utf-8?B?aU16bkcwRkZ4VHV3KzNyMWI1NHk3VmZ4b2lwcjhIR2E4bmJETzREbEVvQ21p?=
- =?utf-8?B?YVZxZkJPMmQ3Wi9CaUFoUEpzWFFka3FXVWNnSlVjS0dKT3BZT2pUTWhtaHhY?=
- =?utf-8?B?RzZhVzhnNDNpMDBkQjR1cEtCaW8wcUcxdlVtVzJDZ2tlNDVqUzJ0b2VsTmE5?=
- =?utf-8?B?MThkWXZYb2JxVEJVTXp3ZndKQkg0eUNnTlJQcWtTckZ2ZzJ5ZklRR05TTFd5?=
- =?utf-8?B?SjY5QTRQSDNzWVpmdUdKZjl1dmIwU2pGQitjWGhRR1plNDA5ZTViNVBudGxw?=
- =?utf-8?B?S0NtQ3hhVHh5dWZiVWROMWJaZkZYQ1BzOHM5OGpiMTRzYXp6amJuazRXS1dm?=
- =?utf-8?B?ZjFXU1VIeWgzSmNtNXZTMXZuWHlJdlFSc3N4RGFid0djOGt2L3R5L3UzVlFW?=
- =?utf-8?B?Y001M2VuQkJvUjNOMEM3V3YzUlhmMERPSnd2Qi9ZNFp5eG1ubCs5TXN0WEtN?=
- =?utf-8?B?MjJjUFhmYTI2bHhobEViMDFFUndSWHhmY2NqeGhXbGQ4ZW5SSlpuaTdMU2Vo?=
- =?utf-8?B?OHgzcFN2ZUpHVysvWHYxUlNDTS8rWnVDZzdjaE5MZWpEKzJUSk00RzFYcEY1?=
- =?utf-8?B?eWZzY09HT3ZRZWtJMDY5UU5LaGsrMDJET0tVNnQ0M3A2Wk53Z3JLSjF1VTh1?=
- =?utf-8?B?UHhmNXQ2UFRXcWRuVlNVYnR0MXcwMDAzSE40TmdaN0FwbXBQbGJrcFc3VU5L?=
- =?utf-8?B?S0V0TWhvVzAzZ0EwcVhPNmc0bzRja2JiM2JOWU9KOFBQSnkyUG9ZMkJqSjRm?=
- =?utf-8?B?aGdiNmp6UW4rVXdRdnZySmpqRnI1Q04wa0dMbC9pMWdPODRsVjJDdVlnUmdw?=
- =?utf-8?B?YWs2eHk4S1Q3b1lBSmxqY21IbjhPWXlWTEtnKzJBU0VqeGZmY2pIZWNWWUd0?=
- =?utf-8?B?M0ducWFCNzJra1BJSExVemhkdmhRY21aNjd0NWdocVhFYUR6NS9Nb25ZVmc5?=
- =?utf-8?B?VE1mZXhMc2dnSFZabDFRR0hLTFBzcHYrbUwwU3NjYnNyOW00NWdCSUdxaGZH?=
- =?utf-8?B?VGxzOVJOQzlzSUhVZXB0eGZocGNwR1FtcTgvcmZ4Kzc1aTBBTXgxcy95WXF2?=
- =?utf-8?B?NHh5WjRtdEYwRGE2ODROTGNkSENzWFZhOTZ3MzZCOERxY2ljZFpteE0va3p4?=
- =?utf-8?B?a041NGwvQjVXc1hvQ0Jaa2xYbG5CdlQ3ZWFpTHpnTnIxWjNWUVN1dGlkRS9r?=
- =?utf-8?B?N1l5YndrcEhkVUJPQlV2eExGVktMYXVrTFJhaHNGQkVWcXUrU3k5Skt2eG9O?=
- =?utf-8?B?VGp2bmh3V0plMHJOTndPbys3czEvaEVqSFhranFlamlTTHdXRmpjY2N1SWEy?=
- =?utf-8?B?Wm5jR1pKZi9vZFVJbGZNWjUwN1I4bHJzNUN3WXU2Z0pDYlBsTDBlZjkxbXUv?=
- =?utf-8?B?T1lIT1A2VHVhbElhaGFueHlldURwYTlaVU0xQktRSmZ5c2FXUEptdUNZYTk2?=
- =?utf-8?B?NXJqd2FQSmZnNllYbkM3WFQ5Vlg1ZTJWanZvT20yeWpTNzM2VkdoclFpYmRi?=
- =?utf-8?B?alg2ay84SDhpazUxNWwyR1crbTc3aXhzdmhFN0pIK0FTT1BEcXRlT3Z3dXJQ?=
- =?utf-8?B?TWlFQTk2dFcwZ2JTM1g0VnBnaytudFR2Rm8yOFpqOVFld2kvRmE2eVdWeW0r?=
- =?utf-8?B?K1ppUFlUSVoyVUV0ODF4OW0zeDNHTkFXd3JBMWFWRUxKbGZVOSs3TVNUQW9i?=
- =?utf-8?B?YTR4NUM0SGRpTFlybExhTW9xVGtYZmRwNmR5eU1hNTVFZlQxUkZ4Q3pnSFVV?=
- =?utf-8?B?M1JFVHBiamZ3WFlPcEZIcVdmMXFxUjM4b1JJK1hqQUZPcU9tYmQxTzNWQXpF?=
- =?utf-8?B?QTdxdXdZMmFvUy9CcXMwT25ESlYyODMzUjVrVTlES0dOOUloVUxNcW1pMTZi?=
- =?utf-8?B?NjVWTnNzZ1ViRVJWSXdFaEdrdUlqRktpYnpXTTFOT3p2N200b0UvdytZaHZa?=
- =?utf-8?B?bDJ1N3dEc0VhUW5qY1pQZk5mWlZXMnA0UTlDc0gxdkVSZ1J6RXpFWHVRQTBo?=
- =?utf-8?B?dThTL0hCRXVrZEhyVElVZlJRTzFibTVpUHNoRmZxTGFxZTc5N0s2aTJPMGpN?=
- =?utf-8?Q?kUXQ=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0ee4ccf-86c1-435b-89f9-08d9f523556a
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2022 10:17:15.8154 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2022 10:17:17.9937 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54248f3c-91a3-468b-268f-08d9f52356f0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Q/bjowxfO+TF1HaD3ijyuuZP4GQWOGsJgXGSrPX0t2+H8uERGjatJdxiDNY2nk5A
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5975
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3523
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,206 +101,190 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Tao.Zhou1@amd.com, Hawking.Zhang@amd.com, John.Clements@amd.com,
+ yipechai <YiPeng.Chai@amd.com>, yipechai@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.02.22 um 10:57 schrieb Jiawei Gu:
-> Add device pointer so scheduler's printing can use
-> DRM_DEV_ERROR() instead, which makes life easier under multiple GPU
-> scenario.
->
-> v2: amend all calls of drm_sched_init()
-> v3: fill dev pointer for all drm_sched_init() calls
->
-> Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
+1. Define amdgpu_ras_block_late_fini_default in amdgpu_ras.c as
+   .ras_fini common function, which is called when
+   .ras_fini of ras block isn't initialized.
+2. Remove the code of using amdgpu_ras_block_late_fini to
+   initialize .ras_fini in ras blocks.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: yipechai <YiPeng.Chai@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  | 8 ++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 1 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 4 ----
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   | 4 ----
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 8 --------
+ drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c    | 1 -
+ drivers/gpu/drm/amd/amdgpu/mca_v3_0.c    | 3 ---
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c   | 1 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   | 4 ----
+ 9 files changed, 8 insertions(+), 26 deletions(-)
 
-When Andrey is fine with that as well I think the best approach is to 
-push this upstream through drm-misc-next since it touches multiple drivers.
-
-We can merge it into the DKMS branch as well if necessary.
-
-Regards,
-Christian
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c |  2 +-
->   drivers/gpu/drm/etnaviv/etnaviv_sched.c   |  2 +-
->   drivers/gpu/drm/lima/lima_sched.c         |  2 +-
->   drivers/gpu/drm/panfrost/panfrost_job.c   |  2 +-
->   drivers/gpu/drm/scheduler/sched_main.c    |  9 +++++----
->   drivers/gpu/drm/v3d/v3d_sched.c           | 10 +++++-----
->   include/drm/gpu_scheduler.h               |  3 ++-
->   7 files changed, 16 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> index 45977a72b5dd..cd2d594d4ffc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -502,7 +502,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
->   
->   	r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
->   			   num_hw_submission, amdgpu_job_hang_limit,
-> -			   timeout, NULL, sched_score, ring->name);
-> +			   timeout, NULL, sched_score, ring->name, adev->dev);
->   	if (r) {
->   		DRM_ERROR("Failed to create scheduler on ring %s.\n",
->   			  ring->name);
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-> index 58f593b278c1..35e5ef7dbdcc 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-> @@ -195,7 +195,7 @@ int etnaviv_sched_init(struct etnaviv_gpu *gpu)
->   	ret = drm_sched_init(&gpu->sched, &etnaviv_sched_ops,
->   			     etnaviv_hw_jobs_limit, etnaviv_job_hang_limit,
->   			     msecs_to_jiffies(500), NULL, NULL,
-> -			     dev_name(gpu->dev));
-> +			     dev_name(gpu->dev), gpu->dev);
->   	if (ret)
->   		return ret;
->   
-> diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
-> index 5612d73f238f..8d517c8880e3 100644
-> --- a/drivers/gpu/drm/lima/lima_sched.c
-> +++ b/drivers/gpu/drm/lima/lima_sched.c
-> @@ -490,7 +490,7 @@ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, const char *name)
->   	return drm_sched_init(&pipe->base, &lima_sched_ops, 1,
->   			      lima_job_hang_limit,
->   			      msecs_to_jiffies(timeout), NULL,
-> -			      NULL, name);
-> +			      NULL, name, pipe->ldev->dev);
->   }
->   
->   void lima_sched_pipe_fini(struct lima_sched_pipe *pipe)
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-> index 908d79520853..a6925dbb6224 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -812,7 +812,7 @@ int panfrost_job_init(struct panfrost_device *pfdev)
->   				     nentries, 0,
->   				     msecs_to_jiffies(JOB_TIMEOUT_MS),
->   				     pfdev->reset.wq,
-> -				     NULL, "pan_js");
-> +				     NULL, "pan_js", pfdev->dev);
->   		if (ret) {
->   			dev_err(pfdev->dev, "Failed to create scheduler: %d.", ret);
->   			goto err_sched;
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> index f91fb31ab7a7..b81fceb0b8a2 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -491,7 +491,7 @@ void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
->   			if (r == -ENOENT)
->   				drm_sched_job_done(s_job);
->   			else if (r)
-> -				DRM_ERROR("fence add callback failed (%d)\n",
-> +				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
->   					  r);
->   		} else
->   			drm_sched_job_done(s_job);
-> @@ -957,7 +957,7 @@ static int drm_sched_main(void *param)
->   			if (r == -ENOENT)
->   				drm_sched_job_done(sched_job);
->   			else if (r)
-> -				DRM_ERROR("fence add callback failed (%d)\n",
-> +				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
->   					  r);
->   			dma_fence_put(fence);
->   		} else {
-> @@ -991,7 +991,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
->   		   const struct drm_sched_backend_ops *ops,
->   		   unsigned hw_submission, unsigned hang_limit,
->   		   long timeout, struct workqueue_struct *timeout_wq,
-> -		   atomic_t *score, const char *name)
-> +		   atomic_t *score, const char *name, struct device *dev)
->   {
->   	int i, ret;
->   	sched->ops = ops;
-> @@ -1001,6 +1001,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
->   	sched->timeout_wq = timeout_wq ? : system_wq;
->   	sched->hang_limit = hang_limit;
->   	sched->score = score ? score : &sched->_score;
-> +	sched->dev = dev;
->   	for (i = DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_COUNT; i++)
->   		drm_sched_rq_init(sched, &sched->sched_rq[i]);
->   
-> @@ -1018,7 +1019,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
->   	if (IS_ERR(sched->thread)) {
->   		ret = PTR_ERR(sched->thread);
->   		sched->thread = NULL;
-> -		DRM_ERROR("Failed to create scheduler for %s.\n", name);
-> +		DRM_DEV_ERROR(sched->dev, "Failed to create scheduler for %s.\n", name);
->   		return ret;
->   	}
->   
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-> index e0cb7d0697a7..080710fd8eb7 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-> @@ -391,7 +391,7 @@ v3d_sched_init(struct v3d_dev *v3d)
->   			     &v3d_bin_sched_ops,
->   			     hw_jobs_limit, job_hang_limit,
->   			     msecs_to_jiffies(hang_limit_ms), NULL,
-> -			     NULL, "v3d_bin");
-> +			     NULL, "v3d_bin", &(v3d_to_pdev(v3d)->dev));
->   	if (ret) {
->   		dev_err(v3d->drm.dev, "Failed to create bin scheduler: %d.", ret);
->   		return ret;
-> @@ -401,7 +401,7 @@ v3d_sched_init(struct v3d_dev *v3d)
->   			     &v3d_render_sched_ops,
->   			     hw_jobs_limit, job_hang_limit,
->   			     msecs_to_jiffies(hang_limit_ms), NULL,
-> -			     NULL, "v3d_render");
-> +			     NULL, "v3d_render", &(v3d_to_pdev(v3d)->dev));
->   	if (ret) {
->   		dev_err(v3d->drm.dev, "Failed to create render scheduler: %d.",
->   			ret);
-> @@ -413,7 +413,7 @@ v3d_sched_init(struct v3d_dev *v3d)
->   			     &v3d_tfu_sched_ops,
->   			     hw_jobs_limit, job_hang_limit,
->   			     msecs_to_jiffies(hang_limit_ms), NULL,
-> -			     NULL, "v3d_tfu");
-> +			     NULL, "v3d_tfu", &(v3d_to_pdev(v3d)->dev));
->   	if (ret) {
->   		dev_err(v3d->drm.dev, "Failed to create TFU scheduler: %d.",
->   			ret);
-> @@ -426,7 +426,7 @@ v3d_sched_init(struct v3d_dev *v3d)
->   				     &v3d_csd_sched_ops,
->   				     hw_jobs_limit, job_hang_limit,
->   				     msecs_to_jiffies(hang_limit_ms), NULL,
-> -				     NULL, "v3d_csd");
-> +				     NULL, "v3d_csd", &(v3d_to_pdev(v3d)->dev));
->   		if (ret) {
->   			dev_err(v3d->drm.dev, "Failed to create CSD scheduler: %d.",
->   				ret);
-> @@ -438,7 +438,7 @@ v3d_sched_init(struct v3d_dev *v3d)
->   				     &v3d_cache_clean_sched_ops,
->   				     hw_jobs_limit, job_hang_limit,
->   				     msecs_to_jiffies(hang_limit_ms), NULL,
-> -				     NULL, "v3d_cache_clean");
-> +				     NULL, "v3d_cache_clean", &(v3d_to_pdev(v3d)->dev));
->   		if (ret) {
->   			dev_err(v3d->drm.dev, "Failed to create CACHE_CLEAN scheduler: %d.",
->   				ret);
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index bbc22fad8d80..944f83ef9f2e 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -457,13 +457,14 @@ struct drm_gpu_scheduler {
->   	atomic_t                        _score;
->   	bool				ready;
->   	bool				free_guilty;
-> +	struct device			*dev;
->   };
->   
->   int drm_sched_init(struct drm_gpu_scheduler *sched,
->   		   const struct drm_sched_backend_ops *ops,
->   		   uint32_t hw_submission, unsigned hang_limit,
->   		   long timeout, struct workqueue_struct *timeout_wq,
-> -		   atomic_t *score, const char *name);
-> +		   atomic_t *score, const char *name, struct device *dev);
->   
->   void drm_sched_fini(struct drm_gpu_scheduler *sched);
->   int drm_sched_job_init(struct drm_sched_job *job,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 846f51b0c013..17f7c0259115 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2477,6 +2477,12 @@ void amdgpu_ras_block_late_fini(struct amdgpu_device *adev,
+ 		amdgpu_ras_interrupt_remove_handler(adev, ras_block);
+ }
+ 
++void amdgpu_ras_block_late_fini_default(struct amdgpu_device *adev,
++			  struct ras_common_if *ras_block)
++{
++	return amdgpu_ras_block_late_fini(adev, ras_block);
++}
++
+ /* do some init work after IP late init as dependence.
+  * and it runs in resume/gpu reset/booting up cases.
+  */
+@@ -2586,6 +2592,8 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
+ 			if (amdgpu_ras_is_supported(adev, obj->ras_comm.block) &&
+ 				obj->ras_fini)
+ 				obj->ras_fini(adev, &obj->ras_comm);
++			else
++				amdgpu_ras_block_late_fini_default(adev, &obj->ras_comm);
+ 		}
+ 
+ 		/* Clear ras blocks from ras_list and free ras block list node */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index c04d98e3bd9d..8abdab6869e9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -950,6 +950,5 @@ struct amdgpu_xgmi_ras xgmi_ras = {
+ 		},
+ 		.hw_ops = &xgmi_ras_hw_ops,
+ 		.ras_late_init = amdgpu_xgmi_ras_late_init,
+-		.ras_fini = amdgpu_ras_block_late_fini,
+ 	},
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index f0cc073e6bb0..8def7f630d4c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -2204,10 +2204,6 @@ static int gfx_v9_0_gpu_early_init(struct amdgpu_device *adev)
+ 		if (!adev->gfx.ras->ras_block.ras_late_init)
+ 			adev->gfx.ras->ras_block.ras_late_init = amdgpu_gfx_ras_late_init;
+ 
+-		/* If not define special ras_fini function, use gfx default ras_fini */
+-		if (!adev->gfx.ras->ras_block.ras_fini)
+-			adev->gfx.ras->ras_block.ras_fini = amdgpu_ras_block_late_fini;
+-
+ 		/* If not defined special ras_cb function, use default ras_cb */
+ 		if (!adev->gfx.ras->ras_block.ras_cb)
+ 			adev->gfx.ras->ras_block.ras_cb = amdgpu_gfx_process_ras_data_cb;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index c8ad824328d7..d9353bb99314 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -681,10 +681,6 @@ static void gmc_v10_0_set_umc_funcs(struct amdgpu_device *adev)
+ 		if (!adev->umc.ras->ras_block.ras_late_init)
+ 				adev->umc.ras->ras_block.ras_late_init = amdgpu_umc_ras_late_init;
+ 
+-		/* If don't define special ras_fini function, use default ras_fini */
+-		if (!adev->umc.ras->ras_block.ras_fini)
+-			adev->umc.ras->ras_block.ras_fini = amdgpu_ras_block_late_fini;
+-
+ 		/* If not defined special ras_cb function, use default ras_cb */
+ 		if (!adev->umc.ras->ras_block.ras_cb)
+ 			adev->umc.ras->ras_block.ras_cb = amdgpu_umc_process_ras_data_cb;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index b01767d78153..4c3483fbe613 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1241,10 +1241,6 @@ static void gmc_v9_0_set_umc_funcs(struct amdgpu_device *adev)
+ 		if (!adev->umc.ras->ras_block.ras_late_init)
+ 				adev->umc.ras->ras_block.ras_late_init = amdgpu_umc_ras_late_init;
+ 
+-		/* If don't define special ras_fini function, use default ras_fini */
+-		if (!adev->umc.ras->ras_block.ras_fini)
+-			adev->umc.ras->ras_block.ras_fini = amdgpu_ras_block_late_fini;
+-
+ 		/* If not defined special ras_cb function, use default ras_cb */
+ 		if (!adev->umc.ras->ras_block.ras_cb)
+ 			adev->umc.ras->ras_block.ras_cb = amdgpu_umc_process_ras_data_cb;
+@@ -1290,10 +1286,6 @@ static void gmc_v9_0_set_mmhub_ras_funcs(struct amdgpu_device *adev)
+ 		adev->mmhub.ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MMHUB;
+ 		adev->mmhub.ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 		adev->mmhub.ras_if = &adev->mmhub.ras->ras_block.ras_comm;
+-
+-		/* If don't define special ras_fini function, use default ras_fini */
+-		if (!adev->mmhub.ras->ras_block.ras_fini)
+-			adev->mmhub.ras->ras_block.ras_fini = amdgpu_ras_block_late_fini;
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+index 86c166ae794a..04bc615f3af0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+@@ -163,7 +163,6 @@ struct amdgpu_hdp_ras hdp_v4_0_ras = {
+ 			.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE,
+ 		},
+ 		.hw_ops = &hdp_v4_0_ras_hw_ops,
+-		.ras_fini = amdgpu_ras_block_late_fini,
+ 	},
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mca_v3_0.c b/drivers/gpu/drm/amd/amdgpu/mca_v3_0.c
+index 5ce6778a821d..d4bd7d1d2649 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mca_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mca_v3_0.c
+@@ -66,7 +66,6 @@ struct amdgpu_mca_ras_block mca_v3_0_mp0_ras = {
+ 		},
+ 		.hw_ops = &mca_v3_0_mp0_hw_ops,
+ 		.ras_block_match = mca_v3_0_ras_block_match,
+-		.ras_fini = amdgpu_ras_block_late_fini,
+ 	},
+ };
+ 
+@@ -93,7 +92,6 @@ struct amdgpu_mca_ras_block mca_v3_0_mp1_ras = {
+ 		},
+ 		.hw_ops = &mca_v3_0_mp1_hw_ops,
+ 		.ras_block_match = mca_v3_0_ras_block_match,
+-		.ras_fini = amdgpu_ras_block_late_fini,
+ 	},
+ };
+ 
+@@ -120,7 +118,6 @@ struct amdgpu_mca_ras_block mca_v3_0_mpio_ras = {
+ 		},
+ 		.hw_ops = &mca_v3_0_mpio_hw_ops,
+ 		.ras_block_match = mca_v3_0_ras_block_match,
+-		.ras_fini = amdgpu_ras_block_late_fini,
+ 	},
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+index 485fd9239cd5..b31df4db01fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+@@ -671,7 +671,6 @@ struct amdgpu_nbio_ras nbio_v7_4_ras = {
+ 		},
+ 		.hw_ops = &nbio_v7_4_ras_hw_ops,
+ 		.ras_late_init = amdgpu_nbio_ras_late_init,
+-		.ras_fini = amdgpu_ras_block_late_fini,
+ 	},
+ 	.handle_ras_controller_intr_no_bifring = nbio_v7_4_handle_ras_controller_intr_no_bifring,
+ 	.handle_ras_err_event_athub_intr_no_bifring = nbio_v7_4_handle_ras_err_event_athub_intr_no_bifring,
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index 206acb6a5b20..01b385568c14 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -2822,10 +2822,6 @@ static void sdma_v4_0_set_ras_funcs(struct amdgpu_device *adev)
+ 		if (!adev->sdma.ras->ras_block.ras_late_init)
+ 			adev->sdma.ras->ras_block.ras_late_init = amdgpu_sdma_ras_late_init;
+ 
+-		/* If don't define special ras_fini function, use default ras_fini */
+-		if (!adev->sdma.ras->ras_block.ras_fini)
+-			adev->sdma.ras->ras_block.ras_fini = amdgpu_ras_block_late_fini;
+-
+ 		/* If not defined special ras_cb function, use default ras_cb */
+ 		if (!adev->sdma.ras->ras_block.ras_cb)
+ 			adev->sdma.ras->ras_block.ras_cb = amdgpu_sdma_process_ras_data_cb;
+-- 
+2.25.1
 
