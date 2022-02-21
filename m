@@ -4,116 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15A94C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 09:16:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E2BFC433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Feb 2022 09:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 777441129CC;
-	Mon, 21 Feb 2022 09:16:01 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2079.outbound.protection.outlook.com [40.107.237.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDE6B1129CC
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Feb 2022 09:16:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1145112D02;
+	Mon, 21 Feb 2022 09:57:58 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2077.outbound.protection.outlook.com [40.107.93.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E17E112D02;
+ Mon, 21 Feb 2022 09:57:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c/jf7wSUI3r7QZsgMaP0R0LdnkdxhhS04KRe2XbvkU7EUDeLX5p5zvdEEevoVHauSkyPCtpcGaDNk1YiOgsqnuMLbMWi+ouYGdtxXIgqhmPldlyyVfoeG6Bc6FBFXoKuah7r0S2loklDEob8y4H25O+bhwrpCW01hgrInbm1EApiEAik6xxig3L9OoNwu6Jav/MZnXk4/oB67lx0Ag537NWqT/Ecu9O/p+Q8nCe4OiXkK4JcxlN3jb+DBdJH6bw5CBfhCZaupZnHhcCV3X2/B0eZVWe7d2kT7mtVikKbuOrnMAfkodz7SWa9iFE2V8mLdYasZuL1fy9rNBlOBKsZBg==
+ b=Y1PQIxMjyz7sPw15XTOxvlsXRUjlk0+ZLSlQf7CZv5hbwrsbCUp1FbSzyGJX8TggC8acpOv2BKZf+AW5YnXgEIaMzwcy41q7uBvFxz3BAfMTDGigZIEkDwE/1/QrofCA0JMTXZMRnzgvOSJINLjM7WxBBeePGu0zIg7NBEbc/Q53SFC/1VXu6312QlXqMPS9oaiojcJABW4qDzcGJZOSa/q+FmhKVa02NFqbxGW7hb6RAR/mIQ853fKukFDQ8CCAade6K6P4m2gbZRHZ+pU1l5uhj6l6AzAy3nJ3Y+7bLVpk/mbgJ717QGNvbrEoSV787XwxWz6zUAzd54lsE294UQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DzBVJ4Ezk3FR2zyzi2Z9NRbuf6UKxBm6rhszTKOwe50=;
- b=A1EZHvkrFV1Bc27DXF3YswoVskWhfIEmiSlz/AKqFGtcLFz21+9vXmlF147X5+U80UsnDzcYhg/fZPWbkSttTkl4zXvDzS8VeMm9rhMwjP+tNlFZRagQuqL03uSnbbamBAh13BsF6+TCdfeivR1xgg3u7IaeclAlNI8RBfyHdBXsceS3s1OSk33v6VLOrQE10mO6Pu52hliFuTm6St+4pXDOUSw8oijfdo/gH9ldM4q7FuoFntMHomYNg88GYe3AgwDEn3rZoD0ilwnDbzaW/q8r4zx6n/EcGNCWtooSnTxtd6gr2W2Z762/u0ODelkbAa8DnWj4SpMMvmew8rFAhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=N/p5qopzJKGqdSxZUBqkvybCCIDInKSZiw8Hij+4vuI=;
+ b=ABvCXrnB3JqsjLknAh897HdfKlf5ZyD0Gwebj29jBtYOG9apnxENI5sPIKlC1/vVen7GuQn1Kyc4dVJHEYYyj1wBGV8ykYTGs7mYiuBs9Td50i8P77rnmPji0qu9gfcjHsVyT32P1+JSCOn9QlahA8ClwNBGHJj7UWxDopIwNWVDWP3pmsJdVMxwfNcONMN3uhZBADAYXrlfu3mVywAflcH09xUQDVzcuKEWPDqu+5Ze8dXQIxzrbRB6Dho0VogZzF+5jTHnjjlyHF3qS2zRSM6uJEeDuUShhpcHSyrXYQoWmEta9ZM0YblUOo+K/lbqZAmnBERnu21RlDo0V6WUWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DzBVJ4Ezk3FR2zyzi2Z9NRbuf6UKxBm6rhszTKOwe50=;
- b=YFPHxUQXdgWGrYw38o59l6jGdRnyuRN+xmhokdmW1wQh8XwYbnbC1ZwjEwxe90IHPC25t9YfTN5xYTLtmPXxSYovlb1Z1W2L3sn3jyMFNyMSGj/4QIHE/B3OJjz+qbjxem+y18HhC+j5qXf9MZ8C9+s6vOiRS9ctJ7afVtfdqSU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MWHPR1201MB0191.namprd12.prod.outlook.com (2603:10b6:301:56::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.22; Mon, 21 Feb
- 2022 09:15:58 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e03f:901a:be6c:b581]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e03f:901a:be6c:b581%6]) with mapi id 15.20.4995.027; Mon, 21 Feb 2022
- 09:15:57 +0000
-Message-ID: <a588e193-3509-73b3-b0d6-962c2b72dc4c@amd.com>
-Date: Mon, 21 Feb 2022 10:15:52 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v8 1/2] drm/amdgpu: add debugfs for reset registers list
-Content-Language: en-US
-To: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220221071540.2485-1-Amaranath.Somalapuram@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220221071540.2485-1-Amaranath.Somalapuram@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0005.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::10) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ bh=N/p5qopzJKGqdSxZUBqkvybCCIDInKSZiw8Hij+4vuI=;
+ b=SkWI5COnxWKmnvy+c04Pt3Cb2/tu5u1UuVzALXB3hMNvbW1q9BZeQswKY8qVzE0q8sVdJ18dQ8ypXyBpWya2f7qQ9hazSJ5lW0m/4BhUjCY3ne4H8/4OYXoNRLz/nOmdhFzpTTtCttwoxLAeDXiMeBkRhTUVQrJam357wb05u4o=
+Received: from MWHPR12CA0025.namprd12.prod.outlook.com (2603:10b6:301:2::11)
+ by MW5PR12MB5652.namprd12.prod.outlook.com (2603:10b6:303:1a0::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Mon, 21 Feb
+ 2022 09:57:52 +0000
+Received: from CO1NAM11FT029.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:301:2:cafe::4c) by MWHPR12CA0025.outlook.office365.com
+ (2603:10b6:301:2::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.14 via Frontend
+ Transport; Mon, 21 Feb 2022 09:57:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT029.mail.protection.outlook.com (10.13.174.214) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4995.15 via Frontend Transport; Mon, 21 Feb 2022 09:57:51 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 21 Feb
+ 2022 03:57:50 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 21 Feb
+ 2022 01:57:50 -0800
+Received: from willgu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.18 via Frontend
+ Transport; Mon, 21 Feb 2022 03:57:48 -0600
+From: Jiawei Gu <Jiawei.Gu@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <Christian.Koenig@amd.com>, <Andrey.Grodzovsky@amd.com>, <Monk.Liu@amd.com>,
+ <Emily.Deng@amd.com>, <Horace.Chen@amd.com>
+Subject: [PATCH] drm/sched: Add device pointer to drm_gpu_scheduler
+Date: Mon, 21 Feb 2022 17:57:05 +0800
+Message-ID: <20220221095705.5290-1-Jiawei.Gu@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d8d46e24-d6cf-41bc-7b4b-08d9f51ac533
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0191:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB0191EEE9074226ECF1CAF02D833A9@MWHPR1201MB0191.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 44921480-4ef7-4e82-1cc6-08d9f5209ff8
+X-MS-TrafficTypeDiagnostic: MW5PR12MB5652:EE_
+X-Microsoft-Antispam-PRVS: <MW5PR12MB56528C1B0D2817D58F5BC8B0F83A9@MW5PR12MB5652.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lc417WgUXd1zg1dqE2KsJKd1eWkTi0/UjK/rIiQEU/b/UY2D7hf4lF2sYeYKiv+11eCajyrW16MDKLkK+mYT48T3Fcpi2q2mLbzpLxUvSQM51TSnmD6TTkMJj4TfJeEqiIjNfyayUG+/fnspwa8D8SSfqRtRTgwbWRhl24QsHa4bNUd+P+Wxadyw+VSQsroINVp4XLkFTc7CGtr5UPb7xKtARketjIWdRh4Tk+G1F3SY3OAel4w1MtSPaswCOI2Pc+xdOYVJOYXeNRD3a+4lDoS2fiu71YS0nVSvuwopV/ZgWtnvJZK8et3HP4az8eQG2u0UEM6KnG1jklOQ5rF8amvsBchF1pYUu4zO1GtyY5/qBT5BIGpDzeIjbaKKdD/i5UrBFD0qi+9Og71U3Bkl05XBUMfTZm6krUUY+ZHD5AZPrF6NroxSMBuukl5nCCocMPSXPUYvB1AVYYB14xep14ww0PItzP/adgLXHlc4TpQAGpFg8glhulVBLlI0VIy6vycb1lQ4rRn4XLq56QOhojLJp2SbsBLWvCHhCm9t9Bp2np6XzZQbrzKHr147uSCYyC2iSlv/OlocUaAAnbNFHj6Xg+3BDPMplaD92CMvxO1druq0yxG9mDS+63Tx7XPM471nRIg+DNw54INkSIRkPhJsqdNekCWpx/OJ4yw1S25/oDLwln9SfLOn/hiy0RcWHJhuVE/27Aq/LXJhCnepjbAKLqetaAiU9zKBTwmTowWF/0vXEmtKoPvzkBvyzQoe
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(4326008)(66946007)(8676002)(186003)(66476007)(66556008)(508600001)(26005)(2616005)(6486002)(316002)(6512007)(38100700002)(86362001)(31696002)(6506007)(6666004)(2906002)(83380400001)(8936002)(31686004)(5660300002)(36756003)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: 7SDCvNaLw/fUY+V9wg6wa0vF8Y6Ay1JbHrsOuvRKLfwNmAkdIqA5VYxFZ2UmFwOWESW/AyZIw4KKQh+lIpTmLqvcRwAUfglZFmkr5rvrk1HaKSDEolRWdY1EURlQ2nHtA+RTxbAlXK1Q+cqB1Qq5IujfKFM7gqJvtbbwp6pqjT482sp2U/qa9C0U2gh+rHpFwmv9FpTgC1VBU48fbyhYeec+6yfJHUCOo1jL8LnabxS4Cm6zXO/8or+g74auyrYX7wOCLUqjwolyy14NeAGaW+xqc5NeeCaKZTE0qJftzKESWxO/Buv+Qr+MwhRapuNUJIfkpF6QCuuiOPQF4egGy01yPcz094M4f6hjNqAnp2Qe9icjwydXiyqe7GmA2wlSEf9y3mOe37O57LLSbbGs+tWd768d0nyUMjLfIfIR/jLZcZOuIf7/NhS3naGGygD11tLyB6zNvHVESKq63oVHLLZgxc1dJV0ccdaMLXOcf559oaLij3qoq+B9PdI2GQM1rVfZMarpWKofcD6jwY0Gx/S8kr9B+jWiyAt1j5dJF6cDWxHYCpvg+t9Cfv/kNUPVZNPZVxvaEEZgq73Rj9mz+dAKtmdute+J6k6K1Q9CGqENSsYN/vXXH6H/y8KlyGrkhx3R9JlMRZHjP5h/Em6iT5qcsBkvT29fVXUXRzKEXtFmpQxFbPRxJ90RjEg/EHt0aUOxB/HCb2S4h/c+J4v8vA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(36860700001)(83380400001)(110136005)(2906002)(6636002)(47076005)(426003)(36756003)(316002)(7696005)(186003)(508600001)(336012)(40460700003)(6666004)(8936002)(450100002)(26005)(8676002)(4326008)(1076003)(70586007)(70206006)(356005)(82310400004)(86362001)(81166007)(5660300002)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dm1wOUdvMU0rU1N4aUFqRGhkeEpSTVBhVXFXZytmVmppMDhGT3VsZzJqUlU3?=
- =?utf-8?B?SkgvbUFkVXNFRmVQbE84dkczR1FxSHQrTjQ3enFXZjlJQ2VhMnVqNlRQeUgz?=
- =?utf-8?B?Vi9BSFYwOUxTSHBIc05JeUdORldQSFVUNSt2M3V0L0VmdGQreUJWL0dmTFQ5?=
- =?utf-8?B?LzIyRy9yclR3U2ZlSEFMV2RWNVlCejBSUlQzSnMxYlJ2WDFoN3A3cFpzYzdZ?=
- =?utf-8?B?MlFhUnBYdmRJcU9tSmdDV2ptVklTUzI1dFEvVjdsSDBnL25CektaZEh2bktI?=
- =?utf-8?B?cjZ3c3Zid1hOQ1hrR1hrNjZvMklwbVR5WnNOSHJaTERTVjRiN3ZjVTJUNG51?=
- =?utf-8?B?NGVzMS9Ra2lnbVRNVThTN3Z3YktaOTlWaEtPVkllRXBWUG5HMitwWEVKRUdn?=
- =?utf-8?B?TURGYWUxTENXVW1QKzkrWUtRU0oxVkZLVTJTSlVjcXcxVzk1L0ZBcW5qUVVw?=
- =?utf-8?B?UURtQk5pVklyNDdaY0lVdnlVY2poYmY0Sk8rNHN0b1VMYlZHdFBleHFaMmlv?=
- =?utf-8?B?aHpLT0VJKy9XZkhsYlpaWEhTR3F0VFN2VnliaXFDLzJ4ZXdnQlM4TlJ6NGpY?=
- =?utf-8?B?VTQxdWtFL05Db1JFcG10QTg0OTlVT21iMFFTTTBTK0hVYWsycGl4dGJUb0ky?=
- =?utf-8?B?Uithc1g2eitFUXlmcENWZVRKTWR5eE1XODdwVDFSMVU2TTJ1TVEvWnJ6Q2tr?=
- =?utf-8?B?QndxTlNSWXV1Tzl6aUNldW5nK0FPaTZvaFNsUDVST0RsWEZYZFJGZ0sraVBN?=
- =?utf-8?B?Q0xCUDRHUmFsRTJyZWx2Sk5iTjQ1YXgvMjV5WENUblQ5K2tkZDFqL1pWR1hN?=
- =?utf-8?B?YXpRV1RzT1gyZG45bjNDY2hNWnIwM3JzbDE3UHpiTHg0aXBCYXNRekltV3RM?=
- =?utf-8?B?SUtJOU1wZjVZWjkzWHRReXFrb0VPS3huTVNvckswTHlNZWYydU93VDJCdVpY?=
- =?utf-8?B?dmxTemlJbXlqYUxkbWp1dTRCYXIzM0x5WVliZEZUZ2kydUtJcE9TYnl5d3cv?=
- =?utf-8?B?VUFaYjA2TE04OUJQVnMvQlNsSXZKcHVVMG9xSXdxOTM3Z1Z5R3J1TS96WXVk?=
- =?utf-8?B?LzJreXFhWEFHWlk3WmljZzMwcjJyTVE5M2I3dS9wNmNMNExtOHZjdFF2VGll?=
- =?utf-8?B?Z2ZNOVJRa0ZFdG5GS2F3NENHcFVVd0JOOGxhM2NNUmpoTTZlWXBhYlJkcHRy?=
- =?utf-8?B?akNiVDNOVjJaSzRGM1pzRzJPbGRwczB5cXFkV1QwWnQwUFVaVlN3RmM4RDBR?=
- =?utf-8?B?Y3NqcC9odjdRVEo4OTFKY3dKUkplU3FpcnJ6S1hOVVVjanlKQXVGRkxWN1Av?=
- =?utf-8?B?YVdydzlMYXMvZDZ1Y0krdnhxNituNmdhRjFVSGswUm5WaFlvSittZWIwOEgx?=
- =?utf-8?B?eFpzcjY5QUIvOGpGMFRjTHpBdjFvMjI2MFNrZHpKeWNrRVFhWVRoNTlxZWxo?=
- =?utf-8?B?RTBCQkNUdDcxM2VlTjhXU1VtbnZZNm5LSXZFU3pLT1JnM04wMDZIMTNKby9q?=
- =?utf-8?B?WURJZGh3dXFYM3JCQ2JxN3dBZXFqbjBMWFBlemF0dGFDZEt2UEhqZkhiMGU4?=
- =?utf-8?B?b3Z4L2k0TzczaE9ITFpSR3hmbDIwM241amVUT0RKMHBhb0MxNmxwbTdqeDlP?=
- =?utf-8?B?SkMzd1dwbzF5Q2FaaE03Q0xncDBDSTg5MXNtRUNEMks1aGQvdzNCZFRDdlRP?=
- =?utf-8?B?R1ZMdUtXWktFVmdDbTZpazVnZmZlREcxemhwajBmTDVBNitCbkxCQnE4Tk9H?=
- =?utf-8?B?WjFGSk9rSElLZGpvRjlpanJXbEgramcyNkM0TkdhMExIZlBpeG9CZnhwZmMz?=
- =?utf-8?B?U21pc2lYZGkxc1Z0bTlTRVZhbEVQQ1VMK1JOcU5BYm1oQkNseTlvNXozcHVM?=
- =?utf-8?B?YXFoQ2hVN0cwdkw1ZWJDOVo0VlF1Z0ZUcHEwbE0ySERrcHR2MllOMTFlQkxC?=
- =?utf-8?B?T2taTm93WmNmMGt5aU5LVDdpU1I3WG9rWVptWmlQdVZkMDd0NmtiUHlIcWlM?=
- =?utf-8?B?aUp0TlFLUnB5UTdRS2tCczdBSktsWjJwYWI4Y2lnbHo1YWk4UjVZSHpFRmth?=
- =?utf-8?B?RXhYZ3FMRDhXL001bW9YZXVkVnpTSysvdkc5M0dFOWg3TjR3WWxvZTVOZnVa?=
- =?utf-8?Q?3At0=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8d46e24-d6cf-41bc-7b4b-08d9f51ac533
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2022 09:15:57.9357 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2022 09:57:51.9357 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44921480-4ef7-4e82-1cc6-08d9f5209ff8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ygUSvgrx57j56k3IMEcS6viqsK6XvUrdhE7/1c65fxm14icFrcftxrGF0X8dQbzd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0191
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT029.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5652
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,199 +103,197 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, shashank.sharma@amd.com
+Cc: Jiawei Gu <Jiawei.Gu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Add device pointer so scheduler's printing can use
+DRM_DEV_ERROR() instead, which makes life easier under multiple GPU
+scenario.
 
+v2: amend all calls of drm_sched_init()
+v3: fill dev pointer for all drm_sched_init() calls
 
-Am 21.02.22 um 08:15 schrieb Somalapuram Amaranath:
-> List of register populated for dump collection during the GPU reset.
->
-> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h         |   4 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 114 ++++++++++++++++++++
->   2 files changed, 118 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index b85b67a88a3d..6e35f2c4c869 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1097,6 +1097,10 @@ struct amdgpu_device {
->   
->   	struct amdgpu_reset_control     *reset_cntl;
->   	uint32_t                        ip_versions[HW_ID_MAX][HWIP_MAX_INSTANCE];
-> +
-> +	/* reset dump register */
-> +	uint32_t			*reset_dump_reg_list;
-> +	int                             num_regs;
->   };
->   
->   static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 164d6a9e9fbb..14ad9610f805 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -1609,6 +1609,118 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
->   DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
->   			amdgpu_debugfs_sclk_set, "%llu\n");
->   
-> +static ssize_t amdgpu_reset_dump_register_list_read(struct file *f,
-> +				char __user *buf, size_t size, loff_t *pos)
-> +{
-> +	struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
-> +	char reg_offset[11];
-> +	uint32_t num_regs;
-> +	int i, ret, len = 0;
-> +
-> +	if (*pos)
-> +		return 0;
-> +
-> +	ret = down_read_killable(&adev->reset_sem);
-> +
-> +	if (ret)
-> +		return ret;
-> +
-> +	num_regs = adev->num_regs;
-> +
-> +	up_read(&adev->reset_sem);
-> +
-> +	if (num_regs == 0)
-> +		return 0;
+Signed-off-by: Jiawei Gu <Jiawei.Gu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c |  2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c   |  2 +-
+ drivers/gpu/drm/lima/lima_sched.c         |  2 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c   |  2 +-
+ drivers/gpu/drm/scheduler/sched_main.c    |  9 +++++----
+ drivers/gpu/drm/v3d/v3d_sched.c           | 10 +++++-----
+ include/drm/gpu_scheduler.h               |  3 ++-
+ 7 files changed, 16 insertions(+), 14 deletions(-)
 
-I think we should drop that cause it just avoids the final \n.
-
-> +
-> +	for (i = 0; i < num_regs; i++) {
-
-That's pretty close, but one problem is still that it is possible that 
-the number of register becomes much smaller while this loop runs.
-
-Try it like this instead:
-
-down_read_killable(...)
-for (i = 0; i < adev->num_regs; ++i) {
-     sprintf(...)
-     up_read(...);
-
-     copy_to_user(
-
-     down_read_killable(...)
-}
-up_read().
-
-> +
-> +		ret = down_read_killable(&adev->reset_sem);
-> +
-> +		if (ret)
-> +			return ret;
-> +
-> +		sprintf(reg_offset, "0x%x ", adev->reset_dump_reg_list[i]);
-> +
-> +		up_read(&adev->reset_sem);
-> +
-> +		ret = copy_to_user(buf + len, reg_offset, strlen(reg_offset));
-> +
-> +		if (ret)
-> +			return -EFAULT;
-> +
-> +		len += strlen(reg_offset);
-> +	}
-> +
-> +	ret = copy_to_user(buf + len, "\n", 1);
-> +
-> +	if (ret)
-> +		return -EFAULT;
-> +
-> +	len++;
-> +	*pos += len;
-> +
-> +	return len;
-> +}
-> +
-> +static ssize_t amdgpu_reset_dump_register_list_write(struct file *f,
-> +			const char __user *buf, size_t size, loff_t *pos)
-> +{
-> +	struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
-> +	char *reg_offset, *reg, reg_temp[11];
-> +	uint32_t *tmp_list;
-> +	int ret, i = 0, len = 0;
-> +
-> +	do {
-> +		reg_offset = reg_temp;
-> +		memset(reg_offset, 0, 11);
-> +		ret = copy_from_user(reg_offset, buf + len, min(11, ((int)size-len)));
-> +
-> +		if (ret) {
-> +			kfree(tmp_list);
-> +			return -EFAULT;
-> +		}
-> +
-> +		reg = strsep(&reg_offset, " ");
-> +		tmp_list = krealloc_array(tmp_list,
-> +					1, sizeof(uint32_t), GFP_KERNEL);
-> +		ret = kstrtouint(reg, 16, &tmp_list[i]);
-> +
-> +		if (ret) {
-> +			kfree(tmp_list);
-> +			return -EFAULT;
-> +		}
-> +
-> +		len += strlen(reg) + 1;
-> +		i++;
-> +
-> +	} while (len < size);
-> +
-> +	ret = down_read_killable(&adev->reset_sem);
-> +
-> +	if (ret) {
-> +		kfree(tmp_list);
-> +		return ret;
-> +	}
-> +
-> +	kfree(adev->reset_dump_reg_list);
-> +
-> +	swap(adev->reset_dump_reg_list, tmp_list);
-
-Just an assignment is sufficient here if you do the kfree before since 
-tmp_list isn't used after that.
-
-> +	adev->num_regs = i;
-> +
-> +	up_read(&adev->reset_sem);
-
-This should be a down_write_killable() and up_write() to avoid 
-concurrent reads.
-
-Apart from that the write function now looks clean.
-
-Regards,
-Christian.
-
-> +
-> +	return size;
-> +}
-> +
-> +
-> +
-> +static const struct file_operations amdgpu_reset_dump_register_list = {
-> +	.owner = THIS_MODULE,
-> +	.read = amdgpu_reset_dump_register_list_read,
-> +	.write = amdgpu_reset_dump_register_list_write,
-> +	.llseek = default_llseek
-> +};
-> +
->   int amdgpu_debugfs_init(struct amdgpu_device *adev)
->   {
->   	struct dentry *root = adev_to_drm(adev)->primary->debugfs_root;
-> @@ -1672,6 +1784,8 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
->   			    &amdgpu_debugfs_test_ib_fops);
->   	debugfs_create_file("amdgpu_vm_info", 0444, root, adev,
->   			    &amdgpu_debugfs_vm_info_fops);
-> +	debugfs_create_file("amdgpu_reset_dump_register_list", 0644, root, adev,
-> +			    &amdgpu_reset_dump_register_list);
->   
->   	adev->debugfs_vbios_blob.data = adev->bios;
->   	adev->debugfs_vbios_blob.size = adev->bios_size;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 45977a72b5dd..cd2d594d4ffc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -502,7 +502,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+ 
+ 	r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
+ 			   num_hw_submission, amdgpu_job_hang_limit,
+-			   timeout, NULL, sched_score, ring->name);
++			   timeout, NULL, sched_score, ring->name, adev->dev);
+ 	if (r) {
+ 		DRM_ERROR("Failed to create scheduler on ring %s.\n",
+ 			  ring->name);
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+index 58f593b278c1..35e5ef7dbdcc 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+@@ -195,7 +195,7 @@ int etnaviv_sched_init(struct etnaviv_gpu *gpu)
+ 	ret = drm_sched_init(&gpu->sched, &etnaviv_sched_ops,
+ 			     etnaviv_hw_jobs_limit, etnaviv_job_hang_limit,
+ 			     msecs_to_jiffies(500), NULL, NULL,
+-			     dev_name(gpu->dev));
++			     dev_name(gpu->dev), gpu->dev);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+index 5612d73f238f..8d517c8880e3 100644
+--- a/drivers/gpu/drm/lima/lima_sched.c
++++ b/drivers/gpu/drm/lima/lima_sched.c
+@@ -490,7 +490,7 @@ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, const char *name)
+ 	return drm_sched_init(&pipe->base, &lima_sched_ops, 1,
+ 			      lima_job_hang_limit,
+ 			      msecs_to_jiffies(timeout), NULL,
+-			      NULL, name);
++			      NULL, name, pipe->ldev->dev);
+ }
+ 
+ void lima_sched_pipe_fini(struct lima_sched_pipe *pipe)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 908d79520853..a6925dbb6224 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -812,7 +812,7 @@ int panfrost_job_init(struct panfrost_device *pfdev)
+ 				     nentries, 0,
+ 				     msecs_to_jiffies(JOB_TIMEOUT_MS),
+ 				     pfdev->reset.wq,
+-				     NULL, "pan_js");
++				     NULL, "pan_js", pfdev->dev);
+ 		if (ret) {
+ 			dev_err(pfdev->dev, "Failed to create scheduler: %d.", ret);
+ 			goto err_sched;
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index f91fb31ab7a7..b81fceb0b8a2 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -491,7 +491,7 @@ void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
+ 			if (r == -ENOENT)
+ 				drm_sched_job_done(s_job);
+ 			else if (r)
+-				DRM_ERROR("fence add callback failed (%d)\n",
++				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
+ 					  r);
+ 		} else
+ 			drm_sched_job_done(s_job);
+@@ -957,7 +957,7 @@ static int drm_sched_main(void *param)
+ 			if (r == -ENOENT)
+ 				drm_sched_job_done(sched_job);
+ 			else if (r)
+-				DRM_ERROR("fence add callback failed (%d)\n",
++				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
+ 					  r);
+ 			dma_fence_put(fence);
+ 		} else {
+@@ -991,7 +991,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
+ 		   const struct drm_sched_backend_ops *ops,
+ 		   unsigned hw_submission, unsigned hang_limit,
+ 		   long timeout, struct workqueue_struct *timeout_wq,
+-		   atomic_t *score, const char *name)
++		   atomic_t *score, const char *name, struct device *dev)
+ {
+ 	int i, ret;
+ 	sched->ops = ops;
+@@ -1001,6 +1001,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
+ 	sched->timeout_wq = timeout_wq ? : system_wq;
+ 	sched->hang_limit = hang_limit;
+ 	sched->score = score ? score : &sched->_score;
++	sched->dev = dev;
+ 	for (i = DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_COUNT; i++)
+ 		drm_sched_rq_init(sched, &sched->sched_rq[i]);
+ 
+@@ -1018,7 +1019,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
+ 	if (IS_ERR(sched->thread)) {
+ 		ret = PTR_ERR(sched->thread);
+ 		sched->thread = NULL;
+-		DRM_ERROR("Failed to create scheduler for %s.\n", name);
++		DRM_DEV_ERROR(sched->dev, "Failed to create scheduler for %s.\n", name);
+ 		return ret;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index e0cb7d0697a7..080710fd8eb7 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -391,7 +391,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 			     &v3d_bin_sched_ops,
+ 			     hw_jobs_limit, job_hang_limit,
+ 			     msecs_to_jiffies(hang_limit_ms), NULL,
+-			     NULL, "v3d_bin");
++			     NULL, "v3d_bin", &(v3d_to_pdev(v3d)->dev));
+ 	if (ret) {
+ 		dev_err(v3d->drm.dev, "Failed to create bin scheduler: %d.", ret);
+ 		return ret;
+@@ -401,7 +401,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 			     &v3d_render_sched_ops,
+ 			     hw_jobs_limit, job_hang_limit,
+ 			     msecs_to_jiffies(hang_limit_ms), NULL,
+-			     NULL, "v3d_render");
++			     NULL, "v3d_render", &(v3d_to_pdev(v3d)->dev));
+ 	if (ret) {
+ 		dev_err(v3d->drm.dev, "Failed to create render scheduler: %d.",
+ 			ret);
+@@ -413,7 +413,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 			     &v3d_tfu_sched_ops,
+ 			     hw_jobs_limit, job_hang_limit,
+ 			     msecs_to_jiffies(hang_limit_ms), NULL,
+-			     NULL, "v3d_tfu");
++			     NULL, "v3d_tfu", &(v3d_to_pdev(v3d)->dev));
+ 	if (ret) {
+ 		dev_err(v3d->drm.dev, "Failed to create TFU scheduler: %d.",
+ 			ret);
+@@ -426,7 +426,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 				     &v3d_csd_sched_ops,
+ 				     hw_jobs_limit, job_hang_limit,
+ 				     msecs_to_jiffies(hang_limit_ms), NULL,
+-				     NULL, "v3d_csd");
++				     NULL, "v3d_csd", &(v3d_to_pdev(v3d)->dev));
+ 		if (ret) {
+ 			dev_err(v3d->drm.dev, "Failed to create CSD scheduler: %d.",
+ 				ret);
+@@ -438,7 +438,7 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 				     &v3d_cache_clean_sched_ops,
+ 				     hw_jobs_limit, job_hang_limit,
+ 				     msecs_to_jiffies(hang_limit_ms), NULL,
+-				     NULL, "v3d_cache_clean");
++				     NULL, "v3d_cache_clean", &(v3d_to_pdev(v3d)->dev));
+ 		if (ret) {
+ 			dev_err(v3d->drm.dev, "Failed to create CACHE_CLEAN scheduler: %d.",
+ 				ret);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index bbc22fad8d80..944f83ef9f2e 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -457,13 +457,14 @@ struct drm_gpu_scheduler {
+ 	atomic_t                        _score;
+ 	bool				ready;
+ 	bool				free_guilty;
++	struct device			*dev;
+ };
+ 
+ int drm_sched_init(struct drm_gpu_scheduler *sched,
+ 		   const struct drm_sched_backend_ops *ops,
+ 		   uint32_t hw_submission, unsigned hang_limit,
+ 		   long timeout, struct workqueue_struct *timeout_wq,
+-		   atomic_t *score, const char *name);
++		   atomic_t *score, const char *name, struct device *dev);
+ 
+ void drm_sched_fini(struct drm_gpu_scheduler *sched);
+ int drm_sched_job_init(struct drm_sched_job *job,
+-- 
+2.17.1
 
