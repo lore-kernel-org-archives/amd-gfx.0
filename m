@@ -4,53 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09EA0C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 18:59:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ADD0C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 19:12:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46F6710E681;
-	Tue, 22 Feb 2022 18:59:03 +0000 (UTC)
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [IPv6:2607:f8b0:4864:20::c29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57EFF10E906
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 18:59:01 +0000 (UTC)
-Received: by mail-oo1-xc29.google.com with SMTP id
- d134-20020a4a528c000000b00319244f4b04so18926185oob.8
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 10:59:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A81C10E157;
+	Tue, 22 Feb 2022 19:12:50 +0000 (UTC)
+Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
+ [IPv6:2607:f8b0:4864:20::1132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7A510E157;
+ Tue, 22 Feb 2022 19:12:49 +0000 (UTC)
+Received: by mail-yw1-x1132.google.com with SMTP id
+ 00721157ae682-2d07ae0b1c4so185965167b3.11; 
+ Tue, 22 Feb 2022 11:12:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=VheWVj3P+wwmtx684KHC01krr9G8bdXDmB67aPVI4jk=;
- b=Utd/0qrVihuIlXANeXucOc2H1BwhnvO7cUimBUbxlu6JZM1Mr9d2gxqBknZcQXg7gk
- QD4cXrSymhgxUaczYy4fHFVt0Rfn5HjWeo1pA6ycu3/n5j0btCPBXIMoFR2F/8wr7yD/
- dSYqxjZgyN5cRgka0prDEaIYkuXtz7jJO2dCzW+HErSw1P61N3woYLOmxwz7VDI77XfE
- t/0dwjnGYuggOJBzG3ml35TFliuj6VaqwVt56929dxL5mVsr5uwdQ201OKSn4gW6qy9r
- GapD6SG0LSJ1hQY8vZb5dgjAf2K1FekHm0Le3hvIL6tIpewDNFfuxcO2wcIDar3zvdZB
- DObw==
+ :cc; bh=MIuf7B6ggNpBhnBC4BV4Wx/yI126tWB3veseg963gIw=;
+ b=oO4DLFIdF57cng91nz+ABsKhV3TEZMT4YH2lr4gu+QyKiHY/p9DVOaozbT73qgUo+w
+ xQ27MwmBRWjReen46DDOboOnddmO9/G+2my87QZxKBkXv4l+/ZIkzCE+YibDvGS82tr0
+ HZoBeNSLHqIdxa1Bqoclcc2rWWVKuuZ97ifQkHXI6/n3++k7W9wF8snW9tx1VykggiAd
+ hu4BJF221YTv/PUYb8MOBSrE1s9NmmfgNSMv7MEWWG2IgolZVZtOzOZbfb9F9dGBcui2
+ No4HnBw2U9LDz6tICVmKGe/4TXVP/KGT/hXXO865Xl+3ZFSgHikjXcCE37PmLXsefax7
+ bpcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=VheWVj3P+wwmtx684KHC01krr9G8bdXDmB67aPVI4jk=;
- b=JQ6o3p0nW8G0dDVJT7kkX8+Rwh4moMflE/2drpJfIXwEHrO0pcDBMpUghSRXhd8J5j
- iCxKFjr/8t90pnfgHMkO32RnkL8drMwlyTnzxXy8woFGQKHc6P993hOe7e7EXFvAoYw8
- m4+GwYWJEf2wQ32HFyqQoVBDu6/JUEx31HYezbjk02rztdgR+GpHBBiw0c5PyfeYQySA
- 3iiu9x4pNYvLqe20Gu7k9McihfbCE0sIldOowXWMwp2hLIhN6b7l1gFO7ttR2ijgG2v5
- eAuGE2movueajllfLXo7R6kPaTVEiOviHDBEHYlZUsgTg1Kcs9VRNtCePZc19p5oF9k8
- bsDA==
-X-Gm-Message-State: AOAM531qfx9f7uZSD9qjjkdtaKyEAsOjWwkNGdNci/kmExdDo3d+f99i
- lX0ZOA2IWkgiHLGr1SjHJMjn1jQNbvkII4QjOhc=
-X-Google-Smtp-Source: ABdhPJw3WpBzk4PUYJCZkjFE3uVIEtfakidFGtcni9pAvOdoID9EpRrICyEfro+mJNsyl4omXnKDIaMitZBGQ5l1cXA=
-X-Received: by 2002:a05:6870:3e0d:b0:d3:fe6d:57c3 with SMTP id
- lk13-20020a0568703e0d00b000d3fe6d57c3mr2334257oab.225.1645556340655; Tue, 22
- Feb 2022 10:59:00 -0800 (PST)
+ bh=MIuf7B6ggNpBhnBC4BV4Wx/yI126tWB3veseg963gIw=;
+ b=rP7T0ZJllAXez5K1CJG+NsWid6xuDxog9DWuupibq7CnYB43CXf+UQ2EdA3NJ2ym0c
+ mQjEctxyLPS5HeZGee0fFm26gvrcGMc3hHYrL5tuhAZwJ/Oy8ynI1uJAUkOMOU3E0S+h
+ ltWSChG9yikjbNPJn2oouA8d8YRJ2GH3it16WCfBYdSetwETbCNRm6R/RMJZeyKYx5sH
+ 8jbj5UzmCOW6eyctHfT9dmGZOmkWehw/fpz/KMNa0kpQ+8vgPkh0cItu+9w80PHHFvr5
+ 9sYPgphjel6qU7EjD/MVKdCEbla/uoS1zgKixu7rIY0QENG5T9cccKKvX9mDKyGgA1G8
+ X6qA==
+X-Gm-Message-State: AOAM530WIy10XyuwZzSjBotKHJ3nRC6WwrdWdihPAvsnk7M5AuoY+/j/
+ N3gUlOeCnbadBwJou+ZDwmwm1wW39DCFDK2MNxE=
+X-Google-Smtp-Source: ABdhPJwogRs4v3RoIbi9LLn5frjoRnppXVlb2XUr+i5bRqLbpZZJ4wuR98W0v903ktfUAXqLtpj99zYOXAJ1elSwzCI=
+X-Received: by 2002:a81:184f:0:b0:2d0:e2b1:1995 with SMTP id
+ 76-20020a81184f000000b002d0e2b11995mr24474079ywy.364.1645557168674; Tue, 22
+ Feb 2022 11:12:48 -0800 (PST)
 MIME-Version: 1.0
-References: <d7422e30-a926-a723-f30c-b414f42075be@amd.com>
- <20220222185531.421535-1-Harish.Kasiviswanathan@amd.com>
-In-Reply-To: <20220222185531.421535-1-Harish.Kasiviswanathan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 22 Feb 2022 13:58:49 -0500
-Message-ID: <CADnq5_M4A+M7mAnO42Y7rLAsLQv4LiTYYQ6NXm=4uC6zv-GA5Q@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdkfd: Print bdf in peer map failure message
-To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+References: <20220217153842.3252424-1-trix@redhat.com>
+ <51018469-3bab-e56d-7407-b16170b5d74c@amd.com>
+ <CADnq5_OGEURo76mzc4Sb2Jar465Xt4vkSMECDi5jCMH332zUAg@mail.gmail.com>
+ <CAKwvOdnYTC7mku1=eVaDLGQFHdoN3u8Afoo582OAQ+ApJmfhQQ@mail.gmail.com>
+ <CADnq5_PniW+-8G5AhOSwuovESpfeMxL4r6P30b3F1coa_NmMEQ@mail.gmail.com>
+In-Reply-To: <CADnq5_PniW+-8G5AhOSwuovESpfeMxL4r6P30b3F1coa_NmMEQ@mail.gmail.com>
+From: Kenny Ho <y2kenny@gmail.com>
+Date: Tue, 22 Feb 2022 14:12:37 -0500
+Message-ID: <CAOWid-cXYze56YmUACWP4emNeGHXMFf4q5aZfFGUwVXWNFAvSg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix amdgpu_ras_block_late_init error handler
+To: Alex Deucher <alexdeucher@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,49 +66,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Joshi, Mukul" <mukul.joshi@amd.com>, llvm@lists.linux.dev,
+ Dennis Li <Dennis.Li@amd.com>, Dave Airlie <airlied@linux.ie>,
+ Tom Rix <trix@redhat.com>, Tao Zhou <tao.zhou1@amd.com>,
+ Nick Desaulniers <ndesaulniers@google.com>, xinhui pan <Xinhui.Pan@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nirmoy Das <nirmoy.das@amd.com>, "Stanley.Yang" <Stanley.Yang@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>, "Chai,
+ Thomas" <YiPeng.Chai@amd.com>, John Clements <john.clements@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 22, 2022 at 1:56 PM Harish Kasiviswanathan
-<Harish.Kasiviswanathan@amd.com> wrote:
+On Thu, Feb 17, 2022 at 2:06 PM Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> Print alloc node, peer node and memory domain when peer map fails. This
-> is more useful
+> On Thu, Feb 17, 2022 at 2:04 PM Nick Desaulniers
+> <ndesaulniers@google.com> wrote:
+> >
+> >
+> > Alex,
+> > Has AMD been able to set up clang builds, yet?
 >
-> v2: use dev_err instead of pr_err
->     use bdf for identify peer gpu
->
-> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+> No.  I think some individual teams do, but it's never been integrated
+> into our larger CI systems as of yet as far as I know.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+I have just added clang build to our CI last night so hopefully we
+should be catching these now.
 
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
+Kenny
+
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 965af2a08bc0..9141b674947d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -1215,8 +1215,15 @@ static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
->                         peer_pdd->dev->adev, (struct kgd_mem *)mem,
->                         peer_pdd->drm_priv, &table_freed);
->                 if (err) {
-> -                       pr_err("Failed to map to gpu %d/%d\n",
-> -                              i, args->n_devices);
-> +                       struct pci_dev *pdev = peer_pdd->dev->adev->pdev;
-> +
-> +                       dev_err(dev->adev->dev,
-> +                              "Failed to map peer:%04x:%02x:%02x.%d mem_domain:%d\n",
-> +                              pci_domain_nr(pdev->bus),
-> +                              pdev->bus->number,
-> +                              PCI_SLOT(pdev->devfn),
-> +                              PCI_FUNC(pdev->devfn),
-> +                              ((struct kgd_mem *)mem)->domain);
->                         goto map_memory_to_gpu_failed;
->                 }
->                 args->n_success = i+1;
-> --
-> 2.25.1
+> Alex
 >
+>
+> >
+> > --
+> > Thanks,
+> > ~Nick Desaulniers
