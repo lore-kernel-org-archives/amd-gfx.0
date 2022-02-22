@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C37AC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 21:53:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 915F5C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 21:53:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA21D10E806;
-	Tue, 22 Feb 2022 21:53:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B64F10E80D;
+	Tue, 22 Feb 2022 21:53:56 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2047.outbound.protection.outlook.com [40.107.223.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5E0810E7ED
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 21:53:50 +0000 (UTC)
+ (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 352D610E80E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 21:53:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=but0DZpUHSBQoKd3If9sVBm3FBCh2ZhGbCuWW8Oe42g4SOV0wJUu3HaND1xz2SeoGUhDSILxTbFsk2U5+u7hYCZC0LefxTvaVQXJMF+7rYGmFb+4Qq6ejhyHu0gZM6K5OXEZeUp6BjMC8Bl1nPT6cBcJqIfgEBAEKQSg6Ws7bOjAf0Bb2vuL17z8S6dbOfuzq2XmmXof+jXbRxq2FZ6AEy87/qgVyIXphAB6U8XIT2Kil/F/eLTCsTkmnoxLF74KIOhJhM8O3Pq12EyKsKTjW2yTjoBdJEBSHQw0b7Qjp850lRebc683qA2P7J8OIj3XiuAhuzatpUNCjmLkVQf0/w==
+ b=Cfy1PJLGeEQ9kYIIHZ2ZNWLaBAjnNFpvynyS4SKjFMsHXvUgpV8yvlujz9+aWtduf/CE10WYdZu788UsbA68FgEB602PnaIo8IX6FstVIFbgXD6FXP68zU1YqktEQ5AXZRIvceSnNh/g9eLszoFxInGO/AciwgsLt9w1Rv0s3yitVsenQ1eq1P602e+q7TXkz3pBV8rxeuxpomUjZ7D67BlHesKSypgH/G0aG0ea0nUqw6jzJS5JH5fVJ8cNSK90sfhGhb9Ndr7on8MVKgAV08K2UQ0dNW50chBGNBnOhlKHlk5PPMNVW4snj/M40tJ7+p28s12UAMvmrJIX0HInZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=10+MHtGPORGeyHVWeGG3EvnEVIenhYm7YPk1DiViuYA=;
- b=X58MWMy+g22keWy0NosHyfc/WmmpukT04si8gzrfM/7VWW70LtxqaNLL3170ZFOYFTO0vmdOOdMurATptsNAv1S2BQoHg9L77/TRli+GybUIMiZ7/3n4+71GGhPTsLSW7qoLKUX2Zoc4ths3lTQpccPRfyzMLTet1ABn6BFY7FhocrCmMTiDQoYQ4YdE6joeqZWw3j8Q2yR7UmcUkoeFqKRceO0G2TN8YhBDl6FnW7e0RBwBka/0MHzTbhOfsarljH7QntFWU3GZ7VtZvGLhOWUlbEHEdJgR71a6+B5L2XC58J8OLyHUW0GZ+4OJ/bknGFdHhf+M5lgQctA4/jOnew==
+ bh=AbhfBx/2+62FaKyDGpKmEB3m6biB0k919mMlQYSFbxs=;
+ b=de53N6lfVfKlco6LK/0pp/hVUw8DwChhzG+1YWbWKgjA4TooYY4Sx0eh2zGyFYgdhPQS905oTTztu36XfjayPjIKDCbZTt0IW+19fB+QFfEAcgBAhtmXXi1RU5u22OJxzxOpHbxIGu+IpxlyJtdiXuRiVL67yBTxcl4wV+yViT9ap1u61Ci695ByFEB0Vvtd8m/UUaE0ZvalW78yOKeosuJNXPUFgQ2ljtILc3mLb6nfC2bZ6SbzXD6hfGMYyFxoIXw0h7PtPFuZnhfofD4vJgqrIzSNPNaopap/SJ8+dK/wUqxKvzdRzbuI76VroJ076UEQa0Qvwmsds+owCL8ELQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=10+MHtGPORGeyHVWeGG3EvnEVIenhYm7YPk1DiViuYA=;
- b=ErpXj5Tc1AVjXWXdO/RT+ivuXAY0OkMSNfAM9s/QhC1IdlI5INLgyk1ojjOWWHcwhv4wZVgxuX5xjSY1dxcmkOcAwuL2arjhtnKFPaOinU/DfA+EWW+Kqv+rHt4Pc2w36CyKccrzXUlFoGTiu9LVXHLxwzxuIXnu/8cCjEkFHpQ=
-Received: from MW4PR03CA0091.namprd03.prod.outlook.com (2603:10b6:303:b7::6)
- by BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16) with
+ bh=AbhfBx/2+62FaKyDGpKmEB3m6biB0k919mMlQYSFbxs=;
+ b=kUeN4C0WqWkkOc+gE2vlwAEbr2yGBs5vq72EiLR78WcnJ2IjWzqBABQWz27I97EszvqSWs9ogWTBWucrEdUU8Q4cUXlpAquA1o5trxBugzzWv0OJ14PBRSUDrsyO1CntW4kddnU6l349TVcsWTQ+jXVFJipzRBORhs+zKa918SI=
+Received: from MW4PR03CA0099.namprd03.prod.outlook.com (2603:10b6:303:b7::14)
+ by DM5PR12MB4661.namprd12.prod.outlook.com (2603:10b6:4:aa::32) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22; Tue, 22 Feb
- 2022 21:53:48 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.21; Tue, 22 Feb
+ 2022 21:53:49 +0000
 Received: from CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b7:cafe::39) by MW4PR03CA0091.outlook.office365.com
- (2603:10b6:303:b7::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.17 via Frontend
- Transport; Tue, 22 Feb 2022 21:53:48 +0000
+ (2603:10b6:303:b7:cafe::fb) by MW4PR03CA0099.outlook.office365.com
+ (2603:10b6:303:b7::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.19 via Frontend
+ Transport; Tue, 22 Feb 2022 21:53:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT052.mail.protection.outlook.com (10.13.174.225) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5017.22 via Frontend Transport; Tue, 22 Feb 2022 21:53:48 +0000
+ 15.20.5017.22 via Frontend Transport; Tue, 22 Feb 2022 21:53:49 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 22 Feb
- 2022 15:53:45 -0600
+ 2022 15:53:46 -0600
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/4] drm/amd/display: revert populating dcn315 clk table based
- on dcfclk
-Date: Tue, 22 Feb 2022 16:53:33 -0500
-Message-ID: <20220222215335.3009315-2-qingqing.zhuo@amd.com>
+Subject: [PATCH 3/4] drm/amd/display: Set compbuf size to min at prep prevent
+ overbook crb
+Date: Tue, 22 Feb 2022 16:53:34 -0500
+Message-ID: <20220222215335.3009315-3-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220222215335.3009315-1-qingqing.zhuo@amd.com>
 References: <20220222215335.3009315-1-qingqing.zhuo@amd.com>
@@ -69,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ec625175-4f76-4092-0296-08d9f64dce35
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5112:EE_
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5112A2FDDBC56374E523FB2AFB3B9@BL1PR12MB5112.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 3202e489-3e1a-41a1-466a-08d9f64dcede
+X-MS-TrafficTypeDiagnostic: DM5PR12MB4661:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB46610FF33ECD16231A387BB5FB3B9@DM5PR12MB4661.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: b8h0uosGBleYmZmFVZitSYVr2q5mgLxCgphgnpy3KelJeHNqrSNcIPUofcSbyVFVo/I7y+UIZ+3SowEw6rJngT7NynurHa6qHG9+9wsnW4lZwV7sNYo1DHYP1zA4qiAFqSOlWAGXjrqiwh32LxEffI27qz+LCRQTOmlCWhNRh9KltFMSecGrDpiAW0Gzen0VCVSDwXMcimbybjQ4Z5f3DWfoZLhSulPGI4DKTiKe4poyRa58j0tDCI7V7Q5XIyIegWUTsvWYHAWgY4ZMarPF3RcPwbJVQxtVc8QueRvy/0J2gdd2MMj+xEbUDur0n/xwXjvxYh9Mbvzt2li2dslBvZBt33zy1jr15NPuzyximGs+QZsE4TIxKB4XJo9WcAwe/hxJBNCQi2ZZGvWGZSvYH393ysg07uFVkUgtpxcavJVcMHjmoIsIBd46i8EqT8gs9f+8OJU8zirdhjXB0tG+InnKOb6YusLnYAWP751nI12Uwb9bIV/4QYEgEfz+92VAivKOkRrW+ORcdRkLWaw5/mGjKhdeomizVIbaQlgCJi5uTYWAqzt4/me6phgiq4TBrSuSUQyPXQHizfDzG3r630bSu2CAiHuNl5qHFww0CNdknQF1GLcHqtQ49bmyoTwA4xgDXVbtUHND2HLtANxUTgOjhy7hzS0KBBMYnde7UMsxHtCdTw+L25FCfodq8n4ED9eAXgu0ul3ebtqsfuOKmRPxKcolB15M8kYJwVI9ItGqZcl7GD9Q6b7CHU0uKeD87RvSdKcMSzlntRnXiEyoUQ==
+X-Microsoft-Antispam-Message-Info: 5ZdvnQ4nJig0hG8jrh8VpO1OTvVauYxsI7k2JrstuPDIVn6u/429tXhPfk5+9ZuGs8eYeOLv2zaqKmIoUPTcAzsopm6NAvo824RouJQquDf7Aud0hQZRC2qMQL+F+otiaK7HzVUpQI23gzsMLoqbPUZ6rm9nwck8Z/Wu6kT8Xbygjq62CrXTqelNBMln6AG2P180q8pbNznO7LYsZzMmzmG/oOkQWwwvAeMo22Q6oMXrPuNwozUVKAnETw6v7oUKneopRf1ynTZv2EtLkjXIZdmANXZb2fqS4kpfDYm0zr14SMtMbXgjlFJQuGvdhGUykgjcfhSSe0JbAKS0gQCuCHv/c+m/zBRJ2ZMBVT3gebpUWUhfOR7pQnrr9sN59h/1K2vRlQPn8zMNRebspX5nvnQprdEeNC25wLM4gkTG4o3QhvIWbH/o7Twf/dsHmZjLP2DPkYB+XaLWJbiykH4Vztq3Cdx8tvOeWg11GK1XgWgWkMNv0aVSs9eR3o2oTHdrFNovgJh4W7V2Yx3i4vHZafQFFg4qNjrAylpxOq8QO51YuYTCGmUuZBmXTKRo+QIT+iP8aSwRtdDH+MbnLM+JU26UBrCARmvBrxMKTPlvDvC74RFAhxViRsFArPycsJMrPwfFWcXv1akpT2KoThg4eNTNl6J3yhHMCqGrANXe+OALjCdQzdCXQKNYJkiVa6IXNlE59picOf02R+NOiYEIZw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(47076005)(86362001)(426003)(54906003)(26005)(336012)(186003)(36860700001)(2616005)(316002)(44832011)(6916009)(16526019)(2906002)(8676002)(4326008)(5660300002)(70586007)(82310400004)(70206006)(508600001)(8936002)(81166007)(6666004)(40460700003)(356005)(1076003)(36756003)(83380400001)(17423001)(156123004)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(47076005)(36860700001)(6916009)(316002)(186003)(26005)(1076003)(40460700003)(336012)(426003)(2616005)(54906003)(81166007)(2906002)(356005)(5660300002)(8676002)(70206006)(86362001)(4326008)(6666004)(70586007)(508600001)(16526019)(36756003)(83380400001)(44832011)(8936002)(82310400004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2022 21:53:48.0256 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec625175-4f76-4092-0296-08d9f64dce35
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2022 21:53:49.1349 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3202e489-3e1a-41a1-466a-08d9f64dcede
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5112
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB4661
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,126 +102,91 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Sunpeng.Li@amd.com, Harry
- Wentland <harry.wentland@amd.com>, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ Sunpeng.Li@amd.com, Harry Wentland <harry.wentland@amd.com>,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com, "Ma,
+ Duncan" <duncanma@amd.com>, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+From: "Ma, Duncan" <duncanma@amd.com>
 
-[Why & How]
-Due to how pmfw fills out the table when dcfclk states are disabled,
-using dcfclk based clk table would cause a no read situation.
-Revert the change to prevent underflow until a better solution is coded.
+[Why]
+Detbuffer size is dynamically set for dcn31x. At certain moment,
+compbuf+(def size * num pipes) > config return buffer size causing
+flickering. This is easily reproducible when MPO is
+enabled with two displays.
+
+[How]
+At prepare BW, use the min comp buffer size. When it is to
+optimize BW, set compbuf size back to maximum possible size.
 
 Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Signed-off-by: Duncan Ma <duncanma@amd.com>
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 ---
- .../dc/clk_mgr/dcn315/dcn315_clk_mgr.c        | 52 +++++++++++--------
- 1 file changed, 31 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c   | 12 ++++++++++--
+ .../gpu/drm/amd/display/dc/dcn315/dcn315_resource.c  |  1 +
+ .../drm/amd/display/dc/dml/display_mode_structs.h    |  1 +
+ 3 files changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-index 90c265275f93..d66633bef2b3 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-@@ -414,23 +414,20 @@ static uint32_t find_max_clk_value(const uint32_t clocks[], uint32_t num_clocks)
- 	return max;
- }
- 
--static unsigned int find_dfpstate_for_voltage(
--		const DfPstateTable_t table[],
--		unsigned int NumDfPstatesEnabled,
-+static unsigned int find_clk_for_voltage(
-+		const DpmClocks_315_t *clock_table,
-+		const uint32_t clocks[],
- 		unsigned int voltage)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 20a9cbb7c0a8..1ef880fed776 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1818,6 +1818,7 @@ void dcn20_prepare_bandwidth(
+ 		struct dc_state *context)
  {
- 	int i;
--	unsigned int minVoltage = table[0].Voltage;
--	unsigned int minlevel = 0;
+ 	struct hubbub *hubbub = dc->res_pool->hubbub;
++	unsigned int compbuf_size_kb = 0;
  
--	for (i = 1; i < NumDfPstatesEnabled; i++) {
--		if (table[i].Voltage >= voltage && minVoltage > table[i].Voltage) {
--			minVoltage = table[i].Voltage;
--			minlevel = i;
--		}
-+	for (i = 0; i < NUM_SOC_VOLTAGE_LEVELS; i++) {
-+		if (clock_table->SocVoltage[i] == voltage)
-+			return clocks[i];
- 	}
- 
--	return minlevel;
-+	ASSERT(0);
-+	return 0;
- }
- 
- void dcn315_clk_mgr_helper_populate_bw_params(
-@@ -438,21 +435,30 @@ void dcn315_clk_mgr_helper_populate_bw_params(
- 		struct integrated_info *bios_info,
- 		const DpmClocks_315_t *clock_table)
- {
--	int i, num_clk_lvl;
-+	int i, j;
- 	struct clk_bw_params *bw_params = clk_mgr->base.bw_params;
- 	uint32_t max_dispclk = 0, max_dppclk = 0;
- 
--	num_clk_lvl = clock_table->NumDcfClkLevelsEnabled;
-+	j = -1;
+ 	dc->clk_mgr->funcs->update_clocks(
+ 			dc->clk_mgr,
+@@ -1829,9 +1830,16 @@ void dcn20_prepare_bandwidth(
+ 					&context->bw_ctx.bw.dcn.watermarks,
+ 					dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000,
+ 					false);
 +
-+	ASSERT(NUM_DF_PSTATE_LEVELS <= MAX_NUM_DPM_LVL);
+ 	/* decrease compbuf size */
+-	if (hubbub->funcs->program_compbuf_size)
+-		hubbub->funcs->program_compbuf_size(hubbub, context->bw_ctx.bw.dcn.compbuf_size_kb, false);
++	if (hubbub->funcs->program_compbuf_size) {
++		if (context->bw_ctx.dml.ip.min_comp_buffer_size_kbytes)
++			compbuf_size_kb = context->bw_ctx.dml.ip.min_comp_buffer_size_kbytes;
++		else
++			compbuf_size_kb = context->bw_ctx.bw.dcn.compbuf_size_kb;
 +
-+	/* Find lowest DPM, FCLK is filled in reverse order*/
- 
--	ASSERT(num_clk_lvl <= MAX_NUM_DPM_LVL);
-+	for (i = NUM_DF_PSTATE_LEVELS - 1; i >= 0; i--) {
-+		if (clock_table->DfPstateTable[i].FClk != 0) {
-+			j = i;
-+			break;
-+		}
++		hubbub->funcs->program_compbuf_size(hubbub, compbuf_size_kb, false);
 +	}
+ }
  
--	if (num_clk_lvl == 0 || clock_table->DcfClocks[0] == 0) {
--		/* clock table is no good, just use our own hardcode */
-+	if (j == -1) {
-+		/* clock table is all 0s, just use our own hardcode */
- 		ASSERT(0);
- 		return;
- 	}
- 
--	bw_params->clk_table.num_entries = num_clk_lvl;
-+	bw_params->clk_table.num_entries = j + 1;
- 
- 	/* dispclk and dppclk can be max at any voltage, same number of levels for both */
- 	if (clock_table->NumDispClkLevelsEnabled <= NUM_DISPCLK_DPM_LEVELS &&
-@@ -463,15 +469,19 @@ void dcn315_clk_mgr_helper_populate_bw_params(
- 		ASSERT(0);
- 	}
- 
--	for (i = 0; i < bw_params->clk_table.num_entries; i++) {
--		int j = find_dfpstate_for_voltage(clock_table->DfPstateTable, clock_table->NumDfPstatesEnabled, clock_table->SocVoltage[i]);
-+	for (i = 0; i < bw_params->clk_table.num_entries; i++, j--) {
-+		int temp;
- 
- 		bw_params->clk_table.entries[i].fclk_mhz = clock_table->DfPstateTable[j].FClk;
- 		bw_params->clk_table.entries[i].memclk_mhz = clock_table->DfPstateTable[j].MemClk;
- 		bw_params->clk_table.entries[i].voltage = clock_table->DfPstateTable[j].Voltage;
- 		bw_params->clk_table.entries[i].wck_ratio = 1;
--		bw_params->clk_table.entries[i].dcfclk_mhz = clock_table->DcfClocks[i];
--		bw_params->clk_table.entries[i].socclk_mhz = clock_table->SocClocks[i];
-+		temp = find_clk_for_voltage(clock_table, clock_table->DcfClocks, clock_table->DfPstateTable[j].Voltage);
-+		if (temp)
-+			bw_params->clk_table.entries[i].dcfclk_mhz = temp;
-+		temp = find_clk_for_voltage(clock_table, clock_table->SocClocks, clock_table->DfPstateTable[j].Voltage);
-+		if (temp)
-+			bw_params->clk_table.entries[i].socclk_mhz = temp;
- 		bw_params->clk_table.entries[i].dispclk_mhz = max_dispclk;
- 		bw_params->clk_table.entries[i].dppclk_mhz = max_dppclk;
- 	}
+ void dcn20_optimize_bandwidth(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+index f22158bb4b13..46b170e60a54 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+@@ -147,6 +147,7 @@ struct _vcs_dpi_ip_params_st dcn3_15_ip = {
+ 	.hostvm_max_page_table_levels = 2,
+ 	.rob_buffer_size_kbytes = 64,
+ 	.det_buffer_size_kbytes = DCN3_15_DEFAULT_DET_SIZE,
++	.min_comp_buffer_size_kbytes = DCN3_15_MIN_COMPBUF_SIZE_KB,
+ 	.config_return_buffer_size_in_kbytes = 1024,
+ 	.compressed_buffer_segment_size_in_kbytes = 64,
+ 	.meta_fifo_size_in_kentries = 32,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_structs.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_structs.h
+index 8f9f1d607f7c..59f0a61c33cf 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_structs.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_structs.h
+@@ -141,6 +141,7 @@ struct _vcs_dpi_ip_params_st {
+ 	unsigned int odm_capable;
+ 	unsigned int rob_buffer_size_kbytes;
+ 	unsigned int det_buffer_size_kbytes;
++	unsigned int min_comp_buffer_size_kbytes;
+ 	unsigned int dpte_buffer_size_in_pte_reqs_luma;
+ 	unsigned int dpte_buffer_size_in_pte_reqs_chroma;
+ 	unsigned int pde_proc_buffer_size_64k_reqs;
 -- 
 2.25.1
 
