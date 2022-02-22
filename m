@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6333CC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 14:06:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 509ECC433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 14:06:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CCD810E84F;
-	Tue, 22 Feb 2022 14:06:50 +0000 (UTC)
-Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
- [IPv6:2607:f8b0:4864:20::c32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5F4710E626
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 13:17:53 +0000 (UTC)
-Received: by mail-oo1-xc32.google.com with SMTP id
- j7-20020a4ad6c7000000b0031c690e4123so8312446oot.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 05:17:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF54210E83E;
+	Tue, 22 Feb 2022 14:06:58 +0000 (UTC)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D586810E646
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 13:18:45 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id
+ j9-20020a9d7d89000000b005ad5525ba09so7291113otn.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 05:18:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=usp.br; s=usp-google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=gUjTQJmzrA7YmPv0U39+3zh4DUhMv7PoZUE1y8daTkU=;
- b=FPkH1X3s9Z4MaxrX4uqfjr3F7a7VH/XL8sjYBD6kv6nMhEpAtU0QfomFMaSf8GNpNb
- t8YlseyboP1Z50Mc5eIfXqwSJbkKQTQ9ZXMON7BiQCTV40wpQybAmTe494JaSNRDO+zC
- vbuySWtEozg1GqhKsGDm9fQ6jWZhJiM7f8lLHj9CylLBenQ2MER4QfyRBDuXXRIlTfvt
- 5ryycyOYPDO6dj2uPS+Xzphui8DCkRzUX48xpDmIKU+nAvi9WGP2l70vmWQ0sQFkV6ea
- LdMIKNtGBicAKMdkC8dcenYvWdwTribZIuLNqcKIWS1LNJGiEYXiZp0ClRVbRr+Q0sZT
- YZIA==
+ bh=m7m0+PF7saTzmzCja9hykhB/MRHQ+aIAgZTpGlXhHzw=;
+ b=ubi5Nm/hc13TZrLP09ZiZRLp3a2ho4dHP2ehi7CFHPZ2s6iZ0e3mlYsRva1Lo79rof
+ meuN9eLCrtEoUc2bmNz8XfqhPigO2am6hz09EKWPa5tYM4mkQjkHmB4qmkgP6wysKRSp
+ MYcDxon4lPSJgg20sSlxVY/SDgzPwLvjUDgt3YmbkhU8/u3rhab/RurOUlKHmgC50WKg
+ FVi5Zyc72Oxho4L2Rqgl1V2Q8nWaSRqR7Yqu9aZdVQcu8hvak1SgPfdx1yxVpsGKtzJM
+ UXec4VOo7nf+J0oBnWsFRjoIEKP2D37OAkq6NiDruGUON4PMb3jdr1chSd9Z5zSf6E0k
+ u7pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=gUjTQJmzrA7YmPv0U39+3zh4DUhMv7PoZUE1y8daTkU=;
- b=fsvs9/l9qEo3vPbnXS0R3moiOzuYIMmTOF4gQDXhAkj2aqMWiBKeo3P2RgG4NlR1k0
- f6+yjO2/X85CaIAbZFaWg6qktCzQuzplfvZBL/qVY9KMqo+Ifce8eHGdPTDTk/1qJVk2
- 06AcaUKHTc399usUSYO+ugeXwvmIAXLton5eA87w9cmyY5re2svuo1TScdZ6wfTs3j1M
- z/a5HgZupJdCGRjIGRj4sBzBfZsE7xOLKcqmsrXDtkiotGp2D86lzOTXDLy60QPYb/h9
- 3QKyZGkhvUrdFvbEnKCh0hMp0pBwgXU5lCiBOWXubyixbiWLrfhRckdU2ZpZnA9unLoZ
- 6r5w==
-X-Gm-Message-State: AOAM533c5WZKpuu+8SYD6/k0aZvI+VFCHeHU9R62J5RTJddhedquNue1
- 6RCYGT9wRE7fr8H+9JQmAJv8hw==
-X-Google-Smtp-Source: ABdhPJzSWobKzGCiBglLAMfGQ3zQeN2B60sOxZj/bjK565W/h7V9hy4VhSqKHUZu46XzLWuT1K3MqQ==
-X-Received: by 2002:a05:6870:2142:b0:d2:c3fe:83c8 with SMTP id
- g2-20020a056870214200b000d2c3fe83c8mr1630946oae.165.1645535873120; 
- Tue, 22 Feb 2022 05:17:53 -0800 (PST)
+ bh=m7m0+PF7saTzmzCja9hykhB/MRHQ+aIAgZTpGlXhHzw=;
+ b=3tE9YCFc532sDKWDnZqfrqLXBPhj++/znVfelJfB+if38OFhaFOJf5egPK7ZIU+qZX
+ 4Z3aAeP3Ovo2G8b7+oIUdf7ggK+YeMB1jcwPGAWp69Iyad/I9Aa3IpVKcwJzFtTjR2ad
+ /I0ZvSUEM306KF7qHj5oyINoRmKBuoWDsyqDuR6Mls8G8ocbMGlA3MPsrOZwcifF4Vc4
+ kNeJt7iDd35iINXqvSWDvn2eniMI7+zECPJBLHILVdioe5zpvbE+IEsEjLvO+q6LGtjS
+ qHL8mW4H9mU/ICf9PhpLGn7ZuMhLR8+xVEXhKz6bLp9lEJQqD0y2UIDq0viTycfUFcLu
+ 1PZw==
+X-Gm-Message-State: AOAM533oDpgBjDQ7LFRI2kbkZGRI3lJTEF9X0+RVfse1mxAjhvfJj9hk
+ 5gLGfgJ/yf91jB4JHi9rTn2B5Q==
+X-Google-Smtp-Source: ABdhPJwXb2Ih6ABCM4wFKq+J7EONDr5AujGDHaz2bmBm8K1zfSsUX01jAP2smZyZy7rVzqADpM/0Dg==
+X-Received: by 2002:a05:6830:40c6:b0:5a0:4cee:1e7d with SMTP id
+ h6-20020a05683040c600b005a04cee1e7dmr8308902otu.121.1645535925058; 
+ Tue, 22 Feb 2022 05:18:45 -0800 (PST)
 Received: from fedora.. ([187.36.236.204])
- by smtp.gmail.com with ESMTPSA id c9sm6325050otd.26.2022.02.22.05.17.46
+ by smtp.gmail.com with ESMTPSA id c9sm6325050otd.26.2022.02.22.05.18.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Feb 2022 05:17:52 -0800 (PST)
+ Tue, 22 Feb 2022 05:18:44 -0800 (PST)
 From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <maira.canal@usp.br>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  Hawking.Zhang@amd.com, john.clements@amd.com, tao.zhou1@amd.com,
  YiPeng.Chai@amd.com, luben.tuikov@amd.com, Stanley.Yang@amd.com,
  Dennis.Li@amd.com, mukul.joshi@amd.com, harry.wentland@amd.com,
  sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, Anthony.Koo@amd.com
-Subject: [PATCH 03/10] drm/amdgpu: Remove unused get_umc_v8_7_channel_index
- function
-Date: Tue, 22 Feb 2022 10:16:54 -0300
-Message-Id: <20220222131701.356117-4-maira.canal@usp.br>
+Subject: [PATCH 10/10] drm/amd/display: Turn global functions into static
+ functions
+Date: Tue, 22 Feb 2022 10:17:01 -0300
+Message-Id: <20220222131701.356117-11-maira.canal@usp.br>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220222131701.356117-1-maira.canal@usp.br>
 References: <20220222131701.356117-1-maira.canal@usp.br>
@@ -82,39 +82,161 @@ Cc: magalilemes00@gmail.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove get_umc_v8_7_channel_index function, which is not used
-in the codebase.
+Turn previously global functions into static functions to avoid
+-Wmissing-prototype warnings, such as:
 
-This was pointed by clang with the following warning:
+drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn30/irq_service_dcn30.c:50:20:
+warning: no previous prototype for function 'to_dal_irq_source_dcn30'
+[-Wmissing-prototypes]
+enum dc_irq_source to_dal_irq_source_dcn30(
+                   ^
+drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn30/irq_service_dcn30.c:50:1:
+note: declare 'static' if the function is not intended to be used outside
+of this translation unit
+enum dc_irq_source to_dal_irq_source_dcn30(
+^
+static
+1 warning generated.
 
-drivers/gpu/drm/amd/amdgpu/umc_v8_7.c:50:24: warning: unused function
-'get_umc_v8_7_channel_index' [-Wunused-function]
-static inline uint32_t get_umc_v8_7_channel_index(struct amdgpu_device *adev,
-                       ^
+drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c:488:6:
+warning: no previous prototype for function
+'dcn316_clk_mgr_helper_populate_bw_params' [-Wmissing-prototypes]
+void dcn316_clk_mgr_helper_populate_bw_params(
+     ^
+drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c:488:1:
+note: declare 'static' if the function is not intended to be used outside
+of this translation unit
+void dcn316_clk_mgr_helper_populate_bw_params(
+^
+static
+1 warning generated.
 
 Signed-off-by: Maíra Canal <maira.canal@usp.br>
 ---
- drivers/gpu/drm/amd/amdgpu/umc_v8_7.c | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c             | 4 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c   | 2 +-
+ .../drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c  | 3 ++-
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c    | 2 +-
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_smu.c    | 2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c             | 2 +-
+ drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c  | 2 +-
+ drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c  | 2 +-
+ 8 files changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c
-index de85a998ef99..f35253e0eaa6 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c
-@@ -47,13 +47,6 @@ static inline uint32_t get_umc_v8_7_reg_offset(struct amdgpu_device *adev,
- 	return adev->umc.channel_offs*ch_inst + UMC_8_INST_DIST*umc_inst;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index c9ca328d34e3..a99b92526b55 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6362,7 +6362,7 @@ static bool is_freesync_video_mode(const struct drm_display_mode *mode,
+ 		return true;
  }
  
--static inline uint32_t get_umc_v8_7_channel_index(struct amdgpu_device *adev,
--						uint32_t umc_inst,
--						uint32_t ch_inst)
--{
--	return adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num + ch_inst];
--}
--
- static void umc_v8_7_ecc_info_query_correctable_error_count(struct amdgpu_device *adev,
- 						uint32_t umc_inst, uint32_t ch_inst,
- 						unsigned long *error_count)
+-struct dc_stream_state *
++static struct dc_stream_state *
+ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+ 		       const struct drm_display_mode *drm_mode,
+ 		       const struct dm_connector_state *dm_state,
+@@ -10189,7 +10189,7 @@ static void set_freesync_fixed_config(struct dm_crtc_state *dm_new_crtc_state) {
+ 	dm_new_crtc_state->freesync_config.fixed_refresh_in_uhz = res;
+ }
+ 
+-int dm_update_crtc_state(struct amdgpu_display_manager *dm,
++static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 			 struct drm_atomic_state *state,
+ 			 struct drm_crtc *crtc,
+ 			 struct drm_crtc_state *old_crtc_state,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 389b0cb37995..05573f073b21 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -213,7 +213,7 @@ static bool validate_dsc_caps_on_connector(struct amdgpu_dm_connector *aconnecto
+ 	return true;
+ }
+ 
+-bool retrieve_downstream_port_device(struct amdgpu_dm_connector *aconnector)
++static bool retrieve_downstream_port_device(struct amdgpu_dm_connector *aconnector)
+ {
+ 	union dp_downstream_port_present ds_port_present;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c
+index 06bab24d8e27..450eaead4f20 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c
+@@ -101,7 +101,8 @@ static uint32_t rv1_smu_wait_for_response(struct clk_mgr_internal *clk_mgr, unsi
+ 	return res_val;
+ }
+ 
+-int rv1_vbios_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr, unsigned int msg_id, unsigned int param)
++static int rv1_vbios_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr,
++		unsigned int msg_id, unsigned int param)
+ {
+ 	uint32_t result;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+index ffd3d5cb9871..02a59adff90d 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+@@ -485,7 +485,7 @@ static unsigned int find_clk_for_voltage(
+ 	return clock;
+ }
+ 
+-void dcn316_clk_mgr_helper_populate_bw_params(
++static void dcn316_clk_mgr_helper_populate_bw_params(
+ 		struct clk_mgr_internal *clk_mgr,
+ 		struct integrated_info *bios_info,
+ 		const DpmClocks_316_t *clock_table)
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_smu.c
+index fd6497fd2dc5..128614dff108 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_smu.c
+@@ -111,7 +111,7 @@ static uint32_t dcn316_smu_wait_for_response(struct clk_mgr_internal *clk_mgr, u
+ 	return res_val;
+ }
+ 
+-int dcn316_smu_send_msg_with_param(
++static int dcn316_smu_send_msg_with_param(
+ 		struct clk_mgr_internal *clk_mgr,
+ 		unsigned int msg_id, unsigned int param)
+ {
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 19b56f9acf84..29ab67f42d92 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -1622,7 +1622,7 @@ bool dc_add_all_planes_for_stream(
+ 	return add_all_planes_for_stream(dc, stream, &set, 1, context);
+ }
+ 
+-bool is_timing_changed(struct dc_stream_state *cur_stream,
++static bool is_timing_changed(struct dc_stream_state *cur_stream,
+ 		       struct dc_stream_state *new_stream)
+ {
+ 	if (cur_stream == NULL)
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
+index c4b067d01895..93c31111500b 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
+@@ -40,7 +40,7 @@
+ 
+ #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
+ 
+-enum dc_irq_source to_dal_irq_source_dcn20(
++static enum dc_irq_source to_dal_irq_source_dcn20(
+ 		struct irq_service *irq_service,
+ 		uint32_t src_id,
+ 		uint32_t ext_id)
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c b/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
+index 0b68c08fac3f..ac0c6a62d17b 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
+@@ -47,7 +47,7 @@
+ 
+ #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
+ 
+-enum dc_irq_source to_dal_irq_source_dcn30(
++static enum dc_irq_source to_dal_irq_source_dcn30(
+ 		struct irq_service *irq_service,
+ 		uint32_t src_id,
+ 		uint32_t ext_id)
 -- 
 2.35.1
 
