@@ -4,118 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAABDC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 18:00:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13AC9C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 18:24:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 681ED10EC5F;
-	Tue, 22 Feb 2022 18:00:49 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2088.outbound.protection.outlook.com [40.107.243.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCF1F10EC5F
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 18:00:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46C9810E807;
+	Tue, 22 Feb 2022 18:24:41 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2088.outbound.protection.outlook.com [40.107.237.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DCF010E276;
+ Tue, 22 Feb 2022 18:24:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cn/Q5SzZZ/YEn4JdP4Doze0X9uD3nKDXk9MPxxXmMkrIJPgHuIZoLpnezMdhJS1h7uwbUygOUBTbhzONrBFhF7uNBBN4QROKQUrrrVZ8U52LW1IR6/USb8quRyDl3D48D4y+W9mqPO5eOoAxRI3rC+4rZrL7KzL4W3L/lxNXJucQYWcFKdyocrwtYR9XUbLcNLawWjC7XiBMBFUpJBwFTmV0w4UjwH3u9NrtITqJlW+1P/YJ9v7h3gE/U2jVnyi3xSMgDaJe5MVZ6/ww5b9oOqvy89KB+N2nYWJhSfLYOLXLevjMgep3uBUogciNBhdSghgO7ymaFqyY/bQWBlG2aw==
+ b=eG4o/iENPmvyqllwYorbAi9Fxwyqk2uDcbwrlNqB++8Iq9gn43M0kACRnZnMnLUGXPGjmeN8iuy1qzNk2dHicSKiBem0UY3hME8M06LVOnBm38six4r5aIpu359yUMOznWgtaYi/K41dhdNGV8CAR9Als7s6uXXv+vCjSxbaLS6KMwBOWrYBnRKg9Wew5D7NUBg9sVMbgVlfEu/wnfa3xiaB0L3r1GiLL6Lz41n94vXEVl3HwY6wcJHBMo/TrvyFodDpuCQtwrOomazQ/FZrKm8cv0JJ+TPVkNavxbqp2GW3BrhpStQ+UI13zfMOY9vTTyiFdB4KL1EsfcZA2kjscw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MffUtgik94/bqkelT4r2XCstuSSTEOSjSpybpfUn42o=;
- b=CpdqJvofaGYlvMNiYh71zt/Xst2zOF4o62WYK0jHCEAgGDQvxH2enudDhpjkVG2sGjOSGPT5QcwcHI5Lp8NWL9RM4x+W+HRD2R20eaA7OhXll/VUOoHnQHvv5gdsC6gJh1DEiS7ME8KJm55HzXNG0HKeqjflXsyfW79fPsW3vckNETQ3Mlsry6dXRINfc+BwgvnRfhWEEO3322fp3UtPD+8qdRute7HH3fb2BBtekZhFetQgNUXJgw4P1fXldKEQiWvhOw7GgdeW5VF8IfBCJE8l+0r3uV1+E6XcfO+h9MdQAZJOWccXSUtE4d7o+Iu+YH11cW/UJvr0q7cfwIlk6A==
+ bh=xEddhGainsB5a2YiQrT1hqGx0vof5NV0+8O4E3GFFzo=;
+ b=kq2YDYltO/CMFhz/ex88m8bIsEevccMHB6FkgPzahtkL3SQQSFQex/U5om8z4+AzWc3evtysL61vPGniGyEQXKfdVnTwTVjY+P5aI2FXcOOfGJpMIDtapb387Q19NMZ4iAGyibwgUemkwjjzHjGmwVrEKgbgaMwyZKVkThgdxp74zcIEXRV+xa1BkN/Ew17lLlU0BLAHfOlCPttMHca36HB1a+IIl0lC6/E+S2vUiWUm28HE2McHk7JXoSMoozZCQa08Jiqa7AcdwfuQ6PzMmZfKaJ1myzW8RMIdMhKQKfJ6IzHeHV9CQY9PCMPHTwguGsUsWytSZX44fiLObG7eZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MffUtgik94/bqkelT4r2XCstuSSTEOSjSpybpfUn42o=;
- b=dh1U5VtWlulSMAU9b+6k/w45dK6ZapXnhADQj4ZPMhNpA1b9BKASFz8xpBxmuttl60PpxAAXwsKSZ3lzdjOuRDoG6bZHh+TYOaEjxHZ0o/09f36k44fFWcR8UKBXcW9ogizy2OC1y9pm9hiuF5RYZ1Hfn+hULqTofqQR92DVlVE=
+ bh=xEddhGainsB5a2YiQrT1hqGx0vof5NV0+8O4E3GFFzo=;
+ b=ctTTuHXq9YanodhaVIupWTLIJeMMHyeqIUfZGY/HQ5goATpQMszFnvh0VbruYw7ofAbmwHJ5axkG52ksdnZ/QJNRe2S39NYhwEaMQ/yrA+F3aStNhT499NGEY5HwulopRCh761n9Dk5SgUYJbr5g2bLk8kxilXlgsFydPqA/RhQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CY4PR12MB1141.namprd12.prod.outlook.com (2603:10b6:903:44::13)
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by BL1PR12MB5780.namprd12.prod.outlook.com (2603:10b6:208:393::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.24; Tue, 22 Feb
- 2022 18:00:46 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::38ec:3a46:f85e:6cfa]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::38ec:3a46:f85e:6cfa%4]) with mapi id 15.20.4995.027; Tue, 22 Feb 2022
- 18:00:46 +0000
-Message-ID: <84966d40-ac5c-5fc1-d098-6a19a1d680ef@amd.com>
-Date: Tue, 22 Feb 2022 13:00:43 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.21; Tue, 22 Feb
+ 2022 18:24:36 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::88a:bf7a:6898:5ba9]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::88a:bf7a:6898:5ba9%5]) with mapi id 15.20.4995.027; Tue, 22 Feb 2022
+ 18:24:36 +0000
+Message-ID: <995b793c-9ed8-85d7-faf8-d57348cafc99@amd.com>
+Date: Wed, 23 Feb 2022 00:05:20 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 2/2] drm/amdgpu: use ktime rather than jiffies for
- benchmark results
+ Thunderbird/91.2.0
+Subject: Re: [PATCH 1/7] drm/selftests: Move i915 buddy selftests into drm
 Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
-References: <20220221223030.5672-1-alexander.deucher@amd.com>
- <20220221223030.5672-2-alexander.deucher@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20220221223030.5672-2-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20220203133234.3350-1-Arunpravin.PaneerSelvam@amd.com>
+ <4af33e93-12c1-a6e8-4ae6-cc6122117373@intel.com>
+From: Arunpravin <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <4af33e93-12c1-a6e8-4ae6-cc6122117373@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0102.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::11) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+X-ClientProxiedBy: PN2PR01CA0057.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:22::32) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 70fda67b-7f08-4855-df91-08d9f62d4062
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1141:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR12MB114163B28925F7C2D29D3F14923B9@CY4PR12MB1141.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: db41a288-d828-44da-074b-08d9f63094b6
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5780:EE_
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5780AF9B0D4AE9BDC023EC3FE43B9@BL1PR12MB5780.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wp6trthALNZEMkVl18WNeakEe7SjulLkZZoT78hGVYCKFJXl3qE/IkAlfxxUs49YkGBwD7G2I/C1hNZNQVA6f9+bA9gbaJKkYNwxq+v7P7UbdolCjZEUrmWoJppwqZd/LlOZTVKTtNbNSJU4geKfnLyLsr3TBlZUhjEs6PpnI15oTzbwxO3Jylyx+Be8MDGPboyeL0ZW+sf1YzPM5qzmNbh09/aj/Nh5uJpQ9nDvUkFgRovQyIg6gs5TkkUn2ezlWy0Ftx6DB1SzU/oVJGwxQTdJEYaqeQBhv0OFJIJeMgtqQN70NDzPZhNXdwN7fBPwOyad7htSxXG6LlxjSPV9hNc2i/ol2efpYbAXLN18LfB91RR1QpbtmKVqcgC2lzWrimSm9FTKiT5RxxJkBjU2aZLICLv9kMiU8TJdJxt6vH6qEWQUkrgj3d9w2L3SVnqnUaEIyeIdIvT5wAaZEDYWz4alZjrGH9M6+ujjfUiZghk1OMMp0YKfxUzp7YwMwWG+uuf8seIo54nEi9QKpU/X6+NUMwseikfRq724msp2WyAq2EKRXFU8U940CEfuUiFczizo7Ro44Segjy/gywT86EhbEDhI3zeCjv1GUXrd5vsMKziT8dTB+txDl9gdlEViZNeW6vuUzCvM+dinpm7wUmpcmONlqZel80sL6QILi9vBsuddmBR7fJ1XE28NKzCfEL654ILlT326hwkyjHiVjYao1lftANPZ7VZcGfYf343gcRhwUXeFo9/Ov16qlX8c
+X-Microsoft-Antispam-Message-Info: /KACroc1Xd/1+KDIfohGJCs7L3vTQLTizIzxG2cgS17VCIc/p54YJ6Zr9cgWjDdzkuRcow0VNO+vRA2GuswmCbD8P7lhuo61awCDUPzC8Xc5n+6ukxbrA06QWAO9f1hSkT8wxTd0Qs6akOijU26CtScZjkXbe50FOM5DioKvJ5+gOfvtz9xKdWQj/3jeXqfSr9aAcKiYLDvH95KRQk8u6n5PeSwDOunV1if6JBsnTD09lCsPD8DtL6Azh2sqvVPWnFymhHoiBd2USFgQUL+12TUmT3gXXWFLzst+vQp4O4ws1fRVidxv0WPRK73FUL09iT2lSivb5vN56IH4+D2/aJ6JdCKw+bzcMyLpX0dtf+zz1YrEtTqY/Q91/kjnyyar1bzNKZLVDKibZ15sIIO2UWbCHRGz04VPLQiqAab4t86DUQ9O24U4NPHaMlfo/wXDiGrpmR/cFSuIKqyEjpNwnnGW/VblOXblnfSrQwofUIFbL9GticgMeKXm7x/LTlHjB9fIGZUwFvKTLLX3TrectakWZ+nWrvE6k+iMbJF43WdB0bSF4NWbrS3ixBjU57HffNo9/aMN7SDSf7AxaaiGsG4aJz7gp8HfzmjzuBKmvDShx7xSGOnObn8+C6IySqS2E9fAF8362vZAnqu8np5KwVpEeXMDKuhnVeI/37FrsYGxjLaro2b7uclXWB93qTYpMCVnul4q35vfBpYfj1YuRgALUWUxvsVwSymqY9h39lg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66476007)(66946007)(66556008)(186003)(26005)(31696002)(86362001)(38100700002)(5660300002)(6862004)(8676002)(2906002)(83380400001)(44832011)(8936002)(6486002)(37006003)(316002)(6636002)(31686004)(6666004)(6512007)(508600001)(6506007)(36756003)(2616005)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(2906002)(38100700002)(31696002)(86362001)(53546011)(66946007)(66556008)(6506007)(36756003)(26005)(186003)(508600001)(2616005)(6486002)(6512007)(6666004)(4326008)(66476007)(8676002)(5660300002)(316002)(8936002)(83380400001)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OFd0TVFIZXg0cUFSTXVlQlB4eTFraVFJM2UrVU1BVVdyQXd4eHRJK2g2UGI4?=
- =?utf-8?B?WGVEb0pBemt1UjB0TVBvKzRDZEkvK050ZWJURktYaDhVNERLdndtN3dBeExB?=
- =?utf-8?B?dEpLbVorcXRLZFpvZXlzTEFZdFJkWlphVnNPNmVvdUt5V0VHZ3hVbFZQSDI0?=
- =?utf-8?B?R1cydSsxNWpLWE53dVczWU5nZis2K29scVpGbGk4dlRBbDFjWklYNnkvdlZ5?=
- =?utf-8?B?ODFQcjM0dGxRR0ZXNnlvTEg0UXhSblpHanJsYlVPRWprMFh0UXMzREtMWnhT?=
- =?utf-8?B?UE52OEFiZnEvaG5wbHQrRlBmQW1sMVh4bE8xUTJHbm85QzlwRllzdUNQUXl6?=
- =?utf-8?B?WmVVR0hkdDRpbFBZeDZmRlpLYzlDR0JKK0lrZjlFcU5tQ3JzWDBQYXNLRlpE?=
- =?utf-8?B?VFpJaXhrMkZROEdVbkZJYXMyemRsbmVvYjdrTjFxcEVrLzVnRVdhVlgvaU9x?=
- =?utf-8?B?YU9zYmlZUUlsWkpZbEFhOXN1eXl6bFJoTGFtcTRuekQ2RTFhcmFaMGo1QVlX?=
- =?utf-8?B?djV6eTJ2TnNXaTVPUUVHNnBPQ25qR284Zk5VZnhuOWZuc05oNVFKTFg4c2c5?=
- =?utf-8?B?U2dzdWpQTmNiRkJ2RTJKT3NiVEgrajl4bGNlNVNOVHJQN1lpMnhGdUM2Qm4y?=
- =?utf-8?B?UFU4aXNPYlluVmxEalZQMmFrQmZQUU1UTGczbFMwN25NdFcrYzY5aGtid3Zl?=
- =?utf-8?B?NHdraFFQbVBQZkhmb3JodjdaMTltU25ETUxSeHdpSWFJNC84aVNmV3VBTkRz?=
- =?utf-8?B?Mm5EY1ROZTlJaGFsNjFQOGJ2RTZhcitPOWZHaUljeGtoMjlhckdSZWxjeFFi?=
- =?utf-8?B?SHRpMThSUkpzVnZuUlU1Y0RBZ1ZOWXNMdVd2OE5qU1c1dER3KzQzd0diTm84?=
- =?utf-8?B?T01SaCtvQVIyYnJzOVZsSEhYNlRoREovTk1ybS8rRENPQlNheVErS3FXNURw?=
- =?utf-8?B?cTVRdGRVMWRMYVRnQWRSZFIwOVQxSnVWL0dRVGhTeHhlZjQwSEs0MUIvUHVU?=
- =?utf-8?B?NnFSR0FIeGF2QTkxNUkxTDJvMVozK0hma3dCaklxelQzNDJYU3Jnc281MzF0?=
- =?utf-8?B?SjFaNFU3NTVLek1MVmcrQTlDTm03Znh3RHZibkJIVzlmbW5vYlh0dHY0RGlw?=
- =?utf-8?B?Sm9FTHN0SmtOdmJuNGZhTC9FS0toaWVLSnpIa29PUlRvaGpKK0Q4a3o4Mklj?=
- =?utf-8?B?cjhVbXVGbXFXYTgyeEhsOGg0SVhHRTdMazNEVHByd0p6SXJNMnNuY1VOcXBM?=
- =?utf-8?B?U2RTZTV3TW1mbEJLSnIwVno4UWdRMDZsUXE0aTNOam5lNEpnWnEzckRPcmlz?=
- =?utf-8?B?M3p1UFloOHZRTVpKdUFtMm9YTXZhUnQxN3VWc0FienEwNHgwc2krWjA3em5z?=
- =?utf-8?B?Qloxbmp6SjdIVlRyQmxaN2x2dktvV0VPTjhhWHJLR0FoWW83WjZlVlkwamhx?=
- =?utf-8?B?WHY5aVlQNjdicUMvTGQxb0hDdUViVlVsYWVGZHp4eEdnOWNYRWhnaW9Od1hZ?=
- =?utf-8?B?WTQva1lBOWx4dlJJeTUrc1lhNDlBN1JkeUpIcVJHUFZjYU1TaXE2NFk0S3Bs?=
- =?utf-8?B?K21xK3VOemx5VFJmeVM0dzlXc2N6dGNIRjY0a0l4K0hacXhDbVhQWEtnZzdw?=
- =?utf-8?B?dmtuemphNjFaYm5NbWVwWi82Qy82SEVDYmRFVWhjNGRrU0lYSnh6WHVrNVp1?=
- =?utf-8?B?bU9ldHNIdHJXMGd0SC9WcmN1MHhVMkZWcnZCUmpiTVJrcFZoTUc3RzRTRStw?=
- =?utf-8?B?SkYwcUdUbGhJRUx4Q09lOTZoT0hzV2luamIwVndzaFBLRU5yMUhVdTVGS2dF?=
- =?utf-8?B?TmVtQ0I4cE5SS0w3L1dBQkhKb0RrSk1hNW1tRFRuTXM3Q01pUkpTVTBseDVs?=
- =?utf-8?B?YTVkTGlmZUZiMHFnNzZ0TGhrQ1pJWjdWeGJ5WWZDek0rdWpDOWtWVGZBRGxC?=
- =?utf-8?B?akEyNCs3N1ZDT0tvajMwaUdELzV2YmhET002d01hZGZPcFRSbUV0ekV1VkdL?=
- =?utf-8?B?WFNJSjBLWmJkaFBRZktTM2hWcmxyY1ZsUGpGSm1ZYytXcnBXcTdzbXZUdkJP?=
- =?utf-8?B?bFdwcWQ4WHNuenl1UHBuT2cwOGZBWEdQeW9yd25xUVlsK2V5ZzZhSVljc1E4?=
- =?utf-8?B?SXFMbFBKSFVCem9hZ1AyNStNM3ZtamM2UkRUa3R1dmpsb1k5ek50cExmWUxz?=
- =?utf-8?Q?G/VLiaA2280Wc2GTcQ1rRC0=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VjNWeXQ0WHhhZTNZVHl3UDdVWC9oUFR0ZU5SRndoOUFHRjM2K3ZDRXNmbmNT?=
+ =?utf-8?B?bEFVaHFwNVgvakpoZ2Z3am13dUErcUlLNmNSWFdhUVZHUnFxajZpL0U1dWxi?=
+ =?utf-8?B?NmNPcmZxN0x1OFp6andyYmJxL0NYVXI3NXN2dXdLNlNVZ2dlNktueGMweU1q?=
+ =?utf-8?B?VFZHMFJhMlgzRFVXaWhwS01mNUJ5WW9nOTFGd1ZiKzVReXVqeUlKSlp2ZUtL?=
+ =?utf-8?B?U2tXRXJyQXh2N25MVHlxWC9aOUE4L21FRkYxaXgxOE9MWU9tandEQldyWC9h?=
+ =?utf-8?B?RHRFYWo5dUh5VEhneTRYTTFWZ0k2bWpHbTQ1Ui9LNUY0aDIzV0VaRzVDMkZr?=
+ =?utf-8?B?eEtQMVh6akU0aThzcS82cnpESm5vV1U4ZFBoNmdoem94T0xvN25Td0dVWkdX?=
+ =?utf-8?B?dXJSd2g0ZXdWYVYxNld5citrTmk5TkNMTjFHb1ZBZjdqRjlwS2d3d3R3blow?=
+ =?utf-8?B?TUZyYy9xNFZSaFNYVHNVdjBqVS9veVRJbVl0aUlHcVF5Qk45NEpSOFpIMkpX?=
+ =?utf-8?B?bSttMkZPVGtUUUJvbnBVdkh4dW5DVC9aN09kamZTcGg5Ry9BaDZkVjdxSU5E?=
+ =?utf-8?B?WHVFcVBOcTQrOWd2Y0pGODJSZFdLREVneS9Zbll6d25GTHdzblRabUxwV2xp?=
+ =?utf-8?B?dzF3Y3hrVUtpMDVvd3c0VjFSWkUrckdFSWdLK09BOSt6czd4V3pGbXNobXNy?=
+ =?utf-8?B?ZEl1d2FvTnJvL0N1SzdIQ2tjSTIrUkJrTm1HSVV2YkpIM3NGMEpNNFNtTCtR?=
+ =?utf-8?B?QndQelNGZFRHbzZCZVRNK1QydlBXZWp6THZ4ZWhQVytGcmZZSldFbGVuQ3lK?=
+ =?utf-8?B?MUY4VitRUnRvR2NRM0NjZWhLZFQvVHA2OE1PSzhNRDBXRFA2ellqTTZPaWdl?=
+ =?utf-8?B?VjZDZUl0VEY3a0lyNVZYbVRZVjhUbjdPbHp2cG40OTN2OW92ZE16STJQOG45?=
+ =?utf-8?B?SXpnWnpOVnBTdnZndnplaFZ1WXF3MG1yS3JRZjZoZDk0T3NxUWpFQlhUMU93?=
+ =?utf-8?B?L1Z4ZStGUjZFY1lvNDZjK0dXWmRvcjdJb0hHYlRJSyt1U3Bhc05XR1o1SkFS?=
+ =?utf-8?B?MUx0dGNJc3NlMytLV1hHdFpFdVVQcXZULzhDTzJMN1hFR1p0bU11N0g2Q1Nk?=
+ =?utf-8?B?YnRpeW1lMHQwajQ2LzZMenBJK0pHUjh6Zzh5SU4yWWtzOEJBSkF0b20vekpk?=
+ =?utf-8?B?ckZCZklCS3VHZjg3aDlwTitmRXRuWW5HdU15bko4YzNOdFpTMWdGMXlYSUN4?=
+ =?utf-8?B?QXYzWkhJMVUrRjhlTVRXemJDU1FzNFlzV1NGc21RU3lPcjcrQk1XcW5IYlAy?=
+ =?utf-8?B?R09DTDFNSFNqZUx2c205clI0a1lVY2NDWSt1aFZ0c01yZkVicnV6M3k4MWlh?=
+ =?utf-8?B?OWg1YjBnemw3WTFwZitOcFFyM1RSVnJiUG9BMFF6UTVXVHNvOTgrNk8vdllw?=
+ =?utf-8?B?QnJIRkE3UHM0QlpObkQzZTlsQ3BQZHh5dkFTaENRRzFQNnNVSWd1WGV1OHZp?=
+ =?utf-8?B?QVJCR3o3RlFFUzZ2elNWcHBnOGZqS2kzL1dOQVUyd2REVlBxQ2pMWXpPenFB?=
+ =?utf-8?B?ZGVNbnlaeHlSbGpqYi9RSUgxeDdjNERtQVFNRFFFTEhUek8wLy9UdXI3UVRJ?=
+ =?utf-8?B?T1dQbklUNHFRRFIvcFlKR1lNd1VSU051YmVYVm1zdW5FVmZCb0x3bUxmRnpp?=
+ =?utf-8?B?WVBTUTV1Mjd2WEdia3VVRFB1ZkhLQmhyVzg1L2E4YVdrVHIvQmpacnVBMUxJ?=
+ =?utf-8?B?MTZpamNCdVIwTm5xRTFTS2JLVU8xU3RiTCtwd2NQL3FEdHBpUmVZOUJ4QzhB?=
+ =?utf-8?B?Mjc2ZXFOejdlR0piMkZIQkhHYW1ndlRnTDdEd0ZHYnVyNTBjVUUySVJSYVlV?=
+ =?utf-8?B?Sm11NXFhTUNrckhMOTJkTzJKU2k2STVMWUFaRGxNRSs3SnNUZHJCUWhBem9l?=
+ =?utf-8?B?ZkdwdnU2bE0zUmlNaHFKUUZmTHBUSkRKeUVLZ2lWTnVhNzd1TXpIWlFoTkdm?=
+ =?utf-8?B?R3RJWXlDQ1krZG1Tc3BOZTRHVDY2TXBNMUZ1N0JFRFRXVktsZzBYL0o1N3kx?=
+ =?utf-8?B?WWE3bHNQSEJ1d29zb25OUHlNZUsrd0RUNHNZOTliVERzaTYrZXZQRENVeEV0?=
+ =?utf-8?B?Y2RXTmZZNU83cDZjUE8zMTBTaUJDU0xmd3EyVVhPTXhoTDVacVlRS3hLMEk4?=
+ =?utf-8?Q?KPzHomFz/u598COYwLlbC2k=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70fda67b-7f08-4855-df91-08d9f62d4062
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: db41a288-d828-44da-074b-08d9f63094b6
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2022 18:00:46.6630 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2022 18:24:36.6424 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wOdG2QUdm0Wb9Fhp2CArL1sE2gwEd9f6628gASLB1jVFx4CZwe1UezDkrOombYszlKmXTctjG0ofUQJywghyZA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1141
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0LDJM0GpXFGCQQ1r6d7o7Mv4O7a/YpAQJAEVXdbtRxekcBumJzMC9ISXglD7m7Tsoru0zEpp52RnQ1MOV+alaw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5780
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,104 +127,133 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com, tzimmermann@suse.de, christian.koenig@amd.com,
+ daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-Am 2022-02-21 um 17:30 schrieb Alex Deucher:
-> To protect against wraparounds.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c | 31 ++++++++++---------
->   1 file changed, 17 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-> index 92a2ffefe62e..3136a9ad2d54 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-> @@ -29,14 +29,13 @@
->   #define AMDGPU_BENCHMARK_COMMON_MODES_N 17
->   
->   static int amdgpu_benchmark_do_move(struct amdgpu_device *adev, unsigned size,
-> -				    uint64_t saddr, uint64_t daddr, int n)
-> +				    uint64_t saddr, uint64_t daddr, int n, s64 *time_ms)
->   {
-> -	unsigned long start_jiffies;
-> -	unsigned long end_jiffies;
-> +	ktime_t stime, etime;
->   	struct dma_fence *fence;
->   	int i, r;
->   
-> -	start_jiffies = jiffies;
-> +	stime = ktime_get();
->   	for (i = 0; i < n; i++) {
->   		struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
->   		r = amdgpu_copy_buffer(ring, saddr, daddr, size, NULL, &fence,
-> @@ -48,25 +47,28 @@ static int amdgpu_benchmark_do_move(struct amdgpu_device *adev, unsigned size,
->   		if (r)
->   			goto exit_do_move;
->   	}
-> -	end_jiffies = jiffies;
-> -	r = jiffies_to_msecs(end_jiffies - start_jiffies);
->   
->   exit_do_move:
-> +	etime = ktime_get();
-> +	*time_ms = ktime_ms_delta(etime, stime);
 
-Milliseconds are pretty coarse. Would it make sense to use microseconds 
-(ktime_us_delta) to get more accurate measurements instead?
+On 08/02/22 4:05 pm, Matthew Auld wrote:
+> On 03/02/2022 13:32, Arunpravin wrote:
+>> - move i915 buddy selftests into drm selftests folder
+>> - add Makefile and Kconfig support
+>> - add sanitycheck testcase
+>>
+>> Prerequisites
+>> - These series of selftests patches are created on top of
+>>    drm buddy series
+>> - Enable kselftests for DRM as a module in .config
+>>
+>> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+> 
+> At some point I guess we also want some IGT that picks this up? Like we 
+> do in tests/drm_mm.c? That way this can get picked up by CI?
 
-Regards,
-   Felix
-
-
-> +
->   	return r;
->   }
->   
->   
->   static void amdgpu_benchmark_log_results(struct amdgpu_device *adev,
->   					 int n, unsigned size,
-> -					 unsigned int time,
-> +					 s64 time_ms,
->   					 unsigned sdomain, unsigned ddomain,
->   					 char *kind)
->   {
-> -	unsigned int throughput = (n * (size >> 10)) / time;
-> +	s64 throughput = (n * (size >> 10));
-> +
-> +	throughput = div64_s64(throughput, time_ms);
->   
->   	dev_info(adev->dev, "amdgpu: %s %u bo moves of %u kB from"
-> -		 " %d to %d in %u ms, throughput: %u Mb/s or %u MB/s\n",
-> -		 kind, n, size >> 10, sdomain, ddomain, time,
-> +		 " %d to %d in %lld ms, throughput: %lld Mb/s or %lld MB/s\n",
-> +		 kind, n, size >> 10, sdomain, ddomain, time_ms,
->   		 throughput * 8, throughput);
->   }
->   
-> @@ -76,6 +78,7 @@ static int amdgpu_benchmark_move(struct amdgpu_device *adev, unsigned size,
->   	struct amdgpu_bo *dobj = NULL;
->   	struct amdgpu_bo *sobj = NULL;
->   	uint64_t saddr, daddr;
-> +	s64 time_ms;
->   	int r, n;
->   
->   	n = AMDGPU_BENCHMARK_ITERATIONS;
-> @@ -96,11 +99,11 @@ static int amdgpu_benchmark_move(struct amdgpu_device *adev, unsigned size,
->   		goto out_cleanup;
->   
->   	if (adev->mman.buffer_funcs) {
-> -		r = amdgpu_benchmark_do_move(adev, size, saddr, daddr, n);
-> -		if (r < 0)
-> +		r = amdgpu_benchmark_do_move(adev, size, saddr, daddr, n, &time_ms);
-> +		if (r)
->   			goto out_cleanup;
-> -		if (r > 0)
-> -			amdgpu_benchmark_log_results(adev, n, size, r,
-> +		else
-> +			amdgpu_benchmark_log_results(adev, n, size, time_ms,
->   						     sdomain, ddomain, "dma");
->   	}
->   
+igt-gpu-tools? we need to create tests/drm_buddy.c to pick these tests.
+I will create a patch to include drm buddy selftests into igt-gpu-tools
+> 
+> Acked-by: Matthew Auld <matthew.auld@intel.com>
+> 
+>> ---
+>>   drivers/gpu/drm/Kconfig                       |  1 +
+>>   drivers/gpu/drm/selftests/Makefile            |  3 +-
+>>   .../gpu/drm/selftests/drm_buddy_selftests.h   |  9 ++++
+>>   drivers/gpu/drm/selftests/test-drm_buddy.c    | 49 +++++++++++++++++++
+>>   4 files changed, 61 insertions(+), 1 deletion(-)
+>>   create mode 100644 drivers/gpu/drm/selftests/drm_buddy_selftests.h
+>>   create mode 100644 drivers/gpu/drm/selftests/test-drm_buddy.c
+>>
+>> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+>> index eb5a57ae3c5c..ff856df3f97f 100644
+>> --- a/drivers/gpu/drm/Kconfig
+>> +++ b/drivers/gpu/drm/Kconfig
+>> @@ -71,6 +71,7 @@ config DRM_DEBUG_SELFTEST
+>>   	select DRM_DP_HELPER
+>>   	select DRM_LIB_RANDOM
+>>   	select DRM_KMS_HELPER
+>> +	select DRM_BUDDY
+>>   	select DRM_EXPORT_FOR_TESTS if m
+>>   	default n
+>>   	help
+>> diff --git a/drivers/gpu/drm/selftests/Makefile b/drivers/gpu/drm/selftests/Makefile
+>> index 0856e4b12f70..5ba5f9138c95 100644
+>> --- a/drivers/gpu/drm/selftests/Makefile
+>> +++ b/drivers/gpu/drm/selftests/Makefile
+>> @@ -4,4 +4,5 @@ test-drm_modeset-y := test-drm_modeset_common.o test-drm_plane_helper.o \
+>>   		      test-drm_damage_helper.o test-drm_dp_mst_helper.o \
+>>   		      test-drm_rect.o
+>>   
+>> -obj-$(CONFIG_DRM_DEBUG_SELFTEST) += test-drm_mm.o test-drm_modeset.o test-drm_cmdline_parser.o
+>> +obj-$(CONFIG_DRM_DEBUG_SELFTEST) += test-drm_mm.o test-drm_modeset.o test-drm_cmdline_parser.o \
+>> +				    test-drm_buddy.o
+>> diff --git a/drivers/gpu/drm/selftests/drm_buddy_selftests.h b/drivers/gpu/drm/selftests/drm_buddy_selftests.h
+>> new file mode 100644
+>> index 000000000000..a4bcf3a6dfe3
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/selftests/drm_buddy_selftests.h
+>> @@ -0,0 +1,9 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +/* List each unit test as selftest(name, function)
+>> + *
+>> + * The name is used as both an enum and expanded as igt__name to create
+>> + * a module parameter. It must be unique and legal for a C identifier.
+>> + *
+>> + * Tests are executed in order by igt/drm_buddy
+>> + */
+>> +selftest(sanitycheck, igt_sanitycheck) /* keep first (selfcheck for igt) */
+>> diff --git a/drivers/gpu/drm/selftests/test-drm_buddy.c b/drivers/gpu/drm/selftests/test-drm_buddy.c
+>> new file mode 100644
+>> index 000000000000..51e4d393d22c
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/selftests/test-drm_buddy.c
+>> @@ -0,0 +1,49 @@
+>> +// SPDX-License-Identifier: MIT
+>> +/*
+>> + * Copyright © 2019 Intel Corporation
+>> + */
+>> +
+>> +#define pr_fmt(fmt) "drm_buddy: " fmt
+>> +
+>> +#include <linux/module.h>
+>> +
+>> +#include <drm/drm_buddy.h>
+>> +
+>> +#include "../lib/drm_random.h"
+>> +
+>> +#define TESTS "drm_buddy_selftests.h"
+>> +#include "drm_selftest.h"
+>> +
+>> +static unsigned int random_seed;
+>> +
+>> +static int igt_sanitycheck(void *ignored)
+>> +{
+>> +	pr_info("%s - ok!\n", __func__);
+>> +	return 0;
+>> +}
+>> +
+>> +#include "drm_selftest.c"
+>> +
+>> +static int __init test_drm_buddy_init(void)
+>> +{
+>> +	int err;
+>> +
+>> +	while (!random_seed)
+>> +		random_seed = get_random_int();
+>> +
+>> +	pr_info("Testing DRM buddy manager (struct drm_buddy), with random_seed=0x%x\n",
+>> +		random_seed);
+>> +	err = run_selftests(selftests, ARRAY_SIZE(selftests), NULL);
+>> +
+>> +	return err > 0 ? 0 : err;
+>> +}
+>> +
+>> +static void __exit test_drm_buddy_exit(void)
+>> +{
+>> +}
+>> +
+>> +module_init(test_drm_buddy_init);
+>> +module_exit(test_drm_buddy_exit);
+>> +
+>> +MODULE_AUTHOR("Intel Corporation");
+>> +MODULE_LICENSE("GPL");
