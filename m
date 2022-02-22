@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EF78C4332F
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 16:27:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EA18C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 16:29:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F4D310E74C;
-	Tue, 22 Feb 2022 16:27:47 +0000 (UTC)
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB0CB10E70A;
- Tue, 22 Feb 2022 16:27:45 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id z7so12085571oid.4;
- Tue, 22 Feb 2022 08:27:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A36689F85;
+	Tue, 22 Feb 2022 16:29:27 +0000 (UTC)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6522E89F85;
+ Tue, 22 Feb 2022 16:29:26 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ w16-20020a056830281000b005ad480e8dd5so8500605otu.9; 
+ Tue, 22 Feb 2022 08:29:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=Wc0yqHfoagRsyXzdU2Y5/dAqtfWLM+jPqSQjyf20DAQ=;
- b=OHvXsiq6g3Rnm/ksDpKM0+8vS0aMDT5I0AZgHcAPddmSWj23yidnTLsiT5ki1k+pXC
- 1p9cfzcgh6jCI28Jxy5mljhTRq8Z2cxKb4SM+a+RJa3Tmz+BA4IEosYgK1omDVW96b6w
- De7m1v1lUngpKTVZdoXCcVvmPiZ55am3YZIE5Gu09L7Hh/sVJ2f8JMI2cW5sni7V3eVs
- PLDdZlHkN2Tz/vPzC1rhAXKbr+uJD6LrNvLVoASYseP+j2wUmW1ADbLBvLoytPM+XP9q
- l7zb1W7wU69C+O3FHe3by/W1BzYzFpHV3NH0xOygMopJWD78LuX2GkmdNhGz4wUtX/hF
- /a9g==
+ bh=WDMkvcXrvFCIfwqXXj8ZNdlL4q1BzrbMD+9YGad2AC8=;
+ b=ZQuVn+wn8BmdTuzrfTawxJB39mBQLQL6meMaDkhqzCs4+MZJo4uIj2rK2As1Iy71K8
+ oHmjvuOuQ2/hifwFKaEn3a/E2gRi9N+iAghYFkZw0CskSWl8EWbfkryk/KkDw2JtjxN1
+ PXTeyv7nFMk1xanQhxh6EtkS89DKWEk/d3crdZnicKat0xUdnYCTUmuqUuewk/Xy68cE
+ 1LIVHLaZBVB7Wh+lB/oS/pfkZ3gDPELfX4GUEh+fvXfXv/rJSyfc4Kq+YqxjuOTRyRrn
+ JTo8AuCVL1VfTrTJXovPhwzaBnGDK/CeZbFKlY1kaUW8hNod961VNY18Oyc3uRx68yba
+ d9/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=Wc0yqHfoagRsyXzdU2Y5/dAqtfWLM+jPqSQjyf20DAQ=;
- b=nQi/0ACYbZFOoonMv2tbCLDGiWjI+5eu0Ntdv5d0hI4m/NG9xSBkLUp2ORXwpHWuSP
- 0S07V1a5Xll1w2q2pssUuKLmYfT6O+hNA9w2r1m8yxkH1HPvKraix3YiZU/fOcoi7EmI
- LUE0wDBfwspwqJ51JDVmkK7dvsvdw7CCymBIhChL14oN7jQVMohdGth80bntXc61sV1T
- ceNhyp8ryljjwAF0tiNyYPb1n8+Cxg1oxySfqcetyUWTo8/+gpQbaNO9II7T+Q7rUaAr
- YPONZmW3PnQWsnw4JPOzpvT00AQr/HJXcv1mCnP8cv9yHIsCy10p4OfFXkENQWNsD1Qc
- 7nUA==
-X-Gm-Message-State: AOAM531kzTZ0fjTgVrJTK0WzQ1j3qdCO3Obpm3CEo3wa9f5fiAJuKIRt
- Cgmq3mK4b+33sUUQo1o2X+xXbnnCyB4YX7qV0cE=
-X-Google-Smtp-Source: ABdhPJzMY92Uod9CyBXvXvpyKVk0Yx2FnD1eNM4cD0ag4qAyG9Rjjzu0pW/fwzoshhVCCjQURT/oah1xCbxHxh0TvcA=
-X-Received: by 2002:aca:ab4c:0:b0:2d4:7c7d:606e with SMTP id
- u73-20020acaab4c000000b002d47c7d606emr2360947oie.132.1645547265176; Tue, 22
- Feb 2022 08:27:45 -0800 (PST)
+ bh=WDMkvcXrvFCIfwqXXj8ZNdlL4q1BzrbMD+9YGad2AC8=;
+ b=vhV1pM0zX0OfZni1n8og5sNB8D+0ijhnZa2ogF2/t0sXdxuDeRkXkOfGsrsusiUsea
+ L5by9+9a83UcPt4lqKSaetk1g71a01BFAE3BV7sJHPtZ7FdGGzhuynVyPVuahVpdCDCq
+ yK8geI6w59XuR8ZBGtqBHkPwMZVgjf1Wi0Xo8XZTWucBwgvagF9W5CJWmIPdopW7jg8+
+ /p1Ij4a59bMuDiVLLTsNeBmjptgsifQ19SCi84heO5sRX3HW2cgpM1F8MT+K5Jur315J
+ wuY0eryWb+DChNs1BC0E7LLapYausKyPp0dNNkYhbUNPKN48uYdNutUH9kWQBlaWixD2
+ 9pBA==
+X-Gm-Message-State: AOAM533sJGTfyoHdWqyLNOsMsh57P7DWn63W9SPGd1j3nobqEVNW/neW
+ JnLhqXcLA5lFIw+v/89L6TNGwGC1BAhY2kWnU9s=
+X-Google-Smtp-Source: ABdhPJyqybFdBgdg9H9adcKp77StqxCc/9gl0TUfTIrR8e+SE0PRdqtKFJXe9fzrIxbFvnbqaPxtZFFSNdcyN627NEA=
+X-Received: by 2002:a05:6830:573:b0:5ad:5207:41d6 with SMTP id
+ f19-20020a056830057300b005ad520741d6mr6208407otc.357.1645547365691; Tue, 22
+ Feb 2022 08:29:25 -0800 (PST)
 MIME-Version: 1.0
 References: <20220222131701.356117-1-maira.canal@usp.br>
- <20220222131701.356117-2-maira.canal@usp.br>
-In-Reply-To: <20220222131701.356117-2-maira.canal@usp.br>
+ <20220222131701.356117-3-maira.canal@usp.br>
+In-Reply-To: <20220222131701.356117-3-maira.canal@usp.br>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 22 Feb 2022 11:27:34 -0500
-Message-ID: <CADnq5_M0yBD7oE+y-gcsKkSxP+CmYxx-pdzytG-Wpqv=hw=r-g@mail.gmail.com>
-Subject: Re: [PATCH 01/10] drm/amdgpu: Change
- amdgpu_ras_block_late_init_default function scope
+Date: Tue, 22 Feb 2022 11:29:14 -0500
+Message-ID: <CADnq5_Nj1f+6mhd-w9XC62vuvA8Ndep9dV=AQED4v7D6YjzH4w@mail.gmail.com>
+Subject: Re: [PATCH 02/10] drm/amdgpu: Remove tmp unused variable
 To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <maira.canal@usp.br>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -82,47 +82,101 @@ Cc: "Tuikov, Luben" <luben.tuikov@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
-
 On Tue, Feb 22, 2022 at 8:17 AM Ma=C3=ADra Canal <maira.canal@usp.br> wrote=
 :
 >
-> Turn previously global function into a static function to avoid the
-> following Clang warning:
+> The variable tmp is not used in the dce_v6_0_hpd_fini and
+> dce_v8_0_hpd_fini functions. Therefor, the variable is removed in order t=
+o
+> avoid the following Clang warnings:
 >
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2459:5: warning: no previous prot=
-otype
-> for function 'amdgpu_ras_block_late_init_default' [-Wmissing-prototypes]
-> int amdgpu_ras_block_late_init_default(struct amdgpu_device *adev,
->     ^
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2459:1: note: declare 'static' if=
- the
-> function is not intended to be used outside of this translation unit
-> int amdgpu_ras_block_late_init_default(struct amdgpu_device *adev,
-> ^
-> static
+> drivers/gpu/drm/amd/amdgpu/dce_v6_0.c:331:6: warning: variable 'tmp' set =
+but
+> not used [-Wunused-but-set-variable]
+>     u32 tmp;
+>         ^
+> drivers/gpu/drm/amd/amdgpu/dce_v8_0.c:325:6: warning: variable 'tmp' set =
+but
+> not used [-Wunused-but-set-variable]
+>     u32 tmp;
+>         ^
 >
 > Signed-off-by: Ma=C3=ADra Canal <maira.canal@usp.br>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 4 +---
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 4 +---
+>  2 files changed, 2 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ras.c
-> index e5874df3c9ca..dff5240efcc7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -2456,7 +2456,7 @@ int amdgpu_ras_block_late_init(struct amdgpu_device=
- *adev,
->         return r;
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v6_0.c
+> index b90bc2adf778..2c61f0c2e709 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -328,7 +328,6 @@ static void dce_v6_0_hpd_fini(struct amdgpu_device *a=
+dev)
+>         struct drm_device *dev =3D adev_to_drm(adev);
+>         struct drm_connector *connector;
+>         struct drm_connector_list_iter iter;
+> -       u32 tmp;
 >
-> -int amdgpu_ras_block_late_init_default(struct amdgpu_device *adev,
-> +static int amdgpu_ras_block_late_init_default(struct amdgpu_device *adev=
-,
->                          struct ras_common_if *ras_block)
->  {
->         return amdgpu_ras_block_late_init(adev, ras_block);
+>         drm_connector_list_iter_begin(dev, &iter);
+>         drm_for_each_connector_iter(connector, &iter) {
+> @@ -337,8 +336,7 @@ static void dce_v6_0_hpd_fini(struct amdgpu_device *a=
+dev)
+>                 if (amdgpu_connector->hpd.hpd >=3D adev->mode_info.num_hp=
+d)
+>                         continue;
+>
+> -               tmp =3D RREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_con=
+nector->hpd.hpd]);
+> -               tmp &=3D ~DC_HPD1_CONTROL__DC_HPD1_EN_MASK;
+> +               RREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_connector->=
+hpd.hpd]);
+>                 WREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_connector->=
+hpd.hpd], 0);
+
+We should be writing tmp out here rather than 0.
+
+>
+>                 amdgpu_irq_put(adev, &adev->hpd_irq, amdgpu_connector->hp=
+d.hpd);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v8_0.c
+> index 7c1379b02f94..c5e9c5dbd165 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> @@ -322,7 +322,6 @@ static void dce_v8_0_hpd_fini(struct amdgpu_device *a=
+dev)
+>         struct drm_device *dev =3D adev_to_drm(adev);
+>         struct drm_connector *connector;
+>         struct drm_connector_list_iter iter;
+> -       u32 tmp;
+>
+>         drm_connector_list_iter_begin(dev, &iter);
+>         drm_for_each_connector_iter(connector, &iter) {
+> @@ -331,8 +330,7 @@ static void dce_v8_0_hpd_fini(struct amdgpu_device *a=
+dev)
+>                 if (amdgpu_connector->hpd.hpd >=3D adev->mode_info.num_hp=
+d)
+>                         continue;
+>
+> -               tmp =3D RREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_con=
+nector->hpd.hpd]);
+> -               tmp &=3D ~DC_HPD1_CONTROL__DC_HPD1_EN_MASK;
+> +               RREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_connector->=
+hpd.hpd]);
+>                 WREG32(mmDC_HPD1_CONTROL + hpd_offsets[amdgpu_connector->=
+hpd.hpd], 0);
+
+Same here.  Care to send a patch to fix this up?
+
+Thanks,
+
+Alex
+
+>
+>                 amdgpu_irq_put(adev, &adev->hpd_irq, amdgpu_connector->hp=
+d.hpd);
 > --
 > 2.35.1
 >
