@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 763A2C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 17:49:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84EF5C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 17:49:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E03BD10EB2C;
-	Tue, 22 Feb 2022 17:49:26 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6000F10EA0F;
- Tue, 22 Feb 2022 17:49:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1411610EB39;
+	Tue, 22 Feb 2022 17:49:27 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B5EB10EA39;
+ Tue, 22 Feb 2022 17:49:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wb9i04C5ad1VNsgc3GkzzLBFu4rIgn0GuIzoUEWXKnBNshg26Aqp9bzGjX39klaT4G07LWJeLth9AI0ep9kGvOpgT8/7mIVRk+PcQvpV05UTBSGJgZLMXiWjZ9uKIEBgUnCGGBV9mH/OCX5KQsGdm9PSbgPSP9rhEZfuQpyJZZxx3N8XGpL3qA/UB98A4HX93EEVwBYpQzBIH9sJgBOfzI0G8apsaHjZxLnPesgWm/7FZ0w8gJAFKR3ho4MxvBSLm2kM/p3iATYI+KcXHafVI9e9E+3WTayVEKNQaKToP1TwguyH2lZ1AangEtnQTjx7iWDsLAeT/eNk561t+3BlMA==
+ b=Xo0mbsGvvFhcIH7qKe3mgJxyt0YV6Tiq7TxUNanpXTd5GlwsxzKSTPddDK0OZNlSy7Qb7V4IzvnRFFF9PQ12huL2UBUTwttrvY/KJaVo8+VngCVOF/iQcFiH9Ueamgv7lyHSRJvzGTxk78d1SIsmRIokOg8E8RhjiwLQaSchKcMjrKrQ1iyVEL8Rg6FemFpb57CjH6veeAbfg/jabUIIgD+UjZIegsfHpC9yUbs6vRzJitISJQGyITYxjd3ekNBffoiQA5VmI6JCmtSIwn6a3IYZaPHSg/foWh2gN1sN2G1LY0RUkJVy8ZgNz8SDqZmB6wkuaD5WPJM57OkwgySWfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=alBm/1wz+RQqDqy4aIQkCqT0LV9IgBPEYD9sZKwMZY4=;
- b=mappCAYbYa6hldtNzNUIfJm+WaEDN6NI5mFE707W0qIv4NHtqxz9G79UQDRr9i+mZ3D6ci5oGNh0Ys451vZHwWURHNK1zKeVhoXiIVe1oWnWImUR8rqqbez9E1M4I7idiWpYqroam22FkY0EoiUweYiiQ8EgLUYTBV6R5KxpEGwMe0/VP8bxlo7XfcUjwi9/OZf1ClB4+7qFTyP7dF1zi9BNigaZDDhaAmOC50CFOGfSwLQnDdc0UjAAgo/G483Fh0TwnxOtIpvxmG+E44p7mkFXRwRJNI/in2r91Yn2h7Mg5K0YxUg6BxGyze1AlNDAVnsIoWfm8EGXPokJGpHgsA==
+ bh=K/dCFDbgs4rlZXGQYmMR0bgm4dSWbaQbHR3cPnn9z4I=;
+ b=JBVEYEaF7qO0b78DPeRBoGELXDG9RSo2RtqP0bVA4j/Hss/YV/r7D35Xq1lS68A2mvXRWbWeWaDm6TJ9gxc/yPrpP+Sjssjg/uGipC0HTuIN3n1ERA4cPogB4taZiA96O96GgzI9pMAQobWtcpvZnNfHuuS/ZC3z5B7U+j/DZ00K2IJfg1yRflXhkjgDXrfvXUjZsO2CtnB3Rm/FAFlWgLLjFU6flp1sgeYOjZxhS0ycPVzuvd0hJAE9723qPmXhzo5A5XLcoJJN67XhAIbfnFddJLtOs7k2DbVHU55H0ny0hoGT6An/qyemx1QQ67oIUCA1Xhp6cOXvmzT4zWLgXA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=alBm/1wz+RQqDqy4aIQkCqT0LV9IgBPEYD9sZKwMZY4=;
- b=ei6ivWm/eupSr0yNWLvG9KodRYJ5dxNxKlqg9H9Ft5URdTJrFf3ZqavLeJcVilBAHGaD/Td5tIMhXKyszd19RK5DrR+6VZi4qGnZ7ETr6cLeWsgvd513Gl325xQgOdhdmeZBWlOYx2MUWp6sCEVdEhvKSKaZpFfdYOtjilHxFiY=
-Received: from DS7PR06CA0037.namprd06.prod.outlook.com (2603:10b6:8:54::12) by
- BYAPR12MB2950.namprd12.prod.outlook.com (2603:10b6:a03:131::31) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.24; Tue, 22 Feb
- 2022 17:49:19 +0000
+ bh=K/dCFDbgs4rlZXGQYmMR0bgm4dSWbaQbHR3cPnn9z4I=;
+ b=r3rWctl5Pxg3H01BvybILlLGE7Zq0HjUYncPGDX8VnF1yist7+s6GSQ31J9ajI8dpkF+jrZcRb6eMa4pgj84i9aIcagPzUDIMk/J1zLsaR2kPQ5LDoEqt3E3aq4NhkOmZvmcoP+AYeR5/fmaWkZgYQLbylJObdpmSckwy/MGqj4=
+Received: from DS7PR06CA0036.namprd06.prod.outlook.com (2603:10b6:8:54::14) by
+ DM6PR12MB3097.namprd12.prod.outlook.com (2603:10b6:5:11d::25) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4995.22; Tue, 22 Feb 2022 17:49:20 +0000
 Received: from DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:54:cafe::cb) by DS7PR06CA0037.outlook.office365.com
- (2603:10b6:8:54::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.21 via Frontend
- Transport; Tue, 22 Feb 2022 17:49:19 +0000
+ (2603:10b6:8:54:cafe::b5) by DS7PR06CA0036.outlook.office365.com
+ (2603:10b6:8:54::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22 via Frontend
+ Transport; Tue, 22 Feb 2022 17:49:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT056.mail.protection.outlook.com (10.13.173.99) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4995.20 via Frontend Transport; Tue, 22 Feb 2022 17:49:19 +0000
+ 15.20.4995.20 via Frontend Transport; Tue, 22 Feb 2022 17:49:20 +0000
 Received: from rtg-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 22 Feb
- 2022 11:49:11 -0600
+ 2022 11:49:17 -0600
 From: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
  <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 2/7] drm/selftests: add drm buddy alloc limit testcase
-Date: Tue, 22 Feb 2022 23:18:40 +0530
-Message-ID: <20220222174845.2175-2-Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v2 4/7] drm/selftests: add drm buddy optimistic testcase
+Date: Tue, 22 Feb 2022 23:18:42 +0530
+Message-ID: <20220222174845.2175-4-Arunpravin.PaneerSelvam@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220222174845.2175-1-Arunpravin.PaneerSelvam@amd.com>
 References: <20220222174845.2175-1-Arunpravin.PaneerSelvam@amd.com>
@@ -69,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bd823394-e4dc-4d71-0eb5-08d9f62ba6da
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2950:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB295099966C6DA510E1215C2DE43B9@BYAPR12MB2950.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 50010644-3238-46d9-d704-08d9f62ba7ca
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3097:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB30970BE97E4B2DE4BEC33004E43B9@DM6PR12MB3097.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qQbFcG0nKHR1IsQHN8W9AVasC9GYfVBQmMFjrSNLx2Gz1/fvBdw0+n965XF/tcFeCgH7yXWNSxsB3dZexSsUVIzg3GStm5uG02C9gNJ+2ehWhwzd5WJxRBlSHE2uHOjAoD6lSWVtzxmxnqw7v+JvIku10h4ns4E3Kn14qBa33kkiuTMQfZe2BvXMB81pgGevrDQviAxtEc4EkQ1TTcPD8xqXifoildvCtPw4srfxBLf4WLwdvgLuf3EjaW/90DNVspJr7UzolyV2pizCUXA5XBRaKc8hQ7DO2uBUb8rvxGnpYkfGOFRe7kAWn8kh4Qzk0cTWcO2zuL0aglgNdqo6aC/k+pNLISR6a8esfnSztD7LXjaQOlYyw4AnhDDccF4C/u0BANLNWqc1LTtBbQWXWnR7aOZt41JwRspYQV2B7eZmJveF03uNSHIMpELFnyFZEK6D4pi4wPuFz+YGX/zKwSHYm1UCMVhgMTSUPXsuuLlc9ciQhtPlVbn7gg20RgkwfkhCIPW1DEhbu96eVqEea4Fiy2m0DjgkiIUMxNCSgRXFsIMko/yt+hXzsmALZNl3w7+Uqii3yTgSmJSIfK0BBZMGkakXT1f3cTD2HeWag5hLvCg+gYWBvbE9FpQ9n4DCqR7+PA7fZ+d65pN9ZHAzgIiO+g2/I9+P3ELfotxVqk463zKaEla+y58moVE/IGyJYqd+XHZmLNH64STsiRYvfg==
+X-Microsoft-Antispam-Message-Info: bnADqHybt8ifWEA5BMVVp+gICbXPlM9w506gG6TcnycCdB6tXtrJUkxFxRx6JbTBd6/OIAEGG9Ci9nf9KFOzctFzCzNS/77qMRWZQTscXhJfPZqi8NjHXH29Rf44lcFG4iVlEHqZzWxwnD6pQMtc/Bf6It0A0NZXb+5YLL44rTCXXs35hHt1wjStyrX4kcbzZQmBQP53MrIp/NMgCl6FgDRf4KpHktnCm1dxPoCRnDMBCYNrC2YmwOi31wYBER4pUQud5aZ2uSiv6rtc226vEpoLb7bdms0p49npXdpxsGvaymjPjRh9s9ePTjSFD5+HOVKuDi32GiT6zIq93yoqVZqHLMY13jAZvi+c4cq18dYRtMkIBguGg5D8hj5gmICTaDGHtYUbaUKWduBzUK4gcSxQCs5JLFqcgHdUKn3Fjbe4RC0PNrjj8u3h85dtBls9idMK+8my0lARhkZs/QLgzmtaS5dC1x14hnnGSiUqgYzm7q/M9T/pje6Rsr6NAaSd+Zh58KbxMs1M99uc0AeGF5hu2m/w6ZQ5UxHhMI88nx/Jq0UwL9k6WBr0Nn7foPGq5m5sS+AdL2NxjzX6jLqVSuvQH/g+QTAi5nXeGrnK8G/71Eua9KStqK8RfJIFT+AWcSDYxpqGyYyWTP0AgXGfgHDUVvDFBq4i23IqWKKRqlcj4v5oRJVNtp0Xl0vCjsgmA9V4vnDLTkb60jMfkbUBug==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(36756003)(426003)(7696005)(54906003)(110136005)(83380400001)(336012)(2906002)(40460700003)(6666004)(66574015)(8936002)(47076005)(5660300002)(36860700001)(26005)(82310400004)(186003)(8676002)(70206006)(2616005)(316002)(4326008)(1076003)(81166007)(70586007)(356005)(86362001)(16526019)(508600001)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(83380400001)(2906002)(2616005)(40460700003)(66574015)(1076003)(336012)(186003)(426003)(16526019)(26005)(5660300002)(81166007)(356005)(36756003)(8936002)(47076005)(36860700001)(86362001)(316002)(8676002)(82310400004)(508600001)(6666004)(54906003)(110136005)(7696005)(70206006)(70586007)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2022 17:49:19.1877 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd823394-e4dc-4d71-0eb5-08d9f62ba6da
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2022 17:49:20.7657 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50010644-3238-46d9-d704-08d9f62ba7ca
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2950
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3097
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,99 +107,128 @@ Cc: daniel@ffwll.ch, Arunpravin <Arunpravin.PaneerSelvam@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add a test to check the maximum allocation limit
+create a mm with one block of each order available, and
+try to allocate them all.
 
 v2(Matthew Auld):
-  - added err = -EINVAL in block NULL check
   - removed unnecessary test succeeded print
+  - replace list_del()/list_add_tail() with list_move_tail()
 
 Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 Acked-by: Christian König <christian.koenig@amd.com>
 ---
  .../gpu/drm/selftests/drm_buddy_selftests.h   |  1 +
- drivers/gpu/drm/selftests/test-drm_buddy.c    | 59 +++++++++++++++++++
- 2 files changed, 60 insertions(+)
+ drivers/gpu/drm/selftests/test-drm_buddy.c    | 80 +++++++++++++++++++
+ 2 files changed, 81 insertions(+)
 
 diff --git a/drivers/gpu/drm/selftests/drm_buddy_selftests.h b/drivers/gpu/drm/selftests/drm_buddy_selftests.h
-index a4bcf3a6dfe3..ebe16162762f 100644
+index 3230bfd2770b..21a6bd38864f 100644
 --- a/drivers/gpu/drm/selftests/drm_buddy_selftests.h
 +++ b/drivers/gpu/drm/selftests/drm_buddy_selftests.h
-@@ -7,3 +7,4 @@
-  * Tests are executed in order by igt/drm_buddy
-  */
+@@ -9,3 +9,4 @@
  selftest(sanitycheck, igt_sanitycheck) /* keep first (selfcheck for igt) */
-+selftest(buddy_alloc_limit, igt_buddy_alloc_limit)
+ selftest(buddy_alloc_limit, igt_buddy_alloc_limit)
+ selftest(buddy_alloc_range, igt_buddy_alloc_range)
++selftest(buddy_alloc_optimistic, igt_buddy_alloc_optimistic)
 diff --git a/drivers/gpu/drm/selftests/test-drm_buddy.c b/drivers/gpu/drm/selftests/test-drm_buddy.c
-index 51e4d393d22c..0df41e1cb8a6 100644
+index 586e0673a67c..f20d3ad1ac65 100644
 --- a/drivers/gpu/drm/selftests/test-drm_buddy.c
 +++ b/drivers/gpu/drm/selftests/test-drm_buddy.c
-@@ -16,6 +16,65 @@
+@@ -17,6 +17,11 @@
  
  static unsigned int random_seed;
  
-+static int igt_buddy_alloc_limit(void *arg)
++static inline u64 get_size(int order, u64 chunk_size)
 +{
-+	u64 end, size = U64_MAX, start = 0;
++	return (1 << order) * chunk_size;
++}
++
+ static inline const char *yesno(bool v)
+ {
+ 	return v ? "yes" : "no";
+@@ -309,6 +314,81 @@ static void igt_mm_config(u64 *size, u64 *chunk_size)
+ 	*size = (u64)s << 12;
+ }
+ 
++static int igt_buddy_alloc_optimistic(void *arg)
++{
++	u64 mm_size, size, min_page_size, start = 0;
 +	struct drm_buddy_block *block;
 +	unsigned long flags = 0;
-+	LIST_HEAD(allocated);
++	const int max_order = 16;
 +	struct drm_buddy mm;
-+	int err;
++	LIST_HEAD(blocks);
++	LIST_HEAD(tmp);
++	int order, err;
 +
-+	size = end = round_down(size, 4096);
-+	err = drm_buddy_init(&mm, size, PAGE_SIZE);
-+	if (err)
++	/*
++	 * Create a mm with one block of each order available, and
++	 * try to allocate them all.
++	 */
++
++	mm_size = PAGE_SIZE * ((1 << (max_order + 1)) - 1);
++	err = drm_buddy_init(&mm,
++			     mm_size,
++			     PAGE_SIZE);
++	if (err) {
++		pr_err("buddy_init failed(%d)\n", err);
 +		return err;
-+
-+	if (mm.max_order != DRM_BUDDY_MAX_ORDER) {
-+		pr_err("mm.max_order(%d) != %d\n",
-+		       mm.max_order, DRM_BUDDY_MAX_ORDER);
-+		err = -EINVAL;
-+		goto out_fini;
 +	}
 +
-+	err = drm_buddy_alloc_blocks(&mm, start, end, size,
-+				     PAGE_SIZE, &allocated, flags);
++	BUG_ON(mm.max_order != max_order);
 +
-+	if (unlikely(err))
-+		goto out_free;
++	for (order = 0; order <= max_order; order++) {
++		size = min_page_size = get_size(order, PAGE_SIZE);
++		err = drm_buddy_alloc_blocks(&mm, start, mm_size, size, min_page_size, &tmp, flags);
++		if (err) {
++			pr_info("buddy_alloc hit -ENOMEM with order=%d\n",
++				order);
++			goto err;
++		}
 +
-+	block = list_first_entry_or_null(&allocated,
-+					 struct drm_buddy_block,
-+					 link);
++		block = list_first_entry_or_null(&tmp,
++						 struct drm_buddy_block,
++						 link);
++		if (!block) {
++			pr_err("alloc_blocks has no blocks\n");
++			err = -EINVAL;
++			goto err;
++		}
 +
-+	if (!block) {
-+		err = -EINVAL;
-+		goto out_fini;
++		list_move_tail(&block->link, &blocks);
 +	}
 +
-+	if (drm_buddy_block_order(block) != mm.max_order) {
-+		pr_err("block order(%d) != %d\n",
-+		       drm_buddy_block_order(block), mm.max_order);
++	/* Should be completely full! */
++	size = min_page_size = get_size(0, PAGE_SIZE);
++	err = drm_buddy_alloc_blocks(&mm, start, mm_size, size, min_page_size, &tmp, flags);
++	if (!err) {
++		pr_info("buddy_alloc unexpectedly succeeded, it should be full!");
++		block = list_first_entry_or_null(&tmp,
++						 struct drm_buddy_block,
++						 link);
++		if (!block) {
++			pr_err("alloc_blocks has no blocks\n");
++			err = -EINVAL;
++			goto err;
++		}
++
++		list_move_tail(&block->link, &blocks);
 +		err = -EINVAL;
-+		goto out_free;
++		goto err;
++	} else {
++		err = 0;
 +	}
 +
-+	if (drm_buddy_block_size(&mm, block) !=
-+	    BIT_ULL(mm.max_order) * PAGE_SIZE) {
-+		pr_err("block size(%llu) != %llu\n",
-+		       drm_buddy_block_size(&mm, block),
-+		       BIT_ULL(mm.max_order) * PAGE_SIZE);
-+		err = -EINVAL;
-+		goto out_free;
-+	}
-+
-+out_free:
-+	drm_buddy_free_list(&mm, &allocated);
-+out_fini:
++err:
++	drm_buddy_free_list(&mm, &blocks);
 +	drm_buddy_fini(&mm);
 +	return err;
 +}
 +
- static int igt_sanitycheck(void *ignored)
+ static int igt_buddy_alloc_range(void *arg)
  {
- 	pr_info("%s - ok!\n", __func__);
+ 	unsigned long flags = DRM_BUDDY_RANGE_ALLOCATION;
 -- 
 2.25.1
 
