@@ -4,59 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D86AC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 14:06:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43763C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 14:06:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D954F10E835;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2DBB10E82E;
 	Tue, 22 Feb 2022 14:06:43 +0000 (UTC)
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E32B710E63C
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 13:18:22 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id
- g6-20020a9d6486000000b005acf9a0b644so9549480otl.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 05:18:22 -0800 (PST)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A57E10E627
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 13:18:01 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id q5so14402876oij.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 05:18:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=usp.br; s=usp-google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=sDN/q36ne++w24m6ta6Mu8DvTucc3A8JRf+sG15A4uk=;
- b=gwNgQ82BffFNGYRWppEJcVbH9lkHH4pDVyKTZaRhGLp+f2xO5A1Rx15s9yci3hHm4w
- FR1uQhg8pvxh6Nres53U9+5PeQJjeY4FqukANXW+8jQxQv139/laPSL8d4aiynsMT7my
- oM5Wamd+Hc1OYtVIoCGTe5UqhD9E3zG6UB+aAagv3NxkPhAqTy845/1Yegz+Ca/xHwmK
- YaQM48FZyG/26ee4ISyofDBH3oxrbmeQdpILyFa49nlOGi9EKrN2uGD9mf6DccDzN5M1
- DUU+/U+aSWi9pPrfoohDvEJclSE8CUZvlfVrqhZg4DwOkDj8i05D6c/wK2OrBZbxVyJ3
- DXkw==
+ bh=ayEiTJoQMQ+jcjp3UMRNd5LwLeFycUhnaRc8GdLvEdk=;
+ b=Wqh8WVyaB3/ePOUVG3qDmLXtRM2V02SqDxNeuWJZyWdRv9S3nWuGPgBol8HVCWBq8s
+ DhdiEThHMeaf3oShHr2vzPZEF1glAHISZfrq3028oU3ta8gBcyG3ZW7qCSSEyHOTI3lB
+ BnxvSUxinY/c3tq9cibM8S6EyjPjwHVN8UdKR268Zwpzc9EZjOU39PEj/kwRRPUwIzMC
+ TJoaaWdEK9eQzLpnFNJIlDEy9QqLPUYMg7l3IH3RF7db55PMl9T1tKhWeuWn2GGMES0C
+ X+a0prpgsJLlkvgbGmBRL1Skefle02K+m9wUWk7PYw5kkYDqo0dRaW0HX71nR2+EcEzY
+ Q1og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=sDN/q36ne++w24m6ta6Mu8DvTucc3A8JRf+sG15A4uk=;
- b=vyqRrUiL1kmpGxrYn8xChVYsKR8NzTa8zmMVT5Jcwcng07AbTkiwgmaMW1MSxvXs84
- YTYmfIPVG+OgNojKDLyGTL8XTdMQ1L0yPGtQR3XC5ENRsT1A9eRxngAYdLePCPL5A7MW
- DX12MYSEVbuK00n1/rX2qVsZJGthdWw+rvqPsiP/1B566yaNCv0aNCig0pL5A6niuHeR
- Ou7FgyL8e35Ge5gRSlAVRPdBoGfjxZohVChShkb24ZJNgbHX3yRVQ1q6qz2KHnBV5TSA
- hDltBV4IZz+farWBaWFC7ELKZaFXUER5RlMTA2mYSe73nIIuCYFSCXhouc3t2M9wYxjX
- bKlQ==
-X-Gm-Message-State: AOAM533Jzxv0Q6Uqkp4Rg5bojl9IQZMAyWkvLPzWGpI6ygn0oMMjGHr2
- jHwbbmREjV0/LJzg7elSQbuKKQ==
-X-Google-Smtp-Source: ABdhPJyc2O86+E0dEG/No0hmALq+XxmG2EgDiNrBeWwpqJKHrw0001sfFqK9Y7CYkpxQ9BvdfQuGzg==
-X-Received: by 2002:a9d:714a:0:b0:5ad:f8f9:b50d with SMTP id
- y10-20020a9d714a000000b005adf8f9b50dmr4817459otj.47.1645535902206; 
- Tue, 22 Feb 2022 05:18:22 -0800 (PST)
+ bh=ayEiTJoQMQ+jcjp3UMRNd5LwLeFycUhnaRc8GdLvEdk=;
+ b=XtXPJPwZmh3LbE18oM+WcZqy2fRhihExy8hQR4leDKEaeOM3H/ualy8GA2bb9/APq6
+ rSxXLtyuNytuqUon9p1lWgbOHcqiyUo9rADyvnyFn923fFViPZUfllRfyaZU752Jv4KU
+ F4yaC5jnToG2uYwbw947NC9jNdwRET8b/wa2OR8CPB8aCclvEcamfJ9HHDbbBvsCGIRO
+ qF/uzvY7EGcnJPb5PMPbICf+VVRoEdK1nOM+tzwDp5wKPMSrWfBMkL7zemBK+6mRdoUy
+ DvkB2D+EpwcqWBPiIrAexTQGixXzFq5bvlz2k4ixsZGEHXoEgnkssVFST7KeXJf1V/zk
+ dzMw==
+X-Gm-Message-State: AOAM532ie0/tj8A5mYXZWPArdFY2PmLq+1Eo2QmZlWlAyea0vuHvLA2r
+ 9sZpGa+evoyqW4BddCIMnpktYQ==
+X-Google-Smtp-Source: ABdhPJwWSQJbsP6uAkrMylNazH+1ImSjAqTPKRnK19++tCqd6JrQXsgHYiKgvyoSEEmR6fmGiVSzTQ==
+X-Received: by 2002:a05:6808:f0f:b0:2cf:3d64:2333 with SMTP id
+ m15-20020a0568080f0f00b002cf3d642333mr1897906oiw.23.1645535880803; 
+ Tue, 22 Feb 2022 05:18:00 -0800 (PST)
 Received: from fedora.. ([187.36.236.204])
- by smtp.gmail.com with ESMTPSA id c9sm6325050otd.26.2022.02.22.05.18.15
+ by smtp.gmail.com with ESMTPSA id c9sm6325050otd.26.2022.02.22.05.17.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Feb 2022 05:18:21 -0800 (PST)
+ Tue, 22 Feb 2022 05:18:00 -0800 (PST)
 From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <maira.canal@usp.br>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  Hawking.Zhang@amd.com, john.clements@amd.com, tao.zhou1@amd.com,
  YiPeng.Chai@amd.com, luben.tuikov@amd.com, Stanley.Yang@amd.com,
  Dennis.Li@amd.com, mukul.joshi@amd.com, harry.wentland@amd.com,
  sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, Anthony.Koo@amd.com
-Subject: [PATCH 07/10] drm/amd/display: Remove unused
- dmub_outbox_irq_info_funcs variable
-Date: Tue, 22 Feb 2022 10:16:58 -0300
-Message-Id: <20220222131701.356117-8-maira.canal@usp.br>
+Subject: [PATCH 04/10] drm/amd/display: Remove unused temp variable
+Date: Tue, 22 Feb 2022 10:16:55 -0300
+Message-Id: <20220222131701.356117-5-maira.canal@usp.br>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220222131701.356117-1-maira.canal@usp.br>
 References: <20220222131701.356117-1-maira.canal@usp.br>
@@ -82,39 +80,39 @@ Cc: magalilemes00@gmail.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the unused struct irq_source_info_funcs
-dmub_outbox_irq_info_funcs from the file, which was declared but never
-hooked up.
+Remove unused temp variable from the dmub_rb_flush_pending function by
+using arithmetic to remove the loop.
 
-This was pointed by clang with the following warning:
+The -Wunused-but-set-variable warning was pointed out by Clang with the
+following warning:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/irq/dcn201/irq_service_dcn201.c:141:43:
-warning: unused variable 'dmub_outbox_irq_info_funcs'
-[-Wunused-const-variable]
-static const struct irq_source_info_funcs dmub_outbox_irq_info_funcs = {
-                                          ^
+drivers/gpu/drm/amd/amdgpu/../display/dmub/inc/dmub_cmd.h:2921:12: warning:
+variable 'temp' set but not used [-Wunused-but-set-variable]
+    uint64_t temp;
+             ^
 
 Signed-off-by: Maíra Canal <maira.canal@usp.br>
 ---
- .../gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c   | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c b/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
-index aa708b61142f..45f99351a0ab 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
-@@ -138,11 +138,6 @@ static const struct irq_source_info_funcs vupdate_no_lock_irq_info_funcs = {
- 	.ack = NULL
- };
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index fb01ff49e655..d3088836d4e4 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -2918,11 +2918,8 @@ static inline void dmub_rb_flush_pending(const struct dmub_rb *rb)
+ 	while (rptr != wptr) {
+ 		uint64_t volatile *data = (uint64_t volatile *)((uint8_t *)(rb->base_address) + rptr);
+ 		//uint64_t volatile *p = (uint64_t volatile *)data;
+-		uint64_t temp;
+-		uint8_t i;
  
--static const struct irq_source_info_funcs dmub_outbox_irq_info_funcs = {
--	.set = NULL,
--	.ack = NULL
--};
--
- #undef BASE_INNER
- #define BASE_INNER(seg) DMU_BASE__INST0_SEG ## seg
+-		for (i = 0; i < DMUB_RB_CMD_SIZE / sizeof(uint64_t); i++)
+-			temp = *data++;
++		*data += DMUB_RB_CMD_SIZE / sizeof(uint64_t);
  
+ 		rptr += DMUB_RB_CMD_SIZE;
+ 		if (rptr >= rb->capacity)
 -- 
 2.35.1
 
