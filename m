@@ -4,121 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B626C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 11:39:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C04EC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 11:50:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E74F510E241;
-	Tue, 22 Feb 2022 11:39:10 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2051.outbound.protection.outlook.com [40.107.94.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0759F10E241
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 11:39:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W8UMvuo5ySwxiJaXfDKZY71Umd0DdaymhZP1GPj64gwvOJRFdFDoTjM4VgLLbGkint7xs8QTrM99/TCkr7Sf9SBH9oVzFKp80MTXlnZQHc3bcc8bgqH4RxgVNHrfSodDZqC7BXN2+WNwXEUGPluROC9x5Yagp1CdxTHpcINw5wg6vnPsNQTOPN+7H75NwRAKZIgwt4Wr3jLHlEd8BOaoyW2QGj0zNg/wvcMIA0cUWBU2chxUO0qUUOwffzPAYW9NL3tZxGESk+NEPw5FEbBPGWHpiys+iTb3hyWhuxN8i5mY/sDc+C8dRdGglpAAgmNEU3ljPYS2fokSFmzZqis6Lg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OrAAeprj0kQJuy+QPe1kSrypQ5btvJW1cW4FCBpirAg=;
- b=Q16J/08J4yCEMJOlFgPQ0KJeMOgHmlB//AMy6PyaxrhBab7JFGoVy5bs+zw1pUq6vXEnVLImrA2n4rdSM+fTOixTWvFLWoG3XsiyWAfLYYcgJsL9GULnkgGzGath40hdLLnTIYZBz9/1p/LIssxH/41D/5LXr3x//IMee9rN+oq5TJSTg+q6za/pMHyr9gm6DLiRiNANmPchXfoW0FFTKVljqH0UmtFd9RhDtmStbOY8//qwuuykPDmRcKPvNPCj2mCt6AXOiswh5zivklaD3fDAVzvEYQQioZKnePT1j53KiFcPtLBIJ0aSvXwB4ZrNapb6VXbg908rk4OKaKNGPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OrAAeprj0kQJuy+QPe1kSrypQ5btvJW1cW4FCBpirAg=;
- b=bx89iqxyZ+Ys10oTEiSiUARYvbB6VM6CWvoOfNHlzhMdIqkAiBF9+Ub80kcbLCSHFp2JI83JHmXE6CycLp4HUSFTlSEvCIeZfdl2tS5+WiaLe1Eni9MMUBA05F+k6MCuddmo6cHmByfMn9X84hgOPwPAyy2l9I3MoBhbtxqfpSM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM6PR12MB3033.namprd12.prod.outlook.com (2603:10b6:5:11e::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.17; Tue, 22 Feb
- 2022 11:39:08 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e03f:901a:be6c:b581]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e03f:901a:be6c:b581%6]) with mapi id 15.20.5017.022; Tue, 22 Feb 2022
- 11:39:08 +0000
-Message-ID: <b7dd81f1-9a0c-4773-62f5-84012571e9fc@amd.com>
-Date: Tue, 22 Feb 2022 12:39:01 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB2ED10E3CB;
+	Tue, 22 Feb 2022 11:50:03 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09A7010E3CB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 11:50:03 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id d10so42063700eje.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 03:50:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=B3N9fAo9yqamA4JcsUjI2YUNeRJgpT3fmAUPXC1Rrls=;
+ b=Ku4eQcv+gn+9Si3ciXcHp5zXm1I9cmY5+HvOJoeG0w0ZeHf/YV60a4eYW3vc0CTejS
+ vR0iDROYVrHdZzja0OvA5QPCJ40NDdShj2CXHd/Yb8uE7RxiMQbESYUoUUUQaHshX9/m
+ Dnn7ikgf58cko5GvBJAWnqZq2p96ewL0upF5lh1lTf3D+gqwDDj/S8QuprzCgzN+lXUp
+ CTZTGz8fiz0/nWPAzcpSkXCfzVISHFUo27dqbJncypdB2/gyqByQdF6Tn7XsDPV0BGC5
+ 2JzECBMcHFvoa7KNjLOULI33MKvCdNWSy9+FMANG2GIafb1g/nEG/srF38UPnLAqSs+t
+ Xx7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=B3N9fAo9yqamA4JcsUjI2YUNeRJgpT3fmAUPXC1Rrls=;
+ b=yKVYxIueo5Pe/xJVkx33kJQ0dWJos0eC1UD/W7keUpu2mgxNzatzAXO/b7PnGi2M+H
+ A+wagMqAJkTRsgxtD46fFo88b8kkvcKlAzWT/X8WS1bUFTTOwVnXVNN8zphKIFRuCu/Y
+ ZNkUH557hOQqSzm/XB4RPRmKwAnDbQW6B9kYMsAAE3WGCTIv+SZu4LRgbhKA2v640Q5c
+ ErFjASI8dOFscad8v9wEUYFEVJ8jpOJSlHeixom3rNmVYJgXPJTIVf7hvQ8uTIMqZaui
+ NIG9tPN0SXC9yYq8sCGQ7Id+Ra2+DfvAlxhDN7NE6E2Uwv18bP/o+qk6ikYuHks5ut2w
+ nURA==
+X-Gm-Message-State: AOAM532SieJU9VOf4SU9ZtNHpJai1Hn79JKluayzYgQ6sViFOK5/YmkO
+ ZGdmESmnr13S4luseolu227/Iu8Apbs=
+X-Google-Smtp-Source: ABdhPJy+cUY2p57dfjBLtO6cGsKxvj9sXJkLU5k3DrFMP+BsYDQhTT1pss5V7r2IfCA8xjlNiaAvwA==
+X-Received: by 2002:a17:906:b0f:b0:6ce:e79:75c2 with SMTP id
+ u15-20020a1709060b0f00b006ce0e7975c2mr19193003ejg.668.1645530601332; 
+ Tue, 22 Feb 2022 03:50:01 -0800 (PST)
+Received: from ?IPV6:2a02:908:1252:fb60:21b6:6d72:8af6:ec7c?
+ ([2a02:908:1252:fb60:21b6:6d72:8af6:ec7c])
+ by smtp.gmail.com with ESMTPSA id gj7sm6113047ejc.90.2022.02.22.03.50.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Feb 2022 03:50:00 -0800 (PST)
+Message-ID: <53383490-0d28-0787-0d2f-783ad3877219@gmail.com>
+Date: Tue, 22 Feb 2022 12:49:59 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH 7/7] drm/amdgpu: drop testing module parameter
+Subject: Re: [PATCH 1/2] drm/amdgpu: use kernel BO API for benchmark buffer
+ management
 Content-Language: en-US
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>,
- Alex Deucher <alexdeucher@gmail.com>
-References: <20220218222603.25470-1-alexander.deucher@amd.com>
- <20220218222603.25470-7-alexander.deucher@amd.com>
- <4009de28-8add-97b9-0dd3-8d44704af322@mailbox.org>
- <CADnq5_P2ffjt7L27vUo+iwRUJNu2+Wmo9ORNwv42XYdgHwhPkA@mail.gmail.com>
- <aab017e3-6229-690c-32ac-e9acbf640132@mailbox.org>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <aab017e3-6229-690c-32ac-e9acbf640132@mailbox.org>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220221223030.5672-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220221223030.5672-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM6PR10CA0014.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:209:89::27) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f9987284-9d7b-4969-96db-08d9f5f7ef95
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3033:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB30331890F62AD1688EEF6EF0833B9@DM6PR12MB3033.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6M7rLn4CCW+V0dnD7iY37EsAJ/49wsvHHs+0ZQzuwLdBZQS5KU1Ue8gGa0NBuqDl7Ww+cZSwKdkA881Frl0EP5b7DI4qy+Q5i2V3ss6pvzZ2/xgtx9VcUR5oKWX5QX9MavHGZfiSYuIZYSoLCbw5LcYP1df0WdiaLFn88v5AtxBmssiLd9QavjLPZRYn7NVL+SP1PB0w9OMlkK4G/59jWVvxNFvE3aMZxGzGNMvvuulsdRd73KJ1CKQczV5i2cOLyAbaxVXoLqy7hDKMMWw9bt21490D1ZZiReLzm7cEBt9SBPy6KOUej7m3uBVBH3KIx6lmcLfVaCaAqaF0LHNARFDsKh0eq7ZDZU4Z7PY1XS6eKz+IJD9FksvoD9B1am/hSZYtdxHzjNLUIUGZLvPJzoXRO6qyFZ+qrhTVgz2gYGMdA7VVS43RbFDwyosAHchaxoQC18Lw0Hoyu1t32Ijiwglyq/DdiEtMZCA7EIr8M2oPXZF4UWyvrB6FOjZhEiWo4iYo0wA2g4fLq7wzj3TaEMRuLI0oVXQvpqFQWh1JTIeCn+9NWRv+YHw9TVOlvrMjd92UoLQC/PN6eh9HkrIY9jJpkRUDAm0vR8xthlFGArfr0+4r1vrjev7yCiDosfpdpUnWMwwalx0KdIRMYagaaTA15b0BJyzGGdcTUePRQsSuRTi9ATzZiGwv180eVnhktg+38iMVYsvNsWKM6Ujxh+mXsteuJe+F30194hoYFZmNJvZ936dmxUcuFUbDonML
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(186003)(66946007)(6512007)(66556008)(6506007)(2616005)(53546011)(6486002)(31696002)(6666004)(86362001)(54906003)(66476007)(508600001)(316002)(110136005)(8676002)(83380400001)(4326008)(38100700002)(5660300002)(31686004)(2906002)(8936002)(36756003)(4744005)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dE5HcmoySCtTZEt0WHpKWjgxLzAvc2R4NGNwQ05UK2pzV25ubEtlMTFFTTMw?=
- =?utf-8?B?OHpQdC9LOWsxdW5HNjVEcUV6TVB5dmZaTHlsbmVxRWduRGVKc2VMYTM3VUxn?=
- =?utf-8?B?bDJjcjZMNWludCt0Mlc4OU0wdlpDaVRMR2JEeTcvTk9SbW41VDFsaUVmbktm?=
- =?utf-8?B?VmZ1WFgwVUpyUnVpSjI3UXZVWVFYQ0NQRDFoSC9DWFNRVE1KVEI1bFY1QVZ6?=
- =?utf-8?B?KzN2RlpvNXdhdzhMM0x1Um5hNHVWcVZndC85eUFPYi9jY3pJMHlLeWx4eEtK?=
- =?utf-8?B?cExqQ1FkaUNZVHFwcDczcVR4a0poNk5Sc2lWQnMyM0lzTGdBMEZONys2VGZn?=
- =?utf-8?B?N0ZYeDd2Q3V3dHdobW10ZjNobkJVd0NnSms5Si8xdSsvalVFVTBhT2lxNmoy?=
- =?utf-8?B?TXgxNnd6SHdEQWxLZmJoVi9LMEV0bUpvTDNlZFRhRm5EcDVKL3VWdGM1MVFl?=
- =?utf-8?B?eUlneUlxYmM4Skx0cGZqTktwOWlNeVNFNmh3d3J3Wm56Zmd5aEFjdGwzTy9U?=
- =?utf-8?B?V2Zodkp6QTJxbm42VitOWDRyRENubHMrWktlZlhVZmlveGtqK1cyOUg5VHR6?=
- =?utf-8?B?OWxlMWxyQmZYU0QwRFR6TE5BZ2l1T09rVDVYelB2YnM4MENxWHRsUDFVbmZo?=
- =?utf-8?B?ZFVyUDBMNnBQU29Qdzl0LzBCV1JKdGFyZ0dDZDJwdW9ucC9WcFZuK0hkMnJw?=
- =?utf-8?B?ZWNMT3VUNmlRRmtYaHRTaGJFc0NKN0x0MU5YZDAzSldwVityQUxYdEw3VU0x?=
- =?utf-8?B?TXJROGlyd0daZks2MDU2TVdlRnhPOERPTGRTOG5pOGhDQ1ZOTFF1VjNtR2tj?=
- =?utf-8?B?NWpWODBUd3dWL0FiaXlObGJPYW40UWI3V1VnbVZYWWdaUDV5M2hQWnMrRTFN?=
- =?utf-8?B?WkROS2tVbEVTS1R6bWdtaHNxM2RvdTFkS0g4NXZtdm84bEVKWlg2d0lQMXFB?=
- =?utf-8?B?eXRlME1kd2F1N2VlVk1sWGZrYnFqaFNyZ2hvMzBRQjBUekVQVHJOTlpGMWZs?=
- =?utf-8?B?YmFhOXVBcU5mU3VrY1BoNkxHbUhEdkllNDlMMHRzNjZEelZSUkwrQnIxNnZn?=
- =?utf-8?B?aHpRVTc2aG5jOXZKRFJyQzF0ZG1NWDVodlYvUm5PeEd4b2MvUTUzR1hCWGI1?=
- =?utf-8?B?dDJlSFZMYWprRnQzV1NNY2xaSm1Eem81OHhTb09SRTF4NHJ2VHhaa2duazhU?=
- =?utf-8?B?em9sWmo4MDhBMkpYYmh5THVKazBjSnNURkx1blNqRlgvWTdmTkpManpVM05T?=
- =?utf-8?B?WEdvWk9aQ2Jwd3FOWEljWFFVdW1KNmUrRmptNHJUOHgrTHRlVk9pOE0wbGVW?=
- =?utf-8?B?NEFrcXNObnZaU2VMY0VjQ1lIcVBwZnhGL2pMQ1FiTnBEeS94M2NXaDQ3azdo?=
- =?utf-8?B?RWtqci9hbEFUdmU1STFOekRYS2R6VXFGbFVsVXNtVzdHeEtiaXZlbkE2Nzgy?=
- =?utf-8?B?Q3VoRm93Y2FNWG10SE1rei9BOW5SSy9sWkwzZERlQWY5a1kwcUh0V0l5bWFq?=
- =?utf-8?B?cytjUTl4TDNPaXFrRWp2dGxITDZLNVV2NHNnTGtNY2V6cEpRenVwbC93MXZ5?=
- =?utf-8?B?UmVOTTB4UGxJUmU5R1dqVzlDcS9EWFdXMXI1NG96RWczSys3NitQUVhpZW40?=
- =?utf-8?B?MU5FNXd5TTlSQldWQnZWZmlhMEtSOWllbFRaSFdDaGl2THJVWmUxbjZHVkhu?=
- =?utf-8?B?V3FMdTRnb3M4emhpb0FnekhwZUFhQWhBaWNnVllYVEVYMkRtSVd1eEdCakQy?=
- =?utf-8?B?VHI5cE0zZlg5RWVqeGlMVDlaQ1ltb2dNUFdIZ3NjVXhLSnRyNVdXNUkyRjVF?=
- =?utf-8?B?R0hmcHdZQzFiRlk0dTJuUUlEUTZiQW94RHc2dk5KeXpubjJYQ21EakhSRFRE?=
- =?utf-8?B?NHBVMjNHamFlSEtqTkRRaXM5K2dtd0dZRjJhcGlpazFNbUdNUlNYNnFKNWI0?=
- =?utf-8?B?WmgrY2s3Qy9Hd3V3QnFibEdrMy9iaVNVWHZXUzh0MFFkUFozTDJWd1pDK0pL?=
- =?utf-8?B?QjJUWjhNQnZaNWJROU04Q2hMV1F5ZXdoUGhWOCt0TFBST0FPRVJqU201Z3FD?=
- =?utf-8?B?cUh6WkJBRUNOT1pWdEZTMlE5Qi9HVnBlWUViUGk0RWpMVC9KbHJ6UDFPWXdq?=
- =?utf-8?B?cXp5Z0NRdHNjU05aYkwxS0NPMXRML2h3Y3hQU085eFZCYlU5TXdkQ3R5T3Zx?=
- =?utf-8?Q?hQRro9B3Q3A7oCh/b6SnrQQ=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9987284-9d7b-4969-96db-08d9f5f7ef95
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2022 11:39:07.8670 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 82C9RxyeE7kTXZyCHdfayE8zcuYwrUca0XFl5wHZqyExk21esEWrQTrUR0ecrTK1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3033
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,29 +73,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 21.02.22 um 23:30 schrieb Alex Deucher:
+> Simplifies the code quite a bit.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
+Reviewed-by: Christian König <christian.koenig@amd.com> for the series.
 
-Am 22.02.22 um 10:07 schrieb Michel Dänzer:
-> On 2022-02-21 22:35, Alex Deucher wrote:
->> On Mon, Feb 21, 2022 at 12:44 PM Michel Dänzer
->> <michel.daenzer@mailbox.org> wrote:
->>> On 2022-02-18 23:26, Alex Deucher wrote:
->>>> This was always duplicate functionality with the benchmark tests.
->>> Not really. The purpose of amdgpu_do_test_moves is testing that copies between GTT & VRAM work across the whole GTT aperture (when I originally wrote radeon_do_test_moves, they didn't on the PowerBook I was using at the time).
->>>
->> Fair enough.  I'll drop it for now.  Might be useful to convert to
->> debugfs at some point as well.
-> To be clear, I'm not saying this needs to stay — maybe it's not useful anymore. I'm just pointing out that it's not redundant with the benchmarks.
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c | 78 ++++---------------
+>   1 file changed, 17 insertions(+), 61 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
+> index 4f3cdd8cfb6a..92a2ffefe62e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
+> @@ -75,57 +75,25 @@ static int amdgpu_benchmark_move(struct amdgpu_device *adev, unsigned size,
+>   {
+>   	struct amdgpu_bo *dobj = NULL;
+>   	struct amdgpu_bo *sobj = NULL;
+> -	struct amdgpu_bo_param bp;
+>   	uint64_t saddr, daddr;
+>   	int r, n;
+>   
+> -	memset(&bp, 0, sizeof(bp));
+> -	bp.size = size;
+> -	bp.byte_align = PAGE_SIZE;
+> -	bp.domain = sdomain;
+> -	bp.flags = 0;
+> -	bp.type = ttm_bo_type_kernel;
+> -	bp.resv = NULL;
+> -	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
+> -
+>   	n = AMDGPU_BENCHMARK_ITERATIONS;
+> -	r = amdgpu_bo_create(adev, &bp, &sobj);
+> -	if (r) {
+> -		goto out_cleanup;
+> -	}
+> -	r = amdgpu_bo_reserve(sobj, false);
+> -	if (unlikely(r != 0))
+> -		goto out_cleanup;
+> -	r = amdgpu_bo_pin(sobj, sdomain);
+> -	if (r) {
+> -		amdgpu_bo_unreserve(sobj);
+> -		goto out_cleanup;
+> -	}
+> -	r = amdgpu_ttm_alloc_gart(&sobj->tbo);
+> -	amdgpu_bo_unreserve(sobj);
+> -	if (r) {
+> -		goto out_cleanup;
+> -	}
+> -	saddr = amdgpu_bo_gpu_offset(sobj);
+> -	bp.domain = ddomain;
+> -	r = amdgpu_bo_create(adev, &bp, &dobj);
+> -	if (r) {
+> -		goto out_cleanup;
+> -	}
+> -	r = amdgpu_bo_reserve(dobj, false);
+> -	if (unlikely(r != 0))
+> +
+> +	r = amdgpu_bo_create_kernel(adev, size,
+> +				    PAGE_SIZE, sdomain,
+> +				    &sobj,
+> +				    &saddr,
+> +				    NULL);
+> +	if (r)
+>   		goto out_cleanup;
+> -	r = amdgpu_bo_pin(dobj, ddomain);
+> -	if (r) {
+> -		amdgpu_bo_unreserve(sobj);
+> +	r = amdgpu_bo_create_kernel(adev, size,
+> +				    PAGE_SIZE, ddomain,
+> +				    &dobj,
+> +				    &daddr,
+> +				    NULL);
+> +	if (r)
+>   		goto out_cleanup;
+> -	}
+> -	r = amdgpu_ttm_alloc_gart(&dobj->tbo);
+> -	amdgpu_bo_unreserve(dobj);
+> -	if (r) {
+> -		goto out_cleanup;
+> -	}
+> -	daddr = amdgpu_bo_gpu_offset(dobj);
+>   
+>   	if (adev->mman.buffer_funcs) {
+>   		r = amdgpu_benchmark_do_move(adev, size, saddr, daddr, n);
+> @@ -141,22 +109,10 @@ static int amdgpu_benchmark_move(struct amdgpu_device *adev, unsigned size,
+>   	if (r < 0)
+>   		dev_info(adev->dev, "Error while benchmarking BO move.\n");
+>   
+> -	if (sobj) {
+> -		r = amdgpu_bo_reserve(sobj, true);
+> -		if (likely(r == 0)) {
+> -			amdgpu_bo_unpin(sobj);
+> -			amdgpu_bo_unreserve(sobj);
+> -		}
+> -		amdgpu_bo_unref(&sobj);
+> -	}
+> -	if (dobj) {
+> -		r = amdgpu_bo_reserve(dobj, true);
+> -		if (likely(r == 0)) {
+> -			amdgpu_bo_unpin(dobj);
+> -			amdgpu_bo_unreserve(dobj);
+> -		}
+> -		amdgpu_bo_unref(&dobj);
+> -	}
+> +	if (sobj)
+> +		amdgpu_bo_free_kernel(&sobj, &saddr, NULL);
+> +	if (dobj)
+> +		amdgpu_bo_free_kernel(&dobj, &daddr, NULL);
+>   	return r;
+>   }
+>   
 
-Yeah, the test doesn't necessary work that well any more since we now 
-have the GART table much smaller than the GTT size.
-
-I think it's still the best to just remove that.
-
-Regards,
-Christian.
