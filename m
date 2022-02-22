@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AB88C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 16:40:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8474EC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 16:41:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 130E310E7FF;
-	Tue, 22 Feb 2022 16:40:33 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B03210E7FF;
- Tue, 22 Feb 2022 16:40:32 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id p15so15145834oip.3;
- Tue, 22 Feb 2022 08:40:32 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C791210E86D;
+	Tue, 22 Feb 2022 16:41:16 +0000 (UTC)
+Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
+ [IPv6:2607:f8b0:4864:20::c32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0095C10E86C;
+ Tue, 22 Feb 2022 16:41:15 +0000 (UTC)
+Received: by mail-oo1-xc32.google.com with SMTP id
+ u47-20020a4a9732000000b00316d0257de0so18349416ooi.7; 
+ Tue, 22 Feb 2022 08:41:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=p40txYoRuDqRToAk//92DsV14CqomtL3Q8ARQVWa/nE=;
- b=TkCFnrgW0aoLHODg9trdPkzSCZhWdz2TpEfAoMCyxt+YUGogRXWkGP51I4Pvac+mW1
- lDSXdMyHaAnGC5BFOVYuGq7XQ0L9Smf8ey4INkOhItVXkekZQqk2BYpaX7elAkS/R01i
- nF3Gj41+2U3ukwABWrB0UaoXZNcF5TSffK7YT4AF2nHAty6DEVRQ6OC6PHihbR8rjd4w
- z914Z2jKY2lAuzRd6z6xcm178A7g9Liup+3zN+pYqHCqbt4NLhBY7+Rz7RUmhfp3oY7p
- BGdY6U+9i774sAXJ1GNG0907qbMtwmq3lVw8AtF0fjTJuBwRmZigbZANGbyr5vFz6vRk
- 3V0g==
+ bh=YXHD+C0/B8yXZE8EfrgFtwcPwJgyLlmaD7cEYGEmRMM=;
+ b=fuBlPcCzxrvT7+ShgM3+W3qsp2u2V09DJmwqNLjX5fLhy8dc8j6/w2JhloLbmKInG8
+ XNqQmB8Rp+vR7/XvSAScTjH/URtFM43zt8LOmtmew8O5k5Y6dhZ1Dp/ePsMeph62HmWB
+ eurPiPNpYGp+qmwdrBhTqfwOCdl26C3gAd5+ayQ8HL6xO/tLZ/CNHzfatDwwpw8/if/d
+ ZVkgN14V5KAxCaesOfAUhsGGP8cUDJHD/d979cQFm8yTuVxSXW5Cl7Jl0wov3NwNVOET
+ YT2rO3Xdq+qTv1ItNrlgA7CYu/z48farfnqcgHkAIfwu0gYbGSRd98id1a3OtbiFR+Q0
+ EQQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=p40txYoRuDqRToAk//92DsV14CqomtL3Q8ARQVWa/nE=;
- b=OqHv02S8+umAkOAw5D/6fbIJo/YP/GPAIMYBa+AU8XwiDBgM8hCY2CjBzR2c3vAzlJ
- QxEOJkNKjH3yvmJ/Fz16HMFkkX39ZL9bSuPzv4sqt/a03uZxEuNEy4jkqd0+iJr1sd5o
- ZZq9UsuNCjhPJvr0VxRLsyrMrmDOJUuWjCMxRnekNhDpz7eRLDctccS62qhNUx0yFttM
- PF+tQrn3Iq8GDm3Ao9+5IKj9b/WZQcLLU5Vix8tUY8fibIMi+y/c0OjQ+F6f6s/nqEKl
- buck+UXbicTIVrweyQVl10pTfagpM4ah7X9Gn1bkktohPtjSBf0Gy9V/jLyAJFQEoCEf
- IuxQ==
-X-Gm-Message-State: AOAM531eAXWdVKqPWGvCJnp5iW4C6FDZAtyDsCsMW3czdPTLVWBafsaJ
- DRFflTtJtCqQW9hKZMZm7kM6xFU4i+qywB+kK2U=
-X-Google-Smtp-Source: ABdhPJzGgNDMe4B8iHx1OozJUpsE/fOo2XJZsl0TfO1F2smK9orBVi+gBIiiqvVg+AvsVwgn36rMJ9ruAYaTFI7pEXw=
-X-Received: by 2002:a05:6808:612:b0:2d5:1c6a:db4 with SMTP id
- y18-20020a056808061200b002d51c6a0db4mr2488935oih.199.1645548031784; Tue, 22
- Feb 2022 08:40:31 -0800 (PST)
+ bh=YXHD+C0/B8yXZE8EfrgFtwcPwJgyLlmaD7cEYGEmRMM=;
+ b=dRziLLxWD4Pok2lQhP208Kq5aPUcPKhpNhbqXqmURpiTM3PmEKECzB7Hosoem7Fr8B
+ S1E1QgbCnA5Sr/Tib6TrNS2afsyURmM3K7uQi5Ho7BvxvY1q6dmJIdVAlcPRUYJDu3sK
+ tpxmHxJn10NGvPgLtsbz5c6GWh5Ml8oOUgwRnz4XxuTZm1bsX4o34gaNDD6u7Ay510v+
+ mZRxMwyZEr373smkrusZBXYu6ZxcEjcwVhmFJ452unJ04JYmMqZGwB06IYJoPfFOkkCl
+ OhGrLH2Ltchn8pZqAZpVI7XigSxz44Z1VKTX19fcEJ2NSZRX0KMg0wtzfkVdibq5RIS8
+ u8GA==
+X-Gm-Message-State: AOAM531h/UY2bHfd362kWClLC2VOBjHjpmPj3Gq3LxLtIKpHZfxLGtoE
+ gkAZvyg90CyutUB6en5r0TmjAWKAEsCzh1E26i4=
+X-Google-Smtp-Source: ABdhPJya4bay6XYFIZCyMsuysyg0pIii92FwYXZtsMNZ0psrVz6aeSWA23ZVot6d/3GAmeGPNEphCTWbuu8Dw2gDNWA=
+X-Received: by 2002:a05:6870:3e0d:b0:d3:fe6d:57c3 with SMTP id
+ lk13-20020a0568703e0d00b000d3fe6d57c3mr2042169oab.225.1645548075325; Tue, 22
+ Feb 2022 08:41:15 -0800 (PST)
 MIME-Version: 1.0
 References: <20220222131701.356117-1-maira.canal@usp.br>
- <20220222131701.356117-9-maira.canal@usp.br>
-In-Reply-To: <20220222131701.356117-9-maira.canal@usp.br>
+ <20220222131701.356117-10-maira.canal@usp.br>
+In-Reply-To: <20220222131701.356117-10-maira.canal@usp.br>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 22 Feb 2022 11:40:20 -0500
-Message-ID: <CADnq5_MqzkkNaXRuEqx8oCdF=zL9GgAWF_UNR=21BO4MaojydA@mail.gmail.com>
-Subject: Re: [PATCH 08/10] drm/amd/display: Remove unused variable
+Date: Tue, 22 Feb 2022 11:41:04 -0500
+Message-ID: <CADnq5_O-LmQ3qD7p0bHHhcc7BRpExahhtg9d4dcPx1_x3pDzUw@mail.gmail.com>
+Subject: Re: [PATCH 09/10] drm/amd/display: Add missing prototypes to
+ dcn201_init
 To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <maira.canal@usp.br>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -86,47 +88,34 @@ Applied.  Thanks!
 On Tue, Feb 22, 2022 at 8:18 AM Ma=C3=ADra Canal <maira.canal@usp.br> wrote=
 :
 >
-> Remove the variable clamshell_closed from the function
-> dcn10_align_pixel_clocks.
+> Include the header with the prototype to silence the following clang
+> warning:
 >
-> This was pointed by clang with the following warning:
->
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:2063:=
-7:
-> warning: variable 'clamshell_closed' set but not used
-> [-Wunused-but-set-variable]
->     bool clamshell_closed =3D false;
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_init.c:127:6:
+> warning: no previous prototype for function 'dcn201_hw_sequencer_construc=
+t'
+> [-Wmissing-prototypes]
+>     void dcn201_hw_sequencer_construct(struct dc *dc)
 >          ^
 >
 > Signed-off-by: Ma=C3=ADra Canal <maira.canal@usp.br>
 > ---
->  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 3 ---
->  1 file changed, 3 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/dcn201/dcn201_init.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/=
-drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> index 8dc1afc03961..559aa45f27e7 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> @@ -2060,14 +2060,11 @@ static int dcn10_align_pixel_clocks(struct dc *dc=
-, int group_size,
->         uint32_t embedded_pix_clk_100hz;
->         uint16_t embedded_h_total;
->         uint16_t embedded_v_total;
-> -       bool clamshell_closed =3D false;
->         uint32_t dp_ref_clk_100hz =3D
->                 dc->res_pool->dp_clock_source->ctx->dc->clk_mgr->dprefclk=
-_khz*10;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_init.c b/driver=
+s/gpu/drm/amd/display/dc/dcn201/dcn201_init.c
+> index f1f89f93603f..1826dd7f3da1 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_init.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_init.c
+> @@ -27,6 +27,7 @@
+>  #include "dcn10/dcn10_hw_sequencer.h"
+>  #include "dcn20/dcn20_hwseq.h"
+>  #include "dcn201_hwseq.h"
+> +#include "dcn201_init.h"
 >
->         if (dc->config.vblank_alignment_dto_params &&
->                 dc->res_pool->dp_clock_source->funcs->override_dp_pix_clk=
-) {
-> -               clamshell_closed =3D
-> -                       (dc->config.vblank_alignment_dto_params >> 63);
->                 embedded_h_total =3D
->                         (dc->config.vblank_alignment_dto_params >> 32) & =
-0x7FFF;
->                 embedded_v_total =3D
+>  static const struct hw_sequencer_funcs dcn201_funcs =3D {
+>         .program_gamut_remap =3D dcn10_program_gamut_remap,
 > --
 > 2.35.1
 >
