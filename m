@@ -4,119 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F9AAC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 17:28:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7566BC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Feb 2022 17:49:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79B1D10EBE0;
-	Tue, 22 Feb 2022 17:28:53 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2055.outbound.protection.outlook.com [40.107.244.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC9DE10EBDF
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Feb 2022 17:28:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C06EB10E8C6;
+	Tue, 22 Feb 2022 17:49:21 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2080.outbound.protection.outlook.com [40.107.94.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 760B810E8C6;
+ Tue, 22 Feb 2022 17:49:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UJPieUHTQwEwfBDl7HealW+cdtyox5ETPXiBZ4YZGGz9ivW9f+x3aoVxBkKowqoLTWx3TeIsoWQSJM3RY4b12RZrHA5irduRByTm66HUwy3YqDYMdL9ypRR91lukBQ6MPzdp150Y9pxadAS7cNMvULVikT61LlatuBe2Q8/WouVh5i+M3MJZmBlGrYdi7GR1EwOi4XhncoQqBetFkQTV0GElfkFUejqeu8VyponGk8CCc2uxFc9SutXVW+aW4BMYfWWfkhAjjjpKju2zIIhavbCpdgxWcuZ/Q1Qy3009wvLJPq7/8vrV+8PX3Xyzn8wi5J4L4zE8qg/qZPRaP8n7YQ==
+ b=asqZkXTLEoM6amFn9v2cHcbAaT1iHev/XeCY69CHZ0bY2eBI92yvryyN+GUghdMXGVZDC9O+KU1RCfKUGmiVvHAATtd4ZaGDiWNwMyigJQ/oi4OFHjZSx8pp/j8Bel3aSgQjzLUsa4fQD+A+heZzy1MEVGOgDhPhFI3yLnfJjmRtJl0THjUMmx1OtRR037W6NLR8muuI7u5vSweQ3IeNRSkle15FRi1bA+0MJG/j48fU5Yffprr8hnvyFneZOSJZIOAKoxkpUZDQzf4bCCOukX15lzcjhO/IaDbepkt5Bjc4DIGxutJfNhU9ChsJzWYCThhrax31fzOfK+SrVzGdjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YC1VWXXCMl/sJZWu49YqGSqMwtNInxuRe8XesJ9t2HM=;
- b=cU0TOrl65uYOE2/mMwDWcS4BjxzwOVcEOQV2u8mo5NyWCN6p98nrmu4R4Ui94vDiwNBAXjOO+uUFypOKrqf/8bQ4LuzBP4TnTTwRFEtacIRss81RDsYzGC4xySGUhQEEbxRx8Eza9LChJgqDg2ZhE92cvwRo5owkK6RwLHN/hQ0aiEM5xJf32qDQVJsCgGQ6ZOEqaSTU7jgguujyVjtTv8oK4/4my+Txi2fMm+5srjPkocjFRbfUiqMmwhMjT6OaUg/p4B2f5zkHThUxJdPNQAl+so22DVs4dCgXx5GRlffacg6CdldklcGkDNKnObOxjOWxs6alYxBCbmTjENPl4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=o+FcYb+weATilwFsC9QtonKx9K/4mJRwnV6AAXyU854=;
+ b=Wuq8GASzTzv2pZ1h/iJrp3zHeJUmEeOoeHUHqs0Oht4wxOEsFwMCTLCE9+Sm7S+kDlwQ55OOg0EpS4JOkMfC6GL53nCCfQmcbYWIJ/jaUBBmJenj+cj74mtKPt7UOoihkh193vJLQPXbcATclRGHmzhCUn/OHbcSnoCOMtAvuBYUtWgDrPY6NqLN/6GC+wgsBOl7siYC56lIQh2g/cXr7Uui5Q5tJGMRF1I+HvqNFYhfwmifw3EdM45d3jSGHFhmEVMq1S+xJTA/9cKcv/HvzwO7v5Es2FvzGQyXkOMZaTDNw9WZEWnr0bez7HrvmO60aZa3mEVh2aDlae9PJdJWug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YC1VWXXCMl/sJZWu49YqGSqMwtNInxuRe8XesJ9t2HM=;
- b=GmpFuxirxTk4hFIiFTaUG+vt3om2SIjWFklbDy5PoAsURgBwQZiKrP6cHsEAItyj0FMRbsO2HrXMG+fLEY/NsEDJZjN1m1iv8aH1VTKMIvOiBE4olhBetKsvsYLFPZXlZSDUIuMrgChjUfGdRqiZ3IYuaGeYBzUokBZi1E9j6XU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
- by MW3PR12MB4411.namprd12.prod.outlook.com (2603:10b6:303:5e::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.24; Tue, 22 Feb
- 2022 17:28:50 +0000
-Received: from DM5PR12MB1947.namprd12.prod.outlook.com
- ([fe80::a105:faab:243:1dd3]) by DM5PR12MB1947.namprd12.prod.outlook.com
- ([fe80::a105:faab:243:1dd3%11]) with mapi id 15.20.4995.027; Tue, 22 Feb 2022
- 17:28:50 +0000
-Message-ID: <b608a68f-1f64-5c4c-32f9-38cfadf63620@amd.com>
-Date: Tue, 22 Feb 2022 12:28:47 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v11 2/2] drm/amdgpu: add reset register dump trace on GPU
-Content-Language: en-US
-To: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220222143742.2575-1-Amaranath.Somalapuram@amd.com>
- <20220222143742.2575-2-Amaranath.Somalapuram@amd.com>
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-In-Reply-To: <20220222143742.2575-2-Amaranath.Somalapuram@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0128.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::7) To DM5PR12MB1947.namprd12.prod.outlook.com
- (2603:10b6:3:111::23)
+ bh=o+FcYb+weATilwFsC9QtonKx9K/4mJRwnV6AAXyU854=;
+ b=IZHrLXAYR+I5ToCO832FSwnJNbauCzpL46hVbjzUWtmlfLaevWgO+x4Kg+ps6kQI7AJirUhnqGNzpy43EuCqmWD/5q+7NpPtGKvW+fxwAj2zgzE0T/On8bUvm1MoTs1qGDstsEpKXYk7yKELVmK+t6Encv68SZDU7BdwY6LvCV8=
+Received: from DS7PR06CA0047.namprd06.prod.outlook.com (2603:10b6:8:54::27) by
+ DM5PR12MB2517.namprd12.prod.outlook.com (2603:10b6:4:bb::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4995.24; Tue, 22 Feb 2022 17:49:18 +0000
+Received: from DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:54:cafe::27) by DS7PR06CA0047.outlook.office365.com
+ (2603:10b6:8:54::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22 via Frontend
+ Transport; Tue, 22 Feb 2022 17:49:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT056.mail.protection.outlook.com (10.13.173.99) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4995.20 via Frontend Transport; Tue, 22 Feb 2022 17:49:18 +0000
+Received: from rtg-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 22 Feb
+ 2022 11:49:08 -0600
+From: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2 1/7] drm/selftests: Move i915 buddy selftests into drm
+Date: Tue, 22 Feb 2022 23:18:39 +0530
+Message-ID: <20220222174845.2175-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 203735a1-5fbb-4699-189e-08d9f628c9fc
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4411:EE_
-X-Microsoft-Antispam-PRVS: <MW3PR12MB4411793AC941797890CD46F7EA3B9@MW3PR12MB4411.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 9d92a4b4-1d18-47bd-5071-08d9f62ba678
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2517:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB2517D3F93CFA9B70592DDE4EE43B9@DM5PR12MB2517.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UwlzsRUane+G3R0gCJS+Nx9X6+75lHkwgAgh9Cq35xHpx4aiq2ox1+e8oZvZUSlIqe9+zFw2dkyswOUGYmyVRLOnCzgPEpUwitJtVbSlBZl/VNra/a+vT459vZkSi8VVvAlI/osYq1b4vArtZEBFWZCqHvEm9jaCGqLhOi2iQBt5XxVHOqEuPJunLlwX4/9G3Cv5tv1CysFlzDjsa6Mjt+pX9WQkAgBgBqVagebqnliH26Y2Nmc9ws/0p28LCUl3VxHQK9QFW8RWtZORfW+5lzz8wd1emfwxgXURmI1JU2Z+960fmmFMPNSaTBCYiiNl13iUkusmnhB/IYiH55gf/RzgrfLNovAryubqgh8CNA52lYQAPKTp/XJcIu/idU1uhiSYRuqlEHn76Ucolp6NT/8awQU4x9kAYvFsXQAyY/GQ/bTE0SVidEfeRkkXKHa5yMROug5fmT5oPlDCvGecS21JuARCVrgPvQWZGZCLsHnpewKdjBRu52NeFvLsxzfV4x3a5/7Y9rzCEv4tsa1SZznUNIUA6eYAZuKQXJxaf0ZVC06UgfTNNfyyBvucjsj+4QNkr1VQbnY9eKlPkqXITblG7OJKz1fFW20PbnrfS7m430MBO9QWQLsgJYEc5XnGcCxuUkSc/jVK3peGT/rPcO38CvKoFdfcxnHXgn36cmGxEiuXwuuturLVzTE01dlscaHvCzO8VBqT6xrCuft+OeaM7vTrnfa/lYK/0eZ2n/E=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(2616005)(6666004)(316002)(31686004)(8936002)(53546011)(508600001)(6506007)(36756003)(6486002)(6512007)(83380400001)(66476007)(86362001)(66556008)(8676002)(186003)(31696002)(66946007)(38100700002)(44832011)(4326008)(5660300002)(2906002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: XPPOn/O8E9fxvErFgrTkVVWuqEXrN9GyHo8CR8gBpoztb+UL2VskZ9ZmjpNpra+yZoHPbRprXavHbsRbeS/QW3fZvgw/7Vn42lxIqvJxq3CXh975E3PTNBSZQ6q7Ewjan/La2gCMnqdsVQ5RnjbcVH8dytnKteY3vksbYKQaMTz6Mel9FgJK1JO9uhn/jZDP6uk5We3gLhYDgrV9s6SgNT9aNEJB1GTsZLf1fCNRQywusBsjvf2IWa8hjSkGlOZHILA7N2WBmfX9kd2GmmWoQsiN5eeSpbUxuRaOqPea8HsDEBF1LAAkxVVzB7Rk8Ph66OOGhH8wl5sGWIlt+sJbz5fB/5zkJBxthBGLjy2Kf3VadDCJcV++J34RViB1C6PWiBZU/Vu2ZdE2apYrbw4Pg2NMT0vsa0MChvKswyBsgaj7+fFmhQlJsQ0GlMMP0Dtm9wPprbQocqIum08RrDw1vZpe7d/YH/Hv1a+pan8H2DNBqJh+jCecyCv9nJR/BjPLu2VcDLux88mIJV8mBz8DUaxfZA0it6ozfh0N3XK6VNw313A6fBcgxTFAfHNqOq8XtjT+/ExpAWS64erKpZXbJN7Ti34CKWU3F8WVlrJKKS1Pt02TL9rSwQgwihgibEdLt6aeh5ExC6AwkqDNglTEXtYHUfpobpADVpMW3W3JgvTq7QBfeR6Ls4mIoDi465rv4OZ9NvQXdjZ14tEw60+GIg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(110136005)(54906003)(66574015)(26005)(8936002)(1076003)(186003)(5660300002)(16526019)(83380400001)(70586007)(70206006)(4326008)(8676002)(356005)(316002)(82310400004)(426003)(81166007)(336012)(86362001)(7696005)(2616005)(40460700003)(36756003)(6666004)(2906002)(47076005)(36860700001)(508600001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?clZqbU52UkRvdWxsQWVUb2h1aTZMMHgwcUFTWTdKZDBlVlhTUHNSa1lSS2x3?=
- =?utf-8?B?QWlRV0dScis4azNnTFpZOTJhTUpDbkgvNjZwZ2xkZm10dWVsVGUxaDFtQVpD?=
- =?utf-8?B?RGZuWFlnN3Jrak9ScG50UEhLWHFhbUtUN2hXTzZHdEdmY1dDV1hZQ0lvRkc3?=
- =?utf-8?B?cGZjTThxQkZhTVY0UjJMeUtaT3FYZFNzMXJLL2xnUStmRDRlMnAxaUFsMU0x?=
- =?utf-8?B?SHVJbU96QWEvMnBEY0NpWlp5NmpBdUI5RTBWRjhGZ2MwbmM2bTdKSC84cDMw?=
- =?utf-8?B?UzNrN29rUE1WR1BIa2oycWpDOFQ4dnlGb0xDenZrY2RjZzhhdnBjaWZBRnVX?=
- =?utf-8?B?aDY2MUxWSmNscW9FT2VjM2hhMXhpcnRnelFkeTBMTFBXRFpkZFBZdHY4WEYv?=
- =?utf-8?B?NXpFUHVield1MFJIOXdkV3p0OENmT1V5SW1kVzMzc3V4WmJKQ1U0MVp1d2NM?=
- =?utf-8?B?Q2NnQk5jMGo4dnpnSS8yMkhpWHVTc1BWbXNzVGNEbHBFd3NEUWZnNTFlRW8w?=
- =?utf-8?B?K2pha1JEbWt0cjBmVlVjVXliVytXWDVlZTdpTXJBSzVnREoveVNKWVFoQlBO?=
- =?utf-8?B?QTYvMzR5SE52ZjNqM1czOWRleTc5Y0tLMjZ0QTllc0VyaUtWZUJUVzJLZWJr?=
- =?utf-8?B?WTg2NUlEdDV3R3Y3cUxHRFlGUlBDSGFodFR3QVZNc241eEEraFZJVk9wWVMy?=
- =?utf-8?B?cjBjRmdGNEdhaGdzV3BXN0FackoxMzBvSmVMRHBic0FEOURUS0swOTlud2Y4?=
- =?utf-8?B?WFc2alAyanJoMkxzbWNXRytLeDhNVVRDZ3A0NjM1VFFrQlZ5QTJIK0dyUzI1?=
- =?utf-8?B?aWxRejRDOHJyQ0xXVXZ5Z3pzckdhblFBZDFRNXFkT3JsK28rWE1jU1hURmFS?=
- =?utf-8?B?SkhFTlNTeFNEaWh5cEdHUWVTSm5DU0ZpV2cvelRTT01qeEhkZUVvUkl2ckxh?=
- =?utf-8?B?cmFUZ3NUcWN6Tzg4My8vSmVacldVVjBRa090SGkwN1Z5MFM5M3RDRnp3U0pF?=
- =?utf-8?B?ZjBKRlJrZVptak4vUEVmK1VrTUlDcFpvaDJwQkc5NkJQanduV3RJTFZqTmQy?=
- =?utf-8?B?K2ZaemREV2dFVUowRzEzZ1hBM25zRjRib2E1QVpTeW02cjhvdVI1ZDRtUVRM?=
- =?utf-8?B?d2o3dGxISms2bGsyWER4L3dwQlo2SHNCbWxCTHkzTno5R04ySXhEbFBIK28z?=
- =?utf-8?B?dDBJa1Fwa0VOcHN1a1FpK0xVSFZvbTRtZHIxRmtySmpNNmE5a2RxZ3BTMi8w?=
- =?utf-8?B?M3FKbHBETE1wbTVDQ3hEMGNWdCtCallhNFNHS3o0eWJ4eGwzNEZybFlxanFX?=
- =?utf-8?B?ZDlnU3VDRytod1hYTTF0aGxHMFJaRGRUejU3c2pQS1lxdmNkK1oyL0NZbE1H?=
- =?utf-8?B?ZlZseWtsZ0thbHdPdVAzdEtqTlhIUndnR3AwclZzWndqUlFQdFRoaURSNm1h?=
- =?utf-8?B?SitZR0U1MktRNWRwdEs1VGRWTkZ2TXoyVTJHb3FHTnFWQlo3RVRxQ2RUZ2hG?=
- =?utf-8?B?aTdjQy9xV2xXQldHYXNZSnhOeFFmdU1qOHZlTEg3QzNQZS9QMDZWRGpEQkVy?=
- =?utf-8?B?aGN3em5tRi9TVWVMOFo2eW1rdDRrNHJiU2RtemhjRTBONkJ3UVU5THFhT0Jy?=
- =?utf-8?B?dEp3SktLN1FjYWlPZm1OczJrbjV2SThsRlJLN3dGbVhJNGRSTVc3c2MzZFRI?=
- =?utf-8?B?cWdzQ2ZNVDlEOENpamhJWGVUR2EvY2REYjBmemJxQjhGSzNwN3gzekcxck04?=
- =?utf-8?B?aUxkeHF3U2QvM1U5T0VIK3lxaG1MWnhacExWS1lhOG90b1lBakExWkNGRG9i?=
- =?utf-8?B?SkFkRUZTdjhSS0VKMExHdXNRbjNJL2RNOHFuWG1mTlBlRmRNRFB3UTB5ZmFB?=
- =?utf-8?B?V2lFbDlUeVJuYlpXbGZ4aHlFKzVXRVRBd2RCdzlvZkpoL0poa2R1MHB6b1Q2?=
- =?utf-8?B?MnZZTmZYMzdyQUJRUjUxak9hT20rNERGamFuVmJkUWlZMlFpa3ozTGhhUHoy?=
- =?utf-8?B?WndWSnBWYUpvQzQrWG5GcVRFWEtWL0JaTkUzNVVQSHhmam5NN3V2U2FVc2Rr?=
- =?utf-8?B?TEg2anIxNHRlWkVwRDhtYmxPUkR1aTNWMHhsYnNxNmVWd0RRek40RXFVdTJS?=
- =?utf-8?B?S3Zjc1pOMmo1N1F6c3lYclNaMmdveWNUN3VRZ2tyZCtLbzRJM1ltUXFpekVS?=
- =?utf-8?B?RzFmajFTZ2xPYmF4SzFXbXR0b2RmTEhaTXBaelV3OFg5QzhKZzE2akhueVRn?=
- =?utf-8?Q?tUsJr2BDDCQNub4H5q7AoLiih2na5HQ26UfC5t0Q6o=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 203735a1-5fbb-4699-189e-08d9f628c9fc
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2022 17:28:49.9689 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2022 17:49:18.5471 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d92a4b4-1d18-47bd-5071-08d9f62ba678
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uU5H/+w2ieWaMyvKijryv7VAugZP18SEeMsRpfqjtsNPjofbMGtdm32mlB7rMBtZcDvZD5hUCgJJdYhDt86YXQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4411
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2517
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,83 +99,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- shashank.sharma@amd.com
+Cc: daniel@ffwll.ch, Arunpravin <Arunpravin.PaneerSelvam@amd.com>,
+ matthew.auld@intel.com, tzimmermann@suse.de, alexander.deucher@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+- move i915 buddy selftests into drm selftests folder
+- add Makefile and Kconfig support
+- add sanitycheck testcase
 
-Andrey
+Prerequisites
+- These series of selftests patches are created on top of
+  drm buddy series
+- Enable kselftests for DRM as a module in .config
 
-On 2022-02-22 09:37, Somalapuram Amaranath wrote:
-> Dump the list of register values to trace event on GPU reset.
->
-> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 17 +++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h  | 16 ++++++++++++++++
->   2 files changed, 33 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 1e651b959141..7c48fd716adb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4534,6 +4534,22 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
->   	return r;
->   }
->   
-> +static int amdgpu_reset_reg_dumps(struct amdgpu_device *adev)
-> +{
-> +	uint32_t reg_value;
-> +	int i;
-> +
-> +	lockdep_assert_held(&adev->reset_sem);
-> +	dump_stack();
-> +
-> +	for (i = 0; i < adev->num_regs; i++) {
-> +		reg_value = RREG32(adev->reset_dump_reg_list[i]);
-> +		trace_amdgpu_reset_reg_dumps(adev->reset_dump_reg_list[i], reg_value);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   int amdgpu_do_asic_reset(struct list_head *device_list_handle,
->   			 struct amdgpu_reset_context *reset_context)
->   {
-> @@ -4544,6 +4560,7 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
->   	/* Try reset handler method first */
->   	tmp_adev = list_first_entry(device_list_handle, struct amdgpu_device,
->   				    reset_list);
-> +	amdgpu_reset_reg_dumps(tmp_adev);
->   	r = amdgpu_reset_perform_reset(tmp_adev, reset_context);
->   	/* If reset handler not implemented, continue; otherwise return */
->   	if (r == -ENOSYS)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> index d855cb53c7e0..b9637925e85c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> @@ -537,6 +537,22 @@ TRACE_EVENT(amdgpu_ib_pipe_sync,
->   		      __entry->seqno)
->   );
->   
-> +TRACE_EVENT(amdgpu_reset_reg_dumps,
-> +	    TP_PROTO(uint32_t address, uint32_t value),
-> +	    TP_ARGS(address, value),
-> +	    TP_STRUCT__entry(
-> +			     __field(uint32_t, address)
-> +			     __field(uint32_t, value)
-> +			     ),
-> +	    TP_fast_assign(
-> +			   __entry->address = address;
-> +			   __entry->value = value;
-> +			   ),
-> +	    TP_printk("amdgpu register dump 0x%x: 0x%x",
-> +		      __entry->address,
-> +		      __entry->value)
-> +);
-> +
->   #undef AMDGPU_JOB_GET_TIMELINE_NAME
->   #endif
->   
+Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Matthew Auld <matthew.auld@intel.com>
+---
+ drivers/gpu/drm/Kconfig                       |  1 +
+ drivers/gpu/drm/selftests/Makefile            |  3 +-
+ .../gpu/drm/selftests/drm_buddy_selftests.h   |  9 ++++
+ drivers/gpu/drm/selftests/test-drm_buddy.c    | 49 +++++++++++++++++++
+ 4 files changed, 61 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/selftests/drm_buddy_selftests.h
+ create mode 100644 drivers/gpu/drm/selftests/test-drm_buddy.c
+
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 763355330b17..f1422bee3dcc 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -71,6 +71,7 @@ config DRM_DEBUG_SELFTEST
+ 	select DRM_DP_HELPER
+ 	select DRM_LIB_RANDOM
+ 	select DRM_KMS_HELPER
++	select DRM_BUDDY
+ 	select DRM_EXPORT_FOR_TESTS if m
+ 	default n
+ 	help
+diff --git a/drivers/gpu/drm/selftests/Makefile b/drivers/gpu/drm/selftests/Makefile
+index 0856e4b12f70..5ba5f9138c95 100644
+--- a/drivers/gpu/drm/selftests/Makefile
++++ b/drivers/gpu/drm/selftests/Makefile
+@@ -4,4 +4,5 @@ test-drm_modeset-y := test-drm_modeset_common.o test-drm_plane_helper.o \
+ 		      test-drm_damage_helper.o test-drm_dp_mst_helper.o \
+ 		      test-drm_rect.o
+ 
+-obj-$(CONFIG_DRM_DEBUG_SELFTEST) += test-drm_mm.o test-drm_modeset.o test-drm_cmdline_parser.o
++obj-$(CONFIG_DRM_DEBUG_SELFTEST) += test-drm_mm.o test-drm_modeset.o test-drm_cmdline_parser.o \
++				    test-drm_buddy.o
+diff --git a/drivers/gpu/drm/selftests/drm_buddy_selftests.h b/drivers/gpu/drm/selftests/drm_buddy_selftests.h
+new file mode 100644
+index 000000000000..a4bcf3a6dfe3
+--- /dev/null
++++ b/drivers/gpu/drm/selftests/drm_buddy_selftests.h
+@@ -0,0 +1,9 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* List each unit test as selftest(name, function)
++ *
++ * The name is used as both an enum and expanded as igt__name to create
++ * a module parameter. It must be unique and legal for a C identifier.
++ *
++ * Tests are executed in order by igt/drm_buddy
++ */
++selftest(sanitycheck, igt_sanitycheck) /* keep first (selfcheck for igt) */
+diff --git a/drivers/gpu/drm/selftests/test-drm_buddy.c b/drivers/gpu/drm/selftests/test-drm_buddy.c
+new file mode 100644
+index 000000000000..51e4d393d22c
+--- /dev/null
++++ b/drivers/gpu/drm/selftests/test-drm_buddy.c
+@@ -0,0 +1,49 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2019 Intel Corporation
++ */
++
++#define pr_fmt(fmt) "drm_buddy: " fmt
++
++#include <linux/module.h>
++
++#include <drm/drm_buddy.h>
++
++#include "../lib/drm_random.h"
++
++#define TESTS "drm_buddy_selftests.h"
++#include "drm_selftest.h"
++
++static unsigned int random_seed;
++
++static int igt_sanitycheck(void *ignored)
++{
++	pr_info("%s - ok!\n", __func__);
++	return 0;
++}
++
++#include "drm_selftest.c"
++
++static int __init test_drm_buddy_init(void)
++{
++	int err;
++
++	while (!random_seed)
++		random_seed = get_random_int();
++
++	pr_info("Testing DRM buddy manager (struct drm_buddy), with random_seed=0x%x\n",
++		random_seed);
++	err = run_selftests(selftests, ARRAY_SIZE(selftests), NULL);
++
++	return err > 0 ? 0 : err;
++}
++
++static void __exit test_drm_buddy_exit(void)
++{
++}
++
++module_init(test_drm_buddy_init);
++module_exit(test_drm_buddy_exit);
++
++MODULE_AUTHOR("Intel Corporation");
++MODULE_LICENSE("GPL");
+
+base-commit: 95ee2a8b4b3cd1fb25f7e14e2202da4045030173
+-- 
+2.25.1
+
