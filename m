@@ -4,90 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B5C8C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 21:46:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44540C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 22:59:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C967B10EF23;
-	Wed, 23 Feb 2022 21:46:56 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B47110EEC7;
- Wed, 23 Feb 2022 21:46:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iuk5e3aD1Br1Q3rtURplo8waocQ6TxjLJE5bDlbY+AhxEUIl7z2KRBSL4/hSRfYg3iJCvpyO9e0zFceTOtedDnc+51/+NM6Y76f+CEOi6uQNvFLNOFlbHVDEKCfh+syFNPUvgqyHi9ne6/3Kv/+tYHH2OIamevm2DJDVfOCjZp+27+uuMtbDAYlkgaLCVSga5RkKKu3YTLHMgZbYkIxvj78XPk1SJuKIRfUQMMRDF/vLOzNUGthcrGTzCYh+3cxBW1iNZfa+W2XyGtLV7EfWFGYHZewMM4kbqFoexp9W0iFC32bppNvLnUtS74n/IUOcGWWVnwCJmb/064E/VEVJSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6c4XiGtuh7S51aUXxeMZoUf5dVsKwAI3NttrksTEp2c=;
- b=gXKLpUoAetWg1zrEjdH8+fSn0y2U1pOkeLKzDWZMtbQoNzS122q55Vbejs8cboTCtG3fv8bInCuUlRLRKkJyT4+WSobGY1rvsx3WMAbD0sXnVtudoyH2BHYKqhrp336YBViao8wyUCxRuq1ytTSC+6WBa8Mp/2ax+Z5G8vu81Klf2n1cKYF38OGEt9txD/b0up4ai5x5OQlhSj9QftlA8pa4PNadTWCP6GmCfqHp2Ntnb6tQg/vwO95W8cb2o5CU1r2LcYzBOizq9il3UmQdb0N9CL5TQnlKRpv6Sydh81tpzZx4d/CTlyFSEaSgB3Yfl7Bg4ARJYtkPMNPRXmR4DA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6c4XiGtuh7S51aUXxeMZoUf5dVsKwAI3NttrksTEp2c=;
- b=0kZe6kXl7PBbDnVHcheUsfvwMDqfNv9/LCPBFa3U17DF4FrwevpPOMDNxugwCxrXNas9tCDz6ImXSfFukg6xY839XnCyOxuM9cA7C62xIM2lFWCT3foOaarjD1+gyVGj4pkyLeyuYqFweR4dw/R3lWtozXqZnUm3zTSpQ+W6f/4=
-Received: from BN6PR22CA0064.namprd22.prod.outlook.com (2603:10b6:404:ca::26)
- by MWHPR12MB1933.namprd12.prod.outlook.com (2603:10b6:300:10b::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.17; Wed, 23 Feb
- 2022 21:46:46 +0000
-Received: from BN8NAM11FT040.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:ca:cafe::8f) by BN6PR22CA0064.outlook.office365.com
- (2603:10b6:404:ca::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.19 via Frontend
- Transport; Wed, 23 Feb 2022 21:46:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT040.mail.protection.outlook.com (10.13.177.166) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5017.22 via Frontend Transport; Wed, 23 Feb 2022 21:46:45 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 23 Feb
- 2022 15:46:44 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu drm-fixes-5.17
-Date: Wed, 23 Feb 2022 16:46:23 -0500
-Message-ID: <20220223214623.28823-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCD8E10E393;
+	Wed, 23 Feb 2022 22:59:15 +0000 (UTC)
+Received: from mx2.absolutedigital.net (mx2.absolutedigital.net
+ [50.242.207.105])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 70E7210E393
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 22:59:14 +0000 (UTC)
+Received: from lancer.cnet.absolutedigital.net
+ (lancer.cnet.absolutedigital.net [10.7.5.10])
+ by luxor.inet.absolutedigital.net (8.14.4/8.14.4) with ESMTP id 21NMwvAp003449
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL);
+ Wed, 23 Feb 2022 17:58:57 -0500
+Received: from localhost (localhost [127.0.0.1])
+ by lancer.cnet.absolutedigital.net (8.14.4/8.14.4) with ESMTP id
+ 21NMx9MG008938
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+ Wed, 23 Feb 2022 17:59:09 -0500
+Date: Wed, 23 Feb 2022 17:59:09 -0500 (EST)
+From: Cal Peake <cp@absolutedigital.net>
+To: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: AMDGPU: RX 6500 XT: System reset when loading module
+In-Reply-To: <809355d6-ef2a-ca90-5a9a-813beb8ff6d1@amd.com>
+Message-ID: <alpine.LNX.2.00.2202181444250.8791@lancer.cnet.absolutedigital.net>
+References: <alpine.LNX.2.00.2202131848490.20545@lancer.cnet.absolutedigital.net>
+ <b30922e2-04f5-2135-695c-2ea84d9307ac@amd.com>
+ <alpine.LNX.2.00.2202141223020.10303@lancer.cnet.absolutedigital.net>
+ <de9952a6-cba1-4927-f8e0-fcd7f115267e@amd.com>
+ <alpine.LNX.2.00.2202171254420.21576@lancer.cnet.absolutedigital.net>
+ <809355d6-ef2a-ca90-5a9a-813beb8ff6d1@amd.com>
+User-Agent: Alpine 2.00 (LNX 1167 2008-08-23)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 25763d46-6b1a-4411-058c-08d9f715fcc8
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1933:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1933A9017230C666D2170AC9F73C9@MWHPR12MB1933.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: l2Y9MsYugllBX3lqM8QA6sUNWF7tOncX5/q4erbO/AmdyDr91rN68ILt77KDV8wLAkSL1RBeuiM4hUR1lFoJP1ezCNzEcoaOv4+s+MynmDbld//02VBwtStNT2hsW1NyWIkUCD60qOaecrHX+PNOHDpKGvCWRcbJ7h/CHHYZBZBF27iqmW3Z/TpJjc1rwltVRj5jZTz3SF4MgMeeItLGrDFZ6NvMDkw5trIGQlLEfBn381UqFljzKFxhORoOLZ7i/Zx6kgNwtR7HRoX3FeHjassLbXlfFTHOkK2qRm79eLDmXmkQ2gTgm4OfTuj9mRtIoixe8uL6iS2suhvCGUNY6h8RxaB5ogIHF3rTGHeuDqxXYNlYM193oxgnP78pQrnlJaIRn7a4gQNvDREW9JlS5Xigh+viAZFQeOdmAVJT+sHgtF1+fms0w7ojvpEgMu3AqfMNp8AJJjBLzupjiWsJ0lvDE2Jp5A1set2GwqJs5OR8tAH+Ofw2GZqPBpwsl0/tqxspxxg9A+gOfcQ/AwiKcKVWOnNIBFO3xnMrYpQzug6Flw0FcYVnEKIae39MD5IZ4zBTfd3sGhTukAvfg1B7J1d+2vL7b3/qLIyRpPKU15elMxKOXgA0/tNTAVJ/wbfbhr00tqfoOGHj3VBCrndHfoIQdxRuaPWpxQwxeXWgVIwQ5WmTbY9Zn7mjGruO4Zz2D0CNnCSF7q7htjPBb7BDLA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(1076003)(36756003)(186003)(508600001)(70586007)(86362001)(82310400004)(8936002)(2616005)(16526019)(8676002)(6666004)(426003)(2906002)(26005)(4326008)(966005)(7696005)(356005)(5660300002)(336012)(81166007)(70206006)(83380400001)(40460700003)(47076005)(66574015)(36860700001)(316002)(110136005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2022 21:46:45.6195 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25763d46-6b1a-4411-058c-08d9f715fcc8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT040.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1933
+Content-Type: MULTIPART/MIXED; BOUNDARY="118098437-563937920-1645213522=:8791"
+Content-ID: <alpine.LNX.2.00.2202231649110.5028@lancer.cnet.absolutedigital.net>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,75 +50,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Fixes for 5.17.
+--118098437-563937920-1645213522=:8791
+Content-Type: TEXT/PLAIN; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.LNX.2.00.2202231649111.5028@lancer.cnet.absolutedigital.net>
 
-The following changes since commit cfb92440ee71adcc2105b0890bb01ac3cddb8507:
+On Fri, 18 Feb 2022, Christian König wrote:
 
-  Linux 5.17-rc5 (2022-02-20 13:07:20 -0800)
+> That's a really strong evidence that you have a hardware problem here.
+> 
+> BTW: Where do you got that hardware from? Is it used or a new one? Was it
+> maybe used for mining?
+> 
 
-are available in the Git repository at:
+Nah, this was a brand new card I bought on launch day from a reputable 
+brick-and-mortar.
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.17-2022-02-23
+Since I was getting to the end of my 30-day return window, I decided to 
+just take the card back and exchange it for an RX 560 -- the only other 
+card comparable in price that was also in stock (thanks miners/scalpers!).
 
-for you to fetch changes up to c1a66c3bc425ff93774fb2f6eefa67b83170dd7e:
+When I got that card home and tried it out, it had the same problem. From 
+there, I decided to take a break and try a different approach. First thing 
+I wanted to try was stepping through the different BIOS revisions 
+available for my motherboard to see if that made any difference.
 
-  drm/amdgpu: check vm ready by amdgpu_vm->evicting flag (2022-02-23 16:31:06 -0500)
+That's when I saw ASRock had a beta for the next BIOS release available 
+for testing. Flashed it, configured the BIOS to my liking, and incredibly, 
+no resets or crashes.
 
-----------------------------------------------------------------
-amd-drm-fixes-5.17-2022-02-23:
+I've been under the weather for several days so I'm just now getting back 
+to testing things again, but so far, everything seems to be good.
 
-amdgpu:
-- Display FP fix
-- PCO powergating fix
-- RDNA2 OEM SKU stability fixes
-- Display PSR fix
-- PCI ASPM fix
-- Display link encoder fix for TEST_COMMIT
-- Raven2 suspend/resume fix
-- Fix a regression in virtual display support
-- GPUVM eviction fix
+I do wish I could have gotten to this point a little sooner. Exchanging my 
+overpriced brand new GPU for an overpriced 5 year old GPU is a little 
+stomach turning :-/
 
-----------------------------------------------------------------
-Bas Nieuwenhuizen (1):
-      drm/amd/display: Protect update_bw_bounding_box FPU code.
-
-Chen Gong (1):
-      drm/amdgpu: do not enable asic reset for raven2
-
-Evan Quan (2):
-      drm/amdgpu: disable MMHUB PG for Picasso
-      drm/amd/pm: fix some OEM SKU specific stability issues
-
-Guchun Chen (2):
-      Revert "drm/amdgpu: add modifiers in amdgpu_vkms_plane_init()"
-      drm/amdgpu: bypass tiling flag check in virtual display case (v2)
-
-Mario Limonciello (1):
-      drm/amd: Check if ASPM is enabled from PCIe subsystem
-
-Michel DÃ¤nzer (1):
-      drm/amd/display: For vblank_disable_immediate, check PSR is really used
-
-Nicholas Kazlauskas (1):
-      drm/amd/display: Fix stream->link_enc unassigned during stream removal
-
-Qiang Yu (1):
-      drm/amdgpu: check vm ready by amdgpu_vm->evicting flag
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c        |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  3 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  9 ++++--
- drivers/gpu/drm/amd/amdgpu/soc15.c                 |  9 ++++--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 17 ++++++------
- .../amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c   |  2 ++
- drivers/gpu/drm/amd/display/dc/core/dc.c           |  7 +++--
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  4 ---
- .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 32 +++++++++++++++++++++-
- 10 files changed, 65 insertions(+), 23 deletions(-)
+-- 
+Cal Peake
+--118098437-563937920-1645213522=:8791--
