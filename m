@@ -4,66 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66822C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 15:20:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70D9DC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 15:23:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3D4C10EB94;
-	Wed, 23 Feb 2022 15:20:32 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BBC610EB80
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 15:20:31 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id gb39so53277362ejc.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 07:20:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to;
- bh=PjNlT+Hyu/NIp/fRRHTKZXubCat7OEu8vKaVJHOVlB0=;
- b=iyT9505+XewJ0fWT5qeh13WKMq/94jOZVYyCRq+mf8pD6ES6oF4x3D0KEmiz3x+R2k
- DhlTN6zVSt/1k6UdS86zTeHwCYkxQm8N21LSsQ1vAwzY2nUTG/0LmK9ucVvN91X7a+z4
- z9oSBPl9n/PCwLz4Z5UVicn0/K3qxavb0mQ525cd57yG9PMBdYIHdg2XqE/kAuGQ9lyH
- HdGSizfwE1FGpqauX/ddUVvuDttxXS+q1ky/sWQf/wNMcNgJqrgkTfeM1EdJz12KAD9Y
- QekGLBT5pU55sGp+fAnttcrQE5aBe8ifmZqFMeqNmxdQUqtZ4EF7qt8SzI0/LG4PwPL5
- q4LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to;
- bh=PjNlT+Hyu/NIp/fRRHTKZXubCat7OEu8vKaVJHOVlB0=;
- b=7OLoHOSiYWjYObaA9syiySYsc9qCRUJw+pEpl3P6e9JVJe3GTuOxPFjPF5nws3kUOG
- gY7bQtk6ViTsnznIX4i3y12bUXV4QFcvmFHNekV8tpo8ESbE8e+LvBTmsdGmI8HonBV8
- jL5vCXDolU2GnJ4CrhoEffqiaC79ef0ThmkffikaoqE07VK+Z0UkYSGTOt9M+MGdK5GA
- zfq4F4GuZ37GarimMKUQ/rAl7pC8sJJMVSwI8xd6DGVo3XdnP8WScdwkIn98/rUhH/d0
- LuTivHnqPSIGEsDKukSfC7Cb9kbyjNMsErnjHGkP3+xEfVjDwMVTrJniDGfUp0c+aXzQ
- OR7g==
-X-Gm-Message-State: AOAM533Lg2krlYKLz/AFiBZ3BBQ7fKe8G3jHp/u4Prl6oTvPNPGOZ3hA
- /g/ULcDmjekqyXkForJwAjY=
-X-Google-Smtp-Source: ABdhPJyPp/TRNiEKRCKr2Nw4Nb+AjeSf39gE2/c9Usrz8zjYwwiW4+17pW7qVVarMU3O6pzmomeJiQ==
-X-Received: by 2002:a17:906:dc8c:b0:6d5:826c:6850 with SMTP id
- cs12-20020a170906dc8c00b006d5826c6850mr184328ejc.514.1645629629780; 
- Wed, 23 Feb 2022 07:20:29 -0800 (PST)
-Received: from ?IPV6:2a02:908:1252:fb60:6302:a8d7:78e4:4380?
- ([2a02:908:1252:fb60:6302:a8d7:78e4:4380])
- by smtp.gmail.com with ESMTPSA id dq22sm6775872ejc.100.2022.02.23.07.20.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Feb 2022 07:20:29 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------kR9ozTEUn7o4wvy0lBakS6KZ"
-Message-ID: <1f7e0a90-a49a-9547-48a6-13bf5f70271f@gmail.com>
-Date: Wed, 23 Feb 2022 16:20:28 +0100
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDA0910EC1D;
+	Wed, 23 Feb 2022 15:23:33 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2040.outbound.protection.outlook.com [40.107.92.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DFE710EC1A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 15:23:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HCwpDMNpcpxS9zijWRiE0kTVwAG2RcXMOzNOVulJh4jbSU4E1MfxRIU1Cb91ONo+bIKSCp+ro1rGkz2cCN1EBgM9v3ge4kaon6xzAkFAroxC7L/J8/BmrpP8YVqBXlD1cJLxmGBeoTw3HUOfzfneDZgmp7FnqmkDpMd5E/uHwX4JONAbQxGaVYu0JvgPaHQmwAm593U8AI8Yui8aMChWLR915Qvops/pTYCOMhMKeEx6IXf4ETuUT42meOPO6J8dNZpaC+7JUAz25c2mKEZtyDSAZuZAEXWeOz5hFIPE+XFDd4jWeBW0BnYubsSlXWeA5U55rP8hD7s1zCaN6LkpiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i5mdA8gS6s2UCSvgXUMvk+6PJ1zsDjcRw/tFyFQ690M=;
+ b=CCLY0S1Me2jwp9JUD6SZzuK+CzaVSpF3OWHOMYs10Admzm1+JQ2TIdfaXGbtRhsE30UjYvKwiDMh8b3zCkIyzqWVgWVU2BAZETrSNFaYeKYLgkeGX8d+NZA1syq4Q/qKBnJOItKbGdmepHCZm9tLlAjvIwvhSvBtQq82/Ts/IzmCV5ReSz50MgSfAq3c3D+xm0KjvYJZjzWJyUwePK3Nm39c1dquYy44DrPP42Rj+4fv+xRRYfu7RtQEEDdQ1FqX8XPl9HEziMDJL6Mm+P7E9JaalYmWUcXGkQeLj3qpQp1TkrwB0yWzmZiZTLkYOu+OqzspGoHQ6Ss05sXLbehK5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i5mdA8gS6s2UCSvgXUMvk+6PJ1zsDjcRw/tFyFQ690M=;
+ b=3b1MsPGtlPvxLuqapq4NOOHzjmmJMkaG9kmO/kh6AANhpCqoCezKtVIFWOlnzDvRbxLO7gzqYwQw1KeyQKKGKYPmI6Z9MpDEWIBCAihV9rcQo/LMPC3f+InDvKYZjwL645lRk7HqKlrlh2b1wO3d+U/ZTE+5iyeYh36i3Ty0sB8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by BYAPR12MB4695.namprd12.prod.outlook.com (2603:10b6:a03:a4::28) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Wed, 23 Feb
+ 2022 15:23:29 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::192:5346:4ece:7ca3]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::192:5346:4ece:7ca3%6]) with mapi id 15.20.5017.022; Wed, 23 Feb 2022
+ 15:23:29 +0000
+Message-ID: <0f50a5a5-3878-4e9f-9b94-7b440be66a40@amd.com>
+Date: Wed, 23 Feb 2022 10:23:26 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/amdgpu: install ctx entities with cmpxchg
+ Thunderbird/91.6.1
+Subject: Re: [PATCH] Revert "drm/amd/display: Remove unused temp variable"
 Content-Language: en-US
-To: "Chen, Guchun" <Guchun.Chen@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20220223133829.21443-1-christian.koenig@amd.com>
- <BL1PR12MB514438D37ADF99A28A0A8F5CF73C9@BL1PR12MB5144.namprd12.prod.outlook.com>
- <DM5PR12MB24698390D11135CF1347D9ADF13C9@DM5PR12MB2469.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <DM5PR12MB24698390D11135CF1347D9ADF13C9@DM5PR12MB2469.namprd12.prod.outlook.com>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220223022839.1645469-1-alexander.deucher@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20220223022839.1645469-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT3PR01CA0098.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:85::9) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2b389601-a278-41a2-4ee4-08d9f6e071db
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4695:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB4695312E1C7502E0054187448C3C9@BYAPR12MB4695.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: D9Z/nFlxcNPmghsHC6sO85YVTmZeZTZn/m0F5Q64X8TvbQcGinXLUoZtWhdQuW/DA5pVgXQPLpVJrQo5O1fUe/Ct0KLJ+yvDPcI2uDGX7RzgXFGU8S4z3aTApSj5pb+s+hEOMuMRARHP3EXrTr+SJw6uOA7+HcyhOWIx1xWyMFbtqBnRrLvh5HU3dr1yqhL1vQenKlgRXo8xvK+zaAoCTQgG7Wz4lrdU2ucO+wkA1hdFye5UxfXnYVZnnjL3Ky7UOOQtXtvraRa9wL5himCca9PZ0WHDrKJJs0ynK+mBQ4CKzAmnV2cSgJZXRJ7uvdt2Oej5vzmheaQ4SguRyEL1OgQrUKe5MGIAOEtJrRqd1WSnElLP6d74ERNtMyapaKSHvWfoHY3lIe4MYFKwlse1/5qwgTy9Jkf7srTn42ZoKm1OFgGhIs4Hr+0qVU5Nc9+3+tI6sEotk6mERaAjHKN9qT9jF9KQSiPceU/ocAoOKi31PwpvzDGRZ2Otet8Xgl7LPYJMUJlj8DajF4FebSpstt1NbZ15fhVHlX6a3mHXG/H29ShumwnUquVhO8eEevs+IcGPzU8l/0S2cejTE857WO5UVvTWBCfY/YID4zrJ/eslppCf1G3Zd3x40M7KDBogBhC7th0c/XJvAFK8C/vlinJNMame2sSvYhz6kz3WjwxBchm36ZO8AMgN2EJTW/q5N5jRaJhU5fFICJEvuxMmNzj7ju4/4gNRdloWO/NnhHFFpxN/RvksW9zYt0HRxnVW
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(36756003)(6506007)(86362001)(26005)(186003)(38100700002)(6666004)(2906002)(31686004)(53546011)(44832011)(66574015)(66556008)(508600001)(316002)(83380400001)(4326008)(966005)(31696002)(6512007)(8936002)(66476007)(2616005)(5660300002)(8676002)(6486002)(66946007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YVVnMndMV3lNSldmSjBSU2RoWkFwc2tQY1MrOUFZNndWcXM4S3NNdFRhZXZY?=
+ =?utf-8?B?TlUrL3pmTWxOVWplRlVMdTVrMXpuck9LSzdsNWU3U2JMTGhJT3B0SDFLWXg2?=
+ =?utf-8?B?TXZZZEFzajBaU2lrb0VXRXB2Yi82KzcrRHZodm9qSmFQb2JWSkVrN2QrVGpz?=
+ =?utf-8?B?VkRIbzBUcGZ2L1BSZHd1VHBYL3dLOEZhOEdESXpFTzNhRlJSNFJTeWFrbC9V?=
+ =?utf-8?B?YyttbE1NVnEzY2wrWlZvc1dWWWw2N0MvdU5aN211UHE1VTZKSVdVbzRKeWVY?=
+ =?utf-8?B?UEVkY0tzcXBKR2J0Q3FSRWRUVnU2eWZOekdEZDc5dEtVQmQyYTZBM0Q5QXJ0?=
+ =?utf-8?B?NnZaem9VVDNUaHBwUDhCQ3I5aFJUK3hEUFFueS9taWkvbTFsNWVJZE96L2VH?=
+ =?utf-8?B?aW9iRm5RanFKTXVEU0IwUisyandvMFcyV2g0OGRncDV3MzBCbHZocUpJVHhX?=
+ =?utf-8?B?QnN1U1pRYVJrSElCb0JVbXFaY0w5UXVlanZYZzU2dTdNVnM0UFRGS20vRHR2?=
+ =?utf-8?B?LzJNWWdoOWtLTFQ0aTArL1dVREJkOHZhVTZ0a2NXYW5RbWl4SjFiaWVJMDFW?=
+ =?utf-8?B?UlpBTEN6Q0h2cXJEWFdybUV6YTc2cGc3c3V3M2RzQUZDclNLTDRCQ2YzanFQ?=
+ =?utf-8?B?K1dwTDkyVWZUOEhsdmZxc09hdlNhK3JFTENRVFJtTTJOZDVueDVnbWZHVFgw?=
+ =?utf-8?B?d0pyd01LR2FTSW1iQW9wU1k4SHA2VTJQQzI1amdsbEtxTlo1c1RwS2hSckRt?=
+ =?utf-8?B?ZGpCb1dVMHlwL3FrOWplYzVvdWorclhHdjNRZjNXeFM1MzlFZjBEMnBaR0xV?=
+ =?utf-8?B?dS9KOTBieWRDRFZMY2ZnVy9SQTloUC9SdVk3OHpOUGx3YVc5OVpsSFdSZTk5?=
+ =?utf-8?B?c1NQVEdRY2Z3aGh4TTNLMHJBc25KaTZndDRXMnJBamtYWm9XTmZ1b0dwU3dX?=
+ =?utf-8?B?VXI3WUVCdWZMdENHN2JzK2ZhWWlJUHdzbWxuQjNiK2dxZmlEMGdQSi8rMU1w?=
+ =?utf-8?B?ZlZTV1N5YXU3eGJPRDVBSzgrZitFSURVZkRLc0JNTmNhTjhpdWg1cStVaVd6?=
+ =?utf-8?B?UGI4K1NESDZUMDFRMmtKak1XYjdkWGxuL093bmpDVlBRY1lLM1RPUmswYm82?=
+ =?utf-8?B?dG1WZ1ptYzJobEs0UlVKQ29FeHdtcGp2dG56c25TY3dZUDRWK2EwbXlTclRT?=
+ =?utf-8?B?N0Z3SmNDbXJveFpVSGg5aEJ2UUV1UElQdC9Pcmp1dEFINEFUc1dTM3JQQUw3?=
+ =?utf-8?B?dUhBSWNITnl4SHExZXJSK0RtYkVYR3lDandLZWZyM3FoOEsrditpNCs0WXZq?=
+ =?utf-8?B?SGFuNk9XRzBIZ2xQTEU2amdwQi9MTCtpMzNqUWJYcENEd2lBUDZ0WmRVNVhU?=
+ =?utf-8?B?QzMvb05RTGIxRVFMdW40N3NXQXl0bW1DbzBYMkdjYnFuaVJ4amR6Mi9mZEtj?=
+ =?utf-8?B?U1hvOG1OQ3lveFN1NTBZR0dYZWVIRjlHTXZpNk1YaUhQTTZYaDRsUEdCSnBH?=
+ =?utf-8?B?WVh3TjF1RktqYWFSYk41aFFYdm5IeHJwTVViYUF3dGtQZDA0MHNzaVREam1Z?=
+ =?utf-8?B?R3RMRjMwc3lNYml0aXdGMy9qcnR3YUlGZlBqL0pBeENIdTF2b0liN0pkVW1Y?=
+ =?utf-8?B?L1BBUnczU29saU9kZlhBS2RPZnZZT293a2krR2JGYUs0V1RjcXpBaGhyUDlC?=
+ =?utf-8?B?UGRDZDBkajFUNnFtUE52dGFZQmQ5TXgwYXJaYURpMHpqZTFINWpxWTkyMisw?=
+ =?utf-8?B?bnd6eXBZOFJORmlwcE15aGpkTEsxYzJsOURVVkc4alVkM2Zyanpod0tPT2VX?=
+ =?utf-8?B?SFFMQXZTajlqUlJTYkFLdjJFRjVvSTBHZ2xobFByM2MrMm5ZdWtKRDgyUmNX?=
+ =?utf-8?B?SUovWm92VDh5R3Q2NDFnUnluL2wwQXhiUG9USHBtMkJMSjJoeUlVUS9MeVpS?=
+ =?utf-8?B?NlIrY01hSHRkR2QxSk13T2YrUVB4b2twNENuSUYvaktnWENWVUY2dFZwK2da?=
+ =?utf-8?B?YlpMNmRoMkJ1R3FldFp6TmhYZDdVa0FROUl6RVNOaDNjVlUyaE15djJteEZP?=
+ =?utf-8?B?aW9EcFEyTWszZG9RekxlTGVGUGIwL29QNTFYY3F1N3VrZzFKLzFFbzBEdHU3?=
+ =?utf-8?B?azlqUzFrcDJXQXRybU9NNXpsWmcyT2l0dzc3NWJrWDlNRE1kVGw3dkphMVVS?=
+ =?utf-8?Q?FFqKLDM0HBIww/9C6q1B2wI=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b389601-a278-41a2-4ee4-08d9f6e071db
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2022 15:23:29.4659 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mrlOWoXhezdndNTaHGeER72J+gpMRFKLryqTaLSjPezlXrf7skSDONsZcr9TrFn1FQYB1nSXSxR1fmKUNmBoHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4695
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,293 +125,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, "Xue,
- Ken" <Ken.Xue@amd.com>
+Cc: =?UTF-8?Q?Ma=c3=adra_Canal?= <maira.canal@usp.br>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------kR9ozTEUn7o4wvy0lBakS6KZ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-No, as I wrote in the comment that is not an error and should just be 
-ignored.
+On 2022-02-22 21:28, Alex Deucher wrote:
+> This reverts commit b1f0ab445ec609f9b58e0969c5d052b52d9a54e7.
+> 
+> This patch is not valid.  The driver needs to actually read the
+> entries in the ring buffer.  Add a comment to make this clear.
+> 
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1916>> Cc: Maíra Canal <maira.canal@usp.br>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-Regards,
-Christian.
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-Am 23.02.22 um 16:18 schrieb Chen, Guchun:
->
-> [Public]
->
->
-> Shall we add a print to aware user when failing to install a new ctx 
-> entity?
->
-> Regards,
->
-> Guchun
->
-> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> *On Behalf Of 
-> *Deucher, Alexander
-> *Sent:* Wednesday, February 23, 2022 11:06 PM
-> *To:* Christian König <ckoenig.leichtzumerken@gmail.com>; 
-> amd-gfx@lists.freedesktop.org
-> *Cc:* Koenig, Christian <Christian.Koenig@amd.com>; Xue, Ken 
-> <Ken.Xue@amd.com>
-> *Subject:* Re: [PATCH] drm/amdgpu: install ctx entities with cmpxchg
->
-> [Public]
->
-> [Public]
->
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->
-> ------------------------------------------------------------------------
->
-> *From:*amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of 
-> Christian König <ckoenig.leichtzumerken@gmail.com>
-> *Sent:* Wednesday, February 23, 2022 8:38 AM
-> *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> *Cc:* Koenig, Christian <Christian.Koenig@amd.com>; Xue, Ken 
-> <Ken.Xue@amd.com>
-> *Subject:* [PATCH] drm/amdgpu: install ctx entities with cmpxchg
->
-> Since we removed the context lock we need to make sure that not two 
-> threads
-> are trying to install an entity at the same time.
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Fixes: e68efb27647f ("drm/amdgpu: remove ctx->lock")
+Harry
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> index f522b52725e4..16eb1ee600ed 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> @@ -204,9 +204,15 @@ static int amdgpu_ctx_init_entity(struct 
-> amdgpu_ctx *ctx, u32 hw_ip,
->          if (r)
->                  goto error_free_entity;
->
-> -       ctx->entities[hw_ip][ring] = entity;
-> +       /* It's not an error if we fail to install the new entity */
-> +       if (cmpxchg(&ctx->entities[hw_ip][ring], NULL, entity))
-> +               goto cleanup_entity;
-> +
->          return 0;
->
-> +cleanup_entity:
-> + drm_sched_entity_fini(&entity->entity);
-> +
->  error_free_entity:
->          kfree(entity);
->
-> -- 
-> 2.25.1
->
+>  drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+> index d3088836d4e4..cb92ab4c8b98 100644
+> --- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+> +++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+> @@ -2918,8 +2918,15 @@ static inline void dmub_rb_flush_pending(const struct dmub_rb *rb)
+>  	while (rptr != wptr) {
+>  		uint64_t volatile *data = (uint64_t volatile *)((uint8_t *)(rb->base_address) + rptr);
+>  		//uint64_t volatile *p = (uint64_t volatile *)data;
+> +		uint64_t temp;
+> +		uint8_t i;
+>  
+> -		*data += DMUB_RB_CMD_SIZE / sizeof(uint64_t);
+> +		/* Don't remove this.
+> +		 * The contents need to actually be read from the ring buffer
+> +		 * for this function to be effective.
+> +		 */
+> +		for (i = 0; i < DMUB_RB_CMD_SIZE / sizeof(uint64_t); i++)
+> +			temp = *data++;
+>  
+>  		rptr += DMUB_RB_CMD_SIZE;
+>  		if (rptr >= rb->capacity)
 
---------------kR9ozTEUn7o4wvy0lBakS6KZ
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    No, as I wrote in the comment that is not an error and should just
-    be ignored.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 23.02.22 um 16:18 schrieb Chen,
-      Guchun:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:DM5PR12MB24698390D11135CF1347D9ADF13C9@DM5PR12MB2469.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]-->
-      <style>@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}div.WordSection1
-	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-      <p
-        style="font-family:Arial;font-size:10pt;color:#008000;margin:15pt;"
-        align="Left">
-        [Public]<br>
-      </p>
-      <br>
-      <div>
-        <div class="WordSection1">
-          <p class="MsoNormal">Shall we add a print to aware user when
-            failing to install a new ctx entity?<o:p></o:p></p>
-          <div>
-            <p class="MsoNormal"><o:p> </o:p></p>
-            <p class="MsoNormal">Regards,<o:p></o:p></p>
-            <p class="MsoNormal">Guchun<o:p></o:p></p>
-          </div>
-          <p class="MsoNormal"><o:p> </o:p></p>
-          <div>
-            <div style="border:none;border-top:solid #E1E1E1
-              1.0pt;padding:3.0pt 0in 0in 0in">
-              <p class="MsoNormal"><b>From:</b> amd-gfx
-                <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a>
-                <b>On Behalf Of </b>Deucher, Alexander<br>
-                <b>Sent:</b> Wednesday, February 23, 2022 11:06 PM<br>
-                <b>To:</b> Christian König
-                <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a>;
-                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
-                <b>Cc:</b> Koenig, Christian
-                <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>; Xue, Ken
-                <a class="moz-txt-link-rfc2396E" href="mailto:Ken.Xue@amd.com">&lt;Ken.Xue@amd.com&gt;</a><br>
-                <b>Subject:</b> Re: [PATCH] drm/amdgpu: install ctx
-                entities with cmpxchg<o:p></o:p></p>
-            </div>
-          </div>
-          <p class="MsoNormal"><o:p> </o:p></p>
-          <p style="margin:15.0pt"><span
-style="font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
-          <p class="MsoNormal"><o:p> </o:p></p>
-          <div>
-            <p style="margin:15.0pt"><span
-style="font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
-            <p class="MsoNormal"><o:p> </o:p></p>
-            <div>
-              <div>
-                <p class="MsoNormal"><span
-                    style="font-size:12.0pt;color:black">Acked-by: Alex
-                    Deucher &lt;<a
-                      href="mailto:alexander.deucher@amd.com"
-                      moz-do-not-send="true"
-                      class="moz-txt-link-freetext">alexander.deucher@amd.com</a>&gt;<o:p></o:p></span></p>
-              </div>
-              <div class="MsoNormal" style="text-align:center"
-                align="center">
-                <hr width="98%" size="2" align="center">
-              </div>
-              <div id="divRplyFwdMsg">
-                <p class="MsoNormal"><b><span style="color:black">From:</span></b><span
-                    style="color:black"> amd-gfx &lt;<a
-                      href="mailto:amd-gfx-bounces@lists.freedesktop.org"
-                      moz-do-not-send="true"
-                      class="moz-txt-link-freetext">amd-gfx-bounces@lists.freedesktop.org</a>&gt;
-                    on behalf of Christian König &lt;<a
-                      href="mailto:ckoenig.leichtzumerken@gmail.com"
-                      moz-do-not-send="true"
-                      class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;<br>
-                    <b>Sent:</b> Wednesday, February 23, 2022 8:38 AM<br>
-                    <b>To:</b> <a
-                      href="mailto:amd-gfx@lists.freedesktop.org"
-                      moz-do-not-send="true"
-                      class="moz-txt-link-freetext">amd-gfx@lists.freedesktop.org</a>
-                    &lt;<a href="mailto:amd-gfx@lists.freedesktop.org"
-                      moz-do-not-send="true"
-                      class="moz-txt-link-freetext">amd-gfx@lists.freedesktop.org</a>&gt;<br>
-                    <b>Cc:</b> Koenig, Christian &lt;<a
-                      href="mailto:Christian.Koenig@amd.com"
-                      moz-do-not-send="true"
-                      class="moz-txt-link-freetext">Christian.Koenig@amd.com</a>&gt;;
-                    Xue, Ken &lt;<a href="mailto:Ken.Xue@amd.com"
-                      moz-do-not-send="true"
-                      class="moz-txt-link-freetext">Ken.Xue@amd.com</a>&gt;<br>
-                    <b>Subject:</b> [PATCH] drm/amdgpu: install ctx
-                    entities with cmpxchg</span> <o:p>
-                  </o:p></p>
-                <div>
-                  <p class="MsoNormal"> <o:p></o:p></p>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <p class="MsoNormal" style="margin-bottom:12.0pt">Since
-                    we removed the context lock we need to make sure
-                    that not two threads<br>
-                    are trying to install an entity at the same time.<br>
-                    <br>
-                    Signed-off-by: Christian König &lt;<a
-                      href="mailto:christian.koenig@amd.com"
-                      moz-do-not-send="true"
-                      class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;<br>
-                    Fixes: e68efb27647f ("drm/amdgpu: remove
-                    ctx-&gt;lock")<br>
-                    ---<br>
-                     drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 8
-                    +++++++-<br>
-                     1 file changed, 7 insertions(+), 1 deletion(-)<br>
-                    <br>
-                    diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-                    b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c<br>
-                    index f522b52725e4..16eb1ee600ed 100644<br>
-                    --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c<br>
-                    +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c<br>
-                    @@ -204,9 +204,15 @@ static int
-                    amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32
-                    hw_ip,<br>
-                             if (r)<br>
-                                     goto error_free_entity;<br>
-                     <br>
-                    -       ctx-&gt;entities[hw_ip][ring] = entity;<br>
-                    +       /* It's not an error if we fail to install
-                    the new entity */<br>
-                    +       if
-                    (cmpxchg(&amp;ctx-&gt;entities[hw_ip][ring], NULL,
-                    entity))<br>
-                    +               goto cleanup_entity;<br>
-                    +<br>
-                             return 0;<br>
-                     <br>
-                    +cleanup_entity:<br>
-                    +      
-                    drm_sched_entity_fini(&amp;entity-&gt;entity);<br>
-                    +<br>
-                     error_free_entity:<br>
-                             kfree(entity);<br>
-                     <br>
-                    -- <br>
-                    2.25.1<o:p></o:p></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------kR9ozTEUn7o4wvy0lBakS6KZ--
