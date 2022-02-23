@@ -4,118 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 676FAC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 14:26:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1559C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 14:27:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE0CC10E994;
-	Wed, 23 Feb 2022 14:26:28 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2089.outbound.protection.outlook.com [40.107.220.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B65A310E9BB
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 14:26:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC1510EBDC;
+	Wed, 23 Feb 2022 14:27:41 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0A9110EB77
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 14:27:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WDCAN2IICNPhY47LT+Xzd+fpDGOWOacvuGgx3wfSucxpOs671w+OyDDqSu59AtRU/135DzZb8XX47Sgg1ICG7nWC5iILW+yET0YVcJ6b8asxIi6g9Hrl29Mf+9bb0xhv7vLi/DZ4sLue1j193BBmU1IkWRy2AKYzHgtNf3Iw2oqyaRegKFp3XJmISDTvmA62O1zkhpwknxNKmQEULaKufFpqI2eNedguUaGDZpWkqTzOm+BIlvyk2G2lOSPmz0KkxpnMmsGgetvdmrHWixwH3qlxjOt7sq5Z89GutGnlPanPu3rQnbTRDutnTotI3XvLYuSh5yFtLI/Z4Zi9ykDqfg==
+ b=SQh2GG5DTPTnsV7Vc3QG5DFwdhQz95/Uv90i+LJkhDVXiJ9mWBTX9RCO52SySOhzCvn54T1yu6t48NrfjzU/cYYxFICFGFY0+g51VaXXYI+6gCzmry1MbxbAIFu+8HECpBfLxS4ICEXzWuTLyqu/SBjr0Rru+wkoGSk6rEBb3JLYRQQLq6csP2l8gM2dIDsw6tK9BPRLASdDvMLCfIMkyxhw+ES8Keyo34hjij/QI/NnnTLpjxeVCUUAZmJhUzykAop4HG3MI+5A28rO2I5HQK5f1lSuPSzbhzy/ijCVGUOPRF0pNSOh8Z/FuS+5MFgdkHmNo+wlSekfj5zm3uzf1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+rHR+eyR6X+JW82O8NU6rEibH2s7lNX69/+/YHeviAA=;
- b=Zvi8TftGA2vNQT+TR2FOV+2Z9wdIFThu3uQf7MvaDwChmfYHx0BSt3NFksBp9TVxG9dP8ZWRKSQpNwzre+uFd/taEJ4PDF1kQmzzlAjgbSyzQgdKKsndbykHlBsL8mN6apT0ipb/V1Ow8YzfNlzzCSVrATy8JlkbTTBMMyq8EBdqyJYnnwJp5XtI7Svpa4GTiKAFXNAS8291Cpy+gPgy2kskGoUqdfi6HFwL61Xed1uWeFsK43K4qiB8ENT6nBq+EvabVgSeMAo96fTu5SW475TAIjyEzo/1Ing3gWL1lG5rch2d/JmJA6mnRsOMc7XWcSN+fShkzEENNODMjxLJxQ==
+ bh=b8qbV8zO8Hly1NX1/yiW8kPDLnBu09bRGrQ18MNgGc8=;
+ b=NidhrlrhXIRTh8euRYjvVzEZnO9HP9DOHjIHxNjcY3dQ1gU19E+84FS5TFEoOd74Z25DTDdXq67NdJcWIHCBfYLGwHty4EITwBaKko2TLdEHSSn+zxolOdtMoV2VdXmV83NypFiiYRtzwRvdb2phOpcV/hXhNVBtARdtamucoyi84bNnLp4DuA4g0CE4WHGdwhlTJwyA/d7UFHbJxUePMn0D7/8oTHS3WVs+W/UwPUamZuP84LgCk3hn1Inc2I1AUq5Ni3lvvE3mhNvFsNwFR7y9k8Til3GyUwFXnbF/g5tet62e28lKPleSOOKZKgAQqAh3IDwMvFatruT5m4YS/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+rHR+eyR6X+JW82O8NU6rEibH2s7lNX69/+/YHeviAA=;
- b=4kLenrZdM3ueWCqUEItswa9sZ/v4lrN5jjjNVCv+mrrfLXZxr6igAi2KhBErFsPDxlaGDWckMQeLtqKMqsJJwyBMINNmSnDK2+oIZ3bY29t7LwHI7RWRTQN7zGxeBS14tvhHUMW+dtcR5PnOIozkWyAGBOlcsfgfmXmFUl9SBZ4=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BN6PR12MB1683.namprd12.prod.outlook.com (2603:10b6:405:3::7) with
+ bh=b8qbV8zO8Hly1NX1/yiW8kPDLnBu09bRGrQ18MNgGc8=;
+ b=Y8/vQ/7BKi/JUZwfsXh9t4tTN2mUK41h61+ilflc6PBxg+N1awrtZYWu/2aRD6M6bkD7Vele3vcSsIAHKCmt7AkPXUBkglhqFO7RjHMhOOAc7jzrW9cKGlgS6FuPbxYewLE+08w51CtZVcNOxHuYrV0CWJE7F2rFlI/YKxYQ6ws=
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
+ CY4PR1201MB0183.namprd12.prod.outlook.com (2603:10b6:910:20::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.19; Wed, 23 Feb
- 2022 14:26:22 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::2877:73e4:31e7:cecf]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::2877:73e4:31e7:cecf%7]) with mapi id 15.20.4995.027; Wed, 23 Feb 2022
- 14:26:22 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Chen, Xiaogang" <Xiaogang.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v2] drm/amdgpu: config HDP_MISC_CNTL.READ_BUFFER_WATERMARK
- to fix applications running across multiple GPU config hang.
-Thread-Topic: [PATCH v2] drm/amdgpu: config
- HDP_MISC_CNTL.READ_BUFFER_WATERMARK to fix applications running across
- multiple GPU config hang.
-Thread-Index: AQHYKH4lQdHV5vpiF0miG+bR/dz+V6yhMXIH
-Date: Wed, 23 Feb 2022 14:26:22 +0000
-Message-ID: <BL1PR12MB5144160D25AC133DD768BC77F73C9@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20220223062410.1875224-1-xiaogang.chen@amd.com>
-In-Reply-To: <20220223062410.1875224-1-xiaogang.chen@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.24; Wed, 23 Feb
+ 2022 14:27:28 +0000
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::612d:cd2a:369b:17c6]) by DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::612d:cd2a:369b:17c6%6]) with mapi id 15.20.5017.022; Wed, 23 Feb 2022
+ 14:27:28 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu/benchmark: fix error handling
+Thread-Topic: [PATCH] drm/amdgpu/benchmark: fix error handling
+Thread-Index: AQHYKMD2EE0XB5uHs0OXRexDV0GiEayhMWeg
+Date: Wed, 23 Feb 2022 14:27:28 +0000
+Message-ID: <DM5PR12MB2469F506B89147DDD39318A2F13C9@DM5PR12MB2469.namprd12.prod.outlook.com>
+References: <20220223142307.1659697-1-alexander.deucher@amd.com>
+In-Reply-To: <20220223142307.1659697-1-alexander.deucher@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-02-23T14:26:21.610Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-suggested_attachment_session_id: 92ceea90-dea7-fe11-d4a7-4f9fc2f5b653
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 172deede-75d8-45e5-bee3-08d9f6d87741
-x-ms-traffictypediagnostic: BN6PR12MB1683:EE_
-x-microsoft-antispam-prvs: <BN6PR12MB1683F79DAB565C0CF441D74CF73C9@BN6PR12MB1683.namprd12.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: 63453667-517b-4ce4-7f9f-08d9f6d89e85
+x-ms-traffictypediagnostic: CY4PR1201MB0183:EE_
+x-microsoft-antispam-prvs: <CY4PR1201MB018398C49CAA41E391998441F13C9@CY4PR1201MB0183.namprd12.prod.outlook.com>
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: IWWCgs7hSePW+bNCBw5hIHhHN3MoDGtz47G/Ol61mSNWaQSkn3DG62+HCLp3ZmM4KiFmrYPrZWYLnPgPEe8slEVbnbypmbQGvzwQroVcWrrnv/7PY6OFIY2W+qUu8dQDy55b9hhjzIvE3Gju3iS1HYc0GG5jMaIhUgNYzp8FVPNqobt3j7Mn5nD2n+8pr7g/2cQ5/8lh8d9LkIjNH/eUS8DK5tEMTUL4x2bRhJbz22NYGEh/vfNWStkJKEljKMOCan8R5bKZv6QGacFC0jtpujIbrNWDo0Ls742dsmZwtG5TZdgEqA/5X/8eC9Vi2mMiliHmoHifIhDhVhLMlVPgTVNDM4O6YZo2YXWMC2fRMU/l3RXXKLs9cjixjiH6yUZupz4NT8fFurwz+1AMnsoEm41sXGlJIYAVP6kdn83yFTCS5vcP/DcWWPaz0sTdI15n2QKUsuYS3QI2G8UPP4tE66InuTG4B3TMSfJslbbR0nVR8s5VGTeUygpglP5ZT2E/HXK//wv5AfE9QWgEwnqL4XU0PbBYzXGNLlEf6ETeggygn4NxQoD8Q8rrHxZ3Y4OVT3C2tqlZzIhbX5niH/vdttLozF62oFAbUaAMU86qbjWNqdBZIppwirLTUDwKe4J3Vk1pT78+iQxfueuLVme85qBbO8f5F1cBYPK0XKo97PwNaWEay40VDw7UBSnD+Izj/+5trQZ5qEd+U4XJhQoUbw==
+x-microsoft-antispam-message-info: zfMa4DoPtSUCq0r4oV6ritA5c7aj/cI7DWtLMaJW3rM8xA79smELFiOLOk3sdj0bluFjtwW/vEFOPi1tLg0ZY0xn/nRMKSZjqpDJibljKUgGIn8MKimEqEqJfjN9LTcBhE9HaEz8XC3ydjpEjRUGWMnEUl2c4MOFf9xw6ndaSz3qz4atDhCjVhqcyuLLmozq+nLnIA3CQtMfk3laGy6fchwuE8uATmQP+JjnscVNRvo3DaW8wbfCTdKA8DVoF+Oj3yYdHKdWc8IUR7cT6XRI4zUtBQUwzq3/z+XCtAMWjgCjPylbFBkRVeal5XgxAD4ozKrlVdmhtONuQYutYCBWDEDaNR+Pssrl4QkTpXufvGAbatpMlVYeLx2ZlW/tYeZA1rf0ITcypk25jia4GvAuWDmpwd2XsVZCeLwpI2BcQ3a030Po2vlrsj/djxfP5kzGc/tCPNEuLQ7hMs6ciu33c5dss2ANAhv3MzS9zl3pw4VBpmbIwwcxNMiGkPDyDIp/OkLC4SyIx19GlFGJZDojWKOpFi2mxCkY8aoHWqjx+beqOz8+wq+Lj2DV4lv7z1Rxpf3MWxcFXmS5lQGrItOD6oiafkCG0zRAWIvJbpOjC0f6guRepCiOP4afpkVq6f23RQD89CTIEa0feZVsnehz7L7cMzwYKx8FcXGko8jweJaOsBZMsaaQSY1URPrl/y6yZBgPa/o4KPhcR0bdSAQcZw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(2906002)(64756008)(5660300002)(122000001)(4326008)(8676002)(8936002)(19627405001)(52536014)(38100700002)(186003)(83380400001)(38070700005)(33656002)(26005)(66946007)(66556008)(66446008)(76116006)(66476007)(55016003)(7696005)(6506007)(316002)(53546011)(71200400001)(86362001)(110136005)(508600001)(9686003);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(186003)(71200400001)(66476007)(9686003)(66556008)(66946007)(54906003)(7696005)(26005)(76116006)(53546011)(6506007)(316002)(110136005)(508600001)(86362001)(64756008)(66446008)(122000001)(8676002)(83380400001)(4326008)(38100700002)(52536014)(55016003)(5660300002)(8936002)(33656002)(2906002)(38070700005);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?x4jg0NkoPvH6r7l6Sby3h+3vq0X0Ow7qTkl0L3B8jpZfNkwAd70JqH5gtTQi?=
- =?us-ascii?Q?+PYxjs9xGUhLmBx+8EPXyVKBCRHpi5XWKkagCWTmv4uBkGkKcwLce+WaVDAQ?=
- =?us-ascii?Q?UUezrAc8Xp4T74kkKAnu+2TQ2OdLrthOCl2p3+NmEMidjAyrja5eS8dWwj0Y?=
- =?us-ascii?Q?YbBeDLZurDFUcbXSIiwk5rShhe3y0fRb3ArrWJYZDBXVelZ1Z6ysAsoNbOTT?=
- =?us-ascii?Q?NLp+j1E00uq4bkI5dbecDxRC054gV+nQQGP3vo0SIq7X6uzzVkP/8PRqEZFw?=
- =?us-ascii?Q?M1IWV/0qvKsON5mDKkDoXCSUnJJDknBm3R00HhnzIx/YS5OuZe6KQQ0JWMa9?=
- =?us-ascii?Q?L1sKmsijViGDvzelR3A7G5z9RBu87CaN51KF/FZkujwg4RDyHsWXnj5FWV3Q?=
- =?us-ascii?Q?24NYY/rWYywWdSeuIpWXsyAXeqm+/7mspzSCMuwIJMJKGcVGsNF9xw/8kOkS?=
- =?us-ascii?Q?+6/nS1bXC6PpW85ImYjto9j0UasyhJxDejirVWjTL/Rwu2NjXvffA8yJFnXe?=
- =?us-ascii?Q?KK/9IPi7CP21R/krX8g9QjDtUGbF0i3Q8SVAyc9taiaHJbUHwkcPk4Fo9yqe?=
- =?us-ascii?Q?wQEHso/+QKbuYCoadTnGcvHS/EdvKTosQYAIdOsWY9l8u1BpcjElBgFxNfV/?=
- =?us-ascii?Q?CIKRxLSX4Ky1HHqU0Pbh4xXdUFhL4UQWTAjAO3CoYHbq4KV9sfwtg99snhYj?=
- =?us-ascii?Q?olEh7N+zDRonP5U3SYnOa7Hc28xPZbPFlPdkH6OWz6AU28jexVigbTYpYt3c?=
- =?us-ascii?Q?jzaLcLJKYN6jh7An5pNDd45aOtoLGB2HJpXolY+UjmiSVl3wCeauhd2pf7KD?=
- =?us-ascii?Q?yoHpZzTvgz0ZIVNl4/UeShKOvy2lGaIpAoI849VxfaQPbn+gD1KO6sF6mJlt?=
- =?us-ascii?Q?1ZsDdEJZWxOaXzKw65WQjP0zNnj3ATdlCfAsTvHtVm06lXZmnJmQmCqZ53TN?=
- =?us-ascii?Q?UO/KNUHo1pCKgCbKlkYcrgufLg3CXhxKko4d2ffjKdpd8ihYdXPWxGhaB7z1?=
- =?us-ascii?Q?5Atedqnv09CyIuhIHcFMwwARATTWBuDjmvQtgoGJjcB+J3nI2wDu78FzvD1m?=
- =?us-ascii?Q?iwor4ykNyWK5Ur+Ho064stic+zN+81Vo8vDMPKuBx9Yp8KdopzKTk4g4QP8x?=
- =?us-ascii?Q?SJXHqQ/p1an7eFGfwffyPrjdzvZ3cHwt2dlCLCv3Ir8wj5c6R4aKPGdSKKxh?=
- =?us-ascii?Q?raJdxBaxQF7xQViHZr2PsVg+jACSAQ+5M0ioE4kNhH0Xvam6sOgORPu/f8AR?=
- =?us-ascii?Q?T+hEh2m4gq6USUdNXGDF7S71xrdNTotAwBpeSEvC/TI6VkX2/frwNKxcrMMQ?=
- =?us-ascii?Q?LHllcF3qCjEcc+J2AXn7j+07LUCk4mOFs+jcPxFrnxn8+wiG+2Ycdo68RCTw?=
- =?us-ascii?Q?Bwjp+v2kU+oZu4Gyqpb+gA/Ekvu46y91n1qDwmG9m6PyQKv5R9h0qedAVV4Y?=
- =?us-ascii?Q?RBKnAThfU9axJ8lGeXlQLbFchfWX7/o5Ypjub2poccsSTbTG80+snoidv3Ns?=
- =?us-ascii?Q?wZaFFSgzit+eI8R4IrnTBj/uFQ+SmNP3yn/1gFW+5VeewcskUEY+PVDuQvZJ?=
- =?us-ascii?Q?N5so/ZW+meyzS29AG40h8KsPiOqcrDNZeXkk4mg8Gan9i+1hXfTPbMuZUGcv?=
- =?us-ascii?Q?k9fS9C/lY+0y3XU4B3Z3N7I=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144160D25AC133DD768BC77F73C9BL1PR12MB5144namp_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NnX+Y+etsFYvQMYkF8rfHSmXW+ZZatWRK0pEa7OfyDA4OkCQgZyGWR1/TK+v?=
+ =?us-ascii?Q?/3R8w/w43B7T2OhIiMAjf+sbt2YQiTihFNw/IsaAAE7zcy48MPNP6GZ2Uefj?=
+ =?us-ascii?Q?IgB/TVbD3o0/An0QZxqb2OlWjh8SDZyqeohRBs0zZROJZ2t68IMiAecIOjl+?=
+ =?us-ascii?Q?p+EJjFFR/vNLuLwC9Edd0iBEfV0Z62slxhoeeK/5HunRZdh2OalkAP9yfobF?=
+ =?us-ascii?Q?fTVwrgiBqxGhXtmV4CPzrYeYt9L9yAoaRrvzwxu38/GnKPEha5BzVBNZOahg?=
+ =?us-ascii?Q?3W5AxGmrtQoFsEDJA8xygebfViPMjiXHuZdElmRVRndnb28dOcv+CfBRuRnW?=
+ =?us-ascii?Q?rsVYIeUHaLSLXzHis5t6sTBE4afvNyBw2VRrKBO6DGomILtiuJBeaLapbf12?=
+ =?us-ascii?Q?3gsCDUpQ6Z1v8nc0bObzftfAOPxQ0mNf4uswGW5UKub4jLy+cqJxD54KjnTL?=
+ =?us-ascii?Q?urXpOUTtGDVR3caqin24llyEwDvIdxcVZONLRqvcMQ2untSsrMK6PVPA5qli?=
+ =?us-ascii?Q?sooriBY1OC2jWZfzOpwWfB3WUQNh+/i4XPyIko1VlDlpqUiL3PwXXFA+OUql?=
+ =?us-ascii?Q?tg/5G5/x7VWnl9Dsb89x9YoX7MhQ92ler+NpkGSqmPZBuHqZkCb5/qeSJPOS?=
+ =?us-ascii?Q?/ZxXgVZNUAKRLX5N9T1mj430FxhRddlauPp4hmtR2J8Q8BxTRU5UcJLhbPZQ?=
+ =?us-ascii?Q?NFq6ik+J1kM0pjjhSy1pTOVi+Ujcg5IZ/F3D2H/V2Qv6uI46hchctLjNsjr7?=
+ =?us-ascii?Q?+YK9xdHZcqXLiV7i//uVfUJMow6w6yppi07dY4xlwY5BT+9y2aTH0TUxV1uw?=
+ =?us-ascii?Q?YskqHtal9rEOV8IWMXYpBa0J0WLEuEQXqIiGWOKldlQRjsOOV8yEdvkIucy/?=
+ =?us-ascii?Q?VZh7aVMfqXIJMMCPYC+1mYYA0F3++bFUaR+izW8hNt3KKx6fA07tUv/ozfHz?=
+ =?us-ascii?Q?gLqD5fIKx4/fiXnaBb3rCXk5PuxVrNOkQrryyqNa9VlCSsyM0HE8lbDoUdyN?=
+ =?us-ascii?Q?L7kZebWKzVesa27lrfR9kJIuwLO7wG4Cqj/BvkghyyHud8kyplssaGEdPnrl?=
+ =?us-ascii?Q?To+ycs8CPEKSM9deW+jpWixmM6VMI8RbxJJmBVPWoeREtuZBEsl0FdQML4PE?=
+ =?us-ascii?Q?d36WOov2HUclaeE2rk/wXQ2jPDmjj9W7KSP5Lx3vddLBKyusjJgZmvcnqwv3?=
+ =?us-ascii?Q?4Yd8/UaPb3uX/71N+D09ganizAoThyVZnYR0WPmNLRic0mEAVVM7/8Qe0oPU?=
+ =?us-ascii?Q?2VeXKlpNQP5y5BRvgcFXzaSffSTX5q6E4SFPxrXeqsw5kk2v6O8W1ffUlQoS?=
+ =?us-ascii?Q?1uM157EPCgSzTHHZIVQAJe8Y4jcvsQbmE7e+YAlSffwELDCuOakZqrUQ+g5Y?=
+ =?us-ascii?Q?VOWUDlmDXYVn2T9ySgN41lgLIlkwH2RPjPZ8p6Izk12IrWB6Jt1025SFGsJ9?=
+ =?us-ascii?Q?DDImXXh6PAMi2UIKUkR6gvH91/4a95+DmcLYoKln63pEUFjMuKjZu8ZyNwqF?=
+ =?us-ascii?Q?m2eUUP7/W7ppXy5/JOjVvUwBRmGGYXxY2sknWpc4phFhujxDpmSmGtCBByFI?=
+ =?us-ascii?Q?Glmjaj6DFZxlvGA7H/zyEftM9AHLmUkNAJVbSI7wSgiXVCiGU4pr5ZylVdM9?=
+ =?us-ascii?Q?1/rWR7Oz0K4tAozY2PQUh2s=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 172deede-75d8-45e5-bee3-08d9f6d87741
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Feb 2022 14:26:22.2708 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63453667-517b-4ce4-7f9f-08d9f6d89e85
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Feb 2022 14:27:28.1772 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7H+6vbM8FFAXmXs5voQvCi4Ip5jyb3rfC2/irAPBTVRx0KLOVPzLNO1yUa3RIMY3wPNnqD3KwBKdGqvOGIY5qA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1683
+X-MS-Exchange-CrossTenant-userprincipalname: QbZwBOfmKbHI7UQUCpulDRFe4ML0Qh+COGJ4qDTCl4qVzLRuMIlO/omJ/AQleMAt3gxTXiROU9diycW1IuTTAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0183
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,196 +117,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ kernel test robot <lkp@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144160D25AC133DD768BC77F73C9BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Guchun Chen <guchun.chen@amd.com>
 
-[Public]
+Regards,
+Guchun
 
-Please include a patch description.  With that fixed,
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Xiaogang=
-.Chen <xiaogang.chen@amd.com>
-Sent: Wednesday, February 23, 2022 1:24 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Chen, Xiaogang <Xiaogan=
-g.Chen@amd.com>; Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
-Subject: [PATCH v2] drm/amdgpu: config HDP_MISC_CNTL.READ_BUFFER_WATERMARK =
-to fix applications running across multiple GPU config hang.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deu=
+cher
+Sent: Wednesday, February 23, 2022 10:23 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; kernel test robot <lkp@=
+intel.com>
+Subject: [PATCH] drm/amdgpu/benchmark: fix error handling
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+Forgot to assign the return value here.
 
-Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c                      | 3 +++
- drivers/gpu/drm/amd/include/asic_reg/hdp/hdp_4_0_sh_mask.h | 2 ++
- 2 files changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c b/drivers/gpu/drm/amd/am=
-dgpu/hdp_v4_0.c
-index d7811e0327cb..02400d97a95c 100644
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-@@ -146,6 +146,9 @@ static void hdp_v4_0_init_registers(struct amdgpu_devic=
-e *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_benchmark.c
+index 3136a9ad2d54..edc6377ec5ff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
+@@ -163,8 +163,8 @@ int amdgpu_benchmark(struct amdgpu_device *adev, int te=
+st_number)
+ 			 "benchmark test: %d (simple test, VRAM to VRAM)\n",
+ 			 test_number);
+ 		/* simple test, VRAM to VRAM */
+-		amdgpu_benchmark_move(adev, 1024*1024, AMDGPU_GEM_DOMAIN_VRAM,
+-				      AMDGPU_GEM_DOMAIN_VRAM);
++		r =3D amdgpu_benchmark_move(adev, 1024*1024, AMDGPU_GEM_DOMAIN_VRAM,
++					  AMDGPU_GEM_DOMAIN_VRAM);
+ 		if (r)
+ 			goto done;
+ 		break;
+--=20
+2.35.1
 
-         WREG32_FIELD15(HDP, 0, HDP_MISC_CNTL, FLUSH_INVALIDATE_CACHE, 1);
-
-+       if (adev->ip_versions[HDP_HWIP][0] =3D=3D IP_VERSION(4, 4, 0))
-+               WREG32_FIELD15(HDP, 0, HDP_MISC_CNTL, READ_BUFFER_WATERMARK=
-, 2);
-+
-         WREG32_SOC15(HDP, 0, mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start =
->> 8));
-         WREG32_SOC15(HDP, 0, mmHDP_NONSURFACE_BASE_HI, (adev->gmc.vram_sta=
-rt >> 40));
- }
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/hdp/hdp_4_0_sh_mask.h b/d=
-rivers/gpu/drm/amd/include/asic_reg/hdp/hdp_4_0_sh_mask.h
-index 25e28691d62d..65c91b0102e4 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/hdp/hdp_4_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/hdp/hdp_4_0_sh_mask.h
-@@ -104,6 +104,7 @@
- #define HDP_MISC_CNTL__OUTSTANDING_WRITE_COUNT_1024__SHIFT      0x5
- #define HDP_MISC_CNTL__MULTIPLE_READS__SHIFT    0x6
- #define HDP_MISC_CNTL__SIMULTANEOUS_READS_WRITES__SHIFT 0xb
-+#define HDP_MISC_CNTL__READ_BUFFER_WATERMARK__SHIFT 0xe
- #define HDP_MISC_CNTL__FED_ENABLE__SHIFT        0x15
- #define HDP_MISC_CNTL__SYSHUB_CHANNEL_PRIORITY__SHIFT   0x17
- #define HDP_MISC_CNTL__MMHUB_WRBURST_ENABLE__SHIFT      0x18
-@@ -118,6 +119,7 @@
- #define HDP_MISC_CNTL__OUTSTANDING_WRITE_COUNT_1024_MASK        0x00000020=
-L
- #define HDP_MISC_CNTL__MULTIPLE_READS_MASK      0x00000040L
- #define HDP_MISC_CNTL__SIMULTANEOUS_READS_WRITES_MASK   0x00000800L
-+#define HDP_MISC_CNTL__READ_BUFFER_WATERMARK_MASK       0x0000c000L
- #define HDP_MISC_CNTL__FED_ENABLE_MASK  0x00200000L
- #define HDP_MISC_CNTL__SYSHUB_CHANNEL_PRIORITY_MASK     0x00800000L
- #define HDP_MISC_CNTL__MMHUB_WRBURST_ENABLE_MASK        0x01000000L
---
-2.25.1
-
-
---_000_BL1PR12MB5144160D25AC133DD768BC77F73C9BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Please include a patch description.&nbsp; With that fixed,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Xiaogang.Chen &lt;xiaogang.ch=
-en@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, February 23, 2022 1:24 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Chen, Xiao=
-gang &lt;Xiaogang.Chen@amd.com&gt;; Kasiviswanathan, Harish &lt;Harish.Kasi=
-viswanathan@amd.com&gt;<br>
-<b>Subject:</b> [PATCH v2] drm/amdgpu: config HDP_MISC_CNTL.READ_BUFFER_WAT=
-ERMARK to fix applications running across multiple GPU config hang.</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Xiaogang Chen &lt;xiaogang.chen@amd.com&gt;<=
-br>
-<br>
-Signed-off-by: Xiaogang Chen &lt;xiaogang.chen@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; | 3 +++<br>
-&nbsp;drivers/gpu/drm/amd/include/asic_reg/hdp/hdp_4_0_sh_mask.h | 2 ++<br>
-&nbsp;2 files changed, 5 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c b/drivers/gpu/drm/amd/am=
-dgpu/hdp_v4_0.c<br>
-index d7811e0327cb..02400d97a95c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c<br>
-@@ -146,6 +146,9 @@ static void hdp_v4_0_init_registers(struct amdgpu_devic=
-e *adev)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_FIELD15(HDP, 0, HDP=
-_MISC_CNTL, FLUSH_INVALIDATE_CACHE, 1);<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;ip_versions[HDP_HWIP][0]=
- =3D=3D IP_VERSION(4, 4, 0))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_FIELD15(HDP, 0, HDP_MISC_CNTL, READ_BUFFER_WATERMARK, 2);=
-<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(HDP, 0, mmHDP=
-_NONSURFACE_BASE, (adev-&gt;gmc.vram_start &gt;&gt; 8));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(HDP, 0, mmHDP=
-_NONSURFACE_BASE_HI, (adev-&gt;gmc.vram_start &gt;&gt; 40));<br>
-&nbsp;}<br>
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/hdp/hdp_4_0_sh_mask.h b/d=
-rivers/gpu/drm/amd/include/asic_reg/hdp/hdp_4_0_sh_mask.h<br>
-index 25e28691d62d..65c91b0102e4 100644<br>
---- a/drivers/gpu/drm/amd/include/asic_reg/hdp/hdp_4_0_sh_mask.h<br>
-+++ b/drivers/gpu/drm/amd/include/asic_reg/hdp/hdp_4_0_sh_mask.h<br>
-@@ -104,6 +104,7 @@<br>
-&nbsp;#define HDP_MISC_CNTL__OUTSTANDING_WRITE_COUNT_1024__SHIFT&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; 0x5<br>
-&nbsp;#define HDP_MISC_CNTL__MULTIPLE_READS__SHIFT&nbsp;&nbsp;&nbsp; 0x6<br=
->
-&nbsp;#define HDP_MISC_CNTL__SIMULTANEOUS_READS_WRITES__SHIFT 0xb<br>
-+#define HDP_MISC_CNTL__READ_BUFFER_WATERMARK__SHIFT 0xe<br>
-&nbsp;#define HDP_MISC_CNTL__FED_ENABLE__SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; 0x15<br>
-&nbsp;#define HDP_MISC_CNTL__SYSHUB_CHANNEL_PRIORITY__SHIFT&nbsp;&nbsp; 0x1=
-7<br>
-&nbsp;#define HDP_MISC_CNTL__MMHUB_WRBURST_ENABLE__SHIFT&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; 0x18<br>
-@@ -118,6 +119,7 @@<br>
-&nbsp;#define HDP_MISC_CNTL__OUTSTANDING_WRITE_COUNT_1024_MASK&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000020L<br>
-&nbsp;#define HDP_MISC_CNTL__MULTIPLE_READS_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; 0x00000040L<br>
-&nbsp;#define HDP_MISC_CNTL__SIMULTANEOUS_READS_WRITES_MASK&nbsp;&nbsp; 0x0=
-0000800L<br>
-+#define HDP_MISC_CNTL__READ_BUFFER_WATERMARK_MASK&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; 0x0000c000L<br>
-&nbsp;#define HDP_MISC_CNTL__FED_ENABLE_MASK&nbsp; 0x00200000L<br>
-&nbsp;#define HDP_MISC_CNTL__SYSHUB_CHANNEL_PRIORITY_MASK&nbsp;&nbsp;&nbsp;=
-&nbsp; 0x00800000L<br>
-&nbsp;#define HDP_MISC_CNTL__MMHUB_WRBURST_ENABLE_MASK&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; 0x01000000L<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB5144160D25AC133DD768BC77F73C9BL1PR12MB5144namp_--
