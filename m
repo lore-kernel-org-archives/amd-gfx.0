@@ -4,108 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1559C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 14:27:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2557CC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Feb 2022 14:35:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC1510EBDC;
-	Wed, 23 Feb 2022 14:27:41 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0A9110EB77
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Feb 2022 14:27:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SQh2GG5DTPTnsV7Vc3QG5DFwdhQz95/Uv90i+LJkhDVXiJ9mWBTX9RCO52SySOhzCvn54T1yu6t48NrfjzU/cYYxFICFGFY0+g51VaXXYI+6gCzmry1MbxbAIFu+8HECpBfLxS4ICEXzWuTLyqu/SBjr0Rru+wkoGSk6rEBb3JLYRQQLq6csP2l8gM2dIDsw6tK9BPRLASdDvMLCfIMkyxhw+ES8Keyo34hjij/QI/NnnTLpjxeVCUUAZmJhUzykAop4HG3MI+5A28rO2I5HQK5f1lSuPSzbhzy/ijCVGUOPRF0pNSOh8Z/FuS+5MFgdkHmNo+wlSekfj5zm3uzf1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b8qbV8zO8Hly1NX1/yiW8kPDLnBu09bRGrQ18MNgGc8=;
- b=NidhrlrhXIRTh8euRYjvVzEZnO9HP9DOHjIHxNjcY3dQ1gU19E+84FS5TFEoOd74Z25DTDdXq67NdJcWIHCBfYLGwHty4EITwBaKko2TLdEHSSn+zxolOdtMoV2VdXmV83NypFiiYRtzwRvdb2phOpcV/hXhNVBtARdtamucoyi84bNnLp4DuA4g0CE4WHGdwhlTJwyA/d7UFHbJxUePMn0D7/8oTHS3WVs+W/UwPUamZuP84LgCk3hn1Inc2I1AUq5Ni3lvvE3mhNvFsNwFR7y9k8Til3GyUwFXnbF/g5tet62e28lKPleSOOKZKgAQqAh3IDwMvFatruT5m4YS/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b8qbV8zO8Hly1NX1/yiW8kPDLnBu09bRGrQ18MNgGc8=;
- b=Y8/vQ/7BKi/JUZwfsXh9t4tTN2mUK41h61+ilflc6PBxg+N1awrtZYWu/2aRD6M6bkD7Vele3vcSsIAHKCmt7AkPXUBkglhqFO7RjHMhOOAc7jzrW9cKGlgS6FuPbxYewLE+08w51CtZVcNOxHuYrV0CWJE7F2rFlI/YKxYQ6ws=
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
- CY4PR1201MB0183.namprd12.prod.outlook.com (2603:10b6:910:20::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.24; Wed, 23 Feb
- 2022 14:27:28 +0000
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::612d:cd2a:369b:17c6]) by DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::612d:cd2a:369b:17c6%6]) with mapi id 15.20.5017.022; Wed, 23 Feb 2022
- 14:27:28 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu/benchmark: fix error handling
-Thread-Topic: [PATCH] drm/amdgpu/benchmark: fix error handling
-Thread-Index: AQHYKMD2EE0XB5uHs0OXRexDV0GiEayhMWeg
-Date: Wed, 23 Feb 2022 14:27:28 +0000
-Message-ID: <DM5PR12MB2469F506B89147DDD39318A2F13C9@DM5PR12MB2469.namprd12.prod.outlook.com>
-References: <20220223142307.1659697-1-alexander.deucher@amd.com>
-In-Reply-To: <20220223142307.1659697-1-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 63453667-517b-4ce4-7f9f-08d9f6d89e85
-x-ms-traffictypediagnostic: CY4PR1201MB0183:EE_
-x-microsoft-antispam-prvs: <CY4PR1201MB018398C49CAA41E391998441F13C9@CY4PR1201MB0183.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: zfMa4DoPtSUCq0r4oV6ritA5c7aj/cI7DWtLMaJW3rM8xA79smELFiOLOk3sdj0bluFjtwW/vEFOPi1tLg0ZY0xn/nRMKSZjqpDJibljKUgGIn8MKimEqEqJfjN9LTcBhE9HaEz8XC3ydjpEjRUGWMnEUl2c4MOFf9xw6ndaSz3qz4atDhCjVhqcyuLLmozq+nLnIA3CQtMfk3laGy6fchwuE8uATmQP+JjnscVNRvo3DaW8wbfCTdKA8DVoF+Oj3yYdHKdWc8IUR7cT6XRI4zUtBQUwzq3/z+XCtAMWjgCjPylbFBkRVeal5XgxAD4ozKrlVdmhtONuQYutYCBWDEDaNR+Pssrl4QkTpXufvGAbatpMlVYeLx2ZlW/tYeZA1rf0ITcypk25jia4GvAuWDmpwd2XsVZCeLwpI2BcQ3a030Po2vlrsj/djxfP5kzGc/tCPNEuLQ7hMs6ciu33c5dss2ANAhv3MzS9zl3pw4VBpmbIwwcxNMiGkPDyDIp/OkLC4SyIx19GlFGJZDojWKOpFi2mxCkY8aoHWqjx+beqOz8+wq+Lj2DV4lv7z1Rxpf3MWxcFXmS5lQGrItOD6oiafkCG0zRAWIvJbpOjC0f6guRepCiOP4afpkVq6f23RQD89CTIEa0feZVsnehz7L7cMzwYKx8FcXGko8jweJaOsBZMsaaQSY1URPrl/y6yZBgPa/o4KPhcR0bdSAQcZw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(186003)(71200400001)(66476007)(9686003)(66556008)(66946007)(54906003)(7696005)(26005)(76116006)(53546011)(6506007)(316002)(110136005)(508600001)(86362001)(64756008)(66446008)(122000001)(8676002)(83380400001)(4326008)(38100700002)(52536014)(55016003)(5660300002)(8936002)(33656002)(2906002)(38070700005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NnX+Y+etsFYvQMYkF8rfHSmXW+ZZatWRK0pEa7OfyDA4OkCQgZyGWR1/TK+v?=
- =?us-ascii?Q?/3R8w/w43B7T2OhIiMAjf+sbt2YQiTihFNw/IsaAAE7zcy48MPNP6GZ2Uefj?=
- =?us-ascii?Q?IgB/TVbD3o0/An0QZxqb2OlWjh8SDZyqeohRBs0zZROJZ2t68IMiAecIOjl+?=
- =?us-ascii?Q?p+EJjFFR/vNLuLwC9Edd0iBEfV0Z62slxhoeeK/5HunRZdh2OalkAP9yfobF?=
- =?us-ascii?Q?fTVwrgiBqxGhXtmV4CPzrYeYt9L9yAoaRrvzwxu38/GnKPEha5BzVBNZOahg?=
- =?us-ascii?Q?3W5AxGmrtQoFsEDJA8xygebfViPMjiXHuZdElmRVRndnb28dOcv+CfBRuRnW?=
- =?us-ascii?Q?rsVYIeUHaLSLXzHis5t6sTBE4afvNyBw2VRrKBO6DGomILtiuJBeaLapbf12?=
- =?us-ascii?Q?3gsCDUpQ6Z1v8nc0bObzftfAOPxQ0mNf4uswGW5UKub4jLy+cqJxD54KjnTL?=
- =?us-ascii?Q?urXpOUTtGDVR3caqin24llyEwDvIdxcVZONLRqvcMQ2untSsrMK6PVPA5qli?=
- =?us-ascii?Q?sooriBY1OC2jWZfzOpwWfB3WUQNh+/i4XPyIko1VlDlpqUiL3PwXXFA+OUql?=
- =?us-ascii?Q?tg/5G5/x7VWnl9Dsb89x9YoX7MhQ92ler+NpkGSqmPZBuHqZkCb5/qeSJPOS?=
- =?us-ascii?Q?/ZxXgVZNUAKRLX5N9T1mj430FxhRddlauPp4hmtR2J8Q8BxTRU5UcJLhbPZQ?=
- =?us-ascii?Q?NFq6ik+J1kM0pjjhSy1pTOVi+Ujcg5IZ/F3D2H/V2Qv6uI46hchctLjNsjr7?=
- =?us-ascii?Q?+YK9xdHZcqXLiV7i//uVfUJMow6w6yppi07dY4xlwY5BT+9y2aTH0TUxV1uw?=
- =?us-ascii?Q?YskqHtal9rEOV8IWMXYpBa0J0WLEuEQXqIiGWOKldlQRjsOOV8yEdvkIucy/?=
- =?us-ascii?Q?VZh7aVMfqXIJMMCPYC+1mYYA0F3++bFUaR+izW8hNt3KKx6fA07tUv/ozfHz?=
- =?us-ascii?Q?gLqD5fIKx4/fiXnaBb3rCXk5PuxVrNOkQrryyqNa9VlCSsyM0HE8lbDoUdyN?=
- =?us-ascii?Q?L7kZebWKzVesa27lrfR9kJIuwLO7wG4Cqj/BvkghyyHud8kyplssaGEdPnrl?=
- =?us-ascii?Q?To+ycs8CPEKSM9deW+jpWixmM6VMI8RbxJJmBVPWoeREtuZBEsl0FdQML4PE?=
- =?us-ascii?Q?d36WOov2HUclaeE2rk/wXQ2jPDmjj9W7KSP5Lx3vddLBKyusjJgZmvcnqwv3?=
- =?us-ascii?Q?4Yd8/UaPb3uX/71N+D09ganizAoThyVZnYR0WPmNLRic0mEAVVM7/8Qe0oPU?=
- =?us-ascii?Q?2VeXKlpNQP5y5BRvgcFXzaSffSTX5q6E4SFPxrXeqsw5kk2v6O8W1ffUlQoS?=
- =?us-ascii?Q?1uM157EPCgSzTHHZIVQAJe8Y4jcvsQbmE7e+YAlSffwELDCuOakZqrUQ+g5Y?=
- =?us-ascii?Q?VOWUDlmDXYVn2T9ySgN41lgLIlkwH2RPjPZ8p6Izk12IrWB6Jt1025SFGsJ9?=
- =?us-ascii?Q?DDImXXh6PAMi2UIKUkR6gvH91/4a95+DmcLYoKln63pEUFjMuKjZu8ZyNwqF?=
- =?us-ascii?Q?m2eUUP7/W7ppXy5/JOjVvUwBRmGGYXxY2sknWpc4phFhujxDpmSmGtCBByFI?=
- =?us-ascii?Q?Glmjaj6DFZxlvGA7H/zyEftM9AHLmUkNAJVbSI7wSgiXVCiGU4pr5ZylVdM9?=
- =?us-ascii?Q?1/rWR7Oz0K4tAozY2PQUh2s=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DBCB10E816;
+	Wed, 23 Feb 2022 14:35:40 +0000 (UTC)
+Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
+ [IPv6:2607:f8b0:4864:20::c31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87FAD10E736;
+ Wed, 23 Feb 2022 14:35:38 +0000 (UTC)
+Received: by mail-oo1-xc31.google.com with SMTP id
+ k13-20020a4a948d000000b003172f2f6bdfso22520366ooi.1; 
+ Wed, 23 Feb 2022 06:35:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=1DHKICKFTEmke2sn2EXkA3bpw2jggt1Z3d5emz9rOhg=;
+ b=F4uM0dOCVs/8BV3LDhBHGdMtxu6pQJH9ZSlSsPLT0bfIwwRylYBQrSaszpCiYZtW5m
+ iomWSWVyO4+8ss7li4hAbJYUlLeVDcQpfIFB65KaGqnwoLyCaT6Lq7J0cJiCFLj8/jxv
+ wYfNgmYA/CnijwF02r9x+8bZz/mg+SFv5n9LeJVoLcEoXa9CIyTZBLH6sKiJIbAn9Qpg
+ Wwyua63Cli4uzo0xUSORTEHycIGYyxxpl9RTw0TJPyZPzYgdsfNYhux06DqDqhqRXKlM
+ /slP7vxJvDERCz4CS9GufCqfSc0IIWUMtf91KFMnhS0XcST4vCBTkKMxXPzIqHpNcWRf
+ HntQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=1DHKICKFTEmke2sn2EXkA3bpw2jggt1Z3d5emz9rOhg=;
+ b=nL8aiFrGZIiK2JPBoGIwZCOlBBXO3OlFfKF9/HX2oYC/Yf/6nPGhRhnen5IDZ3HLia
+ 3YC4gy7cRNud65TwRVe+vIh0jTvHALB5oDOrTNC+VA1YEtVRLI0WPahbHDOoGRs2yOAv
+ 3AgTBVT73YfR7Gn9FDwktxwdnDg5du58yMbClo2/l4n9hDxeL/KymejBT9eBz9xgLgNN
+ RCTo1xZYh66Jhwx77EmCOztaNy2k8rH0PofKr4sQ0O6CWQZkvhSJijqcvccG2dq0KoDb
+ 0I9jWYusU+ceGajdGRrsIFfqfcuJT6UNO1KPSdmTy+sMxe8KnNo8dH7uagHnybIk7Ly7
+ Lo/g==
+X-Gm-Message-State: AOAM5323CL80u5mIBBELfcKeb0cdZcAS2dWp03ymfhjE7hBh057x0Tyn
+ m01M5fg5fJTdeHcDdm3+4VgHoRBGb2l7ygUzq7olyOiC
+X-Google-Smtp-Source: ABdhPJxY4Zt3QR00jWc44U0fLugqEHv/kShc5mx906KbMDEg8WX271M5u9oOURMRztzGZeTInm5+0BtvAbr9xAGjQeo=
+X-Received: by 2002:a05:6870:912c:b0:d3:44be:7256 with SMTP id
+ o44-20020a056870912c00b000d344be7256mr4105596oae.73.1645626937669; Wed, 23
+ Feb 2022 06:35:37 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63453667-517b-4ce4-7f9f-08d9f6d89e85
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Feb 2022 14:27:28.1772 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QbZwBOfmKbHI7UQUCpulDRFe4ML0Qh+COGJ4qDTCl4qVzLRuMIlO/omJ/AQleMAt3gxTXiROU9diycW1IuTTAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0183
+References: <20220221095705.5290-1-Jiawei.Gu@amd.com>
+ <202202212330.nxcvFWEe-lkp@intel.com>
+ <d7314af9-449c-f6ac-95d9-168d27990814@amd.com>
+ <CH0PR12MB51567C166A9C3D54FD31EB71F83C9@CH0PR12MB5156.namprd12.prod.outlook.com>
+ <aa5ea6d6-aaaf-f3ee-03ff-8397dfc4f43d@amd.com>
+In-Reply-To: <aa5ea6d6-aaaf-f3ee-03ff-8397dfc4f43d@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 23 Feb 2022 09:35:26 -0500
+Message-ID: <CADnq5_OOsZQUJ0uqH3CSXczrO49Ddzabr8M-JBNqTQ02xzUT2A@mail.gmail.com>
+Subject: Re: [PATCH] drm/sched: Add device pointer to drm_gpu_scheduler
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,50 +68,322 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- kernel test robot <lkp@intel.com>
+Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>,
+ "kbuild-all@lists.01.org" <kbuild-all@lists.01.org>, "Chen,
+ Horace" <Horace.Chen@amd.com>, "Gu, JiaWei \(Will\)" <JiaWei.Gu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deng,
+ Emily" <Emily.Deng@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <Alexander.Deucher@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+On Wed, Feb 23, 2022 at 2:42 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Well that's bad. This should not be pushed to amd-staging-drm-next at all=
+.
+>
+> This patch is touching multiple drivers and therefore needs to go
+> upstream through drm-misc-next.
+>
+> Alex can you drop that one before you send out a pull request? I'm going
+> to cherry-pick it over to drm-misc-next.
 
-Regards,
-Guchun
+Yeah, no problem.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deu=
-cher
-Sent: Wednesday, February 23, 2022 10:23 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; kernel test robot <lkp@=
-intel.com>
-Subject: [PATCH] drm/amdgpu/benchmark: fix error handling
+Alex
 
-Forgot to assign the return value here.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_benchmark.c
-index 3136a9ad2d54..edc6377ec5ff 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-@@ -163,8 +163,8 @@ int amdgpu_benchmark(struct amdgpu_device *adev, int te=
-st_number)
- 			 "benchmark test: %d (simple test, VRAM to VRAM)\n",
- 			 test_number);
- 		/* simple test, VRAM to VRAM */
--		amdgpu_benchmark_move(adev, 1024*1024, AMDGPU_GEM_DOMAIN_VRAM,
--				      AMDGPU_GEM_DOMAIN_VRAM);
-+		r =3D amdgpu_benchmark_move(adev, 1024*1024, AMDGPU_GEM_DOMAIN_VRAM,
-+					  AMDGPU_GEM_DOMAIN_VRAM);
- 		if (r)
- 			goto done;
- 		break;
---=20
-2.35.1
-
+>
+> Thanks,
+> Christian.
+>
+> Am 23.02.22 um 08:15 schrieb Gu, JiaWei (Will):
+> > [AMD Official Use Only]
+> >
+> > Hi Christian,
+> >
+> > I noticed that and it has been fixed with the latest patch.
+> > And I pushed it to amd-staging-drm-next already.
+> >
+> > Best regards,
+> > Jiawei
+> >
+> > -----Original Message-----
+> > From: Koenig, Christian <Christian.Koenig@amd.com>
+> > Sent: Wednesday, February 23, 2022 3:12 PM
+> > To: kernel test robot <lkp@intel.com>; Gu, JiaWei (Will) <JiaWei.Gu@amd=
+.com>; dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Grod=
+zovsky, Andrey <Andrey.Grodzovsky@amd.com>; Liu, Monk <Monk.Liu@amd.com>; D=
+eng, Emily <Emily.Deng@amd.com>; Chen, Horace <Horace.Chen@amd.com>
+> > Cc: kbuild-all@lists.01.org
+> > Subject: Re: [PATCH] drm/sched: Add device pointer to drm_gpu_scheduler
+> >
+> > Hi Jiawei,
+> >
+> >
+> > can you take a look at this? The kernel build robots screaming that thi=
+s breaks the V3D build. Probably just a typo or missing include.
+> >
+> > I would rather like to push this sooner than later.
+> >
+> > Thanks,
+> > Christian.
+> >
+> > Am 21.02.22 um 16:51 schrieb kernel test robot:
+> >> Hi Jiawei,
+> >>
+> >> Thank you for the patch! Yet something to improve:
+> >>
+> >> [auto build test ERROR on drm/drm-next] [also build test ERROR on
+> >> drm-intel/for-linux-next drm-exynos/exynos-drm-next
+> >> tegra-drm/drm/tegra/for-next v5.17-rc5 next-20220217] [cannot apply to
+> >> drm-tip/drm-tip] [If your patch is applied to the wrong git tree, kind=
+ly drop us a note.
+> >> And when submitting patch, we suggest to use '--base' as documented in
+> >> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgi=
+t-
+> >> scm.com%2Fdocs%2Fgit-format-patch&amp;data=3D04%7C01%7CChristian.Koeni=
+g%
+> >> 40amd.com%7C33c94d7ecffe465c671d08d9f5522651%7C3dd8961fe4884e608e11a82
+> >> d994e183d%7C0%7C0%7C637810555454343325%7CUnknown%7CTWFpbGZsb3d8eyJWIjo
+> >> iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp
+> >> ;sdata=3D8Kj1h9%2BCR%2B8nDeUXW%2B%2FQOFbiavK5oHons0mRPyHhq%2F0%3D&amp;=
+re
+> >> served=3D0]
+> >>
+> >> url:    https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A=
+%2F%2Fgithub.com%2F0day-ci%2Flinux%2Fcommits%2FJiawei-Gu%2Fdrm-sched-Add-de=
+vice-pointer-to-drm_gpu_scheduler%2F20220221-175818&amp;data=3D04%7C01%7CCh=
+ristian.Koenig%40amd.com%7C33c94d7ecffe465c671d08d9f5522651%7C3dd8961fe4884=
+e608e11a82d994e183d%7C0%7C0%7C637810555454343325%7CUnknown%7CTWFpbGZsb3d8ey=
+JWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp=
+;sdata=3DKMrQ%2FsAoUV768eWdTF1FdmXo44kDPjWKnwoi4rvVnqs%3D&amp;reserved=3D0
+> >> base:   git://anongit.freedesktop.org/drm/drm drm-next
+> >> config: ia64-allmodconfig
+> >> (https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fd=
+ow
+> >> nload.01.org%2F0day-ci%2Farchive%2F20220221%2F202202212330.nxcvFWEe-lk
+> >> p%40intel.com%2Fconfig&amp;data=3D04%7C01%7CChristian.Koenig%40amd.com=
+%7
+> >> C33c94d7ecffe465c671d08d9f5522651%7C3dd8961fe4884e608e11a82d994e183d%7
+> >> C0%7C0%7C637810555454343325%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMD
+> >> AiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3DtL=
+Vb
+> >> OkxAyxSD%2BVUHUmS6BT5RfOzO4q3sotVZ2YHGV9o%3D&amp;reserved=3D0)
+> >> compiler: ia64-linux-gcc (GCC) 11.2.0
+> >> reproduce (this is a W=3D1 build):
+> >>           wget https://nam11.safelinks.protection.outlook.com/?url=3Dh=
+ttps%3A%2F%2Fraw.githubusercontent.com%2Fintel%2Flkp-tests%2Fmaster%2Fsbin%=
+2Fmake.cross&amp;data=3D04%7C01%7CChristian.Koenig%40amd.com%7C33c94d7ecffe=
+465c671d08d9f5522651%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637810555=
+454343325%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBT=
+iI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3D8QLSr7JTjK87bBGwgOLxU6AU4bCeHo=
+WX2zyx7SGYL7M%3D&amp;reserved=3D0 -O ~/bin/make.cross
+> >>           chmod +x ~/bin/make.cross
+> >>           # https://nam11.safelinks.protection.outlook.com/?url=3Dhttp=
+s%3A%2F%2Fgithub.com%2F0day-ci%2Flinux%2Fcommit%2F9fdafca855faca0a3b8f213f0=
+24985c4112fa0bb&amp;data=3D04%7C01%7CChristian.Koenig%40amd.com%7C33c94d7ec=
+ffe465c671d08d9f5522651%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637810=
+555454343325%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLC=
+JBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3DW9HKTScDzhoA1DClCigH2QQUgcI=
+zLStBS%2Bx9ieYPbK4%3D&amp;reserved=3D0
+> >>           git remote add linux-review https://nam11.safelinks.protecti=
+on.outlook.com/?url=3Dhttps%3A%2F%2Fgithub.com%2F0day-ci%2Flinux&amp;data=
+=3D04%7C01%7CChristian.Koenig%40amd.com%7C33c94d7ecffe465c671d08d9f5522651%=
+7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637810555454343325%7CUnknown%7=
+CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn=
+0%3D%7C3000&amp;sdata=3DFNJyugHVXenGmYqwgoK9kzKKjC3WGMia%2BNUduLNb0Pc%3D&am=
+p;reserved=3D0
+> >>           git fetch --no-tags linux-review Jiawei-Gu/drm-sched-Add-dev=
+ice-pointer-to-drm_gpu_scheduler/20220221-175818
+> >>           git checkout 9fdafca855faca0a3b8f213f024985c4112fa0bb
+> >>           # save the config file to linux build tree
+> >>           mkdir build_dir
+> >>           COMPILER_INSTALL_PATH=3D$HOME/0day COMPILER=3Dgcc-11.2.0
+> >> make.cross O=3Dbuild_dir ARCH=3Dia64 SHELL=3D/bin/bash drivers/gpu/drm=
+/msm/
+> >> drivers/gpu/drm/v3d/
+> >>
+> >> If you fix the issue, kindly add following tag as appropriate
+> >> Reported-by: kernel test robot <lkp@intel.com>
+> >>
+> >> All errors (new ones prefixed by >>):
+> >>
+> >>      drivers/gpu/drm/msm/msm_ringbuffer.c: In function 'msm_ringbuffer=
+_new':
+> >>>> drivers/gpu/drm/msm/msm_ringbuffer.c:90:15: error: too few arguments=
+ to function 'drm_sched_init'
+> >>         90 |         ret =3D drm_sched_init(&ring->sched, &msm_sched_o=
+ps,
+> >>            |               ^~~~~~~~~~~~~~
+> >>      In file included from drivers/gpu/drm/msm/msm_ringbuffer.h:10,
+> >>                       from drivers/gpu/drm/msm/msm_ringbuffer.c:7:
+> >>      include/drm/gpu_scheduler.h:463:5: note: declared here
+> >>        463 | int drm_sched_init(struct drm_gpu_scheduler *sched,
+> >>            |     ^~~~~~~~~~~~~~
+> >> --
+> >>      In file included from drivers/gpu/drm/v3d/v3d_sched.c:23:
+> >>      drivers/gpu/drm/v3d/v3d_sched.c: In function 'v3d_sched_init':
+> >>>> drivers/gpu/drm/v3d/v3d_drv.h:158:26: error: implicit declaration of
+> >>>> function 'to_platform_device'
+> >>>> [-Werror=3Dimplicit-function-declaration]
+> >>        158 | #define v3d_to_pdev(v3d) to_platform_device((v3d)->drm.de=
+v)
+> >>            |                          ^~~~~~~~~~~~~~~~~~
+> >>      drivers/gpu/drm/v3d/v3d_sched.c:394:49: note: in expansion of mac=
+ro 'v3d_to_pdev'
+> >>        394 |                              NULL, "v3d_bin", &(v3d_to_pd=
+ev(v3d)->dev));
+> >>            |                                                 ^~~~~~~~~=
+~~
+> >>>> drivers/gpu/drm/v3d/v3d_sched.c:394:65: error: invalid type argument
+> >>>> of '->' (have 'int')
+> >>        394 |                              NULL, "v3d_bin", &(v3d_to_pd=
+ev(v3d)->dev));
+> >>            |                                                          =
+       ^~
+> >>      drivers/gpu/drm/v3d/v3d_sched.c:404:68: error: invalid type argum=
+ent of '->' (have 'int')
+> >>        404 |                              NULL, "v3d_render", &(v3d_to=
+_pdev(v3d)->dev));
+> >>            |                                                          =
+          ^~
+> >>      drivers/gpu/drm/v3d/v3d_sched.c:416:65: error: invalid type argum=
+ent of '->' (have 'int')
+> >>        416 |                              NULL, "v3d_tfu", &(v3d_to_pd=
+ev(v3d)->dev));
+> >>            |                                                          =
+       ^~
+> >>      drivers/gpu/drm/v3d/v3d_sched.c:429:73: error: invalid type argum=
+ent of '->' (have 'int')
+> >>        429 |                                      NULL, "v3d_csd", &(v=
+3d_to_pdev(v3d)->dev));
+> >>            |                                                          =
+               ^~
+> >>      drivers/gpu/drm/v3d/v3d_sched.c:441:81: error: invalid type argum=
+ent of '->' (have 'int')
+> >>        441 |                                      NULL, "v3d_cache_cle=
+an", &(v3d_to_pdev(v3d)->dev));
+> >>            |                                                          =
+                       ^~
+> >>      cc1: some warnings being treated as errors
+> >>
+> >>
+> >> vim +/drm_sched_init +90 drivers/gpu/drm/msm/msm_ringbuffer.c
+> >>
+> >> 1d8a5ca436ee4a Rob Clark     2021-07-27   47
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20   48  struct msm_ringbuffer *m=
+sm_ringbuffer_new(struct msm_gpu *gpu, int id,
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20   49                 void *mem=
+ptrs, uint64_t memptrs_iova)
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   50  {
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   51         struct msm_ringbu=
+ffer *ring;
+> >> 1d8a5ca436ee4a Rob Clark     2021-07-27   52         long sched_timeou=
+t;
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20   53         char name[32];
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   54         int ret;
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   55
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20   56         /* We assume ever=
+where that MSM_GPU_RINGBUFFER_SZ is a power of 2 */
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20   57         BUILD_BUG_ON(!is_=
+power_of_2(MSM_GPU_RINGBUFFER_SZ));
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   58
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   59         ring =3D kzalloc(=
+sizeof(*ring), GFP_KERNEL);
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   60         if (!ring) {
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   61                 ret =3D -=
+ENOMEM;
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   62                 goto fail=
+;
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   63         }
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   64
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   65         ring->gpu =3D gpu=
+;
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20   66         ring->id =3D id;
+> >> 84c6127580c1ce Jordan Crouse 2018-11-07   67
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20   68         ring->start =3D m=
+sm_gem_kernel_new(gpu->dev, MSM_GPU_RINGBUFFER_SZ,
+> >> 604234f33658cd Jordan Crouse 2020-09-03   69                 check_apr=
+iv(gpu, MSM_BO_WC | MSM_BO_GPU_READONLY),
+> >> 604234f33658cd Jordan Crouse 2020-09-03   70                 gpu->aspa=
+ce, &ring->bo, &ring->iova);
+> >> 8223286d62e296 Jordan Crouse 2017-07-27   71
+> >> 69a834c28fb514 Rob Clark     2016-05-24   72         if (IS_ERR(ring->=
+start)) {
+> >> 69a834c28fb514 Rob Clark     2016-05-24   73                 ret =3D P=
+TR_ERR(ring->start);
+> >> 375f9a63a66bae Rob Clark     2021-07-27   74                 ring->sta=
+rt =3D NULL;
+> >> 69a834c28fb514 Rob Clark     2016-05-24   75                 goto fail=
+;
+> >> 69a834c28fb514 Rob Clark     2016-05-24   76         }
+> >> 0815d7749a6852 Jordan Crouse 2018-11-07   77
+> >> 0815d7749a6852 Jordan Crouse 2018-11-07   78         msm_gem_object_se=
+t_name(ring->bo, "ring%d", id);
+> >> 0815d7749a6852 Jordan Crouse 2018-11-07   79
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20   80         ring->end   =3D r=
+ing->start + (MSM_GPU_RINGBUFFER_SZ >> 2);
+> >> 4c7085a5d581a5 Jordan Crouse 2017-10-20   81         ring->next  =3D r=
+ing->start;
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   82         ring->cur   =3D r=
+ing->start;
+> >> 7198e6b03155f6 Rob Clark     2013-07-19   83
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20   84         ring->memptrs =3D=
+ memptrs;
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20   85         ring->memptrs_iov=
+a =3D memptrs_iova;
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20   86
+> >> 1d8a5ca436ee4a Rob Clark     2021-07-27   87          /* currently man=
+aging hangcheck ourselves: */
+> >> 1d8a5ca436ee4a Rob Clark     2021-07-27   88         sched_timeout =3D=
+ MAX_SCHEDULE_TIMEOUT;
+> >> 1d8a5ca436ee4a Rob Clark     2021-07-27   89
+> >> 1d8a5ca436ee4a Rob Clark     2021-07-27  @90         ret =3D drm_sched=
+_init(&ring->sched, &msm_sched_ops,
+> >> 1d8a5ca436ee4a Rob Clark     2021-07-27   91                         n=
+um_hw_submissions, 0, sched_timeout,
+> >> f1b7996551a40a Dave Airlie   2021-07-30   92                         N=
+ULL, NULL, to_msm_bo(ring->bo)->name);
+> >> 1d8a5ca436ee4a Rob Clark     2021-07-27   93         if (ret) {
+> >> 1d8a5ca436ee4a Rob Clark     2021-07-27   94                 goto fail=
+;
+> >> 1d8a5ca436ee4a Rob Clark     2021-07-27   95         }
+> >> 1d8a5ca436ee4a Rob Clark     2021-07-27   96
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20   97         INIT_LIST_HEAD(&r=
+ing->submits);
+> >> 77d205290aa944 Rob Clark     2020-10-23   98         spin_lock_init(&r=
+ing->submit_lock);
+> >> 77c406038e830a Rob Clark     2020-10-23   99         spin_lock_init(&r=
+ing->preempt_lock);
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20  100
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20  101         snprintf(name, si=
+zeof(name), "gpu-ring-%d", ring->id);
+> >> f97decac5f4c2d Jordan Crouse 2017-10-20  102
+> >> da3d378dec8634 Rob Clark     2021-07-26  103         ring->fctx =3D ms=
+m_fence_context_alloc(gpu->dev, &ring->memptrs->fence, name);
+> >> 7198e6b03155f6 Rob Clark     2013-07-19  104
+> >> 7198e6b03155f6 Rob Clark     2013-07-19  105         return ring;
+> >> 7198e6b03155f6 Rob Clark     2013-07-19  106
+> >> 7198e6b03155f6 Rob Clark     2013-07-19  107  fail:
+> >> 7198e6b03155f6 Rob Clark     2013-07-19  108         msm_ringbuffer_de=
+stroy(ring);
+> >> 7198e6b03155f6 Rob Clark     2013-07-19  109         return ERR_PTR(re=
+t);
+> >> 7198e6b03155f6 Rob Clark     2013-07-19  110  }
+> >> 7198e6b03155f6 Rob Clark     2013-07-19  111
+> >>
+> >> ---
+> >> 0-DAY CI Kernel Test Service, Intel Corporation
+> >> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fli=
+st
+> >> s.01.org%2Fhyperkitty%2Flist%2Fkbuild-all%40lists.01.org&amp;data=3D04=
+%7
+> >> C01%7CChristian.Koenig%40amd.com%7C33c94d7ecffe465c671d08d9f5522651%7C
+> >> 3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637810555454343325%7CUnknow
+> >> n%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLC
+> >> JXVCI6Mn0%3D%7C3000&amp;sdata=3DJTbXE%2Fv85yMSdX1zm4Em1aUZ32N29bf3Frll=
+Bk
+> >> r%2BsMQ%3D&amp;reserved=3D0
+>
