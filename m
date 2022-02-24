@@ -4,89 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBDFBC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 14:49:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AB9AC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 15:43:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1550310E6EF;
-	Thu, 24 Feb 2022 14:49:02 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2082.outbound.protection.outlook.com [40.107.96.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86F8489BB2
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Feb 2022 14:49:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D41F410EA64;
+	Thu, 24 Feb 2022 15:43:12 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12A3B10EA16
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Feb 2022 15:43:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KQUIf/cia0/DyjUMT6oqjkfTJRJ2sOnxcKQD04ZrE56LY8JwS3e6R8ga6NPtHCkPoGGz14lT6IM7MeCWSgiKmGHukyVfcEgTZ8MsKJX/x3hBUPG+ML6Ogv6tT33MwTyGpfYhQIwcmlhg4gXdvtibBEPFeJsnWq8SnlnyCitHXmPTKTAxnJoLlGRhDkdgJnkS3XrHg2RsOwDms4RVX3cpsh7Gskh+by1ytWak7U6tburxeKGm6Hl3HhuNgiJVTCv11KIRgGK/c14pTm0kOe+CDMVcoeBm7GSyNnn6JxEfKrfYD2ox1YAhmsifvOjxxRMv8o4pxDCuVEpDnQXllpjrXA==
+ b=W0wv5vy2bG/Ng+Pu2nUtuqVx5nYVs5f4+Ue52F05tf8o214pWhAEm1DYkyIzCSLPjVNxBjqWFIRzsP5GNqviUzphEZj0ljvQDD5Y2ytocS7aAUcVSW38PCr15JBpTPCuMlONZbkrb2/SPSTiECO0vo5MDsmcj86XmSluiWLA4sCEFgiixLpz5/uoHUyqys0Q8the6yYSe1MCP7lSWX6a8iyECfO1S4FeUkDngi14MG9LmypLEUEYQn5MamecLuNmt4yWrmtZul3TTKNm7EulPyl0C9sUR7gZVhL4dEvw5SM134UI6QaOaPxi8N/b3zxerBi/q4tcwEI7rQci6rCm4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WjElpTjQi4JYwsJat5B5jF0EmJ++rVk4NPBEmIDvlWA=;
- b=kdEP7Lxhxv1kUHRSrXw585Na1sqPdqP2GgL9tWHlcshEMXQ9sADMfvpgDHF5gqHK5ytra9hI5WDVl+rP64ULkWGcxA+/J0yeNlzEBS6nzXVJdlz4w6xl0TlsLH04cRJUZVuiNq78DBu99cbJnwqnBr9qIqTwhWex0X0v3oftleG7Q7uO0E/qSihfifjk5M5i5Xwb4JOVd2MUs3cQbD1GknwwZi1anPhcVwsGOV5xZjRzpp2I8wJa5raPHKwLkdHtaiHqGnoBooUH9JH2FQnwUIK8ZpSs3Y5OxSZOLZqanQ1asrk0297QlWV8Y4Si92Ezho5Ow3Y/TXCFv6QdWlDfIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=wP6/QWxh69uEfFpz7G0tkTAk8waJIU1+0tupi/YNNLA=;
+ b=BE3/JqZPwMM7eXwlWW7FM90cEOReBrP87NTib7R5auRdFy23pxd0JHDNj6vikOS7nu4abdN/xNhgNNtAxixPgOlMYooZtQSGzP1RxAr0VggEhbMV6zhKWnigMq9K0LjrFhgqdXyWdEf1Zxez2I0G7iQPyVZIQbhPBHjLmB6LtkWWdTph726Nc3CF+4ukOrwYT36f3qATNs/IiJbL4aTxbYNsW2oUPcgplWzIxvRUdixfdLvSc6RHDU8F+FIPJzQqbReamQ8NaY8SPjqmx7M1PXHdGjtYzrF2hwuUWpALLELp1DbHlFtxhyGGbLT9Fnl0M8jBwGriWmu8n6GKjT7VIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WjElpTjQi4JYwsJat5B5jF0EmJ++rVk4NPBEmIDvlWA=;
- b=F4WbH7sYSTSNO+0IhysStR2ORwG+C5l9UcCefQwaQfFhXlBRxHFeTtn7QNCzZJO/CG2o2lF8dI98tKJVU7iX9o0p2FjGvCVf9ztnVYmteXj9ztc4MUVDsDGtsC1OdY8e0K3U0DaKdKtqxCRiUFGaiIAszNj8IgURxJDRqpZSxdE=
-Received: from BN0PR04CA0028.namprd04.prod.outlook.com (2603:10b6:408:ee::33)
- by BL1PR12MB5317.namprd12.prod.outlook.com (2603:10b6:208:31f::17)
+ bh=wP6/QWxh69uEfFpz7G0tkTAk8waJIU1+0tupi/YNNLA=;
+ b=qo+VCnwEN51JFbYu8dJCX8gqaubQtS8KrIvQl2i6RuEo9rIigs09CzBZbkRUX9RnArDDM0ZFmxweJzEl3fJx1KfHlmsrQTnL6itnx55lXMxQmr1kvM4KaFPHCyI98vOCmrDz3LU3/rs/79/s9QnMm/ng6o+pyw/tJsNF2JpuWZY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DM5PR1201MB2489.namprd12.prod.outlook.com (2603:10b6:3:e2::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Thu, 24 Feb
- 2022 14:48:58 +0000
-Received: from BN8NAM11FT049.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ee:cafe::3f) by BN0PR04CA0028.outlook.office365.com
- (2603:10b6:408:ee::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.23 via Frontend
- Transport; Thu, 24 Feb 2022 14:48:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT049.mail.protection.outlook.com (10.13.177.157) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5017.22 via Frontend Transport; Thu, 24 Feb 2022 14:48:57 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 24 Feb
- 2022 08:48:55 -0600
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: refine smu 13.0.5 pp table code
-Date: Thu, 24 Feb 2022 22:48:14 +0800
-Message-ID: <20220224144814.1997116-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22; Thu, 24 Feb
+ 2022 15:43:07 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::410c:b456:62cb:e3f]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::410c:b456:62cb:e3f%5]) with mapi id 15.20.5017.023; Thu, 24 Feb 2022
+ 15:43:06 +0000
+Message-ID: <ff21cadb-73d3-21ee-8876-ffef10053cb7@amd.com>
+Date: Thu, 24 Feb 2022 10:43:04 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] drm/amdgpu: Add use_xgmi_p2p module parameter
+Content-Language: en-US
+To: Alex Sierra <alex.sierra@amd.com>, amd-gfx@lists.freedesktop.org
+References: <f55192e6-3f85-715e-6b5f-9b188a7ba949@amd.com>
+ <20220224005418.23426-1-alex.sierra@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220224005418.23426-1-alex.sierra@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YTOPR0101CA0051.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::28) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: acafad82-4993-4841-5c1d-08d9f7a4c993
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5317:EE_
-X-Microsoft-Antispam-PRVS: <BL1PR12MB531731044F919EA0D99096E5C13D9@BL1PR12MB5317.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 37cc68f5-f93a-4a6f-6612-08d9f7ac5a0a
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB2489:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB2489D51D0EB8CEF511199001923D9@DM5PR1201MB2489.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xMwXIPYHkz5xBj5v+7uKD+VEEKVASg+I6LUhb2s2PSWP5PEIRKHWdhkSbZYNPJwd1n6+AvJpTF+qggtuQqJ0GzcZnGSrjxvDUD4FYC6VwHygUFzrk7iaSHn0irCdKkdaJtnjHto5dgh4gAXca/eaE2ZNGSU6/fltGiBX7Ci/rNrb+fLarClzAd91AElIBCaAR7nJVdX4OC7yulTFrAa0vswWHr4MohB99hW5x8b1xT4iGRCJhr8hUBc3nRtzhxeIfZC1lRZgGCPU/EXffN9QHd09mcpRU0cObHuhTiI9No15qLB5eDSVCaoQnQ+y94Kjo7t8zpafsuFCCY9lIpdRpTZ0wkFQ8UxGssJSSI0ia6bk4qfTMmkkl4NTi5OWS6Kcenq5JQKbRhm5oaQyqDe8Ox5nGNsCZ3i8jCGzrQlWRKpzItUxhU8kdpo9ij4lnPFEvGfApe/ph858K4FhcjJD1JCUfV47ej6yrAucFxVoqBiYNBbFujtdCJvl9sxhVzJfd4H4P41vf/0rbsK7P1Mn7F88XBZGyNJR6VrgE+5ES0b/nKfJ90uy+WWIhjzK506H+4wkKNCnTK3mkNXZFCwhtqq3MuYFXcTUOl3mV5EOJMNDRpzmTqmz3HAQA9J3b0FnRilFHSxIo38tbLYLCS+rpGPNnP71P85xeI4NiSRFzZysVoHcQgjaD8X5E8rPohWaIM7HUl8ZP+AgAFLwqJAiNg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(82310400004)(70586007)(4326008)(70206006)(5660300002)(8676002)(40460700003)(8936002)(36756003)(47076005)(36860700001)(2906002)(7696005)(426003)(83380400001)(508600001)(26005)(356005)(2616005)(86362001)(316002)(336012)(186003)(81166007)(6666004)(16526019)(54906003)(6916009)(1076003)(36900700001);
+X-Microsoft-Antispam-Message-Info: Q2Or5PXbVVVCl7qST2Tvt06Nf08PBm+ZB+U/zjecVBIsBpa4XowFf+BMNmX0SNxqNp8scuo6Adu8xkNtGKIs3FeGUg9SvAkO7cirkHaBoti+mbMQHVH0PjbvFRZ0AVOM1D7mt4zRcWULkSx4TE40VQDYuLbKCalF09medBQv95I0Tom3A1OZL3fMIJz3OL5weGAfNGcx7tUgFabA6L75PZL9L8wC5rYyE2lnBZ6zd910S+5JcUFhpA+iD5mldk06l5Gi7ToNv9V6VS1g8SKQvQ3H6AmyPdCnRAnqIkB2A7TKBlXH2aaUB6+RANSFLhsVsI1cRq29y7A/QKa7DP87T8H0duUXgPu6X2NJ3DsvslZJEaxrtmCPmbD5e8POZb8vbdLWOB2dxFRvKFDG6Ts8/yxm7CYBqG46QIIZqzoQyk6Hpwnxou/hrysNBd81pckb8IQo2vD443xOdpWXlO98fmgtQeaz6oE7gAHUbnxpxhtiYkuy8jOpli7OXnlMfBmsys/Dve/aC2tACOebEQQCu3esV8Lv93HeI2wmWihQtlI25+CHRMeWI0pOJZPVS5hgBz91d8KqMhIxFWdtW/C/8QjtzR+9eSGuFDqFfQ3dJlKRqfDzBIG7SOlG9m4QOpe2OVQhCdriHgS8Nyzz2OLjs0hs34kub6gjrqixbQbvL7Q8v15UBw1oj3OhcM8vTYS4qQRMjZ1oivOw5EAPdANmuGpEhw5aPGaUVC4Hc7oq5IbXXHrgG6RAthBoh3ND9/Cm
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(5660300002)(66946007)(31686004)(38100700002)(4326008)(66476007)(8676002)(26005)(186003)(66556008)(44832011)(83380400001)(6512007)(2906002)(36756003)(8936002)(508600001)(6486002)(316002)(6506007)(2616005)(31696002)(86362001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YjZGc0wvclpSTlF4ckgzQW1hYzZuQXAyRy9RcmdtYnNxV253L2NLV1lnZ3VM?=
+ =?utf-8?B?ZXdESEltVHlwNFdPcjM0azk3VUl5Q2dIVDY5NldOMFpwd1ZBUUtFbmtYUVJE?=
+ =?utf-8?B?amMrY0U0dEVYd3V1aGJRRWVMc05ta2F2QVB2MytlZTB3UmZIcUZrOHNZR0xI?=
+ =?utf-8?B?WXc2cE9LUWh6OVdCRkFIRmJmc3dobkp1T1QzNnQ1Mlh5TjFDWGVqdEsxNmdN?=
+ =?utf-8?B?TzNGY2M4U3doNE5GbmtBeENrMnJ5ZjFUSjYyRG9oaklBL21kZGFsWDRIaXly?=
+ =?utf-8?B?NS9scTQvM3ZlQU93cy9BdEwxOGtIbzU0anU2bEwwSGN6djlvY1dwMWUrUG1a?=
+ =?utf-8?B?bFF5TUtLeHNDR2ppcmU1SzZjaWVqTEE1NlZsWDd2cE9zZGlxMXd5V1Awb0Vm?=
+ =?utf-8?B?NWxMRGtZeDNUNXE3UmFHelZieFlSSXdIMVlkak9KRGlIVWZvdGcycEpocU4w?=
+ =?utf-8?B?U0hzTVA1ZFdONWN0TGdhT2xhcEpmaXcreE1EQTBtUzIxMi9BamJDZ0YyZVBP?=
+ =?utf-8?B?NHVkeC92MEYvWWlCRDlLRHVjenRFaDZzS1dTRUUzbFRKMHpWMjhUR21XTm1h?=
+ =?utf-8?B?N1hKOEYyeDJlRWduM0JrL28rWlAwUHdtNExQaHgvK1ljdXN4ZXVHdUhLcElt?=
+ =?utf-8?B?bGs3L0VzZjJ1RGkyMHVhTEQ1c1VpVWxPQTdFaTczbUFrREszaVd6a1U1UUtG?=
+ =?utf-8?B?NTJrMGJheXpkUnRFN3pTaVhISWwrbEFrWEFNNUdGU1BSZEhHcklNb2taSzdW?=
+ =?utf-8?B?QUlGUW5SbGtsTnEzVUMxT2Y1MWxDaVNkaVY3QXU3TG1xcFVwVnFOSnZqT2ta?=
+ =?utf-8?B?UHVUZ0N5djEyc2ZtVlBGWktIRjBnUnBUNE9OU1U2NUx2endKcGFvNG9sK0th?=
+ =?utf-8?B?dGJZM1RsTHJ3akx3Y2hKM0o0NFJWREtCeVIzQU1jY1JGbGYwV01uaDdHeVlR?=
+ =?utf-8?B?aElqT0xNVnpZTGxONjNWdytWSFFYdnVtdWI0OTF1em9KNEM4T2kyUFZ4RmVz?=
+ =?utf-8?B?UE50dHFSU2o1NzloZVVQVlY0WlRaaGNGeHJsOHFObXdRSGlKbkRjV1c3bVlE?=
+ =?utf-8?B?eEpyU2p6RGNPUlJ5N2pjOHdTdWF5WFllNUJPeUs4T2h5WWF3YmtlSWZqOTR2?=
+ =?utf-8?B?L1FXYVFPTitpWGNQUUJXZmRmUHcyanFsMjNKWkV4cXVrSXgyeUdpTlBDM3h2?=
+ =?utf-8?B?dE5JUXhhYUh1R0JGMWphS3VkR3ZRVlY0MUZZUXQ4QVQ5cW9sL0VKUE11Vnlh?=
+ =?utf-8?B?NjlKcy9uWDJnbTZaQm5QU1V2OUhJRzR3VlNOQzR0R3dZTllaY3pEcGxIY1Jw?=
+ =?utf-8?B?aG45UXRweU9BMDhQVjk0dlN4aEJFV29CalMxa3NXZW5ZTWc0U0trWnFaenpF?=
+ =?utf-8?B?clFxdnVXRHRrYnhUeFl4N2hUdUVLMEpQcDVBM2JGSGV1Y2hVL1k5aXcyWC9C?=
+ =?utf-8?B?OVF3SXJLbXE5UFMwRW5Mc0YwenE4TWNzQnY1WWM0b0F1UkUyNWJ3Y05FVXZm?=
+ =?utf-8?B?Wkd1b1F0MXF4RmlFUXNsRGtvMWRsK2NsZ1g1U0dRY1llek9UWkRjRXIwdkdo?=
+ =?utf-8?B?QlZRTTlyS2dwOThSRnRHeE4zZm5iYW9KUTNtUmFPczJMV0FicUVVSlowZnZ4?=
+ =?utf-8?B?RWd6Y0FlSS95Uit5ZnM1SXFYN3NGZXo1Vm44UjY0dW9IRGxFWWoxRGZBNWhZ?=
+ =?utf-8?B?VHJJNVVEd0tDbFUyYUFPblNwc1c1UHJTai9tTE82c0JadkdxOUhCVHpWd0Zm?=
+ =?utf-8?B?cHZGZXpjenV2QmpwdEhzTjkyS3FQanIyakN5UEt6NnY0bXBLcVg5MW9qREZG?=
+ =?utf-8?B?ZzQ3OE9hVHBKSDRFbVVnMlFYWkhFM05xaG9PTittcDBvMWltNmFvWmpyeGxx?=
+ =?utf-8?B?ejM3NTdiOElEQzNBN1Fadis3alcwMEUrZUhCY01hM2FwVVpoclV6YWJadStF?=
+ =?utf-8?B?Q2dsUjE5NHRTWHUzUnlLbnF3cEpJVjhsM0xQbE9QMUxYdlZiZm9xQ3JPS09l?=
+ =?utf-8?B?YXlmb0wxa0tYN3k0T0lNejdQSFhVQXA0QTBsQlBLNTBZSGtBS2pCUTlEenRE?=
+ =?utf-8?B?Z1BLbnYyMWJtc01VVGVIWG5VR1JseDB6bHpIYUQyeG5UMlNqUHBMeHRKTERH?=
+ =?utf-8?B?a3ZlcU11QjlTNmRQK1I0bGFuTyt2bFc4NVNIOHBwMkhVTVpobDhCT1NCS3BF?=
+ =?utf-8?Q?G6XmLDIXXBdI0qbjkSgw37s=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2022 14:48:57.7585 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: acafad82-4993-4841-5c1d-08d9f7a4c993
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37cc68f5-f93a-4a6f-6612-08d9f7ac5a0a
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2022 15:43:06.8108 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT049.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5317
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YaO/47IMTp2ms4fSmqcQm1xHarrI5f/T4dx0CePBaecmyEHxSoXOi293m/vTm8XALjhxuvk8z/ag7Chj/n+BVw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2489
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,294 +126,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Yifan Zhang <yifan1.zhang@amd.com>,
- Ray.Huang@amd.com
+Cc: jonathan.kim@amd.com, Harish.Kasiviswanathan@amd.com, luben.tuikov@amd.com,
+ aurabindo.pillai@amd.com, alexdeucher@gmail.com, Christian.Koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Based on smu 13.0.5 features, refine pp table code.
+Am 2022-02-23 um 19:54 schrieb Alex Sierra:
+> This parameter controls xGMI p2p communication, which is enabled by
+> default. However, it can be disabled by setting it to 0. In case xGMI
+> p2p is disabled in a dGPU, PCIe p2p interface will be used instead.
+> This parameter is ignored in GPUs that do not support xGMI
+> p2p configuration.
+>
+> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+> Acked-by: Luben Tuikov <luben.tuikov@amd.com>
+> Acked-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h      | 1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  | 8 ++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h | 3 ++-
+>   3 files changed, 11 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index f97848a0ed14..7e95d8bd2338 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -217,6 +217,7 @@ extern int amdgpu_mes;
+>   extern int amdgpu_noretry;
+>   extern int amdgpu_force_asic_type;
+>   extern int amdgpu_smartshift_bias;
+> +extern int amdgpu_use_xgmi_p2p;
+>   #ifdef CONFIG_HSA_AMD
+>   extern int sched_policy;
+>   extern bool debug_evictions;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 2f8eafb6cf22..2849972fd910 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -181,6 +181,7 @@ int amdgpu_tmz = -1; /* auto */
+>   int amdgpu_reset_method = -1; /* auto */
+>   int amdgpu_num_kcq = -1;
+>   int amdgpu_smartshift_bias;
+> +int amdgpu_use_xgmi_p2p = 1;
+>   
+>   static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
+>   
+> @@ -677,6 +678,13 @@ MODULE_PARM_DESC(force_asic_type,
+>   	"A non negative value used to specify the asic type for all supported GPUs");
+>   module_param_named(force_asic_type, amdgpu_force_asic_type, int, 0444);
+>   
+> +/**
+> + * DOC: use_xgmi_p2p (int)
+> + * Enables/disables XGMI P2P interface (0 = disable, 1 = enable). The Default is 1 (enabled).
+> + */
+> +MODULE_PARM_DESC(use_xgmi_p2p,
+> +	"Disable XGMI P2P interface (0 = disable; 1 = enable)");
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c  | 134 ++++--------------
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.h  |   1 +
- 2 files changed, 28 insertions(+), 107 deletions(-)
+The documentation of the option is misleading ("Disable XGMI ...") 
+because the option actually ENables XGMI P2P. Also document the default 
+here as well. Usually I see it like this in other options:
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
-index 8ee5bcb60370..7bfac029e513 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
-@@ -57,8 +57,6 @@
- static struct cmn2asic_msg_mapping smu_v13_0_5_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(TestMessage,                    PPSMC_MSG_TestMessage,			1),
- 	MSG_MAP(GetSmuVersion,                  PPSMC_MSG_GetSmuVersion,		1),
--	MSG_MAP(EnableGfxOff,             PPSMC_MSG_EnableGfxOff,		1),
--	MSG_MAP(DisableGfxOff,                   PPSMC_MSG_DisableGfxOff,			1),
- 	MSG_MAP(PowerDownVcn,                    PPSMC_MSG_PowerDownVcn,			1),
- 	MSG_MAP(PowerUpVcn,                 PPSMC_MSG_PowerUpVcn,		1),
- 	MSG_MAP(SetHardMinVcn,                   PPSMC_MSG_SetHardMinVcn,			1),
-@@ -227,22 +225,6 @@ static bool smu_v13_0_5_is_dpm_running(struct smu_context *smu)
- 	return !!(feature_enabled & SMC_DPM_FEATURE);
- }
- 
--static int smu_v13_0_5_post_smu_init(struct smu_context *smu)
--{
--	/*
--	struct amdgpu_device *adev = smu->adev;
--	*/
--	int ret = 0;
--
--	/* allow message will be sent after enable gfxoff on smu 13.0.5 */
--	/*
--	ret = smu_cmn_send_smc_msg(smu, SMU_MSG_EnableGfxOff, NULL);
--	if (ret)
--		dev_err(adev->dev, "Failed to Enable GfxOff!\n");
--	*/
--	return ret;
--}
--
- static int smu_v13_0_5_mode_reset(struct smu_context *smu, int type)
- {
- 	int ret = 0;
-@@ -314,30 +296,6 @@ static int smu_v13_0_5_get_smu_metrics_data(struct smu_context *smu,
- 	case METRICS_VOLTAGE_VDDSOC:
- 		*value = metrics->Voltage[1];
- 		break;
--#if 0
--	case METRICS_SS_APU_SHARE:
--		/* return the percentage of APU power with respect to APU's power limit.
--		 * percentage is reported, this isn't boost value. Smartshift power
--		 * boost/shift is only when the percentage is more than 100.
--		 */
--		if (metrics->StapmOpnLimit > 0)
--			*value =  (metrics->ApuPower * 100) / metrics->StapmOpnLimit;
--		else
--			*value = 0;
--		break;
--	case METRICS_SS_DGPU_SHARE:
--		/* return the percentage of dGPU power with respect to dGPU's power limit.
--		 * percentage is reported, this isn't boost value. Smartshift power
--		 * boost/shift is only when the percentage is more than 100.
--		 */
--		if ((metrics->dGpuPower > 0) &&
--		    (metrics->StapmCurrentLimit > metrics->StapmOpnLimit))
--			*value = (metrics->dGpuPower * 100) /
--				  (metrics->StapmCurrentLimit - metrics->StapmOpnLimit);
--		else
--			*value = 0;
--		break;
--#endif
- 	default:
- 		*value = UINT_MAX;
- 		break;
-@@ -503,12 +461,6 @@ static ssize_t smu_v13_0_5_get_gpu_metrics(struct smu_context *smu,
- 
- 	gpu_metrics->temperature_gfx = metrics.GfxTemperature;
- 	gpu_metrics->temperature_soc = metrics.SocTemperature;
--	/*
--	memcpy(&gpu_metrics->temperature_core[0],
--		&metrics.CoreTemperature[0],
--		sizeof(uint16_t) * 8);
--	gpu_metrics->temperature_l3[0] = metrics.L3Temperature;
--	*/
- 
- 	gpu_metrics->average_gfx_activity = metrics.GfxActivity;
- 	gpu_metrics->average_mm_activity = metrics.UvdActivity;
-@@ -516,28 +468,13 @@ static ssize_t smu_v13_0_5_get_gpu_metrics(struct smu_context *smu,
- 	gpu_metrics->average_socket_power = metrics.CurrentSocketPower;
- 	gpu_metrics->average_gfx_power = metrics.Power[0];
- 	gpu_metrics->average_soc_power = metrics.Power[1];
--	/*
--	memcpy(&gpu_metrics->average_core_power[0],
--		&metrics.CorePower[0],
--		sizeof(uint16_t) * 8);
--	*/
--
- 	gpu_metrics->average_gfxclk_frequency = metrics.GfxclkFrequency;
- 	gpu_metrics->average_socclk_frequency = metrics.SocclkFrequency;
- 	gpu_metrics->average_uclk_frequency = metrics.MemclkFrequency;
- 	gpu_metrics->average_fclk_frequency = metrics.MemclkFrequency;
- 	gpu_metrics->average_vclk_frequency = metrics.VclkFrequency;
- 	gpu_metrics->average_dclk_frequency = metrics.DclkFrequency;
--
--	/*
--	memcpy(&gpu_metrics->current_coreclk[0],
--		&metrics.CoreFrequency[0],
--		sizeof(uint16_t) * 8);
--	gpu_metrics->current_l3clk[0] = metrics.L3Frequency;
--	*/
--
- 	gpu_metrics->throttle_status = metrics.ThrottlerStatus;
--
- 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
- 
- 	*table = (void *)gpu_metrics;
-@@ -652,9 +589,11 @@ static int smu_v13_0_5_get_current_clk_freq(struct smu_context *smu,
- 	case SMU_MCLK:
- 		member_type = METRICS_AVERAGE_UCLK;
- 		break;
--	case SMU_FCLK:
-+	case SMU_GFXCLK:
-+	case SMU_SCLK:
- 		return smu_cmn_send_smc_msg_with_param(smu,
--				SMU_MSG_GetFclkFrequency, 0, value);
-+				SMU_MSG_GetGfxclkFrequency, 0, value);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -891,14 +830,6 @@ static int smu_v13_0_5_set_soft_freq_limited_range(struct smu_context *smu,
- 		msg_set_min = SMU_MSG_SetHardMinGfxClk;
- 		msg_set_max = SMU_MSG_SetSoftMaxGfxClk;
- 		break;
--	case SMU_FCLK:
--		msg_set_min = SMU_MSG_SetHardMinFclkByFreq;
--		msg_set_max = SMU_MSG_SetSoftMaxFclkByFreq;
--		break;
--	case SMU_SOCCLK:
--		msg_set_min = SMU_MSG_SetHardMinSocclkByFreq;
--		msg_set_max = SMU_MSG_SetSoftMaxSocclkByFreq;
--		break;
- 	case SMU_VCLK:
- 	case SMU_DCLK:
- 		msg_set_min = SMU_MSG_SetHardMinVcn;
-@@ -925,6 +856,7 @@ static int smu_v13_0_5_print_clk_levels(struct smu_context *smu,
- {
- 	int i, size = 0, ret = 0;
- 	uint32_t cur_value = 0, value = 0, count = 0;
-+	uint32_t min = 0, max = 0;
- 
- 	smu_cmn_get_sysfs_buf(&buf, &size);
- 
-@@ -945,7 +877,6 @@ static int smu_v13_0_5_print_clk_levels(struct smu_context *smu,
- 	case SMU_VCLK:
- 	case SMU_DCLK:
- 	case SMU_MCLK:
--	case SMU_FCLK:
- 		ret = smu_v13_0_5_get_current_clk_freq(smu, clk_type, &cur_value);
- 		if (ret)
- 			goto print_clk_out;
-@@ -963,6 +894,27 @@ static int smu_v13_0_5_print_clk_levels(struct smu_context *smu,
- 					cur_value == value ? "*" : "");
- 		}
- 		break;
-+	case SMU_GFXCLK:
-+	case SMU_SCLK:
-+		ret = smu_v13_0_5_get_current_clk_freq(smu, clk_type, &cur_value);
-+		if (ret)
-+			goto print_clk_out;
-+		min = (smu->gfx_actual_hard_min_freq > 0) ? smu->gfx_actual_hard_min_freq : smu->gfx_default_hard_min_freq;
-+		max = (smu->gfx_actual_soft_max_freq > 0) ? smu->gfx_actual_soft_max_freq : smu->gfx_default_soft_max_freq;
-+		if (cur_value  == max)
-+			i = 2;
-+		else if (cur_value == min)
-+			i = 0;
-+		else
-+			i = 1;
-+		size += sysfs_emit_at(buf, size, "0: %uMhz %s\n", min,
-+				i == 0 ? "*" : "");
-+		size += sysfs_emit_at(buf, size, "1: %uMhz %s\n",
-+				i == 1 ? cur_value : SMU_13_0_5_UMD_PSTATE_GFXCLK,
-+				i == 1 ? "*" : "");
-+		size += sysfs_emit_at(buf, size, "2: %uMhz %s\n", max,
-+				i == 2 ? "*" : "");
-+		break;
- 	default:
- 		break;
- 	}
-@@ -971,6 +923,7 @@ static int smu_v13_0_5_print_clk_levels(struct smu_context *smu,
- 	return size;
- }
- 
-+
- static int smu_v13_0_5_force_clk_levels(struct smu_context *smu,
- 				enum smu_clk_type clk_type, uint32_t mask)
- {
-@@ -982,8 +935,6 @@ static int smu_v13_0_5_force_clk_levels(struct smu_context *smu,
- 	soft_max_level = mask ? (fls(mask) - 1) : 0;
- 
- 	switch (clk_type) {
--	case SMU_SOCCLK:
--	case SMU_FCLK:
- 	case SMU_VCLK:
- 	case SMU_DCLK:
- 		ret = smu_v13_0_5_get_dpm_freq_by_index(smu, clk_type, soft_min_level, &min_freq);
-@@ -1012,31 +963,19 @@ static int smu_v13_0_5_set_performance_level(struct smu_context *smu,
- {
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t sclk_min = 0, sclk_max = 0;
--	uint32_t fclk_min = 0, fclk_max = 0;
--	uint32_t socclk_min = 0, socclk_max = 0;
- 	int ret = 0;
- 
- 	switch (level) {
- 	case AMD_DPM_FORCED_LEVEL_HIGH:
- 		smu_v13_0_5_get_dpm_ultimate_freq(smu, SMU_SCLK, NULL, &sclk_max);
--		smu_v13_0_5_get_dpm_ultimate_freq(smu, SMU_FCLK, NULL, &fclk_max);
--		smu_v13_0_5_get_dpm_ultimate_freq(smu, SMU_SOCCLK, NULL, &socclk_max);
- 		sclk_min = sclk_max;
--		fclk_min = fclk_max;
--		socclk_min = socclk_max;
- 		break;
- 	case AMD_DPM_FORCED_LEVEL_LOW:
- 		smu_v13_0_5_get_dpm_ultimate_freq(smu, SMU_SCLK, &sclk_min, NULL);
--		smu_v13_0_5_get_dpm_ultimate_freq(smu, SMU_FCLK, &fclk_min, NULL);
--		smu_v13_0_5_get_dpm_ultimate_freq(smu, SMU_SOCCLK, &socclk_min, NULL);
- 		sclk_max = sclk_min;
--		fclk_max = fclk_min;
--		socclk_max = socclk_min;
- 		break;
- 	case AMD_DPM_FORCED_LEVEL_AUTO:
- 		smu_v13_0_5_get_dpm_ultimate_freq(smu, SMU_SCLK, &sclk_min, &sclk_max);
--		smu_v13_0_5_get_dpm_ultimate_freq(smu, SMU_FCLK, &fclk_min, &fclk_max);
--		smu_v13_0_5_get_dpm_ultimate_freq(smu, SMU_SOCCLK, &socclk_min, &socclk_max);
- 		break;
- 	case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
- 	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
-@@ -1064,24 +1003,6 @@ static int smu_v13_0_5_set_performance_level(struct smu_context *smu,
- 		smu->gfx_actual_soft_max_freq = sclk_max;
- 	}
- 
--	if (fclk_min && fclk_max) {
--		ret = smu_v13_0_5_set_soft_freq_limited_range(smu,
--							    SMU_FCLK,
--							    fclk_min,
--							    fclk_max);
--		if (ret)
--			return ret;
--	}
--
--	if (socclk_min && socclk_max) {
--		ret = smu_v13_0_5_set_soft_freq_limited_range(smu,
--							    SMU_SOCCLK,
--							    socclk_min,
--							    socclk_max);
--		if (ret)
--			return ret;
--	}
--
- 	return ret;
- }
- 
-@@ -1117,7 +1038,6 @@ static const struct pptable_funcs smu_v13_0_5_ppt_funcs = {
- 	.get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
- 	.set_driver_table_location = smu_v13_0_set_driver_table_location,
- 	.gfx_off_control = smu_v13_0_gfx_off_control,
--	.post_init = smu_v13_0_5_post_smu_init,
- 	.mode2_reset = smu_v13_0_5_mode2_reset,
- 	.get_dpm_ultimate_freq = smu_v13_0_5_get_dpm_ultimate_freq,
- 	.od_edit_dpm_table = smu_v13_0_5_od_edit_dpm_table,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.h
-index d2e872c93650..40bc0f8e6d61 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.h
-@@ -24,5 +24,6 @@
- #define __SMU_V13_0_5_PPT_H__
- 
- extern void smu_v13_0_5_set_ppt_funcs(struct smu_context *smu);
-+#define SMU_13_0_5_UMD_PSTATE_GFXCLK   1100
- 
- #endif
--- 
-2.25.1
+ > +    "Enable XGMI P2P interface (0 = disable; 1 = enable (default))");
 
+With that fixed, the patch is
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
+> +module_param_named(use_xgmi_p2p, amdgpu_use_xgmi_p2p, int, 0444);
+>   
+>   
+>   #ifdef CONFIG_HSA_AMD
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> index 0afca51c3c0c..095921851fb5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+> @@ -66,7 +66,8 @@ uint64_t amdgpu_xgmi_get_relative_phy_addr(struct amdgpu_device *adev,
+>   static inline bool amdgpu_xgmi_same_hive(struct amdgpu_device *adev,
+>   		struct amdgpu_device *bo_adev)
+>   {
+> -	return (adev != bo_adev &&
+> +	return (amdgpu_use_xgmi_p2p &&
+> +		adev != bo_adev &&
+>   		adev->gmc.xgmi.hive_id &&
+>   		adev->gmc.xgmi.hive_id == bo_adev->gmc.xgmi.hive_id);
+>   }
