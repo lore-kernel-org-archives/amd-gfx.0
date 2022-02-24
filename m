@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62393C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 19:55:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8220C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 19:55:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B02EE10E1D3;
-	Thu, 24 Feb 2022 19:55:45 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 301D910E877;
- Thu, 24 Feb 2022 19:16:25 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- l25-20020a9d7a99000000b005af173a2875so2017429otn.2; 
- Thu, 24 Feb 2022 11:16:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3900F10E1FC;
+	Thu, 24 Feb 2022 19:55:49 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9096210E8B0;
+ Thu, 24 Feb 2022 19:16:49 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id j24so4317851oii.11;
+ Thu, 24 Feb 2022 11:16:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=TLiWpOnxapYAVvT4QJds8jwsCUqpq+N+eb8iJ1oxqPc=;
- b=FoSBsHzIox96KnpJAyliB1ZiuIjpzEzM4XYDkOlGoqloV5Eo7EZVSPu2ErTj4vLJMi
- upYaLfSb0X91GX+xn6TnAobrbP6ERdOB5KlZcpaoe7UbiAWgiKPgTlQEtKxHSzdLcHMS
- lOjpOydbBexU4vm5IkOYAkImwvyLuVtkbedyi2e7M1I2TfUrXXZR7/AB5zitxIeKy/IC
- x1F5Q91iYENsXt8Yd24tfJgrSbsl/BS2PPenavqRHuQd9YmcfFKmky7rirOq5DXnIC0b
- XSj6nBARIPzqtJUo0WYZfR72ddf+6yWvaL9fNzHTsevpQcAYyyylt8lzDJ2QWRku7DVr
- pJNA==
+ bh=7IUvVKF5Pch8a16lx0MT86rwIlpqNss44lNM/kW3WVs=;
+ b=ne21DyBH+0ZWEGvMo7Kz56PYmwP1GgCVw3i0R6NVkPQJMYyrc8sPuQItlSuHxv9VRc
+ TXB7pCjba4j8XT/WvxjkN5JbZ1sdP2juBJu7YA/ESnLTa6kEBA+4SmpalQ92HXMMye1F
+ 4MGZrYTIq1WdT977vBFe17BmposVWu8IjvsLstrHzkC6RtNDiizXLvU2JJmv/a2ZOnSv
+ 6E4A/Z5M/vw965DFZA5o7kFCzhF56hgh4aeI2bscy2u0xjPAuhU7qy2gCRwDTZKwYDkC
+ kr92WaJmPK7uTAOkB7Qdp3Cb739BrYnK8/uIhE9jrM30wlrmccSBM61ZnYAtOUSDvnWG
+ wyDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=TLiWpOnxapYAVvT4QJds8jwsCUqpq+N+eb8iJ1oxqPc=;
- b=3ozsQJEb6Gdm8FPY6nTs086oiYpmK4mRCiaDcYHkwTEs6i3aj4773DanyMHVGuH/GX
- IK2HDgctwuhPexdK3H2jqqcMYeWqgMwNaUx03YdViVEKE6QDBa7e/CLz3nEYkEKmKRM7
- 9FB43p0aQlB8z3gG20qucQ3sfll8lHWjvGyK1bgkfyIqs6Bikz47W57XSf7OCSNEdf09
- smji0Yz7mMXzRiZ3GLpI1SMc/mq5DnGsNvYB9BOccmku4aURJMm4ogqVCzSSPhSoiNBV
- mrfOv7/hQ+N7rX0TJr8X1abF8IbMKU2avOz90+7VX5NAyn4vspfohWag0hS6ODvpdVEN
- ulIA==
-X-Gm-Message-State: AOAM5307rx7fX9HyPuCPg7NBaC2iFr4o84VRMb2ofS9xDCYU76jKMu94
- 4y0fArGAH6pIsvnHx4VKdlY=
-X-Google-Smtp-Source: ABdhPJzBXhUKmpv0W6RRc6cmrcAkgPuFrtLmZVXDFelgeLtmLNAIwubxdHBKS6Tl11+U/IW4kchtiQ==
-X-Received: by 2002:a9d:6e09:0:b0:5ad:1fcd:bfd0 with SMTP id
- e9-20020a9d6e09000000b005ad1fcdbfd0mr1532004otr.312.1645730183457; 
- Thu, 24 Feb 2022 11:16:23 -0800 (PST)
+ bh=7IUvVKF5Pch8a16lx0MT86rwIlpqNss44lNM/kW3WVs=;
+ b=OytLfId7ySkp3ITgMyYlAaAldtwO4AmbP/E7UoUR36azkDN7X3eoxhWU0ZkfzL7Rza
+ QnoGpSPwNzqrAVs28GgXEpLs4kk2TzJ2r/SpcHYb6Lru2a5/x/uJMGlUjHygrZxX1dWQ
+ lksKQ8FUAkcWBKQrCibpncatlJgYtFJW0O/BAYk0FB2XniswqnjSB1qKe9cI/c/4/dl6
+ MBrWtlbF1Z4ZpXaz1hUPRNvfqDB7/SogwMC4mw+RKyILEMvAL7UDti6lJUrFFcrb8W9D
+ SNHIFT59UyVbN5hPm7wGBi6o0uQssKYSOgX6qw9QYYykZVAAaYa358lMLVRvLgC76s5Q
+ cPGg==
+X-Gm-Message-State: AOAM530UQZ315fMZkg+W9jE2ekB9cSlHutVRKwtfY6YUv3tir/Cd+BMW
+ cPN/N3HU4vCYqO6fcDuWXBg=
+X-Google-Smtp-Source: ABdhPJxoXP+tSpCWcygc2lcQGw4uSvebv9aB+dvrgCiioebX38US3T6IU0aiiIwLKSTXbzn8q6EPgw==
+X-Received: by 2002:a05:6870:d1ca:b0:d6:87d5:4ab7 with SMTP id
+ b10-20020a056870d1ca00b000d687d54ab7mr5944097oac.331.1645730208809; 
+ Thu, 24 Feb 2022 11:16:48 -0800 (PST)
 Received: from localhost.localdomain (189-47-54-110.dsl.telesp.net.br.
  [189.47.54.110]) by smtp.gmail.com with ESMTPSA id
- w3-20020a056830110300b005af14392276sm79509otq.62.2022.02.24.11.16.18
+ w3-20020a056830110300b005af14392276sm79509otq.62.2022.02.24.11.16.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Feb 2022 11:16:23 -0800 (PST)
+ Thu, 24 Feb 2022 11:16:48 -0800 (PST)
 From: Magali Lemes <magalilemes00@gmail.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@linux.ie, daniel@ffwll.ch
-Subject: [PATCH 1/4] drm/amd/display: Adjust functions documentation
-Date: Thu, 24 Feb 2022 16:15:48 -0300
-Message-Id: <20220224191551.69103-2-magalilemes00@gmail.com>
+Subject: [PATCH 4/4] drm/amd/display: Turn functions into static
+Date: Thu, 24 Feb 2022 16:15:51 -0300
+Message-Id: <20220224191551.69103-5-magalilemes00@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220224191551.69103-1-magalilemes00@gmail.com>
 References: <20220224191551.69103-1-magalilemes00@gmail.com>
@@ -75,53 +74,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: kernel test robot <lkp@intel.com>, siqueirajordao@riseup.net,
  Magali Lemes <magalilemes00@gmail.com>, maira.canal@usp.br,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, mwen@igalia.com,
  dri-devel@lists.freedesktop.org, isabbasso@riseup.net
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Part of the documentation of the 'dc_process_dmub_aux_transfer_async'
-function was misplaced, being put together with the
-‘dc_enable_dmub_notifications’ documentation. This caused the following
-warning:
+Silence [-Wmissing-prototypes] sparse warnings from the display folder
+such as:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:3757: warning:
-expecting prototype for dc_process_dmub_aux_transfer_async(). Prototype
-was for dc_enable_dmub_notifications() instead
+../drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn315/dcn315_smu.c:126:5: warning: no previous prototype for ‘dcn315_smu_send_msg_with_param’ [-Wmissing-prototypes]
+  126 | int dcn315_smu_send_msg_with_param(
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This commit fixes the warning by placing the function documentations in
-their right place.
-
+Cc: Qingqing Zhuo (Lillian) <qingqing.zhuo@amd.com>
 Reported-by: kernel test robot <lkp@intel.com>
 Signed-off-by: Magali Lemes <magalilemes00@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c    | 2 +-
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c    | 4 ++--
+ .../gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c    | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index b1ce3c0cf477..61e3bb99375f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3737,8 +3737,8 @@ bool dc_is_dmub_outbox_supported(struct dc *dc)
- 	return dc->debug.enable_dmub_aux_for_legacy_ddc;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
+index d66633bef2b3..357f89b4a8e0 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
+@@ -430,7 +430,7 @@ static unsigned int find_clk_for_voltage(
+ 	return 0;
  }
  
--/**
-- * dc_process_dmub_aux_transfer_async - Submits aux command to dmub via inbox message
-+/*
-+ *****************************************************************************
-  *  Function: dc_enable_dmub_notifications
-  *
-  *  @brief
-@@ -3780,7 +3780,7 @@ void dc_enable_dmub_outbox(struct dc *dc)
+-void dcn315_clk_mgr_helper_populate_bw_params(
++static void dcn315_clk_mgr_helper_populate_bw_params(
+ 		struct clk_mgr_internal *clk_mgr,
+ 		struct integrated_info *bios_info,
+ 		const DpmClocks_315_t *clock_table)
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
+index a60543258a5b..831fd1494d60 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
+@@ -123,7 +123,7 @@ static uint32_t dcn315_smu_wait_for_response(struct clk_mgr_internal *clk_mgr, u
+ 	return res_val;
  }
  
- /**
-- *****************************************************************************
-+ * dc_process_dmub_aux_transfer_async - Submits aux command to dmub via inbox message
-  *                                      Sets port index appropriately for legacy DDC
-  * @dc: dc structure
-  * @link_index: link index
+-int dcn315_smu_send_msg_with_param(
++static int dcn315_smu_send_msg_with_param(
+ 		struct clk_mgr_internal *clk_mgr,
+ 		unsigned int msg_id, unsigned int param)
+ {
+@@ -181,7 +181,7 @@ int dcn315_smu_set_dispclk(struct clk_mgr_internal *clk_mgr, int requested_dispc
+ 
+ 	return actual_dispclk_set_mhz * 1000;
+ }
+-int dcn315_smu_set_voltage_via_phyclk(struct clk_mgr_internal *clk_mgr, int requested_phyclk_khz)
++static int dcn315_smu_set_voltage_via_phyclk(struct clk_mgr_internal *clk_mgr, int requested_phyclk_khz)
+ {
+ 	int actual_phypclk_set_mhz = -1;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c b/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
+index 33367773699b..e722171f0d2d 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
+@@ -42,7 +42,7 @@
+ #define DCN_BASE__INST0_SEG4                       0x02403C00
+ #define DCN_BASE__INST0_SEG5                       0
+ 
+-enum dc_irq_source to_dal_irq_source_dcn315(
++static enum dc_irq_source to_dal_irq_source_dcn315(
+ 		struct irq_service *irq_service,
+ 		uint32_t src_id,
+ 		uint32_t ext_id)
 -- 
 2.25.1
 
