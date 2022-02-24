@@ -4,63 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8220C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 19:55:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF76FC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 20:23:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3900F10E1FC;
-	Thu, 24 Feb 2022 19:55:49 +0000 (UTC)
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9096210E8B0;
- Thu, 24 Feb 2022 19:16:49 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id j24so4317851oii.11;
- Thu, 24 Feb 2022 11:16:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F63810E684;
+	Thu, 24 Feb 2022 20:23:40 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DED910E663;
+ Thu, 24 Feb 2022 20:23:39 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id p15so4773208oip.3;
+ Thu, 24 Feb 2022 12:23:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=7IUvVKF5Pch8a16lx0MT86rwIlpqNss44lNM/kW3WVs=;
- b=ne21DyBH+0ZWEGvMo7Kz56PYmwP1GgCVw3i0R6NVkPQJMYyrc8sPuQItlSuHxv9VRc
- TXB7pCjba4j8XT/WvxjkN5JbZ1sdP2juBJu7YA/ESnLTa6kEBA+4SmpalQ92HXMMye1F
- 4MGZrYTIq1WdT977vBFe17BmposVWu8IjvsLstrHzkC6RtNDiizXLvU2JJmv/a2ZOnSv
- 6E4A/Z5M/vw965DFZA5o7kFCzhF56hgh4aeI2bscy2u0xjPAuhU7qy2gCRwDTZKwYDkC
- kr92WaJmPK7uTAOkB7Qdp3Cb739BrYnK8/uIhE9jrM30wlrmccSBM61ZnYAtOUSDvnWG
- wyDQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=biJP7S4dmlMQEfIEiFGAdrTmLmPJKRFHOtbGNeByUq0=;
+ b=Bvc+9A4LBrYF5JnCMjcFUHbbdPdxylW4PblxL2/7c6pmrn50DNASncMB3wIqscfj1u
+ baNzoXcnX/tY7M+6E+JGvPggZ6g/c32a4KQmvMbQZEU2Ms32dDrvlV+XrNcnOjZbEAx2
+ qI5mlfEzZeZRSHlTnu+8Gc1HhmiicMgwExq2a+T7n0F3+rj+9bwi/14MzclnAJ5pLcTq
+ ukEhoGrDqCIAF/vRm7nR9HcGaZRzl9yl2mtHdJILbT2QcNB78h5ezsHn5kOFwCIjeSUZ
+ l3utO3fhFnU9ei7Ej2bfZB1OJbCW5dUkQdulOS7dP28YEqdSzpNJk6bE/TOASrpMnilM
+ Rcog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=7IUvVKF5Pch8a16lx0MT86rwIlpqNss44lNM/kW3WVs=;
- b=OytLfId7ySkp3ITgMyYlAaAldtwO4AmbP/E7UoUR36azkDN7X3eoxhWU0ZkfzL7Rza
- QnoGpSPwNzqrAVs28GgXEpLs4kk2TzJ2r/SpcHYb6Lru2a5/x/uJMGlUjHygrZxX1dWQ
- lksKQ8FUAkcWBKQrCibpncatlJgYtFJW0O/BAYk0FB2XniswqnjSB1qKe9cI/c/4/dl6
- MBrWtlbF1Z4ZpXaz1hUPRNvfqDB7/SogwMC4mw+RKyILEMvAL7UDti6lJUrFFcrb8W9D
- SNHIFT59UyVbN5hPm7wGBi6o0uQssKYSOgX6qw9QYYykZVAAaYa358lMLVRvLgC76s5Q
- cPGg==
-X-Gm-Message-State: AOAM530UQZ315fMZkg+W9jE2ekB9cSlHutVRKwtfY6YUv3tir/Cd+BMW
- cPN/N3HU4vCYqO6fcDuWXBg=
-X-Google-Smtp-Source: ABdhPJxoXP+tSpCWcygc2lcQGw4uSvebv9aB+dvrgCiioebX38US3T6IU0aiiIwLKSTXbzn8q6EPgw==
-X-Received: by 2002:a05:6870:d1ca:b0:d6:87d5:4ab7 with SMTP id
- b10-20020a056870d1ca00b000d687d54ab7mr5944097oac.331.1645730208809; 
- Thu, 24 Feb 2022 11:16:48 -0800 (PST)
-Received: from localhost.localdomain (189-47-54-110.dsl.telesp.net.br.
- [189.47.54.110]) by smtp.gmail.com with ESMTPSA id
- w3-20020a056830110300b005af14392276sm79509otq.62.2022.02.24.11.16.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Feb 2022 11:16:48 -0800 (PST)
-From: Magali Lemes <magalilemes00@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch
-Subject: [PATCH 4/4] drm/amd/display: Turn functions into static
-Date: Thu, 24 Feb 2022 16:15:51 -0300
-Message-Id: <20220224191551.69103-5-magalilemes00@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220224191551.69103-1-magalilemes00@gmail.com>
-References: <20220224191551.69103-1-magalilemes00@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=biJP7S4dmlMQEfIEiFGAdrTmLmPJKRFHOtbGNeByUq0=;
+ b=rB4i6qRA6o03e86WZMdMUegcEyDS1vtzltJm3AaBpLy1y2Xc4304voZJ7xIRt7u0Ei
+ fEjzm7goqsEvYuMFV9A/8U2JfERWU+4D1S0Zew/ZdAzi7AP6BT6MpABj5QkyiYe48rpO
+ bjSBlYIbjl9wYylR/tdjhHzas5dQVy7PyRbX5PjtEAW+k0y3KqVGkeBLydR5nhUhUCZO
+ r8EUbbtSDwhvmjT2HmfQehPknAkIu7k8UsdqlkHiuIbYI8BRrUCJQBJbpzMuSMSxrPwZ
+ eHeNFZPsLJ00XSdfCWUU+ODv4ZeO/LDgrAGFptn+Y+iO3pEH9J5rq3TUb7z9hWz8ii4H
+ Xu1g==
+X-Gm-Message-State: AOAM533aYgA3jqMiCb4pCm+VAm3OamB6NumfBEH9fBsn3p2KIIECG6A4
+ E7nJC8MCVYiCB9RkLGSSAaIessLbexTAE4d+7bWHl2/4
+X-Google-Smtp-Source: ABdhPJzOnZ51sY1NbmHpDjfVDBrKsT4cqT0nVj1WNaKXFkGzwc1KmT+UCdjsCPgSSm9+OOZmf4yYDk9v+sI4m3xfRjE=
+X-Received: by 2002:aca:ab4c:0:b0:2d4:7c7d:606e with SMTP id
+ u73-20020acaab4c000000b002d47c7d606emr2382125oie.132.1645734218622; Thu, 24
+ Feb 2022 12:23:38 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 24 Feb 2022 19:55:39 +0000
+References: <20220224191551.69103-1-magalilemes00@gmail.com>
+ <cf085422-d109-2e7b-aaef-083d75fcef10@amd.com>
+In-Reply-To: <cf085422-d109-2e7b-aaef-083d75fcef10@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 24 Feb 2022 15:23:27 -0500
+Message-ID: <CADnq5_OHmo2hRkKjo=yBNLzCvE3XH01MKF8rry4RcmEXPvPu8g@mail.gmail.com>
+Subject: Re: [PATCH 0/4] Address a few compilation warnings
+To: Harry Wentland <harry.wentland@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,78 +62,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, siqueirajordao@riseup.net,
- Magali Lemes <magalilemes00@gmail.com>, maira.canal@usp.br,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, mwen@igalia.com,
- dri-devel@lists.freedesktop.org, isabbasso@riseup.net
+Cc: siqueirajordao@riseup.net, Magali Lemes <magalilemes00@gmail.com>,
+ Dave Airlie <airlied@linux.ie>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <maira.canal@usp.br>,
+ xinhui pan <Xinhui.Pan@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ mwen@igalia.com, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Isabella Basso <isabbasso@riseup.net>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Silence [-Wmissing-prototypes] sparse warnings from the display folder
-such as:
+Applied with some minor modifications to patches 3 and 4 to avoid
+adding new warnings.
 
-../drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn315/dcn315_smu.c:126:5: warning: no previous prototype for ‘dcn315_smu_send_msg_with_param’ [-Wmissing-prototypes]
-  126 | int dcn315_smu_send_msg_with_param(
-      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Alex
 
-Cc: Qingqing Zhuo (Lillian) <qingqing.zhuo@amd.com>
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Magali Lemes <magalilemes00@gmail.com>
----
- .../gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c    | 2 +-
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c    | 4 ++--
- .../gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c    | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-index d66633bef2b3..357f89b4a8e0 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-@@ -430,7 +430,7 @@ static unsigned int find_clk_for_voltage(
- 	return 0;
- }
- 
--void dcn315_clk_mgr_helper_populate_bw_params(
-+static void dcn315_clk_mgr_helper_populate_bw_params(
- 		struct clk_mgr_internal *clk_mgr,
- 		struct integrated_info *bios_info,
- 		const DpmClocks_315_t *clock_table)
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-index a60543258a5b..831fd1494d60 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-@@ -123,7 +123,7 @@ static uint32_t dcn315_smu_wait_for_response(struct clk_mgr_internal *clk_mgr, u
- 	return res_val;
- }
- 
--int dcn315_smu_send_msg_with_param(
-+static int dcn315_smu_send_msg_with_param(
- 		struct clk_mgr_internal *clk_mgr,
- 		unsigned int msg_id, unsigned int param)
- {
-@@ -181,7 +181,7 @@ int dcn315_smu_set_dispclk(struct clk_mgr_internal *clk_mgr, int requested_dispc
- 
- 	return actual_dispclk_set_mhz * 1000;
- }
--int dcn315_smu_set_voltage_via_phyclk(struct clk_mgr_internal *clk_mgr, int requested_phyclk_khz)
-+static int dcn315_smu_set_voltage_via_phyclk(struct clk_mgr_internal *clk_mgr, int requested_phyclk_khz)
- {
- 	int actual_phypclk_set_mhz = -1;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c b/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
-index 33367773699b..e722171f0d2d 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
-@@ -42,7 +42,7 @@
- #define DCN_BASE__INST0_SEG4                       0x02403C00
- #define DCN_BASE__INST0_SEG5                       0
- 
--enum dc_irq_source to_dal_irq_source_dcn315(
-+static enum dc_irq_source to_dal_irq_source_dcn315(
- 		struct irq_service *irq_service,
- 		uint32_t src_id,
- 		uint32_t ext_id)
--- 
-2.25.1
-
+On Thu, Feb 24, 2022 at 2:44 PM Harry Wentland <harry.wentland@amd.com> wrote:
+>
+> Series is
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>
+> Harry
+>
+> On 2022-02-24 14:15, Magali Lemes wrote:
+> > This patchset addresses a few warnings reported by the Kernel Test Robot and
+> > sparse.
+> >
+> > Magali Lemes (4):
+> >   drm/amd/display: Adjust functions documentation
+> >   drm/amd/display: Add conditional around function
+> >   drm/amd/display: Use NULL instead of 0
+> >   drm/amd/display: Turn functions into static
+> >
+> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c   | 4 +++-
+> >  .../gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c  | 2 +-
+> >  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c  | 4 ++--
+> >  drivers/gpu/drm/amd/display/dc/core/dc.c                    | 6 +++---
+> >  drivers/gpu/drm/amd/display/dc/core/dc_resource.c           | 2 +-
+> >  drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 4 ++--
+> >  drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c     | 4 +---
+> >  .../gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c  | 2 +-
+> >  8 files changed, 14 insertions(+), 14 deletions(-)
+> >
+>
