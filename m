@@ -4,99 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2BF3C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 21:51:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52DEDC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 22:21:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AE8B10E828;
-	Thu, 24 Feb 2022 21:51:38 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2069.outbound.protection.outlook.com [40.107.102.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9824B10E7BB;
- Thu, 24 Feb 2022 21:51:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lMmUsO7bCZbxCo8CRRM/YRPSKxmYR8P0ncwME/xlQFL5N5d7rrBRXiUq+/ZuZhYB6paahEQCI5zTkp/JHe4rDOxYtVJbWPXD0uyM/xQNvuaXaN2Q9PoSHlq1uwfcDyZwe3zqs2oVg9eiUjcfSf+hsxBtLAObSrTXu4eDt27z9yrUmteCewxwVObh1X5u9F1X1le0Jq6u55osvhogMkKchxNWnHMdqpMnGm/rPF1XIATD+b5rUjhpKN38yrL/VWjL8ksfhaIRSyJ6j/rUuJL2UzP+PfXQhTPCLPsL3deFqsO/tiy60n8N7drI8JOEfTo7+wwIcwUXAwtCVQxWZHfcMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4CJsbT/uQNbCLg3zijkw2HtWNygmK8JRosfQfMJvjsA=;
- b=ivuTNLplPDcVEa4Lyrn4ass0JyK9Zrffu4XvEYz1Z6UmGWObFx0d2y4N+BHkR8kVA0On2xil9wj8Tbpy7XrU9E1WAPYwR423KR0rfe1ByNr9rIN5NLE2Zso6jRSDzKRAmRcbyxuIG/BiLdngowRV+rKaM9a+dR1G4ctZ/pvzYosmiEmU9fHnfhiKjwcPypWJUVcm6vPQc5OoCjC0eiuYLzLdmBKBccbPSRyBU53ZKGIHxG5aXJA9zjSLU9N8banuOawOvcOAGk+bvoMUUsHswIZoyRJCEhz8FqxhR1wY/IiIRyJ1MbtnzX7JavzQGvxRRecLT0zhYNildLdd/5s4Ng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4CJsbT/uQNbCLg3zijkw2HtWNygmK8JRosfQfMJvjsA=;
- b=G26Gn7mfJ/I+isnqdNGVol8SKVgfCeAcZxrw1D48WNcQTseSwT+KBPHXM/YrbnnJ+/mBhgltwLsed7IxZHbykSJ8YPKj4nNlVxS/VLf9FgIt/568o3E4DL7tKHpDd0KcYbUPaPd/tYpZgrxt5zINHY/uO4uAbNbWyj29S/wrLD8=
-Received: from MWHPR14CA0011.namprd14.prod.outlook.com (2603:10b6:300:ae::21)
- by MN2PR12MB4549.namprd12.prod.outlook.com (2603:10b6:208:268::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.24; Thu, 24 Feb
- 2022 21:51:34 +0000
-Received: from CO1NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:ae:cafe::27) by MWHPR14CA0011.outlook.office365.com
- (2603:10b6:300:ae::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.23 via Frontend
- Transport; Thu, 24 Feb 2022 21:51:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT031.mail.protection.outlook.com (10.13.174.118) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5017.22 via Frontend Transport; Thu, 24 Feb 2022 21:51:33 +0000
-Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 24 Feb
- 2022 15:51:30 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: Bjorn Helgaas <bhelgaas@google.com>, Andreas Noever
- <andreas.noever@gmail.com>, Mika Westerberg
- <mika.westerberg@linux.intel.com>, "open list:PCI SUBSYSTEM"
- <linux-pci@vger.kernel.org>, "open list:THUNDERBOLT DRIVER"
- <linux-usb@vger.kernel.org>, "open list:RADEON and AMDGPU DRM DRIVERS"
- <amd-gfx@lists.freedesktop.org>, "open list:DRM DRIVERS"
- <dri-devel@lists.freedesktop.org>, "open list:DRM DRIVER FOR NVIDIA
- GEFORCE/QUADRO GPUS" <nouveau@lists.freedesktop.org>, "open list:X86 PLATFORM
- DRIVERS" <platform-driver-x86@vger.kernel.org>
-Subject: [PATCH v5 7/7] PCI: drop `pci_is_thunderbolt_attached`
-Date: Thu, 24 Feb 2022 15:51:16 -0600
-Message-ID: <20220224215116.7138-8-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220224215116.7138-1-mario.limonciello@amd.com>
-References: <20220224215116.7138-1-mario.limonciello@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFFAF10E16B;
+	Thu, 24 Feb 2022 22:21:24 +0000 (UTC)
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [IPv6:2607:f8b0:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A836210E16B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Feb 2022 22:21:23 +0000 (UTC)
+Received: by mail-ot1-x333.google.com with SMTP id
+ l20-20020a0568302b1400b005af8c95bbe4so2387728otv.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Feb 2022 14:21:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=5AZDk+RwC6jN1E8TMI+84ml8kiIqx6tpCLvRzkZvZlQ=;
+ b=e4Y8qk7dEzAcyBMWCzFY/CZBwr00qVLKmI6pHS7JeTZ2yQgzbBKzvvXsQsliZdItbr
+ AHyj8L3MWqRXYC+CO9/Z25gI0XPYe9X6VxPCfH9vSf32aZXJH2b9kIF0JJc3XvZXTMcI
+ oS3NbijiA0cOjfsFoVJtc2/o7dGhoi5ivPpIna6vFtwPN+xQjHG6bP4HagGB2g5nDvRt
+ qJW4+ejrA1j9m4A5gVvBj2WCtPKwnZz8gE1gUoZTOTLe1WEUV114NciQ2jLKLQdmf3/F
+ jkhnep9HxtY35wk2LbdVjK7wLvQPUAMlTx++dn8TK4wZDpg0g+wV3UKqLTk7lVZ21lN3
+ 10cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5AZDk+RwC6jN1E8TMI+84ml8kiIqx6tpCLvRzkZvZlQ=;
+ b=RJw3v6azZmPPfZNGklHlWsJcCXowi66XRAYZ4cgaZqJK+xEqYg7Cy8WAYtO4+NPtFL
+ nwawzpjQ2yCMWegrxKfDor0VmXQQvruKF+bltcPEwivOLEf4+tBjruGjEBkw50HUek6x
+ MFDwD9aeKumef2lVSJOttWJ0oA1njzU0gLyQfxfTXRR0+uL0MFUAERLpV7RnVQpu0Ao+
+ cXndEyxR0WdQgLPGyvGYN2OxkPpr79Yiei4B1A2a8uXfE1mKcAQQHy174zuXdE6ru1Wo
+ NOTCkbAph7es6QdSY9Dor/QAga1oQXN1ntrCmwPMblOmTELKbOdhKCAPU2Vq8WYwmT99
+ Dk0w==
+X-Gm-Message-State: AOAM531lFPG97r1a2WpktMRh4Q+eC42GhUfq8dfG1tUI+CCxOP3B7FUj
+ 7E4DabTglCI2Hb+Qo/rwwsvE0W3tYVI8sRbg/z0=
+X-Google-Smtp-Source: ABdhPJyicIiyWUCTWF8MEw1KoAsrS/j6wwK1ys0JNY5qK2VHyKdOtXOkcx5Kl5DGiS01OHM7htGxJdnp7jUyUWjRpMg=
+X-Received: by 2002:a4a:1b43:0:b0:31b:aa93:dd7d with SMTP id
+ 64-20020a4a1b43000000b0031baa93dd7dmr1757668oop.68.1645741282910; Thu, 24 Feb
+ 2022 14:21:22 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 079d7da1-d718-4938-264f-08d9f7dfd2f3
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4549:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4549091D4B6B4646D494F34BE23D9@MN2PR12MB4549.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: P6QpaDSpMZFAOnDoPtUWZd1oycF4NHietCBce/ShOkUqctgycagiOeSz+eGOK59UcR5WPHJnfT47AMTbXGD1LAKCu4Tv+24NQ1Pbl7fyfeMZKkW+APHPe4sRqMnlXfC//+XX1MBq3DMBO1/k2OU9oBULfWPdhTcNNkMVwhremDRjmtOsPWX58p3WFWlRNWVMDxpjGXh5jruME4I/mDbjmzWBY7QUUyotyBnlatCwT5e8t8z7SVMjwiQKZiV4H+pYjtppcAHY4oRCSHz8EWp7Fiq1psrHzWpI1aTED6GupKUcVSCk1GC0qFv2uiSl77mXN77E6vkmr3FH7UQTCUcW9/yVD2mbEHA1RThTvR9K6W/oGA0gi/sN0snnYBEFL7Ob6WHO18gr5yqPdG77XwKDjZocZiZFT73z4Mi7iTkTAn8gLm6VsRHLiYlczXtLQpgI/WOh26XhIQYFegAmcsMqHs5M0CHl7UZTDQgy1ePARh84+IcglsUb9gjYflBvwFt0kxUFKFqdPjXtx0Y1kxIoEnn5YVMNh3KerwK+qH8dhKR6SVK7ml2WybQZZ3Smw7H7ar2PM7+iiO5O0T6YfOu0NkLPJmW5f9WC4pq8CnIlf+OWbA3/5bVJjWwwyVJGs80ZcZwhVA6dshz8TtnaroEgTGjK2CXEWKVCzJ6GjxnqfDXh283GoUe9tKLVCheALiNG/AGLbyotj1m+S/hB2Ld/8wGN8Qqf4SptxkrWRbqD0O0=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(70206006)(70586007)(316002)(47076005)(356005)(4326008)(8676002)(36756003)(110136005)(83380400001)(81166007)(54906003)(36860700001)(336012)(186003)(82310400004)(508600001)(8936002)(7416002)(16526019)(2616005)(426003)(26005)(1076003)(5660300002)(6666004)(7696005)(44832011)(40460700003)(86362001)(2906002)(81973001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2022 21:51:33.6835 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 079d7da1-d718-4938-264f-08d9f7dfd2f3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT031.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4549
+References: <20220224214531.6397-1-luben.tuikov@amd.com>
+In-Reply-To: <20220224214531.6397-1-luben.tuikov@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 24 Feb 2022 17:21:11 -0500
+Message-ID: <CADnq5_MvPWnrOnNb4Ggm-jUgyg7zq69WAthfZ2bZgTXAYzEG2Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Don't fill up the logs
+To: Luben Tuikov <luben.tuikov@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,55 +62,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Michael Jamet <michael.jamet@intel.com>,
- Yehezkel Bernat <YehezkelShB@gmail.com>, Alexander.Deucher@amd.com,
- Lukas Wunner <lukas@wunner.de>, Mario Limonciello <mario.limonciello@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>, Roman Li <Roman.Li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Hersen Wu <hersenwu@amd.com>,
+ Alex Deucher <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently `pci_is_thunderbolt_attached` is used to indicate a device
-is connected externally.
+On Thu, Feb 24, 2022 at 4:46 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
+>
+> Don't fill up the logs with:
+>
+> [253557.859575] [drm:amdgpu_dm_atomic_check [amdgpu]] DSC precompute is not needed.
+> [253557.892966] [drm:amdgpu_dm_atomic_check [amdgpu]] DSC precompute is not needed.
+> [253557.926070] [drm:amdgpu_dm_atomic_check [amdgpu]] DSC precompute is not needed.
+> [253557.959344] [drm:amdgpu_dm_atomic_check [amdgpu]] DSC precompute is not needed.
+>
+> which prints many times a second, when the kernel is run with
+> drm.debug=2.
+>
+> Instead of DRM_DEBUG_DRIVER(), make it DRM_INFO_ONCE().
 
-As all drivers now look at the removable attribute, drop this function.
+Maybe convert to DRM_DEBUG_KMS() for consistency with the rest of the
+display code?
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- include/linux/pci.h | 22 ----------------------
- 1 file changed, 22 deletions(-)
+Alex
 
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index d9719eb14654..089e7e36a0d9 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -2434,28 +2434,6 @@ static inline bool pci_ari_enabled(struct pci_bus *bus)
- 	return bus->self && bus->self->ari_enabled;
- }
- 
--/**
-- * pci_is_thunderbolt_attached - whether device is on a Thunderbolt daisy chain
-- * @pdev: PCI device to check
-- *
-- * Walk upwards from @pdev and check for each encountered bridge if it's part
-- * of a Thunderbolt controller.  Reaching the host bridge means @pdev is not
-- * Thunderbolt-attached.  (But rather soldered to the mainboard usually.)
-- */
--static inline bool pci_is_thunderbolt_attached(struct pci_dev *pdev)
--{
--	struct pci_dev *parent = pdev;
--
--	if (dev_is_removable(&pdev->dev))
--		return true;
--
--	while ((parent = pci_upstream_bridge(parent)))
--		if (dev_is_removable(&parent->dev))
--			return true;
--
--	return false;
--}
--
- #if defined(CONFIG_PCIEPORTBUS) || defined(CONFIG_EEH)
- void pci_uevent_ers(struct pci_dev *pdev, enum  pci_ers_result err_type);
- #endif
--- 
-2.34.1
-
+>
+> Cc: Alex Deucher <Alexander.Deucher@amd.com>
+> Cc: Roman Li <Roman.Li@amd.com>
+> Cc: Felix Kuehling <felix.kuehling@amd.com>
+> Cc: Hersen Wu <hersenwu@amd.com>
+> Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+> Fixes: 5898243ba7acdb ("drm/amd/display: Add dsc pre-validation in atomic check")
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c   | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 05573f073b21f7..0542034530b1b0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -1198,11 +1198,11 @@ void pre_validate_dsc(struct drm_atomic_state *state,
+>         struct dc_state *local_dc_state = NULL;
+>
+>         if (!is_dsc_precompute_needed(state)) {
+> -               DRM_DEBUG_DRIVER("DSC precompute is not needed.\n");
+> +               DRM_INFO_ONCE("DSC precompute is not needed.\n");
+>                 return;
+>         }
+>         if (dm_atomic_get_state(state, dm_state_ptr)) {
+> -               DRM_DEBUG_DRIVER("dm_atomic_get_state() failed\n");
+> +               DRM_INFO_ONCE("dm_atomic_get_state() failed\n");
+>                 return;
+>         }
+>         dm_state = *dm_state_ptr;
+> @@ -1245,7 +1245,7 @@ void pre_validate_dsc(struct drm_atomic_state *state,
+>         }
+>
+>         if (!pre_compute_mst_dsc_configs_for_state(state, local_dc_state, vars)) {
+> -               DRM_DEBUG_DRIVER("pre_compute_mst_dsc_configs_for_state() failed\n");
+> +               DRM_INFO_ONCE("pre_compute_mst_dsc_configs_for_state() failed\n");
+>                 goto clean_exit;
+>         }
+>
+> @@ -1258,7 +1258,7 @@ void pre_validate_dsc(struct drm_atomic_state *state,
+>
+>                 if (local_dc_state->streams[i] &&
+>                     is_timing_changed(stream, local_dc_state->streams[i])) {
+> -                       DRM_DEBUG_DRIVER("crtc[%d] needs mode_changed\n", i);
+> +                       DRM_INFO_ONCE("crtc[%d] needs mode_changed\n", i);
+>                 } else {
+>                         int ind = find_crtc_index_in_state_by_stream(state, stream);
+>
+>
+> base-commit: bff980c7632ef3b0099ba230cf7d5c864db3e1a3
+> --
+> 2.35.1.129.gb80121027d
+>
