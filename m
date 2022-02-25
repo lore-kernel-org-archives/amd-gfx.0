@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 584C9C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 03:13:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47D3EC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 04:22:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE1F010E6DD;
-	Fri, 25 Feb 2022 03:13:45 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7A4B10E1F4;
- Fri, 25 Feb 2022 03:13:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE19810E729;
+	Fri, 25 Feb 2022 04:22:23 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2055.outbound.protection.outlook.com [40.107.243.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61A2810E729
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Feb 2022 04:22:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WVj1vVjB1jN44JmniH8eSM6a32K4y38IghbS3R5ddKqRAzb5k5ro4hAzTjSwzYRCgqxryzp32haSfAexguuL5Ov3yYqUcQ6rOIxEtiwW7YEQ6CGKh4+eaDuelYQ74cDuzmcBSCUJgUh/M/CobnGVQGKGtqpYWLKDqTopbhtqfIeRbkS29tXO0yqjnmdtootiqG0kpmcM9YS7zoHBZaCvHOKD/uFc7s7QvyBP9nQNJWuZgj72qKoLoN08HXTn1eBdwEsTEb+iUifzt+V7prZjkJDM+VXLjnVrnH55A1ornkMjTpA5/cz36YE7PgDlClc1PXmA0ZP59+aOUUaaFQKxVg==
+ b=OW6ZZ0A5ADjuaAe7WoTanchkRLX4gNa9XXg2PpfO43T6VGE6cacwtE8Kk0c+F54SJHY2hEcLnGvDMMEbZL++bfVwQ7JP60N+FxYWX6ELpsdQhh1LU5lJ4xU2pkT3Q/vXdMO3nW7mUYReHnTDkoiyf4FaFWAvUCOpBzNEpqLUs5nNfGIn5O3ATTewW/rGBMe664mLZHmEVIkOAXiHKD0TqjgkNX8cTtbCMP6TnYRW5qmz2Zvju5k622vv2sXEaycRW77zl3eLqvAEJTof3GVrf6i6iALq4yy041o+k/TFwlaxbtog/xDRrbBBEGjZ3x1jMK4ztHgrgMJFAXC6DRIDNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G/XRR+4ypqnGjl/SB034PCN9HfbJM/E6oq+IdE13C4g=;
- b=NJAuz7CJx8Ww4jgMh1utqrOqeFwFaN9FRzkUxVnc+64YFeNdtJqL/agJxPz+gbwvaatV43mNc2ShRktQKZM7ZsdTjS21CF3tbzSjWFeSj5QvnBLCPSeGKwumixRYZ7ivq5bHmt+JoRD08j+MsEEeKpKQ1h8l6Og3hk55SLt3VJoNTuk2dHVYkecCfwDR6fPjllg0wskJbbcNqDadaYBFgT/k2JiL1TiXkpubm/Zz+TjXCgRdmuNiyCQIHexJH96cUw4lR6JlpvU+Tg4mKGX9G7PZzBjDav9K3XGvsteruEegYfUiVPa3GTnekMiWQ0HrmNrlTN1sz6TuEgOQJlLiaA==
+ bh=UkSP+NKeVEiJbKIVnktRRj60SbaTzIbdo4oxcrM3Tm0=;
+ b=ct/yu+Bn4K10ULjs0yBacOQVwa+KaPmTI6pyK68ztBi+81Jbf2uS68Jr0cstAI4RM53MLa2CYV3nV6hu5oDitj6lRFxKGHQaq3EHTgs/sgestullaFBgUzgHfMjveslI+8I40f/MaloIlzun9pWV3EwtKKOZjMCcHKs1lmyfGiblD2XykDcy9RWbBtWtEBpokmZGJmOJpBtdqyzzemUWrGgCZIPC+wNxq3ZYQMnzJAmkZev/8UUdPviOGvY85c8RPRzrsfShVkhyPf7RP/JpXgWe/vjLSK6JNQ/cEfAQ8UzUFYtdknaL4u3BiA7JROmKsOXw6kxm0Opk/GlMG8mEEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G/XRR+4ypqnGjl/SB034PCN9HfbJM/E6oq+IdE13C4g=;
- b=zrdFK/IemnRSc60ssDh77wPAQFtyesrYGsHhBK3RMhYNM9MTBgKIUvTRAzLxwxR5j/tI/sthMpw9l43Hk6fuY2TrEwOjd7ZbVHeYMgFmU3OfYpLjsd+eKxEtPGCEmVjR76Q7kiHmpgQ2j2rXQhwz6yY+y4IjufS2/b9vjgSiLpI=
-Received: from MW4PR04CA0212.namprd04.prod.outlook.com (2603:10b6:303:87::7)
- by MWHPR12MB1776.namprd12.prod.outlook.com (2603:10b6:300:113::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22; Fri, 25 Feb
- 2022 03:13:42 +0000
-Received: from CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:87:cafe::77) by MW4PR04CA0212.outlook.office365.com
- (2603:10b6:303:87::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22 via Frontend
- Transport; Fri, 25 Feb 2022 03:13:42 +0000
+ bh=UkSP+NKeVEiJbKIVnktRRj60SbaTzIbdo4oxcrM3Tm0=;
+ b=MY9ZIlKmeGsus9II8Wt3yTrfKglNowACdraV4xl484oRg2KzeplNgMLC33CkFuaTVi/WO32k3zatFfFKCxrb22hCKaL0+6VH5njqgcDDoGtwSnG5OBCdPep797vM9zsDr6LYTUnrWctch8032+QwWd3ojuIAJsyuzPeRiINA36o=
+Received: from BN6PR16CA0013.namprd16.prod.outlook.com (2603:10b6:404:f5::23)
+ by CY4PR12MB1398.namprd12.prod.outlook.com (2603:10b6:903:40::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.25; Fri, 25 Feb
+ 2022 04:22:20 +0000
+Received: from BN8NAM11FT028.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:f5:cafe::c2) by BN6PR16CA0013.outlook.office365.com
+ (2603:10b6:404:f5::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.19 via Frontend
+ Transport; Fri, 25 Feb 2022 04:22:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,63 +45,48 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT023.mail.protection.outlook.com (10.13.175.35) with Microsoft SMTP
+ BN8NAM11FT028.mail.protection.outlook.com (10.13.176.225) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5017.22 via Frontend Transport; Fri, 25 Feb 2022 03:13:41 +0000
-Received: from [10.252.114.66] (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.5017.22 via Frontend Transport; Fri, 25 Feb 2022 04:22:19 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Thu, 24 Feb
- 2022 21:13:37 -0600
-Message-ID: <7c07d1b7-e700-60f3-1114-f1386892e836@amd.com>
-Date: Fri, 25 Feb 2022 11:13:34 +0800
+ 2022 22:22:16 -0600
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: Send message when resp status is 0xFC
+Date: Fri, 25 Feb 2022 09:51:56 +0530
+Message-ID: <20220225042156.676421-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.6.1
-Subject: Re: [RFC v4 02/11] drm/amdgpu: Move scheduler init to after XGMI is
- ready
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Chen, JingWen" <JingWen.Chen2@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20220209002320.6077-1-andrey.grodzovsky@amd.com>
- <20220209002320.6077-3-andrey.grodzovsky@amd.com>
- <d82ac1a0-d81d-9861-fc1b-8cc06017a2b5@gmail.com>
- <1d7cb471-c32c-416c-4336-317ee9f171ef@amd.com>
- <3752a89c-d468-8c39-03a9-37d592dae89f@amd.com>
- <48c207dc-cc7a-efda-a4a8-4f1f1a6511fe@amd.com>
- <BL1PR12MB514424A75728E78BC0E5B848F73D9@BL1PR12MB5144.namprd12.prod.outlook.com>
- <91b8771b-695d-b126-13ec-50dddd56f200@amd.com>
-From: JingWen Chen <jingwech@amd.com>
-In-Reply-To: <91b8771b-695d-b126-13ec-50dddd56f200@amd.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5b87612e-11dc-4ffd-e890-08d9f80cd36a
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1776:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1776497219C355A17F817D6EB73E9@MWHPR12MB1776.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 711cadfd-cb98-4688-e6b2-08d9f81669ab
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1398:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1398A85BAA7BC22CF2C62A47973E9@CY4PR12MB1398.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CgF+odoyXpufc9jWEvorschokhEXd/1D4fukZcxWhUkiazr/EFtsP6uZgsSNXh5YX/ICrFQNCcneBxTyjAV3ekL2LGNjdl43y2MMueG/+y2aSwDizUHLBlgrkWM2ULaOKBUXkDgJ14linAXopuOz3UnD9p2ScUbrqOJgWGHZDA2ZFGEO1U2GOfvUy7CrR+d3vEE44fpZI0K/Ul3+rnYLnaiQW3iYTfiiluP6j2D++LPL4vIFWzUxWEXxkAcXYJCMGBvpv1x3MGAwXn7zkHWz4mE+anJSJljLyDvJPWxIKFAZrGPd2293tq4t/qsphALR/6mpkUqItwJmsLVyEf8iR/FfXMEbswK/+se3JWLW2ofT1y5/DcqSV7OV1UKg3mwiEMjo0F/O5fCfCLy0X7WtgnZI+RqkLlyiNPp9f9dSktOpFSOmyALZSpNtlTL00qWXPxhRgwijRy0gkQj0M+LoABcFvAq3GXsjEUxOk4OIOSJ9ikTbD4uGGdjjrNpWBIZK/7mthEDoL5adhvDx20x9KObZ8LjrC+p4zU+6gpLMRMwaVwEiAM9mOSFIfLY24mT45c6dtPyZqfwJwQelvJLr26JGjPE+VezdfVTIFkXTdx6OM86GOP+pw/0TyxnjuJfw+nW3px/XW0n9uqIGOX7UuRwjFyGVjilyHcsI9xDE/aEdLklH+aJcxC+h4FHvDGyKnNma4DUBLcDPyXKFU8Im+44W156WdQGWb9vIZNEBDeScLrDQ9iDavB9Mrtr2RCdy
+X-Microsoft-Antispam-Message-Info: /w7beyCYyu1MKcMNMVo7qhoqWeNI5Q9eDwNKZEXaZTmE/bZC+sqiXQLVI4uGwMDi7XGaywsBIfASwtzZ6pJrxHraKAmLu0m8nAqtqo+Iu85LTHrcXQFmnT2Kyj8CN1CZcG7yloXh7a2mmQZcdpYDxXdcxRbTNazzINlls5LaPsbVscrrltXjJAb7ZCO23jqxrO1XEjnyMVHD9BM04RZVksGHuJPglnqNWXQ8HTHIKmYpquW9rjS/mnTmk9Lv8oO0C25S+0Os4j2SPzl2KNZ14HJCd64bYSU1ogbDOxjtTMYImMnrL5OUtO0cHpr+ms1DD0wRk1yqeE53Pp98DG02WfX2j/Z0VjLyvKf/EZlK1mNJVCI0C28fHECHNR7wivmRTqLfINNclPeCEvttqxUu19VI42JFOfhVF9kj3Z8x3z6ybvvAaVLIBvrlmSqDis50xjzmC3V6uzv2sjEdQ8KYUb8F90drCBe+tWMqPCQDgS3koqi7Y8lv9uAU3SGbGw163SfWyRZyM6ZfcgcqujbZhOj0GdYqeQTZRhd3irm79Mg1CBS4FPQ2FhLpNx7UWTQu9IY05fo/Bx2FuJ2UzjAY37O3vY1reZjsgoHc/Fppvxvl1glSjn9llpW+Lt87kEu1p0r6LlimwJ2T0kJ+UPn7nunRbIi2xLC3m3+WSVYi5OJ5CjAwtLMX83eWNsRUsysgSn6O1w8n9UvV1e+x/Gt45A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(36860700001)(81166007)(2906002)(47076005)(82310400004)(70206006)(356005)(4326008)(66574015)(8936002)(8676002)(40460700003)(70586007)(53546011)(16576012)(110136005)(508600001)(6666004)(31686004)(31696002)(54906003)(26005)(83380400001)(2616005)(36756003)(426003)(5660300002)(16526019)(316002)(336012)(186003)(36900700001)(43740500002);
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(36860700001)(83380400001)(4326008)(8676002)(36756003)(426003)(44832011)(16526019)(186003)(81166007)(26005)(2906002)(356005)(336012)(47076005)(40460700003)(15650500001)(8936002)(2616005)(508600001)(316002)(1076003)(86362001)(5660300002)(6666004)(70586007)(70206006)(82310400004)(7696005)(6916009)(54906003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2022 03:13:41.8212 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b87612e-11dc-4ffd-e890-08d9f80cd36a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2022 04:22:19.4853 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 711cadfd-cb98-4688-e6b2-08d9f81669ab
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT028.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1776
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1398
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,205 +98,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "daniel@ffwll.ch" <daniel@ffwll.ch>, "Chen, Horace" <Horace.Chen@amd.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>
+Cc: Alexander.Deucher@amd.com, Evan.Quan@amd.com, KevinYang.Wang@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Andrey,
+When PMFW is really busy, it will respond with 0xFC. However, it doesn't
+change the response register state when it becomes free. Driver should
+retry and proceed to send message if the response status is 0xFC.
 
-Sorry for the misleading, I mean the whole patch series. We are depending on this patch series to fix the concurrency issue within SRIOV TDR sequence.
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 2 --
+ 1 file changed, 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index 590a6ed12d54..92161b9d8c1a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -297,7 +297,6 @@ int smu_cmn_send_msg_without_waiting(struct smu_context *smu,
+ 	reg = __smu_cmn_poll_stat(smu);
+ 	res = __smu_cmn_reg2errno(smu, reg);
+ 	if (reg == SMU_RESP_NONE ||
+-	    reg == SMU_RESP_BUSY_OTHER ||
+ 	    res == -EREMOTEIO)
+ 		goto Out;
+ 	__smu_cmn_send_msg(smu, msg_index, param);
+@@ -391,7 +390,6 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+ 	reg = __smu_cmn_poll_stat(smu);
+ 	res = __smu_cmn_reg2errno(smu, reg);
+ 	if (reg == SMU_RESP_NONE ||
+-	    reg == SMU_RESP_BUSY_OTHER ||
+ 	    res == -EREMOTEIO) {
+ 		__smu_cmn_reg_print_error(smu, reg, index, param, msg);
+ 		goto Out;
+-- 
+2.25.1
 
-
-On 2/25/22 1:26 AM, Andrey Grodzovsky wrote:
-> No problem if so but before I do,
->
->
-> JingWen - why you think this patch is needed as a standalone now ? It has no use without the
-> entire feature together with it. Is it some changes you want to do on top of that code ?
->
->
-> Andrey
->
->
-> On 2022-02-24 12:12, Deucher, Alexander wrote:
->>
->> [Public]
->>
->>
->> If it applies cleanly, feel free to drop it in.  I'll drop those patches for drm-next since they are already in drm-misc.
->>
->> Alex
->>
->> ------------------------------------------------------------------------
->> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->> *Sent:* Thursday, February 24, 2022 11:24 AM
->> *To:* Chen, JingWen <JingWen.Chen2@amd.com>; Christian König <ckoenig.leichtzumerken@gmail.com>; dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
->> *Cc:* Liu, Monk <Monk.Liu@amd.com>; Chen, Horace <Horace.Chen@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; daniel@ffwll.ch <daniel@ffwll.ch>
->> *Subject:* Re: [RFC v4 02/11] drm/amdgpu: Move scheduler init to after XGMI is ready
->> No because all the patch-set including this patch was landed into
->> drm-misc-next and will reach amd-staging-drm-next on the next upstream
->> rebase i guess.
->>
->> Andrey
->>
->> On 2022-02-24 01:47, JingWen Chen wrote:
->> > Hi Andrey,
->> >
->> > Will you port this patch into amd-staging-drm-next?
->> >
->> > on 2/10/22 2:06 AM, Andrey Grodzovsky wrote:
->> >> All comments are fixed and code pushed. Thanks for everyone
->> >> who helped reviewing.
->> >>
->> >> Andrey
->> >>
->> >> On 2022-02-09 02:53, Christian König wrote:
->> >>> Am 09.02.22 um 01:23 schrieb Andrey Grodzovsky:
->> >>>> Before we initialize schedulers we must know which reset
->> >>>> domain are we in - for single device there iis a single
->> >>>> domain per device and so single wq per device. For XGMI
->> >>>> the reset domain spans the entire XGMI hive and so the
->> >>>> reset wq is per hive.
->> >>>>
->> >>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->> >>> One more comment below, with that fixed Reviewed-by: Christian König <christian.koenig@amd.com>.
->> >>>
->> >>>> ---
->> >>>> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 45 ++++++++++++++++++++++
->> >>>> drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 34 ++--------------
->> >>>> drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  2 +
->> >>>>    3 files changed, 51 insertions(+), 30 deletions(-)
->> >>>>
->> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> >>>> index 9704b0e1fd82..00123b0013d3 100644
->> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> >>>> @@ -2287,6 +2287,47 @@ static int amdgpu_device_fw_loading(struct amdgpu_device *adev)
->> >>>>        return r;
->> >>>>    }
->> >>>>    +static int amdgpu_device_init_schedulers(struct amdgpu_device *adev)
->> >>>> +{
->> >>>> +    long timeout;
->> >>>> +    int r, i;
->> >>>> +
->> >>>> +    for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
->> >>>> +        struct amdgpu_ring *ring = adev->rings[i];
->> >>>> +
->> >>>> +        /* No need to setup the GPU scheduler for rings that don't need it */
->> >>>> +        if (!ring || ring->no_scheduler)
->> >>>> +            continue;
->> >>>> +
->> >>>> +        switch (ring->funcs->type) {
->> >>>> +        case AMDGPU_RING_TYPE_GFX:
->> >>>> +            timeout = adev->gfx_timeout;
->> >>>> +            break;
->> >>>> +        case AMDGPU_RING_TYPE_COMPUTE:
->> >>>> +            timeout = adev->compute_timeout;
->> >>>> +            break;
->> >>>> +        case AMDGPU_RING_TYPE_SDMA:
->> >>>> +            timeout = adev->sdma_timeout;
->> >>>> +            break;
->> >>>> +        default:
->> >>>> +            timeout = adev->video_timeout;
->> >>>> +            break;
->> >>>> +        }
->> >>>> +
->> >>>> +        r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
->> >>>> + ring->num_hw_submission, amdgpu_job_hang_limit,
->> >>>> +                   timeout, adev->reset_domain.wq, ring->sched_score, ring->name);
->> >>>> +        if (r) {
->> >>>> +            DRM_ERROR("Failed to create scheduler on ring %s.\n",
->> >>>> +                  ring->name);
->> >>>> +            return r;
->> >>>> +        }
->> >>>> +    }
->> >>>> +
->> >>>> +    return 0;
->> >>>> +}
->> >>>> +
->> >>>> +
->> >>>>    /**
->> >>>>     * amdgpu_device_ip_init - run init for hardware IPs
->> >>>>     *
->> >>>> @@ -2419,6 +2460,10 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
->> >>>>            }
->> >>>>        }
->> >>>>    +    r = amdgpu_device_init_schedulers(adev);
->> >>>> +    if (r)
->> >>>> +        goto init_failed;
->> >>>> +
->> >>>>        /* Don't init kfd if whole hive need to be reset during init */
->> >>>>        if (!adev->gmc.xgmi.pending_reset)
->> >>>> amdgpu_amdkfd_device_init(adev);
->> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> >>>> index 45977a72b5dd..fa302540c69a 100644
->> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> >>>> @@ -457,8 +457,6 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
->> >>>>                      atomic_t *sched_score)
->> >>>>    {
->> >>>>        struct amdgpu_device *adev = ring->adev;
->> >>>> -    long timeout;
->> >>>> -    int r;
->> >>>>          if (!adev)
->> >>>>            return -EINVAL;
->> >>>> @@ -478,36 +476,12 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
->> >>>> spin_lock_init(&ring->fence_drv.lock);
->> >>>>        ring->fence_drv.fences = kcalloc(num_hw_submission * 2, sizeof(void *),
->> >>>>                         GFP_KERNEL);
->> >>>> -    if (!ring->fence_drv.fences)
->> >>>> -        return -ENOMEM;
->> >>>>    -    /* No need to setup the GPU scheduler for rings that don't need it */
->> >>>> -    if (ring->no_scheduler)
->> >>>> -        return 0;
->> >>>> +    ring->num_hw_submission = num_hw_submission;
->> >>>> +    ring->sched_score = sched_score;
->> >>> Let's move this into the caller and then use ring->num_hw_submission in the fence code as well.
->> >>>
->> >>> The maximum number of jobs on the ring is not really fence specific.
->> >>>
->> >>> Regards,
->> >>> Christian.
->> >>>
->> >>>>    -    switch (ring->funcs->type) {
->> >>>> -    case AMDGPU_RING_TYPE_GFX:
->> >>>> -        timeout = adev->gfx_timeout;
->> >>>> -        break;
->> >>>> -    case AMDGPU_RING_TYPE_COMPUTE:
->> >>>> -        timeout = adev->compute_timeout;
->> >>>> -        break;
->> >>>> -    case AMDGPU_RING_TYPE_SDMA:
->> >>>> -        timeout = adev->sdma_timeout;
->> >>>> -        break;
->> >>>> -    default:
->> >>>> -        timeout = adev->video_timeout;
->> >>>> -        break;
->> >>>> -    }
->> >>>> -
->> >>>> -    r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
->> >>>> -               num_hw_submission, amdgpu_job_hang_limit,
->> >>>> -               timeout, NULL, sched_score, ring->name);
->> >>>> -    if (r) {
->> >>>> -        DRM_ERROR("Failed to create scheduler on ring %s.\n",
->> >>>> -              ring->name);
->> >>>> -        return r;
->> >>>> -    }
->> >>>> +    if (!ring->fence_drv.fences)
->> >>>> +        return -ENOMEM;
->> >>>>          return 0;
->> >>>>    }
->> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->> >>>> index fae7d185ad0d..7f20ce73a243 100644
->> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->> >>>> @@ -251,6 +251,8 @@ struct amdgpu_ring {
->> >>>>        bool has_compute_vm_bug;
->> >>>>        bool            no_scheduler;
->> >>>>        int            hw_prio;
->> >>>> +    unsigned num_hw_submission;
->> >>>> +    atomic_t        *sched_score;
->> >>>>    };
->> >>>>      #define amdgpu_ring_parse_cs(r, p, ib) ((r)->funcs->parse_cs((p), (ib)))
