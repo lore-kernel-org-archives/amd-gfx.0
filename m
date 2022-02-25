@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CED06C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Feb 2022 23:12:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64B45C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 01:23:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45E1310E930;
-	Thu, 24 Feb 2022 23:12:51 +0000 (UTC)
-Received: from mx2.absolutedigital.net (mx2.absolutedigital.net
- [50.242.207.105])
- by gabe.freedesktop.org (Postfix) with ESMTP id CF3B710E930
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Feb 2022 23:12:49 +0000 (UTC)
-Received: from lancer.cnet.absolutedigital.net
- (lancer.cnet.absolutedigital.net [10.7.5.10])
- by luxor.inet.absolutedigital.net (8.14.4/8.14.4) with ESMTP id 21ONCXf0005177
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL);
- Thu, 24 Feb 2022 18:12:34 -0500
-Received: from localhost (localhost [127.0.0.1])
- by lancer.cnet.absolutedigital.net (8.14.4/8.14.4) with ESMTP id
- 21ONBngf024090
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
- Thu, 24 Feb 2022 18:11:49 -0500
-Date: Thu, 24 Feb 2022 18:11:49 -0500 (EST)
-From: Cal Peake <cp@absolutedigital.net>
-To: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: AMDGPU: RX 6500 XT: System reset when loading module
-In-Reply-To: <8cd9b639-be48-5b2f-bc3d-d6bd49be1830@amd.com>
-Message-ID: <alpine.LNX.2.00.2202241728250.23253@lancer.cnet.absolutedigital.net>
-References: <alpine.LNX.2.00.2202131848490.20545@lancer.cnet.absolutedigital.net>
- <b30922e2-04f5-2135-695c-2ea84d9307ac@amd.com>
- <alpine.LNX.2.00.2202141223020.10303@lancer.cnet.absolutedigital.net>
- <de9952a6-cba1-4927-f8e0-fcd7f115267e@amd.com>
- <alpine.LNX.2.00.2202171254420.21576@lancer.cnet.absolutedigital.net>
- <809355d6-ef2a-ca90-5a9a-813beb8ff6d1@amd.com>
- <alpine.LNX.2.00.2202181444250.8791@lancer.cnet.absolutedigital.net>
- <8cd9b639-be48-5b2f-bc3d-d6bd49be1830@amd.com>
-User-Agent: Alpine 2.00 (LNX 1167 2008-08-23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE9BA10E173;
+	Fri, 25 Feb 2022 01:23:51 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F35B10E14A;
+ Fri, 25 Feb 2022 01:23:50 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D8BEC60C7A;
+ Fri, 25 Feb 2022 01:23:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15EC8C340E9;
+ Fri, 25 Feb 2022 01:23:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1645752229;
+ bh=WT9Bxm8hy9Zx9+4uOpWY97MNM6hQYpRoQq/T1hnrs4g=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=C50+Ss5Q8B6EjURcCBRIy/cJHNllf+HiDwblGn44q80pk/g8LPFXaGsNp1Ms+hMwb
+ e9WEtVvnwLxTu8UArBuZa6jBZ/ajgdf0E4OiqkEGfVcrehsXRaXRznQQBdpKktAKJd
+ n/qT1+2TyV0A9k7thsT6KGnXHzdQr9qHHvxP2xLIix2uC9Yh87yTjFXXP1x2ChiIna
+ 3VYSqX8pIMhrJerZekdFP9Ml8M+gf15kzW8NffwXIuRhpqnskM3BsVX+dXp8II/J8Q
+ u0S0kJI76PBA2395AP3dDfni+E2pF+qYp6kQiJYZvL5lWHP2IlqDfI1Eygmz/NTLP5
+ D1apyl5izGSPw==
+Date: Thu, 24 Feb 2022 19:23:46 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH v5 3/7] PCI: Drop the `is_thunderbolt` attribute from PCI
+ core
+Message-ID: <20220225012346.GA317859@bhelgaas>
 MIME-Version: 1.0
-Content-Type: MULTIPART/MIXED;
- BOUNDARY="118098437-1169863731-1645744309=:23253"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220224215116.7138-4-mario.limonciello@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,39 +51,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Michael Jamet <michael.jamet@intel.com>,
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ "open list:THUNDERBOLT DRIVER" <linux-usb@vger.kernel.org>,
+ Yehezkel Bernat <YehezkelShB@gmail.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>,
+ Andreas Noever <andreas.noever@gmail.com>, Lukas Wunner <lukas@wunner.de>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Alexander.Deucher@amd.com, Mika Westerberg <mika.westerberg@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Thu, Feb 24, 2022 at 03:51:12PM -0600, Mario Limonciello wrote:
+> The `is_thunderbolt` attribute originally had a well defined list of
+> quirks that it existed for, but it has been overloaded with more
+> meaning.
+> 
+> Instead use the driver core removable attribute to indicate the
+> detail a device is attached to a thunderbolt or USB4 chain.
+> 
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/pci/probe.c               | 2 +-
+>  drivers/platform/x86/apple-gmux.c | 2 +-
+>  include/linux/pci.h               | 5 ++---
+>  3 files changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+> index 17a969942d37..1b752d425c47 100644
+> --- a/drivers/pci/probe.c
+> +++ b/drivers/pci/probe.c
+> @@ -1584,7 +1584,7 @@ static void set_pcie_thunderbolt(struct pci_dev *dev)
+>  	/* Is the device part of a Thunderbolt controller? */
+>  	vsec = pci_find_vsec_capability(dev, PCI_VENDOR_ID_INTEL, PCI_VSEC_ID_INTEL_TBT);
+>  	if (vsec)
+> -		dev->is_thunderbolt = 1;
+> +		dev->external_facing = true;
 
---118098437-1169863731-1645744309=:23253
-Content-Type: TEXT/PLAIN; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+I assume there's a spec for the PCI_VSEC_ID_INTEL_TBT Capability.  Is
+that public?  Does the spec say that a device with that capability
+must be external-facing?
 
-On Thu, 24 Feb 2022, Christian König wrote:
+Even if it's not public, I think a citation (name, revision, section)
+would be useful.
 
-> Interesting to know that it turned out to be the motherboard, going to keep
-> that in mind if somebody else is having similar problems.
+>  }
+>  
+>  static void set_pcie_untrusted(struct pci_dev *dev)
+> diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
+> index 57553f9b4d1d..4444da0c39b0 100644
+> --- a/drivers/platform/x86/apple-gmux.c
+> +++ b/drivers/platform/x86/apple-gmux.c
+> @@ -596,7 +596,7 @@ static int gmux_resume(struct device *dev)
+>  
+>  static int is_thunderbolt(struct device *dev, void *data)
+>  {
+> -	return to_pci_dev(dev)->is_thunderbolt;
+> +	return to_pci_dev(dev)->external_facing;
 
-Looks like I might have spoke too soon, getting random resets again. I 
-have no idea why my nvidia card runs perfectly fine, but two completely 
-different AMD GPUs both have the same problem, or why that problem comes 
-and goes at random.
+This looks ... sort of weird.  I don't know anything about
+apple-gmux.c, so I guess I don't care, but assuming any
+external-facing device must be a Thunderbolt device seems like a
+stretch.
 
-I'm gonna have to do a deeper dive into this until I figure it out (or 
-until Intel drops their dGPUs and I can get a modern, OSS-friendly GPU 
-that's stable on my system lol).
+Ugh.  This is used via "bus_for_each_dev(&pci_bus_type)", which means
+it's not hotplug-safe.  I'm sure we "know" implicitly that hotplug
+isn't an issue in apple-gmux, but it's better not to have examples
+that get copied to places where it *is* an issue.
 
-I'll let you know if I come up with anything more definitive, Christian.
+>  }
+>  
+>  static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index 1e5b769e42fc..d9719eb14654 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -442,7 +442,6 @@ struct pci_dev {
+>  	unsigned int	is_virtfn:1;
+>  	unsigned int	is_hotplug_bridge:1;
+>  	unsigned int	shpc_managed:1;		/* SHPC owned by shpchp */
+> -	unsigned int	is_thunderbolt:1;	/* Thunderbolt controller */
+>  	unsigned int	no_cmd_complete:1;	/* Lies about command completed events */
+>  
+>  	/*
+> @@ -2447,11 +2446,11 @@ static inline bool pci_is_thunderbolt_attached(struct pci_dev *pdev)
+>  {
+>  	struct pci_dev *parent = pdev;
+>  
+> -	if (pdev->is_thunderbolt)
+> +	if (dev_is_removable(&pdev->dev))
+>  		return true;
+>  
+>  	while ((parent = pci_upstream_bridge(parent)))
+> -		if (parent->is_thunderbolt)
+> +		if (dev_is_removable(&parent->dev))
+>  			return true;
 
-Thanks!
+I don't get this.  Plain old PCI devices can be removable, too.
 
--- 
-Cal Peake
+pci_is_thunderbolt_attached() is only used by GPU drivers.  What
+property of Thunderbolt do they care about?
 
-P.S. To your earlier point about capacitors: Between the mobo and the GPU, 
-the only electrolytic caps are for the audio hardware. Everything else is 
-solid polymer, so I'm thinking that that's probably not the culprit :-)
---118098437-1169863731-1645744309=:23253--
+nouveau_vga_init() and radeon_device_init() use it to decide to
+register with vga_switcheroo.  So maybe that's something to do with
+removability?  Of course, that's not specific to Thunderbolt, because
+garden-variety PCIe devices are removable.
+
+amdgpu_driver_load_kms() and radeon_driver_load_kms() apparently use
+it for something related to power control.  I don't know what the
+Thunderbolt connection is.
+
+nbio_v2_3_enable_aspm() looks like it uses it to change some ASPM
+parameters.  Seems like potentially a device erratum or quirk
+material?
+
+If these things are not specifically related to Thunderbolt, I'd
+prefer to get rid of pci_is_thunderbolt_attached() and see if we can
+help the GPU folks figure out what they really need.
+
+>  	return false;
+> -- 
+> 2.34.1
+> 
