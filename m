@@ -4,117 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FE4BC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 20:59:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4236EC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 21:16:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80E9310E955;
-	Fri, 25 Feb 2022 20:59:27 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2072.outbound.protection.outlook.com [40.107.220.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C21110E955
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Feb 2022 20:59:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EOATzXGSyseQ/YNeyN+RuX0f0oXdMaksw4g+RzHVaYOUEWyn39BUncOqECtRDuQdzr85ZH6QDlgvNZYWtf2HlpE3+pnOPYuIlixkOWYKKNVwLW5Pcca0lDPGnWMkYpGsh46BLw7rs4H/R1MqcNBbqZvKsFI1e8GzJLDFkLesXawIL+HCJh5Of0McJ54lA9rsfj+xY0uJpBs95bMODV5t4VEbwat9gpJ8yjZyWe/rHYUyFMV6G/9482qXpZASqFpCM9pDevG6xo4t6QNtTWm/iMZ8IllToocxufmxuksqs7bdnAAmU2KXOlpq8SbI19PRgca9Q/yMwSWNgnA6nQw1qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QWQcxkxrGB8xevVAToUbbViVjgA7fhwYG6vgUnBWzUI=;
- b=cdnD3pFuQCEnEBG+wHjGl3o0t8XZ9Kb8rpmzZbVljU1UIs1tA5UtL60NsIplTEhWl+9I41ZM3Y4weBtCdkD2UjWtj32AP+fRTeIhH+X+hjDvjmhA81bbVMVNxfaAjq3iMWH/csDaNybEAALo/t8vE1P3BGgIWyqi8pUw1+QD6AXF+4XzD1dmiWj2bMj/4MVngPitId/c9pqQGrLR4Uq/KnY2wrl4LXWgwdvsiiC6M/TJMONI7BrVEnDTsOI5CT1IL1r9ekBZnvqHXF0fPpoTmaUn2ByayUNElHYFH7i4r8khXgmIGchf8Fddq4U7Y3uKzLLKpDcxT+Ir1Zx+dPvSlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QWQcxkxrGB8xevVAToUbbViVjgA7fhwYG6vgUnBWzUI=;
- b=a9JEWk2boqhGSGxbDvp76+3jUIjwXySZa1sSipIPsQ/3rdVp20CF5IUqcMzC0UbShzG9DO7XZw9E9belk60avgci34FV5qvAhxwKHeLGdXjBUtc5CQZYljPmnyVEMYyHPx0W4OBgZexpMB3iwN9uvU4l0376mmmQHpCuz10+07I=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BYAPR12MB4693.namprd12.prod.outlook.com (2603:10b6:a03:98::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.24; Fri, 25 Feb
- 2022 20:59:18 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::410c:b456:62cb:e3f]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::410c:b456:62cb:e3f%5]) with mapi id 15.20.5017.025; Fri, 25 Feb 2022
- 20:59:18 +0000
-Message-ID: <41a573df-9580-24c0-ad4a-5e6a4937ac71@amd.com>
-Date: Fri, 25 Feb 2022 15:59:16 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 1/1] Revert "drm/amdkfd: process_info lock not needed for
- svm"
-Content-Language: en-US
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220225201230.6441-1-Philip.Yang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20220225201230.6441-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YTXPR0101CA0012.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::25) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C580F10E204;
+	Fri, 25 Feb 2022 21:16:25 +0000 (UTC)
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [IPv6:2607:f8b0:4864:20::c2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FC5010E204;
+ Fri, 25 Feb 2022 21:16:24 +0000 (UTC)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ u47-20020a4a9732000000b00316d0257de0so8143844ooi.7; 
+ Fri, 25 Feb 2022 13:16:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Ko8qqQEVUil5TWFjZfqRwHEsMLuAIssU02AmVQdPBOw=;
+ b=pGszxkCLQ3puVUxsx62owzoe4FsnFHrgHXfZzjx3PsWQBzq8vGDnk6bIge3G16WDGM
+ +W0ly4wRg2QDX+85iQJuJxRD/pZ8BBjRhZKF6WaYk9BR78am4cRa/Fl+hg3a27kaX3dT
+ oixl5lr930/QhU2LemXNOOgLCA3hbD/Un9/BN1FEapSvvEgTKXIpnWlV23OyKo9vH8hG
+ QURSCbNp2g3jkoLYVgLrLF7Ot0g1Dm8uVLGkKYqP4Yh31coeL9zxOwD7iOPeRYWbgpLd
+ w7Wf6lc5ZK7U12kout/97lFa5Zxvu2jx99n4mF6AEzSroOdnBMNaOTdgvkPB9bVf8yGf
+ 3cCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Ko8qqQEVUil5TWFjZfqRwHEsMLuAIssU02AmVQdPBOw=;
+ b=b8g5ponZq6g5dI5mkrUKOuXe9A35KcO5+z616vHsbEWPS/Rce+iZlfqGUukJR7Ixdh
+ fU6r/G84OEo+P8iuj+q6maOQOcnlm72vGemjV6AQkR+jSJ7r8LooqaflefN4V/jnCaqn
+ SYH8uqaSLPienUXxPljk7Yluw0jQHVgGIjLLEJhZc45c3lzOqQMjTFaPpilZO7smCmcx
+ AOIZoqvhBhJLaYXCm9D8KsngntMBiYQO8eUCepk42X+B3/5OdklNeLjEpRe04dtK3Ypt
+ Cq2nah1atAfJYshro3OPmnYiGNlLxkfGbfak9+/Cm1/mrZ1muMkLReSaVibD9a4oXr7Y
+ H4xQ==
+X-Gm-Message-State: AOAM531lVWZ9G01FEpV3CCeiV6jXn1c7l55/WjJIwPUE8V2ic3DnpZzS
+ I5LOCf2JNYAURNYgQApVkfkNlMWi/bXhqNJiOjo=
+X-Google-Smtp-Source: ABdhPJx0UqLcJv9VvPEe1YEdHeHZsbfs190hpTC8C4yhZQ7vGGmV8HjFm9Npla5tYVZetEQv299PhTUQENa8PbJwcq0=
+X-Received: by 2002:a05:6870:3e0d:b0:d3:fe6d:57c3 with SMTP id
+ lk13-20020a0568703e0d00b000d3fe6d57c3mr2338969oab.225.1645823783588; Fri, 25
+ Feb 2022 13:16:23 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4617e1f8-c961-4873-4cbc-08d9f8a1b045
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4693:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB4693BBFBDC2288196B7F3D5C923E9@BYAPR12MB4693.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +4qX8KM7Z3r0d9F1DcMDF/3y2tJ0594i6M3wMUosi4XhQOpiVaUkLsk87LGIX2NanSE0hKXWMOrENprdyvwjiroFCniHC26UkPzj23Igw0/TrrlmrdCh73UUmkLSnCbiXrY05FKMUUwWjQhVwtjnKpZ8WnQP+s2ATep/BMYoLwucpGL2ead+tlHphc6A//X5I9E+ngeUN1qTWW58wOXVZKS/tgkBZbId8AMXfSvtd+8Xntvn9YFC3/rt/Yoa9jXHRo7/X4YM8jcHJpRy+dUby00ixGbnuiooAWZiwBEjbfoGAzXZyzOArbKuFLZZQXVbhrJ6K40GjI7RDqv1RQoJuRNhyj32l48udejPSF1vJvfMCgBTwGcqcugWTlf+kkc6KKM8O7dSlBnQI1tpVw6T72HY5oXoqwWW/pu8743Qgn7q2wLyM00zxj0fPg+0Vso+9QfOSMPoPHHpB62LXy1ZR1SEDF3HwdKda6OTlSZGGnj4flp7ITEAYTmyr7RN+sDeD6t8g4ttUOkYsxZbbDwW1XDHo2/5pJpzEQvCBGzkgNPXamz7QnOjIM0NWccdkhUEX8rk0lX9Sap+o1hkoF0TAwlTJXMc9D8PdZVC1Frlak8blHkE4g7/brOYSHkLKcutrG5t+Q25UlJgJgT7on/a6xtHuZ8SNmBHpYfUMK3yP52T7euPKxJd1vGwMiseYMgObzmF2kCxuTVI+/xTA9Yn6JMwRfOofmJoTO+tK/9ePRflSfHM5SR3Y1Vg35CwjqBL
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66946007)(66476007)(36756003)(44832011)(6486002)(2906002)(186003)(26005)(2616005)(31686004)(8936002)(5660300002)(316002)(66556008)(8676002)(508600001)(38100700002)(86362001)(31696002)(6506007)(6512007)(83380400001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c05yZzRmalNTV1kzUXRCWEVDdUo4YWJpcWhsNzk1VjVYWDZZU0RLalZNM1hn?=
- =?utf-8?B?aHpXVUNab2x5RnovcG1ONkZmSk9OQnNJdElFU2p5ZlFTNGVvSXZKa05US2Y3?=
- =?utf-8?B?cDcwUXdtYjJZT2tjR1VGVlNQc2VGeEhiWjFUbVdNMzVCOXA4VkdqQ1JwZ2hn?=
- =?utf-8?B?Q2dnNUZ5clpCNWtGT1RWVnBWYkpEbVV6OS9yall6OElhUjdlZGUxMjY0bWZZ?=
- =?utf-8?B?M0NxaUduTkhCc3pwdnJ0TFhYZTVQUzdPcmN4a3dwbXd6RGE0S25ETUVnR0o0?=
- =?utf-8?B?MzN1ZWFXM04yeUxXYlpveTU0VkZ5em45RGczWnp2M21ERXQ1S3lBZ1pqYnE0?=
- =?utf-8?B?M3JWenpXdm5TVUIvZDR5S0FhSXNTb1drV1VVSjd0K0VEVXFXbWdaTzhrK0VW?=
- =?utf-8?B?T3poMzBhK3F6aE4xZFJmeDMwMlVWNjRSbUhEa283TzJDKzlqWmR3WVd0Q0ND?=
- =?utf-8?B?V05Qc0ZBbHlPekE5RHZQSVdGdjlWRTBORkdLQ1RxakFvUWVHZmhITjg3TWFZ?=
- =?utf-8?B?dXhCMlhBRFk0RTVDTE9tZVR2KzlnaGVEcTBubWwybm5HV1FUdWJDaE5DbjVz?=
- =?utf-8?B?bHFxUTk3ZFYxUkg1MkkwMUg4emRSdXNSbFJEWWttM3FPVlBTSkJiZjlCbHdY?=
- =?utf-8?B?bzl6YTF4Mzk1SHFTUmhOVHlsL2JOdWZmbjVLaW5yWGcwb2tFT2FtS0FSOThR?=
- =?utf-8?B?eEt5L0gvWFRHYVU4V29NRkhlWldsd0gyV1g3LzU5MVlUaEszTzUvdUd3U1JJ?=
- =?utf-8?B?N2NqZ0QxSDdxdXJoTmdBNGdsclc0Mkd2KzJYcUcrZllUemRVSEJIeTRycnha?=
- =?utf-8?B?TGlIZm56MCs0czc4TTZrUmJjWFFQd2VRZ1J0by9wTFNscUxycURYcFUxQ25Z?=
- =?utf-8?B?M0FqYndNTHMxTmNBclp2ZHlOc3piZjhVUTh4WUR3cVdsZGl6ekw4bjVsSXFi?=
- =?utf-8?B?T3VXNGdwN25rNGxDTnp5VUtFZ2ZFcXM1Y2YwcnUwVHpwRi9kSURCT3lSQmtj?=
- =?utf-8?B?MHVWaFg5SVNadE1iWWRJdFA5a3I2c0RjNUFDaWo4aWlxbFRtdFBWRlA0bmls?=
- =?utf-8?B?ODc3WitVa1Q1Q2pyNFg1K21kMVhwMnlxMTM5S2k2d296SmFXb2JXaTJ0Q01l?=
- =?utf-8?B?aVk5OHQ1V2VtQVFOL0RqUG80WW8rZFowalV5NE9Ha3EyT1ZzblluL3VlSVIz?=
- =?utf-8?B?b2w5NkhZajFuRVNyekt6Q05xTGFCRHBldVpIOVVDVTE5eStDS1U2ZVgvWmpU?=
- =?utf-8?B?cTRJZU1JUjdrV0ZESlNoc0paS3YzcjZNOWVVbUlJczNjMmJNZ1poWHg4U2Jm?=
- =?utf-8?B?WmMvTFM4M0xkZTVvUG1FTHRvSmVOTkNlWmVxSGMybTUrMTRXam1lWW12ZFJ6?=
- =?utf-8?B?YVVydTE2S21xeUpIZk4yai9yT2RTZmRvOU0wSUdDa0ZUSEFtWDZIMmQ4aVlV?=
- =?utf-8?B?Z0tSc3dmazg2M05Ob1ZLUjJnU0FZZHFUQm5Kd0QvQWpUNFRXTkwyeG0vcHZy?=
- =?utf-8?B?by9aMDBDOSs2aWVRekZSa29wSEhaVDE4MnlVV1ZTKzdpbk5XYnhmUzZJUDRN?=
- =?utf-8?B?dHZpc0NaWXB0RWRaZldrUGJCU2tyZlhIQXVnSitQa1RzaVV0d1UybDJkelZK?=
- =?utf-8?B?cWtrS0M4TVV0a3hUMlVCaDA4bUo0N2NFRUxWZDBJZTc0djZ1YU9QV0pBNzRh?=
- =?utf-8?B?RDc3aUNWNXBDQ2pRcjNDZjFTSytVaHVVMDBXOU5oM3d6VEg0VkdlQTNmNS9v?=
- =?utf-8?B?VVRXZkNzVitVTEZnVG90eFRwNHQzZHN1eE9vdDRBUU9ScUVyVmR1V3pSM3ho?=
- =?utf-8?B?U014ZDFxNnNVREE3R21NaWVhQ3M0U0xzRkRJT0NrQXRaM0tTUHV6RFRNWEtl?=
- =?utf-8?B?b3dUZmdhdlpVNmdVeGpuV0ZsL3BkeStBUzlYU2Vmc1czdVlnb2FVeXFYTi9R?=
- =?utf-8?B?cE8rSE5UaWlWVlFtU0NFK3k4L2ZFUVJQSkdhV2VuZ1JJeG5sdklsSFU2T3k2?=
- =?utf-8?B?ZkRxdjlJcXRPTHVLQ2pyb2xVWjc1cjlCc1V5VGs4RjZ3aTJMZ0tOVll4QWt2?=
- =?utf-8?B?TS9jOGZqaGZ4SG82S0R1WG84M1BFRjNuelpSaTFIeWhJWlZkc2s5eURUN2RE?=
- =?utf-8?B?YzBIN2NrYm9HaE94bWpnQ2J3QXFDbndocUZxeXlxVHQvVFFxSE0xdkYwNVZk?=
- =?utf-8?Q?hWbFo6AIShEPZKQCl107VFs=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4617e1f8-c961-4873-4cbc-08d9f8a1b045
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2022 20:59:18.2421 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V3HaBxgMqPlkTP0ten//D7A59Y1q9L2o9wbG9mDEdkG4Pyy16lZUWWYLhnvAuZReUQWmoBW8dRBLc15zT5VtWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4693
+References: <20220225094722.4734-1-tangmeng@uniontech.com>
+ <DM6PR12MB2619714B0189A1A9A70F50F2E43E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2619714B0189A1A9A70F50F2E43E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 25 Feb 2022 16:16:12 -0500
+Message-ID: <CADnq5_O5dwwmmknOFfMbhTeOTtXUH5QpqJ8CDZ5kAzarbw4Sgw@mail.gmail.com>
+Subject: Re: [PATCH] gpu/amd: vega10_hwmgr: fix inappropriate private variable
+ name
+To: "Quan, Evan" <Evan.Quan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,82 +64,249 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "airlied@linux.ie" <airlied@linux.ie>, Meng Tang <tangmeng@uniontech.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-02-25 um 15:12 schrieb Philip Yang:
-> This reverts commit 3abfe30d803e62cc75dec254eefab3b04d69219b.
+Applied.  Thanks!
+
+Alex
+
+On Fri, Feb 25, 2022 at 8:04 AM Quan, Evan <Evan.Quan@amd.com> wrote:
 >
-> To fix deadlock in kFDSVMEvictTest when xnack off.
-
-Please add your Signed-off-by. With that fixed, the patch is
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
+> [AMD Official Use Only]
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index b71d47afd243..509d915cbe69 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1629,6 +1629,7 @@ svm_range_list_lock_and_flush_work(struct svm_range_list *svms,
->   static void svm_range_restore_work(struct work_struct *work)
->   {
->   	struct delayed_work *dwork = to_delayed_work(work);
-> +	struct amdkfd_process_info *process_info;
->   	struct svm_range_list *svms;
->   	struct svm_range *prange;
->   	struct kfd_process *p;
-> @@ -1645,6 +1646,7 @@ static void svm_range_restore_work(struct work_struct *work)
->   	pr_debug("restore svm ranges\n");
->   
->   	p = container_of(svms, struct kfd_process, svms);
-> +	process_info = p->kgd_process_info;
->   
->   	/* Keep mm reference when svm_range_validate_and_map ranges */
->   	mm = get_task_mm(p->lead_thread);
-> @@ -1653,6 +1655,7 @@ static void svm_range_restore_work(struct work_struct *work)
->   		return;
->   	}
->   
-> +	mutex_lock(&process_info->lock);
->   	svm_range_list_lock_and_flush_work(svms, mm);
->   	mutex_lock(&svms->lock);
->   
-> @@ -1705,6 +1708,7 @@ static void svm_range_restore_work(struct work_struct *work)
->   out_reschedule:
->   	mutex_unlock(&svms->lock);
->   	mmap_write_unlock(mm);
-> +	mutex_unlock(&process_info->lock);
->   	mmput(mm);
->   
->   	/* If validation failed, reschedule another attempt */
-> @@ -3209,6 +3213,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->   		   uint64_t start, uint64_t size, uint32_t nattr,
->   		   struct kfd_ioctl_svm_attribute *attrs)
->   {
-> +	struct amdkfd_process_info *process_info = p->kgd_process_info;
->   	struct list_head update_list;
->   	struct list_head insert_list;
->   	struct list_head remove_list;
-> @@ -3226,6 +3231,8 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->   
->   	svms = &p->svms;
->   
-> +	mutex_lock(&process_info->lock);
-> +
->   	svm_range_list_lock_and_flush_work(svms, mm);
->   
->   	r = svm_range_is_valid(p, start, size);
-> @@ -3300,6 +3307,8 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->   	mutex_unlock(&svms->lock);
->   	mmap_read_unlock(mm);
->   out:
-> +	mutex_unlock(&process_info->lock);
-> +
->   	pr_debug("pasid 0x%x svms 0x%p [0x%llx 0x%llx] done, r=%d\n", p->pasid,
->   		 &p->svms, start, start + size - 1, r);
->   
+> Thanks!
+> The patch is reviewed-by: Evan Quan <evan.quan@amd.com>
+>
+> > -----Original Message-----
+> > From: Meng Tang <tangmeng@uniontech.com>
+> > Sent: Friday, February 25, 2022 5:47 PM
+> > To: airlied@linux.ie; daniel@ffwll.ch
+> > Cc: Quan, Evan <Evan.Quan@amd.com>; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; amd-
+> > gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
+> > kernel@vger.kernel.org; Meng Tang <tangmeng@uniontech.com>
+> > Subject: [PATCH] gpu/amd: vega10_hwmgr: fix inappropriate private variable
+> > name
+> >
+> > In file vega10_hwmgr.c, the names of struct vega10_power_state *
+> > and struct pp_power_state * are confusingly used, which may lead
+> > to some confusion.
+> >
+> > Status quo is that variables of type struct vega10_power_state *
+> > are named "vega10_ps", "ps", "vega10_power_state". A more
+> > appropriate usage is that struct are named "ps" is used for
+> > variabled of type struct pp_power_state *.
+> >
+> > So rename struct vega10_power_state * which are named "ps" and
+> > "vega10_power_state" to "vega10_ps", I also renamed "psa" to
+> > "vega10_psa" and "psb" to "vega10_psb" to make it more clearly.
+> >
+> > The rows longer than 100 columns are involved.
+> >
+> > Signed-off-by: Meng Tang <tangmeng@uniontech.com>
+> > ---
+> >  .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 68 +++++++++++---
+> > -----
+> >  1 file changed, 38 insertions(+), 30 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> > b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> > index 3f040be0d158..37324f2009ca 100644
+> > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> > @@ -3095,7 +3095,7 @@ static int
+> > vega10_get_pp_table_entry_callback_func(struct pp_hwmgr *hwmgr,
+> >               void *pp_table, uint32_t classification_flag)
+> >  {
+> >       ATOM_Vega10_GFXCLK_Dependency_Record_V2
+> > *patom_record_V2;
+> > -     struct vega10_power_state *vega10_power_state =
+> > +     struct vega10_power_state *vega10_ps =
+> >                       cast_phw_vega10_power_state(&(power_state-
+> > >hardware));
+> >       struct vega10_performance_level *performance_level;
+> >       ATOM_Vega10_State *state_entry = (ATOM_Vega10_State *)state;
+> > @@ -3145,17 +3145,17 @@ static int
+> > vega10_get_pp_table_entry_callback_func(struct pp_hwmgr *hwmgr,
+> >       power_state->temperatures.min = 0;
+> >       power_state->temperatures.max = 0;
+> >
+> > -     performance_level = &(vega10_power_state->performance_levels
+> > -                     [vega10_power_state-
+> > >performance_level_count++]);
+> > +     performance_level = &(vega10_ps->performance_levels
+> > +                     [vega10_ps->performance_level_count++]);
+> >
+> >       PP_ASSERT_WITH_CODE(
+> > -                     (vega10_power_state->performance_level_count <
+> > +                     (vega10_ps->performance_level_count <
+> >                                       NUM_GFXCLK_DPM_LEVELS),
+> >                       "Performance levels exceeds SMC limit!",
+> >                       return -1);
+> >
+> >       PP_ASSERT_WITH_CODE(
+> > -                     (vega10_power_state->performance_level_count
+> > <=
+> > +                     (vega10_ps->performance_level_count <=
+> >                                       hwmgr->platform_descriptor.
+> >                                       hardwareActivityPerformanceLevels),
+> >                       "Performance levels exceeds Driver limit!",
+> > @@ -3169,8 +3169,8 @@ static int
+> > vega10_get_pp_table_entry_callback_func(struct pp_hwmgr *hwmgr,
+> >       performance_level->mem_clock = mclk_dep_table->entries
+> >                       [state_entry->ucMemClockIndexLow].ulMemClk;
+> >
+> > -     performance_level = &(vega10_power_state->performance_levels
+> > -                             [vega10_power_state-
+> > >performance_level_count++]);
+> > +     performance_level = &(vega10_ps->performance_levels
+> > +                             [vega10_ps->performance_level_count++]);
+> >       performance_level->soc_clock = socclk_dep_table->entries
+> >                               [state_entry->ucSocClockIndexHigh].ulClk;
+> >       if (gfxclk_dep_table->ucRevId == 0) {
+> > @@ -3201,11 +3201,11 @@ static int vega10_get_pp_table_entry(struct
+> > pp_hwmgr *hwmgr,
+> >               unsigned long entry_index, struct pp_power_state *state)
+> >  {
+> >       int result;
+> > -     struct vega10_power_state *ps;
+> > +     struct vega10_power_state *vega10_ps;
+> >
+> >       state->hardware.magic = PhwVega10_Magic;
+> >
+> > -     ps = cast_phw_vega10_power_state(&state->hardware);
+> > +     vega10_ps = cast_phw_vega10_power_state(&state->hardware);
+> >
+> >       result = vega10_get_powerplay_table_entry(hwmgr, entry_index,
+> > state,
+> >                       vega10_get_pp_table_entry_callback_func);
+> > @@ -3218,10 +3218,10 @@ static int vega10_get_pp_table_entry(struct
+> > pp_hwmgr *hwmgr,
+> >        */
+> >       /* set DC compatible flag if this state supports DC */
+> >       if (!state->validation.disallowOnDC)
+> > -             ps->dc_compatible = true;
+> > +             vega10_ps->dc_compatible = true;
+> >
+> > -     ps->uvd_clks.vclk = state->uvd_clocks.VCLK;
+> > -     ps->uvd_clks.dclk = state->uvd_clocks.DCLK;
+> > +     vega10_ps->uvd_clks.vclk = state->uvd_clocks.VCLK;
+> > +     vega10_ps->uvd_clks.dclk = state->uvd_clocks.DCLK;
+> >
+> >       return 0;
+> >  }
+> > @@ -4823,33 +4823,41 @@ static int vega10_check_states_equal(struct
+> > pp_hwmgr *hwmgr,
+> >                               const struct pp_hw_power_state *pstate1,
+> >                       const struct pp_hw_power_state *pstate2, bool
+> > *equal)
+> >  {
+> > -     const struct vega10_power_state *psa;
+> > -     const struct vega10_power_state *psb;
+> > +     const struct vega10_power_state *vega10_psa;
+> > +     const struct vega10_power_state *vega10_psb;
+> >       int i;
+> >
+> >       if (pstate1 == NULL || pstate2 == NULL || equal == NULL)
+> >               return -EINVAL;
+> >
+> > -     psa = cast_const_phw_vega10_power_state(pstate1);
+> > -     psb = cast_const_phw_vega10_power_state(pstate2);
+> > -     /* If the two states don't even have the same number of
+> > performance levels they cannot be the same state. */
+> > -     if (psa->performance_level_count != psb-
+> > >performance_level_count) {
+> > +     vega10_psa = cast_const_phw_vega10_power_state(pstate1);
+> > +     vega10_psb = cast_const_phw_vega10_power_state(pstate2);
+> > +
+> > +     /* If the two states don't even have the same number of
+> > performance levels
+> > +      * they cannot be the same state.
+> > +      */
+> > +     if (vega10_psa->performance_level_count != vega10_psb-
+> > >performance_level_count) {
+> >               *equal = false;
+> >               return 0;
+> >       }
+> >
+> > -     for (i = 0; i < psa->performance_level_count; i++) {
+> > -             if (!vega10_are_power_levels_equal(&(psa-
+> > >performance_levels[i]), &(psb->performance_levels[i]))) {
+> > -                     /* If we have found even one performance level pair
+> > that is different the states are different. */
+> > +     for (i = 0; i < vega10_psa->performance_level_count; i++) {
+> > +             if (!vega10_are_power_levels_equal(&(vega10_psa-
+> > >performance_levels[i]),
+> > +                                                &(vega10_psb-
+> > >performance_levels[i]))) {
+> > +                     /* If we have found even one performance level pair
+> > +                      * that is different the states are different.
+> > +                      */
+> >                       *equal = false;
+> >                       return 0;
+> >               }
+> >       }
+> >
+> >       /* If all performance levels are the same try to use the UVD clocks to
+> > break the tie.*/
+> > -     *equal = ((psa->uvd_clks.vclk == psb->uvd_clks.vclk) && (psa-
+> > >uvd_clks.dclk == psb->uvd_clks.dclk));
+> > -     *equal &= ((psa->vce_clks.evclk == psb->vce_clks.evclk) && (psa-
+> > >vce_clks.ecclk == psb->vce_clks.ecclk));
+> > -     *equal &= (psa->sclk_threshold == psb->sclk_threshold);
+> > +     *equal = ((vega10_psa->uvd_clks.vclk == vega10_psb->uvd_clks.vclk)
+> > &&
+> > +               (vega10_psa->uvd_clks.dclk == vega10_psb-
+> > >uvd_clks.dclk));
+> > +     *equal &= ((vega10_psa->vce_clks.evclk == vega10_psb-
+> > >vce_clks.evclk) &&
+> > +                (vega10_psa->vce_clks.ecclk == vega10_psb-
+> > >vce_clks.ecclk));
+> > +     *equal &= (vega10_psa->sclk_threshold == vega10_psb-
+> > >sclk_threshold);
+> >
+> >       return 0;
+> >  }
+> > @@ -5444,19 +5452,19 @@ static int vega10_get_performance_level(struct
+> > pp_hwmgr *hwmgr, const struct pp_
+> >                               PHM_PerformanceLevelDesignation
+> > designation, uint32_t index,
+> >                               PHM_PerformanceLevel *level)
+> >  {
+> > -     const struct vega10_power_state *ps;
+> > +     const struct vega10_power_state *vega10_ps;
+> >       uint32_t i;
+> >
+> >       if (level == NULL || hwmgr == NULL || state == NULL)
+> >               return -EINVAL;
+> >
+> > -     ps = cast_const_phw_vega10_power_state(state);
+> > +     vega10_ps = cast_const_phw_vega10_power_state(state);
+> >
+> > -     i = index > ps->performance_level_count - 1 ?
+> > -                     ps->performance_level_count - 1 : index;
+> > +     i = index > vega10_ps->performance_level_count - 1 ?
+> > +                     vega10_ps->performance_level_count - 1 : index;
+> >
+> > -     level->coreClock = ps->performance_levels[i].gfx_clock;
+> > -     level->memory_clock = ps->performance_levels[i].mem_clock;
+> > +     level->coreClock = vega10_ps->performance_levels[i].gfx_clock;
+> > +     level->memory_clock = vega10_ps-
+> > >performance_levels[i].mem_clock;
+> >
+> >       return 0;
+> >  }
+> > --
+> > 2.20.1
+> >
+> >
