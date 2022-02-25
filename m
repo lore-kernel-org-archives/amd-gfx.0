@@ -4,125 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D89B2C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 13:03:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 184DEC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Feb 2022 13:59:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 332FC10E190;
-	Fri, 25 Feb 2022 13:03:59 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2073.outbound.protection.outlook.com [40.107.223.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DD2910E18D;
- Fri, 25 Feb 2022 13:03:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9488410E793;
+	Fri, 25 Feb 2022 13:59:47 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3611910E793
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Feb 2022 13:59:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mIhO9QvlgOkaaxj5yu9pNej/CX7EuvKtCObjlWmTuRiqbrPJNAK2RGV6jGszQRKvGvIlMwcD6Cfqh1fKaUpQts/XAJR1Fkv0cdhhigY6Ng0A5F1kctDhEXQivv1OTsouS93zI7TSYGnWjMA/LdqibH/D7UH9CVAjlpttazKkNUaORV7lAwc+oSQCkQXQfT7yhI61MQv/ewXk3UGicK6luQXi215DEXcDK1DUSl6kYpsxR/UagwGdQmAOabRqHbgauNM5jxmtQdOHRQrGXs9cMoFoNjc+neZwEv4DWY1JynvoMkkZ3sEwI+TvmD1d2+tB4z/zvK1VAvSiabzDejKfrw==
+ b=ilY7+5G/iPuQBZ+e+vFK/rY6ZOUThoqTe+/U68dYGPOJnp4ZPtHpH3pLq5qdetw3jZJpzm8o2uMjEahfhZFfLTpCrky0pbaVFdEKzl1jr4CfBP7d9CwhEhrlimD9aAF9MPSU+BTdes+mKkb/ym2eM1b9zX08tUc9MuJ307TlfS68136Fq7FVt1MB/lTbuevghh4upTU8j/Z3KuwryE0EUwLfJLEi5s/Qrs7iwllzet4lTeJ6qmbIJ/VBFhY6NKhhmjUGgY9p1gmYSUvWh/Cm0iPqRyPfFAU/wmjIIfL5uFc40lyJs93Q2dn9npFui4GnzIkNyCLIaYHKEMjRYjIWgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ypAVuSHNjxx7igM/SeVwIAfWU+LBv2dcL8SGfSHuxKo=;
- b=Y7YsxeUWGY5t5GlYMZ81dqGG5kqgBG36RbB3hIh5eDNssGeASnhcLOsFu0LFkiFgHe4Lj2HwqCfK58azCAJmaw7HmnZ8b0LH4MEW/SdmGDMhUq0kAVHrznZs8C9Tqb3N9AQm3b4RhB15lR5GCfp9GFu6DWGYCIHIx+MfjOsF1Xw+zmmFo2J6bb8teWxxeIHg6nPNvNUn2BYPf9ZeueT+7AiG7R73ur7WhwMCch3suZT2cz4xQJpfq6mn4HK72GIeb0QKAAwaBZbQBXC3Dpdsb4VGSUd/adqSwUlD7wvMKwYCBt594MUOp2PuuF0UaLmZEHLnXncP1P6mz4y/MX4izw==
+ bh=r/hbL1yOFdO3Bwpy8U69dEKP8k+RTWkk5gAWCMb0YWo=;
+ b=gc8IF2zmFOYiP1HZU5k/sKi2uoZQp+oc9e6EFO7u1mXYqw3XVnzaXovNToNAL82sYP3LLSa7izTGBe/b1tM9aQdO+hQrolwWUEcJ5BPqfqUm3o666RLUNqSL0E5BB/vhWcdNxL8Qb/Ktu98G8+Emc8qAh9t2Aufo8TYXNwgBs69l1Ys3r+OIIM2YZpYFg2lR5dAn/tb0/Tuq/N0qqYUSsyK+Wlg5vcP+iKSfxyx/nZGJxyMz2eGNLI7fWxA1lwN+sTjonSy3tvqYhI1C/lZZk6fl7tgoJQXQH8aYFIgjzXsAZu5BUWAkEmj6zUtQ39GPXtzbS6wLwPHQbuqDhbl0Ow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ypAVuSHNjxx7igM/SeVwIAfWU+LBv2dcL8SGfSHuxKo=;
- b=rbpd9D4ZM+KSALKWOwK1ELhMvceCT4URhSDAOzWcAWWw/jAt3adMrKIPSoyAiP49Z0Qvy4TG2aaC7ywpc3BANDqpjUr6Nk2XHunLeqzQm1w/mkREmw+w0ftZ0epkSovuBcqTBuRZ6VebfSRhPQznDznW8zCaEDt+39Rp/krL6Vg=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- CH2PR12MB4312.namprd12.prod.outlook.com (2603:10b6:610:af::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5017.22; Fri, 25 Feb 2022 13:03:54 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::7d61:f517:f3f8:9ea]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::7d61:f517:f3f8:9ea%5]) with mapi id 15.20.5017.025; Fri, 25 Feb 2022
- 13:03:54 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: Meng Tang <tangmeng@uniontech.com>, "airlied@linux.ie" <airlied@linux.ie>, 
- "daniel@ffwll.ch" <daniel@ffwll.ch>
-Subject: RE: [PATCH] gpu/amd: vega10_hwmgr: fix inappropriate private variable
- name
-Thread-Topic: [PATCH] gpu/amd: vega10_hwmgr: fix inappropriate private
- variable name
-Thread-Index: AQHYKiy7+jRaPGoPcku+5M9g0K/kXaykO7Vg
-Date: Fri, 25 Feb 2022 13:03:54 +0000
-Message-ID: <DM6PR12MB2619714B0189A1A9A70F50F2E43E9@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20220225094722.4734-1-tangmeng@uniontech.com>
-In-Reply-To: <20220225094722.4734-1-tangmeng@uniontech.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-25T13:03:52Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=5895e3a7-516d-4965-8176-4699645bd2b2;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-02-25T13:03:52Z
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
- Only-AIP 2.0
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: f5db1b40-c924-486c-b760-2a4d349e5ff2
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
-authentication-results: dkim=none (message not signed)
+ bh=r/hbL1yOFdO3Bwpy8U69dEKP8k+RTWkk5gAWCMb0YWo=;
+ b=uJJd4JeLYZ50KuL24DNUq1UQF7DQ1jj2WaE0+AswZTbtjU6M/dv8qjDh1MkdV+eYxYR6rAWdI96oQRwMlTy0TU1gaW4SRtY9IpOL9gscI9LVZR9ghHCywu5LapApwZZr8ZuFL40Thip6gJVU95Sj5w3D7Nb8bfe5Qejra8StCIk=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a1f6031e-7c47-48a6-025d-08d9f85f470f
-x-ms-traffictypediagnostic: CH2PR12MB4312:EE_
-x-microsoft-antispam-prvs: <CH2PR12MB43125C693A5DDA295DE234C2E43E9@CH2PR12MB4312.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: YWb0UAZVXEyRpCOfPPn0TqCHepBeNneHyJfznhnLgYAw+lulvAi1gRtgTNn+Im850snF0LieU01r4ol22ZNNz9GKrd9LbYpp1FGAZ9pXjzT5f0w/MWJZB85QKTKyXTp/Oe+sEwfXQRcSeEtSj/1CrfhG6MH1e4bkdKSDDzTKg7nybDn/DvNShLar9fgvFIv/laXGZft732RSdchaBKO/Hb3kC45j1lCkabZC/J2ejGl3dVoGqXE6mCvZu+IF+SyTvsjFUneFZJ1gMwJ5+5pib7htPkkkWVShUvcG2hrNapKznz5Qtzwd0TRPSwaNQr30EJRH9Qyy/ZPEczNI/XK7rXo3NTbzpGuTQrGX6LVb5QMCnp8lwwEGUD7T+1a8Rk9FRg8LP4/smZkiLiQPIi1QsNdaP3zBPLv+d1OlCpXuz8N50vLmUzhK1QlM28YQOlzYQsDePvYuwWKty/DxR4d2oIby2CKrM3mDYB2m7X9RFTZHgLHbHozjyjWptqGTrAzB9k2Lif2u1uDQQKYJDBTdscn6SjSwnB7O51qVz0/zL7qtnFy0mnk1wqUBqRfVJLLoI87WL2pf3xlKcfuhYiz/SzfGV4AW+2nzrLy5DlExNceMjyYL3KZJ92uTsMUDgLZNVBwZ5fQUNNB/8ch92XQ/aQy4B1BglGtv54DLYLJG5o2SFZAIgT7Mc3PDRWdAMUnZgnQhD3Fi8ldY/CXPwS2Yyg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(33656002)(316002)(83380400001)(66946007)(55016003)(71200400001)(8676002)(19627235002)(38100700002)(66476007)(66556008)(110136005)(66446008)(8936002)(86362001)(64756008)(54906003)(4326008)(52536014)(5660300002)(76116006)(26005)(186003)(38070700005)(6506007)(2906002)(122000001)(53546011)(9686003)(7696005)(508600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Lp6jXv30/jRXMNaoPKW59knE/cplRvsy/UE4J+0/CY7/MHdpYUaDHZZv19Tv?=
- =?us-ascii?Q?otyvDgufVlySbLOuUKBs/ItsWkwQZRPKQk5W7Ev8loihs7rSYWBHg3o5ba4R?=
- =?us-ascii?Q?xIPsrpRalJz4QG2yXKoNlPAnOzKlO+AmJR+Z7OQgymtCED6Y7WwlAXLR7FqN?=
- =?us-ascii?Q?f2iXDPeQ5Kc7yXLkaT8/2R4oLZt7ii+XotUJzg9l/2rzx6dxOdZ9Hegycyg6?=
- =?us-ascii?Q?LMIKhCH/XAciMRkI6hRmj+jkNZDkD1KLakkHgeqriWYVRjdcxZv/X3ojC288?=
- =?us-ascii?Q?s86cC/AIDb/DTtTbpbCB0MY3QXPofPrkkdlkRYCN9PjmnR07ZTRHdG0lrfyg?=
- =?us-ascii?Q?EkOrQ7yuB92IqwNabdHO/2rmbYl5RDljp+/+v4viSdgv+e6eIwSE2S9RkSkS?=
- =?us-ascii?Q?t/2JKwu+l+vavOCaDZ9MoEGRCHlBZemv8Zul+zYZ4uwXxA/eEcTj2ZR6v+f/?=
- =?us-ascii?Q?I3gerDAwx2jrcUpC++UaQG7zvXapgOtzl/8wJZJXXaJRrAAfWDBjP8DJ2+Wv?=
- =?us-ascii?Q?lwfrwpKz1EU88pIjnFJyqjdSRYyot/WEf27cHjJwiy0wo9I8hUv6iY38vokX?=
- =?us-ascii?Q?2g25s0/KKf7YE8S9dvqYha75joIMe9ZzxgkfnRi8GbrBohneGiH+eUU65cNv?=
- =?us-ascii?Q?zH5XAir1qX0vxYEgbUqpcD6F8/I/6t1XXFT5N0iupx8Etlg+zkZINTDRkfRk?=
- =?us-ascii?Q?YKh2F02tU9S6myhog9xchC2uDTk5kJaXJbsgjVPANyG40yjZzsm7Fkf1qmBz?=
- =?us-ascii?Q?E3ATGz41umjUjo+ldU0ghUfzYLim6TDK1aFNDbLYHnjqLLE9PeVvjV6q2MiT?=
- =?us-ascii?Q?SXHUNJPQ5UhhfaHfNXuGdDqlsGp5F1EVmFwQo0LK+qSqc6sXpiaYoRT3fnw+?=
- =?us-ascii?Q?Npaq3DU7ZCBpeg0vR6DJ/oaGzwFOw0pGlZbHIorDAcLB6p0c77xXLD6sPg5k?=
- =?us-ascii?Q?kc2fkd9rIYDVMkls2Wj0ao2w+hE4+zEoW70+Zm/yXD8SOX3zyzq0pBr+D/1k?=
- =?us-ascii?Q?bO9PLdxYBwPr4LWjl3TKSBbQzjNy7g19RUnvHWeDaCC0ruM5HkHyBvh0Q1eQ?=
- =?us-ascii?Q?OroIxZHxXAC1SxRRJt8ueHfpaKtw3EZtDlhXspavtkTsAta5bJvyRU784MK4?=
- =?us-ascii?Q?LZpy7IpDcx8SfoJUdi498a3ORPQzWAwOTd4/lMW8OW/42U7kpNw0yNrBMl2H?=
- =?us-ascii?Q?gttPdnuqZ+5nB3j5Q8Q2UbHb1aws5e6GTkJRssn0AG6p6mf4wfO8wnvX1+TN?=
- =?us-ascii?Q?Ow4p3AEZTT3QYeON01ZuH7PW3FYT+ghctEbmRPjHIIyCWI5N/ez6kcSb4KUB?=
- =?us-ascii?Q?wWK6eTnxzzzAalPkoaDBqIZpfdZflQhpEkyirx3msqY/Xq18350K51cs/B5n?=
- =?us-ascii?Q?NkTl/I7Z8LhiR6QeCW0br9HGwHavc89qgsHOke+JZSbold0m5RdYA04B6cJf?=
- =?us-ascii?Q?mz1zktnNYh+NVMtC+fzoCBUcm9wgiMeZ+JjO1vakozLIn7Wi7eeI8rl6aDUI?=
- =?us-ascii?Q?mijUlxzI3GNhZBnnYnlRy5G0K2OK4aZXGtWqpQrpK4+wKDTO3qEprLxXvnfO?=
- =?us-ascii?Q?y3sh1ReE3LzcbRRTK4g=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by BN6PR1201MB0244.namprd12.prod.outlook.com (2603:10b6:405:54::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.21; Fri, 25 Feb
+ 2022 13:59:44 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::bcfd:825e:23e7:698c]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::bcfd:825e:23e7:698c%7]) with mapi id 15.20.5017.022; Fri, 25 Feb 2022
+ 13:59:43 +0000
+Message-ID: <bcef8f25-d82e-cd42-7574-5739e09ea6f0@amd.com>
+Date: Fri, 25 Feb 2022 19:29:28 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH] drm/amd/pm: Send message when resp status is 0xFC
+Content-Language: en-US
+To: "Quan, Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20220225042156.676421-1-lijo.lazar@amd.com>
+ <DM6PR12MB2619202956D5AF431734D5C8E43E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <BYAPR12MB4614577C233FED50C0EFC80C973E9@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <DM6PR12MB26192A826B2B5DF65ED8ED5CE43E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <2bb4e178-b224-ff6a-e730-47ab780e44ca@amd.com>
+ <DM6PR12MB2619810DBC53C6430A03535FE43E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <955cd7a1-6a93-9043-d065-dc45d149fd13@amd.com>
+ <DM6PR12MB2619EAA72E6FF1ED8708FC0BE43E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <DM6PR12MB2619EAA72E6FF1ED8708FC0BE43E9@DM6PR12MB2619.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN1PR0101CA0043.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c00:c::29) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 708fdfdc-a51f-4ddd-a860-08d9f86712a7
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0244:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB02441547A36131AC81F70190973E9@BN6PR1201MB0244.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Wnl6qvim3TY78tpWwvg/tIBK8O+8lCEbxX9AumcbixmRQ6v8n50+L++4oumvuj/zcoBOB50ExJSqa4HvLqjphQEPBwtJcLp3jg3ZE5ns1mrYACMlhusxm9zyc0CbADMkFVDcp5+yxDyw5tBmB8SrYk1zTwa+QuAeml0DqGwcNsQpPWa6FllN9EWjdHHquL3rcjiIh179VYNxAThP+vbiAJJpNUL3fYpjlmuCtjcYGVMQX69yNPME9MEn6/ShqFhJpHocru7Lcw0AWeVug6FuJtZa4oO0X3N5XsEQ+pzNnMNi4kkshpOcWJIv5Qqzx4O5w9YK9adKKxTiq+w6A/z2D20Tux6DlYgfBmpJyBW36AMIqrFgq/m9hBbmQKhO/coD661iV9MCyMRHNBTXi+dqmcg5dofQC8wyTo2HjA4vpBVHA2uMkGVW5XvxFfzKDY2C8PKqJbJDtwc5QcXWCt0e6iZNQ59a+4s4dp1r7/hr8/xIbBplcxMUgiQV71ODf0XOKftExcWZCvgyGQ8H0tlI015hbMrvQaSOgNItUA9r5akgf1AkZbQ4QsgazdVF3qivuET0AQxt3/aogK0tRNkwoDyxTLi3VOAnqvhN4YkVdtXvIx2EMj9lU7DAB3PimzYklaDzJo9qxX/W5MCMvF9STxE1F1Qq14XqbmR2ZM5bocr4Yt9xmO7zWccFLGnpuQ4H+bNV+DyBPlYjtBVUpnywlxcQr7wUctkt260F7Npr5Xz0leZX3x+9KoEqvMzg1Zgl
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6512007)(54906003)(86362001)(6666004)(66556008)(83380400001)(316002)(508600001)(31696002)(6486002)(186003)(31686004)(66476007)(26005)(66946007)(2616005)(110136005)(4326008)(8676002)(36756003)(8936002)(38100700002)(5660300002)(53546011)(6506007)(2906002)(15650500001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cXpmcWZzLzB5Tkl4eGcvRkpYcnJFeUNaMVlWdHlKQVVGWnhHM1lieGw1Yk5k?=
+ =?utf-8?B?WHordGlVaklSR0JMVGxRUGIwaEdJMFRzV3lCRFZIZFlJNm5PSm9MTnpCd1B6?=
+ =?utf-8?B?Yk1wQmxtd01YMXR1N1VXaTl1TXJaWmgxT0M3cFZEa3ZHZUt3QnB2ODExUlpn?=
+ =?utf-8?B?MXgzK2NSRHdzWG42ZHUzcEdjSWNVUTQrV3BnbDhzTHFBUjBHQ0NRanB0L05i?=
+ =?utf-8?B?c0kzTHpQNVNPM2JHZ3N2bXFFdTA3TExIZkFGdldGck9UVm9Td2thVWQ1NmNB?=
+ =?utf-8?B?Ulh0YWZ3NVBnSjVRdUN6TWpSRjRGbFhKR1ZVWVFQVGdiRzRhOW9EQnBqQWlx?=
+ =?utf-8?B?SVZQUVp5U3YrbVNVMFFHM1YvU0ZvdGhNcUpoYnVkcnFvQ1lMbW9NdWdpUDE0?=
+ =?utf-8?B?eDZlY2hzS2NLK201S3o2ci9lZ01ZdGRLdzhBa0REQ0ZzaUV0VXNUVEtRbm5a?=
+ =?utf-8?B?Rmo1SnNMM0hOUlZuUVM0ZGd4QmJwakZBL1NwUGRrVTd2ZjFsaUwzMTNSdCtJ?=
+ =?utf-8?B?dnd4amVoZUJwcHpacVlKYnFYOHZXaDVOQU1QWmRkdk8rditjcEtmQTljL0sz?=
+ =?utf-8?B?STNRL3ZROTF6a2pGeTJwVzRjTEFGTVBRdk5hblBWTXZJODR0YlJ3ZkJ6bkd0?=
+ =?utf-8?B?eHEzcUxFVlRKc0ZiajRRSk81d3VlSUNCUFNLc2tBQzdnUkltOFFvenpMMDh5?=
+ =?utf-8?B?K2RtUXk3OURSeVlYQVNKd2dxYkdVNnVFRytCNFpDNjlJVFh3N0JROFBQY2lZ?=
+ =?utf-8?B?VVBWU2tmbmpIb2pER3J1T2FIeWlncUc0RlpQdzlYbjVRVU5tWFBSTm5pUmtZ?=
+ =?utf-8?B?MTZJTjBNZWpSQVc1NldpUDdkR3J5aWdiYURKTG8yRzB5SlBKSFdmalRLTC9h?=
+ =?utf-8?B?cTVBREtPVHFlMkpiYU1STitvVVVnSGZOakFEcUZTeWZLNENscGJ4T3duNkE3?=
+ =?utf-8?B?Q2pEaHQwcGRpOWxQRmRtOUxoZnNEMW84Z3Y4UjNGQVk2RG5jSnZNckVqbzkw?=
+ =?utf-8?B?NU4vWTBZOFUzbGJUK3hXMXR1Zng2YUZ4RFFBRUs1YWJWblFiWk1TOWRMUkMy?=
+ =?utf-8?B?UW1ZSlBHanVPb3BLdzg5TnNGbXFsdm1xaEZrY1hOZUxvVGVGbUtWSkRvMzhD?=
+ =?utf-8?B?dE5BTWVITldKNjlNZ0V3bmY3emdGWVJRRFowWmZWazFPNUlKdmlaUEN0Q0xT?=
+ =?utf-8?B?M0N2aW11OTFOMFNWblkvbkZhUk5nYUl2Ny9PeGUvdUZCNDVUSTVEWWVzV3U3?=
+ =?utf-8?B?dVF4UFJ5am5GMmdnOHV3VG9OKzhXeCtHWU9sRFFPdEZRSkFRRG5TTW9ENjBH?=
+ =?utf-8?B?L0RjSGVxT3FNODJ5WExrWVJSZTJpbEZ0Ry84cmFGamxSZXF5REZQOHpiY2JD?=
+ =?utf-8?B?YUlTNmFjZVV5Z0V0cUYyc2IxS3JCZW43WHg2N05rRG5FN1JxbHJ4K2hqcTFQ?=
+ =?utf-8?B?UmtiVHlWQ1hzcjZxNk4vTzFUUWx0U05VZ3F6TUxhQ1JYUTdSUDc0VnVkV1Bs?=
+ =?utf-8?B?cHVuUEJyTVVVYmowdFdneVF1QSt0UVk4MHZrMzU2OXNod1FTcUV5MktqREZM?=
+ =?utf-8?B?RWo4d0xjczFmNk5nalhtMjh3WmsrTnVXOG5iZGVjWE5oSmp5UkxkUkFpTkJ1?=
+ =?utf-8?B?NUFiWDJRdG1uQy83Wm11Y3dYaVh0Q3hkdHVjcHo5cWxCN0JicnVYMFZWUEJz?=
+ =?utf-8?B?dEVZYXFtTnpWcHR4bjk1bUl2Y2hYUGtObmkyeXkrK2twb3RCcTM5ZWkxK05h?=
+ =?utf-8?B?cWlrV0hkVzJQcVJXN1dnYWhxQVNWeXBZa2hSck5jaFQ5VUFzbXllbEdXQ1d4?=
+ =?utf-8?B?M0FoTk02OE9iNjc0VnJyRTc4SmdNbkVCTnpmYXlpN2YzZTEreDdyZE1udm5K?=
+ =?utf-8?B?a0hPekJLVmVvaDVzVG1HQys4QkxXUTRwektRc1QxdVVTNTQ0K1BxUnRkZkhj?=
+ =?utf-8?B?Q0d4RnN5c3ZCckJGSmgwbXNwZ0J3VDc3M0hkVHREcUxxbEVqdXo0MnR2d002?=
+ =?utf-8?B?cmtCbStMdWtYbkhyazRNeEp4NTM3ZXRxQzJjVDR6akFSaHpPYytyS1ZlQ0Q4?=
+ =?utf-8?B?cXpVb0RhNENWZ25RMzRZbWxTVElRQlVJRTFDcFMvQzRqSHdGSzhIaUt5Z1ZD?=
+ =?utf-8?Q?NbAo=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 708fdfdc-a51f-4ddd-a860-08d9f86712a7
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1f6031e-7c47-48a6-025d-08d9f85f470f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Feb 2022 13:03:54.6914 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kA+GcFNymu4OeHhUXe42oNeSTyn5c59fxmZPaZr6geRyRZhkSjXauxqZfG23lxQo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4312
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2022 13:59:43.3089 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HF7/YR7bl1iw6Rwcu4qTrve+o1u0A+Uajm0HTN8alboT4nWcY6pwmmH3aAnOEQtA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0244
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,243 +132,267 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wang,
+ Yang\(Kevin\)" <KevinYang.Wang@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
 
-Thanks!
-The patch is reviewed-by: Evan Quan <evan.quan@amd.com>
 
-> -----Original Message-----
-> From: Meng Tang <tangmeng@uniontech.com>
-> Sent: Friday, February 25, 2022 5:47 PM
-> To: airlied@linux.ie; daniel@ffwll.ch
-> Cc: Quan, Evan <Evan.Quan@amd.com>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; amd-
-> gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
-> kernel@vger.kernel.org; Meng Tang <tangmeng@uniontech.com>
-> Subject: [PATCH] gpu/amd: vega10_hwmgr: fix inappropriate private variabl=
-e
-> name
->=20
-> In file vega10_hwmgr.c, the names of struct vega10_power_state *
-> and struct pp_power_state * are confusingly used, which may lead
-> to some confusion.
->=20
-> Status quo is that variables of type struct vega10_power_state *
-> are named "vega10_ps", "ps", "vega10_power_state". A more
-> appropriate usage is that struct are named "ps" is used for
-> variabled of type struct pp_power_state *.
->=20
-> So rename struct vega10_power_state * which are named "ps" and
-> "vega10_power_state" to "vega10_ps", I also renamed "psa" to
-> "vega10_psa" and "psb" to "vega10_psb" to make it more clearly.
->=20
-> The rows longer than 100 columns are involved.
->=20
-> Signed-off-by: Meng Tang <tangmeng@uniontech.com>
-> ---
->  .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 68 +++++++++++---
-> -----
->  1 file changed, 38 insertions(+), 30 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-> b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-> index 3f040be0d158..37324f2009ca 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-> @@ -3095,7 +3095,7 @@ static int
-> vega10_get_pp_table_entry_callback_func(struct pp_hwmgr *hwmgr,
->  		void *pp_table, uint32_t classification_flag)
->  {
->  	ATOM_Vega10_GFXCLK_Dependency_Record_V2
-> *patom_record_V2;
-> -	struct vega10_power_state *vega10_power_state =3D
-> +	struct vega10_power_state *vega10_ps =3D
->  			cast_phw_vega10_power_state(&(power_state-
-> >hardware));
->  	struct vega10_performance_level *performance_level;
->  	ATOM_Vega10_State *state_entry =3D (ATOM_Vega10_State *)state;
-> @@ -3145,17 +3145,17 @@ static int
-> vega10_get_pp_table_entry_callback_func(struct pp_hwmgr *hwmgr,
->  	power_state->temperatures.min =3D 0;
->  	power_state->temperatures.max =3D 0;
->=20
-> -	performance_level =3D &(vega10_power_state->performance_levels
-> -			[vega10_power_state-
-> >performance_level_count++]);
-> +	performance_level =3D &(vega10_ps->performance_levels
-> +			[vega10_ps->performance_level_count++]);
->=20
->  	PP_ASSERT_WITH_CODE(
-> -			(vega10_power_state->performance_level_count <
-> +			(vega10_ps->performance_level_count <
->  					NUM_GFXCLK_DPM_LEVELS),
->  			"Performance levels exceeds SMC limit!",
->  			return -1);
->=20
->  	PP_ASSERT_WITH_CODE(
-> -			(vega10_power_state->performance_level_count
-> <=3D
-> +			(vega10_ps->performance_level_count <=3D
->  					hwmgr->platform_descriptor.
->  					hardwareActivityPerformanceLevels),
->  			"Performance levels exceeds Driver limit!",
-> @@ -3169,8 +3169,8 @@ static int
-> vega10_get_pp_table_entry_callback_func(struct pp_hwmgr *hwmgr,
->  	performance_level->mem_clock =3D mclk_dep_table->entries
->  			[state_entry->ucMemClockIndexLow].ulMemClk;
->=20
-> -	performance_level =3D &(vega10_power_state->performance_levels
-> -				[vega10_power_state-
-> >performance_level_count++]);
-> +	performance_level =3D &(vega10_ps->performance_levels
-> +				[vega10_ps->performance_level_count++]);
->  	performance_level->soc_clock =3D socclk_dep_table->entries
->  				[state_entry->ucSocClockIndexHigh].ulClk;
->  	if (gfxclk_dep_table->ucRevId =3D=3D 0) {
-> @@ -3201,11 +3201,11 @@ static int vega10_get_pp_table_entry(struct
-> pp_hwmgr *hwmgr,
->  		unsigned long entry_index, struct pp_power_state *state)
->  {
->  	int result;
-> -	struct vega10_power_state *ps;
-> +	struct vega10_power_state *vega10_ps;
->=20
->  	state->hardware.magic =3D PhwVega10_Magic;
->=20
-> -	ps =3D cast_phw_vega10_power_state(&state->hardware);
-> +	vega10_ps =3D cast_phw_vega10_power_state(&state->hardware);
->=20
->  	result =3D vega10_get_powerplay_table_entry(hwmgr, entry_index,
-> state,
->  			vega10_get_pp_table_entry_callback_func);
-> @@ -3218,10 +3218,10 @@ static int vega10_get_pp_table_entry(struct
-> pp_hwmgr *hwmgr,
->  	 */
->  	/* set DC compatible flag if this state supports DC */
->  	if (!state->validation.disallowOnDC)
-> -		ps->dc_compatible =3D true;
-> +		vega10_ps->dc_compatible =3D true;
->=20
-> -	ps->uvd_clks.vclk =3D state->uvd_clocks.VCLK;
-> -	ps->uvd_clks.dclk =3D state->uvd_clocks.DCLK;
-> +	vega10_ps->uvd_clks.vclk =3D state->uvd_clocks.VCLK;
-> +	vega10_ps->uvd_clks.dclk =3D state->uvd_clocks.DCLK;
->=20
->  	return 0;
->  }
-> @@ -4823,33 +4823,41 @@ static int vega10_check_states_equal(struct
-> pp_hwmgr *hwmgr,
->  				const struct pp_hw_power_state *pstate1,
->  			const struct pp_hw_power_state *pstate2, bool
-> *equal)
->  {
-> -	const struct vega10_power_state *psa;
-> -	const struct vega10_power_state *psb;
-> +	const struct vega10_power_state *vega10_psa;
-> +	const struct vega10_power_state *vega10_psb;
->  	int i;
->=20
->  	if (pstate1 =3D=3D NULL || pstate2 =3D=3D NULL || equal =3D=3D NULL)
->  		return -EINVAL;
->=20
-> -	psa =3D cast_const_phw_vega10_power_state(pstate1);
-> -	psb =3D cast_const_phw_vega10_power_state(pstate2);
-> -	/* If the two states don't even have the same number of
-> performance levels they cannot be the same state. */
-> -	if (psa->performance_level_count !=3D psb-
-> >performance_level_count) {
-> +	vega10_psa =3D cast_const_phw_vega10_power_state(pstate1);
-> +	vega10_psb =3D cast_const_phw_vega10_power_state(pstate2);
-> +
-> +	/* If the two states don't even have the same number of
-> performance levels
-> +	 * they cannot be the same state.
-> +	 */
-> +	if (vega10_psa->performance_level_count !=3D vega10_psb-
-> >performance_level_count) {
->  		*equal =3D false;
->  		return 0;
->  	}
->=20
-> -	for (i =3D 0; i < psa->performance_level_count; i++) {
-> -		if (!vega10_are_power_levels_equal(&(psa-
-> >performance_levels[i]), &(psb->performance_levels[i]))) {
-> -			/* If we have found even one performance level pair
-> that is different the states are different. */
-> +	for (i =3D 0; i < vega10_psa->performance_level_count; i++) {
-> +		if (!vega10_are_power_levels_equal(&(vega10_psa-
-> >performance_levels[i]),
-> +						   &(vega10_psb-
-> >performance_levels[i]))) {
-> +			/* If we have found even one performance level pair
-> +			 * that is different the states are different.
-> +			 */
->  			*equal =3D false;
->  			return 0;
->  		}
->  	}
->=20
->  	/* If all performance levels are the same try to use the UVD clocks to
-> break the tie.*/
-> -	*equal =3D ((psa->uvd_clks.vclk =3D=3D psb->uvd_clks.vclk) && (psa-
-> >uvd_clks.dclk =3D=3D psb->uvd_clks.dclk));
-> -	*equal &=3D ((psa->vce_clks.evclk =3D=3D psb->vce_clks.evclk) && (psa-
-> >vce_clks.ecclk =3D=3D psb->vce_clks.ecclk));
-> -	*equal &=3D (psa->sclk_threshold =3D=3D psb->sclk_threshold);
-> +	*equal =3D ((vega10_psa->uvd_clks.vclk =3D=3D vega10_psb->uvd_clks.vclk=
-)
-> &&
-> +		  (vega10_psa->uvd_clks.dclk =3D=3D vega10_psb-
-> >uvd_clks.dclk));
-> +	*equal &=3D ((vega10_psa->vce_clks.evclk =3D=3D vega10_psb-
-> >vce_clks.evclk) &&
-> +		   (vega10_psa->vce_clks.ecclk =3D=3D vega10_psb-
-> >vce_clks.ecclk));
-> +	*equal &=3D (vega10_psa->sclk_threshold =3D=3D vega10_psb-
-> >sclk_threshold);
->=20
->  	return 0;
->  }
-> @@ -5444,19 +5452,19 @@ static int vega10_get_performance_level(struct
-> pp_hwmgr *hwmgr, const struct pp_
->  				PHM_PerformanceLevelDesignation
-> designation, uint32_t index,
->  				PHM_PerformanceLevel *level)
->  {
-> -	const struct vega10_power_state *ps;
-> +	const struct vega10_power_state *vega10_ps;
->  	uint32_t i;
->=20
->  	if (level =3D=3D NULL || hwmgr =3D=3D NULL || state =3D=3D NULL)
->  		return -EINVAL;
->=20
-> -	ps =3D cast_const_phw_vega10_power_state(state);
-> +	vega10_ps =3D cast_const_phw_vega10_power_state(state);
->=20
-> -	i =3D index > ps->performance_level_count - 1 ?
-> -			ps->performance_level_count - 1 : index;
-> +	i =3D index > vega10_ps->performance_level_count - 1 ?
-> +			vega10_ps->performance_level_count - 1 : index;
->=20
-> -	level->coreClock =3D ps->performance_levels[i].gfx_clock;
-> -	level->memory_clock =3D ps->performance_levels[i].mem_clock;
-> +	level->coreClock =3D vega10_ps->performance_levels[i].gfx_clock;
-> +	level->memory_clock =3D vega10_ps-
-> >performance_levels[i].mem_clock;
->=20
->  	return 0;
->  }
-> --
-> 2.20.1
->=20
->=20
+On 2/25/2022 6:33 PM, Quan, Evan wrote:
+> [AMD Official Use Only]
+> 
+> 
+> 
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Friday, February 25, 2022 3:43 PM
+>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
+>> <Alexander.Deucher@amd.com>; Wang, Yang(Kevin)
+>> <KevinYang.Wang@amd.com>
+>> Subject: Re: [PATCH] drm/amd/pm: Send message when resp status is 0xFC
+>>
+>>
+>>
+>> On 2/25/2022 1:02 PM, Quan, Evan wrote:
+>>> [AMD Official Use Only]
+>>>
+>>>
+>>>
+>>>> -----Original Message-----
+>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>>>> Sent: Friday, February 25, 2022 2:03 PM
+>>>> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+>>>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
+>>>> <Alexander.Deucher@amd.com>; Wang, Yang(Kevin)
+>>>> <KevinYang.Wang@amd.com>
+>>>> Subject: Re: [PATCH] drm/amd/pm: Send message when resp status is
+>>>> 0xFC
+>>>>
+>>>>
+>>>>
+>>>> On 2/25/2022 11:25 AM, Quan, Evan wrote:
+>>>>> [AMD Official Use Only]
+>>>>>
+>>>>>
+>>>>>
+>>>>>> -----Original Message-----
+>>>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>>>>>> Sent: Friday, February 25, 2022 1:47 PM
+>>>>>> To: Quan, Evan <Evan.Quan@amd.com>; amd-
+>> gfx@lists.freedesktop.org
+>>>>>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
+>>>>>> <Alexander.Deucher@amd.com>; Wang, Yang(Kevin)
+>>>>>> <KevinYang.Wang@amd.com>
+>>>>>> Subject: RE: [PATCH] drm/amd/pm: Send message when resp status is
+>>>>>> 0xFC
+>>>>>>
+>>>>>> [AMD Official Use Only]
+>>>>>>
+>>>>>>> That is the caller can perform something like issuing the same
+>>>>>>> message again without prerequisites check on PMFW busy
+>>>>>>
+>>>>>> This patch expects this method. Caller may try to resend message
+>>>>>> again. As part of message sending, driver first checks response
+>>>>>> register. Current logic blocks sending any message if it sees 0xFC
+>>>>>> in response register, this patch is to address that.
+>>>>> [Quan, Evan] Yes, I know. But the caller here could be another one.
+>>>>> I mean
+>>>> there may be another caller stepped in.
+>>>>>
+>>>>
+>>>> That shouldn't cause an issue to the second caller if it got message mutex.
+>>>> The second caller also should be able to send message if PMFW got
+>>>> free by that time. The first caller can retry when it gets back the
+>>>> message mutex. FW doesn't maintain any state for 0xFC response. Any
+>>>> other message may be sent after that. If driver keeps the state based
+>>>> on two callers, that is a logic problem in driver. I don't think we have any
+>> flow like that.
+>>> [Quan, Evan] Yeah, but there may be some case that messages issued by
+>> the two callers have dependence.
+>>> That means the message issued by the 2nd caller should be only after the
+>> 1st one.
+>>> The one i can think of is "EnableAllSmuFeatures" message should be after
+>> "SetAllowedFeatures" message.
+>>> Although that should not cause any problem, I'm not sure whether there is
+>> other similar case.
+>>>
+>>> What I suggest is something like below. We just do it again in
+>> smu_cmn_send_smc_msg_with_param() on PMFW busy.
+>>>
+>>> int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+>>> 				    enum smu_message_type msg,
+>>> 				    uint32_t param,
+>>> 				    uint32_t *read_arg)
+>>> {
+>>> ...
+>>> ...
+>>> 	mutex_lock(&smu->message_lock);
+>>> 	reg = __smu_cmn_poll_stat(smu);
+>>> 	res = __smu_cmn_reg2errno(smu, reg);
+>>> 	if (reg == SMU_RESP_NONE ||
+>>> 	    reg == SMU_RESP_BUSY_OTHER ||
+>>> 	    res == -EREMOTEIO) {
+>>> 		__smu_cmn_reg_print_error(smu, reg, index, param, msg);
+>>> 		goto Out;
+>>> 	}
+>>> +retry:
+>>> 	__smu_cmn_send_msg(smu, (uint16_t) index, param);
+>>> 	reg = __smu_cmn_poll_stat(smu);
+>>> 	res = __smu_cmn_reg2errno(smu, reg);
+>>> +	if (reg == SMU_RESP_BUSY_OTHER) {
+>>> +		mdelay(1);
+>>> +		goto retry;
+>>> +	}
+>>
+>> I suppose the retry option should be left to caller. Regardless of retry or not,
+>> the patch is still valid.
+>>
+>> Example situation -
+>>
+>> rocm-smi is trying to get metrics and another app is trying set performance
+>> profile. If metrics fetch fail and even retry of metrics fetch fail after some
+>> loops, rocm-smi is free to fetch the metrics again after say 5s. That also
+>> shouldn't prevent the second app to send performance profile message and
+>> that app also may retry the same later.
+> [Quan, Evan] I have no doubt the second app may still be able to send performance profile message.
+> However, the metrics data retrieved by rocm-smi will be different under such scenario > That is after performance profile setting the clock frequencies may 
+go up.
+> If the first app is sensitive to that(suppose it wants to compare the clock frequencies before and after performance profile setting), that will be a problem
+
+Ah, my intention was to tell about a different use case, probably a bad 
+example.
+
+What I intended is -
+
+rocm-smi is running periodically collecting metrics data and another app 
+which doesn't bother about the background data collection trying to do 
+something else. Thus a metrics fetch fail shouldn't prevent the other 
+app from changing performance profile or whatever it intended to do. 
+Also, rocm-smi may be able to fetch data during the next polling 
+interval when the PMFW gets relatively free.
+> 
+> I reconsider this a bit. Can we add one more parameter for smu_cmn_send_smc_msg_with_param()?
+> That parameter can tell what the caller wants(retry or abort) under PMFW busy scenario.
+
+There is one complication to this. The same message could return 0xFC 
+under different conditions, and it may be fine for situation A but not 
+for situation B. For ex: during driver load or init after a reset, we 
+don't expect PMFW to be busy.Driver may send message to get metrics data 
+to check say 'smart shift is enabled or not'. A failure with 0xFC is not 
+a good sign that time and we should abort there.
+
+The same message sent during runtime (like rocm-smi data collection) may 
+fail with 0xFC due to workload conditions.
+
+Adding another parameter will complicate things as we need to check 
+every condition of message usage. In the present case, a message failure 
+with 0xFC is treated as failure during init and we don't proceed. For a 
+runtime use, apps always have a choice whether to retry the same API or not.
+
+Thanks,
+Lijo
+
+> 
+> BR
+> Evan
+>>
+>> Thanks,
+>> Lijo
+>>
+>>> ...
+>>> ...
+>>> }
+>>>
+>>> BR
+>>> Evan
+>>>>
+>>>> Basically, 0xFC is not valid pre-condition check for sending any
+>>>> message. As per PMFW team - it only means that PMFW was busy when a
+>>>> previous message was sent and PMFW won't change the response status
+>>>> when it becomes free.
+>>>>
+>>>> Thanks,
+>>>> Lijo
+>>>>
+>>>>> BR
+>>>>> Evan
+>>>>>>
+>>>>>> Thanks,
+>>>>>> Lijo
+>>>>>>
+>>>>>> -----Original Message-----
+>>>>>> From: Quan, Evan <Evan.Quan@amd.com>
+>>>>>> Sent: Friday, February 25, 2022 11:07 AM
+>>>>>> To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
+>>>>>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
+>>>>>> <Alexander.Deucher@amd.com>; Wang, Yang(Kevin)
+>>>>>> <KevinYang.Wang@amd.com>
+>>>>>> Subject: RE: [PATCH] drm/amd/pm: Send message when resp status is
+>>>>>> 0xFC
+>>>>>>
+>>>>>> [AMD Official Use Only]
+>>>>>>
+>>>>>> This may introduce some problems for two callers scenarios. That is
+>>>>>> the 2nd one will still proceed even if the 1st one was already blocked.
+>>>>>> Maybe the logics here should be performed by the caller. That is
+>>>>>> the caller can perform something like issuing the same message
+>>>>>> again without prerequisites check on PMFW busy.
+>>>>>> Or we can just update the smu_cmn_send_smc_msg APIs to give it
+>>>>>> another try on PMFW busy.
+>>>>>>
+>>>>>> BR
+>>>>>> Evan
+>>>>>>> -----Original Message-----
+>>>>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>>>>>>> Sent: Friday, February 25, 2022 12:22 PM
+>>>>>>> To: amd-gfx@lists.freedesktop.org
+>>>>>>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher,
+>> Alexander
+>>>>>>> <Alexander.Deucher@amd.com>; Wang, Yang(Kevin)
+>>>>>>> <KevinYang.Wang@amd.com>; Quan, Evan <Evan.Quan@amd.com>
+>>>>>>> Subject: [PATCH] drm/amd/pm: Send message when resp status is
+>> 0xFC
+>>>>>>>
+>>>>>>> When PMFW is really busy, it will respond with 0xFC. However, it
+>>>>>>> doesn't change the response register state when it becomes free.
+>>>>>>> Driver should retry and proceed to send message if the response
+>>>>>>> status is
+>>>>>> 0xFC.
+>>>>>>>
+>>>>>>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+>>>>>>> ---
+>>>>>>>     drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 2 --
+>>>>>>>     1 file changed, 2 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+>>>>>>> b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+>>>>>>> index 590a6ed12d54..92161b9d8c1a 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+>>>>>>> @@ -297,7 +297,6 @@ int
+>> smu_cmn_send_msg_without_waiting(struct
+>>>>>>> smu_context *smu,
+>>>>>>>     	reg = __smu_cmn_poll_stat(smu);
+>>>>>>>     	res = __smu_cmn_reg2errno(smu, reg);
+>>>>>>>     	if (reg == SMU_RESP_NONE ||
+>>>>>>> -	    reg == SMU_RESP_BUSY_OTHER ||
+>>>>>>>     	    res == -EREMOTEIO)
+>>>>>>>     		goto Out;
+>>>>>>>     	__smu_cmn_send_msg(smu, msg_index, param); @@ -
+>> 391,7 +390,6
+>>>>>> @@ int
+>>>>>>> smu_cmn_send_smc_msg_with_param(struct
+>>>>>>> smu_context *smu,
+>>>>>>>     	reg = __smu_cmn_poll_stat(smu);
+>>>>>>>     	res = __smu_cmn_reg2errno(smu, reg);
+>>>>>>>     	if (reg == SMU_RESP_NONE ||
+>>>>>>> -	    reg == SMU_RESP_BUSY_OTHER ||
+>>>>>>>     	    res == -EREMOTEIO) {
+>>>>>>>     		__smu_cmn_reg_print_error(smu, reg, index, param,
+>> msg);
+>>>>>>>     		goto Out;
+>>>>>>> --
+>>>>>>> 2.25.1
