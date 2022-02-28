@@ -4,118 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42525C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 10:59:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2A14C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 11:26:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9577510E3B5;
-	Mon, 28 Feb 2022 10:59:08 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2041.outbound.protection.outlook.com [40.107.93.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A45710E39A;
- Mon, 28 Feb 2022 10:59:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72C2D10E50F;
+	Mon, 28 Feb 2022 11:26:29 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2BA410E4FE;
+ Mon, 28 Feb 2022 11:26:27 +0000 (UTC)
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 21SATFmQ026173; 
+ Mon, 28 Feb 2022 11:24:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : content-type : in-reply-to :
+ mime-version; s=corp-2021-07-09;
+ bh=rhxKEyaEE27JRn4dwvDu5iYS7zGXGiTNmt/cV7ZpE34=;
+ b=npVyRfhl+RwBTCVc51PMb94s3ghOCs3fYMZ7FKUEWg8BaSj1Kio3RvXQmi1K1H0HBimX
+ NaiaHZy4tePWNjmtctnAFImRFWLdex2f3sztGDCK8ah3zEB4uR2YQzHPyfMjp+hb/x0q
+ ddfKUeShpt/I9jxrpGiLLKoG5vTYgidZNTzQIBwRZPtG2qwfomdbxpl7FBa1c4iMsQl1
+ wsNyWaZJQIxsgP96j9EvfzRcv+PY8u2Jj+j0Hga6x6FkPtzxOUaYSizfvTevSMsvpEyb
+ LAvPJVWl7cmb6bo7m8d0myeIsOIJq37raOxEmJPqV0Ye8NhJDaoHPS2AEaQzCD8vO+AU oQ== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3efc3abs56-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 28 Feb 2022 11:24:55 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 21SBCAQv160080;
+ Mon, 28 Feb 2022 11:24:53 GMT
+Received: from nam10-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10lp2100.outbound.protection.outlook.com [104.47.58.100])
+ by userp3030.oracle.com with ESMTP id 3ef9avabpd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 28 Feb 2022 11:24:53 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VNWPULWW/hb07qF9zLtTbvPWutqkjyEtDVRMjEBCn+grJpY30aPDc55rg0/Y7V+3oGgLJRq/f2ICb8KcUM35UF045kw7a0PFwjtQ2WvKJilYpNmtfIEuqIr3HCdddlVRI/GvVoM1eW30JlkoSMzTM83uYXm+bZogj+jZ55AISoS4RwSCsNjT1iQCVRLOgzFglPFIiC5oeiWcWlqNEkucCAT6AvMN10H/ZN5H08ILlCbR+SEr+cInAmGrpfBfSxN3clpc+4eH7nJxF7yS/QshlrpSP1VgcPMrEC9CLo2cjAqri9NIv7+9x7z0jv5P6K2AJBlncwPQpmTOJ6+kx+jT0g==
+ b=T6GyJ3TLC/IS1iV8dHTgTe5eXJIo/yDKNj5mMpCGGnM/wAjMRv/u17Ng6MK0I2kZVSZmHTVlkJ7MFApPGtoCkmY9Eoh38UR7A2qheJ423X1zt+uZJbys5161EsN6ZWa+BDDVNG15Hb9kfR7kdwcr+AmKuOkQV3TElpmZNRYMFo5eQaMbQBpjpwksAxleceKvn+8RgRiHo/2oiP56nHlVib8NaTdLBReSZeZlXHbOVVigK36+tWoLkBPGZy+fqKlg77NJW0RzWtxmzliCBs/b5QG3eClxiihebKQ511jSS8wH6FK5ViGpSCgljdTHx28K6kGEjG2LwbqaGFuJcE8ZvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RVM1eibO2uIdJPjNKDfek0LAcwEuvYV+Qt/29NkdGgA=;
- b=id0P8iP19UGQSfi4RFcEMMYl4WGat+A/pyWBAHSB4caBBhw+7ZIMSUF1c2YKjHLbG8bhz+mU4WkrFk2gix1iY6uzz5MkzoPHTqIWXzW2HGfVPEtCR8eHJtY4BdSFkocehO+Wr907SVtANF3rDzeRJKDCPwcOd+dDneljsurbSFivwK3VCkF+l5ufIez6msjNvltky4DchlHbYFopksNbXoX+UxkrhUbK9dS4IvONRWromGNgCNc4cU5oftSKhNl1KIvpncakv/kGQs0RPOlCsRShi/+saOiXc7rP04rdZPBCIdtnTC74iPV++UGZ+qiH+haJnzaZY5Peg440cgy2nA==
+ bh=rhxKEyaEE27JRn4dwvDu5iYS7zGXGiTNmt/cV7ZpE34=;
+ b=f3tQIbk/1g2mXLDJlyx2otSs85y6PYgnRnZ28v0U/aAZUBqogV3uA2CK1xc1lk65plWm6s9523jdicaYa7IZnheUTzRO6ARYISy5/anjKQagtPOkPir+Ll6iESfdfsdE2LgnZ3UdV84Z22V3eM6UtQDFO/21Brha1lPJGfxv6Og/nDXnUWbTQtumefAIQhOZ5dsEw8w5OOGI8rzqK1C/oCKiC4kWCsbmimsAsFYq+5pOUceSHOKk8Y653YRH7Dz8bJmd1A2G1Mo8JPdu9/s3pk/Q8jT+TC8oRBs4Dz/XEMZpcHBs/VwEzg0ddyPh2VPcZH0x+nU7I7BGqHWUYPGMWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RVM1eibO2uIdJPjNKDfek0LAcwEuvYV+Qt/29NkdGgA=;
- b=ezBE74qFtgp2IJevVcqII49UkHv/dM27THDIYreNv5lm8RjFdu7T++nk/kCT4HkxdlJEgiuKckgZ+4yS+j3ScEvGXSQRKYcwhDLy6+COemednNYG1byjqLIwbRp6IGMzz3t4S4jpVIc8sgpN6bknAqpK66va7RNNP57EyV3rbVw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MW2PR12MB2508.namprd12.prod.outlook.com (2603:10b6:907:9::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22; Mon, 28 Feb
- 2022 10:59:03 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e03f:901a:be6c:b581]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e03f:901a:be6c:b581%6]) with mapi id 15.20.5017.027; Mon, 28 Feb 2022
- 10:59:03 +0000
-Message-ID: <1879517d-f98f-6e96-7157-dccb0c872df0@amd.com>
-Date: Mon, 28 Feb 2022 11:58:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [drm/selftests] 39ec47bbfd:
- kernel_BUG_at_drivers/gpu/drm/drm_buddy.c
-Content-Language: en-US
-To: kernel test robot <oliver.sang@intel.com>,
- Arunpravin <Arunpravin.PaneerSelvam@amd.com>
-References: <20220227151857.GA20405@xsang-OptiPlex-9020>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220227151857.GA20405@xsang-OptiPlex-9020>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM7PR03CA0020.eurprd03.prod.outlook.com
- (2603:10a6:20b:130::30) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ bh=rhxKEyaEE27JRn4dwvDu5iYS7zGXGiTNmt/cV7ZpE34=;
+ b=jwD8rItkCG5FQFx4Gz2BfbkDoWC1ow2QS2tpc2FwkjucbLBuY0btQvRyw9LtrQJWqV1kRbZLfagBgAXAFRDC2UAHU1Q57Ew9xUUZ1DXgGqzN1XZs0zNNXk573fBxawuGhhbHlJ6kG7npWKs6XEMI1iuGa1RauuW+7dJVl6TDf+M=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by BLAPR10MB5201.namprd10.prod.outlook.com
+ (2603:10b6:208:332::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.21; Mon, 28 Feb
+ 2022 11:24:50 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::2c3d:92b5:42b3:c1c5]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::2c3d:92b5:42b3:c1c5%4]) with mapi id 15.20.5017.027; Mon, 28 Feb 2022
+ 11:24:50 +0000
+Date: Mon, 28 Feb 2022 14:24:13 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Jakob Koschel <jakobkoschel@gmail.com>
+Subject: Re: [PATCH 1/6] drivers: usb: remove usage of list iterator past the
+ loop body
+Message-ID: <20220228112413.GA2812@kadam>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
+ <20220228110822.491923-2-jakobkoschel@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220228110822.491923-2-jakobkoschel@gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: CT2P275CA0012.ZAFP275.PROD.OUTLOOK.COM
+ (2603:1086:100:b::24) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 99132f31-b8e4-489d-501e-08d9faa954cd
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2508:EE_
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2508C09E39C54BB64DCEE22F83019@MW2PR12MB2508.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 629f0380-c86e-4dfe-d292-08d9faaceefd
+X-MS-TrafficTypeDiagnostic: BLAPR10MB5201:EE_
+X-Microsoft-Antispam-PRVS: <BLAPR10MB52010DFED44C00CD7720DE878E019@BLAPR10MB5201.namprd10.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AnGXbY2L1B8buqA+AB2w1NdWnaHESyrYhkPFMX4MAWlh130u0Y2kysLsGnDOg82YPvnbOblVxUGacnKvMywHrJfYj09k5nb/tTjkYGrG2GecjQqtsxFCnwg8b5aj4iObHFKiOblmrDfnp4AmCu3oIpdKIiz2h+vivcvcySuwXn4EXL5KDdgROq/7yX5aZP8VjoutI+2bj9ss64/yu0uy69pBfRFnn4RSdWZnTTFkzq+Apd+al0u+5f/4JAZF1vWouulkqBUzTixfNmyFdf/yEgc4LmLZ/RB60gOanAShLKxm4jOfFr2lwaSQbTqdXTpy1xCgmN+OfVv8Vh9x3ICpWDSNWw5ATUxAcVjRV9zOnYPFVj4H3bIIUZWyBaBGenKE9xstaTkjwvha+gxv0XsRJUSCLd4ciHKfzS/cCxV2MItbVZtCIZatk4V8meNw11T1uIa2JlHuZ2m9PXYZGM+i2EhTkktrFRXnza5LS0osrKO6KOq+HEaIPa6U45YGa1pRhQ59NyWJXmaTlxcojOC92VJGCRYtQklj6sz6ZZ827M7J53lRyzby1C7RjTvIlOPAvIIaGx1yNd5lluVXxp0Jy4vLpucLhuYLPuVdHbRHdQEgKj9+5g0F73mXrLleRI2NbjiSluocSNXSM6oGkvRiPiTg7vbjAhm+YxqwuET3OvnOXSH8pLUMA8/9VL+qrpDsMwN7YQ1UEEcRcZe44oOOSTQIF5YHQuJ5Htbu8BHGFg8JsRMS4H4FKWuiZ1hu9izd6+Jm5lXXV67vVZwP44OZTTDeIeGoITqc917IeRpuS87H6AnVCPOVXS8WtZ7ouXLUXAKOb465tI8uMMN9HXEBBZ2NUvfRTWvyApoVxPqHRek=
+X-Microsoft-Antispam-Message-Info: oNw/ky9RH9bZJgn3aC8I0H+P/C7v6cIGSGKduPX/xbYlJjd7kLPu5CB2hSMSq6Y9gCp7yyzg9mt3pJeZSP5RmC2LFFjo02H3eYC9dqeyoEpdHIVxLxKRIZAbqD5zer9NF233BmfyXRdnvkA14xwcveyGw9L4Ld8g9l4Yxgiq/IxdQi7i9rpfD4VmXO+hK1dxCShVzlhSwwZZvRDnSF0y1V98QdhPKSyiyNhMvepLw2iiCDywwmdG/Qa8IqWLH7ymQXgpM+JN7ZY3wcUV0q321YCQmR6wcqy5tlDeY3UKgFMjMiXrbPL9z4vv9gPYtnTHCfNnoDhW4tCqp+SvBejTsTZQbxnbe5n/w5FxQMN5Tp7aABoLdJkyNhCa04qq/4jgTc+zUI4no9XxoTaYoK0RCRgLn6D2mX7rv7RHPh5NM74T6ohDYASayPuRryoUqPfqlCyVz5iiFHcXrhSl0dg+MMSthMm+MM5cLvnYTvUqfVmBuj97sWP77il2pGOH5V6TVz5n1456UORNcopCvjmAHHB+CMlcvheHlcKfVMkJdmwxgWwMMAB1fXQWhzS+IEt0+i/Pd+L+wJ5n4w1nOHMnuf1vtMDPgAcSrv6Wl4bHPq9660aA7/E+/gY4mAC29f8kdzxh6uZf5XwS8qr6wVi0jneXBUwg3yCBlGv4kNrhwa/Yh9Y7AqCjjkCJF8BiTehyab4wfg78ZszldZZmsRwyPg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(45080400002)(6486002)(6666004)(966005)(38100700002)(6506007)(36756003)(6512007)(6636002)(31686004)(508600001)(83380400001)(110136005)(54906003)(4326008)(31696002)(8936002)(316002)(86362001)(2616005)(5660300002)(30864003)(2906002)(186003)(66476007)(66946007)(66556008)(8676002)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(7916004)(366004)(66946007)(8676002)(4326008)(33656002)(316002)(6916009)(66476007)(66556008)(38100700002)(6666004)(9686003)(6512007)(33716001)(86362001)(83380400001)(186003)(1076003)(26005)(38350700002)(2906002)(6486002)(508600001)(54906003)(52116002)(6506007)(7416002)(7406005)(8936002)(7366002)(5660300002)(44832011);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OW5NU3Zobk9KOHZzN1p0dzh6UjBZUldiQ2dWNDJQUGVFbWNvYStTV3ZqMEFq?=
- =?utf-8?B?Y2xvQkJHQ0ZSaHdLOFNnakRBeERVQjJneXFzc2Y4aEtWTlRGRFQ5dy9aSHpw?=
- =?utf-8?B?M1EyMWdHYXlGbWthZExvTVdTd28vdVd6aU5pVElpbFdxSVRaaENjVFNmMkUz?=
- =?utf-8?B?TFF4Zm9HMnN6eTlqdXVzTUZWRTF6L3kwOHplVmRvVVpuS3U1eGJSWTZvTlVv?=
- =?utf-8?B?RlpnRStyNThvTkM0QjEzbFFuOERWMDJDQjJiWDRxT2ZyNjVhcEVvNnVWZ2k4?=
- =?utf-8?B?OWVCUkxmbGZidGpwWXdza0ptbjlGb3NLRk9yUEdVYVloSlhMYUpsbXNkeGdH?=
- =?utf-8?B?T3o5bU1GMFN4OWhFaEpWNXRKTW95WDRsb0VSOEZXbG4yWVZRMFdzaU5va0RG?=
- =?utf-8?B?c2ZGemtqbXZDQ0JDeUFEb2hmUDdpVEc1VnV6Tk0rQ0VHSUZzUzA4VVFSOUdm?=
- =?utf-8?B?M1loSEN2U2k0QXFjaERwTjhnbUgzczE2OGNUYnQrZ1JOZVMzNjNWRDJNWmMy?=
- =?utf-8?B?WCtmeU1WREpMMEh3bUhGOVBwU2NMN2tFNTUvRC9WNFFTWHA3dEJndnpNMG03?=
- =?utf-8?B?bHo1Q2hWL0sxTGRxSXpBQTdXMVFuUjd3WldESG5Ga0FKZ01JRWlzb3VQQ1V5?=
- =?utf-8?B?T3JaVFBiZnlORzB1NHM3djVjYUlRQlo0RC90a0VOaXF3Sk1Lcm9uYWJOWXdk?=
- =?utf-8?B?WUxwYUZwZ3VaWEJIMkd1QmRtZXVGbkNwZUNiUkxjbGo2cy9nREZqNExXMEhZ?=
- =?utf-8?B?cElGVE8wVkpodzB0Y3Zad2kzMDR5ZFQ0U3ZOVjQ4Y2IvdkV1RzVTVFVhZUJl?=
- =?utf-8?B?SlZXQ2duY1lFL3AvR3J4cExhNWpJRzhwT094RW4xckF4NjhiTmg5WlRNckdt?=
- =?utf-8?B?VXM2Y3dOektWYUVpUHg0VWNQMDR1YW9rUTVMOEtlTFB2U0dCODRJNk5sMmY3?=
- =?utf-8?B?TWxIN1hxeW9QeFpYRHhrT3kwcXRUU2lHQURQNzhLTWhrLzNvOGtKTTIxVnJG?=
- =?utf-8?B?dTRSN2pPQ1lBMTlJem5hT0hoTmdpeUQzQ21zQ21BKytCNHd0ZXRXOCtmRWZC?=
- =?utf-8?B?UThlc0l5Q1ZDSU5UOTRFQkcyYkxhT3pXK2dWaWV5QlJMN05RSk11RUNSeWtC?=
- =?utf-8?B?MEZGWVZLa3V0amhIT3cvRXFBYkZ0UnFoWUpmL0c2ZUx1QTJkQ3pHWHZsT3hM?=
- =?utf-8?B?MjJJUVl2bXdxRE9oMTZ4d2RJcUFWQitNYS91WUNiMUZPMXFBeGhWMGtOVnQz?=
- =?utf-8?B?TnBWV3hWOUFFc2twUSt4Z0VUS1d1VEZ5ZGhYQWIzY2xhdTZ2eXJ3YXRSUGpu?=
- =?utf-8?B?b3E1NEdxOVlCNElCTzVqTFVVNldmR20rY2F3ejBMYlFIdzlrOUR1T3lmT2ts?=
- =?utf-8?B?RURsQkIvUXY5SkY2a00vUEY4NTVMcmVoUjFlWGNxak1hOHZmdEVhVWFGcTJB?=
- =?utf-8?B?L2tzWWpLQ3FhczgrTStabVVnVnRUa1QxTnBtWUJVVjNVMDdGNmtrNlMxZ3E0?=
- =?utf-8?B?Ynpmamc0ZjFhVjVjMnBqYzJkNHlxY09GcWF6OFF3Nkp1am80RktqTm5rVXJJ?=
- =?utf-8?B?bmFtNVVybUYvUnZSazVGS3BUNFNUOUNQNzRjaDFnZjUvTWFIaUlDUk1Mb3F1?=
- =?utf-8?B?SGNJQmVpUWZhL2h3QnNsY09yejk2dTRlQ3hGbnpzNmVXdTBLM2t2NVBPZG1m?=
- =?utf-8?B?Ukg1RmxsZTVRZkRpcnJwdmsvRTBHeWVZVUd4R1VsRDkwd3RqeVIva01zZmw1?=
- =?utf-8?B?UnFQS2dYNzJFcXU4U3k3RitrVmFUZmFDN0NMdmJwYlpPdnRvcENzdktEanVZ?=
- =?utf-8?B?UlA5dWI0bmVIU3VyNVUzY21ta1NMZGNublo0MmtjT0dmU3lrZWhqaE4rVW1w?=
- =?utf-8?B?cFRpMi9MR0pRODB1ZG8zcVJGS0NHeVM0YzhKZlVGMmRxbHhJQ3B6UGFxVGFJ?=
- =?utf-8?B?ZDdXSFdSTHB3NXczRWdEb2lSb2p3VzhqSFArR3BqOWxMNTY2M3VHNGdjbWl3?=
- =?utf-8?B?T2IycUQwMzE1b2VIS25NVGpYZ0RsaFd6a1R6QXgrZkZPVGFrdjROVVZzZDRO?=
- =?utf-8?B?cGJaS2pNSnJVdHQwMXFLbDFKeFFUR3dNdVIvRnA5RDg5ai95NVd3bS8ySDRy?=
- =?utf-8?B?Nyt4dFpVL3paalVDK01rMFFoaTZ2VGZiTCtLOG1WU0k3a3Y4d0JJd0ZQNGcx?=
- =?utf-8?Q?R5S/lv53y3uWHzpaAat6ATw=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99132f31-b8e4-489d-501e-08d9faa954cd
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vaCJRwWe1gDGfdW3mcs49L447sD52E2tp8PqwvF0QkBSlQLl89S35/Auo0q4?=
+ =?us-ascii?Q?LIrms7w+r6OtJGIF+UAPPwR/DzL6ZK1r9yT5ArNjAaWw5epXlEAPUMjwLjWn?=
+ =?us-ascii?Q?ZcJHEZbZNb36AVQx0WODFLY9QU/hwZqG41gLx1sByt4nPYUXJx571Nw51eZj?=
+ =?us-ascii?Q?J9G+mmRZUFwoQx+NAmAWZo3XGpOG57rL263ntxi9SRGcujYM1PjFf+le/9zc?=
+ =?us-ascii?Q?VJAdQPFIo6BhG3wZbWH9dldcdr1wup/y5g8PfYjGBHLRxoffleB/F4bieu/M?=
+ =?us-ascii?Q?2QOPJLTXw84y+rarr70IJsG3yVH/tLNA7awJNndyup89TjyTn4AkcXMVOpnM?=
+ =?us-ascii?Q?Tgbt6tI7QaTYvdYJeZ3yLR5aodQIezSrHeqk1NuNHemyBAxKKa0TcPWXUoE+?=
+ =?us-ascii?Q?8X0au5KpXVQVYP5ZMgw7fB0mFgpEEQgCFrc5jTeODe7XiMnHFY3QJI0FvD1a?=
+ =?us-ascii?Q?VtxeMt0kWIqdjDgphYviEQhPMNzZOvdp2c5/pkPi2c72b1Q0MLCP5Vgqmf9d?=
+ =?us-ascii?Q?g3xbYoJVvflc0h+X2yIZFF7V2Fod7z/WQRnoyOyIMOt+3LkqvqX7xqkKaVkw?=
+ =?us-ascii?Q?httfgMtlqJ70DOxCbWU2HdOuppxdj6ZXvuzzNOXYLE5SNQLICvZJ9PJqj7U5?=
+ =?us-ascii?Q?C/uWGFCF+6hcngDl2vXvE588D2RoBjga/lx+H8Z6CzTS6rBxBQ3BzLXRui1w?=
+ =?us-ascii?Q?lgN2YNdspbO8ty+/ZVW0LWux49oxuGo3+z43HcIDsPQOSKpymSV8yE6HcIOE?=
+ =?us-ascii?Q?X64XjlxpsSwf/t0ljK19F/r1UUtqA4Ji7+1QGLwVuAf4VMGTRCwTQVjaJ/FV?=
+ =?us-ascii?Q?lmdmRFbWnxo4fUxYPiG/0Iryv34Pwk2oLTtR2UZzECgeY7KYMDmgaRfksxef?=
+ =?us-ascii?Q?cm1+LQv2ZRKDzw3w1Pe+cPdPTKMh66GejAk4IB9koSvAJH2tWINz8OrAuiFN?=
+ =?us-ascii?Q?bZe18Fl2P632oOhRotbwI5U36S/aY+iL61sSArTF18Z0BZoR4cDGLh4KWYLQ?=
+ =?us-ascii?Q?pTr1BeAojQHjK87PPDhCY+hoIck+XeFP4F7UMUh7AJaH9yAW4vB37ba6q1gm?=
+ =?us-ascii?Q?1EfvjQnrR2rz4ozUiZb/eRY1h0Y5oDfD1+KT2NuryIDAeousM5zlb9vChFpT?=
+ =?us-ascii?Q?xKdSnCHM+Bke94HBZbHdz8bfh/fVj3RxM5ehVxWQxfAPjwLwZPDx01eIO3Gh?=
+ =?us-ascii?Q?5X/m2q8NqSMoQpnYRa12B4YnET/zIrn1+rf8WSknzIhWL61WvxkN2CVh6iOi?=
+ =?us-ascii?Q?o4pdTrv0lkPwmxObCDsUpx5fd2/3rd8aTF9vbmgcMwE9l3/wGfvP5YWsdS1r?=
+ =?us-ascii?Q?3fPHBrqGb7hNighYuyk0ffwfob9pBTRpSi8P0DY+hkBiP4+ID+9qdwv3qxjA?=
+ =?us-ascii?Q?GGjRKx63mdU8Ed1RoR4UFDozooyWz+XuRd4zNnKx31Bumy49OfxMdvNcbmAp?=
+ =?us-ascii?Q?Bpxe2hta9C1w3BqGN9bwdl4l2TqJtCRsgHYDJDpW1xLwBsdO3zYy/aqwKBwj?=
+ =?us-ascii?Q?2aGnSCmZyNvnJirCYrXC1cIDe9mgXGq7K89NrZj+MC60eQq+NwoDWOYRcOUu?=
+ =?us-ascii?Q?YtPEPQfCpe63+IBaUmILgdxb3pPs5tg2VMuiyJC2deMsIGk3zwDPEHXOWvte?=
+ =?us-ascii?Q?YnJf3eW5Jdc3nWA2CS3VefwBOghIMRueubexYGj6jv2wVrPNEbgbLxGcu2L6?=
+ =?us-ascii?Q?WQqbUQ=3D=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 629f0380-c86e-4dfe-d292-08d9faaceefd
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2022 10:59:03.0981 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2022 11:24:50.4628 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vDcFhwuTjU0mPumxWqlwJdCxTDjiNPKFZPbxbtve0EZuDcWi6a7EBVGvFPeiml1F
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2508
+X-MS-Exchange-CrossTenant-UserPrincipalName: KzgH/AzxKDJ8PWAa8Fz9LyR9SzH6RKnI+6ZnoRytiG1aweEveJViEFd6cAYZW/2M3NqI0L+uEmlcoL7rnOSdYXSr3OhAcFM011u+cedReU8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB5201
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10271
+ signatures=684655
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ bulkscore=0 malwarescore=0
+ mlxscore=0 phishscore=0 suspectscore=0 adultscore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2201110000
+ definitions=main-2202280064
+X-Proofpoint-GUID: FP6IbxZDcxUKBWhPNYAzonWFTGVqWuz8
+X-Proofpoint-ORIG-GUID: FP6IbxZDcxUKBWhPNYAzonWFTGVqWuz8
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,212 +150,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, 0day robot <lkp@intel.com>,
- intel-gfx@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>,
- dri-devel@lists.freedesktop.org, lkp@lists.01.org,
- Matthew Auld <matthew.auld@intel.com>, tzimmermann@suse.de,
- alexander.deucher@amd.com
+Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, Cristiano Giuffrida <c.giuffrida@vu.nl>,
+ amd-gfx@lists.freedesktop.org, samba-technical@lists.samba.org,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, linux-cifs@vger.kernel.org,
+ kvm@vger.kernel.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-staging@lists.linux.dev, "Bos, H.J." <h.j.bos@vu.nl>,
+ Jason Gunthorpe <jgg@ziepe.ca>, intel-wired-lan@lists.osuosl.org,
+ kgdb-bugreport@lists.sourceforge.net, bcm-kernel-feedback-list@broadcom.com,
+ linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+ Arnd Bergman <arnd@arndb.de>, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>, linux-block@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ v9fs-developer@lists.sourceforge.net, linux-tegra@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-sgx@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, tipc-discussion@lists.sourceforge.net,
+ linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
+ Mike Rapoport <rppt@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Arun can you take a look at that one here?
+On Mon, Feb 28, 2022 at 12:08:17PM +0100, Jakob Koschel wrote:
+> diff --git a/drivers/usb/gadget/udc/at91_udc.c b/drivers/usb/gadget/udc/at91_udc.c
+> index 9040a0561466..0fd0307bc07b 100644
+> --- a/drivers/usb/gadget/udc/at91_udc.c
+> +++ b/drivers/usb/gadget/udc/at91_udc.c
+> @@ -150,13 +150,14 @@ static void proc_ep_show(struct seq_file *s, struct at91_ep *ep)
+>  	if (list_empty (&ep->queue))
+>  		seq_printf(s, "\t(queue empty)\n");
+> 
+> -	else list_for_each_entry (req, &ep->queue, queue) {
+> -		unsigned	length = req->req.actual;
+> +	else
+> +		list_for_each_entry(req, &ep->queue, queue) {
+> +			unsigned int	length = req->req.actual;
+> 
+> -		seq_printf(s, "\treq %p len %d/%d buf %p\n",
+> -				&req->req, length,
+> -				req->req.length, req->req.buf);
+> -	}
+> +			seq_printf(s, "\treq %p len %d/%d buf %p\n",
+> +					&req->req, length,
+> +					req->req.length, req->req.buf);
+> +		}
 
-It looks like a real problem to me and not just a potential false 
-negative like the other issue.
+Don't make unrelated white space changes.  It just makes the patch
+harder to review.  As you're writing the patch make note of any
+additional changes and do them later in a separate patch.
 
-Thanks,
-Christian.
+Also a multi-line indent gets curly braces for readability even though
+it's not required by C.  And then both sides would get curly braces.
 
-Am 27.02.22 um 16:18 schrieb kernel test robot:
->
-> Greeting,
->
-> FYI, we noticed the following commit (built with gcc-9):
->
-> commit: 39ec47bbfd5dd3cea0b711ee9f1acdca37399c86 ("[PATCH v2 2/7] drm/selftests: add drm buddy alloc limit testcase")
-> url: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2F0day-ci%2Flinux%2Fcommits%2FArunpravin%2Fdrm-selftests-Move-i915-buddy-selftests-into-drm%2F20220223-015043&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C3101ff318a994e6eaf5f08d9fa0481ea%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637815719552700496%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=sKvsDtHufRMfSO14HdmHxvNsJiPyDZVDXCFUpWTDwFI%3D&amp;reserved=0
-> patch link: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fdri-devel%2F20220222174845.2175-2-Arunpravin.PaneerSelvam%40amd.com&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C3101ff318a994e6eaf5f08d9fa0481ea%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637815719552700496%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=aWG4x27aMLcOySOUkHbLQ1NL9L8t8AF4dgXux65IIP8%3D&amp;reserved=0
->
-> in testcase: boot
->
-> on test machine: qemu-system-x86_64 -enable-kvm -cpu Icelake-Server -smp 4 -m 16G
->
-> caused below changes (please refer to attached dmesg/kmsg for entire log/backtrace):
->
->
-> +---------------------------------------------------+------------+------------+
-> |                                                   | be9e8c6c00 | 39ec47bbfd |
-> +---------------------------------------------------+------------+------------+
-> | boot_successes                                    | 14         | 0          |
-> | boot_failures                                     | 0          | 16         |
-> | UBSAN:shift-out-of-bounds_in_include/linux/log2.h | 0          | 16         |
-> | kernel_BUG_at_drivers/gpu/drm/drm_buddy.c         | 0          | 16         |
-> | invalid_opcode:#[##]                              | 0          | 16         |
-> | EIP:drm_buddy_init                                | 0          | 16         |
-> | Kernel_panic-not_syncing:Fatal_exception          | 0          | 16         |
-> +---------------------------------------------------+------------+------------+
->
->
-> If you fix the issue, kindly add following tag
-> Reported-by: kernel test robot <oliver.sang@intel.com>
->
->
-> [   68.124177][    T1] UBSAN: shift-out-of-bounds in include/linux/log2.h:67:13
-> [   68.125333][    T1] shift exponent 4294967295 is too large for 32-bit type 'long unsigned int'
-> [   68.126563][    T1] CPU: 0 PID: 1 Comm: swapper Not tainted 5.17.0-rc2-00311-g39ec47bbfd5d #2
-> [   68.127758][    T1] Call Trace:
-> [ 68.128187][ T1] dump_stack_lvl (lib/dump_stack.c:108)
-> [ 68.128793][ T1] dump_stack (lib/dump_stack.c:114)
-> [ 68.129331][ T1] ubsan_epilogue (lib/ubsan.c:152)
-> [ 68.129958][ T1] __ubsan_handle_shift_out_of_bounds.cold (arch/x86/include/asm/smap.h:85)
-> [ 68.130791][ T1] ? drm_block_alloc+0x28/0x80
-> [ 68.131582][ T1] ? rcu_read_lock_sched_held (kernel/rcu/update.c:125)
-> [ 68.132215][ T1] ? kmem_cache_alloc (include/trace/events/kmem.h:54 mm/slab.c:3501)
-> [ 68.132878][ T1] ? mark_free+0x2e/0x80
-> [ 68.133524][ T1] drm_buddy_init.cold (include/linux/log2.h:67 drivers/gpu/drm/drm_buddy.c:131)
-> [ 68.134145][ T1] ? test_drm_cmdline_init (drivers/gpu/drm/selftests/test-drm_buddy.c:87)
-> [ 68.134770][ T1] igt_buddy_alloc_limit (drivers/gpu/drm/selftests/test-drm_buddy.c:30)
-> [ 68.135472][ T1] ? vprintk_default (kernel/printk/printk.c:2257)
-> [ 68.136057][ T1] ? test_drm_cmdline_init (drivers/gpu/drm/selftests/test-drm_buddy.c:87)
-> [ 68.136812][ T1] test_drm_buddy_init (drivers/gpu/drm/selftests/drm_selftest.c:77 drivers/gpu/drm/selftests/test-drm_buddy.c:95)
-> [ 68.137475][ T1] do_one_initcall (init/main.c:1300)
-> [ 68.138111][ T1] ? parse_args (kernel/params.c:609 kernel/params.c:146 kernel/params.c:188)
-> [ 68.138717][ T1] do_basic_setup (init/main.c:1372 init/main.c:1389 init/main.c:1408)
-> [ 68.139366][ T1] kernel_init_freeable (init/main.c:1617)
-> [ 68.140040][ T1] ? rest_init (init/main.c:1494)
-> [ 68.140634][ T1] kernel_init (init/main.c:1504)
-> [ 68.141155][ T1] ret_from_fork (arch/x86/entry/entry_32.S:772)
-> [   68.141607][    T1] ================================================================================
-> [   68.146730][    T1] ------------[ cut here ]------------
-> [   68.147460][    T1] kernel BUG at drivers/gpu/drm/drm_buddy.c:140!
-> [   68.148280][    T1] invalid opcode: 0000 [#1]
-> [   68.148895][    T1] CPU: 0 PID: 1 Comm: swapper Not tainted 5.17.0-rc2-00311-g39ec47bbfd5d #2
-> [ 68.149896][ T1] EIP: drm_buddy_init (drivers/gpu/drm/drm_buddy.c:140 (discriminator 1))
-> [ 68.149896][ T1] Code: 76 00 b8 ea ff ff ff 8d 65 f4 5b 5e 5f 5d c3 8d 76 00 0f bd 45 d8 75 05 b8 ff ff ff ff 83 c0 21 e9 5e ff ff ff 8d 74 26 00 90 <0f> 0b 8d b6 00 00 00 00 0f 0b 8d b6 00 00 00 00 8b 5d 0c 0f bd 45
-> All code
-> ========
->     0:	76 00                	jbe    0x2
->     2:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
->     7:	8d 65 f4             	lea    -0xc(%rbp),%esp
->     a:	5b                   	pop    %rbx
->     b:	5e                   	pop    %rsi
->     c:	5f                   	pop    %rdi
->     d:	5d                   	pop    %rbp
->     e:	c3                   	retq
->     f:	8d 76 00             	lea    0x0(%rsi),%esi
->    12:	0f bd 45 d8          	bsr    -0x28(%rbp),%eax
->    16:	75 05                	jne    0x1d
->    18:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
->    1d:	83 c0 21             	add    $0x21,%eax
->    20:	e9 5e ff ff ff       	jmpq   0xffffffffffffff83
->    25:	8d 74 26 00          	lea    0x0(%rsi,%riz,1),%esi
->    29:	90                   	nop
->    2a:*	0f 0b                	ud2    		<-- trapping instruction
->    2c:	8d b6 00 00 00 00    	lea    0x0(%rsi),%esi
->    32:	0f 0b                	ud2
->    34:	8d b6 00 00 00 00    	lea    0x0(%rsi),%esi
->    3a:	8b 5d 0c             	mov    0xc(%rbp),%ebx
->    3d:	0f                   	.byte 0xf
->    3e:	bd                   	.byte 0xbd
->    3f:	45                   	rex.RB
->
-> Code starting with the faulting instruction
-> ===========================================
->     0:	0f 0b                	ud2
->     2:	8d b6 00 00 00 00    	lea    0x0(%rsi),%esi
->     8:	0f 0b                	ud2
->     a:	8d b6 00 00 00 00    	lea    0x0(%rsi),%esi
->    10:	8b 5d 0c             	mov    0xc(%rbp),%ebx
->    13:	0f                   	.byte 0xf
->    14:	bd                   	.byte 0xbd
->    15:	45                   	rex.RB
-> [   68.149896][    T1] EAX: 8578e658 EBX: 8578e618 ECX: 8578e658 EDX: 83717c98
-> [   68.149896][    T1] ESI: 83675ee0 EDI: 00000034 EBP: 83675ec0 ESP: 83675e94
-> [   68.149896][    T1] DS: 007b ES: 007b FS: 0000 GS: 0000 SS: 0068 EFLAGS: 00010297
-> [   68.149896][    T1] CR0: 80050033 CR2: 77f35844 CR3: 02a10000 CR4: 00150ed0
-> [   68.149896][    T1] DR0: 00000000 DR1: 00000000 DR2: 00000000 DR3: 00000000
-> [   68.149896][    T1] DR6: fffe0ff0 DR7: 00000400
-> [   68.149896][    T1] Call Trace:
-> [ 68.149896][ T1] ? test_drm_cmdline_init (drivers/gpu/drm/selftests/test-drm_buddy.c:87)
-> [ 68.149896][ T1] igt_buddy_alloc_limit (drivers/gpu/drm/selftests/test-drm_buddy.c:30)
-> [ 68.149896][ T1] ? vprintk_default (kernel/printk/printk.c:2257)
-> [ 68.149896][ T1] ? test_drm_cmdline_init (drivers/gpu/drm/selftests/test-drm_buddy.c:87)
-> [ 68.149896][ T1] test_drm_buddy_init (drivers/gpu/drm/selftests/drm_selftest.c:77 drivers/gpu/drm/selftests/test-drm_buddy.c:95)
-> [ 68.149896][ T1] do_one_initcall (init/main.c:1300)
-> [ 68.149896][ T1] ? parse_args (kernel/params.c:609 kernel/params.c:146 kernel/params.c:188)
-> [ 68.149896][ T1] do_basic_setup (init/main.c:1372 init/main.c:1389 init/main.c:1408)
-> [ 68.149896][ T1] kernel_init_freeable (init/main.c:1617)
-> [ 68.149896][ T1] ? rest_init (init/main.c:1494)
-> [ 68.149896][ T1] kernel_init (init/main.c:1504)
-> [ 68.149896][ T1] ret_from_fork (arch/x86/entry/entry_32.S:772)
-> [   68.149896][    T1] Modules linked in:
-> [   68.167316][    T1] ---[ end trace 0000000000000000 ]---
-> [ 68.168062][ T1] EIP: drm_buddy_init (drivers/gpu/drm/drm_buddy.c:140 (discriminator 1))
-> [ 68.168739][ T1] Code: 76 00 b8 ea ff ff ff 8d 65 f4 5b 5e 5f 5d c3 8d 76 00 0f bd 45 d8 75 05 b8 ff ff ff ff 83 c0 21 e9 5e ff ff ff 8d 74 26 00 90 <0f> 0b 8d b6 00 00 00 00 0f 0b 8d b6 00 00 00 00 8b 5d 0c 0f bd 45
-> All code
-> ========
->     0:	76 00                	jbe    0x2
->     2:	b8 ea ff ff ff       	mov    $0xffffffea,%eax
->     7:	8d 65 f4             	lea    -0xc(%rbp),%esp
->     a:	5b                   	pop    %rbx
->     b:	5e                   	pop    %rsi
->     c:	5f                   	pop    %rdi
->     d:	5d                   	pop    %rbp
->     e:	c3                   	retq
->     f:	8d 76 00             	lea    0x0(%rsi),%esi
->    12:	0f bd 45 d8          	bsr    -0x28(%rbp),%eax
->    16:	75 05                	jne    0x1d
->    18:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
->    1d:	83 c0 21             	add    $0x21,%eax
->    20:	e9 5e ff ff ff       	jmpq   0xffffffffffffff83
->    25:	8d 74 26 00          	lea    0x0(%rsi,%riz,1),%esi
->    29:	90                   	nop
->    2a:*	0f 0b                	ud2    		<-- trapping instruction
->    2c:	8d b6 00 00 00 00    	lea    0x0(%rsi),%esi
->    32:	0f 0b                	ud2
->    34:	8d b6 00 00 00 00    	lea    0x0(%rsi),%esi
->    3a:	8b 5d 0c             	mov    0xc(%rbp),%ebx
->    3d:	0f                   	.byte 0xf
->    3e:	bd                   	.byte 0xbd
->    3f:	45                   	rex.RB
->
-> Code starting with the faulting instruction
-> ===========================================
->     0:	0f 0b                	ud2
->     2:	8d b6 00 00 00 00    	lea    0x0(%rsi),%esi
->     8:	0f 0b                	ud2
->     a:	8d b6 00 00 00 00    	lea    0x0(%rsi),%esi
->    10:	8b 5d 0c             	mov    0xc(%rbp),%ebx
->    13:	0f                   	.byte 0xf
->    14:	bd                   	.byte 0xbd
->    15:	45                   	rex.RB
->
->
-> To reproduce:
->
->          # build kernel
-> 	cd linux
-> 	cp config-5.17.0-rc2-00311-g39ec47bbfd5d .config
-> 	make HOSTCC=gcc-9 CC=gcc-9 ARCH=i386 olddefconfig prepare modules_prepare bzImage modules
-> 	make HOSTCC=gcc-9 CC=gcc-9 ARCH=i386 INSTALL_MOD_PATH=<mod-install-dir> modules_install
-> 	cd <mod-install-dir>
-> 	find lib/ | cpio -o -H newc --quiet | gzip > modules.cgz
->
->
->          git clone https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2Fintel%2Flkp-tests.git&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C3101ff318a994e6eaf5f08d9fa0481ea%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637815719552700496%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=NjykC%2F60KxU7%2FmTnzNMNzJReXV06mjFzQPvDM1Pyj%2F4%3D&amp;reserved=0
->          cd lkp-tests
->          bin/lkp qemu -k <bzImage> -m modules.cgz job-script # job-script is attached in this email
->
->          # if come across any failure that blocks the test,
->          # please remove ~/.lkp and /lkp dir to run from a clean state.
->
->
->
-> ---
-> 0DAY/LKP+ Test Infrastructure                   Open Source Technology Center
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.01.org%2Fhyperkitty%2Flist%2Flkp%40lists.01.org&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C3101ff318a994e6eaf5f08d9fa0481ea%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637815719552700496%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=v8BQLwbrizBXoDoHb77IgXjPnvrF%2BomFQpmhNYXa8i0%3D&amp;reserved=0       Intel Corporation
->
-> Thanks,
-> Oliver Sang
->
+>  	spin_unlock_irqrestore(&udc->lock, flags);
+>  }
+> 
+> @@ -226,7 +227,7 @@ static int proc_udc_show(struct seq_file *s, void *unused)
+> 
+>  	if (udc->enabled && udc->vbus) {
+>  		proc_ep_show(s, &udc->ep[0]);
+> -		list_for_each_entry (ep, &udc->gadget.ep_list, ep.ep_list) {
+> +		list_for_each_entry(ep, &udc->gadget.ep_list, ep.ep_list) {
 
+Another unrelated change.
+
+>  			if (ep->ep.desc)
+>  				proc_ep_show(s, ep);
+>  		}
+
+
+[ snip ]
+
+> diff --git a/drivers/usb/gadget/udc/net2272.c b/drivers/usb/gadget/udc/net2272.c
+> index 7c38057dcb4a..bb59200f1596 100644
+> --- a/drivers/usb/gadget/udc/net2272.c
+> +++ b/drivers/usb/gadget/udc/net2272.c
+> @@ -926,7 +926,8 @@ static int
+>  net2272_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+>  {
+>  	struct net2272_ep *ep;
+> -	struct net2272_request *req;
+> +	struct net2272_request *req = NULL;
+> +	struct net2272_request *tmp;
+>  	unsigned long flags;
+>  	int stopped;
+> 
+> @@ -939,11 +940,13 @@ net2272_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+>  	ep->stopped = 1;
+> 
+>  	/* make sure it's still queued on this endpoint */
+> -	list_for_each_entry(req, &ep->queue, queue) {
+> -		if (&req->req == _req)
+> +	list_for_each_entry(tmp, &ep->queue, queue) {
+> +		if (&tmp->req == _req) {
+> +			req = tmp;
+>  			break;
+> +		}
+>  	}
+> -	if (&req->req != _req) {
+> +	if (!req) {
+>  		ep->stopped = stopped;
+>  		spin_unlock_irqrestore(&ep->dev->lock, flags);
+>  		return -EINVAL;
+> @@ -954,7 +957,6 @@ net2272_dequeue(struct usb_ep *_ep, struct usb_request *_req)
+>  		dev_dbg(ep->dev->dev, "unlink (%s) pio\n", _ep->name);
+>  		net2272_done(ep, req, -ECONNRESET);
+>  	}
+> -	req = NULL;
+
+Another unrelated change.  These are all good changes but send them as
+separate patches.
+
+>  	ep->stopped = stopped;
+> 
+>  	spin_unlock_irqrestore(&ep->dev->lock, flags);
+
+regards,
+dan carpenter
