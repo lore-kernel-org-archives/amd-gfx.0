@@ -4,71 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80D21C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 21:13:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 732A7C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 21:19:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19BE810E8E3;
-	Mon, 28 Feb 2022 21:13:41 +0000 (UTC)
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCA7F10E8CA
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 20:41:22 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id bu29so23558206lfb.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 12:41:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=qhbC6eV8gO++7ErI4p8jtmcwHU0MP2/Ov9cpdMFArow=;
- b=WVa5dIiqx38h7wrDwDC1XUsKJKiBFCag4a2cDDwm9PX3cUtT8qqZ7IT4jQUgf/P4m+
- SFGMe+WsS02R4cGzO91FNZKGdT/lUA2soxV9cxmDWvmKG61T36jSK+GypeHu4wmj47J3
- J2dEWo9WRu5EKgz1ZgjNDbSUreOeJ25KIOWY4=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0521388F9B;
+	Mon, 28 Feb 2022 21:19:47 +0000 (UTC)
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA0B710E8F3;
+ Mon, 28 Feb 2022 21:19:07 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id e13so11824167plh.3;
+ Mon, 28 Feb 2022 13:19:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+ :subject:to:cc;
+ bh=pX3FOaQ5tpG+krWAy5EzbawK39YqA5YwRZTg6hddt4E=;
+ b=JpEWCU5sl0Tb/FD34RSH61Ey9dRKreZqOQa3CJ02luf0uqIT78+8GWNevF0TXmNO1k
+ V82hjNGseb3oWLNgnnFwXHAFmfIF+pTCtPsXm95pt2iCzBmJFwg04njU2K1WfIC8K4PQ
+ JYTCrkA4ACMCh2biL4u47uoOFfhnbmO/1jCCSOx3OESfK5+oDGNitg9s7NqsmIU5fVsE
+ xsR4ABTTJUTksMDshckaPyVLHegSArBm3erCaRT01IEJkH2S1g98XNdRHKV6JZW5AanM
+ gI9+nSzlxhKCRaqGLAQjGqwME5o9/K6faQyfblLD265MKP0MWlgdnuFxCRxjUTwlasET
+ Zo4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=qhbC6eV8gO++7ErI4p8jtmcwHU0MP2/Ov9cpdMFArow=;
- b=vafL5+DCFLu4/SmzPQIjnrOAmlz3DxZdRjQo2Jsx0LrTf4tonYBqKBTkKCiI9yEygF
- MU2g0g3O+zd2qPJr/fhHzyORlF+NQaQQaKWNZLqHwC6v081bKc0yZbuTtRZbeJYvf6hT
- 0zWonK+yJIcGF0+NlV4I7xKuLGrJzYBek/EKoxk6+XVUxJypdk2VNJil7nZd8msQM2Vq
- UDen5RGTeMwJC1/7vb+RkR+oNQT4g9/ArwmPNUe91rrarGaLd9xwLhSxuc3MbcnbVtkR
- 5e4pluL1+/VlPKrTUNegpvGoO3PNSrmIscVZs9sVu2yn0Gkp0biCg6T9y/xt/KC2QuOe
- NKlg==
-X-Gm-Message-State: AOAM531rzLC2oi0IXrhWTWdJ0NVEG1gLk8wFTgAWRmRnuelCuMrFlgx7
- KYdn7nS0mtq1jyEIn/S4DfmvjJk4oc1A6Cyi9lo=
-X-Google-Smtp-Source: ABdhPJwXR/nxRs+QM4KohkI4VMGkD7sC5T7Fmurbpy281aXChB6RYKDZlRHivUFBv5QpjPnbNCDHmw==
-X-Received: by 2002:a05:6512:1109:b0:443:8b32:c49d with SMTP id
- l9-20020a056512110900b004438b32c49dmr13299045lfg.663.1646080880633; 
- Mon, 28 Feb 2022 12:41:20 -0800 (PST)
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com.
- [209.85.167.45]) by smtp.gmail.com with ESMTPSA id
- e7-20020ac24e07000000b00443970dc043sm1119855lfr.198.2022.02.28.12.41.18
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Feb 2022 12:41:18 -0800 (PST)
-Received: by mail-lf1-f45.google.com with SMTP id m14so23442676lfu.4
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 12:41:18 -0800 (PST)
-X-Received: by 2002:a05:6512:e8a:b0:443:7b8c:579a with SMTP id
- bi10-20020a0565120e8a00b004437b8c579amr13784522lfb.687.1646080877791; Mon, 28
- Feb 2022 12:41:17 -0800 (PST)
+ h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+ :from:date:message-id:subject:to:cc;
+ bh=pX3FOaQ5tpG+krWAy5EzbawK39YqA5YwRZTg6hddt4E=;
+ b=egp74ez16sYePF6VXevNYQckygfSYtAquVgDmEOAcYIQTBoEpsLbK4H+LZuEvIwkrU
+ o9FT+OMTU6JFOombmD7QpAKGgTSlNU1ZMoGXbGc2fh9sGa6d/e6mJq7KJEUKLIg0c65L
+ ZHRidR5OQjdsIaGzQQaP3xbyP4jSfXIaX0pJi5knkKAjR7j+nJOgusWz3ZiwTcj94zX6
+ Sc8stgED187TT6TbsIhRuZADQ4kJUMxsBwx14Hm44Dry5quEJ6gUQIEXGoGEM6wwpYhm
+ UG+DqPDmELgBxqMjU9WMf9+U/8GqS/U+/eH9TzrYq+GJRLa3D6LQBfbaX3436obcQUHQ
+ sSuw==
+X-Gm-Message-State: AOAM533hTJhroOcyATPueYVwzrRJa69BtCOifI9hLOk89BiMZcyDjo5n
+ h/X7EoVxqljkiX3sojtpI4C3sFUh6w057XaZJV4=
+X-Google-Smtp-Source: ABdhPJxYQDaw0FFWrTXZCk3OvnKpy6mSdQ8Z9qbCWYQ2FvSetamSp4Rz90y2uoGU7tjomvOtre1MYsL9s+rZuYttBVs=
+X-Received: by 2002:a17:902:ce8a:b0:14f:fd0e:e4a4 with SMTP id
+ f10-20020a170902ce8a00b0014ffd0ee4a4mr22765912plg.47.1646083147399; Mon, 28
+ Feb 2022 13:19:07 -0800 (PST)
 MIME-Version: 1.0
 References: <20220228110822.491923-1-jakobkoschel@gmail.com>
  <20220228110822.491923-3-jakobkoschel@gmail.com>
  <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
  <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
- <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
- <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
- <Yh0tl3Lni4weIMkl@casper.infradead.org>
- <e3bb7d0632f8ef60f18c19976d57330e1ef00584.camel@sipsolutions.net>
-In-Reply-To: <e3bb7d0632f8ef60f18c19976d57330e1ef00584.camel@sipsolutions.net>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 28 Feb 2022 12:41:01 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wjNgWNa9njuBJEoafc-cRV3SbzZfh3m5YfxcZxdCw3+XQ@mail.gmail.com>
-Message-ID: <CAHk-=wjNgWNa9njuBJEoafc-cRV3SbzZfh3m5YfxcZxdCw3+XQ@mail.gmail.com>
+ <282f0f8d-f491-26fc-6ae0-604b367a5a1a@amd.com>
+ <b2d20961dbb7533f380827a7fcc313ff849875c1.camel@HansenPartnership.com>
+In-Reply-To: <b2d20961dbb7533f380827a7fcc313ff849875c1.camel@HansenPartnership.com>
+From: Jeffrey Walton <noloader@gmail.com>
+Date: Mon, 28 Feb 2022 16:18:56 -0500
+Message-ID: <CAH8yC8nwp8f3rANhCiiP_Oiw2cjfqCwAgZdTXY9OxtN9Tmm7HA@mail.gmail.com>
 Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
  as a ptr
-To: Johannes Berg <johannes@sipsolutions.net>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Mon, 28 Feb 2022 21:13:34 +0000
+X-Mailman-Approved-At: Mon, 28 Feb 2022 21:19:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,15 +69,15 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: noloader@gmail.com
 Cc: linux-wireless <linux-wireless@vger.kernel.org>,
  alsa-devel@alsa-project.org, KVM list <kvm@vger.kernel.org>,
  "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
  nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Cristiano Giuffrida <c.giuffrida@vu.nl>, Matthew Wilcox <willy@infradead.org>,
+ Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>,
  linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
  linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
  linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev,
  amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
@@ -98,13 +87,15 @@ Cc: linux-wireless <linux-wireless@vger.kernel.org>,
  Linux Media Mailing List <linux-media@vger.kernel.org>,
  Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
  Linux PM <linux-pm@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, "Bos, H.J." <h.j.bos@vu.nl>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
  Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
  Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
  Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
  linux-tegra <linux-tegra@vger.kernel.org>,
  Thomas Gleixner <tglx@linutronix.de>,
- Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
  linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
  linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
@@ -114,34 +105,39 @@ Cc: linux-wireless <linux-wireless@vger.kernel.org>,
  Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
  linux-fsdevel <linux-fsdevel@vger.kernel.org>,
  linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Mike Rapoport <rppt@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 28, 2022 at 12:29 PM Johannes Berg
-<johannes@sipsolutions.net> wrote:
+On Mon, Feb 28, 2022 at 3:45 PM James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> ...
+> > Just from skimming over the patches to change this and experience
+> > with the drivers/subsystems I help to maintain I think the primary
+> > pattern looks something like this:
+> >
+> > list_for_each_entry(entry, head, member) {
+> >      if (some_condition_checking(entry))
+> >          break;
+> > }
+> > do_something_with(entry);
 >
-> If we're willing to change the API for the macro, we could do
 >
->   list_for_each_entry(type, pos, head, member)
+> Actually, we usually have a check to see if the loop found anything,
+> but in that case it should something like
 >
-> and then actually take advantage of -Wshadow?
+> if (list_entry_is_head(entry, head, member)) {
+>     return with error;
+> }
+> do_somethin_with(entry);
 
-See my reply to Willy. There is no way -Wshadow will ever happen.
+Borrowing from c++, perhaps an explicit end should be used:
 
-I considered that (type, pos, head, member) kind of thing, to the
-point of trying it for one file, but it ends up as horrendous syntax.
-It turns out that declaring the type separately really helps, and
-avoids crazy long lines among other things.
+  if (list_entry_not_end(entry))
+    do_somethin_with(entry)
 
-It would be unacceptable for another reason too - the amount of churn
-would just be immense. Every single use of that macro (and related
-macros) would change, even the ones that really don't need it or want
-it (ie the good kinds that already only use the variable inside the
-loop).
+It is modelled after c++ and the 'while(begin != end) {}' pattern.
 
-So "typeof(pos) pos" may be ugly - but it's a very localized ugly.
-
-                    Linus
+Jeff
