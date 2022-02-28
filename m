@@ -4,59 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30BA7C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF695C4332F
 	for <amd-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 19:06:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 631C810E371;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA92E10E484;
 	Mon, 28 Feb 2022 19:06:00 +0000 (UTC)
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE9C410E34C;
- Mon, 28 Feb 2022 17:27:03 +0000 (UTC)
-Received: by mail-pj1-x1033.google.com with SMTP id v4so11756679pjh.2;
- Mon, 28 Feb 2022 09:27:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=B90OuQ7zc9yVKMEVZCKsWsT7ET8T63FPfntMYlVMILY=;
- b=OHhVJJKi3QwRpjML07uhDBNGsvJriFhT/RPMNynKmU4RJBp/81c6vzb15LhS1kWkPj
- jo7cxjR99E+MYr9GCsHkC3s2CoZMo6nkTKEzCrwRcYY0CzUZHrTZoIHYqXSedkRSofWQ
- OS5sBzh+9rWrBkg123djnzM+6EgcUNzXR+sXy+z3n3C6heOIiIsvSJRft2QbEN58uMod
- EL/QrlaOqlOeCaXnuO+CAzqi5+DOwovRrLu3RmqBI0SKyl+hkGX3z/9bGHC2QJ6TEodk
- wTXY/UUi9eD4FzxBQ8XNa1W84p5V98V9fHnYDpV6PoW1CPSn2zIGty4PJi1Mn0TQzOOB
- fIBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=B90OuQ7zc9yVKMEVZCKsWsT7ET8T63FPfntMYlVMILY=;
- b=3hb6mwJ1tBpDB/57oJV0N9vPpY0cmJpzcxbSl6Ngkjk1dpQhQP3QN3EZDxfTwjXAcV
- OqabpBTqS5zdb9mcSsBSSj1YxrlMZVluVswrPQO/ldd6wh5hLHdi0aLD9/ruJ7gW3vk3
- rCaufc+aSCf3FYIPPXHhTeYtSCIYsWcof91okLl/3VNbzsg4dfDiBY+33VJKp59Azz5c
- 82guOwZXoEmv/moVBIPdsriVJKsgAnZ8EfmMtLjl2P4S/6WfZLCazDDzPnNH1GQWrpoO
- 3hFV1spkOIW+V4/0g+DllspsTSIHdgOb5deaVMEjKbZtRicYWgwaRnG0PXAgH3c/tFpT
- ioaw==
-X-Gm-Message-State: AOAM532iUx2Bnb0e1bMDVE0rVEoe++TJLkHIibUy/Lp01pFJ6T7vUDRD
- PRk9cOWT/EsBN53OlxE6VS0=
-X-Google-Smtp-Source: ABdhPJx/iNMGqljFhakgfTxdO/FncHSNaIeQEtLUil2wMfsLA+k8LTnvxhl5MvsK3lr/JpWx/ON0Ig==
-X-Received: by 2002:a17:90b:3693:b0:1bc:89f0:e38f with SMTP id
- mj19-20020a17090b369300b001bc89f0e38fmr17950554pjb.171.1646069223201; 
- Mon, 28 Feb 2022 09:27:03 -0800 (PST)
-Received: from localhost.localdomain ([103.172.183.185])
- by smtp.gmail.com with ESMTPSA id
- f15-20020a056a0022cf00b004f3b99a6c43sm14027748pfj.219.2022.02.28.09.27.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Feb 2022 09:27:02 -0800 (PST)
-From: youling257 <youling257@gmail.com>
-To: qiang.yu@amd.com
-Subject: Re: [PATCH v2] drm/amdgpu: check vm ready by amdgpu_vm->evicting flag
-Date: Tue,  1 Mar 2022 01:26:51 +0800
-Message-Id: <20220228172651.12642-1-youling257@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220222024651.36675-1-qiang.yu@amd.com>
-References: <20220222024651.36675-1-qiang.yu@amd.com>
+X-Greylist: delayed 361 seconds by postgrey-1.36 at gabe;
+ Mon, 28 Feb 2022 18:26:57 UTC
+Received: from relay3.hostedemail.com (relay3.hostedemail.com [64.99.140.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF8FE10E4BC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 18:26:57 +0000 (UTC)
+Received: from omf09.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay11.hostedemail.com (Postfix) with ESMTP id 8480C81766;
+ Mon, 28 Feb 2022 18:20:49 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
+ omf09.hostedemail.com (Postfix) with ESMTPA id 5C4272002A; 
+ Mon, 28 Feb 2022 18:20:29 +0000 (UTC)
+Message-ID: <0be9de3920442df490f01b6fb1c42521c3de6190.camel@perches.com>
+Subject: Re: [PATCH 1/6] drivers: usb: remove usage of list iterator past
+ the loop body
+From: Joe Perches <joe@perches.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>, Jakob Koschel
+ <jakobkoschel@gmail.com>
+Date: Mon, 28 Feb 2022 10:20:28 -0800
+In-Reply-To: <20220228112413.GA2812@kadam>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
+ <20220228110822.491923-2-jakobkoschel@gmail.com>
+ <20220228112413.GA2812@kadam>
+Content-Type: text/plain; charset="ISO-8859-1"
+User-Agent: Evolution 3.40.4-1ubuntu2 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: 1e1i8ombnsc3cdkptu3anccezjc89zox
+X-Rspamd-Server: rspamout07
+X-Rspamd-Queue-Id: 5C4272002A
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1+i6vY6IDwHpNq++UEo/5hqvP4PvgQNb4E=
+X-HE-Tag: 1646072429-12569
 X-Mailman-Approved-At: Mon, 28 Feb 2022 19:05:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,12 +53,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pmenzel@molgen.mpg.de, airlied@linux.ie, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, Cristiano Giuffrida <c.giuffrida@vu.nl>,
+ amd-gfx@lists.freedesktop.org, samba-technical@lists.samba.org,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, linux-cifs@vger.kernel.org,
+ kvm@vger.kernel.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-staging@lists.linux.dev, "Bos, H.J." <h.j.bos@vu.nl>,
+ Jason Gunthorpe <jgg@ziepe.ca>, intel-wired-lan@lists.osuosl.org,
+ kgdb-bugreport@lists.sourceforge.net, bcm-kernel-feedback-list@broadcom.com,
+ linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+ Arnd Bergman <arnd@arndb.de>, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>, linux-block@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ v9fs-developer@lists.sourceforge.net, linux-tegra@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-sgx@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, tipc-discussion@lists.sourceforge.net,
+ linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
+ Mike Rapoport <rppt@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-this patch cause suspend to disk resume amdgpu hang,  [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx timeout, signaled seq=8330, emitted seq=8332
+On Mon, 2022-02-28 at 14:24 +0300, Dan Carpenter wrote:
 
-https://gitlab.freedesktop.org/drm/amd/-/issues/1915
+> a multi-line indent gets curly braces for readability even though
+> it's not required by C.  And then both sides would get curly braces.
+
+That's more your personal preference than a coding style guideline.
+
+
