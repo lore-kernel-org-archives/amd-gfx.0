@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9331C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 20:27:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C60EC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 20:27:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D336E10E8BB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E01BD10E8C2;
 	Mon, 28 Feb 2022 20:27:13 +0000 (UTC)
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 618AB10E685
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 20:15:47 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id a8so27160426ejc.8
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 12:15:47 -0800 (PST)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84C5F10E67A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 20:15:06 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id d23so23274927lfv.13
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 12:15:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux-foundation.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=LeZ8UzRXrDw4d1M4BG6ctt9COK0EF5j9qtOsLWtMfJg=;
- b=Jhdls+DdmLi+4DWS7o2GehQ/Yg8vWPth9HxY0ymuDsFhiEF5hlRLzgd1PV4wJ4dLVJ
- JdRWd6PhVxu3cPtesSY0XREEgjw/sVhI1zgx2ECNJUHRlykk7MmbqhfMtkifVM/LmgYS
- 6chNfwYqW0eu75y5MSRY9nnHOEZnFkvhMXNYc=
+ :cc; bh=Rhevy6fb5H45VxDHjLDNCxtPhjJ0u7uFLdfSx9pxlIs=;
+ b=SFiiDaskyFzzbW4jCoUqiJYglpNWscp1lwtLHE93w8dRI3h8eXZkrLgebAKqQfA9oZ
+ haXikdZXvfEB810zRURGwChdn/CvMC8Q7Pab3hpE0iVI/nf3FVJvcryQMcC1uZhcoZUU
+ P6IZH9h2w6s9V+B5fc5q6pR5l/tJkcQrm5JJ0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=LeZ8UzRXrDw4d1M4BG6ctt9COK0EF5j9qtOsLWtMfJg=;
- b=WDYsxp+GDZ6dIK/+r89cKKIJUkuxuT18mlfimd1iAaym6u7jzCduSLREEBEKXvWpRA
- lsOzAnQ//QbRljtKuX+Ze/T72E6LRPrCRvAotogB/RYYnbthbkwE5OUNiMbOYmQpxkj0
- SyPRIgWhRAMDMZQq06bVwZcRA67fkxzu3Ms0hGLH2vjLeHW3WLajefmgNQNKe3D6StP7
- gZdOEchu4W9REB2xEMKwJ+09jSw11rz8tuxDbAN49q1ZB/auNLedQnau/G6pcrDRARcH
- QLO7hO7w1i9sOVFKnyANfUZ4nbNZu6hUjnfXTelpTBhVcdToY7BqXz8JViGInzkz9/hW
- FZ9A==
-X-Gm-Message-State: AOAM533TEL/M+smeG2SEMGxj7j1G3PoaC6qnGJ9TESRuqhVvHU6/l5c8
- gYkn0rsROsEPCIOZZ04wM0C+S11MywEZTiOyLck=
-X-Google-Smtp-Source: ABdhPJxVE5hKghXm6IvzSwFh3Ifpmym4GaBmQ1KbQxR0T5+ZHBJ7tUkpZssP5y4ucGw2wkeMSBTo8Q==
-X-Received: by 2002:a17:906:a213:b0:6b5:b0f9:7567 with SMTP id
- r19-20020a170906a21300b006b5b0f97567mr16735822ejy.129.1646079345635; 
- Mon, 28 Feb 2022 12:15:45 -0800 (PST)
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com.
- [209.85.208.52]) by smtp.gmail.com with ESMTPSA id
- m24-20020a170906161800b006d420027b63sm4725680ejd.18.2022.02.28.12.15.45
+ bh=Rhevy6fb5H45VxDHjLDNCxtPhjJ0u7uFLdfSx9pxlIs=;
+ b=MsxU7d4Epr55CEhGQA9ysiiZcFugAyTwPDl7xBhxaZB7N0ip3OUmvgIl30vBrOpHH9
+ sEEvygOpeRa986mHeIbBnT2ugkimW6crMUsnp1XDfIqd4C1Nocv79+zaQywHwYP9RKfJ
+ RR+syMzeNqOMQ5KhhcnzwhBeLFl/PCRd/+t2Fmo5HbHYp0iKZ1Wctl63DglDJxELtmXj
+ 9rlGElr8ec4CeB1SmOCJIqEX6OQFzr/L7x0uwxYCqjWSSiEg9OODFSaU+IyEwjkjBDAM
+ Umm8dkDHH59zMSz0Ivjf3+0Mgpv+If6s9s0W0v0lGhcUFYq0Uqh7AILNn/V2ruisWVus
+ O0+w==
+X-Gm-Message-State: AOAM531C3IafQZbmFwLzD1mTAy3Pw4es+UvGFijO5Dpu1kpXaQI8cGw1
+ H1M4tmlujav0CGFbi310SmEZi9FEYkhhYD6sD8A=
+X-Google-Smtp-Source: ABdhPJw+7s2WUx1PSYVdIU4u5/Fh7d+YeE+2FyiSL3Z3hUoXP4i1OfG7HNZZOLTWrIX9n+egG1c5Bg==
+X-Received: by 2002:a05:6512:3da1:b0:442:dc9f:1d8e with SMTP id
+ k33-20020a0565123da100b00442dc9f1d8emr14305578lfv.369.1646079304581; 
+ Mon, 28 Feb 2022 12:15:04 -0800 (PST)
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com.
+ [209.85.208.182]) by smtp.gmail.com with ESMTPSA id
+ t8-20020ac25488000000b00443817ec09asm1123822lfk.10.2022.02.28.12.15.01
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Feb 2022 12:15:45 -0800 (PST)
-Received: by mail-ed1-f52.google.com with SMTP id ee12so4525925edb.12
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 12:15:45 -0800 (PST)
-X-Received: by 2002:ac2:4d91:0:b0:443:127b:558a with SMTP id
- g17-20020ac24d91000000b00443127b558amr14027806lfe.542.1646079041191; Mon, 28
- Feb 2022 12:10:41 -0800 (PST)
+ Mon, 28 Feb 2022 12:15:01 -0800 (PST)
+Received: by mail-lj1-f182.google.com with SMTP id u11so19020565lju.4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 12:15:01 -0800 (PST)
+X-Received: by 2002:a2e:924d:0:b0:246:370c:5618 with SMTP id
+ v13-20020a2e924d000000b00246370c5618mr15110351ljg.358.1646079300900; Mon, 28
+ Feb 2022 12:15:00 -0800 (PST)
 MIME-Version: 1.0
 References: <20220228110822.491923-1-jakobkoschel@gmail.com>
  <20220228110822.491923-3-jakobkoschel@gmail.com>
  <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
  <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
  <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
-In-Reply-To: <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
+ <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
+In-Reply-To: <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 28 Feb 2022 12:10:24 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
-Message-ID: <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
+Date: Mon, 28 Feb 2022 12:14:44 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wj27SZQ3kPTesBzkiGhe-mA3gOQqr_adt_bMFzmg1VNaA@mail.gmail.com>
+Message-ID: <CAHk-=wj27SZQ3kPTesBzkiGhe-mA3gOQqr_adt_bMFzmg1VNaA@mail.gmail.com>
 Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
  as a ptr
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: multipart/mixed; boundary="0000000000008601b205d919a4ad"
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 28 Feb 2022 20:27:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,76 +116,31 @@ Cc: linux-wireless <linux-wireless@vger.kernel.org>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000008601b205d919a4ad
-Content-Type: text/plain; charset="UTF-8"
-
-On Mon, Feb 28, 2022 at 12:03 PM Linus Torvalds
+On Mon, Feb 28, 2022 at 12:10 PM Linus Torvalds
 <torvalds@linux-foundation.org> wrote:
 >
-> Side note: we do need *some* way to do it.
+> We can do
+>
+>         typeof(pos) pos
+>
+> in the 'for ()' loop, and never use __iter at all.
+>
+> That means that inside the for-loop, we use a _different_ 'pos' than outside.
 
-Ooh.
-
-This patch is a work of art.
-
-And I mean that in the worst possible way.
-
-We can do
+The thing that makes me throw up in my mouth a bit is that in that
 
         typeof(pos) pos
 
-in the 'for ()' loop, and never use __iter at all.
+the first 'pos' (that we use for just the typeof) is that outer-level
+'pos', IOW it's a *different* 'pos' than the second 'pos' in that same
+declaration that declares the inner level shadowing new 'pos'
+variable.
 
-That means that inside the for-loop, we use a _different_ 'pos' than outside.
+If I was a compiler person, I would say "Linus, that thing is too ugly
+to live", and I would hate it. I'm just hoping that even compiler
+people say "that's *so* ugly it's almost beautiful".
 
-And then the compiler will not see some "might be uninitialized", but
-the outer 'pos' *will* be uninitialized.
+Because it does seem to work. It's not pretty, but hey, it's not like
+our headers are really ever be winning any beauty contests...
 
-Unless, of course, the outer 'pos' had that pointless explicit initializer.
-
-Here - can somebody poke holes in this "work of art" patch?
-
-                     Linus
-
---0000000000008601b205d919a4ad
-Content-Type: text/x-patch; charset="US-ASCII"; name="patch.diff"
-Content-Disposition: attachment; filename="patch.diff"
-Content-Transfer-Encoding: base64
-Content-ID: <f_l074y7ca0>
-X-Attachment-Id: f_l074y7ca0
-
-IE1ha2VmaWxlICAgICAgICAgICAgICAgICAgICAgICB8IDIgKy0KIGFyY2gveDg2L2tlcm5lbC9j
-cHUvc2d4L2VuY2wuYyB8IDIgKy0KIGluY2x1ZGUvbGludXgvbGlzdC5oICAgICAgICAgICB8IDYg
-KysrLS0tCiAzIGZpbGVzIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkK
-CmRpZmYgLS1naXQgYS9NYWtlZmlsZSBiL01ha2VmaWxlCmluZGV4IGRhZWI1Yzg4YjUwYi4uY2M0
-YjBhMjY2YWYwIDEwMDY0NAotLS0gYS9NYWtlZmlsZQorKysgYi9NYWtlZmlsZQpAQCAtNTE1LDcg
-KzUxNSw3IEBAIEtCVUlMRF9DRkxBR1MgICA6PSAtV2FsbCAtV3VuZGVmIC1XZXJyb3I9c3RyaWN0
-LXByb3RvdHlwZXMgLVduby10cmlncmFwaHMgXAogCQkgICAtZm5vLXN0cmljdC1hbGlhc2luZyAt
-Zm5vLWNvbW1vbiAtZnNob3J0LXdjaGFyIC1mbm8tUElFIFwKIAkJICAgLVdlcnJvcj1pbXBsaWNp
-dC1mdW5jdGlvbi1kZWNsYXJhdGlvbiAtV2Vycm9yPWltcGxpY2l0LWludCBcCiAJCSAgIC1XZXJy
-b3I9cmV0dXJuLXR5cGUgLVduby1mb3JtYXQtc2VjdXJpdHkgXAotCQkgICAtc3RkPWdudTg5CisJ
-CSAgIC1zdGQ9Z251MTEKIEtCVUlMRF9DUFBGTEFHUyA6PSAtRF9fS0VSTkVMX18KIEtCVUlMRF9B
-RkxBR1NfS0VSTkVMIDo9CiBLQlVJTERfQ0ZMQUdTX0tFUk5FTCA6PQpkaWZmIC0tZ2l0IGEvYXJj
-aC94ODYva2VybmVsL2NwdS9zZ3gvZW5jbC5jIGIvYXJjaC94ODYva2VybmVsL2NwdS9zZ3gvZW5j
-bC5jCmluZGV4IDQ4YWZlOTZhZTBmMC4uODdkYjJmMzkzNmIwIDEwMDY0NAotLS0gYS9hcmNoL3g4
-Ni9rZXJuZWwvY3B1L3NneC9lbmNsLmMKKysrIGIvYXJjaC94ODYva2VybmVsL2NwdS9zZ3gvZW5j
-bC5jCkBAIC00NTAsNyArNDUwLDcgQEAgc3RhdGljIHZvaWQgc2d4X21tdV9ub3RpZmllcl9yZWxl
-YXNlKHN0cnVjdCBtbXVfbm90aWZpZXIgKm1uLAogCQkJCSAgICAgc3RydWN0IG1tX3N0cnVjdCAq
-bW0pCiB7CiAJc3RydWN0IHNneF9lbmNsX21tICplbmNsX21tID0gY29udGFpbmVyX29mKG1uLCBz
-dHJ1Y3Qgc2d4X2VuY2xfbW0sIG1tdV9ub3RpZmllcik7Ci0Jc3RydWN0IHNneF9lbmNsX21tICp0
-bXAgPSBOVUxMOworCXN0cnVjdCBzZ3hfZW5jbF9tbSAqdG1wOwogCiAJLyoKIAkgKiBUaGUgZW5j
-bGF2ZSBpdHNlbGYgY2FuIHJlbW92ZSBlbmNsX21tLiAgTm90ZSwgb2JqZWN0cyBjYW4ndCBiZSBt
-b3ZlZApkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9saXN0LmggYi9pbmNsdWRlL2xpbnV4L2xp
-c3QuaAppbmRleCBkZDZjMjA0MWQwOWMuLjcwODA3OGIyZjI0ZCAxMDA2NDQKLS0tIGEvaW5jbHVk
-ZS9saW51eC9saXN0LmgKKysrIGIvaW5jbHVkZS9saW51eC9saXN0LmgKQEAgLTYzNCw5ICs2MzQs
-OSBAQCBzdGF0aWMgaW5saW5lIHZvaWQgbGlzdF9zcGxpY2VfdGFpbF9pbml0KHN0cnVjdCBsaXN0
-X2hlYWQgKmxpc3QsCiAgKiBAaGVhZDoJdGhlIGhlYWQgZm9yIHlvdXIgbGlzdC4KICAqIEBtZW1i
-ZXI6CXRoZSBuYW1lIG9mIHRoZSBsaXN0X2hlYWQgd2l0aGluIHRoZSBzdHJ1Y3QuCiAgKi8KLSNk
-ZWZpbmUgbGlzdF9mb3JfZWFjaF9lbnRyeShwb3MsIGhlYWQsIG1lbWJlcikJCQkJXAotCWZvciAo
-cG9zID0gbGlzdF9maXJzdF9lbnRyeShoZWFkLCB0eXBlb2YoKnBvcyksIG1lbWJlcik7CVwKLQkg
-ICAgICFsaXN0X2VudHJ5X2lzX2hlYWQocG9zLCBoZWFkLCBtZW1iZXIpOwkJCVwKKyNkZWZpbmUg
-bGlzdF9mb3JfZWFjaF9lbnRyeShwb3MsIGhlYWQsIG1lbWJlcikJCQkJCVwKKwlmb3IgKHR5cGVv
-Zihwb3MpIHBvcyA9IGxpc3RfZmlyc3RfZW50cnkoaGVhZCwgdHlwZW9mKCpwb3MpLCBtZW1iZXIp
-OwlcCisJICAgICAhbGlzdF9lbnRyeV9pc19oZWFkKHBvcywgaGVhZCwgbWVtYmVyKTsJXAogCSAg
-ICAgcG9zID0gbGlzdF9uZXh0X2VudHJ5KHBvcywgbWVtYmVyKSkKIAogLyoqCg==
---0000000000008601b205d919a4ad--
+                Linus
