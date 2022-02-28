@@ -4,90 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA7E2C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 22:15:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D355AC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 22:30:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 348BC10E593;
-	Mon, 28 Feb 2022 22:15:55 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B474610E593
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Feb 2022 22:15:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wk99ooVcYhYCYkgTdv8f/+OqAI4QJ/fqEdl7zh8d9zUnYI2RhuxdINiK1FINHupPrZcgAOjZBcesDS+8tb6FDy6A4c3A7QoUlPcnZCrwmqSlhLVKOEhS1VJn8rhV3z/CaPEWGSC1U4a5TVbeP3bY+MNJBBKHVWEZW4a3WvZmnVxArZCSbiQEncSo6lsCXA015AaOFQtl9li8uwpcFgx0gFgaSagCvrxRE5oRh7NAuA/VT3nmC1ELJQoDHXEXJw+AWd2E8ew8QSv4gm/kES1rUPyBso2DwCGSBIkIwKKXRCbFyn50yXQW/tQDMk9sh8QATcQBKrNdU1l9zqrhiBONDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZpLkwXwG/hJEzEy8tffJE8dCoUL295ixSAYIPD7YUy4=;
- b=aj3ATJmfpeLvfO6PLfDUJ8LpiiL1SmuSfkDFKBckN48HW7A0BngwWXxlH7gz1dIWDpCspwJQ4PjWvnvV7jjnZD7Q0+gRWVB3loNPbl+Xq09UcP80h1KSMGp0pdA60MnulyPchzfpCZEXdarU4T5nbUFqcxeqohuAIAJ6higULMFxY6CxQeLRu7g0jh9oNNIvZShigsWe5k6Njp1/xv5JbsIbHrP89D9kJ/RDNistvwO6O19civ7ufuJ1LI6pvSOsudwEUG+yK2ZVbXtE2dpzEY5nI+yXqPH0qH0DWifWoBf2sVCTcROMB5TpTl9BaMLNtZnweahrWWq6wskEniwyJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZpLkwXwG/hJEzEy8tffJE8dCoUL295ixSAYIPD7YUy4=;
- b=t6v08NlymaqbsnnN2Nit6+pWZe0y2oYW+CZAGWgBi4O5CU5iO2N+ZaveHUAsDlXa+XxORrmkIFL+VBwrN/ddmLDeimXRqyZU1pEph1ym8J8WAuYiEzsEIrc4EOG00cKDW4Y586xTL90e5KBtkC43vS4cUlDiY8D+xulEXXWLzzI=
-Received: from DM5PR13CA0051.namprd13.prod.outlook.com (2603:10b6:3:117::13)
- by DM6PR12MB3531.namprd12.prod.outlook.com (2603:10b6:5:18b::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.26; Mon, 28 Feb
- 2022 22:15:49 +0000
-Received: from DM6NAM11FT017.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:117:cafe::77) by DM5PR13CA0051.outlook.office365.com
- (2603:10b6:3:117::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.9 via Frontend
- Transport; Mon, 28 Feb 2022 22:15:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT017.mail.protection.outlook.com (10.13.172.145) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5017.22 via Frontend Transport; Mon, 28 Feb 2022 22:15:49 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 28 Feb
- 2022 16:15:46 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Use IP versions in
- convert_tiling_flags_to_modifier()
-Date: Mon, 28 Feb 2022 17:15:32 -0500
-Message-ID: <20220228221532.1002763-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F50A10E92E;
+	Mon, 28 Feb 2022 22:30:55 +0000 (UTC)
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [IPv6:2607:f8b0:4864:20::c30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7655A10E92C;
+ Mon, 28 Feb 2022 22:30:53 +0000 (UTC)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ 189-20020a4a03c6000000b003179d7b30d8so20493726ooi.2; 
+ Mon, 28 Feb 2022 14:30:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=oWJNEF23gYsaQqgLAEVbye1HfW5HTbmGgJBkQBp8gGE=;
+ b=ElcKOruAXbvxWDYvNPelX7nfkbvr5prW+ZUpyWp0zCYNtIH5cQ8kTumGYq2SGYmvfj
+ AJKxZoUqAvpDu/F+a9neQDo4u2Q3DRo/prSmpCma1dNvWzvYefscyrCfuWMkfy7OUIod
+ 6l3ayoWRsPfzOkVxlv+RLKinqiuEm6QmxtzNQ5J7DlQGNIuh+AQVJJbxiElRc3xJ3cPD
+ j+qXxPn66/JY8QsJLkAjIA8jT5SAlJ4dMp395XvWBql5ysTpokA6aEtrtVHSbRF6PInM
+ QN0TE5o1GNg6ITeSPFcewR5FtJDrum+tKnxlobePfkRCga9ukeWGCFOly485J1vwOq2m
+ /Xlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=oWJNEF23gYsaQqgLAEVbye1HfW5HTbmGgJBkQBp8gGE=;
+ b=K1grvJVLzDZJLy79wYYtf7pM0bxw4s/n9cJJcpnHBZiHYA8/iVFQeXe6LyH0QE7ZUI
+ UE5RSIjtvBD3tptxC6Unmuzx9CtgE6PutV7s4GenDc/FJHJ7evBchX4bpbjM5/X6I47S
+ PzizPJjcWEELITWbTSajhWgUGJTF/GAgBAudvZpcIsrbpOynJ6tNfLX07FPqHTeur0+S
+ vyH6w3hZ4y/oEVg32JcDpXjdURRJCy4PEM5a5Zy50y5odvPexOacOHMXl8w4Fhf1Qybf
+ CCIm4rvsyX9Xjhki8QE5W8XN3cbcYvN81KQ/1Z2X2ja1wo41ShVn+iIftylPl519JaFH
+ 8kcw==
+X-Gm-Message-State: AOAM5312DeZE1O3ELxGTVW6msbzmHdXHKwbgR4zwwhIAGGXuPDgv8E9q
+ mV+SgIsdJyUrJUUXPUa9QXCy1aC5GAkZuhBaCnI=
+X-Google-Smtp-Source: ABdhPJxJw4j6RbUKEuCCao9TFapxCXxTwduA5GmufbYLkRtVhOI3ahGDwGCTJQXixtkIAkJPLilFPdDIBO2YtqM9oeE=
+X-Received: by 2002:a05:6870:1b85:b0:d6:feda:913f with SMTP id
+ hm5-20020a0568701b8500b000d6feda913fmr2039667oab.123.1646087452697; Mon, 28
+ Feb 2022 14:30:52 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: deda4208-6604-40bc-0c4d-08d9fb07e001
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3531:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3531E8E7B39D6B7A96AB518CF7019@DM6PR12MB3531.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HodKe7EqstmAvy4t5fYL1gEfy9QgCr3yo0XHYwxFEybGwXD+TMbyr5BbIfIBY16qqzA+sWrJl5IJWnHDXiR0Rz3Du1ZMYGr8ZvU9CKIlQFX2sM9mAAJ81jRYajtxben5i/qeTyV3PdMcAq/nqroVDd/XA1K2t4tq3HCnx+e+EP1A9TuuxINwi4VnX9+IOy1VLAqkHjIaAOpVoGlhT0nApHm79M9mZ/GkEiG1tJ1ThvjLNkn/sHIXXzAjdtKvAGWFhHchsiBW9op6FzYtcZh0Wa+b/ZX0Kln4ajcS/E612WTDBS7+tdkxG52LHJXkn8+v+e1oRJmQ/xQShzMVtM3q1jWWin811KAb9x/w/s8wc0Q6dhbDp2Et2ZRH031p4lTWXTPuTZu5isMAh6rQBlOh9u/oSbn1cN2gJv6P82qLEn0TGK7VqKZc0q9PHv657TR/cf6mBjpqi+SfHRxxs1EASwh3lARBlI6r3uC7GwGzLvnF3IV8pW7HgBiwNXgMPmyeA0/+hex4WehjQF+3tbc/rfTnYKGpKJUnMqkoR6nJJbEVgkdDEu2jI3AetOg+W8RZHYcFuF+xXCiBwrLhzOPGAYRAgAU8LbhQP8d1SJ5Hgg3+Uw27WeMzGbu+nhE8k0BV1yKkL8OPnWVSES59cxbnnUoUkg3ZgJQEqFAMnnxyiA9ss2ibk7lRKaxMZ6k3GkjASn4eP9IszTPazPM8ijwVow==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(186003)(1076003)(40460700003)(86362001)(26005)(7696005)(5660300002)(4326008)(70586007)(8676002)(70206006)(16526019)(36860700001)(83380400001)(36756003)(47076005)(82310400004)(6916009)(336012)(426003)(81166007)(356005)(6666004)(8936002)(2616005)(316002)(2906002)(508600001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2022 22:15:49.0050 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: deda4208-6604-40bc-0c4d-08d9fb07e001
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT017.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3531
+References: <20220227153342.79546-1-trix@redhat.com>
+ <58ae0ccc-e964-69a3-b40b-3262fd24af9b@amd.com>
+In-Reply-To: <58ae0ccc-e964-69a3-b40b-3262fd24af9b@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 28 Feb 2022 17:30:41 -0500
+Message-ID: <CADnq5_Oc2mUfv41gOxrdeHjKDQ4W+S1+wiX6v_7SE6bEH-9xSA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Fix realloc of ptr
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,42 +65,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Tom St Denis <tom.stdenis@amd.com>, llvm@lists.linux.dev, "Lazar,
+ Lijo" <lijo.lazar@amd.com>, Kevin Wang <kevin1.wang@amd.com>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ Dave Airlie <airlied@linux.ie>, Tom Rix <trix@redhat.com>,
+ xinhui pan <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nirmoy Das <nirmoy.das@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>, "Quan,
+ Evan" <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rather than checking the asic_type.
+Applied.  Thanks!
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 448e9b46417c..dd70c85b8205 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -691,9 +691,9 @@ static int convert_tiling_flags_to_modifier(struct amdgpu_framebuffer *afb)
- 			return -EINVAL;
- 		}
- 
--		if (adev->asic_type >= CHIP_SIENNA_CICHLID)
-+		if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 3, 0))
- 			version = AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS;
--		else if (adev->family == AMDGPU_FAMILY_NV)
-+		else if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 0, 0))
- 			version = AMD_FMT_MOD_TILE_VER_GFX10;
- 		else
- 			version = AMD_FMT_MOD_TILE_VER_GFX9;
-@@ -787,7 +787,7 @@ static int convert_tiling_flags_to_modifier(struct amdgpu_framebuffer *afb)
- 				if (adev->family >= AMDGPU_FAMILY_NV) {
- 					int extra_pipe = 0;
- 
--					if (adev->asic_type >= CHIP_SIENNA_CICHLID &&
-+					if ((adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 3, 0)) &&
- 					    pipes == packers && pipes > 1)
- 						extra_pipe = 1;
- 
--- 
-2.35.1
-
+On Mon, Feb 28, 2022 at 5:55 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 27.02.22 um 16:33 schrieb trix@redhat.com:
+> > From: Tom Rix <trix@redhat.com>
+> >
+> > Clang static analysis reports this error
+> > amdgpu_debugfs.c:1690:9: warning: 1st function call
+> >    argument is an uninitialized value
+> >    tmp =3D krealloc_array(tmp, i + 1,
+> >          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >
+> > realloc uses tmp, so tmp can not be garbage.
+> > And the return needs to be checked.
+> >
+> > Fixes: 5ce5a584cb82 ("drm/amdgpu: add debugfs for reset registers list"=
+)
+> > Signed-off-by: Tom Rix <trix@redhat.com>
+>
+> Yeah, stuff I missed because of the long review. I was already wondering
+> what semantics krealloc_array is following for freeing up the pointer on
+> error.
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> Thanks,
+> Christian.
+>
+> > ---
+> > v2:
+> >    use 'new' to hold/check the ralloc return
+> >    fix commit log mistake on ralloc freeing to using input ptr
+> >
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 9 +++++++--
+> >   1 file changed, 7 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_debugfs.c
+> > index 9eb9b440bd438..2f4f8c5618d81 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > @@ -1676,7 +1676,7 @@ static ssize_t amdgpu_reset_dump_register_list_wr=
+ite(struct file *f,
+> >   {
+> >       struct amdgpu_device *adev =3D (struct amdgpu_device *)file_inode=
+(f)->i_private;
+> >       char reg_offset[11];
+> > -     uint32_t *tmp;
+> > +     uint32_t *new, *tmp =3D NULL;
+> >       int ret, i =3D 0, len =3D 0;
+> >
+> >       do {
+> > @@ -1687,7 +1687,12 @@ static ssize_t amdgpu_reset_dump_register_list_w=
+rite(struct file *f,
+> >                       goto error_free;
+> >               }
+> >
+> > -             tmp =3D krealloc_array(tmp, i + 1, sizeof(uint32_t), GFP_=
+KERNEL);
+> > +             new =3D krealloc_array(tmp, i + 1, sizeof(uint32_t), GFP_=
+KERNEL);
+> > +             if (!new) {
+> > +                     ret =3D -ENOMEM;
+> > +                     goto error_free;
+> > +             }
+> > +             tmp =3D new;
+> >               if (sscanf(reg_offset, "%X %n", &tmp[i], &ret) !=3D 1) {
+> >                       ret =3D -EINVAL;
+> >                       goto error_free;
+>
