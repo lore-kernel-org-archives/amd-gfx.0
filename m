@@ -4,54 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4499FC433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB89AC433EF
 	for <amd-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 11:46:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF5DA10E594;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB4010E58C;
 	Mon, 28 Feb 2022 11:46:21 +0000 (UTC)
-X-Greylist: delayed 519 seconds by postgrey-1.36 at gabe;
- Mon, 28 Feb 2022 11:31:16 UTC
-Received: from nautica.notk.org (nautica.notk.org [91.121.71.147])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB7710E3C5;
- Mon, 28 Feb 2022 11:31:16 +0000 (UTC)
-Received: by nautica.notk.org (Postfix, from userid 108)
- id CA38FC023; Mon, 28 Feb 2022 12:22:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org; s=2;
- t=1646047354; bh=nbIjFrzgDVTmB4SrJnZGd7fIFmdwChwe2lL83Uag4us=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KzQ5VK5bfQJ50dqk23dxDjUwDDK7TA/irQD0Z9CNQKb+g550mz4220rMxu0PuRkB0
- zSH1KEphDNBJ7hKNULh8KlQjyIdBHOs8MI/nUYoPBmpLppCasulnFAsrKdaEXzwMTJ
- IwpM9+gWlHHqb/G70sMsoon8bZGjqe3igvlHvXWdB+dQG/WEtTlWyekznVAIp4LN7e
- b5pg6TDJ9pKPwGgBdsioef4sXDvyaKtcCCYy35g3YAfKpCdoJctnMsERag3cdTSjTi
- 8bbBH2/ntqNttGvGikrePwX+5MLUaZ7SwFWR8e1TQHG1akbelVXWBNaL48rZXDJvyO
- 7HTqyJ/PLNd5Q==
-Received: from odin.codewreck.org (localhost [127.0.0.1])
- by nautica.notk.org (Postfix) with ESMTPS id 6162EC009;
- Mon, 28 Feb 2022 12:22:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org; s=2;
- t=1646047353; bh=nbIjFrzgDVTmB4SrJnZGd7fIFmdwChwe2lL83Uag4us=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=E7ShsxTdVoGEbpDYFF27HXnsiskOzo+90fWYK/YK/pcgewcio/aI2ukKBbk8Ggf8c
- PSXNNRohBAnroHDgJmzD26WOCBS51v3CgaeWJoVRlz3gzi1Wk2c722FgVeG9ZC8Gq1
- VxeMBZJsJJ2s49Z0zkRuzCFT0FdEMmJ4Jlg8so5xUNkI1Pmhr9T77hNpqbhc5MUSIm
- Vf9CZqLUP+U5LMthWxqmxcIfa+qcI6C/HHTtBGWVbD6UPJLDQeI2MK30nqaJN3mP3G
- MxeZ4iTWnejwYcukxHfaPz9ZlYf9Zxp1r7k3O+mRBYZR8EPZsNImCl3hToWu78+1r5
- 3QpJ5t/64l3TQ==
-Received: from localhost (odin.codewreck.org [local])
- by odin.codewreck.org (OpenSMTPD) with ESMTPA id 8186bc45;
- Mon, 28 Feb 2022 11:22:16 +0000 (UTC)
-Date: Mon, 28 Feb 2022 20:22:01 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Jakob Koschel <jakobkoschel@gmail.com>
-Subject: Re: [PATCH 6/6] treewide: remove check of list iterator against head
- past the loop body
-Message-ID: <YhywWTEIY7UnCYtL@codewreck.org>
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56E2E10E3D5;
+ Mon, 28 Feb 2022 11:08:59 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id lw4so23947027ejb.12;
+ Mon, 28 Feb 2022 03:08:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=HpiN/zwO1wBD5W8vJ5qwHzWs2Mz8GYwVSPoaDyTc8jQ=;
+ b=hjvTHeqAC17Nm2rqJFqOWVUlo+eMrb6KCGjEjnmUhT0UbOoSD99k2xAziOpWZa+Icu
+ SPp4Zg1lqK8FLNpUHi/iGpToynAZh7AAx7I6BqkiBOWQWPIrLjejJ7mt0E6lp79jr43P
+ Z8Tz3UxSCHK1qzDcri6ZY14M8lx9G0bi6GCGQHl0DVbHpgXti6eqzCprjBZYIcyI1uce
+ Dn/lOukn9J64/ASqyssuY+hk5ExgHfhAh8xyytTN1bW2SLq53AUCqmHXOqxQHzvGm8yg
+ Hb8Tr+NdyPNcInoLFcy82stmYANyPP1+b2zh81uncpq/hmnHTquj2t004aepXQhNWxPC
+ QShA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=HpiN/zwO1wBD5W8vJ5qwHzWs2Mz8GYwVSPoaDyTc8jQ=;
+ b=QOZt135zUYfqwHXDab5Glylqaxh/KW8v7avVBNeX8JdPG7GTNqr/cTjZGIKJwmMG9B
+ q9hKRAmv9VMuWBSftnqQtIjKJ2k8D02VC9MJZqyNfFFKulfjfLYiqePEWQ+P9hxe7qIB
+ sTNFk+j4o5u6k3hGWzHvL553e2aDgKLsJ9vSN8h7slIrpWMI26r+fSM2OBtz1rfSe0Ge
+ X3KDISxW0XY+/i2nWEfIAYm1D0LQn+0yR59uZuyIMpMdr5gyFm54DnSga0mpw91iBKj9
+ SDXJL4wzNCT06f4fNCdYObZFX07bjlYSAh1ZgDIr+LS6MXv5NJqhZTZpJqxinVGJu/m2
+ ZZfA==
+X-Gm-Message-State: AOAM530kzidjFSOqILjIEI6LGrDd4GgUAZ0K3ztiakltYwSssGIkGOEW
+ KKz0iV8xQQWTqc+u7GEaWpc=
+X-Google-Smtp-Source: ABdhPJwIz1+OuMm91LqO5/9SwgL6U3RC8rZg6hPrO7zQUYJxh0T24GQzaSGRh+uNCyYPoPAvBQZaKw==
+X-Received: by 2002:a17:906:3803:b0:6cf:56b9:60a9 with SMTP id
+ v3-20020a170906380300b006cf56b960a9mr14108161ejc.716.1646046537823; 
+ Mon, 28 Feb 2022 03:08:57 -0800 (PST)
+Received: from localhost.localdomain (dhcp-077-250-038-153.chello.nl.
+ [77.250.38.153]) by smtp.googlemail.com with ESMTPSA id
+ z22-20020a17090655d600b006d229436793sm4209049ejp.223.2022.02.28.03.08.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Feb 2022 03:08:57 -0800 (PST)
+From: Jakob Koschel <jakobkoschel@gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Subject: [PATCH 3/6] treewide: fix incorrect use to determine if list is empty
+Date: Mon, 28 Feb 2022 12:08:19 +0100
+Message-Id: <20220228110822.491923-4-jakobkoschel@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220228110822.491923-1-jakobkoschel@gmail.com>
 References: <20220228110822.491923-1-jakobkoschel@gmail.com>
- <20220228110822.491923-7-jakobkoschel@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20220228110822.491923-7-jakobkoschel@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 28 Feb 2022 11:46:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,37 +86,116 @@ Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
  Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
  Nathan Chancellor <nathan@kernel.org>, linux-fsdevel@vger.kernel.org,
  Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- v9fs-developer@lists.sourceforge.net, linux-tegra@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>,
+ Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
+ linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  linux-arm-kernel@lists.infradead.org, linux-sgx@vger.kernel.org,
- linux-block@vger.kernel.org, Linus Torvalds <torvalds@linux-foundation.org>,
- linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-block@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, tipc-discussion@lists.sourceforge.net,
+ linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
  linuxppc-dev@lists.ozlabs.org, Mike Rapoport <rppt@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a bit more work (and a lot more noise), but I'd prefer if
-this were split into as many patches as there are components.
+The list iterator value will *always* be set by list_for_each_entry().
+It is incorrect to assume that the iterator value will be NULL if the
+list is empty.
 
-I'm not going to review the parts of the patches that don't concern me,
-and if something turns out to be a problem later one (it shouldn't but
-one never knows) it'll be much easier to revert or put the blame on an
-individual smaller commit than on this...
+Instead of checking the pointer it should be checked if
+the list is empty.
+In acpi_get_pmu_hw_inf() instead of setting the pointer to NULL
+on the break, it is set to the correct value and leaving it
+NULL if no element was found.
 
-With that being said, ultimately I don't care that much and will leave
-that to people who do :)
+Signed-off-by: Jakob Koschel <jakobkoschel@gmail.com>
+---
+ arch/powerpc/sysdev/fsl_gtm.c            |  4 ++--
+ drivers/media/pci/saa7134/saa7134-alsa.c |  4 ++--
+ drivers/perf/xgene_pmu.c                 | 13 +++++++------
+ 3 files changed, 11 insertions(+), 10 deletions(-)
 
-Jakob Koschel wrote on Mon, Feb 28, 2022 at 12:08:22PM +0100:
->  net/9p/trans_xen.c                            | 11 +++--
+diff --git a/arch/powerpc/sysdev/fsl_gtm.c b/arch/powerpc/sysdev/fsl_gtm.c
+index 8963eaffb1b7..39186ad6b3c3 100644
+--- a/arch/powerpc/sysdev/fsl_gtm.c
++++ b/arch/powerpc/sysdev/fsl_gtm.c
+@@ -86,7 +86,7 @@ static LIST_HEAD(gtms);
+  */
+ struct gtm_timer *gtm_get_timer16(void)
+ {
+-	struct gtm *gtm = NULL;
++	struct gtm *gtm;
+ 	int i;
 
-This 9p change looks good to me.
+ 	list_for_each_entry(gtm, &gtms, list_node) {
+@@ -103,7 +103,7 @@ struct gtm_timer *gtm_get_timer16(void)
+ 		spin_unlock_irq(&gtm->lock);
+ 	}
 
-Reviewed-by: Dominique Martinet <asmadeus@codewreck.org> # 9p
+-	if (gtm)
++	if (!list_empty(&gtms))
+ 		return ERR_PTR(-EBUSY);
+ 	return ERR_PTR(-ENODEV);
+ }
+diff --git a/drivers/media/pci/saa7134/saa7134-alsa.c b/drivers/media/pci/saa7134/saa7134-alsa.c
+index fb24d2ed3621..d3cde05a6eba 100644
+--- a/drivers/media/pci/saa7134/saa7134-alsa.c
++++ b/drivers/media/pci/saa7134/saa7134-alsa.c
+@@ -1214,7 +1214,7 @@ static int alsa_device_exit(struct saa7134_dev *dev)
 
--- 
-Dominique
+ static int saa7134_alsa_init(void)
+ {
+-	struct saa7134_dev *dev = NULL;
++	struct saa7134_dev *dev;
+
+ 	saa7134_dmasound_init = alsa_device_init;
+ 	saa7134_dmasound_exit = alsa_device_exit;
+@@ -1229,7 +1229,7 @@ static int saa7134_alsa_init(void)
+ 			alsa_device_init(dev);
+ 	}
+
+-	if (dev == NULL)
++	if (list_empty(&saa7134_devlist))
+ 		pr_info("saa7134 ALSA: no saa7134 cards found\n");
+
+ 	return 0;
+diff --git a/drivers/perf/xgene_pmu.c b/drivers/perf/xgene_pmu.c
+index 2b6d476bd213..e255f9e665d1 100644
+--- a/drivers/perf/xgene_pmu.c
++++ b/drivers/perf/xgene_pmu.c
+@@ -1460,7 +1460,8 @@ xgene_pmu_dev_ctx *acpi_get_pmu_hw_inf(struct xgene_pmu *xgene_pmu,
+ 	struct hw_pmu_info *inf;
+ 	void __iomem *dev_csr;
+ 	struct resource res;
+-	struct resource_entry *rentry;
++	struct resource_entry *rentry = NULL;
++	struct resource_entry *tmp;
+ 	int enable_bit;
+ 	int rc;
+
+@@ -1475,16 +1476,16 @@ xgene_pmu_dev_ctx *acpi_get_pmu_hw_inf(struct xgene_pmu *xgene_pmu,
+ 		return NULL;
+ 	}
+
+-	list_for_each_entry(rentry, &resource_list, node) {
+-		if (resource_type(rentry->res) == IORESOURCE_MEM) {
+-			res = *rentry->res;
+-			rentry = NULL;
++	list_for_each_entry(tmp, &resource_list, node) {
++		if (resource_type(tmp->res) == IORESOURCE_MEM) {
++			res = *tmp->res;
++			rentry = tmp;
+ 			break;
+ 		}
+ 	}
+ 	acpi_dev_free_resource_list(&resource_list);
+
+-	if (rentry) {
++	if (!rentry) {
+ 		dev_err(dev, "PMU type %d: No memory resource found\n", type);
+ 		return NULL;
+ 	}
+--
+2.25.1
+
