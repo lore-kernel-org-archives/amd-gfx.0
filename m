@@ -4,75 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53ED5C433FE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8ABCC43219
 	for <amd-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 11:46:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D0C810E5B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36BEE10E5AD;
 	Mon, 28 Feb 2022 11:46:22 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E9B010E4FD
- for <amd-gfx@lists.freedesktop.org>; Sun, 27 Feb 2022 15:39:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1645976394;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=JUKXRy9HtvoNJh5zgWKk9291k0gpOXjxfgvv4FNocC0=;
- b=QDIFWwyzFEamCrdA1eWIFXTlRhdBlJFJPtJBUeKG0Ts5V2nuXykT3wzE2aA2RhhRKXDUDH
- w7C2Uy63r31zqRhkn9L1bxSRc7VbcCIOPHhgEQlImfl/enhYBBK8NwL2APzrkeJcpnKC6k
- XC9z5vVvRk0qS7ogwARswUIXJVGwWEE=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-103-TMWFEtaEP5-AOpsXzxXOqA-1; Sun, 27 Feb 2022 10:39:52 -0500
-X-MC-Unique: TMWFEtaEP5-AOpsXzxXOqA-1
-Received: by mail-qv1-f72.google.com with SMTP id
- j26-20020a0cae9a000000b004332416873fso864569qvd.21
- for <amd-gfx@lists.freedesktop.org>; Sun, 27 Feb 2022 07:39:52 -0800 (PST)
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9149D10E3F8;
+ Mon, 28 Feb 2022 11:09:02 +0000 (UTC)
+Received: by mail-ej1-x633.google.com with SMTP id qx21so23946793ejb.13;
+ Mon, 28 Feb 2022 03:09:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=ewSqtxWpAEouzx42J3KLaoNJ3zRCYps/nc7KO/73VjI=;
+ b=NJzfXKcN7hL1Nl33p4E04eSCSKXsmXm0guAXz3+luhQpanQnRU99MCp2hnFUKYaL+B
+ 1x361O+pkC4o39HmFVweecOA5EyrbgRoo6hBpKoe+ZK3uwuMgKcjXUUzcyKnqq4Ihz7Y
+ 0pE7mGFU6qwm5nlEaQI6CtIcQNt/P0yiVszOfwFWGIKlTpST4oUB8Axjb2KGdfFCf6oM
+ BF7gos7RIFK+C7zFe1BBqWlnyj9ABXdIe2RTMFKfzCdWuqPXqav1BQyfcB8KfJDsFPFC
+ rwx0y6HLf2zquaEOFfVg855ZoIJbHt3hF+DdFMjnEF9CZ4aqYu3RYVbCj5tslcC60Xqy
+ JDWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JUKXRy9HtvoNJh5zgWKk9291k0gpOXjxfgvv4FNocC0=;
- b=1EtkmWz7xlk7kIvK8qMKwNRZdS8g4d0VS1FNSVArxDs1QyoDk0ZJPz4p3+1mR89z0n
- 7fVmxc/QqCY6yGvvWGa/ofVIB2X7AZwp70sTeY5R6kGbmReBWv/uuzbjeOtVN+9ttXuz
- i1gMIWDYPRpl/Vzt9XiInJ7aRSnfzc315qiaCOv17s9GlKQfz1VAjcNWYOjAItv9vE7o
- ZmNXmygoixUfbm4jm/6QB/fZuwLih+ITP1o2E2QffUXvv8b9AMer9Y0K0MtXcloFb8TX
- 9auRR4joYmWBvLxrKEX/BLNeDvbknPY5TE9cSDg+F2Ux57SJzU/HxkC9f+QOPcWhypAX
- Ag8w==
-X-Gm-Message-State: AOAM532xjwtK84yiCZo4Io4MFlUgj7mj2PisVIsgqnX5J8SYw/lEajY9
- 9JqawHwhI5oJGHKNZje4FDGyKSlmvgPfKt+VJCaxDtkrcoqu24O95hJn24j6/jc8mhiELr9Hkvc
- blDPsKPhHhfHNJgDu1MkMxEx0oQ==
-X-Received: by 2002:ad4:5883:0:b0:432:b007:962b with SMTP id
- dz3-20020ad45883000000b00432b007962bmr10545693qvb.55.1645976392541; 
- Sun, 27 Feb 2022 07:39:52 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJypeMdQov6ivEZ1hmtZAlsJVizNYH0ogniT3ujzWNSu97z8PC8qPn1bhLsvRrQy0v8d6KuyjQ==
-X-Received: by 2002:ad4:5883:0:b0:432:b007:962b with SMTP id
- dz3-20020ad45883000000b00432b007962bmr10545670qvb.55.1645976392292; 
- Sun, 27 Feb 2022 07:39:52 -0800 (PST)
-Received: from localhost.localdomain.com (024-205-208-113.res.spectrum.com.
- [24.205.208.113]) by smtp.gmail.com with ESMTPSA id
- c6-20020ac87d86000000b002ddd9f33ed1sm5036371qtd.44.2022.02.27.07.39.49
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=ewSqtxWpAEouzx42J3KLaoNJ3zRCYps/nc7KO/73VjI=;
+ b=nXw4UG3wVD07TBWSe7kEk/4Cswv3gyO0+NDoF1NyIyLFEqgYsdN6xsnKyPYUW/kS0d
+ /JPBvGFFhtp/YAUIhzaFu133qOtZp+VQJ9vYWTPO2DtbPlDpTqbB1lecihsMSGbqpvmw
+ 6S76A1RU1Ogh3S39lpSy4E/YENgcnWNLAml0ou/Px4A6qHN4+tTk7z0LQuCRjNbzxLus
+ UscHkF8jBHXr3d52WQ6b9JljXIcWE0Bft3MsI+q9PKGZdtbLHKlA2uxaccdZ0YopPG5J
+ DLkVjDHLAJKVXf1kr0iV3x2q13kuhA56ClJ23OwUKy9bbX41GSVLbObqUArkOsHabeX3
+ Z4AA==
+X-Gm-Message-State: AOAM531GI45sfeUpfEfZL82iC4LzUcMkZF5kwRN0uF/yVmhxJh6yy//x
+ 3VRUa2F+5Yj9u78tYTZhSXM=
+X-Google-Smtp-Source: ABdhPJzNtnbGg8Nz3uHKd7Xw6L7mCtzAWYaq4yun9pZXXpwsqc9NwfSvsBrijeUqxIoEXwfdb0F3Mg==
+X-Received: by 2002:a17:906:26da:b0:6d6:da2e:d338 with SMTP id
+ u26-20020a17090626da00b006d6da2ed338mr451651ejc.700.1646046541112; 
+ Mon, 28 Feb 2022 03:09:01 -0800 (PST)
+Received: from localhost.localdomain (dhcp-077-250-038-153.chello.nl.
+ [77.250.38.153]) by smtp.googlemail.com with ESMTPSA id
+ z22-20020a17090655d600b006d229436793sm4209049ejp.223.2022.02.28.03.08.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 27 Feb 2022 07:39:51 -0800 (PST)
-From: trix@redhat.com
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, nathan@kernel.org,
- ndesaulniers@google.com, lijo.lazar@amd.com, nirmoy.das@amd.com,
- kevin1.wang@amd.com, tom.stdenis@amd.com, evan.quan@amd.com,
- Amaranath.Somalapuram@amd.com
-Subject: [PATCH v2] drm/amdgpu: Fix realloc of ptr
-Date: Sun, 27 Feb 2022 07:33:42 -0800
-Message-Id: <20220227153342.79546-1-trix@redhat.com>
-X-Mailer: git-send-email 2.26.3
+ Mon, 28 Feb 2022 03:09:00 -0800 (PST)
+From: Jakob Koschel <jakobkoschel@gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Subject: [PATCH 5/6] treewide: remove dereference of list iterator after loop
+ body
+Date: Mon, 28 Feb 2022 12:08:21 +0100
+Message-Id: <20220228110822.491923-6-jakobkoschel@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220228110822.491923-1-jakobkoschel@gmail.com>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"
 X-Mailman-Approved-At: Mon, 28 Feb 2022 11:46:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,60 +70,136 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, Cristiano Giuffrida <c.giuffrida@vu.nl>,
+ amd-gfx@lists.freedesktop.org, samba-technical@lists.samba.org,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, linux-cifs@vger.kernel.org,
+ kvm@vger.kernel.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-staging@lists.linux.dev, "Bos, H.J." <h.j.bos@vu.nl>,
+ Jason Gunthorpe <jgg@ziepe.ca>, intel-wired-lan@lists.osuosl.org,
+ kgdb-bugreport@lists.sourceforge.net, bcm-kernel-feedback-list@broadcom.com,
+ Dan Carpenter <dan.carpenter@oracle.com>, linux-media@vger.kernel.org,
+ Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
+ linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, linux-fsdevel@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
+ linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-sgx@vger.kernel.org,
+ linux-block@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, tipc-discussion@lists.sourceforge.net,
+ linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+ linuxppc-dev@lists.ozlabs.org, Mike Rapoport <rppt@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tom Rix <trix@redhat.com>
+The list iterator variable will be a bogus pointer if no break was hit.
+Dereferencing it could load *any* out-of-bounds/undefined value
+making it unsafe to use that in the comparision to determine if the
+specific element was found.
 
-Clang static analysis reports this error
-amdgpu_debugfs.c:1690:9: warning: 1st function call
-  argument is an uninitialized value
-  tmp = krealloc_array(tmp, i + 1,
-        ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+This is fixed by using a separate list iterator variable for the loop
+and only setting the original variable if a suitable element was found.
+Then determing if the element was found is simply checking if the
+variable is set.
 
-realloc uses tmp, so tmp can not be garbage.
-And the return needs to be checked.
-
-Fixes: 5ce5a584cb82 ("drm/amdgpu: add debugfs for reset registers list")
-Signed-off-by: Tom Rix <trix@redhat.com>
+Signed-off-by: Jakob Koschel <jakobkoschel@gmail.com>
 ---
-v2:
-  use 'new' to hold/check the ralloc return
-  fix commit log mistake on ralloc freeing to using input ptr
-  
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c | 11 +++++++----
+ drivers/scsi/wd719x.c                          | 12 ++++++++----
+ fs/f2fs/segment.c                              |  9 ++++++---
+ 3 files changed, 21 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 9eb9b440bd438..2f4f8c5618d81 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1676,7 +1676,7 @@ static ssize_t amdgpu_reset_dump_register_list_write(struct file *f,
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
+index 57199be082fd..c56cd9e59a66 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
+@@ -471,20 +471,23 @@ nvkm_pstate_new(struct nvkm_clk *clk, int idx)
+ static int
+ nvkm_clk_ustate_update(struct nvkm_clk *clk, int req)
  {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
- 	char reg_offset[11];
--	uint32_t *tmp;
-+	uint32_t *new, *tmp = NULL;
- 	int ret, i = 0, len = 0;
- 
- 	do {
-@@ -1687,7 +1687,12 @@ static ssize_t amdgpu_reset_dump_register_list_write(struct file *f,
- 			goto error_free;
+-	struct nvkm_pstate *pstate;
++	struct nvkm_pstate *pstate = NULL;
++	struct nvkm_pstate *tmp;
+ 	int i = 0;
+
+ 	if (!clk->allow_reclock)
+ 		return -ENOSYS;
+
+ 	if (req != -1 && req != -2) {
+-		list_for_each_entry(pstate, &clk->states, head) {
+-			if (pstate->pstate == req)
++		list_for_each_entry(tmp, &clk->states, head) {
++			if (tmp->pstate == req) {
++				pstate = tmp;
+ 				break;
++			}
+ 			i++;
  		}
- 
--		tmp = krealloc_array(tmp, i + 1, sizeof(uint32_t), GFP_KERNEL);
-+		new = krealloc_array(tmp, i + 1, sizeof(uint32_t), GFP_KERNEL);
-+		if (!new) {
-+			ret = -ENOMEM;
-+			goto error_free;
+
+-		if (pstate->pstate != req)
++		if (!pstate)
+ 			return -EINVAL;
+ 		req = i;
+ 	}
+diff --git a/drivers/scsi/wd719x.c b/drivers/scsi/wd719x.c
+index 1a7947554581..be270ed8e00d 100644
+--- a/drivers/scsi/wd719x.c
++++ b/drivers/scsi/wd719x.c
+@@ -684,11 +684,15 @@ static irqreturn_t wd719x_interrupt(int irq, void *dev_id)
+ 	case WD719X_INT_SPIDERFAILED:
+ 		/* was the cmd completed a direct or SCB command? */
+ 		if (regs.bytes.OPC == WD719X_CMD_PROCESS_SCB) {
+-			struct wd719x_scb *scb;
+-			list_for_each_entry(scb, &wd->active_scbs, list)
+-				if (SCB_out == scb->phys)
++			struct wd719x_scb *scb = NULL;
++			struct wd719x_scb *tmp;
++
++			list_for_each_entry(tmp, &wd->active_scbs, list)
++				if (SCB_out == tmp->phys) {
++					scb = tmp;
+ 					break;
+-			if (SCB_out == scb->phys)
++				}
++			if (scb)
+ 				wd719x_interrupt_SCB(wd, regs, scb);
+ 			else
+ 				dev_err(&wd->pdev->dev, "card returned invalid SCB pointer\n");
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 1dabc8244083..a3684385e04a 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -356,16 +356,19 @@ void f2fs_drop_inmem_page(struct inode *inode, struct page *page)
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+ 	struct list_head *head = &fi->inmem_pages;
+ 	struct inmem_pages *cur = NULL;
++	struct inmem_pages *tmp;
+
+ 	f2fs_bug_on(sbi, !page_private_atomic(page));
+
+ 	mutex_lock(&fi->inmem_lock);
+-	list_for_each_entry(cur, head, list) {
+-		if (cur->page == page)
++	list_for_each_entry(tmp, head, list) {
++		if (tmp->page == page) {
++			cur = tmp;
+ 			break;
 +		}
-+		tmp = new;
- 		if (sscanf(reg_offset, "%X %n", &tmp[i], &ret) != 1) {
- 			ret = -EINVAL;
- 			goto error_free;
--- 
-2.26.3
+ 	}
+
+-	f2fs_bug_on(sbi, list_empty(head) || cur->page != page);
++	f2fs_bug_on(sbi, !cur);
+ 	list_del(&cur->list);
+ 	mutex_unlock(&fi->inmem_lock);
+
+--
+2.25.1
 
