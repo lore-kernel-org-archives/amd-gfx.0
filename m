@@ -4,44 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A8D7C433EF
-	for <amd-gfx@archiver.kernel.org>; Sun, 27 Feb 2022 00:33:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA57AC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Feb 2022 06:55:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C733A10E564;
-	Sun, 27 Feb 2022 00:33:22 +0000 (UTC)
-Received: from mx2.absolutedigital.net (mx2.absolutedigital.net
- [50.242.207.105])
- by gabe.freedesktop.org (Postfix) with ESMTP id C735F10E564
- for <amd-gfx@lists.freedesktop.org>; Sun, 27 Feb 2022 00:33:21 +0000 (UTC)
-Received: from lancer.cnet.absolutedigital.net
- (lancer.cnet.absolutedigital.net [10.7.5.10])
- by luxor.inet.absolutedigital.net (8.14.4/8.14.4) with ESMTP id 21R0X25c020916
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL);
- Sat, 26 Feb 2022 19:33:03 -0500
-Received: from localhost (localhost [127.0.0.1])
- by lancer.cnet.absolutedigital.net (8.14.4/8.14.4) with ESMTP id
- 21R0WJg4016407
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
- Sat, 26 Feb 2022 19:32:19 -0500
-Date: Sat, 26 Feb 2022 19:32:19 -0500 (EST)
-From: Cal Peake <cp@absolutedigital.net>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: AMDGPU: RX 6500 XT: System reset when loading module
-In-Reply-To: <CADnq5_Nx9Oski_2A-99QvqFJiUG36=+bfx_0F-eUK0gD56Vqjg@mail.gmail.com>
-Message-ID: <alpine.LNX.2.00.2202252053130.27388@lancer.cnet.absolutedigital.net>
-References: <alpine.LNX.2.00.2202131848490.20545@lancer.cnet.absolutedigital.net>
- <b30922e2-04f5-2135-695c-2ea84d9307ac@amd.com>
- <alpine.LNX.2.00.2202141223020.10303@lancer.cnet.absolutedigital.net>
- <de9952a6-cba1-4927-f8e0-fcd7f115267e@amd.com>
- <alpine.LNX.2.00.2202171254420.21576@lancer.cnet.absolutedigital.net>
- <809355d6-ef2a-ca90-5a9a-813beb8ff6d1@amd.com>
- <alpine.LNX.2.00.2202181444250.8791@lancer.cnet.absolutedigital.net>
- <8cd9b639-be48-5b2f-bc3d-d6bd49be1830@amd.com>
- <alpine.LNX.2.00.2202241728250.23253@lancer.cnet.absolutedigital.net>
- <CADnq5_Nx9Oski_2A-99QvqFJiUG36=+bfx_0F-eUK0gD56Vqjg@mail.gmail.com>
-User-Agent: Alpine 2.00 (LNX 1167 2008-08-23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4CE210E26D;
+	Mon, 28 Feb 2022 06:55:03 +0000 (UTC)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 024FC10E25D;
+ Mon, 28 Feb 2022 06:55:01 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id a23so22750122eju.3;
+ Sun, 27 Feb 2022 22:55:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=DdUTETA3NK4ebu6uKL24M0bjkvCp+topgCWybbGmhBs=;
+ b=RNfhMIK7Tz2WPjdLijkjvoeESHKaExmE0w15qWZ41SfVLdM2u7EJOnF2/UFS9WzVWq
+ vmzObryTYBdTltAn6c7WwCErLQWiuHcVLvj9kVcTFikE4Uh4FzhRT873VRjIhsNs3U9m
+ //I1ehHRmKvJ+gARl64FngrH92n3OnvUGK64H149Xn/ylnKR+LIZqa82xeENH33HwrWE
+ UKNX74j7uIa61SYaJLa3av23QPhq8jImZDAskWkWqO/7CzyGGa2ussg9yObDWLBABgMZ
+ ItNsUcLQP9Yt366BHF8A159CDLvYZ3vcnqm3WuR3dgMGPrQm692hTbTJYLaqNoveSa5q
+ JaPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=DdUTETA3NK4ebu6uKL24M0bjkvCp+topgCWybbGmhBs=;
+ b=FxBvqRHz7gxAGbyDS/tz5xqXcBmIwpT7Wz5zLd6kX69iX/a7KJtVGby1XA9gqsyFbT
+ nZlBgnPhfZSscRKgaEdLBa9hw0RKAzKYJu1u6oIZ9wiE5mlWI94KnCcFzM50vpOgY8s/
+ nLYOlDbXNVjMgux9VQthiNivSR/XZYGiAse3F9b9F4kS0Ai+sTXC+qYbrH3zhh3zkuf/
+ qlDOLrv252t5sjyKPWH0ZzOPxBbP34feT9LwMpmQMUFQPW2vBlfryGMaymfmEPqkgSRp
+ qg6PubIv69aN6Vl88OpEjMznTbTRyqXkbGGCeTuRaCxEJNrQKe9qYjsi8yFJCwzoOakP
+ LVmg==
+X-Gm-Message-State: AOAM530PAV8jkr9+B883sTW1meFpwZeytBwkg2p2Cj6Q7Wyt+6VbfUlX
+ s75uN4rFxOamETLhoS/E+3rupZ5k1jkCbxSg0gW28d7TnRurFw==
+X-Google-Smtp-Source: ABdhPJyChC43WqgDCfdVm1fc2VmnRpTzQkHOIPcOoBapg50ISK7sjbk/OLBrd8VqDIpos3YO8ItUWzkeHfNCyYgoXqI=
+X-Received: by 2002:a17:906:c59:b0:6b9:59d8:263e with SMTP id
+ t25-20020a1709060c5900b006b959d8263emr14496654ejf.770.1646031300468; Sun, 27
+ Feb 2022 22:55:00 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+References: <20220225183535.5907-1-alexander.deucher@amd.com>
+In-Reply-To: <20220225183535.5907-1-alexander.deucher@amd.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Mon, 28 Feb 2022 16:54:49 +1000
+Message-ID: <CAPM=9txx5hq6ystyMqYx6Jx=VHRLoeXbrL0fDW5vHM5c--E1Jg@mail.gmail.com>
+Subject: Re: [pull] amdgpu, amdkfd drm-next-5.18
+To: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,36 +61,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-So... with me running out of things to test, I had to give consideration 
-to the CPU and memory. Memory was easier to test. Tried a few different 
-modules in different combinations to no change.
+On Sat, 26 Feb 2022 at 04:35, Alex Deucher <alexander.deucher@amd.com> wrote:
+>
+> Hi Dave, Daniel,
+>
+> New stuff for 5.18.
+>
+> The following changes since commit b63c54d978236dd6014cf2ffba96d626e97c915c:
+>
+>   drm/amdkfd: Use proper enum in pm_unmap_queues_v9() (2022-02-17 15:59:06 -0500)
+>
+> are available in the Git repository at:
+>
+>   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-5.18-2022-02-25
+>
+> for you to fetch changes up to 111aeed25ec6bf4d5b4a7b4cb5654f002ba9f795:
+>
+>   drm/amdgpu: add gfxoff support for smu 13.0.5 (2022-02-25 11:51:18 -0500)
+>
+> ----------------------------------------------------------------
+> amd-drm-next-5.18-2022-02-25:
+>
+> amdgpu:
+> - Raven2 suspend/resume fix
+> - SDMA 5.2.6 updates
+> - VCN 3.1.2 updates
+> - SMU 13.0.5 updates
+> - DCN 3.1.5 updates
+> - Virtual display fixes
+> - SMU code cleanup
+> - Harvest fixes
+> - Expose benchmark tests via debugfs
+> - Drop no longer relevant gart aperture tests
+> - More RAS restructuring
+> - W=1 fixes
+> - PSR rework
+> - DP/VGA adapter fixes
+> - DP MST fixes
+> - GPUVM eviction fix
+> - GPU reset debugfs register dumping support
 
-CPU, sadly, was another story. I was able to swap in a 3700X and it 
-yielded positive results. I stressed the RX 560 across Linux and Windows 
-yesterday and today and had no instability.
+(this time keeping cc).
 
-Doing a quick google search for "5950x system crash" returns a lot of 
-similar stories. One poster on the AMD community forums[1] said they 
-"fixed" things by downgrading from a 5950X to a 3950X (smh).
+^ this seems to conflict with the removal of reset_sem or something in
+that area.
 
-It's a little funny to me that AMD's own products won't play nice with 
-each other. And it's utterly bizarre to me that its flagship desktop CPU 
-has so many stability problems.
+Can you trial merge this to drm-next and send a fixup patch I should
+apply with it?
 
-Just for kicks, I tried the HD 6350 I have in my current rig and it 
-crashes the system too. Three different architectures on three different 
-vendors' boards, all the same result.
-
-So the RX 560 is going back and I guess I'll have to find a nice potato 
-with good open source driver support to be my next GPU lol
-
--- 
-Cal Peake
-
-[1] https://community.amd.com/t5/processors/5950x-random-crashes-pulling-hair-out/td-p/431724
-
+Dave.
