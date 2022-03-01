@@ -4,89 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E063C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 16:01:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B016C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 16:09:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C82710E61A;
-	Tue,  1 Mar 2022 16:01:45 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2041.outbound.protection.outlook.com [40.107.243.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77F0210E61A
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 16:01:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA8110E6EC;
+	Tue,  1 Mar 2022 16:08:56 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2067.outbound.protection.outlook.com [40.107.236.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F39410E6E5;
+ Tue,  1 Mar 2022 16:08:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LMO5Y3Jv3T2Cb/N5SvUjrcwePDqRN52AllXSohtYN3BI8bFjixCekyWagJrl+rTOC+IFULNOaH83p50+nD3GpyIsKL9e4S4T2e1+xvLHPcW83DrnvfvVWJkjFkXP6LltwcvrhTAP/dDWdZIPEALCHFwk45RPWxfXURPL4n5/wAXP+giCcOJwdkH7/JBCPUajxBvCPF+5ygzGHkmZa5n1f6/JddQ5RoERuRHm1GebbHLcf0qthI0EvZ4e+bVPSeKV5FAkdMUCz3C2x/hMYCan282PTYf8uiqAzJRmyUDgP71fxMYpa9XCt3TVKPOlNIq2L6+3lyJGhrynFzhXYjXxsQ==
+ b=Lnd1XRPfmt1V7fbF8CWy/khJE7R/J/LpQF3Qa1KEROxXLNRKVffbhhuHsL8+eO7SlcP2dSw9CfS6RQDflLrQOYJ/YHeJubHexKewTPVWyBcSJF8OG2zDHY5ouz4l2cdXRv4kxIrbo8QJpnC3IIs8+99oafAzooUudfDOUeaoXYKgneLGprNpRplxB4xGJxKoYaA0OO6giRXVUE3z3rRUm6v0mFAkkJkaRtuS2yTdcztO1WUD+BbZ58gKYwjAljYcOubUa2+9hQHdzq1XStFPBeILZaO79LYrAVTvHJqQLxmFyRRRU5pXXOAsZpt4fY2VY5Qw483Qis5bDcCj01e1OA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=49qMvgNKgGtuEYkvYIAtleCz8irfosXj2RQnSkBHApc=;
- b=LUHRUkcjD+TVvx4bIQ51Vxo3dy4gdTR+dFYJ4p32xGSjA2uXzooT4O5PwBZxgF3msfUZIWG1Vm6+xKzmI2ggc74p7L46P5CyF6W0JY2kw1x2lFZ17I+gCZRCChG5Q/zGNsklx4sSakI00gCYSredZthyLI3ylZme1zbLh7Dbt22T4mGdYJQLSKOzezZ2NsF+JcXP6lGYGXEmTIco7X4xYMsEHZy1ZLkLYpkSGfgSdDBklVbXlf7wKFJ9uGLeV1RfRBYX7Xixn2vcISawU3J6iovISVKnE3O97eZwehVQD3jop11Z2b9ZfDImQq2SrMyZ58BWxWGly7j3yDBUtAxnHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=+DrwHqEo1wCplkscXH3yfvREylTDjAN7RqbkOfJpFQ4=;
+ b=TtFC0bGgUAgCZ1JRzWQ/Z4E2LRNWtvKFmY1d0Ad7R8PRB9Git0htxgb+qyurFqfOiIzC8aRVAgUFp6HAK1gCsCItXd87i7G2dM+J336iHyY32rE6NzL86OqYLyreOLTzYTVrpPmpQC4PTJRKX+6ZIzQ88z7xexIqH4ANJabEb5Mo767ykke0XJXSvc+Sg/wzFFkUOY53+7bm9mQvdvqsNHIOM0LQlK23bHY9zxv3Kmg9Fdn55lnsSSj/gZIdNKyuZCd9byD2qkV0xRkpbb1FuvZu0OAkf8tqSXT5djC084UuxRWAR4lBIi/3hhMJu9vOGV0f0mK4tmVZP87CYzgMzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=49qMvgNKgGtuEYkvYIAtleCz8irfosXj2RQnSkBHApc=;
- b=YlLti5CZhYcg1jWvoRlbBBW7LjDS3Z/3sgg4RzCzQP+wdEDYJirNzgjrXsNLXUDZw631F+CshotU4P0RKW1Duit0lpTwH7MS8YnyktHwBBScNZBC8otmFgbz2rgKsLVMZU9RULMozO6ecxmTqjCn/QRN/g7dXCzIjqdUrlrAcTI=
-Received: from DM3PR03CA0003.namprd03.prod.outlook.com (2603:10b6:0:50::13) by
- CY4PR12MB1735.namprd12.prod.outlook.com (2603:10b6:903:122::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Tue, 1 Mar
- 2022 16:01:28 +0000
-Received: from DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:0:50:cafe::4c) by DM3PR03CA0003.outlook.office365.com
- (2603:10b6:0:50::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
- Transport; Tue, 1 Mar 2022 16:01:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT034.mail.protection.outlook.com (10.13.173.47) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5017.22 via Frontend Transport; Tue, 1 Mar 2022 16:01:28 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 1 Mar
- 2022 10:01:27 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/3] drm/amdgpu: remove unused gpu_info firmwares
-Date: Tue, 1 Mar 2022 11:01:12 -0500
-Message-ID: <20220301160114.1404305-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.1
-MIME-Version: 1.0
+ bh=+DrwHqEo1wCplkscXH3yfvREylTDjAN7RqbkOfJpFQ4=;
+ b=fXXX52IEntkOICHO7XgWPKp6CSDX8EI1B0KTJuurUeO1LQGqS68iJcjpLlzazXuOkg/ymYNVe1PN7B7otn3ZyNzkM3l3FXp9Nq8rc4jwH/GslA84gMr+G4F9zkwCGc5tmKrnnRHl4pFw3obvH+aqIxKjeQZEBf02KelCsqakYvY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by MN0PR12MB5882.namprd12.prod.outlook.com (2603:10b6:208:37a::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22; Tue, 1 Mar
+ 2022 16:08:52 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::410c:b456:62cb:e3f]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::410c:b456:62cb:e3f%5]) with mapi id 15.20.5017.027; Tue, 1 Mar 2022
+ 16:08:52 +0000
+Message-ID: <41469645-55be-1aaa-c1ef-84a123fdb4ea@amd.com>
+Date: Tue, 1 Mar 2022 11:08:50 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] mm: split vm_normal_pages for LRU and non-LRU handling
+Content-Language: en-US
+To: David Hildenbrand <david@redhat.com>, Alex Sierra <alex.sierra@amd.com>,
+ jgg@nvidia.com
+References: <20220218192640.GV4160@nvidia.com>
+ <20220228203401.7155-1-alex.sierra@amd.com>
+ <2a042493-d04d-41b1-ea12-b326d2116861@redhat.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <2a042493-d04d-41b1-ea12-b326d2116861@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YT2PR01CA0016.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::21) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0866b9b0-f565-4370-f698-08d9fb9cbee2
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1735:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR12MB17351F5613E6E2A6A24AA9EBF7029@CY4PR12MB1735.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: f0b45391-2d47-4e94-83ef-08d9fb9dc738
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5882:EE_
+X-Microsoft-Antispam-PRVS: <MN0PR12MB5882242A54BB3E9E0EBF6AFC92029@MN0PR12MB5882.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FmNu/EzLlpBieKDnoOaiRpo4i++W/Xk3s5LfuzljE5A2epAQx9ZeAdNhOwIJvOOynbLdSADsMmVEKvMieXkMGdsoKDFxmJPIbHoqnP+8ij1OWUG7PIF2im2wlT/DFseklq39mEOftdPIMTD8jHGKYMNvdwdYWbEAIVObM2yDrRcU4pmFb1pbaMDBTBYH/kvFhXp/opxO11ci6k34mfO5AJzDh1IRAv+ZhRVcvbQHWPQCjIWs9jb4jopKnGncia8ZxBBtzqbqvsuYyiIMTkZmrTi405rRcKa8hET73PNkQzdA5HLelWcg+IYR3ZhCWdc7ywHA5mSHrQPOlgSX6RHZ5+ySpjepSq4g/fIRg5/RIgk183Ts3Qu541bkHWDzoPwHF/dMyh+vR/Dgp1wH5HOANQLYBejvBgw1eJufGmc/pefLEn2AXgOpVhJ7nJbfJ/hZ0GMm6qjF5Fi/mLHWy7xiaKbCsfVv8oWgSAc3skW8jPzQ44Cp0OTcQ9n88anKX+jcNygx4Q8ySRxZ270Ro6A3DIkzJBq/23BNefpEaLKZULS5hPdD9CVqXAYU6baXv9+894HHs7j27Cd1KckwG8WZyqq5MhIuGwpp5/2lmP2bwuOAH06ksZVUWQ5L0aOpIVvJECwNO6JPF3e94sYcBfwUZf/SNMO9Tq/ENhZixEzJAvbtUO7K47qpFI+2Ew1ILEpCnxSsrkXk5rsuwPSp3BAc1Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(81166007)(356005)(6666004)(82310400004)(7696005)(16526019)(186003)(2616005)(26005)(1076003)(336012)(83380400001)(47076005)(426003)(36860700001)(36756003)(86362001)(70586007)(70206006)(8936002)(8676002)(4326008)(5660300002)(6916009)(316002)(40460700003)(2906002)(508600001)(36900700001);
+X-Microsoft-Antispam-Message-Info: 3b0EVFF4Is2hd2j5s7Vjua7d52tjTJ1ig5jOluNatRSx9UXo4DUetaEL1BCEOKgmXbqWWQoGBS6C6NbzE7jU0nze3YhAcxDpSbfurSNxAgsx9PEl0p30ebtQ9P0NqGkhvfqtYEw3KFbifSoCb3lAhmjS6n2o1YJfkBwaNuoPMct2nx2HBWB33TNc8z+S1X/ql0UbH+Ni+LmLICQ8bS4eUhURa93hnZ4Ce9jip/nn1Lj5oYYuvRCE1pKqX7xg2hy9lRCciN9ZzQLm5IRaCzdiyRC739aElPuaJk5exAKK7nK6zvDW+5RtpxD02fnhw1KH5bMta4YgOf89mHyWB+0VRMfXKYlwbWV3Bu5ARxNTA8hX1h18e/Yj60iw9RW2UiMcfXRXUDS0dS7yBrimQziP1OlflhvbJeaTHIQy3+ngRjhyo+eYW/ZTLnhPM9aVBHypobfGD/xrb0kLO+0kIaTvF/8H01E/DxoGeEqSopyKjc2bg0TLR2/tz3oop/0vJtF2ZsoWEmVZghPBdbimC90+wrF8KgBm/7WUulZ7ZPvbg8J8v8EO6mLiRKD70ddKLWtTLjbCgeAdP78tJlBRm3CURgxcDR+edrs9RV1BmOqfJaZ5dS6Eh4DwDTkNsmc6ZQo/lRndjh7XVyrvrIVW1qJUY985/dgAkTY9SWnfqQJ3f7oLxjyUL6aZ7+QULueP1QqcRkPaZRdWV8i1QTjq2ScxIWmV4HaNYwucyyKowXWEM9KmRTcez4muOFX1qLIQzZ0I
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(186003)(38100700002)(2616005)(44832011)(83380400001)(66556008)(6506007)(8676002)(8936002)(6512007)(316002)(36756003)(31686004)(2906002)(66946007)(4326008)(66476007)(86362001)(26005)(110136005)(31696002)(6486002)(5660300002)(53546011)(508600001)(7416002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rm15UXpzUVlFU0pRRDlWNmNKWmZTK0kySzVhcGJkVXRnUFpDdVZEaitpalV4?=
+ =?utf-8?B?TXMzdTB1elc2Nkg2elk3MHB3U1JJOHJYSjlQdUdzNnVubDBFY3FtTlZXRFFw?=
+ =?utf-8?B?NHRmSjlpR1IyL0Y0R2c1RnNadTN3VGtyK1d1WkNyNnduREhjdGlmdFJ3eHlK?=
+ =?utf-8?B?OGtqZHlKMHZxZ2lDZXdNWWRtRyszLzQ0U1hueUZyWjJXUWZHK1ZBR0ZGdnhs?=
+ =?utf-8?B?MEIvRnMxTTFrZ3BWaDJRU1BZa2JaeHdYMUtGWC9Kb2xIcjRlekFtbTFOTExw?=
+ =?utf-8?B?bHNHRkpaNDRxY3pYTm1mS21SeFUwbU1wYjh4S0ZyWHU0Mkx1clEwMmQ4NHRx?=
+ =?utf-8?B?N2RGS3FkM2tzVHhHQ2ZvV1hsOGFXNEdua2tkSFJkcEJzemYrcFdpTlVGRElx?=
+ =?utf-8?B?Mmk0ekNXUUxscDIwdXloakp3QjM0K3A4NVRBbFpYOUxMbnpOM0ZoM1hBTkw5?=
+ =?utf-8?B?cU5xVVA3SGV0eit4OFUxdGNFdDV2KzdEOFZUTERNZ0ZnbDdFTWcxcS9reTg4?=
+ =?utf-8?B?LzhVQlQySHlzVWpEUGxzMUlkSnZ1aFU4NGlaQXRsVFFjWTE1QjFqUkg3aTFm?=
+ =?utf-8?B?UkxWOUZKMjBNMFl1T1dYaWQ3U3U1SHNHZjV6ZUwzNm1MYUtid1BsbTUyalc5?=
+ =?utf-8?B?MDhXK3pUbWU1eW5seVBhbDltN2M5UmE1Z08raENGRGtsQ2QxZSs3bVVkZVNE?=
+ =?utf-8?B?RUgwdkplcG9NeWV1WmpHZjFGR0cwYlp6Zy8wbXA0bXV4OHljUWtlYUVsTTlV?=
+ =?utf-8?B?OWw3aUUxTExoVXNIZXdNQW4vdHR4UnFZM3VibU94T0NqRS84Y2Iyb3FuK2dD?=
+ =?utf-8?B?R2x3RVBraS9XZUFpcjd1NG45ak9ML05pT2dXR29VK0VCU2d5SS9RcVgwaFdX?=
+ =?utf-8?B?c0dtbGNtSGVBbXhyT0ZUVUU3V2FVbkt2TGMzeElKWnY2QlV6YkxEeTM2dUw5?=
+ =?utf-8?B?cWVoaURDeWMvcE9oWHArMDNhRVRhRkFKWFB4aXZYbnNJQ0lXZ3RqbzVpT1Jl?=
+ =?utf-8?B?SVE3Ym5yR2dFWUhJQUxUd1pKT3M5U0VVMHN1K0dBWXZHakdUSlBIL09MQlJ1?=
+ =?utf-8?B?U1BzbDF6R0RRT25LUzlsS3YwRDFOTFE2dTlka0owN0gzMHJLalJYRk5BWVJU?=
+ =?utf-8?B?bENpK1F2MnpUbDlub2ptWFZ0UFVYWUcvOGhQczlIelZ5N0VWU0tKRW44dkpx?=
+ =?utf-8?B?Sit4T1lLelRWOU5JUW5ZYmcxbHppakFaVWY0bTAreWhaWnhadEFRV2dYVndN?=
+ =?utf-8?B?V2tLdHJLTk9YZS9tZjkyOWNlbjU4U2lhVTNrL3hTUmVMZEc1ZmxvQTZxTk9Q?=
+ =?utf-8?B?R2w4ZVE4MnBTZ0YveTY2U3BaOFgxZFEyY2E2NHRiRGhZOGl4SWpaT2didFlv?=
+ =?utf-8?B?NHFKT2dPL295TmdwT2szdXBJcDk0ME9lTlVhaExsaEMvUlNCZng5b3hIZVI4?=
+ =?utf-8?B?cjEweVJJOCtGa2M2cDM4dzJuTWkrVjgrNjVLcTZWYzlHcjhpK3ovMVBGaFND?=
+ =?utf-8?B?UTBMWE1waVBhQzAvb1RNS0pmaHVSeWZaUStjVUlJT2EvcEJjaGYzR2c4c0po?=
+ =?utf-8?B?d1NlOWpadnREOGdVbWNTRkJXdlJqcWM5ZVVJbzY1RzZlSWlWSFRSREUxYWUw?=
+ =?utf-8?B?d0RJK0xuYW04WmU5NmRialYyWFVyU1BTM2lNbmtPNFV6b0kwUEk1QmpZOFBw?=
+ =?utf-8?B?NzdNV2E2bU5WZnBtQ1QxZ3JMY0VCdXFxL0ozQ3F2aVo4NkcwMVM4SzJSd2VM?=
+ =?utf-8?B?cVlWcXBBYUh3UjRkanhjR2lKRndJOFpwOFJmQi9wbmplc2I1MVN6aEQ0Qmxq?=
+ =?utf-8?B?Q1dnbk96ZUhneVNLUmVrWDUrMmZQRjljTUZiR1hybGZqUVhZSEtJeWFUQnRn?=
+ =?utf-8?B?Q3dOQVE2ZzNib3AwWVdxNk5VdjBub2F2S1lBTDBKK3ZheGRDSmxMUjBJL3p6?=
+ =?utf-8?B?TVMvc1VqSGJZcVFMYVlIOWNIOTJ1dDJaRjNOM1VsNVpESkFxRFhhNXZLaWNs?=
+ =?utf-8?B?VlpMaTBXK3FoSHV2ejNIZzFRS0laMzV3M0FqWUtXZWtPMHdHSGZTZVgvdzN3?=
+ =?utf-8?B?bllsM1pzbHBEV2gyZjZJVXdqYUJjNExPVmZjaWwzN2JNNzYrcDVZZi9nVzho?=
+ =?utf-8?B?OXBVZkUwOW5RUFdIbHUyaVF3SWRMRGFRYWwxK1d3ZmdXUU42ZFFXR0ZYZkZ6?=
+ =?utf-8?Q?WFCzLH+g2ALe6gZI0uVcNxY=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2022 16:01:28.4557 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0866b9b0-f565-4370-f698-08d9fb9cbee2
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0b45391-2d47-4e94-83ef-08d9fb9dc738
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2022 16:08:52.1379 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT034.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1735
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: x0NNHQeDiwaJ3aLhP+vqujpi43DuF2hGVjF8KR/rJ6ZZWnrXbhY8eHJv23UyMsJkudXQLjeMIk0hnpg3deA28Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5882
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,64 +128,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: rcampbell@nvidia.com, willy@infradead.org, apopple@nvidia.com,
+ dri-devel@lists.freedesktop.org, linux-xfs@vger.kernel.org, linux-mm@kvack.org,
+ jglisse@redhat.com, amd-gfx@lists.freedesktop.org, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These were leftover from bring up and are no longer
-necessary.  The information is available via
-the IP discovery table.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 23 ----------------------
- 1 file changed, 23 deletions(-)
+Am 2022-03-01 um 03:03 schrieb David Hildenbrand:
+> On 28.02.22 21:34, Alex Sierra wrote:
+>> DEVICE_COHERENT pages introduce a subtle distinction in the way
+>> "normal" pages can be used by various callers throughout the kernel.
+>> They behave like normal pages for purposes of mapping in CPU page
+>> tables, and for COW. But they do not support LRU lists, NUMA
+>> migration or THP. Therefore we split vm_normal_page into two
+>> functions vm_normal_any_page and vm_normal_lru_page. The latter will
+>> only return pages that can be put on an LRU list and that support
+>> NUMA migration and THP.
+> Why not s/vm_normal_any_page/vm_normal_page/ and avoid code churn?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 6113ddc765a7..2f732a1758d6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -80,12 +80,7 @@ MODULE_FIRMWARE("amdgpu/raven_gpu_info.bin");
- MODULE_FIRMWARE("amdgpu/picasso_gpu_info.bin");
- MODULE_FIRMWARE("amdgpu/raven2_gpu_info.bin");
- MODULE_FIRMWARE("amdgpu/arcturus_gpu_info.bin");
--MODULE_FIRMWARE("amdgpu/renoir_gpu_info.bin");
--MODULE_FIRMWARE("amdgpu/navi10_gpu_info.bin");
--MODULE_FIRMWARE("amdgpu/navi14_gpu_info.bin");
- MODULE_FIRMWARE("amdgpu/navi12_gpu_info.bin");
--MODULE_FIRMWARE("amdgpu/vangogh_gpu_info.bin");
--MODULE_FIRMWARE("amdgpu/yellow_carp_gpu_info.bin");
- 
- #define AMDGPU_RESUME_MS		2000
- #define AMDGPU_MAX_RETRY_LIMIT		2
-@@ -1992,27 +1987,9 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
- 	case CHIP_ARCTURUS:
- 		chip_name = "arcturus";
- 		break;
--	case CHIP_RENOIR:
--		if (adev->apu_flags & AMD_APU_IS_RENOIR)
--			chip_name = "renoir";
--		else
--			chip_name = "green_sardine";
--		break;
--	case CHIP_NAVI10:
--		chip_name = "navi10";
--		break;
--	case CHIP_NAVI14:
--		chip_name = "navi14";
--		break;
- 	case CHIP_NAVI12:
- 		chip_name = "navi12";
- 		break;
--	case CHIP_VANGOGH:
--		chip_name = "vangogh";
--		break;
--	case CHIP_YELLOW_CARP:
--		chip_name = "yellow_carp";
--		break;
- 	}
- 
- 	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_gpu_info.bin", chip_name);
--- 
-2.35.1
+I don't care much, personally, what names we end up with. I'll wait for 
+a consensus here.
 
+
+>
+>> We also introduced a FOLL_LRU flag that adds the same behaviour to
+>> follow_page and related APIs, to allow callers to specify that they
+>> expect to put pages on an LRU list.
+> [...]
+>> -#define FOLL_WRITE	0x01	/* check pte is writable */
+>> -#define FOLL_TOUCH	0x02	/* mark page accessed */
+>> -#define FOLL_GET	0x04	/* do get_page on page */
+>> -#define FOLL_DUMP	0x08	/* give error on hole if it would be zero */
+>> -#define FOLL_FORCE	0x10	/* get_user_pages read/write w/o permission */
+>> -#define FOLL_NOWAIT	0x20	/* if a disk transfer is needed, start the IO
+>> -				 * and return without waiting upon it */
+>> -#define FOLL_POPULATE	0x40	/* fault in pages (with FOLL_MLOCK) */
+>> -#define FOLL_NOFAULT	0x80	/* do not fault in pages */
+>> -#define FOLL_HWPOISON	0x100	/* check page is hwpoisoned */
+>> -#define FOLL_NUMA	0x200	/* force NUMA hinting page fault */
+>> -#define FOLL_MIGRATION	0x400	/* wait for page to replace migration entry */
+>> -#define FOLL_TRIED	0x800	/* a retry, previous pass started an IO */
+>> -#define FOLL_MLOCK	0x1000	/* lock present pages */
+>> -#define FOLL_REMOTE	0x2000	/* we are working on non-current tsk/mm */
+>> -#define FOLL_COW	0x4000	/* internal GUP flag */
+>> -#define FOLL_ANON	0x8000	/* don't do file mappings */
+>> -#define FOLL_LONGTERM	0x10000	/* mapping lifetime is indefinite: see below */
+>> -#define FOLL_SPLIT_PMD	0x20000	/* split huge pmd before returning */
+>> -#define FOLL_PIN	0x40000	/* pages must be released via unpin_user_page */
+>> -#define FOLL_FAST_ONLY	0x80000	/* gup_fast: prevent fall-back to slow gup */
+>> +#define FOLL_WRITE	0x01	 /* check pte is writable */
+>> +#define FOLL_TOUCH	0x02	 /* mark page accessed */
+>> +#define FOLL_GET	0x04	 /* do get_page on page */
+>> +#define FOLL_DUMP	0x08	 /* give error on hole if it would be zero */
+>> +#define FOLL_FORCE	0x10	 /* get_user_pages read/write w/o permission */
+>> +#define FOLL_NOWAIT	0x20	 /* if a disk transfer is needed, start the IO
+>> +				  * and return without waiting upon it */
+>> +#define FOLL_POPULATE	0x40	 /* fault in pages (with FOLL_MLOCK) */
+>> +#define FOLL_NOFAULT	0x80	 /* do not fault in pages */
+>> +#define FOLL_HWPOISON	0x100	 /* check page is hwpoisoned */
+>> +#define FOLL_NUMA	0x200	 /* force NUMA hinting page fault */
+>> +#define FOLL_MIGRATION	0x400	 /* wait for page to replace migration entry */
+>> +#define FOLL_TRIED	0x800	 /* a retry, previous pass started an IO */
+>> +#define FOLL_MLOCK	0x1000	 /* lock present pages */
+>> +#define FOLL_REMOTE	0x2000	 /* we are working on non-current tsk/mm */
+>> +#define FOLL_COW	0x4000	 /* internal GUP flag */
+>> +#define FOLL_ANON	0x8000	 /* don't do file mappings */
+>> +#define FOLL_LONGTERM	0x10000	 /* mapping lifetime is indefinite: see below */
+>> +#define FOLL_SPLIT_PMD	0x20000	 /* split huge pmd before returning */
+>> +#define FOLL_PIN	0x40000	 /* pages must be released via unpin_user_page */
+>> +#define FOLL_FAST_ONLY	0x80000	 /* gup_fast: prevent fall-back to slow gup */
+>> +#define FOLL_LRU	0x100000 /* return only LRU (anon or page cache) */
+>>   
+> Can we minimize code churn, please?
+
+OK. I guess we could unindent the FOLL_LRU number to avoid changing all 
+the comments.
+
+
+>
+>
+>>   		if (PageReserved(page))
+>> diff --git a/mm/migrate.c b/mm/migrate.c
+>> index c31d04b46a5e..17d049311b78 100644
+>> --- a/mm/migrate.c
+>> +++ b/mm/migrate.c
+>> @@ -1614,7 +1614,7 @@ static int add_page_for_migration(struct mm_struct *mm, unsigned long addr,
+>>   		goto out;
+>>   
+>>   	/* FOLL_DUMP to ignore special (like zero) pages */
+>> -	follflags = FOLL_GET | FOLL_DUMP;
+>> +	follflags = FOLL_GET | FOLL_DUMP | FOLL_LRU;
+>>   	page = follow_page(vma, addr, follflags);
+> Why wouldn't we want to dump DEVICE_COHERENT pages? This looks wrong.
+
+This function later calls isolate_lru_page, which is something you can't 
+do with a device page.
+
+Regards,
+   Felix
+
+
+>
