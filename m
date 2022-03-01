@@ -4,54 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0C5FC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 15:12:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86BA1C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 15:24:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01EDC10E57C;
-	Tue,  1 Mar 2022 15:12:00 +0000 (UTC)
-Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
- [IPv6:2607:f8b0:4864:20::c30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8BBA10E57C
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 15:11:58 +0000 (UTC)
-Received: by mail-oo1-xc30.google.com with SMTP id
- n5-20020a4a9545000000b0031d45a442feso15153787ooi.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 07:11:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kSZo3NSYN2E5O9WOxtuCJib3VKMWGf1Nk8btahjzd7c=;
- b=ajXs3sdLbmr8a+g7GfnyLHJnZxj/EDkJNW+OuvEy8x9CHS4OgXYGJTp94ZbjN1yyTK
- BGz3H1mQjL9Q6BRHn3Dzk2ERfNwD6f5OfRTT9Q9ptBkNi1DPSx3V4hI3ZFPUcZOl0uv/
- i4B46oAao0FbbOWWYAfBwel4k2RBqw7T+lqkzkPOSTPK9hw32Xo3TKNRDktZbivRqvQ1
- 0ATfJZ8SqH0DM5pZr52oA8CyWhb1f1QFIHf3/M6E4du8yYwXD9qEdIeCMscdp8u8S7aQ
- /HkxQa3TR6c9ZVYXZs9B3SbTyzAKRQwDwCfun58h6GTJtsJSTto8vEbtNkEY4R/Z0Hfe
- s2IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=kSZo3NSYN2E5O9WOxtuCJib3VKMWGf1Nk8btahjzd7c=;
- b=ZRIJtJi/aZjFmGHVwnMUlWvzsPKgveRSxaK29lIaYSX3lZ/qKV/PlyzyweJsn1Lr0x
- Z2kvTA8ocs4I6UUaAJv3Ho0m5YERh0YW5WyjMLWY30kEsJUEnN8lLHoRz2DGzOIW1gtv
- 2YOF5Bk5jRFVpaHJmObo27l+mIxp/JCwIeq5JptDj4fkicfBzN31BF0aYLIHS9zQXuEv
- AMttIizk2DmpHwpDmotpzZ7itIuUvbOBrSm8ntXSywmCNAHKv7I2kFCThbKRJPBOCRir
- m8YEsPiFuVUSdDjPT1x4lE/9mEv6hFCgTZBvBAjW+MZZCinRFrEgchAh0P2mJ14WkjYt
- 7QLg==
-X-Gm-Message-State: AOAM5316/8ZYSuUQ5K7NjnMcmFhJCZV3Y/3oJiY2Z6fHIfN7ZdU75M7Y
- /mdbzA89hH2N9TOcTpVEQho06OuUm9mCIqAxY6w=
-X-Google-Smtp-Source: ABdhPJxUGhAP4dOka53xzlYVxxvxbGJn0dyn/rfdPa4owAGaWzhwVTiVAGWnUYNJNxFL4jkhigG4dNz6dH7iAFdRvAY=
-X-Received: by 2002:a05:6870:1b85:b0:d6:feda:913f with SMTP id
- hm5-20020a0568701b8500b000d6feda913fmr4218062oab.123.1646147517928; Tue, 01
- Mar 2022 07:11:57 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DB8A10E584;
+	Tue,  1 Mar 2022 15:24:15 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3C6710E584
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 15:24:12 +0000 (UTC)
+Received: from [192.168.0.7] (ip5f5aeba2.dynamic.kabel-deutschland.de
+ [95.90.235.162])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 7E62161EA1928;
+ Tue,  1 Mar 2022 16:24:10 +0100 (CET)
+Message-ID: <d356df33-4f6f-e8a2-08c3-cfee6b904c37@molgen.mpg.de>
+Date: Tue, 1 Mar 2022 16:24:09 +0100
 MIME-Version: 1.0
-References: <20220301150121.3785743-1-yifan1.zhang@amd.com>
-In-Reply-To: <20220301150121.3785743-1-yifan1.zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 1 Mar 2022 10:11:47 -0500
-Message-ID: <CADnq5_MEzjYEnB6BtacemOSNj7WG5EQ18vQD8XUhVpY80yBH=w@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] drm/amdgpu: move amdgpu_gmc_noretry_set after
- ip_versions populated
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: [PATCH v2 2/3] drm/amdgpu: convert code name to ip version for
+ noretry set
+Content-Language: en-US
 To: Yifan Zhang <yifan1.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+References: <20220301150121.3785743-1-yifan1.zhang@amd.com>
+ <20220301150121.3785743-2-yifan1.zhang@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20220301150121.3785743-2-yifan1.zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,45 +45,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Huang Rui <Ray.Huang@amd.com>, Christian Koenig <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: alexander.deucher@amd.com, Ray.Huang@amd.com, christian.koenig@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Dear Yifan,
 
-On Tue, Mar 1, 2022 at 10:02 AM Yifan Zhang <yifan1.zhang@amd.com> wrote:
->
-> otherwise adev->ip_versions is still empty when amdgpu_gmc_noretry_set
-> is called.
->
+
+Thank you for your patch.
+
+Am 01.03.22 um 16:01 schrieb Yifan Zhang:
+> Use IP version rather than codename for noretry set.
+
+Why?
+
 > Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 6113ddc765a7..61a6a7920c76 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1554,7 +1554,6 @@ static int amdgpu_device_check_arguments(struct amdgpu_device *adev)
->
->         amdgpu_gmc_tmz_set(adev);
->
-> -       amdgpu_gmc_noretry_set(adev);
->
->         return 0;
->  }
-> @@ -3641,6 +3640,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->         if (r)
->                 return r;
->
-> +       amdgpu_gmc_noretry_set(adev);
->         /* Need to get xgmi info early to decide the reset behavior*/
->         if (adev->gmc.xgmi.supported) {
->                 r = adev->gfxhub.funcs->get_xgmi_info(adev);
-> --
-> 2.25.1
->
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 17 ++++++++---------
+>   1 file changed, 8 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index ab75e189bc0b..fbc22b7b6315 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -559,14 +559,14 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *adev)
+>   {
+>   	struct amdgpu_gmc *gmc = &adev->gmc;
+>   
+> -	switch (adev->asic_type) {
+> -	case CHIP_VEGA10:
+> -	case CHIP_VEGA20:
+> -	case CHIP_ARCTURUS:
+> -	case CHIP_ALDEBARAN:
+> -	case CHIP_BEIGE_GOBY:
+> -	case CHIP_YELLOW_CARP:
+> -	case CHIP_RENOIR:
+> +	switch (adev->ip_versions[GC_HWIP][0]) {
+> +	case IP_VERSION(9, 0, 1):
+> +	case IP_VERSION(9, 4, 0):
+> +	case IP_VERSION(9, 4, 1):
+> +	case IP_VERSION(9, 4, 2):
+> +	case IP_VERSION(10, 3, 5):
+> +	case IP_VERSION(10, 3, 3):
+> +	case IP_VERSION(9, 3, 0):
+
+I think, sorting these entries might be useful.
+
+Should the names be added as comments for those not having them memorized?
+
+>   		/*
+>   		 * noretry = 0 will cause kfd page fault tests fail
+>   		 * for some ASICs, so set default to 1 for these ASICs.
+> @@ -576,7 +576,6 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *adev)
+>   		else
+>   			gmc->noretry = amdgpu_noretry;
+>   		break;
+> -	case CHIP_RAVEN:
+
+Why remove this?
+
+>   	default:
+>   		/* Raven currently has issues with noretry
+>   		 * regardless of what we decide for other
+
+
+Kind regards,
+
+Paul
