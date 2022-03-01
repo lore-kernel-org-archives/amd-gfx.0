@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6715AC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 20:15:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1B40C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 20:17:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06E3710E175;
-	Tue,  1 Mar 2022 20:15:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85ABA10E1A0;
+	Tue,  1 Mar 2022 20:17:55 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D851210E155;
- Tue,  1 Mar 2022 20:15:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6511110E185;
+ Tue,  1 Mar 2022 20:17:54 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3B82D6170C;
- Tue,  1 Mar 2022 20:15:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF95FC340EE;
- Tue,  1 Mar 2022 20:15:38 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DDCFA61761;
+ Tue,  1 Mar 2022 20:17:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AEC7C340F2;
+ Tue,  1 Mar 2022 20:17:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646165746;
+ s=k20201202; t=1646165873;
  bh=Qw/TSEqu3187tiIZfPiCaoDI+0CGQKmUat2XoI5t67w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=raWlfxiQUB/mtltp0PdCry0pfx6QCBjmsN1M1JpJxVCyR5NqzmTr00Zbhi6WdQbKy
- mAMgv1eHZ93lM7FgKyShvrn/o4moDIGrOXIPRKvux51B7qpqrHq8X0HLffdCAxKqO2
- 3n/GkKotSGy/JMOjjbHuitNgZiFqPRQQdvcEWhNVhOLDDQpOLuRw+tr4qjrUeU5pNc
- fe5Z7BJnpzNJsTeoSHdxaLtgYnco5cI3OvJiYDgsFA3dyDo6Y6mq4peLvo/b482JZb
- G6o+hIFWG7nvBLRZA5nxC13t3BYc5sNpEMnaSLclDwJB0M7r6opgGReR9eKz3Wv09P
- xwXdVR72Baxzg==
+ b=d31PVOWLLO241kUtmbrnn0qaTC0OSGpJsbcc6HAw3Z31QEOTUDkvXCCRONldLxkO8
+ mXCvuDw0cZgtp58nyuCk2djp+D+XGWVEeLwGjBJ3FBh83jcf7XyhegijX6nA1+qGPs
+ GhW4CSzpvAyQhgaseNr6Ym6fRL5HKL/7ORVk//qkblUFEV8IaWxULRlvUnlmRIvrUf
+ HV0K3MuEoyhb/aFjAnV2JfX36xdCbLg1JA4pD+RuZLHzV8K4i0upYWs1dYnDCKisD3
+ WGKiubJ/b8x5roh+SbzHsWkiZ2Xliv/3qeksS0cCkgUxFNB66V+wY3DDAf58cvUtRu
+ AOn/vzaI1xwrA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.16 20/28] drm/amdgpu: bypass tiling flag check in
+Subject: [PATCH AUTOSEL 5.15 16/23] drm/amdgpu: bypass tiling flag check in
  virtual display case (v2)
-Date: Tue,  1 Mar 2022 15:13:25 -0500
-Message-Id: <20220301201344.18191-20-sashal@kernel.org>
+Date: Tue,  1 Mar 2022 15:16:15 -0500
+Message-Id: <20220301201629.18547-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220301201344.18191-1-sashal@kernel.org>
-References: <20220301201344.18191-1-sashal@kernel.org>
+In-Reply-To: <20220301201629.18547-1-sashal@kernel.org>
+References: <20220301201629.18547-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
