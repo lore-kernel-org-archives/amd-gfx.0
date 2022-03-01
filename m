@@ -4,87 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 143ACC4332F
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 16:47:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49D91C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 17:42:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52DB610E686;
-	Tue,  1 Mar 2022 16:47:28 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5D8A10E6F2
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 16:32:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1646152350;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=n44Wo6vgxZpi5bWperlxNMLPYijk8JsTILs9YPWVgno=;
- b=ev/F+9HK1B5n47Khw3eIrrSbtGBzIKfSMiTPlQIzO8XL96Lqhs/+H/mB2j2rjP2NI9dsXd
- DNTrzlwQXpMDtEcULsg0IA31i0LLsg12j6y2thjtmXPzbQlPSZ0pJf7UswziY3a/r3mE9y
- yfcVIVhqoHiZLJ8ONQ90eMXbHasYK3g=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-13-r1gWoUpOOGCuJ00d_BJY3g-1; Tue, 01 Mar 2022 11:32:27 -0500
-X-MC-Unique: r1gWoUpOOGCuJ00d_BJY3g-1
-Received: by mail-wm1-f72.google.com with SMTP id
- l31-20020a05600c1d1f00b00380e3425ba7so1446263wms.9
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 08:32:27 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0C5E10E6AE;
+	Tue,  1 Mar 2022 17:42:17 +0000 (UTC)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5E2210E669;
+ Tue,  1 Mar 2022 17:40:08 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id a23so32979710eju.3;
+ Tue, 01 Mar 2022 09:40:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=pFdYiycpncfTymiwtZowrsS5EyWiXpYxNs42/BHAfYg=;
+ b=jNa8kCMtl/UUGI9n6DMpRCjqu31f4wAijdvFFxZnjTmTKVAPvZHGvGIS5mEbyeVH7U
+ 2x/09r6Vjc5jlvMmGEJ/il9wQB7v0QaDJcbwnO54cttgXGRrRpdgplSbMXJLSVGPucZZ
+ 9N0BbQ67CEO0Sz9E19ATZ7SkTLFNHyfaTEafdxDnprAieU2S7WSxP1eMUqDcJyOgT3om
+ KiVwLoBVmeYUr/3jVH1Ywgf3KLmBchJpZXF9NW4w0E+aOTUpi5SfsW8FSQSkfcXvzSp5
+ ZeMWPQFNXAG0u+f0IIKFL+VZxclmrwVLcWvb/ml3Qc/gpz+jEOgbpY53v+25m0fIUJKc
+ BDYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:organization:in-reply-to
- :content-transfer-encoding;
- bh=n44Wo6vgxZpi5bWperlxNMLPYijk8JsTILs9YPWVgno=;
- b=Z8dzZTdzFzqLsAbyTfGUcj2KHJrOMr1P/wWdu9ylE4pRAzJIXOvFcQAjbUDHV6HNZA
- iuoSTjTsvfMoD/JtiTGxqvljXrJ6Ig91zuaQ2x3wr1873Y/GL+HPY20fZ0ePNEipYNIf
- tmUY8RDqgdJ5QUGVuhLchp1CXBVF3dp55WxPHgjhEX8uSFi+9qHzHHOp2jzOEagLUShL
- /hBVGGwkmcSVyJJgWYdpKZXtfVZ/XGEnY8/oh58CUlHau1KqQ2fbn3uvLwmpq5XV6/St
- +0aGHkbPItwOYcay/4X3kfnTG6Xa0bdom9MU55oH2fPV66zPAhO83LmnPBr/h6hy1+Ww
- C6VQ==
-X-Gm-Message-State: AOAM533vguBfqchMLx1gT7i34X1bSJvAhIbzJ/RsJjhVETA29ABNXvVF
- s0MaV95KX03dWOIa7ECIGwauaeeqRsa+OhUcZR4xlqE5YAxnqlHK49YzTTnqejiH13dnLEdG39d
- +T8zDq4k+7VNFP4FjoEiCno1Ytw==
-X-Received: by 2002:a05:6000:1b0c:b0:1ef:956e:3210 with SMTP id
- f12-20020a0560001b0c00b001ef956e3210mr10718763wrz.322.1646152346582; 
- Tue, 01 Mar 2022 08:32:26 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJy3kzdNGIIvZpX2C9to3Pb3Y486zu3gVqra59S1lC+acXexuk7wv16jDLZDxszLnYK+EvUsSg==
-X-Received: by 2002:a05:6000:1b0c:b0:1ef:956e:3210 with SMTP id
- f12-20020a0560001b0c00b001ef956e3210mr10718743wrz.322.1646152346319; 
- Tue, 01 Mar 2022 08:32:26 -0800 (PST)
-Received: from ?IPV6:2003:cb:c70e:5e00:88ce:ad41:cb1b:323?
- (p200300cbc70e5e0088cead41cb1b0323.dip0.t-ipconnect.de.
- [2003:cb:c70e:5e00:88ce:ad41:cb1b:323])
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=pFdYiycpncfTymiwtZowrsS5EyWiXpYxNs42/BHAfYg=;
+ b=8Qt79IRMfQ0LzeGSxduNOn9Pxz1BLLBYCx5eAuS0QandX99jhxFK/kYfP0PkVO19sS
+ K2bHeVpOzZnYpxTerMxcOnndf00rlYAnOu5fkz1rHAD5kzIwwWPyBH6gcRbkWxXYnYJO
+ 5dcJWloKlUTMS7er6PLS/tjbnIfUMtu+2H4v6PDmEqzBcc+4KL950PJok/M/hI4d8DDN
+ egb/CaKOovi2Pj9lpH7cAxiCuM5w6MWw2L1ClE9KNyUOc3/adOPtqGuLaAQTU9tTOcjj
+ 5m08iHEzpXALIvNP/eRcjuDzRY+nDBzdqgFdZ4o1mkvwsTGtALZrsq0hlB36XI4yyhoo
+ o1Pw==
+X-Gm-Message-State: AOAM531DjKeEa19kK6jPRoUEJHEMs5Ez6BaMG6W4o8xoRkLZNR6AYFKu
+ GPzvJ69E80+koXPgOXb9H4w=
+X-Google-Smtp-Source: ABdhPJwzanGhehpmLWEMTTJkMBhYufoyhmHURG9yND716ZZIbM/kd8Ex5thBnsVmcSvoj9ZPyJ3fsw==
+X-Received: by 2002:a17:906:948:b0:6d6:e479:1fe4 with SMTP id
+ j8-20020a170906094800b006d6e4791fe4mr3312230ejd.240.1646156406993; 
+ Tue, 01 Mar 2022 09:40:06 -0800 (PST)
+Received: from smtpclient.apple ([2a02:8109:9d80:3f6c:6db3:8d4c:747e:98ad])
  by smtp.gmail.com with ESMTPSA id
- m34-20020a05600c3b2200b00380e3225af9sm3328629wms.0.2022.03.01.08.32.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Mar 2022 08:32:25 -0800 (PST)
-Message-ID: <85a68c56-7cce-ef98-7aa6-c68eabf3fa0b@redhat.com>
-Date: Tue, 1 Mar 2022 17:32:24 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] mm: split vm_normal_pages for LRU and non-LRU handling
-To: Felix Kuehling <felix.kuehling@amd.com>, Alex Sierra
- <alex.sierra@amd.com>, jgg@nvidia.com
-References: <20220218192640.GV4160@nvidia.com>
- <20220228203401.7155-1-alex.sierra@amd.com>
- <2a042493-d04d-41b1-ea12-b326d2116861@redhat.com>
- <41469645-55be-1aaa-c1ef-84a123fdb4ea@amd.com>
- <bfae7d17-eb50-55b1-1275-5ba0f86a5273@redhat.com>
- <353c7bbd-b20e-8a7a-029a-cda9b531e5e8@amd.com>
-From: David Hildenbrand <david@redhat.com>
-Organization: Red Hat
-In-Reply-To: <353c7bbd-b20e-8a7a-029a-cda9b531e5e8@amd.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 01 Mar 2022 16:47:26 +0000
+ a25-20020a50ff19000000b0040f84cd806csm7398100edu.59.2022.03.01.09.40.04
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 01 Mar 2022 09:40:06 -0800 (PST)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 15.0 \(3693.60.0.1.1\))
+Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
+ as a ptr
+From: Jakob Koschel <jakobkoschel@gmail.com>
+In-Reply-To: <Yh5ZmwiH5AxtQ69K@kroah.com>
+Date: Tue, 1 Mar 2022 18:40:04 +0100
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <4B1AFAD9-C1B3-499C-945A-C259361ABA8C@gmail.com>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
+ <20220228110822.491923-3-jakobkoschel@gmail.com>
+ <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
+ <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
+ <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
+ <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
+ <FC710A1A-524E-481B-A668-FC258F529A2E@gmail.com>
+ <CAHk-=whLK11HyvpUtEftOjc3Gup2V77KpAQ2fycj3uai=qceHw@mail.gmail.com>
+ <CEDAD0D9-56EE-4105-9107-72C2EAD940B0@gmail.com> <Yh5ZmwiH5AxtQ69K@kroah.com>
+To: Greg KH <greg@kroah.com>
+X-Mailer: Apple Mail (2.3693.60.0.1.1)
+X-Mailman-Approved-At: Tue, 01 Mar 2022 17:42:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,45 +80,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcampbell@nvidia.com, amd-gfx@lists.freedesktop.org, apopple@nvidia.com,
- dri-devel@lists.freedesktop.org, linux-xfs@vger.kernel.org, linux-mm@kvack.org,
- jglisse@redhat.com, willy@infradead.org, akpm@linux-foundation.org,
- linux-ext4@vger.kernel.org, hch@lst.de
+Cc: linux-wireless <linux-wireless@vger.kernel.org>,
+ alsa-devel@alsa-project.org, KVM list <kvm@vger.kernel.org>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Cristiano Giuffrida <c.giuffrida@vu.nl>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
+ linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev, "Bos,
+ H.J." <h.j.bos@vu.nl>, Jason Gunthorpe <jgg@ziepe.ca>,
+ intel-wired-lan@lists.osuosl.org, kgdb-bugreport@lists.sourceforge.net,
+ bcm-kernel-feedback-list@broadcom.com,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
+ Linux PM <linux-pm@vger.kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ v9fs-developer@lists.sourceforge.net,
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
+ linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
+ tipc-discussion@lists.sourceforge.net,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+ linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mike Rapoport <rppt@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 01.03.22 17:30, Felix Kuehling wrote:
-> Am 2022-03-01 um 11:22 schrieb David Hildenbrand:
->>>>>    		if (PageReserved(page))
->>>>> diff --git a/mm/migrate.c b/mm/migrate.c
->>>>> index c31d04b46a5e..17d049311b78 100644
->>>>> --- a/mm/migrate.c
->>>>> +++ b/mm/migrate.c
->>>>> @@ -1614,7 +1614,7 @@ static int add_page_for_migration(struct mm_struct *mm, unsigned long addr,
->>>>>    		goto out;
->>>>>    
->>>>>    	/* FOLL_DUMP to ignore special (like zero) pages */
->>>>> -	follflags = FOLL_GET | FOLL_DUMP;
->>>>> +	follflags = FOLL_GET | FOLL_DUMP | FOLL_LRU;
->>>>>    	page = follow_page(vma, addr, follflags);
->>>> Why wouldn't we want to dump DEVICE_COHERENT pages? This looks wrong.
->>> This function later calls isolate_lru_page, which is something you can't
->>> do with a device page.
->>>
->> Then, that code might require care instead. We most certainly don't want
->> to have random memory holes in a dump just because some anonymous memory
->> was migrated to DEVICE_COHERENT.
-> I don't think this code is for core dumps. The call chain I see is
-> 
-> SYSCALL_DEFINE6(move_pages, ...) -> kernel_move_pages -> do_pages_move 
-> -> add_page_for_migration
-> 
 
-Ah, sorry, I got mislead by FOLL_DUMP and thought we'd be in
-get_dump_page() . As you said, nothing to do.
 
--- 
-Thanks,
+> On 1. Mar 2022, at 18:36, Greg KH <greg@kroah.com> wrote:
+>=20
+> On Tue, Mar 01, 2022 at 12:28:15PM +0100, Jakob Koschel wrote:
+>>=20
+>>=20
+>>> On 1. Mar 2022, at 01:41, Linus Torvalds =
+<torvalds@linux-foundation.org> wrote:
+>>>=20
+>>> On Mon, Feb 28, 2022 at 1:47 PM Jakob Koschel =
+<jakobkoschel@gmail.com> wrote:
+>>>>=20
+>>>> The goal of this is to get compiler warnings right? This would =
+indeed be great.
+>>>=20
+>>> Yes, so I don't mind having a one-time patch that has been gathered
+>>> using some automated checker tool, but I don't think that works from =
+a
+>>> long-term maintenance perspective.
+>>>=20
+>>> So if we have the basic rule being "don't use the loop iterator =
+after
+>>> the loop has finished, because it can cause all kinds of subtle
+>>> issues", then in _addition_ to fixing the existing code paths that
+>>> have this issue, I really would want to (a) get a compiler warning =
+for
+>>> future cases and (b) make it not actually _work_ for future cases.
+>>>=20
+>>> Because otherwise it will just happen again.
+>>>=20
+>>>> Changing the list_for_each_entry() macro first will break all of =
+those cases
+>>>> (e.g. the ones using 'list_entry_is_head()).
+>>>=20
+>>> So I have no problems with breaking cases that we basically already
+>>> have a patch for due to  your automated tool. There were certainly
+>>> more than a handful, but it didn't look _too_ bad to just make the
+>>> rule be "don't use the iterator after the loop".
+>>>=20
+>>> Of course, that's just based on that patch of yours. Maybe there are =
+a
+>>> ton of other cases that your patch didn't change, because they =
+didn't
+>>> match your trigger case, so I may just be overly optimistic here.
+>>=20
+>> Based on the coccinelle script there are ~480 cases that need fixing
+>> in total. I'll now finish all of them and then split them by
+>> submodules as Greg suggested and repost a patch set per submodule.
+>> Sounds good?
+>=20
+> Sounds good to me!
+>=20
+> If you need help carving these up and maintaining them over time as
+> different subsystem maintainers accept/ignore them, just let me know.
+> Doing large patchsets like this can be tough without a lot of
+> experience.
 
-David / dhildenb
+Very much appreciated!
 
+There will probably be some cases that do not match one of the pattern
+we already discussed and need separate attention.
+
+I was planning to start with one subsystem and adjust the coming ones
+according to the feedback gather there instead of posting all of them
+in one go.
+
+>=20
+> thanks,
+>=20
+> greg k-h
+
+- Jakob=
