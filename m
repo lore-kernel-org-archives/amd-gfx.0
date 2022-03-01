@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF701C4332F
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 08:56:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE17C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 08:56:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FBB410EE9F;
-	Wed,  2 Mar 2022 08:56:09 +0000 (UTC)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9766310E7AC
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 23:11:30 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id a23so81687eju.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 15:11:30 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F78310EEB5;
+	Wed,  2 Mar 2022 08:56:10 +0000 (UTC)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7D7B10E8D2
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Mar 2022 00:03:16 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id qx21so189345ejb.13
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 16:03:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux-foundation.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ojIOUCrgcIak8ZCc1skMdXRKcTVmt9Elm/o+1+I6jGA=;
- b=fmg4LXx5HRB2mrrWsHndl76rC2chdk1sBRQyNWtz+o2V+K2vg9psF6vr/ppax24roG
- 0IEY6nkgVM6qwn95jhK4YeupoNeTj8/flkbxBQUDmf863ReCVguQlY3gsMWixLyIz8Mx
- ewpCP9yjbapnom8xtoCAmNy70uRnweYHKzlsw=
+ :cc; bh=4H0hy1V+vsSL/J4iRHU98fs6Ghx9E/bawvPg5OjXQmQ=;
+ b=A1xSV6w+mnGI8KddmZFT+SVp47UhRqZlj7dZE7Ue1BgWjGw2+QCc51Zb6PIPvKiXuh
+ /TGd1P3o63R0kiFyLwVU+kzDBf6Kt9wFSZwwJYnrWAqavu9szp3nfmKm0Qe68N3l8Mdl
+ bWvesgtwBf4BWRSm4aUiCmj0pmAaHYwmzAjUs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=ojIOUCrgcIak8ZCc1skMdXRKcTVmt9Elm/o+1+I6jGA=;
- b=U6kYV2jB2lqkQis0bNlwnlsekxLb4nQdkZV753VvbuhGN4hwMJqQGAJtdo135st6+h
- /CUmz1pM9O8jQjVuE3mmOe3j2v+5hgTQy0a8mDG2T4eSr91KRQZ7b0FvaTs2LlefFdAQ
- 7Enq9PK7O7xUjR1EVRi/0Yp6VA6R37arJ4swVZAfcz9LJC2OWx7iS4SRac15srJWa+CM
- jER8Q20iUjKO93IAUN9kqBY3DZla6sTQysnIysi/qexWPSgJBovSQK4yqFRgW2RkMYUr
- 9oVojEpv4vS0MyBMknxo1IOafEgSxA9l+8Z01mvIWDusM4K539Dag6L7vF8z7TIigImw
- 0I4g==
-X-Gm-Message-State: AOAM532ByT7I/cOJ/N64lhBbi3hIGzuV5rxXQ5QNwmzBGJENpUp/Bhez
- JZejUgGy7xcEpohgIHemO78N0qLnGEwkpf3EcsU=
-X-Google-Smtp-Source: ABdhPJwZiqu7RTBh6x8IhTFI9MGXGkDHL42M+afa+zU55UgYRPQ2qKFmoNevEI8+e2xp+pUhwZ+EtQ==
-X-Received: by 2002:a17:907:366:b0:6ba:fff6:4fc7 with SMTP id
- rs6-20020a170907036600b006bafff64fc7mr20751969ejb.756.1646176288842; 
- Tue, 01 Mar 2022 15:11:28 -0800 (PST)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com.
- [209.85.221.49]) by smtp.gmail.com with ESMTPSA id
- co19-20020a0564020c1300b00412879e4645sm7674831edb.55.2022.03.01.15.11.28
+ bh=4H0hy1V+vsSL/J4iRHU98fs6Ghx9E/bawvPg5OjXQmQ=;
+ b=NYbRoJwh+2Ha97wTmqdmv7V8dYq4PA/xSacZ3KvPAZ5a5ETIqf3q23cahGGI6dDbZS
+ FwktVg5moegAgdjpoIGSdNx8Pk6t3HuXIPVgDIAxy3NiqghY25EHJN/A7PWGIghNh4a0
+ n7k3CJDw2UtYaEq+Ag6J0olevb+8E1TmEbKmrSL8WSKRnUy9m+eg7y1aSw16tfFa0Gql
+ XUR03bjM8Ao1TpQCRjeH3jG1xmsMzzNc01hOmhALW41AIajGyiI0wSSYrqKHaRzOD6iV
+ JJcdE9cB2hBCpueStGznkDu/k4GKxQ9EXzyRHPfpwmvga6TdFZHOc6SOrPZPgryx1rqB
+ 39MQ==
+X-Gm-Message-State: AOAM532VJPoQNp599jhGD/xYafUR6YKILGrubdK8ht7VR/zUKttBPb/w
+ BLR3joNb72O0BuumNFzRdYnhfhww2BWoDTDTVQI=
+X-Google-Smtp-Source: ABdhPJzUv24DruQC4GxmyH7N6RLZZ5Mib1cU+pYxcS1aujrFTjeTpWvRNiM/6paUxU2/10boW5MagQ==
+X-Received: by 2002:a17:906:4783:b0:6d0:9b6e:b5a5 with SMTP id
+ cw3-20020a170906478300b006d09b6eb5a5mr21969016ejc.526.1646179394974; 
+ Tue, 01 Mar 2022 16:03:14 -0800 (PST)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com.
+ [209.85.218.44]) by smtp.gmail.com with ESMTPSA id
+ d4-20020a1709067a0400b006d6e3ca9f71sm1244178ejo.198.2022.03.01.16.03.14
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Mar 2022 15:11:28 -0800 (PST)
-Received: by mail-wr1-f49.google.com with SMTP id t11so11338wrm.5
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 15:11:28 -0800 (PST)
-X-Received: by 2002:a2e:924d:0:b0:246:370c:5618 with SMTP id
- v13-20020a2e924d000000b00246370c5618mr18436468ljg.358.1646175815802; Tue, 01
- Mar 2022 15:03:35 -0800 (PST)
+ Tue, 01 Mar 2022 16:03:14 -0800 (PST)
+Received: by mail-ej1-f44.google.com with SMTP id r13so257789ejd.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 16:03:14 -0800 (PST)
+X-Received: by 2002:a05:6512:3042:b0:437:96f5:e68a with SMTP id
+ b2-20020a056512304200b0043796f5e68amr17643498lfb.449.1646178958685; Tue, 01
+ Mar 2022 15:55:58 -0800 (PST)
 MIME-Version: 1.0
 References: <20220228110822.491923-1-jakobkoschel@gmail.com>
  <20220228110822.491923-3-jakobkoschel@gmail.com>
@@ -61,11 +61,13 @@ References: <20220228110822.491923-1-jakobkoschel@gmail.com>
  <73fa82a20910c06784be2352a655acc59e9942ea.camel@HansenPartnership.com>
  <CAHk-=wiT5HX6Kp0Qv4ZYK_rkq9t5fZ5zZ7vzvi6pub9kgp=72g@mail.gmail.com>
  <7dc860874d434d2288f36730d8ea3312@AcuMS.aculab.com>
-In-Reply-To: <7dc860874d434d2288f36730d8ea3312@AcuMS.aculab.com>
+ <CAHk-=whKqg89zu4T95+ctY-hocR6kDArpo2qO14-kV40Ga7ufw@mail.gmail.com>
+ <0ced2b155b984882b39e895f0211037c@AcuMS.aculab.com>
+In-Reply-To: <0ced2b155b984882b39e895f0211037c@AcuMS.aculab.com>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 1 Mar 2022 15:03:19 -0800
-X-Gmail-Original-Message-ID: <CAHk-=whKqg89zu4T95+ctY-hocR6kDArpo2qO14-kV40Ga7ufw@mail.gmail.com>
-Message-ID: <CAHk-=whKqg89zu4T95+ctY-hocR6kDArpo2qO14-kV40Ga7ufw@mail.gmail.com>
+Date: Tue, 1 Mar 2022 15:55:42 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wix0HLCBs5sxAeW3uckg0YncXbTjMsE-Tv8WzmkOgLAXQ@mail.gmail.com>
+Message-ID: <CAHk-=wix0HLCBs5sxAeW3uckg0YncXbTjMsE-Tv8WzmkOgLAXQ@mail.gmail.com>
 Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
  as a ptr
 To: David Laight <David.Laight@aculab.com>
@@ -137,19 +139,57 @@ Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 1, 2022 at 2:58 PM David Laight <David.Laight@aculab.com> wrote:
+On Tue, Mar 1, 2022 at 3:19 PM David Laight <David.Laight@aculab.com> wrote:
 >
-> Can it be resolved by making:
-> #define list_entry_is_head(pos, head, member) ((pos) == NULL)
-> and double-checking that it isn't used anywhere else (except in
-> the list macros themselves).
+> Having said that there are so few users of list_entry_is_head()
+> it is reasonable to generate two new names.
 
-Well, yes, except for the fact that then the name is entirely misleading...
+Well, the problem is that the users of list_entry_is_head() may be few
+- but there are a number of _other_ ways to check "was that the HEAD
+pointer", and not all of them are necessarily correct.
 
-And somebody possibly uses it together with list_first_entry() etc, so
-it really is completely broken to mix that change with the list
-traversal change.
+IOW, different places do different random tests for "did we walk the
+whole loop without breaking out". And many of them happen to work. In
+fact, in practice, pretty much *all* of them happen to work, and you
+have to have the right struct layout and really really bad luck to hit
+a case of "type confusion ended up causing the test to not work".
+
+And *THAT* is the problem here. It's not the "there are 25ish places
+that current use list_entry_is_head()".
+
+It's the "there are ~480 places that use the type-confused HEAD entry
+that has been cast to the wrong type".
+
+And THAT is why I think we'd be better off with that bigger change
+that simply means that you can't use the iterator variable at all
+outside the loop, and try to make it something where the compiler can
+help catch mis-uses.
+
+Now, making the list_for_each_entry() thing force the iterator to NULL
+at the end of the loop does fix the problem. The issue I have with it
+is really just that you end up getting no warning at all from the
+compiler if you mix old-style and new-style semantics. Now, you *will*
+get an oops (if using a new-style iterator with an old-style check),
+but many of these things will be in odd driver code and may happen
+only for error cases.
+
+And if you use a new-style check with an old-style iterator (ie some
+backport problem), you will probably end up getting random memory
+corruption, because you'll decide "it's not a HEAD entry", and then
+you'll actually *use* the HEAD that has the wrong type cast associated
+with it.
+
+See what my worry is?
+
+With the "don't use iterator outside the loop" approach, the exact
+same code works in both the old world order and the new world order,
+and you don't have the semantic confusion. And *if* you try to use the
+iterator outside the loop, you'll _mostly_ (*) get a compiler warning
+about it not being initialized.
 
              Linus
 
-               Linus
+(*) Unless somebody initializes the iterator pointer pointlessly.
+Which clearly does happen. Thus the "mostly". It's not perfect, and
+that's most definitely not nice - but it should at least hopefully
+make it that much harder to mess up.
