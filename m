@@ -4,69 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86E93C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4EE0C433EF
 	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 19:32:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2FB510E800;
-	Tue,  1 Mar 2022 19:32:19 +0000 (UTC)
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1181210E116
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 19:14:52 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id v28so23156594ljv.9
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 11:14:51 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 025E810E80B;
+	Tue,  1 Mar 2022 19:32:20 +0000 (UTC)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB65310E78D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 18:54:43 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id p20so23178513ljo.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 10:54:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux-foundation.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+FYbGAw6yxU17iUDUp61Ry7f+ZSO9wN0ehJ+hGfk2DQ=;
- b=NEmpYuhxkY3jphhiKwB9rL7CFHETV0OarciDwH/Y25b8gogpFDGLbcsm2Hp5JlhbRM
- fgLdNaX0z1k1bpDTdAa2T+xhPoQGBlkWInAyVtxomjmoWydKKz6S1Vw5P8QyPxUNcXPG
- O8s4ZVUjpR1ZVkG2oqZOMI9ApgRXI/RsyC5iE=
+ :cc; bh=JZw99KMpsKBs3Ab/LBNeIPMebXALTITXobBfJpN/EsI=;
+ b=ZEWbFFu3eWrZxUgaaScwD4ZJ//Z7mV4SGMyACB20WwCKEMFGKIBMMEXVkM4kZXdOyd
+ EokMKBVyAcoYChV/SvtOh5q5h0Yafm3wlsC3jCGOeoM0h4pn550KTbE+/sUn3z3m8p0V
+ ZL0gG9ZTrYCOlyUURTCDAGrluijISoqXbB1wA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=+FYbGAw6yxU17iUDUp61Ry7f+ZSO9wN0ehJ+hGfk2DQ=;
- b=Ur/UKyvDTDN1q3PrLII4K8WYjlv8rXZ1QjeOIvNI1QcBuGIsyUUe3hsh6ep4I49XKB
- 77JJOlmBRdzOop0WfPBrcNAsLe0/pWUIPp0fkB4R/C+2S512KIHiFwCg9gBrAJHVpLU8
- jvtkXOOIp2G39pgAg9MEBz5Vn7b+3JJ9WEcRu+5U4hW8bjp5lfpwzKvmdv9RoWnhARjo
- 6nZIf45hkq8c+a0Ppg3Xqa/vNWdxP/VvEFzGzCTjCfpP910POh+iB3OR7jXmOM9jv9k/
- jMTEfNG3suSwHLs/7jyWbbu74mh1QYl4P0odBPzvAAOkawdenScanct98L1gS/ViEjbW
- cjYg==
-X-Gm-Message-State: AOAM530LFiuuF0CVKvqP8j3h1OoXM6yAfjFRW9kwap+QeVVsDb3oEl6V
- 4arp7Cn1VsxyX9G78fUfpbIKyyTyXAWokeVwB7A=
-X-Google-Smtp-Source: ABdhPJyA//KLbaD967hx7/EK5CeTmlW9FeSS3ewaB4yQurw7UmfD2B27NQ3nSdWoJA6Hsosiw0HGIw==
-X-Received: by 2002:a2e:8198:0:b0:246:e7d:45d2 with SMTP id
- e24-20020a2e8198000000b002460e7d45d2mr17988970ljg.495.1646162090056; 
- Tue, 01 Mar 2022 11:14:50 -0800 (PST)
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com.
- [209.85.208.181]) by smtp.gmail.com with ESMTPSA id
- u17-20020a2e9f11000000b002461f96c537sm2060483ljk.63.2022.03.01.11.14.49
+ bh=JZw99KMpsKBs3Ab/LBNeIPMebXALTITXobBfJpN/EsI=;
+ b=aRl7cNzi31V2Y/svfVH95RwUVCCQyKfMt3onSCg1doV5Jobh2swGzUjr/UbFXgPgFC
+ qp9m98lZyJqvvJHklACYPbeBS2pLa/rfy3I6GeAYYCGiPLW/aGpUMBmxqZo1KwGDZF0f
+ Pfg6/lqsfpyJocYPQ1pfcUW2gjFhISW37I5dBVbAVcWdJetUUUSNfZhvSR9H8vY1ccAL
+ F/796JlKKDV1yfSzchRHlmiAC3Pslys6eBrS6PbrusS06MyVKGA6twvu1XmFoKmngPes
+ qI7k92lEGDjlSkyFoWWf6ovsY2f820+yKAJ63pX5eqgsTGo+U2IEOuryKRcdjBsnHSMV
+ sgbg==
+X-Gm-Message-State: AOAM533+j7c0cdOJbFcjgjrTkf9oFQ0pRjkuZE/L1wBHGDwc1aW67rvj
+ WUMbsqvYF62Q7qPXga306ryqm3QuTsVYDwBznUY=
+X-Google-Smtp-Source: ABdhPJxPoXSMyE+mw2LvExoFVqiPM+NeeoOKU6ccI3fxNdsLllZ3cYAAKBQT8lkNMf0QVKQtI14+VQ==
+X-Received: by 2002:a05:651c:311:b0:23f:d9fc:9e89 with SMTP id
+ a17-20020a05651c031100b0023fd9fc9e89mr17927709ljp.136.1646160881822; 
+ Tue, 01 Mar 2022 10:54:41 -0800 (PST)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com.
+ [209.85.208.169]) by smtp.gmail.com with ESMTPSA id
+ q28-20020ac25a1c000000b00441798d2427sm1625818lfn.32.2022.03.01.10.54.41
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Mar 2022 11:14:49 -0800 (PST)
-Received: by mail-lj1-f181.google.com with SMTP id y24so4184723ljh.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 11:14:49 -0800 (PST)
-X-Received: by 2002:a2e:3013:0:b0:246:2ca9:365e with SMTP id
- w19-20020a2e3013000000b002462ca9365emr17902580ljw.291.1646161622598; Tue, 01
- Mar 2022 11:07:02 -0800 (PST)
+ Tue, 01 Mar 2022 10:54:41 -0800 (PST)
+Received: by mail-lj1-f169.google.com with SMTP id l12so11238635ljh.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 10:54:41 -0800 (PST)
+X-Received: by 2002:a05:6512:2033:b0:443:3d49:dac with SMTP id
+ s19-20020a056512203300b004433d490dacmr16440784lfs.52.1646160451271; Tue, 01
+ Mar 2022 10:47:31 -0800 (PST)
 MIME-Version: 1.0
 References: <20220228110822.491923-1-jakobkoschel@gmail.com>
  <20220228110822.491923-3-jakobkoschel@gmail.com>
  <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
  <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
- <282f0f8d-f491-26fc-6ae0-604b367a5a1a@amd.com>
- <b2d20961dbb7533f380827a7fcc313ff849875c1.camel@HansenPartnership.com>
- <7D0C2A5D-500E-4F38-AD0C-A76E132A390E@kernel.org>
- <73fa82a20910c06784be2352a655acc59e9942ea.camel@HansenPartnership.com>
-In-Reply-To: <73fa82a20910c06784be2352a655acc59e9942ea.camel@HansenPartnership.com>
+ <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
+ <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
+ <Yh0tl3Lni4weIMkl@casper.infradead.org>
+ <CAHk-=wgBfJ1-cPA2LTvFyyy8owpfmtCuyiZi4+um8DhFNe+CyA@mail.gmail.com>
+ <Yh1aMm3hFe/j9ZbI@casper.infradead.org>
+ <CAHk-=wi0gSUMBr2SVF01Gy1xC1w1iGtJT5ztju9BPWYKjdh+NA@mail.gmail.com>
+ <202203011008.AA0B5A2D@keescook>
+In-Reply-To: <202203011008.AA0B5A2D@keescook>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 1 Mar 2022 11:06:45 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wiT5HX6Kp0Qv4ZYK_rkq9t5fZ5zZ7vzvi6pub9kgp=72g@mail.gmail.com>
-Message-ID: <CAHk-=wiT5HX6Kp0Qv4ZYK_rkq9t5fZ5zZ7vzvi6pub9kgp=72g@mail.gmail.com>
+Date: Tue, 1 Mar 2022 10:47:14 -0800
+X-Gmail-Original-Message-ID: <CAHk-=whccSm8HKANQbomYrF8cqBa1wUi1dvUEUc3Nf=WoX3WHQ@mail.gmail.com>
+Message-ID: <CAHk-=whccSm8HKANQbomYrF8cqBa1wUi1dvUEUc3Nf=WoX3WHQ@mail.gmail.com>
 Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
  as a ptr
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
+To: Kees Cook <keescook@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 01 Mar 2022 19:32:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -85,9 +88,10 @@ Cc: linux-wireless <linux-wireless@vger.kernel.org>,
  "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
  nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>,
+ Cristiano Giuffrida <c.giuffrida@vu.nl>, Matthew Wilcox <willy@infradead.org>,
  linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
  linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
  linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev,
  amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
@@ -95,16 +99,14 @@ Cc: linux-wireless <linux-wireless@vger.kernel.org>,
  bcm-kernel-feedback-list@broadcom.com,
  Dan Carpenter <dan.carpenter@oracle.com>,
  Linux Media Mailing List <linux-media@vger.kernel.org>,
- Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
- Linux PM <linux-pm@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Arnd Bergman <arnd@arndb.de>, Linux PM <linux-pm@vger.kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, "Bos, H.J." <h.j.bos@vu.nl>,
  Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
  Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
  Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
  linux-tegra <linux-tegra@vger.kernel.org>,
  Thomas Gleixner <tglx@linutronix.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
  Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
  linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
  linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
@@ -120,54 +122,64 @@ Cc: linux-wireless <linux-wireless@vger.kernel.org>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 28, 2022 at 2:29 PM James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
+On Tue, Mar 1, 2022 at 10:14 AM Kees Cook <keescook@chromium.org> wrote:
 >
-> However, if the desire is really to poison the loop variable then we
-> can do
->
-> #define list_for_each_entry(pos, head, member)                          \
->         for (pos = list_first_entry(head, typeof(*pos), member);        \
->              !list_entry_is_head(pos, head, member) && ((pos = NULL) == NULL;                   \
->              pos = list_next_entry(pos, member))
->
-> Which would at least set pos to NULL when the loop completes.
+> The first big glitch with -Wshadow was with shadowed global variables.
+> GCC 4.8 fixed that, but it still yells about shadowed functions. What
+> _almost_ works is -Wshadow=local.
 
-That would actually have been excellent if we had done that
-originally. It would not only avoid the stale and incorrectly typed
-head entry left-over turd, it would also have made it very easy to
-test for "did I find an entry in the loop".
+Heh. Yeah, I just have long memories of "-Wshadow was a disaster". You
+looked into the details.
 
-But I don't much like it in the situation we are now.
+> Another way to try to catch misused shadow variables is
+> -Wunused-but-set-varible, but it, too, has tons of false positives.
 
-Why? Mainly because it basically changes the semantics of the loop
-_without_ any warnings about it.  And we don't actually get the
-advantage of the nicer semantics, because we can't actually make code
-do
+That on the face of it should be an easy warning to get technically
+right for a compiler.
 
-        list_for_each_entry(entry, ....) {
-                ..
-        }
-        if (!entry)
-                return -ESRCH;
-        .. use the entry we found ..
+So I assume the "false positives" are simply because we end up having
+various variables that really don't end up being used - and
+"intentionally" so).
 
-because that would be a disaster for back-porting, plus it would be a
-flag-day issue (ie we'd have to change the semantics of the loop at
-the same time we change every single user).
+Or rather, they might only be used under some config option - perhaps
+the use is even syntactically there and parsed, but the compiler
+notices that it's turned off under some
 
-So instead of that simple "if (!entry)", we'd effectively have to
-continue to use something that still works with the old world order
-(ie that "if (list_entry_is_head())" model).
+        if (IS_ENABLED(..))
 
-So we couldn't really take _advantage_ of the nicer semantics, and
-we'd not even get a warning if somebody does it wrong - the code would
-just silently do the wrong thing.
+option? Because yeah, we have a lot of those.
 
-IOW: I don't think you are wrong about that patch: it would solve the
-problem that Jakob wants to solve, and it would have absolutely been
-much better if we had done this from the beginning. But I think that
-in our current situation, it's actually a really fragile solution to
-the "don't do that then" problem we have.
+I think that's a common theme with a lot of compiler warnings: on the
+face of it they sound "obviously sane" and nobody should ever write
+code like that.
 
-              Linus
+A conditional that is always true? Sounds idiotic, and sounds like a
+reasonable thing for a compiler to warn about, since why would you
+have a conditional in the first place for that?
+
+But then you realize that maybe the conditional is a build config
+option, and "always true" suddenly makes sense. Or it's a test for
+something that is always true on _that_architecture_ but not in some
+general sense (ie testing "sizeof()"). Or it's a purely syntactic
+conditional, like "do { } while (0)".
+
+It's why I'm often so down on a lot of the odd warnings that are
+hiding under W=1 and friends. They all may make sense in the trivial
+case ("That is insane") but then in the end they happen for sane code.
+
+And yeah, -Wshadow has had tons of history with macro nesting, and
+just being badly done in the first place (eg "strlen" can be a
+perfectly fine local variable).
+
+That said, maybe people could ask the gcc and clan people for a way to
+_mark_ the places where we expect to validly see shadowing. For
+example, that "local variable in a macro expression statement" thing
+is absolutely horrendous to fix with preprocessor tricks to try to
+make for unique identifiers.
+
+But I think it would be much more syntactically reasonable to add (for
+example) a "shadow" attribute to such a variable exactly to tell the
+compiler "yeah, yeah, I know this identifier could shadow an outer
+one" and turn it off that way.
+
+               Linus
