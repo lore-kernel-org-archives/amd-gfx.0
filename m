@@ -4,54 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EC21C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 14:00:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37266C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 14:16:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95AEF10EEB7;
-	Tue,  1 Mar 2022 14:00:27 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6314910EEB7
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 14:00:26 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- s1-20020a056830148100b005acfdcb1f4bso12238060otq.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 06:00:26 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBDC210E1B6;
+	Tue,  1 Mar 2022 14:16:47 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B2A910E121;
+ Tue,  1 Mar 2022 11:28:19 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id qx21so30799294ejb.13;
+ Tue, 01 Mar 2022 03:28:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=T6tei8rQ64Uffbjfd2aMbLI6lk/q2LYvWuRgzJ4+cpI=;
- b=a+nIb06sRyE1NHi2ceQxHWycG7YWAIz7c5leJAn4CMs1/Wlav1ZXvRe1GpX7TxRD6t
- 0QiuQN/vffmRMj5oP0slIemj+YWlJ39vHnzxniVGLwlghcLcfNntPAj3T8Ns9nNFNvoX
- IiUX4ju57YDeL4uWtw0CxDDIg+J9eZmqJNYU4FVr+sf1J1x1OX6XWtR9MO6Hw65wbZAP
- 2cw4ng7jMuB01vtyr8ffIv6bwT/tvkuPGwpURgIdrpHUitBz/hNoK2j2NzdQi6fkVr90
- 7VdASY7daDLkC6YWbMafrkNhTfQE0vM2Vt5j1m3Q8s+RL/DRXmXjc3P2R48U4NBbJu44
- /PZw==
+ h=mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=rLPvv7mVdDwWU3WqqHUc/M/t9o2wkfNNz2uUSA/i/Q0=;
+ b=ioxwEWwSec2mkWoQpVaP+m+cuqfrILVMZy97DsxGJQFNwUj5vt0t9wo5G7myUpC8Gn
+ ea9oHHWNkcI1g0+ETzPDSekL4muwhDYsG3jrD0dPjJWnH1vW4gUq2ufbL8yBIo9ax2rC
+ LCc4peu3G2+oC3D/CoxTwxe0jKznErkS9hGO2cQ4rpTAmgLJ5M6BCvPaoqQObgiQcr6n
+ RKDduahlScES6wicQqME3eGzY8GUno55Oqx2eUsC/sQVyrcKAkNt4/DW8JZWJd6l/Vwp
+ mTTzA+edxLDCldwyXcUf3Jn0ErW39L5ba+PqRXF7jiU95w3jgcW/Rs/bUGAwA8mWZWkw
+ L2Ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=T6tei8rQ64Uffbjfd2aMbLI6lk/q2LYvWuRgzJ4+cpI=;
- b=FyBQut4dO1JRhAx/Mrum2jszp/hm+nWRQnwHxsJTX7sxKOULw5uapxyh2D2qYe3NYM
- Db9KIisDYEXjpz5Pv1pzFqVn1fxx3r4DTKXSwwAa9d2Lgb9RsHpwEtxFfZFdbGCPhEH8
- fxfxdBY2m8mr9XkgAOK89nC4M4rO/EsdqCB+roPkZcQt3e3YuceCNGtMi/0JgqLx6UEm
- cF+Pl8KECX1rjq/UexF4Y93cYfiK6EloFBZUPglVLcY7HDcpb930MN89Yw+xpcxuKOuz
- 3OB1QlwOI3C7VYit5asrq7Gk80g4UOqkPnZjgBoi7ETlqJDnszBY/8/Q7Nsaokb+503k
- KBTg==
-X-Gm-Message-State: AOAM532bcfZtbt+35lHZwCnFabCiPx0Egm4HcwCLa/K7CvTSV+A+eHfd
- GO+gIuCIuEKwD5VoI2gPVhS6ivjEOOt7FhY9Fkmk8Q4n
-X-Google-Smtp-Source: ABdhPJwXtyz40xu8duoP2YzV7YP93UR7fB0WPXQnYFWf0HW+Ga4M9ThscC8LciZf2k1I6yD2vdXcb3Qw9omKfalW170=
-X-Received: by 2002:a9d:5a06:0:b0:5af:b5fd:5b72 with SMTP id
- v6-20020a9d5a06000000b005afb5fd5b72mr12336001oth.200.1646143225636; Tue, 01
- Mar 2022 06:00:25 -0800 (PST)
-MIME-Version: 1.0
-References: <1646137694-12053-1-git-send-email-Prike.Liang@amd.com>
- <1646137694-12053-3-git-send-email-Prike.Liang@amd.com>
-In-Reply-To: <1646137694-12053-3-git-send-email-Prike.Liang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 1 Mar 2022 09:00:14 -0500
-Message-ID: <CADnq5_ODoJeq+H0jSy-6EET6DJb1ELDS2KGf0MaHB=AL26znFg@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu: enable gfxoff routine for GC 10.3.7
-To: Prike Liang <Prike.Liang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=rLPvv7mVdDwWU3WqqHUc/M/t9o2wkfNNz2uUSA/i/Q0=;
+ b=wnosJEtt+lStdp5RbnD3LICp8D3gBbuhoGeTYi9vBHRbLzjt4P/273lOph/aM+2Y5w
+ TpoMfyg33NliiTZLlNPcZLJElzLhnZpqnlHvUPBR+sNOSmuCREdjJkzrtFtm5OS6I9Ew
+ jOjC87f0xN8nIkIJ6ypjfQuhp270kzibYZVoIM0vZpcPIGK4NIIaDy483f53k55wfqFh
+ Kr3BP0qW5IOUXrcsrfSdQJ9kU3QLY2a0DeasT4jwNRIVnM0zACJ9Gr9PGJ9V2a1CWvkh
+ re+wVepiCYcDpVxgQINE4D1koKO7IBOFB3deBgpRo0GmS8xy46IRBNy4cjESexpBA/Vk
+ PIrg==
+X-Gm-Message-State: AOAM531LvL/P5hC/JlXhAzSxQag+RS4J388kTgx3IUZQ3WDY1whtjr0a
+ 5AeUjsU3iuRtinvBuUSLSr8=
+X-Google-Smtp-Source: ABdhPJykJwlP+KqTh6zSzndCpDSZzE2bN4aLh28OSmyBBaWLei6TdHv4i/sMtFtkO4GxsNuXK9LBkw==
+X-Received: by 2002:a17:906:68c2:b0:6b4:9f26:c099 with SMTP id
+ y2-20020a17090668c200b006b49f26c099mr18827008ejr.41.1646134097608; 
+ Tue, 01 Mar 2022 03:28:17 -0800 (PST)
+Received: from smtpclient.apple ([2a02:8109:9d80:3f6c:6db3:8d4c:747e:98ad])
+ by smtp.gmail.com with ESMTPSA id
+ a25-20020a50ff19000000b0040f84cd806csm7036870edu.59.2022.03.01.03.28.15
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 01 Mar 2022 03:28:17 -0800 (PST)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 15.0 \(3693.60.0.1.1\))
+Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
+ as a ptr
+From: Jakob Koschel <jakobkoschel@gmail.com>
+In-Reply-To: <CAHk-=whLK11HyvpUtEftOjc3Gup2V77KpAQ2fycj3uai=qceHw@mail.gmail.com>
+Date: Tue, 1 Mar 2022 12:28:15 +0100
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <CEDAD0D9-56EE-4105-9107-72C2EAD940B0@gmail.com>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
+ <20220228110822.491923-3-jakobkoschel@gmail.com>
+ <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
+ <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
+ <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
+ <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
+ <FC710A1A-524E-481B-A668-FC258F529A2E@gmail.com>
+ <CAHk-=whLK11HyvpUtEftOjc3Gup2V77KpAQ2fycj3uai=qceHw@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+X-Mailer: Apple Mail (2.3693.60.0.1.1)
+X-Mailman-Approved-At: Tue, 01 Mar 2022 14:16:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,64 +79,178 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Huang Rui <ray.huang@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: linux-wireless <linux-wireless@vger.kernel.org>,
+ alsa-devel@alsa-project.org, KVM list <kvm@vger.kernel.org>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Cristiano Giuffrida <c.giuffrida@vu.nl>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
+ linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev, "Bos,
+ H.J." <h.j.bos@vu.nl>, Jason Gunthorpe <jgg@ziepe.ca>,
+ intel-wired-lan@lists.osuosl.org, kgdb-bugreport@lists.sourceforge.net,
+ bcm-kernel-feedback-list@broadcom.com,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
+ Linux PM <linux-pm@vger.kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ v9fs-developer@lists.sourceforge.net,
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
+ linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
+ tipc-discussion@lists.sourceforge.net,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+ linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mike Rapoport <rppt@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Tue, Mar 1, 2022 at 7:30 AM Prike Liang <Prike.Liang@amd.com> wrote:
->
-> Enable gfxoff routine for GC 10.3.7.
->
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c         | 3 +++
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 1 +
->  2 files changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index e048635435a2..92fdccc4a905 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -6557,6 +6557,7 @@ static void gfx_v10_0_kiq_setting(struct amdgpu_ring *ring)
->         case IP_VERSION(10, 3, 5):
->         case IP_VERSION(10, 3, 6):
->         case IP_VERSION(10, 3, 3):
-> +       case IP_VERSION(10, 3, 7):
->                 tmp = RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid);
->                 tmp &= 0xffffff00;
->                 tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
-> @@ -7857,6 +7858,7 @@ static void gfx_v10_0_set_safe_mode(struct amdgpu_device *adev)
->         case IP_VERSION(10, 3, 5):
->         case IP_VERSION(10, 3, 6):
->         case IP_VERSION(10, 3, 3):
-> +       case IP_VERSION(10, 3, 7):
->                 WREG32_SOC15(GC, 0, mmRLC_SAFE_MODE_Sienna_Cichlid, data);
->
->                 /* wait for RLC_SAFE_MODE */
-> @@ -7894,6 +7896,7 @@ static void gfx_v10_0_unset_safe_mode(struct amdgpu_device *adev)
->         case IP_VERSION(10, 3, 5):
->         case IP_VERSION(10, 3, 6):
->         case IP_VERSION(10, 3, 3):
-> +       case IP_VERSION(10, 3, 7):
->                 WREG32_SOC15(GC, 0, mmRLC_SAFE_MODE_Sienna_Cichlid, data);
->                 break;
->         default:
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> index 261a3749c089..05783b9b4b9a 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> @@ -751,6 +751,7 @@ int smu_v13_0_gfx_off_control(struct smu_context *smu, bool enable)
->         switch (adev->ip_versions[MP1_HWIP][0]) {
->         case IP_VERSION(13, 0, 1):
->         case IP_VERSION(13, 0, 3):
-> +       case IP_VERSION(13, 0, 8):
->                 if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
->                         return 0;
->                 if (enable)
-> --
-> 2.17.1
->
+
+> On 1. Mar 2022, at 01:41, Linus Torvalds =
+<torvalds@linux-foundation.org> wrote:
+>=20
+> On Mon, Feb 28, 2022 at 1:47 PM Jakob Koschel <jakobkoschel@gmail.com> =
+wrote:
+>>=20
+>> The goal of this is to get compiler warnings right? This would indeed =
+be great.
+>=20
+> Yes, so I don't mind having a one-time patch that has been gathered
+> using some automated checker tool, but I don't think that works from a
+> long-term maintenance perspective.
+>=20
+> So if we have the basic rule being "don't use the loop iterator after
+> the loop has finished, because it can cause all kinds of subtle
+> issues", then in _addition_ to fixing the existing code paths that
+> have this issue, I really would want to (a) get a compiler warning for
+> future cases and (b) make it not actually _work_ for future cases.
+>=20
+> Because otherwise it will just happen again.
+>=20
+>> Changing the list_for_each_entry() macro first will break all of =
+those cases
+>> (e.g. the ones using 'list_entry_is_head()).
+>=20
+> So I have no problems with breaking cases that we basically already
+> have a patch for due to  your automated tool. There were certainly
+> more than a handful, but it didn't look _too_ bad to just make the
+> rule be "don't use the iterator after the loop".
+>=20
+> Of course, that's just based on that patch of yours. Maybe there are a
+> ton of other cases that your patch didn't change, because they didn't
+> match your trigger case, so I may just be overly optimistic here.
+
+Based on the coccinelle script there are ~480 cases that need fixing
+in total. I'll now finish all of them and then split them by
+submodules as Greg suggested and repost a patch set per submodule.
+Sounds good?
+
+>=20
+> But basically to _me_, the important part is that the end result is
+> maintainable longer-term. I'm more than happy to have a one-time patch
+> to fix a lot of dubious cases if we can then have clean rules going
+> forward.
+>=20
+>> I assumed it is better to fix those cases first and then have a =
+simple
+>> coccinelle script changing the macro + moving the iterator into the =
+scope
+>> of the macro.
+>=20
+> So that had been another plan of mine, until I actually looked at
+> changing the macro. In the one case I looked at, it was ugly beyond
+> belief.
+>=20
+> It turns out that just syntactically, it's really nice to give the
+> type of the iterator from outside the way we do now. Yeah, it may be a
+> bit odd, and maybe it's partly because I'm so used to the
+> "list_for_each_list_entry()" syntax, but moving the type into the loop
+> construct really made it nasty - either one very complex line, or
+> having to split it over two lines which was even worse.
+>=20
+> Maybe the place I looked at just happened to have a long typename, but
+> it's basically always going to be a struct, so it's never a _simple_
+> type. And it just looked very odd adn unnatural to have the type as
+> one of the "arguments" to that list_for_each_entry() macro.
+>=20
+> So yes, initially my idea had been to just move the iterator entirely
+> inside the macro. But specifying the type got so ugly that I think
+> that
+>=20
+>        typeof (pos) pos
+>=20
+> trick inside the macro really ends up giving us the best of all =
+worlds:
+>=20
+> (a) let's us keep the existing syntax and code for all the nice cases
+> that did everything inside the loop anyway
+>=20
+> (b) gives us a nice warning for any normal use-after-loop case
+> (unless you explicitly initialized it like that
+> sgx_mmu_notifier_release() function did for no good reason
+>=20
+> (c) also guarantees that even if you don't get a warning,
+> non-converted (or newly written) bad code won't actually _work_
+>=20
+> so you end up getting the new rules without any ambiguity or mistaken
+>=20
+>> With this you are no longer able to set the 'outer' pos within the =
+list
+>> iterator loop body or am I missing something?
+>=20
+> Correct. Any assignment inside the loop will be entirely just to the
+> local loop case. So any "break;" out of the loop will have to set
+> another variable - like your updated patch did.
+>=20
+>> I fail to see how this will make most of the changes in this
+>> patch obsolete (if that was the intention).
+>=20
+> I hope my explanation above clarifies my thinking: I do not dislike
+> your patch, and in fact your patch is indeed required to make the new
+> semantics work.
+
+ok it's all clear now, thanks for clarifying.
+I've defined all the 'tmp' iterator variables uninitialized so applying
+your patch on top of that later will just give the nice compiler warning=20=
+
+if they are used past the loop body.
+
+>=20
+> What I disliked was always the maintainability of your patch - making
+> the rules be something that isn't actually visible in the source code,
+> and letting the old semantics still work as well as they ever did, and
+> having to basically run some verification pass to find bad users.
+
+Since this patch is not a complete list of cases that need fixing (30%)
+I haven't included the actual change of moving the iterator variable
+into the loop and thought that would be a second step coming after this
+is merged.
+
+With these changes alone, yes you still rely on manual verification =
+passes.
+
+>=20
+> (I also disliked your original patch that mixed up the "CPU
+> speculation type safety" with the actual non-speculative problems, but
+> that was another issue).
+>=20
+>                Linus
+
+- Jakob
+
