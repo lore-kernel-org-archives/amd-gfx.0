@@ -4,81 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06329C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 17:46:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 021E6C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 18:08:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FD5910E732;
-	Tue,  1 Mar 2022 17:46:43 +0000 (UTC)
-X-Greylist: delayed 550 seconds by postgrey-1.36 at gabe;
- Tue, 01 Mar 2022 17:45:46 UTC
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B788010E6D6;
- Tue,  1 Mar 2022 17:45:46 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 668835801CF;
- Tue,  1 Mar 2022 12:36:34 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Tue, 01 Mar 2022 12:36:34 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm3; bh=5OE8xr6GO9X7MbNpDAcWFGeEO3b3B/8LX5WMVM
- 23luQ=; b=PuP2NuoqB9WepsjY0Uqokte1F02OSePW/KnqWPOHGfC62jDMQy8d6J
- jihmHY7jaxPeYmV/brYSLMo2rdd0E65RFIbVZNaw+d6hF5TlV5h/HTFiyyQeuhEh
- tTvMohVc8vJzz2F3uGXDhJ11n60AMBcwryX0OIQ4h4vBoJz9sXnQjtTWmMBfJvV8
- ASNImP/JJmHc6aQngUkaR/9ejN6V67gkY3Ss3hOhMxZ05fa2rytR+8neryd7GnHR
- NnoILjHkJCXbghnuIwO3WAIr0wjFgm+H99CgrlgjXtrJoB87p0eZTz8QaQ9jXLS7
- eUmDU4ThQ2iD/GAcK9q8FPfYZ3dj5Siw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=5OE8xr6GO9X7MbNpD
- AcWFGeEO3b3B/8LX5WMVM23luQ=; b=EDVGv6yEMy7PTbky8OfXVA9jYKh0oiM5+
- sk6xt1CX3smAZYI0P9oaKzOCIkwMemVmh9foKoLwOV/IyVUBTTJc+ljLrovpUDdP
- pIA4BCkMgcGpU96mM/8o9zjz4bY87GlxWmxlUETAhWUvR7QqjYOuAQqLjAz9vvM2
- 9w41DE+muRcTBgXgq7R5mX2xPAK9bu7QEmldC6d/UhIWw84PgZEMMUkVZDfimvGr
- 9rb1WTZ4HmbXffSgmjvpYAD0fz3a3kb/jxO9vzcKzkIUx9MDQUxolnVJ5gWPPm0P
- 3SACLLdt3Ji3p4//lVUF9os4MIANF8EQiUgikZ8An4R/ZWSxaE7Og==
-X-ME-Sender: <xms:oFkeYrv0LJt2Pjt0ZOYMYd1jCK6G-Z0GZXtRlOiCbijoVlbqDToesg>
- <xme:oFkeYsdRXoRXAxTjhPFWtM5JX8rU2-dsIwxZfpFocA89gDBFD4vx9xsWmcbxEuUyQ
- lpRakwPpYLi7A>
-X-ME-Received: <xmr:oFkeYuzzdQb5kL72Vvj74Xn0xRRyhzff8uvNHTyUqFsrLF_56anw9-ykyIbZGqAzSj0KTqXLBgC1Qf0KKdPZ7IM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddruddtvddguddttdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghg
- ucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepveeuhe
- ejgfffgfeivddukedvkedtleelleeghfeljeeiueeggeevueduudekvdetnecuvehluhhs
- thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorg
- hhrdgtohhm
-X-ME-Proxy: <xmx:oFkeYqNP0oPgoNRpau1EsmnsGvsi8MuHt5Oau7Uh5DcasQw65k9YTg>
- <xmx:oFkeYr8eoBRonSMDQgE0d2CdwAX12XsrowbLGxOxF_rvtS3YwiTEgg>
- <xmx:oFkeYqVNxx7WBcYUGhcHc73BR9KI7xEAuh9FjZrqFDwJGYsF_7MqUw>
- <xmx:olkeYkWtK93reuC1fg-f2X2RrUvR780eGtvCg6vOtajRgdiJ73bSmQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Mar 2022 12:36:31 -0500 (EST)
-Date: Tue, 1 Mar 2022 18:36:27 +0100
-From: Greg KH <greg@kroah.com>
-To: Jakob Koschel <jakobkoschel@gmail.com>
-Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
- as a ptr
-Message-ID: <Yh5ZmwiH5AxtQ69K@kroah.com>
-References: <20220228110822.491923-1-jakobkoschel@gmail.com>
- <20220228110822.491923-3-jakobkoschel@gmail.com>
- <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
- <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
- <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
- <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
- <FC710A1A-524E-481B-A668-FC258F529A2E@gmail.com>
- <CAHk-=whLK11HyvpUtEftOjc3Gup2V77KpAQ2fycj3uai=qceHw@mail.gmail.com>
- <CEDAD0D9-56EE-4105-9107-72C2EAD940B0@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 876A510E5E9;
+	Tue,  1 Mar 2022 18:08:22 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2076.outbound.protection.outlook.com [40.107.212.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB5510E5E9
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 18:08:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZeOOO/Ukt070dnd6laikIHbP5W0ZtyhoqYqnA9rqwo067lCwuZqhJrXYEvMNOu1nNavsYUw/jppGN+P9gFTyGiWDW0yXKFY377PDOpEGZ7XL0QmXeclrd1czm/AupL3l2AKP0qyU+FZWcNmhbmC6FD2Zw5DDDmljPbDgRcytwknrFsVDBvDPnqOdOlStlZ0fUIcqf2NYqygdjuDVb1qNti4joTy+l2h5NI6KgcWEBA0rkDEnxD7a1cvoDnpH/o+ihQ0GMdIniNI+HADSGSlzlnM1qmV47if5rzP80QMlNiKA7vWXH/QDqAS/eC9hyFUPjUfpQuOg3hzKLQ5BgStV2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NvqmSLDPL3UJvVlg2EmH6divy1f9pLvGxVOuHUxzo7I=;
+ b=lTvE7lBm5/uH6isEuRFmDApdO/meMcYJ9lFBLQPass9aL4r12U6CHAIFyIMDgzwlOOuN6kFEAjU+xS7k/fBe3TPOcUVtiAAw5y8XZpmuEtCABJJ8o3zX1j7CF2dWzkIRB2j6/kb18vIvym1TBQLGmjS4dbCrALOxr3Z17IQOdLK+OXOV6gu8BxeFpmZsycPTDhJANEvuabGP4HCoLvtv5aigQIiuBpBjoTpFoK3tX3YYYnBGzWqYapubOLjkKNHZtsATjtOcF36NW0xYJoT9/3pRtJO47mkkN5gTXwCsadX2HFasqxl1PExeCMqT+RhBQZFf4sQW88X67NSXyJ669A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NvqmSLDPL3UJvVlg2EmH6divy1f9pLvGxVOuHUxzo7I=;
+ b=PWbd+PYALRK/2iel/LzwtiyOc8GQQPWMJlAcvkE0bzJCp7hlkA++094FM0AS6pgVhLhieZDVpgFI4KTL6pQWIirmPd4swNSF4ysKAHqFl1U6Ru2v/wB2u0E4m4mji1hHruKkR0qkNQXmIaWTORupg467z7Z8nXZoGIThA8qfmy0=
+Received: from DM6PR06CA0028.namprd06.prod.outlook.com (2603:10b6:5:120::41)
+ by DM6PR12MB3354.namprd12.prod.outlook.com (2603:10b6:5:11f::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.25; Tue, 1 Mar
+ 2022 18:08:18 +0000
+Received: from DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:120:cafe::5c) by DM6PR06CA0028.outlook.office365.com
+ (2603:10b6:5:120::41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.13 via Frontend
+ Transport; Tue, 1 Mar 2022 18:08:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT052.mail.protection.outlook.com (10.13.172.111) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5038.14 via Frontend Transport; Tue, 1 Mar 2022 18:08:18 +0000
+Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.18; Tue, 1 Mar 2022 12:08:17 -0600
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: Fix sigsev when accessing MMIO on hot unplug.
+Date: Tue, 1 Mar 2022 13:07:59 -0500
+Message-ID: <20220301180800.1781042-1-andrey.grodzovsky@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CEDAD0D9-56EE-4105-9107-72C2EAD940B0@gmail.com>
-X-Mailman-Approved-At: Tue, 01 Mar 2022 17:46:41 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1cd6f453-1de4-41f4-3511-08d9fbae76b0
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3354:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3354342FC5556E8ED32D5B1CEA029@DM6PR12MB3354.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Lo8aUAmQgj+23Wq3kczzwwtxhKUvo7e5THl9gYPlBv/QDu09Qr28BAGdyPOZpyRcFxIEX5v/ISfgUwqmjtUdW6vVKhR0HmeRsHFv/M3Y8rbh5jUc9SjET+5ud/tV8RCFZA1alJxYlgc8YiJtpDj+pISjimqyDM2rCgyTYXK945KjlqJvMqd03HIv3T19b4irxMMMZ9izEBbZIpEwKWWRzxyVf78mUzskhVuymIxkCGgXrOoTnFLSSV0pa8mmzw5Tqxu84Dk/z+IwkAWVchWJJvkQLpINwoizZhEgHjbEqAZ4hgtAVJy+s9lsWhi5a39LKKwxTGdbQ688JmJaVqtYfhumxZ+lgBvHS2zNYeV+KPUlOS1t8OgUtX94G+zzRfC/fAMDL1sozuejSs5WTgazBwCMfc4uBMtokDtlT/Ck1FyHL2FWs4BCGLAvo8totyHtC+pfjNTsoU+RES/58Q4zM+ittl+B1MyLw1GmB0R+9aVTMJTai7D9jvKCHr9m9eicg3WpyukD7ztCxYZFJFfjPqSwJwA2n3PAHh54UvDPZBvrHo8zNoddl8oPBSJ/ng5vrnTJSH5zG9uPAmB4iCQIemKtwXclrn3xIGABw//iZAtS1lAF7T8h1DRpuvzgyF0t5XnZ4BcykTdZjKvcOzDSKYiqcdBhKP0qW5FTPxsCtBSj3uPdV9Js69t3B1cLiFkHhaYchO2Yk8qynj1tqZNq1g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(36860700001)(2906002)(81166007)(4326008)(6666004)(82310400004)(70206006)(70586007)(8676002)(5660300002)(36756003)(6916009)(508600001)(356005)(40460700003)(86362001)(8936002)(47076005)(44832011)(54906003)(83380400001)(1076003)(2616005)(316002)(336012)(26005)(16526019)(186003)(426003)(7696005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2022 18:08:18.2682 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cd6f453-1de4-41f4-3511-08d9fbae76b0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3354
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,93 +98,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-wireless <linux-wireless@vger.kernel.org>,
- alsa-devel@alsa-project.org, KVM list <kvm@vger.kernel.org>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
- nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Cristiano Giuffrida <c.giuffrida@vu.nl>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
- linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
- linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
- linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev, "Bos,
- H.J." <h.j.bos@vu.nl>, Jason Gunthorpe <jgg@ziepe.ca>,
- intel-wired-lan@lists.osuosl.org, kgdb-bugreport@lists.sourceforge.net,
- bcm-kernel-feedback-list@broadcom.com,
- Dan Carpenter <dan.carpenter@oracle.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
- Linux PM <linux-pm@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- v9fs-developer@lists.sourceforge.net,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
- linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
- tipc-discussion@lists.sourceforge.net,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- linux-fsdevel <linux-fsdevel@vger.kernel.org>,
- linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Mike Rapoport <rppt@kernel.org>
+Cc: Alexander.Deucher@amd.com, Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 01, 2022 at 12:28:15PM +0100, Jakob Koschel wrote:
-> 
-> 
-> > On 1. Mar 2022, at 01:41, Linus Torvalds <torvalds@linux-foundation.org> wrote:
-> > 
-> > On Mon, Feb 28, 2022 at 1:47 PM Jakob Koschel <jakobkoschel@gmail.com> wrote:
-> >> 
-> >> The goal of this is to get compiler warnings right? This would indeed be great.
-> > 
-> > Yes, so I don't mind having a one-time patch that has been gathered
-> > using some automated checker tool, but I don't think that works from a
-> > long-term maintenance perspective.
-> > 
-> > So if we have the basic rule being "don't use the loop iterator after
-> > the loop has finished, because it can cause all kinds of subtle
-> > issues", then in _addition_ to fixing the existing code paths that
-> > have this issue, I really would want to (a) get a compiler warning for
-> > future cases and (b) make it not actually _work_ for future cases.
-> > 
-> > Because otherwise it will just happen again.
-> > 
-> >> Changing the list_for_each_entry() macro first will break all of those cases
-> >> (e.g. the ones using 'list_entry_is_head()).
-> > 
-> > So I have no problems with breaking cases that we basically already
-> > have a patch for due to  your automated tool. There were certainly
-> > more than a handful, but it didn't look _too_ bad to just make the
-> > rule be "don't use the iterator after the loop".
-> > 
-> > Of course, that's just based on that patch of yours. Maybe there are a
-> > ton of other cases that your patch didn't change, because they didn't
-> > match your trigger case, so I may just be overly optimistic here.
-> 
-> Based on the coccinelle script there are ~480 cases that need fixing
-> in total. I'll now finish all of them and then split them by
-> submodules as Greg suggested and repost a patch set per submodule.
-> Sounds good?
+Protect with drm_dev_enter/exit
 
-Sounds good to me!
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-If you need help carving these up and maintaining them over time as
-different subsystem maintainers accept/ignore them, just let me know.
-Doing large patchsets like this can be tough without a lot of
-experience.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index f522b52725e4..4294f17cedcb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -23,6 +23,7 @@
+  */
+ 
+ #include <drm/drm_auth.h>
++#include <drm/drm_drv.h>
+ #include "amdgpu.h"
+ #include "amdgpu_sched.h"
+ #include "amdgpu_ras.h"
+@@ -339,7 +340,7 @@ static void amdgpu_ctx_fini(struct kref *ref)
+ {
+ 	struct amdgpu_ctx *ctx = container_of(ref, struct amdgpu_ctx, refcount);
+ 	struct amdgpu_device *adev = ctx->adev;
+-	unsigned i, j;
++	unsigned i, j, idx;
+ 
+ 	if (!adev)
+ 		return;
+@@ -350,7 +351,12 @@ static void amdgpu_ctx_fini(struct kref *ref)
+ 			ctx->entities[i][j] = NULL;
+ 		}
+ 	}
+-	amdgpu_ctx_set_stable_pstate(ctx, AMDGPU_CTX_STABLE_PSTATE_NONE);
++
++	if (drm_dev_enter(&adev->ddev, &idx)) {
++		amdgpu_ctx_set_stable_pstate(ctx, AMDGPU_CTX_STABLE_PSTATE_NONE);
++		drm_dev_exit(idx);
++	}
++
+ 	kfree(ctx);
+ }
+ 
+-- 
+2.25.1
 
-thanks,
-
-greg k-h
