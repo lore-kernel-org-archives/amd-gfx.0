@@ -4,67 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07C20C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 18:31:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C9A7C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 18:35:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0BEE10E688;
-	Tue,  1 Mar 2022 18:31:41 +0000 (UTC)
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E03D10E469
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 18:14:09 +0000 (UTC)
-Received: by mail-pf1-x430.google.com with SMTP id z15so15002595pfe.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 10:14:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=N36sF4HUer+rUuc5VxWx2NxZT2Mje9G1bKhkVtQFmow=;
- b=O9Pc4FRhQaHO8JwtvKmEa7P/p93QhIWPziYnJxBP3SmXkKfXwbS/+UXcAcizlZe2qE
- 5++D1AzgFSiNA6GVcHz58RghXwcZj0T+stAg2S8I6BdGwjnEpqEP1SHJlTJIwhdk7I/A
- Km+JuAoSqO/aabb7J1BxN3aslickTdbOZI2Hw=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 254B610E3A1;
+	Tue,  1 Mar 2022 18:35:01 +0000 (UTC)
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
+ [IPv6:2607:f8b0:4864:20::c36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEDC210E6D5
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 18:34:59 +0000 (UTC)
+Received: by mail-oo1-xc36.google.com with SMTP id
+ w3-20020a4ac183000000b0031d806bbd7eso7774699oop.13
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 10:34:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=z0ULRRPXtH7mL/HrUqIVxlBAwHmJIlLjuOwGinShgso=;
+ b=jO8hWHCUftks2gPv/g+iKlOfaOYcZ65AbXSzobeTNzNvRHkjDQl6EcUHX6Q1Wzjj//
+ lmj2wJZPTWkj41O69d3tVa2ziAtD4ljj+rlWgQzlLlX4R/sijSY7/DLKGUvP38tFWr0m
+ 2x2neV+aT3LW6pC8hDfd3hyELhjNsmxGv3D0IXDO9rx+xuNrD6ZhqjAVToraXus3a085
+ o5EDRIRjv/svI6wR3/zJka6UgDlwtuDAivUFcu7R+gzQr8w9AP7cQe/14+v/fQAc0KgA
+ cefwBop5rn6cJL7roP+OE46f9yARuHAnqsjQ1FX54C3zSSLjju8Cb37+PiHwavJgHB41
+ YF1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=N36sF4HUer+rUuc5VxWx2NxZT2Mje9G1bKhkVtQFmow=;
- b=Xgrs8ocxG1a+FxIH7vrJM/AK/NMjpMdNGNONUUkvBBpCmrYZPx6q3ND6Cd8o2BeS7c
- c3nWAXkcwKlesql9N4/PShgfsyXq9Sq7S2UuDOeucxsxCXBHVIFTMIwJdPxW1ADzob5h
- sPXblQQbGSTWKC94QucvTBPFk/nKeCxON93IMKvOpOGbxCdvWjgZX7FQ0QfUiSh7IwOB
- ovcrn4pjFQqDvTAHXeLZx87RmdFN66F/4CYu8NDr52NavxYdI5oGvFHdD7Wpa9L5rslw
- ay/ED1SYVCDCpWDF8DYxSai5jdM7wyK0MTZsG12wDZw1b2xfpaDT8YMpTvFVy6ZJPTv3
- nZVQ==
-X-Gm-Message-State: AOAM531PBeHFKZa2x9x98IEZVCS/UNQTGUjB74GRqBzXuhJ1q8gTMwC+
- j+GfDbhfXaSRcmdLp49YjAt05Q==
-X-Google-Smtp-Source: ABdhPJwl/oZl7jTR8Xbiy0diMdVywUoBtjuUV8iCsVjT5dJdX8x+nPRIiFjmEv3Xm0s1V2wXWPjOfA==
-X-Received: by 2002:a62:d156:0:b0:4cd:fd21:e406 with SMTP id
- t22-20020a62d156000000b004cdfd21e406mr28741951pfl.44.1646158448831; 
- Tue, 01 Mar 2022 10:14:08 -0800 (PST)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id
- nn10-20020a17090b38ca00b001bc3a60b324sm2540095pjb.46.2022.03.01.10.14.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Mar 2022 10:14:08 -0800 (PST)
-Date: Tue, 1 Mar 2022 10:14:07 -0800
-From: Kees Cook <keescook@chromium.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
- as a ptr
-Message-ID: <202203011008.AA0B5A2D@keescook>
-References: <20220228110822.491923-1-jakobkoschel@gmail.com>
- <20220228110822.491923-3-jakobkoschel@gmail.com>
- <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
- <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
- <CAHk-=wj8fkosQ7=bps5K+DDazBXk=ypfn49A0sEq+7-nZnyfXA@mail.gmail.com>
- <CAHk-=wiTCvLQkHcJ3y0hpqH7FEk9D28LDvZZogC6OVLk7naBww@mail.gmail.com>
- <Yh0tl3Lni4weIMkl@casper.infradead.org>
- <CAHk-=wgBfJ1-cPA2LTvFyyy8owpfmtCuyiZi4+um8DhFNe+CyA@mail.gmail.com>
- <Yh1aMm3hFe/j9ZbI@casper.infradead.org>
- <CAHk-=wi0gSUMBr2SVF01Gy1xC1w1iGtJT5ztju9BPWYKjdh+NA@mail.gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=z0ULRRPXtH7mL/HrUqIVxlBAwHmJIlLjuOwGinShgso=;
+ b=S8TXlB6HWBn388guWxqxj8Dfecw/6o9O5UgvBnCAnQAwoWX4AD1mUn8uA9A8sp3T39
+ 67Tbk8dyY3S85RhV1kY9lCB0VCj0DiHaZGqiHHrYINUADi3JlOMMIsDKmVmaP1m/PToF
+ lJn+JvmOWLD7LHUpNnPjSFcPtmSawDRdmwZ1NmxLucdQDkcKnvLp238Z9aE1FO9UZHSP
+ cSm/KBkf/fPMg6PpSvOIboJwA4As7u6yTfonUNu1OH5XqSj/N0laDEQCY8BYHpvc79Or
+ rRdXdtXjltE+BWpAswgrThvva+qW/eqHrLf/AzP+hTXG2Eg0Ib15QLwn1vTEJR3Zni1R
+ 74lQ==
+X-Gm-Message-State: AOAM530VC37hXzfXq10JbBOf3fMHtUz1UM5qSeeSYJPp2tFCqf0ciAYa
+ kFvZhW3TBDh0pR81cJDIHZPspkaQ0Rsc/mDF0MtF6GZQ
+X-Google-Smtp-Source: ABdhPJx1JniZpcUBiGH27rmeALGNi7dUzeyHXmXfeLbBDSquLEwWIEzntqwXXjTB/3rVhqyuenhMXGtoxGAzF8niPQs=
+X-Received: by 2002:a05:6870:1b85:b0:d6:feda:913f with SMTP id
+ hm5-20020a0568701b8500b000d6feda913fmr4919384oab.123.1646159698759; Tue, 01
+ Mar 2022 10:34:58 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wi0gSUMBr2SVF01Gy1xC1w1iGtJT5ztju9BPWYKjdh+NA@mail.gmail.com>
-X-Mailman-Approved-At: Tue, 01 Mar 2022 18:31:40 +0000
+References: <20220301180800.1781042-1-andrey.grodzovsky@amd.com>
+ <20220301180800.1781042-2-andrey.grodzovsky@amd.com>
+In-Reply-To: <20220301180800.1781042-2-andrey.grodzovsky@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 1 Mar 2022 13:34:47 -0500
+Message-ID: <CADnq5_P0GJ7wpFWoT8XYat-4RDyBCtgrpZ19cXG2b=5DGwszww@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Bump minor version for hot plug tests
+ enabliing.
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,62 +64,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-wireless <linux-wireless@vger.kernel.org>,
- alsa-devel@alsa-project.org, KVM list <kvm@vger.kernel.org>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
- nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Cristiano Giuffrida <c.giuffrida@vu.nl>, Matthew Wilcox <willy@infradead.org>,
- linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
- linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
- linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- intel-wired-lan@lists.osuosl.org, kgdb-bugreport@lists.sourceforge.net,
- bcm-kernel-feedback-list@broadcom.com,
- Dan Carpenter <dan.carpenter@oracle.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Arnd Bergman <arnd@arndb.de>, Linux PM <linux-pm@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, "Bos, H.J." <h.j.bos@vu.nl>,
- Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
- linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
- tipc-discussion@lists.sourceforge.net,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- linux-fsdevel <linux-fsdevel@vger.kernel.org>,
- linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Mike Rapoport <rppt@kernel.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 28, 2022 at 04:45:11PM -0800, Linus Torvalds wrote:
-> Really. The "-Wshadow doesn't work on the kernel" is not some new
-> issue, because you have to do completely insane things to the source
-> code to enable it.
+On Tue, Mar 1, 2022 at 1:08 PM Andrey Grodzovsky
+<andrey.grodzovsky@amd.com> wrote:
+>
+> This will allow to enable the tests only after latest fix
+> after which the tests passed on my system.
+>
+> I tested on NV21 standalone and Vega 10 and Polaris as
+> pair with DRI_PRIME.
+>
+> It's possible there might be still issues on ASICs i don't
+> have at my posession but that that the point of enbling
+> the tests finally - if other people during testing will
+> encounter errors they will report and I will be able to fix.
+>
+> The releated merge request for enabling libdrm tests suite  is in
+> https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/227
+>
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 
-The first big glitch with -Wshadow was with shadowed global variables.
-GCC 4.8 fixed that, but it still yells about shadowed functions. What
-_almost_ works is -Wshadow=local. At first glace, all the warnings
-look solvable, but then one will eventually discover __wait_event()
-and associated macros that mix when and how deeply it intentionally
-shadows variables. :)
+Typo in the title: enabliing -> enabling
 
-Another way to try to catch misused shadow variables is
--Wunused-but-set-varible, but it, too, has tons of false positives.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 415ecf8b2e05..be4adda8d674 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -100,9 +100,10 @@
+>   * - 3.43.0 - Add device hot plug/unplug support
+>   * - 3.44.0 - DCN3 supports DCC independent block settings: !64B && 128B, 64B && 128B
+>   * - 3.45.0 - Add context ioctl stable pstate interface
+> + * * 3.46.0 - Add context ioctl stable pstate interface
 
-I tried to capture some of the rationale and research here:
-https://github.com/KSPP/linux/issues/152
+Please update the comment here to say something like bump for hotplug
+handing.  With the typo and this fixed, series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
--- 
-Kees Cook
+
+>   */
+>  #define KMS_DRIVER_MAJOR       3
+> -#define KMS_DRIVER_MINOR       45
+> +#define KMS_DRIVER_MINOR       46
+>  #define KMS_DRIVER_PATCHLEVEL  0
+>
+>  int amdgpu_vram_limit;
+> --
+> 2.25.1
+>
