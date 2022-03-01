@@ -4,66 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDE24C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 07:48:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 715F1C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 08:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73B5B10E527;
-	Tue,  1 Mar 2022 07:48:20 +0000 (UTC)
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9488A10E527;
- Tue,  1 Mar 2022 07:48:19 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id h15so20819066edv.7;
- Mon, 28 Feb 2022 23:48:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=MnJLyK92wo1ianqqQrVmdLoec7cz9whmMUPEVRDu+oA=;
- b=CVaydF1H4XMdJDb1BVhWeAbLrkhb9uB/9ed31/P7uXF7fh/h34wU1g/MGHbhXoqq/x
- PlAA6ghBwhXkZz0+3VrZ5uw8cR7wUALpb3C1CE2aTbH7ymko5+P3tfVdexz15pSjAe8l
- 47p28EUON+tDvymCauYnqyXsxHAAZpOOtW8m+9sos3qbT0ZULSdl3B2T0VP2mojFGfJP
- annWU+NbHk+NTBi5VKQ+btY6oC2k6BUdsouzaNAwklrdOGy7DM3k2xiDHropzjZFGyzj
- lJagdy3GeyFFJSAOggSBegP3gf/wrRzBZPpB1KdALfoSnYN8CAESli6mBQgCF+Uq482n
- iQfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=MnJLyK92wo1ianqqQrVmdLoec7cz9whmMUPEVRDu+oA=;
- b=S9LT9/GW93E049pJzEpkJZt8Cn4uEGd56TV9b3nYQ0t+95JOdBgeRE4u8Uu+Jh4YTp
- CQ5nyscb0EQV6tqqCgGaTGw+KPith1az8MNDcT1Pmkwu81ljMbAqs95gsn0Dp2YdaoQE
- CH+Y/9VjMx5Gwu89X4qSJg3S9s/hIJiL98uyue6GAsyOYnmVu8Hsm/lo4AZzxnAud0i5
- pltxHxRK5yRLiMuryJMw7sfyqBaP7AkFop6Jq76yVUrC/e7NMKjB85j9EJHjrNl1Lv/D
- mAf4amh7d26gEh20Nbn+EbnmScfrYKBSte0SwE82GkWas0vHBafv3ndHE8mt65qxDJHT
- O+xQ==
-X-Gm-Message-State: AOAM530DWWA1YvxiLWWrbpMiCvX68LSEICVOrYLs6zU+Sssy3lm5MUNG
- ZzKiM8Sln8pkoFDLGl491qQ=
-X-Google-Smtp-Source: ABdhPJxSZWuYz9uwbnnp09wf9QrW8XIJMOh8VgkpQ43KaO8e9NlZYPo3jPs4kTe8Z1mnpOegt8/XsA==
-X-Received: by 2002:a05:6402:2065:b0:407:eb07:740 with SMTP id
- bd5-20020a056402206500b00407eb070740mr22917504edb.406.1646120897282; 
- Mon, 28 Feb 2022 23:48:17 -0800 (PST)
-Received: from [192.168.178.21] (p5b0eab60.dip0.t-ipconnect.de. [91.14.171.96])
- by smtp.gmail.com with ESMTPSA id
- eo8-20020a1709069b0800b006ce6eef6836sm5045690ejc.131.2022.02.28.23.48.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Feb 2022 23:48:16 -0800 (PST)
-Message-ID: <b87fb8ff-a427-491b-5a5e-3b401e1de462@gmail.com>
-Date: Tue, 1 Mar 2022 08:48:15 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2F4410EB8A;
+	Tue,  1 Mar 2022 08:41:34 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C13C510E35C;
+ Tue,  1 Mar 2022 07:04:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646118294; x=1677654294;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=cNy2VhZ7uIfEAZ6OMEmFA5tBH3wtQ7ZLN6kAGMbwVEs=;
+ b=LQEyt97DG1JFEHWI6GollxB9DniuQnqCIhoSU3dRPAlWXF87EVioUslm
+ 7CbDsGagbDGQd4qrQX8LvVZwIp+U+zN5VvxWYQpZvsMnts/OxOzNuBW3w
+ ExxiDki+0rCaU7ZsPm4pw87t3UHMFD6/oAAZRIyk8NZTJj+5EoocLKTC7
+ SVGprwLrfjitMMMRp7+Ufa1FDIk7ZIcAwHZY2MVegYa4wg2cveFUuV7Cj
+ JZiJnbfftIghe1oQh7Dwbuf9rKZykEpG4DO2JVMIwSmOTbk5f5xWpV2V9
+ RggKhL0CTe82BLLykCgihtozagzBmCODjSu0xGEsNce4O9dNXRICuyzj4 w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10272"; a="240485818"
+X-IronPort-AV: E=Sophos;i="5.90,145,1643702400"; d="scan'208";a="240485818"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2022 23:04:54 -0800
+X-IronPort-AV: E=Sophos;i="5.90,145,1643702400"; d="scan'208";a="510405909"
+Received: from lahna.fi.intel.com (HELO lahna) ([10.237.72.162])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2022 23:04:49 -0800
+Received: by lahna (sSMTP sendmail emulation); Tue, 01 Mar 2022 09:04:47 +0200
+Date: Tue, 1 Mar 2022 09:04:47 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+Subject: Re: [PATCH v5 3/7] PCI: Drop the `is_thunderbolt` attribute from PCI
+ core
+Message-ID: <Yh3Fj8kA5mkbp8Hp@lahna>
+References: <BL1PR12MB5157004F38E3FEFF046D9BE4E2019@BL1PR12MB5157.namprd12.prod.outlook.com>
+ <20220228221344.GA529289@bhelgaas>
+ <20220228223246.GA11428@wunner.de>
+ <BL1PR12MB5157D5E18AB8206E2085C952E2019@BL1PR12MB5157.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/amdgpu: fix suspend/resume hang regression
-Content-Language: en-US
-To: Qiang Yu <qiang.yu@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Paul Menzel <pmenzel@molgen.mpg.de>
-References: <20220301062655.232955-1-qiang.yu@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220301062655.232955-1-qiang.yu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <BL1PR12MB5157D5E18AB8206E2085C952E2019@BL1PR12MB5157.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+X-Mailman-Approved-At: Tue, 01 Mar 2022 08:41:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,40 +61,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Michael Jamet <michael.jamet@intel.com>,
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ "open list:THUNDERBOLT DRIVER" <linux-usb@vger.kernel.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>,
+ Andreas Noever <andreas.noever@gmail.com>, Lukas Wunner <lukas@wunner.de>,
+ Bjorn Helgaas <helgaas@kernel.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, Yehezkel Bernat <YehezkelShB@gmail.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 01.03.22 um 07:26 schrieb Qiang Yu:
-> Regression has been reported that suspend/resume may hang with
-> the previous vm ready check commit:
-> https://gitlab.freedesktop.org/drm/amd/-/issues/1915#note_1278198
->
-> So bring back the evicted list check as a temp fix.
->
-> Fixes: cc8dd2cc1a97 ("drm/amdgpu: check vm ready by amdgpu_vm->evicting flag")
-> Signed-off-by: Qiang Yu <qiang.yu@amd.com>
+Hi,
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Cc: <stable@vger.kernel.org>
+On Mon, Feb 28, 2022 at 10:36:59PM +0000, Limonciello, Mario wrote:
+> [AMD Official Use Only]
+> 
+> > -----Original Message-----
+> > From: Lukas Wunner <lukas@wunner.de>
+> > Sent: Monday, February 28, 2022 16:33
+> > To: Bjorn Helgaas <helgaas@kernel.org>
+> > Cc: Limonciello, Mario <Mario.Limonciello@amd.com>; Mika Westerberg
+> > <mika.westerberg@linux.intel.com>; Michael Jamet
+> > <michael.jamet@intel.com>; open list:PCI SUBSYSTEM <linux-
+> > pci@vger.kernel.org>; open list:THUNDERBOLT DRIVER <linux-
+> > usb@vger.kernel.org>; Yehezkel Bernat <YehezkelShB@gmail.com>; open
+> > list:DRM DRIVERS <dri-devel@lists.freedesktop.org>; open list:X86
+> > PLATFORM DRIVERS <platform-driver-x86@vger.kernel.org>; Andreas
+> > Noever <andreas.noever@gmail.com>; open list:RADEON and AMDGPU
+> > DRM DRIVERS <amd-gfx@lists.freedesktop.org>; open list:DRM DRIVER FOR
+> > NVIDIA GEFORCE/QUADRO GPUS <nouveau@lists.freedesktop.org>; Bjorn
+> > Helgaas <bhelgaas@google.com>; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>
+> > Subject: Re: [PATCH v5 3/7] PCI: Drop the `is_thunderbolt` attribute from PCI
+> > core
+> > 
+> > On Mon, Feb 28, 2022 at 04:13:44PM -0600, Bjorn Helgaas wrote:
+> > > On Mon, Feb 28, 2022 at 03:33:13PM +0000, Limonciello, Mario wrote:
+> > > > > On Fri, Feb 25, 2022 at 11:42:24AM -0600, Bjorn Helgaas wrote:
+> > > > > > That would just leave the "PCI_VSEC_ID_INTEL_TBT implies external-
+> > > > > facing"
+> > > > > > assumption above.  Not having a Thunderbolt spec, I have no idea
+> > how
+> > > > > > you deal with that.
+> > > > >
+> > > > > You can download the spec here:
+> > [...]
+> > > > > Inside the archive there is also the DVSEC spec with name "USB4 DVSEC
+> > > > > Version 1.0.pdf".
+> > > >
+> > > > The spec has Host_Router_indication (bits 18-19) as meaning external
+> > facing.
+> > > > I'll respin the patch 3 for using that.
+> > >
+> > > Thanks, please include the spec citation when you do.  And probably
+> > > the URL, because it's not at all obvious how the casual reader would
+> > > get from "is_thunderbolt" to a recent add-on to the USB4 spec.
+> > 
+> > PCI_VSEC_ID_INTEL_TBT is not mentioned at all in the USB4 spec,
+> > hence there's no connection between "is_thunderbolt" and the USB4 spec.
+> > 
+> > It's a proprietary VSEC used by Intel and the only way to recognize
+> > pre-USB4 Thunderbolt devices that I know of.  Its ID is also
+> > different from the DVSEC IDs given in the above-mentioned spec.
+> > 
+> > Thanks,
+> 
+> The USB4 DVSEC spec makes comments about DVSEC_ID of 0x8086 and also
+> DVSEC VENDOR_ID of 0x8086.  Is that not also present on the Intel TBT3 controllers?
+> 
+> My interpretation of this (and Mika's comment) was that rather than
+> looking at the Intel VSEC we should look at the USB4 DVSEC to detect
+> the Intel TBT3 controllers.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 2cd9f1a2e5fa..fc4563cf2828 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -779,7 +779,8 @@ bool amdgpu_vm_ready(struct amdgpu_vm *vm)
->   	amdgpu_vm_eviction_lock(vm);
->   	ret = !vm->evicting;
->   	amdgpu_vm_eviction_unlock(vm);
-> -	return ret;
-> +
-> +	return ret && list_empty(&vm->evicted);
->   }
->   
->   /**
-
+For pre-USB4 controllers (TBT 1-3) we need to use the existing method
+(or a quirk based on device ID) as they don't have the USB4 DVSEC.
