@@ -4,55 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C9A7C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 18:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86E93C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Mar 2022 19:32:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 254B610E3A1;
-	Tue,  1 Mar 2022 18:35:01 +0000 (UTC)
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [IPv6:2607:f8b0:4864:20::c36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEDC210E6D5
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 18:34:59 +0000 (UTC)
-Received: by mail-oo1-xc36.google.com with SMTP id
- w3-20020a4ac183000000b0031d806bbd7eso7774699oop.13
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 10:34:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2FB510E800;
+	Tue,  1 Mar 2022 19:32:19 +0000 (UTC)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1181210E116
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Mar 2022 19:14:52 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id v28so23156594ljv.9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 11:14:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=z0ULRRPXtH7mL/HrUqIVxlBAwHmJIlLjuOwGinShgso=;
- b=jO8hWHCUftks2gPv/g+iKlOfaOYcZ65AbXSzobeTNzNvRHkjDQl6EcUHX6Q1Wzjj//
- lmj2wJZPTWkj41O69d3tVa2ziAtD4ljj+rlWgQzlLlX4R/sijSY7/DLKGUvP38tFWr0m
- 2x2neV+aT3LW6pC8hDfd3hyELhjNsmxGv3D0IXDO9rx+xuNrD6ZhqjAVToraXus3a085
- o5EDRIRjv/svI6wR3/zJka6UgDlwtuDAivUFcu7R+gzQr8w9AP7cQe/14+v/fQAc0KgA
- cefwBop5rn6cJL7roP+OE46f9yARuHAnqsjQ1FX54C3zSSLjju8Cb37+PiHwavJgHB41
- YF1w==
+ :cc; bh=+FYbGAw6yxU17iUDUp61Ry7f+ZSO9wN0ehJ+hGfk2DQ=;
+ b=NEmpYuhxkY3jphhiKwB9rL7CFHETV0OarciDwH/Y25b8gogpFDGLbcsm2Hp5JlhbRM
+ fgLdNaX0z1k1bpDTdAa2T+xhPoQGBlkWInAyVtxomjmoWydKKz6S1Vw5P8QyPxUNcXPG
+ O8s4ZVUjpR1ZVkG2oqZOMI9ApgRXI/RsyC5iE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=z0ULRRPXtH7mL/HrUqIVxlBAwHmJIlLjuOwGinShgso=;
- b=S8TXlB6HWBn388guWxqxj8Dfecw/6o9O5UgvBnCAnQAwoWX4AD1mUn8uA9A8sp3T39
- 67Tbk8dyY3S85RhV1kY9lCB0VCj0DiHaZGqiHHrYINUADi3JlOMMIsDKmVmaP1m/PToF
- lJn+JvmOWLD7LHUpNnPjSFcPtmSawDRdmwZ1NmxLucdQDkcKnvLp238Z9aE1FO9UZHSP
- cSm/KBkf/fPMg6PpSvOIboJwA4As7u6yTfonUNu1OH5XqSj/N0laDEQCY8BYHpvc79Or
- rRdXdtXjltE+BWpAswgrThvva+qW/eqHrLf/AzP+hTXG2Eg0Ib15QLwn1vTEJR3Zni1R
- 74lQ==
-X-Gm-Message-State: AOAM530VC37hXzfXq10JbBOf3fMHtUz1UM5qSeeSYJPp2tFCqf0ciAYa
- kFvZhW3TBDh0pR81cJDIHZPspkaQ0Rsc/mDF0MtF6GZQ
-X-Google-Smtp-Source: ABdhPJx1JniZpcUBiGH27rmeALGNi7dUzeyHXmXfeLbBDSquLEwWIEzntqwXXjTB/3rVhqyuenhMXGtoxGAzF8niPQs=
-X-Received: by 2002:a05:6870:1b85:b0:d6:feda:913f with SMTP id
- hm5-20020a0568701b8500b000d6feda913fmr4919384oab.123.1646159698759; Tue, 01
- Mar 2022 10:34:58 -0800 (PST)
+ bh=+FYbGAw6yxU17iUDUp61Ry7f+ZSO9wN0ehJ+hGfk2DQ=;
+ b=Ur/UKyvDTDN1q3PrLII4K8WYjlv8rXZ1QjeOIvNI1QcBuGIsyUUe3hsh6ep4I49XKB
+ 77JJOlmBRdzOop0WfPBrcNAsLe0/pWUIPp0fkB4R/C+2S512KIHiFwCg9gBrAJHVpLU8
+ jvtkXOOIp2G39pgAg9MEBz5Vn7b+3JJ9WEcRu+5U4hW8bjp5lfpwzKvmdv9RoWnhARjo
+ 6nZIf45hkq8c+a0Ppg3Xqa/vNWdxP/VvEFzGzCTjCfpP910POh+iB3OR7jXmOM9jv9k/
+ jMTEfNG3suSwHLs/7jyWbbu74mh1QYl4P0odBPzvAAOkawdenScanct98L1gS/ViEjbW
+ cjYg==
+X-Gm-Message-State: AOAM530LFiuuF0CVKvqP8j3h1OoXM6yAfjFRW9kwap+QeVVsDb3oEl6V
+ 4arp7Cn1VsxyX9G78fUfpbIKyyTyXAWokeVwB7A=
+X-Google-Smtp-Source: ABdhPJyA//KLbaD967hx7/EK5CeTmlW9FeSS3ewaB4yQurw7UmfD2B27NQ3nSdWoJA6Hsosiw0HGIw==
+X-Received: by 2002:a2e:8198:0:b0:246:e7d:45d2 with SMTP id
+ e24-20020a2e8198000000b002460e7d45d2mr17988970ljg.495.1646162090056; 
+ Tue, 01 Mar 2022 11:14:50 -0800 (PST)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com.
+ [209.85.208.181]) by smtp.gmail.com with ESMTPSA id
+ u17-20020a2e9f11000000b002461f96c537sm2060483ljk.63.2022.03.01.11.14.49
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 01 Mar 2022 11:14:49 -0800 (PST)
+Received: by mail-lj1-f181.google.com with SMTP id y24so4184723ljh.11
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Mar 2022 11:14:49 -0800 (PST)
+X-Received: by 2002:a2e:3013:0:b0:246:2ca9:365e with SMTP id
+ w19-20020a2e3013000000b002462ca9365emr17902580ljw.291.1646161622598; Tue, 01
+ Mar 2022 11:07:02 -0800 (PST)
 MIME-Version: 1.0
-References: <20220301180800.1781042-1-andrey.grodzovsky@amd.com>
- <20220301180800.1781042-2-andrey.grodzovsky@amd.com>
-In-Reply-To: <20220301180800.1781042-2-andrey.grodzovsky@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 1 Mar 2022 13:34:47 -0500
-Message-ID: <CADnq5_P0GJ7wpFWoT8XYat-4RDyBCtgrpZ19cXG2b=5DGwszww@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Bump minor version for hot plug tests
- enabliing.
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+References: <20220228110822.491923-1-jakobkoschel@gmail.com>
+ <20220228110822.491923-3-jakobkoschel@gmail.com>
+ <2e4e95d6-f6c9-a188-e1cd-b1eae465562a@amd.com>
+ <CAHk-=wgQps58DPEOe4y5cTh5oE9EdNTWRLXzgMiETc+mFX7jzw@mail.gmail.com>
+ <282f0f8d-f491-26fc-6ae0-604b367a5a1a@amd.com>
+ <b2d20961dbb7533f380827a7fcc313ff849875c1.camel@HansenPartnership.com>
+ <7D0C2A5D-500E-4F38-AD0C-A76E132A390E@kernel.org>
+ <73fa82a20910c06784be2352a655acc59e9942ea.camel@HansenPartnership.com>
+In-Reply-To: <73fa82a20910c06784be2352a655acc59e9942ea.camel@HansenPartnership.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 1 Mar 2022 11:06:45 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wiT5HX6Kp0Qv4ZYK_rkq9t5fZ5zZ7vzvi6pub9kgp=72g@mail.gmail.com>
+Message-ID: <CAHk-=wiT5HX6Kp0Qv4ZYK_rkq9t5fZ5zZ7vzvi6pub9kgp=72g@mail.gmail.com>
+Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
+ as a ptr
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
 Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 01 Mar 2022 19:32:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,58 +80,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: linux-wireless <linux-wireless@vger.kernel.org>,
+ alsa-devel@alsa-project.org, KVM list <kvm@vger.kernel.org>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>,
+ linux1394-devel@lists.sourceforge.net, drbd-dev@lists.linbit.com,
+ linux-arch <linux-arch@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>,
+ linux-aspeed@lists.ozlabs.org, linux-scsi <linux-scsi@vger.kernel.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>, linux-staging@lists.linux.dev,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ intel-wired-lan@lists.osuosl.org, kgdb-bugreport@lists.sourceforge.net,
+ bcm-kernel-feedback-list@broadcom.com,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Kees Cook <keescook@chromium.org>, Arnd Bergman <arnd@arndb.de>,
+ Linux PM <linux-pm@vger.kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
+ Nathan Chancellor <nathan@kernel.org>, dma <dmaengine@vger.kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jakob Koschel <jakobkoschel@gmail.com>, v9fs-developer@lists.sourceforge.net,
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sgx@vger.kernel.org,
+ linux-block <linux-block@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>,
+ tipc-discussion@lists.sourceforge.net,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+ linux-mediatek@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mike Rapoport <rppt@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 1, 2022 at 1:08 PM Andrey Grodzovsky
-<andrey.grodzovsky@amd.com> wrote:
+On Mon, Feb 28, 2022 at 2:29 PM James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
 >
-> This will allow to enable the tests only after latest fix
-> after which the tests passed on my system.
+> However, if the desire is really to poison the loop variable then we
+> can do
 >
-> I tested on NV21 standalone and Vega 10 and Polaris as
-> pair with DRI_PRIME.
+> #define list_for_each_entry(pos, head, member)                          \
+>         for (pos = list_first_entry(head, typeof(*pos), member);        \
+>              !list_entry_is_head(pos, head, member) && ((pos = NULL) == NULL;                   \
+>              pos = list_next_entry(pos, member))
 >
-> It's possible there might be still issues on ASICs i don't
-> have at my posession but that that the point of enbling
-> the tests finally - if other people during testing will
-> encounter errors they will report and I will be able to fix.
->
-> The releated merge request for enabling libdrm tests suite  is in
-> https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/227
->
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> Which would at least set pos to NULL when the loop completes.
 
-Typo in the title: enabliing -> enabling
+That would actually have been excellent if we had done that
+originally. It would not only avoid the stale and incorrectly typed
+head entry left-over turd, it would also have made it very easy to
+test for "did I find an entry in the loop".
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 415ecf8b2e05..be4adda8d674 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -100,9 +100,10 @@
->   * - 3.43.0 - Add device hot plug/unplug support
->   * - 3.44.0 - DCN3 supports DCC independent block settings: !64B && 128B, 64B && 128B
->   * - 3.45.0 - Add context ioctl stable pstate interface
-> + * * 3.46.0 - Add context ioctl stable pstate interface
+But I don't much like it in the situation we are now.
 
-Please update the comment here to say something like bump for hotplug
-handing.  With the typo and this fixed, series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Why? Mainly because it basically changes the semantics of the loop
+_without_ any warnings about it.  And we don't actually get the
+advantage of the nicer semantics, because we can't actually make code
+do
 
+        list_for_each_entry(entry, ....) {
+                ..
+        }
+        if (!entry)
+                return -ESRCH;
+        .. use the entry we found ..
 
->   */
->  #define KMS_DRIVER_MAJOR       3
-> -#define KMS_DRIVER_MINOR       45
-> +#define KMS_DRIVER_MINOR       46
->  #define KMS_DRIVER_PATCHLEVEL  0
->
->  int amdgpu_vram_limit;
-> --
-> 2.25.1
->
+because that would be a disaster for back-porting, plus it would be a
+flag-day issue (ie we'd have to change the semantics of the loop at
+the same time we change every single user).
+
+So instead of that simple "if (!entry)", we'd effectively have to
+continue to use something that still works with the old world order
+(ie that "if (list_entry_is_head())" model).
+
+So we couldn't really take _advantage_ of the nicer semantics, and
+we'd not even get a warning if somebody does it wrong - the code would
+just silently do the wrong thing.
+
+IOW: I don't think you are wrong about that patch: it would solve the
+problem that Jakob wants to solve, and it would have absolutely been
+much better if we had done this from the beginning. But I think that
+in our current situation, it's actually a really fragile solution to
+the "don't do that then" problem we have.
+
+              Linus
