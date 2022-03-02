@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF6CC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 20:31:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C2F7C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 21:05:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDDBE10E65C;
-	Wed,  2 Mar 2022 20:31:33 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C3DC10E22C
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Mar 2022 20:26:47 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id hw13so6164903ejc.9
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Mar 2022 12:26:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Uy+qIY61mUv01aVZ77KYqcI4VQ6CnEr5ehBFaIlKwdg=;
- b=Be+smD91jIehBxsphVP8GxPmG9fZ7UzsziFVI8sCcayH4ghcjVwFadN69qX3SSZZfA
- w/nKcppYscRVDTynDM99u+3Int1mDvzuW1vHPoDdJ+8JxYLDdH7+xaY9DZL7COnmW4q3
- yEVm7FisHcBkdW7xwzBny/SyDipBoZU1ONqUc=
+	by gabe.freedesktop.org (Postfix) with ESMTP id C212410E18B;
+	Wed,  2 Mar 2022 21:05:40 +0000 (UTC)
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [IPv6:2607:f8b0:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEA910E11C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Mar 2022 20:59:30 +0000 (UTC)
+Received: by mail-pg1-x52d.google.com with SMTP id o23so2638052pgk.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Mar 2022 12:59:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=R/oQqieG0aXWXHs93Td97reRxAIjZoSgBmUtDJFVhjU=;
+ b=d2ZFN7FzXJICmnX4Tyt0wAx0nHny3V7g7RBF7BzoFi4JqvMjvTlFe6r9CSmtZHYpfY
+ sI7cCbacBhQSn0c2nYjk/wWGRSWn9quhJSSynH9lMYRKPPdVW/LYlF+HQ4F3tfS4GoN+
+ rfxT6gA9HHGJJFfNnOWheyqKpysRyPxkd0f8U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Uy+qIY61mUv01aVZ77KYqcI4VQ6CnEr5ehBFaIlKwdg=;
- b=C+j/Lfjhx/v1x9W3P0MnxLFw45RYYUOkEmJ7Y4DWBFBdOWPoAh5jeiUmcaSmPJZl9B
- XnaQfzWAuXBJ8jSU4vWEHtUGL4oAmHemeuLHgXqsvCvcWJfL396FExZ+6AvJfaJG/Y/u
- pawAlHQhTkuQg8lDqRiLT960WoQDz/F09lG3QvrkKuZdUyJm0MaD0yVbCbMgca9sFJHh
- ftBn4PkExUKIQsmjurNVWnv/QgA/mJ/Fdam8IYB+eogvLP/1Az4cJCUXva7qwllibJw8
- XNa6Ed9EI6rsBTpP3MXIEYSTZxPzE7azNKXEtO0L/bJVuqXGBROYLAqlUozQ2dfXEm1I
- NXhw==
-X-Gm-Message-State: AOAM5309g1XXteRi5/IyYJcGFRCcewpy7BR9YvlYztJqgiZ3fG0ZYUDt
- njWZxkyZBM3EKKuiUnEmBkYZf/M8yVp5faXtFUQ=
-X-Google-Smtp-Source: ABdhPJw9Ou39vxduTdUmMj84xg3ECzyRLVxw15tZWsdXwh7Qq1Kjnncc4xWSeJGsD5P7rsVWDyz28w==
-X-Received: by 2002:a17:906:1e06:b0:6ce:70af:ce6d with SMTP id
- g6-20020a1709061e0600b006ce70afce6dmr24782790ejj.571.1646252805445; 
- Wed, 02 Mar 2022 12:26:45 -0800 (PST)
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com.
- [209.85.221.46]) by smtp.gmail.com with ESMTPSA id
- n13-20020a1709062bcd00b006cf71d46a1csm6601466ejg.136.2022.03.02.12.26.45
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Mar 2022 12:26:45 -0800 (PST)
-Received: by mail-wr1-f46.google.com with SMTP id n14so4597080wrq.7
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Mar 2022 12:26:45 -0800 (PST)
-X-Received: by 2002:a2e:3013:0:b0:246:2ca9:365e with SMTP id
- w19-20020a2e3013000000b002462ca9365emr21092331ljw.291.1646252342192; Wed, 02
- Mar 2022 12:19:02 -0800 (PST)
-MIME-Version: 1.0
-References: <282f0f8d-f491-26fc-6ae0-604b367a5a1a@amd.com>
- <b2d20961dbb7533f380827a7fcc313ff849875c1.camel@HansenPartnership.com>
- <7D0C2A5D-500E-4F38-AD0C-A76E132A390E@kernel.org>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=R/oQqieG0aXWXHs93Td97reRxAIjZoSgBmUtDJFVhjU=;
+ b=XnTm4pIYNXT6J6JEdYi+X+GCJFaOu/HQh44naL2H+8l0sGCGRk/w6hi230RHQzfdJD
+ WtjKbeYQXZeIpsX3dsROYxI5LAc0uElLSx3lemjFUEZlMkvesDwXIk2l16vdnrjq6roQ
+ DcbMliEUxnGogu/c9EKXh4648I0j7xqK925FYWJi/1lZt7VfqZr8m76tPUpw3ZXTOHBd
+ 1ibep3WKr08Jvb3htMQullU/LqyVkEngxbdwjRuYo8n/yDcWA0NScABkeGW14rD/brFC
+ J78SvxSanpx/kOKx+Fm6l7qTNtGhjNwOa5jqeaI/OZaFTXWMMcv/NVceFgscCyN7/bSr
+ rJAA==
+X-Gm-Message-State: AOAM530n5X9wbcaVBG8s3paUBjO005yiRjNcPOcYLztroaVV1Z2Kgw8U
+ TrOeT18M0/vvvIkZkIJ4NDFKVw==
+X-Google-Smtp-Source: ABdhPJwV5Vftpu3BNFYOd1YAI3xcgBfQbmCq2DPnKYT59xnVma61vCMoUamoUdgwMbiUWTPibOctJw==
+X-Received: by 2002:a63:595e:0:b0:378:b203:a74e with SMTP id
+ j30-20020a63595e000000b00378b203a74emr13280856pgm.328.1646254769698; 
+ Wed, 02 Mar 2022 12:59:29 -0800 (PST)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id
+ z9-20020a655a49000000b00373459df190sm58337pgs.35.2022.03.02.12.59.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Mar 2022 12:59:29 -0800 (PST)
+Date: Wed, 2 Mar 2022 12:59:28 -0800
+From: Kees Cook <keescook@chromium.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
+ as a ptr
+Message-ID: <202203021256.69D7C4BCA6@keescook>
+References: <7D0C2A5D-500E-4F38-AD0C-A76E132A390E@kernel.org>
  <73fa82a20910c06784be2352a655acc59e9942ea.camel@HansenPartnership.com>
  <CAHk-=wiT5HX6Kp0Qv4ZYK_rkq9t5fZ5zZ7vzvi6pub9kgp=72g@mail.gmail.com>
  <7dc860874d434d2288f36730d8ea3312@AcuMS.aculab.com>
@@ -62,16 +59,12 @@ References: <282f0f8d-f491-26fc-6ae0-604b367a5a1a@amd.com>
  <CAHk-=wix0HLCBs5sxAeW3uckg0YncXbTjMsE-Tv8WzmkOgLAXQ@mail.gmail.com>
  <78ccb184-405e-da93-1e02-078f90d2b9bc@rasmusvillemoes.dk>
  <202203021158.DB5204A0@keescook>
-In-Reply-To: <202203021158.DB5204A0@keescook>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 2 Mar 2022 12:18:45 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wikKPC0LUqZ8++EC5JOvGdBqVH9uUaTX=DvBioDoReYww@mail.gmail.com>
-Message-ID: <CAHk-=wikKPC0LUqZ8++EC5JOvGdBqVH9uUaTX=DvBioDoReYww@mail.gmail.com>
-Subject: Re: [PATCH 2/6] treewide: remove using list iterator after loop body
- as a ptr
-To: Kees Cook <keescook@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 02 Mar 2022 20:31:31 +0000
+ <CAHk-=wikKPC0LUqZ8++EC5JOvGdBqVH9uUaTX=DvBioDoReYww@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wikKPC0LUqZ8++EC5JOvGdBqVH9uUaTX=DvBioDoReYww@mail.gmail.com>
+X-Mailman-Approved-At: Wed, 02 Mar 2022 21:05:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,29 +126,40 @@ Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  Mike Rapoport <rppt@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 2, 2022 at 12:07 PM Kees Cook <keescook@chromium.org> wrote:
->
-> I've long wanted to change kfree() to explicitly set pointers to NULL on
-> free. https://github.com/KSPP/linux/issues/87
+On Wed, Mar 02, 2022 at 12:18:45PM -0800, Linus Torvalds wrote:
+> On Wed, Mar 2, 2022 at 12:07 PM Kees Cook <keescook@chromium.org> wrote:
+> >
+> > I've long wanted to change kfree() to explicitly set pointers to NULL on
+> > free. https://github.com/KSPP/linux/issues/87
+> 
+> We've had this discussion with the gcc people in the past, and gcc
+> actually has some support for it, but it's sadly tied to the actual
+> function name (ie gcc has some special-casing for "free()")
+> 
+> See
+> 
+>     https://gcc.gnu.org/bugzilla/show_bug.cgi?id=94527
+> 
+> for some of that discussion.
+> 
+> Oh, and I see some patch actually got merged since I looked there last
+> so that you can mark "deallocator" functions, but I think it's only
+> for the context matching, not for actually killing accesses to the
+> pointer afterwards.
 
-We've had this discussion with the gcc people in the past, and gcc
-actually has some support for it, but it's sadly tied to the actual
-function name (ie gcc has some special-casing for "free()")
+Ah! I missed that getting added in GCC 11. But yes, there it is:
 
-See
+https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-malloc-function-attribute
 
-    https://gcc.gnu.org/bugzilla/show_bug.cgi?id=94527
+Hah, now we may need to split __malloc from __alloc_size. ;)
 
-for some of that discussion.
+I'd still like the NULL assignment behavior, though, since some things
+can easily avoid static analysis.
 
-Oh, and I see some patch actually got merged since I looked there last
-so that you can mark "deallocator" functions, but I think it's only
-for the context matching, not for actually killing accesses to the
-pointer afterwards.
-
-               Linus
+-- 
+Kees Cook
