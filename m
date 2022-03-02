@@ -4,126 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 903FDC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 09:45:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97E3DC43217
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 09:51:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 134B210E77D;
-	Wed,  2 Mar 2022 09:45:18 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2081.outbound.protection.outlook.com [40.107.101.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3596210E716
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Mar 2022 09:45:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1226710F25D;
+	Wed,  2 Mar 2022 09:51:38 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D440610EF65
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Mar 2022 09:51:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XIc8Ll5lv+k9Mp1SxE/L0Mt7wJhSypmFP92QTkk+t9eweCbdoHT0RMa7e9BYBb4p/NGLRXwcMOOnIBpj15O5JDwBA8Peqnx8c8C47QFRmDMwEent9q6uFpQU6TbsBhf+2L2ejyXdEewtYDYHHQkXhKskJXOHsoG6CWAgKeIuw2H9lO4Kh3+2Z4YKeVRBcSWct5XUj0aNR0r8HTD+RHPE8Whvdshw0r5TGa3B1N9GJe6RC/vi9cq2ppFs92ALWk5u2+KASvq4RgwfMIRJBKQGwo51wXX8Y5xWjTQFm90IppkyELbR7SmyIXSkaq+7CNDhz2iEVFh7UiahnOYjj8giQg==
+ b=Zf9lmYhF888JNhWllR/+ZqHl3hzs/FudUBwcEb6ur8voNohi6fvDZcXB2m6S3BfduJiYfmkqtOEEnnm1L+juTKjTknQ0ROscPWL077x0t/HYRAVeNNnwAlE/ME3PqO9BZSWCgXEqD6lhRpGCQjwGesnbzk+ncq3cJRe3W6gsExjyxgx18zWC2/sFRX+QGuvVUGejSf0KRn5ZOTfwVtuLvmLevbc0kB+nvw8trja4jhij7Cs796kuW2DNGuNkm38phGM5jtAr/8PCvgOpI+EPIThV5BrzV5/0xBTVVmZpE5UGDlGw0xIAK8C9db5G31OIoR0lI4bBknARmR96Zr93Ew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SfBiNSJANL4ed7dzrjEUEaIQH8fIe04vNTS+rJIhwlY=;
- b=LamO7UQYjWbOK6r/OGOMpylLkkOkpqrfgW0G//78FdEgepNqgS1mPQpLU2uYMkwcFqpfWrv15v7w+xerUFPP6JpUvTiDWkyQtzLAVXB59QWQleA7qIQycRClPKwv1QL2cj7HSdv3H6vxwVsCepz1+Ut/qxfV0lJgHGfTwaGTSFbghIb+2aHefu4YxKclCuYQ4F1nYKCQ/f67lVfQXiOJSE23JowUkQ56kGSf9+GgPkTnD+ldtBgPNvdVK/xXlH/Oih0oiljtnSVBQlTunZ/fzF2dGI+LZltb9wvYo4g1MCkiulf3lCcXdC2sV9HRNwPHnXHllgNQ3JunLMkaZHlNSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=IIEYqV8n8HXW68vrCR5/FVYC+0BY8PIuHfcOz22jzno=;
+ b=Ei8Nk3K2XBff0gLkrhMNH8M4JSCXzrI2NQFVdnHQSeZaAhCTgAhdN+b4ceazTnUbt0bnQuLZVaJkKF+JrsdkGd5MPcVDnF0yZrXio3ApTiuiis6wKgeulcAI08C5KWdYsHmL9Ppfvk5I6OqUzo6aouahwFQEoXFqVtRL3DtPi1188BrNS5/aFg19+ZG0DonfpXlIxRGIBM3bg9Xqwob3V/+WexnZSAfj+Ze3DhA6/gih9Ad0Zxj8zQqEA5czsCLpqhdeTc7bGjI39Pl/3r/jbyiVeRozR/CWKw8DBaVTGqL+zcAeNdr09CJenBQB9JoU8FgZunVmdivELX5H3gWKwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SfBiNSJANL4ed7dzrjEUEaIQH8fIe04vNTS+rJIhwlY=;
- b=SmmuPI9sfI4XXDkw3+0zvybFQwf/pcfuvP3yZiTcyAcX3rN1Js0PTKkY++U0rMx4Jdw1cSLYpnEr13cuk1T8dwBWEdzpJbbhPnQ4y7HFHaIwNFs6n/binph+ggJy5M237UZQaquJll4COqsTKpYFV/Y4PaQWPe7x9nDKI2lGbqg=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM5PR12MB1769.namprd12.prod.outlook.com (2603:10b6:3:10f::22) with
+ bh=IIEYqV8n8HXW68vrCR5/FVYC+0BY8PIuHfcOz22jzno=;
+ b=jIsyu+IoUW4/GLSDS6B6qPAXYSJwl3memseKcIEnBwZlOHILVSbZ+fl2s4PRmD/Ew91Tp7FwN2lqcrzywY7xboblcaJkNevumHJlVK8lx7E9/QXMNCt2y/g8HDGXUvXtMSPfq4prfciwKRl40zzuXlnXDKJvpuqAsEA7J6s7jTY=
+Received: from DM5PR1101CA0009.namprd11.prod.outlook.com (2603:10b6:4:4c::19)
+ by DM8PR12MB5445.namprd12.prod.outlook.com (2603:10b6:8:24::7) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5017.24; Wed, 2 Mar 2022 09:45:10 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::7d61:f517:f3f8:9ea]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::7d61:f517:f3f8:9ea%5]) with mapi id 15.20.5038.014; Wed, 2 Mar 2022
- 09:45:10 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Slivka, Danijel" <Danijel.Slivka@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/pm: new v3 SmuMetrics data structure for Sienna
- Cichlid
-Thread-Topic: [PATCH] drm/amd/pm: new v3 SmuMetrics data structure for Sienna
- Cichlid
-Thread-Index: AQHYJMQv4AEYiuVs8USujfZiM4kBHaye3quggA0MKIA=
-Date: Wed, 2 Mar 2022 09:45:10 +0000
-Message-ID: <DM6PR12MB2619169D505499C14AFCBAFEE4039@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20220218123616.10401-1-danijel.slivka@amd.com>
- <DM6PR12MB2619F61204605A3EADED38E3E43B9@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB2619F61204605A3EADED38E3E43B9@DM6PR12MB2619.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-02-22T02:30:38Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=0779b469-e15c-4cd0-b56b-93c667d7de84;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-03-02T09:45:07Z
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
- Only-AIP 2.0
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 275421ba-e74c-49bc-8c53-479e305b19ba
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 88e66ea5-a0db-49ae-0533-08d9fc3157ce
-x-ms-traffictypediagnostic: DM5PR12MB1769:EE_
-x-microsoft-antispam-prvs: <DM5PR12MB1769592FD371AB8775FF531AE4039@DM5PR12MB1769.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: zFgWfw31+IEa+MYPzjRDKbqhiKk6z4vrJvW7iudRDGP7PVL4K+cuA1DD6YvN6IUAAuTl32qWKOn9IfzviypJrc42aM10fERPSzjAYd6onLk8YK6lt8uXhOHcs7bpPe51Jyr9iuQ7RjH04DhqolsuaGrP5ixhdY6jbuRNHFfIgzqongiBk+baJvP/L1Oy0f4Ld7P8tdiNC6iXHW+Dg46n4firvKLmOzXcaoHV6gYXtmbA2je2+iJHZ9AHlP6ATA9vOv0R4qulYZb3Dy3QwW2Iz9GrAYZPiMHNYxm7tjoieMEklp4MtUEJZOcguq65kEvabkW/HgtA1XCE0lr+1C7U9N7TJbni+Rv0Ta6xhlgMqUtff8ul6U1CxaKvjzJC55OKTG5V4NQ7PDfVOC9xnmcY55IO79yci5FBR/i3sTKolxQsUEgW2T1E3qZKvZU8BPIpaU7YZvmHU4cQd2EFWan66aI7IvgnCtWNE7tZ97HT//SjNiQdrH3Dh9VvwtfF5k49tKPVUSXjh0zSrPJzMXWgKld/P15kCgq4SvnLGa2JTnVd2JJaUcaUtbO+cVmP4T/wPdM9Rtxs8TfVnfiGXm4weuPNBESAB7KAlZBrDCV7EyPCJfBvDDsUQGK/WIYx4KuFzphOV9Tn1/WKsKTvmv68DjQYv/U9KmTuRf65t4aHJ74fbNDw/z3RlCRY14H58IZEGspIdAiFvdqlm+W+T8Bspw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(86362001)(316002)(8936002)(5660300002)(38070700005)(7696005)(6506007)(52536014)(66446008)(66556008)(66476007)(64756008)(76116006)(8676002)(30864003)(2906002)(186003)(33656002)(26005)(66946007)(53546011)(38100700002)(4326008)(71200400001)(122000001)(83380400001)(508600001)(55016003)(110136005)(9686003)(559001)(579004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?2KjxXw9KxfJdXZEyUKpK90TagQqU4KCpRUnV0v4Ek/oFAc1e/dpdiPMP4LvB?=
- =?us-ascii?Q?vd1E3jOfpXxfJM9Rh26v7PInmPh63orfu4Gug1ZM/o4w0TuBD6cWzoxar6pz?=
- =?us-ascii?Q?DaQYu2uBPZhXpBZKLNUpgczZP2qJ/dSjFQudWXkMupFD3mmnJ9VNdw59P+ix?=
- =?us-ascii?Q?RY0EKe4O34WiFz62CUjbRn2snuWpBAlOnyZyI9pVQfHK6Kx7ulRSUhe+SO1G?=
- =?us-ascii?Q?iorOEjED7ebepdzrWKaJQJClazXs5FKNtg6bc8zfQwG6gf7mR3RnU8A7FroL?=
- =?us-ascii?Q?QWE6V+pSVsfpzDaMBPa8oodWp5jAMqSx92yuf8bLiJ6L/il/1PLBD2mOKX0W?=
- =?us-ascii?Q?FL3B1yLiCJx7830nPKPG+C8ovy0GLJI3ge++5hOJBpr0Kf42jRUJoiuJnl1d?=
- =?us-ascii?Q?o3fH+8oAvB60KM9dQjJsxRKUQyrmwx8DCwr4ABMvwb3weE7DaBq7DD5ZzVda?=
- =?us-ascii?Q?sg0Vv1CqvkhDKNVUV3wXPYqDA4THKSyoIfUOjO3QRI4yIuxzt8Jbiamq8cDf?=
- =?us-ascii?Q?yOSWBh0XXqUpvQzILeeiS7rLX1ISjqqZc95fAx99FZ/kFgRYc7ACqxgO+V0x?=
- =?us-ascii?Q?PQuRnoOgHLLwHdBKPaLPF4WEaToybFhd2hQNMhW9dEM02NIe9HS7l0FQ6nnz?=
- =?us-ascii?Q?rfJOKp+tA7TQkBjgRLCNNcwmrveUiT9idSR9zNqbm2wi5AWFAo7BNKfq6PD3?=
- =?us-ascii?Q?WZCGbr+mLYwFWrCa8GxBdaUxxC/qz+mSrO+e2rkX1RiXgQqztF/Ln4w3ul4y?=
- =?us-ascii?Q?AeXk1BAmo2/Y7mWfaMR94v7oQ3JbjDrgzziJybS4l2TDII8RardMVydk7V+y?=
- =?us-ascii?Q?Uu3ozAB0cYEUH4dV/ey/Iq0Qy0oBkzpq4idzd9weU1cpKM09hh8DGOsR3WZZ?=
- =?us-ascii?Q?xiuFCk3Ly1rPKaXATfreeBLxhogrnwEjbiq7QST8OfxK1NiUFvLOlia3Dq+Z?=
- =?us-ascii?Q?XKtHEJsUxWLhsjMWmzHg37MGllkxFcD1I++Ujp1xQolAA1oYGilY+jkvHYXP?=
- =?us-ascii?Q?JM5B9qkU1NpfB5htoQy+0tNC+iV7cVijZZmenEp8fCn0neHedlOTjJc8f+GZ?=
- =?us-ascii?Q?D/iCT+u3lev+tHBgrwTBelrbC2q9vFzYF+/QAv5wKvpEKmQuXvGTE/JKRP0w?=
- =?us-ascii?Q?aGCyJ6Hrxu/OhWgCL42M+NrxDE4QyZo9TG46GGolL9MighIHwgmsmJTYZHuR?=
- =?us-ascii?Q?NX5cgAMlBLm12waw0pNpDhNqy+sLTnQ4PKck/cdNDVRKvXZaWtOFsM2ipU6t?=
- =?us-ascii?Q?GhmuaBYKGnL3sIKJgVzn9rhKeVm6oam+cSgHFeVhWeUz41+AH3roo+gpLc0g?=
- =?us-ascii?Q?2l7npWi0kvf+K7gaFd4p8/jpZR+c2Nc2sEI/uiApXrijYWP3yFIiEX0+PUcv?=
- =?us-ascii?Q?t7Mim1AJ2ybyHKbyW4uHxzlG35RkmRsBEJchXGWmxED65agg89y5GmfvBx1a?=
- =?us-ascii?Q?K96Qmy3Iw6lnKj6i9yY6hWDS7NDT7mL9Oa3icq2bhEGZkHcmeT7j8MrAIQPt?=
- =?us-ascii?Q?TXr/rFR+PAqKeiCggYzJKNKnhnmJmNQEWoFfn35tmj1cqK+XnZuSx02i1JfS?=
- =?us-ascii?Q?Xrt1ubuSGFd1VjNtlVQ=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 15.20.5017.24; Wed, 2 Mar 2022 09:51:34 +0000
+Received: from DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:4c:cafe::b5) by DM5PR1101CA0009.outlook.office365.com
+ (2603:10b6:4:4c::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
+ Transport; Wed, 2 Mar 2022 09:51:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT020.mail.protection.outlook.com (10.13.172.224) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5038.14 via Frontend Transport; Wed, 2 Mar 2022 09:51:34 +0000
+Received: from [10.252.247.122] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Wed, 2 Mar
+ 2022 03:51:30 -0600
+Content-Type: multipart/mixed; boundary="------------xxLZALHhgsUeHxRAOScsGuS1"
+Message-ID: <f36352a4-78a9-8e4b-4ec4-8722240d445d@amd.com>
+Date: Wed, 2 Mar 2022 17:51:27 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.6.1
+Subject: Re: [RFC v4 02/11] drm/amdgpu: Move scheduler init to after XGMI is
+ ready
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Chen, JingWen" <JingWen.Chen2@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20220209002320.6077-1-andrey.grodzovsky@amd.com>
+ <20220209002320.6077-3-andrey.grodzovsky@amd.com>
+ <d82ac1a0-d81d-9861-fc1b-8cc06017a2b5@gmail.com>
+ <1d7cb471-c32c-416c-4336-317ee9f171ef@amd.com>
+ <3752a89c-d468-8c39-03a9-37d592dae89f@amd.com>
+ <48c207dc-cc7a-efda-a4a8-4f1f1a6511fe@amd.com>
+ <BL1PR12MB514424A75728E78BC0E5B848F73D9@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <91b8771b-695d-b126-13ec-50dddd56f200@amd.com>
+ <7c07d1b7-e700-60f3-1114-f1386892e836@amd.com>
+ <9df3a044-a0a6-cdea-887a-82e7cc9f47eb@amd.com>
+From: JingWen Chen <jingwech@amd.com>
+In-Reply-To: <9df3a044-a0a6-cdea-887a-82e7cc9f47eb@amd.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: db7a216e-18f0-4aa4-969c-08d9fc323c85
+X-MS-TrafficTypeDiagnostic: DM8PR12MB5445:EE_
+X-Microsoft-Antispam-PRVS: <DM8PR12MB5445B6180663C5403B22B58FB7039@DM8PR12MB5445.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: SbfV2vq6zIHTkdkSj+dSyr7iHx2ynyiQgjj4OcOHjjvqWOgu6XUqVshnO2NVvA0lBIs3GlK2D/zLsOv4pPV8AATYPsPkE8CSrZUVRHZJ5iZgftHY/jT5fJbvCx93qIIFvr00Ixve1QCzrRbCL27iJ6I1GTN4HBa9oSOMnfLLtFlVwmy8Ks75KudiUYZYvxRWsOWfcKKYhQ8qmTQh9CA2YqmUSZozBsQAmbPm+L4s/XqcG9P9J0AyPK5P/fupBGKsjLCwc6wjegv2KeJet9oteYDemsg7rfyJKwPhjKGCcGeY+QAcCIOKZO0OXlD5Uz9aL7LlVPEOHOiEVbY1BrvincK581po/Vt66hKONkIqQKDF30oXqqZUgdihtQETSf4fpMFHly8YqEOkxRqYiqpUxSoQhdtkU78XZmORYBEDBacm8l3/d30nV/mr42ywJNp8XsDys7FvxiDF0y5jROd8+iyjBEPKKSbiKv7dDfJIzYQ9VV7xWWm5FgjgaMrJhySW7aIhX3AFWAYPK9CXA9YsjoB1VkyenSOXJo0XBVrV+c598qM+kFkaslbhsP47MRkHsouLH7eX4+l0CzXqFXCuapUa5tYZd8o6zaMwA+OghxyZf60nssKeamcsfb+B9VXBTddHqMRC4U7GGkRNuWvthVz8JQ1nVhnH30us+B44VU3vZpuDmFuJh/E91mE421OprAUl8vR05Ves1K9gsFddyxRyLmgpdUIKmHr+qrFSjLY1sQgXx+mNAeMoTK9eQ46v
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(31686004)(40460700003)(53546011)(54906003)(110136005)(47076005)(66574015)(36756003)(83380400001)(2906002)(235185007)(5660300002)(36860700001)(356005)(8676002)(4326008)(336012)(70586007)(70206006)(426003)(82310400004)(316002)(31696002)(16576012)(81166007)(508600001)(8936002)(16526019)(186003)(2616005)(26005)(33964004)(6666004)(43740500002)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88e66ea5-a0db-49ae-0533-08d9fc3157ce
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Mar 2022 09:45:10.4946 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kBLl8J/laJFNaJnEjkY/SxJSFbTGkQtvkPi9o09yw9Fng4i/RwFLoaJdgoELjb5M
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1769
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2022 09:51:34.2494 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: db7a216e-18f0-4aa4-969c-08d9fc323c85
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5445
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,613 +113,266 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Slivka, Danijel" <Danijel.Slivka@amd.com>
+Cc: "daniel@ffwll.ch" <daniel@ffwll.ch>, "Chen, Horace" <Horace.Chen@amd.com>,
+ "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+--------------xxLZALHhgsUeHxRAOScsGuS1
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Evan Quan <evan.quan@amd.com>
+Hi Andrey,
 
-> -----Original Message-----
-> From: Quan, Evan
-> Sent: Tuesday, February 22, 2022 10:31 AM
-> To: Danijel Slivka <danijel.slivka@amd.com>; amd-gfx@lists.freedesktop.or=
-g
-> Cc: Slivka, Danijel <Danijel.Slivka@amd.com>
-> Subject: RE: [PATCH] drm/amd/pm: new v3 SmuMetrics data structure for
-> Sienna Cichlid
->=20
-> [AMD Official Use Only]
->=20
-> Acked-by: Evan Quan <evan.quan@amd.com>
->=20
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> > Danijel Slivka
-> > Sent: Friday, February 18, 2022 8:36 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Slivka, Danijel <Danijel.Slivka@amd.com>
-> > Subject: [PATCH] drm/amd/pm: new v3 SmuMetrics data structure for
-> > Sienna Cichlid
-> >
-> > structure changed in smc_fw_version >=3D 0x3A4900, "uint16_t
-> > VcnActivityPercentage" replaced with "uint16_t VcnUsagePercentage0"
-> > and "uint16_t VcnUsagePercentage1"
-> >
-> > Signed-off-by: Danijel Slivka <danijel.slivka@amd.com>
-> > ---
-> >  .../pmfw_if/smu11_driver_if_sienna_cichlid.h  |  58 ++++++
-> >  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 181 ++++++++++++----
-> --
-> >  2 files changed, 178 insertions(+), 61 deletions(-)
-> >
-> > diff --git
-> >
-> a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_
-> > cichlid.h
-> >
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_
-> > cichlid.h
-> > index b253be602cc2..3e4a314ef925 100644
-> > ---
-> >
-> a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_
-> > cichlid.h
-> > +++
-> >
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_
-> > cichlid.h
-> > @@ -1480,10 +1480,68 @@ typedef struct {
-> >
-> >  } SmuMetrics_V2_t;
-> >
-> > +typedef struct {
-> > +  uint32_t CurrClock[PPCLK_COUNT];
-> > +
-> > +  uint16_t AverageGfxclkFrequencyPreDs;  uint16_t
-> > + AverageGfxclkFrequencyPostDs;  uint16_t AverageFclkFrequencyPreDs;
-> > + uint16_t AverageFclkFrequencyPostDs;  uint16_t
-> > + AverageUclkFrequencyPreDs;  uint16_t AverageUclkFrequencyPostDs;
-> > +
-> > +
-> > +  uint16_t AverageGfxActivity;
-> > +  uint16_t AverageUclkActivity;
-> > +  uint8_t  CurrSocVoltageOffset;
-> > +  uint8_t  CurrGfxVoltageOffset;
-> > +  uint8_t  CurrMemVidOffset;
-> > +  uint8_t  Padding8;
-> > +  uint16_t AverageSocketPower;
-> > +  uint16_t TemperatureEdge;
-> > +  uint16_t TemperatureHotspot;
-> > +  uint16_t TemperatureMem;
-> > +  uint16_t TemperatureVrGfx;
-> > +  uint16_t TemperatureVrMem0;
-> > +  uint16_t TemperatureVrMem1;
-> > +  uint16_t TemperatureVrSoc;
-> > +  uint16_t TemperatureLiquid0;
-> > +  uint16_t TemperatureLiquid1;
-> > +  uint16_t TemperaturePlx;
-> > +  uint16_t Padding16;
-> > +  uint32_t AccCnt;
-> > +  uint8_t  ThrottlingPercentage[THROTTLER_COUNT];
-> > +
-> > +
-> > +  uint8_t  LinkDpmLevel;
-> > +  uint8_t  CurrFanPwm;
-> > +  uint16_t CurrFanSpeed;
-> > +
-> > +  //BACO metrics, PMFW-1721
-> > +  //metrics for D3hot entry/exit and driver ARM msgs  uint8_t
-> > + D3HotEntryCountPerMode[D3HOT_SEQUENCE_COUNT];
-> > +  uint8_t D3HotExitCountPerMode[D3HOT_SEQUENCE_COUNT];
-> > +  uint8_t ArmMsgReceivedCountPerMode[D3HOT_SEQUENCE_COUNT];
-> > +
-> > +  //PMFW-4362
-> > +  uint32_t EnergyAccumulator;
-> > +  uint16_t AverageVclk0Frequency;
-> > +  uint16_t AverageDclk0Frequency;
-> > +  uint16_t AverageVclk1Frequency;
-> > +  uint16_t AverageDclk1Frequency;
-> > +  uint16_t VcnUsagePercentage0;
-> > +  uint16_t VcnUsagePercentage1;
-> > +  uint8_t  PcieRate;
-> > +  uint8_t  PcieWidth;
-> > +  uint16_t AverageGfxclkFrequencyTarget;
-> > +
-> > +} SmuMetrics_V3_t;
-> > +
-> >  typedef struct {
-> >    union {
-> >      SmuMetrics_t SmuMetrics;
-> >      SmuMetrics_V2_t SmuMetrics_V2;
-> > +    SmuMetrics_V3_t SmuMetrics_V3;
-> >    };
-> >    uint32_t Spare[1];
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > index d9d634ce9575..38f04836c82f 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > @@ -554,6 +554,11 @@ static uint32_t
-> > sienna_cichlid_get_throttler_status_locked(struct smu_context *s
-> >  	int i;
-> >
-> >  	if ((smu->adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(11, 0, 7))
-> &&
-> > +	     (smu->smc_fw_version >=3D 0x3A4900)) {
-> > +		for (i =3D 0; i < THROTTLER_COUNT; i++)
-> > +			throttler_status |=3D
-> > +				(metrics_ext-
-> > >SmuMetrics_V3.ThrottlingPercentage[i] ? 1U << i : 0);
-> > +	} else if ((smu->adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(11,
-> > 0, 7)) &&
-> >  	     (smu->smc_fw_version >=3D 0x3A4300)) {
-> >  		for (i =3D 0; i < THROTTLER_COUNT; i++)
-> >  			throttler_status |=3D
-> > @@ -574,11 +579,20 @@ static int
-> > sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
-> >  		&(((SmuMetricsExternal_t *)(smu_table->metrics_table))-
-> > >SmuMetrics);
-> >  	SmuMetrics_V2_t *metrics_v2 =3D
-> >  		&(((SmuMetricsExternal_t *)(smu_table->metrics_table))-
-> > >SmuMetrics_V2);
-> > -	bool use_metrics_v2 =3D ((smu->adev->ip_versions[MP1_HWIP][0] =3D=3D
-> > IP_VERSION(11, 0, 7)) &&
-> > -		(smu->smc_fw_version >=3D 0x3A4300)) ? true : false;
-> > +	SmuMetrics_V3_t *metrics_v3 =3D
-> > +		&(((SmuMetricsExternal_t *)(smu_table->metrics_table))-
-> > >SmuMetrics_V3);
-> > +	bool use_metrics_v2 =3D false;
-> > +	bool use_metrics_v3 =3D false;
-> >  	uint16_t average_gfx_activity;
-> >  	int ret =3D 0;
-> >
-> > +	if ((smu->adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(11, 0, 7))
-> > &&
-> > +		(smu->smc_fw_version >=3D 0x3A4900))
-> > +		use_metrics_v3 =3D true;
-> > +	else if ((smu->adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(11,
-> > 0, 7)) &&
-> > +		(smu->smc_fw_version >=3D 0x3A4300))
-> > +		use_metrics_v2 =3D  true;
-> > +
-> >  	ret =3D smu_cmn_get_metrics_table(smu,
-> >  					NULL,
-> >  					false);
-> > @@ -587,96 +601,119 @@ static int
-> > sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
-> >
-> >  	switch (member) {
-> >  	case METRICS_CURR_GFXCLK:
-> > -		*value =3D use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_GFXCLK] :
-> > +		*value =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_GFXCLK] :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_GFXCLK] :
-> >  			metrics->CurrClock[PPCLK_GFXCLK];
-> >  		break;
-> >  	case METRICS_CURR_SOCCLK:
-> > -		*value =3D use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_SOCCLK] :
-> > +		*value =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_SOCCLK] :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_SOCCLK] :
-> >  			metrics->CurrClock[PPCLK_SOCCLK];
-> >  		break;
-> >  	case METRICS_CURR_UCLK:
-> > -		*value =3D use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_UCLK] :
-> > +		*value =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_UCLK] :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_UCLK] :
-> >  			metrics->CurrClock[PPCLK_UCLK];
-> >  		break;
-> >  	case METRICS_CURR_VCLK:
-> > -		*value =3D use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_VCLK_0] :
-> > +		*value =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_VCLK_0] :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_VCLK_0] :
-> >  			metrics->CurrClock[PPCLK_VCLK_0];
-> >  		break;
-> >  	case METRICS_CURR_VCLK1:
-> > -		*value =3D use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_VCLK_1] :
-> > +		*value =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_VCLK_1] :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_VCLK_1] :
-> >  			metrics->CurrClock[PPCLK_VCLK_1];
-> >  		break;
-> >  	case METRICS_CURR_DCLK:
-> > -		*value =3D use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_DCLK_0] :
-> > +		*value =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_DCLK_0] :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_DCLK_0] :
-> >  			metrics->CurrClock[PPCLK_DCLK_0];
-> >  		break;
-> >  	case METRICS_CURR_DCLK1:
-> > -		*value =3D use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_DCLK_1] :
-> > +		*value =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_DCLK_1] :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_DCLK_1] :
-> >  			metrics->CurrClock[PPCLK_DCLK_1];
-> >  		break;
-> >  	case METRICS_CURR_DCEFCLK:
-> > -		*value =3D use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_DCEFCLK] :
-> > +		*value =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_DCEFCLK] :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_DCEFCLK] :
-> >  			metrics->CurrClock[PPCLK_DCEFCLK];
-> >  		break;
-> >  	case METRICS_CURR_FCLK:
-> > -		*value =3D use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_FCLK] :
-> > +		*value =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_FCLK] :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >CurrClock[PPCLK_FCLK] :
-> >  			metrics->CurrClock[PPCLK_FCLK];
-> >  		break;
-> >  	case METRICS_AVERAGE_GFXCLK:
-> > -		average_gfx_activity =3D use_metrics_v2 ? metrics_v2-
-> > >AverageGfxActivity :
-> > +		average_gfx_activity =3D use_metrics_v3 ? metrics_v3-
-> > >AverageGfxActivity :
-> > +			use_metrics_v2 ? metrics_v2->AverageGfxActivity :
-> >  			metrics->AverageGfxActivity;
-> >  		if (average_gfx_activity <=3D
-> > SMU_11_0_7_GFX_BUSY_THRESHOLD)
-> > -			*value =3D use_metrics_v2 ? metrics_v2-
-> > >AverageGfxclkFrequencyPostDs :
-> > +			*value =3D use_metrics_v3 ? metrics_v3-
-> > >AverageGfxclkFrequencyPostDs :
-> > +				use_metrics_v2 ? metrics_v2-
-> > >AverageGfxclkFrequencyPostDs :
-> >  				metrics->AverageGfxclkFrequencyPostDs;
-> >  		else
-> > -			*value =3D use_metrics_v2 ? metrics_v2-
-> > >AverageGfxclkFrequencyPreDs :
-> > +			*value =3D use_metrics_v3 ? metrics_v3-
-> > >AverageGfxclkFrequencyPreDs :
-> > +				use_metrics_v2 ? metrics_v2-
-> > >AverageGfxclkFrequencyPreDs :
-> >  				metrics->AverageGfxclkFrequencyPreDs;
-> >  		break;
-> >  	case METRICS_AVERAGE_FCLK:
-> > -		*value =3D use_metrics_v2 ? metrics_v2-
-> > >AverageFclkFrequencyPostDs :
-> > +		*value =3D use_metrics_v3 ? metrics_v3-
-> > >AverageFclkFrequencyPostDs :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >AverageFclkFrequencyPostDs :
-> >  			metrics->AverageFclkFrequencyPostDs;
-> >  		break;
-> >  	case METRICS_AVERAGE_UCLK:
-> > -		*value =3D use_metrics_v2 ? metrics_v2-
-> > >AverageUclkFrequencyPostDs :
-> > +		*value =3D use_metrics_v3 ? metrics_v3-
-> > >AverageUclkFrequencyPostDs :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >AverageUclkFrequencyPostDs :
-> >  			metrics->AverageUclkFrequencyPostDs;
-> >  		break;
-> >  	case METRICS_AVERAGE_GFXACTIVITY:
-> > -		*value =3D use_metrics_v2 ? metrics_v2->AverageGfxActivity :
-> > +		*value =3D use_metrics_v3 ? metrics_v3->AverageGfxActivity :
-> > +			use_metrics_v2 ? metrics_v2->AverageGfxActivity :
-> >  			metrics->AverageGfxActivity;
-> >  		break;
-> >  	case METRICS_AVERAGE_MEMACTIVITY:
-> > -		*value =3D use_metrics_v2 ? metrics_v2->AverageUclkActivity :
-> > +		*value =3D use_metrics_v3 ? metrics_v3->AverageUclkActivity :
-> > +			use_metrics_v2 ? metrics_v2->AverageUclkActivity :
-> >  			metrics->AverageUclkActivity;
-> >  		break;
-> >  	case METRICS_AVERAGE_SOCKETPOWER:
-> > -		*value =3D use_metrics_v2 ? metrics_v2-
-> > >AverageSocketPower << 8 :
-> > +		*value =3D use_metrics_v3 ? metrics_v3-
-> > >AverageSocketPower << 8 :
-> > +			use_metrics_v2 ? metrics_v2->AverageSocketPower
-> > << 8 :
-> >  			metrics->AverageSocketPower << 8;
-> >  		break;
-> >  	case METRICS_TEMPERATURE_EDGE:
-> > -		*value =3D (use_metrics_v2 ? metrics_v2->TemperatureEdge :
-> > metrics->TemperatureEdge) *
-> > -			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-> > +		*value =3D (use_metrics_v3 ? metrics_v3->TemperatureEdge :
-> > +			use_metrics_v2 ? metrics_v2->TemperatureEdge :
-> > +			metrics->TemperatureEdge) *
-> > SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-> >  		break;
-> >  	case METRICS_TEMPERATURE_HOTSPOT:
-> > -		*value =3D (use_metrics_v2 ? metrics_v2-
-> > >TemperatureHotspot : metrics->TemperatureHotspot) *
-> > -			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-> > +		*value =3D (use_metrics_v3 ? metrics_v3-
-> > >TemperatureHotspot :
-> > +			use_metrics_v2 ? metrics_v2->TemperatureHotspot :
-> > +			metrics->TemperatureHotspot) *
-> > SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-> >  		break;
-> >  	case METRICS_TEMPERATURE_MEM:
-> > -		*value =3D (use_metrics_v2 ? metrics_v2->TemperatureMem :
-> > metrics->TemperatureMem) *
-> > -			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-> > +		*value =3D (use_metrics_v3 ? metrics_v3->TemperatureMem :
-> > +			use_metrics_v2 ? metrics_v2->TemperatureMem :
-> > +			metrics->TemperatureMem) *
-> > SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-> >  		break;
-> >  	case METRICS_TEMPERATURE_VRGFX:
-> > -		*value =3D (use_metrics_v2 ? metrics_v2->TemperatureVrGfx :
-> > metrics->TemperatureVrGfx) *
-> > -			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-> > +		*value =3D (use_metrics_v3 ? metrics_v3->TemperatureVrGfx :
-> > +			use_metrics_v2 ? metrics_v2->TemperatureVrGfx :
-> > +			metrics->TemperatureVrGfx) *
-> > SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-> >  		break;
-> >  	case METRICS_TEMPERATURE_VRSOC:
-> > -		*value =3D (use_metrics_v2 ? metrics_v2->TemperatureVrSoc :
-> > metrics->TemperatureVrSoc) *
-> > -			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-> > +		*value =3D (use_metrics_v3 ? metrics_v3->TemperatureVrSoc :
-> > +			use_metrics_v2 ? metrics_v2->TemperatureVrSoc :
-> > +			metrics->TemperatureVrSoc) *
-> > SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-> >  		break;
-> >  	case METRICS_THROTTLER_STATUS:
-> >  		*value =3D sienna_cichlid_get_throttler_status_locked(smu);
-> >  		break;
-> >  	case METRICS_CURR_FANSPEED:
-> > -		*value =3D use_metrics_v2 ? metrics_v2->CurrFanSpeed :
-> > metrics->CurrFanSpeed;
-> > +		*value =3D use_metrics_v3 ? metrics_v3->CurrFanSpeed :
-> > +			use_metrics_v2 ? metrics_v2->CurrFanSpeed :
-> > metrics->CurrFanSpeed;
-> >  		break;
-> >  	default:
-> >  		*value =3D UINT_MAX;
-> > @@ -3656,12 +3693,22 @@ static ssize_t
-> > sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
-> >  		&(metrics_external.SmuMetrics);
-> >  	SmuMetrics_V2_t *metrics_v2 =3D
-> >  		&(metrics_external.SmuMetrics_V2);
-> > +	SmuMetrics_V3_t *metrics_v3 =3D
-> > +		&(metrics_external.SmuMetrics_V3);
-> >  	struct amdgpu_device *adev =3D smu->adev;
-> > -	bool use_metrics_v2 =3D ((adev->ip_versions[MP1_HWIP][0] =3D=3D
-> > IP_VERSION(11, 0, 7)) &&
-> > -		(smu->smc_fw_version >=3D 0x3A4300)) ? true : false;
-> > +	bool use_metrics_v2 =3D false;
-> > +	bool use_metrics_v3 =3D false;
-> >  	uint16_t average_gfx_activity;
-> >  	int ret =3D 0;
-> >
-> > +	if ((adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(11, 0, 7)) &&
-> > +		(smu->smc_fw_version >=3D 0x3A4900))
-> > +		use_metrics_v3 =3D true;
-> > +	else if ((adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(11, 0, 7))
-> > &&
-> > +		(smu->smc_fw_version >=3D 0x3A4300))
-> > +		use_metrics_v2 =3D true;
-> > +
-> > +
-> >  	ret =3D smu_cmn_get_metrics_table(smu,
-> >  					&metrics_external,
-> >  					true);
-> > @@ -3670,29 +3717,30 @@ static ssize_t
-> > sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
-> >
-> >  	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 1, 3);
-> >
-> > -	gpu_metrics->temperature_edge =3D
-> > +	gpu_metrics->temperature_edge =3D use_metrics_v3 ? metrics_v3-
-> > >TemperatureEdge :
-> >  		use_metrics_v2 ? metrics_v2->TemperatureEdge : metrics-
-> > >TemperatureEdge;
-> > -	gpu_metrics->temperature_hotspot =3D
-> > +	gpu_metrics->temperature_hotspot =3D use_metrics_v3 ? metrics_v3-
-> > >TemperatureHotspot :
-> >  		use_metrics_v2 ? metrics_v2->TemperatureHotspot :
-> > metrics->TemperatureHotspot;
-> > -	gpu_metrics->temperature_mem =3D
-> > +	gpu_metrics->temperature_mem =3D use_metrics_v3 ? metrics_v3-
-> > >TemperatureMem :
-> >  		use_metrics_v2 ? metrics_v2->TemperatureMem : metrics-
-> > >TemperatureMem;
-> > -	gpu_metrics->temperature_vrgfx =3D
-> > +	gpu_metrics->temperature_vrgfx =3D use_metrics_v3 ? metrics_v3-
-> > >TemperatureVrGfx :
-> >  		use_metrics_v2 ? metrics_v2->TemperatureVrGfx : metrics-
-> > >TemperatureVrGfx;
-> > -	gpu_metrics->temperature_vrsoc =3D
-> > +	gpu_metrics->temperature_vrsoc =3D use_metrics_v3 ? metrics_v3-
-> > >TemperatureVrSoc :
-> >  		use_metrics_v2 ? metrics_v2->TemperatureVrSoc : metrics-
-> > >TemperatureVrSoc;
-> > -	gpu_metrics->temperature_vrmem =3D
-> > +	gpu_metrics->temperature_vrmem =3D use_metrics_v3 ? metrics_v3-
-> > >TemperatureVrMem0 :
-> >  		use_metrics_v2 ? metrics_v2->TemperatureVrMem0 :
-> > metrics->TemperatureVrMem0;
-> >
-> > -	gpu_metrics->average_gfx_activity =3D
-> > +	gpu_metrics->average_gfx_activity =3D use_metrics_v3 ? metrics_v3-
-> > >AverageGfxActivity :
-> >  		use_metrics_v2 ? metrics_v2->AverageGfxActivity : metrics-
-> > >AverageGfxActivity;
-> > -	gpu_metrics->average_umc_activity =3D
-> > +	gpu_metrics->average_umc_activity =3D use_metrics_v3 ? metrics_v3-
-> > >AverageUclkActivity :
-> >  		use_metrics_v2 ? metrics_v2->AverageUclkActivity : metrics-
-> > >AverageUclkActivity;
-> > -	gpu_metrics->average_mm_activity =3D
-> > +	gpu_metrics->average_mm_activity =3D use_metrics_v3 ?
-> > +		(metrics_v3->VcnUsagePercentage0 + metrics_v3-
-> > >VcnUsagePercentage1) / 2 :
-> >  		use_metrics_v2 ? metrics_v2->VcnActivityPercentage :
-> > metrics->VcnActivityPercentage;
-> >
-> > -	gpu_metrics->average_socket_power =3D
-> > +	gpu_metrics->average_socket_power =3D use_metrics_v3 ?
-> > metrics_v3->AverageSocketPower :
-> >  		use_metrics_v2 ? metrics_v2->AverageSocketPower :
-> > metrics->AverageSocketPower;
-> > -	gpu_metrics->energy_accumulator =3D
-> > +	gpu_metrics->energy_accumulator =3D use_metrics_v3 ? metrics_v3-
-> > >EnergyAccumulator :
-> >  		use_metrics_v2 ? metrics_v2->EnergyAccumulator : metrics-
-> > >EnergyAccumulator;
-> >
-> >  	if (metrics->CurrGfxVoltageOffset)
-> > @@ -3705,37 +3753,45 @@ static ssize_t
-> > sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
-> >  		gpu_metrics->voltage_soc =3D
-> >  			(155000 - 625 * metrics->CurrSocVoltageOffset) / 100;
-> >
-> > -	average_gfx_activity =3D use_metrics_v2 ? metrics_v2-
-> > >AverageGfxActivity : metrics->AverageGfxActivity;
-> > +	average_gfx_activity =3D use_metrics_v3 ? metrics_v3-
-> > >AverageGfxActivity :
-> > +		use_metrics_v2 ? metrics_v2->AverageGfxActivity : metrics-
-> > >AverageGfxActivity;
-> >  	if (average_gfx_activity <=3D SMU_11_0_7_GFX_BUSY_THRESHOLD)
-> >  		gpu_metrics->average_gfxclk_frequency =3D
-> > -			use_metrics_v2 ? metrics_v2-
-> > >AverageGfxclkFrequencyPostDs : metrics-
-> >AverageGfxclkFrequencyPostDs;
-> > +			use_metrics_v3 ? metrics_v3-
-> > >AverageGfxclkFrequencyPostDs :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >AverageGfxclkFrequencyPostDs :
-> > +			metrics->AverageGfxclkFrequencyPostDs;
-> >  	else
-> >  		gpu_metrics->average_gfxclk_frequency =3D
-> > -			use_metrics_v2 ? metrics_v2-
-> > >AverageGfxclkFrequencyPreDs : metrics->AverageGfxclkFrequencyPreDs;
-> > +			use_metrics_v3 ? metrics_v3-
-> > >AverageGfxclkFrequencyPreDs :
-> > +			use_metrics_v2 ? metrics_v2-
-> > >AverageGfxclkFrequencyPreDs :
-> > +			metrics->AverageGfxclkFrequencyPreDs;
-> > +
-> >  	gpu_metrics->average_uclk_frequency =3D
-> > -		use_metrics_v2 ? metrics_v2-
-> > >AverageUclkFrequencyPostDs : metrics->AverageUclkFrequencyPostDs;
-> > -	gpu_metrics->average_vclk0_frequency =3D
-> > +		use_metrics_v3 ? metrics_v3-
-> > >AverageUclkFrequencyPostDs :
-> > +		use_metrics_v2 ? metrics_v2-
-> > >AverageUclkFrequencyPostDs :
-> > +		metrics->AverageUclkFrequencyPostDs;
-> > +	gpu_metrics->average_vclk0_frequency =3D use_metrics_v3 ?
-> > metrics_v3->AverageVclk0Frequency :
-> >  		use_metrics_v2 ? metrics_v2->AverageVclk0Frequency :
-> > metrics->AverageVclk0Frequency;
-> > -	gpu_metrics->average_dclk0_frequency =3D
-> > +	gpu_metrics->average_dclk0_frequency =3D use_metrics_v3 ?
-> > metrics_v3->AverageDclk0Frequency :
-> >  		use_metrics_v2 ? metrics_v2->AverageDclk0Frequency :
-> > metrics->AverageDclk0Frequency;
-> > -	gpu_metrics->average_vclk1_frequency =3D
-> > +	gpu_metrics->average_vclk1_frequency =3D use_metrics_v3 ?
-> > metrics_v3->AverageVclk1Frequency :
-> >  		use_metrics_v2 ? metrics_v2->AverageVclk1Frequency :
-> > metrics->AverageVclk1Frequency;
-> > -	gpu_metrics->average_dclk1_frequency =3D
-> > +	gpu_metrics->average_dclk1_frequency =3D use_metrics_v3 ?
-> > metrics_v3->AverageDclk1Frequency :
-> >  		use_metrics_v2 ? metrics_v2->AverageDclk1Frequency :
-> > metrics->AverageDclk1Frequency;
-> >
-> > -	gpu_metrics->current_gfxclk =3D
-> > +	gpu_metrics->current_gfxclk =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_GFXCLK] :
-> >  		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_GFXCLK] :
-> > metrics->CurrClock[PPCLK_GFXCLK];
-> > -	gpu_metrics->current_socclk =3D
-> > +	gpu_metrics->current_socclk =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_SOCCLK] :
-> >  		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_SOCCLK] :
-> > metrics->CurrClock[PPCLK_SOCCLK];
-> > -	gpu_metrics->current_uclk =3D
-> > +	gpu_metrics->current_uclk =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_UCLK] :
-> >  		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_UCLK] :
-> > metrics->CurrClock[PPCLK_UCLK];
-> > -	gpu_metrics->current_vclk0 =3D
-> > +	gpu_metrics->current_vclk0 =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_VCLK_0] :
-> >  		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_VCLK_0] :
-> > metrics->CurrClock[PPCLK_VCLK_0];
-> > -	gpu_metrics->current_dclk0 =3D
-> > +	gpu_metrics->current_dclk0 =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_DCLK_0] :
-> >  		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_DCLK_0] :
-> > metrics->CurrClock[PPCLK_DCLK_0];
-> > -	gpu_metrics->current_vclk1 =3D
-> > +	gpu_metrics->current_vclk1 =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_VCLK_1] :
-> >  		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_VCLK_1] :
-> > metrics->CurrClock[PPCLK_VCLK_1];
-> > -	gpu_metrics->current_dclk1 =3D
-> > +	gpu_metrics->current_dclk1 =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_DCLK_1] :
-> >  		use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_DCLK_1] :
-> > metrics->CurrClock[PPCLK_DCLK_1];
-> >
-> >  	gpu_metrics->throttle_status =3D
-> > sienna_cichlid_get_throttler_status_locked(smu);
-> > @@ -3743,12 +3799,15 @@ static ssize_t
-> > sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
-> >  			smu_cmn_get_indep_throttler_status(gpu_metrics-
-> > >throttle_status,
-> >
-> > sienna_cichlid_throttler_map);
-> >
-> > -	gpu_metrics->current_fan_speed =3D use_metrics_v2 ? metrics_v2-
-> > >CurrFanSpeed : metrics->CurrFanSpeed;
-> > +	gpu_metrics->current_fan_speed =3D use_metrics_v3 ? metrics_v3-
-> > >CurrFanSpeed :
-> > +		use_metrics_v2 ? metrics_v2->CurrFanSpeed : metrics-
-> > >CurrFanSpeed;
-> >
-> >  	if (((adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(11, 0, 7)) &&
-> > smu->smc_fw_version > 0x003A1E00) ||
-> >  	      ((adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(11, 0, 11)) =
-&&
-> > smu->smc_fw_version > 0x00410400)) {
-> > -		gpu_metrics->pcie_link_width =3D use_metrics_v2 ?
-> > metrics_v2->PcieWidth : metrics->PcieWidth;
-> > -		gpu_metrics->pcie_link_speed =3D
-> > link_speed[use_metrics_v2 ? metrics_v2->PcieRate : metrics->PcieRate];
-> > +		gpu_metrics->pcie_link_width =3D use_metrics_v3 ?
-> > metrics_v3->PcieWidth :
-> > +			use_metrics_v2 ? metrics_v2->PcieWidth : metrics-
-> > >PcieWidth;
-> > +		gpu_metrics->pcie_link_speed =3D
-> > link_speed[use_metrics_v3 ? metrics_v3->PcieRate :
-> > +			use_metrics_v2 ? metrics_v2->PcieRate : metrics-
-> > >PcieRate];
-> >  	} else {
-> >  		gpu_metrics->pcie_link_width =3D
-> >
-> > 	smu_v11_0_get_current_pcie_link_width(smu);
-> > --
-> > 2.20.1
+Most part of the patches are OK, but the code will introduce a ib test fail on the disabled vcn of sienna_cichlid.
+
+In SRIOV use case we will disable one vcn on sienna_cichlid, I have attached a patch to fix this issue, please check the attachment.
+
+Best Regards,
+
+Jingwen Chen
+
+
+On 2/26/22 5:22 AM, Andrey Grodzovsky wrote:
+> Hey, patches attached - i applied the patches and resolved merge conflicts but weren't able to test as my on board's network card doesn't work with 5.16 kernel (it does with 5.17, maybe it's Kconfig issue and i need to check more).
+> The patches are on top of 'cababde192b2 Yifan Zhang         2 days ago     drm/amd/pm: fix mode2 reset fail for smu 13.0.5 ' commit.
+>
+> Please test and let me know. Maybe by Monday I will be able to resolve the connectivity issue on 5.16.
+>
+> Andrey
+>
+> On 2022-02-24 22:13, JingWen Chen wrote:
+>> Hi Andrey,
+>>
+>> Sorry for the misleading, I mean the whole patch series. We are depending on this patch series to fix the concurrency issue within SRIOV TDR sequence.
+>>
+>>
+>>
+>> On 2/25/22 1:26 AM, Andrey Grodzovsky wrote:
+>>> No problem if so but before I do,
+>>>
+>>>
+>>> JingWen - why you think this patch is needed as a standalone now ? It has no use without the
+>>> entire feature together with it. Is it some changes you want to do on top of that code ?
+>>>
+>>>
+>>> Andrey
+>>>
+>>>
+>>> On 2022-02-24 12:12, Deucher, Alexander wrote:
+>>>> [Public]
+>>>>
+>>>>
+>>>> If it applies cleanly, feel free to drop it in.  I'll drop those patches for drm-next since they are already in drm-misc.
+>>>>
+>>>> Alex
+>>>>
+>>>> ------------------------------------------------------------------------
+>>>> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>>> *Sent:* Thursday, February 24, 2022 11:24 AM
+>>>> *To:* Chen, JingWen <JingWen.Chen2@amd.com>; Christian König <ckoenig.leichtzumerken@gmail.com>; dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+>>>> *Cc:* Liu, Monk <Monk.Liu@amd.com>; Chen, Horace <Horace.Chen@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; daniel@ffwll.ch <daniel@ffwll.ch>
+>>>> *Subject:* Re: [RFC v4 02/11] drm/amdgpu: Move scheduler init to after XGMI is ready
+>>>> No because all the patch-set including this patch was landed into
+>>>> drm-misc-next and will reach amd-staging-drm-next on the next upstream
+>>>> rebase i guess.
+>>>>
+>>>> Andrey
+>>>>
+>>>> On 2022-02-24 01:47, JingWen Chen wrote:
+>>>>> Hi Andrey,
+>>>>>
+>>>>> Will you port this patch into amd-staging-drm-next?
+>>>>>
+>>>>> on 2/10/22 2:06 AM, Andrey Grodzovsky wrote:
+>>>>>> All comments are fixed and code pushed. Thanks for everyone
+>>>>>> who helped reviewing.
+>>>>>>
+>>>>>> Andrey
+>>>>>>
+>>>>>> On 2022-02-09 02:53, Christian König wrote:
+>>>>>>> Am 09.02.22 um 01:23 schrieb Andrey Grodzovsky:
+>>>>>>>> Before we initialize schedulers we must know which reset
+>>>>>>>> domain are we in - for single device there iis a single
+>>>>>>>> domain per device and so single wq per device. For XGMI
+>>>>>>>> the reset domain spans the entire XGMI hive and so the
+>>>>>>>> reset wq is per hive.
+>>>>>>>>
+>>>>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>>>>>> One more comment below, with that fixed Reviewed-by: Christian König <christian.koenig@amd.com>.
+>>>>>>>
+>>>>>>>> ---
+>>>>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 45 ++++++++++++++++++++++
+>>>>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 34 ++--------------
+>>>>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  2 +
+>>>>>>>>      3 files changed, 51 insertions(+), 30 deletions(-)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>> index 9704b0e1fd82..00123b0013d3 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>> @@ -2287,6 +2287,47 @@ static int amdgpu_device_fw_loading(struct amdgpu_device *adev)
+>>>>>>>>          return r;
+>>>>>>>>      }
+>>>>>>>>      +static int amdgpu_device_init_schedulers(struct amdgpu_device *adev)
+>>>>>>>> +{
+>>>>>>>> +    long timeout;
+>>>>>>>> +    int r, i;
+>>>>>>>> +
+>>>>>>>> +    for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+>>>>>>>> +        struct amdgpu_ring *ring = adev->rings[i];
+>>>>>>>> +
+>>>>>>>> +        /* No need to setup the GPU scheduler for rings that don't need it */
+>>>>>>>> +        if (!ring || ring->no_scheduler)
+>>>>>>>> +            continue;
+>>>>>>>> +
+>>>>>>>> +        switch (ring->funcs->type) {
+>>>>>>>> +        case AMDGPU_RING_TYPE_GFX:
+>>>>>>>> +            timeout = adev->gfx_timeout;
+>>>>>>>> +            break;
+>>>>>>>> +        case AMDGPU_RING_TYPE_COMPUTE:
+>>>>>>>> +            timeout = adev->compute_timeout;
+>>>>>>>> +            break;
+>>>>>>>> +        case AMDGPU_RING_TYPE_SDMA:
+>>>>>>>> +            timeout = adev->sdma_timeout;
+>>>>>>>> +            break;
+>>>>>>>> +        default:
+>>>>>>>> +            timeout = adev->video_timeout;
+>>>>>>>> +            break;
+>>>>>>>> +        }
+>>>>>>>> +
+>>>>>>>> +        r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
+>>>>>>>> + ring->num_hw_submission, amdgpu_job_hang_limit,
+>>>>>>>> +                   timeout, adev->reset_domain.wq, ring->sched_score, ring->name);
+>>>>>>>> +        if (r) {
+>>>>>>>> +            DRM_ERROR("Failed to create scheduler on ring %s.\n",
+>>>>>>>> +                  ring->name);
+>>>>>>>> +            return r;
+>>>>>>>> +        }
+>>>>>>>> +    }
+>>>>>>>> +
+>>>>>>>> +    return 0;
+>>>>>>>> +}
+>>>>>>>> +
+>>>>>>>> +
+>>>>>>>>      /**
+>>>>>>>>       * amdgpu_device_ip_init - run init for hardware IPs
+>>>>>>>>       *
+>>>>>>>> @@ -2419,6 +2460,10 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+>>>>>>>>              }
+>>>>>>>>          }
+>>>>>>>>      +    r = amdgpu_device_init_schedulers(adev);
+>>>>>>>> +    if (r)
+>>>>>>>> +        goto init_failed;
+>>>>>>>> +
+>>>>>>>>          /* Don't init kfd if whole hive need to be reset during init */
+>>>>>>>>          if (!adev->gmc.xgmi.pending_reset)
+>>>>>>>> amdgpu_amdkfd_device_init(adev);
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>>>>>>> index 45977a72b5dd..fa302540c69a 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>>>>>>> @@ -457,8 +457,6 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+>>>>>>>>                        atomic_t *sched_score)
+>>>>>>>>      {
+>>>>>>>>          struct amdgpu_device *adev = ring->adev;
+>>>>>>>> -    long timeout;
+>>>>>>>> -    int r;
+>>>>>>>>            if (!adev)
+>>>>>>>>              return -EINVAL;
+>>>>>>>> @@ -478,36 +476,12 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+>>>>>>>> spin_lock_init(&ring->fence_drv.lock);
+>>>>>>>>          ring->fence_drv.fences = kcalloc(num_hw_submission * 2, sizeof(void *),
+>>>>>>>>                           GFP_KERNEL);
+>>>>>>>> -    if (!ring->fence_drv.fences)
+>>>>>>>> -        return -ENOMEM;
+>>>>>>>>      -    /* No need to setup the GPU scheduler for rings that don't need it */
+>>>>>>>> -    if (ring->no_scheduler)
+>>>>>>>> -        return 0;
+>>>>>>>> +    ring->num_hw_submission = num_hw_submission;
+>>>>>>>> +    ring->sched_score = sched_score;
+>>>>>>> Let's move this into the caller and then use ring->num_hw_submission in the fence code as well.
+>>>>>>>
+>>>>>>> The maximum number of jobs on the ring is not really fence specific.
+>>>>>>>
+>>>>>>> Regards,
+>>>>>>> Christian.
+>>>>>>>
+>>>>>>>>      -    switch (ring->funcs->type) {
+>>>>>>>> -    case AMDGPU_RING_TYPE_GFX:
+>>>>>>>> -        timeout = adev->gfx_timeout;
+>>>>>>>> -        break;
+>>>>>>>> -    case AMDGPU_RING_TYPE_COMPUTE:
+>>>>>>>> -        timeout = adev->compute_timeout;
+>>>>>>>> -        break;
+>>>>>>>> -    case AMDGPU_RING_TYPE_SDMA:
+>>>>>>>> -        timeout = adev->sdma_timeout;
+>>>>>>>> -        break;
+>>>>>>>> -    default:
+>>>>>>>> -        timeout = adev->video_timeout;
+>>>>>>>> -        break;
+>>>>>>>> -    }
+>>>>>>>> -
+>>>>>>>> -    r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
+>>>>>>>> -               num_hw_submission, amdgpu_job_hang_limit,
+>>>>>>>> -               timeout, NULL, sched_score, ring->name);
+>>>>>>>> -    if (r) {
+>>>>>>>> -        DRM_ERROR("Failed to create scheduler on ring %s.\n",
+>>>>>>>> -              ring->name);
+>>>>>>>> -        return r;
+>>>>>>>> -    }
+>>>>>>>> +    if (!ring->fence_drv.fences)
+>>>>>>>> +        return -ENOMEM;
+>>>>>>>>            return 0;
+>>>>>>>>      }
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>>>>>>> index fae7d185ad0d..7f20ce73a243 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>>>>>>> @@ -251,6 +251,8 @@ struct amdgpu_ring {
+>>>>>>>>          bool has_compute_vm_bug;
+>>>>>>>>          bool            no_scheduler;
+>>>>>>>>          int            hw_prio;
+>>>>>>>> +    unsigned num_hw_submission;
+>>>>>>>> +    atomic_t        *sched_score;
+>>>>>>>>      };
+>>>>>>>>        #define amdgpu_ring_parse_cs(r, p, ib) ((r)->funcs->parse_cs((p), (ib)))
+--------------xxLZALHhgsUeHxRAOScsGuS1
+Content-Type: text/plain; charset="UTF-8";
+	name="0001-drm-amd-amdgpu-set-disabled-vcn-to-no_schduler.patch"
+Content-Disposition: attachment;
+	filename="0001-drm-amd-amdgpu-set-disabled-vcn-to-no_schduler.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSBmOGU1M2M3NGNlN2QwOTRhYzE0NjQ4ZTlkYTZiZjQzYjMwOTgzMjNmIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBKaW5nd2VuIENoZW4gPEppbmd3ZW4uQ2hlbjJAYW1k
+LmNvbT4KRGF0ZTogV2VkLCAyIE1hciAyMDIyIDE3OjQ0OjM4ICswODAwClN1YmplY3Q6IFtQ
+QVRDSF0gZHJtL2FtZC9hbWRncHU6IHNldCBkaXNhYmxlZCB2Y24gdG8gbm9fc2NoZHVsZXIK
+CltXaHldCmFmdGVyIHRoZSByZXNldCBkb21haW4gaW50cm9kdWNlZCwgdGhlIHNjaGVkLnJl
+YWR5IHdpbGwgYmUgaW5pdCBhZnRlcgpod19pbml0LCB3aGljaCB3aWxsIG92ZXJ3cml0ZSB0
+aGUgc2V0dXAgaW4gdmNuIGh3X2luaXQsIGFuZCBsZWFkIHRvCnZjbiBpYiB0ZXN0IGZhaWwu
+CgpbSG93XQpzZXQgZGlzYWJsZWQgdmNuIHRvIG5vX3NjaGVkdWxlcgoKU2lnbmVkLW9mZi1i
+eTogSmluZ3dlbiBDaGVuIDxKaW5nd2VuLkNoZW4yQGFtZC5jb20+CkNoYW5nZS1JZDogSTY5
+Y2ZkN2I1ZmUwYjlmODZjMjYzYjI5M2RjNjYzYTkzNjhmMDU1YjAKLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS92Y25fdjNfMC5jIHwgMiArKwogMSBmaWxlIGNoYW5nZWQsIDIg
+aW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L3Zjbl92M18wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjNfMC5jCmlu
+ZGV4IGRhMTFjZWJhMDY5OC4uNWI1MTVjYTM2NzQ4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS92Y25fdjNfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L3Zjbl92M18wLmMKQEAgLTI5NSw2ICsyOTUsNyBAQCBzdGF0aWMgaW50IHZjbl92
+M18wX2h3X2luaXQodm9pZCAqaGFuZGxlKQogCQkJcmluZyA9ICZhZGV2LT52Y24uaW5zdFtp
+XS5yaW5nX2RlYzsKIAkJCWlmIChhbWRncHVfdmNuX2lzX2Rpc2FibGVkX3ZjbihhZGV2LCBW
+Q05fREVDT0RFX1JJTkcsIGkpKSB7CiAJCQkJcmluZy0+c2NoZWQucmVhZHkgPSBmYWxzZTsK
+KwkJCQlyaW5nLT5ub19zY2hlZHVsZXIgPSB0cnVlOwogCQkJCWRldl9pbmZvKGFkZXYtPmRl
+diwgInJpbmcgJXMgaXMgZGlzYWJsZWQgYnkgaHlwZXJ2aXNvclxuIiwgcmluZy0+bmFtZSk7
+CiAJCQl9IGVsc2UgewogCQkJCXJpbmctPndwdHIgPSAwOwpAQCAtMzA3LDYgKzMwOCw3IEBA
+IHN0YXRpYyBpbnQgdmNuX3YzXzBfaHdfaW5pdCh2b2lkICpoYW5kbGUpCiAJCQkJcmluZyA9
+ICZhZGV2LT52Y24uaW5zdFtpXS5yaW5nX2VuY1tqXTsKIAkJCQlpZiAoYW1kZ3B1X3Zjbl9p
+c19kaXNhYmxlZF92Y24oYWRldiwgVkNOX0VOQ09ERV9SSU5HLCBpKSkgewogCQkJCQlyaW5n
+LT5zY2hlZC5yZWFkeSA9IGZhbHNlOworCQkJCQlyaW5nLT5ub19zY2hlZHVsZXIgPSB0cnVl
+OwogCQkJCQlkZXZfaW5mbyhhZGV2LT5kZXYsICJyaW5nICVzIGlzIGRpc2FibGVkIGJ5IGh5
+cGVydmlzb3JcbiIsIHJpbmctPm5hbWUpOwogCQkJCX0gZWxzZSB7CiAJCQkJCXJpbmctPndw
+dHIgPSAwOwotLSAKMi4zMi4wIChBcHBsZSBHaXQtMTMyKQoK
+
+--------------xxLZALHhgsUeHxRAOScsGuS1--
