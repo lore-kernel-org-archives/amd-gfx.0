@@ -4,56 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74E07C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 15:39:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84193C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 16:17:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0152789361;
-	Wed,  2 Mar 2022 15:39:22 +0000 (UTC)
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A48A189361
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Mar 2022 15:39:20 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id ay7so2020630oib.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Mar 2022 07:39:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=kJ7XgdBjJiXODBrdr9EFafnlFbsAfpl0nd8IyCLbP+E=;
- b=FH+BcERGbn+eeIW0UTPobqVdlrKIXVh0hwdKLL1GTRl+tX+lBjLHTTh4jrzO+XUbsy
- Tsg5feZ+t3RF98kmVf0mru7VBs0JNrl6t6WsrJ2ikRM8bLDO853fbAs3ivoXoc5s9e0S
- ZCnPxGxHgnq637aySV9Do30DFbRmG9IWodXygwpEYEdDgnJxZAh4bNLv0yElsRu/05Iw
- 1TnL6ojMNKToSallqg6H+63mxE146kVc5SK1qGd9/TT4Oz5IID0eb87TCARHbFqXLriQ
- SMpD5W2vPE0QjLlcIPP2VBzBMXf3VYVpz0sq1/eAJxAKkqbB5CODYU9AiuPszKLYAuKS
- lpGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=kJ7XgdBjJiXODBrdr9EFafnlFbsAfpl0nd8IyCLbP+E=;
- b=qIJztXzZWXhux5Oz6I0xG2nYDjb/gj9jHJze5FxNNLycKSve6hWabUbElJ7NL1LLVm
- n/CSB0VC3LJMSv+EPfcsqDSSTLOC+YLzMlLX42ntfDTBUapdMxL4glPXcYvbY2tPDlrE
- HIEJ1fFlAn3/BrlLMD78lw5KH9NXYiGbM6Da5A6ai9eP/hmt1ui/fPgIGJTCwOGZQV9I
- uV3PQXQBYjiQcc+2C8IpcvmxPrChGqG2qdhoHL3yvlRu7hYOcFpBC5r84szEhl6wN5JX
- GnGR8QBIUpwWHcbg8VJL86CDGYLkRUd6qy/KQbaF5uZo3jG8sWDRkG5f1isxtQyTxfx2
- 7A3A==
-X-Gm-Message-State: AOAM532QB5ILXz/NyPQH/LHnxSIOsHXLdcxOS5eBkz5t3J7dqiCWXmFc
- duhFg4E+XLGYXNDtDdRyZrm8ObQ64phHewHysJE=
-X-Google-Smtp-Source: ABdhPJzd82AcZ09eWLdR0tm3vYiXV3i4LXdUtmDE4zYyaPInCeq2HBPUhJJdGsIgz6moxvhUb/X+1K1r4EGsgZudi8I=
-X-Received: by 2002:a05:6808:118d:b0:2d4:be7e:6748 with SMTP id
- j13-20020a056808118d00b002d4be7e6748mr329541oil.123.1646235559909; Wed, 02
- Mar 2022 07:39:19 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA2E110EC68;
+	Wed,  2 Mar 2022 16:17:49 +0000 (UTC)
+X-Greylist: delayed 42145 seconds by postgrey-1.36 at gabe;
+ Wed, 02 Mar 2022 16:17:48 UTC
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com
+ [162.62.57.137])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 053A810EC68
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Mar 2022 16:17:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1646237862;
+ bh=h54ggvRxqi6Eh2jAuKV4V3B+HbRiwHUaT51TNqE38wY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=hOiGQvML2nea+17fQKH5/3V4wjSL538iXm8la+mlRTfVw7GZR5t3ox17TDoOEyNv/
+ f/JPtYwItjnt85yBabs6hadLBYLiKUkXYNpFDHuo4cR+/fI6ykI8zl8TSUQ1kkc+W/
+ sq3jJ4dmGLS0Qh96HkGqFcnCn0Mqw2rLzl8/LtMk=
+Received: from localhost.localdomain ([111.193.130.237])
+ by newxmesmtplogicsvrszc11.qq.com (NewEsmtp) with SMTP
+ id 4672A85D; Thu, 03 Mar 2022 00:17:39 +0800
+X-QQ-mid: xmsmtpt1646237859tc6wr6jlf
+Message-ID: <tencent_DD9048474C138FE4294644B7CEEDF7D84806@qq.com>
+X-QQ-XMAILINFO: ORuEwgb9eurk6ANUdRyWVVtOmbG3L5aFT0qJovIFMBUKuzeelPatJ/B0gO2LsV
+ g4eElJILrR03NNr7f0WRVqSIo3mlIu4ahjoOG75kWNvRupvOFtwkbWTSOZYsNP8OFSlJdi5yD3o3
+ NRndf5+XAVY7KbuwC/FrsCzM6j64obw3RSWRxburhHT0xBT+zkjpYBjf2HCaUDJNyfWD4oVPM05V
+ ZSwUSy8Q3xAsrBUJxA15wjvx1nIrF1EvvTT+YhL4eaDU8A+3VXtbpwKQNEC/xQuulrMsGDJ/xHMo
+ 8MYJkpTpW95yMBmY9hAaQhJxKkFOumz3HDruWDjqIQP9J/th8f1HzMfx3ik+5LpsWtCLJG1mC0Z2
+ 2DOWuhDQaomsBaSWNlCRwE59y4BHUh0ucRF5CC+JfVI3lYZWr4eCM8PEGd6pBl8kkNykgDq0/u/9
+ qPjtCaUpvnxUEgHR+HYiyHxIhoDoHZK4FWc26cgTgwTnm8+JNksNmkn0FVjQGAgjFbcSdrUSUz9l
+ wqXP9J0cLgEQ6bboM/zczinQjY+ELcofKD5Pm1ahwNUWqoZ7y0s13rsZWvwvfv8dRve565/NXlUN
+ +adTJdEpd1PzLzwZFjolYk/jelBJhaAcXL+rm2Lx+Y0W3kL/j7YByTRQ5zx0NIbgMZqKoT867MhI
+ glfAP9TQIn0Y7iQPdWVw7jD6qGkeCK/E79rafegZXPSRLcbsPJAlic7S9LBUO351SiazK7n1BgEj
+ TZ26HXqVV0jUF3tiyG40bOgnhX11ov+Z/9mTKMWT0VKZUhyJcio3StbPxirJMmF34zfu1dPGf+wy
+ XmGlepw5Wd4aV4JN7Uv+4gX9v06UcEL23av2/mDYTTqJa+tlme+lmeYqa6EJCeM90g6NpZmN2O1G
+ 15I6R0wV6ctUbWuFjY0EI=
+From: Weiguo Li <liwg06@foxmail.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH v2] drm/amdgpu: remove redundant null check
+Date: Thu,  3 Mar 2022 00:17:39 +0800
+X-OQ-MSGID: <20220302161739.617215-1-liwg06@foxmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <CADnq5_Na2UtFUTX5uphZH6THw7PisPM835TLgjB=Ne_3==VJUg@mail.gmail.com>
+References: <CADnq5_Na2UtFUTX5uphZH6THw7PisPM835TLgjB=Ne_3==VJUg@mail.gmail.com>
 MIME-Version: 1.0
-References: <tencent_A4D5E94B44BF0EC4B7CE08BA886C0C1B0F06@qq.com>
- <CADnq5_NOGDTnB+YbN2vLm9mNo1sAn4n=Seowk8vd4wuT5krDow@mail.gmail.com>
- <2cf40fb2-6d0f-660b-c238-a8c97511ab22@gmail.com>
-In-Reply-To: <2cf40fb2-6d0f-660b-c238-a8c97511ab22@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 2 Mar 2022 10:39:08 -0500
-Message-ID: <CADnq5_Na2UtFUTX5uphZH6THw7PisPM835TLgjB=Ne_3==VJUg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix potential null dereference
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,86 +61,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Weiguo Li <liwg06@foxmail.com>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: ckoenig.leichtzumerken@gmail.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 2, 2022 at 10:01 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Looks like my response never made it through.
->
-> This change and the existing check is nonsense. The caller makes sure
-> that ctx is never NULL here.
->
-> So the check should probably just be dropped entirely.
+Remove the redundant null check since the caller ensures
+that 'ctx' is never NULL.
 
-agreed and dropped.  Weiguo care to send a patch to drop the checks?
+Signed-off-by: Weiguo Li <liwg06@foxmail.com>
+---
+v2:
+* take Christian and Alex's suggestion
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index f522b52725e4..2f38de406937 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -261,9 +261,6 @@ static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
+ 	struct amdgpu_device *adev = ctx->adev;
+ 	enum amd_dpm_forced_level current_level;
+ 
+-	if (!ctx)
+-		return -EINVAL;
+-
+ 	current_level = amdgpu_dpm_get_performance_level(adev);
+ 
+ 	switch (current_level) {
+@@ -293,9 +290,6 @@ static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
+ 	enum amd_dpm_forced_level level;
+ 	int r;
+ 
+-	if (!ctx)
+-		return -EINVAL;
+-
+ 	mutex_lock(&adev->pm.stable_pstate_ctx_lock);
+ 	if (adev->pm.stable_pstate_ctx && adev->pm.stable_pstate_ctx != ctx) {
+ 		r = -EBUSY;
+-- 
+2.25.1
 
->
-> Regards,
-> Christian.
->
-> Am 02.03.22 um 15:21 schrieb Alex Deucher:
-> > Applied.  Thanks!
-> >
-> > Alex
-> >
-> > On Wed, Mar 2, 2022 at 3:56 AM Weiguo Li <liwg06@foxmail.com> wrote:
-> >> "ctx" is dereferenced but null checked later. Swap their positions
-> >> to avoid potential null dereference.
-> >>
-> >> Found using a Coccinelle script:
-> >> https://coccinelle.gitlabpages.inria.fr/website/rules/mini_null_ref.co=
-cci
-> >>
-> >> Signed-off-by: Weiguo Li <liwg06@foxmail.com>
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 6 ++++--
-> >>   1 file changed, 4 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_ctx.c
-> >> index f522b52725e4..b4f035ce44bc 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> >> @@ -258,11 +258,12 @@ static void amdgpu_ctx_fini_entity(struct amdgpu=
-_ctx_entity *entity)
-> >>   static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
-> >>                                          u32 *stable_pstate)
-> >>   {
-> >> -       struct amdgpu_device *adev =3D ctx->adev;
-> >> +       struct amdgpu_device *adev;
-> >>          enum amd_dpm_forced_level current_level;
-> >>
-> >>          if (!ctx)
-> >>                  return -EINVAL;
-> >> +       adev =3D ctx->adev;
-> >>
-> >>          current_level =3D amdgpu_dpm_get_performance_level(adev);
-> >>
-> >> @@ -289,12 +290,13 @@ static int amdgpu_ctx_get_stable_pstate(struct a=
-mdgpu_ctx *ctx,
-> >>   static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
-> >>                                          u32 stable_pstate)
-> >>   {
-> >> -       struct amdgpu_device *adev =3D ctx->adev;
-> >> +       struct amdgpu_device *adev;
-> >>          enum amd_dpm_forced_level level;
-> >>          int r;
-> >>
-> >>          if (!ctx)
-> >>                  return -EINVAL;
-> >> +       adev =3D ctx->adev;
-> >>
-> >>          mutex_lock(&adev->pm.stable_pstate_ctx_lock);
-> >>          if (adev->pm.stable_pstate_ctx && adev->pm.stable_pstate_ctx =
-!=3D ctx) {
-> >> --
-> >> 2.25.1
-> >>
->
