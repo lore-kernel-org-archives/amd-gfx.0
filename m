@@ -4,118 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF8A9C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 22:41:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C818C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 22:53:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2993610E4F1;
-	Wed,  2 Mar 2022 22:41:27 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2050.outbound.protection.outlook.com [40.107.223.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B3E610E4F1
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Mar 2022 22:41:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C511310E715;
+	Wed,  2 Mar 2022 22:53:19 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2076.outbound.protection.outlook.com [40.107.243.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4157B10E5B8
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Mar 2022 22:53:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F4Wem5pF5AgtvF12C2PnlNL5/xwKLF+Zjy94Ezo0nUX+pKeru5C6yxsCozPchh548KpaeI7zbUK1BlBoqAATFkN28jkgCNmx/17kO3dc+oETQLn5+bmSlHVggMSF+eJtZDk6LwkKpCYeWZxrYX+Mo8U4gAYWAdI/ZHJlFuZ1BdB/OXojDCh5rpj7uG3x77Rf2VDk/kZCvCI2KYV0UOGmG3bAOFziIbueLNrWjPpAYBultg6kq6TjlOFWMgsgv3Vk9iOLXJzww0SSVwwXy4uSFRmJWWoly9YvPBzhfKCyHOR/FODCtm47yhizOh8abLtL6+gAoCIwNmgb2qdxBomT9g==
+ b=X7WOh2H1gUakkL6wYcsgds9mXrL10iaeGFYcLCQGD+XNKE5is0ldELNPEJd9OVm5A2fC6pXhxqbOsJLB/r/bmP/aRxZK0FmQ1ZiDQzn03ylH8mhSK7/XZUpYgCUQJeqPTBUweCnMuHE6R249f70A1ie2Lp/l4G6KM1zRUM20PgU5edxgtm5i7WhMjBUBCLkQaCFGbdepZtm5W13OymdCMiFO3mq5gpjMXVQc2Y3kVzIVbMpc5x39vmMEx66DCu+R6BBZr9gMRhQB7eTgQvrxnw1aHLhDG7fhWhtMvTlcaOEQnLbBg8OXs6qNQWuUMAAMgvvu6j7ojRR7ZYZcFqXauA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s5gn4eMEB8CXo4do9cRgRVzCC4v+wHcjX74XBj29yW4=;
- b=jMEqwHMltoiI1peJcAFcIaGT0YduyZXvINzOryfYuB1QAMaJUN/CuIrb9FcTFbdgUNJfdCZYn7nPUbfhRz1UxtMCZa1JAq4NohoVg+NrkjieVVHywuMMPJUUQneicXzdy+m7VKPo6wpEa5Yzd9G2T8B6oysnTeSvZdVIfVG1/rlx0FCCksTw6ox6ppH21wMT4IfC3b+XOK+sxMPSgvmlJR++KGX8FI6ajXZZxX350qIiQsiSpsqocqNtyPrDQ7ESlWarhS0whQBEE1wtO+mpP9ODcqfoU60PfOfABmfyJvJLYElANrHCEsTmRMI+PyLLIS/FX51I++9iKscs0W+XkQ==
+ bh=zhnXXEhXclnfT72ArJDLjj3eTFD14sn6q+a8phvpRMY=;
+ b=aOtAOa+5cd6QuGHzoxnILOM+13lbtcCn62DFXXkXTTk04V4vvbtBjRHLgFMRQnhM/RuY9u91w+Q8KxZmP4HAyy9+Dn0pOFHt7e+/i+wb26KfFwGDgdN3dTonelVhTeb/FMAxq2kwAyJqc7wt3h3EngM2/0yos6XCH0S2GLS5BvEV6X/xCF6Fxy7YsMgpzM5U5CfyyAZtefQ7FlQqQCzCytcrwtXLIzIQTCjnulzr3WrjPHjpUdrA75elCaipittGWioibINKHEYetJCNigpzJ6fPTnb9qHywJg+W+OO7fRHyg8sa4m2YMMFCL8pNvbh87ceVh+NcaJVtxAofSHvWqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s5gn4eMEB8CXo4do9cRgRVzCC4v+wHcjX74XBj29yW4=;
- b=b+cO3/VDomOEdZ2Bw6BLLzhS9lz7s5j1uzX/v+MOiW/623uVK3u6IGpgBaxWLvnxhm6LnRj7xXG14w/IrOcnvnkelEavuzQ/BjLHkKpyC9tZNQ9TbH1/Z3mniJJ1OSh6ObuupgApLho1F42BcN4oQx/b039KakQMcRYFzQrwODg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by PH7PR12MB5950.namprd12.prod.outlook.com (2603:10b6:510:1d9::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.26; Wed, 2 Mar
- 2022 22:41:23 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::b030:b1ba:4eb2:7fb7]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::b030:b1ba:4eb2:7fb7%6]) with mapi id 15.20.5038.014; Wed, 2 Mar 2022
- 22:41:23 +0000
-Message-ID: <bfdcdf2a-07a7-edc9-6cac-806ce6a4ca4c@amd.com>
-Date: Wed, 2 Mar 2022 17:41:22 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/amdgpu: Set correct DMA mask for aldebaran
+ bh=zhnXXEhXclnfT72ArJDLjj3eTFD14sn6q+a8phvpRMY=;
+ b=r/uX6cYeO2BkfL3Uf6jKzeA6/yfOMH6lPuHYnirpDSvuouj9NDHMgzfCGAEOhgIarMbGCziPWVrq126ApE1CN8ZSY9BBiZUgPGzmDOLs8WVpgmLMDv+QTl+JGv9YmFMBsTdULxJe4o0GzXjuPGrz7etLX/rhokK2AXkIWtIsbN4=
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com (2603:10b6:5:115::26)
+ by LV2PR12MB5773.namprd12.prod.outlook.com (2603:10b6:408:17b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.23; Wed, 2 Mar
+ 2022 22:53:16 +0000
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::1c1:a8d2:800f:cb50]) by DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::1c1:a8d2:800f:cb50%6]) with mapi id 15.20.5017.027; Wed, 2 Mar 2022
+ 22:53:15 +0000
+From: "Keely, Sean" <Sean.Keely@amd.com>
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/1] drm/amdkfd: Improve concurrency of event handling
+Thread-Topic: [PATCH 1/1] drm/amdkfd: Improve concurrency of event handling
+Thread-Index: AQHYLnEHwiB//XYauUiKbHAJ3Ex0Mayss41A
+Date: Wed, 2 Mar 2022 22:53:15 +0000
+Message-ID: <DM6PR12MB33554F21F36F0BB50B90B75E94039@DM6PR12MB3355.namprd12.prod.outlook.com>
+References: <20220302200614.2439019-1-Felix.Kuehling@amd.com>
+In-Reply-To: <20220302200614.2439019-1-Felix.Kuehling@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220228182508.464871-1-Harish.Kasiviswanathan@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20220228182508.464871-1-Harish.Kasiviswanathan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAPR03CA0065.namprd03.prod.outlook.com
- (2603:10b6:208:329::10) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c342dee6-7494-4a59-93aa-08d9fc9dc769
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5950:EE_
-X-Microsoft-Antispam-PRVS: <PH7PR12MB59508B001DB127027BE27CAC92039@PH7PR12MB5950.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OpZbVsxzoDfeuO5CMh/mZT+KLo0zEjXrtIyQwO0lXEg9qz0YsRu5xXTj0eQYUxGkJcMn/VCsEn78xtDuroWX8uv2CzZo1TJeNSsmb/FcYXUtOK59T9WoZulrWCw69L5ElsM3N/sPC4KBc8Phgz5m3Frjn28MsSr6oW5N6xD0SzOuYxlvggxhSfKmfKx7srJgKoizH6YXL4ekEnhcKGHRXG7EUcozdHjGYf2b4Uv0bOkpQ7oecmBPZuiyDOc6rSpV89mr+SOGfyTWoN/ABPV1esfg3NfZ/qPgBpTaGqD03iCU1OlW3INy2UPrYml927qOTh8avZv8C9jS3VrYeI9Na5CjBqsKM4PZsNfNBN/lPtHs7SPZDZKvCVxYTEtTFh+PwjMCc+jpwQEKO+DEZwEzxuPhvmydShQaQ6al3aD2Ml8tZLmD/40qLZGhhcDTVP0mQGr3wVzLhSEIN4u/UoruM0GfESqDcTI5FFXSQKK6PJLTyyzYaX3YXwmiXYkO3BwQn161rzPj7xLATTiwVnE4zbxKtb/sE7d+xLq85N/anThQfH2/KhMLX6KNWmW3hNgNH7Qwb4isUi6zxs6kudZjpwMBFGXOFm+suPcuMavxxEmB450rqqEFQ12dZ3XfjxsnddkklGrK5lrZ8nPHboq6DiwwrdMY9KTzWFPImHmgjxPBdsNjzut9feFXEl0mcv7cpC/M64jrENkocS1WoTdC+3ADshg1OweeiNvkFf8Cc4UsD07eVs2gCfnU0ci0Tlx2
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(26005)(316002)(38100700002)(186003)(6512007)(36756003)(2906002)(5660300002)(44832011)(31686004)(8936002)(2616005)(66556008)(66946007)(508600001)(6486002)(86362001)(53546011)(6506007)(36916002)(83380400001)(8676002)(31696002)(66476007)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=03fdebea-0901-4dce-8b41-5ed21eaf78a9;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-02T22:52:39Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 15fec924-2ea0-41e5-806b-08d9fc9f7012
+x-ms-traffictypediagnostic: LV2PR12MB5773:EE_
+x-microsoft-antispam-prvs: <LV2PR12MB577300196ABDB74D08AF092494039@LV2PR12MB5773.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: zC2RPFEDaodjCtizTDUk71gT4IaIIvkZW9vEXjArfS/UedMZ4f6WW+R0EP8taMgUqibv34jZ0bZWmQr/VeiZ68UTfVPYq+Dqau7gWdesKOGvADXhsmOXd+SwnlAHc8akv4B5enWS8+Cu2C3BZVcqIdIF1xl3/FYSWPEfBAVya1/av4R7kGEaVHQkTEtwO82NUuTIaZ/UcwJI6jLJ3plWOnpM34ciz2Qc8aFownOXgonsUjAdDYjl/ewGCnbiZZfFmzfP/t5wJKaGaax6fmMtQQKLcdVcO/4vkFMVKudLrazyXK3V6LVgIjF0m1AUJ1YUob8EJJ3e3eUZNopx4IIHpOesiGJwJcl4EMALySBjQJ7avX5SDmkvvrqwTU/22snhA5SRVZjUyFUol8o2H3eWSi5YUKoD7Wn5cm0YizUE3hGwh41BzY7YRfuUZHgiRpZgA5S67z/VFux+/1HzGYY60wzTCd27FBdspbbI0VadiLV7U1im5PbZO8ylEZUVto2Ly/shQ+VoiMkBg5g9jgKvDEeId9TuEUn38y+/lbDma0SGyeJVaKpbepZsratTKQ2HOwPbAGTPaUKYodnkczPZS9meZCaic6exV8Lqvc/Nh4fP62BGr7fLyu9e0ZTg+cjOLhg+aOY+6JEEOVKPK32P+6VlST7uZ2uIN6QBNtVYux7xUngIk4eDC34n3t+XXGbJzntZdEJsjpT4zioUHBJLLw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3355.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(71200400001)(55016003)(508600001)(8936002)(7696005)(52536014)(64756008)(66446008)(66476007)(66556008)(53546011)(76116006)(66946007)(8676002)(6506007)(5660300002)(186003)(122000001)(26005)(38100700002)(86362001)(33656002)(9686003)(83380400001)(38070700005)(316002)(2906002)(30864003)(110136005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T2tzbHN2d2V5a0pLTDRnenJBbHRON0VJNlhOVDArZVhDMDVZYXBOZEU3YnZF?=
- =?utf-8?B?czJ3NmZvU1lBNHNLNnF2dnZoMExCYTJvK3ZVMEJ3aXBuREJJdHp6NE5SQThh?=
- =?utf-8?B?N0hNNldSbzBJOHN2SW96QjVDS21EcjlaMlNCVGNyUGlvTFlpdDcrREpMbGNW?=
- =?utf-8?B?amNLOTYwRngrc2orOGljbVc0dmQ1ZnBsWi84bXlYWWJBKzhwdEFPenNkbExF?=
- =?utf-8?B?MHhDVDdKeUN6SUZVcFhtZHVZM1luRHlZR2RTaVhHS2UxQ0x5NnBvTVNCUTVr?=
- =?utf-8?B?Z2RXOTdyVWhBSGcxRmNkZkpoR01JZ3VXY3JuNDBiSEEwOUMyaC92REpvbE5I?=
- =?utf-8?B?SElyV3JpTkNtMmFXSG50cm1rSmlqTWxkd0VvVXlNMVdDNnFLTkV1cVNnQWNk?=
- =?utf-8?B?YmNjUFpNejBLWVNaN1JodmJnTkxTMFVqY1lnOUNkQ0F0aGxvM3gyb2xuS1B2?=
- =?utf-8?B?ZEozRnowSXBDallNcHlMVzNyK2srMzFoOWlyOGI0RkRZZHRjcVZPYXZiRUlo?=
- =?utf-8?B?aC85dytJUGZrQXpCQmtxSEZOVkVJTWZuMU5leUVYRk1NWStzNU1MbWk5MzdL?=
- =?utf-8?B?ZDVtNzM3Wnl3VW5va3hnbTBVRlNteTIraEl4RXc2NUwrKy9MU2gyRHF1OU1u?=
- =?utf-8?B?L1VoNTZVWE1kMjhWclVITENBTkFQdHAzWTB3TVNmVG1GdWRHU29Zc3JhVVNx?=
- =?utf-8?B?cjltbzFzOGM2K2taTkVvcWRwc3lOdXZIcTliTlNDNWxDUVUzMlVaMHU4WWxH?=
- =?utf-8?B?bzVwVEFCRXJEK0piZWcrNnN4eW9OWVc3VmhWbjQ2M0FpWVppM256RktyREtz?=
- =?utf-8?B?RjRmbWY0Vkl1Y0lXUXcxL0JQZHAvcUtCTkNWZW51WG9iaUJGbTNNYjZ0b2xl?=
- =?utf-8?B?RjZ6M3FlS2JzNmQ2MlYwOWFmdDlGT1FQMFpPM3pGaGJXejFqOWtLYXFDVlF3?=
- =?utf-8?B?ZUxHZ1J3S21aUFdpaXQ2cDdnUmxQMlFab2R0OUd6Rmt4MVhMUnlkcU9qT254?=
- =?utf-8?B?SXQ4c29VMExRQlBBbXllYlUvdk1la3dzNVJGenJVanBZblN2THUxNFlpOTFE?=
- =?utf-8?B?cGtvYnRSTnBOYk1oMkF6M3BuOUNwdG9xTHF1V1BkNWNtMHdzcFFSRTRBamdm?=
- =?utf-8?B?N04yRjVUd2plaG4xYXVodU1MZXp6d2RzcUIrN2dMdlcvNmxnb0x5Qm1JUW1B?=
- =?utf-8?B?S2x1VHNYc3dFUkQzM0krbWRMSVZMRUdwWEtyM1pkNHZsY3lmOS9ham9rOVB0?=
- =?utf-8?B?YkpoS2V6UWpqUERoRmhSM3JoVXF2UWJHazlVT3BWUkVKUEtyN0ExY3grMWxG?=
- =?utf-8?B?U1dUSGU3bjBGZENRbXJydEI1MUNPamlxamc5dEZWT2pQMUxzQmVocUMxZTNo?=
- =?utf-8?B?WkttdTNMRDR2ZFBPRHV1ZzVlWmtNOTNWcnFveCtWWTc4aDR4N3l5TXdiMjlS?=
- =?utf-8?B?a243eVF6WW1EdTBkdHcxY0EvMUtKUWRqMVh1ZytJMjBvbjZWSjRqWS8wQmgw?=
- =?utf-8?B?d25QWHRISXJ1WHh4SWJRek9rcWdJRXdGalBZcmVuZTRVSFAwUzlZNUx6V21C?=
- =?utf-8?B?eXNkQVRrYktsZEl0N0FZcGkxUE9tTmtCSHlrNlNWTUFmcnp1TkRESmdoRVFj?=
- =?utf-8?B?TnJTTzQveUtmQjNOTEFkczVva0lscm1GTm9tdDRoVlUzb2h1SXRvWDhJdkNU?=
- =?utf-8?B?dUxaV1RpWmpPWGVlU1Jvck9BSmhJOXltVnhPaGZHWVZhT1ExWWZPZmhiSDEr?=
- =?utf-8?B?QXBUSUFqN0ZtcUtaNUhob0Q0N1hmTW1ta0hPVVVpaXQ3bVI4OU9pdzRmeEI0?=
- =?utf-8?B?bUJCNzNCRCtvVlJ3dXVRdmFGYlh0ZTRLSDJyVnBZcXZLZXZBNEVSanNBYU1I?=
- =?utf-8?B?UkY0aXY3eSs1dDNFN292Q2JRUFhzRW96ZThsbjZnUkVXNWswL2xTU2dvbmJK?=
- =?utf-8?B?SEdvRVhqZ2t5Ky9taGVUWU4ydzBWekd4WWlETXo4UExBd3BjOGV4VjNRZERF?=
- =?utf-8?B?SFEzU1A1UmhGUjZsMk1XQnZRL2luQittck4xTUxVR0xTRE1CSzFmcWd4L1Bh?=
- =?utf-8?B?a2VWYkRCd2hwYkVmK3k5WS9HcmN2VitUeXkyTndUK3ZOU3lsTmY2WEt3S3Fw?=
- =?utf-8?B?R01XeWJCMkpQMWVtTFBGUG5qY2FFUzgxMm1qTVJzbGlDK3VKKy9DQkdYdWRv?=
- =?utf-8?Q?WCYeMJRAWzyDIf4DViuBtvw=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KWjK2rMS8sPpZOZZFuAq9j2oEDuU5/3VWhW1CFFi29j4fNYisB9XL/D2ECsx?=
+ =?us-ascii?Q?8K3CPFz6IT0Nba0h/jJGLyXZptT0N0nHHp1IxP+eVGbmyTsw3BRllZ55iOLe?=
+ =?us-ascii?Q?PVbAV5PFMkayeHHoX2iO8caC6wI3gIdx36xeByD8XM7Z7fro1OXVtKtc9vTb?=
+ =?us-ascii?Q?qumHdHubRG2YDvbhl9ZIBkKPeDcVourqSZlLfqtYvwtbSCVlUQdssjozfmlF?=
+ =?us-ascii?Q?6GWgRnqOq/Y2Hn58Wy+2fyvF5+imbT49LGsSlGqSDot2hcnQnwwJowltOP0L?=
+ =?us-ascii?Q?R3eF2kgXfGuviKBAeNGhWQrmu0h63Kv33OX3a2ry/9tUOcS2SubRuLKVOSU/?=
+ =?us-ascii?Q?1mBTj6yEMV4D1TJw30eMw40PTjyPML/jy/dNepDfwWDm6awmAiPu3wAq+h14?=
+ =?us-ascii?Q?D59v1ZfEmbeUITagRWyyEbEi0qsmc9DdlUP4LXlTnGZSXS/nGEhhiwfnS5gl?=
+ =?us-ascii?Q?LAP066K0h+YtNNtcaul1wUvHKEMTeR2KdMJ/5QaXk7bPvAsXw7QB/uTZA+Mv?=
+ =?us-ascii?Q?/UZiPf1FyQBJkWh87trYdkShQMyxnedQ9AKeiWbaj/JRxQTl8LdWQ62qaVkd?=
+ =?us-ascii?Q?CMN95ihBMA2M45NzytQnQpQGLPwY+hxWvnAnjHqDOTGRYHe2f+tA8DRoNUA7?=
+ =?us-ascii?Q?iSjqD613WNkRt2L5XX2S3n8PJzPjWZTQHEGZz/aFZAcgdPr/IJivFsdBd1+9?=
+ =?us-ascii?Q?faJ+CQPkMM/lts0o3x9djd27MINHZmphI+J62pP1FzUp0CnmW6tSzBoIhDT/?=
+ =?us-ascii?Q?XqHizxnr/SD4q8zUNBebayLpCjTfHnswysaT2YL+Mo8nGlucP1goqEQtnGoC?=
+ =?us-ascii?Q?lDMv4el6T60p2uEqEFCXuj9xdpH6+FwpcSMyp5rxV4aH/XDMEXDr2KZ7hT60?=
+ =?us-ascii?Q?X9Te9C1kb7d260+w0cGsrwaLQ8ewuJfP3sSguw498Rw8t7W4278IPJc1ZHC0?=
+ =?us-ascii?Q?BqOg1cupmNW5oT+T/gHbim4knXnxnamtyd0ncTj8m8oWBnP01W24euHq2tqw?=
+ =?us-ascii?Q?CijrxblLMNVWF7Cy9fYgHvzeawmZMn4K29lpAdF2bsBR8ULR4mfx5DhibjfM?=
+ =?us-ascii?Q?rOz2c+DZEKJHsdhp3Xyu4olRv8lZzip51v0/hjTkKH7yx3bUNp2x79KqqQN9?=
+ =?us-ascii?Q?95lWbhD4usv78KzB8EYU5RzUTC/9bpHWd3q37qIgw8pgTVU01uCooy3Ef0py?=
+ =?us-ascii?Q?bNUJfvy+kbaisR6aGOCCqLfG4zBBftTWDDlsczj2OXrhnwRfUV5XDa3BNhcB?=
+ =?us-ascii?Q?crXhduxymWQiZ/XSRodFTkP50IdwUzqYsB5BCEwd4HI9rfCEOU5dnm/teMeO?=
+ =?us-ascii?Q?dLgQz4ZjTSYPFHPlNOBbRll5BhO8LI4CoFeGmjfXAa0YaCCBg60KF8HTKwk8?=
+ =?us-ascii?Q?2S29eYcsy+/M++JZQ0mEq3JdN6bHm/klOyhWWD+QGkox9MymtaA3ox3hZNwI?=
+ =?us-ascii?Q?msnO8ZeWDnqPJcsplmzflKE8k8+rByh3H+mNcW886HTsY/gwQy41TWhcjEkO?=
+ =?us-ascii?Q?lrKnfxI/Aq/0NMDg3wjwQ+1+rceATL3dexM2bQ+hC0C3IyLNynmyMz5odQ?=
+ =?us-ascii?Q?=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c342dee6-7494-4a59-93aa-08d9fc9dc769
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2022 22:41:23.6392 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oTJ+ilI5QI3k/4HyrZeTfLXFOnRfseSjag00CGIanpCFaOZcKyZzLz2yrfLxZuoZHgSQGWq5VLkI+2hF/fDJ9A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5950
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3355.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15fec924-2ea0-41e5-806b-08d9fc9f7012
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Mar 2022 22:53:15.8958 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2ft5KwR429r7b3j0o+DiK5EwdBSr/t7uHYbwxF2rNTId3xiNB7NIm5NohMFqXyJg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5773
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,51 +127,511 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-02-28 13:25, Harish Kasiviswanathan wrote:
-> Aldebaran has 48-bit physical address support
->
-> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 412e44af1608..0765c163b355 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1675,12 +1675,17 @@ static int gmc_v9_0_sw_init(void *handle)
->   	 */
->   	adev->gmc.mc_mask = 0xffffffffffffULL; /* 48 bit MC */
->   
-> -	r = dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(44));
-> +	if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 2)) {
-> +		r = dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(48));
-> +		adev->need_swiotlb = drm_need_swiotlb(48);
-> +	} else {
-> +		r = dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(44));
-> +		adev->need_swiotlb = drm_need_swiotlb(44);
-> +	}
+[AMD Official Use Only]
 
-Instead of duplicating the code, I'd prefer a variable to hold the 
-number of address bits. E.g.
+LGTM.
 
-    int dma_addr_bits =
-    	(adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 2)) ? 48 : 44;
-    ...
-    r = dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(dma_addr_bits));
-    ...
-    adev->need_swiotlb = drm_need_swiotlb(dma_addr_bits);
+Reviewed-by: Sean Keely <Sean.Keely@amd.com>
 
-With that fixed, the patch is
+-----Original Message-----
+From: Kuehling, Felix <Felix.Kuehling@amd.com>
+Sent: Wednesday, March 02, 2022 2:06 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Keely, Sean <Sean.Keely@amd.com>
+Subject: [PATCH 1/1] drm/amdkfd: Improve concurrency of event handling
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Use rcu_read_lock to read p->event_idr concurrently with other readers
+and writers. Use p->event_mutex only for creating and destroying events
+and in kfd_wait_on_events.
 
+Protect the contents of the kfd_event structure with a per-event
+spinlock that can be taken inside the rcu_read_lock critical section.
 
->   	if (r) {
->   		printk(KERN_WARNING "amdgpu: No suitable DMA available.\n");
->   		return r;
->   	}
-> -	adev->need_swiotlb = drm_need_swiotlb(44);
->   
->   	r = gmc_v9_0_mc_init(adev);
->   	if (r)
+This eliminates contention of p->event_mutex in set_event, which tends
+to be on the critical path for dispatch latency even when busy waiting
+is used. It also eliminates lock contention in event interrupt handlers.
+Since the p->event_mutex is now used much less, the impact of requiring
+it in kfd_wait_on_events should also be much smaller.
+
+This should improve event handling latency for processes using multiple
+GPUs concurrently.
+
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c | 119 +++++++++++++++---------
+ drivers/gpu/drm/amd/amdkfd/kfd_events.h |   1 +
+ 2 files changed, 78 insertions(+), 42 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/=
+amdkfd/kfd_events.c
+index deecccebe5b6..1726306715b2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -128,8 +128,8 @@ static int allocate_event_notification_slot(struct kfd_=
+process *p,
+ }
+
+ /*
+- * Assumes that p->event_mutex is held and of course that p is not going
+- * away (current or locked).
++ * Assumes that p->event_mutex or rcu_readlock is held and of course that =
+p is
++ * not going away.
+  */
+ static struct kfd_event *lookup_event_by_id(struct kfd_process *p, uint32_=
+t id)
+ {
+@@ -251,15 +251,18 @@ static void destroy_event(struct kfd_process *p, stru=
+ct kfd_event *ev)
+        struct kfd_event_waiter *waiter;
+
+        /* Wake up pending waiters. They will return failure */
++       spin_lock(&ev->lock);
+        list_for_each_entry(waiter, &ev->wq.head, wait.entry)
+-               waiter->event =3D NULL;
++               WRITE_ONCE(waiter->event, NULL);
+        wake_up_all(&ev->wq);
++       spin_unlock(&ev->lock);
+
+        if (ev->type =3D=3D KFD_EVENT_TYPE_SIGNAL ||
+            ev->type =3D=3D KFD_EVENT_TYPE_DEBUG)
+                p->signal_event_count--;
+
+        idr_remove(&p->event_idr, ev->event_id);
++       synchronize_rcu();
+        kfree(ev);
+ }
+
+@@ -392,6 +395,7 @@ int kfd_event_create(struct file *devkfd, struct kfd_pr=
+ocess *p,
+        ev->auto_reset =3D auto_reset;
+        ev->signaled =3D false;
+
++       spin_lock_init(&ev->lock);
+        init_waitqueue_head(&ev->wq);
+
+        *event_page_offset =3D 0;
+@@ -466,6 +470,7 @@ int kfd_criu_restore_event(struct file *devkfd,
+        ev->auto_reset =3D ev_priv->auto_reset;
+        ev->signaled =3D ev_priv->signaled;
+
++       spin_lock_init(&ev->lock);
+        init_waitqueue_head(&ev->wq);
+
+        mutex_lock(&p->event_mutex);
+@@ -609,13 +614,13 @@ static void set_event(struct kfd_event *ev)
+
+        /* Auto reset if the list is non-empty and we're waking
+         * someone. waitqueue_active is safe here because we're
+-        * protected by the p->event_mutex, which is also held when
++        * protected by the ev->lock, which is also held when
+         * updating the wait queues in kfd_wait_on_events.
+         */
+        ev->signaled =3D !ev->auto_reset || !waitqueue_active(&ev->wq);
+
+        list_for_each_entry(waiter, &ev->wq.head, wait.entry)
+-               waiter->activated =3D true;
++               WRITE_ONCE(waiter->activated, true);
+
+        wake_up_all(&ev->wq);
+ }
+@@ -626,16 +631,18 @@ int kfd_set_event(struct kfd_process *p, uint32_t eve=
+nt_id)
+        int ret =3D 0;
+        struct kfd_event *ev;
+
+-       mutex_lock(&p->event_mutex);
++       rcu_read_lock();
+
+        ev =3D lookup_event_by_id(p, event_id);
++       spin_lock(&ev->lock);
+
+        if (ev && event_can_be_cpu_signaled(ev))
+                set_event(ev);
+        else
+                ret =3D -EINVAL;
+
+-       mutex_unlock(&p->event_mutex);
++       spin_unlock(&ev->lock);
++       rcu_read_unlock();
+        return ret;
+ }
+
+@@ -650,23 +657,25 @@ int kfd_reset_event(struct kfd_process *p, uint32_t e=
+vent_id)
+        int ret =3D 0;
+        struct kfd_event *ev;
+
+-       mutex_lock(&p->event_mutex);
++       rcu_read_lock();
+
+        ev =3D lookup_event_by_id(p, event_id);
++       spin_lock(&ev->lock);
+
+        if (ev && event_can_be_cpu_signaled(ev))
+                reset_event(ev);
+        else
+                ret =3D -EINVAL;
+
+-       mutex_unlock(&p->event_mutex);
++       spin_unlock(&ev->lock);
++       rcu_read_unlock();
+        return ret;
+
+ }
+
+ static void acknowledge_signal(struct kfd_process *p, struct kfd_event *ev=
+)
+ {
+-       page_slots(p->signal_page)[ev->event_id] =3D UNSIGNALED_EVENT_SLOT;
++       WRITE_ONCE(page_slots(p->signal_page)[ev->event_id], UNSIGNALED_EVE=
+NT_SLOT);
+ }
+
+ static void set_event_from_interrupt(struct kfd_process *p,
+@@ -674,7 +683,9 @@ static void set_event_from_interrupt(struct kfd_process=
+ *p,
+ {
+        if (ev && event_can_be_gpu_signaled(ev)) {
+                acknowledge_signal(p, ev);
++               spin_lock(&ev->lock);
+                set_event(ev);
++               spin_unlock(&ev->lock);
+        }
+ }
+
+@@ -693,7 +704,7 @@ void kfd_signal_event_interrupt(u32 pasid, uint32_t par=
+tial_id,
+        if (!p)
+                return; /* Presumably process exited. */
+
+-       mutex_lock(&p->event_mutex);
++       rcu_read_lock();
+
+        if (valid_id_bits)
+                ev =3D lookup_signaled_event_by_partial_id(p, partial_id,
+@@ -721,7 +732,7 @@ void kfd_signal_event_interrupt(u32 pasid, uint32_t par=
+tial_id,
+                                if (id >=3D KFD_SIGNAL_EVENT_LIMIT)
+                                        break;
+
+-                               if (slots[id] !=3D UNSIGNALED_EVENT_SLOT)
++                               if (READ_ONCE(slots[id]) !=3D UNSIGNALED_EV=
+ENT_SLOT)
+                                        set_event_from_interrupt(p, ev);
+                        }
+                } else {
+@@ -730,14 +741,14 @@ void kfd_signal_event_interrupt(u32 pasid, uint32_t p=
+artial_id,
+                         * only signaled events from the IDR.
+                         */
+                        for (id =3D 0; id < KFD_SIGNAL_EVENT_LIMIT; id++)
+-                               if (slots[id] !=3D UNSIGNALED_EVENT_SLOT) {
++                               if (READ_ONCE(slots[id]) !=3D UNSIGNALED_EV=
+ENT_SLOT) {
+                                        ev =3D lookup_event_by_id(p, id);
+                                        set_event_from_interrupt(p, ev);
+                                }
+                }
+        }
+
+-       mutex_unlock(&p->event_mutex);
++       rcu_read_unlock();
+        kfd_unref_process(p);
+ }
+
+@@ -767,9 +778,11 @@ static int init_event_waiter_get_status(struct kfd_pro=
+cess *p,
+        if (!ev)
+                return -EINVAL;
+
++       spin_lock(&ev->lock);
+        waiter->event =3D ev;
+        waiter->activated =3D ev->signaled;
+        ev->signaled =3D ev->signaled && !ev->auto_reset;
++       spin_unlock(&ev->lock);
+
+        return 0;
+ }
+@@ -781,8 +794,11 @@ static void init_event_waiter_add_to_waitlist(struct k=
+fd_event_waiter *waiter)
+        /* Only add to the wait list if we actually need to
+         * wait on this event.
+         */
+-       if (!waiter->activated)
++       if (!waiter->activated) {
++               spin_lock(&ev->lock);
+                add_wait_queue(&ev->wq, &waiter->wait);
++               spin_unlock(&ev->lock);
++       }
+ }
+
+ /* test_event_condition - Test condition of events being waited for
+@@ -802,10 +818,10 @@ static uint32_t test_event_condition(bool all, uint32=
+_t num_events,
+        uint32_t activated_count =3D 0;
+
+        for (i =3D 0; i < num_events; i++) {
+-               if (!event_waiters[i].event)
++               if (!READ_ONCE(event_waiters[i].event))
+                        return KFD_IOC_WAIT_RESULT_FAIL;
+
+-               if (event_waiters[i].activated) {
++               if (READ_ONCE(event_waiters[i].activated)) {
+                        if (!all)
+                                return KFD_IOC_WAIT_RESULT_COMPLETE;
+
+@@ -834,6 +850,8 @@ static int copy_signaled_event_data(uint32_t num_events=
+,
+        for (i =3D 0; i < num_events; i++) {
+                waiter =3D &event_waiters[i];
+                event =3D waiter->event;
++               if (!event)
++                       return -EINVAL; /* event was destroyed */
+                if (waiter->activated && event->type =3D=3D KFD_EVENT_TYPE_=
+MEMORY) {
+                        dst =3D &data[i].memory_exception_data;
+                        src =3D &event->memory_exception_data;
+@@ -844,11 +862,8 @@ static int copy_signaled_event_data(uint32_t num_event=
+s,
+        }
+
+        return 0;
+-
+ }
+
+-
+-
+ static long user_timeout_to_jiffies(uint32_t user_timeout_ms)
+ {
+        if (user_timeout_ms =3D=3D KFD_EVENT_TIMEOUT_IMMEDIATE)
+@@ -872,9 +887,12 @@ static void free_waiters(uint32_t num_events, struct k=
+fd_event_waiter *waiters)
+        uint32_t i;
+
+        for (i =3D 0; i < num_events; i++)
+-               if (waiters[i].event)
++               if (waiters[i].event) {
++                       spin_lock(&waiters[i].event->lock);
+                        remove_wait_queue(&waiters[i].event->wq,
+                                          &waiters[i].wait);
++                       spin_unlock(&waiters[i].event->lock);
++               }
+
+        kfree(waiters);
+ }
+@@ -898,6 +916,9 @@ int kfd_wait_on_events(struct kfd_process *p,
+                goto out;
+        }
+
++       /* Use p->event_mutex here to protect against concurrent creation a=
+nd
++        * destruction of events while we initialize event_waiters.
++        */
+        mutex_lock(&p->event_mutex);
+
+        for (i =3D 0; i < num_events; i++) {
+@@ -976,14 +997,19 @@ int kfd_wait_on_events(struct kfd_process *p,
+        }
+        __set_current_state(TASK_RUNNING);
+
++       mutex_lock(&p->event_mutex);
+        /* copy_signaled_event_data may sleep. So this has to happen
+         * after the task state is set back to RUNNING.
++        *
++        * The event may also have been destroyed after signaling. So
++        * copy_signaled_event_data also must confirm that the event
++        * still exists. Therefore this must be under the p->event_mutex
++        * which is also held when events are destroyed.
+         */
+        if (!ret && *wait_result =3D=3D KFD_IOC_WAIT_RESULT_COMPLETE)
+                ret =3D copy_signaled_event_data(num_events,
+                                               event_waiters, events);
+
+-       mutex_lock(&p->event_mutex);
+ out_unlock:
+        free_waiters(num_events, event_waiters);
+        mutex_unlock(&p->event_mutex);
+@@ -1042,8 +1068,7 @@ int kfd_event_mmap(struct kfd_process *p, struct vm_a=
+rea_struct *vma)
+ }
+
+ /*
+- * Assumes that p->event_mutex is held and of course
+- * that p is not going away (current or locked).
++ * Assumes that p is not going away.
+  */
+ static void lookup_events_by_type_and_signal(struct kfd_process *p,
+                int type, void *event_data)
+@@ -1055,6 +1080,8 @@ static void lookup_events_by_type_and_signal(struct k=
+fd_process *p,
+
+        ev_data =3D (struct kfd_hsa_memory_exception_data *) event_data;
+
++       rcu_read_lock();
++
+        id =3D KFD_FIRST_NONSIGNAL_EVENT_ID;
+        idr_for_each_entry_continue(&p->event_idr, ev, id)
+                if (ev->type =3D=3D type) {
+@@ -1062,9 +1089,11 @@ static void lookup_events_by_type_and_signal(struct =
+kfd_process *p,
+                        dev_dbg(kfd_device,
+                                        "Event found: id %X type %d",
+                                        ev->event_id, ev->type);
++                       spin_lock(&ev->lock);
+                        set_event(ev);
+                        if (ev->type =3D=3D KFD_EVENT_TYPE_MEMORY && ev_dat=
+a)
+                                ev->memory_exception_data =3D *ev_data;
++                       spin_unlock(&ev->lock);
+                }
+
+        if (type =3D=3D KFD_EVENT_TYPE_MEMORY) {
+@@ -1087,6 +1116,8 @@ static void lookup_events_by_type_and_signal(struct k=
+fd_process *p,
+                                p->lead_thread->pid, p->pasid);
+                }
+        }
++
++       rcu_read_unlock();
+ }
+
+ #ifdef KFD_SUPPORT_IOMMU_V2
+@@ -1162,16 +1193,10 @@ void kfd_signal_iommu_event(struct kfd_dev *dev, u3=
+2 pasid,
+
+        if (KFD_GC_VERSION(dev) !=3D IP_VERSION(9, 1, 0) &&
+            KFD_GC_VERSION(dev) !=3D IP_VERSION(9, 2, 2) &&
+-           KFD_GC_VERSION(dev) !=3D IP_VERSION(9, 3, 0)) {
+-               mutex_lock(&p->event_mutex);
+-
+-               /* Lookup events by type and signal them */
++           KFD_GC_VERSION(dev) !=3D IP_VERSION(9, 3, 0))
+                lookup_events_by_type_and_signal(p, KFD_EVENT_TYPE_MEMORY,
+                                &memory_exception_data);
+
+-               mutex_unlock(&p->event_mutex);
+-       }
+-
+        kfd_unref_process(p);
+ }
+ #endif /* KFD_SUPPORT_IOMMU_V2 */
+@@ -1188,12 +1213,7 @@ void kfd_signal_hw_exception_event(u32 pasid)
+        if (!p)
+                return; /* Presumably process exited. */
+
+-       mutex_lock(&p->event_mutex);
+-
+-       /* Lookup events by type and signal them */
+        lookup_events_by_type_and_signal(p, KFD_EVENT_TYPE_HW_EXCEPTION, NU=
+LL);
+-
+-       mutex_unlock(&p->event_mutex);
+        kfd_unref_process(p);
+ }
+
+@@ -1229,16 +1249,19 @@ void kfd_signal_vm_fault_event(struct kfd_dev *dev,=
+ u32 pasid,
+                        info->prot_write ? 1 : 0;
+                memory_exception_data.failure.imprecise =3D 0;
+        }
+-       mutex_lock(&p->event_mutex);
++
++       rcu_read_lock();
+
+        id =3D KFD_FIRST_NONSIGNAL_EVENT_ID;
+        idr_for_each_entry_continue(&p->event_idr, ev, id)
+                if (ev->type =3D=3D KFD_EVENT_TYPE_MEMORY) {
++                       spin_lock(&ev->lock);
+                        ev->memory_exception_data =3D memory_exception_data=
+;
+                        set_event(ev);
++                       spin_unlock(&ev->lock);
+                }
+
+-       mutex_unlock(&p->event_mutex);
++       rcu_read_unlock();
+        kfd_unref_process(p);
+ }
+
+@@ -1272,22 +1295,28 @@ void kfd_signal_reset_event(struct kfd_dev *dev)
+                        continue;
+                }
+
+-               mutex_lock(&p->event_mutex);
++               rcu_read_lock();
++
+                id =3D KFD_FIRST_NONSIGNAL_EVENT_ID;
+                idr_for_each_entry_continue(&p->event_idr, ev, id) {
+                        if (ev->type =3D=3D KFD_EVENT_TYPE_HW_EXCEPTION) {
++                               spin_lock(&ev->lock);
+                                ev->hw_exception_data =3D hw_exception_data=
+;
+                                ev->hw_exception_data.gpu_id =3D user_gpu_i=
+d;
+                                set_event(ev);
++                               spin_unlock(&ev->lock);
+                        }
+                        if (ev->type =3D=3D KFD_EVENT_TYPE_MEMORY &&
+                            reset_cause =3D=3D KFD_HW_EXCEPTION_ECC) {
++                               spin_lock(&ev->lock);
+                                ev->memory_exception_data =3D memory_except=
+ion_data;
+                                ev->memory_exception_data.gpu_id =3D user_g=
+pu_id;
+                                set_event(ev);
++                               spin_unlock(&ev->lock);
+                        }
+                }
+-               mutex_unlock(&p->event_mutex);
++
++               rcu_read_unlock();
+        }
+        srcu_read_unlock(&kfd_processes_srcu, idx);
+ }
+@@ -1320,19 +1349,25 @@ void kfd_signal_poison_consumed_event(struct kfd_de=
+v *dev, u32 pasid)
+        memory_exception_data.gpu_id =3D user_gpu_id;
+        memory_exception_data.failure.imprecise =3D true;
+
+-       mutex_lock(&p->event_mutex);
++       rcu_read_lock();
++
+        idr_for_each_entry_continue(&p->event_idr, ev, id) {
+                if (ev->type =3D=3D KFD_EVENT_TYPE_HW_EXCEPTION) {
++                       spin_lock(&ev->lock);
+                        ev->hw_exception_data =3D hw_exception_data;
+                        set_event(ev);
++                       spin_unlock(&ev->lock);
+                }
+
+                if (ev->type =3D=3D KFD_EVENT_TYPE_MEMORY) {
++                       spin_lock(&ev->lock);
+                        ev->memory_exception_data =3D memory_exception_data=
+;
+                        set_event(ev);
++                       spin_unlock(&ev->lock);
+                }
+        }
+-       mutex_unlock(&p->event_mutex);
++
++       rcu_read_unlock();
+
+        /* user application will handle SIGBUS signal */
+        send_sig(SIGBUS, p->lead_thread, 0);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.h b/drivers/gpu/drm/amd/=
+amdkfd/kfd_events.h
+index 1238af11916e..55d376f56021 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.h
+@@ -59,6 +59,7 @@ struct kfd_event {
+
+        int type;
+
++       spinlock_t lock;
+        wait_queue_head_t wq; /* List of event waiters. */
+
+        /* Only for signal events. */
+--
+2.32.0
+
