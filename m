@@ -4,53 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1B1CC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 14:21:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94305C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Mar 2022 15:01:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38AC510E39F;
-	Wed,  2 Mar 2022 14:21:48 +0000 (UTC)
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [IPv6:2607:f8b0:4864:20::c29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8EA010E39F
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Mar 2022 14:21:47 +0000 (UTC)
-Received: by mail-oo1-xc29.google.com with SMTP id
- s203-20020a4a3bd4000000b003191c2dcbe8so2026155oos.9
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Mar 2022 06:21:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 319BD10E3E7;
+	Wed,  2 Mar 2022 15:01:31 +0000 (UTC)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A45710E5C4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Mar 2022 15:01:30 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ n33-20020a05600c3ba100b003832caf7f3aso1234852wms.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Mar 2022 07:01:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=U/yIEjfRtpo4Xai71w9J7TaVlSpluUQ3gIpN1bxiMJA=;
- b=EosKVnlcZDZchCP0YmIvdWVOC4GuiwuNPoK2V7449z4yBluo2dR5qqzEu7WGrtOv1E
- N0r+0VQfYC4ksrWQeevpJX8Mnkrbjf1FnvJn8rNP8ViE4vtxaJQ95YQne7f3Sag5W9/H
- ynSdBmyJa4qHpfD3vJrqsMR9my2P7Qhz2c8H3mYOuNuKfqjsVHKGVgSrqksGMIyVy6aP
- o5k+W9eRogqJhJsMSLV+N97PA9q93Gd/UAVxHAgnNSp34Y824pMXYxETtViaMA8f/C3D
- JXkYwjzkDB2GM5kx5Xpt2BoFRCSazyeOZ+Znh9a82BlqWQwFpriMC7TQT0ChXDZW2eZo
- 8d7w==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=zFGBOObgVpjtOUWZKHiRucOQFbiurrZLujRqnrEMH/k=;
+ b=hpY1Q7OZCx4x7isCnu4Wd0mByyI5aIwq0dKIcHUsN9Y8lJlMrsuPKvzdvgG2YCf+kK
+ en+/Xd+2UCUYuvVhL++7Tx9VCWhcoKAMCwOR0t2yPRxBJNNDauoftWVtdzSZrg9maOJw
+ J2apT2FVMwr3xygfLg8KSk5B6ydM9J5cbfNkd17l2y9K0e/55pxT2RAT8mkM/cPHoRxV
+ 6Qa2Y/IpN07kepvl7rDknpqIEbiov8wQwDSCa0C9sFlJlzHF2dxE/poGu/x/w31sEXXe
+ b01H4Imm0VC5YqtDQhORvk4FI8/uWI/hqRwMJo+vIz+0fRO5u30SwAehCF/rJ23NyB72
+ tcEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=U/yIEjfRtpo4Xai71w9J7TaVlSpluUQ3gIpN1bxiMJA=;
- b=gi7fewKsFvtOONQjJm6wHxPs8Fx9P93FWVZNbiwWCdVXJQa0toMlDxty91Wb4r96Ef
- bmubtW750TW54y1wZGEkGjqzely8PdIJ/WKE1gUa31zjcNvHfAu5ra2HCl0Vssu7dqYJ
- 3O+vpP3Pq1QTJX2x4QvzSBuScmVSxCeqQa7mkmbZktAei6yCD2gPpB9rhSZtViwulNdp
- 9vmjhFWloK4Z1RGdO5cljiKpZMSrHshIzEvspi/ctJ75SYKaRJcnOW7lOi5FN7GXfNKU
- LComhqCxnv3WMcdr0iYiWZT3f+Ujnr5dX/JMIRIVxpcM13tzYYlxxZsXFvEwB6FSrH0D
- SKcg==
-X-Gm-Message-State: AOAM5322npQWRxbS2fn6+Q7doi78u4r4vnrfy/AGMNxpXSKMfxD4HUuE
- tdmcgMh4YBZNjJlIAgTOopzUagmh6NCb6fy6FLRqgpq3
-X-Google-Smtp-Source: ABdhPJwxtoPlNTB4Xp8BV42tOP3iS1P2Lh94lsQm89tEIKvbx8SN/SidsqOl3JhODGavqHC2k0jB/sFr0O8WXwTLA8k=
-X-Received: by 2002:a05:6870:340e:b0:d9:acbf:f961 with SMTP id
- g14-20020a056870340e00b000d9acbff961mr14607oah.120.1646230907101; Wed, 02 Mar
- 2022 06:21:47 -0800 (PST)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=zFGBOObgVpjtOUWZKHiRucOQFbiurrZLujRqnrEMH/k=;
+ b=6OuDYXDrI9kJVaXaxY127qjo3mBrmPAAdkVqgK+G8wvcwPrWurSzvLZXXLELUGabsw
+ h11HwSvo0ht3vGUz2F+4OnIXBN3BZHSwjhp5roy94/a0qZA8ctc8aBjT0cb0KDvo0v0a
+ VwH/qbhJeOVuoAkR7zokTo4h9USPmVLVV5Z85Ja0KPMa0hUNW7N1Wu9cG1uXoj0ttXYK
+ TXGRJ6Q9w0o87BmOvG/mCRrUOorQJw1mvY0lTSfpZs9/U+mGtnIo2p3Hm+uy6wZTeZI5
+ PnAWAeQaoItqKKwQ275TVpSY2xeNhjTsW06o7e6cqj7rDzeQykCPrU4w66TdXIVD3bjf
+ E5Sg==
+X-Gm-Message-State: AOAM5317E9fDx6ZVY7WOkJGsn1ssFeMOcWxtrp5C0/CzV2lpW/DjwNiB
+ u9vqteF9a72V4qIrG50jyyA=
+X-Google-Smtp-Source: ABdhPJyMVlAQdV+ulKS3CEDHLB1vwM9t5Gcpx8kbPPLjSvSIF0q5iqd8vT3nNz/x1EMnCY+4q9rxGA==
+X-Received: by 2002:a05:600c:1592:b0:381:21b4:d1d8 with SMTP id
+ r18-20020a05600c159200b0038121b4d1d8mr125792wmf.119.1646233289002; 
+ Wed, 02 Mar 2022 07:01:29 -0800 (PST)
+Received: from ?IPV6:2a02:908:1252:fb60:91d6:cd7c:ea5f:1ff5?
+ ([2a02:908:1252:fb60:91d6:cd7c:ea5f:1ff5])
+ by smtp.gmail.com with ESMTPSA id
+ o12-20020adfa10c000000b001efb97fae48sm11426920wro.80.2022.03.02.07.01.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Mar 2022 07:01:28 -0800 (PST)
+Message-ID: <2cf40fb2-6d0f-660b-c238-a8c97511ab22@gmail.com>
+Date: Wed, 2 Mar 2022 16:01:27 +0100
 MIME-Version: 1.0
-References: <tencent_A4D5E94B44BF0EC4B7CE08BA886C0C1B0F06@qq.com>
-In-Reply-To: <tencent_A4D5E94B44BF0EC4B7CE08BA886C0C1B0F06@qq.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 2 Mar 2022 09:21:36 -0500
-Message-ID: <CADnq5_NOGDTnB+YbN2vLm9mNo1sAn4n=Seowk8vd4wuT5krDow@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
 Subject: Re: [PATCH] drm/amdgpu: fix potential null dereference
-To: Weiguo Li <liwg06@foxmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>, Weiguo Li <liwg06@foxmail.com>
+References: <tencent_A4D5E94B44BF0EC4B7CE08BA886C0C1B0F06@qq.com>
+ <CADnq5_NOGDTnB+YbN2vLm9mNo1sAn4n=Seowk8vd4wuT5krDow@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CADnq5_NOGDTnB+YbN2vLm9mNo1sAn4n=Seowk8vd4wuT5krDow@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,56 +80,67 @@ Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Looks like my response never made it through.
 
-Alex
+This change and the existing check is nonsense. The caller makes sure 
+that ctx is never NULL here.
 
-On Wed, Mar 2, 2022 at 3:56 AM Weiguo Li <liwg06@foxmail.com> wrote:
+So the check should probably just be dropped entirely.
+
+Regards,
+Christian.
+
+Am 02.03.22 um 15:21 schrieb Alex Deucher:
+> Applied.  Thanks!
 >
-> "ctx" is dereferenced but null checked later. Swap their positions
-> to avoid potential null dereference.
+> Alex
 >
-> Found using a Coccinelle script:
-> https://coccinelle.gitlabpages.inria.fr/website/rules/mini_null_ref.cocci
->
-> Signed-off-by: Weiguo Li <liwg06@foxmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> index f522b52725e4..b4f035ce44bc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> @@ -258,11 +258,12 @@ static void amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
->  static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
->                                         u32 *stable_pstate)
->  {
-> -       struct amdgpu_device *adev = ctx->adev;
-> +       struct amdgpu_device *adev;
->         enum amd_dpm_forced_level current_level;
->
->         if (!ctx)
->                 return -EINVAL;
-> +       adev = ctx->adev;
->
->         current_level = amdgpu_dpm_get_performance_level(adev);
->
-> @@ -289,12 +290,13 @@ static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
->  static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
->                                         u32 stable_pstate)
->  {
-> -       struct amdgpu_device *adev = ctx->adev;
-> +       struct amdgpu_device *adev;
->         enum amd_dpm_forced_level level;
->         int r;
->
->         if (!ctx)
->                 return -EINVAL;
-> +       adev = ctx->adev;
->
->         mutex_lock(&adev->pm.stable_pstate_ctx_lock);
->         if (adev->pm.stable_pstate_ctx && adev->pm.stable_pstate_ctx != ctx) {
-> --
-> 2.25.1
->
+> On Wed, Mar 2, 2022 at 3:56 AM Weiguo Li <liwg06@foxmail.com> wrote:
+>> "ctx" is dereferenced but null checked later. Swap their positions
+>> to avoid potential null dereference.
+>>
+>> Found using a Coccinelle script:
+>> https://coccinelle.gitlabpages.inria.fr/website/rules/mini_null_ref.cocci
+>>
+>> Signed-off-by: Weiguo Li <liwg06@foxmail.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 6 ++++--
+>>   1 file changed, 4 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> index f522b52725e4..b4f035ce44bc 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> @@ -258,11 +258,12 @@ static void amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
+>>   static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
+>>                                          u32 *stable_pstate)
+>>   {
+>> -       struct amdgpu_device *adev = ctx->adev;
+>> +       struct amdgpu_device *adev;
+>>          enum amd_dpm_forced_level current_level;
+>>
+>>          if (!ctx)
+>>                  return -EINVAL;
+>> +       adev = ctx->adev;
+>>
+>>          current_level = amdgpu_dpm_get_performance_level(adev);
+>>
+>> @@ -289,12 +290,13 @@ static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
+>>   static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
+>>                                          u32 stable_pstate)
+>>   {
+>> -       struct amdgpu_device *adev = ctx->adev;
+>> +       struct amdgpu_device *adev;
+>>          enum amd_dpm_forced_level level;
+>>          int r;
+>>
+>>          if (!ctx)
+>>                  return -EINVAL;
+>> +       adev = ctx->adev;
+>>
+>>          mutex_lock(&adev->pm.stable_pstate_ctx_lock);
+>>          if (adev->pm.stable_pstate_ctx && adev->pm.stable_pstate_ctx != ctx) {
+>> --
+>> 2.25.1
+>>
+
