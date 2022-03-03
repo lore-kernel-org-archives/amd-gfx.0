@@ -4,52 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD382C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 05:32:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD1CCC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 07:09:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB5F10ED0A;
-	Thu,  3 Mar 2022 05:32:20 +0000 (UTC)
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.86.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49FE010F163
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Mar 2022 04:58:29 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mtapsc-5-c9saVIHFMHux_Sno3vxg6w-1; Thu, 03 Mar 2022 04:58:25 +0000
-X-MC-Unique: c9saVIHFMHux_Sno3vxg6w-1
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
- Server (TLS) id 15.0.1497.28; Thu, 3 Mar 2022 04:58:23 +0000
-Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
- AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
- 15.00.1497.028; Thu, 3 Mar 2022 04:58:23 +0000
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Xiaomeng Tong' <xiam0nd.tong@gmail.com>
-Subject: RE: [PATCH 2/6] treewide: remove using list iterator after loop body
- as a ptr
-Thread-Topic: [PATCH 2/6] treewide: remove using list iterator after loop body
- as a ptr
-Thread-Index: AQHYLhg9+DU/OogLf0+tiSFmjztyUKysHu+QgADRVYCAACVtoA==
-Date: Thu, 3 Mar 2022 04:58:23 +0000
-Message-ID: <39404befad5b44b385698ff65465abe5@AcuMS.aculab.com>
-References: <1077f17e50d34dc2bbfdf4e52a1cb2fd@AcuMS.aculab.com>
- <20220303022729.9321-1-xiam0nd.tong@gmail.com>
-In-Reply-To: <20220303022729.9321-1-xiam0nd.tong@gmail.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
-MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25B1D10E9BF;
+	Thu,  3 Mar 2022 07:09:39 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A77110E9BF;
+ Thu,  3 Mar 2022 07:09:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HmglqWHIYVuIJ1p7EKpHpH7kEJPq2909Kw351HftFhvqpyRtXFilOCtR4le1/mY/6tsoUGiW++UyWi0ZD41TLriDReIGaXnbJFsErWUjmJgc8OfPj6awIs/7SVfysL0sewwV+e4coLpqbcSSGcw223pjuw8PttpHFdPvTetFm9qmuqJw6FLmHSQ8tzmf1NPdNSSkx2g4LXBzwLRNx3aDoIW2GzwF9JIWE5LZk38mpW1VMaLjVPyR1gg4krDEW08ptHA/MPbmIImJMa9HEllF17iJUJqZgNSSGIwnzJ0FiLa3sEWTWoPrvReyaR7O7IGxxDqe78vCNI0zAwRtInp0Ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Mq4/0FDsyF/kkcvhEs+gEUYvZuSHqlX/dAmnWNac0lw=;
+ b=TjkWlVQqMQpLNKK9UC2kYW8Ql9rUtJckT1SmPQ4i0scOUwbRfaQEnuxHZ9mkenXRzc5k4z/1bHfeK2U7UTLzg5HiYLcNCQI04oWEdOT/6P/UIunn14xgC1L3BQDsRU9b3G3F6ZbBTzpOBS3tuF40lnI8twBwaEwwWxdSGbGmm2hZCSf7dr/fgi9HhfFMGmPpBSmaV/a9WKIx6/eyLrA25DAaQx2AZcrFURD+EpGqS/cwPWLkP2FYT8aDzLwj3MKgrzP1NAKca0h/hLMR1cwbSDppVXjZ87rpzEqgXbdsmOIl3Dm6gt/dvZIB0q4/JQYNw0yIFawAneevM7pD6vQ8TA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Mq4/0FDsyF/kkcvhEs+gEUYvZuSHqlX/dAmnWNac0lw=;
+ b=AJz27pEVFJF86pQYzqq+aXIOCcOB/nuFRu+n+cLmjSC+DjFsd9cpKon/SwfqADyrapXfm9Vd/TZyILqsS/mqL3ZCycXT0nwqI6XD9gVsxC/KbAypht9POLjTEDvWlkgUTSM9sb9pE2KWsC/zvHcKen8kbQDNbiWF8z4utChkLnE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DM5PR12MB2343.namprd12.prod.outlook.com (2603:10b6:4:b3::38) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Thu, 3 Mar
+ 2022 07:09:33 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e03f:901a:be6c:b581]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e03f:901a:be6c:b581%6]) with mapi id 15.20.5038.014; Thu, 3 Mar 2022
+ 07:09:32 +0000
+Message-ID: <48646a29-9cd1-f1c7-9230-453aadbfb07f@amd.com>
+Date: Thu, 3 Mar 2022 08:09:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH -next] drm/amdgpu: clean up some inconsistent indenting
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 03 Mar 2022 05:32:19 +0000
+To: Yang Li <yang.lee@linux.alibaba.com>, airlied@linux.ie
+References: <20220303015215.92536-1-yang.lee@linux.alibaba.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220303015215.92536-1-yang.lee@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS9PR06CA0214.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45e::19) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b2316bb9-d550-409d-2338-08d9fce4c415
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2343:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB23431C30A3C6115B6CD1987683049@DM5PR12MB2343.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Oj1QJkY0afyrMDm14VZmJNYqbtMkEc/GxurEfM1/LDtBzxJdlRwjIO/JDFTubqNTEm+hRaf2TnlLK4T3PT+2RK7F/+k5wNsnPiAKm8aeJ23ZfdGDzFQwffLGMIp9Ju3/GrVDvaWZMY3Z71HFcVI8+slNFTD2vter0K5ngA/AhSnkak2MzBB1NRWYxhNEX9cx0e0RKVbocNJ+l1rRZB5PLMAXHRgic9loLM33XXPcFUnYKd90i/el7Bk7xDQd+jOqh4/TbiU23izRkROF3IGxn7R47+zaGhFI9daLbnaafceqoq/Ero5hb2ElgIbN6bQI1i1893ml3z+ExPdeRMgcO8XpmEfdJI71vxJXrUan1xSk515+0aQT1+5S7wnwdO5UUekotYWws0heqR4M/AuijggDl9Wq2Zmmvlbs6BnAv9rInJLW3X+TPKSfM7fE/c1Kk4jB9Bu9+spukUi6F+Zaw55Bahk1a+925wJEx7YN1lHeTq/HgLPgg3dBT88Q4Mq9UgIu4x4LFDxsRy1ucD9hW+OE9jAdKSV+58k+8jM5reQMPeP6KogSOgPtLbQPYSk1Gr6MSDGmFkmoAmHPSOcx0ciB6O5DB6a0VyXk3xRI0Z1/t9MjYYhAqaKN+0wmvfAThtvCionJYNiO8GQ5JLPLWxp+fTxMlnBczE09dASqDVyw6uJS931IbNnGGTIs/lw5GsApNa2R6E+awzVOr5/vBZOqlKHHMnjSngSOpuxnt9BxMIzlsb8PprzJ2qOwVuRl
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6486002)(4326008)(5660300002)(66556008)(66476007)(66946007)(8676002)(2616005)(36756003)(31696002)(31686004)(66574015)(83380400001)(508600001)(8936002)(186003)(26005)(6512007)(38100700002)(6666004)(2906002)(6506007)(86362001)(316002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnNZcFdsTDZYV3pmdTVHbllWL250dEdaMVR2b0h2WkFvbDdzMUxuVFpaYTdt?=
+ =?utf-8?B?RjlnTUFWQXI2MjJzVThIRzV0b2ZsSy9FR09xeUNSZGVaME9vSUYwQzNzdFVo?=
+ =?utf-8?B?RnhIdS9pSDRZQWFzR1BIYjJoVitrekRvYTZScEliQXc5d29qUStJaWplQkFO?=
+ =?utf-8?B?S2Ercll1cHp5bU1ab0g1aU9LVjJ2RWZOenNpOXhIcENleFdSdlJSa0VOc0R1?=
+ =?utf-8?B?SkN0emM5T3I2eS9vWGY1aUEvM1RLNlA2a1RaUGNWVzlnYWFXVzc1MnU3bUZQ?=
+ =?utf-8?B?c0Z4blBhQVhhUUorcUdhVDVFWmlIMmQwSThTbzBWTEFuOXlYUW9nOGZFWUxQ?=
+ =?utf-8?B?ZGJtSmxPbk1mazRkVEc1Ti9EbmpheGdYVnZsdnZMbnJpTXRJamdCcEVnT3hs?=
+ =?utf-8?B?eUlqS2lja2M4VW43ck12SUhuRXcxNjhkWFVQdzRRSjlrQW5nMWwvS0xJaTMz?=
+ =?utf-8?B?SGZrZC95cjl3T2w0NmZsUnZUUVhqMnkvcVNxNjM4L0QwUkU3bjJxSHNad1Vt?=
+ =?utf-8?B?OWt1b2gzeFpKMHM4WGdBSVBNcjdoUmNqNmZybXByL29rUklidDQvQW0xQ01V?=
+ =?utf-8?B?V3hKMHZCeTFkcndRRkpyME16N2FTckN4VG9zMTd0S21ieDlOSkJ3REp2RDB2?=
+ =?utf-8?B?cVY4T2paeE1hd1ZIN1FDS2dNQXR2NVBhbVRnMFQwdDdnakloemtwQ2pHTW92?=
+ =?utf-8?B?bVdlaUZxSVVONmRTVzJIeEhISFRLdTdsSWJQa0xCTGptV1lKOUloSEhsb21h?=
+ =?utf-8?B?MHQyWUpYRUFsdkVtMzFhdmtjb2xKYUJjYzVLWXg0czFXa2dvbUY5bFVYUTVt?=
+ =?utf-8?B?ZlRRUTJWbDlDMWxMVDd2cVQvVkgwM1pqa0lPdUFqdmhzdjZLak9idWlwQW5D?=
+ =?utf-8?B?QXlGS2s3Ri8zaXRPVGhwQXBZaXo3dlBVMkg3ZmpUS0xMSzF3RDcxblNOOFFE?=
+ =?utf-8?B?MkpnQ2R5NUtnNkxjT1YxcHh4b0Q2NWVIa2g2SUJhNm9ZSkU0TUdsMDBTVnc0?=
+ =?utf-8?B?VGdFMkFtSVJSVVU2VndxWnF4KzZWa1FiaDhKRnpjcWRNSHVRRitwbHZuaEg3?=
+ =?utf-8?B?dHB1Nm51WUR1MmNDYTVHQ2puL0Ivc1dsR0V2ZlFvaExBR0piQlNRZDNUbmEx?=
+ =?utf-8?B?WTM2anM5SjB6ZDhLQUIwcGRUOXB4TWgvZTRFcW53eFFuaFZWZlJUV284anZC?=
+ =?utf-8?B?QkNqWnR2V0RmRzZuK28zZkwwekY2V0wrYkl4dmxFN1ZxVThEVzhlVU1LMnE4?=
+ =?utf-8?B?MjRHQVBmVXdiL3JZcDVINm1GY1A0UTdlVnRwVWNBS2ZIQUN4VTZqNmtlYkhs?=
+ =?utf-8?B?SnN5ZlAwbUJyRVRaSGdjSmZVVHBscVVtRUd0dUJRQk01bFRJWkVYU3RpNmJ0?=
+ =?utf-8?B?NzV3c1QvNlc2ZmJqYmx0bTVmTDJ3SkNqM3NqVHphaXBQVnM4QWp5dDJoRmFG?=
+ =?utf-8?B?aWRGN1NpcXJwWEZUaWlSV0NSQWxHWTJPczFrVEhoZlViVWwraWdUeWJYTDR5?=
+ =?utf-8?B?MXUxSVd1czZwNjY2TUVLY2FSNFl0RjhSbFc4NGNKYzdzdUU5dkZXNFlETUxm?=
+ =?utf-8?B?QW9xdkVSd0NtVkMwRTJON3ZGOVVmNTJyR2tkQkYySnlGRW9qS25hN0ZzeGty?=
+ =?utf-8?B?aWpVSDFXSS9FRU9FbFlxM0l1Q1JHVTNMV2MreUhiZTFUQ21jRFUwek0xMGdL?=
+ =?utf-8?B?RStyMGgwWm9ZK281NTYrNUYwaHdGcXo0djQyVE1kTzhKWFFsRThyMCtpSTIr?=
+ =?utf-8?B?RGFZeXRNQ1ZVMGpCMWg3NFkyT3ZIN1NweFhGSDdheGN3K0hYamhjRERHSkta?=
+ =?utf-8?B?T1RmNzFlYlNDM2o5SmdUbHAwdk5aZ1QrUmx4emgvdThLZE5rOExVclBmMUhS?=
+ =?utf-8?B?bnBnMlNmQmhIM1JKMDBKcTJqUVRJTThEWUxZajN6K3Q4cE1NdWU1R3hwMGlm?=
+ =?utf-8?B?Zy9NQUgrZmozY2ZaS3hmdkFsaVQzYm9OQllIQUlId1NrUzJwSndCSm9WQzV0?=
+ =?utf-8?B?dkwzOGVmZzZDYSsxRlVKR05CMTJ3RFc4SGg0MHFNOWFYYm5keHFscUszODYz?=
+ =?utf-8?B?MUVNbUw0RWJiWVlVTW16YllPOHkzWnhobGJONmZlVExkT2dZYU1DQU5KV0dY?=
+ =?utf-8?Q?cwNs=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2316bb9-d550-409d-2338-08d9fce4c415
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2022 07:09:32.7723 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pWPKRs0U7p+uwhFLT0vI/BI7GAvdeZM32TmyI1euVio7HmgRzTvwkbDCuhDY3gId
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2343
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,132 +124,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "gustavo@embeddedor.com" <gustavo@embeddedor.com>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "kgdb-bugreport@lists.sourceforge.net" <kgdb-bugreport@lists.sourceforge.net>,
- "linux@rasmusvillemoes.dk" <linux@rasmusvillemoes.dk>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "c.giuffrida@vu.nl" <c.giuffrida@vu.nl>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "torvalds@linux-foundation.org" <torvalds@linux-foundation.org>,
- "samba-technical@lists.samba.org" <samba-technical@lists.samba.org>,
- "linux1394-devel@lists.sourceforge.net"
- <linux1394-devel@lists.sourceforge.net>,
- "drbd-dev@lists.linbit.com" <drbd-dev@lists.linbit.com>,
- "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
- "linux-cifs@vger.kernel.org" <linux-cifs@vger.kernel.org>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
- "h.j.bos@vu.nl" <h.j.bos@vu.nl>, "jgg@ziepe.ca" <jgg@ziepe.ca>,
- "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "bcm-kernel-feedback-list@broadcom.com"
- <bcm-kernel-feedback-list@broadcom.com>,
- "dan.carpenter@oracle.com" <dan.carpenter@oracle.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "keescook@chromium.org" <keescook@chromium.org>,
- "arnd@arndb.de" <arnd@arndb.de>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "bjohannesmeyer@gmail.com" <bjohannesmeyer@gmail.com>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- "christophe.jaillet@wanadoo.fr" <christophe.jaillet@wanadoo.fr>,
- "jakobkoschel@gmail.com" <jakobkoschel@gmail.com>,
- "v9fs-developer@lists.sourceforge.net" <v9fs-developer@lists.sourceforge.net>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "tglx@linutronix.de" <tglx@linutronix.de>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-sgx@vger.kernel.org" <linux-sgx@vger.kernel.org>,
- "nathan@kernel.org" <nathan@kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-f2fs-devel@lists.sourceforge.net"
- <linux-f2fs-devel@lists.sourceforge.net>,
- "tipc-discussion@lists.sourceforge.net"
- <tipc-discussion@lists.sourceforge.net>,
- "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
- "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "rppt@kernel.org" <rppt@kernel.org>
+Cc: Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaomeng Tong
-> Sent: 03 March 2022 02:27
->=20
-> On Wed, 2 Mar 2022 14:04:06 +0000, David Laight
-> <David.Laight@ACULAB.COM> wrote:
-> > I think that it would be better to make any alternate loop macro
-> > just set the variable to NULL on the loop exit.
-> > That is easier to code for and the compiler might be persuaded to
-> > not redo the test.
->=20
-> No, that would lead to a NULL dereference.
-
-Why, it would make it b ethe same as the 'easy to use':
-=09for (item =3D head; item; item =3D item->next) {
-=09=09...
-=09=09if (...)
-=09=09=09break;
-=09=09...
-=09}
-=09if (!item)
-=09=09return;
-=20
-> The problem is the mis-use of iterator outside the loop on exit, and
-> the iterator will be the HEAD's container_of pointer which pointers
-> to a type-confused struct. Sidenote: The *mis-use* here refers to
-> mistakely access to other members of the struct, instead of the
-> list_head member which acutally is the valid HEAD.
-
-The problem is that the HEAD's container_of pointer should never
-be calculated at all.
-This is what is fundamentally broken about the current definition.
-
-> IOW, you would dereference a (NULL + offset_of_member) address here.
-
-Where?
-
-> Please remind me if i missed something, thanks.
+Am 03.03.22 um 02:52 schrieb Yang Li:
+> Eliminate the follow smatch warning:
+> drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c:413 amdgpu_get_xgmi_hive()
+> warn: inconsistent indenting
 >
-> Can you share your "alternative definitions" details? thanks!
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 
-The loop should probably use as extra variable that points
-to the 'list node' in the next structure.
-Something like:
-=09for (xxx *iter =3D head->next;
-=09=09iter =3D=3D &head ? ((item =3D NULL),0) : ((item =3D list_item(iter),=
-1));
-=09=09iter =3D item->member->next) {
-=09   ...
-With a bit of casting you can use 'item' to hold 'iter'.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
->=20
-> > OTOH there may be alternative definitions that can be used to get
-> > the compiler (or other compiler-like tools) to detect broken code.
-> > Even if the definition can't possibly generate a working kerrnel.
->=20
-> The "list_for_each_entry_inside(pos, type, head, member)" way makes
-> the iterator invisiable outside the loop, and would be catched by
-> compiler if use-after-loop things happened.
-
-It is also a compete PITA for anything doing a search.
-
-=09David
-
--
-Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1=
-PT, UK
-Registration No: 1397386 (Wales)
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 16 ++++++++--------
+>   1 file changed, 8 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> index 91817a31f3e1..4ff6e06babca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> @@ -410,14 +410,14 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
+>   	 */
+>   	if (adev->reset_domain->type != XGMI_HIVE) {
+>   		hive->reset_domain = amdgpu_reset_create_reset_domain(XGMI_HIVE, "amdgpu-reset-hive");
+> -			if (!hive->reset_domain) {
+> -				dev_err(adev->dev, "XGMI: failed initializing reset domain for xgmi hive\n");
+> -				ret = -ENOMEM;
+> -				kobject_put(&hive->kobj);
+> -				kfree(hive);
+> -				hive = NULL;
+> -				goto pro_end;
+> -			}
+> +		if (!hive->reset_domain) {
+> +			dev_err(adev->dev, "XGMI: failed initializing reset domain for xgmi hive\n");
+> +			ret = -ENOMEM;
+> +			kobject_put(&hive->kobj);
+> +			kfree(hive);
+> +			hive = NULL;
+> +			goto pro_end;
+> +		}
+>   	} else {
+>   		amdgpu_reset_get_reset_domain(adev->reset_domain);
+>   		hive->reset_domain = adev->reset_domain;
 
