@@ -4,58 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D936C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 08:23:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 297BCC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 08:23:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB84D10EF11;
-	Thu,  3 Mar 2022 08:23:12 +0000 (UTC)
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5511610EF11
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Mar 2022 08:23:12 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id kt27so9035763ejb.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Mar 2022 00:23:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F30D10EF12;
+	Thu,  3 Mar 2022 08:23:14 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C69B10EF12
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Mar 2022 08:23:13 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id yy13so83735ejb.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Mar 2022 00:23:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8c1oVlZnmU0DaQ0nFlB2IQDk8BqQVIBU7FyT5pLcN9s=;
- b=JihWGgHYfutCp0eqMDVLOi/BhfGJD1XUCIf3gr0FA72mSjDPoNlLAMl6nn+DBbjJ6M
- 4ntIVjM0qKuIMSbiP2gf01LJ8bLePtzzLKwbLaRUksbe7alt2+Uiv8UOcBukGAGX9Wjj
- GOaDf7E74/DUKGQ7SdaSegv0w5BlxZRSsTdatzpijZRPPNs1ByL2Q6f7IIjxexWnVspa
- JVKFlCJWwT9aniQMXXoeJcLqdjwEFU718ExL6wroJVNuK65yJPmVgQwZw5Qdppc2BDxM
- 6PAhkjhMUHf/Sn/FPP7bvOHfEPATvjMtBxVEeDakqOINHa+LVKoMnnR2H90JTDHZXhtm
- QrRg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=EkIAvZvH9iiQKAQTS6bhzU6S8ihTp2oNWkBQzPdSSZs=;
+ b=OI7cuzcVaSNNPuPBKZC+tsIF1VVtK+04iAgbYAGmmbIk47B4CZijl4vYbMBswj2bEh
+ ZiylxndnG8H4I1Y5wD/GyZb5QGrvHKC0sWvjY7RxPOYf0PjBZ54BecJL/78TPms0F38n
+ uLP0JLpZxCCYTLfkc44G+Qu+Rp4DDtlrq33ZNGuuJgKjijnd4rHSNubNPMcfBJjx/ONv
+ kGryP4bbtfvf7bxvxlrmlqH9H2yRcJ+Wyh0m2FCeUR+m6JTkJDohpLbp5UfNt7KtXvtf
+ on+CScWKGTS1NiZwkHkNTKTtPA2u0c43ApGVj4PzrJCoEoH1ccpIrz+IZ3Q0MePb7nCn
+ mkDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8c1oVlZnmU0DaQ0nFlB2IQDk8BqQVIBU7FyT5pLcN9s=;
- b=hEmpy1Hy+KE3RAMjHMnPbnW2Jtyf2yd5k5Fj/mj9I/mm3ttaTaO0b1E4T7WgNdnEXv
- +DvUKH8KuXoG6U54BWfLG2PF2oX8VyXyy8fsJ8GSTV9zdNW8zD3FpZ+Ctg+vAnGOwot9
- k/LAmDg4RgLJyFkizSQBk/WCFx0oCh/PLiRqRDrHUuuSBx5241ML5+4xszqQxF1NQ5xT
- c311j+7HEo/wh1dc/mkwwV9Sfpsfu25jW1ABh3lT8ldH32Uu6jvX6N+fpZcfZJYJEL8m
- 6P7bPJy5n/tYgC8K4gItBQgvbrLvwkR5VwaPVxSJzT03dojtRCZCY2AS1TVAAROfHLuT
- Mtxw==
-X-Gm-Message-State: AOAM5326qI70bd8MRGi5NdNrpxOpiiXifaJIs6OpH23ypHR4Jqfs10GF
- 3rDaOm1x8J7CoZbUwnq1QZNzb+KvqgM=
-X-Google-Smtp-Source: ABdhPJwt/qvsKRl4UQHezXP9Yt/mh2AVI4MwDmkjp2qRjhLlDKQSzImVjndpk6Tw2qCUciIW37N11A==
-X-Received: by 2002:a17:906:c14e:b0:6da:970b:cc33 with SMTP id
- dp14-20020a170906c14e00b006da970bcc33mr422374ejc.307.1646295790819; 
- Thu, 03 Mar 2022 00:23:10 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=EkIAvZvH9iiQKAQTS6bhzU6S8ihTp2oNWkBQzPdSSZs=;
+ b=tQbjfW9SIUVkWhysYhWJyzLd17vyBKg2dUFewPtUQ9xT3RZml9/BJFysVq6FBs9m8P
+ 1u6WI5NmPfzZUr8obGKwyhOdxTFuOv7Z2N09wsadKeaohKbbCPugyElrJpdQ+QJmbW0W
+ JGCO2vVX5gX9JhoiFjV9hzMJ95/6VAXSqKci17X0TzlX3Cim61Fsw1k1TXcBg9Z2FkFA
+ dpO6Pw2hxN5GLQGGv4+6O0Lmpks5jMyxUqnm78RTO0vOaXedy8zyJaznQh3WXCQW87nc
+ mTAkA6Pohe5S9qlbP02M6PmTgKgtV3u11NLro8YlU9YdofLtN07TJanuJHvn+E3Zf5me
+ JXNA==
+X-Gm-Message-State: AOAM530qZ1S7dTg+f257h2sQzTbVugKOop7sD8afjmCErM8EzAz80ngH
+ T6c38i+BatFv7bDIkboyNGUndxBgxvfsgA==
+X-Google-Smtp-Source: ABdhPJz39N9UC6QsCB5bGCwZuV9IWcFDGrYH/a+B57tG8lDowCL6xaQsWDWNmTxgmZVuA9JY2YX4Cg==
+X-Received: by 2002:a17:906:c114:b0:6d7:1065:a8b0 with SMTP id
+ do20-20020a170906c11400b006d71065a8b0mr8030594ejc.181.1646295791667; 
+ Thu, 03 Mar 2022 00:23:11 -0800 (PST)
 Received: from able.fritz.box (p5b0eab60.dip0.t-ipconnect.de. [91.14.171.96])
  by smtp.gmail.com with ESMTPSA id
  n4-20020a056402060400b00415a1f9a4dasm548308edv.91.2022.03.03.00.23.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Mar 2022 00:23:10 -0800 (PST)
+ Thu, 03 Mar 2022 00:23:11 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	Marek.Olsak@amd.com
-Subject: Gang submit
-Date: Thu,  3 Mar 2022 09:22:58 +0100
-Message-Id: <20220303082308.38217-1-christian.koenig@amd.com>
+Subject: [PATCH 01/10] drm/amdgpu: install ctx entities with cmpxchg
+Date: Thu,  3 Mar 2022 09:22:59 +0100
+Message-Id: <20220303082308.38217-2-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220303082308.38217-1-christian.koenig@amd.com>
+References: <20220303082308.38217-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -70,22 +72,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi guys,
+Since we removed the context lock we need to make sure that not two threads
+are trying to install an entity at the same time.
 
-this patch set implements the the requirement for so called gang submissions in the CS interface.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Fixes: e68efb27647f ("drm/amdgpu: remove ctx->lock")
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-A gang submission guarantees that multiple IBs can run on different engines at the same time.
-
-This is implemented by keeping a global per-device gang around represented by a dma_fence which signals as soon as all jobs in a gang are pushed to the hardware.
-
-The effect is that as long as members of a gang are waiting to be submitted no other gang can start pushing jobs to the hardware and so deadlocks are effectively prevented.
-
-The whole set is based on top of my dma_resv_usage work and a few patches merged over from amd-staging-drm-next, so it won't easily apply anywhere.
-
-Please review and comment,
-Christian.
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index c1f8b0e37b93..72c5f1c53d6b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -204,9 +204,15 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+ 	if (r)
+ 		goto error_free_entity;
+ 
+-	ctx->entities[hw_ip][ring] = entity;
++	/* It's not an error if we fail to install the new entity */
++	if (cmpxchg(&ctx->entities[hw_ip][ring], NULL, entity))
++		goto cleanup_entity;
++
+ 	return 0;
+ 
++cleanup_entity:
++	drm_sched_entity_fini(&entity->entity);
++
+ error_free_entity:
+ 	kfree(entity);
+ 
+-- 
+2.25.1
 
