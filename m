@@ -4,118 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3B43C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 15:32:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64226C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 15:33:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58CB910E4CF;
-	Thu,  3 Mar 2022 15:32:01 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0DA810E4CF
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Mar 2022 15:32:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0C5C10E6DB;
+	Thu,  3 Mar 2022 15:33:04 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2052.outbound.protection.outlook.com [40.107.237.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C54010E6DB
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Mar 2022 15:33:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C+xUTlL9g84pRu00/zCue68b2ZSnNmFFZDuhqXLeORXoe1S3Bp3FiLvzmbzhn2GbPFX7j3DixR/lfINgRR+mrpJNTqTD25aQLQfyqcROwDi9H4MA07HlerKgvRLEt6N5l/a3N7Wl/Sr36cZBgyyLrvHTsvYlHPVbSHnfw8tLv4FPwacm8fuO2Bwz3iUUBQ16w2l02SjJzWwG5aFc8U+QAO9YDUKsa/RTTNngj65tRyN52eryalsM2D0/Iv6PTHLO6EMffj8W8QyIG3Rxh6UQ9gopavxhx0r2NOAIvnHj9SsBEVa4Pt03D4jYdIYbRRcSE6CLNmF/D4AsuFwJmUPvQw==
+ b=nlDXXY857CfnyQWvdZPSZnwZNPd9mWkQ5qzxH9r1GHWMYzl7GB+PnI45m3zw1XQXXe8ZujnZkKZiUDSeiC2v7FbFy6qEJHJFbjdY7BdlIVSRmc+71EXMN7viH7Gi/nfrcwHKrq9gWntpbIHkdEFz5hsKCQxjMDbAuDzzyUI3y1iXjZdbnC1kFb/A3w2Unuh4d8pPaDJK6ixcFHmyNb3mToIdANhBjDIY9ZOVhLJX4UUW61gA9RbT0UaYu+kSpycIVjRwFxNREwUFSdr5nm9+opBtKEuAT1gQpDH3JlJsINkkEUzw3f/L54Z2Hk8NX0qNxdXkmph2ZxmFA8LmMJoJeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=asOYOmPXsnoC33rZ70+oskyL0SNDmmNIwSV9BDDiiB8=;
- b=bHHI4DBvLCbc5cSQEqVdTKpcZgqmF+E6tiJS9bYa468b3MZi4nq7RnMY0rC9C/nI+7eTK6SbVuiSGEPGK6nYBIaiOxLYQ1DSRIsnQNgL2KVByU3f6UnH1db/n3BkQMoNV5Tw46kjS58OlwXo0MEZWZZATWvyWqoCosOyN8+vO8Cs0mfO5ZSdl3fPiD/UmybigXdCzuYr/EZJbue92jHmbPXvzm542ngB00+nEjPtW8Doz3t8kK8PLNMtEiOYDmozmob31IHTkacDuRLcG1Rjt/ZaSWD5ERmvU2/gveyCtH4IsIzRPa/XaZibvb2aUP8NwBz/YL3alnyvacN7HkJrnA==
+ bh=/IIckRW+8ImBlqo48MHU9CO0Dkr6P5MDJaX4KWpBHTc=;
+ b=Yi8uB+U3QaMZUzdxjaPYRBnRSmaizawDQlCo0AxkhPxfoTP4PpN2zMH11rCj4vR9K/iQECxEz3QxcD+uosV+kP5YhZjGgc6Vsf7wQByKbC/PMIJvDLfgixEuTVw5avQef4ATLJiS6GYx+R2HfXFw/KG8/qH6LfrRWc5oeMKW7NusqYMkCMLh4+5hPkVXYJ+fRE16cnl/l7oQmtYltOKNz05gBQXTlNLe5RG0ScmM3Pjwqw3KWNZ5OdMfEAtOniRj2wNN8JHqtrhiW3W+O8M3vULfOqOKdPkiZRQ5B1hp01RhYQrYN7Qa6C/iHwX4Iqi7adRGftBwEnD7WHnymeRZsg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=asOYOmPXsnoC33rZ70+oskyL0SNDmmNIwSV9BDDiiB8=;
- b=LZzXHb3KXkLOkR5t64oHwYNZsDjE0iuQ4fRe36rNJV8eKoomjjausC4tpgH5nBJhygElu01a1fMvcm4yfgxbekO/HqKYOdDzKZeCznodSpDlnL4p0ByTPgW2Fc2E+LCX63O903M5xFQ9FdnrbBuHnwEljJ+bQWMIGKiwb1pe9UY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM4PR12MB5150.namprd12.prod.outlook.com (2603:10b6:5:391::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Thu, 3 Mar
- 2022 15:31:57 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::b030:b1ba:4eb2:7fb7]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::b030:b1ba:4eb2:7fb7%6]) with mapi id 15.20.5038.014; Thu, 3 Mar 2022
- 15:31:57 +0000
-Message-ID: <bc98ad9b-d9ab-a529-6089-70470df1d390@amd.com>
-Date: Thu, 3 Mar 2022 10:31:55 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 1/1] drm/amdkfd: Improve concurrency of event handling
+ bh=/IIckRW+8ImBlqo48MHU9CO0Dkr6P5MDJaX4KWpBHTc=;
+ b=NYmFi+at3FcPgM47XqfjrZ+VryjM6xG2AfMbc1ICz984upckzbiPV7GsUhgoujo7GOrSnMUvPzTbeG+PDKSfPTtnRTREEZI/6nIW8c6haPgtsiI+1HY6IrDJV4iJX2B25ljUQpKWvTy5EPa+fmieEfxrwjUotrjekQt2zoo7Qp4=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by CY4PR12MB1159.namprd12.prod.outlook.com (2603:10b6:903:36::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.24; Thu, 3 Mar
+ 2022 15:32:59 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::2877:73e4:31e7:cecf]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::2877:73e4:31e7:cecf%7]) with mapi id 15.20.5038.015; Thu, 3 Mar 2022
+ 15:32:59 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 2/2] drm/amdkfd: implement get_atc_vmid_pasid_mapping_info
+ for gfx10.3
+Thread-Topic: [PATCH 2/2] drm/amdkfd: implement
+ get_atc_vmid_pasid_mapping_info for gfx10.3
+Thread-Index: AQHYLtWJBNI5CBA9S02S0K1cKTV6xqytyZ4y
+Date: Thu, 3 Mar 2022 15:32:59 +0000
+Message-ID: <BL1PR12MB51441441EE693D913349F4E7F7049@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20220303080514.680150-1-yifan1.zhang@amd.com>
+ <20220303080514.680150-2-yifan1.zhang@amd.com>
+In-Reply-To: <20220303080514.680150-2-yifan1.zhang@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220302200614.2439019-1-Felix.Kuehling@amd.com>
- <a09270d0-54b5-364d-fd0a-53f4fd746f25@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <a09270d0-54b5-364d-fd0a-53f4fd746f25@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0132.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::11) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e95319fa-0f18-47f0-6b32-08d9fd2af3e4
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5150:EE_
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5150E82A80C235E4D446481B92049@DM4PR12MB5150.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hX0y0kzJhEOmmP0cv4TNJEdT0snmtFRJlkxcQkeTVj59czW52N/NS6RERP3K9TNB5oS7PXi+0E5JkwOUTA4jYMxR2/um5a+NjFzpS/qRpaMYP+oLEa4O9LiwYVx9jdP6OHCK7jW1C5wFrsMJ6DCaLMmFArzuIdfTu0sxEnUtrSp5U1mP/N7MqQOl5QKzTRh9lrNB3ljzWQjpm7IR/q/AlG15xAxYDFI65RsH6tGRh+8WIpBvw/2trWOqwP+NRz38UQ5JuvInSV4jsCwNCsyaosmbaVITjHEeVIGEe9ijL7nuboMQbN+cg9019xBmJuperLq1LIlvmnh/1FapswAlziv6yyhr4PQe//3PkZvUoAxea2S8FltTIzjPG/OPEm9ovIdS3XRPqmKDde3ir+H1PP+PJvf0Wk1CswZM/kHMCOTzd28R7T+eWiEuQR2DkTM4Ud9Hr3DRyrB7mzKLH+YPFIywCJIvTmnWVgXLi7Tnbd2MNHezgzsqzyPdNbMEwWwY1kpKsiJlcySzGFof9c1Rllxc2is70lhndaWohu6sARuscsZbXC/hEJjnvvQezgxwMR5mcaMTbN/Cuqft1PgYoS5M24iIodONmpeequf4Jr2D9UUaHOLrgItOtwAHdEnjZrsunYIjtmRfdmnejqALdhH5GqxsYuY5/5wgIAvK8/BJT6qQ9k++eWOazD/b7CIBCr/vhKuikkNf5v4j3HYAUprf84mbtQgdbeCVHDRQM0G0Ob2Ajx+NgM2YBzNvxt8N
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66574015)(66946007)(2616005)(26005)(38100700002)(186003)(2906002)(6486002)(316002)(6506007)(6512007)(83380400001)(31686004)(508600001)(5660300002)(31696002)(44832011)(36756003)(30864003)(8936002)(8676002)(4326008)(66476007)(66556008)(86362001)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-03-03T15:32:58.349Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+suggested_attachment_session_id: d6f8572b-72f7-1f81-7a7a-8d26c9aca421
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: ee9e7fbb-bcd4-4d83-6e38-08d9fd2b191e
+x-ms-traffictypediagnostic: CY4PR12MB1159:EE_
+x-microsoft-antispam-prvs: <CY4PR12MB1159FCC13719E9AF87C198B7F7049@CY4PR12MB1159.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ZcsDGlQF64kKs2hYeermYFzJgPqkLx18vp6Woxyq/NRLWETogpozm/yc4OaXkinUVhEfSupAi+ajCEVreqjkyDFNUwgNYNE2Hk1kQCmxva8ksEAsjvL5t3SfyJESoWI7+s3JboRiZM4H6oaVdQZ4L+o4jzKiMdID8NagYhTp3qsDqTL1i+8/fpgM7EA2OlCuMWcJwXgPBRNuCV5C3eDj2ZpbcK7IWF9myxmQoD0Arf6r6/Xd326eKVpr0p/X95bl2c0GG8U2ZMp7N99VnoX+AMEvTbMAcO9x3JzO0YZFedLQo+WCZ0/y8D2f4J+a3OFlINi2GrDatexulSxLPD3ScH6Xqf6N0VgzNOoQp2Lb2WypirsqJOnS4iunxJEF+MZJ+gviL9ju2ywq/J0ZSESCVnwTFjuqDaAhDtCdW33ke1a69nl5dRCwME+bJYR2n6WNgC+VbAoiHW8iLlvIJR3wAsS4hy9HrQJFH6NPlNdjCg6Qa1BfThVRLNia6ezfTqKWgbv7EEVnMDzBg+dlumVdCtr1nPBBW3MYmk4+ysM8hlXR3DeT+LnlvGQKPRw9mYmgLoujzt/ZhnVyDHLAibnM46tLChN9rmlEN6ME0X7yTM+A18qbC5xZ9f0BMQxtde/IaKim3wR6K4EoQWI5IvHMCpuofc5elxmKpmnBTEZVECGq3XFvc5YCsCYUa8EcSQ5VGO7vYOASCUQKLOZiFKOeJg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(86362001)(8936002)(52536014)(5660300002)(38100700002)(316002)(122000001)(19627405001)(110136005)(38070700005)(76116006)(8676002)(83380400001)(71200400001)(66476007)(26005)(66556008)(66946007)(33656002)(4326008)(6506007)(186003)(508600001)(53546011)(2906002)(55016003)(64756008)(7696005)(66446008)(9686003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MHNmamI4YjJsMlQyVExLUDNoaFNPU1lOU051UG5IZXJ1RU1lWnZYL1hMb28x?=
- =?utf-8?B?QmFkSWtQNW4wRXBwQnBuZ0lqNmRJQmxJV1h6V0IrdEZXdjhVVG5BbkpxYU5V?=
- =?utf-8?B?ZkZFd2JvRFNBSTIxQUtwZmk0cjkxRG1YSVNwVmsrejB4QXJMcG9IemJrV3VY?=
- =?utf-8?B?cTh0Ym0xNVB1QmJWOCtzQ3RlZFNpSkFORFpheGhXdmllbkU1RHZIeklkRFJN?=
- =?utf-8?B?NFlsSFh0WHdLQ1p1cjEzNmwzUWFSbVBBT0tBRS9FM0ZHb1NibzdFUlBqS3do?=
- =?utf-8?B?SXVPenpERGVjdHlMc3BjamdobUpKVjVObGt2UDJMc3hmRjdNTmRuWGVBQllI?=
- =?utf-8?B?NS9IemlKYTFxVnhMU3VDamNnaEIySlZmKzhxSSt4VktseHh4UW1DNlE2dXE2?=
- =?utf-8?B?ekxEUm40YjZSaTZBdU5GR3FWSDdoRE16bWVQb01EN3FVWFBYRUppcnVLTkI1?=
- =?utf-8?B?bmFEZWova2NPa01XTEdKWkhldndHSm1FVkZ1MVhDalB1T2MyQ0U0MS9PWkhw?=
- =?utf-8?B?aDVzdGZPWFdyVm40UHo3MEkrTDU0S1hMSzZVMytHRzZsQWNJTmlicGphNEhD?=
- =?utf-8?B?MEI4YTViNENjNVVxcGJ6UVUvVjZEMStCdkc3dHY3SEgwZi9zZDRKZ1Z3R2RG?=
- =?utf-8?B?bjE2NXNxY2lCbzVpNWdoNi9JVlZ4cllDUk5ONEpDNlNVdGtYRjJrKy9KV05H?=
- =?utf-8?B?QktwNFg5b1lwNnFXelFnYWZZNkx0VG5NQVhTSzRweWxFMXdnUXQzSytoa0Fj?=
- =?utf-8?B?SlVhY0xHMFhCM2tyZ2k1S0xnakwrQXFab0JaNWJsb1ViWHVoalRtNVpheW43?=
- =?utf-8?B?OElGRmszRVR5OThwWEZmL25NYndmRkNUbzJ2QmhJRFlzZkFZT3hUbDlBc1ZB?=
- =?utf-8?B?eStPV2RqZlBTeVlxNzFWOGFralQvOG1sYmp0SnlMYXhTTnhhdnZPeGowMWZD?=
- =?utf-8?B?a0pzaWFWRlJncmd3YktDQ1hUWllCeXljUmkvNVdNZlpWekZ0V3gxZWlwUys4?=
- =?utf-8?B?dG5WcWVKalF4MkFvb1diV1pBOXBwNmRYVHluTVl1QzQzWm45NEZ0TFNBekIv?=
- =?utf-8?B?OVU1SnV3Z3RqWTZmN01NSGkxNHZaOEt1b016RDVPcDF1NkpKTzdPMkhwdWhl?=
- =?utf-8?B?d29lMFdGOEIwc0VwOXdSZGE3WnVzSFdBbmNyL1B1czV3aU53cy8wSU5FeDhT?=
- =?utf-8?B?UjdHZ3JXZHR5RFc3a0tRMWhmeGQ1MHZNM0NqeFlIK1FQODhBblltMUR0bFU2?=
- =?utf-8?B?cEtnTXJxWWFtaWFyY3ZKNVdBNXViK1JmRmdJdllHd096NnFLRWR2SkkvNDZo?=
- =?utf-8?B?QmhOSmVoaDB6cmpqd2d5VFVaZlRSUDBrekxsd2JBRUtmS3ArVEJiZkU3SUoy?=
- =?utf-8?B?Yzl5YVR6dEpkdGhlZzdHOGVXekFjU2wrSmYxQk1aaE8zVldtTERsWVk0Vjgr?=
- =?utf-8?B?UFNXa2xnZm85RTM4bGdFdDU3M01zYTFvdkFXVW52NjlWZlZERXNWVVk2WXAz?=
- =?utf-8?B?QnpYSlFHWnF3K29GalZBa1hubytTSkpOekFQWW1hVjFVSW4ydzZHTmFBM2Nm?=
- =?utf-8?B?TGRGUEVERUNoY1FCUE1nV2pUbHJYWlErTDc2R3NUYWE2eU56MnNNZytlSlU3?=
- =?utf-8?B?QXl3eTdlSHR2UE5CdjlYZGE2VTEzYjljakVuRzBYUUpDY2Q0aEpSQ0hpS0Mw?=
- =?utf-8?B?WFkwZkdHaDNqemcyazVLNlh0ZlB5WjJ4U1lLWWcyc3UrRmJwRk5uNkxZd0tP?=
- =?utf-8?B?cHIyVzVFYVNlQ01vQ2tHaTJxNWV0QjlyTHE1a25kYm5GcjlCUmIzUVY4ZGJk?=
- =?utf-8?B?U0xLTC9Femg4MXBDaGU1NHNNYnUxZ3ZCbVBVOVV3R0FqNnNtU293WTB6SUdB?=
- =?utf-8?B?NVYvYVlIRWxjZHJIQU82b2haSm1vdXBSbCtSblliTnM2YWtTdEFTanNJcC9Q?=
- =?utf-8?B?RytyaWdWeWZBcDNCbENrY0F3RlNPVHBTZE5KQ0hOVFVuMm9YQ3JpUWg0NWFN?=
- =?utf-8?B?VlhZeHV1MlRHOWd3MVpRYU5KK0ZsMVF1Q3QzWVI3Q1M2bGdBTU5yRjEwSVo4?=
- =?utf-8?B?anM4TGRuSFBWeG5SczB1Znp6SHkxcWdocVE3SXdEZkgrcjBYRjR2cTBPYVZX?=
- =?utf-8?B?UzNGSWRQMVF5b0NrNEUydlFyNDdpTW1OQ3VaQlc0TDYwcGk3STdhbVRmV0Ji?=
- =?utf-8?Q?OOCRRLNasAYKx/4V48Jiy0E=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?weT/zqbcthqJVH3toBM3NY360I7IsK+0Huc+ILmNcwsvQNEIugVN9NyJOgR/?=
+ =?us-ascii?Q?QGdqR/vvAVKgLF3DbKlBIKYir+9blvyfPfz5fGyumsrwvLsuJRA4ymcnVuU9?=
+ =?us-ascii?Q?lCM/arcBdCiX/zBLhp9Y6q/Z9or+Vyg/6F9MqIYbXT8zSOBjixsidJqDwYhv?=
+ =?us-ascii?Q?EqN2tqAZd/CQ97p47RrZMTOS5frjpq+yZpZR3VlOR12hKp1WRCAZ+1fmFgdN?=
+ =?us-ascii?Q?Qp6Sw1lQXUpF1XV8wjun5E9w2CVsCCwGK1rYTaKt7R7oXm9EFyGv/K9L5ugi?=
+ =?us-ascii?Q?MrJrscJood5e23rkJttaa7MA1PPCbcsLuO+2E6U22ZpXYv6yaxe/owtzvs2W?=
+ =?us-ascii?Q?0ouDW6MpY42pC0fkcwkDKrLrLn3/NW7OE4rrNme+veP7VmONLvT4ons8sA+v?=
+ =?us-ascii?Q?9ozp+z2p9E06qN3thXiOoAtzbrZBguLCJDrknmEtZNu7a8996XPCJq8Ly+6v?=
+ =?us-ascii?Q?oDwsY3r/yJv1ObAjGky+3w+9bC5JO9Nx3adf/m9Wo1oxpq3C/JBx3ipLJmZB?=
+ =?us-ascii?Q?7FIbfFKgjFnIp8zRi9qUm8tf/yZFgTbzoIRLZsN/g7WUTUuSfsTmex+tDmff?=
+ =?us-ascii?Q?F/6jrQTCqNNaMyl/UmEy6ZucbPC9Fc3lRSCGic6dmj1EUas8RI0UdqkwTxaV?=
+ =?us-ascii?Q?Tovz9VSGZz9alzqBbGKRSFV+etU02klM/irg1ckxfMT5XjlmC1/fpH4FYy3A?=
+ =?us-ascii?Q?M0NT7v984TqhfpaSbzu9BEx5axxDqOhncdPd9pv+Dg9ogda+lXQBo8YBp84N?=
+ =?us-ascii?Q?h2IJqGK543LJsz091yp/YqqwPZzuodPvlNRs4+EtMfANr2ZeQ30gQWwPzltX?=
+ =?us-ascii?Q?gOkMCkFw5PRqo5jRi+MtQv+S25d1Qc54edZB+kqA2M5pPsarZlsfAAidFj5V?=
+ =?us-ascii?Q?Ma0cpkuVul6RCP+4qHerk8BFqRntXf+zr75uB7JxmiGj7nv3oxyzrnWPQdCg?=
+ =?us-ascii?Q?9C8HxP048+dBqAHoy+of6tHt2OF9fr1A+V6zzzZLzPGh3KYOZ9AH3R9v9edY?=
+ =?us-ascii?Q?+RKb4mrplYgj+1I3U5PU5p/J8/PcutqK7Emz4Ktm+umVKTyn6X+wifWbNnNL?=
+ =?us-ascii?Q?cJjeYt0OqFGx9ftYWG1kzHEFZI9B7h08qO2G7hsxZKtR1y/HZcDPX1tGTzF9?=
+ =?us-ascii?Q?Ngd/fS/YhwOH0Ydv6RfPI52WLUwvkzLcyp08pyJEMMBYISkZeOZvgX7rNOZX?=
+ =?us-ascii?Q?xsmKeMgudXdQ+nptsWnTyhdBwrUTCUyArI3tQyNfstSX0wp0+oj/r5KmRQfe?=
+ =?us-ascii?Q?ImFaFzKIHsRxkoaGiD9+8KmTiHHTMfLNMSZ8wl8IXTYXVYF8aYkdu+qREZpI?=
+ =?us-ascii?Q?g/yi4DweEl8yQ7/7gel5niZTXL/0oDuVwngK1JPc9Cz9DgeM4fsLXGZ8Mq7W?=
+ =?us-ascii?Q?vJwfrSy8YASqSPV4csTM+nWRBXyDgfUo6ubi90kHm/y1v3eU8Rooeka0aeQA?=
+ =?us-ascii?Q?Ep1en5Avcp7n6FbcNy6m8C/4rsY+qVDOVJfH3JA3jRVOPgilSx90tBA/zLgd?=
+ =?us-ascii?Q?mqiWghhsXsI9AIGJiGFOyKWufwXhm64/SsDCgepbjlIRynbg286qIs0zGQGp?=
+ =?us-ascii?Q?BgcHtFnc8HZSsJt2mGSERqg61QMZiS0x2dEs2libe1PsEIHRbJvx7wx82vrx?=
+ =?us-ascii?Q?2269MMUfalH5vHh7PkQfDmI=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB51441441EE693D913349F4E7F7049BL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e95319fa-0f18-47f0-6b32-08d9fd2af3e4
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2022 15:31:57.4747 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2J4A/bsqS0RSWwjQALPW3T6oIGA3wl2YB+enF6pPHiOdTInGOLNjnh4TlD528itIIVCIUHh2QsmvMuuQyVB0kQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5150
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee9e7fbb-bcd4-4d83-6e38-08d9fd2b191e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Mar 2022 15:32:59.5075 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: A9iOQERKrxlQdt7Zf6yJSTBzxPqGBGY7vT2I8JM9KsCQ/pnU9u4aYbLEmWpuReiE8TJM6A74Sdw2TWmRUFgVlA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1159
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,475 +127,206 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean.keely@amd.com
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_BL1PR12MB51441441EE693D913349F4E7F7049BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Am 2022-03-03 um 02:25 schrieb Christian König:
-> Am 02.03.22 um 21:06 schrieb Felix Kuehling:
->> Use rcu_read_lock to read p->event_idr concurrently with other readers
->> and writers. Use p->event_mutex only for creating and destroying events
->> and in kfd_wait_on_events.
+[Public]
+
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Yifan Zh=
+ang <yifan1.zhang@amd.com>
+Sent: Thursday, March 3, 2022 3:05 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Zhang, Yifan <Yifan1.Zhang@amd.com>; Kuehling, Felix <Felix.Kuehling@am=
+d.com>
+Subject: [PATCH 2/2] drm/amdkfd: implement get_atc_vmid_pasid_mapping_info =
+for gfx10.3
+
+This patch implements get_atc_vmid_pasid_mapping_info for gfx10.3
+
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+index e9c80ce13f3e..ba21ec6b35e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+@@ -26,6 +26,8 @@
+ #include "gc/gc_10_3_0_sh_mask.h"
+ #include "oss/osssys_5_0_0_offset.h"
+ #include "oss/osssys_5_0_0_sh_mask.h"
++#include "athub/athub_2_1_0_offset.h"
++#include "athub/athub_2_1_0_sh_mask.h"
+ #include "soc15_common.h"
+ #include "v10_structs.h"
+ #include "nv.h"
+@@ -606,6 +608,18 @@ static int wave_control_execute_v10_3(struct amdgpu_de=
+vice *adev,
+         return 0;
+ }
+
++static bool get_atc_vmid_pasid_mapping_info_v10_3(struct amdgpu_device *ad=
+ev,
++                                       uint8_t vmid, uint16_t *p_pasid)
++{
++       uint32_t value;
++
++       value =3D RREG32(SOC15_REG_OFFSET(ATHUB, 0, mmATC_VMID0_PASID_MAPPI=
+NG)
++                    + vmid);
++       *p_pasid =3D value & ATC_VMID0_PASID_MAPPING__PASID_MASK;
++
++       return !!(value & ATC_VMID0_PASID_MAPPING__VALID_MASK);
++}
++
+ static void set_vm_context_page_table_base_v10_3(struct amdgpu_device *ade=
+v,
+                 uint32_t vmid, uint64_t page_table_base)
+ {
+@@ -788,7 +802,7 @@ const struct kfd2kgd_calls gfx_v10_3_kfd2kgd =3D {
+         .hqd_destroy =3D hqd_destroy_v10_3,
+         .hqd_sdma_destroy =3D hqd_sdma_destroy_v10_3,
+         .wave_control_execute =3D wave_control_execute_v10_3,
+-       .get_atc_vmid_pasid_mapping_info =3D NULL,
++       .get_atc_vmid_pasid_mapping_info =3D get_atc_vmid_pasid_mapping_inf=
+o_v10_3,
+         .set_vm_context_page_table_base =3D set_vm_context_page_table_base=
+_v10_3,
+         .program_trap_handler_settings =3D program_trap_handler_settings_v=
+10_3,
+ #if 0
+--
+2.25.1
+
+
+--_000_BL1PR12MB51441441EE693D913349F4E7F7049BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> That might not necessary work as you expected. rcu_read_lock() does 
-> not provide barriers for the CPU cache.
->
->> Protect the contents of the kfd_event structure with a per-event
->> spinlock that can be taken inside the rcu_read_lock critical section.
->
-> That helps to prevent problems for the ev structure, but it doesn't 
-> protect the idr itself.
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Series is:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Yifan Zhang &lt;yifan1.zhang@=
+amd.com&gt;<br>
+<b>Sent:</b> Thursday, March 3, 2022 3:05 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Zhang, Yifan &lt;Yifan1.Zhang@amd.com&gt;; Kuehling, Felix &lt;F=
+elix.Kuehling@amd.com&gt;<br>
+<b>Subject:</b> [PATCH 2/2] drm/amdkfd: implement get_atc_vmid_pasid_mappin=
+g_info for gfx10.3</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This patch implements get_atc_vmid_pasid_mapping_i=
+nfo for gfx10.3<br>
+<br>
+Signed-off-by: Yifan Zhang &lt;yifan1.zhang@amd.com&gt;<br>
+---<br>
+&nbsp;.../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c | 16 +++++++++++++++=
+-<br>
+&nbsp;1 file changed, 15 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c<br>
+index e9c80ce13f3e..ba21ec6b35e0 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c<br>
+@@ -26,6 +26,8 @@<br>
+&nbsp;#include &quot;gc/gc_10_3_0_sh_mask.h&quot;<br>
+&nbsp;#include &quot;oss/osssys_5_0_0_offset.h&quot;<br>
+&nbsp;#include &quot;oss/osssys_5_0_0_sh_mask.h&quot;<br>
++#include &quot;athub/athub_2_1_0_offset.h&quot;<br>
++#include &quot;athub/athub_2_1_0_sh_mask.h&quot;<br>
+&nbsp;#include &quot;soc15_common.h&quot;<br>
+&nbsp;#include &quot;v10_structs.h&quot;<br>
+&nbsp;#include &quot;nv.h&quot;<br>
+@@ -606,6 +608,18 @@ static int wave_control_execute_v10_3(struct amdgpu_de=
+vice *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
++static bool get_atc_vmid_pasid_mapping_info_v10_3(struct amdgpu_device *ad=
+ev,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; uint8_t vmid, uint16_t *p_pasid)<br>
++{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t value;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value =3D RREG32(SOC15_REG_OFFSET(ATH=
+UB, 0, mmATC_VMID0_PASID_MAPPING)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + vmid);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *p_pasid =3D value &amp; ATC_VMID0_PA=
+SID_MAPPING__PASID_MASK;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return !!(value &amp; ATC_VMID0_PASID=
+_MAPPING__VALID_MASK);<br>
++}<br>
++<br>
+&nbsp;static void set_vm_context_page_table_base_v10_3(struct amdgpu_device=
+ *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; uint32_t vmid, uint64_t page_table_base)<br>
+&nbsp;{<br>
+@@ -788,7 +802,7 @@ const struct kfd2kgd_calls gfx_v10_3_kfd2kgd =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .hqd_destroy =3D hqd_destr=
+oy_v10_3,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .hqd_sdma_destroy =3D hqd_=
+sdma_destroy_v10_3,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .wave_control_execute =3D =
+wave_control_execute_v10_3,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_atc_vmid_pasid_mapping_info =3D =
+NULL,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_atc_vmid_pasid_mapping_info =3D =
+get_atc_vmid_pasid_mapping_info_v10_3,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_vm_context_page_table=
+_base =3D set_vm_context_page_table_base_v10_3,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .program_trap_handler_sett=
+ings =3D program_trap_handler_settings_v10_3,<br>
+&nbsp;#if 0<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-idr_find can be used safely under rcu_read_lock according to this 
-comment in idr.h:
-
-  * idr_find() is able to be called locklessly, using RCU. The caller must
-  * ensure calls to this function are made within rcu_read_lock() regions.
-  * Other readers (lock-free or otherwise) and modifications may be running
-  * concurrently.
-  *
-  * It is still required that the caller manage the synchronization and
-  * lifetimes of the items. So if RCU lock-free lookups are used, typically
-  * this would mean that the items have their own locks, or are amenable to
-  * lock-free access; and that the items are freed by RCU (or only freed after
-  * having been deleted from the idr tree *and* a synchronize_rcu() grace
-  * period).
-
-It was introduced by f9c46d6ea5ce ("idr: make idr_find rcu-safe") in 2008.
-
-
->
-> BTW: Why are you using an idr in the first place? I don't see the 
-> lookup used anywhere.
-
-lookup_event_by_id is just a wrapper around idr_find. It's used in 
-kfd_event_destroy, kfd_set_event, kfd_reset_event and 
-kfd_wait_on_events. lookup_signaled_event_by_partial_id also uses 
-idr_find. It's used in kfd_signal_event_interrupt.
-
-Regards,
-   Felix
-
-
->
-> Regards,
-> Christian.
->
->>
->> This eliminates contention of p->event_mutex in set_event, which tends
->> to be on the critical path for dispatch latency even when busy waiting
->> is used. It also eliminates lock contention in event interrupt handlers.
->> Since the p->event_mutex is now used much less, the impact of requiring
->> it in kfd_wait_on_events should also be much smaller.
->>
->> This should improve event handling latency for processes using multiple
->> GPUs concurrently.
->>
->> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_events.c | 119 +++++++++++++++---------
->>   drivers/gpu/drm/amd/amdkfd/kfd_events.h |   1 +
->>   2 files changed, 78 insertions(+), 42 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c 
->> b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->> index deecccebe5b6..1726306715b2 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->> @@ -128,8 +128,8 @@ static int 
->> allocate_event_notification_slot(struct kfd_process *p,
->>   }
->>     /*
->> - * Assumes that p->event_mutex is held and of course that p is not 
->> going
->> - * away (current or locked).
->> + * Assumes that p->event_mutex or rcu_readlock is held and of course 
->> that p is
->> + * not going away.
->>    */
->>   static struct kfd_event *lookup_event_by_id(struct kfd_process *p, 
->> uint32_t id)
->>   {
->> @@ -251,15 +251,18 @@ static void destroy_event(struct kfd_process 
->> *p, struct kfd_event *ev)
->>       struct kfd_event_waiter *waiter;
->>         /* Wake up pending waiters. They will return failure */
->> +    spin_lock(&ev->lock);
->>       list_for_each_entry(waiter, &ev->wq.head, wait.entry)
->> -        waiter->event = NULL;
->> +        WRITE_ONCE(waiter->event, NULL);
->>       wake_up_all(&ev->wq);
->> +    spin_unlock(&ev->lock);
->>         if (ev->type == KFD_EVENT_TYPE_SIGNAL ||
->>           ev->type == KFD_EVENT_TYPE_DEBUG)
->>           p->signal_event_count--;
->>         idr_remove(&p->event_idr, ev->event_id);
->> +    synchronize_rcu();
->>       kfree(ev);
->>   }
->>   @@ -392,6 +395,7 @@ int kfd_event_create(struct file *devkfd, 
->> struct kfd_process *p,
->>       ev->auto_reset = auto_reset;
->>       ev->signaled = false;
->>   +    spin_lock_init(&ev->lock);
->>       init_waitqueue_head(&ev->wq);
->>         *event_page_offset = 0;
->> @@ -466,6 +470,7 @@ int kfd_criu_restore_event(struct file *devkfd,
->>       ev->auto_reset = ev_priv->auto_reset;
->>       ev->signaled = ev_priv->signaled;
->>   +    spin_lock_init(&ev->lock);
->>       init_waitqueue_head(&ev->wq);
->>         mutex_lock(&p->event_mutex);
->> @@ -609,13 +614,13 @@ static void set_event(struct kfd_event *ev)
->>         /* Auto reset if the list is non-empty and we're waking
->>        * someone. waitqueue_active is safe here because we're
->> -     * protected by the p->event_mutex, which is also held when
->> +     * protected by the ev->lock, which is also held when
->>        * updating the wait queues in kfd_wait_on_events.
->>        */
->>       ev->signaled = !ev->auto_reset || !waitqueue_active(&ev->wq);
->>         list_for_each_entry(waiter, &ev->wq.head, wait.entry)
->> -        waiter->activated = true;
->> +        WRITE_ONCE(waiter->activated, true);
->>         wake_up_all(&ev->wq);
->>   }
->> @@ -626,16 +631,18 @@ int kfd_set_event(struct kfd_process *p, 
->> uint32_t event_id)
->>       int ret = 0;
->>       struct kfd_event *ev;
->>   -    mutex_lock(&p->event_mutex);
->> +    rcu_read_lock();
->>         ev = lookup_event_by_id(p, event_id);
->> +    spin_lock(&ev->lock);
->>         if (ev && event_can_be_cpu_signaled(ev))
->>           set_event(ev);
->>       else
->>           ret = -EINVAL;
->>   -    mutex_unlock(&p->event_mutex);
->> +    spin_unlock(&ev->lock);
->> +    rcu_read_unlock();
->>       return ret;
->>   }
->>   @@ -650,23 +657,25 @@ int kfd_reset_event(struct kfd_process *p, 
->> uint32_t event_id)
->>       int ret = 0;
->>       struct kfd_event *ev;
->>   -    mutex_lock(&p->event_mutex);
->> +    rcu_read_lock();
->>         ev = lookup_event_by_id(p, event_id);
->> +    spin_lock(&ev->lock);
->>         if (ev && event_can_be_cpu_signaled(ev))
->>           reset_event(ev);
->>       else
->>           ret = -EINVAL;
->>   -    mutex_unlock(&p->event_mutex);
->> +    spin_unlock(&ev->lock);
->> +    rcu_read_unlock();
->>       return ret;
->>     }
->>     static void acknowledge_signal(struct kfd_process *p, struct 
->> kfd_event *ev)
->>   {
->> -    page_slots(p->signal_page)[ev->event_id] = UNSIGNALED_EVENT_SLOT;
->> +    WRITE_ONCE(page_slots(p->signal_page)[ev->event_id], 
->> UNSIGNALED_EVENT_SLOT);
->>   }
->>     static void set_event_from_interrupt(struct kfd_process *p,
->> @@ -674,7 +683,9 @@ static void set_event_from_interrupt(struct 
->> kfd_process *p,
->>   {
->>       if (ev && event_can_be_gpu_signaled(ev)) {
->>           acknowledge_signal(p, ev);
->> +        spin_lock(&ev->lock);
->>           set_event(ev);
->> +        spin_unlock(&ev->lock);
->>       }
->>   }
->>   @@ -693,7 +704,7 @@ void kfd_signal_event_interrupt(u32 pasid, 
->> uint32_t partial_id,
->>       if (!p)
->>           return; /* Presumably process exited. */
->>   -    mutex_lock(&p->event_mutex);
->> +    rcu_read_lock();
->>         if (valid_id_bits)
->>           ev = lookup_signaled_event_by_partial_id(p, partial_id,
->> @@ -721,7 +732,7 @@ void kfd_signal_event_interrupt(u32 pasid, 
->> uint32_t partial_id,
->>                   if (id >= KFD_SIGNAL_EVENT_LIMIT)
->>                       break;
->>   -                if (slots[id] != UNSIGNALED_EVENT_SLOT)
->> +                if (READ_ONCE(slots[id]) != UNSIGNALED_EVENT_SLOT)
->>                       set_event_from_interrupt(p, ev);
->>               }
->>           } else {
->> @@ -730,14 +741,14 @@ void kfd_signal_event_interrupt(u32 pasid, 
->> uint32_t partial_id,
->>                * only signaled events from the IDR.
->>                */
->>               for (id = 0; id < KFD_SIGNAL_EVENT_LIMIT; id++)
->> -                if (slots[id] != UNSIGNALED_EVENT_SLOT) {
->> +                if (READ_ONCE(slots[id]) != UNSIGNALED_EVENT_SLOT) {
->>                       ev = lookup_event_by_id(p, id);
->>                       set_event_from_interrupt(p, ev);
->>                   }
->>           }
->>       }
->>   -    mutex_unlock(&p->event_mutex);
->> +    rcu_read_unlock();
->>       kfd_unref_process(p);
->>   }
->>   @@ -767,9 +778,11 @@ static int init_event_waiter_get_status(struct 
->> kfd_process *p,
->>       if (!ev)
->>           return -EINVAL;
->>   +    spin_lock(&ev->lock);
->>       waiter->event = ev;
->>       waiter->activated = ev->signaled;
->>       ev->signaled = ev->signaled && !ev->auto_reset;
->> +    spin_unlock(&ev->lock);
->>         return 0;
->>   }
->> @@ -781,8 +794,11 @@ static void 
->> init_event_waiter_add_to_waitlist(struct kfd_event_waiter *waiter)
->>       /* Only add to the wait list if we actually need to
->>        * wait on this event.
->>        */
->> -    if (!waiter->activated)
->> +    if (!waiter->activated) {
->> +        spin_lock(&ev->lock);
->>           add_wait_queue(&ev->wq, &waiter->wait);
->> +        spin_unlock(&ev->lock);
->> +    }
->>   }
->>     /* test_event_condition - Test condition of events being waited for
->> @@ -802,10 +818,10 @@ static uint32_t test_event_condition(bool all, 
->> uint32_t num_events,
->>       uint32_t activated_count = 0;
->>         for (i = 0; i < num_events; i++) {
->> -        if (!event_waiters[i].event)
->> +        if (!READ_ONCE(event_waiters[i].event))
->>               return KFD_IOC_WAIT_RESULT_FAIL;
->>   -        if (event_waiters[i].activated) {
->> +        if (READ_ONCE(event_waiters[i].activated)) {
->>               if (!all)
->>                   return KFD_IOC_WAIT_RESULT_COMPLETE;
->>   @@ -834,6 +850,8 @@ static int copy_signaled_event_data(uint32_t 
->> num_events,
->>       for (i = 0; i < num_events; i++) {
->>           waiter = &event_waiters[i];
->>           event = waiter->event;
->> +        if (!event)
->> +            return -EINVAL; /* event was destroyed */
->>           if (waiter->activated && event->type == 
->> KFD_EVENT_TYPE_MEMORY) {
->>               dst = &data[i].memory_exception_data;
->>               src = &event->memory_exception_data;
->> @@ -844,11 +862,8 @@ static int copy_signaled_event_data(uint32_t 
->> num_events,
->>       }
->>         return 0;
->> -
->>   }
->>   -
->> -
->>   static long user_timeout_to_jiffies(uint32_t user_timeout_ms)
->>   {
->>       if (user_timeout_ms == KFD_EVENT_TIMEOUT_IMMEDIATE)
->> @@ -872,9 +887,12 @@ static void free_waiters(uint32_t num_events, 
->> struct kfd_event_waiter *waiters)
->>       uint32_t i;
->>         for (i = 0; i < num_events; i++)
->> -        if (waiters[i].event)
->> +        if (waiters[i].event) {
->> +            spin_lock(&waiters[i].event->lock);
->>               remove_wait_queue(&waiters[i].event->wq,
->>                         &waiters[i].wait);
->> +            spin_unlock(&waiters[i].event->lock);
->> +        }
->>         kfree(waiters);
->>   }
->> @@ -898,6 +916,9 @@ int kfd_wait_on_events(struct kfd_process *p,
->>           goto out;
->>       }
->>   +    /* Use p->event_mutex here to protect against concurrent 
->> creation and
->> +     * destruction of events while we initialize event_waiters.
->> +     */
->>       mutex_lock(&p->event_mutex);
->>         for (i = 0; i < num_events; i++) {
->> @@ -976,14 +997,19 @@ int kfd_wait_on_events(struct kfd_process *p,
->>       }
->>       __set_current_state(TASK_RUNNING);
->>   +    mutex_lock(&p->event_mutex);
->>       /* copy_signaled_event_data may sleep. So this has to happen
->>        * after the task state is set back to RUNNING.
->> +     *
->> +     * The event may also have been destroyed after signaling. So
->> +     * copy_signaled_event_data also must confirm that the event
->> +     * still exists. Therefore this must be under the p->event_mutex
->> +     * which is also held when events are destroyed.
->>        */
->>       if (!ret && *wait_result == KFD_IOC_WAIT_RESULT_COMPLETE)
->>           ret = copy_signaled_event_data(num_events,
->>                              event_waiters, events);
->>   -    mutex_lock(&p->event_mutex);
->>   out_unlock:
->>       free_waiters(num_events, event_waiters);
->>       mutex_unlock(&p->event_mutex);
->> @@ -1042,8 +1068,7 @@ int kfd_event_mmap(struct kfd_process *p, 
->> struct vm_area_struct *vma)
->>   }
->>     /*
->> - * Assumes that p->event_mutex is held and of course
->> - * that p is not going away (current or locked).
->> + * Assumes that p is not going away.
->>    */
->>   static void lookup_events_by_type_and_signal(struct kfd_process *p,
->>           int type, void *event_data)
->> @@ -1055,6 +1080,8 @@ static void 
->> lookup_events_by_type_and_signal(struct kfd_process *p,
->>         ev_data = (struct kfd_hsa_memory_exception_data *) event_data;
->>   +    rcu_read_lock();
->> +
->>       id = KFD_FIRST_NONSIGNAL_EVENT_ID;
->>       idr_for_each_entry_continue(&p->event_idr, ev, id)
->>           if (ev->type == type) {
->> @@ -1062,9 +1089,11 @@ static void 
->> lookup_events_by_type_and_signal(struct kfd_process *p,
->>               dev_dbg(kfd_device,
->>                       "Event found: id %X type %d",
->>                       ev->event_id, ev->type);
->> +            spin_lock(&ev->lock);
->>               set_event(ev);
->>               if (ev->type == KFD_EVENT_TYPE_MEMORY && ev_data)
->>                   ev->memory_exception_data = *ev_data;
->> +            spin_unlock(&ev->lock);
->>           }
->>         if (type == KFD_EVENT_TYPE_MEMORY) {
->> @@ -1087,6 +1116,8 @@ static void 
->> lookup_events_by_type_and_signal(struct kfd_process *p,
->>                   p->lead_thread->pid, p->pasid);
->>           }
->>       }
->> +
->> +    rcu_read_unlock();
->>   }
->>     #ifdef KFD_SUPPORT_IOMMU_V2
->> @@ -1162,16 +1193,10 @@ void kfd_signal_iommu_event(struct kfd_dev 
->> *dev, u32 pasid,
->>         if (KFD_GC_VERSION(dev) != IP_VERSION(9, 1, 0) &&
->>           KFD_GC_VERSION(dev) != IP_VERSION(9, 2, 2) &&
->> -        KFD_GC_VERSION(dev) != IP_VERSION(9, 3, 0)) {
->> -        mutex_lock(&p->event_mutex);
->> -
->> -        /* Lookup events by type and signal them */
->> +        KFD_GC_VERSION(dev) != IP_VERSION(9, 3, 0))
->>           lookup_events_by_type_and_signal(p, KFD_EVENT_TYPE_MEMORY,
->>                   &memory_exception_data);
->>   -        mutex_unlock(&p->event_mutex);
->> -    }
->> -
->>       kfd_unref_process(p);
->>   }
->>   #endif /* KFD_SUPPORT_IOMMU_V2 */
->> @@ -1188,12 +1213,7 @@ void kfd_signal_hw_exception_event(u32 pasid)
->>       if (!p)
->>           return; /* Presumably process exited. */
->>   -    mutex_lock(&p->event_mutex);
->> -
->> -    /* Lookup events by type and signal them */
->>       lookup_events_by_type_and_signal(p, 
->> KFD_EVENT_TYPE_HW_EXCEPTION, NULL);
->> -
->> -    mutex_unlock(&p->event_mutex);
->>       kfd_unref_process(p);
->>   }
->>   @@ -1229,16 +1249,19 @@ void kfd_signal_vm_fault_event(struct 
->> kfd_dev *dev, u32 pasid,
->>               info->prot_write ? 1 : 0;
->>           memory_exception_data.failure.imprecise = 0;
->>       }
->> -    mutex_lock(&p->event_mutex);
->> +
->> +    rcu_read_lock();
->>         id = KFD_FIRST_NONSIGNAL_EVENT_ID;
->>       idr_for_each_entry_continue(&p->event_idr, ev, id)
->>           if (ev->type == KFD_EVENT_TYPE_MEMORY) {
->> +            spin_lock(&ev->lock);
->>               ev->memory_exception_data = memory_exception_data;
->>               set_event(ev);
->> +            spin_unlock(&ev->lock);
->>           }
->>   -    mutex_unlock(&p->event_mutex);
->> +    rcu_read_unlock();
->>       kfd_unref_process(p);
->>   }
->>   @@ -1272,22 +1295,28 @@ void kfd_signal_reset_event(struct kfd_dev 
->> *dev)
->>               continue;
->>           }
->>   -        mutex_lock(&p->event_mutex);
->> +        rcu_read_lock();
->> +
->>           id = KFD_FIRST_NONSIGNAL_EVENT_ID;
->>           idr_for_each_entry_continue(&p->event_idr, ev, id) {
->>               if (ev->type == KFD_EVENT_TYPE_HW_EXCEPTION) {
->> +                spin_lock(&ev->lock);
->>                   ev->hw_exception_data = hw_exception_data;
->>                   ev->hw_exception_data.gpu_id = user_gpu_id;
->>                   set_event(ev);
->> +                spin_unlock(&ev->lock);
->>               }
->>               if (ev->type == KFD_EVENT_TYPE_MEMORY &&
->>                   reset_cause == KFD_HW_EXCEPTION_ECC) {
->> +                spin_lock(&ev->lock);
->>                   ev->memory_exception_data = memory_exception_data;
->>                   ev->memory_exception_data.gpu_id = user_gpu_id;
->>                   set_event(ev);
->> +                spin_unlock(&ev->lock);
->>               }
->>           }
->> -        mutex_unlock(&p->event_mutex);
->> +
->> +        rcu_read_unlock();
->>       }
->>       srcu_read_unlock(&kfd_processes_srcu, idx);
->>   }
->> @@ -1320,19 +1349,25 @@ void kfd_signal_poison_consumed_event(struct 
->> kfd_dev *dev, u32 pasid)
->>       memory_exception_data.gpu_id = user_gpu_id;
->>       memory_exception_data.failure.imprecise = true;
->>   -    mutex_lock(&p->event_mutex);
->> +    rcu_read_lock();
->> +
->>       idr_for_each_entry_continue(&p->event_idr, ev, id) {
->>           if (ev->type == KFD_EVENT_TYPE_HW_EXCEPTION) {
->> +            spin_lock(&ev->lock);
->>               ev->hw_exception_data = hw_exception_data;
->>               set_event(ev);
->> +            spin_unlock(&ev->lock);
->>           }
->>             if (ev->type == KFD_EVENT_TYPE_MEMORY) {
->> +            spin_lock(&ev->lock);
->>               ev->memory_exception_data = memory_exception_data;
->>               set_event(ev);
->> +            spin_unlock(&ev->lock);
->>           }
->>       }
->> -    mutex_unlock(&p->event_mutex);
->> +
->> +    rcu_read_unlock();
->>         /* user application will handle SIGBUS signal */
->>       send_sig(SIGBUS, p->lead_thread, 0);
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.h 
->> b/drivers/gpu/drm/amd/amdkfd/kfd_events.h
->> index 1238af11916e..55d376f56021 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.h
->> @@ -59,6 +59,7 @@ struct kfd_event {
->>         int type;
->>   +    spinlock_t lock;
->>       wait_queue_head_t wq; /* List of event waiters. */
->>         /* Only for signal events. */
->
+--_000_BL1PR12MB51441441EE693D913349F4E7F7049BL1PR12MB5144namp_--
