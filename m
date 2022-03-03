@@ -4,46 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34B0EC433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 20:37:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD0A5C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 21:40:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7576710EED0;
-	Thu,  3 Mar 2022 20:37:17 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37E7A10EE13;
- Thu,  3 Mar 2022 20:37:16 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0879061CD0;
- Thu,  3 Mar 2022 20:37:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FB6DC340EF;
- Thu,  3 Mar 2022 20:37:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646339831;
- bh=OXGr1PhWd90UciyXoThMqMTWRA8qGdjyNBBLaOztyWA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=X+KjScztBhjYUP8tJdR/XaLnR53G+5qb3QCupyPWaIdUxaHN+ARp5NZXvwhmUeXF1
- caA0cXxRDYeCEs9kFx7eMBcZJUStWa2CkvacrvJGG1jGYCqhSxii4zPdxZnUZYdD38
- PwDrY5sqlJNDieJtf7Oddv3DFhjIlYPEGGqyBNhwqY9ESjiqyxeGW3N0NE0xpQ/pht
- RA9kyBDi4MJkNrQPHuNQBWwO5QxU259tlde65nIodNx6FHnKZ/1lj14a0Otn4DQonf
- zjxhHxSU/WGYWCxBv2QYi8ZxbmmPQJbi3JMmlbSp0MJx3WM2KxzFZFr5YDIIKkHUH/
- /t+H2u+oVsKdQ==
-Date: Thu, 3 Mar 2022 14:45:26 -0600
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Kees Cook <keescook@chromium.org>
-Subject: Re: [PATCH][next] drm/amd/display: Fix Wstringop-overflow warnings
- in dc_link_dp.c
-Message-ID: <20220303204526.GA1733280@embeddedor>
-References: <20220303172503.GA1731116@embeddedor>
- <202203030937.5BFE3EF@keescook>
- <20220303181957.GA1731711@embeddedor>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 935DC10EE3D;
+	Thu,  3 Mar 2022 21:40:35 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06C6110EE38
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Mar 2022 21:40:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1646343633;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=xtbmEfHUQ1QhBdRYfxa2FFiLrPGe7Eovpy4drHSn/Dk=;
+ b=ZKSXmdEgrlD4lEThEs3zthf3UVj2Nd2NuNDvJMJH4UaCCq7Lupmkjfupz46Rbdvq5Ek0WT
+ PzJfgUqkyw3N4amynDEMU2R698Z70+E6qtdjw6/Ema/irw8Cx2HYSTWFRLS1CfrxY5NOoq
+ lD/RVs0Mqr2hZDoi/LLJqysukpNix14=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-86-3H8ELutAMIajiLRcfxSAZQ-1; Thu, 03 Mar 2022 16:40:25 -0500
+X-MC-Unique: 3H8ELutAMIajiLRcfxSAZQ-1
+Received: by mail-qt1-f197.google.com with SMTP id
+ w11-20020a05622a134b00b002dd15429effso4544620qtk.18
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Mar 2022 13:40:24 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:organization
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=xtbmEfHUQ1QhBdRYfxa2FFiLrPGe7Eovpy4drHSn/Dk=;
+ b=GqyIwFToN8P/CZ2rCXSv+7V5SDQrblvPvIPOha/uFVs01pSEVDIzOoO40nFVjGsqsq
+ uSrPdz6z1ZSWAQdyutmefK6kWECS9jVkNc4+RKDqIjlUDWKotjmT2NBN6dVXT0DKebCc
+ FqGofOg68FJvADY3EwYuEjdVaNbQhU+fcOtxseP1aAu9YCcfouxO0VnniIbXT0cB2dPT
+ L8swYmWJidcG1eeixKA3C386TyWaNOiJzM4V8ntQcsDrNSCG6AVz9qhqAuf8jOlew/RA
+ 68vSdJGCXsmbq4rO1VslJktu3rcFhqpu7Z71DZADI89lL4C0tYRHdt1d/OtFLlfYnLe4
+ TGJQ==
+X-Gm-Message-State: AOAM533ZnxrnlHXtxAq8S1Lx6tHXjjG7xS5HfgAPpJwO32ul9q4WtlOM
+ kfP/LPqZtScOTQquv7A34CUTtOWDH3iXKWTWgu89YQV9Jqh/0ClDK1IhgpM1HPOdUkq3Dzswfh0
+ Hjae9n3dvCw/vEE91CxUhT4YYzw==
+X-Received: by 2002:a05:622a:1344:b0:2df:e997:6681 with SMTP id
+ w4-20020a05622a134400b002dfe9976681mr23905386qtk.206.1646343624510; 
+ Thu, 03 Mar 2022 13:40:24 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyCA+yenE8eTjRZAZCZvGlnVr52EddV1dU7aim5O2e6OJbzh14S7YnLKVi7sNxTU2jKsuO0vg==
+X-Received: by 2002:a05:622a:1344:b0:2df:e997:6681 with SMTP id
+ w4-20020a05622a134400b002dfe9976681mr23905369qtk.206.1646343624164; 
+ Thu, 03 Mar 2022 13:40:24 -0800 (PST)
+Received: from [192.168.8.138] (pool-96-230-100-15.bstnma.fios.verizon.net.
+ [96.230.100.15]) by smtp.gmail.com with ESMTPSA id
+ y11-20020ac85f4b000000b002de4b0a015asm2331075qta.5.2022.03.03.13.40.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Mar 2022 13:40:23 -0800 (PST)
+Message-ID: <80f0071bbfb744921b842c870ac6f2793c4816b6.camel@redhat.com>
+Subject: 2022 X.Org Board of Directors Elections timeline extended, Request
+ for nominations
+From: Lyude Paul <lyude@redhat.com>
+To: events@lists.x.org, xorg-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ libre-soc-dev@lists.libre-soc.org
+Date: Thu, 03 Mar 2022 16:40:21 -0500
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-1.fc35)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220303181957.GA1731711@embeddedor>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,130 +87,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- linux-hardening@vger.kernel.org
+Cc: board@foundation.x.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 03, 2022 at 12:19:57PM -0600, Gustavo A. R. Silva wrote:
-> On Thu, Mar 03, 2022 at 09:43:28AM -0800, Kees Cook wrote:
-> > On Thu, Mar 03, 2022 at 11:25:03AM -0600, Gustavo A. R. Silva wrote:
-> > > Fix the following Wstringop-overflow warnings when building with GCC-11:
-> > > 
-> > > drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dpia.c:493:17: warning: ‘dp_decide_lane_settings’ accessing 4 bytes in a region of size 1 [-Wstringop-overflow=]
-> > 
-> > Can you "show your work" a little more here? I don't actually see the
-> > what is getting fixed:
-> > 
-> > enum dc_lane_count {
-> > 	...
-> >         LANE_COUNT_FOUR = 4,
-> > 	...
-> >         LANE_COUNT_DP_MAX = LANE_COUNT_FOUR
-> > };
-> > 
-> > struct link_training_settings {
-> > 	...
-> >         union dpcd_training_lane dpcd_lane_settings[LANE_COUNT_DP_MAX];
-> > };
-> > 
-> > void dp_hw_to_dpcd_lane_settings(
-> > 		...
-> > 		union dpcd_training_lane dpcd_lane_settings[LANE_COUNT_DP_MAX])
-> > {
-> > 	...
-> > }
-> > 
-> > static enum link_training_result dpia_training_cr_transparent(
-> > 		...
-> >                 struct link_training_settings *lt_settings)
-> > {
-> > 	...
-> >                 dp_decide_lane_settings(lt_settings, dpcd_lane_adjust,
-> >                                 lt_settings->hw_lane_settings, lt_settings->dpcd_lane_settings);
-> > 	...
-> > }
-> > 
-> > Everything looks to be the correct size?
-> 
-> Yep; this fix is similar to the one for intel_pm.c in this
-> 
-> 	commit e7c6e405e171fb33990a12ecfd14e6500d9e5cf2
-> 
-> where the array size of 8 seems to be fine for all the
-> struct members related (pri_latency, spr_latency, cur_latency
-> and skl_latency):
-> 
-> drivers/gpu/drm/i915/i915_drv.h:465:struct drm_i915_private {
-> ...
-> 
-> drivers/gpu/drm/i915/i915_drv.h-739-    struct {
-> 
-> ...
-> drivers/gpu/drm/i915/i915_drv.h-745-            /* primary */
-> drivers/gpu/drm/i915/i915_drv.h-746-            u16 pri_latency[5];
-> drivers/gpu/drm/i915/i915_drv.h-747-            /* sprite */
-> drivers/gpu/drm/i915/i915_drv.h-748-            u16 spr_latency[5];
-> drivers/gpu/drm/i915/i915_drv.h-749-            /* cursor */
-> drivers/gpu/drm/i915/i915_drv.h-750-            u16 cur_latency[5];
-> drivers/gpu/drm/i915/i915_drv.h-751-            /*
-> drivers/gpu/drm/i915/i915_drv.h-752-             * Raw watermark memory latency values
-> drivers/gpu/drm/i915/i915_drv.h-753-             * for SKL for all 8 levels
-> drivers/gpu/drm/i915/i915_drv.h-754-             * in 1us units.
-> drivers/gpu/drm/i915/i915_drv.h-755-             */
-> drivers/gpu/drm/i915/i915_drv.h-756-            u16 skl_latency[8];
-> 
-> ...
-> drivers/gpu/drm/i915/i915_drv.h-773-    } wm;
-> ...
-> }
+We are seeking nominations for candidates for election to the X.org Foundation
+Board of Directors. However, as we presently do not have enough nominations to
+start the election - the decision has been made to extend the timeline by 2
+weeks. Note this is a fairly regular part of the elections process.
 
-and in this case the ilk_wm_max_level() returns the right maximum size for the
-corresponding 'struct wm' member:
+The new deadline for nominations to the X.org Board of Directors is 23:59 UTC
+on 20th March 2022.
 
-drivers/gpu/drm/i915/intel_pm.c:2993:int ilk_wm_max_level(const struct drm_i915_private *dev_priv)
-drivers/gpu/drm/i915/intel_pm.c-2994-{
-drivers/gpu/drm/i915/intel_pm.c-2995-   /* how many WM levels are we expecting */
-drivers/gpu/drm/i915/intel_pm.c-2996-   if (HAS_HW_SAGV_WM(dev_priv))
-drivers/gpu/drm/i915/intel_pm.c-2997-           return 5;
-drivers/gpu/drm/i915/intel_pm.c-2998-   else if (DISPLAY_VER(dev_priv) >= 9)
-drivers/gpu/drm/i915/intel_pm.c-2999-           return 7;
-drivers/gpu/drm/i915/intel_pm.c-3000-   else if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv))
-drivers/gpu/drm/i915/intel_pm.c-3001-           return 4;
-drivers/gpu/drm/i915/intel_pm.c-3002-   else if (DISPLAY_VER(dev_priv) >= 6)
-drivers/gpu/drm/i915/intel_pm.c-3003-           return 3;
-drivers/gpu/drm/i915/intel_pm.c-3004-   else
-drivers/gpu/drm/i915/intel_pm.c-3005-           return 2;
-drivers/gpu/drm/i915/intel_pm.c-3006-}
+The Board consists of directors elected from the membership.  Each year, an
+election is held to bring the total number of directors to eight. The four
+members receiving the highest vote totals will serve as directors for two year
+terms.
 
-drivers/gpu/drm/i915/intel_pm.c:3009:static void intel_print_wm_latency(struct drm_i915_private *dev_priv,
-drivers/gpu/drm/i915/intel_pm.c-3010-                              const char *name,
-drivers/gpu/drm/i915/intel_pm.c-3011-                              const u16 wm[])
-drivers/gpu/drm/i915/intel_pm.c-3012-{
-drivers/gpu/drm/i915/intel_pm.c-3013-   int level, max_level = ilk_wm_max_level(dev_priv);
-drivers/gpu/drm/i915/intel_pm.c-3014-
-drivers/gpu/drm/i915/intel_pm.c-3015-   for (level = 0; level <= max_level; level++) {
-drivers/gpu/drm/i915/intel_pm.c-3016-           unsigned int latency = wm[level];
-drivers/gpu/drm/i915/intel_pm.c-3017-
-...
-}
+The directors who received two year terms starting in 2021 were Lyude Paul,
+Samuel Iglesias Gonsálvez, Manasi D Navare and Daniel Vetter. They will
+continue to serve until their term ends in 2023. Current directors whose term
+expires in 2022 are Emma Anholt, Keith Packard, Harry Wentland and Mark
+Filion.
 
-still GCC warns about this with Wstringop-overread, as it is explained
-in commit e7c6e405e171.
+A director is expected to participate in the fortnightly IRC meeting to
+discuss current business and to attend the annual meeting of the X.Org
+Foundation, which will be held at a location determined in advance by the
+Board of Directors.
 
---
-Gustavo
+A member may nominate themselves or any other member they feel is qualified.
+Nominations should be sent to the Election Committee at elections at x.org.
 
-> 
-> however GCC warns about accessing bytes beyond the limits, and turning the
-> argument declarations into pointers (removing the over-specified array
-> size from the argument declaration) silence the warnings.
-> 
-> --
-> Gustavo
+Nominees shall be required to be current members of the X.Org Foundation, and
+submit a personal statement of up to 200 words that will be provided to
+prospective voters.  The collected statements, along with the statement of
+contribution to the X.Org Foundation in the member's account page on
+http://members.x.org, will be made available to all voters to help them make
+their voting decisions.
+
+Nominations, membership applications or renewals and completed personal
+statements must be received no later than 23:59 UTC on 20th March 2022.
+
+The slate of candidates will be published 28th March 2022 and candidate Q&A
+will begin then. The deadline for Xorg membership applications and renewals is
+31st March 2022.
+
+Cheers,
+   Lyude Paul, on behalf of the X.Org BoD
+
