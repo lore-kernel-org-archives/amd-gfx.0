@@ -4,47 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCA1BC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 17:16:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7453C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Mar 2022 17:47:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4215910EA02;
-	Thu,  3 Mar 2022 17:16:55 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AEE010E9C3;
- Thu,  3 Mar 2022 17:16:53 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E29E7B824C9;
- Thu,  3 Mar 2022 17:16:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72976C004E1;
- Thu,  3 Mar 2022 17:16:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646327808;
- bh=sdUx4pmy1wPJZfj6t7Mf+fkJVick/R8Ggpu5sR4Dt+Y=;
- h=Date:From:To:Cc:Subject:From;
- b=NwmIXYrrvH7iS9aCfeSxw0PbeX4QcPjSaApJqB1fJ3O9q1sfze3jXHZKmO74LRbKI
- Xg7d3NyzLFwg8NhGr2Xvt7XHe7x4FyWCAX3AJQZL49HW4+ADRsQzeivFqsZQ7M7GCj
- 6CkPQaC/MIEh2T4NMU2Yf1s/JfFpSO9dDC1FuHpTRiaOnpF0JrP95xdKY/isOQj2WO
- EjcjiiHjKV8ecFFd6lMkH5r7IVEY+6vQOoHliejS8mrNDXtpnw++kBkNMxQEOGTdWs
- GwWsgCJDLn0v9B9vOGDFOqN9JyHWuxPwLQUtXhT4g9cnKjIqrgbbNNRdX/CiLOi7Fq
- Mz8VMs5IbQc/A==
-Date: Thu, 3 Mar 2022 11:25:03 -0600
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH][next] drm/amd/display: Fix Wstringop-overflow warnings in
- dc_link_dp.c
-Message-ID: <20220303172503.GA1731116@embeddedor>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 346A910EA4E;
+	Thu,  3 Mar 2022 17:47:19 +0000 (UTC)
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [IPv6:2607:f8b0:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB54210E321
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Mar 2022 17:43:29 +0000 (UTC)
+Received: by mail-pl1-x62f.google.com with SMTP id z2so5200797plg.8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Mar 2022 09:43:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=3mNZQL2VC2uYb431PEz6jnFD5ZTmVgeO3AWfSaB6+TY=;
+ b=TSou/dg3MxKfuVnSlJ7/9Ygb6rTt3uj1IAV4FuRAP0EFPtQzGCi18SqZsbllXX+6S8
+ ntcMT0x0I5bMkPvRf+RymUl7ybQA3dv1GWojQ1350VFS3FT8qE2h7SFFXSceT7yfD2T8
+ voM8RJe8gyMdGEmB0QSQndTKjgdU+d71aw2BA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=3mNZQL2VC2uYb431PEz6jnFD5ZTmVgeO3AWfSaB6+TY=;
+ b=OfiPWqMcP1ZzKuPfO6F5NYSdWSsVXWhfJbKshl5hnA+DpM+sCyWDGbClf0u2ds2Pjg
+ YpY6ryKk/Lh80BEowYAfumU0UFSUYka0WZTUxjShp3yrdHnlsE13VMeca6OXSrmnkx8G
+ On/sSKr0PDAAOzywclGjEnUL4O6Eys/kz28WBK4ptNkRRlxkQu+9b0Yw6i0CXulWMRyM
+ r0RkHZmR/S8Stb2nzH7wvce5Yx7IUm7HqSEW2aTIBYhijNVnSTW8oXIOEwFK4JTyi7cV
+ IWpjF/Jix2FMrDZR18gDPBqjEf7MOnjl2MAzzZk/ily3PUOHGImyMVjcwSU+Nbri3zAI
+ xQkQ==
+X-Gm-Message-State: AOAM533RSbdb8n2DxPTAtDPkDkufqg3F2K6mkjP7yYxobaU1q5OEL5qQ
+ nWWhN9RGmuyCzugvYPulbRO4cg==
+X-Google-Smtp-Source: ABdhPJwuuWN6vPSVt7Mv7dHURNIv9eDx1oLiv+vp7zPxRp6zIMVlyTuNFHJ/8c8jo+dQfkkeI/rm5Q==
+X-Received: by 2002:a17:902:d2cd:b0:14f:c169:dc6f with SMTP id
+ n13-20020a170902d2cd00b0014fc169dc6fmr36769598plc.170.1646329409448; 
+ Thu, 03 Mar 2022 09:43:29 -0800 (PST)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id
+ t9-20020a655549000000b0036570f81245sm2536433pgr.84.2022.03.03.09.43.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Mar 2022 09:43:29 -0800 (PST)
+Date: Thu, 3 Mar 2022 09:43:28 -0800
+From: Kees Cook <keescook@chromium.org>
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH][next] drm/amd/display: Fix Wstringop-overflow warnings
+ in dc_link_dp.c
+Message-ID: <202203030937.5BFE3EF@keescook>
+References: <20220303172503.GA1731116@embeddedor>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220303172503.GA1731116@embeddedor>
+X-Mailman-Approved-At: Thu, 03 Mar 2022 17:47:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,77 +69,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-hardening@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Leo Li <sunpeng.li@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-hardening@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the following Wstringop-overflow warnings when building with GCC-11:
+On Thu, Mar 03, 2022 at 11:25:03AM -0600, Gustavo A. R. Silva wrote:
+> Fix the following Wstringop-overflow warnings when building with GCC-11:
+> 
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dpia.c:493:17: warning: ‘dp_decide_lane_settings’ accessing 4 bytes in a region of size 1 [-Wstringop-overflow=]
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dpia.c:493:17: warning: ‘dp_decide_lane_settings’ accessing 4 bytes in a region of size 1 [-Wstringop-overflow=]
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dpia.c:493:17: warning: ‘dp_decide_lane_settings’ accessing 4 bytes in a region of size 1 [-Wstringop-overflow=]
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dpia.c:493:17: warning: ‘dp_decide_lane_settings’ accessing 4 bytes in a region of size 1 [-Wstringop-overflow=]
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dpia.c:388:17: warning: ‘dp_decide_lane_settings’ accessing 4 bytes in a region of size 1 [-Wstringop-overflow=]
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dpia.c:388:17: warning: ‘dp_decide_lane_settings’ accessing 4 bytes in a region of size 1 [-Wstringop-overflow=]
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dpia.c:388:17: warning: ‘dp_decide_lane_settings’ accessing 4 bytes in a region of size 1 [-Wstringop-overflow=]
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:1491:17: warning: ‘dp_decide_lane_settings’ accessing 4 bytes in a region of size 1 [-Wstringop-overflow=]
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:2613:25: warning: ‘dp_decide_lane_settings’ accessing 4 bytes in a region of size 1 [-Wstringop-overflow=]
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:2613:25: warning: ‘dp_decide_lane_settings’ accessing 4 bytes in a region of size 1 [-Wstringop-overflow=]
+Can you "show your work" a little more here? I don't actually see the
+what is getting fixed:
 
-by removing the over-specified array size from the argument declarations.
+enum dc_lane_count {
+	...
+        LANE_COUNT_FOUR = 4,
+	...
+        LANE_COUNT_DP_MAX = LANE_COUNT_FOUR
+};
 
-This helps with the ongoing efforts to globally enable
--Wstringop-overflow.
+struct link_training_settings {
+	...
+        union dpcd_training_lane dpcd_lane_settings[LANE_COUNT_DP_MAX];
+};
 
-Link: https://github.com/KSPP/linux/issues/181
-Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 4 ++--
- drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h  | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+void dp_hw_to_dpcd_lane_settings(
+		...
+		union dpcd_training_lane dpcd_lane_settings[LANE_COUNT_DP_MAX])
+{
+	...
+}
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index f11a8d97fb60..81952e07acf6 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -823,7 +823,7 @@ bool dp_is_interlane_aligned(union lane_align_status_updated align_status)
- void dp_hw_to_dpcd_lane_settings(
- 		const struct link_training_settings *lt_settings,
- 		const struct dc_lane_settings hw_lane_settings[LANE_COUNT_DP_MAX],
--		union dpcd_training_lane dpcd_lane_settings[LANE_COUNT_DP_MAX])
-+		union dpcd_training_lane dpcd_lane_settings[])
- {
- 	uint8_t lane = 0;
- 
-@@ -853,7 +853,7 @@ void dp_decide_lane_settings(
- 		const struct link_training_settings *lt_settings,
- 		const union lane_adjust ln_adjust[LANE_COUNT_DP_MAX],
- 		struct dc_lane_settings hw_lane_settings[LANE_COUNT_DP_MAX],
--		union dpcd_training_lane dpcd_lane_settings[LANE_COUNT_DP_MAX])
-+		union dpcd_training_lane dpcd_lane_settings[])
- {
- 	uint32_t lane;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-index ab9939db8cea..0d00da1640a7 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-@@ -147,12 +147,12 @@ bool dp_is_max_vs_reached(
- void dp_hw_to_dpcd_lane_settings(
- 	const struct link_training_settings *lt_settings,
- 	const struct dc_lane_settings hw_lane_settings[LANE_COUNT_DP_MAX],
--	union dpcd_training_lane dpcd_lane_settings[LANE_COUNT_DP_MAX]);
-+	union dpcd_training_lane dpcd_lane_settings[]);
- void dp_decide_lane_settings(
- 	const struct link_training_settings *lt_settings,
- 	const union lane_adjust ln_adjust[LANE_COUNT_DP_MAX],
- 	struct dc_lane_settings hw_lane_settings[LANE_COUNT_DP_MAX],
--	union dpcd_training_lane dpcd_lane_settings[LANE_COUNT_DP_MAX]);
-+	union dpcd_training_lane dpcd_lane_settings[]);
- 
- uint32_t dp_translate_training_aux_read_interval(uint32_t dpcd_aux_read_interval);
- 
+static enum link_training_result dpia_training_cr_transparent(
+		...
+                struct link_training_settings *lt_settings)
+{
+	...
+                dp_decide_lane_settings(lt_settings, dpcd_lane_adjust,
+                                lt_settings->hw_lane_settings, lt_settings->dpcd_lane_settings);
+	...
+}
+
+Everything looks to be the correct size?
+
 -- 
-2.27.0
-
+Kees Cook
