@@ -4,119 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1D23C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Mar 2022 17:10:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB5CBC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Mar 2022 22:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7621311299D;
-	Fri,  4 Mar 2022 17:10:37 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB66011299D
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Mar 2022 17:10:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0443710E137;
+	Fri,  4 Mar 2022 22:51:43 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061.outbound.protection.outlook.com [40.107.223.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11A6910E137;
+ Fri,  4 Mar 2022 22:51:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VLSHyaEC8aBWNxA2qPhICJaTYJWzF3hzXUFOSTnp+fMLtiM+c3fbMLicSiBr1rvi8nx6dP35F7PhT52x2y0dLUcp1T5NjyygbMLaCyZqqEmZIiRVuqpXCNBHZeLy0CzhgoIGru8KiWo3NKuQXPycTGynUFH+cJ1TaxERjg68OAG6XV5AXaXDhrWfQ6gUiliHLALzWW2ygII7hNTibrkW2F2mp94N1J97ZH3sExPk0HHOSGiqkOATvDFZdxTbyCR1ZI0LSMTns//Torzv/tRoVWKPX6ZGeLYDk86ssF8t25tBPHBH8Zb87R4h7/kIStzn6mAN3V0MTkHsPeaH1msEFg==
+ b=TaS3lRhsEVhH1tCCSyh+RY94SqCW579YcJwDPGQnPOEThQK1BVzrjlEC1DjHng1zRMee/Wt+5P5jEdkihhI17esnTse5NrakP2NiBgPHweD46kaSbB8JxaUrjAEgd7P/BoJtdQ81VhucD4Vwy/qgvs9EegiyGPv17d7KZ2hRvjt1cHOLcnVRcc7ulK19YYV2XuQwV0MS0hllnRy50FrFPmlgXdRV+QiWm95TqsGWDpJ56GTBUx2MP4d46YSg9HnI/fBVpj4XwNrfFATcrPtNEqhe/zI/DRbP97UwpGXU9xIRqhrtez3bpktI0o2li56eMfLKvkMXUqwPB5HU8GWDyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tjfwJqbsaDA9+gis19AdMeOCdyn1QfGd2tdg2wKotw0=;
- b=IdMxlXcYCyLbZz/7lYVJoZ4aPzPObKpCIoSkiOT6eI/moNSadf5JEC5x1n9FYOVc4GyouUvxMonfeucMYtUkQjlE83gDYbw+HyZ+FHA29JjL+jwQPsl8P2zk7EBW/J0xowVPB5eC29hZd3nBzrAqxO2ivLxYeWG7b5Jh2x216fdLw8sVvg4VLiy9rFpw0nUkNG7mtJlEwX0nOEEPH7+34z7ANBec+VcA+IuidY1UV3pDXmWjbXvrvTmxM6W7cpdh/GD1x0dCvN4qU0t+MgUHPyKWwEjmJty/1+ZCpChNuxvRUQ59i8BeqDcidS4Jdnl89X8rcnq4j7TPMHo9WbmueA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ZGIiaNDAQQ+Rhbhnfwv+IihJINXdE/Hh+RKboJOlLwI=;
+ b=Dm0ZhzTyr2sCzAK1iypPlD9zJgWhgnryLNRCC9eoXIcIkU6EDkc+U6nNf8Hh3HvKO/zBeYy3DVJvbm2VCNz60B3KRVPgH95v7LbBWlw2o4LLQcr/5jrPaOJOEbXPQJg1vJlHMDcXupT9z5Gus68gupVem1jnkU3t5mMhUDYtwzMd+xeSLNqCbtOHg8cRrA+aCpqriIJ+KVA5fGjO9pxKfOEj52PEK/4xZxifuQnOwN5gVqRkWyNnlatm3YBoMdS1P2bJtCqkfaEfKcECpHwt89VbMAup7ogZom/dzet2cYYSXEtqwiLc1CabsjQiZKcop24VkPbxYx62gFv4y8lHkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tjfwJqbsaDA9+gis19AdMeOCdyn1QfGd2tdg2wKotw0=;
- b=sV5TSVzzqtzYuXogZaOJhwJzfeOj3VlxTcupoTRprg3KWQsGNMoMm+FkwfGfVwsShEgjVd2ZSfcotmld4B/FtR1oqT2FVRLJtp7pplJFrCOmLRMMcFOmyVpq8oef2pZyncEAMQ+YqeQRX3y5W9ybEgiL5LNaUo6MYmGr4it6VZc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
- by MN2PR12MB4549.namprd12.prod.outlook.com (2603:10b6:208:268::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Fri, 4 Mar
- 2022 17:10:33 +0000
-Received: from DM5PR12MB1947.namprd12.prod.outlook.com
- ([fe80::90bd:5b12:918d:5703]) by DM5PR12MB1947.namprd12.prod.outlook.com
- ([fe80::90bd:5b12:918d:5703%5]) with mapi id 15.20.5038.017; Fri, 4 Mar 2022
- 17:10:33 +0000
-Message-ID: <9bf49ccf-09a9-15d5-5591-ee2164c07f3c@amd.com>
-Date: Fri, 4 Mar 2022 12:10:31 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 09/10] drm/amdgpu: add gang submit backend
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org, Marek.Olsak@amd.com
-References: <20220303082308.38217-1-christian.koenig@amd.com>
- <20220303082308.38217-10-christian.koenig@amd.com>
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-In-Reply-To: <20220303082308.38217-10-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0045.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::14) To DM5PR12MB1947.namprd12.prod.outlook.com
- (2603:10b6:3:111::23)
+ bh=ZGIiaNDAQQ+Rhbhnfwv+IihJINXdE/Hh+RKboJOlLwI=;
+ b=LcMbF5fTIE84JLxiJtdV/IroUdw1Y2BDJs+M92t7pVz/XixKLWtYZNAhSH+uhgpymwKZI1JD1wJKw6DSKGIx3E0HTTi5Zk7IIwWOdNcNOOodhpWz6yDhIU4nCyQwNa3TFHOoA7mNdMkPIpIH3J43u1FrsBqRDPuSL/hA+GjD3vo=
+Received: from BN9PR03CA0905.namprd03.prod.outlook.com (2603:10b6:408:107::10)
+ by DM5PR12MB1563.namprd12.prod.outlook.com (2603:10b6:4:a::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5038.15; Fri, 4 Mar 2022 22:51:36 +0000
+Received: from BN8NAM11FT045.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:107:cafe::c) by BN9PR03CA0905.outlook.office365.com
+ (2603:10b6:408:107::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
+ Transport; Fri, 4 Mar 2022 22:51:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT045.mail.protection.outlook.com (10.13.177.47) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5038.14 via Frontend Transport; Fri, 4 Mar 2022 22:51:36 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 4 Mar
+ 2022 16:51:35 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu, amdkfd drm-next-5.18
+Date: Fri, 4 Mar 2022 17:51:21 -0500
+Message-ID: <20220304225121.5878-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3d980901-88c1-4edd-dd11-08d9fe01e495
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4549:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB454936C903B1A1EE522D7A91EA059@MN2PR12MB4549.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: eb486f5b-9fc2-48ef-3875-08d9fe31897d
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1563:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1563A40C27DC4944174D2643F7059@DM5PR12MB1563.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lf0RYiPT7geTgQfWv9zvw+3lP9RZTtNPIpAM6NxUdYgv4J8jnPr8NjXjgpp7RBLUpOCfTt5NKIFTk1JIPp9S2coLVjOWHru29YAEEy/B3BVKdJh3etFIyqhdGg1gRBLJjc4IPBgB/4SqpJP9f+7XHMCTlwFmcBCIgTsQE7ehGbzZFwgllklRqtlJOM6NAeO1qMd3p1Xt6qYGTBZa9oBl9Y6sUUYFrbV+4T6kE0pDkXJmcu7JlCTP/uePaRkw+Tppj1pLw7RLt1jj67MtqR+SDf8MSfw5nghB4x7biU4FcZLGx+uPvfazQwO3gHHiNbi/XajVPANZF0AGEPd+OWfPK3xxPSXXQh7VZpH5aCnKK37K6cRZPER4PcjSkBq0xaY1KdtMDYqdPtfXXm9RC8VvfWy554n7AMnYxJEbvIR/jA8xclbpw1iWuMomae1KLF7Tyg1240KpjoN57qsTMo4NFV/fiOZzN9vRcFRidBFqgdv8mdx0X4mpANhPSss13otoYnGz+oRuacNMngqP/VxI6lB4eNjq5Ru41fualZ22+KbkuDUyCZKZbXtOB/M9nxpKnm2evsQ8W8aaLPDpmbUadykbrKe64VeNSmmnTRsbrSCxBk+nw5BlG5slqDuivIHrJksO84Zfh+qvIYbJp6yeIJH5+0bkIKjwqD+97nncYEg5Xx3h6rMJj6B/geYaHf6Fy9tCtMEeD6gSiKBi2PRXCC4rAntMvXfTsGLDKkk4OmicrxkCg+LNBxwvLCVQF2jB
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6636002)(508600001)(5660300002)(44832011)(86362001)(31696002)(2906002)(8936002)(4326008)(38100700002)(8676002)(2616005)(83380400001)(6486002)(66556008)(66946007)(66476007)(66574015)(53546011)(6506007)(6512007)(316002)(36756003)(31686004)(186003)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: 466VoeJNh70JbxpVmZYKZSVvbgOSq859TQMQ96qzNOHdvG9ZzwrIPXrIK+XzDKUoISBlIARDtqMRxBU23+FYTKTTfSoVZN8AwexFB8vo3xSTAJubIuZrZDH4hsSItRtJC9LKgO6WYq9E13QcBAciFfOmAbzuVeVr8dBoeeykDYIq2xkKC2DpRAAQV70P+jbJsdbIFPvEOJ+VuD80jgPRqLyDBtdK3Qkx6OOmYjph1EC0SmHJ3Er/0pIZHFoGpEKFyy0Gplaahkf9RwWU8sBSxev9waN7I9fCoX3LnF73pOwwfhvXOHWUh449aMYYyRirDMg0oz3oUwfiwY6Bi5CSGlFOU4fDQRVo5jVGPle0o9hdkNFRztpgnIGz5e5sJWjb3B8LeMtFq9eBljM5FJoMfwiNi5AHhcH+Ur5Ce3y62pooEgAhyG3qqjHlcMBs+b58ufts5zYPrf7EQQtycdgD2yHy/oeLQO3RwLaeVw4dL09PnD82P5Fx6aK+w6XHFDTwDwZ4KA+6HkYOy2mjHvK6gOmOwXU2H+tIMOX730AYkq6f5xKH2b60l330B8XIfsIfAc42AdlmhhrCrfbk8vIwjnlKSFjg+2nvLpKs+yfpVupXe/BC1nJ/+0Zyp9guhxxCe7pwWWj2Y6BgFz9E4qXA/suKUUNryLG1xvB2DVtMZQ3+yU1NaQmzWVDQ5mRdLw6kOWS16lWfu5eTKZNMcS9GhBD3AEaVW7k9sksXCnz+2lo=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(8676002)(316002)(2616005)(82310400004)(4326008)(508600001)(966005)(86362001)(6666004)(110136005)(36860700001)(7696005)(47076005)(40460700003)(70586007)(336012)(16526019)(66574015)(26005)(186003)(1076003)(356005)(81166007)(83380400001)(426003)(70206006)(2906002)(8936002)(5660300002)(36756003)(21314003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VisrOG9NTmFEaEZpbFZJWGtoWG5GbENrQldwbXVodzJHSU43RVlETUxaZVJV?=
- =?utf-8?B?cUYySVV0SDZKdWkyWHZjdldERGMzNGN5SnNFNkkrbXFaKzlIeVdDa08vQnVD?=
- =?utf-8?B?clIwTFBsUkZLbEhQdlVucjlwei9aSlhsalhVZ3prU2NHSWNWYU5wU3hkN21t?=
- =?utf-8?B?UWt0ODNtUVc3blRqUC9Xbi83bytHSmhyUWkyNlhmRjVJOW5xaVJIcWZUbFBS?=
- =?utf-8?B?ODBlRVVSM0Q0ZzV1cE5OYlMxVFNucnlRbUdqVUhkV1RoN3FSYmM0TG9rQXd3?=
- =?utf-8?B?UDJFRUNtazVNdjJLSStUTjlqVDhEOUdaOW1NT3hTUkNZY1V4dE1sazhQMW5k?=
- =?utf-8?B?TWtML0xyMWpJVjhQdVhqVzh2UzN2TWR1dmZzM3hvd2JNbDFiQnNwN1ZYZ21X?=
- =?utf-8?B?eFdpYXRuRE1SbURDbEJuL3ArY09hNVBFWDl0SjRjSlpZczFHQis0VytiVHRT?=
- =?utf-8?B?bWFJdmhJekF4RlhQcjhjby9NZkFkMnJqdGhBT2xlTWJtZ2kxcXczMXpQcFVs?=
- =?utf-8?B?N3RqTHJ5NndHZkxpZ2xuVFNGSzlGQzBJVTEwVTZRUWJRUHVHbWVCcS9ndC9X?=
- =?utf-8?B?clQ3cGU2eUx3WnBNUUxPa2RabWFuWTBRWWY3RFBvRWhya2ZkbkhRWDNmdHJ4?=
- =?utf-8?B?cHd2aCtiTnV5VmhrNTlObTR3Qk84bjlYZUtLSUN5WUlhNDBNQkJFcTN6Sko1?=
- =?utf-8?B?bWk3bnFzUGw1aDFvWG9XUlVOWXQ1WlpwdmJzTDRHeENvRDl4NS9ySU1EWENH?=
- =?utf-8?B?dGdndnRFalhOOE1VVTQ2UnZ0VVg2Z2IzY3NLcU1XeTdpdHJxeXN5Wm1BQ1dM?=
- =?utf-8?B?cmJLbU5peGgzdFZNa3p2V29GS1JyU3dnbkpzTVFIcE9WSWl6N3VYTUdlK1Er?=
- =?utf-8?B?RC9vYUpRQ2VrbnZabWpPbXdWelo4bG9kREpxVTk3eDUvNkR4bUhoNmQ3akk2?=
- =?utf-8?B?K0xuMjNHb2RqMjZlbEtpZ2FSMmlzZ0FYVStHcENyVzlTNW9SQmtpQ3haMUF3?=
- =?utf-8?B?dFROOXFmd24ra3JQWmxldUgxTUtPeDU3azVabDNBR1RDcWQyODlxcGVqbG5x?=
- =?utf-8?B?QzcrbHhvVUlnckFJNjZrb1VRWUx1cTExWHdQVmNhU2dqZmFhZzdMZ290K0Rt?=
- =?utf-8?B?ckc4YjdTWkVweDNCbnZldWFtQ0JUNFFxRUVmaHd5ZlAxai94NWZUQmhQaStV?=
- =?utf-8?B?aVp6UEdoR1cwemhSRGwxSjJuNng5YWxpaWdDU2JmaVNhWDdWM0dEbzA5dXVL?=
- =?utf-8?B?Mmx5ODhVM3paR0crdTNEd2Y3TERsUzBQeHIvUVNUT0IwbGFtbC9JSW11WXAr?=
- =?utf-8?B?NzVrZG9EeEwwUHRaRWJkd081bmwvdEJRdlhtV0tMNEx4NU5BeW13VVR0Z2lZ?=
- =?utf-8?B?bTJXZ1lPSzBVaDE5RlV4dkF2alhiRFhpdldVd3luTDZyZHVFMGl5b1pMWUFU?=
- =?utf-8?B?RDUwdkFCd1JhU0tQcU5BdWNnZ3NnOHYvRGJ0ZHlPay8ydE03SERTdFg2bUpJ?=
- =?utf-8?B?U2hWVEM0VEpRZzQ3SzhoOHk4OUxTSThRSThoZTZvaWtXcEZmanNvRWx3cjR4?=
- =?utf-8?B?cHB3clA2ZXNGT3hzeWVuMUorMWhqTC96NTRMVTF0bGF5NzdRVjM2UGMzMFhZ?=
- =?utf-8?B?ZE5XYjBtQVFQY2ZUZGcyVGh3Y1Urbm1jc3VSUjB3N3BObEtQVjlpZ2k5Y1VC?=
- =?utf-8?B?NndPMWlWejh4aTExU1RHSkhZNnFNalNoSWZRRXpuOEN5blc5U0k1S29PTUs3?=
- =?utf-8?B?c2VLZlRGRjBXaHN1NTY1RTVaQmVLVVFNdjRtYlZIRjZoUnUzdm1lYVY5ZXdP?=
- =?utf-8?B?VjVScHMwWlBMN29KdXQrVy92Sko0eVkxcUFzYUJjVzNtL3NpeE45RENVd2Rq?=
- =?utf-8?B?VTFQa0FwdERvUWdKYzFHSmh2YmZqR3BmKzZ6S3plUFVOSkNtQlRVQWpmbXZB?=
- =?utf-8?B?SlMyZzluSE5CZTFuYjg2dkNEOE15RzNydGg0SkEyODZBZWhRR284Q2RqbTBN?=
- =?utf-8?B?dG9mck1VaTN2SC9JOWp3L1YwNzY3NEY0aFRUdXNFV1BwUjNrNHpVTXpFVUpi?=
- =?utf-8?B?d1o1YXNBM0JLajJmc0dob2pBRUNiZS90c2ltTytsN1hFSXBPNEU2cVRkYWVV?=
- =?utf-8?B?OFhFd1R3Q1dGVGh6OEhCQ2tNODVsM05CNnFGbVZucHpaWkZ2WC9UR2lLSWVo?=
- =?utf-8?B?Q2JtZ3E3ZnZGazJQTldUSTJPNlVGOXJoZmRjY2tyWkMzQktJREJZSzBiM1p6?=
- =?utf-8?Q?ao1JgpXdwBM26T945CAnSgCl12XwUozT2ecjBLhZqk=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d980901-88c1-4edd-dd11-08d9fe01e495
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2022 17:10:33.6365 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2022 22:51:36.2548 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb486f5b-9fc2-48ef-3875-08d9fe31897d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6JiAJolrHn+O9/lO8CuD9W7IefrXCFN0bNPUdRuLXTH0cqeHcF4WCShz2G4mWFfyyj96v+ZqtHEoS8axZz1Mkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4549
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT045.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1563
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,199 +99,259 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Dave, Daniel,
 
-On 2022-03-03 03:23, Christian König wrote:
-> Allows submitting jobs as gang which needs to run on multiple
-> engines at the same time.
->
-> Basic idea is that we have a global gang submit fence representing when the
-> gang leader is finally pushed to run on the hardware last.
->
-> Jobs submitted as gang are never re-submitted in case of a GPU reset since this
-> won't work and will just deadlock the hardware immediately again.
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 34 ++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 28 ++++++++++++++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h    |  3 ++
->   4 files changed, 66 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 7f447ed7a67f..a664d43d7502 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -852,6 +852,7 @@ struct amdgpu_device {
->   	u64				fence_context;
->   	unsigned			num_rings;
->   	struct amdgpu_ring		*rings[AMDGPU_MAX_RINGS];
-> +	struct dma_fence __rcu		*gang_submit;
->   	bool				ib_pool_ready;
->   	struct amdgpu_sa_manager	ib_pools[AMDGPU_IB_POOL_MAX];
->   	struct amdgpu_sched		gpu_sched[AMDGPU_HW_IP_NUM][AMDGPU_RING_PRIO_MAX];
-> @@ -1233,6 +1234,8 @@ void amdgpu_device_invalidate_hdp(struct amdgpu_device *adev,
->   		struct amdgpu_ring *ring);
->   
->   void amdgpu_device_halt(struct amdgpu_device *adev);
-> +struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
-> +					    struct dma_fence *gang);
->   
->   /* atpx handler */
->   #if defined(CONFIG_VGA_SWITCHEROO)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index d78141e2c509..a116b8c08827 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3512,6 +3512,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	adev->gmc.gart_size = 512 * 1024 * 1024;
->   	adev->accel_working = false;
->   	adev->num_rings = 0;
-> +	RCU_INIT_POINTER(adev->gang_submit, dma_fence_get_stub());
->   	adev->mman.buffer_funcs = NULL;
->   	adev->mman.buffer_funcs_ring = NULL;
->   	adev->vm_manager.vm_pte_funcs = NULL;
-> @@ -3989,6 +3990,7 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
->   	release_firmware(adev->firmware.gpu_info_fw);
->   	adev->firmware.gpu_info_fw = NULL;
->   	adev->accel_working = false;
-> +	dma_fence_put(rcu_dereference_protected(adev->gang_submit, true));
->   
->   	amdgpu_reset_fini(adev);
->   
-> @@ -5744,3 +5746,35 @@ void amdgpu_device_halt(struct amdgpu_device *adev)
->   	pci_disable_device(pdev);
->   	pci_wait_for_pending_transaction(pdev);
->   }
-> +
-> +/**
-> + * amdgpu_device_switch_gang - switch to a new gang
-> + * @adev: amdgpu_device pointer
-> + * @gang: the gang to switch to
-> + *
-> + * Try to switch to a new gang or return a reference to the current gang if that
-> + * isn't possible.
-> + * Returns: Either NULL if we switched correctly or a reference to the existing
-> + * gang.
-> + */
-> +struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
-> +					    struct dma_fence *gang)
-> +{
-> +	struct dma_fence *old = NULL;
-> +
-> +	do {
-> +		dma_fence_put(old);
-> +		old = dma_fence_get_rcu_safe(&adev->gang_submit);
-> +
-> +		if (old == gang)
-> +			break;
-> +
-> +		if (!dma_fence_is_signaled(old))
-> +			return old;
-> +
-> +	} while (cmpxchg((struct dma_fence __force **)&adev->gang_submit,
-> +			 old, gang) != old);
-> +
-> +	dma_fence_put(old);
-> +	return NULL;
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index e07ceae36a5c..059e11c7898c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -169,11 +169,29 @@ static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
->   		kfree(job);
->   }
->   
-> +void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
-> +				struct amdgpu_job *leader)
-> +{
-> +	struct dma_fence *fence = &leader->base.s_fence->scheduled;
-> +
-> +	WARN_ON(job->gang_submit);
-> +
-> +	/*
-> +	 * Don't add a reference when we are the gang leader to avoid circle
-> +	 * dependency.
-> +	 */
-> +	if (job != leader)
-> +		dma_fence_get(fence);
-> +	job->gang_submit = fence;
-> +}
-> +
->   void amdgpu_job_free(struct amdgpu_job *job)
->   {
->   	amdgpu_job_free_resources(job);
->   	amdgpu_sync_free(&job->sync);
->   	amdgpu_sync_free(&job->sched_sync);
-> +	if (job->gang_submit != &job->base.s_fence->scheduled)
-> +		dma_fence_put(job->gang_submit);
->   
->   	/* only put the hw fence if has embedded fence */
->   	if (job->hw_fence.ops != NULL)
-> @@ -247,12 +265,16 @@ static struct dma_fence *amdgpu_job_dependency(struct drm_sched_job *sched_job,
->   		fence = amdgpu_sync_get_fence(&job->sync);
->   	}
->   
-> +	if (!fence && !job->gang_submit)
-> +		fence = amdgpu_device_switch_gang(ring->adev, job->gang_submit);
-> +
+A few things for 5.18, mostly bug fixes.
 
+The following changes since commit 38a15ad9488e21cad8f42d3befca20f91e5b2874:
 
-Why job->gang_submit should be NULL in the check above ? Don't you want 
-to switch to an actual new gang fence here ?
-Jobs that don't have gang_submit fence set are not gang jobs anyway and 
-we don't care for this dependency
-for them right ?
+  Merge tag 'amd-drm-next-5.18-2022-02-25' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2022-03-01 16:19:02 +1000)
 
-Andrey
+are available in the Git repository at:
 
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-5.18-2022-03-04
 
->   	return fence;
->   }
->   
->   static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
->   {
->   	struct amdgpu_ring *ring = to_amdgpu_ring(sched_job->sched);
-> +	struct amdgpu_device *adev = ring->adev;
->   	struct dma_fence *fence = NULL, *finished;
->   	struct amdgpu_job *job;
->   	int r = 0;
-> @@ -264,8 +286,10 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
->   
->   	trace_amdgpu_sched_run_job(job);
->   
-> -	if (job->vram_lost_counter != atomic_read(&ring->adev->vram_lost_counter))
-> -		dma_fence_set_error(finished, -ECANCELED);/* skip IB as well if VRAM lost */
-> +	/* Skip job if VRAM is lost and never resubmit gangs */
-> +	if (job->vram_lost_counter != atomic_read(&adev->vram_lost_counter) ||
-> +	    (job->job_run_counter && job->gang_submit))
-> +		dma_fence_set_error(finished, -ECANCELED);
->   
->   	if (finished->error < 0) {
->   		DRM_INFO("Skip scheduling IBs!\n");
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> index 0bab8fe0d419..615328130615 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> @@ -51,6 +51,7 @@ struct amdgpu_job {
->   	struct amdgpu_sync	sched_sync;
->   	struct dma_fence	hw_fence;
->   	struct dma_fence	*external_hw_fence;
-> +	struct dma_fence	*gang_submit;
->   	uint32_t		preamble_status;
->   	uint32_t                preemption_status;
->   	bool                    vm_needs_flush;
-> @@ -80,6 +81,8 @@ int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev, unsigned size,
->   void amdgpu_job_set_resources(struct amdgpu_job *job, struct amdgpu_bo *gds,
->   			      struct amdgpu_bo *gws, struct amdgpu_bo *oa);
->   void amdgpu_job_free_resources(struct amdgpu_job *job);
-> +void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
-> +				struct amdgpu_job *leader);
->   void amdgpu_job_free(struct amdgpu_job *job);
->   int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
->   		      void *owner, struct dma_fence **f);
+for you to fetch changes up to d9de22f1e392741fef1abb787bed29f164b253b2:
+
+  drm/amdkfd: Add format attribute to kfd_smi_event_add (2022-03-04 13:03:30 -0500)
+
+----------------------------------------------------------------
+amd-drm-next-5.18-2022-03-04:
+
+amdgpu:
+- Misc code cleanups
+- Misc display fixes
+- PSR display fixes
+- More RAS cleanup
+- Hotplug fix
+- Bump minor version for hotplug tests
+- SR-IOV fixes
+- GC 10.3.7 updates
+- Remove some firmwares which are no longer used
+- Mode2 reset refactor
+- Aldebaran fixes
+- Add VCN fwlog feature for VCN debugging
+- CS code cleanup
+
+amdkfd:
+- SVM fixes
+- SMI event fixes and cleanups
+- vmid_pasid mapping fix for gfx10.3
+
+----------------------------------------------------------------
+Alex Deucher (4):
+      drm/amdgpu: Use IP versions in convert_tiling_flags_to_modifier()
+      drm/amdgpu: remove unused gpu_info firmwares
+      drm/amdgpu/gfx10: drop unused cyan skillfish firmware
+      drm/amdgpu/sdma5: drop unused cyan skillfish firmware
+
+Andrey Grodzovsky (2):
+      drm/amdgpu: Fix sigsev when accessing MMIO on hot unplug.
+      drm/amdgpu: Bump minor version for hot plug tests enabling.
+
+Anthony Koo (1):
+      drm/amd/display: [FW Promotion] Release 0.0.106.0
+
+Aric Cyr (1):
+      drm/amd/display: 3.2.175
+
+Charlene Liu (1):
+      drm/amd/display: add verify_link_cap back for hdmi
+
+Chris Park (1):
+      drm/amd/display: Reset VIC if HDMI_VIC is present
+
+Christian König (5):
+      drm/amdgpu: install ctx entities with cmpxchg
+      drm/amdgpu: header cleanup
+      drm/amdgpu: use job and ib structures directly in CS parsers
+      drm/amdgpu: properly embed the IBs into the job
+      drm/amdgpu: initialize the vmid_wait with the stub fence
+
+Danijel Slivka (1):
+      drm/amd/pm: new v3 SmuMetrics data structure for Sienna Cichlid
+
+David Yu (1):
+      drm/amdgpu: Add DFC CAP support for aldebaran
+
+Dillon Varone (2):
+      drm/amd/display: Add frame alternate 3D & restrict HW packed on dongles
+      drm/amd/display: Modify plane removal sequence to avoid hangs.
+
+George Shen (1):
+      drm/amd/display: Refactor fixed VS w/a for PHY tests
+
+Hansen Dsouza (1):
+      drm/amd/display: Remove invalid RDPCS Programming in DAL
+
+Harish Kasiviswanathan (1):
+      drm/amdgpu: Set correct DMA mask for aldebaran
+
+Jingwen Chen (1):
+      drm/amd/amdgpu: set disabled vcn to no_schduler
+
+Lijo Lazar (1):
+      drm/amdgpu: Refactor mode2 reset logic for v13.0.2
+
+Luben Tuikov (1):
+      drm/amd/display: Don't fill up the logs
+
+Meng Tang (1):
+      gpu/amd: vega10_hwmgr: fix inappropriate private variable name
+
+Michael Strauss (1):
+      drm/amd/display: Pass HostVM enable flag into DCN3.1 DML
+
+Nicholas Kazlauskas (1):
+      drm/amd/display: Make functional resource functions non-static
+
+Philip Yang (4):
+      Revert "drm/amdkfd: process_info lock not needed for svm"
+      drm/amdkfd: Correct SMI event read size
+      drm/amdkfd: Add SMI add event helper
+      drm/amdkfd: Add format attribute to kfd_smi_event_add
+
+Prike Liang (4):
+      drm/amdgpu: enable gfx clock gating control for GC 10.3.7
+      drm/amdgpu/nv: enable clock gating for GC 10.3.7 subblock
+      drm/amdgpu: enable gfx power gating for GC 10.3.7
+      drm/amdgpu: enable gfxoff routine for GC 10.3.7
+
+Qiang Yu (1):
+      drm/amdgpu: fix suspend/resume hang regression
+
+Robin Chen (1):
+      drm/amd/display: Pass deep sleep disabled allow info to dmub fw
+
+Ruijing Dong (2):
+      drm/amdgpu/vcn: Update fw shared data structure
+      drm/amdgpu/vcn: Add vcn firmware log
+
+Shah Dharati (1):
+      drm/amd/display: Adding a dc_debug option and dmub setting to use PHY FSM for PSR
+
+Tom Rix (1):
+      drm/amdgpu: Fix realloc of ptr
+
+Weiguo Li (1):
+      drm/amdgpu: remove redundant null check
+
+Wesley Chalmers (1):
+      drm/amd/display: Program OPP before ODM
+
+Yifan Zha (1):
+      drm/amdgpu: Move CAP firmware loading to the beginning of PSP firmware list
+
+Yifan Zhang (4):
+      drm/amdgpu: move amdgpu_gmc_noretry_set after ip_versions populated
+      drm/amdgpu: convert code name to ip version for noretry set
+      drm/amdkfd: judge get_atc_vmid_pasid_mapping_info before call
+      drm/amdkfd: implement get_atc_vmid_pasid_mapping_info for gfx10.3
+
+jinzh (1):
+      drm/amd/display: refine the EDID override
+
+yipechai (12):
+      drm/amdgpu: Modify .ras_fini function pointer parameter
+      drm/amdgpu: Optimize xxx_ras_fini function of each ras block
+      drm/amdgpu: centrally calls the .ras_fini function of all ras blocks
+      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in gfx ras block
+      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in mmhub ras block
+      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in nbio ras block
+      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in umc ras block
+      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in xgmi ras block
+      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in hdp ras block
+      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in sdma ras block
+      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in mca ras block
+      drm/amdgpu: Remove redundant .ras_fini initialization in some ras blocks
+
+ drivers/gpu/drm/amd/amdgpu/aldebaran.c             |  66 ++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  98 +----------
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c   |  16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h             |  80 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c            |  24 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        |  19 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  25 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c        |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |   7 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h            |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |  21 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c            |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h            |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |   7 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h            |   9 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c            |   6 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h            |   3 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c          |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h          |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c           |   7 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h           |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |  28 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c          |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c           |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h           |  58 ++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c           |   7 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h           |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace_points.c   |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h          |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c            |   7 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h            |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c            |  37 ++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h            |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c            | 117 ++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h            |   7 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c            | 134 ++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h            |  30 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c           |   8 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  18 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |   7 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             |   4 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  15 +-
+ drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c              |   1 -
+ drivers/gpu/drm/amd/amdgpu/mca_v3_0.c              |  18 --
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c             |   1 -
+ drivers/gpu/drm/amd/amdgpu/nv.c                    |  15 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c             |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |   8 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c             |   8 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c                 |   3 -
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c              |  14 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c              |   7 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c              |  22 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c              |  21 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c              |  51 +++---
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  18 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c        |  74 +++------
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |   9 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |   8 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c      |  14 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  16 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |   2 +
+ drivers/gpu/drm/amd/display/dc/dc.h                |   4 +-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c      |   1 +
+ .../amd/display/dc/dce110/dce110_hw_sequencer.c    |  49 +++---
+ .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  |   5 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c  |  21 +--
+ .../amd/display/dc/dcn31/dcn31_dio_link_encoder.c  |   9 -
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_resource.c  |   5 +-
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_resource.h  |   5 +
+ .../drm/amd/display/dc/dcn315/dcn315_resource.c    |   1 +
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h        |   3 +
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  12 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |  68 ++++----
+ .../inc/pmfw_if/smu11_driver_if_sienna_cichlid.h   |  58 +++++++
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 181 ++++++++++++++-------
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     |   1 +
+ include/uapi/linux/kfd_ioctl.h                     |   1 +
+ 84 files changed, 991 insertions(+), 679 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
