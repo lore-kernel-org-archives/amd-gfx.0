@@ -4,65 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C30E7C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Mar 2022 08:33:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 138A4C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Mar 2022 09:16:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26B7510F8C9;
-	Fri,  4 Mar 2022 08:33:18 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2F6E10F8C6;
- Fri,  4 Mar 2022 08:33:16 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id hw13so15859033ejc.9;
- Fri, 04 Mar 2022 00:33:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=lDiOxjq8VtEYhY51PjP5Jo5kppkOrtHrp1SH5d1zTiw=;
- b=WuzmpDWLP6LMICAashm3BAp+W+G+CXDZ0Ze5FwHyE/ne8/NbWnRv/j56zqPbw6x7uz
- Lq+c4jQcI+ZO1HEdL9UJGlJj2gric65ba+nXc8h71lkbAJuQfA/8qwTgy+df7P8S7WkB
- jHl9dzLeWEPfgWMaFDZ+d/avAzvoBi6G5x8MyPoe6JUszHKpZy5quMBjfjRBQ0maOtLe
- KbD7MYrbUKxBoG/DJqdBx9URft6RDbS9WTAgL+N+8lMpycwCNTLQSHxGgNryK2JaN1Cs
- 9/Mn1yBJfDOkuiT0ddxq7P3nHchd+2SC+dTe6rIVwP9uExVDCjTlJM7Ywk63S8lyijP3
- J6tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=lDiOxjq8VtEYhY51PjP5Jo5kppkOrtHrp1SH5d1zTiw=;
- b=XsmjYA0mbpmWxVGlIkjYSZNuTVkHhg/jYxiumJXsNL1n5HgBF0o9zvvNEODI4G0+h9
- LINbR9stW2aapOvBfyPgOenrR+ZSFrLMn5vtaA/UwOdMMeiDqz7fRBfUi8IBDQJArYCy
- u5Mpx5diL19VILpTjmi9TeAa7SwPZFxpMFW0gtX4sKbJD/TScffjmPisroXp7ZW/gSJk
- bcRmhieFrMVJ3a2KDUr61Rc75E81rFtpQ5f0ERzk9XoO1AJTKm5ov+IpQ7VgX/bKy7Yf
- FCXNqh4Hr9EbqSys7JQZVcC2bGFmmtxKxR4V1N7vIaAiR/7EAaRbWx4JOSPsq5sLYe9H
- AcAQ==
-X-Gm-Message-State: AOAM530PWI8DDGgQc68OFMoz8W9vUuCVIWT77XsauMccR0BhIo9urSyJ
- U/NwqU7uNZixZoluWxeFtcw=
-X-Google-Smtp-Source: ABdhPJwjHXO6A5HxJWJqm04oZvcDeq/6Wsc6jK18km2ZhgGx4zFjItWl9NDMD/krZKlyA20vpb0n4Q==
-X-Received: by 2002:a17:907:e8c:b0:6d7:1289:278b with SMTP id
- ho12-20020a1709070e8c00b006d71289278bmr12324307ejc.355.1646382795122; 
- Fri, 04 Mar 2022 00:33:15 -0800 (PST)
-Received: from [192.168.178.21] (p5b0eab60.dip0.t-ipconnect.de. [91.14.171.96])
- by smtp.gmail.com with ESMTPSA id
- q15-20020a1709060e4f00b006cdf4535cf2sm1518361eji.67.2022.03.04.00.33.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Mar 2022 00:33:14 -0800 (PST)
-Message-ID: <4b1cf649-5f0a-33cb-032d-aefb616ce877@gmail.com>
-Date: Fri, 4 Mar 2022 09:33:13 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D30610E38A;
+	Fri,  4 Mar 2022 09:16:17 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2059.outbound.protection.outlook.com [40.107.212.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D31810E38A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Mar 2022 09:16:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WW24b00iIweTfMT/pcdGP6icfDlb2qr3N0+utxKNUNiAh3lxsMnRI1mj+YUKNd5IsbuNCdY9tS2p0rAwJPbbn/O+ZykDl1H5aRc7b1gCdfZZ3khVj/T+mdvGSj0fhRvzyXXoVzoWez/+LLnNQq3OpOWIwlReqiYZ8mLFNVVvJD6n4sarGGMUWFs3aPD/dL9pvE1xmzwBD9h5+///Bze7xavgjvSGQlTNt2iFQqFCKxaOqhkca61W+sqEn1RPW5orgIkiOO26tLy9BVCc7dOFLQBdEdAR8ehDPHbYG1vL343Yj9cgYjShx1bm0EJqEamh/5eAYkY20I1KG2uSJWTXfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SqOrZ7e0Ll8Ti/XA+63VLmRhmlTLMVN94JS9TTKUAsk=;
+ b=hi4NelqeE8hh7wkCvk8l8HyK0CFQRV6Q5t7+jq1FwEACzni5jfYuep8PVdspTIS3LQoQoEeSbEpg3/iC6Ud6tO2DPRJ1aF+KKu+zrzei8Xs0RJ6D2noiObqohQf1Fe3MEkwMH7T93rVKi5E09N8xmZJtCH3TtwHYEkWppgR/49mnhm68iQzxQ40p3gUj+hsR92S20Z+RuFaunttJPtx0jTsax8XJ1xRm3CJSDccxy5LpxPe2cP9lXrODA5kBBt9R4QbOkz7jqnjoMb21QSDdsM5y0+SvYuMq9EyfZdnvygJrll4axQ17WBGrVIHPv098UNPU1LsaDOM94deU2UWS5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SqOrZ7e0Ll8Ti/XA+63VLmRhmlTLMVN94JS9TTKUAsk=;
+ b=z2Sm9rnZJtjK4LK1sHQHMMiEwCD96Jp/6uGmxCL38l5W3Mdqu0A4NTLu5QunEB19CYlICqnWyM7HA3pOr5sf7YC6/O7BOI+n1NdI6mSLw/IFJK2DbgEn/DuK5o6Z76oom449AZok5Br0j1GMk/BrLJYX8/PXFmZaCKjneYI7Kj8=
+Received: from DS7PR03CA0048.namprd03.prod.outlook.com (2603:10b6:5:3b5::23)
+ by BN9PR12MB5082.namprd12.prod.outlook.com (2603:10b6:408:133::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Fri, 4 Mar
+ 2022 09:16:13 +0000
+Received: from DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b5:cafe::22) by DS7PR03CA0048.outlook.office365.com
+ (2603:10b6:5:3b5::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
+ Transport; Fri, 4 Mar 2022 09:16:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT014.mail.protection.outlook.com (10.13.173.132) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5038.14 via Frontend Transport; Fri, 4 Mar 2022 09:16:12 +0000
+Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 4 Mar
+ 2022 03:16:10 -0600
+From: Lang Yu <Lang.Yu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: add workarounds for Raven VCN TMZ issue
+Date: Fri, 4 Mar 2022 17:15:55 +0800
+Message-ID: <20220304091555.4094582-1-Lang.Yu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/selftests: fix a shift-out-of-bounds bug
-Content-Language: en-US
-To: Arunpravin <Arunpravin.PaneerSelvam@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-References: <20220303201602.2365-1-Arunpravin.PaneerSelvam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220303201602.2365-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a9f7936e-e9de-4b20-dc50-08d9fdbfa0a4
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5082:EE_
+X-Microsoft-Antispam-PRVS: <BN9PR12MB508227DA457F7E280E832DCBFB059@BN9PR12MB5082.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OFyrTBMxRP/hopJL6SCbSHDsAFknExRUzQgE7YuZabZdgcnZVmGqZRzxrsOSAbOQ8LHai8yN/S5UShRWsc5n/RM5ZzlSkYo7eB4BDVV9ArIHpGzFQuE5wP9BRTLGKXgyigR4ObtpZM0ZWM9Dri32TJkNpwT4l2j4wQGLqjyLEtcrg5VTXX5+QSsabGxqcpy+XhNIK12bFsBqVIzxhxO0SnO5c9Mz+/Ur8+Q50s9DRtSKLtuI/Saq08VtTknMGWRIgboUm57spE06OQQQJ6moUVwJ9igmzcEv485DYEDYPg5aXOYpbHzBhdSRd7ILKqQs0+XyXt2ruvCreTH9oK6aiTbh2dzKH+uKYS3nNDss6TCUAfkrgQpBIV3LiJc9yy9XogHbknZcjQLFjv0sO56G+V4quPqlRobLL4fgxFQcS9SsKOYql9mfdhDZBXjUzEQHvOh56PAiDoPti86El+ZM6tRkV6MnD3HouIGNNyaAo3x+aLTJHRqXSWfp0/z1xQ8PxzY2Uza1LysGBj68U5+zNi9oItxADA1LLa+6atPbd+t43weBrH7PhnE30IaeebSn073ZKoIN382sG9RT2DaTP2i5ByOLSDOvscdLg7Bi0G3tbH4am3AQr31Iy32SGEK2zf5/Ma83yGoEp1hI2bvjGMnDTaQ+SzuddNP7ZVeRWYKhroswSPSOs3pgNuDysozybDnrgZ6VqY65ZSZDtm+0Gg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(82310400004)(1076003)(2616005)(356005)(81166007)(5660300002)(7696005)(8676002)(70586007)(4326008)(508600001)(70206006)(2906002)(6666004)(36756003)(36860700001)(40460700003)(426003)(47076005)(336012)(6916009)(26005)(54906003)(16526019)(186003)(86362001)(316002)(83380400001)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2022 09:16:12.4281 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9f7936e-e9de-4b20-dc50-08d9fdbfa0a4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5082
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,99 +98,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, oliver.sang@intel.com, matthew.auld@intel.com,
- daniel@ffwll.ch, christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Lang Yu <Lang.Yu@amd.com>, Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 03.03.22 um 21:16 schrieb Arunpravin:
-> pass the correct size value computed using the max_order.
->
-> <log snip>
->
-> [ 68.124177][ T1] UBSAN: shift-out-of-bounds in include/linux/log2.h:67:13
-> [ 68.125333][ T1] shift exponent 4294967295 is too large for 32-bit type 'long
-> unsigned int'
-> [ 68.126563][ T1] CPU: 0 PID: 1 Comm: swapper Not tainted
-> 5.17.0-rc2-00311-g39ec47bbfd5d #2
-> [ 68.127758][ T1] Call Trace:
-> [ 68.128187][ T1] dump_stack_lvl (lib/dump_stack.c:108)
-> [ 68.128793][ T1] dump_stack (lib/dump_stack.c:114)
-> [ 68.129331][ T1] ubsan_epilogue (lib/ubsan.c:152)
-> [ 68.129958][ T1] __ubsan_handle_shift_out_of_bounds.cold (arch/x86/include/asm/smap.h:85)
->
-> [ 68.130791][ T1] ? drm_block_alloc+0x28/0x80
-> [ 68.131582][ T1] ? rcu_read_lock_sched_held (kernel/rcu/update.c:125)
-> [ 68.132215][ T1] ? kmem_cache_alloc (include/trace/events/kmem.h:54 mm/slab.c:3501)
-> [ 68.132878][ T1] ? mark_free+0x2e/0x80
-> [ 68.133524][ T1] drm_buddy_init.cold (include/linux/log2.h:67
-> drivers/gpu/drm/drm_buddy.c:131)
-> [ 68.134145][ T1] ? test_drm_cmdline_init (drivers/gpu/drm/selftests/test-drm_buddy.c:87)
->
-> [ 68.134770][ T1] igt_buddy_alloc_limit (drivers/gpu/drm/selftests/test-drm_buddy.c:30)
-> [ 68.135472][ T1] ? vprintk_default (kernel/printk/printk.c:2257)
-> [ 68.136057][ T1] ? test_drm_cmdline_init (drivers/gpu/drm/selftests/test-drm_buddy.c:87)
->
-> [ 68.136812][ T1] test_drm_buddy_init (drivers/gpu/drm/selftests/drm_selftest.c:77
-> drivers/gpu/drm/selftests/test-drm_buddy.c:95)
-> [ 68.137475][ T1] do_one_initcall (init/main.c:1300)
-> [ 68.138111][ T1] ? parse_args (kernel/params.c:609 kernel/params.c:146
-> kernel/params.c:188)
-> [ 68.138717][ T1] do_basic_setup (init/main.c:1372 init/main.c:1389 init/main.c:1408)
-> [ 68.139366][ T1] kernel_init_freeable (init/main.c:1617)
-> [ 68.140040][ T1] ? rest_init (init/main.c:1494)
-> [ 68.140634][ T1] kernel_init (init/main.c:1504)
-> [ 68.141155][ T1] ret_from_fork (arch/x86/entry/entry_32.S:772)
-> [ 68.141607][ T1]
-> ================================================================================
-> [ 68.146730][ T1] ------------[ cut here ]------------
-> [ 68.147460][ T1] kernel BUG at drivers/gpu/drm/drm_buddy.c:140!
-> [ 68.148280][ T1] invalid opcode: 0000 [#1]
-> [ 68.148895][ T1] CPU: 0 PID: 1 Comm: swapper Not tainted
-> 5.17.0-rc2-00311-g39ec47bbfd5d #2
-> [ 68.149896][ T1] EIP: drm_buddy_init (drivers/gpu/drm/drm_buddy.c:140 (discriminator 1))
->
-> For more details: https://lists.01.org/hyperkitty/list/lkp@lists.01.org/thread/FDIF3HCILZNN5UQAZMOR7E3MQSMHHKWU/
->
-> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
-> Reported-by: kernel test robot <oliver.sang@intel.com>
+It is a hardware issue that VCN can't handle a GTT
+backing stored TMZ buffer on Raven.
 
-Acked-by: Christian König <christian.koenig@amd.com>
+Move such a TMZ buffer to VRAM domain before command
+submission.
 
-> ---
->   drivers/gpu/drm/selftests/test-drm_buddy.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/selftests/test-drm_buddy.c b/drivers/gpu/drm/selftests/test-drm_buddy.c
-> index fa997f89522b..913cbd7eae04 100644
-> --- a/drivers/gpu/drm/selftests/test-drm_buddy.c
-> +++ b/drivers/gpu/drm/selftests/test-drm_buddy.c
-> @@ -902,14 +902,13 @@ static int igt_buddy_alloc_range(void *arg)
->   
->   static int igt_buddy_alloc_limit(void *arg)
->   {
-> -	u64 end, size = U64_MAX, start = 0;
-> +	u64 size = U64_MAX, start = 0;
->   	struct drm_buddy_block *block;
->   	unsigned long flags = 0;
->   	LIST_HEAD(allocated);
->   	struct drm_buddy mm;
->   	int err;
->   
-> -	size = end = round_down(size, 4096);
->   	err = drm_buddy_init(&mm, size, PAGE_SIZE);
->   	if (err)
->   		return err;
-> @@ -921,7 +920,8 @@ static int igt_buddy_alloc_limit(void *arg)
->   		goto out_fini;
->   	}
->   
-> -	err = drm_buddy_alloc_blocks(&mm, start, end, size,
-> +	size = mm.chunk_size << mm.max_order;
-> +	err = drm_buddy_alloc_blocks(&mm, start, size, size,
->   				     PAGE_SIZE, &allocated, flags);
->   
->   	if (unlikely(err))
->
-> base-commit: 6be340ee8f5beae574dae6f5e17a22e67beeff3e
+Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 27 ++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index af12256e1bd3..66345f2ce6ba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -393,6 +393,24 @@ void amdgpu_cs_report_moved_bytes(struct amdgpu_device *adev, u64 num_bytes,
+ 	spin_unlock(&adev->mm_stats.lock);
+ }
+ 
++static int raven_vcn_tmz_quirks(struct amdgpu_cs_parser *p, struct amdgpu_bo *bo, uint32_t *domain)
++{
++	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
++	struct amdgpu_ring *ring = to_amdgpu_ring(p->entity->rq->sched);
++
++	if ((adev->asic_type == CHIP_RAVEN) &&
++	    (bo->flags & AMDGPU_GEM_CREATE_ENCRYPTED) &&
++	    (ring->funcs->type == AMDGPU_HW_IP_VCN_DEC ||
++	    ring->funcs->type == AMDGPU_HW_IP_VCN_ENC ||
++	    ring->funcs->type == AMDGPU_HW_IP_VCN_JPEG)) {
++		if (domain)
++			*domain = AMDGPU_GEM_DOMAIN_VRAM;
++		return 1;
++	}
++
++	return 0;
++}
++
+ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
+ {
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+@@ -403,6 +421,7 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
+ 		.resv = bo->tbo.base.resv
+ 	};
+ 	uint32_t domain;
++	bool need_retry = 1;
+ 	int r;
+ 
+ 	if (bo->tbo.pin_count)
+@@ -431,6 +450,8 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
+ 		domain = bo->allowed_domains;
+ 	}
+ 
++	raven_vcn_tmz_quirks(p, bo, &domain);
++
+ retry:
+ 	amdgpu_bo_placement_from_domain(bo, domain);
+ 	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+@@ -442,6 +463,12 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
+ 
+ 	if (unlikely(r == -ENOMEM) && domain != bo->allowed_domains) {
+ 		domain = bo->allowed_domains;
++		if (raven_vcn_tmz_quirks(p, bo, &domain)) {
++			if (need_retry)
++				need_retry = 0;
++			else
++				return r;
++		}
+ 		goto retry;
+ 	}
+ 
+-- 
+2.25.1
 
