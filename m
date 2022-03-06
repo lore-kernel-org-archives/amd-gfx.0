@@ -4,60 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83A93C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 08:26:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41D88C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 08:26:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8F0B10E1C5;
-	Mon,  7 Mar 2022 08:26:53 +0000 (UTC)
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C06010E1A3
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Mar 2022 03:52:42 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id C20F658010F;
- Sun,  6 Mar 2022 22:52:39 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Sun, 06 Mar 2022 22:52:39 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=turner.link; h=
- cc:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; bh=bwDctYCk0Fg/pF78gRaQUi8ymG1aY/DQC+BW/U
- UN48c=; b=dweBiPbo/ulGMiJYLHMNoYgpNsCzKA9axIatIkN33eaeKPHOcBXt5i
- AJe0xaZ+JWtAISpeA7rTaISlmZuAHEyGHG+yCvs8SFTy0PuUas/9brKq2dFfR34L
- ay8fKKKymtuyTY3qUuGthMmrC8lY/Rgl3PzfRtUO6f6HrViEZ3CnMOEChzAWoNDF
- VUS9QPBPD+yUcghpY09ONyNs2cErywxyPZpN5Sx+X/qPpuYECtU2qru4IGkAzFX1
- Pv30QjBmuqB596TA5ZZ+OOrfKLZHGoD2qJxp2WJac0cL4YkKUEYzb5PN3j6kGIUl
- jneXzG2ZVy/4AnQpIQwbUQn8V9QRRuXw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=bwDctYCk0Fg/pF78g
- RaQUi8ymG1aY/DQC+BW/UUN48c=; b=WfHzcjOoiiCcGMm3x8k7VhFtOPE/fB8By
- pWIcRF2B5Kr4KBIzRk/3DOVM+ejebImh3v+r8tS1XTd12QVoi6fRquF/5/50wSIP
- kxG9o+qz/bT2CjqXadDohi+UC//+2Gd/6NPR2WoRpZeJPdS2Na5BVAosy7AnqWyh
- 7mx5ui4a8ez1nvnk7TQ7ULvddigoMWUhg4YEtp4uqlW36nZujqTU7Zo5Je2IH1hL
- REy2n7ZofkWAz1mJmIEdDnwrUHX5l1atQJwiDODhJyhMvMBjIEG+1cW1DJm+iM0x
- 8qZ/QQQpcG6XVJ9OCAdB3YABTuQetYwZT58v0b4EKOQhU5Swwb3Xw==
-X-ME-Sender: <xms:h4ElYvR3eeo-IrQIsa8Y76T_YeKtDGdWJhIT6keRvchcmNBaiv2xDQ>
- <xme:h4ElYgxnY2wuHeRmEAhyox32M_a5xB0IObtFHFFCU1ZHXUWtq_INXtn12cHIK4sNK
- Tb0dYjRAVEYByYsyg>
-X-ME-Received: <xmr:h4ElYk0AWNOzQtOoR0Ec8gDwHlwIB7IeoLiBs1oS0JJlZzAyz1-KXkrejhVuHf7zyfP0BqK0Y0OSvC6Dqpct_GaHW7690JJBfPk>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddruddufedgieefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfhfhvffuffgjkfggtgesthdtredttddttdenucfhrhhomheplfgrmhgvshcu
- vfhurhhnvghruceolhhinhhugihkvghrnhgvlhdrfhhoshhssegumhgrrhgtqdhnohhnvg
- drthhurhhnvghrrdhlihhnkheqnecuggftrfgrthhtvghrnheptedvfeduheeiueefgffh
- vdetiedttdevhfeiteeuhfelveduvedttdffgffggfetnecuvehluhhsthgvrhfuihiivg
- eptdenucfrrghrrghmpehmrghilhhfrhhomheplhhinhhugihkvghrnhgvlhdrfhhoshhs
- segumhgrrhgtqdhnohhnvgdrthhurhhnvghrrdhlihhnkh
-X-ME-Proxy: <xmx:h4ElYvC6nF4BukqsBJmwN7piJccMseMnus6BFP9Il0PT5ffb8UM-Tg>
- <xmx:h4ElYoj8MsoE-uua4Uz2ZOLBvND06_HZGTRjAkvPGD3Nc7FIjT3yBg>
- <xmx:h4ElYjpS3iSJG8SS2kgtPTNg5E4lNoqTakNtzp4OrIJW2lN2W6Jw_w>
- <xmx:h4ElYnQVgx9m6v7HDDqfeXetNTImZOmqSkI5HoMEf65c8YKEwjpb1g>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 6 Mar 2022 22:52:39 -0500 (EST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C98BB10E1C1;
+	Mon,  7 Mar 2022 08:26:54 +0000 (UTC)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [IPv6:2a01:488:42:1000:50ed:8234::])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C79A10E471
+ for <amd-gfx@lists.freedesktop.org>; Sun,  6 Mar 2022 15:48:19 +0000 (UTC)
+Received: from ip4d144895.dynamic.kabel-deutschland.de ([77.20.72.149]
+ helo=[192.168.66.200]); authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1nQt7F-0006pL-Di; Sun, 06 Mar 2022 16:48:13 +0100
+Message-ID: <092b825a-10ff-e197-18a1-d3e3a097b0e3@leemhuis.info>
+Date: Sun, 6 Mar 2022 16:48:12 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [REGRESSION] Too-low frequency limit for AMD GPU
+ PCI-passed-through to Windows VM
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>,
+ "James D. Turner" <linuxkernel.foss@dmarc-none.turner.link>
 References: <87ee57c8fu.fsf@turner.link>
  <acd2fd5e-d622-948c-82ef-629a8030c9d8@leemhuis.info>
  <87a6ftk9qy.fsf@dmarc-none.turner.link> <87zgnp96a4.fsf@turner.link>
@@ -67,23 +37,19 @@ References: <87ee57c8fu.fsf@turner.link>
  <BYAPR12MB46140BE09E37244AE129C01A975C9@BYAPR12MB4614.namprd12.prod.outlook.com>
  <87sftfqwlx.fsf@dmarc-none.turner.link>
  <BYAPR12MB4614E2CFEDDDEAABBAB986A0975E9@BYAPR12MB4614.namprd12.prod.outlook.com>
- <87ee4wprsx.fsf@turner.link>
- <4b3ed7f6-d2b6-443c-970e-d963066ebfe3@amd.com>
+ <87ee4wprsx.fsf@turner.link> <4b3ed7f6-d2b6-443c-970e-d963066ebfe3@amd.com>
  <87pmo8r6ob.fsf@turner.link>
  <5a68afe4-1e9e-c683-e06d-30afc2156f14@leemhuis.info>
  <CADnq5_MCKTLOfWKWvi94Q9-d5CGdWBoWVxEYL3YXOpMiPnLOyg@mail.gmail.com>
  <87pmnnpmh5.fsf@dmarc-none.turner.link>
  <CADnq5_NG_dQCYwqHM0umjTMg5Uud6zC4=MiscH91Y9v7mW9bJA@mail.gmail.com>
- <092b825a-10ff-e197-18a1-d3e3a097b0e3@leemhuis.info>
-From: James Turner <linuxkernel.foss@dmarc-none.turner.link>
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Re: [REGRESSION] Too-low frequency limit for AMD GPU
- PCI-passed-through to Windows VM
-Date: Sun, 06 Mar 2022 21:12:52 -0500
-In-reply-to: <092b825a-10ff-e197-18a1-d3e3a097b0e3@leemhuis.info>
-Message-ID: <877d96to55.fsf@dmarc-none.turner.link>
-MIME-Version: 1.0
-Content-Type: text/plain
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+In-Reply-To: <CADnq5_NG_dQCYwqHM0umjTMg5Uud6zC4=MiscH91Y9v7mW9bJA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1646581699;
+ b1c67397; 
+X-HE-SMSGID: 1nQt7F-0006pL-Di
 X-Mailman-Approved-At: Mon, 07 Mar 2022 08:26:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,24 +67,79 @@ Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
  Greg KH <gregkh@linuxfoundation.org>, "Lazar, Lijo" <lijo.lazar@amd.com>,
  LKML <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Alex Deucher <alexdeucher@gmail.com>, "Koenig,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Alex Williamson <alex.williamson@redhat.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
  Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thorsten,
+Hi, this is your Linux kernel regression tracker again. Top-posting once
+more, to make this easily accessible to everyone.
 
-My understanding at this point is that the root problem is probably not
-in the Linux kernel but rather something else (e.g. the machine firmware
-or AMD Windows driver) and that the change in
-f9b7f3703ff9 ("drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)")
-simply exposed the underlying problem.
+What's the status of this? It looks stuck, or did the discussion
+continue somewhere else? James, it sounded like you wanted to test
+something, did you give it a try? Or is there some reason why I should
+stop tracking this regression?
 
-This week, I'll double-check that this is the case by disabling the
-`amdgpu_atif_pci_probe_handle` function and testing again. I'll post the
-results here.
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
 
-James
+P.S.: As the Linux kernel's regression tracker I'm getting a lot of
+reports on my table. I can only look briefly into most of them and lack
+knowledge about most of the areas they concern. I thus unfortunately
+will sometimes get things wrong or miss something important. I hope
+that's not the case here; if you think it is, don't hesitate to tell me
+in a public reply, it's in everyone's interest to set the public record
+straight.
+
+#regzbot poke
+
+On 16.02.22 17:37, Alex Deucher wrote:
+> On Tue, Feb 15, 2022 at 9:35 PM James D. Turner
+> <linuxkernel.foss@dmarc-none.turner.link> wrote:
+>>
+>> Hi Alex,
+>>
+>>> I guess just querying the ATIF method does something that negatively
+>>> influences the windows driver in the guest. Perhaps the platform
+>>> thinks the driver has been loaded since the method has been called so
+>>> it enables certain behaviors that require ATIF interaction that never
+>>> happen because the ACPI methods are not available in the guest.
+>>
+>> Do you mean the `amdgpu_atif_pci_probe_handle` function? If it would be
+>> helpful, I could try disabling that function and testing again.
+> 
+> Correct.
+> 
+>>
+>>> I don't really have a good workaround other than blacklisting the
+>>> driver since on bare metal the driver needs to use this interface for
+>>> platform interactions.
+>>
+>> I'm not familiar with ATIF, but should `amdgpu_atif_pci_probe_handle`
+>> really be called for PCI devices which are bound to vfio-pci? I'd expect
+>> amdgpu to ignore such devices.
+>>
+>> As I understand it, starting with
+>> f9b7f3703ff9 ("drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)"),
+>> the `amdgpu_acpi_detect` function loops over all PCI devices in the
+>> `PCI_CLASS_DISPLAY_VGA` and `PCI_CLASS_DISPLAY_OTHER` classes to find
+>> the ATIF and ATCS handles. Maybe skipping over any PCI devices bound to
+>> vfio-pci would fix the issue? On a related note, shouldn't it also skip
+>> over any PCI devices with non-AMD vendor IDs?
+> 
+> The ACPI methods are global.  There's only one instance of each per
+> system and they are relevant to add GPUs on the platform.  That's why
+> they are a global resource in the driver.  They can be hung off of the
+> dGPU or APU ACPI namespace, depending on the platform which is why we
+> check all of the display devices.  Skipping them would prevent them
+> from being available if you later bound the amdgpu driver to the GPU
+> device(s) I think.
+> 
+> Alex
+> 
+>>
+>> Regards,
+>> James
+> 
+> 
