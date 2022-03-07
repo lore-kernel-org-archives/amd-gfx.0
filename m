@@ -4,90 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86316C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 07:54:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83A93C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 08:26:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E43EE10E1B4;
-	Mon,  7 Mar 2022 07:54:50 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2082.outbound.protection.outlook.com [40.107.237.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDCC110E09F
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Mar 2022 07:54:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QrKbKVZMiK+xMRnaN8qBqeNxoCQbGN8S+rEPSbm3HBgG4zNDmTJem956GuSpmJIdnr+v5PbOG7p2DoQPEK9pzhZ0hlR15TIN6ZriyCMgJRqZAns0WQj843VQzfV+0g9JwnmzXjkR5gtfTE9mr+Zf8qlzHVZi2r5dt2t/qLmq/dYi5ZCzqLrFQ42+wCYResaWuSYR6/eyuJoDIYCpUx9prDX3VFnA+zASqWNueY+UV8ynPlPPBRnXlJQyp066aOvo1fu5rhF99YkvTkCNeNExBi8OzniQbXsZTMpkbBv9dWcrWaKs8MCfJZWcQojNaTPboOk/OBHYR06AuQ//t0IRQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kPjzCP6iCu6uODt4YYm+rKHdsQcc0geyc/JjyJUFo2g=;
- b=h3IObAepBlZLxvNMCfj5uPU1gIUWOt8yvH+exrgLFTJbhzhLcMkeMg7ZKGlBSf859Pb6ZV/cF8hub3aeVn/HXDvKoxtwMtyIP+E+A34jpUgvorsvJQ0AcfMno34KzUzY+gJpcP0v2jH8HdoRDM76leOtBBUpgeheFJBiCzvRkKTSlk8in5SduR3G/7T5S4t30xJtoqwqy9xQEo0Y69MWqWNFN12g0ITW5K4ueUvtmMtvlsWmW425VArJS+qWBF1lpg9Iz1vlAXzbcxfg94F26eKC8KcD/JgQPbr5sAIsAJI8Qcz2jIv8aekTEfdWv8y+rtHyH+AcC5WvE1hFyNFudw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kPjzCP6iCu6uODt4YYm+rKHdsQcc0geyc/JjyJUFo2g=;
- b=bElMIXbVADaBmbbv1niuW6bWPB8/kt/BwR+gkOi20Crc/ahnfGVTE4kYsVLKYAKJEmHGsdv9pw2/Ywu3CYrUimZv6Eu3C5OQyJSx+mMkBMJMgdR/JOSOMsFs9m6e42/gjz809wJIVDo00g1Vf5kW+sWkpJ14+Vys1ZiyiI17jEI=
-Received: from DM5PR11CA0013.namprd11.prod.outlook.com (2603:10b6:3:115::23)
- by DM5PR1201MB2505.namprd12.prod.outlook.com (2603:10b6:3:ea::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Mon, 7 Mar
- 2022 07:54:45 +0000
-Received: from DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:115:cafe::ea) by DM5PR11CA0013.outlook.office365.com
- (2603:10b6:3:115::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.13 via Frontend
- Transport; Mon, 7 Mar 2022 07:54:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT020.mail.protection.outlook.com (10.13.172.224) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5038.14 via Frontend Transport; Mon, 7 Mar 2022 07:54:44 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 7 Mar
- 2022 01:54:41 -0600
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amdgpu: change registers in error checking for smu
- 13.0.5
-Date: Mon, 7 Mar 2022 15:54:12 +0800
-Message-ID: <20220307075412.1984581-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8F0B10E1C5;
+	Mon,  7 Mar 2022 08:26:53 +0000 (UTC)
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C06010E1A3
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Mar 2022 03:52:42 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailnew.nyi.internal (Postfix) with ESMTP id C20F658010F;
+ Sun,  6 Mar 2022 22:52:39 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Sun, 06 Mar 2022 22:52:39 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=turner.link; h=
+ cc:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm2; bh=bwDctYCk0Fg/pF78gRaQUi8ymG1aY/DQC+BW/U
+ UN48c=; b=dweBiPbo/ulGMiJYLHMNoYgpNsCzKA9axIatIkN33eaeKPHOcBXt5i
+ AJe0xaZ+JWtAISpeA7rTaISlmZuAHEyGHG+yCvs8SFTy0PuUas/9brKq2dFfR34L
+ ay8fKKKymtuyTY3qUuGthMmrC8lY/Rgl3PzfRtUO6f6HrViEZ3CnMOEChzAWoNDF
+ VUS9QPBPD+yUcghpY09ONyNs2cErywxyPZpN5Sx+X/qPpuYECtU2qru4IGkAzFX1
+ Pv30QjBmuqB596TA5ZZ+OOrfKLZHGoD2qJxp2WJac0cL4YkKUEYzb5PN3j6kGIUl
+ jneXzG2ZVy/4AnQpIQwbUQn8V9QRRuXw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=bwDctYCk0Fg/pF78g
+ RaQUi8ymG1aY/DQC+BW/UUN48c=; b=WfHzcjOoiiCcGMm3x8k7VhFtOPE/fB8By
+ pWIcRF2B5Kr4KBIzRk/3DOVM+ejebImh3v+r8tS1XTd12QVoi6fRquF/5/50wSIP
+ kxG9o+qz/bT2CjqXadDohi+UC//+2Gd/6NPR2WoRpZeJPdS2Na5BVAosy7AnqWyh
+ 7mx5ui4a8ez1nvnk7TQ7ULvddigoMWUhg4YEtp4uqlW36nZujqTU7Zo5Je2IH1hL
+ REy2n7ZofkWAz1mJmIEdDnwrUHX5l1atQJwiDODhJyhMvMBjIEG+1cW1DJm+iM0x
+ 8qZ/QQQpcG6XVJ9OCAdB3YABTuQetYwZT58v0b4EKOQhU5Swwb3Xw==
+X-ME-Sender: <xms:h4ElYvR3eeo-IrQIsa8Y76T_YeKtDGdWJhIT6keRvchcmNBaiv2xDQ>
+ <xme:h4ElYgxnY2wuHeRmEAhyox32M_a5xB0IObtFHFFCU1ZHXUWtq_INXtn12cHIK4sNK
+ Tb0dYjRAVEYByYsyg>
+X-ME-Received: <xmr:h4ElYk0AWNOzQtOoR0Ec8gDwHlwIB7IeoLiBs1oS0JJlZzAyz1-KXkrejhVuHf7zyfP0BqK0Y0OSvC6Dqpct_GaHW7690JJBfPk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddruddufedgieefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfhfhvffuffgjkfggtgesthdtredttddttdenucfhrhhomheplfgrmhgvshcu
+ vfhurhhnvghruceolhhinhhugihkvghrnhgvlhdrfhhoshhssegumhgrrhgtqdhnohhnvg
+ drthhurhhnvghrrdhlihhnkheqnecuggftrfgrthhtvghrnheptedvfeduheeiueefgffh
+ vdetiedttdevhfeiteeuhfelveduvedttdffgffggfetnecuvehluhhsthgvrhfuihiivg
+ eptdenucfrrghrrghmpehmrghilhhfrhhomheplhhinhhugihkvghrnhgvlhdrfhhoshhs
+ segumhgrrhgtqdhnohhnvgdrthhurhhnvghrrdhlihhnkh
+X-ME-Proxy: <xmx:h4ElYvC6nF4BukqsBJmwN7piJccMseMnus6BFP9Il0PT5ffb8UM-Tg>
+ <xmx:h4ElYoj8MsoE-uua4Uz2ZOLBvND06_HZGTRjAkvPGD3Nc7FIjT3yBg>
+ <xmx:h4ElYjpS3iSJG8SS2kgtPTNg5E4lNoqTakNtzp4OrIJW2lN2W6Jw_w>
+ <xmx:h4ElYnQVgx9m6v7HDDqfeXetNTImZOmqSkI5HoMEf65c8YKEwjpb1g>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 6 Mar 2022 22:52:39 -0500 (EST)
+References: <87ee57c8fu.fsf@turner.link>
+ <acd2fd5e-d622-948c-82ef-629a8030c9d8@leemhuis.info>
+ <87a6ftk9qy.fsf@dmarc-none.turner.link> <87zgnp96a4.fsf@turner.link>
+ <fc2b7593-db8f-091c-67a0-ae5ffce71700@leemhuis.info>
+ <CADnq5_Nr5-FR2zP1ViVsD_ZMiW=UHC1wO8_HEGm26K_EG2KDoA@mail.gmail.com>
+ <87czkk1pmt.fsf@dmarc-none.turner.link>
+ <BYAPR12MB46140BE09E37244AE129C01A975C9@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <87sftfqwlx.fsf@dmarc-none.turner.link>
+ <BYAPR12MB4614E2CFEDDDEAABBAB986A0975E9@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <87ee4wprsx.fsf@turner.link>
+ <4b3ed7f6-d2b6-443c-970e-d963066ebfe3@amd.com>
+ <87pmo8r6ob.fsf@turner.link>
+ <5a68afe4-1e9e-c683-e06d-30afc2156f14@leemhuis.info>
+ <CADnq5_MCKTLOfWKWvi94Q9-d5CGdWBoWVxEYL3YXOpMiPnLOyg@mail.gmail.com>
+ <87pmnnpmh5.fsf@dmarc-none.turner.link>
+ <CADnq5_NG_dQCYwqHM0umjTMg5Uud6zC4=MiscH91Y9v7mW9bJA@mail.gmail.com>
+ <092b825a-10ff-e197-18a1-d3e3a097b0e3@leemhuis.info>
+From: James Turner <linuxkernel.foss@dmarc-none.turner.link>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Re: [REGRESSION] Too-low frequency limit for AMD GPU
+ PCI-passed-through to Windows VM
+Date: Sun, 06 Mar 2022 21:12:52 -0500
+In-reply-to: <092b825a-10ff-e197-18a1-d3e3a097b0e3@leemhuis.info>
+Message-ID: <877d96to55.fsf@dmarc-none.turner.link>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9f922e76-e3d1-4c68-3557-08da000fbe67
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB2505:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB2505BF36815FA140C99D0219C1089@DM5PR1201MB2505.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lBM8JrkmaEvENzSXHKC/NKolhOxKVgnAR4RKVKC0F7nJwuoefTQAqzSZzxQPIEhg4kCYZm2L+a7+v+thYf6TVMV/MMuxZTnPYDcn+FnXD8IE/qPwyou14mBRWDMyFVZ/9YzzC0X4/hAZLY3NXygrT9dphbfjgJfgdsgdHly2CyAOeaAx0s4B8kklXinhgUYSbXG1bAvCHNWboMvH8yHk08jlPrQLSiJ+HRn9Qr8NEbwz7Ja1mYw4dY71xoJmycviDjVJX9i9g4kMe4flZTwsU9fq7Z4LfWekIKXlMgv92l4FlBfjuPDDZqMtAdmgxnRgIFC0NLiSoc9I/ox+RVGiu4EhUpP+rnf7UWNGS63T/BehqJgIxHXQSzQ2oqSjTo4YXB0D9wqRLaR4PRl20/xHACgDzwg9LE29jTYtJi0GwYq8glqElkrGJuaTghqzNih1q/XUyz/x9MAWjK3AZxWJmVKSJYmF2NpbJJ1a/BJj77ky2faHok9ljja4jQHxLPaEhlhr8U3zEH9fd6i+jdzx8XHg2QcJWXOlP+9qWhVyRSX06VbYVr3BE2bplaEdoBwh+y4BMkDEw1U4fCrh/RTiaIE/R9u+LKOLMrO4exUGWH9mqYBBO7YGBFcizI/upnRPvI5mnnuxSgF5X8Dec+MLoIXb4qK76YOcsE8C1K7O2nATGKuVAmvbMjxjzft+4k3aU5ZFRBc+jjigJb+SaMg5rA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(2616005)(82310400004)(81166007)(7696005)(36860700001)(2906002)(356005)(86362001)(316002)(47076005)(70586007)(508600001)(70206006)(8676002)(6666004)(4326008)(336012)(8936002)(26005)(16526019)(426003)(5660300002)(186003)(83380400001)(36756003)(40460700003)(54906003)(6916009)(1076003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 07:54:44.4353 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f922e76-e3d1-4c68-3557-08da000fbe67
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2505
+X-Mailman-Approved-At: Mon, 07 Mar 2022 08:26:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,42 +96,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Yifan Zhang <yifan1.zhang@amd.com>,
- Ray.Huang@amd.com
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ Greg KH <gregkh@linuxfoundation.org>, "Lazar, Lijo" <lijo.lazar@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Alex Deucher <alexdeucher@gmail.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-smu 13.0.5 use new registers for smu msg and param.
+Hi Thorsten,
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+My understanding at this point is that the root problem is probably not
+in the Linux kernel but rather something else (e.g. the machine firmware
+or AMD Windows driver) and that the change in
+f9b7f3703ff9 ("drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)")
+simply exposed the underlying problem.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-index 590a6ed12d54..89b22b261066 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -160,11 +160,17 @@ static void __smu_cmn_reg_print_error(struct smu_context *smu,
- {
- 	struct amdgpu_device *adev = smu->adev;
- 	const char *message = smu_get_message_name(smu, msg);
-+	u32 msg_idx, prm;
- 
- 	switch (reg_c2pmsg_90) {
- 	case SMU_RESP_NONE: {
--		u32 msg_idx = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66);
--		u32 prm     = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
-+	if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 5)) {
-+		msg_idx = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_2);
-+		prm     = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_34);
-+	} else {
-+		msg_idx = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66);
-+		prm     = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
-+	}
- 		dev_err_ratelimited(adev->dev,
- 				    "SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x%08X SMN_C2PMSG_82:0x%08X",
- 				    msg_idx, prm);
--- 
-2.25.1
+This week, I'll double-check that this is the case by disabling the
+`amdgpu_atif_pci_probe_handle` function and testing again. I'll post the
+results here.
 
+James
