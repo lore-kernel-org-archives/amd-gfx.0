@@ -4,116 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C17DBC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 05:57:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24330C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 06:41:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4908210ECBE;
-	Mon,  7 Mar 2022 05:57:24 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA1FE10ECBE
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Mar 2022 05:57:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61B8910E064;
+	Mon,  7 Mar 2022 06:41:58 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2083.outbound.protection.outlook.com [40.107.223.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0FE10E064
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Mar 2022 06:41:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VDZgeLziPULJrEGeAFDE4Ms5VB82CF3HBpzpzzioQRhntgKy0pFwi702hzo2f6SdlJpeqh9VKUavu5r2uYHt/n/0LXXSNhC7nFr5RJbsZbA9F4mV0V6PzmEEsXNm0Kt+fkrHCWHRNa+daLYdiBb5JxXfwRXZrVgnG/E9DR4hooKTo01WGXTjfId4vNG72khnV+wZoLu7UnQfEJYMuu/7OQfNGYbpfNp8EcULohCu6H97iQYa0jaNjUcSXf2NUUC94uI3TGF0vRd+HWdgufswNrE5A363v4/hx/UP7wHDY4UcFjplQZoJQZvJ3FaDdGO3j4+h4N1LDHOpPM47SrsBgw==
+ b=IWgBrqXqjWcP5I6f2P1lIY5mQgHy9Y+z+KHDZSLBYASm9cn4gqPfq2LGmTJzm50GkjNhwXKxq+y3NaEH9NJHc3vPVPj9AwEKX63dLANnGnN4sr9LfIMFi9t7Dy9UPXy4JF2XqOlCYORTb8yusqsfS8eaDNbmhfC9pHf1ri1qhtUGSOBp7Pugz9rLKjsGOie0HpPSzdbU5nsgpPPn8IcIFVkCVriUHFB9Ia7H2VGqi2LXMJzAm2J8Y5B57zfjwCsM8a9p+3gSGHTTLtpetJocETkTe15jH9IVyqld0YaQQttup5udDcRU2sIOLYc0BALVW/885e8rLLyl9mnlDE5rMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+GhX/z6s8shjVqnQ0bNoYHbJgONeq6lPWTtiO5aqcjo=;
- b=d95D9k+AzVcM8jf26JxFjt+D/X4Zzgjsj+HbXOkVFljHlhtMaWy3cdmIIKPY6TJhSb1h//r44oH8h/WWhIqcUUfrWfSuYx2nNjmOqQzPdcA5wvf2trlx96uJeRZmurn9PONHJyiD81RNmsPJWhV+7l9UAPovZEUhYAmrRiZQqROS5JCTS1ILpvorFU2P3DmLOERfpjhmcWyRdTey6CzsnmqnpngRKqcNgfyKCGR93jmE+9uukXef62msScgyofCzhLp6Z2P+tVyhWaBHJLwZayjDLKxN7TJyPMKg3bNjG7IcQ03cCGk0JhLSaxPn0k1ZOUgNaZS6CLpFyXxo+A8oqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Z/J+/GmOvVMcSOSGSxSQvwqmhQ6wps8pIeUqtZrn6qk=;
+ b=IXR0r/wrkoc+mJO9m2C3bwogkyv07xYtuE/J3j5ruNOaesSHfA757g3tp//iyIaTfoI/vbRDiXmQ4Ds5xAzUfTo76KUvoQwS5983HHevpc77Qsq2grP/svNBwEhmDksVCbJQ/APudOvO7MQwup2+ZsbuEPWQh1CnOQaqkb0PKDM/KGRD8LEPgvwdrcC7CJvoRgneciyfUp+/SVzPL2R9cGvQd1bD1EdDp1nFSlmXR0BDbzSK5BnUZTEsDRQ61NlTyUB9CqaDlV8Ht9AEdLSPhD2CgNML5Pvh5Vw4ivfvVW8MfnjQRWQgXI3khkYrMNnUhjRcCQaHBtqHwa/GCD6gaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+GhX/z6s8shjVqnQ0bNoYHbJgONeq6lPWTtiO5aqcjo=;
- b=IoWzuQr+sUUFnUynyQrZkTzv7XE+I/fYrzAe2ZBjVouUFxk5kv3MyRHau0BwwKulGTlXnXrpxbSwNc7njBhJvrw294JQzAOf32cKctXrEvlbYwxuB1Px/goNNi2fY/baMZa7Uxah/MKXnf43Aoj66N00tFlQFxVwkxmTfDwfl3Q=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by SN6PR12MB4671.namprd12.prod.outlook.com (2603:10b6:805:e::22) with
+ bh=Z/J+/GmOvVMcSOSGSxSQvwqmhQ6wps8pIeUqtZrn6qk=;
+ b=USSYk3dwG/YJXZZbYvfwRexOJHT8hQpU7F857cRKCxJjfSLJGGOLu9lpPMymyS77S22cgh0daox/WJMcAUq5ae2Mf5k8CafirPLzZG89cWdUU0c8dVxGbWI8/pYy8UXd0i3nBU2H0lFW1YZabBVXUb5MnlBdgFopP8hXS2Weaco=
+Received: from DM5PR07CA0080.namprd07.prod.outlook.com (2603:10b6:4:ad::45) by
+ MWHPR1201MB0205.namprd12.prod.outlook.com (2603:10b6:301:4e::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.15; Mon, 7 Mar
- 2022 05:57:21 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c1c8:b797:3144:571d]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c1c8:b797:3144:571d%5]) with mapi id 15.20.5038.027; Mon, 7 Mar 2022
- 05:57:21 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: Disable baco dummy mode
-Thread-Topic: [PATCH] drm/amdgpu: Disable baco dummy mode
-Thread-Index: AQHYLrE1mLwidyiWT0StIKACwNtGVayzcagA
-Date: Mon, 7 Mar 2022 05:57:21 +0000
-Message-ID: <BN9PR12MB5257EB28E72E24F9D749DED9FC089@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20220303034542.755479-1-lijo.lazar@amd.com>
-In-Reply-To: <20220303034542.755479-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-07T05:57:15Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=33176aa9-7239-4bc1-afa3-d6d0e6d103f3;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 5239b184-f7df-4593-6b91-08d9ffff5848
-x-ms-traffictypediagnostic: SN6PR12MB4671:EE_
-x-microsoft-antispam-prvs: <SN6PR12MB467167D918958AF5B8BDC00BFC089@SN6PR12MB4671.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: TQCbM5naYybGDjZj/LU+G/rz3Io0jVI3NxaKfe1m/yJ2t7bgKVQN4RuEOt4RWMz+OoCURVMDRbBWCHBtj+BQEtVVxIAAH6N5Hc7lindHTzAwblV0iwf8YKtDa+XHmNpQ2VBL6MXYy3oA5E1fvCHAViUJu4NRqgTkn2balgHrouzgc0ISF7alcNU9lkGsRAhelwLacEj7SK7kRdM5bBuK7ghtUgX9Z2QEMSnFr2TqeZxMpIFcWJQI7/CcQjCNuJMW9UENzuGbhiVXd9QOM5HnfIDBGC9T1b2TzFItJY7GnUjonMsNzxLXQeZapDAmEJqP7seEvzyJy03zxuMI70IIPJ2KrnXTowC4WwTqwH43g3BeT59kl4OfwhKUWrRpBrs4JsdJ+uK/W0An2J76Y+J3QaBvEjuPP+UfnVMetSFSLet1c13hjTmwUtOEJ8aQiTkx7M64pnGt/eaTQ3xFgiKcL/rsoZcMkRy094ZV9J0lhYdXwX5p0OiKxGmpaPhzgLHOkNJoN+q2IR2LlTkBTYVdHXYL+B8MDqBrpPKmIbVs6grPzhSaa3s04BOX7M5EiHarf75a3rq6GpNz0Bq8JTTpx8y86vhRHXDNZj66v4NbEbzYZ+ChyHox/GOou3uX6IX/Nfm0dqxUd3XP1kOyMffp0YSJL4cPEsbr4Lzcw1Uk39CcuQA028cd7kTrrn+EFlB1x94/Vm22mI43zDFsEBDeBQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(64756008)(7696005)(6506007)(86362001)(4326008)(53546011)(66446008)(76116006)(8676002)(66946007)(66556008)(66476007)(508600001)(122000001)(55016003)(83380400001)(8936002)(38070700005)(71200400001)(9686003)(110136005)(52536014)(316002)(38100700002)(5660300002)(186003)(26005)(2906002)(33656002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7t/l+3qOh2G+wryxNqN+vAuhVS8HMi23ZCXr6Oeip2ZJZ8HMddeuYASdxQSM?=
- =?us-ascii?Q?JVO3rsz7wpSO62PcQT9TkxptyJurseMNalGqlnMfNkc2ZAsZtZmk48c1JUlX?=
- =?us-ascii?Q?7JrOijC9F+EcfKpTqzlUudwRrJkxHV6onCHy0xJC8n8WLgzjR+MZa3hBvmUP?=
- =?us-ascii?Q?y+oRYp9nzSkzqgYgmyZPJkM8E2hHmqWKsyUf9hx6w/Z1SnesWbh+q17o8+d4?=
- =?us-ascii?Q?bA67nG3NMBmHXxvRtgbRNtyNwpAg8tBrMzcX1cg9CKgu4dwODJGG2nsfkRDm?=
- =?us-ascii?Q?FESDj1sn4GsljpCm6+hjMqAcpYlyNtCYWi0/hte5P5BMqJDi3grvFA+0hA8b?=
- =?us-ascii?Q?fQ9z2rT5KUPlajJjnIdq7RUr7VKOxH1dj97eXr15cCmriytVExxIOZT7R5o/?=
- =?us-ascii?Q?kOfn/Q9cM01KT8VAzsvSTgGFlBR9zD3lVymcnIgrDpRwiqwwROnzILiHVIOw?=
- =?us-ascii?Q?Qh0BMv0k7Jbl164Lh9YxmDZXt4Kb99Qqcla2kg4jbJR/7F2Ciehdp/H0pr+o?=
- =?us-ascii?Q?zzDeYxrtixZit7zwj+FUc346fWHnEp3NyMr3Z34xm47w+7SH4xILmDT0cLxy?=
- =?us-ascii?Q?X4AuIcoqtXLQB2NUtTx0mXxmKNPpD+4mA/YOry7hnPyU1tOOKOyLkUIYpvEi?=
- =?us-ascii?Q?G9XcaC/VWeDOTrqKYrlNttfmV1NmDP0Oiyf3cEeyCbpPzx8vScM8PDwqHcD4?=
- =?us-ascii?Q?frHPaTkyL+kgdX46f893A6Aafovyw7vv7Y8OfdgTsAOcOyq8+8sPFFluo5ng?=
- =?us-ascii?Q?UUyc9iWmlk/DGi8Ksk3+uG1YwCDRPKeBVbaGJUNHhlJjfJx9tceK3i8TYiWn?=
- =?us-ascii?Q?JgT5/3iq4A/sGXH/guE+oCAI/8ugu14EctZiNrUaxyigsvd1tUY/F3xp+V9j?=
- =?us-ascii?Q?37LmL1XaoL//I01DoZPSFcNxGjeH2j1uDoa7oUhDJFJ/tQW6778yVTFLKNHY?=
- =?us-ascii?Q?kWVti9I9uynE6i51fJmwYyjttklSfjCiaznePFHKLvKCAJDd50uDUpSMX/BG?=
- =?us-ascii?Q?i5wGfB7PPuZ9ci537ikrddMUVsQoDMKJuCo6tUncCJRjzWxQNs5a3CvXz/cV?=
- =?us-ascii?Q?PumpRz2G6RZPxmvlRYtL++FUNxMuVU/iQlOapn8GJGPOvfOUapr9SvqsCzNr?=
- =?us-ascii?Q?mLCqQ1Powr4ba+ng97SKpzuRxDQ4c4leqL8JGQs+ftulfOrgPiQhA0fZ0kRk?=
- =?us-ascii?Q?Rlz6FgMzbIsrs+CAxTfzP5RrocWVirItcflsPksvXMiNJ2qQp5kRvCHlqtHD?=
- =?us-ascii?Q?eRxI/JqG22r4DBI9IIBSTN4aldjRdVutnlKrYbJbPR0roUPIZDF7GxMZzKA3?=
- =?us-ascii?Q?jaoAnHokrvUX2X9HZ/Qk+SAhLcYwd88rTuf/ba83qfcKeJIYg92vr7wVwW9w?=
- =?us-ascii?Q?gBr9K3T0eRTJxIjeoBJNokVy/6E/6wxxNKuT0prURtrUgDW7ZPFGcya8AN3o?=
- =?us-ascii?Q?kbGEtaWOKd56fDptpNWV0T9O+qvU64VuTJLOMcgZHlLtvumpdqAtz+o893XB?=
- =?us-ascii?Q?jSbEtH+geRk5YuRyMqttgq1VtYAIygLuXFYxrjhwTZFoyHk/htwpH6ceMO0p?=
- =?us-ascii?Q?MKWbfz08BDQ6LW9D2d+MT7iMGdaamQMyGBVvpApfouFhvO4qT13ZBCy/dotw?=
- =?us-ascii?Q?gtIAmOL+HCz6pnvSEkY70eM=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Mon, 7 Mar
+ 2022 06:41:48 +0000
+Received: from DM6NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:ad:cafe::a3) by DM5PR07CA0080.outlook.office365.com
+ (2603:10b6:4:ad::45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
+ Transport; Mon, 7 Mar 2022 06:41:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT021.mail.protection.outlook.com (10.13.173.76) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5038.14 via Frontend Transport; Mon, 7 Mar 2022 06:41:47 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 7 Mar
+ 2022 00:41:47 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Sun, 6 Mar
+ 2022 22:41:46 -0800
+Received: from alan-new-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.18 via Frontend
+ Transport; Mon, 7 Mar 2022 00:41:43 -0600
+From: Alan Liu <HaoPing.Liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 02/21] drm/amd/display: cleaning up smu_if to add future
+ flexibility
+Date: Tue, 8 Mar 2022 06:02:00 +0800
+Message-ID: <20220307220218.445431-3-HaoPing.Liu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 41ab68f7-8be5-42fc-e3a4-08da00058dbc
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0205:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB02055440C3E99A6535C908A8F5089@MWHPR1201MB0205.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: T121oHNliEI5pCmAxREUE2U2H3aDvR2K643v/jm+ow16jnHHk30QnsphplqTbfXDKhXdJaUxm51TgM5E+pLxNTFS2Bsda8S96v8uIdTixTIsnQ6USXbMwzFDvOtImv/zK/bTYw8GWfadpCqUUEaOyV1N7RwgT8FyVHa00X4BtCWMNnnUZeoIiJhTrhrzvgqy7rp/5ncMy/2qwErPAmn/FciBiVi0ND04haPq7GqqNjKL8IyMIbLfPPrQgjZbjvf9o6sK/M5g+gL+6efEFlun7AbnPa05Xrmmcw35nQdfu/If76dDc4AfRZVsiLT1/aDIJTCS9/nfzrnK3VkcOE4CPP2pzzeqrx/doWRoqg520vBizkupiKEfKwPC/4+cxvllM0zv1WhJrHz1PmUL4Cku2TAS9YCQcTZoEZkvBknpuNlZwVvfBa/p9Mvk+NU5oSufVrnY73DO+Pv+1a8ezJiKP5kdKMXDd8BigvLjiCMrEQv/pMos7cY0a/csgaTNDVc3D6P9doOUrgc3NUY5fY1yRBHEUbhGT+0F/BRpoJYbftJ9Po6oowzyH0fke92QjRw3haH4ve+wGYtIbfekCJBSDlLq1LoB4tsycjxJ0vHPmu12qVKrLwolT44TfIDxm4pahAHYh5odBSBtqM96x3XZWMISiPwfFNW6Xz5e0BlcDXurOmAi3BWUyfFq+1NGJhB4xl/2K+stlkfWC0MCPriBIg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(186003)(26005)(81166007)(5660300002)(8936002)(2616005)(47076005)(316002)(54906003)(6916009)(4326008)(8676002)(86362001)(356005)(70206006)(1076003)(70586007)(83380400001)(40460700003)(6666004)(426003)(336012)(36860700001)(7696005)(2906002)(30864003)(36756003)(82310400004)(508600001)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5239b184-f7df-4593-6b91-08d9ffff5848
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2022 05:57:21.2052 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: F7R+A+GtK+uGL4W0ZSGt66Zp6m+O7wre6dHMfVH4SRnyw98z1yGwqXfnbyw1rsCaLnX33d7b2rnO++Y8epcogw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB4671
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 06:41:47.8212 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41ab68f7-8be5-42fc-e3a4-08da00058dbc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT021.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0205
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,62 +103,325 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: stylon.wang@amd.com, Alan Liu <HaoPing.Liu@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Martin Leung <Martin.Leung@amd.com>, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Nevenko Stupar <Nevenko.Stupar@amd.com>, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+From: Martin Leung <Martin.Leung@amd.com>
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+why and how:
+need to hook in new smu interfaces
+cleaning up code that used old variables
 
-Regards,
-Hawking
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>=20
-Sent: Thursday, March 3, 2022 11:46
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Disable baco dummy mode
-
-On aldebaran, BACO dummy mode may be enabled during reset. Disable it durin=
-g resume.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Nevenko Stupar <Nevenko.Stupar@amd.com>
+Acked-by: Alan Liu <HaoPing.Liu@amd.com>
+Signed-off-by: Martin Leung <Martin.Leung@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  | 13 +---
+ .../dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c  |  9 ++-
+ .../dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h  | 67 +----------------
+ .../dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h  | 74 +++++++++++++++++++
+ .../display/include/grph_object_ctrl_defs.h   | 22 ------
+ 5 files changed, 86 insertions(+), 99 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_4.c
-index b31df4db01fb..c2357e83a8c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-@@ -362,9 +362,24 @@ const struct nbio_hdp_flush_reg nbio_v7_4_hdp_flush_re=
-g_ald =3D {
-=20
- static void nbio_v7_4_init_registers(struct amdgpu_device *adev)  {
-+	uint32_t baco_cntl;
-+
- 	if (amdgpu_sriov_vf(adev))
- 		adev->rmmio_remap.reg_offset =3D SOC15_REG_OFFSET(NBIO, 0,
- 			mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
-+
-+	if (adev->ip_versions[NBIO_HWIP][0] =3D=3D IP_VERSION(7, 4, 4) &&
-+	    !amdgpu_sriov_vf(adev)) {
-+		baco_cntl =3D RREG32_SOC15(NBIO, 0, mmBACO_CNTL);
-+		if (baco_cntl &
-+		    (BACO_CNTL__BACO_DUMMY_EN_MASK | BACO_CNTL__BACO_EN_MASK)) {
-+			baco_cntl &=3D ~(BACO_CNTL__BACO_DUMMY_EN_MASK |
-+				       BACO_CNTL__BACO_EN_MASK);
-+			dev_dbg(adev->dev, "Unsetting baco dummy mode %x",
-+				baco_cntl);
-+			WREG32_SOC15(NBIO, 0, mmBACO_CNTL, baco_cntl);
-+		}
-+	}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
+index 220682e45b8d..5ed6a93d1708 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
+@@ -25,30 +25,23 @@
+ 
+ #include "dccg.h"
+ #include "clk_mgr_internal.h"
+-
+ #include "dcn30_clk_mgr_smu_msg.h"
+ #include "dcn20/dcn20_clk_mgr.h"
+ #include "dce100/dce_clk_mgr.h"
++#include "dcn30/dcn30_clk_mgr.h"
+ #include "reg_helper.h"
+ #include "core_types.h"
+ #include "dm_helpers.h"
+-
+ #include "atomfirmware.h"
+-
+-
+ #include "sienna_cichlid_ip_offset.h"
+ #include "dcn/dcn_3_0_0_offset.h"
+ #include "dcn/dcn_3_0_0_sh_mask.h"
+-
+ #include "nbio/nbio_7_4_offset.h"
+-
+ #include "dpcs/dpcs_3_0_0_offset.h"
+ #include "dpcs/dpcs_3_0_0_sh_mask.h"
+-
+ #include "mmhub/mmhub_2_0_0_offset.h"
+ #include "mmhub/mmhub_2_0_0_sh_mask.h"
+-/*we don't have clk folder yet*/
+-#include "dcn30/dcn30_clk_mgr.h"
++#include "dcn30_smu11_driver_if.h"
+ 
+ #undef FN
+ #define FN(reg_name, field_name) \
+@@ -83,7 +76,7 @@ static const struct clk_mgr_mask clk_mgr_mask = {
+ 
+ 
+ /* Query SMU for all clock states for a particular clock */
+-static void dcn3_init_single_clock(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, unsigned int *entry_0, unsigned int *num_levels)
++static void dcn3_init_single_clock(struct clk_mgr_internal *clk_mgr, uint32_t clk, unsigned int *entry_0, unsigned int *num_levels)
+ {
+ 	unsigned int i;
+ 	char *entry_i = (char *)entry_0;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
+index 8ecc708bcd9e..bfc960579760 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
+@@ -29,6 +29,7 @@
+ #include "clk_mgr_internal.h"
+ #include "reg_helper.h"
+ #include "dalsmc.h"
++#include "dcn30_smu11_driver_if.h"
+ 
+ #define mmDAL_MSG_REG  0x1628A
+ #define mmDAL_ARG_REG  0x16273
+@@ -197,7 +198,7 @@ void dcn30_smu_transfer_wm_table_dram_2_smu(struct clk_mgr_internal *clk_mgr)
  }
-=20
- static void nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_=
-device *adev)
---
+ 
+ /* Returns the actual frequency that was set in MHz, 0 on failure */
+-unsigned int dcn30_smu_set_hard_min_by_freq(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, uint16_t freq_mhz)
++unsigned int dcn30_smu_set_hard_min_by_freq(struct clk_mgr_internal *clk_mgr, uint32_t clk, uint16_t freq_mhz)
+ {
+ 	uint32_t response = 0;
+ 
+@@ -215,7 +216,7 @@ unsigned int dcn30_smu_set_hard_min_by_freq(struct clk_mgr_internal *clk_mgr, PP
+ }
+ 
+ /* Returns the actual frequency that was set in MHz, 0 on failure */
+-unsigned int dcn30_smu_set_hard_max_by_freq(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, uint16_t freq_mhz)
++unsigned int dcn30_smu_set_hard_max_by_freq(struct clk_mgr_internal *clk_mgr, uint32_t clk, uint16_t freq_mhz)
+ {
+ 	uint32_t response = 0;
+ 
+@@ -246,7 +247,7 @@ unsigned int dcn30_smu_set_hard_max_by_freq(struct clk_mgr_internal *clk_mgr, PP
+  *
+  * Returns 0 on failure
+  */
+-unsigned int dcn30_smu_get_dpm_freq_by_index(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, uint8_t dpm_level)
++unsigned int dcn30_smu_get_dpm_freq_by_index(struct clk_mgr_internal *clk_mgr, uint32_t clk, uint8_t dpm_level)
+ {
+ 	uint32_t response = 0;
+ 
+@@ -264,7 +265,7 @@ unsigned int dcn30_smu_get_dpm_freq_by_index(struct clk_mgr_internal *clk_mgr, P
+ }
+ 
+ /* Returns the max DPM frequency in DC mode in MHz, 0 on failure */
+-unsigned int dcn30_smu_get_dc_mode_max_dpm_freq(struct clk_mgr_internal *clk_mgr, PPCLK_e clk)
++unsigned int dcn30_smu_get_dc_mode_max_dpm_freq(struct clk_mgr_internal *clk_mgr, uint32_t clk)
+ {
+ 	uint32_t response = 0;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h
+index dd2640a3ce5d..ca9f5296be94 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h
+@@ -28,65 +28,6 @@
+ 
+ #include "core_types.h"
+ 
+-#define SMU11_DRIVER_IF_VERSION 0x1F
+-
+-typedef enum {
+-	PPCLK_GFXCLK = 0,
+-	PPCLK_SOCCLK,
+-	PPCLK_UCLK,
+-	PPCLK_FCLK,
+-	PPCLK_DCLK_0,
+-	PPCLK_VCLK_0,
+-	PPCLK_DCLK_1,
+-	PPCLK_VCLK_1,
+-	PPCLK_DCEFCLK,
+-	PPCLK_DISPCLK,
+-	PPCLK_PIXCLK,
+-	PPCLK_PHYCLK,
+-	PPCLK_DTBCLK,
+-	PPCLK_COUNT,
+-} PPCLK_e;
+-
+-typedef struct {
+-	uint16_t MinClock; // This is either DCEFCLK or SOCCLK (in MHz)
+-	uint16_t MaxClock; // This is either DCEFCLK or SOCCLK (in MHz)
+-	uint16_t MinUclk;
+-	uint16_t MaxUclk;
+-
+-	uint8_t  WmSetting;
+-	uint8_t  Flags;
+-	uint8_t  Padding[2];
+-
+-} WatermarkRowGeneric_t;
+-
+-#define NUM_WM_RANGES 4
+-
+-typedef enum {
+-	WM_SOCCLK = 0,
+-	WM_DCEFCLK,
+-	WM_COUNT,
+-} WM_CLOCK_e;
+-
+-typedef enum {
+-	WATERMARKS_CLOCK_RANGE = 0,
+-	WATERMARKS_DUMMY_PSTATE,
+-	WATERMARKS_MALL,
+-	WATERMARKS_COUNT,
+-} WATERMARKS_FLAGS_e;
+-
+-typedef struct {
+-	// Watermarks
+-	WatermarkRowGeneric_t WatermarkRow[WM_COUNT][NUM_WM_RANGES];
+-} Watermarks_t;
+-
+-typedef struct {
+-	Watermarks_t Watermarks;
+-
+-	uint32_t     MmHubPadding[8]; // SMU internal use
+-} WatermarksExternal_t;
+-
+-#define TABLE_WATERMARKS 1
+-
+ struct clk_mgr_internal;
+ 
+ bool         dcn30_smu_test_message(struct clk_mgr_internal *clk_mgr, uint32_t input);
+@@ -97,10 +38,10 @@ void         dcn30_smu_set_dram_addr_high(struct clk_mgr_internal *clk_mgr, uint
+ void         dcn30_smu_set_dram_addr_low(struct clk_mgr_internal *clk_mgr, uint32_t addr_low);
+ void         dcn30_smu_transfer_wm_table_smu_2_dram(struct clk_mgr_internal *clk_mgr);
+ void         dcn30_smu_transfer_wm_table_dram_2_smu(struct clk_mgr_internal *clk_mgr);
+-unsigned int dcn30_smu_set_hard_min_by_freq(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, uint16_t freq_mhz);
+-unsigned int dcn30_smu_set_hard_max_by_freq(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, uint16_t freq_mhz);
+-unsigned int dcn30_smu_get_dpm_freq_by_index(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, uint8_t dpm_level);
+-unsigned int dcn30_smu_get_dc_mode_max_dpm_freq(struct clk_mgr_internal *clk_mgr, PPCLK_e clk);
++unsigned int dcn30_smu_set_hard_min_by_freq(struct clk_mgr_internal *clk_mgr, uint32_t clk, uint16_t freq_mhz);
++unsigned int dcn30_smu_set_hard_max_by_freq(struct clk_mgr_internal *clk_mgr, uint32_t clk, uint16_t freq_mhz);
++unsigned int dcn30_smu_get_dpm_freq_by_index(struct clk_mgr_internal *clk_mgr, uint32_t clk, uint8_t dpm_level);
++unsigned int dcn30_smu_get_dc_mode_max_dpm_freq(struct clk_mgr_internal *clk_mgr, uint32_t clk);
+ void         dcn30_smu_set_min_deep_sleep_dcef_clk(struct clk_mgr_internal *clk_mgr, uint32_t freq_mhz);
+ void         dcn30_smu_set_num_of_displays(struct clk_mgr_internal *clk_mgr, uint32_t num_displays);
+ void         dcn30_smu_set_display_refresh_from_mall(struct clk_mgr_internal *clk_mgr, bool enable, uint8_t cache_timer_delay, uint8_t cache_timer_scale);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h
+new file mode 100644
+index 000000000000..8ea8ee57b39f
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_smu11_driver_if.h
+@@ -0,0 +1,74 @@
++// This is a stripped-down version of the smu11_driver_if.h file for the relevant DAL interfaces.
++
++#define SMU11_DRIVER_IF_VERSION 0x40
++
++//Only Clks that have DPM descriptors are listed here
++typedef enum {
++	PPCLK_GFXCLK = 0,
++	PPCLK_SOCCLK,
++	PPCLK_UCLK,
++	PPCLK_FCLK,
++	PPCLK_DCLK_0,
++	PPCLK_VCLK_0,
++	PPCLK_DCLK_1,
++	PPCLK_VCLK_1,
++	PPCLK_DCEFCLK,
++	PPCLK_DISPCLK,
++	PPCLK_PIXCLK,
++	PPCLK_PHYCLK,
++	PPCLK_DTBCLK,
++	PPCLK_COUNT,
++} PPCLK_e;
++
++typedef struct {
++	uint16_t MinClock; // This is either DCEFCLK or SOCCLK (in MHz)
++	uint16_t MaxClock; // This is either DCEFCLK or SOCCLK (in MHz)
++	uint16_t MinUclk;
++	uint16_t MaxUclk;
++
++	uint8_t  WmSetting;
++	uint8_t  Flags;
++	uint8_t  Padding[2];
++
++} WatermarkRowGeneric_t;
++
++#define NUM_WM_RANGES 4
++
++typedef enum {
++	WM_SOCCLK = 0,
++	WM_DCEFCLK,
++	WM_COUNT,
++} WM_CLOCK_e;
++
++typedef enum {
++	WATERMARKS_CLOCK_RANGE = 0,
++	WATERMARKS_DUMMY_PSTATE,
++	WATERMARKS_MALL,
++	WATERMARKS_COUNT,
++} WATERMARKS_FLAGS_e;
++
++typedef struct {
++	// Watermarks
++	WatermarkRowGeneric_t WatermarkRow[WM_COUNT][NUM_WM_RANGES];
++} Watermarks_t;
++
++typedef struct {
++	Watermarks_t Watermarks;
++
++	uint32_t     MmHubPadding[8]; // SMU internal use
++} WatermarksExternal_t;
++
++// Table types
++#define TABLE_PPTABLE                 0
++#define TABLE_WATERMARKS              1
++#define TABLE_AVFS_PSM_DEBUG          2
++#define TABLE_AVFS_FUSE_OVERRIDE      3
++#define TABLE_PMSTATUSLOG             4
++#define TABLE_SMU_METRICS             5
++#define TABLE_DRIVER_SMU_CONFIG       6
++#define TABLE_ACTIVITY_MONITOR_COEFF  7
++#define TABLE_OVERDRIVE               8
++#define TABLE_I2C_COMMANDS            9
++#define TABLE_PACE                   10
++#define TABLE_ECCINFO                11
++#define TABLE_COUNT                  12
+diff --git a/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h b/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
+index dd974c428d23..bc96d0211360 100644
+--- a/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
++++ b/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
+@@ -419,28 +419,6 @@ struct integrated_info {
+ 	struct edp_info edp2_info;
+ };
+ 
+-/**
+-* Power source ids.
+-*/
+-enum power_source {
+-	POWER_SOURCE_AC = 0,
+-	POWER_SOURCE_DC,
+-	POWER_SOURCE_LIMITED_POWER,
+-	POWER_SOURCE_LIMITED_POWER_2,
+-	POWER_SOURCE_MAX
+-};
+-
+-struct bios_event_info {
+-	uint32_t thermal_state;
+-	uint32_t backlight_level;
+-	enum power_source powerSource;
+-	bool has_thermal_state_changed;
+-	bool has_power_source_changed;
+-	bool has_forced_mode_changed;
+-	bool forced_mode;
+-	bool backlight_changed;
+-};
+-
+ /*
+  * DFS-bypass flag
+  */
+-- 
 2.25.1
+
