@@ -4,53 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41D88C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 08:26:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D835C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 08:40:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C98BB10E1C1;
-	Mon,  7 Mar 2022 08:26:54 +0000 (UTC)
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [IPv6:2a01:488:42:1000:50ed:8234::])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C79A10E471
- for <amd-gfx@lists.freedesktop.org>; Sun,  6 Mar 2022 15:48:19 +0000 (UTC)
-Received: from ip4d144895.dynamic.kabel-deutschland.de ([77.20.72.149]
- helo=[192.168.66.200]); authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1nQt7F-0006pL-Di; Sun, 06 Mar 2022 16:48:13 +0100
-Message-ID: <092b825a-10ff-e197-18a1-d3e3a097b0e3@leemhuis.info>
-Date: Sun, 6 Mar 2022 16:48:12 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [REGRESSION] Too-low frequency limit for AMD GPU
- PCI-passed-through to Windows VM
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D19110E215;
+	Mon,  7 Mar 2022 08:40:21 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2044.outbound.protection.outlook.com [40.107.243.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 929BF10E215
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Mar 2022 08:40:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gj0yKf3+9jVruIZkYPqCmNHYGb3dPBagX8K63FHdt+tBlqBYytoBNCFMsBmXLiMyoV8mF9cbT2HMi8yhYIk3KL61S2zUyNgEeR8F4pfHXmj4YxASBpaAXVocKxVA+wRVTQ1Xr5YrpPFWTe3KcN34FI/cAnml9tpjoJ+PBkx4lrQNSZxBTJpG3sLIXdgs6pVpBComHjVEbKp+H1YZ4On/h0TrpSj/stXWmAJS5yaRnlb0EiWFSA40WD6JeFEkbi9NBeEdYSQ9VpgwozgvayH7FxbZaPvvsDZCzV7jHGO2b3WWJ+APlcXXW5657zppsddQgRbLZ1GPGQiBRHKpjFiYXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ng1Qsu3jq7qMSNoz1LlST7AzfM4rs0lCsrA3c2+bavw=;
+ b=L5FQGbkYZFu8ixab3NnXEb0FJf8Fjr4GoeqAByRz6Pkk3dNV13WbaO19HQ7gaM3krSI0pUgS0cVkjClOBCT+p4ogY/gHpCJRpsfWX2O41uBUzdJiYpxjDj7KIiM3L5ZzkdgFOCpZ03GiE2XSr8hpGq7cwqVWizgYWHX2XQRsbZAMb1vktJADvSCOjowQ0dQ56jSuAlepTy5mQfkMoGtvER8we5EisIQnEoqUsBsslbMcTkocNj5RP2ALFnU4iPkdZD7SVftM/nUtopVjw84a6THjwlOZg8or+vr5+X5cbmYj02Wv6fY01+ph2uew48QqRAIQfx6xG5KgsZVOiA5rtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ng1Qsu3jq7qMSNoz1LlST7AzfM4rs0lCsrA3c2+bavw=;
+ b=wOjqtX9pmn2aUS0vBif78Kepc41rjtHaTeJ6IEkpq3TJQ6oGO8XauK/wdCjx4P5epQAnDLdWe6toJCwsvTBzzg/r93AQdqFlzuHqfpiDZOeCoaZrRuYciYUX+tN8VtAHZxt1p6JqJ22Mu0VieSWqMsgNSo/Q55QucEfb9Rd8978=
+Received: from DM5PR12MB2504.namprd12.prod.outlook.com (2603:10b6:4:b5::19) by
+ LV2PR12MB5895.namprd12.prod.outlook.com (2603:10b6:408:173::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Mon, 7 Mar
+ 2022 08:40:17 +0000
+Received: from DM5PR12MB2504.namprd12.prod.outlook.com
+ ([fe80::8d40:da47:7312:64b8]) by DM5PR12MB2504.namprd12.prod.outlook.com
+ ([fe80::8d40:da47:7312:64b8%6]) with mapi id 15.20.5038.026; Mon, 7 Mar 2022
+ 08:40:16 +0000
+From: "Huang, Ray" <Ray.Huang@amd.com>
+To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] drm/amdgpu: change registers in error checking for
+ smu 13.0.5
+Thread-Topic: [PATCH 1/2] drm/amdgpu: change registers in error checking for
+ smu 13.0.5
+Thread-Index: AQHYMfievH8lljto9UCmEZofzeDfTayzmeuw
+Date: Mon, 7 Mar 2022 08:40:16 +0000
+Message-ID: <DM5PR12MB250471A88DC59B6D63740185EC089@DM5PR12MB2504.namprd12.prod.outlook.com>
+References: <20220307075412.1984581-1-yifan1.zhang@amd.com>
+In-Reply-To: <20220307075412.1984581-1-yifan1.zhang@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>,
- "James D. Turner" <linuxkernel.foss@dmarc-none.turner.link>
-References: <87ee57c8fu.fsf@turner.link>
- <acd2fd5e-d622-948c-82ef-629a8030c9d8@leemhuis.info>
- <87a6ftk9qy.fsf@dmarc-none.turner.link> <87zgnp96a4.fsf@turner.link>
- <fc2b7593-db8f-091c-67a0-ae5ffce71700@leemhuis.info>
- <CADnq5_Nr5-FR2zP1ViVsD_ZMiW=UHC1wO8_HEGm26K_EG2KDoA@mail.gmail.com>
- <87czkk1pmt.fsf@dmarc-none.turner.link>
- <BYAPR12MB46140BE09E37244AE129C01A975C9@BYAPR12MB4614.namprd12.prod.outlook.com>
- <87sftfqwlx.fsf@dmarc-none.turner.link>
- <BYAPR12MB4614E2CFEDDDEAABBAB986A0975E9@BYAPR12MB4614.namprd12.prod.outlook.com>
- <87ee4wprsx.fsf@turner.link> <4b3ed7f6-d2b6-443c-970e-d963066ebfe3@amd.com>
- <87pmo8r6ob.fsf@turner.link>
- <5a68afe4-1e9e-c683-e06d-30afc2156f14@leemhuis.info>
- <CADnq5_MCKTLOfWKWvi94Q9-d5CGdWBoWVxEYL3YXOpMiPnLOyg@mail.gmail.com>
- <87pmnnpmh5.fsf@dmarc-none.turner.link>
- <CADnq5_NG_dQCYwqHM0umjTMg5Uud6zC4=MiscH91Y9v7mW9bJA@mail.gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-In-Reply-To: <CADnq5_NG_dQCYwqHM0umjTMg5Uud6zC4=MiscH91Y9v7mW9bJA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1646581699;
- b1c67397; 
-X-HE-SMSGID: 1nQt7F-0006pL-Di
-X-Mailman-Approved-At: Mon, 07 Mar 2022 08:26:53 +0000
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-07T08:40:00Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=4a6d8e92-47dd-4d9f-8358-8ad7b6af2df5;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-03-07T08:40:14Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: ac22ec20-1b39-4f55-94a3-95eea3ad082b
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 55c521d0-3b6a-4c54-f5cf-08da00161b06
+x-ms-traffictypediagnostic: LV2PR12MB5895:EE_
+x-microsoft-antispam-prvs: <LV2PR12MB589530FEB85DFDA8B5A9104EEC089@LV2PR12MB5895.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: M7XAl8wL/ild+UqqsL9MNo5/G5Iw8oABftT1VRsm7DET+mGcZ0nS0PPQust7/+IwU5OJejDoi9/DaeB+MenqpUQLoar4sVK7w20HScCwqvL8H2yMIl8JqnyaTtvFtRKcKqNywZlyV76GU+IlLav2IpZbeODBMGw5pfdd3AFbiGyEEUtFO3St4mBPy7w1BRYAG8sVXWqUOX+HYnmTaTitJ9T5TJzHT4D9LTyI+bHJVuUlrUp5U3ORtC2h2rOhZmGvIHWWXg+7V5Y6YiRbejed/cSZq3ZAaE9anSkZUuJvQngJjPgfBSInKvIG6uxQRHdOn/VH6+Av64QMqsKPb6BsSdKlu9QQCF6Vb1vi8nh65aACgUGuuwBwHkaugFUs07YcUA1hWZCkvO9t/29fTnN9BZSxDc7wGLn9iu1cQzIpfR2keCzC3IBZX7Pe4QCxM6hmNGmCtRlRViKPCzjB0d3vczgT6JdGDkqXZhYpynI2FYU9Qn7s869PIcfk0qDruAlm8Qr2UyMsU55QK6Z2aW0EhW17Z9qAqSyroHUlCLRlo+Bi8j5CBSRS0QS2qQwOHCAQGIfxDKdwHNW3jvfuuhcHh6DF0WOmIqjF3GeLxKrRC/aHGEiW2RZdN03xlxCvtM5DGzWSEcVQ+PMpUCWyFMpkRaP7PuF6EHyLhZMEvxe7+e3plukiJcOY/m+lqFMwvfssb3TrHkf3duq3Ovb75QdGFA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2504.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(26005)(186003)(66476007)(38100700002)(66446008)(86362001)(9686003)(71200400001)(316002)(122000001)(55016003)(2906002)(83380400001)(64756008)(66556008)(33656002)(8676002)(4326008)(7696005)(52536014)(76116006)(6506007)(66946007)(53546011)(8936002)(110136005)(5660300002)(508600001)(38070700005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wIZntpO5pqycFKzl42ZiaEpTu+dxp2Zuaf/YR15cJkLyWt5fBkUCz0dgZmmf?=
+ =?us-ascii?Q?dZB7BFCXiEmv/MgdFcPBfbx8FLCVyL3imjNUh1Nkv6fEvo+Sa/Y4zDA1WdRm?=
+ =?us-ascii?Q?ByOZUdtF5ADDJhGV1aEUN6rBjbSBLygY8DOsyTtIFB8gLze0ZHIO6Y+70RYB?=
+ =?us-ascii?Q?Mj/ruVTSQgz3J8XoLZQqCeXRLyPVY7ioDrBfYvPdbY3KYH9NZRJpgzwTl/IK?=
+ =?us-ascii?Q?h26VBOse0EnfUSfizDl2t8LNZPvPpFqKw8jHj6p65NVGbFCKE4BQ85pvgR2G?=
+ =?us-ascii?Q?vbn+uHkDItOP5O9I56cmCzcB7X1AfIvKcjG9My/GpnhalG93n3KVF9Qkxtkg?=
+ =?us-ascii?Q?ZrID5Mnjppb8wW58HcG4ytENDlYLRKl9JihdenS1ebQj3v/ogjNKPfW1MZpa?=
+ =?us-ascii?Q?0WRsej+bT142qHwKLg60a+2wdVEAeRVCM4N3eRR3JdNRjCaAYWgah2Gh0bGu?=
+ =?us-ascii?Q?7e1YWePT4Nu6wCSk8KkOPzXfcfzL+OtrPQK+3u928GHMXilcxokOs9sVzk73?=
+ =?us-ascii?Q?6bz81nZxbbrJKaANGOmZSI6la7SFn0OA68kILUVt1mzMCmjlW663CA/vHjbs?=
+ =?us-ascii?Q?h12deSQNzWRfLERiYPL1Cl4ealZkL9lF45HmpiTwPrmgn+JHrha7Da22xMgV?=
+ =?us-ascii?Q?f9KRHxLlhfC2fnvrIyHjjLtnRM705J0rLc+o+gqz1oKw8QJV3J6X4z7ufzWL?=
+ =?us-ascii?Q?q2d5Jo2jnfTwbRf5UcIjiN6zGnmpgYCoQV3K0AjIg9iAx1ULFmRfv0HpyVVz?=
+ =?us-ascii?Q?WdiD86eiU52yoX8QEhz8RJIUyhM6Fv1gm0snFsnXJ48AWXvRex8rC68ffR0r?=
+ =?us-ascii?Q?RqNOdTbuUnN5RJeTv5ZDIaZR3j2T1ni/JegGN3rMf3j/BaN5/mOTeglOrF+z?=
+ =?us-ascii?Q?AHGu4a6P7RKqMrcxCrGO0h98YaR1uhnclRNMt/Jpikq5N93sGR33epu0hlQO?=
+ =?us-ascii?Q?iHxkmZh25HX0QueVIrttBtXKHpKvO0i6e8MLXdgnHR0Uz4lRHsBbdOcj76QS?=
+ =?us-ascii?Q?HS0A5/hdHixQcmJfSiNzlb8Vhh1wXbN4dNsL7fFUkvQJxT5xxYDgCv8SxrKY?=
+ =?us-ascii?Q?2FsptuQV6xp9pm2AzO/uGBR559VNV94Q76GIcD4hDI1fujZ7eh6HXRKQhlbT?=
+ =?us-ascii?Q?HGhhO6xXmV7IUg5nzlFNUneZpvFFbvkzER1xrzM0jTMTMRC8IKeOICmydF+q?=
+ =?us-ascii?Q?EdciEdNLUWqHnjVR4aDvmcTztHKjSD/W8mhhQTw3141O1IZDATP28GqwpHjj?=
+ =?us-ascii?Q?2rPolnRK2xpOHBcuPsTMH9sX3HQeTGSgodCweAlcnyCEfiMCYifiM+EHjY+K?=
+ =?us-ascii?Q?XTJ2advPI30x0cWOaPR/CXRu9sdciD9QcbAJ7IuR0Qxd7N8mOAAQHPFr4IG+?=
+ =?us-ascii?Q?AswgaCsT9KKSMJjOVcqPIFLYD3+NuhgK/X2GzxfiJrrfaQmQSbQoPp4gqD1r?=
+ =?us-ascii?Q?U5bt5QifTt7xhGqwzdyq0F7m7aKqpnLKcs84YaB59NSCwerLTw1oqcCZA0S+?=
+ =?us-ascii?Q?2HUxa+J9y4m2HSe4s/jtn/vG2SZUJUIlDv3vPEF+AIOQ7prew5n9DUck+Hve?=
+ =?us-ascii?Q?XX53qI6xlInh6iFHZw3oE4CJF9bhTTNrMQsUQ5qpcaMrxIqQpaa+Wy8A0Iwj?=
+ =?us-ascii?Q?YGeVi3GcBNteEAPE9s5yJwo=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2504.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55c521d0-3b6a-4c54-f5cf-08da00161b06
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2022 08:40:16.7193 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LbJQhD6t+iMlopEiHbaYCULNRSaqeNjPfKRwZzCkAfY2mdFUPs3gKUXc7KMTP1bXVFnj7PEX5PQ0GK3UvfKHpg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5895
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,84 +135,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- Greg KH <gregkh@linuxfoundation.org>, "Lazar, Lijo" <lijo.lazar@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Alex Williamson <alex.williamson@redhat.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, this is your Linux kernel regression tracker again. Top-posting once
-more, to make this easily accessible to everyone.
+[AMD Official Use Only]
 
-What's the status of this? It looks stuck, or did the discussion
-continue somewhere else? James, it sounded like you wanted to test
-something, did you give it a try? Or is there some reason why I should
-stop tracking this regression?
+Reviewed-by: Huang Rui <ray.huang@amd.com>
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+-----Original Message-----
+From: Zhang, Yifan <Yifan1.Zhang@amd.com>=20
+Sent: Monday, March 7, 2022 3:54 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray <Ray.Huang@a=
+md.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: change registers in error checking for smu=
+ 13.0.5
 
-P.S.: As the Linux kernel's regression tracker I'm getting a lot of
-reports on my table. I can only look briefly into most of them and lack
-knowledge about most of the areas they concern. I thus unfortunately
-will sometimes get things wrong or miss something important. I hope
-that's not the case here; if you think it is, don't hesitate to tell me
-in a public reply, it's in everyone's interest to set the public record
-straight.
+smu 13.0.5 use new registers for smu msg and param.
 
-#regzbot poke
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-On 16.02.22 17:37, Alex Deucher wrote:
-> On Tue, Feb 15, 2022 at 9:35 PM James D. Turner
-> <linuxkernel.foss@dmarc-none.turner.link> wrote:
->>
->> Hi Alex,
->>
->>> I guess just querying the ATIF method does something that negatively
->>> influences the windows driver in the guest. Perhaps the platform
->>> thinks the driver has been loaded since the method has been called so
->>> it enables certain behaviors that require ATIF interaction that never
->>> happen because the ACPI methods are not available in the guest.
->>
->> Do you mean the `amdgpu_atif_pci_probe_handle` function? If it would be
->> helpful, I could try disabling that function and testing again.
-> 
-> Correct.
-> 
->>
->>> I don't really have a good workaround other than blacklisting the
->>> driver since on bare metal the driver needs to use this interface for
->>> platform interactions.
->>
->> I'm not familiar with ATIF, but should `amdgpu_atif_pci_probe_handle`
->> really be called for PCI devices which are bound to vfio-pci? I'd expect
->> amdgpu to ignore such devices.
->>
->> As I understand it, starting with
->> f9b7f3703ff9 ("drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)"),
->> the `amdgpu_acpi_detect` function loops over all PCI devices in the
->> `PCI_CLASS_DISPLAY_VGA` and `PCI_CLASS_DISPLAY_OTHER` classes to find
->> the ATIF and ATCS handles. Maybe skipping over any PCI devices bound to
->> vfio-pci would fix the issue? On a related note, shouldn't it also skip
->> over any PCI devices with non-AMD vendor IDs?
-> 
-> The ACPI methods are global.  There's only one instance of each per
-> system and they are relevant to add GPUs on the platform.  That's why
-> they are a global resource in the driver.  They can be hung off of the
-> dGPU or APU ACPI namespace, depending on the platform which is why we
-> check all of the display devices.  Skipping them would prevent them
-> from being available if you later bound the amdgpu driver to the GPU
-> device(s) I think.
-> 
-> Alex
-> 
->>
->> Regards,
->> James
-> 
-> 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
+m/swsmu/smu_cmn.c
+index 590a6ed12d54..89b22b261066 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -160,11 +160,17 @@ static void __smu_cmn_reg_print_error(struct smu_cont=
+ext *smu,  {
+ 	struct amdgpu_device *adev =3D smu->adev;
+ 	const char *message =3D smu_get_message_name(smu, msg);
++	u32 msg_idx, prm;
+=20
+ 	switch (reg_c2pmsg_90) {
+ 	case SMU_RESP_NONE: {
+-		u32 msg_idx =3D RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66);
+-		u32 prm     =3D RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
++	if (adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(13, 0, 5)) {
++		msg_idx =3D RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_2);
++		prm     =3D RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_34);
++	} else {
++		msg_idx =3D RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66);
++		prm     =3D RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
++	}
+ 		dev_err_ratelimited(adev->dev,
+ 				    "SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x%08=
+X SMN_C2PMSG_82:0x%08X",
+ 				    msg_idx, prm);
+--
+2.25.1
