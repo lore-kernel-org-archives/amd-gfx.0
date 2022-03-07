@@ -4,45 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B884C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 15:48:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B098C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 15:53:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22A9510E05E;
-	Mon,  7 Mar 2022 15:48:29 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9372210E068;
- Mon,  7 Mar 2022 15:48:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=54sE5+xnxjCgp99D6lv6XxkhpURJnaNZcUY4E3mIDBc=; b=Q9cFvuoAs3P0kvMh60qthVJXVi
- YGMHLUlIV4nWwCerx2RxKjB4zbXtPaiwb+ZPxWx5C0NTnLAtM7iBsGtNT2hhtBCdkyXnIMT1EtdwE
- rjhrPrQo8XHbX1wWREv2VxbpUoDOyMCz7Wbl5tz2TwOv268Tnp3CYYxKeN5nRBP1y7TpoyCKOzFXo
- D6DZpPziDZ3ZZ3PKI/xxCk+co8O6gPTpV2h8py3tyWak33uqO5N861bICE6OvMj3tL5eH3q5X4IrX
- QxxPsNRzTWye5a4t6CD+0XEkwz4cOlrMVRHySZQ1fS4qDxlIZfhlVxALIcxKFMQn8iCNqy2lADaZQ
- r9PAn7Ig==;
-Received: from [192.168.12.191] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1nRFaz-0002rG-I1; Mon, 07 Mar 2022 16:48:25 +0100
-From: Melissa Wen <mwen@igalia.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch
-Subject: [PATCH 3/3] drm/amd/display: move FPU related code from dcn316 to
- dml/dcn31 folder
-Date: Mon,  7 Mar 2022 14:48:01 -0100
-Message-Id: <20220307154801.2196284-4-mwen@igalia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220307154801.2196284-1-mwen@igalia.com>
-References: <20220307154801.2196284-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B089D10E06D;
+	Mon,  7 Mar 2022 15:53:38 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2083.outbound.protection.outlook.com [40.107.101.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1C3D10E047;
+ Mon,  7 Mar 2022 15:53:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=B97tFNV6N7Qb7qjQjbVjfR67qmfAZPyClgmTI31oWHi56rZIwjYmiHxjg4KLd72PipLTcsPUSf7VeypwLeXBpuJrtMqfO3n3mh0kH3zBRY4DTbupBEm8cj09xnhsC6UeOA7Ahd3Tls6L8JWMDRCBoWvWtXAJiqGOw5I5IpbNuJ8Xir5399IA81Zxmp/XaeWu6RzulevpfE1NiWDbBMbuUvgAqmUlfDFbAZRcfSDlUBRgScNEayrGJBRETirlgeANwnv8XQVjm6himqa7qrNY/m/IZv/BmlE8n0EW9d3mKaK/hUXesGSBkKazCHKzsO10bRAAr1KAp3PkiV3iVsvQrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/Okba/QqjA4gVoqci4/sexvViveom/pzGXgTb/ywkH4=;
+ b=j49dHPyR7EFtABknW4deaitjzwMnFUlNDaYKJxMiqOcQnKoua28MVlJ5AKQbXsWynigFttaD8WEZD4h0AawjjGRWl/OxsSZzKc9ir9CiEAzd+K+7SVcTHt1jZHgPjxlCZVovwCrRJMnZkXdrvKs8RwmiErVLE0DeelwZYUUW3Uk6eXqHIcsIHWOZVfr1xbbpwHj87aE7NicSOow/QeRo6JwYDPcQEjj3WVieOkTJAjJqhMM5elnOE9DEmwE+imKOxTUaIAdG981R2uOrCmic9kiS8c/6q51rkaZbtvTg6IBJJZ/y2G3Ug+rvthKG6+eyk88bttRYpceQbF58Df1jUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/Okba/QqjA4gVoqci4/sexvViveom/pzGXgTb/ywkH4=;
+ b=s/sjRhoA/0vr+LuXoOAdLLzjWlimUahIpZStL/HNesNDVGy64MuDbsy/oclrpJUfQxoFwT4Mbra2pYcfHcD4lYeDARXoT4KLrDd59VvRy4TIzsUY4JzDyuL6IFdb/kFlsCfzY59ctLDcCh2EaEI6hM4mveZyFZrbYww1N+x2Z6I=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MN2PR12MB4453.namprd12.prod.outlook.com (2603:10b6:208:260::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Mon, 7 Mar
+ 2022 15:53:34 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e03f:901a:be6c:b581]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e03f:901a:be6c:b581%6]) with mapi id 15.20.5038.027; Mon, 7 Mar 2022
+ 15:53:34 +0000
+Message-ID: <841ff816-b93f-34b3-4868-364f2943c039@amd.com>
+Date: Mon, 7 Mar 2022 16:53:28 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH] drm: remove min_order BUG_ON check
+Content-Language: en-US
+To: Arunpravin <Arunpravin.PaneerSelvam@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+References: <20220307143707.3687-1-Arunpravin.PaneerSelvam@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220307143707.3687-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM5PR0601CA0025.eurprd06.prod.outlook.com
+ (2603:10a6:203:68::11) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f9fd73c4-25fa-487b-bbd2-08da0052a274
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4453:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB44532713D93BAE7A4F2819C583089@MN2PR12MB4453.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 1OzZTquUheRr1A5PzbE+y6IZBoJxrbbHsanMJiE3JqWUP27Fl6CcifTV8y/djS/PU76hE3J8jkFeKWwa/Pv1AyDeA425zol4gsKnaWSPTyOfQQHY/Gy+a9hGMzGnUbsigNzb1u7kfP9W4kkLYn30MasLFZ5MXvxLTgmgP9YLP4wr6FeZD4z5cMa0RCXqhYvGZz8IafYDMqCdjAuwpDj50Mh0t4jP6faY3DvmTofxo/yONvtAfEWAWTYcwunqa40xiXgmdHcey9yevwWYnSYzjCYvq/gmNbQK1XSl8myIum+5f4q+/irgSZQcmxIs5are0avx5WhFaR7Oj0WlPmwGSG8O4QpWiiyTlEoZLoj/14/koLfYpL0aE+iZEUOtKdaXR0IgROvcz7MFI9lBGUkCVegM31IG//ceYGx+3iPkCqrMyZdmaVNT9nFWwP2K0LPAtM2W0fzp8zgxtS+5T/oRkvzupsHlnD7/6Oeq3gpny9OcVWbqUiw21P+S+mjBAL09yFBkKITiGBfi7rQctHg89dQb4A9pznpFTs3A322I26DtoJT1TVau6WnceLVpsJ80xb623lfZK9o5/2vpGAcKXapZEyD1lf26zkTvTWpxEA1urAY/gKOKxXCMtaSYE2mOSLEcJr94f9G4QXZKBz1McLBVihAOHutzGisxMrJmVydH8AXe9oed1TwW8TV3fB8KAemLsVtH2mwHDfzip6/c5ygxL4ZwaAoMP5pn1MIzfxK57tf1OiJixUoz+822I/Vy
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(8676002)(66476007)(66556008)(66946007)(4326008)(6486002)(31696002)(508600001)(5660300002)(6512007)(8936002)(31686004)(83380400001)(186003)(2906002)(2616005)(316002)(38100700002)(86362001)(36756003)(6666004)(6506007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZFgyMVAySm1oNDlhVVU5ZVU0TVd5ZytybGVVQ1U3ZjJ3VnVRc1loUHlTanZR?=
+ =?utf-8?B?aTFUdU9QQWZzVkdrNXpGVm55azlPY3FQQ2RJQkJxV2lJM1JlU29zSWxBMUtW?=
+ =?utf-8?B?SktxTnlDeUJvdk5vQ3NBOGxvOURZWVhFMDhpRnlGeU1oZGpOK0hmZEIrU2Y5?=
+ =?utf-8?B?Q1JxOHJmOGtqOEx4c212RnlWQjJyWG00UklxcklFWWRFenpvZXBLc09sZnpW?=
+ =?utf-8?B?ZFpLeUZTcnQrZFdrNG9Sc21DMStLeHZqT3pSazVZUWR0VDBDK0xXU04wVjFi?=
+ =?utf-8?B?WFU1V1kwWU81TTJTQklqVkFNa21adjNOaGwxM3U3WVN2aDhHRXlXWm1oM1Rx?=
+ =?utf-8?B?OEdIaU5VS3BxZXRZSmcwdVAxcVBUNU5RSFVTdjBZSUZGYUt3SnlTM0JiLzFw?=
+ =?utf-8?B?UTRQMlFRZEx2YjdjbWdjMFBidUNlYUlSNkJYQ3kwaytNUHBUYmNnckhQQnRx?=
+ =?utf-8?B?UTg0cUh0ZWJsM3lnejlaUERCUTJoL2hHRkhXNTJyTVlnWjZlS2dJeDEzNFZx?=
+ =?utf-8?B?anVnTnErUjhFQVUxcHFtQzJKNElxZm40NWp2MUVFQnMwb1N2ZVhoVHMzYlBv?=
+ =?utf-8?B?bTVVRjJrSmdqWFZhbTVPME1jckhoNHhaY2ZWdU8wS3lLamNaM2VWM0lYOEpY?=
+ =?utf-8?B?cUFpckNsMUZKVHdjRlp3anphTUlEZC9xTkt4cDRMOVdGQTYzUGNncDVkWXRK?=
+ =?utf-8?B?RUFsSUgxNkVSdW5ETmk3QUQvcHhjTmI4OTlxc1Z6ZHhYQllsMFN0WUZsODEw?=
+ =?utf-8?B?TFAvZ29ZanJPdjY3SnZ5b3FUZ0FvbnhyQ29RUjZZa1JNT3FaaEhxL2lQTnVW?=
+ =?utf-8?B?N0Q4SEVEZTdkWFlhNlJ0VGp3djlGOGdlZFRGUi9PaXlkdFBuYUYyVmJ4MkE5?=
+ =?utf-8?B?dVQxSEd2RUFHRVUwSUtlQjdrS1ZsazdGLytjdTc3cTQvT2JUTlhpWjJOcVB2?=
+ =?utf-8?B?dHRxVkRoa0crajVBS0E3QlhMWlJoeVVuY3pDdjI5a2VXT2lHN0pIb0FOZWRx?=
+ =?utf-8?B?L0ZXWXRWY2hKMGZrd3MvMjZEVFF0S1dNbU9GOW93U0ovMC94YUxBTG1yV0x0?=
+ =?utf-8?B?WGE2VkwvQ2g2SmQzTExUUlc1eXBZY2YzVy9HL0ZFclk0SDhyN294NFpYb3BC?=
+ =?utf-8?B?Y05mNGx1aW4vUGgzcEhOQk5XR204Z2JaWDAxMkd3QzZZcG95R3FiUUpOY2p2?=
+ =?utf-8?B?eXNTRDNUUVd4TUhTaG5sSHFORXhHc3h6T1ZjQVJJUlo4ZytBU01QVHpaQUNR?=
+ =?utf-8?B?ckE2VFhWMTloZk10VndMWklrOWlWMHg1eURhRGJoRC8weXhDOEJmcHZVRXc2?=
+ =?utf-8?B?SzNSNmRUNzZ2NTlDRHpwNyt3NlZWd1ZGVWFnYnRrRkVqNTZaQkU0V3UyK0pQ?=
+ =?utf-8?B?dURIVHpoT0FOZEpyRTNGS2U2aUtuYkt4dVE4c3FIM3VlbHYyUW1FZ3l6VjR2?=
+ =?utf-8?B?anlKcElFQjE1VVhQbWt2ZWNJbjhIL095K25JR0taWHM5R0RWY0VTb1VLV2FF?=
+ =?utf-8?B?N1hYWk82VXErQWREWGZxT0RiSTdjNFhGUjNQcGFiR2hPdnRUSllVWlArbTE5?=
+ =?utf-8?B?YWpwRXA4UXhQMjZ1dTJ4eUx1b1hYczJtSmgrcitxRXVSTFRmbDh5YXVSM2hs?=
+ =?utf-8?B?bkJ2bG81UzVhQzRTWHNsaDlseFY1ME5CeEdZNjFNb2NtdC9sWGsrSXQzWXZk?=
+ =?utf-8?B?RDVKcy9aN1lNbW5Gd2dmbUo0MGYzU0srbU10QlJ2Rng2eU9IU1lLbWJtb2dw?=
+ =?utf-8?B?aUlQRWl2bDVoS2pUem5aZTV1UGdZWGFuL1hPeEtnT1VWbFVEak5GQkZQVUNM?=
+ =?utf-8?B?ZVlTRFBxRWNid2pUUXZFUUNLNmtHS2c5aGZIWG90RGIrdlNnZ3IzQXE4WFc5?=
+ =?utf-8?B?SW9MbEZOV2FsR0dTRyszM2U2WVlYTVVHK3NrYmlIZFJiRElOQUY4Z09ybE42?=
+ =?utf-8?B?NHV6TmRYVFMyZm1YSksxUjl3M2x6ejA1eHZUaEhwUHZ3THBKQzNrVC9paXEx?=
+ =?utf-8?B?amRMOUlpMlR4ZHRBanRsaDF2eHNxUjZnYVdRaE1iYTdGaEo2d1F1Q3ljemcx?=
+ =?utf-8?B?K3hmTUxLOXk3YkJZTHM0RTZLZlZQV3QyNGE5OGwxYzBYUkNOT2V4SldtUVZ3?=
+ =?utf-8?B?dU4rVTRGZjVaSHFYYzBSL3hXU0xKQXhUcmFtM1kyNUE0aTgxQ0VZb0hVUzJ6?=
+ =?utf-8?Q?9RVzHIIoofZXMo3jg6HGDv8=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9fd73c4-25fa-487b-bbd2-08da0052a274
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 15:53:34.3129 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: a95HU9NEtdACAgbOyVU4b2o4m3ZCCSG/UgHlBgWCoKxkqW8/xWl9YoU5J/AghHHD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4453
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,598 +127,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Melissa Wen <mwen@igalia.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, linux-kernel@vger.kernel.org,
- Jasdeep Dhillon <jdhillon@amd.com>
+Cc: alexander.deucher@amd.com, matthew.auld@intel.com, daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Moves FPU-related structs and dcn316_update_bw_bounding_box from dcn316
-driver to dml/dcn31 that centralize FPU operations for DCN 3.1x
+Am 07.03.22 um 15:37 schrieb Arunpravin:
+> place BUG_ON(order < min_order) outside do..while
+> loop as it fails Unigine Heaven benchmark.
+>
+> Unigine Heaven has buffer allocation requests for
+> example required pages are 161 and alignment request
+> is 128. To allocate the remaining 33 pages, continues
+> the iteration to find the order value which is 5 and
+> when it compares with min_order = 7, enables the
+> BUG_ON(). To avoid this problem, placed the BUG_ON
+> check outside of do..while loop.
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- .../gpu/drm/amd/display/dc/dcn316/Makefile    |  26 --
- .../amd/display/dc/dcn316/dcn316_resource.c   | 231 +-----------------
- .../amd/display/dc/dcn316/dcn316_resource.h   |   3 +
- .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  | 229 +++++++++++++++++
- .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.h  |   2 +
- 5 files changed, 235 insertions(+), 256 deletions(-)
+Well using BUG_ON sounds like the wrong approach in the first place.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn316/Makefile b/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
-index cd87b687c5e2..819d44a9439b 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn316/Makefile
-@@ -25,32 +25,6 @@
- 
- DCN316 = dcn316_resource.o
- 
--ifdef CONFIG_X86
--CFLAGS_$(AMDDALPATH)/dc/dcn316/dcn316_resource.o := -msse
--endif
--
--ifdef CONFIG_PPC64
--CFLAGS_$(AMDDALPATH)/dc/dcn316/dcn316_resource.o := -mhard-float -maltivec
--endif
--
--ifdef CONFIG_CC_IS_GCC
--ifeq ($(call cc-ifversion, -lt, 0701, y), y)
--IS_OLD_GCC = 1
--endif
--CFLAGS_$(AMDDALPATH)/dc/dcn316/dcn316_resource.o += -mhard-float
--endif
--
--ifdef CONFIG_X86
--ifdef IS_OLD_GCC
--# Stack alignment mismatch, proceed with caution.
--# GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
--# (8B stack alignment).
--CFLAGS_$(AMDDALPATH)/dc/dcn316/dcn316_resource.o += -mpreferred-stack-boundary=4
--else
--CFLAGS_$(AMDDALPATH)/dc/dcn316/dcn316_resource.o += -msse2
--endif
--endif
--
- AMD_DAL_DCN316 = $(addprefix $(AMDDALPATH)/dc/dcn316/,$(DCN316))
- 
- AMD_DISPLAY_FILES += $(AMD_DAL_DCN316)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c
-index 90c17c44dd7c..1e451d069bc3 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c
-@@ -66,6 +66,7 @@
- #include "virtual/virtual_stream_encoder.h"
- #include "dce110/dce110_resource.h"
- #include "dml/display_mode_vba.h"
-+#include "dml/dcn31/dcn31_fpu.h"
- #include "dcn31/dcn31_dccg.h"
- #include "dcn10/dcn10_resource.h"
- #include "dcn31/dcn31_panel_cntl.h"
-@@ -123,157 +124,10 @@
- 
- #include "link_enc_cfg.h"
- 
--#define DC_LOGGER_INIT(logger)
--
--#define DCN3_16_DEFAULT_DET_SIZE 192
- #define DCN3_16_MAX_DET_SIZE 384
- #define DCN3_16_MIN_COMPBUF_SIZE_KB 128
- #define DCN3_16_CRB_SEGMENT_SIZE_KB 64
- 
--struct _vcs_dpi_ip_params_st dcn3_16_ip = {
--	.gpuvm_enable = 1,
--	.gpuvm_max_page_table_levels = 1,
--	.hostvm_enable = 1,
--	.hostvm_max_page_table_levels = 2,
--	.rob_buffer_size_kbytes = 64,
--	.det_buffer_size_kbytes = DCN3_16_DEFAULT_DET_SIZE,
--	.config_return_buffer_size_in_kbytes = 1024,
--	.compressed_buffer_segment_size_in_kbytes = 64,
--	.meta_fifo_size_in_kentries = 32,
--	.zero_size_buffer_entries = 512,
--	.compbuf_reserved_space_64b = 256,
--	.compbuf_reserved_space_zs = 64,
--	.dpp_output_buffer_pixels = 2560,
--	.opp_output_buffer_lines = 1,
--	.pixel_chunk_size_kbytes = 8,
--	.meta_chunk_size_kbytes = 2,
--	.min_meta_chunk_size_bytes = 256,
--	.writeback_chunk_size_kbytes = 8,
--	.ptoi_supported = false,
--	.num_dsc = 3,
--	.maximum_dsc_bits_per_component = 10,
--	.dsc422_native_support = false,
--	.is_line_buffer_bpp_fixed = true,
--	.line_buffer_fixed_bpp = 48,
--	.line_buffer_size_bits = 789504,
--	.max_line_buffer_lines = 12,
--	.writeback_interface_buffer_size_kbytes = 90,
--	.max_num_dpp = 4,
--	.max_num_otg = 4,
--	.max_num_hdmi_frl_outputs = 1,
--	.max_num_wb = 1,
--	.max_dchub_pscl_bw_pix_per_clk = 4,
--	.max_pscl_lb_bw_pix_per_clk = 2,
--	.max_lb_vscl_bw_pix_per_clk = 4,
--	.max_vscl_hscl_bw_pix_per_clk = 4,
--	.max_hscl_ratio = 6,
--	.max_vscl_ratio = 6,
--	.max_hscl_taps = 8,
--	.max_vscl_taps = 8,
--	.dpte_buffer_size_in_pte_reqs_luma = 64,
--	.dpte_buffer_size_in_pte_reqs_chroma = 34,
--	.dispclk_ramp_margin_percent = 1,
--	.max_inter_dcn_tile_repeaters = 8,
--	.cursor_buffer_size = 16,
--	.cursor_chunk_size = 2,
--	.writeback_line_buffer_buffer_size = 0,
--	.writeback_min_hscl_ratio = 1,
--	.writeback_min_vscl_ratio = 1,
--	.writeback_max_hscl_ratio = 1,
--	.writeback_max_vscl_ratio = 1,
--	.writeback_max_hscl_taps = 1,
--	.writeback_max_vscl_taps = 1,
--	.dppclk_delay_subtotal = 46,
--	.dppclk_delay_scl = 50,
--	.dppclk_delay_scl_lb_only = 16,
--	.dppclk_delay_cnvc_formatter = 27,
--	.dppclk_delay_cnvc_cursor = 6,
--	.dispclk_delay_subtotal = 119,
--	.dynamic_metadata_vm_enabled = false,
--	.odm_combine_4to1_supported = false,
--	.dcc_supported = true,
--};
--
--struct _vcs_dpi_soc_bounding_box_st dcn3_16_soc = {
--		/*TODO: correct dispclk/dppclk voltage level determination*/
--	.clock_limits = {
--		{
--			.state = 0,
--			.dispclk_mhz = 556.0,
--			.dppclk_mhz = 556.0,
--			.phyclk_mhz = 600.0,
--			.phyclk_d18_mhz = 445.0,
--			.dscclk_mhz = 186.0,
--			.dtbclk_mhz = 625.0,
--		},
--		{
--			.state = 1,
--			.dispclk_mhz = 625.0,
--			.dppclk_mhz = 625.0,
--			.phyclk_mhz = 810.0,
--			.phyclk_d18_mhz = 667.0,
--			.dscclk_mhz = 209.0,
--			.dtbclk_mhz = 625.0,
--		},
--		{
--			.state = 2,
--			.dispclk_mhz = 625.0,
--			.dppclk_mhz = 625.0,
--			.phyclk_mhz = 810.0,
--			.phyclk_d18_mhz = 667.0,
--			.dscclk_mhz = 209.0,
--			.dtbclk_mhz = 625.0,
--		},
--		{
--			.state = 3,
--			.dispclk_mhz = 1112.0,
--			.dppclk_mhz = 1112.0,
--			.phyclk_mhz = 810.0,
--			.phyclk_d18_mhz = 667.0,
--			.dscclk_mhz = 371.0,
--			.dtbclk_mhz = 625.0,
--		},
--		{
--			.state = 4,
--			.dispclk_mhz = 1250.0,
--			.dppclk_mhz = 1250.0,
--			.phyclk_mhz = 810.0,
--			.phyclk_d18_mhz = 667.0,
--			.dscclk_mhz = 417.0,
--			.dtbclk_mhz = 625.0,
--		},
--	},
--	.num_states = 5,
--	.sr_exit_time_us = 9.0,
--	.sr_enter_plus_exit_time_us = 11.0,
--	.sr_exit_z8_time_us = 442.0,
--	.sr_enter_plus_exit_z8_time_us = 560.0,
--	.writeback_latency_us = 12.0,
--	.dram_channel_width_bytes = 4,
--	.round_trip_ping_latency_dcfclk_cycles = 106,
--	.urgent_latency_pixel_data_only_us = 4.0,
--	.urgent_latency_pixel_mixed_with_vm_data_us = 4.0,
--	.urgent_latency_vm_data_only_us = 4.0,
--	.urgent_out_of_order_return_per_channel_pixel_only_bytes = 4096,
--	.urgent_out_of_order_return_per_channel_pixel_and_vm_bytes = 4096,
--	.urgent_out_of_order_return_per_channel_vm_only_bytes = 4096,
--	.pct_ideal_sdp_bw_after_urgent = 80.0,
--	.pct_ideal_dram_sdp_bw_after_urgent_pixel_only = 65.0,
--	.pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm = 60.0,
--	.pct_ideal_dram_sdp_bw_after_urgent_vm_only = 30.0,
--	.max_avg_sdp_bw_use_normal_percent = 60.0,
--	.max_avg_dram_bw_use_normal_percent = 60.0,
--	.fabric_datapath_to_dcn_data_return_bytes = 32,
--	.return_bus_width_bytes = 64,
--	.downspread_percent = 0.38,
--	.dcn_downspread_percent = 0.5,
--	.gpuvm_min_page_size_bytes = 4096,
--	.hostvm_min_page_size_bytes = 4096,
--	.do_urgent_latency_adjustment = false,
--	.urgent_latency_adjustment_fabric_clock_component_us = 0,
--	.urgent_latency_adjustment_fabric_clock_reference_mhz = 0,
--};
--
- enum dcn31_clk_src_array_id {
- 	DCN31_CLK_SRC_PLL0,
- 	DCN31_CLK_SRC_PLL1,
-@@ -1859,89 +1713,6 @@ static struct dc_cap_funcs cap_funcs = {
- 	.get_dcc_compression_cap = dcn20_get_dcc_compression_cap
- };
- 
--static void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
--{
--	struct clk_limit_table *clk_table = &bw_params->clk_table;
--	struct _vcs_dpi_voltage_scaling_st clock_limits[DC__VOLTAGE_STATES];
--	unsigned int i, closest_clk_lvl;
--	int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
--	int j;
--
--	// Default clock levels are used for diags, which may lead to overclocking.
--	if (!IS_DIAG_DC(dc->ctx->dce_environment)) {
--
--		dcn3_16_ip.max_num_otg = dc->res_pool->res_cap->num_timing_generator;
--		dcn3_16_ip.max_num_dpp = dc->res_pool->pipe_count;
--		dcn3_16_soc.num_chans = bw_params->num_channels;
--
--		ASSERT(clk_table->num_entries);
--
--		/* Prepass to find max clocks independent of voltage level. */
--		for (i = 0; i < clk_table->num_entries; ++i) {
--			if (clk_table->entries[i].dispclk_mhz > max_dispclk_mhz)
--				max_dispclk_mhz = clk_table->entries[i].dispclk_mhz;
--			if (clk_table->entries[i].dppclk_mhz > max_dppclk_mhz)
--				max_dppclk_mhz = clk_table->entries[i].dppclk_mhz;
--		}
--
--		for (i = 0; i < clk_table->num_entries; i++) {
--			/* loop backwards*/
--			for (closest_clk_lvl = 0, j = dcn3_16_soc.num_states - 1; j >= 0; j--) {
--				if ((unsigned int) dcn3_16_soc.clock_limits[j].dcfclk_mhz <= clk_table->entries[i].dcfclk_mhz) {
--					closest_clk_lvl = j;
--					break;
--				}
--			}
--			// Ported from DCN315
--			if (clk_table->num_entries == 1) {
--				/*smu gives one DPM level, let's take the highest one*/
--				closest_clk_lvl = dcn3_16_soc.num_states - 1;
--			}
--
--			clock_limits[i].state = i;
--
--			/* Clocks dependent on voltage level. */
--			clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
--			if (clk_table->num_entries == 1 &&
--				clock_limits[i].dcfclk_mhz < dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz) {
--				/*SMU fix not released yet*/
--				clock_limits[i].dcfclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz;
--			}
--			clock_limits[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
--			clock_limits[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
--			clock_limits[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2 * clk_table->entries[i].wck_ratio;
--
--			/* Clocks independent of voltage level. */
--			clock_limits[i].dispclk_mhz = max_dispclk_mhz ? max_dispclk_mhz :
--				dcn3_16_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
--
--			clock_limits[i].dppclk_mhz = max_dppclk_mhz ? max_dppclk_mhz :
--				dcn3_16_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
--
--			clock_limits[i].dram_bw_per_chan_gbps = dcn3_16_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
--			clock_limits[i].dscclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
--			clock_limits[i].dtbclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
--			clock_limits[i].phyclk_d18_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
--			clock_limits[i].phyclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
--		}
--		for (i = 0; i < clk_table->num_entries; i++)
--			dcn3_16_soc.clock_limits[i] = clock_limits[i];
--		if (clk_table->num_entries) {
--			dcn3_16_soc.num_states = clk_table->num_entries;
--		}
--	}
--
--	if (max_dispclk_mhz) {
--		dcn3_16_soc.dispclk_dppclk_vco_speed_mhz = max_dispclk_mhz * 2;
--		dc->dml.soc.dispclk_dppclk_vco_speed_mhz = max_dispclk_mhz * 2;
--	}
--
--	if (!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment))
--		dml_init_instance(&dc->dml, &dcn3_16_soc, &dcn3_16_ip, DML_PROJECT_DCN31);
--	else
--		dml_init_instance(&dc->dml, &dcn3_16_soc, &dcn3_16_ip, DML_PROJECT_DCN31_FPGA);
--}
--
- static struct resource_funcs dcn316_res_pool_funcs = {
- 	.destroy = dcn316_destroy_resource_pool,
- 	.link_enc_create = dcn31_link_encoder_create,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h
-index 9d0d60cb9482..0dc5a6c13ae7 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.h
-@@ -31,6 +31,9 @@
- #define TO_DCN316_RES_POOL(pool)\
- 	container_of(pool, struct dcn316_resource_pool, base)
- 
-+extern struct _vcs_dpi_ip_params_st dcn3_16_ip;
-+extern struct _vcs_dpi_ip_params_st dcn3_16_soc;
-+
- struct dcn316_resource_pool {
- 	struct resource_pool base;
- };
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-index f70b47ef850c..a0a2e125c9c8 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-@@ -339,6 +339,150 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_15_soc = {
- 	.urgent_latency_adjustment_fabric_clock_reference_mhz = 0,
- };
- 
-+struct _vcs_dpi_ip_params_st dcn3_16_ip = {
-+	.gpuvm_enable = 1,
-+	.gpuvm_max_page_table_levels = 1,
-+	.hostvm_enable = 1,
-+	.hostvm_max_page_table_levels = 2,
-+	.rob_buffer_size_kbytes = 64,
-+	.det_buffer_size_kbytes = DCN3_16_DEFAULT_DET_SIZE,
-+	.config_return_buffer_size_in_kbytes = 1024,
-+	.compressed_buffer_segment_size_in_kbytes = 64,
-+	.meta_fifo_size_in_kentries = 32,
-+	.zero_size_buffer_entries = 512,
-+	.compbuf_reserved_space_64b = 256,
-+	.compbuf_reserved_space_zs = 64,
-+	.dpp_output_buffer_pixels = 2560,
-+	.opp_output_buffer_lines = 1,
-+	.pixel_chunk_size_kbytes = 8,
-+	.meta_chunk_size_kbytes = 2,
-+	.min_meta_chunk_size_bytes = 256,
-+	.writeback_chunk_size_kbytes = 8,
-+	.ptoi_supported = false,
-+	.num_dsc = 3,
-+	.maximum_dsc_bits_per_component = 10,
-+	.dsc422_native_support = false,
-+	.is_line_buffer_bpp_fixed = true,
-+	.line_buffer_fixed_bpp = 48,
-+	.line_buffer_size_bits = 789504,
-+	.max_line_buffer_lines = 12,
-+	.writeback_interface_buffer_size_kbytes = 90,
-+	.max_num_dpp = 4,
-+	.max_num_otg = 4,
-+	.max_num_hdmi_frl_outputs = 1,
-+	.max_num_wb = 1,
-+	.max_dchub_pscl_bw_pix_per_clk = 4,
-+	.max_pscl_lb_bw_pix_per_clk = 2,
-+	.max_lb_vscl_bw_pix_per_clk = 4,
-+	.max_vscl_hscl_bw_pix_per_clk = 4,
-+	.max_hscl_ratio = 6,
-+	.max_vscl_ratio = 6,
-+	.max_hscl_taps = 8,
-+	.max_vscl_taps = 8,
-+	.dpte_buffer_size_in_pte_reqs_luma = 64,
-+	.dpte_buffer_size_in_pte_reqs_chroma = 34,
-+	.dispclk_ramp_margin_percent = 1,
-+	.max_inter_dcn_tile_repeaters = 8,
-+	.cursor_buffer_size = 16,
-+	.cursor_chunk_size = 2,
-+	.writeback_line_buffer_buffer_size = 0,
-+	.writeback_min_hscl_ratio = 1,
-+	.writeback_min_vscl_ratio = 1,
-+	.writeback_max_hscl_ratio = 1,
-+	.writeback_max_vscl_ratio = 1,
-+	.writeback_max_hscl_taps = 1,
-+	.writeback_max_vscl_taps = 1,
-+	.dppclk_delay_subtotal = 46,
-+	.dppclk_delay_scl = 50,
-+	.dppclk_delay_scl_lb_only = 16,
-+	.dppclk_delay_cnvc_formatter = 27,
-+	.dppclk_delay_cnvc_cursor = 6,
-+	.dispclk_delay_subtotal = 119,
-+	.dynamic_metadata_vm_enabled = false,
-+	.odm_combine_4to1_supported = false,
-+	.dcc_supported = true,
-+};
-+
-+struct _vcs_dpi_soc_bounding_box_st dcn3_16_soc = {
-+		/*TODO: correct dispclk/dppclk voltage level determination*/
-+	.clock_limits = {
-+		{
-+			.state = 0,
-+			.dispclk_mhz = 556.0,
-+			.dppclk_mhz = 556.0,
-+			.phyclk_mhz = 600.0,
-+			.phyclk_d18_mhz = 445.0,
-+			.dscclk_mhz = 186.0,
-+			.dtbclk_mhz = 625.0,
-+		},
-+		{
-+			.state = 1,
-+			.dispclk_mhz = 625.0,
-+			.dppclk_mhz = 625.0,
-+			.phyclk_mhz = 810.0,
-+			.phyclk_d18_mhz = 667.0,
-+			.dscclk_mhz = 209.0,
-+			.dtbclk_mhz = 625.0,
-+		},
-+		{
-+			.state = 2,
-+			.dispclk_mhz = 625.0,
-+			.dppclk_mhz = 625.0,
-+			.phyclk_mhz = 810.0,
-+			.phyclk_d18_mhz = 667.0,
-+			.dscclk_mhz = 209.0,
-+			.dtbclk_mhz = 625.0,
-+		},
-+		{
-+			.state = 3,
-+			.dispclk_mhz = 1112.0,
-+			.dppclk_mhz = 1112.0,
-+			.phyclk_mhz = 810.0,
-+			.phyclk_d18_mhz = 667.0,
-+			.dscclk_mhz = 371.0,
-+			.dtbclk_mhz = 625.0,
-+		},
-+		{
-+			.state = 4,
-+			.dispclk_mhz = 1250.0,
-+			.dppclk_mhz = 1250.0,
-+			.phyclk_mhz = 810.0,
-+			.phyclk_d18_mhz = 667.0,
-+			.dscclk_mhz = 417.0,
-+			.dtbclk_mhz = 625.0,
-+		},
-+	},
-+	.num_states = 5,
-+	.sr_exit_time_us = 9.0,
-+	.sr_enter_plus_exit_time_us = 11.0,
-+	.sr_exit_z8_time_us = 442.0,
-+	.sr_enter_plus_exit_z8_time_us = 560.0,
-+	.writeback_latency_us = 12.0,
-+	.dram_channel_width_bytes = 4,
-+	.round_trip_ping_latency_dcfclk_cycles = 106,
-+	.urgent_latency_pixel_data_only_us = 4.0,
-+	.urgent_latency_pixel_mixed_with_vm_data_us = 4.0,
-+	.urgent_latency_vm_data_only_us = 4.0,
-+	.urgent_out_of_order_return_per_channel_pixel_only_bytes = 4096,
-+	.urgent_out_of_order_return_per_channel_pixel_and_vm_bytes = 4096,
-+	.urgent_out_of_order_return_per_channel_vm_only_bytes = 4096,
-+	.pct_ideal_sdp_bw_after_urgent = 80.0,
-+	.pct_ideal_dram_sdp_bw_after_urgent_pixel_only = 65.0,
-+	.pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm = 60.0,
-+	.pct_ideal_dram_sdp_bw_after_urgent_vm_only = 30.0,
-+	.max_avg_sdp_bw_use_normal_percent = 60.0,
-+	.max_avg_dram_bw_use_normal_percent = 60.0,
-+	.fabric_datapath_to_dcn_data_return_bytes = 32,
-+	.return_bus_width_bytes = 64,
-+	.downspread_percent = 0.38,
-+	.dcn_downspread_percent = 0.5,
-+	.gpuvm_min_page_size_bytes = 4096,
-+	.hostvm_min_page_size_bytes = 4096,
-+	.do_urgent_latency_adjustment = false,
-+	.urgent_latency_adjustment_fabric_clock_component_us = 0,
-+	.urgent_latency_adjustment_fabric_clock_reference_mhz = 0,
-+};
-+
- void dcn31_calculate_wm_and_dlg_fp(
- 		struct dc *dc, struct dc_state *context,
- 		display_e2e_pipe_params_st *pipes,
-@@ -632,3 +776,88 @@ void dcn315_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
- 	else
- 		dml_init_instance(&dc->dml, &dcn3_15_soc, &dcn3_15_ip, DML_PROJECT_DCN31_FPGA);
- }
-+
-+void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
-+{
-+	struct clk_limit_table *clk_table = &bw_params->clk_table;
-+	struct _vcs_dpi_voltage_scaling_st clock_limits[DC__VOLTAGE_STATES];
-+	unsigned int i, closest_clk_lvl;
-+	int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
-+	int j;
-+
-+	dc_assert_fp_enabled();
-+
-+	// Default clock levels are used for diags, which may lead to overclocking.
-+	if (!IS_DIAG_DC(dc->ctx->dce_environment)) {
-+
-+		dcn3_16_ip.max_num_otg = dc->res_pool->res_cap->num_timing_generator;
-+		dcn3_16_ip.max_num_dpp = dc->res_pool->pipe_count;
-+		dcn3_16_soc.num_chans = bw_params->num_channels;
-+
-+		ASSERT(clk_table->num_entries);
-+
-+		/* Prepass to find max clocks independent of voltage level. */
-+		for (i = 0; i < clk_table->num_entries; ++i) {
-+			if (clk_table->entries[i].dispclk_mhz > max_dispclk_mhz)
-+				max_dispclk_mhz = clk_table->entries[i].dispclk_mhz;
-+			if (clk_table->entries[i].dppclk_mhz > max_dppclk_mhz)
-+				max_dppclk_mhz = clk_table->entries[i].dppclk_mhz;
-+		}
-+
-+		for (i = 0; i < clk_table->num_entries; i++) {
-+			/* loop backwards*/
-+			for (closest_clk_lvl = 0, j = dcn3_16_soc.num_states - 1; j >= 0; j--) {
-+				if ((unsigned int) dcn3_16_soc.clock_limits[j].dcfclk_mhz <= clk_table->entries[i].dcfclk_mhz) {
-+					closest_clk_lvl = j;
-+					break;
-+				}
-+			}
-+			// Ported from DCN315
-+			if (clk_table->num_entries == 1) {
-+				/*smu gives one DPM level, let's take the highest one*/
-+				closest_clk_lvl = dcn3_16_soc.num_states - 1;
-+			}
-+
-+			clock_limits[i].state = i;
-+
-+			/* Clocks dependent on voltage level. */
-+			clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
-+			if (clk_table->num_entries == 1 &&
-+				clock_limits[i].dcfclk_mhz < dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz) {
-+				/*SMU fix not released yet*/
-+				clock_limits[i].dcfclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dcfclk_mhz;
-+			}
-+			clock_limits[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
-+			clock_limits[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
-+			clock_limits[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2 * clk_table->entries[i].wck_ratio;
-+
-+			/* Clocks independent of voltage level. */
-+			clock_limits[i].dispclk_mhz = max_dispclk_mhz ? max_dispclk_mhz :
-+				dcn3_16_soc.clock_limits[closest_clk_lvl].dispclk_mhz;
-+
-+			clock_limits[i].dppclk_mhz = max_dppclk_mhz ? max_dppclk_mhz :
-+				dcn3_16_soc.clock_limits[closest_clk_lvl].dppclk_mhz;
-+
-+			clock_limits[i].dram_bw_per_chan_gbps = dcn3_16_soc.clock_limits[closest_clk_lvl].dram_bw_per_chan_gbps;
-+			clock_limits[i].dscclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dscclk_mhz;
-+			clock_limits[i].dtbclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].dtbclk_mhz;
-+			clock_limits[i].phyclk_d18_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].phyclk_d18_mhz;
-+			clock_limits[i].phyclk_mhz = dcn3_16_soc.clock_limits[closest_clk_lvl].phyclk_mhz;
-+		}
-+		for (i = 0; i < clk_table->num_entries; i++)
-+			dcn3_16_soc.clock_limits[i] = clock_limits[i];
-+		if (clk_table->num_entries) {
-+			dcn3_16_soc.num_states = clk_table->num_entries;
-+		}
-+	}
-+
-+	if (max_dispclk_mhz) {
-+		dcn3_16_soc.dispclk_dppclk_vco_speed_mhz = max_dispclk_mhz * 2;
-+		dc->dml.soc.dispclk_dppclk_vco_speed_mhz = max_dispclk_mhz * 2;
-+	}
-+
-+	if (!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment))
-+		dml_init_instance(&dc->dml, &dcn3_16_soc, &dcn3_16_ip, DML_PROJECT_DCN31);
-+	else
-+		dml_init_instance(&dc->dml, &dcn3_16_soc, &dcn3_16_ip, DML_PROJECT_DCN31_FPGA);
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
-index b15b587cf8c4..24ac19c83687 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
-@@ -29,6 +29,7 @@
- #define DCN3_1_DEFAULT_DET_SIZE 384
- #define DCN3_15_DEFAULT_DET_SIZE 192
- #define DCN3_15_MIN_COMPBUF_SIZE_KB 128
-+#define DCN3_16_DEFAULT_DET_SIZE 192
- 
- void dcn31_calculate_wm_and_dlg_fp(
- 		struct dc *dc, struct dc_state *context,
-@@ -38,5 +39,6 @@ void dcn31_calculate_wm_and_dlg_fp(
- 
- void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params);
- void dcn315_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params);
-+void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params);
- 
- #endif /* __DCN31_FPU_H__*/
--- 
-2.34.1
+A BUG_ON() is only justified if you prevent further data corruption, 
+e.g. when you detect for example a reference count overflow or similar.
+
+In all other cases you should trigger a WARN_ON() and abort the 
+operation with -EINVAL if possible.
+
+Regards,
+Christian.
+
+>
+> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   drivers/gpu/drm/drm_buddy.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+> index 72f52f293249..ed94c56b720f 100644
+> --- a/drivers/gpu/drm/drm_buddy.c
+> +++ b/drivers/gpu/drm/drm_buddy.c
+> @@ -669,10 +669,11 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   	order = fls(pages) - 1;
+>   	min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
+>   
+> +	BUG_ON(order < min_order);
+> +
+>   	do {
+>   		order = min(order, (unsigned int)fls(pages) - 1);
+>   		BUG_ON(order > mm->max_order);
+> -		BUG_ON(order < min_order);
+>   
+>   		do {
+>   			if (flags & DRM_BUDDY_RANGE_ALLOCATION)
+>
+> base-commit: 8025c79350b90e5a8029234d433578f12abbae2b
 
