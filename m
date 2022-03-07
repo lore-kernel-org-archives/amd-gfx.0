@@ -4,92 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8D3EC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 05:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C17DBC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 05:57:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6397910E70E;
-	Mon,  7 Mar 2022 05:54:26 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2043.outbound.protection.outlook.com [40.107.96.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2495C10E1A3
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Mar 2022 05:54:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4908210ECBE;
+	Mon,  7 Mar 2022 05:57:24 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA1FE10ECBE
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Mar 2022 05:57:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b2ceR1DBEJTtBzEx/+2n7uPlrXZVrOrTooCleURTVGx4sLsmCxoI2zgBMIRgmK439sjpZdoY3y3u7NtkhyZkAjlxLcqSxe4PjiUTRgzkycO2vWiLyDHhQFh0/D47ZsXmEs8peqQmHS11tLoaD6T/HrfH4o6L8OtQDkAC5Giv+GFH855KGhb73+7c40Nx0KKWzVY4eA8ySx0McgFSvF4lgFnfNhRe1WC59d5EehSyX0LtZlgi0acBcG1hwCB+BGLIX3XXSz347tI4K3mO1Ib6ZxXYxEiEcNKAXp1J8/4NeE+t8s6qVkqTBxqZZxIgbIerC6p0Fg6srtGPPW9mjiyV5Q==
+ b=VDZgeLziPULJrEGeAFDE4Ms5VB82CF3HBpzpzzioQRhntgKy0pFwi702hzo2f6SdlJpeqh9VKUavu5r2uYHt/n/0LXXSNhC7nFr5RJbsZbA9F4mV0V6PzmEEsXNm0Kt+fkrHCWHRNa+daLYdiBb5JxXfwRXZrVgnG/E9DR4hooKTo01WGXTjfId4vNG72khnV+wZoLu7UnQfEJYMuu/7OQfNGYbpfNp8EcULohCu6H97iQYa0jaNjUcSXf2NUUC94uI3TGF0vRd+HWdgufswNrE5A363v4/hx/UP7wHDY4UcFjplQZoJQZvJ3FaDdGO3j4+h4N1LDHOpPM47SrsBgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0vHffKKr0aBpfO02ZQMju8ZQ/+mR3SxYjIzRUFE5D8Q=;
- b=i4I2y6HB1cDmuO/+KNGN95vlXIwKGA4IETGIEgG7ufIHTmjG3BB6gAezEw9jvZ0bx6VgrKaKssnEgNDgFazkRyADq8DH3d7++DLh/yXTSMMICNCEAFZtQ7SS/l8/0xrHvqQn6BSSuIKzKJvS9cQD3+yy+jYZGIk1B26O48XbuVOM70qwwiGwgmOE860b5tHq9i7uWCf48lxEuTHAFNkN+aTmOYpamo67iBafK4BPY5RRLlFG/ph2tdY3AAxa386asTMlUZ8SlcAmp2q/DQ+91MFwwSbzsGcA7wIKcIBgfMJIzy0WRg4XtGiGTwgvuxplR+Qrq5b2xxfc3vdENPCNtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=+GhX/z6s8shjVqnQ0bNoYHbJgONeq6lPWTtiO5aqcjo=;
+ b=d95D9k+AzVcM8jf26JxFjt+D/X4Zzgjsj+HbXOkVFljHlhtMaWy3cdmIIKPY6TJhSb1h//r44oH8h/WWhIqcUUfrWfSuYx2nNjmOqQzPdcA5wvf2trlx96uJeRZmurn9PONHJyiD81RNmsPJWhV+7l9UAPovZEUhYAmrRiZQqROS5JCTS1ILpvorFU2P3DmLOERfpjhmcWyRdTey6CzsnmqnpngRKqcNgfyKCGR93jmE+9uukXef62msScgyofCzhLp6Z2P+tVyhWaBHJLwZayjDLKxN7TJyPMKg3bNjG7IcQ03cCGk0JhLSaxPn0k1ZOUgNaZS6CLpFyXxo+A8oqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0vHffKKr0aBpfO02ZQMju8ZQ/+mR3SxYjIzRUFE5D8Q=;
- b=RoWteTEX5cshzuLRBrTjui8QbsaGvIuPx5zFGQU2JMbx4osVDlNHLb1QKdlULNkzPRNqwRfOdS0aGrJprDrBZ7cG2mcaR+SLl78Y16zct2B/hKL5vC5Alzx8TMEIfA7VlW0KkKwRok8Jw2vOB45VaXQuriRuy5bzdjIUZErUqnQ=
-Received: from MW4P221CA0014.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::19)
- by BYAPR12MB4710.namprd12.prod.outlook.com (2603:10b6:a03:9f::27) with
+ bh=+GhX/z6s8shjVqnQ0bNoYHbJgONeq6lPWTtiO5aqcjo=;
+ b=IoWzuQr+sUUFnUynyQrZkTzv7XE+I/fYrzAe2ZBjVouUFxk5kv3MyRHau0BwwKulGTlXnXrpxbSwNc7njBhJvrw294JQzAOf32cKctXrEvlbYwxuB1Px/goNNi2fY/baMZa7Uxah/MKXnf43Aoj66N00tFlQFxVwkxmTfDwfl3Q=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by SN6PR12MB4671.namprd12.prod.outlook.com (2603:10b6:805:e::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.17; Mon, 7 Mar
- 2022 05:54:20 +0000
-Received: from CO1NAM11FT061.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8b:cafe::e6) by MW4P221CA0014.outlook.office365.com
- (2603:10b6:303:8b::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
- Transport; Mon, 7 Mar 2022 05:54:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT061.mail.protection.outlook.com (10.13.175.200) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5038.14 via Frontend Transport; Mon, 7 Mar 2022 05:54:19 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Sun, 6 Mar
- 2022 23:54:18 -0600
-Received: from alan-new-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.18 via Frontend
- Transport; Sun, 6 Mar 2022 23:54:14 -0600
-From: Alan Liu <HaoPing.Liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 21/21] drm/amd/display: move FPU code from dcn10 to dml/dcn10
- folder
-Date: Tue, 8 Mar 2022 05:09:45 +0800
-Message-ID: <20220307210942.444808-22-HaoPing.Liu@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220307210942.444808-4-HaoPing.Liu@amd.com>
-References: <20220307210942.444808-4-HaoPing.Liu@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: af71635e-24ab-4de0-7109-08d9fffeebfb
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4710:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB47104B2F40B0C74985C0C5DFF5089@BYAPR12MB4710.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sibgWXCJTOu6Gj+ki3+sHPDmEgKx/0hGu1BR53KuxMtXfa0lWv1d8l6gc53/d6oEqHxDoQj2PrSMjMtsdIwUqvvm2ZSLRHaHbQOFtYbijJE/9o/RPM8MZ4oNKniyO5sZfSiTT6Vd0ztVSI1xlxPR4d45ia9f5rJL99furcfy1O4cYo0cdYzpdA//iGCWP3lhFs0fXnV53BOoGqAyboyx/tuQwX04AnSYzCdy0rk3tsZMU8nu81LqpmEYgzoriLLeJ5gYUCPGc3QOVssMZfbBGJ9s5wYQKs3BMjzdSI4NnBkFCL4GTtdbgSUIT9SaiNxRQmmYDqvkh6XpvPNSHSfI13k4gVIBbPLvalomQUyGRjGuiTUoU+uvR82CDluQ0iolHtVQalk/a3h1J/bXyqY0e1szUil/BuYOaLjtiNBaqs6Z1q5yxNLP3y3mzTlw5s0I1oWl54AnePz4T1NzNGxkXa7AQvrasuuO07JudBAULMTASzOJLYKX3KPsWl/m7lcjMssa09Cjrev4OIc7esDjGiK2NiWgVru5veDX6G9n7Wm8izqH8W7f3wD92EMKESw0+r9BUDWP8uqiQX5dIb0HqcRBIqN4N4vpsDo2UvB9Kw95eL9ByVdwcXoNshH8yZO6Mpn64i4+PCIX0geilheqR5NFBjIjjoyMX1vWtbxonMqkU66Qw41bxzFTZFmhjKJSdTYK0+B1oznUuDbkmsAo0Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(81166007)(40460700003)(356005)(508600001)(6666004)(83380400001)(82310400004)(36860700001)(47076005)(7696005)(426003)(336012)(26005)(186003)(2616005)(2906002)(70206006)(70586007)(86362001)(36756003)(1076003)(5660300002)(30864003)(8936002)(4326008)(8676002)(54906003)(316002)(6916009)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.15; Mon, 7 Mar
+ 2022 05:57:21 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c1c8:b797:3144:571d]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c1c8:b797:3144:571d%5]) with mapi id 15.20.5038.027; Mon, 7 Mar 2022
+ 05:57:21 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Disable baco dummy mode
+Thread-Topic: [PATCH] drm/amdgpu: Disable baco dummy mode
+Thread-Index: AQHYLrE1mLwidyiWT0StIKACwNtGVayzcagA
+Date: Mon, 7 Mar 2022 05:57:21 +0000
+Message-ID: <BN9PR12MB5257EB28E72E24F9D749DED9FC089@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20220303034542.755479-1-lijo.lazar@amd.com>
+In-Reply-To: <20220303034542.755479-1-lijo.lazar@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-07T05:57:15Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=33176aa9-7239-4bc1-afa3-d6d0e6d103f3;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 5239b184-f7df-4593-6b91-08d9ffff5848
+x-ms-traffictypediagnostic: SN6PR12MB4671:EE_
+x-microsoft-antispam-prvs: <SN6PR12MB467167D918958AF5B8BDC00BFC089@SN6PR12MB4671.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: TQCbM5naYybGDjZj/LU+G/rz3Io0jVI3NxaKfe1m/yJ2t7bgKVQN4RuEOt4RWMz+OoCURVMDRbBWCHBtj+BQEtVVxIAAH6N5Hc7lindHTzAwblV0iwf8YKtDa+XHmNpQ2VBL6MXYy3oA5E1fvCHAViUJu4NRqgTkn2balgHrouzgc0ISF7alcNU9lkGsRAhelwLacEj7SK7kRdM5bBuK7ghtUgX9Z2QEMSnFr2TqeZxMpIFcWJQI7/CcQjCNuJMW9UENzuGbhiVXd9QOM5HnfIDBGC9T1b2TzFItJY7GnUjonMsNzxLXQeZapDAmEJqP7seEvzyJy03zxuMI70IIPJ2KrnXTowC4WwTqwH43g3BeT59kl4OfwhKUWrRpBrs4JsdJ+uK/W0An2J76Y+J3QaBvEjuPP+UfnVMetSFSLet1c13hjTmwUtOEJ8aQiTkx7M64pnGt/eaTQ3xFgiKcL/rsoZcMkRy094ZV9J0lhYdXwX5p0OiKxGmpaPhzgLHOkNJoN+q2IR2LlTkBTYVdHXYL+B8MDqBrpPKmIbVs6grPzhSaa3s04BOX7M5EiHarf75a3rq6GpNz0Bq8JTTpx8y86vhRHXDNZj66v4NbEbzYZ+ChyHox/GOou3uX6IX/Nfm0dqxUd3XP1kOyMffp0YSJL4cPEsbr4Lzcw1Uk39CcuQA028cd7kTrrn+EFlB1x94/Vm22mI43zDFsEBDeBQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(64756008)(7696005)(6506007)(86362001)(4326008)(53546011)(66446008)(76116006)(8676002)(66946007)(66556008)(66476007)(508600001)(122000001)(55016003)(83380400001)(8936002)(38070700005)(71200400001)(9686003)(110136005)(52536014)(316002)(38100700002)(5660300002)(186003)(26005)(2906002)(33656002);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7t/l+3qOh2G+wryxNqN+vAuhVS8HMi23ZCXr6Oeip2ZJZ8HMddeuYASdxQSM?=
+ =?us-ascii?Q?JVO3rsz7wpSO62PcQT9TkxptyJurseMNalGqlnMfNkc2ZAsZtZmk48c1JUlX?=
+ =?us-ascii?Q?7JrOijC9F+EcfKpTqzlUudwRrJkxHV6onCHy0xJC8n8WLgzjR+MZa3hBvmUP?=
+ =?us-ascii?Q?y+oRYp9nzSkzqgYgmyZPJkM8E2hHmqWKsyUf9hx6w/Z1SnesWbh+q17o8+d4?=
+ =?us-ascii?Q?bA67nG3NMBmHXxvRtgbRNtyNwpAg8tBrMzcX1cg9CKgu4dwODJGG2nsfkRDm?=
+ =?us-ascii?Q?FESDj1sn4GsljpCm6+hjMqAcpYlyNtCYWi0/hte5P5BMqJDi3grvFA+0hA8b?=
+ =?us-ascii?Q?fQ9z2rT5KUPlajJjnIdq7RUr7VKOxH1dj97eXr15cCmriytVExxIOZT7R5o/?=
+ =?us-ascii?Q?kOfn/Q9cM01KT8VAzsvSTgGFlBR9zD3lVymcnIgrDpRwiqwwROnzILiHVIOw?=
+ =?us-ascii?Q?Qh0BMv0k7Jbl164Lh9YxmDZXt4Kb99Qqcla2kg4jbJR/7F2Ciehdp/H0pr+o?=
+ =?us-ascii?Q?zzDeYxrtixZit7zwj+FUc346fWHnEp3NyMr3Z34xm47w+7SH4xILmDT0cLxy?=
+ =?us-ascii?Q?X4AuIcoqtXLQB2NUtTx0mXxmKNPpD+4mA/YOry7hnPyU1tOOKOyLkUIYpvEi?=
+ =?us-ascii?Q?G9XcaC/VWeDOTrqKYrlNttfmV1NmDP0Oiyf3cEeyCbpPzx8vScM8PDwqHcD4?=
+ =?us-ascii?Q?frHPaTkyL+kgdX46f893A6Aafovyw7vv7Y8OfdgTsAOcOyq8+8sPFFluo5ng?=
+ =?us-ascii?Q?UUyc9iWmlk/DGi8Ksk3+uG1YwCDRPKeBVbaGJUNHhlJjfJx9tceK3i8TYiWn?=
+ =?us-ascii?Q?JgT5/3iq4A/sGXH/guE+oCAI/8ugu14EctZiNrUaxyigsvd1tUY/F3xp+V9j?=
+ =?us-ascii?Q?37LmL1XaoL//I01DoZPSFcNxGjeH2j1uDoa7oUhDJFJ/tQW6778yVTFLKNHY?=
+ =?us-ascii?Q?kWVti9I9uynE6i51fJmwYyjttklSfjCiaznePFHKLvKCAJDd50uDUpSMX/BG?=
+ =?us-ascii?Q?i5wGfB7PPuZ9ci537ikrddMUVsQoDMKJuCo6tUncCJRjzWxQNs5a3CvXz/cV?=
+ =?us-ascii?Q?PumpRz2G6RZPxmvlRYtL++FUNxMuVU/iQlOapn8GJGPOvfOUapr9SvqsCzNr?=
+ =?us-ascii?Q?mLCqQ1Powr4ba+ng97SKpzuRxDQ4c4leqL8JGQs+ftulfOrgPiQhA0fZ0kRk?=
+ =?us-ascii?Q?Rlz6FgMzbIsrs+CAxTfzP5RrocWVirItcflsPksvXMiNJ2qQp5kRvCHlqtHD?=
+ =?us-ascii?Q?eRxI/JqG22r4DBI9IIBSTN4aldjRdVutnlKrYbJbPR0roUPIZDF7GxMZzKA3?=
+ =?us-ascii?Q?jaoAnHokrvUX2X9HZ/Qk+SAhLcYwd88rTuf/ba83qfcKeJIYg92vr7wVwW9w?=
+ =?us-ascii?Q?gBr9K3T0eRTJxIjeoBJNokVy/6E/6wxxNKuT0prURtrUgDW7ZPFGcya8AN3o?=
+ =?us-ascii?Q?kbGEtaWOKd56fDptpNWV0T9O+qvU64VuTJLOMcgZHlLtvumpdqAtz+o893XB?=
+ =?us-ascii?Q?jSbEtH+geRk5YuRyMqttgq1VtYAIygLuXFYxrjhwTZFoyHk/htwpH6ceMO0p?=
+ =?us-ascii?Q?MKWbfz08BDQ6LW9D2d+MT7iMGdaamQMyGBVvpApfouFhvO4qT13ZBCy/dotw?=
+ =?us-ascii?Q?gtIAmOL+HCz6pnvSEkY70eM=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 05:54:19.3661 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: af71635e-24ab-4de0-7109-08d9fffeebfb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT061.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4710
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5239b184-f7df-4593-6b91-08d9ffff5848
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2022 05:57:21.2052 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: F7R+A+GtK+uGL4W0ZSGt66Zp6m+O7wre6dHMfVH4SRnyw98z1yGwqXfnbyw1rsCaLnX33d7b2rnO++Y8epcogw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB4671
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,312 +125,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Melissa Wen <mwen@igalia.com>, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Melissa Wen <mwen@igalia.com>
+[AMD Official Use Only]
 
-FPU operations in dcn10 was already moved to dml folder via calcs code.
-However, dcn1_0_ip and dcn_1_0_soc with FPU componentd remains on dcn10.
-Following previous changes to isolate FPU, this patch creates dcn10_fpu
-files to isolate FPU-specific code and moves those structs to it.
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+Regards,
+Hawking
+-----Original Message-----
+From: Lazar, Lijo <Lijo.Lazar@amd.com>=20
+Sent: Thursday, March 3, 2022 11:46
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>
+Subject: [PATCH] drm/amdgpu: Disable baco dummy mode
+
+On aldebaran, BACO dummy mode may be enabled during reset. Disable it durin=
+g resume.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- .../drm/amd/display/dc/dcn10/dcn10_resource.c |  62 ---------
- .../drm/amd/display/dc/dcn10/dcn10_resource.h |   4 +
- drivers/gpu/drm/amd/display/dc/dml/Makefile   |   2 +
- .../drm/amd/display/dc/dml/dcn10/dcn10_fpu.c  | 123 ++++++++++++++++++
- .../drm/amd/display/dc/dml/dcn10/dcn10_fpu.h  |  30 +++++
- 5 files changed, 159 insertions(+), 62 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.h
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-index 858b72149897..ac96242cc474 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-@@ -70,68 +70,6 @@
- #include "dce/dce_aux.h"
- #include "dce/dce_i2c.h"
- 
--const struct _vcs_dpi_ip_params_st dcn1_0_ip = {
--	.rob_buffer_size_kbytes = 64,
--	.det_buffer_size_kbytes = 164,
--	.dpte_buffer_size_in_pte_reqs_luma = 42,
--	.dpp_output_buffer_pixels = 2560,
--	.opp_output_buffer_lines = 1,
--	.pixel_chunk_size_kbytes = 8,
--	.pte_enable = 1,
--	.pte_chunk_size_kbytes = 2,
--	.meta_chunk_size_kbytes = 2,
--	.writeback_chunk_size_kbytes = 2,
--	.line_buffer_size_bits = 589824,
--	.max_line_buffer_lines = 12,
--	.IsLineBufferBppFixed = 0,
--	.LineBufferFixedBpp = -1,
--	.writeback_luma_buffer_size_kbytes = 12,
--	.writeback_chroma_buffer_size_kbytes = 8,
--	.max_num_dpp = 4,
--	.max_num_wb = 2,
--	.max_dchub_pscl_bw_pix_per_clk = 4,
--	.max_pscl_lb_bw_pix_per_clk = 2,
--	.max_lb_vscl_bw_pix_per_clk = 4,
--	.max_vscl_hscl_bw_pix_per_clk = 4,
--	.max_hscl_ratio = 4,
--	.max_vscl_ratio = 4,
--	.hscl_mults = 4,
--	.vscl_mults = 4,
--	.max_hscl_taps = 8,
--	.max_vscl_taps = 8,
--	.dispclk_ramp_margin_percent = 1,
--	.underscan_factor = 1.10,
--	.min_vblank_lines = 14,
--	.dppclk_delay_subtotal = 90,
--	.dispclk_delay_subtotal = 42,
--	.dcfclk_cstate_latency = 10,
--	.max_inter_dcn_tile_repeaters = 8,
--	.can_vstartup_lines_exceed_vsync_plus_back_porch_lines_minus_one = 0,
--	.bug_forcing_LC_req_same_size_fixed = 0,
--};
--
--const struct _vcs_dpi_soc_bounding_box_st dcn1_0_soc = {
--	.sr_exit_time_us = 9.0,
--	.sr_enter_plus_exit_time_us = 11.0,
--	.urgent_latency_us = 4.0,
--	.writeback_latency_us = 12.0,
--	.ideal_dram_bw_after_urgent_percent = 80.0,
--	.max_request_size_bytes = 256,
--	.downspread_percent = 0.5,
--	.dram_page_open_time_ns = 50.0,
--	.dram_rw_turnaround_time_ns = 17.5,
--	.dram_return_buffer_per_channel_bytes = 8192,
--	.round_trip_ping_latency_dcfclk_cycles = 128,
--	.urgent_out_of_order_return_per_channel_bytes = 256,
--	.channel_interleave_bytes = 256,
--	.num_banks = 8,
--	.num_chans = 2,
--	.vmm_page_size_bytes = 4096,
--	.dram_clock_change_latency_us = 17.0,
--	.writeback_dram_clock_change_latency_us = 23.0,
--	.return_bus_width_bytes = 64,
--};
--
- #ifndef mmDP0_DP_DPHY_INTERNAL_CTRL
- 	#define mmDP0_DP_DPHY_INTERNAL_CTRL		0x210f
- 	#define mmDP0_DP_DPHY_INTERNAL_CTRL_BASE_IDX	2
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.h
-index 633025ccb870..bf8e33cd8147 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.h
-@@ -27,6 +27,7 @@
- #define __DC_RESOURCE_DCN10_H__
- 
- #include "core_types.h"
-+#include "dml/dcn10/dcn10_fpu.h"
- 
- #define TO_DCN10_RES_POOL(pool)\
- 	container_of(pool, struct dcn10_resource_pool, base)
-@@ -35,6 +36,9 @@ struct dc;
- struct resource_pool;
- struct _vcs_dpi_display_pipe_params_st;
- 
-+extern struct _vcs_dpi_ip_params_st dcn1_0_ip;
-+extern struct _vcs_dpi_soc_bounding_box_st dcn1_0_soc;
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/a=
+mdgpu/nbio_v7_4.c
+index b31df4db01fb..c2357e83a8c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+@@ -362,9 +362,24 @@ const struct nbio_hdp_flush_reg nbio_v7_4_hdp_flush_re=
+g_ald =3D {
+=20
+ static void nbio_v7_4_init_registers(struct amdgpu_device *adev)  {
++	uint32_t baco_cntl;
 +
- struct dcn10_resource_pool {
- 	struct resource_pool base;
- };
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index 6ab83c3e9c5c..28978ce62f87 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -58,6 +58,7 @@ CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_ccflags)
- 
- ifdef CONFIG_DRM_AMD_DC_DCN
- CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_ccflags)
-+CFLAGS_$(AMDDALPATH)/dc/dml/dcn10/dcn10_fpu.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/dcn20_fpu.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_ccflags)
-@@ -106,6 +107,7 @@ DML = calcs/dce_calcs.o calcs/custom_float.o calcs/bw_fixed.o
- 
- ifdef CONFIG_DRM_AMD_DC_DCN
- DML += display_mode_lib.o display_rq_dlg_helpers.o dml1_display_rq_dlg_calc.o
-+DML += dcn10/dcn10_fpu.o
- DML += dcn20/dcn20_fpu.o
- DML += display_mode_vba.o dcn20/display_rq_dlg_calc_20.o dcn20/display_mode_vba_20.o
- DML += dcn20/display_rq_dlg_calc_20v2.o dcn20/display_mode_vba_20v2.o
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.c
-new file mode 100644
-index 000000000000..99644d896222
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.c
-@@ -0,0 +1,123 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright 2021 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
+ 	if (amdgpu_sriov_vf(adev))
+ 		adev->rmmio_remap.reg_offset =3D SOC15_REG_OFFSET(NBIO, 0,
+ 			mmBIF_BX_DEV0_EPF0_VF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
 +
-+#include "dcn10/dcn10_resource.h"
-+
-+#include "dcn10_fpu.h"
-+
-+/**
-+ * DOC: DCN10 FPU manipulation Overview
-+ *
-+ * The DCN architecture relies on FPU operations, which require special
-+ * compilation flags and the use of kernel_fpu_begin/end functions; ideally, we
-+ * want to avoid spreading FPU access across multiple files. With this idea in
-+ * mind, this file aims to centralize DCN10 functions that require FPU access
-+ * in a single place. Code in this file follows the following code pattern:
-+ *
-+ * 1. Functions that use FPU operations should be isolated in static functions.
-+ * 2. The FPU functions should have the noinline attribute to ensure anything
-+ *    that deals with FP register is contained within this call.
-+ * 3. All function that needs to be accessed outside this file requires a
-+ *    public interface that not uses any FPU reference.
-+ * 4. Developers **must not** use DC_FP_START/END in this file, but they need
-+ *    to ensure that the caller invokes it before access any function available
-+ *    in this file. For this reason, public functions in this file must invoke
-+ *    dc_assert_fp_enabled();
-+ *
-+ * Let's expand a little bit more the idea in the code pattern. To fully
-+ * isolate FPU operations in a single place, we must avoid situations where
-+ * compilers spill FP values to registers due to FP enable in a specific C
-+ * file. Note that even if we isolate all FPU functions in a single file and
-+ * call its interface from other files, the compiler might enable the use of
-+ * FPU before we call DC_FP_START. Nevertheless, it is the programmer's
-+ * responsibility to invoke DC_FP_START/END in the correct place. To highlight
-+ * situations where developers forgot to use the FP protection before calling
-+ * the DC FPU interface functions, we introduce a helper that checks if the
-+ * function is invoked under FP protection. If not, it will trigger a kernel
-+ * warning.
-+ */
-+
-+struct _vcs_dpi_ip_params_st dcn1_0_ip = {
-+	.rob_buffer_size_kbytes = 64,
-+	.det_buffer_size_kbytes = 164,
-+	.dpte_buffer_size_in_pte_reqs_luma = 42,
-+	.dpp_output_buffer_pixels = 2560,
-+	.opp_output_buffer_lines = 1,
-+	.pixel_chunk_size_kbytes = 8,
-+	.pte_enable = 1,
-+	.pte_chunk_size_kbytes = 2,
-+	.meta_chunk_size_kbytes = 2,
-+	.writeback_chunk_size_kbytes = 2,
-+	.line_buffer_size_bits = 589824,
-+	.max_line_buffer_lines = 12,
-+	.IsLineBufferBppFixed = 0,
-+	.LineBufferFixedBpp = -1,
-+	.writeback_luma_buffer_size_kbytes = 12,
-+	.writeback_chroma_buffer_size_kbytes = 8,
-+	.max_num_dpp = 4,
-+	.max_num_wb = 2,
-+	.max_dchub_pscl_bw_pix_per_clk = 4,
-+	.max_pscl_lb_bw_pix_per_clk = 2,
-+	.max_lb_vscl_bw_pix_per_clk = 4,
-+	.max_vscl_hscl_bw_pix_per_clk = 4,
-+	.max_hscl_ratio = 4,
-+	.max_vscl_ratio = 4,
-+	.hscl_mults = 4,
-+	.vscl_mults = 4,
-+	.max_hscl_taps = 8,
-+	.max_vscl_taps = 8,
-+	.dispclk_ramp_margin_percent = 1,
-+	.underscan_factor = 1.10,
-+	.min_vblank_lines = 14,
-+	.dppclk_delay_subtotal = 90,
-+	.dispclk_delay_subtotal = 42,
-+	.dcfclk_cstate_latency = 10,
-+	.max_inter_dcn_tile_repeaters = 8,
-+	.can_vstartup_lines_exceed_vsync_plus_back_porch_lines_minus_one = 0,
-+	.bug_forcing_LC_req_same_size_fixed = 0,
-+};
-+
-+struct _vcs_dpi_soc_bounding_box_st dcn1_0_soc = {
-+	.sr_exit_time_us = 9.0,
-+	.sr_enter_plus_exit_time_us = 11.0,
-+	.urgent_latency_us = 4.0,
-+	.writeback_latency_us = 12.0,
-+	.ideal_dram_bw_after_urgent_percent = 80.0,
-+	.max_request_size_bytes = 256,
-+	.downspread_percent = 0.5,
-+	.dram_page_open_time_ns = 50.0,
-+	.dram_rw_turnaround_time_ns = 17.5,
-+	.dram_return_buffer_per_channel_bytes = 8192,
-+	.round_trip_ping_latency_dcfclk_cycles = 128,
-+	.urgent_out_of_order_return_per_channel_bytes = 256,
-+	.channel_interleave_bytes = 256,
-+	.num_banks = 8,
-+	.num_chans = 2,
-+	.vmm_page_size_bytes = 4096,
-+	.dram_clock_change_latency_us = 17.0,
-+	.writeback_dram_clock_change_latency_us = 23.0,
-+	.return_bus_width_bytes = 64,
-+};
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.h
-new file mode 100644
-index 000000000000..e74ed4b4ce5b
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.h
-@@ -0,0 +1,30 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright 2021 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+#ifndef __DCN10_FPU_H__
-+#define __DCN10_FPU_H__
-+
-+#endif /* __DCN20_FPU_H__ */
--- 
++	if (adev->ip_versions[NBIO_HWIP][0] =3D=3D IP_VERSION(7, 4, 4) &&
++	    !amdgpu_sriov_vf(adev)) {
++		baco_cntl =3D RREG32_SOC15(NBIO, 0, mmBACO_CNTL);
++		if (baco_cntl &
++		    (BACO_CNTL__BACO_DUMMY_EN_MASK | BACO_CNTL__BACO_EN_MASK)) {
++			baco_cntl &=3D ~(BACO_CNTL__BACO_DUMMY_EN_MASK |
++				       BACO_CNTL__BACO_EN_MASK);
++			dev_dbg(adev->dev, "Unsetting baco dummy mode %x",
++				baco_cntl);
++			WREG32_SOC15(NBIO, 0, mmBACO_CNTL, baco_cntl);
++		}
++	}
+ }
+=20
+ static void nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_=
+device *adev)
+--
 2.25.1
-
