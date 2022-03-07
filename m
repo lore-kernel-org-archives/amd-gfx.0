@@ -4,67 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 418D3C433EF
-	for <amd-gfx@archiver.kernel.org>; Sat,  5 Mar 2022 18:40:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DABDAC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 01:58:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8608F10E199;
-	Sat,  5 Mar 2022 18:40:46 +0000 (UTC)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2547910E199
- for <amd-gfx@lists.freedesktop.org>; Sat,  5 Mar 2022 18:40:45 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id f8so14667186edf.10
- for <amd-gfx@lists.freedesktop.org>; Sat, 05 Mar 2022 10:40:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=2rFj/qt69/EY0ukh5VeyVUAVtgaKBPuZxOL2foIVJoQ=;
- b=iVd3S5DyxFnGtPxtSpnq1niEIGD52Wms/OmCddlOlr4E00N15+E31H1fkegxrTOg0e
- 0pzQwpM19wsMotca7dGutNe1pUiW5TGhXJeR9Y9++LjOVJA/D5Av6HmOIIbJ3erXK6rN
- mPMNc1cvYsKMXDQYynm6W82sh6aJEoXaqtNn8+msO1j1FKPuncm2Xx5FnI5V9ET+weB/
- NNi4fTuhoWfK12tHHC+4owGDP2cXWCN+y/bBIai5yjiOmti2TSdrk3ok3VHMz8ODHPsX
- BYfee1M7hil5JnJ4OZNrMJv2GqpYNkO6qAf/BL/+iZmi/hxtvo//QMNkLIMJ8K3rPmxq
- vLLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=2rFj/qt69/EY0ukh5VeyVUAVtgaKBPuZxOL2foIVJoQ=;
- b=eaP8hHtCkihJ8cOqWTswazxacTt7QYsIpCe6LgW3PpWgUbVTzqoDG4MJsgtU18R6Zs
- oH0cqXIlsF+iI/jLPtOPpQOa0YwguRJCYpQjKCJMnQ8gLI7bU18Hy6rBamNVIi7hWFpd
- I46l1TFZLbR2mlroTi/fjtpbVDIzdm7tqHbMk4aa3fMdYhollYOqX80KVqQOaCyCAPbE
- kGKQnLqeAnWPnTf1xkxzAOUVcmANc6R2Wv7q+zXEWIkDnQW/oSmiSo1feI6yfefP6Fjs
- Kfx8UqZDzY294O+kGl+zM4nTZ8Z4ubRkfHwb1uZN2kpZfNtJm/tCbGyBJ2zhx9AwDFdm
- v7cA==
-X-Gm-Message-State: AOAM533VLP+JSf6f1NgPnrErsdumuiGrQtc0Cer1W1L5pRmYCDIKd530
- K21sr0wr56k+/rW7S3i+jyChr4ideYA=
-X-Google-Smtp-Source: ABdhPJzHfO8aL4zocsocLhMxwSxHf4pu88L+yX7JxY8asu7I70SVvi+eaB/lT+nSVhKIxghQzmOY7g==
-X-Received: by 2002:a05:6402:34d5:b0:416:2f46:48f with SMTP id
- w21-20020a05640234d500b004162f46048fmr1060250edc.88.1646505643405; 
- Sat, 05 Mar 2022 10:40:43 -0800 (PST)
-Received: from ?IPV6:2a02:908:1252:fb60:586e:39ca:3fcf:db2f?
- ([2a02:908:1252:fb60:586e:39ca:3fcf:db2f])
- by smtp.gmail.com with ESMTPSA id
- gv54-20020a1709072bf600b006da7953530bsm3113572ejc.104.2022.03.05.10.40.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 05 Mar 2022 10:40:42 -0800 (PST)
-Message-ID: <5c573f4d-0fa8-5c01-67fe-c33a79a6f89c@gmail.com>
-Date: Sat, 5 Mar 2022 19:40:41 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 09/10] drm/amdgpu: add gang submit backend
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FB1310E08E;
+	Mon,  7 Mar 2022 01:58:07 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A035010E08E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Mar 2022 01:58:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mJyBGVphI1E1SSXMVuvvPa9MiAcktgBbXtOE9lEi65yCULDglI6829X9T7RYF9CwuEdOPKo1PtgjQf8blLocpIl1Psu4WlurT8mWGVR9Nxg8h5QP974pKSa/73q04Zou7GMvIAaCR47NMuOV4UD69/dWc2PDtw0/0YaIYEN2I7Q2GLgHr1hWzSDEGXoxi7fXgNbXkUC5kUMSAovI/snbs19wnPvRjpYxBrSWRuNkXRVxXO6z6z9lfjs5PepK0iSZJwVORe3NTeYzrWw6i/op10qmLBEFOteFVHIok/DVGouz1M5gLnNbwoUnHzICPRLTwEBQ4Lh/mDArx5+u70lRJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SgkfGNbGx//3WBw7UxNTEbivoUfCXvduilAdfy3SWlc=;
+ b=FRcMArNU1+H6h0EtO+t7bs51xtAQ1chWbC/Xeti4uRE2w0SyzJ7SRalqCgs7Ou3ThlPGbVOhygevNxA8cJeW+vH9tuqmIpqTH8JJprcVkN41ZzJiOXsu55Lz4gJU+VVYRMluzNar2LF0Kt40lvWkgiyzZImZXQDXzlx/CIlEbA4Ox6QBOL7aP0zJ1x8a3r+3bhtVI2JPEFFUVendp67CfbWC8JJMlxSx2osTJLVYtJ07k9BgWejuen6rjjPBCPnkmWSb4/w/tpFuGO0izpFmTZJoxj6WBbBkUgaXBZfX2k1InKT4WtdHOsse8oA+B6Zeo09JgVz2PwV27hBfDLtR6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SgkfGNbGx//3WBw7UxNTEbivoUfCXvduilAdfy3SWlc=;
+ b=BSY50ZEJ8crhXuwlgmljIn6FHUK/CQnq7OXAsPMGJaskOT9PHc8vweO8TEFv6bGaIcjNvrVUJ3d9jg5fjNUc/JHdCV+rmrHeapgx6i6g1X38AWo/qC1dd9ZoeC/Exjk5ag/tbEYdJtctDaSEvw2rsRpzPpAAlQDY68vQdKcGoZk=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by DM6PR12MB3739.namprd12.prod.outlook.com (2603:10b6:5:1c4::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.17; Mon, 7 Mar
+ 2022 01:58:02 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c1c8:b797:3144:571d]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c1c8:b797:3144:571d%5]) with mapi id 15.20.5038.026; Mon, 7 Mar 2022
+ 01:58:02 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Refactor mode2 reset logic for v13.0.2
+Thread-Topic: [PATCH] drm/amdgpu: Refactor mode2 reset logic for v13.0.2
+Thread-Index: AQHYLImh5x0m0QviAkSU532f7tBtJqytBb2AgAYuo3A=
+Date: Mon, 7 Mar 2022 01:58:02 +0000
+Message-ID: <BN9PR12MB52577C416F9F1CA54C030533FC089@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20220228095723.721786-1-lijo.lazar@amd.com>
+ <BYAPR12MB4614485194DEB2361556B60C97049@BYAPR12MB4614.namprd12.prod.outlook.com>
+In-Reply-To: <BYAPR12MB4614485194DEB2361556B60C97049@BYAPR12MB4614.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- amd-gfx@lists.freedesktop.org, Marek.Olsak@amd.com
-References: <20220303082308.38217-1-christian.koenig@amd.com>
- <20220303082308.38217-10-christian.koenig@amd.com>
- <9bf49ccf-09a9-15d5-5591-ee2164c07f3c@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <9bf49ccf-09a9-15d5-5591-ee2164c07f3c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-03-07T01:58:00Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=d1fe6b42-0ecc-46d0-aecd-3d383d99d3ef;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 8aa457c3-0b70-4bbf-f59a-08d9ffddea0b
+x-ms-traffictypediagnostic: DM6PR12MB3739:EE_
+x-microsoft-antispam-prvs: <DM6PR12MB3739510BC05AB004E486C38BFC089@DM6PR12MB3739.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: WajF3a9ApX1XqQ8coVXisw/YmqfnEcdt8JNPsL9u6O1r81ZhnDNtv92Lrw4L+OI3a3dCJxA+VTUnoqldO9EDnZdGPi7lq0OrzJFknuevgtDWEnDkXjdbfSX1zxmxobsQx+yUEgfDHA6VGUyM+tvUWzbuWoKisOr4Kqq2l4LZ3gGJLq/KyI/evt2zS6EcYgr3YM90ZfqmtismF11RmRqvSefKnFKx2Vw4nI/sWSLOCsTRP5HTxG6Jmf49piXcTyRM7BEc4hTVGfjZSV5lD4lzTdQSkZjf3OT4MtNPcg1crFr8xvbfcydI9dgVXKRogqat13HZSHu7klIN+c3tpZonk04yNw6iU+1wBjbx5+kPjHO7NkUCI6HSiXYo6WVLGfw5PLq2rGxBXW69Poe7KRn0L0sWIsgFruYTRmvF5qXs020EQ4pmEKJChpzaTvyY8M/Pwlbe0BmR5gjOjwELDEuvtHBxQaEITEGJRP5zArsfj/c5tGa3+EuAiBi6vVwQNYN3/GwwjPKUjHqIMY6aRc4iK/gauaJ7xMoPSYEr5MOQndDtdMdEK/fa9ECUUW+B89ofvqRz75RPv5WlAYeD6takYydslRVz2LTzyr/dZOESdcl9/I5103+XTXLm9GRQUImw+nccU0N/XZAun4xxq6Ag72KZDgIDQnPnuPK6F2CxNCHivKaxQZtzzwgBUwKQpL9IwIUqX5HzlycrBWiW5b5QrQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(64756008)(66476007)(55016003)(8676002)(4326008)(66556008)(66946007)(83380400001)(66446008)(76116006)(8936002)(508600001)(52536014)(316002)(38070700005)(71200400001)(110136005)(7696005)(38100700002)(53546011)(86362001)(186003)(9686003)(26005)(6506007)(2906002)(122000001)(33656002)(5660300002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?6GTJSPKqMXWhm8+PXNNVEXwKHQfppWnPzxIJQjCIUYuHTRpDDdzBx4PaY0e3?=
+ =?us-ascii?Q?cneJx14FrYuV/rnFMvE9FT+3Z3bYB8uPqqCQy/iV0l61RdI7zmqMxRzLOqCU?=
+ =?us-ascii?Q?vKkffGbQfGQsSNaJNkTXzBL1AfKk5goLEkjNZPNkAfYH12AiGkBRsuudxtau?=
+ =?us-ascii?Q?fNGz2ygVi3aQ0Fenbk+F8+E9I/Fq3yD4WoTMfUDU4mZnIPzK9nNfl8wQOcVu?=
+ =?us-ascii?Q?huOZKieFUZAuC00xIPntbBkLgvRXMGRdAL07gTmHwoXZXDk8i+oCpikoMUpd?=
+ =?us-ascii?Q?mA9m4TYo3bpHOljSHopfnv6IMN4nuKfzssX/fC87ZFx5B0kjs8iKEpqFnIR7?=
+ =?us-ascii?Q?bLuZLnmLrea5o5fJ9yLdsThxP/NpVzaX255sZYxNgFQtG5zkFaMZfiU8xv3m?=
+ =?us-ascii?Q?16UFLqBj2uS5esDZ4NOD5a4PgtBMyBf98uqsGaUKWbc5akx6c0TjqCiqVvGp?=
+ =?us-ascii?Q?cV8+BfS2vVUp4U3w8DbPREHaguTnxzm9r0Z8Kkt7/Z61qTPaitVZAsYqEatx?=
+ =?us-ascii?Q?PmDDPfv52Qa+A3FJybjvdgnrFgXgrsmInF+cKcrYPNrOmp84mNSrc9rOAhN2?=
+ =?us-ascii?Q?5GqsO5lcEvoR0x6A5/Hu2U9lIelF6T+U8AsP7uoK3cPQqjqA0sHzR5eMChbR?=
+ =?us-ascii?Q?dT3DRLELE/UwyMoOD797aO50WL/6fD3rcEBc0sB8+ef1GS9YcMNvOleXWgI6?=
+ =?us-ascii?Q?vCHsCZSeDY5tgWgdTaEsIe4/xAmaO2p9CbCzrPoavl8cI6FkcdG5OxujGmaK?=
+ =?us-ascii?Q?kFH7/6YULsMgmMMFzz7hBDnKxUkMViFusJO/4snXdKBhDzVcQP+G9XTFGj8t?=
+ =?us-ascii?Q?e+deAiK5v0qR1nC/X8iy7lCwZNhisgUCd/4UwCPo142LqQ/qjFJLLF6mlLUT?=
+ =?us-ascii?Q?IVLHkZo6fvO/8dfB1TpnY/Ygfr8nVQh2HOTWcN0dNl4qucnr3tlnM8XM7CAD?=
+ =?us-ascii?Q?R9pPVZJUxIvNvBVYUbVcHuknVb95wVvhclxRSAI04ALQ3krCFfIHmsRF/F3h?=
+ =?us-ascii?Q?41L+qqcGwlutYF7jVWf50rwgKnpGSUEwMLhNxYtebVBpytRbvNkO97RE/9C7?=
+ =?us-ascii?Q?r9sM4Y6RbY7xdzCJSgfJw0qc3ppfak105Jy63Ie3m8e5iQiw8kcBZtQIXldU?=
+ =?us-ascii?Q?n/bnLsdmECL8PhQe2B+g6k37I8MRDyELXUGTbmzlwOuBTMTtHqm6ixXJvodi?=
+ =?us-ascii?Q?c5Uhpb45t69L5R8I24x4dD30jpR5wdXdxX2eQ1h2RSvuNmU917UOFxEQ9KkH?=
+ =?us-ascii?Q?ezsd5D2bqpz5/pxfqipRYCQT9qLK9ITVJFiu1g07oHmlQrV56+CMft3IWLeJ?=
+ =?us-ascii?Q?/i+QBPXZv7lE5kaKTOlQVl14hE5spXfNErMitXYqjyH/I0PX8qAEAdex8714?=
+ =?us-ascii?Q?56GsBSeIX59UHhJFDMUp4kyoVnFfPT9JwRMTbIucRpderUoF7CbE77clGWn8?=
+ =?us-ascii?Q?fvBf1N/Qyqmjp+gkEJfs5gXB87SdQnDNFp1NLKJqUsY5k294wyyvNIPry1S1?=
+ =?us-ascii?Q?die+uhqZeNQsMbn8O0O8NvnYPd1VdKUg9FaPhnd8/vTmQvEo0lMcXpSZmYSr?=
+ =?us-ascii?Q?lEeEE/PrFNxUY5GWXwkD/t83r/2GAmXe0dy266/54wvuZy6GX9VNEOYSRlMG?=
+ =?us-ascii?Q?FsFotN+NBT2KLOm6BGr7f8U=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8aa457c3-0b70-4bbf-f59a-08d9ffddea0b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2022 01:58:02.7581 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: oA6Z6HDlHZeRQORiUXKbb+ssKQWFHNkP56gWMPSKO2bkS123KjjK0JkPcuL3TPXb97ayQZJ33UgTV1axfu+gqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3739
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,222 +125,211 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 04.03.22 um 18:10 schrieb Andrey Grodzovsky:
->
-> On 2022-03-03 03:23, Christian König wrote:
->> Allows submitting jobs as gang which needs to run on multiple
->> engines at the same time.
->>
->> Basic idea is that we have a global gang submit fence representing 
->> when the
->> gang leader is finally pushed to run on the hardware last.
->>
->> Jobs submitted as gang are never re-submitted in case of a GPU reset 
->> since this
->> won't work and will just deadlock the hardware immediately again.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 ++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 34 ++++++++++++++++++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 28 ++++++++++++++++--
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h    |  3 ++
->>   4 files changed, 66 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> index 7f447ed7a67f..a664d43d7502 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> @@ -852,6 +852,7 @@ struct amdgpu_device {
->>       u64                fence_context;
->>       unsigned            num_rings;
->>       struct amdgpu_ring        *rings[AMDGPU_MAX_RINGS];
->> +    struct dma_fence __rcu        *gang_submit;
->>       bool                ib_pool_ready;
->>       struct amdgpu_sa_manager    ib_pools[AMDGPU_IB_POOL_MAX];
->>       struct amdgpu_sched 
->> gpu_sched[AMDGPU_HW_IP_NUM][AMDGPU_RING_PRIO_MAX];
->> @@ -1233,6 +1234,8 @@ void amdgpu_device_invalidate_hdp(struct 
->> amdgpu_device *adev,
->>           struct amdgpu_ring *ring);
->>     void amdgpu_device_halt(struct amdgpu_device *adev);
->> +struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
->> +                        struct dma_fence *gang);
->>     /* atpx handler */
->>   #if defined(CONFIG_VGA_SWITCHEROO)
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index d78141e2c509..a116b8c08827 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -3512,6 +3512,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->>       adev->gmc.gart_size = 512 * 1024 * 1024;
->>       adev->accel_working = false;
->>       adev->num_rings = 0;
->> +    RCU_INIT_POINTER(adev->gang_submit, dma_fence_get_stub());
->>       adev->mman.buffer_funcs = NULL;
->>       adev->mman.buffer_funcs_ring = NULL;
->>       adev->vm_manager.vm_pte_funcs = NULL;
->> @@ -3989,6 +3990,7 @@ void amdgpu_device_fini_sw(struct amdgpu_device 
->> *adev)
->>       release_firmware(adev->firmware.gpu_info_fw);
->>       adev->firmware.gpu_info_fw = NULL;
->>       adev->accel_working = false;
->> + dma_fence_put(rcu_dereference_protected(adev->gang_submit, true));
->>         amdgpu_reset_fini(adev);
->>   @@ -5744,3 +5746,35 @@ void amdgpu_device_halt(struct amdgpu_device 
->> *adev)
->>       pci_disable_device(pdev);
->>       pci_wait_for_pending_transaction(pdev);
->>   }
->> +
->> +/**
->> + * amdgpu_device_switch_gang - switch to a new gang
->> + * @adev: amdgpu_device pointer
->> + * @gang: the gang to switch to
->> + *
->> + * Try to switch to a new gang or return a reference to the current 
->> gang if that
->> + * isn't possible.
->> + * Returns: Either NULL if we switched correctly or a reference to 
->> the existing
->> + * gang.
->> + */
->> +struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
->> +                        struct dma_fence *gang)
->> +{
->> +    struct dma_fence *old = NULL;
->> +
->> +    do {
->> +        dma_fence_put(old);
->> +        old = dma_fence_get_rcu_safe(&adev->gang_submit);
->> +
->> +        if (old == gang)
->> +            break;
->> +
->> +        if (!dma_fence_is_signaled(old))
->> +            return old;
->> +
->> +    } while (cmpxchg((struct dma_fence __force **)&adev->gang_submit,
->> +             old, gang) != old);
->> +
->> +    dma_fence_put(old);
->> +    return NULL;
->> +}
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->> index e07ceae36a5c..059e11c7898c 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->> @@ -169,11 +169,29 @@ static void amdgpu_job_free_cb(struct 
->> drm_sched_job *s_job)
->>           kfree(job);
->>   }
->>   +void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
->> +                struct amdgpu_job *leader)
->> +{
->> +    struct dma_fence *fence = &leader->base.s_fence->scheduled;
->> +
->> +    WARN_ON(job->gang_submit);
->> +
->> +    /*
->> +     * Don't add a reference when we are the gang leader to avoid 
->> circle
->> +     * dependency.
->> +     */
->> +    if (job != leader)
->> +        dma_fence_get(fence);
->> +    job->gang_submit = fence;
->> +}
->> +
->>   void amdgpu_job_free(struct amdgpu_job *job)
->>   {
->>       amdgpu_job_free_resources(job);
->>       amdgpu_sync_free(&job->sync);
->>       amdgpu_sync_free(&job->sched_sync);
->> +    if (job->gang_submit != &job->base.s_fence->scheduled)
->> +        dma_fence_put(job->gang_submit);
->>         /* only put the hw fence if has embedded fence */
->>       if (job->hw_fence.ops != NULL)
->> @@ -247,12 +265,16 @@ static struct dma_fence 
->> *amdgpu_job_dependency(struct drm_sched_job *sched_job,
->>           fence = amdgpu_sync_get_fence(&job->sync);
->>       }
->>   +    if (!fence && !job->gang_submit)
->> +        fence = amdgpu_device_switch_gang(ring->adev, 
->> job->gang_submit);
->> +
->
->
-> Why job->gang_submit should be NULL in the check above ? Don't you 
-> want to switch to an actual new gang fence here ?
-> Jobs that don't have gang_submit fence set are not gang jobs anyway 
-> and we don't care for this dependency
-> for them right ?
+[Public]
 
-Well exactly that's the point. That a job is not part of a gang submit 
-is signaled by setting the pointer to NULL.
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-If we don't check for NULL here we would just crash.
+Regards,
+Hawking
+-----Original Message-----
+From: Lazar, Lijo <Lijo.Lazar@amd.com>=20
+Sent: Thursday, March 3, 2022 11:33
+To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Refactor mode2 reset logic for v13.0.2
 
-Christian.
+[Public]
 
->
-> Andrey
->
->
->>       return fence;
->>   }
->>     static struct dma_fence *amdgpu_job_run(struct drm_sched_job 
->> *sched_job)
->>   {
->>       struct amdgpu_ring *ring = to_amdgpu_ring(sched_job->sched);
->> +    struct amdgpu_device *adev = ring->adev;
->>       struct dma_fence *fence = NULL, *finished;
->>       struct amdgpu_job *job;
->>       int r = 0;
->> @@ -264,8 +286,10 @@ static struct dma_fence *amdgpu_job_run(struct 
->> drm_sched_job *sched_job)
->>         trace_amdgpu_sched_run_job(job);
->>   -    if (job->vram_lost_counter != 
->> atomic_read(&ring->adev->vram_lost_counter))
->> -        dma_fence_set_error(finished, -ECANCELED);/* skip IB as well 
->> if VRAM lost */
->> +    /* Skip job if VRAM is lost and never resubmit gangs */
->> +    if (job->vram_lost_counter != 
->> atomic_read(&adev->vram_lost_counter) ||
->> +        (job->job_run_counter && job->gang_submit))
->> +        dma_fence_set_error(finished, -ECANCELED);
->>         if (finished->error < 0) {
->>           DRM_INFO("Skip scheduling IBs!\n");
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->> index 0bab8fe0d419..615328130615 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->> @@ -51,6 +51,7 @@ struct amdgpu_job {
->>       struct amdgpu_sync    sched_sync;
->>       struct dma_fence    hw_fence;
->>       struct dma_fence    *external_hw_fence;
->> +    struct dma_fence    *gang_submit;
->>       uint32_t        preamble_status;
->>       uint32_t                preemption_status;
->>       bool                    vm_needs_flush;
->> @@ -80,6 +81,8 @@ int amdgpu_job_alloc_with_ib(struct amdgpu_device 
->> *adev, unsigned size,
->>   void amdgpu_job_set_resources(struct amdgpu_job *job, struct 
->> amdgpu_bo *gds,
->>                     struct amdgpu_bo *gws, struct amdgpu_bo *oa);
->>   void amdgpu_job_free_resources(struct amdgpu_job *job);
->> +void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
->> +                struct amdgpu_job *leader);
->>   void amdgpu_job_free(struct amdgpu_job *job);
->>   int amdgpu_job_submit(struct amdgpu_job *job, struct 
->> drm_sched_entity *entity,
->>                 void *owner, struct dma_fence **f);
+<Ping>
 
+Thanks,
+Lijo
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lijo Laz=
+ar
+Sent: Monday, February 28, 2022 3:27 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: Refactor mode2 reset logic for v13.0.2
+
+Use IP version and refactor reset logic to apply to a list of devices.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/aldebaran.c    | 66 +++++++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c |  8 +--
+ 2 files changed, 54 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/a=
+mdgpu/aldebaran.c
+index a545df4efce1..c6cc493a5486 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
++++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+@@ -31,6 +31,17 @@
+ #include "amdgpu_psp.h"
+ #include "amdgpu_xgmi.h"
+=20
++static bool aldebaran_is_mode2_default(struct amdgpu_reset_control
++*reset_ctl) {
++	struct amdgpu_device *adev =3D (struct amdgpu_device=20
++*)reset_ctl->handle;
++
++	if ((adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(13, 0, 2) &&
++	     adev->gmc.xgmi.connected_to_cpu))
++		return true;
++
++	return false;
++}
++
+ static struct amdgpu_reset_handler *
+ aldebaran_get_reset_handler(struct amdgpu_reset_control *reset_ctl,
+ 			    struct amdgpu_reset_context *reset_context) @@ -48,7 +59,7 @@ aldeb=
+aran_get_reset_handler(struct amdgpu_reset_control *reset_ctl,
+ 		}
+ 	}
+=20
+-	if (adev->gmc.xgmi.connected_to_cpu) {
++	if (aldebaran_is_mode2_default(reset_ctl)) {
+ 		list_for_each_entry(handler, &reset_ctl->reset_handlers,
+ 				     handler_list) {
+ 			if (handler->reset_method =3D=3D AMD_RESET_METHOD_MODE2) { @@ -136,18 +=
+147,31 @@ static int  aldebaran_mode2_perform_reset(struct amdgpu_reset_con=
+trol *reset_ctl,
+ 			      struct amdgpu_reset_context *reset_context)  {
+-	struct amdgpu_device *tmp_adev =3D NULL;
+ 	struct amdgpu_device *adev =3D (struct amdgpu_device *)reset_ctl->handle;
++	struct amdgpu_device *tmp_adev =3D NULL;
++	struct list_head reset_device_list;
+ 	int r =3D 0;
+=20
+ 	dev_dbg(adev->dev, "aldebaran perform hw reset\n");
+-	if (reset_context->hive =3D=3D NULL) {
++	if (adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(13, 0, 2) &&
++	    reset_context->hive =3D=3D NULL) {
+ 		/* Wrong context, return error */
+ 		return -EINVAL;
+ 	}
+=20
+-	list_for_each_entry(tmp_adev, &reset_context->hive->device_list,
+-			     gmc.xgmi.head) {
++	INIT_LIST_HEAD(&reset_device_list);
++	if (reset_context->hive) {
++		list_for_each_entry (tmp_adev,
++				     &reset_context->hive->device_list,
++				     gmc.xgmi.head)
++			list_add_tail(&tmp_adev->reset_list,
++				      &reset_device_list);
++	} else {
++		list_add_tail(&reset_context->reset_req_dev->reset_list,
++			      &reset_device_list);
++	}
++
++	list_for_each_entry (tmp_adev, &reset_device_list, reset_list) {
+ 		mutex_lock(&tmp_adev->reset_cntl->reset_lock);
+ 		tmp_adev->reset_cntl->active_reset =3D AMD_RESET_METHOD_MODE2;
+ 	}
+@@ -155,8 +179,7 @@ aldebaran_mode2_perform_reset(struct amdgpu_reset_contr=
+ol *reset_ctl,
+ 	 * Mode2 reset doesn't need any sync between nodes in XGMI hive, instead =
+launch
+ 	 * them together so that they can be completed asynchronously on multiple=
+ nodes
+ 	 */
+-	list_for_each_entry(tmp_adev, &reset_context->hive->device_list,
+-			     gmc.xgmi.head) {
++	list_for_each_entry (tmp_adev, &reset_device_list, reset_list) {
+ 		/* For XGMI run all resets in parallel to speed up the process */
+ 		if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+ 			if (!queue_work(system_unbound_wq,
+@@ -174,9 +197,7 @@ aldebaran_mode2_perform_reset(struct amdgpu_reset_contr=
+ol *reset_ctl,
+=20
+ 	/* For XGMI wait for all resets to complete before proceed */
+ 	if (!r) {
+-		list_for_each_entry(tmp_adev,
+-				     &reset_context->hive->device_list,
+-				     gmc.xgmi.head) {
++		list_for_each_entry (tmp_adev, &reset_device_list, reset_list) {
+ 			if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+ 				flush_work(&tmp_adev->reset_cntl->reset_work);
+ 				r =3D tmp_adev->asic_reset_res;
+@@ -186,8 +207,7 @@ aldebaran_mode2_perform_reset(struct amdgpu_reset_contr=
+ol *reset_ctl,
+ 		}
+ 	}
+=20
+-	list_for_each_entry(tmp_adev, &reset_context->hive->device_list,
+-			     gmc.xgmi.head) {
++	list_for_each_entry (tmp_adev, &reset_device_list, reset_list) {
+ 		mutex_unlock(&tmp_adev->reset_cntl->reset_lock);
+ 		tmp_adev->reset_cntl->active_reset =3D AMD_RESET_METHOD_NONE;
+ 	}
+@@ -319,16 +339,30 @@ static int
+ aldebaran_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
+ 				  struct amdgpu_reset_context *reset_context)  {
+-	int r;
+ 	struct amdgpu_device *tmp_adev =3D NULL;
++	struct list_head reset_device_list;
++	int r;
+=20
+-	if (reset_context->hive =3D=3D NULL) {
++	if (reset_context->reset_req_dev->ip_versions[MP1_HWIP][0] =3D=3D
++		    IP_VERSION(13, 0, 2) &&
++	    reset_context->hive =3D=3D NULL) {
+ 		/* Wrong context, return error */
+ 		return -EINVAL;
+ 	}
+=20
+-	list_for_each_entry(tmp_adev, &reset_context->hive->device_list,
+-			     gmc.xgmi.head) {
++	INIT_LIST_HEAD(&reset_device_list);
++	if (reset_context->hive) {
++		list_for_each_entry (tmp_adev,
++				     &reset_context->hive->device_list,
++				     gmc.xgmi.head)
++			list_add_tail(&tmp_adev->reset_list,
++				      &reset_device_list);
++	} else {
++		list_add_tail(&reset_context->reset_req_dev->reset_list,
++			      &reset_device_list);
++	}
++
++	list_for_each_entry (tmp_adev, &reset_device_list, reset_list) {
+ 		dev_info(tmp_adev->dev,
+ 			 "GPU reset succeeded, trying to resume\n");
+ 		r =3D aldebaran_mode2_restore_ip(tmp_adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_reset.c
+index 02afd4115675..e9b9ce80f7d0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+@@ -36,8 +36,8 @@ int amdgpu_reset_init(struct amdgpu_device *adev)  {
+ 	int ret =3D 0;
+=20
+-	switch (adev->asic_type) {
+-	case CHIP_ALDEBARAN:
++	switch (adev->ip_versions[MP1_HWIP][0]) {
++	case IP_VERSION(13, 0, 2):
+ 		ret =3D aldebaran_reset_init(adev);
+ 		break;
+ 	default:
+@@ -51,8 +51,8 @@ int amdgpu_reset_fini(struct amdgpu_device *adev)  {
+ 	int ret =3D 0;
+=20
+-	switch (adev->asic_type) {
+-	case CHIP_ALDEBARAN:
++	switch (adev->ip_versions[MP1_HWIP][0]) {
++	case IP_VERSION(13, 0, 2):
+ 		ret =3D aldebaran_reset_fini(adev);
+ 		break;
+ 	default:
+--
+2.25.1
