@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7787CC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 05:50:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D404C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 05:50:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7BFD10ED14;
-	Mon,  7 Mar 2022 05:50:23 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2045.outbound.protection.outlook.com [40.107.93.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E126410EA68
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Mar 2022 05:50:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F05F610EA68;
+	Mon,  7 Mar 2022 05:50:35 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C287F10EA68
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Mar 2022 05:50:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=keqFbkIZDUNQC7qk4M2wq63atqIBFUhFVYyFgr85V5r6mLa5goaXPXpgOfwuTBqag3zBhn7CKFKoPpBJvXUpuC+MCqRKNxdKthG0pDX8i43aEZrXxv2znNqhJxt0r+HsLdJUm2RmUrCDKUzlbZGTPIc50K8Xo9RSq7kFcdyyskkU48i3n2x5zryAEBGsOwiAk1KCjWvC0fTZB47ffn6hBhRgtGG5fBBBm5AJ2Y1lSBciqjBxesMR43jNEnmuFoVsndR72UYHq2QD40ItgxylO358BT2A2d/vAASPJs/YiAh3cyygl+t/UrAvhs6PIrfNLY3LxyYVLO6uwbl/K49Itg==
+ b=SOiwNdGC15zHfsQoA5UUm4JcFt/FyRiSJuXnf8W8tnPx1KiHjg8iTam3HpfNobspRmIGOFINJH4odsZYtgVaUVWfpDaxMgERzSlRq8fTvVHHTz2jhve80B9vzZJnKU7ND5hDO4Qt08bwx/nyM/98/+A07AESlqrviSxmjeouUoUssRNFi/fYAH/CFsXJ4q87afSc3oaqDQUDdPoOLF1dCWeBgo/E+BD1a/H28Ppk/7IhoREnhizd7PRsAZTsYaVR9IKfmjvKdDtyF9RXnuBUeZ0WhE8HfPP4UQ3J4Q2P2MlZvKbQZz3TE7bHRPPz281fdpj5ij+NwwogzSueeBUt3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m7w1KEjD0BxJQPCqYe88a79RECvuMhXjhSCdygsy91I=;
- b=ePSqnqg50E21XfEpL104F3R3VCitKFChcm5DMuHJBK/4DyOJ5ZoUrXDbjMgnzdvc7yzEPd3d0tw8sZ8t0hIw7rDJddKe3OrguxRosxDGMIPEV9CW/ng7YxCsYmoG6oWRAz6ryMOwlvjehrOOy4zaKiftKZrn5+bAtXsnHqKruDyYEQlC6t1obbsOpujH0ZD4l3bIlM2+3vwKmqlgyAlqbDVhY7TlHmG/esVnqULrwHgUCH1TrNYof7qTT5s5SSCPwbNOi1gkKcOgSQ1TqxHUR3jPQdotxl1VH8OsbtjfKWEf3tk+HdHda3iYEjKlUNqDm+CyXMSB3itsAP9nwRbzFQ==
+ bh=C6gtuY9i5dePc2L1t7jwarGhLQSgqOuEQKUA9tXoE2k=;
+ b=Gr9GbEaUEPab3F0P4Ih9QmWmaiG2mM9edQ1xDUwk2+LrwhNqujOIC+qWU/8wtZpTYErsm+7pBHtEGRLniw2xRl1qOzKEdrjlXhoigvTgLpk+XcQNUbUFVwtAyhVpHM3B2zAuc9bDk138GrvcMVAAJ35NaYa6GHowiNI8Bu3mJDoq8fngEQheljvRYVX+tENdEmUx537ctvAGX4lQu4+ye7Vj0tpeYcgO6ffOT6qgTTtwIRT6TOyHI6gnUdqvhSa3TIX66f5+jWGNRiA7x6EEW4kOtGQIHMQzgvhdI1/2DAS3gs5HsS0HjBj2Bx7a9gXSbrW60Yp8DDibU6H7IjV7+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m7w1KEjD0BxJQPCqYe88a79RECvuMhXjhSCdygsy91I=;
- b=wAEl7x61BUDlrKYTPEmofu6CEwRDaHNKSZCun7aNTcyS3+r4ASJjIyC4UR9mL+aH2QBVw+kmY9G7g/9jSL3yn7B7I7cfiqyHTT2/puICh/AdzGTPGOX/uRq8bP2IScSI7ZLTNH6Kd7ri1DLOkbSJ8edEUAxbWMoxcRvt6bAqG2M=
-Received: from DM5PR12CA0004.namprd12.prod.outlook.com (2603:10b6:4:1::14) by
- SA0PR12MB4445.namprd12.prod.outlook.com (2603:10b6:806:95::15) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5038.14; Mon, 7 Mar 2022 05:50:18 +0000
-Received: from DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:1:cafe::9f) by DM5PR12CA0004.outlook.office365.com
- (2603:10b6:4:1::14) with Microsoft SMTP Server (version=TLS1_2,
+ bh=C6gtuY9i5dePc2L1t7jwarGhLQSgqOuEQKUA9tXoE2k=;
+ b=2+9k/3+wetSrzT1odzmMvQYAsiHcA36dE6vSsPS4pkXfXBoCCZrJ+y1rXbhfj2zCrIUOdBii1msq5C43woaWsfSVIjifIffXfGH6oLW+tOd5taYmXVDkcWMQ3Bgu0kV+1t+E+bEYQaEP1Ax2eOJ30V1oT2ZgW7ljycDmzwEkFLo=
+Received: from DS7PR03CA0283.namprd03.prod.outlook.com (2603:10b6:5:3ad::18)
+ by MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Mon, 7 Mar
+ 2022 05:50:31 +0000
+Received: from DM6NAM11FT067.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3ad:cafe::48) by DS7PR03CA0283.outlook.office365.com
+ (2603:10b6:5:3ad::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
- Transport; Mon, 7 Mar 2022 05:50:18 +0000
+ Transport; Mon, 7 Mar 2022 05:50:31 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,26 +45,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT062.mail.protection.outlook.com (10.13.173.40) with Microsoft SMTP
+ DM6NAM11FT067.mail.protection.outlook.com (10.13.172.76) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5038.14 via Frontend Transport; Mon, 7 Mar 2022 05:50:18 +0000
+ 15.20.5038.14 via Frontend Transport; Mon, 7 Mar 2022 05:50:31 +0000
 Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Sun, 6 Mar
- 2022 23:50:17 -0600
+ 2022 23:50:30 -0600
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Sun, 6 Mar
- 2022 23:50:17 -0600
+ 2022 23:50:29 -0600
 Received: from alan-new-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.18 via Frontend
- Transport; Sun, 6 Mar 2022 23:50:08 -0600
+ Transport; Sun, 6 Mar 2022 23:50:26 -0600
 From: Alan Liu <HaoPing.Liu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/21] drm/amd/display: move FPU associated DCN303 code to DML
- folder
-Date: Tue, 8 Mar 2022 05:09:30 +0800
-Message-ID: <20220307210942.444808-8-HaoPing.Liu@amd.com>
+Subject: [PATCH 08/21] drm/amd/display: Add link dp trace support
+Date: Tue, 8 Mar 2022 05:09:31 +0800
+Message-ID: <20220307210942.444808-9-HaoPing.Liu@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220307210942.444808-4-HaoPing.Liu@amd.com>
 References: <20220307210942.444808-4-HaoPing.Liu@amd.com>
@@ -73,27 +72,27 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d753198d-6140-4c32-d1a6-08d9fffe5c35
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4445:EE_
-X-Microsoft-Antispam-PRVS: <SA0PR12MB44455FFC4D7B817B939BBF07F5089@SA0PR12MB4445.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 81981b63-8242-4203-9ead-08d9fffe63de
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB43424B7021AB777EC2BDCEC1F5089@MN2PR12MB4342.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: juWrEv9GBjAm46nsPP6MMg0APABBU3XwQxMy4HP7P1LYa65VdgRKTerYjx+Ho3FSTqFSvl28hlio6wSee6RVYYGhXnysnsmdnRB3NTVfCwgTaz3ezSWtbkO8rsQZaiwh+7UZsB7aOVYLKsDzRK69+B8O3oLVvfjO37Nw2OBhOz4HJ4gA/DL8JP0x5WIWMUlGoU9IqO1H1sQ2g1dHHoT35QCt3EuGRFCh4pqIH2/YaQTfshcT5P08gqngwg5g53/NhN/CXbz2+Q7bqtQzQ6avzspZMssTSros8cMuh7jZuXAiImm03zkRU1x9H8OslYeHdE3HAJYe/ZMYdov7e0wY9USrLlZ/LqFs2BQreKYGXwoauzaBNQCZyLQTQPVTPuVhEQDHLvyO0RPobYY332/O/jI9OriMCkaBzRT2cj2RATb+rcbHkDUDnaQjDMwyBZZfXlGOTXtPrrL04Q10ghrph2z0aYgm35DU04/pUjtZk5FcaTtdxA7m0JF6PKZFuDF3B3E3n4OK8JfhGvaPwhSbnlv60pph0GDV0FgZrnypFTQ155dWhMwYW8YsDTow4rFPCEecq/ovENy2W6tkpa6pAsp/rsVN9LYxKNXXY3d8qJNYNp5H6/FOJx4LR1mMCEKZrHzHh9cjb6umK13QzBDrccHteBv0wwttnQQJX8n1ujyiY+nFyUwEHDkB9hI71M5UfJKRT674eNYrom8TV2wCDA==
+X-Microsoft-Antispam-Message-Info: RzRJywWEsdzMdd30rGlZ/nEvJBxZvnmBAKG/DH3nKh/pYuLrWXdxzJz75u45n1mbVILPY743gWQ5oxRwaxQ1o+oUqOK7vNaYROUHFEukawb7r8e59qTYLCg/7qX0OW8xGb+yXtX6dYcL4UNLPJWaQ1feqI+UD5Ey43uz8E5J4N9PVwQ96HYAzyVhkNfrIjEM95oMESZyV7Kb5qSB2NQI37IyraI0c0UFGKOtiueQUuN4vJWF3lVKcvF4LZKAT2dXK3MS5u7JvJu763aBvVYeNACRH5pUH8gkP+obTBhOxvy409gHSJTml66nnEDlZsR9+9IugGXfnsdsfddjWwp5ukW2q8fpRWRqR6KXIKdtQBEJD9aMugjsxi6bVyRwcMDiUh0fyuI0mKbeL02e8u8PYwqJLvdzgNK/Jqgq695viX/p7OObs/Bk5/V01j5szZnZs2CHiak6dOEzZ58AiqKbGSRUh3uNLoiAw/lHA6OVGUQ4cA1d+n3hxRcDJ4VQvy3hZUC/Zxx/lRCaTD3ARgiQK8k7jBtk1EQMRn6s+mxCghZklCVqDfRup3r/sodivUXX2o8bRhZopHtSHp+B5JpqnNF8yCVvTFnlvIu/Vggq10r/DcYjpFfLlt0QWP3Jieg0RP8Eun1nfjyhOeJLjQveNKjR95/2yzOiuaKlqLfPUTPdt6IGB0njVnPqTmQY5d0DxufNj8MSgPBMfnrLPVIcQQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(2616005)(82310400004)(81166007)(7696005)(36860700001)(86362001)(2906002)(356005)(966005)(316002)(47076005)(40140700001)(70206006)(70586007)(508600001)(8676002)(6666004)(4326008)(336012)(26005)(8936002)(426003)(5660300002)(186003)(83380400001)(30864003)(36756003)(40460700003)(54906003)(1076003)(6916009)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(2906002)(7696005)(1076003)(4326008)(30864003)(82310400004)(8936002)(508600001)(36756003)(5660300002)(336012)(8676002)(83380400001)(26005)(186003)(2616005)(426003)(70586007)(70206006)(36860700001)(356005)(316002)(6916009)(54906003)(81166007)(86362001)(6666004)(47076005)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 05:50:18.2505 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d753198d-6140-4c32-d1a6-08d9fffe5c35
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 05:50:31.1008 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81981b63-8242-4203-9ead-08d9fffe63de
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT067.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4445
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4342
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,481 +104,245 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Alan
- Liu <HaoPing.Liu@amd.com>, Jasdeep Dhillon <jasdeep.dhillon@amd.com>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+Cc: stylon.wang@amd.com, Alan Liu <HaoPing.Liu@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, Wenjing Liu <Wenjing.Liu@amd.com>, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
+ "Leo \(Hanghong\) Ma" <hanghong.ma@amd.com>, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Dhillon, Jasdeep" <Jasdeep.Dhillon@amd.com>
+From: "Leo (Hanghong) Ma" <hanghong.ma@amd.com>
 
-[Why & How]
-As part of the FPU isolation work documented in
-https://patchwork.freedesktop.org/series/93042/, isolate
-code that uses FPU in DCN303 to DML, where all FPU code
-should locate.
+[Why]
+It is nice to have link training and link loss status logging in
+our trace, and this patch add the all necessary accessors in dc
+side.
 
-Co-authored-by: Jasdeep Dhillon <jasdeep.dhillon@amd.com>
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+[How]
+1. Define dp_trace struct and create new file link_dp_trace.c and
+link_dp_trace.h;
+2. Add dp link training status update in dc_link_dp.c;
+
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
 Acked-by: Alan Liu <HaoPing.Liu@amd.com>
-Signed-off-by: Jasdeep Dhillon <jasdeep.dhillon@amd.com>
+Signed-off-by: Leo (Hanghong) Ma <hanghong.ma@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dcn303/Makefile    |  26 --
- .../amd/display/dc/dcn303/dcn303_resource.c   | 327 +---------------
- .../amd/display/dc/dcn303/dcn303_resource.h   |   3 +
- drivers/gpu/drm/amd/display/dc/dml/Makefile   |   2 +
- .../amd/display/dc/dml/dcn303/dcn303_fpu.c    | 362 ++++++++++++++++++
- .../amd/display/dc/dml/dcn303/dcn303_fpu.h    |  32 ++
- 6 files changed, 409 insertions(+), 343 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.h
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |   5 +
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  |  24 ++-
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  36 +++++
+ drivers/gpu/drm/amd/display/dc/link/Makefile  |   2 +-
+ .../drm/amd/display/dc/link/link_dp_trace.c   | 146 ++++++++++++++++++
+ .../drm/amd/display/dc/link/link_dp_trace.h   |  57 +++++++
+ 6 files changed, 268 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/link/link_dp_trace.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/link/link_dp_trace.h
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/Makefile b/drivers/gpu/drm/amd/display/dc/dcn303/Makefile
-index 6f7a1f2b49f0..8702e0b7fda3 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn303/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn303/Makefile
-@@ -8,32 +8,6 @@
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index b2ed2b683ba5..1951a92e3417 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -50,6 +50,7 @@
+ #include "inc/hw/panel_cntl.h"
+ #include "inc/link_enc_cfg.h"
+ #include "inc/link_dpcd.h"
++#include "link/link_dp_trace.h"
  
- DCN3_03 = dcn303_init.o dcn303_hwseq.o dcn303_resource.o
+ #include "dc/dcn30/dcn30_vpg.h"
  
--ifdef CONFIG_X86
--CFLAGS_$(AMDDALPATH)/dc/dcn303/dcn303_resource.o := -msse
--endif
--
--ifdef CONFIG_PPC64
--CFLAGS_$(AMDDALPATH)/dc/dcn303/dcn303_resource.o := -mhard-float -maltivec
--endif
--
--ifdef CONFIG_CC_IS_GCC
--ifeq ($(call cc-ifversion, -lt, 0701, y), y)
--IS_OLD_GCC = 1
--endif
--CFLAGS_$(AMDDALPATH)/dc/dcn303/dcn303_resource.o += -mhard-float
--endif
--
--ifdef CONFIG_X86
--ifdef IS_OLD_GCC
--# Stack alignment mismatch, proceed with caution.
--# GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
--# (8B stack alignment).
--CFLAGS_$(AMDDALPATH)/dc/dcn303/dcn303_resource.o += -mpreferred-stack-boundary=4
--else
--CFLAGS_$(AMDDALPATH)/dc/dcn303/dcn303_resource.o += -msse2
--endif
--endif
--
- AMD_DAL_DCN3_03 = $(addprefix $(AMDDALPATH)/dc/dcn303/,$(DCN3_03))
+@@ -1255,6 +1256,9 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 		    !sink->edid_caps.edid_hdmi)
+ 			sink->sink_signal = SIGNAL_TYPE_DVI_SINGLE_LINK;
  
- AMD_DISPLAY_FILES += $(AMD_DAL_DCN3_03)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-index 36649716e991..4fcbc0502808 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
-@@ -52,140 +52,10 @@
- #include "dpcs/dpcs_3_0_3_sh_mask.h"
- #include "nbio/nbio_2_3_offset.h"
++		if (link->local_sink && dc_is_dp_signal(sink_caps.signal))
++			dp_trace_init(link);
++
+ 		/* Connectivity log: detection */
+ 		for (i = 0; i < sink->dc_edid.length / DC_EDID_BLOCK_SIZE; i++) {
+ 			CONN_DATA_DETECT(link,
+@@ -1307,6 +1311,7 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 		link->dongle_max_pix_clk = 0;
  
--#define DC_LOGGER_INIT(logger)
-+#include "dml/dcn303/dcn303_fpu.h"
- 
--struct _vcs_dpi_ip_params_st dcn3_03_ip = {
--		.use_min_dcfclk = 0,
--		.clamp_min_dcfclk = 0,
--		.odm_capable = 1,
--		.gpuvm_enable = 1,
--		.hostvm_enable = 0,
--		.gpuvm_max_page_table_levels = 4,
--		.hostvm_max_page_table_levels = 4,
--		.hostvm_cached_page_table_levels = 0,
--		.pte_group_size_bytes = 2048,
--		.num_dsc = 2,
--		.rob_buffer_size_kbytes = 184,
--		.det_buffer_size_kbytes = 184,
--		.dpte_buffer_size_in_pte_reqs_luma = 64,
--		.dpte_buffer_size_in_pte_reqs_chroma = 34,
--		.pde_proc_buffer_size_64k_reqs = 48,
--		.dpp_output_buffer_pixels = 2560,
--		.opp_output_buffer_lines = 1,
--		.pixel_chunk_size_kbytes = 8,
--		.pte_enable = 1,
--		.max_page_table_levels = 2,
--		.pte_chunk_size_kbytes = 2,  // ?
--		.meta_chunk_size_kbytes = 2,
--		.writeback_chunk_size_kbytes = 8,
--		.line_buffer_size_bits = 789504,
--		.is_line_buffer_bpp_fixed = 0,  // ?
--		.line_buffer_fixed_bpp = 0,     // ?
--		.dcc_supported = true,
--		.writeback_interface_buffer_size_kbytes = 90,
--		.writeback_line_buffer_buffer_size = 0,
--		.max_line_buffer_lines = 12,
--		.writeback_luma_buffer_size_kbytes = 12,  // writeback_line_buffer_buffer_size = 656640
--		.writeback_chroma_buffer_size_kbytes = 8,
--		.writeback_chroma_line_buffer_width_pixels = 4,
--		.writeback_max_hscl_ratio = 1,
--		.writeback_max_vscl_ratio = 1,
--		.writeback_min_hscl_ratio = 1,
--		.writeback_min_vscl_ratio = 1,
--		.writeback_max_hscl_taps = 1,
--		.writeback_max_vscl_taps = 1,
--		.writeback_line_buffer_luma_buffer_size = 0,
--		.writeback_line_buffer_chroma_buffer_size = 14643,
--		.cursor_buffer_size = 8,
--		.cursor_chunk_size = 2,
--		.max_num_otg = 2,
--		.max_num_dpp = 2,
--		.max_num_wb = 1,
--		.max_dchub_pscl_bw_pix_per_clk = 4,
--		.max_pscl_lb_bw_pix_per_clk = 2,
--		.max_lb_vscl_bw_pix_per_clk = 4,
--		.max_vscl_hscl_bw_pix_per_clk = 4,
--		.max_hscl_ratio = 6,
--		.max_vscl_ratio = 6,
--		.hscl_mults = 4,
--		.vscl_mults = 4,
--		.max_hscl_taps = 8,
--		.max_vscl_taps = 8,
--		.dispclk_ramp_margin_percent = 1,
--		.underscan_factor = 1.11,
--		.min_vblank_lines = 32,
--		.dppclk_delay_subtotal = 46,
--		.dynamic_metadata_vm_enabled = true,
--		.dppclk_delay_scl_lb_only = 16,
--		.dppclk_delay_scl = 50,
--		.dppclk_delay_cnvc_formatter = 27,
--		.dppclk_delay_cnvc_cursor = 6,
--		.dispclk_delay_subtotal = 119,
--		.dcfclk_cstate_latency = 5.2, // SRExitTime
--		.max_inter_dcn_tile_repeaters = 8,
--		.max_num_hdmi_frl_outputs = 1,
--		.odm_combine_4to1_supported = false,
--		.xfc_supported = false,
--		.xfc_fill_bw_overhead_percent = 10.0,
--		.xfc_fill_constant_bytes = 0,
--		.gfx7_compat_tiling_supported = 0,
--		.number_of_cursors = 1,
--};
--
--struct _vcs_dpi_soc_bounding_box_st dcn3_03_soc = {
--		.clock_limits = {
--				{
--						.state = 0,
--						.dispclk_mhz = 1217.0,
--						.dppclk_mhz = 1217.0,
--						.phyclk_mhz = 810.0,
--						.phyclk_d18_mhz = 667.0,
--						.dscclk_mhz = 405.6,
--				},
--		},
-+#define DC_LOGGER_INIT(logger)
- 
--		.min_dcfclk = 500.0, /* TODO: set this to actual min DCFCLK */
--		.num_states = 1,
--		.sr_exit_time_us = 35.5,
--		.sr_enter_plus_exit_time_us = 40,
--		.urgent_latency_us = 4.0,
--		.urgent_latency_pixel_data_only_us = 4.0,
--		.urgent_latency_pixel_mixed_with_vm_data_us = 4.0,
--		.urgent_latency_vm_data_only_us = 4.0,
--		.urgent_out_of_order_return_per_channel_pixel_only_bytes = 4096,
--		.urgent_out_of_order_return_per_channel_pixel_and_vm_bytes = 4096,
--		.urgent_out_of_order_return_per_channel_vm_only_bytes = 4096,
--		.pct_ideal_dram_sdp_bw_after_urgent_pixel_only = 80.0,
--		.pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm = 60.0,
--		.pct_ideal_dram_sdp_bw_after_urgent_vm_only = 40.0,
--		.max_avg_sdp_bw_use_normal_percent = 60.0,
--		.max_avg_dram_bw_use_normal_percent = 40.0,
--		.writeback_latency_us = 12.0,
--		.max_request_size_bytes = 256,
--		.fabric_datapath_to_dcn_data_return_bytes = 64,
--		.dcn_downspread_percent = 0.5,
--		.downspread_percent = 0.38,
--		.dram_page_open_time_ns = 50.0,
--		.dram_rw_turnaround_time_ns = 17.5,
--		.dram_return_buffer_per_channel_bytes = 8192,
--		.round_trip_ping_latency_dcfclk_cycles = 156,
--		.urgent_out_of_order_return_per_channel_bytes = 4096,
--		.channel_interleave_bytes = 256,
--		.num_banks = 8,
--		.gpuvm_min_page_size_bytes = 4096,
--		.hostvm_min_page_size_bytes = 4096,
--		.dram_clock_change_latency_us = 404,
--		.dummy_pstate_latency_us = 5,
--		.writeback_dram_clock_change_latency_us = 23.0,
--		.return_bus_width_bytes = 64,
--		.dispclk_dppclk_vco_speed_mhz = 3650,
--		.xfc_bus_transport_time_us = 20,      // ?
--		.xfc_xbuf_latency_tolerance_us = 4,  // ?
--		.use_urgent_burst_bw = 1,            // ?
--		.do_urgent_latency_adjustment = true,
--		.urgent_latency_adjustment_fabric_clock_component_us = 1.0,
--		.urgent_latency_adjustment_fabric_clock_reference_mhz = 1000,
--};
- 
- static const struct dc_debug_options debug_defaults_drv = {
- 		.disable_dmcu = true,
-@@ -1031,24 +901,18 @@ static bool init_soc_bounding_box(struct dc *dc,  struct resource_pool *pool)
- 	loaded_ip->max_num_otg = pool->pipe_count;
- 	loaded_ip->max_num_dpp = pool->pipe_count;
- 	loaded_ip->clamp_min_dcfclk = dc->config.clamp_min_dcfclk;
-+	DC_FP_START();
- 	dcn20_patch_bounding_box(dc, loaded_bb);
-+	DC_FP_END();
- 
- 	if (dc->ctx->dc_bios->funcs->get_soc_bb_info) {
- 		struct bp_soc_bb_info bb_info = { 0 };
- 
- 		if (dc->ctx->dc_bios->funcs->get_soc_bb_info(
- 			    dc->ctx->dc_bios, &bb_info) == BP_RESULT_OK) {
--			if (bb_info.dram_clock_change_latency_100ns > 0)
--				dcn3_03_soc.dram_clock_change_latency_us =
--					bb_info.dram_clock_change_latency_100ns * 10;
--
--			if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
--				dcn3_03_soc.sr_enter_plus_exit_time_us =
--					bb_info.dram_sr_enter_exit_latency_100ns * 10;
--
--			if (bb_info.dram_sr_exit_latency_100ns > 0)
--				dcn3_03_soc.sr_exit_time_us =
--					bb_info.dram_sr_exit_latency_100ns * 10;
-+					DC_FP_START();
-+					dcn303_fpu_init_soc_bounding_box(bb_info);
-+					DC_FP_END();
- 		}
+ 		dc_link_clear_dprx_states(link);
++		dp_trace_reset(link);
  	}
  
-@@ -1186,183 +1050,12 @@ static void dcn303_destroy_resource_pool(struct resource_pool **pool)
- 	*pool = NULL;
- }
+ 	LINK_INFO("link=%d, dc_sink_in=%p is now %s prev_sink=%p edid same=%d\n",
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 6a213467c97c..0e84c54dc67e 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -39,6 +39,7 @@
+ #include "dce/dmub_hw_lock_mgr.h"
+ #include "inc/dc_link_dpia.h"
+ #include "inc/link_enc_cfg.h"
++#include "link/link_dp_trace.h"
  
--static void dcn303_get_optimal_dcfclk_fclk_for_uclk(unsigned int uclk_mts,
--		unsigned int *optimal_dcfclk,
--		unsigned int *optimal_fclk)
--{
--	double bw_from_dram, bw_from_dram1, bw_from_dram2;
--
--	bw_from_dram1 = uclk_mts * dcn3_03_soc.num_chans *
--		dcn3_03_soc.dram_channel_width_bytes * (dcn3_03_soc.max_avg_dram_bw_use_normal_percent / 100);
--	bw_from_dram2 = uclk_mts * dcn3_03_soc.num_chans *
--		dcn3_03_soc.dram_channel_width_bytes * (dcn3_03_soc.max_avg_sdp_bw_use_normal_percent / 100);
--
--	bw_from_dram = (bw_from_dram1 < bw_from_dram2) ? bw_from_dram1 : bw_from_dram2;
--
--	if (optimal_fclk)
--		*optimal_fclk = bw_from_dram /
--		(dcn3_03_soc.fabric_datapath_to_dcn_data_return_bytes *
--				(dcn3_03_soc.max_avg_sdp_bw_use_normal_percent / 100));
--
--	if (optimal_dcfclk)
--		*optimal_dcfclk =  bw_from_dram /
--		(dcn3_03_soc.return_bus_width_bytes * (dcn3_03_soc.max_avg_sdp_bw_use_normal_percent / 100));
--}
+ /*Travis*/
+ static const uint8_t DP_VGA_LVDS_CONVERTER_ID_2[] = "sivarT";
+@@ -2776,6 +2777,10 @@ bool perform_link_training_with_retries(
+ 	enum link_training_result status = LINK_TRAINING_CR_FAIL_LANE0;
+ 	struct dc_link_settings current_setting = *link_setting;
+ 	const struct link_hwss *link_hwss = get_link_hwss(link, &pipe_ctx->link_res);
++	int fail_count = 0;
++
++	dp_trace_commit_lt_init(link);
++
  
- void dcn303_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
+ 	if (dp_get_link_encoding_format(&current_setting) == DP_8b_10b_ENCODING)
+ 		/* We need to do this before the link training to ensure the idle
+@@ -2783,6 +2788,7 @@ bool perform_link_training_with_retries(
+ 		 */
+ 		link_hwss->setup_stream_encoder(pipe_ctx);
+ 
++	dp_trace_set_lt_start_timestamp(link, false);
+ 	for (j = 0; j < attempts; ++j) {
+ 
+ 		DC_LOG_HW_LINK_TRAINING("%s: Beginning link training attempt %u of %d\n",
+@@ -2838,10 +2844,15 @@ bool perform_link_training_with_retries(
+ 						skip_video_pattern);
+ 			}
+ 
++			dp_trace_lt_total_count_increment(link, false);
++			dp_trace_lt_result_update(link, status, false);
++			dp_trace_set_lt_end_timestamp(link, false);
+ 			if (status == LINK_TRAINING_SUCCESS)
+ 				return true;
+ 		}
+ 
++		fail_count++;
++		dp_trace_lt_fail_count_update(link, fail_count, false);
+ 		/* latest link training still fail, skip delay and keep PHY on
+ 		 */
+ 		if (j == (attempts - 1) && link->ep_type == DISPLAY_ENDPOINT_PHY)
+@@ -3309,6 +3320,8 @@ static bool dp_verify_link_cap(
+ 		} else {
+ 			(*fail_count)++;
+ 		}
++		dp_trace_lt_total_count_increment(link, true);
++		dp_trace_lt_result_update(link, status, true);
+ 		dp_disable_link_phy(link, &link_res, link->connector_signal);
+ 	} while (!success && decide_fallback_link_setting(link,
+ 			initial_link_settings, &cur_link_settings, status));
+@@ -3340,13 +3353,16 @@ bool dp_verify_link_cap_with_retries(
  {
--	unsigned int i, j;
--	unsigned int num_states = 0;
--
--	unsigned int dcfclk_mhz[DC__VOLTAGE_STATES] = {0};
--	unsigned int dram_speed_mts[DC__VOLTAGE_STATES] = {0};
--	unsigned int optimal_uclk_for_dcfclk_sta_targets[DC__VOLTAGE_STATES] = {0};
--	unsigned int optimal_dcfclk_for_uclk[DC__VOLTAGE_STATES] = {0};
--
--	unsigned int dcfclk_sta_targets[DC__VOLTAGE_STATES] = {694, 875, 1000, 1200};
--	unsigned int num_dcfclk_sta_targets = 4;
--	unsigned int num_uclk_states;
--
--
--	if (dc->ctx->dc_bios->vram_info.num_chans)
--		dcn3_03_soc.num_chans = dc->ctx->dc_bios->vram_info.num_chans;
--
--	if (dc->ctx->dc_bios->vram_info.dram_channel_width_bytes)
--		dcn3_03_soc.dram_channel_width_bytes = dc->ctx->dc_bios->vram_info.dram_channel_width_bytes;
--
--	dcn3_03_soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
--	dc->dml.soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
--
--	if (bw_params->clk_table.entries[0].memclk_mhz) {
--		int max_dcfclk_mhz = 0, max_dispclk_mhz = 0, max_dppclk_mhz = 0, max_phyclk_mhz = 0;
--
--		for (i = 0; i < MAX_NUM_DPM_LVL; i++) {
--			if (bw_params->clk_table.entries[i].dcfclk_mhz > max_dcfclk_mhz)
--				max_dcfclk_mhz = bw_params->clk_table.entries[i].dcfclk_mhz;
--			if (bw_params->clk_table.entries[i].dispclk_mhz > max_dispclk_mhz)
--				max_dispclk_mhz = bw_params->clk_table.entries[i].dispclk_mhz;
--			if (bw_params->clk_table.entries[i].dppclk_mhz > max_dppclk_mhz)
--				max_dppclk_mhz = bw_params->clk_table.entries[i].dppclk_mhz;
--			if (bw_params->clk_table.entries[i].phyclk_mhz > max_phyclk_mhz)
--				max_phyclk_mhz = bw_params->clk_table.entries[i].phyclk_mhz;
--		}
--		if (!max_dcfclk_mhz)
--			max_dcfclk_mhz = dcn3_03_soc.clock_limits[0].dcfclk_mhz;
--		if (!max_dispclk_mhz)
--			max_dispclk_mhz = dcn3_03_soc.clock_limits[0].dispclk_mhz;
--		if (!max_dppclk_mhz)
--			max_dppclk_mhz = dcn3_03_soc.clock_limits[0].dppclk_mhz;
--		if (!max_phyclk_mhz)
--			max_phyclk_mhz = dcn3_03_soc.clock_limits[0].phyclk_mhz;
--
--		if (max_dcfclk_mhz > dcfclk_sta_targets[num_dcfclk_sta_targets-1]) {
--			dcfclk_sta_targets[num_dcfclk_sta_targets] = max_dcfclk_mhz;
--			num_dcfclk_sta_targets++;
--		} else if (max_dcfclk_mhz < dcfclk_sta_targets[num_dcfclk_sta_targets-1]) {
--			for (i = 0; i < num_dcfclk_sta_targets; i++) {
--				if (dcfclk_sta_targets[i] > max_dcfclk_mhz) {
--					dcfclk_sta_targets[i] = max_dcfclk_mhz;
--					break;
--				}
--			}
--			/* Update size of array since we "removed" duplicates */
--			num_dcfclk_sta_targets = i + 1;
--		}
--
--		num_uclk_states = bw_params->clk_table.num_entries;
--
--		/* Calculate optimal dcfclk for each uclk */
--		for (i = 0; i < num_uclk_states; i++) {
--			dcn303_get_optimal_dcfclk_fclk_for_uclk(bw_params->clk_table.entries[i].memclk_mhz * 16,
--					&optimal_dcfclk_for_uclk[i], NULL);
--			if (optimal_dcfclk_for_uclk[i] < bw_params->clk_table.entries[0].dcfclk_mhz)
--				optimal_dcfclk_for_uclk[i] = bw_params->clk_table.entries[0].dcfclk_mhz;
--		}
--
--		/* Calculate optimal uclk for each dcfclk sta target */
--		for (i = 0; i < num_dcfclk_sta_targets; i++) {
--			for (j = 0; j < num_uclk_states; j++) {
--				if (dcfclk_sta_targets[i] < optimal_dcfclk_for_uclk[j]) {
--					optimal_uclk_for_dcfclk_sta_targets[i] =
--							bw_params->clk_table.entries[j].memclk_mhz * 16;
--					break;
--				}
--			}
--		}
--
--		i = 0;
--		j = 0;
--		/* create the final dcfclk and uclk table */
--		while (i < num_dcfclk_sta_targets && j < num_uclk_states && num_states < DC__VOLTAGE_STATES) {
--			if (dcfclk_sta_targets[i] < optimal_dcfclk_for_uclk[j] && i < num_dcfclk_sta_targets) {
--				dcfclk_mhz[num_states] = dcfclk_sta_targets[i];
--				dram_speed_mts[num_states++] = optimal_uclk_for_dcfclk_sta_targets[i++];
--			} else {
--				if (j < num_uclk_states && optimal_dcfclk_for_uclk[j] <= max_dcfclk_mhz) {
--					dcfclk_mhz[num_states] = optimal_dcfclk_for_uclk[j];
--					dram_speed_mts[num_states++] =
--							bw_params->clk_table.entries[j++].memclk_mhz * 16;
--				} else {
--					j = num_uclk_states;
--				}
--			}
--		}
--
--		while (i < num_dcfclk_sta_targets && num_states < DC__VOLTAGE_STATES) {
--			dcfclk_mhz[num_states] = dcfclk_sta_targets[i];
--			dram_speed_mts[num_states++] = optimal_uclk_for_dcfclk_sta_targets[i++];
--		}
--
--		while (j < num_uclk_states && num_states < DC__VOLTAGE_STATES &&
--				optimal_dcfclk_for_uclk[j] <= max_dcfclk_mhz) {
--			dcfclk_mhz[num_states] = optimal_dcfclk_for_uclk[j];
--			dram_speed_mts[num_states++] = bw_params->clk_table.entries[j++].memclk_mhz * 16;
--		}
--
--		dcn3_03_soc.num_states = num_states;
--		for (i = 0; i < dcn3_03_soc.num_states; i++) {
--			dcn3_03_soc.clock_limits[i].state = i;
--			dcn3_03_soc.clock_limits[i].dcfclk_mhz = dcfclk_mhz[i];
--			dcn3_03_soc.clock_limits[i].fabricclk_mhz = dcfclk_mhz[i];
--			dcn3_03_soc.clock_limits[i].dram_speed_mts = dram_speed_mts[i];
--
--			/* Fill all states with max values of all other clocks */
--			dcn3_03_soc.clock_limits[i].dispclk_mhz = max_dispclk_mhz;
--			dcn3_03_soc.clock_limits[i].dppclk_mhz  = max_dppclk_mhz;
--			dcn3_03_soc.clock_limits[i].phyclk_mhz  = max_phyclk_mhz;
--			/* Populate from bw_params for DTBCLK, SOCCLK */
--			if (!bw_params->clk_table.entries[i].dtbclk_mhz && i > 0)
--				dcn3_03_soc.clock_limits[i].dtbclk_mhz = dcn3_03_soc.clock_limits[i-1].dtbclk_mhz;
--			else
--				dcn3_03_soc.clock_limits[i].dtbclk_mhz = bw_params->clk_table.entries[i].dtbclk_mhz;
--			if (!bw_params->clk_table.entries[i].socclk_mhz && i > 0)
--				dcn3_03_soc.clock_limits[i].socclk_mhz = dcn3_03_soc.clock_limits[i-1].socclk_mhz;
--			else
--				dcn3_03_soc.clock_limits[i].socclk_mhz = bw_params->clk_table.entries[i].socclk_mhz;
--			/* These clocks cannot come from bw_params, always fill from dcn3_03_soc[1] */
--			/* FCLK, PHYCLK_D18, DSCCLK */
--			dcn3_03_soc.clock_limits[i].phyclk_d18_mhz = dcn3_03_soc.clock_limits[0].phyclk_d18_mhz;
--			dcn3_03_soc.clock_limits[i].dscclk_mhz = dcn3_03_soc.clock_limits[0].dscclk_mhz;
--		}
--
--		// WA: patch strobe modes to compensate for DCN303 BW issue
--		if (dcn3_03_soc.num_chans <= 4) {
--			for (i = 0; i < dcn3_03_soc.num_states; i++) {
--				if (dcn3_03_soc.clock_limits[i].dram_speed_mts > 1700)
--					break;
--
--				if (dcn3_03_soc.clock_limits[i].dram_speed_mts >= 1500) {
--					dcn3_03_soc.clock_limits[i].dcfclk_mhz = 100;
--					dcn3_03_soc.clock_limits[i].fabricclk_mhz = 100;
--				}
--			}
--		}
--
--		/* re-init DML with updated bb */
--		dml_init_instance(&dc->dml, &dcn3_03_soc, &dcn3_03_ip, DML_PROJECT_DCN30);
--		if (dc->current_state)
--			dml_init_instance(&dc->current_state->bw_ctx.dml, &dcn3_03_soc, &dcn3_03_ip, DML_PROJECT_DCN30);
--	}
-+	DC_FP_START();
-+	dcn303_fpu_update_bw_bounding_box(dc, bw_params);
-+	DC_FP_END();
+ 	int i = 0;
+ 	bool success = false;
++	int fail_count = 0;
++
++	dp_trace_detect_lt_init(link);
+ 
+ 	if (link->link_enc && link->link_enc->features.flags.bits.DP_IS_USB_C &&
+ 			link->dc->debug.usbc_combo_phy_reset_wa)
+ 		apply_usbc_combo_phy_reset_wa(link, known_limit_link_setting);
+ 
++	dp_trace_set_lt_start_timestamp(link, false);
+ 	for (i = 0; i < attempts; i++) {
+-		int fail_count = 0;
+ 		enum dc_connection_type type = dc_connection_none;
+ 
+ 		memset(&link->verified_link_cap, 0,
+@@ -3361,6 +3377,10 @@ bool dp_verify_link_cap_with_retries(
+ 		}
+ 		msleep(10);
+ 	}
++
++	dp_trace_lt_fail_count_update(link, fail_count, true);
++	dp_trace_set_lt_end_timestamp(link, true);
++
+ 	return success;
  }
  
- static struct resource_funcs dcn303_res_pool_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.h b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.h
-index 5b590c169763..9c7d79540900 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.h
-@@ -10,6 +10,9 @@
- 
- #include "core_types.h"
- 
-+extern struct _vcs_dpi_ip_params_st dcn3_03_ip;
-+extern struct _vcs_dpi_soc_bounding_box_st dcn3_03_soc;
+@@ -4627,6 +4647,8 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
+ 		status = false;
+ 		if (out_link_loss)
+ 			*out_link_loss = true;
 +
- struct resource_pool *dcn303_create_resource_pool(const struct dc_init_data *init_data, struct dc *dc);
++		dp_trace_link_loss_increment(link);
+ 	}
  
- void dcn303_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params);
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index b16c492593e2..6ab83c3e9c5c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -72,6 +72,7 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn31/display_mode_vba_31.o := $(dml_ccflags) $(fram
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn31/display_rq_dlg_calc_31.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn301/dcn301_fpu.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn302/dcn302_fpu.o := $(dml_ccflags)
-+CFLAGS_$(AMDDALPATH)/dc/dml/dcn303/dcn303_fpu.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dsc/rc_calc_fpu.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/calcs/dcn_calcs.o := $(dml_ccflags)
-@@ -113,6 +114,7 @@ DML += dcn30/display_mode_vba_30.o dcn30/display_rq_dlg_calc_30.o
- DML += dcn31/display_mode_vba_31.o dcn31/display_rq_dlg_calc_31.o
- DML += dcn301/dcn301_fpu.o
- DML += dcn302/dcn302_fpu.o
-+DML += dcn303/dcn303_fpu.o
- DML += dsc/rc_calc_fpu.o
- DML += calcs/dcn_calcs.o calcs/dcn_calc_math.o calcs/dcn_calc_auto.o
- endif
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c
+ 	if (link->type == dc_connection_sst_branch &&
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
+index ce6e8d013459..78e66e4bab5a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_link.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
+@@ -76,6 +76,28 @@ struct link_trace {
+ 	struct time_stamp time_stamp;
+ };
+ 
++struct dp_trace_lt_counts {
++	unsigned int total;
++	unsigned int fail;
++};
++
++struct dp_trace_lt {
++	struct dp_trace_lt_counts counts;
++	struct dp_trace_timestamps {
++		unsigned long long start;
++		unsigned long long end;
++	} timestamps;
++	enum link_training_result result;
++	bool is_logged;
++};
++
++struct dp_trace {
++	struct dp_trace_lt detect_lt_trace;
++	struct dp_trace_lt commit_lt_trace;
++	unsigned int link_loss_count;
++	bool is_initialized;
++};
++
+ /* PSR feature flags */
+ struct psr_settings {
+ 	bool psr_feature_enabled;		// PSR is supported by sink
+@@ -121,6 +143,8 @@ struct dc_link {
+ 
+ 	bool edp_sink_present;
+ 
++	struct dp_trace dp_trace;
++
+ 	/* caps is the same as reported_link_cap. link_traing use
+ 	 * reported_link_cap. Will clean up.  TODO
+ 	 */
+@@ -470,4 +494,16 @@ void dc_link_clear_dprx_states(struct dc_link *link);
+ struct gpio *get_hpd_gpio(struct dc_bios *dcb,
+ 		struct graphics_object_id link_id,
+ 		struct gpio_service *gpio_service);
++void dp_trace_reset(struct dc_link *link);
++bool dc_dp_trace_is_initialized(struct dc_link *link);
++unsigned long long dc_dp_trace_get_lt_end_timestamp(struct dc_link *link,
++		bool in_detection);
++void dc_dp_trace_set_is_logged_flag(struct dc_link *link,
++		bool in_detection,
++		bool is_logged);
++bool dc_dp_trace_is_logged(struct dc_link *link,
++		bool in_detection);
++struct dp_trace_lt_counts *dc_dp_trace_get_lt_counts(struct dc_link *link,
++		bool in_detection);
++unsigned int dc_dp_trace_get_link_loss_count(struct dc_link *link);
+ #endif /* DC_LINK_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dc/link/Makefile b/drivers/gpu/drm/amd/display/dc/link/Makefile
+index c4a69ba7cb62..054c2a727eb2 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/link/Makefile
+@@ -23,7 +23,7 @@
+ # It abstracts the control and status of back end pipe such as DIO, HPO, DPIA,
+ # PHY, HPD, DDC and etc).
+ 
+-LINK = link_hwss_dio.o link_hwss_dpia.o link_hwss_hpo_dp.o
++LINK = link_hwss_dio.o link_hwss_dpia.o link_hwss_hpo_dp.o link_dp_trace.o
+ 
+ AMD_DAL_LINK = $(addprefix $(AMDDALPATH)/dc/link/,$(LINK))
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dp_trace.c b/drivers/gpu/drm/amd/display/dc/link/link_dp_trace.c
 new file mode 100644
-index 000000000000..8fb14baed208
+index 000000000000..e7047391934b
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c
-@@ -0,0 +1,362 @@
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dp_trace.c
+@@ -0,0 +1,146 @@
 +/*
-+ * Copyright 2019-2021 Advanced Micro Devices, Inc.
++ * Copyright 2022 Advanced Micro Devices, Inc.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
@@ -602,352 +365,136 @@ index 000000000000..8fb14baed208
 + * Authors: AMD
 + *
 + */
-+#include "resource.h"
-+#include "clk_mgr.h"
-+#include "dcn20/dcn20_resource.h"
-+#include "dcn303/dcn303_resource.h"
++#include "dc_link.h"
++#include "link_dp_trace.h"
 +
-+#include "dml/dcn20/dcn20_fpu.h"
-+#include "dcn303_fpu.h"
-+
-+struct _vcs_dpi_ip_params_st dcn3_03_ip = {
-+		.use_min_dcfclk = 0,
-+		.clamp_min_dcfclk = 0,
-+		.odm_capable = 1,
-+		.gpuvm_enable = 1,
-+		.hostvm_enable = 0,
-+		.gpuvm_max_page_table_levels = 4,
-+		.hostvm_max_page_table_levels = 4,
-+		.hostvm_cached_page_table_levels = 0,
-+		.pte_group_size_bytes = 2048,
-+		.num_dsc = 2,
-+		.rob_buffer_size_kbytes = 184,
-+		.det_buffer_size_kbytes = 184,
-+		.dpte_buffer_size_in_pte_reqs_luma = 64,
-+		.dpte_buffer_size_in_pte_reqs_chroma = 34,
-+		.pde_proc_buffer_size_64k_reqs = 48,
-+		.dpp_output_buffer_pixels = 2560,
-+		.opp_output_buffer_lines = 1,
-+		.pixel_chunk_size_kbytes = 8,
-+		.pte_enable = 1,
-+		.max_page_table_levels = 2,
-+		.pte_chunk_size_kbytes = 2,  // ?
-+		.meta_chunk_size_kbytes = 2,
-+		.writeback_chunk_size_kbytes = 8,
-+		.line_buffer_size_bits = 789504,
-+		.is_line_buffer_bpp_fixed = 0,  // ?
-+		.line_buffer_fixed_bpp = 0,     // ?
-+		.dcc_supported = true,
-+		.writeback_interface_buffer_size_kbytes = 90,
-+		.writeback_line_buffer_buffer_size = 0,
-+		.max_line_buffer_lines = 12,
-+		.writeback_luma_buffer_size_kbytes = 12,  // writeback_line_buffer_buffer_size = 656640
-+		.writeback_chroma_buffer_size_kbytes = 8,
-+		.writeback_chroma_line_buffer_width_pixels = 4,
-+		.writeback_max_hscl_ratio = 1,
-+		.writeback_max_vscl_ratio = 1,
-+		.writeback_min_hscl_ratio = 1,
-+		.writeback_min_vscl_ratio = 1,
-+		.writeback_max_hscl_taps = 1,
-+		.writeback_max_vscl_taps = 1,
-+		.writeback_line_buffer_luma_buffer_size = 0,
-+		.writeback_line_buffer_chroma_buffer_size = 14643,
-+		.cursor_buffer_size = 8,
-+		.cursor_chunk_size = 2,
-+		.max_num_otg = 2,
-+		.max_num_dpp = 2,
-+		.max_num_wb = 1,
-+		.max_dchub_pscl_bw_pix_per_clk = 4,
-+		.max_pscl_lb_bw_pix_per_clk = 2,
-+		.max_lb_vscl_bw_pix_per_clk = 4,
-+		.max_vscl_hscl_bw_pix_per_clk = 4,
-+		.max_hscl_ratio = 6,
-+		.max_vscl_ratio = 6,
-+		.hscl_mults = 4,
-+		.vscl_mults = 4,
-+		.max_hscl_taps = 8,
-+		.max_vscl_taps = 8,
-+		.dispclk_ramp_margin_percent = 1,
-+		.underscan_factor = 1.11,
-+		.min_vblank_lines = 32,
-+		.dppclk_delay_subtotal = 46,
-+		.dynamic_metadata_vm_enabled = true,
-+		.dppclk_delay_scl_lb_only = 16,
-+		.dppclk_delay_scl = 50,
-+		.dppclk_delay_cnvc_formatter = 27,
-+		.dppclk_delay_cnvc_cursor = 6,
-+		.dispclk_delay_subtotal = 119,
-+		.dcfclk_cstate_latency = 5.2, // SRExitTime
-+		.max_inter_dcn_tile_repeaters = 8,
-+		.max_num_hdmi_frl_outputs = 1,
-+		.odm_combine_4to1_supported = false,
-+
-+		.xfc_supported = false,
-+		.xfc_fill_bw_overhead_percent = 10.0,
-+		.xfc_fill_constant_bytes = 0,
-+		.gfx7_compat_tiling_supported = 0,
-+		.number_of_cursors = 1,
-+};
-+
-+struct _vcs_dpi_soc_bounding_box_st dcn3_03_soc = {
-+		.clock_limits = {
-+				{
-+						.state = 0,
-+						.dispclk_mhz = 562.0,
-+						.dppclk_mhz = 300.0,
-+						.phyclk_mhz = 300.0,
-+						.phyclk_d18_mhz = 667.0,
-+						.dscclk_mhz = 405.6,
-+				},
-+		},
-+
-+		.min_dcfclk = 500.0, /* TODO: set this to actual min DCFCLK */
-+		.num_states = 1,
-+		.sr_exit_time_us = 35.5,
-+		.sr_enter_plus_exit_time_us = 40,
-+		.urgent_latency_us = 4.0,
-+		.urgent_latency_pixel_data_only_us = 4.0,
-+		.urgent_latency_pixel_mixed_with_vm_data_us = 4.0,
-+		.urgent_latency_vm_data_only_us = 4.0,
-+		.urgent_out_of_order_return_per_channel_pixel_only_bytes = 4096,
-+		.urgent_out_of_order_return_per_channel_pixel_and_vm_bytes = 4096,
-+		.urgent_out_of_order_return_per_channel_vm_only_bytes = 4096,
-+		.pct_ideal_dram_sdp_bw_after_urgent_pixel_only = 80.0,
-+		.pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm = 60.0,
-+		.pct_ideal_dram_sdp_bw_after_urgent_vm_only = 40.0,
-+		.max_avg_sdp_bw_use_normal_percent = 60.0,
-+		.max_avg_dram_bw_use_normal_percent = 40.0,
-+		.writeback_latency_us = 12.0,
-+		.max_request_size_bytes = 256,
-+		.fabric_datapath_to_dcn_data_return_bytes = 64,
-+		.dcn_downspread_percent = 0.5,
-+		.downspread_percent = 0.38,
-+		.dram_page_open_time_ns = 50.0,
-+		.dram_rw_turnaround_time_ns = 17.5,
-+		.dram_return_buffer_per_channel_bytes = 8192,
-+		.round_trip_ping_latency_dcfclk_cycles = 156,
-+		.urgent_out_of_order_return_per_channel_bytes = 4096,
-+		.channel_interleave_bytes = 256,
-+		.num_banks = 8,
-+		.gpuvm_min_page_size_bytes = 4096,
-+		.hostvm_min_page_size_bytes = 4096,
-+		.dram_clock_change_latency_us = 404,
-+		.dummy_pstate_latency_us = 5,
-+		.writeback_dram_clock_change_latency_us = 23.0,
-+		.return_bus_width_bytes = 64,
-+		.dispclk_dppclk_vco_speed_mhz = 3650,
-+		.xfc_bus_transport_time_us = 20,      // ?
-+		.xfc_xbuf_latency_tolerance_us = 4,  // ?
-+		.use_urgent_burst_bw = 1,            // ?
-+		.do_urgent_latency_adjustment = true,
-+		.urgent_latency_adjustment_fabric_clock_component_us = 1.0,
-+		.urgent_latency_adjustment_fabric_clock_reference_mhz = 1000,
-+};
-+
-+static void dcn303_get_optimal_dcfclk_fclk_for_uclk(unsigned int uclk_mts,
-+		unsigned int *optimal_dcfclk,
-+		unsigned int *optimal_fclk)
++void dp_trace_init(struct dc_link *link)
 +{
-+	double bw_from_dram, bw_from_dram1, bw_from_dram2;
-+
-+	bw_from_dram1 = uclk_mts * dcn3_03_soc.num_chans *
-+		dcn3_03_soc.dram_channel_width_bytes * (dcn3_03_soc.max_avg_dram_bw_use_normal_percent / 100);
-+	bw_from_dram2 = uclk_mts * dcn3_03_soc.num_chans *
-+		dcn3_03_soc.dram_channel_width_bytes * (dcn3_03_soc.max_avg_sdp_bw_use_normal_percent / 100);
-+
-+	bw_from_dram = (bw_from_dram1 < bw_from_dram2) ? bw_from_dram1 : bw_from_dram2;
-+
-+	if (optimal_fclk)
-+		*optimal_fclk = bw_from_dram /
-+		(dcn3_03_soc.fabric_datapath_to_dcn_data_return_bytes *
-+				(dcn3_03_soc.max_avg_sdp_bw_use_normal_percent / 100));
-+
-+	if (optimal_dcfclk)
-+		*optimal_dcfclk =  bw_from_dram /
-+		(dcn3_03_soc.return_bus_width_bytes * (dcn3_03_soc.max_avg_sdp_bw_use_normal_percent / 100));
++	memset(&link->dp_trace, 0, sizeof(link->dp_trace));
++	link->dp_trace.is_initialized = true;
 +}
 +
-+
-+void dcn303_fpu_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
++void dp_trace_reset(struct dc_link *link)
 +{
-+	unsigned int i, j;
-+	unsigned int num_states = 0;
-+
-+	unsigned int dcfclk_mhz[DC__VOLTAGE_STATES] = {0};
-+	unsigned int dram_speed_mts[DC__VOLTAGE_STATES] = {0};
-+	unsigned int optimal_uclk_for_dcfclk_sta_targets[DC__VOLTAGE_STATES] = {0};
-+	unsigned int optimal_dcfclk_for_uclk[DC__VOLTAGE_STATES] = {0};
-+
-+	unsigned int dcfclk_sta_targets[DC__VOLTAGE_STATES] = {694, 875, 1000, 1200};
-+	unsigned int num_dcfclk_sta_targets = 4;
-+	unsigned int num_uclk_states;
-+
-+    dc_assert_fp_enabled();
-+
-+	if (dc->ctx->dc_bios->vram_info.num_chans)
-+		dcn3_03_soc.num_chans = dc->ctx->dc_bios->vram_info.num_chans;
-+
-+	if (dc->ctx->dc_bios->vram_info.dram_channel_width_bytes)
-+		dcn3_03_soc.dram_channel_width_bytes = dc->ctx->dc_bios->vram_info.dram_channel_width_bytes;
-+
-+	dcn3_03_soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
-+	dc->dml.soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
-+
-+	if (bw_params->clk_table.entries[0].memclk_mhz) {
-+		int max_dcfclk_mhz = 0, max_dispclk_mhz = 0, max_dppclk_mhz = 0, max_phyclk_mhz = 0;
-+
-+		for (i = 0; i < MAX_NUM_DPM_LVL; i++) {
-+			if (bw_params->clk_table.entries[i].dcfclk_mhz > max_dcfclk_mhz)
-+				max_dcfclk_mhz = bw_params->clk_table.entries[i].dcfclk_mhz;
-+			if (bw_params->clk_table.entries[i].dispclk_mhz > max_dispclk_mhz)
-+				max_dispclk_mhz = bw_params->clk_table.entries[i].dispclk_mhz;
-+			if (bw_params->clk_table.entries[i].dppclk_mhz > max_dppclk_mhz)
-+				max_dppclk_mhz = bw_params->clk_table.entries[i].dppclk_mhz;
-+			if (bw_params->clk_table.entries[i].phyclk_mhz > max_phyclk_mhz)
-+				max_phyclk_mhz = bw_params->clk_table.entries[i].phyclk_mhz;
-+		}
-+		if (!max_dcfclk_mhz)
-+			max_dcfclk_mhz = dcn3_03_soc.clock_limits[0].dcfclk_mhz;
-+		if (!max_dispclk_mhz)
-+			max_dispclk_mhz = dcn3_03_soc.clock_limits[0].dispclk_mhz;
-+		if (!max_dppclk_mhz)
-+			max_dppclk_mhz = dcn3_03_soc.clock_limits[0].dppclk_mhz;
-+		if (!max_phyclk_mhz)
-+			max_phyclk_mhz = dcn3_03_soc.clock_limits[0].phyclk_mhz;
-+
-+		if (max_dcfclk_mhz > dcfclk_sta_targets[num_dcfclk_sta_targets-1]) {
-+			dcfclk_sta_targets[num_dcfclk_sta_targets] = max_dcfclk_mhz;
-+			num_dcfclk_sta_targets++;
-+		} else if (max_dcfclk_mhz < dcfclk_sta_targets[num_dcfclk_sta_targets-1]) {
-+			for (i = 0; i < num_dcfclk_sta_targets; i++) {
-+				if (dcfclk_sta_targets[i] > max_dcfclk_mhz) {
-+					dcfclk_sta_targets[i] = max_dcfclk_mhz;
-+					break;
-+				}
-+			}
-+			/* Update size of array since we "removed" duplicates */
-+			num_dcfclk_sta_targets = i + 1;
-+		}
-+
-+		num_uclk_states = bw_params->clk_table.num_entries;
-+
-+		/* Calculate optimal dcfclk for each uclk */
-+		for (i = 0; i < num_uclk_states; i++) {
-+			dcn303_get_optimal_dcfclk_fclk_for_uclk(bw_params->clk_table.entries[i].memclk_mhz * 16,
-+					&optimal_dcfclk_for_uclk[i], NULL);
-+			if (optimal_dcfclk_for_uclk[i] < bw_params->clk_table.entries[0].dcfclk_mhz)
-+				optimal_dcfclk_for_uclk[i] = bw_params->clk_table.entries[0].dcfclk_mhz;
-+		}
-+
-+		/* Calculate optimal uclk for each dcfclk sta target */
-+		for (i = 0; i < num_dcfclk_sta_targets; i++) {
-+			for (j = 0; j < num_uclk_states; j++) {
-+				if (dcfclk_sta_targets[i] < optimal_dcfclk_for_uclk[j]) {
-+					optimal_uclk_for_dcfclk_sta_targets[i] =
-+							bw_params->clk_table.entries[j].memclk_mhz * 16;
-+					break;
-+				}
-+			}
-+		}
-+
-+		i = 0;
-+		j = 0;
-+		/* create the final dcfclk and uclk table */
-+		while (i < num_dcfclk_sta_targets && j < num_uclk_states && num_states < DC__VOLTAGE_STATES) {
-+			if (dcfclk_sta_targets[i] < optimal_dcfclk_for_uclk[j] && i < num_dcfclk_sta_targets) {
-+				dcfclk_mhz[num_states] = dcfclk_sta_targets[i];
-+				dram_speed_mts[num_states++] = optimal_uclk_for_dcfclk_sta_targets[i++];
-+			} else {
-+				if (j < num_uclk_states && optimal_dcfclk_for_uclk[j] <= max_dcfclk_mhz) {
-+					dcfclk_mhz[num_states] = optimal_dcfclk_for_uclk[j];
-+					dram_speed_mts[num_states++] =
-+							bw_params->clk_table.entries[j++].memclk_mhz * 16;
-+				} else {
-+					j = num_uclk_states;
-+				}
-+			}
-+		}
-+
-+		while (i < num_dcfclk_sta_targets && num_states < DC__VOLTAGE_STATES) {
-+			dcfclk_mhz[num_states] = dcfclk_sta_targets[i];
-+			dram_speed_mts[num_states++] = optimal_uclk_for_dcfclk_sta_targets[i++];
-+		}
-+
-+		while (j < num_uclk_states && num_states < DC__VOLTAGE_STATES &&
-+				optimal_dcfclk_for_uclk[j] <= max_dcfclk_mhz) {
-+			dcfclk_mhz[num_states] = optimal_dcfclk_for_uclk[j];
-+			dram_speed_mts[num_states++] = bw_params->clk_table.entries[j++].memclk_mhz * 16;
-+		}
-+
-+		dcn3_03_soc.num_states = num_states;
-+		for (i = 0; i < dcn3_03_soc.num_states; i++) {
-+			dcn3_03_soc.clock_limits[i].state = i;
-+			dcn3_03_soc.clock_limits[i].dcfclk_mhz = dcfclk_mhz[i];
-+			dcn3_03_soc.clock_limits[i].fabricclk_mhz = dcfclk_mhz[i];
-+			dcn3_03_soc.clock_limits[i].dram_speed_mts = dram_speed_mts[i];
-+
-+			/* Fill all states with max values of all other clocks */
-+			dcn3_03_soc.clock_limits[i].dispclk_mhz = max_dispclk_mhz;
-+			dcn3_03_soc.clock_limits[i].dppclk_mhz  = max_dppclk_mhz;
-+			dcn3_03_soc.clock_limits[i].phyclk_mhz  = max_phyclk_mhz;
-+			/* Populate from bw_params for DTBCLK, SOCCLK */
-+			if (!bw_params->clk_table.entries[i].dtbclk_mhz && i > 0)
-+				dcn3_03_soc.clock_limits[i].dtbclk_mhz = dcn3_03_soc.clock_limits[i-1].dtbclk_mhz;
-+			else
-+				dcn3_03_soc.clock_limits[i].dtbclk_mhz = bw_params->clk_table.entries[i].dtbclk_mhz;
-+			if (!bw_params->clk_table.entries[i].socclk_mhz && i > 0)
-+				dcn3_03_soc.clock_limits[i].socclk_mhz = dcn3_03_soc.clock_limits[i-1].socclk_mhz;
-+			else
-+				dcn3_03_soc.clock_limits[i].socclk_mhz = bw_params->clk_table.entries[i].socclk_mhz;
-+			/* These clocks cannot come from bw_params, always fill from dcn3_03_soc[1] */
-+			/* FCLK, PHYCLK_D18, DSCCLK */
-+			dcn3_03_soc.clock_limits[i].phyclk_d18_mhz = dcn3_03_soc.clock_limits[0].phyclk_d18_mhz;
-+			dcn3_03_soc.clock_limits[i].dscclk_mhz = dcn3_03_soc.clock_limits[0].dscclk_mhz;
-+		}
-+
-+		if (dcn3_03_soc.num_chans <= 4) {
-+			for (i = 0; i < dcn3_03_soc.num_states; i++) {
-+				if (dcn3_03_soc.clock_limits[i].dram_speed_mts > 1700)
-+					break;
-+
-+				if (dcn3_03_soc.clock_limits[i].dram_speed_mts >= 1500) {
-+					dcn3_03_soc.clock_limits[i].dcfclk_mhz = 100;
-+					dcn3_03_soc.clock_limits[i].fabricclk_mhz = 100;
-+				}
-+			}
-+		}
-+
-+		/* re-init DML with updated bb */
-+		dml_init_instance(&dc->dml, &dcn3_03_soc, &dcn3_03_ip, DML_PROJECT_DCN30);
-+		if (dc->current_state)
-+			dml_init_instance(&dc->current_state->bw_ctx.dml, &dcn3_03_soc, &dcn3_03_ip, DML_PROJECT_DCN30);
-+	}
++	memset(&link->dp_trace, 0, sizeof(link->dp_trace));
 +}
 +
-+void dcn303_fpu_init_soc_bounding_box(struct bp_soc_bb_info bb_info)
++bool dc_dp_trace_is_initialized(struct dc_link *link)
 +{
-+	dc_assert_fp_enabled();
-+
-+	if (bb_info.dram_clock_change_latency_100ns > 0)
-+				dcn3_03_soc.dram_clock_change_latency_us =
-+					bb_info.dram_clock_change_latency_100ns * 10;
-+
-+			if (bb_info.dram_sr_enter_exit_latency_100ns > 0)
-+				dcn3_03_soc.sr_enter_plus_exit_time_us =
-+					bb_info.dram_sr_enter_exit_latency_100ns * 10;
-+
-+			if (bb_info.dram_sr_exit_latency_100ns > 0)
-+				dcn3_03_soc.sr_exit_time_us =
-+					bb_info.dram_sr_exit_latency_100ns * 10;
++	return link->dp_trace.is_initialized;
 +}
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.h
++
++void dp_trace_detect_lt_init(struct dc_link *link)
++{
++	memset(&link->dp_trace.detect_lt_trace, 0, sizeof(link->dp_trace.detect_lt_trace));
++}
++
++void dp_trace_commit_lt_init(struct dc_link *link)
++{
++	memset(&link->dp_trace.commit_lt_trace, 0, sizeof(link->dp_trace.commit_lt_trace));
++}
++
++void dp_trace_link_loss_increment(struct dc_link *link)
++{
++	link->dp_trace.link_loss_count++;
++}
++
++void dp_trace_lt_fail_count_update(struct dc_link *link,
++		unsigned int fail_count,
++		bool in_detection)
++{
++	if (in_detection)
++		link->dp_trace.detect_lt_trace.counts.fail = fail_count;
++	else
++		link->dp_trace.commit_lt_trace.counts.fail = fail_count;
++}
++
++void dp_trace_lt_total_count_increment(struct dc_link *link,
++		bool in_detection)
++{
++	if (in_detection)
++		link->dp_trace.detect_lt_trace.counts.total++;
++	else
++		link->dp_trace.commit_lt_trace.counts.total++;
++}
++
++void dc_dp_trace_set_is_logged_flag(struct dc_link *link,
++		bool in_detection,
++		bool is_logged)
++{
++	if (in_detection)
++		link->dp_trace.detect_lt_trace.is_logged = is_logged;
++	else
++		link->dp_trace.commit_lt_trace.is_logged = is_logged;
++}
++
++bool dc_dp_trace_is_logged(struct dc_link *link,
++		bool in_detection)
++{
++	if (in_detection)
++		return link->dp_trace.detect_lt_trace.is_logged;
++	else
++		return link->dp_trace.commit_lt_trace.is_logged;
++}
++
++void dp_trace_lt_result_update(struct dc_link *link,
++		enum link_training_result result,
++		bool in_detection)
++{
++	if (in_detection)
++		link->dp_trace.detect_lt_trace.result = result;
++	else
++		link->dp_trace.commit_lt_trace.result = result;
++}
++
++void dp_trace_set_lt_start_timestamp(struct dc_link *link,
++		bool in_detection)
++{
++	if (in_detection)
++		link->dp_trace.detect_lt_trace.timestamps.start = dm_get_timestamp(link->dc->ctx);
++	else
++		link->dp_trace.commit_lt_trace.timestamps.start = dm_get_timestamp(link->dc->ctx);
++}
++
++void dp_trace_set_lt_end_timestamp(struct dc_link *link,
++		bool in_detection)
++{
++	if (in_detection)
++		link->dp_trace.detect_lt_trace.timestamps.end = dm_get_timestamp(link->dc->ctx);
++	else
++		link->dp_trace.commit_lt_trace.timestamps.end = dm_get_timestamp(link->dc->ctx);
++}
++
++unsigned long long dc_dp_trace_get_lt_end_timestamp(struct dc_link *link,
++		bool in_detection)
++{
++	if (in_detection)
++		return link->dp_trace.detect_lt_trace.timestamps.end;
++	else
++		return link->dp_trace.commit_lt_trace.timestamps.end;
++}
++
++struct dp_trace_lt_counts *dc_dp_trace_get_lt_counts(struct dc_link *link,
++		bool in_detection)
++{
++	if (in_detection)
++		return &link->dp_trace.detect_lt_trace.counts;
++	else
++		return &link->dp_trace.commit_lt_trace.counts;
++}
++
++unsigned int dc_dp_trace_get_link_loss_count(struct dc_link *link)
++{
++	return link->dp_trace.link_loss_count;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dp_trace.h b/drivers/gpu/drm/amd/display/dc/link/link_dp_trace.h
 new file mode 100644
-index 000000000000..92ec833fa528
+index 000000000000..702f97c6ead0
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.h
-@@ -0,0 +1,32 @@
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dp_trace.h
+@@ -0,0 +1,57 @@
 +/*
-+ * Copyright 2019-2021 Advanced Micro Devices, Inc.
++ * Copyright 2022 Advanced Micro Devices, Inc.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
@@ -970,14 +517,39 @@ index 000000000000..92ec833fa528
 + * Authors: AMD
 + *
 + */
++#ifndef __LINK_DP_TRACE_H__
++#define __LINK_DP_TRACE_H__
 +
-+#ifndef __DCN303_FPU_H__
-+#define __DCN303_FPU_H__
++void dp_trace_init(struct dc_link *link);
++void dp_trace_reset(struct dc_link *link);
++bool dc_dp_trace_is_initialized(struct dc_link *link);
++void dp_trace_detect_lt_init(struct dc_link *link);
++void dp_trace_commit_lt_init(struct dc_link *link);
++void dp_trace_link_loss_increment(struct dc_link *link);
++void dp_trace_lt_fail_count_update(struct dc_link *link,
++		unsigned int fail_count,
++		bool in_detection);
++void dp_trace_lt_total_count_increment(struct dc_link *link,
++		bool in_detection);
++void dc_dp_trace_set_is_logged_flag(struct dc_link *link,
++		bool in_detection,
++		bool is_logged);
++bool dc_dp_trace_is_logged(struct dc_link *link,
++		bool in_detection);
++void dp_trace_lt_result_update(struct dc_link *link,
++		enum link_training_result result,
++		bool in_detection);
++void dp_trace_set_lt_start_timestamp(struct dc_link *link,
++		bool in_detection);
++void dp_trace_set_lt_end_timestamp(struct dc_link *link,
++		bool in_detection);
++unsigned long long dc_dp_trace_get_lt_end_timestamp(struct dc_link *link,
++		bool in_detection);
++struct dp_trace_lt_counts *dc_dp_trace_get_lt_counts(struct dc_link *link,
++		bool in_detection);
++unsigned int dc_dp_trace_get_link_loss_count(struct dc_link *link);
 +
-+void dcn303_fpu_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params);
-+void dcn303_fpu_init_soc_bounding_box(struct bp_soc_bb_info bb_info);
-+
-+#endif /* __DCN303_FPU_H__*/
++#endif /* __LINK_DP_TRACE_H__ */
 -- 
 2.25.1
 
