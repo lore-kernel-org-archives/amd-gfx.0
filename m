@@ -4,90 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7273C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Mar 2022 20:08:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44D78C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 03:12:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 666B110E165;
-	Mon,  7 Mar 2022 20:08:35 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2070.outbound.protection.outlook.com [40.107.237.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B023210E15F;
- Mon,  7 Mar 2022 20:08:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 843E010E22B;
+	Tue,  8 Mar 2022 03:12:51 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2049.outbound.protection.outlook.com [40.107.92.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA90B10E22B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Mar 2022 03:12:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hyRlNECiX7kSjjvUGwPHQjgRhBxKGl/D4Tv5SlOQdbk5He94/rsGKqdgP9KB4MeZazyKAXqGKZZd9UPEFGqsdGgxZGsMKBax0qR3FYBFiQkmjmo1PRo4qKOpJyACki9V0UTOcXyjhxlg0omzzgpC109/f+RVe9OTbPEANy5ej4BHr6ip/cXC2O/XGZkzIX/h5xCJ4NYwq7NJnaRjcXGhDeQHzxkAHNTJl+tAcpIiLXyn/cXBwvjEh9AOUsGPwJxrUIec4qFoQEJ7gPfhNhwo79lpSxCKNvgjWjy3CygGNYTPRZgzv0JXb6f8A5y+YzLnmrKkPyIGbsFN0RnhYC/jxQ==
+ b=Y3IXMgcGyv++xDUzdhsaVt6YWH2dqnZmLOgVHoVnhMH2le3CC3l88GCmfKOtaxJK8AgpmosFbKphmrbPfLcMhdkMeLi11G8tKVcNZwCl1IgYOBIgZjUDJmACQ4p3KZm/6D37BK/t4QDZAgx30Rfgt8e8++SmlkLFqg29oa67xPZ+rslkh2hJprsk9YFV+yJ99N7k6v3+UlpvujcL7VcAohvAWBmdM14Q8dOWx+lCRx0S03pPJaMF+fvQwYvYQyE5MDJv0o5Riend2ROpwdFol+0juzp/LVImcoUvK4Atq/DIzrm0EzF6mU36bSPpmtZVvfWQ9/JPWSjQk8xdRy/IAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M5f6GjSJImpLzzASidsVR6XcBPa/guj8wdFVu0OVR9s=;
- b=bwmp70W6OKH4CazbEzPmBtS9B/0omorIiK+yHnpJ36o1dGhwDosPrg5W1ioeOhyY885GIPgxcuxPVwhS9+ZYKMhcO5sryB7DzrqMSkAU06vSYOn5YRvfOiSgfPv5ioDnmwXCeW8pewCaNc0GJ+YEdZcP+sUNbOfHeB1g8+lnRD4EpfJzSdxxtM2vyQq5I6WnK65Rc0GOB46YBtqigCah4USdsP+cCPjLtPslXIYWSKGXAMDBrTLftUlUzUdfbI3ptpHiuEkjheHiLwazx5sD3DZZNX3oYmyY54zGvNCRUsclG3BrYbwgG0wxMwNWRYhVpomoHERvhUwthIDif5c6ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=wMMc+nqhvAPBGkmD2phz8TwYNNEERZPKX1NiDRH8xNc=;
+ b=V/VXMfvd+9htIjEkIaHUMPEk37bhY09//Yd/P13gxnGTSyqbPbW2TMKhlAbfuPsdTM4bbMr7klgspALFv2za0H/n2Os+fkycOEQSUYfQDaTRo4Jq8KChMXbvEBIr/K3WnEj4PLnG6TUoeWwH/cqAhv+JeyCutJsOkrz0HTQJ+yXYgmvpvSKJNNLLH00SK9U1ChnoC3zwJj00cDbgBfEB8bBWMvrkvfcPRfcvGz0+lm/zYmIJ9nUvtdBAke2Zztq76mOpQHajRWxJbU9C/3Vq10Jer167ZH4KgaEb+mGRAFDwwAUqGRgP5vd2i7JBv3w1R2jv1g+ebR77xP7lavFi3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M5f6GjSJImpLzzASidsVR6XcBPa/guj8wdFVu0OVR9s=;
- b=jTK2rjG4VCER3v+91RvenA1F8m1Vgb37+pL3S580rLe/oTD8SopZr6SSRdz+zCz5sHUYVPTRrnYDtlUtaqfvCWt5CHFRYDM5XWWSndbRt15WTd9QolhXbBmY3HmmHutrlaUg3TPmHenOZ8MXqcUgAf0/P10CS2oMs0XgHBL422M=
-Received: from MWHPR10CA0066.namprd10.prod.outlook.com (2603:10b6:300:2c::28)
- by BL0PR12MB4914.namprd12.prod.outlook.com (2603:10b6:208:1c4::16)
+ bh=wMMc+nqhvAPBGkmD2phz8TwYNNEERZPKX1NiDRH8xNc=;
+ b=D8pMoNUz5mStFE0xkCk0n624tKiI1TuHNupbvF8f8uu5hsL7QZ9t3NGjgRT2N5uDDzMglCletrL4p9Y/bqTnE+qR+vVzagBRKjuZkb8wdy/i9T6DIXSRwI2hdyb2BuzJeQb4BbiijDgzD/MlhudpX5nFXzOD/hvOvw+4d5KU2ZE=
+Received: from CH2PR12MB4215.namprd12.prod.outlook.com (2603:10b6:610:ab::24)
+ by CY4PR12MB1893.namprd12.prod.outlook.com (2603:10b6:903:127::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Mon, 7 Mar
- 2022 20:08:30 +0000
-Received: from CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:2c:cafe::9c) by MWHPR10CA0066.outlook.office365.com
- (2603:10b6:300:2c::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
- Transport; Mon, 7 Mar 2022 20:08:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT042.mail.protection.outlook.com (10.13.174.250) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5038.14 via Frontend Transport; Mon, 7 Mar 2022 20:08:29 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Mon, 7 Mar
- 2022 14:08:27 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu, amdkfd drm-next-5.18
-Date: Mon, 7 Mar 2022 15:08:13 -0500
-Message-ID: <20220307200813.77378-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 21d87e00-e8c3-43a2-d06d-08da00763f72
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4914:EE_
-X-Microsoft-Antispam-PRVS: <BL0PR12MB491469250F436F4C5613B868F7089@BL0PR12MB4914.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1fKbJfgQ2LQ0vhYA9KB/w1ksboS2P2e2EoEivgx4GB8nwnvWCyomWtGHIvckylBVFM+1inlkRhUjAJJWJm8CH4xAxOP9/dAgi9aJlE7iazHZ4x4VIvOJxZa5BNvecZdmGpjoAxXPGkCdvDlmEWCI1EI5JkO5MUkw2FUXmozRfY5cSBVib6b8SnXYHbXamO7PGC5xZt0w1f/x2JD/rQn2JQN57s77YBmfAKP1j+lb8NqDj88sRrTij9/sSg041LRyP5BR9C2bxbISy+ta4IIWvf8nK0kaGBzNhr/L2CY3/HyHB6oj9OgWCbcBwW00O6zTApJR5jht7kIvDmRCAQNShaKtqsaZUeGFS+aUNuqGmT8ik+CS89/AzkqGcAiSQ1H2aqkSfgM9BCNmXv+hOj36tP6+UD8sT0FxLiTQUXPCFEckAH3l5xyMFtRgIb65Dqm7lDorrHcwkcDtvQh9i+InXu6WnBssZc5VF2ilnAHgnsRLEXDAJfML7dtIJ/j02pcMZ8vRFpSAFr9aP9TSZMCwz8FsHLkXpx6vqWHNLWsDvNV4C5EuJT8cXK+top7PhN/xzpSVLTXC/JEF6IY9roEgh3B7gjFu6ZVo4kf2UfW0hUYwNRhwqPwSWq3ntoh4W8ipWqQ0iJNdhMj+EUPrHDCUbwRr7NDI/gRHIehonG2aILw2y14qTSB1L3u6+/lLCW9Vuek4vw49dPxp59ryz9YGotuCBLkfsPEsViTF4NLrc9k=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(70206006)(70586007)(8936002)(81166007)(426003)(336012)(356005)(66574015)(40460700003)(316002)(5660300002)(82310400004)(26005)(508600001)(110136005)(4326008)(8676002)(1076003)(186003)(86362001)(16526019)(6666004)(966005)(36756003)(7696005)(47076005)(36860700001)(2906002)(83380400001)(2616005)(21314003)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Tue, 8 Mar
+ 2022 03:12:46 +0000
+Received: from CH2PR12MB4215.namprd12.prod.outlook.com
+ ([fe80::e9e8:9acb:62ae:8fb3]) by CH2PR12MB4215.namprd12.prod.outlook.com
+ ([fe80::e9e8:9acb:62ae:8fb3%5]) with mapi id 15.20.5038.027; Tue, 8 Mar 2022
+ 03:12:46 +0000
+From: "Chai, Thomas" <YiPeng.Chai@amd.com>
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH V2] drm/amdgpu: Move common initialization operations of
+ each ras block to one function
+Thread-Topic: [PATCH V2] drm/amdgpu: Move common initialization operations of
+ each ras block to one function
+Thread-Index: AQHYMf9uF6lp38P3wk6fIN2tzrfx0ayzomSAgAEuUyA=
+Date: Tue, 8 Mar 2022 03:12:46 +0000
+Message-ID: <CH2PR12MB4215652CBE9C978A705F219AFC099@CH2PR12MB4215.namprd12.prod.outlook.com>
+References: <20220307084259.1752140-1-YiPeng.Chai@amd.com>
+ <DM5PR12MB2469A8BB6896786AB2059A7AF1089@DM5PR12MB2469.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB2469A8BB6896786AB2059A7AF1089@DM5PR12MB2469.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-08T03:12:34Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=dfc9bfd6-1409-4559-b3b5-ea5e9b3645c8;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-03-08T03:12:43Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: d2cd7185-15d9-4bb3-8688-02865c2a4466
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 6346ad15-e957-4bd7-8d88-08da00b184c2
+x-ms-traffictypediagnostic: CY4PR12MB1893:EE_
+x-microsoft-antispam-prvs: <CY4PR12MB1893F3F64972EB056EAC3A55FC099@CY4PR12MB1893.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Qa9o/VJpH9UYuQDLJEFtX7mqWNHxI0Ftzd5iVrghcZqalDeOPPxxUXgOWGkv9ZuwHyD9OIE7WOZlHJMOaTD3QmzjWtyQwDq6UU1lqkl4qenF2Ac3qjRg1JyNU+A043QRK7vYH2jKZ2Muj1fj7NrGW5A7Sn1/9qA40yk/DotNx5Mk1SlzpzMjstMiH0Sjqf7zs8VHWrFaBUeIYHZ4fhm1tHazJEJ3yCpq0MwSoZz89i56m+aPGEjZkkbwbQ1rtSJpT2/28QZ3XGMteMzRQWr46Gv1r1qCZsiXWiSLu9asQKeRfL+vwfXbr65wd3PLUfyneqsCBTXzDnuPAcFqkrpNAwyPcyPQqv5LZcIHIq7n8HnNyNerxhPIW6x5AozHrr3H8bNdVfjSPrY9LvMGRdiuONHvaJA7/gkN2iFVVRbONYJCEFIlDNmjamU2Qf2AdG/3XlRpse6me+TRa5gqi2VLhmbROGBXzCS+qfl55LKFyhnfYSYTODS1n/qLizk5UBTGJHvYVMSqi9xwv9rktWljnZBtDWNgiBgtiPMA+Z2sTlw6L01aNP2xruXNAuJUoIFn5bGtoSofcH8/SS4BatJBCgAvotjXAQrgyx7SEq4tvVuBCLPbpLQcmwox0RSi7AzdZvHX4S1gCMiF9Bt/8QivO1CCT1ee4I5vKJVDqL9w87LvOnLHdE5j3GGcJk7AoFHkwJXzS6H2VmTVZEA6aOtYRg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4215.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(66946007)(66556008)(76116006)(9686003)(52536014)(30864003)(316002)(5660300002)(8936002)(54906003)(26005)(66476007)(110136005)(64756008)(508600001)(66446008)(4326008)(86362001)(122000001)(186003)(8676002)(7696005)(38100700002)(53546011)(55016003)(71200400001)(6506007)(83380400001)(38070700005)(2906002)(33656002);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LstdPeCPhfbPEFtmk9XSaEOhLQwq/ztV3tu0Lys8jW+HYC6tiCf0n+YGoRKS?=
+ =?us-ascii?Q?XWV1n2m70zoxTS1xoJeed8tSzVOd+hoyNNepLJR7+ne1fo178dWJsUphNUg8?=
+ =?us-ascii?Q?87mavIp4zRP4W/U45/9WcxOaBb/9qccUhukA6qLnl4QinTE6Zi+gym0XkIG9?=
+ =?us-ascii?Q?r9QkFgKeymJfJmQxfCyPyZRCZLckB1lymDRUMQsWn77Gfhe1YTqKUUNyxB+T?=
+ =?us-ascii?Q?25wd8j6KHqljR5RxggVgpIqZeKyAN+E10E1YNsjaqg9Gjtj1nEgVS/oDthEF?=
+ =?us-ascii?Q?rPrFvHBz/w4TZfnS7TjnEgUeVRX3qzt8cNKOmLDBB2iIpRPJW3zNV1akmio/?=
+ =?us-ascii?Q?/QKXnDyCACbSbmS+EN8yKL/DPLsG0EfvEO0ERUQdHCIrXW3jRdkYkz+NhrED?=
+ =?us-ascii?Q?rLIPuiuFp850i1I5r6/CAEbIeZ0lmDF6G/mADHd62jm06tSkkRktT4Mv+etb?=
+ =?us-ascii?Q?jRKIwhHKo4wZmS8TRjfdYu9uZ5D8LhW8ghrrZKEnVq46yEEULtcNiIXcCewm?=
+ =?us-ascii?Q?PBU/RKc5bbsQ7rty1pLn7ZyAUdZDhz7UvLenUbrGcAYgd9fyfGo04Mo62ITR?=
+ =?us-ascii?Q?YyTkqKn4TG73ey1jrC+ZSssPKfKnhgiTkm527BTtLQ/pDOq2Mea7hGnk4sNo?=
+ =?us-ascii?Q?vDwiw6/+GOpdbdd336j/zQfY90iFbU83m25XlFTg+mMqym0iy4uz8tw3bH2V?=
+ =?us-ascii?Q?X5adyIWcqiY6Zj+ZQziUWngUwhUTosJmWaDCjJndastJzSmEEu5KP6emCOTq?=
+ =?us-ascii?Q?MUnBA6XAxD8oIPOSnzRaYhFZUpptNJ5mQbMDIndl5vUi2IcZ39cy0weIRBvj?=
+ =?us-ascii?Q?CSFyg33VeDFJcmwwVfFjiNVuB87PzKpX8Hs4BgzwP5H7gb294zeNpXvL/mvr?=
+ =?us-ascii?Q?Z73/a/g3bbGO80S/Znn8v8kjzG9/mHZONY5MynZL2/LJ4D+7oGinNm/ZvZPZ?=
+ =?us-ascii?Q?AObb81KqmhYELNPWKDqeLef/spPSrFMtOxl6YjpcSTZ+eYwBlzZk59pP7D0M?=
+ =?us-ascii?Q?g0lYoYWMOp5Fq7C9ZE9CjL641zqMB+/8FoiuyB0s04EPa0W2DKSZ775RdTTB?=
+ =?us-ascii?Q?8EATn0aFBnQPxaFKlNv0rfHNzsH5rPF9F5DxGxudISm1ogCorAI+fKn7DXHl?=
+ =?us-ascii?Q?ojwFkAgnYInCQo5CWED/XnQSlS/XLsmH1k+4HVdxM4edipcHJ1IRNDwPndxb?=
+ =?us-ascii?Q?9WOYgHN/xykveELwN64IHKdaqAulOF5DxvLO8JR4r7ZuHgaJY8xz0s2cZEgv?=
+ =?us-ascii?Q?/8AHHWJStprqE39qpjl0MbUc7QRnPvzEIGkBCSJr0PmuRmrMWqZP6lu88zBU?=
+ =?us-ascii?Q?h8px+c2t9oUcWvlRwvt7zZMwpURdC0aH0mTU/FyzvHX8VkSSUWC8K9XSMMjz?=
+ =?us-ascii?Q?HP3yPFRyT3TIWG6wxLT8EVqAjoQjkO7RjhGLh9cAKq+H0aEvmdm/dXioeJp2?=
+ =?us-ascii?Q?QzZifNIMZeba+39O1FuSr4kY8LTgvhnhDsH5qJzo1xiwDLCStuwv4zUHcOrz?=
+ =?us-ascii?Q?/arKReFrY49qGV7xBnBReNmLoeKcrCg4zg0YLin0atKg7U2uqoAk+INphn2a?=
+ =?us-ascii?Q?CiqDLujJsbpEsh5hJG47IJerCtbjSpsDZjdYh+b3RRq6voLvMPZmhHtjTDOC?=
+ =?us-ascii?Q?ViiRpPoSXqdILZzaDLWYnw0=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 20:08:29.5257 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21d87e00-e8c3-43a2-d06d-08da00763f72
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4914
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4215.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6346ad15-e957-4bd7-8d88-08da00b184c2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Mar 2022 03:12:46.0869 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9j4qxpHwdoJOZHhXz9v61WJuOvCwsjmKYQ3KGdrLdV2wm+ajpTw3teNk+uz0slK1iakx0WE7Etdo5G0dVJfzZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1893
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,259 +136,453 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Clements, John" <John.Clements@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+[AMD Official Use Only]
 
-Same PR as last week, just fixed up a bad Fixes tag.
+OK
 
-The following changes since commit 38a15ad9488e21cad8f42d3befca20f91e5b2874:
+-----Original Message-----
+From: Chen, Guchun <Guchun.Chen@amd.com>=20
+Sent: Monday, March 7, 2022 5:11 PM
+To: Chai, Thomas <YiPeng.Chai@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>;=
+ Clements, John <John.Clements@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>=
+; Chai, Thomas <YiPeng.Chai@amd.com>
+Subject: RE: [PATCH V2] drm/amdgpu: Move common initialization operations o=
+f each ras block to one function
 
-  Merge tag 'amd-drm-next-5.18-2022-02-25' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2022-03-01 16:19:02 +1000)
+if (!adev->gmc.xgmi.connected_to_cpu) {
+ 		adev->gmc.xgmi.ras =3D &xgmi_ras;
+-		amdgpu_ras_register_ras_block(adev, &adev->gmc.xgmi.ras->ras_block);
+-		adev->gmc.xgmi.ras_if =3D &adev->gmc.xgmi.ras->ras_block.ras_comm;
+ 	}
 
-are available in the Git repository at:
+Coding style needs to be fixed as well. '{}' should be dropped as there is =
+only one line after upper if.
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-5.18-2022-03-07
+Regards,
+Guchun
 
-for you to fetch changes up to 53b97af4a44abd21344cc9f13986ba53051287bb:
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of yipechai
+Sent: Monday, March 7, 2022 4:43 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>;=
+ Clements, John <John.Clements@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>=
+; Chai, Thomas <YiPeng.Chai@amd.com>
+Subject: [PATCH V2] drm/amdgpu: Move common initialization operations of ea=
+ch ras block to one function
 
-  drm/amdkfd: Add format attribute to kfd_smi_event_add (2022-03-07 14:59:59 -0500)
+Define amdgpu_ras_sw_init function to initialize all ras blocks.
 
-----------------------------------------------------------------
-amd-drm-next-5.18-2022-03-07:
+V2: Modify error debugging information.
 
-amdgpu:
-- Misc code cleanups
-- Misc display fixes
-- PSR display fixes
-- More RAS cleanup
-- Hotplug fix
-- Bump minor version for hotplug tests
-- SR-IOV fixes
-- GC 10.3.7 updates
-- Remove some firmwares which are no longer used
-- Mode2 reset refactor
-- Aldebaran fixes
-- Add VCN fwlog feature for VCN debugging
-- CS code cleanup
+Signed-off-by: yipechai <YiPeng.Chai@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   6 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 143 ++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h    |   1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      |  21 ---
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     |  16 ---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  28 ----
+ drivers/gpu/drm/amd/amdgpu/mca_v3_0.c      |   6 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c     |  17 ---
+ 9 files changed, 148 insertions(+), 92 deletions(-)
 
-amdkfd:
-- SVM fixes
-- SMI event fixes and cleanups
-- vmid_pasid mapping fix for gfx10.3
-
-----------------------------------------------------------------
-Alex Deucher (4):
-      drm/amdgpu: Use IP versions in convert_tiling_flags_to_modifier()
-      drm/amdgpu: remove unused gpu_info firmwares
-      drm/amdgpu/gfx10: drop unused cyan skillfish firmware
-      drm/amdgpu/sdma5: drop unused cyan skillfish firmware
-
-Andrey Grodzovsky (2):
-      drm/amdgpu: Fix sigsev when accessing MMIO on hot unplug.
-      drm/amdgpu: Bump minor version for hot plug tests enabling.
-
-Anthony Koo (1):
-      drm/amd/display: [FW Promotion] Release 0.0.106.0
-
-Aric Cyr (1):
-      drm/amd/display: 3.2.175
-
-Charlene Liu (1):
-      drm/amd/display: add verify_link_cap back for hdmi
-
-Chris Park (1):
-      drm/amd/display: Reset VIC if HDMI_VIC is present
-
-Christian König (5):
-      drm/amdgpu: install ctx entities with cmpxchg
-      drm/amdgpu: header cleanup
-      drm/amdgpu: use job and ib structures directly in CS parsers
-      drm/amdgpu: properly embed the IBs into the job
-      drm/amdgpu: initialize the vmid_wait with the stub fence
-
-Danijel Slivka (1):
-      drm/amd/pm: new v3 SmuMetrics data structure for Sienna Cichlid
-
-David Yu (1):
-      drm/amdgpu: Add DFC CAP support for aldebaran
-
-Dillon Varone (2):
-      drm/amd/display: Add frame alternate 3D & restrict HW packed on dongles
-      drm/amd/display: Modify plane removal sequence to avoid hangs.
-
-George Shen (1):
-      drm/amd/display: Refactor fixed VS w/a for PHY tests
-
-Hansen Dsouza (1):
-      drm/amd/display: Remove invalid RDPCS Programming in DAL
-
-Harish Kasiviswanathan (1):
-      drm/amdgpu: Set correct DMA mask for aldebaran
-
-Jingwen Chen (1):
-      drm/amd/amdgpu: set disabled vcn to no_schduler
-
-Lijo Lazar (1):
-      drm/amdgpu: Refactor mode2 reset logic for v13.0.2
-
-Luben Tuikov (1):
-      drm/amd/display: Don't fill up the logs
-
-Meng Tang (1):
-      gpu/amd: vega10_hwmgr: fix inappropriate private variable name
-
-Michael Strauss (1):
-      drm/amd/display: Pass HostVM enable flag into DCN3.1 DML
-
-Nicholas Kazlauskas (1):
-      drm/amd/display: Make functional resource functions non-static
-
-Philip Yang (4):
-      Revert "drm/amdkfd: process_info lock not needed for svm"
-      drm/amdkfd: Correct SMI event read size
-      drm/amdkfd: Add SMI add event helper
-      drm/amdkfd: Add format attribute to kfd_smi_event_add
-
-Prike Liang (4):
-      drm/amdgpu: enable gfx clock gating control for GC 10.3.7
-      drm/amdgpu/nv: enable clock gating for GC 10.3.7 subblock
-      drm/amdgpu: enable gfx power gating for GC 10.3.7
-      drm/amdgpu: enable gfxoff routine for GC 10.3.7
-
-Qiang Yu (1):
-      drm/amdgpu: fix suspend/resume hang regression
-
-Robin Chen (1):
-      drm/amd/display: Pass deep sleep disabled allow info to dmub fw
-
-Ruijing Dong (2):
-      drm/amdgpu/vcn: Update fw shared data structure
-      drm/amdgpu/vcn: Add vcn firmware log
-
-Shah Dharati (1):
-      drm/amd/display: Adding a dc_debug option and dmub setting to use PHY FSM for PSR
-
-Tom Rix (1):
-      drm/amdgpu: Fix realloc of ptr
-
-Weiguo Li (1):
-      drm/amdgpu: remove redundant null check
-
-Wesley Chalmers (1):
-      drm/amd/display: Program OPP before ODM
-
-Yifan Zha (1):
-      drm/amdgpu: Move CAP firmware loading to the beginning of PSP firmware list
-
-Yifan Zhang (4):
-      drm/amdgpu: move amdgpu_gmc_noretry_set after ip_versions populated
-      drm/amdgpu: convert code name to ip version for noretry set
-      drm/amdkfd: judge get_atc_vmid_pasid_mapping_info before call
-      drm/amdkfd: implement get_atc_vmid_pasid_mapping_info for gfx10.3
-
-jinzh (1):
-      drm/amd/display: refine the EDID override
-
-yipechai (12):
-      drm/amdgpu: Modify .ras_fini function pointer parameter
-      drm/amdgpu: Optimize xxx_ras_fini function of each ras block
-      drm/amdgpu: centrally calls the .ras_fini function of all ras blocks
-      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in gfx ras block
-      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in mmhub ras block
-      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in nbio ras block
-      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in umc ras block
-      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in xgmi ras block
-      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in hdp ras block
-      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in sdma ras block
-      drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in mca ras block
-      drm/amdgpu: Remove redundant .ras_fini initialization in some ras blocks
-
- drivers/gpu/drm/amd/amdgpu/aldebaran.c             |  66 ++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  98 +----------
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c   |  16 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h             |  80 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c            |  24 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        |  19 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  25 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c        |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  11 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |   7 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h            |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |  21 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c            |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h            |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |   7 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.h            |   9 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c            |   6 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h            |   3 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c          |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h          |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c           |   7 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h           |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |  28 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c          |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c           |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h           |  58 ++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c           |   7 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h           |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace_points.c   |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h          |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c            |   7 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h            |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c            |  37 ++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h            |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c            | 117 ++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h            |   7 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c            | 134 ++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h            |  30 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c           |   8 -
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  18 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |   7 -
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             |   4 -
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  15 +-
- drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c              |   1 -
- drivers/gpu/drm/amd/amdgpu/mca_v3_0.c              |  18 --
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c             |   1 -
- drivers/gpu/drm/amd/amdgpu/nv.c                    |  15 +-
- drivers/gpu/drm/amd/amdgpu/psp_v13_0.c             |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |   8 -
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c             |   8 +-
- drivers/gpu/drm/amd/amdgpu/soc15.c                 |   3 -
- drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c              |  14 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c              |   7 +
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c              |  22 ++-
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c              |  21 ++-
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c              |  51 +++---
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  18 +-
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c        |  74 +++------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |   9 +
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |   8 +-
- drivers/gpu/drm/amd/display/dc/core/dc_link.c      |  14 +-
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  16 +-
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |   2 +
- drivers/gpu/drm/amd/display/dc/dc.h                |   4 +-
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c      |   1 +
- .../amd/display/dc/dce110/dce110_hw_sequencer.c    |  49 +++---
- .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  |   5 +-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c  |  21 +--
- .../amd/display/dc/dcn31/dcn31_dio_link_encoder.c  |   9 -
- .../gpu/drm/amd/display/dc/dcn31/dcn31_resource.c  |   5 +-
- .../gpu/drm/amd/display/dc/dcn31/dcn31_resource.h  |   5 +
- .../drm/amd/display/dc/dcn315/dcn315_resource.c    |   1 +
- drivers/gpu/drm/amd/display/dc/dm_helpers.h        |   3 +
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  12 +-
- .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |  68 ++++----
- .../inc/pmfw_if/smu11_driver_if_sienna_cichlid.h   |  58 +++++++
- .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 181 ++++++++++++++-------
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     |   1 +
- include/uapi/linux/kfd_ioctl.h                     |   1 +
- 84 files changed, 991 insertions(+), 679 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 6113ddc765a7..0c83eb69dad5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2402,6 +2402,12 @@ static int amdgpu_device_ip_init(struct amdgpu_devic=
+e *adev)
+ 		}
+ 	}
+=20
++	r =3D amdgpu_ras_sw_init(adev);
++	if (r) {
++		DRM_ERROR("amdgpu_ras_sw_init failed (%d).\n", r);
++		goto init_failed;
++	}
++
+ 	if (amdgpu_sriov_vf(adev))
+ 		amdgpu_virt_init_data_exchange(adev);
+=20
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gmc.c
+index ab75e189bc0b..544241f357b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -440,8 +440,6 @@ int amdgpu_gmc_ras_early_init(struct amdgpu_device *ade=
+v)  {
+ 	if (!adev->gmc.xgmi.connected_to_cpu) {
+ 		adev->gmc.xgmi.ras =3D &xgmi_ras;
+-		amdgpu_ras_register_ras_block(adev, &adev->gmc.xgmi.ras->ras_block);
+-		adev->gmc.xgmi.ras_if =3D &adev->gmc.xgmi.ras->ras_block.ras_comm;
+ 	}
+=20
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index d3875618ebf5..89075ab9e82e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2299,8 +2299,6 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 	case CHIP_ALDEBARAN:
+ 		if (!adev->gmc.xgmi.connected_to_cpu) {
+ 			adev->nbio.ras =3D &nbio_v7_4_ras;
+-			amdgpu_ras_register_ras_block(adev, &adev->nbio.ras->ras_block);
+-			adev->nbio.ras_if =3D &adev->nbio.ras->ras_block.ras_comm;
+ 		}
+ 		break;
+ 	default:
+@@ -2533,6 +2531,147 @@ void amdgpu_ras_suspend(struct amdgpu_device *adev)
+ 		amdgpu_ras_disable_all_features(adev, 1);  }
+=20
++int amdgpu_ras_sw_init(struct amdgpu_device *adev) {
++	int err =3D 0;
++
++	if (!amdgpu_ras_asic_supported(adev))
++		return 0;
++
++	if (adev->nbio.ras) {
++		err =3D amdgpu_ras_register_ras_block(adev, &adev->nbio.ras->ras_block);
++		if (err) {
++			dev_err(adev->dev, "Failed to register nbio ras block!\n");
++			return err;
++		}
++		adev->nbio.ras_if =3D &adev->nbio.ras->ras_block.ras_comm;
++	}
++
++	if (adev->gmc.xgmi.ras) {
++		err =3D amdgpu_ras_register_ras_block(adev, &adev->gmc.xgmi.ras->ras_blo=
+ck);
++		if (err) {
++			dev_err(adev->dev, "Failed to register xgmi ras block!\n");
++			return err;
++		}
++		adev->gmc.xgmi.ras_if =3D &adev->gmc.xgmi.ras->ras_block.ras_comm;
++	}
++
++	if (adev->gfx.ras) {
++		err =3D amdgpu_ras_register_ras_block(adev, &adev->gfx.ras->ras_block);
++		if (err) {
++			dev_err(adev->dev, "Failed to register gfx ras block!\n");
++			return err;
++		}
++
++		strcpy(adev->gfx.ras->ras_block.ras_comm.name, "gfx");
++		adev->gfx.ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__GFX;
++		adev->gfx.ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCOR=
+RECTABLE;
++		adev->gfx.ras_if =3D &adev->gfx.ras->ras_block.ras_comm;
++
++		/* If not define special ras_late_init function, use gfx default ras_lat=
+e_init */
++		if (!adev->gfx.ras->ras_block.ras_late_init)
++			adev->gfx.ras->ras_block.ras_late_init =3D amdgpu_gfx_ras_late_init;
++
++		/* If not defined special ras_cb function, use default ras_cb */
++		if (!adev->gfx.ras->ras_block.ras_cb)
++			adev->gfx.ras->ras_block.ras_cb =3D amdgpu_gfx_process_ras_data_cb;
++	}
++
++	if (adev->umc.ras) {
++		err =3D amdgpu_ras_register_ras_block(adev, &adev->umc.ras->ras_block);
++		if (err) {
++			dev_err(adev->dev, "Failed to register umc ras block!\n");
++			return err;
++		}
++
++		strcpy(adev->umc.ras->ras_block.ras_comm.name, "umc");
++		adev->umc.ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__UMC;
++		adev->umc.ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCOR=
+RECTABLE;
++		adev->umc.ras_if =3D &adev->umc.ras->ras_block.ras_comm;
++
++		/* If don't define special ras_late_init function, use default ras_late_=
+init */
++		if (!adev->umc.ras->ras_block.ras_late_init)
++			adev->umc.ras->ras_block.ras_late_init =3D amdgpu_umc_ras_late_init;
++
++		/* If not defined special ras_cb function, use default ras_cb */
++		if (!adev->umc.ras->ras_block.ras_cb)
++			adev->umc.ras->ras_block.ras_cb =3D amdgpu_umc_process_ras_data_cb;
++	}
++
++	if (adev->mmhub.ras) {
++		err =3D amdgpu_ras_register_ras_block(adev, &adev->mmhub.ras->ras_block)=
+;
++		if (err) {
++			dev_err(adev->dev, "Failed to register mmhub ras block!\n");
++			return err;
++		}
++
++		strcpy(adev->mmhub.ras->ras_block.ras_comm.name, "mmhub");
++		adev->mmhub.ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__MMHUB;
++		adev->mmhub.ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNC=
+ORRECTABLE;
++		adev->mmhub.ras_if =3D &adev->mmhub.ras->ras_block.ras_comm;
++	}
++
++	if (adev->hdp.ras) {
++		err =3D amdgpu_ras_register_ras_block(adev, &adev->hdp.ras->ras_block);
++		if (err) {
++			dev_err(adev->dev, "Failed to register hdp ras block!\n");
++			return err;
++		}
++
++		adev->hdp.ras_if =3D &adev->hdp.ras->ras_block.ras_comm;
++	}
++
++	if (adev->mca.mp0.ras) {
++		err =3D amdgpu_ras_register_ras_block(adev, &adev->mca.mp0.ras->ras_bloc=
+k);
++		if (err) {
++			dev_err(adev->dev, "Failed to register mca mp0 ras block!\n");
++			return err;
++		}
++		adev->mca.mp0.ras_if =3D &adev->mca.mp0.ras->ras_block.ras_comm;
++	}
++
++	if (adev->mca.mp1.ras) {
++		err =3D amdgpu_ras_register_ras_block(adev, &adev->mca.mp1.ras->ras_bloc=
+k);
++		if (err) {
++			dev_err(adev->dev, "Failed to register mca mp1 ras block!\n");
++			return err;
++		}
++		adev->mca.mp1.ras_if =3D &adev->mca.mp1.ras->ras_block.ras_comm;
++	}
++
++	if (adev->mca.mpio.ras) {
++		err =3D amdgpu_ras_register_ras_block(adev, &adev->mca.mpio.ras->ras_blo=
+ck);
++		if (err) {
++			dev_err(adev->dev, "Failed to register mca mpio ras block!\n");
++			return err;
++		}
++		adev->mca.mpio.ras_if =3D &adev->mca.mpio.ras->ras_block.ras_comm;
++	}
++
++	if (adev->sdma.ras) {
++		err =3D amdgpu_ras_register_ras_block(adev, &adev->sdma.ras->ras_block);
++		if (err) {
++			dev_err(adev->dev, "Failed to register sdma ras block!\n");
++			return err;
++		}
++
++		strcpy(adev->sdma.ras->ras_block.ras_comm.name, "sdma");
++		adev->sdma.ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__SDMA;
++		adev->sdma.ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCO=
+RRECTABLE;
++		adev->sdma.ras_if =3D &adev->sdma.ras->ras_block.ras_comm;
++
++		/* If don't define special ras_late_init function, use default ras_late_=
+init */
++		if (!adev->sdma.ras->ras_block.ras_late_init)
++			adev->sdma.ras->ras_block.ras_late_init =3D amdgpu_sdma_ras_late_init;
++
++		/* If not defined special ras_cb function, use default ras_cb */
++		if (!adev->sdma.ras->ras_block.ras_cb)
++			adev->sdma.ras->ras_block.ras_cb =3D amdgpu_sdma_process_ras_data_cb;
++	}
++
++	return 0;
++}
++
+ int amdgpu_ras_late_init(struct amdgpu_device *adev)  {
+ 	struct amdgpu_ras_block_list *node, *tmp; diff --git a/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 7cddaad90d6d..fc5ed6c47443 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -595,6 +595,7 @@ amdgpu_ras_error_to_ta(enum amdgpu_ras_error_type error=
+) {
+=20
+ /* called in ip_init and ip_fini */
+ int amdgpu_ras_init(struct amdgpu_device *adev);
++int amdgpu_ras_sw_init(struct amdgpu_device *adev);
+ int amdgpu_ras_late_init(struct amdgpu_device *adev);  int amdgpu_ras_fini=
+(struct amdgpu_device *adev);  int amdgpu_ras_pre_fini(struct amdgpu_device=
+ *adev); diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/d=
+rm/amd/amdgpu/gfx_v9_0.c
+index 8def7f630d4c..e26fc2ae98e1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -2188,27 +2188,6 @@ static int gfx_v9_0_gpu_early_init(struct amdgpu_dev=
+ice *adev)
+ 		break;
+ 	}
+=20
+-	if (adev->gfx.ras) {
+-		err =3D amdgpu_ras_register_ras_block(adev, &adev->gfx.ras->ras_block);
+-		if (err) {
+-			DRM_ERROR("Failed to register gfx ras block!\n");
+-			return err;
+-		}
+-
+-		strcpy(adev->gfx.ras->ras_block.ras_comm.name, "gfx");
+-		adev->gfx.ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__GFX;
+-		adev->gfx.ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCOR=
+RECTABLE;
+-		adev->gfx.ras_if =3D &adev->gfx.ras->ras_block.ras_comm;
+-
+-		/* If not define special ras_late_init function, use gfx default ras_lat=
+e_init */
+-		if (!adev->gfx.ras->ras_block.ras_late_init)
+-			adev->gfx.ras->ras_block.ras_late_init =3D amdgpu_gfx_ras_late_init;
+-
+-		/* If not defined special ras_cb function, use default ras_cb */
+-		if (!adev->gfx.ras->ras_block.ras_cb)
+-			adev->gfx.ras->ras_block.ras_cb =3D amdgpu_gfx_process_ras_data_cb;
+-	}
+-
+ 	adev->gfx.config.gb_addr_config =3D gb_addr_config;
+=20
+ 	adev->gfx.config.gb_addr_config_fields.num_pipes =3D 1 << diff --git a/dr=
+ivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0=
+.c
+index d9353bb99314..5046be86702f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -669,22 +669,6 @@ static void gmc_v10_0_set_umc_funcs(struct amdgpu_devi=
+ce *adev)
+ 	default:
+ 		break;
+ 	}
+-	if (adev->umc.ras) {
+-		amdgpu_ras_register_ras_block(adev, &adev->umc.ras->ras_block);
+-
+-		strcpy(adev->umc.ras->ras_block.ras_comm.name, "umc");
+-		adev->umc.ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__UMC;
+-		adev->umc.ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCOR=
+RECTABLE;
+-		adev->umc.ras_if =3D &adev->umc.ras->ras_block.ras_comm;
+-
+-		/* If don't define special ras_late_init function, use default ras_late_=
+init */
+-		if (!adev->umc.ras->ras_block.ras_late_init)
+-				adev->umc.ras->ras_block.ras_late_init =3D amdgpu_umc_ras_late_init;
+-
+-		/* If not defined special ras_cb function, use default ras_cb */
+-		if (!adev->umc.ras->ras_block.ras_cb)
+-			adev->umc.ras->ras_block.ras_cb =3D amdgpu_umc_process_ras_data_cb;
+-	}
+ }
+=20
+=20
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gmc_v9_0.c
+index 4c3483fbe613..8f6aefb9be08 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1228,23 +1228,6 @@ static void gmc_v9_0_set_umc_funcs(struct amdgpu_dev=
+ice *adev)
+ 	default:
+ 		break;
+ 	}
+-
+-	if (adev->umc.ras) {
+-		amdgpu_ras_register_ras_block(adev, &adev->umc.ras->ras_block);
+-
+-		strcpy(adev->umc.ras->ras_block.ras_comm.name, "umc");
+-		adev->umc.ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__UMC;
+-		adev->umc.ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCOR=
+RECTABLE;
+-		adev->umc.ras_if =3D &adev->umc.ras->ras_block.ras_comm;
+-
+-		/* If don't define special ras_late_init function, use default ras_late_=
+init */
+-		if (!adev->umc.ras->ras_block.ras_late_init)
+-				adev->umc.ras->ras_block.ras_late_init =3D amdgpu_umc_ras_late_init;
+-
+-		/* If not defined special ras_cb function, use default ras_cb */
+-		if (!adev->umc.ras->ras_block.ras_cb)
+-			adev->umc.ras->ras_block.ras_cb =3D amdgpu_umc_process_ras_data_cb;
+-	}
+ }
+=20
+ static void gmc_v9_0_set_mmhub_funcs(struct amdgpu_device *adev) @@ -1278,=
+15 +1261,6 @@ static void gmc_v9_0_set_mmhub_ras_funcs(struct amdgpu_device=
+ *adev)
+ 		/* mmhub ras is not available */
+ 		break;
+ 	}
+-
+-	if (adev->mmhub.ras) {
+-		amdgpu_ras_register_ras_block(adev, &adev->mmhub.ras->ras_block);
+-
+-		strcpy(adev->mmhub.ras->ras_block.ras_comm.name, "mmhub");
+-		adev->mmhub.ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__MMHUB;
+-		adev->mmhub.ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNC=
+ORRECTABLE;
+-		adev->mmhub.ras_if =3D &adev->mmhub.ras->ras_block.ras_comm;
+-	}
+ }
+=20
+ static void gmc_v9_0_set_gfxhub_funcs(struct amdgpu_device *adev) @@ -1297=
+,8 +1271,6 @@ static void gmc_v9_0_set_gfxhub_funcs(struct amdgpu_device *a=
+dev)  static void gmc_v9_0_set_hdp_ras_funcs(struct amdgpu_device *adev)  {
+ 	adev->hdp.ras =3D &hdp_v4_0_ras;
+-	amdgpu_ras_register_ras_block(adev, &adev->hdp.ras->ras_block);
+-	adev->hdp.ras_if =3D &adev->hdp.ras->ras_block.ras_comm;
+ }
+=20
+ static void gmc_v9_0_set_mca_funcs(struct amdgpu_device *adev) diff --git =
+a/drivers/gpu/drm/amd/amdgpu/mca_v3_0.c b/drivers/gpu/drm/amd/amdgpu/mca_v3=
+_0.c
+index d4bd7d1d2649..3d2b974f6e0f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mca_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mca_v3_0.c
+@@ -129,12 +129,6 @@ static void mca_v3_0_init(struct amdgpu_device *adev)
+ 	mca->mp0.ras =3D &mca_v3_0_mp0_ras;
+ 	mca->mp1.ras =3D &mca_v3_0_mp1_ras;
+ 	mca->mpio.ras =3D &mca_v3_0_mpio_ras;
+-	amdgpu_ras_register_ras_block(adev, &mca->mp0.ras->ras_block);
+-	amdgpu_ras_register_ras_block(adev, &mca->mp1.ras->ras_block);
+-	amdgpu_ras_register_ras_block(adev, &mca->mpio.ras->ras_block);
+-	mca->mp0.ras_if =3D &mca->mp0.ras->ras_block.ras_comm;
+-	mca->mp1.ras_if =3D &mca->mp1.ras->ras_block.ras_comm;
+-	mca->mpio.ras_if =3D &mca->mpio.ras->ras_block.ras_comm;
+ }
+=20
+ const struct amdgpu_mca_funcs mca_v3_0_funcs =3D { diff --git a/drivers/gp=
+u/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index 01b385568c14..fe61fcd22f18 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -2809,23 +2809,6 @@ static void sdma_v4_0_set_ras_funcs(struct amdgpu_de=
+vice *adev)
+ 	default:
+ 		break;
+ 	}
+-
+-	if (adev->sdma.ras) {
+-		amdgpu_ras_register_ras_block(adev, &adev->sdma.ras->ras_block);
+-
+-		strcpy(adev->sdma.ras->ras_block.ras_comm.name, "sdma");
+-		adev->sdma.ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__SDMA;
+-		adev->sdma.ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCO=
+RRECTABLE;
+-		adev->sdma.ras_if =3D &adev->sdma.ras->ras_block.ras_comm;
+-
+-		/* If don't define special ras_late_init function, use default ras_late_=
+init */
+-		if (!adev->sdma.ras->ras_block.ras_late_init)
+-			adev->sdma.ras->ras_block.ras_late_init =3D amdgpu_sdma_ras_late_init;
+-
+-		/* If not defined special ras_cb function, use default ras_cb */
+-		if (!adev->sdma.ras->ras_block.ras_cb)
+-			adev->sdma.ras->ras_block.ras_cb =3D amdgpu_sdma_process_ras_data_cb;
+-	}
+ }
+=20
+ const struct amdgpu_ip_block_version sdma_v4_0_ip_block =3D {
+--
+2.25.1
