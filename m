@@ -4,58 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C743CC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 20:56:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEA75C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 21:08:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 841EE10E577;
-	Tue,  8 Mar 2022 20:56:42 +0000 (UTC)
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
- [IPv6:2607:f8b0:4864:20::f35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97F4F10E1FA
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Mar 2022 20:56:40 +0000 (UTC)
-Received: by mail-qv1-xf35.google.com with SMTP id kl20so413192qvb.10
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Mar 2022 12:56:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JUvOUvE5Op88Q/V11W4jcwEtpm6VehQAMJSMRSR02kY=;
- b=Aimllqxg0sooheStcC8EuuvccstJp2VDREOk7TqXOywQ8e4cxJPhBfsexOiUiFalsO
- q+utwiBIGy1qcLF8zwZBZSOU3nZ2OVjqWFvimV7RHGR2IlVlj2lgp41H4BmM8eydLEOW
- h/SVXTSmbN8HHOiqwnj/UGNEC4jPoFlYegEeiYF3/R8X5dkH7xcPLRalZzDGReWUXQ3l
- ol0j5EdYQJTbRKZluL+bYO586jBfRbts6QooKy5hEHbxyqfl9UHYx3KmxzNfg99K7VV5
- ao13T86D1/5sL3sBmJvcR1pT+8Om7vHai9XZj65TE0hrtK6dmjuOYUZMHcRZhvG2pBWK
- +rUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JUvOUvE5Op88Q/V11W4jcwEtpm6VehQAMJSMRSR02kY=;
- b=1Zzc455kg1GsjmFMKHqIgtp1vlKYVPFpos6uLzxE6bj6vTpefSfHU6Jp9CnjdYdwLP
- k8QOEK9Iq+ahVEX+Pi/r/gRfgZ7mE6nrLn+/Ul8dxEEg3aI1yaBXDBHY0jV2KDF51YWR
- l3EG2vgoWYdgVpOz61adGSbZsdVWMDfWCUug9ep5GRujfFKVK/+g8oWtDmLOT3NyEpJ3
- AkjXXQr9GsOSg8akcI64EtekGujoqa2YuoN8nOZRh6aQdBDx/yAdxgxhAEDCAq0RIRlE
- xYHqi09xjfn6vdMKa+udl+hhlE1CkkjKyLJon65hbCvAX7wMX406Jlf4JlZr46Cfq7pG
- 5sQg==
-X-Gm-Message-State: AOAM530gcA2BuIXiLaGvsOJouHmHi9Rv2kQ+YASElBCK78Sm7R5PJ5l1
- d4YVrXSqDw97hBPTav4acy23ow==
-X-Google-Smtp-Source: ABdhPJzr9EAUKTKdZsTdS+sANPteWitYCUBc0vmRS0qMuYnhDHeyay5/uhi2tWCJBwaUMVHZdw3lTw==
-X-Received: by 2002:a05:6214:234d:b0:435:9a81:c4e3 with SMTP id
- hu13-20020a056214234d00b004359a81c4e3mr7241543qvb.51.1646772999509; 
- Tue, 08 Mar 2022 12:56:39 -0800 (PST)
-Received: from localhost (29.46.245.35.bc.googleusercontent.com.
- [35.245.46.29]) by smtp.gmail.com with ESMTPSA id
- f9-20020a05620a15a900b00646d7cb7afbsm16301qkk.19.2022.03.08.12.56.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Mar 2022 12:56:39 -0800 (PST)
-From: Sean Paul <sean@poorly.run>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- harry.wentland@amd.com, alexdeucher@gmail.com
-Subject: [PATCH] drm/amdgpu: Add support for drm_privacy_screen
-Date: Tue,  8 Mar 2022 20:56:30 +0000
-Message-Id: <20220308205638.1744064-1-sean@poorly.run>
-X-Mailer: git-send-email 2.35.1.616.g0bdcbb4464-goog
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1527210E4CC;
+	Tue,  8 Mar 2022 21:08:39 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2073.outbound.protection.outlook.com [40.107.236.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C977110E32A;
+ Tue,  8 Mar 2022 21:08:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QuVdjUf5/IlH5Xkm7+UMjbL2QMnx/NA19l9PlRJmSaBR7Sn7TCmJNeSiGVWcQVOresgNG4Zww9S/KDSzgSdI6G1gdDHxilOxBm1lcuAHQQzai9ZNPtFyqn2ck4jTLn319oyVlzTyrYCQjN57zVxRbnj2W72dconuqxCfsRaHICQWoM5DM3X0Fj3AeTzw5GUfYuAlQ25toTlbmbjAx9vbRcoQ15J7x8QnJt+WBp4t7A1w/0uMuIpzRgOD6f+99yR5oIylj/qKlvLNF2U+5U0jkr3KVe5/UKsr5mxMk2EaepOBC3VnbY4KdYdknLvRzJdoSQ2qnn3DJLLLplI3OAdh/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gYJDLqu18T+btDJibllwwMAkNVTlfPE/86h03rB2fXo=;
+ b=OYcWUjVg8DBNGq3ge8ZO1cnMJM3EJQeXgWIUWHUTuy4LORH3oeOMybRvfCC5SxnI0tQWpC9j8ptwGu04Dn1034c1LsN2UQb/VKhv7A9zp9Pw26w5mQebNDw/V7xIF27EkN5UbiV8Ih1WIpKKo74rc/97LIoviCvuhkGBH4Q2VPb/dGuE/o2hzw3J/jp//P0rWLl7xti/89cSwUXVFc2bqmTSgeP0aVPFip9rVR9F2laSeRwLSrfmhLFUUpu31HiRqsnvwpBVGqjMCnLA1KzRFLkfZ9GCd7oKcFm4BeuzHRmL9mDAnZVRJTw2aKRgqsF+cWVIzMXfqvAGVVek0VQYLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gYJDLqu18T+btDJibllwwMAkNVTlfPE/86h03rB2fXo=;
+ b=xNNOMivxuhpXG9TKohJy6Z/qS9+CXgBM/B1JOTClWb+NTegWgr8ooEAn/u18whVLp2hn+4K8FDod1a3qxNOY2aKQRZjz1HPkS++M47FP/h2nxZS2TTc0TrQBSZs43uoldg0pMZeBi7ftekNjQNJbdczBjXI5hy62RZL8G2sVJvs=
+Received: from DS7PR06CA0042.namprd06.prod.outlook.com (2603:10b6:8:54::23) by
+ BN8PR12MB3106.namprd12.prod.outlook.com (2603:10b6:408:45::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5038.14; Tue, 8 Mar 2022 21:08:32 +0000
+Received: from DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:54:cafe::5d) by DS7PR06CA0042.outlook.office365.com
+ (2603:10b6:8:54::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
+ Transport; Tue, 8 Mar 2022 21:08:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT044.mail.protection.outlook.com (10.13.173.185) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5038.14 via Frontend Transport; Tue, 8 Mar 2022 21:08:32 +0000
+Received: from dayatsin-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 8 Mar
+ 2022 15:08:30 -0600
+From: David Yat Sin <david.yatsin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdkfd: CRIU export dmabuf handles for GTT BOs
+Date: Tue, 8 Mar 2022 16:08:18 -0500
+Message-ID: <20220308210818.2864-1-david.yatsin@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9cf7f563-51e6-4cde-f941-08da0147cd37
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3106:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB3106406854F1032E0112D5CD95099@BN8PR12MB3106.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YrWU6bGVLBEHi02qoKoGnguRXfpYCFKRAbApJg5iMHkThPauWCl5A6NSyMn4L606tcms83znYkxQN6oJ3usrHJrxoetW5548Z2aT0eVZtLmi5nXV535GKg4xgBinOJ46UJ0tVX6kKePjbderOjHGtv3C8ZAV+LnMNuvqY+PUV4jd50wOf+ffAMu+sktsKDF4tSh6UNumGjqz6IWlpGHLvpnaPU3nYPrA7D2Nq1VV0k8oeRGcT2IZrgVmKjvBY7vAkK3fGSljbHgRWL/F7xi1XYVOr2lGKngBCJr2oM4UHNDA7TkNf2c9nrHRaWA+Je/cD31/Nq/uobdbyfAcdsDPsU8J3SOwqWZIUsgMc9ogt8fqd7MDUbHlx5F+9mH8cLQIdq11Y0mP/k9hz00ogFx94WQ4pDN+wVafQTib7gQulTkHBtDFGgBDmStx4qb2+pBYL8JOvbNsPQ3x0+E1Ut96X/0I2QXbPu+9w4KH2wkx06dz5tffEOVkjmpo+BUKJSEZPGThnyGBtuptF+aVP/3cUlPgIkDO2C6oxiDyI/14K9O6DIC7k9hZH2qBFfyHoqWK+s8dUhKxhCtxU99BKnF8fg6p8BuCyFmsNeraDLqUxaLVIh6gWKM2rA0b/HRxkB3vj95xe1L/z0e7y+pEenUvFHaLLrT7Y9lu5nFueKw3A/HL7Ii8IG/9E6LPUM8GcQ9c+4oWBiCPMvPiCTQpi2z2Cw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(356005)(86362001)(82310400004)(81166007)(47076005)(336012)(426003)(83380400001)(40460700003)(1076003)(26005)(186003)(16526019)(70586007)(4326008)(8676002)(2616005)(70206006)(36860700001)(316002)(450100002)(2906002)(36756003)(8936002)(5660300002)(6666004)(7696005)(54906003)(508600001)(110136005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 21:08:32.2556 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9cf7f563-51e6-4cde-f941-08da0147cd37
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3106
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,124 +97,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Leo Li <sunpeng.li@amd.com>,
- hdegoede@redhat.com, Sean Paul <seanpaul@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- rajatja@google.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Felix.Kuehling@amd.com, David Yat Sin <david.yatsin@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sean Paul <seanpaul@chromium.org>
+Export dmabuf handles for GTT BOs so that their contents can be accessed
+using SDMA during checkpoint/restore.
 
-This patch adds the necessary hooks to make amdgpu aware of privacy
-screens. On devices with privacy screen drivers (such as thinkpad-acpi),
-the amdgpu driver will defer probe until it's ready and then sync the sw
-and hw state on each commit the connector is involved and enabled.
-
-Signed-off-by: Sean Paul <seanpaul@chromium.org>
+Signed-off-by: David Yat Sin <david.yatsin@amd.com>
 ---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 12 ++++++++----
+ include/uapi/linux/kfd_ioctl.h           |  3 ++-
+ 2 files changed, 10 insertions(+), 5 deletions(-)
 
-I tested this locally, but am not super confident everything is in the
-correct place. Hopefully the intent of the patch is clear and we can
-tweak positioning if needed.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c          |  9 +++++++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  3 +++
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  | 16 +++++++++++++++-
- 3 files changed, 27 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 2ab675123ae3..e2cfae56c020 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -26,6 +26,7 @@
- #include <drm/drm_aperture.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_gem.h>
-+#include <drm/drm_privacy_screen_consumer.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_managed.h>
- #include "amdgpu_drv.h"
-@@ -1988,6 +1989,7 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
- {
- 	struct drm_device *ddev;
- 	struct amdgpu_device *adev;
-+	struct drm_privacy_screen *privacy_screen;
- 	unsigned long flags = ent->driver_data;
- 	int ret, retry = 0, i;
- 	bool supports_atomic = false;
-@@ -2063,6 +2065,13 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
- 	size = pci_resource_len(pdev, 0);
- 	is_fw_fb = amdgpu_is_fw_framebuffer(base, size);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 2c7d76e67ddb..e1e2362841f8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1759,7 +1759,8 @@ static int criu_checkpoint_bos(struct kfd_process *p,
+ 					goto exit;
+ 				}
+ 			}
+-			if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
++			if (bo_bucket->alloc_flags
++			    & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT)) {
+ 				ret = criu_get_prime_handle(&dumper_bo->tbo.base,
+ 						bo_bucket->alloc_flags &
+ 						KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ? DRM_RDWR : 0,
+@@ -1812,7 +1813,8 @@ static int criu_checkpoint_bos(struct kfd_process *p,
  
-+	/* If the LCD panel has a privacy screen, defer probe until its ready */
-+	privacy_screen = drm_privacy_screen_get(&pdev->dev, NULL);
-+	if (IS_ERR(privacy_screen) && PTR_ERR(privacy_screen) == -EPROBE_DEFER)
-+		return -EPROBE_DEFER;
-+
-+	drm_privacy_screen_put(privacy_screen);
-+
- 	/* Get rid of things like offb */
- 	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &amdgpu_kms_driver);
- 	if (ret)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e1d3db3fe8de..9e2bb6523add 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9781,6 +9781,9 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 		if (acrtc) {
- 			new_crtc_state = drm_atomic_get_new_crtc_state(state, &acrtc->base);
- 			old_crtc_state = drm_atomic_get_old_crtc_state(state, &acrtc->base);
-+
-+			/* Sync the privacy screen state between hw and sw */
-+			drm_connector_update_privacy_screen(new_con_state);
- 		}
+ exit:
+ 	while (ret && bo_index--) {
+-		if (bo_buckets[bo_index].alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)
++		if (bo_buckets[bo_index].alloc_flags
++		    & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT))
+ 			close_fd(bo_buckets[bo_index].dmabuf_fd);
+ 	}
  
- 		/* Skip any modesets/resets */
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 740435ae3997..e369fc95585e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -27,6 +27,7 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/dp/drm_dp_mst_helper.h>
- #include <drm/dp/drm_dp_helper.h>
-+#include <drm/drm_privacy_screen_consumer.h>
- #include "dm_services.h"
- #include "amdgpu.h"
- #include "amdgpu_dm.h"
-@@ -506,6 +507,7 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
- 				       struct amdgpu_dm_connector *aconnector,
- 				       int link_index)
- {
-+	struct drm_device *dev = dm->ddev;
- 	struct dc_link_settings max_link_enc_cap = {0};
+@@ -2211,7 +2213,8 @@ static int criu_restore_bo(struct kfd_process *p,
  
- 	aconnector->dm_dp_aux.aux.name =
-@@ -519,8 +521,20 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
- 	drm_dp_cec_register_connector(&aconnector->dm_dp_aux.aux,
- 				      &aconnector->base);
+ 	pr_debug("map memory was successful for the BO\n");
+ 	/* create the dmabuf object and export the bo */
+-	if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
++	if (bo_bucket->alloc_flags
++	    & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT)) {
+ 		ret = criu_get_prime_handle(&kgd_mem->bo->tbo.base, DRM_RDWR,
+ 					    &bo_bucket->dmabuf_fd);
+ 		if (ret)
+@@ -2281,7 +2284,8 @@ static int criu_restore_bos(struct kfd_process *p,
  
--	if (aconnector->base.connector_type == DRM_MODE_CONNECTOR_eDP)
-+	if (aconnector->base.connector_type == DRM_MODE_CONNECTOR_eDP) {
-+		struct drm_privacy_screen *privacy_screen;
-+
-+		/* Reference given up in drm_connector_cleanup() */
-+		privacy_screen = drm_privacy_screen_get(dev->dev, NULL);
-+		if (!IS_ERR(privacy_screen)) {
-+			drm_connector_attach_privacy_screen_provider(&aconnector->base,
-+								     privacy_screen);
-+		} else {
-+			drm_err(dev, "Error getting privacy screen, ret=%d\n",
-+				PTR_ERR(privacy_screen));
-+		}
- 		return;
-+	}
+ exit:
+ 	while (ret && i--) {
+-		if (bo_buckets[i].alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)
++		if (bo_buckets[i].alloc_flags
++		   & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT))
+ 			close_fd(bo_buckets[i].dmabuf_fd);
+ 	}
+ 	kvfree(bo_buckets);
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index b40687bf1014..eb9ff85f8556 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -33,9 +33,10 @@
+  * - 1.5 - Add SVM API
+  * - 1.6 - Query clear flags in SVM get_attr API
+  * - 1.7 - Checkpoint Restore (CRIU) API
++ * - 1.8 - CRIU - Support for SDMA transfers with GTT BOs
+  */
+ #define KFD_IOCTL_MAJOR_VERSION 1
+-#define KFD_IOCTL_MINOR_VERSION 7
++#define KFD_IOCTL_MINOR_VERSION 8
  
- 	dc_link_dp_get_max_link_enc_cap(aconnector->dc_link, &max_link_enc_cap);
- 	aconnector->mst_mgr.cbs = &dm_mst_cbs;
+ struct kfd_ioctl_get_version_args {
+ 	__u32 major_version;	/* from KFD */
 -- 
-Sean Paul, Software Engineer, Google / Chromium OS
+2.17.1
 
