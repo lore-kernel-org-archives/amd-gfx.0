@@ -4,122 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C02F0C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 17:20:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B0F9C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 17:28:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CFA410E295;
-	Tue,  8 Mar 2022 17:20:26 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2087.outbound.protection.outlook.com [40.107.93.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFC1510E295
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Mar 2022 17:20:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0F0610E370;
+	Tue,  8 Mar 2022 17:28:02 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F50010E414
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Mar 2022 17:28:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mZQeOAQnRdEb+UvF3+UZo8l8tfAkcWCCb3VMMD1E+hG2osElKh+zAAhdO5qokv+jNSVibncsfk91w0heGcwi7J+jbHojlXpTIWdOJ6flTlZLD/+BdnmRwA1LF8cdjHfcabw1GkqWuK3YraniV3B0MYYcp78lXmCbgBF2yHQWjrTaYpd0JGq4EIpoQ2pa8R5USWaaj0AllVAN2bugG0EhGg0Pu9D8c8nKEa/Exp1Sb/zt5iyqGWfs+1Qc7aaxciaCzyM+P3zzarHSbIKWICd2h/tRAm/hNYk+OYW+fvXRlQ++mutT09ZYrkb3J0eqNpobJnQEf6XA0is6rly03K2kZQ==
+ b=mc5SJzbaSg4XkDN1E2gXQyRY2Uz2WDpXo668w+Q2sFP3kWh7FqbwVke5S4ZcP6u35wnDMOgodkVuJ7jqiZDwprMAcGtmNOOjv7xuJ0xmZQp3isVyBi3yKItKAyEorF0rlE2aE45JxPfcJ0gSdWftjSzdMezxTMu6BGet3thCF130nNWQ78kHbwpU5qNgpzQV+V7DRGYbZt/J3NqkRqmJK6Wth8ByqO7LlSgaw/XP8xayf8VJHTiwtcXrp29ukOTXA8sE6Hw/Ngp3GWMlfrCLPWmuLNiXztvZ8PLTY84udTgRnpP3eou9dhRfWOA1Sm360K5IaZQjKqdsa+zmuvsVKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HKffTqzUJysKLpSZVUEzOkCj8w6ewUZG8NJpNmtuchw=;
- b=NrwmHFnwzFmL50SSF8ImkwYjXzMmIN+UJtkdu2kuw7SEzM5D0KON6ILYvAE26xvtAjEapTWYd8KnoLVVBQmD8+M5KYZ3AUN9tfahothZjCo/qRPqKHHu6g7fWtpcOg4MhzM2zNPMPnh7ErKAk5Klph4paoNhEqQDgkKuPvsuzEUTwT6OhwAFSqyM8H7za5M6tjY+swd95s0u4LP4gEjIEJG4IzMYIA8tQmWZVBJyPVbUbzpVZ94OlPzM2f4PjL2RNJZ32QNB65PTEDlZDIBMDcJ3q2JoH8jVAD6aVchawXvnNzFRVpM5dlqg8hhakHkcnc4YoxIFxCS7VZKFpWCqHg==
+ bh=iCkpvJwy97p0pmlImuyBJH00RB7givw+snfdWvGzEZY=;
+ b=N4SHmMgRAom2pBJt42wtNic/jM4kjx/JLGkXLCjaS3vZTJuknkVBQRJiwPV6xRJMPkoS/g94rnAj7k7cP61ZQW7ks2/E1iwaa7Dlu5+WASrqPUydF0OXsxDYS7TIIHR3qs8h5pye1iU1oGzJbZmfFQqj5QKAmtnxbaUD8xzkiLLPmZzYLuCDweqWMB8/GAE8QP3TwrIhIHWd25AG+bIEPw8YYKy8B+ZjrIOpVEEJzQPSdygPtDrthVnzhzEogMIJKwhGEz4bcRMYEbN5tpL7tOKMOGcVJ3PtNXXYe4IUpQP8F2BXt8AL8iL3q3zpJa1gjbU+DJJJkG8oyFI6o8tHhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HKffTqzUJysKLpSZVUEzOkCj8w6ewUZG8NJpNmtuchw=;
- b=RgYBuFNITrQsindZsQuJvmwg6QqoCnC68V0qTfZlvOFh6OKwFf2Uwm8sZY8IOERsKuNSvhwNub/SL21IzaaSpQw9YIbsUziX+tU8g7erViWwtIp28FVdeF9doJq/rNZtZg3AULUrWnk9XbFu9YFK/77Osyq9Wo/co6fjS1tpfxg=
+ bh=iCkpvJwy97p0pmlImuyBJH00RB7givw+snfdWvGzEZY=;
+ b=DdnIN6lr9EA48SNKJYwTQPmS+6IoLOi+9GVyIYZe2XvXAVfIQfOhUHhZrjoSILRJDodzfdKb5zCnfzvcNMPPFijgbKPXCKdpLQ1zuyQG9PNdwgVlSGlGIzwMM/5Esr1VX54hBLcM/SKGGt/4j8pSlATrKBZbDTEpaOY0oD4vi+k=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3897.namprd12.prod.outlook.com (2603:10b6:5:1ca::24)
- by BN9PR12MB5368.namprd12.prod.outlook.com (2603:10b6:408:105::24) with
- Microsoft SMTP Server (version=TLS1_2,
+Received: from BL1PR12MB5157.namprd12.prod.outlook.com (2603:10b6:208:308::15)
+ by BN7PR12MB2706.namprd12.prod.outlook.com (2603:10b6:408:2a::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Tue, 8 Mar
- 2022 17:20:21 +0000
-Received: from DM6PR12MB3897.namprd12.prod.outlook.com
- ([fe80::2d51:2dae:ef16:6053]) by DM6PR12MB3897.namprd12.prod.outlook.com
- ([fe80::2d51:2dae:ef16:6053%5]) with mapi id 15.20.5038.027; Tue, 8 Mar 2022
- 17:20:21 +0000
-Content-Type: multipart/alternative;
- boundary="------------759AQCww3SbzT8uf5vQWZab8"
-Message-ID: <abf6d329-6a3f-26f0-1d5b-75b3ff55acfd@amd.com>
-Date: Tue, 8 Mar 2022 22:50:07 +0530
+ 2022 17:27:55 +0000
+Received: from BL1PR12MB5157.namprd12.prod.outlook.com
+ ([fe80::692d:9532:906b:2b08]) by BL1PR12MB5157.namprd12.prod.outlook.com
+ ([fe80::692d:9532:906b:2b08%5]) with mapi id 15.20.5038.027; Tue, 8 Mar 2022
+ 17:27:55 +0000
+Message-ID: <c7c3ec4c-5345-b8b9-486f-e3d15e19c452@amd.com>
+Date: Tue, 8 Mar 2022 11:27:49 -0600
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Subject: Re: [PATCH 2/2] drm/amdgpu: add work function for GPU reset event
+ Thunderbird/91.6.1
+Subject: Re: [PATCH 1/2] drm: Add GPU reset sysfs event
 Content-Language: en-US
 To: "Sharma, Shashank" <shashank.sharma@amd.com>,
  Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ "Lazar, Lijo" <Lijo.Lazar@amd.com>,
  Shashank Sharma <contactshashanksharma@gmail.com>,
- amd-gfx@lists.freedesktop.org
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Shyam-sundar S-k <Shyam-sundar.S-k@amd.com>,
+ Sanket Goswami <Sanket.Goswami@amd.com>
 References: <20220307162631.2496286-1-contactshashanksharma@gmail.com>
- <20220307162631.2496286-2-contactshashanksharma@gmail.com>
- <9de42884-d1e2-309a-e669-5132539fbd22@amd.com>
- <bc293ab7-db45-2b16-aeb8-291cffef8ba4@amd.com>
-From: "Somalapuram, Amaranath" <asomalap@amd.com>
-In-Reply-To: <bc293ab7-db45-2b16-aeb8-291cffef8ba4@amd.com>
-X-ClientProxiedBy: PN3PR01CA0042.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:98::7) To DM6PR12MB3897.namprd12.prod.outlook.com
- (2603:10b6:5:1ca::24)
+ <1eff0822-f410-fd1b-b9c7-6a54862de74a@amd.com>
+ <BYAPR12MB461498EFB1E9A3A76A38735497099@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <5c32f2d0-e278-529c-be53-ffd5603cd472@amd.com>
+ <b16fa66b-2712-633b-ee00-27916dbd32b3@amd.com>
+ <975f7416-2f32-3207-c118-cdb56d2bae7c@amd.com>
+ <11183b53-bd53-7afc-2fdf-f46183044dd2@amd.com>
+From: "Limonciello, Mario" <mario.limonciello@amd.com>
+In-Reply-To: <11183b53-bd53-7afc-2fdf-f46183044dd2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH2PR08CA0030.namprd08.prod.outlook.com
+ (2603:10b6:610:5a::40) To BL1PR12MB5157.namprd12.prod.outlook.com
+ (2603:10b6:208:308::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0a23f2bf-5cc6-4653-d0b3-08da0127ec48
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5368:EE_
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5368348FDDC2E30F60AAB642F8099@BN9PR12MB5368.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 35d0f996-e09d-44bf-a728-08da0128fb1a
+X-MS-TrafficTypeDiagnostic: BN7PR12MB2706:EE_
+X-Microsoft-Antispam-PRVS: <BN7PR12MB27063C2B66A13CE0F07206CBE2099@BN7PR12MB2706.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: s5rtMv+uuyfLNkulmNk+bF+QocghyfcZm1kT1L2at6SA8WumrhUrS1HPQbsn6d9DgpxRS7SXD1ZHLKHWHK2CpBLTC+PzzD4qF+xg39pLl7pXdv1s8rUBtNDmUKQ66+DaWxf74rYmam8OFcDcVg41ltyOl/xG1tn6CJZSOSFJ5E/JlvF8PU4bstGmBqvpcFXjgPHtN/s+Cl0AHMD125g8rlaieitSiRdS6k7mel2XWXrE1Kclhis6ejYDStsE2bmLMP3jkKz5BmFlhSFS5MlqKyA1ypgjWD95vAgxEMZPuJHRiwCm6hMDm75tNPth5WJMr6L/QKl1X81YovS7uzLYmhMdRyrCyap39kWhJD0w/2VF22MaGwliMmBC5zS20/ea/yNdd0mWOuvsJkQTHOqRrvcRu7l1MAUDxQdOuYg37DESzK+LWlO1bdSlc0h7d+cQ6h3cSuTx6oI5dHEbaaAowwwRsIwBaQrrXsELfdwFFiZjE2dpO/QZy4xm99AZLJeIDF8cM+U5uhrTqpRc7BTYCQ9C+SAao5yddob2Dx/hhKu8tU/c8jHgbjIPKJ1+lorvMgODVos/5H43X3xka0eXWp676fXP60XGcsDaaN/8Y5mYN9kDpXHgh0HAQdSks+Cob3QAQzl+egE3W1TgkViJ9BR3TfFl6YlXd3k4d+KNiI7KGAt7QdPrGmHO7SM3s0PyF5M6tBeK7gwsiQt+vNjJDJsnzhwLd8lBi94lh9QCf4U=
+X-Microsoft-Antispam-Message-Info: qpao7yVU1/YPCLEgMJd5tvsOktz6zaw4C9cxcIkNoE8R42NlC+85z+rSvXtUWfYsVfUBceldUGtAgEggrGEIC0XnrbVub2Wr7L8I83qONUiLh5PkYjeJn87vU9YrGHRmZuYsMp+l6uBwi/yLL2w8B89GCj3mMZGTlz2TqBE63a9fGrJfuzolDf4P0xPpsSmEL2GimxA0JPSJho4F36xZM9XIlCH8qf3R31w8GjWFGs/q6ZrLMwlhTEiS4kq4jrZIXc9i9514eNqGU2JLI1FoMxJ9saDOJ0lYI/ltleSlje8g6881jZ+GPm6u1BBf5TFMPsuyNdSCNrTyJD2hdJvoAU53g3c6mR8wmgeCh47v+868sJNH8/91H7ThgdriPyc8mYU2W0qBgE1DRKGVcZhDhpb6NVMoOYtoaO9+UnHN3FpT/YrY1fJv4aSiL3887NJhg6E2l3SayF+fdh+R/3ij5tmo21VIgKehy+4rlJNWr/jvsbV1jxCrwfvNAAslldsS7WD185fm+6FH7iEUhl7eyO021wOIFz6FHP2mqXrC538z67HX3z84bhJKPUZMdV+wWi+9s4L5LMfHSmCbsr+fD2TG7sXJxQ+DL5BqyQaiKqD9LyZsfLV/v3TXqqOzQEjogij9il7f57IwkBna6YGmAV1xDHvY0S6RlcZhlXyznKls3EqHopJId1+WE/lr/EVh55pQ1lcDj73GaYxK293HfGrSAmXgb8q0Fp3wWv9EtUPZeNv+qr4qw2+3b0MOxUsyZQp9LtwrLIkPiukEOMuxfO3tKCxYlJg1c/wxsFKpYYVDIsMY92RuPYoV57DgXkHyawCfW7oG1l9cAY/MYZaWDBWP60D08lRMvrfn03qhPcI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3897.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66556008)(53546011)(4326008)(6666004)(6512007)(6506007)(36756003)(38100700002)(8676002)(33964004)(66476007)(66946007)(83380400001)(54906003)(6486002)(110136005)(186003)(26005)(2616005)(316002)(508600001)(2906002)(31696002)(31686004)(8936002)(5660300002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5157.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6506007)(53546011)(86362001)(8936002)(2616005)(508600001)(5660300002)(6666004)(6486002)(2906002)(6512007)(186003)(26005)(4326008)(8676002)(31696002)(66476007)(66946007)(66556008)(45080400002)(38100700002)(110136005)(31686004)(316002)(54906003)(16799955002)(36756003)(83380400001)(966005)(6636002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1BHR0d2WmppR2RVdUpONDM0OXE4YTJpMUZZUERwYzlWbWZFQ2N4Tmt1UDA5?=
- =?utf-8?B?YlZvUVFwMXJnWDNZVEg5a0xOeFp4R2Nzb3B0ZWJjUXoxUHQ2T0lIdW1uRE8v?=
- =?utf-8?B?MWZGZURnd2lmSE9YWXNLa1cvajhhZ1hjR1B5azdNMVVPM3MvSWJZM1pFVmE3?=
- =?utf-8?B?T3FieHhWbkE3UkZocG1GUXNyL2NhWXk2eWNJRGNOOVlTL2Z6L1d5dS9uK3kz?=
- =?utf-8?B?M2txUHdneXNGejB3YmNZMzVnUnVObElGOFFKZGh4WUFSem5rZkJJbU0wQ3gr?=
- =?utf-8?B?VWRYaXNmcTRwTUFyUmw4T0ZZbkhOOUxxRm5uS1pHcURFMVRGcVFDV2VuR1Fw?=
- =?utf-8?B?NGNoMXRxancra2VhZGNuS05NS3pjeHAvajQzUlc1RExHTlYxcHpVQlpwTnpI?=
- =?utf-8?B?aFR0Z0Zlc0UxQkcxUkI2WElROTdvaERka2FFLzl1NDVKdU1PN00wOXJoTVpK?=
- =?utf-8?B?Z1R3eGNKUENOQ2oxUkNWcDhrVW93dk1qNktDdE5vZVBSamxMU3BncVhrUjIv?=
- =?utf-8?B?eTgvR00wSk5jM2Rna1VTaGZjQUp0eXNuQ0JwQVFaZ0p5SkxxQkh0Vk50bXBM?=
- =?utf-8?B?UmVtMWhlTFMwRHRudnhmSDNBTDhQWFJQRnlNbTRvcEZKVmFBN1drRUI2TVlX?=
- =?utf-8?B?RitLZDNsZDZ0K0pLMTRtbUN4QU9EVWRZcjBXUitYWXVBREpMRlFWZytHeUl3?=
- =?utf-8?B?eTdGK096MFdCUGU4bHVTR0VFSGY5ekZESEM2VFhMbE9NcTQrUE56Z2JqKzZ2?=
- =?utf-8?B?SmJYLzA5d2U3bXU1ckN5dDRoWWh2K2tLVzdQYjhxSnp0bmxPOFZpNmlXNllx?=
- =?utf-8?B?Z1Z5VWRIN29sSXNnTDc4RkJGWjJVTzRKQlNST296TGowUzlzdnJaYlNybVpa?=
- =?utf-8?B?NW02SHpiMzh4Q0ZkOGpMRm8wT1R0Vkg0NTNDMStHVjJuQnR5RWZtRTBnRENa?=
- =?utf-8?B?OWQvdTl3ZTNveWcva2RWZ0ppcVQvMkFDbkw1TnBOTytJL2daQWJhdkhWZnRE?=
- =?utf-8?B?RmtNT09oR2hpaVJ4bDBBdGdTdlNWT3RsUU1ZN1NEcUIzdERib3BISkxLbFh2?=
- =?utf-8?B?V3lwODlhV2Z6MC8zRWxGa1pCOWpBdDNaUWRXY0lnbE1NQStXT0RXUVJSSFRK?=
- =?utf-8?B?UG52cW1HNWxwOEFVUStwWkR0Y0FYYk1jeEc0aENDNnAxUmVuWXFnRHpCZDl4?=
- =?utf-8?B?U3BKbjFOZU8vYUlyKyt2V3N6MEZjWG9nak9UQWtydjBwZ2loWG9MdStzQmdS?=
- =?utf-8?B?djZDUVoxa1JFQ0ZnQTkxOUtoOVdvRExkZHlXcENKTm05T3JsYmY4V3MxRU1l?=
- =?utf-8?B?OTcrZDJLSExrN3hrWkcvYnh3bkRRcVVWM0liQ0ZCUmtwbTJiU2w0R1BENzhp?=
- =?utf-8?B?cFJCUmV6V081SUpNME95M3JrQkNHMXd1TjdVd3Vmam1KWTE4aVk3RDNUMExS?=
- =?utf-8?B?NmovdzdhUDl6c3FjRnB6dFNvSWR5V0ppY0JJbmcxeXFiK3dvSDNodTZRN2Vo?=
- =?utf-8?B?TDNqbVZaVUdTNlJ0NldveS9YdGJ2ZnQrNUdwUklkaEROaTdnNTBwa21Bb1Fh?=
- =?utf-8?B?TDRKcWFZQWswMkI1N2tUTEd3aGczK0MyRnZqRVFPcVk3U2tVWjFvY09KczFQ?=
- =?utf-8?B?RjRNZjhJaGlCUlJRRWI5Z0hkaEQxdG5MM1B1ZlkxRTdHRjlYMDlENElQWkdm?=
- =?utf-8?B?eXlLMHdmVXRUR0kvbzdlWDVnTlkrWFZidHpoTGFTYzljMXpNc0dMbXZ6OE9k?=
- =?utf-8?B?M1A2RmZDSjMvQnIzRmJLc3BRK01jMEtDWWdJTENrS3BhR25hNVpUUHFGRTVv?=
- =?utf-8?B?ajd0T1JzbHZrZDNQdWFXTC8rRWVlTWhuRUZrbU83Y0FhdUtReGxQVVUyeEtQ?=
- =?utf-8?B?WEdZZ3hhNVNXaVJOTGovUlVJYWs5bkduQ21BYjhDQU9vYUk2UXEzSytxakJJ?=
- =?utf-8?B?U2Y2b0dQSlZmbGJBZDlsSUIwSGZXUks2ZnBEcUI5aVBxNWIzZGR5djN3MVcw?=
- =?utf-8?B?L0FHMUFTV3ErV3V6UU4zcUpmSFlyOEZjdHkzVElJdXJTd1hmdHBpUFpCWVpi?=
- =?utf-8?B?cWJaZ016akdHS0EwVDFnNVlVQ08vN2NxSEZ2eE5tekZqVzB1a25OTnN6TUs4?=
- =?utf-8?B?RDd3ZlBZSFhEMmVQT21JaDdYQUxNSmJ0UzQxblRwa3Nwd05oQ29aQ3R4NE1U?=
- =?utf-8?Q?TF3XCrxainy/UQDHd/s7EcM=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VExnUWk3bEFXN2xhSXdOc2RDNXNrV0xFSWVYQ1JoTSswNi9JN1RsYy9wclhY?=
+ =?utf-8?B?dldNaTNzRERTUzFwZUkzUmFUZ1l3OFlWa0phV1A1WnZ3czRuOVgwWG5ibm1F?=
+ =?utf-8?B?bHN4Y0JKaEZmMW10WnB3MG43Y1JpQndFOTJSVFJmaTFmQkVGUUQ5NWJ2dXp1?=
+ =?utf-8?B?aENtSkhUa2FSY0xMYTJicDU4L2FFRVhGYzhRbS9zUVBDS1dDT2hBWitOTkhT?=
+ =?utf-8?B?SjNyU1U4YlNvSFVlQlBHampkdVMrVHN1bDNJRVFVMU5UQnNuRExVMVppaWxH?=
+ =?utf-8?B?RGJpZVo3QzBRODZvSVhuMFhKREpxeVVaejZjZnZRZjZhSGc2Y1JMaDg3SGxD?=
+ =?utf-8?B?SVBXSlNuYjkxQWpYdzFPSDFPVjRkT0RvaXh2NEdEa0RqTlNtTmt3c0pMeS9R?=
+ =?utf-8?B?bTRFWmM4cWNQSmYrNXliNXI4K2VGTjhadFNmR2FPL1RyMHlFaGZSQldZVGJ4?=
+ =?utf-8?B?b1hpMzV5cmJ3UTIvdVdNS1JpVG4rK3dNQzhTUE9hZWtxbFpnY0txcHFnR1d6?=
+ =?utf-8?B?V1BOZnZ4cW5UbGxIZkJYa05wY2xFaUxIaEp5VmZHQS9jTDVqckZHVmYreEZ5?=
+ =?utf-8?B?OVJtQzh5WXhUUUpXSzd1aVBibkZYdVhhY3FNUCtvYW5XaDYwSXlKamdJWTlP?=
+ =?utf-8?B?byt3SkkyRC9OTENpR3U1STNFRWpodGE5aVM3eXhGUFhlRjRoN0ZkbHlTelNX?=
+ =?utf-8?B?NU5HNmJIZ0dvcXF6czByV1FBalhYOW1tc0RPVFlJV2grWXpwRlRSc1lqSnRQ?=
+ =?utf-8?B?L2RxcHkvUWFIUFpncE5CcjR4TWZvVEEyanc3ZjZWZmd2SkpWZGt5WXozT1Jx?=
+ =?utf-8?B?SzZWZmlWSFUvSXBrU0JwSE05OG9BalU2d0k1QkdFbklOMGNvUm5qRjBuREw3?=
+ =?utf-8?B?TnMrVXo1RzZGS3ZmRXdmRHQzcnFKRHVrSHo2b1ROa2R2a2ZSRURYMnlqcUNS?=
+ =?utf-8?B?MVNhM0ZONk9QWEE2aFZOODBoQ3Q3QUExZVFNQnpPZFhFamdSejR3NGlUUUlV?=
+ =?utf-8?B?UXorZFJIUDNwT05oZjIwaVFDQVUyZWl6TEZ1eXpaS2srb3FPQ3J6ZC9pMTFB?=
+ =?utf-8?B?a2FzSjg5MlJhT0o5d09EKyttZkRKb3hpRFBPRzBhMzBkbHlFelN1Qklpc3ZE?=
+ =?utf-8?B?N3p6WTVYSjJUYlVGMUlIZ0dRRWY1RzdnM2FyR1FRY2tybWE3R1d5TE1hUmNk?=
+ =?utf-8?B?VVNyVGRuZ2JDaXIrUks5dS8zblNFd2pzbFEzaW5qdk53eHZyaDFnWWFNTndN?=
+ =?utf-8?B?UU9iN1N5VzcweW8wdkNPWU82SFNtdVRQcHdFd21iYVBTUlBnTDNmL3ZSd25V?=
+ =?utf-8?B?TngyK2VianVSNFZOTXZ1VEdld1kvUDRabWNWeTJWZ2pXaENQTm9aWTNKL2xs?=
+ =?utf-8?B?Wkx4WnRNc1ZUWWF0amVEWUJRU2s1dXVlVlY1QmJHcW1EMzhkYzZ6R2V6VVNP?=
+ =?utf-8?B?TmVNVlhJTWtkbVB3RjhuNXIrMFlpcXJPRVRyZFlEOW1IUmVnU3FPaHFtSXJB?=
+ =?utf-8?B?czgwcmM0SGRVN0hiWGt1c09wVk1nYkpGNmVmeUhNck0waGxvblpDdFVmbFdU?=
+ =?utf-8?B?K2VpeXBLSWExZTRpMHVJY28vZ0JCNXdXaG9DbkFENXhOK0ZNOHFNckxXcHNm?=
+ =?utf-8?B?Z01nNGVXb0lNUmloSmJaSktSc1cxM2xzZXZUdzY1VHkwVWVNNzFXekNnREFW?=
+ =?utf-8?B?eDRaZkNWNWlWYU9qdHRPUVhDeUlId0R6UkRrSUlwV1hYdVZuQmJmQXFsTVVW?=
+ =?utf-8?B?STI3OXdlSEEzOVN4UVc4WU1ZVTVFN2JrdkdVNzd4eHZKL214a0dXWEdJYjF4?=
+ =?utf-8?B?RFhqWEV2QzVoZnE1UnoxeHVJa1VHak1RMTFqSkd5UmxnbjBMZTB1em44TEpR?=
+ =?utf-8?B?MHZybmdvcVZ0SUN5YWs1TlpyT2Qvemd5M2IwbUFSUWxOK0RhYzRpQzRsQnJY?=
+ =?utf-8?B?QnNPbEN0NytIZWF0UlkzY0VOSHFwV3d2d09iL1BDQXpsN1VMUGNxSU44SHpQ?=
+ =?utf-8?B?VXFJZFNIOVZ6ZTNJOG55SStEZGdIVGgxZHJwL2VsaDdvKzd3Y0c0RHNXcG9X?=
+ =?utf-8?B?MnEzOTNWRkI0bm1RbVErZ2gvOFNGNFdjZkZtcVowZlUwbDZhaGZuU1hXOHJD?=
+ =?utf-8?B?QWVFYmhLVzJXSU1zMFRWMkFqNkpBQS8rNjRDMUJQcnIzSGhtWXBHanU2Vm9Y?=
+ =?utf-8?Q?eE4FHKGhmdIXdueXfUsi4g8=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a23f2bf-5cc6-4653-d0b3-08da0127ec48
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3897.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35d0f996-e09d-44bf-a728-08da0128fb1a
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5157.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 17:20:20.9331 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 17:27:55.1993 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tjHKfxbG7mvGJlEpXgDit2TrQFkp/NDO8de2tcC0jNHGCJHNzyyK5Aw+pW7AiNMc6jLN2tmqAlyAKJdMDdgFuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5368
+X-MS-Exchange-CrossTenant-UserPrincipalName: zCW51jHGmSztotqiFxw9c4pNz03yin/4Xz8Jfk+GIPnweut56Lj340o+Y1p/zhaYWIEJ1E6zIiYGIXl9oQW2cw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2706
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,408 +137,187 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander Deucher <alexander.deucher@amd.com>,
- amaranath.somalapuram@amd.com, Christian Koenig <christian.koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Somalapuram,
+ Amaranath" <Amaranath.Somalapuram@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------759AQCww3SbzT8uf5vQWZab8
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 3/8/2022 10:00 PM, Sharma, Shashank wrote:
-> Hello Andrey
->
-> On 3/8/2022 5:26 PM, Andrey Grodzovsky wrote:
->>
->> On 2022-03-07 11:26, Shashank Sharma wrote:
->>> From: Shashank Sharma <shashank.sharma@amd.com>
->>>
->>> This patch adds a work function, which will get scheduled
->>> in event of a GPU reset, and will send a uevent to user with
->>> some reset context infomration, like a PID and some flags.
->>
->>
->> Where is the actual scheduling of the work function ? Shouldn't
->> there be a patch for that too ?
->>
->
-> Yes, Amar is working on that patch, on top of these patches. They 
-> should be out soon. I thought it was a good idea to get quick feedback 
-> on the basic patches before we build something on top of it.
->
-schedule_work() will be called in the function amdgpu_do_asic_reset ()
-
-after getting vram_lost info:
-
-vram_lost = amdgpu_device_check_vram_lost(tmp_adev);
-
-update  amdgpu_reset_event_ctx and call schedule_work()
-
-  * vram_lost
-  * reset_context->job->vm->task_info.process_name
-  * reset_context->job->vm->task_info.pid
-
-Regards,
-S.Amarnath
+On 3/8/2022 10:57, Sharma, Shashank wrote:
+> 
+> 
+> On 3/8/2022 5:55 PM, Andrey Grodzovsky wrote:
+>> You can read on their side here - 
+>> https://www.phoronix.com/scan.php?page=news_item&px=AMD-STB-Linux-5.17 
+>> and see their patch. THey don't have as clean
+>> interface as we do to retrieve the buffer and currently it's 
+>> hard-coded for debugfs dump but it looks like pretty straight forward 
+>> to expose their buffer to external
+>> client like amdgpu.
+> 
+> Noted, thanks for the pointer.
 > - Shashank
->
+
+Yeah I think this is a great idea for APU, but need to keep in mind 
+amd-pmc is only activated if APU is configured for s0i3.  So in the 
+IS_APU check you will need to test for set for s0i3 and return an error 
+code if not set.
+
+For APU it's currently fetched on demand from debugfs.  If you can 
+"easily" export a symbol I say go for it and include a patch in your 
+series.  If not my suggestion is to stub this out and let Shyam and 
+Sanket fill in the stub after they can sort out the exporting it to 
+another driver.
+
+>>
 >> Andrey
 >>
->>
+>> On 2022-03-08 11:46, Sharma, Shashank wrote:
+>>> I have a very limited understanding of PMC driver and its interfaces, 
+>>> so I would just go ahead and rely on Andrey's 
+>>> judgement/recommendation on this :)
 >>>
->>> The userspace can do some recovery and post-processing work
->>> based on this event.
+>>> - Shashank
 >>>
->>> V2:
->>> - Changed the name of the work to gpu_reset_event_work
->>>    (Christian)
->>> - Added a structure to accommodate some additional information
->>>    (like a PID and some flags)
->>>
->>> Cc: Alexander Deucher <alexander.deucher@amd.com>
->>> Cc: Christian Koenig <christian.koenig@amd.com>
->>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  7 +++++++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 +++++++++++++++++++
->>>   2 files changed, 26 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>> index d8b854fcbffa..7df219fe363f 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>> @@ -813,6 +813,11 @@ struct amd_powerplay {
->>>   #define AMDGPU_RESET_MAGIC_NUM 64
->>>   #define AMDGPU_MAX_DF_PERFMONS 4
->>>   #define AMDGPU_PRODUCT_NAME_LEN 64
->>> +struct amdgpu_reset_event_ctx {
->>> +    uint64_t pid;
->>> +    uint32_t flags;
->>> +};
->>> +
->>>   struct amdgpu_device {
->>>       struct device            *dev;
->>>       struct pci_dev            *pdev;
->>> @@ -1063,6 +1068,7 @@ struct amdgpu_device {
->>>       int asic_reset_res;
->>>       struct work_struct        xgmi_reset_work;
->>> +    struct work_struct        gpu_reset_event_work;
->>>       struct list_head        reset_list;
->>>       long                gfx_timeout;
->>> @@ -1097,6 +1103,7 @@ struct amdgpu_device {
->>>       pci_channel_state_t        pci_channel_state;
->>>       struct amdgpu_reset_control     *reset_cntl;
->>> +    struct amdgpu_reset_event_ctx   reset_event_ctx;
->>>       uint32_t ip_versions[MAX_HWIP][HWIP_MAX_INSTANCE];
->>>       bool                ram_is_direct_mapped;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> index ed077de426d9..c43d099da06d 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> @@ -73,6 +73,7 @@
->>>   #include <linux/pm_runtime.h>
->>>   #include <drm/drm_drv.h>
->>> +#include <drm/drm_sysfs.h>
->>>   MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
->>>   MODULE_FIRMWARE("amdgpu/vega12_gpu_info.bin");
->>> @@ -3277,6 +3278,23 @@ bool amdgpu_device_has_dc_support(struct 
->>> amdgpu_device *adev)
->>>       return amdgpu_device_asic_has_dc_support(adev->asic_type);
->>>   }
->>> +static void amdgpu_device_reset_event_func(struct work_struct *__work)
->>> +{
->>> +    struct amdgpu_device *adev = container_of(__work, struct 
->>> amdgpu_device,
->>> +                          gpu_reset_event_work);
->>> +    struct amdgpu_reset_event_ctx *event_ctx = &adev->reset_event_ctx;
->>> +
->>> +    /*
->>> +     * A GPU reset has happened, indicate the userspace and pass the
->>> +     * following information:
->>> +     *    - pid of the process involved,
->>> +     *    - if the VRAM is valid or not,
->>> +     *    - indicate that userspace may want to collect the ftrace 
->>> event
->>> +     * data from the trace event.
->>> +     */
->>> +    drm_sysfs_reset_event(&adev->ddev, event_ctx->pid, 
->>> event_ctx->flags);
->>> +}
->>> +
->>>   static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)
->>>   {
->>>       struct amdgpu_device *adev =
->>> @@ -3525,6 +3543,7 @@ int amdgpu_device_init(struct amdgpu_device 
->>> *adev,
->>>                 amdgpu_device_delay_enable_gfx_off);
->>>       INIT_WORK(&adev->xgmi_reset_work, amdgpu_device_xgmi_reset_func);
->>> +    INIT_WORK(&adev->gpu_reset_event_work, 
->>> amdgpu_device_reset_event_func);
->>>       adev->gfx.gfx_off_req_count = 1;
->>>       adev->pm.ac_power = power_supply_is_system_supplied() > 0;
---------------759AQCww3SbzT8uf5vQWZab8
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+>>> On 3/8/2022 5:39 PM, Andrey Grodzovsky wrote:
+>>>> As long as PMC driver provides clear interface to retrieve the info 
+>>>> there should be no issue to call either amdgpu interface or PMC 
+>>>> interface using IS_APU (or something alike in the code)
+>>>> We probably should add a wrapper function around this logic in amdgpu.
+>>>>
+>>>> Andrey
+>>>>
+>>>> On 2022-03-08 11:36, Lazar, Lijo wrote:
+>>>>>
+>>>>> [AMD Official Use Only]
+>>>>>
+>>>>>
+>>>>> +Mario
+>>>>>
+>>>>> I guess that means the functionality needs to be present in amdgpu 
+>>>>> for APUs also. Presently, this is taken care by PMC driver for APUs.
+>>>>>
+>>>>> Thanks,
+>>>>> Lijo
+>>>>> ------------------------------------------------------------------------ 
+>>>>>
+>>>>> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf 
+>>>>> of Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>>>> *Sent:* Tuesday, March 8, 2022 9:55:03 PM
+>>>>> *To:* Shashank Sharma <contactshashanksharma@gmail.com>; 
+>>>>> amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+>>>>> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; Somalapuram, 
+>>>>> Amaranath <Amaranath.Somalapuram@amd.com>; Koenig, Christian 
+>>>>> <Christian.Koenig@amd.com>; Sharma, Shashank <Shashank.Sharma@amd.com>
+>>>>> *Subject:* Re: [PATCH 1/2] drm: Add GPU reset sysfs event
+>>>>>
+>>>>> On 2022-03-07 11:26, Shashank Sharma wrote:
+>>>>> > From: Shashank Sharma <shashank.sharma@amd.com>
+>>>>> >
+>>>>> > This patch adds a new sysfs event, which will indicate
+>>>>> > the userland about a GPU reset, and can also provide
+>>>>> > some information like:
+>>>>> > - which PID was involved in the GPU reset
+>>>>> > - what was the GPU status (using flags)
+>>>>> >
+>>>>> > This patch also introduces the first flag of the flags
+>>>>> > bitmap, which can be appended as and when required.
+>>>>>
+>>>>>
+>>>>> I am reminding again about another important piece of info which 
+>>>>> you can add
+>>>>> here and that is Smart Trace Buffer dump [1]. The buffer size is HW
+>>>>> specific but
+>>>>> from what I see there is no problem to just amend it as part of envp[]
+>>>>> initialization.
+>>>>> bellow.
+>>>>>
+>>>>> The interface to get the buffer is smu_stb_collect_info and usage 
+>>>>> can be
+>>>>> seen from
+>>>>> frebugfs interface in smu_stb_debugfs_open
+>>>>>
+>>>>> [1] - 
+>>>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Famd-gfx%2Fmsg70751.html&amp;data=04%7C01%7Clijo.lazar%40amd.com%7C80bc3f07e2d0441d44a108da012036dc%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637823535167679490%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=53l7KlTf%2BICKkZkLVwFh6nRTjkAh%2FDpOat5DRoyKIx0%3D&amp;reserved=0 
+>>>>> <https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Famd-gfx%2Fmsg70751.html&amp;data=04%7C01%7Clijo.lazar%40amd.com%7C80bc3f07e2d0441d44a108da012036dc%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637823535167679490%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=53l7KlTf%2BICKkZkLVwFh6nRTjkAh%2FDpOat5DRoyKIx0%3D&amp;reserved=0> 
+>>>>>
+>>>>>
+>>>>> Andrey
+>>>>>
+>>>>>
+>>>>> >
+>>>>> > Cc: Alexandar Deucher <alexander.deucher@amd.com>
+>>>>> > Cc: Christian Koenig <christian.koenig@amd.com>
+>>>>> > Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+>>>>> > ---
+>>>>> >   drivers/gpu/drm/drm_sysfs.c | 24 ++++++++++++++++++++++++
+>>>>> >   include/drm/drm_sysfs.h     |  3 +++
+>>>>> >   2 files changed, 27 insertions(+)
+>>>>> >
+>>>>> > diff --git a/drivers/gpu/drm/drm_sysfs.c 
+>>>>> b/drivers/gpu/drm/drm_sysfs.c
+>>>>> > index 430e00b16eec..52a015161431 100644
+>>>>> > --- a/drivers/gpu/drm/drm_sysfs.c
+>>>>> > +++ b/drivers/gpu/drm/drm_sysfs.c
+>>>>> > @@ -409,6 +409,30 @@ void drm_sysfs_hotplug_event(struct 
+>>>>> drm_device *dev)
+>>>>> >   }
+>>>>> >   EXPORT_SYMBOL(drm_sysfs_hotplug_event);
+>>>>> >
+>>>>> > +/**
+>>>>> > + * drm_sysfs_reset_event - generate a DRM uevent to indicate GPU 
+>>>>> reset
+>>>>> > + * @dev: DRM device
+>>>>> > + * @pid: The process ID involve with the reset
+>>>>> > + * @flags: Any other information about the GPU status
+>>>>> > + *
+>>>>> > + * Send a uevent for the DRM device specified by @dev. This 
+>>>>> indicates
+>>>>> > + * user that a GPU reset has occurred, so that the interested 
+>>>>> client
+>>>>> > + * can take any recovery or profiling measure, when required.
+>>>>> > + */
+>>>>> > +void drm_sysfs_reset_event(struct drm_device *dev, uint64_t pid, 
+>>>>> uint32_t flags)
+>>>>> > +{
+>>>>> > +     unsigned char pid_str[21], flags_str[15];
+>>>>> > +     unsigned char reset_str[] = "RESET=1";
+>>>>> > +     char *envp[] = { reset_str, pid_str, flags_str, NULL };
+>>>>> > +
+>>>>> > +     DRM_DEBUG("generating reset event\n");
+>>>>> > +
+>>>>> > +     snprintf(pid_str, ARRAY_SIZE(pid_str), "PID=%lu", pid);
+>>>>> > +     snprintf(flags_str, ARRAY_SIZE(flags_str), "FLAGS=%u", flags);
+>>>>> > + kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
+>>>>> > +}
+>>>>> > +EXPORT_SYMBOL(drm_sysfs_reset_event);
+>>>>> > +
+>>>>> >   /**
+>>>>> >    * drm_sysfs_connector_hotplug_event - generate a DRM uevent 
+>>>>> for any connector
+>>>>> >    * change
+>>>>> > diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
+>>>>> > index 6273cac44e47..63f00fe8054c 100644
+>>>>> > --- a/include/drm/drm_sysfs.h
+>>>>> > +++ b/include/drm/drm_sysfs.h
+>>>>> > @@ -2,6 +2,8 @@
+>>>>> >   #ifndef _DRM_SYSFS_H_
+>>>>> >   #define _DRM_SYSFS_H_
+>>>>> >
+>>>>> > +#define DRM_GPU_RESET_FLAG_VRAM_VALID (1 << 0)
+>>>>> > +
+>>>>> >   struct drm_device;
+>>>>> >   struct device;
+>>>>> >   struct drm_connector;
+>>>>> > @@ -11,6 +13,7 @@ int drm_class_device_register(struct device *dev);
+>>>>> >   void drm_class_device_unregister(struct device *dev);
+>>>>> >
+>>>>> >   void drm_sysfs_hotplug_event(struct drm_device *dev);
+>>>>> > +void drm_sysfs_reset_event(struct drm_device *dev, uint64_t pid, 
+>>>>> uint32_t reset_flags);
+>>>>> >   void drm_sysfs_connector_hotplug_event(struct drm_connector 
+>>>>> *connector);
+>>>>> >   void drm_sysfs_connector_status_event(struct drm_connector 
+>>>>> *connector,
+>>>>> >                                      struct drm_property *property);
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 3/8/2022 10:00 PM, Sharma, Shashank
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:bc293ab7-db45-2b16-aeb8-291cffef8ba4@amd.com">Hello
-      Andrey
-      <br>
-      <br>
-      On 3/8/2022 5:26 PM, Andrey Grodzovsky wrote:
-      <br>
-      <blockquote type="cite">
-        <br>
-        On 2022-03-07 11:26, Shashank Sharma wrote:
-        <br>
-        <blockquote type="cite">From: Shashank Sharma
-          <a class="moz-txt-link-rfc2396E" href="mailto:shashank.sharma@amd.com">&lt;shashank.sharma@amd.com&gt;</a>
-          <br>
-          <br>
-          This patch adds a work function, which will get scheduled
-          <br>
-          in event of a GPU reset, and will send a uevent to user with
-          <br>
-          some reset context infomration, like a PID and some flags.
-          <br>
-        </blockquote>
-        <br>
-        <br>
-        Where is the actual scheduling of the work function ? Shouldn't
-        <br>
-        there be a patch for that too ?
-        <br>
-        <br>
-      </blockquote>
-      <br>
-      Yes, Amar is working on that patch, on top of these patches. They
-      should be out soon. I thought it was a good idea to get quick
-      feedback on the basic patches before we build something on top of
-      it.
-      <br>
-      <br>
-    </blockquote>
-    <p>schedule_work() will be called in the function
-      amdgpu_do_asic_reset () <br>
-    </p>
-    <p>after getting vram_lost info:<br>
-    </p>
-    <p>vram_lost = amdgpu_device_check_vram_lost(tmp_adev);</p>
-    <p>update&nbsp; amdgpu_reset_event_ctx and call schedule_work()</p>
-    <ul>
-      <li>vram_lost</li>
-      <li>reset_context-&gt;job-&gt;vm-&gt;task_info.process_name</li>
-      <li>reset_context-&gt;job-&gt;vm-&gt;task_info.pid</li>
-    </ul>
-    Regards,<br>
-    S.Amarnath<br>
-    <blockquote type="cite" cite="mid:bc293ab7-db45-2b16-aeb8-291cffef8ba4@amd.com">- Shashank
-      <br>
-      <br>
-      <blockquote type="cite">Andrey
-        <br>
-        <br>
-        <br>
-        <blockquote type="cite">
-          <br>
-          The userspace can do some recovery and post-processing work
-          <br>
-          based on this event.
-          <br>
-          <br>
-          V2:
-          <br>
-          - Changed the name of the work to gpu_reset_event_work
-          <br>
-          &nbsp;&nbsp; (Christian)
-          <br>
-          - Added a structure to accommodate some additional information
-          <br>
-          &nbsp;&nbsp; (like a PID and some flags)
-          <br>
-          <br>
-          Cc: Alexander Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
-          <br>
-          Cc: Christian Koenig <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
-          <br>
-          Signed-off-by: Shashank Sharma <a class="moz-txt-link-rfc2396E" href="mailto:shashank.sharma@amd.com">&lt;shashank.sharma@amd.com&gt;</a>
-          <br>
-          ---
-          <br>
-          &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 7 +++++++
-          <br>
-          &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19
-          +++++++++++++++++++
-          <br>
-          &nbsp; 2 files changed, 26 insertions(+)
-          <br>
-          <br>
-          diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-          b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-          <br>
-          index d8b854fcbffa..7df219fe363f 100644
-          <br>
-          --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-          <br>
-          +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-          <br>
-          @@ -813,6 +813,11 @@ struct amd_powerplay {
-          <br>
-          &nbsp; #define AMDGPU_RESET_MAGIC_NUM 64
-          <br>
-          &nbsp; #define AMDGPU_MAX_DF_PERFMONS 4
-          <br>
-          &nbsp; #define AMDGPU_PRODUCT_NAME_LEN 64
-          <br>
-          +struct amdgpu_reset_event_ctx {
-          <br>
-          +&nbsp;&nbsp;&nbsp; uint64_t pid;
-          <br>
-          +&nbsp;&nbsp;&nbsp; uint32_t flags;
-          <br>
-          +};
-          <br>
-          +
-          <br>
-          &nbsp; struct amdgpu_device {
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *dev;
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pci_dev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *pdev;
-          <br>
-          @@ -1063,6 +1068,7 @@ struct amdgpu_device {
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int asic_reset_res;
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct work_struct&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xgmi_reset_work;
-          <br>
-          +&nbsp;&nbsp;&nbsp; struct work_struct&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_reset_event_work;
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_head&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reset_list;
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_timeout;
-          <br>
-          @@ -1097,6 +1103,7 @@ struct amdgpu_device {
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pci_channel_state_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pci_channel_state;
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_reset_control&nbsp;&nbsp;&nbsp;&nbsp; *reset_cntl;
-          <br>
-          +&nbsp;&nbsp;&nbsp; struct amdgpu_reset_event_ctx&nbsp;&nbsp; reset_event_ctx;
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          ip_versions[MAX_HWIP][HWIP_MAX_INSTANCE];
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ram_is_direct_mapped;
-          <br>
-          diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-          b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-          <br>
-          index ed077de426d9..c43d099da06d 100644
-          <br>
-          --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-          <br>
-          +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-          <br>
-          @@ -73,6 +73,7 @@
-          <br>
-          &nbsp; #include &lt;linux/pm_runtime.h&gt;
-          <br>
-          &nbsp; #include &lt;drm/drm_drv.h&gt;
-          <br>
-          +#include &lt;drm/drm_sysfs.h&gt;
-          <br>
-          &nbsp; MODULE_FIRMWARE(&quot;amdgpu/vega10_gpu_info.bin&quot;);
-          <br>
-          &nbsp; MODULE_FIRMWARE(&quot;amdgpu/vega12_gpu_info.bin&quot;);
-          <br>
-          @@ -3277,6 +3278,23 @@ bool
-          amdgpu_device_has_dc_support(struct amdgpu_device *adev)
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return
-          amdgpu_device_asic_has_dc_support(adev-&gt;asic_type);
-          <br>
-          &nbsp; }
-          <br>
-          +static void amdgpu_device_reset_event_func(struct work_struct
-          *__work)
-          <br>
-          +{
-          <br>
-          +&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev = container_of(__work, struct
-          amdgpu_device,
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_reset_event_work);
-          <br>
-          +&nbsp;&nbsp;&nbsp; struct amdgpu_reset_event_ctx *event_ctx =
-          &amp;adev-&gt;reset_event_ctx;
-          <br>
-          +
-          <br>
-          +&nbsp;&nbsp;&nbsp; /*
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp; * A GPU reset has happened, indicate the userspace and
-          pass the
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp; * following information:
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp; - pid of the process involved,
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp; - if the VRAM is valid or not,
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp; - indicate that userspace may want to collect the
-          ftrace event
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp; * data from the trace event.
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp; */
-          <br>
-          +&nbsp;&nbsp;&nbsp; drm_sysfs_reset_event(&amp;adev-&gt;ddev,
-          event_ctx-&gt;pid, event_ctx-&gt;flags);
-          <br>
-          +}
-          <br>
-          +
-          <br>
-          &nbsp; static void amdgpu_device_xgmi_reset_func(struct work_struct
-          *__work)
-          <br>
-          &nbsp; {
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-          <br>
-          @@ -3525,6 +3543,7 @@ int amdgpu_device_init(struct
-          amdgpu_device *adev,
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_delay_enable_gfx_off);
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_WORK(&amp;adev-&gt;xgmi_reset_work,
-          amdgpu_device_xgmi_reset_func);
-          <br>
-          +&nbsp;&nbsp;&nbsp; INIT_WORK(&amp;adev-&gt;gpu_reset_event_work,
-          amdgpu_device_reset_event_func);
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.gfx_off_req_count = 1;
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.ac_power = power_supply_is_system_supplied()
-          &gt; 0;
-          <br>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------759AQCww3SbzT8uf5vQWZab8--
