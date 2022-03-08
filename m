@@ -4,119 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1706DC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 09:31:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0183C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 09:35:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C113510E42C;
-	Tue,  8 Mar 2022 09:31:21 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2070.outbound.protection.outlook.com [40.107.101.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B2E010E42C
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Mar 2022 09:31:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8122F10E067;
+	Tue,  8 Mar 2022 09:35:25 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2318B10E067
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Mar 2022 09:35:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K8R+iz+LuMhtyYFQJ0vcaAOQJdh1SRXXd8U7eZFkvq7bEO3vL4N8kIOfiCyByMRkUF5nYslhpuug+p/Aq2BHKpwkRffDx0HVBMzeBG79xArmgWytUbOxb93HAYyKAWWn4iWSQjjC1DFQVNMxP1clfqkf8P2rKQg0/JZz/BO3o0CoLVg7bL9m0drEQmpM7retUY2QU690RXwl4eGszrYtxfRBjyycg3gkZQIjd9lpPEc384gZspbEFi+vjNqo0ABpmE0N1l9r5kviUpdBts8ke6UGik+DV9hL8Pb3OGxvXQE7wiVUfa42FAC+aUbra793T44qPNA0eTBQb3hkqW/dLw==
+ b=ekUBYDkVa/VctxR3ljIO1FuCtuJOP2SRGme6ehnziRgvA/YFJ7Xf/fwu+EDm+rSHXjc2SojnbXU2a/IRAfbXowkzfBtGlVKcs85Wnv/VSmXzH4fF4ALMT+BjFDwB6j/BsLTWpQHFhY9zonrDlfcMQ2ixkyqNX/wl7t5y2Tt194WfH7CBTANB/p/nlFgQcLIEhXZbZjRaOdQ03HVhpReKCrFky7HQ1M8J6SkBUNRvzmFIJvOmqYriTalDd22yzkM9vgI12S9uMQ/eajzqsMa2ydqx3D6zL30FKQ4NJJAyVF1bSXTk3fywAqxyp1gbgflzBv+t1Di2k8Y53E9fjB/TIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gz9owc3GqcWGGGZaLBdDeH4QyCqsCYCW7DLni3SzRjs=;
- b=fKnOwA9bh/z2MpY63D5+y1uFnXjsWaKbo4P2y5sSI9Uak3w1I6en2hOAFz8hvxwuVnSj5RbshA1nOC8xbHClzTrR8MLyWcLZFo+0bfFLlqSciRcT2dR7BOeTPfV3ZHND+InN0L8qMnH9Lb9ZjZ6+0yeD/N1BJXssTjErCyTNWAajA9b7fYw8n8Eq57eel92tXaze/TM0HCwp+ulhr6Y5OOpoL+poZ2cGoaSiOAG55+GTslKxnHAvZyTsbZOXRwU0je01bQSgfxOoMlr6MLV3t17wDIBJTsup2EJOd5A4vwXqtRs0Or1vBfZFKsVI2rAaW9MpLEIAKeDCUfma3sojIQ==
+ bh=rxAp5LgNGNubrxnWd6OFbPGBHGj05fbBUE1OUoxcH5A=;
+ b=KsRQEs/Bx9UtGnFpMZr/H+OQfh8+HO0sRIw+o7f7NOCDZEKI6aAiX301fwZrBO46O26tiibVCWp6ToN1U3vo6GAXEYoyDe2AN3pObRyB92UFMUn84JF1fG8ZrWjXrLqR1aVHVsZ1oGXWYQLIZzuFFe71jGTjjL295mpfRirCNqFpR6I0/C5eM7D+XDlcX9LE6nEMjAdLky3GizxXgqqkz8VKltJnDjcqEsVkjBf73YwMp59dVlwHZotLiEkHi31sZxfGXEbpLiVGwZsSmEnQ27feZVirEgfuboHfD9LuZm2mUb3wCO64jj/nMCu71oybAXzx288uDjCaKe+Mkope2A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gz9owc3GqcWGGGZaLBdDeH4QyCqsCYCW7DLni3SzRjs=;
- b=OcJb9B/R2pQCxUPAm2s1kSUg05pFQWyzD59jjPBvALVlTcfVbyCIXgvkKMLtjem+lMj8817Y7XQl0c7VbHAhP0cft8bnnGWwbM8IyG5tAnnO/OlsFDjuxvLu4g/sXMmc8++V1eEwiUW7VhrYeD9TckGJ1xwQRWIcIkTS1Zd8+/I=
+ bh=rxAp5LgNGNubrxnWd6OFbPGBHGj05fbBUE1OUoxcH5A=;
+ b=nFWycSIkX8GInWdXRzmDrLhefEFyw0DpmefVYQwkBaC8wALMQXnUePoOQqwUOpXKfYcaCb0eCP0+J30segfbby2L6h4GYNjtd/y0tLHQmuXmebC6qyNa6IWjtlHaWWPanG+o7PIE/MdIxTA8RKtg0ckljbYDcf3sPmQTJ78rREQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM4PR12MB5040.namprd12.prod.outlook.com (2603:10b6:5:38b::19)
- by BN8PR12MB3282.namprd12.prod.outlook.com (2603:10b6:408:9e::27) with
+ by DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Tue, 8 Mar
- 2022 09:31:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.15; Tue, 8 Mar
+ 2022 09:35:23 +0000
 Received: from DM4PR12MB5040.namprd12.prod.outlook.com
  ([fe80::f037:e2a1:f108:125a]) by DM4PR12MB5040.namprd12.prod.outlook.com
  ([fe80::f037:e2a1:f108:125a%8]) with mapi id 15.20.5038.027; Tue, 8 Mar 2022
- 09:31:17 +0000
-Message-ID: <958e65ad-3e86-36b5-5da2-7bb38431c343@amd.com>
-Date: Tue, 8 Mar 2022 10:31:10 +0100
+ 09:35:23 +0000
+Message-ID: <2e3beaae-4b93-dc50-d215-207d39e3e2b5@amd.com>
+Date: Tue, 8 Mar 2022 10:35:16 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.1
-Subject: Re: [PATCH 1/2] drm: Add GPU reset sysfs event
+Subject: Re: [PATCH 2/2] drm/amdgpu: add work function for GPU reset event
 Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
  Shashank Sharma <contactshashanksharma@gmail.com>,
  amd-gfx@lists.freedesktop.org
 References: <20220307162631.2496286-1-contactshashanksharma@gmail.com>
- <bd1ab442-86f7-ba41-31a8-0e896c6606d2@gmail.com>
+ <20220307162631.2496286-2-contactshashanksharma@gmail.com>
+ <8d35cf70-0dc3-6fd5-6768-9530d729ae63@amd.com>
 From: "Sharma, Shashank" <shashank.sharma@amd.com>
-In-Reply-To: <bd1ab442-86f7-ba41-31a8-0e896c6606d2@gmail.com>
+In-Reply-To: <8d35cf70-0dc3-6fd5-6768-9530d729ae63@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM6P194CA0020.EURP194.PROD.OUTLOOK.COM
- (2603:10a6:209:90::33) To DM4PR12MB5040.namprd12.prod.outlook.com
+X-ClientProxiedBy: AM6P194CA0005.EURP194.PROD.OUTLOOK.COM
+ (2603:10a6:209:90::18) To DM4PR12MB5040.namprd12.prod.outlook.com
  (2603:10b6:5:38b::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2f07d73a-5334-4f7a-8731-08da00e66536
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3282:EE_
-X-Microsoft-Antispam-PRVS: <BN8PR12MB32824E3CFACF35F7D96BDDA1F2099@BN8PR12MB3282.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 0bdaf589-448f-494d-0a3a-08da00e6f7f3
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5152:EE_
+X-Microsoft-Antispam-PRVS: <DM4PR12MB51522ECB2D836D91DF604E1AF2099@DM4PR12MB5152.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hLteuzD1aM5oT+0GsPodlqTcjiHA1+NliChKBviw7W2P4uLlK4eTQKQ86dWS4Nu5BAZxfgueFls6MJPpZI4uE0VdEDZjn0whZKYqHw3HT47AR3BNSE5nODoEPXqFIcrVyYmArT3qB9kOmoGdN5Z1le+lyghclsmx1kyrWFC4Y3UV2v/FodhecpsU2xt20FxFagKW0w7/TeSLtgKNZyxyFO2J+3D05yI+FUMmq1aV7AqAwBp8PsAUvc8sPyOy7X5YvmjemxqPvtfYGh3SJk+T8hyuSI0q4j/5ywU/wexx9B66Bp0HLhlek0CSNYgHBxS4YZ0kUin9sn3phZOeGhpwnp5+qmH7/mJ4YGa6fX7IOoFQNueoHKpjP9gXup/1H2FErXxVNs1yPoFWvMegQexWQQPqJkmeCTv3LjM1zxrAw0+aU1TyjnSbwEn/WFZ9W15lYMa/dtUZ2cr+1dTi9XjYPvAR6u5AXEVrBm+htYKsovAv4bGxGGNa7QUAW0OR6IeiI1WR49qTongHDyfOks9eOD4x94BAp6QzWpRgPLodnBWelK2znrvvCgn9s5YetSgN57fP+Pnxxa49H19oeFjZTRkn4DLhPSaEl0PmTBeJi14bhJ2r/NCoU0S1P9eTj6yDLphLEt9Cd1MO6WUrCfkdPIrMN7LpT6M0sbhBE35c3+xODkY69cP1smoQUil7kdo6ceA886uKvn/pToXd01KhWS9uqW5vRTKKrBJIuFvgOT90UNWS185vEi1pi2NbnxXa
+X-Microsoft-Antispam-Message-Info: Y75+HZDao7KxGCvUl3EVHuVooZTRDcRNnsDqzQWyKt4VFo/cv62voM6bTV5Eim5G0Eqe5bcQRipfoZnRq+MQy1SANASFehrcDR+dlqPRHG/xUoqU4mG/jHRhVIqHWgkExv2vWqkzSNyBaa4QYc3DfvW1pay/Zj1oMKPmYvwN3WeMa7rMUwANQbZARsKi0yI8YB6HgqeqpuBNOO/JCgUAV3Af1pJp5BvKkSGHiASt7hiWxvFAjv2IQbon6m+SFRk63OWHCK9YP5qV7Lr3CFk8xKsdAyB000xfio/gLdOutBdRQVT6Y4CBMH+da6i9G1IrLVvyLiSgeafq6gwM8uaVkvFCBO+XqL0j2PcTEVNKkyUfTiIfn/6hi3XU/VnhAhxCsHsvR/yB8ssaB+lvGLV1PJZ59pSuljUdBj3HLUBsv/nHlyefPn7THWgLZhMpaLgzBo6KjYS1GNGiaRzdFLnWg70pGFaxUaa2l6uwj4TYDYxiOaufpF0yohNFRlkU4IZ+7LHoo70O5SwkQN4NJGkosmpaIItM65YgZy/Xx27bPZ9eNmYxyvAOitAT67bsFbFYEvj9vYR0zsBTOpToORBXl9sc6nbgvn/DkhStW5GmD2cYJQSlc8wg9ySHgkCQToKZnAaCq43GE9yJZoK4o+yAxGKKxqumSO2lwb1Ypqx6SDpzS94luaQ5MQTEnfHvmYEVZ5JGMbHqg7BXK9roR4sOADQ1Oy7qIvuRQEat3uMEgYhKijWAMf7w7q5pF0blZ6fz
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB5040.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66946007)(4326008)(66556008)(508600001)(66476007)(8676002)(31696002)(5660300002)(8936002)(6506007)(6666004)(36756003)(53546011)(31686004)(26005)(6486002)(86362001)(316002)(2906002)(186003)(38100700002)(6512007)(110136005)(54906003)(2616005)(45980500001)(43740500002);
+ SFS:(13230001)(4636009)(366004)(26005)(6486002)(508600001)(6666004)(86362001)(6512007)(186003)(53546011)(31696002)(6506007)(8936002)(31686004)(66476007)(5660300002)(4326008)(66946007)(66556008)(8676002)(36756003)(2906002)(110136005)(38100700002)(316002)(2616005)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjQxRVBIL0tITi9oRkFmTTl0dGlPcXJKWVlCdmZ4Rnpzczg4Z000SDR2WWZV?=
- =?utf-8?B?Z1NIc2o2UGl6dlJyUi9SUEpSa2FGdmpSWFBNb3FmRFVTelNQVWIxSUkyS0V4?=
- =?utf-8?B?dFR0R3JnV294TE1Gb2QxSHFWK0Y2alRleTRzcFJaMDgxTWF6QTEvaWNsN1pR?=
- =?utf-8?B?V3E5d1grVmNtZkNQWlpCMkNyQXJ0M0Y5TXJlODg4S1lLRkwxSHJyVzR4OGtN?=
- =?utf-8?B?TnJRSHNxWU0zeWVnMzVyc1dFWTNxdEtTVU9mSUJ4Q1hKMTFHRUV5MUFKeVR1?=
- =?utf-8?B?eTZxaUxVeVZBWVJBTVZzdkhrd0VGSEFXZmRWRWx5U2xZRlB4K3NoQ25tQ3Yr?=
- =?utf-8?B?RzlXb1pkdmRrNXBZOHU2M3l2WTFIS2I2b1lpUFo4NlRyeDl4YitGRlgvWi9j?=
- =?utf-8?B?YUVUQU5KelFtNEtxQkpGbG9EdUM4cnBTYVZjdjRwa3NHa2JjUkhsSlBYWmpJ?=
- =?utf-8?B?UWJUV2RTOGIxWHhDSmNhM2syMldORjkyeTdCd2VPUVI5eXBmRm1WQkRFSlM1?=
- =?utf-8?B?S1Rlc3pvSXp4MkEwRkxtOWRQZHZiRUxUZDBxWWd5Rm8rZkg5RVZmYWFPUkpR?=
- =?utf-8?B?VUhFblZQaldKeklGWjZpM3FDV1E4MjFub3NHN3JIZ3RNMFkyZkNPT1IxTVNS?=
- =?utf-8?B?MGw0ak8vdDBaV3JZM0pxR3lKUU9HN0xBOGxjNTdvc3g4NEU0Q1QrK2t0TVNV?=
- =?utf-8?B?Zk5UVlhaUTR2dEFHK2dROUlEZ3pHU3lqSUlhVUJVWGx5TTVMNVVHVFFzZ3ZS?=
- =?utf-8?B?dXB2YjdHazVjZ3dpamlVc1d1RGhZWm95NVl6ZmFyR3F0VjJzamZhdWdpS21V?=
- =?utf-8?B?MGpoUEltOXg4cU5aTGVvTzNyQWtMNjVmeWZmSHVucmtGUmVGRm5yZVFSZDRq?=
- =?utf-8?B?WHhzU3BvVVA1ek94ZlRiV3RSNVRCQU5UOXZpbWRmdi9xT3UwOW1aQ29FYTcx?=
- =?utf-8?B?bHNYSUxCeHZrbXFFVmVJNStlZkZianhMWG5WVzJSV3hrVW9uMXplMXZ5RWJP?=
- =?utf-8?B?M09VakgzdjNNTWd0WW1taDV2L0VSb0lXblF4c1YzaVRpdFA4K0J3RmVDL1lo?=
- =?utf-8?B?Ny9IME1OeE8zYXBQQXQvYzJYNG96WkZZZTdSUjFSVnVPUVlzc0s2RnY3WGIw?=
- =?utf-8?B?WkpPalB1cFFjVUtSRWhNTFNVR3pKaHp2Z1Qya2ppYjc4ZkVVQVB3UW56ZEF1?=
- =?utf-8?B?YXNreHRmS1BkYndscjZ3MG44TDBkVHY0c3drUmxkYjZMb3NFMDRYQjMxTVVL?=
- =?utf-8?B?SzNibFJOQ3Z3MFNvM0xIR05Sd2tET3ZQNG5VV09STWxUWVN3MlVxSzE5Vm5i?=
- =?utf-8?B?a3lrajlheUJyTmRDQ3lyNm5zUjc5Q20xYlNabHE5Qlp0SHdKRzEzRi9pN3JU?=
- =?utf-8?B?Vnp0NFZzMjJCU2QvbjFJWWpiTTVEK2Z5YmpxOGNkNU8xOVpFSjF6MXRIV0kx?=
- =?utf-8?B?OExlZFZvaGlrRWZiTS9NemFjc0FVRFJqVXFDTDlGYWZpVUZvYTBqTjNNdmxX?=
- =?utf-8?B?U2N5Z0VCM09SV082R3FWODU4Sm9ZTm82MFpDZERtRmp4YkV5azhRdE1PRWpH?=
- =?utf-8?B?amlqMDU5aVNQUHRPelFPcHA2MmdOZlRhTzB0dVFRTEwyd3V2OFczWCtwSFpq?=
- =?utf-8?B?NGpnam9DNnJscmRmVUxPRXd2UkdvRFF3TWJ5UWVJeUVWdmF5TlMxYXRrbjR0?=
- =?utf-8?B?Vm1SUmNWVmVxZndBQWdjcENRTW1MbDNmOTloMnE5VVprbFhCMFZYekc3ZHF2?=
- =?utf-8?B?WEVleFpaNjNLZEZKdkN3N09VcE1pQ1c0ODNzRTVSSHBBZXJSZ2pUSjdOcG01?=
- =?utf-8?B?S2FuOGdrUWJSQkoyU1NXYVB4Tms5aFo2UnRVSmoyY1Z4TTJwWDdNWnV6REE2?=
- =?utf-8?B?YnIwYy9uczNMUWV5TjkzdFh3bmdBYktEaGlPT1FSaEZHZHVaUlNJS0dtWXhP?=
- =?utf-8?B?KzVGdVFuK1dXbDZnU1FRcndDRmt3ZUdVNHh2dXV2Tm5VSk1vUkhZZVdWYURk?=
- =?utf-8?B?bS8wZWFoZVdsODhURW45QVlnbDJQYzN3cWlaMFJBanNEdnFlbGZBTk9VYXNS?=
- =?utf-8?B?NVdtaEZkbkIxT2cxSjZnbXV2NlB0UW11QWd5SGM4QlFqTUpkSWhNODgyc0Nx?=
- =?utf-8?B?QTh1ZWp0OHBlcjJKVElWaTc1RmhGblhWTnovQVk4MEJrYUJDc1BXOGVEd1dZ?=
- =?utf-8?Q?lqtBnZ0+zzwJeTWHWQdxMbU=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YXgrYjlmMjJWbFFpcWJyYTMvcVAveUV0a0pLN2hpY1hFWXFydzNTMFlaSklW?=
+ =?utf-8?B?SDNwTUtkbzMxMXlDdnNmODRVZ3F4MlV0T3dsZVdWQ2ZQS0RvYnVCZGhNZGVJ?=
+ =?utf-8?B?TDJYaHlkVjlhSHR1b0M0UkNsVFJna1EzNTBSazJHaVhLVFo2ZHE5MFdxWWlu?=
+ =?utf-8?B?ZFYzUlJRdWs2UnlVYU51c01qbkllRGF6bHpnSXhUWFFrYnJyV2ZUZHZlRmJr?=
+ =?utf-8?B?cnVESjR3YWtsTjN0VTNoR3QvNERYN0Uxb0RPNFIvY2VUUXY5emlyVHhjRWJC?=
+ =?utf-8?B?WFQ1ek1GM1ljSHZuS1dQVjVKQ29ZNkw4LzVDMTVoZlduUitpK1lSQmk3UzlD?=
+ =?utf-8?B?UVczeHdJSDRIZmRZL3JOYUVnSTE2WDhyVWhkSy9oU1VCbkNqVDVwaWw4Q2Ur?=
+ =?utf-8?B?L3NxY1pqWFh1c01xM2pKb1FwUGZEcHAyUm1VTEZEU2R4TjE1Rkp4TjNZZTc5?=
+ =?utf-8?B?d3ZMWW9mVjQwSjNzVCs5R3RTOHNUVHJySkEycWhpSGlBOGRMVDQvU2xITXha?=
+ =?utf-8?B?N1VJa2pPSFhYNkRWd1ZxOTBTak5yRityRzh4cjFQbHY1WmEwVmxIVTFrK09y?=
+ =?utf-8?B?SUJ6azFHK0VySmthdm11Q2xiWUdNMGlGa1hSdWhSbFRyZHZWdXdzNTNXSDN1?=
+ =?utf-8?B?cEFyazJ0Rm1WR1FQaTY0REJ5R0sxSUI2elpvRjZYMzhKUkoyOCtTRXlVSHdh?=
+ =?utf-8?B?ZitOK3pZTXhSRGI4QW1KM1g4YndDblNzR0FQdEU3SWJWZ3gzdkhMck10aU04?=
+ =?utf-8?B?MWZZeE14VzlmVHF2R3pIVHl2TmcwUmFJTXp6cTg3bldHZnNDWVRyY3NkcW1z?=
+ =?utf-8?B?NFhEdVhSS3ZBeVpsMHdnd3JEUXhRTzRoR1NuTW9xY2JxdklKY2s4eHZmUTht?=
+ =?utf-8?B?eHpLZm9sUGRQNVBqcWJFbWpkNnd6TXp4WTVOUERjZ1Q2TU1jeWliNXpqSVJr?=
+ =?utf-8?B?M1lVeVlBUnZ5dkF1K0R1N0kwWGpSNGhKRnAvODltNVlvQ29PQ2pjTWFIbTl4?=
+ =?utf-8?B?MUhmQUQ3QzFKUFFtclNUOG5zeXArbkJsSmZSUkZGa2hhTVIrT2RnY0hzUEZV?=
+ =?utf-8?B?Q0h3eXYwMjlYVE9TRmdPcFBESXYzNHN2bkhSUjEybmx2ZlJTaE0wQ3RiZ2I2?=
+ =?utf-8?B?dWZYN2x1WnFsZFFRUGVveXVCdm1CbWFWOGhkeEdTMFRuUVE2NGZUTHU2TE5x?=
+ =?utf-8?B?Zjd2dzNIU0h2ZWJNTGw0bnZsN3RJR0J0OStxejZmWEN6eWFlNUNDYlJISmY1?=
+ =?utf-8?B?bzFlSVc0OHgvUS9zOUFhU3Y1TldoQWZsU2VJTm9MVHhZdy9HcnFoQ29DcFpv?=
+ =?utf-8?B?UGpUY05OSzVWWnhKTDFiRFFsSitCeDNzTVpCU3lGNHZscjdDWjhCOEhzNmZu?=
+ =?utf-8?B?bHZKTWJRVWV0V0dMODFROXNwZ1VCdWFKUFo0bUl4S0YvUVNibitWVnZwRTBF?=
+ =?utf-8?B?QWhGRFdCbXRwVkhnZk41Qk5adHFNS1dMRVNab2JvNHlJVUtsVFRicnBEMkF0?=
+ =?utf-8?B?MUVpcmNDUFp6Mm1NbExaN3BFNFZsTTFpZ1ZQdjJFT1k1Yy9UWE5WbENkZ1Rn?=
+ =?utf-8?B?TzFqZWQ1OVRTSkRjTFkzYUg3dXg4NWo3b2EwbVVrUWlTeFBndVdDaUdkVTVq?=
+ =?utf-8?B?MndlelRLdVcvODRmNS9VVWllMXpHY0k5dm1DOHA2ajhCQUlaajR3aFNWWG5V?=
+ =?utf-8?B?TWpmaXpsREhJbXBYM0lnbVVoMnVXT0J1SGY4YUZIQ29BcitVTVVsdDRndllJ?=
+ =?utf-8?B?QVhQdkgwTmx0Unc5dnRKakpZUXhuUGZocHhncDY5cTlrdVlZa0ZwV1FkYWZ0?=
+ =?utf-8?B?bXAwQ1FKVGZEQ0ppbW5rcjV1dE1JOGFSazdWdmlxN2RiVFNUQnl0dWJMUnRM?=
+ =?utf-8?B?TDI2QTRVUmhxdGw4RjdMWEpxejQ3SGNadzdIUVJmSXZjQVl6NCtCbjR5Yytx?=
+ =?utf-8?B?U0p4ZUliMnovcEltcmJ4ZHM3SzRxQkM1ZDRja0ZwU0I3UFlDWHZ0ZWN0Q3NH?=
+ =?utf-8?B?Vng0dEMxU3h5a3dzcGNhYjlyWmEvLzBGUndkL0xsa1JtV3RrRkFLVDJyWW5Y?=
+ =?utf-8?B?RERFUEYwSGQyM09HN1d2R0toMTR3TDAxbktLUm1SVG1mWDFleWVnR2FVWmdF?=
+ =?utf-8?B?RWZBenBXMENFb29nS1hUd05LNEhTNlRtUVh1bno4cHVzOGk4dC9kN2huNE5Q?=
+ =?utf-8?Q?wyd5xKrtGw9gusz15HDwV/E=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f07d73a-5334-4f7a-8731-08da00e66536
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bdaf589-448f-494d-0a3a-08da00e6f7f3
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5040.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 09:31:17.1439 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 09:35:23.0599 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kZo0FKX+xVgfm5wz9rVnJ3CYzwHwye4DgYTG0KZLVf8stH9amF1ZvrtTVxSXG2jFDCyzaR7uIo75706h8NKY3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3282
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0c8rZIFmLqdp/ouuNrtnmitcFRYlYcyJp2NbOfqqoCnS/pQEp7usUnmhGCydKeKoxN59KRpGuPK75HGFgqGjJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5152
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,120 +129,130 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexandar Deucher <alexander.deucher@amd.com>,
- amaranath.somalapuram@amd.com, Christian Koenig <christian.koenig@amd.com>
+Cc: Alexander Deucher <alexander.deucher@amd.com>,
+ amaranath.somalapuram@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 3/8/2022 8:06 AM, Christian König wrote:
+On 3/8/2022 8:15 AM, Christian König wrote:
 > Am 07.03.22 um 17:26 schrieb Shashank Sharma:
 >> From: Shashank Sharma <shashank.sharma@amd.com>
 >>
->> This patch adds a new sysfs event, which will indicate
->> the userland about a GPU reset, and can also provide
->> some information like:
->> - which PID was involved in the GPU reset
->> - what was the GPU status (using flags)
+>> This patch adds a work function, which will get scheduled
+>> in event of a GPU reset, and will send a uevent to user with
+>> some reset context infomration, like a PID and some flags.
 >>
->> This patch also introduces the first flag of the flags
->> bitmap, which can be appended as and when required.
-> 
-> Make sure to CC the dri-devel mailing list when reviewing this.
-Got it,
-
-I was also curious if we want to move the reset_ctx structure itself to 
-DRM layer, like
-drm_reset_event_ctx {
-	u32 pid;
-	u32 flags;
-	char process_name[64];
-};
-
-and then:
-void drm_sysfs_reset_event(struct drm_device *dev, drm_reset_event_ctx 
-*ctx);
-
-> 
+>> The userspace can do some recovery and post-processing work
+>> based on this event.
 >>
->> Cc: Alexandar Deucher <alexander.deucher@amd.com>
+>> V2:
+>> - Changed the name of the work to gpu_reset_event_work
+>>    (Christian)
+>> - Added a structure to accommodate some additional information
+>>    (like a PID and some flags)
+>>
+>> Cc: Alexander Deucher <alexander.deucher@amd.com>
 >> Cc: Christian Koenig <christian.koenig@amd.com>
 >> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
 >> ---
->>   drivers/gpu/drm/drm_sysfs.c | 24 ++++++++++++++++++++++++
->>   include/drm/drm_sysfs.h     |  3 +++
->>   2 files changed, 27 insertions(+)
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  7 +++++++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 +++++++++++++++++++
+>>   2 files changed, 26 insertions(+)
 >>
->> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
->> index 430e00b16eec..52a015161431 100644
->> --- a/drivers/gpu/drm/drm_sysfs.c
->> +++ b/drivers/gpu/drm/drm_sysfs.c
->> @@ -409,6 +409,30 @@ void drm_sysfs_hotplug_event(struct drm_device *dev)
->>   }
->>   EXPORT_SYMBOL(drm_sysfs_hotplug_event);
->> +/**
->> + * drm_sysfs_reset_event - generate a DRM uevent to indicate GPU reset
->> + * @dev: DRM device
->> + * @pid: The process ID involve with the reset
->> + * @flags: Any other information about the GPU status
->> + *
->> + * Send a uevent for the DRM device specified by @dev. This indicates
->> + * user that a GPU reset has occurred, so that the interested client
->> + * can take any recovery or profiling measure, when required.
->> + */
->> +void drm_sysfs_reset_event(struct drm_device *dev, uint64_t pid, 
->> uint32_t flags)
-> 
-> The PID is usually only 32bit, but even better would be to use pid_t.
-> 
->> +{
->> +    unsigned char pid_str[21], flags_str[15];
->> +    unsigned char reset_str[] = "RESET=1";
->> +    char *envp[] = { reset_str, pid_str, flags_str, NULL };
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> index d8b854fcbffa..7df219fe363f 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> @@ -813,6 +813,11 @@ struct amd_powerplay {
+>>   #define AMDGPU_RESET_MAGIC_NUM 64
+>>   #define AMDGPU_MAX_DF_PERFMONS 4
+>>   #define AMDGPU_PRODUCT_NAME_LEN 64
+>> +struct amdgpu_reset_event_ctx {
+>> +    uint64_t pid;
+>> +    uint32_t flags;
+>> +};
 >> +
->> +    DRM_DEBUG("generating reset event\n");
->> +
->> +    snprintf(pid_str, ARRAY_SIZE(pid_str), "PID=%lu", pid);
->> +    snprintf(flags_str, ARRAY_SIZE(flags_str), "FLAGS=%u", flags);
->> +    kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
->> +}
->> +EXPORT_SYMBOL(drm_sysfs_reset_event);
->> +
->>   /**
->>    * drm_sysfs_connector_hotplug_event - generate a DRM uevent for any 
->> connector
->>    * change
->> diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
->> index 6273cac44e47..63f00fe8054c 100644
->> --- a/include/drm/drm_sysfs.h
->> +++ b/include/drm/drm_sysfs.h
->> @@ -2,6 +2,8 @@
->>   #ifndef _DRM_SYSFS_H_
->>   #define _DRM_SYSFS_H_
->> +#define DRM_GPU_RESET_FLAG_VRAM_VALID (1 << 0)
 > 
-> Probably better to define that the other way around, e.g. 
-> DRM_GPU_RESET_FLAG_VRAM_LOST.
+> Please don't put any new structures into amdgpu.h. If I'm not completely 
+> mistaken Andrey has created a new header for all the reset related stuff. >
+> I would also reconsider the name, at least drop the _ctx suffix.
 > 
-> Apart from that looks good to me.
-> 
-Got it, noted.
+
+(Same as comment from other patch) should we move this structure in drm 
+level (drm_sysfs.h) like
+
+drm_reset_event {
+	u32 pid;
+	u32 flags;
+	char pname[64];
+};
+
 - Shashank
 
+> Regards,
 > Christian.
 > 
+>>   struct amdgpu_device {
+>>       struct device            *dev;
+>>       struct pci_dev            *pdev;
+>> @@ -1063,6 +1068,7 @@ struct amdgpu_device {
+>>       int asic_reset_res;
+>>       struct work_struct        xgmi_reset_work;
+>> +    struct work_struct        gpu_reset_event_work;
+>>       struct list_head        reset_list;
+>>       long                gfx_timeout;
+>> @@ -1097,6 +1103,7 @@ struct amdgpu_device {
+>>       pci_channel_state_t        pci_channel_state;
+>>       struct amdgpu_reset_control     *reset_cntl;
+>> +    struct amdgpu_reset_event_ctx   reset_event_ctx;
+>>       uint32_t                        
+>> ip_versions[MAX_HWIP][HWIP_MAX_INSTANCE];
+>>       bool                ram_is_direct_mapped;
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> index ed077de426d9..c43d099da06d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -73,6 +73,7 @@
+>>   #include <linux/pm_runtime.h>
+>>   #include <drm/drm_drv.h>
+>> +#include <drm/drm_sysfs.h>
+>>   MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
+>>   MODULE_FIRMWARE("amdgpu/vega12_gpu_info.bin");
+>> @@ -3277,6 +3278,23 @@ bool amdgpu_device_has_dc_support(struct 
+>> amdgpu_device *adev)
+>>       return amdgpu_device_asic_has_dc_support(adev->asic_type);
+>>   }
+>> +static void amdgpu_device_reset_event_func(struct work_struct *__work)
+>> +{
+>> +    struct amdgpu_device *adev = container_of(__work, struct 
+>> amdgpu_device,
+>> +                          gpu_reset_event_work);
+>> +    struct amdgpu_reset_event_ctx *event_ctx = &adev->reset_event_ctx;
 >> +
->>   struct drm_device;
->>   struct device;
->>   struct drm_connector;
->> @@ -11,6 +13,7 @@ int drm_class_device_register(struct device *dev);
->>   void drm_class_device_unregister(struct device *dev);
->>   void drm_sysfs_hotplug_event(struct drm_device *dev);
->> +void drm_sysfs_reset_event(struct drm_device *dev, uint64_t pid, 
->> uint32_t reset_flags);
->>   void drm_sysfs_connector_hotplug_event(struct drm_connector 
->> *connector);
->>   void drm_sysfs_connector_status_event(struct drm_connector *connector,
->>                         struct drm_property *property);
+>> +    /*
+>> +     * A GPU reset has happened, indicate the userspace and pass the
+>> +     * following information:
+>> +     *    - pid of the process involved,
+>> +     *    - if the VRAM is valid or not,
+>> +     *    - indicate that userspace may want to collect the ftrace event
+>> +     * data from the trace event.
+>> +     */
+>> +    drm_sysfs_reset_event(&adev->ddev, event_ctx->pid, 
+>> event_ctx->flags);
+>> +}
+>> +
+>>   static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)
+>>   {
+>>       struct amdgpu_device *adev =
+>> @@ -3525,6 +3543,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>>                 amdgpu_device_delay_enable_gfx_off);
+>>       INIT_WORK(&adev->xgmi_reset_work, amdgpu_device_xgmi_reset_func);
+>> +    INIT_WORK(&adev->gpu_reset_event_work, 
+>> amdgpu_device_reset_event_func);
+>>       adev->gfx.gfx_off_req_count = 1;
+>>       adev->pm.ac_power = power_supply_is_system_supplied() > 0;
 > 
