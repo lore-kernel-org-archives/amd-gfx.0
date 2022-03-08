@@ -4,58 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A05C2C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 15:15:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53467C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Mar 2022 15:28:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FBA510E2BE;
-	Tue,  8 Mar 2022 15:15:08 +0000 (UTC)
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86F9010E2BE
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Mar 2022 15:15:06 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id s207so2369404oie.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Mar 2022 07:15:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=jk9Hqvn2+LDQnjWqt9l6eoqKpLsdojCyq8UcDLbfej4=;
- b=nnwcR0BphbBVbSMxgm1mghoS6LlABjOM7z1ClRB2TRxppXCY+MzNtp3x8idIC/WO+M
- i2VMsTfB8bDb/BSLOIOtMeZSh/2Gthrn1543rQIqB9E5TBrxniUgN/gX3w5PqGqppKUL
- 4U13z11N5/dSoCt/M+t7UVC7xUqgG6TEGFvCyvb0U4aMDuN8kNapCcP0Wx4Rm/JetDCw
- Zg2x4CXCxfWmZGnDYGAbRmgogDR9gI0c91nwG1g+g8dNivnR4MBaZHtttF76cQ/ZvC8U
- R4afwoxwfhxMP9oJOgIn4Gu78REkkPXMlZ9U40OkvpjZn89CkGOFynBTq9mzDqlYYtbj
- 751Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=jk9Hqvn2+LDQnjWqt9l6eoqKpLsdojCyq8UcDLbfej4=;
- b=Nec+icKgzdHKnlsrM8J212Q0ga6FHXlw/d0LrXSbBduAcOJDyD4jnlD6A5zYA+8cSm
- uItvZq1chqUp7e3Mp+7OfRQECw8/x6amvMCvEQyeH47Ea12ycKJyqmC4ckrjTzR04nBd
- N6HHHr6h+nx5hMTTRgNnElVcBAt9ITPqaXyD8i24hDGhVCq/LMWDSp/Fa0FtU6ed/nB6
- 33PBUKrrpzeVAoLF2X/knmO7hUMSSbly4W6btaPTyaqIa91EiN3Tp5m2U0Sr+Tbt6uMB
- 7xyVfe7TRw/lAqg1htKNyDHu/6FctK/HM5uoZlOMBW4PlefhHoG8fjqefXA1yL3rvrd3
- N9pA==
-X-Gm-Message-State: AOAM533rRQUwlDARo1Y1M1UnvC77CIYOgNKf87l1ZGsgHjHPCcT892nj
- 9rkXRumfcyCrCu5F6Zcj8BBoSGle+V0p4OFaacM=
-X-Google-Smtp-Source: ABdhPJwlx6QlXfbFiSIyRJbRR8EGbdJjasvdHJ/13SOor9X92M/CFpIBkyt/HPuPvYcpDgdKakWU4RY5gWxCOCxpqD4=
-X-Received: by 2002:a05:6808:140a:b0:2da:8c3:c92d with SMTP id
- w10-20020a056808140a00b002da08c3c92dmr2783034oiv.200.1646752505825; Tue, 08
- Mar 2022 07:15:05 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F341610E2F6;
+	Tue,  8 Mar 2022 15:28:38 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2063.outbound.protection.outlook.com [40.107.236.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BF2310E341;
+ Tue,  8 Mar 2022 15:28:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LkTtQNr9AYSl0yF11KL0jdFKPaVvGWy0TRTnuOvFSGVrdoFjkO/KFeEHigUpNGST0LO5fDEDe3F1xXqbG8qXiQn7WUiBUxqxqpJtZABCqzZu/6FDdQgfsvH6GDP3c/UR84GgvtrSOZokXYo/2cZ50Ki+mSbFNoRBQX/v/CnmJLNLubV2A2gm3XM4+73T9xoHy/PnBLOxqmU5pwur0OPkGvwfvMCLuUF8bImKhgQDcYn218nKlNY0vBADd6yhrqY+Xv1BL0TsC3GF7c+lVeWBU+x0ZnkoxDbs8OZDNokugHiYiXavi3+nM1n1b/NKr8GGp5hQbPKMppNQ2McMIBkhrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mdZfFgsOPvTEDaYfg1GUcFCCcl9XmujA3LaqP/sFVAU=;
+ b=Lrbm5MCA754taet66EZKISH6Bzd15yVsgN73PnVcPxh6KKdmKF0D79CY0jYOczsSt03BzbiZiezCCYgQneKvC54MqL9pEsof//4SOl9EIh1++LKM58k+V3E776SH1KpHXX/6s81K7tcO8Af6j8xtqbTL2Yxz25NiENjloMdTPpg4sF617yHUwoQSIPMM5XkzhcHeTbb1QHRKx/ZwdP7F/4LEn83n0f6rcAUEK5LZg2AUCDYnwmgfR7ogXKjXwcXbfsvVs7gbGIFI9ovmLhGMTco5lLeVuTF8yTDRjgco1+sLyi/RriUVfVBsx/MGgpuuhcXwTOkhpKtVXyvgjCXmpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mdZfFgsOPvTEDaYfg1GUcFCCcl9XmujA3LaqP/sFVAU=;
+ b=csGNGp7cVZGaNvwriMu8Refy3OujUY0kryXCAiov2brAdvJv9TS1mpaGx8Flw4lim1nPqVh1I4JiSBckZbpvNH1vhnLrKhok4r9Q4ExYrofJNXdkAvI9BPPPduCbjIaMwT96RWpG2RWJ/vDmVoaYJkIzLYFVY/VgWmqiUYI7zbw=
+Received: from MW4P223CA0007.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::12)
+ by CY4PR1201MB0070.namprd12.prod.outlook.com (2603:10b6:910:18::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.18; Tue, 8 Mar
+ 2022 15:28:35 +0000
+Received: from CO1NAM11FT027.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:80:cafe::60) by MW4P223CA0007.outlook.office365.com
+ (2603:10b6:303:80::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
+ Transport; Tue, 8 Mar 2022 15:28:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT027.mail.protection.outlook.com (10.13.174.224) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5038.14 via Frontend Transport; Tue, 8 Mar 2022 15:28:35 +0000
+Received: from dayatsin-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 8 Mar
+ 2022 09:28:33 -0600
+From: David Yat Sin <david.yatsin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH 2/2] drm/amdkfd: CRIU Refactor restore BO function
+Date: Tue, 8 Mar 2022 10:28:12 -0500
+Message-ID: <20220308152812.7929-2-david.yatsin@amd.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220308152812.7929-1-david.yatsin@amd.com>
+References: <20220308152812.7929-1-david.yatsin@amd.com>
 MIME-Version: 1.0
-References: <20220308033941.999933-1-Lang.Yu@amd.com>
- <0f785eed-9b48-9782-c817-30fbb24eaf4f@gmail.com>
- <YicG3THG9sem8Uet@lang-desktop>
- <cbebb9b6-705e-e6fc-9ff0-41c35c3ee94b@gmail.com>
- <YicOku9HhC3wJUb8@lang-desktop> <1c02d3b8-987a-3c4e-d123-6de8fd86dcab@amd.com>
-In-Reply-To: <1c02d3b8-987a-3c4e-d123-6de8fd86dcab@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 8 Mar 2022 10:14:54 -0500
-Message-ID: <CADnq5_PQF9srEfsqctbyowfz0gxP9c70ibbOn__wsDvvQimVFA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: add workarounds for Raven VCN TMZ issue
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2d86024c-7071-4ab1-ebb9-08da01184fd6
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0070:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB0070B45C8D7C31FD3163DE5395099@CY4PR1201MB0070.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 8wB6axVK/kzlvgr29X1wzcNoi7q1PrMw8tf8/mJBnLi8Gr3hSeSYEvBN45fYvz5vAqN7HE+GgqIiuMJ7BtJk5GGtLxpTpyaurUDyVHIyy7I3m/0423hjj3y253Qer8uFF1CYEBWtghQ5ku5F37lmxI1q4ii7yO1pZO94Di2A0OdI8p6P2maHDcsFtFbIYa68Aj7EmJohPXXvjMVb17f2yiqyvSUBEmH8xMRq7ipIVTpjUKkRnrwXXPX8bw3rf/IgUSi0aewDLOWNxM8TL4Yh/Vbdz/J3j6HjM709n2P8JD9r4uif3OikEtanup2iy90eKWyQs7BrtaWz5x1QYjWB7p/iVhb2exN9o6nxs4ntjTao/1Jkk8ukFWKB6Sav1ed9HKI245uhmebmBcfeuqUm6hXdaVDNcc/go4ckxy2RytzFVS7VK5bwNDPqtyaCxCjKpgrzHw3gTYOfx4lzi5n/lIw1RKfOXV4X0ZApYGXadx4SvBUFQrDgj99SG32niCfrbUgKijrOgNNds5JtKWpRt9S806xCBp/KNj/r75uTVrw3s9mHVtUSpyIXRHQNpDm6zl26WG/001CBIJvURCOk2CkLTbqQ6UmxoAtyug2grM/8UTNBYfyLIjPPTtcZW6Mk+cx3/33qokDLTOZIaMN5OQT/ngrnRrWePyddv1+QSJzTs0LUv0Tu1cVAl0EFicJeKRBl1rGHY5x3V+wDupJUTQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(186003)(426003)(16526019)(26005)(2616005)(336012)(508600001)(83380400001)(40460700003)(36756003)(7696005)(6666004)(1076003)(5660300002)(316002)(81166007)(2906002)(82310400004)(86362001)(54906003)(110136005)(356005)(47076005)(36860700001)(70206006)(450100002)(70586007)(4326008)(8676002)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 15:28:35.4643 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d86024c-7071-4ab1-ebb9-08da01184fd6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT027.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0070
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,194 +99,317 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, Leo" <Leo.Liu@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
- Lang Yu <Lang.Yu@amd.com>
+Cc: Felix.Kuehling@amd.com, David Yat Sin <david.yatsin@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 8, 2022 at 4:16 AM Christian K=C3=B6nig <christian.koenig@amd.c=
-om> wrote:
->
-> Am 08.03.22 um 09:06 schrieb Lang Yu:
-> > On 03/08/ , Christian K=C3=B6nig wrote:
-> >> Am 08.03.22 um 08:33 schrieb Lang Yu:
-> >>> On 03/08/ , Christian K=C3=B6nig wrote:
-> >>>> Am 08.03.22 um 04:39 schrieb Lang Yu:
-> >>>>> It is a hardware issue that VCN can't handle a GTT
-> >>>>> backing stored TMZ buffer on Raven.
-> >>>>>
-> >>>>> Move such a TMZ buffer to VRAM domain before command
-> >>>>> submission.
-> >>>>>
-> >>>>> v2:
-> >>>>>     - Use patch_cs_in_place callback.
-> >>>>>
-> >>>>> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >>>>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
-> >>>>> ---
-> >>>>>     drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 68 ++++++++++++++++++++=
-+++++++
-> >>>>>     1 file changed, 68 insertions(+)
-> >>>>>
-> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/dr=
-m/amd/amdgpu/vcn_v1_0.c
-> >>>>> index 7bbb9ba6b80b..810932abd3af 100644
-> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> >>>>> @@ -24,6 +24,7 @@
-> >>>>>     #include <linux/firmware.h>
-> >>>>>     #include "amdgpu.h"
-> >>>>> +#include "amdgpu_cs.h"
-> >>>>>     #include "amdgpu_vcn.h"
-> >>>>>     #include "amdgpu_pm.h"
-> >>>>>     #include "soc15.h"
-> >>>>> @@ -1905,6 +1906,72 @@ static const struct amd_ip_funcs vcn_v1_0_ip=
-_funcs =3D {
-> >>>>>           .set_powergating_state =3D vcn_v1_0_set_powergating_state=
-,
-> >>>>>     };
-> >>>>> +/**
-> >>>>> + * It is a hardware issue that Raven VCN can't handle a GTT TMZ bu=
-ffer.
-> >>>>> + * Move such a GTT TMZ buffer to VRAM domain before command submis=
-sion.
-> >>>>> + */
-> >>>>> +static int vcn_v1_0_validate_bo(struct amdgpu_cs_parser *parser,
-> >>>>> +                         struct amdgpu_job *job,
-> >>>>> +                         uint64_t addr)
-> >>>>> +{
-> >>>>> + struct ttm_operation_ctx ctx =3D { false, false };
-> >>>>> + struct amdgpu_fpriv *fpriv =3D parser->filp->driver_priv;
-> >>>>> + struct amdgpu_vm *vm =3D &fpriv->vm;
-> >>>>> + struct amdgpu_bo_va_mapping *mapping;
-> >>>>> + struct amdgpu_bo *bo;
-> >>>>> + int r;
-> >>>>> +
-> >>>>> + addr &=3D AMDGPU_GMC_HOLE_MASK;
-> >>>>> + if (addr & 0x7) {
-> >>>>> +         DRM_ERROR("VCN messages must be 8 byte aligned!\n");
-> >>>>> +         return -EINVAL;
-> >>>>> + }
-> >>>>> +
-> >>>>> + mapping =3D amdgpu_vm_bo_lookup_mapping(vm, addr/AMDGPU_GPU_PAGE_=
-SIZE);
-> >>>>> + if (!mapping || !mapping->bo_va || !mapping->bo_va->base.bo)
-> >>>>> +         return -EINVAL;
-> >>>>> +
-> >>>>> + bo =3D mapping->bo_va->base.bo;
-> >>>>> + if (!(bo->flags & AMDGPU_GEM_CREATE_ENCRYPTED))
-> >>>>> +         return 0;
-> >>>>> +
-> >>>>> + amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_VRAM);
-> >>>>> + r =3D ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
-> >>>>> + if (r) {
-> >>>>> +         DRM_ERROR("Failed validating the VCN message BO (%d)!\n",=
- r);
-> >>>>> +         return r;
-> >>>>> + }
-> >>>> Well, exactly that won't work.
-> >>>>
-> >>>> The message structure isn't TMZ protected because otherwise the driv=
-er won't
-> >>>> be able to stitch it together.
-> >>>>
-> >>>> What is TMZ protected are the surfaces the message structure is poin=
-ting to.
-> >>>> So what you would need to do is to completely parse the structure an=
-d then
-> >>>> move on the relevant buffers into VRAM.
-> >>>>
-> >>>> Leo or James, can you help with that?
-> >>>   From my observations, when decoding secure contents, register
-> >>> GPCOM_VCPU_DATA0 and GPCOM_VCPU_DATA1 are set to a TMZ buffer address=
-.
-> >>> And this way works when allocating TMZ buffers in GTT domain.
-> >> As far as I remember that's only the case for the decoding, encoding w=
-orks
-> >> by putting the addresses into the message buffer.
-> >>
-> >> But could be that decoding is sufficient, Leo and James need to commen=
-t on
-> >> this.
-> > It seems that only decode needs TMZ buffers. Only observe si_vid_create=
-_tmz_buffer()
-> > was called in rvcn_dec_message_decode() in src/gallium/drivers/radeon/r=
-adeon_vcn_dec.c.
->
-> Mhm, good point. Let's wait for Leo and James to wake up, when we don't
-> need encode support than that would makes things much easier.
+Refactor CRIU restore BO to reduce identation before adding support for
+IPC.
 
-If we don't support encrypted encode, we should add a check to prevent
-it like we do for compute.
+Signed-off-by: David Yat Sin <david.yatsin@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 271 +++++++++++------------
+ 1 file changed, 129 insertions(+), 142 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 789bdfbd3f9b..2c7d76e67ddb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -2094,6 +2094,132 @@ static int criu_restore_devices(struct kfd_process *p,
+ 	return ret;
+ }
+ 
++static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
++				      struct kfd_criu_bo_bucket *bo_bucket,
++				      struct kfd_criu_bo_priv_data *bo_priv,
++				      struct kgd_mem **kgd_mem)
++{
++	int idr_handle;
++	int ret;
++	const bool criu_resume = true;
++	u64 offset;
++
++	if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL) {
++		if (bo_bucket->size != kfd_doorbell_process_slice(pdd->dev))
++			return -EINVAL;
++
++		offset = kfd_get_process_doorbells(pdd);
++	} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP) {
++		/* MMIO BOs need remapped bus address */
++		if (bo_bucket->size != PAGE_SIZE) {
++			pr_err("Invalid page size\n");
++			return -EINVAL;
++		}
++		offset = pdd->dev->adev->rmmio_remap.bus_addr;
++		if (!offset) {
++			pr_err("amdgpu_amdkfd_get_mmio_remap_phys_addr failed\n");
++			return -ENOMEM;
++		}
++	} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
++		offset = bo_priv->user_addr;
++	}
++	/* Create the BO */
++	ret = amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(pdd->dev->adev, bo_bucket->addr,
++						      bo_bucket->size, pdd->drm_priv, kgd_mem,
++						      &offset, bo_bucket->alloc_flags, criu_resume);
++	if (ret) {
++		pr_err("Could not create the BO\n");
++		return ret;
++	}
++	pr_debug("New BO created: size:0x%llx addr:0x%llx offset:0x%llx\n",
++		 bo_bucket->size, bo_bucket->addr, offset);
++
++	/* Restore previous IDR handle */
++	pr_debug("Restoring old IDR handle for the BO");
++	idr_handle = idr_alloc(&pdd->alloc_idr, *kgd_mem, bo_priv->idr_handle,
++			       bo_priv->idr_handle + 1, GFP_KERNEL);
++
++	if (idr_handle < 0) {
++		pr_err("Could not allocate idr\n");
++		amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, *kgd_mem, pdd->drm_priv,
++						       NULL);
++		return -ENOMEM;
++	}
++
++	if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL)
++		bo_bucket->restored_offset = KFD_MMAP_TYPE_DOORBELL | KFD_MMAP_GPU_ID(pdd->dev->id);
++	if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP) {
++		bo_bucket->restored_offset = KFD_MMAP_TYPE_MMIO | KFD_MMAP_GPU_ID(pdd->dev->id);
++	} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_GTT) {
++		bo_bucket->restored_offset = offset;
++	} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
++		bo_bucket->restored_offset = offset;
++		/* Update the VRAM usage count */
++		WRITE_ONCE(pdd->vram_usage, pdd->vram_usage + bo_bucket->size);
++	}
++	return 0;
++}
++
++static int criu_restore_bo(struct kfd_process *p,
++			   struct kfd_criu_bo_bucket *bo_bucket,
++			   struct kfd_criu_bo_priv_data *bo_priv)
++{
++	struct kfd_process_device *pdd;
++	struct kgd_mem *kgd_mem;
++	int ret;
++	int j;
++
++	pr_debug("Restoring BO size:0x%llx addr:0x%llx gpu_id:0x%x flags:0x%x idr_handle:0x%x\n",
++		 bo_bucket->size, bo_bucket->addr, bo_bucket->gpu_id, bo_bucket->alloc_flags,
++		 bo_priv->idr_handle);
++
++	pdd = kfd_process_device_data_by_id(p, bo_bucket->gpu_id);
++	if (!pdd) {
++		pr_err("Failed to get pdd\n");
++		return -ENODEV;
++	}
++
++	ret = criu_restore_memory_of_gpu(pdd, bo_bucket, bo_priv, &kgd_mem);
++	if (ret)
++		return ret;
++
++	/* now map these BOs to GPU/s */
++	for (j = 0; j < p->n_pdds; j++) {
++		struct kfd_dev *peer;
++		struct kfd_process_device *peer_pdd;
++
++		if (!bo_priv->mapped_gpuids[j])
++			break;
++
++		peer_pdd = kfd_process_device_data_by_id(p, bo_priv->mapped_gpuids[j]);
++		if (!peer_pdd)
++			return -EINVAL;
++
++		peer = peer_pdd->dev;
++
++		peer_pdd = kfd_bind_process_to_device(peer, p);
++		if (IS_ERR(peer_pdd))
++			return PTR_ERR(peer_pdd);
++
++		ret = amdgpu_amdkfd_gpuvm_map_memory_to_gpu(peer->adev, kgd_mem, peer_pdd->drm_priv,
++							    NULL);
++		if (ret) {
++			pr_err("Failed to map to gpu %d/%d\n", j, p->n_pdds);
++			return ret;
++		}
++	}
++
++	pr_debug("map memory was successful for the BO\n");
++	/* create the dmabuf object and export the bo */
++	if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
++		ret = criu_get_prime_handle(&kgd_mem->bo->tbo.base, DRM_RDWR,
++					    &bo_bucket->dmabuf_fd);
++		if (ret)
++			return ret;
++	}
++	return 0;
++}
++
+ static int criu_restore_bos(struct kfd_process *p,
+ 			    struct kfd_ioctl_criu_args *args,
+ 			    uint64_t *priv_offset,
+@@ -2101,8 +2227,7 @@ static int criu_restore_bos(struct kfd_process *p,
+ {
+ 	struct kfd_criu_bo_bucket *bo_buckets = NULL;
+ 	struct kfd_criu_bo_priv_data *bo_privs = NULL;
+-	const bool criu_resume = true;
+-	int ret = 0, j = 0;
++	int ret = 0;
+ 	uint32_t i = 0;
+ 
+ 	if (*priv_offset + (args->num_bos * sizeof(*bo_privs)) > max_priv_data_size)
+@@ -2140,149 +2265,11 @@ static int criu_restore_bos(struct kfd_process *p,
+ 
+ 	/* Create and map new BOs */
+ 	for (; i < args->num_bos; i++) {
+-		struct kfd_criu_bo_bucket *bo_bucket;
+-		struct kfd_criu_bo_priv_data *bo_priv;
+-		struct kfd_dev *dev;
+-		struct kfd_process_device *pdd;
+-		struct kgd_mem *kgd_mem;
+-		void *mem;
+-		u64 offset;
+-		int idr_handle;
+-
+-		bo_bucket = &bo_buckets[i];
+-		bo_priv = &bo_privs[i];
+-
+-		pr_debug("kfd restore ioctl - bo_bucket[%d]:\n", i);
+-		pr_debug("size = 0x%llx, bo_addr = 0x%llx bo_offset = 0x%llx\n"
+-			"gpu_id = 0x%x alloc_flags = 0x%x\n"
+-			"idr_handle = 0x%x\n",
+-			bo_bucket->size,
+-			bo_bucket->addr,
+-			bo_bucket->offset,
+-			bo_bucket->gpu_id,
+-			bo_bucket->alloc_flags,
+-			bo_priv->idr_handle);
+-
+-		pdd = kfd_process_device_data_by_id(p, bo_bucket->gpu_id);
+-		if (!pdd) {
+-			pr_err("Failed to get pdd\n");
+-			ret = -ENODEV;
+-			goto exit;
+-		}
+-		dev = pdd->dev;
+-
+-		if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL) {
+-			pr_debug("restore ioctl: KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL\n");
+-			if (bo_bucket->size != kfd_doorbell_process_slice(dev)) {
+-				ret = -EINVAL;
+-				goto exit;
+-			}
+-			offset = kfd_get_process_doorbells(pdd);
+-		} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP) {
+-			/* MMIO BOs need remapped bus address */
+-			pr_debug("restore ioctl :KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP\n");
+-			if (bo_bucket->size != PAGE_SIZE) {
+-				pr_err("Invalid page size\n");
+-				ret = -EINVAL;
+-				goto exit;
+-			}
+-			offset = dev->adev->rmmio_remap.bus_addr;
+-			if (!offset) {
+-				pr_err("amdgpu_amdkfd_get_mmio_remap_phys_addr failed\n");
+-				ret = -ENOMEM;
+-				goto exit;
+-			}
+-		} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
+-			offset = bo_priv->user_addr;
+-		}
+-		/* Create the BO */
+-		ret = amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(dev->adev,
+-						bo_bucket->addr,
+-						bo_bucket->size,
+-						pdd->drm_priv,
+-						(struct kgd_mem **) &mem,
+-						&offset,
+-						bo_bucket->alloc_flags,
+-						criu_resume);
++		ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i]);
+ 		if (ret) {
+-			pr_err("Could not create the BO\n");
+-			ret = -ENOMEM;
+-			goto exit;
+-		}
+-		pr_debug("New BO created: size = 0x%llx, bo_addr = 0x%llx bo_offset = 0x%llx\n",
+-			bo_bucket->size, bo_bucket->addr, offset);
+-
+-		/* Restore previuos IDR handle */
+-		pr_debug("Restoring old IDR handle for the BO");
+-		idr_handle = idr_alloc(&pdd->alloc_idr, mem,
+-				       bo_priv->idr_handle,
+-				       bo_priv->idr_handle + 1, GFP_KERNEL);
+-
+-		if (idr_handle < 0) {
+-			pr_err("Could not allocate idr\n");
+-			amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev,
+-						(struct kgd_mem *)mem,
+-						pdd->drm_priv, NULL);
+-			ret = -ENOMEM;
++			pr_debug("Failed to restore BO[%d] ret%d\n", i, ret);
+ 			goto exit;
+ 		}
+-
+-		if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL)
+-			bo_bucket->restored_offset = KFD_MMAP_TYPE_DOORBELL |
+-				KFD_MMAP_GPU_ID(pdd->dev->id);
+-		if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP) {
+-			bo_bucket->restored_offset = KFD_MMAP_TYPE_MMIO |
+-				KFD_MMAP_GPU_ID(pdd->dev->id);
+-		} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_GTT) {
+-			bo_bucket->restored_offset = offset;
+-			pr_debug("updating offset for GTT\n");
+-		} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+-			bo_bucket->restored_offset = offset;
+-			/* Update the VRAM usage count */
+-			WRITE_ONCE(pdd->vram_usage, pdd->vram_usage + bo_bucket->size);
+-			pr_debug("updating offset for VRAM\n");
+-		}
+-
+-		/* now map these BOs to GPU/s */
+-		for (j = 0; j < p->n_pdds; j++) {
+-			struct kfd_dev *peer;
+-			struct kfd_process_device *peer_pdd;
+-
+-			if (!bo_priv->mapped_gpuids[j])
+-				break;
+-
+-			peer_pdd = kfd_process_device_data_by_id(p, bo_priv->mapped_gpuids[j]);
+-			if (!peer_pdd) {
+-				ret = -EINVAL;
+-				goto exit;
+-			}
+-			peer = peer_pdd->dev;
+-
+-			peer_pdd = kfd_bind_process_to_device(peer, p);
+-			if (IS_ERR(peer_pdd)) {
+-				ret = PTR_ERR(peer_pdd);
+-				goto exit;
+-			}
+-			pr_debug("map mem in restore ioctl -> 0x%llx\n",
+-				 ((struct kgd_mem *)mem)->va);
+-			ret = amdgpu_amdkfd_gpuvm_map_memory_to_gpu(peer->adev,
+-				(struct kgd_mem *)mem, peer_pdd->drm_priv, NULL);
+-			if (ret) {
+-				pr_err("Failed to map to gpu %d/%d\n", j, p->n_pdds);
+-				goto exit;
+-			}
+-		}
+-
+-		pr_debug("map memory was successful for the BO\n");
+-		/* create the dmabuf object and export the bo */
+-		kgd_mem = (struct kgd_mem *)mem;
+-		if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+-			ret = criu_get_prime_handle(&kgd_mem->bo->tbo.base,
+-						    DRM_RDWR,
+-						    &bo_bucket->dmabuf_fd);
+-			if (ret)
+-				goto exit;
+-		}
+ 	} /* done */
+ 
+ 	/* Copy only the buckets back so user can read bo_buckets[N].restored_offset */
+-- 
+2.17.1
 
->
-> Regards,
-> Christian.
->
-> >
-> > Regards,
-> > Lang
-> >
-> >> Regards,
-> >> Christian.
-> >>
-> >>> Regards,
-> >>> Lang
-> >>>
-> >>>> Regards,
-> >>>> Christian.
-> >>>>
-> >>>>> +
-> >>>>> + return r;
-> >>>>> +}
-> >>>>> +
-> >>>>> +static int vcn_v1_0_ring_patch_cs_in_place(struct amdgpu_cs_parser=
- *p,
-> >>>>> +                                    struct amdgpu_job *job,
-> >>>>> +                                    struct amdgpu_ib *ib)
-> >>>>> +{
-> >>>>> + uint32_t msg_lo =3D 0, msg_hi =3D 0;
-> >>>>> + int i, r;
-> >>>>> +
-> >>>>> + for (i =3D 0; i < ib->length_dw; i +=3D 2) {
-> >>>>> +         uint32_t reg =3D amdgpu_ib_get_value(ib, i);
-> >>>>> +         uint32_t val =3D amdgpu_ib_get_value(ib, i + 1);
-> >>>>> +
-> >>>>> +         if (reg =3D=3D PACKET0(p->adev->vcn.internal.data0, 0)) {
-> >>>>> +                 msg_lo =3D val;
-> >>>>> +         } else if (reg =3D=3D PACKET0(p->adev->vcn.internal.data1=
-, 0)) {
-> >>>>> +                 msg_hi =3D val;
-> >>>>> +         } else if (reg =3D=3D PACKET0(p->adev->vcn.internal.cmd, =
-0)) {
-> >>>>> +                 r =3D vcn_v1_0_validate_bo(p, job,
-> >>>>> +                                      ((u64)msg_hi) << 32 | msg_lo=
-);
-> >>>>> +                 if (r)
-> >>>>> +                         return r;
-> >>>>> +         }
-> >>>>> + }
-> >>>>> +
-> >>>>> + return 0;
-> >>>>> +}
-> >>>>> +
-> >>>>> +
-> >>>>>     static const struct amdgpu_ring_funcs vcn_v1_0_dec_ring_vm_func=
-s =3D {
-> >>>>>           .type =3D AMDGPU_RING_TYPE_VCN_DEC,
-> >>>>>           .align_mask =3D 0xf,
-> >>>>> @@ -1914,6 +1981,7 @@ static const struct amdgpu_ring_funcs vcn_v1_=
-0_dec_ring_vm_funcs =3D {
-> >>>>>           .get_rptr =3D vcn_v1_0_dec_ring_get_rptr,
-> >>>>>           .get_wptr =3D vcn_v1_0_dec_ring_get_wptr,
-> >>>>>           .set_wptr =3D vcn_v1_0_dec_ring_set_wptr,
-> >>>>> + .patch_cs_in_place =3D vcn_v1_0_ring_patch_cs_in_place,
-> >>>>>           .emit_frame_size =3D
-> >>>>>                   6 + 6 + /* hdp invalidate / flush */
-> >>>>>                   SOC15_FLUSH_GPU_TLB_NUM_WREG * 6 +
->
