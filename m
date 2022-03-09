@@ -4,89 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9DD6C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 22:08:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE67EC433FE
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 22:12:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FC6C10E4E8;
-	Wed,  9 Mar 2022 22:08:19 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2043.outbound.protection.outlook.com [40.107.236.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25A5010E501
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Mar 2022 22:08:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l/rTh18/FWR+Wq9Z+XvXg69xRaS/cKXZV5Vosk2hh+6xJZDuoHS1Ntpp/S2OR31yUlr49t/1tiKNXpE2eB68w+2RIzuRc4HE2az3ek+l34mqmpZfFhjDKPFspa9O9wat9yado2iCe/8RJw0V5mHFeNOXcwEyMxyiatQrIaRb/ghyavo6GJwOE6JFtslKfbmILAvMoH1cr+cyr4tonvLEecCWA6/mgvlniXnJY5rZF1nyCKht1e2H18KX/JddDqs89j+F3nBmFtVG2SpmAyMhZlFLhki7D+OKJvo8ieXv14LsS+S2Ok09LAYqG8qAceOvNuktQBWLyJ9QBEGFaH/wAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aCabvT4pLpzimTL0gDhhwLpRor0CSJJdpBM8DbVK7ys=;
- b=PiaqknNZw4R22V2PXHtWaebRNsuYDqEidVZVAYskVO9seIatcDD1vaoVcq88MHUXDc38uKiR770VwAwKq7yOP1zFecRF7yMShHJmgjNgwDPs2BKGogSZob33uXS1ouD/SvkqijwOG7oGka3cOUT7BarYtx6R4yXQXActKqlFAr/9FY4xf4jdLNlqz6cvHCXZli7BQuSLF+e/CoI2oxIt0D4y51dccBvx8wWde5P11Y8CMiKYLnQpf3LVP8+Y0NqmdswQIcrfitinx730S1F0tUJq7BX8c/ZbPdcUegAl6gGSrvGTZb6S4IwY78YafLslNCO4gDRRLd1pUTYrd0xsNA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aCabvT4pLpzimTL0gDhhwLpRor0CSJJdpBM8DbVK7ys=;
- b=pQJdGQGu7BcSKUszNZ0NYIWOjut3nLzbRBT8Q4/TGBfAEhTJ6ozfG2uD6se4Hl4BjeNdS0KysRWf884NMBzvKJ7pFRxWkW3OvLpfoWq2AivRxZw3P8/KMd+WleJWFvjPfI0a7cDM5s/H90S/779ib6dnP8jKc9acZPc5ZSIEj28=
-Received: from BN6PR14CA0003.namprd14.prod.outlook.com (2603:10b6:404:79::13)
- by SA0PR12MB4525.namprd12.prod.outlook.com (2603:10b6:806:92::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Wed, 9 Mar
- 2022 22:08:12 +0000
-Received: from BN8NAM11FT039.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:79:cafe::8) by BN6PR14CA0003.outlook.office365.com
- (2603:10b6:404:79::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
- Transport; Wed, 9 Mar 2022 22:08:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT039.mail.protection.outlook.com (10.13.177.169) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5038.14 via Frontend Transport; Wed, 9 Mar 2022 22:08:10 +0000
-Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 9 Mar
- 2022 16:08:09 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] amdgpu/pm: Don't show `smartshift_*_power` files for APUs
-Date: Wed, 9 Mar 2022 16:05:48 -0600
-Message-ID: <20220309220548.2541074-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EC4B10E18C;
+	Wed,  9 Mar 2022 22:12:19 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F54210E0A5;
+ Wed,  9 Mar 2022 22:12:18 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id t1so4439307edc.3;
+ Wed, 09 Mar 2022 14:12:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=66YaX71bgcdeApJ0LUkN99wM3HFQP2dosyERtGlnWhA=;
+ b=DXB3APfxc75tngjYrmKOHY70nLbSIS4eU0KhfiEsi1aIPJpmPxZLWzrOn5UEcCWOsH
+ xgh9xBp1lGvDByEN4nzrdwFnmLhgC29tGVPTO1D8slCe8IcBBENEE4Rlo91Uzq/wvUv0
+ Gvx58o/5yHXeqORX/kqodrVuWzGAm6tssebSkHPi6J/+jvx3zJaqSjw5Qt98RNQjo7Tr
+ RpMCTAreV/SOx7rv2Oo2JX5hXiMNMsh+x4sTM2pu2jPLALimRWX655zBEF7MGLFeOOus
+ 8SCajbyS+t+/a9S970QLzbbNqT7pSXMlhuHSIBA5YrdtBdGmXrap6f0Ga0sla4e8lzNJ
+ B8AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=66YaX71bgcdeApJ0LUkN99wM3HFQP2dosyERtGlnWhA=;
+ b=TDOh1SSkqQQ/QzptV+CUL1H1MRKAP2jUk7xHtiFD6/BIB8YLhicn7G2tRY1pKfAP9O
+ gTI/9vETppJD3AdheELgru8txjTHMZEBUq31p0Cg5wpwNm80XrlNf2MepByDC785X3uS
+ XLkqRXsWZ97FrirxQFarmCXKln/O5o9V8o2R7FhUMQw87wK0cNXeLN/UgVr8dRF5PQV7
+ t3k+m5YT6IBe0CmBtwdX8VCcT9x6/W2XqA91AQMngeLu1OdsHVrRkZ41/tIjMf6s/KkM
+ uGxmCY/fwrqNpZkLdfrZjY1BahqoC4FR9hn45WVkwIs+/s+3WYV3F47QVk9kMibe/HI2
+ 0yDg==
+X-Gm-Message-State: AOAM531VS68Cge0gny1EMCvoTQdaFUHiJIqwfGrDkgqc48X8cVWiQVrD
+ YZgRfIF7tUAos98CtWM4C2Cqe1VTcR2mYFZvXho=
+X-Google-Smtp-Source: ABdhPJzmzDmXP3nIK/NDh0TSF7CqTGZplWl8u4gSbLxdnrA09DacVrnBqZDobZ3jrb2ZwuifRssevCk9ClgmrxiwO/I=
+X-Received: by 2002:a05:6402:5143:b0:416:1327:4f95 with SMTP id
+ n3-20020a056402514300b0041613274f95mr1553885edd.56.1646863936642; Wed, 09 Mar
+ 2022 14:12:16 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b02310f1-17e0-4201-2218-08da02194c71
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4525:EE_
-X-Microsoft-Antispam-PRVS: <SA0PR12MB4525822C5EAF09A34F6EA652E20A9@SA0PR12MB4525.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NPZTnqaKA4XGpv67bkutT4DeULhMyykRfj38/BUWdf/mNxGuXmBCN9IU1fPukp6jLtOvyOU5MqA5CBKKvftjGVpBay+aQX5EdvNjQsK2nS3IZzxYG2UDoy+aog8tPogOhryy4itzKTPjF1ag5VpSNW2BkQtBsD6KovCPmzA9DM/Td2bBtWt/Se/hytAdDrjoVhaxaQewwOm52owr+jORXTV0xubkq99TwL6k05SlpRv/DgRv6jdvTHbqODr8QuEkaRMnYdBoxE0B/bAS2no8C7++EIOUxnAEZgD24xJURzxLDHTuNZixKZjtV9T6wrzVW201mqwrkze4m3ZvjgucRiVJvU6Ss4TGFmOCYTUqDn0dqjiC9GzW2eFqFSXUTyo8up9I/8wlP4sgXfm9fTGCx+KhzMqZ2kgRvTcda+XxBVeTkqoeQS9sTUL+iVjgzaN8xVZvVRhSlAbwwWLqqx6R+4KPWcMUgvhTcKSIYTQA9GAxM1D56qnEUVHyP7aL31Yqj2qUeELpz+YBrpM9+kp72r2YwLlKb/N9NlnYMxXg4/ior+yonAwydyiDoIgHll/7aeDU7I1jq2vSdJKf2UgJuNFnAT7NsEbUxW9ezB6qt/bdZj4QuH50Yd/udyV/UvcA+j19qY6Oj3ORdTjubF614bN8ljm9/DzbBabLhGP4GgrIKqOyHC2zf8Z5Ch0ezh9DRkyPt/XWUQt+MLziv/FzXamQy8DTbnfjqDB3twRwXqc=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(70586007)(4326008)(70206006)(508600001)(8676002)(40460700003)(82310400004)(83380400001)(356005)(16526019)(5660300002)(8936002)(6666004)(47076005)(36756003)(81166007)(44832011)(26005)(86362001)(186003)(316002)(2906002)(426003)(336012)(36860700001)(2616005)(6916009)(1076003)(81973001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2022 22:08:10.5485 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b02310f1-17e0-4201-2218-08da02194c71
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT039.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4525
+References: <20220307200813.77378-1-alexander.deucher@amd.com>
+In-Reply-To: <20220307200813.77378-1-alexander.deucher@amd.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Thu, 10 Mar 2022 08:12:05 +1000
+Message-ID: <CAPM=9twEVwqPMdQvJNaiJqrRGBNW4Mp==2cEXP6skPJcczNemA@mail.gmail.com>
+Subject: Re: [pull] amdgpu, amdkfd drm-next-5.18
+To: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,41 +63,309 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-`smartshift_*_power` files are showing up on some OEM programs on
-the APU instead of the dGPU.
+On Tue, 8 Mar 2022 at 06:08, Alex Deucher <alexander.deucher@amd.com> wrote=
+:
+>
+> Hi Dave, Daniel,
+>
+> Same PR as last week, just fixed up a bad Fixes tag.
+>
+> The following changes since commit 38a15ad9488e21cad8f42d3befca20f91e5b28=
+74:
+>
+>   Merge tag 'amd-drm-next-5.18-2022-02-25' of https://gitlab.freedesktop.=
+org/agd5f/linux into drm-next (2022-03-01 16:19:02 +1000)
+>
+> are available in the Git repository at:
+>
+>   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-5.18-2=
+022-03-07
+>
+> for you to fetch changes up to 53b97af4a44abd21344cc9f13986ba53051287bb:
+>
+>   drm/amdkfd: Add format attribute to kfd_smi_event_add (2022-03-07 14:59=
+:59 -0500)
 
-Adjust the logic to the function `ss_power_attr_update`
-to detect whether or not the attributes should be exported.
+clang says no.
 
-The existing checks that are dropped are already included in
-`amdgpu_device_support_smart_shift`, so this can be simplified.
-This causes attributes to not be shown on APUs.
+/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd=
+_device_queue_manager.c:508:6:
+error: variable 'vmid' is used uninitialized whenever 'if' condition
+is false [-Werror,-Wsometimes-uninitialized]
+        if (dev->kfd2kgd->get_atc_vmid_pasid_mapping_info) {
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd=
+_device_queue_manager.c:521:6:
+note: uninitialized use occurs here
+        if (vmid > last_vmid_to_scan) {
+            ^~~~
+/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd=
+_device_queue_manager.c:508:2:
+note: remove the 'if' if its condition is always true
+        if (dev->kfd2kgd->get_atc_vmid_pasid_mapping_info) {
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/airlied/devel/kernel/dim/src/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd=
+_device_queue_manager.c:490:19:
+note: initialize the variable 'vmid' to silence this warning
+        unsigned int vmid;
+                         ^
+                          =3D 0
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index cbbbd4079249..ccd0648c6789 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -1884,10 +1884,7 @@ static int ss_power_attr_update(struct amdgpu_device *adev, struct amdgpu_device
- {
- 	uint32_t ss_power, size;
- 
--	if (!amdgpu_acpi_is_power_shift_control_supported())
--		*states = ATTR_STATE_UNSUPPORTED;
--	else if ((adev->flags & AMD_IS_PX) &&
--		 !amdgpu_device_supports_smart_shift(adev_to_drm(adev)))
-+	if (!amdgpu_device_supports_smart_shift(adev_to_drm(adev)))
- 		*states = ATTR_STATE_UNSUPPORTED;
- 	else if (amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_SS_APU_SHARE,
- 		 (void *)&ss_power, &size))
--- 
-2.34.1
-
+Dave.
+>
+> ----------------------------------------------------------------
+> amd-drm-next-5.18-2022-03-07:
+>
+> amdgpu:
+> - Misc code cleanups
+> - Misc display fixes
+> - PSR display fixes
+> - More RAS cleanup
+> - Hotplug fix
+> - Bump minor version for hotplug tests
+> - SR-IOV fixes
+> - GC 10.3.7 updates
+> - Remove some firmwares which are no longer used
+> - Mode2 reset refactor
+> - Aldebaran fixes
+> - Add VCN fwlog feature for VCN debugging
+> - CS code cleanup
+>
+> amdkfd:
+> - SVM fixes
+> - SMI event fixes and cleanups
+> - vmid_pasid mapping fix for gfx10.3
+>
+> ----------------------------------------------------------------
+> Alex Deucher (4):
+>       drm/amdgpu: Use IP versions in convert_tiling_flags_to_modifier()
+>       drm/amdgpu: remove unused gpu_info firmwares
+>       drm/amdgpu/gfx10: drop unused cyan skillfish firmware
+>       drm/amdgpu/sdma5: drop unused cyan skillfish firmware
+>
+> Andrey Grodzovsky (2):
+>       drm/amdgpu: Fix sigsev when accessing MMIO on hot unplug.
+>       drm/amdgpu: Bump minor version for hot plug tests enabling.
+>
+> Anthony Koo (1):
+>       drm/amd/display: [FW Promotion] Release 0.0.106.0
+>
+> Aric Cyr (1):
+>       drm/amd/display: 3.2.175
+>
+> Charlene Liu (1):
+>       drm/amd/display: add verify_link_cap back for hdmi
+>
+> Chris Park (1):
+>       drm/amd/display: Reset VIC if HDMI_VIC is present
+>
+> Christian K=C3=B6nig (5):
+>       drm/amdgpu: install ctx entities with cmpxchg
+>       drm/amdgpu: header cleanup
+>       drm/amdgpu: use job and ib structures directly in CS parsers
+>       drm/amdgpu: properly embed the IBs into the job
+>       drm/amdgpu: initialize the vmid_wait with the stub fence
+>
+> Danijel Slivka (1):
+>       drm/amd/pm: new v3 SmuMetrics data structure for Sienna Cichlid
+>
+> David Yu (1):
+>       drm/amdgpu: Add DFC CAP support for aldebaran
+>
+> Dillon Varone (2):
+>       drm/amd/display: Add frame alternate 3D & restrict HW packed on don=
+gles
+>       drm/amd/display: Modify plane removal sequence to avoid hangs.
+>
+> George Shen (1):
+>       drm/amd/display: Refactor fixed VS w/a for PHY tests
+>
+> Hansen Dsouza (1):
+>       drm/amd/display: Remove invalid RDPCS Programming in DAL
+>
+> Harish Kasiviswanathan (1):
+>       drm/amdgpu: Set correct DMA mask for aldebaran
+>
+> Jingwen Chen (1):
+>       drm/amd/amdgpu: set disabled vcn to no_schduler
+>
+> Lijo Lazar (1):
+>       drm/amdgpu: Refactor mode2 reset logic for v13.0.2
+>
+> Luben Tuikov (1):
+>       drm/amd/display: Don't fill up the logs
+>
+> Meng Tang (1):
+>       gpu/amd: vega10_hwmgr: fix inappropriate private variable name
+>
+> Michael Strauss (1):
+>       drm/amd/display: Pass HostVM enable flag into DCN3.1 DML
+>
+> Nicholas Kazlauskas (1):
+>       drm/amd/display: Make functional resource functions non-static
+>
+> Philip Yang (4):
+>       Revert "drm/amdkfd: process_info lock not needed for svm"
+>       drm/amdkfd: Correct SMI event read size
+>       drm/amdkfd: Add SMI add event helper
+>       drm/amdkfd: Add format attribute to kfd_smi_event_add
+>
+> Prike Liang (4):
+>       drm/amdgpu: enable gfx clock gating control for GC 10.3.7
+>       drm/amdgpu/nv: enable clock gating for GC 10.3.7 subblock
+>       drm/amdgpu: enable gfx power gating for GC 10.3.7
+>       drm/amdgpu: enable gfxoff routine for GC 10.3.7
+>
+> Qiang Yu (1):
+>       drm/amdgpu: fix suspend/resume hang regression
+>
+> Robin Chen (1):
+>       drm/amd/display: Pass deep sleep disabled allow info to dmub fw
+>
+> Ruijing Dong (2):
+>       drm/amdgpu/vcn: Update fw shared data structure
+>       drm/amdgpu/vcn: Add vcn firmware log
+>
+> Shah Dharati (1):
+>       drm/amd/display: Adding a dc_debug option and dmub setting to use P=
+HY FSM for PSR
+>
+> Tom Rix (1):
+>       drm/amdgpu: Fix realloc of ptr
+>
+> Weiguo Li (1):
+>       drm/amdgpu: remove redundant null check
+>
+> Wesley Chalmers (1):
+>       drm/amd/display: Program OPP before ODM
+>
+> Yifan Zha (1):
+>       drm/amdgpu: Move CAP firmware loading to the beginning of PSP firmw=
+are list
+>
+> Yifan Zhang (4):
+>       drm/amdgpu: move amdgpu_gmc_noretry_set after ip_versions populated
+>       drm/amdgpu: convert code name to ip version for noretry set
+>       drm/amdkfd: judge get_atc_vmid_pasid_mapping_info before call
+>       drm/amdkfd: implement get_atc_vmid_pasid_mapping_info for gfx10.3
+>
+> jinzh (1):
+>       drm/amd/display: refine the EDID override
+>
+> yipechai (12):
+>       drm/amdgpu: Modify .ras_fini function pointer parameter
+>       drm/amdgpu: Optimize xxx_ras_fini function of each ras block
+>       drm/amdgpu: centrally calls the .ras_fini function of all ras block=
+s
+>       drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in=
+ gfx ras block
+>       drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in=
+ mmhub ras block
+>       drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in=
+ nbio ras block
+>       drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in=
+ umc ras block
+>       drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in=
+ xgmi ras block
+>       drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in=
+ hdp ras block
+>       drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in=
+ sdma ras block
+>       drm/amdgpu: Remove redundant calls of amdgpu_ras_block_late_fini in=
+ mca ras block
+>       drm/amdgpu: Remove redundant .ras_fini initialization in some ras b=
+locks
+>
+>  drivers/gpu/drm/amd/amdgpu/aldebaran.c             |  66 ++++++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  98 +----------
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c   |  16 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h             |  80 +++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c            |  24 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        |  19 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  25 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c        |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  11 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |   7 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h            |   1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |  21 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c            |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h            |   1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |   7 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h            |   9 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c            |   6 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h            |   3 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c          |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h          |   1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c           |   7 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h           |   1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |  28 +++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c          |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c           |   1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h           |  58 ++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c           |   7 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h           |   1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_trace_points.c   |   1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h          |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c            |   7 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h            |   1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c            |  37 ++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h            |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c            | 117 ++++++-------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h            |   7 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c            | 134 ++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h            |  30 +++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   3 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c           |   8 -
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  18 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |   7 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             |   4 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  15 +-
+>  drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c              |   1 -
+>  drivers/gpu/drm/amd/amdgpu/mca_v3_0.c              |  18 --
+>  drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c             |   1 -
+>  drivers/gpu/drm/amd/amdgpu/nv.c                    |  15 +-
+>  drivers/gpu/drm/amd/amdgpu/psp_v13_0.c             |   1 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |   8 -
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c             |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/soc15.c                 |   3 -
+>  drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c              |  14 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c              |   7 +
+>  drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c              |  22 ++-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c              |  21 ++-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c              |  51 +++---
+>  .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  18 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c        |  74 +++------
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |   9 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |   8 +-
+>  drivers/gpu/drm/amd/display/dc/core/dc_link.c      |  14 +-
+>  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  16 +-
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |   2 +
+>  drivers/gpu/drm/amd/display/dc/dc.h                |   4 +-
+>  drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c      |   1 +
+>  .../amd/display/dc/dce110/dce110_hw_sequencer.c    |  49 +++---
+>  .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  |   5 +-
+>  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c  |  21 +--
+>  .../amd/display/dc/dcn31/dcn31_dio_link_encoder.c  |   9 -
+>  .../gpu/drm/amd/display/dc/dcn31/dcn31_resource.c  |   5 +-
+>  .../gpu/drm/amd/display/dc/dcn31/dcn31_resource.h  |   5 +
+>  .../drm/amd/display/dc/dcn315/dcn315_resource.c    |   1 +
+>  drivers/gpu/drm/amd/display/dc/dm_helpers.h        |   3 +
+>  drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  12 +-
+>  .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |  68 ++++----
+>  .../inc/pmfw_if/smu11_driver_if_sienna_cichlid.h   |  58 +++++++
+>  .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 181 ++++++++++++++-=
+------
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     |   1 +
+>  include/uapi/linux/kfd_ioctl.h                     |   1 +
+>  84 files changed, 991 insertions(+), 679 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
