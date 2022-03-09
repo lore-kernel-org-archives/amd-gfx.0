@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92A72C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 21:23:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C29DCC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 21:40:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11A4210E46D;
-	Wed,  9 Mar 2022 21:23:14 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C64B910E482;
- Wed,  9 Mar 2022 21:23:11 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id i5so4026194oih.1;
- Wed, 09 Mar 2022 13:23:11 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9165810E496;
+	Wed,  9 Mar 2022 21:39:56 +0000 (UTC)
+Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
+ [IPv6:2607:f8b0:4864:20::c32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF13D10E379;
+ Wed,  9 Mar 2022 21:39:54 +0000 (UTC)
+Received: by mail-oo1-xc32.google.com with SMTP id
+ k13-20020a4a948d000000b003172f2f6bdfso4543330ooi.1; 
+ Wed, 09 Mar 2022 13:39:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2zuknQ2F8IFcYXiL5EyRvhr3K98oEwTorGO9Wp47QjY=;
- b=OPp5oa9gRHdtbppjAPnfTWlLJKNjnbN9ByKrQhoPvYQ2u0VxJzenRo1pt3BNoaSO10
- zxG1tFQSJo1bU8ng3fHDoMRxYBSXeLiNMW4G3TW/DHJr1uAEYfc9ZMNvJshxxS2Q8viK
- gJ2+i0Pmerw06LI7pNotW0NFymDrU4v6N7p0laX+eDyEFzlaueXp6n9j2JsWUxGxrR8U
- jQleOz0FOKrps5K/IgnyZ6XL3pSiR956GqkWeuCN7GnbWGlUF33m7FHWkZId19htwv5k
- izaQjIY5wN+ps+kRqzT+oljZxhCWCDgICPYSgXRnbRYMQ3dTNjvhFyzFrYBv4HIzjH93
- tlUw==
+ :cc; bh=BtkPADRnTNW1bWoXQJNvhN2Ab+xlM9f0hFBPvwqTW1Q=;
+ b=eEh04vQ/0QSeod6rMvqDyiHrBxF4SZOQgNyZKRJnc/1Rznstq3DTzIzR8SsDPQbqGZ
+ WeUs+jJdNwAiyu1KeQenWuzbsTGd9j7tXMj9OBof9vDB30eANLHllCRcV6Ao6EyPHo4e
+ luRdlmYO/oejsmgbaY4vUG+WZZJLfVeVzeOyK+yEXhg0rZQTIy2JablAftLc0gVhn737
+ NT19USzgpIE6p9LNPP/jvhLP2MyQulJSHGRa96CJA/ngTZ/MzDmz5fWGU0/rmYBc8tHU
+ XUnu/MWEwGBwDahE+evoMF2aJ1xUgQt8fUKOIPf+dzRZw2EqT01LEqHsb6VvJzIKFwBQ
+ Nx7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=2zuknQ2F8IFcYXiL5EyRvhr3K98oEwTorGO9Wp47QjY=;
- b=zSSWxBsp2gUa0EYD6BMQuSICm2N73JMLS348KZ8j8/G5NithUGOyFJndZ+e4J6+qYO
- ONwfdmJ/rSBVc6b26toIG1U52JxiuzRgO6F/PSJgEt1Yc4NSBN6JenkaKjqNyY7goimL
- d73qf/iVsizTvvdlQzavfRIQHHzB6KVU558NOzbn1po+W7YJrHhxevqWLZPMIvXHHA9M
- ffDmm1ejDKT2qnawDtbHpWKc8eQzlm1yXmRWLKkFDKgwcL9AH7zwQ47Hu3Li4PBQReuU
- QEeA3KJ1OzVy3eyDOV2vlKbTz9eSHjSFmKpI8iwXlEmvRgkIYf3wAzZq3r2OMSn5nGOt
- FHQQ==
-X-Gm-Message-State: AOAM533qmGdHBI7eNwMC/7/o5VlD6BS6E5HZzkYVYzYlNZaMVER4Pddu
- nAka5uini3v8kQPl4rEBsP+/SW2x1D1LlyF+ZJE=
-X-Google-Smtp-Source: ABdhPJzm8lZx+uXc7vhIrMu3Ggc4iCdVUI4Ewkp89153Cylj84RVI5Za78WJOCC6y16HoaJ1iycyTJSc3zTkKgxq3TA=
-X-Received: by 2002:a05:6808:1281:b0:2d9:a01a:4bd6 with SMTP id
- a1-20020a056808128100b002d9a01a4bd6mr1039630oiw.253.1646860991073; Wed, 09
- Mar 2022 13:23:11 -0800 (PST)
+ bh=BtkPADRnTNW1bWoXQJNvhN2Ab+xlM9f0hFBPvwqTW1Q=;
+ b=6/EDbI7ldM/v1GHWarFsRuNtkbRMjOUg3rMi0hadD6lolmtCLFauiEub+lB+Pge20B
+ kcO2xBMIK+5vJwOAIx1yipMN3qrrM/uHaUAm/2QMr8nKQstue9b/GDrLQEhD/rT3eTbp
+ Uuc1WP2bgYaqHBExqhU2ysSTlwc/M75eRtpvPEm3rYaPR0B4vaq0tb2VUxl1f+LfRq5+
+ g6CtzKP4fjk5v6FlBpWzZrNrRwxVfFPrEHo6wJSz6CJ9EL6/MihyEPvUb5xhao2HZ4n7
+ iRbdZAaI0q91Lvvc663VGlPKC/95okw/QvpFVhU4sORDcONVE1SNbeYGicX7TlGZvxIr
+ Iy9Q==
+X-Gm-Message-State: AOAM5318UFmyc6/u4u8v7l2617HGSjKTUGuTGSDGxK7HWC4MmEveFUNf
+ TgzvCvKcNPH93lYA0otPcZJNjJPvDpmTsU49GmE=
+X-Google-Smtp-Source: ABdhPJwSyds76xJs9YmdvRnWPrRXhRqZnnJBgwsHTYeny744kxPTu9LVEe9CXmIOtfO/2ebWuzQj8mLg2mrE6367C44=
+X-Received: by 2002:a05:6870:d250:b0:da:b3f:2b29 with SMTP id
+ h16-20020a056870d25000b000da0b3f2b29mr6270636oac.200.1646861993898; Wed, 09
+ Mar 2022 13:39:53 -0800 (PST)
 MIME-Version: 1.0
-References: <20220309174133.14454-1-david.yatsin@amd.com>
- <2e207a5e-0c94-a148-6986-9e3922945ce0@amd.com>
- <CADnq5_MLh5SSvtaj1j80zZBZkQ4dmA5hhMVidhdXYy4171Jr4A@mail.gmail.com>
-In-Reply-To: <CADnq5_MLh5SSvtaj1j80zZBZkQ4dmA5hhMVidhdXYy4171Jr4A@mail.gmail.com>
+References: <20220309212031.3063-1-david.yatsin@amd.com>
+ <3e6eb8ab-57f9-8118-4d80-0db0b51e7786@amd.com>
+In-Reply-To: <3e6eb8ab-57f9-8118-4d80-0db0b51e7786@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 9 Mar 2022 16:23:00 -0500
-Message-ID: <CADnq5_Ph0f5NCUFTsM3Dn6MGwtgALLUHGie_w+eEpcVsq9r24g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: Set handle to invalid for non GTT/VRAM BOs
+Date: Wed, 9 Mar 2022 16:39:42 -0500
+Message-ID: <CADnq5_NVpN=YH1DDPPqJmyToTYN=-aT1fQvrBhxNubcvHEg5jA@mail.gmail.com>
+Subject: Re: [PATCH] fixup! drm/amdkfd: CRIU export dmabuf handles for GTT BOs
 To: Felix Kuehling <felix.kuehling@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -63,90 +63,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
  David Yat Sin <david.yatsin@amd.com>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 9, 2022 at 4:21 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Wed, Mar 9, 2022 at 4:10 PM Felix Kuehling <felix.kuehling@amd.com> wrote:
-> >
-> > On 2022-03-09 12:41, David Yat Sin wrote:
-> > > Set dmabuf handle to invalid for BOs that cannot be accessed using SDMA
-> > > during checkpoint/restore.
-> > >
-> > > Signed-off-by: David Yat Sin <david.yatsin@amd.com>
-> > > ---
-> > >   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 8 ++++++--
-> > >   include/uapi/linux/kfd_ioctl.h           | 2 ++
-> > >   2 files changed, 8 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> > > index e1e2362841f8..1ffa976ad318 100644
-> > > --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> > > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> > > @@ -1767,7 +1767,9 @@ static int criu_checkpoint_bos(struct kfd_process *p,
-> > >                                               &bo_bucket->dmabuf_fd);
-> > >                               if (ret)
-> > >                                       goto exit;
-> > > -                     }
-> > > +                     } else
-> > > +                             bo_bucket->dmabuf_fd = KFD_INVALID_FD;
-> >
-> > Minor nit-pick: It would be better to use {} around the else-branch for
-> > consistency with the if-branch. Same below.
-> >
-> > Ideally, this should have been part of the patch that bumped the KFD
-> > version to 1.8. Alex, is there a way to squash this when you send this
-> > in a pull-request for drm-next? Maybe if we create the commit with "git
-> > commit --fixup" you can let auto-squash handle it.
-> >
->
-> When did that patch land?  If I haven't included it in a PR yet, I can
-> squash this in.
-
-Ah, I see it.  It was from yesterday, so no problem.
+No problem.  squashed in:
+https://gitlab.freedesktop.org/agd5f/linux/-/commit/74041e46982cd627e7b52f9c3ed37d23a4973b5f
 
 Alex
 
+
+Alex
+
+On Wed, Mar 9, 2022 at 4:23 PM Felix Kuehling <felix.kuehling@amd.com> wrote:
 >
-> Alex
+> On 2022-03-09 16:20, David Yat Sin wrote:
+> > Signed-off-by: David Yat Sin <david.yatsin@amd.com>
+>
+> Please add the commit description back. And let's wait for Alex to
+> confirm that the fixup-method is OK. With that fixed, the patch is
+>
+> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 >
 >
-> > Other than that, the patch looks good to me.
+> > ---
+> >   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 6 ++++++
+> >   include/uapi/linux/kfd_ioctl.h           | 2 ++
+> >   2 files changed, 8 insertions(+)
 > >
-> > Regards,
-> >    Felix
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> > index e1e2362841f8..607f65ab39ac 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> > @@ -1767,7 +1767,10 @@ static int criu_checkpoint_bos(struct kfd_process *p,
+> >                                               &bo_bucket->dmabuf_fd);
+> >                               if (ret)
+> >                                       goto exit;
+> > +                     } else {
+> > +                             bo_bucket->dmabuf_fd = KFD_INVALID_FD;
+> >                       }
+> > +
+> >                       if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL)
+> >                               bo_bucket->offset = KFD_MMAP_TYPE_DOORBELL |
+> >                                       KFD_MMAP_GPU_ID(pdd->dev->id);
+> > @@ -2219,7 +2222,10 @@ static int criu_restore_bo(struct kfd_process *p,
+> >                                           &bo_bucket->dmabuf_fd);
+> >               if (ret)
+> >                       return ret;
+> > +     } else {
+> > +             bo_bucket->dmabuf_fd = KFD_INVALID_FD;
+> >       }
+> > +
+> >       return 0;
+> >   }
 > >
+> > diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+> > index eb9ff85f8556..42975e940758 100644
+> > --- a/include/uapi/linux/kfd_ioctl.h
+> > +++ b/include/uapi/linux/kfd_ioctl.h
+> > @@ -196,6 +196,8 @@ struct kfd_ioctl_dbg_wave_control_args {
+> >       __u32 buf_size_in_bytes;        /*including gpu_id and buf_size */
+> >   };
 > >
-> > > +
-> > >                       if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL)
-> > >                               bo_bucket->offset = KFD_MMAP_TYPE_DOORBELL |
-> > >                                       KFD_MMAP_GPU_ID(pdd->dev->id);
-> > > @@ -2219,7 +2221,9 @@ static int criu_restore_bo(struct kfd_process *p,
-> > >                                           &bo_bucket->dmabuf_fd);
-> > >               if (ret)
-> > >                       return ret;
-> > > -     }
-> > > +     } else
-> > > +             bo_bucket->dmabuf_fd = KFD_INVALID_FD;
-> > > +
-> > >       return 0;
-> > >   }
-> > >
-> > > diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-> > > index eb9ff85f8556..42975e940758 100644
-> > > --- a/include/uapi/linux/kfd_ioctl.h
-> > > +++ b/include/uapi/linux/kfd_ioctl.h
-> > > @@ -196,6 +196,8 @@ struct kfd_ioctl_dbg_wave_control_args {
-> > >       __u32 buf_size_in_bytes;        /*including gpu_id and buf_size */
-> > >   };
-> > >
-> > > +#define KFD_INVALID_FD     0xffffffff
-> > > +
-> > >   /* Matching HSA_EVENTTYPE */
-> > >   #define KFD_IOC_EVENT_SIGNAL                        0
-> > >   #define KFD_IOC_EVENT_NODECHANGE            1
+> > +#define KFD_INVALID_FD     0xffffffff
+> > +
+> >   /* Matching HSA_EVENTTYPE */
+> >   #define KFD_IOC_EVENT_SIGNAL                        0
+> >   #define KFD_IOC_EVENT_NODECHANGE            1
