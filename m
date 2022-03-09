@@ -4,61 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB835C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 08:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55E01C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 08:05:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A5FB10E8FA;
-	Wed,  9 Mar 2022 08:02:30 +0000 (UTC)
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06B1410E8FA
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Mar 2022 08:02:29 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id bi12so3131933ejb.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Mar 2022 00:02:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=8YHP9aVgmjhsduE5yTYVjYH/B0W1tSrMlgDO+6NcNr0=;
- b=bVhwfid0yPUmR7waErTh8OGroQv65xLDC3eld0OKd3SbzbMqcL+neUxoZr2dmuowGb
- IYz3ME0yOIuhBGPjwwL62lzsfUIf9v28VKeBK+yEwlaHtW1+UX683CUWWF0z7aFwh6Yy
- 4/rFenqGm0g7fVIfVLI2r57WC51nKfSNK64GXxmmh+hf97Nc7wE/tlauJ3J371k8K7kK
- nvadGJzJFkenliD/kasn8fP1YKVtw8IZROyzu0Nc7qcYbeo0z26Qd/OzpuxjlnH84Kam
- O5LQm5FPie+RTgw6dZc4PaXtFW1Gxld9v35fnPnXP96vinSEinm7NTK/txqORk09+4zI
- 9lyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=8YHP9aVgmjhsduE5yTYVjYH/B0W1tSrMlgDO+6NcNr0=;
- b=HAk8dYPYKHRbt+NWJfktWoFzAeuwNwaVrtT0E74LI7TnyPkF1DCCV19QGeyUCMoYJV
- rKvM1gnK3rLU6hH8qKmIy8JuN4YzNjHsoL1uH6a9YolUiRW52PLTtjYYWy6RKM08to8U
- Ws+3lWdzSle440pIiPGN/cb27ZGyyXb+c6Td1pPpu1gCwMOvRpr8NcIqfSdxjUR/ktao
- FxuyQHxUYMJC38YAHUAWIDfHSqFwWTuLSB1vBh67hbx5paQQXxBGZkurZr/MU2NtMyZj
- A7ZKwbaRZYvmEa+VA/rNkbxEWWs5ohQEjNb6o2S/j8lJ1JuoZ7IH2tnK+s+uA2cKme25
- rwTw==
-X-Gm-Message-State: AOAM533xN5j38M6jeZTGdyA2iNcNOv/+iE5B2vudRtOojqFCDLglkX6k
- BZC1YVGq59gfxqE9zxwhPTg=
-X-Google-Smtp-Source: ABdhPJyOQPDDVjFL5R12oiQydELFp0pw0b7Bw8xaFaMuZHXB8EIPyjPAcZs5N7NQH1fqXRePm9N+gw==
-X-Received: by 2002:a17:907:7248:b0:6da:8410:c3c8 with SMTP id
- ds8-20020a170907724800b006da8410c3c8mr16960623ejc.200.1646812947357; 
- Wed, 09 Mar 2022 00:02:27 -0800 (PST)
-Received: from ?IPV6:2a02:908:1252:fb60:97ec:d1db:f85a:1e04?
- ([2a02:908:1252:fb60:97ec:d1db:f85a:1e04])
- by smtp.gmail.com with ESMTPSA id
- kw5-20020a170907770500b006db075e5358sm408297ejc.66.2022.03.09.00.02.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Mar 2022 00:02:26 -0800 (PST)
-Message-ID: <55d87ab6-dcdc-da85-72ff-5c5e9532b09f@gmail.com>
-Date: Wed, 9 Mar 2022 09:02:25 +0100
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5B7010E911;
+	Wed,  9 Mar 2022 08:05:30 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2046.outbound.protection.outlook.com [40.107.94.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D603610E907
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Mar 2022 08:05:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JCvsTI3ik8H+dh1Cg/GGAvw4tz2l22Ft+oLiAoPPXf5N63Z0UCG9KBBsknJ9Vp/x/5UPGNF8qYvCBIDYTDC1Nk8yMMwff84MNrMcL5PjlMf9yH5e/28meVYFcfeR373qyJlIMcaux9BFlJ37RkfotWwmxE4a6FGxR1MmFBiBUD3nJQitfolZwzZJEh/U6MEQDAcMYrqCnvF2NLggaPpAmQfUdeiZzLfybCy6l5tqbcTcz3ibIP7kyEB17OzTl23pc4Xfo/PoNR07aK4kmFoFbHXug4/XrA1g0HFCXRFL5PGysN3QR+Y74Zykqr96vEHbWihB+JSVvay+3DXaIRhzFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cq829Z/+FSowG9JKqqah/kgU5KKIG6/QR7efiyF4xUg=;
+ b=KqBwTf2NOuVqAGeOWzSER9U20I9MKrJoj06Z6xlv9NU6Pw8NyaYLCYqgB6LL2GFg45vQjWT8gsfB4+Ke/kL8VlYq5xDfZZTegvvFLLZcgFrK4MSlzOSlgsqW446Yn54CDfKqKI/+gCqXg4QoKKc8gDfV5b2/sHan/UqtGqzmisKJ8ywZF9P1qeKDCwTAPt5u/ViwfZ5jiut0ctOFAfgcokO/2MgbRdgWX0jwwd0EFFR+PPzqeZc8+cWnxV4zO5xfT5vSYYBiLGWRWsy4Q9V3nhVp/mRewOp2hPGuE+IrnN6cgenW75MIriI1ZXXvSIk1ZJx+6kyzkKWVmD6Y8KpH9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cq829Z/+FSowG9JKqqah/kgU5KKIG6/QR7efiyF4xUg=;
+ b=L/OZMLuzHhh68tfVsOdpNRDwKSMDXqMdf6OUzyuRoliACBU90bPZmV+hhIwkaej3x2w2Eo2Th3Gkv/O0KqiZ+yBh9ic+nJfacwxWuan3IAuIF0NSMfU1IPA7JWyrdu7EG9ebMvlNtLb3ha1ICWzmkZRWwxTUv72DQzWnxV/qxvY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB3589.namprd12.prod.outlook.com (2603:10b6:a03:df::29)
+ by MWHPR12MB1535.namprd12.prod.outlook.com (2603:10b6:301:5::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.16; Wed, 9 Mar
+ 2022 08:05:27 +0000
+Received: from BYAPR12MB3589.namprd12.prod.outlook.com
+ ([fe80::d56d:98df:8ef5:14f1]) by BYAPR12MB3589.namprd12.prod.outlook.com
+ ([fe80::d56d:98df:8ef5:14f1%6]) with mapi id 15.20.5038.027; Wed, 9 Mar 2022
+ 08:05:27 +0000
+Message-ID: <19cf3ef3-6cf2-d0d1-1762-66dfcd254309@amd.com>
+Date: Wed, 9 Mar 2022 09:05:19 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
 Subject: Re: [PATCH 1/2] drm: Add GPU reset sysfs event
 Content-Language: en-US
-To: "Somalapuram, Amaranath" <asomalap@amd.com>,
- "Sharma, Shashank" <shashank.sharma@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+To: "Sharma, Shashank" <shashank.sharma@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
  Shashank Sharma <contactshashanksharma@gmail.com>,
  amd-gfx@lists.freedesktop.org
 References: <20220307162631.2496286-1-contactshashanksharma@gmail.com>
@@ -66,11 +53,75 @@ References: <20220307162631.2496286-1-contactshashanksharma@gmail.com>
  <958e65ad-3e86-36b5-5da2-7bb38431c343@amd.com>
  <f3d57b6a-1035-ee92-82b2-a4601e5b72b0@amd.com>
  <9c0ede9f-d1a1-f154-82fa-27f624664229@amd.com>
- <05e0a27c-999c-cdbd-631a-93a78e76bdc2@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <05e0a27c-999c-cdbd-631a-93a78e76bdc2@amd.com>
+ <4e7494e7-ebf4-e830-95a8-cd9a4fceb2b6@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <4e7494e7-ebf4-e830-95a8-cd9a4fceb2b6@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM5PR0202CA0008.eurprd02.prod.outlook.com
+ (2603:10a6:203:69::18) To BYAPR12MB3589.namprd12.prod.outlook.com
+ (2603:10b6:a03:df::29)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1dff20fe-c272-4d63-e369-08da01a3910f
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1535:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB15356AF9A9ADC44823C35ED2830A9@MWHPR12MB1535.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: B92aYenIv690ubKsx+Wi1Jrdit+cHcVligjjT6dBDx/phP/ZyhhYkTEpN6EERUuFhxXfKNBjMDGkbwZQ5+5mvQpc1a1OrlOtQgXvT/8FScuWc0N3nwmlV/HwU4KLiDW/oRCWPp9Nw6toOT4DV7ZS3JjnOBr+Hkm0L+h4LpWhbLnhnZZUYyEsP2RT2Vifs9EBYOLLjKovGHZUhP7hYUuWQy/p4MkxGYOxH52j0Qtv3gwitUVjx7QbGgzhTAkJ82v0Fh2x5PsDnjpkt87CHuIZ1HocuA5axqhfxzVZdQoRZcvEUORiN3wft1fnZzkLE8ah/YfS/2Lgj1vwC+iPYgm0DC7lK+z1LnE8PAaylo+BBpmZ7UA0JTTmGGSf2aWVKEDLUliJdHdfnp7LjrqYLndjWRIwBeLNKbjVLvDffVDnVpek+qAdQOLV2C/qI0ZDbW9TSKKTbWYbfUxwwyWBF+1W2At+CIEGpIVaZuIomeHOkmPJYUg/UYLH7Tld45nPcf4SKYuLdBMEwoxXB1rqEd/y3DIMDRmtwom2V5uVZxtLoabnqL95RstFf0nBwBWbo0MCI18J/vxWCbw/XEnWA2Hq5YxzX97pcfHgmifz1FLJmOZIuN46i9yyloFsSWZqr2IphxMIjQWn9H6ktiABCyw7waAzRVAdZYAkwLYUQkdv5ij+of07QfDPWIEzeQQf2/toR6WQJOHGkGisEKMZiFJNNdhS9mfVMNTvotnkboBfFBKAxKqTZzha9jRYGbaHenJB
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3589.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(66556008)(316002)(4326008)(66946007)(110136005)(8676002)(38100700002)(31696002)(86362001)(53546011)(66476007)(8936002)(2906002)(2616005)(5660300002)(66574015)(6512007)(186003)(6486002)(6506007)(6666004)(508600001)(83380400001)(36756003)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eFR4M0k0WXVHNyt6aXVTZVg3bkt2VnM0a2NXNXdac2dLcGZLTU9McjUrYXhk?=
+ =?utf-8?B?cFRmMEVKcW9pVm40aWdpSWJjYWhBeVJ1TDRPY3NiZW0ydEVOQjVsRHBaaTh5?=
+ =?utf-8?B?MVZKbGRER2lzR0ljdDFueEo5RVVwTnhaUmhvbEwxaVhmUGJZLzJHRkdnT2hX?=
+ =?utf-8?B?cElyaGNGMTg3ZDZ0QTBZT0dOSUdIZjJaRUppL3RpREZQS0NGK080Z0hsUWYr?=
+ =?utf-8?B?anJIS0NyVGp1Rkp1K1M0MEl6WHgrYlMvZU5OWlNSRHBoOVBjYmQ3R2NmSzda?=
+ =?utf-8?B?T0JrK2llMkN5SUl3Y3RxT2pFdHBQTEVZbXdibXJDdEZNMzU3dVhHTVM3ZWtm?=
+ =?utf-8?B?WDBlNjEyYzM0ZFBBVW8reVdKUzNLcHlDTVFRSWhaNlpacVRDVG5yczN3cnJQ?=
+ =?utf-8?B?VEgwVDhrRnFtUmkzK0JxeWlDVUJlYU5EQktYS1JKbFB1YkUyb3dyWi9PN2Vr?=
+ =?utf-8?B?Q3hsWWxKd0NKUUNTOGdhZUFDbmtLYmNZK1h2ZktBY2ttVmdRODJCSXhhc3FG?=
+ =?utf-8?B?TFNLOWZpYjZsT2ltM01UekFIUEhQblVCbnhrRFRUdnYydGNQdWE1c08zdFJ6?=
+ =?utf-8?B?K2N1emFITmFVMXQ0Y3J5K2hNdnhqSVBTeUV4WXpET2lQMXVEZGJUa0pPcGY0?=
+ =?utf-8?B?MXg2dUtRRjJSbnc4SFZGMXpaYzN1L3dSKzNmbFFXbmc1UmxXK2hQY205K2pL?=
+ =?utf-8?B?Szhpbkd6TXFzZk90ZkpvQVE1UWpKdW1ZZnFTM2FXS3QvaDR6QUxpNUM3UHNR?=
+ =?utf-8?B?WGcrVDI3QUtLc1NabGVJajYwVDdUNDk1ckVxbmZ4a09wZE1TZ0JYV0Rxci8y?=
+ =?utf-8?B?N05NdjljM2o5c083L1cyMFJrVkgrMmppeU9kalgxU2NadHFaaEdtYXpTaHIz?=
+ =?utf-8?B?eVZML0lvbFpWY3lSYkJnd0lYVy9PRURoVDdJc3N6dTFLNDJJSldPYmZLRlZX?=
+ =?utf-8?B?am5JRjh4VGlsMVUrL2NtZU0xZURlR256ZkVuNytXVGw2ZlV2MXlET2RhNGs2?=
+ =?utf-8?B?VU16TGIzaHloZTZvL0hSbjBWWHFCd1k5NE80VlFlSVpnL0JsOUFyRXhtcVZy?=
+ =?utf-8?B?VzFRRGY2TTU2TDBPV2czRndwM1FLV0lKa1BTTjVEUThwUWxIY21RM3Ywb0NX?=
+ =?utf-8?B?K1J5MWx6R3lsaUZJTFNYc1hIYm5kMlRGSkRaK0Yxa0lBYUlncGNkUTdtbVFj?=
+ =?utf-8?B?MVZucnNHckkxNHlSWkJoVVZKTjdxdTdiMTJhd0s4alJZbndPa3g4UEJGUCtz?=
+ =?utf-8?B?anZsK2ZXQ0NHUkxoSER6NTdBb3hsUzZKdjBSTUZESGNVeTlkSnNMQkxVcmJ2?=
+ =?utf-8?B?bWtOZnNFT09GT29IRytRSGh6dUxzaWlrTzlQVUQ5T2M1TXhRb0FDeTFvaDlX?=
+ =?utf-8?B?QTBPUE5xeTdSaU5wRklxdHR0Q1Q1ajMzNWRTOEV2cUtnTURPb25waWQxWmdH?=
+ =?utf-8?B?TkwvRWZRK1A3MnRGT1cxV2NENFRkZGtieExwNDlUamVnRGVEdFRWWElhTVRO?=
+ =?utf-8?B?MUg1R3MzT2lFaEtySmNuWS9iQlVVSXlsZUQzb2tFQTBlL3NmVWEzS214RWM5?=
+ =?utf-8?B?R0RhcFY2MFBmZUxucTdlOGN5SjlNY3J2aFVDcm0wUFM2azZzcWM3a2JSRll3?=
+ =?utf-8?B?RGdIem0xNGxwNWF6YmFJVjZScFlBRVhiL3M1YVcxeDBySTFzazZ3M2QyZzBa?=
+ =?utf-8?B?T0FTVUU0ZXVmTmIvWk14WXRIMzBUdExqQlVhajQrVzZ2VVJTYnVHdDRUL09S?=
+ =?utf-8?B?VnU1ZHVqU1BnSU5ES3JmVkY0ZkhhWk12M1gzRHYveUhyWElidFVzVDdVUDZY?=
+ =?utf-8?B?eVBZa1dDOThOZVkvaHFXMVo1VjFrZEVRS2w4Tlp2OXhjMmF6Y2V4R3pNQVUv?=
+ =?utf-8?B?K0hka09GeFZ4R2xueFRSR0tOSkErMXh2Sm11U2VjUGpaS2MzbWRXa2VmSDZI?=
+ =?utf-8?B?akQ5Q21jcWIyN29CTkpwYnh3SE51M21GVkkvZjlaeXg5emEwMU1SdFJuZnlP?=
+ =?utf-8?B?eW5SOTRuR2VDdkpiYzBCSk8zTGN3cDZ3ZTQ4RFZBdlhpNHhpMmh2L3NxcURl?=
+ =?utf-8?B?RnJiNDM4dVZyM1pITlFHeXRIS3JTMmswcTBQRXhaS0d2QTErZVB5ZzZ2dVp1?=
+ =?utf-8?B?R1BKRHkvUVhCZHp5MmoxVWdaaUVwaHlUc1ZCUmF1KzlvUk5OaDE2S0NsbFVk?=
+ =?utf-8?Q?VZYKJT1DTDNZJ2emLu5xPAs=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1dff20fe-c272-4d63-e369-08da01a3910f
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3589.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2022 08:05:27.7004 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gaPj+v6PM/x5M1LFfnkNiqRysUKGwKXlfcVn+HkHzu50CJYWt/vX9yPL8LVFLC5Z
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1535
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,9 +138,10 @@ Cc: Alexandar Deucher <alexander.deucher@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 08.03.22 um 16:37 schrieb Somalapuram, Amaranath:
+Am 08.03.22 um 17:40 schrieb Sharma, Shashank:
 >
-> On 3/8/2022 5:26 PM, Sharma, Shashank wrote:
+>
+> On 3/8/2022 12:56 PM, Sharma, Shashank wrote:
 >>
 >>
 >> On 3/8/2022 11:32 AM, Christian König wrote:
@@ -128,28 +180,6 @@ Am 08.03.22 um 16:37 schrieb Somalapuram, Amaranath:
 >>> You might also look like into migrating the exiting i915 code which 
 >>> uses udev to signal GPU resets to this function as well.
 >>>
-> Hi Christian,
->
-> Can we access adev in common drm (even if we can access adev it will 
-> not be common code)
-
-No, that won't work.
-
->
-> move work function to drm need to be protected(i.e reset_domain->sem), 
-> adding something like reset_sem to drm_device?
-
-Hui what? Why do you think the work function needs any protection? That 
-doesn't make much sense.
-
-Regards,
-Christian.
-
->
-> Regards,
->
-> S.Amarnath
->
 >>> Regards,
 >>> Christian.
 >>
@@ -157,6 +187,29 @@ Christian.
 >> this out.
 >>
 >> Shashank
+>
+> I had a quick look at I915, and it looks like both I915 and AMDGPU 
+> drivers have very different methods of passing the data to the work 
+> function, via different internal structures. Which means it would be 
+> much additional work in both the drivers to move the work function 
+> itself in the DRM layer.
+>
+> To me, now it seems like it would be better if we can just provide 
+> this interface to send the uevent and its structure, and the drivers 
+> can collect their information and pass it to WQ in their own way.
+>
+> How do you feel about it ?
+
+That does not sounds like a good approach to me. If we add common drm 
+functionality then we need to take the existing drivers into account.
+
+What driver specific information does i915 pass to the work function?
+
+Christian.
+
+>
+> - Shashank
+>
 >>>
 >>>>
 >>>> and then:
