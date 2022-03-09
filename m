@@ -4,89 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C53C8C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 20:13:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 457ABC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 20:26:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BA8510E40E;
-	Wed,  9 Mar 2022 20:13:12 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2056.outbound.protection.outlook.com [40.107.93.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B13BC10E40E
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Mar 2022 20:13:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=duIFcmfU78z/o0dgIyfcBRY56+9keswOGET9MSS/+qa0vmwd93txHGZVFa4ZNs0wAGF4ngAQBXYxK8DVJu044JiOfSsiUT68WxTlNEChGzihMGQR+lreYJyISBMc4vI6nWJkIP7zX9h6ikalF+vgvoILz00M+WN3KuO5WlMovZw2dtduZXOk4IiMqKB9D85WzfrNpLeohfNYExV0MVEj6//c4F+1wYU1DBqanfNEnKoM+2Fwy24zigK8p+BlgKBo6epH7vYIoelg17axxrQ1Dw+zi+34ewUa7tJrWSscWeQyKmr0wariNZ2hdUvS2HMRTQhEN5+PULS3zstiYCfthA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eSsJ6CjvLGKd+ENSDMkaqDu655p4aXSTYNzdP4baXTA=;
- b=A+ji/vqwzSlUe2EO0zTPrtVfaWh+2C/j9tE2VF+Kk0JMEnqBgXAsX9SfpVmiqM0tWfFEd+IyNNcmN291tiyBew/5UcaoGidtfrTv3P2oL0BgGoL2abbPKNsPr6ounyCN2iFHsY+1lymMI4izyrJL5MqIDlEX9qyLVcnUfEhh+FV9kPzcjkrl0sFHKUCyB5I9lO/h+vygEPwZ/tNhv5qti97Cdhz/Tq9rLgpsKG6F08RZUJKrU2Rnnwdwk4nPeioWQ+fb1ijBIj+28fmIckzW8PF7GlHa0Q/5EZZCteYHxjmmQZLINKroUmmeuifWBLXToaAgW3oizkKsPZcweWOYkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eSsJ6CjvLGKd+ENSDMkaqDu655p4aXSTYNzdP4baXTA=;
- b=EnsaXML8XlyiV6oJ/JDPoqi/T7ywXEu9cEhnQLBdBDW+2dwoDfIodY5VD2w4VNiVk7BsUA1El594hfGatCw70i41fNZ5HQF16rtzpcyojXGBmi4Oh/zByuvYJBogUNStn0f/fv7Stse1lGRG6qHBQkFurBj3xd68JCu0eX5E20I=
-Received: from MW4PR04CA0202.namprd04.prod.outlook.com (2603:10b6:303:86::27)
- by BN6PR12MB1794.namprd12.prod.outlook.com (2603:10b6:404:100::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.29; Wed, 9 Mar
- 2022 20:13:09 +0000
-Received: from CO1NAM11FT026.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:86:cafe::2e) by MW4PR04CA0202.outlook.office365.com
- (2603:10b6:303:86::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
- Transport; Wed, 9 Mar 2022 20:13:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT026.mail.protection.outlook.com (10.13.175.67) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5038.14 via Frontend Transport; Wed, 9 Mar 2022 20:13:08 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 9 Mar
- 2022 14:13:07 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: only check for _PR3 on dGPUs
-Date: Wed, 9 Mar 2022 15:12:45 -0500
-Message-ID: <20220309201245.1328201-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4D9710E41A;
+	Wed,  9 Mar 2022 20:26:23 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B254510E41A;
+ Wed,  9 Mar 2022 20:26:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646857582; x=1678393582;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=XYGYiiHogmpFuHGy6AO1d/vfoZSLV1I1q11IeeQJ4DE=;
+ b=X6OskWMKJz3ZqhP4DdeMXGxlhw38nU0vTLxdjgt7zriy3RsaoM0Puof5
+ yGGWe1YPmienjLnZ6MGeMpVzS9SghBys3V2AIVApOjeZ2AAiOeC/c0Djp
+ ebxagnpwb7gpP719Y8slTgqnvvDBuUoNny2S4QnJUgzDkA2MH1LM6iiJ/
+ adiziyfBl+Xz2iEEl5MpoN4/Lvboo443I8X+fm0P9fs7umVndEu9T78sS
+ LfdIxT9T4Wv9pMKPL7aTNLXP3pUoIlmJLao8hxUR9NmSSh3l4cG1WGvTF
+ FCWWHOHiOMqp7b9J7/wijQFRjTjFyNQah9Hf9TUMwAjqWRLMtyjvSXPqM w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="235691560"
+X-IronPort-AV: E=Sophos;i="5.90,168,1643702400"; d="scan'208";a="235691560"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2022 12:26:22 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,168,1643702400"; d="scan'208";a="596404224"
+Received: from lkp-server02.sh.intel.com (HELO 89b41b6ae01c) ([10.239.97.151])
+ by fmsmga008.fm.intel.com with ESMTP; 09 Mar 2022 12:26:18 -0800
+Received: from kbuild by 89b41b6ae01c with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nS2sz-0003nJ-UM; Wed, 09 Mar 2022 20:26:17 +0000
+Date: Thu, 10 Mar 2022 04:25:45 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, harry.wentland@amd.com,
+ alexdeucher@gmail.com
+Subject: Re: [PATCH v2] drm/amdgpu: Add support for drm_privacy_screen
+Message-ID: <202203100441.aipzrKHU-lkp@intel.com>
+References: <20220309150606.1877288-1-sean@poorly.run>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b2b0abaa-722e-44a8-fae8-08da02093a94
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1794:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR12MB17946A2B1CF0488C01739C99F70A9@BN6PR12MB1794.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: K+S21seTki9C3So/OHdRWyxhOkgVnGgGiQgwIL7d13IOC0YMY5h8pGjWDRQhSM7TAiC57euYCJ0QtcL/OYSj7v13psNBsyQipgYxgNRUPH+QiKsU9b5sgcPws1/n7TxdXOu+4Fy4jot1dArEgzrRn3sbKMs4ImTVgMoXW49YHEXNkNLXjki9eWFtdO1WZ0U44irVe6dl5fjmIrusQCvJ3xh1/kDMgK+kGr3sunnv1lTBSEk54HrBEccctHU6ZBFgmFC/m4CcxQeu90Awjfrc+R5PCi3cANCH2ek75rwiCwHk6Q+mB6/NZAaiU1hEDOIIJ/cP4YRsB+u0gzqesW+hi78h5nwDfaaXmYLyY0VHQ+ljrQ3oMaL8yShbl8IDJ33T/G/6c6ruCwwyg0hjl1YyZCaJMwNWbJ1ioBlJfJdBo5TImXxlKOP4bAefOyiFINpROqHxxUUFzWy81CDt4LXkoJkVzCCiU6tm1u/6VPTcjUdd5sOG1/3jtuqB1YmQrv2bXun367wZh7upKcRVmZ5AkL8nVW2o8r6x72io666wsI4cLDpmHSyUUC1iUV7r3EdSOOx87ATZadrwl8erOU30ysIUhwcXcFJLlWRAqwM6O96285CUr9veFnITtlQYMAJ7viGlM4FW4IQnA8Y9h+PVMbKGyJLorOB4F2/iEIg08cGJwQvGES37rjf1I1+bIWn1PacuV5zXygfMeJ/CemT+3A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(508600001)(356005)(6916009)(316002)(8936002)(81166007)(47076005)(70586007)(8676002)(4326008)(36860700001)(4744005)(40460700003)(5660300002)(70206006)(16526019)(26005)(2616005)(1076003)(336012)(186003)(83380400001)(7696005)(6666004)(36756003)(82310400004)(86362001)(2906002)(426003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2022 20:13:08.5274 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2b0abaa-722e-44a8-fae8-08da02093a94
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT026.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1794
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220309150606.1877288-1-sean@poorly.run>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,35 +60,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: kbuild-all@lists.01.org, David Airlie <airlied@linux.ie>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ hdegoede@redhat.com, Sean Paul <seanpaul@chromium.org>,
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ rajatja@google.com,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We don't support runtime pm on APUs.  They support more
-dynamic power savings using clock and powergating.
+Hi Sean,
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+I love your patch! Perhaps something to improve:
+
+[auto build test WARNING on drm/drm-next]
+[also build test WARNING on drm-intel/for-linux-next drm-tip/drm-tip drm-exynos/exynos-drm-next next-20220309]
+[cannot apply to tegra-drm/drm/tegra/for-next airlied/drm-next v5.17-rc7]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/0day-ci/linux/commits/Sean-Paul/drm-amdgpu-Add-support-for-drm_privacy_screen/20220309-230712
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+config: arc-randconfig-r043-20220309 (https://download.01.org/0day-ci/archive/20220310/202203100441.aipzrKHU-lkp@intel.com/config)
+compiler: arceb-elf-gcc (GCC) 11.2.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/0day-ci/linux/commit/6fedd7f8ea75c68634df4fa3cbacb0ee5f2fc984
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Sean-Paul/drm-amdgpu-Add-support-for-drm_privacy_screen/20220309-230712
+        git checkout 6fedd7f8ea75c68634df4fa3cbacb0ee5f2fc984
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=arc SHELL=/bin/bash drivers/gpu/
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+   In file included from drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_mst_types.c:44:
+   drivers/gpu/drm/amd/amdgpu/../display/dmub/inc/dmub_cmd.h: In function 'dmub_rb_flush_pending':
+   drivers/gpu/drm/amd/amdgpu/../display/dmub/inc/dmub_cmd.h:2961:26: warning: variable 'temp' set but not used [-Wunused-but-set-variable]
+    2961 |                 uint64_t temp;
+         |                          ^~~~
+   In file included from include/linux/device.h:15,
+                    from include/linux/acpi.h:15,
+                    from include/linux/i2c.h:13,
+                    from include/drm/drm_crtc.h:28,
+                    from include/drm/drm_atomic.h:31,
+                    from drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_mst_types.c:26:
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_mst_types.c: In function 'amdgpu_dm_initialize_dp_connector':
+>> drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:41:22: warning: format '%d' expects argument of type 'int', but argument 3 has type 'long int' [-Wformat=]
+      41 | #define dev_fmt(fmt) "amdgpu: " fmt
+         |                      ^~~~~~~~~~
+   include/linux/dev_printk.h:110:30: note: in definition of macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                              ^~~
+   include/linux/dev_printk.h:144:56: note: in expansion of macro 'dev_fmt'
+     144 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                        ^~~~~~~
+   include/drm/drm_print.h:425:9: note: in expansion of macro 'dev_err'
+     425 |         dev_##level##type((drm)->dev, "[drm] " fmt, ##__VA_ARGS__)
+         |         ^~~~
+   include/drm/drm_print.h:438:9: note: in expansion of macro '__drm_printk'
+     438 |         __drm_printk((drm), err,, "*ERROR* " fmt, ##__VA_ARGS__)
+         |         ^~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_mst_types.c:533:25: note: in expansion of macro 'drm_err'
+     533 |                         drm_err(dev, "Error getting privacy screen, ret=%d\n",
+         |                         ^~~~~~~
+   In file included from drivers/gpu/drm/amd/amdgpu/../display/dc/inc/dc_link_ddc.h:29,
+                    from drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_mst_types.c:39:
+   At top level:
+   drivers/gpu/drm/amd/amdgpu/../display/include/ddc_service_types.h:128:22: warning: 'SYNAPTICS_DEVICE_ID' defined but not used [-Wunused-const-variable=]
+     128 | static const uint8_t SYNAPTICS_DEVICE_ID[] = "SYNA";
+         |                      ^~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/../display/include/ddc_service_types.h:125:22: warning: 'DP_SINK_DEVICE_STR_ID_2' defined but not used [-Wunused-const-variable=]
+     125 | static const uint8_t DP_SINK_DEVICE_STR_ID_2[] = {7, 1, 8, 7, 5, 0};
+         |                      ^~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/../display/include/ddc_service_types.h:124:22: warning: 'DP_SINK_DEVICE_STR_ID_1' defined but not used [-Wunused-const-variable=]
+     124 | static const uint8_t DP_SINK_DEVICE_STR_ID_1[] = {7, 1, 8, 7, 3, 0};
+         |                      ^~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +41 drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h
+
+539489fc91ea77 Aurabindo Pillai 2020-04-08  40  
+539489fc91ea77 Aurabindo Pillai 2020-04-08 @41  #define dev_fmt(fmt) "amdgpu: " fmt
+539489fc91ea77 Aurabindo Pillai 2020-04-08  42  
+
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index ddc5cd61af58..1b313a95c7e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2159,8 +2159,10 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
- 	    !pci_is_thunderbolt_attached(to_pci_dev(dev->dev)))
- 		adev->flags |= AMD_IS_PX;
- 
--	parent = pci_upstream_bridge(adev->pdev);
--	adev->has_pr3 = parent ? pci_pr3_present(parent) : false;
-+	if (!(adev->flags & AMD_IS_APU)) {
-+		parent = pci_upstream_bridge(adev->pdev);
-+		adev->has_pr3 = parent ? pci_pr3_present(parent) : false;
-+	}
- 
- 	amdgpu_amdkfd_device_probe(adev);
- 
--- 
-2.35.1
-
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
