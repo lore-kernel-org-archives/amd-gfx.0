@@ -4,53 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 332C6C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 18:12:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FCB0C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 18:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DD9710E392;
-	Wed,  9 Mar 2022 18:12:21 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B25510E2D1;
- Wed,  9 Mar 2022 18:12:20 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- bg31-20020a05600c3c9f00b00381590dbb33so1983921wmb.3; 
- Wed, 09 Mar 2022 10:12:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=uoxmvtZigi1Sv5XM6EkK1OcIKPpEpiJc5xxUsYRrAG0=;
- b=hXhbb6bxSfbjFDOsU4OqO5bLCh89JJPAUzo5eoYpbhAzbdvwoRB493uWAhOmxS9PJx
- jGj0BZ4h+0QxlgwY0Qy2wuZ/MK6TJTdJ1MIIqs3qP9FdCAgNJJc6NxFYOzQRhhfQxKO0
- dV53w96PuShUkkpXWL5DdHhRtH79gUz/tHTZEfo9TCCKJ4LsDFuiozty56GbnSNpjSZP
- NCEQerydhC8OtccM96YvqOrD+TtVdYN3j1VdExUDhcwG8pbpzolISQ3Uv3tmwB9QH+9/
- Ma9xxpzFwVaWtOsH4Fb8VQUBDHk/ShdCV6Y3GWULQ5feO3p6Knah6CT7jbR6TAhJ/X6z
- a7bQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=uoxmvtZigi1Sv5XM6EkK1OcIKPpEpiJc5xxUsYRrAG0=;
- b=s8ztClWxP1bg3mlYtu4lpuhpRdAIhl30OgAza/JwGOJgKQp5GDoPTXRRtuuZx1Biue
- +q4cC/wijl/Yk08+jIKJW4t950N6Hxymwlt/M0AoOkR0HNGJxAyEQ2ytCUw/Ary+Jvyn
- 5Ol0iGngyaFC/zgsHukEz+v1lFGOyVjMqID/+OwHs6nSl83QaiPNbPLtdmnzWvQzcWT/
- 8a6tbnLpIDnYxQ8i+TSE4h3eQcAB0Fe9xdYC69lDvtiYwqv9/1CNqi+5F0F6ghy+88Im
- 3RXdZdbg6XYIgSERZKxZZje8ff2u/KcktY43HvJWi2IcS0OSgmT5OefxJkUd9GB8tt89
- /Bog==
-X-Gm-Message-State: AOAM532511kFCiG/oOlA1rsbHiwwWCFoSTyPP4TMH/9oJgGd/WRYfUU7
- rEqdzRo8KT0oI10yFq18qX0BhHisFZSbHCa1ZBQ=
-X-Google-Smtp-Source: ABdhPJwn/PPyFZWI3QlIQ2lMkCkJ7XQ89Ou6uhNsUaNYCpjnEZbfn8jOuyiXfX+3B4jVqpr89jJU/gklKt9c1VrSVyg=
-X-Received: by 2002:a05:600c:6d7:b0:389:7336:29e6 with SMTP id
- b23-20020a05600c06d700b00389733629e6mr8622204wmn.26.1646849538715; Wed, 09
- Mar 2022 10:12:18 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECFC610E399;
+	Wed,  9 Mar 2022 18:12:44 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 105BB10E399
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Mar 2022 18:12:44 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A4C45B8214B;
+ Wed,  9 Mar 2022 18:12:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33BD9C340E8;
+ Wed,  9 Mar 2022 18:12:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1646849561;
+ bh=4PTqqLuT0A0jBlDFjGkPjyWFJzJnwzxshFyQXDhoDBM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=fIk5Te7dML0Wj2jKZVgNYlmwgUp8VcNS6xDWZbos7pfvcqJ5Ssr8gmgxZYZihu03K
+ GEAwRTCShkMJHXBplX7tkFF60zBx7zNqb/KO2od2ijDB9FYtZ4qRNYF2FkwiVOpB9G
+ 8FRbSL/mOzgJ8lV8J4HaVA2Ew0WGnaUPRs2mYWAzqgL7uURyeI0Hiena2rPt9hEsTo
+ wDpZwyN1Y5jJqt+rgZlWZPs0XM4PoXMsxNm42KJCrRfzPS+A12Pk6VigPCJXaqDEDO
+ UQQMyxeyCxhX1Mo1EnP10kBzRDGUQfnV2CK9u70kiF21WKRk9GyujDoeDp03eOi6Ja
+ CO1J6YSp+YWhQ==
+Date: Wed, 9 Mar 2022 11:12:34 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Yifan Zhang <yifan1.zhang@amd.com>
+Subject: Re: [PATCH v2] drm/amkfd: bail out early if no
+ get_atc_vmid_pasid_mapping_info
+Message-ID: <YijuEmuuPZYdBt0I@dev-arch.thelio-3990X>
+References: <20220309022242.2625842-1-yifan1.zhang@amd.com>
 MIME-Version: 1.0
-References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
-In-Reply-To: <20220308180403.75566-1-contactshashanksharma@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 9 Mar 2022 10:12:58 -0800
-Message-ID: <CAF6AEGsmectHSmW-Y6rf+AksXTkges7rukeiYd4yDm-xwdb1=Q@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-To: Shashank Sharma <contactshashanksharma@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220309022242.2625842-1-yifan1.zhang@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,37 +52,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Shashank Sharma <shashank.sharma@amd.com>,
- Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alexandar Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 8, 2022 at 11:40 PM Shashank Sharma
-<contactshashanksharma@gmail.com> wrote:
->
-> From: Shashank Sharma <shashank.sharma@amd.com>
->
-> This patch adds a new sysfs event, which will indicate
-> the userland about a GPU reset, and can also provide
-> some information like:
-> - process ID of the process involved with the GPU reset
-> - process name of the involved process
-> - the GPU status info (using flags)
->
-> This patch also introduces the first flag of the flags
-> bitmap, which can be appended as and when required.
+On Wed, Mar 09, 2022 at 10:22:42AM +0800, Yifan Zhang wrote:
+> it makes no sense to continue with an undefined vmid.
+> 
+> Fixes: d21bcfc01eb1 (drm/amdkfd: judge get_atc_vmid_pasid_mapping_info before call)
+> 
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+> Reported-by: Nathan Chancellor <nathan@kernel.org>
 
-Why invent something new, rather than using the already existing devcoredump?
+Thank you for the quick fix!
 
-I don't think we need (or should encourage/allow) something drm
-specific when there is already an existing solution used by both drm
-and non-drm drivers.  Userspace should not have to learn to support
-yet another mechanism to do the same thing.
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
 
-BR,
--R
+> ---
+>  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 21 +++++++++++--------
+>  1 file changed, 12 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 77364afdc606..acf4f7975850 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -500,21 +500,24 @@ static int dbgdev_wave_reset_wavefronts(struct kfd_dev *dev, struct kfd_process
+>  
+>  	pr_debug("Killing all process wavefronts\n");
+>  
+> +	if (!dev->kfd2kgd->get_atc_vmid_pasid_mapping_info) {
+> +		pr_err("no vmid pasid mapping supported \n");
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+>  	/* Scan all registers in the range ATC_VMID8_PASID_MAPPING ..
+>  	 * ATC_VMID15_PASID_MAPPING
+>  	 * to check which VMID the current process is mapped to.
+>  	 */
+>  
+> -	if (dev->kfd2kgd->get_atc_vmid_pasid_mapping_info) {
+> -		for (vmid = first_vmid_to_scan; vmid <= last_vmid_to_scan; vmid++) {
+> -			status = dev->kfd2kgd->get_atc_vmid_pasid_mapping_info
+> -					(dev->adev, vmid, &queried_pasid);
+> +	for (vmid = first_vmid_to_scan; vmid <= last_vmid_to_scan; vmid++) {
+> +		status = dev->kfd2kgd->get_atc_vmid_pasid_mapping_info
+> +				(dev->adev, vmid, &queried_pasid);
+>  
+> -			if (status && queried_pasid == p->pasid) {
+> -				pr_debug("Killing wave fronts of vmid %d and pasid 0x%x\n",
+> -						vmid, p->pasid);
+> -				break;
+> -			}
+> +		if (status && queried_pasid == p->pasid) {
+> +			pr_debug("Killing wave fronts of vmid %d and pasid 0x%x\n",
+> +					vmid, p->pasid);
+> +			break;
+>  		}
+>  	}
+>  
+> -- 
+> 2.25.1
+> 
