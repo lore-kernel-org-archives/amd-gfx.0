@@ -4,67 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C57C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 10:24:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7D72C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 10:28:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87A1410E3DE;
-	Wed,  9 Mar 2022 10:24:06 +0000 (UTC)
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8FE610E3DC;
- Wed,  9 Mar 2022 10:24:05 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id qt6so3822035ejb.11;
- Wed, 09 Mar 2022 02:24:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=LuqkKDU8p4/5l+NrIw2zkoI1YEZeOAu3np4mrHPH9k0=;
- b=UQbYBH82jSDnOcvbtnWwe/0XPoUXg82Z9OVq8pEaaqerglEbR3DO0m9b5iKFwJVENL
- 6XH4uzpV5PhxoHxUpr/AoLuXKK5Cw4SwGwFHwYZEhRfOfjznioNHeS/sZcGFXJdCSygk
- SlVqRi0yjpiAtFmn/KiD/NDrtJW95tGzcDPlBhsyL5O64qdjxPgJexHnKl3/v2sWLYtO
- 7+rnOGNPu8VWOAOj1Vb07biBb8JwwVmEka3pCT6uDVqqAv5TORMpxJVX2XTL6Qd4EAmN
- ZuCUBShyYMHDi/SrlUn0vCfcAiIgNyzlfs2bTbM9wUeOst6Z+xmlJ9aFSy+RIa8w99AQ
- EwSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=LuqkKDU8p4/5l+NrIw2zkoI1YEZeOAu3np4mrHPH9k0=;
- b=u208HgDxftxx0krIqHoBMeLhmMiOiL0LU8lYdjX4H0Cr/9VDtyTTUUl46FGt2OXJzP
- KrAbia7mGp4Yz0v5ZF3kvtwSyqYxKLkJkwZcFi8iaVMkGJQP1OuDtMdQxALa8oHV93rl
- Fqc0pZUBwfQcA1Cit1avpIGcqGbe0kl9XuHrjQhJqO3tgkxML9704SKgJVQAWkrGKkV8
- rxP7l4G0/or57fDIWGcHYUAFq+4T6Yg12bCBpa4xprO5sAi1nkejJrqr65qn37pBdtjO
- TEPIYywuGOeWyg45YP4nam9D48CNfD3BhvaWpEl009qEqRm00WsbE9KVXoGzE9tw/jrT
- XZhw==
-X-Gm-Message-State: AOAM530WqNJqRnZDYMeL4lWANzdLf3sjMBOkpgRbHQAVDVqOllVUPsjw
- ewm2pRujRlQ/QHPOEOu4C5U=
-X-Google-Smtp-Source: ABdhPJwyqACs6VJEglGsjvHndh8A3gAnJW9URsqVw8juQHpatmLRXX685qGQ6IDOrzIjM4BoL3OxGQ==
-X-Received: by 2002:a17:907:2d90:b0:6d8:9fc9:ac36 with SMTP id
- gt16-20020a1709072d9000b006d89fc9ac36mr17073363ejc.28.1646821443997; 
- Wed, 09 Mar 2022 02:24:03 -0800 (PST)
-Received: from ?IPV6:2a02:908:1252:fb60:97ec:d1db:f85a:1e04?
- ([2a02:908:1252:fb60:97ec:d1db:f85a:1e04])
- by smtp.gmail.com with ESMTPSA id
- zk1-20020a17090733c100b006dab4a41df8sm553479ejb.111.2022.03.09.02.24.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Mar 2022 02:24:03 -0800 (PST)
-Message-ID: <1e2ad919-e336-cf8f-c675-0ddd62796a0f@gmail.com>
-Date: Wed, 9 Mar 2022 11:24:02 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2FB310E41B;
+	Wed,  9 Mar 2022 10:28:32 +0000 (UTC)
+Received: from mail-4018.proton.ch (mail-4018.proton.ch [185.70.40.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1EA410E412
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Mar 2022 10:28:30 +0000 (UTC)
+Date: Wed, 09 Mar 2022 10:28:27 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail2; t=1646821708;
+ bh=QCuOUbPmi+SUl45gWYVSirY2waAVv3GfCbq4CzSx/Xc=;
+ h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
+ References:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID;
+ b=eyBkgAQx9XqAC+x4e5OfeD09b23nw0a2zwyjs0iTN1ZP0se2H8UifI4QyXEQNJKvj
+ dSfQP4bzqRtkI/ZRArX0XiNSJBb/XHlAPoUvX6Ltvx5wsxfTg8HCmD96Y1hjEYm1DS
+ wF2nxKioRIUswVSdiPllhksDd5rbOPoRve3ViT3vQvQ1nUQ3S2db5whKOr8G4odHGb
+ gU+qIdzYstXPIWamAtDDbcPtqFJhaDsIDw2X+CSsedBXSC5ePtP5CIrxY6JtVaz39I
+ aULaxbq32QFXbC9vKM5k3ZUzX1uUwV6ChQnnG26EE359sUo62lYnSHyaPFiZKj1/6K
+ ZpT9NV+DgnmDQ==
+To: =?utf-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+From: Simon Ser <contact@emersion.fr>
 Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-Content-Language: en-US
-To: Simon Ser <contact@emersion.fr>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Message-ID: <iZTBpyxPhm4Q7lobMcS6nj3qX3Tt2qh8bfiZWEek-lgn9S-PQcBHKN3uUEcgVwSOeVocniOKYIRNI1kvWlfMB3XZ32D4CQIX9Ob8T04SdLw=@emersion.fr>
+In-Reply-To: <1e2ad919-e336-cf8f-c675-0ddd62796a0f@gmail.com>
 References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
  <589bca3a-6f44-39bf-1eb5-1cb2628e4fee@amd.com>
  <DQGKSkEjxg-p9oBYX3hMa6fmY3Am2mAT4KBSQL_qsLGK0m85wehKp54s1IbobLSc5-FGbY67HrlWfQYO876bGgeObzY5eJF5UXJ1BktPilA=@emersion.fr>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <DQGKSkEjxg-p9oBYX3hMa6fmY3Am2mAT4KBSQL_qsLGK0m85wehKp54s1IbobLSc5-FGbY67HrlWfQYO876bGgeObzY5eJF5UXJ1BktPilA=@emersion.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <1e2ad919-e336-cf8f-c675-0ddd62796a0f@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,7 +48,9 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Shashank Sharma <shashank.sharma@amd.com>,
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>,
  Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Alexandar Deucher <alexander.deucher@amd.com>,
@@ -85,25 +59,26 @@ Cc: Shashank Sharma <shashank.sharma@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 09.03.22 um 11:10 schrieb Simon Ser:
-> On Wednesday, March 9th, 2022 at 10:56, Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com> wrote:
+On Wednesday, March 9th, 2022 at 11:24, Christian K=C3=B6nig <ckoenig.leich=
+tzumerken@gmail.com> wrote:
+
+> Am 09.03.22 um 11:10 schrieb Simon Ser:
+> > On Wednesday, March 9th, 2022 at 10:56, Pierre-Eric Pelloux-Prayer <pie=
+rre-eric.pelloux-prayer@amd.com> wrote:
+> >
+> >> Would it be possible to include the app parameters as well?
+> > Can all processes read sysfs events?
 >
->> Would it be possible to include the app parameters as well?
-> Can all processes read sysfs events?
+> No, but application parameters are usually not secret.
 
-No, but application parameters are usually not secret.
+It's a bad practice, yes. But people still do it.
 
-> There might be security implications here. The app parameters might
-> contain sensitive information, like passwords or tokens.
+> > There might be security implications here. The app parameters might
+> > contain sensitive information, like passwords or tokens.
+>
+> It's a well known security vulnerably to provide password etc.. as
+> application parameter since everybody can read them through procfs.
 
-It's a well known security vulnerably to provide password etc.. as 
-application parameter since everybody can read them through procfs.
-
-> Can't the uevent receiver query the kernel to get that info from the
-> PID?
-
-I'm leaning also towards just providing the PID and not the application 
-name. The information should be as short as possible.
-
-Regards,
-Christian.
+I was thinking mostly about Flatpak apps here. Flatpak apps are running
+in a process namespace so they can't query the CLI parameters of PIDs
+outside of the namespace. But they might still receive sysfs uevents.
