@@ -4,81 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3673FC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 15:22:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE230C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Mar 2022 17:41:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF41210E6B0;
-	Wed,  9 Mar 2022 15:22:52 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34B0B10E6B0
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Mar 2022 15:22:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1646839343;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mneM/WNFthdHoCaTLUluTMs3GUmvrKmERUkOEBdbV4E=;
- b=hTw0ECc0aB31n+5ZUZjyfp2oD0xbQ8N6pSHkiizxRGalqdQm6YHPGNjuDtbwucyXlKhVPs
- oFdvRgd0IBeQOpRjiG4hQ/U4URcRSdf2YK1uxpe9gAoTpnmSL8nBE511QW5lhw+HuFSgQJ
- KSeP3cl/yB69rWJGMJ6fDsUr4azvxRo=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-34-tHLSxthSP1WY6K8Y1B2l6w-1; Wed, 09 Mar 2022 10:22:20 -0500
-X-MC-Unique: tHLSxthSP1WY6K8Y1B2l6w-1
-Received: by mail-ej1-f71.google.com with SMTP id
- h22-20020a1709060f5600b006b11a2d3dcfso1477902ejj.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Mar 2022 07:22:19 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=mneM/WNFthdHoCaTLUluTMs3GUmvrKmERUkOEBdbV4E=;
- b=GG2TqVdeo+LyUVObAC/4V1vxmKbIiKhfr9i5/AZ4TyfflNH9ul4JgR2/plSifQWS3z
- 3h8Y6avsa7szBs3yjNEBA4XxPdFuT7DP87YF8W7UrgDS+dT64B8mjHFydmwJ/xigtZOr
- au82iT2KqXDWICmwAZPR5wPtanscVPtfOo4q7Y+gxy5skGZ5gQKBh0ablmd8tGtSyU68
- T+y4AYHP5KnjYgYBAUIExs2yGVwJtywKk818vF6hiiVolMAMyUufMhRJTxVNc9963QIw
- PbFg0RTvfdjMtd8AA/tUaDbvn4pUI6b3WspzW6uSZamaKJZEtY287yIbDbP6zIX9GyCE
- hXuQ==
-X-Gm-Message-State: AOAM5300+xRhBBINcAtX5HoFnCtAhxcrq55wJe2T0gP+a02m76fy95NS
- r5rNDrOH9HCbe6Loe8Cn8fRVyEk2IWHv/HkeNVvd0tsiC1fS8JUlQqqT6wRCix6EnqowZzDX7JK
- zs0KNq84ety8afZSZe48KJi5Q7g==
-X-Received: by 2002:a17:906:974e:b0:6bb:4f90:a6ae with SMTP id
- o14-20020a170906974e00b006bb4f90a6aemr247653ejy.452.1646839338293; 
- Wed, 09 Mar 2022 07:22:18 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJziRMzZOZnW1jEBvyL3LG1iaCafKKjIYlfg05PLKeAXnhU7iSyiTNyEMVVrkawKHW4S7bevlg==
-X-Received: by 2002:a17:906:974e:b0:6bb:4f90:a6ae with SMTP id
- o14-20020a170906974e00b006bb4f90a6aemr247614ejy.452.1646839337773; 
- Wed, 09 Mar 2022 07:22:17 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c1e:bf00:cdb2:2781:c55:5db0?
- (2001-1c00-0c1e-bf00-cdb2-2781-0c55-5db0.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:cdb2:2781:c55:5db0])
- by smtp.gmail.com with ESMTPSA id
- v16-20020a056402349000b004162fd77252sm945043edc.95.2022.03.09.07.22.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Mar 2022 07:22:17 -0800 (PST)
-Message-ID: <e4baccb2-6c45-4220-f3ba-a72659b17725@redhat.com>
-Date: Wed, 9 Mar 2022 16:22:16 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14E0C10E442;
+	Wed,  9 Mar 2022 17:41:54 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2085.outbound.protection.outlook.com [40.107.243.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5EA210E442;
+ Wed,  9 Mar 2022 17:41:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hgP4WDhYvZl0CsiEMB5yC4tT84HJ54DmvOKS0n4G7tM12wUsF7Imadk7OYu7BX/bYbDc355G6+2+Agfa+lZPwMVSsceyrxoeT+Bwc4x6prVTypbIIYXD+CP2qzyslidSpUJNTACcArEtppxNpX/yV8oXI8YHgy7sXawA8KsxEjkZ991LhJHb8Iukq1XQ1cviobqryMEmMGBxyey0NjdWGjsATdxb8Wwlgd6tZJ+Bqp6d9Q6AFUAoxpGZpZl1racJkllAIoIiU08jru8II3yFHohSuDvrMEig3ELCExQWPpJnLLhNl5cX4x5caeRDU8sBWv4Qt/rzns+HMpL24F50YQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5p/P779eNcer+g12N09+owMHCs7CQPFS2exyJkoqxNc=;
+ b=gT8RxGxEEPbsgVJjj3SPCDGvECL/Y1GWZOKIUVj42D0IKdmpYCI+C95y5RxLv8oWVEqvYmS/d81s+muDHwiiTMQTEyB80d7YuduirdrEWvFbOATWhcR7LHRd2qacrF9+w/gIqawJVw7leuduY/mhGMC9Op/ZBiGkRs4pIAOnShj4F+UDfDwPxq3h9IuawjmgqgmJ1bG/fjKvXu/pAQqFJtndT7qr1mkHy+JInHJM8aKr/CLTLH+dgZRdT1nn6bowWb5jnr7N8RePaleYTcFSTmZRyli2RypFv7kfHqxq7JhoQErEVxGYkW6A5SASArtplWBCq6DmvjwWlzHt2LDcxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5p/P779eNcer+g12N09+owMHCs7CQPFS2exyJkoqxNc=;
+ b=JgUCQl2Nj3x81aKBZSKJ5eGM4cknOX9k6c4JUxqy9rbz5FZyAPbjr03sHtObct/jxobTDIIMPoY7IzxiFtsKF/6V4kyR4QK/qHigyeDGp6KkFBWoFy37BvjLu4ghR6b2AdkUgCJK4EUa7EdZILauvIH9zeszcikBYSzQtfTUzDs=
+Received: from MW4PR03CA0350.namprd03.prod.outlook.com (2603:10b6:303:dc::25)
+ by DM6PR12MB3081.namprd12.prod.outlook.com (2603:10b6:5:38::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.26; Wed, 9 Mar
+ 2022 17:41:49 +0000
+Received: from CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:dc:cafe::7f) by MW4PR03CA0350.outlook.office365.com
+ (2603:10b6:303:dc::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
+ Transport; Wed, 9 Mar 2022 17:41:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT003.mail.protection.outlook.com (10.13.175.93) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5038.14 via Frontend Transport; Wed, 9 Mar 2022 17:41:48 +0000
+Received: from dayatsin-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 9 Mar
+ 2022 11:41:46 -0600
+From: David Yat Sin <david.yatsin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/amdkfd: Set handle to invalid for non GTT/VRAM BOs
+Date: Wed, 9 Mar 2022 12:41:33 -0500
+Message-ID: <20220309174133.14454-1-david.yatsin@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Subject: Re: [PATCH v2] drm/amdgpu: Add support for drm_privacy_screen
-To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, harry.wentland@amd.com, alexdeucher@gmail.com
-References: <20220309150606.1877288-1-sean@poorly.run>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20220309150606.1877288-1-sean@poorly.run>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Wed, 09 Mar 2022 15:22:51 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 451ee1ca-1676-4fc9-787e-08da01f4167f
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3081:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3081F0E5CE9D8F0C03AFC8C4950A9@DM6PR12MB3081.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OW9FZ9MzmP+WlKWHGjvZdCLakBgSm9Q0Mx8rDzDT/CcuBf9W0aaY8cnsSZS070m6xNXeU/kpJzoInCqTOWlNuOwrq4+yB8GyRPXigswl8yp4gM/b/tYTS2gUygVOk3ifRkgk7j7mCB/IvGB7/6RwPlLxB8kwW0ItNt0Bghw0Q2j5weV1jziUaohSv7M2be4B0GiJ8+wTl/7oiUjx+nLGjvKZyyPXFSJx9YkeTj1XF48nxiFnLxSeGe3ghqGeWDLDNO1wy8cBEQQix9MMI0wLVCPkVJQrOskhVIeIW/nSS4cmcy6Rd9s+o+YXCasDtL9RUQfRgjEOzn1kyOSrEZECJx0roKhQqokbcsM5DtCbWGZwlZiFB3HqeGqPB4T09lXPeYilyW5wg4qD1Un6fB+bJH0SlB2u6nwGMZD7smxUwc/30nEm+dOJue6hxNpfNMKD6/2TdKTFAU6Qv1v/YI5vTTM+S6mllO4RoFHkjOfOrvZcOvqN7Lvdaujdn4Uy1uY4GfB20mceiRgM7YSh9hDG2v5dLiUPUiAT+2bbS2uwC0S4dyCRO/DI+YkkpNjOLlEaDygSp0h2N3+oTl6YaYJCwnFhn1CEscFSBucNFLkB7ITygZjoktHWb6akmEbwB2OUkkK1IszZsY9MI216s8N9xocZlQzXCZQZfGwa9e8k4ovTOVQC80KHQGFnfrzfJS/q5qcZqX9LUtZOuBB34BtNwA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(86362001)(36860700001)(450100002)(110136005)(81166007)(8936002)(508600001)(1076003)(8676002)(70206006)(70586007)(82310400004)(4326008)(356005)(5660300002)(83380400001)(2906002)(47076005)(7696005)(40460700003)(16526019)(336012)(426003)(6666004)(186003)(2616005)(316002)(26005)(36756003)(54906003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2022 17:41:48.5572 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 451ee1ca-1676-4fc9-787e-08da01f4167f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3081
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,134 +98,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Sean Paul <seanpaul@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, rajatja@google.com,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Felix.Kuehling@amd.com, David Yat Sin <david.yatsin@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Set dmabuf handle to invalid for BOs that cannot be accessed using SDMA
+during checkpoint/restore.
 
-On 3/9/22 16:06, Sean Paul wrote:
-> From: Sean Paul <seanpaul@chromium.org>
-> 
-> This patch adds the necessary hooks to make amdgpu aware of privacy
-> screens. On devices with privacy screen drivers (such as thinkpad-acpi),
-> the amdgpu driver will defer probe until it's ready and then sync the sw
-> and hw state on each commit the connector is involved and enabled.
-> 
-> Changes in v2:
-> -Tweaked the drm_privacy_screen_get() error check to avoid logging
->  errors when privacy screen is absent (Hans)
-> 
-> Signed-off-by: Sean Paul <seanpaul@chromium.org>
-> Link: https://patchwork.freedesktop.org/patch/477640/ #v1
+Signed-off-by: David Yat Sin <david.yatsin@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 8 ++++++--
+ include/uapi/linux/kfd_ioctl.h           | 2 ++
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-Thanks, patch looks good to me:
-
-Reviewed-by: Hans de Goede <hdegoede@redhat.com>
-
-Regards,
-
-Hans
-
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c          |  9 +++++++++
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  3 +++
->  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  | 16 +++++++++++++++-
->  3 files changed, 27 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 2ab675123ae3..e2cfae56c020 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -26,6 +26,7 @@
->  #include <drm/drm_aperture.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_gem.h>
-> +#include <drm/drm_privacy_screen_consumer.h>
->  #include <drm/drm_vblank.h>
->  #include <drm/drm_managed.h>
->  #include "amdgpu_drv.h"
-> @@ -1988,6 +1989,7 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
->  {
->  	struct drm_device *ddev;
->  	struct amdgpu_device *adev;
-> +	struct drm_privacy_screen *privacy_screen;
->  	unsigned long flags = ent->driver_data;
->  	int ret, retry = 0, i;
->  	bool supports_atomic = false;
-> @@ -2063,6 +2065,13 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
->  	size = pci_resource_len(pdev, 0);
->  	is_fw_fb = amdgpu_is_fw_framebuffer(base, size);
->  
-> +	/* If the LCD panel has a privacy screen, defer probe until its ready */
-> +	privacy_screen = drm_privacy_screen_get(&pdev->dev, NULL);
-> +	if (IS_ERR(privacy_screen) && PTR_ERR(privacy_screen) == -EPROBE_DEFER)
-> +		return -EPROBE_DEFER;
-> +
-> +	drm_privacy_screen_put(privacy_screen);
-> +
->  	/* Get rid of things like offb */
->  	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &amdgpu_kms_driver);
->  	if (ret)
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index e1d3db3fe8de..9e2bb6523add 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -9781,6 +9781,9 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
->  		if (acrtc) {
->  			new_crtc_state = drm_atomic_get_new_crtc_state(state, &acrtc->base);
->  			old_crtc_state = drm_atomic_get_old_crtc_state(state, &acrtc->base);
-> +
-> +			/* Sync the privacy screen state between hw and sw */
-> +			drm_connector_update_privacy_screen(new_con_state);
->  		}
->  
->  		/* Skip any modesets/resets */
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> index 740435ae3997..594a8002975a 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> @@ -27,6 +27,7 @@
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/dp/drm_dp_mst_helper.h>
->  #include <drm/dp/drm_dp_helper.h>
-> +#include <drm/drm_privacy_screen_consumer.h>
->  #include "dm_services.h"
->  #include "amdgpu.h"
->  #include "amdgpu_dm.h"
-> @@ -506,6 +507,7 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
->  				       struct amdgpu_dm_connector *aconnector,
->  				       int link_index)
->  {
-> +	struct drm_device *dev = dm->ddev;
->  	struct dc_link_settings max_link_enc_cap = {0};
->  
->  	aconnector->dm_dp_aux.aux.name =
-> @@ -519,8 +521,20 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
->  	drm_dp_cec_register_connector(&aconnector->dm_dp_aux.aux,
->  				      &aconnector->base);
->  
-> -	if (aconnector->base.connector_type == DRM_MODE_CONNECTOR_eDP)
-> +	if (aconnector->base.connector_type == DRM_MODE_CONNECTOR_eDP) {
-> +		struct drm_privacy_screen *privacy_screen;
-> +
-> +		/* Reference given up in drm_connector_cleanup() */
-> +		privacy_screen = drm_privacy_screen_get(dev->dev, NULL);
-> +		if (!IS_ERR(privacy_screen)) {
-> +			drm_connector_attach_privacy_screen_provider(&aconnector->base,
-> +								     privacy_screen);
-> +		} else if (PTR_ERR(privacy_screen) != -ENODEV) {
-> +			drm_err(dev, "Error getting privacy screen, ret=%d\n",
-> +				PTR_ERR(privacy_screen));
-> +		}
->  		return;
-> +	}
->  
->  	dc_link_dp_get_max_link_enc_cap(aconnector->dc_link, &max_link_enc_cap);
->  	aconnector->mst_mgr.cbs = &dm_mst_cbs;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index e1e2362841f8..1ffa976ad318 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1767,7 +1767,9 @@ static int criu_checkpoint_bos(struct kfd_process *p,
+ 						&bo_bucket->dmabuf_fd);
+ 				if (ret)
+ 					goto exit;
+-			}
++			} else
++				bo_bucket->dmabuf_fd = KFD_INVALID_FD;
++
+ 			if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL)
+ 				bo_bucket->offset = KFD_MMAP_TYPE_DOORBELL |
+ 					KFD_MMAP_GPU_ID(pdd->dev->id);
+@@ -2219,7 +2221,9 @@ static int criu_restore_bo(struct kfd_process *p,
+ 					    &bo_bucket->dmabuf_fd);
+ 		if (ret)
+ 			return ret;
+-	}
++	} else
++		bo_bucket->dmabuf_fd = KFD_INVALID_FD;
++
+ 	return 0;
+ }
+ 
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index eb9ff85f8556..42975e940758 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -196,6 +196,8 @@ struct kfd_ioctl_dbg_wave_control_args {
+ 	__u32 buf_size_in_bytes;	/*including gpu_id and buf_size */
+ };
+ 
++#define KFD_INVALID_FD     0xffffffff
++
+ /* Matching HSA_EVENTTYPE */
+ #define KFD_IOC_EVENT_SIGNAL			0
+ #define KFD_IOC_EVENT_NODECHANGE		1
+-- 
+2.35.1
 
