@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2AF4C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Mar 2022 10:04:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 160B4C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Mar 2022 10:06:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4979E10E7F0;
-	Thu, 10 Mar 2022 10:04:24 +0000 (UTC)
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEF7010E7F0
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Mar 2022 10:04:22 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id bi12so10943062ejb.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Mar 2022 02:04:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2E0310E7F2;
+	Thu, 10 Mar 2022 10:06:15 +0000 (UTC)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB43F10E7F2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Mar 2022 10:06:13 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id b24so6239591edu.10
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Mar 2022 02:06:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=fFzhqFfJrML7Pm47ej+K8AzXus/Q1TA7zagWkD7x8JE=;
- b=UfzD8SO79dHVjL2lgAZNFrEMe7BbTSUypIwSFSGh1uXRMc1uaCAFxvVPAmgi83VGZe
- XgEh1fDTAZf6OCEKDIVZI+3LMLj3VA+7fE5IcsSBDNjwLU6ZIhP6B35oSOSu1q9jYkR9
- nafD97DhnZbnhVRrHaRuFXIhvcjeZg+cPsBrQxrkRLXCPOvuKhLjU2YBo4geIKlybSHF
- d6cII+kwhvEz+4oyvUsLDWyEUYx+R/bfMdqjn36DJqxSobZqcJRHQVjBtpcef8kjAbLC
- DSEaXBFTPWm2937umx/A44EOdliXjSMrsOXaOhah3mLs+2vcZkwpe+WzvOuP/oYIC+DQ
- eltQ==
+ bh=m9Wj6LjfKHjK78zdpRDCFD9ongSbSK/FwetYHUpAStY=;
+ b=UrajsquZoyrD/RqzEt+AU9Miicn5yd1vF87rJhSRObkfV+7jaEujEbYk7JdnzjWZVe
+ JKhGzy3qK8MKG0haFDhg9hzXi4SVWIzMUpwzOW6T/qOj2BysN/i9zOtooXEHVTwtD2RN
+ 6CROPuf6mG8FjEVs8dnwoUIXK3o9QVDcflSi5MJ7i3LQiN/O/pKxHWz41T77OjBjMDT8
+ 4hZD02rD1/znL18qEqsi1jLFK1UV2mq0bM4KqRft2XYWtmmeXxwTB1bEWXCoM9Nw5H/U
+ fn8+N+Kke9n4ij9opm/sDqHF3lmm3Rx+REpYlUtZMGqxI4sau7xdhjIxINOVSNUQy0f2
+ fyrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=fFzhqFfJrML7Pm47ej+K8AzXus/Q1TA7zagWkD7x8JE=;
- b=bucJzHLGfjroOatX2nVMvsj7+rQECVA+fq4XmIDKGROrQpOOSGABY/QS05YbR6ODzm
- 7MJnN0XcjBQNP/WtkOcOv00U8/80zOikDyrBo38Kn7H20CyYGC6xbMl+UPtQjUiCbGaY
- e0YvOuuWLmJUDrieft/IysxiO+Y28H9XCxuxFpvRqo7zXl40qTSiOGN43A8YF1qhDje9
- CdSerAysouqFy/NkRN14aPup9OU3dxrcRneUIYwHpLb5oHMfHmKRho3KdfckM2e7byxt
- N3JPVBnX/rufaNDBZ/GnyAf4UmpsxQGyDcR/gEtgdMIo9eWIj+zRHgCClm1H6A/aoWcH
- NYVw==
-X-Gm-Message-State: AOAM532etmbN7oi4fE82tLdLMHBw4ttdU/SVMa6MX7llP9kUHJRDHkXJ
- gXvoGHqJD9MUjy5TdT7eP81AhViuHf4=
-X-Google-Smtp-Source: ABdhPJyfo9mXK/VfqiJoIomflmmr6G2nU6gAupLxN8PgGLrhHt1lcyfsb5oZRPCLyKx4Oj96z1W2aA==
-X-Received: by 2002:a17:906:2cce:b0:6ce:e203:d207 with SMTP id
- r14-20020a1709062cce00b006cee203d207mr3566125ejr.242.1646906661253; 
- Thu, 10 Mar 2022 02:04:21 -0800 (PST)
+ bh=m9Wj6LjfKHjK78zdpRDCFD9ongSbSK/FwetYHUpAStY=;
+ b=rpsobxnCbE7QdQzTe4Mtx026LSUHrYGTQMKlBlrO+/0+PmB+KeRHPFAPPnUC0hemVm
+ u7BmLHzQlDzqG63yL1hk4wkVd9NW37z9DL6yhR4i93nwCgUfMXw8BhruDEs3Nuti7F3D
+ B8zS5OqezN3zWQswkoC3pX/NU4qGmNIdK4jt1Xsh/uYoQn/UdRgeTrAq6GjAT7U+ZfkI
+ 85VHGA8ceQQ5NnSKsqmYPAmcHRaoO0thTX7pM6PEwJ95Ms288eyQ+zL1pn1AzNW/bjt/
+ ZLknz8JmSCXhIvE01lUwPgRDBkkmA92zCOKyvj3TRy3iFaxGAQeBK9s85c/Ep5eCeGTK
+ GOCQ==
+X-Gm-Message-State: AOAM532zQnrU8UpUH0eGyOjUeJJDIv+wl5lxVK31rYpKN9nIYFS0G/9O
+ 8f9ujk5cIV2UqYP0awrcwHs=
+X-Google-Smtp-Source: ABdhPJwpyQ09qWBnUNiM73Z4/SvpiO7Gn7mi6Sub0PW3uMjf4/kDxU1I199CuDZdEMagyOjitY5EfA==
+X-Received: by 2002:a05:6402:5146:b0:415:fd95:6afa with SMTP id
+ n6-20020a056402514600b00415fd956afamr3523121edd.200.1646906772351; 
+ Thu, 10 Mar 2022 02:06:12 -0800 (PST)
 Received: from ?IPV6:2a02:908:1252:fb60:87b1:f8fa:c08e:8bd0?
  ([2a02:908:1252:fb60:87b1:f8fa:c08e:8bd0])
  by smtp.gmail.com with ESMTPSA id
- r29-20020a50c01d000000b00415fb0dc793sm1790494edb.47.2022.03.10.02.04.20
+ w2-20020a50d982000000b00410dc0889b9sm1845734edj.63.2022.03.10.02.06.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Mar 2022 02:04:20 -0800 (PST)
-Message-ID: <3f45531c-b68c-af30-f3b8-3bc13cddf5e1@gmail.com>
-Date: Thu, 10 Mar 2022 11:04:19 +0100
+ Thu, 10 Mar 2022 02:06:11 -0800 (PST)
+Message-ID: <deb521dc-9c77-1fb2-18b4-c62a640b052c@gmail.com>
+Date: Thu, 10 Mar 2022 11:06:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH 2/4] drm/amdgpu: pass job to check soft reset
+Subject: Re: [PATCH 3/4] drm/amdgpu: add sdma v5_2 soft reset
 Content-Language: en-US
 To: Victor Zhao <Victor.Zhao@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20220310061155.39292-1-Victor.Zhao@amd.com>
- <20220310061155.39292-3-Victor.Zhao@amd.com>
+ <20220310061155.39292-4-Victor.Zhao@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220310061155.39292-3-Victor.Zhao@amd.com>
+In-Reply-To: <20220310061155.39292-4-Victor.Zhao@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,297 +79,122 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Am 10.03.22 um 07:11 schrieb Victor Zhao:
-> In order to get more accurate engine hang detection, pass the hang
-> job to check_soft_reset to find the hang engine instead of check
-> register status.
+> enable sdma v5_2 soft reset
+>
+> Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 79 +++++++++++++++++++++++++-
+>   1 file changed, 78 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> index 4d4d1aa51b8a..f9f978d8fe8a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> @@ -806,6 +806,80 @@ static int sdma_v5_2_load_microcode(struct amdgpu_device *adev)
+>   	return 0;
+>   }
+>   
+> +static bool sdma_v5_2_check_soft_reset(void *handle, struct amdgpu_job *job)
+> +{
+> +	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +
+> +	if (job) {
+> +		if (!strncmp(job->base.sched->name, "sdma", 4))
 
-NAK, the amdgpu_ring_soft_recovery() function already gets the hardware 
-fence as parameter.
-
-That should be sufficient to identify the hanging engine.
+That's a really big NAK, please no string comparison in the kernel if it 
+isn't absolutely necessary.
 
 Regards,
 Christian.
 
->
-> Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h            |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c     |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c     | 18 +++++++++++-------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c        |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c        |  2 +-
->   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c         |  2 +-
->   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c          |  2 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c          |  2 +-
->   drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c          |  2 +-
->   drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c          |  2 +-
->   drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c          |  2 +-
->   drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c         |  2 +-
->   drivers/gpu/drm/amd/amdgpu/tonga_ih.c          |  2 +-
->   drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c          |  2 +-
->   drivers/gpu/drm/amd/amdgpu/vce_v3_0.c          |  2 +-
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  2 +-
->   drivers/gpu/drm/amd/include/amd_shared.h       |  2 +-
->   17 files changed, 27 insertions(+), 23 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 22b846c359b4..4d6fd69f1bb4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1359,7 +1359,7 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
->   
->   /* Common functions */
->   bool amdgpu_device_has_job_running(struct amdgpu_device *adev);
-> -bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev);
-> +bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev, struct amdgpu_job *job);
->   int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   			      struct amdgpu_job* job);
->   void amdgpu_device_pci_config_reset(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index 7a513e5f7156..4819aedbfe62 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -238,7 +238,7 @@ void amdgpu_amdkfd_gpu_reset(struct kgd_dev *kgd)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
->   
-> -	if (amdgpu_device_should_recover_gpu(adev))
-> +	if (amdgpu_device_should_recover_gpu(adev, NULL))
->   		amdgpu_device_gpu_recover(adev, NULL);
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index a78a39e3d6e7..c82dc3621781 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4162,7 +4162,7 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
->    * if the asic is still hung or not.
->    * Returns true if any of the IPs are still in a hung state, false if not.
->    */
-> -static bool amdgpu_device_ip_check_soft_reset(struct amdgpu_device *adev)
-> +static bool amdgpu_device_ip_check_soft_reset(struct amdgpu_device *adev, struct amdgpu_job *job)
->   {
->   	int i;
->   	bool asic_hang = false;
-> @@ -4178,7 +4178,7 @@ static bool amdgpu_device_ip_check_soft_reset(struct amdgpu_device *adev)
->   			continue;
->   		if (adev->ip_blocks[i].version->funcs->check_soft_reset)
->   			adev->ip_blocks[i].status.hang =
-> -				adev->ip_blocks[i].version->funcs->check_soft_reset(adev);
-> +				adev->ip_blocks[i].version->funcs->check_soft_reset(adev, job);
->   		if (adev->ip_blocks[i].status.hang) {
->   			dev_info(adev->dev, "IP block:%s is hung!\n", adev->ip_blocks[i].version->funcs->name);
->   			asic_hang = true;
-> @@ -4466,11 +4466,15 @@ bool amdgpu_device_has_job_running(struct amdgpu_device *adev)
->    * Check amdgpu_gpu_recovery and SRIOV status to see if we should try to recover
->    * a hung GPU.
->    */
-> -bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev)
-> +bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev, struct amdgpu_job *job)
->   {
-> -	if (!amdgpu_device_ip_check_soft_reset(adev)) {
-> -		dev_info(adev->dev, "Timeout, but no hardware hang detected.\n");
-> -		return false;
-> +	if (!amdgpu_device_ip_check_soft_reset(adev, job)) {
-> +		if (job) {
-> +			dev_info(adev->dev, "No matching soft reset found, do whole gpu recovery\n");
-> +		} else {
-> +			dev_info(adev->dev, "Timeout, but no hardware hang detected.\n");
+> +			return true;
+> +		else
 > +			return false;
+> +	} else {
+> +		u32 tmp = RREG32_SOC15(GC, 0, mmGRBM_STATUS2);
+> +
+> +		if (tmp == 0xffffffff)
+> +			return false;
+> +
+> +		if (tmp & GRBM_STATUS2__SDMA_BUSY_MASK)
+> +			return true;
+> +		else
+> +			return false;
+> +	}
+> +}
+> +
+> +static int sdma_v5_2_pre_soft_reset(void *handle)
+> +{
+> +	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	int i, j;
+> +	uint32_t tmp, f32_cntl;
+> +
+> +	for (i = 0; i < adev->sdma.num_instances; i++)
+> +		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE), 0x10);
+> +
+> +	for (i = 0; i < adev->sdma.num_instances; i++) {
+> +		for (j = 0; j < 10; j++) {
+> +			tmp = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE));
+> +			DRM_DEBUG("SDMA%d_FREEZE=0x%x", i, tmp);
+> +			if (tmp & SDMA0_FREEZE__FROZEN_MASK) {
+> +				WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE), 0);
+> +				break;
+> +			} else {
+> +				udelay(10);
+> +			}
 > +		}
+> +		if (j == 10) {
+> +			DRM_ERROR("SDMA%d_FREEZE frozen not set", i);
+> +			return -1;
+> +		}
+> +	}
+> +	for (i = 0; i < adev->sdma.num_instances; i++) {
+> +		f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL));
+> +		f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, 1);
+> +		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL), f32_cntl);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int sdma_v5_2_post_soft_reset(void *handle)
+> +{
+> +	int i;
+> +	uint32_t f32_cntl;
+> +	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +
+> +	for (i = 0; i < adev->sdma.num_instances; i++) {
+> +		f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL));
+> +		f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, 0);
+> +		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL), f32_cntl);
+> +	}
+> +
+> +	sdma_v5_2_gfx_resume(adev);
+> +	udelay(10);
+> +
+> +	return 0;
+> +}
+> +
+>   static int sdma_v5_2_soft_reset(void *handle)
+>   {
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> @@ -831,7 +905,7 @@ static int sdma_v5_2_soft_reset(void *handle)
+>   		WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
+>   		tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
+>   
+> -		udelay(50);
+> +		mdelay(2);
 >   	}
 >   
->   	if (amdgpu_gpu_recovery == 0)
-> @@ -4616,7 +4620,7 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
->   			amdgpu_device_ip_pre_soft_reset(adev);
->   			r = amdgpu_device_ip_soft_reset(adev);
->   			amdgpu_device_ip_post_soft_reset(adev);
-> -			if (r || amdgpu_device_ip_check_soft_reset(adev)) {
-> +			if (r || amdgpu_device_ip_check_soft_reset(adev, NULL)) {
->   				dev_info(adev->dev, "soft reset failed, will fallback to full reset!\n");
->   				need_full_reset = true;
->   			}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index e0730ea56a8c..dc9a2390cf39 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -62,7 +62,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->   	DRM_ERROR("Process information: process %s pid %d thread %s pid %d\n",
->   		  ti.process_name, ti.tgid, ti.task_name, ti.pid);
->   
-> -	if (amdgpu_device_should_recover_gpu(ring->adev)) {
-> +	if (amdgpu_device_should_recover_gpu(ring->adev, job)) {
->   		amdgpu_device_gpu_recover(ring->adev, job);
->   	} else {
->   		drm_sched_suspend_timeout(&ring->sched);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index b642dde8833b..f2aa65016d1c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -1871,7 +1871,7 @@ static void amdgpu_ras_do_recovery(struct work_struct *work)
->   		amdgpu_put_xgmi_hive(hive);
->   	}
->   
-> -	if (amdgpu_device_should_recover_gpu(ras->adev))
-> +	if (amdgpu_device_should_recover_gpu(ras->adev, NULL))
->   		amdgpu_device_gpu_recover(ras->adev, NULL);
->   	atomic_set(&ras->in_recovery, 0);
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> index 22f9fedadbb8..cc042db4c823 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> @@ -3033,7 +3033,7 @@ static int dce_v10_0_wait_for_idle(void *handle)
 >   	return 0;
->   }
->   
-> -static bool dce_v10_0_check_soft_reset(void *handle)
-> +static bool dce_v10_0_check_soft_reset(void *handle, struct amdgpu_job *job)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> index 1a476de20d08..a55d4a7914bc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -4974,7 +4974,7 @@ static int gfx_v8_0_resume(void *handle)
->   	return gfx_v8_0_hw_init(handle);
->   }
->   
-> -static bool gfx_v8_0_check_soft_reset(void *handle)
-> +static bool gfx_v8_0_check_soft_reset(void *handle, struct amdgpu_job *job)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   	u32 grbm_soft_reset = 0, srbm_soft_reset = 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index 9a3fc0926903..a3cbdb5703b7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -1311,7 +1311,7 @@ static int gmc_v8_0_wait_for_idle(void *handle)
->   
->   }
->   
-> -static bool gmc_v8_0_check_soft_reset(void *handle)
-> +static bool gmc_v8_0_check_soft_reset(void *handle, struct amdgpu_job *job)
->   {
->   	u32 srbm_soft_reset = 0;
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-> index f8a9b5e4f5e4..a3d5529b3642 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-> @@ -274,7 +274,7 @@ static void xgpu_ai_mailbox_flr_work(struct work_struct *work)
->   	up_write(&adev->reset_sem);
->   
->   	/* Trigger recovery for world switch failure if no TDR */
-> -	if (amdgpu_device_should_recover_gpu(adev)
-> +	if (amdgpu_device_should_recover_gpu(adev, NULL)
->   		&& (!amdgpu_device_has_job_running(adev) ||
->   		adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT))
->   		amdgpu_device_gpu_recover(adev, NULL);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-> index 1b0a1550a352..708f9aa3ab23 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-> @@ -303,7 +303,7 @@ static void xgpu_nv_mailbox_flr_work(struct work_struct *work)
->   	up_write(&adev->reset_sem);
->   
->   	/* Trigger recovery for world switch failure if no TDR */
-> -	if (amdgpu_device_should_recover_gpu(adev)
-> +	if (amdgpu_device_should_recover_gpu(adev, NULL)
->   		&& (!amdgpu_device_has_job_running(adev) ||
->   		adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT ||
->   		adev->gfx_timeout == MAX_SCHEDULE_TIMEOUT ||
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-> index aef9d059ae52..1321c70bbccc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-> @@ -520,7 +520,7 @@ static void xgpu_vi_mailbox_flr_work(struct work_struct *work)
->   	}
->   
->   	/* Trigger recovery due to world switch failure */
-> -	if (amdgpu_device_should_recover_gpu(adev))
-> +	if (amdgpu_device_should_recover_gpu(adev, NULL))
->   		amdgpu_device_gpu_recover(adev, NULL);
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> index 135727b59c41..223f7411ea71 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> @@ -1250,7 +1250,7 @@ static int sdma_v3_0_wait_for_idle(void *handle)
->   	return -ETIMEDOUT;
->   }
->   
-> -static bool sdma_v3_0_check_soft_reset(void *handle)
-> +static bool sdma_v3_0_check_soft_reset(void *handle, struct amdgpu_job *job)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   	u32 srbm_soft_reset = 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> index b08905d1c00f..b222a003a9b8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> @@ -380,7 +380,7 @@ static int tonga_ih_wait_for_idle(void *handle)
->   	return -ETIMEDOUT;
->   }
->   
-> -static bool tonga_ih_check_soft_reset(void *handle)
-> +static bool tonga_ih_check_soft_reset(void *handle, struct amdgpu_job *job)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   	u32 srbm_soft_reset = 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> index 2d558c2f417d..b2f5f15ea575 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> @@ -1159,7 +1159,7 @@ static int uvd_v6_0_wait_for_idle(void *handle)
->   }
->   
->   #define AMDGPU_UVD_STATUS_BUSY_MASK    0xfd
-> -static bool uvd_v6_0_check_soft_reset(void *handle)
-> +static bool uvd_v6_0_check_soft_reset(void *handle, struct amdgpu_job *job)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   	u32 srbm_soft_reset = 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-> index 142e291983b4..2e69ba269e5f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-> @@ -629,7 +629,7 @@ static int vce_v3_0_wait_for_idle(void *handle)
->   #define  AMDGPU_VCE_STATUS_BUSY_MASK (VCE_STATUS_VCPU_REPORT_AUTO_BUSY_MASK | \
->   				      VCE_STATUS_VCPU_REPORT_RB0_BUSY_MASK)
->   
-> -static bool vce_v3_0_check_soft_reset(void *handle)
-> +static bool vce_v3_0_check_soft_reset(void *handle, struct amdgpu_job *job)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   	u32 srbm_soft_reset = 0;
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 4a5523c3e75b..732d0d660c0f 100755
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -317,7 +317,7 @@ static int dm_wait_for_idle(void *handle)
->   	return 0;
->   }
->   
-> -static bool dm_check_soft_reset(void *handle)
-> +static bool dm_check_soft_reset(void *handle, struct amdgpu_job *job)
->   {
->   	return false;
->   }
-> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-> index f1a46d16f7ea..c202ebc2b231 100644
-> --- a/drivers/gpu/drm/amd/include/amd_shared.h
-> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-> @@ -287,7 +287,7 @@ struct amd_ip_funcs {
->   	int (*resume)(void *handle);
->   	bool (*is_idle)(void *handle);
->   	int (*wait_for_idle)(void *handle);
-> -	bool (*check_soft_reset)(void *handle);
-> +	bool (*check_soft_reset)(void *handle, struct amdgpu_job *job);
->   	int (*pre_soft_reset)(void *handle);
->   	int (*soft_reset)(void *handle);
->   	int (*post_soft_reset)(void *handle);
+> @@ -1655,6 +1729,9 @@ const struct amd_ip_funcs sdma_v5_2_ip_funcs = {
+>   	.resume = sdma_v5_2_resume,
+>   	.is_idle = sdma_v5_2_is_idle,
+>   	.wait_for_idle = sdma_v5_2_wait_for_idle,
+> +	.pre_soft_reset = sdma_v5_2_pre_soft_reset,
+> +	.post_soft_reset = sdma_v5_2_post_soft_reset,
+> +	.check_soft_reset = sdma_v5_2_check_soft_reset,
+>   	.soft_reset = sdma_v5_2_soft_reset,
+>   	.set_clockgating_state = sdma_v5_2_set_clockgating_state,
+>   	.set_powergating_state = sdma_v5_2_set_powergating_state,
 
