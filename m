@@ -4,29 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EBEDC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Mar 2022 08:51:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C9E8C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Mar 2022 08:51:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DA1910E86C;
-	Fri, 11 Mar 2022 08:51:35 +0000 (UTC)
-Received: from out30-42.freemail.mail.aliyun.com
- (out30-42.freemail.mail.aliyun.com [115.124.30.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A341810E07F;
- Fri, 11 Mar 2022 00:42:44 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R561e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426; MF=yang.lee@linux.alibaba.com;
- NM=1; PH=DS; RN=10; SR=0; TI=SMTPD_---0V6qUi.A_1646959359; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0V6qUi.A_1646959359) by smtp.aliyun-inc.com(127.0.0.1);
- Fri, 11 Mar 2022 08:42:40 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: christian.koenig@amd.com
-Subject: [PATCH -next] drm/amd/pm: clean up some inconsistent indenting
-Date: Fri, 11 Mar 2022 08:42:38 +0800
-Message-Id: <20220311004238.112196-1-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3BD210E872;
+	Fri, 11 Mar 2022 08:51:36 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DE6810ECAA;
+ Thu, 10 Mar 2022 19:25:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=vKB1pv4NC1deGVtskVNXZeo270YsQHcGnw/bzvNqjhU=; b=t+fQekjDylXM5FpL11K6LbsM4U
+ nCEpfSkGhWw+V7I6WlvE7/IKQW5xJVT9Wix1QBVDoLZKIC730H7It/GEFSYO86SbZidTfQ79c02Zf
+ W+mH+tEYafK0ctXsSkLrVq0r2S59sK/FeZ+fPRX3t/TtOUFhhJK9horVAqmehDltTEjopvGPg59EN
+ 43GCJwf2Lvvd0Iue2CdHswQmns5peN3XHOKy6GedHLH2DxWLw/ZyWHtmeAk1+Tb+/NHRgfzmuQBFS
+ aInAU+8T8FpK0w+KCHXOvIvfcTpYVkRjUfq0dKRkQD+Oeoj5Z3K41RKFV58IlLSgabV8Bklj3fIFt
+ Ec0MfEWQ==;
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1nSOPi-000rME-NN; Thu, 10 Mar 2022 19:25:30 +0000
+Date: Thu, 10 Mar 2022 19:25:30 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: Alex Sierra <alex.sierra@amd.com>
+Subject: Re: [PATCH v1 1/3] mm: split vm_normal_pages for LRU and non-LRU
+ handling
+Message-ID: <YipQqqpTz8hZAbLZ@casper.infradead.org>
+References: <20220310172633.9151-1-alex.sierra@amd.com>
+ <20220310172633.9151-2-alex.sierra@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220310172633.9151-2-alex.sierra@amd.com>
 X-Mailman-Approved-At: Fri, 11 Mar 2022 08:51:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -39,56 +49,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yang Li <yang.lee@linux.alibaba.com>, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com
+Cc: rcampbell@nvidia.com, david@redhat.com, Felix.Kuehling@amd.com,
+ apopple@nvidia.com, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
+ linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
+ jgg@nvidia.com, akpm@linux-foundation.org, linux-ext4@vger.kernel.org,
+ hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Eliminate the follow smatch warning:
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu_cmn.c:174
-__smu_cmn_reg_print_error() warn: inconsistent indenting
+On Thu, Mar 10, 2022 at 11:26:31AM -0600, Alex Sierra wrote:
+> @@ -606,7 +606,7 @@ static void print_bad_pte(struct vm_area_struct *vma, unsigned long addr,
+>   * PFNMAP mappings in order to support COWable mappings.
+>   *
+>   */
+> -struct page *vm_normal_page(struct vm_area_struct *vma, unsigned long addr,
+> +struct page *vm_normal_any_page(struct vm_area_struct *vma, unsigned long addr,
+>  			    pte_t pte)
+>  {
+>  	unsigned long pfn = pte_pfn(pte);
+> @@ -620,8 +620,6 @@ struct page *vm_normal_page(struct vm_area_struct *vma, unsigned long addr,
+>  			return NULL;
+>  		if (is_zero_pfn(pfn))
+>  			return NULL;
+> -		if (pte_devmap(pte))
+> -			return NULL;
+>  
+>  		print_bad_pte(vma, addr, pte, NULL);
+>  		return NULL;
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+... what?
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-index ae64d1980f10..5ed11624f144 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -164,17 +164,17 @@ static void __smu_cmn_reg_print_error(struct smu_context *smu,
- 
- 	switch (reg_c2pmsg_90) {
- 	case SMU_RESP_NONE: {
--	if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 5)) {
--		msg_idx = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_2);
--		prm     = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_34);
--	} else {
--		msg_idx = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66);
--		prm     = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
--	}
--		dev_err_ratelimited(adev->dev,
--				    "SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x%08X SMN_C2PMSG_82:0x%08X",
--				    msg_idx, prm);
--	}
-+		if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 5)) {
-+			msg_idx = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_2);
-+			prm     = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_34);
-+		} else {
-+			msg_idx = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66);
-+			prm     = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
-+		}
-+			dev_err_ratelimited(adev->dev,
-+				"SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x%08X SMN_C2PMSG_82:0x%08X",
-+				msg_idx, prm);
-+		}
- 		break;
- 	case SMU_RESP_OK:
- 		/* The SMU executed the command. It completed with a
--- 
-2.20.1.7.g153144c
+Haven't you just made it so that a devmap page always prints a bad PTE
+message, and then returns NULL anyway?
+
+Surely this should be:
+
+		if (pte_devmap(pte))
+-			return NULL;
++			return pfn_to_page(pfn);
+
+or maybe
+
++			goto check_pfn;
+
+But I don't know about that highest_memmap_pfn check.
+
+> @@ -661,6 +659,22 @@ struct page *vm_normal_page(struct vm_area_struct *vma, unsigned long addr,
+>  	return pfn_to_page(pfn);
+>  }
+>  
+> +/*
+> + * vm_normal_lru_page -- This function gets the "struct page" associated
+> + * with a pte only for page cache and anon page. These pages are LRU handled.
+> + */
+> +struct page *vm_normal_lru_page(struct vm_area_struct *vma, unsigned long addr,
+> +			    pte_t pte)
+
+It seems a shame to add a new function without proper kernel-doc.
 
