@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86F9AC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Mar 2022 22:21:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66917C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Mar 2022 22:21:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 150F910E26D;
-	Thu, 10 Mar 2022 22:21:21 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2778F10E26D
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Mar 2022 22:21:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F20B410E336;
+	Thu, 10 Mar 2022 22:21:25 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6692B10E336
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Mar 2022 22:21:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SgV0nbuIgNVEKHGfYXOsbMddf+jQgUOKTPdPDmQ5/pwRzmbY6j3g8wje8eTiobCIMH/82wRpJ1LZR0zzxHRd2z7S9g8TNhAM2c9EjeP9JgDU3dQILZln0yIZAOY1eDDVGgePS3wkhYv03HQQUMhC8mjl94km1piPNqseQx+T63EtPxWcAqsaOEGGrqVLuNY3P9yD4rGi4sDEFfGB6hAr2LqQodf8tuYNdhY+R2gdHzVjOV+TBrU9VIok16AUKImQEUIzzQ1NhHAiyw63tAAeeMntLx82euNFZ7m1EeKufzJ2WmBRJh5O/UTNaVcsA6hbN4CGJ5zYXMRjZAE/oNVKCg==
+ b=gRSxtgi3vwOKQ3moPmKMmgsr0XrGRgPr0fY7Zthn0IYvQwhQIREwzE0tEVEFsaiQkmsfwqp5liGZrb1aradR9OaEkJGAShuhvxbVpl9VtVS5RLPIIq6/Isg+YuLf6ZuuprgpS/5KsgQHZYVRM8WmDTVlJ280rPINP8Rvnuoxxzsn1Hel9haLjb7fnHy6PIA/pIa9NLSrZyF/Eu92Vtm1RAlpElcKvsoFN7w9VVXLohgjdbOvBi1OO9y4il5IFjO5rr6BgYmF8eRYCbWibKCL7h+tFteKGOJQ/gkjYiBtDoC68ltxs5Ltn+5t19pEwLJ88w3XlFUNZcFZgAFyC8peRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PifGRzJEEUL7rCT9/DwP3Zy6Kv9yLXlAhgihss1jx7o=;
- b=YAVcrgejH1BAY3fKgv8IlPocclDi20UKu8zmoFtezD/YsW58j4Bzehiy8muPjO8a5nluxwfgvjtsatWwc7VRTEFKFjBKP/aEcFYBpEA3HdRZYrL4IXKoIpt8ygW7oTTerVQHc7NxnYuCmF9RXUUcPQQMh/K52k4Sro/D0IirqI33trBHeREfz2LucNJyAHGd1tBehSGzcuQ8zZ0i8O69hhE8Uo+5Q1nolEWWYUPesvESJzovuU0lyuIXKoipXXpy4uUNt+JywG4MhMeY4h8Cdq/e9SFVxaAGszv9WlcOy5SBO1+ME7knUdZs5UcCd0DK0WQ4gKzcqHOyJCXf2bYtcw==
+ bh=M+auqC0iprtCftE+oFdWCr2LswP12kjzJQCy4cMXXys=;
+ b=jTCpNNsh6o6lGZiDP1fOzjrq/rXB3YTY3XDZ60xg1QQzSJ7p9RHpyS1b/F6R+YQ4Rwbiby6RE+BFipK2T4+Yku7bTRf4FR+jirIVtYcuvjdvKK/wkOHCU4zTpegMhlkXIq9ypq9/8kPlxhK9KHlM5LqC0z9Nl0fbHygJtVnqIgrYf/VTU80o7pKE2zXZTXKbxWACP61f5xyXG9xlNjAzp7wEOe5InvMDU9+i4JbxLz5NfkLlcIvKReqojgGIVFlPZsFx+XWafStvy9wlNEN3FfkTTaPVJzpDqJnKfd7fohKwlC1pp5ecfuTEnA3n5HiA++KfolrPVrGpZvySz3krcA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PifGRzJEEUL7rCT9/DwP3Zy6Kv9yLXlAhgihss1jx7o=;
- b=G7S3RiuUpE36ilwy6DPnCyADGlmFp8x2aL8rIqTpIH9pO7QVZBHX9JdsMkqfy1FBj7DnKIxCUgNR4zlD/5rTUgg4GBtRZjd3zz9Jkw9PsrUHmU64cxrg3tLKy8zIa7QFXZLWM/PjQon1USNQ+zVFZFVBXBnsIdf/IXqRLj6JEf0=
-Received: from BN9PR03CA0878.namprd03.prod.outlook.com (2603:10b6:408:13c::13)
- by CH2PR12MB3687.namprd12.prod.outlook.com (2603:10b6:610:2b::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.18; Thu, 10 Mar
- 2022 22:21:17 +0000
+ bh=M+auqC0iprtCftE+oFdWCr2LswP12kjzJQCy4cMXXys=;
+ b=ZaPCX/ovRWSRXfbhgUWzowF97mMVoEtEMleZqMi5MmkyHyT4nVjqvVVCwMugRXdPVGJu70q8l+QGnc/JcAOi6yUysK6/m1bQCCGuFxgBytq+OZKu4RN1wi+Q2E5XfRFJzfJJ4fjSxGlrsfqGdSVmh8CyjRnar+7kSV6N3rgfDqA=
+Received: from BN9PR03CA0871.namprd03.prod.outlook.com (2603:10b6:408:13c::6)
+ by DM6PR12MB4604.namprd12.prod.outlook.com (2603:10b6:5:169::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.16; Thu, 10 Mar
+ 2022 22:21:21 +0000
 Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13c:cafe::2d) by BN9PR03CA0878.outlook.office365.com
- (2603:10b6:408:13c::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.16 via Frontend
- Transport; Thu, 10 Mar 2022 22:21:16 +0000
+ (2603:10b6:408:13c:cafe::f5) by BN9PR03CA0871.outlook.office365.com
+ (2603:10b6:408:13c::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.20 via Frontend
+ Transport; Thu, 10 Mar 2022 22:21:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5061.22 via Frontend Transport; Thu, 10 Mar 2022 22:21:16 +0000
+ 15.20.5061.22 via Frontend Transport; Thu, 10 Mar 2022 22:21:21 +0000
 Received: from Linux-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 10 Mar
- 2022 16:21:10 -0600
+ 2022 16:21:17 -0600
 From: Agustin Gutierrez <agustin.gutierrez@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 01/12] drm/amd/display: Add I2C escape to support query device
- exist.
-Date: Thu, 10 Mar 2022 17:20:34 -0500
-Message-ID: <20220310222045.664867-2-agustin.gutierrez@amd.com>
+Subject: [PATCH 02/12] drm/amd/display: Add function to get the pipe from the
+ stream context
+Date: Thu, 10 Mar 2022 17:20:35 -0500
+Message-ID: <20220310222045.664867-3-agustin.gutierrez@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220310222045.664867-1-agustin.gutierrez@amd.com>
 References: <20220310222045.664867-1-agustin.gutierrez@amd.com>
@@ -69,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 59c5840e-7c60-4584-2892-08da02e44b3a
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3687:EE_
-X-Microsoft-Antispam-PRVS: <CH2PR12MB3687347099AC554C33FC6319F50B9@CH2PR12MB3687.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 0c430cbc-c991-4604-4949-08da02e44e30
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4604:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB46045813598CAE6AE456E03BF50B9@DM6PR12MB4604.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5ctO4itcUlW1uw+drYgw0d/J2JnM8MEP78rzU4nIaw5H2sKkmL4mrGj8uZkfDJiLohOapLkQz3ICn9TbfLnZ2BBhWZf6JsHBPw6EnLwN9pO0UqO7OQjGT1KzW1KHlRxQm+YWr2NgadPkryZHO3E5sM2NnZUdqZP5yegRKjNTINJmr+L133oKsTdFICPVZjHb1zob40F7qkuWONrmXM3ZTgDDvka59e3Z6vnNWop6vQx5ZHWXTeMkvL6xWBU8V1ZTMEWTXf94dvHz//fXVZH4F5Cw00MptKcIrtlbGbOPZ/hRd6q5C1+CDjfV6P3RV6CKCgNEw/cf7ZLZLPL8/T8sndFVoo6ZcEayVr10J9/dcQJyCNkYD/ulDxRg3iLva5PvNaULa+heeHH0Py4MvTwKLpiO5aN12Brpmh3shkshaIhzMTXJ5xVDdjLM7uePOIpUO1MtFnUhfabG95rSe+VEPx3FtHouw3z/6q9Q3JKR0tKtEzJSq7h56w82G2JtWUfvofI/Gd1HEW7n0FAMHKWxw2ztL2BlFvaPgTsh8ZYkcU3BvBBezvbAvgxvM/t4MNVfbjx4EPDePDeRSXuWM7gJRXr6C8jb2Zt422xn5JDLmdk0ejLlOKUeofiuYZpyJHmWcwTcCCws34vjP/TjsCLjHQ2GbFM/twBYS2FNQ+RA3Rkanv+G4qh5iamyo2k7krpq8+AhC1g+1MdWGYSOLG1bLg==
+X-Microsoft-Antispam-Message-Info: qMXtZwAkUHZkVzijZyaAJQ1PzsLESddK9qd8SBW/poQxVQvhkGvEVrKl4DsSPD1Xwgw72y8KXxYAkpGqbzo/oAnhwjBRhffwGZOVYpq8c3gs9WBDhd7sFyBioog6avBWE2wbBVo5/fqSGl+4ixAqGgDz8F8xRJo53KV8nb7+SGLc6IPDeJm1IuG7HHUHVJ1QE+gdkeUT8ymElSrsbU4/NqJWb7LsBVn6RZkhzEfKeh4S+QZVZrWuXk23coe86aP5HGL90uW+brk5kozd14B7Dl8E5ecyk9I4ORqhUjXuI5WIYpAsD08mhdTcFPstV3Q7MHObjDU2tK1qaR/SuzKsJIImMHJyUD2cXO8kxUWqM3jNle08fzo7mtOqXqT9vTf78V5/BzyexfQ/3Ayq5l+ep2lVaE6IlxfFdCQWhqvRt5z/+ex+QGLSSXQIWlgbXVcGiRrlVJthW1X0igv9WtX9bIF86rdh3GsEZgImDKjAgaKcoSwVKVNuxI8ReWxQe6ke/hRd2Zk88moKITr5h8RDXEoRGsZ0cM0+SJnVhA2EWb+bY9aXq3OGpvZtHIwmbrwBQPFWEKSvPCmGr494DtxzuksODLPi3Ggtp7AJAkRO0yOFRLwDSK50y6POfuSMEMnj8jZuSpIUUUYoZS0OFeCSeGvu5vzvPvdP/9uP9TRYpIv2mohpCv17v2t1SUuVu1BiNH9MwiU2vY+uItV84vsMxU70rdNydyATuUI3pcJdMVI=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(2906002)(36756003)(336012)(8936002)(426003)(44832011)(4326008)(6666004)(1076003)(6916009)(5660300002)(54906003)(26005)(70586007)(70206006)(508600001)(186003)(82310400004)(8676002)(7696005)(356005)(47076005)(16526019)(86362001)(81166007)(40460700003)(316002)(36860700001)(2616005)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(70586007)(70206006)(316002)(81166007)(6916009)(6666004)(54906003)(356005)(4326008)(40460700003)(5660300002)(44832011)(36860700001)(8676002)(336012)(26005)(7696005)(86362001)(1076003)(2616005)(186003)(426003)(8936002)(36756003)(508600001)(2906002)(82310400004)(47076005)(16526019)(15583001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2022 22:21:16.2217 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59c5840e-7c60-4584-2892-08da02e44b3a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2022 22:21:21.1745 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c430cbc-c991-4604-4949-08da02e44e30
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3687
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4604
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,124 +101,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, "JinZe.Xu" <JinZe.Xu@amd.com>,
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Martin Leung <Martin.Leung@amd.com>,
  Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
+ "Leo \(Hanghong\) Ma" <hanghong.ma@amd.com>, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "JinZe.Xu" <JinZe.Xu@amd.com>
+From: "Leo (Hanghong) Ma" <hanghong.ma@amd.com>
+
+[Why]
+We need a helper function in dc to grab the pipe from the stream
+context.
 
 [How]
-1. Search OEM I2C info from BIOS and compare with input parameter.
-2. If BIOS doesn't record it, just try to read one byte.
+Add it.
 
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Reviewed-by: Martin Leung <Martin.Leung@amd.com>
 Acked-by: Agustin Gutierrez <agustin.gutierrez@amd.com>
-Signed-off-by: JinZe.Xu <JinZe.Xu@amd.com>
+Signed-off-by: Leo (Hanghong) Ma <hanghong.ma@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c     | 13 ++++++++++
- drivers/gpu/drm/amd/display/dc/dc_link.h     |  5 ++++
- drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c | 26 ++++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dce/dce_i2c.h |  6 +++++
- 4 files changed, 50 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 14 ++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc_stream.h      |  2 ++
+ 2 files changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 01b5996fa3aa..f6e19efea756 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3363,6 +3363,19 @@ bool dc_is_dmcu_initialized(struct dc *dc)
- 	return false;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index dc5fd27b031a..c4e871f358ab 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -718,6 +718,20 @@ enum dc_status dc_stream_add_dsc_to_resource(struct dc *dc,
+ 	}
  }
  
-+bool dc_is_oem_i2c_device_present(
-+	struct dc *dc,
-+	size_t slave_address)
++struct pipe_ctx *dc_stream_get_pipe_ctx(struct dc_stream_state *stream)
 +{
-+	if (dc->res_pool->oem_device)
-+		return dce_i2c_oem_device_present(
-+			dc->res_pool,
-+			dc->res_pool->oem_device,
-+			slave_address);
++	int i = 0;
 +
-+	return false;
++	for (i = 0; i < MAX_PIPES; i++) {
++		struct pipe_ctx *pipe = &stream->ctx->dc->current_state->res_ctx.pipe_ctx[i];
++
++		if (pipe->stream == stream)
++			return pipe;
++	}
++
++	return NULL;
 +}
 +
- bool dc_submit_i2c(
- 		struct dc *dc,
- 		uint32_t link_index,
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-index 78e66e4bab5a..aa818bf840eb 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-@@ -466,6 +466,11 @@ const struct dc_link_settings *dc_link_get_link_cap(
- void dc_link_overwrite_extended_receiver_cap(
- 		struct dc_link *link);
+ void dc_stream_log(const struct dc *dc, const struct dc_stream_state *stream)
+ {
+ 	DC_LOG_DC(
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index f631b61abedd..99a750f561f8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -524,4 +524,6 @@ bool dc_stream_get_crtc_position(struct dc *dc,
+ 				 unsigned int *v_pos,
+ 				 unsigned int *nom_v_pos);
  
-+bool dc_is_oem_i2c_device_present(
-+	struct dc *dc,
-+	size_t slave_address
-+);
++struct pipe_ctx *dc_stream_get_pipe_ctx(struct dc_stream_state *stream);
 +
- bool dc_submit_i2c(
- 		struct dc *dc,
- 		uint32_t link_index,
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c
-index dd41736bb5c4..f5cd2392fc5f 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c
-@@ -25,6 +25,32 @@
- #include "dce_i2c.h"
- #include "reg_helper.h"
- 
-+bool dce_i2c_oem_device_present(
-+	struct resource_pool *pool,
-+	struct ddc_service *ddc,
-+	size_t slave_address
-+)
-+{
-+	struct dc *dc = ddc->ctx->dc;
-+	struct dc_bios *dcb = dc->ctx->dc_bios;
-+	struct graphics_object_id id = {0};
-+	struct graphics_object_i2c_info i2c_info;
-+
-+	if (!dc->ctx->dc_bios->fw_info.oem_i2c_present)
-+		return false;
-+
-+	id.id = dc->ctx->dc_bios->fw_info.oem_i2c_obj_id;
-+	id.enum_id = 0;
-+	id.type = OBJECT_TYPE_GENERIC;
-+	if (dcb->funcs->get_i2c_info(dcb, id, &i2c_info) != BP_RESULT_OK)
-+		return false;
-+
-+	if (i2c_info.i2c_slave_address != slave_address)
-+		return false;
-+
-+	return true;
-+}
-+
- bool dce_i2c_submit_command(
- 	struct resource_pool *pool,
- 	struct ddc *ddc,
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.h b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.h
-index a171c5cd8439..535fd58de450 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.h
-@@ -30,6 +30,12 @@
- #include "dce_i2c_hw.h"
- #include "dce_i2c_sw.h"
- 
-+bool dce_i2c_oem_device_present(
-+	struct resource_pool *pool,
-+	struct ddc_service *ddc,
-+	size_t slave_address
-+);
-+
- bool dce_i2c_submit_command(
- 	struct resource_pool *pool,
- 	struct ddc *ddc,
+ #endif /* DC_STREAM_H_ */
 -- 
 2.35.1
 
