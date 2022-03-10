@@ -4,120 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96453C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Mar 2022 14:37:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F59FC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Mar 2022 15:16:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7E3010E6BD;
-	Thu, 10 Mar 2022 14:37:07 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2073.outbound.protection.outlook.com [40.107.93.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B84AE10E63C;
- Thu, 10 Mar 2022 14:37:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82D7E10E8F9;
+	Thu, 10 Mar 2022 15:16:43 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8119D10E8F9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Mar 2022 15:16:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hzs/TptyOaqr29bEKkjahLeKyTg8jlub7liAjyotyBRCXgRnOSQUbbHR5yqUydgvfZI9OflbcbJbFZK1IPofGVw9eFZtnm7ZMXHhjYM4jkYFuygZvwBxZpfe/lpm/RvybPnK9hWjRcvYJEkqM7qAsal3rNhPIF0ndnmHJZMWYQAOxk39fTD8+YWabGeGrRGV4YHaDRIAmffgzGnYXDJpUp9nuaGbCfcQ+FE2scOO9/+ks+R298Es234RGeHtJZIEvjFCjyWAdraBJTQlwSgmqu7kMjQ/FF51HP4FjEepj6kV+rpvBOZD15eUie+UjixLCDtmHKoLfIulwHjaB/YbCA==
+ b=TbEwOGVqWhHxmSQ7G+3AZgzTs3UBMzyKUZHlYpcKfNcoZKbKr7iB9CDR3LSscoGYdLI2oOmR4OcqaMVGWbHaVBRx4k9nltoavXVjJWEkXuDHAkTZwSBAOFDmrS2bvvBFNe4bZUOXGoWB0bcQU/xVGyT6plN3+cLQyh5Eir+yQUeJgLymejNJwvlJZBZmyX3xv01ztoEabOTHARh5g59ixxxhmlcPqiXGRBZ50DaaGp7vT+WhEPXXkMQNJI5nHm7UaLoqWIAv/qTVHkcHRkp4wKECcK0gpyDor1fptPzPARpN6jg7FPMcEZAXbeJYEazhV0FAjkarx1y8E9v1Hqd6IA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VKPgRuSafq0izgpYdb/jqvuT0ooesQ1sQlbU0PGySr8=;
- b=B19wdQ4Rc9OTdPElDsozTzZcOcgbHRvPJTONFD4lZgc3+cNLBECp1f+fQfMxNhCokwDKTudpXiH9N1JGFgO42auvkT4s05v1H/NWsxRX21GI9Sn9P8FJSTnc7GgyAad0PMxE+dOsV6dEqwRmSXcVy77dK84exzcMNWJM95SGNNz3v7nEfu9BvTSXKKy6phJqadO8bq4d/zKO9TOZsXhyccvP5W89ysf0Sey9BzQtyQv7cxWau3sEWUVnMjVhF0LN+agsH5ptn5KWeYjx2fHu/LT/vM+nyjNlYSP2qB++3jLPdRu7IbCR4HBQKsgIcT99kvb6EMsxxCzNJEyk7mSp6g==
+ bh=ILgm2Q3K8E1UeKWOI9aVVWk9oZEit5jKOfwmq7374kY=;
+ b=IfuokWZqHWSEottxcq8IU8PDcCNcaYTxrk01m5Jlg6agtPYSLGkS6H+3o9YDeEW45mPWFAudtsCkx5DoXjO5O6MZtyIh2lH4Dhap+uTBYVWofjtMXhZyQ4w4LpCATGnytz7vtEHtBXKldm9/NIsYpqcigVNSlK+aj1MrGVFpUwFI3UwKkTCt7tGjsxZFBN+ndVM9QwB8TwUwigt70aGs1PnlEHfKCV17c973M4xhtVINldx+F5sQ/uFVWpk4j+yQWbBw9vCUDgzlKiCnF6l5fyMsXzC1aiqJPGUyZxNQ+bU2YmInaTzMZqprJ4hxA7DnWAO7SQlkUdRx4/Kp8nQHNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VKPgRuSafq0izgpYdb/jqvuT0ooesQ1sQlbU0PGySr8=;
- b=amleaaedsvI4s6f/QziIMyMD37ZOaJ1BSUmAHLmJfa6ZdII/QFRGRIlA90HdE+OsUyl6TFW6k97JaOn32maOwvNXE1yqZqukvDOVK0DTUedv0VGPJqNMX5wJz3ubXicaDTOT+F0hX9iEBP/1PaiC7eDn6XnXGheEaoXyvY92Ruw=
+ bh=ILgm2Q3K8E1UeKWOI9aVVWk9oZEit5jKOfwmq7374kY=;
+ b=eYiySyxozJna4dYpyqYxIC6btOM/1MZWyUqLcF86E8y/Lg+1E/DoU0tiXRoRTvITrFjX93XbOE17iZWLMXvKajW7vXeoitWLdfi36PwRO7XTtkZj60vOWwmTeqWSfBgpeeI9kRIJ1wa0XbMG7V4jgK2IuKQmGK0qg8JKF+epg3g=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
- by DM6PR12MB2633.namprd12.prod.outlook.com (2603:10b6:5:50::11) with
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com (2603:10b6:3:111::23)
+ by DM4PR12MB5817.namprd12.prod.outlook.com (2603:10b6:8:60::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.18; Thu, 10 Mar
- 2022 14:37:01 +0000
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::48e2:1306:25a3:5f14]) by MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::48e2:1306:25a3:5f14%6]) with mapi id 15.20.5061.022; Thu, 10 Mar 2022
- 14:37:01 +0000
-Message-ID: <02812310-64ed-fc93-beeb-b8ee08ec14b3@amd.com>
-Date: Thu, 10 Mar 2022 20:17:49 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.16; Thu, 10 Mar
+ 2022 15:16:39 +0000
+Received: from DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::90bd:5b12:918d:5703]) by DM5PR12MB1947.namprd12.prod.outlook.com
+ ([fe80::90bd:5b12:918d:5703%5]) with mapi id 15.20.5038.027; Thu, 10 Mar 2022
+ 15:16:39 +0000
+Message-ID: <438674d9-3498-3213-6928-6c30971e3d98@amd.com>
+Date: Thu, 10 Mar 2022 10:16:36 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.0
-Subject: Re: [PATCH] drm: remove min_order BUG_ON check
+ Thunderbird/91.5.0
+Subject: Re: [PATCH 1/2] drm/amd/pm: Add STB dump function.
 Content-Language: en-US
-To: Matthew Auld <matthew.auld@intel.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20220307143707.3687-1-Arunpravin.PaneerSelvam@amd.com>
- <78232c15-0d0c-3594-ab59-63560e63eb4e@intel.com>
- <1ff8a246-8df9-c098-302c-f73b4425ccbf@amd.com>
- <8909011e-d18b-03cd-aeb5-bae10db41a00@intel.com>
-From: Arunpravin <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <8909011e-d18b-03cd-aeb5-bae10db41a00@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0173.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26::28) To MN2PR12MB4342.namprd12.prod.outlook.com
- (2603:10b6:208:264::7)
+To: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220309210330.576809-1-andrey.grodzovsky@amd.com>
+ <6136f957-a029-3984-4967-7077a18eedb0@amd.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+In-Reply-To: <6136f957-a029-3984-4967-7077a18eedb0@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH2PR18CA0009.namprd18.prod.outlook.com
+ (2603:10b6:610:4f::19) To DM5PR12MB1947.namprd12.prod.outlook.com
+ (2603:10b6:3:111::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3058515a-bfaf-45ed-b2ed-08da02a37026
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2633:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB26330C8365FD807F8F2F6009E40B9@DM6PR12MB2633.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 45a7250a-61db-46db-bb3d-08da02a8f9d7
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5817:EE_
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5817F1A5F0A451C1CDC4038AEA0B9@DM4PR12MB5817.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1bRshx32pxy6VeZDOYqK01y6zeg5aYyyRhqFYc6st0sHYP9KJm0sMd9ro6iGWfYFeAZr6wDG6XMgkvXKcY1OX8D8qVlrvrCOLpr2vft8PuPRPAADtsGsYkDnluqebcY2mg9EPZy1ImEP6dgMTMvPgPlAMRhnKWyGPzfWiHU1OVQw3wtXutIVdWzbJqrYyqkP/moIl/RJEQ1H0qY997vXTohreLCM6Te22SIFRNuoZ9+1nDEkI9U8soMdJTm8T5GOUTn5Y5tHmkPs4a2EMwNUb3U6VgiPj1OJrDtxXDpuqoWUT60Gt0BXsPHuPMNKShxpyvmCgg4RVmYHZP+t16Jyszg4YLIMjetcuhOLIK9db1uElewaxEocMOrIp98hHCce9qR/faAP/t8Ggm7ubHPmRZ+avY9MDRvWX81hVShY3Qtu8HVuAZtoSCyrLlvrYf2sn+ccZmRigDa2M7o7bk3haGL5M96EQ9KRSqdGeRClrvdiZH9U4JWMmmwhrujQdOXx3znKaawn8+IBKWDR8Fus26KyjMi4zqiA7GPBTnYssR2eMwhnslYQJMuSkNgOSvZx2gajd7WSLOyflMS4kZneks73XiXr54VjCJRt96Htrm1QhOtTfpZCB6TjioUigwbIHaFozY0eOe4HgWsJgALSWBacoMS9seXd5GTwc8Oms083rNWYwUfn1FfWQWMXf3kjjPsc82aZhSTFOl3ZVmKiQyabpThtpfM4Zc2q4TgXbtg=
+X-Microsoft-Antispam-Message-Info: gaZiDtM8WH0HoReTlvR+ZBtu233VK1hNaisPIxx5xK9pKrp2ALeQgYq3ClN1GK2uOvJjCq30Em3D6xyWp0Iu0KNvR/GzihjMiIIRgKL4siIVXZ9vKqczKHuRotlt5ZxPzqzLeDU00lk9ZLrKmhJx+e/kwPPHcfPY9wCnfLfyTpQQpAgBMu2ItL77zDdy1tVbKbzJ/L0HR9s1q/+ToIyDxjO8vCdlqwypWbSb6j1ioaIS3Wfcmyc3faaJ/gAaQ4Af5YWiOJjNEZSwMz1iMedIrHCkbshhifbzbNhBlpBlrB9Yx1YLWHI1rIJMhQmRHx2RrmlwML99VEONKNCsArPyh6cH+gdB/G9UTvAWeFzg2dRZTQ9OKBtTHtTkHHC/Q/b7sW4mXSYPiXJEDb07rfuefXGYXPigtUChBegIhvZ+wJFK/HHaf99RiTpIhWxj1LB6lhJvguj4leMsBsxoLGawOH6FO41zwyCEEUhAWVIfBEM5h7sdHNrr3Lnb7sAwGLhfqKWxlsrGWdkyU2Q30oVNNnZcdjxNcdkFolQ9DXdkoVRENeOB8g3rPj/AJpCenx8q6rF7WfFIj0k3HwwggbOgKWt9404KYUX+Xu/20fp3SWJmPHMsNLJmBpQLietDm1Z/25w2TJMI2HnvkkqmuwC0Sc2dQR8VkmMwzxogpnjmbMyfLgVWDIt3MyVgGu9TLfsPSCJgZ4mHS23JYZQovoByAAjxs3gX+aa3dodOlfjeygY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(31696002)(53546011)(508600001)(5660300002)(86362001)(6666004)(2906002)(83380400001)(6486002)(2616005)(4326008)(8676002)(66476007)(36756003)(66946007)(66556008)(38100700002)(186003)(26005)(6506007)(6512007)(316002)(8936002)(31686004)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1947.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6486002)(8936002)(186003)(31696002)(508600001)(2906002)(86362001)(8676002)(4326008)(66946007)(66476007)(36756003)(38100700002)(44832011)(5660300002)(316002)(6666004)(83380400001)(53546011)(6506007)(6512007)(2616005)(31686004)(66556008)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aHR2TXdITDJnc1hVOG5RSEQxVlFNL1Q5UW1NT3dLWHV4eVp4YzN6NEdzclh0?=
- =?utf-8?B?WStybXAxeGpXSnlsVjF5TFpnSE9NZUEzek5OR0ZQWHhhUkUxaGV4ODBPNzlR?=
- =?utf-8?B?Tm84OEZ2WjdJamZFYlQ1ZnFpWHZBUU5VQmwrYllEV29qODM4UFU3Mmh6bEFC?=
- =?utf-8?B?a09jNG9uRXhyYkp5dzk1aEsweEtrVVVYdG52MWJXVjlmS0p0MWxjVnZ5ZWdj?=
- =?utf-8?B?bE02L003OFRJalRZaWxFcGFSanlQVW0xbjYydFhpb1lSUTQweEppemw5b3Zu?=
- =?utf-8?B?ZWRhVDJCRmxaT2Z4c3kwMThFam5ybkI0ODZCSWlvek9jYzJkWVJLU1p3Uy9a?=
- =?utf-8?B?WkpYZDdpV1VwV0lML2NidW9jTk9vNVpOa0hHZUQzTmhxb2s2ZFZqZCs4MEZM?=
- =?utf-8?B?L2pWMnpmMlRTNjBsQ1dQNnR2WnJubjM3MCt5M2RNVWJGT2ZMQWRqNU90R05z?=
- =?utf-8?B?ZW12WDIxMnk0elBRc0lLN2t2QjNBZkR3Slp2Z2gzWktVc2d4am1GRmNsOTRp?=
- =?utf-8?B?MmRyTytRditWck5Bbk8yZHRWbHl5bEwrWnhxaFJVZG50UHZsTmNPMjlZMGQr?=
- =?utf-8?B?aUR5a2xRNXZFMlI1d2ZKbjQ2Mk9LYTROY2tXTFBVMWgyMXVJVXlDYTJRNWZ5?=
- =?utf-8?B?bkhLWWtaenVFRXAyUE1GZytWQUxkNUY1UTlEaHUvR2RSR1ZvR0VDQjJ0OW9n?=
- =?utf-8?B?UmJraWNsbDVlc05TS3d2U2ZGMGpxM0ZxREYyRDNaT0cwRWZCVkJqMGd1dVR4?=
- =?utf-8?B?WmpIWmNaZjFyQmgySnVLTGFIMnJlZGxJTmdoS2pOM3JnbS9WcVo4V0ZZUXRk?=
- =?utf-8?B?NU53dVpqTmtkQ3NZRVpxdXk1alc4Y1c5RklxUDFRM0ttODZ0bUtNUHc4Nmwr?=
- =?utf-8?B?RW80SWZDSG4rZjVzQVB3NFU5R2x0V3pOV1cyU0txRGNqRzJISWI3RENEYVph?=
- =?utf-8?B?NGFIY3ZuS2F4WVpXOEluQkNOZEJKeU9COVR0RHRCU2ZQQjhBMFREcllNWEpK?=
- =?utf-8?B?NS9kWjBtZjd3YU5TNUZzVCtUbkMrSWp0N216QXNDM3VsZThzazlLcDVKT2V4?=
- =?utf-8?B?cmxDL1ZSbU9WNTF3YjA4c0RCT0VsazB3NVZFOHNzVVNLUElVWUpNdm9xamV5?=
- =?utf-8?B?bXhpZlYyMWNNUXc3NkNZT0IvUy9vK2dkeExpZFFyanA2b3ZNdkNobEV2NnUw?=
- =?utf-8?B?T3hNeXl5YldLdGc3dlgwN0VqYi9Hdk9LcXFMU0dLVTNTUEV3ZjFtSXNmRWp1?=
- =?utf-8?B?OUFMY1Zia2tBeDBlK3RBcWFEQ3ovaVVjWlFyKzU4aTN5SjMweHFtRzRkalpu?=
- =?utf-8?B?MUNyam0yNUl3NjI3NC9aRU03RElBcllEZ1BMcHJJZnYwQy9HUkJpL1FVTlVP?=
- =?utf-8?B?bTZMMmhMbWxHMWJQWmFHQ2M5UGtIWkoxanBTMzQ3d1RIMlp1Mlp1bHhYQ3N4?=
- =?utf-8?B?bEF4ekpEaDNYaEdIYS9aaisvQzliZnBGY1ptRmthZTJUWUMvcUoveU5BNXBQ?=
- =?utf-8?B?aWtnMG40aVJoR05rMFZEQUk3ZTV0S0ZMYVpwaldtSnFvWVNST21DM0ZONGZC?=
- =?utf-8?B?LzlzVzBGMW1sMG9POUt4OWNJTFNiaCtYUmFHUndlczQwZENNaUZhalJmRjc1?=
- =?utf-8?B?OGE2cnJ6Z3ZmSXZiOU5EaDJ0STh4aC9vVUVPRWNTUURodWlQSHcyZ0M4RjJD?=
- =?utf-8?B?T3o2MWY4bWpuRVJrV2h6dWJVZ0EzRW1VOWpOUHhJMzBnTWtCeVp3Y0ZpeHgy?=
- =?utf-8?B?SklpNXZMTGIxc0NqTU9ISWRBYjJWZWNTMjhrQUVQV3NrRlhvOHpxbDA1ODda?=
- =?utf-8?B?VURaOWdkNFNjTEh1K2x2bjVTN0ZkbThScXhDNXlETFRoY0VTeExIU1BYK1U2?=
- =?utf-8?B?WVhRTWJmMkN3YytvNFBVOGwyc0Rqd0FtdE82WVNiZFhrajNocGc4ZlZCU0pQ?=
- =?utf-8?B?blgxS1hxS3hRRzlhMFYzM2hqMy96MjdlMzVkRWhaSHc2V1NOYmpIVmVzODZw?=
- =?utf-8?B?eUhpZDRHcEp4amw0R3BjSEc4K0p1d2I2VGNydm9vM2ZhWWVlY0JQNXJUamRh?=
- =?utf-8?B?YjljZ3hmMnRYOFpBRStRRVBXb29IRFBGVlBpT0w3R0hzaGVaR2lOay93ck55?=
- =?utf-8?B?Y01FYzFYZGhlSWRoYkphczh1cmU1VUhaaDJjelI3K01GQTJRbDR1NEFXQWVv?=
- =?utf-8?Q?lBq8IjoBAeBZgaWC2OyA/3Y=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YkFGajVEZm1adjNNdGJMcktrc1lzN2hjeVg0K1lUajcxcE1YeGV5OHVjWVEy?=
+ =?utf-8?B?VklMUjYxYTBKNTRLc0lxL1NPMEQyODFPbXpQN25mdWpaWTVRc1ZpeFk3UmFM?=
+ =?utf-8?B?TzN4emc0QzZTNm1MYUJIUjNMKy9RVHhrSkx0aDI2WEpaZHQwendYTGtVdGIy?=
+ =?utf-8?B?by8vaXE4STdMTVk3TTdtd2g3VXFlT29WL0lxTk03QXg4SklGNmRuZjNqRHR5?=
+ =?utf-8?B?MGdhREVmZ0p2ZXRlR2xoMURRQlFvQkx5VEY1ZTRCRXRUeExORGdtWndOdm51?=
+ =?utf-8?B?WFEwbDEwY3RianlkbWVuaWdXakJzeGtSZXVYMEhWcVdTeWhqSktCc3Q0UWR6?=
+ =?utf-8?B?Q0dSdmZCUzIvbkV1RUFwc0pZVGErSFgrYUQ4V1BrcHhNVllteXRwMWhaelZn?=
+ =?utf-8?B?SUZLTzF2ckVNVUk3L0hpSW9jcTQyOHBIaGdxdk8rNTF3SXJZMG5yRGFCRkl3?=
+ =?utf-8?B?UUdHS0NLQUdKekJjQzh3VERaVW9vbWgwWXRTcGJHbW9CWFk2TUZMOFN4cUxt?=
+ =?utf-8?B?Ykxma1V2bVBiNThObG5pL1ZSL0JPbEttck1waWJKNnp5SkpUSllUcUJlNzEx?=
+ =?utf-8?B?VnNldkljbElKUUJWbVFUTXdSNWVXb3NJUEtxcVJ4dmp4VitPQUNkV0tuVDJE?=
+ =?utf-8?B?MWtpN0R4Ym9KOGRuOVh4L3NDRUljY2IzWUFsN01sMk5RM2thdjJSY2ExYVo5?=
+ =?utf-8?B?YTFkeU9DQ041YnI3bmIzM0xBeEpaY3hyRUovWHdtajFVTXdoYUJsL2JWYUV5?=
+ =?utf-8?B?MzM5K29PY1JYSGR0a1B3VnNzNnBNOXdkd0VueWZNbEJVcG5ZTVJPQWxVTEs4?=
+ =?utf-8?B?WjRWcSs0bkYwTi9JVTA1YWxHRHVPZzkxa00vL21XSi9VeHNTM2lVTVdMTWZO?=
+ =?utf-8?B?UklXL3hLQmxJZFpsckprZUppN012UVp3Y2FVdm1tYVhYdTFsaHVLOHRMd053?=
+ =?utf-8?B?OGphN3pWN2d1M2dSY3ZZMFBybElwVFc4US8xaS9selFsZmdCV0FKc05RT3FT?=
+ =?utf-8?B?VjF0MCtuYkptdkdsMTJXVTZHYlVxNVhKcGNVU2pMdGx3MlV2Mk1LY1Q5Z2FQ?=
+ =?utf-8?B?SkpTdER1Q0c3NWtzMC9LbXkzTGpBYi90YmRlQURUdE1SaE5MMEc3aXVSMXd5?=
+ =?utf-8?B?SXRHTVNabkxVbHoxdUp1Qys3c3RzWXJheFNhWGRYUXdQMG9YNHE5YnB5cGo2?=
+ =?utf-8?B?YzJtVnJhTDM4aU42MEVSZC9lNzVTRGZiSEJMTjBucnVnR083bjUza2NROXhp?=
+ =?utf-8?B?SEpOUURDNGZDcHgzeEp5WFAwNkppVFZWWHNyNUdZYjRRbDdmSi9rSHpRTHZO?=
+ =?utf-8?B?UjV0WTIyNlRWM21tYXZmNXBGV2hIaDd0VFdZUnJLOG9oWThOUm9zMlUyUkth?=
+ =?utf-8?B?YzhQcTNuNXFyVi9ROUFLalpqMGdPZmhCQXVDNGZsS1JHbmtLWFFZeHM5R085?=
+ =?utf-8?B?dm1ralVxVlVscENSVTlReWtYL1c2MXpjOFpsVW9GdjA5UncyQ1ZoNnhCTnRx?=
+ =?utf-8?B?Qnp3SEgvZjNBaGRuQVZUeHZmOXJkMUM5S1NDamNCNTYyQllNaVVGbmRicXNj?=
+ =?utf-8?B?OXlETnlVM1UvRjV2YUJiVnFPNEcyWUJtKzI1WlpGcElwSGd0Y0ptb0EvVVNl?=
+ =?utf-8?B?anFFMW5HU2l1d3R2QmNvN1NITU1PUXY5QUt5MDBWaUwvdGZyZ3hWTlZNUUl5?=
+ =?utf-8?B?VkJacmlLYjdQT0JuUTBhYVQxalRNUkhWbzZ5Q1h3a2F0aFE1VHlDNldxVGE5?=
+ =?utf-8?B?MWVVMWJrcHgyS2xaeTgxMWwyV1BmYWwxNDhWdENqeGtlM1Bya2RtQ3Jxdlll?=
+ =?utf-8?B?d3VOQ3pkMnU3TjRpNCtsL0V4dlNsbVhTR0R1SFA3enBFZ25ndlh2WndUelpR?=
+ =?utf-8?B?ZU5UMmZJbUIrQ3o0UWJtejkxRmFlN1E0VnNDck9ibUJDUmZmMUhEV0VjazJC?=
+ =?utf-8?B?NEJhZzRNTGR5anhmZm9FQXZVamdBSzhsZjVIakF3K1p5bFlSMXdhWmxjNWRE?=
+ =?utf-8?B?SkN2L3RTK1hsc20rSDlUaFJuVFZhOFlrZFpHOVdEYytTc2syS0NhRFZRc05P?=
+ =?utf-8?B?bzl1K3FJUlF5RkQ5RHZxWHo3SGxIR21qRkVBcUhRdHU4NWR2dUNvK2lIY1dC?=
+ =?utf-8?B?TFFYSlZyYjFpN2dPdThldTBYcjVZaUo3NmN6Z1NRbCtJd01HNXVFR1kyTHl0?=
+ =?utf-8?B?UmlwVFEyNHFpM3NNSnRVSC9UNmhjVldaYkxiWko1cTFOQWhmMDgvOEU0OG1U?=
+ =?utf-8?Q?GhdK5kwKHXG3C3NtST1eav+lCp1CbHwfXlH2XgXlgg=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3058515a-bfaf-45ed-b2ed-08da02a37026
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45a7250a-61db-46db-bb3d-08da02a8f9d7
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1947.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2022 14:37:01.4292 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2022 15:16:39.8116 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UL7hCI6devI9XgylM2EXms5D1/NyQxfSQFg7+wqwWWe72WYCQ0J8IKMyzVq4dRxCknQ0FTHxTqfmMHpFWmkkQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2633
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2RMDTnYz4xCQtY6ndr3UsiARBhh2TcPVpQVyynbm5jcGlXgIDsUXXGwfksY5uzY7t4SJxLOVHqm2odtLSiuzeg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5817
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,117 +127,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, daniel@ffwll.ch
+Cc: Alexander.Deucher@amd.com, Amaranath.Somalapuram@amd.com,
+ Christian.Koenig@amd.com, Shashank.Sharma@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+On 2022-03-10 00:17, Lazar, Lijo wrote:
+>
+>
+> On 3/10/2022 2:33 AM, Andrey Grodzovsky wrote:
+>> It will be used during GPU reset.
+>>
+>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 10 +++++++
+>>   drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  3 +++
+>>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 26 +++++++++++++++++++
+>>   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  2 ++
+>>   4 files changed, 41 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c 
+>> b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+>> index 1d63f1e8884c..815a6367d834 100644
+>> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+>> @@ -1327,6 +1327,16 @@ void amdgpu_dpm_stb_debug_fs_init(struct 
+>> amdgpu_device *adev)
+>>       amdgpu_smu_stb_debug_fs_init(adev);
+>>   }
+>>   +void amdgpu_dpm_stb_dump(struct amdgpu_device *adev)
+>> +{
+>> +    struct smu_context *smu = adev->powerplay.pp_handle;
+>> +
+>> +    if (!is_support_sw_smu(adev))
+>> +        return;
+>> +
+>> +    smu_stb_dump(smu);
+>> +}
+>> +
+>>   int amdgpu_dpm_display_configuration_change(struct amdgpu_device 
+>> *adev,
+>>                           const struct amd_pp_display_configuration 
+>> *input)
+>>   {
+>> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h 
+>> b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+>> index ddfa55b59d02..99351d463a72 100644
+>> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+>> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+>> @@ -503,6 +503,7 @@ int amdgpu_dpm_set_pp_table(struct amdgpu_device 
+>> *adev,
+>>                   size_t size);
+>>   int amdgpu_dpm_get_num_cpu_cores(struct amdgpu_device *adev);
+>>   void amdgpu_dpm_stb_debug_fs_init(struct amdgpu_device *adev);
+>> +void amdgpu_dpm_stb_dump(struct amdgpu_device *adev);
+>>   int amdgpu_dpm_display_configuration_change(struct amdgpu_device 
+>> *adev,
+>>                           const struct amd_pp_display_configuration 
+>> *input);
+>>   int amdgpu_dpm_get_clock_by_type(struct amdgpu_device *adev,
+>> @@ -540,4 +541,6 @@ enum pp_smu_status 
+>> amdgpu_dpm_get_uclk_dpm_states(struct amdgpu_device *adev,
+>>                             unsigned int *num_states);
+>>   int amdgpu_dpm_get_dpm_clock_table(struct amdgpu_device *adev,
+>>                      struct dpm_clocks *clock_table);
+>> +
+>> +
+>>   #endif
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c 
+>> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>> index 7e79a67bb8ef..aff0ed9b6f9a 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>> @@ -2958,6 +2958,32 @@ int smu_stb_collect_info(struct smu_context 
+>> *smu, void *buf, uint32_t size)
+>>       return smu->ppt_funcs->stb_collect_info(smu, buf, size);
+>>   }
+>>   +void smu_stb_dump(struct smu_context *smu)
+>> +{
+>> +    unsigned char *buf;
+>> +
+>> +    /* STB is disabled */
+>> +    if (!drm_debug_enabled(DRM_UT_DRIVER) || !smu->stb_context.enabled)
+>> +        return;
+>> +
+>> +    buf = kvmalloc_array(smu->stb_context.stb_buf_size, 
+>> sizeof(*buf), GFP_KERNEL);
+>> +    if (!buf)
+>> +        return;
+>> +
+>> +    if (smu_stb_collect_info(smu, buf, smu->stb_context.stb_buf_size))
+>> +        goto out;
+>> +
+>> +    DRM_DEV_DEBUG_DRIVER(smu->adev->dev, "START PRINT STB DUMP");
+>> +    print_hex_dump(KERN_INFO, "data: ", DUMP_PREFIX_NONE,
+>> +               4, 4, buf, smu->stb_context.stb_buf_size, false);
+>
+> Printing to kernel log with each reset doesn't look great. It makes it 
+> difficult to associate this with a corresponding register dump. 
+> Instead, it is better to have a buffer accepted from user through 
+> debugfs and copy the data there for each reset. The app may keep the 
+> reset data for a particular reset together at one place.
 
-On 08/03/22 10:31 pm, Matthew Auld wrote:
-> On 08/03/2022 13:59, Arunpravin wrote:
->>
->>
->> On 07/03/22 10:11 pm, Matthew Auld wrote:
->>> On 07/03/2022 14:37, Arunpravin wrote:
->>>> place BUG_ON(order < min_order) outside do..while
->>>> loop as it fails Unigine Heaven benchmark.
->>>>
->>>> Unigine Heaven has buffer allocation requests for
->>>> example required pages are 161 and alignment request
->>>> is 128. To allocate the remaining 33 pages, continues
->>>> the iteration to find the order value which is 5 and
->>>> when it compares with min_order = 7, enables the
->>>> BUG_ON(). To avoid this problem, placed the BUG_ON
->>>> check outside of do..while loop.
->>>>
->>>> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/drm_buddy.c | 3 ++-
->>>>    1 file changed, 2 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->>>> index 72f52f293249..ed94c56b720f 100644
->>>> --- a/drivers/gpu/drm/drm_buddy.c
->>>> +++ b/drivers/gpu/drm/drm_buddy.c
->>>> @@ -669,10 +669,11 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>>    	order = fls(pages) - 1;
->>>>    	min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
->>>>    
->>>> +	BUG_ON(order < min_order);
->>>
->>> Isn't the issue that we are allowing a size that is not aligned to the
->>> requested min_page_size? Should we not fix the caller(and throw a normal
->>> error here), or perhaps add the round_up() here instead?
->>>
->> CASE 1:
->> when size is not aligned to the requested min_page_size, for instance,
->> required size = 161 pages, min_page_size = 128 pages, here we have 3
->> possible options,
->> a. AFAIK,This kind of situation is common in any workload,the first
->> allocation (i.e) 128 pages is aligned to min_page_size, Should we just
->> allocate the left over 33 pages (2 pow 5, 2 pow 0) since the caller does
->> know the left over pages are not in min_page_size alignment?
-> 
-> So IIUC looking at amdgpu_gem_create_ioctl(), userspace can specify some 
-> arbitrary physical alignment for an object? Is that not meant to apply 
-> to every page/chunk? The above example would only have the correct 
-> physical alignment guaranteed for the first chunk, or so, is this the 
-> expected ABI behaviour?
-> 
-I gone through the function amdgpu_gem_create_ioctl(), it reads the
-physical alignment in bytes from userspace, does i915 round up the size
-value to the alignment or does i915 fails the allocation request if size
-is not aligned with min_page_size? If not, I think running unigine
-heaven or similar benchmark triggers BUG_ON() on current version of drm
-buddy
-> Also looking at this some more, the other related bug here is the 
-> order-- == min_order check, since it now won't bail when order == 0, 
-> leading to order = -1, if we are unlucky...
-will add a fix
-> 
-> Originally, if asking for min_page_size > chunk_size, then the 
-> allocation was meant to fail if it can't fill the resource request with 
-> pages of at least that size(and also alignment). Or at least that was 
-> the original meaning in i915 IIRC.
-we can follow the same here too, failing the allocation request if size
-is not aligned with min_page_size?
 
-I added a debug print for requested num_pages from userspace and its
-alignment request and executed unigine heaven, I see many such instances
-where min_page_size is not aligned to the size, how i915 handles such
-requests?
-> 
+STB already provides debugfs interface to retrieve the latest buffer if 
+needed. On top of that - not all hangs are related to user apps 
+submitting commands, there can be some internal kernel driver issues or 
+FW issues which could
+trigger a hang without any user app even present (working in FB console 
+mode) so I wouldn't want to tie this functionality to presence of any 
+user app.
+
+Regarding association with a corresponding register dump - I probably 
+can switch this to even tracing which is what the register dump is using 
+and then u will see them in one flow in trace dump - I am just not sure 
+how I dump a variable length buffer into event trace - how i define the 
+argument ? Is is just a char* ?
+
+Andrey
+
+
+>
+> Thanks,
+> Lijo
+>
+>> + DRM_DEV_DEBUG_DRIVER(smu->adev->dev, "END PRINT STB DUMP");
+>> +
+>> +    return;
+>> +
+>> +out:
+>> +    kvfree(buf);
+>> +}
+>> +
+>>   #if defined(CONFIG_DEBUG_FS)
+>>     static int smu_stb_debugfs_open(struct inode *inode, struct file 
+>> *filp)
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h 
+>> b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>> index fbef3ab8d487..991586f61a85 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>> @@ -1426,6 +1426,8 @@ int smu_wait_for_event(struct smu_context *smu, 
+>> enum smu_event_type event,
+>>                  uint64_t event_arg);
+>>   int smu_get_ecc_info(struct smu_context *smu, void *umc_ecc);
+>>   int smu_stb_collect_info(struct smu_context *smu, void *buff, 
+>> uint32_t size);
+>> +void smu_stb_dump(struct smu_context *smu);
+>> +
+>>   void amdgpu_smu_stb_debug_fs_init(struct amdgpu_device *adev);
+>>   int smu_send_hbm_bad_pages_num(struct smu_context *smu, uint32_t 
+>> size);
+>>   #endif
 >>
->> b. There are many such instances in unigine heaven workload (there would
->> be many such workloads), throwing a normal error would lower the FPS? is
->> it possible to fix at caller application?
->>
->> c. adding the round_up() is possible, but in every such instances we end
->> up allocating extra unused memory. For example, if required pages = 1028
->> and min_page_size = 1024 pages, we end up round up of left over 4 pages
->> to the min_page_size, so the total size would be 2048 pages.
->>
->>> i.e if someone does:
->>>
->>> alloc_blocks(mm, 0, end, 4096, 1<<16, &blocks, flags);
->> CASE 2:
->> I think this case should be detected (i.e) when min_page_size > size,
->> should we return -EINVAL?
->>>
->>> This will still trigger the BUG_ON() even if we move it out of the loop,
->>> AFAICT.
->>>
->>
->> Should we just allow the CASE 1 proceed for the allocation and return
->> -EINVAL for the CASE 2?
->>
->>>> +
->>>>    	do {
->>>>    		order = min(order, (unsigned int)fls(pages) - 1);
->>>>    		BUG_ON(order > mm->max_order);
->>>> -		BUG_ON(order < min_order);
->>>>    
->>>>    		do {
->>>>    			if (flags & DRM_BUDDY_RANGE_ALLOCATION)
->>>>
->>>> base-commit: 8025c79350b90e5a8029234d433578f12abbae2b
