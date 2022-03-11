@@ -4,59 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62D09C4332F
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Mar 2022 04:48:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6572C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Mar 2022 08:30:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 105E410E64F;
-	Fri, 11 Mar 2022 04:48:22 +0000 (UTC)
-Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
- [IPv6:2607:f8b0:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C7D310E53E;
- Fri, 11 Mar 2022 04:48:20 +0000 (UTC)
-Received: by mail-il1-x12b.google.com with SMTP id l13so5212995iln.13;
- Thu, 10 Mar 2022 20:48:20 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6706E10E3A0;
+	Fri, 11 Mar 2022 08:30:41 +0000 (UTC)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65E3110E3A1;
+ Fri, 11 Mar 2022 08:30:40 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id e6so7177898lfc.1;
+ Fri, 11 Mar 2022 00:30:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=OBRXqLWuyBojQser+FbveA33IOgP8H/VueHlz3pP7BU=;
- b=Dyxrf9L35Hr+o6Rm/FEKjC+JQ97HPxYkwKzea8dMbY2oborFn0jItr+z4C7tIGKC97
- 8CTghaUFfyVolu/8SQcbgXHPRbOQmxXT2ukp7wit0PME42zZ0LDpu5Y6PvMe6BtiPWp2
- 3cEDeZCu8FaaXKll6oe67z4fOGMc7dx1mDtWbpssZseAEqblBKdkJfMuaQ6AyVYbdjcL
- +ZVZHqKsDL4/ypd8F/RCAVTmLiZ8m493W9XdltdXs4JDb6MH+YOg5OjHhSaZK9kQahIm
- bIvpqdAjCHCEwQfHGz4fLPTwo0UfpgOUXu6y0+tbuz5pW4PXETXeTy7a/bk0DayQSzFo
- 7Efg==
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=4A4vQYXWKMboDmY71zzkIVtZ8zksQHXawavPjSCCcss=;
+ b=R8Hgo3UCTgjRg8KYjWJnt4m5CiReYvnEzCKPTfAYLpjg/Ztb9IH4sHONTJFpyzqFTg
+ sJW3GbuG8H0HbGpclbJOCrGOWaAnfuLW2lASX/or9DtsawfzT3wFzqGwTGI6G76sfzJX
+ 7k4+YAWCWDUnnBnJx8977e3FH9Xq9aNG+03X8/wFA/ViF5Cyk4IadbgsHUs/mYlse0rl
+ ekj3NPbtWaO+Oftm2l0kVYyV0W7V6zdR+LcKzWFIdCI1RD9YUvf4wI7GvSkK8RP4iDcg
+ dUKjjgEK5NawJ2AIKDJHo/vawHXuW33RRTh836HR7fGBl0AU71WIm1hM4b4HBWU8XGMi
+ EJ5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=OBRXqLWuyBojQser+FbveA33IOgP8H/VueHlz3pP7BU=;
- b=ZzN2CPptW74OZOP49HQVhpDtRXEb0gqHvLr1XDsfN43TazU/z7M30/KaS0mm60RIw9
- 0X1p4yG7ktDG9+59rD0g/AxcFxOObZM11tvloCi7J9edhax+OxbZsV3UFEB31gFzNAw4
- zbBReYSPQp1j5WOHd4CW7TOKjcBZIfsQlF5BpyqiAyCqYH6QmnnKe2gmSARnqwwlGC0k
- OjitHO0MPAxl+QXU9nLUKurcWfFRiTa1i8jJcIWu19f68r+OOfCD3QFPgRLpb3a/jTb3
- +4X2oQ9PlM5qglbC3SWgiXgyc4ouR9KAsuiHQiI73neK50zw50dgN4MiYljQzqwSWN6b
- 6t5g==
-X-Gm-Message-State: AOAM531gHSXhaRnLy8p1S+UrzIAg0hS5YWGnwyic6NrRVHobmdYDE+bd
- RZEPnSNyiMa/5l0t4Z3UlB8=
-X-Google-Smtp-Source: ABdhPJwJ5EfN6gJUuWZfyYHiS3993axqKmOQimf6tP1CjpSIoyz16zSG/Fwey29yVYI3Ip9G+rcrEQ==
-X-Received: by 2002:a05:6e02:11a4:b0:2c6:40dc:d30 with SMTP id
- 4-20020a056e0211a400b002c640dc0d30mr6420886ilj.283.1646974099505; 
- Thu, 10 Mar 2022 20:48:19 -0800 (PST)
-Received: from frodo.hsd1.co.comcast.net ([2601:284:8204:2010::f10e])
- by smtp.googlemail.com with ESMTPSA id
- q9-20020a5edb09000000b00645c7a00cbbsm3529834iop.20.2022.03.10.20.48.18
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=4A4vQYXWKMboDmY71zzkIVtZ8zksQHXawavPjSCCcss=;
+ b=7dkvUFGezFgPLqujyjJ2e1DOy42bxvp2vJwGO/2bUeoj5eUJFxA2umTJosIym6UamZ
+ n+ZObCI7ogjyBeGpsnM+LflFPiU8DJdUmaCWKFIiPFiz/wSMCtmEnx/AmSaGdiTwVEwc
+ +WpRY9Z4IiIXHtmzUqEz2OCT1K81d2jFi2vKXNUFW+5MLeBTGIr7WOop2kMUv5/Z7+dx
+ +ulmX6SeEBd/FDzrfLaiJCdCHJl96jxACyiEC2ciVaM+3r9Mv6061HcPmruz4YpO1N0T
+ 4J6sh0LY+Pc0iufyYxVNCHZRqMzMctsdC/d2xp84VGyRDJ04nsQqkriDdfzWHc8IsTg2
+ pXwg==
+X-Gm-Message-State: AOAM531lQ+2j/4h2En/NxGcRZvZHoLEnU3VllvI1jTBY0dFtBZraN+kL
+ YhvrHmb2caKQLNLtoTm6RM8=
+X-Google-Smtp-Source: ABdhPJyAmR1kNeGsOAacaglZmhtiwBasj/FTj6zPaavAWidFuwTTTExOkNBLY4mqH28KH5AqVEcdqw==
+X-Received: by 2002:a05:6512:1698:b0:445:bc1d:3835 with SMTP id
+ bu24-20020a056512169800b00445bc1d3835mr5266286lfb.122.1646987438481; 
+ Fri, 11 Mar 2022 00:30:38 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ h5-20020a197005000000b00448287d1275sm1470496lfc.298.2022.03.11.00.30.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Mar 2022 20:48:19 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 5/5] dyndbg: show both old and new in change-info
-Date: Thu, 10 Mar 2022 21:47:56 -0700
-Message-Id: <20220311044756.425777-6-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220311044756.425777-1-jim.cromie@gmail.com>
-References: <20220311044756.425777-1-jim.cromie@gmail.com>
+ Fri, 11 Mar 2022 00:30:38 -0800 (PST)
+Date: Fri, 11 Mar 2022 10:30:28 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Shashank Sharma
+ <contactshashanksharma@gmail.com>
+Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
+Message-ID: <20220311102709.225616cf@eldfell>
+In-Reply-To: <CAF6AEGv3Wv+p1j2B-t22eeK+8rx-qrQHCGoXeV1-XPYp2Om7zg@mail.gmail.com>
+References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
+ <CAF6AEGsmectHSmW-Y6rf+AksXTkges7rukeiYd4yDm-xwdb1=Q@mail.gmail.com>
+ <55629bd8-9fb4-2ee7-87f0-6c4c77cf06fc@gmail.com>
+ <CAF6AEGsgDTphUm7ET+RuMmh2aTn-Ho5gJdUJ4kwJ3iOh7+HGvw@mail.gmail.com>
+ <4f2b2329-3c57-3895-6732-875db2f98b5a@amd.com>
+ <CAF6AEGvvskobh6YOUx55_4rtXJJjPO0PxWY8+EKiVqntT3k+ug@mail.gmail.com>
+ <6b400b8b-1b5c-a339-2345-f317f197b4a6@amd.com>
+ <CAF6AEGt0XhqzkyEhbNcNVQO_A_Lo4qcsPRZRL6QqYn+NWAfv9A@mail.gmail.com>
+ <bf6922f0-da8e-eef6-8217-26c1f50f3c48@quicinc.com>
+ <2980e6a0-624e-2b80-c5d0-c40dfce76fb8@amd.com>
+ <CAF6AEGvC=k4xLA-0iTSf660X2o04E+ivjnThZA-=WANKzLSvpA@mail.gmail.com>
+ <cda15a47-f469-2a7e-87b6-adf00e631ef0@amd.com>
+ <CAF6AEGv3Wv+p1j2B-t22eeK+8rx-qrQHCGoXeV1-XPYp2Om7zg@mail.gmail.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="Sig_/UmZwduGjo1nGq.M4732LB4f";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,51 +80,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
- intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk,
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
- amd-gfx@lists.freedesktop.org, joe@perches.com,
- intel-gvt-dev@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
+ Shashank" <shashank.sharma@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>,
+ Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alexandar Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-print old -> new flag values in the info("change") message.
+--Sig_/UmZwduGjo1nGq.M4732LB4f
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- lib/dynamic_debug.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+On Thu, 10 Mar 2022 11:56:41 -0800
+Rob Clark <robdclark@gmail.com> wrote:
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index b15a9c715e5b..cceac8ebbacd 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -158,7 +158,7 @@ static int ddebug_change(const struct ddebug_query *query,
- 	struct ddebug_table *dt;
- 	unsigned int newflags;
- 	unsigned int nfound = 0;
--	struct flagsbuf fbuf;
-+	struct flagsbuf fbuf, nbuf;
- 
- 	/* search for matching ddebugs */
- 	mutex_lock(&ddebug_lock);
-@@ -223,11 +223,12 @@ static int ddebug_change(const struct ddebug_query *query,
- 				static_branch_enable(&dp->key.dd_key_true);
- 			}
- #endif
-+			v4pr_info("changed %s:%d [%s]%s %s -> %s\n",
-+				  trim_prefix(dp->filename), dp->lineno,
-+				  dt->mod_name, dp->function,
-+				  ddebug_describe_flags(dp->flags, &fbuf),
-+				  ddebug_describe_flags(newflags, &nbuf));
- 			dp->flags = newflags;
--			v4pr_info("changed %s:%d [%s]%s =%s\n",
--				 trim_prefix(dp->filename), dp->lineno,
--				 dt->mod_name, dp->function,
--				 ddebug_describe_flags(dp->flags, &fbuf));
- 		}
- 	}
- 	mutex_unlock(&ddebug_lock);
--- 
-2.35.1
+> For something like just notifying a compositor that a gpu crash
+> happened, perhaps drm_event is more suitable.  See
+> virtio_gpu_fence_event_create() for an example of adding new event
+> types.  Although maybe you want it to be an event which is not device
+> specific.  This isn't so much of a debugging use-case as simply
+> notification.
 
+Hi,
+
+for this particular use case, are we now talking about the display
+device (KMS) crashing or the rendering device (OpenGL/Vulkan) crashing?
+
+If the former, I wasn't aware that display device crashes are a thing.
+How should a userspace display server react to those?
+
+If the latter, don't we have EGL extensions or Vulkan API already to
+deliver that?
+
+The above would be about device crashes that directly affect the
+display server. Is that the use case in mind here, or is it instead
+about notifying the display server that some application has caused a
+driver/hardware crash? If the latter, how should a display server react
+to that? Disconnect the application?
+
+Shashank, what is the actual use case you are developing this for?
+
+I've read all the emails here so far, and I don't recall seeing it
+explained.
+
+Btw. somewhat relatedly, there has been work aiming to allow
+graceful hot-unplug of DRM devices. There is a kernel doc outlining how
+the various APIs should react towards userspace when a DRM device
+suddenly disappears. That seems to have some overlap here IMO.
+
+See https://www.kernel.org/doc/html/latest/gpu/drm-uapi.html#device-hot-unp=
+lug
+which also has a couple pointers to EGL and Vulkan APIs.
+
+
+Thanks,
+pq
+
+--Sig_/UmZwduGjo1nGq.M4732LB4f
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmIrCKQACgkQI1/ltBGq
+qqd8mA//cGbppZ2gQS7liFLuWNFG3s7wR4DR427vOC11M/TQdO06TeUg95p3WhXd
+nl0ncQUs3du9k+0TZGZftceUQCdId8sANS4leHYnfjjNgMQM8Lizqt3e3l0afvOz
+7+DD71sNa5o0hDovN4n7nXXue3abAitkoKdBPJDxYKEGyKAFTtraKntPvIryezJm
+HpO5fTNB68Lxa0Rbeuvs77Eo2BanQj8pMZN3we5YOTMf4QFat54oFxodlc9tBqmS
+M8nDc8bgDeaD0w0ORmNI1HvSRTsC2Y1A6StQmreVujUBob70Hf4o24DXkPvkoIHd
+OK71ozVa7PPX4g5tpiitYQxR47GTUQ6ovADvcs3Oias+YlinnxSod6JwDIaBkOuZ
+ihF38DV0rm/SDQh7J1L3SwsGoaehJNsdhmaIVjAZ85k4NIymxCquLuPwspOk1/Ue
+Sg9vlXaSw6SMSKyIJ6NHb7tUpNi6jOYWqheBI8btZpzDI6CNPE4Omuumm/63qQn5
+XB6V3use+xkiGBeD3g5URMjoktn1SMjLv/X97s7KSNHyk3GI+aDM22vRtSxtL/7g
+pzSOg8fNd6/S3jLZmlBL0+sX8mBprIfRWXfhOErQVDdJc7qXGVV8bo34K76oCic6
+yjCOHQ7w58daTJf1k3I7rD3ZMslHCebw5f+2Qp8C2jzlrMxDEPk=
+=7uHj
+-----END PGP SIGNATURE-----
+
+--Sig_/UmZwduGjo1nGq.M4732LB4f--
