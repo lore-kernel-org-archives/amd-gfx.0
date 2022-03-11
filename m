@@ -4,116 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79608C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Mar 2022 00:06:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11C18C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Mar 2022 01:33:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 042E910E1EF;
-	Fri, 11 Mar 2022 00:06:19 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2068.outbound.protection.outlook.com [40.107.212.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EC0D10E10C
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Mar 2022 00:06:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FDaRsHHwQWFHf5OP9mZjsP1PzJQlgvysXjOFS1GNMy4dJYM3QkCTJGyXMny38gCdJRYGIClB2UdxQ9PmI1cC+WdQk6TEkKlSo3GfH59EOT/FQ3iokLlsKmG2mJCK443OZE0zvCaZnyPoT0gMs5bvxxPZ4Z6en3ub58NaTjkMEydEulbq4NXE2s6CpTwi1vFmP3e3/HHKSoZVYv5pwWzB5iKRJv5dSAOhXJOgu9xRxqnPL8VmuE5gFZ32GtIZ4r/r6XqR/JW/do1lkUvapnskjejkWcGe9fXrjLo1uQtAo8AZhcF+ct5E5Bpe23DHNTigI4Ca/PnpB86qk+hfvNV9AA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/3pKIpVoqPLSvX72umFQsJLRylXPIL8MOvqzZQNNqlM=;
- b=YlbrsIlktpe6dwi4EYY+Lz+jwGqRQaGehC+LUZfE54hC+YcehWQFXHXtyNI1chiUZdqeFkSbg6TrzHiStWkteaGc+wSAQ4ETRmpflay/UylQZOMXXCXt+V6ma6ttuPQzlcCtH9XpkoWSrmxys/x90yFH5mSj4VbBFi9QSwRUoM5x0iguI0RlgeU9WO73fn11vGAj+ZBpaZEDFk9sJw+FkrT5c3XUnGNIvOLoVb5sjRwZhfV1b6N1e53hG9USTqOKvh9PLVPLtWNBr5qrlpjyWGRJvDkKTLef7lXYxBqT6cPa6odNbFLVEI6xlc2HRZZntrJVx3DluvhCp0YNazeIZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/3pKIpVoqPLSvX72umFQsJLRylXPIL8MOvqzZQNNqlM=;
- b=nhfwf6LrHi0pBGiYqyJwKLDk/pcvg86REs5jFqrWckU+djKbBJWdP/zvCiknMNuEC3DA7WVH885pgHqzGd93zrJ1fyf2MCola6dPqNWv96MoR1gRkP+l0bFDdFSAdSudgaz29cW1nop9n5nZq2HUJ96OEGmyJL+BXHLRs3G/yts=
-Received: from DM4PR12MB5294.namprd12.prod.outlook.com (2603:10b6:5:39e::15)
- by CY4PR1201MB0151.namprd12.prod.outlook.com (2603:10b6:910:1e::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.15; Fri, 11 Mar
- 2022 00:06:14 +0000
-Received: from DM4PR12MB5294.namprd12.prod.outlook.com
- ([fe80::b8ec:5650:98f1:bffe]) by DM4PR12MB5294.namprd12.prod.outlook.com
- ([fe80::b8ec:5650:98f1:bffe%5]) with mapi id 15.20.5061.022; Fri, 11 Mar 2022
- 00:06:13 +0000
-From: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd: fix gfx hang on renoir in IGT reload test
-Thread-Topic: [PATCH] drm/amd: fix gfx hang on renoir in IGT reload test
-Thread-Index: AQHYNIfQ8M4hwkre10qA7Zl4mqcaYKy41UIAgAB5NKY=
-Date: Fri, 11 Mar 2022 00:06:13 +0000
-Message-ID: <DM4PR12MB52942CFF930BB7283A3DFEA2950C9@DM4PR12MB5294.namprd12.prod.outlook.com>
-References: <20220310140439.249268-1-tianci.yin@amd.com>
- <CADnq5_O=taXukBJYMj=fffvZ37ZbpUjHi+70N02U7WNt5420pA@mail.gmail.com>
-In-Reply-To: <CADnq5_O=taXukBJYMj=fffvZ37ZbpUjHi+70N02U7WNt5420pA@mail.gmail.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-11T00:06:12.866Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: 559f6df4-bde2-2631-f389-b054d7ba83de
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 67ea248f-39ea-4cae-288f-08da02f2f4d6
-x-ms-traffictypediagnostic: CY4PR1201MB0151:EE_
-x-microsoft-antispam-prvs: <CY4PR1201MB015110DC961541C44CFF37DF950C9@CY4PR1201MB0151.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: QjDbXfR9pePT+LMGo/5VazrNHMB5zGGSn883yscHxXrs010VMKIAaTaTFXlEUxqHBOyWQKZvj2TG3ZghjhJ2Tw3iDV9+EgAXs8q8GG9zQPhC1mqxVPsHLt63w4IgtnglsdHeIw5698Kko4VYVQGi8DfRGOm5dJBT/xx0WIgl3Ua4WpBgVVKWMpXN9jJYK7bbxld0o1/Y1o7DY/AESSMGVAI3uIgiH22sAY2L4pgZynioFKzKgygHYtP4H5TxRZ43YpOKD7nGdW6oO6YoDij76+85ZjNP4UXx0UPQNTZBMkQ8krMgEQ6H+0Bo2SpC2bPZpHNfCcVvw0V2ajHAUjNDJq4s1y/PVldSFpJbbCVrIKyxVRUs3peffbBSTiYl66Ep3xr/MLo3ATmlC/miiIQ5+R6S0BpPj4P8xdfpLqrHOUavEFfzONn6GBTQwHklOoxNV62RhmJIsRuKdruN7T+LgIVOgKco3paNQwSYujFEkwKwK2fi+8eCwWevjPnRNqX2+BnF605rqdSZw3ut8xH0UqEW2bmlh5U8hdbIT2v0uivXw/FYAEHJ/vyR1v8zobiLRmypfWIITRI06SGC6Ax1i6pbI/QuQVyXrmr+JMRWsxnO3EeVeCSV+yB7ECITIMNm3cyU/VpK9ogL42wGSTiWqIXc+FnhjZvJIk88sQnxZgMtEGC6Z2IMwzHA2vnH96y4ICFIhB1B2Hw/sb0E8xm7qQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5294.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66946007)(55016003)(91956017)(86362001)(64756008)(66446008)(66476007)(9686003)(66556008)(186003)(26005)(8676002)(76116006)(4326008)(53546011)(6506007)(38070700005)(508600001)(7696005)(5660300002)(122000001)(19627405001)(54906003)(6916009)(316002)(33656002)(2906002)(71200400001)(8936002)(52536014)(38100700002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?X6qtWw/c97orpnKhXFyGObVS0+t0OckfF2u7Xcl0wKqmlpB+heqip2/a8Rt2?=
- =?us-ascii?Q?pSKtJR5Oszt4l8XiEIivJS9+OYQ+UEJB1Qx/pzDfGp5cpTdg+xycHzC3RV7L?=
- =?us-ascii?Q?YItHUMK/59o4+MmzElfjn81BzHpGcAt5Q8FYHuFHb9TLYgO/WGf/rvU6zAGq?=
- =?us-ascii?Q?T4zW5UUII3cVrbzT3c1usE19nx2PCE65xlOdw/1yuOiAy2RejzW1p2yomMv5?=
- =?us-ascii?Q?YWfSjG8PVbLMPhEaJMzysqsq85pwhIOH6ROP5tiVd8fn6Wsda+Stf43NGfGk?=
- =?us-ascii?Q?ZrB/XfG+5Gg93DaTr0ImBoVf2ka6/bN3Ev9jT+Gu13XSJvjg2lXBSy4k/S1n?=
- =?us-ascii?Q?KZGV/kq02LLXGROaQypclfqunVUryfI+UcTZH7QfodJgQOjVHDOhznRMKN9f?=
- =?us-ascii?Q?AyGWhtEdLAepUO3ZgedneLguAbgZGUdlYlcF8XcFtdZLkftELZrjVM9nd7Up?=
- =?us-ascii?Q?N21wf34/cehvRa1hvd+IXC/74SbgQlj11TVE48aR302ZIoUme1y3J0TdpVY8?=
- =?us-ascii?Q?F/dPZ0lb1ewayI+UBkIxRB0Mvfl2qw6qrS8C0v68Szw/i4MoJVXGlVUt6cg8?=
- =?us-ascii?Q?H3DCdVtOt+fc7HPul0FZ0tP7VBdO4PY85TsRLXoXxBmNTuPDO/VhkAdHlboM?=
- =?us-ascii?Q?VKEBxtCYMK5zn7+sOCq2Gn6xfwwkVp1H2fC5VjuunyLox1pRLzwg1+fnfHhA?=
- =?us-ascii?Q?WTBSOvXQg1K0tUq6ZG4FY2r9cXrUIXbJqpoGVEqgSourcj1MKq7vu0uvyUKM?=
- =?us-ascii?Q?GInEixTomcHxBQQ0DhzJGNAkfG+Mcg+B1FJYvDvofQbql5+sQHNnaFjUwysh?=
- =?us-ascii?Q?QnJ5brOEEo1YaWIroeApauSjeoSuckabBg7IDCPEqlt63uETQkYsj+obwAYJ?=
- =?us-ascii?Q?w0otPuQ8DKDyX2HSJarANWpCgFcSnCtwivsI6CIqKtv8s1jO4hCH1p7KF1oQ?=
- =?us-ascii?Q?mBpMguaCgQ5U7p2aFf8SxJRuA0U1aMDc8xP4m17KcVpIWeJtzNIWy82PRhsf?=
- =?us-ascii?Q?pCsxbiVib2goUjCRn/2UwGqS2w7UQF40mSdc9jHIW3LWO++k4SJYbEdGmp6K?=
- =?us-ascii?Q?gEl45gSkLyQx1Ddvw1HoC51TQ6zdWoLxHXYgdFXMM7yUrk3+lOIC9xwJTeUQ?=
- =?us-ascii?Q?64UEwUc8h2KipOm1ysXRmXbbTz/4xrtTEVledyfh2hhCWXe3NCD1NktpcII7?=
- =?us-ascii?Q?ab/NhOeGrsWlcvq96MPykfDsl+fRK61yTfPUJgHWxXncHfvUE8FvSoQDPSN0?=
- =?us-ascii?Q?xZE2eGQv+txxJGmkePvVui0sLfsfC2K/zvBlqU2v4T4Fxv7gZAiZgHkiIECv?=
- =?us-ascii?Q?T6pKBLNQ7rM1LD0wPmjzF8h1TEhxhN+m6m7XiMPPFstyIsWD2RCou0i2YWsf?=
- =?us-ascii?Q?Coxe0ItOiMFQtebBQ5TG61TfD45fbGmNPO21MNSO0nX3uHIwbys+AMOkr+7v?=
- =?us-ascii?Q?5M7MrMTgjjfnMyeGNfVU7zkHRzO4FUMSdPdPbbMTyIGTCkLjIh9uqXhGK/ey?=
- =?us-ascii?Q?GTf+VvcnGVj67R9c0kecQMB+CzThRSTOwYMYyerU4NLOTOCJeXr9lhGCgHVk?=
- =?us-ascii?Q?qBAXlP/q98g+0jUopy0NYfMrWBN3mf2v78Y0axbi9WdudR5+4Ssyc7vfWFwz?=
- =?us-ascii?Q?fEabvDkRo7aIDFomPE8fV/A=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DM4PR12MB52942CFF930BB7283A3DFEA2950C9DM4PR12MB5294namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E399310E259;
+	Fri, 11 Mar 2022 01:33:20 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1319110E259;
+ Fri, 11 Mar 2022 01:33:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646962399; x=1678498399;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=/0AchJsSPcyXXLGbm88A0Nr737QnqNGNSn0+6AZ3Qq0=;
+ b=CHDY/clLWjDlTh72r6kRGUYXJHfdScivBr4VuM499OHVW5vM3rKIW+io
+ SIP6sUXth45VOjCIXpNUA0Uoify4k6CyG2ELz6VaHlS4ExH1QuQvbPhcU
+ ZJaLBtxZcrRHfCFnyrUMuNW6f0762jgDZyfsye2ELVFTVEvUzXDED2gBE
+ xsWcELr/MV9VjZJNyFtwq+hqeMNHudBd2v0gKUgo2sjT8ac+SVoW89DH8
+ 82Opx9ANv5s9Ll7nykYbhBxEEkw5BdDRIF/VVk6LZuWRI/iUN6L+v/Ls2
+ Z2v6d+XcegogDjQo9bcVyQh3nhBCCW1GTgBwckdRlZlAYQMNNBJJKEtt/ Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10282"; a="255655864"
+X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="255655864"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Mar 2022 17:33:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,172,1643702400"; d="scan'208";a="496575546"
+Received: from lkp-server02.sh.intel.com (HELO 89b41b6ae01c) ([10.239.97.151])
+ by orsmga003.jf.intel.com with ESMTP; 10 Mar 2022 17:33:12 -0800
+Received: from kbuild by 89b41b6ae01c with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nSU9X-0005f4-Ux; Fri, 11 Mar 2022 01:33:11 +0000
+Date: Fri, 11 Mar 2022 09:32:15 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 71941773e143369a73c9c4a3b62fbb60736a1182
+Message-ID: <622aa69f.XI8McBWG4GX/YDab%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5294.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67ea248f-39ea-4cae-288f-08da02f2f4d6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Mar 2022 00:06:13.8426 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DmBkpuMoceUa+YZL639CISrDsJb+C/mkSVm20nIGTL6lUNgYPFsaQMiJDAefyRxo6mqSjH/Oy7P15EsEn+qD7Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0151
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,188 +57,878 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Chen, Guchun" <Guchun.Chen@amd.com>, "Zhuo,
- Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Liu,
- Wenjing" <Wenjing.Liu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wang,
- Yu \(Charlie\)" <Yu.Wang4@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>
+Cc: linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-scsi@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-iio@vger.kernel.org, netdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ intel-wired-lan@lists.osuosl.org, linux-arm-kernel@lists.infradead.org,
+ linux-serial@vger.kernel.org, linux-alpha@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM4PR12MB52942CFF930BB7283A3DFEA2950C9DM4PR12MB5294namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 71941773e143369a73c9c4a3b62fbb60736a1182  Add linux-next specific files for 20220310
 
-[AMD Official Use Only]
+Error/Warning reports:
 
-Thank you very much Alex!
+https://lore.kernel.org/linux-doc/202202240704.pQD40A9L-lkp@intel.com
+https://lore.kernel.org/linux-doc/202202240705.t3QbMnlt-lkp@intel.com
+https://lore.kernel.org/linux-mm/202202110552.DxobMxL7-lkp@intel.com
+https://lore.kernel.org/llvm/202202141809.zCYU3Uhb-lkp@intel.com
+https://lore.kernel.org/llvm/202202241039.g8GKEE4O-lkp@intel.com
+https://lore.kernel.org/llvm/202203020913.I6LbmH7l-lkp@intel.com
+https://lore.kernel.org/llvm/202203032008.iQvFvs6z-lkp@intel.com
 
-Regards,
-Rico
-________________________________
-From: Alex Deucher <alexdeucher@gmail.com>
-Sent: Friday, March 11, 2022 0:52
-To: Yin, Tianci (Rico) <Tianci.Yin@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Chen, Guchun <Guchun.Chen=
-@amd.com>; Zhuo, Qingqing (Lillian) <Qingqing.Zhuo@amd.com>; Liu, Wenjing <=
-Wenjing.Liu@amd.com>; Wang, Yu (Charlie) <Yu.Wang4@amd.com>; Deucher, Alexa=
-nder <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@amd.com>
-Subject: Re: [PATCH] drm/amd: fix gfx hang on renoir in IGT reload test
+Error/Warning:
 
-On Thu, Mar 10, 2022 at 9:04 AM Tianci Yin <tianci.yin@amd.com> wrote:
->
-> From: "Tianci.Yin" <tianci.yin@amd.com>
->
-> [why]
-> CP hangs in igt reloading test on renoir, more precisely, hangs on the
-> second time insmod.
->
-> [how]
-> mode2 reset can make it recover, and mode2 reset only effects gfx core,
-> dcn and the screen will not be impacted.
->
-> Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/soc15.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amd=
-gpu/soc15.c
-> index 496c4a6e23ac..f0713c027ed5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -853,6 +853,11 @@ static bool soc15_need_reset_on_init(struct amdgpu_d=
-evice *adev)
->  {
->         u32 sol_reg;
->
-> +       /* CP hangs in IGT reloading test on RN, reset to WA */
-> +       if(adev->asic_type =3D=3D CHIP_RENOIR) {
+arch/arm/kernel/ftrace.c:229:6: warning: no previous prototype for function 'prepare_ftrace_return' [-Wmissing-prototypes]
+arch/arm/mach-iop32x/cp6.c:10:6: warning: no previous prototype for 'iop_enable_cp6' [-Wmissing-prototypes]
+arch/arm/mach-iop32x/cp6.c:10:6: warning: no previous prototype for function 'iop_enable_cp6' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c:27:6: warning: no previous prototype for function 'amdgpu_mmhub_ras_fini' [-Wmissing-prototypes]
+drivers/spi/spi-amd.c:296:21: warning: cast to smaller integer type 'enum amd_spi_versions' from 'const void *' [-Wvoid-pointer-to-enum-cast]
+fs/btrfs/ordered-data.c:168: warning: expecting prototype for Add an ordered extent to the per(). Prototype was for btrfs_add_ordered_extent() instead
+fs/btrfs/tree-log.c:6934: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
 
-Space between if and (.  Also, you can drop the { }.  With that fixed:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-Alex
+arch/alpha/include/asm/string.h:22:16: warning: '__builtin_memcpy' forming offset [40, 2051] is out of the bounds [0, 40] of object 'tag_buf' with type 'unsigned char[40]' [-Warray-bounds]
+arch/arm/crypto/poly1305-glue.c:192:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+arch/arm/crypto/poly1305-glue.c:91:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+arch/arm/mm/proc-v7-bugs.c:177: undefined reference to `spectre_v2_update_state'
+arch/riscv/kernel/ptrace.c:62:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+arch/s390/kernel/machine_kexec.c:57:9: warning: 'memcpy' offset [0, 511] is out of the bounds [0, 0] [-Warray-bounds]
+arch/sh/kernel/machvec.c:105:33: warning: array subscript 'struct sh_machine_vector[0]' is partly outside array bounds of 'long int[1]' [-Warray-bounds]
+block/bfq-cgroup.c:1069:6: warning: Call to function 'sscanf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sscanf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+block/blk-iocost.c:3060:8: warning: Call to function 'sscanf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sscanf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+block/blk-iocost.c:922:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+clang-15: error: linker command failed with exit code 1 (use -v to see invocation)
+drivers/bluetooth/bfusb.c:472:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/crypto/atmel-ecc.c:124:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_resource.c:1633:6: warning: no previous prototype for 'is_timing_changed' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_resource.c:1633:6: warning: no previous prototype for function 'is_timing_changed' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/calcs/dce_calcs.c:77:13: warning: stack frame size (5496) exceeds limit (1024) in 'calculate_bandwidth' [-Wframe-larger-than]
+drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c:210 amdgpu_ctx_init_entity() warn: missing error code 'r'
+drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c:27:6: warning: no previous prototype for 'amdgpu_hdp_ras_fini' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c:27:6: warning: no previous prototype for function 'amdgpu_hdp_ras_fini' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c:27:6: warning: no previous prototype for 'amdgpu_mmhub_ras_fini' [-Wmissing-prototypes]
+drivers/hid/hid-core.c:1665:30: warning: Although the value stored to 'field' is used in the enclosing expression, the value is never actually read from 'field' [clang-analyzer-deadcode.DeadStores]
+drivers/hid/usbhid/usbkbd.c:143:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/hid/usbhid/usbkbd.c:306:3: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/i2c/busses/i2c-cp2615.c:301:2: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/i2c/busses/i2c-cp2615.c:92:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/iio/adc/ad7192.c:436:9: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/iio/adc/ti-ads8688.c:123:9: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/iio/common/ssp_sensors/ssp_iio.c:83:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/iio/common/ssp_sensors/ssp_spi.c:99:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/iio/frequency/admv1014.c:703:22: sparse: sparse: dubious: x & !y
+drivers/infiniband/core/cma.c:1436:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/infiniband/core/cma.c:623:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/infiniband/core/ucma.c:234:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/infiniband/core/ucma.c:837:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/input/joystick/iforce/iforce-usb.c:50:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/input/joystick/xpad.c:1465:2: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/input/joystick/xpad.c:999:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/input/misc/keyspan_remote.c:132:3: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/input/misc/keyspan_remote.c:194:4: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/input/serio/ps2-gpio.c:223:4: warning: Value stored to 'rxflags' is never read [clang-analyzer-deadcode.DeadStores]
+drivers/input/touchscreen/usbtouchscreen.c:1435:4: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/input/touchscreen/usbtouchscreen.c:1717:3: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/media/dvb-frontends/mb86a20s.c:2067:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/media/dvb-frontends/mb86a20s.c:738:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/media/tuners/it913x.c:402:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/media/tuners/it913x.c:429:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/mmc/host/sdhci-s3c.c:512:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/mmc/host/sdhci-s3c.c:537:3: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/net/ethernet/broadcom/bnxt/bnxt_ptp.c:347:43: warning: array subscript 255 is above array bounds of 'struct pps_pin[4]' [-Warray-bounds]
+drivers/net/ethernet/intel/ice/ice_switch.c:5594:23: warning: array subscript 'struct ice_aqc_sw_rules_elem[0]' is partly outside array bounds of 'unsigned char[16]' [-Warray-bounds]
+drivers/net/vxlan/vxlan_core.c:440:34: sparse: sparse: incorrect type in argument 2 (different base types)
+drivers/nvmem/sunplus-ocotp.c:74:29: sparse: sparse: symbol 'sp_otp_v0' was not declared. Should it be static?
+drivers/regulator/da9055-regulator.c:436:3: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/spi/spi-dw-dma.c:274:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/staging/greybus/light.c:556:2: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/tty/serial/sunplus-uart.c:501:26: sparse: sparse: symbol 'sunplus_console_ports' was not declared. Should it be static?
+drivers/usb/c67x00/c67x00-hcd.c:216:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/function/f_printer.c:1010:4: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/function/f_printer.c:1271:11: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/function/f_tcm.c:1084:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/function/f_tcm.c:1126:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/function/f_tcm.c:1472:2: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/function/f_tcm.c:1488:9: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/udc/dummy_hcd.c:2068:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/udc/dummy_hcd.c:728:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/udc/m66592-udc.c:1603:3: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/udc/r8a66597-udc.c:1880:3: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/udc/snps_udc_core.c:1154:6: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/udc/snps_udc_core.c:2763:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/udc/snps_udc_core.c:3146:2: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/udc/udc-xilinx.c:1311:4: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/gadget/udc/udc-xilinx.c:502:4: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/usb/host/max3421-hcd.c:354:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+drivers/video/fbdev/efifb.c:323:1: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+fs/crypto/inline_crypt.c:221:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+include/linux/fortify-string.h:336:4: warning: call to __read_overflow2_field declared with 'warning' attribute: detected read beyond size of field (2nd parameter); maybe use struct_group()? [-Wattribute-warning]
+kernel/seccomp.c:1321 __secure_computing() warn: ignoring unreachable code.
+lib/test_firmware.c:1044:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+lib/test_firmware.c:310:8: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+lib/test_stackinit.c:374:1: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+lib/test_stackinit.c:374:1: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bluetooth/6lowpan.c:162:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bluetooth/6lowpan.c:443:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bluetooth/6lowpan.c:960:6: warning: Call to function 'sscanf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sscanf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bluetooth/a2mp.c:37:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bluetooth/a2mp.c:57:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bluetooth/amp.c:196:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bluetooth/amp.c:279:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bluetooth/bnep/core.c:134:4: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bluetooth/bnep/core.c:180:4: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bluetooth/hidp/core.c:212:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bluetooth/hidp/core.c:75:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bluetooth/hidp/core.c:785:2: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bridge/netfilter/ebtables.c:732:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/bridge/netfilter/ebtables.c:994:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/ipv4/cipso_ipv4.c:1731:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/ipv4/cipso_ipv4.c:1872:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/ipv4/cipso_ipv4.c:2006:3: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/ipv4/tcp_input.c:5012:2: warning: Value stored to 'reason' is never read [clang-analyzer-deadcode.DeadStores]
+net/ipv6/calipso.c:1336:3: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/ipv6/calipso.c:703:4: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+net/ipv6/calipso.c:933:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/smack/smack_access.c:472:2: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/smack/smackfs.c:1186:7: warning: Call to function 'sscanf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sscanf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/smack/smackfs.c:1579:2: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/smack/smackfs.c:887:8: warning: Call to function 'sscanf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sscanf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/smack/smackfs.c:905:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/audit.c:290:2: warning: Call to function 'vsnprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'vsnprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/audit.c:38:8: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/audit.c:41:3: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/common.c:202:2: warning: Call to function 'vsnprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'vsnprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/common.c:2034:2: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/common.c:2623:3: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/common.c:510:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/common.c:582:3: warning: Call to function 'sscanf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sscanf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/condition.c:123:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/domain.c:484:3: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/domain.c:567:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/domain.c:787:4: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/domain.c:795:4: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/network.c:71:4: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/network.c:93:2: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/realpath.c:172:4: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+security/tomoyo/realpath.c:196:3: warning: Call to function 'snprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'snprintf_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+{standard input}:1989: Error: unknown pseudo-op: `.sec'
 
+Error/Warning ids grouped by kconfigs:
 
-> +               return true;
-> +       }
-> +
->         /* Just return false for soc15 GPUs.  Reset does not seem to
->          * be necessary.
->          */
-> --
-> 2.25.1
->
+gcc_recent_errors
+|-- alpha-allmodconfig
+|   |-- arch-alpha-include-asm-string.h:warning:__builtin_memcpy-forming-offset-is-out-of-the-bounds-of-object-tag_buf-with-type-unsigned-char
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-iio-frequency-admv1014.c:sparse:sparse:dubious:x-y
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- alpha-allyesconfig
+|   |-- arch-alpha-include-asm-string.h:warning:__builtin_memcpy-forming-offset-is-out-of-the-bounds-of-object-tag_buf-with-type-unsigned-char
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-iio-frequency-admv1014.c:sparse:sparse:dubious:x-y
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- alpha-randconfig-r025-20220310
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|-- alpha-randconfig-r034-20220310
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arc-buildonly-randconfig-r002-20220310
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|-- arm-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arm-buildonly-randconfig-r003-20220310
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arm-iop32x_defconfig
+|   `-- arch-arm-mach-iop32x-cp6.c:warning:no-previous-prototype-for-iop_enable_cp6
+|-- arm-randconfig-r022-20220310
+|   `-- arch-arm-mm-proc-v7-bugs.c:undefined-reference-to-spectre_v2_update_state
+|-- arm64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arm64-defconfig
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- csky-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- csky-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- h8300-allmodconfig
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- h8300-allyesconfig
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-gpu-drm-gma500-intel_bios.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-const-p-got-unsigned-char-noderef-usertype-__iomem
+|   |-- drivers-gpu-drm-gma500-opregion.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-const-p-got-void-noderef-__iomem-assigned-base
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-gpu-drm-gma500-intel_bios.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-const-p-got-unsigned-char-noderef-usertype-__iomem
+|   |-- drivers-gpu-drm-gma500-opregion.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-const-p-got-void-noderef-__iomem-assigned-base
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-debian-10.3
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-debian-10.3-kselftests
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-randconfig-a003
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-randconfig-a005
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-randconfig-a014
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-randconfig-a016
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-randconfig-c021
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-randconfig-s001
+|   |-- drivers-gpu-drm-gma500-intel_bios.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-const-p-got-unsigned-char-noderef-usertype-__iomem
+|   `-- drivers-gpu-drm-gma500-opregion.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-const-p-got-void-noderef-__iomem-assigned-base
+|-- i386-randconfig-s002
+|   |-- drivers-gpu-drm-gma500-intel_bios.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-const-p-got-unsigned-char-noderef-usertype-__iomem
+|   |-- drivers-gpu-drm-gma500-opregion.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-const-p-got-void-noderef-__iomem-assigned-base
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-iio-frequency-admv1014.c:sparse:sparse:dubious:x-y
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-scsi-hisi_sas-hisi_sas_v3_hw.c:sparse:sparse:restricted-__le32-degrades-to-integer
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- ia64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-iio-frequency-admv1014.c:sparse:sparse:dubious:x-y
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-scsi-hisi_sas-hisi_sas_v3_hw.c:sparse:sparse:restricted-__le32-degrades-to-integer
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- ia64-randconfig-r035-20220310
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- ia64-randconfig-r036-20220310
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|-- m68k-allmodconfig
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- m68k-allyesconfig
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- m68k-defconfig
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- m68k-mvme147_defconfig
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- microblaze-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- microblaze-randconfig-p002-20220310
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- microblaze-randconfig-r011-20220310
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|-- microblaze-randconfig-s031-20220310
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- mips-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- mips-randconfig-r014-20220310
+|   `-- drivers-net-ethernet-broadcom-bnxt-bnxt_ptp.c:warning:array-subscript-is-above-array-bounds-of-struct-pps_pin
+|-- mips-randconfig-r023-20220310
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- nios2-allmodconfig
+|   |-- arch-nios2-kernel-misaligned.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__user-to-got-unsigned-char-usertype-__pu_ptr
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- nios2-allyesconfig
+|   |-- arch-nios2-kernel-misaligned.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__user-to-got-unsigned-char-usertype-__pu_ptr
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- parisc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- parisc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- parisc-generic-64bit_defconfig
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- parisc-randconfig-m031-20220310
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ctx.c-amdgpu_ctx_init_entity()-warn:missing-error-code-r
+|-- parisc-randconfig-r021-20220310
+|   `-- drivers-net-ethernet-intel-ice-ice_switch.c:warning:array-subscript-struct-ice_aqc_sw_rules_elem-is-partly-outside-array-bounds-of-unsigned-char
+|-- parisc64-defconfig
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- powerpc-allmodconfig
+|   |-- arch-powerpc-platforms-powermac-nvram.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-const-p-got-unsigned-char-noderef-usertype-__iomem-base
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- powerpc-allyesconfig
+|   |-- arch-powerpc-platforms-powermac-nvram.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-const-p-got-unsigned-char-noderef-usertype-__iomem-base
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- riscv-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- riscv-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- riscv-randconfig-r001-20220310
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- s390-allmodconfig
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- s390-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-iio-frequency-admv1014.c:sparse:sparse:dubious:x-y
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-nvmem-sunplus-ocotp.c:sparse:sparse:symbol-sp_otp_v0-was-not-declared.-Should-it-be-static
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- s390-defconfig
+|   |-- arch-s390-kernel-machine_kexec.c:warning:memcpy-offset-is-out-of-the-bounds
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- s390-randconfig-r005-20220310
+|   |-- arch-s390-kernel-machine_kexec.c:warning:memcpy-offset-is-out-of-the-bounds
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- sh-allmodconfig
+|   |-- arch-sh-kernel-machvec.c:warning:array-subscript-struct-sh_machine_vector-is-partly-outside-array-bounds-of-long-int
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   |-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- standard-input:Error:unknown-pseudo-op:sec
+|-- sh-allyesconfig
+|   |-- arch-sh-kernel-machvec.c:warning:array-subscript-struct-sh_machine_vector-is-partly-outside-array-bounds-of-long-int
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   |-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- standard-input:Error:unknown-pseudo-op:sec
+|-- sparc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- sparc64-randconfig-r032-20220310
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- x86_64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-iio-frequency-admv1014.c:sparse:sparse:dubious:x-y
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- x86_64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- drivers-iio-frequency-admv1014.c:sparse:sparse:dubious:x-y
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- drivers-tty-serial-sunplus-uart.c:sparse:sparse:symbol-sunplus_console_ports-was-not-declared.-Should-it-be-static
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- x86_64-kexec
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- x86_64-randconfig-a006
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- x86_64-randconfig-a011
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- x86_64-randconfig-a015
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- x86_64-randconfig-m001
+|   `-- kernel-seccomp.c-__secure_computing()-warn:ignoring-unreachable-code.
+|-- x86_64-rhel-8.3
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- x86_64-rhel-8.3-func
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- x86_64-rhel-8.3-kselftests
+|   |-- drivers-net-vxlan-vxlan_core.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-int-usertype-b-got-restricted-__be32-usertype-vni
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   |-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- kernel-seccomp.c-__secure_computing()-warn:ignoring-unreachable-code.
+|-- x86_64-rhel-8.3-kunit
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- xtensa-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+`-- xtensa-allyesconfig
+    |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-is_timing_changed
+    |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-amdgpu_hdp_ras_fini
+    |-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini
+    |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+    `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
 
---_000_DM4PR12MB52942CFF930BB7283A3DFEA2950C9DM4PR12MB5294namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+clang_recent_errors
+|-- arm-bcm2835_defconfig
+|   `-- arch-arm-kernel-ftrace.c:warning:no-previous-prototype-for-function-prepare_ftrace_return
+|-- arm-randconfig-c002-20220310
+|   |-- arch-arm-crypto-poly1305-glue.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-
+|   |-- arch-arm-crypto-poly1305-glue.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-
+|   |-- drivers-bluetooth-bfusb.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argume
+|   |-- drivers-hid-hid-core.c:warning:Although-the-value-stored-to-field-is-used-in-the-enclosing-expression-the-value-is-never-actually-read-from-field-clang-analyzer-deadcode.DeadStores
+|   |-- drivers-i2c-busses-i2c-cp2615.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-
+|   |-- drivers-i2c-busses-i2c-cp2615.c:warning:Call-to-function-strncpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length
+|   |-- drivers-infiniband-core-cma.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-ar
+|   |-- drivers-infiniband-core-cma.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-ar
+|   |-- drivers-infiniband-core-ucma.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-a
+|   |-- drivers-infiniband-core-ucma.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-a
+|   |-- drivers-input-serio-ps2-gpio.c:warning:Value-stored-to-rxflags-is-never-read-clang-analyzer-deadcode.DeadStores
+|   |-- drivers-input-touchscreen-usbtouchscreen.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-supp
+|   |-- drivers-input-touchscreen-usbtouchscreen.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-su
+|   |-- drivers-media-dvb-frontends-mb86a20s.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-
+|   |-- drivers-media-dvb-frontends-mb86a20s.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-
+|   |-- drivers-media-tuners-it913x.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-ar
+|   |-- drivers-media-tuners-it913x.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-ar
+|   |-- drivers-mmc-host-sdhci-s3c.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arg
+|   |-- drivers-mmc-host-sdhci-s3c.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-a
+|   |-- drivers-staging-greybus-light.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-lengt
+|   |-- drivers-video-fbdev-efifb.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arg
+|   |-- include-linux-fortify-string.h:warning:call-to-__read_overflow2_field-declared-with-warning-attribute:detected-read-beyond-size-of-field-(2nd-parameter)-maybe-use-struct_group()
+|   |-- net-bluetooth-6lowpan.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argument
+|   |-- net-bluetooth-6lowpan.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argument
+|   |-- net-bluetooth-6lowpan.c:warning:Call-to-function-sscanf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argument
+|   |-- net-bluetooth-a2mp.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-o
+|   |-- net-bluetooth-a2mp.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-o
+|   |-- net-bluetooth-amp.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-or
+|   |-- net-bluetooth-amp.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-or
+|   |-- net-bluetooth-bnep-core.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argume
+|   |-- net-bluetooth-bnep-core.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argume
+|   |-- net-bluetooth-hidp-core.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argume
+|   |-- net-bluetooth-hidp-core.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argume
+|   |-- net-bluetooth-hidp-core.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argu
+|   |-- net-bridge-netfilter-ebtables.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-
+|   |-- net-bridge-netfilter-ebtables.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-
+|   |-- net-ipv4-cipso_ipv4.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-
+|   |-- net-ipv4-cipso_ipv4.c:warning:Call-to-function-memmove-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments
+|   |-- net-ipv4-cipso_ipv4.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-
+|   |-- net-ipv4-tcp_input.c:warning:Value-stored-to-reason-is-never-read-clang-analyzer-deadcode.DeadStores
+|   |-- net-ipv6-calipso.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-or-
+|   |-- net-ipv6-calipso.c:warning:Call-to-function-memmove-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-or
+|   |-- net-ipv6-calipso.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-or-
+|   |-- security-smack-smack_access.c:warning:Call-to-function-strncpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-a
+|   |-- security-smack-smackfs.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argumen
+|   |-- security-smack-smackfs.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argume
+|   |-- security-smack-smackfs.c:warning:Call-to-function-sscanf-is-insecure-as-it-does-not-provide-bounding-of-the-memory-buffer-or-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-func
+|   |-- security-smack-smackfs.c:warning:Call-to-function-sscanf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argumen
+|   |-- security-tomoyo-audit.c:warning:Call-to-function-memmove-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argumen
+|   |-- security-tomoyo-audit.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argume
+|   |-- security-tomoyo-audit.c:warning:Call-to-function-vsnprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argum
+|   |-- security-tomoyo-common.c:warning:Call-to-function-memmove-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argume
+|   |-- security-tomoyo-common.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argumen
+|   |-- security-tomoyo-common.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argum
+|   |-- security-tomoyo-common.c:warning:Call-to-function-sscanf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argumen
+|   |-- security-tomoyo-common.c:warning:Call-to-function-vsnprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argu
+|   |-- security-tomoyo-condition.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argu
+|   |-- security-tomoyo-domain.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argumen
+|   |-- security-tomoyo-domain.c:warning:Call-to-function-memmove-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argume
+|   |-- security-tomoyo-domain.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argum
+|   |-- security-tomoyo-domain.c:warning:Call-to-function-strncpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argume
+|   |-- security-tomoyo-network.c:warning:Call-to-function-memmove-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argum
+|   |-- security-tomoyo-network.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argu
+|   |-- security-tomoyo-realpath.c:warning:Call-to-function-memmove-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argu
+|   `-- security-tomoyo-realpath.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arg
+|-- arm-randconfig-r031-20220310
+|   |-- arch-arm-mach-iop32x-cp6.c:warning:no-previous-prototype-for-function-iop_enable_cp6
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_resource.c:warning:no-previous-prototype-for-function-is_timing_changed
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dml-calcs-dce_calcs.c:warning:stack-frame-size-()-exceeds-limit-()-in-calculate_bandwidth
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_hdp.c:warning:no-previous-prototype-for-function-amdgpu_hdp_ras_fini
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_mmhub.c:warning:no-previous-prototype-for-function-amdgpu_mmhub_ras_fini
+|-- hexagon-randconfig-r041-20220310
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-randconfig-a011
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-randconfig-c001
+|   |-- drivers-hid-hid-core.c:warning:Although-the-value-stored-to-field-is-used-in-the-enclosing-expression-the-value-is-never-actually-read-from-field-clang-analyzer-deadcode.DeadStores
+|   `-- net-ipv4-tcp_input.c:warning:Value-stored-to-reason-is-never-read-clang-analyzer-deadcode.DeadStores
+|-- mips-randconfig-c004-20220310
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- powerpc-randconfig-c003-20220310
+|   `-- clang:error:linker-command-failed-with-exit-code-(use-v-to-see-invocation)
+|-- riscv-randconfig-c006-20220309
+|   |-- arch-riscv-kernel-ptrace.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argum
+|   |-- block-bfq-cgroup.c:warning:Call-to-function-sscanf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-or-
+|   |-- block-blk-iocost.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-or-
+|   |-- block-blk-iocost.c:warning:Call-to-function-sscanf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-or-
+|   |-- drivers-crypto-atmel-ecc.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argum
+|   |-- drivers-hid-usbhid-usbkbd.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argu
+|   |-- drivers-hid-usbhid-usbkbd.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-ar
+|   |-- drivers-iio-adc-ad7192.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argume
+|   |-- drivers-iio-adc-ti-ads8688.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-ar
+|   |-- drivers-iio-common-ssp_sensors-ssp_iio.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-suppor
+|   |-- drivers-iio-common-ssp_sensors-ssp_spi.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-suppor
+|   |-- drivers-input-joystick-iforce-iforce-usb.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-supp
+|   |-- drivers-input-joystick-xpad.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-ar
+|   |-- drivers-input-joystick-xpad.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-
+|   |-- drivers-input-misc-keyspan_remote.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-len
+|   |-- drivers-input-misc-keyspan_remote.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-l
+|   |-- drivers-regulator-da9055-regulator.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-l
+|   |-- drivers-spi-spi-dw-dma.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argumen
+|   |-- drivers-usb-c67x00-c67x00-hcd.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-
+|   |-- drivers-usb-gadget-function-f_printer.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support
+|   |-- drivers-usb-gadget-function-f_printer.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-suppor
+|   |-- drivers-usb-gadget-function-f_tcm.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-len
+|   |-- drivers-usb-gadget-function-f_tcm.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-len
+|   |-- drivers-usb-gadget-function-f_tcm.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-l
+|   |-- drivers-usb-gadget-function-f_tcm.c:warning:Call-to-function-sprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-le
+|   |-- drivers-usb-gadget-udc-dummy_hcd.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-leng
+|   |-- drivers-usb-gadget-udc-dummy_hcd.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-leng
+|   |-- drivers-usb-gadget-udc-m66592-udc.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-l
+|   |-- drivers-usb-gadget-udc-r8a66597-udc.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support
+|   |-- drivers-usb-gadget-udc-snps_udc_core.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-
+|   |-- drivers-usb-gadget-udc-snps_udc_core.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-
+|   |-- drivers-usb-gadget-udc-snps_udc_core.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-suppor
+|   |-- drivers-usb-gadget-udc-udc-xilinx.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-len
+|   |-- drivers-usb-gadget-udc-udc-xilinx.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-l
+|   |-- drivers-usb-host-max3421-hcd.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-a
+|   |-- fs-crypto-inline_crypt.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-argumen
+|   |-- lib-test_firmware.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-or
+|   |-- lib-test_firmware.c:warning:Call-to-function-snprintf-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-
+|   |-- lib-test_stackinit.c:warning:Call-to-function-memcpy-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-o
+|   `-- lib-test_stackinit.c:warning:Call-to-function-memset-is-insecure-as-it-does-not-provide-security-checks-introduced-in-the-C11-standard.-Replace-with-analogous-functions-that-support-length-arguments-o
+|-- riscv-randconfig-r042-20220310
+|   `-- include-linux-fortify-string.h:warning:call-to-__read_overflow2_field-declared-with-warning-attribute:detected-read-beyond-size-of-field-(2nd-parameter)-maybe-use-struct_group()
+|-- s390-randconfig-c005-20220310
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   `-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- x86_64-randconfig-a001
+|   |-- drivers-spi-spi-amd.c:warning:cast-to-smaller-integer-type-enum-amd_spi_versions-from-const-void
+|   `-- include-linux-fortify-string.h:warning:call-to-__read_overflow2_field-declared-with-warning-attribute:detected-read-beyond-size-of-field-(2nd-parameter)-maybe-use-struct_group()
+|-- x86_64-randconfig-a003
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   |-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- include-linux-fortify-string.h:warning:call-to-__read_overflow2_field-declared-with-warning-attribute:detected-read-beyond-size-of-field-(2nd-parameter)-maybe-use-struct_group()
+|-- x86_64-randconfig-a005
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   |-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- include-linux-fortify-string.h:warning:call-to-__read_overflow2_field-declared-with-warning-attribute:detected-read-beyond-size-of-field-(2nd-parameter)-maybe-use-struct_group()
+|-- x86_64-randconfig-a012
+|   |-- fs-btrfs-ordered-data.c:warning:expecting-prototype-for-Add-an-ordered-extent-to-the-per().-Prototype-was-for-btrfs_add_ordered_extent()-instead
+|   |-- fs-btrfs-tree-log.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- include-linux-fortify-string.h:warning:call-to-__read_overflow2_field-declared-with-warning-attribute:detected-read-beyond-size-of-field-(2nd-parameter)-maybe-use-struct_group()
+|-- x86_64-randconfig-a014
+|   `-- include-linux-fortify-string.h:warning:call-to-__read_overflow2_field-declared-with-warning-attribute:detected-read-beyond-size-of-field-(2nd-parameter)-maybe-use-struct_group()
+|-- x86_64-randconfig-a016
+|   `-- include-linux-fortify-string.h:warning:call-to-__read_overflow2_field-declared-with-warning-attribute:detected-read-beyond-size-of-field-(2nd-parameter)-maybe-use-struct_group()
+`-- x86_64-randconfig-c007
+    |-- drivers-hid-hid-core.c:warning:Although-the-value-stored-to-field-is-used-in-the-enclosing-expression-the-value-is-never-actually-read-from-field-clang-analyzer-deadcode.DeadStores
+    `-- net-ipv4-tcp_input.c:warning:Value-stored-to-reason-is-never-read-clang-analyzer-deadcode.DeadStores
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thank you very&nbsp;much Alex!</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Rico</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
-deucher@gmail.com&gt;<br>
-<b>Sent:</b> Friday, March 11, 2022 0:52<br>
-<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;; Chen, Guchun=
- &lt;Guchun.Chen@amd.com&gt;; Zhuo, Qingqing (Lillian) &lt;Qingqing.Zhuo@am=
-d.com&gt;; Liu, Wenjing &lt;Wenjing.Liu@amd.com&gt;; Wang, Yu (Charlie) &lt=
-;Yu.Wang4@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;=
-;
- Quan, Evan &lt;Evan.Quan@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amd: fix gfx hang on renoir in IGT reload t=
-est</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On Thu, Mar 10, 2022 at 9:04 AM Tianci Yin &lt;tia=
-nci.yin@amd.com&gt; wrote:<br>
-&gt;<br>
-&gt; From: &quot;Tianci.Yin&quot; &lt;tianci.yin@amd.com&gt;<br>
-&gt;<br>
-&gt; [why]<br>
-&gt; CP hangs in igt reloading test on renoir, more precisely, hangs on the=
-<br>
-&gt; second time insmod.<br>
-&gt;<br>
-&gt; [how]<br>
-&gt; mode2 reset can make it recover, and mode2 reset only effects gfx core=
-,<br>
-&gt; dcn and the screen will not be impacted.<br>
-&gt;<br>
-&gt; Signed-off-by: Tianci.Yin &lt;tianci.yin@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c | 5 +++++<br>
-&gt;&nbsp; 1 file changed, 5 insertions(+)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/=
-amdgpu/soc15.c<br>
-&gt; index 496c4a6e23ac..f0713c027ed5 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; @@ -853,6 +853,11 @@ static bool soc15_need_reset_on_init(struct amdgp=
-u_device *adev)<br>
-&gt;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 sol_reg;<br>
-&gt;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* CP hangs in IGT reloading tes=
-t on RN, reset to WA */<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(adev-&gt;asic_type =3D=3D CHI=
-P_RENOIR) {<br>
-<br>
-Space between if and (.&nbsp; Also, you can drop the { }.&nbsp; With that f=
-ixed:<br>
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-<br>
-Alex<br>
-<br>
-<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; return true;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; +<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Just return false f=
-or soc15 GPUs.&nbsp; Reset does not seem to<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * be necessary.<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt; --<br>
-&gt; 2.25.1<br>
-&gt;<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+elapsed time: 722m
 
---_000_DM4PR12MB52942CFF930BB7283A3DFEA2950C9DM4PR12MB5294namp_--
+configs tested: 125
+configs skipped: 4
+
+gcc tested configs:
+arm                                 defconfig
+arm                              allmodconfig
+arm                              allyesconfig
+arm64                            allyesconfig
+arm64                               defconfig
+um                             i386_defconfig
+um                           x86_64_defconfig
+mips                             allyesconfig
+riscv                            allyesconfig
+mips                             allmodconfig
+powerpc                          allmodconfig
+m68k                             allyesconfig
+powerpc                          allyesconfig
+s390                             allmodconfig
+m68k                             allmodconfig
+s390                             allyesconfig
+sparc                            allyesconfig
+sh                               allmodconfig
+h8300                            allyesconfig
+parisc                           allyesconfig
+xtensa                           allyesconfig
+alpha                            allyesconfig
+arc                              allyesconfig
+nios2                            allyesconfig
+i386                          randconfig-c001
+sh                           se7343_defconfig
+h8300                       h8s-sim_defconfig
+arm                        realview_defconfig
+mips                         bigsur_defconfig
+sh                        sh7785lcr_defconfig
+sh                        sh7757lcr_defconfig
+powerpc                       maple_defconfig
+powerpc                   currituck_defconfig
+arm                        clps711x_defconfig
+xtensa                         virt_defconfig
+powerpc                        warp_defconfig
+sh                            titan_defconfig
+arm                          iop32x_defconfig
+m68k                        mvme147_defconfig
+um                               alldefconfig
+i386                                defconfig
+powerpc                 mpc8540_ads_defconfig
+powerpc                    klondike_defconfig
+nios2                            alldefconfig
+parisc                generic-64bit_defconfig
+powerpc                       eiger_defconfig
+arc                          axs101_defconfig
+arm                           u8500_defconfig
+arm                        cerfcube_defconfig
+m68k                        m5307c3_defconfig
+arm                  randconfig-c002-20220310
+ia64                                defconfig
+ia64                             allmodconfig
+ia64                             allyesconfig
+m68k                                defconfig
+nds32                             allnoconfig
+nios2                               defconfig
+csky                                defconfig
+alpha                               defconfig
+nds32                               defconfig
+arc                                 defconfig
+parisc                              defconfig
+parisc64                            defconfig
+s390                                defconfig
+i386                              debian-10.3
+i386                   debian-10.3-kselftests
+sparc                               defconfig
+i386                             allyesconfig
+powerpc                           allnoconfig
+i386                          randconfig-a003
+i386                          randconfig-a001
+i386                          randconfig-a005
+x86_64                        randconfig-a015
+x86_64                        randconfig-a013
+x86_64                        randconfig-a011
+i386                          randconfig-a014
+i386                          randconfig-a012
+i386                          randconfig-a016
+x86_64                        randconfig-a006
+x86_64                        randconfig-a002
+x86_64                        randconfig-a004
+arc                  randconfig-r043-20220310
+riscv                    nommu_k210_defconfig
+riscv                    nommu_virt_defconfig
+riscv                             allnoconfig
+riscv                               defconfig
+riscv                          rv32_defconfig
+riscv                            allmodconfig
+x86_64                    rhel-8.3-kselftests
+x86_64                           allyesconfig
+x86_64                              defconfig
+x86_64                                  kexec
+x86_64                               rhel-8.3
+x86_64                          rhel-8.3-func
+x86_64                         rhel-8.3-kunit
+
+clang tested configs:
+mips                 randconfig-c004-20220310
+x86_64                        randconfig-c007
+s390                 randconfig-c005-20220310
+powerpc              randconfig-c003-20220310
+i386                          randconfig-c001
+riscv                randconfig-c006-20220310
+arm                  randconfig-c002-20220310
+arm                    vt8500_v6_v7_defconfig
+arm                        multi_v5_defconfig
+arm                  colibri_pxa270_defconfig
+riscv                          rv32_defconfig
+powerpc                     ppa8548_defconfig
+arm                          ixp4xx_defconfig
+arm                              alldefconfig
+arm                         s5pv210_defconfig
+riscv                    nommu_virt_defconfig
+arm                     am200epdkit_defconfig
+arm                         bcm2835_defconfig
+i386                          randconfig-a002
+i386                          randconfig-a006
+i386                          randconfig-a004
+x86_64                        randconfig-a012
+x86_64                        randconfig-a016
+x86_64                        randconfig-a014
+i386                          randconfig-a013
+i386                          randconfig-a015
+i386                          randconfig-a011
+x86_64                        randconfig-a001
+x86_64                        randconfig-a003
+x86_64                        randconfig-a005
+hexagon              randconfig-r041-20220310
+hexagon              randconfig-r045-20220310
+s390                 randconfig-r044-20220310
+riscv                randconfig-r042-20220310
+
+---
+0-DAY CI Kernel Test Service
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
