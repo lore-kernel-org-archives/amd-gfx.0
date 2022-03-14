@@ -4,123 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DFC9C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 06:28:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EB38C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 06:54:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7452A10E407;
-	Mon, 14 Mar 2022 06:28:55 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061.outbound.protection.outlook.com [40.107.237.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C93F10E407
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Mar 2022 06:28:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D86AF10E46F;
+	Mon, 14 Mar 2022 06:54:06 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2052.outbound.protection.outlook.com [40.107.96.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0BF710E4AD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Mar 2022 06:54:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M9P2MFCxfQ2eooTHUbBOZPEzqTgYokt9XlnIwRVAM1jhuVgUYhfGO23UVLFfAZDHMlPHwPJgQegICHriVCUc95L5sHlc1/3Rk427gyLIfscQeyQCKfKxTe0pf//lDTJttBH+rO/P/hDzgXBfQSbXNrSqSu7gODRcxqh5smslThgnOF5LV+oZmOrOTzM1HvCpNUfbpNGL0oJGv+opwY2bTTqVfA9WQ1QtR6LIaT2o5r/pjn8eZ7EuLkrfZNCd4I8KCPzOEmRvM9MnmgZ8HoQEjIKterAuPmd5LlVBC0gtpiJx6dLVihHNJu0DrjvLYRC8UX65myyCBZOcPG7YMrqSlw==
+ b=PZxg5Xo8ir4SI3IEYAcqkCSsWdvd8BkWEiFFHNQ96MPqIcxlRoRrccuLdNZYhk8cXTYOwXTfs7bCUPCKyeLL5NWSZmVaDL1IGVwbH5arowr4bXDTvAwuMfJSxf4fcnScmUV1tiRBoiwpGYrCPuBTQp0h09+/Ww9IHd+uhl8ZIOshqYZTkk8V9Fd8TtJX1wdijoLDO+aoVMM/NTnIePzzJqUMOijoVVpo0Eh6jHYBtCsJtwRPLwQMykV2d04KIUoNtxLMmnKKEaEldHiVFF/PuBhUXaEC+3Z1iLR4uyt4EiwyXNeFwzNBCvezLEmtp4R9YqzJsVgkk7VlCKDUbw2v7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xkptvmRCk2nz5GfpY3Q7+ieKfeMCFBav0iKARs4N/lI=;
- b=GDGDK2DNpFl2Ch3ZgJBRMjPwP7OM/STdyY8PnZy+BJqrX+f8EjZ9PBOzu+D9qgv/cEZjxonfZjcfDb3kRsBx0C2gwqt2wI6jIPONveHFlJLIqWNJxxua5w6rrCY9W4upWVtUMfRGJ/L/EChqQ8DxZryMlV8bnE1udKKWUeVcyMnG82hLRWwByQyAOUYMbLWd6Ro6r3Vx9loZ+vz92FQ8yXxSmioyaj0rso4uHPet+lMNq2REBam9oYFaQNHck3EFDuuaec4wdE1JF7DK+oUfVRXqfiKvXdzqSw4QCXUo7OVDx0CS+ojRtDS8GG+7J3AQJoYmZl61a570UpNIOV4Nzg==
+ bh=+hjDDVNkc2npwZPibhfAEqgHRaqxyw0O36KIaxWQ76o=;
+ b=OyCRoKiAfZZW3DlpOqNmFTg8lkdODoVqqdBu0m1NecSZlohj+aubOXu91iFyS2pD1WzoDKDydL11HXdscMNO4KgSjfA4FJ7ZGUmldKP6Y8Lrs9TzM3vxwFqjWoWFe9KetTSYG4XEBvD4KgV1Zrg7F/d6rqGyuY6hUeXZNCjbSge6zy459oRqlcLvTHuH/yPB3pcQP91BSqlje1rGdDUaxiTpwOOS/QkB1vJnVC8VVbDnw+A1ith+0WKim4BWG0Wk2/eRGyxHL6prAR/60DIqnPo7+ndOMeLZ5/qw27mIRgA/XHNVqBUzrD8qw+mXjUqWMKWb6e/kYuarvjSBBaOFew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xkptvmRCk2nz5GfpY3Q7+ieKfeMCFBav0iKARs4N/lI=;
- b=aeZAuH3EbWk/7LMZjRr5Jy3AyC3fGWp9e80cyuM6h4XF2h169lXNJZFA/nH9QrIDjDe37JPvoYPyxYk0x7wCckb2SMF+7GWdZZ/AAg/CPzBEp8Ivuwv41Zuu1L3cUyO8oN1v6xngSqNeIKNk0SDQtU0zwNYeOjKN5DGHTzoN22U=
-Received: from DM5PR12MB1770.namprd12.prod.outlook.com (2603:10b6:3:108::22)
- by BN6PR12MB1635.namprd12.prod.outlook.com (2603:10b6:405:3::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.26; Mon, 14 Mar
- 2022 06:28:48 +0000
-Received: from DM5PR12MB1770.namprd12.prod.outlook.com
- ([fe80::1551:5d31:89de:9e7f]) by DM5PR12MB1770.namprd12.prod.outlook.com
- ([fe80::1551:5d31:89de:9e7f%3]) with mapi id 15.20.5061.028; Mon, 14 Mar 2022
- 06:28:48 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: fixed the warnings reported by kernel test
- robot
-Thread-Topic: [PATCH] drm/amdgpu: fixed the warnings reported by kernel test
- robot
-Thread-Index: AQHYN2e/UOuuvHrsX02KGZtiv7tR2ay+agGA
-Date: Mon, 14 Mar 2022 06:28:48 +0000
-Message-ID: <DM5PR12MB177083EF87DF35009A324855B00F9@DM5PR12MB1770.namprd12.prod.outlook.com>
-References: <20220314055221.3100329-1-YiPeng.Chai@amd.com>
-In-Reply-To: <20220314055221.3100329-1-YiPeng.Chai@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-14T06:26:18Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=7d504ef8-09d9-4bcc-8875-7c4522e08a63;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-03-14T06:28:45Z
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
- Only-AIP 2.0
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 52bd72f7-c738-41a2-8971-e178b54ba0e2
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
-authentication-results: dkim=none (message not signed)
+ bh=+hjDDVNkc2npwZPibhfAEqgHRaqxyw0O36KIaxWQ76o=;
+ b=ffrn0MqUQJXuXBj+bOj5Ei3+GsOPSf3KsBnFHhl4Iq71c2vjpHjnqMEvuk/CEJIy+08SAj8BXKmseIu8BAE/4j3Ji7dnGGo1wu0oELl9156nh6r9aN7T6jnH1GJ9AFv/N4YfAb9Pxx7MvptxjjLKH2MMq4qjt2j1aaWGqILgx5Q=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1b8d25a1-1b0d-4837-7c89-08da0583e62a
-x-ms-traffictypediagnostic: BN6PR12MB1635:EE_
-x-microsoft-antispam-prvs: <BN6PR12MB1635BBFCC1027E4CBF0A53CBB00F9@BN6PR12MB1635.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Zr6RjiLOj2ZXw51wIswwkR8ZusAB4x5TPg75rYlB6BcH2DGeNtFAEdeVBz5gpaLC1XHSqqWkL4t17FYPp04i994doySsP/mWHNX88hMS4EKzwVTVLqj1ZH+iTxpi3jDy21sv40qXeHLAsoNX9SJZ9XbayEbbzv0FDZpxS4RdNrk1w3VPfYCUYyGne0yOiL/2krRwuTTvrVYKRd2fxee2DaRAGcX4VVfB1PWmcgR4WW5pqFiER23VRK1TThwtkMJyrj3gSSCXUtv+bpx6TKlZ3mrbYHb6oVz/LcKxRdcFsyj964b2HfhK4jx18WyStwP0G5RckGYHy4S5IrIjM/2y7CYvI13WHu4HbMQAEsoPb7zqEG2k02edbwMyCkg6H2mvv0CCj/fDM66INhKUCp15tvqYVUd2kKoLOYq/j/qOQVFLQBkaBCbPw2dFeNlKxajNicgIM6AO46MAzYoOp3hvd+fc4+NKljXGJMmu/pqoYrecfOumhPCcs06HEYmCuK6pmEVz26VUaHbroWq/y6+c2RwTOQmPXLeFLR5ePhJGI1OKRzI1L0MaiqqcpWTy1uGUFy9qCl1yFQV6aM19wwbvYSBNzcgK59Iz6+s4mCsK4a/OClSqtkB6foRP/q/VuSasKABQd/pcXtsaExBleZenXUzqtJ9Aw+AOhrP7sHVU09bcwUJ2oGv1IxDjk5Jpmict/aIJI9h41gkyJNTlpuEWCg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1770.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(8936002)(8676002)(33656002)(38070700005)(38100700002)(4326008)(5660300002)(64756008)(66446008)(66476007)(86362001)(52536014)(66556008)(66946007)(76116006)(122000001)(110136005)(55016003)(508600001)(54906003)(316002)(53546011)(83380400001)(26005)(186003)(71200400001)(6506007)(7696005)(9686003)(2906002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7Jn8BcL/9HzdfKO74k93G1r72m+RNjmgKxPCnaQsErIWns7vLNrD582AHLEX?=
- =?us-ascii?Q?x1agaF++sfhV476SdZjvtNvMpOs4bLd74w34bfXAF7S8sOTnKYtYY4MW3lsQ?=
- =?us-ascii?Q?XAIz+jqdugFrq9Ysbv7aOSIdFDVAbwZjuKWuPQD5tOYwuUa6KFwPpYpG9UbE?=
- =?us-ascii?Q?c30+LKQsyenPMBDpPDITEYq6XHsoWVKw17Krpc+PHz5+ZcCGTR+b7m10rHrX?=
- =?us-ascii?Q?3Enp2M9H6mvZWUI8CqAYViooUzyD4k0JTGy+IOeq7qXLmp41K03URBdGMxVo?=
- =?us-ascii?Q?uX/TTiivqMEZfsN5GI/7mGS86GoGsFDmr2hMtVmTOO5nwbR8AWw4GuadxfHX?=
- =?us-ascii?Q?NHJcduFzJw8juyu5CyM3jO3Gon+jJxQFekAxi/HrXC58rJbjjP4RsJHci9wx?=
- =?us-ascii?Q?6oTGCTyymfUOhtpkUZ9HQtAHaiGTe8Urepy31ldiBOAINt0G8eBZG9Fvi/S8?=
- =?us-ascii?Q?FMdUESLigCKLNO+SC8CESCw/8FFNYAr9WIOt5K/+DO5winGyysuqWtjtS2cB?=
- =?us-ascii?Q?d67qSsWcdvL/tlZYKT7+Z3oOYziT3YSc7OhzbG35Fa2AkiGPPR/8oImEBWum?=
- =?us-ascii?Q?8XM9dzSw/jj58DQVQmu1Dpw9Q01qvWBMpLli5PEkfVlQAW4w9y+acuvIeFvB?=
- =?us-ascii?Q?EvQhXIgba4D4qBbGnasWzLAfuyeMI0YbtU6+NBArl5sqKRHBLbiXlFDAD1fX?=
- =?us-ascii?Q?0l1/BHVkxp+tc87lOuJhVNdKvru3fUGhgf074ROM+y1PlFLUGe8VpD7bhx2Q?=
- =?us-ascii?Q?BReTuE2gn/9gTGMOf61ippj5VGZFZi+jQ0EOR9YgSfqqkfDeJh/0qehPKiOg?=
- =?us-ascii?Q?jqQ3juv48JLw3vJGhCsUuHEBTVXzFmtNc7IifKfbepXd/+ceqA5i3ktOZCyY?=
- =?us-ascii?Q?2tY0IoHo0/COx6OT6iz7V2eexE5/g/yWhzoJApWO3cZLh7uVSswfeN/irYsq?=
- =?us-ascii?Q?cdPmDnalsIfRt5JgUD0p6bG+ySCtQPTGxisRh9JDoaSgaVfMybXAO07R6cgl?=
- =?us-ascii?Q?PfYaeENP2RS537q/LDOXnPUqDvzXAgsLthtMrESVinExUDWRxyQkUXtGJWRz?=
- =?us-ascii?Q?93l1wt0Yt3VaMDcmTrplGc0+5mjeiU8a3LuvpLOowt/hCZaQ2FVIJ3ezRlL6?=
- =?us-ascii?Q?nqLVL2eKyvqbSuku65ViED7puXwokLudTRFAnDNhVlSffOoFhrJ+C9QDE9Kz?=
- =?us-ascii?Q?pKNN0qnUB2hqf7K2gweWxu6GwUQVh7wYETyxszWoNSTuvQVfsJs3QI6K+WOq?=
- =?us-ascii?Q?h/pcLCCkvkKfxx9yuuPbitTddtXGJVb7QJ34Pw2ifZbmIAokNP4fdS/+Jfya?=
- =?us-ascii?Q?H5cSamnU5TsJaw8/YmXIYrVQygMQMCYMDFzGFn5JvrhokJG+F/XpdwwW71p/?=
- =?us-ascii?Q?nY4seo44YDJ+eJ7SagimnGMMabH9JxatVNiWh2zH/DfID9PKpXj8h72sJ5oA?=
- =?us-ascii?Q?+9JiaIrZ5wVaZeNF0SrxRlzfsuCzK46G?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from MWHPR12MB1264.namprd12.prod.outlook.com (2603:10b6:300:d::16)
+ by BN9PR12MB5306.namprd12.prod.outlook.com (2603:10b6:408:103::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22; Mon, 14 Mar
+ 2022 06:54:03 +0000
+Received: from MWHPR12MB1264.namprd12.prod.outlook.com
+ ([fe80::f85d:36da:b28d:507c]) by MWHPR12MB1264.namprd12.prod.outlook.com
+ ([fe80::f85d:36da:b28d:507c%9]) with mapi id 15.20.5061.028; Mon, 14 Mar 2022
+ 06:54:03 +0000
+Message-ID: <3d397907-4845-3900-1046-47a6a5cd3fb6@amd.com>
+Date: Mon, 14 Mar 2022 12:23:53 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: [PATCH] amd/display: set backlight only if required
+Content-Language: en-US
+To: Harry Wentland <hwentlan@amd.com>, Shirish S <shirish.s@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Bhawanpreet.Lakha@amd.com
+References: <20220311153320.101332-1-shirish.s@amd.com>
+ <0b094720-8c17-db60-bccf-7cdb4ecf6dee@amd.com>
+From: "S, Shirish" <sshankar@amd.com>
+In-Reply-To: <0b094720-8c17-db60-bccf-7cdb4ecf6dee@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BM1PR0101CA0045.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:1a::31) To MWHPR12MB1264.namprd12.prod.outlook.com
+ (2603:10b6:300:d::16)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f6ec72c8-423c-49f8-b928-08da05876c92
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5306:EE_
+X-Microsoft-Antispam-PRVS: <BN9PR12MB53060A15D9CAC76DF1E752A7F20F9@BN9PR12MB5306.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KXbCFlRVb9GeKWOvvPUoJ3rweWVUoa1NFr21BVuWDMDRZYY03OarGh/+oIAOhFIgs4rnwwoyp9XKBLhkot0hRHDwtiepOTJhZDG7WT29mZJTU5ACxB5eYNxnattTjO4Va5EdTI0KTUd5ZCWTrHNER3v53iNpE6Zkz+g9GoBk9gLz24zd+a5uss1puLHaH6FutLH4tqE2kcugZ0ltp+LXnTz+2YJqaAFr80EpKj3NCEq1GuAfeCd8cwGytGsZEz6HbRKPGn5cQDvn7Luk9Jdsl4PkX0ddsoxsO4A6b16DLZeL3sSI3QFLLwWSnGFry0i4pFe+rDigQnx2+r7k55cIWZ7jMGF7wGmcWBFQe5ut14x107HFcAg2FcEpdJWXRm3iKOwFrkT9TB5hSoSjBOVPk7GLvc7pDu8L+9inRtphX3eXaeG6/qVNDw2kf2jpkNOu2KlGj4vYK7DAcZVDy6eQl9tilgEyBbroZip3Ou9cjllq6ENzjER22fig5PB39CLe0ELFBj9xaVwX0vGdi/uy33bhaptielRGUQH3yZzjOfbwg/nL3Rol+3D4tbs3PeEkKS/MyPKO7bYnuDAFYUKRq/fk1ECzaHmrAnZwBF77R4DzAT3iP5hzzFkrI/Ca7o8PgE6FT6R+4y41tLRgfV9fTgcwg4LQcYsaRIgZLyjJVTZ9k1TLrym478ZH5jvLTYsXN2J/zwYjfdaP3XzX+mtYe6/pj0rPF0mBUzbxVrrH8ZI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1264.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(5660300002)(2616005)(31696002)(6512007)(31686004)(2906002)(83380400001)(36756003)(8936002)(6666004)(66476007)(66556008)(4326008)(26005)(186003)(8676002)(66946007)(53546011)(38100700002)(6506007)(316002)(6636002)(110136005)(6486002)(508600001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ek1xZ0VlTU9BR2txS29TVnlCODdwSXNjd085YzgreDY3bnlvbWVqeFRxSWpQ?=
+ =?utf-8?B?SU9PbDBUeEVYM3JNQ09KTUsrZ0RkMW5td25vOXdXb1FLSnp6enluN2U3cDlB?=
+ =?utf-8?B?bElSbnhBbVdMMk9JTTUvWldWSkRpVFI4UTEwdEJFbW5ZVlpRTFpVWjQ2bzVQ?=
+ =?utf-8?B?MXRXL0xKYlJFWllMeTRTaytYQno5QjROVlFyRzc5VldhMDBjM0pXUGIwZm9h?=
+ =?utf-8?B?V2Y1cG9PMXU0TkRSZHU4TVBtOGNwQmFmaW1sL0x4MXl0Ukh4YzRBWXBBVWVo?=
+ =?utf-8?B?dElhblByS2ZCdjkvSWdGZnV3aTZPMmxxSVI3ZDFhaHRCZEdFWjBDN1Rzbzlh?=
+ =?utf-8?B?VUZFTExlUUkwRVZJcGpZejJ3eVFicThpcGd6UjBvMGZFcVRLTlY5WWFEV1ZO?=
+ =?utf-8?B?U1ArZ0RsMmR4Sm1KZSsvREFZaFVVWTNiUzRaQ1BuUS9SY1VOcS9JUkF1cTND?=
+ =?utf-8?B?akVQU2pKRTllVXVIa2hkY2JKUnI0MXh5RkdiZmlkRm54WkRXbTRMYVZ1VWJh?=
+ =?utf-8?B?b2crTXVMQzk0MDVXL3BORUVvV0thVTRnSEFHK1JmaHYwY2w2dTJVckM2d0JN?=
+ =?utf-8?B?Z0dRbzNZSEhncEg3UWRidm54UXM5bEVxODhLR3hUS0RiTnRwc1k3REZaM0FB?=
+ =?utf-8?B?dVlvc3JiK1NnMk5OK0puVmRCYnNEemorSUJtT3hHeVZaSUx1WkorUitkVS9j?=
+ =?utf-8?B?amlMdFRQZmtPU1hMRmIwUHRsNm5GeFVUR3R4V2w2V3laWTFDQlNZanVwb041?=
+ =?utf-8?B?MDA2V0l4NkVuVUNjWUNSRVNKZ3BDWlVLVHNOcUpEYW1LUHdmekJmcU9oUXZi?=
+ =?utf-8?B?Y2NjeGFDejNaTUNEd1kwckZZOTdKZk5BeDdETmFDYUpnTmFJNldEbVdNVmho?=
+ =?utf-8?B?M0xoRVVaMjlHTVNQRzh0YmNkZ21ySFMyTlFwaGdCSy9DQSs0TUVFUVRDdFdD?=
+ =?utf-8?B?ejFYb1FCMUFvd0NjQ3cvWHQvbDZtTUloa2FyTGRPTXZSZytrRE85NEs3SW1h?=
+ =?utf-8?B?Z2c5NGJiUEsxQm5sd3docjdoZmZ4TjZpZTFBcG5yc1A2a01sNVVoNnZEYTdL?=
+ =?utf-8?B?QTJGNExmemZXcEVKcGFBUHVLRFVJN0VlcGNmS0orRW1KVnpBVjJta0liVmNE?=
+ =?utf-8?B?TU1lUXNYOGpudGFqM0xQeGFqWkR6K0dleXNLckJVTWNXOFhqRENjT3I3bER1?=
+ =?utf-8?B?NVBiVDNManA5ZkZ1WmxMS3h5WHQyQy9xSmYzajRsYnhzZWhDKzB6c3d2ZzJH?=
+ =?utf-8?B?ZEpHUUUyY1Q5Z2lXREhjMmpyTVJoMmV5OFpqMm5obGJkbVlwZm45eEl6QWxH?=
+ =?utf-8?B?YWNIRTN6d2NJSm1OdTN3WjhyVGJrWmRtczVNVzlWMU5QUkUrOUVtL1FLM1li?=
+ =?utf-8?B?c3lDaWdCL0VKZ1E4MVVCVDh3cmowNHBJNUtWbktQSDJzQjduKzBJT1l2Q3JT?=
+ =?utf-8?B?blN6NEZnZW5OQjJuNG5oQU1tQzZyZzJsZGo4WEljSW1iUVJRMFNodVdjNlFQ?=
+ =?utf-8?B?UHlkZnVFb2dyOGFISTFHVkl0aUtkZktOclVTYXBBbE1RTE1acTYxZldWS3dW?=
+ =?utf-8?B?cUZHWWMyOVdlVnc4T0hxU2M3SUNPVGtqcnQ2YXhhNmNSRVlZQWJGcmh4TUxu?=
+ =?utf-8?B?WHpUTkdSLytnS1V6aVZlNCtzSEZIbm1DaGt6NCtFZi9mRGpiQjZuU1RvMlRi?=
+ =?utf-8?B?dFVKTldHVHJ6VDN3aVAxeGtmb0dLb1BjSTZXcnZ3ZVVmK2RIM0krd3NUeXNw?=
+ =?utf-8?B?U1VGUmdCK1dRN2JPRTJyQWpURi9kTExjMVduM201NkpsNnlEM21sRXBjSmtW?=
+ =?utf-8?B?ZkpkTTVTcWE5NU9kN3hHeU1KbWlBV2pvTGZtUEljblhlWERxM2hrNnExVlNW?=
+ =?utf-8?B?L3U4UmVSczJZR1FZMjF5RkRuS0tjRlQ2elZVREs0NlhMTHZ6ekFPQU1zVWdX?=
+ =?utf-8?Q?iz+NMquO10Sw1PHj6MLt+LEM76kD1Nc+?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6ec72c8-423c-49f8-b928-08da05876c92
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1264.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1770.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b8d25a1-1b0d-4837-7c89-08da0583e62a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Mar 2022 06:28:48.5495 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: adbqfZRydR1dDG/8Oi7PBijKKuXVo6+lpeQprxY9nViAmhP7WpRuyiixd/EpgUaF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1635
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2022 06:54:03.0843 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nQVuc3qXEwbofCdzZiFIStKF+2h2Xb7zj1PWci8Kd8CXuZTOrc2LNWdjjJxD3orliDCjhs6WM9Xj8JPmbzsuvA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5306
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,161 +124,138 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Clements, John" <John.Clements@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
 
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+On 3/11/2022 9:11 PM, Harry Wentland wrote:
+>
+> On 3/11/22 10:33, Shirish S wrote:
+>> [Why]
+>> comparing pwm bl values (coverted) with user brightness(converted)
+>> levels in commit_tail leads to continuous setting of backlight via dmub
+>> as they don't to match.
+> Why do the values not match?
 
-> -----Original Message-----
-> From: Chai, Thomas <YiPeng.Chai@amd.com>
-> Sent: Monday, March 14, 2022 1:52 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhang, Hawking
-> <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements,
-> John <John.Clements@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
-> Subject: [PATCH] drm/amdgpu: fixed the warnings reported by kernel test r=
-obot
->=20
-> The reported warnings are as follows:
->   1.warning:no-previous-prototype-for-amdgpu_hdp_ras_fini.
->   2.warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini.
->=20
-> Amdgpu_hdp_ras_fini and amdgpu_mmhub_ras_fini are unused in the code,
-> they are the only functions in amdgpu_hdp.c and amdgpu_mmhub.c. After
-> removing these two functions, both amdgpu_hdp.c and amdgpu_mmhub.c are
-> empty, so these two files can be deleted to fix the warning.
->=20
-> Signed-off-by: yipechai <YiPeng.Chai@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/Makefile       |  4 +--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c   | 30 -----------------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c | 30 -----------------------
->  3 files changed, 2 insertions(+), 62 deletions(-)  delete mode 100644
-> drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
->  delete mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile
-> b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index 5dfe08cb045e..40e2c6e2df79 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -53,11 +53,11 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_kms.o \
->  	amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o amdgpu_sync.o \
->  	amdgpu_gtt_mgr.o amdgpu_preempt_mgr.o amdgpu_vram_mgr.o
-> amdgpu_virt.o \
->  	amdgpu_atomfirmware.o amdgpu_vf_error.o amdgpu_sched.o \
-> -	amdgpu_debugfs.o amdgpu_ids.o amdgpu_gmc.o amdgpu_mmhub.o \
-> +	amdgpu_debugfs.o amdgpu_ids.o amdgpu_gmc.o \
->  	amdgpu_xgmi.o amdgpu_csa.o amdgpu_ras.o amdgpu_vm_cpu.o \
->  	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o
-> amdgpu_nbio.o \
->  	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o
-> amdgpu_rap.o \
-> -	amdgpu_fw_attestation.o amdgpu_securedisplay.o amdgpu_hdp.o \
-> +	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
->  	amdgpu_eeprom.o amdgpu_mca.o
->=20
->  amdgpu-$(CONFIG_PROC_FS) +=3D amdgpu_fdinfo.o diff --git
-> a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
-> deleted file mode 100644
-> index 3f3d92e16c2e..000000000000
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
-> +++ /dev/null
-> @@ -1,30 +0,0 @@
-> -/*
-> - * Copyright 2021 Advanced Micro Devices, Inc.
-> - *
-> - * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> - * copy of this software and associated documentation files (the "Softwa=
-re"),
-> - * to deal in the Software without restriction, including without limita=
-tion
-> - * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> - * and/or sell copies of the Software, and to permit persons to whom the
-> - * Software is furnished to do so, subject to the following conditions:
-> - *
-> - * The above copyright notice and this permission notice shall be includ=
-ed in
-> - * all copies or substantial portions of the Software.
-> - *
-> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-> EXPRESS OR
-> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> MERCHANTABILITY,
-> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
-> EVENT SHALL
-> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-> DAMAGES OR
-> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-> OTHERWISE,
-> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-> USE OR
-> - * OTHER DEALINGS IN THE SOFTWARE.
-> - *
-> - */
-> -
-> -#include "amdgpu.h"
-> -#include "amdgpu_ras.h"
-> -
-> -void amdgpu_hdp_ras_fini(struct amdgpu_device *adev, struct ras_common_i=
-f
-> *ras_block) -{
-> -
-> -}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
-> deleted file mode 100644
-> index 8f2fa247d605..000000000000
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
-> +++ /dev/null
-> @@ -1,30 +0,0 @@
-> -/*
-> - * Copyright 2019 Advanced Micro Devices, Inc.
-> - *
-> - * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> - * copy of this software and associated documentation files (the "Softwa=
-re"),
-> - * to deal in the Software without restriction, including without limita=
-tion
-> - * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> - * and/or sell copies of the Software, and to permit persons to whom the
-> - * Software is furnished to do so, subject to the following conditions:
-> - *
-> - * The above copyright notice and this permission notice shall be includ=
-ed in
-> - * all copies or substantial portions of the Software.
-> - *
-> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-> EXPRESS OR
-> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> MERCHANTABILITY,
-> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
-> EVENT SHALL
-> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-> DAMAGES OR
-> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-> OTHERWISE,
-> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-> USE OR
-> - * OTHER DEALINGS IN THE SOFTWARE.
-> - *
-> - */
-> -
-> -#include "amdgpu.h"
-> -#include "amdgpu_ras.h"
-> -
-> -void amdgpu_mmhub_ras_fini(struct amdgpu_device *adev, struct
-> ras_common_if *ras_block) -{
-> -
-> -}
-> --
-> 2.25.1
+Here is a sample of values:
+
+dmub_abm_get_current_backlight() reads backlight value as 11526 => 
+convert_to_user() as 45.
+
+user_brightness value to be set at this point is 159 => 
+convert_from_user() gives 40863.
+
+Now, we are continuously comparing 45 (current backlight) with 159 (to 
+be set from user space) in every commit tail till any actual changes 
+happen to brightness.
+
+Ideally, current brightness/backlight value read from pwm register, when 
+converted should yield 159 but it returns 45.
+
+Hence, I believe, there's a bug either in conversion back and forth of 
+user space levels or pwm register is not the right way to arrive at 
+current brightness values.
+
+>   It looks like the value mismatch
+> is our root cause.
+Yes, apparently I could not find any other register read that could bail 
+us out here and provide actual/proper values, hence this patch.
+> I remember a while back looking at an issue
+> where we the readback was from DMCU while we were setting BL
+> directly via PWM. I wonder if the opposite is happening now.
+>
+> See this for the previous fix:
+> 2bf3d62dabcc drm/amd/display: Get backlight from PWM if DMCU is not initialized
+
+The sample values mentioned above are with this patch applied.
+
+Is there a better way of reading current backlight levels, that reflect 
+user space ones?
+
+
+>> This leads overdrive in queuing of commands to DMCU that sometimes lead
+>> to depending on load on DMCU fw:
+>>
+>> "[drm:dc_dmub_srv_wait_idle] *ERROR* Error waiting for DMUB idle: status=3"
+>>
+>> [How]
+>> Store last successfully set backlight value and compare with it instead
+>> of pwm reads which is not what we should compare with.
+>>
+> Does BL work reliably after S3 or S4 with your change? I wonder if
+> there are use-cases that might break because we're no longer comparing
+> against the actual BL value but against a stored variable.
+I've verified this patch for boot, S0i3 and GUI method of changing 
+brightness on ChromeOS
+>
+>> Signed-off-by: Shirish S <shirish.s@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 ++++---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 6 ++++++
+>>   2 files changed, 10 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index df0980ff9a63..2b8337e47861 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -3972,7 +3972,7 @@ static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *cap
+>>   				 max - min);
+>>   }
+>>   
+>> -static int amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+>> +static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+>>   					 int bl_idx,
+>>   					 u32 user_brightness)
+>>   {
+>> @@ -4003,7 +4003,8 @@ static int amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+>>   			DRM_DEBUG("DM: Failed to update backlight on eDP[%d]\n", bl_idx);
+>>   	}
+>>   
+>> -	return rc ? 0 : 1;
+>> +	if (rc)
+>> +		dm->actual_brightness[bl_idx] = user_brightness;
+>>   }
+>>   
+>>   static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
+>> @@ -9944,7 +9945,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+>>   	/* restore the backlight level */
+>>   	for (i = 0; i < dm->num_of_edps; i++) {
+>>   		if (dm->backlight_dev[i] &&
+>> -		    (amdgpu_dm_backlight_get_level(dm, i) != dm->brightness[i]))
+>> +		    (dm->actual_brightness[i] != dm->brightness[i]))
+>>   			amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
+>>   	}
+>>   #endif
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>> index 372f9adf091a..321279bc877b 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>> @@ -540,6 +540,12 @@ struct amdgpu_display_manager {
+>>   	 * cached backlight values.
+>>   	 */
+>>   	u32 brightness[AMDGPU_DM_MAX_NUM_EDP];
+>> +	/**
+>> +	 * @actual_brightness:
+> "actual" seems misleading here. We might want to call this
+> "last" or something along those lines.
+>
+> But let's first see if we can fix the mismatch of BL reads
+> and writes.
+
+Yes, lets thoroughly evaluate if there is any other way.
+
+Regards,
+
+Shirish S
+
+>
+> Harry
+>
+>> +	 *
+>> +	 * last successfully applied backlight values.
+>> +	 */
+>> +	u32 actual_brightness[AMDGPU_DM_MAX_NUM_EDP];
+>>   };
+>>   
+>>   enum dsc_clock_force_state {
