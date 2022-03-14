@@ -4,72 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6881C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 15:26:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A95BC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 16:06:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B25A10E9D1;
-	Mon, 14 Mar 2022 15:26:54 +0000 (UTC)
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A5F510E9CF;
- Mon, 14 Mar 2022 15:26:53 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id l20so27766808lfg.12;
- Mon, 14 Mar 2022 08:26:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=fKgE1rnRG4HBtj5SvFh+Y+9SUta1M7cwhSXZkkFBy9Y=;
- b=J9ZnlWYbCraumGbyZy4ERvMfp63bshVAzQO6Dy8AisZd9sWwUv8ZqWATFeA7b66faV
- gWd0b6Z8vvwtGLUygUmHfDechhvBV2cHGplet1i4Q+YuTWWnvCeTVFu5+/Gu+r8Pvnvi
- /pE3WK8MGaGdDquTyWa3JNGkfGYPhLS4RwcFNr5RgbNt9KcfwQIu7DzXoIE8bJX5t/BB
- w0HwnERpNeRcoC0a6UHQhV9ZGbNE2fUsCakEFNTuS2kEJVjgZPdYEQhhX1+T2u5pt3Ur
- FD/L2Nfhk6e1jlAV7Hm4LJtCwFdfRBNpeYT3Yvo7bEgBWbJVcQGae3AiIr+HKZBthJWe
- 3hXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=fKgE1rnRG4HBtj5SvFh+Y+9SUta1M7cwhSXZkkFBy9Y=;
- b=kQPD55lAX72VDuJfVCEAspvLpvUZ7rINmpYZhlFxykqfdqOi0f03BmV9KHWquhDo1o
- Nwu8LFGo21MTQBLijeWDy2CQJVllejZECUeVT5ipdgj9+CkZjDEd5JpCP6e5PxR4n04x
- qPt2fTxP9v4ntLSzonvzdAbImgPp4y6S/npB/f+gax4zUp7YnYUKxc4dmHjxFg8SHISF
- M/cDLFOG97scyN4KrSmw9LOMnuGzGiT16um00IMftvChvvqBiowKkwShrZob0k393rm/
- 5yLEp5ZrsmJqHt+AgvSV8qkkeaZ1vA12S5ScGZuClX2TFyEpdX7fqRZGlhGj8gr3SMoR
- gwrA==
-X-Gm-Message-State: AOAM5302woPJwZuq5Ox6xPhFCyoziSifhx+lCM5dKKLk++raXQWvXsrE
- m5JkqaTLTKEhOkrOxPSn0NI=
-X-Google-Smtp-Source: ABdhPJwIQpDnLSX4P3q6wyWIb5hnHE4MPAI8S3rFBzJcTRMmgEqLY/96v9pR9LtkfntHUkTfv4ngEg==
-X-Received: by 2002:a05:6512:3a83:b0:448:9135:d9f4 with SMTP id
- q3-20020a0565123a8300b004489135d9f4mr4400694lfu.259.1647271611337; 
- Mon, 14 Mar 2022 08:26:51 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- h8-20020ac25d68000000b00447b5cad2a7sm3330161lft.228.2022.03.14.08.26.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Mar 2022 08:26:50 -0700 (PDT)
-Date: Mon, 14 Mar 2022 17:26:47 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-Message-ID: <20220314172647.223658d2@eldfell>
-In-Reply-To: <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
-References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
- <CAF6AEGsmectHSmW-Y6rf+AksXTkges7rukeiYd4yDm-xwdb1=Q@mail.gmail.com>
- <55629bd8-9fb4-2ee7-87f0-6c4c77cf06fc@gmail.com>
- <CAF6AEGsgDTphUm7ET+RuMmh2aTn-Ho5gJdUJ4kwJ3iOh7+HGvw@mail.gmail.com>
- <4f2b2329-3c57-3895-6732-875db2f98b5a@amd.com>
- <CAF6AEGvvskobh6YOUx55_4rtXJJjPO0PxWY8+EKiVqntT3k+ug@mail.gmail.com>
- <6b400b8b-1b5c-a339-2345-f317f197b4a6@amd.com>
- <CAF6AEGt0XhqzkyEhbNcNVQO_A_Lo4qcsPRZRL6QqYn+NWAfv9A@mail.gmail.com>
- <bf6922f0-da8e-eef6-8217-26c1f50f3c48@quicinc.com>
- <2980e6a0-624e-2b80-c5d0-c40dfce76fb8@amd.com>
- <CAF6AEGvC=k4xLA-0iTSf660X2o04E+ivjnThZA-=WANKzLSvpA@mail.gmail.com>
- <cda15a47-f469-2a7e-87b6-adf00e631ef0@amd.com>
- <CAF6AEGv3Wv+p1j2B-t22eeK+8rx-qrQHCGoXeV1-XPYp2Om7zg@mail.gmail.com>
- <20220311102709.225616cf@eldfell>
- <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8940010E3A4;
+	Mon, 14 Mar 2022 16:06:24 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2046.outbound.protection.outlook.com [40.107.96.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9750610E370
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Mar 2022 16:06:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=knv0qgetKHFcjteABY2zFcGKw4m+SXtV7I4vbdGfYeM/a3LpCjn8JEyQhwp9nqBLtVrJvwNH3eSK/MLqeIEad2DbbAQj6tDgquNnIGjw4Y4dQVCCC0fM/SP4LW81ZcRaVNQZ/s4UdG0e/bnvbLhKwwCT245G0PAIq7RIte92FFC8vqvzCuKjKMuYSjVHmzfsq2CVn5f8SM4+deTHtPaXpsGtkAeCAKbfvkGCfcgnO5bKW3KPYuG9u67W7va2WcEHFQ5YCWA8fadC26kt55mUxLisThDNa7gr+ngV6tOxWFRk/8M0QtlV+2Xnq7HevxrcuX1Pj1OjeXFRXVxxNobkjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TEd5dWqvHnVeZ2mhiVJBnRcUwlKcehOz/d06nVDSpIg=;
+ b=lqBzZMgUkXbMF0rilgddlEo9Ct1i3TAHusfwvLYuhBf7Y9cRKUrAB+GKMJwNCc/+5GB5zs0ZYtuYxqLODfi7sp0v5HMryfgcyfaRpf/NU1wVZdZutTNATaiks6skx2fH6dQFIJxPQsl7X0+cXT6l1XXwo6q2LzZgTotiLV0uKRCKhzUOXL4RJ7osV1W/wJblCQUh6nOlRe/VZSxupFBfeMwKzdNxRYpnuKIr857HAaieS2qioaXJjLTHU9lihD/fPbRIbas51EXrlYRunljqwrb5roTN2PxbDQFteHOfAm1T571Hvjn5YyDQWzvASYA6W0QUoEO4crqZwBuZfwRuRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TEd5dWqvHnVeZ2mhiVJBnRcUwlKcehOz/d06nVDSpIg=;
+ b=MoORsxqUoVjw1pM2vJTjhuEgApgDGKUYwITy+ofJw3aY2Uuzdmvgn3+QrksvdpNFC50OC8Ky7+r0z/35/68BAKesYdRteBSiSazJf72FSRta1zD7lgjd28vZlzDlCCT8RWfRYmFIOQvf392b/gDZ25mWk96i4URnPDpmeSeXFmU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
+ MN2PR12MB3533.namprd12.prod.outlook.com (2603:10b6:208:107::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.23; Mon, 14 Mar
+ 2022 16:06:16 +0000
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::48fa:fb41:64d0:50dd]) by DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::48fa:fb41:64d0:50dd%5]) with mapi id 15.20.5061.028; Mon, 14 Mar 2022
+ 16:06:16 +0000
+Message-ID: <e54bbfa5-bcbf-8b84-8c94-c181c774c64c@amd.com>
+Date: Mon, 14 Mar 2022 12:06:11 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+From: Luben Tuikov <luben.tuikov@amd.com>
+Subject: Re: [PATCH] drm/amd/pm: fix indenting in __smu_cmn_reg_print_error()
+To: Dan Carpenter <dan.carpenter@oracle.com>, Evan Quan <evan.quan@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>, Huang Rui <ray.huang@amd.com>
+References: <20220314140405.GC30883@kili>
+Content-Language: en-CA
+In-Reply-To: <20220314140405.GC30883@kili>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT3PR01CA0092.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:85::8) To DM6PR12MB3370.namprd12.prod.outlook.com
+ (2603:10b6:5:38::25)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/Sc/D9Hyi11POm+mfvaxjWi=";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: cf65e9db-2f9b-4a66-71a1-08da05d49189
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3533:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3533ABD6F609430CE136FAF3990F9@MN2PR12MB3533.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: GWs0waT3ZJv85KcmZcQXBPEWk3VEikJ4pxoSQpKEG9JqGBmfPkEO44XfFapLMPWmdv4gz6Uh/MZxa/LpZ7hAv6T7rXFh9sGvjRN9xOwno0JsTe3RL16QhWWdTR7A0dzmefP8jTSIGWpjGDaf5H3oKDIdPeS5nV6WMOmFngbKBjW54QljJpBVotULaMW3+T16QhvINPdhoH9ul4QNgK5Pyrmk/F9jmUi0HwfZi8PAwd/YuqoB/I3I2hWDyGchkb61HU3YsjOvBsGiA5pnsZuH0eZxsSPHZHZW8jCqEyTouQhAxDI1paLdNKZXGGl9ZJmUbN20Iix0PZ+BaNCun35P/OxkjgXemCxxg8hWEloaCO5e3HCsXyMab3v4HzkufINimI3y3zzCNpwYCXVHYNxIGKq6D2KKfUbtY3x+BYZx95Atpw8f7rdbmU9l7IXRhpePY1l8EDk9Iaor0tfbOibqTHl2m0CQu9rEt0efPfpqOIaqR/mYxmPyE31i42/BL5bLoi7Mr4rpbA+qkcQFg7eU/9dAuRtVqk7FjuX648nogo0yUJwquZPO5+zF+cEZbM35Y3nOoIP+Y7DBb2f0HqvLX/aTwOeNfRNa8Y3DhNErCfzLMR0+z9jF9bvU78EafXpAcPC6UwCFJM+6cBYiH4rfSa/ls8tu9BjGayTs1Me+91hTbXopZ4yHrL/dhrJgjrucXPvpq75SASrNv2Vfoo2MZg9tdWJuZ+/8JVzi4qTjSWM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(316002)(8676002)(36756003)(2906002)(31686004)(4326008)(6636002)(110136005)(54906003)(66556008)(66476007)(66946007)(53546011)(6666004)(6486002)(6512007)(6506007)(5660300002)(8936002)(508600001)(44832011)(26005)(83380400001)(86362001)(2616005)(186003)(31696002)(38100700002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVRmSE93Uit0L1ByRHNYWnFHeHVQZXByNGI3eTVGYVFRZGJLTi9GTU1HNUta?=
+ =?utf-8?B?NE9DTDVyK1pOZU5RWW5kVkRrUW44Mzc3cFZwb2piemt1N2dSYzEyRXRjemZk?=
+ =?utf-8?B?QmUyNXo0a3djaU9oUnhFTWlQRmMyYWxxVDYvK2pDdWRIYXlFSFNkZ095Z3FE?=
+ =?utf-8?B?dGdVanJTUnNGNW51bTI3a0M0Z3lITms5UVpWbmgwcDlmMStBd21Sck9MaVJR?=
+ =?utf-8?B?bWNvOFk2aUdJZ0hjRG5UZ3BmZVNZSGh3VzduUWJSRGI3UGVLZ3VBandmcnVz?=
+ =?utf-8?B?TTBCZ3BUYlROS0pMUGpjc2pqYlpJSmdiTFhjRFFwTi9lUU9kajh1N2xaUmpI?=
+ =?utf-8?B?VjFxd3g2YzB5L3NzQTkzMEFLWDFYV3p0Si93Y0JxZSsrbnZ3eEcwcjJUSisr?=
+ =?utf-8?B?RzczNDNVYW1BYjRGVDRwWUQ2a0JjVjdyNjFBUkRjbnNOMXZoZzk0UmhpWDFv?=
+ =?utf-8?B?N3p4M2xPL1cvODBuVlNzTE4xc3BuQ3MyeTNCL01GS051NldKVnVEZXQzZUFD?=
+ =?utf-8?B?a0paVXNJNllXVFZtYUp0OERYT1I5eGFDcnRxZWdvdFVMUDg0N2h2VS9mYkVD?=
+ =?utf-8?B?NFppeEFiNU5EMFN5MWRhLzJiVTdBZUZyMnpWSzJJd3dJdjhaZVdDNndVaUtQ?=
+ =?utf-8?B?T1dOaWZ3NnFGQWp5RkdXcEhiMUM0aEV3cHlMMmg1SVJPZ3JJM29GSUFPUm1S?=
+ =?utf-8?B?WFJxcHl2NUxLbzhacDVYeENYWDJEQzBaeC9nOUdmTFpGSmgxRGx4bzU2a2JP?=
+ =?utf-8?B?bUw0VXdTdmZGQTlOallMaVRkTjg3TTV1bzhYb2JjVlYxejRFSHpPQndwTisv?=
+ =?utf-8?B?RGI1eGd2WUhYWDRDY1NlbENCb2dkazByZlNQZDBXTFFqMkd3WTNvZzB3VzY4?=
+ =?utf-8?B?MmlLTGF1RU0rN0RFNzF6azhrQWFKSzFFbkdUdXNqN2U0SVZKdlkySWc4d3B6?=
+ =?utf-8?B?RGNqU0dTUC9obHM4TVN6OVYwRnlvZ3p4dXpQd2RldnltRC9NQTh1Sk9nM1Q3?=
+ =?utf-8?B?dkZjUTcvVkprVmRoYUZRTDBuTkJjNndkdGJDVmFiQldUNktIcGpjWVdrWTJ0?=
+ =?utf-8?B?aGpKL1FWRTlMMWRobk1vM2M0WFdBY0Q0bWw2aXhZN3hXMU1CSmF5MGNxUUYy?=
+ =?utf-8?B?WUcxSFcvb2N4UDZZVHlMUCtTdDM0MklWM0Rka1cwYjFCUFhDYlRDeXFuM3My?=
+ =?utf-8?B?dDRhbjkvQUpSUnl6SnBSZmhMeXJQak1kc2JtQ1hlUVFaemhocUx3L2FOQVRD?=
+ =?utf-8?B?LzBUOWhCN3A1VlpkbCtUTWtsV3M4MzQrQVhScW15ZE9FQVhFQXNJRXo1NlRY?=
+ =?utf-8?B?YjdEZXFveUMrbGN2aDRRd2JZb2Jlc2ZGVzY3RFB1TkdzaEtUaTVmTDdlZzNr?=
+ =?utf-8?B?NmtDZ01uSnI0V0FLM0duMjd6UW94MXZIYzRyaVJPWXkrVTFxcWtTVVNWeWtG?=
+ =?utf-8?B?dUFxcnhPVm5INkFwSWJJZ1cyYlNzc0ViNlpZWU1sNzhsOVhzeXdvNDlkc0pZ?=
+ =?utf-8?B?MFpFazdvcFNIdWtNMy90MkZhMGhBRVRkOHMxenVTU0F5bHVlelVJVDdDRjFS?=
+ =?utf-8?B?Njg3SDRGbTZmMG16RTZhMmt4LzJwWExxTmI4a1I3ajFTT0hQcFp4MURpNUYx?=
+ =?utf-8?B?N05YdEVQYURmRFBCMmIvMFFybW5jb29sZ2d3TjhoRkpXYWtwMmZNQ1gvSHda?=
+ =?utf-8?B?OUswSjdROE5GRHdKdVp0eERUQll6NGRWUEJTdmt6MXNoeVZsYmRKb3pyRzNK?=
+ =?utf-8?B?aVcyaCtvY2RYM3NtUnBRY3o3eHBia09ybGJaWjlXRHhrd2dMbHQ2WmEvd2ZX?=
+ =?utf-8?B?aXJNeGVXdXhlcmxiUnhCTUgrZUFtMm9FWC85MTRpWjJHUDVnbmZ5QlB0ODFY?=
+ =?utf-8?B?N2dUWFVwMERldEJtUENsb2hDdEZFckRsT3dlK2dKTmsyN25OSC9Gd2hvWkNE?=
+ =?utf-8?Q?5vItpHfwqzaNFL+Z7q1ywnMCQBdVJXjW?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf65e9db-2f9b-4a66-71a1-08da05d49189
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2022 16:06:16.1130 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5zMvLDYXV8jEKCr/UWn8fbS1d589Rv5QP48nt9FhwnU8ACr2UxhDsTzHQMH7jZxH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3533
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,138 +122,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
- Shashank" <shashank.sharma@amd.com>,
- Christian =?UTF-8?B?S8O2?= =?UTF-8?B?bmln?= <ckoenig.leichtzumerken@gmail.com>,
- Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alexandar Deucher <alexander.deucher@amd.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: Lijo Lazar <lijo.lazar@amd.com>, Guchun Chen <guchun.chen@amd.com>,
+ David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Prike Liang <Prike.Liang@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Darren Powell <darren.powell@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Graham Sider <Graham.Sider@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/Sc/D9Hyi11POm+mfvaxjWi=
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Thanks!
 
-On Mon, 14 Mar 2022 10:23:27 -0400
-Alex Deucher <alexdeucher@gmail.com> wrote:
+Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 
-> On Fri, Mar 11, 2022 at 3:30 AM Pekka Paalanen <ppaalanen@gmail.com> wrot=
-e:
-> >
-> > On Thu, 10 Mar 2022 11:56:41 -0800
-> > Rob Clark <robdclark@gmail.com> wrote:
-> > =20
-> > > For something like just notifying a compositor that a gpu crash
-> > > happened, perhaps drm_event is more suitable.  See
-> > > virtio_gpu_fence_event_create() for an example of adding new event
-> > > types.  Although maybe you want it to be an event which is not device
-> > > specific.  This isn't so much of a debugging use-case as simply
-> > > notification. =20
-> >
-> > Hi,
-> >
-> > for this particular use case, are we now talking about the display
-> > device (KMS) crashing or the rendering device (OpenGL/Vulkan) crashing?
-> >
-> > If the former, I wasn't aware that display device crashes are a thing.
-> > How should a userspace display server react to those?
-> >
-> > If the latter, don't we have EGL extensions or Vulkan API already to
-> > deliver that?
-> >
-> > The above would be about device crashes that directly affect the
-> > display server. Is that the use case in mind here, or is it instead
-> > about notifying the display server that some application has caused a
-> > driver/hardware crash? If the latter, how should a display server react
-> > to that? Disconnect the application?
-> >
-> > Shashank, what is the actual use case you are developing this for?
-> >
-> > I've read all the emails here so far, and I don't recall seeing it
-> > explained.
-> > =20
->=20
-> The idea is that a support daemon or compositor would listen for GPU
-> reset notifications and do something useful with them (kill the guilty
-> app, restart the desktop environment, etc.).  Today when the GPU
-> resets, most applications just continue assuming nothing is wrong,
-> meanwhile the GPU has stopped accepting work until the apps re-init
-> their context so all of their command submissions just get rejected.
->=20
-> > Btw. somewhat relatedly, there has been work aiming to allow
-> > graceful hot-unplug of DRM devices. There is a kernel doc outlining how
-> > the various APIs should react towards userspace when a DRM device
-> > suddenly disappears. That seems to have some overlap here IMO.
-> >
-> > See https://www.kernel.org/doc/html/latest/gpu/drm-uapi.html#device-hot=
--unplug
-> > which also has a couple pointers to EGL and Vulkan APIs. =20
->=20
-> The problem is most applications don't use the GL or VK robustness
-> APIs.
+Regards,
+Luben
 
-Hi,
+On 2022-03-14 10:04, Dan Carpenter wrote:
+> Smatch complains that the dev_err_ratelimited() is indented one tab more
+> than the surrounding lines.
+> 
+> 	drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu_cmn.c:174
+> 	__smu_cmn_reg_print_error() warn: inconsistent indenting
+> 
+> It looks like it's not a bug, just that the indenting needs to be cleaned
+> up.
+> 
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> index ae64d1980f10..b8d0c70ff668 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -164,17 +164,17 @@ static void __smu_cmn_reg_print_error(struct smu_context *smu,
+>  
+>  	switch (reg_c2pmsg_90) {
+>  	case SMU_RESP_NONE: {
+> -	if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 5)) {
+> -		msg_idx = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_2);
+> -		prm     = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_34);
+> -	} else {
+> -		msg_idx = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66);
+> -		prm     = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
+> -	}
+> +		if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 5)) {
+> +			msg_idx = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_2);
+> +			prm     = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_34);
+> +		} else {
+> +			msg_idx = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66);
+> +			prm     = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
+> +		}
+>  		dev_err_ratelimited(adev->dev,
+>  				    "SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x%08X SMN_C2PMSG_82:0x%08X",
+>  				    msg_idx, prm);
+> -	}
+> +		}
+>  		break;
+>  	case SMU_RESP_OK:
+>  		/* The SMU executed the command. It completed with a
 
-how would this new event help with that?
-
-I mean, yeah, there could be a daemon that kills those GPU users, but
-then what? You still lose any unsaved work, and may need to manually
-restart them.
-
-Is the idea that it is better to have the app crash and disappear than
-to look like it froze while it otherwise still runs?
-
-If some daemon or compositor goes killing apps that trigger GPU resets,
-then how do we stop that for an app that actually does use the
-appropriate EGL or Vulkan APIs to detect and remedy that situation
-itself?
-
->  You could use something like that in the compositor, but those
-> APIs tend to be focused more on the application itself rather than the
-> GPU in general.  E.g., Is my context lost.  Which is fine for
-> restarting your context, but doesn't really help if you want to try
-> and do something with another application (i.e., the likely guilty
-> app).  Also, on dGPU at least, when you reset the GPU, vram is usually
-> lost (either due to the memory controller being reset, or vram being
-> zero'd on init due to ECC support), so even if you are not the guilty
-> process, in that case you'd need to re-init your context anyway.
-
-Why should something like a compositor listen for this and kill apps
-that triggered GPU resets, instead of e.g. Mesa noticing that in the app
-and killing itself? Mesa in the app would know if robustness API is
-being used.
-
-Would be really nice to have the answers to all these questions to be
-collected and reiterated in the next version of this proposal.
-
-
-Thanks,
-pq
-
---Sig_/Sc/D9Hyi11POm+mfvaxjWi=
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmIvXrcACgkQI1/ltBGq
-qqdksw/+KOp3Py4F1yttes+fGrLUl6NwhO/Kvt5pQsjSlpdY1UwlG4hyfcedUYdA
-TDeAuarXX5CJjIoSci7W/rYv8lnSEbLaIcRdfC+4iq0XncF/GCZBk20Pde4lrc6K
-NQptQcP6QQU9F6s8r5UYc36XnQkbWhM+AP6x3FkP2MndYkvboNP8/NwnmpaOCQHM
-G1llViL3Ge+TBeOq57lczfYMpUjE5JH6WR+kLstnzmjfwnZefrebGrjVDCduWbOG
-h96HaPSOxs+ABIwoWux/XoGDqhBRfjWPiMLB+Evol0UXhdTLDOoZ2B8EjImHYJCZ
-cfU5kch8ixd6IaTFRAtq7u4uRYLvSFyi7rUcTbmObLTUF7FpK/quSQoOiOD6kajo
-nsKMIZgaufkc+QSvVdt0ztH3k4Sfx/iNmDpc7sr3Mx3c0PaLEVcEuOFvPLtIWrMW
-XA9klIifwXKKcSdGJYgPq0U4jrgsxolHIa7iF+alKNTS0rRLBREzVNgIpJOpeRn6
-W4ITPgvWBuiGAes7HvYerh0KnUewhEMSLlRfqnpgVZBbJGnrk/wJDro5sU3CXwuA
-XEnWPBgXho0NxPcFJLqXZJXdDmMnZGqKWB34TavU/Oqk+HrahUvDiRPADSj+6eoj
-tgwEqS9p/DV7v9ETm20TsHl7QOONgjJPNLYcw4OTMIKkYcQQNSI=
-=seoj
------END PGP SIGNATURE-----
-
---Sig_/Sc/D9Hyi11POm+mfvaxjWi=--
+Regards,
+-- 
+Luben
