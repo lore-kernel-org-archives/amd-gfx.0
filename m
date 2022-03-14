@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A74FC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 20:44:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 524B8C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 20:47:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6662410E26A;
-	Mon, 14 Mar 2022 20:44:51 +0000 (UTC)
-Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
- [IPv6:2607:f8b0:4864:20::c2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0244910E26A
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Mar 2022 20:44:50 +0000 (UTC)
-Received: by mail-oo1-xc2b.google.com with SMTP id
- g5-20020a4ae885000000b003240bc9b2afso9361322ooe.10
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Mar 2022 13:44:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0B6210E2F2;
+	Mon, 14 Mar 2022 20:47:28 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D77C010E2A6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Mar 2022 20:47:27 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ j3-20020a9d7683000000b005aeed94f4e9so12664562otl.6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Mar 2022 13:47:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=zG+d/uKNgTQFwKs/qCVQ5ToSUVRXxPWj/NUMadJYqQ8=;
- b=A1bosvQJOKw6yUPXwwL5nTkIYiNs239SR5diSZiJGteFeyeMxY+6BhymkiZAAR7mK8
- j+FootOmwEfSN6ftC9JNbmld48W/VmvIH38IcexJ+3Xys3ENvxqGIOyNX7bMJntndACX
- 9OZNyBPdBHj9toZr3w2EKLHdquB3iRnICSogeZQEBNT0AX5xZuWihWFqr9N9EUEFjcI/
- owBSB7ykepc+8sgF+SMgkXWcTDABmCWGpGF2BTI0PtUaaWu3/TZC2R2ce16Q6/Sbkvk9
- iKdqPqU6izP/E7+0VJzDxPsqu/gHWUmmBC3UqOpik7GOFOb/dLsha2dMjkIzLMrRzASo
- NfHA==
+ bh=7p/mfjx/cTwkEIkTp4IeTUDk5SqY6rEgiU2INODevbI=;
+ b=jbt6JEs2SZucaAJw2+MCJ8iWqnUpMQwSHswsOVdm7e6cDoEYybVipREF63hYqpviG3
+ m1OqAV+6YC5HMPNg/01Vcsi+lq7Me6GG7Int6qieSwEzH8p2PKXsKCG1tDPBdsz+oPyK
+ vd+WROjlooyfmmUZ0lF4iA9Joj4GnjCOx/L44Bu8yzTDmvkGasftsM0D+V4rVSKb3fxO
+ QCmCAM5yN1Kgs1cT4gXOpKMda2xtCG3YR1XdUs/lplwylbvmVfKqRl5+4FTR0ik6EPCG
+ aQTxvInHMtodrAKcvjfQ0AGK9p9734yOB4OUomTonj0NAjBwmJPVo+cXdVgDv9O0vOVb
+ qz5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=zG+d/uKNgTQFwKs/qCVQ5ToSUVRXxPWj/NUMadJYqQ8=;
- b=k+B+5sObEw5rtfg4EY4QpDDN7HdRnDednE2gOlk1dYWVlzeJwRuoPrEC9BHWxsujaQ
- uF3jgzbsIE/GGQXO6Q8xKY3sBxEo+rhuX09NtTUdgchaxO+yio+hrugIF88WTtFmiOQk
- 0juAdBBmDcF9j8Xgvk4Q2bfNnigifqcytq5AZ6aH49VSeufAIB2d16ED99PD77OXOAKR
- GYVv7YuLBRjmAdVfAPaB7WDxpZdsK3LXweZqG2tD8TFMfqry9yVDW/Fk32W3xfo47Si0
- PZyqBwx+EPbWpipFEARDXExV8Y1o/0TC/4x/aZmOvB1H/mjBUg3WAfcuBscx8V0V2H3o
- ErYA==
-X-Gm-Message-State: AOAM533n2braQn5w4tJPslrDm/aj/6zcVb9/mkaFz+yjNDuJA+sCXT2a
- IUFinuJ0PzalqDtfziejV0v7vtREotLjor+XSM4=
-X-Google-Smtp-Source: ABdhPJxxcEsUOdRh7PH/Mx3kG8JxO72DBsIF40OQOpy4BPAoqB5fczfcZsChb2GDMa+LlKQsQsYvqhLfhGihDso9FkM=
-X-Received: by 2002:a05:6870:d250:b0:da:b3f:2b29 with SMTP id
- h16-20020a056870d25000b000da0b3f2b29mr364430oac.200.1647290690240; Mon, 14
- Mar 2022 13:44:50 -0700 (PDT)
+ bh=7p/mfjx/cTwkEIkTp4IeTUDk5SqY6rEgiU2INODevbI=;
+ b=kcslVTD1jLBB5+rjo1sjKGr3pVY9UqueY/RC/e4yip6H89iYNojnjzOIyadspHrlhG
+ xpscMsQPFmpu9+amsqLhY0cEhIoNjflV5SwXoLmgB8yASLDH+UA10xMLWyRdL/+Z7UPf
+ znYr4Vyu6LGTzsDIbiahn2B6yo8fieGHY4O/9bKzObSPfMqtq474m4hrPMPqsaJUNNrA
+ Zy330nmxHkzrlURJDPjUsnP2a/nZ63nUNT4Y7TP7viAbmEPQsBRHBqEUBVssDyYkHBbC
+ lY5+zyKAXUrO2y+D94qzD3bqvohCO+aQP/Vy+n9Kfdo8MFc+u/3vl23VShEgw1Nt8hlK
+ SlSA==
+X-Gm-Message-State: AOAM530USeUC0AhMaY2CFusdQsMH1Y/z5wzcZynxklbQrJlBlH1S89KK
+ 3IsT5KhJMBH6n/KxwayLeAAgK3d4JxjyJ4Re6FY=
+X-Google-Smtp-Source: ABdhPJzIMAsP6ZrNWowfG2+gsNQyUUalhlXkeDsur7PCgRP4WbB8wNmZRgkvQ0/4s1112lQ2EPoZTN9R/LmsZTh0BCE=
+X-Received: by 2002:a05:6830:2709:b0:5b0:196:dcf with SMTP id
+ j9-20020a056830270900b005b001960dcfmr12172479otu.357.1647290847128; Mon, 14
+ Mar 2022 13:47:27 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220314185403.137623-1-yongqiang.sun@amd.com>
- <20220314185403.137623-2-yongqiang.sun@amd.com>
- <e2b06b36-293f-ce39-0f78-d4768ac0456b@gmail.com>
-In-Reply-To: <e2b06b36-293f-ce39-0f78-d4768ac0456b@gmail.com>
+ <36a827c9-1ec9-1131-7d92-d5dc972472a1@gmail.com>
+In-Reply-To: <36a827c9-1ec9-1131-7d92-d5dc972472a1@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 14 Mar 2022 16:44:39 -0400
-Message-ID: <CADnq5_P4wWnhzn1zwFA4TgbGPTVcWUbDTVtmGO5w5bWGS_JtEg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Add stolen reserved memory for MI25 SRIOV.
+Date: Mon, 14 Mar 2022 16:47:16 -0400
+Message-ID: <CADnq5_NCPZqm7XELbJDZ_zBMGA0indEOQKGNOBpREEzSrP7ePA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Use fw vram offset when allocating stolen
+ vga memory.
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -72,160 +72,123 @@ Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, nikola.veljkovic@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 14, 2022 at 3:41 PM Christian K=C3=B6nig
+On Mon, Mar 14, 2022 at 3:35 PM Christian K=C3=B6nig
 <ckoenig.leichtzumerken@gmail.com> wrote:
 >
 > Am 14.03.22 um 19:54 schrieb Yongqiang Sun:
 > > [Why]
-> > MI25 SRIOV guest driver loading failed due to allocate
-> > memory overlaps with private memory area.
+> > Memory access violation will happen in case of allocate stolen vga
+> > memory with size isn't 0.
 > >
 > > [How]
-> > 1. Allocate stolen reserved memory for MI25 SRIOV specifically to avoid
-> > the memory overlap.
-> > 2. Move allocate reserve allocation to vbios allocation since both the
-> > two functions are doing similar asic type check and no need to have
-> > seperate functions.
+> > when allocating stolen vga memory, use fw vram offset as the start poin=
+t
+> > instead of hard code value 0.
+>
+> Please stop separating commit message into [Why] and [How], that is not
+> well received everywhere.
+>
+> Apart from that the patch is a certain NAK, you are messing things quite
+> up here.
+>
 > >
 > > Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
-> > Change-Id: I142127513047a3e81573eb983c510d763b548a24
+> > Change-Id: I7c555a6c1fb4b3fa8685753b4bdcbe215f89ea1e
 > > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 37 ++++++++++++------------=
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 31 +++++++++++++++++++-----=
 -
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  1 -
-> >   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  1 -
-> >   3 files changed, 18 insertions(+), 21 deletions(-)
+> >   1 file changed, 24 insertions(+), 7 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gmc.c
-> > index 7c2a9555b7cc..f7f4f00dd2b2 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > @@ -626,6 +626,11 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgp=
-u_device *adev)
-> >   {
-> >       unsigned size;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_ttm.c
+> > index 41d6f604813d..1f635fdb0395 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > @@ -1708,6 +1708,7 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+> >       uint64_t gtt_size;
+> >       int r;
+> >       u64 vis_vram_limit;
+> > +     u64 memory_offset =3D adev->mman.fw_vram_usage_start_offset + ade=
+v->mman.fw_vram_usage_size;
 > >
-> > +     /* Some ASICs need to reserve a region of video memory to avoid a=
-ccess
-> > +      * from driver */
-> > +     adev->mman.stolen_reserved_offset =3D 0;
-> > +     adev->mman.stolen_reserved_size =3D 0;
-> > +
-> >       /*
-> >        * TODO:
-> >        * Currently there is a bug where some memory client outside
-> > @@ -635,11 +640,24 @@ void amdgpu_gmc_get_vbios_allocations(struct amdg=
-pu_device *adev)
-> >        * Keep the stolen memory reservation until the while this is not=
- solved.
-> >        */
-> >       switch (adev->asic_type) {
-> > +
-> >       case CHIP_VEGA10:
+> >       mutex_init(&adev->mman.gtt_window_lock);
+> >
+> > @@ -1774,24 +1775,40 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+> >        * This is used for VGA emulation and pre-OS scanout buffers to
+> >        * avoid display artifacts while transitioning between pre-OS
+> >        * and driver.  */
+> > -     r =3D amdgpu_bo_create_kernel_at(adev, 0, adev->mman.stolen_vga_s=
+ize,
+> > +     r =3D amdgpu_bo_create_kernel_at(adev,
+> > +                                        memory_offset,
+> > +                                adev->mman.stolen_vga_size,
 >
-> Please don't add empty lines between switch and case. Good practice is
-> to check your patches with checkpatch.pl before sending it out.
+> That is certainly incorrect. See function amdgpu_ttm_fw_reserve_vram_init=
+().
 >
-> > +             adev->mman.keep_stolen_vga_memory =3D true;
-> > +             if (amdgpu_sriov_vf(adev)) {
-> > +                     adev->mman.stolen_reserved_offset =3D 0x100000;
-> > +                     adev->mman.stolen_reserved_size =3D 0x600000;
-> > +             }
-> > +             break;
-> >       case CHIP_RAVEN:
-> >       case CHIP_RENOIR:
-> >               adev->mman.keep_stolen_vga_memory =3D true;
-> >               break;
-> > +     case CHIP_YELLOW_CARP:
-> > +             if (amdgpu_discovery =3D=3D 0) {
-> > +                     adev->mman.stolen_reserved_offset =3D 0x1ffb0000;
-> > +                     adev->mman.stolen_reserved_size =3D 64 * PAGE_SIZ=
-E;
-> > +             }
-> > +             break;
+> The stolen VGA buffer always started at offset 0 and is independent of
+> the range defined by fw_vram_usage_start_offset and fw_vram_usage_size.
 >
-> That looks like this is somehow mixed up. The stolen memory is for VGA
-> emulation, but under SRIOV we should not have VGA emulation as far as I
-> know.
->
-> Alex, what's going on here?
 
-I suggested calling amdgpu_gmc_get_reserved_allocation() from
-amdgpu_gmc_get_vbios_allocations() rather calling
-amdgpu_gmc_get_reserved_allocation() in every gmc file since it
-handles additional reserved areas used allocated by firmware, etc.  My
-understanding is that there is some additional reserved area set up in
-the hypervisor that we want reserved in the guest.  The idea was to
-just use stolen_reserved_offset for that similar to what we do for the
-bring up case for yellow carp.
+Yeah these are separate ranges.  I just had a chat with Yongqiang and
+there was some confusion around this, but this patch can be dropped.
 
 Alex
 
 
->
 > Regards,
 > Christian.
 >
-> >       default:
-> >               adev->mman.keep_stolen_vga_memory =3D false;
-> >               break;
-> > @@ -760,25 +778,6 @@ uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_devi=
-ce *adev, struct amdgpu_bo *bo
-> >       return amdgpu_bo_gpu_offset(bo) - adev->gmc.vram_start + adev->gm=
-c.aper_base;
-> >   }
-> >
-> > -void amdgpu_gmc_get_reserved_allocation(struct amdgpu_device *adev)
-> > -{
-> > -     /* Some ASICs need to reserve a region of video memory to avoid a=
-ccess
-> > -      * from driver */
-> > -     adev->mman.stolen_reserved_offset =3D 0;
-> > -     adev->mman.stolen_reserved_size =3D 0;
-> > -
-> > -     switch (adev->asic_type) {
-> > -     case CHIP_YELLOW_CARP:
-> > -             if (amdgpu_discovery =3D=3D 0) {
-> > -                     adev->mman.stolen_reserved_offset =3D 0x1ffb0000;
-> > -                     adev->mman.stolen_reserved_size =3D 64 * PAGE_SIZ=
-E;
-> > -             }
-> > -             break;
-> > -     default:
-> > -             break;
-> > -     }
-> > -}
-> > -
-> >   int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
-> >   {
-> >       struct amdgpu_bo *vram_bo =3D NULL;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gmc.h
-> > index 93505bb0a36c..032b0313f277 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> > @@ -331,7 +331,6 @@ amdgpu_gmc_set_vm_fault_masks(struct amdgpu_device =
-*adev, int hub_type,
-> >                             bool enable);
-> >
-> >   void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev);
-> > -void amdgpu_gmc_get_reserved_allocation(struct amdgpu_device *adev);
-> >
-> >   void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev);
-> >   uint64_t amdgpu_gmc_vram_mc2pa(struct amdgpu_device *adev, uint64_t m=
-c_addr);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gmc_v10_0.c
-> > index f60b7bd4dbf5..3c1d440824a7 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> > @@ -948,7 +948,6 @@ static int gmc_v10_0_sw_init(void *handle)
+> >                                      AMDGPU_GEM_DOMAIN_VRAM,
+> >                                      &adev->mman.stolen_vga_memory,
+> >                                      NULL);
+> >       if (r)
+> >               return r;
+> > -     r =3D amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_vga_size=
+,
+> > +
+> > +     memory_offset +=3D adev->mman.stolen_vga_size;
+> > +
+> > +     r =3D amdgpu_bo_create_kernel_at(adev,
+> > +                                        memory_offset,
+> >                                      adev->mman.stolen_extended_size,
+> >                                      AMDGPU_GEM_DOMAIN_VRAM,
+> >                                      &adev->mman.stolen_extended_memory=
+,
+> >                                      NULL);
+> >       if (r)
+> >               return r;
+> > -     r =3D amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_reserved=
+_offset,
+> > -                                    adev->mman.stolen_reserved_size,
+> > -                                    AMDGPU_GEM_DOMAIN_VRAM,
+> > -                                    &adev->mman.stolen_reserved_memory=
+,
+> > -                                    NULL);
+> > +
+> > +     memory_offset +=3D adev->mman.stolen_extended_size;
+> > +
+> > +     if (adev->mman.stolen_reserved_offset > memory_offset)
+> > +             r =3D amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_=
+reserved_offset,
+> > +                                                adev->mman.stolen_rese=
+rved_size,
+> > +                                                AMDGPU_GEM_DOMAIN_VRAM=
+,
+> > +                                                &adev->mman.stolen_res=
+erved_memory,
+> > +                                                NULL);
+> > +     else if (adev->mman.stolen_reserved_offset + adev->mman.stolen_re=
+served_size > memory_offset)
+> > +             r =3D amdgpu_bo_create_kernel_at(adev, memory_offset,
+> > +                                             adev->mman.stolen_reserve=
+d_offset + adev->mman.stolen_reserved_size - memory_offset,
+> > +                                                AMDGPU_GEM_DOMAIN_VRAM=
+,
+> > +                                                &adev->mman.stolen_res=
+erved_memory,
+> > +                                                NULL);
+> >       if (r)
 > >               return r;
 > >
-> >       amdgpu_gmc_get_vbios_allocations(adev);
-> > -     amdgpu_gmc_get_reserved_allocation(adev);
-> >
-> >       /* Memory manager */
-> >       r =3D amdgpu_bo_init(adev);
 >
