@@ -4,114 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26A69C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 15:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A7A9C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 15:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5B2110E23E;
-	Tue, 15 Mar 2022 15:16:41 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F30C810E23E
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 15:16:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A366510E41E;
+	Tue, 15 Mar 2022 15:20:39 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7304210E3F8;
+ Tue, 15 Mar 2022 15:20:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cts5bc3TG+Crr965Aqn/gPBOaVMY4T6KvkWNMO2m3sJkzqtDlH7DrXTrLlrrSkdaJorhKLn2vYGkG4vm/Kyp5JoykRJqheS000OucnsMYX3t9GihQgDfNfekx8+D/MuOUUB9rB/s+2jrExJB/D1qrrlf46Px8G17a38tFdJqsN3zgT7Pux1ikV2hDNeRY4j1pzq9bTWXaOBY07jAHbkzGzD8MnmGwJnuL7Ts5nBlYwyAiVLhOWHz1tJiUPSk3j3Ne/FVMD07zMrnrrje/y/Ag9tuFIs2RsdQeDdkZv9CcyuoJUl0Z9y5rKA3Uubx/wQc4IPDLEvQuLtz03brKmkoFw==
+ b=PMQXYr+AH4wIjHWk0iMDqkl7TTMJETA7F3Mvh9qLeZn5HrzePOFYj9EjVW7uKZxiTAiCjouio9q5twkP3VLEcB4fBzwWpGlRbwcpLu0FlwZF4JT7bRJKpNZPL7PFKWMHO4RHPc63Xvuffp81FCvimpkx+2svXExEZq/NBOfKv9CPx7ItStS64EhhR59+nYiM3AnUjbrNQUDdyCW5gSaX7oQ2EFj/jT8MOIzFDWM+ukA1vbbPX7e54NRK5CmHZYqdF3p+RyJxYy6OGj4+8+d5Pq61G+/oCp1UsEPtwV510EWFcLPIKmkzzGELac3CuXq4vXPi3cGzSKdMiXrPhRkd6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oBWbcP9b31VlzQfbtTjKcWI4RnGLCDyqzLQPfdc5MjY=;
- b=SoufDALNL1szTfZLQjuwaRdSVm+lNWumTUf3Luq70HuZyyScbNBkiQuiznR07jQ+vNTnstmedVuO5eIVA9/wAbnhF15MAZ/wG7x1/JxnwmpopKluN/WiQvSxbKd7GO7zjy94zjxGyWza3GbMInaZG33mAj6yvnFH16S/JeyqRZUFTC9jVl8k3FYME0BX6Msro+qf7mHJxmJL4rRZJj2/eHiDzRKyfqwaT9RBZVAnL2BV4eFceB7RSQPADX7fvYaXve5FEp0RFizzeoRyO4q0vJd3h8u2Pj16JtOoF9fng4mDm5WCAhOe91eFI5Bv5Nwj4udl5NpxWUVL2dWxDwYuOw==
+ bh=dsUc/K8E++MRe4QHLyIlFd3EunzTxiI5O7N4KGtwiec=;
+ b=jzG4uJIOXYIRWup/Bk84htekbjPSRMPGk0wqy5wJnEQeChtmwNgN/gYpmFEb7aRvRvH6iWaMuMNhgTNqCiUom0FaATuxHojXuAmc6LZlpLV5vEfxClhg2rKFPgnVohL9mvBTWjcUmw89fusNkEAL5/CejV1b5ME4ltaY3TDNSzuo5cUeT4mc0I7RvmeC0VvLQOoMARgA+rb1k4hxKSln1m87aXl/t8v6/zer4jdQqergVbmBMfXB/Ux4DDiDTBxEAI7/D/lN4Xnk2mvfnjjkAeJARwtymg8ugEgTKahRZF2OS65sOrc141XdiTchok5p/u68x0maxvsqP3G5Mk8wXQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oBWbcP9b31VlzQfbtTjKcWI4RnGLCDyqzLQPfdc5MjY=;
- b=BpJemUmlFSWXOnkc0pHQbWCuw1aDtLknCsmHOWi47DprxUc6nX/sNIpELfM0Xq0aD4XoQsiR4vXtcFQ4t5GG9fZIvSVM4xyJR32qiajWuAVc00zj8wetP6znUnVbfN13jcE9g2ZlBcqL3/TUoB6yuOUZ8s4IyAxsdWBDv+D63H8=
+ bh=dsUc/K8E++MRe4QHLyIlFd3EunzTxiI5O7N4KGtwiec=;
+ b=PxDd5FmlTu2CKOq0hNirB04T3GUEYJk2vlFQLHijrSCrTGNK7igK4by7S4eYbngRJVjhz9aR6kNM581SWhFZL/amyc7zajH0nddLWruHvbyY7wHaDd0WgE5YZ6YqNtJpsYb/Iv6L7UxWJ297Yus9Dg2E425z3P/zIKtkwmWTMpE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BYAPR12MB2632.namprd12.prod.outlook.com (2603:10b6:a03:6c::21)
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by BYAPR12MB3159.namprd12.prod.outlook.com (2603:10b6:a03:134::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.28; Tue, 15 Mar
- 2022 15:16:38 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::4839:9431:1040:5cd5]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::4839:9431:1040:5cd5%4]) with mapi id 15.20.5081.014; Tue, 15 Mar 2022
- 15:16:38 +0000
-Message-ID: <7326674d-8d07-3d44-a6ca-0ddfcbcde6a2@amd.com>
-Date: Tue, 15 Mar 2022 11:16:36 -0400
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.26; Tue, 15 Mar
+ 2022 15:20:36 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::48e2:1306:25a3:5f14]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::48e2:1306:25a3:5f14%5]) with mapi id 15.20.5081.014; Tue, 15 Mar 2022
+ 15:20:35 +0000
+Message-ID: <904ae9ed-8994-0b03-8904-02925e5b00dc@amd.com>
+Date: Tue, 15 Mar 2022 21:01:16 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH V2 1/1] drm/amdkfd: evict svm bo worker handle error
+ Thunderbird/91.2.0
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: round_up the size to the alignment
+ value
 Content-Language: en-US
-To: philip yang <yangp@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220314145020.9142-1-Philip.Yang@amd.com>
- <7fe7133a-bf8d-66c2-7fbc-7d49c48454a9@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <7fe7133a-bf8d-66c2-7fbc-7d49c48454a9@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Matthew Auld <matthew.william.auld@gmail.com>
+References: <20220314193206.534257-1-Arunpravin.PaneerSelvam@amd.com>
+ <CAM0jSHPeRaykGwF-V+--cXE9wgoDbttbTH=EkP+=xHu7rkB4Qg@mail.gmail.com>
+From: Arunpravin <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <CAM0jSHPeRaykGwF-V+--cXE9wgoDbttbTH=EkP+=xHu7rkB4Qg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0111.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::20) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+X-ClientProxiedBy: BM1PR0101CA0036.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:1a::22) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8826e16d-92e0-4b12-587c-08da0696ccf3
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2632:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB26324A988696B3AAACEF7DFB92109@BYAPR12MB2632.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 41e2d1ec-194e-41fc-5e65-08da06975a82
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3159:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB3159438B286416C2648D83D9E4109@BYAPR12MB3159.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pCHqjeQQB4xVKXvyYRHIxJwP+u6EvBxzn5XPcQGV2rimY3NRnmNGaq9GH+69nP4wiGM64BmUzbwRF9UfJ/0d1vtZA0i1rRFLcRHNHTc1vIai9xFSOTR/rcmxd/cAX7zi5cQpdAMOzJc0ZTgtFoaB7bJTQoeMcWEg8Lw0VCttMaO6PMWRoSTQ+CjN1a8PXUR1bgXgzaNrup8X+bqdX8B7+UyecqlBMvyJGPl8EY2XgrJMkUnVYr7sJfp1Yn6ARP+1WudbB2J9mdKtgTav61ABoZBdAy1DdPSEpxAzHQTuc84iBJHG3ouv6RKJqxeFFuE+o7zLZ1WwY7DwZtVSNIfpmf9DaAvCHl4jT23dVn5jHlFtUOc0E7pF8UEL44v8D8LlqkYYWJ7HFEUMIoYG8Swx7azvNP4Zif9Jy1Qg9/+8jUuEdaXZzepyrCChoTl5qvYTigkGCUhW7PjcOA9yEhHiyJ8nLFE1YhgYRySYGngkIKQo8Bl7PZYKG8xX4qpB5q8uTt1GM0HZjktR1y6g+uxXjoQG2d+nss0DrQGL7DmVrw1vFHdF6OfZjcWXvzgVn4hEZX2w+zATuICuq9yxQX44am47Fz+Sg+tmw10SsMokvHVb9IVTzHhXwKD/w1mSwP95Y46VsYQof3JH8ZzN3fk4QrBcYpTTslo4toOBGORsDrgtDIiKGqMtP199PBPXtBN1xe3uOMlpT7kZCp4TNP7/vALdHuxz1T4q1oFb5KYrpTP/NEydGU/IDNAjiv+FZBse
+X-Microsoft-Antispam-Message-Info: xZyl4U/dBnTpDBfxjVEwCD3vGQsvrTIWYcKLPhrF8fXIIgs870n9s0pDC0v59rkTUkBxrYXmaHrupe3AUXXAQM0XhPSOvl3WzR3IEn/wRFboKSoxyCDnE/OZNyuANaiZtNaiBmyo6u2mV+OFEPGxHfYcImIoisfXI+MRfFyBD5DIXtG12xs7D/yQrItzBjWL7g1DT49NJIKlTskesHSwXZgxpefO/x10wV7lrwBiPwIIMNL1o9bfBKBKsxf/dzyCAdBieeY/aIo0QABY1pwnxnF/iDVyGeawn6dIaSTyC64geXGnyt5OXiEsqlAXTUhgP5Or0a4cNhX2MNa1y9gWqmpjI8sYfB4kPftlhZXK2BYH1FH+P2cQKQCnBw9cCRdk3G6f8hjR9BqhDqR6eMHt38ldKdWUiAZE4tRx6l6PAYIwiiVSisBfxJHGscptEaFfQi2DbW7iMGph9TPOo7RNxgnWS5bAWFjkWC8c+5VEn5v4oA5xFGAmg8Ge6eNFpUzI6DKWxdimbx6JaRjaVKAKTlLxnPgAqxd+r1dSZmBr05othEcEThkn7lBBWGpERVSdZ6jP2ZQri4u4216QDseCSl0ECFsjPWpM0ylyF7pqgLABnI4m52hnF1oZkfYbKnusw0can5EGAO66meDf55VeUG0WA25542EoMYzBymoxOCWWiAjGXiMoT8gtLzCmb4BHc5647ihhwnhkBdDqmS53H9FRT7XNUEyQXGa7S9GbHgY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(83380400001)(6486002)(2616005)(186003)(36756003)(26005)(66556008)(66476007)(508600001)(66946007)(316002)(6506007)(86362001)(6512007)(2906002)(31696002)(8676002)(4326008)(5660300002)(8936002)(110136005)(38100700002)(44832011)(31686004)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6916009)(54906003)(316002)(2906002)(508600001)(66946007)(36756003)(8936002)(6486002)(66476007)(5660300002)(31696002)(38100700002)(8676002)(4326008)(66556008)(186003)(86362001)(6512007)(31686004)(6506007)(26005)(6666004)(2616005)(83380400001)(53546011)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UDk3UVN3TGVTVnQzZTZSZkdlWDQrRUFQK3k5V1dmUTBQZnNDSXlyQXZzQ3pa?=
- =?utf-8?B?UFZESmNNNGUvc0lsNXVacWNoekpTbnJXdis5VTBxREZMN2VWWjROQ0kxbktT?=
- =?utf-8?B?d3VFVWJUZWZvai9YVHpwTFpHWCtBNzdVVUN3NlpIYjJJU3RPamg5SDdpblJ6?=
- =?utf-8?B?VE1NakhJUkhCclJTZ0ZBY1dnb1FDTFdlRzBOb0RNaW1FdkxZclFwVGptYklh?=
- =?utf-8?B?alBMaDJNeEJPRTlUVjRROWhYTDRpeUFQYlk3NnBmZkpJNjlDYms0dkx1eUo5?=
- =?utf-8?B?NjRsVWJQQmYrYTdzMkRHUjVMRWc3b1pscGw4aW5vS2RUYWkzeXl0Q2VRV3JV?=
- =?utf-8?B?SjZmQjN1MXlCbUNFaDJBWHcxMUFkTUsxdDBsWG1iNFlFV2lScnMvaFJ5MXpQ?=
- =?utf-8?B?RWN6djBzUE5mREthbU1SYmFsVUdmcnhYZEw2RDFPeE90WGZrM0ZjUmk4ejhF?=
- =?utf-8?B?d2hDV1ZKVGxPZkRHRmpDYUdhQnVwS1NzRXhzeEl5N2ZMaUkxekU5LytTSk9C?=
- =?utf-8?B?NlJzSXhMWmt6TnBNRktlWDZjWFlqYlhXbERzclpyUEErZGhiU1BZUS9MRTJm?=
- =?utf-8?B?amVucDd0azhBbEFmWWdkK0xURzRYSVJoNzdONDE5TVZ1RlpVRWZvQUpDVzdM?=
- =?utf-8?B?TUtKenFicENXbTU0ZmR2QTBTQjEyeTBTRkQrUzJETnQ5MEN3NlltRXY1MWcr?=
- =?utf-8?B?cHJIL0NwTUtFaW1QMWtHaG9TdHZ2WDhRNzFLYWNmSVM0dlV3YWh0Yk1GTlhI?=
- =?utf-8?B?N0lCeDBNQmJ3NngzUUE5bSswdnJzS1lWMW40L2ljRDFxYVFEUVdGbEJMSUsx?=
- =?utf-8?B?dFFiSlhxMVp5TWg0UG5RQ0R2dlM3SE9VK0lDZEVzNzl6WmVnSnFjYW42M3hw?=
- =?utf-8?B?THFTZURJTlVkZXFteCtGNWVUaG1odDJqWXBKdlhlbWpZZmZFT3pCRm0zY2p2?=
- =?utf-8?B?TTRmV1c4VUxnWUQ5ZHI0NkhJOE0zNUNIdDVDMEIzY3hHeXpPVkg3QzkycnRC?=
- =?utf-8?B?VCtFUTMvMXhFQW02Tm1UNGJYOU82RElWcmtER2xtVFV6blFEU3pod0pzaklv?=
- =?utf-8?B?R3J3TENOQjFTMy8xUEI1L3FuM1VvU0tLOXRsZ1RqRkRKR3VhTVVoeUI2bXZY?=
- =?utf-8?B?amdnM3B6d29qQlp2cU5EZkJqbVNZWnJySVowdUtFa0M4Q2ZTK29LbXppdFlv?=
- =?utf-8?B?TWJmenhrQ2luRWNUa2JFK0tmK1pacGFTdUJJOXJLWjkxOUJwR1BHcHM0bFNh?=
- =?utf-8?B?bEE4Q3ZNUU91aG51UXhRYjFXQmFtbUFvU2lvSDdkZ0tUL3pUWXpOT2pveVhz?=
- =?utf-8?B?RkdHbXpSdXp5NldNcmVuaVR1OTJxdFV3UERwNzFobmlaeUhhWExFaHBsRmtw?=
- =?utf-8?B?T29XcXdFdkg0VmRZZ08ra3l1UUFGSTRmdTViRTNQTUNxS0h1ZngzYmx3TTdm?=
- =?utf-8?B?TWJ3eUxDT1NyK2tFRnRpOGRQUWYwQVR5bGhQNjJ0a2lqMVFXR0hUUlNmcjRB?=
- =?utf-8?B?RnpJd0dTYjBhbForVXo5OVZCV09uTVZ2NDBXd2FWWmc1RFpObkoxVi9ERkU4?=
- =?utf-8?B?TGtXNTcrNE5TY0xodDhvOEVQbjFESU9mNWFxa1I1a0FRMXZ0Rk9KeTVVRFpx?=
- =?utf-8?B?RVNucGZNdllkY0NFdUdGNU02Rzl1WjRMYW00SXgvZUE1TE5tWkxmSE9zTCtM?=
- =?utf-8?B?RGI4dDlNQTljL2laaHEwRzJ1RUROQ2hEZ2ZPMUVvVkZlWllLZzZyMTRBeGNJ?=
- =?utf-8?B?QTZ0UjZ0blA0TVpNOGR0K1I3VVdjRXAwZUNXdzVHMjhONHRZbXZaMUZWVjd5?=
- =?utf-8?B?SGRGUGd5dXgwUlp1dU1vUFRNTmJqV3BsaHEzK2pmMmE5QW9zYmxWaXhNSCsy?=
- =?utf-8?B?RW1yMnpBVzRKb3AwRG1vcHJMb3hHelNlRmVCNHVjdEpFaTZ1YXBtM1FWc3lu?=
- =?utf-8?Q?geGpmAst7KGcuVB0VNRrPOdJ3yyBpWEr?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZEFEaVNRT3UvSEdlcEdrYjJndzdUMmpOeUpvU1F5QmUvNGlsd1VHQ2dZWUVn?=
+ =?utf-8?B?azlsa1VmRis3NlhjenZ4UDM0Mkxoa0lUSTUrNjNxV1ovMmdpc0lYc0N4ekVV?=
+ =?utf-8?B?Z0pCeldCWnUxQ0d4UmpDTFhXcjg5RlgwM0VYMTNjZnFpczAweGo2TEtFUENu?=
+ =?utf-8?B?VEo2N1JPaVdGVGhVSzRTUEt0T3R6Zk8rQTlRYUFOaWZ1QmorOTQ2OWhJL1pN?=
+ =?utf-8?B?a2xvWFBMNUZCc3p6cGY4ZGtQMk5hbnQ4UEk4M1hvUEVXZE51dDZWbWhDOHd3?=
+ =?utf-8?B?U09iOU51Yk0vdkpnWlJpc200azRMNmJYR0NzYVppdFRRMTgrQVdZRUVVWnRs?=
+ =?utf-8?B?NEdrNEVQY0tWZU5IZG0zWk1VRmJmUGhTc21qMUE0NUV3ODFoQ0FwMmdPNElv?=
+ =?utf-8?B?czk4ZXhQTTVmZlY5RkJjZ2JQME96WVo4TzRILzBNa1RhTkRIYzdVR1NDOUEr?=
+ =?utf-8?B?L3lNUEZQQVA3ZC9UM1JWaXRzY2dycytOUU5IblB3UUFyZDJLVFRleHpYdUh1?=
+ =?utf-8?B?N2hFVTZvRXd4b0JOS1VSMkVKczJta2dCUURGdEd5cmlKdVNyU3lGdUMxdEF0?=
+ =?utf-8?B?K29EUVlweU0wOExaSGJlMkF0VDFsNXF2OG1zd29pc01MQVc2Nm1GVUdmd0hq?=
+ =?utf-8?B?dTArak54aVdUN1RGbTNlNFpBV0w0ajZ6TC8yNkxJTElSZ0sxYVNYeElnNFkz?=
+ =?utf-8?B?bS9QM2NYc1Yva08wcGpvSGZRQkcvdUhGQ1pFS1dWdy9XS2xxeCtZaUlqS2ZJ?=
+ =?utf-8?B?OS9xUUhLV1dpdkdtc3d4eVFKM056cGI1UG56a1I4dkRCMDZRUlZTbE4wSE1p?=
+ =?utf-8?B?YXp3cFcxSWdzSHZ4Q3l4QWt2WGVmS2ovRHBIaUJyRUZRUTBuNEg0WlA2NzRs?=
+ =?utf-8?B?N0cwT3AvclJIemxyN2hGaWhXREZ2NVdZNzBpT2NrcG10MGZMaEdMREY2WW9v?=
+ =?utf-8?B?a2pSNHNPdFJxN2FwTWllSHpyVWtEa1NrYUd5cDJzd3JlRGdxY2o2NVZMUUZW?=
+ =?utf-8?B?N3BPcDY1TzhUSEc2TndvTk40cXo5K29WMWc5YlF6SVBaZWJnSlUxVU5XWDFJ?=
+ =?utf-8?B?WWhHc1J4M0xMRStLdVFEYW9jSEZXaUhTUldGWmE2MFFYdFhiSkYrUFplaC9z?=
+ =?utf-8?B?NHl3dnFVMkJicGs4c0NmVjU5bEZOWHN5QkU3Z2E3elN4UjQxQ01iaDU3MXkx?=
+ =?utf-8?B?TnZCQkRzeFZZRGZGRnJoLzJqSTFselhJbXg5VlM0TDArTkpPWU1UZC9rV0dF?=
+ =?utf-8?B?K1drRnY0Y0VXQUtGUHNFMXhvTnFNaWhFWlZ6QjRZSmJRdWFtVG9uQngvRm9W?=
+ =?utf-8?B?NEp1dFpkZm13UXJOWXFWOXpURTRFcHkvYmVMYjZTVmdHZHpDK2xzZ25TQ0Rq?=
+ =?utf-8?B?T1AvcHBRL2pFWkNiN1UyOTZKRVB6SnNYU0FVMjFOaE43TjErU2g0NEY5V0hm?=
+ =?utf-8?B?ZzVVdFZYY0NMNmVJL2JrSUlCeXZHRGE2NEZObCtXRnZjTUpaR3dMQ1ZnYisv?=
+ =?utf-8?B?UkxsNkhjV3owRU5mOGlHWHhaVkJDNTgwS3IwSWdnakY3OVZSSm5EVG56Ui9S?=
+ =?utf-8?B?Sk5YUmtGbmRGTzdNZ0hESStlakcrbERNYnpDRnJ0VGdoNEkzZjhSS3FTTVVz?=
+ =?utf-8?B?Q3N3N3UyRTI0TmZkaEFLTmhuS256eU1SVHZhTzJ1VlI5VngzV0FJamZNWUlZ?=
+ =?utf-8?B?YkZtcmZDLzc1UncxbkJkelNOVUd0YkVnRVZYMW5RdmdpSEVWNmtmRHJlZFRE?=
+ =?utf-8?B?anMra0hSeXBoVGN0NURKSnoxSERwQ1FEUWJlUTRsVlQremtLT0ZuNWgvckRr?=
+ =?utf-8?B?VThVWUJGRGN6S29FMENUTTU5TWFpOVVYWUtXTE5JUDBDWlI2cVlJaVBKK2Ux?=
+ =?utf-8?B?eTBSc0p2eHJTUEpBUkRXV2JnTUJod1ZndU03VWlGaER6aU4rL3lzV3ZoUzJP?=
+ =?utf-8?Q?DYxVXR6EnaZ1/xeE4dBgsXyWkNbUC59i?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8826e16d-92e0-4b12-587c-08da0696ccf3
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41e2d1ec-194e-41fc-5e65-08da06975a82
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2022 15:16:38.1425 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2022 15:20:35.7948 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eFqlqSySp+nwJQht5GAigq1Gk8fTthvl2OfKhQ9mSv/OuCMtxFMVhtTy4XS+GdJJzwDkVg9amhno3RnReGV4Hw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2632
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZVoaIG34EbY2fdC4tXjWbszVdNtmSoQ+WKr9l73iTCyBkbu7IzIHGi/3LFJZVftgImn/5XPmpUVf3ldDV0Fqbg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3159
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,156 +123,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>, alexander.deucher@amd.com,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-03-15 um 11:05 schrieb philip yang:
-> Migrate vram to ram may fail to find the vma if process is exiting
-> and vma is removed, evict svm bo worker sets prange->svm_bo to NULL
-> and warn svm_bo ref count != 1 only if migrating vram to ram
-> successfully.
->
-> Signed-off-by: Philip Yang<Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 28 +++++++++++++++++++-----
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 21 +++++++++++-------
->   2 files changed, 36 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index 7f689094be5a..7187417273f9 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -638,6 +638,23 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   	return r;
->   }
->   
-> +/**
-> + * svm_migrate_vma_to_ram - migrate range inside one vma from device to system
-> + *
-> + * @adev: amdgpu device to migrate from
-> + * @prange: svm range structure
-> + * @vma: vm_area_struct that range [start, end] belongs to
-> + * @start: range start virtual address in pages
-> + * @end: range end virtual address in pages
-> + *
-> + * Context: Process context, caller hold mmap read lock, svms lock except calling
-> + *          from svm_range_evict_svm_bo_worker, prange->migrate_mutex
-
-This doesn't make a lot of sense to me. This function either requires 
-that svms->lock is held, or it doesn't. If svm_range_evict_svm_bo_worker 
-functions without holding that lock, it means this function doesn't 
-depend on it. I'd just remove the "svms lock ..." from the comment. Also 
-remove it from the comment above svm_migrate_vram_to_ram for consistency.
-
-With that fixed, the patch is
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
 
-> + *
-> + * Return:
-> + *   0 - success with all pages migrated
-> + *   negative values - indicate error
-> + *   positive values - partial migration, number of pages not migrated
-> + */
->   static long
->   svm_migrate_vma_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   		       struct vm_area_struct *vma, uint64_t start, uint64_t end)
-> @@ -709,8 +726,6 @@ svm_migrate_vma_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   		pdd = svm_range_get_pdd_by_adev(prange, adev);
->   		if (pdd)
->   			WRITE_ONCE(pdd->page_out, pdd->page_out + cpages);
-> -
-> -		return upages;
->   	}
->   	return r ? r : upages;
->   }
-> @@ -759,13 +774,16 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm)
->   		unsigned long next;
->   
->   		vma = find_vma(mm, addr);
-> -		if (!vma || addr < vma->vm_start)
-> +		if (!vma || addr < vma->vm_start) {
-> +			pr_debug("failed to find vma for prange %p\n", prange);
-> +			r = -EFAULT;
->   			break;
-> +		}
->   
->   		next = min(vma->vm_end, end);
->   		r = svm_migrate_vma_to_ram(adev, prange, vma, addr, next);
->   		if (r < 0) {
-> -			pr_debug("failed %ld to migrate\n", r);
-> +			pr_debug("failed %ld to migrate prange %p\n", r, prange);
->   			break;
->   		} else {
->   			upages += r;
-> @@ -773,7 +791,7 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm)
->   		addr = next;
->   	}
->   
-> -	if (!upages) {
-> +	if (r >= 0 && !upages) {
->   		svm_range_vram_node_free(prange);
->   		prange->actual_loc = 0;
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 509d915cbe69..3b8856b4cece 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -3155,6 +3155,7 @@ static void svm_range_evict_svm_bo_worker(struct work_struct *work)
->   	struct svm_range_bo *svm_bo;
->   	struct kfd_process *p;
->   	struct mm_struct *mm;
-> +	int r = 0;
->   
->   	svm_bo = container_of(work, struct svm_range_bo, eviction_work);
->   	if (!svm_bo_ref_unless_zero(svm_bo))
-> @@ -3170,7 +3171,7 @@ static void svm_range_evict_svm_bo_worker(struct work_struct *work)
->   
->   	mmap_read_lock(mm);
->   	spin_lock(&svm_bo->list_lock);
-> -	while (!list_empty(&svm_bo->range_list)) {
-> +	while (!list_empty(&svm_bo->range_list) && !r) {
->   		struct svm_range *prange =
->   				list_first_entry(&svm_bo->range_list,
->   						struct svm_range, svm_bo_list);
-> @@ -3184,15 +3185,18 @@ static void svm_range_evict_svm_bo_worker(struct work_struct *work)
->   
->   		mutex_lock(&prange->migrate_mutex);
->   		do {
-> -			svm_migrate_vram_to_ram(prange,
-> +			r = svm_migrate_vram_to_ram(prange,
->   						svm_bo->eviction_fence->mm);
-> -		} while (prange->actual_loc && --retries);
-> -		WARN(prange->actual_loc, "Migration failed during eviction");
-> +		} while (!r && prange->actual_loc && --retries);
->   
-> -		mutex_lock(&prange->lock);
-> -		prange->svm_bo = NULL;
-> -		mutex_unlock(&prange->lock);
-> +		if (!r && prange->actual_loc)
-> +			pr_info_once("Migration failed during eviction");
->   
-> +		if (!prange->actual_loc) {
-> +			mutex_lock(&prange->lock);
-> +			prange->svm_bo = NULL;
-> +			mutex_unlock(&prange->lock);
-> +		}
->   		mutex_unlock(&prange->migrate_mutex);
->   
->   		spin_lock(&svm_bo->list_lock);
-> @@ -3201,10 +3205,11 @@ static void svm_range_evict_svm_bo_worker(struct work_struct *work)
->   	mmap_read_unlock(mm);
->   
->   	dma_fence_signal(&svm_bo->eviction_fence->base);
-> +
->   	/* This is the last reference to svm_bo, after svm_range_vram_node_free
->   	 * has been called in svm_migrate_vram_to_ram
->   	 */
-> -	WARN_ONCE(kref_read(&svm_bo->kref) != 1, "This was not the last reference\n");
-> +	WARN_ONCE(!r && kref_read(&svm_bo->kref) != 1, "This was not the last reference\n");
->   	svm_range_bo_unref(svm_bo);
->   }
->   
-> -- 2.35.1
+On 15/03/22 4:56 pm, Matthew Auld wrote:
+> On Mon, 14 Mar 2022 at 19:32, Arunpravin
+> <Arunpravin.PaneerSelvam@amd.com> wrote:
+>>
+>> handle instances when size is not aligned with the min_page_size.
+>> Unigine Heaven has allocation requests for example required pages
+>> are 161 and alignment request is 128. To allocate the left over
+>> 33 pages, continues the iteration to find the order value which
+>> is 5 and 0 and when it compares with min_order = 7, triggers the
+>> BUG_ON((order < min_order). To avoid this problem, round_up the
+>> size to the alignment and enable the is_contiguous variable and
+>> the block trimmed to the original size.
+>>
+>> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+>> ---
+>>  drivers/gpu/drm/i915/i915_ttm_buddy_manager.c | 13 +++++++++++--
+>>  1 file changed, 11 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+>> index 129f668f21ff..318aa731de5b 100644
+>> --- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+>> +++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+>> @@ -40,6 +40,7 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+>>         struct i915_ttm_buddy_resource *bman_res;
+>>         struct drm_buddy *mm = &bman->mm;
+>>         unsigned long n_pages, lpfn;
+>> +       bool is_contiguous = 0;
+>>         u64 min_page_size;
+>>         u64 size;
+>>         int err;
+>> @@ -48,6 +49,9 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+>>         if (!lpfn)
+>>                 lpfn = man->size;
+>>
+>> +       if (place->flags & TTM_PL_FLAG_CONTIGUOUS)
+>> +               is_contiguous = 1;
+>> +
+>>         bman_res = kzalloc(sizeof(*bman_res), GFP_KERNEL);
+>>         if (!bman_res)
+>>                 return -ENOMEM;
+>> @@ -71,7 +75,12 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+>>
+>>         GEM_BUG_ON(min_page_size < mm->chunk_size);
+>>
+>> -       if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+>> +       if (!is_contiguous && !IS_ALIGNED(size, min_page_size)) {
+>> +               size = round_up(size, min_page_size);
+>> +               is_contiguous = 1;
+>> +       }
+>> +
+>> +       if (is_contiguous) {
+> 
+> This looks like it will also do roundup_power_of_two()? I assume we
+> instead just want to feed the list_last_entry() block for trimming?
+> 
+> Anway, we should be able to just make this:
+> 
+> if (WARN_ON(!IS_ALIGNED(size, min_page_size))
+>     return -EINVAL;
+> 
+> That's at least the currently expected behaviour in i915, just that we
+> were previously not verifying it here.
+
+ok sure, then I make changes in amdgpu
+> 
+>>                 unsigned long pages;
+>>
+>>                 size = roundup_pow_of_two(size);
+>> @@ -106,7 +115,7 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+>>         if (unlikely(err))
+>>                 goto err_free_blocks;
+>>
+>> -       if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+>> +       if (is_contiguous) {
+>>                 u64 original_size = (u64)bman_res->base.num_pages << PAGE_SHIFT;
+>>
+>>                 mutex_lock(&bman->lock);
+>>
+>> base-commit: b37605de46fef48555bf0cf463cccf355c51fac0
+>> --
+>> 2.25.1
+>>
