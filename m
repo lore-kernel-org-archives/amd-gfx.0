@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A50DC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 15:57:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D388DC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 16:03:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E3D988F0A;
-	Tue, 15 Mar 2022 15:57:50 +0000 (UTC)
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5559588F0A;
- Tue, 15 Mar 2022 15:57:49 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id b188so21230033oia.13;
- Tue, 15 Mar 2022 08:57:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 725FA894FE;
+	Tue, 15 Mar 2022 16:03:26 +0000 (UTC)
+Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
+ [IPv6:2607:f8b0:4864:20::c35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A32E894FE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 16:03:25 +0000 (UTC)
+Received: by mail-oo1-xc35.google.com with SMTP id
+ n5-20020a4a9545000000b0031d45a442feso24919526ooi.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 09:03:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=jWnJoZKYShfYZipEE6ZCups7oAda7ot4SH+dHzTQHvg=;
- b=fWZD7fYBKrcCLLP36Nsix3PjhWakA2JV8NQtlNg4YC5dHtEVTEgCNhRv9ea6+TfccJ
- YdBc28ZgNOawCJhwAf+JMUmVLxx9UzQUWduiLBqCxddul/AlsE/jrVVlzEWqBt/Vhj+W
- y5X0OlnmJxwZ2cf7KIimGb1FjZiSc2JiV+7LNM16p2ounNFovSMPObuRi0A/xfQytnhm
- VkvUgJMiJZvsM9vMv8K6S50gVe7EXkordHNPIMvGCkALaNljmzOQaTdkbTiuB1us6Ezh
- ioRra7dygf4u8Mi2UXKUX3GmzFyhA78I/6ndcoJMwRyhbGKYCqBE0nBr22MP03u2+CTZ
- kHzA==
+ :cc; bh=rFPya0NqpIhre5NBJh4hXrJtc3e7zNpTwIrU+BLxjAI=;
+ b=OxWylegEAskyVJ7RVHFBOEfHjls5siT5Z0AO47Y8GlnAmLbKnuqktaj8HcOYYep+ud
+ zSqmF7WnGr5PvNgagethT6z5RjyJQmUpl0rs+J6e+lfBycDu987E1SpNF/5iQhsMxb04
+ r4owRpHjKZvK6EiIXrUH/r2JeF8dWJxmRx7QzXffFMT60EhJd891e4dq7yS40qhLCqdW
+ 85g1nVy03itW2DVLiQKXPuxc0FjvkYF/rd0nc3tWNwZi2rp5g93xi7KvXaqwpAqG+hsD
+ MMMizc1nCZIUDj1I15Kmd63ZRav0ajefzsAQwoG0Np3ng8oRSybiFi+cR4qcyRhgJVAc
+ 7skg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=jWnJoZKYShfYZipEE6ZCups7oAda7ot4SH+dHzTQHvg=;
- b=bM6nmR2Qpe4mqQNmCj9zuaBO3maF/WW5y+mWUxn0WEkG5oNlv/PZmT3wOFtWB00kW/
- 6EFiAzSLMcnW5aXIkBK+G1gQm1QGzLzgOT68s55qTmwrbC/20rvLrTp6ebXwIOCgHd/M
- +/KTr4YJ3OHDyU7p7TrkVzmm8K+HqxQbFHzzwTjklqYfOwjWEvrpyCsULgB7wBwVKWtc
- CFtXZnOYqtHPz3TfsTI8DJ+wRjFWEt6e6GqoeQDrsXHU/p74s4pAYp5YKsT1Km9Ozg0H
- DdKVaUkQs6gDlzlAjnSIBXmGSDmnUJb/9xIJFEvC8TwZtpgEtRW7E+Llx4Y9Ntx9hg1/
- zkGA==
-X-Gm-Message-State: AOAM5331W/l5rQF0CSr4tT3biXlHo4sWnj8iA6lL4+R84U4kxt0b+g6T
- gTHH1xnHI0QCEAi/xovQxqtwCWlopz5rakLuXNU=
-X-Google-Smtp-Source: ABdhPJzRWyNdb48ClfOoM3rFiYP5LZ+gMeALH0ALX+N/qMsoETxcqvdDM36JHPdV/k5IHMOIZBkaVcnXhWMecct2ek8=
-X-Received: by 2002:a05:6808:df1:b0:2ec:b193:ad6c with SMTP id
- g49-20020a0568080df100b002ecb193ad6cmr1864355oic.200.1647359868626; Tue, 15
- Mar 2022 08:57:48 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=rFPya0NqpIhre5NBJh4hXrJtc3e7zNpTwIrU+BLxjAI=;
+ b=OR4XHgxWN+kybct4PXTbjQCvrykTJtoyzt+kP/C3uRjup2ymaMCUgWVkXZUCvi2hj0
+ zrbQARHsHi2d/vWJUfWWuyapctd/mLw2LvY623i/pAreOOEbjrOh9nisI04X9/0O3Jcz
+ hOL/ex0UFUpbH0ApWnew6aZEj8ZZU3r6sOQXRo6DP0LaTRsr7xOeZtKCelfaAYDtkYiG
+ 9d48n1cCMwMX7yMoUjyDEay4GynF//wf4RB1SzDqPT31LKeHWWCJYDDRY4TimYruC4tj
+ hNyiQ6AiFykudsp1vjDwYlRi9hpLHdn8NuQe/11M/1sv39GOEISKDct9PqQ1T8XXgoyD
+ x0hA==
+X-Gm-Message-State: AOAM531tQJwkCrXpmLoyXYinhS5OMMmWgSr1bWx8uc/HT5Itz+KfdkWI
+ op/vBmrI+T+pCh6xySs2IdA2WzhnNQgBa1frwMrQgP8A
+X-Google-Smtp-Source: ABdhPJwmtlazjvu4OS1toxXpf1XjxHbkBvzWdRLcHV5tNrOX+V+9m3sHRDiC4D2boW6A3a4P9oV+swJ8OOZMyfPr39E=
+X-Received: by 2002:a05:6870:630c:b0:da:b3f:324d with SMTP id
+ s12-20020a056870630c00b000da0b3f324dmr1847582oao.253.1647360204272; Tue, 15
+ Mar 2022 09:03:24 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
- <20220218100403.7028-3-ville.syrjala@linux.intel.com>
- <2d51f77d-4067-ca23-3005-87cd72e1a397@amd.com>
-In-Reply-To: <2d51f77d-4067-ca23-3005-87cd72e1a397@amd.com>
+References: <20220315092937.141380-1-pmenzel@molgen.mpg.de>
+ <8e18afb8-497d-8ce5-5636-498e7b8d45ea@amd.com>
+In-Reply-To: <8e18afb8-497d-8ce5-5636-498e7b8d45ea@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Mar 2022 11:57:37 -0400
-Message-ID: <CADnq5_MrzrsTxdriBppX0AAzpqPVKct2qy-Pxxd5Kt6MckzQ=A@mail.gmail.com>
-Subject: Re: [PATCH 02/22] drm/amdgpu: Remove pointless on stack mode copies
-To: Harry Wentland <harry.wentland@amd.com>
+Date: Tue, 15 Mar 2022 12:03:13 -0400
+Message-ID: <CADnq5_Nw55vKTUWxBrh_DXXVX79A6xP3tnHHm7bHEudbr-nkxA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Use ternary operator in `vcn_v1_0_start()`
+To: James Zhu <jamesz@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,15 +63,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Nikola Cornij <nikola.cornij@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -81,82 +71,36 @@ Applied.  Thanks!
 
 Alex
 
-On Fri, Feb 18, 2022 at 11:28 AM Harry Wentland <harry.wentland@amd.com> wr=
-ote:
+On Tue, Mar 15, 2022 at 8:49 AM James Zhu <jamesz@amd.com> wrote:
 >
+> This patch is Reviewed-by: James Zhu <James.Zhu@amd.com>
 >
->
-> On 2022-02-18 05:03, Ville Syrjala wrote:
-> > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> On 2022-03-15 5:29 a.m., Paul Menzel wrote:
+> > Remove the boilerplate of declaring a variable and using an if else
+> > statement by using the ternary operator.
 > >
-> > These on stack copies of the modes appear to be pointless.
-> > Just look at the originals directly.
-> >
-> > Cc: Harry Wentland <harry.wentland@amd.com>
-> > Cc: Leo Li <sunpeng.li@amd.com>
-> > Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org
-> > Cc: Nikola Cornij <nikola.cornij@amd.com>
-> > Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->
-> Harry
->
+> > Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
 > > ---
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 32 +++++++++----------
-> >  1 file changed, 16 insertions(+), 16 deletions(-)
+> >   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 9 ++-------
+> >   1 file changed, 2 insertions(+), 7 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
-s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index 21dba337dab0..65aab0d086b6 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -10139,27 +10139,27 @@ static bool
-> >  is_timing_unchanged_for_freesync(struct drm_crtc_state *old_crtc_state=
-,
-> >                                struct drm_crtc_state *new_crtc_state)
-> >  {
-> > -     struct drm_display_mode old_mode, new_mode;
-> > +     const struct drm_display_mode *old_mode, *new_mode;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > index 3799226defc0..78ad85fdc769 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > @@ -1095,13 +1095,8 @@ static int vcn_v1_0_start_dpg_mode(struct amdgpu_device *adev)
 > >
-> >       if (!old_crtc_state || !new_crtc_state)
-> >               return false;
+> >   static int vcn_v1_0_start(struct amdgpu_device *adev)
+> >   {
+> > -     int r;
+> > -
+> > -     if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)
+> > -             r = vcn_v1_0_start_dpg_mode(adev);
+> > -     else
+> > -             r = vcn_v1_0_start_spg_mode(adev);
+> > -     return r;
+> > +     return (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ?
+> > +             vcn_v1_0_start_dpg_mode(adev) : vcn_v1_0_start_spg_mode(adev);
+> >   }
 > >
-> > -     old_mode =3D old_crtc_state->mode;
-> > -     new_mode =3D new_crtc_state->mode;
-> > +     old_mode =3D &old_crtc_state->mode;
-> > +     new_mode =3D &new_crtc_state->mode;
-> >
-> > -     if (old_mode.clock       =3D=3D new_mode.clock &&
-> > -         old_mode.hdisplay    =3D=3D new_mode.hdisplay &&
-> > -         old_mode.vdisplay    =3D=3D new_mode.vdisplay &&
-> > -         old_mode.htotal      =3D=3D new_mode.htotal &&
-> > -         old_mode.vtotal      !=3D new_mode.vtotal &&
-> > -         old_mode.hsync_start =3D=3D new_mode.hsync_start &&
-> > -         old_mode.vsync_start !=3D new_mode.vsync_start &&
-> > -         old_mode.hsync_end   =3D=3D new_mode.hsync_end &&
-> > -         old_mode.vsync_end   !=3D new_mode.vsync_end &&
-> > -         old_mode.hskew       =3D=3D new_mode.hskew &&
-> > -         old_mode.vscan       =3D=3D new_mode.vscan &&
-> > -         (old_mode.vsync_end - old_mode.vsync_start) =3D=3D
-> > -         (new_mode.vsync_end - new_mode.vsync_start))
-> > +     if (old_mode->clock       =3D=3D new_mode->clock &&
-> > +         old_mode->hdisplay    =3D=3D new_mode->hdisplay &&
-> > +         old_mode->vdisplay    =3D=3D new_mode->vdisplay &&
-> > +         old_mode->htotal      =3D=3D new_mode->htotal &&
-> > +         old_mode->vtotal      !=3D new_mode->vtotal &&
-> > +         old_mode->hsync_start =3D=3D new_mode->hsync_start &&
-> > +         old_mode->vsync_start !=3D new_mode->vsync_start &&
-> > +         old_mode->hsync_end   =3D=3D new_mode->hsync_end &&
-> > +         old_mode->vsync_end   !=3D new_mode->vsync_end &&
-> > +         old_mode->hskew       =3D=3D new_mode->hskew &&
-> > +         old_mode->vscan       =3D=3D new_mode->vscan &&
-> > +         (old_mode->vsync_end - old_mode->vsync_start) =3D=3D
-> > +         (new_mode->vsync_end - new_mode->vsync_start))
-> >               return true;
-> >
-> >       return false;
->
+> >   /**
