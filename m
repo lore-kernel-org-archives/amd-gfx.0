@@ -4,49 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A995AC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 22:12:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11A4AC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 02:33:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2CF610E438;
-	Mon, 14 Mar 2022 22:11:57 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B20B10E435;
- Mon, 14 Mar 2022 22:11:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647295916; x=1678831916;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=TmF4FvJhy8r4L46VPu1Ph2AwpXhixIyOHXK6V+ZN30g=;
- b=PJDtXRu/WIGZOCihMXF/ypBGKmv6O5O6I4gLXq/3BB4NsXiwgCvG0Yh2
- mDSo4nAiEmI4ncJnjXKz9/m5KXTBad7iXGw8t6Ak/b6sdBaz6dxR/F/pF
- EDyrHrL6ikBu3vcICNQM1x1jcNxpNEJ6wVTL2eXK8fZ0RFyxfXUYfHued
- DAgT5Pn53yNY7TwuCLyM2X1eV9xKnMP4GRcVRJUcyXH6tG8P5snjx3xdW
- 5swA5UfLsivskCzI1BBdbd947h3RohwemlIhcOBkCtjiS70ACtynJuF5U
- N2RdqVkiyPFD/IVdvC2MpujLY1afivGvcgmZ8vNonjsQ41QzQxQK60YZc w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="316877952"
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="316877952"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2022 15:11:55 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="556641142"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga008.jf.intel.com with SMTP; 14 Mar 2022 15:11:44 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 15 Mar 2022 00:11:43 +0200
-Date: Tue, 15 Mar 2022 00:11:43 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 00/22] drm: Review of mode copies
-Message-ID: <Yi+9n0eGn3rNKb4X@intel.com>
-References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7084B10E39B;
+	Tue, 15 Mar 2022 02:33:27 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2073.outbound.protection.outlook.com [40.107.236.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0988D10E421
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 02:33:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nRU4n28AsxkwCQvRLraSt6Z2z6mo4/G+WALciIhaMYbGonnS3BTF4jCYTu1ZqSrp6FCAv8f+/OJXlTJJhZPdcRB3r2fn1XYpIBV3XP2pbLKuctZqvc6k8wkSkeCvk6VIHWvYOvCP+V1hEeR8SEEID/GS/UyzUfU68O+TJ7z+QHri3m2kjn1Qr3D0+cX50Gd7TGLGrFbUEogDX7Au4VyE/+Q/GQ5jyib6MjyHgBRBgyRrWWxUDvBi0U59lHt0g1L4xeAWOEr0KP19xqUAXjj/jFxmkgCD/ZVALOLMY/WgVJJhTHbJ3uKKBlSQUMa4e6U3fhFHkjgziEh91mjuCFM2zw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GFQ4E9IQqAsKvSXBatWWOCiTg4tibF2U1aajTEnU5i4=;
+ b=CR2dgN5+Lpt5ElJivLa0lzWL3/QeslCLtn0pbedXHP6zsUO4hFznFT6XJdaU//HaJgOzhr4VxMtYQEktoIbHKjR49skdz1M7eUlgGjH5Q16XgSeGwMXs+lpHkwlj8ogIS98WbfoH++CFAEqWLq7OgSg7mt9xuzLOLbHJGssSOaA+IFfN2/McTyVJWITRe1wvhBXPtjeicqq3q0IQn3Ng+/dNX/6yHWM91ozzlzZUzh/5TA8us07sPdnBOx76RnjbCC+U1Ks9RzpdDKCR2TiTy/m3smJJzGkCaYgG56GWKK+Ciu17RPkAnuF/7LJr5MTQEsEg05MW3CLFlCWEXFg9aQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GFQ4E9IQqAsKvSXBatWWOCiTg4tibF2U1aajTEnU5i4=;
+ b=wZ4jQOhhOKhr7gAUDcWAt3anUeYu1i/uvVwAgiD04oZS72Fllh0nSp/QxKSlKC4oPC/6fsBAPgsh5mDxpGk7bCt///kYtfbsIws/Ph4qi8QSL7MzpbApngm48jpuuBy7WrWAIgVUtqwtXqCqf4RBphUMF8mKoQlxp/HxOENBM1w=
+Received: from MWHPR22CA0038.namprd22.prod.outlook.com (2603:10b6:300:69::24)
+ by DM4PR12MB5088.namprd12.prod.outlook.com (2603:10b6:5:38b::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.26; Tue, 15 Mar
+ 2022 02:33:23 +0000
+Received: from CO1NAM11FT053.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:69:cafe::dc) by MWHPR22CA0038.outlook.office365.com
+ (2603:10b6:300:69::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.28 via Frontend
+ Transport; Tue, 15 Mar 2022 02:33:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT053.mail.protection.outlook.com (10.13.175.63) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5061.22 via Frontend Transport; Tue, 15 Mar 2022 02:33:22 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 14 Mar
+ 2022 21:33:22 -0500
+Received: from rico-code.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.24 via Frontend
+ Transport; Mon, 14 Mar 2022 21:33:20 -0500
+From: Tianci Yin <tianci.yin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/vcn: fix vcn ring test failure in igt reload test
+Date: Tue, 15 Mar 2022 10:33:15 +0800
+Message-ID: <20220315023315.436797-1-tianci.yin@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
-X-Patchwork-Hint: comment
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f9872ecf-be4b-4ff3-dc94-08da062c2ced
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5088:EE_
+X-Microsoft-Antispam-PRVS: <DM4PR12MB50889D6D469F62FFB1DAFC5895109@DM4PR12MB5088.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +IxHAJtDOXMBmjK4pyFGG7X32Kh9Zkzag0v8wyYEXZTvV94zRyU2OS4G2aNZr7nRP77BSxyrVi89ak7yytaXHQ08SZBEC5c6K3hLeE4oJ6EY5Hw6wi2j5O5c8Y2FaJHcQ54CdFtXUvlZdcOBNvqH0Qi8hGK9ECo/6g1ADqXLGd3ZdX9Dhgfx0NKLMVkF0CQpYdceIQjFBl/ZTVa0R4i4XnGcIj7qlQqU562tp8dQf53JvQyQlzuboIq1rSP5hSm0g5/U7t0SbYfWTk/hTf+xFDScijyu3A5t8fKmg/jLj85N1dZPiQoxVnXLCwyLPCNXBUC65wmPwdLHaTlUfsP6WUvRWWbF5IZLkf+zsKtBRtGCYKCTkEu2cWDVumrw3sgEVIN2Pkc/++TtPh3OVpqG7W9lApt8LCvPPnrrnVxnkLJogYdCeHJg9bIR2ff3dxpt+z1fkt63K6k6qawohi2wU90NJxKDz8MVWuf0GqdKSUpU0EwNs3SBDrJ+kmghLcXF7oIDL46RNuWVGMujh3GIw9OaSQgTUD0l3XSrbVdHHAZqnM+7tBnUx++lC8/5emHqJf9FriBT6S4lgLeOmrxqSg7aZFnnPD8z4DP9w3TOuBJC7+wNp2eOUWqXUdkFqzWLigwDtI7U1UzYNq4ndpFyjVaYJoScs25Utx11tsIzCN5BRDb1EvCMVIMXh1aHMVIXlL3pbGR5A9AHNDc2InYRdA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(82310400004)(316002)(2906002)(86362001)(36860700001)(40460700003)(47076005)(4326008)(8676002)(1076003)(70206006)(508600001)(7696005)(6666004)(8936002)(2616005)(356005)(6916009)(54906003)(336012)(44832011)(426003)(36756003)(26005)(5660300002)(186003)(81166007)(70586007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2022 02:33:22.6585 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9872ecf-be4b-4ff3-dc94-08da062c2ced
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT053.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5088
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,65 +98,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Emma Anholt <emma@anholt.net>, Neil Armstrong <narmstrong@baylibre.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Chen Feng <puck.chen@hisilicon.com>, Alain Volmat <alain.volmat@foss.st.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Leo Li <sunpeng.li@amd.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Maxime Ripard <mripard@kernel.org>, Nikola Cornij <nikola.cornij@amd.com>,
- John Stultz <john.stultz@linaro.org>, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org, Tomi Valkeinen <tomba@kernel.org>,
- Jyri Sarha <jyri.sarha@iki.fi>, Sandy Huang <hjc@rock-chips.com>,
- Robert Foss <robert.foss@linaro.org>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Alex Deucher <alexander.deucher@amd.com>, Tian Tao <tiantao6@hisilicon.com>,
- freedreno@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Wang Yu <yu.wang4@amd.com>, Zhu James <james.zhu@amd.com>,
+ Tianci Yin <tianci.yin@amd.com>, Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 18, 2022 at 12:03:41PM +0200, Ville Syrjala wrote:
->   drm: Add drm_mode_init()
->   drm/bridge: Use drm_mode_copy()
->   drm/imx: Use drm_mode_duplicate()
->   drm/panel: Use drm_mode_duplicate()
->   drm/vc4: Use drm_mode_copy()
-These have been pushed to drm-misc-next.
+From: "Tianci.Yin" <tianci.yin@amd.com>
 
->   drm/amdgpu: Remove pointless on stack mode copies
->   drm/amdgpu: Use drm_mode_init() for on-stack modes
->   drm/amdgpu: Use drm_mode_copy()
-amdgpu ones are reviewed, but I'll leave them for the
-AMD folks to push to whichever tree they prefer.
+[why]
+On Renoir, vcn ring test failed on the second time insmod in the reload
+test. After invetigation, it proves that vcn only can disable dpg under
+dpg unpause mode (dpg unpause mode is default for dec only, dpg pause
+mode is for dec/enc).
 
+[how]
+unpause dpg in dpg stopping procedure.
 
-The rest are still in need of review:
->   drm/radeon: Use drm_mode_copy()
->   drm/gma500: Use drm_mode_copy()
->   drm/hisilicon: Use drm_mode_init() for on-stack modes
->   drm/msm: Nuke weird on stack mode copy
->   drm/msm: Use drm_mode_init() for on-stack modes
->   drm/msm: Use drm_mode_copy()
->   drm/mtk: Use drm_mode_init() for on-stack modes
->   drm/rockchip: Use drm_mode_copy()
->   drm/sti: Use drm_mode_copy()
->   drm/tilcdc: Use drm_mode_copy()
->   drm/i915: Use drm_mode_init() for on-stack modes
->   drm/i915: Use drm_mode_copy()
->   drm: Use drm_mode_init() for on-stack modes
->   drm: Use drm_mode_copy()
+Change-Id: If6ec3af694e1d6b63ebce386a563f03ca6d291c1
+Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index 319ac8ea434b..6e0972cd1f2f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -1098,8 +1098,10 @@ static int vcn_v2_0_start(struct amdgpu_device *adev)
+ 
+ static int vcn_v2_0_stop_dpg_mode(struct amdgpu_device *adev)
+ {
++	struct dpg_pause_state state = {.fw_based = VCN_DPG_STATE__UNPAUSE};
+ 	uint32_t tmp;
+ 
++	vcn_v2_0_pause_dpg_mode(adev, 0, &state);
+ 	/* Wait for power status to be 1 */
+ 	SOC15_WAIT_ON_RREG(UVD, 0, mmUVD_POWER_STATUS, 1,
+ 		UVD_POWER_STATUS__UVD_POWER_STATUS_MASK);
 -- 
-Ville Syrjälä
-Intel
+2.25.1
+
