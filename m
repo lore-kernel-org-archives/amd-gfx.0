@@ -4,115 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC189C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 14:11:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94507C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 14:11:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5429C10E4C9;
-	Tue, 15 Mar 2022 14:11:53 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0617810E50A
+	by gabe.freedesktop.org (Postfix) with ESMTP id 264F310E50A;
+	Tue, 15 Mar 2022 14:11:56 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE73A10E4C9
  for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 14:11:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mHPIiv9c/vEHpPlDPOi1KZUKBNi0n1Ze1/dlRbwBd8us9s3hqKLKoZfAZXfADF+RnpcFX24/XuBC/gVx53vowilz9mvbTxaQSlFoUtKLM6o03qwhgqDJnnaiZUmu5ggtPABWLusT3orC5ANwb7vYKzB33dt/t3fEXkNZy7gNSLC9Eepqkf6z2OpDcsGlhDqIgXqXbiLV1jiRYeU7I+xOZ5eF2t1kgNDrNqtHvkhMfj5mhvpj58PPHr/waFGqeJd5EkoDnPrXhbLJPD54aBHX5pQLkM9hY/aCDDQu5NjXToy6I7JZGK4ZGyVmP0J8NLUOQoruKqHRlRX3CnoSc+BfSg==
+ b=YDczS/1D0249crO0wCoiFOJ+yF6JI60c901N392YNya5AxpjP5L/prvUxoBEzdyllzXIJBVe2DCckh967gwCOppw2PnNc+60QO0u5HAD8IxkWEI+UTmYiMwIuWOowIrMvot/I78oHuHWTV7LWReiG2ypDRAXDGG6EPT4n+hE7UyLa0PuFTV/SXOVHubUfOQ2KLYLP8XQeJWKk6lkwN2mRkXVaPCn7K/syJQLnL3wnCh+Xc9eMwUMd6DXNMjTVmy1XIQC+B8UDmJ4EgM46qbKEVKehWcZBl59ZW4/qVsMYIurhwBFBgQ+qfbMrLBa+Kss8W2f1I5XMRYGrtlH/t5jHg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EYg83kFl7pFzOltcAK+I1bh9dMHuRUGyMPH7HKA54Js=;
- b=PMHrBw2QWzGDE51eq5G5r47yoRZCstda6RS/o4t704iYaLJT4ED+q9MVYnvFjzxJ9G7vpUGzu02Pq+LHPOyC0En/vCCRCFuw89v9agnb0FN9/QyQ9uuDExE3nBakXDEGOTc9LnPA/nOxexCNIdfwgt9oq6Pi66rDNjfJiJZy0Muwv8h57omYdCBscYojRHQBAQhDmAHvspBtq1Lnr+E4xTrR7ZMg/ieV/fHnrq/kc5V89BFhBFziBYJyzT6Y24iEqBU6/1y1mCXMK7WoN8VIHDfS55gVW+gcxaHkXKcMgG4EmdpJ7tfGVG0kPld9wGfnbZMbz7gjqL5n4DFXpZtT6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=1FxoREZQTZtD1ahYkbOiJsIS7ucw+ZiUwsbHbIVAZGA=;
+ b=dqA5yPm9eRaCkYfE4gvKzySwWEeX9nfTeAKFBM+bPBn1vXnbOIf/BMGnFutfEvC3OFHYdIteWgmjmU9W6HfKExLIxQr2qkZGrRSqiLZ4ozN4eO0wSh+ijKZ3VU8Hb5m+1jimvKn6V//9i74TLadnWm4L3dbEWyhq1S+Wbex0unlZV7vuaQTfuf7J7+QM9ohUaPerKI4Gc8RSS5gNWUYkHs2AeWNDLmocedf8qFio29cWOXl/df6hUYcpbe4b1m+J03LebWBd5Z1CQm0KI+9ox4cYpfLjbN1nlmm7gfMlgz0Q5/8EzWlFHHip+Nt7aNgOux2y98v1xeiCqSW8UR0C/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EYg83kFl7pFzOltcAK+I1bh9dMHuRUGyMPH7HKA54Js=;
- b=OE+/PqEaJeBiIJxemLVKexiFrFp4Rry7q8v/KaySB1s+sJnN2Ol4/LdjY/XFrwVWR+iBsHjYT7b7sxT7I2dD96t2l/cLG0/C/q4F7UmTjuJx+prRs6okVdDYdQkacJf7wsL0UFzYM6+yaU66QlAGZgs62fG93RzPDFuxv26Bt98=
-Received: from DM4PR12MB5294.namprd12.prod.outlook.com (2603:10b6:5:39e::15)
- by MN2PR12MB4471.namprd12.prod.outlook.com (2603:10b6:208:26f::16) with
+ bh=1FxoREZQTZtD1ahYkbOiJsIS7ucw+ZiUwsbHbIVAZGA=;
+ b=TqFUW3kP1KGCYROkFf0yg0/OQ4Iu+DkUrjLCO7qD7c1gkj+U3cy1dfdYv2PvsSzPpa69k//4lymvImTv8qf2jRCNzgbeVgxo7z3IdNxzVM0tMRXwwqDCsbOuaFbs06lcSNtSbzCk/1BzvF/IjmAFcwHxQ3k0+wHuw3gZ1HC5WcA=
+Received: from MW4PR04CA0264.namprd04.prod.outlook.com (2603:10b6:303:88::29)
+ by BN6PR12MB1539.namprd12.prod.outlook.com (2603:10b6:405:6::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14; Tue, 15 Mar
- 2022 14:11:49 +0000
-Received: from DM4PR12MB5294.namprd12.prod.outlook.com
- ([fe80::b8ec:5650:98f1:bffe]) by DM4PR12MB5294.namprd12.prod.outlook.com
- ([fe80::b8ec:5650:98f1:bffe%5]) with mapi id 15.20.5061.028; Tue, 15 Mar 2022
- 14:11:49 +0000
-From: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
-To: "Zhu, James" <James.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu/vcn: fix vcn ring test failure in igt reload
- test
-Thread-Topic: [PATCH] drm/amdgpu/vcn: fix vcn ring test failure in igt reload
- test
-Thread-Index: AQHYOBULpQlgUV2PfU+8EQEFup81NazAWKgAgAAkMH0=
-Date: Tue, 15 Mar 2022 14:11:49 +0000
-Message-ID: <DM4PR12MB529442776F3B3A0ADE91777495109@DM4PR12MB5294.namprd12.prod.outlook.com>
-References: <20220315023315.436797-1-tianci.yin@amd.com>
- <bbbbd2d0-24ae-0cf6-e5b7-8951a79fecb0@amd.com>
-In-Reply-To: <bbbbd2d0-24ae-0cf6-e5b7-8951a79fecb0@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-15T14:11:48.474Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 00cae389-3ccf-4ae9-c40f-08da068dbf46
-x-ms-traffictypediagnostic: MN2PR12MB4471:EE_
-x-microsoft-antispam-prvs: <MN2PR12MB4471B6F58BD50AD1238CDF1F95109@MN2PR12MB4471.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: BY+ijUsGa8mUDjcVcITPTQTXFNSM9W4kNtONXiwAyeho7w0pF0ninrXiEnW+vNXMb4wR8D38WHDuP0P03iX3ikrCHN1p4Gsp5uIgbwMDWwFIgXLmE+SeU3fD94FLDZBoWeX9mtXIdWPqodnfZxOuJWO29XoXt4Xq5o3KPqgx/z+rzyG9KcfTyBIz9GJUd5AvRvISDMfYUAfNHQJAgQTRHOVp2GNxUNSaFwj4/wGYauMOneLPBkZbzAfr1hqbzqpWf+r7/GFNxV9/Pwfa+EXo6TuA6gyPhlnuPaTdrasEtB1kKCST3O6q50k2qcrX9w0J7uGALpXwYJKV9NFPcvu4kn4byAaPXicDAzUhvsNkfsWMmgTWsoIUPsxDnzeikicoV7/pLqWesLUJY54yg38IctCaphbLMhhKm+m8YrpSek91Y2nhK0uvkcMp2oBJ/gH0yUC3p28hZw0M/F5SYm4YeCwwD/ONqhu5Fwomfve0r2oNa715kSzxSbHqMRXcmj3lF6OaHuL7qkuXjX4TLVfNbJ9dBh+MATqVCae10A9WdWGCSpNNwzemez0gypzd3tM+HYP47XRYVGf48CTYtCs/rDiEUwHrK98wm5dn8tydffcCkhxPEaImLa+LBq02wNqe4XRTVx/kq7w1X4sKjDcASV7JCU3TIYf4jGkEoTpedemxUvDtyNItGu0yub9+5et40h5oE1ONs1rboUqyyfxA9w==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5294.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(33656002)(508600001)(2906002)(316002)(76116006)(66946007)(55016003)(66556008)(91956017)(64756008)(8676002)(4326008)(66476007)(66446008)(9686003)(38100700002)(52536014)(53546011)(122000001)(7696005)(5660300002)(86362001)(8936002)(38070700005)(26005)(186003)(54906003)(110136005)(71200400001)(83380400001)(6506007)(19627405001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?H5tvXb7V3h2n+HGT0qBTqkcgsfSt6W/NizN0WFdyFbhNhu5tGQUAr9C+ysoC?=
- =?us-ascii?Q?LprVTw7UQ3LW8oSSKnvvJhC/Jos+r7hBMnEvrVkS286aTOVnR2e+IVCXXsyd?=
- =?us-ascii?Q?mQvAyEcq676ByloQ2KBcfLRwepXCB38Wc7UOel5amfEFH7ypcqjTAZpTLkH8?=
- =?us-ascii?Q?pVswcDI0oq53X1pge911K1JRxbvz/HFgfHZX3FjoO0Ymu/ici0VHV8fSCnXm?=
- =?us-ascii?Q?JzT/cvGAOTChbKZagBWPExSm7sWo6o88fhaBwVA5gOva1z4OljsxXYIp7Xgy?=
- =?us-ascii?Q?Kw1j3MJkGxwftoAqp1mNwjVReCVe9rNUI/tp1R5QiTKjzdy2zRfGJTHo9gxw?=
- =?us-ascii?Q?n0y0M6Qa3S+HBDr8mw/vCgjjOuwgfN7+zm3nPA+G48Mr8jhEMDc81j6z65Ei?=
- =?us-ascii?Q?6d7lzAnZEPKgcvbcNF7u6SOdDhBzFMETi88liF7vGqh/HB+mfwcOwPHauKWM?=
- =?us-ascii?Q?G2RdfzvaBzYgq+47C6VRn92fwoY8XUlSBwv/ZqZAnQ29/P/fdWxBJANAfb3O?=
- =?us-ascii?Q?ZI935JH05OM7eQyFxUc4MMjJz6wG/B32yGcPbQbFGHeTE5umW2kq15CTQPw4?=
- =?us-ascii?Q?wSPrNUzVC+6lIYt5bPIRq6dp8ZowOL1cFOAUxTVkYL/m4y363X6MUkhB1mpd?=
- =?us-ascii?Q?cRxX694UvDOX8hJULI1217brlLYu7h0Zta+k/TwsVhCnnMWNCHJOwUIszi4P?=
- =?us-ascii?Q?jY4ZuRverlLnnOVYDPhqGjKJrm13RH3Ow1NIstVBlaCIxSfUFyHK+UQykU/g?=
- =?us-ascii?Q?T0xkWIAgH4sd319kLVFjdKp2iarUQWQZrv/HyScsRIPF6a+etBhVTU+uBDNR?=
- =?us-ascii?Q?vSPyGMUsTbC2niOJuotoTpICstz8rDpLYrhI13EIlVj9yiWsAHR63C+IAn4c?=
- =?us-ascii?Q?K8ERiUrnYHnd43nVMjgZLD8h1ghrZsj4Afwyl/MgdmflEr5Mh0mOfYI6M+JN?=
- =?us-ascii?Q?gJ/ziW/4ZsfFKk25fmRhSI/R/DMoHG6ale3V/pBa0dfQeAkJ8iZGjVyb9nvc?=
- =?us-ascii?Q?/aJVRIEmGLiFytQY1/8Ss+A5guebJGIq+MlttzDAZTkJRRiPldb0vH3dgdG5?=
- =?us-ascii?Q?u7g8owzrnKmbxLNJisp+kjomWRxghyYgocpWmqW4Sy+mX64+pSFsBZQb5zKl?=
- =?us-ascii?Q?4ozWBDY7c7d+zOTHxxccGizLZTxm5nON/GZrlqjss/UeGddxqRkebL+9+0vf?=
- =?us-ascii?Q?VDVfaqLqA8P7NG8ttJs23mMg5a8g+VbIPYy/0rVIELni9Dv4+bLJhn5M6/Y/?=
- =?us-ascii?Q?RVJ2ycwBOWrzwXaf8KgyFfChMTEowEdiXxelWgUUtDlr7OvtOW1oL9bVIzbg?=
- =?us-ascii?Q?vBMGVPAxuEQcjG8k4QOgzjYN0JRCuCERqiwDyFgucTcjNOERUNpaqbsMe/mv?=
- =?us-ascii?Q?GqbGr4HFYP8b2EeFrRnjfOZQMsWUc9s7orA6q7Zr4/pw/FXK8+TgMZtOLgYM?=
- =?us-ascii?Q?KSXNI5zD6pLFhP6IUukoWgxZQo8wGj4y?=
-Content-Type: multipart/alternative;
- boundary="_000_DM4PR12MB529442776F3B3A0ADE91777495109DM4PR12MB5294namp_"
+ 2022 14:11:50 +0000
+Received: from CO1NAM11FT066.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:88:cafe::2) by MW4PR04CA0264.outlook.office365.com
+ (2603:10b6:303:88::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.26 via Frontend
+ Transport; Tue, 15 Mar 2022 14:11:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT066.mail.protection.outlook.com (10.13.175.18) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5061.22 via Frontend Transport; Tue, 15 Mar 2022 14:11:49 +0000
+Received: from yonsun-linux-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 15 Mar
+ 2022 09:11:48 -0500
+From: Yongqiang Sun <yongqiang.sun@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: Merge get_reserved_allocation to
+ get_vbios_allocations.
+Date: Tue, 15 Mar 2022 10:11:29 -0400
+Message-ID: <20220315141130.150367-1-yongqiang.sun@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7f6b1935-02c9-4584-f5e8-08da068dbf38
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1539:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR12MB153992DB0A021988A025E252F4109@BN6PR12MB1539.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XSgSpZTBpYUPPAR+JjYUXIJRZr15F38u1JP6Fik5AbWEuNMsJuo+MB9FyTLrigV7QsZNvttNGGcv5HbILYhw6ah1s5kXOzyOS1cUy1xs1OtlP8KgP3Y+fJT49eNEFH4IkAQ1RCmVyKG0++UQZUGnbYw6Mlg/rQpi9MWjMMRc+KylGzzv8K6YT6hYrslIn573qyYNbizavORE+5TFLLQRmfBb60wFXu6bapooydx3EisdIovKYcshlT3ZpwctmKLzEGF8tdQ667ks8CrbT+SCtVi764cnvPl60zBbSc1Ww6rFcXGRm4XV/HfBCZOChjGYQAJ6pZ0jhX+4L/yrjRxX+4pnlusbO1chJht+2Da74Wp2QwFhO5GV4t41vumP0TatiztJ+R03aAE5qocMvLvn3JObbZpW+N1VysxvMHOvIIZxzHzIh7UMjq4sILZQoF6fp6ZA/7OZm3Ou+XxvshoczOsFh4RR/2gBcIHe5+9diIDGJZQvP/lyhsSGQ3CxybeYkA50BmYsAU+bFHgbgwwxI7PhyKSelXStFsd1pWRfjlEo3KlILsODMMOS3PxxKtbqMouzGt/Z+DX/mBlgsRLh07Qrd9mxLA8uoEigAqiQeHE8PX/GcP5wQhBbeObgyGwcqET/XPnfSOZbZifmZgUZdKlcWsOMaEdyKp5W5+bnVtlOsbNPmbk65O+s792D6OolsM2DWsPE9kifuXzJoaDbWA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(336012)(36756003)(426003)(54906003)(6916009)(316002)(26005)(186003)(2906002)(40460700003)(8676002)(44832011)(47076005)(7696005)(86362001)(4326008)(83380400001)(82310400004)(70206006)(70586007)(16526019)(5660300002)(36860700001)(508600001)(356005)(6666004)(1076003)(81166007)(2616005)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5294.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00cae389-3ccf-4ae9-c40f-08da068dbf46
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Mar 2022 14:11:49.4181 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iROVkW3augHZatlPM2/jQCktsOGCRJ3tCWPE1+OfXlDsriwPxaneMI0LpW1yYDYR8YgWH9ajth7feeDzMP3srg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4471
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2022 14:11:49.2808 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f6b1935-02c9-4584-f5e8-08da068dbf38
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT066.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1539
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,168 +99,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, Yu \(Charlie\)" <Yu.Wang4@amd.com>, "Chen,
- Guchun" <Guchun.Chen@amd.com>
+Cc: alexander.deucher@amd.com, Yongqiang Sun <yongqiang.sun@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM4PR12MB529442776F3B3A0ADE91777495109DM4PR12MB5294namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Some ASICs need reserved memory for firmware or other components,
+which is not allowed to be used by driver.
+amdgpu_gmc_get_reserved_allocation is to handle additional areas.
+To avoid any missing calling,
+merged amdgpu_gmc_get_reserved_allocation to
+amdgpu_gmc_get_vbios_allocations.
 
-[AMD Official Use Only]
+Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
+Change-Id: I142127513047a3e81573eb983c510d763b548a24
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 32 ++++++++++---------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  1 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  1 -
+ 3 files changed, 13 insertions(+), 21 deletions(-)
 
-Thank you for reviewing James!
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 7c2a9555b7cc..f18d050a14cf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -626,6 +626,13 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
+ {
+ 	unsigned size;
+ 
++	/*
++	 * Some ASICs need to reserve a region of video memory to avoid access
++	 * from driver
++	 */
++	adev->mman.stolen_reserved_offset = 0;
++	adev->mman.stolen_reserved_size = 0;
++
+ 	/*
+ 	 * TODO:
+ 	 * Currently there is a bug where some memory client outside
+@@ -640,6 +647,12 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
+ 	case CHIP_RENOIR:
+ 		adev->mman.keep_stolen_vga_memory = true;
+ 		break;
++	case CHIP_YELLOW_CARP:
++		if (amdgpu_discovery == 0) {
++			adev->mman.stolen_reserved_offset = 0x1ffb0000;
++			adev->mman.stolen_reserved_size = 64 * PAGE_SIZE;
++		}
++		break;
+ 	default:
+ 		adev->mman.keep_stolen_vga_memory = false;
+ 		break;
+@@ -760,25 +773,6 @@ uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo
+ 	return amdgpu_bo_gpu_offset(bo) - adev->gmc.vram_start + adev->gmc.aper_base;
+ }
+ 
+-void amdgpu_gmc_get_reserved_allocation(struct amdgpu_device *adev)
+-{
+-	/* Some ASICs need to reserve a region of video memory to avoid access
+-	 * from driver */
+-	adev->mman.stolen_reserved_offset = 0;
+-	adev->mman.stolen_reserved_size = 0;
+-
+-	switch (adev->asic_type) {
+-	case CHIP_YELLOW_CARP:
+-		if (amdgpu_discovery == 0) {
+-			adev->mman.stolen_reserved_offset = 0x1ffb0000;
+-			adev->mman.stolen_reserved_size = 64 * PAGE_SIZE;
+-		}
+-		break;
+-	default:
+-		break;
+-	}
+-}
+-
+ int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_bo *vram_bo = NULL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 93505bb0a36c..032b0313f277 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -331,7 +331,6 @@ amdgpu_gmc_set_vm_fault_masks(struct amdgpu_device *adev, int hub_type,
+ 			      bool enable);
+ 
+ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev);
+-void amdgpu_gmc_get_reserved_allocation(struct amdgpu_device *adev);
+ 
+ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev);
+ uint64_t amdgpu_gmc_vram_mc2pa(struct amdgpu_device *adev, uint64_t mc_addr);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index f60b7bd4dbf5..3c1d440824a7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -948,7 +948,6 @@ static int gmc_v10_0_sw_init(void *handle)
+ 		return r;
+ 
+ 	amdgpu_gmc_get_vbios_allocations(adev);
+-	amdgpu_gmc_get_reserved_allocation(adev);
+ 
+ 	/* Memory manager */
+ 	r = amdgpu_bo_init(adev);
+-- 
+2.25.1
 
-Regards,
-Rico
-________________________________
-From: Zhu, James <James.Zhu@amd.com>
-Sent: Tuesday, March 15, 2022 20:01
-To: Yin, Tianci (Rico) <Tianci.Yin@amd.com>; amd-gfx@lists.freedesktop.org =
-<amd-gfx@lists.freedesktop.org>
-Cc: Chen, Guchun <Guchun.Chen@amd.com>; Zhu, James <James.Zhu@amd.com>; Wan=
-g, Yu (Charlie) <Yu.Wang4@amd.com>
-Subject: Re: [PATCH] drm/amdgpu/vcn: fix vcn ring test failure in igt reloa=
-d test
-
-This patch is Reviewed-by: James Zhu <James.Zhu@amd.com>
-
-On 2022-03-14 10:33 p.m., Tianci Yin wrote:
-> From: "Tianci.Yin" <tianci.yin@amd.com>
->
-> [why]
-> On Renoir, vcn ring test failed on the second time insmod in the reload
-> test. After invetigation, it proves that vcn only can disable dpg under
-> dpg unpause mode (dpg unpause mode is default for dec only, dpg pause
-> mode is for dec/enc).
->
-> [how]
-> unpause dpg in dpg stopping procedure.
->
-> Change-Id: If6ec3af694e1d6b63ebce386a563f03ca6d291c1
-> Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 2 ++
->   1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/=
-amdgpu/vcn_v2_0.c
-> index 319ac8ea434b..6e0972cd1f2f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> @@ -1098,8 +1098,10 @@ static int vcn_v2_0_start(struct amdgpu_device *ad=
-ev)
->
->   static int vcn_v2_0_stop_dpg_mode(struct amdgpu_device *adev)
->   {
-> +     struct dpg_pause_state state =3D {.fw_based =3D VCN_DPG_STATE__UNPA=
-USE};
->        uint32_t tmp;
->
-> +     vcn_v2_0_pause_dpg_mode(adev, 0, &state);
->        /* Wait for power status to be 1 */
->        SOC15_WAIT_ON_RREG(UVD, 0, mmUVD_POWER_STATUS, 1,
->                UVD_POWER_STATUS__UVD_POWER_STATUS_MASK);
-
---_000_DM4PR12MB529442776F3B3A0ADE91777495109DM4PR12MB5294namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thank you for reviewing James!</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Rico</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhu, James &lt;James.=
-Zhu@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, March 15, 2022 20:01<br>
-<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;; amd-gfx@lists.fre=
-edesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;; Zhu, James &lt;James.Z=
-hu@amd.com&gt;; Wang, Yu (Charlie) &lt;Yu.Wang4@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu/vcn: fix vcn ring test failure in ig=
-t reload test</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This patch is Reviewed-by: James Zhu &lt;James.Zhu=
-@amd.com&gt;<br>
-<br>
-On 2022-03-14 10:33 p.m., Tianci Yin wrote:<br>
-&gt; From: &quot;Tianci.Yin&quot; &lt;tianci.yin@amd.com&gt;<br>
-&gt;<br>
-&gt; [why]<br>
-&gt; On Renoir, vcn ring test failed on the second time insmod in the reloa=
-d<br>
-&gt; test. After invetigation, it proves that vcn only can disable dpg unde=
-r<br>
-&gt; dpg unpause mode (dpg unpause mode is default for dec only, dpg pause<=
-br>
-&gt; mode is for dec/enc).<br>
-&gt;<br>
-&gt; [how]<br>
-&gt; unpause dpg in dpg stopping procedure.<br>
-&gt;<br>
-&gt; Change-Id: If6ec3af694e1d6b63ebce386a563f03ca6d291c1<br>
-&gt; Signed-off-by: Tianci.Yin &lt;tianci.yin@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 2 ++<br>
-&gt;&nbsp;&nbsp; 1 file changed, 2 insertions(+)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/a=
-md/amdgpu/vcn_v2_0.c<br>
-&gt; index 319ac8ea434b..6e0972cd1f2f 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
-&gt; @@ -1098,8 +1098,10 @@ static int vcn_v2_0_start(struct amdgpu_device =
-*adev)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static int vcn_v2_0_stop_dpg_mode(struct amdgpu_device *ad=
-ev)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct dpg_pause_state state =3D {.fw_based =
-=3D VCN_DPG_STATE__UNPAUSE};<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t tmp;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; vcn_v2_0_pause_dpg_mode(adev, 0, &amp;state)=
-;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Wait for power status to =
-be 1 */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_WAIT_ON_RREG(UVD, 0, m=
-mUVD_POWER_STATUS, 1,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; UVD_POWER_STATUS__UVD_POWER_STATUS_MASK);<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_DM4PR12MB529442776F3B3A0ADE91777495109DM4PR12MB5294namp_--
