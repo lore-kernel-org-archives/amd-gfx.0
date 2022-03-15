@@ -4,53 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 413E7C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 15:53:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A50DC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 15:57:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA2BD10E536;
-	Tue, 15 Mar 2022 15:53:40 +0000 (UTC)
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B32B10E536
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 15:53:39 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id w2so13200056oie.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 08:53:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E3D988F0A;
+	Tue, 15 Mar 2022 15:57:50 +0000 (UTC)
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5559588F0A;
+ Tue, 15 Mar 2022 15:57:49 +0000 (UTC)
+Received: by mail-oi1-x234.google.com with SMTP id b188so21230033oia.13;
+ Tue, 15 Mar 2022 08:57:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YrGSq5r3SU2NFxwiko4Dpz9bnbGLGj8RiSMDQ7WVepI=;
- b=XmvZlIyMeBE9Kxy6yu7y9xw9W8AmzIvojkNDeM0Q3W0VudLA9ZNcj943FzwIUMGE4q
- gJM4Cqt8FlHfLcayi7v1ImyGNnhaeGKHjluBiy5XMsd5ASjSp8fdqxBrn3JHrOr8VQ5Z
- 8HiLqrJmzhuj8i9pV0/prwQlHEXAW6F4AX5YB60wEJTo4N8Lsx8qhNLpsZZVNyvdDQiV
- wxrfoOrvMsizAFEX8P+KJ/XUGgH1OxtWwZD6B/+PzmPk47Rsv+koAsw58Euz5QrYxptC
- +8Lx40tTtyWuVLw8vOUWkjnpuAub2qGX8Rk8zzIymtXv1yYPpwe0OwMuVScy9j9HcuMs
- g+zg==
+ :cc:content-transfer-encoding;
+ bh=jWnJoZKYShfYZipEE6ZCups7oAda7ot4SH+dHzTQHvg=;
+ b=fWZD7fYBKrcCLLP36Nsix3PjhWakA2JV8NQtlNg4YC5dHtEVTEgCNhRv9ea6+TfccJ
+ YdBc28ZgNOawCJhwAf+JMUmVLxx9UzQUWduiLBqCxddul/AlsE/jrVVlzEWqBt/Vhj+W
+ y5X0OlnmJxwZ2cf7KIimGb1FjZiSc2JiV+7LNM16p2ounNFovSMPObuRi0A/xfQytnhm
+ VkvUgJMiJZvsM9vMv8K6S50gVe7EXkordHNPIMvGCkALaNljmzOQaTdkbTiuB1us6Ezh
+ ioRra7dygf4u8Mi2UXKUX3GmzFyhA78I/6ndcoJMwRyhbGKYCqBE0nBr22MP03u2+CTZ
+ kHzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=YrGSq5r3SU2NFxwiko4Dpz9bnbGLGj8RiSMDQ7WVepI=;
- b=AwWJ+m/J6KtD9kp1CBi+8IhQsy/XK0bEwlblhA/o5yAXcJy84UInEef50G7jWhQqfH
- WVH2etnu4F2rjOdY2CeiVMgYB3sGHRQKm6v0DdIfqQgxd/awnNmFrnkJthANk8Wq8Jcc
- mn30ITNrdhlKMdZgDEK7Z59A4slCvrtQSLWOXeuwmzIAgCPAcn0DQ2eG+PSxgq4GJkag
- bKgXAeRFR0ND9jduQW1OWGf/4+aSMcwbvv1EdywqNIvNQaWpxD0CbCPjBp/W7zfMCjw5
- LV4BJEbI3YDTpFHQeKRg48wK2yLRbfdkSSbiX1NscA2DeloGjyMS81b1+mBJQFPJQBa6
- 5nZA==
-X-Gm-Message-State: AOAM531iIa3i2QSUMfrm1uh5D7X6CjkOjalHZZfjXo9l0tnnWPPJG2Jp
- 8yWRD8EgdeJIQP7dlr/O8bfh+s5fLGWKjMwQvkk=
-X-Google-Smtp-Source: ABdhPJwpNEMd8Sklhy609OdpAxNPdBO1TJB5y9av0cI3UMkcn4vn9GGyMJNvIxAbE/mhUNZtxB7cRHOyvSCakwDq7bA=
-X-Received: by 2002:aca:d07:0:b0:2ec:eaaf:a036 with SMTP id
- 7-20020aca0d07000000b002eceaafa036mr2049512oin.253.1647359618702; Tue, 15 Mar
- 2022 08:53:38 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=jWnJoZKYShfYZipEE6ZCups7oAda7ot4SH+dHzTQHvg=;
+ b=bM6nmR2Qpe4mqQNmCj9zuaBO3maF/WW5y+mWUxn0WEkG5oNlv/PZmT3wOFtWB00kW/
+ 6EFiAzSLMcnW5aXIkBK+G1gQm1QGzLzgOT68s55qTmwrbC/20rvLrTp6ebXwIOCgHd/M
+ +/KTr4YJ3OHDyU7p7TrkVzmm8K+HqxQbFHzzwTjklqYfOwjWEvrpyCsULgB7wBwVKWtc
+ CFtXZnOYqtHPz3TfsTI8DJ+wRjFWEt6e6GqoeQDrsXHU/p74s4pAYp5YKsT1Km9Ozg0H
+ DdKVaUkQs6gDlzlAjnSIBXmGSDmnUJb/9xIJFEvC8TwZtpgEtRW7E+Llx4Y9Ntx9hg1/
+ zkGA==
+X-Gm-Message-State: AOAM5331W/l5rQF0CSr4tT3biXlHo4sWnj8iA6lL4+R84U4kxt0b+g6T
+ gTHH1xnHI0QCEAi/xovQxqtwCWlopz5rakLuXNU=
+X-Google-Smtp-Source: ABdhPJzRWyNdb48ClfOoM3rFiYP5LZ+gMeALH0ALX+N/qMsoETxcqvdDM36JHPdV/k5IHMOIZBkaVcnXhWMecct2ek8=
+X-Received: by 2002:a05:6808:df1:b0:2ec:b193:ad6c with SMTP id
+ g49-20020a0568080df100b002ecb193ad6cmr1864355oic.200.1647359868626; Tue, 15
+ Mar 2022 08:57:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220314140405.GC30883@kili>
- <e54bbfa5-bcbf-8b84-8c94-c181c774c64c@amd.com>
-In-Reply-To: <e54bbfa5-bcbf-8b84-8c94-c181c774c64c@amd.com>
+References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
+ <20220218100403.7028-3-ville.syrjala@linux.intel.com>
+ <2d51f77d-4067-ca23-3005-87cd72e1a397@amd.com>
+In-Reply-To: <2d51f77d-4067-ca23-3005-87cd72e1a397@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Mar 2022 11:53:27 -0400
-Message-ID: <CADnq5_PZdO4DuzYCVCt=TtES7WeRHe5fas8WugrrpeBK2YZB8g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: fix indenting in __smu_cmn_reg_print_error()
-To: Luben Tuikov <luben.tuikov@amd.com>
+Date: Tue, 15 Mar 2022 11:57:37 -0400
+Message-ID: <CADnq5_MrzrsTxdriBppX0AAzpqPVKct2qy-Pxxd5Kt6MckzQ=A@mail.gmail.com>
+Subject: Re: [PATCH 02/22] drm/amdgpu: Remove pointless on stack mode copies
+To: Harry Wentland <harry.wentland@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,16 +65,15 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yifan Zhang <yifan1.zhang@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Guchun Chen <guchun.chen@amd.com>, David Airlie <airlied@linux.ie>,
- Lijo Lazar <lijo.lazar@amd.com>, kernel-janitors@vger.kernel.org,
+Cc: Leo Li <sunpeng.li@amd.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Prike Liang <Prike.Liang@amd.com>, Huang Rui <ray.huang@amd.com>,
- Graham Sider <Graham.Sider@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Darren Powell <darren.powell@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
+ Nikola Cornij <nikola.cornij@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Ville Syrjala <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -79,61 +81,82 @@ Applied.  Thanks!
 
 Alex
 
-On Mon, Mar 14, 2022 at 12:06 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
+On Fri, Feb 18, 2022 at 11:28 AM Harry Wentland <harry.wentland@amd.com> wr=
+ote:
 >
-> Thanks!
 >
-> Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 >
-> Regards,
-> Luben
->
-> On 2022-03-14 10:04, Dan Carpenter wrote:
-> > Smatch complains that the dev_err_ratelimited() is indented one tab more
-> > than the surrounding lines.
+> On 2022-02-18 05:03, Ville Syrjala wrote:
+> > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 > >
-> >       drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu_cmn.c:174
-> >       __smu_cmn_reg_print_error() warn: inconsistent indenting
+> > These on stack copies of the modes appear to be pointless.
+> > Just look at the originals directly.
 > >
-> > It looks like it's not a bug, just that the indenting needs to be cleaned
-> > up.
-> >
-> > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> > Cc: Harry Wentland <harry.wentland@amd.com>
+> > Cc: Leo Li <sunpeng.li@amd.com>
+> > Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Cc: Nikola Cornij <nikola.cornij@amd.com>
+> > Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>
+> Harry
+>
 > > ---
-> >  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 16 ++++++++--------
-> >  1 file changed, 8 insertions(+), 8 deletions(-)
+> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 32 +++++++++----------
+> >  1 file changed, 16 insertions(+), 16 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> > index ae64d1980f10..b8d0c70ff668 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> > @@ -164,17 +164,17 @@ static void __smu_cmn_reg_print_error(struct smu_context *smu,
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
+s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 21dba337dab0..65aab0d086b6 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -10139,27 +10139,27 @@ static bool
+> >  is_timing_unchanged_for_freesync(struct drm_crtc_state *old_crtc_state=
+,
+> >                                struct drm_crtc_state *new_crtc_state)
+> >  {
+> > -     struct drm_display_mode old_mode, new_mode;
+> > +     const struct drm_display_mode *old_mode, *new_mode;
 > >
-> >       switch (reg_c2pmsg_90) {
-> >       case SMU_RESP_NONE: {
-> > -     if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 5)) {
-> > -             msg_idx = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_2);
-> > -             prm     = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_34);
-> > -     } else {
-> > -             msg_idx = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66);
-> > -             prm     = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
-> > -     }
-> > +             if (adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 5)) {
-> > +                     msg_idx = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_2);
-> > +                     prm     = RREG32_SOC15(MP1, 0, mmMP1_C2PMSG_34);
-> > +             } else {
-> > +                     msg_idx = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66);
-> > +                     prm     = RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
-> > +             }
-> >               dev_err_ratelimited(adev->dev,
-> >                                   "SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x%08X SMN_C2PMSG_82:0x%08X",
-> >                                   msg_idx, prm);
-> > -     }
-> > +             }
-> >               break;
-> >       case SMU_RESP_OK:
-> >               /* The SMU executed the command. It completed with a
+> >       if (!old_crtc_state || !new_crtc_state)
+> >               return false;
+> >
+> > -     old_mode =3D old_crtc_state->mode;
+> > -     new_mode =3D new_crtc_state->mode;
+> > +     old_mode =3D &old_crtc_state->mode;
+> > +     new_mode =3D &new_crtc_state->mode;
+> >
+> > -     if (old_mode.clock       =3D=3D new_mode.clock &&
+> > -         old_mode.hdisplay    =3D=3D new_mode.hdisplay &&
+> > -         old_mode.vdisplay    =3D=3D new_mode.vdisplay &&
+> > -         old_mode.htotal      =3D=3D new_mode.htotal &&
+> > -         old_mode.vtotal      !=3D new_mode.vtotal &&
+> > -         old_mode.hsync_start =3D=3D new_mode.hsync_start &&
+> > -         old_mode.vsync_start !=3D new_mode.vsync_start &&
+> > -         old_mode.hsync_end   =3D=3D new_mode.hsync_end &&
+> > -         old_mode.vsync_end   !=3D new_mode.vsync_end &&
+> > -         old_mode.hskew       =3D=3D new_mode.hskew &&
+> > -         old_mode.vscan       =3D=3D new_mode.vscan &&
+> > -         (old_mode.vsync_end - old_mode.vsync_start) =3D=3D
+> > -         (new_mode.vsync_end - new_mode.vsync_start))
+> > +     if (old_mode->clock       =3D=3D new_mode->clock &&
+> > +         old_mode->hdisplay    =3D=3D new_mode->hdisplay &&
+> > +         old_mode->vdisplay    =3D=3D new_mode->vdisplay &&
+> > +         old_mode->htotal      =3D=3D new_mode->htotal &&
+> > +         old_mode->vtotal      !=3D new_mode->vtotal &&
+> > +         old_mode->hsync_start =3D=3D new_mode->hsync_start &&
+> > +         old_mode->vsync_start !=3D new_mode->vsync_start &&
+> > +         old_mode->hsync_end   =3D=3D new_mode->hsync_end &&
+> > +         old_mode->vsync_end   !=3D new_mode->vsync_end &&
+> > +         old_mode->hskew       =3D=3D new_mode->hskew &&
+> > +         old_mode->vscan       =3D=3D new_mode->vscan &&
+> > +         (old_mode->vsync_end - old_mode->vsync_start) =3D=3D
+> > +         (new_mode->vsync_end - new_mode->vsync_start))
+> >               return true;
+> >
+> >       return false;
 >
-> Regards,
-> --
-> Luben
