@@ -4,89 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 846BCC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 07:11:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18673C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 07:13:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3553D10E45C;
-	Tue, 15 Mar 2022 07:11:41 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2054.outbound.protection.outlook.com [40.107.95.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1131910E45C
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 07:11:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SipvM71yKa+miuKfCwxbO2u/LraklMEUWNSE7QYNW9ZIJxK0EyMwE5LP5R3KhmpPTrF24gPHbyZcFIEV5D9Zq71Kt6NO26vQfauc9RUBSY6azoxoC6VWl/CEbzi5y82bWasonmhO64fUJrSznu1I387Px9R9PJWAnT0aQ1NO2EjGYbJqlcUcQFotuk5N1LTVnsWPUi4oEJD43M78F69W5AShD6nqyU45rWFGd86mkW/dUEqERbocZnP3LOSxCjDCENpSHG3ZMzCIWugLygVUckrEelYa4gDc4Z8lRA9kaIY5DBY2kb+b/ccL9XbVcw00f7ORDv0B1ISlOmiKJkuRLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x28/nmgEmwq7HCjdSnGz9zbLTDYj7HcqUm73v9/gHRo=;
- b=nTmsjN7ZtHsMHshCHWr8p8JO9Y6CokjYEGk7wZE/+OPQHlOSw2gUwkmBgfDXGgvn/G8JryRdwGRs/kYEZn3kVZ+pRJfsINfK6oFnK1VVkzrfA2pWFzPKQzpyGUAT5unxigEqhMPFAv1PltHQk1j2QDrK++4Ww9uzyYRjlmgk+UpIPV8W4AjkZrHVM5EIWe46AJVKEewK8/MDbY06tyWed3sNGcCgXBjP3DTps92TQGk2wkglbMZ82H9+ntv50SdOC1PN7c8ItYoe6zRcg3yrPcQoGCnva1e3+/j1DXMyxWmk+mNhcUxEy8wpw3L5nIbiaLXcnyiSYzgMs7eOp1tP/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x28/nmgEmwq7HCjdSnGz9zbLTDYj7HcqUm73v9/gHRo=;
- b=bLP3ZcNfQiWnGka99sTBhNLOOOMMBy/p71wE0NhOzwRPmb/LmxMsE/fNumpd+scZ0MuJ52tph9QG0h4utA8v2q5GGplG1tBdM9JEaMObvE/HWM666duCNP67ffwyU/NkbIZw2UUd3uxUv4L98FP9qCNwHfWA8J//Pv3cFWI3uqQ=
-Received: from BN9PR03CA0507.namprd03.prod.outlook.com (2603:10b6:408:130::32)
- by BN6PR12MB1620.namprd12.prod.outlook.com (2603:10b6:405:10::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.21; Tue, 15 Mar
- 2022 07:11:36 +0000
-Received: from BN8NAM11FT039.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:130:cafe::20) by BN9PR03CA0507.outlook.office365.com
- (2603:10b6:408:130::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.20 via Frontend
- Transport; Tue, 15 Mar 2022 07:11:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT039.mail.protection.outlook.com (10.13.177.169) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5061.22 via Frontend Transport; Tue, 15 Mar 2022 07:11:35 +0000
-Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Tue, 15 Mar 2022 02:11:33 -0500
-From: Guchun Chen <guchun.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
- <christian.koenig@amd.com>, <xinhui.pan@amd.com>, <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: fix pin count leak of PDB bo when unref
-Date: Tue, 15 Mar 2022 15:11:02 +0800
-Message-ID: <20220315071102.9773-1-guchun.chen@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9350C10E46C;
+	Tue, 15 Mar 2022 07:13:48 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F08A410E46C;
+ Tue, 15 Mar 2022 07:13:47 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id e22so260476edc.13;
+ Tue, 15 Mar 2022 00:13:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=r/yfiEGzkudqIlvWvZC4CSWjo3FqjVQV528We4dp5UI=;
+ b=Hgriat48tuZZTIWqRmbMtEIclffPzCPN4juBnBQtQIfm1ZPW7X0WSi83H5OHvOfUqV
+ 3+mU38I9ATp2t8Ycy9E5whwXEynfHij7He7x/SjbXIVep5YB8xEpZQNenBzKitrPKr4C
+ I3I9TY5ss8wJZOM+RYhV2naosrWANOqt125NKabUw97X7vp11/SvpZV8AQoRVTTTHfMv
+ XM6BFM9WbDW+OiBZJEAm80mtdymcm0d2fBsHnKLK3IFmRg+SC5sJnbEG1h6ZlNmJ2GSt
+ CTTam1UDAjXQfv6Y/Z288wq3Zj79A2cBycnVs0lHUwJSUAnCBazoNB0OkBIPQ0FwXrX3
+ Db8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=r/yfiEGzkudqIlvWvZC4CSWjo3FqjVQV528We4dp5UI=;
+ b=75TKPzD7zC9J4VtfygI1DRuZkXlb76ovwy75AJnFhMzBsRFgEIs+JW+gLWjZ0w6gml
+ tHGMNzuBgDKHoOPeEgdoYJA7MUeEF4ZLrHhL3sdfI/oJYOarqtuEdpBjZEb9UE79sG7t
+ R/93ZZJamEBbq6wW2NedTO5y6GDsxUnMdMBSE+mpz6YYS8bueUh94NePNq71glLpm0vI
+ ugoQoJBPXsWAYSCZbovd29rFRbLv1+kBoG0RKr1EBgKXJ1lC5vTNP8y+4+Xq0jyNevw2
+ RD2sLIM6Inudym2RQtsAUprQ1NIugGOthPH9q/uk37nB3mHbwRQuospuIRSJ/YLmareW
+ GJ9g==
+X-Gm-Message-State: AOAM533fsGwFIRx0rWCIWiD+OrBiOFDzHNhP3HDCpj6gQijAzkkQrUq2
+ qROrucUnwzjyXBr58Z4IDYf4kCARzy+T1hGhmK8=
+X-Google-Smtp-Source: ABdhPJwClBPp4BGltciN/pTILhvAOlS0IaRaEOYsM6YiO7iga/qQZrgUSd8T0SjDEdWLXY88zhAWfKTg8/3o9KngVS8=
+X-Received: by 2002:a50:da89:0:b0:413:adb1:cf83 with SMTP id
+ q9-20020a50da89000000b00413adb1cf83mr23516968edj.158.1647328426368; Tue, 15
+ Mar 2022 00:13:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b5255a89-6eef-4592-5010-08da06530ab4
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1620:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR12MB1620A0475DDBDFE86CBA2830F1109@BN6PR12MB1620.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9bGfCuXN6hFgRf1s6qOCQHeLrzooejjdJUepDo4py5Il6IG4AjP9rfd84eww21Tz9K5RnTRTcVVIFJbVdXRH3L2AfHkZMKtN/wVg4mWhdIHbS7WjwHomo1XfCf7RXBFEdTekTVdRj7UiY4xqB6mPRdGy+uM4FUwxBbqTUyOkipTO1CHNi1+vz6OlykRv81QLOEG2IM50kO0Pe7HoTFC49iOnO+S8zHEfiB1J1HSq5xHQtxTQA5FgtWow05WBrXHU0dJI4Ascr6ZfD20b59jqwFixsIG6HpzohcL/ktCK8jDOKiUwnWSWycZVy0JUXcMlGdH4zDyv+mEdM0kSYqlad7pPfGyMYV6hKIDf7Ziw8W+/nb8553Qdfu2lh9UVy0nYMn49WAvsn4Y/JsoZQy2rQQQyHMFbwXHWFCjAc86llm/9BF+3yrCwHIWofS5O6duDAwJsCmbBhIQsnASpYPSLZUeF/qzKQD7LfK8wPaUfimMEaNV8rZnW6eU71493iQ+UtWYLLMOwXLWOuULErTLALXCik+7gG54JdKXlcLzTsmesIRbND8TTf3B/IJLlrHLGzyYAxSNDGEMWT5CJxtyneN9RfmXpaMjZn6X9csKSGiD2uDDQTQOqgZyMqU6Msn1uPepVGZlMrGrQj33/BMEjXo2BoZYQWFiRHhK1sNpPfuR1+x8DdNDrQn3R4y3TJgPSVJhuhkTftOOyC/Y8gBZDHA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(40460700003)(186003)(16526019)(26005)(83380400001)(1076003)(336012)(426003)(8676002)(36756003)(508600001)(4326008)(110136005)(70586007)(70206006)(6636002)(316002)(7696005)(5660300002)(44832011)(4744005)(8936002)(2906002)(82310400004)(81166007)(2616005)(356005)(36860700001)(86362001)(47076005)(6666004)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2022 07:11:35.7206 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5255a89-6eef-4592-5010-08da06530ab4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT039.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1620
+References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
+ <CAF6AEGsmectHSmW-Y6rf+AksXTkges7rukeiYd4yDm-xwdb1=Q@mail.gmail.com>
+ <55629bd8-9fb4-2ee7-87f0-6c4c77cf06fc@gmail.com>
+ <CAF6AEGsgDTphUm7ET+RuMmh2aTn-Ho5gJdUJ4kwJ3iOh7+HGvw@mail.gmail.com>
+ <4f2b2329-3c57-3895-6732-875db2f98b5a@amd.com>
+ <CAF6AEGvvskobh6YOUx55_4rtXJJjPO0PxWY8+EKiVqntT3k+ug@mail.gmail.com>
+ <6b400b8b-1b5c-a339-2345-f317f197b4a6@amd.com>
+ <CAF6AEGt0XhqzkyEhbNcNVQO_A_Lo4qcsPRZRL6QqYn+NWAfv9A@mail.gmail.com>
+ <bf6922f0-da8e-eef6-8217-26c1f50f3c48@quicinc.com>
+ <2980e6a0-624e-2b80-c5d0-c40dfce76fb8@amd.com>
+ <CAF6AEGvC=k4xLA-0iTSf660X2o04E+ivjnThZA-=WANKzLSvpA@mail.gmail.com>
+ <cda15a47-f469-2a7e-87b6-adf00e631ef0@amd.com>
+ <CAF6AEGv3Wv+p1j2B-t22eeK+8rx-qrQHCGoXeV1-XPYp2Om7zg@mail.gmail.com>
+ <20220311102709.225616cf@eldfell>
+ <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
+In-Reply-To: <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Tue, 15 Mar 2022 17:13:34 +1000
+Message-ID: <CAPM=9tybizHtKQBHmur8Lh7+pu5CiswZtgcY6SW04y=g0a=YJQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
+To: Alex Deucher <alexdeucher@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,31 +75,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>
+Cc: Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ "Sharma, Shashank" <shashank.sharma@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alexandar Deucher <alexander.deucher@amd.com>,
+ Shashank Sharma <contactshashanksharma@gmail.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use amdgpu_bo_free_kernel instead of amdgpu_bo_unref to
-perform a clean unreference job.
+On Tue, 15 Mar 2022 at 00:23, Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Fri, Mar 11, 2022 at 3:30 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+> >
+> > On Thu, 10 Mar 2022 11:56:41 -0800
+> > Rob Clark <robdclark@gmail.com> wrote:
+> >
+> > > For something like just notifying a compositor that a gpu crash
+> > > happened, perhaps drm_event is more suitable.  See
+> > > virtio_gpu_fence_event_create() for an example of adding new event
+> > > types.  Although maybe you want it to be an event which is not device
+> > > specific.  This isn't so much of a debugging use-case as simply
+> > > notification.
+> >
+> > Hi,
+> >
+> > for this particular use case, are we now talking about the display
+> > device (KMS) crashing or the rendering device (OpenGL/Vulkan) crashing?
+> >
+> > If the former, I wasn't aware that display device crashes are a thing.
+> > How should a userspace display server react to those?
+> >
+> > If the latter, don't we have EGL extensions or Vulkan API already to
+> > deliver that?
+> >
+> > The above would be about device crashes that directly affect the
+> > display server. Is that the use case in mind here, or is it instead
+> > about notifying the display server that some application has caused a
+> > driver/hardware crash? If the latter, how should a display server react
+> > to that? Disconnect the application?
+> >
+> > Shashank, what is the actual use case you are developing this for?
+> >
+> > I've read all the emails here so far, and I don't recall seeing it
+> > explained.
+> >
+>
+> The idea is that a support daemon or compositor would listen for GPU
+> reset notifications and do something useful with them (kill the guilty
+> app, restart the desktop environment, etc.).  Today when the GPU
+> resets, most applications just continue assuming nothing is wrong,
+> meanwhile the GPU has stopped accepting work until the apps re-init
+> their context so all of their command submissions just get rejected.
 
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Just one thing comes to mind reading this, racy PID reuse.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 431742eb7811..e4e7e6dbc6fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1721,7 +1721,7 @@ static int gmc_v9_0_sw_fini(void *handle)
- 	amdgpu_gem_force_release(adev);
- 	amdgpu_vm_manager_fini(adev);
- 	amdgpu_gart_table_vram_free(adev);
--	amdgpu_bo_unref(&adev->gmc.pdb0_bo);
-+	amdgpu_bo_free_kernel(&adev->gmc.pdb0_bo, NULL, adev->gmc.ptr_pdb0);
- 	amdgpu_bo_fini(adev);
- 
- 	return 0;
--- 
-2.17.1
+process 1234 does something bad to GPU.
+process 1234 dies in parallel to sysfs notification being sent.
+other process 1234 reuses the pid
+new process 1234 gets destroyed by receiver of sysfs notification.
 
+Dave.
