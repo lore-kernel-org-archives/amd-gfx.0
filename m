@@ -4,89 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F165C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 14:08:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC189C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 14:11:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E799110E4F8;
-	Tue, 15 Mar 2022 14:08:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5429C10E4C9;
+	Tue, 15 Mar 2022 14:11:53 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2087.outbound.protection.outlook.com [40.107.94.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26C1D10E4F8
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 14:08:27 +0000 (UTC)
+ (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0617810E50A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 14:11:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Sq49djMMX/RiiHWEQhe5sVM8lO6z6EVwgYEiuCQsmWr3mW8YgJ8IaHWBwLstibs3KWKgfH1JTHM1xTXQch1cIFwZ0C+FC4DJvupLeoSZ90ISt0u+NUyQzyd1g/QAOYBvPOsu7SFeeLT3cNCmN1jAxtdk1X4ULbDOaxY7uGxcEC9kd2kg74BTE1Y+uxH0YmIC8d4oY/G9UFaj999AZPmsP/qfuKRE30CEnXeVcV5twWnhxVUhlGTPf+Ot8CDODiCcyk8PeAKz9Ug0beiAzFL+xUjILldfKk+m+rdXyAfl//WFRrP7Km4tupJQth0mJQ36TyeqSL359Tx8hhDLwzIvOA==
+ b=mHPIiv9c/vEHpPlDPOi1KZUKBNi0n1Ze1/dlRbwBd8us9s3hqKLKoZfAZXfADF+RnpcFX24/XuBC/gVx53vowilz9mvbTxaQSlFoUtKLM6o03qwhgqDJnnaiZUmu5ggtPABWLusT3orC5ANwb7vYKzB33dt/t3fEXkNZy7gNSLC9Eepqkf6z2OpDcsGlhDqIgXqXbiLV1jiRYeU7I+xOZ5eF2t1kgNDrNqtHvkhMfj5mhvpj58PPHr/waFGqeJd5EkoDnPrXhbLJPD54aBHX5pQLkM9hY/aCDDQu5NjXToy6I7JZGK4ZGyVmP0J8NLUOQoruKqHRlRX3CnoSc+BfSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B7FZpkznYB4KI3MQHzArPgIkR8F2POTKh1cyGL4JGPg=;
- b=eCU/pKnUn3jj3tT9DjXqnfN9zfNdi29yA2eu+6O+yK+xqbu5Y+s5FUUPMLFNVt+nna5/lWbXXIsJ9O6ABUqy/L55iRX/1XF/nLv/f9nx1bfzwBJ+wJZ0JjYugc8n4UJqC0UN7evrTgau7urM6rXi/4aPykXx0NJeDq0l0jILNReb/A/LliSbgHm4hilGsXqhD639aGzTgtEYh6kuakVBDTDR1S8abUsVtj4jdCB/dkeHDsV43hdFtoGCWqLAl11ZSv8LJaDDtaMg0aPq37V3tQR8bF1oNhXvXHeYrOIvRzTxmgTUBsIVemcrCsQpUim068I28dtIEywT3CHh0fgjeQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=EYg83kFl7pFzOltcAK+I1bh9dMHuRUGyMPH7HKA54Js=;
+ b=PMHrBw2QWzGDE51eq5G5r47yoRZCstda6RS/o4t704iYaLJT4ED+q9MVYnvFjzxJ9G7vpUGzu02Pq+LHPOyC0En/vCCRCFuw89v9agnb0FN9/QyQ9uuDExE3nBakXDEGOTc9LnPA/nOxexCNIdfwgt9oq6Pi66rDNjfJiJZy0Muwv8h57omYdCBscYojRHQBAQhDmAHvspBtq1Lnr+E4xTrR7ZMg/ieV/fHnrq/kc5V89BFhBFziBYJyzT6Y24iEqBU6/1y1mCXMK7WoN8VIHDfS55gVW+gcxaHkXKcMgG4EmdpJ7tfGVG0kPld9wGfnbZMbz7gjqL5n4DFXpZtT6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B7FZpkznYB4KI3MQHzArPgIkR8F2POTKh1cyGL4JGPg=;
- b=FkwzgkFmdHakvLpg3UyEISu/+N4cAi1q8eyWL7w0BZeUjIasVCJ9ql7VGr5siaranPvlSKKHaTuuK9nCl5DGeNcC+HmwCLlOSx5pmqfHW8aCTi6P3vTQltAlUbv3J3ZRGQl5oqZ3f1/y1VPxs1NlNJh+esFEelDsZAjgpzipOd0=
-Received: from MW4PR04CA0383.namprd04.prod.outlook.com (2603:10b6:303:81::28)
- by CY4PR12MB1653.namprd12.prod.outlook.com (2603:10b6:910:f::9) with
+ bh=EYg83kFl7pFzOltcAK+I1bh9dMHuRUGyMPH7HKA54Js=;
+ b=OE+/PqEaJeBiIJxemLVKexiFrFp4Rry7q8v/KaySB1s+sJnN2Ol4/LdjY/XFrwVWR+iBsHjYT7b7sxT7I2dD96t2l/cLG0/C/q4F7UmTjuJx+prRs6okVdDYdQkacJf7wsL0UFzYM6+yaU66QlAGZgs62fG93RzPDFuxv26Bt98=
+Received: from DM4PR12MB5294.namprd12.prod.outlook.com (2603:10b6:5:39e::15)
+ by MN2PR12MB4471.namprd12.prod.outlook.com (2603:10b6:208:26f::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22; Tue, 15 Mar
- 2022 14:08:24 +0000
-Received: from CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:81:cafe::eb) by MW4PR04CA0383.outlook.office365.com
- (2603:10b6:303:81::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.23 via Frontend
- Transport; Tue, 15 Mar 2022 14:08:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT034.mail.protection.outlook.com (10.13.174.248) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5061.22 via Frontend Transport; Tue, 15 Mar 2022 14:08:24 +0000
-Received: from elenaKubuntuDevTest.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Tue, 15 Mar 2022 09:08:23 -0500
-From: Elena Sakhnovitch <elena.sakhnovitch@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: Disable fan control if not supported
-Date: Tue, 15 Mar 2022 10:08:05 -0400
-Message-ID: <20220315140805.1025021-1-elena.sakhnovitch@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d68a7b0c-d698-478c-0884-08da068d4532
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1653:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR12MB165318F41D95B3D011A52910E0109@CY4PR12MB1653.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: v5WD4qBWUshAFUYA8iEETiCcWnoHLgn4/QUwlmIVQmChn4WkS7VEKRS8yLIOjcEl2qA7n0FqEtysg0To3p3Gupspmqm72vlD9sPJia9L4BYLrPGAqgd64DS0B+Tl9A/gUt3vmh3q0RO0v8mUmvP07k8ainJ2OhoF6LM5+CLtWRvGhLijrucJZtqYP331lb+M9Tkn0qQnvT1LF2HgzyHDa7LFWG4dQoIkZcm0knCkOftBLvIAIiyetm23D5sg1UGpFPuYLVaK3nsGqNe98g/cj+vxQSnAV7DtXJCOYLaTpv2xdF0QQEUFjuy0BF8CnCfMsyc1/yNv5LCA//GngRP9HC3MR1sROjogm2fXs2hvdfshrgPmVcXVbgjhwGH0TB9YtTxYnP05JwWas482lBcgQENd7APdJQp9YuwJYL3c9i5++sNd2sD5HS0XK0tamfoDxy5F0Q8QKbrYqXEOQL4Oakft6XatWNd0G+yzV8Y7WcbLyLLY44JRQgkxfPlpqGqd4Wzd+s+Yrt9oy/NKCwZjgZJ4MOvRoyIdNoNNSPqG/thlI/Ss1c29Kkw1toM/YvgNYZIAbe0e+UJjkYoSC8AY9PiiWFs3rAw5K5rXbY4/CEvOeJdlLnaNBE/jqeKaqoCD4CS+E8JyTGbKvGhyOX293YJk5FT4A0TpnpHVdORMrWdNMsJfH44F/DfiUhRLLALyDvEWnMF4JqMLu/pc7SxDIQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(83380400001)(44832011)(508600001)(86362001)(16526019)(186003)(1076003)(426003)(2616005)(336012)(47076005)(36756003)(8936002)(5660300002)(26005)(4326008)(2906002)(36860700001)(70206006)(7696005)(6666004)(70586007)(6916009)(316002)(356005)(40460700003)(8676002)(81166007)(82310400004)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14; Tue, 15 Mar
+ 2022 14:11:49 +0000
+Received: from DM4PR12MB5294.namprd12.prod.outlook.com
+ ([fe80::b8ec:5650:98f1:bffe]) by DM4PR12MB5294.namprd12.prod.outlook.com
+ ([fe80::b8ec:5650:98f1:bffe%5]) with mapi id 15.20.5061.028; Tue, 15 Mar 2022
+ 14:11:49 +0000
+From: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
+To: "Zhu, James" <James.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu/vcn: fix vcn ring test failure in igt reload
+ test
+Thread-Topic: [PATCH] drm/amdgpu/vcn: fix vcn ring test failure in igt reload
+ test
+Thread-Index: AQHYOBULpQlgUV2PfU+8EQEFup81NazAWKgAgAAkMH0=
+Date: Tue, 15 Mar 2022 14:11:49 +0000
+Message-ID: <DM4PR12MB529442776F3B3A0ADE91777495109@DM4PR12MB5294.namprd12.prod.outlook.com>
+References: <20220315023315.436797-1-tianci.yin@amd.com>
+ <bbbbd2d0-24ae-0cf6-e5b7-8951a79fecb0@amd.com>
+In-Reply-To: <bbbbd2d0-24ae-0cf6-e5b7-8951a79fecb0@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-15T14:11:48.474Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use
+ Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 00cae389-3ccf-4ae9-c40f-08da068dbf46
+x-ms-traffictypediagnostic: MN2PR12MB4471:EE_
+x-microsoft-antispam-prvs: <MN2PR12MB4471B6F58BD50AD1238CDF1F95109@MN2PR12MB4471.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: BY+ijUsGa8mUDjcVcITPTQTXFNSM9W4kNtONXiwAyeho7w0pF0ninrXiEnW+vNXMb4wR8D38WHDuP0P03iX3ikrCHN1p4Gsp5uIgbwMDWwFIgXLmE+SeU3fD94FLDZBoWeX9mtXIdWPqodnfZxOuJWO29XoXt4Xq5o3KPqgx/z+rzyG9KcfTyBIz9GJUd5AvRvISDMfYUAfNHQJAgQTRHOVp2GNxUNSaFwj4/wGYauMOneLPBkZbzAfr1hqbzqpWf+r7/GFNxV9/Pwfa+EXo6TuA6gyPhlnuPaTdrasEtB1kKCST3O6q50k2qcrX9w0J7uGALpXwYJKV9NFPcvu4kn4byAaPXicDAzUhvsNkfsWMmgTWsoIUPsxDnzeikicoV7/pLqWesLUJY54yg38IctCaphbLMhhKm+m8YrpSek91Y2nhK0uvkcMp2oBJ/gH0yUC3p28hZw0M/F5SYm4YeCwwD/ONqhu5Fwomfve0r2oNa715kSzxSbHqMRXcmj3lF6OaHuL7qkuXjX4TLVfNbJ9dBh+MATqVCae10A9WdWGCSpNNwzemez0gypzd3tM+HYP47XRYVGf48CTYtCs/rDiEUwHrK98wm5dn8tydffcCkhxPEaImLa+LBq02wNqe4XRTVx/kq7w1X4sKjDcASV7JCU3TIYf4jGkEoTpedemxUvDtyNItGu0yub9+5et40h5oE1ONs1rboUqyyfxA9w==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5294.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(33656002)(508600001)(2906002)(316002)(76116006)(66946007)(55016003)(66556008)(91956017)(64756008)(8676002)(4326008)(66476007)(66446008)(9686003)(38100700002)(52536014)(53546011)(122000001)(7696005)(5660300002)(86362001)(8936002)(38070700005)(26005)(186003)(54906003)(110136005)(71200400001)(83380400001)(6506007)(19627405001);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?H5tvXb7V3h2n+HGT0qBTqkcgsfSt6W/NizN0WFdyFbhNhu5tGQUAr9C+ysoC?=
+ =?us-ascii?Q?LprVTw7UQ3LW8oSSKnvvJhC/Jos+r7hBMnEvrVkS286aTOVnR2e+IVCXXsyd?=
+ =?us-ascii?Q?mQvAyEcq676ByloQ2KBcfLRwepXCB38Wc7UOel5amfEFH7ypcqjTAZpTLkH8?=
+ =?us-ascii?Q?pVswcDI0oq53X1pge911K1JRxbvz/HFgfHZX3FjoO0Ymu/ici0VHV8fSCnXm?=
+ =?us-ascii?Q?JzT/cvGAOTChbKZagBWPExSm7sWo6o88fhaBwVA5gOva1z4OljsxXYIp7Xgy?=
+ =?us-ascii?Q?Kw1j3MJkGxwftoAqp1mNwjVReCVe9rNUI/tp1R5QiTKjzdy2zRfGJTHo9gxw?=
+ =?us-ascii?Q?n0y0M6Qa3S+HBDr8mw/vCgjjOuwgfN7+zm3nPA+G48Mr8jhEMDc81j6z65Ei?=
+ =?us-ascii?Q?6d7lzAnZEPKgcvbcNF7u6SOdDhBzFMETi88liF7vGqh/HB+mfwcOwPHauKWM?=
+ =?us-ascii?Q?G2RdfzvaBzYgq+47C6VRn92fwoY8XUlSBwv/ZqZAnQ29/P/fdWxBJANAfb3O?=
+ =?us-ascii?Q?ZI935JH05OM7eQyFxUc4MMjJz6wG/B32yGcPbQbFGHeTE5umW2kq15CTQPw4?=
+ =?us-ascii?Q?wSPrNUzVC+6lIYt5bPIRq6dp8ZowOL1cFOAUxTVkYL/m4y363X6MUkhB1mpd?=
+ =?us-ascii?Q?cRxX694UvDOX8hJULI1217brlLYu7h0Zta+k/TwsVhCnnMWNCHJOwUIszi4P?=
+ =?us-ascii?Q?jY4ZuRverlLnnOVYDPhqGjKJrm13RH3Ow1NIstVBlaCIxSfUFyHK+UQykU/g?=
+ =?us-ascii?Q?T0xkWIAgH4sd319kLVFjdKp2iarUQWQZrv/HyScsRIPF6a+etBhVTU+uBDNR?=
+ =?us-ascii?Q?vSPyGMUsTbC2niOJuotoTpICstz8rDpLYrhI13EIlVj9yiWsAHR63C+IAn4c?=
+ =?us-ascii?Q?K8ERiUrnYHnd43nVMjgZLD8h1ghrZsj4Afwyl/MgdmflEr5Mh0mOfYI6M+JN?=
+ =?us-ascii?Q?gJ/ziW/4ZsfFKk25fmRhSI/R/DMoHG6ale3V/pBa0dfQeAkJ8iZGjVyb9nvc?=
+ =?us-ascii?Q?/aJVRIEmGLiFytQY1/8Ss+A5guebJGIq+MlttzDAZTkJRRiPldb0vH3dgdG5?=
+ =?us-ascii?Q?u7g8owzrnKmbxLNJisp+kjomWRxghyYgocpWmqW4Sy+mX64+pSFsBZQb5zKl?=
+ =?us-ascii?Q?4ozWBDY7c7d+zOTHxxccGizLZTxm5nON/GZrlqjss/UeGddxqRkebL+9+0vf?=
+ =?us-ascii?Q?VDVfaqLqA8P7NG8ttJs23mMg5a8g+VbIPYy/0rVIELni9Dv4+bLJhn5M6/Y/?=
+ =?us-ascii?Q?RVJ2ycwBOWrzwXaf8KgyFfChMTEowEdiXxelWgUUtDlr7OvtOW1oL9bVIzbg?=
+ =?us-ascii?Q?vBMGVPAxuEQcjG8k4QOgzjYN0JRCuCERqiwDyFgucTcjNOERUNpaqbsMe/mv?=
+ =?us-ascii?Q?GqbGr4HFYP8b2EeFrRnjfOZQMsWUc9s7orA6q7Zr4/pw/FXK8+TgMZtOLgYM?=
+ =?us-ascii?Q?KSXNI5zD6pLFhP6IUukoWgxZQo8wGj4y?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM4PR12MB529442776F3B3A0ADE91777495109DM4PR12MB5294namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2022 14:08:24.5533 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d68a7b0c-d698-478c-0884-08da068d4532
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1653
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5294.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00cae389-3ccf-4ae9-c40f-08da068dbf46
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Mar 2022 14:11:49.4181 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: iROVkW3augHZatlPM2/jQCktsOGCRJ3tCWPE1+OfXlDsriwPxaneMI0LpW1yYDYR8YgWH9ajth7feeDzMP3srg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4471
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,61 +124,168 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Elena Sakhnovitch <elena.sakhnovitch@amd.com>
+Cc: "Wang, Yu \(Charlie\)" <Yu.Wang4@amd.com>, "Chen,
+ Guchun" <Guchun.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sienna Cichild, not all platforms use PMFW based fan control. On such
-ASICs fan control by PMFW will be disabled in PPTable. Disable hwmon
-knobs for fan control also as it is not possible to report or control
-fan speed on such platforms through driver.
+--_000_DM4PR12MB529442776F3B3A0ADE91777495109DM4PR12MB5294namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Elena Sakhnovitch  <elena.sakhnovitch@amd.com>
-Change-Id: I42f9eb971a61a5ad63327607479fc7e9d9d6914d
----
- .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+[AMD Official Use Only]
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 38f04836c82f..23abb1d1f677 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -371,6 +371,18 @@ static void sienna_cichlid_check_bxco_support(struct smu_context *smu)
- 	}
- }
- 
-+static void sienna_cichlid_check_fan_support(struct smu_context *smu)
-+{
-+	struct smu_table_context *table_context = &smu->smu_table;
-+	PPTable_t *pptable = table_context->driver_pptable;
-+	/* No sort of fan control possible if PPTable has it disabled */
-+	smu->adev->pm.no_fan =
-+		!(pptable->FeaturesToRun[0] & FEATURE_FAN_CONTROL_MASK);
-+	if (smu->adev->pm.no_fan)
-+		dev_info_once(smu->adev->dev,
-+			      "PMFW based fan control disabled");
-+}
-+
- static int sienna_cichlid_check_powerplay_table(struct smu_context *smu)
- {
- 	struct smu_table_context *table_context = &smu->smu_table;
-@@ -381,6 +393,7 @@ static int sienna_cichlid_check_powerplay_table(struct smu_context *smu)
- 		smu->dc_controlled_by_gpio = true;
- 
- 	sienna_cichlid_check_bxco_support(smu);
-+	sienna_cichlid_check_fan_support(smu);
- 
- 	table_context->thermal_controller_type =
- 		powerplay_table->thermal_controller_type;
-@@ -410,7 +423,7 @@ static int sienna_cichlid_append_powerplay_table(struct smu_context *smu)
- 	GET_PPTABLE_MEMBER(I2cControllers, &table_member);
- 	memcpy(table_member, smc_dpm_table->I2cControllers,
- 			sizeof(*smc_dpm_table) - sizeof(smc_dpm_table->table_header));
--	
-+
- 	return 0;
- }
- 
--- 
-2.25.1
+Thank you for reviewing James!
 
+Regards,
+Rico
+________________________________
+From: Zhu, James <James.Zhu@amd.com>
+Sent: Tuesday, March 15, 2022 20:01
+To: Yin, Tianci (Rico) <Tianci.Yin@amd.com>; amd-gfx@lists.freedesktop.org =
+<amd-gfx@lists.freedesktop.org>
+Cc: Chen, Guchun <Guchun.Chen@amd.com>; Zhu, James <James.Zhu@amd.com>; Wan=
+g, Yu (Charlie) <Yu.Wang4@amd.com>
+Subject: Re: [PATCH] drm/amdgpu/vcn: fix vcn ring test failure in igt reloa=
+d test
+
+This patch is Reviewed-by: James Zhu <James.Zhu@amd.com>
+
+On 2022-03-14 10:33 p.m., Tianci Yin wrote:
+> From: "Tianci.Yin" <tianci.yin@amd.com>
+>
+> [why]
+> On Renoir, vcn ring test failed on the second time insmod in the reload
+> test. After invetigation, it proves that vcn only can disable dpg under
+> dpg unpause mode (dpg unpause mode is default for dec only, dpg pause
+> mode is for dec/enc).
+>
+> [how]
+> unpause dpg in dpg stopping procedure.
+>
+> Change-Id: If6ec3af694e1d6b63ebce386a563f03ca6d291c1
+> Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/=
+amdgpu/vcn_v2_0.c
+> index 319ac8ea434b..6e0972cd1f2f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+> @@ -1098,8 +1098,10 @@ static int vcn_v2_0_start(struct amdgpu_device *ad=
+ev)
+>
+>   static int vcn_v2_0_stop_dpg_mode(struct amdgpu_device *adev)
+>   {
+> +     struct dpg_pause_state state =3D {.fw_based =3D VCN_DPG_STATE__UNPA=
+USE};
+>        uint32_t tmp;
+>
+> +     vcn_v2_0_pause_dpg_mode(adev, 0, &state);
+>        /* Wait for power status to be 1 */
+>        SOC15_WAIT_ON_RREG(UVD, 0, mmUVD_POWER_STATUS, 1,
+>                UVD_POWER_STATUS__UVD_POWER_STATUS_MASK);
+
+--_000_DM4PR12MB529442776F3B3A0ADE91777495109DM4PR12MB5294namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thank you for reviewing James!</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Rico</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhu, James &lt;James.=
+Zhu@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, March 15, 2022 20:01<br>
+<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;; amd-gfx@lists.fre=
+edesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;; Zhu, James &lt;James.Z=
+hu@amd.com&gt;; Wang, Yu (Charlie) &lt;Yu.Wang4@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu/vcn: fix vcn ring test failure in ig=
+t reload test</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This patch is Reviewed-by: James Zhu &lt;James.Zhu=
+@amd.com&gt;<br>
+<br>
+On 2022-03-14 10:33 p.m., Tianci Yin wrote:<br>
+&gt; From: &quot;Tianci.Yin&quot; &lt;tianci.yin@amd.com&gt;<br>
+&gt;<br>
+&gt; [why]<br>
+&gt; On Renoir, vcn ring test failed on the second time insmod in the reloa=
+d<br>
+&gt; test. After invetigation, it proves that vcn only can disable dpg unde=
+r<br>
+&gt; dpg unpause mode (dpg unpause mode is default for dec only, dpg pause<=
+br>
+&gt; mode is for dec/enc).<br>
+&gt;<br>
+&gt; [how]<br>
+&gt; unpause dpg in dpg stopping procedure.<br>
+&gt;<br>
+&gt; Change-Id: If6ec3af694e1d6b63ebce386a563f03ca6d291c1<br>
+&gt; Signed-off-by: Tianci.Yin &lt;tianci.yin@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 2 ++<br>
+&gt;&nbsp;&nbsp; 1 file changed, 2 insertions(+)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/a=
+md/amdgpu/vcn_v2_0.c<br>
+&gt; index 319ac8ea434b..6e0972cd1f2f 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
+&gt; @@ -1098,8 +1098,10 @@ static int vcn_v2_0_start(struct amdgpu_device =
+*adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static int vcn_v2_0_stop_dpg_mode(struct amdgpu_device *ad=
+ev)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct dpg_pause_state state =3D {.fw_based =
+=3D VCN_DPG_STATE__UNPAUSE};<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t tmp;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; vcn_v2_0_pause_dpg_mode(adev, 0, &amp;state)=
+;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Wait for power status to =
+be 1 */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_WAIT_ON_RREG(UVD, 0, m=
+mUVD_POWER_STATUS, 1,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; UVD_POWER_STATUS__UVD_POWER_STATUS_MASK);<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DM4PR12MB529442776F3B3A0ADE91777495109DM4PR12MB5294namp_--
