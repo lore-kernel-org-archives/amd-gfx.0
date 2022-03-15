@@ -4,38 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FB68C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 15:44:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 018CAC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 15:46:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9F0110E51F;
-	Tue, 15 Mar 2022 15:44:58 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB4010E51F;
- Tue, 15 Mar 2022 15:44:57 +0000 (UTC)
-Received: from [192.168.0.3] (ip5f5ae8f9.dynamic.kabel-deutschland.de
- [95.90.232.249])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 1EA7A61EA1927;
- Tue, 15 Mar 2022 16:44:55 +0100 (CET)
-Message-ID: <a19344ef-748c-7692-8089-d39dc562d0b3@molgen.mpg.de>
-Date: Tue, 15 Mar 2022 16:44:54 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7335810E52B;
+	Tue, 15 Mar 2022 15:46:41 +0000 (UTC)
+Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
+ [IPv6:2607:f8b0:4864:20::c32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD50E10E52B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 15:46:40 +0000 (UTC)
+Received: by mail-oo1-xc32.google.com with SMTP id
+ n5-20020a4a9545000000b0031d45a442feso24858364ooi.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 08:46:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ClUTvr1q4W+n9qFtKvkBFof95AMXNne8KJZiK/CZhsg=;
+ b=RIHq0D4fZeTNBqoOa6VjRwJ2m+07QLXVzo26FrAz6Tea8ZixYRVP8CEN/JGHfRGk1u
+ V6E86AkiXiNm8Wr2PgA5IrKzT4zLeh6ANAbSJ2+uRU5QEX0TbEfsJ0Mjjl68UFmMhSNS
+ tdEpFX3xAfdj4tQLIDIdOGaSsnbxUi0oDnEKGcg3g/PDAR8BYDVOGVKZklX2CEwkBmOl
+ bz2fr+224b5A2sqq2BO7CWpPfByryLYiIkfJCF/BIWtRG8+P+31e8LmYvjsJ4wyB6zXW
+ urEdmqx2wuO37chWn7yfjhIW261h3HjmnzTRzzIeztQUHwkLrmB9JDsy3+m0gHwHhqQN
+ SrYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ClUTvr1q4W+n9qFtKvkBFof95AMXNne8KJZiK/CZhsg=;
+ b=bmY09V/GoaLK0Q+bSA5QJoe1Eubz46GvvypiE98pY+SXHudDqRhpqOzEFQ6nxntBPm
+ ZoujFGFlVKfwgT6P0d7TZ7R7Y5hA8FnRzcFj6+QAvg1TfgoktrtLBa+mVPKjIdJfriCN
+ 7wqXyGktOMgCY5N4aIw5Zj9waJs92gH5FedvV3wxfe/RHFp5RdYlU0DPoW/+463cc1Et
+ f2YgWp+4KaC5x3OoC6BaH5zzdSSz+XAsliPccpUifrdp2S8Jhy01lGSa93YpXg6a7jCx
+ uotWDazgmAbC29uzJfEG7G+PlVtIWBLJGaykKkaAqr+nyI4uBdLLCjXYbUy6KVOW8pMY
+ Q3NQ==
+X-Gm-Message-State: AOAM533URPzhhfCuLJnhBWQdyiYUrasXGzMp3WlKlIbae5ME4ZAkntQA
+ P4025FMCGaj2jyO/dkuOL25mMR+m/+ot1ydf7bQuaXxd
+X-Google-Smtp-Source: ABdhPJx9g6odsFrbgMFKM1IVdW1enKxgoj1YHUTp4AIGabGl6uvxlTGVf4fB148md/00Kyqp68N84F3uyqqkSk2nhe4=
+X-Received: by 2002:a4a:db64:0:b0:2ea:37f4:d798 with SMTP id
+ o4-20020a4adb64000000b002ea37f4d798mr11509551ood.23.1647359200131; Tue, 15
+ Mar 2022 08:46:40 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Subject: Re: [PATCH] drm: Fix a infinite loop condition when order becomes 0
-Content-Language: en-US
-To: Arunpravin.PaneerSelvam@amd.com
-References: <20220314194049.534471-1-Arunpravin.PaneerSelvam@amd.com>
- <0b9a8cc2-2f34-48c9-7960-727615eb2edb@molgen.mpg.de>
- <1e410ba3-60d9-6a09-6a5d-625145c1c80a@amd.com>
- <cd074d23-ee36-dd5f-bde5-1f5dd41a76be@molgen.mpg.de>
- <3601c42f-0787-e21d-460b-44a5a100b710@amd.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <3601c42f-0787-e21d-460b-44a5a100b710@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20220314055221.3100329-1-YiPeng.Chai@amd.com>
+ <DM5PR12MB177083EF87DF35009A324855B00F9@DM5PR12MB1770.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB177083EF87DF35009A324855B00F9@DM5PR12MB1770.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 15 Mar 2022 11:46:28 -0400
+Message-ID: <CADnq5_PbgY1zET6+vGN3C3_wqtaf+ejaJE59SRURqo=7czSKyw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fixed the warnings reported by kernel test
+ robot
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,118 +64,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- christian.koenig@amd.com, matthew.auld@intel.com
+Cc: "Chai, Thomas" <YiPeng.Chai@amd.com>, "Clements,
+ John" <John.Clements@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Arunpravin,
+Applied.  Thanks!
 
-
-Am 15.03.22 um 16:42 schrieb Arunpravin:
-
-> On 15/03/22 2:35 pm, Paul Menzel wrote:
-
->> Am 15.03.22 um 10:01 schrieb Arunpravin:
->>
->>> On 15/03/22 1:49 pm, Paul Menzel wrote:
->>
->>>> Am 14.03.22 um 20:40 schrieb Arunpravin:
->>>>> handle a situation in the condition order-- == min_order,
->>>>> when order = 0, leading to order = -1, it now won't exit
->>>>> the loop. To avoid this problem, added a order check in
->>>>> the same condition, (i.e) when order is 0, we return
->>>>> -ENOSPC
->>>>>
->>>>> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
->>>>
->>>> Please use your full name.
->>> okay
->>
->> You might also configure that in your email program.
-> yes
-
-Not done yet though. ;-)
-
->>>>> ---
->>>>>     drivers/gpu/drm/drm_buddy.c | 2 +-
->>>>>     1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->>>>> index 72f52f293249..5ab66aaf2bbd 100644
->>>>> --- a/drivers/gpu/drm/drm_buddy.c
->>>>> +++ b/drivers/gpu/drm/drm_buddy.c
->>>>
->>>> In what tree is that file?
->>>>
->>> drm-tip - https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fdrm-tip%2Ftree%2F&amp;data=04%7C01%7CArunpravin.PaneerSelvam%40amd.com%7Cc456573102c04191cf9708da0662f798%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637829319396954551%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=5Bspe5QGjQ0KHfVI8%2F%2BXqxR45q6tOL4FE2fVD3uwL%2FM%3D&amp;reserved=0
->>> drm-misc-next - https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fdrm%2Fdrm-misc%2Ftree%2F&amp;data=04%7C01%7CArunpravin.PaneerSelvam%40amd.com%7Cc456573102c04191cf9708da0662f798%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637829319396954551%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=g2S14TfsHF5ORo9jTZ3uA0l1BH8mnAxk2OWYJeF5i8k%3D&amp;reserved=0
-
-Thank Outlook. Now everybody feels safe.
-
->>>>> @@ -685,7 +685,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>>>     			if (!IS_ERR(block))
->>>>>     				break;
->>>>>     
->>>>> -			if (order-- == min_order) {
->>>>> +			if (!order || order-- == min_order) {
->>>>>     				err = -ENOSPC;
->>>>>     				goto err_free;
->>>>>     			}
->>
->> Thank you for the hint. So the whole function is:
->>
->> 	do {
->> 		order = min(order, (unsigned int)fls(pages) - 1);
->> 		BUG_ON(order > mm->max_order);
->> 		BUG_ON(order < min_order);
->>
->> 		do {
->> 			if (flags & DRM_BUDDY_RANGE_ALLOCATION)
->> 				/* Allocate traversing within the range */
->> 				block = alloc_range_bias(mm, start, end, order);
->> 			else
->> 				/* Allocate from freelist */
->> 				block = alloc_from_freelist(mm, order, flags);
->>
->> 			if (!IS_ERR(block))
->> 				break;
->>
->> 			if (order-- == min_order) {
->> 				err = -ENOSPC;
->> 				goto err_free;
->> 			}
->> 		} while (1);
->>
->> 		mark_allocated(block);
->> 		mm->avail -= drm_buddy_block_size(mm, block);
->> 		kmemleak_update_trace(block);
->> 		list_add_tail(&block->link, &allocated);
->>
->> 		pages -= BIT(order);
->>
->> 		if (!pages)
->> 			break;
->> 	} while (1);
->>
->> Was the BUG_ON triggered for your case?
->>
->> 	BUG_ON(order < min_order);
-> no, this BUG_ON is not triggered for this bug
->>
->> Please give more details.
-> 
-> there is a chance when there is no space to allocate, order value
-> decrements and reaches to 0 at one point, here we should exit the loop,
-> otherwise, further order value decrements to -1 and do..while loop
-> doesn't exit. Hence added a check to exit the loop if order value becomes 0.
-
-Sorry, I do not see it. How can that be with order ≥ min_order and the 
-check `order-- == min_order`? Is min_order 0? Please explain that in the 
-next commit message.
-
-
-Kind regards,
-
-Paul
+On Mon, Mar 14, 2022 at 2:28 AM Zhou1, Tao <Tao.Zhou1@amd.com> wrote:
+>
+> [AMD Official Use Only]
+>
+> Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+>
+> > -----Original Message-----
+> > From: Chai, Thomas <YiPeng.Chai@amd.com>
+> > Sent: Monday, March 14, 2022 1:52 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhang, Hawking
+> > <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements,
+> > John <John.Clements@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+> > Subject: [PATCH] drm/amdgpu: fixed the warnings reported by kernel test robot
+> >
+> > The reported warnings are as follows:
+> >   1.warning:no-previous-prototype-for-amdgpu_hdp_ras_fini.
+> >   2.warning:no-previous-prototype-for-amdgpu_mmhub_ras_fini.
+> >
+> > Amdgpu_hdp_ras_fini and amdgpu_mmhub_ras_fini are unused in the code,
+> > they are the only functions in amdgpu_hdp.c and amdgpu_mmhub.c. After
+> > removing these two functions, both amdgpu_hdp.c and amdgpu_mmhub.c are
+> > empty, so these two files can be deleted to fix the warning.
+> >
+> > Signed-off-by: yipechai <YiPeng.Chai@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/Makefile       |  4 +--
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c   | 30 -----------------------
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c | 30 -----------------------
+> >  3 files changed, 2 insertions(+), 62 deletions(-)  delete mode 100644
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+> >  delete mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile
+> > b/drivers/gpu/drm/amd/amdgpu/Makefile
+> > index 5dfe08cb045e..40e2c6e2df79 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> > +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> > @@ -53,11 +53,11 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+> >       amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o amdgpu_sync.o \
+> >       amdgpu_gtt_mgr.o amdgpu_preempt_mgr.o amdgpu_vram_mgr.o
+> > amdgpu_virt.o \
+> >       amdgpu_atomfirmware.o amdgpu_vf_error.o amdgpu_sched.o \
+> > -     amdgpu_debugfs.o amdgpu_ids.o amdgpu_gmc.o amdgpu_mmhub.o \
+> > +     amdgpu_debugfs.o amdgpu_ids.o amdgpu_gmc.o \
+> >       amdgpu_xgmi.o amdgpu_csa.o amdgpu_ras.o amdgpu_vm_cpu.o \
+> >       amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o
+> > amdgpu_nbio.o \
+> >       amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o
+> > amdgpu_rap.o \
+> > -     amdgpu_fw_attestation.o amdgpu_securedisplay.o amdgpu_hdp.o \
+> > +     amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+> >       amdgpu_eeprom.o amdgpu_mca.o
+> >
+> >  amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o diff --git
+> > a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+> > deleted file mode 100644
+> > index 3f3d92e16c2e..000000000000
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+> > +++ /dev/null
+> > @@ -1,30 +0,0 @@
+> > -/*
+> > - * Copyright 2021 Advanced Micro Devices, Inc.
+> > - *
+> > - * Permission is hereby granted, free of charge, to any person obtaining a
+> > - * copy of this software and associated documentation files (the "Software"),
+> > - * to deal in the Software without restriction, including without limitation
+> > - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> > - * and/or sell copies of the Software, and to permit persons to whom the
+> > - * Software is furnished to do so, subject to the following conditions:
+> > - *
+> > - * The above copyright notice and this permission notice shall be included in
+> > - * all copies or substantial portions of the Software.
+> > - *
+> > - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+> > EXPRESS OR
+> > - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+> > MERCHANTABILITY,
+> > - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+> > EVENT SHALL
+> > - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+> > DAMAGES OR
+> > - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+> > OTHERWISE,
+> > - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+> > USE OR
+> > - * OTHER DEALINGS IN THE SOFTWARE.
+> > - *
+> > - */
+> > -
+> > -#include "amdgpu.h"
+> > -#include "amdgpu_ras.h"
+> > -
+> > -void amdgpu_hdp_ras_fini(struct amdgpu_device *adev, struct ras_common_if
+> > *ras_block) -{
+> > -
+> > -}
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
+> > deleted file mode 100644
+> > index 8f2fa247d605..000000000000
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
+> > +++ /dev/null
+> > @@ -1,30 +0,0 @@
+> > -/*
+> > - * Copyright 2019 Advanced Micro Devices, Inc.
+> > - *
+> > - * Permission is hereby granted, free of charge, to any person obtaining a
+> > - * copy of this software and associated documentation files (the "Software"),
+> > - * to deal in the Software without restriction, including without limitation
+> > - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> > - * and/or sell copies of the Software, and to permit persons to whom the
+> > - * Software is furnished to do so, subject to the following conditions:
+> > - *
+> > - * The above copyright notice and this permission notice shall be included in
+> > - * all copies or substantial portions of the Software.
+> > - *
+> > - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+> > EXPRESS OR
+> > - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+> > MERCHANTABILITY,
+> > - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+> > EVENT SHALL
+> > - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+> > DAMAGES OR
+> > - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+> > OTHERWISE,
+> > - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+> > USE OR
+> > - * OTHER DEALINGS IN THE SOFTWARE.
+> > - *
+> > - */
+> > -
+> > -#include "amdgpu.h"
+> > -#include "amdgpu_ras.h"
+> > -
+> > -void amdgpu_mmhub_ras_fini(struct amdgpu_device *adev, struct
+> > ras_common_if *ras_block) -{
+> > -
+> > -}
+> > --
+> > 2.25.1
