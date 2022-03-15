@@ -4,31 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73F35C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 09:29:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 067CEC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 09:35:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B79410E593;
-	Tue, 15 Mar 2022 09:29:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F33B10E498;
+	Tue, 15 Mar 2022 09:35:55 +0000 (UTC)
 Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F126910E593;
- Tue, 15 Mar 2022 09:29:54 +0000 (UTC)
-Received: from localhost.localdomain (ip5f5ae8f9.dynamic.kabel-deutschland.de
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 332D810E4C2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 09:35:54 +0000 (UTC)
+Received: from [192.168.0.3] (ip5f5ae8f9.dynamic.kabel-deutschland.de
  [95.90.232.249])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 24C7D61EA1927;
- Tue, 15 Mar 2022 10:29:53 +0100 (CET)
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH] drm/amdgpu: Use ternary operator in `vcn_v1_0_start()`
-Date: Tue, 15 Mar 2022 10:29:36 +0100
-Message-Id: <20220315092937.141380-1-pmenzel@molgen.mpg.de>
-X-Mailer: git-send-email 2.35.1
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 528BA61EA1929;
+ Tue, 15 Mar 2022 10:35:52 +0100 (CET)
+Message-ID: <2fccbf5f-2a9d-c40e-f5dc-24a5ec08a15b@molgen.mpg.de>
+Date: Tue, 15 Mar 2022 10:35:51 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Subject: Re: [PATCH 06/12] drm/amd/display: Add new enum for EDID status
+Content-Language: en-US
+To: Agustin Gutierrez <agustin.gutierrez@amd.com>,
+ Dale Zhao <dale.zhao@amd.com>
+References: <20220310222045.664867-1-agustin.gutierrez@amd.com>
+ <20220310222045.664867-7-agustin.gutierrez@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20220310222045.664867-7-agustin.gutierrez@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -41,39 +45,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
+ Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, amd-gfx@lists.freedesktop.org,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
+ Harry.Wentland@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the boilerplate of declaring a variable and using an if else
-statement by using the ternary operator.
+Dear Agustin, dear Dale,
 
-Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index 3799226defc0..78ad85fdc769 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -1095,13 +1095,8 @@ static int vcn_v1_0_start_dpg_mode(struct amdgpu_device *adev)
- 
- static int vcn_v1_0_start(struct amdgpu_device *adev)
- {
--	int r;
--
--	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)
--		r = vcn_v1_0_start_dpg_mode(adev);
--	else
--		r = vcn_v1_0_start_spg_mode(adev);
--	return r;
-+	return (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ?
-+		vcn_v1_0_start_dpg_mode(adev) : vcn_v1_0_start_spg_mode(adev);
- }
- 
- /**
--- 
-2.35.1
+Am 10.03.22 um 23:20 schrieb Agustin Gutierrez:
+> From: Dale Zhao <dale.zhao@amd.com>
+> 
+> [Why]
+> We must support a new type of partial edid return in the future
 
+What changed, that you need to support it now? The exact DisplayCore(?) 
+version should be documented returning this.
+
+Anyway, please elaborate, what “partial EDID return” is exactly.
+
+> [How]
+> Add interface and case hander for partial edid
+
+hander?
+
+> Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
+> Acked-by: Agustin Gutierrez <agustin.gutierrez@amd.com>
+> Signed-off-by: Dale Zhao <dale.zhao@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 +++
+>   drivers/gpu/drm/amd/display/dc/dc_types.h     | 1 +
+>   2 files changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> index b3ca3307d39d..cb87dd643180 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> @@ -1183,6 +1183,9 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+>   		case EDID_BAD_CHECKSUM:
+>   			DC_LOG_ERROR("EDID checksum invalid.\n");
+>   			break;
+> +		case EDID_PARTIAL_VALID:
+> +			DC_LOG_ERROR("Partial EDID valid, abandon invalid blocks.\n");
+
+Is that an error of the monitor/display. Please add a big warning asking 
+the user to contact the device manufacturer to fix it.
+
+
+Kind regards,
+
+Paul
+
+
+> +			break;
+>   		case EDID_NO_RESPONSE:
+>   			DC_LOG_ERROR("No EDID read.\n");
+>   			/*
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+> index 48859d5fc172..2ba9f528c0fe 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc_types.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+> @@ -138,6 +138,7 @@ enum dc_edid_status {
+>   	EDID_BAD_CHECKSUM,
+>   	EDID_THE_SAME,
+>   	EDID_FALL_BACK,
+> +	EDID_PARTIAL_VALID,
+>   };
+>   
+>   enum act_return_status {
