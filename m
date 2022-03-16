@@ -4,89 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73150C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 06:54:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12324C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 06:58:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BAAE10E59E;
-	Wed, 16 Mar 2022 06:54:04 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4EEF10E59E
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Mar 2022 06:54:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fSHMAz5G6i8mYVTlTBqcl4Ks4+LBfUvxB+sE1Z2u6OFRXH2KMS+2+rNzBgxyjQwMkZjHcau/TvwpxIvBKMcoLARLguYlbqOBIa7vjvPuWW5QT92qXsqCFepqHU6NERzOMXhV4qqF6cgiPe8CnDxSVJ0+MP/QkzUPRKCXt4jcRDKaMzKrHs9VeqrwtU2lt4/rt1hxw0gxhxFaj0Et+DKXMKouI/BxDhcg2vwgTk2Qjn0Jt3VA8ZWBrsk6yBbaC6QUm+kkt+AkclooQm6XxsOuvFx+5h/gF3rprr8+KVbFS8wxc38Jk2nHDYHzXb20JcslnQ1VjyKJBpb6E8RiVbCjcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MrZPHsHP5jUSQ6U4A6miKgbi6j25w0WWztdF1rI/xGg=;
- b=BaoUD4yN0fXcA7z55HbRhUgN7JipzkSddPW80bKfWlAYiboM6h12lRpBlOYjFGRmZI8IR3F9xX9GHD/E+MIP8sWT7TALAXEVn16TunQqBrAqlshlS36c5up/wEg0fhwB768w+KNcKHT/72Xwli93L4fyrXA0GXBaKy3HNeyh40aEJaBIiUvd9kMbqlbBA+nZPxajdHyqur8ssdlnUAWYC2XFhxHJi6mOlmdxdC/lH0UBuj6yHM8y+Zy2R1mXesDKSCewpT0hWkvEEnZlhtNW9bsbMMX3miBVcNfWkSWLkqRgI9LYQbrDh0L5BWGWVLS0iak+2oeekwVujjIaekjqGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MrZPHsHP5jUSQ6U4A6miKgbi6j25w0WWztdF1rI/xGg=;
- b=4rTslo7hUSjAQyVyAy5DUCFfBZrkmddQbMqroMz0WoCY9DhOZPC5Yt4smRcUyWwBe8Ka/1mYg7MjwjM03CmYPejS5SRrYAR9+LfiVAefwpeVij2BZ01H44xSC7TnJokepd9W4yD30qW6uVNFvx811q7sFPwrKcgg0HJi2Xf1Zd0=
-Received: from DM6PR03CA0057.namprd03.prod.outlook.com (2603:10b6:5:100::34)
- by DM4PR12MB5771.namprd12.prod.outlook.com (2603:10b6:8:62::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.26; Wed, 16 Mar
- 2022 06:53:58 +0000
-Received: from DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:100:cafe::49) by DM6PR03CA0057.outlook.office365.com
- (2603:10b6:5:100::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.26 via Frontend
- Transport; Wed, 16 Mar 2022 06:53:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT020.mail.protection.outlook.com (10.13.172.224) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5081.14 via Frontend Transport; Wed, 16 Mar 2022 06:53:58 +0000
-Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Wed, 16 Mar 2022 01:53:56 -0500
-From: Guchun Chen <guchun.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
- <christian.koenig@amd.com>, <xinhui.pan@amd.com>, <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: drop redundant check of harvest info
-Date: Wed, 16 Mar 2022 14:53:42 +0800
-Message-ID: <20220316065342.1141-1-guchun.chen@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D49CE10E573;
+	Wed, 16 Mar 2022 06:58:52 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E113410E529;
+ Wed, 16 Mar 2022 06:58:50 +0000 (UTC)
+Received: from [192.168.0.3] (ip5f5aef39.dynamic.kabel-deutschland.de
+ [95.90.239.57])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 418CC61EA1928;
+ Wed, 16 Mar 2022 07:58:49 +0100 (CET)
+Message-ID: <720c3778-aaea-ab68-b1c8-28027e19defc@molgen.mpg.de>
+Date: Wed, 16 Mar 2022 07:58:48 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cff4209b-246f-4fd1-91c9-08da0719bf03
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5771:EE_
-X-Microsoft-Antispam-PRVS: <DM4PR12MB57718B7BD8D50CBC610E7F6FF1119@DM4PR12MB5771.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TseJsCzkWJ0KN9fRC4pkMKdIWzOhYDmmPzRzvqhbMZyctuQaLiki+SICQ6i/+tBh8pQkpFr8KzKNDqA79c8bPdUp4HKXXyH3YLER/+dVg4Hmi5w9z13NPY3ss9PHfKMF7zxoiWI7mZjg/gS98YDy4ayBjPK7SrXWWh0gLGd1qbJV87SNxYSzPyfvhtAyWE+xG2xBDguBTTsJvfzYiHzaY7c7Fsu7NImaMtWuWiJd0Km29ANuQVgytq6FrytczUlmus9XEsvXCpaimcroLMzTekBaqmA3THObdmhO3RkV/5OJsLJlr1HqFd7VtGgilKB7vu+BIlpQtkgZuKleNCRTIUKsaano6ZxA/ShL9BCg78AH/En167CajGSdTI8dDxAFxvCDqURDFkpAbv7CkN3R4AEj8Rf2eT00Ln59Zjy4CnuCd9NPdY9FJFLhDs63nrK0usswzvRKT0LU3o0KKT/poIeyjvipU3CQo5YPKamQbgR9newSWGms/EEf4BwZAb2ZIoNz00VpNZl4o0Av78l1hxmCgkA6I/BR3hEVjaqiDJRXx94yXhhCq7SFXvBENxPhxEwHiKGXl5J7xfxizWr+hK5r6Mn+YMiaD6X/+7Q0igSi8rreZEMo1HhfFUeVyyXR/eDspjY8npEZY6HXQ9b2/Tgn/BmD13F1NfDy6RwjhR4vAf/98Ep6dVyBRxmc9P7i9CO63vDui9z1OsbzN5mghg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(83380400001)(5660300002)(36860700001)(47076005)(44832011)(2906002)(8676002)(2616005)(6666004)(70206006)(316002)(508600001)(7696005)(110136005)(6636002)(26005)(8936002)(16526019)(336012)(1076003)(186003)(82310400004)(36756003)(4326008)(70586007)(81166007)(356005)(86362001)(40460700003)(426003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2022 06:53:58.5199 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cff4209b-246f-4fd1-91c9-08da0719bf03
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5771
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] drm: Fix a infinite loop condition when order becomes 0
+Content-Language: en-US
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+References: <20220314194049.534471-1-Arunpravin.PaneerSelvam@amd.com>
+ <0b9a8cc2-2f34-48c9-7960-727615eb2edb@molgen.mpg.de>
+ <1e410ba3-60d9-6a09-6a5d-625145c1c80a@amd.com>
+ <cd074d23-ee36-dd5f-bde5-1f5dd41a76be@molgen.mpg.de>
+ <3601c42f-0787-e21d-460b-44a5a100b710@amd.com>
+ <a19344ef-748c-7692-8089-d39dc562d0b3@molgen.mpg.de>
+ <537b9740-f7c3-dae6-a683-42dbef4e1b4c@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <537b9740-f7c3-dae6-a683-42dbef4e1b4c@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,36 +49,154 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ christian.koenig@amd.com, matthew.auld@intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Harvest bit setting in IP data structure promises this,
-so no need to set it explicitly.
+Dear Arunprivin,
 
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 7 -------
- 1 file changed, 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index e4fcbb385a62..5a182288391b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -1150,13 +1150,6 @@ void amdgpu_discovery_harvest_ip(struct amdgpu_device *adev)
- 		adev->harvest_ip_mask |= AMD_HARVEST_IP_VCN_MASK;
- 		adev->harvest_ip_mask |= AMD_HARVEST_IP_JPEG_MASK;
- 	}
--	if ((adev->pdev->device == 0x731E &&
--	     (adev->pdev->revision == 0xC6 || adev->pdev->revision == 0xC7)) ||
--	    (adev->pdev->device == 0x7340 && adev->pdev->revision == 0xC9)  ||
--	    (adev->pdev->device == 0x7360 && adev->pdev->revision == 0xC7)) {
--		adev->harvest_ip_mask |= AMD_HARVEST_IP_VCN_MASK;
--		adev->harvest_ip_mask |= AMD_HARVEST_IP_JPEG_MASK;
--	}
- }
- 
- union gc_info {
--- 
-2.17.1
+Am 16.03.22 um 07:49 schrieb Arunpravin Paneer Selvam:
 
+> On 15/03/22 9:14 pm, Paul Menzel wrote:
+
+>> Am 15.03.22 um 16:42 schrieb Arunpravin:
+>>
+>>> On 15/03/22 2:35 pm, Paul Menzel wrote:
+>>
+>>>> Am 15.03.22 um 10:01 schrieb Arunpravin:
+>>>>
+>>>>> On 15/03/22 1:49 pm, Paul Menzel wrote:
+>>>>
+>>>>>> Am 14.03.22 um 20:40 schrieb Arunpravin:
+>>>>>>> handle a situation in the condition order-- == min_order,
+>>>>>>> when order = 0, leading to order = -1, it now won't exit
+>>>>>>> the loop. To avoid this problem, added a order check in
+>>>>>>> the same condition, (i.e) when order is 0, we return
+>>>>>>> -ENOSPC
+>>>>>>>
+>>>>>>> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+>>>>>>
+>>>>>> Please use your full name.
+>>>>> okay
+>>>>
+>>>> You might also configure that in your email program.
+>>> yes
+>>
+>> Not done yet though. ;-)
+>>
+> done in v2 :)
+>>>>>>> ---
+>>>>>>>      drivers/gpu/drm/drm_buddy.c | 2 +-
+>>>>>>>      1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+>>>>>>> index 72f52f293249..5ab66aaf2bbd 100644
+>>>>>>> --- a/drivers/gpu/drm/drm_buddy.c
+>>>>>>> +++ b/drivers/gpu/drm/drm_buddy.c
+>>>>>>
+>>>>>> In what tree is that file?
+>>>>>>
+>>>>> drm-tip - https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fdrm-tip%2Ftree%2F&amp;data=04%7C01%7CArunpravin.PaneerSelvam%40amd.com%7C3610aafe216d421c715c08da069ac1d7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637829559006306914%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=GM3iXiDQCx%2BM4pD1nmivRFRvkehwTNd2Jtd713cF51g%3D&amp;reserved=0
+>>>>> drm-misc-next - https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fdrm%2Fdrm-misc%2Ftree%2F&amp;data=04%7C01%7CArunpravin.PaneerSelvam%40amd.com%7C3610aafe216d421c715c08da069ac1d7%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637829559006306914%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=i7pvmDJu310XRX7h3cQ344j5RYHq7fBZ520l%2F%2Br1%2BQU%3D&amp;reserved=0
+>>
+>> Thank Outlook. Now everybody feels safe.
+>>
+>>>>>>> @@ -685,7 +685,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>>>>>>>      			if (!IS_ERR(block))
+>>>>>>>      				break;
+>>>>>>>      
+>>>>>>> -			if (order-- == min_order) {
+>>>>>>> +			if (!order || order-- == min_order) {
+>>>>>>>      				err = -ENOSPC;
+>>>>>>>      				goto err_free;
+>>>>>>>      			}
+>>>>
+>>>> Thank you for the hint. So the whole function is:
+>>>>
+>>>> 	do {
+>>>> 		order = min(order, (unsigned int)fls(pages) - 1);
+>>>> 		BUG_ON(order > mm->max_order);
+>>>> 		BUG_ON(order < min_order);
+>>>>
+>>>> 		do {
+>>>> 			if (flags & DRM_BUDDY_RANGE_ALLOCATION)
+>>>> 				/* Allocate traversing within the range */
+>>>> 				block = alloc_range_bias(mm, start, end, order);
+>>>> 			else
+>>>> 				/* Allocate from freelist */
+>>>> 				block = alloc_from_freelist(mm, order, flags);
+>>>>
+>>>> 			if (!IS_ERR(block))
+>>>> 				break;
+>>>>
+>>>> 			if (order-- == min_order) {
+>>>> 				err = -ENOSPC;
+>>>> 				goto err_free;
+>>>> 			}
+>>>> 		} while (1);
+>>>>
+>>>> 		mark_allocated(block);
+>>>> 		mm->avail -= drm_buddy_block_size(mm, block);
+>>>> 		kmemleak_update_trace(block);
+>>>> 		list_add_tail(&block->link, &allocated);
+>>>>
+>>>> 		pages -= BIT(order);
+>>>>
+>>>> 		if (!pages)
+>>>> 			break;
+>>>> 	} while (1);
+>>>>
+>>>> Was the BUG_ON triggered for your case?
+>>>>
+>>>> 	BUG_ON(order < min_order);
+>>> no, this BUG_ON is not triggered for this bug
+>>>>
+>>>> Please give more details.
+>>>
+>>> there is a chance when there is no space to allocate, order value
+>>> decrements and reaches to 0 at one point, here we should exit the loop,
+>>> otherwise, further order value decrements to -1 and do..while loop
+>>> doesn't exit. Hence added a check to exit the loop if order value becomes 0.
+>>
+>> Sorry, I do not see it. How can that be with order ≥ min_order and the
+>> check `order-- == min_order`? Is min_order 0? Please explain that in the
+>> next commit message.
+>>
+> please check v2, yes when min_order is 0, the above said situation may
+> occur.And, since the order is unsigned int, I think it will not trigger
+> the BUG_ON(order < min_order) when order becomes -1. Hence I think we
+> needed a check !order to exit the loop.
+
+Thank you for clarifying this. I still do not understand it though. With
+
+	order = fls(pages) - 1;
+	min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
+
+is zorder` always non-negative? Let’s assume it is. Also, can min_order 
+get “negative” (wraps around)?
+
+I would add BUG_ON statements for these cases?
+
+     BUG_ON(fls(pages) - 1 < 1);
+     BUG_ON(ilog2(min_page_size) - ilog2(mm->chunk_size) < 1);
+
+Assuming “negative” is not possible, your case can only happen if 
+`order` and `min_order` are 0, right? If `order` is greater than 0, and 
+`min_order` is 0, the first BUG_ON in the while loop would be hit. If 
+`order` is 0 and `min_order` is greater than 0, everything should work 
+as the condition in `if (order-- == min_order)` is going to be true 
+eventually.
+
+Could you please analyze this more. The current patch looks more like 
+papering over something, or I am missing something.
+
+
+Kind regards,
+
+Paul
+
+
+PS: The commit message summary of your v2 should also be updated.
