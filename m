@@ -4,113 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E79DC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 14:04:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9516AC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 14:12:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7A2F89DA5;
-	Wed, 16 Mar 2022 14:04:26 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87D3D89D8E
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Mar 2022 14:04:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PJaGIde6AfwO4vWuv8VMinH2JuTuIsY3FY3UWzKcGn+TnvoAnCWNp1Rk7x/jXeEc2v/95Ixhw5Xv5OBFZPGbS4psvIp9pBs19c/Unbl1qNurtHd+EszRBS79yTCVOcFPqRYVzmH71bsmtBlqgHmKG8Y6dBdbE2NpHgodOTUYXQR4NtRj53HVssabL82z7l9DIg7WH8h0FO+Q4Ns7wjcYwfX3mTE6X0cUmOjew5KGR3uzZqW7AyPpkFkWqxEuzKXKWgheC+i9FLME9bVPBAxD/CpFLzeeM19YgwYKLyoja/dLKreP7qpmOWvDd/PYKOfeNublHfPtUoEpFjihJjzwJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5fqjB/z3MvJaMyXEjBnz/EAyGVZd04Z2bE1wFEU3BeE=;
- b=oad36MR9V7BaPNzfElTP8+l5oqgX5wtsQf6N8Gd+Wif+EoAUxWSNbGOdfY9X8VuDMl/svV8uWTVhbY2k0E6wwVfxBdcde99c1UNcJBVY+ATDrlROgyOZdfl2m1JTxkclakoOIxS3LFW5GF7GbkJBbx3nSSG8GDQU4Zk0sBd9KuRlT67zvPcYS+ZAoLlvHjp4MeLUzmowPNAT91UVPxRYhTlRdRYiTqEYshYOBsPULMGNJgNrmkYQE5jbjwl4Ss6k0CuNtd/Fv+yAr7eyU1xKIHEGjc+znEUunvS+R0J+llXo1M3CJFh5LjWA+o+BoV63HIjBVBG+2p0yh9kPCuVrUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5fqjB/z3MvJaMyXEjBnz/EAyGVZd04Z2bE1wFEU3BeE=;
- b=5dSOErpCSwFTg/2vJ9v+jZYZ4FjYhrEKUza3a7KCbYqdeVy0d5zyiTgju3RwWN3hJGc9IcxYTRCuAvg8yicXycRrcyy1W3z2NNf/7ub7773B8jxO2Gymy9+WehkeATwTJ/SAVdTuR/TxuoZtlH8SVskJ+8GwXtmtEcgot3+/JlQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by PH7PR12MB5878.namprd12.prod.outlook.com (2603:10b6:510:1d6::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.26; Wed, 16 Mar
- 2022 14:04:23 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::4839:9431:1040:5cd5]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::4839:9431:1040:5cd5%4]) with mapi id 15.20.5081.016; Wed, 16 Mar 2022
- 14:04:23 +0000
-Message-ID: <6b278e9f-a443-b297-ab59-c7126d324302@amd.com>
-Date: Wed, 16 Mar 2022 10:04:21 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 1/4] drm/amdkfd: refine event_interrupt_poison_consumption
-Content-Language: en-US
-To: Tao Zhou <tao.zhou1@amd.com>, amd-gfx@lists.freedesktop.org,
- hawking.zhang@amd.com, stanley.yang@amd.com, yipeng.chai@amd.com
-References: <20220316092627.17359-1-tao.zhou1@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20220316092627.17359-1-tao.zhou1@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT2PR01CA0027.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::32) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E78210E5CC;
+	Wed, 16 Mar 2022 14:12:48 +0000 (UTC)
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [IPv6:2607:f8b0:4864:20::c2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DFD510E5CC;
+ Wed, 16 Mar 2022 14:12:46 +0000 (UTC)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ l24-20020a4a8558000000b00320d5a1f938so2796323ooh.8; 
+ Wed, 16 Mar 2022 07:12:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dPZPkX6nOUZTGY6pJ5MlTbJL1f7dGp45AawW+tEFKf0=;
+ b=LzN7E2HwvWBwSfIpb53Wv3X1KOHTkBhN+PmmutXkLWcqU3tbdb9YZiztRty4VKbmfr
+ RRLC8Unu09tidWpoFL8faweUh5NSYe69v3qvHJ+1Ywuf/1mAEn68n1IVMhh1cMUH2jFa
+ baV2bUH5UtICJ07duSlnOu4+clz7CU5gmnd/qsS+shVLDucy+GvBD+BA67xn+13LV5TR
+ 1L2BvvHRrmp/hZCegJerjSPswkK+n3ARPfX+pguZYHv88Ug6Fp2Nrgr354g/Ju6Wixrx
+ jj4GrrE8avi1/8X21EyJeSr0oc+KG9GzAU156pTMv+xmNQ3lgC70fmeGkSx0VfpKHy+0
+ Tl5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dPZPkX6nOUZTGY6pJ5MlTbJL1f7dGp45AawW+tEFKf0=;
+ b=7Eisc/8NsiERu3c4bewjpvOYQpiJ/YBzGea/e4woh640cgxM+UDu268IDPDg5/HrKr
+ ox/B+pOTs4HPvh+D49z7YENRVXlRW+iNXCRlg1txmWEWfHpdweBakTThalaqd1XPGVFE
+ yOWH7rPmK56IMHx0TQ0/T4gUpJy32vCjt0lxKXaUezGx7LOGm9su/yyaE93n7gqAjaez
+ 6LRldl3JpTf4WHW2C1SUK6pcbV0dbeb14dESP33Ayc3a2YhhpZt1rdboeVY39C74q2M+
+ Tcq/NzwtLgoWyDn8yATI25oi4eakwS7VKMdYMcIhs5gh5R/s0AYT4r5EZfMMhqM6AQHv
+ B3jQ==
+X-Gm-Message-State: AOAM53289Nogv4H46tTStR2nS2Hd0CeXU75WM3GXt7s6FMQk/KTubrlJ
+ Pi+/SMsUiiqy7OG1PgR/KM9Co6mXUAezyN8riaM=
+X-Google-Smtp-Source: ABdhPJyXXq8p6v4Fi6YuCk7DBpCWcntUYhVgpeA5EJFuOuaQW+8Y8jCDDlt+tW/FPHOd4k70ZWvU0k4mBHhJqj3RCJk=
+X-Received: by 2002:a05:6870:d250:b0:da:b3f:2b29 with SMTP id
+ h16-20020a056870d25000b000da0b3f2b29mr3229015oac.200.1647439965269; Wed, 16
+ Mar 2022 07:12:45 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9c355813-d3f7-4810-2420-08da0755df88
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5878:EE_
-X-Microsoft-Antispam-PRVS: <PH7PR12MB587815A308CD69F6D9B4835A92119@PH7PR12MB5878.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QKklsRXWVHBHd0PZCKP6Xq9N9osfiIhhrH6VvtPFdq73uljxCHIqrh5Xk9rTaTBPuTUGtvvMNEVb+40jAavBQMVm9HFd0ks6GpvqGhJwQw5bhzN+qTqPjLseh8c61EIbTpwjrjhZErejkdb4INZXatH0tsN8SGEOsni36oHcQN8VhDz0GVUJ1igZgf5snmOEF2ttWqxtjuKuFiHiOKixJsjhAcjKf4FizCaAUijUpDoyVloPmMGfPpt+DIidUxkXiWKR1//ryEvLeGAp47/aHSu6gd1kF00bzwG6XMsI257qbomH1TwQrqVGJTdfkRSrwbVatNK8hsxzwgZ0GeQoujHAXmoPKf8rcRgql0+HBOQlr48GwsB4jYlMGllJeqLRM3SGgDtIaAupsPLvEAGYRGTWNM7i4LgoQd1K1yOJaPJwWBQrkQ/QukUA9iKeGlVlmxm/BLjuNCVtjiO+kJW1AO9dgyGAPhEI21XO70RSjUhao0JKXWU2BY3qZgkcLTpXZtAWndeEKO9zXpfVmBqlJ8M6SVH3wkc/YH6oASi6Nc5mYuknpkOVGJ9EiePLR61AqWqtrNzFDVjTcaY/9dxceG8gbOAaJ/zSI+ZnT1okgPswRwNV0354yO/mnhtFn9A3bzdmanqstcsB7K1ZHhTDyiWVEDnVtJi/Ei5bebCHdIVWTfwxNZh4r7cSjxzaLmFUmHAXjnt+kLgDfzBrqUMYBLSVBIMgUnNCTP1PQL+rUtKMeUihrSRcX0WpUR5xD2Jr
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(31686004)(44832011)(36756003)(66946007)(66556008)(8676002)(5660300002)(83380400001)(66476007)(316002)(8936002)(6636002)(2616005)(6512007)(86362001)(26005)(186003)(508600001)(6506007)(31696002)(2906002)(6486002)(38100700002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFV3RHEwdTNvd2U2VGM2VGdKcW4rNGkyWldrM2pIZVJpRXlsS3hrL2hQQlJR?=
- =?utf-8?B?R3lwUC9ENXlFcGdFYzk3THhadHpscFRMemYzV2lrMmdGNjZCVHV4NW5wT1Rp?=
- =?utf-8?B?eWFFdFlKYXRCTVpMK0hFMnFWWVRmRE5POEN5aW53UHcyanpUTnZzWjdKbDRG?=
- =?utf-8?B?ZWxLRXN2N2RpdDFvaDc2OUlBb1hGOVd4VGhVdWRncEtSWjZGUVNYZmdvdWJp?=
- =?utf-8?B?UlI0bThZaHpSbDNraGE0aHZ6ZmJTWkYvVXoxTnZlTkIyOXhIOStpRUFFQUhM?=
- =?utf-8?B?aDIwWHEzRGZBUE45U0dGWXlyQzRUT0RXekx1azNrVUhhRHovMnhWaEprSWNK?=
- =?utf-8?B?RHlrZjY0a1ZoclVLTTFHMG94R04wR3J6RGM3QXYrclF6bldFeEZnUFZWSUZz?=
- =?utf-8?B?QlZRbFFFYjBUSWhIOWtmTVhBaTM4YUUvUHFtSHhLampUbHBoOExhczg3MXRr?=
- =?utf-8?B?eHFGa2ZUV3dJYWxsN1FOdmJZRUVmc2hNMU12VWdDWjFhbk1pMHAyejV5aEFH?=
- =?utf-8?B?SGwwNFJSWVZIcVJTcDZpajFrNVlLL05BYyswYnIxcWF4bXJpRzVrb1MxcjRS?=
- =?utf-8?B?R3lTSHFiL2puS2ZOTzBRMEVLM1pwVGY5aktPNStYQS8vSml3cjZCTUtkYVJi?=
- =?utf-8?B?eDJ4WTFMSFNaWHJoOWZqWnBaQjQvc0ZaMWJvcFpIdXE0UDk2cjJCRkdFalJM?=
- =?utf-8?B?aEFwZERaaVNacHhTRW1ZSGtkbHZISFFDNmVEMWRpWWE3cHdxSG5FR2kyWHFl?=
- =?utf-8?B?R0FvcmdyREF0ak5hMEU2RlJXT3BodmVhQ0t5eDdUNXRPOWtyQ2hHclQ3SkVN?=
- =?utf-8?B?cUoxdElnMjhvR2hnZVdDWXVqOEJVM3RKb3pSTEZuaDdnTEhDSXZNWUl4OEFh?=
- =?utf-8?B?OEZ1T0ZPNFJxajlNaCtEQkxEU1V0dnNoSEVEMXdJSGoyMWZoSkMrRmtoNWJH?=
- =?utf-8?B?ZGRxWVV1MG9TcTg3Wm9kRk1SZ3l4NDVXdEUxNzNtQXRlTHhIaU5KOFJrejda?=
- =?utf-8?B?M0lyT1R4T1lqUG5pZTdKc0JEb3MxUDlTUTlDRUpwa0pXTUg0SFM0Sjh4Zks0?=
- =?utf-8?B?MU15blg3N29SRytmekZZMXhUSkZKU3hDeGJKS1BjWmZlUTFQeXRpQTZlRy9W?=
- =?utf-8?B?SW84M1BoQnJuSVZzSEM0MVRvZjAvRWlkY0hDbnJLcVJxRXRaMWI4Z3I1Q3la?=
- =?utf-8?B?Rm5ONGV0ZlpadzgrM0M5WkxNYWJsZ1hleTdQbE5FOW1TMjhvVU9tbnM0OFpO?=
- =?utf-8?B?cU56STVtUkN4c0lrVDA4dGdtWW1lM01Xb1JTeFB2dkRGRG50UCtqSFZlRWVX?=
- =?utf-8?B?enErWkE3Sm1RUUxqMUtWQTluNHVTRFBmQ1ZTc0tBWVFUamcrZHA0REo1akhG?=
- =?utf-8?B?OHovZ3hSd3hrbjlwNTlqUzgrNFFPNEtkcmVkRDZSanZxQzdEV08yOHJGUXFx?=
- =?utf-8?B?azJPZjloMFhvM3pwWkJZbkF0RVRpaHYzblhGaFZTTWdMNXhnTzEwSW8yblFi?=
- =?utf-8?B?SHJUS3V5NXFkY296MVVJalRxenJ0dVJDMExSN1YvYmliQXBLY3hBZWZ6Tkd1?=
- =?utf-8?B?RTArSkhlcExwM2Z5TmcrYnNrSVBwUkFJYUJiL0t1SC84QVZvYjF5TmhQOVZ4?=
- =?utf-8?B?M0drckVoVW14UlBTL09WTGxnK0dTNmNqWjJwK0JXcG5QZXBXVVl6OWNLZW9S?=
- =?utf-8?B?QVdQM2R5TGJia1lZODVkWEU2ZUNvNzVNcHcyR1BzazlBSW1vOHlPa1NKTXdy?=
- =?utf-8?B?dWtXeWlYVkJFUUQyc29nWkdlNFBEaVgwSGQ2MHd2VFVJTU9WK1YyTVRpNjRE?=
- =?utf-8?B?ZlBqSkljNUNIWFlvdUxlb0VudmNqTlBIWlNKSDcxWi9PVE9uQWRTcUZFQzNu?=
- =?utf-8?B?SDlmNi84cnBhQllNK29PbDNWenJ1SE9tajgyVW00SU03TzlRSitTNHNROVVU?=
- =?utf-8?Q?ue2LSU9KOE/7n1068M1uLE85ys7YyOYQ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c355813-d3f7-4810-2420-08da0755df88
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2022 14:04:23.2545 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VIwOwqbDmIay/HZk+jfQSAeownytjsfnZP/eUid4YpZR29wfuHI4utIt+UxIrsbtfNlvbyWf952QEvShj2yFqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5878
+References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
+ <CAF6AEGsmectHSmW-Y6rf+AksXTkges7rukeiYd4yDm-xwdb1=Q@mail.gmail.com>
+ <55629bd8-9fb4-2ee7-87f0-6c4c77cf06fc@gmail.com>
+ <CAF6AEGsgDTphUm7ET+RuMmh2aTn-Ho5gJdUJ4kwJ3iOh7+HGvw@mail.gmail.com>
+ <4f2b2329-3c57-3895-6732-875db2f98b5a@amd.com>
+ <CAF6AEGvvskobh6YOUx55_4rtXJJjPO0PxWY8+EKiVqntT3k+ug@mail.gmail.com>
+ <6b400b8b-1b5c-a339-2345-f317f197b4a6@amd.com>
+ <CAF6AEGt0XhqzkyEhbNcNVQO_A_Lo4qcsPRZRL6QqYn+NWAfv9A@mail.gmail.com>
+ <bf6922f0-da8e-eef6-8217-26c1f50f3c48@quicinc.com>
+ <2980e6a0-624e-2b80-c5d0-c40dfce76fb8@amd.com>
+ <CAF6AEGvC=k4xLA-0iTSf660X2o04E+ivjnThZA-=WANKzLSvpA@mail.gmail.com>
+ <cda15a47-f469-2a7e-87b6-adf00e631ef0@amd.com>
+ <CAF6AEGv3Wv+p1j2B-t22eeK+8rx-qrQHCGoXeV1-XPYp2Om7zg@mail.gmail.com>
+ <20220311102709.225616cf@eldfell>
+ <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
+ <20220314172647.223658d2@eldfell>
+ <CADnq5_NsxipfFFXfRSXvVQin3e1gj0Q_p9p-shi3VZ2pSCwwfw@mail.gmail.com>
+ <20220316104815.11ec2e6c@eldfell>
+In-Reply-To: <20220316104815.11ec2e6c@eldfell>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 16 Mar 2022 10:12:33 -0400
+Message-ID: <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,52 +79,207 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
+ Shashank" <shashank.sharma@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alexandar Deucher <alexander.deucher@amd.com>,
+ Shashank Sharma <contactshashanksharma@gmail.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-03-16 um 05:26 schrieb Tao Zhou:
-> Combine reading and setting poison flag as one atomic operation
-> and add print message for the function.
+On Wed, Mar 16, 2022 at 4:48 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
 >
-> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c | 11 +++++------
->   1 file changed, 5 insertions(+), 6 deletions(-)
+> On Tue, 15 Mar 2022 10:54:38 -0400
+> Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> index 7eedbcd14828..a992798ff8b6 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> @@ -93,20 +93,19 @@ enum SQ_INTERRUPT_ERROR_TYPE {
->   static void event_interrupt_poison_consumption(struct kfd_dev *dev,
->   				uint16_t pasid, uint16_t source_id)
->   {
-> -	int ret = -EINVAL;
-> +	int old_poison, ret = -EINVAL;
->   	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid);
->   
->   	if (!p)
->   		return;
->   
->   	/* all queues of a process will be unmapped in one time */
-> -	if (atomic_read(&p->poison)) {
-> -		kfd_unref_process(p);
-> +	old_poison = atomic_cmpxchg(&p->poison, 0, 1);
-> +	kfd_unref_process(p);
-> +	if (old_poison)
->   		return;
-> -	}
->   
-> -	atomic_set(&p->poison, 1);
-> -	kfd_unref_process(p);
-> +	pr_warn("RAS poison consumption handling\n");
+> > On Mon, Mar 14, 2022 at 11:26 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+> > >
+> > > On Mon, 14 Mar 2022 10:23:27 -0400
+> > > Alex Deucher <alexdeucher@gmail.com> wrote:
+> > >
+> > > > On Fri, Mar 11, 2022 at 3:30 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+> > > > >
+> > > > > On Thu, 10 Mar 2022 11:56:41 -0800
+> > > > > Rob Clark <robdclark@gmail.com> wrote:
+> > > > >
+> > > > > > For something like just notifying a compositor that a gpu crash
+> > > > > > happened, perhaps drm_event is more suitable.  See
+> > > > > > virtio_gpu_fence_event_create() for an example of adding new event
+> > > > > > types.  Although maybe you want it to be an event which is not device
+> > > > > > specific.  This isn't so much of a debugging use-case as simply
+> > > > > > notification.
+> > > > >
+> > > > > Hi,
+> > > > >
+> > > > > for this particular use case, are we now talking about the display
+> > > > > device (KMS) crashing or the rendering device (OpenGL/Vulkan) crashing?
+> > > > >
+> > > > > If the former, I wasn't aware that display device crashes are a thing.
+> > > > > How should a userspace display server react to those?
+> > > > >
+> > > > > If the latter, don't we have EGL extensions or Vulkan API already to
+> > > > > deliver that?
+> > > > >
+> > > > > The above would be about device crashes that directly affect the
+> > > > > display server. Is that the use case in mind here, or is it instead
+> > > > > about notifying the display server that some application has caused a
+> > > > > driver/hardware crash? If the latter, how should a display server react
+> > > > > to that? Disconnect the application?
+> > > > >
+> > > > > Shashank, what is the actual use case you are developing this for?
+> > > > >
+> > > > > I've read all the emails here so far, and I don't recall seeing it
+> > > > > explained.
+> > > > >
+> > > >
+> > > > The idea is that a support daemon or compositor would listen for GPU
+> > > > reset notifications and do something useful with them (kill the guilty
+> > > > app, restart the desktop environment, etc.).  Today when the GPU
+> > > > resets, most applications just continue assuming nothing is wrong,
+> > > > meanwhile the GPU has stopped accepting work until the apps re-init
+> > > > their context so all of their command submissions just get rejected.
+> > > >
+> > > > > Btw. somewhat relatedly, there has been work aiming to allow
+> > > > > graceful hot-unplug of DRM devices. There is a kernel doc outlining how
+> > > > > the various APIs should react towards userspace when a DRM device
+> > > > > suddenly disappears. That seems to have some overlap here IMO.
+> > > > >
+> > > > > See https://www.kernel.org/doc/html/latest/gpu/drm-uapi.html#device-hot-unplug
+> > > > > which also has a couple pointers to EGL and Vulkan APIs.
+> > > >
+> > > > The problem is most applications don't use the GL or VK robustness
+> > > > APIs.
+> > >
+> > > Hi,
+> > >
+> > > how would this new event help with that?
+> >
+> > This event would provide notification that a GPU reset occurred.
+> >
+> > >
+> > > I mean, yeah, there could be a daemon that kills those GPU users, but
+> > > then what? You still lose any unsaved work, and may need to manually
+> > > restart them.
+> > >
+> > > Is the idea that it is better to have the app crash and disappear than
+> > > to look like it froze while it otherwise still runs?
+> >
+> > Yes.
+>
+> Ok. That was just a wild guess.
+>
+> >  The daemon could also send the user some sort of notification
+> > that a GPU reset occurred.
+> >
+> > >
+> > > If some daemon or compositor goes killing apps that trigger GPU resets,
+> > > then how do we stop that for an app that actually does use the
+> > > appropriate EGL or Vulkan APIs to detect and remedy that situation
+> > > itself?
+> >
+> > I guess the daemon could keep some sort of whitelist.  OTOH, very few
+> > if any applications, especially games actually support these
+> > extensions.
+>
+> I would think that a white-list is a non-starter due to the maintenance
+> nightmare and the "wrong by default" design for well behaving programs.
+>
+> I am not a fan of optimising for broken software. I understand that
+> with games this is routine, but we're talking about everything here,
+> not just games. Games cannot be fixed, but the rest could if the
+> problem was not sweeped under the rug. It's like the inverse of the
+> platform problem.
 
-If this left over from debugging? Or did you mean to add a warning 
-message here? Either way, the patch is
+Fair enough, but it hasn't happened in the last 15 years or so.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>
+> > > >  You could use something like that in the compositor, but those
+> > > > APIs tend to be focused more on the application itself rather than the
+> > > > GPU in general.  E.g., Is my context lost.  Which is fine for
+> > > > restarting your context, but doesn't really help if you want to try
+> > > > and do something with another application (i.e., the likely guilty
+> > > > app).  Also, on dGPU at least, when you reset the GPU, vram is usually
+> > > > lost (either due to the memory controller being reset, or vram being
+> > > > zero'd on init due to ECC support), so even if you are not the guilty
+> > > > process, in that case you'd need to re-init your context anyway.
+> > >
+> > > Why should something like a compositor listen for this and kill apps
+> > > that triggered GPU resets, instead of e.g. Mesa noticing that in the app
+> > > and killing itself? Mesa in the app would know if robustness API is
+> > > being used.
+> >
+> > That's another possibility, but it doesn't handle the case where the
+> > compositor doesn't support any sort of robustness extension so if the
+> > GPU was reset, you'd lose your desktop anyway even if the app kept
+> > running.
+>
+> Why does that matter?
+>
+> A GPU reset happens when it happens. If a compositor does not use
+> robustness extensions, it's as good as dead anyway, right?
 
+Right.  Same with the application that supports robustness.  If the
+app supports robustness, but the compositor does not, the app is dead
+anyway if the compositor dies.  So while there may be an application
+today that supports robustness, it is kind of pointless because
+nothing else does and so if it manages to recover, nothing else it
+relies on does.
 
->   
->   	switch (source_id) {
->   	case SOC15_INTSRC_SQ_INTERRUPT_MSG:
+>
+> Killing a compositor from inside in Mesa if it doesn't use robustness
+> might be better than leaving the compositor running blind - assuming
+> the compositor does not quit itself after seeing crucial EGL/Vulkan
+> calls failing.
+
+I'm not sure I follow the second part of this statement.  I guess
+having mesa kill applications that don't support robustness is fine,
+but I don't really see it as much better than the status quo.  Today
+most apps just continue to try and run until, possibly dying
+eventually due to undefined state along the way.  If mesa kills them,
+they are killed.  The end result is the same, the user loses their
+desktop.
+
+>
+> > >
+> > > Would be really nice to have the answers to all these questions to be
+> > > collected and reiterated in the next version of this proposal.
+> >
+> > The idea is to provide the notification of a GPU reset.  What the
+> > various desktop environments or daemons do with it is up to them.  I
+> > still think there is value in a notification even if you don't kill
+> > apps or anything like that.  E.g., you can have a daemon running that
+> > gets notified and logs the error, collects debug info, sends an email,
+> > etc.
+>
+> With new UAPI comes the demand of userspace proof, not hand-waving. You
+> would not be proposing this new interface if you didn't have use cases
+> in mind, even just one. You have to document what you imagine the new
+> thing to be used for, so that the appropriateness can be evaluated. If
+> the use case is deemed inappropriate for the proposed UAPI, you need to
+> find another use case to justify adding the new UAPI. If there is no
+> use for the UAPI, it shouldn't be added, right? Adding UAPI and hoping
+> someone finds use for it seems backwards to me.
+
+We do have a use case.  It's what I described originally.  There is a
+user space daemon (could be a compositor, could be something else)
+that runs and listens for GPU reset notifications.  When it receives a
+notification, it takes action and kills the guilty app and restarts
+the compositer and gathers any relevant data related to the GPU hang
+(if possible).  We can revisit this discussion once we have the whole
+implementation complete.  Other drivers seem to do similar things
+already today via different means (msm using devcoredump, i915 seems
+to have its own GPU reset notification mechanism, etc.).  It just
+seemed like there was value in having a generic drm GPU reset
+notification, but maybe not yet.
+
+Alex
+
+>
+>
+> Thanks,
+> pq
