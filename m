@@ -4,72 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 728ABC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 16:29:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8479C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 19:47:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0285710E603;
-	Wed, 16 Mar 2022 16:29:57 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC10410E603;
- Wed, 16 Mar 2022 16:29:55 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id p9so3692380wra.12;
- Wed, 16 Mar 2022 09:29:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bb8+Z0azzVfVSIeFpzbKJmDiX0+ZgsH4eBFgKhBJruU=;
- b=Oz1nYLF3hvjLCblFWvNr6HzVwe6Nruxnz+sM+hPnmw5cD+EcFKos2LlBF0/4VqYegY
- gaiXhFJPumHdnOE3Xv3xhkXgUBgL70NDzKYp/5Dkxprah9XV8NHq0fWLlGsBWvaamAb7
- scay8LaZRu3UXjJXUQ7alLse4zAf32SKsiBTm6FaFCKL9tdSbZxnb+x9ytzH0yNla8wz
- hqHag1npSV8durpPLQd0S4qblnqv2H2DDgaoZN6wI6BjtgPLUILKzSQeCGPE8RTHwJRM
- iVN/xJ+G4BsOksUBQ6iZ3uQaqUopSrvv/5+DHtE7OIOtiFI0wU74hYgNQEIK1Ny+8agS
- 4vuw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07ACE10EA2E;
+	Wed, 16 Mar 2022 19:47:43 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28DCA10EA2E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Mar 2022 19:47:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1647460060;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=J0oI+0ISdRle63jGaS9/UHYnEMzVjtXKfWa9O2AXWGk=;
+ b=MO/by9su7tEAz21aXYA1x03aZZNpCLii3/mrCd9QTmwCcMvgHAcR8pmKU8DbWB/rGsYuYk
+ OQyzzMzmXNTRcHI8X+2ZfDaNbuWZdgHPiH2m4Uzc/xTVDKXWSzoWlOCrgetIO7lVw2WPwA
+ jHmjreTpDG///KOktnUbULPPvVHnXnQ=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-590-ke7m3whYM4WjUcb2BXyZXQ-1; Wed, 16 Mar 2022 15:47:38 -0400
+X-MC-Unique: ke7m3whYM4WjUcb2BXyZXQ-1
+Received: by mail-qt1-f199.google.com with SMTP id
+ m12-20020ac807cc000000b002e05dbf21acso2102100qth.22
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Mar 2022 12:47:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=bb8+Z0azzVfVSIeFpzbKJmDiX0+ZgsH4eBFgKhBJruU=;
- b=JJ9R19oMR6VYUKu8eBa/CegydbPE2OCsAxbsBLnfj97n3/8Hjd94RRYUM2lfI0ppEs
- FB14xMVhPRM3fYaWVB3sG32qpay49Uxv9x/1/XeNFBflpWpbk2BjTA2YW8dMWwTlqgo6
- SJ8cx1+5rjsu9n1VnyM3t/YRbpvLaEMauZNZZl42quyvOBXSjwYupdQHVjM4sgLX/5R8
- TZng5ShRyXdNUmEy3KOzJymKLBLdsGjtUKBYK51EW7zazqHpTQVFOdTrqIDpQxxnVHtQ
- ag1qqMSjp0LLhHXZ8IOERHEKt5WDsRc4ZeBxccIbtwEcgJ0ojSzdAWWuiTd75FxbvZqy
- F2UA==
-X-Gm-Message-State: AOAM5317wBG5UNQNIQqaHSxxqydu8BhYPZerlpqa5+qvcV4M9tARu334
- DvCG8or4TnzXADnCSLeh7aYVGF1n9QfwyG7lWCc=
-X-Google-Smtp-Source: ABdhPJxmecBN4dPLJkwQ9VswgQo3TmOk8wD1SYcuMDQtjlKsaWAoYcReEUem/doB4EeOXm7shSMjhQ8oKYH3o7QwexY=
-X-Received: by 2002:a5d:64c1:0:b0:203:7aa5:9390 with SMTP id
- f1-20020a5d64c1000000b002037aa59390mr611566wri.328.1647448194228; Wed, 16 Mar
- 2022 09:29:54 -0700 (PDT)
+ h=x-gm-message-state:message-id:subject:from:to:date:organization
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=J0oI+0ISdRle63jGaS9/UHYnEMzVjtXKfWa9O2AXWGk=;
+ b=QX92olpmHTG79hfbxkIn0qsDQZsea18ud0jq42Z4kh8NxephwCOISN5vLktHc5E4D9
+ 3b0WADOTYB08bBaWFaQXnq4qjatCPUnCsLSV/srGBcPkzSFK2a6fn3cnBjNhv4b851E9
+ pi1pZMR8H/4h7H5blQ1VrvIeHpRLHkFmqoElZG7GvTYtS7tmb1csYgcu7HVfkoGBv8ZH
+ 8iK/yudateift2CIB0SjYvsCFXIMXkVd7Sy/cOI3IHXIffBevWqjaxbbdxn4zcKni1KZ
+ u7NgXWc5g2YmishpzFADdIXpwqpMH3qwiMLOomFHIBwWigGSk2/FsFEVmnX+W0QANS25
+ GABg==
+X-Gm-Message-State: AOAM531nLWLg/kikxVFCJ8JTC7Tl2MfviXVjqmbPSdWCGreQtOfJlhlI
+ HFPCvKJAJ9cmc9lrF9tXVIuUVWnJPWJcRZXIZXgBTsJkfLASAmVmzdcFsXJ5jwN+qpAG31dwuJi
+ Z/5THbi7pY/pi7kRrEw2+BiwTdQ==
+X-Received: by 2002:a05:6214:dcb:b0:435:cb9c:b0b4 with SMTP id
+ 11-20020a0562140dcb00b00435cb9cb0b4mr1081806qvt.119.1647460057837; 
+ Wed, 16 Mar 2022 12:47:37 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwd6yBQg5t9nqQt2lYJt49ehTyptVw7upMg0uojKxcC/Ku5glPD14dTM2VhzVpmsxZJOfIDgQ==
+X-Received: by 2002:a05:6214:dcb:b0:435:cb9c:b0b4 with SMTP id
+ 11-20020a0562140dcb00b00435cb9cb0b4mr1081787qvt.119.1647460057597; 
+ Wed, 16 Mar 2022 12:47:37 -0700 (PDT)
+Received: from [192.168.8.138] (pool-96-230-100-15.bstnma.fios.verizon.net.
+ [96.230.100.15]) by smtp.gmail.com with ESMTPSA id
+ c27-20020a05620a165b00b0067d32238bc8sm1237699qko.125.2022.03.16.12.47.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Mar 2022 12:47:36 -0700 (PDT)
+Message-ID: <0e029c57f314bb6139e72ff22a3f7667c99b7f26.camel@redhat.com>
+Subject: 2022 X.Org Board of Directors Elections Nomination period is NOW
+From: Lyude Paul <lyude@redhat.com>
+To: events@lists.x.org, xorg-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ libre-soc-dev@lists.libre-soc.org
+Date: Wed, 16 Mar 2022 15:47:35 -0400
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-1.fc35)
 MIME-Version: 1.0
-References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
- <CAF6AEGsmectHSmW-Y6rf+AksXTkges7rukeiYd4yDm-xwdb1=Q@mail.gmail.com>
- <55629bd8-9fb4-2ee7-87f0-6c4c77cf06fc@gmail.com>
- <CAF6AEGsgDTphUm7ET+RuMmh2aTn-Ho5gJdUJ4kwJ3iOh7+HGvw@mail.gmail.com>
- <4f2b2329-3c57-3895-6732-875db2f98b5a@amd.com>
- <CAF6AEGvvskobh6YOUx55_4rtXJJjPO0PxWY8+EKiVqntT3k+ug@mail.gmail.com>
- <6b400b8b-1b5c-a339-2345-f317f197b4a6@amd.com>
- <CAF6AEGt0XhqzkyEhbNcNVQO_A_Lo4qcsPRZRL6QqYn+NWAfv9A@mail.gmail.com>
- <bf6922f0-da8e-eef6-8217-26c1f50f3c48@quicinc.com>
- <2980e6a0-624e-2b80-c5d0-c40dfce76fb8@amd.com>
- <CAF6AEGvC=k4xLA-0iTSf660X2o04E+ivjnThZA-=WANKzLSvpA@mail.gmail.com>
- <cda15a47-f469-2a7e-87b6-adf00e631ef0@amd.com>
- <CAF6AEGv3Wv+p1j2B-t22eeK+8rx-qrQHCGoXeV1-XPYp2Om7zg@mail.gmail.com>
- <20220311102709.225616cf@eldfell>
- <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
- <20220314172647.223658d2@eldfell>
- <CADnq5_NsxipfFFXfRSXvVQin3e1gj0Q_p9p-shi3VZ2pSCwwfw@mail.gmail.com>
- <20220316104815.11ec2e6c@eldfell>
- <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
- <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
- <CADnq5_O2CVSLxShPFCzMxiXmnHXYbW1vFLJ5K=oigtXshULvqw@mail.gmail.com>
-In-Reply-To: <CADnq5_O2CVSLxShPFCzMxiXmnHXYbW1vFLJ5K=oigtXshULvqw@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 16 Mar 2022 09:30:35 -0700
-Message-ID: <CAF6AEGvbuPd6YtX3kRofOoEpLj9KG1mrqyQwaGpPmQ=X-VM8CA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-To: Alex Deucher <alexdeucher@gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,95 +86,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
- Shashank" <shashank.sharma@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Pekka Paalanen <ppaalanen@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alexandar Deucher <alexander.deucher@amd.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>,
- Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 16, 2022 at 8:48 AM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Wed, Mar 16, 2022 at 11:35 AM Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > On Wed, Mar 16, 2022 at 7:12 AM Alex Deucher <alexdeucher@gmail.com> wrote:
-> > >
-> > > On Wed, Mar 16, 2022 at 4:48 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
-> > > >
-> > [snip]
-> > > > With new UAPI comes the demand of userspace proof, not hand-waving. You
-> > > > would not be proposing this new interface if you didn't have use cases
-> > > > in mind, even just one. You have to document what you imagine the new
-> > > > thing to be used for, so that the appropriateness can be evaluated. If
-> > > > the use case is deemed inappropriate for the proposed UAPI, you need to
-> > > > find another use case to justify adding the new UAPI. If there is no
-> > > > use for the UAPI, it shouldn't be added, right? Adding UAPI and hoping
-> > > > someone finds use for it seems backwards to me.
-> > >
-> > > We do have a use case.  It's what I described originally.  There is a
-> > > user space daemon (could be a compositor, could be something else)
-> > > that runs and listens for GPU reset notifications.  When it receives a
-> > > notification, it takes action and kills the guilty app and restarts
-> > > the compositer and gathers any relevant data related to the GPU hang
-> > > (if possible).  We can revisit this discussion once we have the whole
-> > > implementation complete.  Other drivers seem to do similar things
-> > > already today via different means (msm using devcoredump, i915 seems
-> > > to have its own GPU reset notification mechanism, etc.).  It just
-> > > seemed like there was value in having a generic drm GPU reset
-> > > notification, but maybe not yet.
-> >
-> > just one point of clarification.. in the msm and i915 case it is
-> > purely for debugging and telemetry (ie. sending crash logs back to
-> > distro for analysis if user has crash reporting enabled).. it isn't
-> > used for triggering any action like killing app or compositor.
->
-> Sure.  you could use this proposed event for telemetry gathering as
-> well.  The important part is the event.  What you do with it is up to
-> the user.
+The Board consists of directors elected from the membership.  Each year, an
+election is held to bring the total number of directors to eight. The four
+members receiving the highest vote totals will serve as directors for two year
+terms.
 
-True, but for that purpose (telemetry) let's leverage something that
-userspace already has support for
+The directors who received two year terms starting in 2021 were Lyude Paul,
+Samuel Iglesias Gonsálvez, Manasi D Navare and Daniel Vetter. They will
+continue to serve until their term ends in 2023. Current directors whose term
+expires in 2022 are Emma Anholt, Keith Packard, Harry Wentland and Mark
+Filion.
 
-> > I would however *strongly* recommend devcoredump support in other GPU
-> > drivers (i915's thing pre-dates devcoredump by a lot).. I've used it
-> > to debug and fix a couple obscure issues that I was not able to
-> > reproduce by myself.
->
-> Agreed.  I think devcoredump makes sense and we'll ultimately enable
-> support for that in amdgpu.  I think there is value in a GPU specific
-> reset event as well for the use case I outlined, but maybe the
-> devcoredump one is enough.  We'd just need to rely on the userspace
-> side to filter as appropriate for events it cares about.  I'm not sure
-> how many other devcore dump events are commonly seen.
+A director is expected to participate in the fortnightly IRC meeting to
+discuss current business and to attend the annual meeting of the X.Org
+Foundation, which will be held at a location determined in advance by the
+Board of Directors.
 
-They are, like CPU coredumps, not expected to be a frequent thing.
-There are a number of other non-GPU drivers which also use devcoredump
-(mostly wifi and remoteproc, ie. things like DSPs).  We did also
-recently add msm devcoredump support for the display side of things,
-in addition to gpu, to dump display state if we hit underruns, link
-training fail, etc.  Each "crash" creates a new transient devcore
-device so crashes from different devices can be reported in parallel.
-But we do rate-limit the GPU crash reports by not reporting another
-one until the previous one is read out and cleared by userspace.  (You
-don't strictly need to do that, but it is probably a good idea..
-usually the first crash is the interesting one.)
+A member may nominate themselves or any other member they feel is qualified.
+Nominations should be sent to the Election Committee at elections at x.org.
 
-The ChromeOS crash-reporter does have an allow-list for which devcore
-dumps are sent back, mainly because in the case of wifi drivers it is
-hard to ensure that the dump does not include PII (like network names,
-etc).  It would be pretty trivial to add amdgpu to the allow-list and
-setup a "magic signature" so that queries could be run on amdgpu
-devcore dumps.  I can help out with that, since I went through the
-same process already for msm.
+Nominees shall be required to be current members of the X.Org Foundation, and
+submit a personal statement of up to 200 words that will be provided to
+prospective voters.  The collected statements, along with the statement of
+contribution to the X.Org Foundation in the member's account page on
+http://members.x.org, will be made available to all voters to help them make
+their voting decisions.
 
-I'm not entirely sure what other distros do in this area.
+Nominations, membership applications or renewals and completed personal
+statements must be received no later than 23:59 UTC on 20th March 2022.
 
-BR,
--R
+The slate of candidates will be published 28th March 2022 and candidate Q&A
+will begin then. The deadline for Xorg membership applications and renewals is
+31st March 2022.
+
+Cheers,
+   Lyude Paul, on behalf of the X.Org BoD
+
