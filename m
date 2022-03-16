@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3E8CC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 15:35:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B38DC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 15:48:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A83A10E6A4;
-	Wed, 16 Mar 2022 15:35:34 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7A5910E6A2;
- Wed, 16 Mar 2022 15:35:32 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id a1so2136287wrh.10;
- Wed, 16 Mar 2022 08:35:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F7BE10E7CC;
+	Wed, 16 Mar 2022 15:48:25 +0000 (UTC)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 797B810E7C8;
+ Wed, 16 Mar 2022 15:48:24 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ z9-20020a05683020c900b005b22bf41872so1664030otq.13; 
+ Wed, 16 Mar 2022 08:48:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rG7jz6KiWOqjxvNzWFswkHAG9dTV+EU2glZGi4QpldQ=;
- b=TAKW1cHJ7lyZNtN4ZieQHQk4H7BS0AlHN8RaKxEbr9L2wtI2xfrvPhXYoO8MCL+HkV
- zkbeamzVpoYCVlFy2e0zcQrW5GVZ9ftxbqacJYumX4zO0iGyH5YfyooLO7KAucASd6zJ
- 0D639sZxKz2Jk/cw/kGddRye5fNkyb7AtMYSqU2HIuAorb3mNsW9GgjT2ttUXQ+tx2yN
- 4ABZh0tlrbeH8+sbKLYHyCBnHDdf9u+WmKjylBQZ/89h9Ic1NQe+9ZPie6hkk96ungHw
- r+m5HMSLk2fN+/rbyGezUyvqxFjDLNtqOyfbMWnYZuG7DWM4s6XVZmm5j49osOBS4V5v
- hxCA==
+ :cc; bh=cEPpT5g3jd4SGwraYV61mwD+efqqEI+0jr3lnpKYy2I=;
+ b=SugF9I5FDpjrl+n+VjdAd2eyTcQGIseSgPrbDGqHRzNeNo8B6j4INKmmMh7uTdoXpj
+ 2iv8b7jN1n7Clm73hmPEd+jYlctFKB3QuKnyZ7rVApyVnREfOnEXLi+9o/Fs3aQU9Zu5
+ SDtH0XhTIu+mflbZw/EDmMIMSXPlF1H2LEPia83C3JaMqjkSH8tbpGPYXaxiigs7yrDs
+ hhiC0KRn57hBp14a9hP62tvCPyAlBhTHPQfUY/IykKQzN6+mBDttKy8dHxtZaJdDQoXx
+ JX9Ow31dNs03XCPRkvaKdMJkk9adlJLiusbV2j1QS4yea0EcstgkRTvd5EbR5fyCX6ZT
+ nigQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=rG7jz6KiWOqjxvNzWFswkHAG9dTV+EU2glZGi4QpldQ=;
- b=cNKgBjYGO99igoOYT3YsPdcIfjkPCuLgBl12A9qY0qNo5Au8Rg/x2NfwVoGVLIb+ts
- humTAbjYe8wLzhnfzb77GX3UeoP22gDholMDlOBTComTyNgObS3EjwmBZ94rZ9U5CbWT
- gDn5XHbf2KlYaMW+LDbH/na2TcaDHsD8Pp1VEVtBfTT/kon2769wxAJemDM0pmj2EgiI
- qRYE15E/ii5Zf3UBoPie1qEUTQvMkk+EO5lVBSlu9G/7mfKoxekU633lE1kEle95nXUR
- qixuYa9GQsu6AH2FV28OaoK2SBxDASVPHnZZ+EbbWkayIZM0EMQPys4WesIPGM1TIXyU
- mCFQ==
-X-Gm-Message-State: AOAM530nDcoAkdFv6f+3Gw52sG7IveJIH8fd9Cp8fofR2SEM4IVTimUM
- T5Uiawe8ixsIeBPSEnNXAkEyr0gFiOGdrHk6LzM=
-X-Google-Smtp-Source: ABdhPJz7KHihKSjJjguHibP04cUyErv8faNvu9+dEXTm3C8+urSU0qXx+H2CQH7na8jI1sGOK6ZS+cmV4T0Wbvn8KGE=
-X-Received: by 2002:adf:914f:0:b0:1ed:bb92:d0cc with SMTP id
- j73-20020adf914f000000b001edbb92d0ccmr381369wrj.297.1647444931191; Wed, 16
- Mar 2022 08:35:31 -0700 (PDT)
+ bh=cEPpT5g3jd4SGwraYV61mwD+efqqEI+0jr3lnpKYy2I=;
+ b=SofpBagkWM23bjmK1tT6vjibfjkWGQoodOirax+g6OW1/mUMprUW3/5BQ96EO0LQbq
+ PErKw8R7BxiWei2r7zWp9hAmK6I4vl5hK5a1aKxMGZt5NuGSNKvkGfizJgCVnzPJ7IGy
+ HHv39G21EY09ocft8SfQcrieaI3yFL5NrcN2Eo/x6nd4z4rYKgSzJc6fZvkeNPLGgjR6
+ 7LaZrrDpfwHPypQ3FEvu0h0MalrrWEPPSadOPzraq62oRenZ3RxkNu6jhQR6a1443/4S
+ HVtbT6kP5wSK7l3HVf1KofjYJEgGY77j5gJZYXFe2Jw3vbPOGlUDEhEoHpJAy7LXcbT9
+ DaqQ==
+X-Gm-Message-State: AOAM530frYRgZvQniBURwvL79IBsVWQ2HbJn5nmFGvjmToOpSYzwIfL6
+ jwyWRWxIn1xgVrENiASSF/I+M6OwoMLSMMSDcr8=
+X-Google-Smtp-Source: ABdhPJzxN94wrdcTabQPUtfGWZeX5wyEWDKOecoH28wPndMpZtVDz8nj/wTyuJiE5BjEnmU13CyVNBPcIzxrRNeRav4=
+X-Received: by 2002:a05:6830:2709:b0:5b0:196:dcf with SMTP id
+ j9-20020a056830270900b005b001960dcfmr212008otu.357.1647445703751; Wed, 16 Mar
+ 2022 08:48:23 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
  <CAF6AEGsmectHSmW-Y6rf+AksXTkges7rukeiYd4yDm-xwdb1=Q@mail.gmail.com>
@@ -61,12 +62,13 @@ References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
  <CADnq5_NsxipfFFXfRSXvVQin3e1gj0Q_p9p-shi3VZ2pSCwwfw@mail.gmail.com>
  <20220316104815.11ec2e6c@eldfell>
  <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
-In-Reply-To: <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 16 Mar 2022 08:36:13 -0700
-Message-ID: <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
+ <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
+In-Reply-To: <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 16 Mar 2022 11:48:12 -0400
+Message-ID: <CADnq5_O2CVSLxShPFCzMxiXmnHXYbW1vFLJ5K=oigtXshULvqw@mail.gmail.com>
 Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-To: Alex Deucher <alexdeucher@gmail.com>
+To: Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,41 +95,54 @@ Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 16, 2022 at 7:12 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+On Wed, Mar 16, 2022 at 11:35 AM Rob Clark <robdclark@gmail.com> wrote:
 >
-> On Wed, Mar 16, 2022 at 4:48 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+> On Wed, Mar 16, 2022 at 7:12 AM Alex Deucher <alexdeucher@gmail.com> wrote:
 > >
-[snip]
-> > With new UAPI comes the demand of userspace proof, not hand-waving. You
-> > would not be proposing this new interface if you didn't have use cases
-> > in mind, even just one. You have to document what you imagine the new
-> > thing to be used for, so that the appropriateness can be evaluated. If
-> > the use case is deemed inappropriate for the proposed UAPI, you need to
-> > find another use case to justify adding the new UAPI. If there is no
-> > use for the UAPI, it shouldn't be added, right? Adding UAPI and hoping
-> > someone finds use for it seems backwards to me.
+> > On Wed, Mar 16, 2022 at 4:48 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+> > >
+> [snip]
+> > > With new UAPI comes the demand of userspace proof, not hand-waving. You
+> > > would not be proposing this new interface if you didn't have use cases
+> > > in mind, even just one. You have to document what you imagine the new
+> > > thing to be used for, so that the appropriateness can be evaluated. If
+> > > the use case is deemed inappropriate for the proposed UAPI, you need to
+> > > find another use case to justify adding the new UAPI. If there is no
+> > > use for the UAPI, it shouldn't be added, right? Adding UAPI and hoping
+> > > someone finds use for it seems backwards to me.
+> >
+> > We do have a use case.  It's what I described originally.  There is a
+> > user space daemon (could be a compositor, could be something else)
+> > that runs and listens for GPU reset notifications.  When it receives a
+> > notification, it takes action and kills the guilty app and restarts
+> > the compositer and gathers any relevant data related to the GPU hang
+> > (if possible).  We can revisit this discussion once we have the whole
+> > implementation complete.  Other drivers seem to do similar things
+> > already today via different means (msm using devcoredump, i915 seems
+> > to have its own GPU reset notification mechanism, etc.).  It just
+> > seemed like there was value in having a generic drm GPU reset
+> > notification, but maybe not yet.
 >
-> We do have a use case.  It's what I described originally.  There is a
-> user space daemon (could be a compositor, could be something else)
-> that runs and listens for GPU reset notifications.  When it receives a
-> notification, it takes action and kills the guilty app and restarts
-> the compositer and gathers any relevant data related to the GPU hang
-> (if possible).  We can revisit this discussion once we have the whole
-> implementation complete.  Other drivers seem to do similar things
-> already today via different means (msm using devcoredump, i915 seems
-> to have its own GPU reset notification mechanism, etc.).  It just
-> seemed like there was value in having a generic drm GPU reset
-> notification, but maybe not yet.
+> just one point of clarification.. in the msm and i915 case it is
+> purely for debugging and telemetry (ie. sending crash logs back to
+> distro for analysis if user has crash reporting enabled).. it isn't
+> used for triggering any action like killing app or compositor.
 
-just one point of clarification.. in the msm and i915 case it is
-purely for debugging and telemetry (ie. sending crash logs back to
-distro for analysis if user has crash reporting enabled).. it isn't
-used for triggering any action like killing app or compositor.
+Sure.  you could use this proposed event for telemetry gathering as
+well.  The important part is the event.  What you do with it is up to
+the user.
 
-I would however *strongly* recommend devcoredump support in other GPU
-drivers (i915's thing pre-dates devcoredump by a lot).. I've used it
-to debug and fix a couple obscure issues that I was not able to
-reproduce by myself.
+>
+> I would however *strongly* recommend devcoredump support in other GPU
+> drivers (i915's thing pre-dates devcoredump by a lot).. I've used it
+> to debug and fix a couple obscure issues that I was not able to
+> reproduce by myself.
 
-BR,
--R
+Agreed.  I think devcoredump makes sense and we'll ultimately enable
+support for that in amdgpu.  I think there is value in a GPU specific
+reset event as well for the use case I outlined, but maybe the
+devcoredump one is enough.  We'd just need to rely on the userspace
+side to filter as appropriate for events it cares about.  I'm not sure
+how many other devcore dump events are commonly seen.
+
+Alex
