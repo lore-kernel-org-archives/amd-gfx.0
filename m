@@ -4,53 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20EEDC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 21:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B50DC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 23:32:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EBAC10E05A;
-	Wed, 16 Mar 2022 21:49:49 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD6AC10E04F;
- Wed, 16 Mar 2022 21:49:47 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- k8-20020a05600c1c8800b003899c7ac55dso2797059wms.1; 
- Wed, 16 Mar 2022 14:49:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=CtD+Q8xYCQwOTsJk6RUepbB/BPj2KkJaY9i4ORpgAR0=;
- b=gsmqqsgBuSkvKJmUS2edlitkP1gbyVjhR+mi0GPUwWS/3wgu2ox+3R/3oQOS6i5DdC
- hiB9OuKf56GyreJsgyKKWIqVwo8DbnFf39/EONKEml9ozNdDEpXTPQ5q7yQHu6VGA0Jw
- k+hDq25t+uOGPS6NhWAVzkr/foTQdXyuIttXvAXXB1yMth5o5L/TCz0nV3KLhP33FK2z
- vHlJJRUqlHzsGezhe8jg6+JWrywhfj3P7f3IEURx6CZTZ0R91tU0KjmfEC6o9o4CbEY2
- rvDGxXWAwXPcwml1CtoXaha6P4g5vncJlMiYXb/Ef7+cQmVVg7fr8y37N18+P194dTuL
- 9x6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=CtD+Q8xYCQwOTsJk6RUepbB/BPj2KkJaY9i4ORpgAR0=;
- b=AymyHIy9TYy34EYBpIu6wYtcuvrBK8sDXz3FSa6P6fL9M6Oo2QvJ0Faw0Jdc8QugIx
- k330TUzfCdfT+iILAVa7Kxq0UD8qicOrq44uObbxB+pB9C3eNDhMhmRgpIoaROydaDxS
- vA+G7X7A4JZNhEdSFpx1lofkB2KTj/zDqqC8cxT7lM0SlMQPn0WCkMBDANi6WuB8NMG2
- 1/aIOcUVptAmvYFqjS6Ah+1+a1RdFC2WdsOH2TXxkVlRQkqoTRDj6EFLWdnUClQ9DM6I
- veXKtJ8fyUA3I7oCA4JBf75IZIyqGl2ZmwaB1cFxhfqa6gAeWTMe4PnINQmLFbapua/t
- eloQ==
-X-Gm-Message-State: AOAM5310F+nXSRG6OG3DKfcGoun3OAvanlT1bjj7Qvlc1IUWMWMPVCdX
- RNtaihtPdQY0c+8JPKNkXCx8j6E6Y4GjcXuRgSY=
-X-Google-Smtp-Source: ABdhPJw5D+eLsYaC94e1YZFTrQ6mywJt26HC4TbPmTKiH1uWmwyutSKpsz2PbasF8ljgne96lYtY9G+tjpwRLSQVVPo=
-X-Received: by 2002:a1c:f616:0:b0:37d:1e1c:f90a with SMTP id
- w22-20020a1cf616000000b0037d1e1cf90amr9190749wmc.148.1647467386069; Wed, 16
- Mar 2022 14:49:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E79F510E9D2;
+	Wed, 16 Mar 2022 23:32:35 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2069.outbound.protection.outlook.com [40.107.93.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E48210E9D2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Mar 2022 23:32:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PFZRMDbEVCq7un2Rma0ur+O8yARBqatar7PPLIrGb6VUcBThtF/PYexY7Tyghl+xCvh8yYE3mfKjBEYvWqq/ZLSknNCbCr0enc4Cchp0GXG80YH4wfC0BUwY2PCPKMe8+YJKeKqM9Hl3n0v4OSTiJi7iPkd482USixK9pwc/15s2P5O14sXEJKwI9Vs2TwNaKVOy4sn623X02IbvJ03VOld3AsJENneboM4HtAyZQGDR2nFsaNRL6g0UiI2L9V75IktbZWI4P25M1ZbO/xlLZ7yFqrjBmkP6HdxTNr5dmDL9yUgvWtZFgcu3rukATg1pUAcDpEHNQGc++QLMuMhwTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Afj4FpHuU7KxoT4fUlG0Sn8b3Efe+4kRKFcwO0slxv4=;
+ b=DY9H/R28JhB6nXhdLngQL4uB7Wuh0/p/scaaoK1aoEHU1BpFMJ9tb8rrB/hzTMWH1M6funvpckXhjqFOH0g7o2XKjh+Gscj4cC/U3Dl5yJlJ8mGh0/4NUaRKZPU8RRh4Ye5qbnX5zhzYof+kfe50z+S5Xk3TOIH2yL1+0Ub4F1CK6G3DhibfSFCJlFvcsi/Awdg25dNtwX+vg6b6l4LmJju0+ja1qYh/DcdomkNPo0/LeyQn1vs9Q+LLcJgyZTSi8ZmrX5qV6oNDWcE6H51bFixkIbWeMnsGIWiDVOatoL0SnXLcSYGmDE5ss/V4uHz5nK3Hmv2oiO2/pLkKYEydGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Afj4FpHuU7KxoT4fUlG0Sn8b3Efe+4kRKFcwO0slxv4=;
+ b=LkJ5MFYNnGcnEFBtTEj4HCZoFWl7CXPmjlzj/KZaN2jX9GCwCyVCWiEMBJtFwmwnM8lM5ekqUFkf3lgLR1ihBchBDuVLKdxUYEiXuRWT+0HLjVSuIN/RBUWZKN6OQ3qQk/PPLROr8l9ai+/VlEotdH5bqUWGuLWhSR9vbZ1qLi8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DS7PR12MB5981.namprd12.prod.outlook.com (2603:10b6:8:7c::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22; Wed, 16 Mar
+ 2022 23:32:32 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::4839:9431:1040:5cd5]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::4839:9431:1040:5cd5%4]) with mapi id 15.20.5081.016; Wed, 16 Mar 2022
+ 23:32:32 +0000
+Message-ID: <525659f9-bc04-de58-c416-ab000c1de9eb@amd.com>
+Date: Wed, 16 Mar 2022 19:32:30 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH 1/1] drm/amdgpu: set noretry=1 for GFX 10.3.4
+Content-Language: en-US
+To: amd-gfx@lists.freedesktop.org
+References: <20220302202014.2439629-1-Felix.Kuehling@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20220302202014.2439629-1-Felix.Kuehling@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL0PR01CA0015.prod.exchangelabs.com (2603:10b6:208:71::28)
+ To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
-In-Reply-To: <20220308180403.75566-1-contactshashanksharma@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 16 Mar 2022 14:50:28 -0700
-Message-ID: <CAF6AEGtnXvo=-fKbgSRtAtZ80igqJM2bTKefiLPUsSohU9idNQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-To: Shashank Sharma <contactshashanksharma@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2963d4de-45b6-4ec5-d970-08da07a53e54
+X-MS-TrafficTypeDiagnostic: DS7PR12MB5981:EE_
+X-Microsoft-Antispam-PRVS: <DS7PR12MB59815453EEB956139F064F4B92119@DS7PR12MB5981.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2dAoXsNs0lvIYEyxKAiIEh7tAsLc1cQvg7XJckuXdsuo6LPekQuhV3R6xvMpkjJgFylmpy+/vyA66gQNNSr/CtLKbsFHku7RmZO6MCerIC7KOp+pLQGlbx8/hRuAyvsyii5EEXUjJtt1CiQogtRp5tjxMC5UwcOlL80hseZ8U+XH0NTLgla4AdRAx4cNmtXflueoKX+LQpeARF+p5DuWVk8wruvqpUvSOp4iY7uu1ROyUGJRoQ7qMJpPDzXqIAFGKb4g5QeLo7xeNCGnfJZGdTvshucqd7KzznCDgOJqqPOE+ffacJEoYLqRm+yUdNR50z2VsJTbUFzVg6qOpawgY5k43phoqS/XEcfbsdbg1oyyvrhByeE8KHu7G3HNCwOKvx3DfycV8exwZxs3gSKskFSpRN8WOsfd/ExdOthHSOXLm8Vi4orOPSOgkAUx0ZV8LkyweCn97u8xsFqFnKbL1m6/wQ5LvzxfZjIyGzcPE7Y+uGu0IvtWHdZL32evlRXa0eHk9vCrATnTB4Xz1Jb3ul1hRoCcYAcP4H35r9Mq3Svh93XrmZuTd11HX3w17l19EmWdEWq6qyipCG0o+IJV+WYS+/0vf6x+3mAG7/7zUlqgkGsOiaw7oiAH0HebdO4fXXsizv0eeok4BPw2aP7Pbl+eicdAPn4TwWslZknmAN1XcUIcjB4Kps35Ju5eoCEEom9xr7UdjQT5HOQsjypQ8AOFvxLAFdye1NRyFmSVn32e0W4YbyDd+Z35tiD7ZglT
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(26005)(186003)(8676002)(66476007)(36916002)(8936002)(66946007)(66556008)(38100700002)(53546011)(6916009)(6486002)(508600001)(86362001)(316002)(6506007)(31696002)(5660300002)(31686004)(6512007)(2616005)(36756003)(44832011)(2906002)(4744005)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TVE5a051S2o2VGF5SVNoT2Q5d2JUWWNRc1hkTWszN3VTZ2NYU1l3RXNRTS8w?=
+ =?utf-8?B?ZERvTnRMVEk2UzFGbW5TUE4vbEdnSGtPa2hpNkNxOUVCM04zYkM0YnNQUnhU?=
+ =?utf-8?B?ZEtqU2RTc1FFbjRhdW5LdFJ0OGRyZk94dkNaaE1JUnZPQXlra0NhRW5SRnkz?=
+ =?utf-8?B?d0FtbTMwV0RkTnBoTzNObDJSTjlFZ2IyTDA2bmNPTlJ2TFIxUFpLVnB0TXlD?=
+ =?utf-8?B?ZUVqYndzWVhhUUFRSHlKeEMxcjYxeE84WXd4ZHdtR2dpcllZam1GdTZCMzZX?=
+ =?utf-8?B?cWZuNGJkQjUyMEZMeXRWM0RWMVJ0SkRiRUkrczR1Y3E2M1VCeUxucmpUK1RH?=
+ =?utf-8?B?dUtXdzBLVjJQa042M0dYWGI1NWRJYmN5NnVHenhLY0NlOEU1ZDRJTGZSOVpx?=
+ =?utf-8?B?UTZianQ3eUdPYk1NMVdVNkVFLzRxcVh4blh1K0duSmlEbXV2ZUxSTEpVUzZk?=
+ =?utf-8?B?dnVpSWlVZU5NSkdHSm83WkVaeCtKMk0wOTBBQzRCRHNWdjNlcmZ0dFJaaCtP?=
+ =?utf-8?B?VUpHSGJmV051NmtMeDVIeHVrYjNrbXh1WVZrYW1nejMrNDA5UkNPbS9Ed2hD?=
+ =?utf-8?B?bGN6OEU1L3RtTkRpTDJYSzNkRjRBQkNYRXBKMStIejdwRWFRSUF4SDUrbXZD?=
+ =?utf-8?B?RkRLZTA1S0dSTzVtTzgrN2xxZ1BQY3lUaEl3RVNEbUFlUm5mTnY0aWNzT09H?=
+ =?utf-8?B?OUtGb1laTFpyUTF5c3grd21XaS82K3kydllQM056ekpPTlJMdWlpbmJGblFZ?=
+ =?utf-8?B?bVc5bDVoanJZcG5EU0J1cU10bEVBOThHWEZvQU00VXRiTVc2NEZnV21aaVVi?=
+ =?utf-8?B?UDZrcVVadC91NlU1NEIvM2VSTG9ZWVR4WVRicTVxOXA0SFc0bzk5cFRRalVT?=
+ =?utf-8?B?NExTYkh2Q3YyVWVpVFcrSDZPbW5DSVRsZWhZbFpJZm9UTnV6R1BrQ2tPeG5H?=
+ =?utf-8?B?SGt4aEIyMUxoMEw2dWlPblR4Q0VCVEJ0ZldCWVdsdGRabkVJaDZxTTR5VG1L?=
+ =?utf-8?B?SThIeitGNEVVZmszQUtiaE1lcC9uQSt5dHpBT2ZzUnRDNE1UaXlrRC9aQ3NF?=
+ =?utf-8?B?dGJrQWxWb2grRmxxK2tmUXJvQ3hyMjc4UUNVeUpRa0I1RUFUUnVUSG9QNm0w?=
+ =?utf-8?B?T1ZJU1hwTktLSFRmRXYzS1RtL2JOMnpjWUI3TmVhQnZncUc2WDVmTlhDT09D?=
+ =?utf-8?B?ZXNDYUZlLzNMMmJjTy93Zk5wYmRHZFBGTndMa0owMGhpZ0YwYUFMZ1grK3pE?=
+ =?utf-8?B?aEZQZXVFMmkyeDBsekN6WWhpc2dCTC9MS0xLMW5MMmZaYVJXTW1ZUCsxcjF6?=
+ =?utf-8?B?ek9pUVkwQUhpUUN5Q0pmejhDOHgydm9GZDAxb2hGdFNpWkZBMDNpcHVBdVdN?=
+ =?utf-8?B?MEtUUU05akNwdGZiUVRrYUh1WmkwdTVjNXlTRmx1S3pjakNydXl5ajZXZGZU?=
+ =?utf-8?B?VGhlS25MT2JaWURoc1RJQW5IVEhZY3V2em81N0dZRDI4UWRxaDN4SXhQazRz?=
+ =?utf-8?B?RktZeVQxUllpaGRoaTB6K0JLSlRBamJHTU5zaGYyQWRsZ1F4WEt3dnozeDVW?=
+ =?utf-8?B?bWh6SStVbVFzWXpheVJLV0wxa1JBeldUL3JjVUZPMVhoMzFtMG1vVDhwMk5u?=
+ =?utf-8?B?cml1ZWhhbEhMdnFHbUhBR0lNODBKamkxVGxSTFpheDdjWEpJWE5UdW5WVkxz?=
+ =?utf-8?B?cGUwdm5mRyt4K1lnS2RjRkRzblh6ZExmYU51SWdMajR1aWFPMVU0dWtYM1Rl?=
+ =?utf-8?B?a3FET2tDUjUxbjhUSnZjR2tFNElLc2FmczhJUTF5ZEJxSkIzbTRianViNEpC?=
+ =?utf-8?B?d1FJOWx5Sm51TC8ydkJwK0VoTUpuNFZPODV5bHQzUmhtaWJvMEcrNzQvUzQr?=
+ =?utf-8?B?N0hablVKVHF6aEowcWpHWDRkMlZEQ3lueURMVzRpdTgzY2FUVXpOSnFHMjRJ?=
+ =?utf-8?Q?dUZ0rVYa1Y0XeGzuZth5/DmhI0ScX/jc?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2963d4de-45b6-4ec5-d970-08da07a53e54
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2022 23:32:32.4655 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: p6xJQ/bg3tXJBONAGkdpXRDRiD0k3gqMFEm4GKDcHO0tMoI7jblCqgZdRztj30Na3k3ZGKvWt7dSM7mlJYUQcg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5981
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,132 +122,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Shashank Sharma <shashank.sharma@amd.com>,
- Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alexandar Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 8, 2022 at 11:40 PM Shashank Sharma
-<contactshashanksharma@gmail.com> wrote:
+Ping?
+
+
+On 2022-03-02 15:20, Felix Kuehling wrote:
+> Retry faults are not supported on GFX 10.3.4.
 >
-> From: Shashank Sharma <shashank.sharma@amd.com>
->
-> This patch adds a new sysfs event, which will indicate
-> the userland about a GPU reset, and can also provide
-> some information like:
-> - process ID of the process involved with the GPU reset
-> - process name of the involved process
-> - the GPU status info (using flags)
->
-> This patch also introduces the first flag of the flags
-> bitmap, which can be appended as and when required.
->
-> V2: Addressed review comments from Christian and Amar
->    - move the reset information structure to DRM layer
->    - drop _ctx from struct name
->    - make pid 32 bit(than 64)
->    - set flag when VRAM invalid (than valid)
->    - add process name as well (Amar)
->
-> Cc: Alexandar Deucher <alexander.deucher@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Amaranath Somalapuram <amaranath.somalapuram@amd.com>
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 > ---
->  drivers/gpu/drm/drm_sysfs.c | 31 +++++++++++++++++++++++++++++++
->  include/drm/drm_sysfs.h     | 10 ++++++++++
->  2 files changed, 41 insertions(+)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
+>   1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-> index 430e00b16eec..840994810910 100644
-> --- a/drivers/gpu/drm/drm_sysfs.c
-> +++ b/drivers/gpu/drm/drm_sysfs.c
-> @@ -409,6 +409,37 @@ void drm_sysfs_hotplug_event(struct drm_device *dev)
->  }
->  EXPORT_SYMBOL(drm_sysfs_hotplug_event);
->
-> +/**
-> + * drm_sysfs_reset_event - generate a DRM uevent to indicate GPU reset
-> + * @dev: DRM device
-> + * @reset_info: The contextual information about the reset (like PID, flags)
-> + *
-> + * Send a uevent for the DRM device specified by @dev. This informs
-> + * user that a GPU reset has occurred, so that an interested client
-> + * can take any recovery or profiling measure.
-> + */
-> +void drm_sysfs_reset_event(struct drm_device *dev, struct drm_reset_event *reset_info)
-> +{
-> +       unsigned char pid_str[13];
-> +       unsigned char flags_str[15];
-> +       unsigned char pname_str[TASK_COMM_LEN + 6];
-> +       unsigned char reset_str[] = "RESET=1";
-> +       char *envp[] = { reset_str, pid_str, pname_str, flags_str, NULL };
-> +
-> +       if (!reset_info) {
-> +               DRM_WARN("No reset info, not sending the event\n");
-> +               return;
-> +       }
-> +
-> +       DRM_DEBUG("generating reset event\n");
-> +
-> +       snprintf(pid_str, ARRAY_SIZE(pid_str), "PID=%u", reset_info->pid);
-> +       snprintf(pname_str, ARRAY_SIZE(pname_str), "NAME=%s", reset_info->pname);
-> +       snprintf(flags_str, ARRAY_SIZE(flags_str), "FLAGS=%u", reset_info->flags);
-> +       kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
-> +}
-> +EXPORT_SYMBOL(drm_sysfs_reset_event);
-> +
->  /**
->   * drm_sysfs_connector_hotplug_event - generate a DRM uevent for any connector
->   * change
-> diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
-> index 6273cac44e47..5ba11c760619 100644
-> --- a/include/drm/drm_sysfs.h
-> +++ b/include/drm/drm_sysfs.h
-> @@ -1,16 +1,26 @@
->  /* SPDX-License-Identifier: GPL-2.0 */
->  #ifndef _DRM_SYSFS_H_
->  #define _DRM_SYSFS_H_
-> +#include <linux/sched.h>
-> +
-> +#define DRM_GPU_RESET_FLAG_VRAM_INVALID (1 << 0)
->
->  struct drm_device;
->  struct device;
->  struct drm_connector;
->  struct drm_property;
->
-> +struct drm_reset_event {
-> +       uint32_t pid;
-
-One side note, unrelated to devcoredump vs this..
-
-AFAIU you probably want to be passing around a `struct pid *`, and
-then somehow use pid_vnr() in the context of the process reading the
-event to get the numeric pid.  Otherwise things will not do what you
-expect if the process triggering the crash is in a different pid
-namespace from the compositor.
-
-BR,
--R
-
-> +       uint32_t flags;
-> +       char pname[TASK_COMM_LEN];
-> +};
-> +
->  int drm_class_device_register(struct device *dev);
->  void drm_class_device_unregister(struct device *dev);
->
->  void drm_sysfs_hotplug_event(struct drm_device *dev);
-> +void drm_sysfs_reset_event(struct drm_device *dev, struct drm_reset_event *reset_info);
->  void drm_sysfs_connector_hotplug_event(struct drm_connector *connector);
->  void drm_sysfs_connector_status_event(struct drm_connector *connector,
->                                       struct drm_property *property);
-> --
-> 2.32.0
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 7c2a9555b7cc..622eeda9ea45 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -568,6 +568,7 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *adev)
+>   	case IP_VERSION(10, 3, 3):
+>   	case IP_VERSION(9, 3, 0):
+>   	case IP_VERSION(10, 3, 6):
+> +	case IP_VERSION(10, 3, 4):
+>   		/*
+>   		 * noretry = 0 will cause kfd page fault tests fail
+>   		 * for some ASICs, so set default to 1 for these ASICs.
