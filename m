@@ -4,69 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35AC5C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 09:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6444AC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 09:49:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A04E410E538;
-	Wed, 16 Mar 2022 09:41:41 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7740910E538
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Mar 2022 09:41:40 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id pv16so3016800ejb.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Mar 2022 02:41:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=RQYirHwvhmIuItSWRGIX96Iau4gBR4+08mHtVrf4Vc4=;
- b=MUkRHPitHPi0q4bgpz/CzxLJSYwTfn1n1hzujhq63tlutcnepTsXtAdpy9M4/K26GY
- HSrP4jjLl0qmvfiqrkedIeHW5Yup9OSv2n4F5K7dYgyU70tu4TuE2o9rzbngADCGEDfw
- noHrItx/4rvCGAT7kQE9wAC/kO59hpl71XJZcjPfFRNOfzIGBaX1HymOcq9Xdk1UU0UI
- ZGSvPgITWH1bBCUuZ1YSsQA4LzzRexA+rboALnUNh7u7jU3YlUEyXu4b0P28ikUQEjVI
- HgDJcY1DGQYuSqFzeFEBf44BS21xgM+qoHonpMDX2f7o7cAv4yrjS7Jlg/U01rbj+l6C
- B/Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=RQYirHwvhmIuItSWRGIX96Iau4gBR4+08mHtVrf4Vc4=;
- b=KzCgMPJY8M5488WY8DAIAoe8QvWIeu9dOnkS0Q3B7s9kpQYMRBdqiWUE1TJHr6Xoqd
- 6pPM0Z6Qb2fK/KBlGHVRaAGlROHTmWWFgzoQrrK4oPKI6kyUVswVwJ07tH+KHDxTuqYS
- VgUMeB1z6kAxMwn1SOIJa0FBG4mVZbV3HPFQe0S5B8IV5s9x87VZXG2JIsYN5LeTRIJw
- fwchzMqVATpRlla2dp0Bp2lJca9pPQeHi6C5LTD3fdH9nxlQWM2JwPfw1Vh7SHM1vUzF
- tDWHKWjJCZ2gKj2Bn00v7oRmPhnX2Nl6dGClPkxj4sgGUzqCxkbGNEkOoK8+K77Gwk6W
- 0FFg==
-X-Gm-Message-State: AOAM533EWE6fH6a85wPsR9tlB15oc5VDjSLCxr07KGbuuk7E+AZGuGkk
- YIdQh/rTCdmHnIlls4MANRw=
-X-Google-Smtp-Source: ABdhPJy0BlbREB1JRUK5hwpvumws66QEQvcM5rJcl32v8jzU8GGW5IaYu878Iq6OcawfhcoS7nCggg==
-X-Received: by 2002:a17:906:dc8c:b0:6df:7971:e730 with SMTP id
- cs12-20020a170906dc8c00b006df7971e730mr2047239ejc.66.1647423698816; 
- Wed, 16 Mar 2022 02:41:38 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1252:fb60:6d1e:c9c:e665:48a3?
- ([2a02:908:1252:fb60:6d1e:c9c:e665:48a3])
- by smtp.gmail.com with ESMTPSA id
- ho14-20020a1709070e8e00b006dbd26c2182sm640174ejc.156.2022.03.16.02.41.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Mar 2022 02:41:38 -0700 (PDT)
-Message-ID: <aa16b25a-197d-87d5-001f-87fdfcd1a139@gmail.com>
-Date: Wed, 16 Mar 2022 10:41:37 +0100
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA7C810E099;
+	Wed, 16 Mar 2022 09:49:25 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2062.outbound.protection.outlook.com [40.107.92.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E705110E099;
+ Wed, 16 Mar 2022 09:49:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=k/M6pLEbWn9aI3MgnzLeAHYRo2HggnHz/rQR1zTCUOadaP7KiyYLsdD/2MY52xz4n/IImIRdDH9CfaIqAoiV5gfZgZURL3psl7QdyahPo+KEhzF70ygryoS+866Zag+s7hyTDFRnHsJY22x9QeN8yw2xlcqy0RmfoDaD+w1goxXyBxAwdKtbgbkJMis+qatGttrVDzeUqG3vmZPcgjUg2QkG4xqAqHGrGwefhp5IligjS0GqyAqNf7ysUD/5PAjN+GOD4rcxtMp37uwmk03y0utCkzUbII5vb7VnxuNobL11YWHhKXtmOXkknlc9foIPS2M35oIIphrBOiADr+9qVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AAI8utn9pMBZiGM1zI+VFtKsBKZIPRpSvTHi/gDEwyM=;
+ b=THzE3aTZtsZwIYU6LL/jsBbUruDhRZiGUcvjo0U9DicyMlY7e4VGMwoo2UEJ/cPq7805KRUxJaHeFvcgBwgvdozULxJNWCm09lRQ/9P/UwTqqK5BGgFuue2Zg6J1aXD3v8c3ASTE10NpGIkubjt5KU8+yQ8ieZsss+pY7xJRKEll4BewaIHYSxCzbYNuuxYX0qjnfF5dsNFeirzX/t8Z+rFH4JrZr7bGryikuBm7KmrNCn4euFL8ycxltqjDGGKn3PCAbd5E8hb8F0WFxRjs7PLMY4OepEW7yctCPeyEaMU/r9Q2zlmK4vEZ/rHuwlRwdwUZVrXSBoD2+kEWRknIIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AAI8utn9pMBZiGM1zI+VFtKsBKZIPRpSvTHi/gDEwyM=;
+ b=4r6kUsyqWi1rtqDVfZgxv3VYURM9ZZZznPABy3U2d5JyoR8+rEFEdaohpOx0jewBJgBcIqTN2U/oSR0gxzb5fpBk0mrRQROeXVVxcdm8E+4a8fsdAOf/al5eWMhJuYzhRmmT/vcn7IyPWr1V8G8fYQvs5Qd/wk1fBC+iGOaYogE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DM6PR12MB4404.namprd12.prod.outlook.com (2603:10b6:5:2a7::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.15; Wed, 16 Mar
+ 2022 09:49:21 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::404f:1fc8:9f4c:f185]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::404f:1fc8:9f4c:f185%6]) with mapi id 15.20.5081.015; Wed, 16 Mar 2022
+ 09:49:20 +0000
+Message-ID: <8464802f-d499-e24d-89c4-5e2869e68d3c@amd.com>
+Date: Wed, 16 Mar 2022 10:49:14 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH v3] drm/amdgpu: add workarounds for VCN TMZ issue on
- CHIP_RAVEN
+Subject: Re: [PATCH v2] drm: Fix a infinite loop condition when order becomes 0
 Content-Language: en-US
-To: Lang Yu <Lang.Yu@amd.com>, Paul Menzel <pmenzel@molgen.mpg.de>
-References: <20220314024519.2201231-1-Lang.Yu@amd.com>
- <39dcbcab-8a92-4a01-e355-6e37ac4f1ce6@molgen.mpg.de>
- <YjE9CDYjvJ72IQNg@lang-desktop>
- <c502a443-0987-6d88-1ef3-603723f04634@molgen.mpg.de>
- <YjGB+Dx4nUIOyuMf@lang-desktop>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <YjGB+Dx4nUIOyuMf@lang-desktop>
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20220316063416.3051-1-Arunpravin.PaneerSelvam@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220316063416.3051-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM7PR03CA0009.eurprd03.prod.outlook.com
+ (2603:10a6:20b:130::19) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f02110be-cb33-4c48-f48f-08da07323e69
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4404:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4404BB3C06DEA06D97A83D0483119@DM6PR12MB4404.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XRXJHcWndNnE0RIiV+tQ1D2d55SGnvIER5+gnYONFK5tGQLW0GI44jnz6BlO931JoXZZvog0KzQOL/HGiZbJ57auXUxTzP/P0wvJ5G0oTx2fGlEVTaDDEv/fRMQJv3sIqxLeN7MitJcjwCQxh6F1g7SQIULYOElqcKzxXxGqsk63JWM6bPdymBQiSvyVAwCOxnQvaSIfYXcWI0XILEXW84YOrVoXMpTKRhCCRVuHkuO1kWXgN23zU3jdhKYTe47gwgPgVL+15tnZyafuG7pLoy4RqBvFlLch1+xmcGRb58zIXA1J916wMVK1OCXnOh+VJNkQFTklSo9RYxMEYT5+tkepJQvnITJ92S+FEX7+FCZ7b/Dz1+Yqg9i6DpsSfpRimG7ujqlOh6P29cLj928hfdpmolokyh5AWds6lybtxoqSibZT87eR0lWgcQ8IlJwqOu9Jqi0EBOtasCVRxXGWFttfcqu41srx8uCtZ5u6UOB4yHMpZrKR9q6xW+Ps7j8wRgrOeIQq/3mn22p5BX4jRVoL+cbWZReejxlV1ztmiaNwWOJSvrXbxNy3PxOATHxkOQHVq9whQwV6ajonA4wMGtW+51jnw/XXA4JuNiE2Nch9Hkw4RZ7z+sl80KC6J7XEXUL045hF4qR22Tm480ibSqm4Pc54niGvTbNEcnfRvMW3hLXM8yErXV8W+neI2CIaVq7wC88SF0dAwSHd/mS9QsypYAmynN/dFEQexrcvP+0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(8676002)(6486002)(2616005)(66574015)(316002)(83380400001)(186003)(36756003)(8936002)(508600001)(31696002)(6506007)(86362001)(6666004)(5660300002)(2906002)(31686004)(66476007)(66556008)(66946007)(6512007)(4326008)(38100700002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SUlYdlZWejRpYUtPRUVmcDVDQVhWMm52TUMrVVFyQXJWbStocGlNSlJvdVNy?=
+ =?utf-8?B?N09MeXJOL1hRRHI1ZFMwMFV1S21ZTXN4QndNT3hxZWJnZHBlZUg1U3JmMG5C?=
+ =?utf-8?B?ZzFMV3NZMnhLdnd6U0U5UUd6RFkzU1lsemRwd1pFMisyVTIra0wrMTV2ekJl?=
+ =?utf-8?B?dFI2UVZhcTlTYU44YVVMZlZoa2tSOTRjbXh5MnpEWm1WbDFMUmxwOUJoM0gr?=
+ =?utf-8?B?T0orc0xMNzdtMTVpOXR3d2ozMDNmcEpJTzRkdXBUMXUxRlA0YWRvQlAxZWlm?=
+ =?utf-8?B?K0VjME8xbG1KYXRuOThXUTZ5ZUN0YVVHYWtEN01wemtCZ2xFd0h6Tlh1S1lE?=
+ =?utf-8?B?SGNYNXNxdFVFUVVuNnNrYU9CTDZMRXFGTjNZNEJXQVNtS3ZhZUZ2clBTMWt6?=
+ =?utf-8?B?WUg0by9FS1JXNTlmZDgyVE9OWUVUUGQwMHNLQW5scEZtY3EraTBjVUU1ZHk0?=
+ =?utf-8?B?U0VReGpjbi8yckJpVmM4VmlXcVZCYXVOM0tsZUlwekdrS0xuT3BFVTV2RUFI?=
+ =?utf-8?B?ZnJMd3ZCZDVLem1oWXpOZjFsL1daWEc4R2RUSWFhTzJJemN6cHFxVGFtMC8w?=
+ =?utf-8?B?WDI3bTE5d0RIaDUzckRSbUhseXEzTnp0NDBJQUdlZ0dMdVhYUXIrRVZwbUNB?=
+ =?utf-8?B?YjdJTDdmc1lSODNZcjR1VjRIWmpaNmxldjZOQ2JlaCtYaW1nYzFBc2RqeHdi?=
+ =?utf-8?B?cFh3TnQxN1JBMDlmM0NGM3l4SStEQmN0WjlHbzJid29aZ0tVbUZGYzk4bDly?=
+ =?utf-8?B?aUIwbTNwd0U3eDhaNExWWWpWMTlEMmpmNG9vQW92Y1lDMkMvK2VUYWlmbnIy?=
+ =?utf-8?B?Mmp4NmJmVno0WDFmREM5MXc4N3orelRvZlNueVFleTFoVnRrbjJLaUxGVk1k?=
+ =?utf-8?B?WTEvWklOdTZHYWpNb3duZ1BZM0lzN2xBN2V6Mm5zNXo0eEFKa0ZGL1ZQb1ZS?=
+ =?utf-8?B?M2FYbXlHb1R1MUdQYkxXaERGS0ZSQU9yYmVLalQyaXRJc2RPSlB5OWlBWlYr?=
+ =?utf-8?B?TTdJQW8zU2p0R1JjeGtoRW1iNkRTeEpYeUx0UW9VdmJVdHNZR0p0Ym0rVDVK?=
+ =?utf-8?B?UURkeWRSTkFpT2s3cVZpTTluN0srUDNHdytwNUdKQkpjVHZLdGlTUlRFaW13?=
+ =?utf-8?B?UFZWUGMvTHRua0tpcFNQMUY0cTl0Qm16Q015V0dobzJrS3FYbUhtaVMzRHBE?=
+ =?utf-8?B?SnpyVnkxakJFMU1tSGxUSzFvMGpURWRvUkptbWhrSENONVdTendkWExpbXgr?=
+ =?utf-8?B?QVRray9rdHNJbExFY1lyVXlYTWRqNWVpYTJmMVdWenk4MCs0L25aTThhZ205?=
+ =?utf-8?B?MnZYeXlEZTJUWEY5bWNXQVcxYXVZRWVNa1NqYnNlNWFVdWJpVzJWN0QyZXNy?=
+ =?utf-8?B?elQxQmFTM2pZa2JsRFY1MjJJOG9oNmdqU0R1N1cvY29Mbmg3MU9BeTU3amp6?=
+ =?utf-8?B?L0YxemJkQURScUVoWEIzRVJSRGQzUlRLNXQrSDgxTlJPK21TclNicWpIRE81?=
+ =?utf-8?B?U1FoZTFEYzdNYlVuRUlrdlNqV29xdVdZdFJkN2Vuc0lQRmlOM2ZEM010cmd3?=
+ =?utf-8?B?bFZ0R3ZDZ3luS2pDSWpKVS9hYVJwK1loRW9CaXlvdWZpemhneVhzTmU5Vm9W?=
+ =?utf-8?B?ZmtwQnk4ZVlNT1hWQ1FxUWlDdlN5UDVOVFhQd3Q5bWNldDVPMGdTcHpqOWNY?=
+ =?utf-8?B?REJwSjlsKy9YbThxcm9kclhPZ1RiNmdTMEdpcWF1V3NndjEvSzAwWGc0QkZw?=
+ =?utf-8?B?MEVpcHh0K3JKZGVmeEo1c0lpNWQ5Q0pHQXZRUTI2c1AwREtZalV6Z01mZXBt?=
+ =?utf-8?B?Y1dHcVZ4NjQ0YytBMnBzWmxxSk9DUzVvRTNoMkxsSllHcW84Z3dPQTZBbzZV?=
+ =?utf-8?B?VFc5THIwc0V5bUhEbWgxNy90KzkraFBiT0NUTi94VU1XTjdWU1VDQm9YWStm?=
+ =?utf-8?B?OG94dDd5eWNoNFVSaEpkbld0N3FYNkVKdytYK0xBY1FsV2IvOUFHSEx5MFhw?=
+ =?utf-8?B?UUhHcDJXZEZTdWFmRVI2TzF4VVlZdXNTQWZZUEt6azV1VFhDdWN1UWRER0NQ?=
+ =?utf-8?Q?mq4GJC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f02110be-cb33-4c48-f48f-08da07323e69
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2022 09:49:20.6674 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EzcvsqU5rblynd+XlxZxgDcCg2fge9R3jx6xyI27CqFCOiSi8scUle3TX9rUL10G
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4404
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,181 +125,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, pmenzel@molgen.mpg.de, matthew.auld@intel.com,
+ daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 16.03.22 um 07:21 schrieb Lang Yu:
-> On 03/16/ , Paul Menzel wrote:
->> Dear Lang,
->>
->>
->> Am 16.03.22 um 02:27 schrieb Lang Yu:
->>> On 03/15/ , Paul Menzel wrote:
->>>> Am 14.03.22 um 03:45 schrieb Lang Yu:
->>>>
->>>> Thank you for your patch. A shorter commit message summary would be:
->>>>
->>>>> drm/amdgpu: Work around VNC TMZ issue on CHIP_RAVEN
->>>>> It is a hardware issue that VCN can't handle a GTT
->>>>> backing stored TMZ buffer on CHIP_RAVEN series ASIC.
->>>> Where is that documented, and how can this be reproduced?
->>> It is documented in AMD internal Confluence and JIRA.
->>> Secure playback with a low VRAM config(thus TMZ buffer
->>> will be allocted in GTT domain) may reproduce this issue.
->> It’d be great if as much of the details from this non-publicly accessible
->> information could be added to the commit message, and a way to reproduce
->> this as there does not seem to be a test for this. (Also I guess a tag with
->> a reference to the internal issue would be acceptable, so in case more
->> question surface in the future.)
-> Thanks. I will add an internal link.
+Am 16.03.22 um 07:34 schrieb Arunpravin Paneer Selvam:
+> handle a situation in the condition order-- == min_order,
+> when order = 0 and min_order = 0, leading to order = -1,
+> it now won't exit the loop. To avoid this problem,
+> added a order check in the same condition, (i.e)
+> when order is 0, we return -ENOSPC
+>
+> v2: use full name in email program and in Signed-off tag
+>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-Lang, please don't!
+Acked-by: Christian König <christian.koenig@amd.com>
 
-This isn't an information which is expected to be made public.
+BTW while going over the code I've seen this here in the function:
+
+...
+                 if (!pages)
+                         break;
+         } while (1);
+
+
+Can that be changed to "} while (pages);" instead? Would probably be a 
+little bit cleaner.
 
 Regards,
 Christian.
 
+> ---
+>   drivers/gpu/drm/drm_buddy.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> Regards,
-> Lang
+> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+> index 72f52f293249..5ab66aaf2bbd 100644
+> --- a/drivers/gpu/drm/drm_buddy.c
+> +++ b/drivers/gpu/drm/drm_buddy.c
+> @@ -685,7 +685,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   			if (!IS_ERR(block))
+>   				break;
+>   
+> -			if (order-- == min_order) {
+> +			if (!order || order-- == min_order) {
+>   				err = -ENOSPC;
+>   				goto err_free;
+>   			}
 >
->>>>> Move such a TMZ buffer to VRAM domain before command
->>>>> submission as a wrokaround.
->>>> workaround
->>>>
->>>> Please use a text width of 75 characters per line.
->>> Thanks for your comments. I will take care about this.
->>>
->>>>> v2:
->>>>>     - Use patch_cs_in_place callback.
->>>>>
->>>>> v3:
->>>>>     - Bail out early if unsecure IBs.
->>>>>
->>>>> Suggested-by: Christian König <christian.koenig@amd.com>
->>>>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
->>>>> ---
->>>>>     drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 71 +++++++++++++++++++++++++++
->>>>>     1 file changed, 71 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
->>>>> index 7bbb9ba6b80b..1ac9e06d3a4d 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
->>>>> @@ -24,6 +24,7 @@
->>>>>     #include <linux/firmware.h>
->>>>>     #include "amdgpu.h"
->>>>> +#include "amdgpu_cs.h"
->>>>>     #include "amdgpu_vcn.h"
->>>>>     #include "amdgpu_pm.h"
->>>>>     #include "soc15.h"
->>>>> @@ -1905,6 +1906,75 @@ static const struct amd_ip_funcs vcn_v1_0_ip_funcs = {
->>>>>     	.set_powergating_state = vcn_v1_0_set_powergating_state,
->>>>>     };
->>>>> +/*
->>>>> + * It is a hardware issue that VCN can't handle a GTT TMZ buffer on
->>>>> + * CHIP_RAVEN series ASIC. Move such a GTT TMZ buffer to VRAM domain
->>>>> + * before command submission as a workaround.
->>>>> + */
->>>>> +static int vcn_v1_0_validate_bo(struct amdgpu_cs_parser *parser,
->>>>> +				struct amdgpu_job *job,
->>>>> +				uint64_t addr)
->>>>> +{
->>>>> +	struct ttm_operation_ctx ctx = { false, false };
->>>>> +	struct amdgpu_fpriv *fpriv = parser->filp->driver_priv;
->>>>> +	struct amdgpu_vm *vm = &fpriv->vm;
->>>>> +	struct amdgpu_bo_va_mapping *mapping;
->>>>> +	struct amdgpu_bo *bo;
->>>>> +	int r;
->>>>> +
->>>>> +	addr &= AMDGPU_GMC_HOLE_MASK;
->>>>> +	if (addr & 0x7) {
->>>>> +		DRM_ERROR("VCN messages must be 8 byte aligned!\n");
->>>>> +		return -EINVAL;
->>>>> +	}
->>>>> +
->>>>> +	mapping = amdgpu_vm_bo_lookup_mapping(vm, addr/AMDGPU_GPU_PAGE_SIZE);
->>>>> +	if (!mapping || !mapping->bo_va || !mapping->bo_va->base.bo)
->>>>> +		return -EINVAL;
->>>>> +
->>>>> +	bo = mapping->bo_va->base.bo;
->>>>> +	if (!(bo->flags & AMDGPU_GEM_CREATE_ENCRYPTED))
->>>>> +		return 0;
->>>>> +
->>>>> +	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_VRAM);
->>>>> +	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
->>>>> +	if (r) {
->>>>> +		DRM_ERROR("Failed validating the VCN message BO (%d)!\n", r);
->>>> to validate
->>>>
->>>>> +		return r;
->>>>> +	}
->>>>> +
->>>>> +	return r;
->>>>> +}
->>>>> +
->>>>> +static int vcn_v1_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
->>>>> +					   struct amdgpu_job *job,
->>>>> +					   struct amdgpu_ib *ib)
->>>>> +{
->>>>> +	uint32_t msg_lo = 0, msg_hi = 0;
->>>>> +	int i, r;
->>>> Use unsigned int for the counter variable?
->>> You can see both signed and unsigned are used in kernel.
->>> (e.g., mm/page_alloc.c).
->>>
->>> For this case, I think it makes no difference.
->>>
->>> In a word, we should consider the specific context.
->> Although it makes technically no difference, I prefer to use the best
->> matching type to convey the intention of the variable to the reader. But you
->> are right, there is no hard rule for it.
->>
->>
->> Kind regards,
->>
->> Paul
->>
->>>>> +
->>>>> +	if (!(ib->flags & AMDGPU_IB_FLAGS_SECURE))
->>>>> +		return 0;
->>>>> +
->>>>> +	for (i = 0; i < ib->length_dw; i += 2) {
->>>>> +		uint32_t reg = amdgpu_ib_get_value(ib, i);
->>>>> +		uint32_t val = amdgpu_ib_get_value(ib, i + 1);
->>>>> +
->>>>> +		if (reg == PACKET0(p->adev->vcn.internal.data0, 0)) {
->>>>> +			msg_lo = val;
->>>>> +		} else if (reg == PACKET0(p->adev->vcn.internal.data1, 0)) {
->>>>> +			msg_hi = val;
->>>>> +		} else if (reg == PACKET0(p->adev->vcn.internal.cmd, 0)) {
->>>>> +			r = vcn_v1_0_validate_bo(p, job,
->>>>> +						 ((u64)msg_hi) << 32 | msg_lo);
->>>>> +			if (r)
->>>>> +				return r;
->>>>> +		}
->>>>> +	}
->>>>> +
->>>>> +	return 0;
->>>>> +}
->>>>> +
->>>>>     static const struct amdgpu_ring_funcs vcn_v1_0_dec_ring_vm_funcs = {
->>>>>     	.type = AMDGPU_RING_TYPE_VCN_DEC,
->>>>>     	.align_mask = 0xf,
->>>>> @@ -1914,6 +1984,7 @@ static const struct amdgpu_ring_funcs vcn_v1_0_dec_ring_vm_funcs = {
->>>>>     	.get_rptr = vcn_v1_0_dec_ring_get_rptr,
->>>>>     	.get_wptr = vcn_v1_0_dec_ring_get_wptr,
->>>>>     	.set_wptr = vcn_v1_0_dec_ring_set_wptr,
->>>>> +	.patch_cs_in_place = vcn_v1_0_ring_patch_cs_in_place,
->>>>>     	.emit_frame_size =
->>>>>     		6 + 6 + /* hdp invalidate / flush */
->>>>>     		SOC15_FLUSH_GPU_TLB_NUM_WREG * 6 +
->>>>
->>>> Kind regards,
->>>>
->>>> Paul
+> base-commit: 3bd60c0259406c5ca3ce5cdc958fb910ad4b8175
 
