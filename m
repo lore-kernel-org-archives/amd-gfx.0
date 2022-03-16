@@ -4,64 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C073C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 07:18:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 246F7C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 08:42:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB0E410E57C;
-	Wed, 16 Mar 2022 07:18:09 +0000 (UTC)
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45E9010E539
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Mar 2022 07:18:08 +0000 (UTC)
-Received: by mail-ej1-x634.google.com with SMTP id r13so2239098ejd.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Mar 2022 00:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=6m8cpBAN/UuKQ8pmj9N0RepY1DwXcvNI8v2C4K9sg38=;
- b=Wnfqnj+j9mMGs2Nic8xNHnLsSjkQbBIFjx33zjZ9/8njDV6UB3oCT+CyMoa3Yuy0TY
- z3ZITs1GsTublUIyM/Cx4FXRCnrT6dw31gLEZvhJIspDj/1wSzahZO3KyowpAWene2g2
- 1NBPFWsls2aC+1JPBMsyJ4tFeTy9ETxk1oPg39zbDa0N+DDtsweR7h/FHuV0s7J8aKcG
- bNYq5TEkpl60bNxmnHzJIUelW1ZHFbh/eUsDbZNQqBpJWmRnEmMa/gcO4XOPeYTVN+sJ
- f38pEYUspjWlzimJhauAKP16unsB8jeq1uHEEY+GDba5lnH7jlgHcAUJU7rZYXHZ05S+
- nwZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
- :content-transfer-encoding;
- bh=6m8cpBAN/UuKQ8pmj9N0RepY1DwXcvNI8v2C4K9sg38=;
- b=5iUUghXymkvscaG20dqL+RLyBpSYofvYl69svG4WZDQvGKV1F8lYKgjVWjnXhaGXyO
- 45uVKB7iv7QIpbN0WpLq2FSU/qmIFLq9+Du7pWrcyWtjx0QNeX7S5io0mr1r5Iy4/60Z
- QkIgD6JCArWURNNqYfpeLavb2mPAqCkD0St6SwNFg1D9zn7oZlHDj1MJpb32kalCm52P
- ARj8cdgT0nIV3rSBh9wwL1fbky9y5Nyvp31w22apKUT0SKuYyjGZCfbpVA+RaLQ3TacJ
- KUT4mE5J0Tnu9bKm5RryZyBi6zUFBIvaFZJgSXTARe0F4rRr9XgSEEbp6AErtJ9vxyDP
- 6eog==
-X-Gm-Message-State: AOAM531AkG9ah8ttrjHzW0qy0AaAY53FgXjbuIdEE5ZswfCSzpt4gHB5
- j76OTawAdxMD00llKoeoWFQ=
-X-Google-Smtp-Source: ABdhPJxGhAN9NCo0RLOuLoWdblY79MOC8/J65+eCQdImMRb0eXNG2+nwl3Px/XUuQzoNGZe/gpLONA==
-X-Received: by 2002:a17:906:a08b:b0:6cf:65bc:e7de with SMTP id
- q11-20020a170906a08b00b006cf65bce7demr25807399ejy.220.1647415086590; 
- Wed, 16 Mar 2022 00:18:06 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1252:fb60:e172:567b:db98:7f8b?
- ([2a02:908:1252:fb60:e172:567b:db98:7f8b])
- by smtp.gmail.com with ESMTPSA id
- sa13-20020a1709076d0d00b006ce3ef8e1d4sm509903ejc.31.2022.03.16.00.18.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Mar 2022 00:18:06 -0700 (PDT)
-Message-ID: <c7e4568e-5bee-ab1c-cc4f-5985200f0fa8@gmail.com>
-Date: Wed, 16 Mar 2022 08:18:06 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3FA310E675;
+	Wed, 16 Mar 2022 08:42:13 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F386510E671;
+ Wed, 16 Mar 2022 08:42:12 +0000 (UTC)
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 22G83Yfc011435; 
+ Wed, 16 Mar 2022 08:42:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
+ bh=BOv8/vrw2GuwHTpUKlI6SvoViQyBYDyccxYS0CdSUDo=;
+ b=w+EtBDFgzdiurvuznvMOl8AZpBOvXvdPpXoi+P0sQHG7VO6Y1X+HMf/CCWvXUDakw4SC
+ SSKsBMIOvoGQiQED0++q29jl7aVkJw2+6tdI8AS6ipV1XQYa4YNQFAGSPgrRElTczlv0
+ QgdxgK9US9iRWLGHKAfeVyyvF2VeTPKnu9chGJBeKSMR9DiAhZC2sleeGuY0gJMLGf3E
+ SBEpf2xXI+XNVNpURjj2BDKmwmE+qVLvbrK0uLQCktYQs9ZEmCTePi6BRVrqAByoaPCV
+ xAJXcUB5wDAfdU6lGskLGSD1uFOVR2YagiL6HEI4pt6BN4flaNYXbtzZ/VmJVfCcsrCq YA== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3et5s6nfwg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 16 Mar 2022 08:42:08 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 22G8etnP078111;
+ Wed, 16 Mar 2022 08:42:07 GMT
+Received: from nam12-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12lp2049.outbound.protection.outlook.com [104.47.66.49])
+ by userp3020.oracle.com with ESMTP id 3et658h3af-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 16 Mar 2022 08:42:06 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LjibVeZVoLI873WX9ytLwBY9hvmrp0wgC7bccCfngbUS/FQ+yyVUbfMvRs5NJm2Km4EhxoqIWD/O0iImqozE6SdGt43wSdDlqVrM7XyDM1N6Q80KrPRerxG20uCTneDWMG5Udji312cXKBxr4hcDU6k3GJMdpvfacWThvin0NZ3SP99btsgMbOgAc/cMFUVNDdg7W6HrT+0aZTq4zEiEARl46pyOSfjLhIVBpq3Onk3ycJqkC0zCHcP+Umirks1gbjogxmBDZXY2D+JWjBxOa89Xnowst6bT9qYLTONT/PKFGXk//c1XdK2eXaeOT6nBI55Vt+sbpwFlXceM+5r9Gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BOv8/vrw2GuwHTpUKlI6SvoViQyBYDyccxYS0CdSUDo=;
+ b=X//hpqpBHQhhJyTeQUSDlMAW+ySDJOYgMM1qH+uBUlxPcs92epMwMrdRPfbMgFZgly9uiTF6jIw1bKqxvMzXL24JEtA8colEzps8lMiaouU+mCMuNR63haOLij14Xt+klarrTl+/uT5FtX31+iR7KNifIMb00gRWsWKLBZNPFxBLFaFlWrupcdZ9rFp8iLyU7ar5Yaeug8xGvqbW6zgIebKQc975VeXdjUbEeepD6qfOdxp6FrhlEBFO63VL8DXKeN6saBX7OqpOeD3AK6mv1jcfvjmjOZAFu1Kh7f0IqYrE1Z241AJoAmfjed3ekbfHY/Xzl/XY6NnPtQ1u3RqF+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BOv8/vrw2GuwHTpUKlI6SvoViQyBYDyccxYS0CdSUDo=;
+ b=rilCCpSenR1a7PZCWk38KaJ8srPNMiEAEK7F1S1/6wZMY+YvW6pn8UPyJHuA1AX7o80k+4SWOPbFZseuYievsPwtctAJzISt/ubNydTISzjbZ7uMBF1RMUDuevd0W2OWE4wQEn7vKYHAs4eoAWCQjEbA9sEYxxbzr1u83bhJ3Fw=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by BN6PR1001MB2145.namprd10.prod.outlook.com
+ (2603:10b6:405:2d::38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22; Wed, 16 Mar
+ 2022 08:42:04 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::2c3d:92b5:42b3:c1c5]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::2c3d:92b5:42b3:c1c5%4]) with mapi id 15.20.5081.015; Wed, 16 Mar 2022
+ 08:42:04 +0000
+Date: Wed, 16 Mar 2022 11:41:48 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: fix off by one in amdgpu_gfx_kiq_acquire()
+Message-ID: <20220316084148.GD30941@kili>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-ClientProxiedBy: ZR0P278CA0009.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:16::19) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/amdgpu/gmc: use PCI BARs for APUs in passthrough
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220315181300.2808453-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220315181300.2808453-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6da16d6b-790d-4fed-7840-08da0728d8a0
+X-MS-TrafficTypeDiagnostic: BN6PR1001MB2145:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR1001MB2145C938E391E6E23FA7F38E8E119@BN6PR1001MB2145.namprd10.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RUmOgSdbEMm7pZkYTEtLwZmzGfug38FAjBXr/ANV3nEnTgEkca+xMxAz9xWlEF8CtJRXB8MCdWfV0jPACrWx9EF8u8hyRNkSNptv/dQX3LP475vEvO+iV9ZwaDHzLbLMXdg5utLtxdZAA8l8zHqqqD0ksE51wZnzUqoQCnSt8Z2klpOKUynOX3uPabcIFcnJAzi4N/JJWzZV8QGRTmY/CpISz+Q8zLimFsEJW0W2hUK9iLYLh3r1BNmrG7Ct7ZDmXxupIvtX9aAbjxp3iS+77RBDSm29I/ovfULWAeqlwSpUsCXJpKs46KgQK+zhtNn7sPwbLLaFaG1ekJnKQ+rtRL7GkC1wJldwIMogn/93cVmFhXQ3EdDXY6syaYar2qQECxAAL+dkKuAdmsfStDgQR2VJsLnH5sj7pW3llcqBJBe7scOvELurg2Nq4uFW/+wX+0HEpT+9+0+AcM8hjdeK/i9rsSHBJd8MtoX5zYKJ1lJ2U8K22iRqIMZePcL6YtnKABHclDg+7LPzKI3szLiV2RViH8hAfHQISTVlLP7+EtX7SLhTJPdzggJKHls9JnyG+DQi2Aklor3zpSgwviGEtXEd0rAcdDkUdWw7y1Br78XcseqSEx8IUqOOyY9LtP/V40BVfLQGoFvO9xtsmQZCSbTFdPwTfNfDuWzVk9FIdPwmlRkqwQIabsIldahYJCr8lqWajIRv7LyP5kgt/6rjhQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(7916004)(366004)(86362001)(33656002)(5660300002)(8936002)(6666004)(6486002)(6506007)(6512007)(7416002)(9686003)(2906002)(52116002)(4744005)(44832011)(508600001)(1076003)(38100700002)(38350700002)(83380400001)(33716001)(186003)(66556008)(66476007)(316002)(66946007)(4326008)(54906003)(8676002)(26005)(6916009);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?SpSTn30oxM0EEVGnBhlLJ9HDjhk4tBqHkOSJBhvUfPIGyn6uk01cMuWB+5L0?=
+ =?us-ascii?Q?yJWoGUXsT2L9Sa8GAaN5Aae/q6cgJfXDjgaYSQvWgV8QLD8bUaL9UGOAZ0LO?=
+ =?us-ascii?Q?ZmD2PXnpS84R1jsUcSI1RdH3aiLT79D8Nn9dYy21LddK4kTjNziWtzNkE519?=
+ =?us-ascii?Q?AfTXt+9R/p9JK1lM/d0jVwY3YGR8jpxpvGroAIhqQgbaBjO9opIFoXXxGjtL?=
+ =?us-ascii?Q?b5VunmjXqYT2BBsmciR5XvZpnQI9Ocj3KbVL/9MHGuiN7sogIdjHm93RRIk7?=
+ =?us-ascii?Q?Qxlb3yqMAfMufpO/wwfTYUcTik88DWoHt3ume0pycUM5YqpSi++JyHHZyY1M?=
+ =?us-ascii?Q?IxOvasOHoTe468OGOkmCm7gKWOHNDhRJt9UgUgHKCW4oozLJjZGlvIABiQ47?=
+ =?us-ascii?Q?5oJ+3I84UTAZ7Tk8xpqnq7rwWEPYVSytz2UcJY3a64QMrZEZCUKClw0dnC3W?=
+ =?us-ascii?Q?DEh7pRcLDI5z9B0/e2JRuoS5hLM+h0YU5SPgDvhfcN6aOcqi3wzJjeZabgbN?=
+ =?us-ascii?Q?dl9vu5CnkSIE1chPM8Ck1o3sJ58nckCSAk/Z7Z2l9AN7aRAt83195Ut8bkwm?=
+ =?us-ascii?Q?ZWTTptznJGpwxMr2fJs0C4WhXTLwfeiAHdtsN09bYwzxCleZVvlQb6Gv/TUR?=
+ =?us-ascii?Q?epNv7jU7vlE7p8IlRYcVa9jArJ43/zQB77raXB5bXFIJDywkAo4CefR+NtSy?=
+ =?us-ascii?Q?ObRQxAyv403SOWI/wdigaRiJWrVyBNqXqjuk7s2oAUkiRjPmiH1nEKWf9Mrl?=
+ =?us-ascii?Q?bkWPH//3Q4Y12oqn5sdquDZ19r1jHqvJ1Qs0K2QcWduUIGuo29vVNGwpVAQN?=
+ =?us-ascii?Q?52FeYLfDXTArvPWd9GOoH4mAB1iXxvOLkkm0GwO4YSekpVajHzoR/0albNnK?=
+ =?us-ascii?Q?rppRNr/pRN/5ChcquXydUHE4ztc9kmcnW/NLiH2kpfuzAe5V48lVf82Fdpn+?=
+ =?us-ascii?Q?ePkqQAx+b/MSJBMcq7hC9uMwIdCyrK/fyxV+KTvHfPnqV8DZP8pUIZDXc4an?=
+ =?us-ascii?Q?bEGuIvM2t0SeUPkjuCP+yWbCdEPZg77cl2FyTUaVH+jqv03hdMgkAmAN2qTt?=
+ =?us-ascii?Q?xjEMlbg2ayyKQ/ld4LbxN+q/xNDgBvjV+g3KYs+VuDM4EpaIfWaCGK3m4p9g?=
+ =?us-ascii?Q?pAoAQnFymM6B3vgdHtrpn+bGjDlkl0ziNZQiIPmeroGkSBd9zHj4YWYFQWKN?=
+ =?us-ascii?Q?3Hjh+j6BGjsNcZDrBjzFxOPsBJvSM1aVIv84Tgk517n5Xzft9h6W+ZhAAWvP?=
+ =?us-ascii?Q?XqCQIU8aWOregR86I/c/6ZA1lzF2KR5Zzx87NVNJtpZ4870BxOztBqR0MtAW?=
+ =?us-ascii?Q?U17Xb1l9G+VCel47hx1Tf+o7YESsYCQsG0xHSum6RKXz+RxFccujpyraL+xr?=
+ =?us-ascii?Q?fh17oP7tig873T9gdYs1bpDm/+SszWoUkSCVLlvCA4GDMEykiupxU4xSdTNC?=
+ =?us-ascii?Q?AVOspkY7QnNdXWZ9YMLbtgM+BMe46AWRekD/PkD+aW6tklpUwdAcow=3D=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6da16d6b-790d-4fed-7840-08da0728d8a0
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2022 08:42:04.1921 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MdOncrTz2U2kPmfsU1T5+Iu15BFqGTuqClhXoe5lQK4JvlaPMV+5gpCoHC+YsEi1ZcElvZh2MadMjNDOJJoEQQlFLPDTYXCEWoiaJp9dyos=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1001MB2145
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10287
+ signatures=693139
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ spamscore=0
+ malwarescore=0 adultscore=0 bulkscore=0 mlxscore=0 mlxlogscore=999
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2202240000 definitions=main-2203160053
+X-Proofpoint-GUID: 8x24pVhZy1IELzNgrNoC8bNUdUyZGnlx
+X-Proofpoint-ORIG-GUID: 8x24pVhZy1IELzNgrNoC8bNUdUyZGnlx
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,106 +142,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Tao Zhou <tao.zhou1@amd.com>, David Airlie <airlied@linux.ie>,
+ kernel-janitors@vger.kernel.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org,
+ Lijo Lazar <lijo.lazar@amd.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
+ yipechai <YiPeng.Chai@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Evan Quan <evan.quan@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Dennis Li <Dennis.Li@amd.com>, Alex Xie <AlexBin.Xie@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.03.22 um 19:13 schrieb Alex Deucher:
-> If the GPU is passed through to a guest VM, use the PCI
-> BAR for CPU FB access rather than the physical address of
-> carve out.  The physical address is not valid in a guest.
->
-> v2: Fix HDP handing as suggested by Michel
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+This post-op should be a pre-op so that we do not pass -1 as the bit
+number to test_bit().  The current code will loop downwards from 63 to
+-1.  After changing to a pre-op, it loops from 63 to 0.
 
-Might be a good idea to have a function or macro to figure out if we 
-should use the BAR or not on APUs.
+Fixes: 71c37505e7ea ("drm/amdgpu/gfx: move more common KIQ code to amdgpu_gfx.c")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Anyway patch is Reviewed-by: Christian König <christian.koenig@amd.com>.
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     | 2 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      | 5 +++--
->   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      | 2 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      | 2 +-
->   5 files changed, 8 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 1b313a95c7e5..eb902654f35d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5733,7 +5733,7 @@ void amdgpu_device_flush_hdp(struct amdgpu_device *adev,
->   		struct amdgpu_ring *ring)
->   {
->   #ifdef CONFIG_X86_64
-> -	if (adev->flags & AMD_IS_APU)
-> +	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev))
->   		return;
->   #endif
->   	if (adev->gmc.xgmi.connected_to_cpu)
-> @@ -5749,7 +5749,7 @@ void amdgpu_device_invalidate_hdp(struct amdgpu_device *adev,
->   		struct amdgpu_ring *ring)
->   {
->   #ifdef CONFIG_X86_64
-> -	if (adev->flags & AMD_IS_APU)
-> +	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev))
->   		return;
->   #endif
->   	if (adev->gmc.xgmi.connected_to_cpu)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index f60b7bd4dbf5..9887a60e8eae 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -814,7 +814,7 @@ static int gmc_v10_0_mc_init(struct amdgpu_device *adev)
->   	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
->   
->   #ifdef CONFIG_X86_64
-> -	if (adev->flags & AMD_IS_APU) {
-> +	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
->   		adev->gmc.aper_base = adev->gfxhub.funcs->get_mc_fb_offset(adev);
->   		adev->gmc.aper_size = adev->gmc.real_vram_size;
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> index 344d819b4c1b..979da6f510e8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -381,8 +381,9 @@ static int gmc_v7_0_mc_init(struct amdgpu_device *adev)
->   	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
->   
->   #ifdef CONFIG_X86_64
-> -	if (adev->flags & AMD_IS_APU &&
-> -	    adev->gmc.real_vram_size > adev->gmc.aper_size) {
-> +	if ((adev->flags & AMD_IS_APU) &&
-> +	    adev->gmc.real_vram_size > adev->gmc.aper_size &&
-> +	    !amdgpu_passthrough(adev)) {
->   		adev->gmc.aper_base = ((u64)RREG32(mmMC_VM_FB_OFFSET)) << 22;
->   		adev->gmc.aper_size = adev->gmc.real_vram_size;
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index ca9841d5669f..1932a3e4af7e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -581,7 +581,7 @@ static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
->   	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
->   
->   #ifdef CONFIG_X86_64
-> -	if (adev->flags & AMD_IS_APU) {
-> +	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
->   		adev->gmc.aper_base = ((u64)RREG32(mmMC_VM_FB_OFFSET)) << 22;
->   		adev->gmc.aper_size = adev->gmc.real_vram_size;
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 431742eb7811..5fa613d41799 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1456,7 +1456,7 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *adev)
->   	 */
->   
->   	/* check whether both host-gpu and gpu-gpu xgmi links exist */
-> -	if ((adev->flags & AMD_IS_APU) ||
-> +	if (((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) ||
->   	    (adev->gmc.xgmi.supported &&
->   	     adev->gmc.xgmi.connected_to_cpu)) {
->   		adev->gmc.aper_base =
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 8fe939976224..28a736c507bb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -266,7 +266,7 @@ static int amdgpu_gfx_kiq_acquire(struct amdgpu_device *adev,
+ 		    * adev->gfx.mec.num_pipe_per_mec
+ 		    * adev->gfx.mec.num_queue_per_pipe;
+ 
+-	while (queue_bit-- >= 0) {
++	while (--queue_bit >= 0) {
+ 		if (test_bit(queue_bit, adev->gfx.mec.queue_bitmap))
+ 			continue;
+ 
+-- 
+2.20.1
 
