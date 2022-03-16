@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9516AC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 14:12:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3E8CC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 15:35:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E78210E5CC;
-	Wed, 16 Mar 2022 14:12:48 +0000 (UTC)
-Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
- [IPv6:2607:f8b0:4864:20::c2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DFD510E5CC;
- Wed, 16 Mar 2022 14:12:46 +0000 (UTC)
-Received: by mail-oo1-xc2a.google.com with SMTP id
- l24-20020a4a8558000000b00320d5a1f938so2796323ooh.8; 
- Wed, 16 Mar 2022 07:12:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A83A10E6A4;
+	Wed, 16 Mar 2022 15:35:34 +0000 (UTC)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7A5910E6A2;
+ Wed, 16 Mar 2022 15:35:32 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id a1so2136287wrh.10;
+ Wed, 16 Mar 2022 08:35:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dPZPkX6nOUZTGY6pJ5MlTbJL1f7dGp45AawW+tEFKf0=;
- b=LzN7E2HwvWBwSfIpb53Wv3X1KOHTkBhN+PmmutXkLWcqU3tbdb9YZiztRty4VKbmfr
- RRLC8Unu09tidWpoFL8faweUh5NSYe69v3qvHJ+1Ywuf/1mAEn68n1IVMhh1cMUH2jFa
- baV2bUH5UtICJ07duSlnOu4+clz7CU5gmnd/qsS+shVLDucy+GvBD+BA67xn+13LV5TR
- 1L2BvvHRrmp/hZCegJerjSPswkK+n3ARPfX+pguZYHv88Ug6Fp2Nrgr354g/Ju6Wixrx
- jj4GrrE8avi1/8X21EyJeSr0oc+KG9GzAU156pTMv+xmNQ3lgC70fmeGkSx0VfpKHy+0
- Tl5A==
+ :cc; bh=rG7jz6KiWOqjxvNzWFswkHAG9dTV+EU2glZGi4QpldQ=;
+ b=TAKW1cHJ7lyZNtN4ZieQHQk4H7BS0AlHN8RaKxEbr9L2wtI2xfrvPhXYoO8MCL+HkV
+ zkbeamzVpoYCVlFy2e0zcQrW5GVZ9ftxbqacJYumX4zO0iGyH5YfyooLO7KAucASd6zJ
+ 0D639sZxKz2Jk/cw/kGddRye5fNkyb7AtMYSqU2HIuAorb3mNsW9GgjT2ttUXQ+tx2yN
+ 4ABZh0tlrbeH8+sbKLYHyCBnHDdf9u+WmKjylBQZ/89h9Ic1NQe+9ZPie6hkk96ungHw
+ r+m5HMSLk2fN+/rbyGezUyvqxFjDLNtqOyfbMWnYZuG7DWM4s6XVZmm5j49osOBS4V5v
+ hxCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=dPZPkX6nOUZTGY6pJ5MlTbJL1f7dGp45AawW+tEFKf0=;
- b=7Eisc/8NsiERu3c4bewjpvOYQpiJ/YBzGea/e4woh640cgxM+UDu268IDPDg5/HrKr
- ox/B+pOTs4HPvh+D49z7YENRVXlRW+iNXCRlg1txmWEWfHpdweBakTThalaqd1XPGVFE
- yOWH7rPmK56IMHx0TQ0/T4gUpJy32vCjt0lxKXaUezGx7LOGm9su/yyaE93n7gqAjaez
- 6LRldl3JpTf4WHW2C1SUK6pcbV0dbeb14dESP33Ayc3a2YhhpZt1rdboeVY39C74q2M+
- Tcq/NzwtLgoWyDn8yATI25oi4eakwS7VKMdYMcIhs5gh5R/s0AYT4r5EZfMMhqM6AQHv
- B3jQ==
-X-Gm-Message-State: AOAM53289Nogv4H46tTStR2nS2Hd0CeXU75WM3GXt7s6FMQk/KTubrlJ
- Pi+/SMsUiiqy7OG1PgR/KM9Co6mXUAezyN8riaM=
-X-Google-Smtp-Source: ABdhPJyXXq8p6v4Fi6YuCk7DBpCWcntUYhVgpeA5EJFuOuaQW+8Y8jCDDlt+tW/FPHOd4k70ZWvU0k4mBHhJqj3RCJk=
-X-Received: by 2002:a05:6870:d250:b0:da:b3f:2b29 with SMTP id
- h16-20020a056870d25000b000da0b3f2b29mr3229015oac.200.1647439965269; Wed, 16
- Mar 2022 07:12:45 -0700 (PDT)
+ bh=rG7jz6KiWOqjxvNzWFswkHAG9dTV+EU2glZGi4QpldQ=;
+ b=cNKgBjYGO99igoOYT3YsPdcIfjkPCuLgBl12A9qY0qNo5Au8Rg/x2NfwVoGVLIb+ts
+ humTAbjYe8wLzhnfzb77GX3UeoP22gDholMDlOBTComTyNgObS3EjwmBZ94rZ9U5CbWT
+ gDn5XHbf2KlYaMW+LDbH/na2TcaDHsD8Pp1VEVtBfTT/kon2769wxAJemDM0pmj2EgiI
+ qRYE15E/ii5Zf3UBoPie1qEUTQvMkk+EO5lVBSlu9G/7mfKoxekU633lE1kEle95nXUR
+ qixuYa9GQsu6AH2FV28OaoK2SBxDASVPHnZZ+EbbWkayIZM0EMQPys4WesIPGM1TIXyU
+ mCFQ==
+X-Gm-Message-State: AOAM530nDcoAkdFv6f+3Gw52sG7IveJIH8fd9Cp8fofR2SEM4IVTimUM
+ T5Uiawe8ixsIeBPSEnNXAkEyr0gFiOGdrHk6LzM=
+X-Google-Smtp-Source: ABdhPJz7KHihKSjJjguHibP04cUyErv8faNvu9+dEXTm3C8+urSU0qXx+H2CQH7na8jI1sGOK6ZS+cmV4T0Wbvn8KGE=
+X-Received: by 2002:adf:914f:0:b0:1ed:bb92:d0cc with SMTP id
+ j73-20020adf914f000000b001edbb92d0ccmr381369wrj.297.1647444931191; Wed, 16
+ Mar 2022 08:35:31 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
  <CAF6AEGsmectHSmW-Y6rf+AksXTkges7rukeiYd4yDm-xwdb1=Q@mail.gmail.com>
@@ -61,12 +60,13 @@ References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
  <20220314172647.223658d2@eldfell>
  <CADnq5_NsxipfFFXfRSXvVQin3e1gj0Q_p9p-shi3VZ2pSCwwfw@mail.gmail.com>
  <20220316104815.11ec2e6c@eldfell>
-In-Reply-To: <20220316104815.11ec2e6c@eldfell>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 16 Mar 2022 10:12:33 -0400
-Message-ID: <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
+ <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
+In-Reply-To: <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 16 Mar 2022 08:36:13 -0700
+Message-ID: <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
 Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-To: Pekka Paalanen <ppaalanen@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,7 +84,8 @@ Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
  Alexandar Deucher <alexander.deucher@amd.com>,
  Shashank Sharma <contactshashanksharma@gmail.com>,
@@ -92,194 +93,41 @@ Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 16, 2022 at 4:48 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
+On Wed, Mar 16, 2022 at 7:12 AM Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> On Tue, 15 Mar 2022 10:54:38 -0400
-> Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> > On Mon, Mar 14, 2022 at 11:26 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
-> > >
-> > > On Mon, 14 Mar 2022 10:23:27 -0400
-> > > Alex Deucher <alexdeucher@gmail.com> wrote:
-> > >
-> > > > On Fri, Mar 11, 2022 at 3:30 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
-> > > > >
-> > > > > On Thu, 10 Mar 2022 11:56:41 -0800
-> > > > > Rob Clark <robdclark@gmail.com> wrote:
-> > > > >
-> > > > > > For something like just notifying a compositor that a gpu crash
-> > > > > > happened, perhaps drm_event is more suitable.  See
-> > > > > > virtio_gpu_fence_event_create() for an example of adding new event
-> > > > > > types.  Although maybe you want it to be an event which is not device
-> > > > > > specific.  This isn't so much of a debugging use-case as simply
-> > > > > > notification.
-> > > > >
-> > > > > Hi,
-> > > > >
-> > > > > for this particular use case, are we now talking about the display
-> > > > > device (KMS) crashing or the rendering device (OpenGL/Vulkan) crashing?
-> > > > >
-> > > > > If the former, I wasn't aware that display device crashes are a thing.
-> > > > > How should a userspace display server react to those?
-> > > > >
-> > > > > If the latter, don't we have EGL extensions or Vulkan API already to
-> > > > > deliver that?
-> > > > >
-> > > > > The above would be about device crashes that directly affect the
-> > > > > display server. Is that the use case in mind here, or is it instead
-> > > > > about notifying the display server that some application has caused a
-> > > > > driver/hardware crash? If the latter, how should a display server react
-> > > > > to that? Disconnect the application?
-> > > > >
-> > > > > Shashank, what is the actual use case you are developing this for?
-> > > > >
-> > > > > I've read all the emails here so far, and I don't recall seeing it
-> > > > > explained.
-> > > > >
-> > > >
-> > > > The idea is that a support daemon or compositor would listen for GPU
-> > > > reset notifications and do something useful with them (kill the guilty
-> > > > app, restart the desktop environment, etc.).  Today when the GPU
-> > > > resets, most applications just continue assuming nothing is wrong,
-> > > > meanwhile the GPU has stopped accepting work until the apps re-init
-> > > > their context so all of their command submissions just get rejected.
-> > > >
-> > > > > Btw. somewhat relatedly, there has been work aiming to allow
-> > > > > graceful hot-unplug of DRM devices. There is a kernel doc outlining how
-> > > > > the various APIs should react towards userspace when a DRM device
-> > > > > suddenly disappears. That seems to have some overlap here IMO.
-> > > > >
-> > > > > See https://www.kernel.org/doc/html/latest/gpu/drm-uapi.html#device-hot-unplug
-> > > > > which also has a couple pointers to EGL and Vulkan APIs.
-> > > >
-> > > > The problem is most applications don't use the GL or VK robustness
-> > > > APIs.
-> > >
-> > > Hi,
-> > >
-> > > how would this new event help with that?
+> On Wed, Mar 16, 2022 at 4:48 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
 > >
-> > This event would provide notification that a GPU reset occurred.
-> >
-> > >
-> > > I mean, yeah, there could be a daemon that kills those GPU users, but
-> > > then what? You still lose any unsaved work, and may need to manually
-> > > restart them.
-> > >
-> > > Is the idea that it is better to have the app crash and disappear than
-> > > to look like it froze while it otherwise still runs?
-> >
-> > Yes.
+[snip]
+> > With new UAPI comes the demand of userspace proof, not hand-waving. You
+> > would not be proposing this new interface if you didn't have use cases
+> > in mind, even just one. You have to document what you imagine the new
+> > thing to be used for, so that the appropriateness can be evaluated. If
+> > the use case is deemed inappropriate for the proposed UAPI, you need to
+> > find another use case to justify adding the new UAPI. If there is no
+> > use for the UAPI, it shouldn't be added, right? Adding UAPI and hoping
+> > someone finds use for it seems backwards to me.
 >
-> Ok. That was just a wild guess.
->
-> >  The daemon could also send the user some sort of notification
-> > that a GPU reset occurred.
-> >
-> > >
-> > > If some daemon or compositor goes killing apps that trigger GPU resets,
-> > > then how do we stop that for an app that actually does use the
-> > > appropriate EGL or Vulkan APIs to detect and remedy that situation
-> > > itself?
-> >
-> > I guess the daemon could keep some sort of whitelist.  OTOH, very few
-> > if any applications, especially games actually support these
-> > extensions.
->
-> I would think that a white-list is a non-starter due to the maintenance
-> nightmare and the "wrong by default" design for well behaving programs.
->
-> I am not a fan of optimising for broken software. I understand that
-> with games this is routine, but we're talking about everything here,
-> not just games. Games cannot be fixed, but the rest could if the
-> problem was not sweeped under the rug. It's like the inverse of the
-> platform problem.
+> We do have a use case.  It's what I described originally.  There is a
+> user space daemon (could be a compositor, could be something else)
+> that runs and listens for GPU reset notifications.  When it receives a
+> notification, it takes action and kills the guilty app and restarts
+> the compositer and gathers any relevant data related to the GPU hang
+> (if possible).  We can revisit this discussion once we have the whole
+> implementation complete.  Other drivers seem to do similar things
+> already today via different means (msm using devcoredump, i915 seems
+> to have its own GPU reset notification mechanism, etc.).  It just
+> seemed like there was value in having a generic drm GPU reset
+> notification, but maybe not yet.
 
-Fair enough, but it hasn't happened in the last 15 years or so.
+just one point of clarification.. in the msm and i915 case it is
+purely for debugging and telemetry (ie. sending crash logs back to
+distro for analysis if user has crash reporting enabled).. it isn't
+used for triggering any action like killing app or compositor.
 
->
-> > > >  You could use something like that in the compositor, but those
-> > > > APIs tend to be focused more on the application itself rather than the
-> > > > GPU in general.  E.g., Is my context lost.  Which is fine for
-> > > > restarting your context, but doesn't really help if you want to try
-> > > > and do something with another application (i.e., the likely guilty
-> > > > app).  Also, on dGPU at least, when you reset the GPU, vram is usually
-> > > > lost (either due to the memory controller being reset, or vram being
-> > > > zero'd on init due to ECC support), so even if you are not the guilty
-> > > > process, in that case you'd need to re-init your context anyway.
-> > >
-> > > Why should something like a compositor listen for this and kill apps
-> > > that triggered GPU resets, instead of e.g. Mesa noticing that in the app
-> > > and killing itself? Mesa in the app would know if robustness API is
-> > > being used.
-> >
-> > That's another possibility, but it doesn't handle the case where the
-> > compositor doesn't support any sort of robustness extension so if the
-> > GPU was reset, you'd lose your desktop anyway even if the app kept
-> > running.
->
-> Why does that matter?
->
-> A GPU reset happens when it happens. If a compositor does not use
-> robustness extensions, it's as good as dead anyway, right?
+I would however *strongly* recommend devcoredump support in other GPU
+drivers (i915's thing pre-dates devcoredump by a lot).. I've used it
+to debug and fix a couple obscure issues that I was not able to
+reproduce by myself.
 
-Right.  Same with the application that supports robustness.  If the
-app supports robustness, but the compositor does not, the app is dead
-anyway if the compositor dies.  So while there may be an application
-today that supports robustness, it is kind of pointless because
-nothing else does and so if it manages to recover, nothing else it
-relies on does.
-
->
-> Killing a compositor from inside in Mesa if it doesn't use robustness
-> might be better than leaving the compositor running blind - assuming
-> the compositor does not quit itself after seeing crucial EGL/Vulkan
-> calls failing.
-
-I'm not sure I follow the second part of this statement.  I guess
-having mesa kill applications that don't support robustness is fine,
-but I don't really see it as much better than the status quo.  Today
-most apps just continue to try and run until, possibly dying
-eventually due to undefined state along the way.  If mesa kills them,
-they are killed.  The end result is the same, the user loses their
-desktop.
-
->
-> > >
-> > > Would be really nice to have the answers to all these questions to be
-> > > collected and reiterated in the next version of this proposal.
-> >
-> > The idea is to provide the notification of a GPU reset.  What the
-> > various desktop environments or daemons do with it is up to them.  I
-> > still think there is value in a notification even if you don't kill
-> > apps or anything like that.  E.g., you can have a daemon running that
-> > gets notified and logs the error, collects debug info, sends an email,
-> > etc.
->
-> With new UAPI comes the demand of userspace proof, not hand-waving. You
-> would not be proposing this new interface if you didn't have use cases
-> in mind, even just one. You have to document what you imagine the new
-> thing to be used for, so that the appropriateness can be evaluated. If
-> the use case is deemed inappropriate for the proposed UAPI, you need to
-> find another use case to justify adding the new UAPI. If there is no
-> use for the UAPI, it shouldn't be added, right? Adding UAPI and hoping
-> someone finds use for it seems backwards to me.
-
-We do have a use case.  It's what I described originally.  There is a
-user space daemon (could be a compositor, could be something else)
-that runs and listens for GPU reset notifications.  When it receives a
-notification, it takes action and kills the guilty app and restarts
-the compositer and gathers any relevant data related to the GPU hang
-(if possible).  We can revisit this discussion once we have the whole
-implementation complete.  Other drivers seem to do similar things
-already today via different means (msm using devcoredump, i915 seems
-to have its own GPU reset notification mechanism, etc.).  It just
-seemed like there was value in having a generic drm GPU reset
-notification, but maybe not yet.
-
-Alex
-
->
->
-> Thanks,
-> pq
+BR,
+-R
