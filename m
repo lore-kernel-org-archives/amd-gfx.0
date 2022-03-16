@@ -4,72 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B38DC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 15:48:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89599C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 15:52:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F7BE10E7CC;
-	Wed, 16 Mar 2022 15:48:25 +0000 (UTC)
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 797B810E7C8;
- Wed, 16 Mar 2022 15:48:24 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- z9-20020a05683020c900b005b22bf41872so1664030otq.13; 
- Wed, 16 Mar 2022 08:48:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=cEPpT5g3jd4SGwraYV61mwD+efqqEI+0jr3lnpKYy2I=;
- b=SugF9I5FDpjrl+n+VjdAd2eyTcQGIseSgPrbDGqHRzNeNo8B6j4INKmmMh7uTdoXpj
- 2iv8b7jN1n7Clm73hmPEd+jYlctFKB3QuKnyZ7rVApyVnREfOnEXLi+9o/Fs3aQU9Zu5
- SDtH0XhTIu+mflbZw/EDmMIMSXPlF1H2LEPia83C3JaMqjkSH8tbpGPYXaxiigs7yrDs
- hhiC0KRn57hBp14a9hP62tvCPyAlBhTHPQfUY/IykKQzN6+mBDttKy8dHxtZaJdDQoXx
- JX9Ow31dNs03XCPRkvaKdMJkk9adlJLiusbV2j1QS4yea0EcstgkRTvd5EbR5fyCX6ZT
- nigQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=cEPpT5g3jd4SGwraYV61mwD+efqqEI+0jr3lnpKYy2I=;
- b=SofpBagkWM23bjmK1tT6vjibfjkWGQoodOirax+g6OW1/mUMprUW3/5BQ96EO0LQbq
- PErKw8R7BxiWei2r7zWp9hAmK6I4vl5hK5a1aKxMGZt5NuGSNKvkGfizJgCVnzPJ7IGy
- HHv39G21EY09ocft8SfQcrieaI3yFL5NrcN2Eo/x6nd4z4rYKgSzJc6fZvkeNPLGgjR6
- 7LaZrrDpfwHPypQ3FEvu0h0MalrrWEPPSadOPzraq62oRenZ3RxkNu6jhQR6a1443/4S
- HVtbT6kP5wSK7l3HVf1KofjYJEgGY77j5gJZYXFe2Jw3vbPOGlUDEhEoHpJAy7LXcbT9
- DaqQ==
-X-Gm-Message-State: AOAM530frYRgZvQniBURwvL79IBsVWQ2HbJn5nmFGvjmToOpSYzwIfL6
- jwyWRWxIn1xgVrENiASSF/I+M6OwoMLSMMSDcr8=
-X-Google-Smtp-Source: ABdhPJzxN94wrdcTabQPUtfGWZeX5wyEWDKOecoH28wPndMpZtVDz8nj/wTyuJiE5BjEnmU13CyVNBPcIzxrRNeRav4=
-X-Received: by 2002:a05:6830:2709:b0:5b0:196:dcf with SMTP id
- j9-20020a056830270900b005b001960dcfmr212008otu.357.1647445703751; Wed, 16 Mar
- 2022 08:48:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1014910E80C;
+	Wed, 16 Mar 2022 15:52:56 +0000 (UTC)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org
+ [IPv6:2001:67c:2050::465:102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80BEB10E80C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Mar 2022 15:52:54 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [80.241.60.241])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4KJZYG4WTXz9sc3;
+ Wed, 16 Mar 2022 16:52:50 +0100 (CET)
+Message-ID: <0fc2af87-4c9d-f2b8-c14b-703299fc6367@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1647445968;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Dt7JF0tOTmmQcaaKTNwG9o3bd4EbxKhwIxfs0Q0Szvg=;
+ b=JPV7ZTn3wCxYxzFh6wHCVbn1Hqvt5wFy9TCapyY0lmI/F4+TmbmWCXRAYA3GYX/ayPRwBe
+ evVr8zFy79+Ec5ISlmIfrf82jzpWO+TGVxcZaNByiI6+TFGWUUWLcDCkhe9jvNZsFbT+0N
+ rtBt21qoHuPYtwx+Yy/7a0JpVIUlRAszu1WQPZRtohE8Hn1/l3RpJRbbmsAzcq8OnvLHtz
+ kyfES+tT2Xm5RER5FlZ7qHTICRcbc/w/ofkk8TqX7wABWxXpu4cHu3Me5GhHydqlE0mgmR
+ yjV5l4Eoai9/z2DvyNMBb3Z9qs6VFRD9Li/P9muIobnsGR+bgx4tRpinQ+2pRA==
+Date: Wed, 16 Mar 2022 16:52:41 +0100
 MIME-Version: 1.0
-References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
- <CAF6AEGsmectHSmW-Y6rf+AksXTkges7rukeiYd4yDm-xwdb1=Q@mail.gmail.com>
- <55629bd8-9fb4-2ee7-87f0-6c4c77cf06fc@gmail.com>
- <CAF6AEGsgDTphUm7ET+RuMmh2aTn-Ho5gJdUJ4kwJ3iOh7+HGvw@mail.gmail.com>
- <4f2b2329-3c57-3895-6732-875db2f98b5a@amd.com>
- <CAF6AEGvvskobh6YOUx55_4rtXJJjPO0PxWY8+EKiVqntT3k+ug@mail.gmail.com>
- <6b400b8b-1b5c-a339-2345-f317f197b4a6@amd.com>
- <CAF6AEGt0XhqzkyEhbNcNVQO_A_Lo4qcsPRZRL6QqYn+NWAfv9A@mail.gmail.com>
- <bf6922f0-da8e-eef6-8217-26c1f50f3c48@quicinc.com>
- <2980e6a0-624e-2b80-c5d0-c40dfce76fb8@amd.com>
- <CAF6AEGvC=k4xLA-0iTSf660X2o04E+ivjnThZA-=WANKzLSvpA@mail.gmail.com>
- <cda15a47-f469-2a7e-87b6-adf00e631ef0@amd.com>
- <CAF6AEGv3Wv+p1j2B-t22eeK+8rx-qrQHCGoXeV1-XPYp2Om7zg@mail.gmail.com>
- <20220311102709.225616cf@eldfell>
- <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
- <20220314172647.223658d2@eldfell>
- <CADnq5_NsxipfFFXfRSXvVQin3e1gj0Q_p9p-shi3VZ2pSCwwfw@mail.gmail.com>
- <20220316104815.11ec2e6c@eldfell>
- <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
- <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
-In-Reply-To: <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 16 Mar 2022 11:48:12 -0400
-Message-ID: <CADnq5_O2CVSLxShPFCzMxiXmnHXYbW1vFLJ5K=oigtXshULvqw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH] drm/amdgpu/gmc: use PCI BARs for APUs in passthrough
+Content-Language: en-CA
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20220310180615.2245997-1-alexander.deucher@amd.com>
+ <ed66fa3d-51c8-1cd1-8709-30f66eb82fd3@mailbox.org>
+ <541dc1eb-cf50-17d2-0ae3-5c3cb3dc3ac0@gmail.com>
+ <238d136e-d060-d1b3-57f9-ee23b00d5ed9@mailbox.org>
+In-Reply-To: <238d136e-d060-d1b3-57f9-ee23b00d5ed9@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,68 +57,24 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
- Shashank" <shashank.sharma@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Pekka Paalanen <ppaalanen@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alexandar Deucher <alexander.deucher@amd.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 16, 2022 at 11:35 AM Rob Clark <robdclark@gmail.com> wrote:
->
-> On Wed, Mar 16, 2022 at 7:12 AM Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > On Wed, Mar 16, 2022 at 4:48 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
-> > >
-> [snip]
-> > > With new UAPI comes the demand of userspace proof, not hand-waving. You
-> > > would not be proposing this new interface if you didn't have use cases
-> > > in mind, even just one. You have to document what you imagine the new
-> > > thing to be used for, so that the appropriateness can be evaluated. If
-> > > the use case is deemed inappropriate for the proposed UAPI, you need to
-> > > find another use case to justify adding the new UAPI. If there is no
-> > > use for the UAPI, it shouldn't be added, right? Adding UAPI and hoping
-> > > someone finds use for it seems backwards to me.
-> >
-> > We do have a use case.  It's what I described originally.  There is a
-> > user space daemon (could be a compositor, could be something else)
-> > that runs and listens for GPU reset notifications.  When it receives a
-> > notification, it takes action and kills the guilty app and restarts
-> > the compositer and gathers any relevant data related to the GPU hang
-> > (if possible).  We can revisit this discussion once we have the whole
-> > implementation complete.  Other drivers seem to do similar things
-> > already today via different means (msm using devcoredump, i915 seems
-> > to have its own GPU reset notification mechanism, etc.).  It just
-> > seemed like there was value in having a generic drm GPU reset
-> > notification, but maybe not yet.
->
-> just one point of clarification.. in the msm and i915 case it is
-> purely for debugging and telemetry (ie. sending crash logs back to
-> distro for analysis if user has crash reporting enabled).. it isn't
-> used for triggering any action like killing app or compositor.
+On 2022-03-11 18:43, Michel Dänzer wrote:
+> On 2022-03-11 11:32, Christian König wrote:
+>> Am 11.03.22 um 11:24 schrieb Michel Dänzer:
+>>> On 2022-03-10 19:06, Alex Deucher wrote:
+>>>> If the GPU is passed through to a guest VM, use the PCI
+>>>> BAR for CPU FB access rather than the physical address of
+>>>> carve out.  The physical address is not valid in a guest.
+>>> I think amdgpu_device_flush_hdp & amdgpu_device_invalidate_hdp need to be modified accordingly.
+> 
+> I'm surprised you gave your R-b despite this. Surely the HDP cache needs to be handled when going through the BAR?
 
-Sure.  you could use this proposed event for telemetry gathering as
-well.  The important part is the event.  What you do with it is up to
-the user.
+I'm a bit confused why there's still been no response on this point from either of you. Are you guys checking internally whether or not this is needed?
 
->
-> I would however *strongly* recommend devcoredump support in other GPU
-> drivers (i915's thing pre-dates devcoredump by a lot).. I've used it
-> to debug and fix a couple obscure issues that I was not able to
-> reproduce by myself.
 
-Agreed.  I think devcoredump makes sense and we'll ultimately enable
-support for that in amdgpu.  I think there is value in a GPU specific
-reset event as well for the use case I outlined, but maybe the
-devcoredump one is enough.  We'd just need to rely on the userspace
-side to filter as appropriate for events it cares about.  I'm not sure
-how many other devcore dump events are commonly seen.
-
-Alex
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
