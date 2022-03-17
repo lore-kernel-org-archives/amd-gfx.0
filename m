@@ -4,114 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB628C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 08:42:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4219AC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 08:58:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54BA710F0AA;
-	Thu, 17 Mar 2022 08:42:58 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 271AE10F0A9;
- Thu, 17 Mar 2022 08:42:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bAB/Va6H/3aikVDOT6dV3/mIIDwO7UnZUdzrhN+R+1MGvISSZ5O1GXcDWyZ/i+2KyDHNKeGwqUgPBSdwHmA6iannrAGHtwTlC0A6loL+B5cPaq2aBian9FxcTZOigegEVk/+7rD4U80RPajYB43zaX5KEmZTeM/9d0XeXsLuTVT15Y+DTE3gFta+cxBLU7rf42MZDG/BffvkXwph8PxyyGI/gpQ4lpSfSsld0jAGuC88WeMY4Gpzc3ob9Hanh0M4iUj8ZdIjYkNri201GaraGTvfbsjv96CLb5EhsUzA9Wu4YWAueKQr1YpUiccsFIimD97dVdAk1cIa7WpxpQ0SNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=55EMJuxEa6x8g4cceDusHCfPQ3+6DDd2XB10YKPeGaI=;
- b=ZyilR0itoQdtjIhH3tm2g+hGU7Pi2SQ5LJfM3MxtxrxotQdsQFieggbY8i/HnmFnpQdEPQo4CqV7GyAglZMmtXaF7MVOhY2piQPVMblFYnkQudl1QHNrMEAKFLstG5uYenF7ggTlZE7sbRXC9z2cjV4D50qsxRqGrdhIdXTjF9nUZGM+OCFNmNQjVNP4o8Tjo/dbAyvRbBUCEanGQi2TzSQkvXA+vEhlmZnRNqaAelW2AXN/fivEme6ZNOEK878oTUSUoti7LVgxCyQ4mBenbW2+KU5bEadfsAydrQbtR/C5aDCl1etclZBtaepXtS0okUZBuSCA5QN/ocj5QO+fxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=55EMJuxEa6x8g4cceDusHCfPQ3+6DDd2XB10YKPeGaI=;
- b=cl/XWRKgV91acxw0ZKu8vLNphZTGVWqLfDJndBVIhEh+HRKcJv8dVR9AtXiYJU3y+1pU3ZAHqfnq94pd4KV8h4elydm8KKinEqDTM4jR+rRhrdeh6NGp5SNPsSbUnDEd312SN9jAyDAfD/GwOSdUa6dKoH2mxPyH+V4uVPR976w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by MN2PR12MB4502.namprd12.prod.outlook.com (2603:10b6:208:263::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14; Thu, 17 Mar
- 2022 08:42:54 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::6985:8f5:c1dc:5540]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::6985:8f5:c1dc:5540%4]) with mapi id 15.20.5061.028; Thu, 17 Mar 2022
- 08:42:54 +0000
-Message-ID: <4d768cc9-9a47-473c-b344-4ed34bcb5556@amd.com>
-Date: Thu, 17 Mar 2022 09:42:43 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>
-References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
- <CAF6AEGtnXvo=-fKbgSRtAtZ80igqJM2bTKefiLPUsSohU9idNQ@mail.gmail.com>
-From: "Sharma, Shashank" <shashank.sharma@amd.com>
-In-Reply-To: <CAF6AEGtnXvo=-fKbgSRtAtZ80igqJM2bTKefiLPUsSohU9idNQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR06CA0121.eurprd06.prod.outlook.com
- (2603:10a6:20b:467::12) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37F7910E09E;
+	Thu, 17 Mar 2022 08:58:32 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC46D10EFF2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 08:13:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1647504834;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=xxA0Pce6UnOZWW6gsq8il76yFsehAiTQ6twP7i/3/GQ=;
+ b=i9ocHWQ4ruFxw25UNHFShxytWepuLkCReLw3lss3KN+Ovdfa+ThGwCIDnbPe+jitf0YTPx
+ WF9pB+KJo/PISDHdtLt+ZatBzQgNYNCrmOreUoawU/NJtuLinQHJBwIi1fZ9OVCMcE+0Jf
+ 5bJ3tJrBaRJf/FEfQG8DJeuaU6A6X/Y=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-587-FTECtL8oM6Kq4ohXv9F6Ag-1; Thu, 17 Mar 2022 04:13:53 -0400
+X-MC-Unique: FTECtL8oM6Kq4ohXv9F6Ag-1
+Received: by mail-wm1-f70.google.com with SMTP id
+ f19-20020a7bcd13000000b0038c01defd5aso1846419wmj.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 01:13:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:organization:in-reply-to
+ :content-transfer-encoding;
+ bh=xxA0Pce6UnOZWW6gsq8il76yFsehAiTQ6twP7i/3/GQ=;
+ b=fHzqKWZeWvxeXFyDbgj07+5xBmh7MAMEzrWvQ9wEt+6rS44ujQflykYcV4BvD5fmSI
+ YzTtKAdYOlpgLofW3sb0yB4vi88kM+6qFuVNISeaqFd/cH8iBWArBZOkVYZOcerQhDAe
+ e5UoJ67f/USfcwmN1b6QUfiJzOeIHYo7pImM86TDlSjVTTgQZNTXh2hJAZ6dsvtHsllj
+ C32Il6FlwhHvRSriG+/CcRGHlbNxGgL+YMXh9CGJZEzgQOUTF4lyb9wZ/ej3u9WY3xfC
+ /3DEYmpSuSjUWMJxl3fzwAu/OoJpj1dtF5T1T2Uk0PK8UnoxQENnTCKvu+DwPITubfKH
+ pHSA==
+X-Gm-Message-State: AOAM532L6mfoEXtPMW7FyjhkGV2lAA9Kp00mAD4tUzdbflH4/dAVLhcE
+ A5cBP0EA6mrRnotRdOt8nmlfG5BpmFvHuzBXpcHMC9oCqxLZIhtZtvqxCpbNX/6oLYzy+R/vBrY
+ 0XGPKxzf8Tf/DKn/LeGdaIRdPTQ==
+X-Received: by 2002:a05:6000:144a:b0:203:8688:35d with SMTP id
+ v10-20020a056000144a00b002038688035dmr2896891wrx.399.1647504832462; 
+ Thu, 17 Mar 2022 01:13:52 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzkIygRnwahr8xhyLvIiK8lTpLSYuqqmv1avWZ31V4hbmg8hvmgWPIvr5DZvtTFDGtJ3e2QVw==
+X-Received: by 2002:a05:6000:144a:b0:203:8688:35d with SMTP id
+ v10-20020a056000144a00b002038688035dmr2896866wrx.399.1647504832168; 
+ Thu, 17 Mar 2022 01:13:52 -0700 (PDT)
+Received: from ?IPV6:2003:cb:c707:d000:22e9:afb1:c890:7468?
+ (p200300cbc707d00022e9afb1c8907468.dip0.t-ipconnect.de.
+ [2003:cb:c707:d000:22e9:afb1:c890:7468])
+ by smtp.gmail.com with ESMTPSA id
+ j7-20020a05600c410700b0038c72ef3f15sm2542317wmi.38.2022.03.17.01.13.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Mar 2022 01:13:51 -0700 (PDT)
+Message-ID: <ab26f7a0-728e-9627-796b-e8e850402aae@redhat.com>
+Date: Thu, 17 Mar 2022 09:13:50 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5c35256a-c087-4427-ec98-08da07f220e1
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4502:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB45025A09C04382FCD4AF91EFF2129@MN2PR12MB4502.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: waSNAq0O2ccPLi7DiaB/izTxjuav1d1PHCJ7dvg/cQKW7A8HAq2qPhnXrJs//oU/uuCrs+b3aou/Iwv8ts2+gIgftCGEu+v7VqSmgDNiaIQbAdhpi9I28kCj29WFE4HvyRBXSkTkA9fv3+w/zQYg7JomGljrMqFbHKNPm/T9UI/N7BeLLXOnBPeLdgc9NQhQjODS3fZtRpK9KpuNYkuo3CUkUU3iJ+35jr0EYysBq2FYFMBDoWJvhqH5WU2AgV5qkTOv8oIM3zh8FL/+guDU+D/eR5IxUcHueLpr+bYPm+d+m84NzWX1/jd8+U/1MuqAITG/f8V5qytL+BXhJ7qpz0m0f2AWDnmm49jxw3UqubpY6wK6wN+sXMJM+9StGxvN2upcnUFaG1zxu009+4Tn/pIp6Mb4zR9VisNX5TW/apeK8S0RXOyvRN3hnO0hfyuolf6GcsEE6+L7o0tHIPHyxAJDPX4RL5mrm74NBILaOgwd6QI4/ONXg3+Oo/eIb+yWr4GqknrnlFOi7k/TDorL9FBNyZs56xdMLUnD1yVCY+3Gpt+UZOlkcnEQJ3VmWz/29sZGS93NdYbsjvuqw8yvk9lba4BN0J6KwW+KbI3LF2PL6/56TZgRTeuH8+gnqp8j8LopPkVKzUT4K7ikDpbh+zQG8IcqSab/TixHGlqchDy9Pyhrc+OA6Iv+Aqybl5BdKa9txRyBwIUgpqzGjiSaNnlCKQo7SuoORwI0uM+Z3UQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(86362001)(6486002)(66476007)(31696002)(66556008)(4326008)(316002)(54906003)(31686004)(110136005)(36756003)(8676002)(66946007)(6512007)(5660300002)(2616005)(508600001)(186003)(8936002)(26005)(38100700002)(2906002)(6666004)(53546011)(6506007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmZqSEZxWDFjc3ZwTUpwZXlMeGF0b21mV25EaktqR3RQemNqZHdNd1Zhb3Z2?=
- =?utf-8?B?VUtkd2xYYWd4NFA5Vkt0ZkV1bERmbXFrVURGY01GYU4yM1lnVzk1Y0g2ODlZ?=
- =?utf-8?B?ZjBCK05aRSt4R1cxWkNIVlE5Z0dGUm5yYTBXOGg5NHkyQXZRb2hQdkwvK085?=
- =?utf-8?B?a1RTNkxEY0s2UDNaNUdHUDVyLzYxZnJ5aXV0enRUU1Z5RE9HTW5LQmgzOEth?=
- =?utf-8?B?eEozT0g4Ylc5RjdqS2tTa1FXRVpiYWRGeXI4WFJvbFZNN0R1MTNnb3NORm5s?=
- =?utf-8?B?WFJVclBkTlNNWkMxd28yZWJhanpvTGxtZWhPUVFQY3J5V3NsdVR1OCtaeTY5?=
- =?utf-8?B?MHI4S0lKenRoY28rdWVZeUhSNW1aQWdOa1RsVzR0Q3ZsR0NHUE9RNy9SLzRQ?=
- =?utf-8?B?cmlmRkRhR1RzQi9ja1ZJSy81NHpxbndXdU9zTWtxaTVMdnBEcWFCcWV2UUUz?=
- =?utf-8?B?eVYwQzRJOHg4UzlWVUt6VmVPaGI4bnZDZ2hENzg3OEtRbm41YzdXYUhpTmNl?=
- =?utf-8?B?OHJ1alhJR2ZhcXpKVVE1QVpJK0xpbVFMdGllbDdjS2dWY0QzQmZnSVVpUHdz?=
- =?utf-8?B?ejVZWEZ2RnJ4RW4zcGZsdXdLUXJ1dnhjeHJ1NzFjRm5NM2w0aGJXMkpHZnAr?=
- =?utf-8?B?UlJnV285TDdrSnh5M0h4SW5ndEpFdzJvMWQyZENKd3RnNWZlK2FLN3lJdVlr?=
- =?utf-8?B?RkE3cnVVZnhCazBHbUJNWFJFSlJuTnRpMzJwZW5DODdIeWMrR1NzdmFuMVJO?=
- =?utf-8?B?OERzb3V2bTZqRFh5aXN6a0xKRS9YQk4wUE9oekJTTDhmd2phMWg3N0x4T0po?=
- =?utf-8?B?MnVDaWM1aEp3V1ljb0RmVncxOWxxUUF4aUJXVm5tcjRrVER4S1FMYUtSem1k?=
- =?utf-8?B?SmRVY25kQ095OEYycUNkRVZ3NGhweTNNSFQ4eGIzUGhYMlQ4WFpZTkhnUGZ1?=
- =?utf-8?B?QlhHbXhMS0JhY2J1Z1Q1SkNpRU5tZzVtQXJwS2NEc3h2YUp3SVF3R3pGWklq?=
- =?utf-8?B?RmVPK0F3N2haTmZFM2RGcWhoWTVIZzUycEhEYVpyK2RpY1hlcTJTWm04TXRT?=
- =?utf-8?B?ZjI3NzVhckFZejV2MWxqaG92dUZZWXMrODlXaXd5T1ZzNS9VenVtM3ZjUjRK?=
- =?utf-8?B?TURmWjZuK1lyUzNMY3JZN2wrZXNJN3VnbE1OendHUUZWTkh2bGl3M2JiYUJR?=
- =?utf-8?B?R0hlTzMxQmdvNlg1R0pDQ0RYdzVBR29jTHZadnBuR1lCUnpMU1h2U3ZqdUg4?=
- =?utf-8?B?cDgyYmZIOWVRRWZGd2lkUm82QW1SSUVjb3N4NjVJNGt3SkZ6MGw3QllVZG02?=
- =?utf-8?B?eDQ4TkpJK3l0SFlwTU1oeVhPYUdhTGNsdEI5Z3g3MHpRNVdkc0k2WjdGbXJ0?=
- =?utf-8?B?SnZ4MkV5VUpXNkx3UHk3K3huTjFDUXBZOWd6NUhrQi9DcmM0WGkrelQ0SEZw?=
- =?utf-8?B?VnRDWVlPSktJYzgxTnR5OTUydXNPNzNKQ2JpNlVObWFpUVhtNzdFOGJ0aDQ2?=
- =?utf-8?B?bzJMbkZtZUllc1Ywd0hxSVZpaVVUYmFhd3QzaTBmMGtaeE43Q2pzaUJNem5i?=
- =?utf-8?B?SElZZlZhVmtxM0tDK2NYUHRSTG53MXdzenJsMldacjZZbmoyTWhJbDc2eEFS?=
- =?utf-8?B?RWhEWW0rM1Y1SHRFbElNcHZiS3E0eTNWRElpS3h6K1lRRWZMNlZNSDZiNjFr?=
- =?utf-8?B?SU02WUxNd2lEOXlIS2FjMEhkL2JobGI2QzZXZTVaNVRFWW1IeksrcXhTTlN2?=
- =?utf-8?B?RURwUUZTWWkrOEN1VUUwRU5aajJjYlAwRHR0Tk12VFlNV3VqaEw3eEI3U2p2?=
- =?utf-8?B?RFV3T3NUdGpreFA5VEdBR2JyTUUwMjFJUTQrcGFLd2N5a1pvSjJKZlJzK3NV?=
- =?utf-8?B?ZjE0czBRUk9OV0loU0lZaU15c2RnQ21CWjlRQjlDRlpxR2ZvWUh6SU5xSTNP?=
- =?utf-8?Q?HqiB40uUfBXyek9ueCOk3U0Rx13UEuxt?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c35256a-c087-4427-ec98-08da07f220e1
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2022 08:42:54.4327 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ysEaYaBdT2hcWQZSc2nNL4NZVU/aY4N+Toq6v1QR9yJBIgwqd8FGSMjPpTgsCYR857ib9Jf3IUosclFecLQkiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4502
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Subject: Re: [PATCH v1 1/3] mm: split vm_normal_pages for LRU and non-LRU
+ handling
+To: Alistair Popple <apopple@nvidia.com>,
+ Felix Kuehling <felix.kuehling@amd.com>
+References: <20220310172633.9151-1-alex.sierra@amd.com>
+ <20220310172633.9151-2-alex.sierra@amd.com>
+ <07401a0a-6878-6af2-f663-9f0c3c1d88e5@redhat.com>
+ <1747447c-202d-9195-9d44-57f299be48c4@amd.com>
+ <87lex98dtg.fsf@nvdebian.thelocal>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+In-Reply-To: <87lex98dtg.fsf@nvdebian.thelocal>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 17 Mar 2022 08:58:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,142 +96,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alexandar Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: Alex Sierra <alex.sierra@amd.com>, rcampbell@nvidia.com,
+ willy@infradead.org, amd-gfx@lists.freedesktop.org, linux-xfs@vger.kernel.org,
+ linux-mm@kvack.org, jglisse@redhat.com, dri-devel@lists.freedesktop.org,
+ jgg@nvidia.com, akpm@linux-foundation.org, linux-ext4@vger.kernel.org,
+ hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 3/16/2022 10:50 PM, Rob Clark wrote:
-> On Tue, Mar 8, 2022 at 11:40 PM Shashank Sharma
-> <contactshashanksharma@gmail.com> wrote:
->>
->> From: Shashank Sharma <shashank.sharma@amd.com>
->>
->> This patch adds a new sysfs event, which will indicate
->> the userland about a GPU reset, and can also provide
->> some information like:
->> - process ID of the process involved with the GPU reset
->> - process name of the involved process
->> - the GPU status info (using flags)
->>
->> This patch also introduces the first flag of the flags
->> bitmap, which can be appended as and when required.
->>
->> V2: Addressed review comments from Christian and Amar
->>     - move the reset information structure to DRM layer
->>     - drop _ctx from struct name
->>     - make pid 32 bit(than 64)
->>     - set flag when VRAM invalid (than valid)
->>     - add process name as well (Amar)
->>
->> Cc: Alexandar Deucher <alexander.deucher@amd.com>
->> Cc: Christian Koenig <christian.koenig@amd.com>
->> Cc: Amaranath Somalapuram <amaranath.somalapuram@amd.com>
->> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
->> ---
->>   drivers/gpu/drm/drm_sysfs.c | 31 +++++++++++++++++++++++++++++++
->>   include/drm/drm_sysfs.h     | 10 ++++++++++
->>   2 files changed, 41 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
->> index 430e00b16eec..840994810910 100644
->> --- a/drivers/gpu/drm/drm_sysfs.c
->> +++ b/drivers/gpu/drm/drm_sysfs.c
->> @@ -409,6 +409,37 @@ void drm_sysfs_hotplug_event(struct drm_device *dev)
->>   }
->>   EXPORT_SYMBOL(drm_sysfs_hotplug_event);
->>
->> +/**
->> + * drm_sysfs_reset_event - generate a DRM uevent to indicate GPU reset
->> + * @dev: DRM device
->> + * @reset_info: The contextual information about the reset (like PID, flags)
->> + *
->> + * Send a uevent for the DRM device specified by @dev. This informs
->> + * user that a GPU reset has occurred, so that an interested client
->> + * can take any recovery or profiling measure.
->> + */
->> +void drm_sysfs_reset_event(struct drm_device *dev, struct drm_reset_event *reset_info)
->> +{
->> +       unsigned char pid_str[13];
->> +       unsigned char flags_str[15];
->> +       unsigned char pname_str[TASK_COMM_LEN + 6];
->> +       unsigned char reset_str[] = "RESET=1";
->> +       char *envp[] = { reset_str, pid_str, pname_str, flags_str, NULL };
->> +
->> +       if (!reset_info) {
->> +               DRM_WARN("No reset info, not sending the event\n");
->> +               return;
->> +       }
->> +
->> +       DRM_DEBUG("generating reset event\n");
->> +
->> +       snprintf(pid_str, ARRAY_SIZE(pid_str), "PID=%u", reset_info->pid);
->> +       snprintf(pname_str, ARRAY_SIZE(pname_str), "NAME=%s", reset_info->pname);
->> +       snprintf(flags_str, ARRAY_SIZE(flags_str), "FLAGS=%u", reset_info->flags);
->> +       kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
->> +}
->> +EXPORT_SYMBOL(drm_sysfs_reset_event);
->> +
->>   /**
->>    * drm_sysfs_connector_hotplug_event - generate a DRM uevent for any connector
->>    * change
->> diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
->> index 6273cac44e47..5ba11c760619 100644
->> --- a/include/drm/drm_sysfs.h
->> +++ b/include/drm/drm_sysfs.h
->> @@ -1,16 +1,26 @@
->>   /* SPDX-License-Identifier: GPL-2.0 */
->>   #ifndef _DRM_SYSFS_H_
->>   #define _DRM_SYSFS_H_
->> +#include <linux/sched.h>
->> +
->> +#define DRM_GPU_RESET_FLAG_VRAM_INVALID (1 << 0)
->>
->>   struct drm_device;
->>   struct device;
->>   struct drm_connector;
->>   struct drm_property;
->>
->> +struct drm_reset_event {
->> +       uint32_t pid;
+On 17.03.22 03:54, Alistair Popple wrote:
+> Felix Kuehling <felix.kuehling@amd.com> writes:
 > 
-> One side note, unrelated to devcoredump vs this..
+>> On 2022-03-11 04:16, David Hildenbrand wrote:
+>>> On 10.03.22 18:26, Alex Sierra wrote:
+>>>> DEVICE_COHERENT pages introduce a subtle distinction in the way
+>>>> "normal" pages can be used by various callers throughout the kernel.
+>>>> They behave like normal pages for purposes of mapping in CPU page
+>>>> tables, and for COW. But they do not support LRU lists, NUMA
+>>>> migration or THP. Therefore we split vm_normal_page into two
+>>>> functions vm_normal_any_page and vm_normal_lru_page. The latter will
+>>>> only return pages that can be put on an LRU list and that support
+>>>> NUMA migration, KSM and THP.
+>>>>
+>>>> We also introduced a FOLL_LRU flag that adds the same behaviour to
+>>>> follow_page and related APIs, to allow callers to specify that they
+>>>> expect to put pages on an LRU list.
+>>>>
+>>> I still don't see the need for s/vm_normal_page/vm_normal_any_page/. And
+>>> as this patch is dominated by that change, I'd suggest (again) to just
+>>> drop it as I don't see any value of that renaming. No specifier implies any.
+>>
+>> OK. If nobody objects, we can adopts that naming convention.
 > 
-> AFAIU you probably want to be passing around a `struct pid *`, and
-> then somehow use pid_vnr() in the context of the process reading the
-> event to get the numeric pid.  Otherwise things will not do what you
-> expect if the process triggering the crash is in a different pid
-> namespace from the compositor.
+> I'd prefer we avoid the churn too, but I don't think we should make
+> vm_normal_page() the equivalent of vm_normal_any_page(). It would mean
+> vm_normal_page() would return non-LRU device coherent pages, but to me at least
+> device coherent pages seem special and not what I'd expect from a function with
+> "normal" in the name.
+> 
+> So I think it would be better to s/vm_normal_lru_page/vm_normal_page/ and keep
+> vm_normal_any_page() (or perhaps call it vm_any_page?). This is basically what
+> the previous incarnation of this feature did:
+> 
+> struct page *_vm_normal_page(struct vm_area_struct *vma, unsigned long addr,
+>                             pte_t pte, bool with_public_device);
+> #define vm_normal_page(vma, addr, pte) _vm_normal_page(vma, addr, pte, false)
+> 
+> Except we should add:
+> 
+> #define vm_normal_any_page(vma, addr, pte) _vm_normal_page(vma, addr, pte, true)
 > 
 
-I am not sure if it is a good idea to add the pid extraction complexity 
-in here, it is left upto the driver to extract this information and pass 
-it to the work queue. In case of AMDGPU, its extracted from GPU VM. It 
-would be then more flexible for the drivers as well.
+"normal" simply tells us that this is not a special mapping -- IOW, we
+want the VM to take a look at the memmap and not treat it like a PFN
+map. What we're changing is that we're now also returning non-lru pages.
+Fair enough, that's why we introduce vm_normal_lru_page() as a
+replacement where we really can only deal with lru pages.
 
-- Shashank
+vm_normal_page vs vm_normal_lru_page is good enough. "lru" further
+limits what we get via vm_normal_page, that's even how it's implemented.
 
-> BR,
-> -R
-> 
->> +       uint32_t flags;
->> +       char pname[TASK_COMM_LEN];
->> +};
->> +
->>   int drm_class_device_register(struct device *dev);
->>   void drm_class_device_unregister(struct device *dev);
->>
->>   void drm_sysfs_hotplug_event(struct drm_device *dev);
->> +void drm_sysfs_reset_event(struct drm_device *dev, struct drm_reset_event *reset_info);
->>   void drm_sysfs_connector_hotplug_event(struct drm_connector *connector);
->>   void drm_sysfs_connector_status_event(struct drm_connector *connector,
->>                                        struct drm_property *property);
->> --
->> 2.32.0
->>
+vm_normal_page vs vm_normal_any_page is confusing IMHO.
+
+
+-- 
+Thanks,
+
+David / dhildenb
+
