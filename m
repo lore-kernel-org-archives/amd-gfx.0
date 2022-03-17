@@ -4,64 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15067C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 13:51:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93EE0C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 13:58:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70C5F10EBDD;
-	Thu, 17 Mar 2022 13:50:59 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 871EB10EBD9
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 13:50:55 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id a8so10852083ejc.8
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 06:50:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=PvvpAlfWUx4MZsjqJ2ledaQ6ZYxjlMxRZHkgrvDwVbE=;
- b=UySrgiAM+lrSjr7LgnnWIY6cgjmt6Ro2A0UKhbBOGTXHIGFnCUQeh8oj+wNCqMuZhX
- Wl6Fp1yECOOm9/VyrQ9MQJXllASCgzWKJA2q4kNljff/AxuszH0MefO+4C2rXBEvn/cQ
- /brSwF5k3A3aBWKjPogQKsnS/F0KhwxnxPq9F5dV7z2F3KhDejxmu58ACecq6prGkSon
- OeSTnxGAs/X6lMYs18jmoCGIiGyNbpCoBim0oNR/AZP09cY37wdBA1z00cI+AH8iQMHS
- xvYYpZE/AwiWr5ORHQRAQIWM9T5M0+Q2TE+Bl8l9gHLpTuFonM/25T9UjyoykT4uuwbG
- 2cMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=PvvpAlfWUx4MZsjqJ2ledaQ6ZYxjlMxRZHkgrvDwVbE=;
- b=toBhbTwcuH+BXXW2Sw4TFIQ/UvGR0iLQp+rbLESbzxB5cAbHpd7rvTNpag2n8QoJh5
- DnWkaWtffjbkqqo1ouEYCtYWKEXNpKO8tnKe2ADZXJBLcmfySfdbfXZAw6sGU6n2ZWbe
- s/Mqo5Zdz3d8lcWEb9AseV0TQBUbmqcpYTZCJj0L9fwuWr0XvSjlUWkRVCqRFwUH3PVr
- 0DXoRmzRXxbsvb28gKcJRkLVVi+G5yE53LRNgWDYNTl6x0Fq1DXn6xJvgTuBq2MB69bH
- iX8vX+VsIWsfI5C/wtDc5K6K4FwXLaiJ0WZdBJmTnZOUDFYVEA5J/XEK9Gh/OoI9CB5e
- QFgg==
-X-Gm-Message-State: AOAM533DNbbX9qpZmXOk+FK6ojsFr/Or41Ym8QnHe3Zxvxp1urGS0yT0
- bCMrbjqRVuzF2r8gfsEdY2TDoOu/Y+E=
-X-Google-Smtp-Source: ABdhPJxsQhNrJEYzsUmwy+jSo4dTNa7rJc0MmwJCkkQyMeowKCTRQ76gaP8DuhOO/+EzZjXzLWFo8g==
-X-Received: by 2002:a17:906:58c5:b0:6da:81ae:9eb0 with SMTP id
- e5-20020a17090658c500b006da81ae9eb0mr4402675ejs.611.1647525053965; 
- Thu, 17 Mar 2022 06:50:53 -0700 (PDT)
-Received: from able.fritz.box (p5b0eab60.dip0.t-ipconnect.de. [91.14.171.96])
- by smtp.gmail.com with ESMTPSA id
- l9-20020a056402254900b00416b0ec98b5sm2706721edb.45.2022.03.17.06.50.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Mar 2022 06:50:53 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: amd-gfx@lists.freedesktop.org,
-	Felix.Kuehling@amd.com
-Subject: [PATCH 6/7] drm/amdkfd: use tlb_seq from the VM subsystem for SVM as
- well
-Date: Thu, 17 Mar 2022 14:50:43 +0100
-Message-Id: <20220317135044.2099-6-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220317135044.2099-1-christian.koenig@amd.com>
-References: <20220317135044.2099-1-christian.koenig@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12D9D10E1F4;
+	Thu, 17 Mar 2022 13:58:56 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2078.outbound.protection.outlook.com [40.107.94.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E97110E1F4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 13:58:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gma8CX27JDkdT921B6BITNpbkiSxLVlxdklpfIhbHN4DTb9RuFCfoluVUS1dOH/hRyUp9CxC2LfU0K44a2nzl3NqsIEQ+fsZtRAar+jcAjEkH2RssFRzMdRmvizDFwwNRgqi4lvNJ7l6/DGcaNwd17or4XGQW4ONr2FBL4oF54v9LmyEpCouulL96xyWYbCDbE6pr97H5zAyNTQFxOhpzJKKEkdtzqfafgTSGjhEf7Tx4i2XxvzlSmS+eccvUvhTEDWif5nMF7Qu/GwvS7f2HBZB2lQuWCdr92J33DeQS9TJwND8SBuRLjuxyqgma7LM85C0CYp8zwqf5cPQzX2Qpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vGZtydsGVLlv88yIrRZcOIDAvNOQ1otTZC5hUBbYgaQ=;
+ b=Lh67mdRx63hwqi4LeM7Idv9btMOi85jzwU5ikd+EQtaGoSsiEC4ihKb2uMNUnAyuG3Dlqcr7Lf//WQulZg140/mQEN3eC1IBvji8p8g3B2FYyXNYoFqoa4DC4vrXJqiLNkZ7bzj8R2bUd8o7rgMcPplYCEVIqvLqT42qqxpZutmYuu+ZDIk0ls82J3ya6uaJtQaME5C6Uld5acve3FO4sRGw6IBWa2A/BkPLv398hi0PadntjfRrJTfYMqAF1j8ygB3hA/CeP21C0nrS+vkZcuqmWqPWcLPQaU2EJUW6EofsJQ+8r4CyiVRZgITwA0r2hm6qg3Smhhtoo1EG9cufaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vGZtydsGVLlv88yIrRZcOIDAvNOQ1otTZC5hUBbYgaQ=;
+ b=aF1dfGmfrwQH8jd/T8fABNLH0KVX0GMcZIOtTNDP6f+oTOjRIdqfVbOyTKHgLVK/VLaTim3oq4mcbrVPZzSlCdVtMWdnak17++z/IMKIPS3nZwN41cJUe1O0mAfuNRyQYWAoFwt8qdkjZ+m6Xx/eZ14nnVpAbeBuQ4Xmmucskck=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DM6PR12MB5518.namprd12.prod.outlook.com (2603:10b6:5:1b9::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14; Thu, 17 Mar
+ 2022 13:58:53 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::4839:9431:1040:5cd5]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::4839:9431:1040:5cd5%4]) with mapi id 15.20.5081.017; Thu, 17 Mar 2022
+ 13:58:53 +0000
+Message-ID: <4bfc42e1-1d85-bfda-3871-17a5d9dc1f7f@amd.com>
+Date: Thu, 17 Mar 2022 09:58:51 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH 1/1] drm/amdgpu: set noretry=1 for GFX 10.3.4
+Content-Language: en-US
+To: "Chen, Guchun" <Guchun.Chen@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20220302202014.2439629-1-Felix.Kuehling@amd.com>
+ <525659f9-bc04-de58-c416-ab000c1de9eb@amd.com>
+ <DM5PR12MB2469D2F198B4D1362768747DF1129@DM5PR12MB2469.namprd12.prod.outlook.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <DM5PR12MB2469D2F198B4D1362768747DF1129@DM5PR12MB2469.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT3PR01CA0074.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::32) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ce401ad4-fa3f-41f8-37ef-08da081e454f
+X-MS-TrafficTypeDiagnostic: DM6PR12MB5518:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB55182A3A2E3E4C042C21D6B792129@DM6PR12MB5518.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VNT21PDiXN4rd4hwKT4c6K+VLr1904n7KOuEtL48okEU3RxXYuVkEAjtLKhuG0kxmvOiMqjrfzPHgfMJYlxT1ISYNL8bh7P4ux8xBi3XlkRVB7jXU4yD6ngc7gWN7gwPPE+TqYMFBNw0MkoTROZ9aFiRYIga0cAe2bBISXrd4SYcKR3QJhn5H45fFFqmE93p8aQEBzgC+lTG9zwMaQBPYOdtfAgvd2Z/RmxdXS0XBeiCp5gXqRjt1uejzj7J32b2Pwpn7WjatPOBiTKH1ZLkkEcMtMqwZ2HQrGbj2boaR3pB8LZweJWF1QGgScKZnO0KHQH8pt9Q2c0HYZV9qJIDEuuFGvfWf0T1lr8obAgQ8ILAqCTov5P/FoyokVd0SIak0a+F/Hq5ZVFpeUrHl9NLRsB3DQGjdOOYYk93OuUjeDmRXNl/Z+IFC2IYc4P9L62YDryWMZq9bloaUU/SYRLg9Trolhs/RHRbv8/t48dkpia1VgnN8YURYjYhxdI8x/F9DQS7r8cv5X+x/7XWJb3D83njeAiTmSD249dKNFKqPke6RNsHdFkzOz/UeIKioYkb7ieeehkUW4Lz864e80AVvZPRgnyONhLYc55YAhSupaGwri4S5A1shP6G/Hv1nVM1jhC62PgnUxVFkcHlliW6P4Lj2Cj8iJ35all5WkNFsbhm4r+Gu+QPgjjUxDSMGwVFD6FCPBFfc/M5J/yW3ytTAG4MsECQ0hOnab9C7WnNIKWbw6LvWEo3twZutwMnOEow
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(186003)(26005)(6506007)(86362001)(5660300002)(31696002)(8936002)(83380400001)(110136005)(31686004)(36756003)(6486002)(66476007)(316002)(2906002)(508600001)(2616005)(38100700002)(44832011)(53546011)(66946007)(66556008)(6512007)(8676002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UGFLejJRM0RRZmJHaFdOaTU4RTcrWGRhZ0hVM0NmSytwTWlxcWUzNEdPdVAy?=
+ =?utf-8?B?R1VydmR4QUlMbGhvWlRFMU9oTEdicFBPRXVDRmhjWnVBRDhnQUU5dWRpdGJH?=
+ =?utf-8?B?UExINW1CcVcyRjhVM3J6L0xYb2pOU0QzcFFhNnJ3N3B4UEdzL2xvbHRqaXdv?=
+ =?utf-8?B?bk5hNTFnd1R5Y2h2Y2JTVmJiemZTU0h1NDh3SlNTQ2J4RDR1VVd1TjZvVkhV?=
+ =?utf-8?B?Y2tYekErdk9BZTRhVFJBUzFVN1VjL1hUdlF5aGMzNjRFQjMrM1pnaVY1SU5V?=
+ =?utf-8?B?cmhOWlhJNS9vY01tdVJjUWd3aGRQbnVHYURVbTdySyt5TWF4TnZnTVE1V2RL?=
+ =?utf-8?B?WlgxWlVDUmJ1UUlCNGdMT0x1MnFOWW1DRTVFYWc2bElLWUtNMHdaNUVzZDd3?=
+ =?utf-8?B?WEJCbFZqZEdXSTg1OERaVUhmN1g3cDhoK0hhYWNuZlg1VzExZVZoMkx4Qm9n?=
+ =?utf-8?B?b3hVcUpabGdyMnhkZGV5Tm5kY0dUVlc2VWtyWCtIdVE1TUtOSm5rb3BGTVNo?=
+ =?utf-8?B?aS94OURTZUdhNm05T1U3ZlVVN0N0Vk1MbExLZkRzalU5OXR0YlJJWkdNTU5v?=
+ =?utf-8?B?RWR2eEs3TE9neEFOZk14VmxKeG1TUEVDS0FuckIrNm1xZ0t5aHhyT3o4eVE2?=
+ =?utf-8?B?QUNWTWs3cmlmRDhaaUYxMmNOeHVsREFUWFdaelozRmVKZDFXTVloR0FoTFhV?=
+ =?utf-8?B?WVA4bzFJaUMwM2psWEFDRDFjc0JqS3VDTCtiQVZVeW5LWFQwZDN3ZXlqSm9p?=
+ =?utf-8?B?M0VvRWY2aHBPQzI5OGFtbnRXSG9uVXo3cmhQeHVQbm5wUm1nSXVuN3QwYXVF?=
+ =?utf-8?B?WEt3TlYraXZDTVdVWS9BMTlEYlNRRVpEWElGMFpYQnNpci9Oajg3NjYvWWsv?=
+ =?utf-8?B?RHhjdEVHcWNEWVdkZitHUEh0ODc5STcrK2hnekxBenM2NHdCZWdsL3JTRE1z?=
+ =?utf-8?B?b1RoWUpUcktiMDFuVEtBdEJQazFpdHRUZEpnSTM5Rm15L2dBVU9BQ0RJZlpS?=
+ =?utf-8?B?VkVMb21HMk9Bbm5MR3R4Tzh1cU9kd0VueWxBa3Z2dnJhanV1amZoQlpjb0xB?=
+ =?utf-8?B?ajZnVGo0TVIxQVpqR3A3bFQ5dHBFVU1kUFUzWHRxYmREckVYcm5KR1FMSm5I?=
+ =?utf-8?B?Y1lxV2dOY0xKNjFDdjhpVU9oVWh2RjZzZHFoWVRnaHpKZysveHA1czUycVhF?=
+ =?utf-8?B?NVpTNEVIb2RTY2oxWUxjNEVvNy9jWFJhcHZCUUdwWGRyVXR0dm4zTkRnNEp0?=
+ =?utf-8?B?NkdyMXNkUXBkNm9ETmpybkxra2M2UU5IMHVPZHdQamJtR0szOUJRYVFQNGtL?=
+ =?utf-8?B?WDFSUE1UbUFWVVVFTlltcW5DN3h5UEhlamNCcUtGVFh5NitQWG02S0ZtcjU0?=
+ =?utf-8?B?VForRTRId3A5RzB1Nmc0dHg5ajFCMGJOTkFXbFgyU1ZyN1dUcnRHMGpRbUMw?=
+ =?utf-8?B?T0VqeDAvNlhnZTFhVGZSdUQyOFZEYjBSc1Y2Qi9lTjFGTVNpZHppaFUxZkFG?=
+ =?utf-8?B?VnFKYk82eFdXbER1NU1zMS9CYlA2MzJnUTRrSWwvRWhjb2lvTHNlcFBVS1BF?=
+ =?utf-8?B?eXdVVkRuWGNwTjNoLzBRbjRmMFFoNEVkdHNYQWd4SFEvZTRXajMvdEtKeXpw?=
+ =?utf-8?B?Nll2WWZxZUtnWHEwSkZ4cVgvMVE0aVp1WGVGQldoSmdESTh1WG9ySjJUUFhN?=
+ =?utf-8?B?RGZLSG1Icmh4VjY3SmZ2QmZPT3FGVE9abzVON0JsVDFzanFRZE9wN1Z2bHVE?=
+ =?utf-8?B?Q3EwOGJsY2ZSYVNhYkxlRzlGVTFjY01jQ3ZpYW9RRWRhQmVkQ1RzNDhjaDVt?=
+ =?utf-8?B?b2ZCWDNlL1RYaCsxODlrOVhtT1FaVEc0eGtNMkp0YXdIRmZqWWNXcG1xTUhM?=
+ =?utf-8?B?VUN3STRjVnFEeVVxR0tXejV0YlZHbm1MWWh6aDI1Z05JYkNQRjkvZndqaXVE?=
+ =?utf-8?Q?hQ49SXNjjzpDfqLl4jl0OwY/OrNFeje/?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce401ad4-fa3f-41f8-37ef-08da081e454f
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2022 13:58:53.2741 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QdQmYsjaw2TqnjbKTvTzmD71hzkTrXtrnluJIen6VAFGgXYboFPkjsAlnuox/cnH7FjTxjcqG58uSHOPBfpd3Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5518
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,178 +124,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of hand rolling the table_freed parameter.
+Am 2022-03-16 um 21:01 schrieb Chen, Guchun:
+> Shall we sort it? Anyway, the patch is: Reviewed-by: Guchun Chen <guchun.chen@amd.com>
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  5 ++---
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 18 ++++++++----------
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 19 ++++++++-----------
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  2 +-
- 4 files changed, 19 insertions(+), 25 deletions(-)
+Sure, I'll sort the switch cases before I submit.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 4cb14c2fe53f..9fcfb5e1b55c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -273,9 +273,8 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv,
- 		uint64_t *size);
--int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
--		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv,
--		bool *table_freed);
-+int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(struct amdgpu_device *adev,
-+					  struct kgd_mem *mem, void *drm_priv);
- int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
- 		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv);
- int amdgpu_amdkfd_gpuvm_sync_memory(
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index cd89d2e46852..57b521bb1eec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1093,8 +1093,7 @@ static void unmap_bo_from_gpuvm(struct kgd_mem *mem,
- 
- static int update_gpuvm_pte(struct kgd_mem *mem,
- 			    struct kfd_mem_attachment *entry,
--			    struct amdgpu_sync *sync,
--			    bool *table_freed)
-+			    struct amdgpu_sync *sync)
- {
- 	struct amdgpu_bo_va *bo_va = entry->bo_va;
- 	struct amdgpu_device *adev = entry->adev;
-@@ -1105,7 +1104,7 @@ static int update_gpuvm_pte(struct kgd_mem *mem,
- 		return ret;
- 
- 	/* Update the page tables  */
--	ret = amdgpu_vm_bo_update(adev, bo_va, false, table_freed);
-+	ret = amdgpu_vm_bo_update(adev, bo_va, false, NULL);
- 	if (ret) {
- 		pr_err("amdgpu_vm_bo_update failed\n");
- 		return ret;
-@@ -1117,8 +1116,7 @@ static int update_gpuvm_pte(struct kgd_mem *mem,
- static int map_bo_to_gpuvm(struct kgd_mem *mem,
- 			   struct kfd_mem_attachment *entry,
- 			   struct amdgpu_sync *sync,
--			   bool no_update_pte,
--			   bool *table_freed)
-+			   bool no_update_pte)
- {
- 	int ret;
- 
-@@ -1135,7 +1133,7 @@ static int map_bo_to_gpuvm(struct kgd_mem *mem,
- 	if (no_update_pte)
- 		return 0;
- 
--	ret = update_gpuvm_pte(mem, entry, sync, table_freed);
-+	ret = update_gpuvm_pte(mem, entry, sync);
- 	if (ret) {
- 		pr_err("update_gpuvm_pte() failed\n");
- 		goto update_gpuvm_pte_failed;
-@@ -1745,7 +1743,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 
- int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 		struct amdgpu_device *adev, struct kgd_mem *mem,
--		void *drm_priv, bool *table_freed)
-+		void *drm_priv)
- {
- 	struct amdgpu_vm *avm = drm_priv_to_vm(drm_priv);
- 	int ret;
-@@ -1832,7 +1830,7 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 			 entry->va, entry->va + bo_size, entry);
- 
- 		ret = map_bo_to_gpuvm(mem, entry, ctx.sync,
--				      is_invalid_userptr, table_freed);
-+				      is_invalid_userptr);
- 		if (ret) {
- 			pr_err("Failed to map bo to gpuvm\n");
- 			goto out_unreserve;
-@@ -2300,7 +2298,7 @@ static int validate_invalid_user_pages(struct amdkfd_process_info *process_info)
- 				continue;
- 
- 			kfd_mem_dmaunmap_attachment(mem, attachment);
--			ret = update_gpuvm_pte(mem, attachment, &sync, NULL);
-+			ret = update_gpuvm_pte(mem, attachment, &sync);
- 			if (ret) {
- 				pr_err("%s: update PTE failed\n", __func__);
- 				/* make sure this gets validated again */
-@@ -2506,7 +2504,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence **ef)
- 				continue;
- 
- 			kfd_mem_dmaunmap_attachment(mem, attachment);
--			ret = update_gpuvm_pte(mem, attachment, &sync_obj, NULL);
-+			ret = update_gpuvm_pte(mem, attachment, &sync_obj);
- 			if (ret) {
- 				pr_debug("Memory eviction: update PTE failed. Try again\n");
- 				goto validate_map_fail;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index e1e2362841f8..91f82a9ccdaf 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1146,7 +1146,6 @@ static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
- 	long err = 0;
- 	int i;
- 	uint32_t *devices_arr = NULL;
--	bool table_freed = false;
- 
- 	if (!args->n_devices) {
- 		pr_debug("Device IDs array empty\n");
-@@ -1208,7 +1207,7 @@ static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
- 
- 		err = amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 			peer_pdd->dev->adev, (struct kgd_mem *)mem,
--			peer_pdd->drm_priv, &table_freed);
-+			peer_pdd->drm_priv);
- 		if (err) {
- 			struct pci_dev *pdev = peer_pdd->dev->adev->pdev;
- 
-@@ -1233,13 +1232,11 @@ static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
- 	}
- 
- 	/* Flush TLBs after waiting for the page table updates to complete */
--	if (table_freed || !kfd_flush_tlb_after_unmap(dev)) {
--		for (i = 0; i < args->n_devices; i++) {
--			peer_pdd = kfd_process_device_data_by_id(p, devices_arr[i]);
--			if (WARN_ON_ONCE(!peer_pdd))
--				continue;
--			kfd_flush_tlb(peer_pdd, TLB_FLUSH_LEGACY);
--		}
-+	for (i = 0; i < args->n_devices; i++) {
-+		peer_pdd = kfd_process_device_data_by_id(p, devices_arr[i]);
-+		if (WARN_ON_ONCE(!peer_pdd))
-+			continue;
-+		kfd_flush_tlb(peer_pdd, TLB_FLUSH_LEGACY);
- 	}
- 	kfree(devices_arr);
- 
-@@ -2203,8 +2200,8 @@ static int criu_restore_bo(struct kfd_process *p,
- 		if (IS_ERR(peer_pdd))
- 			return PTR_ERR(peer_pdd);
- 
--		ret = amdgpu_amdkfd_gpuvm_map_memory_to_gpu(peer->adev, kgd_mem, peer_pdd->drm_priv,
--							    NULL);
-+		ret = amdgpu_amdkfd_gpuvm_map_memory_to_gpu(peer->adev, kgd_mem,
-+							    peer_pdd->drm_priv);
- 		if (ret) {
- 			pr_err("Failed to map to gpu %d/%d\n", j, p->n_pdds);
- 			return ret;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 4a8a047b7593..ac8123c1ee8f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -722,7 +722,7 @@ static int kfd_process_alloc_gpuvm(struct kfd_process_device *pdd,
- 		goto err_alloc_mem;
- 
- 	err = amdgpu_amdkfd_gpuvm_map_memory_to_gpu(kdev->adev, *mem,
--			pdd->drm_priv, NULL);
-+			pdd->drm_priv);
- 	if (err)
- 		goto err_map_mem;
- 
--- 
-2.25.1
+Thanks,
+   Felix
 
+
+>
+> Regards,
+> Guchun
+>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Felix Kuehling
+> Sent: Thursday, March 17, 2022 7:33 AM
+> To: amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH 1/1] drm/amdgpu: set noretry=1 for GFX 10.3.4
+>
+> Ping?
+>
+>
+> On 2022-03-02 15:20, Felix Kuehling wrote:
+>> Retry faults are not supported on GFX 10.3.4.
+>>
+>> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>> ---
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
+>>    1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>> index 7c2a9555b7cc..622eeda9ea45 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>> @@ -568,6 +568,7 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *adev)
+>>    	case IP_VERSION(10, 3, 3):
+>>    	case IP_VERSION(9, 3, 0):
+>>    	case IP_VERSION(10, 3, 6):
+>> +	case IP_VERSION(10, 3, 4):
+>>    		/*
+>>    		 * noretry = 0 will cause kfd page fault tests fail
+>>    		 * for some ASICs, so set default to 1 for these ASICs.
