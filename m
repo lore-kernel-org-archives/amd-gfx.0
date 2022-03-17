@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05719C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 17:23:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4473AC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 17:27:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E55A10E67F;
-	Thu, 17 Mar 2022 17:23:48 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F10AA10E67C
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 17:23:46 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id h16so2960517wmd.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 10:23:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF36E10E6CA;
+	Thu, 17 Mar 2022 17:27:02 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E56D410E6CC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 17:27:01 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id r6so8340385wrr.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 10:27:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=oqyywNMRAsscGujJTuGQYDrwpZtKNn+Ebf019FA+ycE=;
- b=W/TLt7+cvhxXX5oJ7Oz2acoguoZpzbGmEfkYmBANhpfRCxaF9Zq6tKpv13hoivEpEQ
- 9IKCHpRPYBMXAYxep7ZZZpNtMT4jpucCw02QpiTY7I/SiGEiI84DlhkzaYVEe25M3lVr
- vQVHzWIeKkVP5fOXg3Iowl/epP5BIndCm1Aug=
+ bh=lOa+QRnoOsA4pzJa3atRx7kwZnzbt9HWzJ/pBnPiTi8=;
+ b=jrTOhMVEtk+eP54/2uOyRAEPApEjQFrVQLITvQ2RE/5uAxo10wHFDbvq/2m1L59fAg
+ BrHS6oN0YrnNWM05y1AulWvg289ays9wiZ76cloxJjsoBVc5Cdm+OWJMfF6uNT6Y2MAd
+ FsbmoY6DlsBy4ChpcmpcyiDyx3zYvzRSGcCDE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=oqyywNMRAsscGujJTuGQYDrwpZtKNn+Ebf019FA+ycE=;
- b=qVRpKT4EPw1BQoGSERlzGqg7CK2X4BwoNK9Ek0zuMSCVuJZoGsYmwkrSNj5MaVS02d
- ai1KVCZ9NiEm/tdjtbRoX/vTIYrVib5/nl4WgU5IFHr35NlO1Ue9Q/kG/Z/4kz/iq+pi
- hQpQhCRtZEB/GsH33Gx4kndAV2r9P8QMmB49hR3Iir4aMBSvJ89VkKW3FyTRtaeahjrk
- ZlmZ83bCzUo7tYOCFiuFHds5w0zWe/jMhuM17RPBmbH8op4uON+ibdYM+dRN0vMBJDjL
- ++YQwCd13BxdRAg2wCpmCxN78NOUBjCY6yODwd43ykAzjOQ14gzO8zFwAkvIPihKnWLO
- DaAg==
-X-Gm-Message-State: AOAM530hrz7iKNOyIUV1KaW0/yhshlvyTlM0n6+o8uos8ZfEpj1ArP4L
- xNPdWOJHt+35m5msq5IoRkKZoQ==
-X-Google-Smtp-Source: ABdhPJxHUmOkc3z9QO/kMhayRnxJ0eeit5nqIofeyFEiWlUMpyE9a2wKvA2U0rgrrh9Vqzhl0+QTYg==
-X-Received: by 2002:a05:600c:4796:b0:386:45aa:667b with SMTP id
- k22-20020a05600c479600b0038645aa667bmr5005550wmo.104.1647537825417; 
- Thu, 17 Mar 2022 10:23:45 -0700 (PDT)
+ bh=lOa+QRnoOsA4pzJa3atRx7kwZnzbt9HWzJ/pBnPiTi8=;
+ b=gMmzAaC/t5jWzgNVf4ERKYnRCka6RSmDGCPmimBNeHrGm6XjnHMmO7Gn3lV/0YqUSt
+ qt5ssSqp7I6AYPdrjpE0C2/j2FjkJgDJ0eYKpjL5EQA24ZBT94onKZR1ZUjOskmwdwa0
+ LXsSTkpPeGZdlMzfNI+rG10iSMXQK7gH/i9I6VO3fmLxGs41W9NKWsdawzJvtbPcvs9m
+ J3DX5s+kYWSrr4F6CjDv9BBhwclstnNJkTNZ8E+S7k7A3q6P03itIvYYxlbS0EaACZXS
+ 0tLRpOrjUu4DJXnHtwfeZdFgc5Fm5x0owJ7SqWzgsG7ZBSmaBIMmt0JfaHQq4ZNpoDQh
+ hxHg==
+X-Gm-Message-State: AOAM533XNNRwUpBkYdTigk1qClxXS1Efy1+JGq6ZKaHgvvh/Fi118PYQ
+ qMw9kAUZoecVOizc4GrdNwJ1pg==
+X-Google-Smtp-Source: ABdhPJwEMPUjSH0jE4q7W0fbREu464WEL7O2O44FxpZzT5EU+0gtfCdDslb0D/l0y3HYVjuk3H9Lcw==
+X-Received: by 2002:a05:6000:18a7:b0:203:72d1:9be5 with SMTP id
+ b7-20020a05600018a700b0020372d19be5mr4888757wri.325.1647538020342; 
+ Thu, 17 Mar 2022 10:27:00 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- l13-20020a5d4bcd000000b001f0620ecb3csm4612244wrt.40.2022.03.17.10.23.44
+ f8-20020a5d6648000000b00203e64e3637sm2596849wrw.89.2022.03.17.10.26.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Mar 2022 10:23:44 -0700 (PDT)
-Date: Thu, 17 Mar 2022 18:23:42 +0100
+ Thu, 17 Mar 2022 10:26:59 -0700 (PDT)
+Date: Thu, 17 Mar 2022 18:26:58 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
 To: Rob Clark <robdclark@gmail.com>
 Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-Message-ID: <YjNunvEn0EGjQY1W@phenom.ffwll.local>
+Message-ID: <YjNvYmcuDKiIneDx@phenom.ffwll.local>
 References: <20220311102709.225616cf@eldfell>
  <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
  <20220314172647.223658d2@eldfell>
@@ -59,12 +59,12 @@ References: <20220311102709.225616cf@eldfell>
  <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
  <5e246eb8-0256-c40e-40ea-d865bf99c003@gmail.com>
  <YjL/k6kh+5RihGIV@phenom.ffwll.local>
- <CAF6AEGtUasyC1e0Fz2cFhSMEtUJCJTsFQs7+4mg_FP45LwX=4A@mail.gmail.com>
+ <CAF6AEGu79jDW1xqJOaNCB=jAxhKiCRFJwoCNiC9ye97KvpWEtQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGtUasyC1e0Fz2cFhSMEtUJCJTsFQs7+4mg_FP45LwX=4A@mail.gmail.com>
+In-Reply-To: <CAF6AEGu79jDW1xqJOaNCB=jAxhKiCRFJwoCNiC9ye97KvpWEtQ@mail.gmail.com>
 X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,7 +91,7 @@ Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 17, 2022 at 08:34:21AM -0700, Rob Clark wrote:
+On Thu, Mar 17, 2022 at 08:40:51AM -0700, Rob Clark wrote:
 > On Thu, Mar 17, 2022 at 2:29 AM Daniel Vetter <daniel@ffwll.ch> wrote:
 > >
 > > On Thu, Mar 17, 2022 at 08:03:27AM +0100, Christian König wrote:
@@ -105,23 +105,7 @@ On Thu, Mar 17, 2022 at 08:34:21AM -0700, Rob Clark wrote:
 > > > By the way, how does msm it's memory management for the devcoredumps?
 > >
 > > GFP_NORECLAIM all the way. It's purely best effort.
-> 
-> We do one GEM obj allocation in the snapshot path (the hw has a
-> mechanism to snapshot it's own state into a gpu buffer.. not sure if
-> nice debugging functionality like that is a commentary on the blob
-> driver quality, but I'm not complaining)
-> 
-> I suppose we could pre-allocate this buffer up-front.. but it doesn't
-> seem like a problem, ie. if allocation fails we just skip snapshotting
-> stuff that needs the hw crashdumper.  I guess since vram is not
-> involved, perhaps that makes the situation a bit more straightforward.
-
-The problem is that you need to allocate with GFP_ATOMIC, instead of
-GFP_KERNEL, or things go very bad.
-
-The scheduler dma-fence annotations I've had (well still have them here)
-would catch this stuff, but thus far they got nowhere.
-
+> >
 > > Note that the fancy new plan for i915 discrete gpu is to only support gpu
 > > crash dumps on non-recoverable gpu contexts, i.e. those that do not
 > > continue to the next batch when something bad happens. This is what vk
@@ -132,31 +116,44 @@ would catch this stuff, but thus far they got nowhere.
 > > i915 you can mark which bo to capture in the CS ioctl) can be captured in
 > > a worker later on. Which for non-recoverable context is no issue, since
 > > subsequent batchbuffers won't trample over any of these things.
-> >
-> > And that way you can record the crashdump (or at least the big pieces like
-> > all the indirect state stuff) with GFP_KERNEL.
-> >
-> > msm probably gets it wrong since embedded drivers have much less shrinker
-> > and generally no mmu notifiers going on :-)
 > 
-> Note that the bo's associated with the batch are still pinned at this
-> point, from the bo lifecycle the batch is still active.  So from the
-> point of view of shrinker, there should be no interaction.  We aren't
-> doing anything with mmu notifiers (yet), so not entirely sure offhand
-> the concern there.
-> 
-> Currently we just use GFP_KERNEL and bail if allocation fails.
+> fwiw, we snapshot everything (cmdstream and bo's marked with dump
+> flag, in addition to hw state) before resuming the GPU, so there is no
+> danger of things being trampled.  After state is captured and GPU
+> reset, we "replay" the submits that were written into the ringbuffer
+> after the faulting submit.  GPU crashes should be a thing you don't
+> need to try to optimize.
 
-Yeah you have a simple enough shrinker for this not to be a problem. The
-issue is that sooner or later things tend to not stay like that, and we're
-trying to have common rules for dma_fence to make sure everyone follows
-the same rules.
+Not sure why you think we optimize anything here?
+
+> (At some point, I'd like to use scheduler for the replay, and actually
+> use drm_sched_stop()/etc.. but last time I looked there were still
+> some sched bugs in that area which prevented me from deleting a bunch
+> of code ;-))
+
+Not sure about your hw, but at least on intel replaying tends to just
+result in follow-on fun. And that holds even more so the more complex a
+workload is. This is why vk just dies immediately and does not try to
+replay anything, offloading it to the app. Same with arb robusteness.
+Afaik it's really only media and classic gl which insist that the driver
+stack somehow recover.
+
+And recovering from a mess in userspace is a lot simpler than trying to
+pull of the same magic in the kernel. Plus it also helps with a few of the
+dma_fence rules, which is a nice bonus.
 -Daniel
 
 > 
 > BR,
 > -R
 > 
+> >
+> > And that way you can record the crashdump (or at least the big pieces like
+> > all the indirect state stuff) with GFP_KERNEL.
+> >
+> > msm probably gets it wrong since embedded drivers have much less shrinker
+> > and generally no mmu notifiers going on :-)
+> >
 > > > I mean it is strictly forbidden to allocate any memory in the GPU reset
 > > > path.
 > > >
