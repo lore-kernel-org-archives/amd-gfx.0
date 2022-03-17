@@ -4,64 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EDAAC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 15:40:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5597C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 16:22:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F05F810EAE5;
-	Thu, 17 Mar 2022 15:40:13 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FFEE10E8C3;
- Thu, 17 Mar 2022 15:40:12 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id t11so7923122wrm.5;
- Thu, 17 Mar 2022 08:40:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=LyjSbbb305zhYUVT4Pzcpge6Tmxz2u/zA+17cYKA22k=;
- b=YDWgGa+uqEZXRkXdzZtABUw7vBhdNLKz+tPf9ZpzEdBYEi2ROAPDZ/aM5ez2q4TR3e
- DI729mB5EAhUK3mLX7ivXOt8lfmpjdw4MHbYk0p0c9mnQofFtxFtKmm1j3Q416dqgN/P
- bswngS009fg0wY0+SccdHlQgCN2zMiGR962oDdup+ERkWo83y3gVDxcotYsjyfJI/0DY
- RIcgCsS4c39G9PR/DaHnwr+itc0OLU+Rp0pxvurAmnTx5Nj3wdcePq05goKjBOKwUHBt
- pp+oMTuLM8TzVywvFAy/0DUKDS7mgyNd3J26gRl5d6P/k9o8K0CGpXx1nlT0vi5wZ52s
- F5sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=LyjSbbb305zhYUVT4Pzcpge6Tmxz2u/zA+17cYKA22k=;
- b=Q5UNugfuincT79hGjcp51y5UUlvRWnB4dYZi+HRm4axW7QWDZTKJyRfW/yU6/fZyw9
- dz1Gygq42t/IFbvTBLkIVesRIkkFzK1aLjHGp3LMbkANEKZd2VHtWVN7iMr6OTp4+DVa
- q6Wm0X5ZcAw70NTxSwJrcLHb4G7NDrp1G3cLzDGfFsZYV8h3R8Y+NyM0bE27kBk5GpjJ
- c0tevD1aEy155qRzk/I3D83LxTPs4/ea5KmSU35DCv5vsqFptgzyfjAqsjvxHV3ofVHw
- pAaizBCSGrwdUd9Sdgjf0N1IjGh7omGSTU7LFzjzYaXUQIeg/xdJYPICZmfkmEnntM0W
- 3Wpw==
-X-Gm-Message-State: AOAM531F8vH52PUyCsfXIC4BeUMnVpL8XHIyTVYZCWrFpvQMg9mT+LwF
- QolewD4Vl6CnN6GF+iDTEsknHX/mjPsFSf8TOS8=
-X-Google-Smtp-Source: ABdhPJyRBSs1pyE4Ix+v8Mcy8F1Qe++n8EBde9tXJiuALezxulVSfYvnZukaRwpGrlonSfmtu3Wn3YkTrzgYUkqHe7s=
-X-Received: by 2002:adf:914f:0:b0:1ed:bb92:d0cc with SMTP id
- j73-20020adf914f000000b001edbb92d0ccmr4534132wrj.297.1647531610559; Thu, 17
- Mar 2022 08:40:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71DD310E62F;
+	Thu, 17 Mar 2022 16:22:41 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2056.outbound.protection.outlook.com [40.107.96.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4C1810E567;
+ Thu, 17 Mar 2022 16:22:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ga1tv5AZgMuHv6wokXl2gxkJTA4MQIu+KURIt9/f0KcotQzr3pr3JlKo9OB9Sc4cJ7LjjGM66iwyiUwvTKfUyw26Q3eDOXkAmnUrIwHF/1stq3X5kmRuOV/xx47twLBZHF4t9w0sROOxPkP8TuIBBORHepQOTBGv5YUqSS5d5Yo2G+sH+CrwODsM7Z+s1hYRFDpIjOMEBgUkgi9rsnmoGV2XBra9E57harJXuO+F6IMamAbgf3KAWKaJn/knqH0FV5l9ZkuYVA4Dhtav1rzJGtKYQgOaV1rgrSiIa+miMSRj9176rt3u2HZHm6u5pZdhdKTQBv0QyXh++r3NK9IulA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5YyM81gMYFRKXhu4M392W2eKUi5G6drzziCes9euQjw=;
+ b=PUuavlWp8hbVWSqpPnVCDozQG+yNsakp9uNgpGbX6YeI8PTCGeJ6f8TD6KuIjetYvANubonM/FNu8uX4YrMAMCh4KF3/Sa+FN9W1YuEKiRDFmEkJFFPw2celkUqkysrIXLkxaB/0v2R2tIOs8s3tnLGoRx+nF6guiL7kgYZMEwrP/hRy/XCiLJDMGIHum9cWjoaWT9Fpb6FY/k+JHj4FHFQ0+UyPSKW00PPhgWc7wvIIEtxftFZUhilzt1MzBPFWPybEIr9odqdk++rwgiYJVH0ppTW0hrrK5No36vjQCyyaCb8zr3UAqs2it0aexxxGWbOLD/uitXTz+8O5hO0zWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5YyM81gMYFRKXhu4M392W2eKUi5G6drzziCes9euQjw=;
+ b=sSLP03Ra99Th7a8A+wMzjutEKEHxxk8zGDwTTLS13Eu/EgKR+DLjG67iZ6NZiAnLPlH8O4UEu3rAx784qWO78SWGbWU79PG6GpRJpwSjp6BHqJHRvOKDgLSXehQLoXAuGYyGuzZMsCcXsle8CcpvqSmexB+nkU6IvESoHqHUbmM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by BN9PR12MB5382.namprd12.prod.outlook.com (2603:10b6:408:103::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.17; Thu, 17 Mar
+ 2022 16:22:37 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::911e:11ef:6f5d:6329]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::911e:11ef:6f5d:6329%7]) with mapi id 15.20.5081.017; Thu, 17 Mar 2022
+ 16:22:37 +0000
+Subject: Re: [PATCH 1/1] drm/amdkfd: Protect the Client whilst it is being
+ operated on
+To: Lee Jones <lee.jones@linaro.org>, Felix Kuehling <felix.kuehling@amd.com>
+References: <20220317131610.554347-1-lee.jones@linaro.org>
+ <8702f8a5-62a1-c07e-c7b7-e9378be069b6@amd.com> <YjNNCXc8harOvwqe@google.com>
+ <1f003356-3cf9-7237-501e-950d0aa124d1@amd.com> <YjNQA80wkWpy+AmA@google.com>
+From: philip yang <yangp@amd.com>
+Message-ID: <b65db51e-f1ba-3a9b-0ac1-0b8ae51c5eee@amd.com>
+Date: Thu, 17 Mar 2022 12:22:35 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <YjNQA80wkWpy+AmA@google.com>
+Content-Type: text/html; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR19CA0005.namprd19.prod.outlook.com
+ (2603:10b6:208:178::18) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
-References: <cda15a47-f469-2a7e-87b6-adf00e631ef0@amd.com>
- <CAF6AEGv3Wv+p1j2B-t22eeK+8rx-qrQHCGoXeV1-XPYp2Om7zg@mail.gmail.com>
- <20220311102709.225616cf@eldfell>
- <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
- <20220314172647.223658d2@eldfell>
- <CADnq5_NsxipfFFXfRSXvVQin3e1gj0Q_p9p-shi3VZ2pSCwwfw@mail.gmail.com>
- <20220316104815.11ec2e6c@eldfell>
- <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
- <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
- <5e246eb8-0256-c40e-40ea-d865bf99c003@gmail.com>
- <YjL/k6kh+5RihGIV@phenom.ffwll.local>
-In-Reply-To: <YjL/k6kh+5RihGIV@phenom.ffwll.local>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 17 Mar 2022 08:40:51 -0700
-Message-ID: <CAF6AEGu79jDW1xqJOaNCB=jAxhKiCRFJwoCNiC9ye97KvpWEtQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-To: Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e60281f4-6be0-4a8f-079b-08da083259d4
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5382:EE_
+X-Microsoft-Antispam-PRVS: <BN9PR12MB53828C88834B8B818FC62087E6129@BN9PR12MB5382.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: k14iHr/a4/QriCu/XGTJZ/Ow7ZZKM7qmb/fm/qeHIye/jBq5J/dnzBvjwxvqGP0iiJrUlcpkPRPKZ6rwYdLyI8e3xcTwioPjdh4UpD00X8c9v8g3RVyT6K/fWzuBHMXBpiumK2bX330BbW9LfbeVM41xNaqSrlPHLi2I3MTQUsONzKeqIBaWtekeNf/VjmXdQGCdYUIUnTyR84EGdpqf7k5B1ttA3xHl1XhmpqP39vVSPWUbGNNcBmixEPOgXUZsTTAd3F6WngjS95LT0O5SFQE8FD3CaDvv1L6rXyCWPW0JJsXwvAov2AwuaiMJIii4+Ivrc3H/4CPaCEMhdJDXJK88CQaSqiilCCjxy3gkrkrrHFNbmW3koS4+lXzaTVG7WtrojNuhOwJMacKhSXvPsq7s7BuF0i5IUr3t0nV8ywrLhOI4Ek8Qf4cdcGlCg63XFtIGutKqUE8xNB1AgLpUl8gEpdQb4yOXKdhy8bD4Aeg2MY0uwppfaa7SNaw7O5t532hgAHNwVdCQuihoWnnS1utKybdoXpE84dPaVVUO3gINCISrjsiR5uBPYun+2cOoz1sgFgX/x0GGMlI6AwKJ2zc/RHrCHygbFyieiUhuq/2NgGOYPQp1BzmG60+j+OA9Nb2AEcviamwoqQsEs4BjVPLOimsU78hGZjR8jVOUSZmujOO9PuGrtKyfVFYDIRUGAx9PztzkB81Kf3vUsbRKDNeekqu/ZVdQghUHFoZ2xOg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(8936002)(5660300002)(54906003)(110136005)(83380400001)(316002)(2906002)(6636002)(31686004)(38100700002)(31696002)(6486002)(36756003)(6512007)(8676002)(4326008)(66476007)(66556008)(66946007)(53546011)(26005)(186003)(6506007)(2616005)(66574015)(508600001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ejcvaVJGMGxBWnBod0JKVE9UblorYzRpaTVRT1pheHZWVk5reTBaMnV4VHNz?=
+ =?utf-8?B?L25oK1ZXSnN0bm5kSm1oNVpLQlJKRjM0ZjZDRkhObExLUDBLNlY2OTJMbDJp?=
+ =?utf-8?B?VUdaUWc5Z081U1RMK1pCT0dDNVhYZU1Yc3UyRVo4WTFDTGZQUytRbXFzdlhx?=
+ =?utf-8?B?MXpiR1pEODRoRW1OUlZmK0diUHlPZE44YWVNNXZYZWxyazhUTW5tMmZYakhD?=
+ =?utf-8?B?dTdXQUN1bkZXaUdrbEdZbllvVHcyWm4vQnoyS0hEanRwZ3Q5MEtDdUxVYlI0?=
+ =?utf-8?B?UWhVaGViYi9vUy91Y1N5d1ZyaXRNV1JmR0NoZmN1aTh4QXM2dlloYytDR3Ni?=
+ =?utf-8?B?NG0xMUxyMFRoRkJ6TTJCV2VLUVhMcW9SWDd5akhZbk9vMFBIMElBR0E4NExS?=
+ =?utf-8?B?di91ZlVncGo5SnVzaXZQL3VNcEdLaVFiNEpSQVpOUEN0MGpkekk0MlNvNWZE?=
+ =?utf-8?B?MU02ejlhZURlbE85SHBVZE0vQ0U5dE1yV3RUblFkelE3RXZlZHRDVnpvNkUz?=
+ =?utf-8?B?UmJ1QnFHRmIzMjdiVm1nU1Z5WmEveU43cnJMVmkrN29OcXphQXcrQVUxV1Yy?=
+ =?utf-8?B?TkhaUFNpYW40SW9FRk0wTTJoajRZa1RWRVFGQlJWRTg1bUJuSEJ3bStjWTc1?=
+ =?utf-8?B?cDJZaGhFSHBGUXBmdmxza1RhVzhXc3VTcTlVTUpUYkptQ1FkSnJHYmxDdHJU?=
+ =?utf-8?B?WDdkN2xRTmpsWC9aZ2hwbHB4bWRoVHc1d1ZYVFJBWjJCdHUrVE9wSS9ZZjd4?=
+ =?utf-8?B?SmxYQ2RqZ1I4b0NnYkVTQTc0S01COEg3WVdBZ1dVck42dFVZd2dOTkpINUJn?=
+ =?utf-8?B?UkpidlByZTVxWGtyTHZ5MGdBVTlSWGxTL2JVdEhxdVRUM29DODFVU1Y1SnJD?=
+ =?utf-8?B?RWlVbnJhZEQ2QnNMZDc4UVRnZk9UVkJVcEJYZktwS0h4RW01empHWnArRzB0?=
+ =?utf-8?B?MVpDbzFjUjE4TWpBak1kbGpSa1pQdDB1QnR2aW1mOEQwbDhLNmJHdHdjWSs3?=
+ =?utf-8?B?d3FlZ29rcXVJMHpJd2pMQlRRZ0JJYmxPazlmblN2Q2NpbXMyLzlOaE5IZlJw?=
+ =?utf-8?B?WFVRKzl2WCtSeERTUXg3Q2VWZVEzUFlIMERHKzJGdE5ic2dacDNkZUVBN3hp?=
+ =?utf-8?B?WW1GS2g0VW5sK2dHME41MTF1NWlsczhHMUI0QmRBcERlaXlnUUltVWNBN3li?=
+ =?utf-8?B?bEtlWUtKMDFaNmlvRXNtS0hPYjJTQUttbUNxZHNwSFZCeEIvV0R4WXN3enU2?=
+ =?utf-8?B?amxkWW53UVFqK2FZc0VSSWFEalVOQjRiNlMwNWFQakw5T05xUTl5UXpQVjNX?=
+ =?utf-8?B?ODcrc1dLV1AvSUdEUXdTb3MwNDZzZ2ZheCs2ZEZDcEZTS1JMMWdOZGZzMVdn?=
+ =?utf-8?B?M1NFTFd1WTlnSDNleXpKL2hWcmp5SVR1dXJlbDVNZjI1ZDhKdHE2d0s1L3ly?=
+ =?utf-8?B?UTRBc2NwclhlTUhMSjBWSXlTU0NGN3d4VTlqT0V3K1QrVWtlWGZQS0dnb0VQ?=
+ =?utf-8?B?ekdGcnc0NHVuK2xxbDdQSXhRNk5nN2JEYW1sMldTSEZKTklReDU5TlVtOFpP?=
+ =?utf-8?B?Snl3YXhnZk85cnBNSFJMbkw1RkFjYTFwNEsxaHk5RkRpcFl0djNEeTFuU2JW?=
+ =?utf-8?B?QlQ0eVBMNmpyd0x4NlVWT3p1TzUva0xjZkQrNDlPUTB3Mjh3L05ETVNrY0V3?=
+ =?utf-8?B?emQ1b3g5QWNuM0l1VFlWZ1lHRlUyZUt4alh3Y3JwWjMvd2V0RzQ4YXZJek51?=
+ =?utf-8?B?TCtWa292enFmY2tkcWVWSDBRMUxoQ28xMEtONDRlTVVna1UveUVKRTBiMStH?=
+ =?utf-8?B?NnAwNXBSRDdIakxsQzhoeGRWVHBtNittMVVxaE8ybjJhMlluRkpRNlRnK2Ix?=
+ =?utf-8?B?NGpVdUdVTElvaTMza0NnVFVibTNWWktyaUFBemI3MnM4K3RNUm1yM3pLVTFs?=
+ =?utf-8?Q?hlg5drYElCLFYJAera3Nd3tCbM2Tx2E3?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e60281f4-6be0-4a8f-079b-08da083259d4
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2022 16:22:37.7469 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3y8Oa93urvrZ+s+9X4WvbhGagDrJ/SuxUX0FvMIUGqGnfOedateL8A7Z4RhWPUUP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5382
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,82 +124,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
- Shashank" <shashank.sharma@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Alexandar Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 17, 2022 at 2:29 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Thu, Mar 17, 2022 at 08:03:27AM +0100, Christian K=C3=B6nig wrote:
-> > Am 16.03.22 um 16:36 schrieb Rob Clark:
-> > > [SNIP]
-> > > just one point of clarification.. in the msm and i915 case it is
-> > > purely for debugging and telemetry (ie. sending crash logs back to
-> > > distro for analysis if user has crash reporting enabled).. it isn't
-> > > used for triggering any action like killing app or compositor.
-> >
-> > By the way, how does msm it's memory management for the devcoredumps?
->
-> GFP_NORECLAIM all the way. It's purely best effort.
->
-> Note that the fancy new plan for i915 discrete gpu is to only support gpu
-> crash dumps on non-recoverable gpu contexts, i.e. those that do not
-> continue to the next batch when something bad happens. This is what vk
-> wants and also what iris now uses (we do context recovery in userspace in
-> all cases), and non-recoverable contexts greatly simplify the crash dump
-> gather: Only thing you need to gather is the register state from hw
-> (before you reset it), all the batchbuffer bo and indirect state bo (in
-> i915 you can mark which bo to capture in the CS ioctl) can be captured in
-> a worker later on. Which for non-recoverable context is no issue, since
-> subsequent batchbuffers won't trample over any of these things.
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2022-03-17 11:13 a.m., Lee Jones
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:YjNQA80wkWpy+AmA@google.com">
+      <pre class="moz-quote-pre" wrap="">On Thu, 17 Mar 2022, Felix Kuehling wrote:
 
-fwiw, we snapshot everything (cmdstream and bo's marked with dump
-flag, in addition to hw state) before resuming the GPU, so there is no
-danger of things being trampled.  After state is captured and GPU
-reset, we "replay" the submits that were written into the ringbuffer
-after the faulting submit.  GPU crashes should be a thing you don't
-need to try to optimize.
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">
+Am 2022-03-17 um 11:00 schrieb Lee Jones:
+</pre>
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">Good afternoon Felix,
 
-(At some point, I'd like to use scheduler for the replay, and actually
-use drm_sched_stop()/etc.. but last time I looked there were still
-some sched bugs in that area which prevented me from deleting a bunch
-of code ;-))
+Thanks for your review.
 
-BR,
--R
+</pre>
+          <blockquote type="cite">
+            <pre class="moz-quote-pre" wrap="">Am 2022-03-17 um 09:16 schrieb Lee Jones:
+</pre>
+            <blockquote type="cite">
+              <pre class="moz-quote-pre" wrap="">Presently the Client can be freed whilst still in use.
 
->
-> And that way you can record the crashdump (or at least the big pieces lik=
-e
-> all the indirect state stuff) with GFP_KERNEL.
->
-> msm probably gets it wrong since embedded drivers have much less shrinker
-> and generally no mmu notifiers going on :-)
->
-> > I mean it is strictly forbidden to allocate any memory in the GPU reset
-> > path.
-> >
-> > > I would however *strongly* recommend devcoredump support in other GPU
-> > > drivers (i915's thing pre-dates devcoredump by a lot).. I've used it
-> > > to debug and fix a couple obscure issues that I was not able to
-> > > reproduce by myself.
-> >
-> > Yes, completely agree as well.
->
-> +1
->
-> Cheers, Daniel
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+Use the already provided lock to prevent this.
+
+Cc: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
+Cc: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
+Cc: &quot;Christian König&quot; <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
+Cc: &quot;Pan, Xinhui&quot; <a class="moz-txt-link-rfc2396E" href="mailto:Xinhui.Pan@amd.com">&lt;Xinhui.Pan@amd.com&gt;</a>
+Cc: David Airlie <a class="moz-txt-link-rfc2396E" href="mailto:airlied@linux.ie">&lt;airlied@linux.ie&gt;</a>
+Cc: Daniel Vetter <a class="moz-txt-link-rfc2396E" href="mailto:daniel@ffwll.ch">&lt;daniel@ffwll.ch&gt;</a>
+Cc: <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+Cc: <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a>
+Signed-off-by: Lee Jones <a class="moz-txt-link-rfc2396E" href="mailto:lee.jones@linaro.org">&lt;lee.jones@linaro.org&gt;</a>
+---
+   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 6 ++++++
+   1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+index e4beebb1c80a2..3b9ac1e87231f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+@@ -145,8 +145,11 @@ static int kfd_smi_ev_release(struct inode *inode, struct file *filep)
+   	spin_unlock(&amp;dev-&gt;smi_lock);
+   	synchronize_rcu();
++
++	spin_lock(&amp;client-&gt;lock);
+   	kfifo_free(&amp;client-&gt;fifo);
+   	kfree(client);
++	spin_unlock(&amp;client-&gt;lock);
+</pre>
+            </blockquote>
+            <pre class="moz-quote-pre" wrap="">The spin_unlock is after the spinlock data structure has been freed.
+</pre>
+          </blockquote>
+          <pre class="moz-quote-pre" wrap="">Good point.
+
+If we go forward with this approach the unlock should perhaps be moved
+to just before the kfree().
+
+</pre>
+          <blockquote type="cite">
+            <pre class="moz-quote-pre" wrap="">There
+should be no concurrent users here, since we are freeing the data structure.
+If there still are concurrent users at this point, they will crash anyway.
+So the locking is unnecessary.
+</pre>
+          </blockquote>
+          <pre class="moz-quote-pre" wrap="">The users may well crash, as does the kernel unfortunately.
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">We only get to kfd_smi_ev_release when the file descriptor is closed. User
+mode has no way to use the client any more at this point. This function also
+removes the client from the dev-&gt;smi_cllients list. So no more events will
+be added to the client. Therefore it is safe to free the client.
+
+If any of the above were not true, it would not be safe to kfree(client).
+
+But if it is safe to kfree(client), then there is no need for the locking.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+I'm not keen to go into too much detail until it's been patched.
+
+However, there is a way to free the client while it is still in use.
+
+Remember we are multi-threaded.
+</pre>
+    </blockquote>
+    <p>files_struct-&gt;count refcount is used to handle this race, as
+      vfs_read/vfs_write takes file refcount and fput calls release only
+      if refcount is 1, to guarantee that read/write from user space is
+      finished here.</p>
+    <p>Another race is driver add_event_to_kfifo while closing the
+      handler. We use rcu_read_lock in add_event_to_kfifo, and
+      kfd_smi_ev_release calls synchronize_rcu to wait for all rcu_read
+      done. So it is safe to call kfifo_free(&amp;client-&gt;fifo) and
+      kfree(client).</p>
+    <p>Regards,</p>
+    <p>Philip<br>
+    </p>
+    <blockquote type="cite" cite="mid:YjNQA80wkWpy+AmA@google.com">
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+    </blockquote>
+  </body>
+</html>
