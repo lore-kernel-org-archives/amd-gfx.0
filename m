@@ -4,69 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6F5CC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 16:41:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ADFCC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 16:45:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D45510E030;
-	Thu, 17 Mar 2022 16:41:54 +0000 (UTC)
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1733C10E1C3
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 16:29:53 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id
- 123-20020a1c1981000000b0038b3616a71aso3448662wmz.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 09:29:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=kDi3u2Fpg/HiXJzQg2FZCCoSOv6AyU+mSPjwymI3Wrk=;
- b=Dbb/8Docx3JTOXH60FA+hbNfnEYP7UBzIjJoDwrd1r6mggFsnSY4yDS6VjLRxwLPR9
- +tA7aTZqsDMqFHX/eLD1WxC0gJEFcaN/G03bcPmpaaRn4uoYjl00++75Wg5L3b3FRaRB
- T9u5QGf1vasN5p7hCKssa3nPWpDHp4GYPfmLyhdR7dsJI0XDxAd4rrUJHkHGPupNFoOh
- ldxg3+NAUKNu51ddPY+APck86WOwjix1WglymXDjNfWciAA4mC9PDzbuo3bP5djjWuMB
- 0jZGbUWW28WmzooF5W4SbygRR+sOFe7+mIuUhhE940fM4eNtxFkL3LBMxZiT64Gz1+Ym
- FF3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=kDi3u2Fpg/HiXJzQg2FZCCoSOv6AyU+mSPjwymI3Wrk=;
- b=Wg1/NCF/msPIarTnB8c1g1EQ84SjqLtSzmO7LzZafNMM0cdCjZekcyWUtD0J6tA8Qb
- A+fHPejLQ7fgOxy75Vjc0T6Vvot45Ed3Agvh0xmgXYpbHDhW50Cx2bTa4HFFAqbVPyRh
- g0hTgdVtY3IFF5MAbM0I27ZTz/DSRDMQtG3U00Kb50A8eMB4CLkeiUPNwr7BppIjkAS1
- Sx+kn3wtX9Y90jh0yfXVEAvw+nVWs/exXM64g70ikcF4UMW0uWUGviSTUUUqqymG4azz
- MgSKwg19CrXfzTBXoHnswnzjCs9sfpcCoz0drwTuE4aBHSKUO+yZUFeZqscQQtwm+pzc
- mCDQ==
-X-Gm-Message-State: AOAM5324bSIttEOHwJ+cKfkPdV0Uftvhww+i2TO8jXILOgkx1ck1uAku
- OTeoCPOYqD4gUtp52dbtbmMysA==
-X-Google-Smtp-Source: ABdhPJx7eFoWc1+O+6CetQKREpg7NPIRnjV0e41581z4Q7DP0Z44sxvPJM29XYwa37FlshoC25Os3Q==
-X-Received: by 2002:a05:600c:19d1:b0:389:d567:e9a0 with SMTP id
- u17-20020a05600c19d100b00389d567e9a0mr12068976wmq.137.1647534591453; 
- Thu, 17 Mar 2022 09:29:51 -0700 (PDT)
-Received: from google.com (cpc155339-bagu17-2-0-cust87.1-3.cable.virginm.net.
- [86.27.177.88]) by smtp.gmail.com with ESMTPSA id
- i14-20020a0560001ace00b00203da1fa749sm7530217wry.72.2022.03.17.09.29.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Mar 2022 09:29:50 -0700 (PDT)
-Date: Thu, 17 Mar 2022 16:29:48 +0000
-From: Lee Jones <lee.jones@linaro.org>
-To: philip yang <yangp@amd.com>
-Subject: Re: [PATCH 1/1] drm/amdkfd: Protect the Client whilst it is being
- operated on
-Message-ID: <YjNh/Ajxgp3mjvWV@google.com>
-References: <20220317131610.554347-1-lee.jones@linaro.org>
- <8702f8a5-62a1-c07e-c7b7-e9378be069b6@amd.com>
- <YjNNCXc8harOvwqe@google.com>
- <1f003356-3cf9-7237-501e-950d0aa124d1@amd.com>
- <YjNQA80wkWpy+AmA@google.com>
- <b65db51e-f1ba-3a9b-0ac1-0b8ae51c5eee@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D965310E032;
+	Thu, 17 Mar 2022 16:45:17 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 580E710E032
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 16:45:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ihp/uSjhD1HDHBXVEcauOc9B7ELkNJb4hqdrJ7V9CAvMbyi0QqOxuneFcACpit8gonYibOObxSffPafW+7NcX0g7aYHJVHyy5a7irSv0kO/d941oZx96/vi6yW6aquJygOJLGWjVrLKhREkMFqOhNR5c7qIvk284ng69hgT/EXF74Oe1HFZW5JJ4dUvPC0nz5QlgdjMb6W/XkEN+Ckx5AZTny42NmJKBOMbTijJOuuEchdG8UiZUAFxhWV7E5hh9APMku8xuKsr5d0H5BoIyecSASEI2PpIDsFNWhyRze39p5xS4ejS0mBpyLzEBnTOMFUlO1Y9aF2yegvsV0PLh7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ck3biPthL5IW/V8SRb2lNALJB4jjW1G2wHN1tIZ3L1k=;
+ b=NUqVGEEd68vOIsx4TCGPZQNNpRMpdE7wtsIB03e4tFrX4JGq4Y8WbJu9RZ7nE92r/aU6/ky9zCrc1Y2zS4SitbhXs3vmfpgQw7i4HQ7IkpyHaEUJSanmUtQhhImghiSj0Q2IkUJ8qri0/Ujtx3qpddlvZMWycZbqwkxJukNO/efTCX2CfuMem0u1Jc9by4ISAXaI8Knm2mIDAFpdMqyKeWdNYys8asrQ1Q+iRyEFsGcgUX+S5hK7GsDXY2HoUTT2EonH8WZielan1mn0pYI5S17kiBGr6oeIxZ0Q2dbikVyaZLh9BXzUvtRrm5+NmdBz63m0yHSyxHDnd6h0/Lmf6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ck3biPthL5IW/V8SRb2lNALJB4jjW1G2wHN1tIZ3L1k=;
+ b=0aACK/FYvGGBKJNou1+0vzfTWkr4FDB6owlUpzGzWOmkRHlX7hMoXu1NtbRKuUVTIpVy9R4ppcx5JNinIL/8+ZUWEMy0ZooPr61CYo6WbkUi2w43xspXeggKaWvNlha7papb4VUHteucgoupdAhRHiZaTl2lVKl9x2lqwwejqco=
+Received: from DS7PR05CA0058.namprd05.prod.outlook.com (2603:10b6:8:2f::11) by
+ BL1PR12MB5064.namprd12.prod.outlook.com (2603:10b6:208:30a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.16; Thu, 17 Mar
+ 2022 16:45:13 +0000
+Received: from DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2f:cafe::3c) by DS7PR05CA0058.outlook.office365.com
+ (2603:10b6:8:2f::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.7 via Frontend
+ Transport; Thu, 17 Mar 2022 16:45:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT016.mail.protection.outlook.com (10.13.173.139) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5081.14 via Frontend Transport; Thu, 17 Mar 2022 16:45:12 +0000
+Received: from elenaKubuntuDevTest.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Thu, 17 Mar 2022 11:45:11 -0500
+From: Elena Sakhnovitch <elena.sakhnovitch@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amd/pm: Disable fan control if not supported
+Date: Thu, 17 Mar 2022 12:44:58 -0400
+Message-ID: <20220317164458.1365967-1-elena.sakhnovitch@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b65db51e-f1ba-3a9b-0ac1-0b8ae51c5eee@amd.com>
-X-Mailman-Approved-At: Thu, 17 Mar 2022 16:41:52 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 90e502e5-d46a-4e15-aa27-08da083581d8
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5064:EE_
+X-Microsoft-Antispam-PRVS: <BL1PR12MB50640372C02113A1FCCA79FDE0129@BL1PR12MB5064.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MoG8RkY6GGyMpBQkwDPYbj63FrB3cUPXW27e23sc2joTeQfD+JBo/V4q0++4corHm3T0GzQxfUHSqGILc+KiyecaQxoD0Au+93iibuObfHEgtRoL0DP8tWMKA9AZwjb6tEZBJfm0Oy9OlKgdKRqYB5Quwb4Vojb0RMNSDKJ0cd+Lp+EGSYvzj8R3Jst3WrGzTu2tFvh89aqHEQy2s2HUugXEGF6MIy4cXwuu6FZh3/JQyDNddR1s0Bht25yQvqepRTlpOBgafDhiBUjKaYa3M4WWX0gfpEIufW0r/8m6SXomLX35DO98103u8ZmGz6y7Z/9xR067PrGZXiPjCtWdV5Kyyt7eqEUyNSXHdIBTetAWyPm3mApZzi36s/2mHgfxdauuF9exR3D8XLbkj32TZKib+X9F7KwQ1jyWT91PtgCikygN3qAjFYUUnagpKHRt/7h0jkhwK/tqoaeCTGAWqsUsqZ+Tj3xkFTrC+vbxZlQP5g7uvp5q1mekMXUI6Xyz+qkh5+plreL9stGtGF6ZLLsACQ4cYo91Wrw8HuW2yz1bUMsMrcV1lMjxjBjen67QFXu4TfesTD2mRkbP7RFUE1Bh/vuo1atuxll8V1SW0WZFrktWNtQddLNO6IC1CrMQ+f0RWc5KRTLeYSErUiEv9wiJ+atXgoBJ4NsEU0aYkSZacgZS1mxIZ59DnQt+yFq+a2XxhuakvxIeswfPY+/R2w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(2616005)(47076005)(26005)(316002)(2906002)(70206006)(36860700001)(8676002)(36756003)(426003)(186003)(6916009)(336012)(16526019)(70586007)(86362001)(82310400004)(356005)(4326008)(44832011)(508600001)(6666004)(83380400001)(7696005)(8936002)(1076003)(40460700003)(81166007)(5660300002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2022 16:45:12.9689 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90e502e5-d46a-4e15-aa27-08da083581d8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5064
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,108 +98,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Felix Kuehling <felix.kuehling@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: elena.sakhnovitch@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 17 Mar 2022, philip yang wrote:
+On Sienna Cichild, not all platforms use PMFW based fan control. On such
+ASICs fan control by PMFW will be disabled in PPTable. Disable hwmon
+knobs for fan control also as it is not possible to report or control
+fan speed on such platforms through driver.
+v2: FEATURE_FAN_CONTROL_MASK is replaced with FEATURE_FAN_CONTROL_BIT
 
->    On 2022-03-17 11:13 a.m., Lee Jones wrote:
-> 
-> On Thu, 17 Mar 2022, Felix Kuehling wrote:
-> 
-> 
-> Am 2022-03-17 um 11:00 schrieb Lee Jones:
-> 
-> Good afternoon Felix,
-> 
-> Thanks for your review.
-> 
-> 
-> Am 2022-03-17 um 09:16 schrieb Lee Jones:
-> 
-> Presently the Client can be freed whilst still in use.
-> 
-> Use the already provided lock to prevent this.
-> 
-> Cc: Felix Kuehling [1]<Felix.Kuehling@amd.com>
-> Cc: Alex Deucher [2]<alexander.deucher@amd.com>
-> Cc: "Christian König" [3]<christian.koenig@amd.com>
-> Cc: "Pan, Xinhui" [4]<Xinhui.Pan@amd.com>
-> Cc: David Airlie [5]<airlied@linux.ie>
-> Cc: Daniel Vetter [6]<daniel@ffwll.ch>
-> Cc: [7]amd-gfx@lists.freedesktop.org
-> Cc: [8]dri-devel@lists.freedesktop.org
-> Signed-off-by: Lee Jones [9]<lee.jones@linaro.org>
-> ---
->    drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 6 ++++++
->    1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/a
-> mdkfd/kfd_smi_events.c
-> index e4beebb1c80a2..3b9ac1e87231f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> @@ -145,8 +145,11 @@ static int kfd_smi_ev_release(struct inode *inode, struct f
-> ile *filep)
->         spin_unlock(&dev->smi_lock);
->         synchronize_rcu();
-> +
-> +       spin_lock(&client->lock);
->         kfifo_free(&client->fifo);
->         kfree(client);
-> +       spin_unlock(&client->lock);
-> 
-> The spin_unlock is after the spinlock data structure has been freed.
-> 
-> Good point.
-> 
-> If we go forward with this approach the unlock should perhaps be moved
-> to just before the kfree().
-> 
-> 
-> There
-> should be no concurrent users here, since we are freeing the data structure.
-> If there still are concurrent users at this point, they will crash anyway.
-> So the locking is unnecessary.
-> 
-> The users may well crash, as does the kernel unfortunately.
-> 
-> We only get to kfd_smi_ev_release when the file descriptor is closed. User
-> mode has no way to use the client any more at this point. This function also
-> removes the client from the dev->smi_cllients list. So no more events will
-> be added to the client. Therefore it is safe to free the client.
-> 
-> If any of the above were not true, it would not be safe to kfree(client).
-> 
-> But if it is safe to kfree(client), then there is no need for the locking.
-> 
-> I'm not keen to go into too much detail until it's been patched.
-> 
-> However, there is a way to free the client while it is still in use.
-> 
-> Remember we are multi-threaded.
-> 
->    files_struct->count refcount is used to handle this race, as
->    vfs_read/vfs_write takes file refcount and fput calls release only if
->    refcount is 1, to guarantee that read/write from user space is finished
->    here.
-> 
->    Another race is driver add_event_to_kfifo while closing the handler. We
->    use rcu_read_lock in add_event_to_kfifo, and kfd_smi_ev_release calls
->    synchronize_rcu to wait for all rcu_read done. So it is safe to call
->    kfifo_free(&client->fifo) and kfree(client).
+Signed-off-by: Elena Sakhnovitch  <elena.sakhnovitch@amd.com>
+---
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-Philip, please reach out to Felix.
-
-We have discussed this in more detail off-line.
-
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 38f04836c82f..c4fd70376481 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -371,6 +371,18 @@ static void sienna_cichlid_check_bxco_support(struct smu_context *smu)
+ 	}
+ }
+ 
++static void sienna_cichlid_check_fan_support(struct smu_context *smu)
++{
++	struct smu_table_context *table_context = &smu->smu_table;
++	PPTable_t *pptable = table_context->driver_pptable;
++	/* No sort of fan control possible if PPTable has it disabled */
++	smu->adev->pm.no_fan =
++		!(pptable->FeaturesToRun[0] & ( 1U << FEATURE_FAN_CONTROL_BIT));
++	if (smu->adev->pm.no_fan)
++		dev_info_once(smu->adev->dev,
++			      "PMFW based fan control disabled");
++}
++
+ static int sienna_cichlid_check_powerplay_table(struct smu_context *smu)
+ {
+ 	struct smu_table_context *table_context = &smu->smu_table;
+@@ -381,6 +393,7 @@ static int sienna_cichlid_check_powerplay_table(struct smu_context *smu)
+ 		smu->dc_controlled_by_gpio = true;
+ 
+ 	sienna_cichlid_check_bxco_support(smu);
++	sienna_cichlid_check_fan_support(smu);
+ 
+ 	table_context->thermal_controller_type =
+ 		powerplay_table->thermal_controller_type;
+@@ -410,7 +423,7 @@ static int sienna_cichlid_append_powerplay_table(struct smu_context *smu)
+ 	GET_PPTABLE_MEMBER(I2cControllers, &table_member);
+ 	memcpy(table_member, smc_dpm_table->I2cControllers,
+ 			sizeof(*smc_dpm_table) - sizeof(smc_dpm_table->table_header));
+-	
++
+ 	return 0;
+ }
+ 
 -- 
-Lee Jones [李琼斯]
-Principal Technical Lead - Developer Services
-Linaro.org │ Open source software for Arm SoCs
-Follow Linaro: Facebook | Twitter | Blog
+2.25.1
+
