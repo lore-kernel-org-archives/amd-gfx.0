@@ -4,64 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BDF9C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 14:23:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7E26C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 14:23:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C93610EAEC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE05110EB6C;
 	Thu, 17 Mar 2022 14:23:20 +0000 (UTC)
-Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
- [IPv6:2607:f8b0:4864:20::112d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C43D10E624
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 14:22:15 +0000 (UTC)
-Received: by mail-yw1-x112d.google.com with SMTP id
- 00721157ae682-2e5757b57caso59921537b3.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 07:22:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jbzrEoZkh3IQyGP4Z/QZFnd3Nhw5QZGTt4HaViU1gk8=;
- b=SFiUBQTIojjILrohES4QijrGh/3sRD5oenIxtoQoURDyuF9AyNvYsaaGcHG7vL+gFN
- +kC2Kt0bu0d4mG3en7bhneeHvzvKimIVxYYPeD1GtZzquzwCkquhuektYYGWdqgJMsNO
- lihAh+8WAzE3DUd2sbWEDaxuP9cj6NyOE0M6WaVM5fo29LXeEy2TNL2dX3hD8wuwg/Nz
- LmTHX/PvxmICA1qvlqPHfIHsMFjazuV7PHtv/cexjui+mR4m4ylG1yAhO2x4qerN1IVr
- cAWcwn8q/0kUqwdXCNlc7AffsXnEGZUcher3lXVTjzN3TnfW8Z50qZDvGSiP7A6cF8KA
- kf8A==
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3949A10E624
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 14:19:38 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id h16so2637278wmd.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 07:19:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=vOnzxJlH628gKK791oOxGy9dmx+tXiUp5rK1D8p/Qyc=;
+ b=kDa19YjHt8tRsYBiCBRfz6pxQ6UQoy4iCEQZlW16D9UkkNnJ5lJWdzG5326YcKXBbe
+ wXqwKuhekffzEpU/DSQxmw8BngtaGdfZqJb+dcnZFsBEvsulNkyI+Ewh6bkGRNbnsNL3
+ iTsuRvUa5JouyV37vWooKUnnwgTmoilWrVXbPZqGYIkHky8DmZ7n4SzCUBsggTqvfvRK
+ 5JwbkPO2e5PRQCviaoDuQaaHS8QpAIMPmrOTTm6DFGb55TOkSyDDwA6xan0PlhGk4R26
+ FPZPX7kc3a+Taa39eA1Ls/isLKM7mMxkqlekhijkOVXc2WWIowYHwAPx9xa+rzaDIC3u
+ 7YSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=jbzrEoZkh3IQyGP4Z/QZFnd3Nhw5QZGTt4HaViU1gk8=;
- b=VBoCEV8vDxcItP8ixSJxW/kr/jcsLg+L+FJV19EVUXFHPI3iW9dCNbcvoXZB98/94P
- EFEO2k3fFjchrQB6w7xRAiGrC2Crouooz8+qI351iXf5YOhk43lqAeaPYa8K3pKVIHA0
- Nbx7DLhHVUNbSNbQQFlNge2zed4wThcHyYomzfJM3OVDRD50oaLpy1cw7OVRtmZJAMq2
- TqKRY2RoV5y2gJLQrcSt+qA3rX8W3SJ30+tvH+qn1ui/cikxIF0BlUbxEhOdLz/zslA5
- i6OpGBLadYos5MY2BqzLZKko9yf7TeBbaBEfMyuh+QqnP+doTrwNvsuW8Brsnk2rg/N9
- T/QA==
-X-Gm-Message-State: AOAM531UwsYL3diKM5Jh3QBsoQ9M2dfN+Frz+zLQVBpapb9B+IrsDrv8
- 1tHKvY5pLS+vXJZw0v4vogahsvlveXyJiRG27Xo=
-X-Google-Smtp-Source: ABdhPJzaUJRyQ7NS7G9QBdOSwtwPWvllkyOA2eEI/Gn97gTGRfyV2+YERgdmbCwOkSV6TwYnhnCj5pefmUk9mw9mQb4=
-X-Received: by 2002:a0d:c947:0:b0:2e5:c4fa:b5ab with SMTP id
- l68-20020a0dc947000000b002e5c4fab5abmr1952351ywd.241.1647526934337; Thu, 17
- Mar 2022 07:22:14 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=vOnzxJlH628gKK791oOxGy9dmx+tXiUp5rK1D8p/Qyc=;
+ b=55y1EezLapJrui4plXZsi2bQJro6C50WLhJpbyt+lI9XMjzpFsdRJ1fTwpmdO46ffE
+ U4HvBIg9MiykiGaKBDwZ1WmaAcUmaLvN9bgRAkktF6st+ciSLCO/Cp0Mh0REkuv5XEzP
+ PxHYQa48IsZ3X37igEU1dowetvw4JOLO32daDYn8MSdIkNp0WfX7AuYaiUqlFwStMuex
+ cZHWS9hTrT5g9UdqxMJZ3NXLI6oEr0Xq8O+TdUsPkno5nHffrfC+yIvKVk6y4UKyIPGT
+ v/pXuXqSlrr3Lzygt9SSOmLEzGklquj5vCS+mbZbPZBKW0YMO/uJs3lEatQCgn+2Qu/U
+ TV+g==
+X-Gm-Message-State: AOAM532k5mr4DmCJWYJj3q/MsS0avP4asBa0mBf3P8Va0FuQam9NgzJJ
+ tNSNl9P30ITsX5Mrq7tezy8gOMYL9JnsLQ==
+X-Google-Smtp-Source: ABdhPJxHZZo33eVHgCXtOwWiAcwRItKQpqcB0Hn2WCbkLjhRmwjh4xDZTHa0HI9wyEJ/oy2JZF1G3w==
+X-Received: by 2002:a05:600c:3c9f:b0:38c:6dc6:6de2 with SMTP id
+ bg31-20020a05600c3c9f00b0038c6dc66de2mr6739347wmb.132.1647526776607; 
+ Thu, 17 Mar 2022 07:19:36 -0700 (PDT)
+Received: from google.com (cpc155339-bagu17-2-0-cust87.1-3.cable.virginm.net.
+ [86.27.177.88]) by smtp.gmail.com with ESMTPSA id
+ v20-20020a7bcb54000000b0037fa63db8aasm7975546wmj.5.2022.03.17.07.19.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Mar 2022 07:19:35 -0700 (PDT)
+Date: Thu, 17 Mar 2022 14:19:33 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: linux-kernel@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/1] drm/amdkfd: Protect the Client whilst it is being
+ operated on
+Message-ID: <YjNDdXXOMYNuHJcV@google.com>
+References: <20220317131610.554347-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-References: <CAMdYzYptw9L=5SECtVkNZruTT-x57+03vj0A+5efvq8cESzLyQ@mail.gmail.com>
- <CADnq5_NXmRr_Q7JuWZxJAjmavVkvJjNcWayQ1x8LhfcX5CS0uA@mail.gmail.com>
- <CAMdYzYoamh-igvBbKaLSJ6bSc3wA29=8mooJDLMJkj9YQ=wj0A@mail.gmail.com>
- <CADnq5_NXFZPA_z6413FDgr8WRObhCB+HdkHE5P=PAAMV4FiWiA@mail.gmail.com>
- <20dffd4d-fa54-5bc3-c13b-f8ffbf0fb593@arm.com>
- <599edb94-8294-c4c5-ff7f-84c7072af3dd@gmail.com>
- <546bf682-565f-8384-ec80-201ce1c747f4@arm.com>
- <8afb06c4-7601-d0d7-feae-ee5abc9c3641@amd.com>
- <CAMdYzYqH57HuqMMydMtQw2Ep2A_Qhjg3N_gTw6GuO6Kuxd9chQ@mail.gmail.com>
- <c3bd7c08-f7e3-153e-8445-8e867916d03c@arm.com>
- <CAMdYzYpt1vOCXiDUHCnuVRKnQ51Qissj9-w75FB6nVrFWS-9iw@mail.gmail.com>
- <6f5aaddd-e793-e5f1-17aa-71e7804f035f@arm.com>
-In-Reply-To: <6f5aaddd-e793-e5f1-17aa-71e7804f035f@arm.com>
-From: Peter Geis <pgwipeout@gmail.com>
-Date: Thu, 17 Mar 2022 10:21:59 -0400
-Message-ID: <CAMdYzYrxM-+kt=4_zHX9Nfy_cW0jWfw9n30N=3VePkvMuKYyBA@mail.gmail.com>
-Subject: Re: radeon ring 0 test failed on arm64
-To: Robin Murphy <robin.murphy@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220317131610.554347-1-lee.jones@linaro.org>
 X-Mailman-Approved-At: Thu, 17 Mar 2022 14:23:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,151 +77,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Simon Xue <xxm@rock-chips.com>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Shawn Lin <shawn.lin@rock-chips.com>, Kever Yang <kever.yang@rock-chips.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, Jingoo Han <jingoohan1@gmail.com>,
- Alex Deucher <alexdeucher@gmail.com>,
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 17, 2022 at 9:17 AM Robin Murphy <robin.murphy@arm.com> wrote:
->
-> On 2022-03-17 12:26, Peter Geis wrote:
-> > On Thu, Mar 17, 2022 at 6:37 AM Robin Murphy <robin.murphy@arm.com> wrote:
-> >>
-> >> On 2022-03-17 00:14, Peter Geis wrote:
-> >>> Good Evening,
+On Thu, 17 Mar 2022, Lee Jones wrote:
 
-I've added the Designware driver maintainers, since the Rockchip host
-driver uses the dwc driver.
+> Presently the Client can be freed whilst still in use.
+> 
+> Use the already provided lock to prevent this.
+> 
+> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian König" <christian.koenig@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> Signed-off-by: Lee Jones <lee.jones@linaro.org>
+> ---
 
-> >>>
-> >>> I apologize for raising this email chain from the dead, but there have
-> >>> been some developments that have introduced even more questions.
-> >>> I've looped the Rockchip mailing list into this too, as this affects
-> >>> rk356x, and likely the upcoming rk3588 if [1] is to be believed.
-> >>>
-> >>> TLDR for those not familiar: It seems the rk356x series (and possibly
-> >>> the rk3588) were built without any outer coherent cache.
-> >>> This means (unless Rockchip wants to clarify here) devices such as the
-> >>> ITS and PCIe cannot utilize cache snooping.
-> >>> This is based on the results of the email chain [2].
-> >>>
-> >>> The new circumstances are as follows:
-> >>> The RPi CM4 Adventure Team as I've taken to calling them has been
-> >>> attempting to get a dGPU working with the very broken Broadcom
-> >>> controller in the RPi CM4.
-> >>> Recently they acquired a SoQuartz rk3566 module which is pin
-> >>> compatible with the CM4, and have taken to trying it out as well.
-> >>>
-> >>> This is how I got involved.
-> >>> It seems they found a trivial way to force the Radeon R600 driver to
-> >>> use Non-Cached memory for everything.
-> >>> This single line change, combined with using memset_io instead of
-> >>> memset, allows the ring tests to pass and the card probes successfully
-> >>> (minus the DMA limitations of the rk356x due to the 32 bit
-> >>> interconnect).
-> >>> I discovered using this method that we start having unaligned io
-> >>> memory access faults (bus errors) when running glmark2-drm (running
-> >>> glmark2 directly was impossible, as both X and Wayland crashed too
-> >>> early).
-> >>> I traced this to using what I thought at the time was an unsafe memcpy
-> >>> in the mesa stack.
-> >>> Rewriting this function to force aligned writes solved the problem and
-> >>> allows glmark2-drm to run to completion.
-> >>> With some extensive debugging, I found about half a dozen memcpy
-> >>> functions in mesa that if forced to be aligned would allow Wayland to
-> >>> start, but with hilarious display corruption (see [3]. [4]).
-> >>> The CM4 team is convinced this is an issue with memcpy in glibc, but
-> >>> I'm not convinced it's that simple.
-> >>>
-> >>> On my two hour drive in to work this morning, I got to thinking.
-> >>> If this was an memcpy fault, this would be universally broken on arm64
-> >>> which is obviously not the case.
-> >>> So I started thinking, what is different here than with systems known to work:
-> >>> 1. No IOMMU for the PCIe controller.
-> >>> 2. The Outer Cache Issue.
-> >>>
-> >>> Robin:
-> >>> My questions for you, since you're the smartest person I know about
-> >>> arm64 memory management:
-> >>> Could cache snooping permit unaligned accesses to IO to be safe?
-> >>
-> >> No.
-> >>
-> >>> Or
-> >>> Is it the lack of an IOMMU that's causing the alignment faults to become fatal?
-> >>
-> >> No.
-> >>
-> >>> Or
-> >>> Am I insane here?
-> >>
-> >> No. (probably)
-> >>
-> >> CPU access to PCIe has nothing to do with PCIe's access to memory. From
-> >> what you've described, my guess is that a GPU BAR gets put in a
-> >> non-prefetchable window, such that it ends up mapped as Device memory
-> >> (whereas if it were prefetchable it would be Normal Non-Cacheable).
-> >
-> > Okay, this is perfect and I think you just put me on the right track
-> > for identifying the exact issue. Thanks!
-> >
-> > I've sliced up the non-prefetchable window and given it a prefetchable window.
-> > The 256MB BAR now resides in that window.
-> > However I'm still getting bus errors, so it seems the prefetch isn't
-> > actually happening.
->
-> Note that "prefetchable" really just means "no side-effects on reads",
-> i.e. we can map it with a Normal memory type that technically *allows*
-> the CPU to make speculative accesses because they will not be harmful,
-> but that's not to say the CPU will do so. Just that if it did, you
-> wouldn't notice anyway.
->
-> It's entirely possible that the PCIe IP itself doesn't like unaligned
-> accesses, so changing the memory type just moves you from an alignment
-> fault to an external abort.
+I should have clarified here, that:
 
-Okay, I've tried setting up PL_COHERENCY_CONTROL_3_OFF, where AxCACHE
-can be forced from auto to predefined for reads and writes.
-As I understand it, the cache bit should permit characteristic
-mismatch to be accepted and prefetch to be enabled, when combined with
-the read/write bits.
-It doesn't seem to make a difference however.
-I got the idea to look for this from the Armada8K and Tegra drivers.
+This patch has only been *build* tested.
 
-It would be nice to know if dGPUs work at all on *any* DWC based PCIe
-controllers.
-We could use those as a starting point to find out what's broken here.
+Since I have no way to run this on real H/W.
 
->
-> > The difference is now the GPU realizes that an error has happened and
-> > initiates recovery, vice before where it seemed to be clueless.
-> > If I understand everything correctly, that's because before the bus
-> > error was raised by the CPU due to the memory flag, vice now where
-> > it's actually the bus raising the alarm.
-> >
-> > My next question, is this something the driver should set and isn't,
-> > or is it just because of the broken cache coherency?
->
-> The general rule for userspace mmap()ing PCIe-attached memory and
-> handing it off to glibc or anyone else who might assume it's regular
-> system RAM is "don't do that". If it's not access size or alignment that
-> falls over, it could be atomic operations, MTE tags, or any other
-> new-fangled memory innovation. For the ultimate dream of just plugging
-> in a card full of RAM, you either need to look back to ISA or forward to
-> CXL ;)
+Please ensure this is tested on real H/W before it gets applied, since
+it *may* have some undesired side-effects.  For instance, I have no
+idea if client->lock plays nicely with dev->smi_lock or whether this
+may well end up in deadlock.
 
-So either go back to the really old way of doing things, find and fix
-the underlying problem, or wait for the IP to catch up?
+TIA.
 
->
-> Robin.
+>  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> index e4beebb1c80a2..3b9ac1e87231f 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> @@ -145,8 +145,11 @@ static int kfd_smi_ev_release(struct inode *inode, struct file *filep)
+>  	spin_unlock(&dev->smi_lock);
+>  
+>  	synchronize_rcu();
+> +
+> +	spin_lock(&client->lock);
+>  	kfifo_free(&client->fifo);
+>  	kfree(client);
+> +	spin_unlock(&client->lock);
+>  
+>  	return 0;
+>  }
+> @@ -247,11 +250,13 @@ int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd)
+>  		return ret;
+>  	}
+>  
+> +	spin_lock(&client->lock);
+>  	ret = anon_inode_getfd(kfd_smi_name, &kfd_smi_ev_fops, (void *)client,
+>  			       O_RDWR);
+>  	if (ret < 0) {
+>  		kfifo_free(&client->fifo);
+>  		kfree(client);
+> +		spin_unlock(&client->lock);
+>  		return ret;
+>  	}
+>  	*fd = ret;
+> @@ -264,6 +269,7 @@ int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd)
+>  	spin_lock(&dev->smi_lock);
+>  	list_add_rcu(&client->list, &dev->smi_clients);
+>  	spin_unlock(&dev->smi_lock);
+> +	spin_unlock(&client->lock);
+>  
+>  	return 0;
+>  }
 
-Thanks!
-Peter
+-- 
+Lee Jones [李琼斯]
+Principal Technical Lead - Developer Services
+Linaro.org │ Open source software for Arm SoCs
+Follow Linaro: Facebook | Twitter | Blog
