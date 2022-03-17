@@ -4,59 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2C19C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 10:31:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D43CC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 11:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E0A510E777;
-	Thu, 17 Mar 2022 10:31:51 +0000 (UTC)
-Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
- [IPv6:2607:f8b0:4864:20::1136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 973BB10E775
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 10:31:49 +0000 (UTC)
-Received: by mail-yw1-x1136.google.com with SMTP id
- 00721157ae682-2d07ae0b1c0so53026377b3.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 03:31:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar-org.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=+6rubepE5fHPh6eaHtS29OzoXOf/Is2/IKhJ3XCCu74=;
- b=c9tJVuG5fV8b0t6vN8KcsbxKW16PtXQhBnxDXLrNrN+wJ/bO1dbMBYzNW5tyeGqKt1
- pKS8KRz8GjqdCyJWTY4Qu3RRhi5m1gzPKXQS0y9551QuQUnDGORAupsscLlRXMpIDRtI
- hDPDaflLOg3AA8tgeRiyzSGPAni9aqJO/0J4t3uAfHzdy26+TdajhtFcqwl/4S0huiAg
- 2x8Kw0/rChpayjBE+lha9S8t3gv+xWXe5p5LxnTs9MZQsydd/XkpzBMMnue9fvPuvE0I
- 2lD88TdQUhciEuMkdp+5KJ9FNH/2s9iuYbA2W6S1gdw3hUd07xYdzsAUPJ1bT6muvccw
- frIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=+6rubepE5fHPh6eaHtS29OzoXOf/Is2/IKhJ3XCCu74=;
- b=Jv7myR4OxKajNiLJvFw5t6IywOsKxkhXD0MdHKh4jeJ7SwJogIqfUkhPmAfk0N2xSV
- ioOuRB2ABDTZIpohUH4F9Q1d672sIhH7ZE5IzjWarUzHTFm/qBeEc1MwKKotnhlKcmR4
- FCI7Vq5vInX/KUeaCPCtULuR4JJ+/w5TYURNV19l/ModUzmI+4X9iUmjQjZTcoOp9zo2
- 8kPOjO/huEvMXbDpzeXfIf4Frmh0n0K4W+OrsFsY+tSwQHynLDAvLc3aGxEO4I0tKAUK
- MLS0tqTOm0Cb+7fmmVYIKiAJhb21XvR+kauFKNuwWFhiToejP8JEqRYOSx6ABzEewkYE
- 1I2Q==
-X-Gm-Message-State: AOAM532CScJ06m/Wm0j5VLl2Uts5cpddik8gRzTvYS4kmFXMZAuUP+6g
- Ru9XBY3U3o1246sldMIV5SL05pbbyySoqVR3TLgvhQ==
-X-Google-Smtp-Source: ABdhPJwfTnded2WRRk7XkfsFR8fdNGlv99Lrq4XWK4lx+aeuze8/cx8IYsrAABNleBujFPMxZZCRr7IvWDPUxrMfaVQ=
-X-Received: by 2002:a81:e503:0:b0:2db:6996:1f97 with SMTP id
- s3-20020a81e503000000b002db69961f97mr4875340ywl.423.1647513108644; Thu, 17
- Mar 2022 03:31:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9713910E8D7;
+	Thu, 17 Mar 2022 11:21:42 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2043.outbound.protection.outlook.com [40.107.100.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72FEB10E8D7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 11:21:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EvTc7jCyz/fFFW84KpZHX/LKK+QNvOct8rZDyu792k8O7bCOHdfTtZI7xGcP+YM/LkZjwG5TfhyVmbAzS9mOc5UMjM/9O0FiHAog6fuQFGk61LRlOo2GGzVAnKiyIMq8sUsqEttiYMLCm8P0RxRvdV2byP1uuMtWOL0s/OqMIfFLU7byzgVwrwEVOlpobnO3EEuvAZthYB2DIKYImQkTP6lxxpNKrOcN3lXVZAk4U3Iv/YRjlbi5cdlGejik8F5RNQaJt3twE/m3qKWUv8fTRYtbXyy5eTmcE2wm1GAoVI0xhzuM4xcv0LycMacmbTIxav5gLweChQ2Cj7Z/5pQo3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Kx8c0QJOo+7NJ1HK7+hIKZuULg8p09Vkv+XI8HypZcw=;
+ b=XfLNTpVqVUkwiBu0K5U8If/qN3h/rdQxOzsDJFdhm9cimgcYS7/kSimSc6loDF6Wn4c8nY7CCI/P9ZGAVgz+OLKY402+jODXEGd59ZfbirwNyKS4XdCjcT1p7k40GZnG7IbdV0Jj1gKCYlBLmTYGkLiVF++H/NC15e3ugCNtgMgrbIH6yn6e6YrpZ+zZhV/VWw6rJRQQoHIq3RBbFM6uxG6zQvRZgLIGa41yDTrJLIc85jupo430ZiUHnchS9IUdHwyFx/aXBkg6smM9KVNrESnaAeHjmf3uGnjnZx8/IkJQkERBYn10jZc79npXb0RmlSAafwH7qWzYhUm3pkPmsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Kx8c0QJOo+7NJ1HK7+hIKZuULg8p09Vkv+XI8HypZcw=;
+ b=L1mKNjsdlOI9TcnvRLgQiRh3lJQr4mSnTHjTgFz9xV7NrFSHOLWl59r+Kkl5pggsbahFx0UcsN+jS+FHN5Ewn3Cm1fXt+zZC9IdC9SbtCJ1dzDYkZ1Tl8SUcDc3eznc5oGOCm40mRLGADdMk4pMtxuxqvhWtEwKzfZqrRmDah/U=
+Received: from BN6PR21CA0024.namprd21.prod.outlook.com (2603:10b6:404:8e::34)
+ by SA1PR12MB5669.namprd12.prod.outlook.com (2603:10b6:806:237::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.26; Thu, 17 Mar
+ 2022 11:21:39 +0000
+Received: from BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:8e:cafe::79) by BN6PR21CA0024.outlook.office365.com
+ (2603:10b6:404:8e::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.8 via Frontend
+ Transport; Thu, 17 Mar 2022 11:21:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT054.mail.protection.outlook.com (10.13.177.102) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5081.14 via Frontend Transport; Thu, 17 Mar 2022 11:21:38 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Thu, 17 Mar 2022 06:21:36 -0500
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
+ <christian.koenig@amd.com>, <xinhui.pan@amd.com>, <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: move PDB bo release into a generic gmc function
+Date: Thu, 17 Mar 2022 19:21:18 +0800
+Message-ID: <20220317112118.7411-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20220308180403.75566-1-contactshashanksharma@gmail.com>
- <CAF6AEGtnXvo=-fKbgSRtAtZ80igqJM2bTKefiLPUsSohU9idNQ@mail.gmail.com>
- <4d768cc9-9a47-473c-b344-4ed34bcb5556@amd.com>
- <f291b94d-b981-5cfb-5422-ca4317d24eda@amd.com>
-In-Reply-To: <f291b94d-b981-5cfb-5422-ca4317d24eda@amd.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Thu, 17 Mar 2022 10:31:37 +0000
-Message-ID: <CAPj87rNUJzTtRSM62aq2ssLY0F673dpaFw2SGh8oMuf3yE6wBA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 01767b81-1e09-46fc-3e6f-08da08084e0e
+X-MS-TrafficTypeDiagnostic: SA1PR12MB5669:EE_
+X-Microsoft-Antispam-PRVS: <SA1PR12MB566911C7389F5B399815F56DF1129@SA1PR12MB5669.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xhGqpEp/FWmdhCq8Ps3Rb+WqzJCski/7UoCqRiA4yn3AvMQ/ceFEVHt/24QNHoYTwOXZFGnr169G5ihZMkIhzvdrsIK2rOHqeD0vMTDSbgtG11W4K/b0/JbPr1e636YovUJL9pxyNFzq4qSW6lqkykLc3kcogXXj4HulOczpuUfnIBxVqXXqj2Fi0q6drT9lGdo62x/C6L5u4wymnjwp8kTRNbsTL3IkYmGAdkvETLapXHRrNNrxUVgT9XuSrlkqhcfm2ILC+NhQuFyGfl34tV20xyN1en/KRcee6/DVYiGlGO3YJocuL0prgrXRlDtaK63fMqH1MUhUgWySQx5Qht61qp8e+E6nPGay0FQ0r8ZpQeObgMqN3AmcVjS6x9Fp3E3dZmycn/tZSzZZ4iH6r/hxgzs5vcZCWx45AHRv9VVvWfFdXTkYbh3nWlO1cCh9pZYO1LwefjS+2Hgia9LWNXhfhkcGua5XPrVNHPkFnbZWjXWoxHBbFq7y0YO0kxR39foNPXdFdbe4qJPH/yiPHb5g6ENwSuLG3VAFCHLUGC4xohqfODPpeDWoTBoicDnAilq+9jOKTd7OTGKteuHV0ALebbh+EAvQkVqEXtQKADd3gBQxMiaN19b6ByQMmYNOlNsfvlgetMqOW0nCtYDfHNZFQoPw86gmgdrE51zW2eLeIX4kyTV8igUNcjnJtv2HB26i9+fCFyY+vOLi0Hdd8tvAE5KJGHkK3JbAUcyK668=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(7696005)(336012)(2906002)(47076005)(36756003)(110136005)(426003)(6636002)(316002)(81166007)(356005)(2616005)(44832011)(82310400004)(5660300002)(508600001)(86362001)(40460700003)(6666004)(8676002)(4326008)(70586007)(70206006)(83380400001)(8936002)(26005)(16526019)(186003)(36860700001)(1076003)(41533002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2022 11:21:38.7882 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01767b81-1e09-46fc-3e6f-08da08084e0e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5669
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,54 +98,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
- Shashank" <shashank.sharma@amd.com>,
- Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alexandar Deucher <alexander.deucher@amd.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>
+Cc: Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+To pair with amdgpu_gmc_pdb0_alloc as a more generic handling
+in amdgpu_gmc.c, no functional change.
 
-On Thu, 17 Mar 2022 at 09:21, Christian K=C3=B6nig <christian.koenig@amd.co=
-m> wrote:
-> Am 17.03.22 um 09:42 schrieb Sharma, Shashank:
-> >> AFAIU you probably want to be passing around a `struct pid *`, and
-> >> then somehow use pid_vnr() in the context of the process reading the
-> >> event to get the numeric pid.  Otherwise things will not do what you
-> >> expect if the process triggering the crash is in a different pid
-> >> namespace from the compositor.
-> >
-> > I am not sure if it is a good idea to add the pid extraction
-> > complexity in here, it is left upto the driver to extract this
-> > information and pass it to the work queue. In case of AMDGPU, its
-> > extracted from GPU VM. It would be then more flexible for the drivers
-> > as well.
->
-> Yeah, but that is just used for debugging.
->
-> If we want to use the pid for housekeeping, like for a daemon which
-> kills/restarts processes, we absolutely need that or otherwise won't be
-> able to work with containers.
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 6 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 2 +-
+ 3 files changed, 8 insertions(+), 1 deletion(-)
 
-100% this.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 7021e8f390bd..36f6b321438f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -136,6 +136,12 @@ uint64_t amdgpu_gmc_pd_addr(struct amdgpu_bo *bo)
+ 	return pd_addr;
+ }
+ 
++/* amdgpu_gmc_pdb0_free - free pdb0 vram */
++void amdgpu_gmc_pdb0_free(struct amdgpu_device *adev)
++{
++	amdgpu_bo_free_kernel(&adev->gmc.pdb0_bo, NULL, &adev->gmc.ptr_pdb0);
++}
++
+ /**
+  * amdgpu_gmc_set_pte_pde - update the page tables using CPU
+  *
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 032b0313f277..6f425e3a9b6e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -299,6 +299,7 @@ static inline uint64_t amdgpu_gmc_sign_extend(uint64_t addr)
+ }
+ 
+ int amdgpu_gmc_pdb0_alloc(struct amdgpu_device *adev);
++void amdgpu_gmc_pdb0_free(struct amdgpu_device *adev);
+ void amdgpu_gmc_get_pde_for_bo(struct amdgpu_bo *bo, int level,
+ 			       uint64_t *addr, uint64_t *flags);
+ int amdgpu_gmc_set_pte_pde(struct amdgpu_device *adev, void *cpu_pt_addr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 08ceabd6c853..ad600f72a51c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1721,7 +1721,7 @@ static int gmc_v9_0_sw_fini(void *handle)
+ 	amdgpu_gem_force_release(adev);
+ 	amdgpu_vm_manager_fini(adev);
+ 	amdgpu_gart_table_vram_free(adev);
+-	amdgpu_bo_free_kernel(&adev->gmc.pdb0_bo, NULL, &adev->gmc.ptr_pdb0);
++	amdgpu_gmc_pdb0_free(adev);
+ 	amdgpu_bo_fini(adev);
+ 
+ 	return 0;
+-- 
+2.17.1
 
-Pushing back to the compositor is a red herring. The compositor is
-just a service which tries to handle window management and input. If
-you're looking to kill the offending process or whatever, then that
-should go through the session manager - be it systemd or something
-container-centric or whatever. At least that way it can deal with
-cgroups at the same time, unlike the compositor which is not really
-aware of what the thing on the other end of the socket is doing. This
-ties in with the support they already have for things like coredump
-analysis, and would also be useful for other devices.
-
-Some environments combine compositor and session manager, and a lot of
-them have them strongly related, but they're very definitely not the
-same thing ...
-
-Cheers,
-Daniel
