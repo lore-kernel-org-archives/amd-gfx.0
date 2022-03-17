@@ -4,65 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37C89C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 09:25:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 438DCC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 09:30:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F0AC10E111;
-	Thu, 17 Mar 2022 09:25:39 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4827510E10F
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 09:25:38 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id t11so6458797wrm.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 02:25:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD74D10E5DD;
+	Thu, 17 Mar 2022 09:30:00 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7F9910E5DD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 09:29:59 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id
+ l1-20020a05600c4f0100b00389645443d2so2812771wmq.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 02:29:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=8BSAlNjZuCEu5XRer0aOyCn7BXVwDId04N4ElKF4B3k=;
- b=EbAmyOKp63GBC9K3r7IshZIupB9OzicalsNrE4+xkT0nkbteqJKWpohekxHoc8KXXl
- zwuzIqiECjwqR4cFKaPN/ktk5Yo824Nct8n1DdUHodicyYNRV+W9wY1dkyI/p8gaUuTv
- RMxn1HC9SGeG3ampY+RakL8idUD8ttPUdyBLo=
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=PPV/3yekNxP1EceqjJGpxw/gKPSHQInEWHupNJLTBAk=;
+ b=ZaBsMr07JDXPa67dzAwVceU/0XWQ7VpYQsLwMcBf/Vz6W01miH3I1FJHBB7wtNBezI
+ sodGoGW9TYwAEZF+SB1xNiWpQWoX6WctRmYX9zWNomJqoyrmn6Zc425p3qc3G/JYKsqg
+ oQ/2jcQhcKJ6I/gwo7+3NlRxWXiEWCfRv8dvA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=8BSAlNjZuCEu5XRer0aOyCn7BXVwDId04N4ElKF4B3k=;
- b=ThRnCHqkxJIiLl7KVT3wq7v14i+P50TQkhCex6R9jzJ/QzpqCvyrm/e2J/bdxl2FX2
- JWWBi5+5gTWFwotMFrIwZZWeKUs8DJNxtNko2XAZ2dK8WUpQ1KkUNk3uymW3MWwzKLWc
- HCr0dFMl6J1HihshEwh+G84AWMERllE/NqlZLyBEuH8l916mzhiGnyGYc8cfuY8pGEiZ
- grOWwvn4ShEvGCOBwY+wzaxVvDVUNZU8LD5RljX/keXyxzyt/0hEEGeWmH2hfG81KLp+
- I/kOtBJ3TTATmGZY5Jd6ev32KfIuLEPlMOUWFqFqQDuya3/yIKkGKZcFeJaTr0RaLPNa
- KfFw==
-X-Gm-Message-State: AOAM531hEgowqHUTP58HBvZEXN9LUI8ZHwNfG/66SfNxwC8TfzkXtxkm
- tHICGJDzpbmFaqQVHYzjqqUA0w==
-X-Google-Smtp-Source: ABdhPJyfrL7rcL8gGouyrJ6oXT5ycMAnAN198ZXqWaDoEsdXloV13vg6dmPf4IMppHEh53waIww3sw==
-X-Received: by 2002:a5d:6746:0:b0:203:d6c1:9c5b with SMTP id
- l6-20020a5d6746000000b00203d6c19c5bmr3170842wrw.446.1647509136581; 
- Thu, 17 Mar 2022 02:25:36 -0700 (PDT)
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=PPV/3yekNxP1EceqjJGpxw/gKPSHQInEWHupNJLTBAk=;
+ b=xfHlRfDlkQwE8NStViQIq7iR0E0lbgbf6ZZ+nnNhCg9oDd527osxzF2dxnJKIO2Crg
+ 1GK3Wb5UKfXKt0kpp9R2EqFLwKD3ejtdHA3pjT4yVq599HTz4Rsqbb+sej+2NcV6N2X8
+ F2H6g0tI7bem1sxEwyqd4jIoxUpFCqY/zwNTD9TkPU0IumyN4Cs7/6jzgWqTyphXJwze
+ 0SJKY7MMEr/EprGCqiYrWhA98B323ANyoxhQzDhTSji6ZYestZDj5PxPtJ9ul2Ifo1wR
+ hIGYNiprcf7sUjSFcUfsYQvWUvIyg7cmTCvmpUSnB0Q/Ev4cTArX060qlUb7IPlaGX/+
+ Ad1g==
+X-Gm-Message-State: AOAM532ht4f28OB+C2Epo9uvE++NhbUjzIjpmcQE0prLzXdgehstdiWL
+ uaAfXwSj04pOtqd7Q3yExvSnQA==
+X-Google-Smtp-Source: ABdhPJxoRvRG+o/gOKpQUASU/0daU/fVdPz1QW8lZ31zZ9KKfEPD/2l8jKzGdNB0WKSsMhjcMezgeA==
+X-Received: by 2002:a05:600c:4e07:b0:38c:8187:13c3 with SMTP id
+ b7-20020a05600c4e0700b0038c818713c3mr508203wmq.11.1647509398135; 
+ Thu, 17 Mar 2022 02:29:58 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- k31-20020a05600c1c9f00b00389d2e0ba2asm3765936wms.16.2022.03.17.02.25.35
+ j7-20020a05600c410700b0038c72ef3f15sm2702750wmi.38.2022.03.17.02.29.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Mar 2022 02:25:36 -0700 (PDT)
-Date: Thu, 17 Mar 2022 10:25:34 +0100
+ Thu, 17 Mar 2022 02:29:57 -0700 (PDT)
+Date: Thu, 17 Mar 2022 10:29:55 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Alex Deucher <alexdeucher@gmail.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
 Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-Message-ID: <YjL+jom1S6at7xQd@phenom.ffwll.local>
-References: <CAF6AEGvvskobh6YOUx55_4rtXJJjPO0PxWY8+EKiVqntT3k+ug@mail.gmail.com>
- <6b400b8b-1b5c-a339-2345-f317f197b4a6@amd.com>
- <CAF6AEGt0XhqzkyEhbNcNVQO_A_Lo4qcsPRZRL6QqYn+NWAfv9A@mail.gmail.com>
- <bf6922f0-da8e-eef6-8217-26c1f50f3c48@quicinc.com>
- <2980e6a0-624e-2b80-c5d0-c40dfce76fb8@amd.com>
- <CAF6AEGvC=k4xLA-0iTSf660X2o04E+ivjnThZA-=WANKzLSvpA@mail.gmail.com>
- <cda15a47-f469-2a7e-87b6-adf00e631ef0@amd.com>
+Message-ID: <YjL/k6kh+5RihGIV@phenom.ffwll.local>
+References: <cda15a47-f469-2a7e-87b6-adf00e631ef0@amd.com>
  <CAF6AEGv3Wv+p1j2B-t22eeK+8rx-qrQHCGoXeV1-XPYp2Om7zg@mail.gmail.com>
  <20220311102709.225616cf@eldfell>
  <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
+ <20220314172647.223658d2@eldfell>
+ <CADnq5_NsxipfFFXfRSXvVQin3e1gj0Q_p9p-shi3VZ2pSCwwfw@mail.gmail.com>
+ <20220316104815.11ec2e6c@eldfell>
+ <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
+ <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
+ <5e246eb8-0256-c40e-40ea-d865bf99c003@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5e246eb8-0256-c40e-40ea-d865bf99c003@gmail.com>
 X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,112 +80,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
  Shashank" <shashank.sharma@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
  Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Pekka Paalanen <ppaalanen@gmail.com>,
+ Alexandar Deucher <alexander.deucher@amd.com>, Rob Clark <robdclark@gmail.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alexandar Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>,
  Shashank Sharma <contactshashanksharma@gmail.com>,
  Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 14, 2022 at 10:23:27AM -0400, Alex Deucher wrote:
-> On Fri, Mar 11, 2022 at 3:30 AM Pekka Paalanen <ppaalanen@gmail.com> wrote:
-> >
-> > On Thu, 10 Mar 2022 11:56:41 -0800
-> > Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > > For something like just notifying a compositor that a gpu crash
-> > > happened, perhaps drm_event is more suitable.  See
-> > > virtio_gpu_fence_event_create() for an example of adding new event
-> > > types.  Although maybe you want it to be an event which is not device
-> > > specific.  This isn't so much of a debugging use-case as simply
-> > > notification.
-> >
-> > Hi,
-> >
-> > for this particular use case, are we now talking about the display
-> > device (KMS) crashing or the rendering device (OpenGL/Vulkan) crashing?
-> >
-> > If the former, I wasn't aware that display device crashes are a thing.
-> > How should a userspace display server react to those?
-> >
-> > If the latter, don't we have EGL extensions or Vulkan API already to
-> > deliver that?
-> >
-> > The above would be about device crashes that directly affect the
-> > display server. Is that the use case in mind here, or is it instead
-> > about notifying the display server that some application has caused a
-> > driver/hardware crash? If the latter, how should a display server react
-> > to that? Disconnect the application?
-> >
-> > Shashank, what is the actual use case you are developing this for?
-> >
-> > I've read all the emails here so far, and I don't recall seeing it
-> > explained.
-> >
+On Thu, Mar 17, 2022 at 08:03:27AM +0100, Christian König wrote:
+> Am 16.03.22 um 16:36 schrieb Rob Clark:
+> > [SNIP]
+> > just one point of clarification.. in the msm and i915 case it is
+> > purely for debugging and telemetry (ie. sending crash logs back to
+> > distro for analysis if user has crash reporting enabled).. it isn't
+> > used for triggering any action like killing app or compositor.
 > 
-> The idea is that a support daemon or compositor would listen for GPU
-> reset notifications and do something useful with them (kill the guilty
-> app, restart the desktop environment, etc.).  Today when the GPU
-> resets, most applications just continue assuming nothing is wrong,
-> meanwhile the GPU has stopped accepting work until the apps re-init
-> their context so all of their command submissions just get rejected.
+> By the way, how does msm it's memory management for the devcoredumps?
+
+GFP_NORECLAIM all the way. It's purely best effort.
+
+Note that the fancy new plan for i915 discrete gpu is to only support gpu
+crash dumps on non-recoverable gpu contexts, i.e. those that do not
+continue to the next batch when something bad happens. This is what vk
+wants and also what iris now uses (we do context recovery in userspace in
+all cases), and non-recoverable contexts greatly simplify the crash dump
+gather: Only thing you need to gather is the register state from hw
+(before you reset it), all the batchbuffer bo and indirect state bo (in
+i915 you can mark which bo to capture in the CS ioctl) can be captured in
+a worker later on. Which for non-recoverable context is no issue, since
+subsequent batchbuffers won't trample over any of these things.
+
+And that way you can record the crashdump (or at least the big pieces like
+all the indirect state stuff) with GFP_KERNEL.
+
+msm probably gets it wrong since embedded drivers have much less shrinker
+and generally no mmu notifiers going on :-)
+
+> I mean it is strictly forbidden to allocate any memory in the GPU reset
+> path.
 > 
-> > Btw. somewhat relatedly, there has been work aiming to allow
-> > graceful hot-unplug of DRM devices. There is a kernel doc outlining how
-> > the various APIs should react towards userspace when a DRM device
-> > suddenly disappears. That seems to have some overlap here IMO.
-> >
-> > See https://www.kernel.org/doc/html/latest/gpu/drm-uapi.html#device-hot-unplug
-> > which also has a couple pointers to EGL and Vulkan APIs.
+> > I would however *strongly* recommend devcoredump support in other GPU
+> > drivers (i915's thing pre-dates devcoredump by a lot).. I've used it
+> > to debug and fix a couple obscure issues that I was not able to
+> > reproduce by myself.
 > 
-> The problem is most applications don't use the GL or VK robustness
-> APIs.  You could use something like that in the compositor, but those
-> APIs tend to be focused more on the application itself rather than the
-> GPU in general.  E.g., Is my context lost.  Which is fine for
-> restarting your context, but doesn't really help if you want to try
-> and do something with another application (i.e., the likely guilty
-> app).  Also, on dGPU at least, when you reset the GPU, vram is usually
-> lost (either due to the memory controller being reset, or vram being
-> zero'd on init due to ECC support), so even if you are not the guilty
-> process, in that case you'd need to re-init your context anyway.
+> Yes, completely agree as well.
 
-Isn't that what arb robustness and all that stuff is for? Doing that
-through sysfs event sounds very wrong, since in general apps just don't
-have access to that. Also vk equivalent is vk_error_device_lost. Iirc both
-have information like whether the app was the guilty one causing the hang,
-or whether it was just victimized because the gpu can't do anything else
-than a full gpu reset which nukes everything (like amdgpu currently has,
-aside from the thread unblock trick in the first attempt).
-
-And if your app/compositor doesn't use robust contexts then the userspace
-driver gets to do a best effort attempt at recovery, or exit(). Whatever
-you can do really.
-
-Also note that you don't actually want an event, but a query ioctl (plus
-maybe a specific errno on your CS ioctl). Neither of the above flows
-supports events for gpu resets. RESET_STATS ioctl is the i915
-implementation of this stuff.
-
-For the core dump aspect yes pls devcoredump and not reinvented wheels
-(and i915 is a bad example here, but in defence the i915 sysfs hang event
-predates devcoredump).
++1
 
 Cheers, Daniel
-
-
-> 
-> Alex
-> 
-> >
-> >
-> > Thanks,
-> > pq
-
 -- 
 Daniel Vetter
 Software Engineer, Intel Corporation
