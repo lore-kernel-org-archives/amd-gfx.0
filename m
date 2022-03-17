@@ -4,49 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89CB6C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 03:19:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73838C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 03:19:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C210010EAD5;
-	Thu, 17 Mar 2022 03:19:09 +0000 (UTC)
-X-Greylist: delayed 502 seconds by postgrey-1.36 at gabe;
- Thu, 17 Mar 2022 03:16:15 UTC
-Received: from mail-m17662.qiye.163.com (mail-m17662.qiye.163.com
- [59.111.176.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EF2310EAD5
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 03:16:15 +0000 (UTC)
-Received: from [172.16.12.93] (unknown [58.22.7.114])
- by mail-m17662.qiye.163.com (Hmail) with ESMTPA id 1FB8B140280;
- Thu, 17 Mar 2022 11:07:51 +0800 (CST)
-Message-ID: <ece56cf6-5ef2-6bd4-8e62-7828adca9844@rock-chips.com>
-Date: Thu, 17 Mar 2022 11:07:50 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 817E310EADA;
+	Thu, 17 Mar 2022 03:19:11 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2084.outbound.protection.outlook.com [40.107.223.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD4810E039;
+ Thu, 17 Mar 2022 02:53:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dLDDBMfwn9Ly3GpwhdtwQANa3eKAEtSX0SEBcxGNvAxagUFU0//drNJEjX6KxYXorjtBB/DV0ZYL5izrEeQWXCZ99zI5dcV/bLXlci8U5Zri7i89s+I0GfuBWufTVjX2DwEk+plhe6dXOrMOoAHEgdGIlJ1vpqJaU7YNHl/YVeeJ72mDqIXyqNuH7J2HBRZJ8fd9IpbYcEwir+trx//XRhLecUId+VyWssP5gNCwhjlozxIPtuE+wrYAcv5pUKZs9IIQRJOjednAYSC1C+ClJZICLKltGdj/YeOrKYYL6QnitgnFZh8P7ilZ0I1l/U/1g5TWFKKca0n8zwgx/oGcjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P2IUc6sSBHfAyfWR3EcfnQYIN7/iwGjIjbECCQIkknk=;
+ b=GHBNNDaThIYMeMkK6IO85liCTKMCng8mjWTt6QlCydfQ2SBIkYk0fy26YDNDTAddFuUfHq9/F3TrnzJH5/VOwJJvO81ik5fkRCAedPmHJBAGK7Xo+ouRg9Rl9JX1b7Uj9zydQxGRfeVMuYSysUfMZTUJoqx2EBJBkh5ETa5l6/X+PX4KjG2qLYXuSUTewp4Afs3bx3lg7SPr4YhSTsMA1TwdYRZgenvmYGIRwZ3EmbFiMstdnQXc9Mq86pbf2XpiXnBwyx3pnhyrfF5WsLXE6qV+LlHwNodFk+FRixKBYjF0f7yd/CRcEtgedp5LXNtkx1qK9loqVedhlv3MKFg0hQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P2IUc6sSBHfAyfWR3EcfnQYIN7/iwGjIjbECCQIkknk=;
+ b=CVfc6HpE4cKFyPzlEtsJSLWHXj1Ir17mFo6//o3TAWQdKQmLn+4id2Wq8mvHOqCCItUgBNxkAF4xhg+AwYoQ7fdXwyq4fdlDWmYSsw0fS1nfBUJzUkJNAN91EqRFKHyNUAE2D0TnY9o9/fS8wNMpX9hpLaGWc2O28PjESNiv/Uzo19Ygju/56Vhz2oVD5yokLxHB4HILymM13MOJci6NPfmaTKNxHHaicIskgI/E3OzlkD32eBtrwnxXeCNdem5ZWBnx020Dg7SdqHbT8KukpsFJnLLrYwCkFPIgKqDHGBrnvFgBn7oM0sG2OFs4L3o8bwomwfJ9JAFYrzpHlhLZ6w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BYAPR12MB3176.namprd12.prod.outlook.com (2603:10b6:a03:134::26)
+ by CY4PR12MB1607.namprd12.prod.outlook.com (2603:10b6:910:b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.26; Thu, 17 Mar
+ 2022 02:53:47 +0000
+Received: from BYAPR12MB3176.namprd12.prod.outlook.com
+ ([fe80::152f:613b:7041:68d6]) by BYAPR12MB3176.namprd12.prod.outlook.com
+ ([fe80::152f:613b:7041:68d6%7]) with mapi id 15.20.5061.030; Thu, 17 Mar 2022
+ 02:53:47 +0000
+From: Alistair Popple <apopple@nvidia.com>
+To: Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [PATCH v1 1/3] mm: split vm_normal_pages for LRU and non-LRU
+ handling
+Date: Thu, 17 Mar 2022 13:50:37 +1100
+References: <20220310172633.9151-1-alex.sierra@amd.com>
+ <20220310172633.9151-2-alex.sierra@amd.com>
+ <YipQqqpTz8hZAbLZ@casper.infradead.org>
+ <651099d6-21ae-16a6-e500-a87002468cda@amd.com>
+User-agent: mu4e 1.6.9; emacs 27.1
+In-reply-to: <651099d6-21ae-16a6-e500-a87002468cda@amd.com>
+Message-ID: <87mthp8f2g.fsf@nvdebian.thelocal>
+Content-Type: multipart/mixed; boundary="=-=-="
+X-ClientProxiedBy: BYAPR01CA0053.prod.exchangelabs.com (2603:10b6:a03:94::30)
+ To BYAPR12MB3176.namprd12.prod.outlook.com
+ (2603:10b6:a03:134::26)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: radeon ring 0 test failed on arm64
-Content-Language: en-US
-To: Peter Geis <pgwipeout@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
- Shawn Lin <shawn.lin@rock-chips.com>
-References: <CAMdYzYptw9L=5SECtVkNZruTT-x57+03vj0A+5efvq8cESzLyQ@mail.gmail.com>
- <CADnq5_NXmRr_Q7JuWZxJAjmavVkvJjNcWayQ1x8LhfcX5CS0uA@mail.gmail.com>
- <CAMdYzYoamh-igvBbKaLSJ6bSc3wA29=8mooJDLMJkj9YQ=wj0A@mail.gmail.com>
- <CADnq5_NXFZPA_z6413FDgr8WRObhCB+HdkHE5P=PAAMV4FiWiA@mail.gmail.com>
- <20dffd4d-fa54-5bc3-c13b-f8ffbf0fb593@arm.com>
- <599edb94-8294-c4c5-ff7f-84c7072af3dd@gmail.com>
- <546bf682-565f-8384-ec80-201ce1c747f4@arm.com>
- <8afb06c4-7601-d0d7-feae-ee5abc9c3641@amd.com>
- <CAMdYzYqH57HuqMMydMtQw2Ep2A_Qhjg3N_gTw6GuO6Kuxd9chQ@mail.gmail.com>
-From: Kever Yang <kever.yang@rock-chips.com>
-In-Reply-To: <CAMdYzYqH57HuqMMydMtQw2Ep2A_Qhjg3N_gTw6GuO6Kuxd9chQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZCBgUCR5ZQVlLVUtZV1
- kWDxoPAgseWUFZKDYvK1lXWShZQUlKS0tKN1dZLVlBSVdZDwkaFQgSH1lBWUJNSEJWT0wYSUtMGk
- 9JSk4ZVRMBExYaEhckFA4PWVdZFhoPEhUdFFlBWU9LSFVKSktITUpVS1kG
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6Pww6Hyo5ND5NNyMcODVJLT01
- MSIaCVZVSlVKTU9MT0NNT0xKTU9PVTMWGhIXVRAeDR4JVQIaFRw7CRQYEFYYExILCFUYFBZFWVdZ
- EgtZQVlOQ1VJSVVMVUpKT1lXWQgBWUFKSUhLQjcG
-X-HM-Tid: 0a7f95d88cd2da2ckuws1fb8b140280
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 19b376ff-c325-4f39-e142-08da07c15b7d
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1607:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR12MB16071B8EBB8013DEF13FB152DF129@CY4PR12MB1607.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jEheHv+5GLJoX3k2dqtm2lIejj/x0D9IKpLtUmNEZ4iBTz29vGgAWtC0yPAGbOsPXsh1JbYeDV9bjjjPpm03n1iN87sxODXzecBeExUZGlFcVUOPRxUR3sv6Y3yHFV61HhhFoRkVgmB+hrJCiQXwgCymFKUJUmSQ7fbTyntuch6VjBjzLJg6zWGi2HiPJzfvj25LbbhBMHPKbbHgtlc7YNc5n51NWAmDq+cShMQ69m/MvnaD45KNiRIMKjVzSb3h5921LKyvT56aaQPr0Rh5rhAuyzGvQrraoHLOBrY70hG2NB8sorZ0AA3ZCA23lIA1GYKCFXdYGGvrupQLB+c8VgEh2+/9RmNgWIIMz9asSuYQ+PvIVVzscmGH9xVgoc1Pu9BLw82w0BmUNjP9ARyC/qPo/yCsvMkbkN0QdOQ+qHQa9pfNNBdRKjd1UOMf1OzW/nOfMpGgrzj9vF87cq3mlVXDX5lR4SnkXFOjNFqRIlJ2rlNSnvXu448HJMiuNTqyltnGHhuJjxVK58VFXSKKMVZMMXSbe6kPqGOA4onjed2Vo5m9F6Nf5SaEQm3AVal3ikAGWrW2hooRQR5Rswh4Y7tIz7VYLtw3rMRrM0oR0wrx6Fzi+oYhooJ2cI+JHj9CQPtwXWJSlbyjD9TDP6NHMw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6506007)(66946007)(33964004)(2906002)(508600001)(7416002)(8936002)(5660300002)(66476007)(66556008)(8676002)(38100700002)(186003)(316002)(26005)(83380400001)(86362001)(54906003)(6486002)(44144004)(6666004)(6512007)(4326008)(9686003)(6916009);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TE9ZVGE1bUk2SVpxaUcxQXNBU1o2RUtycG5FMkFXUUpuRDVsQ1hXaXR2TEFQ?=
+ =?utf-8?B?eFpaZnRldTFTYjF1MGhGYVE4L2FnaHVpZXNVVFVTSUN5WjUrdkxka2dsTnBi?=
+ =?utf-8?B?UEVXOGJ5MkxpRHlmWWNRZ3pTQTBITkJlaGVMeDkvbXQyUzNzZ3dFTjV2bUFO?=
+ =?utf-8?B?Q215dTBnODUvN3ZENjNGdWs1U0FiYyt1RzFFTWZra1dGNHF2UTRqbGcyOTI5?=
+ =?utf-8?B?bjBZVXNlMXh2L2hLNldDQUMxdzRsa2trWWpZZEpTTzduYTE4RFNKUzRYNitY?=
+ =?utf-8?B?ZUtrdWRjWk1TTFJDMS9NT3EvaGVPRXhVcTVNZnUyK2ZUM1RNWDFzMUR1Y1VB?=
+ =?utf-8?B?RzhrQ2JxRGJnQ0JnbThuNk41SzJXM2JUN25lU2prWHQvMHJCQXQ3ZUgzYmxE?=
+ =?utf-8?B?Tzgxa2hRRHppM0s2L00zVlRxZVlTL1VOVmg2VWQyUlZXVVNMM2I3LzdudVBY?=
+ =?utf-8?B?Rm1OUnB5Q2F6bWQ5bUpVcTAxY1E4a2IyKzNic09weW9YY1pBMFd0VFd4THE1?=
+ =?utf-8?B?aVFhK2tkeW9aODFjcG1xdVdDcTYxVmtxeCt3WjJjS09COVpxMHVlMEp3eENw?=
+ =?utf-8?B?a0FmaytvbkdaWVhCRGk0c215enR5WmhVUDBGSjNvdVhDNWpnTWNDQlQzVU9m?=
+ =?utf-8?B?aVlzTWdiWVkrbXhnTU13dGUwVHFxbWZ6SUJjem9VbUpOeDFXYU8vTnZadjI0?=
+ =?utf-8?B?Q3hULzNWb080d005NEVaUGROUzlyNnhQYU1lZXMyckpsK2FyYUJ0V1BaT3ha?=
+ =?utf-8?B?bjdzZ1BsZStnR1pOaUxmMkFwdSt2SW5aT2Zzek1ucXF0YTUzNkVvZU82dllS?=
+ =?utf-8?B?YTRUbW1Odnk3OVZiRUEwYTU4NFBoNzBzMlV1ZUJXWHVIVXlrWDMzL3E4Z1A1?=
+ =?utf-8?B?ZXlQQ2JvMUllWk9JU1BOOU1kQUpUVDFCNUZuZGZrT1ByQ2ROcnNoRFJpTWlm?=
+ =?utf-8?B?VzlXSVpFLzBreUdpeEh5Y0FPTnAzREVpZDBxZTFkRFhSajIyYkV3YTZ0ek1I?=
+ =?utf-8?B?Um1ma1hUeS8xZEpvektLSS9rMmVneGN6UWluc212aEhtbngyamxsR0orb1oz?=
+ =?utf-8?B?MFdISVRObExvaXBtNFAzQWhtTTRtR1diVmJ4bVhoMzJyVWhtd2QycVp4QWw5?=
+ =?utf-8?B?MTllQ2xudm1LTUVBUTczNXIwbmNmR0VLUlBZb1k2K0ZqTkwyaCt6YlpYWjBz?=
+ =?utf-8?B?QktJNlE5eXZxUEZhRCtzWHV2eVd6b2RaTGI1Y01wNHhQZDR3NlhqclZ1bE9w?=
+ =?utf-8?B?Zk5BOVJNRmtGcUFrVVRueFlDNThCYkh5RmFYYUNueXJkcUxmYmRhY0xJNXJ5?=
+ =?utf-8?B?MnpmL01rUmdUSmJIVEVwT2pDZktmK0FHVnBnT2VsWlNoQ2xQUnVqVWxpdFhH?=
+ =?utf-8?B?T1FuL29Wa0IxNXByN3JPS05RV0RMcisyWXVBTXN2SlhlclFjTFhBUDdHNCs4?=
+ =?utf-8?B?cmhJSytUZFJaZm9abE05bmJudk5MdExvSk9xRkkzQ1lITmZNWGhmSVZ0OEIv?=
+ =?utf-8?B?M285SUhNZ3U2cHRIV2RJQVR4eCtuMzB1Vy9Va2VNcmp5dmsvdTJDZzdNWnRR?=
+ =?utf-8?B?T1pvK05hWHVHQTlIdThJYmZDaXQvZFFpTmFoN0FDMHRLQjNzbVNIRVdjUjlP?=
+ =?utf-8?B?Y0FDcmZOZ2psc1BFMlRhZlNDbC85eDl4RjFUR280VkYxeUdLRFpGWmI3ZEV0?=
+ =?utf-8?B?cEw2R3c5ZVlndmxJbHdDQ2tOVXpEMkRTcmpPY1FaNko2akZQOEdZb05CajNM?=
+ =?utf-8?B?WUxELzFnYi9UeGdjTXZuRjQzYVFpMWJHV3gyaHluVXVneXFvbCtzSE4vMlFl?=
+ =?utf-8?B?TXF1Y3d1bUVPUllOY3BGOHR2S1V1YkIxYmxENzNTNGN2NzNsdlVuZWpzWnJF?=
+ =?utf-8?B?NXJDSktNMUtzdVJGZTkwMFlvQUpEdVluM0RNZTd6Uis5TE9pVUZ4akV6dU1O?=
+ =?utf-8?Q?GVhZGIzbrAF7PoSfAuE0luZF7sF4I3PK?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19b376ff-c325-4f39-e142-08da07c15b7d
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3176.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2022 02:53:47.4842 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Njvebd9FEeupqJel0mMFzNMP8IsU4YZjVqaer1R5AOakRYQQAOtR6Hca85D4biXVkdcBfU+4PwCfDetAHcU4Tw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1607
 X-Mailman-Approved-At: Thu, 17 Mar 2022 03:19:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,207 +124,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Huang <huangtao@rock-chips.com>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Alex Sierra <alex.sierra@amd.com>, rcampbell@nvidia.com, david@redhat.com,
+ dri-devel@lists.freedesktop.org, Matthew Wilcox <willy@infradead.org>,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
+ amd-gfx@lists.freedesktop.org, jgg@nvidia.com, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, hch@lst.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Peter,
+--=-=-=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 2022/3/17 08:14, Peter Geis wrote:
-> Good Evening,
->
-> I apologize for raising this email chain from the dead, but there have
-> been some developments that have introduced even more questions.
-> I've looped the Rockchip mailing list into this too, as this affects
-> rk356x, and likely the upcoming rk3588 if [1] is to be believed.
->
-> TLDR for those not familiar: It seems the rk356x series (and possibly
-> the rk3588) were built without any outer coherent cache.
-> This means (unless Rockchip wants to clarify here) devices such as the
-> ITS and PCIe cannot utilize cache snooping.
-> This is based on the results of the email chain [2].
->
-> The new circumstances are as follows:
-> The RPi CM4 Adventure Team as I've taken to calling them has been
-> attempting to get a dGPU working with the very broken Broadcom
-> controller in the RPi CM4.
-> Recently they acquired a SoQuartz rk3566 module which is pin
-> compatible with the CM4, and have taken to trying it out as well.
->
-> This is how I got involved.
-> It seems they found a trivial way to force the Radeon R600 driver to
-> use Non-Cached memory for everything.
-> This single line change, combined with using memset_io instead of
-> memset, allows the ring tests to pass and the card probes successfully
-> (minus the DMA limitations of the rk356x due to the 32 bit
-> interconnect).
-> I discovered using this method that we start having unaligned io
-> memory access faults (bus errors) when running glmark2-drm (running
-> glmark2 directly was impossible, as both X and Wayland crashed too
-> early).
-> I traced this to using what I thought at the time was an unsafe memcpy
-> in the mesa stack.
-> Rewriting this function to force aligned writes solved the problem and
-> allows glmark2-drm to run to completion.
-> With some extensive debugging, I found about half a dozen memcpy
-> functions in mesa that if forced to be aligned would allow Wayland to
-> start, but with hilarious display corruption (see [3]. [4]).
-> The CM4 team is convinced this is an issue with memcpy in glibc, but
-> I'm not convinced it's that simple.
->
-> On my two hour drive in to work this morning, I got to thinking.
-> If this was an memcpy fault, this would be universally broken on arm64
-> which is obviously not the case.
-> So I started thinking, what is different here than with systems known to work:
-> 1. No IOMMU for the PCIe controller.
-> 2. The Outer Cache Issue.
->
-> Robin:
-> My questions for you, since you're the smartest person I know about
-> arm64 memory management:
-> Could cache snooping permit unaligned accesses to IO to be safe?
-> Or
-> Is it the lack of an IOMMU that's causing the alignment faults to become fatal?
-> Or
-> Am I insane here?
->
-> Rockchip:
-> Please update on the status for the Outer Cache errata for ITS services.
+Felix Kuehling <felix.kuehling@amd.com> writes:
 
-Our SoC design team has double check with ARM GIC/ITS IP team for many 
-times, and the GITS_CBASER
-of GIC600 IP does not support hardware bind or config to a fix value, so 
-they insist this is an IP
-limitation instead of a SoC bug, software should take  care of it :(
-I will check again if we can provide errata for this issue.
-> Please provide an answer to the errata of the PCIe controller, in
-> regard to cache snooping and buffering, for both the rk356x and the
-> upcoming rk3588.
-
-
-Sorry, what is this?
-
-
-Thanks,
-- Kever
+> Am 2022-03-10 um 14:25 schrieb Matthew Wilcox:
+>> On Thu, Mar 10, 2022 at 11:26:31AM -0600, Alex Sierra wrote:
+>>> @@ -606,7 +606,7 @@ static void print_bad_pte(struct vm_area_struct *vm=
+a, unsigned long addr,
+>>>    * PFNMAP mappings in order to support COWable mappings.
+>>>    *
+>>>    */
+>>> -struct page *vm_normal_page(struct vm_area_struct *vma, unsigned long =
+addr,
+>>> +struct page *vm_normal_any_page(struct vm_area_struct *vma, unsigned l=
+ong addr,
+>>>   			    pte_t pte)
+>>>   {
+>>>   	unsigned long pfn =3D pte_pfn(pte);
+>>> @@ -620,8 +620,6 @@ struct page *vm_normal_page(struct vm_area_struct *=
+vma, unsigned long addr,
+>>>   			return NULL;
+>>>   		if (is_zero_pfn(pfn))
+>>>   			return NULL;
+>>> -		if (pte_devmap(pte))
+>>> -			return NULL;
+>>>     		print_bad_pte(vma, addr, pte, NULL);
+>>>   		return NULL;
+>> ... what?
+>>
+>> Haven't you just made it so that a devmap page always prints a bad PTE
+>> message, and then returns NULL anyway?
 >
-> [1] https://github.com/JeffyCN/mirrors/commit/0b985f29304dcb9d644174edacb67298e8049d4f
-> [2] https://lore.kernel.org/lkml/871rbdt4tu.wl-maz@kernel.org/T/
-> [3] https://cdn.discordapp.com/attachments/926487797844541510/953414755970850816/unknown.png
-> [4] https://cdn.discordapp.com/attachments/926487797844541510/953424952042852422/unknown.png
+> Yeah, that was stupid. :/=C2=A0 I think the long-term goal was to get rid=
+ of
+> pte_devmap. But for now, as long as we have pte_special with pte_devmap,
+> we'll need a special case to handle that like a normal page.
 >
-> Thank you everyone for your time.
+> I only see the PFN_DEV|PFN_MAP flags set in a few places: drivers/dax/dev=
+ice.c,
+> drivers/nvdimm/pmem.c, fs/fuse/virtio_fs.c. I guess we need to test at le=
+ast one
+> of them for this patch series to make sure we're not breaking them.
 >
-> Very Respectfully,
-> Peter Geis
 >
-> On Wed, May 26, 2021 at 7:21 AM Christian König
-> <christian.koenig@amd.com> wrote:
->> Hi Robin,
 >>
->> Am 26.05.21 um 12:59 schrieb Robin Murphy:
->>> On 2021-05-26 10:42, Christian König wrote:
->>>> Hi Robin,
->>>>
->>>> Am 25.05.21 um 22:09 schrieb Robin Murphy:
->>>>> On 2021-05-25 14:05, Alex Deucher wrote:
->>>>>> On Tue, May 25, 2021 at 8:56 AM Peter Geis <pgwipeout@gmail.com>
->>>>>> wrote:
->>>>>>> On Tue, May 25, 2021 at 8:47 AM Alex Deucher
->>>>>>> <alexdeucher@gmail.com> wrote:
->>>>>>>> On Tue, May 25, 2021 at 8:42 AM Peter Geis <pgwipeout@gmail.com>
->>>>>>>> wrote:
->>>>>>>>> Good Evening,
->>>>>>>>>
->>>>>>>>> I am stress testing the pcie controller on the rk3566-quartz64
->>>>>>>>> prototype SBC.
->>>>>>>>> This device has 1GB available at <0x3 0x00000000> for the PCIe
->>>>>>>>> controller, which makes a dGPU theoretically possible.
->>>>>>>>> While attempting to light off a HD7570 card I manage to get a
->>>>>>>>> modeset
->>>>>>>>> console, but ring0 test fails and disables acceleration.
->>>>>>>>>
->>>>>>>>> Note, we do not have UEFI, so all PCIe setup is from the Linux
->>>>>>>>> kernel.
->>>>>>>>> Any insight you can provide would be much appreciated.
->>>>>>>> Does your platform support PCIe cache coherency with the CPU?  I.e.,
->>>>>>>> does the CPU allow cache snoops from PCIe devices?  That is required
->>>>>>>> for the driver to operate.
->>>>>>> Ah, most likely not.
->>>>>>> This issue has come up already as the GIC isn't permitted to snoop on
->>>>>>> the CPUs, so I doubt the PCIe controller can either.
->>>>>>>
->>>>>>> Is there no way to work around this or is it dead in the water?
->>>>>> It's required by the pcie spec.  You could potentially work around it
->>>>>> if you can allocate uncached memory for DMA, but I don't think that is
->>>>>> possible currently.  Ideally we'd figure out some way to detect if a
->>>>>> particular platform supports cache snooping or not as well.
->>>>> There's device_get_dma_attr(), although I don't think it will work
->>>>> currently for PCI devices without an OF or ACPI node - we could
->>>>> perhaps do with a PCI-specific wrapper which can walk up and defer
->>>>> to the host bridge's firmware description as necessary.
->>>>>
->>>>> The common DMA ops *do* correctly keep track of per-device coherency
->>>>> internally, but drivers aren't supposed to be poking at that
->>>>> information directly.
->>>> That sounds like you underestimate the problem. ARM has unfortunately
->>>> made the coherency for PCI an optional IP.
->>> Sorry to be that guy, but I'm involved a lot internally with our
->>> system IP and interconnect, and I probably understand the situation
->>> better than 99% of the community ;)
->> I need to apologize, didn't realized who was answering :)
+>> Surely this should be:
 >>
->> It just sounded to me that you wanted to suggest to the end user that
->> this is fixable in software and I really wanted to avoid even more
->> customers coming around asking how to do this.
+>> 		if (pte_devmap(pte))
+>> -			return NULL;
+>> +			return pfn_to_page(pfn);
 >>
->>> For the record, the SBSA specification (the closet thing we have to a
->>> "system architecture") does require that PCIe is integrated in an
->>> I/O-coherent manner, but we don't have any control over what people do
->>> in embedded applications (note that we don't make PCIe IP at all, and
->>> there is plenty of 3rd-party interconnect IP).
->> So basically it is not the fault of the ARM IP-core, but people are just
->> stitching together PCIe interconnect IP with a core where it is not
->> supposed to be used with.
+>> or maybe
 >>
->> Do I get that correctly? That's an interesting puzzle piece in the picture.
+>> +			goto check_pfn;
 >>
->>>> So we are talking about a hardware limitation which potentially can't
->>>> be fixed without replacing the hardware.
->>> You expressed interest in "some way to detect if a particular platform
->>> supports cache snooping or not", by which I assumed you meant a
->>> software method for the amdgpu/radeon drivers to call, rather than,
->>> say, a website that driver maintainers can look up SoC names on. I'm
->>> saying that that API already exists (just may need a bit more work).
->>> Note that it is emphatically not a platform-level thing since
->>> coherency can and does vary per device within a system.
->> Well, I think this is not something an individual driver should mess
->> with. What the driver should do is just express that it needs coherent
->> access to all of system memory and if that is not possible fail to load
->> with a warning why it is not possible.
+>> But I don't know about that highest_memmap_pfn check.
+>
+> Looks to me like it should work. highest_memmap_pfn gets updated in
+> memremap_pages -> pagemap_range -> move_pfn_range_to_zone ->
+> memmap_init_range.
+
+FWIW the previous version of this feature which was removed in 25b2995a35b6
+("mm: remove MEMORY_DEVICE_PUBLIC support") had a similar comparison with
+highest_memmap_pfn:
+
+if (likely(pfn <=3D highest_memmap_pfn)) {
+        struct page *page =3D pfn_to_page(pfn);
+
+        if (is_device_public_page(page)) {
+                if (with_public_device)
+                        return page;
+                return NULL;
+        }
+}
+
+> Regards,
+> =C2=A0 Felix
+>
+>
 >>
->>> I wasn't suggesting that Linux could somehow make coherency magically
->>> work when the signals don't physically exist in the interconnect - I
->>> was assuming you'd merely want to do something like throw a big
->>> warning and taint the kernel to help triage bug reports. Some drivers
->>> like ahci_qoriq and panfrost simply need to know so they can program
->>> their device to emit the appropriate memory attributes either way, and
->>> rely on the DMA API to hide the rest of the difference, but if you
->>> want to treat non-coherent use as unsupported because it would require
->>> too invasive changes that's fine by me.
->> Yes exactly that please. I mean not sure how panfrost is doing it, but
->> at least the Vulkan userspace API specification requires devices to have
->> coherent access to system memory.
+>>> @@ -661,6 +659,22 @@ struct page *vm_normal_page(struct vm_area_struct =
+*vma, unsigned long addr,
+>>>   	return pfn_to_page(pfn);
+>>>   }
+>>>   +/*
+>>> + * vm_normal_lru_page -- This function gets the "struct page" associat=
+ed
+>>> + * with a pte only for page cache and anon page. These pages are LRU h=
+andled.
+>>> + */
+>>> +struct page *vm_normal_lru_page(struct vm_area_struct *vma, unsigned l=
+ong addr,
+>>> +			    pte_t pte)
+>> It seems a shame to add a new function without proper kernel-doc.
 >>
->> So even if I would want to do this it is simply not possible because the
->> application doesn't tell the driver which memory is accessed by the
->> device and which by the CPU.
->>
->> Christian.
->>
->>> Robin.
+
+--=-=-=--
