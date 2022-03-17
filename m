@@ -4,64 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE4E6C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 17:31:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D31FFC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 18:19:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30E8410E76D;
-	Thu, 17 Mar 2022 17:31:12 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3EC610E76D;
- Thu, 17 Mar 2022 17:31:10 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id r64so3520035wmr.4;
- Thu, 17 Mar 2022 10:31:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=0emPPmH4Xm9l+KeNi4XBOk+szS7xi7Q8tSwWwk47ygI=;
- b=DS8p6LVvpu/HXVAy0gDC+KFJ3w+zkM9mAQ+nrTgnB/JsWOjdwdJUiMbeyc/e7y0bBq
- /6BBWTYsfYkxcpHR5I40m755o/BWUHErEIlL/IBRYrtrCEssYk68J3+BRN2XtGMrqec7
- 4s/Aq4B1jCRA8WopRRk19UBEUxcx04m9Ha+j1MrIkULrRqw5i2+oYM10kZLZjqdvxM+7
- PMvrEoav1DjHZQ7Uow9eAWSd+CP+3SX1UfAb+ezcPOCNa3rhxaIwlF5AED1ZOMZXvrH6
- S4Gq0jbU04mrITtKugc63CmgZB9CadgXNkozFi2ijrdne+M4wDjmKSqHoHgjl6EqQnuM
- UGLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=0emPPmH4Xm9l+KeNi4XBOk+szS7xi7Q8tSwWwk47ygI=;
- b=8Mq5+X+aeOKoZ/PM4xez0VNbJHsz69Mra5bcLTw6UqTXLP9n0WnL+STqdZivzdLgt0
- ZHhtsVGI3vbC0ILOObOO1ratZM68W1PlTstrzomP1Fj6tEimmOqzRQNOmpiMfI5H0Plm
- Se3rsiJzpfAsHsUGeVESHDMEwbFgkUn8V7twcuoc5LG2GcH02hRx05DWzU7lSecCsW85
- jvUPXoHsX3oMPUEcVfHpKvX+WRMI/vgke7l8PbhTfeyFvaXbf6Punkh3Siebr5p/EHyh
- TwxexDZRIi20z3H550JNvK75QDhzGc6yb4wVt4Rr230muYj6hrYSECPcT3IoFhVW1Lf4
- wAGw==
-X-Gm-Message-State: AOAM533U95ipyY3AOhE5PeORjQjVdZx/+7ra44bF/H3vD7fRhOwNVC/y
- 51B6+kQDTyaUGtw1mCME6nSQianlF4oPl43jqZA=
-X-Google-Smtp-Source: ABdhPJwn9lThLS+nSXAEj06GuSDmDIPnxI1CLVl/v/iE35DOPYO/4YB5Fv4c7oycPImw+0P+q9HPtrJlaxIBubtQnA8=
-X-Received: by 2002:a05:600c:600a:b0:38c:6c9e:f9c7 with SMTP id
- az10-20020a05600c600a00b0038c6c9ef9c7mr8526206wmb.26.1647538269242; Thu, 17
- Mar 2022 10:31:09 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220311102709.225616cf@eldfell>
- <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
- <20220314172647.223658d2@eldfell>
- <CADnq5_NsxipfFFXfRSXvVQin3e1gj0Q_p9p-shi3VZ2pSCwwfw@mail.gmail.com>
- <20220316104815.11ec2e6c@eldfell>
- <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
- <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
- <5e246eb8-0256-c40e-40ea-d865bf99c003@gmail.com>
- <YjL/k6kh+5RihGIV@phenom.ffwll.local>
- <CAF6AEGu79jDW1xqJOaNCB=jAxhKiCRFJwoCNiC9ye97KvpWEtQ@mail.gmail.com>
- <YjNvYmcuDKiIneDx@phenom.ffwll.local>
-In-Reply-To: <YjNvYmcuDKiIneDx@phenom.ffwll.local>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 17 Mar 2022 10:31:50 -0700
-Message-ID: <CAF6AEGvuMfKtf_aweai6y4oHghArE95uhR2X0f9h_9w4Bk_6VQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-To: Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C40589E5A;
+	Thu, 17 Mar 2022 18:19:19 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2040.outbound.protection.outlook.com [40.107.101.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 845A589DFF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 18:19:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gCTxlSGcweA/sqd9Jk9vuSUIu3Qfhd71ia2LyOI0Fn8EPr/rZrgxVUXS62CECzArU5BTHLT/sR3x8ZpnbeQ/CRJCfNYvFohSvPJ118yQPvVYsAkbJ/CIYAF1tNTM5N0NM6Apj9flGNEOrXY3HyyYXzzsznytk2Lzb4qpGfM5c+ciwEjWRvBnQ4mNpf9SWzv7ZXF3CTycl/M+DxaxHiRgY0L3UyrF4iIbvkhNtGhrJLC4J5/ggAGxDkppDmySQbiGbramOOwhWegrxJmZBI/1DhHILVwBPA9zX7PjGLi7dzsQUzNV51vWVHD8t6A9tXhpF+4LDh9FvnOSQFrIwEdd6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VfB+i8U5tkMkax9+45sBw0GjHO07qU3QC6n2cZPy8vg=;
+ b=GINtnWcE12GMRiiIcO5OO+dXf0CiedAiNNnzqlVfebKzYx7xPosV78sk+/9Ay1rGhimKc7yL5LEaGvCqmm5KeqeJEQFxFM0zL//WMBX+vYlb5+jjOTdP0PwWEYyKU9tkNjGpMQaAHR/Qhv58f0m71N20gaqQvfaDVJmBtj+8HKBgpBKvHneRzq/0w6So3ZSKymrOGBmzNlLIBDxdn/XbejuItQbxFyjfJgi+FKwXSe8hcIxb6gMPgW3dv6OmLs1uo0vcp1Z10/03QzFjzHqp4dnqIvIEX4Ytavt0kZ9rkGXVTj/lg5TI/IAoimeGg9tnm4IETrieU5dDMON0O5aOmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VfB+i8U5tkMkax9+45sBw0GjHO07qU3QC6n2cZPy8vg=;
+ b=xTZGQxA/TAy8V1av8+Bk/QTF3SgrhDB6lh7OBqPqViu7N1MYYizlpB4S+eXlecZRe16HTyMbj3GckcZ5+ie8lgIJlNFN0V3KNrs2VMD+E+R4DvyyJnL8yP2I3EKCAgINmeCjFXQ2I7+LJ1IkB/kZkHcKq3EzmzIYrUT53IMDEDo=
+Received: from DM5PR12MB1323.namprd12.prod.outlook.com (2603:10b6:3:75::12) by
+ BL0PR12MB4996.namprd12.prod.outlook.com (2603:10b6:208:1c6::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5081.14; Thu, 17 Mar 2022 18:19:17 +0000
+Received: from DM5PR12MB1323.namprd12.prod.outlook.com
+ ([fe80::39af:792f:29e6:f69f]) by DM5PR12MB1323.namprd12.prod.outlook.com
+ ([fe80::39af:792f:29e6:f69f%5]) with mapi id 15.20.5081.016; Thu, 17 Mar 2022
+ 18:19:17 +0000
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+To: "Sakhnovitch, Elena (Elen)" <Elena.Sakhnovitch@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2] drm/amd/pm: Disable fan control if not supported
+Thread-Topic: [PATCH v2] drm/amd/pm: Disable fan control if not supported
+Thread-Index: AQHYOh5jsaIMwsFjwE6opn3xBTdlWqzD4IUQ
+Date: Thu, 17 Mar 2022 18:19:17 +0000
+Message-ID: <DM5PR12MB13232DCD032BF03189A3C64A8C129@DM5PR12MB1323.namprd12.prod.outlook.com>
+References: <20220317164458.1365967-1-elena.sakhnovitch@amd.com>
+In-Reply-To: <20220317164458.1365967-1-elena.sakhnovitch@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-17T18:19:14Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=580e3971-4640-4011-86e6-91ed6ff85033;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 12de77ce-8c4f-4fe8-726b-08da0842a5f2
+x-ms-traffictypediagnostic: BL0PR12MB4996:EE_
+x-microsoft-antispam-prvs: <BL0PR12MB49968346B7A534BE21A704568C129@BL0PR12MB4996.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: p1qPx6WP/lDNYh3Nm1igvNSQaZjYLftcFw7Gmpl1QWtqh8NVoWmWOzZQohJArHUnlOzob6pBGBPp7anYT2FH1olXkmWu0+1jhCvHZ1+FKsKsyveeBLcZ2DpKlAeEFHSW8UwSlKP/3W/mSMmcl/loVrUmm8Hx9UopzHSEDp2kX6FJ4SiyZ6vtn2TFC11B3ckP9MB84nBtiC5HS6MUMy/m1bb3YGW/b7KnLgP3JVaeDQvzd0ORhr5MGv4XXAqu3N/2kljIdtBHa37gyTGaZ59mJ26+6Q1GAXN1gK0yoO5/DRZG0J3QKyLJK8+XkclvNfIWVm5lb6GSrFwcunHqoISJ040U4Q7riJLjIN/M/H7VgiyjCIQOfL6FFLFwmfv/fM1WbNaHtBw1rAYReEKQYDAUogZ1/y1mscu8Ll2cxzJJDAVVbJIYAZ27FVMMaatFup37Kq2OUvBh8mT40O7DfiwqLVl9vleiZkUu4n5VTE5qPijWQulNZVC7T46H2cl05ByNjY7F2oWlux0aiIflZ3GVlySUyGuhMWAZwUa2rj4VSAa6fOjaNhdq6r9mrHY8lCBsMC6Iabw2Ik1QtllkFR9s3gyLsQ3RWaZ0pstXHc2Wtl2P/KyD2AWWN6Hw+aBNp6Up92ldncoj4Weh02Vn+6HEAYDzvEE24G75/pbaBRgjFHJIZx6D8GlyiJYe2X3OBB4H1C7Eyq0S+ZM5/LtQOe84/Q==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1323.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(66476007)(64756008)(55016003)(7696005)(6506007)(110136005)(66946007)(76116006)(508600001)(4326008)(66556008)(8676002)(53546011)(66446008)(71200400001)(316002)(5660300002)(52536014)(8936002)(9686003)(33656002)(83380400001)(38070700005)(86362001)(38100700002)(2906002)(186003)(26005)(122000001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kxZ9MqFWK8Fix6gpr6AlcwICD3nWB0pxYPwrgF/9o+JXtUPcKmLSjktnAuEj?=
+ =?us-ascii?Q?oVNkQHTkvFE/nwmA3M+TBWUm4trXVa7CAKssqr8VfyPdgoZqEeLNZXugP8Ym?=
+ =?us-ascii?Q?0QrMntBt7Eu3B1VDRpsAd/sWxxMDOVmpj1M7O0M6bV5KOiaLgDSRGzFrRoKP?=
+ =?us-ascii?Q?uMkrmGECHWUiAKKWP1ibPX5jxU7fjrnXatZGdqWbEQR8YBcSBXYmBLoHpOtw?=
+ =?us-ascii?Q?bdHSHD6zHrbKNJXgpp+TLBEhGQRTVt/PgstK+8ul4sZ1X7GcfpKbAwB1BOqU?=
+ =?us-ascii?Q?6i240IvsZl5q1OUzk9xwm03YDDQn1RVZPlhkiiyRLWuGlCttoaP4qAadogLX?=
+ =?us-ascii?Q?Lqe+nfGdDpoAOaT72vbWX9fLelCN+Vt+62+gFhDXbjRZGTf0ZyhYlCESRGqI?=
+ =?us-ascii?Q?pAQpQ/M0+iD+Z5i4wLxtoNwpo5ic5YSO3aMwMMcPS4JUktsbQ1hyOLdOET2T?=
+ =?us-ascii?Q?R/A2nHjh0sDkweeTUTdZBCqj4h9ZpaiEgFHV8H/QU1iEuuCp+16fSbkJnWzS?=
+ =?us-ascii?Q?gO1yX10vaRODJpPykNpIVSI2kobMWpoxG87BfYMB5ymnGY7o90YfiFdX0Eg9?=
+ =?us-ascii?Q?FCxGLUgCrlENkVN06PzJFNmo8gkRaYr7DRzU73zOlut/+cwZeUCPqbemn/w+?=
+ =?us-ascii?Q?zOc/8ALCFUiH9XPMJZH1gFGSRsPxMEFmq+kV6Z08UcpnHZjPhMTzLjsos7iB?=
+ =?us-ascii?Q?2b2g9k2W2kKvufY4KRra3dGIsTLfLJ3IC5zVOB2j8gGNSWkQG84R0opNqL0x?=
+ =?us-ascii?Q?HxkMuVwHIAzKfBBmw93CQmrzbPvl+g+Sarfq6vQGNbm0a1iWpUupZZtl3itW?=
+ =?us-ascii?Q?sKmp4GtzM2laC7mGP7ChnkC2Jb/JWIqupz0l457mS5nbou1zSNBCvTHpW/6U?=
+ =?us-ascii?Q?78RV3e+ssu4J0LrxeNXFAv/4HeI5O3gUJR1LZ3xfdPzW4iim0soDVfZe6xaC?=
+ =?us-ascii?Q?l4MIu/p7rfb5YJuf6CnF3/R3mUJGysRMK5syHVfTjmxmDqbRooqkfAcH3pGQ?=
+ =?us-ascii?Q?3Pgyhy+9gi10eihEJ/876xfPXpQVB97WDfQqXLp0fBzUGTGsPfkorYr+vTmr?=
+ =?us-ascii?Q?QCzQR9q/N0eUhTPV5VzumdKP32ooXm7Vs4vw/0NzUaHtt3nRE+5i8jO7StZ/?=
+ =?us-ascii?Q?ky60TIyH+KD/lhbJ95fE9bZy3THYM1RlHMitYXiwlNXwv269CGYMNeyhDaU6?=
+ =?us-ascii?Q?ijZ7CRVZdCN9F8gwRHcBdC/5ZyseY2HZFVpvrTGZJgtjU+meAO7qpfUb9i6/?=
+ =?us-ascii?Q?eDppBAmXCstcYQO3J8TWIYkTnQBZVmoCiRmRd9zw3bvEvE9EcEUM0+b4R/Gg?=
+ =?us-ascii?Q?vLThZlJw/XhIVj3aUQDwBl0MCC/5s+usofICdoeT5IVjsN0XJDZZbV3gbL3r?=
+ =?us-ascii?Q?GmmPNIsAJo7WTfpUodyo/YNhJuv+D1k3E2bixdti8PODTpO5FplKic7vJvQE?=
+ =?us-ascii?Q?Zep6Or9/kLA=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1323.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 12de77ce-8c4f-4fe8-726b-08da0842a5f2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2022 18:19:17.0714 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wTOs9I+LQIlz8G3GLfcHpII6Cik+mdHibFxXQH1kqos1k+2gH0aggmum1UQUvqbPpi6oiqcVoGsNfCVCRY/Seg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4996
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,131 +122,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
- Shashank" <shashank.sharma@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Alexandar Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: "Sakhnovitch, Elena \(Elen\)" <Elena.Sakhnovitch@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 17, 2022 at 10:27 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Thu, Mar 17, 2022 at 08:40:51AM -0700, Rob Clark wrote:
-> > On Thu, Mar 17, 2022 at 2:29 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > >
-> > > On Thu, Mar 17, 2022 at 08:03:27AM +0100, Christian K=C3=B6nig wrote:
-> > > > Am 16.03.22 um 16:36 schrieb Rob Clark:
-> > > > > [SNIP]
-> > > > > just one point of clarification.. in the msm and i915 case it is
-> > > > > purely for debugging and telemetry (ie. sending crash logs back t=
-o
-> > > > > distro for analysis if user has crash reporting enabled).. it isn=
-'t
-> > > > > used for triggering any action like killing app or compositor.
-> > > >
-> > > > By the way, how does msm it's memory management for the devcoredump=
-s?
-> > >
-> > > GFP_NORECLAIM all the way. It's purely best effort.
-> > >
-> > > Note that the fancy new plan for i915 discrete gpu is to only support=
- gpu
-> > > crash dumps on non-recoverable gpu contexts, i.e. those that do not
-> > > continue to the next batch when something bad happens. This is what v=
-k
-> > > wants and also what iris now uses (we do context recovery in userspac=
-e in
-> > > all cases), and non-recoverable contexts greatly simplify the crash d=
-ump
-> > > gather: Only thing you need to gather is the register state from hw
-> > > (before you reset it), all the batchbuffer bo and indirect state bo (=
-in
-> > > i915 you can mark which bo to capture in the CS ioctl) can be capture=
-d in
-> > > a worker later on. Which for non-recoverable context is no issue, sin=
-ce
-> > > subsequent batchbuffers won't trample over any of these things.
-> >
-> > fwiw, we snapshot everything (cmdstream and bo's marked with dump
-> > flag, in addition to hw state) before resuming the GPU, so there is no
-> > danger of things being trampled.  After state is captured and GPU
-> > reset, we "replay" the submits that were written into the ringbuffer
-> > after the faulting submit.  GPU crashes should be a thing you don't
-> > need to try to optimize.
->
-> Not sure why you think we optimize anything here?
->
-> > (At some point, I'd like to use scheduler for the replay, and actually
-> > use drm_sched_stop()/etc.. but last time I looked there were still
-> > some sched bugs in that area which prevented me from deleting a bunch
-> > of code ;-))
->
-> Not sure about your hw, but at least on intel replaying tends to just
-> result in follow-on fun. And that holds even more so the more complex a
-> workload is. This is why vk just dies immediately and does not try to
-> replay anything, offloading it to the app. Same with arb robusteness.
-> Afaik it's really only media and classic gl which insist that the driver
-> stack somehow recover.
+[AMD Official Use Only]
 
-At least for us, each submit must be self-contained (ie. not rely on
-previous GPU hw state), so in practice replay works out pretty well.
-The worst case is subsequent submits from same process fail as well
-(if they depended on something that crashing submit failed to write
-back to memory.. but in that case they just crash as well and we move
-on to the next one.. the recent gens (a5xx+ at least) are pretty good
-about quickly detecting problems and giving us an error irq.
+Few comments inline.
 
-BR,
--R
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Elena Sa=
+khnovitch
+Sent: Thursday, March 17, 2022 12:45 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Sakhnovitch, Elena (Elen) <Elena.Sakhnovitch@amd.com>
+Subject: [PATCH v2] drm/amd/pm: Disable fan control if not supported
 
-> And recovering from a mess in userspace is a lot simpler than trying to
-> pull of the same magic in the kernel. Plus it also helps with a few of th=
-e
-> dma_fence rules, which is a nice bonus.
-> -Daniel
->
-> >
-> > BR,
-> > -R
-> >
-> > >
-> > > And that way you can record the crashdump (or at least the big pieces=
- like
-> > > all the indirect state stuff) with GFP_KERNEL.
-> > >
-> > > msm probably gets it wrong since embedded drivers have much less shri=
-nker
-> > > and generally no mmu notifiers going on :-)
-> > >
-> > > > I mean it is strictly forbidden to allocate any memory in the GPU r=
-eset
-> > > > path.
-> > > >
-> > > > > I would however *strongly* recommend devcoredump support in other=
- GPU
-> > > > > drivers (i915's thing pre-dates devcoredump by a lot).. I've used=
- it
-> > > > > to debug and fix a couple obscure issues that I was not able to
-> > > > > reproduce by myself.
-> > > >
-> > > > Yes, completely agree as well.
-> > >
-> > > +1
-> > >
-> > > Cheers, Daniel
-> > > --
-> > > Daniel Vetter
-> > > Software Engineer, Intel Corporation
-> > > http://blog.ffwll.ch
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+On Sienna Cichild, not all platforms use PMFW based fan control. On such
+ASICs fan control by PMFW will be disabled in PPTable. Disable hwmon
+knobs for fan control also as it is not possible to report or control
+fan speed on such platforms through driver.
+v2: FEATURE_FAN_CONTROL_MASK is replaced with FEATURE_FAN_CONTROL_BIT
+
+Signed-off-by: Elena Sakhnovitch  <elena.sakhnovitch@amd.com>
+---
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/driv=
+ers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 38f04836c82f..c4fd70376481 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -371,6 +371,18 @@ static void sienna_cichlid_check_bxco_support(struct s=
+mu_context *smu)
+ 	}
+ }
+=20
++static void sienna_cichlid_check_fan_support(struct smu_context *smu)
++{
++	struct smu_table_context *table_context =3D &smu->smu_table;
++	PPTable_t *pptable =3D table_context->driver_pptable;
++	/* No sort of fan control possible if PPTable has it disabled */
++	smu->adev->pm.no_fan =3D
++		!(pptable->FeaturesToRun[0] & ( 1U << FEATURE_FAN_CONTROL_BIT));
+
+[HK]: FEATURE_FAN_CONTROL_BIT (for sienna_cichlid) =3D=3D 32. This means yo=
+u would have to use FeaturesToRun[1].=20
+[HK]: ( 1U << FEATURE_FAN_CONTROL_BIT)); There is an extra space which chec=
+kcommit will complain.
+
+ERROR: space prohibited after that open parenthesis '('
+#29: FILE: drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c:380:
++               !(pptable->FeaturesToRun[0] & ( 1U << FEATURE_FAN_CONTROL_B=
+IT));
+
+
++	if (smu->adev->pm.no_fan)
++		dev_info_once(smu->adev->dev,
++			      "PMFW based fan control disabled");
++}
++
+ static int sienna_cichlid_check_powerplay_table(struct smu_context *smu)
+ {
+ 	struct smu_table_context *table_context =3D &smu->smu_table;
+@@ -381,6 +393,7 @@ static int sienna_cichlid_check_powerplay_table(struct =
+smu_context *smu)
+ 		smu->dc_controlled_by_gpio =3D true;
+=20
+ 	sienna_cichlid_check_bxco_support(smu);
++	sienna_cichlid_check_fan_support(smu);
+=20
+ 	table_context->thermal_controller_type =3D
+ 		powerplay_table->thermal_controller_type;
+@@ -410,7 +423,7 @@ static int sienna_cichlid_append_powerplay_table(struct=
+ smu_context *smu)
+ 	GET_PPTABLE_MEMBER(I2cControllers, &table_member);
+ 	memcpy(table_member, smc_dpm_table->I2cControllers,
+ 			sizeof(*smc_dpm_table) - sizeof(smc_dpm_table->table_header));
+-=09
++
+
+[HK]: unnecessary change
+
+ 	return 0;
+ }
+=20
+--=20
+2.25.1
