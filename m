@@ -4,89 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ADFCC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 16:45:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05719C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 17:23:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D965310E032;
-	Thu, 17 Mar 2022 16:45:17 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 580E710E032
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 16:45:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ihp/uSjhD1HDHBXVEcauOc9B7ELkNJb4hqdrJ7V9CAvMbyi0QqOxuneFcACpit8gonYibOObxSffPafW+7NcX0g7aYHJVHyy5a7irSv0kO/d941oZx96/vi6yW6aquJygOJLGWjVrLKhREkMFqOhNR5c7qIvk284ng69hgT/EXF74Oe1HFZW5JJ4dUvPC0nz5QlgdjMb6W/XkEN+Ckx5AZTny42NmJKBOMbTijJOuuEchdG8UiZUAFxhWV7E5hh9APMku8xuKsr5d0H5BoIyecSASEI2PpIDsFNWhyRze39p5xS4ejS0mBpyLzEBnTOMFUlO1Y9aF2yegvsV0PLh7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ck3biPthL5IW/V8SRb2lNALJB4jjW1G2wHN1tIZ3L1k=;
- b=NUqVGEEd68vOIsx4TCGPZQNNpRMpdE7wtsIB03e4tFrX4JGq4Y8WbJu9RZ7nE92r/aU6/ky9zCrc1Y2zS4SitbhXs3vmfpgQw7i4HQ7IkpyHaEUJSanmUtQhhImghiSj0Q2IkUJ8qri0/Ujtx3qpddlvZMWycZbqwkxJukNO/efTCX2CfuMem0u1Jc9by4ISAXaI8Knm2mIDAFpdMqyKeWdNYys8asrQ1Q+iRyEFsGcgUX+S5hK7GsDXY2HoUTT2EonH8WZielan1mn0pYI5S17kiBGr6oeIxZ0Q2dbikVyaZLh9BXzUvtRrm5+NmdBz63m0yHSyxHDnd6h0/Lmf6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ck3biPthL5IW/V8SRb2lNALJB4jjW1G2wHN1tIZ3L1k=;
- b=0aACK/FYvGGBKJNou1+0vzfTWkr4FDB6owlUpzGzWOmkRHlX7hMoXu1NtbRKuUVTIpVy9R4ppcx5JNinIL/8+ZUWEMy0ZooPr61CYo6WbkUi2w43xspXeggKaWvNlha7papb4VUHteucgoupdAhRHiZaTl2lVKl9x2lqwwejqco=
-Received: from DS7PR05CA0058.namprd05.prod.outlook.com (2603:10b6:8:2f::11) by
- BL1PR12MB5064.namprd12.prod.outlook.com (2603:10b6:208:30a::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.16; Thu, 17 Mar
- 2022 16:45:13 +0000
-Received: from DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2f:cafe::3c) by DS7PR05CA0058.outlook.office365.com
- (2603:10b6:8:2f::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.7 via Frontend
- Transport; Thu, 17 Mar 2022 16:45:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT016.mail.protection.outlook.com (10.13.173.139) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5081.14 via Frontend Transport; Thu, 17 Mar 2022 16:45:12 +0000
-Received: from elenaKubuntuDevTest.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Thu, 17 Mar 2022 11:45:11 -0500
-From: Elena Sakhnovitch <elena.sakhnovitch@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amd/pm: Disable fan control if not supported
-Date: Thu, 17 Mar 2022 12:44:58 -0400
-Message-ID: <20220317164458.1365967-1-elena.sakhnovitch@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E55A10E67F;
+	Thu, 17 Mar 2022 17:23:48 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F10AA10E67C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 17:23:46 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id h16so2960517wmd.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 10:23:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=oqyywNMRAsscGujJTuGQYDrwpZtKNn+Ebf019FA+ycE=;
+ b=W/TLt7+cvhxXX5oJ7Oz2acoguoZpzbGmEfkYmBANhpfRCxaF9Zq6tKpv13hoivEpEQ
+ 9IKCHpRPYBMXAYxep7ZZZpNtMT4jpucCw02QpiTY7I/SiGEiI84DlhkzaYVEe25M3lVr
+ vQVHzWIeKkVP5fOXg3Iowl/epP5BIndCm1Aug=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=oqyywNMRAsscGujJTuGQYDrwpZtKNn+Ebf019FA+ycE=;
+ b=qVRpKT4EPw1BQoGSERlzGqg7CK2X4BwoNK9Ek0zuMSCVuJZoGsYmwkrSNj5MaVS02d
+ ai1KVCZ9NiEm/tdjtbRoX/vTIYrVib5/nl4WgU5IFHr35NlO1Ue9Q/kG/Z/4kz/iq+pi
+ hQpQhCRtZEB/GsH33Gx4kndAV2r9P8QMmB49hR3Iir4aMBSvJ89VkKW3FyTRtaeahjrk
+ ZlmZ83bCzUo7tYOCFiuFHds5w0zWe/jMhuM17RPBmbH8op4uON+ibdYM+dRN0vMBJDjL
+ ++YQwCd13BxdRAg2wCpmCxN78NOUBjCY6yODwd43ykAzjOQ14gzO8zFwAkvIPihKnWLO
+ DaAg==
+X-Gm-Message-State: AOAM530hrz7iKNOyIUV1KaW0/yhshlvyTlM0n6+o8uos8ZfEpj1ArP4L
+ xNPdWOJHt+35m5msq5IoRkKZoQ==
+X-Google-Smtp-Source: ABdhPJxHUmOkc3z9QO/kMhayRnxJ0eeit5nqIofeyFEiWlUMpyE9a2wKvA2U0rgrrh9Vqzhl0+QTYg==
+X-Received: by 2002:a05:600c:4796:b0:386:45aa:667b with SMTP id
+ k22-20020a05600c479600b0038645aa667bmr5005550wmo.104.1647537825417; 
+ Thu, 17 Mar 2022 10:23:45 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ l13-20020a5d4bcd000000b001f0620ecb3csm4612244wrt.40.2022.03.17.10.23.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Mar 2022 10:23:44 -0700 (PDT)
+Date: Thu, 17 Mar 2022 18:23:42 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Rob Clark <robdclark@gmail.com>
+Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
+Message-ID: <YjNunvEn0EGjQY1W@phenom.ffwll.local>
+References: <20220311102709.225616cf@eldfell>
+ <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
+ <20220314172647.223658d2@eldfell>
+ <CADnq5_NsxipfFFXfRSXvVQin3e1gj0Q_p9p-shi3VZ2pSCwwfw@mail.gmail.com>
+ <20220316104815.11ec2e6c@eldfell>
+ <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
+ <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
+ <5e246eb8-0256-c40e-40ea-d865bf99c003@gmail.com>
+ <YjL/k6kh+5RihGIV@phenom.ffwll.local>
+ <CAF6AEGtUasyC1e0Fz2cFhSMEtUJCJTsFQs7+4mg_FP45LwX=4A@mail.gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 90e502e5-d46a-4e15-aa27-08da083581d8
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5064:EE_
-X-Microsoft-Antispam-PRVS: <BL1PR12MB50640372C02113A1FCCA79FDE0129@BL1PR12MB5064.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MoG8RkY6GGyMpBQkwDPYbj63FrB3cUPXW27e23sc2joTeQfD+JBo/V4q0++4corHm3T0GzQxfUHSqGILc+KiyecaQxoD0Au+93iibuObfHEgtRoL0DP8tWMKA9AZwjb6tEZBJfm0Oy9OlKgdKRqYB5Quwb4Vojb0RMNSDKJ0cd+Lp+EGSYvzj8R3Jst3WrGzTu2tFvh89aqHEQy2s2HUugXEGF6MIy4cXwuu6FZh3/JQyDNddR1s0Bht25yQvqepRTlpOBgafDhiBUjKaYa3M4WWX0gfpEIufW0r/8m6SXomLX35DO98103u8ZmGz6y7Z/9xR067PrGZXiPjCtWdV5Kyyt7eqEUyNSXHdIBTetAWyPm3mApZzi36s/2mHgfxdauuF9exR3D8XLbkj32TZKib+X9F7KwQ1jyWT91PtgCikygN3qAjFYUUnagpKHRt/7h0jkhwK/tqoaeCTGAWqsUsqZ+Tj3xkFTrC+vbxZlQP5g7uvp5q1mekMXUI6Xyz+qkh5+plreL9stGtGF6ZLLsACQ4cYo91Wrw8HuW2yz1bUMsMrcV1lMjxjBjen67QFXu4TfesTD2mRkbP7RFUE1Bh/vuo1atuxll8V1SW0WZFrktWNtQddLNO6IC1CrMQ+f0RWc5KRTLeYSErUiEv9wiJ+atXgoBJ4NsEU0aYkSZacgZS1mxIZ59DnQt+yFq+a2XxhuakvxIeswfPY+/R2w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(2616005)(47076005)(26005)(316002)(2906002)(70206006)(36860700001)(8676002)(36756003)(426003)(186003)(6916009)(336012)(16526019)(70586007)(86362001)(82310400004)(356005)(4326008)(44832011)(508600001)(6666004)(83380400001)(7696005)(8936002)(1076003)(40460700003)(81166007)(5660300002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2022 16:45:12.9689 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90e502e5-d46a-4e15-aa27-08da083581d8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5064
+In-Reply-To: <CAF6AEGtUasyC1e0Fz2cFhSMEtUJCJTsFQs7+4mg_FP45LwX=4A@mail.gmail.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,61 +77,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: elena.sakhnovitch@amd.com
+Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
+ Shashank" <shashank.sharma@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Alexandar Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Shashank Sharma <contactshashanksharma@gmail.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sienna Cichild, not all platforms use PMFW based fan control. On such
-ASICs fan control by PMFW will be disabled in PPTable. Disable hwmon
-knobs for fan control also as it is not possible to report or control
-fan speed on such platforms through driver.
-v2: FEATURE_FAN_CONTROL_MASK is replaced with FEATURE_FAN_CONTROL_BIT
+On Thu, Mar 17, 2022 at 08:34:21AM -0700, Rob Clark wrote:
+> On Thu, Mar 17, 2022 at 2:29 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> >
+> > On Thu, Mar 17, 2022 at 08:03:27AM +0100, Christian König wrote:
+> > > Am 16.03.22 um 16:36 schrieb Rob Clark:
+> > > > [SNIP]
+> > > > just one point of clarification.. in the msm and i915 case it is
+> > > > purely for debugging and telemetry (ie. sending crash logs back to
+> > > > distro for analysis if user has crash reporting enabled).. it isn't
+> > > > used for triggering any action like killing app or compositor.
+> > >
+> > > By the way, how does msm it's memory management for the devcoredumps?
+> >
+> > GFP_NORECLAIM all the way. It's purely best effort.
+> 
+> We do one GEM obj allocation in the snapshot path (the hw has a
+> mechanism to snapshot it's own state into a gpu buffer.. not sure if
+> nice debugging functionality like that is a commentary on the blob
+> driver quality, but I'm not complaining)
+> 
+> I suppose we could pre-allocate this buffer up-front.. but it doesn't
+> seem like a problem, ie. if allocation fails we just skip snapshotting
+> stuff that needs the hw crashdumper.  I guess since vram is not
+> involved, perhaps that makes the situation a bit more straightforward.
 
-Signed-off-by: Elena Sakhnovitch  <elena.sakhnovitch@amd.com>
----
- .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+The problem is that you need to allocate with GFP_ATOMIC, instead of
+GFP_KERNEL, or things go very bad.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 38f04836c82f..c4fd70376481 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -371,6 +371,18 @@ static void sienna_cichlid_check_bxco_support(struct smu_context *smu)
- 	}
- }
- 
-+static void sienna_cichlid_check_fan_support(struct smu_context *smu)
-+{
-+	struct smu_table_context *table_context = &smu->smu_table;
-+	PPTable_t *pptable = table_context->driver_pptable;
-+	/* No sort of fan control possible if PPTable has it disabled */
-+	smu->adev->pm.no_fan =
-+		!(pptable->FeaturesToRun[0] & ( 1U << FEATURE_FAN_CONTROL_BIT));
-+	if (smu->adev->pm.no_fan)
-+		dev_info_once(smu->adev->dev,
-+			      "PMFW based fan control disabled");
-+}
-+
- static int sienna_cichlid_check_powerplay_table(struct smu_context *smu)
- {
- 	struct smu_table_context *table_context = &smu->smu_table;
-@@ -381,6 +393,7 @@ static int sienna_cichlid_check_powerplay_table(struct smu_context *smu)
- 		smu->dc_controlled_by_gpio = true;
- 
- 	sienna_cichlid_check_bxco_support(smu);
-+	sienna_cichlid_check_fan_support(smu);
- 
- 	table_context->thermal_controller_type =
- 		powerplay_table->thermal_controller_type;
-@@ -410,7 +423,7 @@ static int sienna_cichlid_append_powerplay_table(struct smu_context *smu)
- 	GET_PPTABLE_MEMBER(I2cControllers, &table_member);
- 	memcpy(table_member, smc_dpm_table->I2cControllers,
- 			sizeof(*smc_dpm_table) - sizeof(smc_dpm_table->table_header));
--	
-+
- 	return 0;
- }
- 
+The scheduler dma-fence annotations I've had (well still have them here)
+would catch this stuff, but thus far they got nowhere.
+
+> > Note that the fancy new plan for i915 discrete gpu is to only support gpu
+> > crash dumps on non-recoverable gpu contexts, i.e. those that do not
+> > continue to the next batch when something bad happens. This is what vk
+> > wants and also what iris now uses (we do context recovery in userspace in
+> > all cases), and non-recoverable contexts greatly simplify the crash dump
+> > gather: Only thing you need to gather is the register state from hw
+> > (before you reset it), all the batchbuffer bo and indirect state bo (in
+> > i915 you can mark which bo to capture in the CS ioctl) can be captured in
+> > a worker later on. Which for non-recoverable context is no issue, since
+> > subsequent batchbuffers won't trample over any of these things.
+> >
+> > And that way you can record the crashdump (or at least the big pieces like
+> > all the indirect state stuff) with GFP_KERNEL.
+> >
+> > msm probably gets it wrong since embedded drivers have much less shrinker
+> > and generally no mmu notifiers going on :-)
+> 
+> Note that the bo's associated with the batch are still pinned at this
+> point, from the bo lifecycle the batch is still active.  So from the
+> point of view of shrinker, there should be no interaction.  We aren't
+> doing anything with mmu notifiers (yet), so not entirely sure offhand
+> the concern there.
+> 
+> Currently we just use GFP_KERNEL and bail if allocation fails.
+
+Yeah you have a simple enough shrinker for this not to be a problem. The
+issue is that sooner or later things tend to not stay like that, and we're
+trying to have common rules for dma_fence to make sure everyone follows
+the same rules.
+-Daniel
+
+> 
+> BR,
+> -R
+> 
+> > > I mean it is strictly forbidden to allocate any memory in the GPU reset
+> > > path.
+> > >
+> > > > I would however *strongly* recommend devcoredump support in other GPU
+> > > > drivers (i915's thing pre-dates devcoredump by a lot).. I've used it
+> > > > to debug and fix a couple obscure issues that I was not able to
+> > > > reproduce by myself.
+> > >
+> > > Yes, completely agree as well.
+> >
+> > +1
+> >
+> > Cheers, Daniel
+> > --
+> > Daniel Vetter
+> > Software Engineer, Intel Corporation
+> > http://blog.ffwll.ch
+
 -- 
-2.25.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
