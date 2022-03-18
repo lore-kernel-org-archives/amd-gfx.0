@@ -4,72 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF559C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 15:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D83F5C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 15:12:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E32C10E9D8;
-	Fri, 18 Mar 2022 15:06:12 +0000 (UTC)
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
- [IPv6:2607:f8b0:4864:20::c35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E720610E9D8
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 15:06:11 +0000 (UTC)
-Received: by mail-oo1-xc35.google.com with SMTP id
- n5-20020a4a9545000000b0031d45a442feso10467576ooi.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 08:06:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E200B10E9A7;
+	Fri, 18 Mar 2022 15:12:15 +0000 (UTC)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 163DC10E080;
+ Fri, 18 Mar 2022 15:12:14 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id r7so5020605wmq.2;
+ Fri, 18 Mar 2022 08:12:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6OR3tTDRtWYJqdtBS5gkgMwjYTzt3PtVD/TCzwS5B3E=;
- b=P6GyfmqXNrgLS9WdnRanGwu33FltrH4r1jDcHE+8Pm2fMu+V0ZfmQcJEcQJ4Xn0Oh2
- hYp6oCAGTjP+sec69mqyOjyu9h87I0afMtQYY7AFCvStkbogH6y35FjZ8wbsM6uL6tiN
- EO9ppgYqsiPR0FXAAfsRwBuqAK5zzb9yLItEVZR5jI96x92SLjW1rFcVLB8LzbyEeObc
- KTtyYx1w2rAqy8QajRbXZt0GvqvQmgcXnidrH6mTAX3Pj9mSNcRRMrCmPv8OtDXP1HsK
- NBLLv+ykOEZDRaGB55eGGD+H6DWmF3jdw5fml/GBaoOOPYcpfr/mU+4V71PbbHAmPSGk
- 5AEg==
+ :cc:content-transfer-encoding;
+ bh=EApymkxonyMtaB/xcoZsAQd/qFJu/0+QS9XvmkXwrxI=;
+ b=mD8YQO3ZV8roQM5EsHfmMfA1Gz2a2NBjUOhCUF+AJo3j7om7Z7tFlgUiNcLCmwOhHV
+ obrKsizkMrUXHa+pdv3usz2JGsSiG1XUsUFMVnHN/04eXs3OhCfF/ZsNmC2L8EQC8nzb
+ re6GyCBiNHEfdcZBPdvg8j8Hfaq20C2J6M6i4/RUdMcdWTijd22evbT/9PgavseY+hL1
+ EVX9Yi4tO88YTMekGt38ImuQS/bcr1sXgcfk/36qIqgQ+R372KTRjlCenzofSAdC+VHl
+ fxNFQDOzh//McBwJlbVTkgvueyg0/f7w+VA/bXKVOifm1BndiyPNw4OkTgUPO+7T3cHD
+ leHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6OR3tTDRtWYJqdtBS5gkgMwjYTzt3PtVD/TCzwS5B3E=;
- b=LVsJSlSBfN7f9nC6tHmIgd1bErXQF6uiXz4HT/ImxMFaWoIQ3fPtcED1rTHxbLrO+9
- 4mKlevtsR/hCZKQ+J7tatdnUcSWMbyHnqDJJL83zCgsGiWACZJo5BYA5NOGdDFQJPzoU
- f3lBXHu6E2lTBms1SclmWsqbXN+u68fH72JZ83cDAeMdnLFC+mtArTZEbHkQoTAilaZ+
- gy3MWHupH8dmuhlO78ZO5QhBKhEPE8qfvEsWTqhAqiDIh4InnhXTjyCxj6AI72OJNs9m
- QqgKwsAMwN5YtouWvyCQrOJbT5UD8fc02lv7Os2/ZmhjOHVGfBhB00PqCNKiz9n/vK3n
- q6RQ==
-X-Gm-Message-State: AOAM531OPXjHomZZEjalML4Ifiq7N4DniC8buAfgh31xwsLTaaiLLABp
- NZXHsW51zi1dEYTtP5VRu8UUHCKuqfq+TyeeC+U=
-X-Google-Smtp-Source: ABdhPJxeq4SFYPT+zc21L6QpSflRysAOEA4Q2ctuTFK0PU5pgvaGdy23xjOP5wjtk9PpnhxW7e7FKuijutGY7E3iWLc=
-X-Received: by 2002:a05:6870:630c:b0:da:b3f:324d with SMTP id
- s12-20020a056870630c00b000da0b3f324dmr3846119oao.253.1647615971082; Fri, 18
- Mar 2022 08:06:11 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=EApymkxonyMtaB/xcoZsAQd/qFJu/0+QS9XvmkXwrxI=;
+ b=ngV9g5EVAwt5aqG4PraQtX40wXMq98uaLA+1znDjfLCj8pApjidEVLAtNsVudbOqvg
+ scRfKbzCwPrswfW5pS1dF+36H8y3tpsINfbKpY4IEi12/jbzY/BemMLTEogAEXQggWyq
+ Hxse8tejf7y5x+KmCQKDw2sc3SJQHUmoKB29F6kNK4TZFd+5k0i6SBKOkmCPGQGk2GYJ
+ M4rR74U1ASnInhkaGmRP13Hi1X8CG9FofnarEx/m3mQq3GHJrvP73Rbi5NC0oOjl9ovW
+ oO0xgkRwRlRDnCG9WdNm0oMvZB/RO7JATb0zoBA1/CiUN6sNsxZtlMOa+UkyTdbVvDUy
+ ad9Q==
+X-Gm-Message-State: AOAM531Ink391lFwUMcvLAhPum+4qXXt27xseM/nLzonMzHXk7AedMhx
+ F95KbTPfDuZirF1NACSrQORf0NFZ/5V3jYtLDw8=
+X-Google-Smtp-Source: ABdhPJyUdovwC2bAMCPewzU2+LqSE4i8NObaTjPjPGwsguJJgblEd21J1aEH0msjpFfkgwUEs0td+2xWUGnatECUv0I=
+X-Received: by 2002:a7b:cc0d:0:b0:381:220e:a3a0 with SMTP id
+ f13-20020a7bcc0d000000b00381220ea3a0mr8554596wmh.59.1647616332576; Fri, 18
+ Mar 2022 08:12:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <87ee57c8fu.fsf@turner.link>
- <CADnq5_Nr5-FR2zP1ViVsD_ZMiW=UHC1wO8_HEGm26K_EG2KDoA@mail.gmail.com>
- <87czkk1pmt.fsf@dmarc-none.turner.link>
- <BYAPR12MB46140BE09E37244AE129C01A975C9@BYAPR12MB4614.namprd12.prod.outlook.com>
- <87sftfqwlx.fsf@dmarc-none.turner.link>
- <BYAPR12MB4614E2CFEDDDEAABBAB986A0975E9@BYAPR12MB4614.namprd12.prod.outlook.com>
- <87ee4wprsx.fsf@turner.link> <4b3ed7f6-d2b6-443c-970e-d963066ebfe3@amd.com>
- <87pmo8r6ob.fsf@turner.link>
- <5a68afe4-1e9e-c683-e06d-30afc2156f14@leemhuis.info>
- <CADnq5_MCKTLOfWKWvi94Q9-d5CGdWBoWVxEYL3YXOpMiPnLOyg@mail.gmail.com>
- <87pmnnpmh5.fsf@dmarc-none.turner.link>
- <CADnq5_NG_dQCYwqHM0umjTMg5Uud6zC4=MiscH91Y9v7mW9bJA@mail.gmail.com>
- <092b825a-10ff-e197-18a1-d3e3a097b0e3@leemhuis.info>
- <877d96to55.fsf@dmarc-none.turner.link>
- <87lexdw8gd.fsf@turner.link>
- <d541b534-8b83-b566-56eb-ea8baa7c998e@leemhuis.info>
- <40b3084a-11b8-0962-4b33-34b56d3a87a3@molgen.mpg.de>
- <bc714e87-d1dc-cdda-5a29-25820faaff40@leemhuis.info>
- <20220318084625.27d42a51.alex.williamson@redhat.com>
-In-Reply-To: <20220318084625.27d42a51.alex.williamson@redhat.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 18 Mar 2022 11:06:00 -0400
-Message-ID: <CADnq5_OE7JpffYggKsu92DAjur1CCSqZQ7LbMqcfmAk68FerDA@mail.gmail.com>
-Subject: Re: [REGRESSION] Too-low frequency limit for AMD GPU
- PCI-passed-through to Windows VM
-To: Alex Williamson <alex.williamson@redhat.com>
+References: <20220311102709.225616cf@eldfell>
+ <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
+ <20220314172647.223658d2@eldfell>
+ <CADnq5_NsxipfFFXfRSXvVQin3e1gj0Q_p9p-shi3VZ2pSCwwfw@mail.gmail.com>
+ <20220316104815.11ec2e6c@eldfell>
+ <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
+ <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
+ <5e246eb8-0256-c40e-40ea-d865bf99c003@gmail.com>
+ <YjL/k6kh+5RihGIV@phenom.ffwll.local>
+ <CAF6AEGu79jDW1xqJOaNCB=jAxhKiCRFJwoCNiC9ye97KvpWEtQ@mail.gmail.com>
+ <YjNvYmcuDKiIneDx@phenom.ffwll.local>
+ <CAF6AEGvuMfKtf_aweai6y4oHghArE95uhR2X0f9h_9w4Bk_6VQ@mail.gmail.com>
+ <19a67000-d1e5-0582-c6de-07d9988b1735@amd.com>
+In-Reply-To: <19a67000-d1e5-0582-c6de-07d9988b1735@amd.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 18 Mar 2022 08:12:54 -0700
+Message-ID: <CAF6AEGvDjw6zq3yiorhOc+vp2US+Jso9tF74=8gyJMTm=K5FVQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,93 +75,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>, Lijo Lazar <lijo.lazar@amd.com>,
- kvm@vger.kernel.org, Thorsten Leemhuis <regressions@leemhuis.info>,
- Greg KH <gregkh@linuxfoundation.org>, Xinhui Pan <Xinhui.Pan@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- James Turner <linuxkernel.foss@dmarc-none.turner.link>,
- Alexander Deucher <Alexander.Deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig@amd.com>,
- regressions@lists.linux.dev
+Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
+ Shashank" <shashank.sharma@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Alexandar Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Shashank Sharma <contactshashanksharma@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 18, 2022 at 10:46 AM Alex Williamson
-<alex.williamson@redhat.com> wrote:
+On Fri, Mar 18, 2022 at 12:42 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> On Fri, 18 Mar 2022 08:01:31 +0100
-> Thorsten Leemhuis <regressions@leemhuis.info> wrote:
+> Am 17.03.22 um 18:31 schrieb Rob Clark:
+> > On Thu, Mar 17, 2022 at 10:27 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> >> [SNIP]
+> >>> (At some point, I'd like to use scheduler for the replay, and actuall=
+y
+> >>> use drm_sched_stop()/etc.. but last time I looked there were still
+> >>> some sched bugs in that area which prevented me from deleting a bunch
+> >>> of code ;-))
+> >> Not sure about your hw, but at least on intel replaying tends to just
+> >> result in follow-on fun. And that holds even more so the more complex =
+a
+> >> workload is. This is why vk just dies immediately and does not try to
+> >> replay anything, offloading it to the app. Same with arb robusteness.
+> >> Afaik it's really only media and classic gl which insist that the driv=
+er
+> >> stack somehow recover.
+> > At least for us, each submit must be self-contained (ie. not rely on
+> > previous GPU hw state), so in practice replay works out pretty well.
+> > The worst case is subsequent submits from same process fail as well
+> > (if they depended on something that crashing submit failed to write
+> > back to memory.. but in that case they just crash as well and we move
+> > on to the next one.. the recent gens (a5xx+ at least) are pretty good
+> > about quickly detecting problems and giving us an error irq.
 >
-> > On 18.03.22 06:43, Paul Menzel wrote:
-> > >
-> > > Am 17.03.22 um 13:54 schrieb Thorsten Leemhuis:
-> > >> On 13.03.22 19:33, James Turner wrote:
-> > >>>
-> > >>>> My understanding at this point is that the root problem is probably
-> > >>>> not in the Linux kernel but rather something else (e.g. the machine
-> > >>>> firmware or AMD Windows driver) and that the change in f9b7f3703ff9
-> > >>>> ("drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)") simply
-> > >>>> exposed the underlying problem.
-> > >>
-> > >> FWIW: that in the end is irrelevant when it comes to the Linux kernel's
-> > >> 'no regressions' rule. For details see:
-> > >>
-> > >> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/Documentation/admin-guide/reporting-regressions.rst
-> > >>
-> > >> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/Documentation/process/handling-regressions.rst
-> > >>
-> > >>
-> > >> That being said: sometimes for the greater good it's better to not
-> > >> insist on that. And I guess that might be the case here.
-> > >
-> > > But who decides that?
-> >
-> > In the end afaics: Linus. But he can't watch each and every discussion,
-> > so it partly falls down to people discussing a regression, as they can
-> > always decide to get him involved in case they are unhappy with how a
-> > regression is handled. That obviously includes me in this case. I simply
-> > use my best judgement in such situations. I'm still undecided if that
-> > path is appropriate here, that's why I wrote above to see what James
-> > would say, as he afaics was the only one that reported this regression.
-> >
-> > > Running stuff in a virtual machine is not that uncommon.
-> >
-> > No, it's about passing through a GPU to a VM, which is a lot less common
-> > -- and afaics an area where blacklisting GPUs on the host to pass them
-> > through is not uncommon (a quick internet search confirmed that, but I
-> > might be wrong there).
+> Well I absolutely agree with Daniel.
 >
-> Right, interference from host drivers and pre-boot environments is
-> always a concern with GPU assignment in particular.  AMD GPUs have a
-> long history of poor behavior relative to things like PCI secondary bus
-> resets which we use to try to get devices to clean, reusable states for
-> assignment.  Here a device is being bound to a host driver that
-> initiates some sort of power control, unbound from that driver and
-> exposed to new drivers far beyond the scope of the kernel's regression
-> policy.  Perhaps it's possible to undo such power control when
-> unbinding the device, but it's not necessarily a given that such a
-> thing is possible for this device without a cold reset.
+> The whole replay thing AMD did in the scheduler is an absolutely mess
+> and should probably be killed with fire.
 >
-> IMO, it's not fair to restrict the kernel from such advancements.  If
-> the use case is within a VM, don't bind host drivers.  It's difficult
-> to make promises when dynamically switching between host and userspace
-> drivers for devices that don't have functional reset mechanisms.
+> I strongly recommend not to do the same mistake in other drivers.
+>
+> If you want to have some replay feature then please make it driver
+> specific and don't use anything from the infrastructure in the DRM
+> scheduler.
+
+hmm, perhaps I was not clear, but I'm only talking about re-emitting
+jobs *following* the faulting one (which could be from other contexts,
+etc).. not trying to restart the faulting job.
+
+You *absolutely* need to replay jobs following the faulting one, they
+could be from unrelated contexts/processes.  You can't just drop them
+on the floor.
+
+Currently it is all driver specific, but I wanted to delete a lot of
+code and move to using scheduler to handle faults/timeouts (but
+blocked on that until [1] is resolved)
+
+[1] https://patchwork.kernel.org/project/dri-devel/patch/1630457207-13107-2=
+-git-send-email-Monk.Liu@amd.com/
+
+BR,
+-R
+
 > Thanks,
-
-Additionally, operating the isolated device in a VM on a constrained
-environment like a laptop may have other adverse side effects.  The
-driver in the guest would ideally know that this is a laptop and needs
-to properly interact with APCI to handle power management on the
-device.  If that is not the case, the driver in the guest may end up
-running the device out of spec with what the platform supports.  It's
-also likely to break suspend and resume, especially on systems which
-use S0ix since the firmware will generally only turn off certain power
-rails if all of the devices on the rails have been put into the proper
-state.  That state may vary depending on the platform requirements.
-
-Alex
-
+> Christian.
 >
-> Alex
+> >
+> > BR,
+> > -R
+> >
+> >> And recovering from a mess in userspace is a lot simpler than trying t=
+o
+> >> pull of the same magic in the kernel. Plus it also helps with a few of=
+ the
+> >> dma_fence rules, which is a nice bonus.
+> >> -Daniel
+> >>
 >
