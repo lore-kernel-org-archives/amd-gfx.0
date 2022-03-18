@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EB8AC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 21:48:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BB70C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 21:48:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1455F10E146;
-	Fri, 18 Mar 2022 21:48:21 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22D4010E146
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 21:48:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95B8610E1D2;
+	Fri, 18 Mar 2022 21:48:33 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7A1210E1D2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 21:48:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n6Rd3zG4ingkPbxwEsW4CaBrZ5EbZrP9v+/j2S+r8rtkoA4AF5MVkH1jAzRekSZ6/Paffdr2GNfCeeDumLU7mzAXNDntWYmYUYGJRLKvgH/UJmNUamzdOVDPuGnSsOunSZ1e4GBcjMjOaxgNkxwZiH+r/OkTraKMXkemkHbym4XvPsal9x7BBd1YjnmGgWtEdLf2FoPZnBYRmkH4IOw6tCdsDjOiCRJrwAN2I/lIPFrTGsyv0eIlA3ZeohMixbwaKvigpkQY5SSy4gDOeXAc0oxHGumvopznTnNmS9pw+25Cg51bKYPN58xcf+br8D5R+k7rafcYMZY/aBzC0TjQVw==
+ b=ft1Ko7NMaZS0LsqqVXRuXaqrLsPIcv6w7FSwTITjEASJfzexhUY9+ZIN95X7SZEF0mWxRMeDrq+DA7RH/UoPD5UPI+CMyMbebY26D8zHTMVR3P074LAyya0ZzDNYFgX0DgBpv75qbkpGCdaV15VLPSPjouSErB1dxgyi1kF8nM1Un5tDgIR1395DiN2vkoBOy6DhiHf4qVEpMJIZyIoKIZbucqOBjhEsXcpfQeseAcygi8JT1B13cxUIKCkHBDj6QI+CUWAbsvfzRCTOkj/kVAGywNEo/Snq9VQrcLezOfUrt6CLDKte3sccyEW259fpq0Iah1QQVKRLjKT+hkYyew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KwemXNSTlIuEfCpiV0Y6sNU6Wopgey7JQnSjoV2ddHw=;
- b=MwcO+lyDp5pLQMfLtT114vi+XZbkM+S8gAyj3P7WgNp55sP1A6YMcRdbs/r0ZLBY3aOZIWqX5rSdyBuNUmbwd8CQjG7J/VvrqrrUZzriwktATEOMJ6GoNZjZexG0Tupep3xrbbEIgkJpdq1QGo48zPjNXGaymLELIwOaegplCLxnXxAIDRujKyeV2b7emY2LRan0s7VxfXQrDngQQNM14Ua401mXE0YP9LcH0pap/HHwWMmi/iDuLoy9dHUvVjTq1P9+pTImlXExxjEU390UgjPn+vSW9/f/QuLxWDApvnIonQLYXGR1JHDeuo4oIjBjaC6VEafiN1tFXzGQ3GLCBg==
+ bh=GxG9ku428mte/18zGjoLkBZUr7K4kJegjdFJvsWDA3c=;
+ b=lb5M7U0vFFcX6zAuxpJTZneObucuROBAK8dPd+BSmCvu//QpEqk7OJ4aqFWGGhSR1deIgWBGJNgkOCOoxOZqXExo/x7F67LFtVI+TSc21OLWNa5QNToAf01L6jYcS6ChCBjf/Qe4I3VxLEFz6zy8UI2uybinUIJTCR2k5BuP/d9JJ2v5ihLJAmKOKFTUj6OdsdJqtypghSZ0XoIvFHPeHVTiOamDuc0iEV8fdrc44jThjbfYUVpPikfDjwV+b75dMF2a9hcV0HfBHDb/Z1Q7hkU4D/8grpqi0tfc/1FfrtgHAvYSON/zz+4zJuevdmwF9b6Llr+P7DIgpzSp4xVLpw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KwemXNSTlIuEfCpiV0Y6sNU6Wopgey7JQnSjoV2ddHw=;
- b=iuQ588ygsauQERujqUn6VoFbPYljYt3cA9Pkoo3a02U9euhtyCUK0Z7H6EbCz19QxUdpiKmhCaxAZ7gaKtqEHXMBzXSuJh5vbGHpDN/cclWtrs3eqSUJELRd4VOcn9LLeBxJNQeQ9TShdF3dk64iVXwjN2nHJcXF1fNHepT34dY=
-Received: from MW4PR04CA0339.namprd04.prod.outlook.com (2603:10b6:303:8a::14)
- by BYAPR12MB2966.namprd12.prod.outlook.com (2603:10b6:a03:df::27)
+ bh=GxG9ku428mte/18zGjoLkBZUr7K4kJegjdFJvsWDA3c=;
+ b=IRD8v73BH6VtsMN3o3I/VFScdXG4AXvaOtzB7T9o+2SRUwnX5DoWm+Tid82Zfmgaz1UxXwIaiXOgMRe/OUjT41npcuCbV4BfKYo/Dd/jHsnadx9uqHY5bYoE/AR5/vwV9npgVMUBPlAPvziEFTyRNRDrBhd4DqRNGMdHEKJQDgM=
+Received: from BN9P222CA0020.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::25)
+ by BYAPR12MB4789.namprd12.prod.outlook.com (2603:10b6:a03:111::33)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14; Fri, 18 Mar
- 2022 21:48:16 +0000
-Received: from CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8a:cafe::26) by MW4PR04CA0339.outlook.office365.com
- (2603:10b6:303:8a::14) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 21:48:29 +0000
+Received: from BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10c:cafe::48) by BN9P222CA0020.outlook.office365.com
+ (2603:10b6:408:10c::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.18 via Frontend
- Transport; Fri, 18 Mar 2022 21:48:15 +0000
+ Transport; Fri, 18 Mar 2022 21:48:29 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT034.mail.protection.outlook.com (10.13.174.248) with Microsoft SMTP
+ BN8NAM11FT017.mail.protection.outlook.com (10.13.177.93) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5081.14 via Frontend Transport; Fri, 18 Mar 2022 21:48:14 +0000
+ 15.20.5081.14 via Frontend Transport; Fri, 18 Mar 2022 21:48:28 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 18 Mar
- 2022 16:48:12 -0500
+ 2022 16:48:25 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 00/13] Title: DC Patches March 18, 2022
-Date: Fri, 18 Mar 2022 15:47:47 -0600
-Message-ID: <20220318214800.3565679-1-alex.hung@amd.com>
+Subject: [PATCH 01/13] drm/amd/display: HDCP SEND AKI INIT error
+Date: Fri, 18 Mar 2022 15:47:48 -0600
+Message-ID: <20220318214800.3565679-2-alex.hung@amd.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220318214800.3565679-1-alex.hung@amd.com>
+References: <20220318214800.3565679-1-alex.hung@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
  (10.181.40.144)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 684f52ac-0efa-461c-beae-08da09290194
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2966:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB296685E651838EAFD9173B10F7139@BYAPR12MB2966.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: c796fa29-132c-48dd-bb69-08da092909cd
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4789:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB4789CE26831637264C6F5EC7F7139@BYAPR12MB4789.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4K0+FBAYt3weL55YI5O9SuxpKtP/9qoZKDEdOa4qlT5IuLZ1aE8mrpWNyJ+Xg+e2zY2wmUa7/4JDNlIZvM2usyB6/FvI1df2f+7wYzkaQ63XCtP2m9Pped58RcuN1+n12Q+2aof+AeURfc8DkKmn5jMFFpA/96zuLpith7wf8mNWIRyI2NnMqeH7edBdyR7epWimwebDTW5NiBYGcb/HgJN0rleE5cNszmn0GKGnUpmPATRB/nbSW8Kig/FBePy45u1hQoZK6C5t/QoE49xSouzE5ELn54hCEPdnWv0/NzCAl0FzQu69rGeFuDppRQPwWiK/kBW7/B0KQBJtCKUrPd2d9gT/H2srtNmJFTnQyzGeaPERtkEquyQqytpjNnnAePP8Cr1zVn9vRtisw+2AGbY5unVJ2c5ClsShB6m28xmWy/D05Qq0TVBPAdpIG7M7NPz8rml0JXHtumavnx0e1a4xPT7zcz3UnufWwchOxcr+4D3LQ0G/QToakc+POchXyxpEOC/3wrHw07hXQSTuCNf85jiUnYu/6yBDJ2gi8+Pj8L5ZaOrUvg4gStDHgotWQlI/kXuBVeLX7ac9Sl3+CeLy4jEksZ1eKRQPLm3sZ4Yty1Mxvv07OdqF2D9nJE7pbycgxDUmrz/7xeRPV85EwZ8F5W1BNoJyZBwvFIPZy6pXcz5mrdTEpq07E+InrMPqyGWmwvddDh+svl19udGTpA==
+X-Microsoft-Antispam-Message-Info: ZPgl8IBdKxLrQYZQmIPzKkm5A8PK6RA/Wr+T4hsEOt3VmSJC/nZu27j3EqVcC7y02cKW+8s6n9QLQNVCI+7V7Jsp1RcEdRspghz21jXuufBgHSyHB/Ew0WRSaJ8eAW7sHpIGjWDyO1M6Gzi2z+XwyvjvfR34DuWyNsoVPeHPpxS7YsTu/I8ER4TKizRgSbng3cQyeOUeTkS3HawLMMOCiYVrDh7/eQEUQmlxWaMt/idHZQUjqjwCxV1e++MIinWHgxTtuapyPPKL2Ov27EiuNgMnVqqWZbdm/1UqSfvUpUGZdBMegpC9+oq1scyaY7YMjApA94W/t39YHYYxT1gyJHYvFuOABGgvrLZeeaYCIbcEuoSzlK029Dn9IhbCgs8PISdHNYprMV4ZD8ZIV4G4/ex9jF/wwZSG14jWQP2Qc/AGs/9OSGiTkXf9uo9bZPTPGX9q5CC3pF6ooQjBW9sdnGDe24xdwSZgU2MzWv+hwf7z2/wHAe7yA7HmHI8Pn8uwlOPuuyAqDgB/oR2wM3xSta+EXSjDinWeR+qWA4qIZBnYl1a0EXZBi2NT5yr2zCbM6B0BXRj8uZi3DfVVAotAAOz5p5Mh2SWJPHMyp35IW0vLOHwbzLvuVwGrEaTh3J9+fSh1AgpCOTFOnCH4OtVcG5HHTjnjwsYYFs251bjEgjXQ8BcbySSq/soC8tvtBZgnZfkWOmXQ/w4nQCqp8bJx2g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(426003)(7696005)(336012)(6666004)(5660300002)(40460700003)(316002)(36756003)(82310400004)(6916009)(1076003)(16526019)(44832011)(186003)(83380400001)(36860700001)(2616005)(26005)(47076005)(2906002)(508600001)(8936002)(4326008)(8676002)(54906003)(70586007)(81166007)(70206006)(86362001)(356005)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(40460700003)(36860700001)(47076005)(2906002)(356005)(83380400001)(81166007)(1076003)(336012)(2616005)(426003)(186003)(26005)(8936002)(16526019)(44832011)(316002)(82310400004)(6666004)(7696005)(5660300002)(6916009)(54906003)(86362001)(36756003)(8676002)(70586007)(70206006)(508600001)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2022 21:48:14.9306 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 684f52ac-0efa-461c-beae-08da09290194
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2022 21:48:28.8508 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c796fa29-132c-48dd-bb69-08da092909cd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2966
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4789
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,95 +102,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alex Hung <alex.hung@amd.com>,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+ Ahmad Othman <ahmad.othman@amd.com>, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Alex Hung <alex.hung@amd.com>, wayne.lin@amd.com,
+ Wenjing Liu <Wenjing.Liu@amd.com>, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we highlight:
+From: Ahmad Othman <ahmad.othman@amd.com>
 
-* HDCP SEND AKI INIT error
-* fix audio format not updated after edid updated
-* Reduce stack size
-* FEC check in timing validation
-* Add fSMC_MSG_SetDtbClk support
-* Update VTEM Infopacket definition
-* [FW Promotion] Release 0.0.109.0
-* Add support for zstate during extended vblank
-* remove destructive verify link for TMDS
-* move FPU related code from dcn31 to dml/dcn31 folder
-* move FPU related code from dcn315 to dml/dcn31 folder
-* move FPU related code from dcn316 to dml/dcn31 folder
+[why]
+HDCP sends AKI INIT error in case of multiple display on dock
 
-Ahmad Othman (1):
-  drm/amd/display: HDCP SEND AKI INIT error
+[how]
+Added new checks and method to handfle display adjustment
+for multiple display cases
 
-Anthony Koo (1):
-  drm/amd/display: [FW Promotion] Release 0.0.109.0
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Ahmad Othman <ahmad.othman@amd.com>
+---
+ .../gpu/drm/amd/display/modules/hdcp/hdcp.c   | 38 ++++++++++++++++++-
+ .../gpu/drm/amd/display/modules/hdcp/hdcp.h   |  8 ++++
+ .../drm/amd/display/modules/inc/mod_hdcp.h    |  2 +-
+ 3 files changed, 46 insertions(+), 2 deletions(-)
 
-Aric Cyr (1):
-  drm/amd/display: 3.2.178
-
-Charlene Liu (2):
-  drm/amd/display: fix audio format not updated after edid updated
-  drm/amd/display: remove destructive verify link for TMDS
-
-Chiawen Huang (1):
-  drm/amd/display: FEC check in timing validation
-
-Gabe Teeger (1):
-  drm/amd/display: Add support for zstate during extended vblank
-
-Leo (Hanghong) Ma (1):
-  drm/amd/display: Update VTEM Infopacket definition
-
-Melissa Wen (3):
-  drm/amd/dicplay: move FPU related code from dcn31 to dml/dcn31 folder
-  drm/amd/display: move FPU related code from dcn315 to dml/dcn31 folder
-  drm/amd/display: move FPU related code from dcn316 to dml/dcn31 folder
-
-Oliver Logush (1):
-  drm/amd/display: Add fSMC_MSG_SetDtbClk support
-
-Rodrigo Siqueira (1):
-  drm/amd/display: Reduce stack size
-
- .../display/dc/clk_mgr/dcn315/dcn315_smu.c    |  19 +-
- .../display/dc/clk_mgr/dcn315/dcn315_smu.h    |   4 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  23 +
- drivers/gpu/drm/amd/display/dc/core/dc_link.c |   3 +-
- .../gpu/drm/amd/display/dc/core/dc_resource.c |   4 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |   8 +-
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |   2 +
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |   8 +-
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  12 +
- drivers/gpu/drm/amd/display/dc/dcn31/Makefile |  26 -
- .../gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c |   8 +
- .../drm/amd/display/dc/dcn31/dcn31_resource.c | 356 +-------
- .../drm/amd/display/dc/dcn31/dcn31_resource.h |   4 +-
- .../gpu/drm/amd/display/dc/dcn315/Makefile    |  26 -
- .../amd/display/dc/dcn315/dcn315_resource.c   | 232 +----
- .../amd/display/dc/dcn315/dcn315_resource.h   |   3 +
- .../gpu/drm/amd/display/dc/dcn316/Makefile    |  26 -
- .../amd/display/dc/dcn316/dcn316_resource.c   | 231 +----
- .../amd/display/dc/dcn316/dcn316_resource.h   |   3 +
- drivers/gpu/drm/amd/display/dc/dml/Makefile   |   2 +
- .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  |  18 +-
- .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  | 863 ++++++++++++++++++
- .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.h  |  44 +
- .../dc/dml/dcn31/display_rq_dlg_calc_31.c     |  13 +
- .../amd/display/dc/dml/display_mode_structs.h |   2 +
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |   3 +
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   4 +-
- .../gpu/drm/amd/display/modules/hdcp/hdcp.c   |  38 +-
- .../gpu/drm/amd/display/modules/hdcp/hdcp.h   |   8 +
- .../drm/amd/display/modules/inc/mod_hdcp.h    |   2 +-
- .../display/modules/info_packet/info_packet.c |   5 +-
- 31 files changed, 1085 insertions(+), 915 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
-
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c
+index 3e81850a7ffe..5e01c6e24cbc 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c
+@@ -251,6 +251,33 @@ static enum mod_hdcp_status reset_connection(struct mod_hdcp *hdcp,
+ 	return status;
+ }
+ 
++static enum mod_hdcp_status update_display_adjustments(struct mod_hdcp *hdcp,
++		struct mod_hdcp_display *display,
++		struct mod_hdcp_display_adjustment *adj)
++{
++	enum mod_hdcp_status status = MOD_HDCP_STATUS_NOT_IMPLEMENTED;
++
++	if (is_in_authenticated_states(hdcp) &&
++			is_dp_mst_hdcp(hdcp) &&
++			display->adjust.disable == true &&
++			adj->disable == false) {
++		display->adjust.disable = false;
++		if (is_hdcp1(hdcp))
++			status = mod_hdcp_hdcp1_enable_dp_stream_encryption(hdcp);
++		else if (is_hdcp2(hdcp))
++			status = mod_hdcp_hdcp2_enable_dp_stream_encryption(hdcp);
++
++		if (status != MOD_HDCP_STATUS_SUCCESS)
++			display->adjust.disable = true;
++	}
++
++	if (status == MOD_HDCP_STATUS_SUCCESS &&
++		memcmp(adj, &display->adjust,
++		sizeof(struct mod_hdcp_display_adjustment)) != 0)
++		status = MOD_HDCP_STATUS_NOT_IMPLEMENTED;
++
++	return status;
++}
+ /*
+  * Implementation of functions in mod_hdcp.h
+  */
+@@ -391,7 +418,7 @@ enum mod_hdcp_status mod_hdcp_remove_display(struct mod_hdcp *hdcp,
+ 	return status;
+ }
+ 
+-enum mod_hdcp_status mod_hdcp_update_authentication(struct mod_hdcp *hdcp,
++enum mod_hdcp_status mod_hdcp_update_display(struct mod_hdcp *hdcp,
+ 		uint8_t index,
+ 		struct mod_hdcp_link_adjustment *link_adjust,
+ 		struct mod_hdcp_display_adjustment *display_adjust,
+@@ -419,6 +446,15 @@ enum mod_hdcp_status mod_hdcp_update_authentication(struct mod_hdcp *hdcp,
+ 		goto out;
+ 	}
+ 
++	if (memcmp(link_adjust, &hdcp->connection.link.adjust,
++			sizeof(struct mod_hdcp_link_adjustment)) == 0 &&
++			memcmp(display_adjust, &display->adjust,
++					sizeof(struct mod_hdcp_display_adjustment)) != 0) {
++		status = update_display_adjustments(hdcp, display, display_adjust);
++		if (status != MOD_HDCP_STATUS_NOT_IMPLEMENTED)
++			goto out;
++	}
++
+ 	/* stop current authentication */
+ 	status = reset_authentication(hdcp, output);
+ 	if (status != MOD_HDCP_STATUS_SUCCESS)
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
+index 399fbca8947b..6b195207de90 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
+@@ -445,6 +445,14 @@ static inline uint8_t is_in_hdcp2_dp_states(struct mod_hdcp *hdcp)
+ 			current_state(hdcp) <= HDCP2_DP_STATE_END);
+ }
+ 
++static inline uint8_t is_in_authenticated_states(struct mod_hdcp *hdcp)
++{
++	return (current_state(hdcp) == D1_A4_AUTHENTICATED ||
++	current_state(hdcp) == H1_A45_AUTHENTICATED ||
++	current_state(hdcp) == D2_A5_AUTHENTICATED ||
++	current_state(hdcp) == H2_A5_AUTHENTICATED);
++}
++
+ static inline uint8_t is_hdcp1(struct mod_hdcp *hdcp)
+ {
+ 	return (is_in_hdcp1_states(hdcp) || is_in_hdcp1_dp_states(hdcp));
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
+index f7420c3f5672..3348bb97ef81 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
+@@ -294,7 +294,7 @@ enum mod_hdcp_status mod_hdcp_remove_display(struct mod_hdcp *hdcp,
+ 		uint8_t index, struct mod_hdcp_output *output);
+ 
+ /* called per display to apply new authentication adjustment */
+-enum mod_hdcp_status mod_hdcp_update_authentication(struct mod_hdcp *hdcp,
++enum mod_hdcp_status mod_hdcp_update_display(struct mod_hdcp *hdcp,
+ 		uint8_t index,
+ 		struct mod_hdcp_link_adjustment *link_adjust,
+ 		struct mod_hdcp_display_adjustment *display_adjust,
 -- 
 2.35.1
 
