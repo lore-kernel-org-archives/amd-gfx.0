@@ -4,117 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EF17C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 12:38:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15E2AC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 13:28:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFCD210E1EA;
-	Fri, 18 Mar 2022 12:38:46 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2047.outbound.protection.outlook.com [40.107.244.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE6C010E1EA;
- Fri, 18 Mar 2022 12:38:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LdM3rYq32WvIp20erSh3X/QZyTtyfHhk7BL0sj9IeCu8IFsqdVF/kuMVZH2QJ0ZoKa+WipShKNB3Hfwh1KAtr/dByUFdmQm0IgDK3EqK3eMU54J6PCYVLDH5GnsanqgWQnZTvCKxy1Xn1FT5lIjdEbhLKCsjDiNtjskqovEYbJvQbgDLWUlgnuEVH1O2zcCDbAWtn4EbltHhJR+2EQXuZEUJH5bTzIxpG5UQON2cALTHR7GWzftYvGgzz0Ae066SCdBRzuujbc6AhjBi/1vnOjovsCywded3FqwiZCbx+KfsscK/aqgPHQX5sLUZimF3ADuweD0kdyUe9flDeKM2XA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ALawTFB0SIcsaPFs2CSbdzPlVHrJSV2HkQRuRXXNzYk=;
- b=Ya8Vvw67NnCJpfKY/tlO9NCmsczXNH5RPz27U4c+k4OBsu74vvy4Q3qFoYd5C9SSWsd7tJnINR5cJrmmN8o3kWHw/E4jDoKnbjScd9RRnDlxFFx4+pW/y2xyH/Fhn11Y56LpK4UmZs9nOqdAIMlEJXRZ8Ef0KjxNxAAWtvo93d2EBDlYcYsOqe8gLoDoVsOwxOZ2a6FudJn06/4ipKV2i3ZBL94Qqb83qxiOqKkEcqOdruJofgQtYD5t8OPMtP0bsVccAdtholQFsdU4szAVZ0ooya8ugkUk4KZXfWbJO/BNR/9q9wP0s+8D/4Z17mHLg9CGosmt3JdXMzDl3v8yog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ALawTFB0SIcsaPFs2CSbdzPlVHrJSV2HkQRuRXXNzYk=;
- b=aiuQvuFxpvNAs0B1QNnpECGsflJkAefr/SlCYoQds8BATUITCSAsOgu7KUBu5t52NPY+8Ra2VeMSBGEZPlGksj3N7JhxAOf3VEwUEg7+htb6MVMwOYuPUXMr/1lepbu1gtc3OIpDfnMce8A1JBSIazk7Lm6t9UXcOqnCfcYjtMc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by BN8PR12MB2883.namprd12.prod.outlook.com (2603:10b6:408:98::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14; Fri, 18 Mar
- 2022 12:38:44 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::404f:1fc8:9f4c:f185]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::404f:1fc8:9f4c:f185%6]) with mapi id 15.20.5081.018; Fri, 18 Mar 2022
- 12:38:44 +0000
-Message-ID: <74d1b5aa-7cfc-8cf0-b94e-efb19a7f1920@amd.com>
-Date: Fri, 18 Mar 2022 13:38:40 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [RFC PATCH 1/4] drm/amdkfd: Improve amdgpu_vm_handle_moved
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220317002006.342457-1-Felix.Kuehling@amd.com>
- <20220317002006.342457-2-Felix.Kuehling@amd.com>
- <5054ada1-9f2d-1297-5f37-0b05ec2ae37f@amd.com>
- <f9f2bbdb-74bc-e286-07d6-4f1972f0e743@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <f9f2bbdb-74bc-e286-07d6-4f1972f0e743@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0089.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::18) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F64710E4C7;
+	Fri, 18 Mar 2022 13:28:22 +0000 (UTC)
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44BDE10E76B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 08:29:15 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id q11so6440473pln.11
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 01:29:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=wZNID0aTsT7mswVy93R51Fbbs+WjDLuUbxor1foz6Lo=;
+ b=DehUuhZMBrIq7tyhY2an6M/tFPSagVx/813cVNYtel7f///owaQGhMV6bRY/qPqeKg
+ QQ+N5c77xKlc6J2NPaYvjsaOd4CVjySrbhWbj4CklyH0Ytt6OO9C7HHkcmzQ7kZn/nlQ
+ ItaDqFx4HaHNZD9xE7c5uYQYOb7MriY1RGrSY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=wZNID0aTsT7mswVy93R51Fbbs+WjDLuUbxor1foz6Lo=;
+ b=lbV5vKQBuc4rsG83KLXzIs+u0xXdxQGYLv6lL5p3U3cZMChfBj7z389Rgzm3TzLx2G
+ kUGo78CgAbeodtRZ34lzYcxHwR0mWLCDUGOF1YIZrdC/uNRJgXb96gmy6hUafP7uC3qa
+ I5y0aaSnuWvogQdXHyjEr3gOOVyAjE+onJWlSKIdMV1HB4zb2XTlXzzPONl1CXXH7s83
+ JHMoI5ej3buxdoxynv0P9FNiGfX6TyPbMYbr5FSNpLkUuPS/G1VW91ggoAWIxYEqNu1w
+ n3ewHwVaeRgUAhS5knyASr/w17Usc4I+YG0VfP3DNUNgaBZUGK/LotvkIFQMQ4AJXnx8
+ eI2g==
+X-Gm-Message-State: AOAM530KXQX3i/0IK6N72xRbtGYeAilgo2BNO2XoeEDqUB7ZlTQoX1Zv
+ ykd6+XuCtVfB71R/aDvy3SPFQQ==
+X-Google-Smtp-Source: ABdhPJztgaasx3h2kv/cGHFq8QmOcrLVLmKVXwE0+zn8Y1ZCzTDsfv/JKb6L0WW1XefmGofOwRlZhQ==
+X-Received: by 2002:a17:902:d2ce:b0:151:6781:affa with SMTP id
+ n14-20020a170902d2ce00b001516781affamr8762800plc.168.1647592154737; 
+ Fri, 18 Mar 2022 01:29:14 -0700 (PDT)
+Received: from hsinyi-z840.tpe.corp.google.com
+ ([2401:fa00:1:10:435a:ce78:7223:1e88])
+ by smtp.gmail.com with ESMTPSA id
+ q2-20020a056a00084200b004f761a7287dsm9404044pfk.131.2022.03.18.01.29.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Mar 2022 01:29:14 -0700 (PDT)
+From: Hsin-Yi Wang <hsinyi@chromium.org>
+To: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Subject: [PATCH v9 1/4] gpu: drm: separate panel orientation property creating
+ and value setting
+Date: Fri, 18 Mar 2022 15:48:22 +0800
+Message-Id: <20220318074825.3359978-2-hsinyi@chromium.org>
+X-Mailer: git-send-email 2.35.1.894.gb6a874cedc-goog
+In-Reply-To: <20220318074825.3359978-1-hsinyi@chromium.org>
+References: <20220318074825.3359978-1-hsinyi@chromium.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ae0855c4-5eb1-4055-54f4-08da08dc3d1e
-X-MS-TrafficTypeDiagnostic: BN8PR12MB2883:EE_
-X-Microsoft-Antispam-PRVS: <BN8PR12MB28839ABB07A086267A5FA8B283139@BN8PR12MB2883.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ieu8UC3CRsSslbbnotAOt3vsnH2BxAC1rOeY8S8w73zUdriCH7bkQU57lTPYp73LfJhys3AoFsvq2gZpewlBwRv5A30fgxoRfcoYjknm5k0rkxbmkWhTuYkibE9b7DmdlIKLuiaWiCOH3441AC8r4dANMwe5xgrNb3rprPee4tcgmk0rPU8X2GiiysOEtP4R9JsG4erxPaNPe1JSN9mVEmHBrqAnDBLd7fNeDihiDrTm8qklAgYypPowHghRvDOuWdrnlatMHqIAuKRQe7IFQmsZgDoB8cBGeEBjuV6fU/yFZQDjwGk0bGGtpzd4gLE3BirUN4unLvZgRBuLz7bm/XTqHvRxK8bMmmDic4cACa+o10CoL3jIEcdlD12KXc6xb7Kvo1t6KP40M7Vl6ftTN/f5HkKZC5OF1DJNSkAT5pQw64JXEKHlkVAeVuH+9Jy+Gf1JwJeUZs4sVQijxORSUpMichZCtP1yXn+0WVsTH3u57CSBo43CCQvHuHD/1jneaYAS1JjAmR8x0ZXTH7KcgDC7edhD9h3REfJU2cmIkw6MrV2S7fKsZuTtAc/9HMsHBHibLMdJyU0eJoOu+UASHwasiS5BxOX2t9zwrGtsePIlSu45igOJFsUczqJsauyq5IeB23IgIsSgXJ8e8DNKrefmCKRzbeYBLA0YfWM4JumXs8Xf+EU4ZGQyXsN0XmxQArrAiIzlwi08uHtxxzS9h1CCuQyqYBnZCSF7eUTZ6K3tI3yrPAfR+0Ob+3wGKvcY
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(316002)(31696002)(66476007)(38100700002)(8676002)(4326008)(450100002)(86362001)(31686004)(36756003)(66556008)(6486002)(508600001)(66946007)(8936002)(186003)(6512007)(6666004)(83380400001)(66574015)(6506007)(2906002)(2616005)(5660300002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VEU5eXd5NlVKZWs1bHdsTWVMMzdBV3I4azFEOVpJbXVibGw1RUx4S1hIQ0Fa?=
- =?utf-8?B?SjdDZ1FLaDJHMGxaRHN0S28wcTMwWUd5QmFEajlTZWFURzF4cERqcWt0U1pF?=
- =?utf-8?B?M04rV0hXUXlJYXp2OUhudE1kNWZQNmF5VnRkMzEwdit1OTFTWStGS0dIc3N1?=
- =?utf-8?B?VnYybHB5ZmgrSjVralVydVJENXNTelVhSnQ3ZFJrYmFnMXdHdEc0Q1p0TGhh?=
- =?utf-8?B?Q3lIeS9zYndlNVlSSnRTc3JuK0ljVWxJZGtMalNRbW85QUdYOGpIMThGTjB3?=
- =?utf-8?B?TXpNMS9CTkhlM1lCOGhadG81VUNhcUdHWjY3ZVY0ZUZoaTZVRTM4WkQrL3FG?=
- =?utf-8?B?WWo0NnhabDloMktGZVRQZFhpVm52ZFN3RUJnL0FLeDc0VFc5UnhHNHZxMzMy?=
- =?utf-8?B?dkpLSWlWUzdSZEE1b2FzeHNxWDc0TjdVUHlFTE1zcjJuQm5JWHEzWmphbE01?=
- =?utf-8?B?ajc1bmlpV2tPVVBjdGdtK3lJV2xpL2JRS0tQeUZDWUUvczBSREIvZVhWL29B?=
- =?utf-8?B?MU11YkxpSFZ5a3V3SVRGSjJoVHpEcStzdFFTSDhuVmFTSzlNRkFteTk2QWlE?=
- =?utf-8?B?S05oM05FM251VFFzYkdSd3pPTkF2YXNnZzlNWERpUEVld3NhRm1ud1NRYVJw?=
- =?utf-8?B?OGpqdE92aWNqMVpnRFhJSC9UcmlCbnM4S2k4VGFDVzNhb3NkVUlPSUoxSk0x?=
- =?utf-8?B?OFhNdXZLZ1JkbGoyMU0wL2RIZFpWNGVwa0NnNFgycFkzV3hOS0YyZlZBNUxM?=
- =?utf-8?B?ZjBhd0hBN0xSeXN2UFJYYmd4STlaMWwxSmdhaUhWU0dHZDZIUFZSYmd6RGo4?=
- =?utf-8?B?aGlROGdwQ2VtWmdDUmlRa2hXcENPdmlobDVJRWVSV0JIcXRxMmNyU0FkcWdp?=
- =?utf-8?B?aHFkTzExN01hR0VzRldObDRoWFpFeGtXSU9pRnJRbDNzelpveUg0Sk9BaHZk?=
- =?utf-8?B?dENXc1hQeFFSY2xtK0h3cm9aUUtoS2krR3VtWUFwWUJyZnpzcy84TEl0bERL?=
- =?utf-8?B?VlUwd1F4ZjBtSGEvcWZGTnFpamZzVDZpOGpxKytjN2dVbnJoSThFMHJwaEIw?=
- =?utf-8?B?WjAwTFErcFpPczcwOVQ1L0dPOU8xSGtuVkdCS1laaFV3bTFYdTYxRnMwS2pj?=
- =?utf-8?B?cmg3STlRdGg1U2NoTEVzK1FibGdDYW0rYisvSUZkN3Jvdjg2RUVtZkl3NG85?=
- =?utf-8?B?Q3NkWDNsRUZyMDAxNlgxMWdVb1VXSGIrc2hKVFROTnlmQXR6QjAzRnBNYlFW?=
- =?utf-8?B?UVhIZytNV0U1eXNsbGFsbmFFR0xIOHo5SjdkWGhnbUdLcC9kZ1V6SUFEbjd1?=
- =?utf-8?B?SS92UUNQN0hmZXhDZjhJM2YrN2VkTTQvN1FoU3hHYkN1c0NFME1PWWZMZnlz?=
- =?utf-8?B?K0JjUTVVSnZHd243STNrTnBEd0Q2QnVjRGNrZVQ2a05ROVlKSXNsYzYyUjFs?=
- =?utf-8?B?MHVGMmdBajJLUEI5cUtzdm5kR05vdnF6NFJqRUFTaHU3d0tqTXA3OFNzakRK?=
- =?utf-8?B?VTJWS1FVV0srSFY2clY2NXo1VFdBZGdWUlZPUGtGTHZnQkFvQk5KNG1HeEVt?=
- =?utf-8?B?cGpxUkV4cERJK21pUFJuL0FnV0ltSjh5TWloMmxmc2k2NiszY2xGeHRFZFJC?=
- =?utf-8?B?M1RzdGNDYlZyMDlONSt1TnZDSU1UN3FFVWR3Ukpoam83YytKT1pvY1lrdW0r?=
- =?utf-8?B?REI1WDQyYjBuMHBhaktyVkllM3h1cW10SHI2RFhHNW5QSjgxaVJpODYwQWlw?=
- =?utf-8?B?Q09BelVreW9mb1pubUVZM3RRdnJQRHhNUENQVDBLckwzTWhNWkVZekUwOEV3?=
- =?utf-8?B?TnhaV1NXL2pISVVsdEtKZERHenBSQlJQaXdjM2YxVlh4d3dYaXM5R3lRN1BH?=
- =?utf-8?B?YldCcjF6ZkhoKzUveWhXMWRCcUlWV29yOUVua3hxYlh1Q2FBSGxzUDBlWEhU?=
- =?utf-8?B?UzJGK0lSbDJmSXF4RURDY3lwc24rMnBwbkpPc0NQaEtOMk9pT01IYTQxeUxV?=
- =?utf-8?B?Z2l3RG1qUjk4TFFES21RQVIrb2JwNUlqU0pYaXhXeW0yZjVoUEIweFZzUyth?=
- =?utf-8?Q?1eEUP8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae0855c4-5eb1-4055-54f4-08da08dc3d1e
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2022 12:38:43.9134 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zHrbrFu/EiPE/kxM/t+0ybv4pP67tNtA47kTl7U4kA7gHO+WI2zVCqYnhxKboUnD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2883
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 18 Mar 2022 13:28:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,160 +70,198 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>, Emil Velikov <emil.l.velikov@gmail.com>,
+ devicetree@vger.kernel.org, Simon Ser <contact@emersion.fr>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.03.22 um 20:11 schrieb Felix Kuehling:
->
-> Am 2022-03-17 um 04:21 schrieb Christian König:
->> Am 17.03.22 um 01:20 schrieb Felix Kuehling:
->>> Let amdgpu_vm_handle_moved update all BO VA mappings of BOs reserved by
->>> the caller. This will be useful for handling extra BO VA mappings in
->>> KFD VMs that are managed through the render node API.
->>
->> Yes, that change is on my TODO list for quite a while as well.
->>
->>> TODO: This may also allow simplification of amdgpu_cs_vm_handling. See
->>> the TODO comment in the code.
->>
->> No, that won't work just yet.
->>
->> We need to change the TLB flush detection for that, but I'm already 
->> working on those as well.
->
-> Your TLB flushing patch series looks good to me.
->
-> There is one other issue, though. amdgpu_vm_handle_moved doesn't 
-> update the sync object, so I couldn't figure out I can wait for all 
-> the page table updates to finish.
+drm_dev_register() sets connector->registration_state to
+DRM_CONNECTOR_REGISTERED and dev->registered to true. If
+drm_connector_set_panel_orientation() is first called after
+drm_dev_register(), it will fail several checks and results in following
+warning.
 
-Yes, and inside the CS we still need to go over all the BOs and gather 
-the VM updates to wait for.
+Add a function to create panel orientation property and set default value
+to UNKNOWN, so drivers can call this function to init the property earlier
+, and let the panel set the real value later.
 
-Not sure if you can do that in the KFD code as well. How exactly do you 
-want to use it?
+[    4.480976] ------------[ cut here ]------------
+[    4.485603] WARNING: CPU: 5 PID: 369 at drivers/gpu/drm/drm_mode_object.c:45 __drm_mode_object_add+0xb4/0xbc
+<snip>
+[    4.609772] Call trace:
+[    4.612208]  __drm_mode_object_add+0xb4/0xbc
+[    4.616466]  drm_mode_object_add+0x20/0x2c
+[    4.620552]  drm_property_create+0xdc/0x174
+[    4.624723]  drm_property_create_enum+0x34/0x98
+[    4.629241]  drm_connector_set_panel_orientation+0x64/0xa0
+[    4.634716]  boe_panel_get_modes+0x88/0xd8
+[    4.638802]  drm_panel_get_modes+0x2c/0x48
+[    4.642887]  panel_bridge_get_modes+0x1c/0x28
+[    4.647233]  drm_bridge_connector_get_modes+0xa0/0xd4
+[    4.652273]  drm_helper_probe_single_connector_modes+0x218/0x700
+[    4.658266]  drm_mode_getconnector+0x1b4/0x45c
+[    4.662699]  drm_ioctl_kernel+0xac/0x128
+[    4.666611]  drm_ioctl+0x268/0x410
+[    4.670002]  drm_compat_ioctl+0xdc/0xf0
+[    4.673829]  __arm64_compat_sys_ioctl+0xc8/0x100
+[    4.678436]  el0_svc_common+0xf4/0x1c0
+[    4.682174]  do_el0_svc_compat+0x28/0x3c
+[    4.686088]  el0_svc_compat+0x10/0x1c
+[    4.689738]  el0_sync_compat_handler+0xa8/0xcc
+[    4.694171]  el0_sync_compat+0x178/0x180
+[    4.698082] ---[ end trace b4f2db9d9c88610b ]---
+[    4.702721] ------------[ cut here ]------------
+[    4.707329] WARNING: CPU: 5 PID: 369 at drivers/gpu/drm/drm_mode_object.c:243 drm_object_attach_property+0x48/0xb8
+<snip>
+[    4.833830] Call trace:
+[    4.836266]  drm_object_attach_property+0x48/0xb8
+[    4.840958]  drm_connector_set_panel_orientation+0x84/0xa0
+[    4.846432]  boe_panel_get_modes+0x88/0xd8
+[    4.850516]  drm_panel_get_modes+0x2c/0x48
+[    4.854600]  panel_bridge_get_modes+0x1c/0x28
+[    4.858946]  drm_bridge_connector_get_modes+0xa0/0xd4
+[    4.863984]  drm_helper_probe_single_connector_modes+0x218/0x700
+[    4.869978]  drm_mode_getconnector+0x1b4/0x45c
+[    4.874410]  drm_ioctl_kernel+0xac/0x128
+[    4.878320]  drm_ioctl+0x268/0x410
+[    4.881711]  drm_compat_ioctl+0xdc/0xf0
+[    4.885536]  __arm64_compat_sys_ioctl+0xc8/0x100
+[    4.890142]  el0_svc_common+0xf4/0x1c0
+[    4.893879]  do_el0_svc_compat+0x28/0x3c
+[    4.897791]  el0_svc_compat+0x10/0x1c
+[    4.901441]  el0_sync_compat_handler+0xa8/0xcc
+[    4.905873]  el0_sync_compat+0x178/0x180
+[    4.909783] ---[ end trace b4f2db9d9c88610c ]---
 
-Regards,
-Christian.
+Signed-off-by: Hsin-Yi Wang <hsinyi@chromium.org>
+Reviewed-by: Sean Paul <seanpaul@chromium.org>
+---
+ drivers/gpu/drm/drm_connector.c | 58 +++++++++++++++++++++++++--------
+ include/drm/drm_connector.h     |  2 ++
+ 2 files changed, 47 insertions(+), 13 deletions(-)
 
->
-> Regards,
->   Felix
->
->
->>
->>> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
->>
->> Please update the TODO, with that done: Reviewed-by: Christian König 
->> <christian.koenig@amd.com>
->>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      |  6 +++++-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  2 +-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      | 18 +++++++++++++-----
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  3 ++-
->>>   4 files changed, 21 insertions(+), 8 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> index d162243d8e78..10941f0d8dde 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> @@ -826,6 +826,10 @@ static int amdgpu_cs_vm_handling(struct 
->>> amdgpu_cs_parser *p)
->>>               return r;
->>>       }
->>>   +    /* TODO: Is this loop still needed, or could this be handled by
->>> +     * amdgpu_vm_handle_moved, now that it can handle all BOs that are
->>> +     * reserved under p->ticket?
->>> +     */
->>>       amdgpu_bo_list_for_each_entry(e, p->bo_list) {
->>>           /* ignore duplicates */
->>>           bo = ttm_to_amdgpu_bo(e->tv.bo);
->>> @@ -845,7 +849,7 @@ static int amdgpu_cs_vm_handling(struct 
->>> amdgpu_cs_parser *p)
->>>               return r;
->>>       }
->>>   -    r = amdgpu_vm_handle_moved(adev, vm);
->>> +    r = amdgpu_vm_handle_moved(adev, vm, &p->ticket);
->>>       if (r)
->>>           return r;
->>>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>> index 579adfafe4d0..50805613c38c 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>> @@ -414,7 +414,7 @@ amdgpu_dma_buf_move_notify(struct 
->>> dma_buf_attachment *attach)
->>>             r = amdgpu_vm_clear_freed(adev, vm, NULL);
->>>           if (!r)
->>> -            r = amdgpu_vm_handle_moved(adev, vm);
->>> +            r = amdgpu_vm_handle_moved(adev, vm, ticket);
->>>             if (r && r != -EBUSY)
->>>               DRM_ERROR("Failed to invalidate VM page tables (%d))\n",
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> index fc4563cf2828..726b42c6d606 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> @@ -2190,11 +2190,12 @@ int amdgpu_vm_clear_freed(struct 
->>> amdgpu_device *adev,
->>>    * PTs have to be reserved!
->>>    */
->>>   int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
->>> -               struct amdgpu_vm *vm)
->>> +               struct amdgpu_vm *vm,
->>> +               struct ww_acquire_ctx *ticket)
->>>   {
->>>       struct amdgpu_bo_va *bo_va, *tmp;
->>>       struct dma_resv *resv;
->>> -    bool clear;
->>> +    bool clear, unlock;
->>>       int r;
->>>         list_for_each_entry_safe(bo_va, tmp, &vm->moved, 
->>> base.vm_status) {
->>> @@ -2212,17 +2213,24 @@ int amdgpu_vm_handle_moved(struct 
->>> amdgpu_device *adev,
->>>           spin_unlock(&vm->invalidated_lock);
->>>             /* Try to reserve the BO to avoid clearing its ptes */
->>> -        if (!amdgpu_vm_debug && dma_resv_trylock(resv))
->>> +        if (!amdgpu_vm_debug && dma_resv_trylock(resv)) {
->>>               clear = false;
->>> +            unlock = true;
->>> +        /* The caller is already holding the reservation lock */
->>> +        } else if (ticket && dma_resv_locking_ctx(resv) == ticket) {
->>> +            clear = false;
->>> +            unlock = false;
->>>           /* Somebody else is using the BO right now */
->>> -        else
->>> +        } else {
->>>               clear = true;
->>> +            unlock = false;
->>> +        }
->>>             r = amdgpu_vm_bo_update(adev, bo_va, clear, NULL);
->>>           if (r)
->>>               return r;
->>>   -        if (!clear)
->>> +        if (unlock)
->>>               dma_resv_unlock(resv);
->>>           spin_lock(&vm->invalidated_lock);
->>>       }
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>> index a40a6a993bb0..120a76aaae75 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>> @@ -396,7 +396,8 @@ int amdgpu_vm_clear_freed(struct amdgpu_device 
->>> *adev,
->>>                 struct amdgpu_vm *vm,
->>>                 struct dma_fence **fence);
->>>   int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
->>> -               struct amdgpu_vm *vm);
->>> +               struct amdgpu_vm *vm,
->>> +               struct ww_acquire_ctx *ticket);
->>>   int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
->>>                   struct amdgpu_device *bo_adev,
->>>                   struct amdgpu_vm *vm, bool immediate,
->>
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 76a8c707c34b..149709e05622 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -1252,7 +1252,7 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
+  *	INPUT_PROP_DIRECT) will still map 1:1 to the actual LCD panel
+  *	coordinates, so if userspace rotates the picture to adjust for
+  *	the orientation it must also apply the same transformation to the
+- *	touchscreen input coordinates. This property is initialized by calling
++ *	touchscreen input coordinates. This property value is set by calling
+  *	drm_connector_set_panel_orientation() or
+  *	drm_connector_set_panel_orientation_with_quirk()
+  *
+@@ -2344,8 +2344,8 @@ EXPORT_SYMBOL(drm_connector_set_vrr_capable_property);
+  * @connector: connector for which to set the panel-orientation property.
+  * @panel_orientation: drm_panel_orientation value to set
+  *
+- * This function sets the connector's panel_orientation and attaches
+- * a "panel orientation" property to the connector.
++ * This function sets the connector's panel_orientation value. If the property
++ * doesn't exist, it will try to create one.
+  *
+  * Calling this function on a connector where the panel_orientation has
+  * already been set is a no-op (e.g. the orientation has been overridden with
+@@ -2377,18 +2377,13 @@ int drm_connector_set_panel_orientation(
+ 
+ 	prop = dev->mode_config.panel_orientation_property;
+ 	if (!prop) {
+-		prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
+-				"panel orientation",
+-				drm_panel_orientation_enum_list,
+-				ARRAY_SIZE(drm_panel_orientation_enum_list));
+-		if (!prop)
++		if (drm_connector_init_panel_orientation_property(connector) < 0)
+ 			return -ENOMEM;
+-
+-		dev->mode_config.panel_orientation_property = prop;
++		prop = dev->mode_config.panel_orientation_property;
+ 	}
+ 
+-	drm_object_attach_property(&connector->base, prop,
+-				   info->panel_orientation);
++	drm_object_property_set_value(&connector->base, prop,
++				      info->panel_orientation);
+ 	return 0;
+ }
+ EXPORT_SYMBOL(drm_connector_set_panel_orientation);
+@@ -2396,7 +2391,7 @@ EXPORT_SYMBOL(drm_connector_set_panel_orientation);
+ /**
+  * drm_connector_set_panel_orientation_with_quirk - set the
+  *	connector's panel_orientation after checking for quirks
+- * @connector: connector for which to init the panel-orientation property.
++ * @connector: connector for which to set the panel-orientation property.
+  * @panel_orientation: drm_panel_orientation value to set
+  * @width: width in pixels of the panel, used for panel quirk detection
+  * @height: height in pixels of the panel, used for panel quirk detection
+@@ -2423,6 +2418,43 @@ int drm_connector_set_panel_orientation_with_quirk(
+ }
+ EXPORT_SYMBOL(drm_connector_set_panel_orientation_with_quirk);
+ 
++/**
++ * drm_connector_init_panel_orientation_property -
++ * 	create the connector's panel orientation property
++ *
++ * This function attaches a "panel orientation" property to the connector
++ * and initializes its value to DRM_MODE_PANEL_ORIENTATION_UNKNOWN.
++ *
++ * The value of the property can be set by drm_connector_set_panel_orientation()
++ * or drm_connector_set_panel_orientation_with_quirk() later.
++ *
++ * Returns:
++ * Zero on success, negative errno on failure.
++ */
++int drm_connector_init_panel_orientation_property(
++	struct drm_connector *connector)
++{
++	struct drm_device *dev = connector->dev;
++	struct drm_property *prop;
++
++	if(dev->mode_config.panel_orientation_property)
++		return 0;
++
++	prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
++			"panel orientation",
++			drm_panel_orientation_enum_list,
++			ARRAY_SIZE(drm_panel_orientation_enum_list));
++	if (!prop)
++		return -ENOMEM;
++
++	dev->mode_config.panel_orientation_property = prop;
++	drm_object_attach_property(&connector->base, prop,
++				   DRM_MODE_PANEL_ORIENTATION_UNKNOWN);
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_connector_init_panel_orientation_property);
++
+ static const struct drm_prop_enum_list privacy_screen_enum[] = {
+ 	{ PRIVACY_SCREEN_DISABLED,		"Disabled" },
+ 	{ PRIVACY_SCREEN_ENABLED,		"Enabled" },
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 5166186146f4..d972a9bc64a6 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1805,6 +1805,8 @@ int drm_connector_set_panel_orientation_with_quirk(
+ 	struct drm_connector *connector,
+ 	enum drm_panel_orientation panel_orientation,
+ 	int width, int height);
++int drm_connector_init_panel_orientation_property(
++	struct drm_connector *connector);
+ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+ 					  int min, int max);
+ void drm_connector_create_privacy_screen_properties(struct drm_connector *conn);
+-- 
+2.35.1.894.gb6a874cedc-goog
 
