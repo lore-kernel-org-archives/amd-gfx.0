@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A061FC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 21:49:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17232C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 21:49:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CD9B10E209;
-	Fri, 18 Mar 2022 21:49:28 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060.outbound.protection.outlook.com [40.107.223.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F08210E209
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 21:49:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD2C910E20D;
+	Fri, 18 Mar 2022 21:49:39 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2062.outbound.protection.outlook.com [40.107.237.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BB3310E20D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 21:49:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hq97wvRUxC1Y9SCbaWYuqHxEYInMN19GxeKN8RyFAzQli2eGJQyLghoV7XPX8DMuGAsbjV59mNtm12gquyFdqZnPBwPmBvBFYIQuAtdpJKHjhkoXrtjOheVJe57Uu4yvlc/14Fh8Pk4DKhdR6OU0ADbUTHqFFjNuVa3kwxiJJfbkCIY7OVpde7MtgIEEpyQCrCAzVuQ+FGuPwSmzTJGqLbFLvJSEfyskD60uKjXLgdzYKC2UgWQNnHJdlAjnQ21vW0RhA8cUnuHgcW9GBgmd//oaGa20Yubj6+CCXBhcLIo+IySZ7cylrVCOKAVslUsFz8a+XptVnbdiDVUQMoZzaA==
+ b=GSjVzJU39h0Y2FxZ7CAAbRr/YjEXFH97aqoCgJaT1Wk5Vgpf0qDE1Mdw+Mn36l7UMi5r/FRCQm9A6WkOjlzMjbVV+UsLuoQ6krlGSRnNz3VLOlwdO9THbT6bxEC7KRiFnAqVDX8In4Sjee0sf3PVuWoe8F+Y3DLrpxm2PKcIjTYk3owkGIGMuar2+gXLVwD4RV6goNsbKoccRGMBeHcv3yZKtVd5myELhmloCY0M91309toeKGVGqZxKwryYaZRBoOPA9lz2DTMHEGY4jrOp+2mJ2ItZr1+nm1gcD+kRmJvU9maon4ydSbCTrsV1+no0rb6aep2Wq0a7jtDwTd93lg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q7BwEPvlAhq+YGk5oqDXVGXa9+KIe3WJqHYY4T3F6I0=;
- b=KBNmPata9H/OJhV5plps/aufwF+RdiBvc9bDqHeaFDG45b0t1F8qViyn93rQasMiKkSzaomJVCTEYcaLd3nkrkfYH6gNCN8LkJNwRwmnjXO0y3O2nQzr7aKYZZgG9n27KLIDAaNVvxLWQ8xn1wV0b7kIr7Pr/+6kx1w0T/Qi4e4EHzyWKHsyyQhq8CkO3MjSKQhACsdl+wd6ngD5VtyctiejLtUfscA1X6K3F7+vvRb8uIKrfeCB1+AJE422MPgQbfUvecIfIMBgu8owJWLAbcE4ryx76qKzeg/1eKMYloh/qTIF4b0ypSISXFDMPxHvTgFIuobM5AKQWOpZdxY5/w==
+ bh=XN/W2hlk2LTej/HaO67Pwr8+75T3/+OmyS36Jn2qCWA=;
+ b=MMUrotR0MVLQrt+v2FKSmpf0cJJ4N7UKXqCLxgLDZHP/aOY9MAjOPzFc/sQMNUz7hJLsJYRpuSs5pvHALuuxsUqcXv/2ItQpEbzy4jcRXyo708EoKPPqOfkfBtizkxNcfvth6wMpAMajVlQuBrpVeePjNtfYcPXPh1FhGsIH5xfo+Sdlu4ISJye4Bn/M6M2IZMGQvFZbWa2SwBQAJlT2gyOyEMD1OqRVBb2qGJurtJHT/PyaKKsNNUY84VjqyjoYj5eCsmDc6BBq4699Qj+RWFVjaT4ZVekVPPoxhKW/yPeThc1Jel5Bh7uMhhvdGwjuvb0mNYGwhTjR321S1Udrvw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q7BwEPvlAhq+YGk5oqDXVGXa9+KIe3WJqHYY4T3F6I0=;
- b=bczyukfSmfw00uZetqzwHqPyZeYB5gzpHcsa87/Tlz0NgscQAYRzAKxuDnPX1L0l60wIjch/KPmgTmXr+va2iqsWRAvVbXxKakTtbV/mKLxTQd3kfO0woEcCW7Cpm4a0kQyUu/K04XNavW4LxGyrtVt0LRooli3ZaBE6oqeVVjw=
-Received: from BN9PR03CA0133.namprd03.prod.outlook.com (2603:10b6:408:fe::18)
- by DM6PR12MB4498.namprd12.prod.outlook.com (2603:10b6:5:2a2::17) with
+ bh=XN/W2hlk2LTej/HaO67Pwr8+75T3/+OmyS36Jn2qCWA=;
+ b=jNAKnJe7NIKuEy8iEfEwGMRwiQt+AFygdIiKsIG+9CrdckUNwy5ub0Dp6wql2NtVveymfB5gy/Hrot6UDEf7mlAnbEnSrB9fPF+8bRi9APIklHSpYplDb453GzO2y6KjTJRnNR/hjJhKFwKnDF7SFs8jzjMUzu4s5y73tN9FFA8=
+Received: from BN8PR15CA0020.namprd15.prod.outlook.com (2603:10b6:408:c0::33)
+ by DM5PR12MB1130.namprd12.prod.outlook.com (2603:10b6:3:75::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14; Fri, 18 Mar
- 2022 21:49:23 +0000
-Received: from BN8NAM11FT046.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fe:cafe::61) by BN9PR03CA0133.outlook.office365.com
- (2603:10b6:408:fe::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.17 via Frontend
- Transport; Fri, 18 Mar 2022 21:49:23 +0000
+ 2022 21:49:36 +0000
+Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:c0:cafe::60) by BN8PR15CA0020.outlook.office365.com
+ (2603:10b6:408:c0::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.18 via Frontend
+ Transport; Fri, 18 Mar 2022 21:49:35 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com;
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT046.mail.protection.outlook.com (10.13.177.127) with Microsoft SMTP
+ BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5081.14 via Frontend Transport; Fri, 18 Mar 2022 21:49:23 +0000
+ 15.20.5081.14 via Frontend Transport; Fri, 18 Mar 2022 21:49:35 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 18 Mar
- 2022 16:49:19 -0500
+ 2022 16:49:33 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 05/13] drm/amd/display: Add fSMC_MSG_SetDtbClk support
-Date: Fri, 18 Mar 2022 15:47:52 -0600
-Message-ID: <20220318214800.3565679-6-alex.hung@amd.com>
+Subject: [PATCH 06/13] drm/amd/display: Update VTEM Infopacket definition
+Date: Fri, 18 Mar 2022 15:47:53 -0600
+Message-ID: <20220318214800.3565679-7-alex.hung@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220318214800.3565679-1-alex.hung@amd.com>
 References: <20220318214800.3565679-1-alex.hung@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
  (10.181.40.144)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 07de4b34-63e7-4a4e-8463-08da09292a1e
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4498:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB449823B245299EF66AC63080F7139@DM6PR12MB4498.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: acdd691e-46ae-4526-bb10-08da092931a4
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1130:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1130B3543EC0318180378EEEF7139@DM5PR12MB1130.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hxlvqX/pzd2+WHIZM2nJoL3Zo4KIrNlRPS8FdZXSbNZpNDVTc54pgDDZqyLEOFMC8E4g0xRhE2EqWEwsHJuZCrZyZzvcsKxPeXIsvgFPWDXQGwbLLweEmaI9Su4p1EQUFkgcnW9v5FvKi2g0bLtCZxwZA0KpYVKkM5Zmypwf72xvoIF6e9ujWObbWEVE30UV1bD0bUuBV9GOe0bj1f7EOhU6KbEwIpFE4KiSkCcD/9eUEiMCLKyiDmDBya/HWEgLQVBLGLz9DmqAOK84nE0eTxneiA4z3vAqjhOfxt141/ynTeOhjhLBXYYTWwtcsf7mqPGomndfbvE5LdZSBcmwEQpEPav5WktDFYiNjlu3XiYRitd/qHT+0oJxYFeEfNAAOuAHz8zBPuQGZZoc087+BalGt+eBvCpmLU2LrSr6sfXoXMw+sPJBlpnbrjyRljXn8Y+uzOPh3QX+kIXwVfR8fMr+CCFjmi6kvKLhJPDJEksW0lAXslcmSUA5jngrbe6i6UGVoF71LJ1fDtct7dx/ofebgSEgUaZ2VjQo8kp6HSFHsg/N2bsdLDys+PBOa1VX7vmPmKNFvPaOmp7DAO6RHSIigQ5mjLxnwVGkYVXYrIFTKJ8BA2FRespmgUz1oSxU1ML671qDaSiywrJ2jfxdtvXnn76qCxWvyliANM7Ka6RZscwfQM4TNQydA1Ze3XJ8Mh93FvM+9BgXhO5n+kFgkg==
+X-Microsoft-Antispam-Message-Info: ilsZjvxRvHqe3h2Mx4uM2tGUMY5qN/SmZ7vua0LQAxxRN/GK5wYF01e9Z12xj25/31TDyE8ZVZbe+Ris+NAAGZlaPwygjhNT0V3kUunuFqDtf4ff20YPSMOYEAvF7XlKB3tQWqMndIlE7PsH4s+WNnx1h0Usk39cZ7OH2UjnihIRWsGyK/h+sPyY8Kf/3TCm5voH0Wumun42cY4DQbbVk7snhsJXNxWXu4Oj93cMNdda1T4LpaLawoThYExDal4KmHWmVrT1jgsKkcmAJF0KxzrW13W44AFN64vgTJK/7k9qtibftyLpB2KM2lr7wMmLLzj5aA8aE8MXW09VATnhG8JQRIR4i5Hv8tg6mbPG9L1L8N8GQTSkuiVOI2PT0gYtteB4xJRlyLSZtixvBQMoMkwoDkHvcLq0JrsWpqv90AF7Dfd/4S1ay7V/pi9dPcv74iGAxj8l+lQoFlQkiQLHfHQDftmDW5N36hh00sAZFPxQRl26udel5Puv3MX3qzqWJG4zF2t83Scl+umEuJQp6etgZvj9v9+v933JF+jXXtXuRAElimhk/Esi3jhnNSCEIzzmtq3bWQ+p7z8NWFgIK7eaVh2H52CYn3Kaj7bOOGGVZt4b/CxXi/rP2TAcG3xaBYXmW+/KapI4MNqrvsrQz8PIC/QHil6oy84+utW2CEhIJIOJw9sg13PiHzJO+XFISETIXzJDNQUQll5FmguEkA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(2906002)(36860700001)(81166007)(356005)(8676002)(36756003)(70586007)(70206006)(7696005)(508600001)(4326008)(2616005)(426003)(336012)(6666004)(40460700003)(86362001)(1076003)(16526019)(82310400004)(8936002)(47076005)(44832011)(6916009)(5660300002)(316002)(19627235002)(54906003)(26005)(186003)(83380400001)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(186003)(8676002)(26005)(70586007)(70206006)(4326008)(16526019)(336012)(426003)(8936002)(6666004)(1076003)(54906003)(6916009)(82310400004)(86362001)(7696005)(508600001)(316002)(36756003)(47076005)(83380400001)(2616005)(2906002)(81166007)(36860700001)(44832011)(5660300002)(356005)(15650500001)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2022 21:49:23.0673 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07de4b34-63e7-4a4e-8463-08da09292a1e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2022 21:49:35.6753 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: acdd691e-46ae-4526-bb10-08da092931a4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT046.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4498
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1130
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,92 +100,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
- Oliver Logush <oliver.logush@amd.com>, Sunpeng.Li@amd.com,
+Cc: stylon.wang@amd.com, Chris Park <Chris.Park@amd.com>, Sunpeng.Li@amd.com,
  Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
  roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- Alex Hung <alex.hung@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ Alex Hung <alex.hung@amd.com>, wayne.lin@amd.com,
+ "Leo \(Hanghong\) Ma" <hanghong.ma@amd.com>, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Oliver Logush <oliver.logush@amd.com>
+From: "Leo (Hanghong) Ma" <hanghong.ma@amd.com>
 
-[why]
-Needed to support dcn315
+[Why & How]
+The latest HDMI SPEC has updated the VTEM packet structure,
+so change the VTEM Infopacket defined in the driver side to align
+with the SPEC.
 
-Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
+Reviewed-by: Chris Park <Chris.Park@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Oliver Logush <oliver.logush@amd.com>
+Signed-off-by: Leo (Hanghong) Ma <hanghong.ma@amd.com>
 ---
- .../display/dc/clk_mgr/dcn315/dcn315_smu.c    | 19 +++++++++++++++----
- .../display/dc/clk_mgr/dcn315/dcn315_smu.h    |  4 +++-
- 2 files changed, 18 insertions(+), 5 deletions(-)
+ .../gpu/drm/amd/display/modules/info_packet/info_packet.c    | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-index 880ffea2afc6..2600313fea57 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-@@ -80,8 +80,8 @@ static const struct IP_BASE NBIO_BASE = { { { { 0x00000000, 0x00000014, 0x00000D
- #define VBIOSSMC_MSG_SetDppclkFreq                0x06 ///< Set DPP clock frequency in MHZ
- #define VBIOSSMC_MSG_SetHardMinDcfclkByFreq       0x07 ///< Set DCF clock frequency hard min in MHZ
- #define VBIOSSMC_MSG_SetMinDeepSleepDcfclk        0x08 ///< Set DCF clock minimum frequency in deep sleep in MHZ
--#define VBIOSSMC_MSG_SetPhyclkVoltageByFreq       0x09 ///< Set display phy clock frequency in MHZ in case VMIN does not support phy frequency
--#define VBIOSSMC_MSG_GetFclkFrequency             0x0A ///< Get FCLK frequency, return frequemcy in MHZ
-+#define VBIOSSMC_MSG_GetDtbclkFreq                0x09 ///< Get display dtb clock frequency in MHZ in case VMIN does not support phy frequency
-+#define VBIOSSMC_MSG_SetDtbClk                    0x0A ///< Set dtb clock frequency, return frequemcy in MHZ
- #define VBIOSSMC_MSG_SetDisplayCount              0x0B ///< Inform PMFW of number of display connected
- #define VBIOSSMC_MSG_EnableTmdp48MHzRefclkPwrDown 0x0C ///< To ask PMFW turn off TMDP 48MHz refclk during display off to save power
- #define VBIOSSMC_MSG_UpdatePmeRestore             0x0D ///< To ask PMFW to write into Azalia for PME wake up event
-@@ -324,15 +324,26 @@ int dcn315_smu_get_dpref_clk(struct clk_mgr_internal *clk_mgr)
- 	return (dprefclk_get_mhz * 1000);
- }
+diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+index b691aa45e84f..79bc207415bc 100644
+--- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
++++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+@@ -100,7 +100,8 @@ enum vsc_packet_revision {
+ //PB7 = MD0
+ #define MASK_VTEM_MD0__VRR_EN         0x01
+ #define MASK_VTEM_MD0__M_CONST        0x02
+-#define MASK_VTEM_MD0__RESERVED2      0x0C
++#define MASK_VTEM_MD0__QMS_EN         0x04
++#define MASK_VTEM_MD0__RESERVED2      0x08
+ #define MASK_VTEM_MD0__FVA_FACTOR_M1  0xF0
  
--int dcn315_smu_get_smu_fclk(struct clk_mgr_internal *clk_mgr)
-+int dcn315_smu_get_dtbclk(struct clk_mgr_internal *clk_mgr)
- {
- 	int fclk_get_mhz = -1;
+ //MD1
+@@ -109,7 +110,7 @@ enum vsc_packet_revision {
+ //MD2
+ #define MASK_VTEM_MD2__BASE_REFRESH_RATE_98  0x03
+ #define MASK_VTEM_MD2__RB                    0x04
+-#define MASK_VTEM_MD2__RESERVED3             0xF8
++#define MASK_VTEM_MD2__NEXT_TFR              0xF8
  
- 	if (clk_mgr->smu_present) {
- 		fclk_get_mhz = dcn315_smu_send_msg_with_param(
- 			clk_mgr,
--			VBIOSSMC_MSG_GetFclkFrequency,
-+			VBIOSSMC_MSG_GetDtbclkFreq,
- 			0);
- 	}
- 	return (fclk_get_mhz * 1000);
- }
-+
-+void dcn315_smu_set_dtbclk(struct clk_mgr_internal *clk_mgr, bool enable)
-+{
-+	if (!clk_mgr->smu_present)
-+		return;
-+
-+	dcn315_smu_send_msg_with_param(
-+			clk_mgr,
-+			VBIOSSMC_MSG_SetDtbClk,
-+			enable);
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.h
-index 66fa42f8dd18..5aa3275ac7d8 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.h
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.h
-@@ -37,6 +37,7 @@
- #define NUM_SOC_VOLTAGE_LEVELS  4
- #define NUM_DF_PSTATE_LEVELS    4
- 
-+
- typedef struct {
-   uint16_t MinClock; // This is either DCFCLK or SOCCLK (in MHz)
-   uint16_t MaxClock; // This is either DCFCLK or SOCCLK (in MHz)
-@@ -124,5 +125,6 @@ void dcn315_smu_transfer_wm_table_dram_2_smu(struct clk_mgr_internal *clk_mgr);
- void dcn315_smu_request_voltage_via_phyclk(struct clk_mgr_internal *clk_mgr, int requested_phyclk_khz);
- void dcn315_smu_enable_pme_wa(struct clk_mgr_internal *clk_mgr);
- int dcn315_smu_get_dpref_clk(struct clk_mgr_internal *clk_mgr);
--int dcn315_smu_get_smu_fclk(struct clk_mgr_internal *clk_mgr);
-+int dcn315_smu_get_dtbclk(struct clk_mgr_internal *clk_mgr);
-+void dcn315_smu_set_dtbclk(struct clk_mgr_internal *clk_mgr, bool enable);
- #endif /* DAL_DC_315_SMU_H_ */
+ //MD3
+ #define MASK_VTEM_MD3__BASE_REFRESH_RATE_07  0xFF
 -- 
 2.35.1
 
