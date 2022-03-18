@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9467C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 13:28:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D5D5C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 13:28:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C182B10E92D;
-	Fri, 18 Mar 2022 13:28:23 +0000 (UTC)
-Received: from mail-ua1-x92c.google.com (mail-ua1-x92c.google.com
- [IPv6:2607:f8b0:4864:20::92c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 103B510E772
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 08:30:25 +0000 (UTC)
-Received: by mail-ua1-x92c.google.com with SMTP id x19so2992399uaf.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 01:30:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 286AF10E934;
+	Fri, 18 Mar 2022 13:28:24 +0000 (UTC)
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [IPv6:2607:f8b0:4864:20::1032])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6735689C59
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 08:29:22 +0000 (UTC)
+Received: by mail-pj1-x1032.google.com with SMTP id
+ kx13-20020a17090b228d00b001c6715c9847so5450130pjb.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 01:29:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0ogp3OEFkwZj8QEMXIkrMCD+Y2owy7GvkEn/U8LOX0o=;
- b=Pf+BOEhya9aXXbYBUeUOBRRU7JhM5PstNvwRvh4CwFFLDHwwrqRxswcdt7fceLlQ9h
- SbVt99hG/N/i2Yg1eI/N/pWGYA9GiLlX6qOIAZDvSYRQRWu4G4Uag0C3btZqkT4cjcZV
- PKWRNnFOICcYpYs0aSRQn9QSo4YoxNA0h7fi8=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Wk/pqrVyJD3dZfuBlDvR3gvRx5qETAjydlq9k9fo89I=;
+ b=MBv2nbtC77uuFP6FO9vF3JJunvP31eEWqLFqoiGIM3/E0+IkznfVBrTBIuGgXWfVv9
+ 5TBZHlNgegYmt3aqmPENYo8GhMqjeRQgRc3d1sr5+ApsSsOS0LqCL96pxslRickdXpwV
+ ZNw9ExgEXTLbAqCs2ncXkhyskWqy7wd4OrW7Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0ogp3OEFkwZj8QEMXIkrMCD+Y2owy7GvkEn/U8LOX0o=;
- b=KQ1GU4x9JrQFvSNPbo7mQz9zZxsfLBhDt5xYpja9UtgjXox74LCScza7WMsuy+UD9I
- z5phEqe/f9KjaK5i/H2oKxe2RuUH02uxE7A6EchFPb6adJkXefCBxFjiUl1s43X6IaWX
- RfLEU/GsXHvPcZoLUHVkrLd+o/Z51M5saGxEuh1jeP+a/hQ5ZNdIPLjzbFGPdpuYDQL7
- 02qqeXX3+RwWxeC3hxUo4ZWY0XxR4XiZ9HF2X7u7b0cx3ozrU2zJPsV4m4OAXKcH3P3y
- yHzrRMqNBY7GReySKNBQmgqlnxn3Mpvnw71ePctaMsb9Yg9POf2FyVMmJhKdvR2NNZzS
- t/ng==
-X-Gm-Message-State: AOAM533fEg5Ct4ecaqjJh+HOg9RfjSHBh6tnEYdID1IzcMveL65IH70k
- 8itHqNnRUidNhke3gMobBvYYNh2tLpPb7WQYjuvosg==
-X-Google-Smtp-Source: ABdhPJz/KhorT3W/2hHA0L0YLN68M/lGOSgV2CAcFuel9OThQYS6ptUz2+hFO2ZOAyCDuApFRoXn3SWHOfIQdBeL9ps=
-X-Received: by 2002:ab0:2619:0:b0:354:ccac:32f with SMTP id
- c25-20020ab02619000000b00354ccac032fmr578951uao.46.1647592223830; Fri, 18 Mar
- 2022 01:30:23 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220208084234.1684930-1-hsinyi@chromium.org>
- <CACvgo53u01BK_D0ZssV+gCepjxSz23Nr5Dy1qXeaAoJuu6VCFQ@mail.gmail.com>
- <KW6DNh6IRRgVJx9DfOFBnEqc4a0x-AnDXEbMxwpfEbk8dOn_KGVzAfo-slJWq-4nWW728Uc-OVpFh2w4fDE4-bxfkDuz1hFILRVvbcuXqaw=@emersion.fr>
- <CACvgo532-pC+7DLFCo=DWTX-OnJEJvSoTmQnt3_qLhiT4cqEMg@mail.gmail.com>
- <GYG6EVT1MqtmfKiPpMhDG9mpuATnmwVDq2PuE_dpDat5oQW_t1tUfm39lSWHj32D5r7mrog27sL4dkgdMYQ5BN830TfVOrgQ4Ts8LcO8Hcs=@emersion.fr>
- <CACvgo52+o9_ETC+1RKzqKkyw3ZJ28RjH0BqC9DfmNAKqByud8Q@mail.gmail.com>
- <d3f0cc20-d226-ee42-cc98-b469949cec9e@redhat.com>
- <YV87l-2XXzmZ2i6GuGd__uf85s2JQkbXt_qTQDYlbBh1kW2COJoNLUDinmLCokKyy-_0ZnIMUcZeW0GdJ8zF690iYi4ThKrjc09omNMe-0g=@emersion.fr>
- <d4f5e101-3dd5-2f3a-6c14-6b32ee37c223@redhat.com>
- <DM7TzJ-fZEHjoGXvMG8XLfJ2VxohRxotL40_0Vb4cAUvrELgV9BvPGbK6HAwOYOBCx8qXtY2LQ0xnZ-nlH_IVCyne7tMKfvkqxtoWI6MkTw=@emersion.fr>
- <16c1886f-d130-b299-9d09-ad11556f3bfd@amd.com>
-In-Reply-To: <16c1886f-d130-b299-9d09-ad11556f3bfd@amd.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Wk/pqrVyJD3dZfuBlDvR3gvRx5qETAjydlq9k9fo89I=;
+ b=A6PhveXicI8aDOqToDVrhy2UF9KnLMwAkV7LyQCyeNdpqnyMYgsFJUdpx+uXTbcxH3
+ FyULsJTBNRi0Sg+wqJVspDAdP/wUzKK09+aSH4iBUYCHJLeYW+9VE0edntgeL+MtXTIh
+ jSzJ5EcJFVhjHluUjUoApZJ3kPJiU4n+SfX7AC4uKhBG1nAJGs+6ZQaHmhzW17bMHkoX
+ mYarVnb/SKMpsZ8oae55A9KPMf/vnxDUfahY4T9EcwDsSDi/T9C8AEBeGNFvgj7ZgE2C
+ Tu93ttVJuL0nfyqt1dI6V1QTJA3lbM4oJ9UU15/reF+DP6Jp6rRbv3swnypxaGXVjngC
+ /ghQ==
+X-Gm-Message-State: AOAM533ezZSQ5RVJV5CO40wRjDxZHtL6fR1Hyui8XJP97A9O6Jjw9g2c
+ 7RcxjHhNZjf6oJUjUNLOibqRdA==
+X-Google-Smtp-Source: ABdhPJxZr+WrsVRD3EBe7ULBmlgFiXmGvjfKG8gVhn0pmPIZv9TgokVPdh4o8x0PeMOmdu3PzI1t6Q==
+X-Received: by 2002:a17:902:e944:b0:14e:dc4f:f099 with SMTP id
+ b4-20020a170902e94400b0014edc4ff099mr9105752pll.161.1647592161915; 
+ Fri, 18 Mar 2022 01:29:21 -0700 (PDT)
+Received: from hsinyi-z840.tpe.corp.google.com
+ ([2401:fa00:1:10:435a:ce78:7223:1e88])
+ by smtp.gmail.com with ESMTPSA id
+ q2-20020a056a00084200b004f761a7287dsm9404044pfk.131.2022.03.18.01.29.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Mar 2022 01:29:21 -0700 (PDT)
 From: Hsin-Yi Wang <hsinyi@chromium.org>
-Date: Fri, 18 Mar 2022 16:29:57 +0800
-Message-ID: <CAJMQK-iW6zu7+cjSPHHDcLCj5Zj086qZ+oY62_onOzZcsXtTWQ@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH v8 1/3] gpu: drm: separate panel orientation
- property creating and value setting
-To: Harry Wentland <harry.wentland@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+To: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Subject: [PATCH v9 3/4] drm/msm: init panel orientation property
+Date: Fri, 18 Mar 2022 15:48:24 +0800
+Message-Id: <20220318074825.3359978-4-hsinyi@chromium.org>
+X-Mailer: git-send-email 2.35.1.894.gb6a874cedc-goog
+In-Reply-To: <20220318074825.3359978-1-hsinyi@chromium.org>
+References: <20220318074825.3359978-1-hsinyi@chromium.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 18 Mar 2022 13:28:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,153 +71,42 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- devicetree <devicetree@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- Simon Ser <contact@emersion.fr>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Hans de Goede <hdegoede@redhat.com>, Emil Velikov <emil.l.velikov@gmail.com>,
+ devicetree@vger.kernel.org, Simon Ser <contact@emersion.fr>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, Jani Nikula <jani.nikula@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- LAKML <linux-arm-kernel@lists.infradead.org>
+ Harry Wentland <harry.wentland@amd.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 18, 2022 at 11:57 PM Harry Wentland <harry.wentland@amd.com> wrote:
->
-> On 2022-02-18 07:12, Simon Ser wrote:
-> > On Friday, February 18th, 2022 at 12:54, Hans de Goede <hdegoede@redhat.com> wrote:
-> >
-> >> On 2/18/22 12:39, Simon Ser wrote:
-> >>> On Friday, February 18th, 2022 at 11:38, Hans de Goede <hdegoede@redhat.com> wrote:
-> >>>
-> >>>> What I'm reading in the above is that it is being considered to allow
-> >>>> changing the panel-orientation value after the connector has been made
-> >>>> available to userspace; and let userspace know about this through a uevent.
-> >>>>
-> >>>> I believe that this is a bad idea, it is important to keep in mind here
-> >>>> what userspace (e.g. plymouth) uses this prorty for. This property is
-> >>>> used to rotate the image being rendered / shown on the framebuffer to
-> >>>> adjust for the panel orientation.
-> >>>>
-> >>>> So now lets assume we apply the correct upside-down orientation later
-> >>>> on a device with an upside-down mounted LCD panel. Then on boot the
-> >>>> following could happen:
-> >>>>
-> >>>> 1. amdgpu exports a connector for the LCD panel to userspace without
-> >>>> setting panel-orient=upside-down
-> >>>> 2. plymouth sees this and renders its splash normally, but since the
-> >>>> panel is upside-down it will now actually show upside-down
-> >>>
-> >>> At this point amdgpu hasn't probed the connector yet. So the connector
-> >>> will be marked as disconnected, and plymouth shouldn't render anything.
-> >>
-> >> If before the initial probe of the connector there is a /dev/dri/card0
-> >> which plymouth can access, then plymouth may at this point decide
-> >> to disable any seemingly unused crtcs, which will make the screen go black...
-> >>
-> >> I'm not sure if plymouth will actually do this, but AFAICT this would
-> >> not be invalid behavior for a userspace kms consumer to do and I
-> >> believe it is likely that mutter will disable unused crtcs.
-> >>
-> >> IMHO it is just a bad idea to register /dev/dri/card0 with userspace
-> >> before the initial connector probe is done. Nothing good can come
-> >> of that.
-> >>
-> >> If all the exposed connectors initially are going to show up as
-> >> disconnected anyways what is the value in registering /dev/dri/card0
-> >> with userspace early ?
-> >
-> > OK. I'm still unsure how I feel about this, but I think I agree with
-> > you. That said, the amdgpu architecture is quite involved with multiple
-> > abstraction levels, so I don't think I'm equipped to write a patch to
-> > fix this...
-> >
->
-> amdgpu_dm's connector registration already triggers a detection. See the
-> calls to dc_link_detect and amdgpu_dm_update_connector_after_detect in
-> amdgpu_dm_initialize_drm_device.
->
-> dc_link_detect is supposed to read the edid via
-> dm_helpers_read_local_edid and amdgpu_dm_update_connector_after_detect
-> will update the EDID on the connector via a
-> drm_connector_update_edid_property call.
->
-> This all happens at driver load.
->
-> I don't know why you're seeing the embedded connector as disconnected
-> unless the DP-MIPI bridge for some reason doesn't indicate that the panel
-> is connected at driver load.
->
-> Harry
->
-> > cc Daniel Vetter: can you confirm probing all connectors is a good thing
-> > to do on driver module load?
-> >
-> >>>> I guess the initial modeline is inherited from the video-bios, but
-> >>>> what about the physical size? Note that you cannot just change the
-> >>>> physical size later either, that gets used to determine the hidpi
-> >>>> scaling factor in the bootsplash, and changing that after the initial
-> >>>> bootsplash dislay will also look ugly
-> >>>>
-> >>>> b) Why you need the edid for the panel-orientation property at all,
-> >>>> typically the edid prom is part of the panel and the panel does not
-> >>>> know that it is mounted e.g. upside down at all, that is a property
-> >>>> of the system as a whole not of the panel as a standalone unit so
-> >>>> in my experience getting panel-orient info is something which comes
-> >>>> from the firmware /video-bios not from edid ?
-> >>>
-> >>> This is an internal DRM thing. The orientation quirks logic uses the
-> >>> mode size advertised by the EDID.
-> >>
-> >> The DMI based quirking does, yes. But e.g. the quirk code directly
-> >> reading this from the Intel VBT does not rely on the mode.
-> >>
-> >> But if you are planning on using a DMI based quirk for the steamdeck
-> >> then yes that needs the mode.
-> >>
-> >> Thee mode check is there for 2 reasons:
-> >>
-> >> 1. To avoid also applying the quirk to external displays, but
-> >> I think that that is also solved in most drivers by only checking for
-> >> a quirk at all on the eDP connector
-> >>
-> >> 2. Some laptop models ship with different panels in different badges
-> >> some of these are portrait (so need a panel-orient) setting and others
-> >> are landscape.
-> >
-> > That makes sense. So yeah the EDID mode based matching logic needs to
-> > stay to accomodate for these cases.
-> >
-> >>> I agree that at least in the Steam
-> >>> Deck case it may not make a lot of sense to use any info from the
-> >>> EDID, but that's needed for the current status quo.
-> >>
-> >> We could extend the DMI quirk mechanism to allow quirks which don't
-> >> do the mode check, for use on devices where we can guarantee neither
-> >> 1 nor 2 happens, then amdgpu could call the quirk code early simply
-> >> passing 0x0 as resolution.
-> >
-> > Yeah. But per the above amdgpu should maybe probe connectors on module
-> > load. If/when amdgpu is fixed to do this, then we don't need to disable
-> > the mode matching logic in panel-orientation quirks anymore.
->
+Init panel orientation property after connector is initialized. Let the
+panel driver decides the orientation value later.
 
-Hi all,
+Signed-off-by: Hsin-Yi Wang <hsinyi@chromium.org>
+---
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Thanks for all of the discussion. I'm not sure about how amd drm
-works, but for some SoC, the panel orientation is set in panel[1].
-The goal of this patch is to separate the property creation, so some
-drm can optionally create it earlier before drm_dev_register().
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index 0c1b7dde377c..b5dc86ebcab9 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -627,6 +627,10 @@ struct drm_connector *msm_dsi_manager_connector_init(u8 id)
+ 	connector->interlace_allowed = 0;
+ 	connector->doublescan_allowed = 0;
+ 
++	ret = drm_connector_init_panel_orientation_property(connector);
++	if (ret)
++		goto fail;
++
+ 	drm_connector_attach_encoder(connector, msm_dsi->encoder);
+ 
+ 	ret = msm_dsi_manager_panel_init(connector, id);
+-- 
+2.35.1.894.gb6a874cedc-goog
 
-I've sent the v9 to address some issues in v8, but the basic idea is
-still the same. It has no effect to
-drm_connector_set_panel_orientation_with_quirk() used in amdgpu and
-i915, they work the same as before. Do you think this is reasonable?
-
-[1]  https://elixir.bootlin.com/linux/v5.17-rc7/source/drivers/gpu/drm/panel/panel-edp.c#L556
