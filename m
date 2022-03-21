@@ -4,63 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7587C41535
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 13:59:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A54DC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 14:15:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C4EB10E2D4;
-	Mon, 21 Mar 2022 13:59:31 +0000 (UTC)
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D25D10E466;
- Mon, 21 Mar 2022 13:59:17 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id h4so2855690wrc.13;
- Mon, 21 Mar 2022 06:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=0xCYhNKb7OInak7ISj+2EVPqVtSkGvYvAy2UUMoJRC0=;
- b=KOEptaU77OXatAZu1ksrm3qg1zdFAaLDpRdwSMAN1Qvg0yFIt1/u2lmnBk4CUatkeO
- MhTw9n9JA3+9VXT/a88Cm9wAWP7/btVK3RKr/ZC8sICs3D4Kz2abuFAg3RY4cwBfyRz7
- pECFUGOPDGaMR1BwARaxd4DvJFbdBhJIfg8rLAcwrN6GP4/JML+Sida3x7WWKe9Klrbt
- nJ5CcoacIjx8NLmZsDfbn7iRK3kUpqmp8yfgNLYd6E7/WxITJoPfUZMj2B/e92JxHsjM
- 9oZqSi26R+0D6BV0SlmPIyifITOR2/Yfzjev7Pvebha8qmMj0Q4cLLzJzCppvkB5vZnQ
- 7pOQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D03610E36D;
+	Mon, 21 Mar 2022 14:15:31 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF6C510E337
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Mar 2022 14:15:29 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id r13so5846615wrr.9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Mar 2022 07:15:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=3LGCCJx6wAjQY2VttL5q4VtJQ3mq5u0TMgNggjX0a1g=;
+ b=GHzhEIPbeZiX9JufZAlC0WrQxeA7yPxZG9Z05ioMPOtVUdWhhcYcCSXxTNX0vtkFX9
+ llgW0swP3cht3EeVaODCxO1SKOAPT5sAM9xuPbdZ6EjYJ5R4IdxVmYfy1gZkJ4IKtZTy
+ yVMxbZuTwfM7i9wrArqDPmf5t5/LkAEbg5OW4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=0xCYhNKb7OInak7ISj+2EVPqVtSkGvYvAy2UUMoJRC0=;
- b=QVlun5jk0lLvJBItCzJLz6AhRpJPGWqy1T5pqXl7EZ2bdcLmkYB5bVhxg+CiNaCbO1
- HqXlq9mhNl7Usk/D7kYBdZwWs6mPao+NrplUnpxI3BltvHO2qRV9PQgcJmSn8VfkXHI/
- gveIkLH5wJ387cqSuLbXgoGdYrlDB0QFAhFc1Hqdk/4JE81KDVCrnS+Asv99LniBqVcO
- u6fz1qHJRbUOi9tzLabpxirptgW6b5dMz7BnC3ODe1vMGa29QrxR1fGacOIecaK22VBu
- hfz0iktl0/KU6o8dP5RE0gcwbyjoFqXau+GykduR9nxQzlM3+Iqf3DwNY9b3okjpSSYT
- CSpg==
-X-Gm-Message-State: AOAM530E5ixS1dAEikOHFenDqc8Ux3TiYBGKDiUcnP7wqjBha55A+JnQ
- fhZfPntV6ntbUWnthvOE/IA=
-X-Google-Smtp-Source: ABdhPJyVvnGUNX1/6005N0+MrJzU1pz2Vg21oG5F3jJismZ4yWO4QJfcQ0PE7yunfF+iQZy/IMt4uw==
-X-Received: by 2002:adf:ebc1:0:b0:1e6:1109:5a1c with SMTP id
- v1-20020adfebc1000000b001e611095a1cmr18152566wrn.228.1647871155696; 
- Mon, 21 Mar 2022 06:59:15 -0700 (PDT)
-Received: from able.fritz.box (p5b0eab60.dip0.t-ipconnect.de. [91.14.171.96])
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=3LGCCJx6wAjQY2VttL5q4VtJQ3mq5u0TMgNggjX0a1g=;
+ b=XgRgqDkf+WGSoEda5cgze/mHhwrkWflPLbWxAhcHh7NcWW+5SDP/fQJk1RM6Pq0aiI
+ mrKGEfJFJfR2BEwNN+uMJklZI/U3xOOV042HgD2SACI6qzi+97nOyrlV2BKPjqUM3rh8
+ A3xaIYYdz3QhUkNwtdhq56lH+1iIdAw356NxvbCSsT+vuw1OmgsTzNfh1n/83BO5C1ib
+ fgyByo77jOwisZXT8GdeYVufqg13ZYR38/9Qen6hwKu5gbtbD0D6wbwIUF+89WsqzIpL
+ /GH1NiKAXOtZIyRLGx5rBCBeW2vgrt2PSz/59GVrD4HfW07PjjfRMY0RrZBPIxHwC8hl
+ +0Pw==
+X-Gm-Message-State: AOAM531eUqNdW5Xc4y+KwmCqcE7Hk47wNhL626rEuU+h7c8189kowBvl
+ oLkwR6liARBwfBDLzI00548HfQ==
+X-Google-Smtp-Source: ABdhPJwfS5a0DvVbMY2xlo3RDr89udt1Kv5Op6mlPpfyf+TzQI1P5aO1ryS7sJOJkPr3S4UfOHopzQ==
+X-Received: by 2002:adf:f343:0:b0:203:ee8e:7585 with SMTP id
+ e3-20020adff343000000b00203ee8e7585mr15658680wrp.107.1647872128324; 
+ Mon, 21 Mar 2022 07:15:28 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- m3-20020a5d6243000000b001e33760776fsm13317640wrv.10.2022.03.21.06.59.14
+ m4-20020a7bcb84000000b00389efb7a5b4sm13768934wmi.17.2022.03.21.07.15.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Mar 2022 06:59:15 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: daniel.vetter@ffwll.ch,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH 18/23] drm/amdgpu: remove dma_resv workaround
-Date: Mon, 21 Mar 2022 14:58:51 +0100
-Message-Id: <20220321135856.1331-18-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220321135856.1331-1-christian.koenig@amd.com>
-References: <20220321135856.1331-1-christian.koenig@amd.com>
+ Mon, 21 Mar 2022 07:15:27 -0700 (PDT)
+Date: Mon, 21 Mar 2022 15:15:25 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Rob Clark <robdclark@gmail.com>
+Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
+Message-ID: <YjiIfVuzMeOiUVtU@phenom.ffwll.local>
+References: <20220316104815.11ec2e6c@eldfell>
+ <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
+ <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
+ <5e246eb8-0256-c40e-40ea-d865bf99c003@gmail.com>
+ <YjL/k6kh+5RihGIV@phenom.ffwll.local>
+ <CAF6AEGu79jDW1xqJOaNCB=jAxhKiCRFJwoCNiC9ye97KvpWEtQ@mail.gmail.com>
+ <YjNvYmcuDKiIneDx@phenom.ffwll.local>
+ <CAF6AEGvuMfKtf_aweai6y4oHghArE95uhR2X0f9h_9w4Bk_6VQ@mail.gmail.com>
+ <19a67000-d1e5-0582-c6de-07d9988b1735@amd.com>
+ <CAF6AEGvDjw6zq3yiorhOc+vp2US+Jso9tF74=8gyJMTm=K5FVQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAF6AEGvDjw6zq3yiorhOc+vp2US+Jso9tF74=8gyJMTm=K5FVQ@mail.gmail.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,139 +77,115 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
+ Shashank" <shashank.sharma@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Alexandar Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Shashank Sharma <contactshashanksharma@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We can now add multiple writers to the dma_resv object.
+On Fri, Mar 18, 2022 at 08:12:54AM -0700, Rob Clark wrote:
+> On Fri, Mar 18, 2022 at 12:42 AM Christian König
+> <christian.koenig@amd.com> wrote:
+> >
+> > Am 17.03.22 um 18:31 schrieb Rob Clark:
+> > > On Thu, Mar 17, 2022 at 10:27 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> > >> [SNIP]
+> > >>> (At some point, I'd like to use scheduler for the replay, and actually
+> > >>> use drm_sched_stop()/etc.. but last time I looked there were still
+> > >>> some sched bugs in that area which prevented me from deleting a bunch
+> > >>> of code ;-))
+> > >> Not sure about your hw, but at least on intel replaying tends to just
+> > >> result in follow-on fun. And that holds even more so the more complex a
+> > >> workload is. This is why vk just dies immediately and does not try to
+> > >> replay anything, offloading it to the app. Same with arb robusteness.
+> > >> Afaik it's really only media and classic gl which insist that the driver
+> > >> stack somehow recover.
+> > > At least for us, each submit must be self-contained (ie. not rely on
+> > > previous GPU hw state), so in practice replay works out pretty well.
+> > > The worst case is subsequent submits from same process fail as well
+> > > (if they depended on something that crashing submit failed to write
+> > > back to memory.. but in that case they just crash as well and we move
+> > > on to the next one.. the recent gens (a5xx+ at least) are pretty good
+> > > about quickly detecting problems and giving us an error irq.
+> >
+> > Well I absolutely agree with Daniel.
+> >
+> > The whole replay thing AMD did in the scheduler is an absolutely mess
+> > and should probably be killed with fire.
+> >
+> > I strongly recommend not to do the same mistake in other drivers.
+> >
+> > If you want to have some replay feature then please make it driver
+> > specific and don't use anything from the infrastructure in the DRM
+> > scheduler.
+> 
+> hmm, perhaps I was not clear, but I'm only talking about re-emitting
+> jobs *following* the faulting one (which could be from other contexts,
+> etc).. not trying to restart the faulting job.
 
-Also enable the check for not adding containers in dma_resv.c again.
+You absolutely can drop jobs on the floor, this is what both anv and iris
+expect. They use what we call non-recoverable context, meaning when any
+gpu hang happens and the context is affect (whether as the guilty on, or
+because it was a multi-engine reset and it was victimized) we kill it
+entirely. No replaying, and any further execbuf ioctl fails with -EIO.
 
-Signed-off-by: Christian KÃ¶nig <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
----
- drivers/dma-buf/dma-resv.c                  |  6 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      | 51 ++-------------------
- 3 files changed, 8 insertions(+), 50 deletions(-)
+Userspace then gets to sort out the mess, which for vk is
+VK_ERROR_DEVICE_LOST, for robust gl it's the same, and for non-robust gl
+iris re-creates a pile of things.
 
-diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-index 26257ba1527e..10d70812373c 100644
---- a/drivers/dma-buf/dma-resv.c
-+++ b/drivers/dma-buf/dma-resv.c
-@@ -308,10 +308,10 @@ void dma_resv_add_fence(struct dma_resv *obj, struct dma_fence *fence,
- 
- 	dma_resv_assert_held(obj);
- 
--	/* TODO: Drivers should not add containers here, instead add each fence
--	 * individually. Disabled for now until we cleaned up amdgpu/ttm.
-+	/* Drivers should not add containers here, instead add each fence
-+	 * individually.
- 	 */
--	/* WARN_ON(dma_fence_is_container(fence)); */
-+	WARN_ON(dma_fence_is_container(fence));
- 
- 	fobj = dma_resv_fences_list(obj);
- 	count = fobj->num_fences;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-index 044b41f0bfd9..529d52a204cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-@@ -34,7 +34,6 @@ struct amdgpu_fpriv;
- struct amdgpu_bo_list_entry {
- 	struct ttm_validate_buffer	tv;
- 	struct amdgpu_bo_va		*bo_va;
--	struct dma_fence_chain		*chain;
- 	uint32_t			priority;
- 	struct page			**user_pages;
- 	bool				user_invalidated;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 1c039db976a9..88009833f523 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -575,14 +575,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
- 
- 		e->bo_va = amdgpu_vm_bo_find(vm, bo);
--
--		if (bo->tbo.base.dma_buf && !amdgpu_bo_explicit_sync(bo)) {
--			e->chain = dma_fence_chain_alloc();
--			if (!e->chain) {
--				r = -ENOMEM;
--				goto error_validate;
--			}
--		}
- 	}
- 
- 	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
-@@ -633,13 +625,8 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 	}
- 
- error_validate:
--	if (r) {
--		amdgpu_bo_list_for_each_entry(e, p->bo_list) {
--			dma_fence_chain_free(e->chain);
--			e->chain = NULL;
--		}
-+	if (r)
- 		ttm_eu_backoff_reservation(&p->ticket, &p->validated);
--	}
- out:
- 	return r;
- }
-@@ -679,17 +666,9 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser, int error,
- {
- 	unsigned i;
- 
--	if (error && backoff) {
--		struct amdgpu_bo_list_entry *e;
--
--		amdgpu_bo_list_for_each_entry(e, parser->bo_list) {
--			dma_fence_chain_free(e->chain);
--			e->chain = NULL;
--		}
--
-+	if (error && backoff)
- 		ttm_eu_backoff_reservation(&parser->ticket,
- 					   &parser->validated);
--	}
- 
- 	for (i = 0; i < parser->num_post_deps; i++) {
- 		drm_syncobj_put(parser->post_deps[i].syncobj);
-@@ -1264,29 +1243,9 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 
- 	amdgpu_vm_move_to_lru_tail(p->adev, &fpriv->vm);
- 
--	amdgpu_bo_list_for_each_entry(e, p->bo_list) {
--		struct dma_resv *resv = e->tv.bo->base.resv;
--		struct dma_fence_chain *chain = e->chain;
--		struct dma_resv_iter cursor;
--		struct dma_fence *fence;
--
--		if (!chain)
--			continue;
--
--		/*
--		 * Work around dma_resv shortcommings by wrapping up the
--		 * submission in a dma_fence_chain and add it as exclusive
--		 * fence.
--		 */
--		dma_resv_for_each_fence(&cursor, resv,
--					DMA_RESV_USAGE_WRITE,
--					fence) {
--			break;
--		}
--		dma_fence_chain_init(chain, fence, dma_fence_get(p->fence), 1);
--		dma_resv_add_fence(resv, &chain->base, DMA_RESV_USAGE_WRITE);
--		e->chain = NULL;
--	}
-+	/* Make sure all BOs are remembered as writers */
-+	amdgpu_bo_list_for_each_entry(e, p->bo_list)
-+		e->tv.num_shared = 0;
- 
- 	ttm_eu_fence_buffer_objects(&p->ticket, &p->validated, p->fence);
- 	mutex_unlock(&p->adev->notifier_lock);
+Anything in-between _is_ dropped on the floor completely.
+
+Also note that this is obviously uapi, if you have an userspace which
+expect contexts to survive, then replaying makes some sense.
+
+> You *absolutely* need to replay jobs following the faulting one, they
+> could be from unrelated contexts/processes.  You can't just drop them
+> on the floor.
+> 
+> Currently it is all driver specific, but I wanted to delete a lot of
+> code and move to using scheduler to handle faults/timeouts (but
+> blocked on that until [1] is resolved)
+
+Yeah for the drivers where the uapi is "you can safely replay after a
+hang, and you're supposed to", then sharing the code is ofc a good idea.
+
+Just wanted to make it clear that this is only one of many uapi flavours
+you can pick from, dropping it all on the floor is a perfectly legit
+approach :-) And imo it's the more robust one, and also better fits with
+latest apis like gl_arb_robustness or vk.
+
+Cheers, Daniel
+
+
+> 
+> [1] https://patchwork.kernel.org/project/dri-devel/patch/1630457207-13107-2-git-send-email-Monk.Liu@amd.com/
+> 
+> BR,
+> -R
+> 
+> > Thanks,
+> > Christian.
+> >
+> > >
+> > > BR,
+> > > -R
+> > >
+> > >> And recovering from a mess in userspace is a lot simpler than trying to
+> > >> pull of the same magic in the kernel. Plus it also helps with a few of the
+> > >> dma_fence rules, which is a nice bonus.
+> > >> -Daniel
+> > >>
+> >
+
 -- 
-2.25.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
