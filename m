@@ -4,43 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AF45C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 15:24:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38801C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 16:02:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B0F910E30E;
-	Mon, 21 Mar 2022 15:24:23 +0000 (UTC)
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [IPv6:2a01:488:42:1000:50ed:8234::])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76CD610E334;
- Mon, 21 Mar 2022 14:30:09 +0000 (UTC)
-Received: from ip4d144895.dynamic.kabel-deutschland.de ([77.20.72.149]
- helo=[192.168.66.200]); authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1nWJ2p-00029J-Ve; Mon, 21 Mar 2022 15:30:04 +0100
-Message-ID: <41eaaf17-1456-5971-e7d9-e5ccc65bcf01@leemhuis.info>
-Date: Mon, 21 Mar 2022 15:30:02 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B2B710E380;
+	Mon, 21 Mar 2022 16:02:44 +0000 (UTC)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68CA010E37B;
+ Mon, 21 Mar 2022 16:02:43 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id r64so8829580wmr.4;
+ Mon, 21 Mar 2022 09:02:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=phSyJ04IKQyqb6lOTPZt51MuA+UF9gOAUc4oGq3gGJs=;
+ b=e5OhRrHG7n0dBP1WaBcFUv55M1nkdc1DWwL/+3geI07PF0g2ijliVH5xsJTmjac+tW
+ B9t31o7Kzs3dWTvLG0KFc+QseQI3/6V2LxJ2eNShaRU8J1RvRKr8lX5u6eOGajPVCvKA
+ eYxGrXySVbbgA7rw2bNkLfPJj4ODrsi8qUVEgWTJckFlr0GGK4/+87t5KaIehdO/tC+a
+ cm3HxPu/lsrOwvnlHHO578DZ3fgsab69U2kH2wQY2VwIAgh1a1ARXg77GdgpZaXgrFiI
+ zql0PFBJF8ENxwdBSb+EyXROiHZsgFu1EAVVN8joPUQZp+ggzoS92T+WDwJ0PoIgxIZm
+ BV0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=phSyJ04IKQyqb6lOTPZt51MuA+UF9gOAUc4oGq3gGJs=;
+ b=4IrwCuO0lSq4TkxZ6kX8LDQfUNghQA/5oRoFIQODijfl9GM4Q8mvG/BOp+pqOa8F9x
+ xNXl+v54wla2JSWymzg+WZ+UJt7ig/blApD4Zt862teU7B5495IGId/l+pmtzGh1Cdfw
+ h2pQu7KIAvUcfsMI9Qo9PZRbK8b31QY7vyYI+oF6YpSMduZgEpkU8UlikcLNyqEITvNE
+ kJrRlKKwpjSnDS3KS+ESZx3yHbfxZNA+wU0Rledoc+gmZDHyzWD4bXSHtwIIDiaohFF2
+ 4n3qrOtBCTx8r+6dOWg6DcecRdxVDcx4Q4y13Tpxo5nhDCgPvmXh0JIPb93WOij1feFn
+ u2LA==
+X-Gm-Message-State: AOAM530prhG0FzKEvpobq+UPh2YxrN7PSykR18qV4ou6LYfmwRpgUJsV
+ 2h3A1FhY1OPs46S0kB6rNTT96MUDxE+spOhNx++tSf3c
+X-Google-Smtp-Source: ABdhPJyD3hcgnNJGgR/1qyQz7N78hwNB1+38prfiLQMVV1vqg2tQR9eRO7k+vgJq+1aEu+ZL/9tY1oCtJ+WB5yZAclY=
+X-Received: by 2002:a05:600c:22c4:b0:38c:70f5:25a9 with SMTP id
+ 4-20020a05600c22c400b0038c70f525a9mr20215731wmg.119.1647878561841; Mon, 21
+ Mar 2022 09:02:41 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: Regression from 3c196f056666 ("drm/amdgpu: always reset the asic
- in suspend (v2)") on suspend?
-Content-Language: en-US
-To: =?UTF-8?Q?=c3=89ric_Valette?= <eric.valette@free.fr>
-References: <Ygf7KuWyc0d4HIFu@eldamar.lan>
- <CADnq5_MfR99OhjumQESCO7Oq+JVOHOVgyVQHX4FpGFDnPu6CyQ@mail.gmail.com>
- <5164225.DI6hChFYCN@ylum> <c62d4ba9-2214-ca7d-ee78-ee19a9bf51e6@free.fr>
- <CADnq5_MWqz7-XhOS4zfuzi3=_nKa72iYaO0BcKNcVDwEvZ+YHw@mail.gmail.com>
- <61c2b2ce-d749-3723-ad27-f40e1c49d967@leemhuis.info>
- <ba7faa48-68a5-41f9-9192-f843e17c5a07@free.fr>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-In-Reply-To: <ba7faa48-68a5-41f9-9192-f843e17c5a07@free.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1647873009;
- 3c72b866; 
-X-HE-SMSGID: 1nWJ2p-00029J-Ve
-X-Mailman-Approved-At: Mon, 21 Mar 2022 15:24:21 +0000
+References: <20220311102709.225616cf@eldfell>
+ <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
+ <20220314172647.223658d2@eldfell>
+ <CADnq5_NsxipfFFXfRSXvVQin3e1gj0Q_p9p-shi3VZ2pSCwwfw@mail.gmail.com>
+ <20220316104815.11ec2e6c@eldfell>
+ <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
+ <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
+ <5e246eb8-0256-c40e-40ea-d865bf99c003@gmail.com>
+ <YjL/k6kh+5RihGIV@phenom.ffwll.local>
+ <CAF6AEGu79jDW1xqJOaNCB=jAxhKiCRFJwoCNiC9ye97KvpWEtQ@mail.gmail.com>
+ <YjNvYmcuDKiIneDx@phenom.ffwll.local>
+ <CAF6AEGvuMfKtf_aweai6y4oHghArE95uhR2X0f9h_9w4Bk_6VQ@mail.gmail.com>
+ <19a67000-d1e5-0582-c6de-07d9988b1735@amd.com>
+ <CAF6AEGvDjw6zq3yiorhOc+vp2US+Jso9tF74=8gyJMTm=K5FVQ@mail.gmail.com>
+ <3f0b7273-4562-7a55-e52a-bd64334886fd@amd.com>
+In-Reply-To: <3f0b7273-4562-7a55-e52a-bd64334886fd@amd.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 21 Mar 2022 09:03:26 -0700
+Message-ID: <CAF6AEGu6FabmcWE+NsPgnPU0=MpbA6bmO1KkJ2hrVDBLFY92xA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,47 +77,145 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, 1005005@bugs.debian.org,
- Evan Quan <evan.quan@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Dominique Dumont <dod@debian.org>, Salvatore Bonaccorso <carnil@debian.org>
+Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
+ Shashank" <shashank.sharma@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Alexandar Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Shashank Sharma <contactshashanksharma@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 21.03.22 13:07, Éric Valette wrote:
-> My problem has never been fixed.
+On Mon, Mar 21, 2022 at 2:30 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> The proposed patch has been applied to 5.15. I do not remerber which version 28 maybe.
-> 
-> I still have à RIP in pm_suspend. Did not test the Last two 15 versions.
-> 
-> I can leave with 5.10 est using own compiled kernels.
-> 
-> Thanks for asking.
+> Am 18.03.22 um 16:12 schrieb Rob Clark:
+> > On Fri, Mar 18, 2022 at 12:42 AM Christian K=C3=B6nig
+> > <christian.koenig@amd.com> wrote:
+> >> Am 17.03.22 um 18:31 schrieb Rob Clark:
+> >>> On Thu, Mar 17, 2022 at 10:27 AM Daniel Vetter <daniel@ffwll.ch> wrot=
+e:
+> >>>> [SNIP]
+> >>>>> (At some point, I'd like to use scheduler for the replay, and actua=
+lly
+> >>>>> use drm_sched_stop()/etc.. but last time I looked there were still
+> >>>>> some sched bugs in that area which prevented me from deleting a bun=
+ch
+> >>>>> of code ;-))
+> >>>> Not sure about your hw, but at least on intel replaying tends to jus=
+t
+> >>>> result in follow-on fun. And that holds even more so the more comple=
+x a
+> >>>> workload is. This is why vk just dies immediately and does not try t=
+o
+> >>>> replay anything, offloading it to the app. Same with arb robusteness=
+.
+> >>>> Afaik it's really only media and classic gl which insist that the dr=
+iver
+> >>>> stack somehow recover.
+> >>> At least for us, each submit must be self-contained (ie. not rely on
+> >>> previous GPU hw state), so in practice replay works out pretty well.
+> >>> The worst case is subsequent submits from same process fail as well
+> >>> (if they depended on something that crashing submit failed to write
+> >>> back to memory.. but in that case they just crash as well and we move
+> >>> on to the next one.. the recent gens (a5xx+ at least) are pretty good
+> >>> about quickly detecting problems and giving us an error irq.
+> >> Well I absolutely agree with Daniel.
+> >>
+> >> The whole replay thing AMD did in the scheduler is an absolutely mess
+> >> and should probably be killed with fire.
+> >>
+> >> I strongly recommend not to do the same mistake in other drivers.
+> >>
+> >> If you want to have some replay feature then please make it driver
+> >> specific and don't use anything from the infrastructure in the DRM
+> >> scheduler.
+> > hmm, perhaps I was not clear, but I'm only talking about re-emitting
+> > jobs *following* the faulting one (which could be from other contexts,
+> > etc).. not trying to restart the faulting job.
+> >
+> > You *absolutely* need to replay jobs following the faulting one, they
+> > could be from unrelated contexts/processes.  You can't just drop them
+> > on the floor.
+>
+> Well you can, it just means that their contexts are lost as well.
 
-This thread/the debian bug report
-(https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1005005 ) is getting
-long which makes things hard to grasp. But to me it looks a lot like the
-problem you are facing is different from the problem that others ran
-into and bisected -- but I might be totally wrong there. Have you ever
-tried reverting 3c196f056666 to seem if it helps (sorry if that's
-mentioned in the bug report somewhere, as I said, it became long)? I
-guess a bisection from your side really would help a lot; but before you
-go down that route you might want to give 5.17 and the latest 5.15.y
-kernel a try.
+Which is rather inconvenient when deqp-egl reset tests, for example,
+take down your compositor ;-)
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+(Which for even more lolz, in CrOS restarts the android container or
+vm.. which makes running android-cts deqp kinda funny)
 
-P.S.: As the Linux kernel's regression tracker I'm getting a lot of
-reports on my table. I can only look briefly into most of them and lack
-knowledge about most of the areas they concern. I thus unfortunately
-will sometimes get things wrong or miss something important. I hope
-that's not the case here; if you think it is, don't hesitate to tell me
-in a public reply, it's in everyone's interest to set the public record
-straight.
+> If you re-submit jobs which were already pushed to the hardware you
+> absolutely need to make a couple of things sure:
+>
+> 1. Don't race with your hardware. E.g. you need a way to stop processing
+> in case of a timeout and then double check once more if things haven't
+> finished in the meantime.
+>
+> 2. Make absolutely sure you never re-submit an operation when it's
+> dma-fence is already signaled. Otherwise you run into memory corruption.
+>
+> 3. When you have multiple engines it becomes really tricky because then
+> even innocent jobs might have already been started on different queues
+> which now hang.
 
+We force power-off/on the GPU to reset it which is a pretty good way
+to make sure we aren't racing with the GPU.
+
+It's worked like this since pretty much the beginning, and in the
+early days of bringing up mesa support for a new gen we tend to
+exercise the gpu hang/recovery path quite a lot.. so it at least seems
+pretty robust ;-)
+
+BR,
+-R
+
+>
+> > Currently it is all driver specific, but I wanted to delete a lot of
+> > code and move to using scheduler to handle faults/timeouts (but
+> > blocked on that until [1] is resolved)
+>
+> Please don't.
+>
+> Especially don't use the pending_list or any of the scheduler
+> infrastructure for GPU reset. We need to get rid of that again sooner or
+> later.
+>
+> This is extremely hardware dependent and pushing the amdgpu specific
+> handling into the GPU scheduler was a mistake we shouldn't repeat for
+> other drivers.
+>
+> Regards,
+> Christian.
+>
+> >
+> > [1] https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2=
+Fpatchwork.kernel.org%2Fproject%2Fdri-devel%2Fpatch%2F1630457207-13107-2-gi=
+t-send-email-Monk.Liu%40amd.com%2F&amp;data=3D04%7C01%7Cchristian.koenig%40=
+amd.com%7C1f6ddc253f9341231fa108da08f1afa9%7C3dd8961fe4884e608e11a82d994e18=
+3d%7C0%7C0%7C637832131381866493%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDA=
+iLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3De%2F1tOh=
+3nxH3QfzKQKiJKjCU7Z5S6haX07F8rzwZhRVY%3D&amp;reserved=3D0
+> >
+> > BR,
+> > -R
+> >
+> >> Thanks,
+> >> Christian.
+> >>
+> >>> BR,
+> >>> -R
+> >>>
+> >>>> And recovering from a mess in userspace is a lot simpler than trying=
+ to
+> >>>> pull of the same magic in the kernel. Plus it also helps with a few =
+of the
+> >>>> dma_fence rules, which is a nice bonus.
+> >>>> -Daniel
+> >>>>
+>
