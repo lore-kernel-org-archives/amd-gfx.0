@@ -4,45 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 649CCC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 12:55:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28606C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 13:02:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CD1910E2E1;
-	Mon, 21 Mar 2022 12:55:53 +0000 (UTC)
-Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [IPv6:2a01:e0c:1:1599::12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9400B10E25D;
- Mon, 21 Mar 2022 12:08:12 +0000 (UTC)
-Received: from [127.0.0.1] (unknown [90.59.133.218])
- (Authenticated sender: eric.valette@free.fr)
- by smtp3-g21.free.fr (Postfix) with ESMTPSA id 589AF13F8A7;
- Mon, 21 Mar 2022 13:07:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
- s=smtp-20201208; t=1647864490;
- bh=xXEkKhP21j6z3maIS8t4Sjhtp6NJrateRL7U0XZ9/V8=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=Xaw0Xqk+UU939Tv2bOs7/Hca8R7E5RZtlT3zPkxnGDBqBN4y8m6IMwQ8c8kWSaEPX
- DqwgRGIIDvwYsN8XxC3tlong7FPxyVk9x/j16ADm4Jf3MccTgFFCVRlrckl5yiUiod
- 7c0EpRy+4wR8jFsMKFbVFgzlcD9HDATJjlaI8qd4sapoyXC21kWC+VY19n61+p9WBq
- +34ld9Wtw7uuE84DIZoSAaNa7yBUQFPT37j3b0KaZ1kprb59Y3FLEC5S/WE49Z16Dx
- EUwR9W/d2v3oSGdbIVc+SYxwHFryUm0ZQZQnIXYgyQZq0/8ke+t6ZWU8DKcHCZm4aB
- EvLEZ2cdHsDWg==
-Date: Mon, 21 Mar 2022 12:07:51 +0000 (UTC)
-From: =?UTF-8?Q?=C3=89ric_Valette?= <eric.valette@free.fr>
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Message-ID: <ba7faa48-68a5-41f9-9192-f843e17c5a07@free.fr>
-In-Reply-To: <61c2b2ce-d749-3723-ad27-f40e1c49d967@leemhuis.info>
-References: <Ygf7KuWyc0d4HIFu@eldamar.lan>
- <CADnq5_MfR99OhjumQESCO7Oq+JVOHOVgyVQHX4FpGFDnPu6CyQ@mail.gmail.com>
- <5164225.DI6hChFYCN@ylum> <c62d4ba9-2214-ca7d-ee78-ee19a9bf51e6@free.fr>
- <CADnq5_MWqz7-XhOS4zfuzi3=_nKa72iYaO0BcKNcVDwEvZ+YHw@mail.gmail.com>
- <61c2b2ce-d749-3723-ad27-f40e1c49d967@leemhuis.info>
-Subject: Re: Regression from 3c196f056666 ("drm/amdgpu: always reset the
- asic in suspend (v2)") on suspend?
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DF4B10E366;
+	Mon, 21 Mar 2022 13:02:53 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C6C410E34B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Mar 2022 13:02:52 +0000 (UTC)
+Received: from [192.168.0.7] (ip5f5aef4e.dynamic.kabel-deutschland.de
+ [95.90.239.78])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 5D54361E6478B;
+ Mon, 21 Mar 2022 14:02:50 +0100 (CET)
+Message-ID: <37e84833-32cf-0c3c-d2fe-3cb4a8bb3c40@molgen.mpg.de>
+Date: Mon, 21 Mar 2022 14:02:49 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Correlation-ID: <ba7faa48-68a5-41f9-9192-f843e17c5a07@free.fr>
-X-Mailman-Approved-At: Mon, 21 Mar 2022 12:55:51 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] drm/amdgpu/vcn: Correct the register setting for vcn1
+Content-Language: en-US
+To: Emily Deng <Emily.Deng@amd.com>
+References: <20220321082636.4993-1-Emily.Deng@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20220321082636.4993-1-Emily.Deng@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,92 +43,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, 1005005@bugs.debian.org,
- Evan Quan <evan.quan@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Dominique Dumont <dod@debian.org>, Salvatore Bonaccorso <carnil@debian.org>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-My problem has never been fixed. The proposed patch has been applied to 5.1=
-5. I do not remerber which version 28 maybe.
+Dear Emily,
 
-I still have =C3=A0 RIP in pm_suspend. Did not test the Last two 15 version=
-s.
 
-I can leave with 5.10 est using own compiled kernels.
+Am 21.03.22 um 09:26 schrieb Emily Deng:
+> Correct the code error for setting register UVD_GFX10_ADDR_CONFIG.
+> Need to use inst_idx, or it only will set VCN0.
 
-Thanks for asking.
+Please add a Fixes tag.
 
-21 mars 2022 09:58:01 Thorsten Leemhuis <regressions@leemhuis.info>:
+> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> index c87263ed20ec..b16c56aa2d22 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> @@ -575,8 +575,8 @@ static void vcn_v3_0_mc_resume_dpg_mode(struct amdgpu_device *adev, int inst_idx
+>   			AMDGPU_GPU_PAGE_ALIGN(sizeof(struct amdgpu_fw_shared)), 0, indirect);
+>   
+>   	/* VCN global tiling registers */
+> -	WREG32_SOC15_DPG_MODE(0, SOC15_DPG_MODE_OFFSET(
+> -		UVD, 0, mmUVD_GFX10_ADDR_CONFIG), adev->gfx.config.gb_addr_config, 0, indirect);
+> +	WREG32_SOC15_DPG_MODE(inst_idx, SOC15_DPG_MODE_OFFSET(
+> +		UVD, inst_idx, mmUVD_GFX10_ADDR_CONFIG), adev->gfx.config.gb_addr_config, 0, indirect);
+>   }
+>   
+>   static void vcn_v3_0_disable_static_power_gating(struct amdgpu_device *adev, int inst)
 
-> Hi, this is your Linux kernel regression tracker. Top-posting for once,
-> to make this easily accessible to everyone.
->=20
-> Dominique/Salvatore/Eric, what's the status of this regression?
-> According to the debian bug tracker the problem is solved with 5.16 and
-> 5.17, but was 5.15 ever fixed?
->=20
-> Ciao, Thorsten
->=20
-> On 21.02.22 15:16, Alex Deucher wrote:
->> On Mon, Feb 21, 2022 at 3:29 AM Eric Valette <eric.valette@free.fr> wrot=
-e:
->>>=20
->>> On 20/02/2022 16:48, Dominique Dumont wrote:
->>>> On Monday, 14 February 2022 22:52:27 CET Alex Deucher wrote:
->>>>> Does the system actually suspend?
->>>>=20
->>>> Not really. The screens looks like it's going to suspend, but it does =
-come
->>>> back after 10s or so. The light mounted in the middle of the power but=
-ton does
->>>> not switch off.
->>>=20
->>>=20
->>> As I have a very similar problem and also commented on the original
->>> debian bug report
->>> (https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D1005005), I will a=
-dd
->>> some information here on another amd only laptop (renoir AMD Ryzen 7
->>> 4800H with Radeon Graphics + Radeon RX 5500/5500M / Pro 5500M).
->>>=20
->>> For me the suspend works once, but after the first resume (I do know
->>> know if it is in the suspend path or the resume path I see a RIP in the
->>> dmesg (see aditional info in debian bug))=C2=A0 and later suspend do no=
-t
->>> work: It only go to the kde login screen.
->>>=20
->>> I was unable due to network connectivity to do a full bisect but tested
->>> with the patch I had on my laptop:
->>>=20
->>> 5.10.101 works, 5.10 from debian works
->>> 5.11 works
->>> 5.12 works
->>> 5.13 suspend works but when resuming the PC is dead I have to reboot
->>> 5.14 seems to work but looking at dmesg it is full of RIP messages at
->>> various places.
->>> 5.15.24 is a described 5.15 from debian is behaving identically
->>> 5.16 from debian is behaving identically.
->>>=20
->>>>> Is this system S0i3 or regular S3?
->>>=20
->>> For me it is real S3.
->>>=20
->>> The proposed patch is intended for INTEl + intel gpu + amdgpu but I hav=
-e
->>> dual amd GPU.
->>=20
->> It doesn't really matter what the platform is, it could still
->> potentially help on your system, it depends on the bios implementation
->> for your platform and how it handles suspend. You can try the patch,
->> but I don't think you are hitting the same issue.=C2=A0 I bisect would b=
-e
->> helpful in your case.
->>=20
->> Alex
+
+Kind regards,
+
+Paul
