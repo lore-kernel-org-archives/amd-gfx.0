@@ -4,88 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 437CAC433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 12:55:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7D6DC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 12:55:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB91210E2AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB15D10E2BF;
 	Mon, 21 Mar 2022 12:55:52 +0000 (UTC)
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E57210E135
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Mar 2022 02:01:55 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id C579D5C010A;
- Sun, 20 Mar 2022 22:01:52 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Sun, 20 Mar 2022 22:01:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=turner.link; h=
- cc:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm3; bh=uXQFEtZDztyGX9AqVl1DV7goVhiMjSgo2VCtiW
- c9Ki8=; b=ZARfCnE0qOE6r2TNSfo5JUnuSRgVMItuvc+hzB1EuKdG87zevOdYOk
- 9e6856l2J2TYvMr2fhsC705gBJ23mlHBTJJkZ/Gcdcy0/xheFs6ICIHeN75PVT7G
- iqBs/4UWq/2EmZia8TPmlZr+nIYr08SGXpZw+GEdHRBlzOZl9dupzWOYcBePz2Cx
- GPSn1/ABJ6e0+IUeQA0k0lr8J4cdJwA8Dbbkn/Tx+ZkKBUU0XAtwAjQ0xlIIap2n
- 7RaSw+DFsizjC/rjWVt/9omoPalsWtMXuI4+t/1KsqTRPxv7L7ybWVNH85YDbILs
- OWcNbZmEWhcEErBCdU1mvdV/WkUkcWwg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=uXQFEtZDztyGX9AqV
- l1DV7goVhiMjSgo2VCtiWc9Ki8=; b=QvSwI85adgO3ty/9m5FB9zLE9x3Gf/nOT
- /HD/CNxZtbczkOOuWaQjiSQO4TbxKPVGdoM6+ShctBBliwIXqbHPYEFkqjaK6xMt
- mOWdkmT2j7ZHatiEjjhUDZSnVzf7kMgvU5dd2hsgd3ig6OMPlr3adz5I8Z0PijKX
- QU5QE3cIpdjWZm31HD5uFg1dJsKwbYwjCursog3VM2ROlW0m7k7jmNL3NzzcUd3g
- agkIAR8dE3SDGp5PK4kYi3JLA5rjtG+eQm1TjLCuTDEPb21OuvdIG31G8pL2R0/O
- hKNfbTsPLOik9q/UJtw4sZguf3UIqZfLXb/+zHH+3zID41XBiqVDw==
-X-ME-Sender: <xms:kNw3YvWHFKGgbMX_qpuRPJjMnzq5sqk6B92Ytu8ohIlwZ5Tk0f3xug>
- <xme:kNw3YnkdthuW8-IXpAeMrQSDgw6mOhr1TFD8sx4B0-VHt-IuZ4R2Z2YGLQt-k86XJ
- Djf2VrryevIDTA2zw>
-X-ME-Received: <xmr:kNw3Yraa8XthFjCkwZQM_7o1VmzL-hHAO8DqjqBdFKhxmKAppVorfKkl2f09Z-JwV-WN7KcyRe_3TioUda3pQNN1-1OQx2EN6pQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudegvddggeduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfhfhvffuffgjkfggtgesthdtredttddttdenucfhrhhomheplfgrmhgvshcu
- vfhurhhnvghruceolhhinhhugihkvghrnhgvlhdrfhhoshhssegumhgrrhgtqdhnohhnvg
- drthhurhhnvghrrdhlihhnkheqnecuggftrfgrthhtvghrnhepfffhveeugfevteeileej
- vdeltdegtdeggfeujefgveekueevkeehheehffduleevnecuffhomhgrihhnpegrrhgthh
- hlihhnuhigrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
- lhhfrhhomheplhhinhhugihkvghrnhgvlhdrfhhoshhssegumhgrrhgtqdhnohhnvgdrth
- hurhhnvghrrdhlihhnkh
-X-ME-Proxy: <xmx:kNw3YqXPiY-kEqyj9eZYEkRKkTK-VSv-wHKOmIigxQmuO2L9tKfDyw>
- <xmx:kNw3Yplrm6z9OuMM72uhI218UV6yFyOdpffW8AhGe3sojdx04sRa9w>
- <xmx:kNw3YnfiyoDDNxyJ4CnebyAfuUReEKaz4lJ2j4hjDHeACI3BuwBBtQ>
- <xmx:kNw3Yu-UqEZOZ0UEJSMqnW6mmSMsR5FIMcXZOJZHOpWluFpTx-vXTw>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 20 Mar 2022 22:01:51 -0400 (EDT)
-References: <87ee57c8fu.fsf@turner.link>
- <87sftfqwlx.fsf@dmarc-none.turner.link>
- <BYAPR12MB4614E2CFEDDDEAABBAB986A0975E9@BYAPR12MB4614.namprd12.prod.outlook.com>
- <87ee4wprsx.fsf@turner.link>
- <4b3ed7f6-d2b6-443c-970e-d963066ebfe3@amd.com>
- <87pmo8r6ob.fsf@turner.link>
- <5a68afe4-1e9e-c683-e06d-30afc2156f14@leemhuis.info>
- <CADnq5_MCKTLOfWKWvi94Q9-d5CGdWBoWVxEYL3YXOpMiPnLOyg@mail.gmail.com>
- <87pmnnpmh5.fsf@dmarc-none.turner.link>
- <CADnq5_NG_dQCYwqHM0umjTMg5Uud6zC4=MiscH91Y9v7mW9bJA@mail.gmail.com>
- <092b825a-10ff-e197-18a1-d3e3a097b0e3@leemhuis.info>
- <877d96to55.fsf@dmarc-none.turner.link> <87lexdw8gd.fsf@turner.link>
- <d541b534-8b83-b566-56eb-ea8baa7c998e@leemhuis.info>
- <40b3084a-11b8-0962-4b33-34b56d3a87a3@molgen.mpg.de>
- <bc714e87-d1dc-cdda-5a29-25820faaff40@leemhuis.info>
- <20220318084625.27d42a51.alex.williamson@redhat.com>
- <CADnq5_OE7JpffYggKsu92DAjur1CCSqZQ7LbMqcfmAk68FerDA@mail.gmail.com>
- <20220318092552.518a50ef.alex.williamson@redhat.com>
-From: James Turner <linuxkernel.foss@dmarc-none.turner.link>
-To: Alex Williamson <alex.williamson@redhat.com>
-Subject: Re: [REGRESSION] Too-low frequency limit for AMD GPU
- PCI-passed-through to Windows VM
-Date: Sun, 20 Mar 2022 21:26:51 -0400
-In-reply-to: <20220318092552.518a50ef.alex.williamson@redhat.com>
-Message-ID: <87mthkkqr4.fsf@turner.link>
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [IPv6:2a01:488:42:1000:50ed:8234::])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E1F210E2B5;
+ Mon, 21 Mar 2022 08:58:05 +0000 (UTC)
+Received: from ip4d144895.dynamic.kabel-deutschland.de ([77.20.72.149]
+ helo=[192.168.66.200]); authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1nWDrU-0003JJ-BW; Mon, 21 Mar 2022 09:58:00 +0100
+Message-ID: <61c2b2ce-d749-3723-ad27-f40e1c49d967@leemhuis.info>
+Date: Mon, 21 Mar 2022 09:57:59 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: Regression from 3c196f056666 ("drm/amdgpu: always reset the asic
+ in suspend (v2)") on suspend?
+Content-Language: en-US
+To: Eric Valette <eric.valette@free.fr>,
+ Salvatore Bonaccorso <carnil@debian.org>, Dominique Dumont <dod@debian.org>
+References: <Ygf7KuWyc0d4HIFu@eldamar.lan>
+ <CADnq5_MfR99OhjumQESCO7Oq+JVOHOVgyVQHX4FpGFDnPu6CyQ@mail.gmail.com>
+ <5164225.DI6hChFYCN@ylum> <c62d4ba9-2214-ca7d-ee78-ee19a9bf51e6@free.fr>
+ <CADnq5_MWqz7-XhOS4zfuzi3=_nKa72iYaO0BcKNcVDwEvZ+YHw@mail.gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+In-Reply-To: <CADnq5_MWqz7-XhOS4zfuzi3=_nKa72iYaO0BcKNcVDwEvZ+YHw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1647853085;
+ 667eccc4; 
+X-HE-SMSGID: 1nWDrU-0003JJ-BW
 X-Mailman-Approved-At: Mon, 21 Mar 2022 12:55:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,110 +51,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>, Lijo Lazar <lijo.lazar@amd.com>,
- regressions@lists.linux.dev, kvm@vger.kernel.org,
- Greg KH <gregkh@linuxfoundation.org>, Xinhui Pan <Xinhui.Pan@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
+Cc: Sasha Levin <sashal@kernel.org>, David Airlie <airlied@linux.ie>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alexander Deucher <Alexander.Deucher@amd.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- Alex Deucher <alexdeucher@gmail.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <Christian.Koenig@amd.com>
+ Alex Deucher <alexdeucher@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>, 1005005@bugs.debian.org,
+ Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
->>> Right, interference from host drivers and pre-boot environments is
->>> always a concern with GPU assignment in particular. AMD GPUs have a
->>> long history of poor behavior relative to things like PCI secondary
->>> bus resets which we use to try to get devices to clean, reusable
->>> states for assignment. Here a device is being bound to a host driver
->>> that initiates some sort of power control, unbound from that driver
->>> and exposed to new drivers far beyond the scope of the kernel's
->>> regression policy. Perhaps it's possible to undo such power control
->>> when unbinding the device, but it's not necessarily a given that
->>> such a thing is possible for this device without a cold reset.
+Hi, this is your Linux kernel regression tracker. Top-posting for once,
+to make this easily accessible to everyone.
+
+Dominique/Salvatore/Eric, what's the status of this regression?
+According to the debian bug tracker the problem is solved with 5.16 and
+5.17, but was 5.15 ever fixed?
+
+Ciao, Thorsten
+
+On 21.02.22 15:16, Alex Deucher wrote:
+> On Mon, Feb 21, 2022 at 3:29 AM Eric Valette <eric.valette@free.fr> wrote:
+>>
+>> On 20/02/2022 16:48, Dominique Dumont wrote:
+>>> On Monday, 14 February 2022 22:52:27 CET Alex Deucher wrote:
+>>>> Does the system actually suspend?
 >>>
->>> IMO, it's not fair to restrict the kernel from such advancements. If
->>> the use case is within a VM, don't bind host drivers. It's difficult
->>> to make promises when dynamically switching between host and
->>> userspace drivers for devices that don't have functional reset
->>> mechanisms.
+>>> Not really. The screens looks like it's going to suspend, but it does come
+>>> back after 10s or so. The light mounted in the middle of the power button does
+>>> not switch off.
+>>
+>>
+>> As I have a very similar problem and also commented on the original
+>> debian bug report
+>> (https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1005005), I will add
+>> some information here on another amd only laptop (renoir AMD Ryzen 7
+>> 4800H with Radeon Graphics + Radeon RX 5500/5500M / Pro 5500M).
+>>
+>> For me the suspend works once, but after the first resume (I do know
+>> know if it is in the suspend path or the resume path I see a RIP in the
+>> dmesg (see aditional info in debian bug))  and later suspend do not
+>> work: It only go to the kde login screen.
+>>
+>> I was unable due to network connectivity to do a full bisect but tested
+>> with the patch I had on my laptop:
+>>
+>> 5.10.101 works, 5.10 from debian works
+>> 5.11 works
+>> 5.12 works
+>> 5.13 suspend works but when resuming the PC is dead I have to reboot
+>> 5.14 seems to work but looking at dmesg it is full of RIP messages at
+>> various places.
+>> 5.15.24 is a described 5.15 from debian is behaving identically
+>> 5.16 from debian is behaving identically.
+>>
+>>>> Is this system S0i3 or regular S3?
+>>
+>> For me it is real S3.
+>>
+>> The proposed patch is intended for INTEl + intel gpu + amdgpu but I have
+>> dual amd GPU.
+> 
+> It doesn't really matter what the platform is, it could still
+> potentially help on your system, it depends on the bios implementation
+> for your platform and how it handles suspend. You can try the patch,
+> but I don't think you are hitting the same issue.  I bisect would be
+> helpful in your case.
+> 
+> Alex
 
-To clarify, the GPU is never bound to the `amdgpu` driver on the host.
-I'm binding it to `vfio-pci` on the host at boot, specifically to avoid
-issues with dynamic rebinding. To do this, I'm passing
-`vfio-pci.ids=1002:6981,1002:aae0` on the kernel command line, and I've
-confirmed that this option is working:
-
-% lspci -nnk -d 1002:6981
-01:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Lexa XT [Radeon PRO WX 3200] [1002:6981]
-	Subsystem: Dell Device [1028:0926]
-	Kernel driver in use: vfio-pci
-	Kernel modules: amdgpu
-
-% lspci -nnk -d 1002:aae0
-01:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI] Baffin HDMI/DP Audio [Radeon RX 550 640SP / RX 560/560X] [1002:aae0]
-	Subsystem: Dell Device [1028:0926]
-	Kernel driver in use: vfio-pci
-	Kernel modules: snd_hda_intel
-
-Starting with
-f9b7f3703ff9 ("drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)")
-this is insufficient for the GPU to work properly in the VM, since the
-`amdgpu` module is calling global ACPI methods which affect the GPU even
-though it's not bound to the `amdgpu` driver.
-
->> Additionally, operating the isolated device in a VM on a constrained
->> environment like a laptop may have other adverse side effects.  The
->> driver in the guest would ideally know that this is a laptop and needs
->> to properly interact with APCI to handle power management on the
->> device.  If that is not the case, the driver in the guest may end up
->> running the device out of spec with what the platform supports.  It's
->> also likely to break suspend and resume, especially on systems which
->> use S0ix since the firmware will generally only turn off certain power
->> rails if all of the devices on the rails have been put into the proper
->> state.  That state may vary depending on the platform requirements.
-
-Fwiw, the guest Windows AMD driver can tell that it's a mobile GPU, and
-as a result, the driver GUI locks various performance parameters to the
-defaults. The cooling system and power supply seem to work without
-issues. As the load on the GPU increases, the fan speed increases. The
-GPU stays below the critical temperature with plenty of margin, even at
-100% load. The voltage reported by the GPU adjusts with the load, and I
-haven't experienced any glitches which would suggest that the GPU is not
-getting enough power or something. I haven't tried suspend/resume.
-
-What are the differences between a laptop and desktop, aside from the
-size of the cooling system? Could the issue reported here affect desktop
-systems, too?
-
-As far as what to do for this issue: Personally, I don't mind
-blacklisting `amdgpu` on my machine. My primary concerns are:
-
-1. Other users may experience this issue and have trouble figuring out
-   what's happening, or they may not even realize that they're
-   experiencing significantly-lower-than-expected performance.
-
-2. It's possible that this issue affects some machines which use an AMD
-   GPU for the host and a second AMD GPU for the guest. For those
-   machines, blacklisting `amdgpu` would not be an option, since that
-   would disable the AMD GPU for the host.
-
-I've tried to help with concern 1 by mentioning this issue on the Arch
-Linux Wiki [1]. Another thing that would help is to print a warning
-message to the kernel ring buffer when an AMD GPU is bound to `vfio-pci`
-and the `amdgpu` module is loaded. (It would say something like,
-"Although the <GPU_NAME> device is bound to `vfio-pci`, loading the
-`amdgpu` module may still affect it via ACPI. Consider blacklisting
-`amdgpu` if the GPU does not behave as expected.")
-
-I'm not sure if there's any way to address concern 2, aside from fixing
-the firmware / Windows AMD driver.
-
-I thought of one more thing I could test -- I could try a Linux guest
-instead of a Windows guest to determine if the issue is due to the
-firmware or the guest Windows AMD driver. Would that be helpful?
-
-[1]: https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Too-low_frequency_limit_for_AMD_GPU_passed-through_to_virtual_machine
-
-James
