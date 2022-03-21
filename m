@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5593C4321E
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 13:59:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7587C41535
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 13:59:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 531AF10E455;
-	Mon, 21 Mar 2022 13:59:15 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76E6010E446;
- Mon, 21 Mar 2022 13:59:13 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id v22so6909759wra.2;
- Mon, 21 Mar 2022 06:59:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C4EB10E2D4;
+	Mon, 21 Mar 2022 13:59:31 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D25D10E466;
+ Mon, 21 Mar 2022 13:59:17 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id h4so2855690wrc.13;
+ Mon, 21 Mar 2022 06:59:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=/8feDZVFHPKC3pY8v1GnW/3pzS/fVxuaXiSADYQ0yfQ=;
- b=B8igd0QaoGK6iUds+iZnlPkfS/iwY/oAb9r7JNI+6H41U2TJXhVbUO5W8IBC2QY3d0
- kmQfvcgADmiO5A5Ry2oUyp0aBAztFvrIuyQY9U5e+3XldsxYyV55lBr3Tv8DehvmjLJf
- xdqL67bhmpEr+QEkPSAqiJUgTgE8wpNCGFGj6t4GQx98ZPh654RrJiqRzEZTYrkGodQF
- TmIvlkY3m0Qx5O95zzZTuDVaH5erW8NCc6NgeMfKAsJoTQEviQOGrsK3LfZCkcco1SE9
- YBir+r0KJh8fUdqY5YCBvx6wp648OwJXRMANbnsSoGxX5jrT2z3VBpBixrVp8VJO+pcX
- zIcw==
+ bh=0xCYhNKb7OInak7ISj+2EVPqVtSkGvYvAy2UUMoJRC0=;
+ b=KOEptaU77OXatAZu1ksrm3qg1zdFAaLDpRdwSMAN1Qvg0yFIt1/u2lmnBk4CUatkeO
+ MhTw9n9JA3+9VXT/a88Cm9wAWP7/btVK3RKr/ZC8sICs3D4Kz2abuFAg3RY4cwBfyRz7
+ pECFUGOPDGaMR1BwARaxd4DvJFbdBhJIfg8rLAcwrN6GP4/JML+Sida3x7WWKe9Klrbt
+ nJ5CcoacIjx8NLmZsDfbn7iRK3kUpqmp8yfgNLYd6E7/WxITJoPfUZMj2B/e92JxHsjM
+ 9oZqSi26R+0D6BV0SlmPIyifITOR2/Yfzjev7Pvebha8qmMj0Q4cLLzJzCppvkB5vZnQ
+ 7pOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=/8feDZVFHPKC3pY8v1GnW/3pzS/fVxuaXiSADYQ0yfQ=;
- b=7fH6cSESzWqkELlfSgG88Bn1Py+rsae6W1qjq8b9wO1iS11tpvZ/0cy6HrO84N5lte
- r54jUHemG20fBTNtW0djwfo/9Lbfm6sI51mYTkkoP8OiXJ8SmihGVR92n0g0Hp0Pyui9
- tr4eRg8aZCXmzi+LxGjaPdxiGcf2rmxXBAk5Jg2QtTquB/YODSLEPFTuSsnOaitOihnY
- 2VwfP0ww68lmCI0c6YXAaVv43JhmCgK+3zsGn/P5hEXNkL8XJ71N0gwdFMrGmx4psAXB
- Ih++4Wb8GPcK1/PzIyZ7L6I+N7NEpnbzMBrAYb28itkDjoaDOC8KOfnCvxRf1A+2LwKd
- JmxQ==
-X-Gm-Message-State: AOAM533Dc4x72MuXrxgpUkaQUrS/18cOuEEF/qwVO4iXAe3z9YUK1Izr
- /SwtaXwIljiGK0LQ0UYkWWw=
-X-Google-Smtp-Source: ABdhPJyNTdvhuqm7Se7WGuPck7zTesA2FcyGj+nppPCqu8OZgrRYcO45SdIYOhpuHopkchPDkedJRA==
-X-Received: by 2002:a5d:47cc:0:b0:204:1c9d:2157 with SMTP id
- o12-20020a5d47cc000000b002041c9d2157mr1551701wrc.294.1647871151994; 
- Mon, 21 Mar 2022 06:59:11 -0700 (PDT)
+ bh=0xCYhNKb7OInak7ISj+2EVPqVtSkGvYvAy2UUMoJRC0=;
+ b=QVlun5jk0lLvJBItCzJLz6AhRpJPGWqy1T5pqXl7EZ2bdcLmkYB5bVhxg+CiNaCbO1
+ HqXlq9mhNl7Usk/D7kYBdZwWs6mPao+NrplUnpxI3BltvHO2qRV9PQgcJmSn8VfkXHI/
+ gveIkLH5wJ387cqSuLbXgoGdYrlDB0QFAhFc1Hqdk/4JE81KDVCrnS+Asv99LniBqVcO
+ u6fz1qHJRbUOi9tzLabpxirptgW6b5dMz7BnC3ODe1vMGa29QrxR1fGacOIecaK22VBu
+ hfz0iktl0/KU6o8dP5RE0gcwbyjoFqXau+GykduR9nxQzlM3+Iqf3DwNY9b3okjpSSYT
+ CSpg==
+X-Gm-Message-State: AOAM530E5ixS1dAEikOHFenDqc8Ux3TiYBGKDiUcnP7wqjBha55A+JnQ
+ fhZfPntV6ntbUWnthvOE/IA=
+X-Google-Smtp-Source: ABdhPJyVvnGUNX1/6005N0+MrJzU1pz2Vg21oG5F3jJismZ4yWO4QJfcQ0PE7yunfF+iQZy/IMt4uw==
+X-Received: by 2002:adf:ebc1:0:b0:1e6:1109:5a1c with SMTP id
+ v1-20020adfebc1000000b001e611095a1cmr18152566wrn.228.1647871155696; 
+ Mon, 21 Mar 2022 06:59:15 -0700 (PDT)
 Received: from able.fritz.box (p5b0eab60.dip0.t-ipconnect.de. [91.14.171.96])
  by smtp.gmail.com with ESMTPSA id
- m3-20020a5d6243000000b001e33760776fsm13317640wrv.10.2022.03.21.06.59.11
+ m3-20020a5d6243000000b001e33760776fsm13317640wrv.10.2022.03.21.06.59.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Mar 2022 06:59:11 -0700 (PDT)
+ Mon, 21 Mar 2022 06:59:15 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: daniel.vetter@ffwll.ch,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 15/23] drm/amdgpu: use dma_resv_get_singleton in
- amdgpu_pasid_free_cb
-Date: Mon, 21 Mar 2022 14:58:48 +0100
-Message-Id: <20220321135856.1331-15-christian.koenig@amd.com>
+Subject: [PATCH 18/23] drm/amdgpu: remove dma_resv workaround
+Date: Mon, 21 Mar 2022 14:58:51 +0100
+Message-Id: <20220321135856.1331-18-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220321135856.1331-1-christian.koenig@amd.com>
 References: <20220321135856.1331-1-christian.koenig@amd.com>
@@ -78,59 +77,134 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Makes the code a bit more simpler.
+We can now add multiple writers to the dma_resv object.
+
+Also enable the check for not adding containers in dma_resv.c again.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: amd-gfx@lists.freedesktop.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 23 +++--------------------
- 1 file changed, 3 insertions(+), 20 deletions(-)
+ drivers/dma-buf/dma-resv.c                  |  6 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      | 51 ++-------------------
+ 3 files changed, 8 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index be48487e2ca7..888d97143177 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -107,36 +107,19 @@ static void amdgpu_pasid_free_cb(struct dma_fence *fence,
- void amdgpu_pasid_free_delayed(struct dma_resv *resv,
- 			       u32 pasid)
- {
--	struct dma_fence *fence, **fences;
- 	struct amdgpu_pasid_cb *cb;
--	unsigned count;
-+	struct dma_fence *fence;
- 	int r;
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index 26257ba1527e..10d70812373c 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -308,10 +308,10 @@ void dma_resv_add_fence(struct dma_resv *obj, struct dma_fence *fence,
  
--	r = dma_resv_get_fences(resv, true, &count, &fences);
-+	r = dma_resv_get_singleton(resv, true, &fence);
- 	if (r)
- 		goto fallback;
+ 	dma_resv_assert_held(obj);
  
--	if (count == 0) {
-+	if (!fence) {
- 		amdgpu_pasid_free(pasid);
- 		return;
+-	/* TODO: Drivers should not add containers here, instead add each fence
+-	 * individually. Disabled for now until we cleaned up amdgpu/ttm.
++	/* Drivers should not add containers here, instead add each fence
++	 * individually.
+ 	 */
+-	/* WARN_ON(dma_fence_is_container(fence)); */
++	WARN_ON(dma_fence_is_container(fence));
+ 
+ 	fobj = dma_resv_fences_list(obj);
+ 	count = fobj->num_fences;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+index 044b41f0bfd9..529d52a204cf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+@@ -34,7 +34,6 @@ struct amdgpu_fpriv;
+ struct amdgpu_bo_list_entry {
+ 	struct ttm_validate_buffer	tv;
+ 	struct amdgpu_bo_va		*bo_va;
+-	struct dma_fence_chain		*chain;
+ 	uint32_t			priority;
+ 	struct page			**user_pages;
+ 	bool				user_invalidated;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 1c039db976a9..88009833f523 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -575,14 +575,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
+ 
+ 		e->bo_va = amdgpu_vm_bo_find(vm, bo);
+-
+-		if (bo->tbo.base.dma_buf && !amdgpu_bo_explicit_sync(bo)) {
+-			e->chain = dma_fence_chain_alloc();
+-			if (!e->chain) {
+-				r = -ENOMEM;
+-				goto error_validate;
+-			}
+-		}
  	}
  
--	if (count == 1) {
--		fence = fences[0];
--		kfree(fences);
--	} else {
--		uint64_t context = dma_fence_context_alloc(1);
--		struct dma_fence_array *array;
--
--		array = dma_fence_array_create(count, fences, context,
--					       1, false);
--		if (!array) {
--			kfree(fences);
--			goto fallback;
+ 	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
+@@ -633,13 +625,8 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 	}
+ 
+ error_validate:
+-	if (r) {
+-		amdgpu_bo_list_for_each_entry(e, p->bo_list) {
+-			dma_fence_chain_free(e->chain);
+-			e->chain = NULL;
 -		}
--		fence = &array->base;
++	if (r)
+ 		ttm_eu_backoff_reservation(&p->ticket, &p->validated);
 -	}
+ out:
+ 	return r;
+ }
+@@ -679,17 +666,9 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser, int error,
+ {
+ 	unsigned i;
+ 
+-	if (error && backoff) {
+-		struct amdgpu_bo_list_entry *e;
 -
- 	cb = kmalloc(sizeof(*cb), GFP_KERNEL);
- 	if (!cb) {
- 		/* Last resort when we are OOM */
+-		amdgpu_bo_list_for_each_entry(e, parser->bo_list) {
+-			dma_fence_chain_free(e->chain);
+-			e->chain = NULL;
+-		}
+-
++	if (error && backoff)
+ 		ttm_eu_backoff_reservation(&parser->ticket,
+ 					   &parser->validated);
+-	}
+ 
+ 	for (i = 0; i < parser->num_post_deps; i++) {
+ 		drm_syncobj_put(parser->post_deps[i].syncobj);
+@@ -1264,29 +1243,9 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 
+ 	amdgpu_vm_move_to_lru_tail(p->adev, &fpriv->vm);
+ 
+-	amdgpu_bo_list_for_each_entry(e, p->bo_list) {
+-		struct dma_resv *resv = e->tv.bo->base.resv;
+-		struct dma_fence_chain *chain = e->chain;
+-		struct dma_resv_iter cursor;
+-		struct dma_fence *fence;
+-
+-		if (!chain)
+-			continue;
+-
+-		/*
+-		 * Work around dma_resv shortcommings by wrapping up the
+-		 * submission in a dma_fence_chain and add it as exclusive
+-		 * fence.
+-		 */
+-		dma_resv_for_each_fence(&cursor, resv,
+-					DMA_RESV_USAGE_WRITE,
+-					fence) {
+-			break;
+-		}
+-		dma_fence_chain_init(chain, fence, dma_fence_get(p->fence), 1);
+-		dma_resv_add_fence(resv, &chain->base, DMA_RESV_USAGE_WRITE);
+-		e->chain = NULL;
+-	}
++	/* Make sure all BOs are remembered as writers */
++	amdgpu_bo_list_for_each_entry(e, p->bo_list)
++		e->tv.num_shared = 0;
+ 
+ 	ttm_eu_fence_buffer_objects(&p->ticket, &p->validated, p->fence);
+ 	mutex_unlock(&p->adev->notifier_lock);
 -- 
 2.25.1
 
