@@ -4,80 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E17BC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 12:55:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 437CAC433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 12:55:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94D2A10E2A1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB91210E2AB;
 	Mon, 21 Mar 2022 12:55:52 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B933F10E294
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Mar 2022 11:53:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1647863591;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ESVGJuk8lCQmgWQ1odylDolWMwEV6r0zet9lKX1Kekw=;
- b=gU7ttwjGgy10gj0FOJNHoeUbOnvFN5zIKndHduN6fYB0jGG2yKrHhu43qMTv8OVu5EeIMs
- +gp7ns7VHnit9B09yRWpvrjp1RLrVHMujIUOfwnb7sZ37VBzZO55CqHpWpt/f6k27urWOs
- 56O2iAwbcjVws2wDA9xtJz9mEYoRoR8=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-621-Nqlu-D5qOu-fLVQUOnsjpw-1; Mon, 21 Mar 2022 07:53:09 -0400
-X-MC-Unique: Nqlu-D5qOu-fLVQUOnsjpw-1
-Received: by mail-ed1-f72.google.com with SMTP id
- f2-20020a50d542000000b00418ed3d95d8so7826048edj.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Mar 2022 04:53:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=ESVGJuk8lCQmgWQ1odylDolWMwEV6r0zet9lKX1Kekw=;
- b=CaAVbaWJTUe94IrC6LCPQv2Wx/wP9dYgA1d6DX5t74/aWXw6PCZIg+x3ji45u//8yv
- 0qFpEwKkp2tIE1WzWjNXvhr65acbk+/qIak/wh30YDQ91ORkVSJh9n7+flpZTwvdcM3p
- NgeCnuAQ7iJOYGLo6NbYoiuYVIZJ1XIXFbMU5mKGzOz+hJTEdERiJF6wTyrguwDx7cXm
- iyLq/KMVbvTdBEMB6E/EnmTVCG49nPpJhdSzSV2KceBwIG+iVzOz5ZsY8OfoXFWRNWmv
- ueGAaBIOu5XBsylWEHACcOBFbrhR29c3YX2HY9D6GbSdi003ZfW5AdcyKuhv+8phlyvd
- Ap3g==
-X-Gm-Message-State: AOAM531wkHBs2WE6s4yiQmZcS6pgQ6bR0C+z4zfQRw8mBPGT5wUXAU3h
- NlZtAtFQiTCn+dSeSLyOPyoVYyjO1o2FzOgzz8hOOsDqTEMrViF3+/3qGkaCoTvxKzLXA9UjbYU
- NybPAqa6SOddRTjMVcGL/3ILF2Q==
-X-Received: by 2002:a17:907:2d06:b0:6e0:2ec:c7bd with SMTP id
- gs6-20020a1709072d0600b006e002ecc7bdmr5461678ejc.656.1647863587662; 
- Mon, 21 Mar 2022 04:53:07 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzoI7zowWLm9+Xl2bWtVHyxCQJsEj3lUz5pheYXqdXDQ2sfdQhKLYK0bSqq9yzSYujnBbnc1Q==
-X-Received: by 2002:a17:907:2d06:b0:6e0:2ec:c7bd with SMTP id
- gs6-20020a1709072d0600b006e002ecc7bdmr5461638ejc.656.1647863587311; 
- Mon, 21 Mar 2022 04:53:07 -0700 (PDT)
-Received: from [10.40.98.142] ([78.108.130.194])
- by smtp.gmail.com with ESMTPSA id
- c5-20020a170906d18500b006ce371f09d4sm6730138ejz.57.2022.03.21.04.53.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Mar 2022 04:53:06 -0700 (PDT)
-Message-ID: <b3a4882f-8f50-b32c-5405-0a065c72fa94@redhat.com>
-Date: Mon, 21 Mar 2022 12:53:06 +0100
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E57210E135
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Mar 2022 02:01:55 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id C579D5C010A;
+ Sun, 20 Mar 2022 22:01:52 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Sun, 20 Mar 2022 22:01:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=turner.link; h=
+ cc:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm3; bh=uXQFEtZDztyGX9AqVl1DV7goVhiMjSgo2VCtiW
+ c9Ki8=; b=ZARfCnE0qOE6r2TNSfo5JUnuSRgVMItuvc+hzB1EuKdG87zevOdYOk
+ 9e6856l2J2TYvMr2fhsC705gBJ23mlHBTJJkZ/Gcdcy0/xheFs6ICIHeN75PVT7G
+ iqBs/4UWq/2EmZia8TPmlZr+nIYr08SGXpZw+GEdHRBlzOZl9dupzWOYcBePz2Cx
+ GPSn1/ABJ6e0+IUeQA0k0lr8J4cdJwA8Dbbkn/Tx+ZkKBUU0XAtwAjQ0xlIIap2n
+ 7RaSw+DFsizjC/rjWVt/9omoPalsWtMXuI4+t/1KsqTRPxv7L7ybWVNH85YDbILs
+ OWcNbZmEWhcEErBCdU1mvdV/WkUkcWwg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=uXQFEtZDztyGX9AqV
+ l1DV7goVhiMjSgo2VCtiWc9Ki8=; b=QvSwI85adgO3ty/9m5FB9zLE9x3Gf/nOT
+ /HD/CNxZtbczkOOuWaQjiSQO4TbxKPVGdoM6+ShctBBliwIXqbHPYEFkqjaK6xMt
+ mOWdkmT2j7ZHatiEjjhUDZSnVzf7kMgvU5dd2hsgd3ig6OMPlr3adz5I8Z0PijKX
+ QU5QE3cIpdjWZm31HD5uFg1dJsKwbYwjCursog3VM2ROlW0m7k7jmNL3NzzcUd3g
+ agkIAR8dE3SDGp5PK4kYi3JLA5rjtG+eQm1TjLCuTDEPb21OuvdIG31G8pL2R0/O
+ hKNfbTsPLOik9q/UJtw4sZguf3UIqZfLXb/+zHH+3zID41XBiqVDw==
+X-ME-Sender: <xms:kNw3YvWHFKGgbMX_qpuRPJjMnzq5sqk6B92Ytu8ohIlwZ5Tk0f3xug>
+ <xme:kNw3YnkdthuW8-IXpAeMrQSDgw6mOhr1TFD8sx4B0-VHt-IuZ4R2Z2YGLQt-k86XJ
+ Djf2VrryevIDTA2zw>
+X-ME-Received: <xmr:kNw3Yraa8XthFjCkwZQM_7o1VmzL-hHAO8DqjqBdFKhxmKAppVorfKkl2f09Z-JwV-WN7KcyRe_3TioUda3pQNN1-1OQx2EN6pQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudegvddggeduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfhfhvffuffgjkfggtgesthdtredttddttdenucfhrhhomheplfgrmhgvshcu
+ vfhurhhnvghruceolhhinhhugihkvghrnhgvlhdrfhhoshhssegumhgrrhgtqdhnohhnvg
+ drthhurhhnvghrrdhlihhnkheqnecuggftrfgrthhtvghrnhepfffhveeugfevteeileej
+ vdeltdegtdeggfeujefgveekueevkeehheehffduleevnecuffhomhgrihhnpegrrhgthh
+ hlihhnuhigrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
+ lhhfrhhomheplhhinhhugihkvghrnhgvlhdrfhhoshhssegumhgrrhgtqdhnohhnvgdrth
+ hurhhnvghrrdhlihhnkh
+X-ME-Proxy: <xmx:kNw3YqXPiY-kEqyj9eZYEkRKkTK-VSv-wHKOmIigxQmuO2L9tKfDyw>
+ <xmx:kNw3Yplrm6z9OuMM72uhI218UV6yFyOdpffW8AhGe3sojdx04sRa9w>
+ <xmx:kNw3YnfiyoDDNxyJ4CnebyAfuUReEKaz4lJ2j4hjDHeACI3BuwBBtQ>
+ <xmx:kNw3Yu-UqEZOZ0UEJSMqnW6mmSMsR5FIMcXZOJZHOpWluFpTx-vXTw>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 20 Mar 2022 22:01:51 -0400 (EDT)
+References: <87ee57c8fu.fsf@turner.link>
+ <87sftfqwlx.fsf@dmarc-none.turner.link>
+ <BYAPR12MB4614E2CFEDDDEAABBAB986A0975E9@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <87ee4wprsx.fsf@turner.link>
+ <4b3ed7f6-d2b6-443c-970e-d963066ebfe3@amd.com>
+ <87pmo8r6ob.fsf@turner.link>
+ <5a68afe4-1e9e-c683-e06d-30afc2156f14@leemhuis.info>
+ <CADnq5_MCKTLOfWKWvi94Q9-d5CGdWBoWVxEYL3YXOpMiPnLOyg@mail.gmail.com>
+ <87pmnnpmh5.fsf@dmarc-none.turner.link>
+ <CADnq5_NG_dQCYwqHM0umjTMg5Uud6zC4=MiscH91Y9v7mW9bJA@mail.gmail.com>
+ <092b825a-10ff-e197-18a1-d3e3a097b0e3@leemhuis.info>
+ <877d96to55.fsf@dmarc-none.turner.link> <87lexdw8gd.fsf@turner.link>
+ <d541b534-8b83-b566-56eb-ea8baa7c998e@leemhuis.info>
+ <40b3084a-11b8-0962-4b33-34b56d3a87a3@molgen.mpg.de>
+ <bc714e87-d1dc-cdda-5a29-25820faaff40@leemhuis.info>
+ <20220318084625.27d42a51.alex.williamson@redhat.com>
+ <CADnq5_OE7JpffYggKsu92DAjur1CCSqZQ7LbMqcfmAk68FerDA@mail.gmail.com>
+ <20220318092552.518a50ef.alex.williamson@redhat.com>
+From: James Turner <linuxkernel.foss@dmarc-none.turner.link>
+To: Alex Williamson <alex.williamson@redhat.com>
+Subject: Re: [REGRESSION] Too-low frequency limit for AMD GPU
+ PCI-passed-through to Windows VM
+Date: Sun, 20 Mar 2022 21:26:51 -0400
+In-reply-to: <20220318092552.518a50ef.alex.williamson@redhat.com>
+Message-ID: <87mthkkqr4.fsf@turner.link>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Subject: Re: [PATCH v2] drm/amdgpu: Add support for drm_privacy_screen
-To: Rajat Jain <rajatja@google.com>
-References: <20220309150606.1877288-1-sean@poorly.run>
- <CACK8Z6GsZd5E74ZB9hRHWVov_cE0AfDNFcEvWeJHmtQAf_vz4A@mail.gmail.com>
- <b71a3775-a7e2-002d-7f2a-9036695eb172@redhat.com>
- <CACK8Z6E+xuwHHcyG6AFA6_bSEhDH=QkSw0GG1RKvyMUVYkjRYw@mail.gmail.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <CACK8Z6E+xuwHHcyG6AFA6_bSEhDH=QkSw0GG1RKvyMUVYkjRYw@mail.gmail.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-Mailman-Approved-At: Mon, 21 Mar 2022 12:55:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,266 +98,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Sean Paul <sean@poorly.run>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sean Paul <seanpaul@chromium.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- alexdeucher@gmail.com, harry.wentland@amd.com,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>, Lijo Lazar <lijo.lazar@amd.com>,
+ regressions@lists.linux.dev, kvm@vger.kernel.org,
+ Greg KH <gregkh@linuxfoundation.org>, Xinhui Pan <Xinhui.Pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alexander Deucher <Alexander.Deucher@amd.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Christian =?utf-8?Q?K=C3=B6nig?= <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 3/20/22 21:11, Rajat Jain wrote:
-> () Hello Hans, Sean,
-> 
-> 
-> 
-> On Fri, Mar 11, 2022 at 4:12 AM Hans de Goede <hdegoede@redhat.com> wrote:
->>
->> Hi All,
->>
->> On 3/9/22 18:53, Rajat Jain wrote:
->>> On Wed, Mar 9, 2022 at 7:06 AM Sean Paul <sean@poorly.run> wrote:
->>>>
->>>> From: Sean Paul <seanpaul@chromium.org>
->>>>
->>>> This patch adds the necessary hooks to make amdgpu aware of privacy
->>>> screens. On devices with privacy screen drivers (such as thinkpad-acpi),
->>>> the amdgpu driver will defer probe until it's ready and then sync the sw
->>>> and hw state on each commit the connector is involved and enabled.
->>>>
->>>> Changes in v2:
->>>> -Tweaked the drm_privacy_screen_get() error check to avoid logging
->>>>  errors when privacy screen is absent (Hans)
->>>>
->>>> Signed-off-by: Sean Paul <seanpaul@chromium.org>
->>>> Link: https://patchwork.freedesktop.org/patch/477640/ #v1
->>>> ---
->>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c          |  9 +++++++++
->>>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  3 +++
->>>>  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  | 16 +++++++++++++++-
->>>>  3 files changed, 27 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> index 2ab675123ae3..e2cfae56c020 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> @@ -26,6 +26,7 @@
->>>>  #include <drm/drm_aperture.h>
->>>>  #include <drm/drm_drv.h>
->>>>  #include <drm/drm_gem.h>
->>>> +#include <drm/drm_privacy_screen_consumer.h>
->>>>  #include <drm/drm_vblank.h>
->>>>  #include <drm/drm_managed.h>
->>>>  #include "amdgpu_drv.h"
->>>> @@ -1988,6 +1989,7 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
->>>>  {
->>>>         struct drm_device *ddev;
->>>>         struct amdgpu_device *adev;
->>>> +       struct drm_privacy_screen *privacy_screen;
->>>>         unsigned long flags = ent->driver_data;
->>>>         int ret, retry = 0, i;
->>>>         bool supports_atomic = false;
->>>> @@ -2063,6 +2065,13 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
->>>>         size = pci_resource_len(pdev, 0);
->>>>         is_fw_fb = amdgpu_is_fw_framebuffer(base, size);
->>>>
->>>> +       /* If the LCD panel has a privacy screen, defer probe until its ready */
->>>> +       privacy_screen = drm_privacy_screen_get(&pdev->dev, NULL);
->>>> +       if (IS_ERR(privacy_screen) && PTR_ERR(privacy_screen) == -EPROBE_DEFER)
->>>> +               return -EPROBE_DEFER;
->>>> +
->>>> +       drm_privacy_screen_put(privacy_screen);
->>>> +
->>>>         /* Get rid of things like offb */
->>>>         ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &amdgpu_kms_driver);
->>>>         if (ret)
->>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> index e1d3db3fe8de..9e2bb6523add 100644
->>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> @@ -9781,6 +9781,9 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
->>>>                 if (acrtc) {
->>>>                         new_crtc_state = drm_atomic_get_new_crtc_state(state, &acrtc->base);
->>>>                         old_crtc_state = drm_atomic_get_old_crtc_state(state, &acrtc->base);
->>>> +
->>>> +                       /* Sync the privacy screen state between hw and sw */
->>>> +                       drm_connector_update_privacy_screen(new_con_state);
->>>>                 }
->>>>
->>>>                 /* Skip any modesets/resets */
->>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
->>>> index 740435ae3997..594a8002975a 100644
->>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
->>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
->>>> @@ -27,6 +27,7 @@
->>>>  #include <drm/drm_atomic_helper.h>
->>>>  #include <drm/dp/drm_dp_mst_helper.h>
->>>>  #include <drm/dp/drm_dp_helper.h>
->>>> +#include <drm/drm_privacy_screen_consumer.h>
->>>>  #include "dm_services.h"
->>>>  #include "amdgpu.h"
->>>>  #include "amdgpu_dm.h"
->>>> @@ -506,6 +507,7 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
->>>>                                        struct amdgpu_dm_connector *aconnector,
->>>>                                        int link_index)
->>>>  {
->>>> +       struct drm_device *dev = dm->ddev;
->>>>         struct dc_link_settings max_link_enc_cap = {0};
->>>>
->>>>         aconnector->dm_dp_aux.aux.name =
->>>> @@ -519,8 +521,20 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
->>>>         drm_dp_cec_register_connector(&aconnector->dm_dp_aux.aux,
->>>>                                       &aconnector->base);
->>>>
->>>> -       if (aconnector->base.connector_type == DRM_MODE_CONNECTOR_eDP)
->>>> +       if (aconnector->base.connector_type == DRM_MODE_CONNECTOR_eDP) {
->>>> +               struct drm_privacy_screen *privacy_screen)
->>>> +
->>>> +               /* Reference given up in drm_connector_cleanup() */
->>>> +               privacy_screen = drm_privacy_screen_get(dev->dev, NULL);
+>>> Right, interference from host drivers and pre-boot environments is
+>>> always a concern with GPU assignment in particular. AMD GPUs have a
+>>> long history of poor behavior relative to things like PCI secondary
+>>> bus resets which we use to try to get devices to clean, reusable
+>>> states for assignment. Here a device is being bound to a host driver
+>>> that initiates some sort of power control, unbound from that driver
+>>> and exposed to new drivers far beyond the scope of the kernel's
+>>> regression policy. Perhaps it's possible to undo such power control
+>>> when unbinding the device, but it's not necessarily a given that
+>>> such a thing is possible for this device without a cold reset.
 >>>
->>> Can we try to be more specific when looking up for privacy screen, e.g.:
->>>
->>> privacy_screen = drm_privacy_screen_get(dev->dev,  "eDP-1");
->>> (and then also making the corresponding change in arch_init_data[] in
->>> drm_privacy_screen_x86.c"
->>
->> So I just checked and yes I think we can be more specific at least
->> for the thinkpad_acpi supported models. See the attached patch
->> which has been tested on a ThinkPad T14 gen 1 with a builtin privacy-screen.
->>
->> Rajat, can you adjust the chrome code in drivers/gpu/drm/drm_privacy_screen_x86.c
->> to match and check that with the chrome code changes, my patch does not break
->> things on chromebooks? (Note your changes will need to be squashed into the
->> patch so that we change all of this in one go) .
-> 
-> Thanks, I just confirmed that with a change similar to yours (use
-> "eDP-1"), it works fine on the Intel chromebooks at my end, so feel
-> free to do it:
+>>> IMO, it's not fair to restrict the kernel from such advancements. If
+>>> the use case is within a VM, don't bind host drivers. It's difficult
+>>> to make promises when dynamically switching between host and
+>>> userspace drivers for devices that don't have functional reset
+>>> mechanisms.
 
-Ok, I've just send out a patch for this including the changes for the
-Chromebook entry in drivers/gpu/drm/drm_privacy_screen_x86.c .
+To clarify, the GPU is never bound to the `amdgpu` driver on the host.
+I'm binding it to `vfio-pci` on the host at boot, specifically to avoid
+issues with dynamic rebinding. To do this, I'm passing
+`vfio-pci.ids=1002:6981,1002:aae0` on the kernel command line, and I've
+confirmed that this option is working:
 
-Note I've modified the changes to drivers/gpu/drm/i915/display/intel_display.c
-intel_modeset_probe_defer() a bit to walk over an array of internal-panel
-connector-names, to make it a bit more future proof.  I expect / hope
-this new version to be better liked by the i915 maintainers.
+% lspci -nnk -d 1002:6981
+01:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Lexa XT [Radeon PRO WX 3200] [1002:6981]
+	Subsystem: Dell Device [1028:0926]
+	Kernel driver in use: vfio-pci
+	Kernel modules: amdgpu
 
-Regards,
+% lspci -nnk -d 1002:aae0
+01:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI] Baffin HDMI/DP Audio [Radeon RX 550 640SP / RX 560/560X] [1002:aae0]
+	Subsystem: Dell Device [1028:0926]
+	Kernel driver in use: vfio-pci
+	Kernel modules: snd_hda_intel
 
-Hans
+Starting with
+f9b7f3703ff9 ("drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)")
+this is insufficient for the GPU to work properly in the VM, since the
+`amdgpu` module is calling global ACPI methods which affect the GPU even
+though it's not bound to the `amdgpu` driver.
 
+>> Additionally, operating the isolated device in a VM on a constrained
+>> environment like a laptop may have other adverse side effects.  The
+>> driver in the guest would ideally know that this is a laptop and needs
+>> to properly interact with APCI to handle power management on the
+>> device.  If that is not the case, the driver in the guest may end up
+>> running the device out of spec with what the platform supports.  It's
+>> also likely to break suspend and resume, especially on systems which
+>> use S0ix since the firmware will generally only turn off certain power
+>> rails if all of the devices on the rails have been put into the proper
+>> state.  That state may vary depending on the platform requirements.
 
+Fwiw, the guest Windows AMD driver can tell that it's a mobile GPU, and
+as a result, the driver GUI locks various performance parameters to the
+defaults. The cooling system and power supply seem to work without
+issues. As the load on the GPU increases, the fan speed increases. The
+GPU stays below the critical temperature with plenty of margin, even at
+100% load. The voltage reported by the GPU adjusts with the load, and I
+haven't experienced any glitches which would suggest that the GPU is not
+getting enough power or something. I haven't tried suspend/resume.
 
-> ===================================================
-> diff --git a/drivers/gpu/drm/drm_privacy_screen_x86.c
-> b/drivers/gpu/drm/drm_privacy_screen_x86.c
-> index 88802cd7a1ee..894beefb6628 100644
-> --- a/drivers/gpu/drm/drm_privacy_screen_x86.c
-> +++ b/drivers/gpu/drm/drm_privacy_screen_x86.c
-> @@ -69,7 +69,7 @@ static const struct arch_init_data arch_init_data[]
-> __initconst = {
->         {
->                 .lookup = {
->                         .dev_id = NULL,
-> -                       .con_id = NULL,
-> +                       .con_id = "eDP-1",
->                         .provider = "privacy_screen-GOOG0010:00",
->                 },
->                 .detect = detect_chromeos_privacy_screen,
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c
-> b/drivers/gpu/drm/i915/display/intel_ddi.c
-> index 1682ace5cd53..2666ba7b5a28 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -4250,7 +4250,7 @@ intel_ddi_init_dp_connector(struct
-> intel_digital_port *dig_port)
->                 struct drm_device *dev = dig_port->base.base.dev;
->                 struct drm_privacy_screen *privacy_screen;
-> 
-> -               privacy_screen = drm_privacy_screen_get(dev->dev, NULL);
-> +               privacy_screen = drm_privacy_screen_get(dev->dev,
-> connector->base.name);
->                 if (!IS_ERR(privacy_screen)) {
-> 
-> drm_connector_attach_privacy_screen_provider(&connector->base,
-> 
-> privacy_screen);
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c
-> b/drivers/gpu/drm/i915/display/intel_display.c
-> index 89be498127e4..b2903a55f910 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -13360,7 +13360,7 @@ bool intel_modeset_probe_defer(struct pci_dev *pdev)
->                 return true;
-> 
->         /* If the LCD panel has a privacy-screen, wait for it */
-> -       privacy_screen = drm_privacy_screen_get(&pdev->dev, NULL);
-> +       privacy_screen = drm_privacy_screen_get(&pdev->dev, "eDP-1");
->         if (IS_ERR(privacy_screen) && PTR_ERR(privacy_screen) == -EPROBE_DEFER)
->                 return true;
->  =================================================
-> 
-> I found it a little surprising though. From what I remembered from my
-> early venture, was that connector->base.name did not get filled in at
-> the time intel_ddi_init_dp_connector() was called, but I guess I was
-> remembering it wrong.
-> 
->>
->> Sean, same request to you, can you adjust your amdgpu patch to match
->> the i915 changes in the attached patch and then check if a kernel
->> with both changes still works ?
-> 
-> Defer to Sean since I do not have the AMD chromebook to test.
-> 
-> Thanks & Best Regards,
-> 
-> Rajat
-> 
->>
->> Regards,
->>
->> Hans
->>
->>
->>
->>>
->>> My comment applies to this driver as well as to i915. The reason being
->>> today there is only 1 internal display with privacy screen so we can
->>> just assume that there shall be only 1 privacy-screen and that shall
->>> apply to eDP-1/internal display. But dual display systems are not far
->>> enough out, and perhaps external monitors with inbuilt
->>> privacy-screens?
->>>
->>> Essentially the gap today is that today on Chromeos ACPI side, the
->>> device GOOG0010 represents the privacy-screen attached to the internal
->>> display/eDP-1, but there isn't a way to make it clear in the i915 and
->>> now amdgpu code.
->>>
->>> Thanks,
->>>
->>> Rajat
->>>
->>>
->>>> +               if (!IS_ERR(privacy_screen)) {
->>>> +                       drm_connector_attach_privacy_screen_provider(&aconnector->base,
->>>> +                                                                    privacy_screen);
->>>> +               } else if (PTR_ERR(privacy_screen) != -ENODEV) {
->>>> +                       drm_err(dev, "Error getting privacy screen, ret=%d\n",
->>>> +                               PTR_ERR(privacy_screen));
->>>> +               }
->>>>                 return;
->>>> +       }
->>>>
->>>>         dc_link_dp_get_max_link_enc_cap(aconnector->dc_link, &max_link_enc_cap);
->>>>         aconnector->mst_mgr.cbs = &dm_mst_cbs;
->>>> --
->>>> Sean Paul, Software Engineer, Google / Chromium OS
->>>>
->>>
-> 
+What are the differences between a laptop and desktop, aside from the
+size of the cooling system? Could the issue reported here affect desktop
+systems, too?
 
+As far as what to do for this issue: Personally, I don't mind
+blacklisting `amdgpu` on my machine. My primary concerns are:
+
+1. Other users may experience this issue and have trouble figuring out
+   what's happening, or they may not even realize that they're
+   experiencing significantly-lower-than-expected performance.
+
+2. It's possible that this issue affects some machines which use an AMD
+   GPU for the host and a second AMD GPU for the guest. For those
+   machines, blacklisting `amdgpu` would not be an option, since that
+   would disable the AMD GPU for the host.
+
+I've tried to help with concern 1 by mentioning this issue on the Arch
+Linux Wiki [1]. Another thing that would help is to print a warning
+message to the kernel ring buffer when an AMD GPU is bound to `vfio-pci`
+and the `amdgpu` module is loaded. (It would say something like,
+"Although the <GPU_NAME> device is bound to `vfio-pci`, loading the
+`amdgpu` module may still affect it via ACPI. Consider blacklisting
+`amdgpu` if the GPU does not behave as expected.")
+
+I'm not sure if there's any way to address concern 2, aside from fixing
+the firmware / Windows AMD driver.
+
+I thought of one more thing I could test -- I could try a Linux guest
+instead of a Windows guest to determine if the issue is due to the
+firmware or the guest Windows AMD driver. Would that be helpful?
+
+[1]: https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Too-low_frequency_limit_for_AMD_GPU_passed-through_to_virtual_machine
+
+James
