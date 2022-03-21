@@ -4,113 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47D9BC433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 14:19:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AF45C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 15:24:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D916110E29E;
-	Mon, 21 Mar 2022 14:19:18 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2049.outbound.protection.outlook.com [40.107.92.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BFBD10E29E
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Mar 2022 14:19:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NNyOcXh4UdgPP9HhHXhtWxkJlpuyvfsiIlVmBuc6TlbQq30EoEugScTRWsnyPg2xJzU8eZvhqKVWFSBTjTRj4lOJ1lErtAlfuVS0rIVoqPaLYBejnRVZkJLTUhMOMECRYk/cAyv0MYA3iuoFlzMiZexyNnwhZu21oKFN4X/XvrEOyRGQ67m1fHxObvbQ9GJDfAlZkLGqBBUgdNEIcgifMPoF4SRNF37J8ELIPbGNzNa2TC0di2A15WaoO5225n7lOKTbKGgFB+EAwfvlfaJxDraOsTzTFWm7NQzRrFJnRC8ynmjkkHyOHWq+Q5Cu5K1GMWlpm2wsCAz5wZYeOyfxfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tqPntOi9xpD4kLMgygHpVhj4f3XSfugGNgzObzQ7RqM=;
- b=LcNllrpBLk+5ogSvTP8/2jfrnSOVztHzEjao1xXLfIxqq4VQiy75u7KHmubDpzJYD2CKz/DlquxgIKSj2DcqZt8aLznb3pL35+20acU95EY9bSaStCBZDBpjedBwcuhCBA4u2Y1Q1/HD/Vj53zGghGrNtp3w+RMTrb+lUDbi3IvL16In4/WuyLrhgJhxljYt0ExsWEIweYxwGFQMINymmP3GYRR0rqIs3FHIhttPK+f2wL4Q3lAepnQSW/F27FxVAh+V4s3Qth9KDUcHSlQzZ44srZJydSfu/zxJI2yPR1AksHwPwTm+Gef1HHayTOT6N3JcUUnmrMKVLu9uX5UYkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tqPntOi9xpD4kLMgygHpVhj4f3XSfugGNgzObzQ7RqM=;
- b=Ykw6Ht/Kct/egYQObryk6mNR/rC+adRc+OSwWLhu1MDu2G873dmqrnigUcC3+QdwNtdinqryT9pMF+BfdY4uDj7avvxakOc1T8nDpZspxJlrBbcLyQNkvg9HZToFvC9cR3G4FQlPm6h3Oo+U7yyakUt2fhIzu6uBmObVaQKm+hc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by BYAPR12MB3400.namprd12.prod.outlook.com (2603:10b6:a03:da::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.22; Mon, 21 Mar
- 2022 14:19:15 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::192:5346:4ece:7ca3]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::192:5346:4ece:7ca3%4]) with mapi id 15.20.5081.023; Mon, 21 Mar 2022
- 14:19:15 +0000
-Message-ID: <0c45dc31-bea6-fda3-aa53-7a0554a210e1@amd.com>
-Date: Mon, 21 Mar 2022 10:19:12 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH] drm/amd/display: Fix p-state allow debug index on dcn31
-Content-Language: en-US
-To: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220318190015.111877-1-nicholas.kazlauskas@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20220318190015.111877-1-nicholas.kazlauskas@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT2PR01CA0021.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::26) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B0F910E30E;
+	Mon, 21 Mar 2022 15:24:23 +0000 (UTC)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [IPv6:2a01:488:42:1000:50ed:8234::])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76CD610E334;
+ Mon, 21 Mar 2022 14:30:09 +0000 (UTC)
+Received: from ip4d144895.dynamic.kabel-deutschland.de ([77.20.72.149]
+ helo=[192.168.66.200]); authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1nWJ2p-00029J-Ve; Mon, 21 Mar 2022 15:30:04 +0100
+Message-ID: <41eaaf17-1456-5971-e7d9-e5ccc65bcf01@leemhuis.info>
+Date: Mon, 21 Mar 2022 15:30:02 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 119e514b-afe5-4704-da6d-08da0b45c73b
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3400:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB3400D272ACB35D60F9CD10B18C169@BYAPR12MB3400.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GhOP7bNBeMkGsm8miR9ANUV/9DHVZBTBXtZDEQOakC2Rzl7+Kh/es/LUD83I1BvgQH/BzRapFQAqP0wYsLDiVG8jwXItgIDW50t/WCliatuwkxwWuT2g9v+3F1Y7luDaUFu99VifbLuTwSldomEmw6mJkLGLKqmML8Z1gS8xxiJH/hxAfhCW1EU2JpCCyDGhH3W52Ij6PtkpIoVhoMrX3aP+EEEX6ezdXYXMe8+TSFFqwvVzsXK1y5mmU78bDx6wbqNJDPAWaWo02z9m78etf6S/HDfQmdpulPsOswtpLd87czXxNnpZjvZzp3wXOhVdpIXOFe+KbROgmzFgY/B76HrwJFtsc40H+6vZ1IQhKk13205EgAoK1ZIrlNoaQuZaUnvr8yKzJsqCMmLAxldLtlgb5RBOmUfWFohYNeqgUeAvtKKUxT4QlPf1g+XWmsmBdUjxobUHchtIPDKL57zl8vPyhG4m+n5HSojV15z78MYQ93IQU7R9eRPEvKMl+QIKxi8G35WR1a7uDyEfU1oCVjYx8e2k9wP02Uu4WqRTGS9MKkZExzSbKZa+2/SxRGygO1gcNcexenPQruVjSKSXUkurmLxWSPyAhPaW23xjccF/MJPlgek0ehYTPD/T8YpiVktpNpEFM3FhLdTABfrvj1Sv9t86ncY4AHqIl2Dh6Zwx+m5Xc05PAXyQot9fTM5x2IbPuBFyOD2Utab/njUkaLZ5ecBnLY5lfN5mXUXCzFwPdMwvQuUhKXQP+IArbwaf
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(44832011)(53546011)(5660300002)(8936002)(186003)(31686004)(36756003)(6666004)(26005)(6506007)(83380400001)(2906002)(508600001)(6486002)(86362001)(66476007)(66556008)(66946007)(6512007)(38100700002)(2616005)(4326008)(316002)(8676002)(31696002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?My9LN2c2Q0kvV1Z2TFVZUTBTMVNqaFBvQ3U1Ukl6U1RxWVY3TC9lMWhhRnhO?=
- =?utf-8?B?R3k3UUh5VTAvOUNYK2IwM1piOHltaklRckx4MnhTYkVSdXhWdERKSjlCZTRn?=
- =?utf-8?B?bFJnRjZkN1c5bnZkcmYrMVZ6TDczZXRsdEM5TlcvYU1ZWWhpSkNSQjdEQ05E?=
- =?utf-8?B?cEJuSFp3NXlPKzUvUTZ3dEpJUW9PaWJsdG5YeHAzemhGMGtlaXo1eE95bmcx?=
- =?utf-8?B?em9Bc1ZxNmw3TmJRb0lNRGdlaGJ1QXBmQm9rVS8rSWJ0MEdxVlp6T09vNkRl?=
- =?utf-8?B?cklWMFp2RzRweW9RanJHaEYrZXFPRnZCNjhFRHhxS2dtY1FvYkxrQjVTUTJv?=
- =?utf-8?B?SDZWd2FuZ2RyaDFocDN0eDB6S3hseUsxaUxlUCtqV2ZScE13bE5zTDNPVGFS?=
- =?utf-8?B?bVB4RmRqTE5vZEdBTDFldWNDY2dUdmRzYm0wTmZsWjY2anBSaTB0UTBEMVl3?=
- =?utf-8?B?RG4xWTk1NE5vMFFsZTMzekcrMld3T01BUTJ5dGN2WXFQREtFeFFBM1Rvdmlh?=
- =?utf-8?B?RWZjYzRnUEtlT25RUWpsdEdFZ21HY1hUT0FEWUpLU2wwS0Q5ejdrVUJ1SkV1?=
- =?utf-8?B?ZGRTYWpsU2xsTUpUMDNZVTk0cTFRMlFJeTBncENGL0VGMnlZY0t5ZFZiMC9B?=
- =?utf-8?B?Q21mTjVqdWNKdUYvRW15cDBCdkVVYjk2VEgwV1VhYWtiaWQ2NGkwTlkrV1Jt?=
- =?utf-8?B?R1lCb1dvempySTBzVkZ4UlRkRVVyK21XU3BSTGp0ZE1HQlR6TkZTdFBVMDlU?=
- =?utf-8?B?bmFseHN1RDcrVzVsYmxXOHdMaFM5WjlzMDhDZVNYWjF3dHJPSkw2QVRzaDBV?=
- =?utf-8?B?REVURDB3Y2JldEgwK0hSL1UxL3VJNEo3UHlEZkdIb1ZGaDd4Z2NmM1B5MGI0?=
- =?utf-8?B?ZUtPbkM0d2diZVo0anVoUFFNYVFzdlV2cFRqOC9RVHIxdzEyTHRCdkVuUnVV?=
- =?utf-8?B?WmtGRFNISEJWRklqc0pPK3V6RmRaeTJTRmk3NUQ0RVdxbmdsKyttMHNlYTdh?=
- =?utf-8?B?c0J2Zi91a2R3NEhPNC9ZTjZmNmV0VmNPcUJJZFpXUVZYUW9odmhQcFRSbnBH?=
- =?utf-8?B?eThoT2ZIdzloempLT1pvKzlnQU1zdGZ0M0FNekE1dGVMWDVtT3BmSUxiV2RS?=
- =?utf-8?B?V0tEVUVWdHJWODdUK1BXTHVlcDdYcGE2eFg4TzU2aTVwclpWOVJPNGtMZDVj?=
- =?utf-8?B?ZjlwZnZOVGRESmhzWnp2ODZENkw3UERpN2pFUG9GeUo2L3ZyaUFRaTN4dWFt?=
- =?utf-8?B?Mks1d3hwMHZ1UTN1eEhSaG5CeFNzVlZoL2lNWkY1dUpSUEc1dTR3eS91MEFo?=
- =?utf-8?B?bEZrM3RISzlONCtVbGh0Mzh4Zk5vNDMrT09WbTBHanQ2LzRaY3E2V3Q1WGw4?=
- =?utf-8?B?U1NjanZRL0FHdEJxMlluNmJPUDhoaUcxREtaQkV2OW5hSFpPNmIvc0pVcjZC?=
- =?utf-8?B?YnFUUWFEa3l4VU9IbE10eG1VM0d3MUN6aXd3SkZVcmp5Y1REN1JKMUs5RVpu?=
- =?utf-8?B?UnNLckFBcnRHTTdRd3BOb2tIbkZKVXVPeFpRN1ArTnl6ZVNYVWlIT1NiYnJP?=
- =?utf-8?B?UFJvWW42YXJ5ZUg2YWo5NndhVWcyVFM5RVJheUtJaGxFMllBMXVmZ1JHN1Nq?=
- =?utf-8?B?WDhta0Mza0VNZlltWXppOXFHNGxPK2xsNUd4WlkxRUpZNkRuTUgzODdSRWtw?=
- =?utf-8?B?SERrS3pSczBlbkxUUWR4aWo0WEhCWmVEVmVEOStQeGFIK1Z3QXpvbm5yZWli?=
- =?utf-8?B?MTRqK2tiV2VvRGRTTmJVMURESEdydUdScXgzS1loS01NWGlhdndEWWNLY0tK?=
- =?utf-8?B?MFp4Z0ZydzNYWUtWRmVmQ1BZUGk0eU9mWE1wSXBOUks0RnpUSVNaakJuUHR1?=
- =?utf-8?B?dEU2Q1hrVWNKbjFONFBSR09sQUpPYm05WDByNytrcDZlOTlKcHFNZHY5U0Zq?=
- =?utf-8?Q?mr1z0rki+I8eZ3A6EuMT5mJGC6mC3p+L?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 119e514b-afe5-4704-da6d-08da0b45c73b
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 14:19:15.1472 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zX966S+DgUjad0OlH0GGOItT55fmA/DaPhxtdKPXcLaxBcw07GtD2GZGvAQtKUL1gkmfrOuwK90etnOD7HzdaA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: Regression from 3c196f056666 ("drm/amdgpu: always reset the asic
+ in suspend (v2)") on suspend?
+Content-Language: en-US
+To: =?UTF-8?Q?=c3=89ric_Valette?= <eric.valette@free.fr>
+References: <Ygf7KuWyc0d4HIFu@eldamar.lan>
+ <CADnq5_MfR99OhjumQESCO7Oq+JVOHOVgyVQHX4FpGFDnPu6CyQ@mail.gmail.com>
+ <5164225.DI6hChFYCN@ylum> <c62d4ba9-2214-ca7d-ee78-ee19a9bf51e6@free.fr>
+ <CADnq5_MWqz7-XhOS4zfuzi3=_nKa72iYaO0BcKNcVDwEvZ+YHw@mail.gmail.com>
+ <61c2b2ce-d749-3723-ad27-f40e1c49d967@leemhuis.info>
+ <ba7faa48-68a5-41f9-9192-f843e17c5a07@free.fr>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+In-Reply-To: <ba7faa48-68a5-41f9-9192-f843e17c5a07@free.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1647873009;
+ 3c72b866; 
+X-HE-SMSGID: 1nWJ2p-00029J-Ve
+X-Mailman-Approved-At: Mon, 21 Mar 2022 15:24:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,46 +52,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Yang <Eric.Yang2@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, David Airlie <airlied@linux.ie>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexdeucher@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>, 1005005@bugs.debian.org,
+ Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Dominique Dumont <dod@debian.org>, Salvatore Bonaccorso <carnil@debian.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-03-18 15:00, Nicholas Kazlauskas wrote:
-> [Why]
-> It changed since dcn30 but the hubbub31 constructor hasn't been
-> modified to reflect this.
+On 21.03.22 13:07, Éric Valette wrote:
+> My problem has never been fixed.
+>
+> The proposed patch has been applied to 5.15. I do not remerber which version 28 maybe.
 > 
-> [How]
-> Update the value in the constructor to 0x6 so we're checking the right
-> bits for p-state allow.
+> I still have à RIP in pm_suspend. Did not test the Last two 15 versions.
 > 
-> It worked before by accident, but can falsely assert 0 depending on HW
-> state transitions. The most frequent of which appears to be when
-> all pipes turn off during IGT tests.
+> I can leave with 5.10 est using own compiled kernels.
 > 
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Fixes: d158560fc0e1 ("drm/amd/display: Add pstate verification and recovery for DCN31")
-> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> Reviewed-by: Eric Yang <Eric.Yang2@amd.com>
+> Thanks for asking.
 
-Acked-by: Harry Wentland <harry.wentland@amd.com>
+This thread/the debian bug report
+(https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1005005 ) is getting
+long which makes things hard to grasp. But to me it looks a lot like the
+problem you are facing is different from the problem that others ran
+into and bisected -- but I might be totally wrong there. Have you ever
+tried reverting 3c196f056666 to seem if it helps (sorry if that's
+mentioned in the bug report somewhere, as I said, it became long)? I
+guess a bisection from your side really would help a lot; but before you
+go down that route you might want to give 5.17 and the latest 5.15.y
+kernel a try.
 
-Harry
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
 
-> ---
->  drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-> index 3e6d6ebd199e..51c5f3685470 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-> @@ -1042,5 +1042,7 @@ void hubbub31_construct(struct dcn20_hubbub *hubbub31,
->  	hubbub31->detile_buf_size = det_size_kb * 1024;
->  	hubbub31->pixel_chunk_size = pixel_chunk_size_kb * 1024;
->  	hubbub31->crb_size_segs = config_return_buffer_size_kb / DCN31_CRB_SEGMENT_SIZE_KB;
-> +
-> +	hubbub31->debug_test_index_pstate = 0x6;
->  }
->  
+P.S.: As the Linux kernel's regression tracker I'm getting a lot of
+reports on my table. I can only look briefly into most of them and lack
+knowledge about most of the areas they concern. I thus unfortunately
+will sometimes get things wrong or miss something important. I hope
+that's not the case here; if you think it is, don't hesitate to tell me
+in a public reply, it's in everyone's interest to set the public record
+straight.
 
