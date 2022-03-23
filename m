@@ -4,70 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46BFBC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 14:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4750FC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 14:20:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE52A10E703;
-	Wed, 23 Mar 2022 14:07:43 +0000 (UTC)
-Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
- [IPv6:2607:f8b0:4864:20::b31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCEB210E703
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 14:07:42 +0000 (UTC)
-Received: by mail-yb1-xb31.google.com with SMTP id f38so2910519ybi.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 07:07:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar-org.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=/7ZbYCWiVif9GBu4s2XUvjIkcvQUl6K4Hf9iSZ4zAtc=;
- b=74QifQtMTtn131sH0xLq5Tl+T/r1VrvyXbxA3+qpTar7JWF0NX/aXY+H4mjGWDY9/S
- YUt3VvTqsvTxnck6cqZX/tCbyVtGWAY1m7yuPSbWpJIQKe68Rjh32fZxBTIjICRpO3FG
- l6uRdBQ3vCTqUEym5IVZR0r9eE8kFQ3MbO4MfI63iPTS/63w++evEAfxjil5ka4ctcme
- WTHwTJTYrQ9l+3XC0IOBjrfgyeN2/C76C62R2flWbYns9nbjCHbOA+prZQUM5L470e6q
- r7OK0tZ5KuVHXV/r1ayXm864/JBkvc/KnFCW6ocmCRoc/KXgtFT+5cRgDY5/16zSUF9u
- G7PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=/7ZbYCWiVif9GBu4s2XUvjIkcvQUl6K4Hf9iSZ4zAtc=;
- b=k6JnoGuGIajC30XB64/jqi2rZJfRX+Fj4eEgmQXV7IWMyI0SVhGtNozdfzAfHrAP6w
- nYxb8MhKKfK6PcbrHBW5I0Vkvh8CpoUeV3NlBqegH3hOedmleO8JUDmrrXnOex8/U6cK
- 2S2F7V2zLebUqh4Ld6GE+1iSfHV1bx9zZyYXwKti5Bb3Rus9TXkitEwr1B3QE9nmWstX
- YCSmb8B4rfYU068ilH3YlK6SbfqbTeKImB+Gpw5tSkFWVtH4c4KnazPPG7llfZY3aAK6
- Cb+vzLxBxcBx1jsqzo9NDW3TcrPDpzJsNJa2hK8eT+O36x0mFntJ3AKDthV0D92oEFR8
- 8gLA==
-X-Gm-Message-State: AOAM531k8HRIzyW3EoG5ZtJYaBN8tpVfRv/f3oAMaMLK2H26b2exLazc
- OMXaj21K9rGlcIck2H0c0lvFE47cvNyz3S8pspo+IA==
-X-Google-Smtp-Source: ABdhPJwU9SU6cd8ufDNN68NqrzLbhbdH+sboO+FrRycnWfi5Uz+BQ7WWGy7xlkgdgYBMpDCgvRJLC5g0mCYyLK4cXpU=
-X-Received: by 2002:a25:e749:0:b0:633:93d4:4b66 with SMTP id
- e70-20020a25e749000000b0063393d44b66mr66929ybh.553.1648044461999; Wed, 23 Mar
- 2022 07:07:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF01610E71A;
+	Wed, 23 Mar 2022 14:20:35 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2072.outbound.protection.outlook.com [40.107.236.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 637DD10E71A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 14:20:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DLgrmWIvmXex455Fy6bztZ/XRwifSoFXPXfqgdlvvcLnAftiwSKVBFNmVMTKUW9UJO7BMq6ZTC+AVcDN4ScsMBjydPJrEYciA7/1Ae3xz0G1Y6mW0tyHnnGPXZmXw/XW27U5Vdw5FcNOAc8glpwns5qXaa7oTA+FVnbUt8SZ+vXLi7J1vLunjGn7Q7jQQwRcnbejfZo/vLdF1fzHjU2NRphCcKmeqHYViNRpFmUEnl0ONkxDTYNcd2l6L4tCWYghQISzbPzjQoigQtbZAJb0cd6MbV3Zv+g2bdTHBgyYL6QGooREKmvXJKWdMCpAAhxzke1k3x83U8uc7jxDwaLYQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1T5XaA3wHyMWgwoqg7722WM+hWDW4JqjMxBYpSNs9NA=;
+ b=QS2eEKEkZ9J3fxayUOrLQmFRgqONaIAmy7zxNlvi5A8GDDzldegl+cySYVEht+kJv0yBNTAczTy6IeFioyqAMFt9UJVphVqVBPoadPQtG3G/vtGE3bKN5T8+WuCPTTflhnrwtbEwMpLsm5vG7o5Vh2cqVu8Pa8EfjISiRPwyHF8Eho0aJ5Nht3A777tLnW+jE9A+paLezuuoaZ9q0lUZQMydbFG/OhUetlBLvdL4Cy67IM1rjcicYKQWqNvMwhn7agumMn3RsWf1BgtL+ztiVN1qImV24ueQ04qhRuFJb2AFlY4LsP95Yuf4JngdXVFr4OyeyCjBmzEKUE/6O48KZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1T5XaA3wHyMWgwoqg7722WM+hWDW4JqjMxBYpSNs9NA=;
+ b=EItkFIfTod0Iquizw24YyPaJzqK+8IHog05MDbGFeyQPRwa7z6bGPB90rlnxfaRd6O+TKz4bThIniCfFA6Y2DTa3s6TIofOgBQvTFS7U/MTQRlfvzta59OeoGGzxOdkprcwgtwESFfj4SE/XAuzTDDkff+4FGt6ALDTDb8CIKns=
+Received: from BN8PR15CA0042.namprd15.prod.outlook.com (2603:10b6:408:80::19)
+ by MN2PR12MB3341.namprd12.prod.outlook.com (2603:10b6:208:cb::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17; Wed, 23 Mar
+ 2022 14:20:31 +0000
+Received: from BN8NAM11FT046.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:80:cafe::a4) by BN8PR15CA0042.outlook.office365.com
+ (2603:10b6:408:80::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17 via Frontend
+ Transport; Wed, 23 Mar 2022 14:20:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT046.mail.protection.outlook.com (10.13.177.127) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5102.17 via Frontend Transport; Wed, 23 Mar 2022 14:20:29 +0000
+Received: from dishikre-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Wed, 23 Mar 2022 09:20:28 -0500
+From: Divya Shikre <DivyaUday.Shikre@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdkfd: Check use_xgmi_p2p before reporting hive_id
+Date: Wed, 23 Mar 2022 10:20:16 -0400
+Message-ID: <20220323142016.1810918-1-DivyaUday.Shikre@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220311102709.225616cf@eldfell>
- <CADnq5_O1Qktec3kC_rcPZUQPbraBYmdhDwmj=jgp_QsaBFGUZw@mail.gmail.com>
- <20220314172647.223658d2@eldfell>
- <CADnq5_NsxipfFFXfRSXvVQin3e1gj0Q_p9p-shi3VZ2pSCwwfw@mail.gmail.com>
- <20220316104815.11ec2e6c@eldfell>
- <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
- <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
- <5e246eb8-0256-c40e-40ea-d865bf99c003@gmail.com>
- <YjL/k6kh+5RihGIV@phenom.ffwll.local>
- <CAF6AEGu79jDW1xqJOaNCB=jAxhKiCRFJwoCNiC9ye97KvpWEtQ@mail.gmail.com>
- <YjNvYmcuDKiIneDx@phenom.ffwll.local>
- <CAF6AEGvuMfKtf_aweai6y4oHghArE95uhR2X0f9h_9w4Bk_6VQ@mail.gmail.com>
- <19a67000-d1e5-0582-c6de-07d9988b1735@amd.com>
- <CAF6AEGvDjw6zq3yiorhOc+vp2US+Jso9tF74=8gyJMTm=K5FVQ@mail.gmail.com>
- <3f0b7273-4562-7a55-e52a-bd64334886fd@amd.com>
- <CAF6AEGu6FabmcWE+NsPgnPU0=MpbA6bmO1KkJ2hrVDBLFY92xA@mail.gmail.com>
-In-Reply-To: <CAF6AEGu6FabmcWE+NsPgnPU0=MpbA6bmO1KkJ2hrVDBLFY92xA@mail.gmail.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Wed, 23 Mar 2022 14:07:30 +0000
-Message-ID: <CAPj87rOx1uogqqKX8XZEnzpcKKY6W9TWHQFr-bgZyEU0-ftjVw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: bb8d69d7-fda1-4610-539f-08da0cd849b2
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3341:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB33410A0DB6228D6CCCAC676097189@MN2PR12MB3341.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: SpgoJOI1Nxlvohe3KjFE1j7amQO7BWCDAUrn+UoCqQZm7aZ+MJPGhthY+IH94fCwQM2praejumJxaJ17/AD8rnkx9KuepjzMKKjOGQW4uWSN2WQ5K3rLblD/wA/QFgw2oOnSY2Wjn3Z+LGPWhMgtMNhGAnRTYKawghIBSmJebm7g/Tzr0+Ns+QS1/9s9uDWBUFJXe5lTmlCQSmAWREqAvA71VcrE5KbHH3HK1QvC3dz+lo/1bNuG8YduPt2cjgZkGX6725+SU7YS6w4h8FMX3Wi6JkkKelMwrX3Wona0QJdZF6wdH/6DduPc6aiUBj6vSZ2gjwVusWM8o1MZeqp5os2tSP+E3oph5jFgtUMl91AI07hJ4MXMw/3GszuO8GGCl34GBtVoUoyAwRPexpTp47FGlw9cJ4e4aofw/6EScpn9NCHHTF8UdbM9tbNgbELmI181+00Ol6nsaPGmxrCRpg8xSuQMldvVBmMunKfRA4CvjO+NrdD2CkfIfrAawT7GXidpN8bo/Fx4aoiCf9veEgataVlgRTp+vtGdIcKcrdR0v/cDIkfHRQBajtwpZCx9fHXbnL94IL6Iva+wD0qrdaswsuBeZbJxSyqGi3ySVmRfoamFjiUSf71DGGl7UKi9NQsbSAA+CE0bu/y9dx7fZaIO4QDRqYAD+FLlJnQQT1ardhS/PIbzBRDFxRW5+a9px1WDzVsYODLOOKJAiVbAMA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(86362001)(356005)(5660300002)(81166007)(4744005)(2906002)(7696005)(426003)(336012)(47076005)(83380400001)(36860700001)(82310400004)(6666004)(40460700003)(186003)(26005)(2616005)(36756003)(1076003)(54906003)(16526019)(70586007)(4326008)(8676002)(70206006)(508600001)(6916009)(316002)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2022 14:20:29.8834 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb8d69d7-fda1-4610-539f-08da0cd849b2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT046.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3341
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,36 +98,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
- Shashank" <shashank.sharma@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Amaranath Somalapuram <amaranath.somalapuram@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alexandar Deucher <alexander.deucher@amd.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex.Sierra@amd.com, Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com,
+ Divya Shikre <DivyaUday.Shikre@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Recently introduced commit "845ebd6b7c32 drm/amdgpu: Add
+use_xgmi_p2p module parameter" did not update XGMI iolinks
+when use_xgmi_p2p is disabled. Add fix to not create XGMI
+iolinks in KFD topology when this parameter is disabled.
 
-On Mon, 21 Mar 2022 at 16:02, Rob Clark <robdclark@gmail.com> wrote:
-> On Mon, Mar 21, 2022 at 2:30 AM Christian K=C3=B6nig
-> <christian.koenig@amd.com> wrote:
-> > Well you can, it just means that their contexts are lost as well.
->
-> Which is rather inconvenient when deqp-egl reset tests, for example,
-> take down your compositor ;-)
+Signed-off-by: Divya Shikre <DivyaUday.Shikre@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Yeah. Or anything WebGL.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 339e12c94cff..d5536e33b3d8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -536,7 +536,8 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+ 		goto kfd_doorbell_error;
+ 	}
+ 
+-	kfd->hive_id = kfd->adev->gmc.xgmi.hive_id;
++	if (amdgpu_use_xgmi_p2p)
++		kfd->hive_id = kfd->adev->gmc.xgmi.hive_id;
+ 
+ 	kfd->noretry = kfd->adev->gmc.noretry;
+ 
+-- 
+2.25.1
 
-System-wide collateral damage is definitely a non-starter. If that
-means that the userspace driver has to do what iris does and ensure
-everything's recreated and resubmitted, that works too, just as long
-as the response to 'my adblocker didn't detect a crypto miner ad'  is
-something better than 'shoot the entire user session'.
-
-Cheers,
-Daniel
