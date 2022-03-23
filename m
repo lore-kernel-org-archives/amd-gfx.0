@@ -4,54 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8918CC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 21:42:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E05AC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 21:42:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 723AC10E0A3;
-	Wed, 23 Mar 2022 21:42:29 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2608610E072;
- Wed, 23 Mar 2022 21:42:28 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- d15-20020a9d72cf000000b005cda54187c3so2014834otk.2; 
- Wed, 23 Mar 2022 14:42:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=gauJU+/Ukt87qElnbOCar/GeP644jnPenO1H+olAZxI=;
- b=cswYNs/WyXAL6DSvgYLR3dF6cUIcVKCxSQGRNXV786efwrusYDE0bclQvwL/1eYS9t
- vThDuK/9GhGm5Ws+5z71Qd6WANakCW1IxYdEHRVO7aP16V8R06I2LqJrdw4RATCO1HP0
- UUGnJhwwcsp+xk/fmmMo/rX+1/XfoPXgN3W38qwm7MH+c8m3HzAOcpFmrbcAhGuFJHfX
- Vw5+f9RS596X3GChcf3jnVR4yHuJTrMPuhPEsnm8gzpHE3KwO/joTbHm5QXM0P67HP7h
- kV7tMbBorXJ887ivq0y7jr9VBFPDYpcw9XRIV3B7VBq9qM221sxbmH/8tVfi1WkmyQp0
- i0dw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3381010E145;
+	Wed, 23 Mar 2022 21:42:49 +0000 (UTC)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C97E110E096
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 21:08:43 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id bg10so5379624ejb.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 14:08:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=gauJU+/Ukt87qElnbOCar/GeP644jnPenO1H+olAZxI=;
- b=UpkuTs7QPTgCm2fKgTc323YP88GaEhJkYc5C577jH9kRcFck0bGk3UutAoXK4nN+SB
- PH+JjW1VwCq2DIUkjofAJFVb1PXoZkzPuS6NnpTNrLtb9bKyMaw/9kGewZYRDpK2TnVS
- CwaMCSGb/aMzRJfCzQUfBjKDbAVnhU37QJfLOlA30ul954qkkP+gtgZVCmW2Zh1BQoJz
- xryf7T51wGcNrFAfJPdNMy88FbPw0elCkOKuSCy7s43Ku5Zht7+C//2Wg29Lj6QZ1QSG
- pTLMtba1ZVZFr1uPpno50MHwmRQkmosxUTTeYwXfe0etogAY4WW7U3l6G3dLFh81BS8n
- 5m0w==
-X-Gm-Message-State: AOAM533iOB9r5X/9aG0kQdK2IHsqU18iyvWHUh9fKBXz+0AJEu+SzI6g
- f1Kj418w9PMkBfEZl1gsbG0aGHtFWAwBZMU96LcCBDod+bU=
-X-Google-Smtp-Source: ABdhPJxUgqnvMju0kQuK4cFRp3woy6+I3sh81LdOzyl9ntgr/e/GmMKsqkaDy48Yz3SiqBg8bmw7SQ3TapKKosYD62I=
-X-Received: by 2002:a05:6830:10c3:b0:5cd:481a:148a with SMTP id
- z3-20020a05683010c300b005cd481a148amr913080oto.200.1648071747457; Wed, 23 Mar
- 2022 14:42:27 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=nPs/KXk9bNlz6KcCUSilPopkztq0KM88w4irv21SSNE=;
+ b=p0gAKgscOHnWyh6NSgJWGt/w6Zw8KDJ9S9a1aIabPl+6H19PRPTGI/SgAthTwo0Xie
+ ZRlTUg31bjBHSY5BgvijRQrecGYAbpoIeUWVPwoddPhaV7CCoqKJbhnP5adlvYuQhmRJ
+ jhBTSvsyW5KQsqyDFRHpT02J4Zsrv/uyotp+me1eDQR3kPDtATfBTWRWI7ZwerwFnf6H
+ ieEgHw/4wSg1xPal2oxalsY7RoDO1ifB3cdkCRqwpjtRpNNpcpDrkWw0UkdEdc3JepUQ
+ OgpNLXB+/VHhNj5XdeIzns4IIeiiRThGxnqwmOvrD7XktVjA5B0GjKsp+aRTWmie3coM
+ d9ig==
+X-Gm-Message-State: AOAM531LBhCpChGotJrjKVPgQwoTNOFDNN/RNSTTR7uWQNRboS6GnzAQ
+ JiOPOeUw9XzcwEkS0ro5+HXFAn56qxQ=
+X-Google-Smtp-Source: ABdhPJygXBSManYhkDKmCR0GWQXsHSQsDON36jhBe+IIvroRBL9+CQjNaKEJZQAg3EYxI7EvvCSWpA==
+X-Received: by 2002:a17:906:2ac9:b0:6ce:dc0f:9139 with SMTP id
+ m9-20020a1709062ac900b006cedc0f9139mr2267694eje.206.1648069722303; 
+ Wed, 23 Mar 2022 14:08:42 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:168:d80b:0:d89e:fddc:5f2f:1a25])
+ by smtp.gmail.com with ESMTPSA id
+ d24-20020a1709067a1800b006e021f4c1c3sm355877ejo.166.2022.03.23.14.08.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Mar 2022 14:08:41 -0700 (PDT)
+From: Benjamin Marty <info@benjaminmarty.ch>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/display: change pipe policy for DCN 2.1
+Date: Wed, 23 Mar 2022 22:08:26 +0100
+Message-Id: <20220323210826.1559499-1-info@benjaminmarty.ch>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <1647943132-31250-1-git-send-email-baihaowen@meizu.com>
-In-Reply-To: <1647943132-31250-1-git-send-email-baihaowen@meizu.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 23 Mar 2022 17:42:16 -0400
-Message-ID: <CADnq5_PB-SOvbJJiRGvGpeLwfYpuYHPT8_0HRW1R6WUJ8vwKiw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: use NULL instead of using plain integer
- as pointer
-To: Haowen Bai <baihaowen@meizu.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 23 Mar 2022 21:42:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,45 +57,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, "Wentland,
- Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
+Cc: Benjamin Marty <info@benjaminmarty.ch>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks for the patches.  I've already applied fixes from others for
-these issues.
+Fixes crash on MST Hub disconnect.
 
-Alex
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1849
+Fixes: ee2698cf79cc ("drm/amd/display: Changed pipe split policy to allow for multi-display pipe split")
+Signed-off-by: Benjamin Marty <info@benjaminmarty.ch>
+---
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Tue, Mar 22, 2022 at 9:05 AM Haowen Bai <baihaowen@meizu.com> wrote:
->
-> This fixes the following sparse warnings:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dsc/rc_calc_fpu.c:71:40: warning: Using
-> plain integer as NULL pointer
->
-> Signed-off-by: Haowen Bai <baihaowen@meizu.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-> index ec636d0..ef75eb7 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-> @@ -68,7 +68,7 @@ static void get_qp_set(qp_set qps, enum colour_mode cm, enum bits_per_comp bpc,
->         int sel = table_hash(mode, bpc, max_min);
->         int table_size = 0;
->         int index;
-> -       const struct qp_entry *table = 0L;
-> +       const struct qp_entry *table = NULL;
->
->         // alias enum
->         enum { min = DAL_MM_MIN, max = DAL_MM_MAX };
-> --
-> 2.7.4
->
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+index e5cc6bf45743..ca1bbc942fd4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+@@ -873,7 +873,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 		.clock_trace = true,
+ 		.disable_pplib_clock_request = true,
+ 		.min_disp_clk_khz = 100000,
+-		.pipe_split_policy = MPC_SPLIT_DYNAMIC,
++		.pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
+ 		.force_single_disp_pipe_split = false,
+ 		.disable_dcc = DCC_ENABLE,
+ 		.vsr_support = true,
+-- 
+2.35.1
+
