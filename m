@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75F29C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 18:14:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66F60C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 18:39:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED53710E025;
-	Wed, 23 Mar 2022 18:14:42 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2065.outbound.protection.outlook.com [40.107.93.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B03C10E025
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 18:14:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCE9C8925D;
+	Wed, 23 Mar 2022 18:39:33 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2050.outbound.protection.outlook.com [40.107.96.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE6568925D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 18:39:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mu4sW53eW9ShYFMMIWarPW6OwfbHY4lAwk6wfxzTusmiZdqw8DL4OhE+gNZZ05ldViBVImUXoE/f1/kNOAz8p0AwHX5b4+igBf70khNu7BQuzkQ7bqQjK1PdS3lTSA1wc0MlmcURQGSeYskZZcSHR9UIuMW6POR0SH5EooAyLx2p1SLMujdpqaUqBJdLShJt1PpR3tjmEOWguF6y3VNerzlb0a/lov03T7R13wla1F8Myt3u3BwIwHI+CMwoD4qvjr2N1+rjL+BX9qXLQq78fgOtEEviCs+lHecV5RTkX0a8z491ymbjM811VYeIbi7QLnyfCUjB5fjLo7VQEHrd0A==
+ b=fBeTQMUK5WjmPPt/R8vbaypii40iSaMbQvTz7Xz625oilCo25+Y4fpgb8uU3pObVl+O/OsF1199uqroxh2DcbItIbd2h3eRhCIe170jKWM9zljxWiU0HupnPBwmMK6uWLv3RphInv2kRmXnat71GO0xrrlJ3wtYbkX0zy50D1tH3IabESqFPyyJnGd8SE1zGuHfPAu5v2S29l2/FyKllTWTcDJkffH2jjVCzcA3ExrOGU/Tk6DYxgL2nVxI3aXf0VfvyAlKWr0tSpIA6FaYzWsE/vRzc2eKFkO/w8WQ6VtFijpggnF0NPHvum9ep7A2VD/NF9sLMx3s4JoS88VVD+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WIuNnDAHfEU0PuVusKbiWX/g0PQVMwh3+FwsfTcEpG4=;
- b=kUu0TP3cxw4seCl51XhTaBnoo171e99DCIpymTmCgNzi8VWc7jmm3Zf0BC8gs80GGYvNpJzmCI5XI/sxn9Kb0wYXygB/l/AuxiCFVwj1O03S1USFkRGCyWDtf4IV0oBZcLte335VdGQgP1eRIttZsVEh0FaUH7Wohfe1Hfq9w16iJQifMUlEdryRRq5O/2t0sCioQMSvP+C3DlpB7wp5Uwu2VvySsCze99Y37EMczxcgPr7InpE/jca3oQ9pUN+19pfyglwk3t5vDSJ8pai9kdS4eNE2g5EHMXTf7P9cm+6FibBi02aocIyQ+EoBGwZgRkOxXNOU7xCIw9SDXMaXDw==
+ bh=Tr35s1Yq89knmBPnw/a8EU8AkDTzj4XdWSNVOe7y/Rg=;
+ b=F7bYrD9KuF5O+J4HLlilRq7jOhXMLaTs5mv/Q7nBWt+0NTmZCI4vvBGhZB86CT+XCBCfMapPTt6FgwiYpQQ6AvjNoF0bwJ5H+5e3C0i/FBW5DAfKpMLP6dcRFNR2lsTiTh4LS9KUiitrgw/IA0s+y/6gEC9efse5fDuiCoYJoJ9+wn0jyH8JP68Pz4vpUZZezYmbQDJ7PQHBy3Mtee4+3K6gFGgpDc8CTDMlUAWmX/9eke6WfQmjvc6GpNbFtzUS2c560r+uybFoDMXDFDRCb8bR9dWbxXM2WM94yVci2qCLeQsdEJyhbPbpEWAnHkdhT+u5Dvf4JJXc4/q9dEv3Dw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WIuNnDAHfEU0PuVusKbiWX/g0PQVMwh3+FwsfTcEpG4=;
- b=kPvnx/CBhXCwQ6pO+iKl7r0PE8y1ufFGZimGdj00/3NILbo6yDUqArPSJVOcWNzkmSA159wolqQJbuZ/lCAnOR2DaiMMUL3TyTTFJiMx0S2dxkJXUxWMFRmJggLnl1YQ6PmTeR20oRq8/dxNJ/HBC7jiEXYrOy4a8btjDVx7JWY=
+ bh=Tr35s1Yq89knmBPnw/a8EU8AkDTzj4XdWSNVOe7y/Rg=;
+ b=MFIkQGAGiFSmMBosPSC2v9ylQlU63psEuCCEwfsD/z6uHSHaMnE1DI2kBFzSD3J3idqSW7r+TfrGwOyJSsmh2WG3LtrAwR6ab46kn4dOGqnWk8tXc0VFZF5UPOX7QMovZp97lhQWWVnkFHAqCDob4RoZEP9p1sfqIQhlA/H9jh4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MW2PR12MB2505.namprd12.prod.outlook.com (2603:10b6:907:4::16)
- by DM5PR12MB1355.namprd12.prod.outlook.com (2603:10b6:3:6e::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5081.15; Wed, 23 Mar 2022 18:14:39 +0000
+ by MN2PR12MB3214.namprd12.prod.outlook.com (2603:10b6:208:106::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.15; Wed, 23 Mar
+ 2022 18:39:29 +0000
 Received: from MW2PR12MB2505.namprd12.prod.outlook.com
  ([fe80::381e:ef8f:81f2:5ba7]) by MW2PR12MB2505.namprd12.prod.outlook.com
  ([fe80::381e:ef8f:81f2:5ba7%6]) with mapi id 15.20.5081.023; Wed, 23 Mar 2022
- 18:14:39 +0000
-Message-ID: <d9684f95-770d-950e-8947-24ee0d752c74@amd.com>
-Date: Wed, 23 Mar 2022 11:14:37 -0700
+ 18:39:29 +0000
+Message-ID: <6efe2292-5991-c051-1f3a-e5615c101061@amd.com>
+Date: Wed, 23 Mar 2022 11:39:27 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.1
-Subject: Re: [RFC] Add KFD available memory ioctl thunk support
+Subject: Re: [RFC] Add KFD available memory ioctl thunk support (rev 1)
 Content-Language: en-US
 To: "Yat Sin, David" <David.YatSin@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
@@ -51,66 +52,66 @@ From: Daniel Phillips <daniel.phillips@amd.com>
 In-Reply-To: <DM6PR12MB5021C430FE412C50B32DF18495179@DM6PR12MB5021.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BYAPR06CA0021.namprd06.prod.outlook.com
- (2603:10b6:a03:d4::34) To MW2PR12MB2505.namprd12.prod.outlook.com
+X-ClientProxiedBy: BY5PR20CA0016.namprd20.prod.outlook.com
+ (2603:10b6:a03:1f4::29) To MW2PR12MB2505.namprd12.prod.outlook.com
  (2603:10b6:907:4::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9fc523b9-99e7-493c-bf04-08da0cf8fe93
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1355:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB13553D8CE137BA09F7BFC336E3189@DM5PR12MB1355.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: f76016f9-0c4d-4b4d-cb95-08da0cfc76ab
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3214:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB32142EFC6FD860B3653DE676E3189@MN2PR12MB3214.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aa+N7zakNpMKP9LvikU8aygFC6jDsvZVlSNpMQeI32JM8cDIbf0yCEsS7vfe35OrfzFqa8v9V1U9Kv4VUtn5Xzfmfc/ajd09xrVS60p4VEELZ92UL2tk8XqEtDpfFqm8l8LsYhWsskQqKNwKWjLBOEoFZWkWb43LaAWhxrU9cJMv3upQj2sKzj6994cAdJefmgqO3Mj0kEbQpN9qSUJY0NjbdR7s/uL33Y1w+juFTH6uP30o91vaHFrRWMwBw7riXlhwTFPrcOc90ZP+7QZn/PJ+97S/Nx1H7Vtdtxu8AzkMUGwvx9lFyylACxTo/laIo60K3Xxx14F5po8lYPHG/nhR4njpslDSJtcDWvHQ3E6XsICRqvvxfNx0C/Ld3ZQnRj2huZyp0JzCuFI5YHJjdQ4Fw80yI8iTMVRB07czl7HLyCwom/Eng5v26PGht/6H/3x6IZ7KUPxhWpt/RAH9Z6K9245tbP10cFTTiRCcSyjw6oY0kXzWj8ioWOGjogWFk54LD6TEjNuqn1lSpLi5vf/eU4fxBwI4W7IFEUK5REr+7STrKx9SbdH3hMZz941NHlXtKYjoAWVLWBquSsmPvh296SJcTJPGcDIv4hbyetQwMcY4B4gfl1M5n2x+oxOxHYFvrMySIHQ7dZGXujIp8V3YkoqdM5DrzcL/4gbm5cEafunf0hSqxOZs2VoxbJRYGnm69BbpzPWeFOO8Gnp5h1rZMkQSLmRudpKEWRjEPpI=
+X-Microsoft-Antispam-Message-Info: tkqmuMvATNsjoIyzTFVpVbUslyVnF3zM4tb03HEVXzOmpE4Z4DgWt9+iH/42JU0Wsd8+yVd0ohcXWbNGfz1N65Uz327pGqpKvjltO9Tjs8TDWHqUI5MHjrGYh6QWj/1A3V+u/MFhSyj7Io5kds28UR5ngMO08LE0NCxYXh/v49t46wGiyPfYCIr4lzKVGaIcf9k5NJF/3LAnQkwa2lrbJRAfEYhi1AbY4Rd4OcQLEnV4s1aHdnEb8C9RD6BvANU9cetTqYTnm7nJSD1x839qE14uW+AhP6oDQZKP8qcRZ/UnZ4FFlMUxUNsqrGtv6MFpwUet8MX2/+xknns4stnJpP+edLiEyk/8BttvaCIQBFsp+YMAfENnz3nNoXUOnhznvSD5HiYA9penHKr0E7erLb3ilE0ksMZ9WGossRte1zG3GYfhdvhEZWpBC3T2v48nri2+9gT0MW5NfzDGQ6LTkEIlg60hgeR6pZLZ0dkIHNeFXZ/O5UlGoC0AVS5Lz+DrfBvOtezJL+5Yr7tsgAQCkw4SIBCS5wHlLe12CxUGrzlzeiGVP5pfN5O154vZXEXA35RVYfKrzr0g26/ePNnwZx0QLJXj52SaiGdP4MO1i59HUmy/1jbnWPMhh8824ZexBqbABp2viHRYYiwkqrhBIJ1OU2kXQrQiniRpVeGOjrnXDAh/w1Ttoa9Bbprc1MMUKs3eKU1H1rCyA3jCFCyRn+DXzlHPN6soLuvBrthpYJk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW2PR12MB2505.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66476007)(4326008)(8676002)(316002)(31696002)(66556008)(66946007)(508600001)(6512007)(86362001)(53546011)(6506007)(26005)(110136005)(2616005)(2906002)(6486002)(186003)(8936002)(36756003)(558084003)(31686004)(38100700002)(5660300002)(44832011)(45980500001)(43740500002);
+ SFS:(13230001)(4636009)(366004)(38100700002)(2616005)(66476007)(66946007)(8676002)(4326008)(31686004)(86362001)(36756003)(31696002)(53546011)(6506007)(44832011)(5660300002)(8936002)(83380400001)(508600001)(6512007)(26005)(186003)(6486002)(110136005)(66556008)(316002)(2906002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZXJrSklKSGNmbTg1eE01TUV6K1pnSFpFZnpmUkxKSFVaR0Jzb0tKUyt3V2Zs?=
- =?utf-8?B?L250a1dLcW5DT3NFNncwMkJiTzZBQ1JoMTVDdDk1aHJYaFNqcGdHU0prZFYy?=
- =?utf-8?B?d3FubmZoQW9oMHdncXpCR0VTS1ZPR0VQcnJmRk5pdkx4KzRlZDV2aXZ4b3J1?=
- =?utf-8?B?bm1VTTRwZ2NUWStNME1PSkh2RDVWOHFFbEwyY0duNmVJOFFueWhtN202a3oy?=
- =?utf-8?B?UkxuUVp5N1hmNndiYWhybnlGazdzb0RSWWRicGVEMGUyWEc3MWNNdWtuN2dp?=
- =?utf-8?B?bUM5MENMV0crTXNIdVBQMEdmWkxTK3M5QkpxbnVBNjUvYVZKdURPS2ZrKzE1?=
- =?utf-8?B?RlpNSmVYWkkwSENQZ1JxNXhQVXVkUlczSGNaaFc1NkZBeHQwc3A1cHBCL255?=
- =?utf-8?B?ZEJkQ3R5cVFoUlJMLzRVV2x1QkJWbklmRkU3cEVoeExNaldOUVJ3dHRKdVVD?=
- =?utf-8?B?SHpiZWI1N2F4Mkg1K2Nyak1JY29WYVpxK0JDZmVjSHNyTE50MjVZRGtUWmo5?=
- =?utf-8?B?Zm1CTmVZdDYwVUJNdWtqd3JvcjYxVSt5TlNmck5hMnR4ZFlkd1pCRTErZ0NT?=
- =?utf-8?B?OWJqdE83cGUzWHNGVjJZZXo2cmxxdkNWVkxBMS9KUk4zNVB3TzMxVUlXR05p?=
- =?utf-8?B?cDZlNTJnbHRHK0hFSXVWSmdhVFl2QXJNUjVVZVZrMSsxcnVWVmZtaDd4cWRv?=
- =?utf-8?B?Rm5DL3Q3S2pVa3BxaDZlWmxlalJJTTViVjdaaFEvM01CNWFYMEc0dGVnVU1o?=
- =?utf-8?B?MTMrL1ZiZG12R2orQ094WERRRzhpQytzM01ob3Ara3MxRTZPNWgxYU5NNkpT?=
- =?utf-8?B?QTVGNnV4eGF5OXU1ekxYNkIxOE1oWlNYajByMDhDVWVtK3J2Q2JvaHZDRmVM?=
- =?utf-8?B?R0xRWVZDWHROeTRIME5nWDJQY0FCdU51Q2tGZWJDMERwVGxTa29FRTFXQUt0?=
- =?utf-8?B?aFBBbXNzYWNJMEZOdFF3U3ZWS083WU9JOGVEczVxNklaY1FpU1RBR0hZN0lJ?=
- =?utf-8?B?UWNkRzJaNFhJS1I4amxKb2h4UjN1NU8rdC85K2ZlamZGN2ZnSkRNNFNOMUdX?=
- =?utf-8?B?SWZQcjRTYlViUklYZUxqK2FlUnJWa0xNR09NcE9YN1dmUkhzMi9QbWcvSVdm?=
- =?utf-8?B?T2RMOUx4TU9HOWhtOGRnR2RCNkdWSHh0SnU5VEZMVGQxNml0MUxMMzBoRjlC?=
- =?utf-8?B?OWZ6ZFpJMTR3UUpVZzFiZXVSdDU5REVzVzdhQnJPbkNLNzg3c01semR2dmxP?=
- =?utf-8?B?azdEZEhaSjFiN3FreXh2YXZEVGdEcHBpS3NSL2pNbHd6ZGc2ZWZWV2hPNGJF?=
- =?utf-8?B?aEU5OHp4eVI5ZWcvK2tNdzhBNk5Sd0hQbGpNTmhhU3VYQTFENUNXOS9PSGYw?=
- =?utf-8?B?TCtsYjluZzFHNCtUSmxFSndSMVJ6VzdGQm95blg0ajJNbE01d0d4YnhhK3Ry?=
- =?utf-8?B?djRRZVdUalVXWGt2VDFoQ3g1dHF2aTdOTEMzTkhPOWlMNGNIUnQxUDB0clFH?=
- =?utf-8?B?K0hXVHNvK2I2YWI1MXhOWEV6cWxFWk5MN0thYUdaNWE2Z0dBZFd6UTRwSnlE?=
- =?utf-8?B?bmI1MlBoNUV1MzJ6UXF2L0NPUHgraGF2MHlQcWpld0tBSHFId2gvT0lmYmNL?=
- =?utf-8?B?NGM2L0l2dHUyWUdPZnkrbTc3V3hnSG5LR2V3L2FjY2RTRmg1WWhlbUZJOUxz?=
- =?utf-8?B?aXdTeGRJR1BFMUo3QXFtVkNoM2FlS2ZEMXNONlJZcktDVVk3N014QlRFa0dS?=
- =?utf-8?B?ckY2ZFJJcG8vSU0vREhyWHpUbXE0amRCTTF4aFgxZitYZXptUnhIWDdwUWdy?=
- =?utf-8?B?cDJHWGFISG5GMFZBZ3dnWlZ0VTE2SFlIVUhSTnhpZ3RoVW90TTFRcFV2cjUr?=
- =?utf-8?B?ODZ5Skp4Yy83djBlMS92MjFlZ1c0cUE3THN5Ni9VMDBTcUFkZHkyQnZOWGJP?=
- =?utf-8?Q?mATG9IjhHImgU8WxUrk+0UuCRkqohtv2?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mm5qS05QSTgwaVd2c0p1dXJFQlVBR0p5dndNOTlPd0IvUUd0ZWdDQUNzVmZy?=
+ =?utf-8?B?SktqYmtFMlZMZytpUmsxZ3FmRjE5TDVUaTVnM084ekppS01xL3dPMllCNWZj?=
+ =?utf-8?B?bk5jQWdRSmJFeURxTUV0YVdzaWpIZjJpZytud0tadjJ3VU9DS01ZYjNtZHVQ?=
+ =?utf-8?B?TnRHTDViamRpUzdrWVArMW1EMXhhSlVIYmlzUFVzK1ZSbldoSkhCL1ZDbXdG?=
+ =?utf-8?B?dEdtMjhDMmRBTlpJQ0ZyWnI3RVJORFAwOFJSekQvWWFNd3lVWjhWUlRQRFpE?=
+ =?utf-8?B?MmY1RFk5V1p3Q3JCTWtYS1pIbzlkRnNldTVHdTJ3S3gxdmUrNnFZdnUwOEls?=
+ =?utf-8?B?R2oxd2lBS0N5bmtlbVJremhienFFaHAvMlBHTnl6WlVVa3ZJT0lQOEtNcmo0?=
+ =?utf-8?B?TXJoOW1ZZlplUjNaTEVnRlZxZXlzclJ0cERXdEcvVnVZOXdHTjV2TWlYT0lM?=
+ =?utf-8?B?TU9USUg2cmxQR29BbUE1SGFUc0JlZG9rcnJrWlFIRloxQ3RqOXdNWkpBWTZh?=
+ =?utf-8?B?QjJvR2grci9YSlRiR0YzRFBodzU4elFIT2l4N3RKUmN5NmZhaDZCUVhCbnQy?=
+ =?utf-8?B?QlZOMlptbVZpY0RzUFE2T05LUm9QdEV3UEJHejBiVUJxS2sxVkVHUWxXMlU4?=
+ =?utf-8?B?Vk5zVWJhZmluUnlRYnE4Z3hXOWI1Vnk5ODYyQlY5VkpWQTd3QWUyaEJDelZk?=
+ =?utf-8?B?NmNFb2JzYmQxSk1pUEJLTDdzKytwcDFxeE5LYk81R0h6WWFOZkpvYnM3MWxn?=
+ =?utf-8?B?citRMG15T2NqWjF2UWV5YW1SclhOYXpLYkdIa1cvKzhWQStoWHBEdGZWbGRC?=
+ =?utf-8?B?Q0RtVUY5V0pQZTlwMGFBZURPeE1CTUR0QTJlTXA3NTUraUkvbk9XZ2t5ZjZT?=
+ =?utf-8?B?RmpNUG9KNUpObVAvc0RtL1BZdFZkYWdvUEx4ZjFLL1NkMkhOTFpCN2wwNFRN?=
+ =?utf-8?B?ODcxdDh0UFJpZkJSTDdGSVpSaTdaUmd1NUk3VGR0eER0U01VSXdqUWdIMWR4?=
+ =?utf-8?B?cVpEVG02VFRXbmpDYnZLWDdDbisxcEd3S3VnT2Ezd0MxVk9YUjdlRDlwN2FL?=
+ =?utf-8?B?NWlxLzFUYUwzZndsTHQrMzMvVWJKU1Y0YTJ1R2JTbmZWakR0K0pwcDV3RWVj?=
+ =?utf-8?B?M3puQzlTYzlYQXd0U2R0NE40bmFaVlAzaEN4RFZYalo5WkRiR0ZCQ09scEtV?=
+ =?utf-8?B?SmdFUVlXbDk1YnI1SEk2T0NFVS9TOXo0ZjcyWGFpQ2lFRnN4WVVLYkF2aS91?=
+ =?utf-8?B?VjJDYmhvbGV4dVl1S1ZPUlJJWWlyc2I5Vk1PZmFBb3BYR1lmL2hLWTl2eXlD?=
+ =?utf-8?B?TGpoV1RzWXVyc1B5UzBkYWRJS0pMSHZnN3RESGMwZHRUUkFlZ1NFckFMU3Vu?=
+ =?utf-8?B?eVFmaEl2LzBKU05vbDIxN0E0YTRGRXJtckNzcnJpUXBNMFBENzBRajNpQ0Yy?=
+ =?utf-8?B?Q1Uwb3JMT0xCVjYrR0RXTXJSaVJCeTV3QTQrTTY1SGFCMXIxWGZqYWQxZXpC?=
+ =?utf-8?B?WjRBMHVpZytZSkdRTm43eU5yVmdqUnJLU3FtZGR1Mmo4c1JOZmNnSU5zK2t5?=
+ =?utf-8?B?TGhDN2J6ZmhUaGxha0wwbUdGUGsrbHhOWlowWTZGVk03RkZ4UFp0UXAwMVpV?=
+ =?utf-8?B?TDBMYk42ZGRBT2FZd0RiWFZBWWxWUDdmSjJnVDRXS2wydmtJOStIczhId0NX?=
+ =?utf-8?B?R2ZBeUV0SllZdzV4cmVZcTdWZ1FXeGl2bWxrdUs2Mlc4Rmg3OCtnUmUzcWtw?=
+ =?utf-8?B?eXpGYWdtaDFaNm9qZWxrQnZseWRGTmhUK3dkanFidThUMlFoWDQxNEdWU3lQ?=
+ =?utf-8?B?R2lVR0NrdERBbEt4Qnh1aGVRVnNYbU9QY1c3R0RqWEd3aFNkKzBvdll1TzJ2?=
+ =?utf-8?B?ektKdGRqUzFuQWp1OHNPWmd3VThTbGxwZnhvbnNxM0VESFA3M0F4Y1g0QnRt?=
+ =?utf-8?Q?IvBHOVPENJ8w5LhYZvopMWRksXpInoDB?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fc523b9-99e7-493c-bf04-08da0cf8fe93
+X-MS-Exchange-CrossTenant-Network-Message-Id: f76016f9-0c4d-4b4d-cb95-08da0cfc76ab
 X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB2505.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2022 18:14:39.0583 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2022 18:39:29.0639 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZAf4KtZMV1w/TAeIAMqzEBfufMeNyVGJ91rQwQPDGhVmALyADppPkCEaV9IDSHYC8huRn3Xm2P44Bk7/vpS6ng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1355
+X-MS-Exchange-CrossTenant-UserPrincipalName: rDCWyo8U6R4viJdwSNHxijx6QQelgEx7RaZRC5OsO7jKLqUNM3EcPfYHSdoixnBKXFH5uoxqw9sV660rJSvLmA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3214
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,13 +127,115 @@ Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-03-22 11:20, Yat Sin, you wrote:
->> +	CHECK_KFD_MINOR_VERSION(7);
-> 
+On 2022-03-22 11:20, Yat Sin, David wrote:
 > I think this should check for minor version 9 to match #define KFD_IOCTL_MINOR_VERSION 9 in kfd_ioctl.h
 
-Right you are.
+Fixed.
 
-Regards,
-Daniel
+include/hsakmt.h          |   11 +++++++++++
+include/linux/kfd_ioctl.h |   18 ++++++++++++++++--
+src/memory.c              |   23 +++++++++++++++++++++++
+3 files changed, 50 insertions(+), 2 deletions(-)
 
+diff --git a/include/hsakmt.h b/include/hsakmt.h
+index ff2d023..abc617f 100644
+--- a/include/hsakmt.h
++++ b/include/hsakmt.h
+@@ -374,6 +374,17 @@ hsaKmtFreeMemory(
+     HSAuint64   SizeInBytes         //IN
+     );
+ 
++/**
++  Inquires memory available for allocation as a memory buffer
++*/
++
++HSAKMT_STATUS
++HSAKMTAPI
++hsaKmtAvailableMemory(
++    HSAuint32 Node,
++    HSAuint64 *AvailableBytes
++    );
++
+ /**
+   Registers with KFD a memory buffer that may be accessed by the GPU
+ */
+diff --git a/include/linux/kfd_ioctl.h b/include/linux/kfd_ioctl.h
+index 8a0ed49..96f432c 100644
+--- a/include/linux/kfd_ioctl.h
++++ b/include/linux/kfd_ioctl.h
+@@ -34,9 +34,10 @@
+  * - 1.6 - Query clear flags in SVM get_attr API
+  * - 1.7 - Checkpoint Restore (CRIU) API
+  * - 1.8 - CRIU - Support for SDMA transfers with GTT BOs
++ * - 1.9 - Add available_memory ioctl
+  */
+ #define KFD_IOCTL_MAJOR_VERSION 1
+-#define KFD_IOCTL_MINOR_VERSION 8
++#define KFD_IOCTL_MINOR_VERSION 9
+ 
+ /*
+  * Debug revision change log
+@@ -769,6 +770,16 @@ struct kfd_ioctl_free_memory_of_gpu_args {
+ 	__u64 handle;		/* to KFD */
+ };
+ 
++/* Inquire available memory with kfd_ioctl_get_available_memory
++ *
++ * @available: memory available for alloc
++ */
++struct kfd_ioctl_get_available_memory_args {
++	__u64 available;	/* from KFD */
++	__u32 gpu_id;		/* to KFD */
++	__u32 pad;
++};
++
+ /* Map memory to one or more GPUs
+  *
+  * @handle:                memory handle returned by alloc
+@@ -1327,8 +1338,11 @@ struct kfd_ioctl_set_xnack_mode_args {
+ #define AMDKFD_IOC_CRIU_OP			\
+ 		AMDKFD_IOWR(0x22, struct kfd_ioctl_criu_args)
+ 
++#define AMDKFD_IOC_AVAILABLE_MEMORY            \
++		AMDKFD_IOR(0x23, struct kfd_ioctl_get_available_memory_args)
++
+ #define AMDKFD_COMMAND_START		0x01
+-#define AMDKFD_COMMAND_END		0x23
++#define AMDKFD_COMMAND_END		0x24
+ 
+ /* non-upstream ioctls */
+ #define AMDKFD_IOC_IPC_IMPORT_HANDLE                                    \
+diff --git a/src/memory.c b/src/memory.c
+index 6d2a4f4..8f99589 100644
+--- a/src/memory.c
++++ b/src/memory.c
+@@ -199,6 +199,29 @@ HSAKMT_STATUS HSAKMTAPI hsaKmtFreeMemory(void *MemoryAddress,
+ 	return fmm_release(MemoryAddress);
+ }
+ 
++HSAKMT_STATUS HSAKMTAPI hsaKmtAvailableMemory(HSAuint32 Node, HSAuint64 *AvailableBytes)
++{
++	struct kfd_ioctl_get_available_memory_args args = {};
++	HSAKMT_STATUS result;
++
++	CHECK_KFD_OPEN();
++	CHECK_KFD_MINOR_VERSION(9);
++
++	pr_debug("[%s] node %d\n", __func__, Node);
++
++	result = validate_nodeid(Node, &args.gpu_id);
++	if (result != HSAKMT_STATUS_SUCCESS) {
++		pr_err("[%s] invalid node ID: %d\n", __func__, Node);
++		return result;
++	}
++
++	if (kmtIoctl(kfd_fd, AMDKFD_IOC_AVAILABLE_MEMORY, &args))
++		return HSAKMT_STATUS_ERROR;
++
++	*AvailableBytes = args.available;
++	return HSAKMT_STATUS_SUCCESS;
++}
++
+ HSAKMT_STATUS HSAKMTAPI hsaKmtRegisterMemory(void *MemoryAddress,
+ 					     HSAuint64 MemorySizeInBytes)
+ {
