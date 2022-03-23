@@ -4,115 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC1A3C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 12:01:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD343C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 12:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE3910E6AD;
-	Wed, 23 Mar 2022 12:01:40 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061.outbound.protection.outlook.com [40.107.223.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 442C610E6AD
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 12:01:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MAtb9JT0oIDkVUhvyBgKMLsbWCFkjrbn+8YwNHX4z8N45Mf/lxBpUYIOJt6gxLnygixkJfrZjE/nnYG3HDW+U9+fLAaBJMeLy1XA6aJxBh1G2Zyd1h1DcnwQnM46cnU6KhKk9k0uPYQ4l3x60e+Nlu8DMJCsHKCO+x/7rElIq+c9eXUh+xd3MfwqdeV7FLK7RvO3GMtwSnrZ5D/QwxG8NrQmAe3bB0zD2SApPe8i6RxYD+HE/5eySdjn5BEZ80rQ8HVPAW0nRgULYXFRgK0O7R0cIzmqh7vARtDrHcb1ANlQNpRfcSjcEUZ9iji21i5KtbPkvOIMfAyaxkTFWWH5jA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FOBPFTkmZZP0Fp8KDOMY8LEIUeI/kHftJfphMi36fOE=;
- b=lwCb7cbpuaC05J60m2mBK4quLvzszCoD9H03HecWefnvhjjoijIFTaa710ir+vKshCpN1JitfQaE4b+KHYqHzP7+F/NyqrQ225z86QmNqgmLNvrY5rbLD9qlIOGlCP/zf/M7DjwNDU9lfv4rw9dNfob8a3R5Y+fYaOL7RhCbPUFvPXaMfs0rVS8Z0gonxeTLsNEpCZ8P3kny05GtqJw4g2nEKHbuAfsTsq8/9Dr8UeNyuHu4C+dxnr7/LSd9CKcU1sAfcZfu7JOmQzkD3mkREZa1m0RY84kPWBzYmxVL0jPGbu+sHyfqpnhZL76ohFpT0Ofu4jLKV98cyRvdbuuBkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FOBPFTkmZZP0Fp8KDOMY8LEIUeI/kHftJfphMi36fOE=;
- b=4pI1ZAPoGKoMkzPrAuqoZRmzaXL7K/bzQU4kXsJP3Sm28Yrnd3AImv6ICI72SW+C3nUlBG2nCkSFyEuKz7IhXBcPr9XfHRWRA9It5iPLiEkOyO/JTfUqK5MGq7pjIveBITxsJP+JwOichFsqCtDh59NlKONSR7Ql72hkbABq36U=
-Received: from DM6PR12MB3547.namprd12.prod.outlook.com (2603:10b6:5:18a::20)
- by CY4PR12MB1701.namprd12.prod.outlook.com (2603:10b6:903:121::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.17; Wed, 23 Mar
- 2022 12:01:28 +0000
-Received: from DM6PR12MB3547.namprd12.prod.outlook.com
- ([fe80::fcad:40eb:12c8:977e]) by DM6PR12MB3547.namprd12.prod.outlook.com
- ([fe80::fcad:40eb:12c8:977e%7]) with mapi id 15.20.5102.016; Wed, 23 Mar 2022
- 12:01:27 +0000
-From: "StDenis, Tom" <Tom.StDenis@amd.com>
-To: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 0/6] Complete and add dynamic completion to umr
-Thread-Topic: [PATCH 0/6] Complete and add dynamic completion to umr
-Thread-Index: AQHYPqwG45ELteffLku1HWh8qH2afqzM3f4F
-Date: Wed, 23 Mar 2022 12:01:27 +0000
-Message-ID: <DM6PR12MB354735CF18298BE941AA4DC7F7189@DM6PR12MB3547.namprd12.prod.outlook.com>
-References: <20220323114842.78516-1-luben.tuikov@amd.com>
-In-Reply-To: <20220323114842.78516-1-luben.tuikov@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-23T12:01:27.354Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: 20177e90-2ab2-37f1-47a2-b2f3988a66bf
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 70689e73-1054-4589-a72a-08da0cc4dc85
-x-ms-traffictypediagnostic: CY4PR12MB1701:EE_
-x-microsoft-antispam-prvs: <CY4PR12MB17017048AD18C70ECB9C0AD4F7189@CY4PR12MB1701.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 4hLJde8RF3Ov5ZswsehQT2DyCmjXiTX0H6uA/fEp8GzixLIJH7bfZ0370KIt1X9kSdp6BFZ3EGrbk5TbJwMhmtV4brjTtgA6Z3Xe0I/UywUtZdiNtMF8fCBc5ATHhD7FS0atm7fe/X0geSNjm23QFsB2QN+qTJFGGgrjhOTEQ9bC8WJVqukHll3asPQ8ZOeDzgPRA58J+qzNgQlYWURLK7F8zaTdk9mHqQZQ8NB/xJFV//5KlbZI5nDqUhlIHQ7kEwyRwEpLf447twle7x5YwaDcbJPG8/gKL9lmrcF/FEZTvOaRJbXrfwD7/fVhL47iOprhQ3xNWaFTsdMuFGo31qwNGg0gz0+KpLfOnHJK/iQrS4QUNvuhp4RJxiS0i/69jo1V1OP7Qg4zPjyBB4GKA55Wf1aS1Jx0LikWgIaDcSxaGDtQZLRxETPOmXaKARGJQ2ed3pqBaNPVT0cepZ1VTzh9nUrpewG1bmeehTlvXjwrbRwilNRsvnIukcGFkTX/k0cPypy5oW7SDk6n4S1vIZw14TEqM0kztqjo7g3tblH8BWAfDxmltEc3MoD7MPACdyrIi5JwEjLb8SWxsrN1cqjC3bxmJqi6ZjtmBPlyny7JWqfUbYsd0hYnnMK49jrxfq25W/6Ewk6YwZy37tmoL52UIxGxz3sEn0oNbJULKv9KPsOlq6C7ZP3zVQRynddk7nVW/rCMqGpO0x4fkPFXxQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3547.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6506007)(53546011)(316002)(64756008)(122000001)(110136005)(5660300002)(54906003)(38100700002)(8676002)(4326008)(55016003)(38070700005)(2906002)(52536014)(33656002)(7696005)(8936002)(9686003)(76116006)(66946007)(91956017)(86362001)(66574015)(66446008)(66556008)(66476007)(186003)(71200400001)(83380400001)(508600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?OI5mJ61vYhKrK58i98FaASW5/uTKrkmXc8TuJVSZ9NVcccG1eTHbv63e1s?=
- =?iso-8859-1?Q?oD56sKU7LNG2KghDLkWg2QIlHKNHnsNb1moiGxWrSFIFcFNyHb9Zb0kN2J?=
- =?iso-8859-1?Q?cbXFZGzp8esUAiwfEzsIiBcJYnd5uaekp96gvXpaXRFYgMkg1K3MUp2yLw?=
- =?iso-8859-1?Q?jhgk9Pj4wPtMrLjut6o1ntVbcfVxEnL/0isjjrGMPko2geiAw4os9h/bUa?=
- =?iso-8859-1?Q?IjDSqzu2i5bVHmmfXyzuI9elxn3dD3OI5I+yHUuHdqKAdrBpJZ5wVS4wZG?=
- =?iso-8859-1?Q?TsD98EPAshym5Swgb7It/DstNwefvP6a1m0LWdEBUQ2uzelGmrRvMBV/Ad?=
- =?iso-8859-1?Q?yrV7F37Kk5Tpw/vl3lypaoJEE3b2Je+47IleM1du0M5wGijR666/TB5T7W?=
- =?iso-8859-1?Q?jJXwdfROt4vBnrZ+ISPXaHCoOuwgGWwHbDAcM744BfZWCp0dN5Fr9obc/K?=
- =?iso-8859-1?Q?ddfJgx7Ufm226WewkRBVxu5ltfPQ8utuK37ieWaeGAI+kYUPNI8Alggh2f?=
- =?iso-8859-1?Q?WKU5rr2mxpSfLM0qGAiZSpvh4Q2ar+VT77QZ1z2nBRhkxUV/wWo5ECN3T0?=
- =?iso-8859-1?Q?G1U5Lv1s1Y54awi/x0BCw7r/XlMaMTkr4Uxa/VPvSYbxY3xgk9fK8QiyGC?=
- =?iso-8859-1?Q?m+hVpfO7lbN0Nf5B3y9ZOE2Z8XwdY8WCAbBMwd0vGRpU1mUqAwpKzZfzLL?=
- =?iso-8859-1?Q?4uxZJ2STRmuOuYrsysZDAFBtwqG+fRTZwB0+zwQRh2UFGfW3Tf5ES+DpG7?=
- =?iso-8859-1?Q?HdGzRM1GZMA/igzqAqjnJwGc5m8CzCDHfe1rYFcmo1V9SWLvipNB/LMcLf?=
- =?iso-8859-1?Q?eijiAtPaR/fcHoT9p81mY6Wytp4GQ/uWdXJwjvT/s/R2mcg9BPsSmoIZqh?=
- =?iso-8859-1?Q?MP1au+Uqz3fQcNtlVlQ8D5EPKSc1NfSGddnGQCXRZw4/XBem54FWyfsMr2?=
- =?iso-8859-1?Q?bX7z5bthKgIiJydCtt76umndgPf/xe6ORubppW60D5N2et7OvCgiOFtYdn?=
- =?iso-8859-1?Q?BM+YjXgMQ45zrKXIvZMBwUD+nP2VYsFHecyMxA0ROvCxgUPKa212kEj2WH?=
- =?iso-8859-1?Q?4OUiz7a2XzcskxhTNx0ZRHRDLsgwRmBEfZSv70sGaQZHmPYZQdwu0KlHCF?=
- =?iso-8859-1?Q?ArPIyXZk90991QMRwjT/BNiyxIIMO4LUjDnY8bKyNCzC+pZlG8zOiorhci?=
- =?iso-8859-1?Q?QZPq9IFdOhMpAdSL4HAju68nJI7O1q+v4D09zjI73p3V74n0hViSnqubd1?=
- =?iso-8859-1?Q?rdJTl4npulRRJzfSt0WxNtVAZ5j3Cygeo+XkiCeDGOZPYyMbecqdFyV2p5?=
- =?iso-8859-1?Q?3AC/itxwlvGtnZCRqImrmsTjPKUfACpLmS3OGpg++Dme5RMg9MR5/EpQ1U?=
- =?iso-8859-1?Q?r+oD/4thx5OPikkfYM8Frys8zBHh1MA+pT8cFlwiksfcJ0gzWUU2KJ0Hyi?=
- =?iso-8859-1?Q?8SnVKMevio3MKZ6o5OKi2PvseJUnP9TRgJdMjZh5hpagGBR5x5T/9X/aC4?=
- =?iso-8859-1?Q?8AqltRq1UTxY7yG1tPRqqgAK2w7RtXNRRUAUHWeE5DQUbUsOvTUvJ0pLFh?=
- =?iso-8859-1?Q?R4a06kQ=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E2F210E6CD;
+	Wed, 23 Mar 2022 12:58:04 +0000 (UTC)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC97310E1B9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 12:46:59 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id b19so1937062wrh.11
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 05:46:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=QrnKrN1J0be5aGhbUhpBdOm3mgQtzJ3AbarAe1cgyz4=;
+ b=PNp6vqLvvi186d7HmPfAqbvJGTx7NW1Fx8uwCXWK6FDJi8hDa0A4Obyl0BJlO5+1lB
+ vMizD2ozDTrd1SWvW6k6EbB7UdNw60K8M08R7jTHpovxIB7hs0FOgMsE6ChIt7QkfrIk
+ bTGHkOg+xnrkgrIEahmcKVKPCqZRSxCqwzYZUfEPQXRZLytNNrKHkdlH6ytPTaCbezNf
+ 6KqsyEBPIYlSSPXBmqKdIRnKAWl5fyQw0hqv/fail0P9VB0VcVBOKzUv2UrSnseSFA4P
+ 4qliOHKw8/ytu9CL4ol6/j71Mf3nRJBkXmqtRzicETMnTCLQtXImq4sJeK616gwzDtE4
+ tvGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=QrnKrN1J0be5aGhbUhpBdOm3mgQtzJ3AbarAe1cgyz4=;
+ b=JxwTQ341/YzXu1bDNRnoW208VY7xQ1mBJhGdEwoRgUbTjOTgGjFbtw+azis2Y16avu
+ QqtxN2fANXsOmOxlxQkkpDCngIWduqpPvCe+5gn6o8MZSkdVGHdf5WMsfWUg9HpFAT2y
+ Aqwv2sfzRmDxMYZnkKSYwHxKPs5V2rUEA+zjep2dwUpnWGc5xu/IA04je7/ClTONIzwP
+ weMzE3sDKvfQwuMXaDkaKx+BD82b/GSxKgRxFeESmrifa6mAvm4YoF20UFpe48eF8uGO
+ YMRHeXc9NwrSJ8qmo9nqFUEM2HZHApk50Y2cvjMkt2bZWmvx5h+LfUvY7Eme0htBiklX
+ 42ZQ==
+X-Gm-Message-State: AOAM532piArWQyby1RTyvNoI/pNeK137ksMf2plSWyp+mhXzYPLMd0uU
+ PqzBrJiIqDIuLgmRwwgp9XV68A==
+X-Google-Smtp-Source: ABdhPJzSkUmPOcaKtIxHaouVgmm319CJF0UXHX2JHBimkzdShZYdJ/tai3elVkeKWEBvyUS26e35pw==
+X-Received: by 2002:a5d:64e7:0:b0:205:8cc7:aa82 with SMTP id
+ g7-20020a5d64e7000000b002058cc7aa82mr1486949wri.247.1648039618247; 
+ Wed, 23 Mar 2022 05:46:58 -0700 (PDT)
+Received: from google.com (cpc155339-bagu17-2-0-cust87.1-3.cable.virginm.net.
+ [86.27.177.88]) by smtp.gmail.com with ESMTPSA id
+ o8-20020a5d6488000000b002051f1028f6sm4375837wri.111.2022.03.23.05.46.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Mar 2022 05:46:57 -0700 (PDT)
+Date: Wed, 23 Mar 2022 12:46:55 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: philip yang <yangp@amd.com>
+Subject: Re: [PATCH 1/1] drm/amdkfd: Protect the Client whilst it is being
+ operated on
+Message-ID: <YjsWvy8cT2eOw618@google.com>
+References: <20220317131610.554347-1-lee.jones@linaro.org>
+ <8702f8a5-62a1-c07e-c7b7-e9378be069b6@amd.com>
+ <YjNNCXc8harOvwqe@google.com>
+ <1f003356-3cf9-7237-501e-950d0aa124d1@amd.com>
+ <YjNQA80wkWpy+AmA@google.com>
+ <b65db51e-f1ba-3a9b-0ac1-0b8ae51c5eee@amd.com>
+ <YjNh/Ajxgp3mjvWV@google.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3547.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70689e73-1054-4589-a72a-08da0cc4dc85
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2022 12:01:27.7341 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0rmH6IucjfrU8ULHYrfbV4j+x2lu1wuzKvI2omeCHVrDhGD8C5zvq8Z248ub/XobMn4sZNo2iadlZiJnl9axRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1701
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <YjNh/Ajxgp3mjvWV@google.com>
+X-Mailman-Approved-At: Wed, 23 Mar 2022 12:58:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,65 +78,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Pelloux-Prayer,
- Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: David Airlie <airlied@linux.ie>, Felix Kuehling <felix.kuehling@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+On Thu, 17 Mar 2022, Lee Jones wrote:
 
-Thanks Luben, I've added my Rb and pushed out the series to main.
+> On Thu, 17 Mar 2022, philip yang wrote:
+> 
+> >    On 2022-03-17 11:13 a.m., Lee Jones wrote:
+> > 
+> > On Thu, 17 Mar 2022, Felix Kuehling wrote:
+> > 
+> > 
+> > Am 2022-03-17 um 11:00 schrieb Lee Jones:
+> > 
+> > Good afternoon Felix,
+> > 
+> > Thanks for your review.
+> > 
+> > 
+> > Am 2022-03-17 um 09:16 schrieb Lee Jones:
+> > 
+> > Presently the Client can be freed whilst still in use.
+> > 
+> > Use the already provided lock to prevent this.
+> > 
+> > Cc: Felix Kuehling [1]<Felix.Kuehling@amd.com>
+> > Cc: Alex Deucher [2]<alexander.deucher@amd.com>
+> > Cc: "Christian König" [3]<christian.koenig@amd.com>
+> > Cc: "Pan, Xinhui" [4]<Xinhui.Pan@amd.com>
+> > Cc: David Airlie [5]<airlied@linux.ie>
+> > Cc: Daniel Vetter [6]<daniel@ffwll.ch>
+> > Cc: [7]amd-gfx@lists.freedesktop.org
+> > Cc: [8]dri-devel@lists.freedesktop.org
+> > Signed-off-by: Lee Jones [9]<lee.jones@linaro.org>
+> > ---
+> >    drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 6 ++++++
+> >    1 file changed, 6 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/a
+> > mdkfd/kfd_smi_events.c
+> > index e4beebb1c80a2..3b9ac1e87231f 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> > @@ -145,8 +145,11 @@ static int kfd_smi_ev_release(struct inode *inode, struct f
+> > ile *filep)
+> >         spin_unlock(&dev->smi_lock);
+> >         synchronize_rcu();
+> > +
+> > +       spin_lock(&client->lock);
+> >         kfifo_free(&client->fifo);
+> >         kfree(client);
+> > +       spin_unlock(&client->lock);
+> > 
+> > The spin_unlock is after the spinlock data structure has been freed.
+> > 
+> > Good point.
+> > 
+> > If we go forward with this approach the unlock should perhaps be moved
+> > to just before the kfree().
+> > 
+> > 
+> > There
+> > should be no concurrent users here, since we are freeing the data structure.
+> > If there still are concurrent users at this point, they will crash anyway.
+> > So the locking is unnecessary.
+> > 
+> > The users may well crash, as does the kernel unfortunately.
+> > 
+> > We only get to kfd_smi_ev_release when the file descriptor is closed. User
+> > mode has no way to use the client any more at this point. This function also
+> > removes the client from the dev->smi_cllients list. So no more events will
+> > be added to the client. Therefore it is safe to free the client.
+> > 
+> > If any of the above were not true, it would not be safe to kfree(client).
+> > 
+> > But if it is safe to kfree(client), then there is no need for the locking.
+> > 
+> > I'm not keen to go into too much detail until it's been patched.
+> > 
+> > However, there is a way to free the client while it is still in use.
+> > 
+> > Remember we are multi-threaded.
+> > 
+> >    files_struct->count refcount is used to handle this race, as
+> >    vfs_read/vfs_write takes file refcount and fput calls release only if
+> >    refcount is 1, to guarantee that read/write from user space is finished
+> >    here.
+> > 
+> >    Another race is driver add_event_to_kfifo while closing the handler. We
+> >    use rcu_read_lock in add_event_to_kfifo, and kfd_smi_ev_release calls
+> >    synchronize_rcu to wait for all rcu_read done. So it is safe to call
+> >    kfifo_free(&client->fifo) and kfree(client).
+> 
+> Philip, please reach out to Felix.
 
-Cheers,
-Tom
+Philip, Felix, are you receiving my direct messages?
 
-________________________________________
-From: Tuikov, Luben <Luben.Tuikov@amd.com>
-Sent: Wednesday, March 23, 2022 07:48
-To: amd-gfx@lists.freedesktop.org
-Cc: Tuikov, Luben; Deucher, Alexander; Pelloux-Prayer, Pierre-Eric; StDenis=
-, Tom; Koenig, Christian
-Subject: [PATCH 0/6] Complete and add dynamic completion to umr
+I have a feeling they're being filtered out by AMD's mail server.
 
-Complete and add dynamic completion to umr.
-
-Some of the difficulties seen in this work were,
-
-*) slightly different output of sysfs files depending on the system
-   configuration and the number of controllers in the system.
-
-*) Merging of the IP Discovery sysfs discovery mechanism.
-
-*) The varied and finicky user input strings.
-
-This work was tested on two different systems with different ASICs,
-with three distinct configurations, one of which includes two
-different AMD GPU controllers in the same system.
-
-Luben Tuikov (6):
-  umr: Rename "scripts/umr" --> "scripts/umr-completion.bash"
-  umr: Rename completion function
-  umr: Complete umr completion
-  umr: Replace and reuse asic.ipblock.reg completion
-  umr: Replace and reuse ipblock completion
-  umr: Add FILES section to the man page
-
-Cc: Alex Deucher <Alexander.Deucher@amd.com>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: Tom StDenis <tom.stdenis@amd.com>
-Cc: Christian K=F6nig <christian.koenig@amd.com>
-
- doc/umr.1                   |  13 +-
- scripts/umr                 |  83 --------
- scripts/umr-completion.bash | 402 ++++++++++++++++++++++++++++++++++++
- src/app/CMakeLists.txt      |   2 +-
- 4 files changed, 414 insertions(+), 86 deletions(-)
- delete mode 100644 scripts/umr
- create mode 100644 scripts/umr-completion.bash
-
-
-base-commit: d773ac6b1f529c02d8d2021d69e2dcfad736628d
---
-2.35.1.607.gf01e51a7cf
-
+-- 
+Lee Jones [李琼斯]
+Principal Technical Lead - Developer Services
+Linaro.org │ Open source software for Arm SoCs
+Follow Linaro: Facebook | Twitter | Blog
