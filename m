@@ -4,37 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07A05C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 08:10:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2FEEC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 08:15:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91A1D10E638;
-	Wed, 23 Mar 2022 08:10:09 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3FBF10E633;
- Wed, 23 Mar 2022 08:10:07 +0000 (UTC)
-Received: from [192.168.0.3] (ip5f5ae903.dynamic.kabel-deutschland.de
- [95.90.233.3])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 1DD7661E6478B;
- Wed, 23 Mar 2022 09:10:06 +0100 (CET)
-Message-ID: <6f0888a2-f74d-f41f-d593-a8362e7dc673@molgen.mpg.de>
-Date: Wed, 23 Mar 2022 09:10:05 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4873410E635;
+	Wed, 23 Mar 2022 08:15:02 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2089.outbound.protection.outlook.com [40.107.94.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DC7C10E63A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 08:15:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HRQhlHqOtJzBBvP6N5z8qu1fAAeBW3KJCz/Oihp0u/rZYRyEPF0MTCykSKhRG0HaCrZaYGP6benuFk27Nets/FSqNISn3q/SuGAbQavnqsHxA+7yFGPLh3lrOdechv34eU0JHwoVqn+EnmuPbmS9eFK6h3kJvAaVaj//UYA+2P9iMWHdaZcTmXXvSjWETqFfXYM/zoH5S0fPbfvWtKNS0Sy9NBvF4vIY6PkVnszxOWYbVZMtHXTsU4zd3AeavyGBzfHnr6LMfB1Vfeq4JrJViv1+jiuqPP0d9gEP/tHZ24jLLn8VMPiEvWlHhk4KOP/s/445z/vGN9wwd1qmgvxnVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nQBX3i4Mf0HY8QBQ9OoFs36dnfLGM1cLTHyg1F6TJTg=;
+ b=j5KCSGpzNMNibHyDQNr/J+7wqRgjXs2wy9Ni0pSHBkwXFOcbV1BShgev1RGqkfnVzGNBB5dOc3FYFc+gs5k00tC2xt34KkMKDy/ydz03qrlKWomUzmzqg9wv81evcZpIGMPLlUhEWNXRZixBrel137jN7jtZh+WplghItFUA8BfOcAsN84BYDqUZesPddFB62QRZBgOH1wBG4GghtQAvt7aLuoLQsDSGgdbziab52grfoK6KRH0CZlyN9HuH5RnFi0TyBLxSNd1kiJdQJVJEzg4aXQHEFz82SUcGx4osboiTZprKqNHQc8rb1GeqdUCQiLpqWyXdjqjjje31o6aX9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nQBX3i4Mf0HY8QBQ9OoFs36dnfLGM1cLTHyg1F6TJTg=;
+ b=jiotJpKGwo/ehoMAs5Rs43jWDRT8Ybw2drTnwLNFoT99xbJuUUNMZKr4Xb9DGhAr5FEIyCv7QAwUBsxE5PR/DRwrE4Blb/JFs3Y5QTI5qdYF9atUplBEzMtC5UL1BX+zsqRIrvnvUliTJ4gy4zuzOTwQQscBndoSDcdylleYMNg=
+Received: from MW2PR16CA0001.namprd16.prod.outlook.com (2603:10b6:907::14) by
+ CH0PR12MB5299.namprd12.prod.outlook.com (2603:10b6:610:d6::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5102.17; Wed, 23 Mar 2022 08:14:58 +0000
+Received: from CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:907:0:cafe::ab) by MW2PR16CA0001.outlook.office365.com
+ (2603:10b6:907::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17 via Frontend
+ Transport; Wed, 23 Mar 2022 08:14:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT012.mail.protection.outlook.com (10.13.175.192) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5102.17 via Frontend Transport; Wed, 23 Mar 2022 08:14:57 +0000
+Received: from prike.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 23 Mar
+ 2022 03:14:54 -0500
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: set noretry for gfx 10.3.7
+Date: Wed, 23 Mar 2022 16:11:58 +0800
+Message-ID: <1648023118-29619-1-git-send-email-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Commit messages (was: [PATCH v11] drm/amdgpu: add drm buddy support
- to amdgpu)
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <20220323062552.228429-1-Arunpravin.PaneerSelvam@amd.com>
- <7addb3e7-d265-c1a7-d449-7d0056f06d63@molgen.mpg.de>
- <fc60c561-c12a-c031-9558-abae3e3474ec@amd.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <fc60c561-c12a-c031-9558-abae3e3474ec@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: bf857391-6970-4870-a06e-08da0ca537db
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5299:EE_
+X-Microsoft-Antispam-PRVS: <CH0PR12MB5299649BF20C146AD287083EFB189@CH0PR12MB5299.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tC6N0mGJDKm5RAEsuShEB6jMIz/HOqnK8mZXhA3cQhXOdGfj12D8b3Y5RUzG2Qq421Rys9i0vOmLiEl5miT87zDTRrFNKf59af69V8tsjBhlPd2FpDPYKHq+QfkY34DR2RmdtUwpXlmjKJH9CGPv0PZQWgmuzadY0jfgXNiBYCJwJUjzUhy14YBouiMHXh8wWFnfMRT84uKhvEFIqSv2FMDjctmN09tsKwdf0y1cn92P+lE1MtD9qd45SbjEkn08pGcgsGexojPcl55BcQul5xOrarmpKieww9rD351BLEX0aWFJIKpexqnMKLHY5OrKR567A2295eJyrVtgWS8giznuDE9y/7mC8o34HJTR5un0RYcJq2Z/lg0VjOWNY28yMy5ixU3wPv+3ZLcF34CYlDfAaX65OG8sdj+C3mke05C2hFTSZsEmTe8TPZ5AWQlt/KsB6BUvf5RzUXfwzCW0eQoAI2e2n9e2HL64bficgcX4imM2iC/7rjWugvSPmWju1ZUrpfD3eXaW9CTnY1WXX42GYrhhJL0nmWyO2tlr5XtcHHDltmcc3kt1+jHR9cEf3c4qYwP2lKUfiP0lstCM5Gx2f39TyKrc4XbKJgoDgGck8G2FYfPdz+/KZI+cfo53rGh3pyhNo0O4OEGQxR30tmetLNkAoV2kAnNft4lGiLIv/Shw5H3ob0tN1vq2XKjxTJ/kxxj22T3XqI5Fbd0DIA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(316002)(82310400004)(86362001)(186003)(16526019)(26005)(336012)(54906003)(2616005)(426003)(70206006)(70586007)(6916009)(4326008)(5660300002)(4744005)(36860700001)(8936002)(40460700003)(356005)(81166007)(8676002)(47076005)(2906002)(36756003)(508600001)(7696005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2022 08:14:57.0905 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf857391-6970-4870-a06e-08da0ca537db
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5299
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,79 +97,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- matthew.auld@intel.com
+Cc: Alexander.Deucher@amd.com, yifan1.zhang@amd.com,
+ Prike Liang <Prike.Liang@amd.com>, ray.huang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Christian,
+Disable xnack on the isa gfx10.3.6.
 
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Am 23.03.22 um 08:42 schrieb Christian König:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index e1635a3f2553..a66a0881a934 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -569,6 +569,7 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *adev)
+ 	case IP_VERSION(10, 3, 4):
+ 	case IP_VERSION(10, 3, 5):
+ 	case IP_VERSION(10, 3, 6):
++	case IP_VERSION(10, 3, 7):
+ 		/*
+ 		 * noretry = 0 will cause kfd page fault tests fail
+ 		 * for some ASICs, so set default to 1 for these ASICs.
+-- 
+2.25.1
 
-> Am 23.03.22 um 07:42 schrieb Paul Menzel:
-
->> Am 23.03.22 um 07:25 schrieb Arunpravin Paneer Selvam:
->>> - Remove drm_mm references and replace with drm buddy functionalities
->>
->> The commit message summary to me suggested, you can somehow use both 
->> allocators now. Two suggestions below:
->>
->> 1.  Switch to drm buddy allocator
->> 2.  Use drm buddy alllocator
->>
->>> - Add res cursor support for drm buddy
->>
->> As an allocator switch sounds invasive, could you please extend the 
->> commit message, briefly describing the current situation, saying what 
->> the downsides are, and why the buddy allocator is “better”.
-> 
-> Well, Paul please stop bothering developers with those requests.
-> 
-> It's my job as maintainer to supervise the commit messages and it is 
-> certainly NOT require to explain all the details of the current 
-> situation in a commit message. That is just overkill.
-
-I did not request all the details, and I think my requests are totally 
-reasonable. But let’s change the perspective. If there were not any AMD 
-graphics drivers bug, I would have never needed to look at the code and 
-deal with it. Unfortunately the AMD graphics driver situation – which 
-improved a lot in recent years – with no public documentation, 
-proprietary firmware and complex devices is still not optimal, and a lot 
-of bugs get reported, and I am also hit by bugs, taking time to deal 
-with them, and maybe reporting and helping to analyze them. So to keep 
-your wording, if you would stop bothering users with bugs and requesting 
-their help in fixing them – asking the user to bisect the issue is often 
-the first thing. Actually it should not be unreasonable for customers 
-buying an AMD device to expect get bug free drivers. It’s strange and a 
-sad fact, that the software industry succeeded to sway that valid 
-expectation and customers now except they need to regularly install 
-software updates, and do not get, for example, a price reduction when 
-there are bugs.
-
-Also, as stated everywhere, reviewer time is scarce, so commit authors 
-should make it easy to attract new folks.
-
-> A simple note that we are switching from the drm_mm backend to the buddy 
-> backend is sufficient, and that is exactly what the commit message is 
-> saying here.
-
-Sorry, I disagree. The motivation needs to be part of the commit 
-message. For example see recent discussion on the LWN article 
-*Donenfeld: Random number generator enhancements for Linux 5.17 and 
-5.18* [1].
-
-How much the commit message should be extended, I do not know, but the 
-current state is insufficient (too terse).
-
-
-Kind regards,
-
-Paul
-
-
-[1]: https://lwn.net/Articles/888413/
-      "Donenfeld: Random number generator enhancements for Linux 5.17 
-and 5.18"
