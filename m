@@ -4,111 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB999C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 17:25:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 041AAC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 17:25:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC9E10E17C;
-	Thu, 24 Mar 2022 17:25:28 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2084.outbound.protection.outlook.com [40.107.93.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C742110E01F
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 17:25:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8987510E01F;
+	Thu, 24 Mar 2022 17:25:31 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2061.outbound.protection.outlook.com [40.107.236.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C43710E01F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 17:25:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Pi9oR5MCi8kh6DjeHHgKFkr8MYbitjrsbh2+75QRGoxB9DsAg/n/vHYL1rgq6ooTFTAj4KA2WEqRYJX4GN/8x6Msz80SFKty586wTgGrQT6NCCRkC3XKrX2yZ+my8Hw4/2+neTur0Ua3nXy7ZIyy4/TxcawTH5yZIZ4w98jl2n4fgVF/S37TqeF1S6yAxVT0IJMP8vVQw7au80iuHnOvDwOjMdhZJowWfO/leNlxJxH1ndip01K8aOYuuOjwo9cfeiDo3Gesr4EhZpvMdHtC9MyYUIQUkoJ0m9kLQvhrM/E0ueJjNroeDEKTHA7xHUR7tlDhkTKpZGAKwazgkVxx2g==
+ b=X1+bDAycYysb6lqbJS9B/auBCbs5+0OX3HaJu5LveiKzn4aEAcue2NDLhoyxvlMF/C9pqxF+9xL6mWFqNopByiSyoVWXXJBhfKxnjydqynsQb7wIPHSSWgZ+YcVpvUwhTFQJ5AOhZ0bmMvmvjI5Xf2f+UKmYnDkY2KB/eqHV6D2/tLEWg3KUWwAYzJ9B0OWzdVu78+ISBGFqPRLlNgTD4MO7O93XBVkIxhOKl/y3F+rs91ekj+um0KDYJ6EEhMcghp9c/2FCV0M9t+0r4+dXJ2C8+01avBNknq03Gz4SCH6ePlmdZthjIi4xdxpKHo4A1FJf8Sq1wugA2huLhhjS4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t0dZFvY5WhEiVpTgux4oZk78cj4cVG4/4tPK4oesq7Q=;
- b=Jr92xGv7h+Tgq65rHkhJpWY7jYm2cvvad2vBZGutGwfhGdubY6Tj38di4/mku2Q1UhU/fP2BW54+3XS8fVuoZOJumxDGuaWQFDR92v/OQ9ZpEO+Djz9+12LiuV6x1XuwhaQ26hWi/+E4nIFJQG7k0t8abPNA2l3Ohw4pNHqBwAye9IsDOyk9xBIIbMGrHwWhJhcOLxOyp7GHVCCANKAX1exgZxvBRsTHLQ9ypZlhoVsQDoZsNLFzioJLeeO+lDdzZ0hj1tYoYJ9dZzn38Lx+7cd93JnbvDXFdOwuifhW5cwHuAnMb07r6Tcll6mWgsYC5rqA6muSSQ+erTBiJVoJdQ==
+ bh=KIBtdBSxQgcK3KfCpkesYdMAO3ySStF5brdB9dUCMzA=;
+ b=mD96wiI5/dsMR/W9nKoIOzWzY2wtyKMEL6J03D2Ufi27F2Jzbu/4WGR8dTfFh0/XV5EDLSj3dQAEocvJlYVDZ6fw7zl/xdNQCI4NWo/7XWtkiY2dAgtB4ZbhNpeM6xe/7rRfsZJbdGQw/rqsILZkfbIOG2B8bAGRM8kZywALeq8oQOSwYtnv0S9SxJfAy3a0RAUlt1JdD997eHqGL3uWyBV2pNWaU8fJoOeHjnJ8o/KnQHA2OYzAaQ8Reysuq50DtXI817xxFG/6E76cilj2QfyIGC4U/FHRNhUaNdCzCRnWzUbF2+B9/aWxcVb7QafgBv1NdWtdiMy9Hug32n7XoQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t0dZFvY5WhEiVpTgux4oZk78cj4cVG4/4tPK4oesq7Q=;
- b=UcJiroUydBo3VpDlRzGHq3nbsMQFofKIod9gjuQ0UDjiGhOO0Y8LFxDB0jn8AlhN8xyw9XfqzuJlb/gRDXBZvsLnstdicYQanGekLTpHkp2XehebqqCBcFMwY0Dar6ulC+JYZt/RSdibE7gvTxz8hlRLC4dtgwZWdHSy9ONkTlw=
+ bh=KIBtdBSxQgcK3KfCpkesYdMAO3ySStF5brdB9dUCMzA=;
+ b=ko2SZKdRWDNSb8zKiDJ9trCEBVvcx62XJ3i24/p5Ef4M5GGrbwcbfsztq5YHEuiwaVPj4Xd8iHSm1C+h8Wo9nNfVuj3CgOhgUpLYjKXrnU07CkgIZIZGXO0RyqGki72vMsW2syHsXCHv8CWucXD2QGju1RDlIrKwxGUSYR6/h0I=
 Received: from DM6PR12MB4843.namprd12.prod.outlook.com (2603:10b6:5:1d1::16)
- by DS7PR12MB5888.namprd12.prod.outlook.com (2603:10b6:8:7b::16) with
+ by BL0PR12MB4883.namprd12.prod.outlook.com (2603:10b6:208:1c6::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.18; Thu, 24 Mar
- 2022 17:25:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17; Thu, 24 Mar
+ 2022 17:25:28 +0000
 Received: from DM6PR12MB4843.namprd12.prod.outlook.com
  ([fe80::e1be:20a2:8b06:2366]) by DM6PR12MB4843.namprd12.prod.outlook.com
  ([fe80::e1be:20a2:8b06:2366%5]) with mapi id 15.20.5081.023; Thu, 24 Mar 2022
- 17:25:24 +0000
+ 17:25:27 +0000
 From: "Zhang, Boyuan" <Boyuan.Zhang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V2] drm/amdgpu/vcn3: send smu interface type
-Thread-Topic: [PATCH V2] drm/amdgpu/vcn3: send smu interface type
-Thread-Index: Adg/opkFnx88RrSfRM6GR+M7HG+yjg==
-Date: Thu, 24 Mar 2022 17:25:24 +0000
-Message-ID: <DM6PR12MB4843192241F9620519190F0487199@DM6PR12MB4843.namprd12.prod.outlook.com>
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+Subject: RE: [PATCH] drm/amdgpu/vcn3: send smu interface type
+Thread-Topic: [PATCH] drm/amdgpu/vcn3: send smu interface type
+Thread-Index: AQHYPytWfeOru7iEvEysGt3V8dFBUazOCTkAgAC+ORA=
+Date: Thu, 24 Mar 2022 17:25:27 +0000
+Message-ID: <DM6PR12MB48430AF058836E21C14D663E87199@DM6PR12MB4843.namprd12.prod.outlook.com>
+References: <20220324025914.718674-1-yifan1.zhang@amd.com>
+ <803cd706-a162-9dc7-1e9f-7e72ad70d0f3@molgen.mpg.de>
+In-Reply-To: <803cd706-a162-9dc7-1e9f-7e72ad70d0f3@molgen.mpg.de>
 Accept-Language: en-CA, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=4799333a-87ef-41ff-a310-006ac5b969a4;
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=f3fbe587-91f0-4421-b64e-ea4e12cd137d;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
  Official Use Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-24T17:09:45Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-24T17:16:25Z;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-x-bromium-msgid: 9cb6d408-38fa-4359-a962-3b197b33394c
+x-bromium-msgid: f788acad-ebf6-464b-bfc2-f2b479658318
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9a3503b3-9de5-4c00-ea4a-08da0dbb4850
-x-ms-traffictypediagnostic: DS7PR12MB5888:EE_
-x-microsoft-antispam-prvs: <DS7PR12MB5888C44A27C832B830093AEE87199@DS7PR12MB5888.namprd12.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: 305faf47-5a4c-4110-0788-08da0dbb4a1d
+x-ms-traffictypediagnostic: BL0PR12MB4883:EE_
+x-microsoft-antispam-prvs: <BL0PR12MB48831633C26AA95D5746AD3787199@BL0PR12MB4883.namprd12.prod.outlook.com>
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 77dCW/P+In3Z6O83d8dh185eH+WWjEa6b2XZfqf9xF2ChfPccO39NDgWfKucxTDyXpajOc6A1GVjj1Z07fVexqe7PBHUWGDka+f4Jqp68+LywkaRui3T7CO3LT1u5VYAyzhWF62IRDyX+bt4uZ0RpA/VgQd/CjKjx2jDVkLUN7vc8VWUUC3ikN4rx3UrPTYNfJh1HKAQWrqpKEJBxU0WPuuouX64U7NFZbTdo7rjwSHIFGcqI5zcPqOzregCAGkODFi+xIV10mw/at6hOj9nnudniKYezr3Wr2nW4NW7zs59+JtnlsCTODJblO1PG5NjCcS0qJYlsqd0b4HmZthWr2WxYc/OSZION4j4RsZpPmK9Em7MYqP1v/gFPT+nEHM/nL0NewrPeUZqnMdogvToYT7/nYx+BmZ5RQrK16atR8wTv+qIerYp/1VinP1OJZGmXk0473EIeozxgwDRpQpM0t5LQG18ZtZnay26WwJMQiuLdbN2891ebAENUuoatdHWw8YmaNWq/O2xGY01/F7o8FlBfjpodI7UEAZrraLzXa/jdzcvsNy/8p52PWCfEenO/WYp9PQoIBNhvM2N7Z/DY2EdteTdpDujnR3vUX3YPd1x+MyPfkCfITToBu06uv8D+Ov9sEs8dZO3QsaLzHBPEJ6fAJgsZ55D3ocfLhWA6YQlZBsTGkZbS32FL7Pp9GRa1VnqSxRnfcwU7xsIvJrXOA==
+x-microsoft-antispam-message-info: oiwph9OEvuU5HjMA7CtScvLh5WIfMcdZdpwgV9tOkFic2HR09+M3LWXPdVKLSORMhCTx5tgi3VmjqCeFY9ogIs+IYCey15EVD+JXZI2MC7ZONca8U3fRZkVEvqYhXc1lL6XmdIR4IdaQPbLtnIPPttqRIdOC8jZ3/vDUbFvqEQqwCTxyuOhU88uxz+booOt5KiANac7OmPzfiIu6eHnsBolSUm2CaL09Pf0Ni57R54nYD4nsTqyNUUOU9ZD1vXSMOkxeAeAOHCd13pmyVFBuofUuvM6F4qTPD+CGBJ/yQfi6aqvgsQtbI8AwWVpfpSQsTOgwCjerUFP3L30cMHTiOPSmev06fNHZGaaKPqrLCeCoiW8aCAdCMsbBUlvpgyDwNg6Yf0LZd2nczsqAvXiFFl+aCBqJO2I1f9abukVzXemj0PH6sxysuVs0SPt5kAcSGNckNZWEAfsmlWCbAKbnKVDGq5WuxAZIxZJDO8ojRPGUKsfqGEIa7fa8n8JW3nB6bboAtPKnCUSHZgbwwJK9fHXRjRBnHkI1U1kqlcz/bVnOpKJwP06+wGaMf+py+8X22BxKDeXj5qQSlb9s6UD/cmjMwDBl48fqns3bfNPP219Fu9JENHFMpmYvjBnoQxjM7RqBhID91HqcXVhv3fWqb892K66it7eUDSUEUEHaP7hhoVvN/L+CVoOKlhlosHTVEgjWiTogCXuaczHD9zIL+Q==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4843.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(122000001)(8676002)(38070700005)(5660300002)(86362001)(52536014)(54906003)(6916009)(83380400001)(316002)(71200400001)(7696005)(6506007)(66946007)(4326008)(66446008)(76116006)(66556008)(66476007)(64756008)(8936002)(186003)(26005)(38100700002)(33656002)(508600001)(9686003)(2906002)(55016003);
+ SFS:(13230001)(4636009)(366004)(33656002)(8676002)(64756008)(66446008)(6916009)(76116006)(316002)(66946007)(66556008)(66476007)(54906003)(38100700002)(38070700005)(55016003)(508600001)(4326008)(71200400001)(86362001)(52536014)(2906002)(122000001)(8936002)(186003)(5660300002)(26005)(83380400001)(9686003)(7696005)(6506007)(53546011);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wHcRTAc8VT93+Tbqp96yl61rfrMuRJUZ8P/qcQQhwieI9jtUZeIYF2N908Yz?=
- =?us-ascii?Q?prwCAfW8jZNEKLVSrPtmRwKTdcN8zl2mR7uGNX3yERGhaFr749x56sOcLcFX?=
- =?us-ascii?Q?q+fL1mJxFAZEOx84kZ6cqqrtOuuvSr3PnyYaS+SIZv5gyPG4Jf8PWHu5eoZ7?=
- =?us-ascii?Q?jUG1imEObx3fG/beUTm0Yb1Tdj0jcDZa4LAYTjQl1NekYgSNaXB0oBZKFLFH?=
- =?us-ascii?Q?snGSGNujW7BwSFMqhDBkJkSHQPDs78RFN3Xm+CnFgm73wl5MIAUCFQPrce9t?=
- =?us-ascii?Q?f7wf5j16Qu6OhBRNXX2gf3N4S9kSRErTVOhbcmJlo9jMyaIsGv4jrz3TLiks?=
- =?us-ascii?Q?o5Ww/IAk35X3o78Bn8W4RTAC4Yc+DKFvG6xRkzpDf+fpbR8qjJwUvVKtGLAr?=
- =?us-ascii?Q?ysaOZgR4fbBpOqSckeu5BRI/S5K+yr1aP2jC+yB9iIjyCN+mx6GgB5I8g6nZ?=
- =?us-ascii?Q?yO4oLGkMCmWvfSI+YeWTP4vPPKcSvewxe051eJeerJIKHCab5Ftrpu8qor0S?=
- =?us-ascii?Q?l2K3niMwuV3OBtEYHAcJxeHXON+Bv/amc5EDrNUj0KIYbPeBk8e103yFbyv1?=
- =?us-ascii?Q?m92sB9TLM9oowUvMZZSEsvfepTGkBf2mNJ3+vrTB6p3TacCg4Be7ZFDECcK2?=
- =?us-ascii?Q?kqyysSsrQoLQiq+zgB9LHQkYJn/QrBrrvwHsh4K52eYzbpEgOSQCkFx0TaKz?=
- =?us-ascii?Q?8FcTA4pPREveMZzWp0RUmwHM7hDOF6ymwOVyR3cHqMge8Ri9zEQSlmafXI7P?=
- =?us-ascii?Q?ktYfqRiujB76EMfB5Enzk32mq4uc822PWqwWyV37FQR5OxoHDm1SiP+NAZUD?=
- =?us-ascii?Q?fzjOlvUVynDsmX1uBpMyAzJl3ODWuPh0ybaF/Kw1LWhgSqj260UQw5EsAJl7?=
- =?us-ascii?Q?1HqbRI24lRQX4tRRkeFbK7ewACij5QvlvqhnSUOuXCsoRBzZtEhruHzr6jzS?=
- =?us-ascii?Q?y6HtA6FCvtz1E32il2mpSH8B8TvP+2fPiXktsuiiMaZQtRVMwHHkjrtzfraf?=
- =?us-ascii?Q?WtlumRA/fw5m4NQkVx705s1UJQlIcPwjvUbEFiGkOXlJdJ5bza1XRyUKFsT5?=
- =?us-ascii?Q?aI0991wPbbuR60mCjbYR+OgBIDcpI/yS+Cs12xJu+ec8ugePUdVmEkBgtk43?=
- =?us-ascii?Q?ECo2JUn2X7MCnikVt4ZwHaGg5ntF00HdqECMFbl2RsavmueouLVSaf947kVk?=
- =?us-ascii?Q?0wuZQ2mGgYY/u/3AoDVkafUUUpdVHr0eswK+ZQHSeld6N4OSzihs2vm1KNAp?=
- =?us-ascii?Q?Huixvame5aNNjLuoHb/2qgUtNHdmtLhDWjrjIsEYbPxmXplfXBHirM83xVzx?=
- =?us-ascii?Q?sxOuxVz0wcaCeBx83geoStPkNsnqvcyoxuVNwkIYdlsRogteZkhUsg9RoQG/?=
- =?us-ascii?Q?o3tQVpMmqYB/NE5QD4ugfOTH7k0VOOR+Qg7oAqvFlccBnvwBrxpC58IBxHpP?=
- =?us-ascii?Q?u4sDM8twuSO43HHK3V0jvMFYEQvSVwt6?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB4843192241F9620519190F0487199DM6PR12MB4843namp_"
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dHhZNjE0eUt4NDJaZzV2L0t4bTlmUG14SVJXb1gvME55WUNNMXdjVkEzZ28y?=
+ =?utf-8?B?U3BNamtJbTN1MFN3NUUxZmdrVXIyR1p1L2hEZXFHVEVzbzZ3TGVYaDRVbXk0?=
+ =?utf-8?B?UGVVRXZ3S25sb3BXS0FkWXhldkFmVnR3dGRydG1PTWF6SHlHRWhZaGFNTHNk?=
+ =?utf-8?B?bUxaNVYxeDkrb0lqZEgxOG53aEpmUGlMYUpQS2ZsNXZ1Tk5zdHd0dkdEbTZs?=
+ =?utf-8?B?NzdUdmFCN1NzUHVOUjMyRTNzMTdmdHdPcmdaRXdwU0wwK0ovRmozVkd3cnBF?=
+ =?utf-8?B?OGhyYzI1L0NHaHA2NUt6azlmekY0NFZmcU1pREJraVVsUXZZcXBhY0tZQm5Z?=
+ =?utf-8?B?cERhVHh2UFlTQkNqRzg4ZTR2RmVYVTcxd2R0aTNxR0RsbTk4M3c3bVZHaGI2?=
+ =?utf-8?B?dkNoajZ4NzExbzNDNXk3dzdvZFk0TjVqdmg3NDBtY2lneFg5WCtzMUVjSTIw?=
+ =?utf-8?B?QmlhQmRKeCsySy94S3RWaURjWWV0Tk9Uc0wvbjE1cUNEVVRFdmhzSEZheklO?=
+ =?utf-8?B?Qm1mTVpqdlNuSzJmTjFoeTRwRVJCWTk0U1FQS1FhZDJybi9sKytOcElpUXJC?=
+ =?utf-8?B?bkdUdEpKRVRWU3ZrZXVJdmpUMDV6akhGS1A3TG9xeUZhU3F6WEF1SVhWTWRp?=
+ =?utf-8?B?Z3RENVBiMUhmVnlld3NXQVBvYnJrT1lkbEhldDY0TG1YdHltYklFN01yWCs1?=
+ =?utf-8?B?MFZtTWIyVmFKclFKTCtVVzdBby9WNjJpWitIUTVLK0hxMy9abkk0VHIwdlFN?=
+ =?utf-8?B?VkJzRDlIdllDRWJnNmRFTUwzSjc4bzJ0U0M2emRWRnlBSENZYjBiRlVjS1py?=
+ =?utf-8?B?TVFpM1VyYzlCMFg5a3lQYjhXVlpDaUFMSk9tV3hhemRZRzRpSnlKa05UYnJz?=
+ =?utf-8?B?M2JZdml4eVJjdHU3Z0ZSbXZzVEROR2xXTXBUbndUQVRqQ0pMTExoUWFtNVZR?=
+ =?utf-8?B?N2EzOFNkUnN3WEdKK1dMVG01cDRyYjBneVo2a3VoZFBadXBMM1ZSVEZibU5E?=
+ =?utf-8?B?ZW5zdEU2bTNtRm1YdXY1RXl4b1ZONjhxQU0vUmxJeENHbWoxV0pKKzZMcm12?=
+ =?utf-8?B?WGt6ZHRUTkNYcnprUFRaeE9jVWJPOGhjWUJZQnBtTWNablZOK2M1Tm9iemps?=
+ =?utf-8?B?UVRySFZockxZdXY5TEEvU2tBdnpRS1NRN0tNckw3WUpQdVpvbm5jMk9zaVdJ?=
+ =?utf-8?B?ZGVYREJPTjFqNDdnQmtKSnA3M1psSXlMOXFFeVdaejZQcFVTMnJyU1RUeXRh?=
+ =?utf-8?B?TFYzK25lTExycW01SW9EUkRFSUM2bzEzdkROb1VvWmhlRmdmcWxPUVpTYkVB?=
+ =?utf-8?B?MWVEQ2hHS1VwSThLT1gwMWVYcE53NnF3azJuQk1TTXgzTnduTWZFTjRDcGFh?=
+ =?utf-8?B?eVk1T2ZMekRvVXNUem10OGlhcFVwTGpJeTdFRmc2d0JPQmdFSXl4RHdQVHZx?=
+ =?utf-8?B?VGgwQjBieWFVeDZKY2Q5V2g4WkV4ODBaTlF4S1JiQU05MW8yWXV4NTUzd0Iw?=
+ =?utf-8?B?ek5IekhFbjdGVTBEMXFUalRiT096dG43RC9IbXFDbThZeVpoMHBzdGNDdkJU?=
+ =?utf-8?B?cXR0U0xNNDFWNjJvVzA1bWxONjRSb0d5YXZhV05uQ0NoYXo4NXNZdFF6YnBH?=
+ =?utf-8?B?c1kvNlB6Rk4veEZTN0dVSG1Ga0VZSndOQUloZ1ZBN1c5ckFvN1NJazdXYUpo?=
+ =?utf-8?B?WFQzWVFzd3ovOG5YYVluMDhMckxwMGtTS1lyWGFCLzJobGNQdFhxVVRZdFA5?=
+ =?utf-8?B?ZEdGU291a0p0TzJUdjhEUC9SVmRDYVFmZzZpM3FURDdvUHBwMkNRZVc1YWNK?=
+ =?utf-8?B?Z2pzVzlzQWFjTXFhZWRVcEtrWHJxREFNMGJDV3Q3NytoUllZZlVJTDdKYUdP?=
+ =?utf-8?B?VXM4T3hnWU9nSnZkY2hNOGFaUVNhUUp2WWlWcTdUSEUvWUppZURtWFJBcExt?=
+ =?utf-8?Q?CNCBbEaDGuQe8TG4e706VRjR3GkzZ852?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4843.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a3503b3-9de5-4c00-ea4a-08da0dbb4850
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2022 17:25:24.8404 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 305faf47-5a4c-4110-0788-08da0dbb4a1d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2022 17:25:27.8402 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: M3MTSRmab6kCXH7H0XkCTRMd6MRWk23tauk7Tq38/DBH+8lFs31WveccpJVCF0DtNR/zCq1Sdff/0Dqx26sQ7g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5888
+X-MS-Exchange-CrossTenant-userprincipalname: zF2eHe5kU5NhFyabjVXXTm2Q4rLaLzpbNNgLmybaBlfkBjAub90ddVHOYjuc/MwGIXy02YaTN7cHSs+Y2iPQxg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4883
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,329 +131,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>, "Zhang, Yifan" <Yifan1.Zhang@amd.com>,
- "Zhang, 
- Boyuan" <Boyuan.Zhang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>
+Cc: "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Zhang, Yifan" <Yifan1.Zhang@amd.com>,
+ "Huang, Ray" <Ray.Huang@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB4843192241F9620519190F0487199DM6PR12MB4843namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only]
-
-From: Boyuan Zhang <boyuan.zhang@amd.com<mailto:boyuan.zhang@amd.com>>
-
-For VCN FW to detect ASIC type, in order to use different mailbox registers=
-.
-
-V2: simplify codes and fix format issue.
-
-Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com<mailto:boyuan.zhang@amd.c=
-om>>
-Acked-by Huang Rui <ray.huang@amd.com>
----
-drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h | 7 +++++++
-drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 5 +++++
-2 files changed, 12 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vcn.h
-index e2fde88aaf5e..f06fb7f882e2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -159,6 +159,7 @@
-#define AMDGPU_VCN_MULTI_QUEUE_FLAG   (1 << 8)
-#define AMDGPU_VCN_SW_RING_FLAG                              (1 << 9)
-#define AMDGPU_VCN_FW_LOGGING_FLAG     (1 << 10)
-+#define AMDGPU_VCN_SMU_VERSION_INFO_FLAG (1 << 11)
- #define AMDGPU_VCN_IB_FLAG_DECODE_BUFFER        0x00000001
-#define AMDGPU_VCN_CMD_FLAG_MSG_BUFFER                         0x00000001
-@@ -279,6 +280,11 @@ struct amdgpu_fw_shared_fw_logging {
-               uint32_t size;
-};
-+struct amdgpu_fw_shared_smu_interface_info {
-+             uint8_t smu_interface_type;
-+             uint8_t padding[3];
-+};
-+
-struct amdgpu_fw_shared {
-               uint32_t present_flag_0;
-               uint8_t pad[44];
-@@ -287,6 +293,7 @@ struct amdgpu_fw_shared {
-               struct amdgpu_fw_shared_multi_queue multi_queue;
-               struct amdgpu_fw_shared_sw_ring sw_ring;
-               struct amdgpu_fw_shared_fw_logging fw_log;
-+             struct amdgpu_fw_shared_smu_interface_info smu_interface_info=
-;
-};
- struct amdgpu_vcn_fwlog {
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/am=
-dgpu/vcn_v3_0.c
-index b16c56aa2d22..9925b2bc63b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -219,6 +219,11 @@ static int vcn_v3_0_sw_init(void *handle)
-                                                                           =
-         cpu_to_le32(AMDGPU_VCN_MULTI_QUEUE_FLAG) |
-                                                                           =
-         cpu_to_le32(AMDGPU_VCN_FW_SHARED_FLAG_0_RB);
-                               fw_shared->sw_ring.is_enabled =3D cpu_to_le3=
-2(DEC_SW_RING_ENABLED);
-+                             fw_shared->present_flag_0 |=3D AMDGPU_VCN_SMU=
-_VERSION_INFO_FLAG;
-+                             if (adev->ip_versions[UVD_HWIP][0] =3D=3D IP_=
-VERSION(3, 1, 2))
-+                                             fw_shared->smu_interface_info=
-.smu_interface_type =3D 2;
-+                             else if (adev->ip_versions[UVD_HWIP][0] =3D=
-=3D IP_VERSION(3, 1, 1))
-+                                             fw_shared->smu_interface_info=
-.smu_interface_type =3D 1;
-                                if (amdgpu_vcnfw_log)
-                                               amdgpu_vcn_fwlog_init(&adev-=
->vcn.inst[i]);
---
-2.25.1
-
-
-
---_000_DM6PR12MB4843192241F9620519190F0487199DM6PR12MB4843namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-CA" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal" style=3D"text-autospace:none">From: Boyuan Zhang &lt=
-;<a href=3D"mailto:boyuan.zhang@amd.com"><span style=3D"color:windowtext;te=
-xt-decoration:none">boyuan.zhang@amd.com</span></a>&gt;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">For VCN FW to detect A=
-SIC type, in order to use different mailbox registers.<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">V2: simplify codes and=
- fix format issue.<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">Signed-off-by: Boyuan =
-Zhang &lt;<a href=3D"mailto:boyuan.zhang@amd.com"><span style=3D"color:wind=
-owtext;text-decoration:none">boyuan.zhang@amd.com</span></a>&gt;<o:p></o:p>=
-</p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">Acked-by Huang Rui &lt=
-;ray.huang@amd.com&gt;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">---<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">drivers/gpu/drm/amd/am=
-dgpu/amdgpu_vcn.h | 7 +++++++<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">drivers/gpu/drm/amd/am=
-dgpu/vcn_v3_0.c&nbsp;&nbsp; | 5 +++++<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">2 files changed, 12 in=
-sertions(+)<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">diff --git a/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h<o:=
-p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">index e2fde88aaf5e..f0=
-6fb7f882e2 100644<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">--- a/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_vcn.h<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+++ b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_vcn.h<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">@@ -159,6 +159,7 @@<o:=
-p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">#define AMDGPU_VCN_MUL=
-TI_QUEUE_FLAG&nbsp;&nbsp; (1 &lt;&lt; 8)<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">#define AMDGPU_VCN_SW_=
-RING_FLAG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 9)<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">#define AMDGPU_VCN_FW_=
-LOGGING_FLAG&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 10)<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+#define AMDGPU_VCN_SM=
-U_VERSION_INFO_FLAG (1 &lt;&lt; 11)<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none"><o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;#define AMDGPU_V=
-CN_IB_FLAG_DECODE_BUFFER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x000000=
-01<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">#define AMDGPU_VCN_CMD=
-_FLAG_MSG_BUFFER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; 0x00000001<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">@@ -279,6 +280,11 @@ s=
-truct amdgpu_fw_shared_fw_logging {<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t siz=
-e;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">};<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none"><o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+struct amdgpu_fw_shar=
-ed_smu_interface_info {<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t smu_interface_t=
-ype;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t padding[3];<o:p=
-></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+};<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">struct amdgpu_fw_share=
-d {<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t pre=
-sent_flag_0;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t pad[=
-44];<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">@@ -287,6 +293,7 @@ st=
-ruct amdgpu_fw_shared {<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgp=
-u_fw_shared_multi_queue multi_queue;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgp=
-u_fw_shared_sw_ring sw_ring;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgp=
-u_fw_shared_fw_logging fw_log;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_fw_shared=
-_smu_interface_info smu_interface_info;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">};<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none"><o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;struct amdgpu_vc=
-n_fwlog {<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">diff --git a/drivers/g=
-pu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c<o:p></=
-o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">index b16c56aa2d22..99=
-25b2bc63b9 100644<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">--- a/drivers/gpu/drm/=
-amd/amdgpu/vcn_v3_0.c<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+++ b/drivers/gpu/drm/=
-amd/amdgpu/vcn_v3_0.c<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">@@ -219,6 +219,11 @@ s=
-tatic int vcn_v3_0_sw_init(void *handle)<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;cpu_to_le32(AMDGPU_VCN_MULTI_QUEUE_FLAG) |<o:p><=
-/o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;cpu_to_le32(AMDGPU_VCN_FW_SHARED_FLAG_0_RB);<o:p=
-></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; fw_shared-&gt;sw_ring.is_enabled =3D cpu_to_le32(DEC_SW_RING_ENABL=
-ED);<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw=
-_shared-&gt;present_flag_0 |=3D AMDGPU_VCN_SMU_VERSION_INFO_FLAG;<o:p></o:p=
-></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if=
- (adev-&gt;ip_versions[UVD_HWIP][0] =3D=3D IP_VERSION(3, 1, 2))<o:p></o:p><=
-/p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; fw_shared-&gt;smu_interface_info.smu_interface_type =3D =
-2;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; el=
-se if (adev-&gt;ip_versions[UVD_HWIP][0] =3D=3D IP_VERSION(3, 1, 1))<o:p></=
-o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">+&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; fw_shared-&gt;smu_interface_info.smu_interface_type =3D =
-1;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none"><o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (amdgpu_vcnfw_log)<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vcn_fwlog_init(&amp;adev-&gt;vcn.inst[=
-i]);<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">-- <o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none">2.25.1<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal" style=3D"text-autospace:none"><o:p>&nbsp;</o:p></p>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB4843192241F9620519190F0487199DM6PR12MB4843namp_--
+W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KSGkgUGF1bCwNCg0KVGhpcyBjaGFuZ2UgaXMgdG8g
+ZGlmZmVyZW50aWF0ZSBkZXZpY2UgKElQX1ZFUlNJT04oMywgMSwgMikpIGFuZCBkZXZpY2UgKElQ
+X1ZFUlNJT04oMywgMSwgMSkpLCBzaW5jZSB0aGV5IGFyZSB1c2luZyBkaWZmZXJlbnQgbWFpbGJv
+eCByZWdpc3RlcnMgZm9yIFZDTiBEUE0uIFRoZXJlIGlzIG5vIG90aGVyIGltcGFjdCBmb3IgVkNO
+Lg0KDQpBbmQgdGhhbmsgZm9yIHBvaW50aW5nIG91dCB0aGUgZm9ybWF0IGlzc3VlLiBJIGp1c3Qg
+c2VudCBvdXQgVjIuIFBsZWFzZSBoYXZlIGEgbG9vay4NCg0KUmVnYXJkcywNCkJveXVhbg0KDQot
+LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogUGF1bCBNZW56ZWwgPHBtZW56ZWxAbW9s
+Z2VuLm1wZy5kZT4NClNlbnQ6IE1hcmNoIDI0LCAyMDIyIDE6NTYgQU0NClRvOiBaaGFuZywgWWlm
+YW4gPFlpZmFuMS5aaGFuZ0BhbWQuY29tPjsgWmhhbmcsIEJveXVhbiA8Qm95dWFuLlpoYW5nQGFt
+ZC5jb20+DQpDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IERldWNoZXIsIEFsZXhh
+bmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEh1YW5nLCBSYXkgPFJheS5IdWFuZ0Bh
+bWQuY29tPg0KU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdS92Y24zOiBzZW5kIHNtdSBp
+bnRlcmZhY2UgdHlwZQ0KDQpEZWFyIFlpZmFuLCBkZWFyIEJveXVhbiwNCg0KDQpBbSAyNC4wMy4y
+MiB1bSAwMzo1OSBzY2hyaWViIFlpZmFuIFpoYW5nOg0KPiBGcm9tOiBCb3l1YW4gWmhhbmcgPGJv
+eXVhbi56aGFuZ0BhbWQuY29tPg0KPg0KPiBGb3IgVkNOIEZXIHRvIGRldGVjdCBBU0lDIHR5cGUN
+Cg0KV2hhdCBhZmZlY3QgZG9lcyB0aGlzIGhhdmU/IEhvdyBkb2VzIFZDTiBGVyBiZWhhdmUgZGlm
+ZmVyZW50IG5vdz8NCg0KPiBTaWduZWQtb2ZmLWJ5OiBCb3l1YW4gWmhhbmcgPGJveXVhbi56aGFu
+Z0BhbWQuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBZaWZhbiBaaGFuZyA8eWlmYW4xLnpoYW5nQGFt
+ZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24u
+aCB8IDcgKysrKysrKw0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92M18wLmMg
+ICB8IDcgKysrKysrKw0KPiAgIDIgZmlsZXMgY2hhbmdlZCwgMTQgaW5zZXJ0aW9ucygrKQ0KPg0K
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5oIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5oDQo+IGluZGV4IGUyZmRlODhh
+YWY1ZS4uZjA2ZmI3Zjg4MmUyIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdmNuLmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3Zjbi5oDQo+IEBAIC0xNTksNiArMTU5LDcgQEANCj4gICAjZGVmaW5lIEFNREdQVV9WQ05f
+TVVMVElfUVVFVUVfRkxBRyAoMSA8PCA4KQ0KPiAgICNkZWZpbmUgQU1ER1BVX1ZDTl9TV19SSU5H
+X0ZMQUcgICAgICAgICAgICAgKDEgPDwgOSkNCj4gICAjZGVmaW5lIEFNREdQVV9WQ05fRldfTE9H
+R0lOR19GTEFHICAoMSA8PCAxMCkNCj4gKyNkZWZpbmUgQU1ER1BVX1ZDTl9TTVVfVkVSU0lPTl9J
+TkZPX0ZMQUcgKDEgPDwgMTEpDQo+DQo+ICAgI2RlZmluZSBBTURHUFVfVkNOX0lCX0ZMQUdfREVD
+T0RFX0JVRkZFUiAgICAweDAwMDAwMDAxDQo+ICAgI2RlZmluZSBBTURHUFVfVkNOX0NNRF9GTEFH
+X01TR19CVUZGRVIgICAgICAgICAgICAgIDB4MDAwMDAwMDENCj4gQEAgLTI3OSw2ICsyODAsMTEg
+QEAgc3RydWN0IGFtZGdwdV9md19zaGFyZWRfZndfbG9nZ2luZyB7DQo+ICAgICAgIHVpbnQzMl90
+IHNpemU7DQo+ICAgfTsNCj4NCj4gK3N0cnVjdCBhbWRncHVfZndfc2hhcmVkX3NtdV9pbnRlcmZh
+Y2VfaW5mbyB7DQo+ICsgICAgIHVpbnQ4X3Qgc211X2ludGVyZmFjZV90eXBlOw0KPiArICAgICB1
+aW50OF90IHBhZGRpbmdbM107DQo+ICt9Ow0KPiArDQo+ICAgc3RydWN0IGFtZGdwdV9md19zaGFy
+ZWQgew0KPiAgICAgICB1aW50MzJfdCBwcmVzZW50X2ZsYWdfMDsNCj4gICAgICAgdWludDhfdCBw
+YWRbNDRdOw0KPiBAQCAtMjg3LDYgKzI5Myw3IEBAIHN0cnVjdCBhbWRncHVfZndfc2hhcmVkIHsN
+Cj4gICAgICAgc3RydWN0IGFtZGdwdV9md19zaGFyZWRfbXVsdGlfcXVldWUgbXVsdGlfcXVldWU7
+DQo+ICAgICAgIHN0cnVjdCBhbWRncHVfZndfc2hhcmVkX3N3X3Jpbmcgc3dfcmluZzsNCj4gICAg
+ICAgc3RydWN0IGFtZGdwdV9md19zaGFyZWRfZndfbG9nZ2luZyBmd19sb2c7DQo+ICsgICAgIHN0
+cnVjdCBhbWRncHVfZndfc2hhcmVkX3NtdV9pbnRlcmZhY2VfaW5mbyBzbXVfaW50ZXJmYWNlX2lu
+Zm87DQo+ICAgfTsNCj4NCj4gICBzdHJ1Y3QgYW1kZ3B1X3Zjbl9md2xvZyB7DQo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjNfMC5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvdmNuX3YzXzAuYw0KPiBpbmRleCBiMTZjNTZhYTJkMjIuLmM1YmY3Y2Jm
+YTgyYyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YzXzAu
+Yw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjNfMC5jDQo+IEBAIC0y
+MTksNiArMjE5LDEzIEBAIHN0YXRpYyBpbnQgdmNuX3YzXzBfc3dfaW5pdCh2b2lkICpoYW5kbGUp
+DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjcHVfdG9fbGUz
+MihBTURHUFVfVkNOX01VTFRJX1FVRVVFX0ZMQUcpIHwNCj4gICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGNwdV90b19sZTMyKEFNREdQVV9WQ05fRldfU0hBUkVEX0ZM
+QUdfMF9SQik7DQo+ICAgICAgICAgICAgICAgZndfc2hhcmVkLT5zd19yaW5nLmlzX2VuYWJsZWQg
+PSBjcHVfdG9fbGUzMihERUNfU1dfUklOR19FTkFCTEVEKTsNCj4gKyAgICAgICAgICAgICBpZiAo
+YWRldi0+aXBfdmVyc2lvbnNbVVZEX0hXSVBdWzBdID09IElQX1ZFUlNJT04oMywgMSwgMikpIHsN
+Cj4gKyAgICAgICAgICAgICAgICAgICAgIGZ3X3NoYXJlZC0+cHJlc2VudF9mbGFnXzAgfD0gQU1E
+R1BVX1ZDTl9TTVVfVkVSU0lPTl9JTkZPX0ZMQUc7DQo+ICsgICAgICAgICAgICAgICAgICAgICBm
+d19zaGFyZWQtPnNtdV9pbnRlcmZhY2VfaW5mby5zbXVfaW50ZXJmYWNlX3R5cGUgPSAyOw0KPiAr
+ICAgICAgICAgICAgIH0gZWxzZSBpZihhZGV2LT5pcF92ZXJzaW9uc1tVVkRfSFdJUF1bMF0gPT0g
+SVBfVkVSU0lPTigzLCAxLCAxKSkgew0KDQpQbGVhc2UgYWRkIGEgc3BhY2UgYmVmb3JlIHRoZSAo
+LCB3aGljaCBgY2hlY2twYXRjaC5wbGAgYWxzbyB3b3VsZCBoYXZlDQpmb3VuZDoNCg0KICAgICAk
+IHNjcmlwdHMvY2hlY2twYXRjaC5wbA0KL2Rldi9zaG0vMDAwMS1kcm0tYW1kZ3B1LXZjbjMtc2Vu
+ZC1zbXUtaW50ZXJmYWNlLXR5cGUucGF0Y2gNCiAgICAgRVJST1I6IHNwYWNlIHJlcXVpcmVkIGJl
+Zm9yZSB0aGUgb3BlbiBwYXJlbnRoZXNpcyAnKCcNCiAgICAgIzU4OiBGSUxFOiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS92Y25fdjNfMC5jOjIyNToNCisgICAgICAgICAgICAgICB9IGVsc2Ug
+aWYoYWRldi0+aXBfdmVyc2lvbnNbVVZEX0hXSVBdWzBdID09DQpJUF9WRVJTSU9OKDMsIDEsIDEp
+KSB7DQoNCkFsc28gd2h5IG5vdCBvcmRlciBpdCBzbWFsbGVzdCB2ZXJzaW9uIGZpcnN0PyBXaWxs
+IHRoZXJlIGV2ZXIgYmUgb3RoZXINCklQIHZlcnNpb25zIGZvciBWQ04gMy4wPw0KDQo+ICsgICAg
+ICAgICAgICAgICAgICAgICBmd19zaGFyZWQtPnByZXNlbnRfZmxhZ18wIHw9IEFNREdQVV9WQ05f
+U01VX1ZFUlNJT05fSU5GT19GTEFHOw0KPiArICAgICAgICAgICAgICAgICAgICAgZndfc2hhcmVk
+LT5zbXVfaW50ZXJmYWNlX2luZm8uc211X2ludGVyZmFjZV90eXBlID0gMTsNCj4gKyAgICAgICAg
+ICAgICB9DQo+DQo+ICAgICAgICAgICAgICAgaWYgKGFtZGdwdV92Y25md19sb2cpDQo+ICAgICAg
+ICAgICAgICAgICAgICAgICBhbWRncHVfdmNuX2Z3bG9nX2luaXQoJmFkZXYtPnZjbi5pbnN0W2ld
+KTsNCg0KDQpLaW5kIHJlZ2FyZHMsDQoNClBhdWwNCg==
