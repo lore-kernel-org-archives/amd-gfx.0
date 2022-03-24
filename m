@@ -4,48 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E05AC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 21:42:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6FABC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 01:02:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3381010E145;
-	Wed, 23 Mar 2022 21:42:49 +0000 (UTC)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C97E110E096
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 21:08:43 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id bg10so5379624ejb.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 14:08:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A9DE10E522;
+	Thu, 24 Mar 2022 01:02:52 +0000 (UTC)
+Received: from mail-ua1-x929.google.com (mail-ua1-x929.google.com
+ [IPv6:2607:f8b0:4864:20::929])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DB8710E522
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 01:02:51 +0000 (UTC)
+Received: by mail-ua1-x929.google.com with SMTP id a28so1432577uaf.7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 18:02:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=IANY+ekVZQgcH0O7joJntQXHOX1ZyJ6j0/bmDm4T7UA=;
+ b=MPLS2FZhiXVpXMHnBJMsVn3d3exSHUuHOmo2EV6zBLh4/hD1YqrXqWw7opwy7TuweZ
+ TEObQr4NRatb5YMoQTURuHKLGD7ZR7W0b8tYdeQ1TmA9179vTK6rkVdzRdTDTOuigBdz
+ qun7t4mvFfx4+V6TJIoJ4JNz6kd2FMKM26qho9kqPD8YsYe1VaaJXE7zeqtEUCXsZOj1
+ vIJ7ieiAckDQmaPRRX1tqHUvOPOqHQ0XFjEtG0HQBuiX38+5hkP+7aSGq9csKcLmoRO9
+ SWZKB0mQzUpspQegxwwvAyqnluLessele3XB+VE+M9qOcPkBtdlI/tj+pE+yRvxCmYzI
+ wtWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to
  :content-transfer-encoding;
- bh=nPs/KXk9bNlz6KcCUSilPopkztq0KM88w4irv21SSNE=;
- b=p0gAKgscOHnWyh6NSgJWGt/w6Zw8KDJ9S9a1aIabPl+6H19PRPTGI/SgAthTwo0Xie
- ZRlTUg31bjBHSY5BgvijRQrecGYAbpoIeUWVPwoddPhaV7CCoqKJbhnP5adlvYuQhmRJ
- jhBTSvsyW5KQsqyDFRHpT02J4Zsrv/uyotp+me1eDQR3kPDtATfBTWRWI7ZwerwFnf6H
- ieEgHw/4wSg1xPal2oxalsY7RoDO1ifB3cdkCRqwpjtRpNNpcpDrkWw0UkdEdc3JepUQ
- OgpNLXB+/VHhNj5XdeIzns4IIeiiRThGxnqwmOvrD7XktVjA5B0GjKsp+aRTWmie3coM
- d9ig==
-X-Gm-Message-State: AOAM531LBhCpChGotJrjKVPgQwoTNOFDNN/RNSTTR7uWQNRboS6GnzAQ
- JiOPOeUw9XzcwEkS0ro5+HXFAn56qxQ=
-X-Google-Smtp-Source: ABdhPJygXBSManYhkDKmCR0GWQXsHSQsDON36jhBe+IIvroRBL9+CQjNaKEJZQAg3EYxI7EvvCSWpA==
-X-Received: by 2002:a17:906:2ac9:b0:6ce:dc0f:9139 with SMTP id
- m9-20020a1709062ac900b006cedc0f9139mr2267694eje.206.1648069722303; 
- Wed, 23 Mar 2022 14:08:42 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:168:d80b:0:d89e:fddc:5f2f:1a25])
- by smtp.gmail.com with ESMTPSA id
- d24-20020a1709067a1800b006e021f4c1c3sm355877ejo.166.2022.03.23.14.08.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Mar 2022 14:08:41 -0700 (PDT)
-From: Benjamin Marty <info@benjaminmarty.ch>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/display: change pipe policy for DCN 2.1
-Date: Wed, 23 Mar 2022 22:08:26 +0100
-Message-Id: <20220323210826.1559499-1-info@benjaminmarty.ch>
-X-Mailer: git-send-email 2.35.1
+ bh=IANY+ekVZQgcH0O7joJntQXHOX1ZyJ6j0/bmDm4T7UA=;
+ b=g1n8CJvd9Vp40s0DFLfDBiJWS81TfyS15kWZmxuckvnBXAp92+KMC8h5bdrVuyhizp
+ B+FV8sJ0RaEi5TtZBD69PrmbkjCjQcDoDBx3M2tdnQgUoHqkny4g4HNPxKrT3CIOGUYJ
+ LmZF/3934DOKnrpakfCr1rO7FeJ43ZxwAuWgSCiJK13mpgINoIOkK6IPAP+i66kNGoE9
+ BV3HKZgHJFpTu1xdinm13IA189Dvr4JkIVrhlqT/CbAjv33lBKA3N36psYT2Jm/opHUm
+ td3YIDD78iX1NSHjjh3dU4Nq644oTD0G/0k2DstutWipsZMg9VTlt4ftUgi5IwWfsQIr
+ xxNQ==
+X-Gm-Message-State: AOAM5330gQeKZ+Nmtca4jGxtqXZokhNwtkJ144BhI+UOSQO3F2Q5+5lv
+ x13jeAb8WNngKDhxBG2XathM3Cbs/bgM3Q6Mw0KLpZ1/pZw=
+X-Google-Smtp-Source: ABdhPJxW/M0Bs4LNCbnSgfAiYlRbt7oDS7WoJ/tn+9jhLTi5QM8hGP0caq4N7PjUZQoe8OnKL408FQFHj02WTJMvh48=
+X-Received: by 2002:ab0:6647:0:b0:353:7544:1d2d with SMTP id
+ b7-20020ab06647000000b0035375441d2dmr1418730uaq.115.1648083770124; Wed, 23
+ Mar 2022 18:02:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 23 Mar 2022 21:42:48 +0000
+Received: by 2002:a05:612c:2287:b0:28d:c775:b69f with HTTP; Wed, 23 Mar 2022
+ 18:02:49 -0700 (PDT)
+From: Craig M <cmroanirgo@gmail.com>
+Date: Thu, 24 Mar 2022 12:02:49 +1100
+Message-ID: <CAHtRFGvj1DuYzUUL1P5bvfMpT1WkwUL2ZpZQt1iYf-XH=fJP0Q@mail.gmail.com>
+Subject: ATI Radeon Mobility 3470 fails with Kernel 5
+To: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,32 +63,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Benjamin Marty <info@benjaminmarty.ch>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes crash on MST Hub disconnect.
+Hi,
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1849
-Fixes: ee2698cf79cc ("drm/amd/display: Changed pipe split policy to allow for multi-display pipe split")
-Signed-off-by: Benjamin Marty <info@benjaminmarty.ch>
----
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'm trying to track down a problem with an ancient graphics device ATI
+Radeon Mobility 3470.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-index e5cc6bf45743..ca1bbc942fd4 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-@@ -873,7 +873,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 		.clock_trace = true,
- 		.disable_pplib_clock_request = true,
- 		.min_disp_clk_khz = 100000,
--		.pipe_split_policy = MPC_SPLIT_DYNAMIC,
-+		.pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
- 		.force_single_disp_pipe_split = false,
- 		.disable_dcc = DCC_ENABLE,
- 		.vsr_support = true,
--- 
-2.35.1
+Ubuntu/Kubuntu 18 is shipped kernel 4.18 and the radeon drivers work well.
+With 18.02 and later it ships with kernel 5.0 and the radeon drivers don't.
 
+What I'm seeing is hard to describe. It looks a lot like the scan
+lines are interleaved and there's a lot of noise. It's not the typical
+screen tearing, nor is it just snow (black and white noise). I can
+*just* make out what it being displayed onscreen, but hurts the eyes a
+lot to try and do so!
+
+If I hold the kernel back at 4.18 things are just fine.
+
+Some detailed info (from a working 4.18 kernel). Note that the
+returned information from a 5.x kernel isn't all that much different:
+
+$ lshw -c video
+*-display
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0description: VGA compatible controller
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0product: RV620/M82 [Mobility Radeon HD =
+3450/3470]
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vendor: Advanced Micro Devices, Inc. [A=
+MD/ATI]
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0physical id: 0
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0bus info: pci@0000:01:00.0
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0version: 00
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0width: 32 bits
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0clock: 33MHz
+      capabilities: pm pciexpress msi vga_controller bus_master
+cap_list rom =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0configuration: driver=3Dra=
+deon latency=3D0
+resources: irq:26 memory:c0000000-c7ffffff ioport:9000(size=3D256)
+memory:c8020000-c802ffff memory:c0000-dffff
+
+
+$ modinfo radeon
+
+filename:
+/lib/modules/4.18.0-17-generic/kernel/drivers/gpu/drm/radeon/radeon.ko
+license: =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0GPL and additional right=
+s description: =C2=A0=C2=A0=C2=A0ATI Radeon
+author: =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Gareth Hughes, Keit=
+h Whitwell, others.
+
+...
+name: =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0radeon
+vermagic: =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A04.18.0-17-generic SMP mod_unl=
+oad
+signat: =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PKCS#7
+signer:
+sig_key:
+sig_hashalgo: =C2=A0=C2=A0md4
+....
+
+
+
+I'm just trying to track down the driver changes between 4.18 and 5.0
+to see what I can do to change settings. Any help  would be greatly
+appreciated. I've had a quick look through
+https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati but I don't
+know where to start (as there's no correlation between releases and
+kernels, from what I can see).
+
+Regards,
+Craig.
