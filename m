@@ -4,89 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F17EC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 10:16:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8CCBC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 10:30:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0866710E86A;
-	Thu, 24 Mar 2022 10:16:32 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2044.outbound.protection.outlook.com [40.107.101.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0514D10E86A
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 10:16:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NSUJ7dvQteIlQRvW7XFmQxQrSA9fsqQNTuFkCRmabYjRldvxWNRrg7tdrwZn9BFz2zyzox7HNWYUywLqyX1G4tSajzjVzGrjIt6jIBn/D3Hc+9rMsk3K4yCN+Wy0vhLXvIhH4znr1ZGb96HI3ADjQzr2yycsMODX3nLQF9TJ11ZRB2nNfnY3vdEns6cb+cy3t2XkHp35bhYo9hwDO2NAi7ufDNNZD4je+1Kq3VfaiNR/6djKT1Yc/KScWP0E5Uhrjxh4Nnjhup+vHFIobjB70prBYpAPFrWQmMFRFdPDnmYX81Ag48+FvDdcOV26Ce2qmL2Q/DrCjv5lP/C+Gk0mvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OTUa2/UU7U9XR11nCEEnfbX60AlxwJmk45ANg99LbsU=;
- b=e9sSYtnrOGX+21pJ2st0+QGMSGJjrs7HKawukyc3B/a9Gj6ImTItWbMy30r+XOF2dJxxJ6l7j5MfvNytFYJ7iX3hXeK/hCN0vb0IR5DZLfN3+oA/VGd934F0rp+Jgi47M0LjwXDO1QC9PJ58ycAv1JKACy49emoX0zpU9pO3b0gHxuXo0WFzSkcqzIEXJ62WIew1INMMslVH9v841m0TypSitiZNJnnApxLaeFi7bATd16NmuXT1JCI749XnekFRh8N4CoyKqztlMNPiNYQoUxwCEgvijl2rq9009GnYBw+VZf+TZUDtc0wxl18yDEsuBmmnAxNlAAGjS3XRf/MSJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OTUa2/UU7U9XR11nCEEnfbX60AlxwJmk45ANg99LbsU=;
- b=YdWLXFHGUO54ZyhzRSDI7RuljbcT1/P4SjJxuq0eM2OM0kqOAUBkIMTMTuB2deszI9zRuzSakkMFZXL/lGzIcSab+u6OSFzmBnyD81Ba9B1oWP0LmTcF2CPYGwlE2uEAXLu7tJoa9uRbpccGIzYjS4/OzlQmS+t4NoF9eUiiPO0=
-Received: from MWHPR19CA0024.namprd19.prod.outlook.com (2603:10b6:300:d4::34)
- by BY5PR12MB4081.namprd12.prod.outlook.com (2603:10b6:a03:20e::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.16; Thu, 24 Mar
- 2022 10:16:29 +0000
-Received: from CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:d4:cafe::38) by MWHPR19CA0024.outlook.office365.com
- (2603:10b6:300:d4::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17 via Frontend
- Transport; Thu, 24 Mar 2022 10:16:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT036.mail.protection.outlook.com (10.13.174.124) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5102.17 via Frontend Transport; Thu, 24 Mar 2022 10:16:28 +0000
-Received: from prike.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 24 Mar
- 2022 05:16:26 -0500
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/gfx10: enable gfx1037 clock counter retrieval
- function
-Date: Thu, 24 Mar 2022 18:13:29 +0800
-Message-ID: <1648116809-30771-1-git-send-email-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.7.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4754C10E77F;
+	Thu, 24 Mar 2022 10:30:29 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4914110E880
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 10:30:28 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ y3-20020a056830070300b005cd9c4d03feso2983752ots.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 03:30:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=Uc0PNvgW6ufWHwoM+1IgKKtb8fqQsLjFVm/SIWonGWs=;
+ b=bqg+cgyFjNJ2qBYF744Zd5VO3Mgd4lWaZGU+srdtz9xBUlw1n2TyG4XDUryaaAcuZp
+ 711IDAn49p7J/qAfr+eSJeWuuE1SrHD6WgoTV/6iQqIqkJcapXcjv6Th81FvB7WxIta6
+ EItNRGVTI9rtKlhE8jC5ZUeyfMZmO/puKh5gg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Uc0PNvgW6ufWHwoM+1IgKKtb8fqQsLjFVm/SIWonGWs=;
+ b=unCLbBEKDq1fWdA1mTl23btwZLdCcWs31Z63zbtfmCQpQbQhmJ/A2eGlFqmConiSjf
+ Us1HCXkrqmy7TeqO9MZEI3FDViW+uELh6R8ejgvRtSiIxANTEf9KLa1zHvm1t46E0R7B
+ w3iFQ5VEcgGnJsfnVw/KcQLxzbNDeH8j087fD2NKF+j/O/wDcTPle4KJJODZJDNtaMTD
+ bklJ0ByhjoiwR4370Oy6XRXSLxX0Gv9kNosrzlmBdaZhgFVpJpxU9PvbkC6pLpUIKNYD
+ g0yLG9QoSjEbdm7dpDAJ+SLGedzEVCL9MrHRaYs30pcSTDiJsMvFqFsaxSqu6TH/270A
+ Nm1A==
+X-Gm-Message-State: AOAM532TkeNcHXzdioXntGTDg0qY5hmTxwKrdReGonod1mOMm27y+w68
+ HiMjmfDShS7qhAmzUpI2sLbBrtQwO5brM32I77bRGg==
+X-Google-Smtp-Source: ABdhPJzmpcSL8iD3tVsd7RBA07+gKYph1USGcc1flPM/WLuJdPYArdF8YMwI0dgrF16aHdsTbxPsG8x3GpEjuc0mXRc=
+X-Received: by 2002:a9d:57c7:0:b0:5b2:3d6d:6469 with SMTP id
+ q7-20020a9d57c7000000b005b23d6d6469mr1714868oti.301.1648117827484; Thu, 24
+ Mar 2022 03:30:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a3577ded-4ec9-4d9b-a67b-08da0d7f5c71
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4081:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB4081B2E84E4E9F87C1931AC5FB199@BY5PR12MB4081.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qzg1hhBz5jRXD2ljjB2/uMaQhog7eAvKObMptChsjpeKLw9dnTqTaibKzZFDZlx1lnhqLZ0+EwyjhXzCETf7Vz7Bg8tXHoQJbCla7zQXlgFiLAk56zdk/+36hGFwvPk5b5d8CgACQkcrNYS502wH4XaLNl5EduCsRiuGTsH3jpqr32010yNK/a1tqyYDmlZtV8fD0xtImGS84y7rH8nO0o3KPME9F0rSYXvfBlu2B/VwRpwasi9AC4cdOpgw0cSBPnptDgIw7Im19ddy28O8BM7v19EDho0WbTp8pU2nzDpaWT9w2/xBLAykUKZZZqmdlw7f/e3wgzcHgnxb43cCjY4YrjFm82qETVrGfjS5g6Sxr03SU7cF6IsH3gohl+EPBuNqMIOC51kj6tSDsmeX7suUDL+5I4Bg7s9vvO/Y59Ba6jQm8SL0QbrMezh+pYuDwbSpNMZ2PlRAUjeMnjjPG/P4EqzsoDWkzUBgYPZV4FgCvzGFIIEqeMhnFYR1rWU6ueq8NeD9oMcuuje4awO0OE35uduVoFOFZgQgOlD2BLOgkSVhru/jrypT0F3zozMBLzXuMnc2BYffFV83vmYVgOEk4OxMLXtGJlMZNVKPFwrq2/XRmp5z+GPJh3XlQM97yufziDOXFTQXxsVQh5fRmGdMvgok9LTqpGuC4nHZiB6wPKesLVt6PK8QBkAloRBc4O4ACCVykMKE29x0NRuxvA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(2906002)(36860700001)(86362001)(83380400001)(47076005)(82310400004)(8936002)(4744005)(8676002)(4326008)(7696005)(70206006)(70586007)(16526019)(26005)(426003)(336012)(186003)(81166007)(5660300002)(2616005)(356005)(36756003)(54906003)(6916009)(508600001)(40460700003)(316002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2022 10:16:28.7275 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3577ded-4ec9-4d9b-a67b-08da0d7f5c71
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4081
+References: <20220323062552.228429-1-Arunpravin.PaneerSelvam@amd.com>
+ <7addb3e7-d265-c1a7-d449-7d0056f06d63@molgen.mpg.de>
+ <fc60c561-c12a-c031-9558-abae3e3474ec@amd.com>
+ <6f0888a2-f74d-f41f-d593-a8362e7dc673@molgen.mpg.de>
+ <398f8851-d37b-4020-24ce-8f2ab9723e40@amd.com>
+ <CAPj87rMETV9UkpbGRYAT3mjVhRtW75m0e9OLON6_+gdcD0Fo2Q@mail.gmail.com>
+ <CADnq5_NuaN_ZziNipdqvvTQ41you==VqJg5oxQovowokaJ2K1Q@mail.gmail.com>
+ <CAPj87rNyjd1xkEEARMoiaEdjLxy2rvcKa03fnNCnpN91DLhF1A@mail.gmail.com>
+ <CADnq5_Mt5sWCC7hLLBH_DJdvXGqSTbNNaxWpY+cWWD9Vpa8KGQ@mail.gmail.com>
+ <CAPj87rPhuVTDJSsY-HsKfvV3xkDhEn7nUd3WLsxNuJD=Mx2Zxg@mail.gmail.com>
+ <c41203c8-841b-889f-5c9b-5982ee961849@amd.com>
+In-Reply-To: <c41203c8-841b-889f-5c9b-5982ee961849@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Thu, 24 Mar 2022 11:30:16 +0100
+Message-ID: <CAKMK7uHnFSO6spQ2iBRNcQatUZJaCfqij3Ee7YkHe3JkTzwmig@mail.gmail.com>
+Subject: Re: [Intel-gfx] Commit messages (was: [PATCH v11] drm/amdgpu: add drm
+ buddy support to amdgpu)
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,30 +72,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Prike Liang <Prike.Liang@amd.com>,
- ray.huang@amd.com
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Daniel Stone <daniel@fooishbar.org>,
+ Alex Deucher <alexdeucher@gmail.com>, Matthew Auld <matthew.auld@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable gfx1037 clock counter retrieval function for KFDPerfCountersTest.ClockCountersBasicTest.
+On Wed, 23 Mar 2022 at 16:32, Christian K=C3=B6nig <christian.koenig@amd.co=
+m> wrote:
+>
+> Am 23.03.22 um 16:24 schrieb Daniel Stone:
+> > On Wed, 23 Mar 2022 at 15:14, Alex Deucher <alexdeucher@gmail.com> wrot=
+e:
+> >> On Wed, Mar 23, 2022 at 11:04 AM Daniel Stone <daniel@fooishbar.org> w=
+rote:
+> >>> That's not what anyone's saying here ...
+> >>>
+> >>> No-one's demanding AMD publish RTL, or internal design docs, or
+> >>> hardware specs, or URLs to JIRA tickets no-one can access.
+> >>>
+> >>> This is a large and invasive commit with pretty big ramifications;
+> >>> containing exactly two lines of commit message, one of which just
+> >>> duplicates the subject.
+> >>>
+> >>> It cannot be the case that it's completely impossible to provide any
+> >>> justification, background, or details, about this commit being made.
+> >>> Unless, of course, it's to fix a non-public security issue, that is
+> >>> reasonable justification for eliding some of the details. But then
+> >>> again, 'huge change which is very deliberately opaque' is a really
+> >>> good way to draw a lot of attention to the commit, and it would be
+> >>> better to provide more detail about the change to help it slip under
+> >>> the radar.
+> >>>
+> >>> If dri-devel@ isn't allowed to inquire about patches which are posted=
+,
+> >>> then CCing the list is just a fa=C3=A7ade; might as well just do it a=
+ll
+> >>> internally and periodically dump out pull requests.
+> >> I think we are in agreement. I think the withheld information
+> >> Christian was referring to was on another thread with Christian and
+> >> Paul discussing a workaround for a hardware bug:
+> >> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fww=
+w.spinics.net%2Flists%2Famd-gfx%2Fmsg75908.html&amp;data=3D04%7C01%7Cchrist=
+ian.koenig%40amd.com%7C6a3f2815d83b4872577008da0ce1347a%7C3dd8961fe4884e608=
+e11a82d994e183d%7C0%7C0%7C637836458652370599%7CUnknown%7CTWFpbGZsb3d8eyJWIj=
+oiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sda=
+ta=3DQtNB0XHMhTgH%2FNHMwF23Qn%2BgSdYyHJSenbpP%2FHG%2BkxE%3D&amp;reserved=3D=
+0
+> > Right, that definitely seems like some crossed wires. I don't see
+> > anything wrong with that commit at all: the commit message and a
+> > comment notes that there is a hardware issue preventing Raven from
+> > being able to do TMZ+GTT, and the code does the very straightforward
+> > and obvious thing to ensure that on VCN 1.0, any TMZ buffer must be
+> > VRAM-placed.
+> >
+> > This one, on the other hand, is much less clear ...
+>
+> Yes, completely agree. I mean a good bunch of comments on commit
+> messages are certainly valid and we could improve them.
+>
+> But this patch here was worked on by both AMD and Intel developers.
+> Where both sides and I think even people from other companies perfectly
+> understands why, what, how etc...
+>
+> When now somebody comes along and asks for a whole explanation of the
+> context why we do it then that sounds really strange to me.
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 1 +
- 1 file changed, 1 insertion(+)
+Yeah gpus are using pages a lot more like the cpu (with bigger pages
+of benefit, but not required, hence the buddy allocator to coalesce
+them), and extremely funny contig allocations with bonkers
+requirements aren't needed anymore (which was the speciality of
+drm_mm.c). Hence why both i915 and amdgpu move over to this new buddy
+allocator for managing vram.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index f4c6accd3226..a98b78e0b507 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -7689,6 +7689,7 @@ static uint64_t gfx_v10_0_get_gpu_clock_counter(struct amdgpu_device *adev)
- 	switch (adev->ip_versions[GC_HWIP][0]) {
- 	case IP_VERSION(10, 3, 1):
- 	case IP_VERSION(10, 3, 3):
-+	case IP_VERSION(10, 3, 7):
- 		preempt_disable();
- 		clock_hi = RREG32_SOC15_NO_KIQ(SMUIO, 0, mmGOLDEN_TSC_COUNT_UPPER_Vangogh);
- 		clock_lo = RREG32_SOC15_NO_KIQ(SMUIO, 0, mmGOLDEN_TSC_COUNT_LOWER_Vangogh);
--- 
-2.25.1
+I guess that could be added to the commit message, but also it's kinda
+well known - the i915 patches also didn't explain why we want to
+manage our vram with a buddy allocator (I think some of the earlier
+versions explained it a bit, but the version with ttm integration that
+landed didnt).
 
+But yeah the confusing comments about hiding stuff that somehow
+spilled over from other discussions into this didn't help :-/
+-Daniel
+
+> Thanks for jumping in here,
+> Christian.
+>
+> >
+> > Cheers,
+> > Daniel
+>
+
+
+--=20
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
