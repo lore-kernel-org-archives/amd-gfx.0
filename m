@@ -4,61 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AF09C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 13:46:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75C26C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 14:52:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4DCD10E929;
-	Thu, 24 Mar 2022 13:46:02 +0000 (UTC)
-Received: from mail-yw1-x114a.google.com (mail-yw1-x114a.google.com
- [IPv6:2607:f8b0:4864:20::114a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8127410E8E0
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 13:40:38 +0000 (UTC)
-Received: by mail-yw1-x114a.google.com with SMTP id
- 00721157ae682-2e644c76556so36099447b3.15
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 06:40:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=C/BnJKMJEeV8BFoBzBXZm96RIax/W1fb5Ij7o/AsFUY=;
- b=I5r3XueZuY2fFEJBQooGi7gGjzI2M6XTWZJbSSqpBHqZEDBRjs23ELQv+MaLam20gS
- HOUvaKIvKTzfDuxnGlhWHV1awOQClZC13qC5dYMPd6LdPodeULLxGTuIykA4wXX8DKPT
- t5CDgvB3VSiLzr4FTuibjgE3YNSQ9WeikcXR1mD1GBmZI8JqNdFBG/wyO9AFpvG2qv6e
- EjiewN5jQCS4w6yTZRu0uFg29AprjobE7MxGZLR5e3f11tpuOXDqu4LFZ1TQR0wPtoMV
- Nhf+WkQSCcPhfzmx91IPOQedBHGJhzcnFoJ3RoAKIygBAplidLdh8VikpiAYWZYVIhBN
- swAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=C/BnJKMJEeV8BFoBzBXZm96RIax/W1fb5Ij7o/AsFUY=;
- b=7kqWUgWGKxhc+EjJRIhpvGn9tG96TGJlVK1UFwFIigUeJkmCLPWw/nzK+2/Lfkud0w
- 1/s6B/55IKHgc70HsThIP4m3TTQ5s3uIUV43wxpCQT0doGheqJt8/vfZlcxj8j0FqyZE
- EKTWeD4VGUPDrPbw5/TwMjfjN2ZUGg/k0Ngm7bEQsp+9ull09h+aWcZaEhQDXbMyiht8
- GGo5LfHXAdokGd2cHHlflIEI1tOssv/ihlAYxIsjD/hKkFaxBStCkTuhcjicXbqBlMPY
- uUHM3wb/q/V1Pue2In6flRck9zDe+npeJHjwc0FK7XP+eNdpcqAW42IcMQ1B35dSwDWz
- hx7g==
-X-Gm-Message-State: AOAM531LZgWdebMIeXzY2nIUquFmZf8sQmKJZ+coq5olHkM6MP5W7AiC
- HbMIvJQvZVgHBb9fvpXeWr3pfZqYwl8+
-X-Google-Smtp-Source: ABdhPJweQHmVV0UUx5aJF4XSf3mwT0CfS9APEo0gOtx/klTIZrZS7Nmxl9l15vxPFIn60fKz0VjEENXw93jx
-X-Received: from ezekiel.c.googlers.com
- ([fda3:e722:ac3:cc00:4f:4b78:c0a8:108e])
- (user=shraash job=sendgmr) by 2002:a81:144a:0:b0:2e6:c2bd:b724 with SMTP id
- 71-20020a81144a000000b002e6c2bdb724mr2226691ywu.270.1648129237510; Thu, 24
- Mar 2022 06:40:37 -0700 (PDT)
-Date: Thu, 24 Mar 2022 19:10:31 +0530
-Message-Id: <20220324134031.2648315-1-shraash@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.35.1.894.gb6a874cedc-goog
-Subject: [PATCH v2] drm/amd/display: Fix unused-but-set-variable warning
-From: Aashish Sharma <shraash@google.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Pan Xinhui <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>, 
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, 
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- Jake Wang <haonan.wang2@amd.com>, 
- Anson Jacob <Anson.Jacob@amd.com>, Guenter Roeck <groeck@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 24 Mar 2022 13:46:01 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD3010E8CD;
+	Thu, 24 Mar 2022 14:52:44 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 799B310E8D3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 14:52:43 +0000 (UTC)
+Received: from [192.168.0.7] (ip5f5ae8e8.dynamic.kabel-deutschland.de
+ [95.90.232.232])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 2FF3461EA1923;
+ Thu, 24 Mar 2022 15:52:41 +0100 (CET)
+Message-ID: <07fdc495-53a3-c723-a1b7-0e0c9e1ebc6d@molgen.mpg.de>
+Date: Thu, 24 Mar 2022 15:52:40 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH v2] drm/amdkfd: Check use_xgmi_p2p before reporting hive_id
+Content-Language: en-US
+To: Divya Shikre <DivyaUday.Shikre@amd.com>
+References: <20220323142016.1810918-1-DivyaUday.Shikre@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20220323142016.1810918-1-DivyaUday.Shikre@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,52 +43,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aashish Sharma <shraash@google.com>, kernel test robot <lkp@intel.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <wayne.lin@amd.com>, Anthony Koo <Anthony.Koo@amd.com>
+Cc: Alex.Sierra@amd.com, Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the kernel test robot warning below:
+Dear Divya,
 
-drivers/gpu/drm/amd/amdgpu/../display/dmub/inc/dmub_cmd.h:2893:12:
-warning: variable 'temp' set but not used [-Wunused-but-set-variable]
 
-Replaced the assignment to the unused temp variable with READ_ONCE()
-macro to flush the writes. READ_ONCE() helps avoid the use of
-volatile and makes it obvious from the code that the read here is
-intentional. Also verified on x86 that the generated code is exactly the
-same as before.
+Am 23.03.22 um 15:20 schrieb Divya Shikre:
+> Recently introduced commit "845ebd6b7c32 drm/amdgpu: Add
+> use_xgmi_p2p module parameter" did not update XGMI iolinks
+> when use_xgmi_p2p is disabled. Add fix to not create XGMI
+> iolinks in KFD topology when this parameter is disabled.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Aashish Sharma <shraash@google.com>
----
-v2: Removed unnecessary volatile qualifier in the typecast and an unnecessary comment. Also reworded the commit message.
----
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Thank you for rerolling the patch. Please also add:
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index 873ecd04e01d..a58f460f431d 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -2913,13 +2913,11 @@ static inline void dmub_rb_flush_pending(const struct dmub_rb *rb)
- 	uint32_t wptr = rb->wrpt;
- 
- 	while (rptr != wptr) {
--		uint64_t volatile *data = (uint64_t volatile *)((uint8_t *)(rb->base_address) + rptr);
--		//uint64_t volatile *p = (uint64_t volatile *)data;
--		uint64_t temp;
-+		uint64_t *data = (uint64_t *)((uint8_t *)(rb->base_address) + rptr);
- 		uint8_t i;
- 
- 		for (i = 0; i < DMUB_RB_CMD_SIZE / sizeof(uint64_t); i++)
--			temp = *data++;
-+			(void)READ_ONCE(*data++);
- 
- 		rptr += DMUB_RB_CMD_SIZE;
- 		if (rptr >= rb->capacity)
--- 
-2.35.1.894.gb6a874cedc-goog
+Fixes: 845ebd6b7c32 ("drm/amdgpu: Add use_xgmi_p2p module parameter")
 
+> Signed-off-by: Divya Shikre <DivyaUday.Shikre@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_device.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index 339e12c94cff..d5536e33b3d8 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -536,7 +536,8 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+>   		goto kfd_doorbell_error;
+>   	}
+>   
+> -	kfd->hive_id = kfd->adev->gmc.xgmi.hive_id;
+> +	if (amdgpu_use_xgmi_p2p)
+> +		kfd->hive_id = kfd->adev->gmc.xgmi.hive_id;
+>   
+>   	kfd->noretry = kfd->adev->gmc.noretry;
+>   
+
+The rest looks good.
+
+
+Kind regards,
+
+Paul
