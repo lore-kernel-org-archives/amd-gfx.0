@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06333C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E0E3C433EF
 	for <amd-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 13:46:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9069E10E8E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C573B10E922;
 	Thu, 24 Mar 2022 13:46:01 +0000 (UTC)
-X-Greylist: delayed 913 seconds by postgrey-1.36 at gabe;
- Thu, 24 Mar 2022 08:41:50 UTC
-Received: from m12-12.163.com (m12-12.163.com [220.181.12.12])
- by gabe.freedesktop.org (Postfix) with ESMTP id D98AB10E1C4
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 08:41:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=SYdtMX0fUBJBGCRkZr
- x91FiJtXR+g6Dfi9TegzBMeTM=; b=qdSVARpouAfRPbGS+iy46sNTs3+sdaXlS8
- FC1UgeHYkfoW6IvAoxmthn9A6gAw44Y/MsSgjgi6wH7kCt59QxrAxbSSlDhbEfa8
- C5HaMRAu0SWQaHwu8lQ7F0FkiDChh6myl+Z5NiE5BVZ+qZWbivKFeqMZ/ljIF7lB
- lgVo2TGsA=
-Received: from localhost (unknown [159.226.95.33])
- by smtp8 (Coremail) with SMTP id DMCowAD3_zc3KzxicLj8Bg--.28399S2;
- Thu, 24 Mar 2022 16:26:32 +0800 (CST)
-From: QintaoShen <unSimple1993@163.com>
-To: Felix.Kuehling@amd.com
-Subject: [PATCH v1] drm/amdkfd: Check for potential null return of
- kmalloc_array()
-Date: Thu, 24 Mar 2022 16:26:23 +0800
-Message-Id: <1648110383-3533-1-git-send-email-unSimple1993@163.com>
+X-Greylist: delayed 333 seconds by postgrey-1.36 at gabe;
+ Thu, 24 Mar 2022 09:32:52 UTC
+Received: from mail.meizu.com (edge05.meizu.com [157.122.146.251])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4F85710E861
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 09:32:52 +0000 (UTC)
+Received: from IT-EXMB-1-125.meizu.com (172.16.1.125) by mz-mail12.meizu.com
+ (172.16.1.108) with Microsoft SMTP Server (TLS) id 14.3.487.0; Thu, 24 Mar
+ 2022 17:27:17 +0800
+Received: from meizu.meizu.com (172.16.137.70) by IT-EXMB-1-125.meizu.com
+ (172.16.1.125) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.14; Thu, 24 Mar
+ 2022 17:27:15 +0800
+From: Haowen Bai <baihaowen@meizu.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
+ <Rodrigo.Siqueira@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>, <nicholas.kazlauskas@amd.com>, <lyude@redhat.com>,
+ <Jerry.Zuo@amd.com>
+Subject: [PATCH] drm/amd/display: Fix pointer dereferenced before checking
+Date: Thu, 24 Mar 2022 17:27:14 +0800
+Message-ID: <1648114034-3802-1-git-send-email-baihaowen@meizu.com>
 X-Mailer: git-send-email 2.7.4
-X-CM-TRANSID: DMCowAD3_zc3KzxicLj8Bg--.28399S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7GF4kWF17uF47Ar1kArWDurg_yoWftrg_Gr
- 15Xr9xAr4DCFn5Wry2vw4aqry0yr4rZ3WkXF18t3WfJryfZFyUC348XrWkZ3yfGa4DuFyD
- tw4DKF4fuFsF9jkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sR_GYL3UUUUU==
-X-Originating-IP: [159.226.95.33]
-X-CM-SenderInfo: 5xqvxz5sohimizt6il2tof0z/xtbCbgjNH2BbCZsoFAAAsh
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [172.16.137.70]
+X-ClientProxiedBy: IT-EXMB-1-125.meizu.com (172.16.1.125) To
+ IT-EXMB-1-125.meizu.com (172.16.1.125)
 X-Mailman-Approved-At: Thu, 24 Mar 2022 13:46:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,32 +48,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: QintaoShen <unSimple1993@163.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org
+Cc: Haowen Bai <baihaowen@meizu.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As the kmalloc_array() may return null, the 'event_waiters[i].wait' would lead to null-pointer dereference.
-Therefore, it is better to check the return value of kmalloc_array() to avoid this confusion.
+The pointer edid_buf is dereferencing pointer edid before edid is being
+ null checked. Fix this by assigning edid->raw_edid to edid_buf only if 
+edid is not NULL, otherwise just NULL.
 
-Signed-off-by: QintaoShen <unSimple1993@163.com>
+Signed-off-by: Haowen Bai <baihaowen@meizu.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_events.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index deeccce..64f4a51 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -749,6 +749,8 @@ static struct kfd_event_waiter *alloc_event_waiters(uint32_t num_events)
- 	event_waiters = kmalloc_array(num_events,
- 					sizeof(struct kfd_event_waiter),
- 					GFP_KERNEL);
-+	if (!event_waiters)
-+		return NULL;
- 
- 	for (i = 0; (event_waiters) && (i < num_events) ; i++) {
- 		init_wait(&event_waiters[i].wait);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 29f07c2..360401d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -89,7 +89,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ {
+ 	struct amdgpu_dm_connector *aconnector = link->priv;
+ 	struct drm_connector *connector = &aconnector->base;
+-	struct edid *edid_buf = (struct edid *) edid->raw_edid;
++	struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : NULL;
+ 	struct cea_sad *sads;
+ 	int sad_count = -1;
+ 	int sadb_count = -1;
 -- 
 2.7.4
 
