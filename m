@@ -4,56 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 062A4C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 01:09:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BD1FC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 01:28:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FC6110E19C;
-	Thu, 24 Mar 2022 01:09:24 +0000 (UTC)
-Received: from mail-vs1-xe36.google.com (mail-vs1-xe36.google.com
- [IPv6:2607:f8b0:4864:20::e36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9825F10E19C
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 01:09:22 +0000 (UTC)
-Received: by mail-vs1-xe36.google.com with SMTP id 185so3339266vsq.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 18:09:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=wKA3ekedOIhTei5Vb6g+2SdNLTD927v4cfDYPY1S6WA=;
- b=QSD5vvRlGfsp90pdiYg8tEdXGKq/pLAcGHbxL+zKnAm8LVmSXNhJ6O3T2rQd9qNl49
- IURrm/WAQk1U8t7Bp9ILQpV1jlJjclXU2rneRyo7jCeVkGWd/QzP0RHFliGo2o0kIXTc
- WhDjkTbBWAcY9R/SVou/+7BSA3ztS4yZkwTGSD4kpa7iAWew3JKSwN62V8q8LGWKFUBy
- N5B09OAf9elbjZm+W6OZ8IMGDrekNLyd9KK3joLw0Wlkhpl7E7B0j55lHW904AFsB8r8
- px2EKyrz+IXFQHOfIxw1xaeNLNkQBbpNURAaVXHW+9Oe70Q3Fw5ThytNr3p6stHcDsob
- v+xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:content-transfer-encoding;
- bh=wKA3ekedOIhTei5Vb6g+2SdNLTD927v4cfDYPY1S6WA=;
- b=KdMCiRFIzt7Snr1EPJg8LOJ4rcpBlhoGGoRVLJm4uQSNNf3xSKLUmDApsGooPc/gHk
- UEz+0eFosGLglmsCZTvLMm7lp+aHt2IzpXZxQmdc0UYgQJ1Zz8tiJ54LYuRfoWlUgunb
- aVdxBG521sCwzPml+4NuKY7AufSsDmTuWFW1lu2bAzi9/CsefoLxQl/NAsDp+l9fnwrC
- TPv/HEx8cMd+2rUKsVbTuzutl/3+dY6J1mGoPj4xtzd5EeJ7lOvLgO2m0R0j3LK+2I4z
- B8hK1xBiLmOcWNkzvHLxnHplnzBuVjXTo3+yVV/DV6Tb9sct3NpaBDvwS5Uy1xgptRFj
- eZ+w==
-X-Gm-Message-State: AOAM531yvAD+rNQ9+SoDshx2d3p/GRaKtVRIuGe34uPU9i12KEcivcLe
- 3JOY7o5BmXZMecDJpVPsifnn9JwUncgqvloym4UIg0/IEzM=
-X-Google-Smtp-Source: ABdhPJzOy6VdUi9QSU2WyZHxgCiMigYFAdDaL7/ejTHAQbxTbnxRfAffY1W1nflcCm/rCxdbzCItqn7dN7+YLn+1P04=
-X-Received: by 2002:a05:6102:a90:b0:31b:6ed9:7702 with SMTP id
- n16-20020a0561020a9000b0031b6ed97702mr1600731vsg.70.1648084161570; Wed, 23
- Mar 2022 18:09:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83BB210E07F;
+	Thu, 24 Mar 2022 01:28:51 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5390E10E07F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Mar 2022 01:28:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hERxchuqBigjPnK8+VSrtdHBYZVTlTUq8KtjRDFhAkYwUYJ+h8BazhuKsqhYCQIv07UDcem8cme6eB2MaxdimdG5rHznxEuQClt9eagCzw6jFOUD7BrHp4nodOP/i8vnlIhjBThoibTWVp5+VzPVVM1VSJwX/aj4YuKQkeiYUt8c+txQ1Q3O8fcBUqB7sWcZeVnBSPdYOiaVfuK4w+dR3jEM232Qgg2GbP2ojBhtWR09IQCKsJZEmB4OxsYHMgM3biLat65R+VVz6cMa3gp2Py1YE7FlyMKxENDH6YGw1HNeazufwa12nW3L8Ie4sui8R1qg1jcaupcVEKFrS3AZrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LXNWuh1ipjD5WiNtfR2KzRQVBJfeEU8y29bRNtxCoIs=;
+ b=Cr6mjjqNsBxH5YOO2xd14kIi+JZ2DsCr/zIs2Tg1lGYmXGHPw0QV1s/OZmzNEZETw8x/Hz/0iUke645ccT8e+hm1Tx3gDZz8hKv3OrqXvmj7nlyrzY+2wx7Fq7BM4Bn5mhfJgPdHpXrsWcSHXmx3jqq3graMvJQ5Sd8wWe5iNZC6hiVq26fUuuHYWYTl8QY6Q5CT2NJHqOYZxR8zFs833ODYoq6qtZ5H67gMUJE6FZvg8xXiMBkI80C90prZFTwpUrpwSSwBROum0SbcE/4AoMY5qcndmDSZ0IvkLNbYWuoid+L8osdhPV9223K1WisH07jqBhh0YJzLUqY3N7mhbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LXNWuh1ipjD5WiNtfR2KzRQVBJfeEU8y29bRNtxCoIs=;
+ b=Z3uv/An165ZUzH67a97JE0Vcyaxgt5v4U1bVqZiVKoxpC52OGhVP6pSKPTRB7uAD+3MF3rTEWX8yMRXJ+ll6ZSWMzu2Aug+erueMFJK89q0njAwW1sAUrueJOTlBURxjs8LFF+3x8NZ/3ZSWnG13z5IVc/QIRjNjMzsNr2F8HXE=
+Received: from BYAPR12MB3238.namprd12.prod.outlook.com (2603:10b6:a03:13b::20)
+ by PH0PR12MB5468.namprd12.prod.outlook.com (2603:10b6:510:ea::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.17; Thu, 24 Mar
+ 2022 01:28:48 +0000
+Received: from BYAPR12MB3238.namprd12.prod.outlook.com
+ ([fe80::408b:3c55:a3cb:6f4f]) by BYAPR12MB3238.namprd12.prod.outlook.com
+ ([fe80::408b:3c55:a3cb:6f4f%3]) with mapi id 15.20.5081.022; Thu, 24 Mar 2022
+ 01:28:48 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: RE: [PATCH] drm/amdgpu: set noretry for gfx 10.3.7
+Thread-Topic: [PATCH] drm/amdgpu: set noretry for gfx 10.3.7
+Thread-Index: AQHYPo4YoDti9V+oQE+YVGQ5eot9MqzM9JcAgADJzzA=
+Date: Thu, 24 Mar 2022 01:28:47 +0000
+Message-ID: <BYAPR12MB32382469B2A84DDC3FAA5CF1FB199@BYAPR12MB3238.namprd12.prod.outlook.com>
+References: <1648023118-29619-1-git-send-email-Prike.Liang@amd.com>
+ <CADnq5_MPoeFHW+894ysW916rby=imyMPemwsvABx_oXZoAtz2w@mail.gmail.com>
+In-Reply-To: <CADnq5_MPoeFHW+894ysW916rby=imyMPemwsvABx_oXZoAtz2w@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=b7bbea98-a0a0-4147-b050-98f7438f0ed5;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-03-24T01:23:48Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: e53ea826-36b1-4b1a-9134-08da0d35a52c
+x-ms-traffictypediagnostic: PH0PR12MB5468:EE_
+x-microsoft-antispam-prvs: <PH0PR12MB5468F7203B848A1722F468A0FB199@PH0PR12MB5468.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 7Jh2szB4S6yaBHbmZ9GcMONiFcyiflbHsuhrzEwu4S5VywGqDDEwQkxyESXRX2Qk8RtdcTMby49UoJslkHor8KF50+HSw2kDlNRJZQ6n63KhK3ls+3SFCa9X3IETAtCIxXw9urYD4vFHT5cFKOQC9e2dWWVkPJJF61WuJpB53W9dD6m8PsU6raBQx3Yij/lN1R6FvNgZokOMPnbODsAVWYZBjO5kZpZxxCyXzV3P79o0yoldrFfOCWvU9crEhAu1BuWDUPvlgfI7+FNZXV352yFbNEETjnw1tlOhxUhEQJ9mnrfVw/FcLwlgRhF+Gxs8dk5U1kJhyekoSqyCTxJo9xC90TrFknvdLItx4AkUh51jH7EPt56WWhTgJ6w6arLhIIbVILFHIlrq+VCpuoQ6Yp2zA2IYJjvjLMRVx2oZTAfsv8HJFRQbcJKy/vlyRnddz84Q0CMjUl5E15VUZD4HxxwBO7Ytrz+T4LjVt6Dzyo1VOPZj+wsXO56YlKGV37ZqC38j3YLF8CLUi124oItYyUZu/HFQKU3Z7YGCsfeI5dAoQhrZGttsEqT5MucQ4lGAP+Zkz/X0P91D2GdGYTtfbKL7TdqXZRP3lpjTOWLsaXQf1rRL6ABX2HhwXgp00A/2lBT6kJvkFKMetZElpsamq2ITWuT7G7EcJDEPOSWdYBybbFt7P8NbB49VKVk0EcCNhl+7G2T/p6NrK2qv7NB59w==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3238.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(86362001)(33656002)(122000001)(38070700005)(38100700002)(186003)(26005)(6506007)(7696005)(9686003)(2906002)(55016003)(53546011)(83380400001)(5660300002)(6916009)(508600001)(52536014)(71200400001)(54906003)(316002)(64756008)(4326008)(76116006)(66556008)(8676002)(66446008)(66946007)(66476007)(8936002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VWFMMVhRaFliSzRiR2crem9NYStZaGd5QVZSS2ZSVHcrN01WeXhEdnMxeXhN?=
+ =?utf-8?B?dUlSUU5lakxGWjZIV3puMVc2M3NBR09IM2lnc0xjQ1BwWktJT1kySG1GUGd2?=
+ =?utf-8?B?bTlQcVdCK1UwbG5uUlpEaFlhNHZhZkE0NmdaTXZCUmxYOHBLalBMTDl0UW92?=
+ =?utf-8?B?Y3lFbTN6VEJaMm00N0ZwNy80cGljU1JXVmtDbjgyN3h2eFNQNFN6VCt2Ykth?=
+ =?utf-8?B?OWJDbWVNNjMxeVJIQXlXOE1RZG9HeVJDcDNQMGRjek5GdHdQaXZnRzdXYkgy?=
+ =?utf-8?B?RUJwRHJWRDRYR0drYUU4MkdLTndUTVlzYkZ6Y0JJRlZZd0Y0c25RRHJYUGZ1?=
+ =?utf-8?B?WkFWMmZ2clhHcGtDaFk0YW1KOGxTNjlSajNkeHljTEtzcXZDV2w3QzAzcUhP?=
+ =?utf-8?B?Nk5DdmNROU14eUNwdjMwQ1BwZmFsZmY0Y3NyeHFWTCt3Q3dHZmR1S3p5RzJC?=
+ =?utf-8?B?MFJYZzlJWGtxdWdUL3M5Tm9tVDFaMU92TTJ5TTdNcE1TWWFTOEx4eU1DTjlh?=
+ =?utf-8?B?RkVmTENYeGNPaStiemEyemFEL1FkM3NDSGlPTytNSlIzM1pxdis5dXJVYWlZ?=
+ =?utf-8?B?dUh4VnZ6N1JGcGprSGZOVUVnT2tRUkZCL0N0QVNQdFc4L2pOVHRrYi8rZTda?=
+ =?utf-8?B?aER1RXNESlB3eWh3VTlRT205Z25vQ3ZFVWl2QjF2ZzJoeFFqYk41dDZFUjhh?=
+ =?utf-8?B?UXhOQnY3K3lNV0dEZmdhc21hZ1dNTyt6aFpVY0FZWjNNZThlVmR1K29tSnp2?=
+ =?utf-8?B?bFRucnJGWnM1M095Z3lPRnlyQlF5L09PcjZHTHArNzdkMlFFaTA2VmM4amJr?=
+ =?utf-8?B?YURuc3hXL3ZIUnhwbEhkcnJMVDl4dkRjVU9TdUdEdHNyL0lPRUlwYTVkL25m?=
+ =?utf-8?B?NHhUMFhUa3dUeHd4bmplWHRuSjNpSEFzSXgwM3RDeTJpTUN6UG5GS3FjNFpp?=
+ =?utf-8?B?SzU4QzJobHR4Y1VGZE1Sb3RHNCtncHFjbkVjclNScHJMc1dROEx6ZUprYTZN?=
+ =?utf-8?B?bklzTE5TSWV0Tk0rbGRXdjdNbFRJZ1FJd3ZKSTllS3BhNjZDelZGRDR4MitC?=
+ =?utf-8?B?VUd5ZklkSTVnY2FNc3NPQ3p3WXFMekhaaXFVZlJvRkhkb2RHTTBnOEhVTVhj?=
+ =?utf-8?B?ZDVLaHlkZW9BMmM0UlJvZEdhYktiVUtBcTFuZ3RSSUZYYTJ0TFYweklEZ1Yy?=
+ =?utf-8?B?TmtGb3lGa09ZdnZkU1FQSUdHSE5iYjgraU1KWXBMZWZOWUpJK1JIV3kxQ3h4?=
+ =?utf-8?B?RXJtU3B4VTRycEwzNEZzM1JuY0EzUzE3QzRMSUh6VDZqRENoWUwzMzdkbmd0?=
+ =?utf-8?B?bjhQTWxYaW92ZC96ekRRWUxkdVFtdElmVUMyNndTVm0xN1lYRVEzTDhjSUpr?=
+ =?utf-8?B?TS9VOERMSHN5RHp5cnQ4NGpyUFdvdUN0WkYrd3NMcFROZWJRbXFpN2JWb0Fz?=
+ =?utf-8?B?MGVFWXNEbFpYM3RQQjFFK0VIUXVkRVAxekRCaDdmZVhwUkR1RGFIR1BYcTNk?=
+ =?utf-8?B?cTJsRHNMY2JWWXEya2E2VGgyV1ZJaXE5SmNOSE8ranFRNlNtVTA2eE9YK0VF?=
+ =?utf-8?B?VUxLOHVBV0FBb2NsZWpCeWthREl2aUNwRHhrMzNyNTQ4bGNTZ2N1NC9ERzAy?=
+ =?utf-8?B?dzdCVXJKbjNoTU1SRjZobldXaEZ1eDA2WFc4TzRVaTNvdEM4S0Irc0YrS3pE?=
+ =?utf-8?B?K0oyTGhNaW5BT1RpeG5YMnExV05pUGlQRStNU0NXMVNGOXhJWWRCWkVYd3dn?=
+ =?utf-8?B?dDVQV3dOU3plNEFOT1BhUUFDYnVjRVNtNGwrOVlpNXdsYmc5WlBTWFNBN3M0?=
+ =?utf-8?B?cTJQdnVpaSs4RVdEd1gwWEsxK1ZpdC9rbzhDdEhxZ05PLzR1ZVF2SHE3aFpR?=
+ =?utf-8?B?a1QxajVYUTMwbWdMaWRHa1lMY0ZrTWlLY3lkdUtYWFRiU0xnOTRZeTVNNkEv?=
+ =?utf-8?Q?ynmFHKKrCsM=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Received: by 2002:a05:612c:2287:b0:28d:c775:b69f with HTTP; Wed, 23 Mar 2022
- 18:09:21 -0700 (PDT)
-In-Reply-To: <CAHtRFGvj1DuYzUUL1P5bvfMpT1WkwUL2ZpZQt1iYf-XH=fJP0Q@mail.gmail.com>
-References: <CAHtRFGvj1DuYzUUL1P5bvfMpT1WkwUL2ZpZQt1iYf-XH=fJP0Q@mail.gmail.com>
-From: Craig M <cmroanirgo@gmail.com>
-Date: Thu, 24 Mar 2022 12:09:21 +1100
-Message-ID: <CAHtRFGvDmdMkc4r5Ko8osJPeGiWQnPwcABY=4WzweYz50WQQMg@mail.gmail.com>
-Subject: Re: ATI Radeon Mobility 3470 fails with Kernel 5
-To: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3238.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e53ea826-36b1-4b1a-9134-08da0d35a52c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2022 01:28:48.0373 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UE+WBD/akDvakkm8T8v67qIhcTzpbwRD4ykDFQSKoJfquOfkpwRbbDbaeIWwtD+n
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5468
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,93 +130,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
+ Yifan" <Yifan1.Zhang@amd.com>, "Huang, 
+ Ray" <Ray.Huang@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I should add some further information:
-
-I have tried using Manjaro KDE, Kubuntu 20 and Kubuntu 18.03 live
-disks and all exhibit this 'tearing' issue.
-
-The problem begins rather early on in the boot sequence while the TUI
-is logging the startup information and continues to be a problem as
-the screen becomes graphic.
-
-I feel that I should be able to rectify this with a setting change.
-
-Again, Thanks for any help.
-Craig.
-
-On 3/24/22, Craig M <cmroanirgo@gmail.com> wrote:
-> Hi,
->
-> I'm trying to track down a problem with an ancient graphics device ATI
-> Radeon Mobility 3470.
->
-> Ubuntu/Kubuntu 18 is shipped kernel 4.18 and the radeon drivers work well=
-.
-> With 18.02 and later it ships with kernel 5.0 and the radeon drivers don'=
-t.
->
-> What I'm seeing is hard to describe. It looks a lot like the scan
-> lines are interleaved and there's a lot of noise. It's not the typical
-> screen tearing, nor is it just snow (black and white noise). I can
-> *just* make out what it being displayed onscreen, but hurts the eyes a
-> lot to try and do so!
->
-> If I hold the kernel back at 4.18 things are just fine.
->
-> Some detailed info (from a working 4.18 kernel). Note that the
-> returned information from a 5.x kernel isn't all that much different:
->
-> $ lshw -c video
-> *-display
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0description: VGA compatible controlle=
-r
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0product: RV620/M82 [Mobility Radeon H=
-D 3450/3470]
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vendor: Advanced Micro Devices, Inc. =
-[AMD/ATI]
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0physical id: 0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0bus info: pci@0000:01:00.0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0version: 00
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0width: 32 bits
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0clock: 33MHz
->       capabilities: pm pciexpress msi vga_controller bus_master
-> cap_list rom =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0configuration: driver=3D=
-radeon latency=3D0
-> resources: irq:26 memory:c0000000-c7ffffff ioport:9000(size=3D256)
-> memory:c8020000-c802ffff memory:c0000-dffff
->
->
-> $ modinfo radeon
->
-> filename:
-> /lib/modules/4.18.0-17-generic/kernel/drivers/gpu/drm/radeon/radeon.ko
-> license: =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0GPL and additional rig=
-hts description: =C2=A0=C2=A0=C2=A0ATI Radeon
-> author: =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Gareth Hughes, Ke=
-ith Whitwell, others.
->
-> ...
-> name: =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0radeon
-> vermagic: =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A04.18.0-17-generic SMP mod_u=
-nload
-> signat: =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PKCS#7
-> signer:
-> sig_key:
-> sig_hashalgo: =C2=A0=C2=A0md4
-> ....
->
->
->
-> I'm just trying to track down the driver changes between 4.18 and 5.0
-> to see what I can do to change settings. Any help  would be greatly
-> appreciated. I've had a quick look through
-> https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati but I don't
-> know where to start (as there's no correlation between releases and
-> kernels, from what I can see).
->
-> Regards,
-> Craig.
->
+W1B1YmxpY10NCg0KVGhhbmtzIGZvciB0aGUgcmV2aWV3LiBBY3R1YWxseSwgdGhlIGNvbW1pdCBo
+ZXJlIG1lYW4gZGlzYWJsZSB4bmFjayBvbiB0aGUgSVNBIGdmeDEwMzYgZm9yIEtGRCB0ZXN0LCBi
+dXQgaXMgc2VlbXMgbW9yZSBjbGVhciB0byB1bmlmeSB1c2luZyBJUCB2ZXJzaW9uIGdmeCAxMC4z
+LjcgYW5kIHdpbGwgdXBkYXRlIHRoZSBjb21taXQgaW5mby4NCg0KVGhhbmtzLA0KUHJpa2UNCj4g
+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQWxleCBEZXVjaGVyIDxhbGV4ZGV1
+Y2hlckBnbWFpbC5jb20+DQo+IFNlbnQ6IFdlZG5lc2RheSwgTWFyY2ggMjMsIDIwMjIgOToyMSBQ
+TQ0KPiBUbzogTGlhbmcsIFByaWtlIDxQcmlrZS5MaWFuZ0BhbWQuY29tPg0KPiBDYzogYW1kLWdm
+eCBsaXN0IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz47IERldWNoZXIsIEFsZXhhbmRl
+cg0KPiA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IFpoYW5nLCBZaWZhbiA8WWlmYW4xLlpo
+YW5nQGFtZC5jb20+Ow0KPiBIdWFuZywgUmF5IDxSYXkuSHVhbmdAYW1kLmNvbT4NCj4gU3ViamVj
+dDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogc2V0IG5vcmV0cnkgZm9yIGdmeCAxMC4zLjcNCj4N
+Cj4gT24gV2VkLCBNYXIgMjMsIDIwMjIgYXQgNDoxNSBBTSBQcmlrZSBMaWFuZyA8UHJpa2UuTGlh
+bmdAYW1kLmNvbT4gd3JvdGU6DQo+ID4NCj4gPiBEaXNhYmxlIHhuYWNrIG9uIHRoZSBpc2EgZ2Z4
+MTAuMy42Lg0KPg0KPiB0eXBvOiBnZngxMC4zLjYgLT4gZ2Z4MTAuMy43DQo+DQo+IFdpdGggdGhh
+dCBmaXhlZDoNCj4gQWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1k
+LmNvbT4NCj4NCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IFByaWtlIExpYW5nIDxQcmlrZS5MaWFu
+Z0BhbWQuY29tPg0KPiA+IC0tLQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZ21jLmMgfCAxICsNCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspDQo+ID4N
+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5j
+DQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5jDQo+ID4gaW5kZXgg
+ZTE2MzVhM2YyNTUzLi5hNjZhMDg4MWE5MzQgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2dtYy5jDQo+ID4gQEAgLTU2OSw2ICs1NjksNyBAQCB2b2lkIGFtZGdw
+dV9nbWNfbm9yZXRyeV9zZXQoc3RydWN0DQo+IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ID4gICAg
+ICAgICBjYXNlIElQX1ZFUlNJT04oMTAsIDMsIDQpOg0KPiA+ICAgICAgICAgY2FzZSBJUF9WRVJT
+SU9OKDEwLCAzLCA1KToNCj4gPiAgICAgICAgIGNhc2UgSVBfVkVSU0lPTigxMCwgMywgNik6DQo+
+ID4gKyAgICAgICBjYXNlIElQX1ZFUlNJT04oMTAsIDMsIDcpOg0KPiA+ICAgICAgICAgICAgICAg
+ICAvKg0KPiA+ICAgICAgICAgICAgICAgICAgKiBub3JldHJ5ID0gMCB3aWxsIGNhdXNlIGtmZCBw
+YWdlIGZhdWx0IHRlc3RzIGZhaWwNCj4gPiAgICAgICAgICAgICAgICAgICogZm9yIHNvbWUgQVNJ
+Q3MsIHNvIHNldCBkZWZhdWx0IHRvIDEgZm9yIHRoZXNlIEFTSUNzLg0KPiA+IC0tDQo+ID4gMi4y
+NS4xDQo+ID4NCg==
