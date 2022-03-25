@@ -4,45 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ABD4C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Mar 2022 15:56:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A33BC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Mar 2022 18:11:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6340910E8EE;
-	Fri, 25 Mar 2022 15:56:09 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5492F10E630;
- Fri, 25 Mar 2022 15:56:08 +0000 (UTC)
-Received: from [192.168.0.7] (ip5f5aef76.dynamic.kabel-deutschland.de
- [95.90.239.118])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id E1B5161E64846;
- Fri, 25 Mar 2022 16:56:05 +0100 (CET)
-Message-ID: <c62c2ef4-9223-b84d-b532-8f3acaaa80ff@molgen.mpg.de>
-Date: Fri, 25 Mar 2022 16:56:05 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FDD010E928;
+	Fri, 25 Mar 2022 18:11:27 +0000 (UTC)
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [IPv6:2001:4860:4864:20::35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F70F10E928
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Mar 2022 18:11:26 +0000 (UTC)
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-de2cb87f6aso8856818fac.10
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Mar 2022 11:11:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=tzPicqx5MvcbPKYAltxjlt/7wo3zOpeo9BOLhP9vFDA=;
+ b=RT7R9snssOhIwTQMVvuIyBP280nP/9qeHidghpg/W9SNj41/gphvv9Zi+ELhBoc2Xn
+ 3XCe9htwF8KFsuVl2+XrVbSNtsD28BJE72Hw/z/c8SMCVElfaw2tFyPKpNKaHD9f1NYn
+ EwgNG7ztdu3wgccifvc83SqhF7XNwt5ohtPznIlmL5YOzp0d/1bJzL+jizqNqPIIK1I5
+ OaXBG7yANSh62aBvKXGelUEXFIBGir0FMDFSEX4Q1SC5Grzkgoi3LRsQ8ym2pbyJr5g4
+ e1xKUrwF7S7pcrFygk+7O1zFNigVdcVwaZAngDdF/U/zhsUptlKUVdSuFDyRHz21TFnZ
+ iGSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=tzPicqx5MvcbPKYAltxjlt/7wo3zOpeo9BOLhP9vFDA=;
+ b=yQiLXLQlDm9brryWoqFkFoGXH/GkXNPjzfH3wmM45BEX0h6p321wpJveOZlCLhL5g9
+ qv/EuViuRZD1CxghfEfTOKWzNCkcc+dMyL7LavXYNTt6DEZ+lI2FgaxFO6m9OA2NbRfB
+ KW72jSfmXUxBCVMCJReWRM1F0HlygS5A+aLbZjqO+TlZGfYmRQqzm0ouePqlAHunUyOY
+ JF+pJGIQIt0KzRcDAK4QOjuxk19z2r7fqle7RWqowfsLrSGKucGPRv1g18m4Zhh79JZo
+ 4RnwXgO1IfR041o95C472mz+3TuvjXpVlCw5GtCo/GzG8m4BKTTX9G4niwo1lEAco655
+ 7r1A==
+X-Gm-Message-State: AOAM533NQx+TbqIoGInEf27oX0ZYHezb7oEaGyWtYlKLzyrEelu+zraz
+ o2hU3ZMtKUAs1Gbg5iOk4V0lbciOH4q2NFNtY+U=
+X-Google-Smtp-Source: ABdhPJwc2M73j0Hufxy76skeixvseyWtePqnGvoKmpBkac3a7uj6O7MkPWZzoHw7wXfhif2RrICTNRNftZ0PvBfnr9g=
+X-Received: by 2002:a05:6870:630c:b0:da:b3f:324d with SMTP id
+ s12-20020a056870630c00b000da0b3f324dmr5608234oao.253.1648231885432; Fri, 25
+ Mar 2022 11:11:25 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-Subject: Re: Commit messages
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Daniel Stone <daniel@fooishbar.org>, Alex Deucher <alexdeucher@gmail.com>
-References: <20220323062552.228429-1-Arunpravin.PaneerSelvam@amd.com>
- <7addb3e7-d265-c1a7-d449-7d0056f06d63@molgen.mpg.de>
- <fc60c561-c12a-c031-9558-abae3e3474ec@amd.com>
- <6f0888a2-f74d-f41f-d593-a8362e7dc673@molgen.mpg.de>
- <398f8851-d37b-4020-24ce-8f2ab9723e40@amd.com>
- <CAPj87rMETV9UkpbGRYAT3mjVhRtW75m0e9OLON6_+gdcD0Fo2Q@mail.gmail.com>
- <CADnq5_NuaN_ZziNipdqvvTQ41you==VqJg5oxQovowokaJ2K1Q@mail.gmail.com>
- <CAPj87rNyjd1xkEEARMoiaEdjLxy2rvcKa03fnNCnpN91DLhF1A@mail.gmail.com>
- <CADnq5_Mt5sWCC7hLLBH_DJdvXGqSTbNNaxWpY+cWWD9Vpa8KGQ@mail.gmail.com>
- <CAPj87rPhuVTDJSsY-HsKfvV3xkDhEn7nUd3WLsxNuJD=Mx2Zxg@mail.gmail.com>
- <c41203c8-841b-889f-5c9b-5982ee961849@amd.com>
-Content-Language: en-US
-In-Reply-To: <c41203c8-841b-889f-5c9b-5982ee961849@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20220323211801.1569848-1-info@benjaminmarty.ch>
+In-Reply-To: <20220323211801.1569848-1-info@benjaminmarty.ch>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 25 Mar 2022 14:11:14 -0400
+Message-ID: <CADnq5_Pr=FvJoqeLoyx7A6pr_fr9NZi9e8BfgrnVeVLt_BSbFw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/display: change pipe policy for DCN 2.1
+To: Benjamin Marty <info@benjaminmarty.ch>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, 
+ "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,109 +64,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org,
- Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Matthew Auld <matthew.auld@intel.com>,
- Alexander Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Christian, dear Daniel, dear Alex,
+@Wheeler, Daniel
+ @Siqueira, Rodrigo were you able to repro this?  Any ideas?  Any
+downsides to picking this up for now?
 
+Alex
 
-Am 23.03.22 um 16:32 schrieb Christian König:
-> Am 23.03.22 um 16:24 schrieb Daniel Stone:
->> On Wed, 23 Mar 2022 at 15:14, Alex Deucher <alexdeucher@gmail.com> wrote:
->>> On Wed, Mar 23, 2022 at 11:04 AM Daniel Stone <daniel@fooishbar.org> 
->>> wrote:
->>>> That's not what anyone's saying here ...
->>>>
->>>> No-one's demanding AMD publish RTL, or internal design docs, or
->>>> hardware specs, or URLs to JIRA tickets no-one can access.
->>>>
->>>> This is a large and invasive commit with pretty big ramifications;
->>>> containing exactly two lines of commit message, one of which just
->>>> duplicates the subject.
->>>>
->>>> It cannot be the case that it's completely impossible to provide any
->>>> justification, background, or details, about this commit being made.
->>>> Unless, of course, it's to fix a non-public security issue, that is
->>>> reasonable justification for eliding some of the details. But then
->>>> again, 'huge change which is very deliberately opaque' is a really
->>>> good way to draw a lot of attention to the commit, and it would be
->>>> better to provide more detail about the change to help it slip under
->>>> the radar.
->>>>
->>>> If dri-devel@ isn't allowed to inquire about patches which are posted,
->>>> then CCing the list is just a façade; might as well just do it all
->>>> internally and periodically dump out pull requests.
->>> I think we are in agreement. I think the withheld information
->>> Christian was referring to was on another thread with Christian and
->>> Paul discussing a workaround for a hardware bug:
->>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.spinics.net%2Flists%2Famd-gfx%2Fmsg75908.html&amp;data=04%7C01%7Cchristian.koenig%40amd.com%7C6a3f2815d83b4872577008da0ce1347a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637836458652370599%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=QtNB0XHMhTgH%2FNHMwF23Qn%2BgSdYyHJSenbpP%2FHG%2BkxE%3D&amp;reserved=0 
-
-(Thank you Microsoft for keeping us safe.)
-
-I guess it proves, how assuming what other people should know/have read, 
-especially when crossing message threads, is causing confusion and 
-misunderstandings.
-
->> Right, that definitely seems like some crossed wires. I don't see
->> anything wrong with that commit at all: the commit message and a
->> comment notes that there is a hardware issue preventing Raven from
->> being able to do TMZ+GTT, and the code does the very straightforward
->> and obvious thing to ensure that on VCN 1.0, any TMZ buffer must be
->> VRAM-placed.
-
-My questions were:
-
-> Where is that documented, and how can this be reproduced? 
-
-Shouldn’t these be answered by the commit message? In five(?) years, 
-somebody, maybe even with access to the currently non-public documents, 
-finds a fault in the commit, and would be helped by having an 
-document/errata number where to look at. To verify the fix, the 
-developer would need a method to produce the error, so why not just 
-share it?
-
-Also, I assume that workarounds often come with downsides, as otherwise 
-it would have been programmed like this from the beginning, or instead 
-of “workaround” it would be called “improvement”. Shouldn’t that also be 
-answered?
-
-So totally made-up example:
-
-Currently, there is a graphics corruption running X on system Y. This is 
-caused by a hardware bug in Raven ASIC (details internal document 
-#NNNN/AMD-Jira #N), and can be worked around by [what is in the commit 
-message].
-
-The workaround does not affect the performance, and testing X shows the 
-error is fixed.
-
->> This one, on the other hand, is much less clear ...
-> 
-> Yes, completely agree. I mean a good bunch of comments on commit 
-> messages are certainly valid and we could improve them.
-
-That’d be great.
-
-> But this patch here was worked on by both AMD and Intel developers. 
-> Where both sides and I think even people from other companies perfectly 
-> understands why, what, how etc...
-> 
-> When now somebody comes along and asks for a whole explanation of the 
-> context why we do it then that sounds really strange to me.
-
-The motivation should be part of the commit message. I didn’t mean 
-anyone to rewrite buddy memory allocator Wikipedia article [1]. But the 
-commit message at hand for switching the allocator is definitely too terse.
-
-
-Kind regards,
-
-Paul
-
-
-[1]: https://en.wikipedia.org/wiki/Buddy_memory_allocation
+On Wed, Mar 23, 2022 at 5:18 PM Benjamin Marty <info@benjaminmarty.ch> wrote:
+>
+> Fixes crash on MST Hub disconnect.
+>
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1849
+> Fixes: ee2698cf79cc ("drm/amd/display: Changed pipe split policy to allow for multi-display pipe split")
+> Signed-off-by: Benjamin Marty <info@benjaminmarty.ch>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+> index e5cc6bf45743..ca1bbc942fd4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+> @@ -873,7 +873,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+>                 .clock_trace = true,
+>                 .disable_pplib_clock_request = true,
+>                 .min_disp_clk_khz = 100000,
+> -               .pipe_split_policy = MPC_SPLIT_DYNAMIC,
+> +               .pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
+>                 .force_single_disp_pipe_split = false,
+>                 .disable_dcc = DCC_ENABLE,
+>                 .vsr_support = true,
+> --
+> 2.35.1
+>
