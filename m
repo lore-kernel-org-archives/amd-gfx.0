@@ -4,113 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6581CC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Mar 2022 08:22:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CB57C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Mar 2022 08:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA77510E055;
-	Fri, 25 Mar 2022 08:22:58 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2055.outbound.protection.outlook.com [40.107.244.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1168610E055;
- Fri, 25 Mar 2022 08:22:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAD0910E739;
+	Fri, 25 Mar 2022 08:31:38 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2065.outbound.protection.outlook.com [40.107.95.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3420510E739
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Mar 2022 08:31:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NcgdQkoXvIDjpJ8HKvNwi/RG9wlcpr1oTPWFReV55GkgP/qA12bjyYxtF2/rCuJnFfRpNjAMc0Ug+qeFOvErrKuiYbAfNORPAAtyBTEZ665x8wkhTzg6IsuveG+ltcWiKK2VtPJCgmqA/q9U9wlZLTC5wt0z5mJepT5O+8j9izgEy3ItJgFA+hnFPkFQaaTBoNpHorIP88I9SUyswSI+2F/zmH3zzJ1Uq9o7okySh2LFRaP7tgXzO+zsNOCmGnPKSPYQe+7ST4bWxtahJ540rrK3hHM9mvBG1dFNhkM1fzvEIPA9TyPxzJf/g3a0BfBuCjDeUcNee0l3VzH5ypDlrA==
+ b=eDu+GhGytof8Wz092lBg5VPJxW7hbWmAWrpgn6EAnMAieQBRSAwfpHDshsazgP91x/Jo+Won7asyJuQW573Sv6e2dT7M4q48oIsZznBRNXSyz/lg/HTO4rrufacKVdhGVzdbfh3KwBr5oelMrbm8aY1A/VdN+e+pMZYBXO52Jvm22FJbmNt33PNf/kMywzLorwInRaK2UhQGXbiJMrUl7tsYl8BUNiFi9IQ3cYr7rBnd8INz2SMUyUpaaaXOvWGMIubJ5BVdjH+JdrwiTzxv9RNmtUZ24ChqDsDkBZawMROMupWyl4cJkdLEzmwXUKkbvnbwrysAlZKEGlu3ozWdVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iqVBBbzFkcmN22oQbJR4trB/KFyEvHY6cGjygr7SgB0=;
- b=jFeGh+oJF0a3Fv4AhLLxz2L70j1Eur1/ALEAqXcDdw8IIO9guz1tFH1obZb8IlYVUl7WFTxFqyRoh9bQ/Zt4tw20w/YYPHvoLR2Qlk56IJonanZLf3XKzRzKDMqOIO5ZuwIRmshKgUfX1rszPLv5gT22AslAy1eapzwzWLlPpEbhkeGsI05Hu9q/WFknM7eSW3R3DakYQEmzfa55eUX5fmtLKNukP1ZotsMxKFpNgX/3m8z8q7AVrDJGw5RPk5yWAheu3qAyrC/55xhCQ9c3KfZ5kAiuqO67hACWypguNAObsp1Y7frbMxFl8yrTC+PPR9NYjAv00K5uEIeGuV3bWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=2fkZqYGKyInWQrGUZaJgKuj4hzNATdmEzn0+S+SxVlI=;
+ b=D9h9W1bTfoD/EHEIqmsre86Qdhwr2vJBxCDm2qLGiig66lY//ROuDllD84O56a1eEZ8BtXN5FXMqDBwmBfwd5jrbuVrxp/0JQaqy+7zubzd9biPAnDM074fuPZx622fMYRQxHBFwXlfpbb8ub14t87sw9BAhlh11NzV1elZWGqtQkoma8A4tcshVpVSQGbuSjoFqvQ61OKpUTe2kJz7G7TTlo6wUbG1LkReTsYSqXJZXS1O42wpuyCH0/kbR+BkWCr6SLFJmS9u5H+QvfGpTrwzwFqUrEngebD/sPPAJHlgAsbsBPz8b9+sT0MQ4Q7tu0U8WUixkAiE7J19WXFtjFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iqVBBbzFkcmN22oQbJR4trB/KFyEvHY6cGjygr7SgB0=;
- b=rA47l1J1nv81e/S05XXM5KeSvbuhC0O5V26KxmGT5YSywEHvsnNRH01KHcBH3yeko0U/EhRzgiSucbs7/rlGfgaYzG4W5pBk+ZHitFZwIHPitoFfphgL8mvtHWqCnFVSIW6bVwrO+lU91WP4eqaNJFfvWSsq7wzi5NV3Rfxq1mk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SJ0PR12MB5664.namprd12.prod.outlook.com (2603:10b6:a03:42b::18)
+ bh=2fkZqYGKyInWQrGUZaJgKuj4hzNATdmEzn0+S+SxVlI=;
+ b=eQGUwFIk5TDk26VXiLB+owweypO1vnsIgjoBx1wkfWHXe1RD32Ef5Q0oPdQWh1fEGnMw/lN/jEiODEsQGcwzSL+QB79Mf11oebwwwG7sZh5HsnZ4w5mD8p+FehwQoKF2w67oS4GoSU/s6uWXFV79rLN4IyWYt6FybGIs63NFfkQ=
+Received: from BN9PR03CA0596.namprd03.prod.outlook.com (2603:10b6:408:10d::31)
+ by BN6PR12MB1922.namprd12.prod.outlook.com (2603:10b6:404:106::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.17; Fri, 25 Mar
- 2022 08:22:52 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::404f:1fc8:9f4c:f185]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::404f:1fc8:9f4c:f185%6]) with mapi id 15.20.5102.017; Fri, 25 Mar 2022
- 08:22:52 +0000
-Message-ID: <50f4c9aa-77d1-fa8a-82c2-64bb8cd91b52@amd.com>
-Date: Fri, 25 Mar 2022 09:22:44 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] drm/amd: Re-classify some log messages in commit path
-Content-Language: en-US
-To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20220325000622.1594343-1-sean@poorly.run>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20220325000622.1594343-1-sean@poorly.run>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM6PR08CA0025.eurprd08.prod.outlook.com
- (2603:10a6:20b:c0::13) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.18; Fri, 25 Mar
+ 2022 08:31:35 +0000
+Received: from BN8NAM11FT010.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10d:cafe::a0) by BN9PR03CA0596.outlook.office365.com
+ (2603:10b6:408:10d::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17 via Frontend
+ Transport; Fri, 25 Mar 2022 08:31:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT010.mail.protection.outlook.com (10.13.177.53) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5102.17 via Frontend Transport; Fri, 25 Mar 2022 08:31:35 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 25 Mar
+ 2022 03:31:32 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: Check feature support using IP version
+Date: Fri, 25 Mar 2022 14:01:15 +0530
+Message-ID: <20220325083115.1311275-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d8bc9e97-026e-49e6-dd6e-08da0e38a795
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5664:EE_
-X-Microsoft-Antispam-PRVS: <SJ0PR12MB566460987978C5F96E68219D831A9@SJ0PR12MB5664.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 22233b20-d51a-4a09-9cab-08da0e39dfa4
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1922:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR12MB1922D92EED837CBDD57C64A6971A9@BN6PR12MB1922.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /esNjqHjxXWB19AE/s3DzJOAlUmiLnE380MEG/18LC8tre73SrsUMbXlCIA+yfaCHQhZ5ANqmBvvkCGsHlTEnD05XK16cslzYnvJrailV6BBbJdMhGru8wWJwNfluF4ur5ya1LSFB9rPxN2O2LdlEP3lpfFy0lVjeWLofu6+87MquAOzdMIrzEy4FpWJeqBnqYVeePyZEsgEXbh0bgwoplBsBLG/umnuiCrwywWI/IS09tHALU5grPc3EonMCwW3Cxy+hOgswpafKQglVMLPBaSDo440W2U2m6cwZK1xEStsjm2oVdU/zKt8ghnFut8tfY2jIp6BJ/cFdW9lXby7prrj9Ruhc4ifVbJ/GKLIyBfmYG/Jsbq/NTI9CSGDXCI1f17iY3RrxkjWyak3U5XxqtZAGQ5MJ+dlyR9L8KribfCrYXyzHcwXJjiOPrEynjagElpNrhbgJ8t8/Tgk2+c2RzHXS7vAFuoiwiADQQNogrx8Dw2y7IBWYiMEdhIcYwTQKz4oqaIyQqEtdkDoYKHr6y6za4bnpUumUrwg7Ik3mx6Th+OZ8fRWM/bOZPc5ny+vuv9HVcUnKeJbYKDdiy4jVAHgF/Ga8d35pj2h/8TEAsdQtzNPhc5RVTVVjmmEM2hnhyNzq3t6r16y7NvV33Zf+QYlQ0QMJGv2n2kWAoAb6v7hRrkHV7ZNiWysPz5tYYdR3Qc6+LjqA+ZLyTVowjfOcQS767+MdL82vGoqGK9SRRodMFxR0oZO0kdSt3CnI7Yu
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(2906002)(31686004)(8676002)(66946007)(5660300002)(316002)(54906003)(36756003)(83380400001)(2616005)(15650500001)(38100700002)(6486002)(6512007)(6506007)(4326008)(66476007)(86362001)(66556008)(31696002)(26005)(186003)(6666004)(8936002)(508600001)(66574015)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: xAoh0meiiOKTXsfZrGiPn6ruW9xSMj3MOA5XYdDi6GmWEhzf4wybwlXI6AaEwCza3IxivO9OQgEbtsF1ve+1mN+rslemtZLvYggmEWNI3egov0em2MwE8HAtH2uaoyhb9Bj7CIYQy4byzidBYAtk8xgpgMxK3jIqiQ5Nl/J+WHu6ZvEvTpXuaetm8yRBp4GxzsKWirjCtCWJqCaDA0qU2Yq03fcdB06YlNS5xZGwmAc3lYzey2ESnMSFykt2VBlX6RsosaD9D4wDkvh34oD53sT5jRU94drBeK9By6x2DoGhYwgvlfNhujN72VuwNuXxzQh8z5VEo2X7EZga0f6OTeDClhOA/SluD6vqVFzLcl2YCRQ5Ueae5PGLcGMe/5IU4xLlr5+zBBOpq0lUDXm43ZhqId45yTLFIPxRLrsNbfIsQPCjxJuTGOZ+mT5HptTJUqyPlr6lyMOPWrPH5rnA49ue0IhkyRdrBTJDRd3lxRGqlXDCOMdDREiwmXJjyQzujoUyF1nadN+Z0v8tnT0bNgiMbzuJ9wuSHfUlc7QSRPSkBeQ8gE/WB7cyqd0L4TPiH6S//M3LqnxpU0qsl/RyfCluJr7kyEupvif6ygCbViJhiV3v8o/tfm9+fb4StWE/a9IamEs7URk9AAqeNDJIpag3ULY5GqJIdIpzTucLfdzd65W1G2c2O/eOAB2v3bbaQkjLAZVD3Kcc0f/LjhrW2w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(5660300002)(86362001)(70586007)(82310400004)(508600001)(316002)(6666004)(8676002)(44832011)(4326008)(70206006)(81166007)(8936002)(36756003)(356005)(83380400001)(54906003)(47076005)(6916009)(7696005)(40460700003)(36860700001)(2616005)(336012)(186003)(2906002)(26005)(16526019)(1076003)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T2RGd3VSQ0ZNa2xJR2tTa01LTFI3WFdlc0dBZWVkVDFZaUxxTmg4MXVoQThX?=
- =?utf-8?B?NGZRRGU2d2VsbzZvU3JnSmhiMnZNM0xDcStHOFQ5NEJGMjFPQmw5ak1yWExH?=
- =?utf-8?B?djIzZCtyN1Fhck1KM0trU1FzL2phaGhpYlM4eUg4RTNBOXVuZHpnR09PUVRQ?=
- =?utf-8?B?cDFCbEthRXV3M08rM084R2xzUjVuV3lNQWUwTVFoNUd4UEllcjA5NUhQMHJ3?=
- =?utf-8?B?UHVDeWx2VlFFOWRnQjkzMG10U3hDQnhHK1dHZllhRURyLzdWb0RFUXFBV0Zj?=
- =?utf-8?B?NDlVL3UvQmFHUTBSQjVaYTZXdjVLdEsyVWpsT2NmWGpHSXNyb0Y2UjZTVlNh?=
- =?utf-8?B?MUFFRXdCeUhKS1lETzl3NXA4S3l3K2RZVExaL2RaTmJ0OGVBN2U1VFFmTU1I?=
- =?utf-8?B?NnUxZ0FtcjByUGRRbmhyMzRTbGRibnJjVURYSEhveDNXMzlOeFFPbmRPWkdG?=
- =?utf-8?B?T0IzZUt0Q1NuaHFPWTY0V2xhTHN3UkhOa05CVjBPWGQvMzV5YWZOL1ZQWUd3?=
- =?utf-8?B?RHQ5NHBxTjJhbUQrMW1qK2NCVTZLZTBJTW5CV0x1UytNUUVTOTlqZVFZTHhz?=
- =?utf-8?B?cVVPTFBUQ1FKSzFzWTdGVlp1VFN0SU1uZWZoQWQ0eFp2MzQvWjZTVnFBblNi?=
- =?utf-8?B?SzZmSitza1o3emIxbUFaNnlkZ09xZmJ3T3lMalBYUHBGM29BZlEwbmYzNXFW?=
- =?utf-8?B?ZHFQZllhSDVIdlQ4aUYrM2dWWmxreFlMN3N4SlppZldYUC9GRW5RZnVnRHIx?=
- =?utf-8?B?VFVGdCtLOXBYOW55Szh5QURsWFZjMmNnSjFDbE04c0FqZElGbXkzNTVkZll1?=
- =?utf-8?B?dFdOL0txYnJkY3RsTmpHNmRLTEg1YlkvWFN5R2N6NytzNHlpbnVyeCt4LzRM?=
- =?utf-8?B?Zmdyb2hvSGlWQXRXTnJmQTlpcUJLYkwrUFBTSWhLMTh5SjhPU3ZJNUV6S0Vx?=
- =?utf-8?B?L0JJUmR0NkVZVExHdWZOSGM5WjNzaTNxeUU1bUZzeGdoQWFsNDdJdTdJTzlm?=
- =?utf-8?B?Y2FSM2RmY2lEUUxHVWZldjJ1cUY5QWVXeXA5MDVuSjZOQkhEUzBhcTNmS2pK?=
- =?utf-8?B?bi9KRmtuYngzZGdJSnR0cjJPRlJqbklUajQ5ZXBCTmttVVpHdlBCWTJBV2Ez?=
- =?utf-8?B?QTdjWUR6RDNzWTdYWitoRk9IWUsrV1E0dXlJN09DcUc2ckNhb0FXREQ2SmNQ?=
- =?utf-8?B?V3Njb1ozV1N0WFVnWjRDczlXNDR2SVVMZElKUlJ5RFhjaW53RDZPczBpclN0?=
- =?utf-8?B?cGxJdmsxdlBabmdEUWhJOVhlYmNISkhZMlJrQWcwMy9SY1liWkdtdG8ra2JK?=
- =?utf-8?B?MmZHaUlsMmdUU25pVG5Lc3ZIU2U5UnZDeEFmNXBjaHZTdHA5a3lidVZxUmVZ?=
- =?utf-8?B?VFBnblM0YkQxRS9Dbi95Rk5SeUwyQlpJUnIxeS93VjJyU2hFNmgwTmFZNWVn?=
- =?utf-8?B?a1lJbWx4TjcyVXRSMHhVbUNwbXVyaGFJMjhyTUVtVStXOHN6T1hrNUd5UzR4?=
- =?utf-8?B?U2twOXpMeG5nTGdmNUk0L2xTdFp2TldvckhGZFR0K3pqMG9IcktIU3pibzVP?=
- =?utf-8?B?dHRtQUJ2SnRhKzAxYUlQR1lZOEx2N2JRZE9qeEE5RUhRdDhwL2xzeFA1NGF0?=
- =?utf-8?B?S1I2c0l4bkIxLzY4SmpDU0R4cTVvWFFodjBEeFlkaEE1ZFhEcHY5RnQ0SUdB?=
- =?utf-8?B?UTFKVzVTbUw5YTlFWU1lZ0hOL0JOeDJ6RGxQcEw0aFdGSGlMcXYyTTNYbWtN?=
- =?utf-8?B?NUdMWGFSdkI3bURtZzZGZFJaZ2dIR3lyT3A5QkRmdm5pN2YxcmdtUHUvQkNw?=
- =?utf-8?B?MGlOWi9CTE4ydWdGTjVYYlovT0x2Ynkzd2d1ZHJ1RDBROG50bTZ5b1lJRE42?=
- =?utf-8?B?d20xalMzMUI1S05uM3lnMkdYNXJ6a201NTRmM29QWDNDUHNraTQ5Z1NEM21P?=
- =?utf-8?Q?16MrTUD3MBEGFUaxrG382zaC7Ya6YQ50?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8bc9e97-026e-49e6-dd6e-08da0e38a795
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2022 08:22:52.0951 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2022 08:31:35.3753 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22233b20-d51a-4a09-9cab-08da0e39dfa4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ROngu7EbXX1oCLc9Xphdur0Y2xNrH5DnCdmH13xD6bKU83JNKb8PKd2wWbHajcnx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5664
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT010.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1922
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,88 +98,205 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Sean Paul <seanpaul@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Alexander.Deucher@amd.com, Evan.Quan@amd.com, KevinYang.Wang@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 25.03.22 um 01:06 schrieb Sean Paul:
-> From: Sean Paul <seanpaul@chromium.org>
->
-> ATOMIC and DRIVER log categories do not typically contain per-frame log
-> messages. This patch re-classifies some messages in amd to chattier
-> categories to keep ATOMIC/DRIVER quiet.
->
-> Signed-off-by: Sean Paul <seanpaul@chromium.org>
+Instead of ASIC type, use GC and MP1 IP versions for feature support checks.
 
-Please use drm/amdgpu for the subject line in the future, apart from 
-that looks like a really clean patch to me.
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 72 ++++++++++++++++--------------
+ 1 file changed, 39 insertions(+), 33 deletions(-)
 
-Feel free to add an Acked-by: Christian König <christian.koenig@amd.com>
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       | 5 +++--
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++----
->   2 files changed, 7 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index fae5c1debfad..1fcbab2fd3c3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -113,8 +113,9 @@ static void amdgpu_display_flip_work_func(struct work_struct *__work)
->   	spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
->   
->   
-> -	DRM_DEBUG_DRIVER("crtc:%d[%p], pflip_stat:AMDGPU_FLIP_SUBMITTED, work: %p,\n",
-> -					 amdgpu_crtc->crtc_id, amdgpu_crtc, work);
-> +	drm_dbg_vbl(adev_to_drm(adev),
-> +		    "crtc:%d[%p], pflip_stat:AMDGPU_FLIP_SUBMITTED, work: %p,\n",
-> +		    amdgpu_crtc->crtc_id, amdgpu_crtc, work);
->   
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b30656959fd8..45d130f86114 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -9248,7 +9248,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->   			&bundle->flip_addrs[planes_count].address,
->   			afb->tmz_surface, false);
->   
-> -		DRM_DEBUG_ATOMIC("plane: id=%d dcc_en=%d\n",
-> +		drm_dbg_state(state->dev, "plane: id=%d dcc_en=%d\n",
->   				 new_plane_state->plane->index,
->   				 bundle->plane_infos[planes_count].dcc.enable);
->   
-> @@ -9282,7 +9282,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->   				dc_plane,
->   				bundle->flip_addrs[planes_count].flip_timestamp_in_us);
->   
-> -		DRM_DEBUG_ATOMIC("%s Flipping to hi: 0x%x, low: 0x%x\n",
-> +		drm_dbg_state(state->dev, "%s Flipping to hi: 0x%x, low: 0x%x\n",
->   				 __func__,
->   				 bundle->flip_addrs[planes_count].address.grph.addr.high_part,
->   				 bundle->flip_addrs[planes_count].address.grph.addr.low_part);
-> @@ -9624,7 +9624,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
->   		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
->   		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
->   
-> -		DRM_DEBUG_ATOMIC(
-> +		drm_dbg_state(state->dev,
->   			"amdgpu_crtc id:%d crtc_state_flags: enable:%d, active:%d, "
->   			"planes_changed:%d, mode_changed:%d,active_changed:%d,"
->   			"connectors_changed:%d\n",
-> @@ -10328,7 +10328,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
->   	if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
->   		goto skip_modeset;
->   
-> -	DRM_DEBUG_ATOMIC(
-> +	drm_dbg_state(state->dev,
->   		"amdgpu_crtc id:%d crtc_state_flags: enable:%d, active:%d, "
->   		"planes_changed:%d, mode_changed:%d,active_changed:%d,"
->   		"connectors_changed:%d\n",
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 5cd67ddf8495..f89e0ff3f5a4 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -1954,8 +1954,9 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+ 			       uint32_t mask, enum amdgpu_device_attr_states *states)
+ {
+ 	struct device_attribute *dev_attr = &attr->dev_attr;
++	uint32_t mp1_ver = adev->ip_versions[MP1_HWIP][0];
++	uint32_t gc_ver = adev->ip_versions[GC_HWIP][0];
+ 	const char *attr_name = dev_attr->attr.name;
+-	enum amd_asic_type asic_type = adev->asic_type;
+ 
+ 	if (!(attr->flags & mask)) {
+ 		*states = ATTR_STATE_UNSUPPORTED;
+@@ -1965,53 +1966,55 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+ #define DEVICE_ATTR_IS(_name)	(!strcmp(attr_name, #_name))
+ 
+ 	if (DEVICE_ATTR_IS(pp_dpm_socclk)) {
+-		if (asic_type < CHIP_VEGA10)
++		if (gc_ver < IP_VERSION(9, 0, 0))
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(pp_dpm_dcefclk)) {
+-		if (asic_type < CHIP_VEGA10 ||
+-		    asic_type == CHIP_ARCTURUS ||
+-		    asic_type == CHIP_ALDEBARAN)
++		if (gc_ver < IP_VERSION(9, 0, 0) ||
++		    gc_ver == IP_VERSION(9, 4, 1) ||
++		    gc_ver == IP_VERSION(9, 4, 2))
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {
+-		if (asic_type < CHIP_VEGA20)
++		if (mp1_ver < IP_VERSION(10, 0, 0))
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(pp_od_clk_voltage)) {
+ 		*states = ATTR_STATE_UNSUPPORTED;
+ 		if (amdgpu_dpm_is_overdrive_supported(adev))
+ 			*states = ATTR_STATE_SUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(mem_busy_percent)) {
+-		if (adev->flags & AMD_IS_APU || asic_type == CHIP_VEGA10)
++		if (adev->flags & AMD_IS_APU || gc_ver == IP_VERSION(9, 0, 1))
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(pcie_bw)) {
+ 		/* PCIe Perf counters won't work on APU nodes */
+ 		if (adev->flags & AMD_IS_APU)
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(unique_id)) {
+-		if (asic_type != CHIP_VEGA10 &&
+-		    asic_type != CHIP_VEGA20 &&
+-		    asic_type != CHIP_ARCTURUS &&
+-		    asic_type != CHIP_ALDEBARAN)
++		if (gc_ver != IP_VERSION(9, 0, 1) &&
++		    gc_ver != IP_VERSION(9, 4, 0) &&
++		    gc_ver != IP_VERSION(9, 4, 1) &&
++		    gc_ver != IP_VERSION(9, 4, 2))
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(pp_features)) {
+-		if (adev->flags & AMD_IS_APU || asic_type < CHIP_VEGA10)
++		if (adev->flags & AMD_IS_APU || gc_ver < IP_VERSION(9, 0, 0))
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(gpu_metrics)) {
+-		if (asic_type < CHIP_VEGA12)
++		if (gc_ver < IP_VERSION(9, 1, 0))
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(pp_dpm_vclk)) {
+-		if (!(asic_type == CHIP_VANGOGH || asic_type == CHIP_SIENNA_CICHLID))
++		if (!(gc_ver == IP_VERSION(10, 3, 1) ||
++		      gc_ver == IP_VERSION(10, 3, 0)))
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(pp_dpm_dclk)) {
+-		if (!(asic_type == CHIP_VANGOGH || asic_type == CHIP_SIENNA_CICHLID))
++		if (!(gc_ver == IP_VERSION(10, 3, 1) ||
++		      gc_ver == IP_VERSION(10, 3, 0)))
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(pp_power_profile_mode)) {
+ 		if (amdgpu_dpm_get_power_profile_mode(adev, NULL) == -EOPNOTSUPP)
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	}
+ 
+-	switch (asic_type) {
+-	case CHIP_ARCTURUS:
+-	case CHIP_ALDEBARAN:
++	switch (gc_ver) {
++	case IP_VERSION(9, 4, 1):
++	case IP_VERSION(9, 4, 2):
+ 		/* the Mi series card does not support standalone mclk/socclk/fclk level setting */
+ 		if (DEVICE_ATTR_IS(pp_dpm_mclk) ||
+ 		    DEVICE_ATTR_IS(pp_dpm_socclk) ||
+@@ -2026,7 +2029,7 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+ 
+ 	if (DEVICE_ATTR_IS(pp_dpm_dcefclk)) {
+ 		/* SMU MP1 does not support dcefclk level setting */
+-		if (asic_type >= CHIP_NAVI10) {
++		if (gc_ver >= IP_VERSION(10, 0, 0)) {
+ 			dev_attr->attr.mode &= ~S_IWUGO;
+ 			dev_attr->store = NULL;
+ 		}
+@@ -2864,8 +2867,9 @@ static ssize_t amdgpu_hwmon_show_power_label(struct device *dev,
+ 					 char *buf)
+ {
+ 	struct amdgpu_device *adev = dev_get_drvdata(dev);
++	uint32_t gc_ver = adev->ip_versions[GC_HWIP][0];
+ 
+-	if (adev->asic_type == CHIP_VANGOGH)
++	if (gc_ver == IP_VERSION(10, 3, 1))
+ 		return sysfs_emit(buf, "%s\n",
+ 				  to_sensor_dev_attr(attr)->index == PP_PWR_TYPE_FAST ?
+ 				  "fastPPT" : "slowPPT");
+@@ -3177,6 +3181,7 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+ 	struct device *dev = kobj_to_dev(kobj);
+ 	struct amdgpu_device *adev = dev_get_drvdata(dev);
+ 	umode_t effective_mode = attr->mode;
++	uint32_t gc_ver = adev->ip_versions[GC_HWIP][0];
+ 
+ 	/* under multi-vf mode, the hwmon attributes are all not supported */
+ 	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
+@@ -3245,18 +3250,18 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+ 	      attr == &sensor_dev_attr_pwm1_enable.dev_attr.attr)) /* can't manage state */
+ 		effective_mode &= ~S_IWUSR;
+ 
++	/* not implemented yet for GC 10.3.1 APUs */
+ 	if (((adev->family == AMDGPU_FAMILY_SI) ||
+-		 ((adev->flags & AMD_IS_APU) &&
+-	      (adev->asic_type != CHIP_VANGOGH))) &&	/* not implemented yet */
++	     ((adev->flags & AMD_IS_APU) && (gc_ver != IP_VERSION(10, 3, 1)))) &&
+ 	    (attr == &sensor_dev_attr_power1_cap_max.dev_attr.attr ||
+-	     attr == &sensor_dev_attr_power1_cap_min.dev_attr.attr||
++	     attr == &sensor_dev_attr_power1_cap_min.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_power1_cap.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_power1_cap_default.dev_attr.attr))
+ 		return 0;
+ 
++	/* not implemented yet for APUs having <= GC 9.3.0 */
+ 	if (((adev->family == AMDGPU_FAMILY_SI) ||
+-	     ((adev->flags & AMD_IS_APU) &&
+-	      (adev->asic_type < CHIP_RENOIR))) &&	/* not implemented yet */
++	     ((adev->flags & AMD_IS_APU) && (gc_ver < IP_VERSION(9, 3, 0)))) &&
+ 	    (attr == &sensor_dev_attr_power1_average.dev_attr.attr))
+ 		return 0;
+ 
+@@ -3294,8 +3299,7 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+ 		return 0;
+ 
+ 	/* only SOC15 dGPUs support hotspot and mem temperatures */
+-	if (((adev->flags & AMD_IS_APU) ||
+-	     adev->asic_type < CHIP_VEGA10) &&
++	if (((adev->flags & AMD_IS_APU) || gc_ver < IP_VERSION(9, 0, 0)) &&
+ 	    (attr == &sensor_dev_attr_temp2_crit.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_temp2_crit_hyst.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_temp3_crit.dev_attr.attr ||
+@@ -3310,13 +3314,13 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+ 		return 0;
+ 
+ 	/* only Vangogh has fast PPT limit and power labels */
+-	if (!(adev->asic_type == CHIP_VANGOGH) &&
++	if (!(gc_ver == IP_VERSION(10, 3, 1)) &&
+ 	    (attr == &sensor_dev_attr_power2_average.dev_attr.attr ||
+-		 attr == &sensor_dev_attr_power2_cap_max.dev_attr.attr ||
++	     attr == &sensor_dev_attr_power2_cap_max.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_power2_cap_min.dev_attr.attr ||
+-		 attr == &sensor_dev_attr_power2_cap.dev_attr.attr ||
+-		 attr == &sensor_dev_attr_power2_cap_default.dev_attr.attr ||
+-		 attr == &sensor_dev_attr_power2_label.dev_attr.attr))
++	     attr == &sensor_dev_attr_power2_cap.dev_attr.attr ||
++	     attr == &sensor_dev_attr_power2_cap_default.dev_attr.attr ||
++	     attr == &sensor_dev_attr_power2_label.dev_attr.attr))
+ 		return 0;
+ 
+ 	return effective_mode;
+@@ -3421,6 +3425,8 @@ static void amdgpu_debugfs_prints_cpu_info(struct seq_file *m,
+ 
+ static int amdgpu_debugfs_pm_info_pp(struct seq_file *m, struct amdgpu_device *adev)
+ {
++	uint32_t mp1_ver = adev->ip_versions[MP1_HWIP][0];
++	uint32_t gc_ver = adev->ip_versions[GC_HWIP][0];
+ 	uint32_t value;
+ 	uint64_t value64 = 0;
+ 	uint32_t query = 0;
+@@ -3467,7 +3473,7 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_file *m, struct amdgpu_device *a
+ 	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_ENABLED_SMC_FEATURES_MASK, (void *)&value64, &size))
+ 		seq_printf(m, "SMC Feature Mask: 0x%016llx\n", value64);
+ 
+-	if (adev->asic_type > CHIP_VEGA20) {
++	if (gc_ver != IP_VERSION(9, 4, 0) && mp1_ver > IP_VERSION(9, 0, 0)) {
+ 		/* VCN clocks */
+ 		if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_VCN_POWER_STATE, (void *)&value, &size)) {
+ 			if (!value) {
+-- 
+2.25.1
 
