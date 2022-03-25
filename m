@@ -4,89 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0B1CC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Mar 2022 13:05:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A556BC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Mar 2022 13:07:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D8ED10E6FE;
-	Fri, 25 Mar 2022 13:05:29 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2055.outbound.protection.outlook.com [40.107.95.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C37DA10E5F3
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Mar 2022 13:05:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lr1x6hW2MWwRCrp4Df+0RgciCQPBzDAM7zlFK1Dgg1GgrIETPVplulLp+1YvZVDT7cAFqND1kkzqNJvqnoCp/1QyM0wbsbmycMbPNWN42vEPrQ2f3G6hxoyGMAWCOc/tI+PejFItpVDNLhyFYpt85gOqZCThsGByolDbCZ6pnXb9jlfDEvw9N0wxkarZQulJNVL7dzzaiIdYP1pDoHPchyl3zzHqWtz5J1J9fhQ3TDSWB8M99+MvHhR2gy96ji8Ug+wosY7ruWIClfP2NSY65t43LqMrOF/OWMYffG/ylQN7Tmy3cjI5bTbz2yXHavWYyjSZBfWQvovAU1yJlK0NvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YSfiRRtq0OQrmC2xLajk/ST3PJ7lDCwCjVntWXI4uPI=;
- b=C3Vjjy9JpsYjUqpNEQz41rJxNB/xXvnGPV7t0LvGOlC+EImAJDnV83/2iDmBFfiSwPRIAUA3euGccaJJ5fpJQbFNo9QIVTtHsJ+Ta7bEPDm7BFdpaSp85w/Lz0gNTI22fVyLhacefimqb82r3YK2TS9c1i87Ds4/4GgcLakqStIk3ymc84mh8QI95KiMNh2XBT+2SRS2Vz4JQ7Dg+0xGadVHZ9FfjQycyTQCr+++rm5b8CpiP2DigF0qxNg8Jd5L8X9YbAlvU9dT9LsflAuGTWDF3XVFyGKwih6qnCPEvrtu0mmPzJM7w/j+i5NV37IfwlBz3m4OSWWQjwnQgDUh0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YSfiRRtq0OQrmC2xLajk/ST3PJ7lDCwCjVntWXI4uPI=;
- b=mAXVKpmh0+la81vtiaQw0UytfMq7xcjFrR7HFhHYvsjYO7WTcvRI7AjOhbzJB7oH+XZiXf8mAz4VghILcJpYZwWmMossxC/Wx4xddeWLosz3xIL9bC0FjtkeJ5gfKDsyIpYpKrlhzdEPUUkTx1eTjGrUO6ys7nL1ooglM8hJ6MY=
-Received: from BN0PR08CA0022.namprd08.prod.outlook.com (2603:10b6:408:142::7)
- by BL1PR12MB5876.namprd12.prod.outlook.com (2603:10b6:208:398::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17; Fri, 25 Mar
- 2022 13:05:25 +0000
-Received: from BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:142:cafe::da) by BN0PR08CA0022.outlook.office365.com
- (2603:10b6:408:142::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.16 via Frontend
- Transport; Fri, 25 Mar 2022 13:05:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT057.mail.protection.outlook.com (10.13.177.49) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5102.17 via Frontend Transport; Fri, 25 Mar 2022 13:05:25 +0000
-Received: from krussell.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 25 Mar
- 2022 08:05:20 -0500
-From: Kent Russell <kent.russell@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Add unique_id support for sienna cichlid
-Date: Fri, 25 Mar 2022 09:05:10 -0400
-Message-ID: <20220325130510.1122010-1-kent.russell@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 408C010E90D;
+	Fri, 25 Mar 2022 13:07:11 +0000 (UTC)
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEAFC10E90D;
+ Fri, 25 Mar 2022 13:07:09 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-dacc470e03so8054433fac.5; 
+ Fri, 25 Mar 2022 06:07:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=d+UppTrxLQdaijQbmLi2ygRNUTwZayeuPKsfWsxc+Zo=;
+ b=Mr3uMt15CEDF8Ba+6ECcUfzdpV5TOWE1Ts2aqBpikq7hdwnh2BhSkVNiY23MigyCo1
+ 5/0a00IeRbTP8IQd+UUBezGhidat0d2Q4XYVkN8AAv33xgeuAfUg9n1oA7xGp6R97U3+
+ zbP7SRZnJPvIMAJ4+ZquoxHnZUTTk7qKxT+CsiVdM6zJRQZV8UW8naewzz38OZQPwjyL
+ MWmBS63NuPUhU3p3Odf2FDnlOH7KIcDwDKaY4QNqNBiR9iqnlPVXpt1PjDY9wA6d8WzH
+ fRTVhUWrbP+YT1D23WkVN0i6YMYvrCXsYTidkzrRXTYa9DPQYb+rCWLX6z2uz3j67LSm
+ SQDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=d+UppTrxLQdaijQbmLi2ygRNUTwZayeuPKsfWsxc+Zo=;
+ b=e+UKXzzuHLKA7/VYpnhcbLNbu24yn/zbbULDvgR7DmSVhwdQntEI6AtNxPbwsdBtDl
+ jbfijgutRO/QbAAopsCFVwBsAdFlKck7EQ76nvZhHIpDCjmGNRd8yFWAndsgpURFzeg7
+ eu/qthoYtiaqIKZW9S3uNhbma7fkxWs9fBO9ozVs3uDa/8to30QRR54EMkAS3Q+3BBei
+ i7iMsA3ooxxgqtLwqC3Epcz2nJFv1Ur16LBXK8drS3iw5lsN4RUBkbLHQ+rQvDCgXisD
+ ijZLuFiTTppiLOXQ0KrPip80AINPqfH9xo+Ls1wRoYpIAWrbEGoZX8sNQ52fFQrw9WI0
+ /BVA==
+X-Gm-Message-State: AOAM533ojE0Ufrq+Upxly7cloM45aghjh8rfFtALagkcAAIsVIQQMk3m
+ 5Cwl4MkVXK1lCTVjeMp3lilaWwjqKK+hTbBI4rL8y4Yt3pE=
+X-Google-Smtp-Source: ABdhPJw2AO30JktpNowqISKLeErnm4X9BTwHN3YLfZlOFIVRTOk+leM/wRQcMWKtG1atVvaDsQmfkduj2H6qOl5JGso=
+X-Received: by 2002:a05:6870:630c:b0:da:b3f:324d with SMTP id
+ s12-20020a056870630c00b000da0b3f324dmr4883902oao.253.1648213628946; Fri, 25
+ Mar 2022 06:07:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bb80dea3-2600-4c8e-227b-08da0e6020cb
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5876:EE_
-X-Microsoft-Antispam-PRVS: <BL1PR12MB5876D8CED026442661CA6C4B851A9@BL1PR12MB5876.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SC7xa3yyBz8wGRIJQbfMkVzF+uCaDx8InKquJ1XgnG8l8XFLipZPMSwPRKCVPTyVIbyxgYsjKalsUKV7p+6hTvRWeDQitlkGF5o31k1UrJrmDSnoxgdUxMg99GnDEcrKFTfJNtDdbinZG340Pur2tHhDJ1gkOlX4YxhqF4qdYa88C2DWYtg6QsTyy9sSrShRk/L0ecbbA3YbW6Xw45FsTMk+jdyw4Z5PggSVel71WbA0T9vxrsdqUE2EvpS0SA4Xs347RaWl3XD+qSGktQlcT8QcqZaSP9XPNtHq2owjh9tD//siIk7SJ9ljDV0rIn3d+QKMerBkbhoaWJiEHptlpRiAqECr+nBC6ThDbiBZKAroa4y4K1ymnOHH77lBSNm0qnJbyayIpg972gfWBw2/bA/4F78V4xwDN0Xy23yInn9cNkJYpZg1zQ/e1wkTCfrBXYoyzBCC94EJsrW5MQeFu2+kRggqS98vHRWYC26541ikXk4nGEKG5vHmR6HBPLYBcm96E6Tqva9VPTR4e9OcR42IKXswcsylmISJ6om291+5CROvk94JUFQWGzNzXV6ajeWw26Eh+BtHXvSTeJlG8nGxOS/cvxeelsRC+y2n/TjVafYOqHrNtKYIugh14hUUkrppd5cU0WLMLSe75QjAPywfoyu5yRp6ktFR3vvYNOOEvKj2NJcfgvNi0l/GIETwLjlzMtcNTPuZ3h39QNOVkQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(26005)(336012)(1076003)(2616005)(186003)(16526019)(316002)(83380400001)(426003)(47076005)(82310400004)(36860700001)(7696005)(44832011)(40460700003)(2906002)(8936002)(5660300002)(6666004)(6916009)(508600001)(70206006)(70586007)(4326008)(8676002)(356005)(81166007)(36756003)(86362001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2022 13:05:25.5398 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb80dea3-2600-4c8e-227b-08da0e6020cb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5876
+References: <20220325040515.4073706-1-tsung-hua.lin@amd.com>
+In-Reply-To: <20220325040515.4073706-1-tsung-hua.lin@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 25 Mar 2022 09:06:57 -0400
+Message-ID: <CADnq5_MGrkDxGBfpg9XfJ-e=fSr9dx22VJTKz6BLQemTq7Ck8Q@mail.gmail.com>
+Subject: Re: [PATCH v2 3/25] drm/amdgpu: Disable ABM when AC mode
+To: Ryan Lin <tsung-hua.lin@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,121 +62,179 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kent Russell <kent.russell@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Chunming Zhou <David1.Zhou@amd.com>,
+ ddavenport@chromium.org, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ leon.li@amd.com,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Kazlauskas,
+ Nicholas" <nicholas.kazlauskas@amd.com>, Dave Airlie <airlied@linux.ie>,
+ Sean Paul <seanpaul@chromium.org>, ching-shih.li@amd.corp-partner.google.com,
+ Daniel Vetter <daniel@ffwll.ch>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Victor Lu <victorchengchi.lu@amd.com>, "Wentland,
+ Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>,
+ Mark Yacoub <markyacoub@google.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is being added to SMU Metrics, so add the required tie-ins in the
-kernel. Also create the corresponding unique_id sysfs file.
+On Fri, Mar 25, 2022 at 2:27 AM Ryan Lin <tsung-hua.lin@amd.com> wrote:
+>
+> Disable ABM feature when the system is running on AC mode to get
+> the more perfect contrast of the display.
+>
+> Signed-off-by: Ryan Lin <tsung-hua.lin@amd.com>
+>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c      |  4 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  1 +
+>  drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c | 58 ++++++++++++-------
+>  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  1 +
+>  4 files changed, 42 insertions(+), 22 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> index c560c1ab62ecb..bc8bb9aad2e36 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -822,6 +822,10 @@ static int amdgpu_acpi_event(struct notifier_block *nb,
+>         struct amdgpu_device *adev = container_of(nb, struct amdgpu_device, acpi_nb);
+>         struct acpi_bus_event *entry = (struct acpi_bus_event *)data;
+>
+> +       if (strcmp(entry->device_class, "battery") == 0) {
+> +               adev->pm.ac_power = power_supply_is_system_supplied() > 0;
+> +       }
+> +
 
-v2: Add FW version check, remove SMU mutex
+We already set adev->pm.ac_power in amdgpu_pm_acpi_event_handler()
+which gets called a few lines below.
 
-Signed-off-by: Kent Russell <kent.russell@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  3 +-
- .../pmfw_if/smu11_driver_if_sienna_cichlid.h  | 12 +++++--
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 35 +++++++++++++++++++
- 3 files changed, 47 insertions(+), 3 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 5cd67ddf8495..1ed13bf77cbc 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -1990,7 +1990,8 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
- 		if (asic_type != CHIP_VEGA10 &&
- 		    asic_type != CHIP_VEGA20 &&
- 		    asic_type != CHIP_ARCTURUS &&
--		    asic_type != CHIP_ALDEBARAN)
-+		    asic_type != CHIP_ALDEBARAN &&
-+		    asic_type != CHIP_SIENNA_CICHLID)
- 			*states = ATTR_STATE_UNSUPPORTED;
- 	} else if (DEVICE_ATTR_IS(pp_features)) {
- 		if (adev->flags & AMD_IS_APU || asic_type < CHIP_VEGA10)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
-index 3e4a314ef925..58f977320d06 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
-@@ -1419,8 +1419,12 @@ typedef struct {
-   uint8_t  PcieRate               ;
-   uint8_t  PcieWidth              ;
-   uint16_t AverageGfxclkFrequencyTarget;
--  uint16_t Padding16_2;
- 
-+  //PMFW-8711
-+  uint32_t PublicSerialNumLower32;
-+  uint32_t PublicSerialNumUpper32;
-+
-+  uint16_t Padding16_2;
- } SmuMetrics_t;
- 
- typedef struct {
-@@ -1476,8 +1480,12 @@ typedef struct {
-   uint8_t  PcieRate               ;
-   uint8_t  PcieWidth              ;
-   uint16_t AverageGfxclkFrequencyTarget;
--  uint16_t Padding16_2;
- 
-+  //PMFW-8711
-+  uint32_t PublicSerialNumLower32;
-+  uint32_t PublicSerialNumUpper32;
-+
-+  uint16_t Padding16_2;
- } SmuMetrics_V2_t;
- 
- typedef struct {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 38f04836c82f..39d12bc6daaa 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -481,6 +481,40 @@ static int sienna_cichlid_setup_pptable(struct smu_context *smu)
- 	return sienna_cichlid_patch_pptable_quirk(smu);
- }
- 
-+static void sienna_cichlid_get_unique_id(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+	struct smu_table_context *smu_table = &smu->smu_table;
-+	SmuMetrics_t *metrics =
-+		&(((SmuMetricsExternal_t *)(smu_table->metrics_table))->SmuMetrics);
-+	SmuMetrics_V2_t *metrics_v2 =
-+		&(((SmuMetricsExternal_t *)(smu_table->metrics_table))->SmuMetrics_V2);
-+	uint32_t upper32 = 0, lower32 = 0;
-+	int ret;
-+
-+	/* Only supported as of version 0.58.83.0 */
-+	if (smu->smc_fw_version < 0x3A5300)
-+		return;
-+
-+	ret = smu_cmn_get_metrics_table_locked(smu, NULL, false);
-+	if (ret)
-+		goto out_unlock;
-+
-+	bool use_metrics_v2 = ((smu->adev->ip_versions[MP1_HWIP][0] == IP_VERSION(11, 0, 7)) &&
-+		(smu->smc_fw_version >= 0x3A4300)) ? true : false;
-+
-+	upper32 = use_metrics_v2 ? metrics_v2->PublicSerialNumUpper32 :
-+				   metrics->PublicSerialNumUpper32;
-+	lower32 = use_metrics_v2 ? metrics_v2->PublicSerialNumLower32 :
-+				   metrics->PublicSerialNumLower32;
-+
-+out_unlock:
-+
-+	adev->unique_id = ((uint64_t)upper32 << 32) | lower32;
-+	if (adev->serial[0] == '\0')
-+		sprintf(adev->serial, "%016llx", adev->unique_id);
-+}
-+
- static int sienna_cichlid_tables_init(struct smu_context *smu)
- {
- 	struct smu_table_context *smu_table = &smu->smu_table;
-@@ -4182,6 +4216,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
- 	.get_ecc_info = sienna_cichlid_get_ecc_info,
- 	.get_default_config_table_settings = sienna_cichlid_get_default_config_table_settings,
- 	.set_config_table = sienna_cichlid_set_config_table,
-+	.get_unique_id = sienna_cichlid_get_unique_id,
- };
- 
- void sienna_cichlid_set_ppt_funcs(struct smu_context *smu)
--- 
-2.25.1
 
+>         if (strcmp(entry->device_class, ACPI_AC_CLASS) == 0) {
+>                 if (power_supply_is_system_supplied() > 0)
+>                         DRM_DEBUG_DRIVER("pm: AC\n");
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index abfcc1304ba0c..3a0afe7602727 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3454,6 +3454,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>
+>         adev->gfx.gfx_off_req_count = 1;
+>         adev->pm.ac_power = power_supply_is_system_supplied() > 0;
+> +       adev->pm.old_ac_power = true;
+>
+>         atomic_set(&adev->throttling_logging_enabled, 1);
+>         /*
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
+> index 54a1408c8015c..478a734b66926 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
+> @@ -23,6 +23,8 @@
+>   *
+>   */
+>
+> +#include <linux/power_supply.h>
+> +#include "amdgpu.h"
+>  #include "dmub_abm.h"
+>  #include "dce_abm.h"
+>  #include "dc.h"
+> @@ -51,6 +53,7 @@
+>  #define DISABLE_ABM_IMMEDIATELY 255
+>
+>
+> +extern uint amdgpu_dm_abm_level;
+>
+>  static void dmub_abm_enable_fractional_pwm(struct dc_context *dc)
+>  {
+> @@ -117,28 +120,6 @@ static void dmub_abm_init(struct abm *abm, uint32_t backlight)
+>         dmub_abm_enable_fractional_pwm(abm->ctx);
+>  }
+>
+> -static unsigned int dmub_abm_get_current_backlight(struct abm *abm)
+> -{
+> -       struct dce_abm *dce_abm = TO_DMUB_ABM(abm);
+> -       unsigned int backlight = REG_READ(BL1_PWM_CURRENT_ABM_LEVEL);
+> -
+> -       /* return backlight in hardware format which is unsigned 17 bits, with
+> -        * 1 bit integer and 16 bit fractional
+> -        */
+> -       return backlight;
+> -}
+> -
+> -static unsigned int dmub_abm_get_target_backlight(struct abm *abm)
+> -{
+> -       struct dce_abm *dce_abm = TO_DMUB_ABM(abm);
+> -       unsigned int backlight = REG_READ(BL1_PWM_TARGET_ABM_LEVEL);
+> -
+> -       /* return backlight in hardware format which is unsigned 17 bits, with
+> -        * 1 bit integer and 16 bit fractional
+> -        */
+> -       return backlight;
+> -}
+> -
+>  static bool dmub_abm_set_level(struct abm *abm, uint32_t level)
+>  {
+>         union dmub_rb_cmd cmd;
+> @@ -148,6 +129,9 @@ static bool dmub_abm_set_level(struct abm *abm, uint32_t level)
+>         int edp_num;
+>         uint8_t panel_mask = 0;
+>
+> +       if (power_supply_is_system_supplied() > 0)
+> +               level = 0;
+> +
+>         get_edp_links(dc->dc, edp_links, &edp_num);
+>
+>         for (i = 0; i < edp_num; i++) {
+> @@ -170,6 +154,36 @@ static bool dmub_abm_set_level(struct abm *abm, uint32_t level)
+>         return true;
+>  }
+>
+> +static unsigned int dmub_abm_get_current_backlight(struct abm *abm)
+> +{
+> +       struct dce_abm *dce_abm = TO_DMUB_ABM(abm);
+> +       unsigned int backlight = REG_READ(BL1_PWM_CURRENT_ABM_LEVEL);
+> +       struct dc_context *dc = abm->ctx;
+> +       struct amdgpu_device *adev = dc->driver_context;
+> +
+> +       if (adev->pm.ac_power != adev->pm.old_ac_power) {
+> +               dmub_abm_set_level(abm, amdgpu_dm_abm_level);
+> +               adev->pm.ac_power = power_supply_is_system_supplied() > 0;
+> +               adev->pm.old_ac_power = adev->pm.ac_power;
+> +       }
+> +
+> +       /* return backlight in hardware format which is unsigned 17 bits, with
+> +        * 1 bit integer and 16 bit fractional
+> +        */
+> +       return backlight;
+> +}
+> +
+> +static unsigned int dmub_abm_get_target_backlight(struct abm *abm)
+> +{
+> +       struct dce_abm *dce_abm = TO_DMUB_ABM(abm);
+> +       unsigned int backlight = REG_READ(BL1_PWM_TARGET_ABM_LEVEL);
+> +
+> +       /* return backlight in hardware format which is unsigned 17 bits, with
+> +        * 1 bit integer and 16 bit fractional
+> +        */
+> +       return backlight;
+> +}
+> +
+>  static bool dmub_abm_init_config(struct abm *abm,
+>         const char *src,
+>         unsigned int bytes,
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> index f6e0e7d8a0077..de459411a0e83 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> @@ -445,6 +445,7 @@ struct amdgpu_pm {
+>         uint32_t                smu_prv_buffer_size;
+>         struct amdgpu_bo        *smu_prv_buffer;
+>         bool ac_power;
+> +       bool old_ac_power;
+>         /* powerplay feature */
+>         uint32_t pp_feature;
+>
+> --
+> 2.25.1
+>
