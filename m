@@ -4,46 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFE09C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Mar 2022 21:17:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 937B4C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Mar 2022 22:54:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2675710E2CD;
-	Fri, 25 Mar 2022 21:17:03 +0000 (UTC)
-X-Greylist: delayed 1905 seconds by postgrey-1.36 at gabe;
- Fri, 25 Mar 2022 21:17:02 UTC
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2230F10E2CD
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Mar 2022 21:17:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=dNcYm2gNoOHWoiqQ+SE4ZkYCwAOUcBWPRjP9ir6fhnQ=; b=HXoejBRiBCjInbJDz/OhxkRxp1
- OlIL/btOq0AWT0A4r4auXCMaPQr3M3FfSPdLrOXhOAPN0PrgJ6Af2KtNd3li1PUGQd1eMaVwkADFX
- vbDKTSz65+mTb0pZyx937FMRfTnbmuKZhU68aqkFQzyFua6sU6FjfIrKc434wC2f7IchOFW58orX+
- Lf9rJYKxAFR/XwXi5KRnpnvmscoPorgI2GkeBH012qsCW65pOqYwPtqXtBBDcc/V2auPg/D9nVV97
- vBihbFgBdVyGw0HHc5jeCz5efnAJrNJKiJHveZT8Cso7xYXPtEY9FghVJNOTJfx2KR4R7e5yIOApi
- Zpp/X80Q==;
-Received: from [165.90.126.25] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1nXqo1-00080U-Lj; Fri, 25 Mar 2022 21:45:09 +0100
-Date: Fri, 25 Mar 2022 19:44:50 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Agustin Gutierrez <agustin.gutierrez@amd.com>, Zhan Liu <Zhan.Liu@amd.com>
-Subject: [RFC PATCH] drm/amd/display: dont ignore alpha property
-Message-ID: <20220325204450.kq7kjb7ez63p5srm@mail.igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F6D710E07A;
+	Fri, 25 Mar 2022 22:54:51 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1438D10E07A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Mar 2022 22:54:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ifPWSuutihxxAHkaX9kojZk1cCv1vjzOvqO6+diH73z61tn5s0gdsy6YJafOlueJ/VIomQV3JfW/4y5j2V5MqayluN9Et4+s/Jyhq4F4vNFFAk6yMc1WZ7MYskkIOfyOjQwAqZ5a4DJlHHehP4mgthYNZqbKevc81JG6kjh3v4lf+cAsQw9ioDbjrxfKtNxEnwLKNDkUb9sWznPmm/MPaleclsynSSAT31fn00IyDVtcwKec9GPpHVS7r8bWc5PCj1GWe/z45rv9WYDDs1+pUWr5Xs3pXLGQMvcWo7XQ6ChbNKMKMwBcUL5KFL/Gic/MtY/t/UOB7N8T0vqdEOoTNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BiOb+XQ5G0jhrRi6+vhJJkP3PfVyHwCs6WEeaDdEt88=;
+ b=ngpeadHHyYECBlFEOqCpa7lBQdXHTtk56JjDdJtRPVXemejIdMXv4d5eAPkWuGrdchLc+e67pGEGm22mpmdgdd1IMmaA2MsUKM5fbmXsRrP5/+U9BdHYmPNxUYiF0FbCz1PK+EHKgOK+dgf8quiPaVSpbKyHCObRa2FIWtEQDwzK8tk/r4Ou26Wssbfuv8wAOsxJAryqs4wxr8pgLg+XbgvBVv4yMh/WtcH3JNL2NZbzjtYfGkIlye9bMxYIEMCpnxecok3x46baT1gpGrFsmY9Hqu0bkDqH2U6tFomoe+bQXuIuzJNKVjwzLwev0oBMpJEkgXEZCHDZudZYJiMqiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BiOb+XQ5G0jhrRi6+vhJJkP3PfVyHwCs6WEeaDdEt88=;
+ b=NURL+S4WMtjjwQeaHjIyPO5YOknzwsiENy+LsiYJvhOSwSxd1Tm8LTtN3P1EQS48LTBW7c58igR85A24TvovTVLAsXmobcjGsTIwJoX4dxw69Syc4uLQknmIF8+G2RrgQQr/Q+nlVZnVja0Z1MRSEyZDIyoG8AhrLsvf1IInTN4=
+Received: from MW3PR06CA0024.namprd06.prod.outlook.com (2603:10b6:303:2a::29)
+ by BL0PR12MB2531.namprd12.prod.outlook.com (2603:10b6:207:3f::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.21; Fri, 25 Mar
+ 2022 22:54:46 +0000
+Received: from CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:2a:cafe::9c) by MW3PR06CA0024.outlook.office365.com
+ (2603:10b6:303:2a::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.22 via Frontend
+ Transport; Fri, 25 Mar 2022 22:54:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT043.mail.protection.outlook.com (10.13.174.193) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5102.17 via Frontend Transport; Fri, 25 Mar 2022 22:54:44 +0000
+Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 25 Mar
+ 2022 17:54:42 -0500
+From: Alex Hung <alex.hung@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 00/16] DC Patches March 25, 2022
+Date: Fri, 25 Mar 2022 16:53:46 -0600
+Message-ID: <20220325225402.469841-1-alex.hung@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="vdmk5jeuzfrbujmk"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b831d854-7755-425d-a46b-08da0eb274a7
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2531:EE_
+X-Microsoft-Antispam-PRVS: <BL0PR12MB2531C7CF151C05463EFB0DDAF71A9@BL0PR12MB2531.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: yr9IdGCqPGosqkXbxRj/HX3ATk33pyOc/pVU1GAkreBfHTQy+Zv64SgRfBVGLGkMFWQj7noCljedI1eAuh85eR3eyzjyPI1aidZtluGHEg5pmUgY8LhCGBCLNlvkvIaWBhPVQ49h5wGBMn0hORD7jncIWVj6HwNsapDQW6Fn+1hkpBSvM1JHINlvsrLH8I3EmpKI5qCB/CFkW+zMt1PC5qhxFRLfr2d8v+11O+DXUwZ1EtmkD07vAdH8iWSK3yEdZ00d6Ey3R1eiL4EJHCGe8J3caWa/Syr+EX6VCI+lPTLBaDu1RIrAHf1FW6icrycP5lDRyi90Tb9PoWn0z3PcQlRT6hMbegR6PMGDFRGB8AuRGS4trE1rEMqSZIDs5sXTEn2P3lSko+JRH71c4udU1UkfUTLghv3857TUj+1jPU7M6sbU/6ZMqAlPAD32B80H+lRu3SlO+VXN8lXgxn6sKeUvV9Y6qz0aO9U5A5SjXDFhvlngFjdJs5N0l4YOGvzD1WsNAtDeoEJbihLVzS1LnWyV4qPFg2uh4fr8v55/BsohTUJH1VcAYIwKwvqIedAMPgb0GdQTcmyJwuYjhRNusOAJFG9QS3UI6Ro+NbFFrXb3MHyFPAhEgvFt6nk73jVSuFXGv55stZLXY8pjgHM/aDUp4QemVqLzcEDRAbte63RGgYnc7/ORyOD1mPELucvcdw8U+2n5eUNWjlwAf2UZBA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(5660300002)(44832011)(7696005)(83380400001)(8936002)(40460700003)(26005)(36756003)(2906002)(16526019)(426003)(47076005)(336012)(186003)(1076003)(36860700001)(2616005)(82310400004)(54906003)(6916009)(316002)(508600001)(356005)(86362001)(81166007)(8676002)(4326008)(70206006)(70586007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2022 22:54:44.8426 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b831d854-7755-425d-a46b-08da0eb274a7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2531
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,128 +98,100 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Simon Ser <contact@emersion.fr>, dri-devel@lists.freedesktop.org
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alex Hung <alex.hung@amd.com>,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
---vdmk5jeuzfrbujmk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+* Fix allocate_mst_payload assert on resume
+* [FW Promotion] Release 0.0.110.0
+* Revert FEC check in validation
+* Update LTTPR UHBR link rate support struct
+* Add support for USBC connector
+* Add work around for AUX failure on wake
+* Clear optc false state when disable otg
+* Enable power gating before init_pipes
+* Remove redundant dsc power gating from init_hw
+* Power down hardware if timer not trigger
+* Correct Slice reset calculation
+* Enable 3-plane MPO for DCN31
+* Set fec register init value
+* Remove SW w/a for HDCP 1.4 1A-07 failure based on ECO fix
+* Create underflow interrupt IRQ type
 
-Hi all,
+Angus Wang (1):
+  drm/amd/display: Create underflow interrupt IRQ type
 
-I'm examining the IGT kms_plane_alpha_blend test, specifically the
-alpha-7efc. It fails on AMD and Intel gen8 hw, but passes on Intel
-gen11. At first, I thought it was a rounding issue. In fact, it may be
-the problem for different results between intel hw generations.
+Anthony Koo (1):
+  drm/amd/display: [FW Promotion] Release 0.0.110.0
 
-However, I changed the test locally to compare CRCs for all alpha values
-in the range before the test fails. Interestingly, it fails for all
-values when running on AMD, even when comparing planes with zero alpha
-(fully transparent). Moreover, I see the same CRC values regardless of
-the value set in the alpha property.
+Aric Cyr (1):
+  drm/amd/display: 3.2.179
 
-To ensure that the blending mode is as expected, I explicitly set the
-Pre-multiplied blending mode in the test. Then I tried using different
-framebuffer data and alpha values. I've tried obvious comparisons too,
-such as fully opaque and fully transparent.
+Charlene Liu (1):
+  drm/amd/display: Clear optc false state when disable otg
 
-As far as I could verify and understand, the value set for the ALPHA
-property is totally ignored by AMD drivers. I'm not sure if this is a
-matter of how we interpret the meaning of the premultiplied blend mode
-or the driver's assumptions about the data in these blend modes.
-For example, I made a change in the test as here:
-https://paste.debian.net/1235620/
-That basically means same framebuffer, but different alpha values for
-each plane. And the result was succesful (but I expected it fails).
+Chris Park (1):
+  drm/amd/display: Correct Slice reset calculation
 
-Besides that, I see that other subtests in kms_plane_alpha_blend are
-skipped, use "None" pixel blend mode, or are not changing the
-IGT_PLANE_ALPHA property. So, this alpha-7efc seems to be the only one
-in the subset that is checking changes on alpha property under a
-Pre-multiplied blend mode, and it is failing.
+Jimmy Kizito (1):
+  drm/amd/display: Add work around for AUX failure on wake.
 
-I see some inputs in this issue:
-https://gitlab.freedesktop.org/drm/amd/-/issues/1769.
-But them, I guessed there are different interpretations for handling
-plane alpha in the pre-multiplied blend mode. Tbh, I'm not clear, but
-there's always a chance of different interpretations, and I don't have
-a third driver with CRC capabilities for further comparisons.
+Jingwen Zhu (1):
+  drm/amd/display: Set fec register init value
 
-I made some experiments on blnd_cfg values, changing alpha_mode vs
-global_gain and global_alpha. I think the expected behaviour for the
-Pre-multiplied blend mode is achieved by applying this RFC patch (for
-Cezanne).
+Krunoslav Kovac (1):
+  drm/amd/display: Enable 3-plane MPO for DCN31
 
-Does it seems reasonable? Can anyone help me with more inputs to guide
-me the right direction or point out what I misunderstood about these
-concepts?
+Martin Leung (1):
+  drm/amd/display: Revert FEC check in validation
 
-Thanks,
+Michael Strauss (1):
+  drm/amd/display: Update LTTPR UHBR link rate support struct
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 2 +-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 4 ++++
- 2 files changed, 5 insertions(+), 1 deletion(-)
+Oliver Logush (1):
+  drm/amd/display: Remove SW w/a for HDCP 1.4 1A-07 failure based on ECO
+    fix
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 6633df7682ce..821ffafa441e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5438,7 +5438,7 @@ fill_blending_from_plane_state(const struct drm_plane=
-_state *plane_state,
-=20
- 	if (plane_state->alpha < 0xffff) {
- 		*global_alpha =3D true;
--		*global_alpha_value =3D plane_state->alpha >> 8;
-+		*global_alpha_value =3D plane_state->alpha;
- 	}
- }
-=20
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/g=
-pu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 4290eaf11a04..b4888f91a9d0 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -2367,6 +2367,10 @@ void dcn20_update_mpcc(struct dc *dc, struct pipe_ct=
-x *pipe_ctx)
- 			=3D=3D SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA)
- 		blnd_cfg.pre_multiplied_alpha =3D false;
-=20
-+	if (blnd_cfg.pre_multiplied_alpha) {
-+		blnd_cfg.alpha_mode =3D MPCC_ALPHA_BLEND_MODE_PER_PIXEL_ALPHA_COMBINED_G=
-LOBAL_GAIN;
-+		blnd_cfg.global_gain =3D blnd_cfg.global_alpha;
-+	}
- 	/*
- 	 * TODO: remove hack
- 	 * Note: currently there is a bug in init_hw such that
---=20
+Paul Hsieh (1):
+  drm/amd/display: Power down hardware if timer not trigger
+
+Roman Li (3):
+  drm/amd/display: Remove redundant dsc power gating from init_hw
+  drm/amd/display: Enable power gating before init_pipes
+  drm/amd/display: Fix allocate_mst_payload assert on resume
+
+Samson Tam (1):
+  drm/amd/display: Add support for USBC connector
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 +-
+ .../amd/display/dc/bios/bios_parser_common.c  |  3 +
+ .../drm/amd/display/dc/bios/command_table.c   |  3 +-
+ .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  | 26 +++++-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  4 -
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 34 +++----
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 59 ++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  2 +-
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 18 ++--
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  5 +-
+ .../drm/amd/display/dc/dcn31/dcn31_hwseq.c    | 25 +++---
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_optc.c |  5 +-
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c |  6 +-
+ .../amd/display/dc/dcn315/dcn315_resource.c   |  3 +-
+ .../amd/display/dc/dcn316/dcn316_resource.c   |  3 +-
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   |  4 +-
+ .../gpu/drm/amd/display/dc/inc/dc_link_dp.h   |  1 +
+ drivers/gpu/drm/amd/display/dc/irq_types.h    |  1 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 90 +------------------
+ .../drm/amd/display/include/grph_object_id.h  |  1 +
+ 21 files changed, 155 insertions(+), 143 deletions(-)
+
+-- 
 2.35.1
 
-
---vdmk5jeuzfrbujmk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmI+Kb0ACgkQwqF3j0dL
-ehzzUQ/7BBgIRtM5mA72d3XPZ4BcL1Jiyevs90XhOLuT/MTZhborIl5oQwzikdm0
-L1R5tBjnWeAqQBp0oQ6FGJZVsJkYF+vUAtqHQzS3SQcp3RDhu3NFSK/nbypOESiF
-2sd35zNKzyPkCeZ1oemz3e2G3ToEGNk+UQ4NgYZK/tMzXq+hu8TIzn4gBmdUXp5D
-1AzrTSP2QPFekv/bm+GwpZ8Jj23yCE5+8OQdLWXnK7r1Z8jfjrqtfIUcyvuckXtj
-o+YYV6oPv8Hqx5kcmjMhIDeTGeA+vvjxUq5RVza2P7hiOEroFyCNxCsUWcwTR0EP
-JpXvyioZyYUVZ1UJQKt48+EK3hGmIzSUAXvkSmz7bpH+Jr5m2alXyeerjq7Wiwjv
-cjU7eZnra3QafrMuY6HBCkjLc8+lwOf+hxe0s0SFQYUalXRM+Cl1j/IQheyrLwGE
-yZy39P/51aoVkxEpNKwdGUzhrPWEFjJ2AU2KEJiT4zJyo0EjfC76Q6aCcHTx21pn
-Qqv+Vzs/4WJgasiCHNghTazlddQf75KTB6P91VFG0GACdRqPRq8mKjO74NbEuh6o
-ohi2NB0ydcqUsDl8Wi4cwDCqDuhMlChezet1NdoXSehoONw8DEtEDRt/0Pg9gwW7
-2Rj6mdO6+xwumSlSkznbZ/2GQfgkSPyk0FjJkjnzHwWLvGu0vBo=
-=rloN
------END PGP SIGNATURE-----
-
---vdmk5jeuzfrbujmk--
