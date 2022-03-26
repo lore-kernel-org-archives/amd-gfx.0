@@ -4,135 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7B43C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 06:58:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7812FC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 07:25:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 594A110E5D3;
-	Mon, 28 Mar 2022 06:58:30 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7643410E5DE
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 06:58:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PDQpf5uYOePaOlgHaXXEnhJV4K6UFI8iE+dxKNGYyKwo03pFJi6LyKpRepEDEpaYIkZbNMyOPcMpNztu2zpOXXRIzPe4LnAeWG9Eg6QaEa68hYtDsY8DL0CgxwMLrNey59/97cOfbAKUKQMaIaWsX2aoLeif4O+eHaetsof4FNQj5BrYTDwTXSR5dTJTAcwPft6SsYfzWO+534ObuL12TgV/NoHWT4gM1IoofKgJx94wupJDmdEAl/AFSjsZ37op9gpHsfL8tkhddeM8eP6WEcgyN1vdEALRrR/y0HeCWj05UHaoJjlghVRa5mIt8A8+q9TxGH/18WvirGLYCitrTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EnynWH980zNo6HMp9oe0Gt86MAgvoahgaQKrh2VZb2Y=;
- b=i0DvZwTTDEalnN7y5534Wyy1hqP8EnPZD91UTlAD41v54gkernoS8VK0MgvFnCb2mFCfw4uiqYl4Mi+3LOszjly1t1ouxQU9E9W2s+EtRIUp703ME50Z4o4tZcJJLwgCL4RkL6ESY7i2r/SjuXPICkU0a7yXq469JruCEEhX0fEMPgudRUpxdmiImhcQAlC0C7avvjhhDQJKVgcicYmXplZg2/I/fmwJVA72IOPtEy3Vk9KFqZC526v0whDhsDLKDeDALAb9/YvnN0ywU9nmyKDufrd4/rNmX5lEbE/21oUv31ATRC3jtkx4fq03t0nOC7Z2gU/nU3u8WHKWHWznVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EnynWH980zNo6HMp9oe0Gt86MAgvoahgaQKrh2VZb2Y=;
- b=0UO6XhFiEhTw7hbB929yapI5DVlOEdchqoNpY4hquT3MHy5Qcdq5GaPc3E2MLmDjmZG3VPRCEBFh/e/r4sOxD6VGF3AXKGeK1mlv1axS7SDBTjmq2hFYBsGq3SiYOtOzB/VlHbuvEW/A3BU4VddHrSoVGo1MC6yXNwi+Npbftvw=
-Received: from PH0PR12MB5451.namprd12.prod.outlook.com (2603:10b6:510:ee::20)
- by CH0PR12MB5315.namprd12.prod.outlook.com (2603:10b6:610:d6::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17; Mon, 28 Mar
- 2022 06:58:28 +0000
-Received: from PH0PR12MB5451.namprd12.prod.outlook.com
- ([fe80::9cf6:6683:b92b:ae42]) by PH0PR12MB5451.namprd12.prod.outlook.com
- ([fe80::9cf6:6683:b92b:ae42%7]) with mapi id 15.20.5102.022; Mon, 28 Mar 2022
- 06:58:28 +0000
-From: "Ziya, Mohammad zafar" <Mohammadzafar.Ziya@amd.com>
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-Subject: RE: [PATCH v4 0/6] VCN and JPEG RAS poison detection
-Thread-Topic: [PATCH v4 0/6] VCN and JPEG RAS poison detection
-Thread-Index: AQHYQmyVXPGIDfawWUi49KbPqZP1GazUWEkAgAACiFA=
-Date: Mon, 28 Mar 2022 06:58:27 +0000
-Message-ID: <PH0PR12MB54519A65963A95706FC3A2D5981D9@PH0PR12MB5451.namprd12.prod.outlook.com>
-References: <20220328062453.4156191-1-Mohammadzafar.ziya@amd.com>
- <c79c62f0-ec5f-4b5b-731c-96eb50dc7197@molgen.mpg.de>
-In-Reply-To: <c79c62f0-ec5f-4b5b-731c-96eb50dc7197@molgen.mpg.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-28T06:58:21Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=1c4c4a18-ede4-43fc-a7cd-774857f4f7f2;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-03-28T06:58:21Z
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
- Only-AIP 2.0
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: d35ffd77-2103-4fba-a329-064f34e99747
-msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9015a05b-ddbf-4c84-3051-08da10885c92
-x-ms-traffictypediagnostic: CH0PR12MB5315:EE_
-x-microsoft-antispam-prvs: <CH0PR12MB531506B1A7974926C1787FE4981D9@CH0PR12MB5315.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: y74h9ozVVNi9pfx1hSTHndk0DcjuBN5yR1+vXbxuK4r2ejJK+kdRo6aqMr3L3XMnke3bS9J1on4IsXNtoC3Wao722jobD9+k6SD8Ye9WCNxc7aCESRT47vtfiGgYCikS45drwVuA/0EBoWrqY3YF1CGOM9ctkIH5rkE07aYWSQ0hhcW1D0s1zCLOIQiKRJ/SI4BQOTG5G9vWXY9bM7eTE4MRnyjZ/SqI4vWPFpK9Od+CyCoowQDSz+uU5CO28SixZVCR54O8uVBS2C2m8xuyyI0g4DKXZ8cnOhZkEJdJSi9YCC0szWojvA2pBAD+QIvKDDgCrw3HqEVu/wEdpk+dcCYCaQXFEWk13DGAsvfxCQusI745c1uZpwcNwDCNkY6TEGzIoVqp/vCqvskssCEzds31MAptNGekJ3Xa8gsd26YohhsIJCNbNSTju1u1EokUn/2413wS/HKTLwdyHG7THmCx4KwKI1cM6pDOc3EIATuSQo1rEd6yYIxH+cKl9M/22a6BWqZyw6AS6yIL0XCUBdZuTcgcphfG0w9uapWzAxv5on6BCV81te6Ro1MvRvc3IHM3P4YSxATkGcgxeflWYBAeYNqqyeIsB6aJhZo6Aey5BjymNnc003i5fXPdS3NH1nkqf/F5FKDJ+DH4N/QX7AiF45i7B2FlzykB8/M9athU7VKGYTZ4MrWVeelKi9TsukCOGPPHnWLY5rZSfnC2kQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR12MB5451.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(55236004)(71200400001)(7696005)(9686003)(33656002)(316002)(6506007)(186003)(8936002)(38100700002)(4326008)(52536014)(6916009)(26005)(66556008)(54906003)(5660300002)(2906002)(38070700005)(66946007)(66446008)(66476007)(8676002)(86362001)(64756008)(508600001)(55016003)(76116006)(83380400001)(122000001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?c2FzOGZsWXRZSks1N25nT3NvU0l0Q2FzdXFqM2swWXgwSW9kVzhjZ0NNZmcv?=
- =?utf-8?B?QWtFbUorTExEVWVUQnNFL01oS29vTXBFaEVMR2lyVFVnRFE1MFdmQ1RORjhV?=
- =?utf-8?B?dzJoclduUSswcjdRR2JuTWc3L1pMTHZjUUdTeFBjOC9zMDE5MXlIVFM5am1H?=
- =?utf-8?B?QlBJMkNTUlhoQkRuTkNPZm1DNktkQVhFY1dwdVBYa1AwS2c5d1FBc3pkWVpZ?=
- =?utf-8?B?blRSVWVzMHR5bE93WjF2UXZ1LzhqN28zMHlLejNDUDBPcFRadWhxd2EzaXpF?=
- =?utf-8?B?RnlxaUNtZlNUVGdaYjVVRnJOQzJ2MGhhMitRU1NtVkI3dXE0WGYxUFUzK1Rv?=
- =?utf-8?B?eW9UT3VndTRPRWdiTnBvNzdxQVU4cUk5cnZNcTQ5d3N1cTZNSVl6UkZRdlY2?=
- =?utf-8?B?ai9EK0wwZER2eCtZYXZINnZTMWIxcEdoY3hoUXIyK1dpcnBxRUtHNElWWGJJ?=
- =?utf-8?B?aTZRN09WOHBTMkpVcTdlVERjRm1COWhVQS9yZytieVUxMURMbEttTnZ2d0hv?=
- =?utf-8?B?d0FvQkZPVmxLcTVYWm1PUWRHZ1VxdURUUUdmRUMzK3c3a2hLMjNnK3pPL2kv?=
- =?utf-8?B?U2xZNDhPOFhMaDNmRitXbXZYS3lmdnorVkMwWmJVYmZ1U2VRamZvc3cxMjgr?=
- =?utf-8?B?TWhPdVU5OThxeWZjYjNqZUNyc0N3eDY1WlUvYzRrVHgyTDdWVExTRjNhNmt4?=
- =?utf-8?B?UUNPM1MrNzE5ZE9NQUJVSUlCcWU0NjZDVUhvUmQ2TUxoWE1XbnZrOWtqSitU?=
- =?utf-8?B?bDhkMGdrK29XV2tGQUNpSDZxVERQVGt1WWk4TjlOVGxaVzFxYitmRG1xbzEw?=
- =?utf-8?B?ZzZ3SGlhWlNXemxmZU1tdklTQ0E4K0V1dlMzVlVwOGNyaFRsa1VGdTFjV0Zz?=
- =?utf-8?B?bmczM0tEa0d0Z2dUd2oyNGJWL2FjWGlCNjIwWFMvQUM5WkZxWGttNEVVc3Qy?=
- =?utf-8?B?K0hqcVQ1bFVFazR3anQ3dXNvT3dOSXhnWURTaitHYkpqNk1PWGRyTWRkbHcr?=
- =?utf-8?B?a2R5c0J5WFV0U0xIc2wzTE9uMU1nM29DajcyNUFITmljUytxV0JGRW5Tbnl5?=
- =?utf-8?B?QWRjYnZ6VEhYQUxzSjc4aW5CZG9uUGs3ZVdlZDI2OFNxWlEwT21wUnNsbitG?=
- =?utf-8?B?UVFnTXAvMCtlY05mUE9BWmdlUWVGUU9uUG1FSmNiYUxHY1JHdjRxRlQ3eWV6?=
- =?utf-8?B?Q1VMZExndkNQU2RoOWhBWUUrMlQyak9Mc2h0OWJkZWlSTXRyRklvRlU0dGtw?=
- =?utf-8?B?eW1QNnJHOU5MNFpBL2I4R1BZN293UHdTWTVHMnZaVnFNUU5HUi9YcFB2SUt6?=
- =?utf-8?B?akFtdWpVeG1pM1hsNmJlUnowcXRScWRiWDVpWUpUMHVTNzh6eWNnNVo0Y1Bo?=
- =?utf-8?B?dGszZWI1Ykx5Q2hYaEdnc1hwTXJpTVV6NnBOcklKTUxSYnRKQ3lwK2M4cXdi?=
- =?utf-8?B?cHlOcEI5Wm5BQkVJd2FtREVTeFhORzIvRUQ3QUtGdS96Qm4yWnZ4VkRmWjNZ?=
- =?utf-8?B?ei9ZV1ZZazNRRlZ6NWJnVDZUc01xSVhLU3ZaKzR3LzliSjl2bVZGMmFWYXRQ?=
- =?utf-8?B?TkZNdnBITm5KdmU5clpQK2VCNjFISXdrcGtOekYxcFRTNTVtQXVDUlZsK1p1?=
- =?utf-8?B?dnZQOVM3R1QvR21FdHgwUlVQMURtNE80TTJEbjRlSWt5THFSa1VZWGszYWFq?=
- =?utf-8?B?aTVCTkFGTFZCYjBjZGhoMHhKZDg4cWc4WjQzc3I5eUFjNm56MzdhcGNQNWIx?=
- =?utf-8?B?ejBDaGt4eEwxSGpCNWZ1M2k2SEpLVmw0WW5CcUgrSFVTUjRXekNkaDJuaDJ4?=
- =?utf-8?B?U1ZqY3Q2T2FudDFFd1k0SDVGd2twUUlVVzcvNk5lSEhRcHRJVEFobE1rUVEw?=
- =?utf-8?B?enBMUU8xWWpzK25MemhCa1pJMGRnS1ZOMjhtQ2FtMUdERjlXWXFyZ3E4V1ho?=
- =?utf-8?B?dHhnVERHVjhJU3hjZjE4dW5idTlGMTVROVZaY0w2VGYwWUNxZWVVbTdGMXJY?=
- =?utf-8?B?c1IxcGRLUFdoWXdsOXJvYjg3Z0t1SEFlSUpOYWJIK29RZ0lQVmdjUThVQnZq?=
- =?utf-8?B?bktiS29zVTJYdWF5NVZ3YTBGOWNDSWtnYlAyeENCVnlqMU03MWRDNVE2cGtH?=
- =?utf-8?B?L2RobTlGdVNLbW5XUlF3bXczU0dOa20yYWdIUUVoazRZTkJjVlAzdzlXNFlD?=
- =?utf-8?B?c3NWSC9INzZINlhSOGt3UE9UM2NObi90VFp0aEowOE9sY2FvSXJCU05jdk5v?=
- =?utf-8?B?ZDB4ZUo3N3k0RFBxV2g5c0N0WnFHKzl5RjZPNTVYTlV4WnVhY1krQ3BJRktQ?=
- =?utf-8?Q?B6CLZtjzt3jGb/YeUJ?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEB1710E4F0;
+	Mon, 28 Mar 2022 07:25:47 +0000 (UTC)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E023510E40A
+ for <amd-gfx@lists.freedesktop.org>; Sat, 26 Mar 2022 17:37:56 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id q14so14014610ljc.12
+ for <amd-gfx@lists.freedesktop.org>; Sat, 26 Mar 2022 10:37:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:from:subject:to:cc
+ :references:content-language:in-reply-to:content-transfer-encoding;
+ bh=C98l3JHGxltTHXZO0ik6pVDbFxd4eMZJb2rRDUHupI8=;
+ b=NyWV08MmQIAB+7cYTFrs3ViqpoxEPf+M/v+8IciOhxzkzR3uN2kBLczZgawQAv34Ly
+ 0+/1WPz827RxhR+TDh4KW7rnBGPnRxweGwr/GzeY8JJ2HOljfL7+srNDey968549iRZh
+ hNOpbueArXN/Reue+a3plB7c0hTCW/BBjvQ8p7TR23+vBMZdkmq56aEQG7CX4qZCX5Yp
+ wclQllNNzasrAABjFIwPNO2JKIyg/0Ai9cjFTWp3oNBVfHjldosSfy4Te8N7rfRLgPpO
+ 5zzNESjf9m6OYayWmgJhCRoN036RleLkbUxQjoyi48++PFSuW6LC43KiugIsBNsgA1nb
+ qzrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:from
+ :subject:to:cc:references:content-language:in-reply-to
+ :content-transfer-encoding;
+ bh=C98l3JHGxltTHXZO0ik6pVDbFxd4eMZJb2rRDUHupI8=;
+ b=q0/npbLi+quPm4kV0+cX9mJy3l4lcvUkuLQ71AjM4vIu/4/hUu5MQv1pnwuXhTKwn3
+ hnCPnOdqVFbDgSKxkcUgKv0mxSwNZ1fXX3Hxhl/CMRuROMj0jFWkJAN9VuKcOBw9T7GD
+ AR8eKva47ppzCDa9Uc+LGfw6uOQnlX2K1fgNPKXA1RNYNNNu1a7EDn4DoO5E33aKVUbh
+ FL9tiWRIgynNIju3OVLAHU+O4emawY2yefzdCqeBCXTbnTxjk+jBeLeKjA5lTaaj/SL4
+ 1li9pBMqqVzErMvKaPBC7x3n7dDIPzlU6p5sT8IbhBz3UzrOtkhYfREpSMrSS9cf1E+C
+ zc+w==
+X-Gm-Message-State: AOAM531u6Cia67dE5YYZE7GWPVCgND+wz4NnTVFPSs25NhInMmZgJ3nd
+ DP4LV2ZE2C/D9pysLdKb1qOTkHpv5rfaBg==
+X-Google-Smtp-Source: ABdhPJzjEsBpwr+vHokgGR0qQsA7Pg+2lZf+47wACf9b+YsGfU1h510Oq6bW2TCjZWuyiftesK7ZAg==
+X-Received: by 2002:a2e:a881:0:b0:249:6f85:d4a4 with SMTP id
+ m1-20020a2ea881000000b002496f85d4a4mr12874334ljq.231.1648316274980; 
+ Sat, 26 Mar 2022 10:37:54 -0700 (PDT)
+Received: from [172.16.41.128] (078088109026.wroclaw.vectranet.pl.
+ [78.88.109.26]) by smtp.gmail.com with ESMTPSA id
+ c4-20020a19e344000000b0044846bce74esm1113479lfk.283.2022.03.26.10.37.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 26 Mar 2022 10:37:54 -0700 (PDT)
+Message-ID: <0b126447-e270-557c-1f88-13fa46e367f0@gmail.com>
+Date: Sat, 26 Mar 2022 18:37:51 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5451.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9015a05b-ddbf-4c84-3051-08da10885c92
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Mar 2022 06:58:27.9465 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: axZxRzCnxs1Pc+BzICPP8i00XpZthvLELd6t0PSSyP7i9wIK9La8/Cnvm2Y2TEFD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5315
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+From: =?UTF-8?Q?Tomasz_Mo=c5=84?= <desowin@gmail.com>
+Subject: Re: Waiting for fences timed out on MacBook Pro 2019
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
+References: <CAOHtt3_wfx1kpcjA3s63x+TaHS8DmCSk629OAN+Bi5nZzwrb5Q@mail.gmail.com>
+ <CAOHtt39VcCNYwHcEj3NB3904tw4cKBDc-wH_CWvGr3NWM_vH=A@mail.gmail.com>
+Content-Language: en-US
+In-Reply-To: <CAOHtt39VcCNYwHcEj3NB3904tw4cKBDc-wH_CWvGr3NWM_vH=A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 28 Mar 2022 07:25:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,42 +74,135 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang, 
- Hawking" <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Tomasz_Mo=c5=84?= <desowin@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KRGVhciBQYXVsLA0KDQpUaGFuayBmb3IgcmV2aWV3
-LiANCkFkZGVkIGNvbW1lbnQgaW5saW5lLg0KDQpSZWdhcmRzLA0KTW9oYW1tYWQNCg0KPi0tLS0t
-T3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+RnJvbTogUGF1bCBNZW56ZWwgPHBtZW56ZWxAbW9sZ2Vu
-Lm1wZy5kZT4NCj5TZW50OiBNb25kYXksIE1hcmNoIDI4LCAyMDIyIDEyOjA5IFBNDQo+VG86IFpp
-eWEsIE1vaGFtbWFkIHphZmFyIDxNb2hhbW1hZHphZmFyLlppeWFAYW1kLmNvbT4NCj5DYzogYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFpob3UxLCBUYW8gPFRhby5aaG91MUBhbWQuY29t
-PjsNCj5MYXphciwgTGlqbyA8TGlqby5MYXphckBhbWQuY29tPjsgWmhhbmcsIEhhd2tpbmcNCj48
-SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KPlN1YmplY3Q6IFJlOiBbUEFUQ0ggdjQgMC82XSBWQ04g
-YW5kIEpQRUcgUkFTIHBvaXNvbiBkZXRlY3Rpb24NCj4NCj5EZWFyIE1haG9tbWFkLA0KPg0KPg0K
-PkFtIDI4LjAzLjIyIHVtIDA4OjI0IHNjaHJpZWIgTW9oYW1tYWQgWmFmYXIgWml5YToNCj4+IFZD
-TiBhbmQgSlBFRyBSQVMgcG9pc29uIGRldGVjdGlvbg0KPg0KPkl04oCZZCBiZSBncmVhdCBpZiB5
-b3UgZXh0ZW5kZWQgdGhpcyBhIGxpdHRsZSBiaXQuIEVzcGVjaWFsbHksIGhvdyBpdCBjYW4gYmUg
-dGVzdGVkLg0KDQpbTW9oYW1tYWRdOiBUaGlzIGlzIHRoZSBmaXJzdCBzZXJpZXMgb2YgdGhlIFJB
-UyBwb2lzb24gY29uc3VtcHRpb24gZGV0ZWN0aW9uIHN1cHBvcnQsIHdoZXJlIHRoaXMgc2VyaWVz
-IG9ubHkgZGV0ZWN0cyB0aGUgcG9pc29uIGNvbnN1bXB0aW9uLiBUaGUgSW50ZXJydXB0IGZyb20g
-VkNOL0pQRUcgYmxvY2sgd2lsbCBiZSBpbnRlcmNlcHRlZCBhbmQgY2hlY2sgdGhlIHBvaXNvbiBj
-b25zdW1lZCBieSBWQ04vSlBFRyBhbmQgY3Jvc3MgY2hlY2sgaXQgaXMgaW5kZWVkIHRoZSB2Y24v
-anBlZyBwb2lzb24gY29uc3VtcHRpb24gaW50ZXJydXB0Lg0KDQo+DQo+PiBNb2hhbW1hZCBaYWZh
-ciBaaXlhICg2KToNCj4+ICAgIGRybS9hbWRncHU6IEFkZCB2Y24gYW5kIGpwZWcgcmFzIHN1cHBv
-cnQgZmxhZw0KPj4gICAgZHJtL2FtZGdwdS92Y246IEFkZCB2Y24gcmFzIHN1cHBvcnQNCj4+ICAg
-IGRybS9hbWRncHUvanBlZzogQWRkIGpwZWcgYmxvY2sgcmFzIHN1cHBvcnQNCj4+ICAgIGRybS9h
-bWRncHUvdmNuOiB2Y24gYW5kIGpwZWcgdmVyIDIuNiByYXMgcmVnaXN0ZXIgZGVmaW5pdGlvbg0K
-Pj4gICAgZHJtL2FtZGdwdS92Y246IFZDTiByYXMgZXJyb3IgcXVlcnkgc3VwcG9ydA0KPj4gICAg
-ZHJtL2FtZGdwdS9qcGVnOiBqcGVnIHJhcyBlcnJvciBxdWVyeSBzdXBwb3J0DQo+DQo+SXTigJlk
-IGJlIGdyZWF0IGlmIHlvdSBtYWRlIHRoZSBsYXN0IHRocmVlIGNvbW1pdCBtZXNzYWdlIHN1bW1h
-cmllcyBhbHNvDQo+c3RhdGVtZW50cyAoYnkgYWRkaW5nIGEgdmVyYiBpbiBpbXBlcmF0aXZlIG1v
-b2QpLg0KDQpbTW9oYW1tYWRdOiBUaGUgMm5kIGxhc3QgYW5kIGxhc3QgY29tbWl0IG9ubHkgZmFj
-aWxpdGF0ZSB0aGUgZnVuY3Rpb25hbGl0eSBvZiB0aGUgcG9pc29uIGNvbnN1bXB0aW9uIGRldGVj
-dGlvbiBvZiB0aGUgdmNuL2pwZWcgYmxvY2suIFRoaXMgd2lsbCBiZSBjYWxsZWQgdW5kZXIgSUgv
-QkggdG8gY2hlY2sgaW5kZWVkIGludGVycnVwdCBmcm9tIFZDTi9KUEVHIHBvaXNvbiBjb25zdW1w
-dGlvbi4gDQpUaGUgM3JkIGxhc3QgY29tbWl0cyBvbmx5IGFkZCB0aGUgcmVnaXN0ZXIgZGVmaW5p
-dGlvbiBuZWVkZWQgdG8gZmFjaWxpdGF0ZSB0aGUgZnVuY3Rpb25hbGl0eS4NCg0KPg0KPg0KPktp
-bmQgcmVnYXJkcywNCj4NCj5QYXVsDQo=
+On 2/6/22 09:17, Tomasz Moń wrote:
+> On Mon, Jul 12, 2021 at 11:56 AM Tomasz Moń <desowin@gmail.com> wrote:
+>> I am having trouble getting Linux to run on MacBook Pro 2019 with
+>> Radeon Pro Vega 20 4 GB. Basically as soon as graphical user interface
+>> starts, the whole system freezes. This happens with every Linux kernel
+>> version I have tried over the last few months, including 5.13.
+> 
+> It is significantly better on 5.17-rc2. That is, the whole system is
+> not frozen. just the screen keeps blinking and visual artifacts show.
+> Graphical desktop is not usable, but switching between virtual
+> terminals works just fine.
+
+I have tried on amd-drm-next-5.18-2022-03-25 with following options:
+   amdgpu.vm_debug=1 amdgpu.debug_evictions=1 amdgpu.dcdebugmask=0xffffffff amdgpu.dc=1 amdgpu.dcdebugmask=0xffffffff
+
+Unfortunately I am not familiar with the domain so my understanding is
+very limited. However the UNLOAD_TA command returning 0x117 stands out.
+
+What does the status 0x117 from UNLOAD_TA mean? Is the documentation for
+commands publicly available?
+
+[   24.931035] [drm:amdgpu_dm_atomic_commit_tail [amdgpu]] *ERROR* Waiting for fences timed out!
+[   24.931035] [drm:amdgpu_dm_atomic_commit_tail [amdgpu]] *ERROR* Waiting for fences timed out!
+[   29.847661] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx timeout, signaled seq=1712, emitted seq=1713
+[   29.847970] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process information: process Xorg pid 572 thread Xorg:cs0 pid 573
+[   29.848244] amdgpu 0000:03:00.0: amdgpu: GPU reset begin!
+[   32.746329] audit: type=1131 audit(1648314775.912:67): pid=1 uid=0 auid=4294967295 ses=4294967295 msg='unit=systemd-hostnamed comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+[   32.847653] audit: type=1334 audit(1648314776.015:68): prog-id=0 op=UNLOAD
+[   32.847658] audit: type=1334 audit(1648314776.015:69): prog-id=0 op=UNLOAD
+[   32.847660] audit: type=1334 audit(1648314776.015:70): prog-id=0 op=UNLOAD
+[   33.848255] amdgpu 0000:03:00.0: amdgpu: failed to suspend display audio
+[   33.848260] ------------[ cut here ]------------
+[   33.848261] Evicting all processes
+[   33.848276] WARNING: CPU: 10 PID: 469 at drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:1888 kfd_suspend_all_processes+0xfa/0x110 [amdgpu]
+[   33.848554] Modules linked in: amdgpu drm_ttm_helper gpu_sched
+[   33.848558] CPU: 10 PID: 469 Comm: kworker/u32:4 Not tainted 5.17.0-rc6-amd #1 771afb710c57d59790c0f2362731ed3ffe6af1f8
+[   33.848561] Hardware name: Apple Inc. MacBookPro15,3/Mac-1E7E29AD0135F9BC, BIOS 1731.100.130.0.0 (iBridge: 19.16.14242.0.0,0) 02/15/2022
+[   33.848563] Workqueue: amdgpu-reset-dev drm_sched_job_timedout [gpu_sched]
+[   33.848568] RIP: 0010:kfd_suspend_all_processes+0xfa/0x110 [amdgpu]
+[   33.848817] Code: c7 c7 40 9b 85 c0 41 5c 41 5d e9 c1 e8 98 f1 be 03 00 00 00 e8 27 16 e3 f1 e9 5b ff ff ff 48 c7 c7 4a cc 6f c0 e8 6d 2c 8c f2 <0f> 0b e9 26 ff ff ff 0f 0b eb c5 66 66 2e 0f 1f 84 00 00 00 00 00
+[   33.848819] RSP: 0018:ffffade780a83d08 EFLAGS: 00010246
+[   33.848821] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+[   33.848823] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+[   33.848824] RBP: ffff8d1fc4d68000 R08: 0000000000000000 R09: 0000000000000000
+[   33.848825] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8d1fd79e0000
+[   33.848826] R13: 0000000000000000 R14: ffff8d1fc2a270d0 R15: ffff8d1fd79e0000
+[   33.848828] FS:  0000000000000000(0000) GS:ffff8d271ec80000(0000) knlGS:0000000000000000
+[   33.848830] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   33.848831] CR2: 00007fc180bfb200 CR3: 00000004a8c10003 CR4: 00000000003706e0
+[   33.848833] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+[   33.848834] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+[   33.848835] Call Trace:
+[   33.848837]  <TASK>
+[   33.848839]  kgd2kfd_suspend.part.0+0x3d/0x40 [amdgpu 9abbe9b6fc2429e6d465345bc384def6ac94e6a9]
+[   33.849084]  kgd2kfd_pre_reset+0x43/0x60 [amdgpu 9abbe9b6fc2429e6d465345bc384def6ac94e6a9]
+[   33.849326]  amdgpu_device_gpu_recover_imp.cold+0x120/0x8e9 [amdgpu 9abbe9b6fc2429e6d465345bc384def6ac94e6a9]
+[   33.849628]  amdgpu_job_timedout+0x18f/0x1c0 [amdgpu 9abbe9b6fc2429e6d465345bc384def6ac94e6a9]
+[   33.849887]  ? finish_task_switch.isra.0+0xaa/0x290
+[   33.849892]  drm_sched_job_timedout+0x77/0x120 [gpu_sched 721b514943d9cddbec8b63d5dd19fd642806bd31]
+[   33.849898]  process_one_work+0x1e2/0x3b0
+[   33.849901]  ? rescuer_thread+0x3a0/0x3a0
+[   33.849903]  worker_thread+0x50/0x3a0
+[   33.849905]  ? rescuer_thread+0x3a0/0x3a0
+[   33.849906]  kthread+0xd6/0x100
+[   33.849910]  ? kthread_complete_and_exit+0x20/0x20
+[   33.849913]  ret_from_fork+0x1f/0x30
+[   33.849918]  </TASK>
+[   33.849919] ---[ end trace 0000000000000000 ]---
+[   34.072819] [drm] psp gfx command UNLOAD_TA(0x2) failed and response status is (0x117)
+[   34.072824] [drm] free PSP TMR buffer
+[   34.108151] CPU: 12 PID: 469 Comm: kworker/u32:4 Tainted: G        W         5.17.0-rc6-amd #1 771afb710c57d59790c0f2362731ed3ffe6af1f8
+[   34.108156] Hardware name: Apple Inc. MacBookPro15,3/Mac-1E7E29AD0135F9BC, BIOS 1731.100.130.0.0 (iBridge: 19.16.14242.0.0,0) 02/15/2022
+[   34.108158] Workqueue: amdgpu-reset-dev drm_sched_job_timedout [gpu_sched]
+[   34.108165] Call Trace:
+[   34.108167]  <TASK>
+[   34.108168]  dump_stack_lvl+0x48/0x66
+[   34.108174]  amdgpu_do_asic_reset+0x28/0x45c [amdgpu 9abbe9b6fc2429e6d465345bc384def6ac94e6a9]
+[   34.108523]  amdgpu_device_gpu_recover_imp.cold+0x60e/0x8e9 [amdgpu 9abbe9b6fc2429e6d465345bc384def6ac94e6a9]
+[   34.108835]  amdgpu_job_timedout+0x18f/0x1c0 [amdgpu 9abbe9b6fc2429e6d465345bc384def6ac94e6a9]
+[   34.109109]  ? finish_task_switch.isra.0+0xaa/0x290
+[   34.109114]  drm_sched_job_timedout+0x77/0x120 [gpu_sched 721b514943d9cddbec8b63d5dd19fd642806bd31]
+[   34.109120]  process_one_work+0x1e2/0x3b0
+[   34.109123]  ? rescuer_thread+0x3a0/0x3a0
+[   34.109125]  worker_thread+0x50/0x3a0
+[   34.109127]  ? rescuer_thread+0x3a0/0x3a0
+[   34.109129]  kthread+0xd6/0x100
+[   34.109132]  ? kthread_complete_and_exit+0x20/0x20
+[   34.109135]  ret_from_fork+0x1f/0x30
+[   34.109141]  </TASK>
+[   34.109144] amdgpu 0000:03:00.0: amdgpu: MODE1 reset
+[   34.109146] amdgpu 0000:03:00.0: amdgpu: GPU mode1 reset
+[   34.109196] amdgpu 0000:03:00.0: amdgpu: GPU psp mode1 reset
+[   34.637593] [drm] psp mode1 reset succeed
+[   34.708779] amdgpu 0000:03:00.0: amdgpu: GPU reset succeeded, trying to resume
+[   34.708884] [drm] PCIE GART of 512M enabled.
+[   34.708886] [drm] PTB located at 0x000000F400000000
+[   34.708906] [drm] VRAM is lost due to GPU reset!
+[   34.708907] [drm] PSP is resuming...
+[   34.896778] [drm] reserve 0x400000 from 0xf4fec00000 for PSP TMR
+[   36.604868] [drm] kiq ring mec 2 pipe 1 q 0
+[   36.626895] [drm] UVD and UVD ENC initialized successfully.
+[   36.727142] [drm] VCE initialized successfully.
+[   36.727148] amdgpu 0000:03:00.0: amdgpu: ring gfx uses VM inv eng 0 on hub 0
+[   36.727151] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
+[   36.727153] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
+[   36.727154] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 5 on hub 0
+[   36.727155] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 6 on hub 0
+[   36.727157] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 7 on hub 0
+[   36.727158] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 8 on hub 0
+[   36.727159] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 9 on hub 0
+[   36.727160] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 10 on hub 0
+[   36.727162] amdgpu 0000:03:00.0: amdgpu: ring kiq_2.1.0 uses VM inv eng 11 on hub 0
+[   36.727163] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng 0 on hub 1
+[   36.727164] amdgpu 0000:03:00.0: amdgpu: ring sdma1 uses VM inv eng 1 on hub 1
+[   36.727166] amdgpu 0000:03:00.0: amdgpu: ring uvd_0 uses VM inv eng 4 on hub 1
+[   36.727167] amdgpu 0000:03:00.0: amdgpu: ring uvd_enc_0.0 uses VM inv eng 5 on hub 1
+[   36.727168] amdgpu 0000:03:00.0: amdgpu: ring uvd_enc_0.1 uses VM inv eng 6 on hub 1
+[   36.727169] amdgpu 0000:03:00.0: amdgpu: ring vce0 uses VM inv eng 7 on hub 1
+[   36.727170] amdgpu 0000:03:00.0: amdgpu: ring vce1 uses VM inv eng 8 on hub 1
+[   36.727171] amdgpu 0000:03:00.0: amdgpu: ring vce2 uses VM inv eng 9 on hub 1
+[   36.729758] amdgpu 0000:03:00.0: amdgpu: recover vram bo from shadow start
+[   36.729762] amdgpu 0000:03:00.0: amdgpu: recover vram bo from shadow done
+[   36.729765] [drm] Skip scheduling IBs!
+[   36.729785] amdgpu 0000:03:00.0: amdgpu: GPU reset(2) succeeded!
+[   36.729811] [drm] Skip scheduling IBs!
+...
+[   36.731540] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
