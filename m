@@ -4,35 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EB77C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 07:25:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5EC9C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 07:25:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4AA610E282;
-	Mon, 28 Mar 2022 07:25:47 +0000 (UTC)
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Mon, 28 Mar 2022 05:17:26 UTC
-Received: from nksmu.kylinos.cn (mailgw.kylinos.cn [123.150.8.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BD7D10EC29;
- Mon, 28 Mar 2022 05:17:25 +0000 (UTC)
-X-UUID: fb30e82a4d7c424e9a44f7ee3c6f49f3-20220328
-X-GW-Reason: 11101
-X-Policy-Incident: 5pS25Lu25Lq66LaF6L+HNeS6uumcgOimgeWuoeaguA==
-X-Content-Feature: ica/max.line-size 167 audit/email.address 1 meta/cnt.alert 1
-X-UUID: fb30e82a4d7c424e9a44f7ee3c6f49f3-20220328
-Received: from cs2c.com.cn [(172.17.111.24)] by nksmu.kylinos.cn
- (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
- with ESMTP id 2131348658; Mon, 28 Mar 2022 12:05:18 +0800
-X-ns-mid: postfix-62413430-3057013324
-Received: from localhost.localdomain (unknown [172.20.108.41])
- by cs2c.com.cn (NSMail) with ESMTPA id D30D23848676;
- Mon, 28 Mar 2022 04:06:07 +0000 (UTC)
-From: Zhenneng Li <lizhenneng@kylinos.cn>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: resolve s3 hang for r7340
-Date: Mon, 28 Mar 2022 12:05:36 +0800
-Message-Id: <20220328040536.4121797-1-lizhenneng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA9BC10E5C5;
+	Mon, 28 Mar 2022 07:25:48 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3464010E05A;
+ Sat, 26 Mar 2022 23:37:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=9eoNsGPRKDQN5hEBg7GTRtq6aujXrI8GzeayPp1jk4Y=; b=tLwgQ5EXzg8YZU4qShcAUON0J9
+ 1yuz1RaHyKMGRge7whSW4f6rmnOQFm3WMN4WMzqcU/0/airpZ3kGt+uWtD6nJtb3Y2M67JY8Z1BO6
+ X0SVj0aG7LJBmGmSVJgvPQ78Wtl+G/XJWPY78GXcjAELtsFD17JV7lDUovZv9T6zX3cRLtuGDw3j+
+ L+PbKmztk4VEJKGxx8sb5dFhqbrlYS7cq68r2Pz74nUif1baCTIkWt9ImkLGnXmzl07y4cpYxuhUk
+ VXFp7S7mxNbtfep0d/r3/W1Xqw6BHqHVFNAijnfcj3DYulGkeoK9221vHSch/ezxTt/hyKd4tbxcM
+ h4QVIQVg==;
+Received: from [2601:1c0:6280:3f0::aa0b] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1nYFyL-0051yD-0L; Sat, 26 Mar 2022 23:37:29 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: DCN3.1: don't mark as kernel-doc
+Date: Sat, 26 Mar 2022 16:37:26 -0700
+Message-Id: <20220326233726.14712-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 28 Mar 2022 07:25:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -46,47 +47,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Jack Zhang <Jack.Zhang1@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Guchun Chen <guchun.chen@amd.com>, David Airlie <airlied@linux.ie>,
- Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- linaro-mm-sig@lists.linaro.org, Zhenneng Li <lizhenneng@kylinos.cn>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Kevin Wang <kevin1.wang@amd.com>, Evan Quan <evan.quan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, patches@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a workaround for s3 hang for r7340(amdgpu).
-When we test s3 with r7340 on arm64 platform, graphics card will hang up,
-the error message are as follows:
-Mar  4 01:14:11 greatwall-GW-XXXXXX-XXX kernel: [    1.599374][ 7] [  T291] amdgpu 0000:02:00.0: fb0: amdgpudrmfb frame buffer device
-Mar  4 01:14:11 greatwall-GW-XXXXXX-XXX kernel: [    1.612869][ 7] [  T291] [drm:amdgpu_device_ip_late_init [amdgpu]] *ERROR* late_init of IP block <si_dpm> failed -22
-Mar  4 01:14:11 greatwall-GW-XXXXXX-XXX kernel: [    1.623392][ 7] [  T291] amdgpu 0000:02:00.0: amdgpu_device_ip_late_init failed
-Mar  4 01:14:11 greatwall-GW-XXXXXX-XXX kernel: [    1.630696][ 7] [  T291] amdgpu 0000:02:00.0: Fatal error during GPU init
-Mar  4 01:14:11 greatwall-GW-XXXXXX-XXX kernel: [    1.637477][ 7] [  T291] [drm] amdgpu: finishing device.
+There is no need for this one static function to be marked as
+kernel-doc notation.
 
-Change-Id: I5048b3894c0ca9faf2f4847ddab61f9eb17b4823
-Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
+Avoid this doc build warning:
+
+warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ * Enable CRTC
+
+Fixes: 110d3968fe95 ("drm/amd/display: Add DCN3.1 OPTC")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Christian König <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_optc.c |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 3987ecb24ef4..1eced991b5b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2903,6 +2903,8 @@ static void amdgpu_device_delayed_init_work_handler(struct work_struct *work)
- 		container_of(work, struct amdgpu_device, delayed_init_work.work);
- 	int r;
+--- linux-next-20220325.orig/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_optc.c
++++ linux-next-20220325/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_optc.c
+@@ -91,8 +91,7 @@ static void optc31_set_odm_combine(struc
+ 	optc1->opp_count = opp_cnt;
+ }
  
-+	mdelay(1);
-+
- 	r = amdgpu_ib_ring_tests(adev);
- 	if (r)
- 		DRM_ERROR("ib ring test failed (%d).\n", r);
--- 
-2.25.1
-
+-/**
+- * Enable CRTC
++/*
+  * Enable CRTC - call ASIC Control Object to enable Timing generator.
+  */
+ static bool optc31_enable_crtc(struct timing_generator *optc)
