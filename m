@@ -4,44 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEA11C433F5
-	for <amd-gfx@archiver.kernel.org>; Sat, 26 Mar 2022 20:25:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FB96C433F5
+	for <amd-gfx@archiver.kernel.org>; Sun, 27 Mar 2022 10:42:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8579410E241;
-	Sat, 26 Mar 2022 20:25:40 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 515EF10E241;
- Sat, 26 Mar 2022 20:25:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=d/86E55HMKhsVqOnAQ00yoI1G5UmX3XveaQwPYykNqw=; b=AJ7hxU04sgKC6xecbXApi8iLuZ
- zJedZnUc2FEo2vZCgG5CmZxlZgv6+AM4LdxKmj7LYYFCcvAvHeGJ+aB1dLvZ3XpZ3B5dOKyfiYzAM
- /DCQRJ9QwNFjwLP4lGzhULd8hwisJpx+mC5FbzFiA8eYtg5lQXePK98Qdq/SWmA81L4yGyoDWZYyK
- Jkgm5N9pb/l+fWZfwGrXRkjbEzzoID2AN3Ooz7lHDotgWuPSoNAQyd9HptPPe8Xh1FEt6OEnHtBuE
- 9ZBxdi8Pg8NXrxpdKsVc6SBI/aMrUl6QCcYNCpW8+illvMZ6EQ0vy69etWG8o5uWWRdQ+53bTuW/2
- 6M89N6qQ==;
-Received: from [165.90.126.25] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1nYCyf-0007e9-56; Sat, 26 Mar 2022 21:25:37 +0100
-From: Melissa Wen <mwen@igalia.com>
-To: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com,
- Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch
-Subject: [PATCH 2/2] drm/amd/display: remove DC_FP_* wrapper from dml folder
-Date: Sat, 26 Mar 2022 19:24:48 -0100
-Message-Id: <20220326202448.2046077-3-mwen@igalia.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220326202448.2046077-1-mwen@igalia.com>
-References: <20220326202448.2046077-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8381B10E337;
+	Sun, 27 Mar 2022 10:42:37 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFE8B10E337
+ for <amd-gfx@lists.freedesktop.org>; Sun, 27 Mar 2022 10:42:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=j64yn/Tdc1G2mKLMaKODs4oITgQNs/frZLQVz75d6WCZQnJErcc7Vb2nc7BWZP9m5S4LLUje6OX8njvFFQZAcH75yHxk8p+1KY6rnV6plb3EC/St83+eE0Y/XNQjX/K+pH3WOXDEVHf655cYqmK7QEauSFWpDRenxX8aFc0HW8cvzS381Q03FNFcKYIXCEnvuTHwi+aNb4FzI7e7sCwlHl3BajIoHWoF6TK+MzHlpL8AgB9UUQDeJX9kV+Bqp6tpv9il78Bp50NhMaXfyZcwDAb+VWoEja98KyG/j+NbrDxeyOGVTh/gjIBkCwCOlX429LCf/jrytTaBV6OcAwlAFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ckvL0JWV9ybxl/Llm3AJFD23hLowg3MsTLrjx02rwK8=;
+ b=MiCrCQJoiSPe9cGfb1QE9c+ZzxSB48g7XmJHgnkVQ0LBNSDQPuaxsv82bpul/He+lKibMRcxLNXtR6uRlCQsHKoYTrvI9NdHZGARqcdm//whkmgSa6EBvsmf/+JfbRuBo0ec/F23j2n5GR2ntqUAQV3m6fYGFrnKQ2NXC8ggj+DD30iWxjN2BMAFNhM+JJUuuK1i7iTip3D/O/aFtx6R9Zm/OVOsY3NmHy6LZO7+8qnaeH1rjfWUXC880sfWeUF7DGZz82hvI13pJt2LWp2up1ITG9sGaQCod9qp3YGtyF9bNFfXtJ3pbFKPBnIkP3vtMSNHU9CAh6LxhQCbq1cxbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ckvL0JWV9ybxl/Llm3AJFD23hLowg3MsTLrjx02rwK8=;
+ b=3C8z5SW+R1cA7E+zCVYtAhBHrKB1GpohPjn2nOyKPpqVjCI9g4fyxUntQTmIC4rg6G1mYFcbMUYi74XPY/nC3CwogqoljRAfG2NZ1XfpeACMsEg+VqQPJcaQcJuwvNWOGopmhQsBH5XONd4GX3IfUN3y/Q6ksz9v0yhAjuSKWvQ=
+Received: from DS7PR03CA0066.namprd03.prod.outlook.com (2603:10b6:5:3bb::11)
+ by CH2PR12MB3909.namprd12.prod.outlook.com (2603:10b6:610:21::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.19; Sun, 27 Mar
+ 2022 10:42:33 +0000
+Received: from DM6NAM11FT024.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3bb:cafe::84) by DS7PR03CA0066.outlook.office365.com
+ (2603:10b6:5:3bb::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17 via Frontend
+ Transport; Sun, 27 Mar 2022 10:42:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT024.mail.protection.outlook.com (10.13.172.159) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5102.17 via Frontend Transport; Sun, 27 Mar 2022 10:42:32 +0000
+Received: from pc-32.home (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Sun, 27 Mar
+ 2022 05:42:31 -0500
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 2/5] umr: Reorg and print the message on ppt-read
+Date: Sun, 27 Mar 2022 06:42:11 -0400
+Message-ID: <20220327104214.106340-2-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.35.1.607.gf01e51a7cf
+In-Reply-To: <20220327104214.106340-1-luben.tuikov@amd.com>
+References: <20220327104214.106340-1-luben.tuikov@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f79c27d4-dab5-4b57-c1dd-08da0fde7fff
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3909:EE_
+X-Microsoft-Antispam-PRVS: <CH2PR12MB39092173148AA2484C95D744991C9@CH2PR12MB3909.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: u3OIzZYvkAA2i5vNa3fvHDXO6qdi5N+u20wXd9ENPCsHOm1aAMQI/Q0iiX6Cy6A8JEVKrb73RQqYegnYdb1335SMUQxiIvX3hg0gQJDKvSctakOISeMeSaGxB/4IGzZvzpVWkE01hD1ZdTQq9uCpUBZ5UezXA9jfIYKco41Quxli5CNo5dXdH6SZKQzVy8Miw9V4caw+Z0jHczelWNAOxWcb/0z/yQ5fuC+O5NDqV3O7uVP+u9TK0OHgsyLzq6KewJrGNWcUWUB7l8hetDlevd4VRO1LzL6JIBGMxD7FDZ0ATT0pYIOeZKPMWdD5rgp7x/V+I2I5SF9BJk9rSujsbIwc2VeJ0Hs3NNgwxgceu0V68rcYrq3FoTemdBxFvwrxzvzmyrRcK2yl9tFvGlbBc9Csd0cYGsZ/B1tCbQNFYzXPgCK4wZOYYmF1eGS/juoKLuzrelo80/G72vz5PNdWlnhL0I6whKs+d/ZtjWsrsfJUGuypIWldIwrSJqmBEviI+vTYN/0wTy7o4O5z6P0BhRuT15Qy9oOFNRDwX5qUVru4EfB0AimBILNQXYX/B1yd9ZH8ZDYQo+OB7dn52NatvbfnM/n5+/V0URCZQfu1O0wdMi6MYbwHZjVGOnxuAtfRr1321OC8NaPkw36QK3DPl9TriFWOSmqPU0mbLju+YGh/8+tAkGzJs0wb2QEbzWdoOmLrc5752jE8e28glTP0Cg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(356005)(81166007)(15650500001)(36756003)(70586007)(4326008)(47076005)(8676002)(316002)(83380400001)(6666004)(54906003)(44832011)(70206006)(426003)(6916009)(2906002)(36860700001)(86362001)(5660300002)(26005)(508600001)(1076003)(336012)(8936002)(186003)(2616005)(40460700003)(82310400004)(16526019)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2022 10:42:32.9876 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f79c27d4-dab5-4b57-c1dd-08da0fde7fff
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT024.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3909
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,169 +100,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Qingqing Zhuo <qingqing.zhuo@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Melissa Wen <mwen@igalia.com>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Jasdeep Dhillon <jdhillon@amd.com>
+Cc: Tom StDenis <tom.stdenis@amd.com>, "Jinzhou . Su" <Jinzhou.Su@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-FPU documentation states that developers must not use DC_FP_START/END
-inside dml files, but use this macro to wrap calls to FPU functions in
-dc folder (outside dml folder). Therefore, this patch removes DC_FP_*
-wrappers from dml folder and wraps calls for these FPU operations
-outside dml, as required.
+Reorganize the logic and actually print the error message when the ASIC
+doesn't support the power-play table feature.
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+Cc: Tom StDenis <tom.stdenis@amd.com>
+Cc: Jinzhou.Su <Jinzhou.Su@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 ---
- .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  | 10 ++++++++--
- .../gpu/drm/amd/display/dc/dcn10/dcn10_resource.c  |  2 ++
- .../gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c   | 14 --------------
- .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c   |  2 --
- 4 files changed, 10 insertions(+), 18 deletions(-)
+ src/app/pp_table.c | 29 +++++++++++++++++------------
+ 1 file changed, 17 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index c3e141c19a77..6b4d9917933b 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -2979,8 +2979,11 @@ void dcn10_prepare_bandwidth(
- 			true);
- 	dcn10_stereo_hw_frame_pack_wa(dc, context);
+diff --git a/src/app/pp_table.c b/src/app/pp_table.c
+index 9ab42a9ae2296c..33c2d01e897ef3 100644
+--- a/src/app/pp_table.c
++++ b/src/app/pp_table.c
+@@ -20,27 +20,32 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  *
+  */
++
++#include <errno.h>
+ #include "umrapp.h"
+ #include "smu_pptable_navi10.h"
  
--	if (dc->debug.pplib_wm_report_mode == WM_REPORT_OVERRIDE)
-+	if (dc->debug.pplib_wm_report_mode == WM_REPORT_OVERRIDE) {
-+		DC_FP_START();
- 		dcn_bw_notify_pplib_of_wm_ranges(dc);
-+		DC_FP_END();
-+	}
- 
- 	if (dc->debug.sanity_checks)
- 		hws->funcs.verify_allow_pstate_change_high(dc);
-@@ -3013,8 +3016,11 @@ void dcn10_optimize_bandwidth(
- 
- 	dcn10_stereo_hw_frame_pack_wa(dc, context);
- 
--	if (dc->debug.pplib_wm_report_mode == WM_REPORT_OVERRIDE)
-+	if (dc->debug.pplib_wm_report_mode == WM_REPORT_OVERRIDE) {
-+		DC_FP_START();
- 		dcn_bw_notify_pplib_of_wm_ranges(dc);
-+		DC_FP_END();
-+	}
- 
- 	if (dc->debug.sanity_checks)
- 		hws->funcs.verify_allow_pstate_change_high(dc);
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-index 1587a060b55a..bca049b2f867 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-@@ -1506,6 +1506,7 @@ static bool dcn10_resource_construct(
- 			&& pool->base.pp_smu->rv_funcs.set_pme_wa_enable != NULL)
- 		dc->debug.az_endpoint_mute_only = false;
- 
-+	DC_FP_START();
- 	if (!dc->debug.disable_pplib_clock_request)
- 		dcn_bw_update_from_pplib(dc);
- 	dcn_bw_sync_calcs_and_dml(dc);
-@@ -1513,6 +1514,7 @@ static bool dcn10_resource_construct(
- 		dc->res_pool = &pool->base;
- 		dcn_bw_notify_pplib_of_wm_ranges(dc);
- 	}
-+	DC_FP_END();
- 
- 	{
- 		struct irq_service_init_data init_data;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-index c25023f7d604..db3b16b77034 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-@@ -639,7 +639,6 @@ static bool dcn_bw_apply_registry_override(struct dc *dc)
+-int umr_print_pp_table(struct umr_asic *asic, const char* param)
++int umr_print_pp_table(struct umr_asic *asic, const char *param)
  {
- 	bool updated = false;
+-	FILE* fp;
+-	int ret = -1;
++	FILE *fp;
++	int res;
+ 	char name[256];
  
--	DC_FP_START();
- 	if ((int)(dc->dcn_soc->sr_exit_time * 1000) != dc->debug.sr_exit_time_ns
- 			&& dc->debug.sr_exit_time_ns) {
- 		updated = true;
-@@ -675,7 +674,6 @@ static bool dcn_bw_apply_registry_override(struct dc *dc)
- 		dc->dcn_soc->dram_clock_change_latency =
- 				dc->debug.dram_clock_change_latency_ns / 1000.0;
+ 	snprintf(name, sizeof(name)-1, \
+-		"/sys/class/drm/card%d/device/pp_table", asic->instance);
++		 "/sys/class/drm/card%d/device/pp_table", asic->instance);
+ 	fp = fopen(name, "r");
+-	if (fp) {
+-		if (strcmp(asic->asicname, "navi10") == 0 || strcmp(asic->asicname, "navi14") == 0) {
+-			ret = umr_navi10_pptable_print(param, fp);
+-		}
+-		fclose(fp);
++	if (!fp) {
++		asic->err_msg("fopen: %s: %d\n", strerror(errno), errno);
++		return -errno;
++	}
++	if (strcmp(asic->asicname, "navi10") == 0 ||
++	    strcmp(asic->asicname, "navi14") == 0) {
++		res = umr_navi10_pptable_print(param, fp);
+ 	} else {
+-		printf("Powerplay table feature only support on Navi10/Navi14 now.");
+-		return -1;
++		asic->err_msg("The powerplay table feature is currently supported only on Navi10/Navi14.\n");
++		res = -1;
  	}
--	DC_FP_END();
++	fclose(fp);
  
- 	return updated;
- }
-@@ -1492,8 +1490,6 @@ void dcn_bw_update_from_pplib(struct dc *dc)
- 	res = dm_pp_get_clock_levels_by_type_with_voltage(
- 			ctx, DM_PP_CLOCK_TYPE_FCLK, &fclks);
- 
--	DC_FP_START();
--
- 	if (res)
- 		res = verify_clock_values(&fclks);
- 
-@@ -1523,13 +1519,9 @@ void dcn_bw_update_from_pplib(struct dc *dc)
- 	} else
- 		BREAK_TO_DEBUGGER();
- 
--	DC_FP_END();
--
- 	res = dm_pp_get_clock_levels_by_type_with_voltage(
- 			ctx, DM_PP_CLOCK_TYPE_DCFCLK, &dcfclks);
- 
--	DC_FP_START();
--
- 	if (res)
- 		res = verify_clock_values(&dcfclks);
- 
-@@ -1540,8 +1532,6 @@ void dcn_bw_update_from_pplib(struct dc *dc)
- 		dc->dcn_soc->dcfclkv_max0p9 = dcfclks.data[dcfclks.num_levels - 1].clocks_in_khz / 1000.0;
- 	} else
- 		BREAK_TO_DEBUGGER();
--
--	DC_FP_END();
- }
- 
- void dcn_bw_notify_pplib_of_wm_ranges(struct dc *dc)
-@@ -1556,11 +1546,9 @@ void dcn_bw_notify_pplib_of_wm_ranges(struct dc *dc)
- 	if (!pp || !pp->set_wm_ranges)
- 		return;
- 
--	DC_FP_START();
- 	min_fclk_khz = dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 * 1000000 / 32;
- 	min_dcfclk_khz = dc->dcn_soc->dcfclkv_min0p65 * 1000;
- 	socclk_khz = dc->dcn_soc->socclk * 1000;
--	DC_FP_END();
- 
- 	/* Now notify PPLib/SMU about which Watermarks sets they should select
- 	 * depending on DPM state they are in. And update BW MGR GFX Engine and
-@@ -1611,7 +1599,6 @@ void dcn_bw_notify_pplib_of_wm_ranges(struct dc *dc)
- 
- void dcn_bw_sync_calcs_and_dml(struct dc *dc)
- {
--	DC_FP_START();
- 	DC_LOG_BANDWIDTH_CALCS("sr_exit_time: %f ns\n"
- 			"sr_enter_plus_exit_time: %f ns\n"
- 			"urgent_latency: %f ns\n"
-@@ -1800,5 +1787,4 @@ void dcn_bw_sync_calcs_and_dml(struct dc *dc)
- 	dc->dml.ip.bug_forcing_LC_req_same_size_fixed =
- 		dc->dcn_ip->bug_forcing_luma_and_chroma_request_to_same_size_fixed == dcn_bw_yes;
- 	dc->dml.ip.dcfclk_cstate_latency = dc->dcn_ip->dcfclk_cstate_latency;
--	DC_FP_END();
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-index 2f6122153bdb..36b12a350bbd 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-@@ -1290,9 +1290,7 @@ int dcn20_populate_dml_pipes_from_context(
- 	}
- 
- 	/* populate writeback information */
--	DC_FP_START();
- 	dc->res_pool->funcs->populate_dml_writeback_from_context(dc, res_ctx, pipes);
--	DC_FP_END();
- 
- 	return pipe_cnt;
+-	return ret;
++	return res;
  }
 -- 
-2.35.1
+2.35.1.607.gf01e51a7cf
 
