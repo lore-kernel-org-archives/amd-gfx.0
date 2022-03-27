@@ -4,117 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B7FAC433EF
-	for <amd-gfx@archiver.kernel.org>; Sun, 27 Mar 2022 13:47:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D485C433F5
+	for <amd-gfx@archiver.kernel.org>; Sun, 27 Mar 2022 14:54:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8804710E233;
-	Sun, 27 Mar 2022 13:47:29 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2069.outbound.protection.outlook.com [40.107.102.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F365510E233
- for <amd-gfx@lists.freedesktop.org>; Sun, 27 Mar 2022 13:47:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3976810E04A;
+	Sun, 27 Mar 2022 14:54:56 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2070.outbound.protection.outlook.com [40.107.237.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 880A610E04A
+ for <amd-gfx@lists.freedesktop.org>; Sun, 27 Mar 2022 14:54:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FNa448LjLAsf7RtEYAuASvPmJlP5mnfFCHWkJDbmKmngrV/4FHAXdrLFb4ZWVhvmX3jwgLs/qxm7vt1MqrGl80JM2hLngxyrH3Jbei3PsoQHa6rFmG4sfNVMVoniDUiLrkwKaoBL594BjzNai95852KTf4ZGvVb8HugvT4uqkKm2AO0ZVSQBTMh5QhzYtzOCYGy8AemYFX6HjmZOXdznpl4xqX3hh4y0x5dxLCGqN8xhddsviaFtb1zeOx8AehQ/wOuxatpYMc2iZ85UhyU81ER8MU1orze7ABvJ/ECUJBG1ZA+7R2d1ue9v+ZPQoSc3cfSjsx4zS/tyMD1Mj8GOmw==
+ b=TOkSyG16PHWMkOLQUOngv+dwHTgZ0vTZYvwvTcxzADw3fCXosePbj8lwss1z4D1+Wau44Pf2umT1lucLJIj2PXIDcS1sv/G++fxH+tQUGnnSa68hCbbv3iELQS0vfYVQMOWMU0Th9UFF8CCzFx2AtgrHheBmpEzZF+W+kVyfjhGj4LXKnVGvJ6EoXctSqk0XqvI/GImX9bTrzHHXQVgpiEGP24NCXf5UccNtydgEEG6cTietlHkrj2CkIdv1jXv9N3cfALjf/YtZp4OLE7I2P9ikwGwV86eT2SwUE5973oZYQvD6OJqEvSANFCuQ0t6/jsHKZtWTGnw1wVbUiTfEhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WkwxVSnzSLgeQ9g9cYRPk29Y8IbkCgAWHcTX4Fux3c4=;
- b=EzMRxh8/OFkANPny0ECFfTU+HuALQLRjZ9hqyrXDtnirAfyUV6TLB9IBxyJgqnSqhUKtLGVLSyL/bD/5CLRym3HtqIHlyzgHafYGyXuEUXkbFDNDajwmpH2Cn3sK3LFQGuWGhDAellwR6GE2ZpebugPA5lMhx0gj01dRSyNuLVMiiKLgk7gRywMte/lgRzJTo+juJjs1XfAEMVQaBJ5lxTAQhfVLeQcrOvN7uDHyPJT2MJRcfSn8j7W6Oh3Xpu1/kiUOBriu8Lr9JmUcr8XVjZd6LPYnKSbXqIHDwr++4Kz2X3A03PgptwM7My5z77hxmR5U0Y86QkyKLKCUMs+o9Q==
+ bh=TRggbrggJGanEcdY12ZG1DxbQgC9/YfZOt65EyJjH4g=;
+ b=fsQr0fK86fBokf4c/wnfNh+/joLt3z55GGaA1UjO0CoAujiPaNmx6E658O0iXZW2nhM7v8jCoQoqO2TPC3s8FKF2nP2gD+HMXbTf+hJSkGJEQE/XAkQjoMD/pngqIkLWWSRBjyjfh57ElMRoQ2E9wpscDZkgkdOSNhW99MLIAQPmO5nlfot0mlU2E4hNvvTgQlug+eyPzvopLcytGZEr34OSCDuXyFDmaj3NFXnFqzxPWS6iZoaLttb9lw+/23vHFETXmpVB5l6OMnpuS5cs22pJJr2pqRUapBwkWzYUYRdI07Z08nNYf3x/GfJRfaErXh06ITlk+WdJ1tXf1rR6ig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WkwxVSnzSLgeQ9g9cYRPk29Y8IbkCgAWHcTX4Fux3c4=;
- b=iA4PWYFndfUmkT/QnyMeNeGPFXBnXaoJC7pOxZMUHgYu87fwTZYyLxcmlCk/DjMjJPX4OEM98GkrTR1iCvo8oyf6IZh1ZxNg3PMLqosQH5GU56hXQtJBjhdHnxXqhHt0WLnSWJXrNQfSNVWqxThGiYdJUXJp+haC0+L1Yf1VV3A=
-Received: from DM5PR12MB1753.namprd12.prod.outlook.com (2603:10b6:3:10d::16)
- by CY4PR1201MB0038.namprd12.prod.outlook.com (2603:10b6:910:19::9) with
+ bh=TRggbrggJGanEcdY12ZG1DxbQgC9/YfZOt65EyJjH4g=;
+ b=nfJGlRpEDGI81+tHtAs/T4HKeUk8MEkSeD/3QN33Rz6P82/0ywnR2hP65oLPq9/9LcuLsQ8PeAPLD8rkEYd7UdVzfLD5XXTD+UGHe3RPDfgRRV2aMHevrfFM67HDKGszkWvpCpS1O7DmXd365lQJeOkSgaHet15Ng+T3BF1TrCs=
+Received: from DM4PR12MB5294.namprd12.prod.outlook.com (2603:10b6:5:39e::15)
+ by CY4PR1201MB0101.namprd12.prod.outlook.com (2603:10b6:910:1c::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.22; Sun, 27 Mar
- 2022 13:47:25 +0000
-Received: from DM5PR12MB1753.namprd12.prod.outlook.com
- ([fe80::8d3d:32f4:7ae0:799b]) by DM5PR12MB1753.namprd12.prod.outlook.com
- ([fe80::8d3d:32f4:7ae0:799b%11]) with mapi id 15.20.5102.022; Sun, 27 Mar
- 2022 13:47:25 +0000
-From: "Zhu, James" <James.Zhu@amd.com>
-To: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>, "amd-gfx@lists.freedesktop.org"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.16; Sun, 27 Mar
+ 2022 14:54:52 +0000
+Received: from DM4PR12MB5294.namprd12.prod.outlook.com
+ ([fe80::f941:9dfe:5e3e:853c]) by DM4PR12MB5294.namprd12.prod.outlook.com
+ ([fe80::f941:9dfe:5e3e:853c%4]) with mapi id 15.20.5102.022; Sun, 27 Mar 2022
+ 14:54:51 +0000
+From: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
+To: "Zhu, James" <James.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 Subject: Re: [PATCH] drm/amd/vcn: fix an error msg on vcn 3.0
 Thread-Topic: [PATCH] drm/amd/vcn: fix an error msg on vcn 3.0
-Thread-Index: AQHYQcx5WiXsAr/8WkiaQ7/5cnpYXKzTPrZM
-Date: Sun, 27 Mar 2022 13:47:25 +0000
-Message-ID: <DM5PR12MB17539AA139BF9BC96D1AB46EE41C9@DM5PR12MB1753.namprd12.prod.outlook.com>
+Thread-Index: AQHYQcx5kAspmLeO7UCx68wx8Sn0zqzTPsiAgAASusg=
+Date: Sun, 27 Mar 2022 14:54:51 +0000
+Message-ID: <DM4PR12MB5294624553DE60971CFACD8B951C9@DM4PR12MB5294.namprd12.prod.outlook.com>
 References: <20220327111857.1372675-1-tianci.yin@amd.com>
-In-Reply-To: <20220327111857.1372675-1-tianci.yin@amd.com>
-Accept-Language: en-US
+ <DM5PR12MB17539AA139BF9BC96D1AB46EE41C9@DM5PR12MB1753.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB17539AA139BF9BC96D1AB46EE41C9@DM5PR12MB1753.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-27T13:47:24.456Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-27T14:54:51.357Z;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
  Official Use
  Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
-suggested_attachment_session_id: 0c2c7612-5ce1-d32b-1cfa-295971de258f
+suggested_attachment_session_id: 4db9a2dc-c1e0-5290-e101-834c394e3369
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 20a73daa-bdd9-4a88-d6db-08da0ff8537d
-x-ms-traffictypediagnostic: CY4PR1201MB0038:EE_
-x-microsoft-antispam-prvs: <CY4PR1201MB0038815862DE0815CDFDE849E41C9@CY4PR1201MB0038.namprd12.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: 98052f63-cdac-4ce6-1530-08da1001bf55
+x-ms-traffictypediagnostic: CY4PR1201MB0101:EE_
+x-microsoft-antispam-prvs: <CY4PR1201MB010145F8649E7B83355425CD951C9@CY4PR1201MB0101.namprd12.prod.outlook.com>
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 0+ameSRPOd/BmYuA0zIisVJYQLVvNGtAMpEh7FSD2djZnwzi2AmIWg/QI10TFw18PRsqtlDONpxJl0UuInxN57ws/ylKB+vb4k10QQuj3AfdADNrvrv3YymI63C/CemNZRWDJNNHRYy8VCzo7KjZdcI7HdTdo4YYO0+JHvuGWJHRveGNX7GMKrD2opI/qur4RaaRUKEMmErpRgJhu2jVtm0dD++MqVuQreW/UlY1GqD6gqZ4B7pEMERRPWsoksCtYU3mkv8f+KbuDBusgwmkzTmmlzPFfgEsSGYhA1CKr3J4XYnVNVT4kRcypcNI8/i/EmuxmPOdorFCbg4NVnoW97UtqdOaEmjaT9cenHcECDsPzo6a9snDEjW6KAXElqhsQzdHfpKDPsGQ8NLNzlM3A+2DUbnpBZfma+9Pxpr0Gwjg/TeKhJAZkt+JoEg2A5YfP9OAZ2Cm0NMWEbAdspeKcssvbmpKFn86RjaSSpKqPQZthiR89pc+Kb/+YbgF63W8Pf64/7su/Dsa59DX0xZVmoGpJBElbU3Bdpyq1ac/ZtmedeSzL6cZnsB1Pgkdc4LlcCsA8bIAEhSuFjNG23K/OySo0DJwpMH2nOr9Y7ue2OPrKLxfA0DNyzLbsr7YvSzhOFR1faOMsoq1D42xaZPYAGdPm10skonj3pIE7bN5LNwTf/PzwMzwmlGD8vbhMFeCH1PUb7v3Pn1b1CEyOXF7vA==
+x-microsoft-antispam-message-info: 10NbVPiYez+kAr09lPDr91i+taYnEzr6jJf7VAyMRy+nyd4Qz8H6oOWlwPv3M7uKI4WYt69IsRFhA6VKMF6XED5w6TJV4zD6UKl4+OdIO/wRQVnnwXbCkKk0nmutK6X3dtok4hOoQNZJEg2ROiaLCDQIqLtDjn00OwUGcHKuFVRnlM/582t7rR+y2hWspwzN87dWW32R6T3PHXAQipgO5MsZc6q0jXkx/18hcjTRBzBfdWLUrrF+IdMYcFNttsfp2KWh8PXIMHqCnWQkbNjrxCVcE7JotSNKyqr9sTs7DWS3LE1ko7DQvHjGZR//7fnd1CGpjEvNrkkB+QpEfLP7WI4u9k0/9EIOWaxPZKuEj3M05pr+50FRZ7TMSQbHO6NxFpZdo7qIN4DrG17YOcgqoO1/LuZVgzdgs3xDndRZ97RqgLu20g3l3Z/XVsCrp+vaJNuzqRmPECpnoRlV55ZiP0Q2AAICEgZJvdPG3svE0GiEsa/K4Qat1l6F57Fd1P8TCamH7Ztb2G7jNKgIbKGVVj9GLpI6MXjM9OG6pfTy2kr4wBoeJUWgIefgb+i0/2wayei764ujaByAzaMkItQJh16M7XLt3VmdoS/2cFhVHZ5eOhIahVPauScjQn5CBZEVZIvT6hAh/sh1F9GvdlkYnaNocWbMWNy+qCc/1lKlZrb7/RPRF0o+xeFr/NYqtFow0Lwcblhov4Td6zXbvwr/2g==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(83380400001)(122000001)(66556008)(508600001)(186003)(19627405001)(38100700002)(5660300002)(8936002)(52536014)(26005)(9686003)(71200400001)(38070700005)(6506007)(7696005)(54906003)(8676002)(110136005)(316002)(66946007)(55016003)(76116006)(4326008)(33656002)(64756008)(91956017)(86362001)(66476007)(53546011)(66446008)(2906002);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5294.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(5660300002)(508600001)(55016003)(26005)(186003)(316002)(52536014)(4326008)(8936002)(122000001)(91956017)(86362001)(66476007)(8676002)(54906003)(66446008)(64756008)(76116006)(66946007)(66556008)(2906002)(19627405001)(110136005)(6506007)(38100700002)(71200400001)(9686003)(33656002)(7696005)(53546011)(38070700005)(83380400001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?M8oGBng+hqsektCHYGB78GyKv4TVylyD1bae6JzE/+3p3C/O85VuHofcReTJ?=
- =?us-ascii?Q?OBnPUr7fTo2G6Mwcyoj3nEEjfp4Uyb/EJm5Qj39nH7OToElsa6zRVtQV8/h/?=
- =?us-ascii?Q?Ncj92BhBIMphv1zum9FenaKAgOAJF454sOKB9eVH15jEDdudInICTZNBqCEB?=
- =?us-ascii?Q?CzFdsf4mswNkfpdvxbwgaGHv/KNOBgQFPohufESPwARalxu8cIHMmYT37xhc?=
- =?us-ascii?Q?/gpOMklZq702TfH9LQTxTW0oMAYWATQcfn63UU/nYP9ZdvGzCcwP/lRrSG7j?=
- =?us-ascii?Q?CxgUXK83HUE725+pT24gt1C9AI7NfYK639VT7RMJCbRP/xTOGv3LZbCo0XJR?=
- =?us-ascii?Q?qP7C1geiHv9SSKOW0ihWQdcNESqAt+si97HiZq/pV2eFxSBH51WaqG+pBhTB?=
- =?us-ascii?Q?xUfXl8MY7Fcx2cMEpz396AG1T1b8Lks6J0W53DxEKkwn7TshvODZMrg2zEbs?=
- =?us-ascii?Q?6IPBECzMhC5zy1811CSoL3d+vgJmgknWefXsDhZCil76MRvSH8Uy6o9BwRBt?=
- =?us-ascii?Q?FfEig4uhHt9jlhzIA0kAqY51al1s0q2jGz7vFfOGF3eGkNSysjK9uD9rDBnu?=
- =?us-ascii?Q?uJEBOQl6NdvPSzcxxA2z9/IBHMQ1QxtuyJlpInMs/wkUDw5s1fwr9XT5TW8c?=
- =?us-ascii?Q?FEFlSLNfQ9Em5WofBDyRHYX5ouEO9/0scehvpO0veGj0wB5vrOXchof7i1CK?=
- =?us-ascii?Q?xj/YycaiaVITF1X0VwYhD9cCMM1eCf2Fxn3MxTlJfNNLCEtJ1otsjCOUcVMj?=
- =?us-ascii?Q?ZF5a06tQjoUANg8csoVYcRrgcHUMcS5/pRSOxCDl0EjRNLjeB9LJwvrmpuat?=
- =?us-ascii?Q?KeBi0SoJF98BfKhw56QGdGJPyoyFpliSS9lVrkaJXQMg32/ZgoOk4z/LODWJ?=
- =?us-ascii?Q?Fuf46jUgCeJRd9CpeGYNVxWEZc8wchHgBfH8LReK2fvwYf4DBRgKXlZMtANk?=
- =?us-ascii?Q?W73pXb5xbYVBkBkCbbAP12r0A6gW1je2/vM3zU++oRMjfMzbb3wulmLknIa8?=
- =?us-ascii?Q?FLts8WFs4TLW0h3+NoodyYAsUpWUb2gUBAQycJVuWhmmnG2lV8osCCbSsZ9P?=
- =?us-ascii?Q?EYA87XWH/zRH6IWA11xeKhB/Xbpo83+eUG1rMX7UFe2i6um1NxiZLD94j7mf?=
- =?us-ascii?Q?gkoA4ZfeXW1SDAdNhb2FACTQr68kSvGji/ZeDzrxxqfePMTK1PXAKowee0SR?=
- =?us-ascii?Q?5rNxd6DeqCS6qVpuq7sZxlT6qwLBmimPtFazjOFfoGCNbjvRd640UFTyJf51?=
- =?us-ascii?Q?u/VN64ay1NM/4MoU4QeJvvGavlY0f6waTQyX4AvFKA0n31Hl+Au7DBllTjkq?=
- =?us-ascii?Q?orKwNnmsHvOloBh+3f8HJC3Uxd/8V5dJThD44ThBidkJX+DPX6dPT4V1AMzg?=
- =?us-ascii?Q?Re37vqyKqIho8hnJWiJ/ICTSc9bJu5OVpylzVwYsZNmK3xg5aWCAPBPbsC2S?=
- =?us-ascii?Q?dwNJM0Vq5DpHZamrt9QS8+QkRh4IK9jqUDI/AIgxfWG4+/77l+yg614qL4z7?=
- =?us-ascii?Q?uvky8COw3eMlMAVTCfdYvYTVgyKhUooJ6GOs7DIZEJBogytcxMRzPSLO8ReF?=
- =?us-ascii?Q?LzB5n9edAvsBUYzJNM+kPF3kSK7lh99UCd22Q4cgZxEEi6hsc+5TCSBVO7Z9?=
- =?us-ascii?Q?DNtL9b4dUsuyBzks+ZsEJEcTT4sle39zin0m06KuMcjD8WZOMRR4NyS+QO3d?=
- =?us-ascii?Q?yIiwXLvkDoS9BMiZr0Mp2D7+4UOhFbRypZNL1tmp0NEX2doQ?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LiJIc6xBMA8kzSdsPvVKxmIlrP91IxASkrh5WVaIgNJ3ln2CL8YRyH8lbDla?=
+ =?us-ascii?Q?AGhkiYnSrfBsTzXvkjXwLYgy4LKB2jasG5sik8jzdhkOgwG347mUfi1l7BS9?=
+ =?us-ascii?Q?20kDAc+PgXNIwggZVUQ9TsdOMj5eRZBLZcZOUBWPcHGc9ONXoF5/GVnYn9Z5?=
+ =?us-ascii?Q?5u5KaqYUOvoh04GdlRGxzcjChxLwcxCC1UvOd3gJ7AGBcy/lqLTwQF3q9713?=
+ =?us-ascii?Q?DqGBQwO61V+kJjRMuDKEnk3a74prT2Tw+FZWkYLNL4UTaHK9hum/akJYThWC?=
+ =?us-ascii?Q?z/B17chzNTGSE5HAfmN5v2BidcMEsnXkWVfyd0t9v6eMmTqlarzlFSbJ5EkF?=
+ =?us-ascii?Q?w18rUsiECeVVroR/r4Igccpc4LExtTmQJgzZTAaZ8MmBdvbwaLapPWBzmYTJ?=
+ =?us-ascii?Q?sFJr/V3RibCSP8012vZWQVLPUj8ik62E925p7jq9e1EkEFnqGPTvfM5xk3Jj?=
+ =?us-ascii?Q?UfD/5kuJoknk9j6GTl6lvoiUPjIpjNhCAR1Q7M6SK97WHfj8AOloaQ7YqIok?=
+ =?us-ascii?Q?EqSaumiEJTinZkj5x7Vm8az3f7uowlstlssUGiZxLsvsGFFgnBddbQrKY7NR?=
+ =?us-ascii?Q?/+HHxezG8UYyTKoi8GEGkQZ8MZL2Eu3OxkUQ1BA5rdBcVParHoztpEEMUGFB?=
+ =?us-ascii?Q?Om2vOsZy8Dc0BqODiKXXIE8yyU+o9FGLuI4hLEg3EmUPvPH5KVeHYhC6IOkT?=
+ =?us-ascii?Q?vrFpAamiCugAFdj/1ScOUu+vqQeW/8VBFqhw6nPEMtN4NoCDNOysyiUJ/FkY?=
+ =?us-ascii?Q?hn00MtgPxQKxZBDbxIv/QSe8EWnufqKQ1Vk3QHOL5BaZWgjU7wggDgk1D34t?=
+ =?us-ascii?Q?EajGr+FZaRus9sDpCtIakzheOTM9Z8e2Ir3Oftk93Ce6CqpeTVOlnkn73SOx?=
+ =?us-ascii?Q?3A6Y1FnAPOm3hI2WEkjLjjfCh24meisa64wywkIRSPXMiuzdrLj9PJk0y46p?=
+ =?us-ascii?Q?HoefZ0fZpIJHnryG7DGUh3c4Kmkry3faSDnrBjgxemIbk/iPt4B9Kc4E8hcW?=
+ =?us-ascii?Q?H8hHJZKn6mAZ+hPlCxx4axNoeL9Ub8eSk2Ni2bKGBgkImXRUOYii93R3WHTe?=
+ =?us-ascii?Q?zoL8gOiuyM2T+s2COmEcb1TZxMWSyyU0tI06jXLTDRLHjmQokPtUGo94XmvC?=
+ =?us-ascii?Q?GJ23Fr/ELPoRScwjOiGEMrosFs/IouGqKyx/WV+9r/OlU4WHraWMtj0Ry4iy?=
+ =?us-ascii?Q?EvzByUoVWZz5iK0wOpKbp70ANPgRNvIVlocP8+k8Qp6P8TgVfmhSNdFLsd/r?=
+ =?us-ascii?Q?6T9+dvTt/3LS7m2ycaR/FJ8pa2/3rXuVOzLhpP45Xpv/9Jc9d16bApc8jY1q?=
+ =?us-ascii?Q?bMBQET77U5a93HJHVn1iTf1znSfqprjg+H5XLgqNuZeaCcudUIMo4/07GTwO?=
+ =?us-ascii?Q?xCZ/qTTKCxFMsChFhpHvJxOT7ZVmOJkGX/p0aEY9iS0fi1s71uIpy9dxomYQ?=
+ =?us-ascii?Q?hptrbY5KYsl2hocOyuJmUrvsnIdYlXpoqMoXU0AllbHmgPL1KngxXAYRKAMA?=
+ =?us-ascii?Q?tRBD6Pr6lBItRpP//DiXJtCuWfJW7zmUekdParxNJ/6N99cvnJ4Q2DwZx6nS?=
+ =?us-ascii?Q?eQd9fJ5CmjmENu+rViwMmrSIpETWljHiKQukz3p/XmtlifIMC9zHOIhb/cxg?=
+ =?us-ascii?Q?fHgc9SLsq+WKGf/J51272NCZZbOpjbnaB9EHPglYcZiu9mcKlGvqTNdadksm?=
+ =?us-ascii?Q?CufCEOPkELoK6p7wsT0d4ciiao+BNyCgdk/e+dCfe6nIDdmctAZr4/UehHNz?=
+ =?us-ascii?Q?gbMgcNIBGw=3D=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_DM5PR12MB17539AA139BF9BC96D1AB46EE41C9DM5PR12MB1753namp_"
+ boundary="_000_DM4PR12MB5294624553DE60971CFACD8B951C9DM4PR12MB5294namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1753.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20a73daa-bdd9-4a88-d6db-08da0ff8537d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Mar 2022 13:47:25.1533 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5294.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98052f63-cdac-4ce6-1530-08da1001bf55
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Mar 2022 14:54:51.6445 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 99NF1AskXfHcYTYWwVe5q2saRxsljNSbZafB2GBzCdlvnhhXzXuB+OCQ1N/SfU1J
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0038
+X-MS-Exchange-CrossTenant-userprincipalname: 2aN7ejwp4BfMUYx/sMOvB2Yd1/0dFmXTYpOaPMN53EzlucyJInouLG3MjJTLgdQoxIxjbRWlV90F6sFk+kL8ug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0101
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,9 +133,24 @@ Cc: "Wang, Yu \(Charlie\)" <Yu.Wang4@amd.com>, "Chen,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM5PR12MB17539AA139BF9BC96D1AB46EE41C9DM5PR12MB1753namp_
+--_000_DM4PR12MB5294624553DE60971CFACD8B951C9DM4PR12MB5294namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only]
+
+Thank you James!
+
+Rico
+________________________________
+From: Zhu, James <James.Zhu@amd.com>
+Sent: Sunday, March 27, 2022 21:47
+To: Yin, Tianci (Rico) <Tianci.Yin@amd.com>; amd-gfx@lists.freedesktop.org =
+<amd-gfx@lists.freedesktop.org>
+Cc: Chen, Guchun <Guchun.Chen@amd.com>; Wang, Yu (Charlie) <Yu.Wang4@amd.co=
+m>
+Subject: Re: [PATCH] drm/amd/vcn: fix an error msg on vcn 3.0
+
 
 [AMD Official Use Only]
 
@@ -181,7 +198,7 @@ AUSE};
 2.25.1
 
 
---_000_DM5PR12MB17539AA139BF9BC96D1AB46EE41C9DM5PR12MB1753namp_
+--_000_DM4PR12MB5294624553DE60971CFACD8B951C9DM4PR12MB5294namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -201,22 +218,58 @@ gn=3D"Left">
 <div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
+Thank you James!</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Rico</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhu, James &lt;James.=
+Zhu@amd.com&gt;<br>
+<b>Sent:</b> Sunday, March 27, 2022 21:47<br>
+<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;; amd-gfx@lists.fre=
+edesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;; Wang, Yu (Charlie) &lt=
+;Yu.Wang4@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/vcn: fix an error msg on vcn 3.0</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#0000FF=
+; margin:5pt">
+[AMD Official Use Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 This<span style=3D"color:silver"> </span>patch<span style=3D"color:silver">=
  </span>is<span style=3D"color:silver">
-</span><span data-markjs=3D"true" class=3D"mark32y0ivcxs" data-ogac=3D"" da=
-ta-ogab=3D"" data-ogsc=3D"" data-ogsb=3D"">Reviewed-by</span>:<span style=
-=3D"color:silver">
+</span><span class=3D"x_mark32y0ivcxs">Reviewed-by</span>:<span style=3D"co=
+lor:silver">
 </span>James<span style=3D"color:silver"> </span>Zhu<span style=3D"color:si=
 lver"> </span>
 &lt;James.Zhu@amd.com&gt; <br>
 </div>
 <div><br>
 </div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Tianci Yin &lt;tianci=
-.yin@amd.com&gt;<br>
+<div id=3D"x_appendonsend"></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Tianci Yin &lt;tian=
+ci.yin@amd.com&gt;<br>
 <b>Sent:</b> Sunday, March 27, 2022 7:18 AM<br>
 <b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
 gt;<br>
@@ -226,9 +279,9 @@ ico) &lt;Tianci.Yin@amd.com&gt;<br>
 <b>Subject:</b> [PATCH] drm/amd/vcn: fix an error msg on vcn 3.0</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: tiancyin &lt;tianci.yin@amd.com&gt;<br>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">From: tiancyin &lt;tianci.yin@amd.com&gt;<br>
 <br>
 Some video card has more than one vcn instance, passing 0 to<br>
 vcn_v3_0_pause_dpg_mode is incorrect.<br>
@@ -268,7 +321,9 @@ st_idx, mmUVD_POWER_STATUS, 1,<br>
 </div>
 </span></font></div>
 </div>
+</div>
+</div>
 </body>
 </html>
 
---_000_DM5PR12MB17539AA139BF9BC96D1AB46EE41C9DM5PR12MB1753namp_--
+--_000_DM4PR12MB5294624553DE60971CFACD8B951C9DM4PR12MB5294namp_--
