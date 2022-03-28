@@ -4,123 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDE11C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 21:20:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BFBDC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 21:20:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FF4B10E124;
-	Mon, 28 Mar 2022 21:20:19 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2068.outbound.protection.outlook.com [40.107.92.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0D4C10E124
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 21:20:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C312410EAEE;
+	Mon, 28 Mar 2022 21:20:42 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2059.outbound.protection.outlook.com [40.107.223.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 898EC10EAEE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 21:20:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HJikPrCTlMQC1gsRgz78CENu9ofNh51nsUCInIIZQJ++LPHGIlfQf6NBLtgPl2tWMoo3gfv6amAKnqf7B4oPT1svpVtIUWy6vq4+X6gRKvjnyElero2qPPryfSLPKB0cV2aBvxA2GYg9XTKM2V54fhVgrR+8AW9nWSXE5JndUHJUpdsYJSjQ1KH61QokDRXkE5FxGtg9hn1wc3a7rDZd/jpxlNlE4iq3XUjkBXjRRC5jb1yeuJRceu0eyW1/JIU2EZb66+C/g07eMEz+zxkGmHZDRX/EwzB3UNIvfAXI0stMm3gBAZUPs1L1IphNwOpUpOTOxlMrNIRbQ4pgyqvsVg==
+ b=QYbpqkeV7+jkQehU3bpjWAVEnoE1TmC5uCNJTKINxq+sv4YjXCcVK1VWKmTwY67fyRUuyBh4r8JyA3TwcQHXVAYoGY9QQz5Rah4PB7N3Wgfb2OqLhclPtSyWW81XPni3SDENlk2w9qOAta8i7U8YGoanV7EPiQYw5d87sJphoJqZDkBmUkqopYXmzL8fw6NwVxDJzPvDv/l46llULgUiyc+NjEnf7+O0T2iRSI3nNr0XaNreZFcfqAcYoETnEq1lu+ImTFyqFDD5iBKmsFIhOhFasCPPjwPU8vWUjFftgH/fUN9P+LhCy6Wkd01ls4Lz7gf87wfFjhpYNSCiu1Eo9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hHm9K/fdOtlWxGlupZ4MHxiziEiiHC97GKztdihyulU=;
- b=L1bER02Jpm9ZgZZrkMUJtP3uFd/QkBCtnOGqq56d8R/LzvNqE+uaTcYHCvOgL7bCVfFIIhr6VJlI+kTb0/8lesMdAlWjjeQFU+eY43cwx4aB56mNNHaiB8iIVzltYal7WxzjouF8AZKhAwCyohGfuG80o10qYjD2UfO5XPBrN+wlHo9Zkyx11u/OLqnbAVGLMkVYHnx9CcQGkrlSGZFPbH+jqxQa/neIZtk0vccPihSaSZLRoao/jFSYHlHi67olUBUr5e4a5wsg2ZfvZV67j+EWq0euoXc7Rr3OITwLhdMNmLV4/KSv8GCjIt7ezgZpnv4GKt9+jVK8x+skCx/uKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=bJBKtl3gxa+UbU3EMVdyKrmxC/JNsN9ENNmMM3NlHuI=;
+ b=e3kahGYEJqvzRTm8pLrA1MDcIcV9BAlwFfPv1HVwI5dEbt/w97fBtjhF0kc3Acey82veFy7JYgeZgNnx15N9d8syWYFO125DVIA7zsAr4vfTmYO0NawjqzLpOtZ9S7Qkx7Kv+XFXWMryTr1oxsSqBl3rlF7qjb/9JOXd9O5h1V30ui/wvH6VeBnayoQCalwxZmNzGfseQ4zLhikKSrLp3kdyTB8GgYFiZmSG8mK+wtGTydxCWJax7tcrsWIWlpaM90JGHkdwl3ybJdAOyFiIFAWH+M18Pz9+As3FAvlYvayk2hUVBDRz71skyQjydHqzRgHlVtgTTLTquxe92dK3iw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hHm9K/fdOtlWxGlupZ4MHxiziEiiHC97GKztdihyulU=;
- b=Z7ypmZg8M2g0wqJPzU9Zfz/Ewi5wBzA1QzH7cfUmfswh62eTfofIqcQxqo2ne5C6lHhO7RNqKrH6dYs8702+r/x54oI/U+sgO3JVy4AtQKEpqH2TAB47rHT6XAeETfvJUIIOEwYALBg5DjRkbg7p5LXK9CNpPeaATTmbgFWhRjM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by MN2PR12MB4656.namprd12.prod.outlook.com (2603:10b6:208:182::32) with
+ bh=bJBKtl3gxa+UbU3EMVdyKrmxC/JNsN9ENNmMM3NlHuI=;
+ b=ZHZ/ON/SyHSNQKthw5zsO+wR4KeAf3o1zoPmQRUGnzvrm9Qfw9RnknnIP6gAJIN4609Fg+lMMUtaBfN1DyZ4j7P4mbhyJi0ZddJ6BkbYS29GM4ZFjtC6T8bQ8MwzLgRbFQZOLBbsEA+O0/9LBMiEV0vlSpTzZ1XPkkktWYd/DR0=
+Received: from MW3PR06CA0004.namprd06.prod.outlook.com (2603:10b6:303:2a::9)
+ by BN6PR12MB1153.namprd12.prod.outlook.com (2603:10b6:404:19::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.22; Mon, 28 Mar
- 2022 21:20:16 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::192:5346:4ece:7ca3]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::192:5346:4ece:7ca3%4]) with mapi id 15.20.5102.023; Mon, 28 Mar 2022
- 21:20:15 +0000
-Message-ID: <d7214967-c77d-5abd-92f9-e60cc98988be@amd.com>
-Date: Mon, 28 Mar 2022 17:20:10 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH] amd/display: set backlight only if required
-Content-Language: en-US
-To: "S, Shirish" <Shirish.S@amd.com>,
- "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
- "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
-References: <20220311153320.101332-1-shirish.s@amd.com>
- <0b094720-8c17-db60-bccf-7cdb4ecf6dee@amd.com>
- <3d397907-4845-3900-1046-47a6a5cd3fb6@amd.com>
- <MWHPR12MB126408E512075A72E08F21A6F2169@MWHPR12MB1264.namprd12.prod.outlook.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <MWHPR12MB126408E512075A72E08F21A6F2169@MWHPR12MB1264.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0157.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:e::30) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.19; Mon, 28 Mar
+ 2022 21:20:39 +0000
+Received: from CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:2a:cafe::68) by MW3PR06CA0004.outlook.office365.com
+ (2603:10b6:303:2a::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17 via Frontend
+ Transport; Mon, 28 Mar 2022 21:20:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT065.mail.protection.outlook.com (10.13.174.62) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5102.17 via Frontend Transport; Mon, 28 Mar 2022 21:20:38 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 28 Mar
+ 2022 16:20:38 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3 1/1] drm/amdkfd: Use atomic64_t type for pdd->tlb_seq
+Date: Mon, 28 Mar 2022 17:19:52 -0400
+Message-ID: <20220328211952.21889-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7895615e-45f9-43c1-f0d7-08da1100bfd2
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4656:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB465650CF7DBB246B1350FCC98C1D9@MN2PR12MB4656.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 343f0f5f-24e4-4a2f-5945-08da1100ce9b
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1153:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR12MB1153456F5285107103FF00BFE61D9@BN6PR12MB1153.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DfA+s3zSWySMrRkCxDl9X3r+rR0/TGywG3DCBLA9BBQAjeBVUBSL6BOroUDXHorx7na3AqD5+gEFxtCfX0aN4Oigy6+R42+3oUvM0tOw8Exc48sIqXz3fSrnltyUHJKEQgCadeui65j755Wx3mej9mYJiO4YvAVyOlLn09O3YOgD75EGzekqr1aV0emO4bNndUi1YS4AhQKaASsjM3GaRB9/nzrd7/W1sSIWBsktImqVbP57UYX+l77JiMfUO+MNI2z59rOm6rRzBqMJ7QpFcRKlkq65p/Px8VS1g2p5WUBd0IMxIs+/fMWtymrHhdxoiAjQzrk+eQK3Zw0v4sM4VrsFAPbLjISn5sm0RJZm39rw8znYlvselHRVeik7AgXyAZLUZMvSPrqtChuPdeo6KRMVrPs3YYsK1HuLe7VGY3Iofa+h1BOExkLbdlHFOQYS/g3thV5X/AZVkMfbKN5HBGZQpnd83ZMsKQWylhJpaKk2GPn5gaLPbPFekhFhj1tFutEI3TKw1SbR8aWdVzD9R7uuhXGt+MFidevz1PfyeDE5agDifGnYN5TsLHlanBXtaqFq5UVZQ907rnpoLxpSINXSnXLuvzKcuNyk2aSKB27nQV7enCzdqbmkGmAzX1C8X/cE0IboUIg0+xWNaAFe2XwwbKklIgZLgutTMlKMQg41s06YVrA7yUGxZMq3r51plluCJJKqhJM+oLyW0fc0RjX8noxp/j2MaInxBzKRPZU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(508600001)(86362001)(8936002)(2906002)(66476007)(53546011)(44832011)(66556008)(6506007)(8676002)(4326008)(66946007)(26005)(6666004)(6636002)(31686004)(186003)(36756003)(38100700002)(5660300002)(316002)(83380400001)(110136005)(6512007)(31696002)(6486002)(2616005)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: 42TCcBZQ5SRZ8A4Ftz34r3uC7iNBPC/xanTOPERI1UBEAR4dtzX32Yd7r53AyxWNwK6HXOu6HEYfz2iwfCgcc4T5VrL5Xl8bYMxjVtCGdbDc4g/9/qj7VvBFrDVdyffFQQA5UmsOtN737N4mY/3hkA+kGi/aRbO2S+Yc3U7a+HI1rWKGVrOYo0T49q+sTfLGKrUn+uIl2ba/8HsqFu5ijaV+fPBurv8IOb90vUKEyq9+QSxvN3e9/3YT+qMCqrJ13ABX8RBVTg8hS7Hw9ldHQxjIcMOGko/kTyK4MUBYSwXXe7mJ79MISq9LbNoUo/d2LHvjdTzNm4hKzSKlClLYJqhoL+pCQicATuL0cUuAWnbs1decFKJnEYrWGZAgfEshvnYDP7e2mNwXwqEd6bbtrpM3Ul6ViQC1VlH7NrMZ7iznDpzXUykbLkEutpIvI0SoHib8iGhhzUEaUf9G9BxriDIpAsqnxvs64PyBCyIl3hA/vNs0gKOkYSW74T6LJCQiSzCLTvTleuVLL0qxAY3ad6mjhgFu+Kfc6uBfZvuUsDXX9pPm21WtsRA4ZZ7dXu3yGdNlDtlDpyQsGUvMunydWnRIr+3UN8yYx8nkBRMezM6A7NuRtDAs61HNes1tSm+bJ6C9GpcbpDrWMoPWqSiBuxxljzcGzjxTFUXI/gsmQmRAKhebPZxSlxL4os+qVvXm7XEHPTk9UkqPPMilTivu1g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(6666004)(336012)(426003)(82310400004)(7696005)(81166007)(26005)(356005)(1076003)(2616005)(86362001)(16526019)(186003)(47076005)(36860700001)(83380400001)(8936002)(4326008)(8676002)(70206006)(36756003)(2906002)(508600001)(316002)(40460700003)(5660300002)(54906003)(6916009)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dm9ubTRtUUpJeGtBT0dMOVN0bUgyWGdsSjM0NjVpZFpadVBjbnhTWEdHUXcw?=
- =?utf-8?B?ZnpvNE1DaEpSOXlXaVh5WUJHN0NBZDVpVUFXUUtJbmUvbnNadmhqNHBwdE1E?=
- =?utf-8?B?M3Q0YzdzQk5rSi9tN2dvK1ZNY0gvQWhJZTl5OVJtZkFaWGpwSXZCRE00Z3Qy?=
- =?utf-8?B?QytBMGVaOURYQnp6cXVVNGRKNmpidlNNaHRmbm5MSTZkQmVKdzEvdlphNytu?=
- =?utf-8?B?T3NjVWl2NzhEUEhBa3VQMHMwaEtib0dDRFhwSjhBV1RudnpablZHVTc4MlAw?=
- =?utf-8?B?RW0zOU5US0Z1SjBveERQVFJLelZsTlpOa1NKZ3ZGanRkVytTallwcTU3akp5?=
- =?utf-8?B?QW9VTFRhdC9RUlJ5NVQyWUluN3diOTlFQ3pENjUydzhGdTFON1hlUC9xK0Z5?=
- =?utf-8?B?a3RnVDVjMHkwYVVCVGtnVHNjTWxGTTlsQWllYWRpa3RYMElLczUxdjFCcnNj?=
- =?utf-8?B?V2dxcWV3OW9BOEJNY1M3VTdLMzFsZ1ZodVNHcUIzM2NMWm01SGpzQ1QvVkk5?=
- =?utf-8?B?KzlmYlJxOWRlTlVYTm9vS0xiejZnTzlpRzV2azlXU0F5VUk3Qk9BNjBnWTJK?=
- =?utf-8?B?RkVmQ1pkRjN2Y0RjYktLdW9lMDd0NTFYUTllbGhQZWpSTlpSRzJkMW0vejFS?=
- =?utf-8?B?S05tcXhwZmJKL0FRblFncVp0bW8zbDlwWnd0d2lMRlhZdmRPTUs4cm5heklm?=
- =?utf-8?B?U1BRSVAxVW5TYk9PYTJpWDE4SlgzZzJ5eS9XSjNWOFVsYUNLT090NXRqT0RF?=
- =?utf-8?B?eTNjSTA3bHoxSTZIU3dSQTluVmRyZmFReTJ1bnBKTTdmR1FjU2RBbGt1elFM?=
- =?utf-8?B?dk9EcVIxRGlQYkxDeThNck5Hc3Q4amR0RUpqeG9mWmQ2UXF6ekNMc3A2cWF3?=
- =?utf-8?B?U0hnYjI5QnRWMGZZbW5WYzFQSzFycWFraVdESVNWdnpuWE9RcktuWU1HdjVW?=
- =?utf-8?B?Vkljeit5UFdkUThnRkV1WFIxemsvZ2lvRE5qWW40d2tUZVdNTm90NFcrTC9M?=
- =?utf-8?B?M1RpT1ZwcnE0d3llNFFBd09iQUl4bWRla3pQeUFDY25wQkQxZnhiTmxvSDZX?=
- =?utf-8?B?R3RueHI5K0VqL1NESEovbXBFUEhmdXRVZTk5clZ5Nkp0NGRDcG55QjllY0Fz?=
- =?utf-8?B?TVFiWUpkSkh4R21Rb0tBVEswd3BxUTRjSFJ4TVBHeTMrRUR6OEQ5M2Y3cTB0?=
- =?utf-8?B?cUtFN0ViUHpISXJJcWtEaVA5N2lNUEdWaGhJY3hRRmQ0cEdnT2t0VEExNXdo?=
- =?utf-8?B?OG5XdnYyeXdiQUFQWFpOcGRPaGNnV3JQWm5FcGcxZnlXVFFhNXhyaUFJbmw2?=
- =?utf-8?B?Sm5jZVBYZS9TUlpNcWEwTlJodjBJRlZXbW94OW84SFM4bTVTMzhiOSt1eEFy?=
- =?utf-8?B?dW14Q0RobjdVVlowcitQZGlYdmNYM2ZnSlZ6WktpVVp2d1loenN4akJtenI0?=
- =?utf-8?B?MGhxK2RTNWFQdUNFZDNvVTZnVWZKeXZVUlFVaGFTcDZuaU91SFgvR2VUd1dp?=
- =?utf-8?B?S3FzS2k1eERHSE9xRVViQStmSDIzdlY1MmM1MUFpRU1nMng4M0E2aEkxQk9L?=
- =?utf-8?B?MzE0RUZpOHVnNXpsbjNMdCtpM05uVVA0Rmhuc2gwb3BPdVVxNVBjWUZkYmNQ?=
- =?utf-8?B?bmZKcWRGVW9Fd0FRVlNGNlBLZUNPUXVLd1E4YXdKek5QdFlPMkRVTWl4S2hw?=
- =?utf-8?B?TDFNU2R0ZS9KYWw4VUs0cVpETUVlQ2lmUG9XbklrR1F5TWVoSS9yS09tUnlN?=
- =?utf-8?B?cldoSWZsUjdKV1YvOHcrN2hNQmdSWUZ4eE9XNWR4aVpUT1NCd1QrNnlMZGZv?=
- =?utf-8?B?NHpORTZpM255TUJkMG83OFJieWlIREpKeWhYaGp4NDJJZHc4L0grRWt5aGVy?=
- =?utf-8?B?WEVZazhDeDlBZzU4L05JaTA1WGRpUGVKMXJnSCt5MW9ubnNQZkNEdzZqVTBq?=
- =?utf-8?B?dHVRbmo0ZDVYV1hBSjczN1VXZ2krcThTa2t1OC8zdm9jdjFSMWtGWHZ2T3g2?=
- =?utf-8?B?aXRpamNZcmRWdGF1ZzEvanpqK1QvNy9PcGhYdkprRFRIU3dnRC8ybkdTT1V6?=
- =?utf-8?B?ZmpMZ0R5Z0VKOHpzZEtvV1lZbVNFWnpDSVdkZnIvR1VVeEJJUndmeEFucUMx?=
- =?utf-8?B?Qlo2RFBKZ2VySGlML1VWY29xQUVoRGF5aysrZ2JLcGlPSlEyYkNOSVZYMUdz?=
- =?utf-8?B?VnhWVHdsZUNBVnd6MHBtNm5pSW55a2tlS0RNbndvMThEQmpwaElFcFlON1FP?=
- =?utf-8?B?QmZQektVZm9IZkdsQkJUTEVoRzFRbUVwNnN2b2VwUEFCalNRZ0pmV1c3aEhK?=
- =?utf-8?B?WXhNNlBCaE00VDBMMDdrcFNKcEZZV2FNOFlZZ3F1YVJkVGhNb1F4dz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7895615e-45f9-43c1-f0d7-08da1100bfd2
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2022 21:20:15.8226 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2022 21:20:38.8431 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 343f0f5f-24e4-4a2f-5945-08da1100ce9b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JzU7jQh0c9QvW3AfVAWMBlTusoW/luXZU4xqc2Q20vbLfVhFezo5s9OsDstePILAwQihZnaz5kzNC0J1IvZ3SQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4656
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1153
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,162 +98,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Reply-To: 20220328130700.29642-3-Philip.Yang@amd.com
+Cc: Philip Yang <Philip.Yang@amd.com>, felix.kuehling@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-03-20 23:47, S, Shirish wrote:
-> [AMD Official Use Only]
-> 
-> Ping!
-> 
+To support multi-thread update page table.
 
-After internal discussions it turns out that the readback
-is indeed not expected to match the value being set if ABM
-is enabled. The suggested way to deal with this is to track
-the previous value in SW, i.e. exactly what this patch is doing.
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 5 ++---
+ 2 files changed, 3 insertions(+), 4 deletions(-)
 
-Based on that this patch is
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-
-Harry
-
-> 
-> 
-> 
-> Regards,
-> Shirish S
-> 
-> -----Original Message-----
-> From: S, Shirish <sshankar@amd.com> 
-> Sent: Monday, March 14, 2022 12:24 PM
-> To: Wentland, Harry <Harry.Wentland@amd.com>; S, Shirish <Shirish.S@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Subject: Re: [PATCH] amd/display: set backlight only if required
-> 
-> 
-> On 3/11/2022 9:11 PM, Harry Wentland wrote:
->>
->> On 3/11/22 10:33, Shirish S wrote:
->>> [Why]
->>> comparing pwm bl values (coverted) with user brightness(converted) 
->>> levels in commit_tail leads to continuous setting of backlight via 
->>> dmub as they don't to match.
->> Why do the values not match?
-> 
-> Here is a sample of values:
-> 
-> dmub_abm_get_current_backlight() reads backlight value as 11526 =>
-> convert_to_user() as 45.
-> 
-> user_brightness value to be set at this point is 159 =>
-> convert_from_user() gives 40863.
-> 
-> Now, we are continuously comparing 45 (current backlight) with 159 (to be set from user space) in every commit tail till any actual changes happen to brightness.
-> 
-> Ideally, current brightness/backlight value read from pwm register, when converted should yield 159 but it returns 45.
-> 
-> Hence, I believe, there's a bug either in conversion back and forth of user space levels or pwm register is not the right way to arrive at current brightness values.
-> 
->>   It looks like the value mismatch
->> is our root cause.
-> Yes, apparently I could not find any other register read that could bail us out here and provide actual/proper values, hence this patch.
->> I remember a while back looking at an issue where we the readback was 
->> from DMCU while we were setting BL directly via PWM. I wonder if the 
->> opposite is happening now.
->>
->> See this for the previous fix:
->> 2bf3d62dabcc drm/amd/display: Get backlight from PWM if DMCU is not 
->> initialized
-> 
-> The sample values mentioned above are with this patch applied.
-> 
-> Is there a better way of reading current backlight levels, that reflect user space ones?
-> 
-> 
->>> This leads overdrive in queuing of commands to DMCU that sometimes lead
->>> to depending on load on DMCU fw:
->>>
->>> "[drm:dc_dmub_srv_wait_idle] *ERROR* Error waiting for DMUB idle: status=3"
->>>
->>> [How]
->>> Store last successfully set backlight value and compare with it instead
->>> of pwm reads which is not what we should compare with.
->>>
->> Does BL work reliably after S3 or S4 with your change? I wonder if
->> there are use-cases that might break because we're no longer comparing
->> against the actual BL value but against a stored variable.
-> I've verified this patch for boot, S0i3 and GUI method of changing 
-> brightness on ChromeOS
->>
->>> Signed-off-by: Shirish S <shirish.s@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 ++++---
->>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 6 ++++++
->>>   2 files changed, 10 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> index df0980ff9a63..2b8337e47861 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> @@ -3972,7 +3972,7 @@ static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *cap
->>>   				 max - min);
->>>   }
->>>   
->>> -static int amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
->>> +static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
->>>   					 int bl_idx,
->>>   					 u32 user_brightness)
->>>   {
->>> @@ -4003,7 +4003,8 @@ static int amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
->>>   			DRM_DEBUG("DM: Failed to update backlight on eDP[%d]\n", bl_idx);
->>>   	}
->>>   
->>> -	return rc ? 0 : 1;
->>> +	if (rc)
->>> +		dm->actual_brightness[bl_idx] = user_brightness;
->>>   }
->>>   
->>>   static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
->>> @@ -9944,7 +9945,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
->>>   	/* restore the backlight level */
->>>   	for (i = 0; i < dm->num_of_edps; i++) {
->>>   		if (dm->backlight_dev[i] &&
->>> -		    (amdgpu_dm_backlight_get_level(dm, i) != dm->brightness[i]))
->>> +		    (dm->actual_brightness[i] != dm->brightness[i]))
->>>   			amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
->>>   	}
->>>   #endif
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->>> index 372f9adf091a..321279bc877b 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->>> @@ -540,6 +540,12 @@ struct amdgpu_display_manager {
->>>   	 * cached backlight values.
->>>   	 */
->>>   	u32 brightness[AMDGPU_DM_MAX_NUM_EDP];
->>> +	/**
->>> +	 * @actual_brightness:
->> "actual" seems misleading here. We might want to call this
->> "last" or something along those lines.
->>
->> But let's first see if we can fix the mismatch of BL reads
->> and writes.
-> 
-> Yes, lets thoroughly evaluate if there is any other way.
-> 
-> Regards,
-> 
-> Shirish S
-> 
->>
->> Harry
->>
->>> +	 *
->>> +	 * last successfully applied backlight values.
->>> +	 */
->>> +	u32 actual_brightness[AMDGPU_DM_MAX_NUM_EDP];
->>>   };
->>>   
->>>   enum dsc_clock_force_state {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 945982a5d688..e1b7e6afa920 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -705,7 +705,7 @@ struct kfd_process_device {
+ 	/* VM context for GPUVM allocations */
+ 	struct file *drm_file;
+ 	void *drm_priv;
+-	uint64_t tlb_seq;
++	atomic64_t tlb_seq;
+ 
+ 	/* GPUVM allocations storage */
+ 	struct idr alloc_idr;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index ac8123c1ee8f..267ba8c434c0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1560,7 +1560,7 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
+ 		return ret;
+ 	}
+ 	pdd->drm_priv = drm_file->private_data;
+-	pdd->tlb_seq = 0;
++	atomic64_set(&pdd->tlb_seq, 0);
+ 
+ 	ret = kfd_process_device_reserve_ib_mem(pdd);
+ 	if (ret)
+@@ -1954,10 +1954,9 @@ void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE type)
+ 	uint64_t tlb_seq = amdgpu_vm_tlb_seq(vm);
+ 	struct kfd_dev *dev = pdd->dev;
+ 
+-	if (pdd->tlb_seq == tlb_seq)
++	if (atomic64_xchg(&pdd->tlb_seq, tlb_seq) == tlb_seq)
+ 		return;
+ 
+-	pdd->tlb_seq = tlb_seq;
+ 	if (dev->dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS) {
+ 		/* Nothing to flush until a VMID is assigned, which
+ 		 * only happens when the first queue is created.
+-- 
+2.35.1
 
