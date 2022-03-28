@@ -4,42 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36232C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 20:14:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0860C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 21:18:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C159D10ED84;
-	Mon, 28 Mar 2022 20:14:34 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0048210ED84
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 20:14:32 +0000 (UTC)
-Received: from [192.168.0.4] (ip5f5ae92d.dynamic.kabel-deutschland.de
- [95.90.233.45])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 7D20261EA1928;
- Mon, 28 Mar 2022 22:14:30 +0200 (CEST)
-Message-ID: <cc77b58d-657e-b9d9-b1cf-9b72973c1623@molgen.mpg.de>
-Date: Mon, 28 Mar 2022 22:14:30 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8298510E171;
+	Mon, 28 Mar 2022 21:18:38 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE4BD10E11D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 21:18:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1648502315;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=o/20j76lcDPeDTIfcY54M2M3yeP1hzS1Frzdk4vK99I=;
+ b=G8RGRjqC9+uChOZKtx5BttR8JSr3hhnwHBOCSNekpDloK0fUbkebC2U0Fb3fl0NJi8oZnp
+ N8/ch/UD9wfK/pMI4zesJMgn9odRg0FhERVa7IKQ0YyDjcuoV8fFUmzs3VfgSwzehBb/FL
+ 31vKWA+bqkDg3/RExwZA4RRb88j76YU=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-330-enHpNaSRPfmBMdWJJIy-Rw-1; Mon, 28 Mar 2022 17:18:29 -0400
+X-MC-Unique: enHpNaSRPfmBMdWJJIy-Rw-1
+Received: by mail-qv1-f72.google.com with SMTP id
+ fw9-20020a056214238900b0043522aa5b81so12251276qvb.21
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 14:18:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:organization
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=o/20j76lcDPeDTIfcY54M2M3yeP1hzS1Frzdk4vK99I=;
+ b=HlHoA9sxUAh9fvdziP8UiYEd+HMS5otRF0yyowWxNXOE87DiVhahwYT3S9c1UB6lXB
+ THtpnmCe+q8C2UWn3yEAQr7R2dwv93xp+cOdY7opm0e1tE6m1i6ag+hLAWAlHLC9Os7Z
+ jrI6TOVxcU5dtZftzSTlsbFt6pB+U3Ko7xu5XfNsWQkQ8sAWFm7bRTcKcWg8b3c2zOCL
+ mWlD7swBo9UkBqL5sR1Um0HwCAwO6TzIpgClN+JVOISNoKFabPw+N/sXx7RYMC5NDYhB
+ CSENCK9pPPqlACyrAXaRieadAwob1iRyHoQLudctP9DrLUtw2r6cH2KbjyhuzWdeLjM2
+ +wdg==
+X-Gm-Message-State: AOAM531pvzE7jaV8rn4B1kQ7LYwbcw7UjwZURuuJkWFnNwzTAiSAxspi
+ xGZ4U3/85aiG/tit9tb+/Opm3rJcn6LEagr9DWPvadk6tmLSMOI0xPVvD4FycFtVYJIMdmOoxEH
+ y4A3pPsPrMVMfEMxZOJVvmPiQ6w==
+X-Received: by 2002:a05:6214:29c8:b0:440:fac2:a6c with SMTP id
+ gh8-20020a05621429c800b00440fac20a6cmr23153273qvb.96.1648502308563; 
+ Mon, 28 Mar 2022 14:18:28 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx80FvxqgxoMsKHifZxJPlSaASMzEtm2PCjdcW91NHHki6CRsyrlYXzQuiJUFDSkSZnID/Qgg==
+X-Received: by 2002:a05:6214:29c8:b0:440:fac2:a6c with SMTP id
+ gh8-20020a05621429c800b00440fac20a6cmr23153243qvb.96.1648502308333; 
+ Mon, 28 Mar 2022 14:18:28 -0700 (PDT)
+Received: from [192.168.8.138] (pool-71-126-244-162.bstnma.fios.verizon.net.
+ [71.126.244.162]) by smtp.gmail.com with ESMTPSA id
+ br13-20020a05620a460d00b00680d020b4cbsm2856816qkb.10.2022.03.28.14.18.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Mar 2022 14:18:27 -0700 (PDT)
+Message-ID: <dc0ead0da30d0ccf8c4c57a2548d293c57407080.camel@redhat.com>
+Subject: 2022 X.org Foundation Election Candidates
+From: Lyude Paul <lyude@redhat.com>
+To: events@lists.x.org, xorg-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ libre-soc-dev@lists.libre-soc.org
+Date: Mon, 28 Mar 2022 17:18:21 -0400
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-2.DarkModeFix.fc35)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: BUG: Bad page state in process systemd-udevd (was: [PATCH v9
- bpf-next 1/9] x86/Kconfig: select HAVE_ARCH_HUGE_VMALLOC with
- HAVE_ARCH_HUGE_VMAP)
-Content-Language: en-US
-To: Song Liu <songliubraving@fb.com>
-References: <20220204185742.271030-1-song@kernel.org>
- <20220204185742.271030-2-song@kernel.org>
- <14444103-d51b-0fb3-ee63-c3f182f0b546@molgen.mpg.de>
- <7edcd673-decf-7b4e-1f6e-f2e0e26f757a@molgen.mpg.de>
- <7F597B8E-72B3-402B-BD46-4C7F13A5D7BD@fb.com>
- <4a49a98a-d958-8e48-10eb-24bb220e24ed@molgen.mpg.de>
- <44B009D1-2BF8-4C69-9F09-B0F553A48B78@fb.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <44B009D1-2BF8-4C69-9F09-B0F553A48B78@fb.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,115 +86,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, iii@linux.ibm.com,
- Daniel Borkmann <daniel@iogearbox.net>, Peter Zijlstra <peterz@infradead.org>,
- netdev@vger.kernel.org, x86@kernel.org, Alexei Starovoitov <ast@kernel.org>,
- amd-gfx@lists.freedesktop.org, Andrii Nakryiko <andrii@kernel.org>,
- Song Liu <song@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>,
- Kernel Team <Kernel-team@fb.com>,
- Rick P Edgecombe <rick.p.edgecombe@intel.com>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev
+Cc: board@foundation.x.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Song,
+To all X.Org Foundation Members:
 
+The election for the X.Org Foundation Board of Directors will begin on 04 April
+2022. We have 6 candidates who are running for 4 seats. They are:
 
-Am 28.03.22 um 21:24 schrieb Song Liu:
+    Emma Anholt
+    Shashank Sharma
+    Ricardo Garcia
+    Mark Filion
+    Lucas Stach
+    Alyssa Rosenzweig
 
->> On Mar 27, 2022, at 11:51 PM, Paul Menzel <pmenzel@molgen.mpg.de> wrote:
+To be found in the link below below are the Personal Statements each candidate
+submitted for your consideration along with their Statements of Contribution
+that they submitted with the membership application. Please review each of the
+candidates' statements to help you decide whom to vote for during the upcoming
+election.
 
->> Am 28.03.22 um 08:37 schrieb Song Liu:
+    https://www.x.org/wiki/BoardOfDirectors/Elections/2022/
 
-[…]
+If you have questions of the candidates, you should feel free to ask them here
+on the mailing list.
 
->>>> On Mar 27, 2022, at 3:36 AM, Paul Menzel <pmenzel@molgen.mpg.de> wrote:
->>
->>>> Am 26.03.22 um 19:46 schrieb Paul Menzel:
->>>>> #regzbot introduced: fac54e2bfb5be2b0bbf115fe80d45f59fd773048
->>>>> #regzbot title: BUG: Bad page state in process systemd-udevd
->>>>
->>>>> Am 04.02.22 um 19:57 schrieb Song Liu:
->>>>>> From: Song Liu <songliubraving@fb.com>
->>>>>>
->>>>>> This enables module_alloc() to allocate huge page for 2MB+ requests.
->>>>>> To check the difference of this change, we need enable config
->>>>>> CONFIG_PTDUMP_DEBUGFS, and call module_alloc(2MB). Before the change,
->>>>>> /sys/kernel/debug/page_tables/kernel shows pte for this map. With the
->>>>>> change, /sys/kernel/debug/page_tables/ show pmd for thie map.
->>>>>>
->>>>>> Signed-off-by: Song Liu <songliubraving@fb.com>
->>>>>> ---
->>>>>>    arch/x86/Kconfig | 1 +
->>>>>>    1 file changed, 1 insertion(+)
->>>>>>
->>>>>> diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
->>>>>> index 6fddb63271d9..e0e0d00cf103 100644
->>>>>> --- a/arch/x86/Kconfig
->>>>>> +++ b/arch/x86/Kconfig
->>>>>> @@ -159,6 +159,7 @@ config X86
->>>>>>        select HAVE_ALIGNED_STRUCT_PAGE        if SLUB
->>>>>>        select HAVE_ARCH_AUDITSYSCALL
->>>>>>        select HAVE_ARCH_HUGE_VMAP        if X86_64 || X86_PAE
->>>>>> +    select HAVE_ARCH_HUGE_VMALLOC        if HAVE_ARCH_HUGE_VMAP
->>>>>>        select HAVE_ARCH_JUMP_LABEL
->>>>>>        select HAVE_ARCH_JUMP_LABEL_RELATIVE
->>>>>>        select HAVE_ARCH_KASAN            if X86_64
->>>>> Testing Linus’ current master branch, Linux logs critical messages like below:
->>>>>      BUG: Bad page state in process systemd-udevd  pfn:102e03
->>>>> I bisected to your commit fac54e2bfb5 (x86/Kconfig: select
->>>>> HAVE_ARCH_HUGE_VMALLOC with HAVE_ARCH_HUGE_VMAP).
->>>> Sorry, I forget to mention, that this is a 32-bit (i686) userspace,
->>>> but a 64-bit Linux kernel, so it might be the same issue as
->>>> mentioned in commit eed1fcee556f (x86: Disable
->>>> HAVE_ARCH_HUGE_VMALLOC on 32-bit x86), but didn’t fix the issue for
->>>> 64-bit Linux kernel and 32-bit userspace.
->>> I will look more into this tomorrow. To clarify, what is the 32-bit
->>> user space that triggers this? Is it systemd-udevd? Is the systemd
->>> also i686?
->>
->> Yes, everything – also systemd – is i686. You can build a 32-bit VM image with grml-debootstrap [1]:
->>
->>     sudo DEBOOTSTRAP=mmdebstrap ~/src/grml-debootstrap/grml-debootstrap --vm --vmfile --vmsize 3G --target /dev/shm/debian-32.img -r sid --arch i686 --filesystem ext4
->>
->> Then run that with QEMU, but pass the 64-bit Linux kernel to QEMU directly with the switches `-kernel` and `-append`, or install the amd64 Linux kernel into the Debian VM image or the package created with `make bindeb-pkg` with `dpkg -i …`.
-> 
-> Thanks for these information!
-> 
-> I tried the following, but couldn't reproduce the issue.
-> 
-> sudo ./grml-debootstrap --vm --vmfile --vmsize 3G --target ../debian-32.img -r sid --arch i386 --filesystem ext4
-> 
-> Note: s/i686/i386/. Also I run this on Fedora, so I didn't specify DEBOOTSTRAP.
-> 
-> Then I run it with
-> 
-> qemu-system-x86_64 \
->    -boot d ./debian-32.img -m 1024 -smp 4 \
->    -kernel ./bzImage \
->    -nographic -append 'root=/dev/sda1 ro console=ttyS0,115200'
-> 
-> The VM boots fine. The config being used is x86_64_defconfig +
-> CONFIG_DRM_FBDEV_EMULATION.
-> 
-> I wonder whether this is caused by different config or different image.
-> Could you please share your config?
+The election committee will provide detailed instructions on how the voting
+system will work when the voting period begins.
 
-Sorry, for leading you on the wrong path. I actually just wanted to help 
-getting a 32-bit userspace set up quickly. I haven’t tried reproducing 
-the issue in a VM, and used only the ASUS F2A85-M PRO.
+Lyude Paul, on behalf of the X.Org elections committee
 
-Booting the system with `nomodeset`, I didn’t see the error. No idea if 
-it’s related to framebuffer handling or specific to AMD graphics device.
-
-> PS: I couldn't figure out the root password of the image, --password
-> option of grml-debootstrap doesn't seem to work.
-
-Hmm, I thought it’s asking you during install, but I haven’t done it in 
-a while.
-
-
-Kind regards,
-
-Paul
