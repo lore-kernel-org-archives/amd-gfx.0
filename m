@@ -4,131 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78639C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 15:53:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41DE3C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 16:07:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F401A10EDC6;
-	Mon, 28 Mar 2022 15:53:39 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2052.outbound.protection.outlook.com [40.107.94.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2A8910EDC3
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 15:53:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A39AE10E6E5;
+	Mon, 28 Mar 2022 16:07:57 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2062.outbound.protection.outlook.com [40.107.93.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D6D910E6E5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 16:07:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WQv3PUz/9RdbZGqK2xd90l2I61H27kOA6yVqbdiZidVpiZHcJWK1WHalE0Uo9U7fte6P9Ln8jFdMW7+6pwUFh3qyYOTI8QjS/10C62Plk+4kenKdegXuWYKGT6LSZhTuAU/k3nMFwVCMphymx/Mnoob0pmr1KENcDV5Y7HiDOYZ8HcWImRNwuUDl4DGHgDGWOAn++eVZsmLD7LUx1tuMj9yEO+hk3NZN/UjfcQkePoaRB1jZw2klKiddmJ16UqQLDvupyTWgImmjQdQXFAI2yMx4bpQlfPZ4JzMXSjyilyDUiicd2Vgd7CEUcn6qvH6AcBvmGm7awTVLdo5VL3J8hw==
+ b=QqVFcK0pd0ZWJAnwGQb3y/mj1h/4QVwQuFW+ozxEtlT/joMNnw7jehknoPNT77ZAFVcospEy66CWCas8b631AofOnGHXdMz+/1D8C2vUE08jA6anlmk9H7N63HZNZu5cL/Ytp/bvbvE2tCMbrbeRWnRMmhjkqLn+Jao23F8hteXPZwXNS3lE6Wg/Z0URpmfzPHr4DnaAXUobSm38Ixx2YINOaqz2SrqyFgjxBYFfyzE6kmpX/7HNKmWBY4o7ubItHRvQ3tgRWtAmxNUm42ZdkQhjCqcX5RM1TjjuRd0VwjD3/a2LFMHaRGfwq7f7PQ+Y4gX/KPmUXEhCoQR2wpVQVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xCSkmB4ZvbBfYEcNnJajp/1u8nWg7LcKVutGw7PJvmc=;
- b=D9VyTrfxy6+GCTsSkSGEkNzM3w9dy7Hy4l5x7h7E8OS5eLM2+oh53/WAnsqyf2eecbRSaJ4De/lN7ugR/AtyUPSthQ9kVR1EWilIW9ZN+vef4QQyRh83bErtdT8O+rB8KudNG3KYIab7i+Eje3eX4yJYsejQ3j8bgnpf8TU6nAOj+zfFo8SlgwbaUt+jj+VduXo0TWQtJ2an88fMygqVqq8m9PhRx2PSWAK51nUc1C3M49hsHzotfjgFwqGHvojK6F1qZv2D8hmSeVlW6c2/ZbaQC/1kS6GEqzhM7UWDi0zpkfE7/lcx9zA9zDGjuzARdetOpJVFmmAh25N/oV9LkQ==
+ bh=1pCWnEPd0QNVW21RrugdlkF1yTh15Mx2ZAK0BRfrpAw=;
+ b=JMl3meVUMacly/Lj/x4l297BQ71J5jjlyatBXQSdwvPZPx/P+8yj8zTzYQBOWufV6jiHy4qLhy2qZygqH04iGH9kiOCUIPY1jENjNxpc2kX2fKJ8JfL+ueoUFx9dTZwGIyzSxycTAZv4XIPdU47bRigbCYA4Jzy2P4Hk7q+5VxkQHdpRrBh68WAkySiRZ01pi+FbTTkDDG9/FHH1FMTu6I04Jfaw3lntBxeYx4yVU9WsfWcW2k+fSn8xVIPfNv6bxDuyzcZHfplvG0K0mhUgteD4Cny+zyHA/TRtwsD4Skac9lTrMIJ4sM3MeryZix+pl5dOJq404uOIQN1DiD7qKQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xCSkmB4ZvbBfYEcNnJajp/1u8nWg7LcKVutGw7PJvmc=;
- b=iFw7ioMksunwYN0nESTiqcLcnGkoWBkPNGd79NhUkFfcQ2B0XT1RwhV6DXx90hra106SnqRDjFNtcGiLRgpD/ml4o35sjnySTe5ioZqD4EZmOVBItnDOS92HR7gO06rlJ2+KIbG4DqDbP+5LfpNNVTqcjViy+WYMWVLP+KT4Z04=
-Received: from DM5PR12MB1308.namprd12.prod.outlook.com (2603:10b6:3:76::7) by
- BY5PR12MB5526.namprd12.prod.outlook.com (2603:10b6:a03:1d7::15) with
+ bh=1pCWnEPd0QNVW21RrugdlkF1yTh15Mx2ZAK0BRfrpAw=;
+ b=YNmfKvanGgTLRwGa0SksbwvDovMVRQonqX4lvVmsqLoPmX5+m53J4qHmBeZO6kzUaOXsLny42rPiPQ35IcD6al9Pcp9y0aXLXX8A50g1LnpMO08GmYqAxRCPsejk4FVo30l8M8vsKDQ5H7UaPOmhydxEx8pMUwc6aOkxs6rxEc8=
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by BN6PR12MB1585.namprd12.prod.outlook.com (2603:10b6:405:9::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17; Mon, 28 Mar
- 2022 15:53:36 +0000
-Received: from DM5PR12MB1308.namprd12.prod.outlook.com
- ([fe80::e05f:3a9a:b740:aa75]) by DM5PR12MB1308.namprd12.prod.outlook.com
- ([fe80::e05f:3a9a:b740:aa75%10]) with mapi id 15.20.5102.023; Mon, 28 Mar
- 2022 15:53:36 +0000
-From: "Russell, Kent" <Kent.Russell@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.19; Mon, 28 Mar
+ 2022 16:07:52 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::d851:76d6:b1e6:4a06]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::d851:76d6:b1e6:4a06%5]) with mapi id 15.20.5102.023; Mon, 28 Mar 2022
+ 16:07:52 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Russell, Kent" <Kent.Russell@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: Add unique_id support for sienna cichlid
+Subject: Re: [PATCH 2/2] drm/amdgpu: Add unique_id support for sienna cichlid
 Thread-Topic: [PATCH 2/2] drm/amdgpu: Add unique_id support for sienna cichlid
-Thread-Index: AQHYQrETM9TbriXgqkWwcn6XPgnv7qzU6IsAgAAF2MCAAALEgIAAAGZg
-Date: Mon, 28 Mar 2022 15:53:36 +0000
-Message-ID: <DM5PR12MB1308F91A509695ECB9CA6C8B851D9@DM5PR12MB1308.namprd12.prod.outlook.com>
+Thread-Index: AQHYQrEdtstt3QfxmE6RA10SvhgF7qzU6IsAgAAHDoCAAAGOgIAAAW4AgAACvMM=
+Date: Mon, 28 Mar 2022 16:07:52 +0000
+Message-ID: <BYAPR12MB46143E0A5A0F64D2BCBA68B5971D9@BYAPR12MB4614.namprd12.prod.outlook.com>
 References: <20220328143518.1253762-1-kent.russell@amd.com>
  <20220328143518.1253762-2-kent.russell@amd.com>
  <80529a89-effc-368a-da12-14d7e44c860d@amd.com>
  <DM5PR12MB1308FBF96617FF1DDE124158851D9@DM5PR12MB1308.namprd12.prod.outlook.com>
  <c319f4e0-c01a-d355-9878-7f09a5f33b49@amd.com>
-In-Reply-To: <c319f4e0-c01a-d355-9878-7f09a5f33b49@amd.com>
+ <DM5PR12MB1308F91A509695ECB9CA6C8B851D9@DM5PR12MB1308.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB1308F91A509695ECB9CA6C8B851D9@DM5PR12MB1308.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=339f82d5-e3cf-40f8-901e-cc0f05b8f048;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-28T15:49:54Z;
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-28T15:49:54.0000000Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
+ Official Use Only-AIP
+ 2.0; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: be77633b-458e-4da4-0a3d-08da10d31eb0
-x-ms-traffictypediagnostic: BY5PR12MB5526:EE_
-x-microsoft-antispam-prvs: <BY5PR12MB55263AFADB9CE8E167570A58851D9@BY5PR12MB5526.namprd12.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: 17ce1b40-bfe1-4552-26b3-08da10d51ce5
+x-ms-traffictypediagnostic: BN6PR12MB1585:EE_
+x-microsoft-antispam-prvs: <BN6PR12MB1585EF2A1D19B1EA97E787C7971D9@BN6PR12MB1585.namprd12.prod.outlook.com>
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Xip9A+hU+0jox4AuJrQ4btqEojaAe7FdrMw5QgYhPIoNISmODj2OVggV2N8wOHoyEqSGCUbDrzB2zesbmgQ0s1HAyCZYndhaDg15j24ZXpSbRB36O3jqFFEagKn8t8PwwGOdQ24D9/N8tVCOPMp5UL7YvRQKWG5fzKBEtzlDhTxo++qRn9R29sAMtmNVEEjSMVJ+0FX1tZvrWjc7bXDxNQWw41hUIzgGNrCi3RiEOUm/DfEkFVKRBmcEe2PfBoCyoA4eONccAj5POFYD7EwspGJwQj/zNI1/ZrYYFVev4qlTEX6K3TBnYsae8BtIF2EIjWSGYKCDZTIXj7ANgDlJUgb9CLRXPfkizmDP0YdJMW7+NFl4SX22WJfGCzQX0/AyHMBPZz3rxYMLIpyBAUVfYiH7gV5urJPvnB0fw7Va9djuV/Cng9niqPIXDik7VUFOzLm8nMue97Nk/6FEwIB+W9k5rGy+kgpHRTd2mGhNwAqsKVcBWD9plVkPdEv7SWiXMN5GH5vZBiP6SnkeIl7pGJaOqO5drsZ1Ue1V1JI3USNBZ17n1lYwsXwvj25fMenKFbn7mqRWKA7UM/8O6D51vL6CGt52WHsD5hpdLsDWRqMPsT1s3Q/bYz+OTzWlfK3Aq8EdWniWNnwcV/urVCuD5rn96VXmbY3i8e90tl1L4cHpP78tqxz58WJ/Xb+oJQQpsTRW001xsqj41U9zBYYBMw==
+x-microsoft-antispam-message-info: VBXUdNbs2Q94prR3kRWHKfys0J/wvsNgBgBeCN3SY4z//nBmO5BlDhGd0bIvfNbekHqMle90eL7ecyyhHsdv/mpqPEcxQ8tDCnNiYPsKYkniG6MckO3KDUyVpCIgr/dBojwW6zEBmP4bwgWXAtj9migNFFVmkKM9b6RXEtezajFj3mKvLBiORGR2qMJujlaCfdQSbFtpY9FMm56jumrf12TDasIKCwbELybtGgln9uvEUNNqOWZ9H0Yzo4/UZUex69Q7AZtEOCZPPFXxEDDo5lt2EHN7IEY7YLLWCrPRR5f6p5R64TaQ+ecC8oUjBJqzrmmlvshpQU2aj9XKaidyTsrwPnIOI0rLNbNOVWCOoCFiSXKR90bKQDbHbufTBMjVolBLtv5emmxpENTvRPR6FO0NjIKUuKvrCavQIVN9F8baaW8uaxUwIKj0Z4m96cEwzqneNlcf6sysp0ZljhKnaOCSxz55Grg/k+gXyfHDYGr7X7HxDAuEEEGvj+mzGRFP08Blj1bdtOiMyG0VyDyZDKYWCcaVPVO2qPPIZuMcYOnLBA/GBdHQLWuTYaoy4YLKSkaA6ttcz85KXbCrj7Pvz/deY3su78ZCImtydoZiBVQxr8FhB8nShwSLiMNyJyJVpm6ENhIdnMgGVPFBZj2dJc9w8GGD/rby5xYFVjGmu7M+XCIi+p9qtHObxp5WWwXy8kMiBSAJ2rWU4zUoH6iE+w==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1308.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(9686003)(7696005)(186003)(83380400001)(53546011)(55016003)(52536014)(26005)(110136005)(86362001)(508600001)(6506007)(66556008)(2906002)(76116006)(66446008)(71200400001)(5660300002)(8936002)(66946007)(33656002)(122000001)(8676002)(66476007)(64756008)(4326008)(38100700002)(38070700005)(316002);
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(38100700002)(38070700005)(33656002)(316002)(122000001)(110136005)(55016003)(508600001)(7696005)(6506007)(86362001)(53546011)(52536014)(8936002)(5660300002)(66946007)(76116006)(9686003)(91956017)(66556008)(26005)(186003)(4326008)(8676002)(66446008)(83380400001)(71200400001)(2906002)(64756008)(66476007);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?a01BZnpyQ2NhemdWLzhaYllaR3h2STUvWG5MeUJSTVZ3L0ZCOCsxaCtmM0d1?=
- =?utf-8?B?ZWN0QkFaVWhuMmo2Ukd0UzFnNWMzeTA1ZENBM3NYTEQwUllScGNOUW13eEV2?=
- =?utf-8?B?eHpvTkpFTmlWYm9RUVFXQVl2N2Q1cngzb3MwT0ZRWVZmY2FabmxtdXpudE81?=
- =?utf-8?B?d1NjSUNXOWNrMnpUc1RpNitwSHNjRy9PaTlEQWhTakg4Mk8zSFdPS0ZIbktX?=
- =?utf-8?B?UFRPQkdwQ0hoOGdJTjd5VnBWbTZ1cUdtSGo1RVc3eWdnUzVVZURkRnhuci82?=
- =?utf-8?B?S0daaytmRWJ3Q0ZPNWNMa1JOYVVwdjhzV1A2OTVIYjNINllha2FaMkNDMGx0?=
- =?utf-8?B?eTFDenNNMXJzdXBFUHkwQ1R5K2FnTGZ0WWwwTUZqaWI4N2VtOGxaeHpOOVZN?=
- =?utf-8?B?TkNrZ2pLMHhDRzJmZUZRWk9FVlY1WEZyQVMwOW9tdUpxS3U0TGx5Tld1MXpn?=
- =?utf-8?B?Zk5ReHllbjdPTVh5V0RRbzBtZ2gvNk5QMVZIMTZzVVRWRWlxb2s1c3loYjdM?=
- =?utf-8?B?WmRBTmdHbHhETFpLZnlXOEF1M0NwNDNtUjBHYkszQ1ozNnJPYnFKM3l1Si9i?=
- =?utf-8?B?dEplMitEaW1qOXlpdjhyTFB4RUhFREt2MTB2bGdrT0pxcElzZ2FvY0JyR0l1?=
- =?utf-8?B?cE94WXBRazVlZ0Y3VldQczJLMG0rRG9aOXQ1OW1iZXdkdW83MWt2c0lua2ta?=
- =?utf-8?B?bVF1UFdqRlVKZDlLdzZQSkpzVFBIM0VkS291L2prckZYRnRjZE1KT1hWUnBV?=
- =?utf-8?B?bVFBRnVGNlhoMlVYczhJOEVVbmNuR1hBaENsUm5WcmdVRzFuS1lBSEpJUm5s?=
- =?utf-8?B?Rld4RzhIeVdZRU5yY1VBNmhrZkszd3B5UGN6UGtUcWV5OW8zR3lvTzN1c29P?=
- =?utf-8?B?ZWZXUDZaWFZWUTZxcDlJY2x6R0sxckVZNXE0aStXT2ZIaGdKdFFlYXQ4bGNY?=
- =?utf-8?B?Uk9ZaVE2eGNjVUtrUmF4OWxOT3ZrU3lMSFRmQ1ZKV2xkc3g2SDBIZXZQdk5a?=
- =?utf-8?B?Vmc2ZTlKOVJFK1l0U25ZclhtVHRMMlpvMHdseE8zSzlZMkVscjhJRzJMbkF1?=
- =?utf-8?B?QzJvcTYrc2MvdG15UmFRckdJajIxUHJoZEs0UHo3bWgvZld0Z2R3VjV0aDF0?=
- =?utf-8?B?LzVwcUQ4VDhhRGJVSUU2QzM0UWZJMXI4T0J4MWxPTThiR0JsTnZJUzNlaXRD?=
- =?utf-8?B?VlEwYUlZc2l5YlI4akFLcFJUZ0JmUHIvNllPZVVIMEZXb21ZeWFTTFY5L3Bu?=
- =?utf-8?B?QXVWbHJzNDdOaUNyRXdNWnMwb3ExaFFmKzNneGh5SDR1eW1vdWwxQm9xOEp6?=
- =?utf-8?B?NjBsN3VISlF0Q1VjVG9oRGhSb2Z2NkZzeVR4UHFxc0FoNCtaQWhQY1IxSkNB?=
- =?utf-8?B?SXZHSzFSSFlaM0VORzZDWldmdEdadjVnbkt6blN6QTBRbE5ka3A5SmZBSGNO?=
- =?utf-8?B?RllWeGNzMExMZnFBRGNzeHdlQnl3bWhEMnUwblFhRzZYQ1h2M3hFVkJaelIv?=
- =?utf-8?B?QjlvaDh4WjVBYXE5aWxWUlQrU3hERis2OWlHZXZWMFVzSnYraEZtTG14TDhO?=
- =?utf-8?B?VUpFVXZZZnZ3bVlyTEtvNkt0c2h1TEJHRGJDUkF3S3VFTHRYSXUwNHZTZjBm?=
- =?utf-8?B?cVc5ZnJLM2xtSGovb2ZoU2RiZElkNEZndW13MkF1Sk1rc09PL3hDd0daZGVK?=
- =?utf-8?B?MG9wNVlVZUFORXJWSmhQQUdMcTgxbFNDekN1a0M0Z081bzFUWkFMOFBpTk9L?=
- =?utf-8?B?UHNZZ1BGTlpKZGV5L1RPOVpVMDVMYnhHYWU2cVJQcDFhbENpSnNJY3Z2bzhW?=
- =?utf-8?B?NVBrZFRJalVzSzV3bnNqeDZDVUxUbW1PWUVOcVVycjBYelBXYk1JR3FwaEpG?=
- =?utf-8?B?TVdENk4yRG9CVzNDUEVjaG4zOWRmdUpRL1B5NjFWam1OYzRQY2pOUzFSdXVR?=
- =?utf-8?B?Y2w1aVp2N0tJbTJXcjlsOU5CUmdMTDM3M1hRR04vTm1VRkYrUDFKN1l4bTlk?=
- =?utf-8?B?WUVramhmTHJhRm83WkNPZmNQeEsyZDFjdFB3UjZMb0FlYjhuRkdUU28vYTl6?=
- =?utf-8?B?Rmt5WHNTVkVtQkZDTDRoNTZRSkwvSEVZSnAzdStUY01KMEdFb1JxTEdGRnJm?=
- =?utf-8?B?RWJDUlc1QzBsQzE1L0hkaWxKcGxQaHMrNlhtQ3NvOUhRa1BGeVFUSlFueEpP?=
- =?utf-8?B?V3FHZVNBY3Bqa0hDVzlCTGFuVENGWnhUUFBlYnFjd1g0c1hvTkpzVytoVDdk?=
- =?utf-8?B?M1hOMEtmSFZQaXdnQWZSeDQzWWo5T051ekNhY1NwR3pXRlhYbUwzbkhBYklS?=
- =?utf-8?Q?Ixp1+QFxNZGkxTsvmD?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YHTt7BeisZxfONs+Eh12x8qmyMgGfQtBXetYAO8csmfrZ7G3cgZt/6Joeqss?=
+ =?us-ascii?Q?OEJW4XkN8Lg2tTUmKURFrVgwytcWs66LNnF4S9g+uWKJIgmDUm9nbL4Aouwi?=
+ =?us-ascii?Q?r8pNQY9KTkUGaS3ayd8mOhHQTZFpffAO+ggWAh2DmOA29oQzFyzifgRxJmIU?=
+ =?us-ascii?Q?LLEtmbMff6bHc08zdizzq/bZQrt7UL8PB/UpVlLZ34Vbvjt36N2NW7bVncU8?=
+ =?us-ascii?Q?sAb1XKZe2AgOIqAEDhHalGeDD3vM5+Yx+FzvxPp9qwvwlVh0ig2nSg3LRR5A?=
+ =?us-ascii?Q?FjZAnwNLZIh+/ITnIFtQaOIVEPCxDsiqENBSydJ/yLqy09SJTgpYPy+1Fojq?=
+ =?us-ascii?Q?lKk93tNvQqAo9xUIQJt777bb2ZKTO0OgUoFJdX7943g54bB3Y/lRQuwgyrNf?=
+ =?us-ascii?Q?ir6cwrJaUozxdoPRk7Vt7kYIaadv24jVpTHRENNO9IFGMBzjsayAz5Yo96MP?=
+ =?us-ascii?Q?wD+GhSNhJGli9PSK+H720nrYspQuavCJ0Jm8PNXjCLfsN7xnt2/I/oX0M/8P?=
+ =?us-ascii?Q?aYYkbRKJUun6a0VFzE0OxMTBQGY+nsNOV4HYIFH4ElaXCWEZwjKcGpJ8n1v1?=
+ =?us-ascii?Q?SuKw9gpY+vP7ulFxtAQi79Kh+6UCDhhWILnewhKFkrio6ko3pmrUsT1FYbtt?=
+ =?us-ascii?Q?peXFlCJN/y2UFJ6MYp4sw3M8sdWTP59K3J8rPTbfbaCFZ2h3VyDPKG2yvsDI?=
+ =?us-ascii?Q?OMWbtmcw5FU4bXi1IkWpRBzRESxIPSwOX9VJUfqye5UF+tna8AA4CyPrJnEp?=
+ =?us-ascii?Q?19b0BxxF8qh6z7jbymO/uzWRCJMmQbBz2+sGIuCNkwp+0/xWEXrHEewYOfWd?=
+ =?us-ascii?Q?eHYu3+Hm4TK4VQ51n4ki6+oUxIKkJTz6PUslJEG55LzTRdMtJnAKB/VQKlnc?=
+ =?us-ascii?Q?8HrON0uDZ+HeypbY2cYOYd1rDu+R+nR24gIrASU8gPzntpX9xs1be1VOUd8R?=
+ =?us-ascii?Q?b/uyz9+cq+WEH9OowSCMtKFLN0ljHOKPg36gAvj8AVTAfg4eJI9ssYvupUAk?=
+ =?us-ascii?Q?4kY1Lp06UqLzKVFbH7s6A79ldoq9va9dAn0uWBh2svDSlIb4qvqod8IIZQa8?=
+ =?us-ascii?Q?VZ/U2UPLsS9PmcGdoMFzwZh+DPwpYaJyZSgNO3LKFD0nI8nEEUPcHLeMT822?=
+ =?us-ascii?Q?KA0gh1ye9LlYJaPeu4gIOBADyUBXO+QxrIhVIBKomu9oQgRbthyyQGNu9oyH?=
+ =?us-ascii?Q?mGaIDqzAVWdzMkuEs7/tWH/LTqHFGbZmY9QUZDUGWo5J+J/aL6u0ARd1FJY0?=
+ =?us-ascii?Q?0CZ7I5MP/IzeZ8H/FfvintiWFE02fJ1nblqr73fGCqr6gqIwaEdnM2EVYKHs?=
+ =?us-ascii?Q?mK0Me1Ox8pbLfa1k5iX3bx3XZ/JEB8Iwg4o64Qy53bhwy01kgnsobaLlQ3r9?=
+ =?us-ascii?Q?w5LfGs9wuqDkBhHkPMelLQIT09xTvl4LdSgQsiwgiFqHmqNn1M9ffm0OjJX2?=
+ =?us-ascii?Q?Nvgc9ltfd7BDVaYjUF3YVpwdbbijbEc73DWKW6e0gRkZpqXny4jXKTuP3PuY?=
+ =?us-ascii?Q?R0h328obTY+xiRCHWB36gajOXV/miSvnHkXyg8upCDoWxIGtDtCB3T4lGRzM?=
+ =?us-ascii?Q?X731elkH0nlrFa0/cKbiG9kiKBlzo1oRA2wcLTxdxMKmEL2zk8rT8Za1BAwM?=
+ =?us-ascii?Q?TX0Rd1oHOBlOQElSCb+MJgWAuTgJRfcCGJuqdZGjusdJvPXHxf8Ca1sc6nVC?=
+ =?us-ascii?Q?yWS1d9OjnQ1rs9HZJZcY0RK9y9jAU1Y71DyWC7/a0zQvmf7FASwJXKoHWMWN?=
+ =?us-ascii?Q?CyBNTJnjuA=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BYAPR12MB46143E0A5A0F64D2BCBA68B5971D9BYAPR12MB4614namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1308.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be77633b-458e-4da4-0a3d-08da10d31eb0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Mar 2022 15:53:36.4718 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17ce1b40-bfe1-4552-26b3-08da10d51ce5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Mar 2022 16:07:52.3329 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IxImXzcgLYCKIh9Q4RfxFWSB2UMn+PnwsSKupxNHYQGid096m4BVUlEcKSTJgWcD1WJVvZwn6qxpTI3Gh0H4pQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5526
+X-MS-Exchange-CrossTenant-userprincipalname: 1xt4HAmXn7In0JueD1gHrzquRT0g/EJOUSCoq8Yjw2QiT+PWoVSmaaSRn9WhPmsS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1585
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,136 +135,598 @@ Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0K
-PiBGcm9tOiBMYXphciwgTGlqbyA8TGlqby5MYXphckBhbWQuY29tPg0KPiBTZW50OiBNb25kYXks
-IE1hcmNoIDI4LCAyMDIyIDExOjQ4IEFNDQo+IFRvOiBSdXNzZWxsLCBLZW50IDxLZW50LlJ1c3Nl
-bGxAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBEZXVjaGVy
-LCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQo+IFN1YmplY3Q6IFJlOiBb
-UEFUQ0ggMi8yXSBkcm0vYW1kZ3B1OiBBZGQgdW5pcXVlX2lkIHN1cHBvcnQgZm9yIHNpZW5uYSBj
-aWNobGlkDQo+DQo+DQo+DQo+IE9uIDMvMjgvMjAyMiA5OjEyIFBNLCBSdXNzZWxsLCBLZW50IHdy
-b3RlOg0KPiA+IFtBTUQgT2ZmaWNpYWwgVXNlIE9ubHldDQo+ID4NCj4gPiBSZXNwb25zZXMgaW5s
-aW5lDQo+ID4NCj4gPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPj4gRnJvbTogTGF6
-YXIsIExpam8gPExpam8uTGF6YXJAYW1kLmNvbT4NCj4gPj4gU2VudDogTW9uZGF5LCBNYXJjaCAy
-OCwgMjAyMiAxMToxOCBBTQ0KPiA+PiBUbzogUnVzc2VsbCwgS2VudCA8S2VudC5SdXNzZWxsQGFt
-ZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiA+PiBDYzogRGV1Y2hlciwg
-QWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPg0KPiA+PiBTdWJqZWN0OiBSZTog
-W1BBVENIIDIvMl0gZHJtL2FtZGdwdTogQWRkIHVuaXF1ZV9pZCBzdXBwb3J0IGZvciBzaWVubmEg
-Y2ljaGxpZA0KPiA+Pg0KPiA+Pg0KPiA+Pg0KPiA+PiBPbiAzLzI4LzIwMjIgODowNSBQTSwgS2Vu
-dCBSdXNzZWxsIHdyb3RlOg0KPiA+Pj4gVGhpcyBpcyBiZWluZyBhZGRlZCB0byBTTVUgTWV0cmlj
-cywgc28gYWRkIHRoZSByZXF1aXJlZCB0aWUtaW5zIGluIHRoZQ0KPiA+Pj4ga2VybmVsLiBBbHNv
-IGNyZWF0ZSB0aGUgY29ycmVzcG9uZGluZyB1bmlxdWVfaWQgc3lzZnMgZmlsZS4NCj4gPj4+DQo+
-ID4+PiB2MjogQWRkIEZXIHZlcnNpb24gY2hlY2ssIHJlbW92ZSBTTVUgbXV0ZXgNCj4gPj4+IHYz
-OiBGaXggc3R5bGUgd2FybmluZw0KPiA+Pj4NCj4gPj4+IFNpZ25lZC1vZmYtYnk6IEtlbnQgUnVz
-c2VsbCA8a2VudC5ydXNzZWxsQGFtZC5jb20+DQo+ID4+PiBSZXZpZXdlZC1ieTogQWxleCBEZXVj
-aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPiA+Pj4gLS0tDQo+ID4+PiAgICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL3BtL2FtZGdwdV9wbS5jICAgICAgICAgICAgfCAgMSArDQo+ID4+PiAg
-ICAuLi4vcG1md19pZi9zbXUxMV9kcml2ZXJfaWZfc2llbm5hX2NpY2hsaWQuaCAgfCAxMiArKysr
-Ky0tDQo+ID4+PiAgICAuLi4vYW1kL3BtL3N3c211L3NtdTExL3NpZW5uYV9jaWNobGlkX3BwdC5j
-ICAgfCAzNiArKysrKysrKysrKysrKysrKysrDQo+ID4+PiAgICAzIGZpbGVzIGNoYW5nZWQsIDQ3
-IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+ID4+Pg0KPiA+Pj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vYW1kZ3B1X3BtLmMNCj4gPj4gYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3BtL2FtZGdwdV9wbS5jDQo+ID4+PiBpbmRleCA0MTUxZGIyNjc4ZmIuLjRhOWFhYmMx
-NmZiYyAxMDA2NDQNCj4gPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vYW1kZ3B1X3Bt
-LmMNCj4gPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vYW1kZ3B1X3BtLmMNCj4gPj4+
-IEBAIC0xOTkzLDYgKzE5OTMsNyBAQCBzdGF0aWMgaW50IGRlZmF1bHRfYXR0cl91cGRhdGUoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ID4+IHN0cnVjdCBhbWRncHVfZGV2aWNlXw0KPiA+
-Pj4gICAgICAgICAgICAgIGNhc2UgSVBfVkVSU0lPTig5LCA0LCAwKToNCj4gPj4+ICAgICAgICAg
-ICAgICBjYXNlIElQX1ZFUlNJT04oOSwgNCwgMSk6DQo+ID4+PiAgICAgICAgICAgICAgY2FzZSBJ
-UF9WRVJTSU9OKDksIDQsIDIpOg0KPiA+Pj4gKyAgICAgICAgICAgY2FzZSBJUF9WRVJTSU9OKDEw
-LCAzLCAwKToNCj4gPj4+ICAgICAgICAgICAgICAgICAgICAgICpzdGF0ZXMgPSBBVFRSX1NUQVRF
-X1NVUFBPUlRFRDsNCj4gPj4+ICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KPiA+Pj4gICAg
-ICAgICAgICAgIGRlZmF1bHQ6DQo+ID4+PiBkaWZmIC0tZ2l0DQo+ID4+IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wbS9zd3NtdS9pbmMvcG1md19pZi9zbXUxMV9kcml2ZXJfaWZfc2llbm5hX2NpY2hs
-aWQuaA0KPiA+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvaW5jL3BtZndfaWYvc211
-MTFfZHJpdmVyX2lmX3NpZW5uYV9jaWNobGlkLmgNCj4gPj4+IGluZGV4IDNlNGEzMTRlZjkyNS4u
-NThmOTc3MzIwZDA2IDEwMDY0NA0KPiA+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9z
-d3NtdS9pbmMvcG1md19pZi9zbXUxMV9kcml2ZXJfaWZfc2llbm5hX2NpY2hsaWQuaA0KPiA+Pj4g
-KysrDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9pbmMvcG1md19pZi9zbXUxMV9k
-cml2ZXJfaWZfc2llbm5hX2NpY2hsaWQuaA0KPiA+Pj4gQEAgLTE0MTksOCArMTQxOSwxMiBAQCB0
-eXBlZGVmIHN0cnVjdCB7DQo+ID4+PiAgICAgIHVpbnQ4X3QgIFBjaWVSYXRlICAgICAgICAgICAg
-ICAgOw0KPiA+Pj4gICAgICB1aW50OF90ICBQY2llV2lkdGggICAgICAgICAgICAgIDsNCj4gPj4+
-ICAgICAgdWludDE2X3QgQXZlcmFnZUdmeGNsa0ZyZXF1ZW5jeVRhcmdldDsNCj4gPj4+IC0gIHVp
-bnQxNl90IFBhZGRpbmcxNl8yOw0KPiA+Pj4NCj4gPj4+ICsgIC8vUE1GVy04NzExDQo+ID4+PiAr
-ICB1aW50MzJfdCBQdWJsaWNTZXJpYWxOdW1Mb3dlcjMyOw0KPiA+Pj4gKyAgdWludDMyX3QgUHVi
-bGljU2VyaWFsTnVtVXBwZXIzMjsNCj4gPj4+ICsNCj4gPj4+ICsgIHVpbnQxNl90IFBhZGRpbmcx
-Nl8yOw0KPiA+Pj4gICAgfSBTbXVNZXRyaWNzX3Q7DQo+ID4+Pg0KPiA+Pj4gICAgdHlwZWRlZiBz
-dHJ1Y3Qgew0KPiA+Pj4gQEAgLTE0NzYsOCArMTQ4MCwxMiBAQCB0eXBlZGVmIHN0cnVjdCB7DQo+
-ID4+PiAgICAgIHVpbnQ4X3QgIFBjaWVSYXRlICAgICAgICAgICAgICAgOw0KPiA+Pj4gICAgICB1
-aW50OF90ICBQY2llV2lkdGggICAgICAgICAgICAgIDsNCj4gPj4+ICAgICAgdWludDE2X3QgQXZl
-cmFnZUdmeGNsa0ZyZXF1ZW5jeVRhcmdldDsNCj4gPj4+IC0gIHVpbnQxNl90IFBhZGRpbmcxNl8y
-Ow0KPiA+Pj4NCj4gPj4+ICsgIC8vUE1GVy04NzExDQo+ID4+PiArICB1aW50MzJfdCBQdWJsaWNT
-ZXJpYWxOdW1Mb3dlcjMyOw0KPiA+Pj4gKyAgdWludDMyX3QgUHVibGljU2VyaWFsTnVtVXBwZXIz
-MjsNCj4gPj4+ICsNCj4gPj4NCj4gPj4gSXMgdGhpcyB0aGUgY2FzZSBmb3Igb3RoZXIgQVNJQ3Mg
-YWxzbyB3aGljaCBzaGFyZSB0aGUgbWV0cmljcyBkYXRhIHdpdGgNCj4gPj4gU2llbm5hPw0KPiA+
-DQo+ID4gTm8sIG9ubHkgZm9yIFNpZW5uYSBDaWNobGlkLiBUaGUgUE1GVyBndXlzIGRpZG4ndCBp
-bXBsZW1lbnQgaXQgZm9yIE5hdnkgRmxvdW5kZXIgb3INCj4gRGltZ3JleSBDYXZlZmlzaC4NCj4g
-Pg0KPiA+Pg0KPiA+Pj4gKyAgdWludDE2X3QgUGFkZGluZzE2XzI7DQo+ID4+PiAgICB9IFNtdU1l
-dHJpY3NfVjJfdDsNCj4gPj4+DQo+ID4+PiAgICB0eXBlZGVmIHN0cnVjdCB7DQo+ID4+PiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMS9zaWVubmFfY2ljaGxp
-ZF9wcHQuYw0KPiA+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvc211MTEvc2llbm5h
-X2NpY2hsaWRfcHB0LmMNCj4gPj4+IGluZGV4IDM4ZjA0ODM2YzgyZi4uNTUwNDU4ZjYyNDZhIDEw
-MDY0NA0KPiA+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMS9zaWVu
-bmFfY2ljaGxpZF9wcHQuYw0KPiA+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3Nt
-dS9zbXUxMS9zaWVubmFfY2ljaGxpZF9wcHQuYw0KPiA+Pj4gQEAgLTQ4MSw2ICs0ODEsNDEgQEAg
-c3RhdGljIGludCBzaWVubmFfY2ljaGxpZF9zZXR1cF9wcHRhYmxlKHN0cnVjdCBzbXVfY29udGV4
-dA0KPiA+PiAqc211KQ0KPiA+Pj4gICAgICByZXR1cm4gc2llbm5hX2NpY2hsaWRfcGF0Y2hfcHB0
-YWJsZV9xdWlyayhzbXUpOw0KPiA+Pj4gICAgfQ0KPiA+Pj4NCj4gPj4+ICtzdGF0aWMgdm9pZCBz
-aWVubmFfY2ljaGxpZF9nZXRfdW5pcXVlX2lkKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQ0KPiA+
-Pj4gK3sNCj4gPj4+ICsgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHNtdS0+YWRldjsN
-Cj4gPj4+ICsgICBzdHJ1Y3Qgc211X3RhYmxlX2NvbnRleHQgKnNtdV90YWJsZSA9ICZzbXUtPnNt
-dV90YWJsZTsNCj4gPj4+ICsgICBTbXVNZXRyaWNzX3QgKm1ldHJpY3MgPQ0KPiA+Pj4gKyAgICAg
-ICAgICAgJigoKFNtdU1ldHJpY3NFeHRlcm5hbF90ICopKHNtdV90YWJsZS0+bWV0cmljc190YWJs
-ZSkpLT5TbXVNZXRyaWNzKTsNCj4gPj4+ICsgICBTbXVNZXRyaWNzX1YyX3QgKm1ldHJpY3NfdjIg
-PQ0KPiA+Pj4gKyAgICAgICAgICAgJigoKFNtdU1ldHJpY3NFeHRlcm5hbF90ICopKHNtdV90YWJs
-ZS0+bWV0cmljc190YWJsZSkpLT5TbXVNZXRyaWNzX1YyKTsNCj4gPj4+ICsgICB1aW50MzJfdCB1
-cHBlcjMyID0gMCwgbG93ZXIzMiA9IDA7DQo+ID4+PiArICAgYm9vbCB1c2VfbWV0cmljc192MjsN
-Cj4gPj4+ICsgICBpbnQgcmV0Ow0KPiA+Pj4gKw0KPiA+Pj4gKyAgIC8qIE9ubHkgc3VwcG9ydGVk
-IGFzIG9mIHZlcnNpb24gMC41OC44My4wICovDQo+ID4+PiArICAgaWYgKHNtdS0+c21jX2Z3X3Zl
-cnNpb24gPCAweDNBNTMwMCkNCj4gPj4+ICsgICAgICAgICAgIHJldHVybjsNCj4gPj4+ICsNCj4g
-Pj4NCj4gPj4gU2luY2UgdGhpcyBpcyBzaGFyZWQgd2l0aCBvdGhlciBBU0lDcywgSSBndWVzcyB0
-aGlzIGNoZWNrIGl0c2VsZiBtYXkgbm90DQo+ID4+IGJlIGVub3VnaC4gVGhpcyBmdW5jdGlvbiBt
-YXkgYmUgc2tpcHBlZCBpZiBpdCdzIG5vdCBNUDEgMTEuMC43IG9yIEdDIDEwLjMuMD8NCj4gPj4N
-Cj4gPg0KPiA+IFNpbmNlIHRoZSBzeXNmcyBmaWxlIGlzIG9ubHkgc3VwcG9ydGVkIG9uIFNpZW5u
-YSBDaWNobGlkICgxMC4zLjApLCBpcyBpdCBhIGNvbmNlcm4gc2luY2UgdGhlIHRpZS0NCj4gaW4g
-d29uJ3QgZXhpc3Qgb24gdGhlIG90aGVyIFNNVTExLWJhc2VkIEFTSUNzPyBBbmQgdGhpcyBmdW5j
-dGlvbiBpcyBvbmx5IHJlZmVyZW5jZWQgYnkNCj4gc2llbm5hX2NpY2hsaWQsIHVubGVzcyBJIG1p
-c3VuZGVyc3Rvb2Qgc29tZXRoaW5nIChhbmQgc29tZW9uZSBlbHNlIHVzZXMNCj4gc2llbm5hX2Np
-Y2hsaWRfdGFibGVzX2luaXQpLg0KPiA+DQo+DQo+IFRoaXMgZnVuY3Rpb24gYWxzbyBnZXRzIGNh
-bGxlZCBhcyBwYXJ0IG9mIGNvbW1vbiBpbml0IHNlcXVlbmNlIC0NCj4gc211X2dldF91bmlxdWVf
-aWQuDQo+IElmIFBNRlcgdmVyc2lvbiBvZiBOYXZpIEZsb3VuZGVyL0RpbWdyZXkgQVNJQyBpcyBn
-cmVhdGVyIHRoYW4gU2llbm5hLA0KPiB0aGVuIGl0IG1heSBnbyB0byB0aGUgcGF0aCB3aGljaCBp
-cyBub3QgaW50ZW5kZWQgdG8gYmUgZXhlY3V0ZWQgb24gdGhhdA0KPiBBU0lDLg0KDQpXb3VsZCBp
-dCBiZSBzdWZmaWNpZW50IHRvIGp1c3QgY29uZmlybSB0aGUgSVBfVkVSU0lPTiBoZXJlIHRvbyB0
-aGVuPw0KIGUuZy4NCi8qIE9ubHkgc3VwcG9ydGVkIGFzIG9mIHZlcnNpb24gMC41OC44My4wIGFu
-ZCBvbmx5IG9uIFNpZW5uYSBDaWNobGlkIChHQyAxMC4zLjApKi8NCmlmIChzbXUtPnNtY19md192
-ZXJzaW9uIDwgMHgzQTUzMDAgfHwgYWRldi0+aXBfdmVyc2lvbnNbR0NfSFdJUF1bMF0gIT0gSVBf
-VkVSU0lPTigxMCwgMywgMCkpDQogICAgICAgICAgcmV0dXJuOw0KDQpUaHVzIHRoZSBGVyBoYXMg
-dG8gYmUgdGhhdCB2ZXJzaW9uLCBhbmQgdGhlIElQX1ZFUlNJT04gaGFzIHRvIGJlIDEwLjMgPyBP
-ciBpcyB0aGVyZSBhIGJldHRlciBtZXRob2QgdG8gdXNlPyBUaGFua3MhDQoNCiBLZW50DQoNCj4N
-Cj4gVGhhbmtzLA0KPiBMaWpvDQo+DQo+ID4gICBLZW50DQo+ID4NCj4gPj4gVGhhbmtzLA0KPiA+
-PiBMaWpvDQo+ID4+DQo+ID4+PiArICAgcmV0ID0gc211X2Ntbl9nZXRfbWV0cmljc190YWJsZShz
-bXUsIE5VTEwsIGZhbHNlKTsNCj4gPj4+ICsgICBpZiAocmV0KQ0KPiA+Pj4gKyAgICAgICAgICAg
-Z290byBvdXRfdW5sb2NrOw0KPiA+Pj4gKw0KPiA+Pj4gKyAgIHVzZV9tZXRyaWNzX3YyID0gKChz
-bXUtPmFkZXYtPmlwX3ZlcnNpb25zW01QMV9IV0lQXVswXSA9PSBJUF9WRVJTSU9OKDExLCAwLA0K
-PiA+PiA3KSkgJiYNCj4gPj4+ICsgICAgICAgICAgIChzbXUtPnNtY19md192ZXJzaW9uID49IDB4
-M0E0MzAwKSkgPyB0cnVlIDogZmFsc2U7DQo+ID4+PiArDQo+ID4+PiArICAgdXBwZXIzMiA9IHVz
-ZV9tZXRyaWNzX3YyID8gbWV0cmljc192Mi0+UHVibGljU2VyaWFsTnVtVXBwZXIzMiA6DQo+ID4+
-PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbWV0cmljcy0+UHVibGljU2VyaWFsTnVt
-VXBwZXIzMjsNCj4gPj4+ICsgICBsb3dlcjMyID0gdXNlX21ldHJpY3NfdjIgPyBtZXRyaWNzX3Yy
-LT5QdWJsaWNTZXJpYWxOdW1Mb3dlcjMyIDoNCj4gPj4+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBtZXRyaWNzLT5QdWJsaWNTZXJpYWxOdW1Mb3dlcjMyOw0KPiA+Pj4gKw0KPiA+Pj4g
-K291dF91bmxvY2s6DQo+ID4+PiArDQo+ID4+PiArICAgYWRldi0+dW5pcXVlX2lkID0gKCh1aW50
-NjRfdCl1cHBlcjMyIDw8IDMyKSB8IGxvd2VyMzI7DQo+ID4+PiArICAgaWYgKGFkZXYtPnNlcmlh
-bFswXSA9PSAnXDAnKQ0KPiA+Pj4gKyAgICAgICAgICAgc3ByaW50ZihhZGV2LT5zZXJpYWwsICIl
-MDE2bGx4IiwgYWRldi0+dW5pcXVlX2lkKTsNCj4gPj4+ICt9DQo+ID4+PiArDQo+ID4+PiAgICBz
-dGF0aWMgaW50IHNpZW5uYV9jaWNobGlkX3RhYmxlc19pbml0KHN0cnVjdCBzbXVfY29udGV4dCAq
-c211KQ0KPiA+Pj4gICAgew0KPiA+Pj4gICAgICBzdHJ1Y3Qgc211X3RhYmxlX2NvbnRleHQgKnNt
-dV90YWJsZSA9ICZzbXUtPnNtdV90YWJsZTsNCj4gPj4+IEBAIC00MTgyLDYgKzQyMTcsNyBAQCBz
-dGF0aWMgY29uc3Qgc3RydWN0IHBwdGFibGVfZnVuY3Mgc2llbm5hX2NpY2hsaWRfcHB0X2Z1bmNz
-ID0gew0KPiA+Pj4gICAgICAuZ2V0X2VjY19pbmZvID0gc2llbm5hX2NpY2hsaWRfZ2V0X2VjY19p
-bmZvLA0KPiA+Pj4gICAgICAuZ2V0X2RlZmF1bHRfY29uZmlnX3RhYmxlX3NldHRpbmdzID0NCj4g
-Pj4gc2llbm5hX2NpY2hsaWRfZ2V0X2RlZmF1bHRfY29uZmlnX3RhYmxlX3NldHRpbmdzLA0KPiA+
-Pj4gICAgICAuc2V0X2NvbmZpZ190YWJsZSA9IHNpZW5uYV9jaWNobGlkX3NldF9jb25maWdfdGFi
-bGUsDQo+ID4+PiArICAgLmdldF91bmlxdWVfaWQgPSBzaWVubmFfY2ljaGxpZF9nZXRfdW5pcXVl
-X2lkLA0KPiA+Pj4gICAgfTsNCj4gPj4+DQo+ID4+PiAgICB2b2lkIHNpZW5uYV9jaWNobGlkX3Nl
-dF9wcHRfZnVuY3Moc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpDQo+ID4+Pg0K
+--_000_BYAPR12MB46143E0A5A0F64D2BCBA68B5971D9BYAPR12MB4614namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only]
+
+Yes, that check looks good.
+
+A couple of other things -
+
+PMFW ticket as a comment is not needed.
+I remember Satish updating the same struct for smartshift related data. Som=
+e additional fields added towards the end. Not sure if Sienna struct also c=
+arries those fields. Regardless, you may check if that affects the placemen=
+t of serial number fields (whether before or after those fields).
+
+
+Thanks,
+Lijo
+________________________________
+From: Russell, Kent <Kent.Russell@amd.com>
+Sent: Monday, March 28, 2022 9:23:36 PM
+To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
+x@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: Add unique_id support for sienna cichl=
+id
+
+[AMD Official Use Only]
+
+> -----Original Message-----
+> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> Sent: Monday, March 28, 2022 11:48 AM
+> To: Russell, Kent <Kent.Russell@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: Re: [PATCH 2/2] drm/amdgpu: Add unique_id support for sienna cic=
+hlid
+>
+>
+>
+> On 3/28/2022 9:12 PM, Russell, Kent wrote:
+> > [AMD Official Use Only]
+> >
+> > Responses inline
+> >
+> >> -----Original Message-----
+> >> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> >> Sent: Monday, March 28, 2022 11:18 AM
+> >> To: Russell, Kent <Kent.Russell@amd.com>; amd-gfx@lists.freedesktop.or=
+g
+> >> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> >> Subject: Re: [PATCH 2/2] drm/amdgpu: Add unique_id support for sienna =
+cichlid
+> >>
+> >>
+> >>
+> >> On 3/28/2022 8:05 PM, Kent Russell wrote:
+> >>> This is being added to SMU Metrics, so add the required tie-ins in th=
+e
+> >>> kernel. Also create the corresponding unique_id sysfs file.
+> >>>
+> >>> v2: Add FW version check, remove SMU mutex
+> >>> v3: Fix style warning
+> >>>
+> >>> Signed-off-by: Kent Russell <kent.russell@amd.com>
+> >>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> >>> ---
+> >>>    drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  1 +
+> >>>    .../pmfw_if/smu11_driver_if_sienna_cichlid.h  | 12 +++++--
+> >>>    .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 36 +++++++++++++++=
+++++
+> >>>    3 files changed, 47 insertions(+), 2 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> >> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> >>> index 4151db2678fb..4a9aabc16fbc 100644
+> >>> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> >>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> >>> @@ -1993,6 +1993,7 @@ static int default_attr_update(struct amdgpu_de=
+vice *adev,
+> >> struct amdgpu_device_
+> >>>              case IP_VERSION(9, 4, 0):
+> >>>              case IP_VERSION(9, 4, 1):
+> >>>              case IP_VERSION(9, 4, 2):
+> >>> +           case IP_VERSION(10, 3, 0):
+> >>>                      *states =3D ATTR_STATE_SUPPORTED;
+> >>>                      break;
+> >>>              default:
+> >>> diff --git
+> >> a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cich=
+lid.h
+> >> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cich=
+lid.h
+> >>> index 3e4a314ef925..58f977320d06 100644
+> >>> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna=
+_cichlid.h
+> >>> +++
+> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid=
+.h
+> >>> @@ -1419,8 +1419,12 @@ typedef struct {
+> >>>      uint8_t  PcieRate               ;
+> >>>      uint8_t  PcieWidth              ;
+> >>>      uint16_t AverageGfxclkFrequencyTarget;
+> >>> -  uint16_t Padding16_2;
+> >>>
+> >>> +  //PMFW-8711
+> >>> +  uint32_t PublicSerialNumLower32;
+> >>> +  uint32_t PublicSerialNumUpper32;
+> >>> +
+> >>> +  uint16_t Padding16_2;
+> >>>    } SmuMetrics_t;
+> >>>
+> >>>    typedef struct {
+> >>> @@ -1476,8 +1480,12 @@ typedef struct {
+> >>>      uint8_t  PcieRate               ;
+> >>>      uint8_t  PcieWidth              ;
+> >>>      uint16_t AverageGfxclkFrequencyTarget;
+> >>> -  uint16_t Padding16_2;
+> >>>
+> >>> +  //PMFW-8711
+> >>> +  uint32_t PublicSerialNumLower32;
+> >>> +  uint32_t PublicSerialNumUpper32;
+> >>> +
+> >>
+> >> Is this the case for other ASICs also which share the metrics data wit=
+h
+> >> Sienna?
+> >
+> > No, only for Sienna Cichlid. The PMFW guys didn't implement it for Navy=
+ Flounder or
+> Dimgrey Cavefish.
+> >
+> >>
+> >>> +  uint16_t Padding16_2;
+> >>>    } SmuMetrics_V2_t;
+> >>>
+> >>>    typedef struct {
+> >>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> >> b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> >>> index 38f04836c82f..550458f6246a 100644
+> >>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> >>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> >>> @@ -481,6 +481,41 @@ static int sienna_cichlid_setup_pptable(struct s=
+mu_context
+> >> *smu)
+> >>>      return sienna_cichlid_patch_pptable_quirk(smu);
+> >>>    }
+> >>>
+> >>> +static void sienna_cichlid_get_unique_id(struct smu_context *smu)
+> >>> +{
+> >>> +   struct amdgpu_device *adev =3D smu->adev;
+> >>> +   struct smu_table_context *smu_table =3D &smu->smu_table;
+> >>> +   SmuMetrics_t *metrics =3D
+> >>> +           &(((SmuMetricsExternal_t *)(smu_table->metrics_table))->S=
+muMetrics);
+> >>> +   SmuMetrics_V2_t *metrics_v2 =3D
+> >>> +           &(((SmuMetricsExternal_t *)(smu_table->metrics_table))->S=
+muMetrics_V2);
+> >>> +   uint32_t upper32 =3D 0, lower32 =3D 0;
+> >>> +   bool use_metrics_v2;
+> >>> +   int ret;
+> >>> +
+> >>> +   /* Only supported as of version 0.58.83.0 */
+> >>> +   if (smu->smc_fw_version < 0x3A5300)
+> >>> +           return;
+> >>> +
+> >>
+> >> Since this is shared with other ASICs, I guess this check itself may n=
+ot
+> >> be enough. This function may be skipped if it's not MP1 11.0.7 or GC 1=
+0.3.0?
+> >>
+> >
+> > Since the sysfs file is only supported on Sienna Cichlid (10.3.0), is i=
+t a concern since the tie-
+> in won't exist on the other SMU11-based ASICs? And this function is only =
+referenced by
+> sienna_cichlid, unless I misunderstood something (and someone else uses
+> sienna_cichlid_tables_init).
+> >
+>
+> This function also gets called as part of common init sequence -
+> smu_get_unique_id.
+> If PMFW version of Navi Flounder/Dimgrey ASIC is greater than Sienna,
+> then it may go to the path which is not intended to be executed on that
+> ASIC.
+
+Would it be sufficient to just confirm the IP_VERSION here too then?
+ e.g.
+/* Only supported as of version 0.58.83.0 and only on Sienna Cichlid (GC 10=
+.3.0)*/
+if (smu->smc_fw_version < 0x3A5300 || adev->ip_versions[GC_HWIP][0] !=3D IP=
+_VERSION(10, 3, 0))
+          return;
+
+Thus the FW has to be that version, and the IP_VERSION has to be 10.3 ? Or =
+is there a better method to use? Thanks!
+
+ Kent
+
+>
+> Thanks,
+> Lijo
+>
+> >   Kent
+> >
+> >> Thanks,
+> >> Lijo
+> >>
+> >>> +   ret =3D smu_cmn_get_metrics_table(smu, NULL, false);
+> >>> +   if (ret)
+> >>> +           goto out_unlock;
+> >>> +
+> >>> +   use_metrics_v2 =3D ((smu->adev->ip_versions[MP1_HWIP][0] =3D=3D I=
+P_VERSION(11, 0,
+> >> 7)) &&
+> >>> +           (smu->smc_fw_version >=3D 0x3A4300)) ? true : false;
+> >>> +
+> >>> +   upper32 =3D use_metrics_v2 ? metrics_v2->PublicSerialNumUpper32 :
+> >>> +                              metrics->PublicSerialNumUpper32;
+> >>> +   lower32 =3D use_metrics_v2 ? metrics_v2->PublicSerialNumLower32 :
+> >>> +                              metrics->PublicSerialNumLower32;
+> >>> +
+> >>> +out_unlock:
+> >>> +
+> >>> +   adev->unique_id =3D ((uint64_t)upper32 << 32) | lower32;
+> >>> +   if (adev->serial[0] =3D=3D '\0')
+> >>> +           sprintf(adev->serial, "%016llx", adev->unique_id);
+> >>> +}
+> >>> +
+> >>>    static int sienna_cichlid_tables_init(struct smu_context *smu)
+> >>>    {
+> >>>      struct smu_table_context *smu_table =3D &smu->smu_table;
+> >>> @@ -4182,6 +4217,7 @@ static const struct pptable_funcs sienna_cichli=
+d_ppt_funcs =3D {
+> >>>      .get_ecc_info =3D sienna_cichlid_get_ecc_info,
+> >>>      .get_default_config_table_settings =3D
+> >> sienna_cichlid_get_default_config_table_settings,
+> >>>      .set_config_table =3D sienna_cichlid_set_config_table,
+> >>> +   .get_unique_id =3D sienna_cichlid_get_unique_id,
+> >>>    };
+> >>>
+> >>>    void sienna_cichlid_set_ppt_funcs(struct smu_context *smu)
+> >>>
+
+--_000_BYAPR12MB46143E0A5A0F64D2BCBA68B5971D9BYAPR12MB4614namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+Yes, that check looks good.</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+<br>
+</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+A couple of other things -&nbsp;</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+<br>
+</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+PMFW ticket as a comment is not needed.</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+I remember Satish updating the same struct for smartshift related data. Som=
+e additional fields added towards the end. Not sure if Sienna struct also c=
+arries those fields. Regardless, you may check if that affects the placemen=
+t of serial number fields (whether
+ before or after those fields).</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+<br>
+</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+" dir=3D"auto">
+<br>
+</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto">Thanks,<br>
+Lijo</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Russell, Kent &lt;Ken=
+t.Russell@amd.com&gt;<br>
+<b>Sent:</b> Monday, March 28, 2022 9:23:36 PM<br>
+<b>To:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedeskto=
+p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: Add unique_id support for sienn=
+a cichlid</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
+ style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
+<div><font size=3D"2"><span style=3D"font-size:11pt;">[AMD Official Use Onl=
+y]<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
+&gt; Sent: Monday, March 28, 2022 11:48 AM<br>
+&gt; To: Russell, Kent &lt;Kent.Russell@amd.com&gt;; amd-gfx@lists.freedesk=
+top.org<br>
+&gt; Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+&gt; Subject: Re: [PATCH 2/2] drm/amdgpu: Add unique_id support for sienna =
+cichlid<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt; On 3/28/2022 9:12 PM, Russell, Kent wrote:<br>
+&gt; &gt; [AMD Official Use Only]<br>
+&gt; &gt;<br>
+&gt; &gt; Responses inline<br>
+&gt; &gt;<br>
+&gt; &gt;&gt; -----Original Message-----<br>
+&gt; &gt;&gt; From: Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
+&gt; &gt;&gt; Sent: Monday, March 28, 2022 11:18 AM<br>
+&gt; &gt;&gt; To: Russell, Kent &lt;Kent.Russell@amd.com&gt;; amd-gfx@lists=
+.freedesktop.org<br>
+&gt; &gt;&gt; Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+&gt; &gt;&gt; Subject: Re: [PATCH 2/2] drm/amdgpu: Add unique_id support fo=
+r sienna cichlid<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; On 3/28/2022 8:05 PM, Kent Russell wrote:<br>
+&gt; &gt;&gt;&gt; This is being added to SMU Metrics, so add the required t=
+ie-ins in the<br>
+&gt; &gt;&gt;&gt; kernel. Also create the corresponding unique_id sysfs fil=
+e.<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; v2: Add FW version check, remove SMU mutex<br>
+&gt; &gt;&gt;&gt; v3: Fix style warning<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; Signed-off-by: Kent Russell &lt;kent.russell@amd.com&gt;<=
+br>
+&gt; &gt;&gt;&gt; Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&g=
+t;<br>
+&gt; &gt;&gt;&gt; ---<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/pm/amdgpu_pm.c&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 1 +<b=
+r>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; .../pmfw_if/smu11_driver_if_sienna_cich=
+lid.h&nbsp; | 12 +++++--<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; .../amd/pm/swsmu/smu11/sienna_cichlid_p=
+pt.c&nbsp;&nbsp; | 36 +++++++++++++++++++<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; 3 files changed, 47 insertions(+), 2 de=
+letions(-)<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt; &gt;&gt; b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt; &gt;&gt;&gt; index 4151db2678fb..4a9aabc16fbc 100644<br>
+&gt; &gt;&gt;&gt; --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt; &gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt; &gt;&gt;&gt; @@ -1993,6 +1993,7 @@ static int default_attr_update(stru=
+ct amdgpu_device *adev,<br>
+&gt; &gt;&gt; struct amdgpu_device_<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; case IP_VERSION(9, 4, 0):<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; case IP_VERSION(9, 4, 1):<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; case IP_VERSION(9, 4, 2):<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; case IP_VERSION(10, 3, 0):<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *state=
+s =3D ATTR_STATE_SUPPORTED;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;=
+<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; &gt;&gt;&gt; diff --git<br>
+&gt; &gt;&gt; a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_si=
+enna_cichlid.h<br>
+&gt; &gt;&gt; b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_si=
+enna_cichlid.h<br>
+&gt; &gt;&gt;&gt; index 3e4a314ef925..58f977320d06 100644<br>
+&gt; &gt;&gt;&gt; --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driv=
+er_if_sienna_cichlid.h<br>
+&gt; &gt;&gt;&gt; +++<br>
+&gt; b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cich=
+lid.h<br>
+&gt; &gt;&gt;&gt; @@ -1419,8 +1419,12 @@ typedef struct {<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t&nbsp; PcieRate&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; ;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t&nbsp; PcieWidth&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t AverageGfxclkFrequ=
+encyTarget;<br>
+&gt; &gt;&gt;&gt; -&nbsp; uint16_t Padding16_2;<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; +&nbsp; //PMFW-8711<br>
+&gt; &gt;&gt;&gt; +&nbsp; uint32_t PublicSerialNumLower32;<br>
+&gt; &gt;&gt;&gt; +&nbsp; uint32_t PublicSerialNumUpper32;<br>
+&gt; &gt;&gt;&gt; +<br>
+&gt; &gt;&gt;&gt; +&nbsp; uint16_t Padding16_2;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; } SmuMetrics_t;<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; typedef struct {<br>
+&gt; &gt;&gt;&gt; @@ -1476,8 +1480,12 @@ typedef struct {<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t&nbsp; PcieRate&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; ;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t&nbsp; PcieWidth&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t AverageGfxclkFrequ=
+encyTarget;<br>
+&gt; &gt;&gt;&gt; -&nbsp; uint16_t Padding16_2;<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; +&nbsp; //PMFW-8711<br>
+&gt; &gt;&gt;&gt; +&nbsp; uint32_t PublicSerialNumLower32;<br>
+&gt; &gt;&gt;&gt; +&nbsp; uint32_t PublicSerialNumUpper32;<br>
+&gt; &gt;&gt;&gt; +<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; Is this the case for other ASICs also which share the metrics=
+ data with<br>
+&gt; &gt;&gt; Sienna?<br>
+&gt; &gt;<br>
+&gt; &gt; No, only for Sienna Cichlid. The PMFW guys didn't implement it fo=
+r Navy Flounder or<br>
+&gt; Dimgrey Cavefish.<br>
+&gt; &gt;<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;&gt; +&nbsp; uint16_t Padding16_2;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; } SmuMetrics_V2_t;<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; typedef struct {<br>
+&gt; &gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_ci=
+chlid_ppt.c<br>
+&gt; &gt;&gt; b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c<br>
+&gt; &gt;&gt;&gt; index 38f04836c82f..550458f6246a 100644<br>
+&gt; &gt;&gt;&gt; --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_p=
+pt.c<br>
+&gt; &gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_p=
+pt.c<br>
+&gt; &gt;&gt;&gt; @@ -481,6 +481,41 @@ static int sienna_cichlid_setup_ppta=
+ble(struct smu_context<br>
+&gt; &gt;&gt; *smu)<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sienna_cichlid_patch=
+_pptable_quirk(smu);<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; +static void sienna_cichlid_get_unique_id(struct smu_cont=
+ext *smu)<br>
+&gt; &gt;&gt;&gt; +{<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; struct amdgpu_device *adev =3D smu-&gt;adev=
+;<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; struct smu_table_context *smu_table =3D &am=
+p;smu-&gt;smu_table;<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; SmuMetrics_t *metrics =3D<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; &amp;(((SmuMetricsExternal_t *)(smu_table-&gt;metrics_table))-&gt;SmuM=
+etrics);<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; SmuMetrics_V2_t *metrics_v2 =3D<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; &amp;(((SmuMetricsExternal_t *)(smu_table-&gt;metrics_table))-&gt;SmuM=
+etrics_V2);<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; uint32_t upper32 =3D 0, lower32 =3D 0;<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; bool use_metrics_v2;<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; int ret;<br>
+&gt; &gt;&gt;&gt; +<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; /* Only supported as of version 0.58.83.0 *=
+/<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; if (smu-&gt;smc_fw_version &lt; 0x3A5300)<b=
+r>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; return;<br>
+&gt; &gt;&gt;&gt; +<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; Since this is shared with other ASICs, I guess this check its=
+elf may not<br>
+&gt; &gt;&gt; be enough. This function may be skipped if it's not MP1 11.0.=
+7 or GC 10.3.0?<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;<br>
+&gt; &gt; Since the sysfs file is only supported on Sienna Cichlid (10.3.0)=
+, is it a concern since the tie-<br>
+&gt; in won't exist on the other SMU11-based ASICs? And this function is on=
+ly referenced by<br>
+&gt; sienna_cichlid, unless I misunderstood something (and someone else use=
+s<br>
+&gt; sienna_cichlid_tables_init).<br>
+&gt; &gt;<br>
+&gt;<br>
+&gt; This function also gets called as part of common init sequence -<br>
+&gt; smu_get_unique_id.<br>
+&gt; If PMFW version of Navi Flounder/Dimgrey ASIC is greater than Sienna,<=
+br>
+&gt; then it may go to the path which is not intended to be executed on tha=
+t<br>
+&gt; ASIC.<br>
+<br>
+Would it be sufficient to just confirm the IP_VERSION here too then?<br>
+&nbsp;e.g.<br>
+/* Only supported as of version 0.58.83.0 and only on Sienna Cichlid (GC 10=
+.3.0)*/<br>
+if (smu-&gt;smc_fw_version &lt; 0x3A5300 || adev-&gt;ip_versions[GC_HWIP][0=
+] !=3D IP_VERSION(10, 3, 0))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
+<br>
+Thus the FW has to be that version, and the IP_VERSION has to be 10.3 ? Or =
+is there a better method to use? Thanks!<br>
+<br>
+&nbsp;Kent<br>
+<br>
+&gt;<br>
+&gt; Thanks,<br>
+&gt; Lijo<br>
+&gt;<br>
+&gt; &gt;&nbsp;&nbsp; Kent<br>
+&gt; &gt;<br>
+&gt; &gt;&gt; Thanks,<br>
+&gt; &gt;&gt; Lijo<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; ret =3D smu_cmn_get_metrics_table(smu, NULL=
+, false);<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; if (ret)<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; goto out_unlock;<br>
+&gt; &gt;&gt;&gt; +<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; use_metrics_v2 =3D ((smu-&gt;adev-&gt;ip_ve=
+rsions[MP1_HWIP][0] =3D=3D IP_VERSION(11, 0,<br>
+&gt; &gt;&gt; 7)) &amp;&amp;<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; (smu-&gt;smc_fw_version &gt;=3D 0x3A4300)) ? true : false;<br>
+&gt; &gt;&gt;&gt; +<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; upper32 =3D use_metrics_v2 ? metrics_v2-&gt=
+;PublicSerialNumUpper32 :<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; metrics-&gt;PublicSerialNumUppe=
+r32;<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; lower32 =3D use_metrics_v2 ? metrics_v2-&gt=
+;PublicSerialNumLower32 :<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; metrics-&gt;PublicSerialNumLowe=
+r32;<br>
+&gt; &gt;&gt;&gt; +<br>
+&gt; &gt;&gt;&gt; +out_unlock:<br>
+&gt; &gt;&gt;&gt; +<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; adev-&gt;unique_id =3D ((uint64_t)upper32 &=
+lt;&lt; 32) | lower32;<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; if (adev-&gt;serial[0] =3D=3D '\0')<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; sprintf(adev-&gt;serial, &quot;%016llx&quot;, adev-&gt;unique_id);<br>
+&gt; &gt;&gt;&gt; +}<br>
+&gt; &gt;&gt;&gt; +<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; static int sienna_cichlid_tables_init(s=
+truct smu_context *smu)<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; {<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *s=
+mu_table =3D &amp;smu-&gt;smu_table;<br>
+&gt; &gt;&gt;&gt; @@ -4182,6 +4217,7 @@ static const struct pptable_funcs s=
+ienna_cichlid_ppt_funcs =3D {<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_ecc_info =3D sienna_ci=
+chlid_get_ecc_info,<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_default_config_table_s=
+ettings =3D<br>
+&gt; &gt;&gt; sienna_cichlid_get_default_config_table_settings,<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_config_table =3D sienn=
+a_cichlid_set_config_table,<br>
+&gt; &gt;&gt;&gt; +&nbsp;&nbsp; .get_unique_id =3D sienna_cichlid_get_uniqu=
+e_id,<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; };<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; void sienna_cichlid_set_ppt_funcs(struc=
+t smu_context *smu)<br>
+&gt; &gt;&gt;&gt;<br>
+</span></font></div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BYAPR12MB46143E0A5A0F64D2BCBA68B5971D9BYAPR12MB4614namp_--
