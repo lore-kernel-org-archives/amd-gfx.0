@@ -4,56 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44AC3C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 19:07:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36232C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 20:14:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8717710ED17;
-	Mon, 28 Mar 2022 19:07:57 +0000 (UTC)
-Received: from mail-ua1-x92e.google.com (mail-ua1-x92e.google.com
- [IPv6:2607:f8b0:4864:20::92e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0E3010E966;
- Mon, 28 Mar 2022 19:07:55 +0000 (UTC)
-Received: by mail-ua1-x92e.google.com with SMTP id j20so362923uan.1;
- Mon, 28 Mar 2022 12:07:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=CCKplzUskEQ9PwRTyuFUMJADGXMGT+3wuQ0LIFqQJTA=;
- b=iVLFo3/Wbarqi1Gy59ZX3ni8OxRbwnW/akTYc6RfW1m8CgbjSSyNDMtRp1RVi7Tejz
- b8YQxZyK2jg/JAPh9AsJ0u4zLhoff1XDlf7NrWZEhJegte0LIdZ4IU6PC0WYwSjaHDjG
- RFgv7u7HdAtOW66kFkWDiyk0LYdF9Ihm9DpHuX+mloqKl0secFILqUdD6yRMndKNIzGN
- EFEJJBx6HsqPkivC5Zr9d/3RQqo6iWX2oenhxT7GQSq58SPUyBmNv6jwsg86dQzXeyE3
- A3TdXe+MnA71RRcWLkbZ3wp8uGAphDzGldReYbNgQVUH49wE9PBm9VkLo0ky5A2w1yNh
- 1p9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=CCKplzUskEQ9PwRTyuFUMJADGXMGT+3wuQ0LIFqQJTA=;
- b=PxW0umZHFyC2tNQLS7vYMYywuhPlOipIPm0bI5ezF/naYnezBP4IYk8wXiM8Uk/ZWi
- ec5V3ZYzgFjOXXozq3dS/U1PS/jS4ofJRZvS3XuN5lLDwH74AV4mSTjOd1jbA3w3XFz6
- Wsh0FfqdZdKpniygPAisr2qVztyMSpBqfqwpRwf2Ja+E9CX4eX5QLn2CjfFWkq6kpMpt
- 7OZkdO0bPc6j7hagp2oswBrhBBBTyJMAyzZQJ/n8UT9Qg9f8ux6f0Sv3jKcq31VVzyc+
- jNywgomYTzC554wVKaML5wpnyCePcAtYXqzDhdvPijr6vE8fAuNbR2BpC8pJasbVoPqr
- I9aA==
-X-Gm-Message-State: AOAM533ByzerHIBaVh5ncdvgaOTYpwdruIDxvvYoDuSgvITA/3YuDc06
- XRjoUiLYw44txbbAMzxBnS6sSe/L26Zzb+qptS0=
-X-Google-Smtp-Source: ABdhPJyeB+4PzruoBESQc2VKSlA60X+ybn+mXU9Z41UctfcgMdS1JkVl9uLoW0REsYsj4gV+ulwXOYj02EGWedpRbnw=
-X-Received: by 2002:ab0:4ac1:0:b0:351:ed7d:e65c with SMTP id
- t1-20020ab04ac1000000b00351ed7de65cmr12559304uae.36.1648494474130; Mon, 28
- Mar 2022 12:07:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C159D10ED84;
+	Mon, 28 Mar 2022 20:14:34 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0048210ED84
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 20:14:32 +0000 (UTC)
+Received: from [192.168.0.4] (ip5f5ae92d.dynamic.kabel-deutschland.de
+ [95.90.233.45])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 7D20261EA1928;
+ Mon, 28 Mar 2022 22:14:30 +0200 (CEST)
+Message-ID: <cc77b58d-657e-b9d9-b1cf-9b72973c1623@molgen.mpg.de>
+Date: Mon, 28 Mar 2022 22:14:30 +0200
 MIME-Version: 1.0
-References: <20220311044756.425777-1-jim.cromie@gmail.com>
- <20220311044756.425777-3-jim.cromie@gmail.com>
- <823e51e6-2af4-7854-9428-697a2af12488@akamai.com>
- <CAJfuBxxVti_pa1YPmas=Ub28yWUFFGeR13wxveLvPCYS61NxuA@mail.gmail.com>
- <0d00c529-3bac-f09f-e07c-584194251a06@akamai.com>
-In-Reply-To: <0d00c529-3bac-f09f-e07c-584194251a06@akamai.com>
-From: jim.cromie@gmail.com
-Date: Mon, 28 Mar 2022 13:07:27 -0600
-Message-ID: <CAJfuBxwxA-9EwBaEow2UTBXD5-iER03+f5=D1zCUjTUut_bQaw@mail.gmail.com>
-Subject: Re: [PATCH 2/5] dyndbg: add class_id field and query support
-To: Jason Baron <jbaron@akamai.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: BUG: Bad page state in process systemd-udevd (was: [PATCH v9
+ bpf-next 1/9] x86/Kconfig: select HAVE_ARCH_HUGE_VMALLOC with
+ HAVE_ARCH_HUGE_VMAP)
+Content-Language: en-US
+To: Song Liu <songliubraving@fb.com>
+References: <20220204185742.271030-1-song@kernel.org>
+ <20220204185742.271030-2-song@kernel.org>
+ <14444103-d51b-0fb3-ee63-c3f182f0b546@molgen.mpg.de>
+ <7edcd673-decf-7b4e-1f6e-f2e0e26f757a@molgen.mpg.de>
+ <7F597B8E-72B3-402B-BD46-4C7F13A5D7BD@fb.com>
+ <4a49a98a-d958-8e48-10eb-24bb220e24ed@molgen.mpg.de>
+ <44B009D1-2BF8-4C69-9F09-B0F553A48B78@fb.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <44B009D1-2BF8-4C69-9F09-B0F553A48B78@fb.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,178 +51,115 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Greg KH <gregkh@linuxfoundation.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, robdclark@gmail.com,
- Sean Paul <seanpaul@chromium.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Joe Perches <joe@perches.com>,
- intel-gvt-dev@lists.freedesktop.org
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, iii@linux.ibm.com,
+ Daniel Borkmann <daniel@iogearbox.net>, Peter Zijlstra <peterz@infradead.org>,
+ netdev@vger.kernel.org, x86@kernel.org, Alexei Starovoitov <ast@kernel.org>,
+ amd-gfx@lists.freedesktop.org, Andrii Nakryiko <andrii@kernel.org>,
+ Song Liu <song@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>,
+ Kernel Team <Kernel-team@fb.com>,
+ Rick P Edgecombe <rick.p.edgecombe@intel.com>, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, regressions@lists.linux.dev
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 14, 2022 at 3:30 PM Jason Baron <jbaron@akamai.com> wrote:
->
->
->
-> On 3/11/22 20:06, jim.cromie@gmail.com wrote:
-> > On Fri, Mar 11, 2022 at 12:06 PM Jason Baron <jbaron@akamai.com> wrote:
-> >>
-> >>
-> >>
-> >> On 3/10/22 23:47, Jim Cromie wrote:
-> >>>
-> >>> With the patch, one can enable current/unclassed callsites by:
-> >>>
-> >>>   #> echo drm class 15 +p > /proc/dynamic_debug/control
-> >>>
-> >>
-> >> To me, this is hard to read, what the heck is '15'? I have to go look it
-> >> up in the control file and it's not descriptive. I think that using
-> >> classes/categories makes sense but I'm wondering if it can be a bit more
-> >> user friendly? Perhaps, we can pass an array of strings that is indexed
-> >> by the class id to each pr_debug() site that wants to use class. So
-> >> something like:
-
-hi Jason,
-Im now in basically full agreement with you
-
-1.   .class_id  is a "global" space, in that all callsites have one.
-2.    0-15 is an exceedingly small range for a global space
-
-Fix that by
-3. make it private (by removing "class N" parsing)
-   now nobody can do
-   echo module * class N +p >control
-
-4. add private/per-module "string" -> class_id map
-    each module will have to declare the class-strings they use/accept
-    opt-in - want coordinated / shared names for DRM_UT_KMS etc.
-
-5. validate input using the known class_string -> class_id
-
-then, this is knowably right or wrong, depending on DRM_FOO:
-     echo module drm class DRM_FOO +p > control
-
-it also means that
-     echo class DRM_UT_KMS +p >control
-is both wellformed and minimal;
-any module that has DRM_UT_KMS defined will know which class_id *they*
-have mapped it to.
-theres no global "DRM_UT_KMS" to be abused.
-
-So Ive been working towards that..
-Heres my current biggest roadblock
-
-DEFINE_DYNAMIC_DEBUG_CLASSBITS
-creates the class-strings[] array declaratively, at compile-time.
-This array is attached to the kernel-param.args,
-so it can be used by the callbacks (to construct the command)
-
-But its not obviously available from outside the sysfs knob
-that its attached to, as is needed to apply command >control generally.
-
-If I can attach the class-strings[]  to struct ddebug_table,
-then ddebug_change() can use it to validate >control input.
-
-So, how to attach ?
-its got to work for both builtin & loadable modules.
-(which precludes something in struct module ?)
-
-I looked for a kernel_param_register callback, came up empty.
-Trying to add it feels invasive / imposing.
+Dear Song,
 
 
-> >
-> > If that works, its cuz DEFINE_DYNAMIC_DEBUG_CLASSBITS()
-> > plucks class symbols out of its __VA_ARGS__, and #stringifes them.
-> > So that macro could then build the 1-per-module static constant string array
-> > and (only) the callbacks would be able to use it.
-> >
+Am 28.03.22 um 21:24 schrieb Song Liu:
 
-So Ive been tinkering hard on this macro, since its pretty central to
-the interface defn.
-heres some choices:
+>> On Mar 27, 2022, at 11:51 PM, Paul Menzel <pmenzel@molgen.mpg.de> wrote:
 
-this is what Ive been working towards.
-using enum symbols directly like this associates them by grep,
-in contrast, class-strings are mealy-mouthed, milquetoast.
+>> Am 28.03.22 um 08:37 schrieb Song Liu:
 
-DEFINE_DYNAMIC_DEBUG_CLASSBITS(debug, __drm_debug, "p",
-        "enable drm.debug categories - 1 bit per category",
-        DRM_UT_CORE,
-        DRM_UT_DRIVER,
-        DRM_UT_KMS,
-        DRM_UT_PRIME,
-        DRM_UT_ATOMIC,
-        DRM_UT_VBL,
-        DRM_UT_STATE,
-        DRM_UT_LEASE,
-        DRM_UT_DP,
-        DRM_UT_DRMRES);
+[…]
 
- I found a slick MAP ( ) macro to do this:
+>>>> On Mar 27, 2022, at 3:36 AM, Paul Menzel <pmenzel@molgen.mpg.de> wrote:
+>>
+>>>> Am 26.03.22 um 19:46 schrieb Paul Menzel:
+>>>>> #regzbot introduced: fac54e2bfb5be2b0bbf115fe80d45f59fd773048
+>>>>> #regzbot title: BUG: Bad page state in process systemd-udevd
+>>>>
+>>>>> Am 04.02.22 um 19:57 schrieb Song Liu:
+>>>>>> From: Song Liu <songliubraving@fb.com>
+>>>>>>
+>>>>>> This enables module_alloc() to allocate huge page for 2MB+ requests.
+>>>>>> To check the difference of this change, we need enable config
+>>>>>> CONFIG_PTDUMP_DEBUGFS, and call module_alloc(2MB). Before the change,
+>>>>>> /sys/kernel/debug/page_tables/kernel shows pte for this map. With the
+>>>>>> change, /sys/kernel/debug/page_tables/ show pmd for thie map.
+>>>>>>
+>>>>>> Signed-off-by: Song Liu <songliubraving@fb.com>
+>>>>>> ---
+>>>>>>    arch/x86/Kconfig | 1 +
+>>>>>>    1 file changed, 1 insertion(+)
+>>>>>>
+>>>>>> diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+>>>>>> index 6fddb63271d9..e0e0d00cf103 100644
+>>>>>> --- a/arch/x86/Kconfig
+>>>>>> +++ b/arch/x86/Kconfig
+>>>>>> @@ -159,6 +159,7 @@ config X86
+>>>>>>        select HAVE_ALIGNED_STRUCT_PAGE        if SLUB
+>>>>>>        select HAVE_ARCH_AUDITSYSCALL
+>>>>>>        select HAVE_ARCH_HUGE_VMAP        if X86_64 || X86_PAE
+>>>>>> +    select HAVE_ARCH_HUGE_VMALLOC        if HAVE_ARCH_HUGE_VMAP
+>>>>>>        select HAVE_ARCH_JUMP_LABEL
+>>>>>>        select HAVE_ARCH_JUMP_LABEL_RELATIVE
+>>>>>>        select HAVE_ARCH_KASAN            if X86_64
+>>>>> Testing Linus’ current master branch, Linux logs critical messages like below:
+>>>>>      BUG: Bad page state in process systemd-udevd  pfn:102e03
+>>>>> I bisected to your commit fac54e2bfb5 (x86/Kconfig: select
+>>>>> HAVE_ARCH_HUGE_VMALLOC with HAVE_ARCH_HUGE_VMAP).
+>>>> Sorry, I forget to mention, that this is a 32-bit (i686) userspace,
+>>>> but a 64-bit Linux kernel, so it might be the same issue as
+>>>> mentioned in commit eed1fcee556f (x86: Disable
+>>>> HAVE_ARCH_HUGE_VMALLOC on 32-bit x86), but didn’t fix the issue for
+>>>> 64-bit Linux kernel and 32-bit userspace.
+>>> I will look more into this tomorrow. To clarify, what is the 32-bit
+>>> user space that triggers this? Is it systemd-udevd? Is the systemd
+>>> also i686?
+>>
+>> Yes, everything – also systemd – is i686. You can build a 32-bit VM image with grml-debootstrap [1]:
+>>
+>>     sudo DEBOOTSTRAP=mmdebstrap ~/src/grml-debootstrap/grml-debootstrap --vm --vmfile --vmsize 3G --target /dev/shm/debian-32.img -r sid --arch i686 --filesystem ext4
+>>
+>> Then run that with QEMU, but pass the 64-bit Linux kernel to QEMU directly with the switches `-kernel` and `-append`, or install the amd64 Linux kernel into the Debian VM image or the package created with `make bindeb-pkg` with `dpkg -i …`.
+> 
+> Thanks for these information!
+> 
+> I tried the following, but couldn't reproduce the issue.
+> 
+> sudo ./grml-debootstrap --vm --vmfile --vmsize 3G --target ../debian-32.img -r sid --arch i386 --filesystem ext4
+> 
+> Note: s/i686/i386/. Also I run this on Fedora, so I didn't specify DEBOOTSTRAP.
+> 
+> Then I run it with
+> 
+> qemu-system-x86_64 \
+>    -boot d ./debian-32.img -m 1024 -smp 4 \
+>    -kernel ./bzImage \
+>    -nographic -append 'root=/dev/sda1 ro console=ttyS0,115200'
+> 
+> The VM boots fine. The config being used is x86_64_defconfig +
+> CONFIG_DRM_FBDEV_EMULATION.
+> 
+> I wonder whether this is caused by different config or different image.
+> Could you please share your config?
 
-#define DEFINE_DYNAMIC_DEBUG_CLASSBITS(fsname, _var, _flgs, desc, ...) \
-  MODULE_PARM_DESC(fsname, desc); \
-  static struct dyndbg_classbits_param ddcats_##_var = { \
-    .bits = &(_var), \
-    .flags = _flgs, \
-    .classes = { __VA_ARGS__, _DPRINTK_CLASS_DFLT }, \
-    .class_names = { mgMAP(__stringify, sCOMMA, \
-                                                __VA_ARGS__,
-_DPRINTK_CLASS_DFLT) } \
-}; \
-module_param_cb(fsname, &param_ops_dyndbg_classbits, \
-&ddcats_##_var, 0644)
+Sorry, for leading you on the wrong path. I actually just wanted to help 
+getting a 32-bit userspace set up quickly. I haven’t tried reproducing 
+the issue in a VM, and used only the ASUS F2A85-M PRO.
 
- __VA_ARGS__   is used 2x
-.class_names is available for validating command >control
+Booting the system with `nomodeset`, I didn’t see the error. No idea if 
+it’s related to framebuffer handling or specific to AMD graphics device.
 
-As much as I like the above, the MAP macro has a longer, more risky
-path to the kernel
+> PS: I couldn't figure out the root password of the image, --password
+> option of grml-debootstrap doesn't seem to work.
 
-so a more modest alternative: module user defines class-strings in interface,
-but they *must* align manually with the enum values they correspond to;
-the order determines the bit-pos in the sysfs node,
-since the interface no longer provides the enum values themselves.
+Hmm, I thought it’s asking you during install, but I haven’t done it in 
+a while.
 
-DEFINE_DYNAMIC_DEBUG_CLASS_STRINGS(debug, __drm_debug, "p",
-        "enable drm.debug categories - 1 bit per category",
-        "DRM_UT_CORE",
-        "DRM_UT_DRIVER",
-        "DRM_UT_KMS",
 
-different name allows CLASSBITs or similar in future, if MAP works out.
-class-strings are completely defined by users, drm can drop UT naming
+Kind regards,
 
-TLDR: FWIW
-
-iSTM that  the same macro will support the coordinated use of class-strings
-across multiple modules.
-
-drm_print.c - natural home for exposed sysfs node
-
-amdgpu/, drm_helper/ i915/  nouveau/  will all need a DEFINE_DD added,
-so that ddebug_change() can allow those .class_ids to be controlled.
-sysfs perm inits can disable their nodes, since theyre coordinated.
-
-> >
->
-> Ok, yeah so I guess I'm thinking about the 'class' more as global namespace,
-> so that for example, it could span modules, or be specific to certain modules.
-> I'm also thinking of it as a 'string' which is maybe hierarchical, so that it's
-> clear what sub-system, or sub-sub-system it belongs to. So for DRM for example,
-> it could be a string like "DRM:CORE". The index num I think is still helpful for
-> implementation so we don't have to store a pointer size, but I don't think it's
-> really exposed (except perhaps in module params b/c drm is doing that already?).
->
-
-So what Ive got here is as described above,
-I just need a few bright ideas,
-then I can bring it together.
-got a spare tuit?
-
-Jim
+Paul
