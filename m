@@ -4,120 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EF4DC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 18:21:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44AC3C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 19:07:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAD2110E6FF;
-	Mon, 28 Mar 2022 18:21:56 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ED9010E6FF;
- Mon, 28 Mar 2022 18:21:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZGRPAyUBfNKxtkbsiWPJ7dGoXy0grLEDZgmVQXMFa3+5JB0vCTgUtJ2nQbRIy24vVMIslidOGtmhqAWmLstVCNdui+5tku/+NZSlqOPxyPZpQqWT6q4BrzjMHx7Ir4HvtIvtHkKRFgy/twADHrIakRWDRXCrq9rm8q6qyW9OZHLPEpHjuWEZBNCDDz/QAuKoehab2LO6uXmO46GuSK4Yt+YtDL/LWwIny8CCVesgzO8lLJN4ozmzhRUd66G7ab8ts44vMqHk4ACZwG8DnZx2qq7QWnD3AsKqCyb1o/BilJnF59dsuqL8RxTlU2sL4F9nLfi4+YjCCrdYUng1ZNvOlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PblMILgSxjPFXPY7G3hebHEDhY80ZWvQmAvlOvv5Hgk=;
- b=gVwHXZqGeoC+TKtr1pUCxPNpR75BRWUJ9IwXPe5QiWmmCZ11Ao/t1Dp657PD4gaPrhPAngymfIXL7xjkNUnmrdwqx3D8pFlWU+5gVe4GtPzydQBd0YhgTvTotd5jBHBvNAYa+qLs9ipWF+zccJ1mCc8fzqKDbb0AtZNaHnoh+YqFGLJMbGst23b/U9HaR+eJW2ax3jxLpbEUGEWT+2kB2Ho2Stfy+T0blZe+RSeLmrLUz0hs0CGKI6L4OG8qoJWWxuFa0UnASgu6zPwDBiBwtQBBmWhJFk8oAB/Hzym7tyQLjk6ApjXgI04DtmgNwbhXWTlkuosiJz7kB7d7n6z5ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PblMILgSxjPFXPY7G3hebHEDhY80ZWvQmAvlOvv5Hgk=;
- b=J/R4+oCLaKdFDV+R4dCQjFwCcC2KVQrAJ33lUqFAQzoXs/H3xJJ0BMvezdvYbedvvbUMWfUfYM/5uZMqP/RcmlWBfrABIPXMH1/e5JLw2+26PO41VN6k2dJmCa9peGpFBeFx/3xqpc6nTNeJ99FJiJaXWpRC91yKFN8YUzGsb28=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by BL0PR12MB2577.namprd12.prod.outlook.com (2603:10b6:207:42::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17; Mon, 28 Mar
- 2022 18:21:54 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::192:5346:4ece:7ca3]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::192:5346:4ece:7ca3%4]) with mapi id 15.20.5102.023; Mon, 28 Mar 2022
- 18:21:54 +0000
-Message-ID: <072d9e5f-b144-e411-c696-14f226f1b3f0@amd.com>
-Date: Mon, 28 Mar 2022 14:21:47 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [RFC PATCH] drm/amd/display: dont ignore alpha property
-Content-Language: en-US
-To: Melissa Wen <mwen@igalia.com>, Simon Ser <contact@emersion.fr>
-References: <20220325204450.kq7kjb7ez63p5srm@mail.igalia.com>
- <Bq9Aj2IM-iCzmSHMJzvYjL_qmyPoAjbrRh8JNExHmqJW5kxFbtOSjC4WFoeB2R_lUKQszrEuHsFKNHAtXvhdUwp_8ejTnKqKRmVPiiS8Cqs=@emersion.fr>
- <20220328165450.lix5hybt3egtpowr@mail.igalia.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20220328165450.lix5hybt3egtpowr@mail.igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0119.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:85::24) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8717710ED17;
+	Mon, 28 Mar 2022 19:07:57 +0000 (UTC)
+Received: from mail-ua1-x92e.google.com (mail-ua1-x92e.google.com
+ [IPv6:2607:f8b0:4864:20::92e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0E3010E966;
+ Mon, 28 Mar 2022 19:07:55 +0000 (UTC)
+Received: by mail-ua1-x92e.google.com with SMTP id j20so362923uan.1;
+ Mon, 28 Mar 2022 12:07:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=CCKplzUskEQ9PwRTyuFUMJADGXMGT+3wuQ0LIFqQJTA=;
+ b=iVLFo3/Wbarqi1Gy59ZX3ni8OxRbwnW/akTYc6RfW1m8CgbjSSyNDMtRp1RVi7Tejz
+ b8YQxZyK2jg/JAPh9AsJ0u4zLhoff1XDlf7NrWZEhJegte0LIdZ4IU6PC0WYwSjaHDjG
+ RFgv7u7HdAtOW66kFkWDiyk0LYdF9Ihm9DpHuX+mloqKl0secFILqUdD6yRMndKNIzGN
+ EFEJJBx6HsqPkivC5Zr9d/3RQqo6iWX2oenhxT7GQSq58SPUyBmNv6jwsg86dQzXeyE3
+ A3TdXe+MnA71RRcWLkbZ3wp8uGAphDzGldReYbNgQVUH49wE9PBm9VkLo0ky5A2w1yNh
+ 1p9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=CCKplzUskEQ9PwRTyuFUMJADGXMGT+3wuQ0LIFqQJTA=;
+ b=PxW0umZHFyC2tNQLS7vYMYywuhPlOipIPm0bI5ezF/naYnezBP4IYk8wXiM8Uk/ZWi
+ ec5V3ZYzgFjOXXozq3dS/U1PS/jS4ofJRZvS3XuN5lLDwH74AV4mSTjOd1jbA3w3XFz6
+ Wsh0FfqdZdKpniygPAisr2qVztyMSpBqfqwpRwf2Ja+E9CX4eX5QLn2CjfFWkq6kpMpt
+ 7OZkdO0bPc6j7hagp2oswBrhBBBTyJMAyzZQJ/n8UT9Qg9f8ux6f0Sv3jKcq31VVzyc+
+ jNywgomYTzC554wVKaML5wpnyCePcAtYXqzDhdvPijr6vE8fAuNbR2BpC8pJasbVoPqr
+ I9aA==
+X-Gm-Message-State: AOAM533ByzerHIBaVh5ncdvgaOTYpwdruIDxvvYoDuSgvITA/3YuDc06
+ XRjoUiLYw44txbbAMzxBnS6sSe/L26Zzb+qptS0=
+X-Google-Smtp-Source: ABdhPJyeB+4PzruoBESQc2VKSlA60X+ybn+mXU9Z41UctfcgMdS1JkVl9uLoW0REsYsj4gV+ulwXOYj02EGWedpRbnw=
+X-Received: by 2002:ab0:4ac1:0:b0:351:ed7d:e65c with SMTP id
+ t1-20020ab04ac1000000b00351ed7de65cmr12559304uae.36.1648494474130; Mon, 28
+ Mar 2022 12:07:54 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ee9abad9-2e56-4886-70b3-08da10e7d5c5
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2577:EE_
-X-Microsoft-Antispam-PRVS: <BL0PR12MB2577210A16E8FE7661DD9E138C1D9@BL0PR12MB2577.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aDKc9+9jZ0yWQ/8e1osIcR6KTMAPrVvMSE0Irp92x8Aar6+cMgfTKRy86g7XWuIQn5zpmsD7VjqUTfPg4/KdMY2lXcxD8+gUseJuxl+4NStgV+U+/1tQhU0JWZlfh3tmgtZnrrW9+TjA/fL5YuLKm34bHQp3UxhdZnkSgJsFr1zMWZ5dF7gljzWdi6YcwJVvA8T+qBALPAn6PM1Ei6Ozed+Gi5eYJG66A3FKjI0NsTKVegnEJyIRAJuLd1qOmgNR1eo8Bpm0ov/LNPdhG3jSyEtdK9Ubs4ZBoUmhUlIts4PP2qkQlibEnyZ2oJmbnW5vLZQR4zGbHwKEkDylCnXXzOaNKshvz0d/Idlq7s8FRPhEqInkSfC+wd0q9CefXO4/w67wSDcWjumq47clRuW1YXM5Rf8R0Loxfqq52b25glQCbr+gvQy0c95Baw9aYuyhzM++Yo9XXhVehrqPylOoyA9OPDd0WR3EGRheHT6fuUrBIK+nOiYzk256+XqMGIb0nzOasapZBHJbNaaS1T6yJjmQQda1DThiHz6jzWXOs83p866wSZRUvPU8PRlippLrOY3WPsKetIo2kQXPLrFileeEv+LJFB0+A2aHvp8/2md0rg9qHNHK1h5EqSLYv0W13qtxDw++kzNMIOgLjDt0z71Lh87JEjCjrJPaSN1Vcf6c3fSaFGrD/EGQhwm6vC+Zt9Ff/lqiN+EJ4Ob7jYRwtlzLFsa9cTHDA2l8vY0jTs7ZbX0hNL/jRouEGumgzmm6
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(186003)(6666004)(4744005)(83380400001)(2616005)(26005)(44832011)(2906002)(53546011)(6486002)(36756003)(966005)(31686004)(508600001)(8936002)(66946007)(66556008)(8676002)(31696002)(38100700002)(316002)(86362001)(6512007)(4326008)(66476007)(5660300002)(54906003)(110136005)(6506007)(192303002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eWpiMUsrSW5PWDlyY0ZRK2hlUzVYN0dKUWJVUVBMaVFKMDVoZnNoWkVSQUg4?=
- =?utf-8?B?cm5DdTJuSHluOHVVaFUreCttcGtiQzE2Vy9BZU1aK2Y4cmZDUTJkWVN5QXMw?=
- =?utf-8?B?VHpnYTh1STlha0tld01lL2dsMENQVG9wOElZSUpTL2c4T2V5R3hlWmFOODJK?=
- =?utf-8?B?aVkrbUZrRncraUpXRC8wemd0RGk1cXVkTnRNSmNSMHVpNElkQ0l5Y1B5SUVa?=
- =?utf-8?B?Z2ZjekxnUXRxUGNYOTJlc1htQU9ia2FSL2UzTjVhTDhNd2pzOUU1eTdLVFI0?=
- =?utf-8?B?Q3FWUTFpWXpNb0FGSEU2eUdwc3lLTk90dHJtN3ZpTzJqZTRqekJPR2VtYnRi?=
- =?utf-8?B?SHpQQk9QcGE2Z2NhSkExeFFZbEx4Ym1USEQzWUFjYWd3am1obXVDMUpOczF1?=
- =?utf-8?B?L2grQ0pweitrbnR4QnB6UkdKSzN3bzV6VktsdVc5VlB5cDdTN0R3SFNOeFoy?=
- =?utf-8?B?M1lRby9Pa1lIMjZkM05SODFmZm92eGFhWHBCVm9KYWExdGhZZlBTaEZzUVdX?=
- =?utf-8?B?UDllSXl5eGhTR2tOQjJXdjM5NGJLL0F0S2NyQ2dMRmpZNWpOSWI4ZTdoUDBB?=
- =?utf-8?B?WWg3a09ZK2N5SlMza2tabEdOMHlkdHozUTJWT3JIZE1CKzRVUVBEY3VoaU5E?=
- =?utf-8?B?TGx2a0VZRVhSR3JJTkpab1JZaDBaaWNHSzJqRnlzOEY0Kzdzb0Z3ZDZncmR5?=
- =?utf-8?B?VUZIWWgrakc4QUkxRzJ3R2ZzOE90VHVSRVI1NUNZcHBLak5iSUJvemEweDdO?=
- =?utf-8?B?N2M1ekVKYWc4WERGU1BLcDFkelFVMDNDYmozYVdDTVBCMm0zNkMrRVQrNEFw?=
- =?utf-8?B?dkMzS21rWFJQRGVMSEZFdDNiclR4dWl6NjRaNjY0QzVib21tOTZ4ampEVVU1?=
- =?utf-8?B?NHdnWVFBV1dyTzE5aVFKWVJBcXZacUEzWlp0d1RWRkt4MWt0OVVWZXl2cmRM?=
- =?utf-8?B?dDRnVWl5UzhkZUtWVWpscVRJZzlwaFVYbXptdWhweGsxUUZlekw4L2NkUGJE?=
- =?utf-8?B?bm9JVlNiNDZIdUxERTEvTUhHekRjdTllMmlpeis0MjJDWTBZcWlhTGtPb1dE?=
- =?utf-8?B?TEVLWkE3NGRnQW1iUkFGaXd4d3dZT01UcjYrazRoVWtaNDNXSlErSm5zT3h1?=
- =?utf-8?B?Smd6T1pXS0VhbEtINUVlRFM2TW9ZY3BEMHE4R3lQSC9YeHpWaHpIOWJ1Yytx?=
- =?utf-8?B?UDFlV1BCQTdtRTdBaVFxSkZPd3p5b05qR2lsUU9BWUtpajhHWldsZHkxZC9G?=
- =?utf-8?B?bWYwQ0lmdDF2VGtrdUFEN0VQamV6dWJpYU9kellBbDNVWlNWK3krMUdvajB6?=
- =?utf-8?B?S3lXdDRhdVl3WkIzaFA0Y08vSUtGdWcrcWExdnRMbU81MGlnaXdHUmYxRVlU?=
- =?utf-8?B?Nm11V1FXR2MzMnNqZE9qZGlBemc1SkhiS3JVV3ZiOEJzRW1TbVVSS25uNjJs?=
- =?utf-8?B?aWI3V3I4V2VHVXArQ2h5UXZjbEhac1R0bkViMVJWeXF3MnBKNlhIL0RtVDd3?=
- =?utf-8?B?R1VQc0t2OXhHMzBqSHI1TkxSOURMTXhHZ3Viazd6SHVaM09CcjNpYm9BS3Fa?=
- =?utf-8?B?c2VaTENZRExJdDM1ZDJmWVpnL25nTGdGWitacFZaUklURk53ejE4U3NiQXJa?=
- =?utf-8?B?d1NUU09jNU5XeVZyK2d1QXpVeFdGTEpWY0MzazAwRzJPOFlid2MxTGg0dUZK?=
- =?utf-8?B?RFRlSmpEb29Scm5jREQ1UkFoM3FYRXd1dUI1MzZqOFgweGVqZ0I0WVVicmpw?=
- =?utf-8?B?dGNpN2hzWldQTjdXSDBrdlExK1dYL2htVFVzcjg2eGN1bVZ5U0l3RjNzMitX?=
- =?utf-8?B?eEM3c3h5cXRjbXk4c01TNjdPYkRHbVpDRDNoT1BGbXZMcmpzNFBxeVJtdGtm?=
- =?utf-8?B?NXdjTXNVTXJRWlNyU3hSTytSTkhWVzU5Rm13Ukk2dDloR0l1d215alZMWjZs?=
- =?utf-8?B?L0t4YlZsSFR3dnczZW1wREM0NitvMWhrb2o4WmM0VnNOYlMrS2hHKytHeUpv?=
- =?utf-8?B?WnZUMW4ybm9EU2U4bzhlRWl1emNwbVoyTEJKRGJTcjR6QVpxZTVFa295WndM?=
- =?utf-8?B?RXE2TDI2Z3Q3TGhTL2tpVmljZjc4RENMdHVndFNNVTNxb1FzMmFxMFVXMmZ6?=
- =?utf-8?B?MS9VU2xIUEwzQzdSTFhmcUpNZ0tFTkl2VVMyREJVZkNQRG9XYVhNZWd3TEkw?=
- =?utf-8?B?SjNRaHhDbGdaaEtKd3ExR0d5NFRMQVlIcksvdndvMmQyNWNSUnREdzBRWWxB?=
- =?utf-8?B?Wm9aaTRYY3pLaHM3d0swUnFGNk1XK2E1UEhjbTl3K2kwWTEyR1Vsc2xwQ2gw?=
- =?utf-8?B?Ujd5dnN3empNdmFpajdoZlNEVDJtRGFXM0FsYXRuTXBEdFpIT0F6Zz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee9abad9-2e56-4886-70b3-08da10e7d5c5
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2022 18:21:53.9290 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mD7z4/pB7fwZV5XKzBUF/rriPV3SFz/fee+uMzgEIEYg8lnk5jdi5pJ/BUC3zpL75qOMONc8X1pzLrrD/Fzkqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2577
+References: <20220311044756.425777-1-jim.cromie@gmail.com>
+ <20220311044756.425777-3-jim.cromie@gmail.com>
+ <823e51e6-2af4-7854-9428-697a2af12488@akamai.com>
+ <CAJfuBxxVti_pa1YPmas=Ub28yWUFFGeR13wxveLvPCYS61NxuA@mail.gmail.com>
+ <0d00c529-3bac-f09f-e07c-584194251a06@akamai.com>
+In-Reply-To: <0d00c529-3bac-f09f-e07c-584194251a06@akamai.com>
+From: jim.cromie@gmail.com
+Date: Mon, 28 Mar 2022 13:07:27 -0600
+Message-ID: <CAJfuBxwxA-9EwBaEow2UTBXD5-iER03+f5=D1zCUjTUut_bQaw@mail.gmail.com>
+Subject: Re: [PATCH 2/5] dyndbg: add class_id field and query support
+To: Jason Baron <jbaron@akamai.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,43 +65,178 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Zhan Liu <Zhan.Liu@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Agustin Gutierrez <agustin.gutierrez@amd.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, robdclark@gmail.com,
+ Sean Paul <seanpaul@chromium.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Joe Perches <joe@perches.com>,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Mon, Mar 14, 2022 at 3:30 PM Jason Baron <jbaron@akamai.com> wrote:
+>
+>
+>
+> On 3/11/22 20:06, jim.cromie@gmail.com wrote:
+> > On Fri, Mar 11, 2022 at 12:06 PM Jason Baron <jbaron@akamai.com> wrote:
+> >>
+> >>
+> >>
+> >> On 3/10/22 23:47, Jim Cromie wrote:
+> >>>
+> >>> With the patch, one can enable current/unclassed callsites by:
+> >>>
+> >>>   #> echo drm class 15 +p > /proc/dynamic_debug/control
+> >>>
+> >>
+> >> To me, this is hard to read, what the heck is '15'? I have to go look it
+> >> up in the control file and it's not descriptive. I think that using
+> >> classes/categories makes sense but I'm wondering if it can be a bit more
+> >> user friendly? Perhaps, we can pass an array of strings that is indexed
+> >> by the class id to each pr_debug() site that wants to use class. So
+> >> something like:
+
+hi Jason,
+Im now in basically full agreement with you
+
+1.   .class_id  is a "global" space, in that all callsites have one.
+2.    0-15 is an exceedingly small range for a global space
+
+Fix that by
+3. make it private (by removing "class N" parsing)
+   now nobody can do
+   echo module * class N +p >control
+
+4. add private/per-module "string" -> class_id map
+    each module will have to declare the class-strings they use/accept
+    opt-in - want coordinated / shared names for DRM_UT_KMS etc.
+
+5. validate input using the known class_string -> class_id
+
+then, this is knowably right or wrong, depending on DRM_FOO:
+     echo module drm class DRM_FOO +p > control
+
+it also means that
+     echo class DRM_UT_KMS +p >control
+is both wellformed and minimal;
+any module that has DRM_UT_KMS defined will know which class_id *they*
+have mapped it to.
+theres no global "DRM_UT_KMS" to be abused.
+
+So Ive been working towards that..
+Heres my current biggest roadblock
+
+DEFINE_DYNAMIC_DEBUG_CLASSBITS
+creates the class-strings[] array declaratively, at compile-time.
+This array is attached to the kernel-param.args,
+so it can be used by the callbacks (to construct the command)
+
+But its not obviously available from outside the sysfs knob
+that its attached to, as is needed to apply command >control generally.
+
+If I can attach the class-strings[]  to struct ddebug_table,
+then ddebug_change() can use it to validate >control input.
+
+So, how to attach ?
+its got to work for both builtin & loadable modules.
+(which precludes something in struct module ?)
+
+I looked for a kernel_param_register callback, came up empty.
+Trying to add it feels invasive / imposing.
 
 
-On 2022-03-28 12:54, Melissa Wen wrote:
-> On 03/28, Simon Ser wrote:
->> Thanks a lot for you patch! I've noticed as well that amdgpu ignores
->> the plane alpha property [1]. I'll try to find time to test it.
-> Hi Simon,
-> 
-> So you've faced this kind of issue many times :/
-> Let me know the results from your side, so we can use it to find the
-> correct approach to solve this issue.
+> >
+> > If that works, its cuz DEFINE_DYNAMIC_DEBUG_CLASSBITS()
+> > plucks class symbols out of its __VA_ARGS__, and #stringifes them.
+> > So that macro could then build the 1-per-module static constant string array
+> > and (only) the callbacks would be able to use it.
+> >
 
-Thanks, Melissa, for looking into this. It does indeed look like we
-should support that in amdgpu.
+So Ive been tinkering hard on this macro, since its pretty central to
+the interface defn.
+heres some choices:
 
->>
->> [1]: https://gitlab.freedesktop.org/drm/amd/-/issues/1734
-> Yeah, it looks like the same problem.
-> 
+this is what Ive been working towards.
+using enum symbols directly like this associates them by grep,
+in contrast, class-strings are mealy-mouthed, milquetoast.
 
-Ooh, tentative looks neat. I'll have to give it a try.
+DEFINE_DYNAMIC_DEBUG_CLASSBITS(debug, __drm_debug, "p",
+        "enable drm.debug categories - 1 bit per category",
+        DRM_UT_CORE,
+        DRM_UT_DRIVER,
+        DRM_UT_KMS,
+        DRM_UT_PRIME,
+        DRM_UT_ATOMIC,
+        DRM_UT_VBL,
+        DRM_UT_STATE,
+        DRM_UT_LEASE,
+        DRM_UT_DP,
+        DRM_UT_DRMRES);
 
-Harry
+ I found a slick MAP ( ) macro to do this:
 
-> I also think the IGT test case (alpha-7efc) is not the best one because
-> results can be affected by rounding issues. Maybe the test should be
-> reworked, but first this alpha property issue should be clarified.
-> 
-> Thanks for the inputs!
-> 
-> Melissa
+#define DEFINE_DYNAMIC_DEBUG_CLASSBITS(fsname, _var, _flgs, desc, ...) \
+  MODULE_PARM_DESC(fsname, desc); \
+  static struct dyndbg_classbits_param ddcats_##_var = { \
+    .bits = &(_var), \
+    .flags = _flgs, \
+    .classes = { __VA_ARGS__, _DPRINTK_CLASS_DFLT }, \
+    .class_names = { mgMAP(__stringify, sCOMMA, \
+                                                __VA_ARGS__,
+_DPRINTK_CLASS_DFLT) } \
+}; \
+module_param_cb(fsname, &param_ops_dyndbg_classbits, \
+&ddcats_##_var, 0644)
 
+ __VA_ARGS__   is used 2x
+.class_names is available for validating command >control
+
+As much as I like the above, the MAP macro has a longer, more risky
+path to the kernel
+
+so a more modest alternative: module user defines class-strings in interface,
+but they *must* align manually with the enum values they correspond to;
+the order determines the bit-pos in the sysfs node,
+since the interface no longer provides the enum values themselves.
+
+DEFINE_DYNAMIC_DEBUG_CLASS_STRINGS(debug, __drm_debug, "p",
+        "enable drm.debug categories - 1 bit per category",
+        "DRM_UT_CORE",
+        "DRM_UT_DRIVER",
+        "DRM_UT_KMS",
+
+different name allows CLASSBITs or similar in future, if MAP works out.
+class-strings are completely defined by users, drm can drop UT naming
+
+TLDR: FWIW
+
+iSTM that  the same macro will support the coordinated use of class-strings
+across multiple modules.
+
+drm_print.c - natural home for exposed sysfs node
+
+amdgpu/, drm_helper/ i915/  nouveau/  will all need a DEFINE_DD added,
+so that ddebug_change() can allow those .class_ids to be controlled.
+sysfs perm inits can disable their nodes, since theyre coordinated.
+
+> >
+>
+> Ok, yeah so I guess I'm thinking about the 'class' more as global namespace,
+> so that for example, it could span modules, or be specific to certain modules.
+> I'm also thinking of it as a 'string' which is maybe hierarchical, so that it's
+> clear what sub-system, or sub-sub-system it belongs to. So for DRM for example,
+> it could be a string like "DRM:CORE". The index num I think is still helpful for
+> implementation so we don't have to store a pointer size, but I don't think it's
+> really exposed (except perhaps in module params b/c drm is doing that already?).
+>
+
+So what Ive got here is as described above,
+I just need a few bright ideas,
+then I can bring it together.
+got a spare tuit?
+
+Jim
