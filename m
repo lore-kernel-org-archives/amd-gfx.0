@@ -4,91 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05FA3C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 15:10:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 614B3C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 15:12:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EE2810E8C9;
-	Tue, 29 Mar 2022 15:10:12 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2047.outbound.protection.outlook.com [40.107.93.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3E8910E8C9
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 15:10:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06F3B10F0B4;
+	Tue, 29 Mar 2022 15:12:05 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D8DB10F0BA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 15:12:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hvb4eoJS09B1Jj9jNngOyUe6Z+LYc1PKwVkU/skryvPdyuYonOer8xhtYHVzaVCbKNw/DxSR5KivKebdAHpy5+Gb0o7hOcMZ7l2WIO5954jitpKJCnnfegAt6uKUgPiUj14FJ6bK8NdKUUtgQmhB0kLkpQjGkEB3OBsgSbg6h5/ZRStQ3xBKug9vtTKlTuSQfLm9C30ereeZvknZf6L503ftZmEIgzfL7VhsXwp2lrG9pbnMza8C38MOin1ELCL/U6MWpAdf36EkHAhejxD6ZNx5HsDQodOtIMzzGfjGjkdpiqPvOkaHYjya3RVojXOsCMem3OqPycCSSseOKH/KYA==
+ b=KbbTxuieZFumq4xS8Kic7CX7Zjl59NbPo9+Yf1xTOEg3w7pFq/rPxfYwSTz3eLXb9NP/Jxfja8AO2V4CbrZkaqmMckYgRCr6051Eqog25+2G8Lk0eEFWiYMdp2fvDGg8zziv8GlOqXQwBQZelG4UApqw6FfWjmv8D1ZxeXrg9wtoFuIGp6CQ52sRyRJ+YqPUbvV+StKkxp1cvyAR9E+JMAx1HgLK2mhJfbe/SSkhglMBWT9dJhnqCvZ2pCxyi0D22ot/25jeNov+WhPcBX1skEUV+xeDJUH9pDVcQ9d1DBwUrU2DQvTCxKlBDYVL2hmWZj+taEzwp5yokOiCTcbYfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=to0hEVYKyuw97ijGdyC9RcDBMb45mryDNACoCwy+1Q4=;
- b=gDg8AAVG3wRlGjBL2ryOOjFJZreDPG37e29/BVNrAptTsbFW/lXY6smURs304R3Ax0kO5ZSuBsu89uBpQHU76EWKrCceiF3b7GrmKdxrEYd+30AsAUQBW/M6/MssF69CGdzZnAQoCY9OUX3Zf6AiBfS/l3Dr27HhsKGTlIY4KJS3LWLEZD47m0Epv7YtW/DbIb+9CSGmK7AX1gfoDylgldb21tl2DpHUf247rLz6NkHWjHnUD3QFDxuAbgMk3vZCW57fAv+z2lk6nnZfdt+EhQ0iiRBxlgqRiwKDMnD/9N2l/CYnr58S6mx6KhJXZUrY5H1ooDCDIpQMZTVzgihiPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=OHrFBf2qYXEQono5dDUxLafZVUQbirspszE+AMwg2Ic=;
+ b=jO4hKk42U8tX/JB61I1lEGsynELCZuAAA7a16ABznlqgz/8tQr/WFfK+JhdPISLQz7uCIF/fTEN0iSSmouj0JNa8WQ7MpPTOAKu90A0rWLpyQRX8HT5qP5wEsQAjGFSrxhxE30C8jWujy72VyviL1qik3H3LzuODAmM2OXH1Ap2P5rIjcvE7B332VPlM0bTRpoQpTmgrvLZWiqc/0fW9rFY+AhG61hep/DCwlAbHiyJkKnfQEwbcjpnrdu/+jNVFcTEwdvmiCoKX8x4aMJhq4xNjhSh0NBgi4Pw4GIgjYuHunEXSNUiOp+SrIjEIsQBPKXWHeHt4m0rrt+zse6Rq3A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=to0hEVYKyuw97ijGdyC9RcDBMb45mryDNACoCwy+1Q4=;
- b=iAFkbChU1OvYwoHvKucSj+lYTGPSrGTx5ClWfisWw3EQ6hcJX8EalOLs3C/Gg/UAzuqQ3hFNvbBbC7FaEHE44obZsDarWFYxGYQZ59LKANG8tYXOo7mAl0/WLQZqq4jC+nqrjb3nehxa26KneYbJxWyP/Keh7XHr6l17mgSt9oc=
-Received: from BN8PR04CA0006.namprd04.prod.outlook.com (2603:10b6:408:70::19)
- by CH0PR12MB5202.namprd12.prod.outlook.com (2603:10b6:610:b9::15)
+ bh=OHrFBf2qYXEQono5dDUxLafZVUQbirspszE+AMwg2Ic=;
+ b=E1j3mX/5jcEyvhYt2wdPOw85AGjiz9avTF9wtP2QTDKty9oK3dFy065owUK+/311viNcZ+DHHfQ8RHN8G1AvJfi1Kso4Mw+nn0BeUxr7OGZ6cmNC+S4EHJxq9rh0GoDedV7pOCqYVfa+RgXy4JUFbDOvsQo8HeSWvKhukiS0Yi8=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BY5PR12MB3713.namprd12.prod.outlook.com (2603:10b6:a03:1a6::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.16; Tue, 29 Mar
- 2022 15:10:09 +0000
-Received: from BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:70:cafe::66) by BN8PR04CA0006.outlook.office365.com
- (2603:10b6:408:70::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.13 via Frontend
- Transport; Tue, 29 Mar 2022 15:10:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT036.mail.protection.outlook.com (10.13.177.168) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5102.17 via Frontend Transport; Tue, 29 Mar 2022 15:10:08 +0000
-Received: from krussell.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 29 Mar
- 2022 10:10:07 -0500
-From: Kent Russell <kent.russell@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 4/4] drm/amdgpu: Add unique_id support for sienna cichlid
-Date: Tue, 29 Mar 2022 11:09:51 -0400
-Message-ID: <20220329150951.1311452-4-kent.russell@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220329150951.1311452-1-kent.russell@amd.com>
-References: <20220329150951.1311452-1-kent.russell@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 18fec13b-3b94-4ff4-07bf-08da119636e3
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5202:EE_
-X-Microsoft-Antispam-PRVS: <CH0PR12MB5202488406BF1D00C143FE33851E9@CH0PR12MB5202.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CmCWg+G817c+JmcpNyMGB70BRDIs7iVp7kDdzCW8cp9vCkV7ps0ppVspC5Di+pNQZjfoRHwzpI6VSD4X+m9prExzaVdp2USKhj1Zin9E/rPPpmCFiNIPjBunw+48/zc0hNCTHHQJsZaZr2AA6pC3HtjcRsrnif5VYDjoKNVwendBViE5MYYx9g/0d28iXSnUmkwZLsu2oNGn+hpHmLd3ZzuswRdgtmSc7q6WpwJ+EH8bXyDqGrl+gQ+db118b6KRjLghguBtphWvZcl4ztzOOO97RXi7YBrITmqDvi4KsroVOyeb1+687ZoTJh61fGBBZsISuWEKulZcSDxqVwTtNHm9IqvN3Pek6c2wvcqXAa+P57ZLn//TqzkkjLUNjUltWKkBGmagVzC7GgVtRa9MvpML3MnTgEuctFb+7y1rTreCXT7EZ/VI2e57eAd+hVEGYrRhfkAExwn5V+2eDcxRYMrqPQrb+Sqxe+kBuu01iQ9aer6SOoQjKzZWV/5yad8Ch3QHHNkUGzmqwFlYDCIiNWwxiezDsA+o6mOpbcbuTV3vxSG3oZ8I2gAi2vPl7Ui5sEnCtLMZCoLDe8ARcf4jZGcVwmq7gqS/LOXn2sdL8CetW+AzPHPXtL4P9MNRTfp0x3p0jCK5EizOAF59x1XZRkbN2DlAzURNNYRqEYlVOVR1dhcIXemyhXgjbQJnFW4khz8iW59EpBo1X0Ai14kJcg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(6916009)(8676002)(4326008)(70206006)(40460700003)(81166007)(356005)(36756003)(508600001)(86362001)(70586007)(316002)(5660300002)(83380400001)(36860700001)(186003)(47076005)(8936002)(44832011)(6666004)(2616005)(26005)(7696005)(1076003)(2906002)(82310400004)(16526019)(426003)(336012)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.18; Tue, 29 Mar
+ 2022 15:11:59 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::4566:560c:e193:d210]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::4566:560c:e193:d210%6]) with mapi id 15.20.5102.023; Tue, 29 Mar 2022
+ 15:11:59 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "VURDIGERENATARAJ, CHANDAN" <CHANDAN.VURDIGERENATARAJ@amd.com>, "Wentland, 
+ Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Fix by adding FPU protection for
+ dcn30_internal_validate_bw
+Thread-Topic: [PATCH] drm/amd/display: Fix by adding FPU protection for
+ dcn30_internal_validate_bw
+Thread-Index: AQHYQ0dHCcjlT4YPpEyh8WPA0XdQUKzWeAOX
+Date: Tue, 29 Mar 2022 15:11:58 +0000
+Message-ID: <BL1PR12MB51443CF3272C32EFFAC13087F71E9@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20220329082957.1662655-1-chandan.vurdigerenataraj@amd.com>
+In-Reply-To: <20220329082957.1662655-1-chandan.vurdigerenataraj@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-03-29T15:11:58.441Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+suggested_attachment_session_id: dbf6950e-a0e8-297a-63ba-e8bbc02fb8b4
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: ac592900-abe2-4452-de27-08da11967882
+x-ms-traffictypediagnostic: BY5PR12MB3713:EE_
+x-microsoft-antispam-prvs: <BY5PR12MB371316735A6DABE78FF4BEF1F71E9@BY5PR12MB3713.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: nyizEk+S98ZRxgWXBgIl7IbZgsFdZmymUm5zdyMbZvDtos+/wD/axoVH4cPopkGV4kuXGdBFYNfRh2s9hwUduzNfyy3Tl2q0/64PLKms1XbHm2Sw+WzCQZQi6hfUQUWyveKqWItnfTFAAOu0d1IXEeEIdIkhv5H+TRtQKmOgPgukuggQ2/sUu6tRH7y5srEclxnrso4DAm3y+3fcLPoVrilzU8F1r2RmueQAG3ubw98xjHPcIg88cMF70u7VhODqMqs4cotiXUklOZb4R7Rwo382H31/P5Vi9gP1LjlijdD4/WBwk6oVHqku5JXLqsxhrRlEw/SDEGZs3+PPYTLXeQLC2+dxpRt3xtWQMxY4qxD58ZFI+gVXH+taCRxd83H5JX9JWotN+c3W+1FdF3dOnteXLv9G7GASxN7ePggRIN6aeLSzgFba5AX+MX8xBHT1VHbZ8P4vjlMGLwf5/hgWv3sjmsn/NpPP/lrLO5JeX71mMir49pVAsVPvM8CxRYrtAyNwphtDn3WzAvA27j0Km3BjOTwbOl9699QJbt6QBzRuKSzWHI623fBF3nmCOfUgFjCNVqjM6OBuNm4TqI+bkmIPutGx/YfKmK/3mAxXsa18liFBdKRPELely7SihRCSkk5RiRzwG5rI91pxGnQyhO381d7PYdZFR0El1X4wmV4C2Glj30YyocE87EN2WZUtghhFPF9cIIT7zPD8boojJg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(186003)(9686003)(83380400001)(26005)(55016003)(19627405001)(508600001)(53546011)(7696005)(6506007)(2906002)(4326008)(64756008)(76116006)(52536014)(86362001)(66476007)(66556008)(71200400001)(66446008)(8936002)(122000001)(38070700005)(66946007)(33656002)(38100700002)(110136005)(8676002)(6636002)(5660300002)(316002);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?b0rv1R6kQ1dXiKGchMKglRHLXui4UqTz+82pDZP+TxbCofoRAQ+vviqql9ty?=
+ =?us-ascii?Q?wcPKMJx1IfWaGYC6o9w9AzPBUPYWpOWr5maKziEr90q+b2qrHiw0/Wy9/ph2?=
+ =?us-ascii?Q?39s+uUYR7emQS/PEC0T4S9PMKmEZlHgz+qjPSEshFFnTZ4BKiVk7qngtB6ul?=
+ =?us-ascii?Q?++Itf3pyxdM11brjX26NjvTIveEsEGw4MOJ2AeKGgv2JIAwcy5wot6S3oaT5?=
+ =?us-ascii?Q?CgCRceZ8dtqjPiJG80KAxJY49lWqI34fICmgFX0ngk3wmJ6D8eOb9+spZiMJ?=
+ =?us-ascii?Q?PrTIQNWgQM3wdfZ/Z2YInYS/j5JDs5zZ1kq8Ii+xTx7HVOxAvrKe5lC5wkBo?=
+ =?us-ascii?Q?FJMvg00lC8q7uoToLGduWk8JtApZ3BvXyKvR+f9UoJnB+ZyCAPfRWUxvfvl9?=
+ =?us-ascii?Q?QPHBVxIFTYIhRNnrcQrEfFrp5cIWeHnWM1pcepUvuANStB7fOdzhIklXDqQW?=
+ =?us-ascii?Q?pIl+gZFQDUoJxHrbjj0aQkNR2FmFD5U8n0ypG8wtO+lO8ZibkTpxK8k/VFZd?=
+ =?us-ascii?Q?M57RieVWGs1d2VUuHDt0nWd2E4mNx7T10MvHHV8YVqSFR7FtQhAMaD88c5G/?=
+ =?us-ascii?Q?s/9SNW7zorjpfnytGGn5uqU51Z4bKOPlju/6uiXxa+LoXX2500RhXYmjwifr?=
+ =?us-ascii?Q?oDWxS1+U6Qujt3qEdy9Z/ooZ6Z9IgomMLD18HdPQ+4WxiFNkq7VOsZ5ZsQBF?=
+ =?us-ascii?Q?KSCo7cJOzcRTj7yMjSp9dMQue85Mm6KbS3JVBlH0j4OhPjTAmwTygu1vn0Aj?=
+ =?us-ascii?Q?etjF9EzJjvM6C3jN1PEYq3j9u7f4H7DlIVEH++ICmqmZZq6tpUnsPEuOr/Ek?=
+ =?us-ascii?Q?wd8htgGwtMlIEdafFk6Xs3HzW+nrRuBgi66b4oSb4D1AUr4DxEX29kcHFzPr?=
+ =?us-ascii?Q?ihyQv/sgrrTXCKaTOR+4Pz7dPzeeX9eILNysgkITBUskUiH9c4X6vaIefILm?=
+ =?us-ascii?Q?V/oo+SKUqfd7uY9593UXkfQ9+Y6xjohTamB5Zfi7J3xa6rQ7X1LyaMVGJDdx?=
+ =?us-ascii?Q?UZePRyjFLTPuWJ5q5cngaiDRQ0qfaD/mhKGoL//pjuIDcxgBGbsWCGAzS4+J?=
+ =?us-ascii?Q?bczXY6H0aiyQ19bK4856BYQ28yYv7r0VKdCAJYrhOHUu97+/sTdu/qi7we/x?=
+ =?us-ascii?Q?KYWIJlCmqqxIOLtAKffWvlYLsaQx3SqcYX2gocfh9VcwDz6aEvwxGWosMHBV?=
+ =?us-ascii?Q?z0Xv6pVaYU0LnL2fXJK4jzrU//v+NtYyqkKxbJRInWWBoxgX3VOQNvFPx8vV?=
+ =?us-ascii?Q?Cd/RGMRHVpe/P81gfJVYaU+w48eOayV7ZwkxgL9gZP+foK/RMENliyN2vW83?=
+ =?us-ascii?Q?eaem1vVrrOo6GMzDj0ubvoLPy90zbZxLKQyvSL1IwvhJuIeP4VyTvyUEHk4h?=
+ =?us-ascii?Q?SM5baJJvUqqDIhkAh7TPs0D23gEHX2eFlb+Dnv6fxDbMF2N/jiqKqBDzPDbq?=
+ =?us-ascii?Q?N8Wp27LA4S3lXTHDUlkyIxrpkTzVJ6/4H9CTrrmA4FVxtI0ie7SPyNRwiT77?=
+ =?us-ascii?Q?PrHOZbugmLjg35hJpsng4S+1CP5bLBRxl+zzavrPGRWeRlZehRzRiUiNzZWk?=
+ =?us-ascii?Q?XUbksXtiZCKZV7/ZkhlsfpCVG9YpsdY553yYyt4rxamU4p85E8l0c770BucV?=
+ =?us-ascii?Q?SJOCVCt/7mS5niisrnVPXobg/WMnmf6uSawTtZIjhwJOIShIcMGFfIGIKMSR?=
+ =?us-ascii?Q?ZtRgGMXLGKYyq5ELq98mwqWrcNTjRWHDRwAStH41/bzdVUP9imoLRtYDcO5u?=
+ =?us-ascii?Q?NgZSs/F6nw=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB51443CF3272C32EFFAC13087F71E9BL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2022 15:10:08.9023 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18fec13b-3b94-4ff4-07bf-08da119636e3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT036.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5202
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac592900-abe2-4452-de27-08da11967882
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Mar 2022 15:11:59.0018 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TRgFdTemaGPufm9zPG8UUf8/ZJ+k8TPxgj65FRly0er3RGabc1bJtAL11Q2y1qiJuVwAFF32QBAtjTqYlAW83w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3713
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,134 +128,269 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kent Russell <kent.russell@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is being added to SMU Metrics, so add the required tie-ins in the
-kernel. Also create the corresponding unique_id sysfs file.
+--_000_BL1PR12MB51443CF3272C32EFFAC13087F71E9BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-v2: Add FW version check, remove SMU mutex
-v3: Fix style warning
-v4: Add MP1 IP_VERSION check to FW version check
+[Public]
 
-Signed-off-by: Kent Russell <kent.russell@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  1 +
- .../pmfw_if/smu11_driver_if_sienna_cichlid.h  | 13 ++++++--
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 33 +++++++++++++++++++
- 3 files changed, 45 insertions(+), 2 deletions(-)
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of CHANDAN =
+VURDIGERE NATARAJ <chandan.vurdigerenataraj@amd.com>
+Sent: Tuesday, March 29, 2022 4:29 AM
+To: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
+Cc: VURDIGERENATARAJ, CHANDAN <CHANDAN.VURDIGERENATARAJ@amd.com>; amd-gfx@l=
+ists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: Fix by adding FPU protection for dcn30_in=
+ternal_validate_bw
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 4151db2678fb..4a9aabc16fbc 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -1993,6 +1993,7 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
- 		case IP_VERSION(9, 4, 0):
- 		case IP_VERSION(9, 4, 1):
- 		case IP_VERSION(9, 4, 2):
-+		case IP_VERSION(10, 3, 0):
- 			*states = ATTR_STATE_SUPPORTED;
- 			break;
- 		default:
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
-index 3e4a314ef925..5831145646e6 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
-@@ -1419,8 +1419,11 @@ typedef struct {
-   uint8_t  PcieRate               ;
-   uint8_t  PcieWidth              ;
-   uint16_t AverageGfxclkFrequencyTarget;
--  uint16_t Padding16_2;
- 
-+  uint32_t PublicSerialNumLower32;
-+  uint32_t PublicSerialNumUpper32;
-+
-+  uint16_t Padding16_2;
- } SmuMetrics_t;
- 
- typedef struct {
-@@ -1476,8 +1479,11 @@ typedef struct {
-   uint8_t  PcieRate               ;
-   uint8_t  PcieWidth              ;
-   uint16_t AverageGfxclkFrequencyTarget;
--  uint16_t Padding16_2;
- 
-+  uint32_t PublicSerialNumLower32;
-+  uint32_t PublicSerialNumUpper32;
-+
-+  uint16_t Padding16_2;
- } SmuMetrics_V2_t;
- 
- typedef struct {
-@@ -1535,6 +1541,9 @@ typedef struct {
-   uint8_t  PcieWidth;
-   uint16_t AverageGfxclkFrequencyTarget;
- 
-+  uint32_t PublicSerialNumLower32;
-+  uint32_t PublicSerialNumUpper32;
-+
- } SmuMetrics_V3_t;
- 
- typedef struct {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 38f04836c82f..b2f3d80e5945 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -715,6 +715,16 @@ static int sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
- 		*value = use_metrics_v3 ? metrics_v3->CurrFanSpeed :
- 			use_metrics_v2 ? metrics_v2->CurrFanSpeed : metrics->CurrFanSpeed;
- 		break;
-+	case METRICS_UNIQUE_ID_UPPER32:
-+		*value = use_metrics_v3 ? metrics_v3->PublicSerialNumUpper32 :
-+			use_metrics_v2 ? metrics_v2->PublicSerialNumUpper32 :
-+			metrics->PublicSerialNumUpper32;
-+		break;
-+	case METRICS_UNIQUE_ID_LOWER32:
-+		*value = use_metrics_v3 ? metrics_v3->PublicSerialNumLower32 :
-+			use_metrics_v2 ? metrics_v2->PublicSerialNumLower32 :
-+			metrics->PublicSerialNumLower32;
-+		break;
- 	default:
- 		*value = UINT_MAX;
- 		break;
-@@ -1773,6 +1783,28 @@ static int sienna_cichlid_read_sensor(struct smu_context *smu,
- 	return ret;
- }
- 
-+static void sienna_cichlid_get_unique_id(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+	uint32_t upper32 = 0, lower32 = 0;
-+
-+	/* Only supported as of version 0.58.83.0 and only on Sienna Cichlid */
-+	if (smu->smc_fw_version < 0x3A5300 ||
-+	    smu->adev->ip_versions[MP1_HWIP][0] != IP_VERSION(11, 0, 7))
-+		return;
-+
-+	if (sienna_cichlid_get_smu_metrics_data(smu, METRICS_UNIQUE_ID_UPPER32, &upper32))
-+		goto out;
-+	if (sienna_cichlid_get_smu_metrics_data(smu, METRICS_UNIQUE_ID_LOWER32, &lower32))
-+		goto out;
-+
-+out:
-+
-+	adev->unique_id = ((uint64_t)upper32 << 32) | lower32;
-+	if (adev->serial[0] == '\0')
-+		sprintf(adev->serial, "%016llx", adev->unique_id);
-+}
-+
- static int sienna_cichlid_get_uclk_dpm_states(struct smu_context *smu, uint32_t *clocks_in_khz, uint32_t *num_states)
- {
- 	uint32_t num_discrete_levels = 0;
-@@ -4182,6 +4214,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
- 	.get_ecc_info = sienna_cichlid_get_ecc_info,
- 	.get_default_config_table_settings = sienna_cichlid_get_default_config_table_settings,
- 	.set_config_table = sienna_cichlid_set_config_table,
-+	.get_unique_id = sienna_cichlid_get_unique_id,
- };
- 
- void sienna_cichlid_set_ppt_funcs(struct smu_context *smu)
--- 
+[WHY]
+Below general protection fault observed when WebGL Aquarium is run for
+longer duration. If drm debug logs are enabled and set to 0x1f then the
+issue is observed within 10 minutes of run.
+
+[  100.717056] general protection fault, probably for non-canonical address=
+ 0x2d33302d32323032: 0000 [#1] PREEMPT SMP NOPTI
+[  100.727921] CPU: 3 PID: 1906 Comm: DrmThread Tainted: G        W        =
+ 5.15.30 #12 d726c6a2d6ebe5cf9223931cbca6892f916fe18b
+[  100.754419] RIP: 0010:CalculateSwathWidth+0x1f7/0x44f
+[  100.767109] Code: 00 00 00 f2 42 0f 11 04 f0 48 8b 85 88 00 00 00 f2 42 =
+0f 10 04 f0 48 8b 85 98 00 00 00 f2 42 0f 11 04 f0 48 8b 45 10 0f 57 c0 <f3=
+> 42 0f 2a 04 b0 0f 57 c9 f3 43 0f 2a 0c b4 e8 8c e2 f3 ff 48 8b
+[  100.781269] RSP: 0018:ffffa9230079eeb0 EFLAGS: 00010246
+[  100.812528] RAX: 2d33302d32323032 RBX: 0000000000000500 RCX: 00000000000=
+00000
+[  100.819656] RDX: 0000000000000001 RSI: ffff99deb712c49c RDI: 00000000000=
+00000
+[  100.826781] RBP: ffffa9230079ef50 R08: ffff99deb712460c R09: ffff99deb71=
+2462c
+[  100.833907] R10: ffff99deb7124940 R11: ffff99deb7124d70 R12: ffff99deb71=
+2ae44
+[  100.841033] R13: 0000000000000001 R14: 0000000000000000 R15: ffffa923007=
+9f0a0
+[  100.848159] FS:  00007af121212640(0000) GS:ffff99deba780000(0000) knlGS:=
+0000000000000000
+[  100.856240] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  100.861980] CR2: 0000209000fe1000 CR3: 000000011b18c000 CR4: 00000000003=
+50ee0
+[  100.869106] Call Trace:
+[  100.871555]  <TASK>
+[  100.873655]  ? asm_sysvec_reschedule_ipi+0x12/0x20
+[  100.878449]  CalculateSwathAndDETConfiguration+0x1a3/0x6dd
+[  100.883937]  dml31_ModeSupportAndSystemConfigurationFull+0x2ce4/0x76da
+[  100.890467]  ? kallsyms_lookup_buildid+0xc8/0x163
+[  100.895173]  ? kallsyms_lookup_buildid+0xc8/0x163
+[  100.899874]  ? __sprint_symbol+0x80/0x135
+[  100.903883]  ? dm_update_plane_state+0x3f9/0x4d2
+[  100.908500]  ? symbol_string+0xb7/0xde
+[  100.912250]  ? number+0x145/0x29b
+[  100.915566]  ? vsnprintf+0x341/0x5ff
+[  100.919141]  ? desc_read_finalized_seq+0x39/0x87
+[  100.923755]  ? update_load_avg+0x1b9/0x607
+[  100.927849]  ? compute_mst_dsc_configs_for_state+0x7d/0xd5b
+[  100.933416]  ? fetch_pipe_params+0xa4d/0xd0c
+[  100.937686]  ? dc_fpu_end+0x3d/0xa8
+[  100.941175]  dml_get_voltage_level+0x16b/0x180
+[  100.945619]  dcn30_internal_validate_bw+0x10e/0x89b
+[  100.950495]  ? dcn31_validate_bandwidth+0x68/0x1fc
+[  100.955285]  ? resource_build_scaling_params+0x98b/0xb8c
+[  100.960595]  ? dcn31_validate_bandwidth+0x68/0x1fc
+[  100.965384]  dcn31_validate_bandwidth+0x9a/0x1fc
+[  100.970001]  dc_validate_global_state+0x238/0x295
+[  100.974703]  amdgpu_dm_atomic_check+0x9c1/0xbce
+[  100.979235]  ? _printk+0x59/0x73
+[  100.982467]  drm_atomic_check_only+0x403/0x78b
+[  100.986912]  drm_mode_atomic_ioctl+0x49b/0x546
+[  100.991358]  ? drm_ioctl+0x1c1/0x3b3
+[  100.994936]  ? drm_atomic_set_property+0x92a/0x92a
+[  100.999725]  drm_ioctl_kernel+0xdc/0x149
+[  101.003648]  drm_ioctl+0x27f/0x3b3
+[  101.007051]  ? drm_atomic_set_property+0x92a/0x92a
+[  101.011842]  amdgpu_drm_ioctl+0x49/0x7d
+[  101.015679]  __se_sys_ioctl+0x7c/0xb8
+[  101.015685]  do_syscall_64+0x5f/0xb8
+[  101.015690]  ? __irq_exit_rcu+0x34/0x96
+
+[HOW]
+It calles populate_dml_pipes which uses doubles to initialize.
+Adding FPU protection avoids context switch and probable loss of vba contex=
+t
+as there is potential contention while drm debug logs are enabled.
+
+Signed-off-by: CHANDAN VURDIGERE NATARAJ <chandan.vurdigerenataraj@amd.com>
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/driver=
+s/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+index 826970f2bd0a..f27262417abe 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+@@ -1750,7 +1750,9 @@ bool dcn31_validate_bandwidth(struct dc *dc,
+
+         BW_VAL_TRACE_COUNT();
+
++       DC_FP_START();
+         out =3D dcn30_internal_validate_bw(dc, context, pipes, &pipe_cnt, =
+&vlevel, fast_validate);
++       DC_FP_END();
+
+         // Disable fast_validate to set min dcfclk in alculate_wm_and_dlg
+         if (pipe_cnt =3D=3D 0)
+--
 2.25.1
 
+
+--_000_BL1PR12MB51443CF3272C32EFFAC13087F71E9BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of CHANDAN VURDIGERE NATARAJ &lt=
+;chandan.vurdigerenataraj@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, March 29, 2022 4:29 AM<br>
+<b>To:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Li, Sun peng (Le=
+o) &lt;Sunpeng.Li@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd=
+.com&gt;<br>
+<b>Cc:</b> VURDIGERENATARAJ, CHANDAN &lt;CHANDAN.VURDIGERENATARAJ@amd.com&g=
+t;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/display: Fix by adding FPU protection for d=
+cn30_internal_validate_bw</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">[WHY]<br>
+Below general protection fault observed when WebGL Aquarium is run for<br>
+longer duration. If drm debug logs are enabled and set to 0x1f then the<br>
+issue is observed within 10 minutes of run.<br>
+<br>
+[&nbsp; 100.717056] general protection fault, probably for non-canonical ad=
+dress 0x2d33302d32323032: 0000 [#1] PREEMPT SMP NOPTI<br>
+[&nbsp; 100.727921] CPU: 3 PID: 1906 Comm: DrmThread Tainted: G&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; W&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; 5.15.30 #12 d726c6a2d6ebe5cf9223931cbca6892f916fe18b<br>
+[&nbsp; 100.754419] RIP: 0010:CalculateSwathWidth+0x1f7/0x44f<br>
+[&nbsp; 100.767109] Code: 00 00 00 f2 42 0f 11 04 f0 48 8b 85 88 00 00 00 f=
+2 42 0f 10 04 f0 48 8b 85 98 00 00 00 f2 42 0f 11 04 f0 48 8b 45 10 0f 57 c=
+0 &lt;f3&gt; 42 0f 2a 04 b0 0f 57 c9 f3 43 0f 2a 0c b4 e8 8c e2 f3 ff 48 8b=
+<br>
+[&nbsp; 100.781269] RSP: 0018:ffffa9230079eeb0 EFLAGS: 00010246<br>
+[&nbsp; 100.812528] RAX: 2d33302d32323032 RBX: 0000000000000500 RCX: 000000=
+0000000000<br>
+[&nbsp; 100.819656] RDX: 0000000000000001 RSI: ffff99deb712c49c RDI: 000000=
+0000000000<br>
+[&nbsp; 100.826781] RBP: ffffa9230079ef50 R08: ffff99deb712460c R09: ffff99=
+deb712462c<br>
+[&nbsp; 100.833907] R10: ffff99deb7124940 R11: ffff99deb7124d70 R12: ffff99=
+deb712ae44<br>
+[&nbsp; 100.841033] R13: 0000000000000001 R14: 0000000000000000 R15: ffffa9=
+230079f0a0<br>
+[&nbsp; 100.848159] FS:&nbsp; 00007af121212640(0000) GS:ffff99deba780000(00=
+00) knlGS:0000000000000000<br>
+[&nbsp; 100.856240] CS:&nbsp; 0010 DS: 0000 ES: 0000 CR0: 0000000080050033<=
+br>
+[&nbsp; 100.861980] CR2: 0000209000fe1000 CR3: 000000011b18c000 CR4: 000000=
+0000350ee0<br>
+[&nbsp; 100.869106] Call Trace:<br>
+[&nbsp; 100.871555]&nbsp; &lt;TASK&gt;<br>
+[&nbsp; 100.873655]&nbsp; ? asm_sysvec_reschedule_ipi+0x12/0x20<br>
+[&nbsp; 100.878449]&nbsp; CalculateSwathAndDETConfiguration+0x1a3/0x6dd<br>
+[&nbsp; 100.883937]&nbsp; dml31_ModeSupportAndSystemConfigurationFull+0x2ce=
+4/0x76da<br>
+[&nbsp; 100.890467]&nbsp; ? kallsyms_lookup_buildid+0xc8/0x163<br>
+[&nbsp; 100.895173]&nbsp; ? kallsyms_lookup_buildid+0xc8/0x163<br>
+[&nbsp; 100.899874]&nbsp; ? __sprint_symbol+0x80/0x135<br>
+[&nbsp; 100.903883]&nbsp; ? dm_update_plane_state+0x3f9/0x4d2<br>
+[&nbsp; 100.908500]&nbsp; ? symbol_string+0xb7/0xde<br>
+[&nbsp; 100.912250]&nbsp; ? number+0x145/0x29b<br>
+[&nbsp; 100.915566]&nbsp; ? vsnprintf+0x341/0x5ff<br>
+[&nbsp; 100.919141]&nbsp; ? desc_read_finalized_seq+0x39/0x87<br>
+[&nbsp; 100.923755]&nbsp; ? update_load_avg+0x1b9/0x607<br>
+[&nbsp; 100.927849]&nbsp; ? compute_mst_dsc_configs_for_state+0x7d/0xd5b<br=
+>
+[&nbsp; 100.933416]&nbsp; ? fetch_pipe_params+0xa4d/0xd0c<br>
+[&nbsp; 100.937686]&nbsp; ? dc_fpu_end+0x3d/0xa8<br>
+[&nbsp; 100.941175]&nbsp; dml_get_voltage_level+0x16b/0x180<br>
+[&nbsp; 100.945619]&nbsp; dcn30_internal_validate_bw+0x10e/0x89b<br>
+[&nbsp; 100.950495]&nbsp; ? dcn31_validate_bandwidth+0x68/0x1fc<br>
+[&nbsp; 100.955285]&nbsp; ? resource_build_scaling_params+0x98b/0xb8c<br>
+[&nbsp; 100.960595]&nbsp; ? dcn31_validate_bandwidth+0x68/0x1fc<br>
+[&nbsp; 100.965384]&nbsp; dcn31_validate_bandwidth+0x9a/0x1fc<br>
+[&nbsp; 100.970001]&nbsp; dc_validate_global_state+0x238/0x295<br>
+[&nbsp; 100.974703]&nbsp; amdgpu_dm_atomic_check+0x9c1/0xbce<br>
+[&nbsp; 100.979235]&nbsp; ? _printk+0x59/0x73<br>
+[&nbsp; 100.982467]&nbsp; drm_atomic_check_only+0x403/0x78b<br>
+[&nbsp; 100.986912]&nbsp; drm_mode_atomic_ioctl+0x49b/0x546<br>
+[&nbsp; 100.991358]&nbsp; ? drm_ioctl+0x1c1/0x3b3<br>
+[&nbsp; 100.994936]&nbsp; ? drm_atomic_set_property+0x92a/0x92a<br>
+[&nbsp; 100.999725]&nbsp; drm_ioctl_kernel+0xdc/0x149<br>
+[&nbsp; 101.003648]&nbsp; drm_ioctl+0x27f/0x3b3<br>
+[&nbsp; 101.007051]&nbsp; ? drm_atomic_set_property+0x92a/0x92a<br>
+[&nbsp; 101.011842]&nbsp; amdgpu_drm_ioctl+0x49/0x7d<br>
+[&nbsp; 101.015679]&nbsp; __se_sys_ioctl+0x7c/0xb8<br>
+[&nbsp; 101.015685]&nbsp; do_syscall_64+0x5f/0xb8<br>
+[&nbsp; 101.015690]&nbsp; ? __irq_exit_rcu+0x34/0x96<br>
+<br>
+[HOW]<br>
+It calles populate_dml_pipes which uses doubles to initialize.<br>
+Adding FPU protection avoids context switch and probable loss of vba contex=
+t<br>
+as there is potential contention while drm debug logs are enabled.<br>
+<br>
+Signed-off-by: CHANDAN VURDIGERE NATARAJ &lt;chandan.vurdigerenataraj@amd.c=
+om&gt;<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/driver=
+s/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c<br>
+index 826970f2bd0a..f27262417abe 100644<br>
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c<br>
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c<br>
+@@ -1750,7 +1750,9 @@ bool dcn31_validate_bandwidth(struct dc *dc,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BW_VAL_TRACE_COUNT();<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_FP_START();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; out =3D dcn30_internal_val=
+idate_bw(dc, context, pipes, &amp;pipe_cnt, &amp;vlevel, fast_validate);<br=
+>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_FP_END();<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Disable fast_validate t=
+o set min dcfclk in alculate_wm_and_dlg<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pipe_cnt =3D=3D 0)<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB51443CF3272C32EFFAC13087F71E9BL1PR12MB5144namp_--
