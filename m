@@ -4,91 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B84AC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 08:30:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3E00C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 08:33:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0239A10E7B0;
-	Tue, 29 Mar 2022 08:30:39 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2067.outbound.protection.outlook.com [40.107.237.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF17B10E7B0
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 08:30:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8678410E7B1;
+	Tue, 29 Mar 2022 08:33:26 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2060.outbound.protection.outlook.com [40.107.236.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 381C910E7B1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 08:33:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nrb1xKBfy+qRxvkMhudxkHuMgZwS2hLqg6tG6z3aEcXBJmJaM2ABeFgULDH7D9DGCsrRsOde5sHii06YDDyHF2E3WAHP4h6//DNp1vRCY3Fudc8azCDLMUiP5am399o7tKTerQ+287aeMxlgsPaQlPaeQi8Upl3cFhUwIr/6uxEOHh/6FjNJspbqLDA8ZxDja9V3h9CoquHeax1JuAvgBuTHLWgXgxH324znWzyRZRa25uSabXzADF9KYqWu6k9NEax4sRpJCWLqZ8HSCJM3cQKXYyMSQY9wDfxAMM+/9HYB6ZfJ0eDoYlikv5JCZk1dIyJX8+V/tkjQI3DBaiaA5A==
+ b=J1LNrLNcPfp+YboqJHs5rs8TUsHQ78vi01b8hJ3qpFqBwEGVcKhG82L75ypl12ElcP8xV7PO0aqD+blrdJbO9Rd9IFdLB4t/99L/t5N/4o/pIuuZX1b3gqk1UM1ExBlINr/vgytvp0iv3UWJCK8ds6qNp9hQ95sI9qQRWUMgcU9Y4bUOo3QY2U+sY7FlKFn52QuqOzjufQqyO0waAsBtKS15NajlSzwq4HzuQP2Jwv0jBrJVXpaU++wyx+KdbkRCjmPN5KpD37qNH84bs8Z8HQeN/AJ4ZXX7GuxVgCoC04UIE96Q8VZRV6El1wujuYe5O8Da+seWFVKP8IG78pZ2Wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pIzXiDlDtJF74nPiNxcC/pN7LtvW+VUd8TzJ0NgeW2M=;
- b=aIfxzVvdaq0/3oM97GjwD51Hj+43dThppCBNsBvoPIsG0K256DkMAgHEEN1IIy1yGKa9Xm61WGihP8S8OEanbbEgSHCBuih8tfU2dBk3TSM6BqwJOj9kxcPRvv8e7cATK/3iWR4DRLzQRJgF4qCDNMIhstQ3+Nq3vyApYMdtC+ba4vAgXZyJRTXWu9UhLx2jWGx+CKNYEfoHx8wjk00RrmTdXeX3TLRW2izROdLwkSeGo6mM9DYdKDhoQTjjfkkcwPKQchjfAgWW0KrY0zcQoVWYbD0b2/5rAere1WvJ4E02M3RK9pT088SlRjyOuy6AVUGfdq/l13yliJ4Z/kKH+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=RDbUqDxqgn3ypw2un71nAnJ/xj9nDWXzY+q23DJaAjI=;
+ b=Vu5YHIe7I1KTskWkb7XfDFzR/NbltfGdHausvbSt5A14Kn1NDIz+rSCUD9UHLZ5fZ0OjDbssr8L8E0ndYr0aoXYkKwdHSbmAOqQQ70vd3KVathAmwl5zXmKQswtyZuY2ar3jGXQXj4fTcb2PwxrGlwH4OB49S5drZb5PGyOMzNCVqqkxt95zBroIoVhAnffOi/xr6rr7jQX/WY4YNkUFDEmSnBs4qCkkt1563kZCwKXwLOXDF0V2L5wupjdFWoV1YomfghygZsuVu3cXV3G1J5fpUi/Vq7wiHlDmRhIv7gDkBVb0rI6N5fPEMemE2V2CRUF5VksBu9N7T77xhODZAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pIzXiDlDtJF74nPiNxcC/pN7LtvW+VUd8TzJ0NgeW2M=;
- b=qFDm9/MeXOZWb/ceWCt/qO85+skTIepmBTr3L2Qa1gV7taE0oGNZqhga1Gs1IHKPERca8dITP3eeCGzX1wtEXpaNuCNOscmIBAMsKiMQM2wrPtgmzA4IcHhj5sNjvNiO0TJ/KI05FDSEiw1KpfxwsGxGu5ykhA9xQ8WZiy57aJA=
-Received: from BN6PR17CA0001.namprd17.prod.outlook.com (2603:10b6:404:65::11)
- by BY5PR12MB3810.namprd12.prod.outlook.com (2603:10b6:a03:1a6::13)
+ bh=RDbUqDxqgn3ypw2un71nAnJ/xj9nDWXzY+q23DJaAjI=;
+ b=N1HRWYRfvxYfyrLJYnBi97f7RWCfuqWRpC0Gf/7KMjc4EWFx8oduPRMkVEn8KtOAH7JS8dZu+1M0eP93HBsUy4eWnBILmcK7MLj9xw5ya0ah4U1D+0BeFBg3N9+8s19FDu1x2knbPiKmcJDWShyC0J6GduMvEg3tJW1UT6Hd97I=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by MW2PR12MB2569.namprd12.prod.outlook.com (2603:10b6:907:11::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.16; Tue, 29 Mar
- 2022 08:30:33 +0000
-Received: from BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:65:cafe::3d) by BN6PR17CA0001.outlook.office365.com
- (2603:10b6:404:65::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.23 via Frontend
- Transport; Tue, 29 Mar 2022 08:30:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT023.mail.protection.outlook.com (10.13.177.103) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5102.17 via Frontend Transport; Tue, 29 Mar 2022 08:30:32 +0000
-Received: from ETHANOL.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 29 Mar
- 2022 03:30:31 -0500
-From: CHANDAN VURDIGERE NATARAJ <chandan.vurdigerenataraj@amd.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- "Alex Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amd/display: Fix by adding FPU protection for
- dcn30_internal_validate_bw
-Date: Tue, 29 Mar 2022 13:59:57 +0530
-Message-ID: <20220329082957.1662655-1-chandan.vurdigerenataraj@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dfaeb375-351a-472f-3bed-08da115e6418
-X-MS-TrafficTypeDiagnostic: BY5PR12MB3810:EE_
-X-Microsoft-Antispam-PRVS: <BY5PR12MB3810586FF67B7DAB792AEB5D961E9@BY5PR12MB3810.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pKe06AMydAzzi6k9uO8eNagL3mhD7rHow2l1DrlEryCaVmpu4C1GGYhXClhinZHLrO+EJejV3PhzL3z8/j6g95WK1/sNALY36h/io1FpEdZUf5VHHRbmkl6f687nDzz+HcyLUk1O4YzFigIhP7VnAKsAdq2uNvTiZvWFz9W12cl4AKrEVDQwhTDgH51gZYieIwYj7oYe12SaY1aYp6pCU12hvzgXKt00gXxCiPzV9/+MhJf3nFOFIHOEzH/d5givAWL6ss8C+IfilvNnhjvDSlZRfXl35yNgqISNLiVIqqtbPLKdNdJeNLDwy9gLKRIDvjJCk3vt6O3cAjotfSkH4AvalgQAbrEzdNXrzTSBIzRCffdaayCTywunGtJXqxvASuaeBE8YvNZrnjjtjI0BUxsjbWfTbETOen2hVcHcNcIDCtNHb4X035jfIhOhc6imQxrExvcJlKd3+lk2VvHxSm8fcS2sK1E31icym5OJ5KXNcsx6U4dZNx8y+omMrf8uvSDhboJfkSnoNOcc/hrRZPbkbkETPJOd886vpm+vEj42pgzwgX8Ne5XY2pcwnphgvlw8m/xB8yoDibFq65UPylifbdIvAEOfriLyQzuY7PkWwIvlvS7Zy/TVwizoTrFHu/KZy/NDjI+w4eARH8QQyTKicVyfJKYq28sXGj9kkZbrw4vEI5/ViSDVLZy25JbvCzz0i94Dl7CZDPhTtrIGzQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(82310400004)(2616005)(336012)(4326008)(83380400001)(5660300002)(186003)(8936002)(36756003)(6666004)(26005)(426003)(16526019)(508600001)(1076003)(110136005)(2906002)(70206006)(70586007)(6636002)(86362001)(7696005)(356005)(54906003)(8676002)(81166007)(47076005)(40460700003)(316002)(36860700001)(36900700001);
+ 2022 08:33:21 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c1c8:b797:3144:571d]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c1c8:b797:3144:571d%7]) with mapi id 15.20.5102.023; Tue, 29 Mar 2022
+ 08:33:21 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Support AMDGPU RAS debugfs poll interface
+Thread-Topic: [PATCH] drm/amdgpu: Support AMDGPU RAS debugfs poll interface
+Thread-Index: AQHYQ0AXuzabdbffykq6c8ZkvZXaVqzWBbsQ
+Date: Tue, 29 Mar 2022 08:33:21 +0000
+Message-ID: <BN9PR12MB5257F539B80934D112D1D481FC1E9@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20220329073843.772795-1-YiPeng.Chai@amd.com>
+In-Reply-To: <20220329073843.772795-1-YiPeng.Chai@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-29T08:33:11Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=537175dc-1329-4ae4-a9b2-f75868310e33;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 72578f8d-33d9-448f-5760-08da115ec84f
+x-ms-traffictypediagnostic: MW2PR12MB2569:EE_
+x-microsoft-antispam-prvs: <MW2PR12MB25697669CDAA2B236BDC9279FC1E9@MW2PR12MB2569.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: nXBVUZDF4hPZGXmvshFfUvb9EUrP5DILYuen98WcnHPJOJrbKYiJITCDnI5p+aKUcoMCtQquNrh4+qK9F2XPwzMj2j6Lhp8gx62xfba7dKy2b9iDfjdwXxeW33WKchdfQwVev8LbmRrSFVfuJYQLpiEvXFKtgdMll7OWT61bJTPiiq4Q/Ah8bRae96RXKvyB1eOyfiWkPf4ZEEztcnTFIJexZkDvFs48gN5pZtgOAwl3rUOLfXXWb9NEKp9lt9WMwPmx2xDVu/TJ2A+4mHNBpfpvJwCcvwGc2ViM6yoVmsqPdnf+K2BxWMrxzddtEVDlPnVWEE1InxxZPeKpBXZne5GfX0VLOLgILDBwEYLqn7/zOUFHGYkERtoohTCPLxDxEdI+9M0xXufPUpryT+Jv8fqKQoi75/SEdDSp/XB+plHXjNMhkCiMESHY/3fR2TGlDGLqA5bMNCPZw3mYqxm+pyNVJrqnmQWAPDoflWb+99gEPbrK4sPHqHZMJktrUXpdAfpCoTNn5UW7ypPk+xblm2YYhZ73yy9zvz67ELgcLKIPPYLbSk6VqTXCLgCQAx+XE6vwN9HzsbwcCxOs9whPNPLVvCKNrJ8/WeREH3K+DexDLYWgTkBf7AYtw7tc8MYHC0hWUSnStAeZrB8cc+AVd9hiTgTTXpY/c25ftknX7pjeV5RapbredRqfEHJaiaFKvHtQ0YL71O45RiAiuTVojw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(2906002)(8936002)(6506007)(86362001)(52536014)(33656002)(7696005)(8676002)(4326008)(76116006)(66446008)(66556008)(53546011)(64756008)(66946007)(316002)(71200400001)(508600001)(9686003)(66476007)(5660300002)(55016003)(110136005)(26005)(83380400001)(186003)(54906003)(38100700002)(38070700005)(122000001);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?9DlVenPNZKR7eK/RVyhumvG/tA0MeJmO7cDs94FKR2/woZZUQJtTAXCygFEZ?=
+ =?us-ascii?Q?1GUghYv82ID39WoxdeoW/a6OXBTWrHLMmKEG3pQyXycRaw+Ql6LOChr7Akpo?=
+ =?us-ascii?Q?RlXOlGFbyeB+zzjG5POuUhXoqmBjnlrVA5XcKMZ0guq11vksF5cnkWeP7Zmc?=
+ =?us-ascii?Q?EqRWtiNaAA5U3WuMpvGbLINxEkzlzyVb4TdK2X80SuPal76P3LFvKdI0Cqyg?=
+ =?us-ascii?Q?Saa4aKurjF7oBCEr5PqNKCPdquim52XsL8sDzOHaAPgvQOehatHiRYy5zjuB?=
+ =?us-ascii?Q?qofui4OnwkBqahliSwFu6XO+QfjqwIjAWyslPe5KCZ1G8d5TfIfcDfLpILt9?=
+ =?us-ascii?Q?AkGZOs5GGoJs6pHLop5ENwzgLXhWEtOiz+vaum+1+KqZ6NGChdqxhEyPf7Lb?=
+ =?us-ascii?Q?fQeDjaMV2maZs3yPqQbkhhXdeQuxVxF8cuEjoIzJ9W6zQDZ7cukMFkK0F/Yj?=
+ =?us-ascii?Q?1gu66aDkYomUgbkPenMtjabb+JW1dVxOtMeFUZv7KCz4NPJoySdvSriF7YQm?=
+ =?us-ascii?Q?7AdC4vvamLEyRh2nWJ9UBpVuegQgvihtHguQ9OW0MAY+KXdIq9eC2XwVwU4a?=
+ =?us-ascii?Q?6+JOm0F1x6nornxnf82IF1SJKAjiRuKyA/9hpD47pmq1UJP15EyjWRluz4F2?=
+ =?us-ascii?Q?fhVHvhPo02rStZOb3IMuHngDL2AMaAJ6D1wSWjM7aBd8Zq3zG75IVQ6Mm/rP?=
+ =?us-ascii?Q?VYIkmRv8PDhus3y1BgWwDBrT+z1y9IaZDWjdIUj1EBC1e+8nxaLMFt5exf/T?=
+ =?us-ascii?Q?ql1/uPNNubjO54os4CbbZztccjJHVklM8TAzFWJG+S3faqKo7S0AXNn5UPgI?=
+ =?us-ascii?Q?XA/U0Bfl0XFndRTbwKCEePJrXlyg+oU4OgIeCT39+Tk7eiB3KU1wfmrQaryd?=
+ =?us-ascii?Q?Lua/AShly3NjRR7TV0xHSDKSCwgyIpXlVo2r2Eof7JOpYaZgEMYuvlx5OjET?=
+ =?us-ascii?Q?GQvR4az26v+3+jZmzzKtPFSElx4hNzLDrS7TlOqgcLIKSOjF3y7VmfWoMmEH?=
+ =?us-ascii?Q?pDO4dc+EIUY8+O6A0GkuIMTW5DHoxFtnbkE686U7BWuo/pe2U/eZLMeG+5Nm?=
+ =?us-ascii?Q?CF0VdsLeSFD7f2w5dIRXC9T/NnSyiL43fOuOJ8ebDuOW+SZ+5O8ss3RrPjm4?=
+ =?us-ascii?Q?5lsBIsonBd3T/pA2qbwrIV9InUrnOxsAE+/x1E46gTEmTKEQdTeD7oAxB/Uo?=
+ =?us-ascii?Q?jnCByXFJCaXfTuIEcc/7bidThY0u/2YUiCzvuzx6Sdlw184JXFC/526/CEHg?=
+ =?us-ascii?Q?0lAKSzOxCfD1LL3kU68D79JTpJJx0BrwrqCwnnJZmCqq+uDiAUK3Zv0+cjd0?=
+ =?us-ascii?Q?xt+3R+jBe/F2tzrI+AldCw7HhGXG7kBCbTGqn1ErpL5gLHwZRwjj8MhNSuIM?=
+ =?us-ascii?Q?F7G7nfhC5zRMG3Tmi2bHVgNg+YCvvXMvDp6WuYK9KkTVCiRJsItXunmXZnyS?=
+ =?us-ascii?Q?Eu8Ih49aTmRYhhUu25qFgNZfkQustBPBJB3n1a8ug/w1zXJjLN9rqUYQ8Pnj?=
+ =?us-ascii?Q?SOMOFd23z780ATy0QSb2xg3ZTiA2Ktj/QenkRhdB9R9mZRKVC8n1Yt8e89RP?=
+ =?us-ascii?Q?CqXVGk5hQmcWM1IF61bFKLheZGWaqOXdNm17Y2fxo2A+8QELWK2UQRXLVBXn?=
+ =?us-ascii?Q?sS2qVSp7ScbMRWyD9jv15dgJE7I91ZgI1lbPHuQkI2zCgY7bAIHg8PQuIBQA?=
+ =?us-ascii?Q?JwETy57ygopoXqIjeUB4lzi+vCB83oROInCLyiv/5hq+h8zPSj7OqeyDE1zo?=
+ =?us-ascii?Q?pZusKiOtqg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2022 08:30:32.9473 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfaeb375-351a-472f-3bed-08da115e6418
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT023.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3810
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72578f8d-33d9-448f-5760-08da115ec84f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Mar 2022 08:33:21.0493 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: unBtjYcD64cVCgX2D/zs+jo8AcQc96UJFUWbUCRRlq/tiYwlSL8aVuaPcOT7cugn4BkgCLKLj2cY0x8Tm02WRA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2569
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,88 +127,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: CHANDAN VURDIGERE NATARAJ <chandan.vurdigerenataraj@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Clements, John" <John.Clements@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[WHY]
-Below general protection fault observed when WebGL Aquarium is run for
-longer duration. If drm debug logs are enabled and set to 0x1f then the
-issue is observed within 10 minutes of run.
+[AMD Official Use Only]
 
-[  100.717056] general protection fault, probably for non-canonical address 0x2d33302d32323032: 0000 [#1] PREEMPT SMP NOPTI
-[  100.727921] CPU: 3 PID: 1906 Comm: DrmThread Tainted: G        W         5.15.30 #12 d726c6a2d6ebe5cf9223931cbca6892f916fe18b
-[  100.754419] RIP: 0010:CalculateSwathWidth+0x1f7/0x44f
-[  100.767109] Code: 00 00 00 f2 42 0f 11 04 f0 48 8b 85 88 00 00 00 f2 42 0f 10 04 f0 48 8b 85 98 00 00 00 f2 42 0f 11 04 f0 48 8b 45 10 0f 57 c0 <f3> 42 0f 2a 04 b0 0f 57 c9 f3 43 0f 2a 0c b4 e8 8c e2 f3 ff 48 8b
-[  100.781269] RSP: 0018:ffffa9230079eeb0 EFLAGS: 00010246
-[  100.812528] RAX: 2d33302d32323032 RBX: 0000000000000500 RCX: 0000000000000000
-[  100.819656] RDX: 0000000000000001 RSI: ffff99deb712c49c RDI: 0000000000000000
-[  100.826781] RBP: ffffa9230079ef50 R08: ffff99deb712460c R09: ffff99deb712462c
-[  100.833907] R10: ffff99deb7124940 R11: ffff99deb7124d70 R12: ffff99deb712ae44
-[  100.841033] R13: 0000000000000001 R14: 0000000000000000 R15: ffffa9230079f0a0
-[  100.848159] FS:  00007af121212640(0000) GS:ffff99deba780000(0000) knlGS:0000000000000000
-[  100.856240] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  100.861980] CR2: 0000209000fe1000 CR3: 000000011b18c000 CR4: 0000000000350ee0
-[  100.869106] Call Trace:
-[  100.871555]  <TASK>
-[  100.873655]  ? asm_sysvec_reschedule_ipi+0x12/0x20
-[  100.878449]  CalculateSwathAndDETConfiguration+0x1a3/0x6dd
-[  100.883937]  dml31_ModeSupportAndSystemConfigurationFull+0x2ce4/0x76da
-[  100.890467]  ? kallsyms_lookup_buildid+0xc8/0x163
-[  100.895173]  ? kallsyms_lookup_buildid+0xc8/0x163
-[  100.899874]  ? __sprint_symbol+0x80/0x135
-[  100.903883]  ? dm_update_plane_state+0x3f9/0x4d2
-[  100.908500]  ? symbol_string+0xb7/0xde
-[  100.912250]  ? number+0x145/0x29b
-[  100.915566]  ? vsnprintf+0x341/0x5ff
-[  100.919141]  ? desc_read_finalized_seq+0x39/0x87
-[  100.923755]  ? update_load_avg+0x1b9/0x607
-[  100.927849]  ? compute_mst_dsc_configs_for_state+0x7d/0xd5b
-[  100.933416]  ? fetch_pipe_params+0xa4d/0xd0c
-[  100.937686]  ? dc_fpu_end+0x3d/0xa8
-[  100.941175]  dml_get_voltage_level+0x16b/0x180
-[  100.945619]  dcn30_internal_validate_bw+0x10e/0x89b
-[  100.950495]  ? dcn31_validate_bandwidth+0x68/0x1fc
-[  100.955285]  ? resource_build_scaling_params+0x98b/0xb8c
-[  100.960595]  ? dcn31_validate_bandwidth+0x68/0x1fc
-[  100.965384]  dcn31_validate_bandwidth+0x9a/0x1fc
-[  100.970001]  dc_validate_global_state+0x238/0x295
-[  100.974703]  amdgpu_dm_atomic_check+0x9c1/0xbce
-[  100.979235]  ? _printk+0x59/0x73
-[  100.982467]  drm_atomic_check_only+0x403/0x78b
-[  100.986912]  drm_mode_atomic_ioctl+0x49b/0x546
-[  100.991358]  ? drm_ioctl+0x1c1/0x3b3
-[  100.994936]  ? drm_atomic_set_property+0x92a/0x92a
-[  100.999725]  drm_ioctl_kernel+0xdc/0x149
-[  101.003648]  drm_ioctl+0x27f/0x3b3
-[  101.007051]  ? drm_atomic_set_property+0x92a/0x92a
-[  101.011842]  amdgpu_drm_ioctl+0x49/0x7d
-[  101.015679]  __se_sys_ioctl+0x7c/0xb8
-[  101.015685]  do_syscall_64+0x5f/0xb8
-[  101.015690]  ? __irq_exit_rcu+0x34/0x96
+I'm not sure I understand the fix correctly - It seems to me it is trying t=
+o stop user/test cases that initiate error injection request back-to-back? =
+But anyway, we shouldn't make the change or leverage debugfs for that purpo=
+se, and there is no guarantee test scripts/applications will follow the rul=
+e as well.=20
 
-[HOW]
-It calles populate_dml_pipes which uses doubles to initialize.
-Adding FPU protection avoids context switch and probable loss of vba context
-as there is potential contention while drm debug logs are enabled.
+I guess we need to identify the root cause case by case and stop the invali=
+d request in kernel driver.
 
-Signed-off-by: CHANDAN VURDIGERE NATARAJ <chandan.vurdigerenataraj@amd.com>
+Regards,
+Hawking
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-index 826970f2bd0a..f27262417abe 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
-@@ -1750,7 +1750,9 @@ bool dcn31_validate_bandwidth(struct dc *dc,
- 
- 	BW_VAL_TRACE_COUNT();
- 
-+	DC_FP_START();
- 	out = dcn30_internal_validate_bw(dc, context, pipes, &pipe_cnt, &vlevel, fast_validate);
-+	DC_FP_END();
- 
- 	// Disable fast_validate to set min dcfclk in alculate_wm_and_dlg
- 	if (pipe_cnt == 0)
--- 
+-----Original Message-----
+From: Chai, Thomas <YiPeng.Chai@amd.com>=20
+Sent: Tuesday, March 29, 2022 15:39
+To: amd-gfx@lists.freedesktop.org
+Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
+om>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>=
+; Chai, Thomas <YiPeng.Chai@amd.com>
+Subject: [PATCH] drm/amdgpu: Support AMDGPU RAS debugfs poll interface
+
+Some AMDGPU RAS debugfs operations like UE injection can cause gpu reset. B=
+efore doing the next debugfs operation, the application should call poll to=
+ check if the gpu has finished recovering.
+
+Signed-off-by: yipechai <YiPeng.Chai@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 38 ++++++++++++++++++++++++-  dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  6 ++++
+ 2 files changed, 43 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index 4bbed76b79c8..337e3e247a45 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -452,6 +452,12 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct fi=
+le *f,
+=20
+ 		/* data.inject.address is offset instead of absolute gpu address */
+ 		ret =3D amdgpu_ras_error_inject(adev, &data.inject);
++
++		if (!ret && (data.head.type =3D=3D AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE=
+)) {
++			struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
++
++			con->ras_ue_injected =3D 1;
++		}
+ 		break;
+ 	default:
+ 		ret =3D -EINVAL;
+@@ -464,6 +470,30 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct fi=
+le *f,
+ 	return size;
+ }
+=20
++/**
++ * DOC: Support AMDGPU RAS debugfs poll interface
++ *
++ * Some AMDGPU RAS debugfs operations like UE injection
++ * can cause gpu reset. Before doing the next debugfs
++ * operation, the application should call poll to check
++ * if gpu is in recovering status.
++ */
++static __poll_t amdgpu_ras_debugfs_ctrl_poll(struct file *f, struct=20
++poll_table_struct *wait) {
++	struct amdgpu_device *adev =3D (struct amdgpu_device *)file_inode(f)->i_p=
+rivate;
++	struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
++	__poll_t mask =3D 0;
++
++	/* For UE injection, wait for gpu to finish recovery */
++	if (con->ras_ue_injected)
++		poll_wait(f, &con->gpu_ready_wait_wq, wait);
++
++	if (!atomic_read(&con->in_recovery))
++		mask =3D EPOLLIN | EPOLLRDNORM;
++
++	return mask;
++}
++
+ /**
+  * DOC: AMDGPU RAS debugfs EEPROM table reset interface
+  *
+@@ -503,6 +533,7 @@ static ssize_t amdgpu_ras_debugfs_eeprom_write(struct f=
+ile *f,
+=20
+ static const struct file_operations amdgpu_ras_debugfs_ctrl_ops =3D {
+ 	.owner =3D THIS_MODULE,
++	.poll =3D amdgpu_ras_debugfs_ctrl_poll,
+ 	.read =3D NULL,
+ 	.write =3D amdgpu_ras_debugfs_ctrl_write,
+ 	.llseek =3D default_llseek
+@@ -1837,6 +1868,11 @@ static void amdgpu_ras_do_recovery(struct work_struc=
+t *work)
+ 	if (amdgpu_device_should_recover_gpu(ras->adev))
+ 		amdgpu_device_gpu_recover(ras->adev, NULL);
+ 	atomic_set(&ras->in_recovery, 0);
++
++	if (ras->ras_ue_injected) {
++		ras->ras_ue_injected =3D 0;
++		wake_up_all(&ras->gpu_ready_wait_wq);
++	}
+ }
+=20
+ /* alloc/realloc bps array */
+@@ -2279,7 +2315,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 	INIT_DELAYED_WORK(&con->ras_counte_delay_work, amdgpu_ras_counte_dw);
+ 	atomic_set(&con->ras_ce_count, 0);
+ 	atomic_set(&con->ras_ue_count, 0);
+-
++	init_waitqueue_head(&con->gpu_ready_wait_wq);
+ 	con->objs =3D (struct ras_manager *)(con + 1);
+=20
+ 	amdgpu_ras_set_context(adev, con);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.h
+index 606df8869b89..aea6bbb71501 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -379,6 +379,12 @@ struct amdgpu_ras {
+=20
+ 	/* Indicates smu whether need update bad channel info */
+ 	bool update_channel_flag;
++
++	/* UE injection flag */
++	uint32_t  ras_ue_injected;
++
++	/* Waiting for gpu ready work queue */
++	wait_queue_head_t gpu_ready_wait_wq;
+ };
+=20
+ struct ras_fs_data {
+--
 2.25.1
-
