@@ -4,54 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F449C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 15:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B9F8C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 15:47:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8F4510F0C4;
-	Tue, 29 Mar 2022 15:28:18 +0000 (UTC)
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DF0B10F0C3
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 15:28:18 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id
- d15-20020a9d72cf000000b005cda54187c3so12995642otk.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 08:28:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UIib3CB0g8G7eK1r0/uK8MVzhjwx8+wjCghkGXZHRWM=;
- b=SPNpZqzlIImTnU+3eNFyReWCd2JSOluB5jOjkUDI94DjYsgIdDoaXcq3yZnSm0+MNF
- 9x96ruvLdiGomTMw77XXmETG0iiiSQnqGAxinHqtddmEANyLSg6AcZ0YZkHOnw4xbyyn
- 9sGLeWzEwDqxVgvauhuQ2iagkVHDJeBgjVgmEu7sy35/XJpkVRGVOyGTpqzZwFtGCLgq
- He+3iMYkwI8L7nzRlsUXEfmWwS4p/Vgt3vzDl3nwzAYKDzPMB8IiU2aCq59MazQ6ZXiU
- 0fkSKDYFN+hLqgBjV7KvalUHR3ZppHZHv8aTZhyPlpCAjsb2JoOOuqnLc/4jVbe3ehnQ
- bBNQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0702110E8CD;
+	Tue, 29 Mar 2022 15:47:22 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E51410E8BF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 15:47:20 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id h23so25435321wrb.8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 08:47:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=EvTEWzkFoxP8WWeIegh6ObO2cfannpVnLZykshsID/Q=;
+ b=TkDBobyeINMNTrhx3lYhEU09d2Yx47P9aX7vYf/rlI6C0PPZ2XTmAnXBM4ATe/aDUT
+ PLznvB+gOoVn8TIxHVjA70qviR+Wh3DFtkjcbQviR+BcE0JLdnGA4j+vs+ykJ3Jz0Pmy
+ m6BOmRqhBSGjq+ZpOZIaciDYzIBV9UujGZi+g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=UIib3CB0g8G7eK1r0/uK8MVzhjwx8+wjCghkGXZHRWM=;
- b=4caNnGGAgq3ZHiC+7gmRFSe7G/8n9zYFOPFbzM3j1l7exkzdRbYNHs1Cq8M4eaqaRj
- g+xcSx6py/TmXFfFzHEjgxbaRYyaWQ2jcXdUmUCrxXqPOe+zfgvK4DXAfgLcSV6pAmm7
- 6GC1EGR7f9KnBLLFl5dJGnfOlJjVo6d0MwEo4v5IhimGR7P40C3jKFnLQfFM1UiE47g6
- WEcY+1HyiAD8ZIsPhoLmJejUc0Vcr3MAv5ZibixGxWQYebeXOch4g6Z9uSiJGDbAyger
- 8AVWjBG24BJBKP/Hi0AczorIZ3V3wIFUbmRxJuUwlPTCOphEWZ4u3G3CoiLhT+m9UsUq
- c7ZA==
-X-Gm-Message-State: AOAM5318VdHH4MM2q6VR5zCPv8FvHemHx3C2tx5V3nFZOwxP8esaLAWL
- zZBGcAFW6XvDqt3c8V+MuU+NgXzg/GqqMan2uxM=
-X-Google-Smtp-Source: ABdhPJw+D8nUSHVIj36QsXEMjcZa4xvN0hVVp1LGbIg0i5QP9SsnPZDmqbV3HBYqKUCN+O4zOeUakVqWze59VQ340EI=
-X-Received: by 2002:a05:6830:1552:b0:5cd:bc6e:62b1 with SMTP id
- l18-20020a056830155200b005cdbc6e62b1mr1323995otp.357.1648567697294; Tue, 29
- Mar 2022 08:28:17 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=EvTEWzkFoxP8WWeIegh6ObO2cfannpVnLZykshsID/Q=;
+ b=0XMMsjPlbD4wXMaRKWU+aDqve0QPhd6boeDmQZCLhcqgvGrw70W/GfbIAoa6iZIgki
+ JkzfZGs3O8oU7lR158468U2kaieSPTmd/LXMJ1xQ3oP8NRyQptVOg+Rw6WEmK4Yndbuw
+ 5u7XOXJfR9ezh105+oO5IiMXZYAxqukL706b/hpaHTHalheD20noEDcj71zNFOI5e39/
+ WFgDRHbLM9ZgLOEm1CeMn3AIAZc4ziGZmyE1K4YeIixc6lgO8FsPyxQHo1J8KLuUTsVl
+ zJ1ZkJdeuFPFrrTUy1jm7lEwxWX5Lt1PhveUf6WKRTEgYEjAEBeeOYhhkhDQP7V7O6Em
+ TvmA==
+X-Gm-Message-State: AOAM530e4+bqeFmFh06YsoEJs3Y7M3RVdR1kIyB9kzP7qvwy5UUTp6ft
+ 6+BVMu6yolpq//CuQZsVFebsOw==
+X-Google-Smtp-Source: ABdhPJwGpzlgYGF9M5GoWjX/+K6QHIkW6+jMi6p1b9qLJoFFSewXfB22+83v0b9xyzrB4HsPPj7X/g==
+X-Received: by 2002:a5d:6b0d:0:b0:1f0:6497:b071 with SMTP id
+ v13-20020a5d6b0d000000b001f06497b071mr32275358wrw.638.1648568838956; 
+ Tue, 29 Mar 2022 08:47:18 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ v20-20020a7bcb54000000b0037fa63db8aasm2510199wmj.5.2022.03.29.08.47.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Mar 2022 08:47:18 -0700 (PDT)
+Date: Tue, 29 Mar 2022 17:47:16 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 18/23] drm/amdgpu: remove dma_resv workaround
+Message-ID: <YkMqBNsPA94elLaD@phenom.ffwll.local>
+References: <20220321135856.1331-1-christian.koenig@amd.com>
+ <20220321135856.1331-18-christian.koenig@amd.com>
 MIME-Version: 1.0
-References: <20220329150951.1311452-1-kent.russell@amd.com>
- <20220329150951.1311452-4-kent.russell@amd.com>
-In-Reply-To: <20220329150951.1311452-4-kent.russell@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 29 Mar 2022 11:28:06 -0400
-Message-ID: <CADnq5_NLZLk6+ujDs7ergPkFN0OtiYAKXFts_XixzsGG-gODTQ@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amdgpu: Add unique_id support for sienna cichlid
-To: Kent Russell <kent.russell@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220321135856.1331-18-christian.koenig@amd.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,144 +69,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: daniel.vetter@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 29, 2022 at 11:10 AM Kent Russell <kent.russell@amd.com> wrote:
->
-> This is being added to SMU Metrics, so add the required tie-ins in the
-> kernel. Also create the corresponding unique_id sysfs file.
->
-> v2: Add FW version check, remove SMU mutex
-> v3: Fix style warning
-> v4: Add MP1 IP_VERSION check to FW version check
->
-> Signed-off-by: Kent Russell <kent.russell@amd.com>
+On Mon, Mar 21, 2022 at 02:58:51PM +0100, Christian König wrote:
+> We can now add multiple writers to the dma_resv object.
+> 
+> Also enable the check for not adding containers in dma_resv.c again.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+
+It's a bit much magic, but that's the entire point of your huge prep
+series to be able to have all the fences on a dma-resv :-)
+
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
 > ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  1 +
->  .../pmfw_if/smu11_driver_if_sienna_cichlid.h  | 13 ++++++--
->  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 33 +++++++++++++++++++
->  3 files changed, 45 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> index 4151db2678fb..4a9aabc16fbc 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -1993,6 +1993,7 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
->                 case IP_VERSION(9, 4, 0):
->                 case IP_VERSION(9, 4, 1):
->                 case IP_VERSION(9, 4, 2):
-> +               case IP_VERSION(10, 3, 0):
->                         *states = ATTR_STATE_SUPPORTED;
->                         break;
->                 default:
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
-> index 3e4a314ef925..5831145646e6 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
-> @@ -1419,8 +1419,11 @@ typedef struct {
->    uint8_t  PcieRate               ;
->    uint8_t  PcieWidth              ;
->    uint16_t AverageGfxclkFrequencyTarget;
-> -  uint16_t Padding16_2;
->
-> +  uint32_t PublicSerialNumLower32;
-> +  uint32_t PublicSerialNumUpper32;
-> +
-> +  uint16_t Padding16_2;
->  } SmuMetrics_t;
->
->  typedef struct {
-> @@ -1476,8 +1479,11 @@ typedef struct {
->    uint8_t  PcieRate               ;
->    uint8_t  PcieWidth              ;
->    uint16_t AverageGfxclkFrequencyTarget;
-> -  uint16_t Padding16_2;
->
-> +  uint32_t PublicSerialNumLower32;
-> +  uint32_t PublicSerialNumUpper32;
-> +
-> +  uint16_t Padding16_2;
->  } SmuMetrics_V2_t;
->
->  typedef struct {
-> @@ -1535,6 +1541,9 @@ typedef struct {
->    uint8_t  PcieWidth;
->    uint16_t AverageGfxclkFrequencyTarget;
->
-> +  uint32_t PublicSerialNumLower32;
-> +  uint32_t PublicSerialNumUpper32;
-> +
->  } SmuMetrics_V3_t;
->
-
-Was this really added to all three versions of the metrics table?  If
-it's a new addition, presumably it's only in v3?  Other than that, the
-series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-Alex
-
->  typedef struct {
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index 38f04836c82f..b2f3d80e5945 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -715,6 +715,16 @@ static int sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
->                 *value = use_metrics_v3 ? metrics_v3->CurrFanSpeed :
->                         use_metrics_v2 ? metrics_v2->CurrFanSpeed : metrics->CurrFanSpeed;
->                 break;
-> +       case METRICS_UNIQUE_ID_UPPER32:
-> +               *value = use_metrics_v3 ? metrics_v3->PublicSerialNumUpper32 :
-> +                       use_metrics_v2 ? metrics_v2->PublicSerialNumUpper32 :
-> +                       metrics->PublicSerialNumUpper32;
-> +               break;
-> +       case METRICS_UNIQUE_ID_LOWER32:
-> +               *value = use_metrics_v3 ? metrics_v3->PublicSerialNumLower32 :
-> +                       use_metrics_v2 ? metrics_v2->PublicSerialNumLower32 :
-> +                       metrics->PublicSerialNumLower32;
-> +               break;
->         default:
->                 *value = UINT_MAX;
->                 break;
-> @@ -1773,6 +1783,28 @@ static int sienna_cichlid_read_sensor(struct smu_context *smu,
->         return ret;
+>  drivers/dma-buf/dma-resv.c                  |  6 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h |  1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      | 51 ++-------------------
+>  3 files changed, 8 insertions(+), 50 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+> index 26257ba1527e..10d70812373c 100644
+> --- a/drivers/dma-buf/dma-resv.c
+> +++ b/drivers/dma-buf/dma-resv.c
+> @@ -308,10 +308,10 @@ void dma_resv_add_fence(struct dma_resv *obj, struct dma_fence *fence,
+>  
+>  	dma_resv_assert_held(obj);
+>  
+> -	/* TODO: Drivers should not add containers here, instead add each fence
+> -	 * individually. Disabled for now until we cleaned up amdgpu/ttm.
+> +	/* Drivers should not add containers here, instead add each fence
+> +	 * individually.
+>  	 */
+> -	/* WARN_ON(dma_fence_is_container(fence)); */
+> +	WARN_ON(dma_fence_is_container(fence));
+>  
+>  	fobj = dma_resv_fences_list(obj);
+>  	count = fobj->num_fences;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+> index 044b41f0bfd9..529d52a204cf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+> @@ -34,7 +34,6 @@ struct amdgpu_fpriv;
+>  struct amdgpu_bo_list_entry {
+>  	struct ttm_validate_buffer	tv;
+>  	struct amdgpu_bo_va		*bo_va;
+> -	struct dma_fence_chain		*chain;
+>  	uint32_t			priority;
+>  	struct page			**user_pages;
+>  	bool				user_invalidated;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 1c039db976a9..88009833f523 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -575,14 +575,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+>  		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
+>  
+>  		e->bo_va = amdgpu_vm_bo_find(vm, bo);
+> -
+> -		if (bo->tbo.base.dma_buf && !amdgpu_bo_explicit_sync(bo)) {
+> -			e->chain = dma_fence_chain_alloc();
+> -			if (!e->chain) {
+> -				r = -ENOMEM;
+> -				goto error_validate;
+> -			}
+> -		}
+>  	}
+>  
+>  	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
+> @@ -633,13 +625,8 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+>  	}
+>  
+>  error_validate:
+> -	if (r) {
+> -		amdgpu_bo_list_for_each_entry(e, p->bo_list) {
+> -			dma_fence_chain_free(e->chain);
+> -			e->chain = NULL;
+> -		}
+> +	if (r)
+>  		ttm_eu_backoff_reservation(&p->ticket, &p->validated);
+> -	}
+>  out:
+>  	return r;
 >  }
->
-> +static void sienna_cichlid_get_unique_id(struct smu_context *smu)
-> +{
-> +       struct amdgpu_device *adev = smu->adev;
-> +       uint32_t upper32 = 0, lower32 = 0;
-> +
-> +       /* Only supported as of version 0.58.83.0 and only on Sienna Cichlid */
-> +       if (smu->smc_fw_version < 0x3A5300 ||
-> +           smu->adev->ip_versions[MP1_HWIP][0] != IP_VERSION(11, 0, 7))
-> +               return;
-> +
-> +       if (sienna_cichlid_get_smu_metrics_data(smu, METRICS_UNIQUE_ID_UPPER32, &upper32))
-> +               goto out;
-> +       if (sienna_cichlid_get_smu_metrics_data(smu, METRICS_UNIQUE_ID_LOWER32, &lower32))
-> +               goto out;
-> +
-> +out:
-> +
-> +       adev->unique_id = ((uint64_t)upper32 << 32) | lower32;
-> +       if (adev->serial[0] == '\0')
-> +               sprintf(adev->serial, "%016llx", adev->unique_id);
-> +}
-> +
->  static int sienna_cichlid_get_uclk_dpm_states(struct smu_context *smu, uint32_t *clocks_in_khz, uint32_t *num_states)
+> @@ -679,17 +666,9 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser, int error,
 >  {
->         uint32_t num_discrete_levels = 0;
-> @@ -4182,6 +4214,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
->         .get_ecc_info = sienna_cichlid_get_ecc_info,
->         .get_default_config_table_settings = sienna_cichlid_get_default_config_table_settings,
->         .set_config_table = sienna_cichlid_set_config_table,
-> +       .get_unique_id = sienna_cichlid_get_unique_id,
->  };
->
->  void sienna_cichlid_set_ppt_funcs(struct smu_context *smu)
-> --
+>  	unsigned i;
+>  
+> -	if (error && backoff) {
+> -		struct amdgpu_bo_list_entry *e;
+> -
+> -		amdgpu_bo_list_for_each_entry(e, parser->bo_list) {
+> -			dma_fence_chain_free(e->chain);
+> -			e->chain = NULL;
+> -		}
+> -
+> +	if (error && backoff)
+>  		ttm_eu_backoff_reservation(&parser->ticket,
+>  					   &parser->validated);
+> -	}
+>  
+>  	for (i = 0; i < parser->num_post_deps; i++) {
+>  		drm_syncobj_put(parser->post_deps[i].syncobj);
+> @@ -1264,29 +1243,9 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+>  
+>  	amdgpu_vm_move_to_lru_tail(p->adev, &fpriv->vm);
+>  
+> -	amdgpu_bo_list_for_each_entry(e, p->bo_list) {
+> -		struct dma_resv *resv = e->tv.bo->base.resv;
+> -		struct dma_fence_chain *chain = e->chain;
+> -		struct dma_resv_iter cursor;
+> -		struct dma_fence *fence;
+> -
+> -		if (!chain)
+> -			continue;
+> -
+> -		/*
+> -		 * Work around dma_resv shortcommings by wrapping up the
+> -		 * submission in a dma_fence_chain and add it as exclusive
+> -		 * fence.
+> -		 */
+> -		dma_resv_for_each_fence(&cursor, resv,
+> -					DMA_RESV_USAGE_WRITE,
+> -					fence) {
+> -			break;
+> -		}
+> -		dma_fence_chain_init(chain, fence, dma_fence_get(p->fence), 1);
+> -		dma_resv_add_fence(resv, &chain->base, DMA_RESV_USAGE_WRITE);
+> -		e->chain = NULL;
+> -	}
+> +	/* Make sure all BOs are remembered as writers */
+> +	amdgpu_bo_list_for_each_entry(e, p->bo_list)
+> +		e->tv.num_shared = 0;
+>  
+>  	ttm_eu_fence_buffer_objects(&p->ticket, &p->validated, p->fence);
+>  	mutex_unlock(&p->adev->notifier_lock);
+> -- 
 > 2.25.1
->
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
