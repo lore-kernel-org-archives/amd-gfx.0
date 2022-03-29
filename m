@@ -4,68 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89CC8C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 16:26:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6472C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 16:43:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B072610F0C1;
-	Tue, 29 Mar 2022 16:26:10 +0000 (UTC)
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [IPv6:2607:f8b0:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D30A10EEA5;
- Tue, 29 Mar 2022 16:26:09 +0000 (UTC)
-Received: by mail-pf1-x42f.google.com with SMTP id s8so16308359pfk.12;
- Tue, 29 Mar 2022 09:26:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=z0skRF1cKszdAwdy1NOSSv3UUm0nD3qQztsUo0whUH0=;
- b=gs3P/VA1wMSrmlLQqTdyefKJ1wsKgamxTTBo7ondUp+1V+16YZ+nZ7nVoUQhCXqaaJ
- MIecPjOSf44C4xmChCER16eRimBqIlGIuOctDQ5Om3NGRXs1ikcsoqz1Cxxg5dD0TVnO
- WlJNfiuQtq00Zm3rWGYf8mF06eyKH8VWNLl0BqV98qBy1z7BGPkHDvDK1sp01bGc0/E3
- f9iCZPMI9UGdIssgZdtogEHGuZJD/Rxa37jPR3PsrWLXeTNCuP/IWKhEz0B8Cu5yoZib
- UX5ZNA9UbpUiV/QL358yzZQ4x4H2yKzLTeBccs5gV5PQefBmLF37XeGpkwYmkKQoa+JR
- R5Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=z0skRF1cKszdAwdy1NOSSv3UUm0nD3qQztsUo0whUH0=;
- b=jkB8u5ADd/cLutoo3QlQViE2Ndj357iwzTi+ytzllAaSNQPh1ICEYejR+4OM3Tq2ST
- keUW/qOiykZ2jKJHnh3FaD3JwG3wMZxX3I5dAV+Tcnov8sxFVH2OBhxPn2uH9BUpYrvJ
- LZWIki1DGG/6qqg5ZeSgwELaY7A8wdYxADtGvv0zABMGHQjo1MavwT4lgNPx1CSfzloC
- CgVQTXx5OUhhhxy6jCgBaIVMcFHnSXC413Vt0yY2gkfOf7l5r9RfvZ9eT485krmFJ+Mp
- k59Jv6HiXn6Cmpw+dCtfGr4eJrdhAJPXiJVqfdydro1V6N9S6JfozYqrCsiL2QR55m2/
- 3ZlQ==
-X-Gm-Message-State: AOAM531iIX22UlEj8G0B0Z5yJWwceUHNsOokW3EX7u5cuYJ32If7qaMi
- SaKHM+vEKZKnSv/WYZ4XNZ14cDLSj5GB6hes1y0=
-X-Google-Smtp-Source: ABdhPJysE+9H0hza9pZhskjC9tzJEAaXgLsh1EbWM02LLxXwFuF8gBb3kw8eAjzu71AIlVh0FD4t+sz96gFETHV8wPE=
-X-Received: by 2002:a63:d149:0:b0:384:b288:8704 with SMTP id
- c9-20020a63d149000000b00384b2888704mr2532675pgj.112.1648571168736; Tue, 29
- Mar 2022 09:26:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 413B110F14E;
+	Tue, 29 Mar 2022 16:43:12 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 176FD10F14F;
+ Tue, 29 Mar 2022 16:43:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=r8wqEKXSkbDGZj91zAI+Jfg3Gtjsg3aNT8OtNjfi9Zs=; b=SoWpbqpU6fDY+mFjuVDPq5IyxG
+ uLehs+26G4SVu59WfW44HBpV5ng0N76WM/2otSYtH/LR+yRoZQ7zxJUDa+fkMO5ikf78zu0VAmNHi
+ SOFs14OgsjJMIDNUoutuSfGFlybzM8M10D97C8E8m+vFt8SNEL59mNvmKspZfKcaalXsFZ/KduKle
+ 7Vbv6rgkfuzfAF1wgm2wv3EkTEWWO0jtX2w74IRZdoi7DuQl/EJ1rD+fNjs5hX3yJavPVJ8cDUybv
+ eSaKVGffXCiTSOn2yp5fJZRb0puD/+5vmEe/CsGMBrN0FwbuKsv32Fag0ifjt3MkI4pzxQZFJIuJL
+ kOBoPi3A==;
+Received: from [165.90.126.25] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1nZEvy-0000cd-Oz; Tue, 29 Mar 2022 18:43:06 +0200
+Date: Tue, 29 Mar 2022 15:42:44 -0100
+From: Melissa Wen <mwen@igalia.com>
+To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
+Subject: Re: [RFC PATCH] drm/amd/display: dont ignore alpha property
+Message-ID: <20220329164244.zwlpcxbal3muy4sx@mail.igalia.com>
+References: <20220325204450.kq7kjb7ez63p5srm@mail.igalia.com>
+ <DM4PR12MB5182CCC2B6476A1FC88E725FEC1D9@DM4PR12MB5182.namprd12.prod.outlook.com>
+ <20220328164224.shj6qlw6u2akb2tj@mail.igalia.com>
 MIME-Version: 1.0
-References: <20220311102709.225616cf@eldfell> <20220316104815.11ec2e6c@eldfell>
- <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
- <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
- <5e246eb8-0256-c40e-40ea-d865bf99c003@gmail.com>
- <YjL/k6kh+5RihGIV@phenom.ffwll.local>
- <CAF6AEGu79jDW1xqJOaNCB=jAxhKiCRFJwoCNiC9ye97KvpWEtQ@mail.gmail.com>
- <YjNvYmcuDKiIneDx@phenom.ffwll.local>
- <CAF6AEGvuMfKtf_aweai6y4oHghArE95uhR2X0f9h_9w4Bk_6VQ@mail.gmail.com>
- <19a67000-d1e5-0582-c6de-07d9988b1735@amd.com>
- <CAF6AEGvDjw6zq3yiorhOc+vp2US+Jso9tF74=8gyJMTm=K5FVQ@mail.gmail.com>
- <3f0b7273-4562-7a55-e52a-bd64334886fd@amd.com>
- <CAF6AEGu6FabmcWE+NsPgnPU0=MpbA6bmO1KkJ2hrVDBLFY92xA@mail.gmail.com>
- <CAPj87rOx1uogqqKX8XZEnzpcKKY6W9TWHQFr-bgZyEU0-ftjVw@mail.gmail.com>
- <CAKMK7uFMmLLRQeONDOMpOg12p7moyrC-+hxVEqpa4hSFopbGtA@mail.gmail.com>
- <5e7d4b55-99ca-5fa4-2995-5e42d0a29473@amd.com>
- <DM6PR12MB473154C6C678EA97C03979A4F91B9@DM6PR12MB4731.namprd12.prod.outlook.com>
- <5818c2a4-80c4-8af2-9937-d2787054c149@amd.com>
-In-Reply-To: <5818c2a4-80c4-8af2-9937-d2787054c149@amd.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Tue, 29 Mar 2022 12:25:55 -0400
-Message-ID: <CAAxE2A642QK0NFRLYsq5PuossG_mLExiJD8SzipVc4xVp_V=tw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: multipart/alternative; boundary="000000000000e64c9105db5de273"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="52pbzy446z4fh3hv"
+Content-Disposition: inline
+In-Reply-To: <20220328164224.shj6qlw6u2akb2tj@mail.igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,414 +53,256 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, "Grodzovsky,
- Andrey" <Andrey.Grodzovsky@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Sharma,
- Shashank" <Shashank.Sharma@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, "Olsak,
- Marek" <Marek.Olsak@amd.com>, "Somalapuram,
- Amaranath" <Amaranath.Somalapuram@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Daniel Stone <daniel@fooishbar.org>,
- Rob Clark <robdclark@gmail.com>, dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>
+Cc: "Liu, Zhan" <Zhan.Liu@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Simon Ser <contact@emersion.fr>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Gutierrez,
+ Agustin" <Agustin.Gutierrez@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000e64c9105db5de273
-Content-Type: text/plain; charset="UTF-8"
+
+--52pbzy446z4fh3hv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-I don't know what iris does, but I would guess that the same problems as
-with AMD GPUs apply, making GPUs resets very fragile.
+On 03/28, Melissa Wen wrote:
+> On 03/28, Kazlauskas, Nicholas wrote:
+> > [AMD Official Use Only]
+> >=20
+> > > -----Original Message-----
+> > > From: Melissa Wen <mwen@igalia.com>
+> > > Sent: Friday, March 25, 2022 4:45 PM
+> > > To: amd-gfx@lists.freedesktop.org; Wentland, Harry
+> > > <Harry.Wentland@amd.com>; Deucher, Alexander
+> > > <Alexander.Deucher@amd.com>; Siqueira, Rodrigo
+> > > <Rodrigo.Siqueira@amd.com>; Kazlauskas, Nicholas
+> > > <Nicholas.Kazlauskas@amd.com>; Gutierrez, Agustin
+> > > <Agustin.Gutierrez@amd.com>; Liu, Zhan <Zhan.Liu@amd.com>
+> > > Cc: dri-devel@lists.freedesktop.org; Simon Ser <contact@emersion.fr>
+> > > Subject: [RFC PATCH] drm/amd/display: dont ignore alpha property
+> > > Importance: High
+> > >
+> > > Hi all,
+> > >
+> > > I'm examining the IGT kms_plane_alpha_blend test, specifically the
+> > > alpha-7efc. It fails on AMD and Intel gen8 hw, but passes on Intel
+> > > gen11. At first, I thought it was a rounding issue. In fact, it may be
+> > > the problem for different results between intel hw generations.
+> > >
+> > > However, I changed the test locally to compare CRCs for all alpha val=
+ues
+> > > in the range before the test fails. Interestingly, it fails for all
+> > > values when running on AMD, even when comparing planes with zero alpha
+> > > (fully transparent). Moreover, I see the same CRC values regardless of
+> > > the value set in the alpha property.
+> > >
+> > > To ensure that the blending mode is as expected, I explicitly set the
+> > > Pre-multiplied blending mode in the test. Then I tried using different
+> > > framebuffer data and alpha values. I've tried obvious comparisons too,
+> > > such as fully opaque and fully transparent.
+> > >
+> > > As far as I could verify and understand, the value set for the ALPHA
+> > > property is totally ignored by AMD drivers. I'm not sure if this is a
+> > > matter of how we interpret the meaning of the premultiplied blend mode
+> > > or the driver's assumptions about the data in these blend modes.
+> > > For example, I made a change in the test as here:
+> > > https://paste.debian.net/1235620/
+> > > That basically means same framebuffer, but different alpha values for
+> > > each plane. And the result was succesful (but I expected it fails).
+> > >
+> >=20
+> > The intent was that we don't enable global plane alpha along with anyth=
+ing that requires per pixel alpha.
+> >=20
+> > The HW does have bits to specify a mode that's intended to work like th=
+is, but I don't think we've ever fully supported it in software.
+> >=20
+> > I wouldn't necessarily expect that the blending result is correct, but =
+maybe the IGT test result says otherwise.
+>=20
+> hmm... afaiu, I think the issue here is that no formula of pixel blend
+> mode ignores the "global plane alpha". Looking at the description here:
+> https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/drm_blend.=
+c#n142
+> I understand the global plane alpha is the plane_alpha, described as:
+> "Plane alpha value set by the plane "alpha" property."
+> And the pixel alpha is the fg.alpha, right? So, the "None" mode doesn't
+> care of pixel alpha, but still considers (global) plane alpha, and
+> "Pre-multiplied" mode is considering plane alpha and pixel alpha to
+> calculate how background RGB affects the resulted composition...
+>=20
+> >=20
+> > > Besides that, I see that other subtests in kms_plane_alpha_blend are
+> > > skipped, use "None" pixel blend mode, or are not changing the
+> > > IGT_PLANE_ALPHA property. So, this alpha-7efc seems to be the only one
+> > > in the subset that is checking changes on alpha property under a
+> > > Pre-multiplied blend mode, and it is failing.
+> > >
+> > > I see some inputs in this issue:
+> > > https://gitlab.freedesktop.org/drm/amd/-/issues/1769.
+> > > But them, I guessed there are different interpretations for handling
+> > > plane alpha in the pre-multiplied blend mode. Tbh, I'm not clear, but
+> > > there's always a chance of different interpretations, and I don't have
+> > > a third driver with CRC capabilities for further comparisons.
+> > >
+> > > I made some experiments on blnd_cfg values, changing alpha_mode vs
+> > > global_gain and global_alpha. I think the expected behaviour for the
+> > > Pre-multiplied blend mode is achieved by applying this RFC patch (for
+> > > Cezanne).
+> > >
+> > > Does it seems reasonable? Can anyone help me with more inputs to guide
+> > > me the right direction or point out what I misunderstood about these
+> > > concepts?
+> > >
+> > > Thanks,
+> > >
+> > > Signed-off-by: Melissa Wen <mwen@igalia.com>
+> > > ---
+> > >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 2 +-
+> > >  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 4 ++++
+> > >  2 files changed, 5 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > index 6633df7682ce..821ffafa441e 100644
+> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > @@ -5438,7 +5438,7 @@ fill_blending_from_plane_state(const struct
+> > > drm_plane_state *plane_state,
+> > >
+> > >       if (plane_state->alpha < 0xffff) {
+> > >               *global_alpha =3D true;
+> > > -             *global_alpha_value =3D plane_state->alpha >> 8;
+> > > +             *global_alpha_value =3D plane_state->alpha;
+> >=20
+> > Isn't the original behavior here correct? The value into DC should only=
+ be an 8-bit value but we have 16-bit precision from the DRM property. This=
+ is truncating the bits that we don't support.
+> >=20
 
-Marek
+Indeed, you're right. I'll remove this change from the patch.
 
-On Tue., Mar. 29, 2022, 08:14 Christian K=C3=B6nig, <christian.koenig@amd.c=
-om>
-wrote:
+> From what I could verify (printed), the driver reads a 8-bit value, and
+> the shift is actually clearing the global_alpha_value:
+>=20
+> alpha_value >> 8;
+> [   38.296885] amdgpu: Changing global alpha: ppa 1, ps/a 0x007e
+> [   38.296887] amdgpu: Global alpha resulted: global_alpha_value 0x0000
+> [   38.297071] amdgpu: Changing global alpha: ppa 1, ps/a 0x007e
+> [   38.297072] amdgpu: Global alpha resulted: global_alpha_value 0x0000
+> [   38.297601] DCN20 update mpcc: 1, 0x00, 0x00, 1
+> [   38.297660] DCN20 update mpcc: 1, 0x00, 0x00, 1
+>=20
+> ppa =3D per_pixel_alpha
+> ps/a =3D plane_state->alpha
+>=20
+> Values in the last prints are:
+> per_pixel_alpha,
+> pipe_ctx->plane_state->global_alpha_value,
+> blnd_cfg.global_gain,
+> blnd_cfg.pre_multiplied_alpha
+>=20
+> alpha_value; (no shift)
+> [  +0.000003] amdgpu: Changing global alpha: ppa 1, ps/a 0x007e
+> [  +0.000002] amdgpu: Global alpha resulted: global_alpha_value 0x007e
+> [  +0.000001] amdgpu: Changing global alpha: ppa 1, ps/a 0x007e
+> [  +0.000001] amdgpu: Global alpha resulted: global_alpha_value 0x007e
+> [  +0.000553] DCN20 update mpcc: 1, 0x7e, 0x7e, 1
+> [  +0.000068] DCN20 update mpcc: 1, 0x7e, 0x7e, 1
+>=20
+> > >       }
+> > >  }
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> > > b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> > > index 4290eaf11a04..b4888f91a9d0 100644
+> > > --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> > > +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> > > @@ -2367,6 +2367,10 @@ void dcn20_update_mpcc(struct dc *dc, struct
+> > > pipe_ctx *pipe_ctx)
+> > >                       =3D=3D SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA)
+> > >               blnd_cfg.pre_multiplied_alpha =3D false;
+> > >
+> > > +     if (blnd_cfg.pre_multiplied_alpha) {
+> > > +             blnd_cfg.alpha_mode =3D
+> > > MPCC_ALPHA_BLEND_MODE_PER_PIXEL_ALPHA_COMBINED_GLOBAL_GAI
+> > > N;
+> > > +             blnd_cfg.global_gain =3D blnd_cfg.global_alpha;
+> > > +     }
+> >=20
+> > While I'm not sure we should be exposing/enabling per pixel alpha + com=
+bined global gain, I think the correct logical ordering for this would be t=
+o modify the check higher up in the function.
+> >=20
+> > If (per_pixel_alpha && pipe_ctx->plane_state->global_alpha)
+> >     blnd_cfg.alpha_mode =3D MPCC_ALPHA_BLEND_MODE_PER_PIXEL_ALPHA_COMBI=
+NED_GLOBAL_GAIN;
+> > else if (per_pixel_alpha)
+> >     blnd_cfg.alpha_mode =3D MPCC_ALPHA_BLEND_MODE_PER_PIXEL_ALPHA;
+> > else
+> >     blnd_cfg.alpha_mode =3D MPCC_ALPHA_BLEND_MODE_GLOBAL_ALPHA;
+> >=20
+> > This should maintain compatibility with scenarios that don't specify an=
+y alpha value on the plane.
+>=20
+> Thanks! So, in the case that global_gain is previously set as 0xff in
+> the code, is it ok to always set global_gain =3D global_alpha or should it
+> only happens when _COMBINED_GLOBAL_GAIN mode is defined?
+>=20
+> >=20
+> > Note that this logic would also need to be carried down into the dcn10_=
+update_mpcc function as well.
+> yeah, sure!
+>=20
+> Thanks a lot for your feedback! I'll try to provide more inputs.
+> Also, let me know what you think about the expected behaviour of global
+> plane alpha from these pixel blend mode formulas.
 
-> My main question is what does the iris driver better than radeonsi when
-> the client doesn't support the robustness extension?
->
-> From Daniels description it sounds like they have at least a partial
-> recovery mechanism in place.
->
-> Apart from that I completely agree to what you said below.
->
-> Christian.
->
-> Am 26.03.22 um 01:53 schrieb Olsak, Marek:
->
-> [AMD Official Use Only]
->
-> amdgpu has 2 resets: soft reset and hard reset.
->
-> The soft reset is able to recover from an infinite loop and even some GPU
-> hangs due to bad shaders or bad states. The soft reset uses a signal that
-> kills all currently-running shaders of a certain process (VM context),
-> which unblocks the graphics pipeline, so draws and command buffers finish
-> but are not correctly. This can then cause a hard hang if the shader was
-> supposed to signal work completion through a shader store instruction and=
- a
-> non-shader consumer is waiting for it (skipping the store instruction by
-> killing the shader won't signal the work, and thus the consumer will be
-> stuck, requiring a hard reset).
->
-> The hard reset can recover from other hangs, which is great, but it may
-> use a PCI reset, which erases VRAM on dGPUs. APUs don't lose memory
-> contents, but we should assume that any process that had running jobs on
-> the GPU during a GPU reset has its memory resources in an inconsistent
-> state, and thus following command buffers can cause another GPU hang. The
-> shader store example above is enough to cause another hard hang due to
-> incorrect content in memory resources, which can contain synchronization
-> primitives that are used internally by the hardware.
->
-> Asking the driver to replay a command buffer that caused a hang is a sure
-> way to hang it again. Unrelated processes can be affected due to lost VRA=
-M
-> or the misfortune of using the GPU while the GPU hang occurred. The windo=
-w
-> system should recreate GPU resources and redraw everything without
-> affecting applications. If apps use GL, they should do the same. Processe=
-s
-> that can't recover by redrawing content can be terminated or left alone,
-> but they shouldn't be allowed to submit work to the GPU anymore.
->
-> dEQP only exercises the soft reset. I think WebGL is only able to trigger
-> a soft reset at this point, but Vulkan can also trigger a hard reset.
->
-> Marek
-> ------------------------------
-> *From:* Koenig, Christian <Christian.Koenig@amd.com>
-> <Christian.Koenig@amd.com>
-> *Sent:* March 23, 2022 11:25
-> *To:* Daniel Vetter <daniel@ffwll.ch> <daniel@ffwll.ch>; Daniel Stone
-> <daniel@fooishbar.org> <daniel@fooishbar.org>; Olsak, Marek
-> <Marek.Olsak@amd.com> <Marek.Olsak@amd.com>; Grodzovsky, Andrey
-> <Andrey.Grodzovsky@amd.com> <Andrey.Grodzovsky@amd.com>
-> *Cc:* Rob Clark <robdclark@gmail.com> <robdclark@gmail.com>; Rob Clark
-> <robdclark@chromium.org> <robdclark@chromium.org>; Sharma, Shashank
-> <Shashank.Sharma@amd.com> <Shashank.Sharma@amd.com>; Christian K=C3=B6nig
-> <ckoenig.leichtzumerken@gmail.com> <ckoenig.leichtzumerken@gmail.com>;
-> Somalapuram, Amaranath <Amaranath.Somalapuram@amd.com>
-> <Amaranath.Somalapuram@amd.com>; Abhinav Kumar <quic_abhinavk@quicinc.com=
->
-> <quic_abhinavk@quicinc.com>; dri-devel <dri-devel@lists.freedesktop.org>
-> <dri-devel@lists.freedesktop.org>; amd-gfx list
-> <amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freedesktop.org>; Deucher,
-> Alexander <Alexander.Deucher@amd.com> <Alexander.Deucher@amd.com>;
-> Shashank Sharma <contactshashanksharma@gmail.com>
-> <contactshashanksharma@gmail.com>
-> *Subject:* Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
->
-> [Adding Marek and Andrey as well]
->
-> Am 23.03.22 um 16:14 schrieb Daniel Vetter:
-> > On Wed, 23 Mar 2022 at 15:07, Daniel Stone <daniel@fooishbar.org>
-> <daniel@fooishbar.org> wrote:
-> >> Hi,
-> >>
-> >> On Mon, 21 Mar 2022 at 16:02, Rob Clark <robdclark@gmail.com>
-> <robdclark@gmail.com> wrote:
-> >>> On Mon, Mar 21, 2022 at 2:30 AM Christian K=C3=B6nig
-> >>> <christian.koenig@amd.com> <christian.koenig@amd.com> wrote:
-> >>>> Well you can, it just means that their contexts are lost as well.
-> >>> Which is rather inconvenient when deqp-egl reset tests, for example,
-> >>> take down your compositor ;-)
-> >> Yeah. Or anything WebGL.
-> >>
-> >> System-wide collateral damage is definitely a non-starter. If that
-> >> means that the userspace driver has to do what iris does and ensure
-> >> everything's recreated and resubmitted, that works too, just as long
-> >> as the response to 'my adblocker didn't detect a crypto miner ad'  is
-> >> something better than 'shoot the entire user session'.
-> > Not sure where that idea came from, I thought at least I made it clear
-> > that legacy gl _has_ to recover. It's only vk and arb_robustness gl
-> > which should die without recovery attempt.
-> >
-> > The entire discussion here is who should be responsible for replay and
-> > at least if you can decide the uapi, then punting that entirely to
-> > userspace is a good approach.
->
-> Yes, completely agree. We have the approach of re-submitting things in
-> the kernel and that failed quite miserable.
->
-> In other words currently a GPU reset has something like a 99% chance to
-> get down your whole desktop.
->
-> Daniel can you briefly explain what exactly iris does when a lost
-> context is detected without gl robustness?
->
-> It sounds like you guys got that working quite well.
->
-> Thanks,
-> Christian.
->
-> >
-> > Ofc it'd be nice if the collateral damage is limited, i.e. requests
-> > not currently on the gpu, or on different engines and all that
-> > shouldn't be nuked, if possible.
-> >
-> > Also ofc since msm uapi is that the kernel tries to recover there's
-> > not much we can do there, contexts cannot be shot. But still trying to
-> > replay them as much as possible feels a bit like overkill.
-> > -Daniel
-> >
-> >> Cheers,
-> >> Daniel
-> >
-> >
->
->
->
+I'll send a new version from your feedback.
 
---000000000000e64c9105db5de273
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks,
 
-<div dir=3D"auto">I don&#39;t know what iris does, but I would guess that t=
-he same problems as with AMD GPUs apply, making GPUs resets very fragile.<d=
-iv dir=3D"auto"><br></div><div dir=3D"auto">Marek</div></div><br><div class=
-=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue., Mar. 29, 20=
-22, 08:14 Christian K=C3=B6nig, &lt;<a href=3D"mailto:christian.koenig@amd.=
-com">christian.koenig@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"=
-gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-=
-left:1ex">
+Melissa
+>=20
+> Best Regards,
+>=20
+> Melissa
+> >=20
+> > Regards,
+> > Nicholas Kazlauskas
+> >=20
+> > >       /*
+> > >        * TODO: remove hack
+> > >        * Note: currently there is a bug in init_hw such that
+> > > --
+> > > 2.35.1
+> >=20
 
- =20
-  <div>
-    My main question is what does the iris driver better than radeonsi
-    when the client doesn&#39;t support the robustness extension?<br>
-    <br>
-    From Daniels description it sounds like they have at least a partial
-    recovery mechanism in place.<br>
-    <br>
-    Apart from that I completely agree to what you said below.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div>Am 26.03.22 um 01:53 schrieb Olsak,
-      Marek:<br>
-    </div>
-    <blockquote type=3D"cite">
-     =20
-     =20
-      <p style=3D"font-family:Arial;font-size:10pt;color:#0000ff;margin:5pt=
-" align=3D"Left">
-        [AMD Official Use Only]<br>
-      </p>
-      <br>
-      <div>
-        <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-s=
-ize:12pt;color:rgb(0,0,0)">
-          amdgpu has 2 resets: soft reset and hard reset.<br>
-        </div>
-        <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-s=
-ize:12pt;color:rgb(0,0,0)">
-          <br>
-        </div>
-        <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-s=
-ize:12pt;color:rgb(0,0,0)">
-          The soft reset is able to recover from an infinite loop and
-          even some GPU hangs due to bad shaders or bad states. The soft
-          reset uses a signal that kills all currently-running shaders
-          of a certain process (VM context), which unblocks the graphics
-          pipeline, so draws and command buffers finish but are not
-          correctly. This can then cause a hard hang if the shader was
-          supposed to signal work completion through a shader store
-          instruction and a non-shader consumer is waiting for it
-          (skipping the store instruction by killing the shader won&#39;t
-          signal the work, and thus the consumer will be stuck,
-          requiring a hard reset).<br>
-        </div>
-        <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-s=
-ize:12pt;color:rgb(0,0,0)">
-          <br>
-        </div>
-        <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-s=
-ize:12pt;color:rgb(0,0,0)">
-          <span style=3D"font-size:12pt">The hard reset can recover from
-            other hangs, which is great, but it may use a PCI reset,
-            which erases VRAM on dGPUs. APUs don&#39;t lose memory contents=
-,
-            but we should assume that any process that had running jobs
-            on the GPU during a GPU reset has its memory resources in an
-            inconsistent state, and thus following command buffers can
-            cause another GPU hang. The shader store example above is
-            enough to cause another hard hang due to incorrect content
-            in memory resources, which can contain synchronization
-            primitives that are used internally by the hardware.</span><br>
-          <span style=3D"font-size:12pt"></span></div>
-        <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-s=
-ize:12pt;color:rgb(0,0,0)">
-          <br>
-        </div>
-        <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-s=
-ize:12pt;color:rgb(0,0,0)">
-          <span style=3D"font-size:12pt">Asking the driver to replay a
-            command buffer that caused a hang is a sure way to hang it
-            again. Unrelated processes can be affected due to lost VRAM
-            or the misfortune of using the GPU while the GPU hang
-            occurred. The window system should recreate GPU resources
-            and redraw everything without affecting applications. If
-            apps use GL, they should do the same. Processes that can&#39;t
-            recover by redrawing content can be terminated or left
-            alone, but they shouldn&#39;t be allowed to submit work to the
-            GPU anymore.</span><br>
-          <span style=3D"font-size:12pt"></span><br>
-        </div>
-        <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-s=
-ize:12pt;color:rgb(0,0,0)">
-          dEQP only exercises the soft reset. I think WebGL is only able
-          to trigger a soft reset at this point, but Vulkan can also
-          trigger a hard reset.<br>
-        </div>
-        <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-s=
-ize:12pt;color:rgb(0,0,0)">
-          <br>
-        </div>
-        <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-s=
-ize:12pt;color:rgb(0,0,0)">
-          Marek<br>
-        </div>
-        <hr style=3D"display:inline-block;width:98%">
-        <div id=3D"m_7185412060794202476divRplyFwdMsg" dir=3D"ltr"><font st=
-yle=3D"font-size:11pt" face=3D"Calibri, sans-serif" color=3D"#000000"><b>Fr=
-om:</b>
-            Koenig, Christian <a href=3D"mailto:Christian.Koenig@amd.com" t=
-arget=3D"_blank" rel=3D"noreferrer">&lt;Christian.Koenig@amd.com&gt;</a><br=
->
-            <b>Sent:</b> March 23, 2022 11:25<br>
-            <b>To:</b> Daniel Vetter <a href=3D"mailto:daniel@ffwll.ch" tar=
-get=3D"_blank" rel=3D"noreferrer">&lt;daniel@ffwll.ch&gt;</a>; Daniel
-            Stone <a href=3D"mailto:daniel@fooishbar.org" target=3D"_blank"=
- rel=3D"noreferrer">&lt;daniel@fooishbar.org&gt;</a>; Olsak, Marek
-            <a href=3D"mailto:Marek.Olsak@amd.com" target=3D"_blank" rel=3D=
-"noreferrer">&lt;Marek.Olsak@amd.com&gt;</a>; Grodzovsky, Andrey
-            <a href=3D"mailto:Andrey.Grodzovsky@amd.com" target=3D"_blank" =
-rel=3D"noreferrer">&lt;Andrey.Grodzovsky@amd.com&gt;</a><br>
-            <b>Cc:</b> Rob Clark <a href=3D"mailto:robdclark@gmail.com" tar=
-get=3D"_blank" rel=3D"noreferrer">&lt;robdclark@gmail.com&gt;</a>; Rob Clar=
-k
-            <a href=3D"mailto:robdclark@chromium.org" target=3D"_blank" rel=
-=3D"noreferrer">&lt;robdclark@chromium.org&gt;</a>; Sharma, Shashank
-            <a href=3D"mailto:Shashank.Sharma@amd.com" target=3D"_blank" re=
-l=3D"noreferrer">&lt;Shashank.Sharma@amd.com&gt;</a>; Christian K=C3=B6nig
-            <a href=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=3D"_=
-blank" rel=3D"noreferrer">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a>; Som=
-alapuram,
-            Amaranath <a href=3D"mailto:Amaranath.Somalapuram@amd.com" targ=
-et=3D"_blank" rel=3D"noreferrer">&lt;Amaranath.Somalapuram@amd.com&gt;</a>;=
- Abhinav
-            Kumar <a href=3D"mailto:quic_abhinavk@quicinc.com" target=3D"_b=
-lank" rel=3D"noreferrer">&lt;quic_abhinavk@quicinc.com&gt;</a>; dri-devel
-            <a href=3D"mailto:dri-devel@lists.freedesktop.org" target=3D"_b=
-lank" rel=3D"noreferrer">&lt;dri-devel@lists.freedesktop.org&gt;</a>; amd-g=
-fx list
-            <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_bla=
-nk" rel=3D"noreferrer">&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Deucher, =
-Alexander
-            <a href=3D"mailto:Alexander.Deucher@amd.com" target=3D"_blank" =
-rel=3D"noreferrer">&lt;Alexander.Deucher@amd.com&gt;</a>; Shashank Sharma
-            <a href=3D"mailto:contactshashanksharma@gmail.com" target=3D"_b=
-lank" rel=3D"noreferrer">&lt;contactshashanksharma@gmail.com&gt;</a><br>
-            <b>Subject:</b> Re: [PATCH v2 1/2] drm: Add GPU reset sysfs
-            event</font>
-          <div>=C2=A0</div>
-        </div>
-        <div><font size=3D"2"><span style=3D"font-size:11pt">
-              <div>[Adding Marek and Andrey as well]<br>
-                <br>
-                Am 23.03.22 um 16:14 schrieb Daniel Vetter:<br>
-                &gt; On Wed, 23 Mar 2022 at 15:07, Daniel Stone
-                <a href=3D"mailto:daniel@fooishbar.org" target=3D"_blank" r=
-el=3D"noreferrer">&lt;daniel@fooishbar.org&gt;</a> wrote:<br>
-                &gt;&gt; Hi,<br>
-                &gt;&gt;<br>
-                &gt;&gt; On Mon, 21 Mar 2022 at 16:02, Rob Clark
-                <a href=3D"mailto:robdclark@gmail.com" target=3D"_blank" re=
-l=3D"noreferrer">&lt;robdclark@gmail.com&gt;</a> wrote:<br>
-                &gt;&gt;&gt; On Mon, Mar 21, 2022 at 2:30 AM Christian
-                K=C3=B6nig<br>
-                &gt;&gt;&gt; <a href=3D"mailto:christian.koenig@amd.com" ta=
-rget=3D"_blank" rel=3D"noreferrer">&lt;christian.koenig@amd.com&gt;</a> wro=
-te:<br>
-                &gt;&gt;&gt;&gt; Well you can, it just means that their
-                contexts are lost as well.<br>
-                &gt;&gt;&gt; Which is rather inconvenient when deqp-egl
-                reset tests, for example,<br>
-                &gt;&gt;&gt; take down your compositor ;-)<br>
-                &gt;&gt; Yeah. Or anything WebGL.<br>
-                &gt;&gt;<br>
-                &gt;&gt; System-wide collateral damage is definitely a
-                non-starter. If that<br>
-                &gt;&gt; means that the userspace driver has to do what
-                iris does and ensure<br>
-                &gt;&gt; everything&#39;s recreated and resubmitted, that
-                works too, just as long<br>
-                &gt;&gt; as the response to &#39;my adblocker didn&#39;t de=
-tect
-                a crypto miner ad&#39;=C2=A0 is<br>
-                &gt;&gt; something better than &#39;shoot the entire user
-                session&#39;.<br>
-                &gt; Not sure where that idea came from, I thought at
-                least I made it clear<br>
-                &gt; that legacy gl _has_ to recover. It&#39;s only vk and
-                arb_robustness gl<br>
-                &gt; which should die without recovery attempt.<br>
-                &gt;<br>
-                &gt; The entire discussion here is who should be
-                responsible for replay and<br>
-                &gt; at least if you can decide the uapi, then punting
-                that entirely to<br>
-                &gt; userspace is a good approach.<br>
-                <br>
-                Yes, completely agree. We have the approach of
-                re-submitting things in <br>
-                the kernel and that failed quite miserable.<br>
-                <br>
-                In other words currently a GPU reset has something like
-                a 99% chance to <br>
-                get down your whole desktop.<br>
-                <br>
-                Daniel can you briefly explain what exactly iris does
-                when a lost <br>
-                context is detected without gl robustness?<br>
-                <br>
-                It sounds like you guys got that working quite well.<br>
-                <br>
-                Thanks,<br>
-                Christian.<br>
-                <br>
-                &gt;<br>
-                &gt; Ofc it&#39;d be nice if the collateral damage is
-                limited, i.e. requests<br>
-                &gt; not currently on the gpu, or on different engines
-                and all that<br>
-                &gt; shouldn&#39;t be nuked, if possible.<br>
-                &gt;<br>
-                &gt; Also ofc since msm uapi is that the kernel tries to
-                recover there&#39;s<br>
-                &gt; not much we can do there, contexts cannot be shot.
-                But still trying to<br>
-                &gt; replay them as much as possible feels a bit like
-                overkill.<br>
-                &gt; -Daniel<br>
-                &gt;<br>
-                &gt;&gt; Cheers,<br>
-                &gt;&gt; Daniel<br>
-                &gt;<br>
-                &gt;<br>
-                <br>
-              </div>
-            </span></font></div>
-      </div>
-    </blockquote>
-    <br>
-  </div>
 
-</blockquote></div>
 
---000000000000e64c9105db5de273--
+--52pbzy446z4fh3hv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmJDNwAACgkQwqF3j0dL
+ehwwuhAAm77fBZNxu3QBeb918kkeL7UdTIZDm0+QklGZdAv/QabjXniOL4VrFu7M
+KEPBk86J0SkUiu99W3OJiaNShHw9ftJwirOyeZU8XsUQ2ClS5jmm2/h+ly7CxVFo
+ue8uwLQKuOmJK8Di24b6FHThs5zvA+FDxu3+SUVPe7GuVRPOuZ0RqAm0nwBtoph2
+7Cb+QPzW4Qr9aS3Bjn7qBR+kn7eiKmTtg35/RDrhvo4a9kKIn0BRZ884eQO/1g3X
+x01FhUuBq/NOhi23Sr0KBIN/wldP4j9EpkpEVFNEgPEYOEZ+i0DlNsyaF4muvcjJ
+O8IXOjq+6ovu9h7PqBHzEALEfDHUKgp0Gzw5i6LdiaLweGhDvb0INx2Z2R/TEnuK
+xncLJIGH6pSHemBK4Zdht3iM9pT7BcIzfrpL+b4A2/JOcDpwcqa0LsM6NJbyHebk
+7BZvtfoA6opvDKy8AdnotuXv2ZJZFs2CNFF+tq0doVbv8clVY6UlOb/kWIsCnS4I
+FXxtSaREX3gZB1vOU0hxnuUFqAwi7MYb6mh1/D1J0IhEBclXr05FYJi/rXap7S3S
+Q4d88zgweypm/eE7ZjLRPZqR3MWkoxhkyktmnvlnwcmaGsfFzP0VQ+Nhp+Hi7qph
+GxQAaCJHjcUy901kRpNTGq/7yqnq9oupTAA8TrSx0VaoFAt3fiw=
+=SgWv
+-----END PGP SIGNATURE-----
+
+--52pbzy446z4fh3hv--
