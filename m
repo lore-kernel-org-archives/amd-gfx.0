@@ -4,135 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97F4FC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 12:14:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B87BC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 13:18:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2427210E89A;
-	Tue, 29 Mar 2022 12:14:27 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2081.outbound.protection.outlook.com [40.107.93.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72E8910E89A;
- Tue, 29 Mar 2022 12:14:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2242A10E89F;
+	Tue, 29 Mar 2022 13:18:17 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2046.outbound.protection.outlook.com [40.107.220.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C57AE10E89F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 13:18:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NvnuO/Aw5UiwBIZ/JO4djW/D3ap9TTuAiic5yhiUHkhgGleuk+R/7x8h7/m3kGz2EOhxCUwXASqueUkkSVVWl6a4uhfnGBTu2AU788x8CzJgt4p2b1SkPgbxOsoGUaGKKQnjNVxxfH8fRa0t+p39nwY4NRCOBLHaWrn8AP3o4Ip0TsFzzia3U8EJf8Lg4HGkzqPLqIHk0ug/Y3Q/XIH1+8CQvCvUjabAWc01FhvUXiWWGmhxKo7YWM0Y4pNLE+VtVtWxL5zcuNEpksawTKr4VsQzrGd3KZcMNt9Z8zZG5xs9pSsDaY87Friul5GXcMiQuNN/xj9hkfsOhwoRiwMaSg==
+ b=N78ZD0XjoAKTJg+MvOKFkNXIgKWI6G5pwoITKYsSqXi77qaRypV7Y6L+rrSZt6Eiwef7YG02TCSl8m4tBOKXUfcizf1VL3XURFHN0B9SujiuuUg7Kk8QM8Wt0LInMHxLf/asVTG2IdMoitQ7+NLVPhd1NpVDy9/iZp0Vw/SwtBmnYOEVJFlFA+51eIfqZrNEeey3Xm/CeT+SaFaPxYeecI6SSoyB5kEb15hzVU2XppcUMoirlIjLc8Bz9DSEfpOOJuZc/FA/XCqCpsd3MGuw+JGlBr+kdGxGKUN/68zAAsmMGuOK6hKvgKfnqZJyNdv8JON6Uo8zxFJkrKyImZCiuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fDH+ONvNGhZkp3uMun9cJeDiqEQLvbf+lHpGMf65fJ8=;
- b=R3D3rzYn63L3iqHY/e+06+1/s+zwaKfbsD3DRLvhciHVl8BE/Tau145YHvTOIPTgMeuYHv60TXnEsCNZCYoDpf9YK89HNv8AgNEBC21uEM7wzq4B4zLWLY28vKkwt/k4fMfKRim9q8YM7dxwM7jW3+0uKavV0PoGTW1jZTRPKTCibc5Ydd12e2SeVG4wzg+8jfkkEki91nlGZ3V97a6CfeawDU2gzk8iAhmPGqHsbk4hurMFnXP3p9NgBijRCKb3MYBNh0uvO8QeMYYUYrZ2zx/BJEuBxJRsck/nULcOnwU8z4/ipYg2ov4/8DJmcagiiN5OdT1LCGO0GAUvvFxsSg==
+ bh=s6VY0MSxbEb5xERhoZOG58qu+yaqiV2yKuz9ZfYThm8=;
+ b=d8Mlp5Z10b0Wjoc/Br0ts8UUaV9e8X66JpRJ0y3Jjq0hXMj6Fzx0K77CuJFybXIsz4KeN6ZWMjfGN5ipLqliwScwQW5wwyfx6RoXm63/HkYgOQM2sR58SLAupJDXh4T2d1tBDCSIr8Wun25HuIPPBasqLCouOHUeWT0cn2PYkhIEP8bssDrzGE4vxSLfOLLHzh2C619U1QE6xTeaKveMPCYKPYQz2wKtE85/ync4DxqMvm6szv6wlz+h3GQoboW7p2SAmf4Y+P55UU/QPXWOYCXTAhZXncMsVqcWuY5jIQ9Ca64Nolm1iGolxz9jb2En0pT6Ed5d2uCvzOqS45xB7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fDH+ONvNGhZkp3uMun9cJeDiqEQLvbf+lHpGMf65fJ8=;
- b=SOmoD0aJky0zkoqvrbvcROGooJMShXhhvE5wcSxZ2YEqfq2O94VdhVms1RugmEvU/COKTBBQGWcmGa1pFlEyU/SDOBnUBeHQBadlXa/uDvf1mOp/mtMXCggZno6Eujp1086XENQvj7toN63OZvUjM1kGnuiHOehaYzbVFmC7fog=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM5PR1201MB0091.namprd12.prod.outlook.com (2603:10b6:4:57::23)
+ bh=s6VY0MSxbEb5xERhoZOG58qu+yaqiV2yKuz9ZfYThm8=;
+ b=CgHgUGGisVsbo+i/rRjz4idsTX6w1GPlMkvvUj8cYWbsX9F/pbH/+W/4r0lSEyO6qoWhdXNouYv6mH4NEVSJwcHG9d0zH0IRNRdIDja6WPJXQiKMzFtNbkZMUXjGV+qTUYmzsOfxDA855c/41Gx9wj8iUPmrVzaREe1T9X6ZDgo=
+Received: from CH2PR12MB4215.namprd12.prod.outlook.com (2603:10b6:610:ab::24)
+ by PH0PR12MB5645.namprd12.prod.outlook.com (2603:10b6:510:140::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.18; Tue, 29 Mar
- 2022 12:14:24 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::404f:1fc8:9f4c:f185]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::404f:1fc8:9f4c:f185%6]) with mapi id 15.20.5102.023; Tue, 29 Mar 2022
- 12:14:23 +0000
-Content-Type: multipart/alternative;
- boundary="------------924cAIMQ8QVY4V3a1NmAMs7N"
-Message-ID: <5818c2a4-80c4-8af2-9937-d2787054c149@amd.com>
-Date: Tue, 29 Mar 2022 14:14:18 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.16; Tue, 29 Mar
+ 2022 13:18:13 +0000
+Received: from CH2PR12MB4215.namprd12.prod.outlook.com
+ ([fe80::e879:fa9b:6e14:4691]) by CH2PR12MB4215.namprd12.prod.outlook.com
+ ([fe80::e879:fa9b:6e14:4691%8]) with mapi id 15.20.5123.019; Tue, 29 Mar 2022
+ 13:18:13 +0000
+From: "Chai, Thomas" <YiPeng.Chai@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Support AMDGPU RAS debugfs poll interface
+Thread-Topic: [PATCH] drm/amdgpu: Support AMDGPU RAS debugfs poll interface
+Thread-Index: AQHYQ0AXd/5AC7GS/UuZDKgf9eZqQKzWCMuAgABPZuA=
+Date: Tue, 29 Mar 2022 13:18:12 +0000
+Message-ID: <CH2PR12MB4215A7C562267ED64F7FA2FEFC1E9@CH2PR12MB4215.namprd12.prod.outlook.com>
+References: <20220329073843.772795-1-YiPeng.Chai@amd.com>
+ <BN9PR12MB5257F539B80934D112D1D481FC1E9@BN9PR12MB5257.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB5257F539B80934D112D1D481FC1E9@BN9PR12MB5257.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: "Olsak, Marek" <Marek.Olsak@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Stone <daniel@fooishbar.org>,
- "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>
-References: <20220311102709.225616cf@eldfell> <20220316104815.11ec2e6c@eldfell>
- <CADnq5_MbOLaZGaQ8fYW_ZL3+gssu3cq7QbzByOWdLuvbdfSAAg@mail.gmail.com>
- <CAF6AEGvoqJmXs0KxXGN4qKD4U6Yeo4gDq6sVxm=noY-TwFoj4w@mail.gmail.com>
- <5e246eb8-0256-c40e-40ea-d865bf99c003@gmail.com>
- <YjL/k6kh+5RihGIV@phenom.ffwll.local>
- <CAF6AEGu79jDW1xqJOaNCB=jAxhKiCRFJwoCNiC9ye97KvpWEtQ@mail.gmail.com>
- <YjNvYmcuDKiIneDx@phenom.ffwll.local>
- <CAF6AEGvuMfKtf_aweai6y4oHghArE95uhR2X0f9h_9w4Bk_6VQ@mail.gmail.com>
- <19a67000-d1e5-0582-c6de-07d9988b1735@amd.com>
- <CAF6AEGvDjw6zq3yiorhOc+vp2US+Jso9tF74=8gyJMTm=K5FVQ@mail.gmail.com>
- <3f0b7273-4562-7a55-e52a-bd64334886fd@amd.com>
- <CAF6AEGu6FabmcWE+NsPgnPU0=MpbA6bmO1KkJ2hrVDBLFY92xA@mail.gmail.com>
- <CAPj87rOx1uogqqKX8XZEnzpcKKY6W9TWHQFr-bgZyEU0-ftjVw@mail.gmail.com>
- <CAKMK7uFMmLLRQeONDOMpOg12p7moyrC-+hxVEqpa4hSFopbGtA@mail.gmail.com>
- <5e7d4b55-99ca-5fa4-2995-5e42d0a29473@amd.com>
- <DM6PR12MB473154C6C678EA97C03979A4F91B9@DM6PR12MB4731.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <DM6PR12MB473154C6C678EA97C03979A4F91B9@DM6PR12MB4731.namprd12.prod.outlook.com>
-X-ClientProxiedBy: AS9PR05CA0009.eurprd05.prod.outlook.com
- (2603:10a6:20b:488::10) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ea0f1768-8500-4016-de57-08da117da94d
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0091:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB0091129091BD07B362FBC5CF831E9@DM5PR1201MB0091.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0vCEZtNIUq6A7/Ze4WsLsjd1txTdG6FAXHiTf6+J4rTCG8D2FYY5zGJFAMS8SxzTrN3lMK4AcmQARQ2pNNAoFWqGoWIVbIpB738rCS6JSHPUect5lIL3wyZs+e1YXgWDSUr+I2TxD3qECTTAIE5fMWq8a0724v6xTS4bxzspkZ5/6XtNPN3MrQnx16n0NzkFyzm8FneaQS+7JOP93QJOzlTuoTerd2voK5ZkiubYZSC5BkgGQGceM2B//MsvSgzSGww1dI+qkBkVN+6+EWnO1CocunuokaUK64jmVPYr7KPy2kMOiNd588HB11P//fLD1Qfn3UbJoq8P6ClQTk8W7TYtEB4P7UdCEgE4nn8ZJV7wgGjZll8koX4ZrEMGI5vyWx5Lefrls4L5O0zA4YZx0vBFx5VAGRXkPBz4y3KVeUbh2xKjFkPW1DAMD2YpkT6IzGkVJJo7TO3B1pUIOR7iNMN1CmHnJI3rOva/hVWnQ6xFm/NQ5B0iA3GkeHCM2l2opRMKu4UnOXzYOkFsvHCEghivcWwSsrEHVTTw5EQMlm+LoyzUZ54Fz33mhvMC82hw8w9/49v4Oh82H8sSVePEBdaEnmXK8mS15/QX9Gwf/6xqK5of4E+xblQqskSa2KrlYJSQ2WQGLXzHcCTRxtcw7dxJzTIwzj4UsprKU12SDPUed/+MBki080X/nFkgXetr6XZ1nLXpSWSGW10Gkv8mXaL2KcBDlf/sH6ebT5S2Jb8Xoex95HppSy1N3kgDL/n1
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(110136005)(316002)(19627405001)(6486002)(2906002)(66476007)(186003)(66946007)(8676002)(2616005)(53546011)(26005)(6666004)(6506007)(30864003)(33964004)(8936002)(66556008)(83380400001)(4326008)(6636002)(54906003)(66574015)(31696002)(5660300002)(36756003)(6512007)(31686004)(38100700002)(86362001)(508600001)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-03-29T08:33:11Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=537175dc-1329-4ae4-a9b2-f75868310e33;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-03-29T13:18:11Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 5956789b-bc95-477c-9958-c2143536e03b
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 86315730-067a-4470-e820-08da118693f2
+x-ms-traffictypediagnostic: PH0PR12MB5645:EE_
+x-microsoft-antispam-prvs: <PH0PR12MB56456968A71570FD32778E4EFC1E9@PH0PR12MB5645.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: IhF7LL+TVh0Lj6uv7jqCeEuclqkoPL8r+UvhmyVTnZ6AqZq6/t7q8nNgN7JY6yB3nOZ6oprm/D1o5YXt1UCUQ1uLnCOESLKDW+NL5ib4yFbsdWsqNZStpyZIP/ZI3TFTwRuXfbH6/7KSAr7ho2Z1LHhcFw+PyVQGLOcM8YNjstFkUkB6tYw5+wNLxthVOCMbDcxAjhCsi9d44RaTao8hLbs4Fyykg5U9XaQ3LpAnJvNs7n3xJ3cMsL8P2sGJO/vuBK0IYi3emPaCvbydePG1aMJQ4fwvuMBcDcMY+bJBgMukHxVlcrC7cF9EzH4OYyOg/BrbmkQR6EUnE7M10XdGm5QV3HYNg+9Oo7hGZMNUMNJ2vOTwYfbfP0PGtoGFakB294x0XppgXa0Z8cIMFuSGLuaKV25NT5lhwZu3LrSBh7TeQWjApElXMh6mHalRTZmartI8YVqEf1rbBkopt9hKmlLtj/Qn1Uo1konnIk9o1vR6qONvu1GDs5Y1qd4wihZhHAWTlbAzmyt73PZSKdDIfbUt1QMeicA+a82niW23GLOTBXQ0v33805MjCOIoWNV7+7rZVfd256e/KQge77NhM3aosZvRGjWWEK8gJae8gA5nxuyJ3MW2YF5XeCgY36XuvQ/Q6MIFTbxYDjJUWJ4ygh/esfypHnEmmV/s/8fJwYx0jGPtWotbGNgJoVQk9EPkRHOpywnMz1Ep0F7SV/aQlg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4215.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(8936002)(54906003)(186003)(38100700002)(53546011)(6506007)(2906002)(7696005)(110136005)(508600001)(52536014)(55016003)(71200400001)(9686003)(4326008)(76116006)(86362001)(8676002)(5660300002)(38070700005)(83380400001)(316002)(66476007)(64756008)(66446008)(66946007)(33656002)(66556008)(122000001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WHpuaUs0MS9TbkdxdXBmWFdQSjhLb2phQ0dlZDllNEFkVmkxUThQb3UxVVNV?=
- =?utf-8?B?MUxXcXI5VG5NOXRybEdlWk9iUTcrUklUa2xoSmgrU2QrSTA2NlB1ZE1FV0xk?=
- =?utf-8?B?MGlKSS91Z1dqTzdLRVA3TEUvRUsyd1JOZWFGb3NmSXdNanh4RFA5UWVtendO?=
- =?utf-8?B?TEVYbUtpMmdOWlBQNzBmL0d4TVJmOG9FR3NYMFNwcWFUa0lkNy9IM1MwYjZ2?=
- =?utf-8?B?bm1sQjlzN3VuVVI2U1BRQjhTbTMyZXZGemNGL0ltajFCV3JESlJ4cVVmSnhD?=
- =?utf-8?B?VTA0UDc5cUxsaWFIL2FYejl3UkFNV2s5cll2Mm8zcCszcEZNYnJ0bXFSdmM0?=
- =?utf-8?B?WXBaSXY3akNhbDltSWJaaWtnTzlLVEtHQ0gwSE5LbTJmRGtaQy9YeXZpZTEw?=
- =?utf-8?B?SG9xQXZQVlNYcURUMzlJV0ZjTkZhTTBXT0VkUk11cnNSU21Gd2x4bnp2V2hV?=
- =?utf-8?B?YWVhcG5nRnoxZmFLa1cxcU1XZXAvaURuOGVBNzJXUEgwQnpVQjNjd092SHJx?=
- =?utf-8?B?WHIyRHh2RzFVblZoNVIvd3lkMHVjdmFuNy8xSXVBdUZrYWZ1UXExOXFjdmh4?=
- =?utf-8?B?UTJFUnpRcmh6ME1ab0Z3blJNS1llVHN4VS9ubzJhYkxmRllrYlRtdnBTeTlX?=
- =?utf-8?B?MVFLQnlSYmlteWZLNXNwWSszQlRBcmN3dXpQMUt6MnVnWHg1Z0c4ZGJiNjN6?=
- =?utf-8?B?MnVrVjhnM1JUR3RLVnM4N1hMS1ZLcnFmb241TEhFbjJFaXBTWW41c0JYMHJp?=
- =?utf-8?B?WGNQcTN1QkVVd3FXTDZVSkRrdWZIWXZUNGVWZ1VmajU0TnduQWNWam1Ka2J6?=
- =?utf-8?B?Z0h3SzJkeVZtLzNmRGY2SFRLT05Dbzlzek1JUWhRT3k4SXgvS2dQWW9TNmc2?=
- =?utf-8?B?Y1FVTWdUR21YRWh4K1lrZ24xakdHQ3g1WGVsZHZuaGpiZGNlaFZwbEZ3VTRx?=
- =?utf-8?B?Y0VXTGIvRXlLOE1ta2RLZk9mZU5UaWdnemhKSjB1VjVWQ1VYeWJzaTNkeVJp?=
- =?utf-8?B?a2pmRWMycVJmaEdKS1RCVWVST040SzBJQTVuQk9ERU8wd3JIQ0RYdzIwQU9n?=
- =?utf-8?B?RnhzVURhaUlzRlFBWWZIek5yU1VOQjNWbDBVeitDSkpVYXNLZkF6YkE2UnVq?=
- =?utf-8?B?UlFoUnFCM000U3p3OExNaDJnMS9vYitrNks1VUduTUJxeW1wd2syV3ROOG5G?=
- =?utf-8?B?OGQ3RTFhZE53VDRva2d3cFI2amVXUE5ZbERLM0hoSGhPcktxSUVjNHNYYlB6?=
- =?utf-8?B?dWdqY1I0dkxyQnlJQkd1Y3JiSnNGcEI0eDJTN3YwQklCN1dyWmtrQVJjSGJN?=
- =?utf-8?B?cFE1b0xZaTdLbTlaU1FweFJabnpnNEtGTDdkeWM2VC9hTHBubitMZCtIVmdY?=
- =?utf-8?B?UzhwYlI1REExUGc0ZUhqVG1TQWt5SGtKRVdIT3FlakE5Y2cySzN4VmVoaDJZ?=
- =?utf-8?B?QXRHTi9sODNtT2tiZ094Yy9iN0c0TzBXektwOFpjUHNHUUdKYysxbmVZbnds?=
- =?utf-8?B?OGZUZjZoZHNMcEhaV3VWeWFCMzhGUXUzNi9PeVRvV1dwNjd1Vk9PMm8zcmVB?=
- =?utf-8?B?QUlvZUwwdkxpZjRNaUtFSjdrRFRXRnpDemh5QS9EZXQrcUVRWlBVL1FLVW5s?=
- =?utf-8?B?ZDM2d1pKSTMrUTI1OVY2N251MGhjL0h1M2NqdXJIUHM3TzMwaEdYMWlQZmpI?=
- =?utf-8?B?QnQvWm95VkFIaXBRVnlRT3lXdHlMYnZGY0htWDY4U1lyZjFKbnF0b2puMTFp?=
- =?utf-8?B?QUx1ZVFNVHkzT2JTY0VDSzJyZkJwWTZ1SlRiY0Y2YkVVdU5MVzlEZ2xhU1VL?=
- =?utf-8?B?cFdTTG0yQXhHOEcyV0FtZGpXYklybDhjYk1yQlZpTkdNRS9yT1lZcy9xNHBO?=
- =?utf-8?B?eUpmRjZXdmd0WUovK2VsejJwcHRXeE1IR2I2aEdPTVg1RjVvZ1RsWkd3ekNn?=
- =?utf-8?B?cjhwekFjM0Qxckx6M1VBSEhQVFo4RTFabU9WcVFuMGlPSTVTV0JDMGpuUVBT?=
- =?utf-8?B?cGZsak1YaVdJSk1uRVBwOTd4NGVOdDNUekdhVGdJUk1FWFhZQ3ZsN0x1ak5h?=
- =?utf-8?B?OFpkcUVlNHppcG8zUHpLc2Uvb3J2eUZ0UEphbHZ2WDl3aXVHMEp3SUFZcERm?=
- =?utf-8?B?eWViZGlsNlNhd2tVV2RSYVl1dm96d3VrelBHUXNUaG9ZNmFUMTdtU3RxN0VJ?=
- =?utf-8?B?QjY2ZkhFZ1NQNGxRWXEzK3V0c0NUa1EzZnk4U2UzR3EvcjF3UHR1OWxMUUU1?=
- =?utf-8?B?aUFzWjg3dUNtbnpqUDhSTVUrN3M2SVloZHV1V0RMTEVsSU1QYTQrOGttQ1lH?=
- =?utf-8?B?cm9WZ0JKMHpYS2lCb25ieHR4VkpMdUFucmZTaXN0blZNenRlWUxqQT09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0: =?iso-2022-jp?B?MjQ1WWs5dlJ2dVBzYlFjZUo0c2E1L3NkaWQvTzhlUmhQUmVCQ2padlQv?=
+ =?iso-2022-jp?B?N1E0RjVPdi9aajFIajg4SU1TeHhVR0NjencrK2pvV01DL3dFR25KT3Uw?=
+ =?iso-2022-jp?B?L0FCU0oxYVdoY3A3Nm9LQ3IrRXVLdlBUYU5VaVBwZHhhYjloZDZQMi80?=
+ =?iso-2022-jp?B?N0ltcmpoY0puclNjcVNqRDF5dWNHYUVoZDc0RUloYmhqZEJKTmRYOEhw?=
+ =?iso-2022-jp?B?NGk0YnA0NWV5TW9mRGQ0RGxUQ0xuaWdzV01EYnN3NnJickpwYzAreFVC?=
+ =?iso-2022-jp?B?OC85RDFuMjkxcFVVM2ZmRUppOThTSkFmekxrWE9SUVRKZkF5U2lJbDBQ?=
+ =?iso-2022-jp?B?THJaUTVyV2E0Szduc3RZNkJXeFgyU1gzcW1RNnE5ZU1ZVkorWjlPQ1Ux?=
+ =?iso-2022-jp?B?S2RwMVdETWZDelQ1VzlzNEgzUG5WL0d5WUN5VTVEUUZCNW9HMDdtU2J0?=
+ =?iso-2022-jp?B?ODdzUHJLcXJreFNCb011Ti9ZdU15dlRkVkJGakNKR0J4Zk85b3cwTCsw?=
+ =?iso-2022-jp?B?RXBaOXpmcUFxWmFweDNVQXFwUkpzWWNvVzdsMDU3bUw1R0x6THZ3U0sy?=
+ =?iso-2022-jp?B?WnNyblpxK292MGwzVW54dGNWVUthQlpoTk1vSDBhSTVTU3NtdlRKVE8v?=
+ =?iso-2022-jp?B?RndXYXpkTGpSQktCeDgyRUZFQnhUTDdvREdWRjEzM3I0SDNjKzcrUVRw?=
+ =?iso-2022-jp?B?dkkvWDlJWGphZkF6WmtJRzdoNkNHUEZEZEZYVTNRL1ZDeWFEOXB5VFRN?=
+ =?iso-2022-jp?B?WUIvTE4yTGI0WEJkU3lXZHZVWVcwWms1TTgveEUveFlkRzFTR1ljRGxu?=
+ =?iso-2022-jp?B?L3FZQTh0d1hzZHY2UU5BRDBJaXRTR0pseWc2MGJ6enczZmhHK05tZWll?=
+ =?iso-2022-jp?B?WEtYcXF1aFJqdTRudHQwejJiZ3NMQS95dkNGSklJb0NVTm9UMU40a1V2?=
+ =?iso-2022-jp?B?alJERlUraVc5ZDJhQmxjZjJ1ZEFpV2ZYUUVlOGxRWDI3ZEVJL1hDSUF4?=
+ =?iso-2022-jp?B?UjRoTEZWMnRJWWFmcnhOUmF1OTIxandLZ1lTSS81Ylllc2JjdTYrTnA4?=
+ =?iso-2022-jp?B?VXl5V3lHM242ZGdQb1hRNnJXNXJ2bnB0K1IrbXVVcGtLMmhmTHY0QVZp?=
+ =?iso-2022-jp?B?THdKbHZLdkU3bUNpU0hOZDd3ZURHeUJJcjUwYk1FaFk2eUFjL1VOUlF5?=
+ =?iso-2022-jp?B?QTY1aFlJSnMyaHd3OE9KZDN1Yy90NDhQWG5acHczSmlhY3lYYklPbWZN?=
+ =?iso-2022-jp?B?MmRDZTllcjZ5K0tJYzNaa0pnb0xyUDFYRmFvY2dPZG1kbUQwakJYWEQ5?=
+ =?iso-2022-jp?B?Vk1CK0xkSmh4RUxSK0VJUHZXL2NNY1RVSng2UXBiMlEvQ3RoTCtVcW5S?=
+ =?iso-2022-jp?B?d3NYTmx1VGIxekR2Z3RmUVRMMU85YWY3SEY3VWRqejhuOFJDcjJpZ0Ft?=
+ =?iso-2022-jp?B?aHpQOTkzUURuOFpFV1RzR1BMR2MzK2ZNRUNuYUxxWEtJbm9jOXh4ekhL?=
+ =?iso-2022-jp?B?QkFrSkFoTHMvazl5R0YxOHdtREo1RHF6Q1VKWUE1dzd0SURsOG9leHVq?=
+ =?iso-2022-jp?B?YmIwbFBNdmlhSzRTMVgrUnNUSjl5STB1eWpSMG5yQlRZcjhRUzBORXk3?=
+ =?iso-2022-jp?B?UTE2WnZnNHFhTUd3QWJWWmhrbWxZdEVDOEpJSjR4RE1HU04zNDFZdWtm?=
+ =?iso-2022-jp?B?b08xMlNkRjVHZGVyeC85SjAybHc3TVl0RHVJT04vZ1NqM2ZiMmRhWUww?=
+ =?iso-2022-jp?B?clRsT0dtMXJ3V2laRWNibENBNzJIWWNWTG1mM3UxREZoaHZwYlZUa1Jk?=
+ =?iso-2022-jp?B?U0ZEcy9ZZ0R0ZFl2Z1V1Z3FjcDJPUURkcW1jR0hRSUkySmM2d2pVQk9r?=
+ =?iso-2022-jp?B?MU16ak1tUzFOQXNXVXNJcndmbzNTc3l1ekxHQnJ4NXljUFR0bC80b1Rj?=
+ =?iso-2022-jp?B?SGhETlNUMXlQZDFzREsvazc2Q3NQdGd5bVphRUdjQ2g3WnN2ZGZUcnha?=
+ =?iso-2022-jp?B?Y0FndERYamovQW9jSWs2U3dZekJiTUJOb2VIbGxzVXB3bUxyN05iVTh3?=
+ =?iso-2022-jp?B?b2xpMzdjbTBmUnZjU2l1ak95OWVlL2JocjhEL21vbmM5MWhEbVIxWldM?=
+ =?iso-2022-jp?B?LzNyREY0d2o2YTVPdmZHK3l6TUtvd3BnSkNxMlp5elNKb3BhMmhobXFi?=
+ =?iso-2022-jp?B?UTVLc0JIVks1VzRHRW5Lc2VLSjJTVjFzR21OOXVZdGhaVC92RWxWNHl3?=
+ =?iso-2022-jp?B?YzdGYlRyUGZPd1E4b1dacGF6Y0tsY29JVDg4YWJhYUltdHFqOHlibVNk?=
+ =?iso-2022-jp?B?UzJBbHpIYWFOQzl0SXRWZ3c1R3kzVHVrV1ZpSFhXYzlBaTBBaEs4U0w4?=
+ =?iso-2022-jp?B?ajhFaXVuMXZickRyWXNPZ0EzL1lYK2ZhWlE1cUdCTTlQZlF6cmRJOVB2?=
+ =?iso-2022-jp?B?Vm5Id0JDZnJ4U3JxWGpUNTU2NHJkdFg0b2hza1piWWh5eWZubkxOaGJI?=
+ =?iso-2022-jp?B?MFBrYzB3djE1NTBaMU1PNlhnbWZwdW5HUURFT3BWYTcvZjROMTFkSnZR?=
+ =?iso-2022-jp?B?SmhBYTJ1MVU0N1RXckFnMG43azN6c1JWaDh5STVaOC9XeFl3?=
+x-ms-exchange-antispam-messagedata-1: 5sGpNuxuYbwRTg==
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea0f1768-8500-4016-de57-08da117da94d
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2022 12:14:23.8039 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: s35RGEWg9jogUrWok0yI/Sy2k7MFEVCN+26U0MHtHUrP04j1rx4yMToXeVmNqQsZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0091
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4215.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86315730-067a-4470-e820-08da118693f2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Mar 2022 13:18:13.0868 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: z4Hb59DiFLnjRwo5rRyPaJEv/THOUPvMgagkTvLYIuYedbk/2l4UlGIUy9vyCy7i2t2ft1P6faIKgx+F1UzGfg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5645
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,353 +150,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, "Sharma,
- Shashank" <Shashank.Sharma@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "Somalapuram, Amaranath" <Amaranath.Somalapuram@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>
+Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Clements, John" <John.Clements@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------924cAIMQ8QVY4V3a1NmAMs7N
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+[AMD Official Use Only]
 
-My main question is what does the iris driver better than radeonsi when 
-the client doesn't support the robustness extension?
+Sorry for the confusing commit message=1B$B!#=1B(B=20
+This interface is only for amdgpu ras tool new function. There is no impact=
+ on currently existing tools and scripts=1B$B!#=1B(B
 
- From Daniels description it sounds like they have at least a partial 
-recovery mechanism in place.
+-----Original Message-----
+From: Zhang, Hawking <Hawking.Zhang@amd.com>=20
+Sent: Tuesday, March 29, 2022 4:33 PM
+To: Chai, Thomas <YiPeng.Chai@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Support AMDGPU RAS debugfs poll interface
 
-Apart from that I completely agree to what you said below.
+[AMD Official Use Only]
 
-Christian.
+I'm not sure I understand the fix correctly - It seems to me it is trying t=
+o stop user/test cases that initiate error injection request back-to-back? =
+But anyway, we shouldn't make the change or leverage debugfs for that purpo=
+se, and there is no guarantee test scripts/applications will follow the rul=
+e as well.=20
 
-Am 26.03.22 um 01:53 schrieb Olsak, Marek:
->
-> [AMD Official Use Only]
->
->
-> amdgpu has 2 resets: soft reset and hard reset.
->
-> The soft reset is able to recover from an infinite loop and even some 
-> GPU hangs due to bad shaders or bad states. The soft reset uses a 
-> signal that kills all currently-running shaders of a certain process 
-> (VM context), which unblocks the graphics pipeline, so draws and 
-> command buffers finish but are not correctly. This can then cause a 
-> hard hang if the shader was supposed to signal work completion through 
-> a shader store instruction and a non-shader consumer is waiting for it 
-> (skipping the store instruction by killing the shader won't signal the 
-> work, and thus the consumer will be stuck, requiring a hard reset).
->
-> The hard reset can recover from other hangs, which is great, but it 
-> may use a PCI reset, which erases VRAM on dGPUs. APUs don't lose 
-> memory contents, but we should assume that any process that had 
-> running jobs on the GPU during a GPU reset has its memory resources in 
-> an inconsistent state, and thus following command buffers can cause 
-> another GPU hang. The shader store example above is enough to cause 
-> another hard hang due to incorrect content in memory resources, which 
-> can contain synchronization primitives that are used internally by the 
-> hardware.
->
-> Asking the driver to replay a command buffer that caused a hang is a 
-> sure way to hang it again. Unrelated processes can be affected due to 
-> lost VRAM or the misfortune of using the GPU while the GPU hang 
-> occurred. The window system should recreate GPU resources and redraw 
-> everything without affecting applications. If apps use GL, they should 
-> do the same. Processes that can't recover by redrawing content can be 
-> terminated or left alone, but they shouldn't be allowed to submit work 
-> to the GPU anymore.
->
-> dEQP only exercises the soft reset. I think WebGL is only able to 
-> trigger a soft reset at this point, but Vulkan can also trigger a hard 
-> reset.
->
-> Marek
-> ------------------------------------------------------------------------
-> *From:* Koenig, Christian <Christian.Koenig@amd.com>
-> *Sent:* March 23, 2022 11:25
-> *To:* Daniel Vetter <daniel@ffwll.ch>; Daniel Stone 
-> <daniel@fooishbar.org>; Olsak, Marek <Marek.Olsak@amd.com>; 
-> Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
-> *Cc:* Rob Clark <robdclark@gmail.com>; Rob Clark 
-> <robdclark@chromium.org>; Sharma, Shashank <Shashank.Sharma@amd.com>; 
-> Christian König <ckoenig.leichtzumerken@gmail.com>; Somalapuram, 
-> Amaranath <Amaranath.Somalapuram@amd.com>; Abhinav Kumar 
-> <quic_abhinavk@quicinc.com>; dri-devel 
-> <dri-devel@lists.freedesktop.org>; amd-gfx list 
-> <amd-gfx@lists.freedesktop.org>; Deucher, Alexander 
-> <Alexander.Deucher@amd.com>; Shashank Sharma 
-> <contactshashanksharma@gmail.com>
-> *Subject:* Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
-> [Adding Marek and Andrey as well]
->
-> Am 23.03.22 um 16:14 schrieb Daniel Vetter:
-> > On Wed, 23 Mar 2022 at 15:07, Daniel Stone <daniel@fooishbar.org> wrote:
-> >> Hi,
-> >>
-> >> On Mon, 21 Mar 2022 at 16:02, Rob Clark <robdclark@gmail.com> wrote:
-> >>> On Mon, Mar 21, 2022 at 2:30 AM Christian König
-> >>> <christian.koenig@amd.com> wrote:
-> >>>> Well you can, it just means that their contexts are lost as well.
-> >>> Which is rather inconvenient when deqp-egl reset tests, for example,
-> >>> take down your compositor ;-)
-> >> Yeah. Or anything WebGL.
-> >>
-> >> System-wide collateral damage is definitely a non-starter. If that
-> >> means that the userspace driver has to do what iris does and ensure
-> >> everything's recreated and resubmitted, that works too, just as long
-> >> as the response to 'my adblocker didn't detect a crypto miner ad'  is
-> >> something better than 'shoot the entire user session'.
-> > Not sure where that idea came from, I thought at least I made it clear
-> > that legacy gl _has_ to recover. It's only vk and arb_robustness gl
-> > which should die without recovery attempt.
-> >
-> > The entire discussion here is who should be responsible for replay and
-> > at least if you can decide the uapi, then punting that entirely to
-> > userspace is a good approach.
->
-> Yes, completely agree. We have the approach of re-submitting things in
-> the kernel and that failed quite miserable.
->
-> In other words currently a GPU reset has something like a 99% chance to
-> get down your whole desktop.
->
-> Daniel can you briefly explain what exactly iris does when a lost
-> context is detected without gl robustness?
->
-> It sounds like you guys got that working quite well.
->
-> Thanks,
-> Christian.
->
-> >
-> > Ofc it'd be nice if the collateral damage is limited, i.e. requests
-> > not currently on the gpu, or on different engines and all that
-> > shouldn't be nuked, if possible.
-> >
-> > Also ofc since msm uapi is that the kernel tries to recover there's
-> > not much we can do there, contexts cannot be shot. But still trying to
-> > replay them as much as possible feels a bit like overkill.
-> > -Daniel
-> >
-> >> Cheers,
-> >> Daniel
-> >
-> >
->
+I guess we need to identify the root cause case by case and stop the invali=
+d request in kernel driver.
 
---------------924cAIMQ8QVY4V3a1NmAMs7N
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Regards,
+Hawking
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    My main question is what does the iris driver better than radeonsi
-    when the client doesn't support the robustness extension?<br>
-    <br>
-    From Daniels description it sounds like they have at least a partial
-    recovery mechanism in place.<br>
-    <br>
-    Apart from that I completely agree to what you said below.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 26.03.22 um 01:53 schrieb Olsak,
-      Marek:<br>
-    </div>
-    <blockquote type="cite" cite="mid:DM6PR12MB473154C6C678EA97C03979A4F91B9@DM6PR12MB4731.namprd12.prod.outlook.com">
-      
-      <style type="text/css" style="display:none;">P {margin-top:0;margin-bottom:0;}</style>
-      <p style="font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" align="Left">
-        [AMD Official Use Only]<br>
-      </p>
-      <br>
-      <div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          amdgpu has 2 resets: soft reset and hard reset.<br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          The soft reset is able to recover from an infinite loop and
-          even some GPU hangs due to bad shaders or bad states. The soft
-          reset uses a signal that kills all currently-running shaders
-          of a certain process (VM context), which unblocks the graphics
-          pipeline, so draws and command buffers finish but are not
-          correctly. This can then cause a hard hang if the shader was
-          supposed to signal work completion through a shader store
-          instruction and a non-shader consumer is waiting for it
-          (skipping the store instruction by killing the shader won't
-          signal the work, and thus the consumer will be stuck,
-          requiring a hard reset).<br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <span style="font-size:12pt">The hard reset can recover from
-            other hangs, which is great, but it may use a PCI reset,
-            which erases VRAM on dGPUs. APUs don't lose memory contents,
-            but we should assume that any process that had running jobs
-            on the GPU during a GPU reset has its memory resources in an
-            inconsistent state, and thus following command buffers can
-            cause another GPU hang. The shader store example above is
-            enough to cause another hard hang due to incorrect content
-            in memory resources, which can contain synchronization
-            primitives that are used internally by the hardware.</span><br>
-          <span style="font-size:12pt"></span></div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <span style="font-size:12pt">Asking the driver to replay a
-            command buffer that caused a hang is a sure way to hang it
-            again. Unrelated processes can be affected due to lost VRAM
-            or the misfortune of using the GPU while the GPU hang
-            occurred. The window system should recreate GPU resources
-            and redraw everything without affecting applications. If
-            apps use GL, they should do the same. Processes that can't
-            recover by redrawing content can be terminated or left
-            alone, but they shouldn't be allowed to submit work to the
-            GPU anymore.</span><br>
-          <span style="font-size:12pt"></span><br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          dEQP only exercises the soft reset. I think WebGL is only able
-          to trigger a soft reset at this point, but Vulkan can also
-          trigger a hard reset.<br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          Marek<br>
-        </div>
-        <hr style="display:inline-block;width:98%" tabindex="-1">
-        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b>
-            Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a><br>
-            <b>Sent:</b> March 23, 2022 11:25<br>
-            <b>To:</b> Daniel Vetter <a class="moz-txt-link-rfc2396E" href="mailto:daniel@ffwll.ch">&lt;daniel@ffwll.ch&gt;</a>; Daniel
-            Stone <a class="moz-txt-link-rfc2396E" href="mailto:daniel@fooishbar.org">&lt;daniel@fooishbar.org&gt;</a>; Olsak, Marek
-            <a class="moz-txt-link-rfc2396E" href="mailto:Marek.Olsak@amd.com">&lt;Marek.Olsak@amd.com&gt;</a>; Grodzovsky, Andrey
-            <a class="moz-txt-link-rfc2396E" href="mailto:Andrey.Grodzovsky@amd.com">&lt;Andrey.Grodzovsky@amd.com&gt;</a><br>
-            <b>Cc:</b> Rob Clark <a class="moz-txt-link-rfc2396E" href="mailto:robdclark@gmail.com">&lt;robdclark@gmail.com&gt;</a>; Rob Clark
-            <a class="moz-txt-link-rfc2396E" href="mailto:robdclark@chromium.org">&lt;robdclark@chromium.org&gt;</a>; Sharma, Shashank
-            <a class="moz-txt-link-rfc2396E" href="mailto:Shashank.Sharma@amd.com">&lt;Shashank.Sharma@amd.com&gt;</a>; Christian König
-            <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a>; Somalapuram,
-            Amaranath <a class="moz-txt-link-rfc2396E" href="mailto:Amaranath.Somalapuram@amd.com">&lt;Amaranath.Somalapuram@amd.com&gt;</a>; Abhinav
-            Kumar <a class="moz-txt-link-rfc2396E" href="mailto:quic_abhinavk@quicinc.com">&lt;quic_abhinavk@quicinc.com&gt;</a>; dri-devel
-            <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel@lists.freedesktop.org">&lt;dri-devel@lists.freedesktop.org&gt;</a>; amd-gfx list
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Deucher, Alexander
-            <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Shashank Sharma
-            <a class="moz-txt-link-rfc2396E" href="mailto:contactshashanksharma@gmail.com">&lt;contactshashanksharma@gmail.com&gt;</a><br>
-            <b>Subject:</b> Re: [PATCH v2 1/2] drm: Add GPU reset sysfs
-            event</font>
-          <div>&nbsp;</div>
-        </div>
-        <div class="BodyFragment"><font size="2"><span style="font-size:11pt;">
-              <div class="PlainText">[Adding Marek and Andrey as well]<br>
-                <br>
-                Am 23.03.22 um 16:14 schrieb Daniel Vetter:<br>
-                &gt; On Wed, 23 Mar 2022 at 15:07, Daniel Stone
-                <a class="moz-txt-link-rfc2396E" href="mailto:daniel@fooishbar.org">&lt;daniel@fooishbar.org&gt;</a> wrote:<br>
-                &gt;&gt; Hi,<br>
-                &gt;&gt;<br>
-                &gt;&gt; On Mon, 21 Mar 2022 at 16:02, Rob Clark
-                <a class="moz-txt-link-rfc2396E" href="mailto:robdclark@gmail.com">&lt;robdclark@gmail.com&gt;</a> wrote:<br>
-                &gt;&gt;&gt; On Mon, Mar 21, 2022 at 2:30 AM Christian
-                König<br>
-                &gt;&gt;&gt; <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a> wrote:<br>
-                &gt;&gt;&gt;&gt; Well you can, it just means that their
-                contexts are lost as well.<br>
-                &gt;&gt;&gt; Which is rather inconvenient when deqp-egl
-                reset tests, for example,<br>
-                &gt;&gt;&gt; take down your compositor ;-)<br>
-                &gt;&gt; Yeah. Or anything WebGL.<br>
-                &gt;&gt;<br>
-                &gt;&gt; System-wide collateral damage is definitely a
-                non-starter. If that<br>
-                &gt;&gt; means that the userspace driver has to do what
-                iris does and ensure<br>
-                &gt;&gt; everything's recreated and resubmitted, that
-                works too, just as long<br>
-                &gt;&gt; as the response to 'my adblocker didn't detect
-                a crypto miner ad'&nbsp; is<br>
-                &gt;&gt; something better than 'shoot the entire user
-                session'.<br>
-                &gt; Not sure where that idea came from, I thought at
-                least I made it clear<br>
-                &gt; that legacy gl _has_ to recover. It's only vk and
-                arb_robustness gl<br>
-                &gt; which should die without recovery attempt.<br>
-                &gt;<br>
-                &gt; The entire discussion here is who should be
-                responsible for replay and<br>
-                &gt; at least if you can decide the uapi, then punting
-                that entirely to<br>
-                &gt; userspace is a good approach.<br>
-                <br>
-                Yes, completely agree. We have the approach of
-                re-submitting things in <br>
-                the kernel and that failed quite miserable.<br>
-                <br>
-                In other words currently a GPU reset has something like
-                a 99% chance to <br>
-                get down your whole desktop.<br>
-                <br>
-                Daniel can you briefly explain what exactly iris does
-                when a lost <br>
-                context is detected without gl robustness?<br>
-                <br>
-                It sounds like you guys got that working quite well.<br>
-                <br>
-                Thanks,<br>
-                Christian.<br>
-                <br>
-                &gt;<br>
-                &gt; Ofc it'd be nice if the collateral damage is
-                limited, i.e. requests<br>
-                &gt; not currently on the gpu, or on different engines
-                and all that<br>
-                &gt; shouldn't be nuked, if possible.<br>
-                &gt;<br>
-                &gt; Also ofc since msm uapi is that the kernel tries to
-                recover there's<br>
-                &gt; not much we can do there, contexts cannot be shot.
-                But still trying to<br>
-                &gt; replay them as much as possible feels a bit like
-                overkill.<br>
-                &gt; -Daniel<br>
-                &gt;<br>
-                &gt;&gt; Cheers,<br>
-                &gt;&gt; Daniel<br>
-                &gt;<br>
-                &gt;<br>
-                <br>
-              </div>
-            </span></font></div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
+-----Original Message-----
+From: Chai, Thomas <YiPeng.Chai@amd.com>
+Sent: Tuesday, March 29, 2022 15:39
+To: amd-gfx@lists.freedesktop.org
+Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
+om>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>=
+; Chai, Thomas <YiPeng.Chai@amd.com>
+Subject: [PATCH] drm/amdgpu: Support AMDGPU RAS debugfs poll interface
 
---------------924cAIMQ8QVY4V3a1NmAMs7N--
+Some AMDGPU RAS debugfs operations like UE injection can cause gpu reset. B=
+efore doing the next debugfs operation, the application should call poll to=
+ check if the gpu has finished recovering.
+
+Signed-off-by: yipechai <YiPeng.Chai@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 38 ++++++++++++++++++++++++-  dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  6 ++++
+ 2 files changed, 43 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index 4bbed76b79c8..337e3e247a45 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -452,6 +452,12 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct fi=
+le *f,
+=20
+ 		/* data.inject.address is offset instead of absolute gpu address */
+ 		ret =3D amdgpu_ras_error_inject(adev, &data.inject);
++
++		if (!ret && (data.head.type =3D=3D AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE=
+)) {
++			struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
++
++			con->ras_ue_injected =3D 1;
++		}
+ 		break;
+ 	default:
+ 		ret =3D -EINVAL;
+@@ -464,6 +470,30 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct fi=
+le *f,
+ 	return size;
+ }
+=20
++/**
++ * DOC: Support AMDGPU RAS debugfs poll interface
++ *
++ * Some AMDGPU RAS debugfs operations like UE injection
++ * can cause gpu reset. Before doing the next debugfs
++ * operation, the application should call poll to check
++ * if gpu is in recovering status.
++ */
++static __poll_t amdgpu_ras_debugfs_ctrl_poll(struct file *f, struct=20
++poll_table_struct *wait) {
++	struct amdgpu_device *adev =3D (struct amdgpu_device *)file_inode(f)->i_p=
+rivate;
++	struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
++	__poll_t mask =3D 0;
++
++	/* For UE injection, wait for gpu to finish recovery */
++	if (con->ras_ue_injected)
++		poll_wait(f, &con->gpu_ready_wait_wq, wait);
++
++	if (!atomic_read(&con->in_recovery))
++		mask =3D EPOLLIN | EPOLLRDNORM;
++
++	return mask;
++}
++
+ /**
+  * DOC: AMDGPU RAS debugfs EEPROM table reset interface
+  *
+@@ -503,6 +533,7 @@ static ssize_t amdgpu_ras_debugfs_eeprom_write(struct f=
+ile *f,
+=20
+ static const struct file_operations amdgpu_ras_debugfs_ctrl_ops =3D {
+ 	.owner =3D THIS_MODULE,
++	.poll =3D amdgpu_ras_debugfs_ctrl_poll,
+ 	.read =3D NULL,
+ 	.write =3D amdgpu_ras_debugfs_ctrl_write,
+ 	.llseek =3D default_llseek
+@@ -1837,6 +1868,11 @@ static void amdgpu_ras_do_recovery(struct work_struc=
+t *work)
+ 	if (amdgpu_device_should_recover_gpu(ras->adev))
+ 		amdgpu_device_gpu_recover(ras->adev, NULL);
+ 	atomic_set(&ras->in_recovery, 0);
++
++	if (ras->ras_ue_injected) {
++		ras->ras_ue_injected =3D 0;
++		wake_up_all(&ras->gpu_ready_wait_wq);
++	}
+ }
+=20
+ /* alloc/realloc bps array */
+@@ -2279,7 +2315,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 	INIT_DELAYED_WORK(&con->ras_counte_delay_work, amdgpu_ras_counte_dw);
+ 	atomic_set(&con->ras_ce_count, 0);
+ 	atomic_set(&con->ras_ue_count, 0);
+-
++	init_waitqueue_head(&con->gpu_ready_wait_wq);
+ 	con->objs =3D (struct ras_manager *)(con + 1);
+=20
+ 	amdgpu_ras_set_context(adev, con);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.h
+index 606df8869b89..aea6bbb71501 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -379,6 +379,12 @@ struct amdgpu_ras {
+=20
+ 	/* Indicates smu whether need update bad channel info */
+ 	bool update_channel_flag;
++
++	/* UE injection flag */
++	uint32_t  ras_ue_injected;
++
++	/* Waiting for gpu ready work queue */
++	wait_queue_head_t gpu_ready_wait_wq;
+ };
+=20
+ struct ras_fs_data {
+--
+2.25.1
