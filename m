@@ -4,122 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5E51C433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 09:12:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09454C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 09:49:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7AFC10F85D;
-	Wed, 30 Mar 2022 09:12:34 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2086.outbound.protection.outlook.com [40.107.101.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE5610F85C;
- Wed, 30 Mar 2022 09:12:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JQb05xIeAEJaPsDGlKYFDQRQs5ihudCq1RifsplbnsB0r8elwN7g55YKXkksutOrUiTM17oaXn7CpSVF5NoelC7tBNgkEBV/+Ito/s2i8dcGzJ6Q5eixcL4mw3fDKNGKFia91NBz3DSKBGLnSIhJEMPTvaIzTN+hEZ7KeUH7LuluuHTpRZRgb1RsxwmrBNkpgfUiaAddxIo+pVE9JRqiyv6N54WIMvp37nRmBdvBNnjxvbU2A5Vvof/TQqRvaZl0bKEnV7sUcKGF2wvfNNecdFJ5I6rgugmWlcebfnNtA5kKbbCjXCjzKpbJajyL6Fz1BSt6f0i+9ZdhmoLJA9ePsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ACuQXcyJ2nm1QW+uDYVus/MXADUiPwWTfdZx4uEO4qE=;
- b=gER4Dhx7Wc+n0Ef/YIuczk0rnWldfrrpOvp0c2TlbPCmIsuxWMdCVaGXKCDPX1bfZZnfJD3TRqpF3wPNmXPURrNN1ELBeZSuSU2hXoqbS686N0y4xuSAZATPPTIpXXF2mNk0PoMZ/MLL2kBEc/y6qKIONi6tQFragxxD10y4cxz/XqsZ0ZbvpC4j2p4o67o3+R6KLzjV8fPRSjeBvcFQSKAstQ/b+7wJ3YjxkdhmyfwYm4HQCH7uaEi4gTyPZGcuUMkmM6rm85wM6v84PZOSIUDfSgF+EKl/ugrrhovfT7w8imb1vd21b3xCY4pdH7TUOKgyuMNBU3srhtnViIv6jA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ACuQXcyJ2nm1QW+uDYVus/MXADUiPwWTfdZx4uEO4qE=;
- b=Keea1c99e0qimi2vMU5VRdD6CFs5XTVM/m9yn1dvVLEol7TSL80lt6hVWKeuSj4zs/yndT2Ect3I2HhjijQEDq8PskhuqFVm8KCXL/GpS3kzTof6DCWNPg2mCTMdJ26tdIsmY2L2+Eb+f8veOjsC00zlXVbLgXGMzKams5sZax0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by BN6PR1201MB0196.namprd12.prod.outlook.com (2603:10b6:405:4d::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.19; Wed, 30 Mar
- 2022 09:12:32 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::404f:1fc8:9f4c:f185]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::404f:1fc8:9f4c:f185%6]) with mapi id 15.20.5102.023; Wed, 30 Mar 2022
- 09:12:32 +0000
-Message-ID: <c943b565-9011-a285-8caa-5cdb37571688@amd.com>
-Date: Wed, 30 Mar 2022 11:12:27 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH] drm: round_up the size to the alignment value
-Content-Language: en-US
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20220330090410.135332-1-Arunpravin.PaneerSelvam@amd.com>
- <c0b22bc3-8bad-fd19-6d1d-164bfee851c4@amd.com>
- <65d77a10-897a-fce6-28c9-321f3c723129@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <65d77a10-897a-fce6-28c9-321f3c723129@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM6PR10CA0014.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:209:89::27) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6582410E1FC;
+	Wed, 30 Mar 2022 09:49:45 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B02C810E1E3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Mar 2022 09:49:43 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id a1so28421977wrh.10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Mar 2022 02:49:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=BaIJr2lK3I+GbA5Ecex95tLRkw1NynDUUN/vIRiZRHM=;
+ b=ANeY6Okf0L2VxcgZBNQP6DfyxwAhOT0w+TKGE8QYbnIkq3ohx/H7FuqrltY6KBlrtu
+ JOw//cdUEWlpPWBg3A/u/yrLiihxC6H3G/msNTrPhX/XbRSiqBd83q2frbyNFDIujm10
+ F2riOBLEViENCBjpiugc25DZWNjViuNpgymFs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=BaIJr2lK3I+GbA5Ecex95tLRkw1NynDUUN/vIRiZRHM=;
+ b=WV7eachg4h5GqjxJ5ziRv96X8ioaiPIXsjAApMLrNVjl1/WPPlU1MN2D5+FBxy4wAQ
+ Zq1kUor4XG4+Uejo4RV9wnCHtEfdmmrordG01ID5CGHKSF40snMCSXFTGdY3RItb5lOq
+ pdm0zkanjfWnN2uPuT7kGOjiqi6vuqmrtxv8j5+KE6/qvWiRWgXMTQ7v2GyXT/Zny2zU
+ ZBuRj2c5C8xT5ugyI3nNFSfbcSb8+7z/FJMuqcM4n2xIQc7TEUw4wsWfNdX/d18hE3py
+ /wpvFlJA594RJkJGDrx/E9u+oO5cyxpRO4bB78n+su/Zui4Mk+5a565Mbuvz7GwianQl
+ SVzA==
+X-Gm-Message-State: AOAM533nW6A5YQiRbgXJAE4zm21QqDgw2rO/4DkCXXMcLcNURJIWf7cq
+ q2+cu9P04HLGUjBQn1mk/ji6Fw==
+X-Google-Smtp-Source: ABdhPJzFGT00LteMs47/+t4+ruo8gfEyuSdaIshjCde/jhGMhSgQjzKGgGzFWdj2qWJ3iH4hJtQ4MQ==
+X-Received: by 2002:adf:8901:0:b0:205:dc81:be8d with SMTP id
+ s1-20020adf8901000000b00205dc81be8dmr1498184wrs.203.1648633781979; 
+ Wed, 30 Mar 2022 02:49:41 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ m3-20020a5d64a3000000b00203ed35b0aesm28691226wrp.108.2022.03.30.02.49.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Mar 2022 02:49:41 -0700 (PDT)
+Date: Wed, 30 Mar 2022 11:49:39 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Marek =?utf-8?B?T2zFocOhaw==?= <maraeo@gmail.com>
+Subject: Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
+Message-ID: <YkQnsw9Js1T41qW/@phenom.ffwll.local>
+References: <19a67000-d1e5-0582-c6de-07d9988b1735@amd.com>
+ <CAF6AEGvDjw6zq3yiorhOc+vp2US+Jso9tF74=8gyJMTm=K5FVQ@mail.gmail.com>
+ <3f0b7273-4562-7a55-e52a-bd64334886fd@amd.com>
+ <CAF6AEGu6FabmcWE+NsPgnPU0=MpbA6bmO1KkJ2hrVDBLFY92xA@mail.gmail.com>
+ <CAPj87rOx1uogqqKX8XZEnzpcKKY6W9TWHQFr-bgZyEU0-ftjVw@mail.gmail.com>
+ <CAKMK7uFMmLLRQeONDOMpOg12p7moyrC-+hxVEqpa4hSFopbGtA@mail.gmail.com>
+ <5e7d4b55-99ca-5fa4-2995-5e42d0a29473@amd.com>
+ <DM6PR12MB473154C6C678EA97C03979A4F91B9@DM6PR12MB4731.namprd12.prod.outlook.com>
+ <5818c2a4-80c4-8af2-9937-d2787054c149@amd.com>
+ <CAAxE2A642QK0NFRLYsq5PuossG_mLExiJD8SzipVc4xVp_V=tw@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b31804bb-14d3-406e-d74d-08da122d6c03
-X-MS-TrafficTypeDiagnostic: BN6PR1201MB0196:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR1201MB0196C86B86A9A5F96203955B831F9@BN6PR1201MB0196.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qMwMTx5wBVIxhaWWn9y4BhUS1YrtcMaXC0reB86NigwLHP46URB/0F4djCMB23AJThG4lraB+nIeMiXVsjstsvOWHcmFdL5XvdFpE8IBbGm8mc0KldzaHKfC/k30Vt2bPqgLvJmZ/FJBSw5uvBTPAAnYU6zEQ0mtvFkiKhfxVeF9tbmccVGdntQ+azuhl7snD7T/+dkItEpI71KIyCfu0DrOSjhJElm0xt/YDQYgIJUI8eAWm6/17J/HVJSQjZEfO7FKey/MrONK8e3xGmHMBXlxjdQ072mNpr+6j+/kTJDQNoAH90XhDqlGEyguLCR34bLeLMfkh4CRwkl0i7KFlKlJ1eKnsSOmXtT9Mg1NSxdcFbnd0pe656SE24Xdgj/QyuTcfrUskgMCYPsn53F7JDlp/RiQ3a2Zlar+rPXjPLkKJ95wl361YCfvM6Bgz33Ei5y5vDLYqX4Ta/H6XD76wsWMNLvpl1AVBVIHUlDlz6+svdka+Dmz+LgHKRnHB1Y8MEq+IdQxZakb1/+QSm9Hn+xVXin+PtzrTce11fCrBpWQXVH0ysFSqdtaht0X6fUC5AIyK7vFZ+aHVGnYsBtAk+30dWBO2yKO/IW2Q/HBP3Dp0cGa6tBcPsMj6nJTVTRD8Fjp6xpNRuvxACqq5YhUeoWHfqLF++gteRF1BkVFPJwIbg7WSE3w/ECPcUBV9shEvFk0tfOL+kUGFN1AvAjf//gaUIZ8LmoGlI99/jksQjfleOFLgIn7b2C+UoCSyyz0
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(38100700002)(86362001)(31696002)(4326008)(316002)(186003)(66946007)(8676002)(66556008)(5660300002)(6512007)(66476007)(508600001)(2616005)(26005)(31686004)(2906002)(6506007)(6666004)(8936002)(53546011)(83380400001)(66574015)(6486002)(36756003)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bU91cklDSjVRd1lTSWttckJQOS80VnBKekMydmJ5bDdhOVBZT2VheExrcy9T?=
- =?utf-8?B?d1dmODlMdzFYN3hMQnJGbGVmTzJPNTFXd3NxcGpkdzlVT1g2cHhmY3E3anNy?=
- =?utf-8?B?QUhvcUVGa29yU0hwYmRtbEt4dXZoU3psd2Nrb0hsTThpUTZRNUc5T2VHd0Jx?=
- =?utf-8?B?ZEtGTVJYbGpEdDd0bDdtNm1wQUlOK1NvaHIrZTI0MnB4MXFLelVDbStHSjJU?=
- =?utf-8?B?MnErcmVMcnNmeVBpZndwVkh4SUgwQVh4eTdHbkpEOXJXaDZXMXl3L3I0eUN4?=
- =?utf-8?B?VkhzY0JBcnl5ZmlYREdrS1RyTmZ3ZmdSTG5FY1R0NnRqZ0dLTUlhcmFwUGVG?=
- =?utf-8?B?YTN4OUNLQS9Gdm5uc2ljT29tc1lPOExvZVVMQWEzbmwycjNQL2E4cDR0a0J5?=
- =?utf-8?B?UXFySVd4Z294VHBFbzBqOXQySGp4aGJ0QU0vQ00xTnVSWmpWLzdhTkxneFNU?=
- =?utf-8?B?emxUWXh0KzVFOVJ5ZTF5d21mVzdVUVRFOVN5Q1I1c1E2Kzg0SHEwdjNwSUxs?=
- =?utf-8?B?WmtYSGxTYmNGcHAvSzBybWxGQXZ0NUpWNyttOFdOWHc1Y1dHRDkrVHhkMGVq?=
- =?utf-8?B?SmdvSFBUT2huRXNZeTZ2Y2xmU1A1UTZSS0dIa25oMStya3V1T0hncExRK21o?=
- =?utf-8?B?UU90a0p1c2ZBRm5QeUppMDZEajhldzVpYUV3K09ZcERWOG0yYVE5MSt1WGFm?=
- =?utf-8?B?U1VJSEZZb0xaMURORDdTb3JWcGtsQUtkaE85OFRpNThieUI3R1Qxdlc1dkJF?=
- =?utf-8?B?Mk9XNlZKd002elBPSlkrYnc4SGovd0hEeEZGOStkcGFkNmJiRDZwMkFMSnNo?=
- =?utf-8?B?TkJyN0ZCcEE0YWE4S1YzNFlIVitTazdwOHVMZ3g4S2FEMVJkNENUVVJXdE5n?=
- =?utf-8?B?QnQ0MzUycXV6OEZTc1hCSlQvaFM3QnBhODhLL0lGZ1dyMk5mVlpXTVhSZVRE?=
- =?utf-8?B?bVBLeUJSTEVFNGVMalE5MWk2aWhzN2xqdzFudVp5amxUcVBJSGNuU2FscFNx?=
- =?utf-8?B?UXJYZFlNQ1FlQjgwODJXWFIvRWpsdDV6dmU5b0cybnc1Q1VGaFhGa2pFZzJP?=
- =?utf-8?B?Y2JNSzc3SGZKb0VZcnFpZ1FVSU1ZbHI1aEY1Uy9MUFFlVDJQTFBrNi9hME9l?=
- =?utf-8?B?VDFHODNRNnd5WndJZ0g2U2RKRTZLOEpzdnlKU3BITzE0clVhQ1UrNS8vNmNn?=
- =?utf-8?B?ZlVWVllPcXFrR05pSzFUTnBaVGI1QlJjT2d3QTNDdzBSK2NpUFNCVzM3S0Q0?=
- =?utf-8?B?SW9LaXd5ZFQ2WHl3dHRIbGwyV1JUTFVWYzNjOU9DOTdUbHlHS1VEV2Vja1lL?=
- =?utf-8?B?aUdvYXFlcjNqZmRmWEdBUHFQZFhvWW5TZmlhV1FkYm1pem1DbGNpeFRCd2JU?=
- =?utf-8?B?Z3ZuWERFV3U5WEpDdHYrUUpHKzJ1YVZwTklsaTNJcTlBUzQzMFMxZVdjcnZw?=
- =?utf-8?B?TXRiWjN4eGFjT2RMWHZMOXMrN3Zoa1FaZE5meWlwU1d1RngrZWFNYVdXdTFC?=
- =?utf-8?B?NVhXbVE3ZjlGcThIUGFXaUY2Y05pRHdpbjVVL0hEc1lTbExnUDRNb0hiT2pY?=
- =?utf-8?B?Q21aOUozTG9yT2ppbjQvaXovRkNDaGZUb2ZiZk9uaFlaRHI4dCtNQ1pnTE82?=
- =?utf-8?B?RloxTVR5Ni9ya01LclhWK0NVSWY5bm1wTitiUkJLMVdaZUxuUlNQeDU0WWhw?=
- =?utf-8?B?Z054d3lQNmV2a2IyTnpKMkZVOUNpdTI3blVLWElZUTFYdXU4UFpOZFZ0YzBE?=
- =?utf-8?B?SFNsTlVwRGRJQVMvaDQ5Ky9KaWxaL254RlIvL290YmpQazMwU3RHdkR0STBG?=
- =?utf-8?B?SkdJTHZIWlF5YlNwTGlRaC85a3pNQzJleHNBclh4NWYrbGtEUnAzRnpCMWRw?=
- =?utf-8?B?ZHFwclhNWSsxdDJGMk5RRXFqR21VZDN6aFB0VTJmcWNIdTlPamlXcnRuTlhs?=
- =?utf-8?B?VzRwNG9taC9PQVpHTWI5VENWa25XWnpZVStMSnpwZkxJM3JXbUlxMU1iNEtx?=
- =?utf-8?B?R0xVaE9GNmdIZHZhMDdXdGpjdHRVWG1nNm5TNkx5aEQxVzVYRkhaUEJubHJO?=
- =?utf-8?B?N0hmWERUelhXQXhFcWlxdU4yTXR1TTZXZEpkbW1qODlpc293dTVaSk43L2Z1?=
- =?utf-8?B?NktoeDRpZllqN3FqMGtZK1ZhZ0JYakZqSm5zYjBReHFidExQMHdqVVo5VVN5?=
- =?utf-8?B?NHMrSW82MkhlUXUzRjN4UkpSWFRpZXFrSVVpdW90RVN1UjNjV1Q0N3YwcWlD?=
- =?utf-8?B?ZXhlOXdNbGhzcTBuV0tlN1Qrak1Ca0xxSm1BQTFjc3NGZjBTUDN0L0VYRkNI?=
- =?utf-8?B?cGZmUEVSdjBDZ2RwQjdHQlF6M01PSWZhRkZmb2E5MGxpVk1SZUpQQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b31804bb-14d3-406e-d74d-08da122d6c03
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2022 09:12:32.3084 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PK7jmxDJ1pJF4UFzwdSGY3tBHRUip7OaoMe/SPi/BjfHH4Dzuuhvdk4w8Zsa/Giq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0196
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAxE2A642QK0NFRLYsq5PuossG_mLExiJD8SzipVc4xVp_V=tw@mail.gmail.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,112 +77,175 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, matthew.auld@intel.com, daniel@ffwll.ch
+Cc: Rob Clark <robdclark@chromium.org>, "Grodzovsky,
+ Andrey" <Andrey.Grodzovsky@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Sharma,
+ Shashank" <Shashank.Sharma@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, "Olsak,
+ Marek" <Marek.Olsak@amd.com>, "Somalapuram,
+ Amaranath" <Amaranath.Somalapuram@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Daniel Stone <daniel@fooishbar.org>,
+ Rob Clark <robdclark@gmail.com>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>,
+ Shashank Sharma <contactshashanksharma@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 30.03.22 um 11:20 schrieb Arunpravin Paneer Selvam:
->
-> On 30/03/22 2:37 pm, Christian König wrote:
->> Am 30.03.22 um 11:04 schrieb Arunpravin Paneer Selvam:
->>> Round up the size value to the min_page_size and trim the last block to
->>> the required size.
->>>
->>> This solves a bug detected when size is not aligned with the min_page_size.
->>> Unigine Heaven has allocation requests for example required pages are 257
->>> and alignment request is 256. To allocate the left over 1 page, continues
->>> the iteration to find the order value which is 0 and when it compares with
->>> min_order = 8, triggers the BUG_ON(order < min_order). To avoid this issue
->>> we round_up the size value to the min_page_size and trim the last block to
->>> the computed required size value.
->> Well, Matthew and you convinced me to *not* do it like this.
->>
->> Has that conclusion changed somehow?
->>
-> Yes, now he is ok to handle rounding + trimming in drm buddy
+On Tue, Mar 29, 2022 at 12:25:55PM -0400, Marek Olšák wrote:
+> I don't know what iris does, but I would guess that the same problems as
+> with AMD GPUs apply, making GPUs resets very fragile.
 
-Yeah, but I'm no longer :)
+iris_batch_check_for_reset -> replace_kernel_ctx -> iris_lost_context_state
 
-How do we then handle the detection of contiguous allocation?
+is I think the main call chain of how this is handled/detected. There's
+also a side-chain which handles -EIO from execbuf.
 
-As I said we can do that like:
-1. alloc
-2. check if we only have a single node
-3. trim
+Also this is using non-recoverable contexts, i.e. any time they suffer
+from a gpu reset (either because guilty themselves, or collateral damage
+of a reset that shot more than just the guilty context) the context stops
+entirely and refuses any further execbuf with -EIO.
 
-But if we include the trim here we can't do it any more.
+Cheers, Daniel
 
-Only alternative would then be to inspect each node and see if it 
-follows directly behind the predecessor.
+> 
+> Marek
+> 
+> On Tue., Mar. 29, 2022, 08:14 Christian König, <christian.koenig@amd.com>
+> wrote:
+> 
+> > My main question is what does the iris driver better than radeonsi when
+> > the client doesn't support the robustness extension?
+> >
+> > From Daniels description it sounds like they have at least a partial
+> > recovery mechanism in place.
+> >
+> > Apart from that I completely agree to what you said below.
+> >
+> > Christian.
+> >
+> > Am 26.03.22 um 01:53 schrieb Olsak, Marek:
+> >
+> > [AMD Official Use Only]
+> >
+> > amdgpu has 2 resets: soft reset and hard reset.
+> >
+> > The soft reset is able to recover from an infinite loop and even some GPU
+> > hangs due to bad shaders or bad states. The soft reset uses a signal that
+> > kills all currently-running shaders of a certain process (VM context),
+> > which unblocks the graphics pipeline, so draws and command buffers finish
+> > but are not correctly. This can then cause a hard hang if the shader was
+> > supposed to signal work completion through a shader store instruction and a
+> > non-shader consumer is waiting for it (skipping the store instruction by
+> > killing the shader won't signal the work, and thus the consumer will be
+> > stuck, requiring a hard reset).
+> >
+> > The hard reset can recover from other hangs, which is great, but it may
+> > use a PCI reset, which erases VRAM on dGPUs. APUs don't lose memory
+> > contents, but we should assume that any process that had running jobs on
+> > the GPU during a GPU reset has its memory resources in an inconsistent
+> > state, and thus following command buffers can cause another GPU hang. The
+> > shader store example above is enough to cause another hard hang due to
+> > incorrect content in memory resources, which can contain synchronization
+> > primitives that are used internally by the hardware.
+> >
+> > Asking the driver to replay a command buffer that caused a hang is a sure
+> > way to hang it again. Unrelated processes can be affected due to lost VRAM
+> > or the misfortune of using the GPU while the GPU hang occurred. The window
+> > system should recreate GPU resources and redraw everything without
+> > affecting applications. If apps use GL, they should do the same. Processes
+> > that can't recover by redrawing content can be terminated or left alone,
+> > but they shouldn't be allowed to submit work to the GPU anymore.
+> >
+> > dEQP only exercises the soft reset. I think WebGL is only able to trigger
+> > a soft reset at this point, but Vulkan can also trigger a hard reset.
+> >
+> > Marek
+> > ------------------------------
+> > *From:* Koenig, Christian <Christian.Koenig@amd.com>
+> > <Christian.Koenig@amd.com>
+> > *Sent:* March 23, 2022 11:25
+> > *To:* Daniel Vetter <daniel@ffwll.ch> <daniel@ffwll.ch>; Daniel Stone
+> > <daniel@fooishbar.org> <daniel@fooishbar.org>; Olsak, Marek
+> > <Marek.Olsak@amd.com> <Marek.Olsak@amd.com>; Grodzovsky, Andrey
+> > <Andrey.Grodzovsky@amd.com> <Andrey.Grodzovsky@amd.com>
+> > *Cc:* Rob Clark <robdclark@gmail.com> <robdclark@gmail.com>; Rob Clark
+> > <robdclark@chromium.org> <robdclark@chromium.org>; Sharma, Shashank
+> > <Shashank.Sharma@amd.com> <Shashank.Sharma@amd.com>; Christian König
+> > <ckoenig.leichtzumerken@gmail.com> <ckoenig.leichtzumerken@gmail.com>;
+> > Somalapuram, Amaranath <Amaranath.Somalapuram@amd.com>
+> > <Amaranath.Somalapuram@amd.com>; Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > <quic_abhinavk@quicinc.com>; dri-devel <dri-devel@lists.freedesktop.org>
+> > <dri-devel@lists.freedesktop.org>; amd-gfx list
+> > <amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freedesktop.org>; Deucher,
+> > Alexander <Alexander.Deucher@amd.com> <Alexander.Deucher@amd.com>;
+> > Shashank Sharma <contactshashanksharma@gmail.com>
+> > <contactshashanksharma@gmail.com>
+> > *Subject:* Re: [PATCH v2 1/2] drm: Add GPU reset sysfs event
+> >
+> > [Adding Marek and Andrey as well]
+> >
+> > Am 23.03.22 um 16:14 schrieb Daniel Vetter:
+> > > On Wed, 23 Mar 2022 at 15:07, Daniel Stone <daniel@fooishbar.org>
+> > <daniel@fooishbar.org> wrote:
+> > >> Hi,
+> > >>
+> > >> On Mon, 21 Mar 2022 at 16:02, Rob Clark <robdclark@gmail.com>
+> > <robdclark@gmail.com> wrote:
+> > >>> On Mon, Mar 21, 2022 at 2:30 AM Christian König
+> > >>> <christian.koenig@amd.com> <christian.koenig@amd.com> wrote:
+> > >>>> Well you can, it just means that their contexts are lost as well.
+> > >>> Which is rather inconvenient when deqp-egl reset tests, for example,
+> > >>> take down your compositor ;-)
+> > >> Yeah. Or anything WebGL.
+> > >>
+> > >> System-wide collateral damage is definitely a non-starter. If that
+> > >> means that the userspace driver has to do what iris does and ensure
+> > >> everything's recreated and resubmitted, that works too, just as long
+> > >> as the response to 'my adblocker didn't detect a crypto miner ad'  is
+> > >> something better than 'shoot the entire user session'.
+> > > Not sure where that idea came from, I thought at least I made it clear
+> > > that legacy gl _has_ to recover. It's only vk and arb_robustness gl
+> > > which should die without recovery attempt.
+> > >
+> > > The entire discussion here is who should be responsible for replay and
+> > > at least if you can decide the uapi, then punting that entirely to
+> > > userspace is a good approach.
+> >
+> > Yes, completely agree. We have the approach of re-submitting things in
+> > the kernel and that failed quite miserable.
+> >
+> > In other words currently a GPU reset has something like a 99% chance to
+> > get down your whole desktop.
+> >
+> > Daniel can you briefly explain what exactly iris does when a lost
+> > context is detected without gl robustness?
+> >
+> > It sounds like you guys got that working quite well.
+> >
+> > Thanks,
+> > Christian.
+> >
+> > >
+> > > Ofc it'd be nice if the collateral damage is limited, i.e. requests
+> > > not currently on the gpu, or on different engines and all that
+> > > shouldn't be nuked, if possible.
+> > >
+> > > Also ofc since msm uapi is that the kernel tries to recover there's
+> > > not much we can do there, contexts cannot be shot. But still trying to
+> > > replay them as much as possible feels a bit like overkill.
+> > > -Daniel
+> > >
+> > >> Cheers,
+> > >> Daniel
+> > >
+> > >
+> >
+> >
+> >
 
-Regards,
-Christian.
-
->
->> Regards,
->> Christian.
->>
->>> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->>> ---
->>>    drivers/gpu/drm/drm_buddy.c | 31 +++++++++++++++++++++++++++++++
->>>    1 file changed, 31 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->>> index 72f52f293249..98d7ec359b08 100644
->>> --- a/drivers/gpu/drm/drm_buddy.c
->>> +++ b/drivers/gpu/drm/drm_buddy.c
->>> @@ -641,6 +641,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>    	unsigned int min_order, order;
->>>    	unsigned long pages;
->>>    	LIST_HEAD(allocated);
->>> +	u64 cur_size;
->>>    	int err;
->>>    
->>>    	if (size < mm->chunk_size)
->>> @@ -665,6 +666,11 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>    	if (start + size == end)
->>>    		return __drm_buddy_alloc_range(mm, start, size, blocks);
->>>    
->>> +	cur_size = size;
->>> +
->>> +	if (!IS_ALIGNED(size, min_page_size))
->>> +		size = round_up(size, min_page_size);
->>> +
->>>    	pages = size >> ilog2(mm->chunk_size);
->>>    	order = fls(pages) - 1;
->>>    	min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
->>> @@ -702,6 +708,31 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>    			break;
->>>    	} while (1);
->>>    
->>> +
->>> +	/*
->>> +	 * If size value rounded up to min_page_size, trim the last block
->>> +	 * to the required size
->>> +	 */
->>> +	if (cur_size != size) {
->>> +		struct drm_buddy_block *trim_block;
->>> +		LIST_HEAD(trim_list);
->>> +		u64 required_size;
->>> +
->>> +		trim_block = list_last_entry(&allocated, typeof(*trim_block), link);
->>> +		list_move_tail(&trim_block->link, &trim_list);
->>> +		/*
->>> +		 * Compute the required_size value by subtracting the last block size
->>> +		 * with (aligned size - original size)
->>> +		 */
->>> +		required_size = drm_buddy_block_size(mm, trim_block) - (size - cur_size);
->>> +
->>> +		drm_buddy_block_trim(mm,
->>> +				     required_size,
->>> +				     &trim_list);
->>> +
->>> +		list_splice_tail(&trim_list, &allocated);
->>> +	}
->>> +
->>>    	list_splice_tail(&allocated, blocks);
->>>    	return 0;
->>>    
->>>
->>> base-commit: ec57376fba5abc0e571617ff88e2ade7970c2e4b
-
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
