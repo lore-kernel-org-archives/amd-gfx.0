@@ -4,89 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F988C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 13:30:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7D3FC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 13:58:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFC9010E0E9;
-	Wed, 30 Mar 2022 13:30:04 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30C9E10E0E9
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Mar 2022 13:30:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ezqsky3Lu/Ikr9fA3vCNve4lY/p1cftaEzXkq5yyHdCP+AAfgrq0mTN6i3VjezEOpiX49Vii2ezW73Xj9pEMM0n/nFSH7wImenU/n1HiOlGct34RJs8UmN+eqhPBS1t1rrysUfZZmO/p+qe8ofMPXoZ0s3Dw0Mg+dekKFkzrxSPajg0fh1/sZKRAIqcFceaghQ7gkXdnfGuUVhAlRIe6z6O3j+I9ESLCJr7uFTi3ROrB2i3WZWvdOZyUY9S5DShsm//ytNwd+kBiqUTKR7Vu/SS3610tJk7QSJiWVsQjVkBA7lmPsBEA2ktF3+ZVe1UvYJRjIpCHH1snMNilmIycAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=adlUj0ZU7bw9E4lATor0TUHEAxzlcAxSTK2BiFPBFYY=;
- b=gMmOuyE0fPMwsWrsdssF0JlnRzbz9zpYspPNU91HqposhFf9fO7igSj6mDMxlBH7+1olg44yeupTJM2ekMU9ycJW21I3jUcDtVNx83WTua12YH78UbMmLzpS/F0B3Tj4MLM9566clq2k7vkqLpy5SApn/AFLovywM2jehDSCTcXQ/S7cYjQom8zo4a164puir9fUUoi6KniKijz7kYe7L7BITmgV/1FMmLpDG6sNbeE4vgs8K7I3auK123dFLMIsa+oMrfwQLUvnASrL2w0OugFttKB5/ghyeVvXw2pLpWQ2+jX1zVMgMsb25GbPFWIUYkyVRekILaaHmjKHlT1d6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=adlUj0ZU7bw9E4lATor0TUHEAxzlcAxSTK2BiFPBFYY=;
- b=xWg/YYyMUgBeD+efI82yb7Xd+J5whl00UVRV8OCu7XySHm0mLZ1s+WXQXElC85uAX3B88CEsXsR8wECRSiSMAr4zIZV4kEGBkQPzMeX3+BW+moSXVymJ+aMftPXD7goR2/glc92Vv2eDg0L2RvfnpT3urup1yXM+OcblP3n5yuI=
-Received: from DS7PR03CA0240.namprd03.prod.outlook.com (2603:10b6:5:3ba::35)
- by MWHPR12MB1759.namprd12.prod.outlook.com (2603:10b6:300:113::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.19; Wed, 30 Mar
- 2022 13:30:00 +0000
-Received: from DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3ba:cafe::a4) by DS7PR03CA0240.outlook.office365.com
- (2603:10b6:5:3ba::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.13 via Frontend
- Transport; Wed, 30 Mar 2022 13:30:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT048.mail.protection.outlook.com (10.13.173.114) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5123.19 via Frontend Transport; Wed, 30 Mar 2022 13:29:59 +0000
-Received: from krussell.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 30 Mar
- 2022 08:29:58 -0500
-From: Kent Russell <kent.russell@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Fix unique_id references for Sienna Cichlid
-Date: Wed, 30 Mar 2022 09:29:48 -0400
-Message-ID: <20220330132948.1332199-1-kent.russell@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DBD710E1F0;
+	Wed, 30 Mar 2022 13:58:06 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ABA310E1F0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Mar 2022 13:58:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=KI3h6W+pOEwwApRyiycZlOjDzQv6Mf2lAJP4LJqXUgo=; b=KK7crrj/Rqs+k9RYlriZYTbZ2o
+ Gs+qeD8uMRpQfSCxhhWCSb9x+PQH1Y3fxMEkHHYaWDrZqT9sMUx8XlAEtlAvZzN72/sNAEU/lFMW5
+ 0tpfOzzysI17FxyXfmxDKW05z10+2o7Qun/rkP2EvVEGDCdTukaYLOj3lJp1w4wjzAf26im4W77Y7
+ Ui/xZxsS8oe7olGwFhfWQ+SjYojx6rdeSZXFa5yNVaWtxKgYxVhjd5zceW3GaHNLT75/d+6UYtDmi
+ 7FZ1DdWeDSntnxkq1NX7XU+DAjRcFtpA0GxEUL0z0/ZXDeHtU/5s2nKE1PFvSU2EOE6hJNq/CzRUC
+ XPx+drAQ==;
+Received: from [165.90.126.25] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1nZYph-0002AB-WB; Wed, 30 Mar 2022 15:57:58 +0200
+Date: Wed, 30 Mar 2022 12:57:37 -0100
+From: Melissa Wen <mwen@igalia.com>
+To: "VURDIGERENATARAJ, CHANDAN" <CHANDAN.VURDIGERENATARAJ@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Fix by adding FPU protection for
+ dcn30_internal_validate_bw
+Message-ID: <20220330135737.iuoo7qnjbhthjs45@mail.igalia.com>
+References: <20220329082957.1662655-1-chandan.vurdigerenataraj@amd.com>
+ <c8c00a40-5f1f-d861-adde-3dc246cd2338@molgen.mpg.de>
+ <MW4PR12MB5668E0D09D8A0B1D9B7E6EC2961F9@MW4PR12MB5668.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ff6f5ce4-7f40-4541-fa5e-08da1251638d
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1759:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1759D96A61E0CF0C36380463851F9@MWHPR12MB1759.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0XfImVSpsGdXmetahRYkcUs7nExwTxZb6cOcevDPR6RZk4tErgUVTEg42aHmNplbygza1gVcfKOs6KV0guEvFb5Dviy/SfJXcGpAiPPs/EsSD0DwAfxP5eqYLYT+VN2boO/sQQCCCTspYaIq+zX0Gy5jtfthu8Vj9PS9PGlYXFrykDh9ZDQKbyQZLf9iY0wyV1CoxocdvSiL2Q+LyHO6dxu+JCJQwqI8HjltvEslgsl7nzu2dkiSQL+TY5fGKKajKK9mGUey6wrcTr7esZ5lHP2beqDqWsVfKgIA3kWEkfSbq+OV9hoAdxu+CwR+/xwyOLk97FAE3ev848TaBpPqntDsCyzqAjtfT1QvujZCiMWv79ASCLmyOv1FKY37YIB4qbHASBP5i4IK78AvvaGP1l+OEj7vWkdocRS4k960ZpaYP2/yUBPORzs06mRYyUHwKWaSCDbK6IjMaLY3fqRf6Y0cyS9/ujweC8UF1WWDNu7/LhfP8T4kC8pKPhIsK0XrrX+z1UNUnep1OkSZ8tIIysfGPvtCrJ7AMOVeftqu3p3KhguFTFfYaXSgwaWRCS9fFNZi83VFwR5PBV7ErKLb46r+k7sAienS2eFOm1PyTRyN19lb62DbPYtiUGrnoen8+FHEsspC6r3t/rFcZ7xymmOft5IgmK5nBZr2/XK8koi6GPdLvcRdKm0QX3r83uUHTfD/NngDsRAC1jHeBSs+mA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(6916009)(36860700001)(2616005)(47076005)(44832011)(426003)(336012)(508600001)(82310400004)(26005)(186003)(8936002)(16526019)(1076003)(5660300002)(81166007)(36756003)(86362001)(356005)(83380400001)(40460700003)(6666004)(2906002)(4326008)(70586007)(7696005)(70206006)(316002)(8676002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2022 13:29:59.7152 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff6f5ce4-7f40-4541-fa5e-08da1251638d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1759
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="3kbb4uu6alzir3nw"
+Content-Disposition: inline
+In-Reply-To: <MW4PR12MB5668E0D09D8A0B1D9B7E6EC2961F9@MW4PR12MB5668.namprd12.prod.outlook.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,69 +54,179 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kent Russell <kent.russell@amd.com>
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>, "Li,
+ Sun peng \(Leo\)" <Sunpeng.Li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since unique_id is only supported in PMFW 0x3A5300 and higher, we will
-only be able to use it inside Smu_Metrics_V3_t, which requires PMFW
-0x3A4900 and higher. Remove the unique_id/serial_number references from
-the v1 and v2 tables to avoid any confusion, and return 0 if metrics_v1
-or metrics_v2 are used to try to get the unique_id/serial_number.
 
-Signed-off-by: Kent Russell <kent.russell@amd.com>
----
- .../swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h |  6 ------
- .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 10 ++++------
- 2 files changed, 4 insertions(+), 12 deletions(-)
+--3kbb4uu6alzir3nw
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
-index 5831145646e6..08f0bb2af5d2 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu11_driver_if_sienna_cichlid.h
-@@ -1420,9 +1420,6 @@ typedef struct {
-   uint8_t  PcieWidth              ;
-   uint16_t AverageGfxclkFrequencyTarget;
- 
--  uint32_t PublicSerialNumLower32;
--  uint32_t PublicSerialNumUpper32;
--
-   uint16_t Padding16_2;
- } SmuMetrics_t;
- 
-@@ -1480,9 +1477,6 @@ typedef struct {
-   uint8_t  PcieWidth              ;
-   uint16_t AverageGfxclkFrequencyTarget;
- 
--  uint32_t PublicSerialNumLower32;
--  uint32_t PublicSerialNumUpper32;
--
-   uint16_t Padding16_2;
- } SmuMetrics_V2_t;
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index b2f3d80e5945..ab3e9d8b831e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -716,14 +716,12 @@ static int sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
- 			use_metrics_v2 ? metrics_v2->CurrFanSpeed : metrics->CurrFanSpeed;
- 		break;
- 	case METRICS_UNIQUE_ID_UPPER32:
--		*value = use_metrics_v3 ? metrics_v3->PublicSerialNumUpper32 :
--			use_metrics_v2 ? metrics_v2->PublicSerialNumUpper32 :
--			metrics->PublicSerialNumUpper32;
-+		/* Only supported in 0x3A5300+, metrics_v3 requires 0x3A4900+ */
-+		*value = use_metrics_v3 ? metrics_v3->PublicSerialNumUpper32 : 0;
- 		break;
- 	case METRICS_UNIQUE_ID_LOWER32:
--		*value = use_metrics_v3 ? metrics_v3->PublicSerialNumLower32 :
--			use_metrics_v2 ? metrics_v2->PublicSerialNumLower32 :
--			metrics->PublicSerialNumLower32;
-+		/* Only supported in 0x3A5300+, metrics_v3 requires 0x3A4900+ */
-+		*value = use_metrics_v3 ? metrics_v3->PublicSerialNumLower32 : 0;
- 		break;
- 	default:
- 		*value = UINT_MAX;
--- 
-2.25.1
+On 03/30, VURDIGERENATARAJ, CHANDAN wrote:
+> Hi Paul,
+>=20
+> >Am 29.03.22 um 10:29 schrieb CHANDAN VURDIGERE NATARAJ:
+> >
+> >Is it common to spell your name all uppercase? If not, please use Chanda=
+n nVurdigere Nataraj.
+> >
+> >> [WHY]
+> >
+> >The [] already emphasize the word, so Why could be used.
+> >
+> >> Below general protection fault observed when WebGL Aquarium is run for=
+=20
+> >> longer duration. If drm debug logs are enabled and set to 0x1f then=20
+> >> the
+> >
+> >In what browser and what version?
+> The issue was observed on ChromiumOS and Chromium Browser version 100.0.4=
+877.0
+> >
+> >> issue is observed within 10 minutes of run.
+> >
+> >Where you able to reproduce it without drm debug logs?
+> Yes. It took 34 hours to reproduce without drm debug logs. Using drm debu=
+g logs was a faster way to reproduce the issue.
+> >
+> >> [  100.717056] general protection fault, probably for non-canonical ad=
+dress 0x2d33302d32323032: 0000 [#1] PREEMPT SMP NOPTI
+> >> [  100.727921] CPU: 3 PID: 1906 Comm: DrmThread Tainted: G        W   =
+      5.15.30 #12 d726c6a2d6ebe5cf9223931cbca6892f916fe18b
+> >> [  100.754419] RIP: 0010:CalculateSwathWidth+0x1f7/0x44f
+> >> [  100.767109] Code: 00 00 00 f2 42 0f 11 04 f0 48 8b 85 88 00 00 00=
+=20
+> >> f2 42 0f 10 04 f0 48 8b 85 98 00 00 00 f2 42 0f 11 04 f0 48 8b 45 10=
+=20
+> >> 0f 57 c0 <f3> 42 0f 2a 04 b0 0f 57 c9 f3 43 0f 2a 0c b4 e8 8c e2 f3 ff=
+=20
+> >> 48 8b [  100.781269] RSP: 0018:ffffa9230079eeb0 EFLAGS: 00010246 [ =20
+> >> 100.812528] RAX: 2d33302d32323032 RBX: 0000000000000500 RCX:=20
+> >> 0000000000000000 [  100.819656] RDX: 0000000000000001 RSI:=20
+> >> ffff99deb712c49c RDI: 0000000000000000 [  100.826781] RBP:=20
+> >> ffffa9230079ef50 R08: ffff99deb712460c R09: ffff99deb712462c [ =20
+> >> 100.833907] R10: ffff99deb7124940 R11: ffff99deb7124d70 R12:=20
+> >> ffff99deb712ae44 [  100.841033] R13: 0000000000000001 R14:=20
+> >> 0000000000000000 R15: ffffa9230079f0a0 [  100.848159] FS:  00007af1212=
+12640(0000) GS:ffff99deba780000(0000) knlGS:0000000000000000 [  100.856240]=
+ CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033 [  100.861980] CR2: 0000=
+209000fe1000 CR3: >000000011b18c000 CR4: 0000000000350ee0 [  100.869106] Ca=
+ll Trace:
+> >> [  100.871555]  <TASK>
+> >> [  100.873655]  ? asm_sysvec_reschedule_ipi+0x12/0x20
+> >> [  100.878449]  CalculateSwathAndDETConfiguration+0x1a3/0x6dd
+> >> [  100.883937] =20
+> >> dml31_ModeSupportAndSystemConfigurationFull+0x2ce4/0x76da
+> >> [  100.890467]  ? kallsyms_lookup_buildid+0xc8/0x163
+> >> [  100.895173]  ? kallsyms_lookup_buildid+0xc8/0x163
+> >> [  100.899874]  ? __sprint_symbol+0x80/0x135 [  100.903883]  ?=20
+> >> dm_update_plane_state+0x3f9/0x4d2 [  100.908500]  ?=20
+> >> symbol_string+0xb7/0xde [  100.912250]  ? number+0x145/0x29b [ =20
+> >> 100.915566]  ? vsnprintf+0x341/0x5ff [  100.919141]  ?=20
+> >> desc_read_finalized_seq+0x39/0x87 [  100.923755]  ?=20
+> >> update_load_avg+0x1b9/0x607 [  100.927849]  ?=20
+> >> compute_mst_dsc_configs_for_state+0x7d/0xd5b
+> >> [  100.933416]  ? fetch_pipe_params+0xa4d/0xd0c [  100.937686]  ?=20
+> >> dc_fpu_end+0x3d/0xa8 [  100.941175]  dml_get_voltage_level+0x16b/0x180=
+=20
+> >> [  100.945619]  dcn30_internal_validate_bw+0x10e/0x89b
+> >> [  100.950495]  ? dcn31_validate_bandwidth+0x68/0x1fc
+> >> [  100.955285]  ? resource_build_scaling_params+0x98b/0xb8c
+> >> [  100.960595]  ? dcn31_validate_bandwidth+0x68/0x1fc
+> >> [  100.965384]  dcn31_validate_bandwidth+0x9a/0x1fc
+> >> [  100.970001]  dc_validate_global_state+0x238/0x295
+> >> [  100.974703]  amdgpu_dm_atomic_check+0x9c1/0xbce
+> >> [  100.979235]  ? _printk+0x59/0x73
+> >> [  100.982467]  drm_atomic_check_only+0x403/0x78b [  100.986912] =20
+> >> drm_mode_atomic_ioctl+0x49b/0x546 [  100.991358]  ?=20
+> >> drm_ioctl+0x1c1/0x3b3 [  100.994936]  ?=20
+> >> drm_atomic_set_property+0x92a/0x92a
+> >> [  100.999725]  drm_ioctl_kernel+0xdc/0x149 [  101.003648] =20
+> >> drm_ioctl+0x27f/0x3b3 [  101.007051]  ?=20
+> >> drm_atomic_set_property+0x92a/0x92a
+> >> [  101.011842]  amdgpu_drm_ioctl+0x49/0x7d [  101.015679] =20
+> >> __se_sys_ioctl+0x7c/0xb8 [  101.015685]  do_syscall_64+0x5f/0xb8 [ =20
+> >> 101.015690]  ? __irq_exit_rcu+0x34/0x96
+> >>=20
+> >> [HOW]
+> >> It calles populate_dml_pipes which uses doubles to initialize.
+> >
+> >calls
+> >
+> >Excuse my ignorance. So using doubles causes a context switch?
+> If we don=E2=80=99t add FPU protection then context switch can happen. DC=
+_FP_START would in-turn call preempt_disable.
+>=20
+> >> Adding FPU protection avoids context switch and probable loss of vba=
+=20
+> >> context as there is potential contention while drm debug logs are enab=
+led.
+> >>=20
+> >> Signed-off-by: CHANDAN VURDIGERE NATARAJ=20
+> >> <chandan.vurdigerenataraj@amd.com>
+> >>=20
+> >> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c=20
+> >> b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> >> index 826970f2bd0a..f27262417abe 100644
+> >> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> >> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> >> @@ -1750,7 +1750,9 @@ bool dcn31_validate_bandwidth(struct dc *dc,
+> >>  =20
+> >>   	BW_VAL_TRACE_COUNT();
+> >>  =20
+> >> +	DC_FP_START();
+> >>   	out =3D dcn30_internal_validate_bw(dc, context, pipes, &pipe_cnt,=
+=20
+> >> &vlevel, fast_validate);
+> >> +	DC_FP_END();
+> >>  =20
+> >>   	// Disable fast_validate to set min dcfclk in alculate_wm_and_dlg
+> >>   	if (pipe_cnt =3D=3D 0)
+Acked-by: Melissa Wen <mwen@igalia.com>
 
+In fact, I revisited the code and realized the FPU protection is
+missing for two other dcn30 functions called by dcn31:
+- dcn30_populate_dml_writeback_from_context()
+- dcn30_set_mcif_arb_params()
+
+I'll send a patch addressing this shortly.
+
+CC'ing: Siqueira
+
+Best regards,
+
+Melissa
+> >
+> >
+> >Kind regards,
+> >
+> >Paul
+
+--3kbb4uu6alzir3nw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmJEYcwACgkQwqF3j0dL
+ehzF8Q/+JKyPOam1bFQ2z89ZRkuExbcaryIzqs3FtmRMiil1a+U90ukdjVyAki4k
+KXVEfD1BYepq/b3TwRHbRcKV/peXDmqcPRccFHYl+EBWrTuHkSP87B5/08GAoEMC
+6phWZUL3OIylPxHKy0dbrOhjjr0BAVz3tA0v7n2NKuroR3mTrk33m0yJDSH41E4K
+2CwHfrmiOb5tEH5fXBqs38j5a1cGRCPjndeZgGgMcMvS9B++myYXx/5vTkB46n1a
+rU4+UWm33O2KfIlJfpQEqn+wd9sY50ON2eLAH6lvu5yLR7Glc6wL93/Vi3Uy52ns
+cHciJab9XuK3mFhCdTFppZ8ESzH9+AtJm8dtJyMdhYexBDeCtQGZYywHKkv/umWn
+QCFs1Sf1y5QL4IsN4ZiVvKqwhPDMotj+4CHXE0YLqk/ulcHiUPTrB4zVKIX/4ESP
+DyRPYt0V8GbZWXd6wuazHdY+sZO7l+TyHQzas8JL5pF7xWHENpL/0ag3gEot6i1W
+hBwthrBjOsd4oY+O8N8mNSmcArotqEjatKrsC39xaWJLBtTq8ywoiOyW/73oo1vw
+nsrssebLz0z4nuGYmfA2y2dhb8GeAi4exhpcR4i7DEslcMHJVavFsq2EI0lb1/3p
+uFLOv1G3UmgSBdrkO9EZq9BjS4JnVEw0kkirSt/B6qS4Nv1hrkE=
+=88so
+-----END PGP SIGNATURE-----
+
+--3kbb4uu6alzir3nw--
