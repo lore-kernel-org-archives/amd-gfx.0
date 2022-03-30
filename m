@@ -4,123 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 781A7C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 20:34:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A98BC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 20:51:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF77C89C33;
-	Wed, 30 Mar 2022 20:34:41 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2084.outbound.protection.outlook.com [40.107.92.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B129189C33;
- Wed, 30 Mar 2022 20:34:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7245510E0D5;
+	Wed, 30 Mar 2022 20:51:20 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2073.outbound.protection.outlook.com [40.107.237.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE68410E0D5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Mar 2022 20:51:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DzPdfIFObJtMLenBDKxdsCxoxlG81UBowaJkDedXDuOrL7Hs9qEMT79T+WOteVFgDfwLg6oMS2IiStN8ggRyzgzS5mY1I6brHWT6B3oeFmAd8V5bLZB175KvIuGV66PaZPAH6Gimkir/nOUlRzkw0JHjsWF1r3LTOKASKuy/plW3SN6nBzThMorKGbV3qT2/Xa++cfjMzwiaiYSWaNv4vcFaqPiGyb/hUoFp//jjHebrPduF0wi8V6XqVRRx8nFzOK4vwFcbqfB90Y1PBMWmuwVs5MvYH0EpaqE7U0j0tekYraKrzSCdun8taXXrfWeKTsMFGsO8iB34xk3bqHlUkw==
+ b=PXJUX6vy/tVFnQPKuKYViMchKQtJGOjpJQeHf8wmRvx2w2kn1KmlEfieIWs220joGoZQwbOyl2TkpIi0kr8bD4wW6yv6oCg03sr3h6sHtg8ZdakpkGAFr6vPCUsfGFjtNbMivMyzs9yB7yQ+1QoTGRHGkC2+d7ceaaUmBSwip+WuttrYKwFN94uaMfaArzAcCKieDR/aOz3g4JU5+meD0Hul/wdLE8y3ADnv+3/OYyRQS59cxMLRNnElaQvAhNEMCvGBqQT3z4ZRgogYR+NNgZ2ruidwbl8ZP7rvtjKP52H7KaY8VvlwIKjFkZxnMLLlkIDrTDkM0Z1ILLJRI9IvgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LnCDtxB9XISBK9MW4uWZ4chTOzPqXKhmE0ppTtjncSA=;
- b=O+P4e0n2RJ9A+JbrDtLUNLnVB1UXXNemAtqwNpFjzezbPCWiwG4mDp8GcwclJakF5DQaBzPkpKqLu4t2a4/CfgvPbHmxrcZxf9KmLBOq88h+3LzN0/3ymRvY7cseyxFMvGsDUTOT4G/pg1omBH92vB/NpVrs5T/HdS43+gLjJh3uimesuXGpDgouO9I8UpjQeGV9mqSRt1pH6S7xnnLItRQOHaCZQbgPHUmrezAW+omp2Kohfi3Y6TODVG2oPIEiQpa2m02DVs1GEsXpIPm1ebz1DD8swtW8nluHxBkrVGKbA27Fl5wsFo6Y4NyXXfruM6GbtsQS3Pj9fFQIhyFSqA==
+ bh=KrL+9KzVrVsYzEDSXH2p3zZg6wBXDf9srQ4lmEXl0rI=;
+ b=dxAl5EROToVfAcf9BINZEIzz9Cr0Hr+bYGJRKvWSTt3wtDgIw9iXCvGX59YM01FUo9JAIJCigP+jnGsve5EhFGo9GVtXmSF3c2eXdc9CGau+hrOuob5+hdLaOBeD3VWXWSY/7tVJNELi3ztKVSuU+B+sM2oe9BTdrVx6xqAsO/AxcmCjBuH2ee/Hp8qmM0jd9zn7ZN796gDU6Eu7rbO3FHJ53tG147w0V1ugr88iCaTrcYnq1NueeWWHmBj/zEiAnSNZOi7IefOa4H9YUfbEK/eYr+ksrnv2I6OKyp4uvF+EXHzfEysPjjIwwukYc9RZm2LWd6CZv5TrBnqaWLk79g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LnCDtxB9XISBK9MW4uWZ4chTOzPqXKhmE0ppTtjncSA=;
- b=HFUvnYnl3xwZigOjWnAyQ5pSnjpmOd+3MB9WmpVRTSO7r+Shi4mcLiJxDA+/aQaA3yA3zMyuYbtls9u+78IucQtRjPMMvW5XobMsnMSCaQQLzO3RLYiQ4QtNaSvw1VBn3p678fMOEjbdocI8I6GuD4JDF27MdUMoZXLKNysB/TQ=
+ bh=KrL+9KzVrVsYzEDSXH2p3zZg6wBXDf9srQ4lmEXl0rI=;
+ b=mwE5DljJ+Z/PZGeCi1tp5QN1eXXL/aztKfltvwVaQ4zssBGqGP5PaXFsmKM+xmHvFillxKMvnHGK7XNoP6VjZlvOExQvzvW/2mZKzskZ1lv6yazT+ChlM7InbnH826NJaIgkNpm3zVtvXOXthQd4nR6IBrBM9bfp3Fbd14rnLC8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
- by SN1PR12MB2495.namprd12.prod.outlook.com (2603:10b6:802:32::17)
+Received: from CH0PR12MB5138.namprd12.prod.outlook.com (2603:10b6:610:bd::17)
+ by MN2PR12MB4439.namprd12.prod.outlook.com (2603:10b6:208:262::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17; Wed, 30 Mar
- 2022 20:34:38 +0000
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::48e2:1306:25a3:5f14]) by MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::48e2:1306:25a3:5f14%6]) with mapi id 15.20.5102.023; Wed, 30 Mar 2022
- 20:34:37 +0000
-Message-ID: <fc1ca7d7-fd95-7094-56d4-cd9254fdb8a2@amd.com>
-Date: Thu, 31 Mar 2022 02:14:55 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.18; Wed, 30 Mar
+ 2022 20:51:16 +0000
+Received: from CH0PR12MB5138.namprd12.prod.outlook.com
+ ([fe80::f154:80d0:31ea:b22b]) by CH0PR12MB5138.namprd12.prod.outlook.com
+ ([fe80::f154:80d0:31ea:b22b%5]) with mapi id 15.20.5123.020; Wed, 30 Mar 2022
+ 20:51:16 +0000
+Message-ID: <d1191314-478d-cacd-76b3-14a39157231c@amd.com>
+Date: Wed, 30 Mar 2022 16:51:14 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.0
-Subject: Re: [PATCH] drm: round_up the size to the alignment value
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] drm/amdgpu: fix TLB flushing during eviction
 Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20220330090410.135332-1-Arunpravin.PaneerSelvam@amd.com>
- <c0b22bc3-8bad-fd19-6d1d-164bfee851c4@amd.com>
- <65d77a10-897a-fce6-28c9-321f3c723129@amd.com>
- <c943b565-9011-a285-8caa-5cdb37571688@amd.com>
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <c943b565-9011-a285-8caa-5cdb37571688@amd.com>
-Content-Type: text/plain; charset=UTF-8
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Philip.Yang@amd.com, felix.kuehling@amd.com
+References: <20220330090032.16218-1-christian.koenig@amd.com>
+From: philip yang <yangp@amd.com>
+In-Reply-To: <20220330090032.16218-1-christian.koenig@amd.com>
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BM1PR0101CA0060.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:b00:19::22) To MN2PR12MB4342.namprd12.prod.outlook.com
- (2603:10b6:208:264::7)
+X-ClientProxiedBy: BL0PR02CA0068.namprd02.prod.outlook.com
+ (2603:10b6:207:3d::45) To CH0PR12MB5138.namprd12.prod.outlook.com
+ (2603:10b6:610:bd::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ed3d1ad3-d0b3-4666-406b-08da128cb563
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2495:EE_
-X-Microsoft-Antispam-PRVS: <SN1PR12MB249519C120F4FD4DF847DE31E41F9@SN1PR12MB2495.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 78471db3-91b9-42de-72f3-08da128f08ae
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4439:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB44398027D2ADCEC073DC3D99E61F9@MN2PR12MB4439.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HmfEey53V/uVFO/eEDmxf+WsniPoLipMI8sSCSmmckQJ52rEpyF6ocBglveVr/ePtM+FDBFxtSmpGzOOQgZyZ0FWiFhwK4cLDzDQvJAJ4KR9vzxZCFCytAIWAxhTOQWO4gERfEjMlkw5nC8WMIP7fMf4VcMZdvxNXU5PZBJjjQbvJZvdsnO6Mca/1+5d6YDJxzbPFgDnu6owOoPzemp8jh46wsbTHmhNjBPg6JxM3RxXqEqJMgQ2sqhXckh5vKDe/f3j5xmcz11Uu7HoKXsPeGgiZCIYKk8M+KuLIaizE49P5a1TIi2MRQaif+df1ztXhng+FU9UtJFEDrihp/ixzkk+12yQ3+9D5+Q0dMw6z0m7ogs2253oQNHPbkZwIlTj8cj1WRVinvdPuSWVy7v2vlpB51wFImO77Y2pRH8PyVhrQQPNneAPQUddzSN9gLq++gTlm9esHML1YWYDY2GbtWnq/DnFSEYbWb1Zm3Qf0E4lpnQbic440ix213MdTNyvZCzuYffbQjB1AcWcHPxUpyKI+iyOtufUG2J8inm+IAW8zY+SSJXkvBc8trZAz+XPWmLUt8iSs0UMvXWZbiL4+kt7UiNSQcs/MBplGW8e3BCQSVHSHIxGFX523nBiNGUhzS0QJmlfIex2IUD3E/xO0TwnFWAB7u5etugw/LX+1G7wS7u38Kh0lCV9qjozlCU+KOVjmhIZelnH4YczgucbqX7SN1AjjTWhBuDeCLnysLk=
+X-Microsoft-Antispam-Message-Info: MEiWxeJEH7y/EAcXj3LRfYuf7+6u2VKtZLTd/CUXN/21ILt30QeSUIWmkbhc69f05QA3GIlVANK2Q6PCD5yTcvIaUGOxsEwdzXl/o9u2ziD9WqB5m+7sIOON37WLTU17ASSi98qtDEF3ejmgAt1qvmvFmtXOkw+8JqHsAq3l54wF1m6rtESW1o/ipFFyHKHMaA+M5/XbeZPnKbKPmQOp7ZhQ1+9/p7KjDlxdJOAMzrA4m09XhNoL8GbNWoDMsOXYRNLw9QQbUDCXeGPenID86BaQ/yI10OJAi9xIaZuxT9glaGRjpgKHsdlXR0dXBcWcTYyr4GMpP2/uBWS0zAOaSna7meFI9I7XIpRFUhaZHUT87y+914EDtH3e/W0Xu2PHYzOg9SXfbESDZRlaRcI310hI6Qten77WRAcLwzljPALav2P6+FoRS3FL3m0K67lf8nfkazXXaudzNZDVOONM0+LyQe0hldKsgjsEJXSBinPV1ICCzBGH26syt52NOshuEyDzU6/zwEQyL32U4+hS4tMq3Cpui/3t+1qDLzQDx5oBIroFKGG+y96R6jsrnecZ8E8ZFBWFYAW9oQA/v/lRyRdS0W1z8Akk3ltjb5yTh4XsNZK1nZQA8QvFXA9xYcPf5o4vKW8KIARk4Wtd2tfrrTQ9uUPfP2LWReUJp/a8nd65xJLlssrYTB6bTafXEWe+jR0ynkFjcXfT/08XIAqjzvGWUet8TvjIPuMul0BAhUA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(316002)(86362001)(8936002)(38100700002)(6512007)(2906002)(66556008)(66476007)(8676002)(4326008)(31696002)(5660300002)(66946007)(6506007)(2616005)(36756003)(186003)(508600001)(66574015)(26005)(83380400001)(31686004)(6486002)(6666004)(53546011)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5138.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(26005)(316002)(8676002)(186003)(6486002)(66574015)(508600001)(4326008)(66476007)(66946007)(2616005)(66556008)(31686004)(31696002)(6512007)(38100700002)(6506007)(8936002)(2906002)(36756003)(53546011)(5660300002)(83380400001)(6636002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXR4TnFZSHNMU0ZFWnhINi83eTg3aURaNFQ0SkZ2TGl6ZjJhTDRkVE9LTXBO?=
- =?utf-8?B?QVdLajFISWJBR0N3YXE4TitmMlNrRFdsdjR5VThBRjZnbWw0ZGcvdUxOK0Ns?=
- =?utf-8?B?Q1ZmRC8yR1RZeSt2V0t2SCthazNtVnYyYzFVWjl4UTJ4NGorU3hOYkxwbHZK?=
- =?utf-8?B?WHNYckJyaXk2clprUDlNazBmZDNkbW1yOFFyenNjaTBjY056dG9iK05OTVJ2?=
- =?utf-8?B?UlRxY0FraS96S1lpU04yODlYRzZWK3BNOFF2U3VOcjFjUEpvZWRkbVZ0ajhz?=
- =?utf-8?B?cVR3NTV1a2kvbXdZUlZ1TjA3a0doeE1jWFhPZ0JrcHFFUnVRNWxhaGZpKzV0?=
- =?utf-8?B?RHQwTVU5QjI1REdXYTdmNGUrK05pL0F3WmhHNWNralF4UlU0RHJaZWxxZjFl?=
- =?utf-8?B?T2dURUo0MGdjTkI1RldhOWc0UXdrdk9kblBjWjFselg0YVRpZ1JpSmFjOWVP?=
- =?utf-8?B?K255YlJiOXYyZm41ZVJuWWxPVm5KQllGZmxpY1czOUY3TWlzemovU0VIcEVH?=
- =?utf-8?B?VjJHTDZzaEJ1c3gzUVJSV2luNC8wYkpoTVNFdG1rcmhSWjdUbGZ4VUJkL05a?=
- =?utf-8?B?SGo0UjVNbVhkNDRHUU9BY09hWHRkOUlwKzhxMWhyTm44bXM0WnpKSnBVdG00?=
- =?utf-8?B?RFk3d2pySG82eEo0RnhxOE1HdEJjWDJHTW5NaURPMHQ1clg3TDJGZm9YSnh3?=
- =?utf-8?B?a29iaWtLSnJ6dUplNDhxVy82a1NUdVFmTVh4VUI4RkQ1bFFZUnJ1WW1oZWUy?=
- =?utf-8?B?OUNXMVRmdnkyN0thTGdmZXBYMWNweWsyaE9kU0MrL0NnVi90aU13dzdpWEcx?=
- =?utf-8?B?UFkwbmM5YllMZlFtL092NG5ZaHZubllIQ0JaOFFoMi8zRG91a2dXTU5sZm0x?=
- =?utf-8?B?c3VnUmRRaExCaCtod25ZWmVhaWVZemk4TnkyMUlhVnZGak5HeXltODVCRVM0?=
- =?utf-8?B?TlZoWUZFTVpvLzY0cXhabHdrQ0IzMkd3ZWtUQlpTRVRzeXFvUG8xK3hkS2p3?=
- =?utf-8?B?cmdvS1hsa2JWN3VUTkVBSEVDaXRFaEdFMmVoQUJIVVJ6cVM1N3JndjNpSW84?=
- =?utf-8?B?SFBkU1VVWFJWZVpoNWJNQXozTUdGVTVxVnZIaU5MS2N2S0laV1BhNmVKT0Jp?=
- =?utf-8?B?eUwxcnVFSUUvRERqNDNWaGtLNk5iUU9HYmZxQnFWTTdOcEYxM3g3REk5REQx?=
- =?utf-8?B?Zi82clFCaUt2QkdPZmV0endsMllsQTBuUEJURXk2VVI3YUFYOUlVdjk3WjhW?=
- =?utf-8?B?b3pEZVlMWlFrQVRCMDhvVTljRTBGQ3NaQk5VZ2M1Qk5jUEtKUTNwUFVtV2Zt?=
- =?utf-8?B?cTVyMlpyQlN3WUtRQW0vanBxa1U1RUZyNm15OFVaRGljL09qTytHRzcyT0p0?=
- =?utf-8?B?eDljRkJlcXo4UHJlS2ZIbTBiaHpzMkxZcURkNFYvcTdER0lVbnNBSHRXZ1gr?=
- =?utf-8?B?Zy93c0s1bDhHTytob1Zncm9TT1p2bUMya3lEZVdUQUhNVEFqS3EyK2lWeFph?=
- =?utf-8?B?R1JvamRPR0pLQVZKbldsc2tUak1RYTdiTFFmdEJPMzF0dWJubUxUSmhIYnNS?=
- =?utf-8?B?dWxidExzaWVDU3dtUUtoRUpFaXpIcVpoVDdKNDRPM1d6MUYvVkhjS2V6ZXpP?=
- =?utf-8?B?aHArQ1JCTTkzTlZpM3B1cmMvRWdGVnVWaTIvdFMzTGk5dFJtbElhaXQyaXJj?=
- =?utf-8?B?RUtUc0Z4amdmNUx3MWZnZnFPWUI5UjgzaE41RU5ZQldZcW42bTlKUmp2a3NY?=
- =?utf-8?B?SlV6eDlYNThBTzRMbHFQU2d3ZjhhK3kveVp4b3o3VGZ0cUplQWtRZklUTlda?=
- =?utf-8?B?a3lkblczVjhVSGdkcThUb0V3akF5bFRTNlVMcjJDOXBhdmRPQTE3Qjg3R2tY?=
- =?utf-8?B?REQ1SnVuZUtTT3I4cTk1ZHNrVkpBNUVtWDZvaUc1OXJVcTFGZzMwVldjWG9x?=
- =?utf-8?B?Zk4xRVl6RGs2QVR0MWd6VVZ2enQ5QXdJTGViZFhQYnpXRXdRNTVZUStFQy9N?=
- =?utf-8?B?OElCd3V6M0RkUHp3dmpTRXhkWGxZYkwzdWY3b05iQXR0SkllS1VUc3lWQlk0?=
- =?utf-8?B?WlpsdExZNS9hQUZ0STV4eHA3alVJd1hoM28zaHVoTVNUTUw1ZVJ4Z3hnS2Zo?=
- =?utf-8?B?VzN4N29wbmZHWjdIYitVSlgxeTZ6aGM0blVReWQ5ajVKZzdPdFU0OXVtc3ZM?=
- =?utf-8?B?K2Flakl2TUlTZ3N4VDZobXVSTXlsa0lCRVh2cytweFd4S3VRdDBwVkUwQWRL?=
- =?utf-8?B?OFo1TkYvVTErcDZjV3NoZkFMdTA4VUZ4MkxJK2xINm0yM1o5WDZ4RUdTRlNF?=
- =?utf-8?B?dVYrUTZucTdIaFFOREtRTU1ZdlI3UTltb1hYWXdYZ0s1Z05DL3JIdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K3NCTml0SXhtZ1U4ZkUzSXFNaXEwcHZrSko5M0F5MFNJRDI2ZFNpMnNiMlc1?=
+ =?utf-8?B?M0JIZE0xaFNwU2pkc29Kd0tWcmVpSlU0VkFUdUV1Rkd0ZU9jdWFvenQ1NVky?=
+ =?utf-8?B?WjNwelY0cDNaVEtxM0UrK3NRWHM4NndNVm5UeUVrUlEvYVc4UWdxYkF6U0Q4?=
+ =?utf-8?B?dkliNWtFVkZhYmVnZ0E5MXU0VnB1LzlPT25XVWdSRUNpSEFDTytSYXJraFNV?=
+ =?utf-8?B?czE3MXo2alV1TU5PTGhpRHpBVVNzMVlKQ0d6TWZMemdwdU80VGQ4aDR1Z3dD?=
+ =?utf-8?B?bGNNYUhabEd1ZmdWWVFMUGE5RFRsT0JabjByNUNPYWZoYS9mbDdjZlNXVjAx?=
+ =?utf-8?B?Y1VzRVVaQnR5VFNPNytHRFQ2WG5OOEdXQTd2Qnl0QmJydHIzVk41ZFZRVHJz?=
+ =?utf-8?B?ZVpYTExwS09FMktqb0dtQ0wvNGlhUnducW9mV244SmR2Yy9LOHhNdTBtbkJE?=
+ =?utf-8?B?RlZMVTFSOEhHSXpXeHphekxnUEFsaE0rdElPTHlteUJNSnh2Ukk1a0hZUDVh?=
+ =?utf-8?B?Ny9OZndBNVd4MnpET1JWSTlKdG11SjZjdnA3b2p2OFl6Z3BVUG0wTmJYQXdY?=
+ =?utf-8?B?akNXaHBmWjkwbzk3TmVkMFFxNUJNdGZsY1RQQVJtZlNyNTZQbnRGU3VtVEtW?=
+ =?utf-8?B?Z1MySTZvbkprT0xNWFk0NXYwV040Q0lSR21tb1RqWUhTZUtBcVNRZGhMdXlG?=
+ =?utf-8?B?ZXo0TEFRYzVCdlpuMzhieisxQ2owdWtleWo3V0VIMVVldjBsZGxIVHAvb0J1?=
+ =?utf-8?B?OEgxNTJVdEdXWjk2RnJISW0zR013cDFQVjFlQ242endnZXVyTjA5L21lcTRI?=
+ =?utf-8?B?NzVWNTZvZFpTUTZ5U1BiRWU5Q2tHMjRjakRnK3EwWFcrNmFDcEJ1RTdTb3o5?=
+ =?utf-8?B?Y0p3TUdmTzVZWWZPREJsR0NraGR2bGJpeURBRDZEVE4rNFNNTXVBVHZ6M0ZQ?=
+ =?utf-8?B?QkRKNVdFWVlpSU9lZklEYWk4eWhIMXJOR01oTmEvUlVIcW9EZkpYcS9Wc0kx?=
+ =?utf-8?B?ZWZUMFJRL0hOQVN3Mi9HSnJMR2U0NXRITkVtQVBPZ2s0b282eFJDYnAxMmc2?=
+ =?utf-8?B?VzRmQ2EvekJ4LzR3bVB6YjlFZFZpNkxqaVdQSUlZZ2J1bEZFb3FpeFdiL3Bz?=
+ =?utf-8?B?Wm9TT1E1d05CMGRwcUl3Sk9RZ0U1SDEvMWtNb25RdWxyVHFmSG5SUC8wQW5y?=
+ =?utf-8?B?SFFRWXVzMmRpZ2F6S0cxa2pUcUx6UjUrcGhwMDdOVjdyKzBwZ3VHbzk0eXJr?=
+ =?utf-8?B?MElqVTBnaDVQdnhoWXJONVlzTFJtZmYzc3NaVmt2dDBoaHB0bGg4b1k1b2lw?=
+ =?utf-8?B?ZXFKdTZNSFFCdVFoZDhkdU5Xb0FxcjlkSk1vd2hXdXd4NUxMMDJoTS91bGda?=
+ =?utf-8?B?ZUVXeTllQktzRWJJZGpGcXBDR0l1ekt0WFVyRzVkaVdzTUNBU2xDVDlEaXJM?=
+ =?utf-8?B?VUlkN1ZSVHd0TDFqUnpMQXV0YVMxbjhOTkxKTlIra2h2TzhsV1pFaHozSklE?=
+ =?utf-8?B?L0lUZ1hsTFNmREcrMGJLa05VMFhCUGtxaHgzcnNXcGhrVGtrYURMNDlYMnhT?=
+ =?utf-8?B?a0xvSS9kenhYdWVlVm9heU5CMHBNZm4xeW53dlVXNW9laGFyTzdRb3ptalRF?=
+ =?utf-8?B?VEZlSmhSaWZtZXg4d1lMOWh1TkFET0hVMUo5bGN1UXFYNlczVmJtd28xU0tr?=
+ =?utf-8?B?NWowUHB3Q2szbzFGR3RJbEQ2cEtWSWNxc0drUkdPb3FpT1UxM05XeDRXN1JZ?=
+ =?utf-8?B?ek9tUFVDOEw2akkwWGNTOE1MRWovNFV1czVqd044T1llOHhYSnp2aGR5Smxz?=
+ =?utf-8?B?SFMxVHhINTVRbTNzTDVzTTFSRzc5cGpoU3hINERnRjN6K3d0ZTNDNDEwZDRw?=
+ =?utf-8?B?cW41UlVvelE0bnJOYitPL0FzT09LS09wbXBRMm9NTUZvQ2g0TGVuanlTTE9m?=
+ =?utf-8?B?ZjFlYSt5Z1dNU0pIU0ZGb0RrSVdBNVBWelA3UlpzZkNUTTM3UWZVNFpWdllM?=
+ =?utf-8?B?MUQrdVNoamM1c2djOU5SaytPc0puMENuNitVVEJDemd2ZUF4L2daamdhUWM0?=
+ =?utf-8?B?WkNWM1dUdXU5dk03Y3paTzIwR2U2K1FhWnlKMzBLNDNyTlVVa2RRNDEwekRz?=
+ =?utf-8?B?NzN4YVRybG5SOXJEcHdYd3E2ZVo5YVZWZ0tyWDJQWGthL1JEd0taNW80enY2?=
+ =?utf-8?B?WC9waGs2RlhpWnRwVkgwZFA5aHF5Mjc3eXIyL1VBckpaaXo5d3c2YkRUMVRH?=
+ =?utf-8?B?akR6UzUxVWFNVGtINUlDRGN1R2ZPV2FJaWRDTHpFb2JUQkVoaWJuZzlOQW9V?=
+ =?utf-8?B?MmFsTFdhdWs3d0FmM0JkQVdheEpxU0MrWTg0dHpVdCtFMm9mVHpQUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed3d1ad3-d0b3-4666-406b-08da128cb563
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78471db3-91b9-42de-72f3-08da128f08ae
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5138.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2022 20:34:37.7373 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2022 20:51:16.3494 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hoKLEbWdNTziITwj6QOWHmXOEjsOCBjdFI3JZRrSaOTtjs3FwMqzU+88ha6pz1CBgz6sUElLZaXNRJ7vO/t00g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2495
+X-MS-Exchange-CrossTenant-UserPrincipalName: D9vUEfbaqG40zL3SOah7Yyea6g7EckTe4qzQDw0ICqzWX/+OS81eoLrsIPwxpFRk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4439
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,147 +128,285 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, matthew.auld@intel.com, daniel@ffwll.ch
+Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2022-03-30 05:00, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20220330090032.16218-1-christian.koenig@amd.com">
+      <pre class="moz-quote-pre" wrap="">Testing the valid bit is not enough to figure out if we
+need to invalidate the TLB or not.
 
+During eviction it is quite likely that we move a BO from VRAM to GTT and
+update the page tables immediately to the new GTT address.
 
-On 30/03/22 2:42 pm, Christian König wrote:
-> Am 30.03.22 um 11:20 schrieb Arunpravin Paneer Selvam:
->>
->> On 30/03/22 2:37 pm, Christian König wrote:
->>> Am 30.03.22 um 11:04 schrieb Arunpravin Paneer Selvam:
->>>> Round up the size value to the min_page_size and trim the last block to
->>>> the required size.
->>>>
->>>> This solves a bug detected when size is not aligned with the min_page_size.
->>>> Unigine Heaven has allocation requests for example required pages are 257
->>>> and alignment request is 256. To allocate the left over 1 page, continues
->>>> the iteration to find the order value which is 0 and when it compares with
->>>> min_order = 8, triggers the BUG_ON(order < min_order). To avoid this issue
->>>> we round_up the size value to the min_page_size and trim the last block to
->>>> the computed required size value.
->>> Well, Matthew and you convinced me to *not* do it like this.
->>>
->>> Has that conclusion changed somehow?
->>>
->> Yes, now he is ok to handle rounding + trimming in drm buddy
-> 
-> Yeah, but I'm no longer :)
-> 
-> How do we then handle the detection of contiguous allocation?
-> 
-> As I said we can do that like:
-> 1. alloc
-> 2. check if we only have a single node
-I think verifying the list is a single node would allow all the power of
-2 requests(1 page, 2 pages, 4 pages etc..) single node and CONTIGUOUS
-flag not enabled cases entering into the trim function and simply return
-since the original size == roundup_pow_of_2 size.
+Rework the whole function to get all the necessary parameters directly as
+value.
 
-can we handle all the situation (alignment rounding trimming +
-contiguous trimming) in a single if condition like below,
+Signed-off-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 63 ++++++++++++++------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 15 +++---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c   | 18 ++++----
+ 3 files changed, 48 insertions(+), 48 deletions(-)
 
-if (cur_size != (pages << PAGE_SHIFT))
-
-where cur_size = stores the size value before round_up(alignment
-rounding up) or round_pow_of_2 (contiguous rounding up)
-
-pages = stores the size value after round_up(alignment rounding up) or
-round_pow_of_2 (contiguous rounding up)
-
-if there is a difference b/w these 2 numbers, we enter the trim block -
-- For a single node, we pass the original size (contiguous trimming)
-- For multiple node, we fetch the last block and trim the computed size
-(alignment rounding trimming)
-
-
-> 3. trim
-> 
-> But if we include the trim here we can't do it any more.
-> 
-> Only alternative would then be to inspect each node and see if it 
-> follows directly behind the predecessor.
-> 
-
-ok. Therefore, we handle both contiguous allocation trimming and
-alignment rounding up trimming (only last block) in amdgpu and i915 driver.
-
-And, in drm buddy we just have a check to return -EINVAL if size is not
-aligned to min_page_size.
-
-If yes to above statements, I included alignment rounding up trimming
-(only last block) in the same place where currently we trim for the
-contiguous allocation. I will send the patch for review.
-> Regards,
-> Christian.
-> 
->>
->>> Regards,
->>> Christian.
->>>
->>>> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/drm_buddy.c | 31 +++++++++++++++++++++++++++++++
->>>>    1 file changed, 31 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->>>> index 72f52f293249..98d7ec359b08 100644
->>>> --- a/drivers/gpu/drm/drm_buddy.c
->>>> +++ b/drivers/gpu/drm/drm_buddy.c
->>>> @@ -641,6 +641,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>>    	unsigned int min_order, order;
->>>>    	unsigned long pages;
->>>>    	LIST_HEAD(allocated);
->>>> +	u64 cur_size;
->>>>    	int err;
->>>>    
->>>>    	if (size < mm->chunk_size)
->>>> @@ -665,6 +666,11 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>>    	if (start + size == end)
->>>>    		return __drm_buddy_alloc_range(mm, start, size, blocks);
->>>>    
->>>> +	cur_size = size;
->>>> +
->>>> +	if (!IS_ALIGNED(size, min_page_size))
->>>> +		size = round_up(size, min_page_size);
->>>> +
->>>>    	pages = size >> ilog2(mm->chunk_size);
->>>>    	order = fls(pages) - 1;
->>>>    	min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
->>>> @@ -702,6 +708,31 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>>    			break;
->>>>    	} while (1);
->>>>    
->>>> +
->>>> +	/*
->>>> +	 * If size value rounded up to min_page_size, trim the last block
->>>> +	 * to the required size
->>>> +	 */
->>>> +	if (cur_size != size) {
->>>> +		struct drm_buddy_block *trim_block;
->>>> +		LIST_HEAD(trim_list);
->>>> +		u64 required_size;
->>>> +
->>>> +		trim_block = list_last_entry(&allocated, typeof(*trim_block), link);
->>>> +		list_move_tail(&trim_block->link, &trim_list);
->>>> +		/*
->>>> +		 * Compute the required_size value by subtracting the last block size
->>>> +		 * with (aligned size - original size)
->>>> +		 */
->>>> +		required_size = drm_buddy_block_size(mm, trim_block) - (size - cur_size);
->>>> +
->>>> +		drm_buddy_block_trim(mm,
->>>> +				     required_size,
->>>> +				     &trim_list);
->>>> +
->>>> +		list_splice_tail(&trim_list, &allocated);
->>>> +	}
->>>> +
->>>>    	list_splice_tail(&allocated, blocks);
->>>>    	return 0;
->>>>    
->>>>
->>>> base-commit: ec57376fba5abc0e571617ff88e2ade7970c2e4b
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 9992a7311387..1cac90ee3318 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -793,18 +793,19 @@ static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
+ }
+ 
+ /**
+- * amdgpu_vm_bo_update_mapping - update a mapping in the vm page table
++ * amdgpu_vm_update_range - update a range in the vm page table
+  *
+- * @adev: amdgpu_device pointer of the VM
+- * @bo_adev: amdgpu_device pointer of the mapped BO
+- * @vm: requested vm
++ * @adev: amdgpu_device pointer to use for commands
++ * @vm: the VM to update the range
+  * @immediate: immediate submission in a page fault
+  * @unlocked: unlocked invalidation during MM callback
++ * @flush_tlb: trigger tlb invalidation after update completed
+  * @resv: fences we need to sync to
+  * @start: start of mapped range
+  * @last: last mapped entry
+  * @flags: flags for the entries
+  * @offset: offset into nodes and pages_addr
++ * @vram_base: base for vram mappings
+  * @res: ttm_resource to map
+  * @pages_addr: DMA addresses to use for mapping
+  * @fence: optional resulting fence
+@@ -812,17 +813,14 @@ static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
+  * Fill in the page table entries between @start and @last.
+  *
+  * Returns:
+- * 0 for success, -EINVAL for failure.
++ * 0 for success, negative erro code for failure.
+  */
+-int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+-				struct amdgpu_device *bo_adev,
+-				struct amdgpu_vm *vm, bool immediate,
+-				bool unlocked, struct dma_resv *resv,
+-				uint64_t start, uint64_t last,
+-				uint64_t flags, uint64_t offset,
+-				struct ttm_resource *res,
+-				dma_addr_t *pages_addr,
+-				struct dma_fence **fence)
++int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
++			   bool immediate, bool unlocked, bool flush_tlb,
++			   struct dma_resv *resv, uint64_t start, uint64_t last,
++			   uint64_t flags, uint64_t offset, uint64_t vram_base,
++			   struct ttm_resource *res, dma_addr_t *pages_addr,
++			   struct dma_fence **fence)
+ {
+ 	struct amdgpu_vm_update_params params;
+ 	struct amdgpu_vm_tlb_seq_cb *tlb_cb;
+@@ -910,8 +908,7 @@ int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+ 			}
+ 
+ 		} else if (flags &amp; (AMDGPU_PTE_VALID | AMDGPU_PTE_PRT)) {
+-			addr = bo_adev-&gt;vm_manager.vram_base_offset +
+-				cursor.start;
++			addr = vram_base + cursor.start;
+ 		} else {
+ 			addr = 0;
+ 		}
+@@ -927,7 +924,7 @@ int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+ 
+ 	r = vm-&gt;update_funcs-&gt;commit(&amp;params, fence);
+ 
+-	if (!(flags &amp; AMDGPU_PTE_VALID) || params.table_freed) {
++	if (flush_tlb || params.table_freed) {</pre>
+    </blockquote>
+    <p>All change look good to me, but when I look at previous changes
+      again, kfd_ioctl_map_memory_to_gpu is not correct now, as this
+      should flush TLB if (!kfd_flush_tlb_after_unmap(dev)).</p>
+    <p> To fix it, seems we need beow change, then pass flush_tlb flag
+      via kfd_ioctl_map_memory_to_gpu -&gt; map_bo_to_gpuvm -&gt;
+      update_gpuvm_pte -&gt; amdgpu_vm_bo_update<br>
+    </p>
+    <p>-int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct
+      amdgpu_bo_va *bo_va,<br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; bool clear)</p>
+    <p>-&nbsp;&nbsp;&nbsp; bool flush_tlb = clear;<br>
+      <br>
+    </p>
+    <p>+int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct
+      amdgpu_bo_va *bo_va,<br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; bool clear, bool flush_tlb)</p>
+    <p>+ flush_tlb |= clear;</p>
+    <p>Regards,</p>
+    <p>Philip<br>
+    </p>
+    <blockquote type="cite" cite="mid:20220330090032.16218-1-christian.koenig@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+ 		tlb_cb-&gt;vm = vm;
+ 		if (!fence || !*fence ||
+ 		    dma_fence_add_callback(*fence, &amp;tlb_cb-&gt;cb,
+@@ -1010,9 +1007,10 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+ 	dma_addr_t *pages_addr = NULL;
+ 	struct ttm_resource *mem;
+ 	struct dma_fence **last_update;
++	bool flush_tlb = clear;
+ 	struct dma_resv *resv;
++	uint64_t vram_base;
+ 	uint64_t flags;
+-	struct amdgpu_device *bo_adev = adev;
+ 	int r;
+ 
+ 	if (clear || !bo) {
+@@ -1037,14 +1035,18 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+ 	}
+ 
+ 	if (bo) {
++		struct amdgpu_device *bo_adev = adev;
++
+ 		flags = amdgpu_ttm_tt_pte_flags(adev, bo-&gt;tbo.ttm, mem);
+ 
+ 		if (amdgpu_bo_encrypted(bo))
+ 			flags |= AMDGPU_PTE_TMZ;
+ 
+ 		bo_adev = amdgpu_ttm_adev(bo-&gt;tbo.bdev);
++		vram_base = bo_adev-&gt;vm_manager.vram_base_offset;
+ 	} else {
+ 		flags = 0x0;
++		vram_base = 0;
+ 	}
+ 
+ 	if (clear || (bo &amp;&amp; bo-&gt;tbo.base.resv ==
+@@ -1054,7 +1056,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+ 		last_update = &amp;bo_va-&gt;last_pt_update;
+ 
+ 	if (!clear &amp;&amp; bo_va-&gt;base.moved) {
+-		bo_va-&gt;base.moved = false;
++		flush_tlb = true;
+ 		list_splice_init(&amp;bo_va-&gt;valids, &amp;bo_va-&gt;invalids);
+ 
+ 	} else if (bo_va-&gt;cleared != clear) {
+@@ -1077,11 +1079,11 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+ 
+ 		trace_amdgpu_vm_bo_update(mapping);
+ 
+-		r = amdgpu_vm_bo_update_mapping(adev, bo_adev, vm, false, false,
+-						resv, mapping-&gt;start,
+-						mapping-&gt;last, update_flags,
+-						mapping-&gt;offset, mem,
+-						pages_addr, last_update);
++		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb,
++					   resv, mapping-&gt;start, mapping-&gt;last,
++					   update_flags, mapping-&gt;offset,
++					   vram_base, mem, pages_addr,
++					   last_update);
+ 		if (r)
+ 			return r;
+ 	}
+@@ -1104,6 +1106,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+ 
+ 	list_splice_init(&amp;bo_va-&gt;invalids, &amp;bo_va-&gt;valids);
+ 	bo_va-&gt;cleared = clear;
++	bo_va-&gt;base.moved = false;
+ 
+ 	if (trace_amdgpu_vm_bo_mapping_enabled()) {
+ 		list_for_each_entry(mapping, &amp;bo_va-&gt;valids, list)
+@@ -1272,10 +1275,10 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+ 		    mapping-&gt;start &lt; AMDGPU_GMC_HOLE_START)
+ 			init_pte_value = AMDGPU_PTE_DEFAULT_ATC;
+ 
+-		r = amdgpu_vm_bo_update_mapping(adev, adev, vm, false, false,
+-						resv, mapping-&gt;start,
+-						mapping-&gt;last, init_pte_value,
+-						0, NULL, NULL, &amp;f);
++		r = amdgpu_vm_update_range(adev, vm, false, false, true, resv,
++					   mapping-&gt;start, mapping-&gt;last,
++					   init_pte_value, 0, 0, NULL, NULL,
++					   &amp;f);
+ 		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+ 		if (r) {
+ 			dma_fence_put(f);
+@@ -2519,8 +2522,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 		goto error_unlock;
+ 	}
+ 
+-	r = amdgpu_vm_bo_update_mapping(adev, adev, vm, true, false, NULL, addr,
+-					addr, flags, value, NULL, NULL, NULL);
++	r = amdgpu_vm_update_range(adev, vm, true, false, false, NULL, addr,
++				   addr, flags, value, 0, NULL, NULL, NULL);
+ 	if (r)
+ 		goto error_unlock;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 6b7682fe84f8..1a814fbffff8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -402,15 +402,12 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+ 			   struct amdgpu_vm *vm);
+ void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+ 			    struct amdgpu_vm *vm, struct amdgpu_bo *bo);
+-int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+-				struct amdgpu_device *bo_adev,
+-				struct amdgpu_vm *vm, bool immediate,
+-				bool unlocked, struct dma_resv *resv,
+-				uint64_t start, uint64_t last,
+-				uint64_t flags, uint64_t offset,
+-				struct ttm_resource *res,
+-				dma_addr_t *pages_addr,
+-				struct dma_fence **fence);
++int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
++			   bool immediate, bool unlocked, bool flush_tlb,
++			   struct dma_resv *resv, uint64_t start, uint64_t last,
++			   uint64_t flags, uint64_t offset, uint64_t vram_base,
++			   struct ttm_resource *res, dma_addr_t *pages_addr,
++			   struct dma_fence **fence);
+ int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+ 			struct amdgpu_bo_va *bo_va,
+ 			bool clear);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 27533f6057e0..907b02045824 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1188,9 +1188,9 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ 	pr_debug(&quot;[0x%llx 0x%llx]\n&quot;, start, last);
+ 
+-	return amdgpu_vm_bo_update_mapping(adev, adev, vm, false, true, NULL,
+-					   start, last, init_pte_value, 0,
+-					   NULL, NULL, fence);
++	return amdgpu_vm_update_range(adev, vm, false, true, true, NULL, start,
++				      last, init_pte_value, 0, 0, NULL, NULL,
++				      fence);
+ }
+ 
+ static int
+@@ -1277,12 +1277,12 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
+ 			 (last_domain == SVM_RANGE_VRAM_DOMAIN) ? 1 : 0,
+ 			 pte_flags);
+ 
+-		r = amdgpu_vm_bo_update_mapping(adev, bo_adev, vm, false, false,
+-						NULL, last_start,
+-						prange-&gt;start + i, pte_flags,
+-						last_start - prange-&gt;start,
+-						NULL, dma_addr,
+-						&amp;vm-&gt;last_update);
++		r = amdgpu_vm_update_range(adev, vm, false, false, false, NULL,
++					   last_start, prange-&gt;start + i,
++					   pte_flags,
++					   last_start - prange-&gt;start,
++					   bo_adev-&gt;vm_manager.vram_base_offset,
++					   NULL, dma_addr, &amp;vm-&gt;last_update);
+ 
+ 		for (j = last_start - prange-&gt;start; j &lt;= i; j++)
+ 			dma_addr[j] |= last_domain;
+</pre>
+    </blockquote>
+  </body>
+</html>
