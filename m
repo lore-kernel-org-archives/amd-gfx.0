@@ -4,36 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA88CC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 07:47:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81E51C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 09:47:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A732410FD0F;
-	Thu, 31 Mar 2022 07:47:40 +0000 (UTC)
-Received: from mail.meizu.com (edge07.meizu.com [112.91.151.210])
- by gabe.freedesktop.org (Postfix) with ESMTP id F19EF10FBCF;
- Thu, 31 Mar 2022 07:00:46 +0000 (UTC)
-Received: from IT-EXMB-1-125.meizu.com (172.16.1.125) by mz-mail11.meizu.com
- (172.16.1.15) with Microsoft SMTP Server (TLS) id 14.3.487.0; Thu, 31 Mar
- 2022 13:56:34 +0800
-Received: from meizu.meizu.com (172.16.137.70) by IT-EXMB-1-125.meizu.com
- (172.16.1.125) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.14; Thu, 31 Mar
- 2022 13:56:32 +0800
-From: Haowen Bai <baihaowen@meizu.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter
- <daniel@ffwll.ch>
-Subject: [PATCH] drm/amdgpu/vcn: remove Unneeded semicolon
-Date: Thu, 31 Mar 2022 13:56:30 +0800
-Message-ID: <1648706190-4596-1-git-send-email-baihaowen@meizu.com>
-X-Mailer: git-send-email 2.7.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB53C10F28D;
+	Thu, 31 Mar 2022 09:47:32 +0000 (UTC)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86EA910F28D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Mar 2022 09:47:31 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id c10so28506701ejs.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Mar 2022 02:47:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=N2tgfwtfyhZda621948VgUHaCj8sb8lbdIhBgirGfNA=;
+ b=dvCav8fMiYJgyczSpskLWJbtyN6jnZE0xYCX7vuPwSho1Sco4Z/EXLqjGBJA1992Hi
+ hs3FHkTf6DUkYU3/Iz5oj88CcbTagBb2vndfsN0vTEGoBd86g0Pt+wJX5CLj7pktxtqa
+ pda+wjEz5Xq59yPZejKnrTe3OXAH5NVxibmgHM67k1nkjdrA3s5NwTlYoUPLTVoU1JrW
+ YtL6uPWx8G1IJ/L+ytr2L49g4Y13SPnII2/3Tt/ZdAP29hQ8/1gxKw8RDTsN/LtkZjVA
+ ADsApjjX0D99wFvLXAtXGpEuhexxXNbxaianwlHYw8oAdSaqV9NsFdw+43024DcBL+k6
+ l+iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=N2tgfwtfyhZda621948VgUHaCj8sb8lbdIhBgirGfNA=;
+ b=FPTeHXRt7/oEpyuAZ7C+W0Pq9OUVJyl05IVwxZU6yPz6l623Xq240V+DWyyWERAunI
+ 8soEqc/Z7br/YVWXVCNhqFtIFrBGCLzfRMG+r3FGyCjEjPOqbpGuhfMqOkiMAniaoO6g
+ ocKuSEefxZZ7V+QaKm1BazsfC6TBCksTyDY6KQbkOgdEqw8OOVMTqaBS3vUA79NyEl6v
+ NFhyBPx6Q4x3Bxj5K8uZOQr/XRmrmEJZqX7nE1ee9eG0/uQ+EGaXSSCPjVl6DJhe5j8/
+ K20wzkJwy/5durvUy1mTErj3gJAeUIe/xVYpTKRnEmQUsQSHFVQDv3iMZNlv9jzRVKy8
+ Yc+g==
+X-Gm-Message-State: AOAM532AgjSDuIbXnvCcq78mhygSdP/8riAAq6aOuJhhC2vkU3S6r77Y
+ roTgReOa3UdPrXAxy53ol6WDikK5s6U=
+X-Google-Smtp-Source: ABdhPJwKciFK9KELBXdA/LUH552G7ZXU2R4v2GZHAZRzEIf03Ut1OjIsTmNPuWuFEHX8IvaCFmxkaA==
+X-Received: by 2002:a17:907:2d89:b0:6df:b7d1:a365 with SMTP id
+ gt9-20020a1709072d8900b006dfb7d1a365mr4534845ejc.386.1648720049957; 
+ Thu, 31 Mar 2022 02:47:29 -0700 (PDT)
+Received: from able.fritz.box (p5b0eab60.dip0.t-ipconnect.de. [91.14.171.96])
+ by smtp.gmail.com with ESMTPSA id
+ qk30-20020a1709077f9e00b006dfae33d969sm9249202ejc.216.2022.03.31.02.47.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 31 Mar 2022 02:47:29 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: bas@basnieuwenhuizen.nl, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/5] drm/amdgpu: cleanup freeing delayed mappings
+Date: Thu, 31 Mar 2022 11:47:23 +0200
+Message-Id: <20220331094727.27153-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [172.16.137.70]
-X-ClientProxiedBy: IT-EXMB-1-124.meizu.com (172.16.1.124) To
- IT-EXMB-1-125.meizu.com (172.16.1.125)
-X-Mailman-Approved-At: Thu, 31 Mar 2022 07:47:38 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,34 +70,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Haowen Bai <baihaowen@meizu.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-report by coccicheck:
-drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:1951:2-3: Unneeded semicolon
+Move the list_del() to a central place and use list_move for the rest.
 
-fixed c543dcb ("drm/amdgpu/vcn: Add VCN ras error query support")
-
-Signed-off-by: Haowen Bai <baihaowen@meizu.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index 3e1de8c..17d44be 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -1948,7 +1948,7 @@ static uint32_t vcn_v2_6_query_poison_by_instance(struct amdgpu_device *adev,
- 		break;
- 	default:
- 		break;
--	};
-+	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 1cac90ee3318..11ebfef6962f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1215,6 +1215,7 @@ static void amdgpu_vm_free_mapping(struct amdgpu_device *adev,
+ 				   struct amdgpu_bo_va_mapping *mapping,
+ 				   struct dma_fence *fence)
+ {
++	list_del(&mapping->list);
+ 	if (mapping->flags & AMDGPU_PTE_PRT)
+ 		amdgpu_vm_add_prt_cb(adev, fence);
+ 	kfree(mapping);
+@@ -1269,7 +1270,6 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+ 	while (!list_empty(&vm->freed)) {
+ 		mapping = list_first_entry(&vm->freed,
+ 			struct amdgpu_bo_va_mapping, list);
+-		list_del(&mapping->list);
  
- 	if (poison_stat)
- 		dev_info(adev->dev, "Poison detected in VCN%d, sub_block%d\n",
+ 		if (vm->pte_support_ats &&
+ 		    mapping->start < AMDGPU_GMC_HOLE_START)
+@@ -1597,13 +1597,12 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
+ 			return -ENOENT;
+ 	}
+ 
+-	list_del(&mapping->list);
+ 	amdgpu_vm_it_remove(mapping, &vm->va);
+ 	mapping->bo_va = NULL;
+ 	trace_amdgpu_vm_bo_unmap(bo_va, mapping);
+ 
+ 	if (valid)
+-		list_add(&mapping->list, &vm->freed);
++		list_move(&mapping->list, &vm->freed);
+ 	else
+ 		amdgpu_vm_free_mapping(adev, vm, mapping,
+ 				       bo_va->last_pt_update);
+@@ -1803,14 +1802,12 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+ 	spin_unlock(&vm->invalidated_lock);
+ 
+ 	list_for_each_entry_safe(mapping, next, &bo_va->valids, list) {
+-		list_del(&mapping->list);
+ 		amdgpu_vm_it_remove(mapping, &vm->va);
+ 		mapping->bo_va = NULL;
+ 		trace_amdgpu_vm_bo_unmap(bo_va, mapping);
+-		list_add(&mapping->list, &vm->freed);
++		list_move(&mapping->list, &vm->freed);
+ 	}
+ 	list_for_each_entry_safe(mapping, next, &bo_va->invalids, list) {
+-		list_del(&mapping->list);
+ 		amdgpu_vm_it_remove(mapping, &vm->va);
+ 		amdgpu_vm_free_mapping(adev, vm, mapping,
+ 				       bo_va->last_pt_update);
+@@ -2258,7 +2255,6 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 			prt_fini_needed = false;
+ 		}
+ 
+-		list_del(&mapping->list);
+ 		amdgpu_vm_free_mapping(adev, vm, mapping, NULL);
+ 	}
+ 
 -- 
-2.7.4
+2.25.1
 
