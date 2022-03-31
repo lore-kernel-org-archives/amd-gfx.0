@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A090C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 09:47:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1802DC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 09:47:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B32410F297;
-	Thu, 31 Mar 2022 09:47:38 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C44E510F293
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Mar 2022 09:47:34 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id h1so27528509edj.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Mar 2022 02:47:34 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8195D10F294;
+	Thu, 31 Mar 2022 09:47:40 +0000 (UTC)
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [IPv6:2a00:1450:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3181110F294
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Mar 2022 09:47:38 +0000 (UTC)
+Received: by mail-ed1-x52b.google.com with SMTP id g20so27487808edw.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Mar 2022 02:47:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Mx+QkgXD1WNckwfCmSuHCpngAV1Ktf9TX1oV/Vjtpi4=;
- b=cLn4IJ63f7SQXz1GqEC4DQYLxp4QaxR4tuAty7JZa67Ui60XSe0Jm47Ii2VIrXXzcl
- pQX/Hj3Eckpx1tLgMpwut5R+urxAw86A9ld3n0YtYGSIIjNjb78mq61tENYVI15YCWV8
- sWYTboQcdVtaIv/7q114+/szmvo/2E8KTv6dD/zy3FeTBzBzjlkyhbagEyOF2ZeR8X9x
- 18yCq8M0e+vgiL/Mx7SKkn7Y0mxc+yW2G44VOgKFlg6tFiy4VnTMAmO9ZeuOFVS940ST
- 9btuAgpP8D7yVx0CpwLphtjAMH0+AhoSuFdxdhMfrBgvQ857Y6Cw1mqvS1W5R5TNRCF7
- 9ptg==
+ bh=uMIheegwKrwDLTsJpUOj6Ewr2ZTOmwq22/TVu1cWHQ4=;
+ b=IjhmnTounENzxYA8lmAQgtwS9YTzPK0I4XdZFf2I/V221YsI1d1RX8qGJIFNjlshKH
+ 0r9EtNBDCOF10yDHdYa5oKNhhzUvLKDHEdfZ3aClcB+EF2HkvqCaqEVKJHUpgMK6X1eh
+ ZAIhuurrr4TbmiuaS0paNQGOhL5kXOay6pY+AOnuDJbAqpmqpm1OLFoaZyeTxPTOH8Ph
+ oC+BpNLhUktUAupLVbCfa/2T8MYBoqXvmx62C/Faw5/dHQVS0D7HRcA4n2XsgDl5zTls
+ W5fZJfeqCb79x0vhbbvGmXKzNzwW1dhywUYUfaSE53FsqtegSV/+kftxYpoEfLUgP7rb
+ RyuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Mx+QkgXD1WNckwfCmSuHCpngAV1Ktf9TX1oV/Vjtpi4=;
- b=I8MQJxM0AnLQpkOUPhQwMZsxB8oe4BrOm4UwdbGDvxwz2Rp1t+TkvMM+wYEY12RGwY
- 0jAPy2B/Cq/2u4LjirDHiG5f2Pib6OiHZDp61FGqTVnc8h6G1fuzbIE2x8gUdlmfed4I
- AJNxs7nQuqv71niv2CS5WrBKk+sGHrM25Yay8vjwNtLo/baRgTtCgGgZXPvAtzaDkPXb
- sW86ePlLP3O+kguwwwCNAsTfseQsNYVtl3GQrwjNDfdc+JSqGTrin9wXpSAf3PvNm88P
- yzyh+R9wXXXmnuuCB64HMT6s2yI9mFw8sEthgPmwQxmmDiyWKsFeSY2LTbLRFchqWhki
- c8Xw==
-X-Gm-Message-State: AOAM531A+wyurC4GCbRDVhjFOh+hJHlcq83phPeNb22QuOImzDdZhmKM
- 0yDsrcP6dh6pasPL1I9i28w=
-X-Google-Smtp-Source: ABdhPJzazFd3r3kWIgN7gh9QpQ5jCVAAvhfAzhCuSrvKEoNLojSI/eH80R2dOd1n45QizyvyWsg+OA==
-X-Received: by 2002:a05:6402:27d0:b0:419:5184:58ae with SMTP id
- c16-20020a05640227d000b00419518458aemr15805914ede.314.1648720053310; 
- Thu, 31 Mar 2022 02:47:33 -0700 (PDT)
+ bh=uMIheegwKrwDLTsJpUOj6Ewr2ZTOmwq22/TVu1cWHQ4=;
+ b=06puXJn7dnW68tAzASJ4TjA3ZkNlRcb/QaMHY+brhRW14QpphOG8TgypAKT6RaC3up
+ q+Dicr0tgmT3boXEOwpD9lxJSocAhnlvcpwTPDTJ8NREtz4lH4vubACqFcT3bC0T0WtB
+ qfpQGt23aJWb9T8G65yca+cCjKwhGFyFE2WivO6Qt4SnsWHE/h2/Bzxc34u8iflsUwix
+ gmj8TUGu/QhgYycd3DE+LOEPPrDukw7GHnQKjb/++MBPgWB3tmBg11sUEAGRM5M+xdwi
+ RIvxQTqkF/Xsk3hbjkhdHV+GE+6GFjLu174EQL41EnKy2xQaaHimFEisA6tf0vxTWpvQ
+ d6Dw==
+X-Gm-Message-State: AOAM532x82GkzkshGfAHx1ew/Ba+KhxqUguVTvGIJ1FWMkFWtlEDNdVD
+ ALO3Bfd9aavj2xvBHiEjV/g=
+X-Google-Smtp-Source: ABdhPJwiqmcjOSKxlyIJK/TeCZtqiV4ttDWTfCkg7uyYhzQ3l+dDQrcUQ7FG1ImPJUfBIeva7QVooQ==
+X-Received: by 2002:a05:6402:26d3:b0:418:d202:d5dc with SMTP id
+ x19-20020a05640226d300b00418d202d5dcmr15667271edd.138.1648720054353; 
+ Thu, 31 Mar 2022 02:47:34 -0700 (PDT)
 Received: from able.fritz.box (p5b0eab60.dip0.t-ipconnect.de. [91.14.171.96])
  by smtp.gmail.com with ESMTPSA id
- qk30-20020a1709077f9e00b006dfae33d969sm9249202ejc.216.2022.03.31.02.47.32
+ qk30-20020a1709077f9e00b006dfae33d969sm9249202ejc.216.2022.03.31.02.47.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Mar 2022 02:47:32 -0700 (PDT)
+ Thu, 31 Mar 2022 02:47:33 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: bas@basnieuwenhuizen.nl, alexander.deucher@amd.com,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/5] drm/amdgpu: add last_update to amdgpu_vm_update_pdes
-Date: Thu, 31 Mar 2022 11:47:26 +0200
-Message-Id: <20220331094727.27153-4-christian.koenig@amd.com>
+Subject: [PATCH 5/5] drm/amdgpu: allow specifying a syncobj for VM map
+ operations
+Date: Thu, 31 Mar 2022 11:47:27 +0200
+Message-Id: <20220331094727.27153-5-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220331094727.27153-1-christian.koenig@amd.com>
 References: <20220331094727.27153-1-christian.koenig@amd.com>
@@ -76,125 +77,194 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Allows separate tracking of VM updates.
+To improve synchronization of command submissions with page table updates RADV
+wants to manually wait for the updates to be completed without affecting
+parallel submissions.
+
+Implement this by allowing to specify a drm_sync_obj handle and a timeline
+point for the GEM_VA IOCTL.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c          | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           | 9 +++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h           | 4 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c             | 2 +-
- 6 files changed, 11 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 79 ++++++++++++++++++++-----
+ include/uapi/drm/amdgpu_drm.h           |  5 +-
+ 2 files changed, 67 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 57b521bb1eec..92a6ca415ab8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -410,7 +410,7 @@ static int vm_update_pds(struct amdgpu_vm *vm, struct amdgpu_sync *sync)
- 	struct amdgpu_device *adev = amdgpu_ttm_adev(pd->tbo.bdev);
- 	int ret;
- 
--	ret = amdgpu_vm_update_pdes(adev, vm, false);
-+	ret = amdgpu_vm_update_pdes(adev, vm, false, NULL);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 50fddd6715db..87daa75b57c9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -849,7 +849,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
- 	if (r)
- 		return r;
- 
--	r = amdgpu_vm_update_pdes(adev, vm, false);
-+	r = amdgpu_vm_update_pdes(adev, vm, false, NULL);
- 	if (r)
- 		return r;
- 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 3f84eedb4d96..9cdfee67efeb 100644
+index 9cdfee67efeb..bf0092f629f9 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -623,7 +623,7 @@ static void amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
- 			goto error;
- 	}
+@@ -33,6 +33,7 @@
  
--	r = amdgpu_vm_update_pdes(adev, vm, false);
-+	r = amdgpu_vm_update_pdes(adev, vm, false, NULL);
+ #include <drm/amdgpu_drm.h>
+ #include <drm/drm_drv.h>
++#include <drm/drm_syncobj.h>
+ #include <drm/drm_gem_ttm_helper.h>
  
- error:
- 	if (r && r != -ERESTARTSYS)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 05024999556b..3391256e2448 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -725,14 +725,15 @@ uint64_t amdgpu_vm_map_gart(const dma_addr_t *pages_addr, uint64_t addr)
-  * @adev: amdgpu_device pointer
-  * @vm: requested vm
-  * @immediate: submit immediately to the paging queue
-+ * @last:update: optional returned last update
+ #include "amdgpu.h"
+@@ -598,6 +599,7 @@ int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
+  * @vm: vm to update
+  * @bo_va: bo_va to update
+  * @operation: map, unmap or clear
++ * @last_update: optional pointer to a dma_fence for the last VM update
   *
-  * Makes sure all directories are up to date.
-  *
-  * Returns:
-  * 0 for success, error for failure.
-  */
--int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
--			  struct amdgpu_vm *vm, bool immediate)
-+int amdgpu_vm_update_pdes(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-+			  bool immediate, struct dma_fence **last_update)
+  * Update the bo_va directly after setting its address. Errors are not
+  * vital here, so they are not reported back to userspace.
+@@ -605,20 +607,21 @@ int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
+ static void amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
+ 				    struct amdgpu_vm *vm,
+ 				    struct amdgpu_bo_va *bo_va,
+-				    uint32_t operation)
++				    uint32_t operation,
++				    struct dma_fence **last_update)
  {
- 	struct amdgpu_vm_update_params params;
- 	struct amdgpu_vm_bo_base *entry;
-@@ -759,7 +760,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
- 			goto error;
- 	}
+ 	int r;
  
--	r = vm->update_funcs->commit(&params, &vm->last_update);
-+	r = vm->update_funcs->commit(&params, last_update ? : &vm->last_update);
+ 	if (!amdgpu_vm_ready(vm))
+ 		return;
+ 
+-	r = amdgpu_vm_clear_freed(adev, vm, NULL);
++	r = amdgpu_vm_clear_freed(adev, vm, last_update);
  	if (r)
  		goto error;
  
-@@ -2529,7 +2530,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 	if (r)
- 		goto error_unlock;
- 
--	r = amdgpu_vm_update_pdes(adev, vm, true);
-+	r = amdgpu_vm_update_pdes(adev, vm, true, NULL);
- 
- error_unlock:
- 	amdgpu_bo_unreserve(root);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 3c7df1b8e3c9..692ec7b51ac2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -394,8 +394,8 @@ int amdgpu_vm_validate_pt_bos(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 			      int (*callback)(void *p, struct amdgpu_bo *bo),
- 			      void *param);
- int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job, bool need_pipe_sync);
--int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
--			  struct amdgpu_vm *vm, bool immediate);
-+int amdgpu_vm_update_pdes(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-+			  bool immediate, struct dma_fence **last_update);
- int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
- 			  struct amdgpu_vm *vm,
- 			  struct dma_fence **fence);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 907b02045824..74824e3806d5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1294,7 +1294,7 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
- 		last_start = prange->start + i + 1;
+ 	if (operation == AMDGPU_VA_OP_MAP ||
+ 	    operation == AMDGPU_VA_OP_REPLACE) {
+-		r = amdgpu_vm_bo_update(adev, bo_va, false, NULL);
++		r = amdgpu_vm_bo_update(adev, bo_va, false, last_update);
+ 		if (r)
+ 			goto error;
+ 	}
+@@ -671,6 +674,9 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_gem_object *gobj;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+ 	struct amdgpu_fpriv *fpriv = filp->driver_priv;
++	struct dma_fence *fence = dma_fence_get_stub();
++	struct dma_fence_chain *chain = NULL;
++	struct drm_syncobj *syncobj = NULL;
+ 	struct amdgpu_bo *abo;
+ 	struct amdgpu_bo_va *bo_va;
+ 	struct amdgpu_bo_list_entry vm_pd;
+@@ -714,17 +720,9 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 		return -EINVAL;
  	}
  
--	r = amdgpu_vm_update_pdes(adev, vm, false);
-+	r = amdgpu_vm_update_pdes(adev, vm, false, NULL);
- 	if (r) {
- 		pr_debug("failed %d to update directories 0x%lx\n", r,
- 			 prange->start);
+-	switch (args->operation) {
+-	case AMDGPU_VA_OP_MAP:
+-	case AMDGPU_VA_OP_UNMAP:
+-	case AMDGPU_VA_OP_CLEAR:
+-	case AMDGPU_VA_OP_REPLACE:
+-		break;
+-	default:
+-		dev_dbg(dev->dev, "unsupported operation %d\n",
+-			args->operation);
+-		return -EINVAL;
+-	}
++	/* For debugging delay all VM updates till CS time */
++	if (!amdgpu_vm_debug)
++		args->flags |= AMDGPU_VM_DELAY_UPDATE;
+ 
+ 	INIT_LIST_HEAD(&list);
+ 	INIT_LIST_HEAD(&duplicates);
+@@ -763,6 +761,30 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 		bo_va = NULL;
+ 	}
+ 
++	if (args->syncobj) {
++		syncobj = drm_syncobj_find(filp, args->syncobj);
++		if (!syncobj) {
++			r = -EINVAL;
++			goto error_backoff;
++		}
++
++		if (args->timeline_point) {
++			chain = dma_fence_chain_alloc();
++			if (!chain) {
++				r = -ENOMEM;
++				goto error_put_syncobj;
++			}
++		}
++
++		/*
++		 * Update the VM once before to make sure there are no other
++		 * pending updates.
++		 */
++		if (!(args->flags & AMDGPU_VM_DELAY_UPDATE))
++			amdgpu_gem_va_update_vm(adev, &fpriv->vm, bo_va,
++						args->operation, NULL);
++	}
++
+ 	switch (args->operation) {
+ 	case AMDGPU_VA_OP_MAP:
+ 		va_flags = amdgpu_gem_va_map_flags(adev, args->flags);
+@@ -786,17 +808,42 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 					     va_flags);
+ 		break;
+ 	default:
++		dev_dbg(dev->dev, "unsupported operation %d\n",
++			args->operation);
++		r = -EINVAL;
+ 		break;
+ 	}
+-	if (!r && !(args->flags & AMDGPU_VM_DELAY_UPDATE) && !amdgpu_vm_debug)
++	if (r)
++		goto error_free_chain;
++
++	if (!(args->flags & AMDGPU_VM_DELAY_UPDATE))
+ 		amdgpu_gem_va_update_vm(adev, &fpriv->vm, bo_va,
+-					args->operation);
++					args->operation, syncobj ?
++					&fence : NULL);
++
++	if (syncobj) {
++		if (chain) {
++			drm_syncobj_add_point(syncobj, chain, fence,
++					      args->timeline_point);
++			chain = NULL;
++		} else {
++			drm_syncobj_replace_fence(syncobj, fence);
++		}
++	}
++
++error_free_chain:
++	dma_fence_chain_free(chain);
++
++error_put_syncobj:
++	if (syncobj)
++		drm_syncobj_put(syncobj);
+ 
+ error_backoff:
+ 	ttm_eu_backoff_reservation(&ticket, &list);
+ 
+ error_unref:
+ 	drm_gem_object_put(gobj);
++	dma_fence_put(fence);
+ 	return r;
+ }
+ 
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 1d65c1fbc4ec..f84b5f2c817c 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -533,7 +533,8 @@ struct drm_amdgpu_gem_op {
+ struct drm_amdgpu_gem_va {
+ 	/** GEM object handle */
+ 	__u32 handle;
+-	__u32 _pad;
++	/** Optional DRM Syncobj to signal when operation completes */
++	__u32 syncobj;
+ 	/** AMDGPU_VA_OP_* */
+ 	__u32 operation;
+ 	/** AMDGPU_VM_PAGE_* */
+@@ -544,6 +545,8 @@ struct drm_amdgpu_gem_va {
+ 	__u64 offset_in_bo;
+ 	/** Specify mapping size. Must be correctly aligned. */
+ 	__u64 map_size;
++	/** Optional Syncobj timeline point to signal */
++	__u64 timeline_point;
+ };
+ 
+ #define AMDGPU_HW_IP_GFX          0
 -- 
 2.25.1
 
