@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 201ABC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 14:26:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4366CC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 14:26:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B64D10E3D0;
-	Fri,  1 Apr 2022 14:26:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B173D10E405;
+	Fri,  1 Apr 2022 14:26:11 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BDA210E3D0;
- Fri,  1 Apr 2022 14:25:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9782810E3EB;
+ Fri,  1 Apr 2022 14:26:09 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3246261C2E;
- Fri,  1 Apr 2022 14:25:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FD80C340EE;
- Fri,  1 Apr 2022 14:25:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D545761C43;
+ Fri,  1 Apr 2022 14:26:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3CFC340EE;
+ Fri,  1 Apr 2022 14:26:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648823156;
- bh=aZW18FXpZ2MSrqkywvoIoTsrpp1F3Gh4D/xGzne3JdE=;
+ s=k20201202; t=1648823168;
+ bh=La4Vy9liKzyGA8wVYgzCzfHjBUk/e1nXmMqsKwIY7Pw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kXWWWUFVYAvNWmunYv5r5Q1QGb5U0UUv8Mj+3UPpcYGIj5v4jhPQHmPKaUktswmzx
- jk5XthEK4GBWHuJHicVBExJXwEnxNmA01LJdMp1x4LzLNshkTH7HLP6FLVYjlJYXWa
- C6GdJMZMCDoTlRuGEyNrVbwYyuqzrq+cKfg60IB4f66md8FvlkvNQBP9gI2SEYkv0i
- BslzjuSxg3dET7lFqyW3/ud5ey13mOvGm/9ShlKDMpe5v4eezlts5gFlt9VkRBKqi5
- VwSkzppgjGLTc0SxKLz0pSIi0MUGFD/BjoyAoKmv8v+jX+NMSPxU6S2B/9JpSqIWPz
- rgP869gvL6gHg==
+ b=hIaqaDjJRmOncK7NLTxxVgiHu7MqckvkuH9dxmIxxIhx9eIaNbs3tmUg89JQpjQMF
+ V+OAIirLtz3azukWfCmd9NU9TISL2Ylpg0LKvFismE7O9bK5baY11GpgUz1I4954zI
+ 9BYoSEP/49yOo7sj+VjkvbTAJwlHuHraT0NM/FnzdZuF0kXV2+gyCrfZnQil2IPcUM
+ AvgUeNewqY6UTGRPr/4bbsltTQJL1S8sT9OJaeOTVcFBBut9OxOIezHiTE2osl6nmo
+ kL++vaDmLXkuFkSNAqDEQp1F0REDNgf96UgkiUnecsmNe7BODOIGd7OG1ZVBBjnOUg
+ Tc+SOWK5JVVjQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 006/149] drm/amdkfd: enable heavy-weight TLB
- flush on Arcturus
-Date: Fri,  1 Apr 2022 10:23:13 -0400
-Message-Id: <20220401142536.1948161-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.17 011/149] drm/amd/amdgpu/amdgpu_cs: fix refcount
+ leak of a dma_fence obj
+Date: Fri,  1 Apr 2022 10:23:18 -0400
+Message-Id: <20220401142536.1948161-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220401142536.1948161-1-sashal@kernel.org>
 References: <20220401142536.1948161-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -54,83 +55,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie,
- Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Eric Huang <jinhuieric.huang@amd.com>, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Xin Tan <tanxin.ctf@gmail.com>,
+ airlied@linux.ie, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ Xin Xiong <xiongx18@fudan.edu.cn>, sumit.semwal@linaro.org,
+ linaro-mm-sig@lists.linaro.org, JinhuiEric.Huang@amd.com, nirmoy.das@amd.com,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, Lang.Yu@amd.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Ken.Xue@amd.com,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Eric Huang <jinhuieric.huang@amd.com>
+From: Xin Xiong <xiongx18@fudan.edu.cn>
 
-[ Upstream commit f61c40c0757a79bcf744314df606c2bc8ae6a729 ]
+[ Upstream commit dfced44f122c500004a48ecc8db516bb6a295a1b ]
 
-SDMA FW fixes the hang issue for adding heavy-weight TLB
-flush on Arcturus, so we can enable it.
+This issue takes place in an error path in
+amdgpu_cs_fence_to_handle_ioctl(). When `info->in.what` falls into
+default case, the function simply returns -EINVAL, forgetting to
+decrement the reference count of a dma_fence obj, which is bumped
+earlier by amdgpu_cs_get_fence(). This may result in reference count
+leaks.
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Fix it by decreasing the refcount of specific object before returning
+the error code.
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Xin Xiong <xiongx18@fudan.edu.cn>
+Signed-off-by: Xin Tan <tanxin.ctf@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  6 ------
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         | 10 ++++++++--
- 2 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index f9bab963a948..5df387c4d7fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1813,12 +1813,6 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
- 				true);
- 	ret = unreserve_bo_and_vms(&ctx, false, false);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 06d07502a1f6..a34be65c9eaa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1509,6 +1509,7 @@ int amdgpu_cs_fence_to_handle_ioctl(struct drm_device *dev, void *data,
+ 		return 0;
  
--	/* Only apply no TLB flush on Aldebaran to
--	 * workaround regressions on other Asics.
--	 */
--	if (table_freed && (adev->asic_type != CHIP_ALDEBARAN))
--		*table_freed = true;
--
- 	goto out;
- 
- out_unreserve:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 4bfc0c8ab764..337953af7c2f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1416,6 +1416,12 @@ static int kfd_ioctl_free_memory_of_gpu(struct file *filep,
- 	return ret;
+ 	default:
++		dma_fence_put(fence);
+ 		return -EINVAL;
+ 	}
  }
- 
-+static bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev) {
-+	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
-+	       (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1) &&
-+	        dev->adev->sdma.instance[0].fw_version >= 18);
-+}
-+
- static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
- 					struct kfd_process *p, void *data)
- {
-@@ -1503,7 +1509,7 @@ static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
- 	}
- 
- 	/* Flush TLBs after waiting for the page table updates to complete */
--	if (table_freed) {
-+	if (table_freed || !kfd_flush_tlb_after_unmap(dev)) {
- 		for (i = 0; i < args->n_devices; i++) {
- 			peer = kfd_device_by_id(devices_arr[i]);
- 			if (WARN_ON_ONCE(!peer))
-@@ -1603,7 +1609,7 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
- 	}
- 	mutex_unlock(&p->mutex);
- 
--	if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2)) {
-+	if (kfd_flush_tlb_after_unmap(dev)) {
- 		err = amdgpu_amdkfd_gpuvm_sync_memory(dev->adev,
- 				(struct kgd_mem *) mem, true);
- 		if (err) {
 -- 
 2.34.1
 
