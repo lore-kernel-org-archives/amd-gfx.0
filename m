@@ -4,119 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25F79C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 07:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 077FAC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 07:22:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE65210FE6A;
-	Fri,  1 Apr 2022 07:18:29 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2080.outbound.protection.outlook.com [40.107.94.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFCA110FE6A
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Apr 2022 07:18:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BF7B10FE16;
+	Fri,  1 Apr 2022 07:22:33 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2089.outbound.protection.outlook.com [40.107.243.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE18610FE16
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Apr 2022 07:22:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mkkzJKUr3y7mMN8fMD586xLe9UvfzLMq0tYq2pzOttgPtqCVgQV9vrJFWWCOUWIAtc4fBOX375PVluysIbiDaVKohFvSq4Zp0VRpkdasN+ONKsAHzHJfOHeT3EaAqjprAxUHHjcEj3gC/lnAyrfnEG34PZguOj3p3Bvq1C4e7BOjd9k2dASwW9QV4JS4HI0gnV8ePvUL/0JPrbdD2hrCWyp0AWFwK90mEDJfXHYkOt+7SRMTByWgHiY7k27dywERw6Ez4dwDJwdMuKrLRHJDm1/LzYmQP3ML/bPiH5X9LVsd1ZvVrU4ljCYIFetB6WpH/ec7/EGpwYgfli0p0BBqTw==
+ b=Oqt3zDMqieD8XsPP4uJjVzu0UcD5JVT6aQLGGFbqqsV8Ns6uxw78+Vhb2JQoycDlgFHU6DukeKEF4EGcJv0XxZoIGIJSQ4jc2vonvqKjdf1w44RmBqc/T4YTDVmpCdl9mv9lubO8C4VgWQgpPtW4jwSFzYSeTEEJnLOwHCx8n1SpS6BzyoCfl3fQN5EFejl7s7uMGJjiyyjzRTKw3e9UomKQkA8EKZ+n8uqRfpii8JRXuIO55Wq03SJzVbyUYf8RqAfBdpdZ7wTJEnEQc6HrLP4paRfOUCngSQUMiWjS4aeGQTUmaIEWHRpN7oWHNvSWlS/zckt6jrIdU6yQKtvWZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PoQ6OgAeIy9xcVQmuwmZPM60AS60Fc55EiXbdDxw9Lg=;
- b=kBNEG8xb/tEo7s6Hqno8MNYK8aBoN2xCjixwsezjxyl5nk6wo85Cwl9ByaNbPmkN3rYpxwwiYpmp53+5ugrXuCKyNodWOrNjcs9N1S5Cta1tPC6gYfL+rQ60tSddcahge0tpdsL3PALkioxJaBDCCDl3h/Tuvn6ueb+9xmNwb1aCyy5p/vATYiq7OX24VKYWvifIiDN4WQALYdUVX4o7C3KqnMr0DF0qXDWIj7DAJnwGTKMfa1WQk1JHgPjZtX9+Mo14aS1y0AKa8HZ16cwXjUlIVJsocdR+fACOOgntw0xQL9lmyfLViPJB2TggLIfRPK9xW6l7dlGmaiOqSQrfOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=873LjjzL82GTt61EKuArsJb1HeoDzfFYuDVr3LHyuU0=;
+ b=ElJeeKG6Lb+DSo28ty8uxvw7bZpcJ+Pluc8AddBcS77torNs05Yq13FFvuaieXmtrBiA0704yjkINdFJ2vPjlHEOL9mSJ/ONAN8jdCOjAm+FImhy8Qtm4b5aWLSI0RDXXJIH8raBva3QHT23fae6CvE+QG7zGEJfgc4FOmGls49DaBYfkH0uDtSmu0AiODzKDmnOLn6b6wUC2gRPZtMDpncwG/XNccAhbCQ0VGabdUai8kV8iMMSMhYfoOZaQWTktvuIXxK5bTb2rpvwl9eYy1cAxbd16WJNGf1WybZVvG90Gd7pQoGRoTNcSMYUDI3T+AAqEIXBV5KdX2P3ULYtPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PoQ6OgAeIy9xcVQmuwmZPM60AS60Fc55EiXbdDxw9Lg=;
- b=I9p0SXHnXjHQkywUhK0gieA1ObWoCUDAQRLw6w0oQlaZu9XiHUOij4enILDlNt57LRGAs/5Am3mRZDq2mHWQDACCIsF/roTc+6YugQ7QVn6hkLRTA4W1t8VmT4s3U2MSm0QFRpj7WxnXSsaaLTrI9thUtqAAIuesMd7L3R+Qojg=
-Received: from BYAPR12MB2615.namprd12.prod.outlook.com (2603:10b6:a03:61::29)
- by SN6PR12MB4750.namprd12.prod.outlook.com (2603:10b6:805:e3::25)
+ bh=873LjjzL82GTt61EKuArsJb1HeoDzfFYuDVr3LHyuU0=;
+ b=sbmeCmgR6lPxvK/sE0wiFd6hBpb+o5+HdjbTDyCQ5B9ZOt1vrQgQWeGo1KVvqUEqAH7B9OJ7vdAD5zNPvQ8qZhVE7WQLZGChUZUFaZcjmMzdaU/rtcYlGFX+rUGfAZPkXa2PzDtdXfGE+QS6L7h4i7yi0hafTD/I8yzV/+3lzEE=
+Received: from MW4PR04CA0296.namprd04.prod.outlook.com (2603:10b6:303:89::31)
+ by BYAPR12MB2823.namprd12.prod.outlook.com (2603:10b6:a03:96::33)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.16; Fri, 1 Apr
- 2022 07:18:25 +0000
-Received: from BYAPR12MB2615.namprd12.prod.outlook.com
- ([fe80::2dd8:c3f7:e0cc:bfb6]) by BYAPR12MB2615.namprd12.prod.outlook.com
- ([fe80::2dd8:c3f7:e0cc:bfb6%6]) with mapi id 15.20.5123.021; Fri, 1 Apr 2022
- 07:18:24 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: Arthur Marsh <arthur.marsh@internode.on.net>
-Subject: RE: [PATCH V4 17/17] drm/amd/pm: unified lock protections in
- amdgpu_dpm.c
-Thread-Topic: [PATCH V4 17/17] drm/amd/pm: unified lock protections in
- amdgpu_dpm.c
-Thread-Index: AQHX5/LJ4D+1UL2cPU263eD1r1iEEqzZfgGAgAANK6CAABQxgIABvleA
-Date: Fri, 1 Apr 2022 07:18:24 +0000
-Message-ID: <BYAPR12MB2615DA93084138A62E593442E4E09@BYAPR12MB2615.namprd12.prod.outlook.com>
-References: <DM6PR12MB2619B0D5271592A645F67845E4E19@DM6PR12MB2619.namprd12.prod.outlook.com>
- <20220331042729.3490-1-amarsh04@internode.on.net>
-In-Reply-To: <20220331042729.3490-1-amarsh04@internode.on.net>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-04-01T07:18:22Z; 
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
- Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=fd5c7b8f-d6d5-4568-a911-ff2e4d86ad46;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2601117a-52e9-451f-d20b-08da13afcf95
-x-ms-traffictypediagnostic: SN6PR12MB4750:EE_
-x-microsoft-antispam-prvs: <SN6PR12MB4750E3FA690714B86656D578E4E09@SN6PR12MB4750.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: y0eoISSgBhms+n1ocPSJb8MO+NDyIrfJyiN4L+kirF8czkEFDcAit0mjvvsxBTAnhLVBp+JqRRNZO/d6sgllvAb7gz8DlI1/fgCsVsnq7XjUFzrZKz70zKv6VuEBvCjMrGtUx2uVuyYwYhrZ08XYHHvwRa8jh9TN5nQUNyrBcGrlMALFnczAhkl5AUuiP1s2A9FwrlJQh3R4AMIHfk4dsjz1aecNqmGOos5NjpJ0Wy5LuOBy3ccXbd7aSBarBJsfuzrBlCcDE5m+Az7bX+JQlB9vrYjl2MMIIdSdwyxCocM8pdu9zM8XA0ruNO5uh23VXcADm2V1J/ytCRnDfTRRh+GVRV5Di4c6K/H3eJ1isrizGwD7AJ6Fnp+bbVqV0yqZBMDQQBvxkW5ZzMy43TqiRgbE4e8Nf44GDzMIsAGl9yHao9ARInSfS2TTAxF/a4Ouf2f8+GnsLNftvFh0FGNi61UtUT6NoDAvCZTp6M+De5HzB+aUHEQ7gtlmnIzUQg0HHzEi1O4LfSoObZwxSKPA9oa8rzEV79E41Glqf/hWZJO7PJmHIVPeaaLQkvNkXilnML/9B8sqxf1TNz+VuziP8Kehl/pQjusrF+OeDfYvo2kvbWFu8BGbJqond2SN519LTWTJwGulShBeJGsbzHayz9JSmJHO0gn93/EtRknJvMedDdlYxuxQb8rQh10z5d5M6QTVbpL94UgoudT/W+xtbA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB2615.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(5660300002)(76116006)(8676002)(66476007)(71200400001)(33656002)(66556008)(64756008)(8936002)(508600001)(52536014)(55016003)(66446008)(122000001)(66946007)(2906002)(4326008)(83380400001)(26005)(7696005)(38070700005)(6916009)(316002)(38100700002)(186003)(54906003)(9686003)(86362001)(6506007)(53546011);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?eYWGt8dWFzi1wWYrPjigvQNyrUFIAa04eid4mRzjNX6L0yKHc+EvIgAf6rqS?=
- =?us-ascii?Q?SgXH8DX6w2Oj34dSbCYP5dAf67ECQwCAwixQHFHATmBwBD04xPqC4cqg6Y+A?=
- =?us-ascii?Q?45scvRYK6QBcO7em5+TAHrvh2pSkGLihb4hFG4e61tRIZFflS84rhC2R1nbD?=
- =?us-ascii?Q?EXSItdsU0qwZ93HBZ00VmAnaR84iZj2bVsjfhjYWp/DJWTMgALHnSIsw3uSJ?=
- =?us-ascii?Q?dS19pUeu/06O+2mrXX/mUpiWT7N/B4p7xP7SN4piXCk8bTRBUaj6CVgDY5JX?=
- =?us-ascii?Q?JO/XAZuDueudhgx1bFq277TeaVg/2QAqZ8eLZDvls/4fj0hYwhXzjUD1XM4L?=
- =?us-ascii?Q?OzeINGJ6J2bynu5j7fcIcEGUYV1lP6t1NPkW4F+NR84hODh0VcmGCsensNS2?=
- =?us-ascii?Q?DIRoll/y5HLAuHi7J+7U85plxgIyZNySRjtaEqI7cjrmXNnwV/nPAZHYZIck?=
- =?us-ascii?Q?exI+MYVjhxDbyF7RTxRb2Eh8+ALEEsRbNtfPmT6Idwri80Af5YbsyHzUyMCQ?=
- =?us-ascii?Q?ZNSoXB8Ldbn72fcrG1GZDqlfLyTvFBjheBf9aGIvPaoW9HqEbXrGvdIc8jbi?=
- =?us-ascii?Q?Brc2mEwJRYbQ9N2KKTDN9cWqY80f/LhLvKilEUrDmRXvsqcfYHoNOZQ8P44L?=
- =?us-ascii?Q?j0Ts5QXOa0IfnxbN8WPruo0F3I+iKf2VFsf4MA1AiuQVF0JtCutu0xjxqTPv?=
- =?us-ascii?Q?ofm8bX4gQXyprYpaH4FmbiUDRjPiRUx7YHIUTC0t5SNtU+GwujAQxUDgz6ne?=
- =?us-ascii?Q?MyPGwVcn+LU1reUaLo2vvqZupyTttnQ6421aMytcxwojMhZVJju067MufgoI?=
- =?us-ascii?Q?+K3u3RTr2j+OJXE+IOQ0O64OBzr9xFzizqzaoF0z4DKCDUrSU0O3x55EqFoN?=
- =?us-ascii?Q?ImvgkR9jQpxCNCmQL8m47zvdEfLO0VmI14dNmbFrvccOQ2/LjpCF1C1ulHAw?=
- =?us-ascii?Q?XRgbznZr20dIVNPznRX7VgqLOeMiwZORBF5M/CKXFO+sbiv/LB6B7vSVo33G?=
- =?us-ascii?Q?+Qdw9MfP/v95zL5kXAAJ+To6zRh/5oLtnl8Y/PFV6pRa1/F/n4juuATP1UqD?=
- =?us-ascii?Q?DvabcGtVyLE6g+LMFqUXoEllpKs2+DXXUNoqDT/o9KbxXAAuKtsZFussrmX3?=
- =?us-ascii?Q?CBdBWkqStNFgC7F3GoLHYKFL9A9r5UYfs8H73RSSaNb1UK+PCVL57snFFMkE?=
- =?us-ascii?Q?hXYTl/T+6no7Lo/ESXZQjvhOaix+PmeqGgY/RRD1GMRQi22iXGgrHV0C5Rn/?=
- =?us-ascii?Q?sJGC1poSu565S/LoYNwfQ8zJgNWBwStDQvVs6P1JVZN7yGOYftpdFq3GS8Zi?=
- =?us-ascii?Q?hPy37zSnT9B5VSI9E2jo34300LzrWHBPzvE0lT8y66uoRnVBtQD65AZUpccJ?=
- =?us-ascii?Q?Zer1+mUddmn/YeivqpR3Z+zz7C2ugItv2Oz4ARTdjS6hG0k4uCUCFxkcTojK?=
- =?us-ascii?Q?atpdjm29eY37Zu10t8HPd6lZlAzTEjj0Lv0vPiLGBW2TY7WLF54ib6fgo266?=
- =?us-ascii?Q?GmuuNlB0KIlkvjbxr2Is4wKji4Aenv2/KgupUejy+vGiRzjtX01ynJ81X8rZ?=
- =?us-ascii?Q?7cD1ZBahmrdx4EgvlbNlx33bHJE5Vv8PDvVbdSFWM9Aa4znGt5JWKSxk4tYY?=
- =?us-ascii?Q?T50oHRwQUcIkQtJVWQK1M7Muczxgb97+rNhqPi2VZ8RXm7JRKaeM6ItfL+oB?=
- =?us-ascii?Q?vozRru2Qztgy65XUBq1tG6XhKr3G+Sv1Yb/yZKQMpIsx7Z8G?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.21; Fri, 1 Apr
+ 2022 07:22:27 +0000
+Received: from CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:89:cafe::a0) by MW4PR04CA0296.outlook.office365.com
+ (2603:10b6:303:89::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.23 via Frontend
+ Transport; Fri, 1 Apr 2022 07:22:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT043.mail.protection.outlook.com (10.13.174.193) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5123.19 via Frontend Transport; Fri, 1 Apr 2022 07:22:26 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 1 Apr
+ 2022 02:22:23 -0500
+From: Evan Quan <evan.quan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH V3] drm/amdgpu: expand cg_flags from u32 to u64
+Date: Fri, 1 Apr 2022 15:20:37 +0800
+Message-ID: <20220401072037.3846650-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7466b006-c110-474e-b12b-08da13b05ff1
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2823:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB2823B2A4ACEF5D84F3A6719DE4E09@BYAPR12MB2823.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Yh/W9IZibdN1tVXXhuYA12/9BJfw5ZZ7bWgg9T3Nw4Q2VW7ghMnPDtS/Rxgjhi3B+CGyvKW6yQRdv9aH5lIYfiSKnDHuRwwpVVb8jUnKIHNO1bXpPb2t7YqV6ZsmU8zJP3xcj/z7gmBIf8Hkgh1XK2YnbtLnDSxsALxudXN1f0M0PG9umiElcKK56x+Yjnz/BLzyVRcWS6XBgVa5xp9fTwAcHuCyrclOlZFcnGvs+USMuDLAMPtcr8NeFys+jOTeGe9/A6975BKNnt47yW1+cvYzXqHsXrYWV2pFa7CxLIr53zUZasLARRiFgcD7JzlneT6eCGATbAb7TYicPXhouEdTsmGefHl3oDSU0RvDpLrw3cnehDxw728ccK4o0JLl7FL1XmtlufKWZ2mwhNcdtRRHltkA0ldwSZoeOegoqXSuFguGHbnt1frcVbHZDP60DmeZNYrxjPP8v3Q3ZvdcxgvzfzWTBde8SOzrIkKwzkmwtuVJrJqT7945mOBxhpHXGj4zOGgps/GPOm4JERLpDoB3gJSx0d30sb3jVvDvEOcMIp+YRGc9cHCSKY8SGKhako8TlhQ+K8KwcqZru79cCA/3Vdfdn1goFq3x513X/N3hcdh8RBan1FdczbU9f9KHSv6m87iwD0Ng2hZNFOqYA4nJ9HmXpqQp/2wpxwB30yNTHTcg2IQ9M7Kp22mXWeHT3txmvCU9Sl0x/jo67P078w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(7696005)(6666004)(83380400001)(47076005)(508600001)(1076003)(70206006)(6916009)(186003)(316002)(36756003)(54906003)(70586007)(26005)(5660300002)(16526019)(8676002)(82310400004)(86362001)(81166007)(30864003)(44832011)(2616005)(4326008)(36860700001)(336012)(356005)(426003)(8936002)(2906002)(40460700003)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2615.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2601117a-52e9-451f-d20b-08da13afcf95
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Apr 2022 07:18:24.6128 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8SrY7Th+j19cHVFzS9LynHmal6cNnDGj1Z/UDy6gKxdfpSn+ffXMJIJEA4ejCUwr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB4750
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2022 07:22:26.9474 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7466b006-c110-474e-b12b-08da13b05ff1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2823
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,79 +98,898 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Tom.StDenis@amd.com,
+ Evan Quan <evan.quan@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
+With this, we can support more CG flags.
 
-Hi Arthur,
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Change-Id: Iccf13c2f9c570ca6a4654291fc4876556125c3b8
+--
+v1->v2:
+  - amdgpu_debugfs_gca_config_read: add a new rev to
+    support CG flag upper 32 bits(Alex)
+v2->v3:
+  - use '%llx' for CG flags printing
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_df.h      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |  8 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/athub_v1_0.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/athub_v1_0.h     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/athub_v2_0.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/athub_v2_0.h     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/athub_v2_1.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/athub_v2_1.h     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/df_v1_7.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/df_v3_6.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/nv.c             |  2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/smuio_v11_0.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/smuio_v11_0_6.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/smuio_v13_0.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/smuio_v9_0.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vi.c             |  2 +-
+ drivers/gpu/drm/amd/include/amd_shared.h    | 66 ++++++++++-----------
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c          |  6 +-
+ drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h      |  2 +-
+ 53 files changed, 95 insertions(+), 92 deletions(-)
 
-Can you try to blacklist amdgpu module first and then do manual driver load=
-ing?=20
-Hope via that you can have a chance to observe the errors reported by drive=
-r.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 22eeddd01014..dfc5b46c6a11 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -179,7 +179,7 @@ extern int amdgpu_sched_jobs;
+ extern int amdgpu_sched_hw_submission;
+ extern uint amdgpu_pcie_gen_cap;
+ extern uint amdgpu_pcie_lane_cap;
+-extern uint amdgpu_cg_mask;
++extern u64 amdgpu_cg_mask;
+ extern uint amdgpu_pg_mask;
+ extern uint amdgpu_sdma_phase_quantum;
+ extern char *amdgpu_disable_cu;
+@@ -322,7 +322,7 @@ int amdgpu_device_ip_set_powergating_state(void *dev,
+ 					   enum amd_ip_block_type block_type,
+ 					   enum amd_powergating_state state);
+ void amdgpu_device_ip_get_clockgating_state(struct amdgpu_device *adev,
+-					    u32 *flags);
++					    u64 *flags);
+ int amdgpu_device_ip_wait_for_idle(struct amdgpu_device *adev,
+ 				   enum amd_ip_block_type block_type);
+ bool amdgpu_device_ip_is_idle(struct amdgpu_device *adev,
+@@ -860,7 +860,7 @@ struct amdgpu_device {
+ 	/* powerplay */
+ 	struct amd_powerplay		powerplay;
+ 	struct amdgpu_pm		pm;
+-	u32				cg_flags;
++	u64				cg_flags;
+ 	u32				pg_flags;
+ 
+ 	/* nbio */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 5d04d24a0d5f..1db48dc58ae9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -758,7 +758,7 @@ static ssize_t amdgpu_debugfs_gca_config_read(struct file *f, char __user *buf,
+ 	/* rev==1 */
+ 	config[no_regs++] = adev->rev_id;
+ 	config[no_regs++] = adev->pg_flags;
+-	config[no_regs++] = adev->cg_flags;
++	config[no_regs++] = lower_32_bits(adev->cg_flags);
+ 
+ 	/* rev==2 */
+ 	config[no_regs++] = adev->family;
+@@ -773,6 +773,9 @@ static ssize_t amdgpu_debugfs_gca_config_read(struct file *f, char __user *buf,
+ 	/* rev==4 APU flag */
+ 	config[no_regs++] = adev->flags & AMD_IS_APU ? 1 : 0;
+ 
++	/* rev==5 CG flag upper 32bit */
++	config[no_regs++] = upper_32_bits(adev->cg_flags);
++
+ 	while (size && (*pos < no_regs * 4)) {
+ 		uint32_t value;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index fa4a9f13c922..6f47726f1765 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1703,7 +1703,7 @@ int amdgpu_device_ip_set_powergating_state(void *dev,
+  * clockgating is enabled.
+  */
+ void amdgpu_device_ip_get_clockgating_state(struct amdgpu_device *adev,
+-					    u32 *flags)
++					    u64 *flags)
+ {
+ 	int i;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
+index 6b25837955c4..1538b2dbfff1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
+@@ -40,7 +40,7 @@ struct amdgpu_df_funcs {
+ 	void (*update_medium_grain_clock_gating)(struct amdgpu_device *adev,
+ 						 bool enable);
+ 	void (*get_clockgating_state)(struct amdgpu_device *adev,
+-				      u32 *flags);
++				      u64 *flags);
+ 	void (*enable_ecc_force_par_wr_rmw)(struct amdgpu_device *adev,
+ 					    bool enable);
+ 	int (*pmc_start)(struct amdgpu_device *adev, uint64_t config,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index bda1b5132ee8..e98820465109 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -136,7 +136,7 @@ int amdgpu_sched_jobs = 32;
+ int amdgpu_sched_hw_submission = 2;
+ uint amdgpu_pcie_gen_cap;
+ uint amdgpu_pcie_lane_cap;
+-uint amdgpu_cg_mask = 0xffffffff;
++u64 amdgpu_cg_mask = 0xffffffffffffffff;
+ uint amdgpu_pg_mask = 0xffffffff;
+ uint amdgpu_sdma_phase_quantum = 32;
+ char *amdgpu_disable_cu = NULL;
+@@ -454,12 +454,12 @@ MODULE_PARM_DESC(pcie_lane_cap, "PCIE Lane Caps (0: autodetect (default))");
+ module_param_named(pcie_lane_cap, amdgpu_pcie_lane_cap, uint, 0444);
+ 
+ /**
+- * DOC: cg_mask (uint)
++ * DOC: cg_mask (ullong)
+  * Override Clockgating features enabled on GPU (0 = disable clock gating). See the AMD_CG_SUPPORT flags in
+- * drivers/gpu/drm/amd/include/amd_shared.h. The default is 0xffffffff (all enabled).
++ * drivers/gpu/drm/amd/include/amd_shared.h. The default is 0xffffffffffffffff (all enabled).
+  */
+ MODULE_PARM_DESC(cg_mask, "Clockgating flags mask (0 = disable clock gating)");
+-module_param_named(cg_mask, amdgpu_cg_mask, uint, 0444);
++module_param_named(cg_mask, amdgpu_cg_mask, ullong, 0444);
+ 
+ /**
+  * DOC: pg_mask (uint)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+index 9181c7bef7c6..ac5c61d3de2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
+@@ -33,7 +33,7 @@ struct amdgpu_hdp_funcs {
+ 	void (*invalidate_hdp)(struct amdgpu_device *adev,
+ 			       struct amdgpu_ring *ring);
+ 	void (*update_clock_gating)(struct amdgpu_device *adev, bool enable);
+-	void (*get_clock_gating_state)(struct amdgpu_device *adev, u32 *flags);
++	void (*get_clock_gating_state)(struct amdgpu_device *adev, u64 *flags);
+ 	void (*init_registers)(struct amdgpu_device *adev);
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h
+index 9f1540f0ebf9..f939395c5914 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h
+@@ -34,7 +34,7 @@ struct amdgpu_mmhub_funcs {
+ 	void (*gart_disable)(struct amdgpu_device *adev);
+ 	int (*set_clockgating)(struct amdgpu_device *adev,
+ 			       enum amd_clockgating_state state);
+-	void (*get_clockgating)(struct amdgpu_device *adev, u32 *flags);
++	void (*get_clockgating)(struct amdgpu_device *adev, u64 *flags);
+ 	void (*setup_vm_pt_regs)(struct amdgpu_device *adev, uint32_t vmid,
+ 				uint64_t page_table_base);
+ 	void (*update_power_gating)(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
+index 3d13e601fc35..03439083182a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
+@@ -83,7 +83,7 @@ struct amdgpu_nbio_funcs {
+ 	void (*update_medium_grain_light_sleep)(struct amdgpu_device *adev,
+ 						bool enable);
+ 	void (*get_clockgating_state)(struct amdgpu_device *adev,
+-				      u32 *flags);
++				      u64 *flags);
+ 	void (*ih_control)(struct amdgpu_device *adev);
+ 	void (*init_registers)(struct amdgpu_device *adev);
+ 	void (*remap_hdp_registers)(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h
+index 484bb3dcec47..c7a823f3f2c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h
+@@ -27,7 +27,7 @@ struct amdgpu_smuio_funcs {
+ 	u32 (*get_rom_index_offset)(struct amdgpu_device *adev);
+ 	u32 (*get_rom_data_offset)(struct amdgpu_device *adev);
+ 	void (*update_rom_clock_gating)(struct amdgpu_device *adev, bool enable);
+-	void (*get_clock_gating_state)(struct amdgpu_device *adev, u32 *flags);
++	void (*get_clock_gating_state)(struct amdgpu_device *adev, u64 *flags);
+ 	u32 (*get_die_id)(struct amdgpu_device *adev);
+ 	u32 (*get_socket_id)(struct amdgpu_device *adev);
+ 	bool (*is_host_gpu_xgmi_supported)(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/athub_v1_0.c
+index 88642e7ecdf4..a13c443ea10f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/athub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/athub_v1_0.c
+@@ -87,7 +87,7 @@ int athub_v1_0_set_clockgating(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-void athub_v1_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
++void athub_v1_0_get_clockgating(struct amdgpu_device *adev, u64 *flags)
+ {
+ 	int data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v1_0.h b/drivers/gpu/drm/amd/amdgpu/athub_v1_0.h
+index b279af59e34f..6be0a6704ea7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/athub_v1_0.h
++++ b/drivers/gpu/drm/amd/amdgpu/athub_v1_0.h
+@@ -25,6 +25,6 @@
+ 
+ int athub_v1_0_set_clockgating(struct amdgpu_device *adev,
+ 			       enum amd_clockgating_state state);
+-void athub_v1_0_get_clockgating(struct amdgpu_device *adev, u32 *flags);
++void athub_v1_0_get_clockgating(struct amdgpu_device *adev, u64 *flags);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/athub_v2_0.c
+index a720436857b4..a9521c98e7f7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/athub_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/athub_v2_0.c
+@@ -93,7 +93,7 @@ int athub_v2_0_set_clockgating(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-void athub_v2_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
++void athub_v2_0_get_clockgating(struct amdgpu_device *adev, u64 *flags)
+ {
+ 	int data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v2_0.h b/drivers/gpu/drm/amd/amdgpu/athub_v2_0.h
+index 02932c1c8bab..8b763f6dfd81 100644
+--- a/drivers/gpu/drm/amd/amdgpu/athub_v2_0.h
++++ b/drivers/gpu/drm/amd/amdgpu/athub_v2_0.h
+@@ -25,6 +25,6 @@
+ 
+ int athub_v2_0_set_clockgating(struct amdgpu_device *adev,
+ 			       enum amd_clockgating_state state);
+-void athub_v2_0_get_clockgating(struct amdgpu_device *adev, u32 *flags);
++void athub_v2_0_get_clockgating(struct amdgpu_device *adev, u64 *flags);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/athub_v2_1.c
+index ad8e87d3d2cb..78508ae6a670 100644
+--- a/drivers/gpu/drm/amd/amdgpu/athub_v2_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/athub_v2_1.c
+@@ -85,7 +85,7 @@ int athub_v2_1_set_clockgating(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-void athub_v2_1_get_clockgating(struct amdgpu_device *adev, u32 *flags)
++void athub_v2_1_get_clockgating(struct amdgpu_device *adev, u64 *flags)
+ {
+ 	int data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v2_1.h b/drivers/gpu/drm/amd/amdgpu/athub_v2_1.h
+index 5e6824c0f591..b799f14bce03 100644
+--- a/drivers/gpu/drm/amd/amdgpu/athub_v2_1.h
++++ b/drivers/gpu/drm/amd/amdgpu/athub_v2_1.h
+@@ -25,6 +25,6 @@
+ 
+ int athub_v2_1_set_clockgating(struct amdgpu_device *adev,
+ 			       enum amd_clockgating_state state);
+-void athub_v2_1_get_clockgating(struct amdgpu_device *adev, u32 *flags);
++void athub_v2_1_get_clockgating(struct amdgpu_device *adev, u64 *flags);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
+index 2d01ac0d4c11..b991609f46c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
+@@ -99,7 +99,7 @@ static void df_v1_7_update_medium_grain_clock_gating(struct amdgpu_device *adev,
+ }
+ 
+ static void df_v1_7_get_clockgating_state(struct amdgpu_device *adev,
+-					  u32 *flags)
++					  u64 *flags)
+ {
+ 	u32 tmp;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+index f4dfca013ec5..483a441b46aa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
++++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+@@ -332,7 +332,7 @@ static void df_v3_6_update_medium_grain_clock_gating(struct amdgpu_device *adev,
+ }
+ 
+ static void df_v3_6_get_clockgating_state(struct amdgpu_device *adev,
+-					  u32 *flags)
++					  u64 *flags)
+ {
+ 	u32 tmp;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 9426e252d8aa..5147358f2400 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -8451,7 +8451,7 @@ static int gfx_v10_0_set_clockgating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void gfx_v10_0_get_clockgating_state(void *handle, u32 *flags)
++static void gfx_v10_0_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 5f112efda634..46d436be74eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -5475,7 +5475,7 @@ static int gfx_v8_0_set_powergating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void gfx_v8_0_get_clockgating_state(void *handle, u32 *flags)
++static void gfx_v8_0_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 46d4bf27ebbb..f9709d7a1391 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -5231,7 +5231,7 @@ static int gfx_v9_0_set_clockgating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void gfx_v9_0_get_clockgating_state(void *handle, u32 *flags)
++static void gfx_v9_0_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 5228421b0f72..a455e59f41f4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -1161,7 +1161,7 @@ static int gmc_v10_0_set_clockgating_state(void *handle,
+ 		return athub_v2_0_set_clockgating(adev, state);
+ }
+ 
+-static void gmc_v10_0_get_clockgating_state(void *handle, u32 *flags)
++static void gmc_v10_0_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 1932a3e4af7e..382dde1ce74c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -1690,7 +1690,7 @@ static int gmc_v8_0_set_powergating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void gmc_v8_0_get_clockgating_state(void *handle, u32 *flags)
++static void gmc_v8_0_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 6009fbfdcc19..22761a3bb818 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1948,7 +1948,7 @@ static int gmc_v9_0_set_clockgating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void gmc_v9_0_get_clockgating_state(void *handle, u32 *flags)
++static void gmc_v9_0_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+index 046216635262..adf89680f53e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
+@@ -124,7 +124,7 @@ static void hdp_v4_0_update_clock_gating(struct amdgpu_device *adev,
+ }
+ 
+ static void hdp_v4_0_get_clockgating_state(struct amdgpu_device *adev,
+-					    u32 *flags)
++					    u64 *flags)
+ {
+ 	int data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c b/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c
+index 5793977953cc..a9ea23fa0def 100644
+--- a/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c
+@@ -181,7 +181,7 @@ static void hdp_v5_0_update_clock_gating(struct amdgpu_device *adev,
+ }
+ 
+ static void hdp_v5_0_get_clockgating_state(struct amdgpu_device *adev,
+-					    u32 *flags)
++					    u64 *flags)
+ {
+ 	uint32_t tmp;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+index 4c9f0c0f3116..3f44a099c52a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+@@ -546,7 +546,7 @@ static int mmhub_v1_0_set_clockgating(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-static void mmhub_v1_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
++static void mmhub_v1_0_get_clockgating(struct amdgpu_device *adev, u64 *flags)
+ {
+ 	int data, data1;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+index 3b901f941627..6fa7090bc6cb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+@@ -542,7 +542,7 @@ static int mmhub_v1_7_set_clockgating(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-static void mmhub_v1_7_get_clockgating(struct amdgpu_device *adev, u32 *flags)
++static void mmhub_v1_7_get_clockgating(struct amdgpu_device *adev, u64 *flags)
+ {
+ 	int data, data1;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+index 3718ff610ab2..636abd855686 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+@@ -682,7 +682,7 @@ static int mmhub_v2_0_set_clockgating(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-static void mmhub_v2_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
++static void mmhub_v2_0_get_clockgating(struct amdgpu_device *adev, u64 *flags)
+ {
+ 	int data, data1;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+index 1957fb098c4d..ff44c5364a8c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
+@@ -577,7 +577,7 @@ static int mmhub_v2_3_set_clockgating(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-static void mmhub_v2_3_get_clockgating(struct amdgpu_device *adev, u32 *flags)
++static void mmhub_v2_3_get_clockgating(struct amdgpu_device *adev, u64 *flags)
+ {
+ 	int data, data1, data2, data3;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+index 619106f7d23d..6e0145b2b408 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+@@ -647,7 +647,7 @@ static int mmhub_v9_4_set_clockgating(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-static void mmhub_v9_4_get_clockgating(struct amdgpu_device *adev, u32 *flags)
++static void mmhub_v9_4_get_clockgating(struct amdgpu_device *adev, u64 *flags)
+ {
+ 	int data, data1;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+index 8ce5b8ca1fd7..97201ab0965e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+@@ -685,7 +685,7 @@ static int navi10_ih_set_powergating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void navi10_ih_get_clockgating_state(void *handle, u32 *flags)
++static void navi10_ih_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
+index ee7cab37dfd5..6cd1fb2eb913 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
+@@ -278,7 +278,7 @@ static void nbio_v2_3_update_medium_grain_light_sleep(struct amdgpu_device *adev
+ }
+ 
+ static void nbio_v2_3_get_clockgating_state(struct amdgpu_device *adev,
+-					    u32 *flags)
++					    u64 *flags)
+ {
+ 	int data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
+index 4bbacf1be25a..f7f6ddebd3e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
+@@ -210,7 +210,7 @@ static void nbio_v6_1_update_medium_grain_light_sleep(struct amdgpu_device *adev
+ }
+ 
+ static void nbio_v6_1_get_clockgating_state(struct amdgpu_device *adev,
+-					    u32 *flags)
++					    u64 *flags)
+ {
+ 	int data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
+index 37a4039fdfc5..aa0326d00c72 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
+@@ -205,7 +205,7 @@ static void nbio_v7_0_update_medium_grain_light_sleep(struct amdgpu_device *adev
+ }
+ 
+ static void nbio_v7_0_get_clockgating_state(struct amdgpu_device *adev,
+-					    u32 *flags)
++					    u64 *flags)
+ {
+ 	int data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
+index 6f81de6f3cc4..31776b12e4c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
+@@ -306,7 +306,7 @@ static void nbio_v7_2_update_medium_grain_light_sleep(struct amdgpu_device *adev
+ }
+ 
+ static void nbio_v7_2_get_clockgating_state(struct amdgpu_device *adev,
+-					    u32 *flags)
++					    u64 *flags)
+ {
+ 	int data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+index c2357e83a8c4..4531761dcf77 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+@@ -273,7 +273,7 @@ static void nbio_v7_4_update_medium_grain_light_sleep(struct amdgpu_device *adev
+ }
+ 
+ static void nbio_v7_4_get_clockgating_state(struct amdgpu_device *adev,
+-					    u32 *flags)
++					    u64 *flags)
+ {
+ 	int data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index e19f14c3ef59..0a7946c59a42 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -1115,7 +1115,7 @@ static int nv_common_set_powergating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void nv_common_get_clockgating_state(void *handle, u32 *flags)
++static void nv_common_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+index 4ef4feff5649..3695374896ed 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+@@ -1535,7 +1535,7 @@ static int sdma_v3_0_set_powergating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void sdma_v3_0_get_clockgating_state(void *handle, u32 *flags)
++static void sdma_v3_0_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index d7e8f7232364..8589ab1c9800 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -2372,7 +2372,7 @@ static int sdma_v4_0_set_powergating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void sdma_v4_0_get_clockgating_state(void *handle, u32 *flags)
++static void sdma_v4_0_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index a8d49c005f73..775aabde1ae2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -1648,7 +1648,7 @@ static int sdma_v5_0_set_powergating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void sdma_v5_0_get_clockgating_state(void *handle, u32 *flags)
++static void sdma_v5_0_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index 824eace69884..ca50857b982d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -1645,7 +1645,7 @@ static int sdma_v5_2_set_powergating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void sdma_v5_2_get_clockgating_state(void *handle, u32 *flags)
++static void sdma_v5_2_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/smuio_v11_0.c b/drivers/gpu/drm/amd/amdgpu/smuio_v11_0.c
+index b6f1322f908c..acdc40f99ab3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/smuio_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/smuio_v11_0.c
+@@ -59,7 +59,7 @@ static void smuio_v11_0_update_rom_clock_gating(struct amdgpu_device *adev, bool
+ 		WREG32_SOC15(SMUIO, 0, mmCGTT_ROM_CLK_CTRL0, data);
+ }
+ 
+-static void smuio_v11_0_get_clock_gating_state(struct amdgpu_device *adev, u32 *flags)
++static void smuio_v11_0_get_clock_gating_state(struct amdgpu_device *adev, u64 *flags)
+ {
+ 	u32 data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/smuio_v11_0_6.c b/drivers/gpu/drm/amd/amdgpu/smuio_v11_0_6.c
+index 3a18dbb55c32..2afeb8b37f62 100644
+--- a/drivers/gpu/drm/amd/amdgpu/smuio_v11_0_6.c
++++ b/drivers/gpu/drm/amd/amdgpu/smuio_v11_0_6.c
+@@ -56,7 +56,7 @@ static void smuio_v11_0_6_update_rom_clock_gating(struct amdgpu_device *adev, bo
+ 		WREG32_SOC15(SMUIO, 0, mmCGTT_ROM_CLK_CTRL0, data);
+ }
+ 
+-static void smuio_v11_0_6_get_clock_gating_state(struct amdgpu_device *adev, u32 *flags)
++static void smuio_v11_0_6_get_clock_gating_state(struct amdgpu_device *adev, u64 *flags)
+ {
+ 	u32 data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/smuio_v13_0.c b/drivers/gpu/drm/amd/amdgpu/smuio_v13_0.c
+index 39b7c206770f..13e905c22592 100644
+--- a/drivers/gpu/drm/amd/amdgpu/smuio_v13_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/smuio_v13_0.c
+@@ -58,7 +58,7 @@ static void smuio_v13_0_update_rom_clock_gating(struct amdgpu_device *adev, bool
+ 		WREG32_SOC15(SMUIO, 0, regCGTT_ROM_CLK_CTRL0, data);
+ }
+ 
+-static void smuio_v13_0_get_clock_gating_state(struct amdgpu_device *adev, u32 *flags)
++static void smuio_v13_0_get_clock_gating_state(struct amdgpu_device *adev, u64 *flags)
+ {
+ 	u32 data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/smuio_v9_0.c b/drivers/gpu/drm/amd/amdgpu/smuio_v9_0.c
+index 8417890af227..e4e30b9d481b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/smuio_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/smuio_v9_0.c
+@@ -56,7 +56,7 @@ static void smuio_v9_0_update_rom_clock_gating(struct amdgpu_device *adev, bool
+ 		WREG32_SOC15(SMUIO, 0, mmCGTT_ROM_CLK_CTRL0, data);
+ }
+ 
+-static void smuio_v9_0_get_clock_gating_state(struct amdgpu_device *adev, u32 *flags)
++static void smuio_v9_0_get_clock_gating_state(struct amdgpu_device *adev, u64 *flags)
+ {
+ 	u32 data;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index 3d0251ef8d79..3ee7322081d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -1419,7 +1419,7 @@ static int soc15_common_set_clockgating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void soc15_common_get_clockgating_state(void *handle, u32 *flags)
++static void soc15_common_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+index 563493d1f830..d7e31e48a2b8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+@@ -833,7 +833,7 @@ static int uvd_v5_0_set_powergating_state(void *handle,
+ 	return ret;
+ }
+ 
+-static void uvd_v5_0_get_clockgating_state(void *handle, u32 *flags)
++static void uvd_v5_0_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+index 2d558c2f417d..375c440957dc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+@@ -1494,7 +1494,7 @@ static int uvd_v6_0_set_powergating_state(void *handle,
+ 	return ret;
+ }
+ 
+-static void uvd_v6_0_get_clockgating_state(void *handle, u32 *flags)
++static void uvd_v6_0_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+index 142e291983b4..8def62c83ffd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+@@ -831,7 +831,7 @@ static int vce_v3_0_set_powergating_state(void *handle,
+ 	return ret;
+ }
+ 
+-static void vce_v3_0_get_clockgating_state(void *handle, u32 *flags)
++static void vce_v3_0_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index 039b90cdc3bc..c5b88d15a6df 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -2033,7 +2033,7 @@ static int vi_common_set_powergating_state(void *handle,
+ 	return 0;
+ }
+ 
+-static void vi_common_get_clockgating_state(void *handle, u32 *flags)
++static void vi_common_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index fe4e585781bb..741dae17562a 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -116,38 +116,38 @@ enum amd_powergating_state {
+ 
+ 
+ /* CG flags */
+-#define AMD_CG_SUPPORT_GFX_MGCG			(1 << 0)
+-#define AMD_CG_SUPPORT_GFX_MGLS			(1 << 1)
+-#define AMD_CG_SUPPORT_GFX_CGCG			(1 << 2)
+-#define AMD_CG_SUPPORT_GFX_CGLS			(1 << 3)
+-#define AMD_CG_SUPPORT_GFX_CGTS			(1 << 4)
+-#define AMD_CG_SUPPORT_GFX_CGTS_LS		(1 << 5)
+-#define AMD_CG_SUPPORT_GFX_CP_LS		(1 << 6)
+-#define AMD_CG_SUPPORT_GFX_RLC_LS		(1 << 7)
+-#define AMD_CG_SUPPORT_MC_LS			(1 << 8)
+-#define AMD_CG_SUPPORT_MC_MGCG			(1 << 9)
+-#define AMD_CG_SUPPORT_SDMA_LS			(1 << 10)
+-#define AMD_CG_SUPPORT_SDMA_MGCG		(1 << 11)
+-#define AMD_CG_SUPPORT_BIF_LS			(1 << 12)
+-#define AMD_CG_SUPPORT_UVD_MGCG			(1 << 13)
+-#define AMD_CG_SUPPORT_VCE_MGCG			(1 << 14)
+-#define AMD_CG_SUPPORT_HDP_LS			(1 << 15)
+-#define AMD_CG_SUPPORT_HDP_MGCG			(1 << 16)
+-#define AMD_CG_SUPPORT_ROM_MGCG			(1 << 17)
+-#define AMD_CG_SUPPORT_DRM_LS			(1 << 18)
+-#define AMD_CG_SUPPORT_BIF_MGCG			(1 << 19)
+-#define AMD_CG_SUPPORT_GFX_3D_CGCG		(1 << 20)
+-#define AMD_CG_SUPPORT_GFX_3D_CGLS		(1 << 21)
+-#define AMD_CG_SUPPORT_DRM_MGCG			(1 << 22)
+-#define AMD_CG_SUPPORT_DF_MGCG			(1 << 23)
+-#define AMD_CG_SUPPORT_VCN_MGCG			(1 << 24)
+-#define AMD_CG_SUPPORT_HDP_DS			(1 << 25)
+-#define AMD_CG_SUPPORT_HDP_SD			(1 << 26)
+-#define AMD_CG_SUPPORT_IH_CG			(1 << 27)
+-#define AMD_CG_SUPPORT_ATHUB_LS			(1 << 28)
+-#define AMD_CG_SUPPORT_ATHUB_MGCG		(1 << 29)
+-#define AMD_CG_SUPPORT_JPEG_MGCG		(1 << 30)
+-#define AMD_CG_SUPPORT_GFX_FGCG			(1 << 31)
++#define AMD_CG_SUPPORT_GFX_MGCG			(1ULL << 0)
++#define AMD_CG_SUPPORT_GFX_MGLS			(1ULL << 1)
++#define AMD_CG_SUPPORT_GFX_CGCG			(1ULL << 2)
++#define AMD_CG_SUPPORT_GFX_CGLS			(1ULL << 3)
++#define AMD_CG_SUPPORT_GFX_CGTS			(1ULL << 4)
++#define AMD_CG_SUPPORT_GFX_CGTS_LS		(1ULL << 5)
++#define AMD_CG_SUPPORT_GFX_CP_LS		(1ULL << 6)
++#define AMD_CG_SUPPORT_GFX_RLC_LS		(1ULL << 7)
++#define AMD_CG_SUPPORT_MC_LS			(1ULL << 8)
++#define AMD_CG_SUPPORT_MC_MGCG			(1ULL << 9)
++#define AMD_CG_SUPPORT_SDMA_LS			(1ULL << 10)
++#define AMD_CG_SUPPORT_SDMA_MGCG		(1ULL << 11)
++#define AMD_CG_SUPPORT_BIF_LS			(1ULL << 12)
++#define AMD_CG_SUPPORT_UVD_MGCG			(1ULL << 13)
++#define AMD_CG_SUPPORT_VCE_MGCG			(1ULL << 14)
++#define AMD_CG_SUPPORT_HDP_LS			(1ULL << 15)
++#define AMD_CG_SUPPORT_HDP_MGCG			(1ULL << 16)
++#define AMD_CG_SUPPORT_ROM_MGCG			(1ULL << 17)
++#define AMD_CG_SUPPORT_DRM_LS			(1ULL << 18)
++#define AMD_CG_SUPPORT_BIF_MGCG			(1ULL << 19)
++#define AMD_CG_SUPPORT_GFX_3D_CGCG		(1ULL << 20)
++#define AMD_CG_SUPPORT_GFX_3D_CGLS		(1ULL << 21)
++#define AMD_CG_SUPPORT_DRM_MGCG			(1ULL << 22)
++#define AMD_CG_SUPPORT_DF_MGCG			(1ULL << 23)
++#define AMD_CG_SUPPORT_VCN_MGCG			(1ULL << 24)
++#define AMD_CG_SUPPORT_HDP_DS			(1ULL << 25)
++#define AMD_CG_SUPPORT_HDP_SD			(1ULL << 26)
++#define AMD_CG_SUPPORT_IH_CG			(1ULL << 27)
++#define AMD_CG_SUPPORT_ATHUB_LS			(1ULL << 28)
++#define AMD_CG_SUPPORT_ATHUB_MGCG		(1ULL << 29)
++#define AMD_CG_SUPPORT_JPEG_MGCG		(1ULL << 30)
++#define AMD_CG_SUPPORT_GFX_FGCG			(1ULL << 31)
+ /* PG flags */
+ #define AMD_PG_SUPPORT_GFX_PG			(1 << 0)
+ #define AMD_PG_SUPPORT_GFX_SMG			(1 << 1)
+@@ -298,7 +298,7 @@ struct amd_ip_funcs {
+ 				     enum amd_clockgating_state state);
+ 	int (*set_powergating_state)(void *handle,
+ 				     enum amd_powergating_state state);
+-	void (*get_clockgating_state)(void *handle, u32 *flags);
++	void (*get_clockgating_state)(void *handle, u64 *flags);
+ };
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 4a9aabc16fbc..97a8ab9f19f8 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -3524,7 +3524,7 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_file *m, struct amdgpu_device *a
+ 	return 0;
+ }
+ 
+-static void amdgpu_parse_cg_state(struct seq_file *m, u32 flags)
++static void amdgpu_parse_cg_state(struct seq_file *m, u64 flags)
+ {
+ 	int i;
+ 
+@@ -3537,7 +3537,7 @@ static int amdgpu_debugfs_pm_info_show(struct seq_file *m, void *unused)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
+ 	struct drm_device *dev = adev_to_drm(adev);
+-	u32 flags = 0;
++	u64 flags = 0;
+ 	int r;
+ 
+ 	if (amdgpu_in_reset(adev))
+@@ -3559,7 +3559,7 @@ static int amdgpu_debugfs_pm_info_show(struct seq_file *m, void *unused)
+ 
+ 	amdgpu_device_ip_get_clockgating_state(adev, &flags);
+ 
+-	seq_printf(m, "Clock Gating Flags Mask: 0x%x\n", flags);
++	seq_printf(m, "Clock Gating Flags Mask: 0x%llx\n", flags);
+ 	amdgpu_parse_cg_state(m, flags);
+ 	seq_printf(m, "\n");
+ 
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
+index a920515e2274..52045ad59bed 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
+@@ -26,7 +26,7 @@
+ 
+ struct cg_flag_name
+ {
+-	u32 flag;
++	u64 flag;
+ 	const char *name;
+ };
+ 
+-- 
+2.29.0
 
-BR
-Evan
-> -----Original Message-----
-> From: Arthur Marsh <arthur.marsh@internode.on.net>
-> Sent: Thursday, March 31, 2022 12:27 PM
-> To: Quan, Evan <Evan.Quan@amd.com>
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>;
-> Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org;
-> arthur.marsh@internode.on.net
-> Subject: [PATCH V4 17/17] drm/amd/pm: unified lock protections in
-> amdgpu_dpm.c
->=20
-> Hi Evan, even with the patch below applied and built, I was still getting=
- no
-> signal to the monitor upon loading of the amdgpu module and no response
-> from the pc except when giving the magic sysreq boot key sequence.
->=20
-> .config has:
->=20
-> CONFIG_DRM_AMDGPU=3Dm
-> CONFIG_DRM_AMDGPU_SI=3Dy
-> # CONFIG_DRM_AMDGPU_CIK is not set
-> # CONFIG_DRM_AMDGPU_USERPTR is not set
->=20
-> kernel command line has:
->=20
-> amdgpu.audio=3D1 amdgpu.si_support=3D1 radeon.si_support=3D0
-> page_owner=3Don amdgpu.gpu_recovery=3D1
->=20
->=20
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> index 89fbee568be4..d7dc9c5b3df9 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> @@ -80,8 +80,6 @@ int amdgpu_dpm_set_powergating_by_smu(struct
-> amdgpu_device *adev, uint32_t block
->  		return 0;
->  	}
->=20
-> -	mutex_lock(&adev->pm.mutex);
-> -
->  	switch (block_type) {
->  	case AMD_IP_BLOCK_TYPE_UVD:
->  	case AMD_IP_BLOCK_TYPE_VCE:
-> @@ -102,8 +100,6 @@ int amdgpu_dpm_set_powergating_by_smu(struct
-> amdgpu_device *adev, uint32_t block
->  	if (!ret)
->  		atomic_set(&adev->pm.pwr_state[block_type], pwr_state);
->=20
-> -	mutex_unlock(&adev->pm.mutex);
-> -
->  	return ret;
->  }
->=20
->=20
-> Regards,
->=20
-> Arthur Marsh.
