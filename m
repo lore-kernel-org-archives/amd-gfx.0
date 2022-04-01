@@ -4,62 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84211C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 13:02:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD1D2C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 13:26:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22BCE10E339;
-	Fri,  1 Apr 2022 13:02:41 +0000 (UTC)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04A6C10E052
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Apr 2022 10:44:57 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- i132-20020a1c3b8a000000b0038ce25c870dso3257071wma.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 01 Apr 2022 03:44:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=P0bQwq9+fWC4pQuN+D8QOE/ntondfVbGkexQoq1N7Yk=;
- b=HbG77bUNR/dvt30m/QBpA8piF/+YlegdM96y584csG/mlvjKNRDO73e08vwf0mqs9n
- nXnZO86NQN6IEdJUFwjoCwe4W9FKSFBlFS3rNuGS5UI7HdZLDEONcfRBb1S0Ycl6X0Rj
- ELHtUZPosAVZA0mvitGwH+DXujQ7nVIrLRhaqKsUtxS8C0OFE9vDZh3Eyy+goa737RHn
- zoICzA1/MRKtc/kaKv2glP9OBJkr5rzrnbNpnFzp1Z4Ot2g5NqVtFfeVaaZn/frg0ZNF
- Jq8BdhOuh2oHZaadmdvbJkWWFMDi3aSlPqgbSH5spLmvSjUFi+SR+xfQSbgBTA8Bvign
- vBSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=P0bQwq9+fWC4pQuN+D8QOE/ntondfVbGkexQoq1N7Yk=;
- b=fC2dzygpExMTmHC9YxMhlheorQJ+IhHSl2tdCvcDBjspy58TzzsJ1DgR0A4tNxIUoq
- GkWX6Zd/n7nkjvcYkkZVLeGoE4Bzw1efLVWajkv1X+C9s3+DPhRd8ZDZLbbXJA22/fS7
- VSBVu3iOmxsrHw2GVbV5pEJeDiHKlXWB70YkW4OwyejpYIc0D0GHTWt/WnNLjEk7RPh8
- mi+Eoe3epGw7LJlVpBzjdit9mAHjTMtRxxOLFJmlnDOp+2FaOmquCbhRPtTWnpUXU6qZ
- oZ9D946SEpuc7X0lUi8XCbmD7rUmnvINxBfHbNX9eZznffnDJYmI/AlPM4FLhB7p7cfh
- lpnw==
-X-Gm-Message-State: AOAM532ig+E071Q7liNIf8z9VTUbYwl5KCxZuBhxzt5SKVaI476okwK1
- 9Be6BxH8cKge562SlVGqsdIJRw==
-X-Google-Smtp-Source: ABdhPJx8Wu9Z1HK4Wwe+PIh9B9xFttlHndKGTBwTa4mqUPx4URFuOJdiob/TNuqFx43bLuwIbSzF2Q==
-X-Received: by 2002:a05:600c:1548:b0:38c:ef05:4cdd with SMTP id
- f8-20020a05600c154800b0038cef054cddmr8360497wmg.71.1648809895471; 
- Fri, 01 Apr 2022 03:44:55 -0700 (PDT)
-Received: from joneslee-l.cable.virginm.net
- (cpc155339-bagu17-2-0-cust87.1-3.cable.virginm.net. [86.27.177.88])
- by smtp.gmail.com with ESMTPSA id
- h9-20020a05600c350900b0038cbcbcf994sm1538956wmq.36.2022.04.01.03.44.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Apr 2022 03:44:54 -0700 (PDT)
-From: Lee Jones <lee.jones@linaro.org>
-To: lee.jones@linaro.org
-Subject: [PATCH v2 1/1] drm/amdkfd: Create file descriptor after client is
- added to smi_clients list
-Date: Fri,  1 Apr 2022 11:44:51 +0100
-Message-Id: <20220401104451.1951544-1-lee.jones@linaro.org>
-X-Mailer: git-send-email 2.35.1.1094.g7c7d902a7c-goog
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DF0910E375;
+	Fri,  1 Apr 2022 13:25:59 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30F7610E1AB;
+ Fri,  1 Apr 2022 13:25:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I34G84EBnHigS30Tmdk9V7mMPu5SFyU1WQQXUKrMCdJ4Huwe5kqq6kwZMNJhMGcO+lrDIt2PGsmJyIst/9ivmeF+r5ZzoqYmJ1mmKvE0sD7A9w5YMF6HnhlT0hhbowtl+ajwns+ZhXYN2qzIRq5qFehqlX81dQpeLLf8w2UD5+Roh02h/2BTGhLodX/muuRRyRleBASW9R4fASXJHSG2znY0mbj+MrdQw2Mda/2AmC2d18JQ8AFTTJUtulQ4GF19bWTVNOPZs889X6B8Fnu0LS1+nmPKoguvbjVmym5z2Nkps23PCS79PaC91ZAy1sBhCoxN+rRm3N47j1r84y+brQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+TLj9WXW6z1CinaqUv+iyhfphjdj4Hb8XvKyFX7hezU=;
+ b=hbQP0srb6u+C2ihkZgLwGJe+qm2zsm5fThHxYzzA8Do6ZUNmsBSNSLJiGxzwPgpuQQ15uhj9ABe5cUYzuXQ7kXp7JDs+QY6ZHUC635/7AbWzivaozDdFDy7rmVIQ98DuZNUyVOw11uB2oiwZxiAOqcJpyPuUcrydm33pCREAE5i7imAxh0OvOoNWpUXDwan4BezQwYu7JbiQN/Mn+7qhgwD6UBzW+AhNW99vVo4ins8v5I0Z6v2WMujkABoT0KgUPkW7jHSgdSRG3Cl9zIkgWo3Ge/wcL7gt5TcsZnvdK8ltJ6/qUtTHN00s+HRruZe3EwXOmjsrHJje4QIMOVi23Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+TLj9WXW6z1CinaqUv+iyhfphjdj4Hb8XvKyFX7hezU=;
+ b=OHA8Dplc0bxvlCG3Ny12BuBXAl6WjgOpWprtMHUTejSd5zbLg+J1B6k5ZvwGe7E4c02rGbGod2a7dDk7VOTF6BQU80TPWj82cnFpIBBk9hJTD6e6U+9U0Pc6yUJpGHD1/hZQqj3nbN2se/SLGBHQGDaF0lS0XH5b6qmn505Ev1c=
+Received: from BN1PR14CA0002.namprd14.prod.outlook.com (2603:10b6:408:e3::7)
+ by CH2PR12MB4823.namprd12.prod.outlook.com (2603:10b6:610:11::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.21; Fri, 1 Apr
+ 2022 13:25:54 +0000
+Received: from BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e3:cafe::12) by BN1PR14CA0002.outlook.office365.com
+ (2603:10b6:408:e3::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.27 via Frontend
+ Transport; Fri, 1 Apr 2022 13:25:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT055.mail.protection.outlook.com (10.13.177.62) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5123.19 via Frontend Transport; Fri, 1 Apr 2022 13:25:54 +0000
+Received: from Gundam.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 1 Apr
+ 2022 08:25:52 -0500
+From: David Zhang <dingchen.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH v2] drm: add PSR2 support and capability definition as per eDP
+ 1.5
+Date: Fri, 1 Apr 2022 09:25:40 -0400
+Message-ID: <20220401132540.3574936-1-dingchen.zhang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 01 Apr 2022 13:02:37 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c076418d-3e30-405b-65e5-08da13e325fd
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4823:EE_
+X-Microsoft-Antispam-PRVS: <CH2PR12MB48239A40569E8E9A4D8B840D8DE09@CH2PR12MB4823.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: t94TJiJWWDPRN5n28az/WQAGqmUDjtVo6vaxCZkfDFs6qBHD6etgmyaLYpgtpSNBoF/58JBso3SuPdC2+EgBI2HqGSupj5mOeWQmeAZS7LuXt8rg0bfL4QXb0s4QkQWEmBT9GVG1w1TejFEZWKZqzJ2HIR2PXFtfLPR+UwrARJcYFuWMA6tS/UnfdbqdFUSl5WQk//8q+AZ0HhWQzkcGuoqBb7X8OZHlfHR3tWXc4IbfaGo8MCTqieBBB4swFqbGXGpd6JxuIJ+h0mTi/4toYXeuJt0dT5/FM1E8DCONrus3hDfVPhF+Hm/aHzZatQc88bHWJVD5wbsMWAX3ncejpRzLq4OpyG8UXPAIOHbwa0wzdrAzH2aqUA+0tThqCidVN17LUFoKRjWU76UOjwXSd8mQ9Enk/7lwh8ttkAvYyMuTbx9y3KG2ycGmjYYDtK2PQMTxPj2d3fW3TC4Xds9xoU7msj8zIP9mgnc7jGfl5Rj/iyCuaRYvcelyVa22mAEhADVgwdKGGFa88hx5jmQ0ZZqjEd3TR1WPCXbVwtbOhHJjI04VAEnF4C0nOOb3Goju2bDMnlE2s6ssMrHjfsiodd4oa/rMplBr18RiqCxJlQQYE54W02YcipG9ixtQeitm293fY7z+QyLuMF8r6fvGpMVOHdrrxT0IDphDvVV5QZbA9zLihy4nX+Sszh+rN8+68d9wnJ4UFnji40W/Eb5xtP/9+1yapCvTDH6w+eG0Ztw=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(7696005)(1076003)(6666004)(47076005)(356005)(82310400004)(36860700001)(2616005)(16526019)(336012)(186003)(26005)(426003)(5660300002)(81166007)(8936002)(36756003)(4326008)(2906002)(86362001)(54906003)(316002)(110136005)(508600001)(8676002)(40460700003)(70206006)(70586007)(21314003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2022 13:25:54.1589 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c076418d-3e30-405b-65e5-08da13e325fd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4823
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,79 +99,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: stylon.wang@amd.com, airlied@linux.ie, Sunpeng.Li@amd.com,
+ Harry Wentland <harry.wentland@amd.com>, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, daniel@ffwll.ch,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This ensures userspace cannot prematurely clean-up the client before
-it is fully initialised which has been proven to cause issues in the
-past.
+[why & how]
+As per eDP 1.5 spec, add the below two DPCD bit fields for PSR-SU
+support and capability:
 
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Lee Jones <lee.jones@linaro.org>
+1. DP_PSR2_WITH_Y_COORD_ET_SUPPORTED
+2. DP_PSR2_SU_AUX_FRAME_SYNC_NOT_NEEDED
+
+changes in v2
+------------------
+* fixed the typo
+* explicitly list what DPCD bit fields are added
+
+Signed-off-by: David Zhang <dingchen.zhang@amd.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 ---
+ include/drm/drm_dp_helper.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-CAVEAT: This patch is completely untested
-        I can't seem to find a configuration strategy to compile test this
-        allyesconfig and allmodconfig do not appear sufficient
-
-v2: Also remove Client from RCU list in error path
-
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 24 +++++++++++++--------
- 1 file changed, 15 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-index e4beebb1c80a2..f2e1d506ba211 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-@@ -247,15 +247,6 @@ int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd)
- 		return ret;
- 	}
+diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
+index 30359e434c3f..ac7b7571ae66 100644
+--- a/include/drm/drm_dp_helper.h
++++ b/include/drm/drm_dp_helper.h
+@@ -361,6 +361,7 @@ struct drm_panel;
+ # define DP_PSR_IS_SUPPORTED                1
+ # define DP_PSR2_IS_SUPPORTED		    2	    /* eDP 1.4 */
+ # define DP_PSR2_WITH_Y_COORD_IS_SUPPORTED  3	    /* eDP 1.4a */
++# define DP_PSR2_WITH_Y_COORD_ET_SUPPORTED  4	    /* eDP 1.5, adopted eDP 1.4b SCR */
  
--	ret = anon_inode_getfd(kfd_smi_name, &kfd_smi_ev_fops, (void *)client,
--			       O_RDWR);
--	if (ret < 0) {
--		kfifo_free(&client->fifo);
--		kfree(client);
--		return ret;
--	}
--	*fd = ret;
--
- 	init_waitqueue_head(&client->wait_queue);
- 	spin_lock_init(&client->lock);
- 	client->events = 0;
-@@ -265,5 +256,20 @@ int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd)
- 	list_add_rcu(&client->list, &dev->smi_clients);
- 	spin_unlock(&dev->smi_lock);
+ #define DP_PSR_CAPS                         0x071   /* XXX 1.2? */
+ # define DP_PSR_NO_TRAIN_ON_EXIT            1
+@@ -375,6 +376,7 @@ struct drm_panel;
+ # define DP_PSR_SETUP_TIME_SHIFT            1
+ # define DP_PSR2_SU_Y_COORDINATE_REQUIRED   (1 << 4)  /* eDP 1.4a */
+ # define DP_PSR2_SU_GRANULARITY_REQUIRED    (1 << 5)  /* eDP 1.4b */
++# define DP_PSR2_SU_AUX_FRAME_SYNC_NOT_NEEDED (1 << 6)/* eDP 1.5, adopted eDP 1.4b SCR */
  
-+	ret = anon_inode_getfd(kfd_smi_name, &kfd_smi_ev_fops, (void *)client,
-+			       O_RDWR);
-+	if (ret < 0) {
-+		spin_lock(&dev->smi_lock);
-+		list_del_rcu(&client->list);
-+		spin_unlock(&dev->smi_lock);
-+
-+		synchronize_rcu();
-+
-+		kfifo_free(&client->fifo);
-+		kfree(client);
-+		return ret;
-+	}
-+	*fd = ret;
-+
- 	return 0;
- }
+ #define DP_PSR2_SU_X_GRANULARITY	    0x072 /* eDP 1.4b */
+ #define DP_PSR2_SU_Y_GRANULARITY	    0x074 /* eDP 1.4b */
 -- 
-2.35.1.1021.g381101b075-goog
+2.25.1
 
