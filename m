@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91365C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 14:33:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAC62C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 14:34:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A621910EE6D;
-	Fri,  1 Apr 2022 14:33:51 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6067610EEEF;
- Fri,  1 Apr 2022 14:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A80710EF08;
+	Fri,  1 Apr 2022 14:34:43 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6028910EF08;
+ Fri,  1 Apr 2022 14:34:42 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 08AA4B82511;
- Fri,  1 Apr 2022 14:33:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF4A6C36AE2;
- Fri,  1 Apr 2022 14:33:45 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C42A960AAF;
+ Fri,  1 Apr 2022 14:34:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 691EBC2BBE4;
+ Fri,  1 Apr 2022 14:34:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648823627;
- bh=h4Y8GhbrW7EbudaAIpKpL6s0aQrBD6+OdBbGGRuK+/E=;
+ s=k20201202; t=1648823681;
+ bh=29PMaDwQGn01NuCcH6MqvB7zIMjeg7tIG3ubvwll+PA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=F69YJscgqHxxpIRaGnl8FGqC4KfS2yZ/MDrPpu7p2lPZiII4xOyMoqfo8EI3Z6H9T
- azu7+4zrGLp8PJqJmbw4ocexUZ1Z6EesvoRbiDsHIEdWVd59hRg+OaHo1ZvDdYFaje
- etExlQ91dR4vXmUTkl0bvK35I4/Pd6utoqzBwsK2O6r3IPrIMFAKeajZMrUsaISB4B
- 0KihtLOob6KN2brUxd94Lpi9y6oxcqPamsXhGf+435oMFtcu8sYl4RhJYe5EvhYVpw
- oJUnlSLATpn4sI8Z+ywoDHHvzrhnU83YlOxEDlbuqQhpffn1GesQu5fES3a1KLmIcu
- VIQsAGggBwzTg==
+ b=VXbn06nSnD1WMIblF6G+kQMuzEHf8yO8EG5nyXqgZRc9W2FFhpKM53bGF2zRVaCeQ
+ AxV9guR+2OokwR6iv9AChuDHv5v+txYuwlSQit2lRk9tgqWhthcluqLHJ8YYpqZbxA
+ XTTTETZ6DBI0OWtojhDPI/85dgQyfCE0rRqwowNw3ecNr5oG3hr0rglbd+XBiuaR9y
+ /8z5ZduaIueQHPxLmuAB/YO1dmJC/WvqGsfo3vy3PIFiGRNfbvAGkc4teDca9hvWTS
+ BTl0YIS5hSooSpZMl1uaeMVx+NV4OCXyVI8GlkeURF+V+6YXt3ObyPz01Fl/+hXCYe
+ iHiJS5ifkN5+g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.16 017/109] drm/amdkfd: svm range restore work
- deadlock when process exit
-Date: Fri,  1 Apr 2022 10:31:24 -0400
-Message-Id: <20220401143256.1950537-17-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.16 036/109] drm/amdgpu: Fix recursive locking warning
+Date: Fri,  1 Apr 2022 10:31:43 -0400
+Message-Id: <20220401143256.1950537-36-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220401143256.1950537-1-sashal@kernel.org>
 References: <20220401143256.1950537-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -54,113 +54,146 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Philip Yang <Philip.Yang@amd.com>,
- Ruili Ji <ruili.ji@amd.com>, airlied@linux.ie,
+Cc: Sasha Levin <sashal@kernel.org>, Roy.Sun@amd.com,
+ dri-devel@lists.freedesktop.org, airlied@linux.ie, tzimmermann@suse.de,
  Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>, amd-gfx@lists.freedesktop.org,
+ nirmoy.das@amd.com, matthew.auld@intel.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 
-[ Upstream commit 6225bb3a88d22594aacea2485dc28ca12d596721 ]
+[ Upstream commit 447c7997b62a5115ba4da846dcdee4fc12298a6a ]
 
-kfd_process_notifier_release flush svm_range_restore_work
-which calls svm_range_list_lock_and_flush_work to flush deferred_list
-work, but if deferred_list work mmput release the last user, it will
-call exit_mmap -> notifier_release, it is deadlock with below backtrace.
+Noticed the below warning while running a pytorch workload on vega10
+GPUs. Change to trylock to avoid conflicts with already held reservation
+locks.
 
-Move flush svm_range_restore_work to kfd_process_wq_release to avoid
-deadlock. Then svm_range_restore_work take task->mm ref to avoid mm is
-gone while validating and mapping ranges to GPU.
+[  +0.000003] WARNING: possible recursive locking detected
+[  +0.000003] 5.13.0-kfd-rajneesh #1030 Not tainted
+[  +0.000004] --------------------------------------------
+[  +0.000002] python/4822 is trying to acquire lock:
+[  +0.000004] ffff932cd9a259f8 (reservation_ww_class_mutex){+.+.}-{3:3},
+at: amdgpu_bo_release_notify+0xc4/0x160 [amdgpu]
+[  +0.000203]
+              but task is already holding lock:
+[  +0.000003] ffff932cbb7181f8 (reservation_ww_class_mutex){+.+.}-{3:3},
+at: ttm_eu_reserve_buffers+0x270/0x470 [ttm]
+[  +0.000017]
+              other info that might help us debug this:
+[  +0.000002]  Possible unsafe locking scenario:
 
-Workqueue: events svm_range_deferred_list_work [amdgpu]
-Call Trace:
- wait_for_completion+0x94/0x100
- __flush_work+0x12a/0x1e0
- __cancel_work_timer+0x10e/0x190
- cancel_delayed_work_sync+0x13/0x20
- kfd_process_notifier_release+0x98/0x2a0 [amdgpu]
- __mmu_notifier_release+0x74/0x1f0
- exit_mmap+0x170/0x200
- mmput+0x5d/0x130
- svm_range_deferred_list_work+0x104/0x230 [amdgpu]
- process_one_work+0x220/0x3c0
+[  +0.000003]        CPU0
+[  +0.000002]        ----
+[  +0.000002]   lock(reservation_ww_class_mutex);
+[  +0.000004]   lock(reservation_ww_class_mutex);
+[  +0.000003]
+               *** DEADLOCK ***
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reported-by: Ruili Ji <ruili.ji@amd.com>
-Tested-by: Ruili Ji <ruili.ji@amd.com>
+[  +0.000002]  May be due to missing lock nesting notation
+
+[  +0.000003] 7 locks held by python/4822:
+[  +0.000003]  #0: ffff932c4ac028d0 (&process->mutex){+.+.}-{3:3}, at:
+kfd_ioctl_map_memory_to_gpu+0x10b/0x320 [amdgpu]
+[  +0.000232]  #1: ffff932c55e830a8 (&info->lock#2){+.+.}-{3:3}, at:
+amdgpu_amdkfd_gpuvm_map_memory_to_gpu+0x64/0xf60 [amdgpu]
+[  +0.000241]  #2: ffff932cc45b5e68 (&(*mem)->lock){+.+.}-{3:3}, at:
+amdgpu_amdkfd_gpuvm_map_memory_to_gpu+0xdf/0xf60 [amdgpu]
+[  +0.000236]  #3: ffffb2b35606fd28
+(reservation_ww_class_acquire){+.+.}-{0:0}, at:
+amdgpu_amdkfd_gpuvm_map_memory_to_gpu+0x232/0xf60 [amdgpu]
+[  +0.000235]  #4: ffff932cbb7181f8
+(reservation_ww_class_mutex){+.+.}-{3:3}, at:
+ttm_eu_reserve_buffers+0x270/0x470 [ttm]
+[  +0.000015]  #5: ffffffffc045f700 (*(sspp++)){....}-{0:0}, at:
+drm_dev_enter+0x5/0xa0 [drm]
+[  +0.000038]  #6: ffff932c52da7078 (&vm->eviction_lock){+.+.}-{3:3},
+at: amdgpu_vm_bo_update_mapping+0xd5/0x4f0 [amdgpu]
+[  +0.000195]
+              stack backtrace:
+[  +0.000003] CPU: 11 PID: 4822 Comm: python Not tainted
+5.13.0-kfd-rajneesh #1030
+[  +0.000005] Hardware name: GIGABYTE MZ01-CE0-00/MZ01-CE0-00, BIOS F02
+08/29/2018
+[  +0.000003] Call Trace:
+[  +0.000003]  dump_stack+0x6d/0x89
+[  +0.000010]  __lock_acquire+0xb93/0x1a90
+[  +0.000009]  lock_acquire+0x25d/0x2d0
+[  +0.000005]  ? amdgpu_bo_release_notify+0xc4/0x160 [amdgpu]
+[  +0.000184]  ? lock_is_held_type+0xa2/0x110
+[  +0.000006]  ? amdgpu_bo_release_notify+0xc4/0x160 [amdgpu]
+[  +0.000184]  __ww_mutex_lock.constprop.17+0xca/0x1060
+[  +0.000007]  ? amdgpu_bo_release_notify+0xc4/0x160 [amdgpu]
+[  +0.000183]  ? lock_release+0x13f/0x270
+[  +0.000005]  ? lock_is_held_type+0xa2/0x110
+[  +0.000006]  ? amdgpu_bo_release_notify+0xc4/0x160 [amdgpu]
+[  +0.000183]  amdgpu_bo_release_notify+0xc4/0x160 [amdgpu]
+[  +0.000185]  ttm_bo_release+0x4c6/0x580 [ttm]
+[  +0.000010]  amdgpu_bo_unref+0x1a/0x30 [amdgpu]
+[  +0.000183]  amdgpu_vm_free_table+0x76/0xa0 [amdgpu]
+[  +0.000189]  amdgpu_vm_free_pts+0xb8/0xf0 [amdgpu]
+[  +0.000189]  amdgpu_vm_update_ptes+0x411/0x770 [amdgpu]
+[  +0.000191]  amdgpu_vm_bo_update_mapping+0x324/0x4f0 [amdgpu]
+[  +0.000191]  amdgpu_vm_bo_update+0x251/0x610 [amdgpu]
+[  +0.000191]  update_gpuvm_pte+0xcc/0x290 [amdgpu]
+[  +0.000229]  ? amdgpu_vm_bo_map+0xd7/0x130 [amdgpu]
+[  +0.000190]  amdgpu_amdkfd_gpuvm_map_memory_to_gpu+0x912/0xf60
+[amdgpu]
+[  +0.000234]  kfd_ioctl_map_memory_to_gpu+0x182/0x320 [amdgpu]
+[  +0.000218]  kfd_ioctl+0x2b9/0x600 [amdgpu]
+[  +0.000216]  ? kfd_ioctl_unmap_memory_from_gpu+0x270/0x270 [amdgpu]
+[  +0.000216]  ? lock_release+0x13f/0x270
+[  +0.000006]  ? __fget_files+0x107/0x1e0
+[  +0.000007]  __x64_sys_ioctl+0x8b/0xd0
+[  +0.000007]  do_syscall_64+0x36/0x70
+[  +0.000004]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+[  +0.000007] RIP: 0033:0x7fbff90a7317
+[  +0.000004] Code: b3 66 90 48 8b 05 71 4b 2d 00 64 c7 00 26 00 00 00
+48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 b8 10 00 00 00 0f
+05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 41 4b 2d 00 f7 d8 64 89 01 48
+[  +0.000005] RSP: 002b:00007fbe301fe648 EFLAGS: 00000246 ORIG_RAX:
+0000000000000010
+[  +0.000006] RAX: ffffffffffffffda RBX: 00007fbcc402d820 RCX:
+00007fbff90a7317
+[  +0.000003] RDX: 00007fbe301fe690 RSI: 00000000c0184b18 RDI:
+0000000000000004
+[  +0.000003] RBP: 00007fbe301fe690 R08: 0000000000000000 R09:
+00007fbcc402d880
+[  +0.000003] R10: 0000000002001000 R11: 0000000000000246 R12:
+00000000c0184b18
+[  +0.000003] R13: 0000000000000004 R14: 00007fbf689593a0 R15:
+00007fbcc402d820
+
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_process.c |  1 -
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 15 +++++++++------
- 2 files changed, 9 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index b993011cfa64..990228711108 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1150,7 +1150,6 @@ static void kfd_process_notifier_release(struct mmu_notifier *mn,
- 
- 	cancel_delayed_work_sync(&p->eviction_work);
- 	cancel_delayed_work_sync(&p->restore_work);
--	cancel_delayed_work_sync(&p->svms.restore_work);
- 
- 	mutex_lock(&p->mutex);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index ea1c5aaf659a..a1b0c6bda803 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1589,13 +1589,14 @@ static void svm_range_restore_work(struct work_struct *work)
- 
- 	pr_debug("restore svm ranges\n");
- 
--	/* kfd_process_notifier_release destroys this worker thread. So during
--	 * the lifetime of this thread, kfd_process and mm will be valid.
--	 */
- 	p = container_of(svms, struct kfd_process, svms);
--	mm = p->mm;
--	if (!mm)
-+
-+	/* Keep mm reference when svm_range_validate_and_map ranges */
-+	mm = get_task_mm(p->lead_thread);
-+	if (!mm) {
-+		pr_debug("svms 0x%p process mm gone\n", svms);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 4fcfc2313b8c..ea792b6a1c0f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1286,7 +1286,8 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
+ 	    !(abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE))
  		return;
-+	}
  
- 	svm_range_list_lock_and_flush_work(svms, mm);
- 	mutex_lock(&svms->lock);
-@@ -1649,6 +1650,7 @@ static void svm_range_restore_work(struct work_struct *work)
- out_reschedule:
- 	mutex_unlock(&svms->lock);
- 	mmap_write_unlock(mm);
-+	mmput(mm);
+-	dma_resv_lock(bo->base.resv, NULL);
++	if (WARN_ON_ONCE(!dma_resv_trylock(bo->base.resv)))
++		return;
  
- 	/* If validation failed, reschedule another attempt */
- 	if (evicted_ranges) {
-@@ -2779,6 +2781,8 @@ void svm_range_list_fini(struct kfd_process *p)
- 
- 	pr_debug("pasid 0x%x svms 0x%p\n", p->pasid, &p->svms);
- 
-+	cancel_delayed_work_sync(&p->svms.restore_work);
-+
- 	/* Ensure list work is finished before process is destroyed */
- 	flush_work(&p->svms.deferred_list_work);
- 
-@@ -2789,7 +2793,6 @@ void svm_range_list_fini(struct kfd_process *p)
- 	atomic_inc(&p->svms.drain_pagefaults);
- 	svm_range_drain_retry_fault(&p->svms);
- 
--
- 	list_for_each_entry_safe(prange, next, &p->svms.list, list) {
- 		svm_range_unlink(prange);
- 		svm_range_remove_notifier(prange);
+ 	r = amdgpu_fill_buffer(abo, AMDGPU_POISON, bo->base.resv, &fence);
+ 	if (!WARN_ON(r)) {
 -- 
 2.34.1
 
