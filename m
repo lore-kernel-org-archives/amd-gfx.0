@@ -4,53 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90D33C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 15:29:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D9EAC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 15:39:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF8D910E421;
-	Fri,  1 Apr 2022 15:29:49 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7841A10E421;
- Fri,  1 Apr 2022 15:29:48 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id v75so3183082oie.1;
- Fri, 01 Apr 2022 08:29:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Gyt7OhDDJG/Jjk7Y/BmbMpmUgwu226u2PaT2lDpwvxc=;
- b=j0CYlUEivF/RCALCdJ2Z4wBED5Vbr8IWDxV7p4iIFjdEPkXzwTWODhj30CjLvZmhe7
- 2UFCyytz3MgGot99GXMHJIHAVUXsGifPAMzVoAGEz6haXmV9xVL4H6iEFgRz73A/vW/b
- 29CVR98yCdyUfqh0UAPAjP3ZbeD46Sh1qT+yaQ1UN1jsn3QMZoCYa8ERKMjHfHjidTF9
- lFwKqatt6pTzk/OJxda5PyWzuYt9NX8ZI/j8WUd1wXS1/sEINWSM1JxS60XJ0msC3Y14
- 8opdr8vTS0FJnpA3d+EwYGG8S8YqmX/+EluBLGit5cQrhQrEr84rf6ar3uqf/I5BA2Qj
- o2cA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Gyt7OhDDJG/Jjk7Y/BmbMpmUgwu226u2PaT2lDpwvxc=;
- b=p4RVPc/sdj4WXBbI0qH2ftQJ8abmpcJBddNlT70Zl7GF690fN2R0t4yw+Pjle76PWe
- GLGsxZqax0QsRMKw2e1YflhsS9qJbuya8nuDChp9EorCtn2vwAL5sDhi1BBTR4BQUTlY
- /YLi7ClsZKM2pWbm5cZrAPjTIy/DGaJ9CShXC2H2fqXc5c0yf9W2IRPkH4wWghuSvK8Q
- LqaZNpy0kNxxFBUEPabFOPTygi4GliGV8yhFZTkLN2xX8XuYats0K6OnDLpQTYtkfabn
- HpHJEuetRsPGYfspSHa5gZyFp7oRqdJ0gkfTToq0lfwGu5Hf5sf0v0ZVIMy0iFUAtx5k
- t8Ew==
-X-Gm-Message-State: AOAM5307nLJHimIp4xf0xVbrZ5sy9qKsJXHvMwFqSB8kX7tbWtIPpDvD
- uNATicEdN2pVgeNNYesWqunSv8ZJTURHAZU1WEE=
-X-Google-Smtp-Source: ABdhPJwyrU8W6jyhWPl9Bn2XENn1UJZ4nH2sM7UDccpjUlXDCe8pBNG9QRtRKHuBY2hCPZOYMIk9gwEPzLWS1mVKl+0=
-X-Received: by 2002:a05:6808:df1:b0:2ec:b193:ad6c with SMTP id
- g49-20020a0568080df100b002ecb193ad6cmr4719251oic.200.1648826987831; Fri, 01
- Apr 2022 08:29:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08A0910F614;
+	Fri,  1 Apr 2022 15:39:13 +0000 (UTC)
+Received: from mail.meizu.com (edge05.meizu.com [157.122.146.251])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E9BE710F614;
+ Fri,  1 Apr 2022 15:38:26 +0000 (UTC)
+Received: from IT-EXMB-1-123.meizu.com (172.16.1.123) by mz-mail12.meizu.com
+ (172.16.1.108) with Microsoft SMTP Server (TLS) id 14.3.487.0; Fri, 1 Apr
+ 2022 23:38:25 +0800
+Received: from IT-EXMB-1-125.meizu.com (172.16.1.125) by
+ IT-EXMB-1-123.meizu.com (172.16.1.123) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Fri, 1 Apr 2022 23:38:22 +0800
+Received: from IT-EXMB-1-125.meizu.com ([fe80::7481:7d92:3801:4575]) by
+ IT-EXMB-1-125.meizu.com ([fe80::7481:7d92:3801:4575%3]) with mapi id
+ 15.01.2308.014; Fri, 1 Apr 2022 23:38:22 +0800
+From: =?utf-8?B?55m95rWp5paH?= <baihaowen@meizu.com>
+To: Alex Deucher <alexdeucher@gmail.com>, Paul Menzel <pmenzel@molgen.mpg.de>
+Subject: Re: [PATCH] drm/amdgpu/vcn: remove Unneeded semicolon
+Thread-Topic: [PATCH] drm/amdgpu/vcn: remove Unneeded semicolon
+Thread-Index: AQHYRd6EgbabdYAm/kS5/CBhW2D4vg==
+Date: Fri, 1 Apr 2022 15:38:22 +0000
+Message-ID: <yu4wvb4mil72pdwpogh54akd.1648827074116@email.android.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+Content-Type: multipart/alternative;
+ boundary="_000_yu4wvb4mil72pdwpogh54akd1648827074116emailandroidcom_"
 MIME-Version: 1.0
-References: <2a2b1f76-7e9b-9561-e190-16d808eb5399@molgen.mpg.de>
- <1648794486-23302-1-git-send-email-baihaowen@meizu.com>
-In-Reply-To: <1648794486-23302-1-git-send-email-baihaowen@meizu.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 1 Apr 2022 11:29:36 -0400
-Message-ID: <CADnq5_MyjrUus0BZpzRKLei-asBepNGjZanLgHiFVUFWSmggcQ@mail.gmail.com>
-Subject: Re: [PATCH V2] drm/amdgpu/vcn: Remove unneeded semicolon
-To: Haowen Bai <baihaowen@meizu.com>
-Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Fri, 01 Apr 2022 15:39:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,48 +49,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>, David Airlie <airlied@linux.ie>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Mohammad Zafar Ziya <Mohammadzafar.ziya@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+--_000_yu4wvb4mil72pdwpogh54akd1648827074116emailandroidcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Alex
+ZGVhciBBbGV4IERldWNoZXINCg0KSSBqdXN0IG1lYW4gd2hlcmUgdW5uZWVkZWQgc2VtaWNvbG9u
+IGNvbWVzIGZyb20gd2hlbiBJIGFkZCBmaXhlcyBpbmZvLiBBcyB5b3VyIHJlbWluZCwgSSBoYXZl
+IGdvdCBpdCwgdGhhbmsgeW91Lg0KDQoNCg0KDQoNCg0KLS0tLS0tLS0g5Y6f5aeL6YKu5Lu2IC0t
+LS0tLS0tDQrlj5Hku7bkurrvvJpBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4N
+CuaXtumXtO+8mjIwMjLlubQ05pyIMeaXpSAyMToyNg0K5pS25Lu25Lq677yaUGF1bCBNZW56ZWwg
+PHBtZW56ZWxAbW9sZ2VuLm1wZy5kZT4NCuaKhOmAge+8mueZvea1qeaWhyA8YmFpaGFvd2VuQG1l
+aXp1LmNvbT4sRGF2aWQgQWlybGllIDxhaXJsaWVkQGxpbnV4LmllPiwiUGFuLCBYaW5odWkiIDxY
+aW5odWkuUGFuQGFtZC5jb20+LExLTUwgPGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+LE1h
+bGluZyBsaXN0IC0gRFJJIGRldmVsb3BlcnMgPGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmc+LGFtZC1nZnggbGlzdCA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+LERhbmllbCBW
+ZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4sQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBh
+bWQuY29tPixDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQrkuLvp
+opjvvJpSZTogW1BBVENIXSBkcm0vYW1kZ3B1L3ZjbjogcmVtb3ZlIFVubmVlZGVkIHNlbWljb2xv
+bg0KDQpPbiBGcmksIEFwciAxLCAyMDIyIGF0IDE6NTQgQU0gUGF1bCBNZW56ZWwgPHBtZW56ZWxA
+bW9sZ2VuLm1wZy5kZT4gd3JvdGU6DQo+DQo+IERlYXIgSGFvd2VuLA0KPg0KPg0KPiBUaGFuayB5
+b3UgZm9yIHlvdXIgcGF0Y2guDQo+DQo+IEFtIDMxLjAzLjIyIHVtIDA3OjU2IHNjaHJpZWIgSGFv
+d2VuIEJhaToNCj4NCj4gSW4gdGhlIGNvbW1pdCBtZXNzYWdlIHN1bW1hcnksIHBsZWFzZSB1c2U6
+DQo+DQo+IFJlbW92ZSB1bm5lZWRlZCBzZW1pY29sb24NCj4NCj4gPiByZXBvcnQgYnkgY29jY2lj
+aGVjazoNCj4gPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjJfNS5jOjE5NTE6Mi0z
+OiBVbm5lZWRlZCBzZW1pY29sb24NCj4gPg0KPiA+IGZpeGVkIGM1NDNkY2IgKCJkcm0vYW1kZ3B1
+L3ZjbjogQWRkIFZDTiByYXMgZXJyb3IgcXVlcnkgc3VwcG9ydCIpDQo+DQo+IFBsZWFzZSB1c2UN
+Cj4NCj4gRml4ZXM6IOKApg0KPg0KPiBhbmQgYSBjb21taXQgaGFzaCBsZW5ndGggb2YgMTIgY2hh
+cmFjdGVycy4gKGBzY3JpcHRzL2NoZWNrcGF0Y2gucGwg4oCmYA0KPiBzaG91bGQgdGVsbCB5b3Ug
+YWJvdXQgdGhpcy4pDQoNCkkgZG9uJ3Qga25vdyB0aGF0IHlvdSBuZWVkIHRvIGFkZCBhIGZpeGVz
+IHRhZyB1bmxlc3MgdGhlIHBhdGNoIGlzIGFuDQphY3R1YWwgYnVnIGZpeC4gIENvZGluZyBzdHls
+ZSBvciBzcGVsbGluZyBmaXhlcyBhcmUgbm90IHJlYWxseQ0KY3JpdGljYWwgZm9yIGdldHRpbmcg
+aW50byBzdGFibGUgdHJlZXMuDQoNCkFsZXgNCg0KPg0KPg0KPiBLaW5kIHJlZ2FyZHMsDQo+DQo+
+IFBhdWwNCj4NCj4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBIYW93ZW4gQmFpIDxiYWloYW93ZW5AbWVp
+enUuY29tPg0KPiA+IC0tLQ0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3Yy
+XzUuYyB8IDIgKy0NCj4gPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxl
+dGlvbigtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L3Zjbl92Ml81LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjJfNS5jDQo+ID4g
+aW5kZXggM2UxZGU4Yy4uMTdkNDRiZSAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS92Y25fdjJfNS5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvdmNuX3YyXzUuYw0KPiA+IEBAIC0xOTQ4LDcgKzE5NDgsNyBAQCBzdGF0aWMgdWludDMyX3Qg
+dmNuX3YyXzZfcXVlcnlfcG9pc29uX2J5X2luc3RhbmNlKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2LA0KPiA+ICAgICAgICAgICAgICAgYnJlYWs7DQo+ID4gICAgICAgZGVmYXVsdDoNCj4gPiAg
+ICAgICAgICAgICAgIGJyZWFrOw0KPiA+IC0gICAgIH07DQo+ID4gKyAgICAgfQ0KPiA+DQo+ID4g
+ICAgICAgaWYgKHBvaXNvbl9zdGF0KQ0KPiA+ICAgICAgICAgICAgICAgZGV2X2luZm8oYWRldi0+
+ZGV2LCAiUG9pc29uIGRldGVjdGVkIGluIFZDTiVkLCBzdWJfYmxvY2slZFxuIiwNCg==
 
-On Fri, Apr 1, 2022 at 3:23 AM Haowen Bai <baihaowen@meizu.com> wrote:
->
-> report by coccicheck:
-> drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:1951:2-3: Unneeded semicolon
->
-> Fixes: c543dcbe4237 ("drm/amdgpu/vcn: Add VCN ras error query support")
->
-> Signed-off-by: Haowen Bai <baihaowen@meizu.com>
-> ---
-> V1->V2: change title; change Fixed info;
->
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> index 3e1de8c..17d44be 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -1948,7 +1948,7 @@ static uint32_t vcn_v2_6_query_poison_by_instance(struct amdgpu_device *adev,
->                 break;
->         default:
->                 break;
-> -       };
-> +       }
->
->         if (poison_stat)
->                 dev_info(adev->dev, "Poison detected in VCN%d, sub_block%d\n",
-> --
-> 2.7.4
->
+--_000_yu4wvb4mil72pdwpogh54akd1648827074116emailandroidcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <5586D659154D4A4CB615443A23A3F099@meizu.com>
+Content-Transfer-Encoding: base64
+
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdj5kZWFyIEFs
+ZXggRGV1Y2hlcjwvZGl2Pg0KPGJyPg0KPGRpdj5JIGp1c3QgbWVhbiB3aGVyZSB1bm5lZWRlZCBz
+ZW1pY29sb24gY29tZXMgZnJvbSB3aGVuIEkgYWRkIGZpeGVzIGluZm8uIEFzIHlvdXIgcmVtaW5k
+LCBJIGhhdmUgZ290IGl0LCB0aGFuayB5b3UuPC9kaXY+DQo8YnI+DQo8YnI+DQo8YnI+DQo8ZGl2
+PjwvZGl2Pg0KPGJyIGlkPSJtekRpdmlkZXIiPg0KPGJyPg0KPGJyPg0KLS0tLS0tLS0g5Y6f5aeL
+6YKu5Lu2IC0tLS0tLS0tPGJyPg0K5Y+R5Lu25Lq677yaQWxleCBEZXVjaGVyICZsdDthbGV4ZGV1
+Y2hlckBnbWFpbC5jb20mZ3Q7PGJyPg0K5pe26Ze077yaMjAyMuW5tDTmnIgx5pelIDIxOjI2PGJy
+Pg0K5pS25Lu25Lq677yaUGF1bCBNZW56ZWwgJmx0O3BtZW56ZWxAbW9sZ2VuLm1wZy5kZSZndDs8
+YnI+DQrmioTpgIHvvJrnmb3mtanmlocgJmx0O2JhaWhhb3dlbkBtZWl6dS5jb20mZ3Q7LERhdmlk
+IEFpcmxpZSAmbHQ7YWlybGllZEBsaW51eC5pZSZndDssJnF1b3Q7UGFuLCBYaW5odWkmcXVvdDsg
+Jmx0O1hpbmh1aS5QYW5AYW1kLmNvbSZndDssTEtNTCAmbHQ7bGludXgta2VybmVsQHZnZXIua2Vy
+bmVsLm9yZyZndDssTWFsaW5nIGxpc3QgLSBEUkkgZGV2ZWxvcGVycyAmbHQ7ZHJpLWRldmVsQGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZyZndDssYW1kLWdmeCBsaXN0ICZsdDthbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZyZndDssRGFuaWVsIFZldHRlciAmbHQ7ZGFuaWVsQGZmd2xsLmNoJmd0OyxB
+bGV4DQogRGV1Y2hlciAmbHQ7YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbSZndDssQ2hyaXN0aWFu
+IEvDtm5pZyAmbHQ7Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tJmd0Ozxicj4NCuS4u+mimO+8mlJl
+OiBbUEFUQ0hdIGRybS9hbWRncHUvdmNuOiByZW1vdmUgVW5uZWVkZWQgc2VtaWNvbG9uPGJyPg0K
+PGJyPg0KPGZvbnQgc2l6ZT0iMiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMHB0OyI+DQo8ZGl2
+IGNsYXNzPSJQbGFpblRleHQiPk9uIEZyaSwgQXByIDEsIDIwMjIgYXQgMTo1NCBBTSBQYXVsIE1l
+bnplbCAmbHQ7cG1lbnplbEBtb2xnZW4ubXBnLmRlJmd0OyB3cm90ZTo8YnI+DQomZ3Q7PGJyPg0K
+Jmd0OyBEZWFyIEhhb3dlbiw8YnI+DQomZ3Q7PGJyPg0KJmd0Ozxicj4NCiZndDsgVGhhbmsgeW91
+IGZvciB5b3VyIHBhdGNoLjxicj4NCiZndDs8YnI+DQomZ3Q7IEFtIDMxLjAzLjIyIHVtIDA3OjU2
+IHNjaHJpZWIgSGFvd2VuIEJhaTo8YnI+DQomZ3Q7PGJyPg0KJmd0OyBJbiB0aGUgY29tbWl0IG1l
+c3NhZ2Ugc3VtbWFyeSwgcGxlYXNlIHVzZTo8YnI+DQomZ3Q7PGJyPg0KJmd0OyBSZW1vdmUgdW5u
+ZWVkZWQgc2VtaWNvbG9uPGJyPg0KJmd0Ozxicj4NCiZndDsgJmd0OyByZXBvcnQgYnkgY29jY2lj
+aGVjazo8YnI+DQomZ3Q7ICZndDsgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YyXzUu
+YzoxOTUxOjItMzogVW5uZWVkZWQgc2VtaWNvbG9uPGJyPg0KJmd0OyAmZ3Q7PGJyPg0KJmd0OyAm
+Z3Q7IGZpeGVkIGM1NDNkY2IgKCZxdW90O2RybS9hbWRncHUvdmNuOiBBZGQgVkNOIHJhcyBlcnJv
+ciBxdWVyeSBzdXBwb3J0JnF1b3Q7KTxicj4NCiZndDs8YnI+DQomZ3Q7IFBsZWFzZSB1c2U8YnI+
+DQomZ3Q7PGJyPg0KJmd0OyBGaXhlczog4oCmPGJyPg0KJmd0Ozxicj4NCiZndDsgYW5kIGEgY29t
+bWl0IGhhc2ggbGVuZ3RoIG9mIDEyIGNoYXJhY3RlcnMuIChgc2NyaXB0cy9jaGVja3BhdGNoLnBs
+IOKApmA8YnI+DQomZ3Q7IHNob3VsZCB0ZWxsIHlvdSBhYm91dCB0aGlzLik8YnI+DQo8YnI+DQpJ
+IGRvbid0IGtub3cgdGhhdCB5b3UgbmVlZCB0byBhZGQgYSBmaXhlcyB0YWcgdW5sZXNzIHRoZSBw
+YXRjaCBpcyBhbjxicj4NCmFjdHVhbCBidWcgZml4LiZuYnNwOyBDb2Rpbmcgc3R5bGUgb3Igc3Bl
+bGxpbmcgZml4ZXMgYXJlIG5vdCByZWFsbHk8YnI+DQpjcml0aWNhbCBmb3IgZ2V0dGluZyBpbnRv
+IHN0YWJsZSB0cmVlcy48YnI+DQo8YnI+DQpBbGV4PGJyPg0KPGJyPg0KJmd0Ozxicj4NCiZndDs8
+YnI+DQomZ3Q7IEtpbmQgcmVnYXJkcyw8YnI+DQomZ3Q7PGJyPg0KJmd0OyBQYXVsPGJyPg0KJmd0
+Ozxicj4NCiZndDs8YnI+DQomZ3Q7ICZndDsgU2lnbmVkLW9mZi1ieTogSGFvd2VuIEJhaSAmbHQ7
+YmFpaGFvd2VuQG1laXp1LmNvbSZndDs8YnI+DQomZ3Q7ICZndDsgLS0tPGJyPg0KJmd0OyAmZ3Q7
+Jm5ic3A7Jm5ic3A7IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92Ml81LmMgfCAyICYj
+NDM7LTxicj4NCiZndDsgJmd0OyZuYnNwOyZuYnNwOyAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
+b24oJiM0MzspLCAxIGRlbGV0aW9uKC0pPGJyPg0KJmd0OyAmZ3Q7PGJyPg0KJmd0OyAmZ3Q7IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjJfNS5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YyXzUuYzxicj4NCiZndDsgJmd0OyBpbmRleCAzZTFk
+ZThjLi4xN2Q0NGJlIDEwMDY0NDxicj4NCiZndDsgJmd0OyAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS92Y25fdjJfNS5jPGJyPg0KJmd0OyAmZ3Q7ICYjNDM7JiM0MzsmIzQzOyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92Ml81LmM8YnI+DQomZ3Q7ICZndDsgQEAgLTE5
+NDgsNyAmIzQzOzE5NDgsNyBAQCBzdGF0aWMgdWludDMyX3QgdmNuX3YyXzZfcXVlcnlfcG9pc29u
+X2J5X2luc3RhbmNlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LDxicj4NCiZndDsgJmd0OyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBicmVhazs8YnI+DQomZ3Q7ICZndDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgZGVmYXVsdDo8YnI+DQomZ3Q7ICZndDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsgYnJlYWs7PGJyPg0KJmd0OyAmZ3Q7IC0mbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsgfTs8YnI+DQomZ3Q7ICZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsgfTxicj4NCiZndDsgJmd0Ozxicj4NCiZndDsgJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyBpZiAocG9pc29uX3N0YXQpPGJyPg0KJmd0OyAmZ3Q7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7IGRldl9pbmZvKGFkZXYtJmd0O2RldiwgJnF1b3Q7UG9pc29uIGRldGVj
+dGVkIGluIFZDTiVkLCBzdWJfYmxvY2slZFxuJnF1b3Q7LDxicj4NCjwvZGl2Pg0KPC9zcGFuPjwv
+Zm9udD4NCjwvYm9keT4NCjwvaHRtbD4NCg==
+
+--_000_yu4wvb4mil72pdwpogh54akd1648827074116emailandroidcom_--
