@@ -4,89 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 713E5C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 14:02:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5E7BC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 14:25:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA4D810E178;
-	Fri,  1 Apr 2022 14:02:47 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2073.outbound.protection.outlook.com [40.107.92.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC74A10E178
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Apr 2022 14:02:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gq3NRioK1X3dByypRVgUCXGgvfC4CkOErEvL+ZBlGoyL5BifRhalPXhqy3Q0yMzP1n1bYJq5SOFQZ0Fp6OcGhx8oIFZo6TVflSJC80e9Iv16TKDT8eXHkBhdIgyL4OHAb7/mZtGNVyr+9i+fgnVfaXwDVvjGvy/wGZ7HLb4LVKlyNlJSKugMvf5aLL7iI9H0FDuCa2YGzg3lt6tUa0U8CFVyw8TOcN12g62IcK5V3KRCwIKOJrzNhkMyyactGRix4oiTwUNsxXnrhv/u+Mq6LhvDZol51144SCRcBDU8HbwFD21j9s0BcVvZp8Tqbo84zUJoyDhGb8s8YvPnijseYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WcxTaHFw9NShjeYtVmNDzOwVnU1txQvCXkN6hfzZw7A=;
- b=LJKlDnKqPu7M5j53FVI0UyIKRXXMjyQHPyvvQlxwsyyHkBcVVCu1ikkRM3ULQRNuXp/v1N71vjp1GbHh1ywE6JMLWPsM3iDLCS9W+NaWCVywi92BapUeU/UQ0a8rmqfSJy0aHJsQuiSKoEbjAlzAfGCEpTXFkbM9fiMEfvOmtanJnzjhKsOuRW7BPJ07fm/UgCHnuST0DEVHvKCVeqSalTawUVhbNFJdBZrM/vi/FlUBKH8jEq6piP2VESyAW9kCP7BJfz7rVxfeOnDuXPK3cBWBc22R/nJ/kwAXxgTph+mpg79kw8K9zMU/KqDzTinopzbAimj9X2w9N4tMQFcEGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WcxTaHFw9NShjeYtVmNDzOwVnU1txQvCXkN6hfzZw7A=;
- b=F7w9EjiHzv6sh6v/IA+dCdRQUyVkuIrWn1blM4kWKK5CO9VtjCqjB1dTPQuK8w6PEgMFSOFE8Khq7uVchHRTQ7ojFPu8R7znWiDwv+4jKmFY/Bco7CQtMTfzdK2Y0sfwqwRA1iLVqOF+vSOBwUIVb/fbAgjx0pHJ3i2Sy+XFCzQ=
-Received: from DM6PR02CA0098.namprd02.prod.outlook.com (2603:10b6:5:1f4::39)
- by DM5PR12MB1321.namprd12.prod.outlook.com (2603:10b6:3:78::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.21; Fri, 1 Apr
- 2022 14:02:44 +0000
-Received: from DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1f4:cafe::59) by DM6PR02CA0098.outlook.office365.com
- (2603:10b6:5:1f4::39) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.23 via Frontend
- Transport; Fri, 1 Apr 2022 14:02:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT010.mail.protection.outlook.com (10.13.172.222) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5123.19 via Frontend Transport; Fri, 1 Apr 2022 14:02:43 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 1 Apr
- 2022 09:02:42 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amdgpu: don't use BACO for reset in S3
-Date: Fri, 1 Apr 2022 10:02:30 -0400
-Message-ID: <20220401140230.2628733-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AD7810E3C3;
+	Fri,  1 Apr 2022 14:25:58 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D413410E3C1;
+ Fri,  1 Apr 2022 14:25:56 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 51FF9B824AF;
+ Fri,  1 Apr 2022 14:25:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0D10C2BBE4;
+ Fri,  1 Apr 2022 14:25:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1648823154;
+ bh=G849KKjTIoPjmi1Mg986OziEyFIWyoiWM20WA5zBffo=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=raIYTcwJsOglg1Jio/Xx5r54IirgunGzrihUKXIFMxEZJYgGbPZ4BG6ZjLLn8XvKu
+ IH621V9UU5Ww2vqujeAWdcNNcTmMeo869tL1reYKbKYVSQzcpPQEjvpR+D2cRmeV5f
+ /jfLVw+yh5XqxXIfD2xBCgPeDQaKfvWDnA71YYtbhGgoAgr+cuVQ66zXEsY55QkVhN
+ NgnLa/yTeUb+AO2Npzk4u1zU5Sm/nY6Z6sbJPmJ1jDOzZY7VpZsCtr6sECOU6JOpK5
+ /S76ni2wKGwtpe7leqG3bAOkcl8dzk7RFpBH0XATjyCiRSItRVP8r86bpMYHqNu30U
+ l3dbk0SXhzG1w==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.17 005/149] drm/amd/display: Add signal type check
+ when verify stream backends same
+Date: Fri,  1 Apr 2022 10:23:12 -0400
+Message-Id: <20220401142536.1948161-5-sashal@kernel.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220401142536.1948161-1-sashal@kernel.org>
+References: <20220401142536.1948161-1-sashal@kernel.org>
 MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0070aa6b-eb6a-490c-0652-08da13e84afb
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1321:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB132198F34FE94258572C45ABF7E09@DM5PR12MB1321.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wu4WaAWGfmRRWkTq2/Gr8xeKZgBetAP69DIvUghlM6E47KMia1AApvmDsrcuTPOMSAyhCtg3WlhfqkwWJ/vbMTQ+fknfOdD99IQbrsexfwBKlNnKGEakYWPw+vIXWOPBWxXUH4H6+h4bGZp5RHryDT9BAXO72bc0jfuVB6jLGRslJDvbXT9LgVakVzmxDVISxGYrSQXWfv5qEJl3U48oLOVdIVKi7t82Z8hym5WoXv+BmHhjtF07wgnAtPr/yCVwJBmzkOpwMzNE/e/yU8O/rCqWBF6tnpJ35BMsmwdW2oh1KtiJBMcjlFeh8ajSWINH3Gf7oNeJz/uhJ4E9wWB/SIxP9LBBsRfKUpCw9zTppF504IOTMB/y4qK+oD/GdriJWQzX4YuEQ+Ir4VYz+TjHBmvMA+PPxzzaF+SXBb/+zVarP4pIdjjF4DMd+rEfxkJEf6q8k5+O15qkdnZ1T+/j3pRdpr3By6+Jl+pkOxcU7KCV7Rjefw8xbHfHRJbGP5iLADWgkChIiQtY8pjXLKmWTK/uu38sBub+y3D9Cz1BSYxba6+PkGfzzyPW9r8+6lSGKp4J74JqqD/mnZNync1WM3JWyDsftW72zKsN/dZ25sP4c7LzcEgSQqtr7SRGN+cuwR0oIPuco/ClppeIJOISUoqa8hUHwE+QFrFTY6zUhGwkw3vhw/KcGkWoAy7lcHNz7NS0IjDoffrf4Wv6Uky9aQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(316002)(4744005)(81166007)(70206006)(70586007)(5660300002)(6916009)(8936002)(426003)(86362001)(82310400004)(4326008)(8676002)(508600001)(966005)(336012)(356005)(16526019)(186003)(1076003)(2906002)(6666004)(83380400001)(47076005)(36860700001)(40460700003)(26005)(7696005)(36756003)(2616005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2022 14:02:43.6558 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0070aa6b-eb6a-490c-0652-08da13e84afb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1321
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,38 +54,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: aric.cyr@amd.com, airlied@linux.ie, Rodrigo.Siqueira@amd.com,
+ Dale Zhao <dale.zhao@amd.com>, dri-devel@lists.freedesktop.org,
+ meenakshikumar.somasundaram@amd.com, Jun.Lei@amd.com, Jimmy.Kizito@amd.com,
+ Sasha Levin <sashal@kernel.org>, mario.kleiner.de@gmail.com,
+ wenjing.liu@amd.com, amd-gfx@lists.freedesktop.org, Jerry.Zuo@amd.com,
+ eric.bernstein@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Martin.Leung@amd.com,
+ Xinhui.Pan@amd.com, christian.koenig@amd.com, Dmytro.Laktyushkin@amd.com,
+ daniel@ffwll.ch, Wayne Lin <wayne.lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, nicholas.kazlauskas@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Seems to cause a reboots or hangs on some systems.
+From: Dale Zhao <dale.zhao@amd.com>
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1924
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1953
-Fixes: daf8de0874ab5b ("drm/amdgpu: always reset the asic in suspend (v2)")
+[ Upstream commit 047db281c026de5971cedb5bb486aa29bd16a39d ]
+
+[Why]
+For allow eDP hot-plug feature, the stream signal may change to VIRTUAL
+when plug-out and back to eDP when plug-in. OS will still setPathMode
+with same timing for each plugging, but eDP gets no stream update as we
+don't check signal type changing back as keeping it VIRTUAL. It's also
+unsafe for future cases that stream signal is switched with same timing.
+
+[How]
+Check stream signal type change include previous HDMI signal case.
+
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Acked-by: Wayne Lin <wayne.lin@amd.com>
+Signed-off-by: Dale Zhao <dale.zhao@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index c73fb73e9628..ee62c74685ae 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -173,6 +173,13 @@ bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
- 
- 	if (!pp_funcs || !pp_funcs->get_asic_baco_capability)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 18757c158523..ac3071e38e4a 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -1640,6 +1640,9 @@ static bool are_stream_backends_same(
+ 	if (is_timing_changed(stream_a, stream_b))
  		return false;
-+	/* Don't use baco for reset in S3.
-+	 * This is a workaround for some platforms
-+	 * where entering BACO during suspend
-+	 * seems to cause reboots or hangs.
-+	 */
-+	if (adev->in_s3)
-+		return false;
  
- 	mutex_lock(&adev->pm.mutex);
++	if (stream_a->signal != stream_b->signal)
++		return false;
++
+ 	if (stream_a->dpms_off != stream_b->dpms_off)
+ 		return false;
  
 -- 
-2.35.1
+2.34.1
 
