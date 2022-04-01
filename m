@@ -4,67 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27FD3C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 08:24:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF9FC433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 08:56:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7ABF10FDD5;
-	Fri,  1 Apr 2022 08:24:54 +0000 (UTC)
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 219B710FDD5
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Apr 2022 08:24:54 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id bh17so4247513ejb.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 01 Apr 2022 01:24:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=oCGRPh4BG9hyiN6NE626SYbjT5oc9qAnR5YwwJiKIc8=;
- b=BJ7pDED7C+XUgT2Xg6C2176Oj3nqb/Hzv2jRlttF6wqVNZERYoNxssh26y81H00gX5
- AKRuU21OVtYZy8LrSfNJH9wtFNjguMQZLxi9lqQN7iKRWckSaxOEdvXXvqOCvPfGg7a6
- jzwWUtjsesS0DAI41FaJyydf1UDKK03aIuj0ETxoXQaOPhNXR7qTU7T5EeF5Jzt3l7Ky
- ZxRPgsamqER4zoTfN4qDPEL7DrD/HE28H7ybZfaPI7IDf32KryI1CW1BSNfJWGOCmWuM
- H+mUfdbrQhhzpLb2VmYYrgfMPvfR9WyQrYnUjNhQy8XN3058TttJZtJs+Mjfz+6S8t7b
- bTzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=oCGRPh4BG9hyiN6NE626SYbjT5oc9qAnR5YwwJiKIc8=;
- b=UblZGv7J29Jh0WtpQV7NUtZuPub6rJayvf11rHROZSsj1ZlkgK5URQN+qNQCvv6sng
- PZRhB0T92evypdmB57uHQA40b0bvoyyhL8ZL+opodwrLCl+kXwJC3Zao7CFy/jzWApG/
- b/uZCXs54hTVoqWAW6prMwwsOCQuUngnlWxr1vu00jSLercAJ62MjadI6ILPfcyfNLIL
- 7beulsaFq5Ehi/NXg8sbs06vddWc1dvnib0rFvZZuBDydYjSc605tDadl40q1/vcpDxz
- ws8Yc5hu5XjDzxA7DQ/tU8jqA/OhJsc9+06HvIVklOdwk40jYf91fIvaUKc7T/pNQAKz
- 4PYQ==
-X-Gm-Message-State: AOAM532JRSnOOBIoIZUDR7TjPCrxrOjyxI3X+fSSxQEKA7lk88Xx2UdQ
- kQr04ZKarXrf3G31Z1m8lY0=
-X-Google-Smtp-Source: ABdhPJyiKnWCXdntJFU7Oe3qKkEDwwZsPhgtOzs5ztsLZ2DRKzFeMLKx71ObjRuCOwzn7mHBk65ATQ==
-X-Received: by 2002:a17:907:1c9a:b0:6df:bfc3:c9f3 with SMTP id
- nb26-20020a1709071c9a00b006dfbfc3c9f3mr8643948ejc.679.1648801492489; 
- Fri, 01 Apr 2022 01:24:52 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0eab60.dip0.t-ipconnect.de. [91.14.171.96])
- by smtp.gmail.com with ESMTPSA id
- cr19-20020a170906d55300b006df6b316e29sm753248ejc.208.2022.04.01.01.24.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Apr 2022 01:24:51 -0700 (PDT)
-Message-ID: <c561a97f-2d72-e50b-2e86-e52c605247a5@gmail.com>
-Date: Fri, 1 Apr 2022 10:24:49 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCAB0112257;
+	Fri,  1 Apr 2022 08:56:33 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 101FF112257
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Apr 2022 08:56:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Be4lAFD2omVpfh6eVe+F9F/Wxs4J+nw+M2TPg2yY/JpIHoODhdh66JYa6mR8NSfOaXrIgK8Z9oXAjf4ZChXAEkcJsbYwd1MCD5bQ07iYgP9oAeaLaaXzuJ9mKLZgjoFHN4Uy5mBGP+wWl9QKwfTcRI5kCgWvpI8QjL2VgKB1zYutougmUxKxLc4dzK2t2vf5zahdrBNpfFPHKCcXfwbHnGrhQQf67bEd59ceT4SEnYOAFOFKynpe8dyDYuYGTywDyn80UQrZSpYU5vi3ABXUboO9wyQ6aK+B7KVwBKZ4xE8J6KlCm4d49TYV0jE/tkqbt6X/buEJPtmzT81IL4qTLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=J/iuRrJF7CYBvnklNr7EzVNMFktg0lw2R03B3ReMAWs=;
+ b=d76n7EI2xdLwzLQJG2iHd792p9Sq+hSsGjzCyUAH4DC1zJg+8EFvouAsLZg7kfR6Ya9KEEDqzybn16n1vnA5RQ2Xnuf3pbgTpAVa3B3qurZKrf9ZgiPCxxxFCuWeyuqljHUD8E2FPqcxRPrSn6Z4kRgkMimA/Xs9gFBkxG8dsFTv/DulruHAeNtD2WVdoICPTntSEkvzp1ohvBMecoYyiY0Zk3JYjkIFxbD+wZpH6wXuKZpf0FZpvZw5+cyTqOQ48K1xz1IZSUHWdfg2PPo/8tkjkp4omBONHUqAgZDwyM27P3IJD2ZjQqrjXWAKIPQQxyEqy55dHvQog6/dp08Ifw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J/iuRrJF7CYBvnklNr7EzVNMFktg0lw2R03B3ReMAWs=;
+ b=Fz6DU4ZYLJYNkgv4u0tfSstKEFJoJLZIjfZqNo7Yf5bVwl8sizFx2iTGxj+cYifRXrhQ7D9QxCZllAix9v0McFcBAhcN6TjVPIV1EL3wjjj6aFykgEScVAFDrXrmwj6tD1hXg/AM3rF217azBU0arI1hy7UgeC/8TylWDLNE6Uo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MWHPR12MB1229.namprd12.prod.outlook.com (2603:10b6:300:11::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.25; Fri, 1 Apr
+ 2022 08:56:29 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::404f:1fc8:9f4c:f185]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::404f:1fc8:9f4c:f185%6]) with mapi id 15.20.5102.023; Fri, 1 Apr 2022
+ 08:56:29 +0000
+Message-ID: <5961c4ac-f342-6ca3-ffd3-a41a4345445f@amd.com>
+Date: Fri, 1 Apr 2022 10:56:22 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: Re: [PATCH] drm/amdgpu: fix TLB flushing during eviction
+Subject: Re: [PATCH V4 17/17] drm/amd/pm: unified lock protections in
+ amdgpu_dpm.c
 Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>, philip yang <yangp@amd.com>,
- amd-gfx@lists.freedesktop.org, Philip.Yang@amd.com
-References: <20220330090032.16218-1-christian.koenig@amd.com>
- <d1191314-478d-cacd-76b3-14a39157231c@amd.com>
- <e957191b-789d-af36-6951-049f038bc47c@gmail.com>
- <03623d90-5e39-a2fb-1068-db15c592f9f9@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <03623d90-5e39-a2fb-1068-db15c592f9f9@amd.com>
+To: Arthur Marsh <arthur.marsh@internode.on.net>, evan.quan@amd.com
+References: <BYAPR12MB2615DA93084138A62E593442E4E09@BYAPR12MB2615.namprd12.prod.outlook.com>
+ <20220401084952.4536-1-amarsh04@internode.on.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20220401084952.4536-1-amarsh04@internode.on.net>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM5PR0601CA0044.eurprd06.prod.outlook.com
+ (2603:10a6:203:68::30) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4aaa022a-b558-4e73-c4ce-08da13bd8269
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1229:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR12MB12294222FC858BB4D5EF8BB983E09@MWHPR12MB1229.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: FR9Rm3Y2vG8gCFBw/6Q4V85gDLbOH99Wau0ilbTcn4Aq6qitd1z2n0jhP7H9rKlYF3DpTaZEbk3jbZZeuRZngZD/pU59YCekSUS5NG+ny45fazFyIm8uU75P5mteJ5fqsyEa5PLRYAd5cd9+R+SIQ5EDU+VUBchedlhqzTUkyeoPf15E+RPA6xNCZENLMa0grbmXdqbK5uaV19T8gzkhQToOGGQV8JeECOpHz0YuMIzjIa6cj06YsXkiS41caRqrJ+cADchfFow57FkdqMKTeiGJAzK2FK9Ao1Q0gWfJhrOojBzYu2OWbctfEi31BH10Jg4/7rX/u+lmDaK7vKNP6vUHn4Izo/aNL5Wjuc2WVdxaZjrFP1gvje2RbaRosp+le6hfh5ldWoVF6ucR1aVwbOooGwTegMd49fIMFHwIsDAMfShjShGMJBDRpnWGbfcIYKBmPy4UmPa05Cs+sfe8mvfmnPzv73wvVZ5sWq0zr9LCvE8UpVuygy3795fRTQppz1Uym7nJRHDmfadBmaPCHXeMeXiF6ixAPxist2GY2qO2CFCOmTECCz100C2aPAY8FrCb/9lNaLE+h4yKhDwUdETDSCFARQuA0zpmB+XQChDvCavY1m5VlcRGF834WVjhsyx2izlG8jaO1DSz6IEfRJ56jRLfjFQB4ShDnHtZSf0r5ePx1waboy/W00QUyzMCc4u1LsueQEibeqgwa1jyqD8hqNDaUQ+8HwwRxUj9rv0rt515N0b0UKsPKp+LXdyd
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(316002)(2616005)(186003)(83380400001)(26005)(2906002)(36756003)(38100700002)(6666004)(31696002)(6486002)(8936002)(31686004)(508600001)(86362001)(5660300002)(4326008)(8676002)(6636002)(66476007)(6512007)(66556008)(66946007)(6506007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2hDY2c4VU9tNkdYUWhKK2JmNEh1SkxsWU1sSmRub09VaUxCRnRUTkV6M2RC?=
+ =?utf-8?B?cFhGWDVNRjdEUFl0aDcyMXNGVVl0ckNoWUFCd1FZNDIrdkJadnBua2t4Mmh2?=
+ =?utf-8?B?TGcyZWhSNHhhVEVySHV0VWk5bVhPSG8wWnJ6cFgwQTdHY2JqLzV4QmxqT1Rn?=
+ =?utf-8?B?RUVlY0gxOG9vSnFMOHRPNDBObTcxQTdyMkMyQUl3UVk3TG9DYmZ3aEZucm5M?=
+ =?utf-8?B?U2YwbzgyVEF5K2FCdEhPK0JMSHZhNUFob1E0c0lpY3BhVTI3SEVCdm9JTURL?=
+ =?utf-8?B?NDJzek1DZWN6UWVlaXhXdWRhYTBpL08yOVNBTkQzeW9zRGUySS9QclFJVVVj?=
+ =?utf-8?B?K2gyNm8yVXNFTHF4K3A5Yk5MZmd4YUpwb01oZU0xZWhpdXFkREdyUjcxZ2pz?=
+ =?utf-8?B?MVFONEFtRVk3UDMrKzZlak9iSjVETzlkWXF0MnNDTmdnM2xKNFE1NGVqb2ZX?=
+ =?utf-8?B?a0lWUzZoMWsyYTh5NDJpanlZUlZHbFBNeldmNjVEdGE4M0JLR3RqeFE3eFpp?=
+ =?utf-8?B?aDdMRm1EZHg3VGl3UE1JQlUzUm9NVmRRSHVINmlDSHVwYWNVaVd0L2lHaDVm?=
+ =?utf-8?B?djBEc1p3THRLcEZuU2NmN3dnQVBKaGtZVnB1OTQ0bk1QMVF3My9KcHhiV1cz?=
+ =?utf-8?B?SitZVmtpZkJaWXNRRDlSQjBtK2pRSi92bVlmbUpVWHhXdFlFRDdIRlZCd1U1?=
+ =?utf-8?B?Zm53bmtOZTZhZmUvcFg4SEhWK3RXSWhkbkhLM2xqTVRqL2E4L1QvVlN1YW5C?=
+ =?utf-8?B?SW53S3l2ZTVaSHJMSEorRW9XUHFpTnYxSmdPVHpmNEFLL0I3VWg5NWhuTUVu?=
+ =?utf-8?B?NUwxR3VSb2JVWnBCVzhYa2hTT2FJU0xQdHhZcWdyUGhTWUcva2NFc04xY1hz?=
+ =?utf-8?B?bWJBa2JXSVpRcHBtY1VJdFJnakFaWWlYYVdQT1lOdGJYWDdlcFZEOXNQTWFo?=
+ =?utf-8?B?TkErR3hoanlvVHlIVHdPaVNHQWxpZFVvOWVmdytYNzUzVW9CMG8rTys0TEJO?=
+ =?utf-8?B?V1NHd1NEa1hXYWpDQ292eklSWG9HZENMNGV6Zk52WEtsdWJySVdMSzN6aHl5?=
+ =?utf-8?B?MEFnUVFOaEtwb1hZcHAyT0VVSXRSY00wRXNwNWNlTFBLTzgwdW9xdzdGSnZv?=
+ =?utf-8?B?ZjhnTElUcitoUCtVNUdDcXl0dVRBelBXMWRvK2dGa1NJQTAzZUprU0lFYzJo?=
+ =?utf-8?B?bXZTblJaM3JGNzFUOU5sSkc0NHl1by9PSUtWVjE0MTJxTngwdEFoRGFxSlR0?=
+ =?utf-8?B?UG0xVXVUMVdBaVNwNFdrK1JsK2VpMXVlaVVBSzBNR1RjZ1cvQkxYR2Y4OXFv?=
+ =?utf-8?B?aDU5TTNPeW40MHJrTUpYdjlpc01mME5OVndQVi9rWWhtQUFxWjFUeHRkamkx?=
+ =?utf-8?B?d2IrQWVza1J4KzBHZ0NLbUNCNGdiOXRPMS9rQ0l6ZUJtVytPUW5BdU4vMGtw?=
+ =?utf-8?B?OStBbDB4Z3ViNWR0V3ZKNmtJU05KRWUyRDNITlJ6RXRLNllkYnRQZW9ZN0R4?=
+ =?utf-8?B?RlpIQ2F5V3Flemx6UmJMK29LbHZaV0pNYmJ5aHl6Mkc3c2RoeS9KeUQ2NTVa?=
+ =?utf-8?B?UERvaGlPQ1N2emNMQ3ZwYmlVTUxsV21aV29mS2ZUL2pKbVBvQnpmLzFESGZs?=
+ =?utf-8?B?ZkdtWjhzbndldWorWTlPaGxzVGVZYXl4K0hIdXZOYTVVZzludW55UnJhdG8x?=
+ =?utf-8?B?eHNSWmRDbGpnbHlZK2RjamRvTm10cXVidG1aMlBzRnZyamtqOTY3YjB6bFpk?=
+ =?utf-8?B?bUJYT3QzT2E5NCtPTXBVeWt0OFNnYWp2dVdFeDE0YkdVN0NTdm1zMm5RK281?=
+ =?utf-8?B?Q1Nvc2RaRzNXeGJIdFR1VE56Skt4TitpUWYzVHcwb2FjdGRGK2E4NU05QVpP?=
+ =?utf-8?B?NGFGMFZ5Z2s3bHBFcitEV3RoV3d5T2Nraml2VWJrN01EQzJ4Umh2eGNiaGNr?=
+ =?utf-8?B?SkFjWVBxNjgxUzFMbFdhSTB1NGpTV0hhNHFvWS9SNXFlN0c0VXk5L1o2OTZr?=
+ =?utf-8?B?TlZQdGo4TUF4QjFseW9pQmZ6YW40Nkk1VitsdGJKcFd3dGVzeXUzdFZ5VDNB?=
+ =?utf-8?B?N0EwRDVJeFVkaDI0UlhmQlFkSjA3ZWhodWpCanlrdVZiTm52d1M2bW5uais2?=
+ =?utf-8?B?Ym0wWGd1ZExPSHZweTVFVlMxUk4veTkxbTFKclltRkVtZFpwT1lUV3lTUTNY?=
+ =?utf-8?B?RlZKNXVyL1ZSWG5WK1ZYdURzTEh3Mmp3L3hveUVlb2xkR2oxdzN3K2JsRUUw?=
+ =?utf-8?B?QTFXdUVtT1V1ZFdxUDQ4UFJRcTJBdzh3STZPbGpucjBFMW9UWXRTVStWN2Z1?=
+ =?utf-8?B?ZFBySytDRlBoWWNCK1ZmNStxdWdadkhCSE9qT2p5RkFxaGFpYU5TUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4aaa022a-b558-4e73-c4ce-08da13bd8269
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2022 08:56:28.7031 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J9VW/lg+p0h/MgSgD8vYrw3qJBU6rGWuVi7VTTLybXWKC6aSpZ7zu/f0hYu91nPQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1229
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,329 +129,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Alexander.Deucher@amd.com, Lijo.Lazar@amd.com, Kenneth.Feng@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 31.03.22 um 16:37 schrieb Felix Kuehling:
-> Am 2022-03-31 um 02:27 schrieb Christian König:
->> Am 30.03.22 um 22:51 schrieb philip yang:
->>>
->>>
->>> On 2022-03-30 05:00, Christian König wrote:
->>>> Testing the valid bit is not enough to figure out if we
->>>> need to invalidate the TLB or not.
->>>>
->>>> During eviction it is quite likely that we move a BO from VRAM to 
->>>> GTT and
->>>> update the page tables immediately to the new GTT address.
->>>>
->>>> Rework the whole function to get all the necessary parameters 
->>>> directly as
->>>> value.
->>>>
->>>> Signed-off-by: Christian König<christian.koenig@amd.com>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 63 
->>>> ++++++++++++++------------
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 15 +++---
->>>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c   | 18 ++++----
->>>>   3 files changed, 48 insertions(+), 48 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>> index 9992a7311387..1cac90ee3318 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>> @@ -793,18 +793,19 @@ static void amdgpu_vm_tlb_seq_cb(struct 
->>>> dma_fence *fence,
->>>>   }
->>>>     /**
->>>> - * amdgpu_vm_bo_update_mapping - update a mapping in the vm page 
->>>> table
->>>> + * amdgpu_vm_update_range - update a range in the vm page table
->>>>    *
->>>> - * @adev: amdgpu_device pointer of the VM
->>>> - * @bo_adev: amdgpu_device pointer of the mapped BO
->>>> - * @vm: requested vm
->>>> + * @adev: amdgpu_device pointer to use for commands
->>>> + * @vm: the VM to update the range
->>>>    * @immediate: immediate submission in a page fault
->>>>    * @unlocked: unlocked invalidation during MM callback
->>>> + * @flush_tlb: trigger tlb invalidation after update completed
->>>>    * @resv: fences we need to sync to
->>>>    * @start: start of mapped range
->>>>    * @last: last mapped entry
->>>>    * @flags: flags for the entries
->>>>    * @offset: offset into nodes and pages_addr
->>>> + * @vram_base: base for vram mappings
->>>>    * @res: ttm_resource to map
->>>>    * @pages_addr: DMA addresses to use for mapping
->>>>    * @fence: optional resulting fence
->>>> @@ -812,17 +813,14 @@ static void amdgpu_vm_tlb_seq_cb(struct 
->>>> dma_fence *fence,
->>>>    * Fill in the page table entries between @start and @last.
->>>>    *
->>>>    * Returns:
->>>> - * 0 for success, -EINVAL for failure.
->>>> + * 0 for success, negative erro code for failure.
->>>>    */
->>>> -int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
->>>> -                struct amdgpu_device *bo_adev,
->>>> -                struct amdgpu_vm *vm, bool immediate,
->>>> -                bool unlocked, struct dma_resv *resv,
->>>> -                uint64_t start, uint64_t last,
->>>> -                uint64_t flags, uint64_t offset,
->>>> -                struct ttm_resource *res,
->>>> -                dma_addr_t *pages_addr,
->>>> -                struct dma_fence **fence)
->>>> +int amdgpu_vm_update_range(struct amdgpu_device *adev, struct 
->>>> amdgpu_vm *vm,
->>>> +               bool immediate, bool unlocked, bool flush_tlb,
->>>> +               struct dma_resv *resv, uint64_t start, uint64_t last,
->>>> +               uint64_t flags, uint64_t offset, uint64_t vram_base,
->>>> +               struct ttm_resource *res, dma_addr_t *pages_addr,
->>>> +               struct dma_fence **fence)
->>>>   {
->>>>       struct amdgpu_vm_update_params params;
->>>>       struct amdgpu_vm_tlb_seq_cb *tlb_cb;
->>>> @@ -910,8 +908,7 @@ int amdgpu_vm_bo_update_mapping(struct 
->>>> amdgpu_device *adev,
->>>>               }
->>>>             } else if (flags & (AMDGPU_PTE_VALID | AMDGPU_PTE_PRT)) {
->>>> -            addr = bo_adev->vm_manager.vram_base_offset +
->>>> -                cursor.start;
->>>> +            addr = vram_base + cursor.start;
->>>>           } else {
->>>>               addr = 0;
->>>>           }
->>>> @@ -927,7 +924,7 @@ int amdgpu_vm_bo_update_mapping(struct 
->>>> amdgpu_device *adev,
->>>>         r = vm->update_funcs->commit(&params, fence);
->>>>   -    if (!(flags & AMDGPU_PTE_VALID) || params.table_freed) {
->>>> +    if (flush_tlb || params.table_freed) {
->>>
->>> All change look good to me, but when I look at previous changes 
->>> again, kfd_ioctl_map_memory_to_gpu is not correct now, as this 
->>> should flush TLB if (!kfd_flush_tlb_after_unmap(dev)).
->>>
->>
->> That was intentionally dropped as Felix said it wouldn't be necessary 
->> any more with the TLB flush rework.
->>
->> Is that really causing any trouble?
->
-> I discussed it with Philip offline. The TLB flushing in 
-> kfd_ioctl_map_memory_to_gpu is still there, but it is no longer 
-> conditional on !kfd_flush_tlb_after_unmap. Instead kfd_flush_tlb 
-> checks the sequence number to find out if the flush is needed 
-> (presumably because we didn't flush after unmap).
->
-> There is one case on Vega20+XGMI where PTEs get inadvertently cached 
-> in L2 texture cache.
+Hi Arthur,
 
-Ah, that one. Yeah I do remember that issue.
+apart from blacklisting amdgpu I generally advise to SSH from another 
+computer into the affected system if you have a problem like this.
 
-> In that case, we probably need to flush more frequently because a 
-> cache line in L2 may contain stale invalid PTEs. So kfd_flush_tlb 
-> would need to ignore the sequence number and heavy-weight flush TLB 
-> unconditionally in this case.
+Additionally to what Evan said I suggest that you enable 
+CONFIG_LOCKDEP_SUPPORT in your kernel configuration. This will yield 
+warnings in your system log in case of deadlocks or accidentally 
+forgetting to unlock something.
 
-Ok, but I think that is outside of the scope of the VM handling then. Or 
-should we somehow handle that in the VM code as well?
-
-I mean incrementing the sequence when the involved BO is mapped through 
-XGMI is trivial. I just can't easily signal that we need a heavy-weight 
-flush.
-
-Thanks,
+Regards,
 Christian.
 
+Am 01.04.22 um 10:49 schrieb Arthur Marsh:
+> Hi Evan, this is what was logged (filtering for drm and amdgpu) when I
+> blacklisted amdgpu then manually did:
+>
+> modprobe amdgpu si_support=1 gpu_recovery=1
+>
+> Apr  1 18:31:14 am64 kernel: [    0.000000] Command line: BOOT_IMAGE=/vmlinuz-5.17.0+ root=UUID=39706f53-7c27-4310-b22a-36c7b042d1a1 ro amdgpu.audio=1 amdgpu.si_support=1 radeon.si_support=0 page_owner=on amdgpu.gpu_recovery=1 udev.log-priority=info rd.udev.log-priority=info
+> Apr  1 18:31:14 am64 kernel: [    0.059624] Kernel command line: BOOT_IMAGE=/vmlinuz-5.17.0+ root=UUID=39706f53-7c27-4310-b22a-36c7b042d1a1 ro amdgpu.audio=1 amdgpu.si_support=1 radeon.si_support=0 page_owner=on amdgpu.gpu_recovery=1 udev.log-priority=info rd.udev.log-priority=info
+>
+> Apr  1 18:33:43 am64 kernel: [  245.724485] ACPI: bus type drm_connector registered
+> Apr  1 18:33:44 am64 kernel: [  245.945020] [drm] amdgpu kernel modesetting enabled.
+> Apr  1 18:33:44 am64 kernel: [  245.945140] amdgpu 0000:01:00.0: vgaarb: deactivate vga console
+> Apr  1 18:33:44 am64 kernel: [  245.946413] [drm] initializing kernel modesetting (VERDE 0x1002:0x682B 0x1458:0x22CA 0x87).
+> Apr  1 18:33:44 am64 kernel: [  245.946423] amdgpu 0000:01:00.0: amdgpu: Trusted Memory Zone (TMZ) feature not supported
+> Apr  1 18:33:44 am64 kernel: [  245.946448] [drm] register mmio base: 0xFE8C0000
+> Apr  1 18:33:44 am64 kernel: [  245.946451] [drm] register mmio size: 262144
+> Apr  1 18:33:44 am64 kernel: [  245.946642] [drm] add ip block number 0 <si_common>
+> Apr  1 18:33:44 am64 kernel: [  245.946657] [drm] add ip block number 1 <gmc_v6_0>
+> Apr  1 18:33:44 am64 kernel: [  245.946660] [drm] add ip block number 2 <si_ih>
+> Apr  1 18:33:44 am64 kernel: [  245.946663] [drm] add ip block number 3 <gfx_v6_0>
+> Apr  1 18:33:44 am64 kernel: [  245.946666] [drm] add ip block number 4 <si_dma>
+> Apr  1 18:33:44 am64 kernel: [  245.946668] [drm] add ip block number 5 <si_dpm>
+> Apr  1 18:33:44 am64 kernel: [  245.946671] [drm] add ip block number 6 <dce_v6_0>
+> Apr  1 18:33:44 am64 kernel: [  245.946674] [drm] add ip block number 7 <uvd_v3_1>
+> Apr  1 18:33:44 am64 kernel: [  245.990113] [drm] BIOS signature incorrect 20 7
+> Apr  1 18:33:44 am64 kernel: [  245.990146] amdgpu 0000:01:00.0: No more image in the PCI ROM
+> Apr  1 18:33:44 am64 kernel: [  245.991510] amdgpu 0000:01:00.0: amdgpu: Fetched VBIOS from ROM BAR
+> Apr  1 18:33:44 am64 kernel: [  245.991516] amdgpu: ATOM BIOS: xxx-xxx-xxx
+> Apr  1 18:33:44 am64 kernel: [  245.991539] amdgpu 0000:01:00.0: amdgpu: PCIE atomic ops is not supported
+> Apr  1 18:33:44 am64 kernel: [  245.991841] [drm] vm size is 64 GB, 2 levels, block size is 10-bit, fragment size is 9-bit
+> Apr  1 18:33:44 am64 kernel: [  246.045705] amdgpu 0000:01:00.0: amdgpu: VRAM: 2048M 0x000000F400000000 - 0x000000F47FFFFFFF (2048M used)
+> Apr  1 18:33:44 am64 kernel: [  246.045719] amdgpu 0000:01:00.0: amdgpu: GART: 1024M 0x000000FF00000000 - 0x000000FF3FFFFFFF
+> Apr  1 18:33:44 am64 kernel: [  246.045736] [drm] Detected VRAM RAM=2048M, BAR=256M
+> Apr  1 18:33:44 am64 kernel: [  246.045739] [drm] RAM width 128bits DDR3
+> Apr  1 18:33:44 am64 kernel: [  246.045825] [drm] amdgpu: 2048M of VRAM memory ready
+> Apr  1 18:33:44 am64 kernel: [  246.045829] [drm] amdgpu: 3072M of GTT memory ready.
+> Apr  1 18:33:44 am64 kernel: [  246.045854] [drm] GART: num cpu pages 262144, num gpu pages 262144
+> Apr  1 18:33:44 am64 kernel: [  246.046180] amdgpu 0000:01:00.0: amdgpu: PCIE GART of 1024M enabled (table at 0x000000F400900000).
+> Apr  1 18:33:44 am64 kernel: [  246.084159] [drm] Internal thermal controller with fan control
+> Apr  1 18:33:44 am64 kernel: [  246.084180] [drm] amdgpu: dpm initialized
+> Apr  1 18:33:44 am64 kernel: [  246.084264] [drm] AMDGPU Display Connectors
+> Apr  1 18:33:44 am64 kernel: [  246.084268] [drm] Connector 0:
+> Apr  1 18:33:44 am64 kernel: [  246.084270] [drm]   HDMI-A-1
+> Apr  1 18:33:44 am64 kernel: [  246.084272] [drm]   HPD1
+> Apr  1 18:33:44 am64 kernel: [  246.084274] [drm]   DDC: 0x194c 0x194c 0x194d 0x194d 0x194e 0x194e 0x194f 0x194f
+> Apr  1 18:33:44 am64 kernel: [  246.084279] [drm]   Encoders:
+> Apr  1 18:33:44 am64 kernel: [  246.084281] [drm]     DFP1: INTERNAL_UNIPHY
+> Apr  1 18:33:44 am64 kernel: [  246.084283] [drm] Connector 1:
+> Apr  1 18:33:44 am64 kernel: [  246.084285] [drm]   DVI-D-1
+> Apr  1 18:33:44 am64 kernel: [  246.084287] [drm]   HPD2
+> Apr  1 18:33:44 am64 kernel: [  246.084289] [drm]   DDC: 0x1950 0x1950 0x1951 0x1951 0x1952 0x1952 0x1953 0x1953
+> Apr  1 18:33:44 am64 kernel: [  246.084293] [drm]   Encoders:
+> Apr  1 18:33:44 am64 kernel: [  246.084295] [drm]     DFP2: INTERNAL_UNIPHY
+> Apr  1 18:33:44 am64 kernel: [  246.084297] [drm] Connector 2:
+> Apr  1 18:33:44 am64 kernel: [  246.084299] [drm]   VGA-1
+> Apr  1 18:33:44 am64 kernel: [  246.084301] [drm]   DDC: 0x1970 0x1970 0x1971 0x1971 0x1972 0x1972 0x1973 0x1973
+> Apr  1 18:33:44 am64 kernel: [  246.084305] [drm]   Encoders:
+> Apr  1 18:33:44 am64 kernel: [  246.084307] [drm]     CRT1: INTERNAL_KLDSCP_DAC1
+> Apr  1 18:33:44 am64 kernel: [  246.135615] [drm] Found UVD firmware Version: 64.0 Family ID: 13
+> Apr  1 18:33:44 am64 kernel: [  246.137371] [drm] PCIE gen 2 link speeds already enabled
+> Apr  1 18:33:44 am64 kernel: [  246.674277] [drm] UVD initialized successfully.
+> Apr  1 18:33:44 am64 kernel: [  246.674849] amdgpu 0000:01:00.0: amdgpu: SE 1, SH per SE 2, CU per SH 5, active_cu_number 8
+> Apr  1 18:33:45 am64 kernel: [  247.008964] [drm] Initialized amdgpu 3.46.0 20150101 for 0000:01:00.0 on minor 0
+> Apr  1 18:33:45 am64 kernel: [  247.068412] fbcon: amdgpudrmfb (fb0) is primary device
+>
+> The monitor still went blank but the magic sysreq sync and boot worked,
+> allowing capture of the above log but nothing after the line above.
 >
 > Regards,
->   Felix
 >
->>
->> Christian.
->>
->>> To fix it, seems we need beow change, then pass flush_tlb flag via 
->>> kfd_ioctl_map_memory_to_gpu -> map_bo_to_gpuvm -> update_gpuvm_pte 
->>> -> amdgpu_vm_bo_update
->>>
->>> -int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct 
->>> amdgpu_bo_va *bo_va,
->>>             bool clear)
->>>
->>> -    bool flush_tlb = clear;
->>>
->>> +int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct 
->>> amdgpu_bo_va *bo_va,
->>>             bool clear, bool flush_tlb)
->>>
->>> + flush_tlb |= clear;
->>>
->>> Regards,
->>>
->>> Philip
->>>
->>>>           tlb_cb->vm = vm;
->>>>           if (!fence || !*fence ||
->>>>               dma_fence_add_callback(*fence, &tlb_cb->cb,
->>>> @@ -1010,9 +1007,10 @@ int amdgpu_vm_bo_update(struct amdgpu_device 
->>>> *adev, struct amdgpu_bo_va *bo_va,
->>>>       dma_addr_t *pages_addr = NULL;
->>>>       struct ttm_resource *mem;
->>>>       struct dma_fence **last_update;
->>>> +    bool flush_tlb = clear;
->>>>       struct dma_resv *resv;
->>>> +    uint64_t vram_base;
->>>>       uint64_t flags;
->>>> -    struct amdgpu_device *bo_adev = adev;
->>>>       int r;
->>>>         if (clear || !bo) {
->>>> @@ -1037,14 +1035,18 @@ int amdgpu_vm_bo_update(struct 
->>>> amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
->>>>       }
->>>>         if (bo) {
->>>> +        struct amdgpu_device *bo_adev = adev;
->>>> +
->>>>           flags = amdgpu_ttm_tt_pte_flags(adev, bo->tbo.ttm, mem);
->>>>             if (amdgpu_bo_encrypted(bo))
->>>>               flags |= AMDGPU_PTE_TMZ;
->>>>             bo_adev = amdgpu_ttm_adev(bo->tbo.bdev);
->>>> +        vram_base = bo_adev->vm_manager.vram_base_offset;
->>>>       } else {
->>>>           flags = 0x0;
->>>> +        vram_base = 0;
->>>>       }
->>>>         if (clear || (bo && bo->tbo.base.resv ==
->>>> @@ -1054,7 +1056,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device 
->>>> *adev, struct amdgpu_bo_va *bo_va,
->>>>           last_update = &bo_va->last_pt_update;
->>>>         if (!clear && bo_va->base.moved) {
->>>> -        bo_va->base.moved = false;
->>>> +        flush_tlb = true;
->>>>           list_splice_init(&bo_va->valids, &bo_va->invalids);
->>>>         } else if (bo_va->cleared != clear) {
->>>> @@ -1077,11 +1079,11 @@ int amdgpu_vm_bo_update(struct 
->>>> amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
->>>>             trace_amdgpu_vm_bo_update(mapping);
->>>>   -        r = amdgpu_vm_bo_update_mapping(adev, bo_adev, vm, 
->>>> false, false,
->>>> -                        resv, mapping->start,
->>>> -                        mapping->last, update_flags,
->>>> -                        mapping->offset, mem,
->>>> -                        pages_addr, last_update);
->>>> +        r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb,
->>>> +                       resv, mapping->start, mapping->last,
->>>> +                       update_flags, mapping->offset,
->>>> +                       vram_base, mem, pages_addr,
->>>> +                       last_update);
->>>>           if (r)
->>>>               return r;
->>>>       }
->>>> @@ -1104,6 +1106,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device 
->>>> *adev, struct amdgpu_bo_va *bo_va,
->>>>         list_splice_init(&bo_va->invalids, &bo_va->valids);
->>>>       bo_va->cleared = clear;
->>>> +    bo_va->base.moved = false;
->>>>         if (trace_amdgpu_vm_bo_mapping_enabled()) {
->>>>           list_for_each_entry(mapping, &bo_va->valids, list)
->>>> @@ -1272,10 +1275,10 @@ int amdgpu_vm_clear_freed(struct 
->>>> amdgpu_device *adev,
->>>>               mapping->start < AMDGPU_GMC_HOLE_START)
->>>>               init_pte_value = AMDGPU_PTE_DEFAULT_ATC;
->>>>   -        r = amdgpu_vm_bo_update_mapping(adev, adev, vm, false, 
->>>> false,
->>>> -                        resv, mapping->start,
->>>> -                        mapping->last, init_pte_value,
->>>> -                        0, NULL, NULL, &f);
->>>> +        r = amdgpu_vm_update_range(adev, vm, false, false, true, 
->>>> resv,
->>>> +                       mapping->start, mapping->last,
->>>> +                       init_pte_value, 0, 0, NULL, NULL,
->>>> +                       &f);
->>>>           amdgpu_vm_free_mapping(adev, vm, mapping, f);
->>>>           if (r) {
->>>>               dma_fence_put(f);
->>>> @@ -2519,8 +2522,8 @@ bool amdgpu_vm_handle_fault(struct 
->>>> amdgpu_device *adev, u32 pasid,
->>>>           goto error_unlock;
->>>>       }
->>>>   -    r = amdgpu_vm_bo_update_mapping(adev, adev, vm, true, false, 
->>>> NULL, addr,
->>>> -                    addr, flags, value, NULL, NULL, NULL);
->>>> +    r = amdgpu_vm_update_range(adev, vm, true, false, false, NULL, 
->>>> addr,
->>>> +                   addr, flags, value, 0, NULL, NULL, NULL);
->>>>       if (r)
->>>>           goto error_unlock;
->>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>> index 6b7682fe84f8..1a814fbffff8 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>> @@ -402,15 +402,12 @@ int amdgpu_vm_handle_moved(struct 
->>>> amdgpu_device *adev,
->>>>                  struct amdgpu_vm *vm);
->>>>   void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
->>>>                   struct amdgpu_vm *vm, struct amdgpu_bo *bo);
->>>> -int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
->>>> -                struct amdgpu_device *bo_adev,
->>>> -                struct amdgpu_vm *vm, bool immediate,
->>>> -                bool unlocked, struct dma_resv *resv,
->>>> -                uint64_t start, uint64_t last,
->>>> -                uint64_t flags, uint64_t offset,
->>>> -                struct ttm_resource *res,
->>>> -                dma_addr_t *pages_addr,
->>>> -                struct dma_fence **fence);
->>>> +int amdgpu_vm_update_range(struct amdgpu_device *adev, struct 
->>>> amdgpu_vm *vm,
->>>> +               bool immediate, bool unlocked, bool flush_tlb,
->>>> +               struct dma_resv *resv, uint64_t start, uint64_t last,
->>>> +               uint64_t flags, uint64_t offset, uint64_t vram_base,
->>>> +               struct ttm_resource *res, dma_addr_t *pages_addr,
->>>> +               struct dma_fence **fence);
->>>>   int amdgpu_vm_bo_update(struct amdgpu_device *adev,
->>>>               struct amdgpu_bo_va *bo_va,
->>>>               bool clear);
->>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c 
->>>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>> index 27533f6057e0..907b02045824 100644
->>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>> @@ -1188,9 +1188,9 @@ svm_range_unmap_from_gpu(struct amdgpu_device 
->>>> *adev, struct amdgpu_vm *vm,
->>>>         pr_debug("[0x%llx 0x%llx]\n", start, last);
->>>>   -    return amdgpu_vm_bo_update_mapping(adev, adev, vm, false, 
->>>> true, NULL,
->>>> -                       start, last, init_pte_value, 0,
->>>> -                       NULL, NULL, fence);
->>>> +    return amdgpu_vm_update_range(adev, vm, false, true, true, 
->>>> NULL, start,
->>>> +                      last, init_pte_value, 0, 0, NULL, NULL,
->>>> +                      fence);
->>>>   }
->>>>     static int
->>>> @@ -1277,12 +1277,12 @@ svm_range_map_to_gpu(struct 
->>>> kfd_process_device *pdd, struct svm_range *prange,
->>>>                (last_domain == SVM_RANGE_VRAM_DOMAIN) ? 1 : 0,
->>>>                pte_flags);
->>>>   -        r = amdgpu_vm_bo_update_mapping(adev, bo_adev, vm, 
->>>> false, false,
->>>> -                        NULL, last_start,
->>>> -                        prange->start + i, pte_flags,
->>>> -                        last_start - prange->start,
->>>> -                        NULL, dma_addr,
->>>> -                        &vm->last_update);
->>>> +        r = amdgpu_vm_update_range(adev, vm, false, false, false, 
->>>> NULL,
->>>> +                       last_start, prange->start + i,
->>>> +                       pte_flags,
->>>> +                       last_start - prange->start,
->>>> + bo_adev->vm_manager.vram_base_offset,
->>>> +                       NULL, dma_addr, &vm->last_update);
->>>>             for (j = last_start - prange->start; j <= i; j++)
->>>>               dma_addr[j] |= last_domain;
->>
+> Arthur Marsh.
 
