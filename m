@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84549C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 05:51:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D634C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 05:54:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03B7F10EB5D;
-	Fri,  1 Apr 2022 05:51:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F16B910E251;
+	Fri,  1 Apr 2022 05:54:31 +0000 (UTC)
 Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 286DF10EB5D
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Apr 2022 05:51:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64AEE10E251;
+ Fri,  1 Apr 2022 05:54:31 +0000 (UTC)
 Received: from [192.168.0.4] (ip5f5aef67.dynamic.kabel-deutschland.de
  [95.90.239.103])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 91F1B61EA192A;
- Fri,  1 Apr 2022 07:51:55 +0200 (CEST)
-Message-ID: <d5255baa-d957-bae2-d29a-b654ae48237d@molgen.mpg.de>
-Date: Fri, 1 Apr 2022 07:51:55 +0200
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id A9F4761EA192A;
+ Fri,  1 Apr 2022 07:54:29 +0200 (CEST)
+Message-ID: <2a2b1f76-7e9b-9561-e190-16d808eb5399@molgen.mpg.de>
+Date: Fri, 1 Apr 2022 07:54:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: Re: [PATCH] drm/amdgpu: don't use BACO for reset in S3
+Subject: Re: [PATCH] drm/amdgpu/vcn: remove Unneeded semicolon
 Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>
-References: <20220331145623.1854199-1-alexander.deucher@amd.com>
+To: Haowen Bai <baihaowen@meizu.com>
+References: <1648706190-4596-1-git-send-email-baihaowen@meizu.com>
 From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20220331145623.1854199-1-alexander.deucher@amd.com>
+In-Reply-To: <1648706190-4596-1-git-send-email-baihaowen@meizu.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -43,48 +43,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Alex,
+Dear Haowen,
 
 
 Thank you for your patch.
 
-Am 31.03.22 um 16:56 schrieb Alex Deucher:
-> Seems to cause a reboots or hangs on some systems.
+Am 31.03.22 um 07:56 schrieb Haowen Bai:
 
-It’d be great if you listed the systems from the bug reports.
+In the commit message summary, please use:
 
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1924
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1953
-> Fixes: daf8de0874ab5b ("drm/amdgpu: always reset the asic in suspend (v2)")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 3 +++
->   1 file changed, 3 insertions(+)
+Remove unneeded semicolon
+
+> report by coccicheck:
+> drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:1951:2-3: Unneeded semicolon
 > 
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> index c73fb73e9628..1ff6c42fb110 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> @@ -173,6 +173,9 @@ bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
->   
->   	if (!pp_funcs || !pp_funcs->get_asic_baco_capability)
->   		return false;
-> +	/* don't use baco for reset in S3 */
+> fixed c543dcb ("drm/amdgpu/vcn: Add VCN ras error query support")
 
-In issue #1924, I think you also write, it’s a workaround. Maybe make 
-that clear in the comment?
+Please use
 
-> +	if (adev->in_s3)
-> +		return false;
->   
->   	mutex_lock(&adev->pm.mutex);
->   
+Fixes: …
+
+and a commit hash length of 12 characters. (`scripts/checkpatch.pl …` 
+should tell you about this.)
 
 
 Kind regards,
 
 Paul
+
+
+> Signed-off-by: Haowen Bai <baihaowen@meizu.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+> index 3e1de8c..17d44be 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+> @@ -1948,7 +1948,7 @@ static uint32_t vcn_v2_6_query_poison_by_instance(struct amdgpu_device *adev,
+>   		break;
+>   	default:
+>   		break;
+> -	};
+> +	}
+>   
+>   	if (poison_stat)
+>   		dev_info(adev->dev, "Poison detected in VCN%d, sub_block%d\n",
