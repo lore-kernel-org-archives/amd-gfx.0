@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAF8DC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 14:40:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B699C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Apr 2022 14:42:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1E7A10F4C4;
-	Fri,  1 Apr 2022 14:40:18 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAE7410EABC
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Apr 2022 14:40:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35BCA10EABC;
+	Fri,  1 Apr 2022 14:42:20 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13DBF10EABC;
+ Fri,  1 Apr 2022 14:42:19 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 02D4ACE258B;
- Fri,  1 Apr 2022 14:40:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61ADBC340EE;
- Fri,  1 Apr 2022 14:40:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 890C760A3C;
+ Fri,  1 Apr 2022 14:42:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C469C2BBE4;
+ Fri,  1 Apr 2022 14:42:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648824012;
- bh=AM4Arlzi1uMQcuMz63HSz5AFP4b2LLZXu13ilcUheqs=;
+ s=k20201202; t=1648824138;
+ bh=YlT8pUaLtdbBrX1BWTnq5Kvsw1TYm69WsdMS5uTFZco=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CKRgkUwN8JWnJz8qx196Mcm0JFUJ38vZWuGTHIVpP7R7dJPQQYB9nCfQKGVGqqf/b
- RuTWvEd/ctN66oZcUfwkDVGrVfHJofvim6AIFIESL9MzitpOe4elkKmWiQ4mbfHk67
- SywCUkIo52XGsLNjQJcKQuo4myteVwYj99ULXJbRjxEhCm7yQwd3lrWTMfF/aQgbh7
- zuO6GYTX9sfcTkmYAT3YNXPN077J8Oq6q6EOfsTvj4Zs6/V5h+kHq2Bg5Z7pMMM9MK
- gvGYDCuXMhm7VOem8tuL4mLiSqkEybJ1Amq80YmIycRo9BZWXDeH1hSadw+r25VRHw
- l/oFgNRrEX16w==
+ b=CTtviXsh8ORXzjuGOYL8eWePA8AiHQQ/dlUQ7WjuW7ZMaQhAkJ/20rIcJPW3LrVNT
+ RGg7sGjA7XjWLkHpB95CuevguXoEEI/0FNRbhxkTpPI0RhZNSPfo+ARBbzFt9zQQEb
+ /oNcYghC76dymVVUflwf+y+i8JFYlMXqxBDYDmU1j7iRki3fmyPkZrH+WTzu8ws8w3
+ dNd+MilrJbfQMEJxApXQFCWBW6p/RfMDAqI6W/yynM1oCduOWUionIGsk5PgHZB6mw
+ 8IpK29GBhJfGVf8+X1nzDpl81xYQ0zlGnW0lJ52rTUoz1M+XwjC2w3fTV+27iVSM56
+ BvX/JpwDi8CYw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 51/98] drm/amdkfd: make CRAT table missing
- message informational only
-Date: Fri,  1 Apr 2022 10:36:55 -0400
-Message-Id: <20220401143742.1952163-51-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 03/65] drm/amd/display: Add signal type check
+ when verify stream backends same
+Date: Fri,  1 Apr 2022 10:41:04 -0400
+Message-Id: <20220401144206.1953700-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220401143742.1952163-1-sashal@kernel.org>
-References: <20220401143742.1952163-1-sashal@kernel.org>
+In-Reply-To: <20220401144206.1953700-1-sashal@kernel.org>
+References: <20220401144206.1953700-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,44 +54,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie,
- Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com
+Cc: aric.cyr@amd.com, airlied@linux.ie, Rodrigo.Siqueira@amd.com,
+ Dale Zhao <dale.zhao@amd.com>, dri-devel@lists.freedesktop.org,
+ meenakshikumar.somasundaram@amd.com, Jun.Lei@amd.com, Jimmy.Kizito@amd.com,
+ Sasha Levin <sashal@kernel.org>, mario.kleiner.de@gmail.com,
+ wenjing.liu@amd.com, amd-gfx@lists.freedesktop.org, Jerry.Zuo@amd.com,
+ eric.bernstein@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Martin.Leung@amd.com,
+ Xinhui.Pan@amd.com, christian.koenig@amd.com, Dmytro.Laktyushkin@amd.com,
+ daniel@ffwll.ch, Wayne Lin <wayne.lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, nicholas.kazlauskas@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Dale Zhao <dale.zhao@amd.com>
 
-[ Upstream commit 9dff13f9edf755a15f6507874185a3290c1ae8bb ]
+[ Upstream commit 047db281c026de5971cedb5bb486aa29bd16a39d ]
 
-The driver has a fallback so make the message informational
-rather than a warning. The driver has a fallback if the
-Component Resource Association Table (CRAT) is missing, so
-make this informational now.
+[Why]
+For allow eDP hot-plug feature, the stream signal may change to VIRTUAL
+when plug-out and back to eDP when plug-in. OS will still setPathMode
+with same timing for each plugging, but eDP gets no stream update as we
+don't check signal type changing back as keeping it VIRTUAL. It's also
+unsafe for future cases that stream signal is switched with same timing.
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1906
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+[How]
+Check stream signal type change include previous HDMI signal case.
+
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Acked-by: Wayne Lin <wayne.lin@amd.com>
+Signed-off-by: Dale Zhao <dale.zhao@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index c33d689f29e8..e574aa32a111 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1563,7 +1563,7 @@ int kfd_create_crat_image_acpi(void **crat_image, size_t *size)
- 	/* Fetch the CRAT table from ACPI */
- 	status = acpi_get_table(CRAT_SIGNATURE, 0, &crat_table);
- 	if (status == AE_NOT_FOUND) {
--		pr_warn("CRAT table not found\n");
-+		pr_info("CRAT table not found\n");
- 		return -ENODATA;
- 	} else if (ACPI_FAILURE(status)) {
- 		const char *err = acpi_format_exception(status);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 5f4cdb05c4db..5c5ccbad9658 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -1674,6 +1674,9 @@ static bool are_stream_backends_same(
+ 	if (is_timing_changed(stream_a, stream_b))
+ 		return false;
+ 
++	if (stream_a->signal != stream_b->signal)
++		return false;
++
+ 	if (stream_a->dpms_off != stream_b->dpms_off)
+ 		return false;
+ 
 -- 
 2.34.1
 
