@@ -4,84 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 189A3C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Apr 2022 17:06:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C472BC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Apr 2022 17:19:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9586410E593;
-	Mon,  4 Apr 2022 17:06:23 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F29D10E1E3
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Apr 2022 15:43:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1649087036;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mwNp5wKi4sCpy/JwyVCVYtgRdExp7ZcRrflxIJ6FsDA=;
- b=Bz1+aDBqBy+aL0xq/nPkTd9n6TmgYi2qzdUFy2/SmP0SjBK4D07mJGIdf3SyvACvIyLnNg
- WhX6bUAa09byNdHKenZ5yw0iZE0GhDtoNk3NIMtGJi5YIxEUhqPTVOr+fi2W1TivIJbGjy
- SnlQKTjXf97YCt5fJJAAuMkkAWoIFKQ=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-31-VRj7v4WAOd2c4kOXg6uueg-1; Mon, 04 Apr 2022 11:43:55 -0400
-X-MC-Unique: VRj7v4WAOd2c4kOXg6uueg-1
-Received: by mail-qt1-f197.google.com with SMTP id
- f3-20020ac84983000000b002e22396acfbso6525375qtq.18
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Apr 2022 08:43:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=mwNp5wKi4sCpy/JwyVCVYtgRdExp7ZcRrflxIJ6FsDA=;
- b=SlXTsVQIajSMe+/oFfPLrPLkjQPa9CCPbs/IMANzXNCEhQo6DlHo/BRRU9K1ShV+dS
- 5e4XzUGeINtxiVOhBTyelcITsOYNIRorZ6w8rni3ECQN+25zcCmhISe2o5UrfsKZBwv8
- wFe9jPtEsabYS3Jr5VNnGtQZpHIQVEONjKT17bP9OgFhbxzC2Cyy4HmcUdj7O3qVc9IL
- fS3Se9w6cvhgySCw05siSg8vJtIaCZ6KWwOonbKCcQ0yfCK8tTUSbPLogsr0lRkzv6YF
- u4u1IbksuaMavuoPiPRauXXp4HnLuGHBhn34UKaWyECKgrfsgZaGpQiDX8j92jVCDF/q
- KSjg==
-X-Gm-Message-State: AOAM530hn2skm7DtvN+aI4imB5ba74lAY+elxjxHnHaYTMbxodtI+Wv8
- HkYZ0i6Ke5RU3ZKy9dvraL3S9+PryHDqfnYBEr7g14Ej3iKlOa9+bOtQyVh9YUUxAorSDegK7dn
- jhPKH+KCfjsllFfhL/TkLKNVj+g==
-X-Received: by 2002:a37:6504:0:b0:67e:3194:db63 with SMTP id
- z4-20020a376504000000b0067e3194db63mr289791qkb.127.1649087034512; 
- Mon, 04 Apr 2022 08:43:54 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJybZ7GEppWMSjwP+Dw95nhG/D+6y4DJjms9Bgretl3gqv1QkhXx47I5wVPODts8wMYZWebucw==
-X-Received: by 2002:a37:6504:0:b0:67e:3194:db63 with SMTP id
- z4-20020a376504000000b0067e3194db63mr289769qkb.127.1649087034272; 
- Mon, 04 Apr 2022 08:43:54 -0700 (PDT)
-Received: from localhost.localdomain (024-205-208-113.res.spectrum.com.
- [24.205.208.113]) by smtp.gmail.com with ESMTPSA id
- az17-20020a05620a171100b00680af0db559sm6776261qkb.127.2022.04.04.08.43.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Apr 2022 08:43:53 -0700 (PDT)
-Subject: Re: [PATCH] drm/amd/display: cleanup extern usage in function
- definition
-To: Harry Wentland <harry.wentland@amd.com>, sunpeng.li@amd.com,
- Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, wenjing.liu@amd.com, waynelin@amd.com, Anson.Jacob@amd.com,
- Yu-ting.Shen@amd.com, keescook@chromium.org, nicholas.kazlauskas@amd.com
-References: <20220403142137.2234322-1-trix@redhat.com>
- <513a5993-2cc5-54fa-2d6c-f4162d76ab0e@amd.com>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <462e2f2a-0cc8-2e2e-93b6-504cc12aa768@redhat.com>
-Date: Mon, 4 Apr 2022 08:43:50 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BC2710E5A2;
+	Mon,  4 Apr 2022 17:19:33 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB5FA10E5A2
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Apr 2022 17:19:31 +0000 (UTC)
+Received: from [192.168.0.2] (ip5f5ae916.dynamic.kabel-deutschland.de
+ [95.90.233.22])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 2857561E6478B;
+ Mon,  4 Apr 2022 19:19:30 +0200 (CEST)
+Message-ID: <f3cc15ba-32b5-409a-5a38-f0bd56c97605@molgen.mpg.de>
+Date: Mon, 4 Apr 2022 19:19:29 +0200
 MIME-Version: 1.0
-In-Reply-To: <513a5993-2cc5-54fa-2d6c-f4162d76ab0e@amd.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH 1/1] drm/amdgpu: Flush TLB after mapping for VG20+XGMI
 Content-Language: en-US
-X-Mailman-Approved-At: Mon, 04 Apr 2022 17:06:22 +0000
+To: Philip Yang <yangp@amd.com>
+References: <20220401195726.21436-1-Philip.Yang@amd.com>
+ <daeb333a-20b3-ca34-44e9-375f3b5ad2de@molgen.mpg.de>
+ <a8a480f7-a40d-5c05-659b-d3fa68f697a0@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <a8a480f7-a40d-5c05-659b-d3fa68f697a0@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,56 +45,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Philip Yang <Philip.Yang@amd.com>, felix.kuehling@amd.com,
+ christian.koenig@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Dear Philip,
 
-On 4/4/22 8:22 AM, Harry Wentland wrote:
->
-> On 2022-04-03 10:21, Tom Rix wrote:
->> Smatch reports this issue
->> hdcp1_execution.c:500:29: warning: function
->>    'mod_hdcp_hdcp1_dp_execution' with external linkage
->>    has definition
+
+Thank you for your response.
+
+Am 04.04.22 um 18:52 schrieb philip yang:
+
+> On 2022-04-04 12:19, Paul Menzel wrote:
+
+>> Am 01.04.22 um 21:57 schrieb Philip Yang:
+>>> For VG20 + XGMI bridge, all mappings PTEs cache in TC, this may have
+>>> stall invalid PTEs in TC because one cache line has 8 pages. Need always
 >>
-> Which branch are you using?
+>> Can you please rephrase. “may have stall …” is really hard to understand.
+> The patch already pushed and merged.
 
-linux-next from 4/1
+Sorry, but that really sucks, that commits with such a hard to 
+understand commit message are merged.
 
-Tom
-
->
-> I don't see the 'extern' on
-> https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
->
-> Harry
->
->
->> The storage-class-specifier extern is not needed in a
->> definition, so remove it.
+>>> flush_tlb after updating mapping.
 >>
->> Signed-off-by: Tom Rix <trix@redhat.com>
->> ---
->>   drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c | 6 +++---
->>   1 file changed, 3 insertions(+), 3 deletions(-)
+>> Maybe:
 >>
->> diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
->> index 6ec918af3bff..1ddb4f5eac8e 100644
->> --- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
->> +++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
->> @@ -497,9 +497,9 @@ enum mod_hdcp_status mod_hdcp_hdcp1_execution(struct mod_hdcp *hdcp,
->>   	return status;
->>   }
->>   
->> -extern enum mod_hdcp_status mod_hdcp_hdcp1_dp_execution(struct mod_hdcp *hdcp,
->> -		struct mod_hdcp_event_context *event_ctx,
->> -		struct mod_hdcp_transition_input_hdcp1 *input)
->> +enum mod_hdcp_status mod_hdcp_hdcp1_dp_execution(struct mod_hdcp *hdcp,
->> +						 struct mod_hdcp_event_context *event_ctx,
->> +						 struct mod_hdcp_transition_input_hdcp1 *input)
->>   {
->>   	enum mod_hdcp_status status = MOD_HDCP_STATUS_SUCCESS;
->>   
+>> So, always flush_tlb after updating the mapping.
+>>
+>>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ++++++
+>>>   1 file changed, 6 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> index f0aec04111a3..687c9a140645 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> @@ -837,6 +837,12 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, 
+>>> struct amdgpu_vm *vm,
+>>>           goto error_unlock;
+>>>       }
+>>>   +    /* Vega20+XGMI where PTEs get inadvertently cached in L2 texture cache,
+>>> +     * heavy-weight flush TLB unconditionally.
+>>> +     */
+>>> +    flush_tlb |= (adev->gmc.xgmi.num_physical_nodes &&
+>>> +              adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 0));
+>>> +
+>>>       memset(&params, 0, sizeof(params));
+>>>       params.adev = adev;
+>>>       params.vm = vm;
+>>
+>> Did you do any performance measurement, if that flushing affects anything?
+> 
+> There was another patch to optimize TLB flush to improve map to GPU performance,
+> for this config, always flush TLB after updating mapping is the original
+> performance before the optimization.
 
+So, why didn’t you reference this commit in the commit message, and also 
+did not give that information in the commit message?
+
+
+Kind regards,
+
+Paul
