@@ -4,63 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4196C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Apr 2022 19:40:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BBCFC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Apr 2022 19:46:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B0E410E615;
-	Mon,  4 Apr 2022 19:40:20 +0000 (UTC)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B71DF10E22B;
- Mon,  4 Apr 2022 19:39:44 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id k23so18711071ejd.3;
- Mon, 04 Apr 2022 12:39:44 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6E810E6D5;
+	Mon,  4 Apr 2022 19:46:10 +0000 (UTC)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72F5910E6D5
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Apr 2022 19:46:08 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id z12so19268851lfu.10
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Apr 2022 12:46:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=NU7HyoNi5meZJ6AGWzLvmGnJXrmedqwt4yUiP1S+dCg=;
- b=LmrPdK7D8KSejIMXvgQfWXzEV/KY6ZsFIOXpOfLYcmxokXt1ycWJVJ5BBbQc4RZ+4m
- Ij0yboQumDgoZPfnGCtP+DBbKVR+XYU5co738N4q2zihDCjnRMfR3nR3OfOVa6LM7pQE
- mADowT1BHanupnNcq0NojZ+S1Oub+rtSfYbECsjxhgpevsQt50yUmzwnj+a2GWtXUKPT
- vrsMxJXiI2buC1fXRD+u7C+61Fqf4JasghPdsYjmUq1NVvJnrnWHcc36uBqd1eoTgzfq
- tod7AjQS34oMihVHShMHtR4cv7Uz9WL1l0aewijORHN/c3VDFF2QoldPR0zSBS4xgpwo
- bGQg==
+ h=message-id:subject:from:to:cc:date:in-reply-to:references
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=1upASloOetUN2vgt8dTfG9wFHGFB6pQWdQN7Kd2Q+Cc=;
+ b=qjrnVYpTn1cW5ldwMEbn1mMM0dgLNeDD7KttIiWHFg/X9AjFP1U6SqYtys4a2Wte+A
+ cPBwzFWTk1c5OtQaDUHX3HA18OrycqeC0eKDou2dGo48MpjjRZvDVvxyVDM3hogBv2so
+ lMkzKrX2UbQzUOJGbkOGkL/Pkd9AAFNUpcoNYuTY6wpJftDdIXKazROOXm3vqOn2Nw04
+ shITk1Mj4wXAfjlJv5SVpzQawnvpoGWhO1TJDzBG/LUxuQ0NzDsIYNjDr6VzirOBFhww
+ lDe2uvLCwJrmT+L2FzbTZkpQw5Hglm9eah2YvuS3hFsKN22/X7bfopO0CM9efVw7DLt5
+ sXmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=NU7HyoNi5meZJ6AGWzLvmGnJXrmedqwt4yUiP1S+dCg=;
- b=DycYac1JZweijXwqgKeJ9e5vB9fquOrkPux/PafZieUOq8oV7RM4m0LreiQQf4HNVF
- rOrn6gJ3sW+Y1JcY5d6+H2OjexqsVFKqJivTRXnBCGPuFl02reBmegOsgNnTbLZYdnIh
- hBXQRD0QJfb4l8jkBvAT2Ab1eLeEjpq/eS8Gi8teQMe41Aicg6Sk95NfvOtdhTEDnFWf
- wGbOuxgwnWkw9bNfz02fGH87s/ZDEd7kLSMO2EG1WsJmsVMOZy+XnEAZyQyjqQ61Fo+V
- 1+7foGK3eW5fZ/EkoKwo0XPT6fZdZy8FLsxhPKYOrdzRNdgXvDApLcOzNhF7rbKLKrov
- 0p1g==
-X-Gm-Message-State: AOAM533qCH9oktR4HIQ+4fL1oxWLws9/hTxfsxUxVfwAmEy2yvIVcy7q
- i1cvMf5dwYP9WSpW3vbFOzk=
-X-Google-Smtp-Source: ABdhPJwf+njJLTQQYntTOyiKLugPASzyX2p5fs8mxMEkTSLKyQsIlO/mL3faNbxx+FZvWyGg/vE+IA==
-X-Received: by 2002:a17:906:4787:b0:6e1:409f:8deb with SMTP id
- cw7-20020a170906478700b006e1409f8debmr1695858ejc.80.1649101183211; 
- Mon, 04 Apr 2022 12:39:43 -0700 (PDT)
-Received: from darkstar.example.org
- (host-79-21-204-193.retail.telecomitalia.it. [79.21.204.193])
- by smtp.gmail.com with ESMTPSA id
- h5-20020a170906718500b006e7edcda732sm2052788ejk.125.2022.04.04.12.39.41
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:user-agent:mime-version:content-transfer-encoding;
+ bh=1upASloOetUN2vgt8dTfG9wFHGFB6pQWdQN7Kd2Q+Cc=;
+ b=j7KJUXVf2cRvuMusv/hfvim381gAAeOzgPSVQHRS3HiUiKSgs0csCGwcACPFRXsGyH
+ JDcGb0XH38XJVfINl6B8WOaqLNziK+qjPjH19X1YQLJpnkj3W3XIIQJVabUMVUZ5roLe
+ SpUkhva+aEGOF1DxwSf/oHRPxuMWU1y/+Vz8i0AXU4NOg4/ipYlGlQHPZeunNWlzAG+4
+ J7SiuEtPxHvE9/2Nm1oIp1rCL05bGJ5jAIKCmBzxIZMgnwRjtR3VeXeC8YLXbylhTS9F
+ JJ8j6FgtPZkRw3XJOn1YtoqbeKKd9ysm1xAg9xOm6B0UG5zDC9TOxpwWHotE32VMJZyL
+ 5Y4Q==
+X-Gm-Message-State: AOAM530Rj/fKVkS4oYzIitr+U/b1MRDbUb+2mO2u0jfsVO1Csu7ijJJQ
+ VmJtAEzpHEhnIRF7L0ZzqsM=
+X-Google-Smtp-Source: ABdhPJxX3WZeAfm+9PcAkZ8c6QurvZ7tKT9ZTTVtuUYL65E/a+LwKnIV7CzGPBm5TWLe0LBXAG2gzw==
+X-Received: by 2002:ac2:4adb:0:b0:44a:d01:e2a with SMTP id
+ m27-20020ac24adb000000b0044a0d010e2amr727647lfp.338.1649101566714; 
+ Mon, 04 Apr 2022 12:46:06 -0700 (PDT)
+Received: from [172.16.41.128] (078088109026.wroclaw.vectranet.pl.
+ [78.88.109.26]) by smtp.gmail.com with ESMTPSA id
+ bp4-20020a056512158400b0044332792f30sm1239011lfb.175.2022.04.04.12.46.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Apr 2022 12:39:42 -0700 (PDT)
-Date: Mon, 4 Apr 2022 21:39:40 +0200
-From: Michele Ballabio <ballabio.m@gmail.com>
+ Mon, 04 Apr 2022 12:46:05 -0700 (PDT)
+Message-ID: <b90412bbea1439a614badede2450316099dd08e6.camel@gmail.com>
+Subject: Re: [PATCH 1/1] drm/amdgpu: Flush TLB after mapping for VG20+XGMI
+From: Tomasz =?UTF-8?Q?Mo=C5=84?= <desowin@gmail.com>
 To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: AMDGPU: regression on 5.17.1
-Message-ID: <20220404213940.09a56d15@darkstar.example.org>
-In-Reply-To: <CADnq5_M+M_iykM0Ag6RF+kxzgpEopUBtp82h7tRM3G+B3AWZ2w@mail.gmail.com>
-References: <20220403132322.51c90903@darkstar.example.org>
- <CADnq5_M+M_iykM0Ag6RF+kxzgpEopUBtp82h7tRM3G+B3AWZ2w@mail.gmail.com>
-X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.33; x86_64-slackware-linux-gnu)
+Date: Mon, 04 Apr 2022 21:46:04 +0200
+In-Reply-To: <CADnq5_Mh+auV8yNSqAet-zsC8WC+8=NZWmsbg-uON_166bJ8gg@mail.gmail.com>
+References: <20220401195726.21436-1-Philip.Yang@amd.com>
+ <3fce21b7-f1a0-28db-5322-6eb89a10fe8d@gmail.com>
+ <CADnq5_Mh+auV8yNSqAet-zsC8WC+8=NZWmsbg-uON_166bJ8gg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.42.4 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 04 Apr 2022 19:40:19 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,41 +71,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- regressions@lists.linux.dev
+Cc: Philip Yang <Philip.Yang@amd.com>, "Kuehling,
+ Felix" <felix.kuehling@amd.com>, Christian Koenig <christian.koenig@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Tomasz =?UTF-8?Q?Mo=C5=84?= <desowin@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 4 Apr 2022 13:03:41 -0400
-Alex Deucher <alexdeucher@gmail.com> wrote:
-
-> On Sun, Apr 3, 2022 at 10:19 AM Michele Ballabio
-> <ballabio.m@gmail.com> wrote:
-> >
-> > Hi,
-> >         I've hit a regression on 5.17.1 (haven't tested 5.17.0, but
-> > 5.16-stable didn't have this problem).
-> >
-> > The machine is a Ryzen 5 1600 with AMD graphics (RX 560).
-> >
-> > The regression I hit seems to trigger when the machine is left
-> > idle at boot (I don't boot straight to X, I boot to a tty, login
-> > and then start X). The machine after a while blanks the screen.
-> > Usually, the screen unblanks as the keyboard is hit or the mouse
-> > moves, but with kernel 5.17.1 the screen does not wake up. The
-> > machine seems to run mostly fine: I can login from ssh, but I
-> > cannot reboot or halt it: a sysrq sequence is needed for that. Note
-> > that if the screen goes blank under X, it wakes up fine.
-> >
-> > Below a dmesg and two traces from syslog (they're quite similar).  
+On Mon, 2022-04-04 at 15:18 -0400, Alex Deucher wrote:
+> On Mon, Apr 4, 2022 at 3:03 PM Tomasz Moń <desowin@gmail.com> wrote:
+> > On top of what commit does this work?
+> > 
+> > It does not apply at top of v5.18-rc1.
 > 
-> Can you bisect?  Does setting amdgpu.runpm=0 help?
+> This is stuff for drm-next
+> (https://gitlab.freedesktop.org/agd5f/linux/-/commits/drm-next).
+> E.g., 5.19.
 
-I can try to bisect, should I narrow the search to drivers/gpu/drm/ ?
+This does not compile on current drm-next, just like I noted in the
+next paragraph of my email.
 
-Setting amdgpu.runpm=0 works, the display now unblanks without problems.
+> > It does apply, but fails to compile, on top of "drm/amdkfd: Create
+> > file
+> > descriptor after client is added to smi_clients list" that is
+> > commit:
+> >    * cbe879c87245ce6272afe6456dbc8ce2c8f38d64 in amd-staging-drm-
+> > next
+> >    * e45422695c196dbc665a95526c85ff4b8752aff2 in drm-next
+> > fetched from https://gitlab.freedesktop.org/agd5f/linux.git
+> > 
+> > The compile error is due to flush_tlb being undeclared.
 
-Thanks,
-    Michele Ballabio
+drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c: In function ‘amdgpu_vm_bo_update_mapping’:
+drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:845:9: error: ‘flush_tlb’ undeclared (first use in this function); did you mean ‘kfd_flush_tlb’?
+  845 |         flush_tlb |= (adev->gmc.xgmi.num_physical_nodes &&
+      |         ^~~~~~~~~
+      |         kfd_flush_tlb
+drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:845:9: note: each undeclared identifier is reported only once for each function it appears in
+
+Best Regards,
+Tomasz Mon
