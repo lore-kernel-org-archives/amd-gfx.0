@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DED9C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 09:09:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56F79C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 13:15:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85CFC10F2A7;
-	Tue,  5 Apr 2022 09:09:48 +0000 (UTC)
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 833DD10E088;
- Mon,  4 Apr 2022 23:33:07 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id bx37so11210928ljb.4;
- Mon, 04 Apr 2022 16:33:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4616410E636;
+	Tue,  5 Apr 2022 13:15:09 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5198310E617;
+ Tue,  5 Apr 2022 13:15:07 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ o20-20020a9d7194000000b005cb20cf4f1bso9329414otj.7; 
+ Tue, 05 Apr 2022 06:15:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DYcF2JgiKO3iyobrkCuRU5Bwnqu8GY+UYkhCntyAAkw=;
- b=W1gAsjOXHXd5TL2PafVBKwCAzkY5HfXPciUHtw1CalSECJqoaulG5OpfGOFU6p8NDy
- WyRAfCqNTNvossP5rgO2UsgamRarvNLZT5iTzFh+Yk2lgq+pO3AWFoogPTY0QXJIZht+
- nWcPj56EJ/8wIcZhixgkbOh2IcPoFJDoyROWr67l5a2t1Wmqwsu4xiUbmzNr6v9k7Q1K
- jiL6q6HTyO+QfkeKgAUnGrUtID/t7HGLmaKMegtkckswGfLDe7qTLDDffudxsi6Y+sjD
- Ik3iqZXbJAAS8DSuF1v31KJmP2FzQiUS+ZJN/Otf7Tk68v0BMaGss7YgRr4x/dLdXa6p
- 5cdw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=j+u9l1hFOb+F6NIjO1asGqQYJJ9ridmMMsrteD+DArU=;
+ b=o2iCPdweGHKt8sqrwJAU4uLdLnglJzQ2+RXjCoCbxhlP7u2/iMmxsuIMR086Re8ulW
+ Msb8qVUlHmI8DXPcKObQPJuTM1Dysv45iDoWAj9+Z68n6YdZtfZzawVVbCNdkwSNP7ca
+ NHufExGaX9FwpgPPCFZxuiP9ME7JIySF65g9x3/YJHm1TjjlZhfzuG/RToTI8Jrmv3FC
+ xUpn0+SxrEuTXlqge/m5l32VcjAiaerW4bwGN/vuXwL554G4fAEi6Csg/Ghz/onAJsGC
+ SVPQ+pMyKpgKoFbKYnJuBgzVCX7WIJDJv+vgBc5iKnRN77L30e+pmSjoler9lBSBheVZ
+ mL+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DYcF2JgiKO3iyobrkCuRU5Bwnqu8GY+UYkhCntyAAkw=;
- b=hHx8V0uowSYDV+XtTlx2tgSQ6L7DWHoHK0fA1ouyKU5D+q1+yWSypzMprFYrNVgFrf
- YsfZPDLaxCcp9G3H9UzZyBaOHASsjB7YB6LupQ78w6fa9vwE1ow0kMhQ07ek9760s4bN
- cGgVA2FFmeKzZrKApFI4o0MVHzkiWcHSVNEJXNvwc9iY05h4CwCdXfLyVdWMnH//UiFe
- cAAjJHyyk1UmC2tGLINP7SUn6jUhJNnBeFor72HvoBkTJQu6pi4aJqXUrJG3brFirVO4
- HXWtkG92VbnckKBDF4tJFHe2QtmiAjCK04gJW5CRZGQURHVLzWVov4G1LZZr854H+R7j
- 8yJA==
-X-Gm-Message-State: AOAM5300atNjj8f3lvEnckEJ7xJNUG+jm4KVDAGVDBUyhpODK+Hh3AHw
- fMuP3gRn9Jh0OCW8h3ueK3w=
-X-Google-Smtp-Source: ABdhPJwRP8euVP8PJVykYTC47Km7db9gS6a+mK1PxM84xFd0Qefdqyn7QAmC+Mm+J/tUMjvzOrUWvg==
-X-Received: by 2002:a2e:9d91:0:b0:24b:a3:d784 with SMTP id
- c17-20020a2e9d91000000b0024b00a3d784mr292752ljj.461.1649115185641; 
- Mon, 04 Apr 2022 16:33:05 -0700 (PDT)
-Received: from noname.. ([2a02:2698:8c2a:1093:6d9:f5ff:fecb:a8ab])
- by smtp.googlemail.com with ESMTPSA id
- e11-20020a2e984b000000b00249b8b68f61sm1196639ljj.74.2022.04.04.16.33.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Apr 2022 16:33:05 -0700 (PDT)
-From: Grigory Vasilyev <h0tc0d3@gmail.com>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Melissa Wen <mwen@igalia.com>
-Subject: [PATCH] drm/amdgpu: Junk code
-Date: Tue,  5 Apr 2022 02:33:04 +0300
-Message-Id: <20220404233306.2207-1-h0tc0d3@gmail.com>
-X-Mailer: git-send-email 2.35.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=j+u9l1hFOb+F6NIjO1asGqQYJJ9ridmMMsrteD+DArU=;
+ b=HBrp+APYpYtkJjGCEhaT7oeaTnbaMfeJpz/bGJz5XmFXoZhBuN6Xo8E/usR+tvAHBN
+ Z3rB/7HE1p+41v+eKlULKHrt4McBghZfUQleZjo/SQMKoilEh+Z9AKlanK7BHWu21qey
+ M3X8ZsKeQrtSxwtfdgntqLtzExZN+IL3OrRWhwAYv7ZqT+IbnDdTt7yJNxP9kWX0ra8b
+ /J+W/vN8MaF7M7o/o0LcK8SDcsePXbzgb8aYwRVEVCTPsTUyRN4uWaxfkBjQ0UUb2TJV
+ 5S3D5AUjIgzqSi0/8lErtd9oWDq7Y7aW72fgqYSjTBQJaY7Fu04ATggUi2TuJB7Gi19a
+ Pv4w==
+X-Gm-Message-State: AOAM533GFN/FFYHjSqs9FSN8TjYUhTvm4Q6ZFEI70jB1fw8Z0vUMAg26
+ ZRo4jhmLx4sUL6kT/6zKx0Ngztk28FMOSny5gcxJMulGMyU=
+X-Google-Smtp-Source: ABdhPJweaVqn5fj3LpuWzpkbuOf7ysTfZMy2YEcio3zT48dmeMlZswx+nBnRBuAMUmm9R7zs2vIlRlSWz440Cm2iuNw=
+X-Received: by 2002:a9d:4702:0:b0:5cd:481a:148a with SMTP id
+ a2-20020a9d4702000000b005cd481a148amr1171172otf.200.1649164506306; Tue, 05
+ Apr 2022 06:15:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 05 Apr 2022 09:09:47 +0000
+References: <20220404214255.11902-1-Philip.Yang@amd.com>
+ <7a0e9d4c-257f-287e-9caf-f4161887ba39@molgen.mpg.de>
+ <530f3735-9a82-54af-c090-cc8d5b1510cc@amd.com>
+ <226a1c28-2516-7af4-dc19-7236f31128e9@molgen.mpg.de>
+In-Reply-To: <226a1c28-2516-7af4-dc19-7236f31128e9@molgen.mpg.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 5 Apr 2022 09:14:55 -0400
+Message-ID: <CADnq5_M2nX_TAth0aQbxRWSLQVnDKMGuBBxzhvrBv6ZA5SZe1w@mail.gmail.com>
+Subject: Re: Public patches but non-public development branch (Re: [PATCH 1/1]
+ drm/amdkfd: Add missing NULL check in svm_range_map_to_gpu)
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,64 +68,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Grigory Vasilyev <h0tc0d3@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Claudio Suarez <cssk@net-c.es>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Philip Yang <Philip.Yang@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Variable igp_lane_info always is 0. 0 & any value = 0 and false.
-In this way, all сonditional statements will false.
-Therefore, it is not clear what this code does.
+On Tue, Apr 5, 2022 at 3:02 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
+>
+> Dear Christian,
+>
+>
+> Am 05.04.22 um 08:54 schrieb Christian K=C3=B6nig:
+> > Am 05.04.22 um 08:45 schrieb Paul Menzel:
+>
+> >> Am 04.04.22 um 23:42 schrieb Philip Yang:
+> >>> bo_adev is NULL for system memory mapping to GPU.
+> >>>
+> >>> Fixes: 05fe8eeca92 (drm/amdgpu: fix TLB flushing during eviction)
+> >>
+> >> Sorry, where can I find that commit?
+> >
+> > Well that's expected, the development branch is not public.
+>
+> Well obviously, it was unexpected for me. How should I have known? Where
+> is that documented? If the patches are publicly posted to the mailing
+> list, why is that development branch not public?
+>
+> The current situation is really frustrating for non-AMD employees. How
+> can the current situation be improved?
 
-Signed-off-by: Grigory Vasilyev <h0tc0d3@gmail.com>
----
- .../gpu/drm/amd/amdgpu/atombios_encoders.c    | 21 -------------------
- 1 file changed, 21 deletions(-)
+Our development branch
+(https://gitlab.freedesktop.org/agd5f/linux/-/commits/amd-staging-drm-next)
+is available publicly.  There can be a day or so of lag depending on
+when it gets mirrored (e.g., over the weekend).
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-index 2b0cc793291c..100bad2f5901 100644
---- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-@@ -769,7 +769,6 @@ amdgpu_atombios_encoder_setup_dig_transmitter(struct drm_encoder *encoder, int a
- 	int dp_clock = 0;
- 	int dp_lane_count = 0;
- 	int connector_object_id = 0;
--	int igp_lane_info = 0;
- 	int dig_encoder = dig->dig_encoder;
- 	int hpd_id = AMDGPU_HPD_NONE;
- 
-@@ -852,26 +851,6 @@ amdgpu_atombios_encoder_setup_dig_transmitter(struct drm_encoder *encoder, int a
- 			else
- 				args.v1.ucConfig |= ATOM_TRANSMITTER_CONFIG_DIG1_ENCODER;
- 
--			if ((adev->flags & AMD_IS_APU) &&
--			    (amdgpu_encoder->encoder_id == ENCODER_OBJECT_ID_INTERNAL_UNIPHY)) {
--				if (is_dp ||
--				    !amdgpu_dig_monitor_is_duallink(encoder, amdgpu_encoder->pixel_clock)) {
--					if (igp_lane_info & 0x1)
--						args.v1.ucConfig |= ATOM_TRANSMITTER_CONFIG_LANE_0_3;
--					else if (igp_lane_info & 0x2)
--						args.v1.ucConfig |= ATOM_TRANSMITTER_CONFIG_LANE_4_7;
--					else if (igp_lane_info & 0x4)
--						args.v1.ucConfig |= ATOM_TRANSMITTER_CONFIG_LANE_8_11;
--					else if (igp_lane_info & 0x8)
--						args.v1.ucConfig |= ATOM_TRANSMITTER_CONFIG_LANE_12_15;
--				} else {
--					if (igp_lane_info & 0x3)
--						args.v1.ucConfig |= ATOM_TRANSMITTER_CONFIG_LANE_0_7;
--					else if (igp_lane_info & 0xc)
--						args.v1.ucConfig |= ATOM_TRANSMITTER_CONFIG_LANE_8_15;
--				}
--			}
--
- 			if (dig->linkb)
- 				args.v1.ucConfig |= ATOM_TRANSMITTER_CONFIG_LINKB;
- 			else
--- 
-2.35.1
+Alex
 
+>
+>
+> Kind regards,
+>
+> Paul
+>
+>
+> >> I do not see it in drm-next from agd5f git archive
+> >> git@gitlab.freedesktop.org:agd5f/linux.git.
+> >>
+> >>     $ git log --oneline -1
+> >>     e45422695c19 (HEAD, agd5f/drm-next) drm/amdkfd: Create file
+> >> descriptor after client is added to smi_clients list
+> >>
+> >>
+> >> Kind regards,
+> >>
+> >> Paul
+> >>
+> >>
+> >>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> >>> ---
+> >>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 2 +-
+> >>>   1 file changed, 1 insertion(+), 1 deletion(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> >>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> >>> index 907b02045824..d3fb2d0b5a25 100644
+> >>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> >>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> >>> @@ -1281,7 +1281,7 @@ svm_range_map_to_gpu(struct kfd_process_device
+> >>> *pdd, struct svm_range *prange,
+> >>>                          last_start, prange->start + i,
+> >>>                          pte_flags,
+> >>>                          last_start - prange->start,
+> >>> -                       bo_adev->vm_manager.vram_base_offset,
+> >>> +                       bo_adev ?
+> >>> bo_adev->vm_manager.vram_base_offset : 0,
+> >>>                          NULL, dma_addr, &vm->last_update);
+> >>>             for (j =3D last_start - prange->start; j <=3D i; j++)
