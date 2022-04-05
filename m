@@ -4,40 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71BCFC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 14:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 226CEC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 14:23:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E46B810E70C;
-	Tue,  5 Apr 2022 14:16:23 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95DCB10E39E;
- Tue,  5 Apr 2022 14:16:22 +0000 (UTC)
-Received: from [192.168.0.2] (ip5f5ae8ff.dynamic.kabel-deutschland.de
- [95.90.232.255])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id E7D2461E64846;
- Tue,  5 Apr 2022 16:16:20 +0200 (CEST)
-Message-ID: <e0c14cae-5f34-b040-e1de-645eed16042a@molgen.mpg.de>
-Date: Tue, 5 Apr 2022 16:16:20 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id A16F610E847;
+	Tue,  5 Apr 2022 14:23:29 +0000 (UTC)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B44BD10E5AA;
+ Tue,  5 Apr 2022 14:23:28 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-df02f7e2c9so14515388fac.10; 
+ Tue, 05 Apr 2022 07:23:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3viWxA/JBHdP0TQbOykdsaxa+Gs7txej/lLx0GIvIYg=;
+ b=G9QnFQmPtVjj4tVobX1LMic5zPY274r2vdLPAoUHBKEo99rnSV8OgrXJiFUo/7/jTF
+ HjRanar2kAcinOYdoYvDGcnYJCuDuEuq0Zai+Uq0v6oNYRccBrMVRMdFmiEV85NERQ9C
+ 7vO48nBrMzEKZEJVJ8XZajlPZLIjcsxvASt5VlRRUCL1kA3K18vbkH8swg9+yzJ9rGMP
+ bFCRoCQAY3/a8STCLM+PzA5oegHvKvG3gC1g6iDc6bi30ZQD9wkIiGfKM1QRvaqcYdSM
+ rfBcCGGpw/3xxa0Vz8+ryEQQNncgOdCH6noH47HWTgOvqSb3hQ57Qsfk/RiWmJ24PVYC
+ lHBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3viWxA/JBHdP0TQbOykdsaxa+Gs7txej/lLx0GIvIYg=;
+ b=wfKydNibFQjpn8ifQw7n1EgqJdp5qvdgvNdrgewc7UDOjTwgr6/1yPu2tl9EKTEib9
+ fyODvGAb1yHMf29Y8eRMqEIDl59ldwt7n0wWJurdXsENi+rGI66RbwQ6RyP+HgE879pz
+ 9Ei0ykuOSw2Hd358vyfg/GdiwqcrOYlOy37g/wXA3NJ5eRxIA9jxdhYlA97AgZXVekxl
+ cXjwJ2xcTmybRXSiIG5LcM3i0Acs5TJPAa0n56Pq4L+9ueKiDFI6kARJzZyYQIhOuskk
+ fO/qzSpXKPyIFROdE22hFDhCMuax+UViwv4OhjnOvgyzMsIZr5aAFNfUnKFteacw4BlG
+ rNBQ==
+X-Gm-Message-State: AOAM530S7tQqESj6/txaJ4LJ0HuxMeAaD3hHO4z3oALcZMA1cHtAn6F7
+ W5bl+oq6ZLAVPof3zxvLGn/cU1oB9IQXIIuQGWc=
+X-Google-Smtp-Source: ABdhPJwwvFJ/nErrBLzLGpycHCVzIhCmGoPUp6o1bgcidxfVOxHS2sTwvSWskrCQURlhd5hQ2zrWnsbBLhhhsqySV8U=
+X-Received: by 2002:a05:6870:311d:b0:de:9b6c:362b with SMTP id
+ v29-20020a056870311d00b000de9b6c362bmr1567641oaa.200.1649168608008; Tue, 05
+ Apr 2022 07:23:28 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: Public patches but non-public development branch
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20220404214255.11902-1-Philip.Yang@amd.com>
- <7a0e9d4c-257f-287e-9caf-f4161887ba39@molgen.mpg.de>
- <530f3735-9a82-54af-c090-cc8d5b1510cc@amd.com>
- <226a1c28-2516-7af4-dc19-7236f31128e9@molgen.mpg.de>
- <CADnq5_M2nX_TAth0aQbxRWSLQVnDKMGuBBxzhvrBv6ZA5SZe1w@mail.gmail.com>
- <02ebf0ff-32e5-6be5-b166-163efd95d5ad@molgen.mpg.de>
- <CADnq5_OAByMKOGysWqt8nfO4_8DSM57D8JOMRTL9mRoJSN7tMA@mail.gmail.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <CADnq5_OAByMKOGysWqt8nfO4_8DSM57D8JOMRTL9mRoJSN7tMA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20220403132322.51c90903@darkstar.example.org>
+ <CADnq5_M+M_iykM0Ag6RF+kxzgpEopUBtp82h7tRM3G+B3AWZ2w@mail.gmail.com>
+ <20220404213940.09a56d15@darkstar.example.org>
+In-Reply-To: <20220404213940.09a56d15@darkstar.example.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 5 Apr 2022 10:23:16 -0400
+Message-ID: <CADnq5_PhaFbVCb=-AUCx4L-sCyPCPOsY3tNpiAg=gfCN7hFcJA@mail.gmail.com>
+Subject: Re: AMDGPU: regression on 5.17.1
+To: Michele Ballabio <ballabio.m@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,66 +64,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ regressions@lists.linux.dev
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Alex,
+On Mon, Apr 4, 2022 at 3:39 PM Michele Ballabio <ballabio.m@gmail.com> wrote:
+>
+> On Mon, 4 Apr 2022 13:03:41 -0400
+> Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> > On Sun, Apr 3, 2022 at 10:19 AM Michele Ballabio
+> > <ballabio.m@gmail.com> wrote:
+> > >
+> > > Hi,
+> > >         I've hit a regression on 5.17.1 (haven't tested 5.17.0, but
+> > > 5.16-stable didn't have this problem).
+> > >
+> > > The machine is a Ryzen 5 1600 with AMD graphics (RX 560).
+> > >
+> > > The regression I hit seems to trigger when the machine is left
+> > > idle at boot (I don't boot straight to X, I boot to a tty, login
+> > > and then start X). The machine after a while blanks the screen.
+> > > Usually, the screen unblanks as the keyboard is hit or the mouse
+> > > moves, but with kernel 5.17.1 the screen does not wake up. The
+> > > machine seems to run mostly fine: I can login from ssh, but I
+> > > cannot reboot or halt it: a sysrq sequence is needed for that. Note
+> > > that if the screen goes blank under X, it wakes up fine.
+> > >
+> > > Below a dmesg and two traces from syslog (they're quite similar).
+> >
+> > Can you bisect?  Does setting amdgpu.runpm=0 help?
+>
+> I can try to bisect, should I narrow the search to drivers/gpu/drm/ ?
+
+I would just do a full bisect if possible in case the change happens
+to be outside of drm.
+
+>
+> Setting amdgpu.runpm=0 works, the display now unblanks without problems.
+
+Thanks,
+
+Alex
 
 
-Am 05.04.22 um 16:13 schrieb Alex Deucher:
-> On Tue, Apr 5, 2022 at 10:03 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
-
->> Am 05.04.22 um 15:14 schrieb Alex Deucher:
->>> On Tue, Apr 5, 2022 at 3:02 AM Paul Menzel wrote:
->>
->>>> Am 05.04.22 um 08:54 schrieb Christian König:
->>>>> Am 05.04.22 um 08:45 schrieb Paul Menzel:
->>>>
->>>>>> Am 04.04.22 um 23:42 schrieb Philip Yang:
->>>>>>> bo_adev is NULL for system memory mapping to GPU.
->>>>>>>
->>>>>>> Fixes: 05fe8eeca92 (drm/amdgpu: fix TLB flushing during eviction)
->>>>>>
->>>>>> Sorry, where can I find that commit?
->>>>>
->>>>> Well that's expected, the development branch is not public.
->>>>
->>>> Well obviously, it was unexpected for me. How should I have known? Where
->>>> is that documented? If the patches are publicly posted to the mailing
->>>> list, why is that development branch not public?
->>>>
->>>> The current situation is really frustrating for non-AMD employees. How
->>>> can the current situation be improved?
->>>
->>> Our development branch
->>> (https://gitlab.freedesktop.org/agd5f/linux/-/commits/amd-staging-drm-next)
->>> is available publicly.  There can be a day or so of lag depending on
->>> when it gets mirrored (e.g., over the weekend).
->>
->> Thank you for the clarification. As can be seen at hand, it still causes
->> confusion though.
->>
->>       commit 05fe8eeca927e29b81f3f2a799e9b9b88b0989a9
->>       Author:     Christian König <christian.koenig@amd.com>
->>       AuthorDate: Wed Mar 30 10:53:15 2022 +0200
->>       Commit:     Christian König <christian.koenig@amd.com>
->>       CommitDate: Fri Apr 1 11:05:51 2022 +0200
->>
->> Today is Tuesday, so it wasn’t mirrored yesterday, on Monday.
->>
->> To avoid this friction in the future, is there an automated way to
->> mirror the branches? git hooks should allow that to be done on every
->> push for example.
-> 
-> It's a bit more complicated than that since we have various CI systems
-> and IT security policies involved, but we can look into it.
-
-That’d be awesome. Thank you!
-
-
-Kind regards,
-
-Paul
+>
+> Thanks,
+>     Michele Ballabio
