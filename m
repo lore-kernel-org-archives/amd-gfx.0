@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C724C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Apr 2022 08:13:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2194EC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Apr 2022 08:13:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA19C10F285;
-	Wed,  6 Apr 2022 08:13:09 +0000 (UTC)
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C25C510ED94;
- Tue,  5 Apr 2022 17:36:29 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id b43so18015076ljr.10;
- Tue, 05 Apr 2022 10:36:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08BAA10F28B;
+	Wed,  6 Apr 2022 08:13:10 +0000 (UTC)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C4D310E703;
+ Tue,  5 Apr 2022 18:31:10 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id t25so24776328lfg.7;
+ Tue, 05 Apr 2022 11:31:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=hKOYgRsFR0laaLuRCNcCw4kzlI2NLR4gbF3cCQ5uqJo=;
- b=BVr2YLDF7/GGyceZtEIm5ngSV0ZtewWefzWQMZJrDgToXi9Raa7zKK44DLjRVzPSqP
- rsZLh6unBOu9b8DWnbG/ulO/wlcI8YZUN880shObyr6Um/tVfTBF3cpDo2m1IIKVXFXc
- zuEn6HEaMmx6K8GTOTGE4Mblhp0TiZE2FitQh5Rr8gfwTotRoebmdrpUBkbSJQqBH8oj
- W1xHElC1X+BR49CMwpETUiRpdxyPiM6vQ59CHEktyrUKPaIaztu332GBp/js3CB90ZAn
- r78X3f+ujP//edJmpYijII+/KADwpeHvELEGDupRr4+0b1KDmJ35cLhgmUM4MdeHvqp9
- rfDw==
+ bh=yax7P8EHkvsWnyvnaOpe3ZP8r2G7HKN+i3pXtBsfClM=;
+ b=AlOylQ0jQKVcFM1G55vgGfIw3N7jIKcPb8Fyyp/oULoQtqlhNXFckkFd9+WqoIycaG
+ j3uSXFSnN9MUKlSNkyQuzzYQaqjV8XGOAV98W2dX0/cu0rYAgesS6ZgugsjdK/H/2jkk
+ fnbt8Gy5iVlTh1oKRiKygkFT2D7usXujbRj9wtNhFNlx0xb1yHFF5nZCSug2Yffskd6k
+ SQbOTL8qdWillxUg7Hfyk1Z4yt900US5/buZ6HSUAnvFJUJzW3ZTTDpX+yeyxCzbWSFK
+ f/y1ax+r51kD23D/27l7CsWDA8dkGaWmjrSo4eFHKK9DHWERyMZIp7K7VdiMTWXaCd66
+ t7Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=hKOYgRsFR0laaLuRCNcCw4kzlI2NLR4gbF3cCQ5uqJo=;
- b=2S5QDRXMqVOtg/SXYzs8aa6E28w7J4ngqzmz9/8GOx5sw582u7dTzzL/AytZmZXy/e
- 7i8Y+Uv3L5rrshJ6r31ZnVOPyYh2roH4ItY/ppx0HmpeOhWWn68SvLWhCw3MKrX0zWWM
- seOxAvuN9ybVxMBDqo9OSPULrBBFhvh9Xa6wcakOBchC7oPrpQtW5bMMcc8SyGk3MMvs
- 175ejgw23cUVI0McvjofGvcyiSWvqhjF87U4LXBURm2H4fpx+mrTZUDnqn6n3m74xOfR
- gIjskO3UFZBQkoqXyL8YnVtcH53DZbB89Tes6PC6XY6SHSb/7wgmVDbrc9EgFeJyP1RG
- tDwQ==
-X-Gm-Message-State: AOAM5336PlTLsNGZkvahB9VOaXBsE4mMsgH/upHPhhxBZvlBGMglUebp
- gmX9Om27ToVgWFn1El2j8Xw=
-X-Google-Smtp-Source: ABdhPJx9gURcfFhpkbU9G9qwJXgvTRqcQU7EZfhQn5YZ/YhwpA3vtsYFCnXigwEL5XUSIkyEiMsvQQ==
-X-Received: by 2002:a2e:a490:0:b0:249:894b:ce20 with SMTP id
- h16-20020a2ea490000000b00249894bce20mr2753320lji.301.1649180187930; 
- Tue, 05 Apr 2022 10:36:27 -0700 (PDT)
+ bh=yax7P8EHkvsWnyvnaOpe3ZP8r2G7HKN+i3pXtBsfClM=;
+ b=Oh/hlCfOaSPHUUhA881NvKhFN864Vt6SCRwwTSBxbT/rQ0jdWNKbXS5nN4scMpmzNT
+ QXVuhKkMmMHeQc5XOgfHLjmMvN7iSNFdRcqq0NDXkQOCkT/WSVJAVJbKaEyKPXC0hYFW
+ P9cwmxepsTLR+U5vpTnBrqfvAxGj1udb/cLcyDeCK9oHvfSqruLSbt4QWhdOfW9q876J
+ xXuW7iOkDrkLyqGGGUO9xRsSbWl7NDs1gVK+GNXL4zfmvMHv6gbCGSMEIMMxUccWTKrs
+ c0lFAom+efHl6JJPHOS8M0UaTq5QDeoKN/jwfITjnAYN5h4ncgZu3fr2m3fscXe7sANd
+ U3Zw==
+X-Gm-Message-State: AOAM5331B01EVX4Llkq7KDpyRWKXOihTOcmS5qHZEiyC/ANaZWg+c6zv
+ ZaKuUtjaJlB5PidNvCBoVbI=
+X-Google-Smtp-Source: ABdhPJyytKONlFFPhM6uOSKsPqQ+53tg6aHeIXEVboaJV0vQ5E/W25OXeJQjKEHyzo/lHMBfI33Qlw==
+X-Received: by 2002:a05:6512:2347:b0:44a:6e3f:74f7 with SMTP id
+ p7-20020a056512234700b0044a6e3f74f7mr3457813lfu.660.1649183468960; 
+ Tue, 05 Apr 2022 11:31:08 -0700 (PDT)
 Received: from noname.. ([2a02:2698:8c2a:226e:6d9:f5ff:fecb:a8ab])
  by smtp.googlemail.com with ESMTPSA id
- j11-20020a196e0b000000b0044a3f007893sm1563825lfc.286.2022.04.05.10.36.26
+ c5-20020a2e9d85000000b0024b1571209csm800133ljj.0.2022.04.05.11.31.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Apr 2022 10:36:27 -0700 (PDT)
+ Tue, 05 Apr 2022 11:31:08 -0700 (PDT)
 From: Grigory Vasilyev <h0tc0d3@gmail.com>
 To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Melissa Wen <mwen@igalia.com>
-Subject: [PATCH] drm/amdgpu: Senseless code and unnecessary memset
-Date: Tue,  5 Apr 2022 20:36:31 +0300
-Message-Id: <20220405173632.2663-1-h0tc0d3@gmail.com>
+Subject: [PATCH] drm/amdgpu: Accessing to a null pointer
+Date: Tue,  5 Apr 2022 21:30:19 +0300
+Message-Id: <20220405183020.9422-1-h0tc0d3@gmail.com>
 X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -77,44 +77,27 @@ Cc: Jani Nikula <jani.nikula@intel.com>, Jiawei Gu <Jiawei.Gu@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Using memset on local arrays before exiting the function is pointless.
-Compilator will remove this code. Also for local arrays is preferable to
-use {0} instead of memset. Mistakes are often made when working with
-memset.
+A typo in the code. It was assumed that it was
+possible to shift the pointer to sizeof(BIOS_ATOM_PREFIX) - 1.
 
 Signed-off-by: Grigory Vasilyev <h0tc0d3@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/atom.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/atom.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index be9d61bcb8ae..537e48fbbe6b 100644
+index e729973af3c9..be9d61bcb8ae 100644
 --- a/drivers/gpu/drm/amd/amdgpu/atom.c
 +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -1538,11 +1538,9 @@ struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bios)
- int amdgpu_atom_asic_init(struct atom_context *ctx)
- {
- 	int hwi = CU16(ctx->data_table + ATOM_DATA_FWI_PTR);
--	uint32_t ps[16];
-+	uint32_t ps[16] = {0};
- 	int ret;
+@@ -1426,7 +1426,7 @@ static void atom_get_vbios_pn(struct atom_context *ctx)
  
--	memset(ps, 0, 64);
--
- 	ps[0] = cpu_to_le32(CU32(hwi + ATOM_FWI_DEFSCLK_PTR));
- 	ps[1] = cpu_to_le32(CU32(hwi + ATOM_FWI_DEFMCLK_PTR));
- 	if (!ps[0] || !ps[1])
-@@ -1551,10 +1549,6 @@ int amdgpu_atom_asic_init(struct atom_context *ctx)
- 	if (!CU16(ctx->cmd_table + 4 + 2 * ATOM_CMD_INIT))
- 		return 1;
- 	ret = amdgpu_atom_execute_table(ctx, ATOM_CMD_INIT, ps);
--	if (ret)
--		return ret;
--
--	memset(ps, 0, 64);
- 
- 	return ret;
- }
+ 	if (*vbios_str == 0) {
+ 		vbios_str = atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);
+-		if (vbios_str == NULL)
++		if (vbios_str != NULL)
+ 			vbios_str += sizeof(BIOS_ATOM_PREFIX) - 1;
+ 	}
+ 	if (vbios_str != NULL && *vbios_str == 0)
 -- 
 2.35.1
 
