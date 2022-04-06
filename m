@@ -4,52 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DA93C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Apr 2022 13:20:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84647C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Apr 2022 13:45:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0368B10E2F4;
-	Wed,  6 Apr 2022 13:20:03 +0000 (UTC)
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20BE810E0AC;
- Wed,  6 Apr 2022 13:20:01 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id v75so2360727oie.1;
- Wed, 06 Apr 2022 06:20:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A3D310E05D;
+	Wed,  6 Apr 2022 13:45:38 +0000 (UTC)
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BC8810E14F;
+ Wed,  6 Apr 2022 13:39:49 +0000 (UTC)
+Received: by mail-ej1-x633.google.com with SMTP id l26so4391274ejx.1;
+ Wed, 06 Apr 2022 06:39:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nR+sDilSKYVfN9qDJ/g98wvIu+WPZhJinVPgYGsVVDE=;
- b=iprevJ6Fyj+Zg9sDtMftRf78BwUL9DqO4cEkI/ScLzlTDexBgwMjru/ra3o0B7l1gu
- OJ20vYFsppHRlvKzZC28kzKR1hMyQwEsq9luV9cffZWeNE3vD+xf2WJv0Ca0dXadfQlj
- 953oj+T6OUBOFGr+ot77RkmEcJoYJLsVMzPoMCP3RjNP7dekojnm6Fk8nu37iGq0duT8
- e08lmohwbasaykFFyW0Y/V5gQmgMHRDYdkmMKNwiglGCPR+86ugUxeRMo0SxI3b4z3Wx
- D+4wb3YcZzZLkr6ytY77qTmzkcgBjeoIIkpuRsjLV7h5+4hL294JmkK+1N9vxQ5eNgOf
- joTQ==
+ :cc:content-transfer-encoding;
+ bh=iyJLK8l5hs8KCNBFxlx1llqa+FYfySe8JZbdJuv2BSY=;
+ b=AZPHzmAkPb4vBz8KQIFg70PyU76BInADKyX8st0Ig2+U518SEl0fYZpUw9xiNqn87K
+ aFxAL3Rzj+bm6m248CxtYI2apq5TfG0PFHHUmZ81yjVBfZyky+nQJ/y68jjzZEoz3IVP
+ 2ZeHrhjWp7zRdPFnB94aJ4/AKOIGQDHMVIHBYN9336v/0QdlpMxxmRvr9byy1Bbv4vDL
+ t/8yFF66Fj9bRZzxcLG0bXKl15HjhRZclLJAUz756gQUgnTvBYY20cHN7doi1i5nWcX4
+ ErVcNb4eFZDmVj0lZzaKcxqtV9IkWmD3avg4JPdWRFGAV0+pyTjszJMDk1upXk7xhzUN
+ JwKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nR+sDilSKYVfN9qDJ/g98wvIu+WPZhJinVPgYGsVVDE=;
- b=KmfXrJejKEXxGif0vCABFX7tcYL45Hk/pb5qeeR9ntshdqdss8gD+60m49zJXZXwFP
- 03dOgykzaAxPtQrP+m4zYLPSRKx8X9Ypwyi9cPQD3d3lMA0xW8nNqGLTsjmm2pggCVll
- cn7JSxycQtXFeRz5ZxoNKpdO5koc4r3rN6L5XddgGKtoKFg+le5vVEWQVo7nD7o6VkVd
- I0api6tCTOKo2ly2LXStwXx4fJ/PZmrNx2D4y7Le34uQaGzlDZC9MYhxiGzQKuQb1Ak6
- do/WuxQgRnOWmyFinhwFcNhGF3TbCo67BMAnJZT6chyET8q1RPiD640FcogzhALH+bpm
- vyvA==
-X-Gm-Message-State: AOAM533Scghc0Gm5HErwSC4cufsnuiY5MYRNE4Qm2jhOuBweEqazRiUt
- 0+cfQ0sHQAb6zVpQfXR7oGkQVxEB/fyfpJZAILk=
-X-Google-Smtp-Source: ABdhPJxyBFYsPElegdy6BaOXxjV6Kp33EHLXtBFktwHpS2gGqYGmZq94oWBFPsv+aCywyMrwUMjhsjcBBwjHvTN7c2g=
-X-Received: by 2002:aca:d04:0:b0:2ef:8b45:d235 with SMTP id
- 4-20020aca0d04000000b002ef8b45d235mr3630825oin.253.1649251200316; Wed, 06 Apr
- 2022 06:20:00 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=iyJLK8l5hs8KCNBFxlx1llqa+FYfySe8JZbdJuv2BSY=;
+ b=mHkxQxX1Bk2WnsX38WHq0QTcUekcCGLsX8NvjN/IkfWfDVfeP3zYMTTEhkcrv0uM1D
+ NW5P5F9dXe1RstcqKcPwa52jO+v28uugG/feK3WMmgHUPf/sX/P3JrQZsO0Lx5LvAGn0
+ BiU5bHdamfCRGLhSpKMKp12pkfHxGuFN+ypdkCAJtXNccFw10WpHfBHF931P+x6IJdEZ
+ wv9bf8JiLiwmK6+qE/2BElw+On+VWp0JSWPFFEfrTfVDWyISa2mW6TenwidZLK+qn3vZ
+ OEF7RJCWWY9Dj4xSzH2fhWqfdBPZVi6qCiNJLpusUmjKe0KFv2C34Gf6vIg0BakxXljk
+ KMXA==
+X-Gm-Message-State: AOAM531rEWQhIDAMzlXSYBJFr3Yq5SJYKoaDr3uU5XFe+newnQrTdXJN
+ rxAPsftlchQ6HvN4O/QfXz4uf9YG/pBKEvrCGPQ=
+X-Google-Smtp-Source: ABdhPJxMIvTQA11CZ2AiXt7TtQTnJBNSoAaXV+VAZQ4YGkON/JIi45sEq/1i4BR871lm6N50qVjEtGN9q8EZB893/WU=
+X-Received: by 2002:a17:906:7947:b0:6da:892f:2503 with SMTP id
+ l7-20020a170906794700b006da892f2503mr8161523ejo.710.1649252387873; Wed, 06
+ Apr 2022 06:39:47 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220405213800.90205-1-h0tc0d3@gmail.com>
-In-Reply-To: <20220405213800.90205-1-h0tc0d3@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 6 Apr 2022 09:19:49 -0400
-Message-ID: <CADnq5_PXDyOXX2p4FswWWyY6sw8nXmajhUzx-=ke+6jiZn3ZPA@mail.gmail.com>
+ <CADnq5_PXDyOXX2p4FswWWyY6sw8nXmajhUzx-=ke+6jiZn3ZPA@mail.gmail.com>
+In-Reply-To: <CADnq5_PXDyOXX2p4FswWWyY6sw8nXmajhUzx-=ke+6jiZn3ZPA@mail.gmail.com>
+From: =?UTF-8?B?0JPRgNC40LPQvtGA0LjQuQ==?= <h0tc0d3@gmail.com>
+Date: Wed, 6 Apr 2022 16:39:46 +0300
+Message-ID: <CAD5ugGDAKGtKLavhqSDObbGRu1WSyE04eQRhUv4Dk7dC+PrK6w@mail.gmail.com>
 Subject: Re: [PATCH] drm/amdgpu: Unnecessary code in gfx_v7_0.c
-To: Grigory Vasilyev <h0tc0d3@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 06 Apr 2022 13:45:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,50 +78,67 @@ Cc: Bhaskar Chowdhury <unixbhaskar@gmail.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 6, 2022 at 4:00 AM Grigory Vasilyev <h0tc0d3@gmail.com> wrote:
->
-> The code is useless and doesn't change the value.
->
-> (0 << GB_ADDR_CONFIG__ROW_SIZE__SHIFT) = 0
-> gb_addr_config | 0 = gb_addr_config
->
-> Perhaps there could be 1 instead of 0, but this does not correspond with
-> the logic of the switch.
+Alex Deucher, Thanks, that's what I thought too. But this code is
+uninformative, and without it is clear what this code is doing. If you
+need to provide additional information on how the code works, then for
+me it's better to leave a comment.
+This is actually more like a bug than an explanation of what the code is do=
+ing.
 
-It doesn't do anything, but it helps the developer to understand how
-the driver state maps to hardware state.
-
-Alex
-
+=D1=81=D1=80, 6 =D0=B0=D0=BF=D1=80. 2022 =D0=B3. =D0=B2 16:20, Alex Deucher=
+ <alexdeucher@gmail.com>:
 >
-> Signed-off-by: Grigory Vasilyev <h0tc0d3@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
+> On Wed, Apr 6, 2022 at 4:00 AM Grigory Vasilyev <h0tc0d3@gmail.com> wrote=
+:
+> >
+> > The code is useless and doesn't change the value.
+> >
+> > (0 << GB_ADDR_CONFIG__ROW_SIZE__SHIFT) =3D 0
+> > gb_addr_config | 0 =3D gb_addr_config
+> >
+> > Perhaps there could be 1 instead of 0, but this does not correspond wit=
+h
+> > the logic of the switch.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> index 1cb5db17d2b9..5ed84a6467ee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -4409,16 +4409,14 @@ static void gfx_v7_0_gpu_early_init(struct amdgpu_device *adev)
->         /* fix up row size */
->         gb_addr_config &= ~GB_ADDR_CONFIG__ROW_SIZE_MASK;
->         switch (adev->gfx.config.mem_row_size_in_kb) {
-> -       case 1:
-> -       default:
-> -               gb_addr_config |= (0 << GB_ADDR_CONFIG__ROW_SIZE__SHIFT);
-> -               break;
->         case 2:
->                 gb_addr_config |= (1 << GB_ADDR_CONFIG__ROW_SIZE__SHIFT);
->                 break;
->         case 4:
->                 gb_addr_config |= (2 << GB_ADDR_CONFIG__ROW_SIZE__SHIFT);
->                 break;
-> +       default:
-> +               break;
->         }
->         adev->gfx.config.gb_addr_config = gb_addr_config;
->  }
-> --
-> 2.35.1
+> It doesn't do anything, but it helps the developer to understand how
+> the driver state maps to hardware state.
 >
+> Alex
+>
+> >
+> > Signed-off-by: Grigory Vasilyev <h0tc0d3@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 6 ++----
+> >  1 file changed, 2 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v7_0.c
+> > index 1cb5db17d2b9..5ed84a6467ee 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> > @@ -4409,16 +4409,14 @@ static void gfx_v7_0_gpu_early_init(struct amdg=
+pu_device *adev)
+> >         /* fix up row size */
+> >         gb_addr_config &=3D ~GB_ADDR_CONFIG__ROW_SIZE_MASK;
+> >         switch (adev->gfx.config.mem_row_size_in_kb) {
+> > -       case 1:
+> > -       default:
+> > -               gb_addr_config |=3D (0 << GB_ADDR_CONFIG__ROW_SIZE__SHI=
+FT);
+> > -               break;
+> >         case 2:
+> >                 gb_addr_config |=3D (1 << GB_ADDR_CONFIG__ROW_SIZE__SHI=
+FT);
+> >                 break;
+> >         case 4:
+> >                 gb_addr_config |=3D (2 << GB_ADDR_CONFIG__ROW_SIZE__SHI=
+FT);
+> >                 break;
+> > +       default:
+> > +               break;
+> >         }
+> >         adev->gfx.config.gb_addr_config =3D gb_addr_config;
+> >  }
+> > --
+> > 2.35.1
+> >
