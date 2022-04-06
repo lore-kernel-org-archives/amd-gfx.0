@@ -4,39 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A475C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 02:57:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BF6EC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 03:24:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94FEE10E6D2;
-	Thu,  7 Apr 2022 02:57:08 +0000 (UTC)
-Received: from letterbox.kde.org (letterbox.kde.org
- [IPv6:2001:41c9:1:41e::242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A53910E6D2;
- Thu,  7 Apr 2022 02:57:07 +0000 (UTC)
-Received: from vertex.vmware.com (pool-108-36-85-85.phlapa.fios.verizon.net
- [108.36.85.85]) (Authenticated sender: zack)
- by letterbox.kde.org (Postfix) with ESMTPSA id 1BD8B28A5AD;
- Thu,  7 Apr 2022 03:57:05 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
- t=1649300226; bh=MJyVD/iMfXRk6vVc3NufqUnHwHBXkEJZwGtyTUoYVaY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZfR8C/YBoyGabkpMln+bS2FtST2+FV9NVl9i8bg0cMp3Dc+UPdVW+5ya4llddewET
- f5Ho/zTfCUhwW34dZq7wwGyTcSBWTDRnhORRRzTZ+tJgUW08NgZ3bGSvQr8PxocBYC
- ADdpR4hQ+Skt4oVaiBlbSL2wW1MNa5bX6Ze/p2PqdNWFR5DsJXzCJCld8XIP9myczb
- AIU/3Unfp3p7oQQQwnT230oGAtKUFqjn4NZaQzh7ZK/uDDjmKc5Yfj+lfjI6Al8laM
- KRE+/Su+gz0MPV8Hx5sMbhbJieBWxLWjbq1tmiBDeoFJ3jYjZ+hJCRe7bkdbu3QXj+
- tDVG3aspZ7xnQ==
-From: Zack Rusin <zack@kde.org>
-To: dri-devel@lists.freedesktop.org
-Subject: [PATCH 5/5] drm/radeon: Use TTM builtin resource manager debugfs code
-Date: Wed,  6 Apr 2022 22:56:51 -0400
-Message-Id: <20220407025652.146426-6-zack@kde.org>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220407025652.146426-1-zack@kde.org>
-References: <20220407025652.146426-1-zack@kde.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7AA910EDCE;
+	Thu,  7 Apr 2022 03:24:07 +0000 (UTC)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 682B210E03B;
+ Wed,  6 Apr 2022 16:50:53 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id b21so5132325lfb.5;
+ Wed, 06 Apr 2022 09:50:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=7mcxCMUsY68b1C+y1FYJV5SZRpo8yl4CCyl7R2mFnT0=;
+ b=LCXDwOcQDeA5enlC7K6Ie77FKlqGpjFTFPq/iH0xIFNgegH0lHp95s3B+k5PMn1p/5
+ D75OJnHRVlBjkfYEjU5hiEStLBBWmsnq+vlJV/wJ2DaovZetBIyCfgo4YUqsa1CvJ7w3
+ kdQUr8kMDa2qI7EbHIxcPRqt68eA7k4Bl0zlKcog6azWtr9r4fpfXH7fE+9Ph459D6ve
+ cdOgD8Zjzi8jethjodBKELXCjaKfot89VjplCw28l6k9HK2APqZ5735RRtYm9Sw8nTU7
+ WLTvHCCfFpSeVql5Oi6KjsyyTTfgSySWDDbIcOH1l82MVLXbZWQ9vbpt8O5H6prPfYm/
+ AL1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=7mcxCMUsY68b1C+y1FYJV5SZRpo8yl4CCyl7R2mFnT0=;
+ b=OKYa8Pup8pVcCkMGWoXIRjM/CKiUOtqODgGotPSp7Dw36aFL0UjtQc4rq+utIOGxer
+ GO414hnsZBNKBr/sspNo49HWU5ivgC7wzS7joTh9gMatLBbztz8+dDaBShyxaqzE4+Fh
+ tdWTtET307+QwbAvkwO1xvcvXSnepvzuICbYXJ+f9YLkbgFPqMrLddnwmriN9CM7k4u7
+ CG0oWHONjJcBngelVzWqrQQguuQFSIOhFu7sdjq13aQpWPl2mNOrvw/pUG1lf9wTdjE+
+ AUWidkpSAHYK1TiXnhYQbclC3KokXhPcphBH/ij9mM55I2MTJOPcFrYcxw+wewJcJiAE
+ BxYQ==
+X-Gm-Message-State: AOAM531k6ky2zrl02ognbe1mARg9CaOgqCBs0b4zX7Obnhe6qsmwMyW8
+ RXRrtRoo6I5IV65pIY8WUlo=
+X-Google-Smtp-Source: ABdhPJzPCpdf6bHUll904yF8Otv10ELarDhb1BAS3riXpkas1kvTZGd3KYrfieHGJ3plUkcvkm/2ZQ==
+X-Received: by 2002:a05:6512:108f:b0:44a:4317:a066 with SMTP id
+ j15-20020a056512108f00b0044a4317a066mr6614576lfg.236.1649263851576; 
+ Wed, 06 Apr 2022 09:50:51 -0700 (PDT)
+Received: from noname.. ([2a02:2698:8c2a:226e:6d9:f5ff:fecb:a8ab])
+ by smtp.googlemail.com with ESMTPSA id
+ k9-20020a056512330900b0044a1be3bdbbsm1877872lfe.196.2022.04.06.09.50.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Apr 2022 09:50:51 -0700 (PDT)
+From: Grigory Vasilyev <h0tc0d3@gmail.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Melissa Wen <mwen@igalia.com>
+Subject: [PATCH] drm/amdgpu: Fix code with incorrect enum type
+Date: Wed,  6 Apr 2022 19:50:56 +0300
+Message-Id: <20220406165057.97492-1-h0tc0d3@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 07 Apr 2022 03:24:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,100 +67,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zack Rusin <zackr@vmware.com>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- amd-gfx@lists.freedesktop.org, krastevm@vmware.com,
- Huang Rui <ray.huang@amd.com>, Zack Rusin <zackr@vmware.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, mombasawalam@vmware.com
+Cc: Joseph Greathouse <Joseph.Greathouse@amd.com>,
+ Guchun Chen <guchun.chen@amd.com>, Grigory Vasilyev <h0tc0d3@gmail.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Zack Rusin <zackr@vmware.com>
+Instead of the 'amdgpu_ring_priority_level' type,
+the 'amdgpu_gfx_pipe_priority' type was used,
+which is an error when setting ring priority.
+This is a minor error, but may cause problems in the future.
 
-Switch to using the TTM resource manager debugfs helpers. The
-functionality is largely the same, except that the entries live under
-/sys/kernel/debug/ttm/ and their lifetimes are managed by TTM.
+Instead of AMDGPU_RING_PRIO_2 = 2, we can use AMDGPU_RING_PRIO_MAX = 3,
+but AMDGPU_RING_PRIO_2 = 2 is used for compatibility with
+AMDGPU_GFX_PIPE_PRIO_HIGH = 2, and not change the behavior of the
+code.
 
-Signed-off-by: Zack Rusin <zackr@vmware.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Grigory Vasilyev <h0tc0d3@gmail.com>
 ---
- drivers/gpu/drm/radeon/radeon_ttm.c | 37 ++++++-----------------------
- 1 file changed, 7 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
-index 44594d16611f..dc6250d5a9cf 100644
---- a/drivers/gpu/drm/radeon/radeon_ttm.c
-+++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-@@ -781,17 +781,6 @@ void radeon_ttm_set_active_vram_size(struct radeon_device *rdev, u64 size)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 5554084ec1f1..9bc26395f833 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -1929,7 +1929,7 @@ static int gfx_v8_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
+ 		+ ring->pipe;
  
- #if defined(CONFIG_DEBUG_FS)
- 
--static int radeon_mm_vram_dump_table_show(struct seq_file *m, void *unused)
--{
--	struct radeon_device *rdev = (struct radeon_device *)m->private;
--	struct ttm_resource_manager *man = ttm_manager_type(&rdev->mman.bdev,
--							    TTM_PL_VRAM);
--	struct drm_printer p = drm_seq_file_printer(m);
--
--	ttm_resource_manager_debug(man, &p);
--	return 0;
--}
--
- static int radeon_ttm_page_pool_show(struct seq_file *m, void *data)
- {
- 	struct radeon_device *rdev = (struct radeon_device *)m->private;
-@@ -799,19 +788,6 @@ static int radeon_ttm_page_pool_show(struct seq_file *m, void *data)
- 	return ttm_pool_debugfs(&rdev->mman.bdev.pool, m);
- }
- 
--static int radeon_mm_gtt_dump_table_show(struct seq_file *m, void *unused)
--{
--	struct radeon_device *rdev = (struct radeon_device *)m->private;
--	struct ttm_resource_manager *man = ttm_manager_type(&rdev->mman.bdev,
--							    TTM_PL_TT);
--	struct drm_printer p = drm_seq_file_printer(m);
--
--	ttm_resource_manager_debug(man, &p);
--	return 0;
--}
--
--DEFINE_SHOW_ATTRIBUTE(radeon_mm_vram_dump_table);
--DEFINE_SHOW_ATTRIBUTE(radeon_mm_gtt_dump_table);
- DEFINE_SHOW_ATTRIBUTE(radeon_ttm_page_pool);
- 
- static int radeon_ttm_vram_open(struct inode *inode, struct file *filep)
-@@ -927,18 +903,19 @@ static void radeon_ttm_debugfs_init(struct radeon_device *rdev)
- #if defined(CONFIG_DEBUG_FS)
- 	struct drm_minor *minor = rdev->ddev->primary;
- 	struct dentry *root = minor->debugfs_root;
-+	const char * const ttm_placement_names[] = {
-+		[TTM_PL_TT] = "radeon_gtt_mm",
-+		[TTM_PL_VRAM] = "radeon_vram_mm"
-+	};
- 
- 	debugfs_create_file("radeon_vram", 0444, root, rdev,
- 			    &radeon_ttm_vram_fops);
--
- 	debugfs_create_file("radeon_gtt", 0444, root, rdev,
- 			    &radeon_ttm_gtt_fops);
--
--	debugfs_create_file("radeon_vram_mm", 0444, root, rdev,
--			    &radeon_mm_vram_dump_table_fops);
--	debugfs_create_file("radeon_gtt_mm", 0444, root, rdev,
--			    &radeon_mm_gtt_dump_table_fops);
- 	debugfs_create_file("ttm_page_pool", 0444, root, rdev,
- 			    &radeon_ttm_page_pool_fops);
-+	ttm_resource_manager_debugfs_init(&rdev->mman.bdev,
-+					  ttm_placement_names,
-+					  ARRAY_SIZE(ttm_placement_names));
- #endif
- }
+ 	hw_prio = amdgpu_gfx_is_high_priority_compute_queue(adev, ring) ?
+-			AMDGPU_GFX_PIPE_PRIO_HIGH : AMDGPU_RING_PRIO_DEFAULT;
++			AMDGPU_RING_PRIO_2 : AMDGPU_RING_PRIO_DEFAULT;
+ 	/* type-2 packets are deprecated on MEC, use type-3 instead */
+ 	r = amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq, irq_type,
+ 			     hw_prio, NULL);
 -- 
-2.32.0
+2.35.1
 
