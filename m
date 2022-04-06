@@ -4,55 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DA34C433FE
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Apr 2022 08:13:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3FC5C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Apr 2022 08:13:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F016D10F28E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7F5210F28D;
 	Wed,  6 Apr 2022 08:13:10 +0000 (UTC)
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 774B710EC96;
- Tue,  5 Apr 2022 21:38:04 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id e16so690833lfc.13;
- Tue, 05 Apr 2022 14:38:04 -0700 (PDT)
+Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
+ [IPv6:2607:f8b0:4864:20::832])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A65310F311;
+ Wed,  6 Apr 2022 07:29:12 +0000 (UTC)
+Received: by mail-qt1-x832.google.com with SMTP id s11so3035047qtc.3;
+ Wed, 06 Apr 2022 00:29:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=bxKqK2XNY4gRVlPJC2xJqtnMP47aAtqK7bCRdORZQrc=;
- b=pPMhHD+MAeCOHNTEHA/NpfXCwZpLhzs4orOzrp/sfSfjhe/NVw9jqmSdaz70eZjqcR
- 5o+2PV5F7QxxcmHTa8f6dNstumF3Bgv/gf8pWeNhL92TVdFP5PDHzDOoRJk5nLuBT0nS
- Jd1XoFDylIGl8besXC0b/wp9t8DBqdw1LRLz1HySjABgaPBfJls6Zszkyb83sFtIXLBl
- x7DLWhNpP05EDwn4zDvh3/5kTeSgrs/vR5QgrL0lKRUw9/WB6jSazvA40N5k1wEL+bJi
- 2+PfQeE4zNpnRiCg30HJ7RKvxj6OZihDtemYYzyAROjixwHBVKJbKZ0wixHYaNKh9va7
- t1gg==
+ bh=VE08dsgukeGG5IChIzOIKz1Sx9tWGQgZeReJDKhgy2Y=;
+ b=FUuVzC2mh2PVAGCMRzU0asrMqYuRHc8mtDR5m5TiIlCPxpg/IWOWW0Zdfm3/eLqi2R
+ 2p7j5BO1/HkIb7o4D2nSTOo/Pr9CaSHq4DN7QdoDCAb02JfVSPV1dPTdYrwSHgoSW659
+ KKSXTOllrtnDh55cJMQot97phLbbifmvR1+xfuSGrduOtaBhdWJm1wO4jaUSrTSwq90S
+ 8KyvuqNUQUwpfhQY7SouUIWg2PIQIKrGfRBUeX16AGAPJBgExu4TQlsIaqia1hf60TkR
+ 5MKJZGi9MfiM6PwShYFhEnUYjvPvRGZ5KQ8lpxtXCUGjfEXvLyF/VGfKo2tz0n/DVCKL
+ uBUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=bxKqK2XNY4gRVlPJC2xJqtnMP47aAtqK7bCRdORZQrc=;
- b=Ab24FmdqHZ21blDO7qvLYPcMbIgNe0usNQ7oVr0Dem1oyZrojli6KwcfLUnQJv0VIF
- 0he1xe6vfpF8L5q7TNSP7vobrhDCM0Fglh7LZ1FR0YJuhfLxURQgn9WSUYTprju6z/76
- FXqWQXEpy1Ex6FrHPlt39ap/99267BAw7r5TYdeqxvdJJbjLeOvPnpC0JXefQ6vkreIS
- 9WZ5tE0SJbPyRnYxLfVomtVBrO//xqij5rvNuSPpPrwiLhf75WrkAr33L6bZUW2SesuY
- wlSeHk1ji+iDgxXot/bauEIGchE6EGiDPTuUSGVnNpbq40DmBHU2iVMWjQ2r3UmJot/4
- 53TA==
-X-Gm-Message-State: AOAM5328E28PAC71RfZwGNNp9NAUDsSBpG2WZjNiwqOnF9XXUj2I5hqQ
- DC4JEnB0l0Y5OG3R+1FkCCI=
-X-Google-Smtp-Source: ABdhPJzRzL5AGzm3x9i2e6gg3GsjIDzn3cmvURvQmjY6sxRLiGWhAVY1LXX59+ePvChm1x9/n+eryg==
-X-Received: by 2002:a05:6512:3d8e:b0:44a:3ad1:8bae with SMTP id
- k14-20020a0565123d8e00b0044a3ad18baemr3806975lfv.231.1649194682658; 
- Tue, 05 Apr 2022 14:38:02 -0700 (PDT)
-Received: from noname.. ([2a02:2698:8c2a:226e:6d9:f5ff:fecb:a8ab])
- by smtp.googlemail.com with ESMTPSA id
- v17-20020a2e7a11000000b0024b127cfc2bsm1033175ljc.127.2022.04.05.14.38.01
+ bh=VE08dsgukeGG5IChIzOIKz1Sx9tWGQgZeReJDKhgy2Y=;
+ b=E8xY/XjYOithYs5l6n+0CuVuOApQ6Sp1vOemG+ooO+BWsiKPy04bUsYomG5j0ZnuzC
+ gnIFujAsbYaQMLmRH4PhXZtJSc2dLKTFMoWjaPg6Y5mXMdWH5qyxanaIlnYb7iIxmFPt
+ Kvor0M2ECN5xDeO6Y1t0tsODM3vQKgbNPlMw1XbgiqGlSltac2ueJkKV6ne20U1JOu2d
+ 2iL3rRxW3Ye+BhMzl5GFYl/H8gtDpxD8S4m9mS+wp9bpbNoVXX4kPmoE63HA4Sjx1ulE
+ aV08wf34OUJOY2RN5ZI52bXOPRPwkf3Vd5wmwmVPzEqIaWBQEnmyqt6pBpgxo3nswPRh
+ kWgQ==
+X-Gm-Message-State: AOAM530Yf/3KF9ekUtyUvyqRPyQRhYP721iO2Ngm6J2P9mzaj/ecFZZE
+ rm/Nhwpequ2uth76jSUuPGY=
+X-Google-Smtp-Source: ABdhPJwigMtxTwtlbYYuXX75zJfRY1b7cxmWJvS5iiYcfK8nJ29v69OEJU8x+gG+EYqd39myJHe+pg==
+X-Received: by 2002:ac8:5f07:0:b0:2e1:d695:d857 with SMTP id
+ x7-20020ac85f07000000b002e1d695d857mr6317759qta.40.1649230151230; 
+ Wed, 06 Apr 2022 00:29:11 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ d124-20020ae9ef82000000b00699a8b42aa8sm7949525qkg.16.2022.04.06.00.29.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Apr 2022 14:38:02 -0700 (PDT)
-From: Grigory Vasilyev <h0tc0d3@gmail.com>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Melissa Wen <mwen@igalia.com>
-Subject: [PATCH] drm/amdgpu: Unnecessary code in gfx_v7_0.c
-Date: Wed,  6 Apr 2022 00:37:59 +0300
-Message-Id: <20220405213800.90205-1-h0tc0d3@gmail.com>
-X-Mailer: git-send-email 2.35.1
+ Wed, 06 Apr 2022 00:29:10 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: lv.ruyi@zte.com.cn
+To: harry.wentland@amd.com,
+	sunpeng.li@amd.com
+Subject: [PATCH] drm/amd/dc:: remove duplicate include
+Date: Wed,  6 Apr 2022 07:28:40 +0000
+Message-Id: <20220406072840.2488056-1-lv.ruyi@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 06 Apr 2022 08:13:08 +0000
@@ -67,54 +69,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bhaskar Chowdhury <unixbhaskar@gmail.com>,
- Joseph Greathouse <Joseph.Greathouse@amd.com>,
- Guchun Chen <guchun.chen@amd.com>, Grigory Vasilyev <h0tc0d3@gmail.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- Lee Jones <lee.jones@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, Angus.Wang@amd.com, hvanzyll@amd.com,
+ airlied@linux.ie, qingqing.zhuo@amd.com, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Zeal Robot <zealci@zte.com.cn>,
+ Bing.Guo@amd.com, lv.ruyi@zte.com.cn, alvin.lee2@amd.com, daniel@ffwll.ch,
+ alexander.deucher@amd.com, Jun.Lei@amd.com, Anthony.Koo@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The code is useless and doesn't change the value.
+From: Lv Ruyi <lv.ruyi@zte.com.cn>
 
-(0 << GB_ADDR_CONFIG__ROW_SIZE__SHIFT) = 0
-gb_addr_config | 0 = gb_addr_config
+'dm_services.h' included in 'freesync,c' is duplicated, so remove one.
 
-Perhaps there could be 1 instead of 0, but this does not correspond with
-the logic of the switch.
-
-Signed-off-by: Grigory Vasilyev <h0tc0d3@gmail.com>
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 1cb5db17d2b9..5ed84a6467ee 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -4409,16 +4409,14 @@ static void gfx_v7_0_gpu_early_init(struct amdgpu_device *adev)
- 	/* fix up row size */
- 	gb_addr_config &= ~GB_ADDR_CONFIG__ROW_SIZE_MASK;
- 	switch (adev->gfx.config.mem_row_size_in_kb) {
--	case 1:
--	default:
--		gb_addr_config |= (0 << GB_ADDR_CONFIG__ROW_SIZE__SHIFT);
--		break;
- 	case 2:
- 		gb_addr_config |= (1 << GB_ADDR_CONFIG__ROW_SIZE__SHIFT);
- 		break;
- 	case 4:
- 		gb_addr_config |= (2 << GB_ADDR_CONFIG__ROW_SIZE__SHIFT);
- 		break;
-+	default:
-+		break;
- 	}
- 	adev->gfx.config.gb_addr_config = gb_addr_config;
- }
+diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+index d72566c6928a..0130f1879116 100644
+--- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
++++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+@@ -29,7 +29,6 @@
+ #include "dc.h"
+ #include "mod_freesync.h"
+ #include "core_types.h"
+-#include "dm_services.h"
+ 
+ #define MOD_FREESYNC_MAX_CONCURRENT_STREAMS  32
+ 
 -- 
-2.35.1
+2.25.1
 
