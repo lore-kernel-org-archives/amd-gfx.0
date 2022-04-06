@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8457C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Apr 2022 13:45:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8200BC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Apr 2022 13:48:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD1F10E139;
-	Wed,  6 Apr 2022 13:45:39 +0000 (UTC)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CBB910E122;
- Wed,  6 Apr 2022 13:41:37 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id r13so4365607ejd.5;
- Wed, 06 Apr 2022 06:41:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEF4A89EA6;
+	Wed,  6 Apr 2022 13:48:35 +0000 (UTC)
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF4CF89EA6;
+ Wed,  6 Apr 2022 13:48:34 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-e2442907a1so2562692fac.8; 
+ Wed, 06 Apr 2022 06:48:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=0IeTkY1yhaJPK6VDqHKztL6/sdrLKeK5VaUPik01uco=;
- b=WbP9ySUZSPgHLrHFRxIUWqAkKlwtz3/lphdxBTdMOVQuUT5+HfJKYrAg4eUTEsXZkz
- 8e8KhdnBO1xUEtEoMVUbtRmhxsR8BiyPPc5TfM+9lfBW5O/VYyOW+YLyas51CMQO09SJ
- sZRGZOroZ5LEsaydgXPFKgZgbG1xzpflqC0GHSWYpUCcjg8C4j+ZieSFKHPLTUOmbrOS
- FoxY0v0cP6iQBZ+ms6c4zzRlAar3PgroXfqXIn9AfuiaBKa3RqrlilCrfE7ZwizUQ6Gj
- m53Hcr11tJjGhloLapsO3Q2jt656PpXU7Rt7ClPkwJ/n3+3r+zLKxwgtFNDXTmcfVLZU
- ZYlw==
+ :cc; bh=tff9KGQ+bsLXvvlGrFFOOruQ3oJjYqZr9JmnrxOjJ4Y=;
+ b=Pz3peI03JaAXX+YmbVRrrD8aT8DBREGrmMjGut2CIoQTdDGqXz2WhW0vUrpoZXBRka
+ H51aAXXnoCs6NqrBiAhWA2vseU18kw481zZpIFakuYP8CMlJsr/5Bo6yNfOozVJ6euRy
+ u34G5xeCSik5Iawv8qzhX4Wzl7B0pJERh5J1eITcVUYOnZw15yxpyuAU9RELs0mezm0z
+ hsUZCpiCmxtOC1v8elYqKefgAHkSABqLHPUpHqxfp3eSXhCbBsJ1NF9i2Smq+pNq41/C
+ Drm3AQKIfCGLkHGxHgliJ/oPBCT8qYwhgxYo7qr3mm2M3EJfboJaSZe2lbfVM1b9hKfh
+ t52Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=0IeTkY1yhaJPK6VDqHKztL6/sdrLKeK5VaUPik01uco=;
- b=Y+q2oC4XXksaGcuJ7ayRlfTtleJXJijWGdbF008BJZMb15/UNgW6Y/Lru1Qvf2Ui8P
- n6iDmeS13HkUuoGuBWB80MkwXfpUsCxFga1uBqewt5nzng37gjggpTooOEq7jI5tEQ9s
- 79ydUrzrkhd5bsp0TA7FGuzLgvhepjmQ4Xy2F+k/pR/R/0RYW5GCvU/gkISUbzNNPbo8
- PinIf10n2/SbaXhXyDLF04KP4XRxDrSA1IIxsQHzxg5XMchGM77ngmi1s2oWArVQMv1s
- 3k/eqCRstChdEROs9Smg9bHEGKIXe8+e6aNT1oF2SuSxigiBXFPb8n4TmB5G9/2gCXFO
- 8J1A==
-X-Gm-Message-State: AOAM531mJR0YBxIGtGKQfVxi2qucx52bcdHLlRSr9IQYCPMdkpASbTMY
- aUpw0ymTCnrNFYS7hxAnZXIwaNHv3FD8fZz1nDU=
-X-Google-Smtp-Source: ABdhPJxZ9dElneUwA1wzU6Q0bcRp/j+jGbBrxLosQpe0RT2zY1YIsaK+d6cZ5N6w4jJF97TCJJ6VotA+kDLMYk0zyDo=
-X-Received: by 2002:a17:907:980b:b0:6e0:71d9:c87e with SMTP id
- ji11-20020a170907980b00b006e071d9c87emr8142309ejc.510.1649252495645; Wed, 06
- Apr 2022 06:41:35 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=tff9KGQ+bsLXvvlGrFFOOruQ3oJjYqZr9JmnrxOjJ4Y=;
+ b=lEw0w2s5CpLave2on0qY+vCaP5EdA36EwWKhv04OLEOWRqAx6TAwh24m1pPuxPSqcK
+ A24nmysTlnrhUGdweqr5pE3R81IELdcRk3/etx2lBoMTqkF3VtmlMfdQCjdWF2L78dOw
+ Q0V7on3Ymf/mlY7jB5A3KRwfNm7aWxH7slcf9oNQmB401uKeQcvD62rnSl9p63X1IkPV
+ /Y/c8mRQqdPmtTTknOOEz1cPzTRoK+6JKhQPVe312Xr0z6lnAm1EGkw8cft/t0ZnlcQ/
+ 0O6l2z5us21no0mGKGY3OtE9QCFpBLLXijexAud5MvIw/6Q7D1EsUJ9OQ5Y04ppMSw3Y
+ fEKg==
+X-Gm-Message-State: AOAM533o2vak6w9xk0KkfwpThUmNOeoMEclV3dzWYBX6vyEidEKqsF4S
+ CaH4/g2o/D6mTlWStPEyULh5VDQuA50QJE+2iBQ=
+X-Google-Smtp-Source: ABdhPJwBF5ZUL/edR5iad6IQUajo1OlMxWFZiax+WO1MJDzlgdbsH4OO5bN2bmOs9l8HaQAZW75Cg/RP1hV91K7Lkio=
+X-Received: by 2002:a05:6870:311d:b0:de:9b6c:362b with SMTP id
+ v29-20020a056870311d00b000de9b6c362bmr3687787oaa.200.1649252913998; Wed, 06
+ Apr 2022 06:48:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220404222132.12740-1-h0tc0d3@gmail.com>
- <c55e9866-83f6-a3a0-2ad3-40090e978b40@amd.com>
-In-Reply-To: <c55e9866-83f6-a3a0-2ad3-40090e978b40@amd.com>
-From: =?UTF-8?B?0JPRgNC40LPQvtGA0LjQuQ==?= <h0tc0d3@gmail.com>
-Date: Wed, 6 Apr 2022 16:41:34 +0300
-Message-ID: <CAD5ugGDL7U1TiOW3P=ecwVhF95XgdibtoYGV8GzbAskuB5UWCA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: Fix potential NULL pointer dereference
-To: Felix Kuehling <felix.kuehling@amd.com>
+References: <20220406072840.2488056-1-lv.ruyi@zte.com.cn>
+In-Reply-To: <20220406072840.2488056-1-lv.ruyi@zte.com.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 6 Apr 2022 09:48:22 -0400
+Message-ID: <CADnq5_N1MyBy5C+3-e7pxXewX_hpXCZtavemO_xv-a+ZxCGN4A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/dc:: remove duplicate include
+To: CGEL <cgel.zte@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 06 Apr 2022 13:45:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,81 +62,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+Cc: lv.ruyi@zte.com.cn, hvanzyll@amd.com,
+ "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, Anthony Koo <Anthony.Koo@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, xinhui pan <Xinhui.Pan@amd.com>,
+ "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
  LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Melissa Wen <mwen@igalia.com>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ Christian Koenig <christian.koenig@amd.com>, Dave Airlie <airlied@linux.ie>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Wang,
+ Angus" <Angus.Wang@amd.com>, "Guo, Bing" <Bing.Guo@amd.com>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>, "Wentland,
+ Harry" <harry.wentland@amd.com>, Zeal Robot <zealci@zte.com.cn>,
+ Alvin Lee <alvin.lee2@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks. You are right. I found a potential bug, and as I understand
-it, the code only applies to the Aldebaran GPU and I can not check the
-correctness of the code. I only test code on my navi 10 and run GPU
-stress tests.
-My knowledge of amdgpu is limited, and fixing potential bugs allows me
-to learn more about amdgpu code. But there are many that I still don't
-understand. In any case, we need to fix the code to eliminate
-problems in the future.
+Applied.  Thanks!
 
-Regards, Grigory.
+Alex
 
-=D0=B2=D1=82, 5 =D0=B0=D0=BF=D1=80. 2022 =D0=B3. =D0=B2 20:00, Felix Kuehli=
-ng <felix.kuehling@amd.com>:
+On Wed, Apr 6, 2022 at 3:29 AM <cgel.zte@gmail.com> wrote:
 >
-> Am 2022-04-04 um 18:21 schrieb Grigory Vasilyev:
-> > In the amdgpu_amdkfd_get_xgmi_bandwidth_mbytes function,
-> > the peer_adev pointer can be NULL and is passed to amdgpu_xgmi_get_num_=
-links.
-> >
-> > In amdgpu_xgmi_get_num_links, peer_adev pointer is dereferenced
-> > without any checks: peer_adev->gmc.xgmi.node_id .
+> From: Lv Ruyi <lv.ruyi@zte.com.cn>
 >
-> What's worse, peer_adev is uninitialized with an undefined value if src
-> is NULL. So that code was definitely bogus.
+> 'dm_services.h' included in 'freesync,c' is duplicated, so remove one.
 >
-> However, I think your patch will result in incorrect results. Currently
-> amdgpu_amdkfd_get_xgmi_bandwidth is always called with is_min=3Dtrue if
-> src=3D=3DNULL, and with is_min=3Dfalse if src!=3DNULL. The intention is, =
-that we
-> assume a single XGMI link in the case that src=3D=3DNULL. That means the
-> is_min parameter is redundant. What we should do instead is, assume that
-> num_links=3D=3D1 if src=3D=3DNULL, and drop the is_min parameter.
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
+> ---
+>  drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 1 -
+>  1 file changed, 1 deletion(-)
 >
-> That would keep things working the way they do now, and prevent
-> potential problems in the future.
+> diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+> index d72566c6928a..0130f1879116 100644
+> --- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+> +++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+> @@ -29,7 +29,6 @@
+>  #include "dc.h"
+>  #include "mod_freesync.h"
+>  #include "core_types.h"
+> -#include "dm_services.h"
 >
-> Regards,
->    Felix
+>  #define MOD_FREESYNC_MAX_CONCURRENT_STREAMS  32
 >
+> --
+> 2.25.1
 >
-> >
-> > Signed-off-by: Grigory Vasilyev <h0tc0d3@gmail.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 5 ++---
-> >   1 file changed, 2 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_amdkfd.c
-> > index be1a55f8b8c5..1a1006b18016 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> > @@ -541,11 +541,10 @@ int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struc=
-t amdgpu_device *dst,
-> >       struct amdgpu_device *adev =3D dst, *peer_adev;
-> >       int num_links;
-> >
-> > -     if (adev->asic_type !=3D CHIP_ALDEBARAN)
-> > +     if (!src || adev->asic_type !=3D CHIP_ALDEBARAN)
-> >               return 0;
-> >
-> > -     if (src)
-> > -             peer_adev =3D src;
-> > +     peer_adev =3D src;
-> >
-> >       /* num links returns 0 for indirect peers since indirect route is=
- unknown. */
-> >       num_links =3D is_min ? 1 : amdgpu_xgmi_get_num_links(adev, peer_a=
-dev);
