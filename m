@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0A8DC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 16:29:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91CF9C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 16:33:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10F6510EBA6;
-	Thu,  7 Apr 2022 16:29:24 +0000 (UTC)
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on2123.outbound.protection.outlook.com [40.107.255.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AABB10EB74
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Apr 2022 16:28:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B674B10EBAB;
+	Thu,  7 Apr 2022 16:33:13 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2086.outbound.protection.outlook.com [40.107.243.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63B8F10EBAB
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Apr 2022 16:33:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SDly8xQ0I5DNuHhEmvP+y7m93rjVx5VNZ/A94NbcIAwh22STKa1HtcYeaODgrsxkRM1O7Pnx8hp8khjTREUpBZwZWRVM+y8zUvURFTSJO7XreKgBxTdANSUdYS/HRUBcHXKu+Hh/i+SsZNAPBPJgJl1rsw2pNJ48MW0COnOG8qmbwLsaqK1dISKaJpOtJHax6LJ7EYh08FNhw1qfyLJsYh7QPqeSV/O8MKAmPEjb2yaGZrKPlWugTP0vnT29XtuWdp2an1Bm96ECfhpxQ1r4DlQO0Z/PGWLUMoYY+Pn5+Juc0uu/HyZJGKkq8tQ1XZ0uFMw94sgagr+Nf31vk14jOQ==
+ b=j56zxWCZas3L7Lw69EyMh+4TeSbCb+qhGsGqqn5KnvcgK+5OjPeMerZUJE6Vgq2bBPZhDvOeYfDodyidO4+rd8hq8syDSWSqSP6pItVXlMovTnY425+1Xa6Cecnk7krbgKRopYC/AD87TzeRWCoY9oPSyAlPNncIHS1++luRaN94LIOGrlEeimPHm1p1gwm09ccI6NkjapuVVTSotbOBF2nxwQcOx6pUrhwW8LIbljx6T/D/zE0gJwZQnpe1cisfQIS7/1dV/T7NAxZhf6uwk/9N/0IsyZ26nKrZ7dwKhqnLTagrASihnRfC3pofpZeXcgGepzLexFRuWze5jYUzDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xl3zTLZ5hh1SVToXxIQGsbX1xJg4mdqA8D0IumUbRI8=;
- b=iP5aJz5HlFke2c6hyQz5FpSXP5/dmzIrMgaDvVF6pdZIrEcJRVverjQMRrwuXRXIZeaNg6D7zqGQI+dq6wIeuaduioVNwnxq+f5bPoA1b0y0wN31w9kl8jn3S2q0IGvq4Y2RFHCq0upAaPtZudjpp31Nt4yvh8+S2cTVn50r/cV+Xnf4nwr66u8vtJkmmuBNWWy3k90MtqfDmxL9WOVsPkj+WRESjNEZ0WaJ6sOVlk8qkahgBMUCZpH4Mp37K0ZAKd4xN+YQ1UqfPPDkS9O27IbOkFkPmtA1fmYhXS0ivD+KbphkY3siLWw/E6oBqHhx/S6BZa06tIacDnxYt2q6hA==
+ bh=pwKOqnIz2qAnElo3a2b5TZW3FHtsJCGzI8rlVDyxtQ0=;
+ b=QWqiG5Ij0Du2YdqWsTqudeexWELzvFdE2yT+ecr/WPaNuAjVhBDAcCqf7R3XnTbcr+u3JFSBwbIWirZ+jqYUj36k730K+aOHeZPxG/cgAldEVhpWQ30nODWPuQUNxDXwjfyVNIUJMsiyEaNUgrNA65Vidhmtepm/+dAsQblCRxX5DLahDKeVWq9T052DVpxrcVnZfaIKH0BgHP5Xhe+s7RTt687SoP7Hn47kEggc7C42n7f8G5BQ0JEtVSKy0MJxGZDXW1j8oC2NOV8+fo2jF7ddsPSN8BTynpnJolXxRMlZ4rhFFZRnJ7bMSEodxeFBvSpZfQAtAd5mPqPCK/oONQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xl3zTLZ5hh1SVToXxIQGsbX1xJg4mdqA8D0IumUbRI8=;
- b=WAE2LP+mxrpeBYJMVi/o0l0ZRsA6CAzoBzOdXhWDBiqNfgiswY1n3o0uPtNsX3a+U1g7ay4q70QVTmdekchLFrWcAijU4zE0mF3js7nQB/SgvU3saCJlJQsoUo7IoPmvdHusKSZhVYG9jB0cH72vaguxlEVd8C1876s/9/UYvmo=
-Received: from PSAP153MB0517.APCP153.PROD.OUTLOOK.COM (2603:1096:301:67::8) by
- TYZP153MB0413.APCP153.PROD.OUTLOOK.COM (2603:1096:400:2e::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5164.12; Thu, 7 Apr 2022 16:28:23 +0000
-Received: from PSAP153MB0517.APCP153.PROD.OUTLOOK.COM
- ([fe80::c88f:d71a:2b3d:1c32]) by PSAP153MB0517.APCP153.PROD.OUTLOOK.COM
- ([fe80::c88f:d71a:2b3d:1c32%9]) with mapi id 15.20.5164.011; Thu, 7 Apr 2022
- 16:28:23 +0000
-From: Shuotao Xu <shuotaoxu@microsoft.com>
-To: "Joshi, Mukul" <Mukul.Joshi@amd.com>, "Grodzovsky, Andrey"
+ bh=pwKOqnIz2qAnElo3a2b5TZW3FHtsJCGzI8rlVDyxtQ0=;
+ b=23SFyRCTZM5t33squLcYpVzLEgC8tIV7NZ+EXP9BUgqrU5fGE4eS/ECfm5Z8PrVitrCXstIkyyfw6I5vkVRP9nFGPaKe8cdGk+Ov7+9wPA5FXnIAOY7Q2CxAZuUKx7GyzBvtXioznQramRCPN4uew4e0RvDTov6tJX8wyzSn2Mc=
+Received: from DM5PR12MB1786.namprd12.prod.outlook.com (2603:10b6:3:112::14)
+ by BN9PR12MB5276.namprd12.prod.outlook.com (2603:10b6:408:101::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.22; Thu, 7 Apr
+ 2022 16:33:07 +0000
+Received: from DM5PR12MB1786.namprd12.prod.outlook.com
+ ([fe80::c834:f82a:2d77:a83a]) by DM5PR12MB1786.namprd12.prod.outlook.com
+ ([fe80::c834:f82a:2d77:a83a%3]) with mapi id 15.20.5144.022; Thu, 7 Apr 2022
+ 16:33:07 +0000
+From: "Joshi, Mukul" <Mukul.Joshi@amd.com>
+To: Shuotao Xu <shuotaoxu@microsoft.com>, "Grodzovsky, Andrey"
  <Andrey.Grodzovsky@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [EXTERNAL] Re: Code Review Request for AMDGPU Hotplug Support
+Subject: RE: [EXTERNAL] Re: Code Review Request for AMDGPU Hotplug Support
 Thread-Topic: [EXTERNAL] Re: Code Review Request for AMDGPU Hotplug Support
-Thread-Index: AQHYSV+lQh0DehaAkU6mUF/D9OJf/qzi7iYAgAABCGOAAAWHAIAAAhPygACboOCAAPv2GoAAFV4ggAABxCo=
-Date: Thu, 7 Apr 2022 16:28:23 +0000
-Message-ID: <PSAP153MB05173E5FCB36EBC7054695DCB7E69@PSAP153MB0517.APCP153.PROD.OUTLOOK.COM>
+Thread-Index: AQHYSV+lQh0DehaAkU6mUF/D9OJf/qzi7iYAgAABCGOAAAWHAIAAAhPygACboOCAAPv2GoAAFV4ggAABxCqAAAGEIA==
+Date: Thu, 7 Apr 2022 16:33:07 +0000
+Message-ID: <DM5PR12MB178632D54A66F1B7DA7A370FEEE69@DM5PR12MB1786.namprd12.prod.outlook.com>
 References: <PSAP153MB051776C60FFB06BB3278EEB4B7E79@PSAP153MB0517.APCP153.PROD.OUTLOOK.COM>
  <2cdfcdee-bf4d-006a-19c1-c806feb4100d@amd.com>
  <PSAP153MB0517571E0AECDB007D90A8F3B7E79@PSAP153MB0517.APCP153.PROD.OUTLOOK.COM>
@@ -54,85 +53,78 @@ References: <PSAP153MB051776C60FFB06BB3278EEB4B7E79@PSAP153MB0517.APCP153.PROD.O
  <DM5PR12MB1786CA4217F5A00B4CF706AAEEE69@DM5PR12MB1786.namprd12.prod.outlook.com>
  <PSAP153MB0517AFB4B9CF54A17CD5223EB7E69@PSAP153MB0517.APCP153.PROD.OUTLOOK.COM>
  <DM5PR12MB1786800FB516F8E518A4FB6EEEE69@DM5PR12MB1786.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB1786800FB516F8E518A4FB6EEEE69@DM5PR12MB1786.namprd12.prod.outlook.com>
+ <PSAP153MB05173E5FCB36EBC7054695DCB7E69@PSAP153MB0517.APCP153.PROD.OUTLOOK.COM>
+In-Reply-To: <PSAP153MB05173E5FCB36EBC7054695DCB7E69@PSAP153MB0517.APCP153.PROD.OUTLOOK.COM>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-04-07T16:22:12.0000000Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use Only-AIP
- 2.0; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1;
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-04-07T16:33:04Z; 
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=True;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2022-04-07T16:25:41.2013888Z;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=b555541a-ac78-412e-83ad-4331447b0fa4;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
 authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
+ header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: c6adfea4-59b5-4626-b073-08da18b3a2e9
-x-ms-traffictypediagnostic: TYZP153MB0413:EE_
-x-ms-exchange-atpmessageproperties: SA|SL
-x-microsoft-antispam-prvs: <TYZP153MB0413F6D9E771B5ADA17A043DB7E69@TYZP153MB0413.APCP153.PROD.OUTLOOK.COM>
+x-ms-office365-filtering-correlation-id: fa9958b2-4b02-4f11-13a8-08da18b44c46
+x-ms-traffictypediagnostic: BN9PR12MB5276:EE_
+x-microsoft-antispam-prvs: <BN9PR12MB527648B2481E78B45035D37BEEE69@BN9PR12MB5276.namprd12.prod.outlook.com>
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CHWRO+VO3sM4S4sHdtpUAiBwC/sYQGHt5Blc9oGrbbm30ChKzM+AkUFZekcxMCyKp7CfTBQjjg1V5A6PGhSt4IXMSR0yGX7XUWtEzfReZmJ1e+sUMFSit4YyzLTm83S+UBTrXnYeKypUDxAhyf6WZfLlsgRXbgXp3G26iitZoyuQDsGzcTCSo0RXurxKJOt+N++X+62AkzflqmBNFdtjgMU7C623ifkhhdRLqI1d7FA+6HYtKjLgEOX7wrahqAbrH9COUpXboDLVWF4QW/dHLchHmoSwq0cti6eYeb+Mymk+WO1WS6dm2gg5di0K4VfzipwQICVoe1hiBFCY7VLxDvbnJYNg4PAjv/TY0QX+mdhsnc19AlFthkZmzTD5lQ4oG/N26+JTUNpZGan9vDLKXSl4urWbhrwksnRZFRm+oIrjaX334iAiM779bwZgxBy15JBC7tFVcLGXv9iDfZ5Va9dTNBOCvvlHVlskwoDPoHzBazAeYiH4FtyNbFXIoQvoP6tktXSNmZJSglhdq5IUPIcy9KIipq+tM6Fb42q7JVuU1vdQeZNoKmuMXIyK4naave3MjEo+T1vmwqhJQ7O0gCx5XIEXcl1qVwkTu9q8Ik6QHdLZYhlvDQSJBUrtob1Ghr8rX5/NXrsPMHypXE4TLN/scw5JS4JWRYbi8Cw0e3dpj4r/QB4yqX9yw6aiYoNLP5HxQTfbeolcu/WiMhcRHTE7mmqUKi1z4GWKy7DDn+KS8KnOv0KrNNrtL628sIefrwZwOKA+kDPPA3h9SWns1FHlA+uHj82SnM9jeeO08lbFqVLYYMgCJicGidfT6mdCaTyWVNMHXa8/jgTkyWn/em8le6o13jH8ugycsrdVAaGRyHGynekkUyo3LGpZe6GZeyaZgEM8/NJgt/E4Mnq6eQ==
+x-microsoft-antispam-message-info: Vwv1KUB5yuNaGIm0zF4oFCGNWytRaGvqk7aD0tR9DnxgVw+AvSZcpjfnwtFgsq0Jj3RtE6WZ1Fl27rOqvqYq2YimcZwNYgOfp2oONv7sezH7Fk3Lxnww7WQeCk2gaRp374i2x573XbFfIFPyFwvbX4ooyA7vIvwH9BC2UJ2nf6VU0vLhODp7E/XKfT2mV5IndBb/YdcHvj1BZ9XOkCTq+SeIMbaPQ37Lmg+Kmjob7jAi9ZGOmIV1scz6Y8J7w07xEwN+mF2p/tWPCvYovJ5iQQgssMBRre6ATAydYLfiO2gKpVxmWNgAbzInx3rIj5Dul+OFYTVc2Zwp1NpF2rRVnmX/OtkTyCMH+XoZkZUYwFYUnuulMunbUOyWezfw4H75+FT9QKnU+aLMn0aAa/qIe9A+hV/imMKiO9zK2uMqZzLyPWPmTE544jZ+V2pej4QBSK6nw97QmILCy8Xc9jgij2HN730dWRVHx/ixW4PHVTWa0DvLikf9dqxvzX5ODOgQTjYpPJlfUQKbKbGHrB1gsf3GOqNnnORxL1iByuzJjFsu4l4QhCh6VBMkdOf62rQXD81RHTjPHU0UpUCG215brq0DolHC/5MBTS0cHfSPjqfgSIOj/V40xsJfGEsc5q3D7R2DDOOlRikEoFmoREpBSjlwpxj3i9zKTwEvE/bNjta83l0EImHxcRQUkdBt7yo/h/exngf0yRClZ98P47ONkxc0DudTCVoA+UHmMieMWS1XX+w5z2qEYT6I1Ot0Jec612pyZEmS02QsQmnReFvb3SG3Zbz9j903SXGYjgb1MvgT3tRZldfb7EZx75DbwY7LAcOEED7njVQyraHNIbawIBX9xjGoQcWQrphfPzTach0=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PSAP153MB0517.APCP153.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(451199009)(8990500004)(107886003)(16799955002)(10290500003)(76116006)(91956017)(186003)(66946007)(966005)(66556008)(66476007)(66446008)(64756008)(8676002)(4326008)(8936002)(83380400001)(86362001)(508600001)(71200400001)(38100700002)(2906002)(110136005)(9686003)(53546011)(82950400001)(7696005)(6506007)(82960400001)(30864003)(55016003)(122000001)(38070700005)(316002)(33656002)(54906003)(166002)(52536014)(5660300002)(579004)(559001)(10090945011);
- DIR:OUT; SFP:1102; 
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1786.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(66476007)(66446008)(64756008)(66946007)(122000001)(66556008)(2906002)(8676002)(4326008)(76116006)(508600001)(38100700002)(110136005)(55016003)(83380400001)(71200400001)(7696005)(45080400002)(966005)(53546011)(9686003)(16799955002)(6506007)(33656002)(26005)(186003)(5660300002)(38070700005)(54906003)(86362001)(8936002)(52536014)(166002)(316002)(30864003)(559001)(579004)(10090945011);
+ DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?UAIAm0yvS7UsPcDIcBt5LGe2toZSHXqFK/bTlO6VeLD6VAR4m9QFYj+5?=
- =?Windows-1252?Q?Cz9V4st55QQW2Iyafh1mjc9Eh+asurzbe2QOll/gydMFbUSzXpGwgatd?=
- =?Windows-1252?Q?jdcLrR8Rl+FZjMW2WBRKJ+OYAsMrL4UNdKr5pNm5T7VeEr7ia+HMOPnT?=
- =?Windows-1252?Q?KZjVTewaXpZMnysOAvfqZviLG5fD5ztuK0ibKBQ6ZET349Vx/ClfWzsb?=
- =?Windows-1252?Q?dku1NAuUkHMi/9nZDsRtsC9G9QESUN8w5PSouq0zDEGyTTGyr92SRY8Z?=
- =?Windows-1252?Q?/CoEuDd07X2CE5k6bb6o7vhW4SzqKU8Yxat959V0VugqaO558shO5SEY?=
- =?Windows-1252?Q?0xYXOtN8W5lVBW07HuVZZgxBPUfjuYFHZ1K7iJNpePsnJY1pfGRec1/g?=
- =?Windows-1252?Q?WNq75Uk3L9O8Toj++xTv/lO6uW/Un8oFNx7h7hactgb8uHGm0qDnB+0u?=
- =?Windows-1252?Q?fo7krxj83aEkcM4PmTvTYoMEc/ClJ+L/t0Am2nR6pg43oC+P84KIKwuI?=
- =?Windows-1252?Q?zBcLX4ERDcBPbHeiCLgYtfcpJuY/DmC/ifw6RZeYbvR9wu+JCeIVLeXU?=
- =?Windows-1252?Q?2Yq1LUV4/224dRmi5MH4BzvzDtnPd46I5LvliV05Mwx9OajuiFWrHCrR?=
- =?Windows-1252?Q?H89cwY1LIqiacb/lblJsLn7joKRngnFVhN1j2zbkbSwM0miNoVrSyflH?=
- =?Windows-1252?Q?Eccfpncd8ba3nQbyjYtELOzsbPHp+hLjdfUxz1i9PBUMpFenzoT00jh7?=
- =?Windows-1252?Q?ZxfRksEJCi+3A+bz4MYIIgmczav5fXoN1sZjPa1NDvIkYXEIZ0i8lbaH?=
- =?Windows-1252?Q?AvdNyHeAhWKCuLstM27pqvbWYgI93XT+W4Qb8aEd4cZo3r3RkVC7Dy2N?=
- =?Windows-1252?Q?aQRRAlKNIBZn8+jWKROt8UoWnD/uq5IZtvdhEa+ac65RcVReo7B5G8+d?=
- =?Windows-1252?Q?Us7yYE7QwvHubsYkCA7JNYZkBNmsbryEnjNOkNFng+PCcoI72YqTdhzo?=
- =?Windows-1252?Q?yxINgg53HSWB5yQ5+SKXhUsjXyNvi2UnkxbC+sDoNCotk2kyuWY2vbVj?=
- =?Windows-1252?Q?QlSLCbYil+o0IhMaAn5HrmZ/JuUEtxaUsOWIhW91J3sNgMHi7D5pfpT3?=
- =?Windows-1252?Q?7Fqkz0yz6b245Me3kC5cTHRJM8x7BqopNmxLoThXMEVETw4NMqzcmypK?=
- =?Windows-1252?Q?EpxeL4cw+5ueRKKSK0zuC9Ymmc2a07R0SjbzxVl+bxRLLxo3oxlUfhll?=
- =?Windows-1252?Q?05XNWGE6zpel2EyUQy0mbV/UFA8CkELQi058kVZjJtqrTefKzcndZNaU?=
- =?Windows-1252?Q?Dj2kZkEaOo0shCTgd65+DGxFZKTJ/XvjgPbqdHyDHOIyznf/Ps3ST8Li?=
- =?Windows-1252?Q?PyNw9Ngdaa+wu08P2EqKpDUU89yolEUk0dd1fKAM/aGvkX8TemkSss7N?=
- =?Windows-1252?Q?fZJnapiFwXKkQOzvvOYXMqyloCW5lTkboDseHjM+ZTiNWD3sBX6y2+Ot?=
- =?Windows-1252?Q?9UZ9/PQ8IznwQKbhtXBcRYXCDQB4W7fEsQk6G1auymwV9aCyrrwNeYTi?=
- =?Windows-1252?Q?8qN8qwWo9Cvom7xWazkwyvw/RssFBVYSFmz+V6T+wM3IftbHLoZ1VaMF?=
- =?Windows-1252?Q?jW/Ydb+NQSm4t+06AHFWdGNF0K03YWmYVyMIVCLvHgLdPLAvdK4jdAgI?=
- =?Windows-1252?Q?IYa1MGmw4Xoj+XtrGbxm+jVVohTg0E+JaWzMYtingE9yIe37PTqAz09n?=
- =?Windows-1252?Q?hEL9ugZMRrUim9Yl+Lg1/IMFYGyxdSD7hRnRdGDEVZmLYIK/jgID3gNT?=
- =?Windows-1252?Q?VYvziECP841da6GoQmQZ8JOnwPWWz/R2Su0kme0OItfhaj9LB3wke7jU?=
- =?Windows-1252?Q?rYIrelZnHFJ1KQ=3D=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Bw82N9O7QjVd7FOZm/9Iy5ude41gvfViW4hUriaTFjJ3llcQcwKlpTJnPT2g?=
+ =?us-ascii?Q?//8if1XKnjnT+Ok30cluWyGxe2jAMKEYUIOHYAxZJzmIrJw9kFTyhx2/ECuH?=
+ =?us-ascii?Q?hzBEZBwGs17HdiSuelIpEMXcuFmFDzaTanXTZYzVOEBRGhwG5Z/6fNgd75vB?=
+ =?us-ascii?Q?I2X73WpRVTSxwCnQh0zF2+p2Yv99W0z9pmEw2a3zau3spXeGa0NLUQ2iGQ1Y?=
+ =?us-ascii?Q?NNdTZMwFA9edhdBlG/hUVKZxoksMJRUi17qkJTo/hG7RRQrZry0Kp+IbMrIZ?=
+ =?us-ascii?Q?GJwRZjiaRgUXy2Mm0Aob1GbffFdbYtHX1+XudB+D5A4CfPMq60M1HSkE8HeO?=
+ =?us-ascii?Q?xdt45PT01W9GuXBJwc2jsKwLHlX2ITzK+aF/mzDPTD/EAVUTteRXlQ/Us4ht?=
+ =?us-ascii?Q?GOr1XMGDm1vB3McxeHCl3TQG6Me84H0IhEx2dBdbqKByyTjf+TBjX75W8CTN?=
+ =?us-ascii?Q?TwLr8ZK8jfLCMPN32rF4d+NU1ihX0V6NJ0bkHwO/LGz/caWSH2Y86K0cWH1i?=
+ =?us-ascii?Q?D1F96FuVCPFjSH5cyTUmgcXo0ZpojMwxxwwBHes3i2phgsS2zqv1Mym4Rmij?=
+ =?us-ascii?Q?yw91q9PgCSq9qNahkpYnfKOxLWLJTMZoW08KfyT7TBoD4GHcjmRydMDB/HMo?=
+ =?us-ascii?Q?wQ0AWrSv9zqfkfIMhlC4+mbSsbWPjy6RJ9RMkVnWyL4wdyWIvx298qoPZwIy?=
+ =?us-ascii?Q?tm1uAoTpCpjFjSphD7gFRUHb1RtvQ27Dp/Vhnj+QQtISHmLvE2NoizNyy83m?=
+ =?us-ascii?Q?TVq5n2B3XEU5kIMlZ8Lbsi/HwpUrkSJINUQBJ6mpmfwZCoOrQmRMDdCdTYwR?=
+ =?us-ascii?Q?RoG+ev48M0v3XMFpUM2/2fBMo7jDK3aFRjnl3DODLCXmD+iTHYVRJL0OA2AA?=
+ =?us-ascii?Q?WMrRuEZEbbCfulsAlXgAkSo0Do5xBFo8mHcZ7Mlh5h5Jmrj5ggvzMl2TXg/S?=
+ =?us-ascii?Q?yZFZ8DwgJM9KDN5dwkx+CkIum+2JC8y6/MioLBPIOok2FSjm+P/3ngrN7RQe?=
+ =?us-ascii?Q?HrsIFvAezFCJi0YDxPZ9X20eKHRoL/fPgFPbANru8bMPcoO6jjAosYH5089w?=
+ =?us-ascii?Q?aijz0tI1IgTkNHndGPqsp2GmjcykWPa51NO7CsVrEo3ltAJNWbM0LK2e0jmw?=
+ =?us-ascii?Q?sdV+YkZFGnnma9yIfjA4FCagFis+Byhn/cyVT2jGfZ+iiB+quilWoUvRW90C?=
+ =?us-ascii?Q?gbUPs9ewAAMuVAW/+goktjjW0xtLtTwmIV0sp0/qRvAGNVFhU7afBy7pX0Ik?=
+ =?us-ascii?Q?fV5F5YPkBy5D0aehDF3IfuLlFRSUFai0uvPMx4gMdfbYv9CI3KfJ3hDK0X0H?=
+ =?us-ascii?Q?8auqh/TxE9KyxnO+m/NrYP13k9iOXU1JicWuXloOeFS7X+Sn4M1QNsn5gJTJ?=
+ =?us-ascii?Q?rwZDRPTdMPFE5NUi75ahPo3FffjkxTumw14oiVU5SEVg2+F5rqhzwZRIrO3H?=
+ =?us-ascii?Q?Xg8IbCrQGmlb5ytMWIdcOxYgZRuqFEu0yb2Bpcanq50Ti95WecgniUvDqHZP?=
+ =?us-ascii?Q?tLJzKP/gY2cC9Jz2OF9J+2iLAZMY8TSBSE8fEP+lkNCX5S5rc8CwTD+nHMM5?=
+ =?us-ascii?Q?k2oPSnCczxwUk8+LDLKQNBBRpChSDY7tYYyO0SeogdVWwFrk4PpnA5FvkgJt?=
+ =?us-ascii?Q?k/T36+OROaTfUmq7pJ60eai8CmANCm5zSyROAorxrY8Y6tftwO4vnvE2ZZb6?=
+ =?us-ascii?Q?VkuPLrQvyVfB0MyNkUnezEECXu9A0NOD0D+egpbGBfqVutojJsrd86/6pkOP?=
+ =?us-ascii?Q?3IsYcFQzgw=3D=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_PSAP153MB05173E5FCB36EBC7054695DCB7E69PSAP153MB0517APCP_"
+ boundary="_000_DM5PR12MB178632D54A66F1B7DA7A370FEEE69DM5PR12MB1786namp_"
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
+X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PSAP153MB0517.APCP153.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6adfea4-59b5-4626-b073-08da18b3a2e9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Apr 2022 16:28:23.4121 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1786.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa9958b2-4b02-4f11-13a8-08da18b44c46
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Apr 2022 16:33:07.8562 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KTze6GurOhinuHCYWtZtb6ao+b1WtLfsUBkre6ZMbe6Vb7FUODEkWqDzNz6619Gqd/wJ0TyB8nxlDzqwUyyE2w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZP153MB0413
-X-Mailman-Approved-At: Thu, 07 Apr 2022 16:29:23 +0000
+X-MS-Exchange-CrossTenant-userprincipalname: 9SfS6cCyjTmQrX/YLzyoVD1s8LVY8QvzY+ycugWpwZ4ArkTWBOtof5I/MxgdaZehwQJdfs7ksQoJZsiYBj9OoA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5276
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,10 +141,29 @@ Cc: Ziyue Yang <Ziyue.Yang@microsoft.com>, Lei Qu <Lei.Qu@microsoft.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_PSAP153MB05173E5FCB36EBC7054695DCB7E69PSAP153MB0517APCP_
-Content-Type: text/plain; charset="Windows-1252"
+--_000_DM5PR12MB178632D54A66F1B7DA7A370FEEE69DM5PR12MB1786namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
+[AMD Official Use Only]
+
+Thanks Shuotao.
+If the IO link cleanup works ok for you, you can use this patch as the base=
+ for adding your changes to add Hot Plug support. You can send a separate p=
+atch for that.
+
+Regards,
+Mukul
+
+From: Shuotao Xu <shuotaoxu@microsoft.com>
+Sent: Thursday, April 7, 2022 12:28 PM
+To: Joshi, Mukul <Mukul.Joshi@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovs=
+ky@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Ziyue Yang <Ziyue.Yang@microsoft.com>; Lei Qu <Lei.Qu@microsoft.com>; P=
+eng Cheng <pengc@microsoft.com>; Ran Shu <Ran.Shu@microsoft.com>
+Subject: Re: [EXTERNAL] Re: Code Review Request for AMDGPU Hotplug Support
+
+[CAUTION: External Email]
 Thanks Mukul very much!
 
 The code looks neat, although kfd_locked looks still would cause trouble. I=
@@ -161,13 +172,16 @@ The code looks neat, although kfd_locked looks still would cause trouble. I=
 Best,
 Shuotao
 
-From: Joshi, Mukul <Mukul.Joshi@amd.com>
+From: Joshi, Mukul <Mukul.Joshi@amd.com<mailto:Mukul.Joshi@amd.com>>
 Date: Friday, April 8, 2022 at 12:23 AM
-To: Shuotao Xu <shuotaoxu@microsoft.com>, Grodzovsky, Andrey <Andrey.Grodzo=
-vsky@amd.com>, amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org=
->
-Cc: Ziyue Yang <Ziyue.Yang@microsoft.com>, Lei Qu <Lei.Qu@microsoft.com>, P=
-eng Cheng <pengc@microsoft.com>, Ran Shu <Ran.Shu@microsoft.com>
+To: Shuotao Xu <shuotaoxu@microsoft.com<mailto:shuotaoxu@microsoft.com>>, G=
+rodzovsky, Andrey <Andrey.Grodzovsky@amd.com<mailto:Andrey.Grodzovsky@amd.c=
+om>>, amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <=
+amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Ziyue Yang <Ziyue.Yang@microsoft.com<mailto:Ziyue.Yang@microsoft.com>>,=
+ Lei Qu <Lei.Qu@microsoft.com<mailto:Lei.Qu@microsoft.com>>, Peng Cheng <pe=
+ngc@microsoft.com<mailto:pengc@microsoft.com>>, Ran Shu <Ran.Shu@microsoft.=
+com<mailto:Ran.Shu@microsoft.com>>
 Subject: RE: [EXTERNAL] Re: Code Review Request for AMDGPU Hotplug Support
 
 [AMD Official Use Only]
@@ -183,30 +197,33 @@ Thank you.
 Regards,
 Mukul
 
-From: Shuotao Xu <shuotaoxu@microsoft.com>
+From: Shuotao Xu <shuotaoxu@microsoft.com<mailto:shuotaoxu@microsoft.com>>
 Sent: Thursday, April 7, 2022 11:09 AM
-To: Joshi, Mukul <Mukul.Joshi@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovs=
-ky@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Ziyue Yang <Ziyue.Yang@microsoft.com>; Lei Qu <Lei.Qu@microsoft.com>; P=
-eng Cheng <pengc@microsoft.com>; Ran Shu <Ran.Shu@microsoft.com>
+To: Joshi, Mukul <Mukul.Joshi@amd.com<mailto:Mukul.Joshi@amd.com>>; Grodzov=
+sky, Andrey <Andrey.Grodzovsky@amd.com<mailto:Andrey.Grodzovsky@amd.com>>; =
+amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Cc: Ziyue Yang <Ziyue.Yang@microsoft.com<mailto:Ziyue.Yang@microsoft.com>>;=
+ Lei Qu <Lei.Qu@microsoft.com<mailto:Lei.Qu@microsoft.com>>; Peng Cheng <pe=
+ngc@microsoft.com<mailto:pengc@microsoft.com>>; Ran Shu <Ran.Shu@microsoft.=
+com<mailto:Ran.Shu@microsoft.com>>
 Subject: Re: [EXTERNAL] Re: Code Review Request for AMDGPU Hotplug Support
 
 [CAUTION: External Email]
 Hi Joshi,
 
 Per your comment, I produced a fix to work with multi-GPU system for hotplu=
-g support for our group=92s internal usage.
+g support for our group's internal usage.
 
 I have tested on a 4-node MI100 system, which seems to be working. It is pu=
 shed in the github PR.
 The details are in: https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver=
-/pull/131#issuecomment-1091843803<https://nam06.safelinks.protection.outloo=
+/pull/131#issuecomment-1091843803<https://nam11.safelinks.protection.outloo=
 k.com/?url=3Dhttps%3A%2F%2Fgithub.com%2FRadeonOpenCompute%2FROCK-Kernel-Dri=
-ver%2Fpull%2F131%23issuecomment-1091843803&data=3D05%7C01%7Cshuotaoxu%40mic=
-rosoft.com%7Cf6070eadde684e919c5208da18b2c843%7C72f988bf86f141af91ab2d7cd01=
-1db47%7C1%7C0%7C637849454324342228%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAw=
-MDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&sdata=3D=
-NUb%2Bef1scMYtNVy2%2BRcSFOxU5kFgTURVffq%2F0nqklso%3D&reserved=3D0>
+ver%2Fpull%2F131%23issuecomment-1091843803&data=3D04%7C01%7CMukul.Joshi%40a=
+md.com%7C6fa8b71a7017468299e608da18b3a649%7C3dd8961fe4884e608e11a82d994e183=
+d%7C0%7C0%7C637849457140650516%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAi=
+LCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&sdata=3DyGHto9N07npET=
+zwdiPitfQF4J0NZFuKBdD%2FZQ8NpwJM%3D&reserved=3D0>
 
 I will send the patch to the mail-list also.
 
@@ -236,13 +253,13 @@ on>
 Hi Shuotao,
 
 Thanks for your patch.
-I have been working on something similar as I also found that we don=92t cl=
-eanup IO links upon device removal.
+I have been working on something similar as I also found that we don't clea=
+nup IO links upon device removal.
 
 The IO-links cleanup change in your patch would work only either on a singl=
 e GPU system or a multi-GPU system where the last node (in the sysfs topolo=
-gy) is hot-plugged out. That=92s because of the way the atomic counter, top=
-ology_crat_proximity_domain, is used in the code.
+gy) is hot-plugged out. That's because of the way the atomic counter, topol=
+ogy_crat_proximity_domain, is used in the code.
 
 I have a patch which takes care of these issues on a multi-GPU system.
 I should be able to send that out for review in sometime.
@@ -633,13 +650,12 @@ com<mailto:Ran.Shu@microsoft.com>>
 Subject: Re: [EXTERNAL] Re: Code Review Request for AMDGPU Hotplug Support
 [You don't often get email from andrey.grodzovsky@amd.com<mailto:andrey.gro=
 dzovsky@amd.com>. Learn why this is important at http://aka.ms/LearnAboutSe=
-nderIdentification.]<https://nam06.safelinks.protection.outlook.com/?url=3D=
-http%3A%2F%2Faka.ms%2FLearnAboutSenderIdentification.%255d&data=3D05%7C01%7=
-Cshuotaoxu%40microsoft.com%7Cf6070eadde684e919c5208da18b2c843%7C72f988bf86f=
-141af91ab2d7cd011db47%7C1%7C0%7C637849454324342228%7CUnknown%7CTWFpbGZsb3d8=
-eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7=
-C%7C%7C&sdata=3D%2FWA%2FlRxQEVroODaKMlMZuWS6XVEjkVFvlB4Dx0Cppdo%3D&reserved=
-=3D0>
+nderIdentification.]<https://nam11.safelinks.protection.outlook.com/?url=3D=
+http%3A%2F%2Faka.ms%2FLearnAboutSenderIdentification.%255d&data=3D04%7C01%7=
+CMukul.Joshi%40amd.com%7C6fa8b71a7017468299e608da18b3a649%7C3dd8961fe4884e6=
+08e11a82d994e183d%7C0%7C0%7C637849457140650516%7CUnknown%7CTWFpbGZsb3d8eyJW=
+IjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&sdata=
+=3DLbbAV1OQ4XQeexmn9Hbycdj4sTHqDpKccOJluVwIWpM%3D&reserved=3D0>
 
 Can you attach dmesg for the failure without your patch against
 amd-staging-drm-next ?
@@ -660,24 +676,24 @@ osoft.com%7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f141af91ab2d7cd011=
 db47%7C1%7C0%7C637848526184858564%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwM=
 DAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=
 =3Djz51aMtsG7PIEfLy1jLvLGd%2BsBREvOFf9Gc6BZlmsmU%3D&amp;reserved=3D0<https:=
-//nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgitlab.freede=
-sktop.org%2Fagd5f%2Flinux.git&data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7C=
-f6070eadde684e919c5208da18b2c843%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0=
-%7C637849454324342228%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV=
-2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&sdata=3DewR5eOXmcaB2F=
-hpFIpNd5eNugPvfBmWQvplkO%2BYjDx4%3D&reserved=3D0>
+//nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgitlab.freede=
+sktop.org%2Fagd5f%2Flinux.git&data=3D04%7C01%7CMukul.Joshi%40amd.com%7C6fa8=
+b71a7017468299e608da18b3a649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6=
+37849457140650516%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luM=
+zIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&sdata=3D5%2FFxe0DQhYILPSRl%2FWOzDW=
+g2N3jzRXGsUhYHsYuJ0yE%3D&reserved=3D0>
 > <https://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgitl=
 ab.freedesktop.org%2Fagd5f%2Flinux.git&amp;data=3D05%7C01%7Cshuotaoxu%40mic=
 rosoft.com%7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f141af91ab2d7cd01=
 1db47%7C1%7C0%7C637848526184858564%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAw=
 MDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdat=
 a=3Djz51aMtsG7PIEfLy1jLvLGd%2BsBREvOFf9Gc6BZlmsmU%3D&amp;reserved=3D0<https=
-://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgitlab.freed=
-esktop.org%2Fagd5f%2Flinux.git&data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7=
-Cf6070eadde684e919c5208da18b2c843%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C=
-0%7C637849454324342228%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoi=
-V2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&sdata=3DewR5eOXmcaB2=
-FhpFIpNd5eNugPvfBmWQvplkO%2BYjDx4%3D&reserved=3D0>>
+://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgitlab.freed=
+esktop.org%2Fagd5f%2Flinux.git&data=3D04%7C01%7CMukul.Joshi%40amd.com%7C6fa=
+8b71a7017468299e608da18b3a649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C=
+637849457140650516%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2lu=
+MzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&sdata=3D5%2FFxe0DQhYILPSRl%2FWOzD=
+Wg2N3jzRXGsUhYHsYuJ0yE%3D&reserved=3D0>>
 > amd-staging-drm-next branch, and found out that hotplug did not work out
 > of box for Rocm compute stack.
 >
@@ -710,24 +726,24 @@ crosoft.com<mailto:pengc@microsoft.com>>, Ran Shu
 > [You don't often get email from andrey.grodzovsky@amd.com<mailto:andrey.g=
 rodzovsky@amd.com>. Learn why
 > this is important at http://aka.ms/LearnAboutSenderIdentification.]<https=
-://nam06.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Faka.ms%2FLear=
-nAboutSenderIdentification.%255d&data=3D05%7C01%7Cshuotaoxu%40microsoft.com=
-%7Cf6070eadde684e919c5208da18b2c843%7C72f988bf86f141af91ab2d7cd011db47%7C1%=
-7C0%7C637849454324342228%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIj=
-oiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&sdata=3D%2FWA%2FlR=
-xQEVroODaKMlMZuWS6XVEjkVFvlB4Dx0Cppdo%3D&reserved=3D0>
+://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Faka.ms%2FLear=
+nAboutSenderIdentification.%255d&data=3D04%7C01%7CMukul.Joshi%40amd.com%7C6=
+fa8b71a7017468299e608da18b3a649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%=
+7C637849457140650516%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2=
+luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&sdata=3DLbbAV1OQ4XQeexmn9Hbycdj=
+4sTHqDpKccOJluVwIWpM%3D&reserved=3D0>
 > <https://nam06.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Faka.m=
 s%2FLearnAboutSenderIdentification.%255d&amp;data=3D05%7C01%7Cshuotaoxu%40m=
 icrosoft.com%7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f141af91ab2d7cd=
 011db47%7C1%7C0%7C637848526184858564%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLj=
 AwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sd=
 ata=3DHfSwu6SWfoCYyscJqGFdKHBPtaj%2BKB4lyo13zkm6hi4%3D&amp;reserved=3D0<htt=
-ps://nam06.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Faka.ms%2FLe=
-arnAboutSenderIdentification.%255d&data=3D05%7C01%7Cshuotaoxu%40microsoft.c=
-om%7Cf6070eadde684e919c5208da18b2c843%7C72f988bf86f141af91ab2d7cd011db47%7C=
-1%7C0%7C637849454324392208%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQ=
-IjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&sdata=3D2CtvPRIH=
-pPSRWkzMw8YXPlybziRvfusQLzOxujtp7mE%3D&reserved=3D0>>
+ps://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Faka.ms%2FLe=
+arnAboutSenderIdentification.%255d&data=3D04%7C01%7CMukul.Joshi%40amd.com%7=
+C6fa8b71a7017468299e608da18b3a649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C=
+0%7C637849457140806742%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoi=
+V2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&sdata=3DRLbrnUoTh8SIBZsv9Jiej=
+pNMcBzS4BSZ2bswvPNHHd0%3D&reserved=3D0>>
 >
 > Looks like you are using 5.13 kernel for this work, FYI we added
 > hot plug support for the graphic stack in 5.14 kernel (see
@@ -737,26 +753,26 @@ ug&amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7C93f1fcb8f60541f7b87308d=
 a17dae167%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637848526184858564%7=
 CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwi=
 LCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3D4l9mT8zNR%2FvqsEFr7noIDqKf16IGN8=
-xmO2T6jnpipzo%3D&amp;reserved=3D0)<https://nam06.safelinks.protection.outlo=
+xmO2T6jnpipzo%3D&amp;reserved=3D0)<https://nam11.safelinks.protection.outlo=
 ok.com/?url=3Dhttps%3A%2F%2Fwww.phoronix.com%2Fscan.php%3Fpage%3Dnews_item%=
-26px%3DLinux-5.14-AMDGPU-Hot-Unplug&data=3D05%7C01%7Cshuotaoxu%40microsoft.=
-com%7Cf6070eadde684e919c5208da18b2c843%7C72f988bf86f141af91ab2d7cd011db47%7=
-C1%7C0%7C637849454324392208%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJ=
-QIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&sdata=3Dc2fHHBM=
-sl9EBhiGTHEout54Y7zPa8PMCpD6oc2Cwppg%3D&reserved=3D0>
+26px%3DLinux-5.14-AMDGPU-Hot-Unplug&data=3D04%7C01%7CMukul.Joshi%40amd.com%=
+7C6fa8b71a7017468299e608da18b3a649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7=
+C0%7C637849457140806742%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjo=
+iV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&sdata=3DMHTv9TxiEISAwOKUfW7s=
+hx7NTm82iRg4Tljz%2F6K4cYw%3D&reserved=3D0>
 > <https://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.=
 phoronix.com%2Fscan.php%3Fpage%3Dnews_item%26px%3DLinux-5.14-AMDGPU-Hot-Unp=
 lug&amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7C93f1fcb8f60541f7b87308=
 da17dae167%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637848526184858564%=
 7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWw=
 iLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3D4l9mT8zNR%2FvqsEFr7noIDqKf16IGN=
-8xmO2T6jnpipzo%3D&amp;reserved=3D0<https://nam06.safelinks.protection.outlo=
+8xmO2T6jnpipzo%3D&amp;reserved=3D0<https://nam11.safelinks.protection.outlo=
 ok.com/?url=3Dhttps%3A%2F%2Fwww.phoronix.com%2Fscan.php%3Fpage%3Dnews_item%=
-26px%3DLinux-5.14-AMDGPU-Hot-Unplug&data=3D05%7C01%7Cshuotaoxu%40microsoft.=
-com%7Cf6070eadde684e919c5208da18b2c843%7C72f988bf86f141af91ab2d7cd011db47%7=
-C1%7C0%7C637849454324392208%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJ=
-QIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&sdata=3Dc2fHHBM=
-sl9EBhiGTHEout54Y7zPa8PMCpD6oc2Cwppg%3D&reserved=3D0>>
+26px%3DLinux-5.14-AMDGPU-Hot-Unplug&data=3D04%7C01%7CMukul.Joshi%40amd.com%=
+7C6fa8b71a7017468299e608da18b3a649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7=
+C0%7C637849457140806742%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjo=
+iV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&sdata=3DMHTv9TxiEISAwOKUfW7s=
+hx7NTm82iRg4Tljz%2F6K4cYw%3D&reserved=3D0>>
 >
 >
 > I am not sure about the code part since it all touches KFD driver (KFD
@@ -772,7 +788,7 @@ sl9EBhiGTHEout54Y7zPa8PMCpD6oc2Cwppg%3D&reserved=3D0>>
 >> technology.
 >>
 >> We have created a new pull requestAdd PCIe hotplug support for amdgpu by
->> xushuotao =B7 Pull Request #131 =B7 RadeonOpenCompute/ROCK-Kernel-Driver
+>> xushuotao * Pull Request #131 * RadeonOpenCompute/ROCK-Kernel-Driver
 >> (github.com)
 >> <https://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgit=
 hub.com%2FRadeonOpenCompute%2FROCK-Kernel-Driver%2Fpull%2F131&amp;data=3D05=
@@ -781,25 +797,25 @@ hub.com%2FRadeonOpenCompute%2FROCK-Kernel-Driver%2Fpull%2F131&amp;data=3D05=
 GZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7=
 C3000%7C%7C%7C&amp;sdata=3DqEeZR6R95jrjAaltd1MnpyFedOiVZaNQuCxcoNog90g%3D&a=
 mp;reserved=3D0
-<https://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgithub=
-.com%2FRadeonOpenCompute%2FROCK-Kernel-Driver%2Fpull%2F131&data=3D05%7C01%7=
-Cshuotaoxu%40microsoft.com%7Cf6070eadde684e919c5208da18b2c843%7C72f988bf86f=
-141af91ab2d7cd011db47%7C1%7C0%7C637849454324392208%7CUnknown%7CTWFpbGZsb3d8=
-eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7=
-C%7C%7C&sdata=3DEI7q7B%2BkbA3ND22suAXFGP4PTkr2b%2FOQGm2GXVFInr0%3D&reserved=
-=3D0>> <https://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2=
-Fgithub.com%2FRadeonOpenCompute%2FROCK-Kernel-Driver%2Fpull%2F131&amp;data=
-=3D05%7C01%7Cshuotaoxu%40microsoft.com%7C93f1fcb8f60541f7b87308da17dae167%7=
-C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637848526184858564%7CUnknown%7C=
-TWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0=
-%3D%7C3000%7C%7C%7C&amp;sdata=3DqEeZR6R95jrjAaltd1MnpyFedOiVZaNQuCxcoNog90g=
-%3D&amp;reserved=3D0<https://nam06.safelinks.protection.outlook.com/?url=3D=
-https%3A%2F%2Fgithub.com%2FRadeonOpenCompute%2FROCK-Kernel-Driver%2Fpull%2F=
-131&data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7Cf6070eadde684e919c5208da18=
-b2c843%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637849454324392208%7CUn=
-known%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJ=
-XVCI6Mn0%3D%7C2000%7C%7C%7C&sdata=3DEI7q7B%2BkbA3ND22suAXFGP4PTkr2b%2FOQGm2=
-GXVFInr0%3D&reserved=3D0>>>in
+<https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgithub=
+.com%2FRadeonOpenCompute%2FROCK-Kernel-Driver%2Fpull%2F131&data=3D04%7C01%7=
+CMukul.Joshi%40amd.com%7C6fa8b71a7017468299e608da18b3a649%7C3dd8961fe4884e6=
+08e11a82d994e183d%7C0%7C0%7C637849457140806742%7CUnknown%7CTWFpbGZsb3d8eyJW=
+IjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&sdata=
+=3DBV2K%2FEsSiowqFwVc1XQ8uAKSI6aQItxdV%2BStAjliGN8%3D&reserved=3D0>> <https=
+://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgithub.com%2=
+FRadeonOpenCompute%2FROCK-Kernel-Driver%2Fpull%2F131&amp;data=3D05%7C01%7Cs=
+huotaoxu%40microsoft.com%7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f14=
+1af91ab2d7cd011db47%7C1%7C0%7C637848526184858564%7CUnknown%7CTWFpbGZsb3d8ey=
+JWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%=
+7C%7C&amp;sdata=3DqEeZR6R95jrjAaltd1MnpyFedOiVZaNQuCxcoNog90g%3D&amp;reserv=
+ed=3D0<https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2F=
+github.com%2FRadeonOpenCompute%2FROCK-Kernel-Driver%2Fpull%2F131&data=3D04%=
+7C01%7CMukul.Joshi%40amd.com%7C6fa8b71a7017468299e608da18b3a649%7C3dd8961fe=
+4884e608e11a82d994e183d%7C0%7C0%7C637849457140806742%7CUnknown%7CTWFpbGZsb3=
+d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000=
+&sdata=3DBV2K%2FEsSiowqFwVc1XQ8uAKSI6aQItxdV%2BStAjliGN8%3D&reserved=3D0>>>=
+in
 >> ROCK-Kernel-Driver, which will enable PCIe hot-plug support for amdgpu.
 >>
 >> We believe the support of hot-plug of GPU devices can open doors for
@@ -817,16 +833,17 @@ GXVFInr0%3D&reserved=3D0>>>in
 >>
 >
 
---_000_PSAP153MB05173E5FCB36EBC7054695DCB7E69PSAP153MB0517APCP_
-Content-Type: text/html; charset="Windows-1252"
+--_000_DM5PR12MB178632D54A66F1B7DA7A370FEEE69DM5PR12MB1786namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
-hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
-fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
 <meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
 <style><!--
 /* Font Definitions */
@@ -834,14 +851,8 @@ fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:"Segoe UI";
 	panose-1:2 11 5 2 4 2 4 2 2 3;}
@@ -862,7 +873,7 @@ p.msipheadera4477989, li.msipheadera4477989, div.msipheadera4477989
 	margin-left:0in;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
-span.EmailStyle20
+span.EmailStyle19
 	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
@@ -874,11 +885,59 @@ span.EmailStyle20
 	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
 	{page:WordSection1;}
---></style>
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
 <body lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
 k-word">
 <div class=3D"WordSection1">
+<p class=3D"msipheadera4477989" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
+l Use Only]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Thanks Shuotao.<o:p=
+></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">If the IO link clea=
+nup works ok for you, you can use this patch as the base for adding your ch=
+anges to add Hot Plug support. You can send a separate patch for that.<o:p>=
+</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Regards,<o:p></o:p>=
+</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Mukul<o:p></o:p></s=
+pan></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt">From:</span></b>=
+<span style=3D"font-size:11.0pt"> Shuotao Xu &lt;shuotaoxu@microsoft.com&gt=
+;
+<br>
+<b>Sent:</b> Thursday, April 7, 2022 12:28 PM<br>
+<b>To:</b> Joshi, Mukul &lt;Mukul.Joshi@amd.com&gt;; Grodzovsky, Andrey &lt=
+;Andrey.Grodzovsky@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
+<b>Cc:</b> Ziyue Yang &lt;Ziyue.Yang@microsoft.com&gt;; Lei Qu &lt;Lei.Qu@m=
+icrosoft.com&gt;; Peng Cheng &lt;pengc@microsoft.com&gt;; Ran Shu &lt;Ran.S=
+hu@microsoft.com&gt;<br>
+<b>Subject:</b> Re: [EXTERNAL] Re: Code Review Request for AMDGPU Hotplug S=
+upport<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">[CAUTION: External =
+Email] <o:p>
+</o:p></span></p>
+<div>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Thanks Mukul very m=
 uch!<o:p></o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
@@ -898,15 +957,20 @@ span></p>
 0in 0in">
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><b><span style=3D"fon=
 t-size:12.0pt;color:black">From:
-</span></b><span style=3D"font-size:12.0pt;color:black">Joshi, Mukul &lt;Mu=
-kul.Joshi@amd.com&gt;<br>
+</span></b><span style=3D"font-size:12.0pt;color:black">Joshi, Mukul &lt;<a=
+ href=3D"mailto:Mukul.Joshi@amd.com">Mukul.Joshi@amd.com</a>&gt;<br>
 <b>Date: </b>Friday, April 8, 2022 at 12:23 AM<br>
-<b>To: </b>Shuotao Xu &lt;shuotaoxu@microsoft.com&gt;, Grodzovsky, Andrey &=
-lt;Andrey.Grodzovsky@amd.com&gt;, amd-gfx@lists.freedesktop.org &lt;amd-gfx=
-@lists.freedesktop.org&gt;<br>
-<b>Cc: </b>Ziyue Yang &lt;Ziyue.Yang@microsoft.com&gt;, Lei Qu &lt;Lei.Qu@m=
-icrosoft.com&gt;, Peng Cheng &lt;pengc@microsoft.com&gt;, Ran Shu &lt;Ran.S=
-hu@microsoft.com&gt;<br>
+<b>To: </b>Shuotao Xu &lt;<a href=3D"mailto:shuotaoxu@microsoft.com">shuota=
+oxu@microsoft.com</a>&gt;, Grodzovsky, Andrey &lt;<a href=3D"mailto:Andrey.=
+Grodzovsky@amd.com">Andrey.Grodzovsky@amd.com</a>&gt;,
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Cc: </b>Ziyue Yang &lt;<a href=3D"mailto:Ziyue.Yang@microsoft.com">Ziyue=
+.Yang@microsoft.com</a>&gt;, Lei Qu &lt;<a href=3D"mailto:Lei.Qu@microsoft.=
+com">Lei.Qu@microsoft.com</a>&gt;, Peng Cheng &lt;<a href=3D"mailto:pengc@m=
+icrosoft.com">pengc@microsoft.com</a>&gt;, Ran Shu &lt;<a href=3D"mailto:Ra=
+n.Shu@microsoft.com">Ran.Shu@microsoft.com</a>&gt;<br>
 <b>Subject: </b>RE: [EXTERNAL] Re: Code Review Request for AMDGPU Hotplug S=
 upport<o:p></o:p></span></p>
 </div>
@@ -942,15 +1006,20 @@ o:p></p>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
 <p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt">From:</span></b>=
-<span style=3D"font-size:11.0pt"> Shuotao Xu &lt;shuotaoxu@microsoft.com&gt=
-;
+<span style=3D"font-size:11.0pt"> Shuotao Xu &lt;<a href=3D"mailto:shuotaox=
+u@microsoft.com">shuotaoxu@microsoft.com</a>&gt;
 <br>
 <b>Sent:</b> Thursday, April 7, 2022 11:09 AM<br>
-<b>To:</b> Joshi, Mukul &lt;Mukul.Joshi@amd.com&gt;; Grodzovsky, Andrey &lt=
-;Andrey.Grodzovsky@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
-<b>Cc:</b> Ziyue Yang &lt;Ziyue.Yang@microsoft.com&gt;; Lei Qu &lt;Lei.Qu@m=
-icrosoft.com&gt;; Peng Cheng &lt;pengc@microsoft.com&gt;; Ran Shu &lt;Ran.S=
-hu@microsoft.com&gt;<br>
+<b>To:</b> Joshi, Mukul &lt;<a href=3D"mailto:Mukul.Joshi@amd.com">Mukul.Jo=
+shi@amd.com</a>&gt;; Grodzovsky, Andrey &lt;<a href=3D"mailto:Andrey.Grodzo=
+vsky@amd.com">Andrey.Grodzovsky@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<b>Cc:</b> Ziyue Yang &lt;<a href=3D"mailto:Ziyue.Yang@microsoft.com">Ziyue=
+.Yang@microsoft.com</a>&gt;; Lei Qu &lt;<a href=3D"mailto:Lei.Qu@microsoft.=
+com">Lei.Qu@microsoft.com</a>&gt;; Peng Cheng &lt;<a href=3D"mailto:pengc@m=
+icrosoft.com">pengc@microsoft.com</a>&gt;; Ran Shu &lt;<a href=3D"mailto:Ra=
+n.Shu@microsoft.com">Ran.Shu@microsoft.com</a>&gt;<br>
 <b>Subject:</b> Re: [EXTERNAL] Re: Code Review Request for AMDGPU Hotplug S=
 upport</span><o:p></o:p></p>
 </div>
@@ -966,7 +1035,7 @@ p></o:p></p>
 /o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Per your comment, I=
  produced a fix to work with multi-GPU system for hotplug support for our g=
-roup=92s internal usage.</span><o:p></o:p></p>
+roup&#8217;s internal usage.</span><o:p></o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
 /o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">I have tested on a =
@@ -974,13 +1043,13 @@ roup=92s internal usage.</span><o:p></o:p></p>
 PR.
 </span><o:p></o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">The details are in:=
- <a href=3D"https://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
+ <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
 2F%2Fgithub.com%2FRadeonOpenCompute%2FROCK-Kernel-Driver%2Fpull%2F131%23iss=
-uecomment-1091843803&amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7Cf6070=
-eadde684e919c5208da18b2c843%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C63=
-7849454324342228%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMz=
-IiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&amp;sdata=3DNUb%2Bef1scMYt=
-NVy2%2BRcSFOxU5kFgTURVffq%2F0nqklso%3D&amp;reserved=3D0">
+uecomment-1091843803&amp;data=3D04%7C01%7CMukul.Joshi%40amd.com%7C6fa8b71a7=
+017468299e608da18b3a649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637849=
+457140650516%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLC=
+JBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;sdata=3DyGHto9N07npETzwdiPitfQF4J0N=
+ZFuKBdD%2FZQ8NpwJM%3D&amp;reserved=3D0">
 https://github.com/RadeonOpenCompute/ROCK-Kernel-Driver/pull/131#issuecomme=
 nt-1091843803</a></span><o:p></o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
@@ -1061,14 +1130,14 @@ o:p></o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Thanks for your pat=
 ch.</span><o:p></o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">I have been working=
- on something similar as I also found that we don=92t cleanup IO links upon=
- device removal.</span><o:p></o:p></p>
+ on something similar as I also found that we don&#8217;t cleanup IO links =
+upon device removal.</span><o:p></o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
 /o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">The IO-links cleanu=
 p change in your patch would work only either on a single GPU system or a m=
 ulti-GPU system where the last node (in the sysfs topology) is hot-plugged =
-out. That=92s because of the way the atomic
+out. That&#8217;s because of the way the atomic
  counter, topology_crat_proximity_domain, is used in the code.</span><o:p><=
 /o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;</span><o:p><=
@@ -1834,13 +1903,12 @@ upport</span><o:p></o:p></p>
 t email from
 <a href=3D"mailto:andrey.grodzovsky@amd.com">andrey.grodzovsky@amd.com</a>.=
  Learn why this is important at
-<a href=3D"https://nam06.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F=
-%2Faka.ms%2FLearnAboutSenderIdentification.%255d&amp;data=3D05%7C01%7Cshuot=
-aoxu%40microsoft.com%7Cf6070eadde684e919c5208da18b2c843%7C72f988bf86f141af9=
-1ab2d7cd011db47%7C1%7C0%7C637849454324342228%7CUnknown%7CTWFpbGZsb3d8eyJWIj=
-oiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7=
-C&amp;sdata=3D%2FWA%2FlRxQEVroODaKMlMZuWS6XVEjkVFvlB4Dx0Cppdo%3D&amp;reserv=
-ed=3D0">
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F=
+%2Faka.ms%2FLearnAboutSenderIdentification.%255d&amp;data=3D04%7C01%7CMukul=
+.Joshi%40amd.com%7C6fa8b71a7017468299e608da18b3a649%7C3dd8961fe4884e608e11a=
+82d994e183d%7C0%7C0%7C637849457140650516%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC=
+4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;sdata=
+=3DLbbAV1OQ4XQeexmn9Hbycdj4sTHqDpKccOJluVwIWpM%3D&amp;reserved=3D0">
 http://aka.ms/LearnAboutSenderIdentification.]</a><br>
 <br>
 Can you attach dmesg for the failure without your patch against<br>
@@ -1856,13 +1924,12 @@ On 2022-04-06 10:25, Shuotao Xu wrote:<br>
 &gt; Hi Andrey,<br>
 &gt;<br>
 &gt; We just tried kernel 5.16 based on<br>
-&gt; <a href=3D"https://nam06.safelinks.protection.outlook.com/?url=3Dhttps=
-%3A%2F%2Fgitlab.freedesktop.org%2Fagd5f%2Flinux.git&amp;data=3D05%7C01%7Csh=
-uotaoxu%40microsoft.com%7Cf6070eadde684e919c5208da18b2c843%7C72f988bf86f141=
-af91ab2d7cd011db47%7C1%7C0%7C637849454324342228%7CUnknown%7CTWFpbGZsb3d8eyJ=
-WIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7=
-C%7C&amp;sdata=3DewR5eOXmcaB2FhpFIpNd5eNugPvfBmWQvplkO%2BYjDx4%3D&amp;reser=
-ved=3D0">
+&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
+%3A%2F%2Fgitlab.freedesktop.org%2Fagd5f%2Flinux.git&amp;data=3D04%7C01%7CMu=
+kul.Joshi%40amd.com%7C6fa8b71a7017468299e608da18b3a649%7C3dd8961fe4884e608e=
+11a82d994e183d%7C0%7C0%7C637849457140650516%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
+iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;sdat=
+a=3D5%2FFxe0DQhYILPSRl%2FWOzDWg2N3jzRXGsUhYHsYuJ0yE%3D&amp;reserved=3D0">
 https://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgitlab.=
 freedesktop.org%2Fagd5f%2Flinux.git&amp;amp;data=3D05%7C01%7Cshuotaoxu%40mi=
 crosoft.com%7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f141af91ab2d7cd0=
@@ -1870,19 +1937,19 @@ crosoft.com%7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f141af91ab2d7cd0=
 wMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp=
 ;sdata=3Djz51aMtsG7PIEfLy1jLvLGd%2BsBREvOFf9Gc6BZlmsmU%3D&amp;amp;reserved=
 =3D0</a><br>
-&gt; &lt;<a href=3D"https://nam06.safelinks.protection.outlook.com/?url=3Dh=
-ttps%3A%2F%2Fgitlab.freedesktop.org%2Fagd5f%2Flinux.git&amp;data=3D05%7C01%=
-7Cshuotaoxu%40microsoft.com%7Cf6070eadde684e919c5208da18b2c843%7C72f988bf86=
-f141af91ab2d7cd011db47%7C1%7C0%7C637849454324342228%7CUnknown%7CTWFpbGZsb3d=
-8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%=
-7C%7C%7C&amp;sdata=3DewR5eOXmcaB2FhpFIpNd5eNugPvfBmWQvplkO%2BYjDx4%3D&amp;r=
-eserved=3D0">https://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A=
-%2F%2Fgitlab.freedesktop.org%2Fagd5f%2Flinux.git&amp;amp;data=3D05%7C01%7Cs=
-huotaoxu%40microsoft.com%7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f14=
-1af91ab2d7cd011db47%7C1%7C0%7C637848526184858564%7CUnknown%7CTWFpbGZsb3d8ey=
-JWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%=
-7C%7C&amp;amp;sdata=3Djz51aMtsG7PIEfLy1jLvLGd%2BsBREvOFf9Gc6BZlmsmU%3D&amp;=
-amp;reserved=3D0</a>&gt;<br>
+&gt; &lt;<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dh=
+ttps%3A%2F%2Fgitlab.freedesktop.org%2Fagd5f%2Flinux.git&amp;data=3D04%7C01%=
+7CMukul.Joshi%40amd.com%7C6fa8b71a7017468299e608da18b3a649%7C3dd8961fe4884e=
+608e11a82d994e183d%7C0%7C0%7C637849457140650516%7CUnknown%7CTWFpbGZsb3d8eyJ=
+WIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;=
+sdata=3D5%2FFxe0DQhYILPSRl%2FWOzDWg2N3jzRXGsUhYHsYuJ0yE%3D&amp;reserved=3D0=
+">https://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgitla=
+b.freedesktop.org%2Fagd5f%2Flinux.git&amp;amp;data=3D05%7C01%7Cshuotaoxu%40=
+microsoft.com%7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f141af91ab2d7c=
+d011db47%7C1%7C0%7C637848526184858564%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wL=
+jAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;a=
+mp;sdata=3Djz51aMtsG7PIEfLy1jLvLGd%2BsBREvOFf9Gc6BZlmsmU%3D&amp;amp;reserve=
+d=3D0</a>&gt;<br>
 &gt; amd-staging-drm-next branch, and found out that hotplug did not work o=
 ut<br>
 &gt; of box for Rocm compute stack.<br>
@@ -1923,37 +1990,37 @@ rt<br>
 &gt;<br>
 &gt; [You don't often get email from <a href=3D"mailto:andrey.grodzovsky@am=
 d.com">andrey.grodzovsky@amd.com</a>. Learn why<br>
-&gt; this is important at <a href=3D"https://nam06.safelinks.protection.out=
+&gt; this is important at <a href=3D"https://nam11.safelinks.protection.out=
 look.com/?url=3Dhttp%3A%2F%2Faka.ms%2FLearnAboutSenderIdentification.%255d&=
-amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7Cf6070eadde684e919c5208da18=
-b2c843%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637849454324342228%7CUn=
-known%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJ=
-XVCI6Mn0%3D%7C2000%7C%7C%7C&amp;sdata=3D%2FWA%2FlRxQEVroODaKMlMZuWS6XVEjkVF=
-vlB4Dx0Cppdo%3D&amp;reserved=3D0">
+amp;data=3D04%7C01%7CMukul.Joshi%40amd.com%7C6fa8b71a7017468299e608da18b3a6=
+49%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637849457140650516%7CUnknow=
+n%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI=
+6Mn0%3D%7C2000&amp;sdata=3DLbbAV1OQ4XQeexmn9Hbycdj4sTHqDpKccOJluVwIWpM%3D&a=
+mp;reserved=3D0">
 http://aka.ms/LearnAboutSenderIdentification.]</a><br>
-&gt; &lt;<a href=3D"https://nam06.safelinks.protection.outlook.com/?url=3Dh=
-ttp%3A%2F%2Faka.ms%2FLearnAboutSenderIdentification.%255d&amp;data=3D05%7C0=
-1%7Cshuotaoxu%40microsoft.com%7Cf6070eadde684e919c5208da18b2c843%7C72f988bf=
-86f141af91ab2d7cd011db47%7C1%7C0%7C637849454324392208%7CUnknown%7CTWFpbGZsb=
-3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C200=
-0%7C%7C%7C&amp;sdata=3D2CtvPRIHpPSRWkzMw8YXPlybziRvfusQLzOxujtp7mE%3D&amp;r=
-eserved=3D0">https://nam06.safelinks.protection.outlook.com/?url=3Dhttp%3A%=
-2F%2Faka.ms%2FLearnAboutSenderIdentification.%255d&amp;amp;data=3D05%7C01%7=
-Cshuotaoxu%40microsoft.com%7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f=
-141af91ab2d7cd011db47%7C1%7C0%7C637848526184858564%7CUnknown%7CTWFpbGZsb3d8=
-eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7=
-C%7C%7C&amp;amp;sdata=3DHfSwu6SWfoCYyscJqGFdKHBPtaj%2BKB4lyo13zkm6hi4%3D&am=
-p;amp;reserved=3D0</a>&gt;<br>
+&gt; &lt;<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dh=
+ttp%3A%2F%2Faka.ms%2FLearnAboutSenderIdentification.%255d&amp;data=3D04%7C0=
+1%7CMukul.Joshi%40amd.com%7C6fa8b71a7017468299e608da18b3a649%7C3dd8961fe488=
+4e608e11a82d994e183d%7C0%7C0%7C637849457140806742%7CUnknown%7CTWFpbGZsb3d8e=
+yJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&am=
+p;sdata=3DRLbrnUoTh8SIBZsv9JiejpNMcBzS4BSZ2bswvPNHHd0%3D&amp;reserved=3D0">=
+https://nam06.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Faka.ms%2=
+FLearnAboutSenderIdentification.%255d&amp;amp;data=3D05%7C01%7Cshuotaoxu%40=
+microsoft.com%7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f141af91ab2d7c=
+d011db47%7C1%7C0%7C637848526184858564%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wL=
+jAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;a=
+mp;sdata=3DHfSwu6SWfoCYyscJqGFdKHBPtaj%2BKB4lyo13zkm6hi4%3D&amp;amp;reserve=
+d=3D0</a>&gt;<br>
 &gt;<br>
 &gt; Looks like you are using 5.13 kernel for this work, FYI we added<br>
 &gt; hot plug support for the graphic stack in 5.14 kernel (see<br>
-&gt; <a href=3D"https://nam06.safelinks.protection.outlook.com/?url=3Dhttps=
+&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
 %3A%2F%2Fwww.phoronix.com%2Fscan.php%3Fpage%3Dnews_item%26px%3DLinux-5.14-A=
-MDGPU-Hot-Unplug&amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7Cf6070eadd=
-e684e919c5208da18b2c843%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637849=
-454324392208%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLC=
-JBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&amp;sdata=3Dc2fHHBMsl9EBhiGTHE=
-out54Y7zPa8PMCpD6oc2Cwppg%3D&amp;reserved=3D0">
+MDGPU-Hot-Unplug&amp;data=3D04%7C01%7CMukul.Joshi%40amd.com%7C6fa8b71a70174=
+68299e608da18b3a649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6378494571=
+40806742%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTi=
+I6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;sdata=3DMHTv9TxiEISAwOKUfW7shx7NTm82iRg=
+4Tljz%2F6K4cYw%3D&amp;reserved=3D0">
 https://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.pho=
 ronix.com%2Fscan.php%3Fpage%3Dnews_item%26px%3DLinux-5.14-AMDGPU-Hot-Unplug=
 &amp;amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7C93f1fcb8f60541f7b8730=
@@ -1961,20 +2028,20 @@ ronix.com%2Fscan.php%3Fpage%3Dnews_item%26px%3DLinux-5.14-AMDGPU-Hot-Unplug=
 %7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haW=
 wiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=3D4l9mT8zNR%2FvqsEFr7noIDqKf=
 16IGN8xmO2T6jnpipzo%3D&amp;amp;reserved=3D0)</a><br>
-&gt; &lt;<a href=3D"https://nam06.safelinks.protection.outlook.com/?url=3Dh=
+&gt; &lt;<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dh=
 ttps%3A%2F%2Fwww.phoronix.com%2Fscan.php%3Fpage%3Dnews_item%26px%3DLinux-5.=
-14-AMDGPU-Hot-Unplug&amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7Cf6070=
-eadde684e919c5208da18b2c843%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C63=
-7849454324392208%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMz=
-IiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&amp;sdata=3Dc2fHHBMsl9EBhi=
-GTHEout54Y7zPa8PMCpD6oc2Cwppg%3D&amp;reserved=3D0">https://nam06.safelinks.=
-protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.phoronix.com%2Fscan.php%3Fp=
-age%3Dnews_item%26px%3DLinux-5.14-AMDGPU-Hot-Unplug&amp;amp;data=3D05%7C01%=
-7Cshuotaoxu%40microsoft.com%7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86=
-f141af91ab2d7cd011db47%7C1%7C0%7C637848526184858564%7CUnknown%7CTWFpbGZsb3d=
-8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%=
-7C%7C%7C&amp;amp;sdata=3D4l9mT8zNR%2FvqsEFr7noIDqKf16IGN8xmO2T6jnpipzo%3D&a=
-mp;amp;reserved=3D0</a>&gt;<br>
+14-AMDGPU-Hot-Unplug&amp;data=3D04%7C01%7CMukul.Joshi%40amd.com%7C6fa8b71a7=
+017468299e608da18b3a649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637849=
+457140806742%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLC=
+JBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;sdata=3DMHTv9TxiEISAwOKUfW7shx7NTm8=
+2iRg4Tljz%2F6K4cYw%3D&amp;reserved=3D0">https://nam06.safelinks.protection.=
+outlook.com/?url=3Dhttps%3A%2F%2Fwww.phoronix.com%2Fscan.php%3Fpage%3Dnews_=
+item%26px%3DLinux-5.14-AMDGPU-Hot-Unplug&amp;amp;data=3D05%7C01%7Cshuotaoxu=
+%40microsoft.com%7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f141af91ab2=
+d7cd011db47%7C1%7C0%7C637848526184858564%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC=
+4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&am=
+p;amp;sdata=3D4l9mT8zNR%2FvqsEFr7noIDqKf16IGN8xmO2T6jnpipzo%3D&amp;amp;rese=
+rved=3D0</a>&gt;<br>
 &gt;<br>
 &gt;<br>
 &gt; I am not sure about the code part since it all touches KFD driver (KFD=
@@ -1994,36 +2061,35 @@ ion<br>
 &gt;&gt;<br>
 &gt;&gt; We have created a new pull requestAdd PCIe hotplug support for amd=
 gpu by<br>
-&gt;&gt; xushuotao =B7 Pull Request #131 =B7 RadeonOpenCompute/ROCK-Kernel-=
-Driver<br>
+&gt;&gt; xushuotao &middot; Pull Request #131 &middot; RadeonOpenCompute/RO=
+CK-Kernel-Driver<br>
 &gt;&gt; (github.com)<br>
-&gt;&gt; &lt;<a href=3D"https://nam06.safelinks.protection.outlook.com/?url=
+&gt;&gt; &lt;<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=
 =3Dhttps%3A%2F%2Fgithub.com%2FRadeonOpenCompute%2FROCK-Kernel-Driver%2Fpull=
-%2F131&amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7Cf6070eadde684e919c5=
-208da18b2c843%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C6378494543243922=
-08%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1h=
-aWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&amp;sdata=3DEI7q7B%2BkbA3ND22suAXFGP4PTk=
-r2b%2FOQGm2GXVFInr0%3D&amp;reserved=3D0">https://nam06.safelinks.protection=
-.outlook.com/?url=3Dhttps%3A%2F%2Fgithub.com%2FRadeonOpenCompute%2FROCK-Ker=
-nel-Driver%2Fpull%2F131&amp;amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%=
-7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f141af91ab2d7cd011db47%7C1%7=
-C0%7C637848526184858564%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjo=
-iV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=3DqEe=
-ZR6R95jrjAaltd1MnpyFedOiVZaNQuCxcoNog90g%3D&amp;amp;reserved=3D0<br>
-</a>&gt; &lt;<a href=3D"https://nam06.safelinks.protection.outlook.com/?url=
+%2F131&amp;data=3D04%7C01%7CMukul.Joshi%40amd.com%7C6fa8b71a7017468299e608d=
+a18b3a649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637849457140806742%7=
+CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwi=
+LCJXVCI6Mn0%3D%7C2000&amp;sdata=3DBV2K%2FEsSiowqFwVc1XQ8uAKSI6aQItxdV%2BStA=
+jliGN8%3D&amp;reserved=3D0">https://nam06.safelinks.protection.outlook.com/=
+?url=3Dhttps%3A%2F%2Fgithub.com%2FRadeonOpenCompute%2FROCK-Kernel-Driver%2F=
+pull%2F131&amp;amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7C93f1fcb8f60=
+541f7b87308da17dae167%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C63784852=
+6184858564%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJB=
+TiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=3DqEeZR6R95jrjAalt=
+d1MnpyFedOiVZaNQuCxcoNog90g%3D&amp;amp;reserved=3D0<br>
+</a>&gt; &lt;<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=
 =3Dhttps%3A%2F%2Fgithub.com%2FRadeonOpenCompute%2FROCK-Kernel-Driver%2Fpull=
-%2F131&amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7Cf6070eadde684e919c5=
-208da18b2c843%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C6378494543243922=
-08%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1h=
-aWwiLCJXVCI6Mn0%3D%7C2000%7C%7C%7C&amp;sdata=3DEI7q7B%2BkbA3ND22suAXFGP4PTk=
-r2b%2FOQGm2GXVFInr0%3D&amp;reserved=3D0">https://nam06.safelinks.protection=
-.outlook.com/?url=3Dhttps%3A%2F%2Fgithub.com%2FRadeonOpenCompute%2FROCK-Ker=
-nel-Driver%2Fpull%2F131&amp;amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%=
-7C93f1fcb8f60541f7b87308da17dae167%7C72f988bf86f141af91ab2d7cd011db47%7C1%7=
-C0%7C637848526184858564%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjo=
-iV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=3DqEe=
-ZR6R95jrjAaltd1MnpyFedOiVZaNQuCxcoNog90g%3D&amp;amp;reserved=3D0</a>&gt;&gt=
-;in<br>
+%2F131&amp;data=3D04%7C01%7CMukul.Joshi%40amd.com%7C6fa8b71a7017468299e608d=
+a18b3a649%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637849457140806742%7=
+CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwi=
+LCJXVCI6Mn0%3D%7C2000&amp;sdata=3DBV2K%2FEsSiowqFwVc1XQ8uAKSI6aQItxdV%2BStA=
+jliGN8%3D&amp;reserved=3D0">https://nam06.safelinks.protection.outlook.com/=
+?url=3Dhttps%3A%2F%2Fgithub.com%2FRadeonOpenCompute%2FROCK-Kernel-Driver%2F=
+pull%2F131&amp;amp;data=3D05%7C01%7Cshuotaoxu%40microsoft.com%7C93f1fcb8f60=
+541f7b87308da17dae167%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C63784852=
+6184858564%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJB=
+TiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=3DqEeZR6R95jrjAalt=
+d1MnpyFedOiVZaNQuCxcoNog90g%3D&amp;amp;reserved=3D0</a>&gt;&gt;in<br>
 &gt;&gt; ROCK-Kernel-Driver, which will enable PCIe hot-plug support for am=
 dgpu.<br>
 &gt;&gt;<br>
@@ -2051,7 +2117,9 @@ rther<br>
 </div>
 </div>
 </div>
+</div>
+</div>
 </body>
 </html>
 
---_000_PSAP153MB05173E5FCB36EBC7054695DCB7E69PSAP153MB0517APCP_--
+--_000_DM5PR12MB178632D54A66F1B7DA7A370FEEE69DM5PR12MB1786namp_--
