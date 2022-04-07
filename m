@@ -4,57 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 343D6C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 17:37:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B69CC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 17:46:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEE1510E295;
-	Thu,  7 Apr 2022 17:37:33 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4CA210E295;
- Thu,  7 Apr 2022 17:37:32 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id w127so6340297oig.10;
- Thu, 07 Apr 2022 10:37:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D84E10EC10;
+	Thu,  7 Apr 2022 17:46:18 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AAB710EC0F;
+ Thu,  7 Apr 2022 17:46:17 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id r8so6391728oib.5;
+ Thu, 07 Apr 2022 10:46:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IhwtG6Mpj++51CRDNyUdO0/f3e0kql8qZIvoDM7w7AM=;
- b=p0tm3Dr9M8k6vxeTj5K1WpvlPdo+2WU/3HP7qUd5b0y88h3H8cdU8Q2RgYI0a6S/jD
- VbaunWWhJHD29s4I+9QEJQXkEh8/YV/71c7W1B+Qo+a6y4VWHElYokC3kPyWMyf2J4Mn
- 53SFi5qJ1u9qFCYXP6gHqf/blhHEe6QlmfYUWrTvvQLzOHLzk0AZWnYJ2ENsE9ZWcq0s
- kiYMDqY0eCT9/zOicOkts0cC9ONJ3ftGQiUvTUXqoOiIZJDlar0mSmOTiF6EKx8GYj4h
- aSAP/XynSSnX7ZyikTsT/QQ/S99IojYHYyNuxy9fhBWuo+6J8Z1ivVotUVMtX5k5T2zL
- ngpg==
+ :cc:content-transfer-encoding;
+ bh=kckLnLuecUYcAuxBtICpKDRrQ9GlihWSL3S+Wrg2yNI=;
+ b=qz/L7HMW5FWMU9PnysBussxrdFIj6na0FNFo0tIYMWuPOv7leY+GD2TUH5fXzeyAUF
+ AfTXBfiqczCkc9Vr+oeCXg4vvcceXirEc/Y0dOf+1k2lFE9jIOUeG5Bq0HxXzKe77wif
+ 9z53vYpUnA0ZNSH1NUnuhvJm3TVpZ9OFFwZvSCMTaix0QOTLALnWiz2kiw0nFk3oNwdP
+ x/dtGSPAHPtPn1bTDG/MHjH5Q7lEyIhGElvJr+gJgSl7E1VYcrryWz1jb6oKddRCDWPT
+ W/wqjGVprJ48lba3zeG39FSqvFVr79eLVekPBP2EE+M4WQjY7j5SbDDp17J73K4X/Bb+
+ ckPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=IhwtG6Mpj++51CRDNyUdO0/f3e0kql8qZIvoDM7w7AM=;
- b=t+NVZzce7KwGDnuKcobP31wJIS7T3oRMVYp1rWeMkKOY93iEU84Ykzic+Z/Cgpw7aF
- 8mbYE3COqZjKFAcXT8rGU2r0RL9z/oONqbXrDjwaSShm32x40myEmXkaS/TQWzKEsJyU
- EgQ1iJwLSEYp4g8SfEjZWEpsMf/2l8bED0LTooDySNk2GCvK4nUkS4dLLOh2IBBpeAcU
- XFxe/a/fBKr0CCMzTDai22VePD4RZeMRGzUlnXVUPZWJmDyxYTCM4tqV8Af9bWsETjMY
- /wFv6SO8eBHjCc5tv/bAWy0x2gZlHtEgPpCTx64zfcAkCpbOwHogt0ohW27V7DcBrxnw
- mKdw==
-X-Gm-Message-State: AOAM533eEjN08HuWyJiiNXQtae8Tsix6HqfKfAp3KQRVhvHxIu9YNhY/
- SmzaO+ESIBfKaPgu7AZHEYz6WO9GIcZATY0gJf8=
-X-Google-Smtp-Source: ABdhPJwztfXGOAyyplOsvMJLrRcLk3GlR0QvZpOL8c0iwhxVx8ct4WUaymaMYB+K49fhPTO94xVGBwJYSucqHEULMZg=
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=kckLnLuecUYcAuxBtICpKDRrQ9GlihWSL3S+Wrg2yNI=;
+ b=SCvA2RUfeSI3ECtuHVaBMMyudt/xBS1haKzuKQ4UiGbzShr1zC4/zw/PzT8HDsbyB2
+ oH3KYPiyIEFF/2NlzEZDLhkm9EguXa5CveY9jMdx3YPtQp3eUcqp04BMbumbA8kQy+If
+ +x2otkhs/L95FBH5c212HNMcg79mJFNPpntfdfgj7UBk2yqczy7ErUZjB4PwOdB3pUQ0
+ Llwl2BQuwE4RTKU93hWvvZJR0XQC0akSOxQHt7e1PGU1Js6rahGcoRh90IYBGcfr6ApX
+ 4/2lJlSElJK9LINorhp43iuRmLPcNppXnTSjsomiQJfbBj2HbZPtP60eS6THUwScX0/R
+ TnPA==
+X-Gm-Message-State: AOAM532hFx2Ba3lvJsNji0i76SsFAs5YMXSEW7ji12eYKqpKPktpW0t+
+ Vq6m9Ldzyh/HzmDO79Z3dIJEQoVR0UwGxqfXR0Y=
+X-Google-Smtp-Source: ABdhPJx3mMJs6xssQJ/peuDcZMDi6IZivTlWc2wFhiBWvW2T6mN3TfUUvic2qm4/MuGOmUSaYBlzozUg+53lqkWfwNw=
 X-Received: by 2002:a05:6808:2390:b0:2f9:c718:80e0 with SMTP id
- bp16-20020a056808239000b002f9c71880e0mr428611oib.253.1649353052202; Thu, 07
- Apr 2022 10:37:32 -0700 (PDT)
+ bp16-20020a056808239000b002f9c71880e0mr446338oib.253.1649353576369; Thu, 07
+ Apr 2022 10:46:16 -0700 (PDT)
 MIME-Version: 1.0
-References: <1649311250-17077-1-git-send-email-baihaowen@meizu.com>
- <bb7635cf-461e-7abd-6092-4be67099c846@amd.com>
- <CADnq5_Ogke7XuVsQaB8pskreXam1ASTE2jna=U6iuKuuyR4r-Q@mail.gmail.com>
- <CADnq5_Phw7SvfdtX_RN7N4xEzceYpZLvRv971y3YyOdrg5Lz_w@mail.gmail.com>
- <aac9a178-e58c-60c7-a9b5-56ce219d051c@amd.com>
-In-Reply-To: <aac9a178-e58c-60c7-a9b5-56ce219d051c@amd.com>
+References: <20220406165057.97492-1-h0tc0d3@gmail.com>
+ <26951c45-f742-2f0e-f4a6-281a031c3471@gmail.com>
+In-Reply-To: <26951c45-f742-2f0e-f4a6-281a031c3471@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 7 Apr 2022 13:37:21 -0400
-Message-ID: <CADnq5_Po6VDogC91SrUm1hL8Vin0HkKf0wv2VQ+pnJ4VagQu4A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix indenting mistakes in
- dcn10_hw_sequencer.c
-To: Harry Wentland <harry.wentland@amd.com>
+Date: Thu, 7 Apr 2022 13:46:05 -0400
+Message-ID: <CADnq5_NXzEzo=6adPQzEBrAGtWfegyvi=yGHVVOsb+3r9OiNaQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix code with incorrect enum type
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,90 +64,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Haowen Bai <baihaowen@meizu.com>, Leo Li <sunpeng.li@amd.com>, "Pan,
+Cc: Joseph Greathouse <Joseph.Greathouse@amd.com>,
+ Guchun Chen <guchun.chen@amd.com>, Grigory Vasilyev <h0tc0d3@gmail.com>, "Pan,
  Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Melissa Wen <mwen@igalia.com>,
+ David Airlie <airlied@linux.ie>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Evan Quan <evan.quan@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 7, 2022 at 1:32 PM Harry Wentland <harry.wentland@amd.com> wrote:
+On Thu, Apr 7, 2022 at 2:21 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
->
->
-> On 2022-04-07 12:07, Alex Deucher wrote:
-> > Actually this just causes another warning.  Dropped for now.  More below.
+> Am 06.04.22 um 18:50 schrieb Grigory Vasilyev:
+> > Instead of the 'amdgpu_ring_priority_level' type,
+> > the 'amdgpu_gfx_pipe_priority' type was used,
+> > which is an error when setting ring priority.
+> > This is a minor error, but may cause problems in the future.
 > >
-> > On Thu, Apr 7, 2022 at 11:52 AM Alex Deucher <alexdeucher@gmail.com> wrote:
-> >>
-> >> Applied.  Thanks!
-> >>
-> >> Alex
-> >>
-> >> On Thu, Apr 7, 2022 at 10:18 AM Harry Wentland <harry.wentland@amd.com> wrote:
-> >>>
-> >>>
-> >>>
-> >>> On 2022-04-07 02:00, Haowen Bai wrote:
-> >>>> Smatch reports the following:
-> >>>> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:2174
-> >>>> dcn10_enable_vblanks_synchronization() warn: if statement not indented
-> >>>>
-> >>>> Signed-off-by: Haowen Bai <baihaowen@meizu.com>
-> >>>
-> >>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> >>>
-> >>> Harry
-> >>>
-> >>>> ---
-> >>>>  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 14 +++++++-------
-> >>>>  1 file changed, 7 insertions(+), 7 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> >>>> index ee22f4422d26..3c338b85040c 100644
-> >>>> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> >>>> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> >>>> @@ -2172,13 +2172,13 @@ void dcn10_enable_vblanks_synchronization(
-> >>>>       if (master >= 0) {
-> >>>>               for (i = 0; i < group_size; i++) {
-> >>>>                       if (i != master && !grouped_pipes[i]->stream->has_non_synchronizable_pclk)
-> >>>> -                     grouped_pipes[i]->stream_res.tg->funcs->align_vblanks(
-> >>>> -                             grouped_pipes[master]->stream_res.tg,
-> >>>> -                             grouped_pipes[i]->stream_res.tg,
-> >>>> -                             grouped_pipes[master]->stream->timing.pix_clk_100hz,
-> >>>> -                             grouped_pipes[i]->stream->timing.pix_clk_100hz,
-> >>>> -                             get_clock_divider(grouped_pipes[master], false),
-> >>>> -                             get_clock_divider(grouped_pipes[i], false));
-> >>>> +                             grouped_pipes[i]->stream_res.tg->funcs->align_vblanks(
-> >>>> +                                     grouped_pipes[master]->stream_res.tg,
-> >>>> +                                     grouped_pipes[i]->stream_res.tg,
-> >>>> +                                     grouped_pipes[master]->stream->timing.pix_clk_100hz,
-> >>>> +                                     grouped_pipes[i]->stream->timing.pix_clk_100hz,
-> >>>> +                                     get_clock_divider(grouped_pipes[master], false),
-> >>>> +                                     get_clock_divider(grouped_pipes[i], false));
-> >>>>                               grouped_pipes[i]->stream->vblank_synchronized = true;
+> > Instead of AMDGPU_RING_PRIO_2 =3D 2, we can use AMDGPU_RING_PRIO_MAX =
+=3D 3,
+> > but AMDGPU_RING_PRIO_2 =3D 2 is used for compatibility with
+> > AMDGPU_GFX_PIPE_PRIO_HIGH =3D 2, and not change the behavior of the
+> > code.
 > >
-> > @Harry Wentland should this last statement be part of the if clause or
-> > the for loop?
-> >
+> > Signed-off-by: Grigory Vasilyev <h0tc0d3@gmail.com>
 >
-> It should be part of the if clause.
+> Good catch, Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v8_0.c
+> > index 5554084ec1f1..9bc26395f833 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > @@ -1929,7 +1929,7 @@ static int gfx_v8_0_compute_ring_init(struct amdg=
+pu_device *adev, int ring_id,
+> >               + ring->pipe;
+> >
+> >       hw_prio =3D amdgpu_gfx_is_high_priority_compute_queue(adev, ring)=
+ ?
+> > -                     AMDGPU_GFX_PIPE_PRIO_HIGH : AMDGPU_RING_PRIO_DEFA=
+ULT;
+> > +                     AMDGPU_RING_PRIO_2 : AMDGPU_RING_PRIO_DEFAULT;
 
-Can one of you send a patch to fix that up?
-
-Thanks!
+gfx_v8_0.c, gfx_v9_0.c, gfx_v10_0.c all do this.  Care to fix them all up?
 
 Alex
 
->
-> Harry
->
-> > Alex
-> >
-> >>>>               }
-> >>>>               grouped_pipes[master]->stream->vblank_synchronized = true;
-> >>>
+> >       /* type-2 packets are deprecated on MEC, use type-3 instead */
+> >       r =3D amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq, irq_=
+type,
+> >                            hw_prio, NULL);
 >
