@@ -4,54 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A511C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 19:30:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F032FC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 19:50:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB5AA10E75B;
-	Thu,  7 Apr 2022 19:30:45 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A954210E75B
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Apr 2022 19:30:44 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-df02f7e2c9so7458244fac.10
- for <amd-gfx@lists.freedesktop.org>; Thu, 07 Apr 2022 12:30:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=R/5KGpjDBPLGg4yx4RLbW8+0Tw6HHStB9Z7imSK2jY8=;
- b=W1aSagfKI0n17hyYqanWRPUth8wGCKvrfXMH7aALsSOflNee7ScyCDG+suyLS19n7Q
- mw0ifUWQHo11m0oSGPJLA/dbf+ljOmonlIRa35MNSLgz/uvmYAmduTxeHcrmfIwvFKMT
- kn3Jqtla1Gj/lgH1Ul/378ZRX+QTTBmCYRekLWZVnMgjrx0Rz3hTnTG5UFly9iI05171
- bG0kqzgLjxlu02Xvt/jh8kjxY8R+q/rpvXAt/GTz7bPYTyc4BawmQBWNkgCX3jtPWAgW
- YIQhJCy4C1BzwFJn7OjxPQtNntlee5hIw7T8DMpFxINq0kBKRlxngfESLip9/m7qshrF
- JmVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=R/5KGpjDBPLGg4yx4RLbW8+0Tw6HHStB9Z7imSK2jY8=;
- b=NM0MEEZA8jF2h0jWVH+R82AjWIyLwbu1CvBlZs1xSqH74rIUAkjKNxwnBmK4n/gXXU
- KpxufL+IGND79LdkrZK60sNhCOj0yQX6qIu7+t1hFuzNG2LXKiJeaTBAx+dBXLrd4/dn
- V5Z85bDN9U9Ni+hIIECRcs+SIG85Bv/dDTm+xE5DGmGE9p6u3/GHVAQ53427TXWelICF
- E3AP7AYXixcyCrcWYJW/xyoXgcoCtoh4ETPqgNweh1Hkk+HiIge8KQRvV5rDlZ5tKUUP
- pPptwfrRlE9c1xStDBc1b6v0ycDLJxk7Ueh9wMFa/81NlQk1IqlbCms3y8Gac7MCkMyz
- qmYA==
-X-Gm-Message-State: AOAM533l+OPZOJ9rsvv683Cr0f6IgcXCbzyAD0AX8zpoM6NbdBZ8zwaw
- oCeDxacyTrZYn4QDpX8IbnBiFp9DIkcCc60vG/HWJhR2
-X-Google-Smtp-Source: ABdhPJycaLfoJ23+GyRpw6Wf1kroXI/lBveK1MkDlgMoTPjffVrk14GemPKMedLQj1nFnKwDNxKPkjQNoH6pXV+s9TQ=
-X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
- z3-20020a056870d68300b000deeaa23550mr7296549oap.253.1649359843912; Thu, 07
- Apr 2022 12:30:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5648610ECD6;
+	Thu,  7 Apr 2022 19:50:47 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A27B910ECD6
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Apr 2022 19:50:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bmuY7X1nCWadOQQb5msztg6oEnDm2ppxKZ5lOxkv6mPu7k6iyx7YoWpesdMVTixT1oHphU27wO4gh0qLbiyU+Hz+dcxGB/CH32y4fXIhaJOg1M/h143Mu/rh2lVIe1cNGzMES6mkA0SYPVvCQ+YmzvSUVPS2nlBaHXuVKaYqfM4pcaHuZpUZ3BXCut0/oj2sQlRdI2pNJpT5V5FaPu++gTpJHnFOFXAWXg8fC/mXFhK6OSCs1UsAC8JpbeMSLNYpi65O0aVnXN/dXWV0eUxTQhogZAPPHQv647rDQsASnP5st9T0VIzBCbtp1Bgg/BnmatsCS3/n4C1dNaXTKoCACw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AugMG4JBPiNGvr54yRcL87kDIXpqZheFN88iOr6fUW0=;
+ b=EA9zctUA4uWeKQKRGe29+dEoE26Kvntz3jbKKNO3FzJqCB9R23DhBrkikpUlhK4ZXIAJEGfPT1YW0XLmpl/ULkVC6f5Fs0N28aj2yf+2VSv3uv4RDa2XO+sHxVkfC/GtrZJDOdt2irEd12W31eyoFrtkI3td34KV3Kh+NHaOJKuk/ykPUYmcBwlyP+25x2lLuBlbleoXnrVnqBAqdZgLC/y/Z1EK1BqqIngTqnE1lq7y/+9PxxQBG8vPKIrL2KKwNyVF2Bs5HEAGdm8B5wUwXF9cJsuVAtsnzC83inkr4WhoOUohqQ0tgtpdtbb9QjZC1biIW1Q/dfLMbCw+20h63g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AugMG4JBPiNGvr54yRcL87kDIXpqZheFN88iOr6fUW0=;
+ b=yCAio1vxG6GUc8DynMCHFYUoSSDgulDPyU0KlfKzWV0ZJfp63U+XyZIXjSj/DVzAtktJ0RQbd72mAqv3yEYnLlfImAuL1ym6KTf/zxJA0Tgs8z41AjwKNL7Gq8f+NXqqQnq4I7b9azw3K32FJUZtlwXxHkTJvclkLY7QQAGoLAk=
+Received: from MW4PR03CA0036.namprd03.prod.outlook.com (2603:10b6:303:8e::11)
+ by BL1PR12MB5077.namprd12.prod.outlook.com (2603:10b6:208:310::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.22; Thu, 7 Apr
+ 2022 19:50:43 +0000
+Received: from CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8e:cafe::30) by MW4PR03CA0036.outlook.office365.com
+ (2603:10b6:303:8e::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.23 via Frontend
+ Transport; Thu, 7 Apr 2022 19:50:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT003.mail.protection.outlook.com (10.13.175.93) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5144.20 via Frontend Transport; Thu, 7 Apr 2022 19:50:43 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 7 Apr
+ 2022 14:50:41 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: fix 64 bit divide in freesync code
+Date: Thu, 7 Apr 2022 15:50:29 -0400
+Message-ID: <20220407195029.1581581-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <20220407183451.21223-1-yongqiang.sun@amd.com>
-In-Reply-To: <20220407183451.21223-1-yongqiang.sun@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 7 Apr 2022 15:30:32 -0400
-Message-ID: <CADnq5_Nw6Q7CFQ4i6coEaMeCcARzHksZcUODzOODUbyidhFBKw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Only reserve vram for firmware with
- vega10 MS_HYPERV host.
-To: Yongqiang Sun <yongqiang.sun@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b864e735-b55b-43f6-7647-08da18cfe6c0
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5077:EE_
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5077E9208ACD30D19C221FF9F7E69@BL1PR12MB5077.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aYJaM80C7PfBjHC0E15+ZDu6Dkfg+cae9Z3Atcd75tnGpmgQpQQJXdSsav2NwKIKOmP9EqiXMoMACdJNQTSBfpPdMeV8Q2UCQulNVMSRGPluS9lpfRqeVWDeEgOBO8VVG6rFpzzOb5y9JP8UATXfFQt2WJBo7eK1ER4tf2UXc9PDWeB20POVt5JFZGzIFjoih7+LvqpZCqfCwVxZ52ZA8l4fCerCiBtBxnxzQgrFgzRD83sdvFmYUgwGm7M9aIQevozRLNSyCLYESZYV6eyEQfBZMyp9Md385eNOo9VqogKBudnOGHKFdJ9bJJSEWJsuvt/kIXdRW0tBrblMTFpsg32q38/Fkr4pEuZLzA8ax7vDKxCUUZnAJitB0ze4vGuEhQq7D6LmCy3zz2CNhNUz83pNGxthfA6NnmIPfrkXBHkgaejOWOojiz/DXq9gD6HC8+VtkrqivxfNekXppfO6hF0+A07DHT7rGz8OO3YVqWWsgD/EIIFLzWQBLEIQC3kxrRQ5A0WPXw4Swz9hlB8RIr37ar6r/dUFjUCyIhdHLDbCYkerzsA5K55wa0WigeP/Tt1gcyBVk1iFlEHCFnadLYw8vViZxjhaZ+n4qPWoj6qKFeMCcFu26+BunPIR4ZTmGWkrOZqd7KYjXyGJqK3bSdisK45YezfpqfhVHVXtFoXrjY+yPCvtHqqZY6gvs5KlWXZ6qHzZS+VqnkNsmhXoPg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(86362001)(40460700003)(508600001)(36860700001)(316002)(54906003)(7696005)(6666004)(6916009)(16526019)(26005)(82310400005)(426003)(8936002)(5660300002)(186003)(1076003)(336012)(70206006)(8676002)(81166007)(4326008)(2616005)(356005)(83380400001)(36756003)(70586007)(47076005)(2906002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2022 19:50:43.2985 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b864e735-b55b-43f6-7647-08da18cfe6c0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5077
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,62 +98,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Aric Cyr <Aric.Cyr@amd.com>,
+ Anthony Koo <Anthony.Koo@amd.com>, kernel test robot <lkp@intel.com>,
+ Angus Wang <Angus.Wang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 7, 2022 at 2:35 PM Yongqiang Sun <yongqiang.sun@amd.com> wrote:
->
-> Fixes: 8011a76ad370
-> ("drm/amdgpu: Add stolen reserved memory for MI25 SRIOV.")
+Use do_div() rather than a a 64 bit divide.
 
-Please put this line between the commit message and your signed-off-by.
+Fixes: 3fe5739db48843 ("drm/amd/display: Add flip interval workaround")
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Angus Wang <Angus.Wang@amd.com>
+Cc: Anthony Koo <Anthony.Koo@amd.com>
+Cc: Aric Cyr <Aric.Cyr@amd.com>
+---
+ drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
->
-> driver loading failed on VEGA10 SRIOV VF with linux host due to a wide
-> range of stolen reserved vram.
-> Since VEGA10 SRIOV VF need to reserve vram for firmware with windows
-> Hyper_V host specifically, check hypervisor type to only reserve
-> memory for it, and the range of the reserved vram can be limited
-> to between 5M-7M area.
->
-> Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
+diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+index 0130f1879116..70f06fa8cc2b 100644
+--- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
++++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+@@ -1230,6 +1230,7 @@ void mod_freesync_handle_v_update(struct mod_freesync *mod_freesync,
+ {
+ 	struct core_freesync *core_freesync = NULL;
+ 	unsigned int cur_timestamp_in_us;
++	unsigned long long tmp;
+ 
+ 	if ((mod_freesync == NULL) || (stream == NULL) || (in_out_vrr == NULL))
+ 		return;
+@@ -1239,7 +1240,9 @@ void mod_freesync_handle_v_update(struct mod_freesync *mod_freesync,
+ 	if (in_out_vrr->supported == false)
+ 		return;
+ 
+-	cur_timestamp_in_us = dm_get_timestamp(core_freesync->dc->ctx)/10;
++	tmp = dm_get_timestamp(core_freesync->dc->ctx);
++	do_div(tmp, 10);
++	cur_timestamp_in_us = tmp;
+ 
+ 	in_out_vrr->flip_interval.vsyncs_between_flip++;
+ 	in_out_vrr->flip_interval.v_update_timestamp_in_us = cur_timestamp_in_us;
+-- 
+2.35.1
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index a66a0881a934..3e9582c245bb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -25,6 +25,7 @@
->   */
->
->  #include <linux/io-64-nonatomic-lo-hi.h>
-> +#include <asm/hypervisor.h>
->
->  #include "amdgpu.h"
->  #include "amdgpu_gmc.h"
-> @@ -647,11 +648,11 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
->         case CHIP_VEGA10:
->                 adev->mman.keep_stolen_vga_memory = true;
->                 /*
-> -                * VEGA10 SRIOV VF needs some firmware reserved area.
-> +                * VEGA10 SRIOV VF with MS_HYPERV host needs some firmware reserved area.
->                  */
-> -               if (amdgpu_sriov_vf(adev)) {
-> -                       adev->mman.stolen_reserved_offset = 0x100000;
-> -                       adev->mman.stolen_reserved_size = 0x600000;
-> +               if (amdgpu_sriov_vf(adev) && hypervisor_is_type(X86_HYPER_MS_HYPERV)) {
-> +                       adev->mman.stolen_reserved_offset = 0x500000;
-> +                       adev->mman.stolen_reserved_size = 0x200000;
->                 }
->                 break;
->         case CHIP_RAVEN:
-> --
-> 2.25.1
->
