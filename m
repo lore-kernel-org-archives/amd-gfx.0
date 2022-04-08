@@ -4,31 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C75FC433FE
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 10:07:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFFA2C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 10:09:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DE3C10F1A4;
-	Fri,  8 Apr 2022 10:07:57 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2018110F1A5
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Apr 2022 10:07:56 +0000 (UTC)
-Received: from [141.14.14.90] (v090.vpnx.molgen.mpg.de [141.14.14.90])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id BB33761E6478B;
- Fri,  8 Apr 2022 12:07:53 +0200 (CEST)
-Message-ID: <d47c0790-cc1e-a394-7140-b487a37ab3fe@molgen.mpg.de>
-Date: Fri, 8 Apr 2022 12:07:53 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91AB710F0DF;
+	Fri,  8 Apr 2022 10:09:26 +0000 (UTC)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8924E10F0DF
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Apr 2022 10:09:25 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id l7so10896539ejn.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 08 Apr 2022 03:09:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=KEFJFj6H3H/bHJOHM4fwF8CsS6ANb2QTlapGiPIeq1M=;
+ b=PiiMVaLj2SNTlmCBqaJ8w4zuJCFwR0e35RqkA28L8cVaB8v8I7n7L/6qHdNQgi7tCp
+ F1KmM1rilgx07hakMRjUz2AbxG0oXKvUWpOeJKpLNp0oUSS0HWI5D1pLhNMdeEI4gjFp
+ YTkSN/cfXXMKJaHHNvuqfy4x1SOcOF7+FV2APfnuyc23N8Uy6MOqO+MUPSo70pdZMYDJ
+ l+NqiqxYLPX22wOw/9RAArOgxXZIoRHo5m+Yf+oQhms5WY7WUYmmvvKXEeYW5CFPJ+Ot
+ 3zV6Sa0YtpUn0JfoSFMUU+ykHPiL7u7Brr0jmaA87SVDCTKpn783hopikIhFc5Ii1DsM
+ HRCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=KEFJFj6H3H/bHJOHM4fwF8CsS6ANb2QTlapGiPIeq1M=;
+ b=basOzTViqMGtoFl7dCivdAyiNbYHT8KS9D5/1bpLkPA92fNbKSYc43aDsb+ZEgp2e1
+ Q5TV1huKAoJXxvKdBvRqroztXTutyld5mpP5l/fktwN4VYQ/emwo0323DgY8O/6HVH+g
+ lxwQsNA1sgGyqdpPaytiA+uM4s3H7Gg8Xm17tbSdBqPsj/aw6Xsufy22n1fKMgHNYfFH
+ mDLaFnMlrrFOLkPDasBPMGzQWDLRNU+C4RtBKIZhETLw23/eSsI70LSYJhJzL3U14ddw
+ fVy35KpYcM2kqvssgPxTpXPKLWbHsvufT9T4KF7iQ7rZ2psBAQa/2PkO0H43LFzhPZ4I
+ v+Sw==
+X-Gm-Message-State: AOAM533Y11LwuVDorOETdWYDblnEZyQ3Wyum9NqArupx6traT0lz5/XT
+ 68RQBT2dpOvEB+LknBhyRh4=
+X-Google-Smtp-Source: ABdhPJwV/mvTiC0jAPgk0Mp7/GTSBjwS1p6JTCKVK1Rpf7gp1w7Wspgo0MSAzdjYzN4q5FMGQ8Ka4w==
+X-Received: by 2002:a17:906:d552:b0:6e8:4ee4:748 with SMTP id
+ cr18-20020a170906d55200b006e84ee40748mr2366454ejc.58.1649412564114; 
+ Fri, 08 Apr 2022 03:09:24 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1252:fb60:114:5e2d:4d2d:2c8b?
+ ([2a02:908:1252:fb60:114:5e2d:4d2d:2c8b])
+ by smtp.gmail.com with ESMTPSA id
+ f15-20020a50e08f000000b004134a121ed2sm10467193edl.82.2022.04.08.03.09.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 08 Apr 2022 03:09:23 -0700 (PDT)
+Message-ID: <6ea0c6e7-cb89-80a6-55ca-8ae5a5fc1a39@gmail.com>
+Date: Fri, 8 Apr 2022 12:09:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH Review 1/1] drm/amdgpu: add umc query error status function
+ Thunderbird/91.7.0
+Subject: Re: [PATCH v2] drm/amdgpu: Use flexible array member
 Content-Language: en-US
-To: Stanley Yang <Stanley.Yang@amd.com>
-References: <20220408081009.31319-1-Stanley.Yang@amd.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20220408081009.31319-1-Stanley.Yang@amd.com>
+To: Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220408100710.211593-1-lijo.lazar@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220408100710.211593-1-lijo.lazar@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -42,214 +73,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tao.zhou1@amd.com, candice.li@amd.com, amd-gfx@lists.freedesktop.org,
- hawking.zhang@amd.com
+Cc: Alexander.Deucher@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Stanley,
+Am 08.04.22 um 12:07 schrieb Lijo Lazar:
+> Use flexible array member in ip discovery struct as recommended[1].
+>
+> [1] https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays
+>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 
-
-Thank you for the patch.
-
-Am 08.04.22 um 10:10 schrieb Stanley.Yang:
-
-Please remove the dot/period from the name.
-
-> In order to debug ras error, driver will print IPID/SYND/MISC0
-> register value if detect correctable or uncorrectable error.
-
-… if it detects …
-
-> Provide umc_query_error_status_helper function to reduce code
-> redundancy.
-
-Can you please make this two patches. First refactoring, and then adding 
-new call sites. (The current commit message summary, does not say 
-anything about new call-sites.)
-
-> Change-Id: I09a2aae85cde3ab2cb6b042b973da6839ad024ec
-
-Without the Gerrit review instance, the Change-Id is not of any use.
-
-> Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
-
-Please remove the . from the name.
-
-
-Kind regards,
-
-Paul
-
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/umc_v6_7.c | 106 ++++++++++++--------------
->   1 file changed, 48 insertions(+), 58 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-> index c45d9c14ecbc..9d3b54778417 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-> @@ -64,21 +64,62 @@ static inline uint32_t get_umc_v6_7_channel_index(struct amdgpu_device *adev,
->   	return adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num + ch_inst];
->   }
->   
-> +static void umc_query_error_status_helper(struct amdgpu_device *adev,
-> +						  uint64_t mc_umc_status, uint32_t umc_reg_offset)
-> +{
-> +	uint32_t mc_umc_addr;
-> +	uint64_t reg_value;
-> +
-> +	if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Deferred) == 1)
-> +		dev_info(adev->dev, "Deferred error, no user action is needed.\n");
-> +
-> +	if (mc_umc_status)
-> +		dev_info(adev->dev, "MCA STATUS 0x%llx, umc_reg_offset 0x%x\n", mc_umc_status, umc_reg_offset);
-> +
-> +	/* print IPID registers value */
-> +	mc_umc_addr =
-> +		SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_IPIDT0);
-> +	reg_value = RREG64_PCIE((mc_umc_addr + umc_reg_offset) * 4);
-> +	if (reg_value)
-> +		dev_info(adev->dev, "MCA IPID 0x%llx, umc_reg_offset 0x%x\n", reg_value, umc_reg_offset);
-> +
-> +	/* print SYND registers value */
-> +	mc_umc_addr =
-> +		SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_SYNDT0);
-> +	reg_value = RREG64_PCIE((mc_umc_addr + umc_reg_offset) * 4);
-> +	if (reg_value)
-> +		dev_info(adev->dev, "MCA SYND 0x%llx, umc_reg_offset 0x%x\n", reg_value, umc_reg_offset);
-> +
-> +	/* print MISC0 registers value */
-> +	mc_umc_addr =
-> +		SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_MISC0T0);
-> +	reg_value = RREG64_PCIE((mc_umc_addr + umc_reg_offset) * 4);
-> +	if (reg_value)
-> +		dev_info(adev->dev, "MCA MISC0 0x%llx, umc_reg_offset 0x%x\n", reg_value, umc_reg_offset);
-> +}
-> +
->   static void umc_v6_7_ecc_info_query_correctable_error_count(struct amdgpu_device *adev,
->   						   uint32_t umc_inst, uint32_t ch_inst,
->   						   unsigned long *error_count)
->   {
->   	uint64_t mc_umc_status;
->   	uint32_t eccinfo_table_idx;
-> +	uint32_t umc_reg_offset;
->   	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
->   
-> +	umc_reg_offset = get_umc_v6_7_reg_offset(adev,
-> +						umc_inst, ch_inst);
-> +
->   	eccinfo_table_idx = umc_inst * adev->umc.channel_inst_num + ch_inst;
->   	/* check for SRAM correctable error
->   	  MCUMC_STATUS is a 64 bit register */
->   	mc_umc_status = ras->umc_ecc.ecc[eccinfo_table_idx].mca_umc_status;
->   	if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
-> -	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1)
-> +	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1) {
->   		*error_count += 1;
-> +
-> +		umc_query_error_status_helper(adev, mc_umc_status, umc_reg_offset);
-> +	}
->   }
->   
->   static void umc_v6_7_ecc_info_querry_uncorrectable_error_count(struct amdgpu_device *adev,
-> @@ -88,8 +129,6 @@ static void umc_v6_7_ecc_info_querry_uncorrectable_error_count(struct amdgpu_dev
->   	uint64_t mc_umc_status;
->   	uint32_t eccinfo_table_idx;
->   	uint32_t umc_reg_offset;
-> -	uint32_t mc_umc_addr;
-> -	uint64_t reg_value;
->   	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
->   
->   	umc_reg_offset = get_umc_v6_7_reg_offset(adev,
-> @@ -106,32 +145,7 @@ static void umc_v6_7_ecc_info_querry_uncorrectable_error_count(struct amdgpu_dev
->   	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, TCC) == 1)) {
->   		*error_count += 1;
->   
-> -		if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Deferred) == 1)
-> -			dev_info(adev->dev, "Deferred error, no user action is needed.\n");
-> -
-> -		if (mc_umc_status)
-> -			dev_info(adev->dev, "MCA STATUS 0x%llx, umc_reg_offset 0x%x\n", mc_umc_status, umc_reg_offset);
-> -
-> -		/* print IPID registers value */
-> -		mc_umc_addr =
-> -			SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_IPIDT0);
-> -		reg_value = RREG64_PCIE((mc_umc_addr + umc_reg_offset) * 4);
-> -		if (reg_value)
-> -			dev_info(adev->dev, "MCA IPID 0x%llx, umc_reg_offset 0x%x\n", reg_value, umc_reg_offset);
-> -
-> -		/* print SYND registers value */
-> -		mc_umc_addr =
-> -			SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_SYNDT0);
-> -		reg_value = RREG64_PCIE((mc_umc_addr + umc_reg_offset) * 4);
-> -		if (reg_value)
-> -			dev_info(adev->dev, "MCA SYND 0x%llx, umc_reg_offset 0x%x\n", reg_value, umc_reg_offset);
-> -
-> -		/* print MISC0 registers value */
-> -		mc_umc_addr =
-> -			SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_MISC0T0);
-> -		reg_value = RREG64_PCIE((mc_umc_addr + umc_reg_offset) * 4);
-> -		if (reg_value)
-> -			dev_info(adev->dev, "MCA MISC0 0x%llx, umc_reg_offset 0x%x\n", reg_value, umc_reg_offset);
-> +		umc_query_error_status_helper(adev, mc_umc_status, umc_reg_offset);
+>   v2 : Use struct_size (Christian)
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 +-
+>   drivers/gpu/drm/amd/include/discovery.h       | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index 5a182288391b..766006a075ec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -430,7 +430,7 @@ static void amdgpu_discovery_read_harvest_bit_per_ip(struct amdgpu_device *adev,
+>                                   }
+>                           }
+>   next_ip:
+> -			ip_offset += sizeof(*ip) + 4 * (ip->num_base_address - 1);
+> +			ip_offset += struct_size(ip, base_address, ip->num_base_address);
+>   		}
 >   	}
 >   }
+> diff --git a/drivers/gpu/drm/amd/include/discovery.h b/drivers/gpu/drm/amd/include/discovery.h
+> index a486769b66c6..b25026c3ec96 100644
+> --- a/drivers/gpu/drm/amd/include/discovery.h
+> +++ b/drivers/gpu/drm/amd/include/discovery.h
+> @@ -93,7 +93,7 @@ typedef struct ip
+>   	uint8_t harvest : 4;      /* Harvest */
+>   	uint8_t reserved : 4;     /* Placeholder field */
+>   #endif
+> -	uint32_t base_address[1]; /* variable number of Addresses */
+> +	uint32_t base_address[]; /* variable number of Addresses */
+>   } ip;
 >   
-> @@ -277,8 +291,11 @@ static void umc_v6_7_query_correctable_error_count(struct amdgpu_device *adev,
->   	  MCUMC_STATUS is a 64 bit register */
->   	mc_umc_status = RREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4);
->   	if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
-> -	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1)
-> +	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1) {
->   		*error_count += 1;
-> +
-> +		umc_query_error_status_helper(adev, mc_umc_status, umc_reg_offset);
-> +	}
->   }
->   
->   static void umc_v6_7_querry_uncorrectable_error_count(struct amdgpu_device *adev,
-> @@ -287,8 +304,6 @@ static void umc_v6_7_querry_uncorrectable_error_count(struct amdgpu_device *adev
->   {
->   	uint64_t mc_umc_status;
->   	uint32_t mc_umc_status_addr;
-> -	uint32_t mc_umc_addr;
-> -	uint64_t reg_value;
->   
->   	mc_umc_status_addr =
->   		SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_STATUST0);
-> @@ -303,32 +318,7 @@ static void umc_v6_7_querry_uncorrectable_error_count(struct amdgpu_device *adev
->   	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, TCC) == 1)) {
->   		*error_count += 1;
->   
-> -		if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Deferred) == 1)
-> -			dev_info(adev->dev, "Deferred error, no user action is needed.\n");
-> -
-> -		if (mc_umc_status)
-> -			dev_info(adev->dev, "MCA STATUS 0x%llx, umc_reg_offset 0x%x\n", mc_umc_status, umc_reg_offset);
-> -
-> -		/* print IPID registers value */
-> -		mc_umc_addr =
-> -			SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_IPIDT0);
-> -		reg_value = RREG64_PCIE((mc_umc_addr + umc_reg_offset) * 4);
-> -		if (reg_value)
-> -			dev_info(adev->dev, "MCA IPID 0x%llx, umc_reg_offset 0x%x\n", reg_value, umc_reg_offset);
-> -
-> -		/* print SYND registers value */
-> -		mc_umc_addr =
-> -			SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_SYNDT0);
-> -		reg_value = RREG64_PCIE((mc_umc_addr + umc_reg_offset) * 4);
-> -		if (reg_value)
-> -			dev_info(adev->dev, "MCA SYND 0x%llx, umc_reg_offset 0x%x\n", reg_value, umc_reg_offset);
-> -
-> -		/* print MISC0 registers value */
-> -		mc_umc_addr =
-> -			SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_MISC0T0);
-> -		reg_value = RREG64_PCIE((mc_umc_addr + umc_reg_offset) * 4);
-> -		if (reg_value)
-> -			dev_info(adev->dev, "MCA MISC0 0x%llx, umc_reg_offset 0x%x\n", reg_value, umc_reg_offset);
-> +		umc_query_error_status_helper(adev, mc_umc_status, umc_reg_offset);
->   	}
->   }
->   
+>   typedef struct die_header
+
