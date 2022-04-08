@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7603C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 13:50:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEB55C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 13:50:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAEDF10F224;
-	Fri,  8 Apr 2022 13:50:31 +0000 (UTC)
-Received: from ipmail04.adl3.internode.on.net (ipmail04.adl3.internode.on.net
- [150.101.137.10])
- by gabe.freedesktop.org (Postfix) with ESMTP id BF06C10F201
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Apr 2022 13:48:10 +0000 (UTC)
-X-SMTP-MATCH: 1
-IronPort-Data: =?us-ascii?q?A9a23=3AiA4fLqnUQ3IoUW790bltHVzo5gzKJ0RdPkR7X?=
- =?us-ascii?q?Q2eYbSJt1+Wr1GztxIdUD/TMvvfYjahf9p3aYTk8UJV6pPWy4RqHQo/qCo3R?=
- =?us-ascii?q?H8R8ZGZCI/IchuhZSnJIMObEhtr5J8SMIKQIJprEHPRjxr8abKJQVtUjPHQH?=
- =?us-ascii?q?OCgYALn1oGdfeLXIcsYoUoLd9MR2+aEv/DpW2thhvuqyyHvEAfNNw9cagr42?=
- =?us-ascii?q?YrawP9clKyaVAcjg7ALTasjUGkyNpUiJMl3yamZdxMUS2TPdwKwb76rILqRp?=
- =?us-ascii?q?gs18/qxY+5JnIoXcmVSKlLTFTvX0CUQA+76xEF3zsAw+v99baBALx4J03PQz?=
- =?us-ascii?q?o4ZJNZl7PRcTS8gJLHMhf5bVhBCCCFWPKta9aXBJnSy98uViUvLbxMAxt00U?=
- =?us-ascii?q?h5sY9FEob4f7WZmr6dGcFjhdCurqvy/xvSCV+Bqrs0mII/gO4Z3klhkwCHQC?=
- =?us-ascii?q?/orW9bvTrjB5dJC9D41ioZFGvO2T+EZczt0cBXJZVtsPVoRCZ0WleKkwHL4d?=
- =?us-ascii?q?lVwi1+To6cr4y79wQp++LHoPJzefdnibeFUnEHegmvU9n7RCxQWcteYzFKt+?=
- =?us-ascii?q?3egw+DBjQv/WZkOD/u27PNnjFCIxXAUEFsRT1TTnBUTolrmDpcGcwpM7nN79?=
- =?us-ascii?q?e5q4Bb+Fp+sAEbjtCXR5lhBT4UFK+c+/FjVn/KQuxLx6nMsF3gYMoBg7ZFuA?=
- =?us-ascii?q?2V7iDe0cxrSLWQHmNWopbi1pt94dQ+PBBU=3D?=
-IronPort-HdrOrdr: =?us-ascii?q?A9a23=3ALzsXIavbolHQnYhBDKeZrJL17skDetV00z?=
- =?us-ascii?q?EX/kB9WHVpmszxrayTdZMgpHvJYVcqKRQdcL+7U5VoLUm3yXcx2+gs1NSZLW?=
- =?us-ascii?q?vbUQmTXeJfBOLZqlXd8m/FltK1vp0OT0ERMrDN5BRB4/rH3A=3D=3D?=
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2BVAACRPFBiAMSgfAENTRsBAQEBAQE?=
- =?us-ascii?q?BAQUBAQESAQEBAwMBAQFACYFRhHuEVYJgjjkDnmYLAT0XBAEBhQcChHAmOBM?=
- =?us-ascii?q?BAgQVAQEGAQEBAQEHBBABOVKMNwEBAQEDASIEUgwECw0EBAEBAQICJgICKCc?=
- =?us-ascii?q?IBg4FgwSxRXp/MhpniBeBZYEQLIFmiFaEEzeBVUSBFScPDXmBbj6ECRoBAYM?=
- =?us-ascii?q?6N4IuBJobJRIHJgKBaQQENAyTXYMljQKdcTQHg0yBPAYMlkKHdC6DdIw5hkM?=
- =?us-ascii?q?Di3qFZC2WMaFRhziBfjMaLm8Bgj5Rf41VFo4+ZQI2AgYLAQEDCY5jAQE?=
-Received: from unknown (HELO [127.0.0.1]) ([1.124.160.196])
- by ipmail04.adl3.internode.on.net with ESMTP; 08 Apr 2022 23:18:06 +0930
-Date: Fri, 08 Apr 2022 23:17:55 +0930
-From: Arthur Marsh <arthur.marsh@internode.on.net>
-To: "Quan, Evan" <Evan.Quan@amd.com>
-Subject: =?US-ASCII?Q?RE=3A_=5BPATCH_V4_17/17=5D_drm/amd/pm=3A_uni?=
- =?US-ASCII?Q?fied_lock_protections_in_amdgpu=5Fdpm=2Ec?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <DM6PR12MB2619529F8A58B49D2244745EE4E99@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <BYAPR12MB2615608D66B2894697D8C5FEE4E09@BYAPR12MB2615.namprd12.prod.outlook.com>
- <20220401121847.5754-1-amarsh04@internode.on.net>
- <DM6PR12MB261926C1A94C438BA37815DEE4E39@DM6PR12MB2619.namprd12.prod.outlook.com>
- <DM6PR12MB2619529F8A58B49D2244745EE4E99@DM6PR12MB2619.namprd12.prod.outlook.com>
-Message-ID: <2816B6AE-0C5D-4FF1-A5A3-BED5D5B11BC5@internode.on.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0328810F225;
+	Fri,  8 Apr 2022 13:50:32 +0000 (UTC)
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE80010F0FF
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Apr 2022 08:46:17 +0000 (UTC)
+Received: by mail-pj1-x1029.google.com with SMTP id gt4so8014209pjb.4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 08 Apr 2022 01:46:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gDyQGG05oDhpXrRcwaGE6a1VBsuGFKHQ1kambJSFz3I=;
+ b=Pjxu8QXJwwMR9rfqqTSPpo7doU7P7YBdJt3uck5MP5ibh8CLNGbb8kVoBwGc85JP7d
+ qdKFjsD1nLMph2KatDPaJF104BB/y1PSmDRY04wVYa5vUY6M1PfXi0VvtmYuu3n7Cwpl
+ U/4TE/rGcXbVvXcsKNf+/mrlckYnFMcxcAZnzCKUK5+Y1LBEn6Sek0EYjgxYO/eG/ck/
+ Yy/Qpwg7lNHzwWpbKsSDpadFsXcOF3ERFQKp958LbfmiKgkCrHDdLG6KST9kYYfzNCTB
+ CscOdfIgLB8DaHmG7gW7v9JXqbwV9/zonFiicStW00AEOjEFnxdMpcgBQ2XGILeZSKtf
+ vSlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gDyQGG05oDhpXrRcwaGE6a1VBsuGFKHQ1kambJSFz3I=;
+ b=6qh3GWW4IJFcFywW3C7Uf98sm25FNZXe0kvLV+5HSGIaTg4BkVT12qexyAFC5DI/TT
+ 2DgydgP30dxut/Kr0vuaOvkimjSal+UwQAoz4tfmEiwhJCwOGr0F4BKHRW543mebAP82
+ DK+1gp9lvyy5EK8oKTP8kcqVeUM+jLFKmLyPenE78S0v6bD1tMBH2tx6076d/SSqs08d
+ Tl3V8Ps07M/3D4RzvbyGL3CN7+f5WSTiMel8qIrCMAZYyabDSutlAKPNCpbgGu8lCCMh
+ rxBBJCpiZnOfiTfJtq2PLQQJdJgd9HTVqQWVF/9ZZeSS3N7m2kW413F4qvfGI2PGpHi3
+ rWSQ==
+X-Gm-Message-State: AOAM5324BhhLqhQHXqwZL5UGdDzkXLy2YYU4+6UDTLnfBCbRXqmipdXa
+ 6VC4lZGDkExJA9uQoMXlDRX9gw2X2TVUHfnATaY=
+X-Google-Smtp-Source: ABdhPJxEuET5uNJakFFSMOkEXCuChvvxtJF9gEX0QxFDiU3vRkvCuj5/jS3j+Al9HH5ToWiapCle2Q==
+X-Received: by 2002:a17:90b:17c5:b0:1c6:3639:7daf with SMTP id
+ me5-20020a17090b17c500b001c636397dafmr20623845pjb.105.1649407577234; 
+ Fri, 08 Apr 2022 01:46:17 -0700 (PDT)
+Received: from netturing-04.corp.microsoft.com ([167.220.233.104])
+ by smtp.gmail.com with ESMTPSA id
+ t38-20020a634626000000b0039cc30b7c93sm4274053pga.82.2022.04.08.01.46.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Apr 2022 01:46:16 -0700 (PDT)
+From: Shuotao Xu <xushuotao@gmail.com>
+X-Google-Original-From: Shuotao Xu <shuotaoxu@microsoft.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdkfd: Cleanup IO links during KFD device removal
+Date: Fri,  8 Apr 2022 08:45:43 +0000
+Message-Id: <20220408084544.9313-1-shuotaoxu@microsoft.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 08 Apr 2022 13:50:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,145 +68,239 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Mukul Joshi <mukul.joshi@amd.com>, Andrey.Grodzovsky@amd.com,
+ Felix.Kuehling@amd.com, pengc@microsoft.com, Lei.Qu@microsoft.com,
+ Shuotao Xu <shuotaoxu@microsoft.com>, Ran.Shu@microsoft.com,
+ Ziyue.Yang@microsoft.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks Evan, your patch applied to Linus' origin/master source worked for m=
-e running amdgpu module with a Radeon SI (Cape Verde) GPU card=2E
+Currently, the IO-links to the device being removed from topology,
+are not cleared. As a result, there would be dangling links left in
+the KFD topology. This patch aims to fix the following:
+1. Cleanup all IO links to the device being removed.
+2. Ensure that node numbering in sysfs and nodes proximity domain
+   values are consistent after the device is removed:
+   a. Adding a device and removing a GPU device are made mutually
+      exclusive.
+   b. The global proximity domain counter is no longer required to be
+      an atomic counter. A normal 32-bit counter can be used instead.
+3. Update generation_count to let user-mode know that topology has
+   changed due to device removal.
 
-Regards,
+Reviewed-by: Shuotao Xu <shuotaoxu@microsoft.com>
+CC: Shuotao Xu <shuotaoxu@microsoft.com>
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c     |  4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 79 ++++++++++++++++++++---
+ 3 files changed, 74 insertions(+), 11 deletions(-)
 
-Arthur Marsh=2E=20
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 1eaabd2cb41b..afc8a7fcdad8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -1056,7 +1056,7 @@ static int kfd_parse_subtype_iolink(struct crat_subtype_iolink *iolink,
+ 	 * table, add corresponded reversed direction link now.
+ 	 */
+ 	if (props && (iolink->flags & CRAT_IOLINK_FLAGS_BI_DIRECTIONAL)) {
+-		to_dev = kfd_topology_device_by_proximity_domain(id_to);
++		to_dev = kfd_topology_device_by_proximity_domain_no_lock(id_to);
+ 		if (!to_dev)
+ 			return -ENODEV;
+ 		/* same everything but the other direction */
+@@ -2225,7 +2225,7 @@ static int kfd_create_vcrat_image_gpu(void *pcrat_image,
+ 	 */
+ 	if (kdev->hive_id) {
+ 		for (nid = 0; nid < proximity_domain; ++nid) {
+-			peer_dev = kfd_topology_device_by_proximity_domain(nid);
++			peer_dev = kfd_topology_device_by_proximity_domain_no_lock(nid);
+ 			if (!peer_dev->gpu)
+ 				continue;
+ 			if (peer_dev->gpu->hive_id != kdev->hive_id)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index e1b7e6afa920..8a43def1f638 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1016,6 +1016,8 @@ int kfd_topology_add_device(struct kfd_dev *gpu);
+ int kfd_topology_remove_device(struct kfd_dev *gpu);
+ struct kfd_topology_device *kfd_topology_device_by_proximity_domain(
+ 						uint32_t proximity_domain);
++struct kfd_topology_device *kfd_topology_device_by_proximity_domain_no_lock(
++						uint32_t proximity_domain);
+ struct kfd_topology_device *kfd_topology_device_by_id(uint32_t gpu_id);
+ struct kfd_dev *kfd_device_by_id(uint32_t gpu_id);
+ struct kfd_dev *kfd_device_by_pci_dev(const struct pci_dev *pdev);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 3bdcae239bc0..874a273b81f7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -46,27 +46,38 @@ static struct list_head topology_device_list;
+ static struct kfd_system_properties sys_props;
+ 
+ static DECLARE_RWSEM(topology_lock);
+-static atomic_t topology_crat_proximity_domain;
++static uint32_t topology_crat_proximity_domain;
+ 
+-struct kfd_topology_device *kfd_topology_device_by_proximity_domain(
++struct kfd_topology_device *kfd_topology_device_by_proximity_domain_no_lock(
+ 						uint32_t proximity_domain)
+ {
+ 	struct kfd_topology_device *top_dev;
+ 	struct kfd_topology_device *device = NULL;
+ 
+-	down_read(&topology_lock);
+-
+ 	list_for_each_entry(top_dev, &topology_device_list, list)
+ 		if (top_dev->proximity_domain == proximity_domain) {
+ 			device = top_dev;
+ 			break;
+ 		}
+ 
++	return device;
++}
++
++struct kfd_topology_device *kfd_topology_device_by_proximity_domain(
++						uint32_t proximity_domain)
++{
++	struct kfd_topology_device *device = NULL;
++
++	down_read(&topology_lock);
++
++	device = kfd_topology_device_by_proximity_domain_no_lock(
++							proximity_domain);
+ 	up_read(&topology_lock);
+ 
+ 	return device;
+ }
+ 
++
+ struct kfd_topology_device *kfd_topology_device_by_id(uint32_t gpu_id)
+ {
+ 	struct kfd_topology_device *top_dev = NULL;
+@@ -1060,7 +1071,7 @@ int kfd_topology_init(void)
+ 	down_write(&topology_lock);
+ 	kfd_topology_update_device_list(&temp_topology_device_list,
+ 					&topology_device_list);
+-	atomic_set(&topology_crat_proximity_domain, sys_props.num_devices-1);
++	topology_crat_proximity_domain = sys_props.num_devices-1;
+ 	ret = kfd_topology_update_sysfs();
+ 	up_write(&topology_lock);
+ 
+@@ -1295,8 +1306,6 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+ 
+ 	pr_debug("Adding new GPU (ID: 0x%x) to topology\n", gpu_id);
+ 
+-	proximity_domain = atomic_inc_return(&topology_crat_proximity_domain);
+-
+ 	/* Include the CPU in xGMI hive if xGMI connected by assigning it the hive ID. */
+ 	if (gpu->hive_id && gpu->adev->gmc.xgmi.connected_to_cpu) {
+ 		struct kfd_topology_device *top_dev;
+@@ -1321,12 +1330,16 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+ 	 */
+ 	dev = kfd_assign_gpu(gpu);
+ 	if (!dev) {
++		down_write(&topology_lock);
++		proximity_domain = ++topology_crat_proximity_domain;
++
+ 		res = kfd_create_crat_image_virtual(&crat_image, &image_size,
+ 						    COMPUTE_UNIT_GPU, gpu,
+ 						    proximity_domain);
+ 		if (res) {
+ 			pr_err("Error creating VCRAT for GPU (ID: 0x%x)\n",
+ 			       gpu_id);
++			topology_crat_proximity_domain--;
+ 			return res;
+ 		}
+ 		res = kfd_parse_crat_table(crat_image,
+@@ -1335,10 +1348,10 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+ 		if (res) {
+ 			pr_err("Error parsing VCRAT for GPU (ID: 0x%x)\n",
+ 			       gpu_id);
++			topology_crat_proximity_domain--;
+ 			goto err;
+ 		}
+ 
+-		down_write(&topology_lock);
+ 		kfd_topology_update_device_list(&temp_topology_device_list,
+ 			&topology_device_list);
+ 
+@@ -1485,25 +1498,73 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+ 	return res;
+ }
+ 
++static void kfd_topology_update_io_links(int proximity_domain)
++{
++	struct kfd_topology_device *dev;
++	struct kfd_iolink_properties *iolink, *p2plink, *tmp;
++	/*
++	 * The topology list currently is arranged in increasing
++	 * order of proximity domain.
++	 *
++	 * Two things need to be done when a device is removed:
++	 * 1. All the IO links to this device need to be
++	 *    removed.
++	 * 2. All nodes after the current device node need to move
++	 *    up once this device node is removed from the topology
++	 *    list. As a result, the proximity domain values for
++	 *    all nodes after the node being deleted reduce by 1.
++	 *    This would also cause the proximity domain values for
++	 *    io links to be updated based on new proximity
++	 *    domain values.
++	 */
++	list_for_each_entry(dev, &topology_device_list, list) {
++		if (dev->proximity_domain > proximity_domain)
++			dev->proximity_domain--;
++
++		list_for_each_entry_safe(iolink, tmp, &dev->io_link_props, list) {
++			/*
++			 * If there is an io link to the dev being deleted
++			 * then remove that IO link also.
++			 */
++			if (iolink->node_to == proximity_domain) {
++				list_del(&iolink->list);
++				dev->io_link_count--;
++				dev->node_props.io_links_count--;
++			} else if (iolink->node_from > proximity_domain) {
++				iolink->node_from--;
++			} else if (iolink->node_to > proximity_domain) {
++				iolink->node_to--;
++			}
++		}
++
++	}
++}
++
+ int kfd_topology_remove_device(struct kfd_dev *gpu)
+ {
+ 	struct kfd_topology_device *dev, *tmp;
+ 	uint32_t gpu_id;
+ 	int res = -ENODEV;
++	int i = 0;
+ 
+ 	down_write(&topology_lock);
+ 
+-	list_for_each_entry_safe(dev, tmp, &topology_device_list, list)
++	list_for_each_entry_safe(dev, tmp, &topology_device_list, list) {
+ 		if (dev->gpu == gpu) {
+ 			gpu_id = dev->gpu_id;
+ 			kfd_remove_sysfs_node_entry(dev);
+ 			kfd_release_topology_device(dev);
+ 			sys_props.num_devices--;
++			kfd_topology_update_io_links(i);
++			topology_crat_proximity_domain = sys_props.num_devices-1;
++			sys_props.generation_count++;
+ 			res = 0;
+ 			if (kfd_topology_update_sysfs() < 0)
+ 				kfd_topology_release_sysfs();
+ 			break;
+ 		}
++		i++;
++	}
+ 
+ 	up_write(&topology_lock);
+ 
+-- 
+2.25.1
 
-On 8 April 2022 9:54:57 pm ACST, "Quan, Evan" <Evan=2EQuan@amd=2Ecom> wrot=
-e:
->[AMD Official Use Only]
->
->Hi Arthur,
->
->Please give the attached patch a try and let me know the result=2E
->
->Thanks,
->Evan
->> -----Original Message-----
->> From: Quan, Evan
->> Sent: Saturday, April 2, 2022 9:32 AM
->> To: 'Arthur Marsh' <arthur=2Emarsh@internode=2Eon=2Enet>
->> Cc: Deucher, Alexander <Alexander=2EDeucher@amd=2Ecom>; Koenig, Christi=
-an
->> <Christian=2EKoenig@amd=2Ecom>; Feng, Kenneth <Kenneth=2EFeng@amd=2Ecom=
->;
->> Lazar, Lijo <Lijo=2ELazar@amd=2Ecom>; amd-gfx@lists=2Efreedesktop=2Eorg
->> Subject: RE: [PATCH V4 17/17] drm/amd/pm: unified lock protections in
->> amdgpu_dpm=2Ec
->>=20
->> [AMD Official Use Only]
->>=20
->> Thanks for the confirming=2E I probably know the root cause=2E
->> Let me prepare an official patch for you=2E
->>=20
->> BR
->> Evan
->> > -----Original Message-----
->> > From: Arthur Marsh <arthur=2Emarsh@internode=2Eon=2Enet>
->> > Sent: Friday, April 1, 2022 8:19 PM
->> > To: Quan, Evan <Evan=2EQuan@amd=2Ecom>
->> > Cc: Deucher, Alexander <Alexander=2EDeucher@amd=2Ecom>; Koenig,
->> Christian
->> > <Christian=2EKoenig@amd=2Ecom>; Feng, Kenneth <Kenneth=2EFeng@amd=2Ec=
-om>;
->> > Lazar, Lijo <Lijo=2ELazar@amd=2Ecom>; amd-gfx@lists=2Efreedesktop=2Eo=
-rg;
->> > arthur=2Emarsh@internode=2Eon=2Enet
->> > Subject: [PATCH V4 17/17] drm/amd/pm: unified lock protections in
->> > amdgpu_dpm=2Ec
->> >
->> > Hi, short answer is that with both patches applied, I am successfully
->> > running the amdgpu kernel module on radeonsi (plasma desktop on X=2Eo=
-rg)=2E
->> >
->> > I confirmed that CONFIG_LOCKDEP_SUPPORT=3Dy is enabled in the kernel=
-=2E
->> >
->> > With the first patch applied and remotely connecting to the machine
->> > and loading amdgpu via:
->> >
->> > modprobe amdgpu si_support=3D1 gpu_recovery=3D1
->> >
->> > the last lines of dmesg were:
->> >
->> > [  264=2E095969] [drm] Found UVD firmware Version: 64=2E0 Family ID: =
-13 [
->> > 264=2E097779] [drm] PCIE gen 2 link speeds already enabled [
->> > 264=2E648137] [drm] UVD initialized successfully=2E
->> > [  264=2E648696] amdgpu 0000:01:00=2E0: amdgpu: SE 1, SH per SE 2, CU=
- per
->> > SH 5, active_cu_number 8 [  264=2E984814] [drm] Initialized amdgpu
->> > 3=2E46=2E0 20150101 for 0000:01:00=2E0 on minor 0 [  265=2E040280] fb=
-con:
->> > amdgpudrmfb (fb0) is primary device
->> >
->> > After applying the second patch and building and restarting with the
->> > new kernel, I could load amdgpu successfuly and start the plasma
->> > desktop under X=2Eorg, with the last amdgpu load lines being:
->> >
->> > [  227=2E736281] fbcon: amdgpudrmfb (fb0) is primary device [
->> > 227=2E760719] Console: switching to colour frame buffer device 240x67=
- [
->> > 227=2E765024] amdgpu 0000:01:00=2E0: [drm] fb0: amdgpudrmfb frame buf=
-fer
->> > device
->> >
->> > I tried building a kernel with just the second patch and that
->> > experienced a lockup after apparently loading amdgpu alright=2E
->> >
->> > First and second patches combined:
->> >
->> > diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm=2Ec
->> > b/drivers/gpu/drm/amd/pm/amdgpu_dpm=2Ec
->> > index 89fbee568be4=2E=2Ee9ebbc9f4cd2 100644
->> > --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm=2Ec
->> > +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm=2Ec
->> > @@ -80,8 +80,6 @@ int amdgpu_dpm_set_powergating_by_smu(struct
->> > amdgpu_device *adev, uint32_t block
->> >  		return 0;
->> >  	}
->> >
->> > -	mutex_lock(&adev->pm=2Emutex);
->> > -
->> >  	switch (block_type) {
->> >  	case AMD_IP_BLOCK_TYPE_UVD:
->> >  	case AMD_IP_BLOCK_TYPE_VCE:
->> > @@ -102,8 +100,6 @@ int amdgpu_dpm_set_powergating_by_smu(struct
->> > amdgpu_device *adev, uint32_t block
->> >  	if (!ret)
->> >  		atomic_set(&adev->pm=2Epwr_state[block_type], pwr_state);
->> >
->> > -	mutex_unlock(&adev->pm=2Emutex);
->> > -
->> >  	return ret;
->> >  }
->> >
->> > @@ -423,9 +419,7 @@ void amdgpu_dpm_compute_clocks(struct
->> > amdgpu_device *adev)
->> >  	if (!pp_funcs->pm_compute_clocks)
->> >  		return;
->> >
->> > -	mutex_lock(&adev->pm=2Emutex);
->> >  	pp_funcs->pm_compute_clocks(adev->powerplay=2Epp_handle);
->> > -	mutex_unlock(&adev->pm=2Emutex);
->> >  }
->> >
->> >  void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool
->> enable)
->> >
->> > Thanks for the assistance!
->> >
->> > Arthur=2E
-
---=20
-Sent from my Android device with K-9 Mail=2E Please excuse my brevity=2E
