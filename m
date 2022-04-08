@@ -4,92 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16B7DC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 17:28:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70B02C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 18:13:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0E5F10F150;
-	Fri,  8 Apr 2022 17:28:08 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2063.outbound.protection.outlook.com [40.107.237.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30C9310F150
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Apr 2022 17:28:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aJSqFFfGJXxSGrtz/7XU+leERGsKl03lv4v+pzAsBwyf+zBUXXU8PfeQa4WInAlBEKZxiA3zFvqWwCWy7inZvo7neQbl4BTWir11Vof4XJH9O6ghtTpAvY5dhqiZyDm1ttkHthfaj6bp8obwFdnmymnNA7x75VX5j54gH5mnIB5CxkflyiaOz1NX26gSt97OHHx7hW9OXt1djo9fSoXMqeYBogCzuR+bqzekSJZZDsmvzR1rBsnJRuP5l/pArhftImV4jJrmvd1M8ctuJrT/Lo3dtVBuyRQ1i1CbwI/oawYyQTueNiEqFlZYRUDFIIc70A5qtkUxm+VSVAotzPjwsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zKZOxqoW9bXvJISMZeZMIDfZSORQ7hTHAGkZecYkchI=;
- b=gLA8qJLB2+542ZAcdTwZcCs+gcuchhq0BXnTjsFJD/qJU1SJ1mCQyWBlRXQb3eaU/r1dxj1N12z7ne0iee4XLtdex3jsc0+MIi7bcHd8z/fxSyBrfs6iMdOP5kDu6ocOmPLfD0KDx78xGNq1+N8QlIjEOz3HzaJ72Ce+6Po0wsXWg91GZWIjB5MUAiRX/qcYa5A0/yv+/1ndGEN5iGEb9G3xcwkLsxyNuSEPy1ayt0z/0iLBi5TilgalUr0w02R8iBx49q2Gc1jxXo4ZU3PQpX/W3iAjsELrCfM4USru+AoJftCyQhvi9EggUdK++wjVAmjw5+Anl+4+QWA/1cUqZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zKZOxqoW9bXvJISMZeZMIDfZSORQ7hTHAGkZecYkchI=;
- b=v6zAkgXsxOKAAAh8+XGKSM0P7Gym2mVPDKt8VMSexxAIFEdiVz4W4B0npMjN3S9ZNco+zHf8vIBJDxriR8vOK4gUhXfcJ/YE6Qsu1X14DMWj7xHmYGnLK6z6Vt/RX+jnFM0GSHs2AbA0uB+QmwwHKoC+cQpSAbUggwg7ulCHYuU=
-Received: from DM6PR07CA0121.namprd07.prod.outlook.com (2603:10b6:5:330::33)
- by MWHPR1201MB0143.namprd12.prod.outlook.com (2603:10b6:301:54::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.26; Fri, 8 Apr
- 2022 17:28:02 +0000
-Received: from DM6NAM11FT059.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:330:cafe::a4) by DM6PR07CA0121.outlook.office365.com
- (2603:10b6:5:330::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.25 via Frontend
- Transport; Fri, 8 Apr 2022 17:28:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT059.mail.protection.outlook.com (10.13.172.92) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5144.20 via Frontend Transport; Fri, 8 Apr 2022 17:28:01 +0000
-Received: from lnxpromo.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 8 Apr
- 2022 12:27:49 -0500
-From: Pavle Kotarac <Pavle.Kotarac@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 20/20] drm/amd/display: implement shared PSR-SU sink
- validation helper
-Date: Fri, 8 Apr 2022 13:19:11 -0400
-Message-ID: <20220408171911.601615-21-Pavle.Kotarac@amd.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220408171911.601615-1-Pavle.Kotarac@amd.com>
-References: <20220408171911.601615-1-Pavle.Kotarac@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04C4210E38E;
+	Fri,  8 Apr 2022 18:13:21 +0000 (UTC)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55E8C10E38E;
+ Fri,  8 Apr 2022 18:13:20 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-e1dcc0a327so10570018fac.1; 
+ Fri, 08 Apr 2022 11:13:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=bhP3eIOYqFQ1TLSj31wqQTbMB1cCk1qoaWt6+VR4BLw=;
+ b=Qu1oWRu2JGHe24zZhQ4F0+ypq/DSujSGxjFiCTEtij0J1fAO2oFUTpnr9B9qfHoWTm
+ 756Lo5Sh/3bLUXO8RxhWd6obNcOrETC75QRMjwLBYClfaffoygf2/v/YfxyLHKTl5ecJ
+ nVNsJzxjkHMySUYQB1ak4nnoY/U56GCcuvW8Cg04SKviYKoi3iLwj5z6nE97qGjCCtGF
+ KQorSYoGfOvuJvEmLg0qYNnuV9mYVRn2i7oJIVOb69Im5NS+7sgpUEkBfuDPBLbBa26t
+ UvXUWISkiodiQJDHZlbxcv/CGUUkM8gAj0ylpoOiDPy51El4YHmG/B2XsL9/siOSOnTk
+ t0zQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=bhP3eIOYqFQ1TLSj31wqQTbMB1cCk1qoaWt6+VR4BLw=;
+ b=bfl43fvd/Jm1qX8cNzNd0fC+Dfm0AUldAW/qQ/K7gI7803PYND8m3OSub8TtvphV3o
+ FV7FvJ61qpg+/EfKABk4GeBHG69DNao5vt0U2kgokAUNlmlxJKkoRo9lwJarOpA38Z6y
+ 10wvidQzDI6IUnV4JWZetxXkXDr6JSKZ2J0HJ54NdK/7XPJ/yQoo7qASWzxrPbycUT/d
+ nlYKte9Hhwig5w7u6qb5kl5YxHzbdvbSHt2JTF30F9H3YKJIyKCv5jcQHM5e2Osdpl7m
+ aOoPwaCuExf3WsOwHeKV4Z2o8HUL1hK3HXlbaAmm3TpmZvOAQt6qo9P/Ju4WAAmNIfnq
+ aMiA==
+X-Gm-Message-State: AOAM531WNiKrW7c/UPVFTbFlAs7G83UvnSyZWdRRgYNsQqwO4yenOKS/
+ IiiJ8LR3W/zGkFOoVq6OWpMRL4pUM29YLhSN8JY=
+X-Google-Smtp-Source: ABdhPJy/5j7dhpq7nAlYcXWuJYra1eFEi2YT/D5jTr+unwf6/PZglehZSAX76bFE1Mri4dpLdCIaFYQn1dd+nnZttqo=
+X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
+ z3-20020a056870d68300b000deeaa23550mr9582559oap.253.1649441599543; Fri, 08
+ Apr 2022 11:13:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 45bb5674-20af-4d86-5a0f-08da19852214
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0143:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB0143EB729B28973B6352BC8FFCE99@MWHPR1201MB0143.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: s2w/RrYRQ13IPCQHSmc4kYzn0so9u2EeJb31X8YiLS2EMrGTjapp2UCN2fDzUfVNK37G3NOaXG1ZIO9Fw+EsCuCSdqw5zNwUi/62t7d3Y4LYfcrqWwxgjmsXSFo5GLw5qXaVqEHxbI8ZTqu8vL5zy4r9F5VsoNB3IiMY+y/BopVUbeoFI99EKGgBWYvuWOBs7/bQRY21MpbFSH2kib0K5BkY+mZVmFCjCgEGVov2/iMq6qqwqjqZGVkdPKzaifydt2+xLAvm4gIvPdZElRpB/MJ4uMIquyv92wwi1Ar0/HIQAuLjZvKNy1kGo7aS9OpcI/J65tI5j8Mi973plO5xkT35uP51EnUEFOdNdwbxiF8S22kRYB5FLUuik3sHFUcU2yujzmJzsQsqfUtqqra8Xqmm3ls6oTBjHmhW63rbOewc6LUNRtCWOOa/DPjZkFEopYHXOb/IdVo9ezZEMFZ1xvGgjDPWz9hWFM9Ug5co6gsB5E/nBBQvk2UbcWX4N7uldoQRYKySjelCItSXuTlkXHT1Rq277uch/rK3X4cXHyzKvXZ6THS/l1X4tVIACpfuCkyaxsINrbffCBGCZXtS8g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(1076003)(426003)(8936002)(336012)(2616005)(5660300002)(26005)(83380400001)(508600001)(186003)(40460700003)(6666004)(16526019)(86362001)(6916009)(54906003)(2906002)(356005)(316002)(36860700001)(82310400005)(81166007)(70586007)(70206006)(36756003)(47076005)(4326008)(8676002)(7696005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2022 17:28:01.8356 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45bb5674-20af-4d86-5a0f-08da19852214
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT059.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0143
+References: <20220408154447.3519453-1-richard.gong@amd.com>
+ <BL1PR12MB51576654D3EEB10F5DF862A7E2E99@BL1PR12MB5157.namprd12.prod.outlook.com>
+ <CADnq5_PmxGxrJG5uZkkFXQ1YbJbDZTvAqb2oYqdCE=NtqBojqw@mail.gmail.com>
+ <2603fe3e-2b8b-0161-2812-6c1f21eda02b@amd.com>
+In-Reply-To: <2603fe3e-2b8b-0161-2812-6c1f21eda02b@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 8 Apr 2022 14:13:08 -0400
+Message-ID: <CADnq5_PLwkm9tKc7Hh3WOo9nKJEeTcKGdYtVtfGVoVq6gGo1sg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: disable ASPM for legacy products that don't
+ support ASPM
+To: "Gong, Richard" <richard.gong@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,126 +68,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, David Zhang <dingchen.zhang@amd.com>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Tom Chung <chiahsuan.chung@amd.com>, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, Pavle Kotarac <Pavle.Kotarac@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "airlied@linux.ie" <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Zhang <dingchen.zhang@amd.com>
+On Fri, Apr 8, 2022 at 12:15 PM Gong, Richard <richard.gong@amd.com> wrote:
+>
+> Hi Alex,
+>
+> On 4/8/2022 10:54 AM, Alex Deucher wrote:
+> > On Fri, Apr 8, 2022 at 11:47 AM Limonciello, Mario
+> > <Mario.Limonciello@amd.com> wrote:
+> >> [Public]
+> >>
+> >>
+> >>
+> >>> -----Original Message-----
+> >>> From: Gong, Richard <Richard.Gong@amd.com>
+> >>> Sent: Friday, April 8, 2022 10:45
+> >>> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> >>> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>;
+> >>> airlied@linux.ie; daniel@ffwll.ch
+> >>> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; l=
+inux-
+> >>> kernel@vger.kernel.org; Limonciello, Mario <Mario.Limonciello@amd.com=
+>;
+> >>> Gong, Richard <Richard.Gong@amd.com>
+> >>> Subject: [PATCH] drm/amdgpu: disable ASPM for legacy products that do=
+n't
+> >>> support ASPM
+> >>>
+> >>> Active State Power Management (ASPM) feature is enabled since kernel
+> >>> 5.14.
+> >>> However there are some legacy products (WX3200 and RX640 are examples=
+)
+> >>> that
+> >>> do not support ASPM. Use them as video/display output and system woul=
+d
+> >>> hang
+> >>> during suspend/resume.
+> >>>
+> >>> Add extra check to disable ASPM for old products that don't have
+> >>> ASPM support.
+> > The patch description is incorrect.  ASPM works just fine on these
+> > GPUs.  It's more of an issue with whether the underlying platform
+> > supports ASPM or not.  Rather than disabling a chip family, I would
+> > prefer to add a check for problematic platforms and disable ASPM on
+> > those platforms.
+>
+> I thought that initially.
+>
+> But I found out that suspend/resume works just fine on the "problematic"
+> platform (Dell Precision 3660, Intel ADL based) + AMD W6400 GFX card.
+> With WX3200 or RX640, suspend/resume works only when ASPM was disabled.
+> Both WX3200 and RX640 are from CHIP_POLARIS12 family.
+>
+> This is why I take chip family approach.
 
-[why]
-creating a generic helper for AMD specific PSR-SU sink validation.
-Moving the function to the power module to reference it across all
-OS.
+Sure, but you could put those polaris12 boards into a different system
+and they work just fine with ASPM enabled.
 
-[how]
-- drop PSRSU specific sink validation helper and move to power
-  module by reading PSR version and other PSR caps
-- call the new helper from linux DM (amdgpu_dm_psr)
+Alex
 
-Acked-by: Pavle Kotarac <Pavle.Kotarac@amd.com>
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: David Zhang <dingchen.zhang@amd.com>
----
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |  9 ++++-
- .../amd/display/modules/power/power_helpers.c | 38 +++++++++++++++++++
- .../amd/display/modules/power/power_helpers.h |  1 +
- 3 files changed, 47 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-index 0c923a90615c..13b1751e69bf 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-@@ -27,6 +27,7 @@
- #include "dc.h"
- #include "dm_helpers.h"
- #include "amdgpu_dm.h"
-+#include "modules/power/power_helpers.h"
- 
- #ifdef CONFIG_DRM_AMD_DC_DCN
- static bool link_supports_psrsu(struct dc_link *link)
-@@ -39,6 +40,9 @@ static bool link_supports_psrsu(struct dc_link *link)
- 	if (dc->ctx->dce_version < DCN_VERSION_3_1)
- 		return false;
- 
-+	if (!is_psr_su_specific_panel(link))
-+		return false;
-+
- 	if (!link->dpcd_caps.alpm_caps.bits.AUX_WAKE_ALPM_CAP ||
- 	    !link->dpcd_caps.psr_info.psr_dpcd_caps.bits.Y_COORDINATE_REQUIRED)
- 		return false;
-@@ -79,7 +83,10 @@ void amdgpu_dm_set_psr_caps(struct dc_link *link)
- 		link->psr_settings.psr_feature_enabled = true;
- 	}
- 
--	DRM_INFO("PSR support:%d\n", link->psr_settings.psr_feature_enabled);
-+	DRM_INFO("PSR support %d, DC PSR ver %d, sink PSR ver %d\n",
-+		link->psr_settings.psr_feature_enabled,
-+		link->psr_settings.psr_version,
-+		link->dpcd_caps.psr_info.psr_version);
- 
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-index 2b00f334e93d..97928d4c3b9a 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-@@ -784,3 +784,41 @@ bool dmcu_load_iram(struct dmcu *dmcu,
- 	return result;
- }
- 
-+/*
-+ * is_psr_su_specific_panel() - check if sink is AMD vendor-specific PSR-SU
-+ * supported eDP device.
-+ *
-+ * @link: dc link pointer
-+ *
-+ * Return: true if AMDGPU vendor specific PSR-SU eDP panel
-+ */
-+bool is_psr_su_specific_panel(struct dc_link *link)
-+{
-+	if (link->dpcd_caps.edp_rev >= DP_EDP_14) {
-+		if (link->dpcd_caps.psr_info.psr_version >= DP_PSR2_WITH_Y_COORD_ET_SUPPORTED)
-+			return true;
-+		/*
-+		 * Some panels will report PSR capabilities over additional DPCD bits.
-+		 * Such panels are approved despite reporting only PSR v3, as long as
-+		 * the additional bits are reported.
-+		 */
-+		if (link->dpcd_caps.psr_info.psr_version < DP_PSR2_WITH_Y_COORD_IS_SUPPORTED)
-+			return false;
-+
-+		if (link->dpcd_caps.sink_dev_id == DP_BRANCH_DEVICE_ID_001CF8) {
-+			/*
-+			 * FIXME:
-+			 * This is the temporary workaround to disable PSRSU when system turned on
-+			 * DSC function on the sepcific sink. Once the PSRSU + DSC is fixed, this
-+			 * condition should be removed.
-+			 */
-+			if (link->dpcd_caps.dsc_caps.dsc_basic_caps.fields.dsc_support.DSC_SUPPORT)
-+				return false;
-+
-+			if (link->dpcd_caps.psr_info.force_psrsu_cap == 0x1)
-+				return true;
-+		}
-+	}
-+
-+	return false;
-+}
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
-index 2a9f8e2d8080..1a634d8c78c5 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
-@@ -52,4 +52,5 @@ bool dmub_init_abm_config(struct resource_pool *res_pool,
- 		struct dmcu_iram_parameters params,
- 		unsigned int inst);
- 
-+bool is_psr_su_specific_panel(struct dc_link *link);
- #endif /* MODULES_POWER_POWER_HELPERS_H_ */
--- 
-2.32.0
-
+>
+> Regards,
+>
+> Richard
+>
+> > Alex
+> >
+> >>> Signed-off-by: Richard Gong <richard.gong@amd.com>
+> >>> Link: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
+2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1885&amp;data=3D04%7=
+C01%7CRichard.Gong%40amd.com%7C96f8f686f75f43abb5ed08da19780fab%7C3dd8961fe=
+4884e608e11a82d994e183d%7C0%7C0%7C637850300760921285%7CUnknown%7CTWFpbGZsb3=
+d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000=
+&amp;sdata=3DxVKC0Q16ho5Y2GDuN%2Fnx68wm6NzOIyR5xJbiXPgqPpQ%3D&amp;reserved=
+=3D0
+> >>> ---
+> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++++
+> >>>   1 file changed, 4 insertions(+)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>> index bb1c025d9001..8987107f41ee 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>> @@ -2012,6 +2012,10 @@ static int amdgpu_pci_probe(struct pci_dev
+> >>> *pdev,
+> >>>        if (amdgpu_aspm =3D=3D -1 && !pcie_aspm_enabled(pdev))
+> >>>                amdgpu_aspm =3D 0;
+> >>>
+> >>> +     /* disable ASPM for the legacy products that don't support ASPM=
+ */
+> >>> +     if ((flags & AMD_ASIC_MASK) =3D=3D CHIP_POLARIS12)
+> >>> +             amdgpu_aspm =3D 0;
+> >>> +
+> >> I think it's problematic to disable it for the entire driver.  There m=
+ight be multiple
+> >> AMDGPUs in the system, and others may support ASPM.
+> >>
+> >> Can it be done just as part of probe for Polaris?
+> >>
+> >>>        if (amdgpu_virtual_display ||
+> >>>            amdgpu_device_asic_has_dc_support(flags & AMD_ASIC_MASK))
+> >>>                supports_atomic =3D true;
+> >>> --
+> >>> 2.25.1
