@@ -4,89 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD7A5C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 02:41:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B475C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 02:51:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53C7B10E3A6;
-	Fri,  8 Apr 2022 02:41:01 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2044.outbound.protection.outlook.com [40.107.101.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC3D210E39C
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Apr 2022 02:40:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 971B510E34A;
+	Fri,  8 Apr 2022 02:51:47 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2077.outbound.protection.outlook.com [40.107.220.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A180610E382
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Apr 2022 02:51:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C1yidli+9HKEXYZNZkKugw4x0/d+5RCsuJ2biqxAPCo9f89GOD4Iz1LRRs+D7Rhu3QWckPL32Al+T+iYPTZTj7EGDTbA8JGKqAPSudHDJ6k2qpEQ2j9UeNMOozbso/vhsKwfvkUWt9BBz38h7A6nkIOP0A+d194C4N7jt1EDktVhMODSzLz1B/Dx/nNvTloZQYQYbNYH+2tdZJypNlMOuSzCER/7R4M2FfJbJ/MVlpMXEYxXkSfgTx+fOG9So9bhFd87a88gGAuwtej4DsGFcXuu2UbRPni1MMiNVMTpJuSU8E0yQPGofrPACB7u+YbAaTxRI7yc08mHG//z1vPgZA==
+ b=N29913qS1N28mewKg2J4BONBf/HCzaf9sdD8U6bQFq1GgpWSIAnTtdKidniLnww9H/wLCPKlWRzo2C1u0/ukH3VTbMXlGWXSwBR0O82ddMvEljfwx5WVbotMBZcVSS+ehPntH4kCPc5mqGdeHCD3AWyoTY+tmtccUbXz1j94emvxqTJT01nmFhLier7B6rc7jaMDWcvEs91BGPS0/kp8SAewLiVGIhMI0OWAqE9kDzjdXgRMx/D2GNZg1Qv6I2GCVexo9Qnn+PnsOMf6fWZZaOstomCTCHuWmlzry0pjOuQnauYknN1NWg0rTpQKmswAJPa2rQTlsREUefjytx/ruA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TjNeaXoJJ9EzwQRP7ZR9ew2lh4CqeZIWUPlYL6itMd4=;
- b=a/UdcBNauSguIhutpOdeo2LSlwCMZRGDEwrI7FBsmOPQPvpyyB9iHY5SC/MFQjf5FmJt5CAjZ2YDaouJhGOoPTGO3T6tPcr/XVHMJOzhNGR0FgsyeAG3oayxokp7sg7Kpp6FOGvZD9bH3qdH7/X+CWksXKv3i7vu7o32jyDH9MaF2rxN+w3Uf3geJDp4lNvN6laYAAwpiDD4ZogdT8EF3PQCFi4i5ZsYI0Ic4TCSEKAiiKvxgi8MWc7xG+nDaLVQG93oaG9b87aNXkk3pDZ05w78SBsLA4VvD45MdzSCb2Er5VhO1+KiH6oRkRkB84EGD3L3G0CSioim7qGPDOB0Rw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=Q/Fw6S2Tz9FevtGJJHBB9zLg+gV7+hGnfTWumdJww7c=;
+ b=RR3ej+x1gSD1kpg6ha0VIfXY0Db77VI5si74uTsOHkOR158FQFnZKDF4g7W1nL4PRbXg6YRgBl+ugmihAXs6jQ611XLGsR8JzuZgN14MvHaCzoDngnC4aSedBGRBmezIvHocisVreVcs7u5BaDJ/3Ow9C/T9Jm3VcqwgyCxJt71o4VhDKp8vcCeyni82EILXnHS2QKh3wxVbepzxIDmd0LRXfBgOxxtSj4J1RzJYZpuseHasxq9hZIIqPfJQDrkP6jpWc4iKoztDKYK+opFErU1JkquFci9HBpm93qtTXMxnqPe6zHB7/2ytk0WVZLTrYhilHa8u3Wz3H+EuRFRBxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TjNeaXoJJ9EzwQRP7ZR9ew2lh4CqeZIWUPlYL6itMd4=;
- b=iLlJDOrd0Kc78rZgbhcbSyEr8cHFhalP0WlcVRDfy1x4SdGhVflIX572wcEIJHgBrVQMiU2wy1FVfFApa+8dBhi3ujct0eFxrIccyl3J65tcuCEdSzfWtDJHdN8ye4dqJRTx3YzjIxICqFUuHB7PNRxvP7hIN4sE/GMU+kadlno=
-Received: from BN6PR2001CA0028.namprd20.prod.outlook.com
- (2603:10b6:405:16::14) by BN6PR12MB1492.namprd12.prod.outlook.com
- (2603:10b6:405:11::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.25; Fri, 8 Apr
- 2022 02:40:53 +0000
-Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:16:cafe::37) by BN6PR2001CA0028.outlook.office365.com
- (2603:10b6:405:16::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.22 via Frontend
- Transport; Fri, 8 Apr 2022 02:40:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5144.20 via Frontend Transport; Fri, 8 Apr 2022 02:40:52 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 7 Apr
- 2022 21:40:51 -0500
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Ignore bogus signals from MEC efficiently
-Date: Thu, 7 Apr 2022 22:40:38 -0400
-Message-ID: <20220408024038.320357-1-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.32.0
-MIME-Version: 1.0
+ bh=Q/Fw6S2Tz9FevtGJJHBB9zLg+gV7+hGnfTWumdJww7c=;
+ b=LCMX7EUgpxtm1aGZUNZQsRO8I4l+CRg2lWcIgzVcT79P72h2yCigdDuqqQWdwgg7TsLSZE0nb6udxQREPUe9hCLKPLPQ3TK9CXrOgEMxuibGKYjWMNj8AuMuV3HrN86j3hB17UrK4y0NLjL2mEODP9jlQhRV4QpzvRImuzU69ao=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by MN2PR12MB3871.namprd12.prod.outlook.com (2603:10b6:208:16a::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.22; Fri, 8 Apr
+ 2022 02:51:44 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::346b:537c:e42f:f0da]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::346b:537c:e42f:f0da%7]) with mapi id 15.20.5144.022; Fri, 8 Apr 2022
+ 02:51:44 +0000
+Message-ID: <71697e4a-e598-2355-914e-d4b8705e6472@amd.com>
+Date: Thu, 7 Apr 2022 22:51:42 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH 1/1] drm/amdkfd: Handle drain retry fault race with XNACK
+ mode change
+Content-Language: en-US
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220408012152.27045-1-Philip.Yang@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20220408012152.27045-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YT1PR01CA0038.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::7) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a5049358-6414-438d-6aa7-08da190932dd
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1492:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR12MB1492D83BED4E40DE82C14B5792E99@BN6PR12MB1492.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 6d1cfe36-e56f-490f-8e6e-08da190ab715
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3871:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB387173B3BAC15F448549F78592E99@MN2PR12MB3871.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2HL+TfkFoRyUPI47o+T23WjJt13lUQLTbbf1PUTCsBERK22Dd9Xnfdyfw4AsabijzVA6rGvgIW5jZzaI5mvu6r+KDK4a89IM7zKeNY4tFthESjkII5ImAaNKvKDl5eQ/5/nohcb3d0Fe9h14QMaM0jbCxbrcxzDxo58haDPRbwlAAJrPXRtbyazwC80uoXhz40strevGgBHtYnHg9V7L5kBDR5aDVu8NDG0G+8B+itcIZgZarCinU7J0uyVk319Q+5XdkhJtZZ4Z8KBXOgVKTJQ89zKyplel3emL1GJNMm+FRbzM1Q+HNDChEuZh19OhTLffhLX+11Sl/5umpRyViMZJocHSBB2yMJ7lzLqRggrViJJY/0MoiSZRY8ZOrRJRzFuVmD1qzqNzjb3MOfTsWsGb6O9tWOuUvwg2Cu3+UGtrnKPHynlbjuDthsnrqadOfsCyMdXBYKLY92vK75Tt64nqzCEO8vTfWGYlw5H90bpS8QB/zAiArfvn6BK6olGx3TlFUA1N/wD3prhC12+QOMf1EI7j+7Tk2dTteYo9fKDJNzz6CR+69kbtcwtIyb3b7ukKN0nHVhJnZgzHeDMI/t/FK5u5jIpLJP9no+bbUezk94EarBc2dteO5Od1bIj7RaDQm9xDO3qaR37q92Ga4FCf1MUet5B4GzFeamrVYBwE56DH0byXwMG0vxiDr1PqSO+9hdhHJsoRGHAhBvybIA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(8936002)(2906002)(36756003)(356005)(40460700003)(508600001)(4326008)(8676002)(5660300002)(70586007)(70206006)(81166007)(316002)(82310400005)(6916009)(36860700001)(6666004)(47076005)(86362001)(1076003)(426003)(7696005)(16526019)(186003)(26005)(83380400001)(336012)(2616005)(36900700001);
+X-Microsoft-Antispam-Message-Info: WD9DuHYewbYEnixzKG3qdytIZc5vywT14I0YMUU2KaXAWJvvCZn7h2Q9/VD192yhgIKc3Tdig5R+/jPpnJ0uABNDX0XHI99xaB/oZp3PgN2yRyLwehGHep7NvYucG2Z4c9DURiWkePp3rnoHvDt1xuUN6PppFSg1U792ChqbdSV7VsYhM6fV2ARSVlzESCPlv3ipV4t5Qe3sbzejULaurjgXhs4UXwZ/ZBOta8MRm2kheWiDxjJ3bNJhfibZrnGFnR45s/i97JYNwUtygpgM7iRKpUUZLdIe0+EDQgDP7MnVP2aFaKh+sS91TYnGg5Oa5EECx7UcREEsir7LtLFMw12b86CYqDhF3Der4Fglod+crhAMZdu3vIyPJAI5DwMp3wl2BXjDoHD5qt0iZrKXw5CCNAST3y0Yri9Ezwyf+0TXcNeflmfEl3UbhxiwmQAqHFb3RPvSeO9fIvpuX4JjojTqeuyFPvS5LpMXp/i/deBDE2h0Cnlcwj/WCQQRrQ1hVrzs497e7qWXAs8NdKR4pDAov1/pfGg97iPiaYnmLelb12vwCKgbQeGuye15cI0IGOcnvMMJIe2WoP+czssz20brU4xtQSet72gax8fu4zRz5PUHj9xID/7KEO5mEkH3aluIZ0V3aAzYALis7fC8NpgrnJNfHFarhup/H7Wu9KSM26TXnWWh636tMAGrTCfQP8g9vXG3yhdFv+WtlkgK3PVZnfj7df/OQhKURjoMD/yk4aQL+yAJLcFPF4KBc+Bs
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6512007)(38100700002)(8676002)(66556008)(66946007)(66476007)(5660300002)(6506007)(2616005)(31686004)(44832011)(83380400001)(86362001)(508600001)(186003)(6486002)(8936002)(2906002)(36756003)(26005)(316002)(31696002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MGcxM0lLdE1uOGpaRzVRN21za1N2NWFIUUNQdWFiYTdHaE56T3BSaUJBS1RM?=
+ =?utf-8?B?RXJhUnVCZnhhYzlaMVNSdEdDUnhiMVNtUnhRd3FKVDV3a2JLc2ZxajNwUHNz?=
+ =?utf-8?B?dVNsMHdHYVQ0UWlsNVNyamFEWERXbWtaOG0vQkxTa3BLb3lQSC9scHZndWNm?=
+ =?utf-8?B?UDRRWGx2UFJLbDlWMEFvOUdXc3ZzVnI3T2t4clMxdHNKMjEvbnhDbUVva0F0?=
+ =?utf-8?B?YjVING9kL3lDVG56M3daRnAyVmxQZVBTVGlkWjZYbENVWXk2NUZHSktsLzhL?=
+ =?utf-8?B?L0tOcWMybDVoZWt5ekxva3Y4bGE2ZmVuMmNERVpoNVZ2NW0rNHdKaHlsaU1B?=
+ =?utf-8?B?MXRzd3ZpWU1nSW5QRmRyMnE2cWVWS2x2cHorMWJVNGZGQXFhc2ZONGw4Snli?=
+ =?utf-8?B?MStuYWhKVTl2TFdCRjZtYkZaZGh3VGVpTG81WWY4dmNicnRVZ2UzcXJ3RmNS?=
+ =?utf-8?B?NnhEMGtGa09aekdoSFFDN25mMWx5bWUxVWRpdk9INEhUQnNGTFpTSXMwNURR?=
+ =?utf-8?B?cUxlbDh0SHNTZnNPWjluL2VPR1M3Q2xuUWxPOVc3blBlS1liU3BCdVNmak05?=
+ =?utf-8?B?T0g4dGZLQ1psN3hxMy9EN1Q5bHRqdzgvODM1T3FFVUR4Z2lQWGU1QWlDd0o2?=
+ =?utf-8?B?cEdHRFMyVFAwSSt6bmgzMTNVNGM0R1RXbTJrcmxjRzdjdU5aNEV5REpoVlAw?=
+ =?utf-8?B?WEVaMTlNb0Y2M1M2dFpQYUFhSWRFY3BpUWFaMG9ZNC8zeDduWG1vQkVWeThI?=
+ =?utf-8?B?RjFSd0V4SjRlRUUveXJna2crajZFZk1DQ1ZXcy9GTW5HY1ZLQ00wR21qVXla?=
+ =?utf-8?B?QUl2NWRHZzVkTkV6Mlg4OGF5RmdqVVZDWWRxN3BxdnZ5RWIxVWJNVDVzTXB5?=
+ =?utf-8?B?cTJXN1k2QnBZQ2dXRytNTnYvVFgrcDVaZWphdHJpczJCWE15a1V1NnpBdGdi?=
+ =?utf-8?B?QWlOV2U3aWVjd3pxcUF6MFkrbmFJN0hKZkhKbk5pOXkwcDBCUEVTclMxdFAv?=
+ =?utf-8?B?RDVtWXpwaGhCcnAzSmNPNWl1TVA4SWVsdHUzbDJ6QnRHTWZibVJWRm5yZE5F?=
+ =?utf-8?B?Sk5vbTZlb3dlSTNuaENqNnRacEhONThWekw1cHMwNzRIRmZJeEFZNTg3dURy?=
+ =?utf-8?B?T3hlK3F6WU5BUEpEN09IZXc4UXhzVkF5RFRHemNVUlhadjlwVDhyRWhoVDdi?=
+ =?utf-8?B?Y3krV1VaTXJUV2VZc0poZjRJQ0poVVpNTyswV1huSGxULzFSRVNTSW9DclhU?=
+ =?utf-8?B?dkttRnBmajI2MU00VGZSQTA1TlQ5TjdkMkdpRUJORWs3MDdJYUVQbmdzenlZ?=
+ =?utf-8?B?ZVNXL0tGbllpelBhelptME02MEhYb2hFK3FvRi9rdkpHdjVhMVBKRS9ES1hD?=
+ =?utf-8?B?Z0x0MWZ1bkhNVVozbzhHUnNCUGdJOWhBODB5cnNzSXd5ZlpoWUdDUlRNRGVn?=
+ =?utf-8?B?RFArYndrdTBuNlV2Uy9JbTVtZzNnRTdIZnNyOTBHOVJRYTJsb3BnZVJBZGtL?=
+ =?utf-8?B?dmYyRnF0d1pGODY3ZmhqVWdZNVlXbjhDRFFMVGdIN3BDaEJFV1VEd1haSElu?=
+ =?utf-8?B?eUtVbncrV2twOFV2VW9CTGcwaWFnY0FmejN4aUVRSnJ0Rm1oK1I1K2ZmeC9R?=
+ =?utf-8?B?TmVWQXpRTWJUdlN0Qk85VGxudUNYeFNGODViQW5QVURUZXRhRUtEVGpRRVdB?=
+ =?utf-8?B?Z3ZyeGhwQ21XMFJTdTR0OGY2VFYrQUFpMys5b2c2ZVlsZ1QwYnc1RmR6VGdp?=
+ =?utf-8?B?SDZYWW1SNk5neFZtRERxdkYwMlREd1hYMGxCc3JwcUlOYWNFN3dXaTFBcUp4?=
+ =?utf-8?B?YXBiU1BCT0lXSVVtZ2hoUk5Ralp4a2NQMXdOdU5KeE05Q2REdUNqcjZhN296?=
+ =?utf-8?B?bklHek12MGhOeEY0OVRUK1RCaXR2VDg1a21VNDg0MEtXdUNtNDRsdmIwdk9r?=
+ =?utf-8?B?VWorbS80TG14ejFhOE1qWlJWOTNpSUJlNnYzdy9UQ01yQ1dlaEVWWk1lR3lD?=
+ =?utf-8?B?bytsdU9SSHVmNjVURXdDWmxNUGtZY1VEeUYxTlFTbnpabllmeWdKc0YyTndm?=
+ =?utf-8?B?Z3BaSGRZL2VJWGxXQlhwMUlFMEs1N1hSMkFaR1E1V2xnN0k4aFFCNTNIVExq?=
+ =?utf-8?B?VVZkV1ZqL2szaFVwMGpSSTY3WDZIanhjdjhXdTZOYTl3RUpUaHFreTRJVVRG?=
+ =?utf-8?B?MGU1UVk2V2V3QnRYVGJrZzZ5bk1XYVh4UE1qZVFHcWh5ZXF0WTErQ05OY2dZ?=
+ =?utf-8?B?bFZCU0JCR055UlJVZGdHa2xNOHloYVRGQ0FYaVU3VjRzUHBCdlhJYm1MZGFa?=
+ =?utf-8?B?akdOY1M0WUhXeUIxWjVSeU5UMDBFWkc2ZEJ4R1NMcE9SVm90dW1RUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2022 02:40:52.4493 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5049358-6414-438d-6aa7-08da190932dd
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d1cfe36-e56f-490f-8e6e-08da190ab715
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2022 02:51:43.9763 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1492
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Tkhz1kLltftKk114SB6gpg/qRD4uCQXfEYygT+cqPlmWi1t6okxjnmwJCbjrueTQ2SwXOChU/KIXybrNkIt2NA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3871
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,171 +128,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean.keely@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-MEC firmware sometimes sends signal interrupts without a valid context ID
-on end of pipe events that don't intend to signal any HSA signals.
-This triggers the slow path in kfd_signal_event_interrupt that scans the
-entire event page for signaled events. Detect these signals in the top
-half interrupt handler to stop processing them as early as possible.
+Am 2022-04-07 um 21:21 schrieb Philip Yang:
+> Application could change XNACK enabled to disabled while KFD is draining
+> stall retry fault, the check for whether to drain retry faults must be
 
-Because we now always treat event ID 0 as invalid, reserve that ID during
-process initialization.
+typo: stall -> stale
 
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_events.c       | 22 +++++++++++---
- .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   | 29 +++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 10 +++++--
- 4 files changed, 56 insertions(+), 7 deletions(-)
+I think there is also a word missing, linking the two sentences. Maybe 
+"... stale retry faults, therefore the check ..."  With that fixed, the 
+patch is
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index 75847c5d5957..e43bb14adfca 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -238,12 +238,24 @@ static int create_other_event(struct kfd_process *p, struct kfd_event *ev, const
- 	return 0;
- }
- 
--void kfd_event_init_process(struct kfd_process *p)
-+int kfd_event_init_process(struct kfd_process *p)
- {
-+	int id;
-+
- 	mutex_init(&p->event_mutex);
- 	idr_init(&p->event_idr);
- 	p->signal_page = NULL;
--	p->signal_event_count = 0;
-+	p->signal_event_count = 1;
-+	/* Allocate event ID 0. It is used for a fast path to ignore bogus events
-+	 * that are sent by the CP without a context ID
-+	 */
-+	id = idr_alloc(&p->event_idr, NULL, 0, 1, GFP_KERNEL);
-+	if (id < 0) {
-+		idr_destroy(&p->event_idr);
-+		mutex_destroy(&p->event_mutex);
-+		return id;
-+	}
-+	return 0;
- }
- 
- static void destroy_event(struct kfd_process *p, struct kfd_event *ev)
-@@ -271,8 +283,10 @@ static void destroy_events(struct kfd_process *p)
- 	uint32_t id;
- 
- 	idr_for_each_entry(&p->event_idr, ev, id)
--		destroy_event(p, ev);
-+		if (ev)
-+			destroy_event(p, ev);
- 	idr_destroy(&p->event_idr);
-+	mutex_destroy(&p->event_mutex);
- }
- 
- /*
-@@ -739,7 +753,7 @@ void kfd_signal_event_interrupt(u32 pasid, uint32_t partial_id,
- 			 * iterate over the signal slots and lookup
- 			 * only signaled events from the IDR.
- 			 */
--			for (id = 0; id < KFD_SIGNAL_EVENT_LIMIT; id++)
-+			for (id = 1; id < KFD_SIGNAL_EVENT_LIMIT; id++)
- 				if (READ_ONCE(slots[id]) != UNSIGNALED_EVENT_SLOT) {
- 					ev = lookup_event_by_id(p, id);
- 					set_event_from_interrupt(p, ev);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-index 03c29bdd89a1..7d0111c197c5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -141,6 +141,21 @@ static void event_interrupt_poison_consumption(struct kfd_dev *dev,
- 	}
- }
- 
-+static bool context_id_expected(struct kfd_dev *dev)
-+{
-+	/* Borrowing firmware versions for GWS support because they were known
-+	 * to send context_ids on legitimate signals.
-+	 */
-+	switch (KFD_GC_VERSION(dev)) {
-+	case IP_VERSION(9, 0, 1): return dev->mec_fw_version >= 0x81b3;
-+	case IP_VERSION(9, 4, 0): return dev->mec_fw_version >= 0x1b3;
-+	case IP_VERSION(9, 4, 1): return dev->mec_fw_version >= 0x30;
-+	case IP_VERSION(9, 4, 2): return true; /* was never broken */
-+	default:
-+		return false;
-+	}
-+}
-+
- static bool event_interrupt_isr_v9(struct kfd_dev *dev,
- 					const uint32_t *ih_ring_entry,
- 					uint32_t *patched_ihre,
-@@ -206,6 +221,20 @@ static bool event_interrupt_isr_v9(struct kfd_dev *dev,
- 	if (WARN_ONCE(pasid == 0, "Bug: No PASID in KFD interrupt"))
- 		return false;
- 
-+	/* Workaround CP firmware sending bogus signals with 0 context_id.
-+	 * Those can be safely ignored on hardware and firmware versions that
-+	 * include a valid context_id on legitimate signals. This avoids the
-+	 * slow path in kfd_signal_event_interrupt that scans all event slots
-+	 * for signaled events.
-+	 */
-+	if (source_id == SOC15_INTSRC_CP_END_OF_PIPE) {
-+		uint32_t context_id =
-+			SOC15_CONTEXT_ID0_FROM_IH_ENTRY(ih_ring_entry);
-+
-+		if (context_id == 0 && context_id_expected(dev))
-+			return false;
-+	}
-+
- 	/* Interrupt types we care about: various signals and faults.
- 	 * They will be forwarded to a work queue (see below).
- 	 */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index e1b7e6afa920..3761655ab0a9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1292,7 +1292,7 @@ extern const struct kfd_event_interrupt_class event_interrupt_class_v9;
- 
- extern const struct kfd_device_global_init_class device_global_init_class_cik;
- 
--void kfd_event_init_process(struct kfd_process *p);
-+int kfd_event_init_process(struct kfd_process *p);
- void kfd_event_free_process(struct kfd_process *p);
- int kfd_event_mmap(struct kfd_process *process, struct vm_area_struct *vma);
- int kfd_wait_on_events(struct kfd_process *p,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 9e82d7aa67fa..cb8f4a459add 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1370,12 +1370,16 @@ static struct kfd_process *create_process(const struct task_struct *thread)
- 	INIT_DELAYED_WORK(&process->eviction_work, evict_process_worker);
- 	INIT_DELAYED_WORK(&process->restore_work, restore_process_worker);
- 	process->last_restore_timestamp = get_jiffies_64();
--	kfd_event_init_process(process);
-+	err = kfd_event_init_process(process);
-+	if (err)
-+		goto err_event_init;
- 	process->is_32bit_user_mode = in_compat_syscall();
- 
- 	process->pasid = kfd_pasid_alloc();
--	if (process->pasid == 0)
-+	if (process->pasid == 0) {
-+		err = -ENOSPC;
- 		goto err_alloc_pasid;
-+	}
- 
- 	err = pqm_init(&process->pqm, process);
- 	if (err != 0)
-@@ -1424,6 +1428,8 @@ static struct kfd_process *create_process(const struct task_struct *thread)
- err_process_pqm_init:
- 	kfd_pasid_free(process->pasid);
- err_alloc_pasid:
-+	kfd_event_free_process(process);
-+err_event_init:
- 	mutex_destroy(&process->mutex);
- 	kfree(process);
- err_alloc_process:
--- 
-2.32.0
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
+
+> before the check for whether xnack_enabled, to avoid report incorrect vm
+> fault after application changes XNACK mode.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 11 ++++++-----
+>   1 file changed, 6 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index d011d620dfe7..c76d29a22e9d 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -2700,11 +2700,6 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+>   		pr_debug("kfd process not founded pasid 0x%x\n", pasid);
+>   		return 0;
+>   	}
+> -	if (!p->xnack_enabled) {
+> -		pr_debug("XNACK not enabled for pasid 0x%x\n", pasid);
+> -		r = -EFAULT;
+> -		goto out;
+> -	}
+>   	svms = &p->svms;
+>   
+>   	pr_debug("restoring svms 0x%p fault address 0x%llx\n", svms, addr);
+> @@ -2715,6 +2710,12 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+>   		goto out;
+>   	}
+>   
+> +	if (!p->xnack_enabled) {
+> +		pr_debug("XNACK not enabled for pasid 0x%x\n", pasid);
+> +		r = -EFAULT;
+> +		goto out;
+> +	}
+> +
+>   	/* p->lead_thread is available as kfd_process_wq_release flush the work
+>   	 * before releasing task ref.
+>   	 */
