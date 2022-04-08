@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36F72C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 13:50:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40CF3C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 13:50:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37C5810F228;
-	Fri,  8 Apr 2022 13:50:32 +0000 (UTC)
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
- [IPv6:2607:f8b0:4864:20::832])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47D2B10EFF6;
- Fri,  8 Apr 2022 09:55:41 +0000 (UTC)
-Received: by mail-qt1-x832.google.com with SMTP id t2so10171077qtw.9;
- Fri, 08 Apr 2022 02:55:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB6110F226;
+	Fri,  8 Apr 2022 13:50:33 +0000 (UTC)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09E0B10E3B8;
+ Fri,  8 Apr 2022 07:58:20 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id bu29so13789912lfb.0;
+ Fri, 08 Apr 2022 00:58:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=MxHsvmkk8E+8FpG6AO+OTMlzwh4VkmczYAqMfO0S5aY=;
- b=BjuUx+JN6YPMS4VPTaoGRmF4THiXRmE5dClVXANJdixb00Tmbx9YBz44v7xr2sb/13
- LsbzNJoCfAgPqUlohr+6TaSVVNqSo7rC55YUfi2rarKPR3ezym6sz21lsd8Cexf3unTk
- iWmArqHoI/zthTWFhuEmH533coMXfmKduMUE+EP4aFHb2DOBjXTuWmx/J+cykgsbhfij
- +K+2UM+53MJu5JL/0X0+sFTripwxwLzwKie/EnhqZkC9Ee0i3ycinT8wcvcOw6jJinD0
- WhssIJRDulkEyq3DldPQz7sCjE794etEPc7n8izJvBs8jLMK1gcdbch9lSHtXUAEvBHP
- US9Q==
+ bh=LDg0VuOdkCKm0C8uZKp3vKpTf/VpsO8U9ed6vcjhQTo=;
+ b=TAfmtGR4a9a3jgYPSlQ7/KHOY55cHJ2ZPH+9tvKC7XSRQzemgPxT5uuo5NqPmlMrYb
+ g7/2IJN9Xzw2TASKcNKcaffTQV8aDR6Vbb4hDIMyK0Mdujx5V4YWTFmXzhnZvDk2UlIi
+ tgWzh1dy3QsKgBEpmqFUlP9Bmrxw6qzurk0R1TofqqHib2TrmWnkKE2A/1xWbAcemmnw
+ Lbuk3qPIMCx7WSAaZSshBYhR7x+Rhla24TRiM++omihK0V4+pxuPlvFwQyA3OKBaaoKd
+ c3z1qXih8x1kjR1ndEVUZej/p/Cne/Zo0XrpIJQLX+9KhYKPnvy4amdrAX6U/aqAnFD6
+ 9oCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=MxHsvmkk8E+8FpG6AO+OTMlzwh4VkmczYAqMfO0S5aY=;
- b=t0aNpY1899XYuHW+CZUlDEqaIjRIbHD/82vlQ20GA03DO4aGPQ8uuTYgiwj7RkwNYy
- UCbBBTJR25dgziCegVsUoX26rjZJRchQFleQ9UzS66Zbb2CdxDuyK1IzT4cO0XDmShEK
- Ue2lYCxIkTT3hP+2VNW2RhVPDUlH21x4hzW/9sGhbd+HrfZeKxQ3EtUpAtCaI2okttkU
- fJFC0djY5tjMI3MR7RgZ9SM9u/auCQU3Aa0MPUXW7Wb4niXGZQJ5QpCUmA0hKNPF1sZ7
- 14r/X2ZGr664cgcHIqfdkmj/eFee9UfHQSeNJVwZWLBcax7brrNjeWOKi1pblVi+OjvQ
- A/fA==
-X-Gm-Message-State: AOAM532rKwwzBtI/uNShGLYAB19rcB+OvWmjiFIPq7yMR+JkxjWpLnzt
- yYqRhifTSy4qOWixkyZYjBI=
-X-Google-Smtp-Source: ABdhPJzWJ5ni8b38p1rxFytKpgn8pmy+7CSvFE2lehyOcyiuL5HOJcAl+7zIec6Yxf6Sj0fsKsSi9w==
-X-Received: by 2002:a05:622a:1308:b0:2e1:e8a9:8aaf with SMTP id
- v8-20020a05622a130800b002e1e8a98aafmr15320487qtk.282.1649411740330; 
- Fri, 08 Apr 2022 02:55:40 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id
- u13-20020a05622a010d00b002e1d653c2e1sm18122546qtw.46.2022.04.08.02.55.34
+ bh=LDg0VuOdkCKm0C8uZKp3vKpTf/VpsO8U9ed6vcjhQTo=;
+ b=XLjM4ciLnc4+1MZ2YLPirlR0Gj7Ko+hCO2RPlcrCZkpgkjwq5xrQNVxMOOn+Jld8Q7
+ AcnrQ1rU6Hnr+seQ5tYvBE2Jt/dXFLgT1Z5D55xvXiq+Z+6OFKJC0MRx4xRuEKCwF2Z3
+ YbmcL7FxR1SLQfZyLTnvc7junG8MK3FbCdzkMsWYUAruK79JjRHVTycJrt5gWzrocdmE
+ h5I9+WebGu8IFeInCSOFuk//bHcIM8OmI0aYqbXjzqeNiJM1E4ypUPHuDddP8bQE5cZi
+ tEeOBN+jhvrggg4Gui5WJHNbzqqeRTMHFocZbp9KjWC6PkiGcDM0qtErrZghdQedPilU
+ fbfA==
+X-Gm-Message-State: AOAM530DWAnRWLH7YZULmEjvLzqa+suC4tOulb0Bi2QMdLrn3uaspGLc
+ 419lyqm0GJSPUbSMrR7ZXNNNDo2GZ5rpnA==
+X-Google-Smtp-Source: ABdhPJyYta5aydqTXUvGMWiC0TCQ8PlSIHqgPbTB0TDQ6KifZ6JROMRtolpO3so0hsiB92awnmsKrg==
+X-Received: by 2002:a19:f00f:0:b0:443:ae5c:47d0 with SMTP id
+ p15-20020a19f00f000000b00443ae5c47d0mr12061146lfc.332.1649404698181; 
+ Fri, 08 Apr 2022 00:58:18 -0700 (PDT)
+Received: from noname.. ([2a02:2698:8c2a:149d:6d9:f5ff:fecb:a8ab])
+ by smtp.googlemail.com with ESMTPSA id
+ g9-20020a2e9cc9000000b0024afe85d0c8sm2170520ljj.121.2022.04.08.00.58.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Apr 2022 02:55:39 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: lv.ruyi@zte.com.cn
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie
-Subject: [PATCH] drivers: Fix spelling mistake "writting" -> "writing"
-Date: Fri,  8 Apr 2022 09:55:31 +0000
-Message-Id: <20220408095531.2495168-1-lv.ruyi@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ Fri, 08 Apr 2022 00:58:17 -0700 (PDT)
+From: Grigory Vasilyev <h0tc0d3@gmail.com>
+To: Rodrigo.Siqueira@amd.com,
+	Melissa Wen <mwen@igalia.com>
+Subject: [PATCH] drm/amdgpu: Fix incorrect enum type
+Date: Fri,  8 Apr 2022 10:58:17 +0300
+Message-Id: <20220408075820.10396-1-h0tc0d3@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 08 Apr 2022 13:50:30 +0000
@@ -69,158 +68,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rtc@vger.kernel.org, tvrtko.ursulin@linux.intel.com,
- dri-devel@lists.freedesktop.org, linux-scsi@vger.kernel.org,
- netdev@vger.kernel.org, lv.ruyi@zte.com.cn, joonas.lahtinen@linux.intel.com,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- jani.nikula@linux.intel.com, platform-driver-x86@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, rodrigo.vivi@intel.com,
- Zeal Robot <zealci@zte.com.cn>, intel-gfx@lists.freedesktop.org
+Cc: Lijo Lazar <lijo.lazar@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>,
+ Tao Zhou <tao.zhou1@amd.com>, Chengming Gui <Jack.Gui@amd.com>,
+ Guchun Chen <guchun.chen@amd.com>, Grigory Vasilyev <h0tc0d3@gmail.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, yipechai <YiPeng.Chai@amd.com>,
+ David Airlie <airlied@linux.ie>, Victor Skvortsov <victor.skvortsov@amd.com>,
+ Huang Rui <ray.huang@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Joseph Greathouse <Joseph.Greathouse@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lv Ruyi <lv.ruyi@zte.com.cn>
+Instead of the 'amdgpu_ring_priority_level' type,
+the 'amdgpu_gfx_pipe_priority' type was used,
+which is an error when setting ring priority.
+This is a minor error, but may cause problems in the future.
 
-There are some spelling mistakes in the comments. Fix it.
+Instead of AMDGPU_RING_PRIO_2 = 2, we can use AMDGPU_RING_PRIO_MAX = 3,
+but AMDGPU_RING_PRIO_2 = 2 is used for compatibility with
+AMDGPU_GFX_PIPE_PRIO_HIGH = 2, and not change the behavior of the
+code.
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
+Signed-off-by: Grigory Vasilyev <h0tc0d3@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c              | 2 +-
- drivers/gpu/drm/i915/i915_request.c                 | 2 +-
- drivers/net/ethernet/sfc/mcdi_pcol.h                | 4 ++--
- drivers/net/ethernet/toshiba/tc35815.c              | 2 +-
- drivers/net/wireless/realtek/rtlwifi/rtl8192cu/hw.c | 4 ++--
- drivers/platform/x86/hp_accel.c                     | 2 +-
- drivers/rtc/rtc-sa1100.c                            | 2 +-
- drivers/scsi/pmcraid.c                              | 4 ++--
- 8 files changed, 11 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 9426e252d8aa..ce361fce7155 100644
+index b3081c28db0a..1d9120a4b3f5 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -7304,7 +7304,7 @@ static void gfx_v10_0_setup_grbm_cam_remapping(struct amdgpu_device *adev)
- 		return;
+@@ -4745,7 +4745,7 @@ static int gfx_v10_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
+ 		+ ((ring->me - 1) * adev->gfx.mec.num_pipe_per_mec)
+ 		+ ring->pipe;
+ 	hw_prio = amdgpu_gfx_is_high_priority_compute_queue(adev, ring) ?
+-			AMDGPU_GFX_PIPE_PRIO_HIGH : AMDGPU_GFX_PIPE_PRIO_NORMAL;
++			AMDGPU_RING_PRIO_2 : AMDGPU_RING_PRIO_DEFAULT;
+ 	/* type-2 packets are deprecated on MEC, use type-3 instead */
+ 	r = amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq, irq_type,
+ 			     hw_prio, NULL);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 5554084ec1f1..9bc26395f833 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -1929,7 +1929,7 @@ static int gfx_v8_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
+ 		+ ring->pipe;
  
- 	/* initialize cam_index to 0
--	 * index will auto-inc after each data writting */
-+	 * index will auto-inc after each data writing */
- 	WREG32_SOC15(GC, 0, mmGRBM_CAM_INDEX, 0);
- 
- 	switch (adev->ip_versions[GC_HWIP][0]) {
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 582770360ad1..cf79a25cd98a 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -451,7 +451,7 @@ static bool __request_in_flight(const struct i915_request *signal)
- 	 * to avoid tearing.]
- 	 *
- 	 * Note that the read of *execlists->active may race with the promotion
--	 * of execlists->pending[] to execlists->inflight[], overwritting
-+	 * of execlists->pending[] to execlists->inflight[], overwriting
- 	 * the value at *execlists->active. This is fine. The promotion implies
- 	 * that we received an ACK from the HW, and so the context is not
- 	 * stuck -- if we do not see ourselves in *active, the inflight status
-diff --git a/drivers/net/ethernet/sfc/mcdi_pcol.h b/drivers/net/ethernet/sfc/mcdi_pcol.h
-index d3fcbf930dba..ff617b1b38d3 100644
---- a/drivers/net/ethernet/sfc/mcdi_pcol.h
-+++ b/drivers/net/ethernet/sfc/mcdi_pcol.h
-@@ -73,8 +73,8 @@
-  *               \------------------------------ Resync (always set)
-  *
-  * The client writes it's request into MC shared memory, and rings the
-- * doorbell. Each request is completed by either by the MC writting
-- * back into shared memory, or by writting out an event.
-+ * doorbell. Each request is completed by either by the MC writing
-+ * back into shared memory, or by writing out an event.
-  *
-  * All MCDI commands support completion by shared memory response. Each
-  * request may also contain additional data (accounted for by HEADER.LEN),
-diff --git a/drivers/net/ethernet/toshiba/tc35815.c b/drivers/net/ethernet/toshiba/tc35815.c
-index ce38f7515225..1b4c207afb66 100644
---- a/drivers/net/ethernet/toshiba/tc35815.c
-+++ b/drivers/net/ethernet/toshiba/tc35815.c
-@@ -157,7 +157,7 @@ struct tc35815_regs {
- #define PROM_Read	       0x00004000 /*10:Read operation		     */
- #define PROM_Write	       0x00002000 /*01:Write operation		     */
- #define PROM_Erase	       0x00006000 /*11:Erase operation		     */
--					  /*00:Enable or Disable Writting,   */
-+					  /*00:Enable or Disable Writing,    */
- 					  /*	  as specified in PROM_Addr. */
- #define PROM_Addr_Ena	       0x00000030 /*11xxxx:PROM Write enable	     */
- 					  /*00xxxx:	      disable	     */
-diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192cu/hw.c b/drivers/net/wireless/realtek/rtlwifi/rtl8192cu/hw.c
-index eaba66113328..fbb4941d0da8 100644
---- a/drivers/net/wireless/realtek/rtlwifi/rtl8192cu/hw.c
-+++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192cu/hw.c
-@@ -520,7 +520,7 @@ static void _rtl92cu_init_queue_reserved_page(struct ieee80211_hw *hw,
- 		 * 2 out-ep. Remainder pages have assigned to High queue */
- 		if (outepnum > 1 && txqremaininpage)
- 			numhq += txqremaininpage;
--		/* NOTE: This step done before writting REG_RQPN. */
-+		/* NOTE: This step done before writing REG_RQPN. */
- 		if (ischipn) {
- 			if (queue_sel & TX_SELE_NQ)
- 				numnq = txqpageunit;
-@@ -539,7 +539,7 @@ static void _rtl92cu_init_queue_reserved_page(struct ieee80211_hw *hw,
- 			numlq = ischipn ? WMM_CHIP_B_PAGE_NUM_LPQ :
- 				WMM_CHIP_A_PAGE_NUM_LPQ;
- 		}
--		/* NOTE: This step done before writting REG_RQPN. */
-+		/* NOTE: This step done before writing REG_RQPN. */
- 		if (ischipn) {
- 			if (queue_sel & TX_SELE_NQ)
- 				numnq = WMM_CHIP_B_PAGE_NUM_NPQ;
-diff --git a/drivers/platform/x86/hp_accel.c b/drivers/platform/x86/hp_accel.c
-index e9f852f7c27f..b59b852a666f 100644
---- a/drivers/platform/x86/hp_accel.c
-+++ b/drivers/platform/x86/hp_accel.c
-@@ -122,7 +122,7 @@ static int lis3lv02d_acpi_read(struct lis3lv02d *lis3, int reg, u8 *ret)
- static int lis3lv02d_acpi_write(struct lis3lv02d *lis3, int reg, u8 val)
- {
- 	struct acpi_device *dev = lis3->bus_priv;
--	unsigned long long ret; /* Not used when writting */
-+	unsigned long long ret; /* Not used when writing */
- 	union acpi_object in_obj[2];
- 	struct acpi_object_list args = { 2, in_obj };
- 
-diff --git a/drivers/rtc/rtc-sa1100.c b/drivers/rtc/rtc-sa1100.c
-index 1250887e4382..a52a333de8e8 100644
---- a/drivers/rtc/rtc-sa1100.c
-+++ b/drivers/rtc/rtc-sa1100.c
-@@ -231,7 +231,7 @@ int sa1100_rtc_init(struct platform_device *pdev, struct sa1100_rtc *info)
- 	 * initialization is unknown and could in principle happen during
- 	 * normal processing.
- 	 *
--	 * Notice that clearing bit 1 and 0 is accomplished by writting ONES to
-+	 * Notice that clearing bit 1 and 0 is accomplished by writing ONES to
- 	 * the corresponding bits in RTSR. */
- 	writel_relaxed(RTSR_AL | RTSR_HZ, info->rtsr);
- 
-diff --git a/drivers/scsi/pmcraid.c b/drivers/scsi/pmcraid.c
-index fd674ed1febe..d7f4680f6106 100644
---- a/drivers/scsi/pmcraid.c
-+++ b/drivers/scsi/pmcraid.c
-@@ -857,7 +857,7 @@ static void _pmcraid_fire_command(struct pmcraid_cmd *cmd)
- 	unsigned long lock_flags;
- 
- 	/* Add this command block to pending cmd pool. We do this prior to
--	 * writting IOARCB to ioarrin because IOA might complete the command
-+	 * writing IOARCB to ioarrin because IOA might complete the command
- 	 * by the time we are about to add it to the list. Response handler
- 	 * (isr/tasklet) looks for cmd block in the pending pending list.
- 	 */
-@@ -2450,7 +2450,7 @@ static void pmcraid_request_sense(struct pmcraid_cmd *cmd)
- 
- 	/* request sense might be called as part of error response processing
- 	 * which runs in tasklets context. It is possible that mid-layer might
--	 * schedule queuecommand during this time, hence, writting to IOARRIN
-+	 * schedule queuecommand during this time, hence, writing to IOARRIN
- 	 * must be protect by host_lock
- 	 */
- 	pmcraid_send_cmd(cmd, pmcraid_erp_done,
+ 	hw_prio = amdgpu_gfx_is_high_priority_compute_queue(adev, ring) ?
+-			AMDGPU_GFX_PIPE_PRIO_HIGH : AMDGPU_RING_PRIO_DEFAULT;
++			AMDGPU_RING_PRIO_2 : AMDGPU_RING_PRIO_DEFAULT;
+ 	/* type-2 packets are deprecated on MEC, use type-3 instead */
+ 	r = amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq, irq_type,
+ 			     hw_prio, NULL);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 71cf025a2bbd..029c97c92463 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -2278,7 +2278,7 @@ static int gfx_v9_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
+ 		+ ((ring->me - 1) * adev->gfx.mec.num_pipe_per_mec)
+ 		+ ring->pipe;
+ 	hw_prio = amdgpu_gfx_is_high_priority_compute_queue(adev, ring) ?
+-			AMDGPU_GFX_PIPE_PRIO_HIGH : AMDGPU_GFX_PIPE_PRIO_NORMAL;
++			AMDGPU_RING_PRIO_2 : AMDGPU_RING_PRIO_DEFAULT;
+ 	/* type-2 packets are deprecated on MEC, use type-3 instead */
+ 	return amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq, irq_type,
+ 				hw_prio, NULL);
 -- 
-2.25.1
-
+2.35.1
 
