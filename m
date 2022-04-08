@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40CF3C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 13:50:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13325C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 13:50:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB6110F226;
-	Fri,  8 Apr 2022 13:50:33 +0000 (UTC)
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09E0B10E3B8;
- Fri,  8 Apr 2022 07:58:20 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id bu29so13789912lfb.0;
- Fri, 08 Apr 2022 00:58:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E425D10F223;
+	Fri,  8 Apr 2022 13:50:32 +0000 (UTC)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE5710F177;
+ Fri,  8 Apr 2022 13:21:08 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id bg10so17351358ejb.4;
+ Fri, 08 Apr 2022 06:21:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=LDg0VuOdkCKm0C8uZKp3vKpTf/VpsO8U9ed6vcjhQTo=;
- b=TAfmtGR4a9a3jgYPSlQ7/KHOY55cHJ2ZPH+9tvKC7XSRQzemgPxT5uuo5NqPmlMrYb
- g7/2IJN9Xzw2TASKcNKcaffTQV8aDR6Vbb4hDIMyK0Mdujx5V4YWTFmXzhnZvDk2UlIi
- tgWzh1dy3QsKgBEpmqFUlP9Bmrxw6qzurk0R1TofqqHib2TrmWnkKE2A/1xWbAcemmnw
- Lbuk3qPIMCx7WSAaZSshBYhR7x+Rhla24TRiM++omihK0V4+pxuPlvFwQyA3OKBaaoKd
- c3z1qXih8x1kjR1ndEVUZej/p/Cne/Zo0XrpIJQLX+9KhYKPnvy4amdrAX6U/aqAnFD6
- 9oCQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=YPyUmvWPJhClpiPWaffqsk3VwK+C7LO2AiimuAuL1Ro=;
+ b=aEjngbWMuGEjH4EmejJTL8nfW0MPlu5EnEsysirIWeHL6wcIbqM/rsJpoG6/zo3m2C
+ KNjMkZlpU+uOua8w7roVr1e7kiu2wEe60HwJD3IJuXNbsg5kY5wrqOi1uFQj6bjhmAQU
+ H5Od0tMND3SzzYECenAG+5rIcMxRtG9HF1bpWrabqGSeA/T0jholG7YCwSYzokS+szVA
+ Us9sBu+b33kGR5i63A2vc3u7BrE0+o9V8+Tf0PhtmpFIGUnL9VlR175cPjKTAJxClp3F
+ CspHFKflvB2bdfOJJe73Rx1J1kBFRMxr7WQjFQCj4Aj295d1LL7Z12/4gzpG8DXxzcp7
+ Lx5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=LDg0VuOdkCKm0C8uZKp3vKpTf/VpsO8U9ed6vcjhQTo=;
- b=XLjM4ciLnc4+1MZ2YLPirlR0Gj7Ko+hCO2RPlcrCZkpgkjwq5xrQNVxMOOn+Jld8Q7
- AcnrQ1rU6Hnr+seQ5tYvBE2Jt/dXFLgT1Z5D55xvXiq+Z+6OFKJC0MRx4xRuEKCwF2Z3
- YbmcL7FxR1SLQfZyLTnvc7junG8MK3FbCdzkMsWYUAruK79JjRHVTycJrt5gWzrocdmE
- h5I9+WebGu8IFeInCSOFuk//bHcIM8OmI0aYqbXjzqeNiJM1E4ypUPHuDddP8bQE5cZi
- tEeOBN+jhvrggg4Gui5WJHNbzqqeRTMHFocZbp9KjWC6PkiGcDM0qtErrZghdQedPilU
- fbfA==
-X-Gm-Message-State: AOAM530DWAnRWLH7YZULmEjvLzqa+suC4tOulb0Bi2QMdLrn3uaspGLc
- 419lyqm0GJSPUbSMrR7ZXNNNDo2GZ5rpnA==
-X-Google-Smtp-Source: ABdhPJyYta5aydqTXUvGMWiC0TCQ8PlSIHqgPbTB0TDQ6KifZ6JROMRtolpO3so0hsiB92awnmsKrg==
-X-Received: by 2002:a19:f00f:0:b0:443:ae5c:47d0 with SMTP id
- p15-20020a19f00f000000b00443ae5c47d0mr12061146lfc.332.1649404698181; 
- Fri, 08 Apr 2022 00:58:18 -0700 (PDT)
-Received: from noname.. ([2a02:2698:8c2a:149d:6d9:f5ff:fecb:a8ab])
- by smtp.googlemail.com with ESMTPSA id
- g9-20020a2e9cc9000000b0024afe85d0c8sm2170520ljj.121.2022.04.08.00.58.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Apr 2022 00:58:17 -0700 (PDT)
-From: Grigory Vasilyev <h0tc0d3@gmail.com>
-To: Rodrigo.Siqueira@amd.com,
-	Melissa Wen <mwen@igalia.com>
-Subject: [PATCH] drm/amdgpu: Fix incorrect enum type
-Date: Fri,  8 Apr 2022 10:58:17 +0300
-Message-Id: <20220408075820.10396-1-h0tc0d3@gmail.com>
-X-Mailer: git-send-email 2.35.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=YPyUmvWPJhClpiPWaffqsk3VwK+C7LO2AiimuAuL1Ro=;
+ b=DKdiq+fq6s3X/EP5v02U615AAwWEIhMe1CKCCzt1iM+HS7eI+cYUXoJShvk9i1USg9
+ WODAxFO3PKrR5lA7o3fybglCfLF9cV7kKrwYL+fgnd45fIlqnVCA0slQ0QIYG/V9/1nm
+ R/t4m/6GEHe5uyoqhYjhPx1zP3CHvOwfzxLPDymCI7ypUvviuTPiev+hQcxZ3arIuax+
+ u6nMlNobGjbSWJBYpF5fztFuaDxyl+tjkmSATYkVFCXeRwEAgQamZCxQRObIF5+e8Jat
+ yU9vIUIvrRo5EgUbhwz4xzafiVtaVdHSDHiRyDv3q+db/n/STfekF/YvGGbgdHM6bZRL
+ 0l3w==
+X-Gm-Message-State: AOAM531sXCKVlL5HNCu1IuYPeVgnlxdWxveSE2KXh5S3szu3tqM8l80N
+ f83Ai52f65WTIi5A75R95HSp6HGPizaqWzq3NLV0z7DvVuCF0g==
+X-Google-Smtp-Source: ABdhPJz5+siwf2gqw3X2rRzoJIanYM41NMCYQCryCJRCwC2NONx2btw2hzLJPUuBprtMbGxfMaoG02PJ8uEuLtKbtJ0=
+X-Received: by 2002:a17:907:9485:b0:6db:331:591e with SMTP id
+ dm5-20020a170907948500b006db0331591emr18204422ejc.478.1649424066578; Fri, 08
+ Apr 2022 06:21:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20220408092803.3188-1-h0tc0d3@gmail.com>
+ <4o2YD5id7zhK5g__CUK3Yf-6Dj459XQ0qsydW6wKHdco3YYtl78BqGUfXvQ9UO0AZoAsMPfhFB0jw1BFldiFDcbZXmGgsobuAoTMWmoDqmE=@emersion.fr>
+ <CAP+8YyED70CSqVRaB7JgrAtK-yvBx5EsvrrdR7EpvOG2AVhskQ@mail.gmail.com>
+ <QfKpxmkE_cy9wt5VJruw_TSdnl5KceKM8BxJGmZSBs-KiaRwIYfgc8h_-5h7Wmj6G-NtUJ3A88V5pzPvZuLlpkK-oRO5pSjeTxwHcZWlogs=@emersion.fr>
+In-Reply-To: <QfKpxmkE_cy9wt5VJruw_TSdnl5KceKM8BxJGmZSBs-KiaRwIYfgc8h_-5h7Wmj6G-NtUJ3A88V5pzPvZuLlpkK-oRO5pSjeTxwHcZWlogs=@emersion.fr>
+From: Grigory Vasilyev <h0tc0d3@gmail.com>
+Date: Fri, 8 Apr 2022 16:21:04 +0300
+Message-ID: <CAD5ugGD6QzCUqk7_EVwH9Cc6PQtx_VfjVRWzzP9uKR5tkGh1RQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix NULL pointer dereference
+To: Simon Ser <contact@emersion.fr>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 08 Apr 2022 13:50:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,76 +67,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo Lazar <lijo.lazar@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>,
- Tao Zhou <tao.zhou1@amd.com>, Chengming Gui <Jack.Gui@amd.com>,
- Guchun Chen <guchun.chen@amd.com>, Grigory Vasilyev <h0tc0d3@gmail.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, yipechai <YiPeng.Chai@amd.com>,
- David Airlie <airlied@linux.ie>, Victor Skvortsov <victor.skvortsov@amd.com>,
- Huang Rui <ray.huang@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Joseph Greathouse <Joseph.Greathouse@amd.com>,
+Cc: David Airlie <airlied@linux.ie>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Sean Paul <seanpaul@chromium.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
  Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of the 'amdgpu_ring_priority_level' type,
-the 'amdgpu_gfx_pipe_priority' type was used,
-which is an error when setting ring priority.
-This is a minor error, but may cause problems in the future.
+Simon Ser and Bas Nieuwenhuizen, do you understand that you are
+proposing to make the code less safe in the future? In the future,
+someone might rewrite the code and we'll get an error.
 
-Instead of AMDGPU_RING_PRIO_2 = 2, we can use AMDGPU_RING_PRIO_MAX = 3,
-but AMDGPU_RING_PRIO_2 = 2 is used for compatibility with
-AMDGPU_GFX_PIPE_PRIO_HIGH = 2, and not change the behavior of the
-code.
-
-Signed-off-by: Grigory Vasilyev <h0tc0d3@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index b3081c28db0a..1d9120a4b3f5 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4745,7 +4745,7 @@ static int gfx_v10_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
- 		+ ((ring->me - 1) * adev->gfx.mec.num_pipe_per_mec)
- 		+ ring->pipe;
- 	hw_prio = amdgpu_gfx_is_high_priority_compute_queue(adev, ring) ?
--			AMDGPU_GFX_PIPE_PRIO_HIGH : AMDGPU_GFX_PIPE_PRIO_NORMAL;
-+			AMDGPU_RING_PRIO_2 : AMDGPU_RING_PRIO_DEFAULT;
- 	/* type-2 packets are deprecated on MEC, use type-3 instead */
- 	r = amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq, irq_type,
- 			     hw_prio, NULL);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 5554084ec1f1..9bc26395f833 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -1929,7 +1929,7 @@ static int gfx_v8_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
- 		+ ring->pipe;
- 
- 	hw_prio = amdgpu_gfx_is_high_priority_compute_queue(adev, ring) ?
--			AMDGPU_GFX_PIPE_PRIO_HIGH : AMDGPU_RING_PRIO_DEFAULT;
-+			AMDGPU_RING_PRIO_2 : AMDGPU_RING_PRIO_DEFAULT;
- 	/* type-2 packets are deprecated on MEC, use type-3 instead */
- 	r = amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq, irq_type,
- 			     hw_prio, NULL);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 71cf025a2bbd..029c97c92463 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2278,7 +2278,7 @@ static int gfx_v9_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
- 		+ ((ring->me - 1) * adev->gfx.mec.num_pipe_per_mec)
- 		+ ring->pipe;
- 	hw_prio = amdgpu_gfx_is_high_priority_compute_queue(adev, ring) ?
--			AMDGPU_GFX_PIPE_PRIO_HIGH : AMDGPU_GFX_PIPE_PRIO_NORMAL;
-+			AMDGPU_RING_PRIO_2 : AMDGPU_RING_PRIO_DEFAULT;
- 	/* type-2 packets are deprecated on MEC, use type-3 instead */
- 	return amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq, irq_type,
- 				hw_prio, NULL);
--- 
-2.35.1
-
+=D0=BF=D1=82, 8 =D0=B0=D0=BF=D1=80. 2022 =D0=B3. =D0=B2 14:48, Simon Ser <c=
+ontact@emersion.fr>:
+>
+> On Friday, April 8th, 2022 at 13:28, Bas Nieuwenhuizen <bas@basnieuwenhui=
+zen.nl> wrote:
+>
+> > On Fri, Apr 8, 2022 at 12:01 PM Simon Ser contact@emersion.fr wrote:
+> >
+> > > Is amdgpu_display_get_fb_info ever called with NULL tiling_flags/tmz_=
+surface?
+> > > If not, there's no point in adding NULL checks.
+> >
+> > It isn't called with NULL anywhere, the NULL checks that already exist
+> > seem redundant.
+>
+> Grigory, would be be willing to submit a v2 which removes the unnecessary
+> NULL checks?
