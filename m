@@ -4,42 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2638C433EF
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Apr 2022 21:07:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 901FDC433EF
+	for <amd-gfx@archiver.kernel.org>; Sat,  9 Apr 2022 00:19:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 158ED10E684;
-	Fri,  8 Apr 2022 21:07:58 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B39310E684
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Apr 2022 21:07:57 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5BFB461FAD;
- Fri,  8 Apr 2022 21:07:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61ECDC385B1;
- Fri,  8 Apr 2022 21:07:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649452075;
- bh=FCxRs3y/j41wf9f7bOfro6zne0vGhTOt8Bvd99e790Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NjpAP1iTXXVZjPX04LyLBNr7W3bNPuqgvdSvT2HVc5C1n8+QmVyh/xLiX+Tha0XFs
- 4+QEvyRChPX12Y58SxEto9dJh6KCM/VjTOHRYqE9EQKjDahPmnx6wuPQPmRs8MIyx0
- 5jan9rZx28qdtJqhc2p+1a0EFBI7+NhnNwGoQu9j09B2ADQgG1GB2LuyJMXlK0ws7a
- PlJCLcQI11oc1JcfTRHGzL6VEetcz6dWAfCvMCp3b+7uN0D0e2gGdxcjkMBYAv/lC6
- tKPZgfB41csq0YtoCifzVwdASWgWCbnmq2cqyqmlvNtNGzX9n1pJSM7HqPA+mafl4F
- saPZOj2mlwKfw==
-Date: Fri, 8 Apr 2022 14:07:53 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH] drm/amd/display: fix 64 bit divide in freesync code
-Message-ID: <YlCkKQE8wQ/Tmi7F@dev-arch.thelio-3990X>
-References: <20220408210455.2603691-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8E3B10F25D;
+	Sat,  9 Apr 2022 00:19:46 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0953310F25C;
+ Sat,  9 Apr 2022 00:19:45 +0000 (UTC)
+Received: from [192.168.0.2] (ip5f5ae917.dynamic.kabel-deutschland.de
+ [95.90.233.23])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 5F95861E6478B;
+ Sat,  9 Apr 2022 02:19:43 +0200 (CEST)
+Message-ID: <44354d78-b340-fbc4-fd6c-060d7ad3404e@molgen.mpg.de>
+Date: Sat, 9 Apr 2022 02:19:43 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220408210455.2603691-1-alexander.deucher@amd.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCHv2] drm/amdgpu: disable ASPM on Intel AlderLake based
+ systems
+Content-Language: en-US
+To: Richard Gong <richard.gong@amd.com>
+References: <20220408190502.4103670-1-richard.gong@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20220408190502.4103670-1-richard.gong@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,44 +44,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <Aric.Cyr@amd.com>, Anthony Koo <Anthony.Koo@amd.com>,
- kernel test robot <lkp@intel.com>, amd-gfx@lists.freedesktop.org,
- Angus Wang <Angus.Wang@amd.com>
+Cc: airlied@linux.ie, dri-devel@lists.freedesktop.org, xinhui.pan@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ mario.limonciello@amd.com, daniel@ffwll.ch, alexander.deucher@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 08, 2022 at 05:04:55PM -0400, Alex Deucher wrote:
-> Use div_u64() rather than a a 64 bit divide.
+Dear Richard,
+
+
+Thank you for your patch.
+
+Am 08.04.22 um 21:05 schrieb Richard Gong:
+> Active State Power Management (ASPM) feature is enabled since kernel 5.14.
+> There are some AMD GFX cards (such as WX3200 and RX640) that cannot be
+> used with Intel AlderLake based systems to enable ASPM. Using these GFX
+
+Alder Lake
+
+> cards as video/display output, Intel Alder Lake based systems will hang
+> during suspend/resume.
+
+Please reflow for 75 characters per line.
+
+Also please mention the exact system you had problems with (also 
+firmware versions).
+
 > 
-> Fixes: 3fe5739db48843 ("drm/amd/display: Add flip interval workaround")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Angus Wang <Angus.Wang@amd.com>
-> Cc: Anthony Koo <Anthony.Koo@amd.com>
-> Cc: Aric Cyr <Aric.Cyr@amd.com>
-> Cc: Nathan Chancellor <nathan@kernel.org>
+> Add extra check to disable ASPM on Intel AlderLake based systems.
 
-This resolves the build failure for me.
+Is that a problem with Intel Alder Lake or the Dell system? Shouldn’t 
+ASPM just be disabled for the problematic cards for the Dell system. You 
+write newer cards worked fine.
 
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-
+> Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
+> Signed-off-by: Richard Gong <richard.gong@amd.com>
 > ---
->  drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> v2: correct commit description
+>      move the check from chip family to problematic platform
+> ---
+>   drivers/gpu/drm/amd/amdgpu/vi.c | 17 ++++++++++++++++-
+>   1 file changed, 16 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-> index 0130f1879116..d2d76ce56f89 100644
-> --- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-> +++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-> @@ -1239,7 +1239,7 @@ void mod_freesync_handle_v_update(struct mod_freesync *mod_freesync,
->  	if (in_out_vrr->supported == false)
->  		return;
->  
-> -	cur_timestamp_in_us = dm_get_timestamp(core_freesync->dc->ctx)/10;
-> +	cur_timestamp_in_us = div_u64(dm_get_timestamp(core_freesync->dc->ctx), 10);
->  
->  	in_out_vrr->flip_interval.vsyncs_between_flip++;
->  	in_out_vrr->flip_interval.v_update_timestamp_in_us = cur_timestamp_in_us;
-> -- 
-> 2.35.1
-> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+> index 039b90cdc3bc..8b4eaf54b23e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -81,6 +81,10 @@
+>   #include "mxgpu_vi.h"
+>   #include "amdgpu_dm.h"
+>   
+> +#if IS_ENABLED(CONFIG_X86_64)
+> +#include <asm/intel-family.h>
+> +#endif
+> +
+>   #define ixPCIE_LC_L1_PM_SUBSTATE	0x100100C6
+>   #define PCIE_LC_L1_PM_SUBSTATE__LC_L1_SUBSTATES_OVERRIDE_EN_MASK	0x00000001L
+>   #define PCIE_LC_L1_PM_SUBSTATE__LC_PCI_PM_L1_2_OVERRIDE_MASK	0x00000002L
+> @@ -1134,13 +1138,24 @@ static void vi_enable_aspm(struct amdgpu_device *adev)
+>   		WREG32_PCIE(ixPCIE_LC_CNTL, data);
+>   }
+>   
+> +static bool intel_core_apsm_chk(void)
+
+aspm
+
+> +{
+> +#if IS_ENABLED(CONFIG_X86_64)
+> +	struct cpuinfo_x86 *c = &cpu_data(0);
+> +
+> +	return (c->x86 == 6 && c->x86_model == INTEL_FAM6_ALDERLAKE);
+> +#else
+> +	return false;
+> +#endif
+
+Please do the check in C code and not the preprocessor.
+
+> +}
+> +
+>   static void vi_program_aspm(struct amdgpu_device *adev)
+>   {
+>   	u32 data, data1, orig;
+>   	bool bL1SS = false;
+>   	bool bClkReqSupport = true;
+>   
+> -	if (!amdgpu_device_should_use_aspm(adev))
+> +	if (!amdgpu_device_should_use_aspm(adev) || intel_core_apsm_chk())
+>   		return;
+>   
+>   	if (adev->flags & AMD_IS_APU ||
+
+
+Kind regards,
+
+Paul
