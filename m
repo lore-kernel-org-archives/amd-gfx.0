@@ -4,36 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C31C9C433F5
-	for <amd-gfx@archiver.kernel.org>; Sat,  9 Apr 2022 20:19:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E33C433F5
+	for <amd-gfx@archiver.kernel.org>; Sun, 10 Apr 2022 13:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BB18892EE;
-	Sat,  9 Apr 2022 20:19:32 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DDAD10E61A
- for <amd-gfx@lists.freedesktop.org>; Sat,  9 Apr 2022 20:19:25 +0000 (UTC)
-Received: from [192.168.0.2] (ip5f5ae90c.dynamic.kabel-deutschland.de
- [95.90.233.12])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 7D91561EA1928;
- Sat,  9 Apr 2022 22:19:23 +0200 (CEST)
-Message-ID: <c9d909ce-c1f2-8d8d-4c06-57c2cea01733@molgen.mpg.de>
-Date: Sat, 9 Apr 2022 22:19:23 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68A8610F5B7;
+	Sun, 10 Apr 2022 13:54:25 +0000 (UTC)
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40CCC10F5B6;
+ Sun, 10 Apr 2022 13:54:24 +0000 (UTC)
+Received: by mail-pl1-x629.google.com with SMTP id s14so2164763plk.8;
+ Sun, 10 Apr 2022 06:54:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=x6PPcktaF21f9upBr78QhnzJ6O8/NNRSC9H7jHUfSVk=;
+ b=ZjHOKGewNdnoyQoQ4+1sMIO8mNsZhtZaCNu9dp5a8tS4dNARaGpGcdmZcDMdOWfVeg
+ yzXhcLB4TUYDN0aR1aAYJNtzwekjRzHML2CS44Hsj9Nq6N8Z+6sSeJNkYjdNSXNug9ME
+ 19wiBrNc/ELmqRsVn0ooD+iaz5PeLfpUaZqthT4ghSkWPXxMRC75gLRTP19FKSDkEW+U
+ ifaHJsD6A6XUS12X3mpM5Yk11q6cM74ZNCTWk+PlLosRiCn0lFk3vNU2EjXjBJI7i84K
+ zXR+0/Xw7EeCTOHgpbtEoQZEv4IBPoS6cNiotAlmyKt2dc5l6Dt7qpHHBPqe69Yw5y9Y
+ 9b1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=x6PPcktaF21f9upBr78QhnzJ6O8/NNRSC9H7jHUfSVk=;
+ b=wMaxba8lNQozD9ptWMUT+6WkogcpcPRY9g06321aEHKGbvD7TI2qOpsUeRz7wMHLt4
+ eCxLAK4KRRvQbHtmgCKTCHRPFWHa+HQg7xDZxzNR0iIH+ukpUiou3mWf+BGbCY62E8dS
+ 23209kMnbREVCpCNtjfNt3ZwTzU4T6xdi24jE0zTRC/IYIdVUSG5pAswZQU2vxQVmkRP
+ irsRaiDKEJUiE0MlTg/4lejR6LL0h+SALI+EIazNinSejAEUe+uhNieSFlwE3ZhB1QpY
+ q5YRy+/RcKJNZNKU7RX5VR4usfG5cmJ+mMQ48I2bI2dZUjS3ocfbuCtwJgbJ53/FP//O
+ oXYA==
+X-Gm-Message-State: AOAM530A8SbkK7bGHTHXH8WVmBvp4GEZcB9oe0UQ3MPpInJzpaJWX6No
+ PsP+g44l0WtJgG2wDbTbVr4wi8oQPYfl4wiXOoE=
+X-Google-Smtp-Source: ABdhPJwAYqqtu5JKbjkVTCMYYki1aCO23WJJdbnSso/mGJ4qP4dpMjUc/s3jbcVxPjYW+/LgB1u4EGGbImKyzoqr3WU=
+X-Received: by 2002:a17:90b:224f:b0:1c9:949e:2202 with SMTP id
+ hk15-20020a17090b224f00b001c9949e2202mr31585598pjb.56.1649598863849; Sun, 10
+ Apr 2022 06:54:23 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH 04/20] drm/amd/display: Disallow entering PSR when panel
- is disconnected
-Content-Language: en-US
-To: Pavle Kotarac <Pavle.Kotarac@amd.com>, Max Erenberg <merenber@amd.com>
-References: <20220408171911.601615-1-Pavle.Kotarac@amd.com>
- <20220408171911.601615-5-Pavle.Kotarac@amd.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20220408171911.601615-5-Pavle.Kotarac@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20220408190502.4103670-1-richard.gong@amd.com>
+In-Reply-To: <20220408190502.4103670-1-richard.gong@amd.com>
+From: =?UTF-8?Q?Nils_Wallm=C3=A9nius?= <nils.wallmenius@gmail.com>
+Date: Sun, 10 Apr 2022 15:54:12 +0200
+Message-ID: <CA+nq7DsCU97Ana34GcyQZ_GzR4eiQbzkzPLUBRQTAtNYa-OiLA@mail.gmail.com>
+Subject: Re: [PATCHv2] drm/amdgpu: disable ASPM on Intel AlderLake based
+ systems
+To: Richard Gong <richard.gong@amd.com>
+Content-Type: multipart/alternative; boundary="0000000000004d3d6905dc4d2aff"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,67 +62,188 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Evgenii Krasnikov <Evgenii.Krasnikov@amd.com>,
- Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, amd-gfx@lists.freedesktop.org,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- Nicholas Choi <Nicholas.Choi@amd.com>,
- Harry Vanzylldejong <harry.vanzylldejong@amd.com>, wayne.lin@amd.com,
- Harry.Wentland@amd.com, agustin.gutierrez@amd.com
+Cc: amd-gfx@lists.freedesktop.org, airlied@linux.ie, xinhui.pan@amd.com,
+ linux-kernel@vger.kernel.org,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ mario.limonciello@amd.com, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Pavle, dear Max,
+--0000000000004d3d6905dc4d2aff
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Richard, see inline comment.
 
-Am 08.04.22 um 19:18 schrieb Pavle Kotarac:
-> From: Max Erenberg <merenber@amd.com>
-> 
-> [WHY]
-> The dGPU cannot enter PSR when it is not connected to a panel.
+Den fre 8 apr. 2022 21:05Richard Gong <richard.gong@amd.com> skrev:
 
-Maybe spell out Panel Self Refresh once.
-
-> [HOW]
-> Added a check to dc_link_set_psr_allow_active
-
-s/Added/Add/
-
-> which returns early if panel is disconnected.
-
-Please reflow for 57 characters per line.
-
-> 
-> Reviewed-by: Harry Vanzylldejong <harry.vanzylldejong@amd.com>
-> Reviewed-by: Evgenii Krasnikov <Evgenii.Krasnikov@amd.com>
-> Reviewed-by: Nicholas Choi <Nicholas.Choi@amd.com>
-> Acked-by: Pavle Kotarac <Pavle.Kotarac@amd.com>
-> Signed-off-by: Max Erenberg <merenber@amd.com>
+> Active State Power Management (ASPM) feature is enabled since kernel 5.14.
+> There are some AMD GFX cards (such as WX3200 and RX640) that cannot be
+> used with Intel AlderLake based systems to enable ASPM. Using these GFX
+> cards as video/display output, Intel Alder Lake based systems will hang
+> during suspend/resume.
+>
+> Add extra check to disable ASPM on Intel AlderLake based systems.
+>
+> Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
+> Signed-off-by: Richard Gong <richard.gong@amd.com>
 > ---
->   drivers/gpu/drm/amd/display/dc/core/dc_link.c | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> index 47b67fd1e84c..22f2d88fab99 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> @@ -3079,6 +3079,11 @@ bool dc_link_set_psr_allow_active(struct dc_link *link, const bool *allow_active
->   	if (!dc_get_edp_link_panel_inst(dc, link, &panel_inst))
->   		return false;
->   
-> +	if (allow_active && link->type == dc_connection_none) {
-
-Why does `allow_active` need to be checked?
-
-> +		// Don't enter PSR if panel is not connected
-> +		return false;
-> +	}
+> v2: correct commit description
+>     move the check from chip family to problematic platform
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vi.c | 17 ++++++++++++++++-
+>  1 file changed, 16 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c
+> b/drivers/gpu/drm/amd/amdgpu/vi.c
+> index 039b90cdc3bc..8b4eaf54b23e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -81,6 +81,10 @@
+>  #include "mxgpu_vi.h"
+>  #include "amdgpu_dm.h"
+>
+> +#if IS_ENABLED(CONFIG_X86_64)
+> +#include <asm/intel-family.h>
+> +#endif
 > +
->   	/* Set power optimization flag */
->   	if (power_opts && link->psr_settings.psr_power_opt != *power_opts) {
->   		link->psr_settings.psr_power_opt = *power_opts;
+>  #define ixPCIE_LC_L1_PM_SUBSTATE       0x100100C6
+>  #define PCIE_LC_L1_PM_SUBSTATE__LC_L1_SUBSTATES_OVERRIDE_EN_MASK
+>  0x00000001L
+>  #define PCIE_LC_L1_PM_SUBSTATE__LC_PCI_PM_L1_2_OVERRIDE_MASK   0x00000002L
+> @@ -1134,13 +1138,24 @@ static void vi_enable_aspm(struct amdgpu_device
+> *adev)
+>                 WREG32_PCIE(ixPCIE_LC_CNTL, data);
+>  }
+>
+
+There's a typo in the new function name apsm/aspm. Btw might be worth a
+comment why this check is done?
+
+Regards
+Nils
 
 
-Kind regards,
+> +static bool intel_core_apsm_chk(void)
+> +{
+> +#if IS_ENABLED(CONFIG_X86_64)
+> +       struct cpuinfo_x86 *c = &cpu_data(0);
+> +
+> +       return (c->x86 == 6 && c->x86_model == INTEL_FAM6_ALDERLAKE);
+> +#else
+> +       return false;
+> +#endif
+> +}
+> +
+>  static void vi_program_aspm(struct amdgpu_device *adev)
+>  {
+>         u32 data, data1, orig;
+>         bool bL1SS = false;
+>         bool bClkReqSupport = true;
+>
+> -       if (!amdgpu_device_should_use_aspm(adev))
+> +       if (!amdgpu_device_should_use_aspm(adev) || intel_core_apsm_chk())
+>                 return;
+>
+>         if (adev->flags & AMD_IS_APU ||
+> --
+> 2.25.1
+>
+>
 
-Paul
+--0000000000004d3d6905dc4d2aff
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div>Hi Richard, see inline comment.<br><br><div class=3D=
+"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Den fre 8 apr. 2022 21:=
+05Richard Gong &lt;<a href=3D"mailto:richard.gong@amd.com">richard.gong@amd=
+.com</a>&gt; skrev:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Active State Po=
+wer Management (ASPM) feature is enabled since kernel 5.14.<br>
+There are some AMD GFX cards (such as WX3200 and RX640) that cannot be<br>
+used with Intel AlderLake based systems to enable ASPM. Using these GFX<br>
+cards as video/display output, Intel Alder Lake based systems will hang<br>
+during suspend/resume.<br>
+<br>
+Add extra check to disable ASPM on Intel AlderLake based systems.<br>
+<br>
+Fixes: 0064b0ce85bb (&quot;drm/amd/pm: enable ASPM by default&quot;)<br>
+Link: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/1885" rel=
+=3D"noreferrer noreferrer" target=3D"_blank">https://gitlab.freedesktop.org=
+/drm/amd/-/issues/1885</a><br>
+Signed-off-by: Richard Gong &lt;<a href=3D"mailto:richard.gong@amd.com" tar=
+get=3D"_blank" rel=3D"noreferrer">richard.gong@amd.com</a>&gt;<br>
+---<br>
+v2: correct commit description<br>
+=C2=A0 =C2=A0 move the check from chip family to problematic platform<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/vi.c | 17 ++++++++++++++++-<br>
+=C2=A01 file changed, 16 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/v=
+i.c<br>
+index 039b90cdc3bc..8b4eaf54b23e 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+@@ -81,6 +81,10 @@<br>
+=C2=A0#include &quot;mxgpu_vi.h&quot;<br>
+=C2=A0#include &quot;amdgpu_dm.h&quot;<br>
+<br>
++#if IS_ENABLED(CONFIG_X86_64)<br>
++#include &lt;asm/intel-family.h&gt;<br>
++#endif<br>
++<br>
+=C2=A0#define ixPCIE_LC_L1_PM_SUBSTATE=C2=A0 =C2=A0 =C2=A0 =C2=A00x100100C6=
+<br>
+=C2=A0#define PCIE_LC_L1_PM_SUBSTATE__LC_L1_SUBSTATES_OVERRIDE_EN_MASK=C2=
+=A0 =C2=A0 =C2=A0 =C2=A00x00000001L<br>
+=C2=A0#define PCIE_LC_L1_PM_SUBSTATE__LC_PCI_PM_L1_2_OVERRIDE_MASK=C2=A0 =
+=C2=A00x00000002L<br>
+@@ -1134,13 +1138,24 @@ static void vi_enable_aspm(struct amdgpu_device *ad=
+ev)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 WREG32_PCIE(ixPCIE_=
+LC_CNTL, data);<br>
+=C2=A0}<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D=
+"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"></blockq=
+uote></div></div><div dir=3D"auto">There&#39;s a typo in the new function n=
+ame apsm/aspm. Btw might be worth a comment why this check is done?</div><d=
+iv dir=3D"auto"><br></div><div dir=3D"auto">Regards</div><div dir=3D"auto">=
+Nils</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail=
+_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border=
+-left:1px #ccc solid;padding-left:1ex"><br></blockquote><blockquote class=
+=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
+ing-left:1ex">
++static bool intel_core_apsm_chk(void)<br>
++{<br>
++#if IS_ENABLED(CONFIG_X86_64)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct cpuinfo_x86 *c =3D &amp;cpu_data(0);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return (c-&gt;x86 =3D=3D 6 &amp;&amp; c-&gt;x86=
+_model =3D=3D INTEL_FAM6_ALDERLAKE);<br>
++#else<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
++#endif<br>
++}<br>
++<br>
+=C2=A0static void vi_program_aspm(struct amdgpu_device *adev)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 u32 data, data1, orig;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 bool bL1SS =3D false;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 bool bClkReqSupport =3D true;<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!amdgpu_device_should_use_aspm(adev))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!amdgpu_device_should_use_aspm(adev) || int=
+el_core_apsm_chk())<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (adev-&gt;flags &amp; AMD_IS_APU ||<br>
+-- <br>
+2.25.1<br>
+<br>
+</blockquote></div></div></div>
+
+--0000000000004d3d6905dc4d2aff--
