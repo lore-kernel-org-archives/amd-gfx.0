@@ -4,53 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11234C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 15:28:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20F77C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 15:28:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8820210E1E9;
-	Mon, 11 Apr 2022 15:28:19 +0000 (UTC)
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B34DD10E2E0
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 15:28:17 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-e2a00f2cc8so8157121fac.4
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 08:28:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5NwEuUStRZRLOmO1Wluls1vMzP+uI5VjkeUgQSs5KIs=;
- b=oK7Hzf7KI0IKKO441a4iJEmsZ0LSIsuEbriQc2mQUbgRzPDI2vP7CUAA/UKzV6q4xy
- gHK8xIOiV7WMLaDG6lGcsZc+JQenpwMI1qjHsoh4sqL/tICNg6RI+1N00mjfdNkimCzE
- GR+t9Mv3lNC5qqNn2WO+FPscQKqjIhR+MBHcZRNFP53AFIiEkYt3lqpk0upnaxqcvR+r
- dgznPaw4njrbX8ZvHUy0in4mwZutfR6ITWqEIeOwXpeYTrrUGyG9WS1ygWeGVHMl3PjJ
- f1zdPyt1WREdy/9hqTvzSCjI1u+aAS5p+65bcrPyiV7y7eTAux7LHKOXTWqydoOmRoAZ
- dxdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5NwEuUStRZRLOmO1Wluls1vMzP+uI5VjkeUgQSs5KIs=;
- b=58oUCatSK53gmDvTNsoPk3/bWDZw+DEP2C9nsk3JPHbQoTDFIXL8EG75fHLGrpD5xI
- yd/iX0wjeDBTOnKs9wl4BXrLobRQt4u3MMAHsB3x+Px+ffHMCggjTnZfg8NOSUoXlSbJ
- 6Nl6ncHoVReEQiXLakRz/R40YgSDCXTj9WMZN9aCB76s+oToweb0KGnHRA89AM0Qj/zE
- gatrDhJNT3OnaiY32YiOZw49kOmg1ljun0rhm6lvHdRjFOHflBdyC09o0u7btm88ZHNz
- GbFVDjVLvkMJ8ri9vj/GyvSoeFlMNNYJlXY5mGleSculVuszHlym3HvRFw9JMYuCIqx/
- SJ1g==
-X-Gm-Message-State: AOAM532vfZwQJaQkVPYITd84IrlUY+Vhx6o6coFW27d8FwHrcAJTjE1J
- 9AvlexlXkSrf3MfwhRs4ezIiM4c9z5MzKm99T+Y=
-X-Google-Smtp-Source: ABdhPJwfaVYbC2CEHNBfKyYsYo1OfIzjfcpRfkMF1cetm67V4qScU7Whsx9leXtEEYt88C2SuW5+oR4WgPcFqAEf83o=
-X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
- z3-20020a056870d68300b000deeaa23550mr14973874oap.253.1649690896731; Mon, 11
- Apr 2022 08:28:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 436F610E2E0;
+	Mon, 11 Apr 2022 15:28:21 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1992D10E2E0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 15:28:20 +0000 (UTC)
+Received: from [192.168.0.7] (ip5f5ae91f.dynamic.kabel-deutschland.de
+ [95.90.233.31])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 6CE4661EA1923;
+ Mon, 11 Apr 2022 17:28:18 +0200 (CEST)
+Message-ID: <f06ce5e3-158b-88a8-06f0-53b88c4fad45@molgen.mpg.de>
+Date: Mon, 11 Apr 2022 17:28:17 +0200
 MIME-Version: 1.0
-References: <DM4PR12MB51523E7DEF46C4D62472DFF1E3EA9@DM4PR12MB5152.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB51523E7DEF46C4D62472DFF1E3EA9@DM4PR12MB5152.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 11 Apr 2022 11:28:05 -0400
-Message-ID: <CADnq5_O8iDe3Me6cqG5Qdo278LuwuDf_OVfjX2hWXUPZKo5gow@mail.gmail.com>
-Subject: Re: [PATCH v2 ] drm/amdgpu: fix discovery ip failed
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH] drm/amd/amdgpu: Not request init data for MS_HYPERV with
+ vega10
+Content-Language: en-US
+To: Yongqiang Sun <yongqiang.sun@amd.com>
+References: <20220411135939.906700-1-yongqiang.sun@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20220411135939.906700-1-yongqiang.sun@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,112 +44,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
- Yifan" <Yifan1.Zhang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: jingwen.chen2@amd.com, zhigang.luo@amd.com, monk.liu@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 11, 2022 at 11:25 AM Zhang, Jesse(Jie) <Jesse.Zhang@amd.com> wrote:
->
-> [AMD Official Use Only]
->
->
->
-> + Deucher, Alexander
->
->
->
-> From: Zhang, Jesse(Jie)
-> Sent: Monday, 11 April 2022 11:15 pm
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Huang, Ray <Ray.Huang@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>
-> Subject: [PATCH ] drm/amdgpu: fix discovery ip failed
->
->
->
-> [AMD Official Use Only]
->
->
->
-> Fix discovery ip failed, and the log:
->
->    56.129549] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected number_instance (64) from ip discovery blob
-> [   56.130129] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected hw_id (45056) from ip discovery blob
-> [   56.130701] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected number_instance (66) from ip discovery blob
-> [   56.131283] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected hw_id (45568) from ip discovery blob
-> [   56.131855] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected number_instance (66) from ip discovery blob
-> [   56.132436] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected hw_id (480) from ip discovery blob
-> [   56.133053] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected hw_id (608) from ip discovery blob
-> [   56.133626] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected hw_id (640) from ip discovery blob
-> [   56.134207] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected number_instance (64) from ip discovery blob
-> [   56.134780] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected number_instance (64) from ip discovery blob
-> [   56.135360] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected hw_id (28672) from ip discovery blob
->
-
-Please add a description of what the fix is doing and add your signed-off-by.
-
-Alex
+Dear Yongqiang,
 
 
->
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->
-> index 766006a075ec..a778b0392e9f 100644
->
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->
-> @@ -798,7 +798,7 @@ static int amdgpu_discovery_sysfs_ips(struct amdgpu_device *adev,
->
->                         res = kobject_add(&ip_hw_instance->kobj, NULL,
->
->                                           "%d", ip_hw_instance->num_instance);
->
-> next_ip:
->
-> -                       ip_offset += sizeof(*ip) + 4 * (ip->num_base_address - 1);
->
-> +                       ip_offset += struct_size(ip, base_address, ip->num_base_address);
->
->                 }
->
->         }
->
->
->
-> @@ -1063,7 +1063,7 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
->
->                         }
->
->
->
-> next_ip:
->
-> -                       ip_offset += sizeof(*ip) + 4 * (ip->num_base_address - 1);
->
-> +                       ip_offset += struct_size(ip, base_address, ip->num_base_address);
->
->                 }
->
->         }
->
->
->
-> @@ -1113,7 +1113,7 @@ int amdgpu_discovery_get_ip_version(struct amdgpu_device *adev, int hw_id, int n
->
->                                         *revision = ip->revision;
->
->                                 return 0;
->
->                         }
->
-> -                       ip_offset += sizeof(*ip) + 4 * (ip->num_base_address - 1);
->
-> +                       ip_offset += struct_size(ip, base_address, ip->num_base_address);
->
->                 }
->
->         }
+Thank you for your patch.
+
+Am 11.04.22 um 15:59 schrieb Yongqiang Sun:
+> MS_HYPERV with vega10 doesn't have the interface to process
+> request init data msg.
+
+Should some Hyper-V folks be added to the reviewers list too?
+
+> Check hypervisor type to not send the request for MS_HYPERV.
+
+Please add a blank line between paragraphs.
+
+> Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 12 ++++++++++--
+>   1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index 933c41f77c92..56b130ec44a9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -23,6 +23,10 @@
+>   
+>   #include <linux/module.h>
+>   
+> +#ifdef CONFIG_X86
+> +#include <asm/hypervisor.h>
+> +#endif
+> +
+>   #include <drm/drm_drv.h>
+>   
+>   #include "amdgpu.h"
+> @@ -721,8 +725,12 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+>   			break;
+>   		case CHIP_VEGA10:
+>   			soc15_set_virt_ops(adev);
+> -			/* send a dummy GPU_INIT_DATA request to host on vega10 */
+> -			amdgpu_virt_request_init_data(adev);
+> +#ifdef CONFIG_X86
+> +			/* not send GPU_INIT_DATA with MS_HYPERV*/
+> +			if (hypervisor_is_type(X86_HYPER_MS_HYPERV) == false)
+> +#endif
+
+Why guard everything with CONFIG_X86? (If it’s needed, it should be done 
+in C code.)
+
+> +				/* send a dummy GPU_INIT_DATA request to host on vega10 */
+> +				amdgpu_virt_request_init_data(adev);
+>   			break;
+>   		case CHIP_VEGA20:
+>   		case CHIP_ARCTURUS:
+
+
+Kind regards,
+
+Paul
