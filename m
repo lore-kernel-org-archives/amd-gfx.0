@@ -4,132 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 802B3C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 14:12:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CAABC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 15:15:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CF6710E2F4;
-	Mon, 11 Apr 2022 14:12:11 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2047.outbound.protection.outlook.com [40.107.94.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F82310E2F4
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 14:12:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6641910E074;
+	Mon, 11 Apr 2022 15:15:29 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2066.outbound.protection.outlook.com [40.107.244.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6862C10E074
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 15:15:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G5toIqNuQWL3YNtwtGVEFNT3RDk+dVz3LNga7IrU6yXsnvyTtLtQGxmS4juixuPn+1bXyc1nwOEGhmnmRI3+Uv4oBUQ2+lTttwVu9XFD54XFk54R8MeIoOUE9ceYxd09lzUt7+RCnerYjv9ZYocUb1u7pJgFzzFW4DMm6QcPiqrQqLSPiukNDzpI603XQSz+WHJmsYG0dIAFKG1/b2iCp+9KUG03a6vQVLmnjsAaz/m6WFZONEMN1l+gGF8zTEc8MoePXj6geds+xGi57sAfKGB9TIt62yB24KYaFpWj28R5DLIeei6BChTl45cWu9EMJ2aTSsg1Yqge/tDknYNFHA==
+ b=ExWWgGbrZ4RiB+w54+4Fo7yomxC75EYEcKucjAh8LMbsg+lzH9OPlcrH+UmBpLhkCmBK9ap/F78TrMAHgHVGi28J+4fEkcR1wXA9q8Joq8mmSedd052drFHDg7e50AqkhyQT7bm2gI98Pb+lWxsIDFSntDuNJU/ucR4XaJVwtF/rWx+QhJa+Rgifgco+nTfrsa/sfB/H4KzJZlsW6FzSu5bimcwM2BswIQMgF7d6KTBdzScWK+6BsFJybylZfE085hbW/IHEVv4cFBBwsaHsbiv4ezvCMxnym7Z94UY2NABQem+rN9Y0BmrITEet0Lx4HGRWoLiRyEJJvXmI1m9lCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PU1lqbBNUq5lV29JCav9F2uYTL1fWlP4UT4B3AEx8VQ=;
- b=GVoU7Y3ePXDtx3dqwS1JhJN76XKArusHuwK0IMm/UuV0U2b4NdrIxF3a38Lp0ciYLxkzvpFVEL9uKHXSHL2YLWlqhtGCCTSepTsilTSv9vDIWoHt9UglIDp4Nc5Zfw5XFDTcyjQE9alWJoh6p2clKz7xM/OluwTE5AJjWyCXCCc4yStmXmIZBzLuzQWnjaCsWD+7tKXQkA+r2OrgIok7LseY+Ait+kWEEU+TRXX/ZcNuieQW1OTQVStXpFWNXpjjQtCbybJ6avbs+d7QOPJ6OEPl4iRZoFfrd5nyxC7AKVK6XQD2wbGe1oxWCiiLaA0JFUmdkeApk3CqKc85Fzb/2g==
+ bh=E7ZMZ8oJWVb0saadd81ocJA7dT3AVxZUKMG8Lmkq3Gg=;
+ b=R+no5L/O1tCD37MJCqtAXrCbn4hMRMoBIcwdwBK9kt1Orqd6Q1X1q2aerdaqsYjCVMEbd/RusYjCGzh3VMACRiMnVbqJKXxZVv1yFFYZgNU9NVFrP8qvOJ8E+lFAfuR3msY92O93AHmNM81cYnb3iHdpZGGpwtbWsfo+r9dMYdoiNwf+3UaLZeoUZAE2iBHecs9TRNpBNBD4wk3zo1+ehUjGrHuyLdJeKz0wd23ksd4s/CJhbQRwpnunVP2HRedTImH35UNe6g0dZuwpXVQ2fbuzYjN+mYwVcvE7rqm+9ilhvon7gZmeqCesg29WANyLVHAJdzwsnMCNO1M7aiUz0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PU1lqbBNUq5lV29JCav9F2uYTL1fWlP4UT4B3AEx8VQ=;
- b=iDjNuhN7/g5f+1TPEhonEsz2y8w0JEkKnKWNkK0QU5tBjBC77uA6Bhrs4Aqw0i/O2/568jnI8v2J1Ec883gAnCuHaul6ElTOGrH+QsYzPRkAbDTgGl8VXYHIg+C5prQELvA559KalVMNqHuIv8tBkfvi6fNOE8AW0GzZNREC/8k=
-Received: from BL1PR12MB5334.namprd12.prod.outlook.com (2603:10b6:208:31d::17)
- by CY4PR12MB1895.namprd12.prod.outlook.com (2603:10b6:903:11c::12)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=E7ZMZ8oJWVb0saadd81ocJA7dT3AVxZUKMG8Lmkq3Gg=;
+ b=LFJ3BPo7AgbsJZubJnv+CGSLAIU8bRMAlHR24Giqu4GrRBMiZ3JKsT+rzuA4+GOqJkbr7DSSY6124zHbcJojgn4wCkc+bYfzjwR9s2D9LyIPr97piWPycXqUaOXZNGPWwMsslsUtIyIjA8z8R2d6D7WQugr3KpC3MtV86uw36gg=
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
+ by BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Mon, 11 Apr
- 2022 14:12:08 +0000
-Received: from BL1PR12MB5334.namprd12.prod.outlook.com
- ([fe80::89e5:94d7:69f4:603c]) by BL1PR12MB5334.namprd12.prod.outlook.com
- ([fe80::89e5:94d7:69f4:603c%8]) with mapi id 15.20.5144.029; Mon, 11 Apr 2022
- 14:12:08 +0000
-From: "Yang, Stanley" <Stanley.Yang@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Ziya,
- Mohammad zafar" <Mohammadzafar.Ziya@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>
-Subject: =?utf-8?B?5Zue5aSNOiBbUEFUQ0ggMS8zXSBkcm0vYW1kZ3B1OiBhZGQgcG9pc29uIGNv?=
- =?utf-8?Q?nsumption_flag_for_RAS_IH?=
-Thread-Topic: [PATCH 1/3] drm/amdgpu: add poison consumption flag for RAS IH
-Thread-Index: AQHYTZSHO6LZJId0zEGItrUkSYoTFazqs1hg
-Date: Mon, 11 Apr 2022 14:12:08 +0000
-Message-ID: <BL1PR12MB5334047390308672B445C7559AEA9@BL1PR12MB5334.namprd12.prod.outlook.com>
-References: <20220411110825.18808-1-tao.zhou1@amd.com>
-In-Reply-To: <20220411110825.18808-1-tao.zhou1@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
+ 2022 15:15:25 +0000
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::610b:3e61:665b:cdc4]) by DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::610b:3e61:665b:cdc4%6]) with mapi id 15.20.5144.029; Mon, 11 Apr 2022
+ 15:15:25 +0000
+From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH ] drm/amdgpu:  fix discovery ip failed 
+Thread-Topic: [PATCH ] drm/amdgpu:  fix discovery ip failed 
+Thread-Index: AdhNtvY3qJYvfOF7T1Cc3PFgT0as1g==
+Date: Mon, 11 Apr 2022 15:15:25 +0000
+Message-ID: <DM4PR12MB51525F878057240AE5C91F14E3EA9@DM4PR12MB5152.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=08114bf4-abc2-4172-b902-c897ce91c910;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-04-11T15:10:54Z; 
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-04-11T13:22:54Z;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=48c60490-b801-42d0-b0aa-6f9638850e7c;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-04-11T15:15:21Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 01a3b2d7-b001-4331-a43f-4d88cf96f84f
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ca764f12-584a-4417-acf1-08da1bc5437d
-x-ms-traffictypediagnostic: CY4PR12MB1895:EE_
-x-microsoft-antispam-prvs: <CY4PR12MB18954C0151D1628EB58A98319AEA9@CY4PR12MB1895.namprd12.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: 5ea0ae5f-ebf0-4888-cc24-08da1bce1b14
+x-ms-traffictypediagnostic: BL1PR12MB5320:EE_
+x-microsoft-antispam-prvs: <BL1PR12MB53208672DA10968149922F02E3EA9@BL1PR12MB5320.namprd12.prod.outlook.com>
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: PpGajLe+HRVjv9kxqzBENHAeLgKOVaJp1Hs8d0+Tkf7QbDzq5l5XWuRaw58b8mwJzNNgHD9QRdbBGSGdjmTkiE2kEhjWEkEJqvfUIdel9A914n9zgGW4i9R3GOx6UvhqnOHyn/pXKpXvbde5RlVaOatLVvXiIj6pn3na1SOPUxFnHA+KugNzbp+djftaumVI8I4awSBfs9SkaSnMCiS+sXpVvRAKh12bAaK5yg790WYL0a9FJkl1sHIrbXEPFhlz3SM1IFuGvgYpHdMvaZMO3u98b+lxdMPnX4ZAh98uDTTim0IZmZGgkbGm7HDg4FiDvK4/k49xy29P/nD+acQ2aqbQrrn1F6du+IoJOUfJFKlDGdkb9C0W+16AkSdnjgCYx7TS/M3oHZVDL65oPq6xIoswCJxn+7ugY+iD3U3UJ9h6d57QQPSr9YA41uB3B6HncSW1ZZ1NEIdp7gARMO/OVsf4mYbROgWP290veaBytUa+VASylwXjQ1vKyuikYItEj+lXqBT/wp8HXKD2LumSstkxOptbPT3wDuWgDNQ5xQBksaqbAdASDTsAjyuxnDe1sinW7NRUn3V7+mXWjlXvZD+uSDeUy+sgdgs7hIg8xcDCEYNeeghRqIzW9bbwEiHZwDfXR0Z1bFiuqfe74gBcSoXIm1vuD6ffDPGEpwZcyYKavgXIMZKnCGY1wryuKH888y/+QkziJ6NlDvcIcyNRurOC/60K9BRNRnSqCdi77pI=
+x-microsoft-antispam-message-info: 8zf9WVi2L6hHCacujOH8a1WMHZ1ehpF1LqzmbMPX7I3GUMOi0xp/NaPRjlxMBPJOZiPGIoIfeydGyOxmDQsz4rOEmbOoPzldvsO+VTWpf02HW6HRucmc9aL1gR0pMxwB3Ze3H3QvuBf2ZGNVOLdeboJ26WWbndYgPKFqFrx16daJ/A1rw4+cAU6KQ3LSLtHhaql2tpTSXTXnP+nquxRECtbGwhpYzYY8xQDqnPWugwVhTv+vrTiJtBAcNEVyUhCr8uNDH6Q6QFynFoycsgx53XorzeEIvrsf3xn9mZ0yA+D7M9MMu2xVAWYXXoY04bEyoq/nlqHSuKgGeu2gHPqLR65u930xOhlJABMO+scCywuwMaeGCtGM41UK6jDyksfsWYRSniUjdYd6Zz7BmBC6kPNroOOm1pWt++kcDp3aX1/v1cqdPfPvAjF2LuohiWwbi25giYO59Eggknep0GTgLId5wD1GFlzotd81TrequW5kDUfWrMM9t6e0ockJYSfZVPdf/Pvl3bxwwpw1ImszDwHHh0VH0W3IHJdtn02S9P0lwXggWOIxazerDMMq3OMGjaPaBBw4QNuRAd1NWCzzxYdKIqyuWmniOmrSw20v/JG22q14HoJxvokfKGK9LcViAVl+tIWY3Q4DIeyx7d29i5GfLcjWxLAJuosW2tTyjLLKEqE3+KsiqdhHhD4zCT1CYyylfQgd9DqbtumobQ+u8g==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5334.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(86362001)(64756008)(66946007)(66446008)(110136005)(52536014)(66476007)(66556008)(76116006)(316002)(508600001)(921005)(122000001)(38100700002)(6506007)(7696005)(9686003)(71200400001)(6636002)(83380400001)(38070700005)(33656002)(8936002)(2906002)(224303003)(55016003)(5660300002)(186003);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(4743002)(66946007)(66556008)(316002)(66476007)(76116006)(8936002)(71200400001)(66446008)(54906003)(5660300002)(6916009)(8676002)(64756008)(9686003)(6506007)(4326008)(7696005)(508600001)(26005)(83380400001)(186003)(52536014)(33656002)(86362001)(38070700005)(38100700002)(122000001)(2906002)(55016003);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?aHVHUVpHbEZXbjdJRDRwOUd0TFdXRWVuOW95enEvbXJhbE5kcFZqRStKS0F5?=
- =?utf-8?B?cWttQ2NMZmh1SkJhTVZXMGJ1a3VseklpOVN3b1FZTmNjN1JMU1VaRFBqMnUr?=
- =?utf-8?B?TEtaSVNZTDRjS3NmRk5kUXBxM0RidnpkU3dSSlJlUE0vN29qTzRtQWo2a2l6?=
- =?utf-8?B?K3hpQVQ5VmlWSHNLcnBKOVg0RE1jWW5FeU1VWVFkZHlHT0VqSk0yeUZwam5p?=
- =?utf-8?B?ZEgxWnlZQ3IycDEveEtpbWZub1U1OFlYYXdPQ2ZzeXZ4QTFXbVoyVnlPNy82?=
- =?utf-8?B?YzZ2L3R6SzV2cVk0UFZOTjFTM1grNExVb25VemlvM1JwamFvYWdlUU5KeGNW?=
- =?utf-8?B?MFpOMk0vcjljUVFvMWNJU0x6ZGlOUTFEaW05ejZlRzdYTHpRb0xUMDJnOVJi?=
- =?utf-8?B?enphUlRsdVNvVyszZXg2a3BIN1prRFNpNDBjV3AxZmpaMTBGWUd3NnpINDlr?=
- =?utf-8?B?TklNODUrY09YZGo1akcxOXcxTGZ4Rjg3MGlJTWRLdWNsOTQyekV2S3p1WmNt?=
- =?utf-8?B?YmRmWDEzTHdKekxleGRBdSs1aGFVdWZWanJyZXJ0MDJ4S3dBS2Vkc2duZGY1?=
- =?utf-8?B?c0pOenRSc0xCMTFtWkxUUDNxRm43ZnE2UWdtUWxsaGtxN1g0U1hSUitYUGxN?=
- =?utf-8?B?S3IzR2xBUGlTV3BxOEcvS2lRUHlzUkNYWm4yREUybHlKYzhNSTMrejd4c3Vq?=
- =?utf-8?B?em5rYWh3RGVWMVBwc0dpQjloRitPTXk4MVM1MVBudWtodDFid01vZFpEbS9m?=
- =?utf-8?B?SWN6NHZPWEtQRThDd1ZSb3ZjNG9IeVJKUEFNK2JrT3B1OE9HYkxJQzF3MlpV?=
- =?utf-8?B?WWtucHZFMVVnc0RlZzl3U2hUdnlCaFUvNmdsN1J5Mm1hL3dCMnExWElzYWIz?=
- =?utf-8?B?MElFNlBzMXljeG1hUERhMi93TVNOdTB2WVBvWDBXeXVRc1FEek9vWlpMWjlG?=
- =?utf-8?B?YXdsMGgweUpNZTJvTWNhRlRwckJtSHVqUFhNNWFTZVpNbGZJQnJBaU42RVBw?=
- =?utf-8?B?Zk9VcWtEQkt6RjhMb3Z0dDhVTTRvNktLcnJNY3VQUDVxZmlTWnhwbW5MNDNJ?=
- =?utf-8?B?N3dSd0ZLVU4zVE8wYU5BUXlVZUZydUYzTlkxSGxaOWxQcFNNSjB1ZnVkZnZh?=
- =?utf-8?B?MllvUFJoVkJUMm1YTmxpYlpnQnlpdDlhVXhkSnBiME1aaVlZNjJ0UXkweS9N?=
- =?utf-8?B?alNtUVRWVDNzbWJTdzhybW9PNFVEU2xXNC84aG5mWStvM1FJR0g1VzNiL0Fv?=
- =?utf-8?B?KzZzRlVVektYMTlNa2RvRXZCTU0wQy9VQjEwWFJCZEZxVzZtRmFSRklhb09x?=
- =?utf-8?B?dWFTM2prdHNMdTZXOUlON21TZHdwdUFEQWc2QXVTbG1hdWNaRlR3cW1CNkh6?=
- =?utf-8?B?U1oxZGNKcWpuUGZFdmJCTTQ4ZEI0Ti9xRnB0MUdNV29yUGRuZE4yVlpaS2ln?=
- =?utf-8?B?RGJ2RWpKWmNkeUJBVTJMZ201M0Y2VjNHMkdjbTRSQitiVGtMQ1JNS1NwbjNv?=
- =?utf-8?B?eVVSaHV1RFk2UlF0cDdYSE5VbkJZVWFzNFlIMVYrY1MwbE5wVFFEcjc0WllF?=
- =?utf-8?B?eW9mRTNHL0JjaVBQRE1zbUZtbkFySy9IWmpGQWJzdWUvQ2I5eEJ2emRVSXNU?=
- =?utf-8?B?UmkyWjN5anl6ZjdtVzE2TklGRmN2T1B6Njc0SWtDT0UvYkFKbjRDN3FHSWMw?=
- =?utf-8?B?eTY1T2tBKzRvT0lGUkhkMjBDc1Zhc0hmT0lkK1lVQ2VubnJYb21PUDVjNGs4?=
- =?utf-8?B?Sko2cHBNQ2dYSlVYYTdNenBhUmZtaHlyZWRNQkFYSlE0R0VVbG5XdHVQWHcr?=
- =?utf-8?B?S1p2L0I5dWZBbS9hZWVKeDFFMmVWNzMvellNM2lCR2plRGdaSHVmaEM1N2o2?=
- =?utf-8?B?UGh1bnZVS2RFTEdNcWdpejlCc1g2YVoxdlh4WWllSVdEdGgxZlB2RmFWSDh2?=
- =?utf-8?B?M2ZPY2VUNHVNUEJOODk3WEc3b0loekZuOFJrSHBWeitGR01kL0R4R1hhd3lB?=
- =?utf-8?B?LzcwcXhhdzhzUmhneUlZMmQweTZtbzZ0Q1J3NXdTZzdTaHB6cUprVU0vRXRw?=
- =?utf-8?B?anY5aWgwem9DcFdxRTFHU2RpK2NEU1JMemFUOXFnMXo3WjhOOXdZUkt4dkRR?=
- =?utf-8?B?TXJuaGF2VmF0dkJlL0xJbExHSnZmTWJ4MldlOEpGcTVBckF0UXkrT05aQ3BV?=
- =?utf-8?B?dGd0SzhmK1FnSjhxYzZsOEhVYXBFNEJlMHAya08wOXI1cGpBcFNuOVNpL0RR?=
- =?utf-8?B?bmJGelpFMUhYdVdsbW0rd25GQlNSYk14eXllUmlsU1VHblBMZHV0UFNPZFZ6?=
- =?utf-8?B?bFNCL3hIbUZiSU1yNWFxbFlaQWpvWm9pOStqQWlmMlB5aWtPR1JxelVmY0pD?=
- =?utf-8?Q?V6LMkUlgCCemmGgSpOQofrr/Yzyk/i+AKTjqV0fO0BJbN?=
-x-ms-exchange-antispam-messagedata-1: cXP1UUdVk20bYA==
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?TPcueCIXKE8hC5ixOP71/CWXlFcfyg6M5sk8yxloQHUaoTBWh7O7SdWTQKfA?=
+ =?us-ascii?Q?JKTE9WXzVxwnEspu09/8+TxegINvyx4tIKL0ZQp9T4zXovjD7aSJDfqO51rl?=
+ =?us-ascii?Q?Gs66M5KV/xt0eNxhsQ8gbvysDpxtBwWyq1XYCr1iUKfMthVgv2cudvBZtDjq?=
+ =?us-ascii?Q?PibCrSPLYmki2cG9EUXysU3kr0CVAj8ZyYqxvM2kf3bXwHJr8WvyPEu7VdSQ?=
+ =?us-ascii?Q?1fg63uAS2b5hmY+qE0cCc+WCxsnLqUnkdZY4W0XD2HFYL3KP8XmOy84Qh2B5?=
+ =?us-ascii?Q?hg9L4l3dq5+pAulR6oDPqgdAHpbEBisidh2SC2/gHN8a27pkWZqTXd6l8XsO?=
+ =?us-ascii?Q?lvZxzgFO+1RX+gj7vTXK53O68C1rH3QMggYcfy4WoXUp56DxXqum2KO8CaGA?=
+ =?us-ascii?Q?u9pMG7PQ86+08rnfgu9wzq04NpreuLkx7K4t9ka55j7Ky9ZqTqBMZ5NSLc3c?=
+ =?us-ascii?Q?pKsULi7ivL9wdKmz7GZ7k2MFYLcP4eRmA1B5WaUbU1D6COUKD+HEc1oGq/Do?=
+ =?us-ascii?Q?r6/oaItkemxtE83PvV8RNLDEuAp0AbXvSm/Tlg01USKuElJu10JEvhs+A8ct?=
+ =?us-ascii?Q?Qs9VIqs26ORC6pLtZ6XSMfEUL+3PzGmlXtzdCRowfhpsX8WtyvZ5EaEls9Bk?=
+ =?us-ascii?Q?GK8Om6a6wdciet73n7hAQ5eVpYkaL0HfYO402OiTxBdZ425cu347ZM+fK+Ji?=
+ =?us-ascii?Q?dz01AuBK37E9O+URcMoQEBjA4iS9LfchDalkJqqbs5MYkyVoN9Di+uEtCG4p?=
+ =?us-ascii?Q?TGKuXa6bYgEZSUPdi/LdbUsAzOwy3SrGC5tdJkOGsae8isJ39rOSt0gLchvI?=
+ =?us-ascii?Q?ez358H+yWapu1iPtH+szOu9tH03ZO7PhHE9rmldda8R8Ln7gIO1h7YHX5bx2?=
+ =?us-ascii?Q?ErorOiZR/qO7CD99DwQZUUXRu/SrjFX43kyS3ZhCfUkfkzMUi4Y9rYdvLa+W?=
+ =?us-ascii?Q?aqTqZvkOeUoC9ncyzTD6GoZ7iZkFLLW+HDlob9TpejxRaq991opdRQOMZJGL?=
+ =?us-ascii?Q?QIxaxuZEmRHJPpQvi150ajuv65V9sCrNLTaHobZpIZ7r5tcKkW/MD8wQw0mD?=
+ =?us-ascii?Q?ZuefZz4I2CPaIxODn3OUmg0iGsKxmb0flVbb1+07YBEwWUQJ1Ub+2dvyMMpU?=
+ =?us-ascii?Q?OWLIyMy4amdPBFKV/YgQhB/2Ieuz3RzjN5BBnlID4CmEMR9IH+Q1KamVU+t2?=
+ =?us-ascii?Q?9zc133bEvlQC9zzoukwKAmhKv7fkPS2a+IPLuKXaZxqhpGVxO37BkDxrag5u?=
+ =?us-ascii?Q?0QeZT3U1MAqDiJW6oEfLjIQf6sd8VksDzy6S10gHhY94xjMKXem6feyJlcle?=
+ =?us-ascii?Q?q2nM7sp5KLAa17rI/jp9tKJeLnTnO+U9KW2l5PsbTKblDbFTssITvw9h7Lia?=
+ =?us-ascii?Q?fWEoW6a2lHYFsudtjFSZiv3CeKplQUMvZasbY5nGFWPJ9Pe7LYvD8cBSBECm?=
+ =?us-ascii?Q?61SlMA9SKndZrDk8fAHvbZjtIUma3ocIIiK861VuYNiXEISCoT/qUdQbNPRw?=
+ =?us-ascii?Q?sj9aeSGjWKxKKqtBRrMewAViJr/XpbclN6ODU98ada9T3gbIjrd/Gc1Zav9r?=
+ =?us-ascii?Q?gp4XmqUYiJhlgOC4Eq/MM8MdsyE1WbwQi0Bubqie5ElVg6hEzsmp3D+EQYPQ?=
+ =?us-ascii?Q?7QEIrso/H/px+qnryWUBiR0IEpzVw0IaiefgtZwITQ+y0Mcv2DTa4W2zoXIj?=
+ =?us-ascii?Q?gV7IAgXPK028oJNeWNnW0UnSlgguH+8jlQld8vheJ40zz0A/rvCrJCDdFo4E?=
+ =?us-ascii?Q?5DAYWT9JEg=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM4PR12MB51525F878057240AE5C91F14E3EA9DM4PR12MB5152namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5334.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca764f12-584a-4417-acf1-08da1bc5437d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Apr 2022 14:12:08.0539 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ea0ae5f-ebf0-4888-cc24-08da1bce1b14
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Apr 2022 15:15:25.6657 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8W6injvxUhMwbq0VKe8yr5+nfCGJ/uQ1peRltvh7ovnlsBoe8aKfoUOliQ90fb03bSAxOJ9qeV4lNSTI4x4fqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1895
+X-MS-Exchange-CrossTenant-userprincipalname: 3PK9r6aalQvmANjvJsTmzEC4zZcrMT8DardeXywiEuplUHniAUTxilDH4rp3iaph1MZojG5APUz6MBtO42kMrA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5320
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,39 +132,259 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seV0NCg0KSGkgVGFvLA0KDQpBY2NvcmRpbmcgdG8gdGhlIHNl
-cmllcyBwYXRjaGVzLCBJIGhhdmUgb25lIHF1ZXN0aW9uLCBpcyB0aGUgcmFzX2loX2ZsYWcgc2V0
-IGFjY29yZGluZyB0byBwb2lzb24gbW9kZSBjb25maWd1cmF0aW9uLCBpZiB5ZXMsIGRyaXZlciB3
-aWxsIGhhbmRsZSBwb2lzb24gb25jZSBnZXQgZWNjX2lycSBpbnRlcnJ1cHQsIGJ1dCBhdCB0aGlz
-IG1vbWVudCB0aGVyZSBtYXkgbm8gYXBwIHRvIGNvbnN1bWVzIGl0LCB0aGlzIHNlZW1zIGNvbmZs
-aWN0IHRoZSBwb2lzb24gY29uc3VtcHRpb24gZGVmaW5pdGlvbi4NCg0KUmVnYXJkcywNClN0YW5s
-ZXkNCj4gLS0tLS3pgq7ku7bljp/ku7YtLS0tLQ0KPiDlj5Hku7bkuro6IFpob3UxLCBUYW8gPFRh
-by5aaG91MUBhbWQuY29tPg0KPiDlj5HpgIHml7bpl7Q6IE1vbmRheSwgQXByaWwgMTEsIDIwMjIg
-NzowOCBQTQ0KPiDmlLbku7bkuro6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBMYXph
-ciwgTGlqbyA8TGlqby5MYXphckBhbWQuY29tPjsNCj4gWml5YSwgTW9oYW1tYWQgemFmYXIgPE1v
-aGFtbWFkemFmYXIuWml5YUBhbWQuY29tPjsgWmhhbmcsIEhhd2tpbmcNCj4gPEhhd2tpbmcuWmhh
-bmdAYW1kLmNvbT47IFlhbmcsIFN0YW5sZXkgPFN0YW5sZXkuWWFuZ0BhbWQuY29tPjsgQ2hhaSwN
-Cj4gVGhvbWFzIDxZaVBlbmcuQ2hhaUBhbWQuY29tPg0KPiDmioTpgIE6IFpob3UxLCBUYW8gPFRh
-by5aaG91MUBhbWQuY29tPg0KPiDkuLvpopg6IFtQQVRDSCAxLzNdIGRybS9hbWRncHU6IGFkZCBw
-b2lzb24gY29uc3VtcHRpb24gZmxhZyBmb3IgUkFTIElIDQo+DQo+IFNvIHdlIGNhbiBkaXN0aW5n
-dWlzaCBSQVMgcG9pc29uIGNvbnN1bXB0aW9uIGludGVycnVwdCBmcm9tIFVFIGludGVycnVwdC4N
-Cj4NCj4gU2lnbmVkLW9mZi1ieTogVGFvIFpob3UgPHRhby56aG91MUBhbWQuY29tPg0KPiAtLS0N
-Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuaCB8IDcgKysrKysrKw0K
-PiAgMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oDQo+IGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oDQo+IGluZGV4IDYwNmRmODg2OWI4OS4uMzgwZjRjMzAy
-MGM3IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFz
-LmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oDQo+IEBA
-IC0zMTQsNiArMzE0LDExIEBAIGVudW0gYW1kZ3B1X3Jhc19yZXQgew0KPiAgICAgICBBTURHUFVf
-UkFTX1BULA0KPiAgfTsNCj4NCj4gK2VudW0gYW1kZ3B1X3Jhc19paF9mbGFnIHsNCj4gKyAgICAg
-QU1ER1BVX1JBU19JSF9QT0lTT05fQ09OU1VNUFRJT04gPSAwLA0KPiArICAgICBBTURHUFVfUkFT
-X0lIX0xBU1QsDQo+ICt9Ow0KPiArDQo+ICBzdHJ1Y3QgcmFzX2NvbW1vbl9pZiB7DQo+ICAgICAg
-IGVudW0gYW1kZ3B1X3Jhc19ibG9jayBibG9jazsNCj4gICAgICAgZW51bSBhbWRncHVfcmFzX2Vy
-cm9yX3R5cGUgdHlwZTsNCj4gQEAgLTQxOSw2ICs0MjQsOCBAQCBzdHJ1Y3QgcmFzX2loX2RhdGEg
-ew0KPiAgICAgICB1bnNpZ25lZCBpbnQgYWxpZ25lZF9lbGVtZW50X3NpemU7DQo+ICAgICAgIHVu
-c2lnbmVkIGludCBycHRyOw0KPiAgICAgICB1bnNpZ25lZCBpbnQgd3B0cjsNCj4gKyAgICAgLyog
-aW50ZXJydXB0IHR5cGUgZmxhZyAqLw0KPiArICAgICB1bnNpZ25lZCBpbnQgZmxhZzsNCj4gIH07
-DQo+DQo+ICBzdHJ1Y3QgcmFzX21hbmFnZXIgew0KPiAtLQ0KPiAyLjM1LjENCg0K
+--_000_DM4PR12MB51525F878057240AE5C91F14E3EA9DM4PR12MB5152namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only]
+
+Fix discovery ip failed, and the log:
+   56.129549] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpecte=
+d number_instance (64) from ip discovery blob
+[   56.130129] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpect=
+ed hw_id (45056) from ip discovery blob
+[   56.130701] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpect=
+ed number_instance (66) from ip discovery blob
+[   56.131283] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpect=
+ed hw_id (45568) from ip discovery blob
+[   56.131855] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpect=
+ed number_instance (66) from ip discovery blob
+[   56.132436] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpect=
+ed hw_id (480) from ip discovery blob
+[   56.133053] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpect=
+ed hw_id (608) from ip discovery blob
+[   56.133626] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpect=
+ed hw_id (640) from ip discovery blob
+[   56.134207] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpect=
+ed number_instance (64) from ip discovery blob
+[   56.134780] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpect=
+ed number_instance (64) from ip discovery blob
+[   56.135360] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpect=
+ed hw_id (28672) from ip discovery blob
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_discovery.c
+index 766006a075ec..a778b0392e9f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -798,7 +798,7 @@ static int amdgpu_discovery_sysfs_ips(struct amdgpu_dev=
+ice *adev,
+                        res =3D kobject_add(&ip_hw_instance->kobj, NULL,
+                                          "%d", ip_hw_instance->num_instanc=
+e);
+next_ip:
+-                       ip_offset +=3D sizeof(*ip) + 4 * (ip->num_base_addr=
+ess - 1);
++                       ip_offset +=3D struct_size(ip, base_address, ip->nu=
+m_base_address);
+                }
+        }
+
+@@ -1063,7 +1063,7 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_devi=
+ce *adev)
+                        }
+
+next_ip:
+-                       ip_offset +=3D sizeof(*ip) + 4 * (ip->num_base_addr=
+ess - 1);
++                       ip_offset +=3D struct_size(ip, base_address, ip->nu=
+m_base_address);
+                }
+        }
+
+@@ -1113,7 +1113,7 @@ int amdgpu_discovery_get_ip_version(struct amdgpu_dev=
+ice *adev, int hw_id, int n
+                                        *revision =3D ip->revision;
+                                return 0;
+                        }
+-                       ip_offset +=3D sizeof(*ip) + 4 * (ip->num_base_addr=
+ess - 1);
++                       ip_offset +=3D struct_size(ip, base_address, ip->nu=
+m_base_address);
+                }
+        }
+
+--_000_DM4PR12MB51525F878057240AE5C91F14E3EA9DM4PR12MB5152namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:-apple-system;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p class=3D"msipheadera4477989" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:10.0pt;font-family:Arial;color:#0000FF">[AMD Official Use O=
+nly]</span></p>
+<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Fix discovery ip failed, and the log:<o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt;font-family:-apple-s=
+ystem;color:#172B4D;background:white">&nbsp;&nbsp; 56.129549] [drm:amdgpu_d=
+iscovery_validate_ip [amdgpu]] *ERROR* Unexpected number_instance (64) from=
+ ip discovery blob</span><span style=3D"font-size:10.5pt;font-family:-apple=
+-system;color:#172B4D"><br>
+<span style=3D"background:white">[ &nbsp; 56.130129] [drm:amdgpu_discovery_=
+validate_ip [amdgpu]] *ERROR* Unexpected hw_id (45056) from ip discovery bl=
+ob</span><br>
+<span style=3D"background:white">[ &nbsp; 56.130701] [drm:amdgpu_discovery_=
+validate_ip [amdgpu]] *ERROR* Unexpected number_instance (66) from ip disco=
+very blob</span><br>
+<span style=3D"background:white">[ &nbsp; 56.131283] [drm:amdgpu_discovery_=
+validate_ip [amdgpu]] *ERROR* Unexpected hw_id (45568) from ip discovery bl=
+ob</span><br>
+<span style=3D"background:white">[ &nbsp; 56.131855] [drm:amdgpu_discovery_=
+validate_ip [amdgpu]] *ERROR* Unexpected number_instance (66) from ip disco=
+very blob</span><br>
+<span style=3D"background:white">[ &nbsp; 56.132436] [drm:amdgpu_discovery_=
+validate_ip [amdgpu]] *ERROR* Unexpected hw_id (480) from ip discovery blob=
+</span><br>
+<span style=3D"background:white">[ &nbsp; 56.133053] [drm:amdgpu_discovery_=
+validate_ip [amdgpu]] *ERROR* Unexpected hw_id (608) from ip discovery blob=
+</span><br>
+<span style=3D"background:white">[ &nbsp; 56.133626] [drm:amdgpu_discovery_=
+validate_ip [amdgpu]] *ERROR* Unexpected hw_id (640) from ip discovery blob=
+</span><br>
+<span style=3D"background:white">[ &nbsp; 56.134207] [drm:amdgpu_discovery_=
+validate_ip [amdgpu]] *ERROR* Unexpected number_instance (64) from ip disco=
+very blob</span><br>
+<span style=3D"background:white">[ &nbsp; 56.134780] [drm:amdgpu_discovery_=
+validate_ip [amdgpu]] *ERROR* Unexpected number_instance (64) from ip disco=
+very blob</span><br>
+<span style=3D"background:white">[ &nbsp; 56.135360] [drm:amdgpu_discovery_=
+validate_ip [amdgpu]] *ERROR* Unexpected hw_id (28672) from ip discovery bl=
+ob</span></span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_disco=
+very.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 766006a075ec..a778b0392e9f 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -798,7 +798,7 @@ static int amdgpu_discovery_sysf=
+s_ips(struct amdgpu_device *adev,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; res =3D kobject_add(&amp;ip_hw_instance-&gt;kobj, NULL,<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%d&quot;, ip_hw_instance=
+-&gt;num_instance);<o:p></o:p></p>
+<p class=3D"MsoNormal">next_ip:<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; ip_offset +=3D sizeof(*ip) + 4 * (ip-&gt;num_base_address - 1);<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; ip_offset +=3D struct_size(ip, base_address, ip-&gt;num_base_address=
+);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o=
+:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">@@ -1063,7 +1063,7 @@ int amdgpu_discovery_reg_base_=
+init(struct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">next_ip:<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; ip_offset +=3D sizeof(*ip) + 4 * (ip-&gt;num_base_address - 1);<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; ip_offset +=3D struct_size(ip, base_address, ip-&gt;num_base_address=
+);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o=
+:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">@@ -1113,7 +1113,7 @@ int amdgpu_discovery_get_ip_ve=
+rsion(struct amdgpu_device *adev, int hw_id, int n<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *revision =3D ip-&gt;revision;<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;return 0;<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; ip_offset +=3D sizeof(*ip) + 4 * (ip-&gt;num_base_address - 1);<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; ip_offset +=3D struct_size(ip, base_address, ip-&gt;num_base_address=
+);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o=
+:p></p>
+</div>
+</body>
+</html>
+
+--_000_DM4PR12MB51525F878057240AE5C91F14E3EA9DM4PR12MB5152namp_--
