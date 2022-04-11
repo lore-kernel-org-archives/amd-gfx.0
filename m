@@ -4,34 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6A92C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 15:20:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B26CC4332F
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 15:22:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33A4710E218;
-	Mon, 11 Apr 2022 15:20:42 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44E3E10E2D5
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 15:20:40 +0000 (UTC)
-Received: from [192.168.0.7] (ip5f5ae91f.dynamic.kabel-deutschland.de
- [95.90.233.31])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id A26B461EA1923;
- Mon, 11 Apr 2022 17:20:38 +0200 (CEST)
-Message-ID: <bbd6939b-227c-f197-5d10-ba9194fd2b76@molgen.mpg.de>
-Date: Mon, 11 Apr 2022 17:20:38 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9359410E224;
+	Mon, 11 Apr 2022 15:22:48 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51E8A10E10D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 15:22:47 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id v75so16221715oie.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 08:22:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Xt3WItY+6+yEC4M2LxDeijfAEFDT3PYFZV/uwjnz3XI=;
+ b=SsoimXnCGd6/WyCYKIffmB4aDy2AlYsIoDhAahcxmYk+vZm6NaRVULMemoi2K6a1Gw
+ mnVCFJ8qakqxrOfC5Mmtl1VJWNZNhLztK/YEeIF6zBg6nF6l42GorsyFPB1DOp9rP/mL
+ m0MKYACd9fNmftBIh3emMn9OiaaNirvuZM2L9Ag1I33JyTfIK4+SYIufL8hhxZJOh8T3
+ 8haTaUuGx8q5W/TNc7AFFv2HtXW3GrA9NTZX9LMh3EZ6C55slYoS201jreQ23qZrBJ8M
+ sm05JAtYR7EiknyEtCu7jF4JJgsDfooM6iT9CvxjurDn2FYptzH01H0WDsL5TOSIa4J6
+ P1Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Xt3WItY+6+yEC4M2LxDeijfAEFDT3PYFZV/uwjnz3XI=;
+ b=U+JUwpzk++3ajKB9hsNDln8C8PdtohauRzbgccvl31tYpS+USPcoOuePFoBCCgjEIs
+ EbP++vcCLHu66IaHFUSntSymL860w0S1kB6i9Cc1MctfkOK8CN0xbRjtjcg1ar96um5N
+ 4Xo/TJdTt3o+1ixQuQEYwx3QwZs4vUH+6bo9QPiJHncgjwWhOEdRmuMZPHgLIu18wCFG
+ 1SA40UkTnngd3f9JlQ0Y3skompDfkVjKgoeSrdOZCXUpX4vNHO+o8RN1aIC3ER4qU8nm
+ LgdkomGsdcckLSRfncnBlMlGwkj3aTKgS+8ftwDNr9jhCK+srSkfV6TIZGjPtZz73TaG
+ VBYg==
+X-Gm-Message-State: AOAM530uvIARmveNAAhEKPapiadKGUWhTInAbky2iHPNy0YqNJ/SGqyV
+ /adZZlZCuaQYc2/2FyvGESUX/Rwd1Xe4r2fJpl0=
+X-Google-Smtp-Source: ABdhPJyniu6NZndc7Jo1BHcGbKyvLWDnsjgo8eb93TuzS0oG752PVXRi8+DT4+AL2Bde6/OOwrR+ZhqIVjeuZ3Dn5lQ=
+X-Received: by 2002:a05:6808:1486:b0:2f9:e821:51d9 with SMTP id
+ e6-20020a056808148600b002f9e82151d9mr5350072oiw.253.1649690566335; Mon, 11
+ Apr 2022 08:22:46 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH ] drm/amdgpu: fix discovery ip failed
-Content-Language: en-US
-To: "Jesse (Jie) Zhang" <Jesse.Zhang@amd.com>
-References: <DM4PR12MB51525F878057240AE5C91F14E3EA9@DM4PR12MB5152.namprd12.prod.outlook.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <DM4PR12MB51525F878057240AE5C91F14E3EA9@DM4PR12MB5152.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20220411135209.905421-1-yongqiang.sun@amd.com>
+In-Reply-To: <20220411135209.905421-1-yongqiang.sun@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 11 Apr 2022 11:22:35 -0400
+Message-ID: <CADnq5_M=SfgME0n-yHBicgpv_0JxPZpL9d-P7tnyDP5GA+oCGA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: Not request init data for MS_HYPERV with
+ vega10
+To: Yongqiang Sun <yongqiang.sun@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,77 +62,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yifan Zhang <Yifan1.Zhang@amd.com>, Ray Huang <Ray.Huang@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Jingwen Chen <jingwen.chen2@amd.com>, "monk.liu" <monk.liu@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Jie,
+On Mon, Apr 11, 2022 at 9:52 AM Yongqiang Sun <yongqiang.sun@amd.com> wrote:
+>
+> MS_HYPERV with vega10 doesn't have the interface to process
+> request init data msg.
+> Check hypervisor type to not send the request for MS_HYPERV.
+>
+> Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index 933c41f77c92..56b130ec44a9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -23,6 +23,10 @@
+>
+>  #include <linux/module.h>
+>
+> +#ifdef CONFIG_X86
+> +#include <asm/hypervisor.h>
+> +#endif
+> +
+>  #include <drm/drm_drv.h>
+>
+>  #include "amdgpu.h"
+> @@ -721,8 +725,12 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+>                         break;
+>                 case CHIP_VEGA10:
+>                         soc15_set_virt_ops(adev);
+> -                       /* send a dummy GPU_INIT_DATA request to host on vega10 */
+> -                       amdgpu_virt_request_init_data(adev);
+> +#ifdef CONFIG_X86
+> +                       /* not send GPU_INIT_DATA with MS_HYPERV*/
+> +                       if (hypervisor_is_type(X86_HYPER_MS_HYPERV) == false)
 
+Preferred coding style would be:
+if (!hypervisor_is_type(X86_HYPER_MS_HYPERV))
+With that fixed:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Thank you for your patch.
-
-
-Am 11.04.22 um 17:15 schrieb Zhang, Jesse(Jie):
-
-You might want to add a space before the (.
-
-> [AMD Official Use Only]
-
-Please send a patch with `git format-patch` or similar.
-
-> Fix discovery ip failed, and the log:
-
-On what system?
-
->     56.129549] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected number_instance (64) from ip discovery blob
-> [   56.130129] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected hw_id (45056) from ip discovery blob
-> [   56.130701] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected number_instance (66) from ip discovery blob
-> [   56.131283] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected hw_id (45568) from ip discovery blob
-> [   56.131855] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected number_instance (66) from ip discovery blob
-> [   56.132436] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected hw_id (480) from ip discovery blob
-> [   56.133053] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected hw_id (608) from ip discovery blob
-> [   56.133626] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected hw_id (640) from ip discovery blob
-> [   56.134207] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected number_instance (64) from ip discovery blob
-> [   56.134780] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected number_instance (64) from ip discovery blob
-> [   56.135360] [drm:amdgpu_discovery_validate_ip [amdgpu]] *ERROR* Unexpected hw_id (28672) from ip discovery blob
-
-Please describe the reason for the failure, and your fix.
-
-A Signed-off-by line is missing.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index 766006a075ec..a778b0392e9f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -798,7 +798,7 @@ static int amdgpu_discovery_sysfs_ips(struct amdgpu_device *adev,
->                          res = kobject_add(&ip_hw_instance->kobj, NULL,
->                                            "%d", ip_hw_instance->num_instance);
-> next_ip:
-> -                       ip_offset += sizeof(*ip) + 4 * (ip->num_base_address - 1);
-> +                       ip_offset += struct_size(ip, base_address, ip->num_base_address);
->                  }
->          }
-> 
-> @@ -1063,7 +1063,7 @@ int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
->                          }
-> 
-> next_ip:
-> -                       ip_offset += sizeof(*ip) + 4 * (ip->num_base_address - 1);
-> +                       ip_offset += struct_size(ip, base_address, ip->num_base_address);
->                  }
->          }
-> 
-> @@ -1113,7 +1113,7 @@ int amdgpu_discovery_get_ip_version(struct amdgpu_device *adev, int hw_id, int n
->                                          *revision = ip->revision;
->                                  return 0;
->                          }
-> -                       ip_offset += sizeof(*ip) + 4 * (ip->num_base_address - 1);
-> +                       ip_offset += struct_size(ip, base_address, ip->num_base_address);
->                  }
->          }
-> 
-
-Kind regards,
-
-Paul
+> +#endif
+> +                               /* send a dummy GPU_INIT_DATA request to host on vega10 */
+> +                               amdgpu_virt_request_init_data(adev);
+>                         break;
+>                 case CHIP_VEGA20:
+>                 case CHIP_ARCTURUS:
+> --
+> 2.25.1
+>
