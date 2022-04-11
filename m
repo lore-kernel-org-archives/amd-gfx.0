@@ -4,38 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 730E4C433FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 13:08:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1CACC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 13:08:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2C3510E391;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF4AE10E4CA;
 	Mon, 11 Apr 2022 13:08:05 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1200B10F794;
- Mon, 11 Apr 2022 09:25:16 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 850BE10F7C9;
+ Mon, 11 Apr 2022 09:26:17 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7B09F6101B;
- Mon, 11 Apr 2022 09:25:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83DE7C385A3;
- Mon, 11 Apr 2022 09:25:14 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 255D6B81195;
+ Mon, 11 Apr 2022 09:26:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DACDC385A3;
+ Mon, 11 Apr 2022 09:26:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1649669114;
- bh=vUgBe8sULJRolv4gvIEfv383bwo8PzCPmVts1OySgwo=;
+ s=korg; t=1649669174;
+ bh=sTQUBd7oiAGHa3dSrCFnBIdD/YCqlpDwi9J4nKbD5Ik=;
  h=Subject:To:Cc:From:Date:From;
- b=UHEnN42fTPmzN9Ms34DTXqxeWGGd37RpyItVnz6MiDPOwNeztEhZVBfWPpdP/bBSG
- lsoXlKKhFs5uFKaCqotZXrXYN0DrYlxLRfBTiUgD6JJstSGeWZgT1yLJb1fSaJsdhA
- WbbcS1SZ4nV8nc4k+tNiSYZS0nOc8vmfyC3MyW6o=
+ b=wt5kElmC1rBlGewGNxEGKK9qk3yjxPJGERvDF4E7Hh00KtkPYyBWZub2FYkflXqVP
+ Rj/WOsxJ9vX4Qv520V7V4YlRkga1/DHR2H6MG/+aw5sWDGKFF7N56490UBQkxXMRbr
+ mDHKQg5IYCb9dz3niNGtqN4C1O12marrnyqJnz2c=
 Subject: Patch "drm/amdkfd: Create file descriptor after client is added to
- smi_clients list" has been added to the 5.10-stable tree
+ smi_clients list" has been added to the 5.17-stable tree
 To: Felix.Kuehling@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
  alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
  christian.koenig@amd.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org,
  gregkh@linuxfoundation.org, lee.jones@linaro.org
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 11 Apr 2022 11:25:04 +0200
-Message-ID: <164966910412144@kroah.com>
+Date: Mon, 11 Apr 2022 11:25:25 +0200
+Message-ID: <16496691253594@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -62,12 +61,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/amdkfd: Create file descriptor after client is added to smi_clients list
 
-to the 5.10-stable tree which can be found at:
+to the 5.17-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-amdkfd-create-file-descriptor-after-client-is-added-to-smi_clients-list.patch
-and it can be found in the queue-5.10 subdirectory.
+and it can be found in the queue-5.17 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -109,7 +108,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-@@ -270,15 +270,6 @@ int kfd_smi_event_open(struct kfd_dev *d
+@@ -268,15 +268,6 @@ int kfd_smi_event_open(struct kfd_dev *d
  		return ret;
  	}
  
@@ -125,7 +124,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	init_waitqueue_head(&client->wait_queue);
  	spin_lock_init(&client->lock);
  	client->events = 0;
-@@ -288,5 +279,20 @@ int kfd_smi_event_open(struct kfd_dev *d
+@@ -286,5 +277,20 @@ int kfd_smi_event_open(struct kfd_dev *d
  	list_add_rcu(&client->list, &dev->smi_clients);
  	spin_unlock(&dev->smi_lock);
  
@@ -150,4 +149,4 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from lee.jones@linaro.org are
 
-queue-5.10/drm-amdkfd-create-file-descriptor-after-client-is-added-to-smi_clients-list.patch
+queue-5.17/drm-amdkfd-create-file-descriptor-after-client-is-added-to-smi_clients-list.patch
