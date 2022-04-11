@@ -4,117 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC0DC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 13:10:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A971C433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 13:26:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CBB010E21E;
-	Mon, 11 Apr 2022 13:10:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 243DA10E6FC;
+	Mon, 11 Apr 2022 13:26:18 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2088.outbound.protection.outlook.com [40.107.92.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E15D10E21E
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 13:10:21 +0000 (UTC)
+ (mail-bn7nam10on2062.outbound.protection.outlook.com [40.107.92.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 404B310E6FC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 13:26:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PmqUF/SM7vDBuzSv4Jh3IzQ5WeAJ9QtHeac3A/u0z/tmS2UgZIFqu/SYGMCnCdd2ySHbD4A+A1+JZnoXvbJghwhe/rvidX4NSrH+2s3TkxvFSlA7ROGSEtKEgAKSddePpDweoCDOBVPA1k5UKB5Qn35veWNrut0V5jCvkVo6kYyhde3X7l/16xjtuDwfD8z7jvC4SeaoP4G95+z3HzwQbeprlwVIKEPEoLPbOdfhEImJJfbk4r4wqXYS3AgckdoczFqhIAIrHDvmxh3WfR+g6pMfKSVq7B3TGQoEI6DAzLna4ik7Uie5d2bRkT5JfIKf67LxxRXulTQx6AEuh2qyzg==
+ b=nuvAb7HkoIQWfOuPvPiGdPOdrgQzALZ7zTtMdWUftLB3psNXzf5DG/kugC7lDy9pBYHwGRTiyLrLe+M7RSbNYRhwhoqLBHbTX8cobHfyC8ZWbdBhSaltQBPbPHVEEwAD6qgeiUKY92DKKGQCG3VKjLl+FmotaC0M+W3VP13r3azIweQvLzaD3mB3etJ4GzYndq+fOExsAHBC7ElLzKtQlpj4IZG4IJnD2g82Q5Ak85+Z0rrDzJz0cfr7Wq/SkNwzlyD0n62htlIYIyXTZRVHXKPVMhcpZGpWPFUUEoKjF3M6VzeNUd5BuFItBKcIrVxjWLQ4fZNr8JUo4EeRiEAkxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=POKWgSd8mwqiL/Ya+BOloEoYbUVEZSPP5efP3IuVdfQ=;
- b=MsDa4FPvhE8dlY4zp7OA3YJUZrodyY21VSKJhwfUTVQVu1P/10itjYZb78gQGxAiv8RYnshZDz50uUDXGMHhNaJ3odJAZ+ctaOQWJ1HAjjwhXAqWViDuRp43pKR3petbXVrv6G0sul+7r/LpbWZyyjw2sGYPgsnZAr7M7C9sR+hj/nQxiouk2GqIaXcQrXEQWrDtPJj/ZhBIofARQSloiW/rktYMUzTf0eSI+RVdf+Vs1tMf/xgju9ZHx+fRIFlFSID+MJWAw/MeKKp6PMacdhLFSxU8yogxNBq2qhIDZ2RxtjAo10UvmcmQvfMtzj8+GtSFTXW4DIW8+jkhP6mEBw==
+ bh=PPFLUDlia7HiBeMRyfK5CUXuFY61/BmEf/xN0I+Jdwo=;
+ b=nbtkK92uF8crULD0OG4615fSCZ0NFTqYRjQfu4DMhGtZ6aNCKE4P8XFPHkbF1eBFHVgBhhnhJ4N8pyUXWXy81xK3zoen7o4q+5kZt0/Zp/EpnY012alQMg33idpyaS/eL46V3s5bZAMeT8r8Y+/lkGpA5uX4b5nCxH5ecf/xe8UC/yr9new6Z0xOgsgzw/WeU68O/uaZ7YMWlEXBQ7XjmPTlX2J77RITiKijA3ffSJfiNz/wcnBgP+5/JcqmYeYMPC/RsjECtRNtECmMQLcL7B3wZE4JEecuUhQRZTmMAwU9yPUkYvBfg6Qh+Ck5yw9WTT1ii5ilHitzveiyrhLqVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=POKWgSd8mwqiL/Ya+BOloEoYbUVEZSPP5efP3IuVdfQ=;
- b=k1Rji70J3bz1ProzYJC1J97GIqQs+9AmtJxGgLTP8pvN1DfGxEO8CLdMsrcSmT0DeDIVxXEMG4sP9CBOcbmLk4zVZC2Ay2st7ipanYHgTFshJd/xpmpCzeOZY3nfslUMQeEGbwN3uQiT9QCJzmbiDxwuIE6GYmKtmI7h38mP0ts=
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com (2603:10b6:303:13e::8)
- by BL0PR12MB5554.namprd12.prod.outlook.com (2603:10b6:208:1cd::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=PPFLUDlia7HiBeMRyfK5CUXuFY61/BmEf/xN0I+Jdwo=;
+ b=VOrtw8Y2w/EwXr0QwTnehZl4SlBJH5gVNZu/JX1RJxJjJdgJ8KnWMlVRfaLe+RdOG2eABxhqfQtGmVObdR+j1v+mCN9/XA6N9qQloU2OvSNW3xob894dZCpOjn48/lcrtijgZbS3ulRkAXEYcb47yfksgCMBvBvkl7xpYOnNY64=
+Received: from DM6PR12MB3529.namprd12.prod.outlook.com (2603:10b6:5:15d::18)
+ by PH7PR12MB5855.namprd12.prod.outlook.com (2603:10b6:510:1d6::11) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Mon, 11 Apr
- 2022 13:10:18 +0000
-Received: from CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::28df:431f:d965:e6ef]) by CO6PR12MB5473.namprd12.prod.outlook.com
- ([fe80::28df:431f:d965:e6ef%6]) with mapi id 15.20.5144.029; Mon, 11 Apr 2022
- 13:10:18 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Ma, Jun" <Jun.Ma2@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 2022 13:26:14 +0000
+Received: from DM6PR12MB3529.namprd12.prod.outlook.com
+ ([fe80::d145:13bb:e6b8:3429]) by DM6PR12MB3529.namprd12.prod.outlook.com
+ ([fe80::d145:13bb:e6b8:3429%3]) with mapi id 15.20.5144.029; Mon, 11 Apr 2022
+ 13:26:14 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: "Kotarac, Pavle" <Pavle.Kotarac@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Release memory when psp sw_init is failed
-Thread-Topic: [PATCH] drm/amdgpu: Release memory when psp sw_init is failed
-Thread-Index: AQHYTaGgF9v/b1CBSEK8AjqtDeL/DqzqrUaQ
-Date: Mon, 11 Apr 2022 13:10:18 +0000
-Message-ID: <CO6PR12MB547319DAE1601C366E2E607C82EA9@CO6PR12MB5473.namprd12.prod.outlook.com>
-References: <20220411124206.1348117-1-Jun.Ma2@amd.com>
-In-Reply-To: <20220411124206.1348117-1-Jun.Ma2@amd.com>
-Accept-Language: en-US, zh-CN
+Subject: RE: DC Patches Apri 6, 2022
+Thread-Topic: DC Patches Apri 6, 2022
+Thread-Index: AQHYS23C8qjtUzQW3kGekN1w+qrHgKzquFDA
+Date: Mon, 11 Apr 2022 13:26:14 +0000
+Message-ID: <DM6PR12MB35294D12E0A5BB04838A41A39CEA9@DM6PR12MB3529.namprd12.prod.outlook.com>
+References: <20220408171911.601615-1-Pavle.Kotarac@amd.com>
+In-Reply-To: <20220408171911.601615-1-Pavle.Kotarac@amd.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=True;
+msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-04-11T13:26:09Z; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD Official Use
+ Only-AIP 2.0;
  MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-04-11T13:10:17.689Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use
- Only; MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard; 
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=2c0d898b-adff-437b-84c0-2767446fcae8;
+ MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=1
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_enabled: true
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_setdate: 2022-04-11T13:26:09Z
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_method: Standard
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_name: AMD Official Use
+ Only-AIP 2.0
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_actionid: 5c6dd7f2-bbdd-4375-8fa6-8ac456bb3353
+msip_label_88914ebd-7e6c-4e12-a031-a9906be2db14_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 79c74f60-12ec-4a0c-baec-08da1bbca080
-x-ms-traffictypediagnostic: BL0PR12MB5554:EE_
-x-microsoft-antispam-prvs: <BL0PR12MB555471FADFFBB1C67D56A22782EA9@BL0PR12MB5554.namprd12.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: fa5ee01f-962c-4d97-8943-08da1bbeda58
+x-ms-traffictypediagnostic: PH7PR12MB5855:EE_
+x-microsoft-antispam-prvs: <PH7PR12MB58555803A9AD6B6E351577BC9CEA9@PH7PR12MB5855.namprd12.prod.outlook.com>
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: RuuOgaeIZPwF9+Ujr2Hc0EwcfMLoUEQigEnAFtyHhNP32+bp2aC0EjYm8WXcTrfCY9rgz6APODoF5hUXuip7qRPO6zKfPYJnEJnpSzxx7iTs/W6tInvP4cg4z2ycwnhd8FJK8IV7RCy+ddo6He0/KkC40oVSMAmPNfoQ3lp+9uheDx2JLyHrdsz8D+lBYs69QrAOHmzwEZa0NXK1WROm/WFKh8THIvuZZn69/JqQpwtK12rHIucLOr689BDS2ce6Jbh9fZSRfOOuNR8OeJeaDzP1QlTGbC+r1GZXph67eJtXYPI6szYwo8wV0l+I1iMLscmOw38iWXc03YiM9FlwZtcKaKKfyBa0zaeZg3cIzWoOdu5b7j8pX3EJSsOmd5lbGpR7ONKsUJRhH+z8j9In5hvpsbA6mjcTo7JUdcPqrjl2JhIY6SaxLy8DXPndPw08rjb8pJunSVZIGKB8zbEj8bVCmlqvf3cd6u76xoP/xtcWK9SvntkjbrRbiZKmLLJPFO+aGikrKLB1qrW9Wc/9fJwstFI/SWWYf07bDFeqba0ERhGnFJk0esDWocB86OUJtxz+jv3iogSuWwlACyITHoRF2UqMjO2YnDWpq75+/dNziwDi0nGIyeHz97nkUQyIzN0v34rZqf1qVG/ApAjNJh2/UtaXYdq2DLdfoo+7sFFjO888YW2QooSNOBc/9QXqtoMH5o4oajWLvl18iTqHlQ==
+x-microsoft-antispam-message-info: iQmzn4vXzezYOsAHaS6rdFiTiuCeznHEfBsoyF3M0twS2o4doqIsHCHovTQvsB78vJD8dVDTvnqLX5qKBWJJh75uHM7gaXnqkKuYwUYfRpf4pEugubS/5jUPHzafg7XQqGs8L60IL6JQgW8dDG3oj1pzuTC9FgZPK2rgpARumMqbvxsFlH/pVnZ2F4a6RfbRffi4EfV04a27EwD9065adaeIWlxh7H1niRtU7Q4VX3acy1+tS+38cc40AP1p+RIRUZbdOaQkSjh+bmao0NDCaP/76E29ujfg1fEdUeHv82JKCl+j/yoaAZ/9BhEw7eWKSaMs03ATcSOEm+iVJoMVhtChFOPW9WuV3MFMc4y3E/MS6eR8OBs85SYfTtSfYeZi/4pAH8h8kkFssPGM1IeUtMQ05LdR+d2K9yaGytn60+2mMlu+lmdgg5IhkNa8wpPCvx+9XUSCv2C/oNvMOj2yjhZ2lymdbWn1G5ALmZp2XLYg/gLrPPATWxHgnPEHRhAk8jb5ZTo5Mbg3rWBoeRLJQZU/uc8FLLeYLVv9cJgp1FQMxRkoWvPOIPBOIYOGHZ7CrFfMIeNmPhwnzsw87eJSBEWkcigbvYqtcL0U75i41xgx0a0UtHN+tDGYDufBpkQIF1x6iRmdWpa0LbEYMP5eFdIADok7FdVFjmYyOTK+3qLKusaKOtX6pE3WVQF1l5LaabjDW1pLxgwoLcTCRuucgg==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5473.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(33656002)(8936002)(83380400001)(38100700002)(38070700005)(5660300002)(26005)(19627405001)(186003)(508600001)(2906002)(55016003)(8676002)(91956017)(76116006)(4326008)(86362001)(64756008)(66946007)(316002)(54906003)(66556008)(66476007)(52536014)(66446008)(110136005)(6506007)(7696005)(9686003)(53546011)(71200400001)(122000001);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3529.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(2906002)(66946007)(66556008)(66476007)(76116006)(83380400001)(8936002)(38100700002)(66446008)(8676002)(52536014)(54906003)(5660300002)(9686003)(64756008)(508600001)(4326008)(122000001)(55016003)(7696005)(186003)(6506007)(53546011)(86362001)(316002)(38070700005)(33656002)(110136005)(71200400001)(26005)(3480700007);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?lWrlEyqIXD4jdqI8EYmW167Pl9beusQlkBKBVoQgErspAnZ79RFe+UOiR4?=
- =?iso-8859-1?Q?iXmZg+Irh6A2nidj5Lyp4MLk0kHoQ6Q+DOFQCjq+uReE9AADPKZ/4FPlVM?=
- =?iso-8859-1?Q?gbpzHzLfYsCwV4py25mLpUbr/U0r6mj/LJbJKpwnV9NGWa2xLgGDNrP+FL?=
- =?iso-8859-1?Q?hIxsoRwSekU8eXsGZa3XhHJKqwclmaT/RwmcTuypOWPJMHRQFfcfGdgi3y?=
- =?iso-8859-1?Q?81o5rA8pXTJ2Y0SOxd3jNMjRt69DZiOSww0PIceIuKQGbV/FTjY7Cgnmz5?=
- =?iso-8859-1?Q?WeppEtrmBNZx3PkEH3Ub5c68e/0QO6Ht7Z5nkandDfur3Etik4ttLBUrc9?=
- =?iso-8859-1?Q?sXWH8BwHj6JEhOG8bFVyzwHXhJQRAoN+pebIUNF/is4eTX28jNW0+bMp6L?=
- =?iso-8859-1?Q?heO+j7rWVinxgciLjJtj7MHp9ObpWM62wwe+pjG5QZ9PWtgUrJqVW4wjfo?=
- =?iso-8859-1?Q?qLiGpxV359WwB/9HmpJ5hQYenUXdPtH2/QuRFZDFN1LZ8iejppiRmMeRaX?=
- =?iso-8859-1?Q?7Wx6JXF+YjKxPHFS3itmmVIpc/lBAs7KHyNqp7z80ymfW9yMpBrs2pcVp0?=
- =?iso-8859-1?Q?iYkBo4lGkfiu7uJJgwVzh2/rfLHJvdwinXQrtmw1FMfD3xcySNdCEapbb2?=
- =?iso-8859-1?Q?sWgfTnnl3Clw2rHKwEpSW5kdE/fREYDBQk2P9jl3NBqapw0hJ2Y6Uw130p?=
- =?iso-8859-1?Q?YKfjRF1+sxcZRVHxf8Oxzyymj+Gu/9Af5HHosYy7iUN+6bir5NDJL5gr/I?=
- =?iso-8859-1?Q?nw0VVlVPH+5HF6y2dFZkXV60fIBcHH6ebOKJKj5/oDeK8d56ZR8xx6pfvX?=
- =?iso-8859-1?Q?sGmQkLMXtMc+CTatJ9CmGyZq4/lgzKCHJaYEET767rhII6iTJ8xUdmvToJ?=
- =?iso-8859-1?Q?jikaNsp0u3UPixyICKMDJaxPVKlqgaH2hO0aih8k0LAVUWplXQB/mcypij?=
- =?iso-8859-1?Q?iC5Qir/xuUFnzQNVrJSfJ2J+/F1+DYOOEDABUztk/dJlGIQJH+DLIGViuC?=
- =?iso-8859-1?Q?RJ4p+G0BuBiTJRJ8K4ahzSVsgmCwiPIsyOEn02mvlNeQkr218wkCgSmfmv?=
- =?iso-8859-1?Q?caZgjJOeRJXJQygz+loz+TRf10vXfzrLzjEZNZCiTZmhygZnmeUBBeEPr3?=
- =?iso-8859-1?Q?Xi90g4H+iFUhqBQW2nZUF1JuktPiWGPDZBPggnX/mowB+p2dOhHY1QTdmz?=
- =?iso-8859-1?Q?w4QH1KGc7FqkwuMT6uhZqVtPyXloi4SXlvElS0LbW9iOv+flctmXezDzkc?=
- =?iso-8859-1?Q?cxAWzqlgMGxEQHmDuTA162eEo8J0mEzRsxakX1poY2I1kzVGK1TGeAv5KS?=
- =?iso-8859-1?Q?3zOpzKBkApQAOXJNpddzYF5Y7cqWJR+4W+QC/wc8BRepMQDMET+WKt2Xwh?=
- =?iso-8859-1?Q?xUkW8Z1ZytCHVxt5noiz0VKym1kpuLZCrdmFnSrgErxl/Y6yQLXzZRrGFK?=
- =?iso-8859-1?Q?GH6H7KhNWyyymQCLkMtnBXUVz4hoH2ZuKW22gltgqN5QBimX5Ajmh0Imng?=
- =?iso-8859-1?Q?MHBPm3CGAsnzGZYc+15+uu+7m8v+jwXkkwPf2ut6K3MA1Orkbe9Ze8ONNR?=
- =?iso-8859-1?Q?V7VvSEqWrSeKAncypIQ7vqfDCj/YXbuyqvu5b+QyDcwnMl4Q/0tMm33tNO?=
- =?iso-8859-1?Q?XYsmE0YcvP/1yN34O1/GVwxZLfIpZJUUeCI906iAEqyb8bwSMetyTHmj5f?=
- =?iso-8859-1?Q?TZT4J7RjBKmecQH42u7kuCJwR46L8cggvqbQkiosd8jwXZLn6azBFRHy9U?=
- =?iso-8859-1?Q?ZCWcISVHqPWo4TbgdQdyjGOcxaC3H08pddfQplwcCu428q?=
-Content-Type: multipart/alternative;
- boundary="_000_CO6PR12MB547319DAE1601C366E2E607C82EA9CO6PR12MB5473namp_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uyRQWDuPpJThlWyWjkG3XhZgwnIye0sdUdRyIpTkK6pWX/2yfqi4fr77Hxbr?=
+ =?us-ascii?Q?dggq4B+g9SGkSAnEII/Xjt0Zy1NAWPz5VLxUJVGmc/3dABBkV0COY8i7KYRU?=
+ =?us-ascii?Q?7GF96eZxpB98tWtmAblk0Dk/VvOJ1/ePRPf3hCj7M+NqxLv4rj0sCX8tuC+S?=
+ =?us-ascii?Q?GdX7JnDXsiGffPBvNnLw+dAjtjKONzozZoK5FXYuqbx5bRDgo5OY5LN86Yn5?=
+ =?us-ascii?Q?h1Ax7otS3yx1dzmf8xxtw6G5xJ+Uh/a1N5Ux8+tK+Rj3Y60mHaF6vHeGQMWf?=
+ =?us-ascii?Q?AkoJnPCM7tD8Rw1juLc7+Zg8/2NDHBnOua2SAPpUDCvvNsrzJk2auIkOkshM?=
+ =?us-ascii?Q?wEScgmbXa+pvU9zJIc4hk7dvuB4jGOsEiuIBBOGqBSmvsjnSg2cc40u0NZNW?=
+ =?us-ascii?Q?IfdFo7cYhrAxFWQW7Ki8U1Ghi6uL3cqL+ZhZuI/G8zctkWNh1OuehCrAuxzp?=
+ =?us-ascii?Q?LWX9XorCVXxu0LK1JdyLnysulo4b6zHRK4vgKwgLt1Z2CuMXp81qm5AGDz7t?=
+ =?us-ascii?Q?slylUGAnI3xze+qBh11LuTxlD/uT0wdPIvpbdbpOhZJu+WKDmv2YbbcJ7fZJ?=
+ =?us-ascii?Q?s345scO5rPPe3T5iy+6ntsMPea/Zsl14IOjjouj2Ku+tFoi012eHZKMwlMh8?=
+ =?us-ascii?Q?pw8q2amNK3UNWTgcIwhM6jOlxem5BkgdmcjCudAGKJs/eozVS7SnYEAgSCSt?=
+ =?us-ascii?Q?jUpTj6VZBxazVs3WUDlNVEJABKkbrt4qqBvebBKhJhx+meJym317XN6FdMpd?=
+ =?us-ascii?Q?zWDnXOzcML80Gb5NHW4A5+LNMYp4g8sHY7BoUq7j00+aUvIR38kHCDOuCjs+?=
+ =?us-ascii?Q?ls4OvuVFBJzx69OdyZQ/i01L+AcZHfQ5OQzs86eLuoC9/aE111+qcKiBIj/7?=
+ =?us-ascii?Q?PUpzlgORRzEnWpjJgIlunTX++M+EavoBpauOmluKOsY3T+WQ5U6CSYPkB6BR?=
+ =?us-ascii?Q?GOB9XmWFyOYqPbFHxqdkri6dpq4yGc5LncOPp2JF702LQvj/1u/5J/PSj76T?=
+ =?us-ascii?Q?WpcODVExV8CEwDeMFD/enz6jpoH2KlknHsQVtQ/azx46m8rRsSvrtIeBiWwW?=
+ =?us-ascii?Q?lE1Cl/ouQbpaTPMT9V7cnVFAz1kKB3apvvEFi2sX6A0fLif9w1PlVBxpPydU?=
+ =?us-ascii?Q?LmROuvdOjys1EqIsZkQB0WZVCwLsPoME6yJ2V/aKy9q73GpG3PnJ9o4lbHhi?=
+ =?us-ascii?Q?/725S+Vds9yL8oAQjt5vlq6p7v+huDtmDn8I2UTcObadSlRsUCQnqGMIYbZR?=
+ =?us-ascii?Q?+eMf89b+CWSr0kx90NjEJ+p8sp7h0zx5Vymg/Q/sg/wifsoscrKaRURucIZA?=
+ =?us-ascii?Q?iiYaCl1TJKsaTJRbfTwHyWFjup6Koq2pJWXPToYeKJ3Gr3EcSPeaPalFA3ob?=
+ =?us-ascii?Q?n9Jglcb35in5eVhJ2ZTuwdJPVDWuENLpQ5Hav651YJmZ+Rntp5H0HNUtwQa/?=
+ =?us-ascii?Q?mfUxslUZDwNBsnC11il8sWQzR31SQXzyZBD8406tzsp8fwgBj7OON15lAX3l?=
+ =?us-ascii?Q?YjWP5KXNPDd6KM63ZEmtqTMhYzotmPti6cb0aU6FD0hyjCLJ7r87LMWrcrLF?=
+ =?us-ascii?Q?RNCST+goUqEjUs8tGYUbBGDL0d59rvO85NJqU1gdraZgSyU1iJRYWjtds/4a?=
+ =?us-ascii?Q?Y+9czEDQfzYDy4636o8NrnX33jUQrPAC/hCsis9rinSzr6f1bg0iJbFAJN/Q?=
+ =?us-ascii?Q?ds2uZCurUMdsvbs6VJrsiYrFaF0bNy/dTIo49Nit0PHdGNy2?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5473.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79c74f60-12ec-4a0c-baec-08da1bbca080
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Apr 2022 13:10:18.5845 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3529.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa5ee01f-962c-4d97-8943-08da1bbeda58
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Apr 2022 13:26:14.5130 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ud0wLjPh/l+SbPSsrrG1qZPt8PUGAu0VdEhF9kfjU/EOO5IWw6xGmWfv+Hm0PLCf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5554
+X-MS-Exchange-CrossTenant-userprincipalname: R6MQRqE20i44plVxwAoRQVU7hb9/RH3Rgc/HoqXsiAJRcZkEYtevrTvY2a4vzsZlmhpZRK/KAlAIvwtAkm7f7g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5855
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,251 +134,169 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Li,
+ Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Lakha,
+ Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Zhuo, 
+ Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>, "Chiu,
+ Solomon" <Solomon.Chiu@amd.com>, "Pillai,
+ Aurabindo" <Aurabindo.Pillai@amd.com>, "Lin, 
+ Wayne" <Wayne.Lin@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Gutierrez, Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac,
+ Pavle" <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CO6PR12MB547319DAE1601C366E2E607C82EA9CO6PR12MB5473namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
 [AMD Official Use Only]
 
+Hi all,
+=20
+This week this patchset was tested on the following systems:
+=20
+HP Envy 360, with Ryzen 5 4500U, with the following display types: eDP 1080=
+p 60hz, 4k 60hz  (via USB-C to DP/HDMI), 1440p 144hz (via USB-C to DP/HDMI)=
+, 1680*1050 60hz (via USB-C to DP and then DP to DVI/VGA)
+=20
+Lenovo Thinkpad T14s Gen2 with AMD Ryzen 5 5650U, with the following displa=
+y types: eDP 1080p 60hz, 4k 60hz  (via USB-C to DP/HDMI), 1440p 144hz (via =
+USB-C to DP/HDMI), 1680*1050 60hz (via USB-C to DP and then DP to DVI/VGA)
+=20
+Sapphire Pulse RX5700XT with the following display types:
+4k 60hz  (via DP/HDMI), 1440p 144hz (via DP/HDMI), 1680*1050 60hz (via DP t=
+o DVI/VGA)
+=20
+Reference AMD RX6800 with the following display types:
+4k 60hz  (via DP/HDMI and USB-C to DP/HDMI), 1440p 144hz (via USB-C to DP/H=
+DMI and USB-C to DP/HDMI), 1680*1050 60hz (via DP to DVI/VGA)
+=20
+Included testing using a Startech DP 1.4 MST hub at 2x 4k 60hz and DSC via =
+USB-C to DP DSC Hub with 3x 4k 60hz.
+=20
+Tested on Ubuntu 20.04.3 with Kernel Version 5.16
+=20
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+=20
+=20
+Thank you,
+=20
+Dan Wheeler
+Technologist  |  AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+Facebook |  Twitter |  amd.com =20
 
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Ma Jun <=
-Jun.Ma2@amd.com>
-Sent: Monday, April 11, 2022 8:42 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: Release memory when psp sw_init is failed
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Pavle Ko=
+tarac
+Sent: April 8, 2022 1:19 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Li, Sun peng (Leo) <Sunp=
+eng.Li@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Zhuo, Qingqing (=
+Lillian) <Qingqing.Zhuo@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.c=
+om>; Li, Roman <Roman.Li@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>; Pi=
+llai, Aurabindo <Aurabindo.Pillai@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>;=
+ Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Gutierrez, Agustin <Agusti=
+n.Gutierrez@amd.com>; Kotarac, Pavle <Pavle.Kotarac@amd.com>
+Subject: DC Patches Apri 6, 2022
 
-Release the memory (psp->cmd) when psp initialization is
-failed in psp_sw_init
+This DC patchset brings improvements in multiple areas. In summary, we high=
+light:
+   =20
+    *Disabling Z10 on DCN31
+    *Fix issue breaking 32bit Linux build
+    *Fix inconsistent timestamp type
+    *Add DCN30 support FEC init
+    *Fix crash on setting VRR with no display connected
+    *Disable FEC if DSC not supported for EDP
+    *Add odm seamless boot support
+    *Select correct DTO source
+    *Power down hardware if timer not trigger
 
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-Change-Id: I2f88b5919142d55dd7d3820a7da94823286db235
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c
-index a6acec1a6155..1227dc014c80 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -305,9 +305,10 @@ static int psp_sw_init(void *handle)
-                 ret =3D psp_init_sriov_microcode(psp);
-         else
-                 ret =3D psp_init_microcode(psp);
-+
-         if (ret) {
-                 DRM_ERROR("Failed to load psp firmware!\n");
--               return ret;
-+               goto failure;
-         }
+AMD\syerizvi (1):
+  drm/amd/display: Disabling Z10 on DCN31
 
-         adev->psp.xgmi_context.supports_extended_data =3D
-@@ -339,25 +340,27 @@ static int psp_sw_init(void *handle)
-                 ret =3D psp_memory_training_init(psp);
-                 if (ret) {
-                         DRM_ERROR("Failed to initialize memory training!\n=
-");
--                       return ret;
-+                       goto failure;
-                 }
+Angus Wang (1):
+  drm/amd/display: Fix inconsistent timestamp type
 
-                 ret =3D psp_mem_training(psp, PSP_MEM_TRAIN_COLD_BOOT);
-                 if (ret) {
-                         DRM_ERROR("Failed to process memory training!\n");
--                       return ret;
-+                       goto failure;
-                 }
-         }
+Aric Cyr (1):
+  drm/amd/display: 3.2.181
 
-         if (adev->ip_versions[MP0_HWIP][0] =3D=3D IP_VERSION(11, 0, 0) ||
-             adev->ip_versions[MP0_HWIP][0] =3D=3D IP_VERSION(11, 0, 7)) {
-                 ret=3D psp_sysfs_init(adev);
--               if (ret) {
--                       return ret;
--               }
-+               if (ret)
-+                       goto failure;
-         }
+Charlene Liu (1):
+  drm/amd/display: remove dtbclk_ss compensation for dcn316
 
-         return 0;
-+failure:
-+       kfree(psp->cmd);
-+       return ret;
-[kevin]:
+David Zhang (1):
+  drm/amd/display: implement shared PSR-SU sink validation helper
 
-  1.  do you forget to set 'psp->cmd' to NULL?
-  2.  according to my understanding, the buf will not be used in the functi=
-on (in psp sw init stage), can you move this to end of function to mke patc=
-h logic is clearly.
+Dillon Varone (2):
+  drm/amd/display: Add dtb clock to dc_clocks
+  drm/amd/display: Select correct DTO source
 
-Best Regards,
-Kevin
- }
+Duncan Ma (1):
+  drm/amd/display: Add odm seamless boot support
 
- static int psp_sw_fini(void *handle)
+Eric Yang (1):
+  drm/amd/display: undo clearing of z10 related function pointers
+
+Evgenii Krasnikov (1):
+  drm/amd/display: ensure PSR force_static flag can always be set
+
+Harry VanZyllDeJong (1):
+  drm/amd/display: Fix crash on setting VRR with no display connected
+
+Hayden Goodfellow (1):
+  drm/amd/display: Fix issue breaking 32bit Linux build
+
+Iswara Nagulendran (1):
+  drm/amd/display: Disable FEC if DSC not supported for EDP
+
+Jingwen Zhu (1):
+  drm/amd/display: add DCN30 support FEC init
+
+Josip Pavic (1):
+  drm/amd/display: do not wait for mpc idle if tg is disabled
+
+Max Erenberg (1):
+  drm/amd/display: Disallow entering PSR when panel is disconnected
+
+Oliver Logush (2):
+  drm/amd/display: Insert pulling smu busy status before sending another
+    request
+  drm/amd/display: Always update DPPCLK_DTO when clock increase
+
+Paul Hsieh (1):
+  drm/amd/display: Power down hardware if timer not trigger
+
+hersen wu (1):
+  drm/amd/display: expose skip_detection_link_training to debugfs
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 37 +++++++++  .../drm/amd/=
+display/amdgpu_dm/amdgpu_dm_psr.c |  9 +-
+ .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   |  2 +-
+ .../dc/clk_mgr/dcn201/dcn201_clk_mgr.c        |  3 +-
+ .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 17 +++-
+ .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c   |  3 +
+ .../display/dc/clk_mgr/dcn301/vg_clk_mgr.c    |  3 +-
+ .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  | 26 +++++-
+ .../dc/clk_mgr/dcn316/dcn316_clk_mgr.c        |  4 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 13 +++
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 17 +++-  .../gpu/drm/amd/d=
+isplay/dc/core/dc_resource.c | 82 ++++++++++++-------
+ drivers/gpu/drm/amd/display/dc/dc.h           |  6 +-
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  1 +
+ .../drm/amd/display/dc/dce/dce_clock_source.c |  2 +-  .../amd/display/dc/=
+dcn10/dcn10_hw_sequencer.c | 40 +++++++--
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  6 +-
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_init.c |  5 --  .../gpu/drm/amd/dis=
+play/dc/dcn31/dcn31_optc.c | 21 +++++  .../gpu/drm/amd/display/dc/dcn31/dcn=
+31_optc.h |  2 +  .../drm/amd/display/dc/dcn31/dcn31_resource.c |  1 +  ...=
+/amd/display/dc/inc/hw/timing_generator.h  |  2 +
+ .../amd/display/modules/freesync/freesync.c   |  5 +-
+ .../amd/display/modules/power/power_helpers.c | 38 +++++++++  .../amd/disp=
+lay/modules/power/power_helpers.h |  1 +
+ 25 files changed, 285 insertions(+), 61 deletions(-)
+
 --
-2.25.1
-
-
---_000_CO6PR12MB547319DAE1601C366E2E607C82EA9CO6PR12MB5473namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Ma Jun &lt;Jun.Ma2@amd.com&gt=
-;<br>
-<b>Sent:</b> Monday, April 11, 2022 8:42 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
-ristian &lt;Christian.Koenig@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@=
-amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Release memory when psp sw_init is fail=
-ed</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText elementToProof">Release the memory (psp-&gt;cmd) wh=
-en psp initialization is<br>
-failed in psp_sw_init<br>
-<br>
-Signed-off-by: Ma Jun &lt;Jun.Ma2@amd.com&gt;<br>
-Change-Id: I2f88b5919142d55dd7d3820a7da94823286db235<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 15 +++++++++------<br>
-&nbsp;1 file changed, 9 insertions(+), 6 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c<br>
-index a6acec1a6155..1227dc014c80 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-@@ -305,9 +305,10 @@ static int psp_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D psp_init_sriov_microcode(psp);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D psp_init_microcode(psp);<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Failed to load psp firmware!\n&quot;)=
-;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return ret;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; goto failure;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp.xgmi_context.=
-supports_extended_data =3D<br>
-@@ -339,25 +340,27 @@ static int psp_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D psp_memory_training_init(psp);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_E=
-RROR(&quot;Failed to initialize memory training!\n&quot;);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto failure;<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D psp_mem_training(psp, PSP_MEM_TRAIN_COLD_BOOT=
-);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_E=
-RROR(&quot;Failed to process memory training!\n&quot;);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto failure;<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;ip_versions[M=
-P0_HWIP][0] =3D=3D IP_VERSION(11, 0, 0) ||<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ad=
-ev-&gt;ip_versions[MP0_HWIP][0] =3D=3D IP_VERSION(11, 0, 7)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret=3D psp_sysfs_init(adev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (ret)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto failure;<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-+failure:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(psp-&gt;cmd);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;</div>
-<div class=3D"PlainText elementToProof">[kevin]:</div>
-<div class=3D"PlainText elementToProof">
-<ol>
-<li><span>do you forget to set 'psp-&gt;cmd' to NULL?<br>
-</span></li><li><span>according to my understanding, the buf will not be us=
-ed in the function (in psp sw init stage), can you move this to end of func=
-tion to mke patch logic is clearly.<br>
-<span></span></span></li></ol>
-</div>
-<div class=3D"PlainText elementToProof">Best Regards,</div>
-<div class=3D"PlainText elementToProof">Kevin<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int psp_sw_fini(void *handle)<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CO6PR12MB547319DAE1601C366E2E607C82EA9CO6PR12MB5473namp_--
+2.32.0
