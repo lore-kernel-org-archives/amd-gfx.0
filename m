@@ -4,39 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70742C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 11:45:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B24F2C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 12:42:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F234310E460;
-	Mon, 11 Apr 2022 11:45:41 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F6E910E166;
- Mon, 11 Apr 2022 11:45:40 +0000 (UTC)
-Received: from [192.168.0.7] (ip5f5ae91f.dynamic.kabel-deutschland.de
- [95.90.233.31])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id B154861EA1923;
- Mon, 11 Apr 2022 13:45:37 +0200 (CEST)
-Message-ID: <ba56a9db-b34f-b2ce-baef-f8861476b3fc@molgen.mpg.de>
-Date: Mon, 11 Apr 2022 13:45:37 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD0F10E484;
+	Mon, 11 Apr 2022 12:42:28 +0000 (UTC)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43ED810E4D4;
+ Mon, 11 Apr 2022 12:42:27 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id c64so6059742edf.11;
+ Mon, 11 Apr 2022 05:42:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=R6BFNRU2q1XNxEfGm88CIyqAqlzFNs0kRryqmEb8+MA=;
+ b=mbahqTcKWODAb57udTkBykSONqmHLxj1kOIm6IAKEqMWMnv0EUekwdqNL9geZAqrG7
+ 30Y2AXxVyXQJ+ThE00kInGYavMpFd4si684CkHdbKXWgUHSw6u+w3AR4xey+YD/e7wpO
+ i2e0d43QynDfEh62TKYLCtPb2naWlHGoPzau5W8hXOhU3i8wMxc391GKONlGZGoRU7iz
+ LadTQgUZWq+o8oxzA7KJ0RWJKkujKipFrKiG/MBMCtH9aZNL5+e84nmU8pAjW3Vyfv8F
+ 8UNx7dYKYEXcbJY93q8qmt/xv44eRZxSL/SoHNHbWBD2hKUF7zuPHzYaz4RGNWH9PLdC
+ Pl2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=R6BFNRU2q1XNxEfGm88CIyqAqlzFNs0kRryqmEb8+MA=;
+ b=LBBaHArXZa23gvsWt0SqIfETkll0w56DB4XSNFwuhQoF0Q27tNzaNXwIW+JuDUHJ7J
+ MMizq0NvGY4Anl645+9CLRX49FVAD9P1D5RK3xaUbxMokF713icksw5ErKp2lqOmfjbI
+ cwzoO4sFznzBLIaAVZCkvg6efWWaBBgBrH9QiUq+qbxg1r56Huw6fv6VJhllQZDmQH67
+ VPlhyEApBIzuxvlSmS6sWHWThpf1xldsbnxdUJG93+48ql8fruVFYqHWVDFyVD7RbtCr
+ 6BeBc3reIVtxknXrUXAPqUAPi4diGeKH7Wuhx6r0OcTjbuHxxMhckQlUvztLC9bV//6V
+ dRJw==
+X-Gm-Message-State: AOAM530+H5uXIzGSwekqHkw7zvh9mt00IR8CSWETu/ZdAAImHa/yQ+bM
+ HadlamE9S9nr+6Xs/e8FwAWVU2P95Mk=
+X-Google-Smtp-Source: ABdhPJzTBJjuCbQaiLn1At+PIXEVw9RxrGMXa4nMxqgo6zGZW1f7D2ORIm1m2yOHVm1mHkE1Pt/5fw==
+X-Received: by 2002:a05:6402:51d2:b0:41c:e157:84f1 with SMTP id
+ r18-20020a05640251d200b0041ce15784f1mr33530772edd.135.1649680945724; 
+ Mon, 11 Apr 2022 05:42:25 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1252:fb60:b3e9:56a3:6bb9:f974?
+ ([2a02:908:1252:fb60:b3e9:56a3:6bb9:f974])
+ by smtp.gmail.com with ESMTPSA id
+ l11-20020a509dcb000000b0041cbaf0ce2asm13111184edk.6.2022.04.11.05.42.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Apr 2022 05:42:24 -0700 (PDT)
+Message-ID: <ca280f24-8efe-e972-4a03-700e002cc6f7@gmail.com>
+Date: Mon, 11 Apr 2022 14:42:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCHv2] drm/amdgpu: disable ASPM on Intel AlderLake based
- systems
+ Thunderbird/91.7.0
+Subject: Re: [PATCH v3] drm: add a check to verify the size alignment
 Content-Language: en-US
-To: Richard Gong <richard.gong@amd.com>
-References: <20220408190502.4103670-1-richard.gong@amd.com>
- <44354d78-b340-fbc4-fd6c-060d7ad3404e@molgen.mpg.de>
- <45ea5705-71d6-4008-f094-1aa902e5cc41@amd.com>
- <0d0a3f0f-f021-ccc2-a80a-f789cb53a47b@molgen.mpg.de>
- <192375d0-85ac-ced0-43d6-e5ea4e3c0fae@amd.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <192375d0-85ac-ced0-43d6-e5ea4e3c0fae@amd.com>
+To: Matthew Auld <matthew.auld@intel.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20220411073834.15210-1-Arunpravin.PaneerSelvam@amd.com>
+ <9ecac65c-84d9-9965-4fd3-f86ea572bb9d@intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <9ecac65c-84d9-9965-4fd3-f86ea572bb9d@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,81 +77,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, xinhui.pan@amd.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, Dell.Client.Kernel@dell.com,
- christian.koenig@amd.com, mario.limonciello@amd.com
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Richard,
 
-
-Am 11.04.22 um 13:38 schrieb Gong, Richard:
-
-> On 4/11/2022 2:41 AM, Paul Menzel wrote:
->> [Cc: +<Dell.Client.Kernel@dell.com>]
-
->> Am 11.04.22 um 02:27 schrieb Gong, Richard:
+Am 11.04.22 um 11:47 schrieb Matthew Auld:
+> On 11/04/2022 08:38, Arunpravin Paneer Selvam wrote:
+>> Add a simple check to reject any size not aligned to the
+>> min_page_size.
 >>
->>> On 4/8/2022 7:19 PM, Paul Menzel wrote:
+>> when size is not aligned to min_page_size, driver module
+>> should handle in their own way either to round_up() the
+>> size value to min_page_size or just to enable WARN_ON().
 >>
->>>> Am 08.04.22 um 21:05 schrieb Richard Gong:
->>>>> Active State Power Management (ASPM) feature is enabled since 
->>>>> kernel 5.14.
->>>>> There are some AMD GFX cards (such as WX3200 and RX640) that cannot be
->>>>> used with Intel AlderLake based systems to enable ASPM. Using these 
->>>>> GFX
->>>>
->>>> Alder Lake
->>> will correct in the next version.
->>>>
->>>>> cards as video/display output, Intel Alder Lake based systems will hang
->>>>> during suspend/resume.
->>>>
->>>> Please reflow for 75 characters per line.
->>>>
->>>> Also please mention the exact system you had problems with (also 
->>>> firmware versions).
->>>>
->>>>>
->>>>> Add extra check to disable ASPM on Intel AlderLake based systems.
->>>>
->>>> Is that a problem with Intel Alder Lake or the Dell system? 
->>>> Shouldn’t ASPM just be disabled for the problematic cards for the 
->>>> Dell system. You write newer cards worked fine.
->>>
->>> There is a problem with Dell system (Dell Precision DT workstation), 
->>> which is based on Intel Alder Lake.
->>>
->>> ASPM works just fine on these GPU's. It's more of an issue with 
->>> whether the underlying platform supports ASPM or not.
+>> If we dont handle the alignment properly, we may hit the
+>> following bug, Unigine Heaven has allocation requests for
+>> example required pages are 257 and alignment request is 256.
+>> To allocate the left over 1 page, continues the iteration to
+>> find the order value which is 0 and when it compares with
+>> min_order = 8, triggers the BUG_ON(order < min_order).
 >>
->> At least you didn’t document what the real issue is,
-> 
-> You can refer to bug tag from the comment messages.
-> 
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
-
-No, the commit message should be self-contained, and reviewers and 
-readers of the commit message not required to read comments of bug 
-reports. Please add the necessary information to the commit message.
-
-
-Kind regards,
-
-Paul
-
-
->> that ASPM does not work. With current information (some GPU graphics 
->> card with the the Dell system and others don’t), it could be the GPU, 
->> the Dell system (firmware, …), a problem with Alder Lake SOC, or 
->> another bug. I hope you are in contact with Dell to analyze it, so 
->> ASPM can be enabled again.
+>> v2: add more commit description
+>> v3: remove WARN_ON()
 >>
->> […]
->>
->>
->> Kind regards,
->>
->> Paul
+>> Signed-off-by: Arunpravin Paneer Selvam 
+>> <Arunpravin.PaneerSelvam@amd.com>
+>> Suggested-by: Matthew Auld <matthew.auld@intel.com>
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+>
+
+Question here is who will be pushing that to drm-misc-next? Should I 
+take care of that?
+
+I think it's time that Arun should request push permission for 
+drm-misc-next.
+
+Thanks,
+Christian.
