@@ -4,55 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFC3DC433EF
-	for <amd-gfx@archiver.kernel.org>; Sun, 10 Apr 2022 14:45:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D16EBC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 00:28:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 336FF10E274;
-	Sun, 10 Apr 2022 14:45:59 +0000 (UTC)
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E1D810E274
- for <amd-gfx@lists.freedesktop.org>; Sun, 10 Apr 2022 14:45:57 +0000 (UTC)
-Received: by mail-ot1-x333.google.com with SMTP id
- a17-20020a9d3e11000000b005cb483c500dso9605022otd.6
- for <amd-gfx@lists.freedesktop.org>; Sun, 10 Apr 2022 07:45:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=DysugT3WtR06atlxi8eSAY/eRGPtJzAcz05hEd8SIGA=;
- b=Gp69AadrkzstQek99+Qqj/tbTYjNJtOij65/gQTKkRx5u4wHgoKI4hlo328vLIpRRa
- QbUWbZEJbnn3weLwRQd4zNKm9/EqNNPu7CPx8zu0lbwqLpNonH+KBcvNo61dGygIw4rf
- dHA/tijCF8QBSYshrtoa1U6j8KA29ULoKhUEA6ZAAug9OHEWUnVWIzd57QdL6Pau110N
- V//VnnE9rCgNEsBAVYZHyj26voUAzBRr+KbA5quvTNJrYmUUpNwf5HGJILRJTyX32pw5
- 8pMKPe0dZaEmrtDIv2CukKElL4p46BQmpQiF2dMDJm07V/rfESzpAEHxNCE9VpQBsfRH
- cwrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=DysugT3WtR06atlxi8eSAY/eRGPtJzAcz05hEd8SIGA=;
- b=dYd4n27/dOnJuVsq7bWib196J0w6/k1dXRRqyu8HWGOskpoz1M3430UZOi1vHHB7iK
- XqgYuF0zP7SzU7oZgYO7Xx7AJoX9Y2gRIcmTmNcyK2fT3FCeq5qVuBbJD/L6TeZYXGPs
- 4qUyKS95g3PXpV+9/a51lYW5DvY/h42ukP2JciBQiGNu594n4nVjsO07NAsXZID5fhnB
- +I2206bIqnBdxyTwGtQH8q8bh3hdFOP2wImp+/rg8KjLg1Z98TvkhFcB6atAS768UY+0
- nEZAUY4xloF+/cdEHydAn1iK4Q3ZMJPk9dc4tyzVpzx6gWeP006Y6cJSaa+uf/tN5Pa3
- iFQA==
-X-Gm-Message-State: AOAM530NMsQhAr2rWDdZlRUpFAKx7ilN70QkzVYGNpGBzIYEx54Oot46
- qSGOSjdV4R1dDTqAJUwyPZo8g/BkIyBjKCJqqIYnGZsT8sJ+PnSg
-X-Google-Smtp-Source: ABdhPJxf4jMX9PZTxGu/Okg94QqCICIqreEvUqpCc0uuGngq0ACo7BTf6R0QmMvFdBVYFK/WwUap65Ucsh9Ag9VLGjs=
-X-Received: by 2002:a9d:6f08:0:b0:5b2:26c4:22b2 with SMTP id
- n8-20020a9d6f08000000b005b226c422b2mr9962233otq.294.1649601955949; Sun, 10
- Apr 2022 07:45:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 607DD10E2F3;
+	Mon, 11 Apr 2022 00:27:59 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2062.outbound.protection.outlook.com [40.107.100.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F005810E2BF;
+ Mon, 11 Apr 2022 00:27:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=b6EOn+ADnI2ko3Y8NAiavKhcWUUlap9GLR0XY6dhFcZAN3xT6nJfrCzgqtebmk1w2+JD3XTTaEfYlrzqfKJL9ZoEPRoXqzQFFw7gRuM8yIqVrIR9P/QAdzHy+DzaMddJcFlGdwb+BIuFArRAHYmMYLc/riDMv2SZtE8WX5NSNn4BX9JLWK43DjyxQy4u7D8+nqvALEMK3j93EzvVkEr8gdXY7jwbPjM9fZm83M+NbzYzdPDUMbqI2m4/Sxb5GOPnnlaIuxdMnvxxGRBYZ1TxLPaTuwF/lBSpVN+4MHy/ltfS2Rmr97klD8E3K1EYfNLPo7F8Ly6rsnDoPRbP1jq5uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XY+PuP6qKwkVFTZEMd/z8ietOjVRpdwwYmdSk/Sc6jg=;
+ b=XHxVOR/AR9a5D1qJIVjpoKzwIPx68csRBP73jAxgjXWqQqT5XWNeI1x2gwhNm8Pkh3tagLo1zCEKkG8hiL1vbuLUfHwqLY4cEHv+vuAzI1J7k/m55q0VM0fs9L0r4LYgHoASCqTU7IlyR9Pl4k3xQ0Eg9X0VRMmWAoCDuDEoc3SLBTo+K+SuzsQioBqVbecxKZ/WYRLYIBSpMBbAM9jgj4LpR4YC02LYtt8G5fNS/jKGPG7OXki5LWAttL2QeEbvIuWH7CFfyvadjLOW6mVt1ULR9Xj0T6Ecv16rqbsvxFMSnOcZDIkhtzsxJ+pc8q7jwdhxbyTs3ROn/wpaMnHbBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XY+PuP6qKwkVFTZEMd/z8ietOjVRpdwwYmdSk/Sc6jg=;
+ b=m6FZtejmrtF5VPZmluBFRCFzSsYq8r40B7f6Adp9jovuSpAQstpIcHZyf93Yl9ZvbOSMzASkchgiFbU4aGy3xOW3N4Nd9Nz0VATKYsvx80jmZD05Z2u4sNg8WkmGwUSujZE7pRi4JyHpNEjr02j9+o1hWJEwMKYFbPXMOv9CImI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB4526.namprd12.prod.outlook.com (2603:10b6:806:98::23)
+ by CY4PR1201MB0072.namprd12.prod.outlook.com (2603:10b6:910:1b::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Mon, 11 Apr
+ 2022 00:27:53 +0000
+Received: from SA0PR12MB4526.namprd12.prod.outlook.com
+ ([fe80::7ceb:a37c:cd60:9d5f]) by SA0PR12MB4526.namprd12.prod.outlook.com
+ ([fe80::7ceb:a37c:cd60:9d5f%7]) with mapi id 15.20.5144.029; Mon, 11 Apr 2022
+ 00:27:53 +0000
+Message-ID: <45ea5705-71d6-4008-f094-1aa902e5cc41@amd.com>
+Date: Sun, 10 Apr 2022 19:27:48 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Subject: Re: [PATCHv2] drm/amdgpu: disable ASPM on Intel AlderLake based
+ systems
+Content-Language: en-US
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+References: <20220408190502.4103670-1-richard.gong@amd.com>
+ <44354d78-b340-fbc4-fd6c-060d7ad3404e@molgen.mpg.de>
+From: "Gong, Richard" <richard.gong@amd.com>
+In-Reply-To: <44354d78-b340-fbc4-fd6c-060d7ad3404e@molgen.mpg.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR11CA0027.namprd11.prod.outlook.com
+ (2603:10b6:208:23b::32) To SA0PR12MB4526.namprd12.prod.outlook.com
+ (2603:10b6:806:98::23)
 MIME-Version: 1.0
-From: Innocenti Maresin <innocenti.maresin@gmail.com>
-Date: Sun, 10 Apr 2022 17:45:43 +0300
-Message-ID: <CANvdy75mC5N9FKU8=z8akZ=Vonmnj6WKGE+JsoazbK2ebtgixA@mail.gmail.com>
-Subject: =?UTF-8?Q?Lenovo_Cezanne_=E2=80=94_some_ip_blocks_fail_on_both_amdgp?=
- =?UTF-8?Q?u=5Fdevice=5Fip=5Fhw=5Finit=5Fphase1_and_amdgpu=5Fdevice=5Fip=5Fhw=5Finit=5Fphas?=
- =?UTF-8?Q?e2?=
-To: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 522923ca-27d3-4fe9-64e7-08da1b521dec
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0072:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB0072AAA035572DE6BC5042F895EA9@CY4PR1201MB0072.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: P+q5xh/160CKMZDfnOJihWupI+ACfv4hJeRY0TfqtZsgEOg4ZDvaBEGTyhZXibckoMuY6g6435SEWmVDn4qa+vXiJL1Nh9fZBWtEBjV6OJnde/6wZBgn1mXI6yXqynoSOA9Ta4tE1oCkS0q3MVFmOYbpI21Zf0JhSViy+vvodeJ2HKsUWWI/fNjiTtkcIhR3qT9ghEGhXbJAh8DC8UgTm3Vmxk6hyCwbC5t9PZUXRPHVPTVHOoqO5hrWb9gySG295foceExz8FUCR13UAG819pcwMyviNDpN3Up49G780cj28plozfpRYSPE+mUnsbWpGjHaZzJPh7gr8EBMedGMmxpSXv/YSNmpktD6moBFSKooSHic2qZoRLmTsZ0rU0fJ/hHnrpAzMA3Pn5d31sh5Bb7TRnbZAvrUDq1e9jVo8k5ApAix3xaIiedcE4DBGuQLARhgICrJxRRrdkJKhKN7+cUGBD7XcS0atgBs2uwb5eaJJ6wKVz5hTFISk6E+mpbLTCb82e0Jz8EavnQe3/LKRAWQL77cEHgoUW4BOFR+ge0F42Fj/hO62W1rZVtjyC7y07op6mi2jdP07reF/a/EGjIptWE+uP3Ln9CWE3xwEbC10fB5EBE1Q3+767VdnOcThDZlxaPXIRThhYOp7iJxkOtdC+d5eKkGZ1K37SyWZpdoEbYgAVSeTUnN9j6jIxhVNzj3k3slZH/2ZV6X/YqbDkgs3ZFBOgRUW4mSRgDrOds=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB4526.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(966005)(6666004)(6486002)(45080400002)(6916009)(2616005)(36756003)(508600001)(83380400001)(31686004)(66946007)(4326008)(8676002)(66556008)(186003)(38100700002)(31696002)(86362001)(8936002)(316002)(66476007)(5660300002)(6512007)(6506007)(26005)(53546011)(2906002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZmJuQ2p1RDc0czJKT3FqK05yaTY2VFFXK2NUMU1KbjNucWxvOGNJUmdoL1hK?=
+ =?utf-8?B?aUNmT2VvcW52aWp3bUZzLzZaS3VHelRCdGVYd0JyWFhXWGo0dGJMSUcxbkll?=
+ =?utf-8?B?SzlWRk16Y2JDS0dNaTRYYUxjMDNJVU9zaXFrbXRmaDR4Y3lSV1FvL2QweWpR?=
+ =?utf-8?B?VkM1S1NOVVhBUEVGQkE3UGR0ZFdxT01kQkRmN3FlUFJGcUVhRXB0NWZ3UjJp?=
+ =?utf-8?B?b0lySG5jTFcwSFIyRzFQZjBhSWJlTFEwZ0RPcWtoTThiaVdzWFBYZHNhSkFK?=
+ =?utf-8?B?N3ZKKzJOU2NZVml2NC8zaEM2c0ZLY0xSV2p0MVlyVmJEc01mTXlmN0VXaEpy?=
+ =?utf-8?B?LzhuTkZuM1RFZjROKzV4QXp3S1dCZDZPSjJ3SzdsK0haV1dnOTd1QXZGZnJY?=
+ =?utf-8?B?RXR6YWFDTnFTcWV2UWRRYUJFWjhCR3hsZ052aUdUUDN0QUNKSC9wNG1rY3Jw?=
+ =?utf-8?B?QXdPMkZMRURrUTdYUDBqWnRHa1ZNQmg3TmoyOTBuSFF3SDh0SjRjdkVmcmI0?=
+ =?utf-8?B?UjNFS3F0LzQ0K2FLaXZkeFhsMUlsMGF4UklsVGlYZDBoMVZ2TXlOU3BmR3Nv?=
+ =?utf-8?B?VUt3aE5kUlhhT2xUV1paSEYvQU92RndSSzErSS91L1JkT3JWV3NyTmJBN3d0?=
+ =?utf-8?B?REZOQkZ6eUxlNTUyU3Rvc3p5RENOa3cyNWdyTStUby9sSVNuUkgzOWhwSExU?=
+ =?utf-8?B?d2dsVC82VzcybTZIVXppdFNvelRSVithamxldGI2OTd3U0N4eHNWUWNnMGEv?=
+ =?utf-8?B?Q0dNOW1iYlNQYzZwdEFpaEhIN2xuaTZtcStvaENQa0lmdDJCTStIV2M2UU9E?=
+ =?utf-8?B?NXl5dllsSzJFeDk1VnBKZXZzRXgyS3VoTHJWbXc4cWZhU1RNb0hKK243Nlha?=
+ =?utf-8?B?U09zNUtxS1hkMjQ1WTlWT2w1azYvdDFGOE1XMi9wU3ZGQS9IR0NoR3BZODR0?=
+ =?utf-8?B?QnZ3VTl4ak5EQ1k2OTVIVXlmd0VSeVFuOWEwZ1RtRVpmdnhKb2ZNZGNqcjc5?=
+ =?utf-8?B?eTZoclBlTWRJa284Nm55TGl2UWlZV01XQ010dENEMjBlMHd4cVV1OFpLa2x5?=
+ =?utf-8?B?bVNseHN1OVdXWFovU2F2VXFWUThJL0tGaXR6RG9nMzdXUmhJcXZETEtCT2x6?=
+ =?utf-8?B?aUVoQzJoQk85T2paMTFMRXhnVWh0ZW1Oa3dMYkhLYlE3aFBsM1Fnd0MwWjVX?=
+ =?utf-8?B?ZUdwbkw0Vkc5T3d1cEZOQnBOMEdoNUdXYmgxKzM5clZNVFp1VkUrb0JLcWJ0?=
+ =?utf-8?B?MjNaSkxISVFoaVlrWjVuWTFoK3lMZzIvdHdielBmRmhBa3pnckQzMkJQSGpr?=
+ =?utf-8?B?OFF0eTc4WkdGTjcrT25oWUI3R0pqQWRWRlliNnhVQStaRm1BdVpSaExXaXVO?=
+ =?utf-8?B?T0lySFE5bGxFcERmOVRGanBxVWcyNHJHL1pFa2Zzb0VNdEtkRTB2SlJ1RmdZ?=
+ =?utf-8?B?ZkhiYWZib1Z4Mk5BUzRKcFJ3K2NxcU5wVmE3ZjJCdmdiZ3Y1SzgzbHZMMVZU?=
+ =?utf-8?B?YTNLZUg2VmsxcWZyV0YwdG93WithNVNUNWJMN21MRU1Tc1V3WEd6L283eXhy?=
+ =?utf-8?B?OXdOMytJWmU4RkNhdjNsbmJaZHlKdkV3QjF0Q09tNzRQQTlteHVHNjdNQkVs?=
+ =?utf-8?B?aEY1V2gvYlFwYVNlWkd1K0pzMGZ4WlFZZGU2M3JXbmF0VUR1aElBNkdmSGZ2?=
+ =?utf-8?B?WHF3bzdSaTdqRjV2bExkQlBCYTVGbllwME1Kc1JhMW9ud05TQW1wV2doR3RM?=
+ =?utf-8?B?LyswYlVpRy9SMkRqOUZ6TXljelN4d1Roa2pNRDQ4NHV4WkhLRHNsM0cxdkRu?=
+ =?utf-8?B?eWw5Qk5NUUZ1aFRyczhmdkFwVUZSTkFlalUyR1QvOFdPOENQWDZnSjZ1RktY?=
+ =?utf-8?B?bFZJYXR0MG16dWV2SkJsN0NJNnBhcTY0RE03eFB1YmhvZk8wdm40dTlKOHVt?=
+ =?utf-8?B?eDdlRnkzd3ZNU0RLYmhoK1dBbmpaRVhwRkZPWDBYTUh1bEwxaGhxeEJSTDNX?=
+ =?utf-8?B?S2pjT3F1S0ZvNlhtVDhBTjBOSzhobHRPVHdOdjRRdHRGajdxVit6SWFsL3NS?=
+ =?utf-8?B?SHUxK3NlMFZoM0tMWlZPY00zRFpzbkUxWTBlbUd4MVVoNUtNNXVnTHVwUmtY?=
+ =?utf-8?B?dnljbCtwc3l2VUorK0xhMFpHK0RrYWZMbmVXL1dLRm9wcjdWL1NrZFdNZkZF?=
+ =?utf-8?B?aFZsMXRHeUF2S3M4TVVCeXZnY2d3aExaZWtuSnB2TWFMR0NNU21MRWFiOHBE?=
+ =?utf-8?B?aVNsR1hJYzJuQ09YcGRLdklPMkRSMWw2TmJ5VkxPQ0dSY3BYbm9DaER4bVBp?=
+ =?utf-8?B?dnVkNy9Kd3RGbFBKT3ZiWGtYSTZnMEFMTHl3NTRhenZsOHVmeCtBZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 522923ca-27d3-4fe9-64e7-08da1b521dec
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4526.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2022 00:27:53.1846 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FfBO3ffe/FtIoh+/myNf0Idse83RDha443O6nq5p/yqvR2nN/88lGXCKzqr6RMgabcf6fa0EgIirM4ZtTiNwSg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0072
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,296 +129,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: airlied@linux.ie, dri-devel@lists.freedesktop.org, xinhui.pan@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ mario.limonciello@amd.com, daniel@ffwll.ch, alexander.deucher@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello.
-Sorry to distract the developers for a private busyness, but it=E2=80=99s a
-non-trivial diagnostic problem. I bought a laptop where the GPU is
-probably faulty or badly misconfigured (note =E2=80=9C[drm] BIOS signature
-incorrect cc cc=E2=80=9D and the next message about memory ranges) but inde=
-ed
-present. All attempts to use either of two Linux drivers (see
-https://linux-hardware.org/?id=3Dcpu:amd-25-80-0-ryzen-7-5800u-with-radeon-=
-graphics&hwid=3Da26ef811f12f
-) failed. Of course, it doesn=E2=80=99t prove anything conclusively, and AM=
-D
-virtually turned me around
-(https://community.amd.com/t5/graphics/tools-to-check-for-malfunction-of-ry=
-zen-s-gpu/m-p/519397
-). But I am reluctant to complain to the manufacturer (namely, Lenovo)
-until expend all possibilities to make the stuff work.
+Hi Pail.
 
-The recent attempt to run (modprobe) the open amdgpu driver with
-linux-5.16.18 produced:
-[ 1234.755272] AMD-Vi: AMD IOMMUv2 loaded and initialized
-[ 1234.884288] [drm] amdgpu kernel modesetting enabled.
-[ 1234.885947] device class 'kfd': registering
-[ 1234.885973] device: 'kfd': device_add
-[ 1234.885984] PM: Adding info for No Bus:kfd
-[ 1234.886032] amdgpu: Virtual CRAT table created for CPU
-[ 1234.886039] amdgpu: Topology: Add CPU node
-[ 1234.886506] bus: 'pci': add driver amdgpu
-[ 1234.886527] bus: 'pci': __driver_probe_device: matched device
-0000:04:00.0 with driver amdgpu
-[ 1234.886531] bus: 'pci': really_probe: probing driver amdgpu with
-device 0000:04:00.0
-[ 1234.886535] amdgpu 0000:04:00.0: no default pinctrl state
-[ 1234.886545] checking generic (b0000000 13d0000) vs hw (b0000000 10000000=
-)
-[ 1234.886547] checking generic (b0000000 13d0000) vs hw (b0000000 10000000=
-)
-[ 1234.886548] fb0: switching to amdgpu from VESA VGA
-[ 1234.886551] device: 'fb0': device_unregister
-[ 1234.886598] PM: Removing info for No Bus:fb0
-[ 1234.886607] device: 'fb0': device_create_release
-[ 1234.886740] Console: switching to colour dummy device 160x64
-[ 1234.886757] device: 'vtcon1': device_unregister
-[ 1234.886766] PM: Removing info for No Bus:vtcon1
-[ 1234.886774] device: 'vtcon1': device_create_release
-[ 1234.886782] amdgpu 0000:04:00.0: vgaarb: deactivate vga console
-[ 1234.886899] [drm] initializing kernel modesetting (RENOIR
-0x1002:0x1638 0x17AA:0x3809 0xC1).
-[ 1234.886901] amdgpu 0000:04:00.0: amdgpu: Trusted Memory Zone (TMZ)
-feature enabled
-[ 1234.886939] [drm] register mmio base: 0xC0700000
-[ 1234.886940] [drm] register mmio size: 524288
-[ 1234.888465] [drm] add ip block number 0 <soc15_common>
-[ 1234.888466] [drm] add ip block number 1 <gmc_v9_0>
-[ 1234.888467] [drm] add ip block number 2 <vega10_ih>
-[ 1234.888468] [drm] add ip block number 3 <psp>
-[ 1234.888468] [drm] add ip block number 4 <smu>
-[ 1234.888469] [drm] add ip block number 5 <dm>
-[ 1234.888470] [drm] add ip block number 6 <gfx_v9_0>
-[ 1234.888470] [drm] add ip block number 7 <sdma_v4_0>
-[ 1234.888471] [drm] add ip block number 8 <vcn_v2_0>
-[ 1234.888471] [drm] add ip block number 9 <jpeg_v2_0>
-[ 1234.896313] [drm] BIOS signature incorrect cc cc
-[ 1234.896319] resource sanity check: requesting [mem
-0x000c0000-0x000dffff], which spans more than PCI Bus 0000:00 [mem
-0x000c0000-0x000cbfff window]
-[ 1234.896322] caller pci_map_rom+0x73/0x1c0 mapping multiple BARs
-[ 1234.898188] amdgpu 0000:04:00.0: amdgpu: Fetched VBIOS from ROM BAR
-[ 1234.898189] amdgpu: ATOM BIOS: 113-CEZANNE-X18
-[ 1234.905717] [drm] VCN decode is enabled in VM mode
-[ 1234.905719] [drm] VCN encode is enabled in VM mode
-[ 1234.905720] [drm] JPEG decode is enabled in VM mode
-[ 1234.905722] amdgpu 0000:04:00.0: amdgpu: PCIE atomic ops is not supporte=
-d
-[ 1234.905748] [drm] vm size is 262144 GB, 4 levels, block size is
-9-bit, fragment size is 9-bit
-[ 1234.905754] amdgpu 0000:04:00.0: amdgpu: VRAM: 2048M
-0x000000F400000000 - 0x000000F47FFFFFFF (2048M used)
-[ 1234.905756] amdgpu 0000:04:00.0: amdgpu: GART: 1024M
-0x0000000000000000 - 0x000000003FFFFFFF
-[ 1234.905758] amdgpu 0000:04:00.0: amdgpu: AGP: 267419648M
-0x000000F800000000 - 0x0000FFFFFFFFFFFF
-[ 1234.905764] [drm] Detected VRAM RAM=3D2048M, BAR=3D2048M
-[ 1234.905765] [drm] RAM width 128bits DDR4
-[ 1234.905822] [drm] amdgpu: 2048M of VRAM memory ready
-[ 1234.905824] [drm] amdgpu: 3072M of GTT memory ready.
-[ 1234.905828] [drm] GART: num cpu pages 262144, num gpu pages 262144
-[ 1234.905961] [drm] PCIE GART of 1024M enabled.
-[ 1234.905964] [drm] PTB located at 0x000000F4013C7000
-[ 1234.906471] amdgpu 0000:04:00.0: amdgpu: PSP runtime database doesn't ex=
-ist
-[ 1234.906956] [drm] Loading DMUB firmware via PSP: version=3D0x01010020
-[ 1234.909652] [drm] Found VCN firmware Version ENC: 1.16 DEC: 5 VEP:
-0 Revision: 3
-[ 1234.909660] amdgpu 0000:04:00.0: amdgpu: Will use PSP to load VCN firmwa=
-re
-[ 1234.910507] [drm] hw_init (phase1) succeeded for 2 IP blocks of 10,
-going forth...
-[ 1235.633664] [drm] reserve 0x400000 from 0xf47f800000 for PSP TMR
-[ 1235.643014] [drm] failed to load ucode SDMA0(0x0)
-[ 1235.643019] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xF)
-[ 1235.643234] [drm] failed to load ucode CP_CE(0x8)
-[ 1235.643236] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xF)
-[ 1235.643450] [drm] failed to load ucode CP_PFP(0x9)
-[ 1235.643451] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xF)
-[ 1235.643706] [drm] failed to load ucode CP_ME(0xA)
-[ 1235.643709] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xF)
-[ 1235.643924] [drm] failed to load ucode CP_MEC1(0xB)
-[ 1235.643925] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xF)
-[ 1235.644141] [drm] failed to load ucode CP_MEC1_JT(0xC)
-[ 1235.644143] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xF)
-[ 1235.644356] [drm] failed to load ucode RLC_RESTORE_LIST_CNTL(0x11)
-[ 1235.644358] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xF)
-[ 1235.644596] [drm] failed to load ucode RLC_RESTORE_LIST_GPM_MEM(0x12)
-[ 1235.644598] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xF)
-[ 1235.644811] [drm] failed to load ucode RLC_RESTORE_LIST_SRM_MEM(0x13)
-[ 1235.644813] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xF)
-[ 1235.645027] [drm] failed to load ucode RLC_G(0x16)
-[ 1235.645029] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xF)
-[ 1235.645243] [drm] failed to load ucode VCN(0x1C)
-[ 1235.645245] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xF)
-[ 1235.645458] [drm] failed to load ucode DMCUB(0x22)
-[ 1235.645460] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xF)
-[ 1235.645926] [drm] psp gfx command LOAD_ASD(0x4) failed and response
-status is (0xF)
-[ 1235.645928] amdgpu 0000:04:00.0: amdgpu: RAS: optional ras ta ucode
-is not available
-[ 1235.646175] [drm] psp gfx command LOAD_TA(0x1) failed and response
-status is (0xF)
-[ 1235.646416] [drm] psp gfx command LOAD_TA(0x1) failed and response
-status is (0xF)
-[ 1235.646419] amdgpu 0000:04:00.0: amdgpu: RAP: optional rap ta ucode
-is not available
-[ 1235.646420] amdgpu 0000:04:00.0: amdgpu: SECUREDISPLAY:
-securedisplay ta ucode is not available
-[ 1235.652585] amdgpu 0000:04:00.0: amdgpu: SMU is initialized successfully=
-!
-[ 1235.652825] [drm] Display Core initialized with v3.2.160!
-[ 1235.758565] [drm] Wait for DMUB auto-load failed: 3
-[ 1235.758567] [drm] DMUB hardware initialized: version=3D0x01010020
-[ 1235.970912] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error
-waiting for DMUB idle: status=3D3
-[ 1235.971495] amdgpu 0000:04:00.0: adding component (ops
-amdgpu_dm_audio_component_bind_ops [amdgpu])
-[ 1235.971674] device: 'i2c-3': device_add
-=E2=8B=AE
-[ 1236.118414] device: 'i2c-6': device_add
-[ 1236.118415] bus: 'i2c': add device i2c-6
-[ 1236.118417] PM: Adding info for i2c:i2c-6
-[ 1236.119861] [drm] kiq ring mec 2 pipe 1 q 0
-[ 1236.314252] amdgpu 0000:04:00.0: [drm:amdgpu_ring_test_helper
-[amdgpu]] *ERROR* ring kiq_2.1.0 test failed (-110)
-[ 1236.314379] [drm:amdgpu_gfx_enable_kcq.cold [amdgpu]] *ERROR* KCQ
-enable failed
-[ 1236.314536] [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* hw_init
-(phase2) of IP block <gfx_v9_0> failed -110
-[ 1236.471837] amdgpu 0000:04:00.0: [drm:amdgpu_ring_test_helper
-[amdgpu]] *ERROR* ring sdma0 test failed (-110)
-[ 1236.471954] [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* hw_init
-(phase2) of IP block <sdma_v4_0> failed -110
-[ 1236.472444] [drm] failed to load ucode VCN0_RAM(0x20)
-[ 1236.472448] [drm] psp gfx command LOAD_IP_FW(0x6) failed and
-response status is (0xFFFF0007)
-[ 1236.667574] amdgpu 0000:04:00.0: [drm:amdgpu_ring_test_helper
-[amdgpu]] *ERROR* ring vcn_dec test failed (-110)
-[ 1236.667693] [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* hw_init
-(phase2) of IP block <vcn_v2_0> failed -110
-[ 1236.867093] amdgpu 0000:04:00.0: [drm:amdgpu_ring_test_helper
-[amdgpu]] *ERROR* ring jpeg_dec test failed (-110)
-[ 1236.867205] [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* hw_init
-(phase2) of IP block <jpeg_v2_0> failed -110
-[ 1236.867349] [drm] hw_init (phase2) succeeded for 2 IP blocks of 10,
-going forth...
-[ 1236.868093] kfd kfd: amdgpu: Allocated 3969056 bytes on gart
-[ 1236.868196] amdgpu: Virtual CRAT table created for GPU
-[ 1236.868867] amdgpu: Topology: Add dGPU node [0x1638:0x1002]
-[ 1236.868868] kfd kfd: amdgpu: added device 1002:1638
-[ 1236.868874] amdgpu 0000:04:00.0: amdgpu: SE 1, SH per SE 1, CU per
-SH 8, active_cu_number 8
-[ 1236.868891] amdgpu 0000:04:00.0: amdgpu: couldn't schedule ib on ring <s=
-dma0>
-[ 1236.868894] [drm:amdgpu_job_run [amdgpu]] *ERROR* Error scheduling IBs (=
--22)
-[ 1236.870867] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to
-clear memory with ring turned off.
-[ 1236.870948] amdgpu: failed to allocate framebuffer (20738048)
-[ 1236.870950] [drm:amdgpufb_create [amdgpu]] *ERROR* failed to create
-fbcon object -12
-[ 1236.871025] device: 'hwmon6': device_add
-[ 1236.871036] PM: Adding info for No Bus:hwmon6
-[ 1236.871104] amdgpu 0000:04:00.0: amdgpu: ring gfx uses VM inv eng 0 on h=
-ub 0
-[ 1236.871105] amdgpu 0000:04:00.0: amdgpu: ring comp_1.0.0 uses VM
-inv eng 1 on hub 0
-[ 1236.871106] amdgpu 0000:04:00.0: amdgpu: ring comp_1.1.0 uses VM
-inv eng 4 on hub 0
-[ 1236.871107] amdgpu 0000:04:00.0: amdgpu: ring comp_1.2.0 uses VM
-inv eng 5 on hub 0
-[ 1236.871107] amdgpu 0000:04:00.0: amdgpu: ring comp_1.3.0 uses VM
-inv eng 6 on hub 0
-[ 1236.871108] amdgpu 0000:04:00.0: amdgpu: ring comp_1.0.1 uses VM
-inv eng 7 on hub 0
-[ 1236.871108] amdgpu 0000:04:00.0: amdgpu: ring comp_1.1.1 uses VM
-inv eng 8 on hub 0
-[ 1236.871109] amdgpu 0000:04:00.0: amdgpu: ring comp_1.2.1 uses VM
-inv eng 9 on hub 0
-[ 1236.871110] amdgpu 0000:04:00.0: amdgpu: ring comp_1.3.1 uses VM
-inv eng 10 on hub 0
-[ 1236.871110] amdgpu 0000:04:00.0: amdgpu: ring kiq_2.1.0 uses VM inv
-eng 11 on hub 0
-[ 1236.871111] amdgpu 0000:04:00.0: amdgpu: ring sdma0 uses VM inv eng
-0 on hub 1
-[ 1236.871112] amdgpu 0000:04:00.0: amdgpu: ring vcn_dec uses VM inv
-eng 1 on hub 1
-[ 1236.871112] amdgpu 0000:04:00.0: amdgpu: ring vcn_enc0 uses VM inv
-eng 4 on h[ 1236.871112] amdgpu 0000:04:00.0: amdgpu: ring vcn_dec
-uses VM inv eng 1 on hub 1
-[ 1236.871112] amdgpu 0000:04:00.0: amdgpu: ring vcn_enc0 uses VM inv
-eng 4 on hub 1
-[ 1236.871113] amdgpu 0000:04:00.0: amdgpu: ring vcn_enc1 uses VM inv
-eng 5 on hub 1
-[ 1236.871114] amdgpu 0000:04:00.0: amdgpu: ring jpeg_dec uses VM inv
-eng 6 on hub 1
-[ 1237.070116] [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error
-waiting for DMUB idle: status=3D3
-[ 1237.070377] device: 'renderD128': device_add
-[ 1237.070382] PM: Adding info for No Bus:renderD128
-[ 1237.070419] device: 'card0': device_add
-[ 1237.070422] PM: Adding info for No Bus:card0
-[ 1237.070433] device: 'card0-eDP-1': device_add
-[ 1237.070438] PM: Adding info for No Bus:card0-eDP-1
-[ 1237.070442] device: 'i2c-7': device_add
-[ 1237.070444] bus: 'i2c': add device i2c-7
-[ 1237.070446] PM: Adding info for i2c:i2c-7
-[ 1237.070454] device: 'card0-HDMI-A-1': device_add
-[ 1237.070458] PM: Adding info for No Bus:card0-HDMI-A-1
-[ 1237.070467] device: 'card0-DP-1': device_add
-[ 1237.070472] PM: Adding info for No Bus:card0-DP-1
-[ 1237.070475] device: 'i2c-8': device_add
-[ 1237.070476] bus: 'i2c': add device i2c-8
-[ 1237.070481] PM: Adding info for i2c:i2c-8
-[ 1237.070491] device: 'card0-DP-2': device_add
-[ 1237.070494] PM: Adding info for No Bus:card0-DP-2
-[ 1237.070496] device: 'i2c-9': device_add
-[ 1237.070497] bus: 'i2c': add device i2c-9
-[ 1237.070499] PM: Adding info for i2c:i2c-9
-[ 1237.070504] [drm] Initialized amdgpu 3.44.0 20150101 for
-0000:04:00.0 on minor 0
-[ 1237.070509] driver: 'amdgpu': driver_bound: bound to device '0000:04:00.=
-0'
-[ 1237.070517] bus: 'pci': really_probe: bound device 0000:04:00.0 to
-driver amdgpu
-[ 1237.672369] [drm] Register(0) [mmUVD_POWER_STATUS] failed to reach
-value 0x00000001 !=3D 0x00000002
-[ 1237.867388] [drm] Register(0) [mmUVD_RBC_RB_RPTR] failed to reach
-value 0x00000010 !=3D 0x00000000
-[ 1238.062366] [drm] Register(0) [mmUVD_POWER_STATUS] failed to reach
-value 0x00000001 !=3D 0x00000002
-[ 1240.100668] amdgpu 0000:04:00.0: [drm:amdgpu_ib_ring_tests
-[amdgpu]] *ERROR* IB test failed on gfx (-110).
-[ 1240.100808] [drm:process_one_work] *ERROR* ib ring test failed (-110).
+On 4/8/2022 7:19 PM, Paul Menzel wrote:
+> Dear Richard,
+>
+>
+> Thank you for your patch.
+>
+> Am 08.04.22 um 21:05 schrieb Richard Gong:
+>> Active State Power Management (ASPM) feature is enabled since kernel 
+>> 5.14.
+>> There are some AMD GFX cards (such as WX3200 and RX640) that cannot be
+>> used with Intel AlderLake based systems to enable ASPM. Using these GFX
+>
+> Alder Lake
+will correct in the next version.
+>
+>> cards as video/display output, Intel Alder Lake based systems will hang
+>> during suspend/resume.
+>
+> Please reflow for 75 characters per line.
+>
+> Also please mention the exact system you had problems with (also 
+> firmware versions).
+>
+>>
+>> Add extra check to disable ASPM on Intel AlderLake based systems.
+>
+> Is that a problem with Intel Alder Lake or the Dell system? Shouldn’t 
+> ASPM just be disabled for the problematic cards for the Dell system. 
+> You write newer cards worked fine.
 
-Note that I modified the open driver enabling it to go through certain
-failures and also made certain diag messages less ambiguous (see
-http://course.irccity.ru/amdgpu_device.c ). You also can see the full
-transcript at https://linux-hardware.org/?probe=3Dce0316a106&log=3Ddmesg
-although, unfortunately, it is spammed with an unrelated OS problem.
+There is a problem with Dell system (Dell Precision DT workstation), 
+which is based on Intel Alder Lake.
 
-How can one check whether is this GPU able to do its job? At the end I
-made the driver to create all the /dev/dri/ stuff, but yet unsure what
-to do next because the video system produces no image with it. Should
-I run the AMD tools from gpuopen.com? Or try vulkaninfo(1) when =E2=80=9Cmy=
-=E2=80=9D
-amdgpu is active? Do more kernel debugging? Update the BIOS? Note that
-I shouldn=E2=80=99t eventually compromise my standing as a wronged customer
-with bold changes in the computer.
+ASPM works just fine on these GPU's. It's more of an issue with whether 
+the underlying platform supports ASPM or not.
+
+>
+>> Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
+>> Link: 
+>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1885&amp;data=04%7C01%7Crichard.gong%40amd.com%7C6b94ff2249244c04974e08da19bea71b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637850604066094079%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=%2FiF%2Bnwzm5RlClT%2Fv%2B0RJvmVwsc%2FiwV3jCiFq7PB84wM%3D&amp;reserved=0
+>> Signed-off-by: Richard Gong <richard.gong@amd.com>
+>> ---
+>> v2: correct commit description
+>>      move the check from chip family to problematic platform
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/vi.c | 17 ++++++++++++++++-
+>>   1 file changed, 16 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c 
+>> b/drivers/gpu/drm/amd/amdgpu/vi.c
+>> index 039b90cdc3bc..8b4eaf54b23e 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+>> @@ -81,6 +81,10 @@
+>>   #include "mxgpu_vi.h"
+>>   #include "amdgpu_dm.h"
+>>   +#if IS_ENABLED(CONFIG_X86_64)
+>> +#include <asm/intel-family.h>
+>> +#endif
+>> +
+>>   #define ixPCIE_LC_L1_PM_SUBSTATE    0x100100C6
+>>   #define PCIE_LC_L1_PM_SUBSTATE__LC_L1_SUBSTATES_OVERRIDE_EN_MASK 
+>> 0x00000001L
+>>   #define PCIE_LC_L1_PM_SUBSTATE__LC_PCI_PM_L1_2_OVERRIDE_MASK 
+>> 0x00000002L
+>> @@ -1134,13 +1138,24 @@ static void vi_enable_aspm(struct 
+>> amdgpu_device *adev)
+>>           WREG32_PCIE(ixPCIE_LC_CNTL, data);
+>>   }
+>>   +static bool intel_core_apsm_chk(void)
+>
+> aspm
+s/apsm/aspm in the next version
+>
+>> +{
+>> +#if IS_ENABLED(CONFIG_X86_64)
+>> +    struct cpuinfo_x86 *c = &cpu_data(0);
+>> +
+>> +    return (c->x86 == 6 && c->x86_model == INTEL_FAM6_ALDERLAKE);
+>> +#else
+>> +    return false;
+>> +#endif
+>
+> Please do the check in C code and not the preprocessor.
+followed the pattern with other upsteram drivers.
+>
+>> +}
+>> +
+>>   static void vi_program_aspm(struct amdgpu_device *adev)
+>>   {
+>>       u32 data, data1, orig;
+>>       bool bL1SS = false;
+>>       bool bClkReqSupport = true;
+>>   -    if (!amdgpu_device_should_use_aspm(adev))
+>> +    if (!amdgpu_device_should_use_aspm(adev) || intel_core_apsm_chk())
+>>           return;
+>>         if (adev->flags & AMD_IS_APU ||
+>
+>
+> Kind regards,
+>
+> Paul
 
 Regards,
---Incnis Mrsi
+
+Richard
+
