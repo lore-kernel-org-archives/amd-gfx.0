@@ -4,68 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B24F2C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 12:42:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28B8CC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 12:42:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD0F10E484;
-	Mon, 11 Apr 2022 12:42:28 +0000 (UTC)
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43ED810E4D4;
- Mon, 11 Apr 2022 12:42:27 +0000 (UTC)
-Received: by mail-ed1-x52a.google.com with SMTP id c64so6059742edf.11;
- Mon, 11 Apr 2022 05:42:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=R6BFNRU2q1XNxEfGm88CIyqAqlzFNs0kRryqmEb8+MA=;
- b=mbahqTcKWODAb57udTkBykSONqmHLxj1kOIm6IAKEqMWMnv0EUekwdqNL9geZAqrG7
- 30Y2AXxVyXQJ+ThE00kInGYavMpFd4si684CkHdbKXWgUHSw6u+w3AR4xey+YD/e7wpO
- i2e0d43QynDfEh62TKYLCtPb2naWlHGoPzau5W8hXOhU3i8wMxc391GKONlGZGoRU7iz
- LadTQgUZWq+o8oxzA7KJ0RWJKkujKipFrKiG/MBMCtH9aZNL5+e84nmU8pAjW3Vyfv8F
- 8UNx7dYKYEXcbJY93q8qmt/xv44eRZxSL/SoHNHbWBD2hKUF7zuPHzYaz4RGNWH9PLdC
- Pl2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=R6BFNRU2q1XNxEfGm88CIyqAqlzFNs0kRryqmEb8+MA=;
- b=LBBaHArXZa23gvsWt0SqIfETkll0w56DB4XSNFwuhQoF0Q27tNzaNXwIW+JuDUHJ7J
- MMizq0NvGY4Anl645+9CLRX49FVAD9P1D5RK3xaUbxMokF713icksw5ErKp2lqOmfjbI
- cwzoO4sFznzBLIaAVZCkvg6efWWaBBgBrH9QiUq+qbxg1r56Huw6fv6VJhllQZDmQH67
- VPlhyEApBIzuxvlSmS6sWHWThpf1xldsbnxdUJG93+48ql8fruVFYqHWVDFyVD7RbtCr
- 6BeBc3reIVtxknXrUXAPqUAPi4diGeKH7Wuhx6r0OcTjbuHxxMhckQlUvztLC9bV//6V
- dRJw==
-X-Gm-Message-State: AOAM530+H5uXIzGSwekqHkw7zvh9mt00IR8CSWETu/ZdAAImHa/yQ+bM
- HadlamE9S9nr+6Xs/e8FwAWVU2P95Mk=
-X-Google-Smtp-Source: ABdhPJzTBJjuCbQaiLn1At+PIXEVw9RxrGMXa4nMxqgo6zGZW1f7D2ORIm1m2yOHVm1mHkE1Pt/5fw==
-X-Received: by 2002:a05:6402:51d2:b0:41c:e157:84f1 with SMTP id
- r18-20020a05640251d200b0041ce15784f1mr33530772edd.135.1649680945724; 
- Mon, 11 Apr 2022 05:42:25 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1252:fb60:b3e9:56a3:6bb9:f974?
- ([2a02:908:1252:fb60:b3e9:56a3:6bb9:f974])
- by smtp.gmail.com with ESMTPSA id
- l11-20020a509dcb000000b0041cbaf0ce2asm13111184edk.6.2022.04.11.05.42.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Apr 2022 05:42:24 -0700 (PDT)
-Message-ID: <ca280f24-8efe-e972-4a03-700e002cc6f7@gmail.com>
-Date: Mon, 11 Apr 2022 14:42:23 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id B936010E4A6;
+	Mon, 11 Apr 2022 12:42:34 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2072.outbound.protection.outlook.com [40.107.95.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 072B510E52B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 12:42:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KYAQsWltcHda3jj2Zf+er/8UyZjhPmURTEfZ1h7Y+SmMzUgm3WP3Y51qAvBDYsXlybxnbJt+TKuhyqmTWI/CASDrExolUwT19l70hXHNfFtTsBauzw+ZTULITajhjw2nM8YvyMPvsgPzRzveHwGOm2M17BEIKqzFrJN3Tsrhv1qBv79MIfP0P+afFOMa+C2oeEsN2lbmNAMOy/YC8dI/xMBHN6+hDEY3Ul+pzUDoAdPB760gkDRkuythqk7pMfBT1UI39GuiHScEyDN/YBopukmR7+Pl7APxH3fMwz0pU9/QexQM0y4SYN8zwW5uBaRvfMh7eBMIQOvqNLdNIFusaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ukPqwMYf7Vfw/vNKm6zIBJD7QZXlvi6AY+It9vNIgO4=;
+ b=J5a4geMsTAQrDpVY8OyIIJ91jOp1FM0JqDQkiom6YYLxcPLLzyTQEIJEV+P6TmVXCobYYnMSTp2+020y5/LjzcE+aPQCPrOQVjYlxtzgPxnZzLRGpu3LOMIYLY1X8XZXWwJfzVvzsWNPkQosjUviXCxFNLE5m79CvRIyLmEopN4TR29e4QrJJedCz+iBVe2hdWzAnEk09u3KSoNdx26pJXz21y9JLTZ5chXb1FXFFkIncmqiKlsHCtlQxHmNOZGf9wyTdxZVejbKzKbVrpY8TLJ1EqexVEOV8SNVppflpx9S1Ny/vNRyIt83dCZ0t5be5AzLpf7Qod2NU4pROZu2Eg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ukPqwMYf7Vfw/vNKm6zIBJD7QZXlvi6AY+It9vNIgO4=;
+ b=FihdSBY8L9nDAiM+hT9Jl7AOzm81EyggfX1sAnWXqnptC9HUUuHc6ZbV06vsZiepKMKsr1mfsc+a6dSQiWCBe6aMxAYkBDV83n+LshI+8Hp2aJIfbLX0tRd+ZM4gPz+Ai4b53dW0MPKICAYnLaqtnny9r3Ni9HJoN2vkYvcoXlY=
+Received: from DS7PR03CA0268.namprd03.prod.outlook.com (2603:10b6:5:3b3::33)
+ by DM6PR12MB3786.namprd12.prod.outlook.com (2603:10b6:5:14a::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Mon, 11 Apr
+ 2022 12:42:32 +0000
+Received: from DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b3:cafe::58) by DS7PR03CA0268.outlook.office365.com
+ (2603:10b6:5:3b3::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29 via Frontend
+ Transport; Mon, 11 Apr 2022 12:42:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT030.mail.protection.outlook.com (10.13.172.146) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5144.20 via Frontend Transport; Mon, 11 Apr 2022 12:42:31 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 11 Apr
+ 2022 07:42:29 -0500
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Release memory when psp sw_init is failed
+Date: Mon, 11 Apr 2022 20:42:06 +0800
+Message-ID: <20220411124206.1348117-1-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v3] drm: add a check to verify the size alignment
-Content-Language: en-US
-To: Matthew Auld <matthew.auld@intel.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20220411073834.15210-1-Arunpravin.PaneerSelvam@amd.com>
- <9ecac65c-84d9-9965-4fd3-f86ea572bb9d@intel.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <9ecac65c-84d9-9965-4fd3-f86ea572bb9d@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fc910bde-c866-4822-3651-08da1bb8bef3
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3786:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB37868043FD64F27F4E938A92BCEA9@DM6PR12MB3786.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VtQywQkQrFf8jlnw1+gepLVan08BH0dd2r27cNvcDzY2OwQSmUpZxaOmvXLJ4cf3DpIHwDNCW6Yz5hvT6IIbY+pTBHDB/N31YbyIu/D9g/KJeudpctpkBrp8A+MPteIiLbfI6bXXMuuQxPqs7wxNGfohu+l7iIaJmwENaZLiY9tIFQtrPlB9A9bKQvbNT7zvSVdjIjTsJuukq1mxnD3/96EMGzsLr7WaKcAlU6vKC1d9NM4lbdSEtLcBfIQ4cNUPvRD8GUWDtquHUlPN1Uk78aynRjUehYWHu28a4jtPpBSE+QrUAK458eAmUB2ECu56ir6TmHUanoWclWCUm+08TcRArKsEa1GsOBo7Y4k5TxWdzmwaq3FdgPrzxdw1FCpkly26FY3iIF5hO01LIZqC4eMbOjIp6JD9Hepk/Np/UlLgh4AxNabfowP982PF1DhGNW2wyAr1OQjwKvM1chGg5/sy5K21iz5QKJSf70Tbqs8Jdb5D420rInNf6RE0vCxBFAMG/FwWpL2rbyHyL52+KJkbq+AI7FRVDYKHjtZQ8WoKyCAcI7IA0vy6KZAGeJpqqFh1xHhBDWXpG1lD/ZyyxEFMiqJkUnqTNIOfKJSGL55RijFMO9mtE/TroaweydbHBv4mB1XLc5SXHYyc5rhBWc29++OeKzmxDFKPhesQw0SrSVwDroin8wHGPnMGP58gHxqSdmt069AxllECOv0UtA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(70586007)(8936002)(5660300002)(36860700001)(70206006)(47076005)(82310400005)(1076003)(2616005)(16526019)(186003)(26005)(7696005)(336012)(6666004)(426003)(508600001)(36756003)(2906002)(40460700003)(54906003)(86362001)(83380400001)(356005)(4326008)(8676002)(81166007)(6916009)(316002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2022 12:42:31.6951 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc910bde-c866-4822-3651-08da1bb8bef3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3786
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,41 +98,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, daniel@ffwll.ch
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Release the memory (psp->cmd) when psp initialization is
+failed in psp_sw_init
 
-Am 11.04.22 um 11:47 schrieb Matthew Auld:
-> On 11/04/2022 08:38, Arunpravin Paneer Selvam wrote:
->> Add a simple check to reject any size not aligned to the
->> min_page_size.
->>
->> when size is not aligned to min_page_size, driver module
->> should handle in their own way either to round_up() the
->> size value to min_page_size or just to enable WARN_ON().
->>
->> If we dont handle the alignment properly, we may hit the
->> following bug, Unigine Heaven has allocation requests for
->> example required pages are 257 and alignment request is 256.
->> To allocate the left over 1 page, continues the iteration to
->> find the order value which is 0 and when it compares with
->> min_order = 8, triggers the BUG_ON(order < min_order).
->>
->> v2: add more commit description
->> v3: remove WARN_ON()
->>
->> Signed-off-by: Arunpravin Paneer Selvam 
->> <Arunpravin.PaneerSelvam@amd.com>
->> Suggested-by: Matthew Auld <matthew.auld@intel.com>
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
->
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+Change-Id: I2f88b5919142d55dd7d3820a7da94823286db235
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-Question here is who will be pushing that to drm-misc-next? Should I 
-take care of that?
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index a6acec1a6155..1227dc014c80 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -305,9 +305,10 @@ static int psp_sw_init(void *handle)
+ 		ret = psp_init_sriov_microcode(psp);
+ 	else
+ 		ret = psp_init_microcode(psp);
++
+ 	if (ret) {
+ 		DRM_ERROR("Failed to load psp firmware!\n");
+-		return ret;
++		goto failure;
+ 	}
+ 
+ 	adev->psp.xgmi_context.supports_extended_data =
+@@ -339,25 +340,27 @@ static int psp_sw_init(void *handle)
+ 		ret = psp_memory_training_init(psp);
+ 		if (ret) {
+ 			DRM_ERROR("Failed to initialize memory training!\n");
+-			return ret;
++			goto failure;
+ 		}
+ 
+ 		ret = psp_mem_training(psp, PSP_MEM_TRAIN_COLD_BOOT);
+ 		if (ret) {
+ 			DRM_ERROR("Failed to process memory training!\n");
+-			return ret;
++			goto failure;
+ 		}
+ 	}
+ 
+ 	if (adev->ip_versions[MP0_HWIP][0] == IP_VERSION(11, 0, 0) ||
+ 	    adev->ip_versions[MP0_HWIP][0] == IP_VERSION(11, 0, 7)) {
+ 		ret= psp_sysfs_init(adev);
+-		if (ret) {
+-			return ret;
+-		}
++		if (ret)
++			goto failure;
+ 	}
+ 
+ 	return 0;
++failure:
++	kfree(psp->cmd);
++	return ret;
+ }
+ 
+ static int psp_sw_fini(void *handle)
+-- 
+2.25.1
 
-I think it's time that Arun should request push permission for 
-drm-misc-next.
-
-Thanks,
-Christian.
