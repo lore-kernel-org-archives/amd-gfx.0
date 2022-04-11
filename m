@@ -4,57 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C650C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 16:28:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11B8EC433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 16:43:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D680010E3FB;
-	Mon, 11 Apr 2022 16:28:40 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33D0410E9DB
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 16:28:40 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-d6e29fb3d7so17785967fac.7
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 09:28:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=CsfcIVKMTKI5b1Js6xMB9v7uNz7795DyDfRZI3ekOUA=;
- b=KsfW2WjFBRyQOuOq5Vjrw1LG4nc4t3I844z62JhXrCTRnYqfDZjTlaMWAkup1LJxlM
- 6Ml2ose0yf1FFCGrTB9SUXC7hIkC+urVyVcsU7SmehuLnjyUFIr754esovcvr89oHF39
- P+F0xzO9oiM2+XtavlMEtFZeDqHPRR5d6OYD8o/FEnsbMRy5AawNmlPh1qL3JWWD1fHE
- ZbydruQW87Acejgi0R4KpiLtRtfEQsH//ILudC/jLelUQGbeWxLRS/9j1qZDsHA/Ywrh
- twdixJea1PnJQJ5f1iiiaBX8NtxAnbGUmXh7bTmS09LuC4mtRtqYK8KpH5eyv0aExsB6
- 1j3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=CsfcIVKMTKI5b1Js6xMB9v7uNz7795DyDfRZI3ekOUA=;
- b=z83rl/WJ3TCyDho3/HZy3Y8VJpWzMD7reMEXlZD76oiMde6w11GqrZim45faM3hQVr
- gVoERaELgeBl6wlTkSQsEV/+NEumJjlnf89KHL61hGXea0nG1DmtZLwaNAxB2+hVIoML
- rJQVbY+EqCf8U86YO2ieA+mvl+6g+g2y0sc65rddVkuhenSE+vPQEaz4+wzHXeTSP6ze
- luV+FNeVi/cTTREPeotWXkuX59JKpqG36h94jnB9mrqymUq78FKJB6eoH73+/c8clk+K
- ma8rRRbj+ktWyKDZyKrjEFQTcFokEA/DllSOWlngrDug/NZEuKFyWKaTtTwykFFfmZgj
- ODtA==
-X-Gm-Message-State: AOAM533LmdAsohqtXEBRl7QLRlTmI7DwVoD65b3GwvM4MbrNkmtQhveV
- 4Iu+9qk6NknAWaTBIAff7Ks3Mpifs8V26bGS1/F6JyNv+S4=
-X-Google-Smtp-Source: ABdhPJxjVBl8/ZWWwbyVVd7ZzXbrCqA5xmzhCs3ypb90yXlmpVvBxwgSxUkSQyp5agtQMDz2Gl1c43WZRqldd7XWpSI=
-X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
- z3-20020a056870d68300b000deeaa23550mr15153199oap.253.1649694519457; Mon, 11
- Apr 2022 09:28:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A16E910E487;
+	Mon, 11 Apr 2022 16:43:41 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E799B10E487
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 16:43:40 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 32CA4616DA;
+ Mon, 11 Apr 2022 16:43:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14499C385A4;
+ Mon, 11 Apr 2022 16:43:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649695419;
+ bh=tRPzFrKi58iaON1GV7j101ky0tw14bbNXKSh/h7xHs0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=gMN5IJVTiOiTqtw3IXDtQ7okdkb5Cs4BL3aY6sqKhj5NIAHkhFgfKjRt5dk2W13Ob
+ taJPv5icjPAgLUA/FajURaeTgI5wBWQQuKRuBzx21/UiT1idcpalVj9y6VSXOVQw1/
+ 6zv0GSY6UlbIdrkUnhmMMgSOotzJdT+qIXXp4Jh7xd3+Sj7hdMwypzdFba7H4IRLl8
+ cz8MNMJnXTeHC1ovq4BKcEqqD4TFjs+5xMebSlidCl0W4z6vi3y4ggldvkgFJkQSVV
+ 3yUj+qLeNXnrdwA9BBHFblUqbjnzxcSNZzoNmegVZH68ncvI+GopZliH0kAwRXcm76
+ NbTfN2TO5vLcA==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.4 0/2] Fix two instances of -Wstrict-prototypes in drm/amd
+Date: Mon, 11 Apr 2022 09:43:06 -0700
+Message-Id: <20220411164308.2491139-1-nathan@kernel.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <20220411135939.906700-1-yongqiang.sun@amd.com>
- <f06ce5e3-158b-88a8-06f0-53b88c4fad45@molgen.mpg.de>
-In-Reply-To: <f06ce5e3-158b-88a8-06f0-53b88c4fad45@molgen.mpg.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 11 Apr 2022 12:28:28 -0400
-Message-ID: <CADnq5_PSZX+11meHYn9CR3A4LiseGo30TwbkOuPgTQsfbYxmCg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Not request init data for MS_HYPERV with
- vega10
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,81 +49,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jingwen Chen <jingwen.chen2@amd.com>, Yongqiang Sun <yongqiang.sun@amd.com>,
- "Luo, Zhigang" <zhigang.luo@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "monk.liu" <monk.liu@amd.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>, stable@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 11, 2022 at 11:28 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
->
-> Dear Yongqiang,
->
->
-> Thank you for your patch.
->
-> Am 11.04.22 um 15:59 schrieb Yongqiang Sun:
-> > MS_HYPERV with vega10 doesn't have the interface to process
-> > request init data msg.
->
-> Should some Hyper-V folks be added to the reviewers list too?
->
-> > Check hypervisor type to not send the request for MS_HYPERV.
->
-> Please add a blank line between paragraphs.
->
-> > Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 12 ++++++++++--
-> >   1 file changed, 10 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_virt.c
-> > index 933c41f77c92..56b130ec44a9 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> > @@ -23,6 +23,10 @@
-> >
-> >   #include <linux/module.h>
-> >
-> > +#ifdef CONFIG_X86
-> > +#include <asm/hypervisor.h>
-> > +#endif
-> > +
-> >   #include <drm/drm_drv.h>
-> >
-> >   #include "amdgpu.h"
-> > @@ -721,8 +725,12 @@ void amdgpu_detect_virtualization(struct amdgpu_de=
-vice *adev)
-> >                       break;
-> >               case CHIP_VEGA10:
-> >                       soc15_set_virt_ops(adev);
-> > -                     /* send a dummy GPU_INIT_DATA request to host on =
-vega10 */
-> > -                     amdgpu_virt_request_init_data(adev);
-> > +#ifdef CONFIG_X86
-> > +                     /* not send GPU_INIT_DATA with MS_HYPERV*/
-> > +                     if (hypervisor_is_type(X86_HYPER_MS_HYPERV) =3D=
-=3D false)
-> > +#endif
->
-> Why guard everything with CONFIG_X86? (If it=E2=80=99s needed, it should =
-be done
-> in C code.)
+Hi everyone,
 
-X86_HYPER_MS_HYPERV only available on x86.
+These two patches resolve two instances of -Wstrict-prototypes with
+newer versions of clang that are present in 5.4. The main Makefile makes
+this a hard error.
 
-Alex
+The first patch is upstream commit 63617d8b125e ("drm/amdkfd: add
+missing void argument to function kgd2kfd_init"), which showed up in
+5.5.
 
->
-> > +                             /* send a dummy GPU_INIT_DATA request to =
-host on vega10 */
-> > +                             amdgpu_virt_request_init_data(adev);
-> >                       break;
-> >               case CHIP_VEGA20:
-> >               case CHIP_ARCTURUS:
->
->
-> Kind regards,
->
-> Paul
+The second patch has no upstream equivalent, as the code in question was
+removed in commit e392c887df97 ("drm/amdkfd: Use array to probe
+kfd2kgd_calls") upstream, which is part of a larger series that did not
+look reasonable for stable. I opted to just fix the warning in the same
+manner as the prior patch, which is less risky and accomplishes the same
+end result of no warning.
+
+Colin Ian King (1):
+  drm/amdkfd: add missing void argument to function kgd2kfd_init
+
+Nathan Chancellor (1):
+  drm/amdkfd: Fix -Wstrict-prototypes from
+    amdgpu_amdkfd_gfx_10_0_get_functions()
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_module.c            | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+
+base-commit: 2845ff3fd34499603249676495c524a35e795b45
+-- 
+2.35.1
+
