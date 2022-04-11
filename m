@@ -4,90 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C868C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 18:51:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87EE1C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 21:39:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 320E110E9A0;
-	Mon, 11 Apr 2022 18:51:07 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2044.outbound.protection.outlook.com [40.107.236.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8AAA10E053;
- Mon, 11 Apr 2022 18:51:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FFTdoW8F5j/P9T2NkzZTBgX+OS7JgtRO2O8elxLYs2QoSBeN9DxxGfQbRM+YJQ29YF6pYNo05J3sFxQf6+f5zW3qgZ04LZnv8BI8vqofk7S/hizJhrSaYk4whnQ7cgvwd4COWTktbZhCA2xD5X/PpNECULyfff141l3Zp9kkKkqZdybkDrXrCZektf+zPuE5KhZqTMEQcobBebRPr1YGXA6zhPTIU6B/dnioXXIHmuvKlp5Cn2LOAanxs/fm+BY/aqwfLU045kcchUlYh7cDLFbMZHdnRkzWIYTz30czMYWRc3fr+cQzgrKS+7lFIAF4LpkUyOsiq6KVzP++je9M2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MNR41bqIRskitPGO6HlBXHwKS0pJXtfRdm3+52Ad1WE=;
- b=WB4JzpCbmp/E6TGsXjc+QOEk3pqRme1pXmobuww38jC62TQCRgn/+aLIMZUXot3rNEVcGZmGlE7AyBvhVjAFOE0NaNXg2DL5XweI+ME/FqPXXsaLgC/UTTgpDonEYLeuptCxGUiT09FFNqN9XmwSoY7Aj+iOVMYBYJV6VRfMrkfxZMFh3SzmxLKivu9X7nzAWjp2DMz6Qgmq5rERI/YKPrMouXsZrpho/j6VXqMAEbbiJroB1/SxXgDm22Pjkh1NWjXIT7GbN+/yw61E2dzJIqPZD+6zYc7qNlltGk8V5Khh+sTD+LFvghhEKRa6nVQE0QAYe9OFxHoLqYbXOOegKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MNR41bqIRskitPGO6HlBXHwKS0pJXtfRdm3+52Ad1WE=;
- b=ArxTDsEJlultm0kZjVXA/G1qgXQWG33cQ58ZuI4K3LmSBMEuDjpYjRgtcekLAZb39YgFEB/pv43o9sp56czSBkLbBio02tSHpPESKy1OCBW5v6tMRxsgo8INLpA8dIzZFKlNZqmn072LxgiKJ3eQcDw6QcZvfNZixZFnonuLT+A=
-Received: from BN0PR10CA0002.namprd10.prod.outlook.com (2603:10b6:408:143::16)
- by PH7PR12MB5619.namprd12.prod.outlook.com (2603:10b6:510:136::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Mon, 11 Apr
- 2022 18:51:02 +0000
-Received: from BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:143:cafe::60) by BN0PR10CA0002.outlook.office365.com
- (2603:10b6:408:143::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29 via Frontend
- Transport; Mon, 11 Apr 2022 18:51:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT054.mail.protection.outlook.com (10.13.177.102) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5144.20 via Frontend Transport; Mon, 11 Apr 2022 18:51:02 +0000
-Received: from rtg-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 11 Apr
- 2022 13:50:59 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <igt-dev@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [igt-dev] [PATCH i-g-t v2] tests/drm_buddy: Add drm buddy test cases
-Date: Tue, 12 Apr 2022 00:20:42 +0530
-Message-ID: <20220411185042.24338-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3346210E036;
+	Mon, 11 Apr 2022 21:39:48 +0000 (UTC)
+Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
+ [IPv6:2607:f8b0:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A26AE10E036
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 21:39:46 +0000 (UTC)
+Received: by mail-il1-x135.google.com with SMTP id e1so12393486ile.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 14:39:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=0bIfDh535F17EPoR6l5KVLN12GNis9QLPKagtgcgGkE=;
+ b=SgQ/3YNB1kN0GxPiZPAq/vYYGF2quX88cJXLvK61O0qktgWUqzexBpvmRXwI685e0h
+ sCYjv/FyalXq/x7HnZ7qJO9/bAYwJMGao5/F+M/sCaL+caGSi0GKpKWRX+z9opbUDs19
+ WOENx7fvh1CsGuhANOeaqkF6CAbMEPqA1zVpgxvVn2kGSeDO47gXpehKff++4LenwTBD
+ KCjMoO2T/mj6IZXU8QMiNHbzjyS6SxOlEapqSj56rls7dOH6n6IC366VBO/f2kL6j/Sk
+ ZyzQaAboQZcae5s+w1s+aHaZJqOSCaE1tBoNIhWkYYyLrCsSP1h+pHhC2LCg50Q9P3mX
+ h3bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=0bIfDh535F17EPoR6l5KVLN12GNis9QLPKagtgcgGkE=;
+ b=WqFaVVy4sQoK60x0JVuQKxnQPtS4Kn6MorcN1oRXGSZPdGiqM5H4sMPzD6u0UA4Y5F
+ V3VzGk3XK5Up3I1PpUNt9tE6KNeMDw6Sf3xmEffeg67wmuAebA9l+HElLIOT9MQs504r
+ KlxsEYqeGUdGl10/Nwauz7RgYlDXTkTScpqxs0BXqOJWfVLLCblDOqge9HKZtx0xbPfS
+ URUJMZJal5B6FeCOa6q9XT2SiPFpdfJy4tpQ/bmKSK90EMlLw5uXoeiuZcQ43vc5QEJa
+ WKQou3zFVOQRjMlyl500rlSPeJ2ZGc8/DHNjQ2Vj0v0xh2R1+csmR3VvwfPRgxF8qbIu
+ DcFg==
+X-Gm-Message-State: AOAM533qNOPcwQONiPfJLFILnHhbPIYtQklJsVzpQHiXTyinl3ZefZUY
+ ox/a0P6ilSkARNL5wV5A6j9oCJkIQzict2xmoMr5jw9OwHg=
+X-Google-Smtp-Source: ABdhPJwlrkj0YpWsktKWwnorvs01dELgX1Cv+LFfm/SP0x9rUs+OHuJzIOIFeG8UcS6DI7ShnhwJiXp6A7AtPzCmLDI=
+X-Received: by 2002:a92:602:0:b0:2ca:480a:c19d with SMTP id
+ x2-20020a920602000000b002ca480ac19dmr14692148ilg.223.1649713185333; Mon, 11
+ Apr 2022 14:39:45 -0700 (PDT)
 MIME-Version: 1.0
+From: James Dutton <james.dutton@gmail.com>
+Date: Mon, 11 Apr 2022 22:39:09 +0100
+Message-ID: <CAAMvbhF-mcZd+mfSUVpYShvKmFiQ6pb+j2eosBr-kvsxE+202g@mail.gmail.com>
+Subject: Vega 56 failing to process EDID from VR Headset
+To: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7317f60e-3d6e-4d0a-b428-08da1bec39c2
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5619:EE_
-X-Microsoft-Antispam-PRVS: <PH7PR12MB56190B0BA81B7FDC46E5609FE4EA9@PH7PR12MB5619.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qpxcJAV6gsPaycz4ACwdsT2B5zV9H2wbmfBcaLm0zKlK7S2T4TjAbFgBM9Mu2hCD6e8J+JqHuKP6J9TTle23mp8uLdR8aJEr76hSxU/YaSZt0QJdhnNlsyEaV0vZFlp5aYyFDrhMLOw0SpYLZViQhJzaL+F+dETq12RqOZ1Hr9sdyFI0RT5T303Gah++DdyjUYA44cMvMcqagCfv+AbObki6Q/ypE3dm0/b4jiN6ASbKKONxGUeHiv/fu6AI8HpwhKje3VK3HjRkJfyxTjO2FB3dMutaoTHpk2bCY76//gAB8x9I4l3zfUNbgA8zkTYaIUQ2E/9usETDGx0ulMgBZIhAIahx6ufqLv37WIAj2yXJeL0ntwY3WR/SUNwaMzQvg/MUAr09aRXwiYqTNFSpo+UXVXIMZqucvUi9+TOqZvhMetl8j7FU6QojPom4hs9uXlztfrAzoSI0qu1G6haGL7rQDzVG1mFn9sh5E6vQBTQy8LgeA1y0Kvmr+dDbDOoJUUZwsTxztgr0GSAk/CeNewAhT0I1j5A6UF8ECw9wtFFkeEils2GaZi+NkCjpN6WYXO/XoMdDiMVIb/sjqwcdp2Bj0aoXdWbm30q3p5QV/rx/f+iI5LCXHDvaZr9chk2+YOXcvCI8L//0waNwZRXgXmXFxecPLhu2njqo2qQJYy9rR7I3U/guG3zJ4T6lE0TtdUXspQ+mkmpuCw+IfhHNOg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(8676002)(5660300002)(70586007)(82310400005)(110136005)(7696005)(36756003)(8936002)(40460700003)(2906002)(81166007)(356005)(316002)(336012)(70206006)(2616005)(4326008)(54906003)(1076003)(36860700001)(6666004)(83380400001)(26005)(47076005)(86362001)(186003)(16526019)(508600001)(426003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2022 18:51:02.1014 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7317f60e-3d6e-4d0a-b428-08da1bec39c2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5619
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,57 +58,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- matthew.auld@intel.com, daniel@ffwll.ch, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a set of drm buddy test cases to validate the
-drm/drm_buddy.c memory allocator.
+Hi,
 
-v2: sorted in alphabetical order
+I have an Oculus Rift S, that I am trying to get working in Linux.
+I have an AMD Vega 56  graphics card.
 
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
----
- tests/drm_buddy.c | 14 ++++++++++++++
- tests/meson.build |  1 +
- 2 files changed, 15 insertions(+)
- create mode 100644 tests/drm_buddy.c
+The VR headset plugs into a display port of the Vega56.
+The amdgpu driver sees the connection, and tries to process it.
+The problem is it cannot process the EDID, so fails to recognise the
+VR headset, and the VR headset does not work as a result.
+Please find the EDID below.
+I am guessing that the following is causing the problem:
+Established Timings I & II: none
+Standard Timings: none
+Forcing the driver to understand the Detailed mode, to which it is failing.
+If it helps, when attached to windows 10, it uses 1440x2560, portrait mode.
+Some dmesg lines that may be useful:
+// We should pick 1440x2560 as Windows picks that, but for some reason
+is rejects it with error 10.
+[10402.650734] [drm:create_validate_stream_for_sink [amdgpu]] Mode
+1440x2560 (clk 571570) failed DC validation with error 10 (No DP link
+bandwidth)
+[10402.650991] [drm:update_stream_scaling_settings [amdgpu]]
+Destination Rectangle x:0  y:0  width:1440  height:2560
+[10402.651225] [drm:create_validate_stream_for_sink [amdgpu]] Mode
+1440x2560 (clk 571570) failed DC validation with error 10 (No DP link
+bandwidth)
 
-diff --git a/tests/drm_buddy.c b/tests/drm_buddy.c
-new file mode 100644
-index 00000000..06876e0c
---- /dev/null
-+++ b/tests/drm_buddy.c
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2019 Intel Corporation
-+ */
-+
-+#include "igt.h"
-+#include "igt_kmod.h"
-+
-+IGT_TEST_DESCRIPTION("Basic sanity check of DRM's buddy allocator (struct drm_buddy)");
-+
-+igt_main
-+{
-+	igt_kselftests("test-drm_buddy", NULL, NULL, NULL);
-+}
-diff --git a/tests/meson.build b/tests/meson.build
-index b0eab3d6..7261e9aa 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -8,6 +8,7 @@ test_progs = [
- 	'debugfs_test',
- 	'dmabuf',
- 	'device_reset',
-+	'drm_buddy',
- 	'drm_import_export',
- 	'drm_mm',
- 	'drm_read',
--- 
-2.25.1
 
+Can anyone help give me with some pointers as to how to get the amdgpu
+driver to accept this EDID?
+
+edid-decode (hex):
+
+00 ff ff ff ff ff ff 00 3e d2 12 00 00 00 00 00
+01 1d 01 04 a5 00 00 00 0e 00 00 00 00 00 00 00
+00 00 00 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 45 df a0 38 51 00 ee a5 d2 0c
+f1 0c 00 00 00 00 00 10 00 00 00 ff 00 31 57 4d
+47 48 35 32 30 47 41 39 35 32 00 00 00 fc 00 52
+69 66 74 20 53 0a 20 20 20 20 20 20 00 00 00 10
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 33
+
+----------------
+
+EDID version: 1.4
+Manufacturer: OVR Model 18 Serial Number 0
+Made in week 1 of 2019
+Digital display
+8 bits per primary color channel
+DisplayPort interface
+Image size is variable
+Gamma: 1.00
+Supported color formats: RGB 4:4:4, YCrCb 4:4:4
+Default (sRGB) color space is primary color space
+First detailed timing includes the native pixel format and preferred
+refresh rate
+Color Characteristics
+  Red:   0.0000, 0.0000
+  Green: 0.0000, 0.0000
+  Blue:  0.0000, 0.0000
+  White: 0.0000, 0.0000
+Established Timings I & II: none
+Standard Timings: none
+Detailed mode: Clock 571.570 MHz, digital composite
+               1440 1650 1662 1752 (210  12  90)
+               2560 2623 2624 4078 ( 63   1 1454)
+               -hsync
+               VertFreq: 80.000 Hz, HorFreq: 326.239 kHz
+Display Product Serial Number: 1WMGH520GA952
+Display Product Name: Rift S
+Dummy Descriptor
+Checksum: 0x33
