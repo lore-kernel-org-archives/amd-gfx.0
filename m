@@ -4,122 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5001C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 11:11:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E858FC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 11:39:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D388710E384;
-	Mon, 11 Apr 2022 11:11:46 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2050.outbound.protection.outlook.com [40.107.102.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4229010E354;
- Mon, 11 Apr 2022 11:11:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7048C10E35B;
+	Mon, 11 Apr 2022 11:39:06 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061.outbound.protection.outlook.com [40.107.92.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 567BE10E352;
+ Mon, 11 Apr 2022 11:39:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P1kjP0O9zZR9s4Q5plZljZ+oSaaN0XfcJYnCMLoWO6SO5tkOZQ4pQo23DkOnkAp7dq9kZpaCEwjhzwy6zan8g0uKH5QXG1wRt20jC+ewfi7Og3kfOm0RMCWRQ5ZBWTYqELMjKDpgGsJsM/w4gqBrRdAg2EoRlLJtlC9SDLKQzLb738cJP0QAtaQYZxLBUs9lDRkHvxWHiq9KBaMnR98tPGL3qHGrfV51IY+7UKIgXgoSK+sliC7wIEKJFOdO8kqr8kG8bpbvHbtTN3ML4SAmjSSNdCkOVr6uG1fcn6AqBA742CWo0yd9eurzAK+yqkkV6VsBl43a101yYw7Y+CytNw==
+ b=cfalJG0WMTKsfGyXhg6uplgr5n5j5v7HrSJixNsMx4Yg3AmBTna9h67pQJO/eXkP71wrhMaGvSa4Q5thgBovtK8xLhxn4HpbrPXT7gn8twuxkU4SseJJMRt/NcGkRvDAqU+ixUU4b0S5ZS3z8iACwy75zmD07oMHL96j9u/Q5fRn77khFNj2uW8PhQzk9dszZ7ugYsA35CCzzCHQKj3QjJrjIJ6MyecnL8GPU03zbiG8RQDWu7RgHPMtv9EZZIanOdX1CdtcEdP1tapTSYL9mvOLBLYdFefPTFmYVd8yvVw76xFf2cKfdWIqWvTDLOiZAOi2m3bBdZOQI+dkezJh/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7oZZjbFQB8W6ZvzAqpszRz4W73EpjWLsCs7ERX8p2jk=;
- b=S8yj04t0K900JgaWf3Awfkfo/+uyifxcOiXkN6ULznkt5XSYWLRRoOQ2FSwYqRNf+BGW4PTujTYFz/xNttyv7MYywVUuRJtNCXrGmeqQL2d+RLFyfiPZlQmDbb0KIaNRP4XiaLqEeyN0MjxoQxqH40jG9MGSts8HE5rd0jaVCpKa9pW1nDxq2dEtylGxZoRV5pNhWPRYxmFxXrvSjATHXC0j4cyUKqLd9XWMBd0pFgbcouL/Uwsrudhk+mk5RTHUs60viZfYJ3yx50IplauTPwectrkFcxft/uTiae8poHQDsGC9t5htoQmlP0CA2lpjSve6agjJcCYhHtYe1bHp6A==
+ bh=tp73sOTOUFztA4heLMym96GYu+3DLmyT78gAw49ACPw=;
+ b=RSeWnysbeyBtVz8MPPwtjZZ6NyTejxRGzojlamjqLprtqUmMo+7Wcaef+KJURst0ERAIJCnGj9wNuEOJwDYSUoGZlCN2MAkoz6phkoqirH2/z7OXN8q3AATVKJF3FOHk/xJ9E8BRbTiowxwpUNcBRwTiaSof2gX60qB8iH3fXUZbb+hF3X6atBNo37RxUe1mVrpkXvWRzKC1dn+OpndDsGUhFG1bMRkRfdKPmX333lA3l5UuxrHVqXwIY2eXYlTTYooC+KQpNqYWTs01/4Evxhgeve3gO5icAOAObiUyBxVhwQeeOTyVnu78iQXlpvQyVqnPpRWjNsNjk8HYqSqmWg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7oZZjbFQB8W6ZvzAqpszRz4W73EpjWLsCs7ERX8p2jk=;
- b=dmjafpFvObapVOpRmsG7PRh/a0u9HKpLx84hWT17snTgf77/6TyViy2uLd17/qleM0bVby5wam313lzu1ZYWU8zKHoxZw1NvfYijchVJOSDcK3PHbQ5kIssCEUGjZswVZti3GNe/1Xd9IUXZCFK11aFCRy4i1am27wp4DzkbwCI=
+ bh=tp73sOTOUFztA4heLMym96GYu+3DLmyT78gAw49ACPw=;
+ b=bLs3bh36bKr455SM5JEeXkKthEmAkk5fFPPOxJiYVl440UqlBcVDat+re2LQ0Rbtniu6qDtmqv52gAaMQPoEls8NIIu5Wp20Ag/fa4L+RdX2kjH37tC4W9ECdMRAh6jwuD1FTIAdmOAKFwfAgenjFNHarOeQFoemHDagn7b82Mk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB4526.namprd12.prod.outlook.com (2603:10b6:806:98::23)
- by DM6PR12MB4500.namprd12.prod.outlook.com (2603:10b6:5:28f::13) with
+ by DM6PR12MB3564.namprd12.prod.outlook.com (2603:10b6:5:11d::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Mon, 11 Apr
- 2022 11:11:43 +0000
+ 2022 11:39:02 +0000
 Received: from SA0PR12MB4526.namprd12.prod.outlook.com
  ([fe80::7ceb:a37c:cd60:9d5f]) by SA0PR12MB4526.namprd12.prod.outlook.com
  ([fe80::7ceb:a37c:cd60:9d5f%7]) with mapi id 15.20.5144.029; Mon, 11 Apr 2022
- 11:11:42 +0000
-Message-ID: <7775829f-b612-19dd-277b-aed2e9cca991@amd.com>
-Date: Mon, 11 Apr 2022 06:11:39 -0500
+ 11:39:02 +0000
+Message-ID: <192375d0-85ac-ced0-43d6-e5ea4e3c0fae@amd.com>
+Date: Mon, 11 Apr 2022 06:38:57 -0500
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.2.0
 Subject: Re: [PATCHv2] drm/amdgpu: disable ASPM on Intel AlderLake based
  systems
 Content-Language: en-US
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, xinhui.pan@amd.com, airlied@linux.ie,
- daniel@ffwll.ch
+To: Paul Menzel <pmenzel@molgen.mpg.de>
 References: <20220408190502.4103670-1-richard.gong@amd.com>
- <2c1e5bf0-6952-12c3-6e6f-62cb44fe1490@amd.com>
+ <44354d78-b340-fbc4-fd6c-060d7ad3404e@molgen.mpg.de>
+ <45ea5705-71d6-4008-f094-1aa902e5cc41@amd.com>
+ <0d0a3f0f-f021-ccc2-a80a-f789cb53a47b@molgen.mpg.de>
 From: "Gong, Richard" <richard.gong@amd.com>
-In-Reply-To: <2c1e5bf0-6952-12c3-6e6f-62cb44fe1490@amd.com>
+In-Reply-To: <0d0a3f0f-f021-ccc2-a80a-f789cb53a47b@molgen.mpg.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH2PR18CA0055.namprd18.prod.outlook.com
- (2603:10b6:610:55::35) To SA0PR12MB4526.namprd12.prod.outlook.com
+X-ClientProxiedBy: CH0PR04CA0093.namprd04.prod.outlook.com
+ (2603:10b6:610:75::8) To SA0PR12MB4526.namprd12.prod.outlook.com
  (2603:10b6:806:98::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2544e1cb-5a5e-4ec7-f269-08da1bac0f06
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4500:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4500ADBD61653B5FF9CBE2ED95EA9@DM6PR12MB4500.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 67ffcb58-2705-49d7-f5b5-08da1bafe00a
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3564:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3564446AEB399A99CF12402D95EA9@DM6PR12MB3564.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dBXCWbtpeIbSbKpAdQE3vkS70UAY5oA8oWjrfN1Nc0AkNDXSEtjCdw+v+G0B5CNWFYhaJNyCy29/noMHc1KXR7ZIwVqAej909rDtkwuUJZL4eN0Mmn3IhvpStNMexySNQ4jCTb1CDisut7wrF9a/58U6YSERoKyMwyR4sSJpF3dDCnFT2or66fDuC89EjVY03yDoMX0BS8ku8ePtWB4f8vQZ5gJNZQ/629GYdRIMmq2CeAqvXfS6YQbf7j0TDk6+Qp91lmvgSjdCyr2fAbgTnPGgi0BdiTigJ4p1tGQDJAxt1rgUyk9UMuydJ4/qBiKrPk3q9nY7uOBex1FBkBMSCCroCPYaL/4uReH/txPl3ztUTdWIFmexZ4EHi5J0n4SIsmG8AiU8e1NMFNr5wMR7zAkXicoPYaYBrNzJKh47Oo4FIxORVnp849cfWZXsiYfdSwzr9WIlMkHsul3q9LpbP/CkPZPijE0v4UItB0u+65mEI2QzCZbqvE/dP/MEhrVrYM/6gKbYBVUQ4IThTxq5qKjDOnGn7DZENUaLOnd6DKz3zKoebS4xfz2Ihc4NfZhmxanTxLof0bly9BMQx9COlZfr2nTreWzSGdgRWxKiJso4WfRSCs/Zu+DCuPYvfe+oBOcqShZYLiJDJU+vEHF72CyIblSQ351XB+XQ7zOWr89uINMz5vp5QEWNpHoxaWdzUNOGB47ZJZHzHIstH16aVc49FxAx2CGR0+PGAegtYyM=
+X-Microsoft-Antispam-Message-Info: 23E3FvOahz0r1MqH22MoHdIZKVifOwbRjaXTOw07j6GRGGg9b/Y290OscxiycIoEQSUkjUFTPAnDgO5HbLLVyDQ8VermY4r9mjV8JbWrkcerWLB856YW8Sa5/tHBtpbf7KKorO/6+K8Hcf9SwhWVpPoku5lzSYKLKQXNoCnvzFZQWZ/fi2BwRRMY1gyjVWKpeb/L9E5nimz9Q72jSqB7ZKHpjRej4SiJ1FrIZFUFjgSeaacjYKMaHjb09BgNeGwfoNcLaQbg9DfV3IOyUtUXmdZuTSsSmsjpWHgXicvg0lqoOvhNO0mxhrcqGi4NUP+Z+b8rVjbzB1aDe/y3kDtOGBiEqhw8moI9fdw/b/NZZX1N+Z6dRE3qKQRcTEFFxW7FwZjEByrKZe15W1pqokswabnpDSjOvWhgQcANYFC57XBzVIxNbkJbuGfaHd8Zh2u2QEtB1lHEOAmMFUp+Zg6fXQg5HRg2djHIjsBJU0VwBuFXe3Ff0IuY/6I144VA4nP1h0N0gtUBb/Me6zwX4rhTiPa8Be5wf52azm0ZONKebu6VpxzdpwYMX2icbx2Th3SNeMc0KLjHV6j4EBDIDXi5GDENtGY9Ic5XcDVDHC5EZ09+q1mx20z7ZZw5CYP0E2xFfL5zEmzdALpBeL2lZwbOGSyWafkBufVP0o2kubZ6j3ucAizXV5mN0sdhy3d5PadWHP4uSLQu64T7AymNTj92JFxVwHWRw3nGR4j41G/HzvBqFhqYdrxlL+gV5ihmLte+
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB4526.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(36756003)(31686004)(2906002)(26005)(186003)(2616005)(66946007)(66556008)(6486002)(38100700002)(66476007)(6512007)(8936002)(5660300002)(508600001)(4326008)(8676002)(6506007)(83380400001)(86362001)(316002)(6666004)(31696002)(53546011)(966005)(45980500001)(43740500002);
+ SFS:(13230001)(4636009)(366004)(31696002)(86362001)(36756003)(8676002)(38100700002)(316002)(66556008)(66946007)(66476007)(6486002)(966005)(4326008)(6916009)(8936002)(5660300002)(2906002)(26005)(186003)(83380400001)(508600001)(6666004)(2616005)(31686004)(53546011)(6512007)(6506007)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Sm9TbGRoSk02Rk4vaVdad3pxWXBwTlZaZ1hsTUZEREtKS1c2RUZPL09GMFdr?=
- =?utf-8?B?aFJhV2ZvdHZwUm90SmNrbzZXY2tsZHhYM3ZxTW0reHdGUkJLdk02YXVTYnFv?=
- =?utf-8?B?NldUdGtHVm9VSlQ0MlptYUF3RENyd0EzV0cwT2V1akNRNlMzSE1BUStUL28w?=
- =?utf-8?B?VWJvdmR6RW9aVThhcGIwakk1blpZaFI5S0g4THF4NmNWUFQxeFcyNit3WW1J?=
- =?utf-8?B?RW9sN2xXNkZ3d09HajR0bGdQbmdNMEFWTlNhTzZJaUFMUGFUN1FadERnNnNH?=
- =?utf-8?B?bUdsemVvM0FSZTRCUHR6bVMvUDZIU011MnQwanMzQWcxUS90MTBCeGM0OGRw?=
- =?utf-8?B?V3dVdmloWTZnVnZUc2FYL1lnaEYrSC9UMjA4RjJjei9ITkFIUE13eTFMTkFh?=
- =?utf-8?B?TU1lZW92RUpET0NOMExNeXFKbHFIKy9IajRSbUxKZlNyUjhoU0tXb0JmRnpW?=
- =?utf-8?B?OGRabFZGcjltVTlBb1h6UGM3a05tTnBZYTRUVldpQmZjLzlCUGlNMHh5L3NN?=
- =?utf-8?B?SjV2cXVnWjlCV2NXbHdkWUsrTEVZUFN1U3hLUXlNWHBmRUNhemZXbzdUZWxN?=
- =?utf-8?B?OWNWM2k3R0cwc3ZKa09KSWpMOEZ0UGZxMjVscXQvK2w3TnhLK0RqeXM0Mndo?=
- =?utf-8?B?ekVtRkRyS0tTaldrb0ZjNUdJODVZRWtSN0pzQkk1T1VJVWhldjlsdEgyWmFP?=
- =?utf-8?B?Wm5ibGZYaUFybWI5OWlQQ1IwTk1zcklsUjA2dXJiUHd0ajNpUjNCbFBjdUl0?=
- =?utf-8?B?ZVFWVFI5TWpJYWVtM3hBNXdQa3JVRUJKNUhQVDBYeTJaYUVRVGlDU1NRd2J5?=
- =?utf-8?B?VTdqTHNibXdlTUhUanhRVDB4OHpMdEpKckF4WjZsVCtZa2cvUVVZeUJEZ3hh?=
- =?utf-8?B?L1N0RlVTRGtQaFgvQ01zclZqV0l6UjdNNndIOWJXTjlKNFpLQVI3UkNOeno4?=
- =?utf-8?B?Q0Q2RVlHdWJsZTdDSmVpZVdwTnhhWGFVYWxMTnVGTDlYdFlwUmVOaWlhaGh0?=
- =?utf-8?B?QkNqaHFMZ215Z0dHMWF1NldHWE5SZHk4UUtWNGl5VzRlaktyRWxXaDErVnhK?=
- =?utf-8?B?TjVkVkp5ajBMcHJud0owMjNPSGI1U2gwbWpwb2NRQ1NoeXBZK1NGb25sTmt3?=
- =?utf-8?B?cjRKVlk5Zi9qOHNEZTRnN0ZjRkM1SEZaaWJNMGtnRVZNU0M2aVNHbGZiRHlR?=
- =?utf-8?B?L3Qvb3V0enFJVm9LcWFEQnZ2ZThYdE81QnFoQ0liSzl0a2ZBeTR2VkVCc1FG?=
- =?utf-8?B?c3NXMzdjYzl3czJMUlJBd0NUdFl4azYwY1VycE9ubko2U1hscXFrWTdyVG9x?=
- =?utf-8?B?TnFvNXVoY0p4TGxMdXZDaDA2dEtSODNTeDVWMktKUEs1d2RaeDdXdFY3RHJF?=
- =?utf-8?B?cVpHZEdMeVdILzNjdG1CZUVlY3YyTklkQ1VpK0ZycFpqV014Y0IvdHIwYm55?=
- =?utf-8?B?aHk3OVd1WHhENWFhdWZjalF6b2ZKSlo4b0J2RnZ6WFV4REJqN3J5T3hxMFBH?=
- =?utf-8?B?SmltZDZva1R0enJPOGRtODIzVEhQOFQ3Z0QrU2R4VnZzaVlCSTE0RDFtQUxr?=
- =?utf-8?B?ZmN0bDAxTWFHL2NEZVQ1cVVlWmJlWmQwQURER3JObm4xZXRLZ2J2REp2R2Zp?=
- =?utf-8?B?RE5QazRaZFMrelRiclJxeVVTVGpaRGhQZGZ5Q3RpZncyZ3QxMkd1QjlGVVJH?=
- =?utf-8?B?Ri83b00zM1ZVL2l0c29qbGNTdTRvOG43T200YWZjblJrN043R0ZiNkdUTDdn?=
- =?utf-8?B?SDlHWXJmb3BLRFlrVzRiOWJnUEU4bnpaZm9iY1dodXl6SDNSNWsrR096RzVs?=
- =?utf-8?B?WmhQZlJFbzRVd2Z6NlBUc29FWE4zRmpWcG00dnJlSGo3UEV6VGsyelpsY3Y3?=
- =?utf-8?B?TS9Qd1VhZ2syNWtSMVQ4b3VOam9xS0djK0xpQlF6OW5UUHVSS2dGYU9NYXpY?=
- =?utf-8?B?N2ZsWjVzVDhQbHlYTk9DKy9ibGtIUkQ1NlBTOTRrZjZpQ1JWZTFwRnFzNDJE?=
- =?utf-8?B?L211R1VJdGYzd0R6dkxQYXFVQ0FIUXhPL2FwdkdPNkE0R1FzT0ZhRHM2Y2xN?=
- =?utf-8?B?alJvU29tWDJRaWdpMEh5L09NQXdvdnExRFIrd3l0blJZSWtUd2I1eVlRU2Rp?=
- =?utf-8?B?OTNnbTFqeW9FeWgzVzZUcm9NNVlPaCtPMFl6aXdMWjNhVk1XWkNkazRUVG04?=
- =?utf-8?B?ZkFRUWpKRHZrMGE2VDF1cERuTUF2RFpwbStxSTUxOTQrL0hTcmFoSCtiUzlI?=
- =?utf-8?B?QTZZMGJBTVN1UUZnSjgrb3E5SCt6UURqZmg5WGdqM3U1QXRGVVRlVVZmbzhJ?=
- =?utf-8?B?S1F1ZmV4N3dnZjdYd2pnUmVoazQwNThrZ2pTekFkUWtJVzQxRkg3QT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZlNoU3A1VGRWc3NzeDBkOGdDenJmaUNOZUZ4YWR6L3ZuQnB6a3dIbE1RdEJn?=
+ =?utf-8?B?OE5qM0pNeFZiQXdHenBRRjFmSHlVU0tSVi9yTUdCeThmTFRyZTF1KzdsM2pG?=
+ =?utf-8?B?cjI4RVZuMDFQeEM5MUJ2bUQ1T0xjczB0OUdXVUs3eUoxelIrbGxxeFd6c1o4?=
+ =?utf-8?B?a0haUWw2ZlIxTnhPVmNRWFlCMHVNYkZvR01mUE9RTDhUSklrQ2d5czkvOFRr?=
+ =?utf-8?B?T09aSGhCaEZ4OU5BVFo2T3ZrUUtlVEZWNE8rMTBrUno2Nlh6cTYzQlBFU0Ey?=
+ =?utf-8?B?bmF2dXB5OUV6ZnlKOW9JcVpoUHBUYnhTbGJ3TUhFWVU5c05yYTVkUVF6OCtW?=
+ =?utf-8?B?Kzd3UjJxbXArV0lacWtCVlkySkhldXdNNStaV1VnS3E5M2JjdmhKNjVJVWx0?=
+ =?utf-8?B?V0FVRE9JU1FEZWVMTTJCdlU5WHJuR3dONEdyR25OUFE0V2FVNDdpOFBIcm82?=
+ =?utf-8?B?T1BRTm00VnV5eU9LdmIvMG9PRjRrVU9ZcEZRNStnQWtOVUFJL3RZbmNjRjJU?=
+ =?utf-8?B?NnlTUkhQWTJOUHlrSFFUT21tR0xIMjVWZjVJZER3RlFBeXppSVJoMnI3NHc0?=
+ =?utf-8?B?V01PMHNmVVNZNXE4WGQ1TS9VM29HNmVubG9zZ0tiWE1LOFNDaVp5ZmF2L3kz?=
+ =?utf-8?B?SVVYY2duOUk3NGJCSnRBZWcwTjc1aXY4c0dqMStUbjFxQzlFd1o0WW9UaWFp?=
+ =?utf-8?B?VWlhUE01NzZBejg0cHlhSnQ3eEJLVWVjWDIxcXR4V3JFVzViRnVSQ1g5UXFC?=
+ =?utf-8?B?WnBuN0tEKzNRSDVHeDJzTERGS0VnMFlSOEM4YXpFNy82QlVOOHgweTNMZ0Nj?=
+ =?utf-8?B?c1ZtSjRXdVVXUjBlU1FlNUp0ZjZMTmY5MW91eXhUenFRVlRWUlIyRlVkVkhM?=
+ =?utf-8?B?OXhzMFpUZE12Rlh1QUpBOHFRMjVLbmFoNVJaN0tORGhXYThUZ0NlbysyZmlr?=
+ =?utf-8?B?QnNVTzBzZ0tTaFExaVptUWNSVlBnZmRQRGk0cnlDbm5vRXhYT2wvMTQrNGYy?=
+ =?utf-8?B?WWtCMm9oNzV3d0NyZDJQSENNTGtWN0tNL2Zqa2NxcEFsYXFDZVFobVBZTWhG?=
+ =?utf-8?B?Yk12SVYyd3MzMGd0NzJyaGhCQnRPN3VGckJ6SHk5TWN4MkpnaUEzbjY5TDhC?=
+ =?utf-8?B?SHVTVVlJb1JRUURkUWc4cEhTaG1zWTg3RitjRkVSQ3NrS05KMkZKM3NpMmpW?=
+ =?utf-8?B?d3h0SEFYalR0NVltOGJGUU9TdllsMkVmcWtWYTltazY2Z3dmaWZJN1Z1ejZm?=
+ =?utf-8?B?RlJTMFNaekduMVczKzFBN1pIQVRqdGY5M250V2Z3K202Q2IrZ0Z0MHdWTXJw?=
+ =?utf-8?B?VjF5Z1Y5YW1sU2oyRE0rdUtHV3NSOXVTT0Jrbmx4ekE2MDdIR0ZmdGdpajg5?=
+ =?utf-8?B?VTU2aXJiMmlJak5ZeVRVazBOUTlMd0VmMWFvYzlqdE03eU1YanlBT1Rocm5N?=
+ =?utf-8?B?NTRtTmlkOEQwMjRzNEFuZnZZYm1XWDRKVzcwUHRmYVNPd2xDMXdvQVR3REp5?=
+ =?utf-8?B?TTl6TXhJSndLMjNTS2FCMWpTcnRLMXREWG9kc3V4NUFhdHdVMFEwb1ArK1dY?=
+ =?utf-8?B?QmpWSXlqaklUNmpFS0VUTjhWQzRSTDNibUFCV0JlbGNTWnBZQzZFdVlWSS9S?=
+ =?utf-8?B?dVAxeEpUaXFDSWlIWWJPZHcyaU4yWFF0SWpUdXNyNE41WkJ6M1llN2U0Y0sr?=
+ =?utf-8?B?dFMxQ1JXZGhyUlZOWC9KdmVUTCtLRDRjY0JqTEI5U2xFNmx2T0xTMGRoTGVv?=
+ =?utf-8?B?ekVsMzduR3B2VWNDdHFSRi8rdmw3SGV0djIxT3NTWHJxdHdMTFplQTg3d1Fv?=
+ =?utf-8?B?elJkbkhnQVRpWnJOR1RVTTBSRnFualVhNENCNnFzUnp1Z3hQUkRXMzFVQnhq?=
+ =?utf-8?B?SVRheW9oalVmU2tsL3pJaDVyOUF6bnppMmN4ejJNZytHcUpKRnFhcDRsSWgv?=
+ =?utf-8?B?M3U1bDVpMjhQOENibVA4dlIzdmJndTc5YWc0bzhJRFpHanU3ZjdxSy9TY3Zm?=
+ =?utf-8?B?bndHOWREZ2xYL0VRUEZsV250QnFEbldIcmJGZjJrcmJzcS81WURPOUdMcXdV?=
+ =?utf-8?B?VVFDSkQyR2pmSHhudDR1Q0VoNW03RFVQZ3RtSnVwSElua2ZjbktJNmhDVGxD?=
+ =?utf-8?B?bU96d3pCTTI5V3lSaGJ2K1hoU1VEaTJ6bGZzb0lpMlpWQUhVeHdUUjdOcFlU?=
+ =?utf-8?B?b1BUVkxPS2pkRGYva2EzejNlT09IWEp0Snk5bityWEFIZmduQ1Uwa2NKenJZ?=
+ =?utf-8?B?R2w5V1lHRGxwcDR6N0pVM0x2SkptUzhIN1BKdys5ZzZOb200YVl1eElkbWFQ?=
+ =?utf-8?B?ZkpDeHFya2x1SG1wMDA3ZkNWWEJLRDlnUDdBNXlLZU5tQ3ZtVGFCdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2544e1cb-5a5e-4ec7-f269-08da1bac0f06
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67ffcb58-2705-49d7-f5b5-08da1bafe00a
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4526.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2022 11:11:42.8190 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2022 11:39:02.0123 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zevk86Bul4qy7vWDblNey4ZCDh0eDHCjIr7NMa4FShXR26uUbXbg7CAwo191TuQNX6n7JxzvBsN125otkU51ug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4500
+X-MS-Exchange-CrossTenant-UserPrincipalName: h6SEFeWnoayCTkcvbruQRq1uXBwoOqcedRrqrNMhNXtjaorNOHDiwiYUn6CIbwh8+JQIB9TL3F03S91VDCPA5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3564
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,89 +131,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: airlied@linux.ie, xinhui.pan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, Dell.Client.Kernel@dell.com,
+ christian.koenig@amd.com, mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Lijo,
+Hi Paul,
 
-On 4/10/2022 11:15 PM, Lazar, Lijo wrote:
+On 4/11/2022 2:41 AM, Paul Menzel wrote:
+> [Cc: +<Dell.Client.Kernel@dell.com>]
+>
+> Dear Richard,
 >
 >
-> On 4/9/2022 12:35 AM, Richard Gong wrote:
->> Active State Power Management (ASPM) feature is enabled since kernel 
->> 5.14.
->> There are some AMD GFX cards (such as WX3200 and RX640) that cannot be
->> used with Intel AlderLake based systems to enable ASPM. Using these GFX
->> cards as video/display output, Intel Alder Lake based systems will hang
->> during suspend/resume.
+> Am 11.04.22 um 02:27 schrieb Gong, Richard:
+>
+>> On 4/8/2022 7:19 PM, Paul Menzel wrote:
+>
+>>> Am 08.04.22 um 21:05 schrieb Richard Gong:
+>>>> Active State Power Management (ASPM) feature is enabled since 
+>>>> kernel 5.14.
+>>>> There are some AMD GFX cards (such as WX3200 and RX640) that cannot be
+>>>> used with Intel AlderLake based systems to enable ASPM. Using these 
+>>>> GFX
+>>>
+>>> Alder Lake
+>> will correct in the next version.
+>>>
+>>>> cards as video/display output, Intel Alder Lake based systems will 
+>>>> hang
+>>>> during suspend/resume.
+>>>
+>>> Please reflow for 75 characters per line.
+>>>
+>>> Also please mention the exact system you had problems with (also 
+>>> firmware versions).
+>>>
+>>>>
+>>>> Add extra check to disable ASPM on Intel AlderLake based systems.
+>>>
+>>> Is that a problem with Intel Alder Lake or the Dell system? 
+>>> Shouldn’t ASPM just be disabled for the problematic cards for the 
+>>> Dell system. You write newer cards worked fine.
 >>
->> Add extra check to disable ASPM on Intel AlderLake based systems.
+>> There is a problem with Dell system (Dell Precision DT workstation), 
+>> which is based on Intel Alder Lake.
 >>
->> Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
->> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
->> Signed-off-by: Richard Gong <richard.gong@amd.com>
->> ---
->> v2: correct commit description
->>      move the check from chip family to problematic platform
->> ---
->>   drivers/gpu/drm/amd/amdgpu/vi.c | 17 ++++++++++++++++-
->>   1 file changed, 16 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c 
->> b/drivers/gpu/drm/amd/amdgpu/vi.c
->> index 039b90cdc3bc..8b4eaf54b23e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
->> @@ -81,6 +81,10 @@
->>   #include "mxgpu_vi.h"
->>   #include "amdgpu_dm.h"
->>   +#if IS_ENABLED(CONFIG_X86_64)
->> +#include <asm/intel-family.h>
->> +#endif
->> +
->>   #define ixPCIE_LC_L1_PM_SUBSTATE    0x100100C6
->>   #define PCIE_LC_L1_PM_SUBSTATE__LC_L1_SUBSTATES_OVERRIDE_EN_MASK 
->> 0x00000001L
->>   #define PCIE_LC_L1_PM_SUBSTATE__LC_PCI_PM_L1_2_OVERRIDE_MASK 
->> 0x00000002L
->> @@ -1134,13 +1138,24 @@ static void vi_enable_aspm(struct 
->> amdgpu_device *adev)
->>           WREG32_PCIE(ixPCIE_LC_CNTL, data);
->>   }
->>   +static bool intel_core_apsm_chk(void)
+>> ASPM works just fine on these GPU's. It's more of an issue with 
+>> whether the underlying platform supports ASPM or not.
 >
-> If this is only for Dell systems, use DMI_SYS_VENDOR/DMI_PRODUCT_NAME 
-> to identify the platform information from SMBIOS.
-Not sure, the report issue was originally for Dell system but may occur 
-with others. This is why I just check CPU info.
->
-> Better to rename to aspm_support_quirk_check() or similar, and return 
-> false on is_alderlake() or is_dell_xyz();
->
-Ok, will rename to aspm_support_quick_check in the next versin.
+> At least you didn’t document what the real issue is,
 
-> Thanks,
-> Lijo
+You can refer to bug tag from the comment messages.
+
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
+
+Regards,
+
+Richard
+
+> that ASPM does not work. With current information (some GPU graphics 
+> card with the the Dell system and others don’t), it could be the GPU, 
+> the Dell system (firmware, …), a problem with Alder Lake SOC, or 
+> another bug. I hope you are in contact with Dell to analyze it, so 
+> ASPM can be enabled again.
 >
->> +{
->> +#if IS_ENABLED(CONFIG_X86_64)
->> +    struct cpuinfo_x86 *c = &cpu_data(0);
->> +
->> +    return (c->x86 == 6 && c->x86_model == INTEL_FAM6_ALDERLAKE);
->> +#else
->> +    return false;
->> +#endif
->> +}
->> +
->>   static void vi_program_aspm(struct amdgpu_device *adev)
->>   {
->>       u32 data, data1, orig;
->>       bool bL1SS = false;
->>       bool bClkReqSupport = true;
->>   -    if (!amdgpu_device_should_use_aspm(adev))
->> +    if (!amdgpu_device_should_use_aspm(adev) || intel_core_apsm_chk())
->>           return;
->>         if (adev->flags & AMD_IS_APU ||
->>
+> […]
+>
+>
+> Kind regards,
+>
+> Paul
