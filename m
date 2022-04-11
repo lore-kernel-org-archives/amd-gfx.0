@@ -4,46 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C099C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 22:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DDC4C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 22:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C9CC10E3E6;
-	Mon, 11 Apr 2022 22:38:42 +0000 (UTC)
-X-Greylist: delayed 408 seconds by postgrey-1.36 at gabe;
- Mon, 11 Apr 2022 22:38:40 UTC
-Received: from mx2.absolutedigital.net (mx2.absolutedigital.net
- [50.242.207.105])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6C04910E3EF
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 22:38:40 +0000 (UTC)
-Received: from lancer.cnet.absolutedigital.net
- (lancer.cnet.absolutedigital.net [10.7.5.10])
- by luxor.inet.absolutedigital.net (8.14.4/8.14.4) with ESMTP id 23BMVXAn016018
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL);
- Mon, 11 Apr 2022 18:31:33 -0400
-Received: from localhost (localhost [127.0.0.1])
- by lancer.cnet.absolutedigital.net (8.14.4/8.14.4) with ESMTP id
- 23BMVTv9020230
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
- Mon, 11 Apr 2022 18:31:29 -0400
-Date: Mon, 11 Apr 2022 18:31:29 -0400 (EDT)
-From: Cal Peake <cp@absolutedigital.net>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: AMDGPU: RX 6500 XT: System reset when loading module [SOLVED]
-In-Reply-To: <CADnq5_Nx9Oski_2A-99QvqFJiUG36=+bfx_0F-eUK0gD56Vqjg@mail.gmail.com>
-Message-ID: <alpine.LNX.2.00.2204111736500.5748@lancer.cnet.absolutedigital.net>
-References: <alpine.LNX.2.00.2202131848490.20545@lancer.cnet.absolutedigital.net>
- <b30922e2-04f5-2135-695c-2ea84d9307ac@amd.com>
- <alpine.LNX.2.00.2202141223020.10303@lancer.cnet.absolutedigital.net>
- <de9952a6-cba1-4927-f8e0-fcd7f115267e@amd.com>
- <alpine.LNX.2.00.2202171254420.21576@lancer.cnet.absolutedigital.net>
- <809355d6-ef2a-ca90-5a9a-813beb8ff6d1@amd.com>
- <alpine.LNX.2.00.2202181444250.8791@lancer.cnet.absolutedigital.net>
- <8cd9b639-be48-5b2f-bc3d-d6bd49be1830@amd.com>
- <alpine.LNX.2.00.2202241728250.23253@lancer.cnet.absolutedigital.net>
- <CADnq5_Nx9Oski_2A-99QvqFJiUG36=+bfx_0F-eUK0gD56Vqjg@mail.gmail.com>
-User-Agent: Alpine 2.00 (LNX 1167 2008-08-23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A69810E4FE;
+	Mon, 11 Apr 2022 22:58:23 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01E1D10E4FE;
+ Mon, 11 Apr 2022 22:58:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1649717903; x=1681253903;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=4Z9VI6tEyTt8ATI/3X1UsbKKq6JOuVqvsq8x+y0yhEY=;
+ b=N8O79R8n1UZa4D3FIdsE1caQ+raAY4O6zOcV9zoSGVb6Ix/bnobQ38fh
+ wlVj0zEqXSRxfkAZMjw4rzyxRA0/6og8lO3sE3wPwaw5CE3S5bkJDdzB/
+ Zh5a3HS2WTmEcUohaaX655eaxmJfqdzPDlXhlCxOUgNOhhJJjpRVo5AZx
+ WjzjEYVsolHMkjgRABhDvQoKKnotJaXIsHd8CVZrSedNQvSWj6I7ypriK
+ s1R+XXnVRrPz+8EBpL8sSdsaPADIxpe9Fwf8M1hCZg+2VsCQBJAY8RDIw
+ fWdvikLanHGqj7YNdNrx4WKRpojayrVM9A1p2NhdM2X4ZynxVSdAJfSyD A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="242171939"
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="242171939"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2022 15:58:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="525761722"
+Received: from lkp-server02.sh.intel.com (HELO d3fc50ef50de) ([10.239.97.151])
+ by orsmga002.jf.intel.com with ESMTP; 11 Apr 2022 15:58:19 -0700
+Received: from kbuild by d3fc50ef50de with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1ne2zC-0002IA-Ba;
+ Mon, 11 Apr 2022 22:58:18 +0000
+Date: Tue, 12 Apr 2022 06:57:29 +0800
+From: kernel test robot <lkp@intel.com>
+To: Richard Gong <richard.gong@amd.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, xinhui.pan@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch
+Subject: Re: [PATCHv2] drm/amdgpu: disable ASPM on Intel AlderLake based
+ systems
+Message-ID: <202204120618.4I6dOUw9-lkp@intel.com>
+References: <20220408190502.4103670-1-richard.gong@amd.com>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220408190502.4103670-1-richard.gong@amd.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,35 +61,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: kbuild-all@lists.01.org, richard.gong@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+Hi Richard,
 
-I wanted to put a capper on this just in case anyone was interested, or in 
-case any future people find this thread, because I did find a resolution.
+Thank you for the patch! Yet something to improve:
 
-Turns out the way to stop the system from crashing was to disable Global 
-C-State Control in the BIOS.
+[auto build test ERROR on drm/drm-next]
+[also build test ERROR on v5.18-rc2 next-20220411]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-Christian, Alex, you guys seem to have been on the right track in that it 
-was something power related.
+url:    https://github.com/intel-lab-lkp/linux/commits/Richard-Gong/drm-amdgpu-disable-ASPM-on-Intel-AlderLake-based-systems/20220409-030656
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+config: um-allmodconfig (https://download.01.org/0day-ci/archive/20220412/202204120618.4I6dOUw9-lkp@intel.com/config)
+compiler: gcc-11 (Debian 11.2.0-19) 11.2.0
+reproduce (this is a W=1 build):
+        # https://github.com/intel-lab-lkp/linux/commit/bb9a037cafa91918c2ece823591d1d04b812ae17
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Richard-Gong/drm-amdgpu-disable-ASPM-on-Intel-AlderLake-based-systems/20220409-030656
+        git checkout bb9a037cafa91918c2ece823591d1d04b812ae17
+        # save the config file to linux build tree
+        mkdir build_dir
+        make W=1 O=build_dir ARCH=um SHELL=/bin/bash
 
-I haven't yet been able to figure out what Global C-State Control exactly 
-does.
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-My best guess as to what was happening: once the GPU power management code 
-was loaded and the GPU dropped into a very low power state, the CPU saw 
-this and decided to match it, lowering its own power state to such a point 
-that it hard resets the system. (Just a wild theory anyway :-)
+All errors (new ones prefixed by >>):
 
-If anyone knows what this feature really does, or has any better theories 
-as to why it doesn't play nice with AMD GPUs, please do share!
+   In file included from arch/x86/um/asm/processor.h:41,
+                    from include/linux/mutex.h:19,
+                    from include/linux/kernfs.h:11,
+                    from include/linux/sysfs.h:16,
+                    from include/linux/kobject.h:20,
+                    from include/linux/pci.h:35,
+                    from drivers/gpu/drm/amd/amdgpu/vi.c:24:
+   drivers/gpu/drm/amd/amdgpu/vi.c: In function 'intel_core_apsm_chk':
+   arch/um/include/asm/processor-generic.h:103:19: error: called object is not a function or function pointer
+     103 | #define cpu_data (&boot_cpu_data)
+         |                  ~^~~~~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/vi.c:1144:34: note: in expansion of macro 'cpu_data'
+    1144 |         struct cpuinfo_x86 *c = &cpu_data(0);
+         |                                  ^~~~~~~~
+>> drivers/gpu/drm/amd/amdgpu/vi.c:1146:18: error: invalid use of undefined type 'struct cpuinfo_x86'
+    1146 |         return (c->x86 == 6 && c->x86_model == INTEL_FAM6_ALDERLAKE);
+         |                  ^~
+   drivers/gpu/drm/amd/amdgpu/vi.c:1146:33: error: invalid use of undefined type 'struct cpuinfo_x86'
+    1146 |         return (c->x86 == 6 && c->x86_model == INTEL_FAM6_ALDERLAKE);
+         |                                 ^~
+   drivers/gpu/drm/amd/amdgpu/vi.c:1150:1: error: control reaches end of non-void function [-Werror=return-type]
+    1150 | }
+         | ^
+   cc1: some warnings being treated as errors
 
-Thanks and kind regards,
+
+vim +1146 drivers/gpu/drm/amd/amdgpu/vi.c
+
+  1140	
+  1141	static bool intel_core_apsm_chk(void)
+  1142	{
+  1143	#if IS_ENABLED(CONFIG_X86_64)
+  1144		struct cpuinfo_x86 *c = &cpu_data(0);
+  1145	
+> 1146		return (c->x86 == 6 && c->x86_model == INTEL_FAM6_ALDERLAKE);
+  1147	#else
+  1148		return false;
+  1149	#endif
+  1150	}
+  1151	
 
 -- 
-Cal Peake
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp
