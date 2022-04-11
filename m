@@ -4,49 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87EE1C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 21:39:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B38FC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 21:54:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3346210E036;
-	Mon, 11 Apr 2022 21:39:48 +0000 (UTC)
-Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
- [IPv6:2607:f8b0:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A26AE10E036
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 21:39:46 +0000 (UTC)
-Received: by mail-il1-x135.google.com with SMTP id e1so12393486ile.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 14:39:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to;
- bh=0bIfDh535F17EPoR6l5KVLN12GNis9QLPKagtgcgGkE=;
- b=SgQ/3YNB1kN0GxPiZPAq/vYYGF2quX88cJXLvK61O0qktgWUqzexBpvmRXwI685e0h
- sCYjv/FyalXq/x7HnZ7qJO9/bAYwJMGao5/F+M/sCaL+caGSi0GKpKWRX+z9opbUDs19
- WOENx7fvh1CsGuhANOeaqkF6CAbMEPqA1zVpgxvVn2kGSeDO47gXpehKff++4LenwTBD
- KCjMoO2T/mj6IZXU8QMiNHbzjyS6SxOlEapqSj56rls7dOH6n6IC366VBO/f2kL6j/Sk
- ZyzQaAboQZcae5s+w1s+aHaZJqOSCaE1tBoNIhWkYYyLrCsSP1h+pHhC2LCg50Q9P3mX
- h3bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=0bIfDh535F17EPoR6l5KVLN12GNis9QLPKagtgcgGkE=;
- b=WqFaVVy4sQoK60x0JVuQKxnQPtS4Kn6MorcN1oRXGSZPdGiqM5H4sMPzD6u0UA4Y5F
- V3VzGk3XK5Up3I1PpUNt9tE6KNeMDw6Sf3xmEffeg67wmuAebA9l+HElLIOT9MQs504r
- KlxsEYqeGUdGl10/Nwauz7RgYlDXTkTScpqxs0BXqOJWfVLLCblDOqge9HKZtx0xbPfS
- URUJMZJal5B6FeCOa6q9XT2SiPFpdfJy4tpQ/bmKSK90EMlLw5uXoeiuZcQ43vc5QEJa
- WKQou3zFVOQRjMlyl500rlSPeJ2ZGc8/DHNjQ2Vj0v0xh2R1+csmR3VvwfPRgxF8qbIu
- DcFg==
-X-Gm-Message-State: AOAM533qNOPcwQONiPfJLFILnHhbPIYtQklJsVzpQHiXTyinl3ZefZUY
- ox/a0P6ilSkARNL5wV5A6j9oCJkIQzict2xmoMr5jw9OwHg=
-X-Google-Smtp-Source: ABdhPJwlrkj0YpWsktKWwnorvs01dELgX1Cv+LFfm/SP0x9rUs+OHuJzIOIFeG8UcS6DI7ShnhwJiXp6A7AtPzCmLDI=
-X-Received: by 2002:a92:602:0:b0:2ca:480a:c19d with SMTP id
- x2-20020a920602000000b002ca480ac19dmr14692148ilg.223.1649713185333; Mon, 11
- Apr 2022 14:39:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8DA10E06A;
+	Mon, 11 Apr 2022 21:54:13 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C95110F7C5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 21:21:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1649712113;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:in-reply-to:in-reply-to:  references:references;
+ bh=hYNVq0t1WrkTI/K6D/l/f7tQTRIta/302c+AVM0dqpk=;
+ b=bCaLrqyThmXbjYrDuXyrQTCUDNWRkNfzYCRovpsqzAQt60bG92wTCtRWiNkFMM1fEjV87L
+ kLSifGXTFo4TnXovkziuKFC1vI7mOauEpi6+KJfc0bzic9Abvrzvlvf+zSIfv5JwhrtOH4
+ zFuSPUkxzCKCCQWi/gZDzeK8OxoYfY4=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-137-PCLCKfmRMeisw7VBMB77DA-1; Mon, 11 Apr 2022 17:21:48 -0400
+X-MC-Unique: PCLCKfmRMeisw7VBMB77DA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 824D4185A7BA;
+ Mon, 11 Apr 2022 21:21:47 +0000 (UTC)
+Received: from tucnak.zalov.cz (unknown [10.39.195.172])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6192E40CF914;
+ Mon, 11 Apr 2022 21:21:46 +0000 (UTC)
+Received: from tucnak.zalov.cz (localhost [127.0.0.1])
+ by tucnak.zalov.cz (8.16.1/8.16.1) with ESMTPS id 23BLLg5f2961636
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Mon, 11 Apr 2022 23:21:42 +0200
+Received: (from jakub@localhost)
+ by tucnak.zalov.cz (8.16.1/8.16.1/Submit) id 23BLLe6o2961635;
+ Mon, 11 Apr 2022 23:21:40 +0200
+Date: Mon, 11 Apr 2022 23:21:40 +0200
+From: Jakub Jelinek <jakub@redhat.com>
+To: Sergei Trofimovich <slyich@gmail.com>
+Subject: Re: gcc inserts __builtin_popcount, causes 'modpost: "__popcountdi2"
+ ... amdgpu.ko] undefined'
+Message-ID: <YlSb5D3rDTyCWpay@tucnak>
+References: <YlSYv3d9a5cZR9KE@nz>
 MIME-Version: 1.0
-From: James Dutton <james.dutton@gmail.com>
-Date: Mon, 11 Apr 2022 22:39:09 +0100
-Message-ID: <CAAMvbhF-mcZd+mfSUVpYShvKmFiQ6pb+j2eosBr-kvsxE+202g@mail.gmail.com>
-Subject: Vega 56 failing to process EDID from VR Headset
-To: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YlSYv3d9a5cZR9KE@nz>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Mailman-Approved-At: Mon, 11 Apr 2022 21:54:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,78 +67,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Jakub Jelinek <jakub@redhat.com>
+Cc: Segher Boessenkool <segher@kernel.crashing.org>,
+ linux-kbuild@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Andy Lutomirski <luto@kernel.org>, Joe Perches <joe@perches.com>,
+ Thomas Gleixner <tglx@linutronix.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Mon, Apr 11, 2022 at 10:08:15PM +0100, Sergei Trofimovich wrote:
+> Current linux-5.17.1 on fresh gcc-12 fails to build with errors like:
+> 
+>     ERROR: modpost: "__popcountdi2" [drivers/net/ethernet/broadcom/bnx2x/bnx2x.ko] undefined!
+>     ERROR: modpost: "__popcountdi2" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+> 
+> It is occasionally seen by others on previous gcc versions as well:
+> 
+>     https://lkml.org/lkml/2021/7/11/261
+>     https://lkml.org/lkml/2018/10/24/403
+> 
+> '__popcountdi2' are inserted by gcc for code like the following
+> from 'drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c':
+> 
+>     static inline enum mod_hdcp_status validate_bksv(struct mod_hdcp *hdcp)
+>     {
+>         uint64_t n = 0;
+>         uint8_t count = 0;
+>         u8 bksv[sizeof(n)] = { };
+> 
+>         memcpy(bksv, hdcp->auth.msg.hdcp1.bksv, sizeof(hdcp->auth.msg.hdcp1.bksv));
+>         n = *(uint64_t *)bksv;
+> 
+>         /* Here gcc inserts 'count = __builtin_popcount(n);' */
+>         while (n) {
+>                 count++;
+>                 n &= (n - 1);
+>         }
+> 
+>         return (count == 20) ? MOD_HDCP_STATUS_SUCCESS :
+>                                MOD_HDCP_STATUS_HDCP1_INVALID_BKSV;
+>     }
+> 
+> Note that gcc can insert it regardless of -mno-* options.
 
-I have an Oculus Rift S, that I am trying to get working in Linux.
-I have an AMD Vega 56  graphics card.
+Just FYI, this has been added in GCC 9 for https://gcc.gnu.org/PR82479
+If the kernel implements its own __popcount?i2, it can perhaps with
+runtime patching use hw instructions when those are available and
+fallback to the generic version.
 
-The VR headset plugs into a display port of the Vega56.
-The amdgpu driver sees the connection, and tries to process it.
-The problem is it cannot process the EDID, so fails to recognise the
-VR headset, and the VR headset does not work as a result.
-Please find the EDID below.
-I am guessing that the following is causing the problem:
-Established Timings I & II: none
-Standard Timings: none
-Forcing the driver to understand the Detailed mode, to which it is failing.
-If it helps, when attached to windows 10, it uses 1440x2560, portrait mode.
-Some dmesg lines that may be useful:
-// We should pick 1440x2560 as Windows picks that, but for some reason
-is rejects it with error 10.
-[10402.650734] [drm:create_validate_stream_for_sink [amdgpu]] Mode
-1440x2560 (clk 571570) failed DC validation with error 10 (No DP link
-bandwidth)
-[10402.650991] [drm:update_stream_scaling_settings [amdgpu]]
-Destination Rectangle x:0  y:0  width:1440  height:2560
-[10402.651225] [drm:create_validate_stream_for_sink [amdgpu]] Mode
-1440x2560 (clk 571570) failed DC validation with error 10 (No DP link
-bandwidth)
+	Jakub
 
-
-Can anyone help give me with some pointers as to how to get the amdgpu
-driver to accept this EDID?
-
-edid-decode (hex):
-
-00 ff ff ff ff ff ff 00 3e d2 12 00 00 00 00 00
-01 1d 01 04 a5 00 00 00 0e 00 00 00 00 00 00 00
-00 00 00 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 45 df a0 38 51 00 ee a5 d2 0c
-f1 0c 00 00 00 00 00 10 00 00 00 ff 00 31 57 4d
-47 48 35 32 30 47 41 39 35 32 00 00 00 fc 00 52
-69 66 74 20 53 0a 20 20 20 20 20 20 00 00 00 10
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 33
-
-----------------
-
-EDID version: 1.4
-Manufacturer: OVR Model 18 Serial Number 0
-Made in week 1 of 2019
-Digital display
-8 bits per primary color channel
-DisplayPort interface
-Image size is variable
-Gamma: 1.00
-Supported color formats: RGB 4:4:4, YCrCb 4:4:4
-Default (sRGB) color space is primary color space
-First detailed timing includes the native pixel format and preferred
-refresh rate
-Color Characteristics
-  Red:   0.0000, 0.0000
-  Green: 0.0000, 0.0000
-  Blue:  0.0000, 0.0000
-  White: 0.0000, 0.0000
-Established Timings I & II: none
-Standard Timings: none
-Detailed mode: Clock 571.570 MHz, digital composite
-               1440 1650 1662 1752 (210  12  90)
-               2560 2623 2624 4078 ( 63   1 1454)
-               -hsync
-               VertFreq: 80.000 Hz, HorFreq: 326.239 kHz
-Display Product Serial Number: 1WMGH520GA952
-Display Product Name: Rift S
-Dummy Descriptor
-Checksum: 0x33
