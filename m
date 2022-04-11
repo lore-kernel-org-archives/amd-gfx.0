@@ -4,40 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B693C4332F
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 16:51:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8418EC433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 16:56:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52A2F10E7BE;
-	Mon, 11 Apr 2022 16:51:56 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7F4A10E381
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Apr 2022 16:49:57 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E971761716;
- Mon, 11 Apr 2022 16:49:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CFB0C385B3;
- Mon, 11 Apr 2022 16:49:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1649695796;
- bh=1jYHZDtKcZN4hrDB4/1MZ7QbbDghduGjzC4q/5suTSU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=UIjXvBNM24s8ZfHTQmWtfdjigxHEagBE9m8FHFmnq7thxHn495VdI+pKP+3eNq2kJ
- V2PC/9DkVK77LpuPpUbx1Rps16NpMbDryIBkAGZmLmjUORNIPqtliBSvFjo+flWUy1
- kMLL/zownJHJfwaUfIxbnNsLBaWD3RKZRQxDlCws=
-Date: Mon, 11 Apr 2022 18:49:45 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Subject: Re: [PATCH 5.4 0/2] Fix two instances of -Wstrict-prototypes in
- drm/amd
-Message-ID: <YlRcKVjXGH/uJiqx@kroah.com>
-References: <20220411164308.2491139-1-nathan@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E82B510EB43;
+	Mon, 11 Apr 2022 16:56:17 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DE8810EB43;
+ Mon, 11 Apr 2022 16:56:17 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id t21so16435876oie.11;
+ Mon, 11 Apr 2022 09:56:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=bWmf6CDqr26YDLjUPI/Ua6LDwENvM3MIxEgVyjhCpgg=;
+ b=k2DlkRXJYG4p4wihUGI4UKqqXqfv8i44QXBjh7hHRtj2/dZJUFDSTJAclth5skGEHi
+ RZPGo0ownYQOeEaBRXxJiVY/387Xae3rKE0RO9W/4OGC/lDiYh7bfY0l8Ki3F6Ziz9Yc
+ 06cdxYCtMBUvruBXHRJBvHihulEayextGjMFywVrurCxbtkZQyWCRENCWH05CkdY/p9v
+ 2BP5LZrqZe74Y17GCaCZWeYnMtzhQ4v2jMlVuvbuaPg0dXTqCKLUkZwDs29VOoDVf1NF
+ LsLbyuFGvRsJRA9HwoL9787H/0KL8+9TP7jvH+dxO/AyGP/WhT2Skho9QXd1WKOKz3lM
+ ji0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=bWmf6CDqr26YDLjUPI/Ua6LDwENvM3MIxEgVyjhCpgg=;
+ b=ZhejKL3heE07jib7HVOz3A8mGbmElcAKwYkfb9S/NI9wwyeXv3sAPGjrB+hlTR4uuJ
+ iqS2VjLd2z7XkVe7Jp5ooZaMlN0nbkWthdYRtO2TWUAbrRakIXppdimAZ5chD6knyLAT
+ ajyQ2jfMJ0AnaBq3oZViI9jFt3mgRPkHPb/A2Lj4uzGQPFBEvkk5G1P+vgdyzJcMQTNu
+ 1AUDVXfxgdMbVMGEY95a975TegmN2OkKgEybJbnBDBtfa9lbdtCH7U8S86kf5HLnhe01
+ N7phi74JxQg8p+YOEEhvpm1OdDiYJH94Hr3HWl1/HWdV2+EQk7Rne1XuyAOSP7C+R1eQ
+ Fcww==
+X-Gm-Message-State: AOAM533E+xMSMg1ZWW0N/ThsIH1QeeWc0yfzUTFLOSgqROwWQ/AZAhFa
+ X+n4gesR9Y3+hHAzfxJagBDqoekpENDRt+gtPPN3UN4ubwM=
+X-Google-Smtp-Source: ABdhPJxHLJyJe1kCKnbIFAfGbINbnNZD0RT30rGO9AHKmB1Pau2Fk/vb5qUoMn7E4BXK78/nQ1fkO2pbKw2n4xWtxWk=
+X-Received: by 2002:a05:6808:1486:b0:2f9:e821:51d9 with SMTP id
+ e6-20020a056808148600b002f9e82151d9mr27378oiw.253.1649696176476; Mon, 11 Apr
+ 2022 09:56:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220411164308.2491139-1-nathan@kernel.org>
-X-Mailman-Approved-At: Mon, 11 Apr 2022 16:51:54 +0000
+References: <20220409171131.1599090-1-trix@redhat.com>
+In-Reply-To: <20220409171131.1599090-1-trix@redhat.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 11 Apr 2022 12:56:05 -0400
+Message-ID: <CADnq5_MqU8tinywKJ5_G-HwNNF2k=Q4k7C6Gh5hdtnpve08RJA@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: remove r600_blit_shaders.[c|h]
+To: Tom Rix <trix@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,48 +61,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>,
- llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
- amd-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: Dave Airlie <airlied@linux.ie>, xinhui pan <Xinhui.Pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 11, 2022 at 09:43:06AM -0700, Nathan Chancellor wrote:
-> Hi everyone,
-> 
-> These two patches resolve two instances of -Wstrict-prototypes with
-> newer versions of clang that are present in 5.4. The main Makefile makes
-> this a hard error.
-> 
-> The first patch is upstream commit 63617d8b125e ("drm/amdkfd: add
-> missing void argument to function kgd2kfd_init"), which showed up in
-> 5.5.
-> 
-> The second patch has no upstream equivalent, as the code in question was
-> removed in commit e392c887df97 ("drm/amdkfd: Use array to probe
-> kfd2kgd_calls") upstream, which is part of a larger series that did not
-> look reasonable for stable. I opted to just fix the warning in the same
-> manner as the prior patch, which is less risky and accomplishes the same
-> end result of no warning.
-> 
-> Colin Ian King (1):
->   drm/amdkfd: add missing void argument to function kgd2kfd_init
-> 
-> Nathan Chancellor (1):
->   drm/amdkfd: Fix -Wstrict-prototypes from
->     amdgpu_amdkfd_gfx_10_0_get_functions()
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c | 2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_module.c            | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> 
-> base-commit: 2845ff3fd34499603249676495c524a35e795b45
-> -- 
-> 2.35.1
-> 
+On Sat, Apr 9, 2022 at 1:11 PM Tom Rix <trix@redhat.com> wrote:
+>
+> The only use of the global variables in r600_blit_shaders.c
+> were in the old drivers/gpu/drm/radeon/r600_blit.c
+> This file was removed in
+> commit 8333f607a631 ("drm/radeon: remove UMS support")
+>
+> So remove the r600_blit_shaders.[c|h] files
+>
+> Signed-off-by: Tom Rix <trix@redhat.com>
 
-Now queued up, thanks.
+Applied.  Thanks!
 
-greg k-h
+Alex
