@@ -4,43 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAC5BC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 13:09:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 797A9C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 13:09:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AE8310E6AE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1A4310E945;
 	Tue, 12 Apr 2022 13:09:40 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0402010FBDA;
- Tue, 12 Apr 2022 07:23:17 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48C6610FBA1;
+ Tue, 12 Apr 2022 07:21:20 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A814BB81B13;
- Tue, 12 Apr 2022 07:23:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3DDCC385A5;
- Tue, 12 Apr 2022 07:23:13 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BEBCBB81B4F;
+ Tue, 12 Apr 2022 07:21:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01A9CC385A1;
+ Tue, 12 Apr 2022 07:21:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1649748194;
- bh=IaRG8cJ6G1bj7jdpgFtx8xG226ZWTkMPIWrFR3ksgmg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aoFD/56V3XbZh6sbN7HdztblQ6DhKvcBOoDsvw0D3JfbhcYHsOICXLfDWztuuUFXL
- YFcvyMcs6k8J9QL5XsG8yuNIayv/fV1+OFEzLv/0r1wNWwwSwEPTpOJNNMFmdSjl6Z
- FYnX8Xf7RK0KKhnaYuql04Q7wwkqB6HkjPvWcbvs=
-Date: Tue, 12 Apr 2022 09:15:07 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-Subject: Re: AMD Display Core (DC) patches (was: [PATCH 13/16]
- drm/amd/display: Revert FEC check in validation)
-Message-ID: <YlUm+8ciAGWq2+zg@kroah.com>
-References: <20220325225402.469841-1-alex.hung@amd.com>
- <20220325225402.469841-14-alex.hung@amd.com>
- <42d34e82-3c15-c33a-5cd4-a0d2436e44d2@molgen.mpg.de>
+ s=korg; t=1649748077;
+ bh=bScr1sUFM94SlTUGziiSSo1pd7DcDs5dN8ORKndYxrE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=xNCyJqi0D5gni5rYImrx0qVqVK8BWN5upCL7YMJLOGcgkCyZ56DUw7eelHfeDTYWw
+ 1jYX7JE1u5WBOIsJm9UiY3CKirEH+b9EZYjfi57nb04Hfsxs6BX7hB/Ef7foeZ0lqU
+ 1Q8pJRJMfcHcA48x5FRiyh9dMqa1bm4SzQfj0ZzU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH 5.17 310/343] drm/amdkfd: Create file descriptor after client
+ is added to smi_clients list
+Date: Tue, 12 Apr 2022 08:32:08 +0200
+Message-Id: <20220412063000.270200900@linuxfoundation.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220412062951.095765152@linuxfoundation.org>
+References: <20220412062951.095765152@linuxfoundation.org>
+User-Agent: quilt/0.66
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <42d34e82-3c15-c33a-5cd4-a0d2436e44d2@molgen.mpg.de>
 X-Mailman-Approved-At: Tue, 12 Apr 2022 13:09:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,26 +51,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, solomon.chiu@amd.com, Alex Hung <alex.hung@amd.com>,
- Bhawanpreet.Lakha@amd.com, qingqing.zhuo@amd.com,
- Martin Leung <Martin.Leung@amd.com>, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, amd-gfx@lists.freedesktop.org, Sunpeng.Li@amd.com,
- Aurabindo.Pillai@amd.com, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, George Shen <George.Shen@amd.com>,
- wayne.lin@amd.com, Alexander Deucher <Alexander.Deucher@amd.com>,
- Harry.Wentland@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Lee Jones <lee.jones@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 12, 2022 at 08:52:11AM +0200, Paul Menzel wrote:
-> > Reviewed-by: George Shen <George.Shen@amd.com>
-> > Acked-by: Alex Hung <alex.hung@amd.com>
-> > Signed-off-by: Martin Leung <Martin.Leung@amd.com>
-> 
-> Shouldn’t the Signed-off-by line by the author go first?
+From: Lee Jones <lee.jones@linaro.org>
 
-No, this is the correct order.
+commit e79a2398e1b2d47060474dca291542368183bc0f upstream.
 
-thanks,
+This ensures userspace cannot prematurely clean-up the client before
+it is fully initialised which has been proven to cause issues in the
+past.
 
-greg k-h
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c |   24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
+
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+@@ -268,15 +268,6 @@ int kfd_smi_event_open(struct kfd_dev *d
+ 		return ret;
+ 	}
+ 
+-	ret = anon_inode_getfd(kfd_smi_name, &kfd_smi_ev_fops, (void *)client,
+-			       O_RDWR);
+-	if (ret < 0) {
+-		kfifo_free(&client->fifo);
+-		kfree(client);
+-		return ret;
+-	}
+-	*fd = ret;
+-
+ 	init_waitqueue_head(&client->wait_queue);
+ 	spin_lock_init(&client->lock);
+ 	client->events = 0;
+@@ -286,5 +277,20 @@ int kfd_smi_event_open(struct kfd_dev *d
+ 	list_add_rcu(&client->list, &dev->smi_clients);
+ 	spin_unlock(&dev->smi_lock);
+ 
++	ret = anon_inode_getfd(kfd_smi_name, &kfd_smi_ev_fops, (void *)client,
++			       O_RDWR);
++	if (ret < 0) {
++		spin_lock(&dev->smi_lock);
++		list_del_rcu(&client->list);
++		spin_unlock(&dev->smi_lock);
++
++		synchronize_rcu();
++
++		kfifo_free(&client->fifo);
++		kfree(client);
++		return ret;
++	}
++	*fd = ret;
++
+ 	return 0;
+ }
+
+
