@@ -4,32 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9014EC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 06:13:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BEA2C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 06:20:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B35E810FBB3;
-	Tue, 12 Apr 2022 06:13:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4D8B10FC3F;
+	Tue, 12 Apr 2022 06:20:25 +0000 (UTC)
 Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5414310F125
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Apr 2022 06:13:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7C8210FC3F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Apr 2022 06:20:24 +0000 (UTC)
 Received: from [192.168.0.2] (ip5f5aef95.dynamic.kabel-deutschland.de
  [95.90.239.149])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 16C1661EA1929;
- Tue, 12 Apr 2022 08:13:24 +0200 (CEST)
-Message-ID: <fae30821-f0b8-440a-a0d1-4c2a7d37ec07@molgen.mpg.de>
-Date: Tue, 12 Apr 2022 08:13:23 +0200
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id E41E961EA1929;
+ Tue, 12 Apr 2022 08:20:22 +0200 (CEST)
+Message-ID: <e187b36c-2761-321b-4aae-ba2f78143b2c@molgen.mpg.de>
+Date: Tue, 12 Apr 2022 08:20:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
-Subject: Re: Vega 56 failing to process EDID from VR Headset
+Subject: Re: [PATCH 04/13] drm/amd/display: FEC check in timing validation
 Content-Language: en-US
-To: James Dutton <james.dutton@gmail.com>
-References: <CAAMvbhF-mcZd+mfSUVpYShvKmFiQ6pb+j2eosBr-kvsxE+202g@mail.gmail.com>
 From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <CAAMvbhF-mcZd+mfSUVpYShvKmFiQ6pb+j2eosBr-kvsxE+202g@mail.gmail.com>
+To: Alexander Deucher <Alexander.Deucher@amd.com>
+References: <20220318214800.3565679-1-alex.hung@amd.com>
+ <20220318214800.3565679-5-alex.hung@amd.com>
+ <85d909aa-3d02-fc43-47a4-2c321ad15dec@molgen.mpg.de>
+In-Reply-To: <85d909aa-3d02-fc43-47a4-2c321ad15dec@molgen.mpg.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -43,66 +45,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: stylon.wang@amd.com, solomon.chiu@amd.com, Alex Hung <alex.hung@amd.com>,
+ Bhawanpreet.Lakha@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, amd-gfx@lists.freedesktop.org,
+ Chiawen Huang <chiawen.huang@amd.com>, Sunpeng.Li@amd.com,
+ Aurabindo.Pillai@amd.com, agustin.gutierrez@amd.com, wayne.lin@amd.com,
+ Harry.Wentland@amd.com, Anthony Koo <Anthony.Koo@amd.com>,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear James,
+Dear Alex,
 
 
-Am 11.04.22 um 23:39 schrieb James Dutton:
-
-> I have an Oculus Rift S, that I am trying to get working in Linux.
-
-Please always mention the Linux kernel version.
-
-> I have an AMD Vega 56  graphics card.
+Am 19.03.22 um 08:43 schrieb Paul Menzel:
+> Dear Alex, dear Chiawen,
 > 
-> The VR headset plugs into a display port of the Vega56.
-> The amdgpu driver sees the connection, and tries to process it.
-> The problem is it cannot process the EDID, so fails to recognise the
-> VR headset, and the VR headset does not work as a result.
-> Please find the EDID below.
-> I am guessing that the following is causing the problem:
-> Established Timings I & II: none
-> Standard Timings: none
-> Forcing the driver to understand the Detailed mode, to which it is failing.
-> If it helps, when attached to windows 10, it uses 1440x2560, portrait mode.
-> Some dmesg lines that may be useful:
-> // We should pick 1440x2560 as Windows picks that, but for some reason
-> is rejects it with error 10.
-> [10402.650734] [drm:create_validate_stream_for_sink [amdgpu]] Mode
-> 1440x2560 (clk 571570) failed DC validation with error 10 (No DP link
-> bandwidth)
-> [10402.650991] [drm:update_stream_scaling_settings [amdgpu]]
-> Destination Rectangle x:0  y:0  width:1440  height:2560
-> [10402.651225] [drm:create_validate_stream_for_sink [amdgpu]] Mode
-> 1440x2560 (clk 571570) failed DC validation with error 10 (No DP link
-> bandwidth)
+> 
+> Thank you for your patch.
+> 
+> Am 18.03.22 um 22:47 schrieb Alex Hung:
+>> From: Chiawen Huang <chiawen.huang@amd.com>
+>>
+>> [Why]
+>> disable/enable leads fec mismatch between hw/sw fec state.
+> 
+> 1.  Disable/enable of what?
+> 2.  How can this be reproduced?
+> 3.  s/fec/FEC/
+> 
+>> [How]
+>> check fec status to fastboot on/off.
+> 
+> What do you mean by “to fastboot on/off”?
+> 
+>> Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+>> Acked-by: Alex Hung <alex.hung@amd.com>
+>> Signed-off-by: Chiawen Huang <chiawen.huang@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/display/dc/core/dc.c | 4 ++++
+>>   1 file changed, 4 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c 
+>> b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> index f6e19efea756..75f9c97bebb0 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> @@ -1496,6 +1496,10 @@ bool dc_validate_boot_timing(const struct dc *dc,
+>>       if (!link->link_enc->funcs->is_dig_enabled(link->link_enc))
+>>           return false;
+>> +    /* Check for FEC status*/
+> 
+> Missing space before `*/`.
+> 
+>> +    if (link->link_enc->funcs->fec_is_active(link->link_enc))
+>> +        return false;
+>> +
+>>       enc_inst = link->link_enc->funcs->get_dig_frontend(link->link_enc);
+>>       if (enc_inst == ENGINE_ID_UNKNOWN)
 
-(Please use an email program, which does not wrap lines after 72 
-characters.)
-
-> Can anyone help give me with some pointers as to how to get the amdgpu
-> driver to accept this EDID?
-
-So, did you do any changes to Linux? Why do you think the EDID is at fault?
-
-[…]
-
-I suggest to analyze, why `No DP link bandwidth` is logged. The macro is 
-`DC_NO_DP_LINK_BANDWIDTH`, and you should first check why 
-`dp_validate_mode_timing()` in 
-`drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c` returns false.
+I just saw, that this patch was committed on March 25th, 2022 (commit 
+7d56a154e22f) with my comments ignored. Could you please explain why?
 
 
 Kind regards,
 
 Paul
-
-
-PS: Using the issue tracker [1] might make it easier to keep track of 
-this problem, and also to attach all the necessary information.
-
-
-[1]: https://gitlab.freedesktop.org/drm/amd/-/issues/
