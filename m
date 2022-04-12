@@ -4,53 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 936E6C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 17:30:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85C53C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 18:44:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C31B10E0A2;
-	Tue, 12 Apr 2022 17:30:19 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80A7410E0A2
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Apr 2022 17:30:17 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-e2afb80550so9572342fac.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Apr 2022 10:30:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=CfM59jPHh4k5GATg0SmlMBnq4SajAFN2U+C8v1YBxyE=;
- b=LPhznXIiu+hkuHCiPEKPofSoNOjCr9e+vkMt0kguFaJfSXNxD3AbhA41LhFX5+6IxP
- JxYu24X4f9hsuqsADUpmdjfWuQmNC8aCAtkAyZX55B/xZiGCszQ0Wfz/UQYW9Z0k/BSj
- ZTis5xd57gV8RVRM6CrJFTzD5ifG//VQXC1fXVIVTUJQjyFgzhlStwOkFcPJqZ5UWrzY
- biPm4//DGSNmFTVX0ku5lYyG5RV7j2xvq8oJlIFvVhoVoP+gMOsNL+gMtUk7lyT/B4KD
- l48U5a+7igQrYKzIF1iuhovvRha6p2RNQv+5+RSzugzJ2Tgtn+XyHRqQD1RN10SssA8u
- h2QA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=CfM59jPHh4k5GATg0SmlMBnq4SajAFN2U+C8v1YBxyE=;
- b=T1di9T36gSns9AAUiFp5vx7U65KUvCISVS0K3JmoVjKPfhqBg3nnBGJvynHOm8+MYK
- XXfMlQj9HP9BfKIzFrLD10z2bZ50nlndiqzBBetwYalw7fKvc3Knk0DlJGbeQAQhV0to
- 2hnVkQy6bNjyRm0vUb7JgjNCLciYHUHdvZ8q0Af0Fu66iq45Lkj8FNJSpPt329JdA2MN
- hNNHbvPAgZVAs3BBarM8L5U6TpOJcI9tR9YlB21Rf6hnL+e5UIatmubaGHuChOEoCWCX
- U97JxkhI8qOwOCDJtUBv5OuKt/+9F3aovMqvW+VDhMDN+DaeMJ8R30wcy0UUirRrf5Uv
- juig==
-X-Gm-Message-State: AOAM533KKw0rZDrwURYUv8+N2IHtK2Rh0S+3v8lTR1gZirzN9na/Uw7a
- YZyc8shYLdLH8phlxdR6iRBC4xRy864qmngRa/LSdM3e
-X-Google-Smtp-Source: ABdhPJzMkSdvWh6Jl8QUxMRUbWpL2Vo1lyjomEdAvxA0eMyG4fwndiy+w7l9ON6MYKwfZdiDcdOhB83ILBF5eqzt6Yo=
-X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
- z3-20020a056870d68300b000deeaa23550mr2697967oap.253.1649784616680; Tue, 12
- Apr 2022 10:30:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAE6910E059;
+	Tue, 12 Apr 2022 18:44:41 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2089.outbound.protection.outlook.com [40.107.102.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 610F710E059
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Apr 2022 18:44:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=C0N7rc4cGQ2F+bmXdxll4ijPOWL5MJgoQYa7I+wnkLInvtNquYdeGPKilRU1ZCDi1OPZygKvkgoVWoA/Slq2vPxRo+o9SF9kohZVZBPkSiGZOWI/Q4/j70PSyZBm4EciYVgqzuiGqm1p3ClNsBclg7zmeIT3H8OoGiakEkALzGNW5zxDGyEJ0VVsLpukRKcJuxnDA9zLFFWwO6Zj+XtK05UVVXM8ht/fpX/X6wFKm8jTP/2dGjcVvvcVYQLzhoMmlAQD/lks3+NERlWeVezutQG0p36aPSAJm7xN0jp/0e/DSybShsc4ygUjgft6iklpVmf+8rRcf5P2HVSnqlXVsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nfq5SwBIEAgzeTvws5gM/Jjt00UKGahF43k0C2GiPEQ=;
+ b=WbvRgA1CmJmHmbUqF5yhyFucuy6OrJN5qOzPsuOxyj62TquI7sqpNj+wwZrefUYz+c47BLkxN67seFJYDmJYph0LXZJFYWCgEl+w7Rm+iE+Xo/V9mvFEtW7KV7pBjulnsHjzPQvlWM73dGuVCSVuX2Dk96/UzLgYsb4NfukDUJHr0qzkUPWeFaBy4ZMvuLzYWmY31QXiDEMCo/46t9M7NXaj8LjA5SqQjkUFHt9Rc+Yyq9JKrHFoh7qhseg7MjJLGAo6T8HRqNE+VuJgVkYZp5n0MWuK7u44mxd2Bx4SMb+lG7qn8zPFb50m7qll7V8kKTe8L7ZMDnhFB3ddy0QGCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nfq5SwBIEAgzeTvws5gM/Jjt00UKGahF43k0C2GiPEQ=;
+ b=hb1iCD4NQGueq4/O0BichIA4pxrT5mKZ8CnRvCt5qszBH+KQhbjyqGB/oeNyKyzmTTC4CRUtx2Jnt1x9JTs3hPgctD1eVxsXfZWHmOSz0Tr/Iax3JtX7TRB4sgOPVGHiOiqyJ1fnEp0GF2eAofzEgTSlqjHLAVuQG3yoLxR2KQw=
+Received: from BN9PR03CA0204.namprd03.prod.outlook.com (2603:10b6:408:f9::29)
+ by MN2PR12MB4797.namprd12.prod.outlook.com (2603:10b6:208:a4::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Tue, 12 Apr
+ 2022 18:44:39 +0000
+Received: from BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:f9:cafe::c0) by BN9PR03CA0204.outlook.office365.com
+ (2603:10b6:408:f9::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18 via Frontend
+ Transport; Tue, 12 Apr 2022 18:44:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT032.mail.protection.outlook.com (10.13.177.88) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5144.20 via Frontend Transport; Tue, 12 Apr 2022 18:44:38 +0000
+Received: from atma2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 12 Apr
+ 2022 13:44:37 -0500
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] Revert "drm/amd/display: Pass HostVM enable flag into DCN3.1
+ DML"
+Date: Tue, 12 Apr 2022 14:44:21 -0400
+Message-ID: <20220412184421.573344-1-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220412160408.128949-1-Bokun.Zhang@amd.com>
-In-Reply-To: <20220412160408.128949-1-Bokun.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 12 Apr 2022 13:30:05 -0400
-Message-ID: <CADnq5_OttpWYtwSC3cne0DZTM+rN=a3Am-ex21Om4uSiME-z5A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Update PF2VF header
-To: Bokun Zhang <Bokun.Zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2ad5b13d-080e-4c83-bbd8-08da1cb47f95
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4797:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4797BB0BEA69C95C5B5952C598ED9@MN2PR12MB4797.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: T6+mbPTMw4AZjCLz2B0UCpwsST/YDl9UlbTRXp8FXxFqf9ywPm3Yd6z8QFv8fnN3vkd3fONgrpuTUh4RtTnLAj8jcAGaNq2sfj6Y2M/DFfq1ba45OOoNb12PFciQ0aWVzh0OLQrL4/aQPuGRv5kqBs5phZyNQIUIEvcrQs6YvQ/f/lgcDit5swS0C7wV4P0041oxYLBCd7eT5o6/ZWDWEduwAvjegigVHbuBmnjq+VoH58siOXRKurpbeUW2GXB+Lc2zBJWWi+BZHGjylPLl4k8oRRVxJHNJTpa7LON7aYh2dTUVZ7myJerbktuvHXZNY6l+Pk5ZYvjRt1sgIW7RzX6PsMqvUxrzxelyX/zm2yr5ZH/VUub7xHjo6HiJxX9jXFkvhSrEJmymNBEqKSk18W69rrm5XpjNU75DfILRBj/CbVtgh/c2Rk2gVbCQRVrY5sOWzZr3/J6NdHkueTp6e4QyyOqy7qnETi2pUv+FKyyPzGdgN2YmV0mP9DkbJ75GDeGGI9I1q6YCaMgrcbOlq/6ySMxBGZ+WPocczsVhU+CJZ4fU+Gn3M5scVlVlcma3X0KfJ64Bml5FZubScMAcsAJuIYgrNkgB2ABptGjK9ldmcv7YJLgp/0EfSAORMUwp2z7kn7M4BCO/s1LkgO+zuC9XpDQ1dlEjCT5UVBO1Dmrz4IoQPkgKIu0Y3yp20V/9uHhl2O5pFKjMvE8/5YRiVg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(336012)(426003)(16526019)(40460700003)(316002)(2616005)(1076003)(70206006)(4326008)(82310400005)(508600001)(36756003)(36860700001)(6916009)(54906003)(47076005)(186003)(86362001)(8936002)(70586007)(26005)(8676002)(83380400001)(6666004)(7696005)(81166007)(5660300002)(2906002)(356005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2022 18:44:38.5775 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ad5b13d-080e-4c83-bbd8-08da1cb47f95
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4797
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,260 +99,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Michael Strauss <michael.strauss@amd.com>,
+ Mark Broadworth <Mark.Broadworth@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 12, 2022 at 12:04 PM Bokun Zhang <Bokun.Zhang@amd.com> wrote:
->
-> - Add proper indentation in the header file
-> - In the latest version of the header, there is a variable name change.
->   This should not cause any backward compatibility since the variable is
->   at the same offset in the struct.
+This reverts commit 367b3e934f578f6c0d5d8ca5987dc6ac4cd6831d.
 
-Please split this into two patches, one to change the variable name,
-one to adjust the whitespace.
+While we were testing DCN3.1 with a hub, we noticed that only one of 2
+connected displays lights up when using some specific display
+resolution. After bisecting this issue, we figured out the commit
+mentioned above introduced this issue. We are investigating why this
+patch introduced this regression, but we need to revert it for now.
 
-Thanks,
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Mark Broadworth <Mark.Broadworth@amd.com>
+Cc: Michael Strauss <michael.strauss@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+index 6cc580be7c79..5b3f0c2dfb55 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+@@ -1668,7 +1668,6 @@ int dcn31_populate_dml_pipes_from_context(
+ 		pipes[pipe_cnt].pipe.src.immediate_flip = true;
+ 
+ 		pipes[pipe_cnt].pipe.src.unbounded_req_mode = false;
+-		pipes[pipe_cnt].pipe.src.hostvm = dc->res_pool->hubbub->riommu_active;
+ 		pipes[pipe_cnt].pipe.src.gpuvm = true;
+ 		pipes[pipe_cnt].pipe.src.dcc_fraction_of_zs_req_luma = 0;
+ 		pipes[pipe_cnt].pipe.src.dcc_fraction_of_zs_req_chroma = 0;
+-- 
+2.25.1
 
->
-> Signed-off-by: Bokun Zhang <Bokun.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 101 ++++++++++----------
->  2 files changed, 51 insertions(+), 52 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index a2e0a81831e0..14c5ccf81e80 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3725,7 +3725,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->         /* enable PCIE atomic ops */
->         if (amdgpu_sriov_vf(adev))
->                 adev->have_atomics_support = ((struct amd_sriov_msg_pf2vf_info *)
-> -                       adev->virt.fw_reserve.p_pf2vf)->pcie_atomic_ops_enabled_flags ==
-> +                       adev->virt.fw_reserve.p_pf2vf)->pcie_atomic_ops_support_flags ==
->                         (PCI_EXP_DEVCAP2_ATOMIC_COMP32 | PCI_EXP_DEVCAP2_ATOMIC_COMP64);
->         else
->                 adev->have_atomics_support =
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> index 7326b6c1b71c..43dc9026ef7a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> @@ -1,34 +1,33 @@
->  /*
-> - * Copyright 2018-2019 Advanced Micro Devices, Inc.
-> + * Copyright (c) 2018-2021 Advanced Micro Devices, Inc. All rights reserved.
->   *
-> - * Permission is hereby granted, free of charge, to any person obtaining a
-> - * copy of this software and associated documentation files (the "Software"),
-> - * to deal in the Software without restriction, including without limitation
-> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> - * and/or sell copies of the Software, and to permit persons to whom the
-> - * Software is furnished to do so, subject to the following conditions:
-> + * Permission is hereby granted, free of charge, to any person obtaining a copy
-> + * of this software and associated documentation files (the "Software"), to deal
-> + * in the Software without restriction, including without limitation the rights
-> + * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-> + * copies of the Software, and to permit persons to whom the Software is
-> + * furnished to do so, subject to the following conditions:
->   *
->   * The above copyright notice and this permission notice shall be included in
->   * all copies or substantial portions of the Software.
->   *
->   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
->   * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> - * OTHER DEALINGS IN THE SOFTWARE.
-> - *
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
-> + * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> + * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-> + * THE SOFTWARE.
->   */
->
->  #ifndef AMDGV_SRIOV_MSG__H_
->  #define AMDGV_SRIOV_MSG__H_
->
->  /* unit in kilobytes */
-> -#define AMD_SRIOV_MSG_VBIOS_OFFSET              0
-> -#define AMD_SRIOV_MSG_VBIOS_SIZE_KB             64
-> -#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB    AMD_SRIOV_MSG_VBIOS_SIZE_KB
-> -#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB      4
-> +#define AMD_SRIOV_MSG_VBIOS_OFFSET          0
-> +#define AMD_SRIOV_MSG_VBIOS_SIZE_KB         64
-> +#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB AMD_SRIOV_MSG_VBIOS_SIZE_KB
-> +#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB   4
->
->  /*
->   * layout
-> @@ -51,10 +50,10 @@
->   * v2 defined in amdgim
->   * v3 current
->   */
-> -#define AMD_SRIOV_MSG_FW_VRAM_PF2VF_VER                        2
-> -#define AMD_SRIOV_MSG_FW_VRAM_VF2PF_VER                        3
-> +#define AMD_SRIOV_MSG_FW_VRAM_PF2VF_VER 2
-> +#define AMD_SRIOV_MSG_FW_VRAM_VF2PF_VER 3
->
-> -#define AMD_SRIOV_MSG_RESERVE_UCODE            24
-> +#define AMD_SRIOV_MSG_RESERVE_UCODE 24
->
->  #define AMD_SRIOV_MSG_RESERVE_VCN_INST 4
->
-> @@ -83,19 +82,19 @@ enum amd_sriov_ucode_engine_id {
->         AMD_SRIOV_UCODE_ID__MAX
->  };
->
-> -#pragma pack(push, 1)  // PF2VF / VF2PF data areas are byte packed
-> +#pragma pack(push, 1) // PF2VF / VF2PF data areas are byte packed
->
->  union amd_sriov_msg_feature_flags {
->         struct {
-> -               uint32_t  error_log_collect  : 1;
-> -               uint32_t  host_load_ucodes   : 1;
-> -               uint32_t  host_flr_vramlost  : 1;
-> -               uint32_t  mm_bw_management   : 1;
-> -               uint32_t  pp_one_vf_mode     : 1;
-> -               uint32_t  reg_indirect_acc   : 1;
-> -               uint32_t  reserved           : 26;
-> +               uint32_t error_log_collect : 1;
-> +               uint32_t host_load_ucodes  : 1;
-> +               uint32_t host_flr_vramlost : 1;
-> +               uint32_t mm_bw_management  : 1;
-> +               uint32_t pp_one_vf_mode    : 1;
-> +               uint32_t reg_indirect_acc  : 1;
-> +               uint32_t reserved          : 26;
->         } flags;
-> -       uint32_t      all;
-> +       uint32_t all;
->  };
->
->  union amd_sriov_reg_access_flags {
-> @@ -110,10 +109,10 @@ union amd_sriov_reg_access_flags {
->
->  union amd_sriov_msg_os_info {
->         struct {
-> -               uint32_t  windows            : 1;
-> -               uint32_t  reserved           : 31;
-> +               uint32_t windows  : 1;
-> +               uint32_t reserved : 31;
->         } info;
-> -       uint32_t      all;
-> +       uint32_t all;
->  };
->
->  struct amd_sriov_msg_uuid_info {
-> @@ -156,6 +155,7 @@ struct amd_sriov_msg_pf2vf_info_header {
->         uint32_t reserved[2];
->  };
->
-> +#define AMD_SRIOV_MSG_PF2VF_INFO_FILLED_SIZE (48)
->  struct amd_sriov_msg_pf2vf_info {
->         /* header contains size and version */
->         struct amd_sriov_msg_pf2vf_info_header header;
-> @@ -204,10 +204,10 @@ struct amd_sriov_msg_pf2vf_info {
->         } mm_bw_management[AMD_SRIOV_MSG_RESERVE_VCN_INST];
->         /* UUID info */
->         struct amd_sriov_msg_uuid_info uuid_info;
-> -       /* pcie atomic Ops info */
-> -       uint32_t pcie_atomic_ops_enabled_flags;
-> +       /* PCIE atomic ops support flag */
-> +       uint32_t pcie_atomic_ops_support_flags;
->         /* reserved */
-> -       uint32_t reserved[256 - 48];
-> +       uint32_t reserved[256 - AMD_SRIOV_MSG_PF2VF_INFO_FILLED_SIZE];
->  };
->
->  struct amd_sriov_msg_vf2pf_info_header {
-> @@ -219,12 +219,13 @@ struct amd_sriov_msg_vf2pf_info_header {
->         uint32_t reserved[2];
->  };
->
-> +#define AMD_SRIOV_MSG_VF2PF_INFO_FILLED_SIZE (70)
->  struct amd_sriov_msg_vf2pf_info {
->         /* header contains size and version */
->         struct amd_sriov_msg_vf2pf_info_header header;
->         uint32_t checksum;
->         /* driver version */
-> -       uint8_t  driver_version[64];
-> +       uint8_t driver_version[64];
->         /* driver certification, 1=WHQL, 0=None */
->         uint32_t driver_cert;
->         /* guest OS type and version */
-> @@ -258,13 +259,14 @@ struct amd_sriov_msg_vf2pf_info {
->         uint32_t fb_size;
->         /* guest ucode data, each one is 1.25 Dword */
->         struct {
-> -               uint8_t  id;
-> +               uint8_t id;
->                 uint32_t version;
->         } ucode_info[AMD_SRIOV_MSG_RESERVE_UCODE];
-> +       /* dummy page addr */
->         uint64_t dummy_page_addr;
->
->         /* reserved */
-> -       uint32_t reserved[256-70];
-> +       uint32_t reserved[256 - AMD_SRIOV_MSG_VF2PF_INFO_FILLED_SIZE];
->  };
->
->  /* mailbox message send from guest to host  */
-> @@ -276,7 +278,8 @@ enum amd_sriov_mailbox_request_message {
->         MB_REQ_MSG_REQ_GPU_RESET_ACCESS,
->         MB_REQ_MSG_REQ_GPU_INIT_DATA,
->
-> -       MB_REQ_MSG_LOG_VF_ERROR       = 200,
-> +       MB_REQ_MSG_LOG_VF_ERROR = 200,
-> +       MB_REQ_MSG_READY_TO_RESET = 201,
->  };
->
->  /* mailbox message send from host to guest  */
-> @@ -298,17 +301,15 @@ enum amd_sriov_gpu_init_data_version {
->         GPU_INIT_DATA_READY_V1 = 1,
->  };
->
-> -#pragma pack(pop)      // Restore previous packing option
-> +#pragma pack(pop) // Restore previous packing option
->
->  /* checksum function between host and guest */
-> -unsigned int amd_sriov_msg_checksum(void *obj,
-> -                               unsigned long obj_size,
-> -                               unsigned int key,
-> -                               unsigned int checksum);
-> +unsigned int amd_sriov_msg_checksum(void *obj, unsigned long obj_size, unsigned int key,
-> +                                   unsigned int checksum);
->
->  /* assertion at compile time */
->  #ifdef __linux__
-> -#define stringification(s) _stringification(s)
-> +#define stringification(s)  _stringification(s)
->  #define _stringification(s) #s
->
->  _Static_assert(
-> @@ -319,13 +320,11 @@ _Static_assert(
->         sizeof(struct amd_sriov_msg_pf2vf_info) == AMD_SRIOV_MSG_SIZE_KB << 10,
->         "amd_sriov_msg_pf2vf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB) " KB");
->
-> -_Static_assert(
-> -       AMD_SRIOV_MSG_RESERVE_UCODE % 4 == 0,
-> -       "AMD_SRIOV_MSG_RESERVE_UCODE must be multiple of 4");
-> +_Static_assert(AMD_SRIOV_MSG_RESERVE_UCODE % 4 == 0,
-> +              "AMD_SRIOV_MSG_RESERVE_UCODE must be multiple of 4");
->
-> -_Static_assert(
-> -       AMD_SRIOV_MSG_RESERVE_UCODE > AMD_SRIOV_UCODE_ID__MAX,
-> -       "AMD_SRIOV_MSG_RESERVE_UCODE must be bigger than AMD_SRIOV_UCODE_ID__MAX");
-> +_Static_assert(AMD_SRIOV_MSG_RESERVE_UCODE > AMD_SRIOV_UCODE_ID__MAX,
-> +              "AMD_SRIOV_MSG_RESERVE_UCODE must be bigger than AMD_SRIOV_UCODE_ID__MAX");
->
->  #undef _stringification
->  #undef stringification
-> --
-> 2.25.1
->
