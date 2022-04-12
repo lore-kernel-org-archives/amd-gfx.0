@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EE49C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 00:47:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E24D4C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 00:47:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2107E10FAD3;
-	Tue, 12 Apr 2022 00:47:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B35110FAD6;
+	Tue, 12 Apr 2022 00:47:39 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76FDC10FAD2;
- Tue, 12 Apr 2022 00:47:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF21B10FAD5;
+ Tue, 12 Apr 2022 00:47:36 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 46FE2B819B5;
- Tue, 12 Apr 2022 00:47:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86207C385A4;
- Tue, 12 Apr 2022 00:47:27 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7873CB8186F;
+ Tue, 12 Apr 2022 00:47:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70370C385A4;
+ Tue, 12 Apr 2022 00:47:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649724450;
- bh=DDpiuvyZPMOVx2gNhL7oXsN4aLctbYZMvh6l2bO/8k4=;
+ s=k20201202; t=1649724454;
+ bh=LCkqVqIIGOi/CenhiiJdU9IaJN8JgKTltB9UEL1EcZQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=h40daArEAgC2iJMn/9HXmJo6XnyogNGrUgPRzansfoVPW9WqNR0xFQ/87rR8vB77x
- 8tVDjHQ318BV1WEfVBE//Fr/Us02DeGmp/iESokpRRxPZE7xAbGQ1zaYXK2WaqLTN0
- 7i/wivY4RcBilltk9cxFal8JbMmWzVa6Nsfe+mW1pNUGdV629gsjS5/JGWj7AHL7Kg
- DtReIMHEwf5ItGCvEC8/xcMowuEe8GNQUP9Oupf4QmGcdZ2BytgCgN7VzmRVYALNNU
- U/RmtJAwAz3e0iog3gLdurdeyUFLTnOKhOU/r/LE3CD1eF4vxmsc6SGwWA9OWCAVTK
- B0oYyTWGs8Utg==
+ b=A7MTpMpD4FXybfjekWQmFoDzAr30X1gHa7mc9ewUpZx+hi3jTBNqjX10+03a0gJxx
+ oUoniXeMsBqjtdDBW+9DZrXA8DAmJLs3zvX9oJri662jYtIWlsaRUfwbcIZXq9kH6I
+ UFBg+baE5g+iLpvKIe/S9Dpg4XpJR2uqKAJycgLa3iq106Hm1pyN4T5i511sKcH4mr
+ GSfdC4NKw0sPhpC3JPjcKcPNnKIPGgwzMEkAgf86JjqWDEgUcX4nIdBZSimIRDc6lT
+ +mu6bicVrBaGVVbOhjQ7nVuKKP5CvMwx11L1NjZlWQ3VkzaCbk/ogrc4rQchmUVlms
+ 7eJARREyu2S/Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 07/41] drm/amd/display: FEC check in timing
- validation
-Date: Mon, 11 Apr 2022 20:46:19 -0400
-Message-Id: <20220412004656.350101-7-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 08/41] drm/amd/display: Update VTEM Infopacket
+ definition
+Date: Mon, 11 Apr 2022 20:46:20 -0400
+Message-Id: <20220412004656.350101-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220412004656.350101-1-sashal@kernel.org>
 References: <20220412004656.350101-1-sashal@kernel.org>
@@ -54,55 +54,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: aric.cyr@amd.com, airlied@linux.ie, wenjing.liu@amd.com,
- dri-devel@lists.freedesktop.org, meenakshikumar.somasundaram@amd.com,
- lee.jones@linaro.org, Jimmy.Kizito@amd.com, Sasha Levin <sashal@kernel.org>,
- Anthony Koo <Anthony.Koo@amd.com>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com, michael.strauss@amd.com,
- harry.wentland@amd.com, Alex Hung <alex.hung@amd.com>,
- Chiawen Huang <chiawen.huang@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
- Martin.Leung@amd.com, Eric.Yang2@amd.com, Xinhui.Pan@amd.com,
- christian.koenig@amd.com, daniel@ffwll.ch, Wayne.Lin@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, roy.chan@amd.com,
- nicholas.kazlauskas@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Krunoslav.Kovac@amd.com,
+ Chris Park <Chris.Park@amd.com>, Alex Hung <alex.hung@amd.com>,
+ airlied@linux.ie, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Reza.Amini@amd.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>,
+ "Leo \(Hanghong\) Ma" <hanghong.ma@amd.com>, harry.wentland@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Chiawen Huang <chiawen.huang@amd.com>
+From: "Leo (Hanghong) Ma" <hanghong.ma@amd.com>
 
-[ Upstream commit 7d56a154e22ffb3613fdebf83ec34d5225a22993 ]
+[ Upstream commit c9fbf6435162ed5fb7201d1d4adf6585c6a8c327 ]
 
-[Why]
-disable/enable leads FEC mismatch between hw/sw FEC state.
+[Why & How]
+The latest HDMI SPEC has updated the VTEM packet structure,
+so change the VTEM Infopacket defined in the driver side to align
+with the SPEC.
 
-[How]
-check FEC status to fastboot on/off.
-
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Chris Park <Chris.Park@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Chiawen Huang <chiawen.huang@amd.com>
+Signed-off-by: Leo (Hanghong) Ma <hanghong.ma@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../gpu/drm/amd/display/modules/info_packet/info_packet.c    | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index b37c4d2e7a1e..35a27fe48f66 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1377,6 +1377,10 @@ bool dc_validate_seamless_boot_timing(const struct dc *dc,
- 	if (!link->link_enc->funcs->is_dig_enabled(link->link_enc))
- 		return false;
+diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+index 57f198de5e2c..4e075b01d48b 100644
+--- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
++++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+@@ -100,7 +100,8 @@ enum vsc_packet_revision {
+ //PB7 = MD0
+ #define MASK_VTEM_MD0__VRR_EN         0x01
+ #define MASK_VTEM_MD0__M_CONST        0x02
+-#define MASK_VTEM_MD0__RESERVED2      0x0C
++#define MASK_VTEM_MD0__QMS_EN         0x04
++#define MASK_VTEM_MD0__RESERVED2      0x08
+ #define MASK_VTEM_MD0__FVA_FACTOR_M1  0xF0
  
-+	/* Check for FEC status*/
-+	if (link->link_enc->funcs->fec_is_active(link->link_enc))
-+		return false;
-+
- 	enc_inst = link->link_enc->funcs->get_dig_frontend(link->link_enc);
+ //MD1
+@@ -109,7 +110,7 @@ enum vsc_packet_revision {
+ //MD2
+ #define MASK_VTEM_MD2__BASE_REFRESH_RATE_98  0x03
+ #define MASK_VTEM_MD2__RB                    0x04
+-#define MASK_VTEM_MD2__RESERVED3             0xF8
++#define MASK_VTEM_MD2__NEXT_TFR              0xF8
  
- 	if (enc_inst == ENGINE_ID_UNKNOWN)
+ //MD3
+ #define MASK_VTEM_MD3__BASE_REFRESH_RATE_07  0xFF
 -- 
 2.35.1
 
