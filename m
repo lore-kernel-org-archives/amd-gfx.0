@@ -4,90 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65B23C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 14:59:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B783C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 15:39:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE60B10E5C4;
-	Tue, 12 Apr 2022 14:59:36 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2049.outbound.protection.outlook.com [40.107.243.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBAAB10E59E;
- Tue, 12 Apr 2022 14:59:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PBlnekEcW8mh3j8shoCJhosQkrH8izFPVpmMIKtBBY3RL8a/DSVOpN8SDxJmP9GyOI8tDDVEB+ZATdnD8iChUZh/mgTLR+3g0Qcz+/W9eMO/F/+dNRdtZ4j8dUq4KWWh6dZLjqS5cuuRUvRqL7dehlBn5j8q2X0V9yDlvzBZtf/edEMW5Fm6t9kAT8xTkgvX9HrVFA7iDy2WwioisgEOTO1gqcQbk7nNGu7c50mO1M2c6h9xlGD4bjZ2Apu5gGOe/qxrRN2/0I7Kc+uwuWP4vY5rzu+tUwvQiramkSCOd0wb4/F/Kj+CXyMYf20Q5RDrZ0jMcAmN9GNLgpS0+mzqrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HpCtgxfrI0pU+sx5/bPjf6iSGeK1D/DCo6LbvntKJfA=;
- b=RS9boC5/jeu7e9gWVH96hcWfbImUhLIN4qEULUr8poT37FVA0mAc/T0uBT0wa9UX7FNaf7fyMvCpFNK+l1h5i8AtwKe5kcaTaK3GNhMlEIHYJTxQsYabVyCBi0Id5njl1W2R7TljFVb2a8gCkoCiwsGOJ7WLYG/rtFZf/hNiVosNu6i38XqjtPqXjC7JW8kINP1x2KszX5UYKuA+cY2KkO6lk2q/eua/liN8Gk5anPjiw92PQ1GzaAMfWyrIfhFTdDdFh+97LtilHj3IrSWyXC7aLnaN2/I/fGfT95CbL14fUvZhgPXkXK4n3zfMXhp1uegfkdrEhH3YL85UIEmQtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.ie smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HpCtgxfrI0pU+sx5/bPjf6iSGeK1D/DCo6LbvntKJfA=;
- b=wqXiHu5bD+//y7ZqcJYM1sNwxdmKWM+Fk+Bjai4nPg0vQx4GZ9GLNFUYznc6k+aeyZ8kprpzifLGSHu9o9UZUDCAARvR/jok5jAtJV+9klpRbkUD+QeqCHNlJJQEFbe6aGEmg0lD0P8TflcDMQ79y4kfBaFcgEdSzNj5N+qs5bU=
-Received: from DS7PR06CA0037.namprd06.prod.outlook.com (2603:10b6:8:54::12) by
- DM5PR1201MB0058.namprd12.prod.outlook.com (2603:10b6:4:50::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5164.18; Tue, 12 Apr 2022 14:59:31 +0000
-Received: from DM6NAM11FT047.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:54:cafe::fa) by DS7PR06CA0037.outlook.office365.com
- (2603:10b6:8:54::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18 via Frontend
- Transport; Tue, 12 Apr 2022 14:59:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT047.mail.protection.outlook.com (10.13.172.139) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5144.20 via Frontend Transport; Tue, 12 Apr 2022 14:59:31 +0000
-Received: from doryam3r2rack03-34.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Tue, 12 Apr 2022 09:59:29 -0500
-From: Richard Gong <richard.gong@amd.com>
-To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <xinhui.pan@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>
-Subject: [PATCHv3] drm/amdgpu: disable ASPM on Intel Alder Lake based systems
-Date: Tue, 12 Apr 2022 09:53:50 -0500
-Message-ID: <20220412145350.2843514-1-richard.gong@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AEF110E542;
+	Tue, 12 Apr 2022 15:39:13 +0000 (UTC)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6095110E12D;
+ Tue, 12 Apr 2022 15:39:12 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-d39f741ba0so21099282fac.13; 
+ Tue, 12 Apr 2022 08:39:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=GDejQrBv5+8R4CloLYKGTaS0N+kPnjCZFu6AY4D/UQU=;
+ b=A0L0qWbjnbVwHBr0yXc8U+iOId6sGqUs93ezYwnGa3UKet+MmjfsePBP9BK6EWHXXa
+ 2k/VOKOi2hlW2X0zwWIUIz9tncPRTaH2nzA2p+RXkKOnhkRRjN5m+FexrYf7TGD4Y454
+ wXRFm3GPf+qzuLVJnYIfzPRVzS/pc3A5C1kozQNM0Gq7aGFAtd++pA6DONJ71wuVYLk2
+ vTK6dY47BWvE5yaAHMHwiP8gaL+RVkF0CajVguT7G680dwE94+xGLu+V7Vsyr/hthkvP
+ IRbiT9YbgNsLSPzK00wq29jhIGmYN305FouGQtLwnkuHL++mK8K8fHppzJ35KBYmq0+c
+ WfnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=GDejQrBv5+8R4CloLYKGTaS0N+kPnjCZFu6AY4D/UQU=;
+ b=5sw38TT6cpHDQNKeu8LYKW59Mp70mab98Va+Kbuz3JlLP2IgqPDmCjtyz8ugMvm6cl
+ AXexo3YLPHZbiz3cukB3j37IPbwEKTu2E8arKeuouw047ekfrb3BrQpb0oTkfgHbPYSR
+ nHl4Uf9+JcgsHxAoe9GHd1OKFDCLbpQCy8WMtP3dtz2twVjysOCNQjUWNrfKy6lV5eoW
+ wRB/0iiQ3rZR0uePoZqZD1bNcFi+jrNjt9b+y68y9j0V87hyo40dMZu7YLwxT6ZOo02w
+ i7q+I1dtjR6VFqHxDKBQXtvfZviVriQqinPneXSWbgc14j+gE/2Sw1EmMXX07MY2U9xs
+ +ubA==
+X-Gm-Message-State: AOAM531l1xVrgIw2F555DMc4RluOdg1c8XvhgDRspSwQh7IzjW4i66nt
+ r57lWhMdZ+2YlFvsF5flX6J87oY0Hb6JJ8bRd2c3sD7g
+X-Google-Smtp-Source: ABdhPJymQ3dGYfaQ3h3dIFyjd8B/Cp9j8yb6BEvJMl112E4b/Ks7c+dO7vg8yc6oMUfPBbg2Dj05+DYpf6FC8Ir4dZI=
+X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
+ z3-20020a056870d68300b000deeaa23550mr2422005oap.253.1649777951636; Tue, 12
+ Apr 2022 08:39:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 604aa64f-ed80-4a07-e1a4-08da1c950c84
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0058:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB005816F57130BBA7E8DF87D695ED9@DM5PR1201MB0058.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BHGYcmC8V7Jh9w6LlDL3Tg2I2YEYmLm4THv0JwHftnORKdkr2FvTzZHzsCNf22pswzeWF5zCxCHo7jP7k3oS/er7m5gtpMvEcXHrRSAsayQQY67emifvhEtkLG87juap0t6H2uUUZ9nK4wUfFpJXDuHOcpO5TOeluNvqS4Dh7zT7iSl7ppdgDXaTR5uUoj0M/O/WAESNkCIYUWMnZoN6C8pDr0jntWv+VDV2mlqcJ98+tkzMCHF28eKJAdLOrlN7tHi8KYGs+lVOxWUOw697c/VW+IRN98KBJcT4hJudTIHyXtEcntp3OFZ/XxgOkAQfbEFGjZ+NQWSngF508gGe8zJGUnO6MO36Cy5g4v2VDwFUnBQU0FxyLvc+7aDeNhPKtwz5ACwldfGDLl4xp2AsUnB0wEHVJqGJKvCWpp1bd53A0bQJeuCgNmNRB9p32TPS9R659dd5Xewfa5uWLEN3/W+RJv44cBkhPUuyaND9/xO9NKFIa+ZthNX6+oYLRuPm1CW7m6LYsitmT5zzqULIF8z4GwS2sQAUfPduRYiwkRBzTCqoMihUKrqNiwDirvtsr/bFWBatGOWnH2rLOOfJgI8xCKBKONcGXIOfSOVeENRXKo85frdsnYnSmB/u851Wk3Lrh34oai+ULflf8TMLj9AchvRg3XuLLdL13Ol0YGV1wzdJruY7RDFQQnYn+XfMhZWZ3WdwnBplnSuxCv/P8A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(508600001)(2906002)(26005)(7696005)(6666004)(54906003)(36756003)(8676002)(4326008)(82310400005)(70206006)(70586007)(8936002)(966005)(5660300002)(110136005)(316002)(44832011)(356005)(81166007)(83380400001)(40460700003)(36860700001)(86362001)(1076003)(2616005)(426003)(16526019)(336012)(186003)(47076005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2022 14:59:31.0680 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 604aa64f-ed80-4a07-e1a4-08da1c950c84
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT047.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0058
+References: <20220325225402.469841-1-alex.hung@amd.com>
+ <20220325225402.469841-14-alex.hung@amd.com>
+ <42d34e82-3c15-c33a-5cd4-a0d2436e44d2@molgen.mpg.de>
+In-Reply-To: <42d34e82-3c15-c33a-5cd4-a0d2436e44d2@molgen.mpg.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 12 Apr 2022 11:39:00 -0400
+Message-ID: <CADnq5_OT6Nakp_guGHjMVE2ACAgMKvevyq2P2rhcPaSJ5vVBRQ@mail.gmail.com>
+Subject: Re: AMD Display Core (DC) patches (was: [PATCH 13/16]
+ drm/amd/display: Revert FEC check in validation)
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,78 +67,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
- richard.gong@amd.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, mario.limonciello@amd.com
+Cc: Stylon Wang <stylon.wang@amd.com>, George Shen <George.Shen@amd.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ Solomon Chiu <solomon.chiu@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Greg KH <gregkh@linuxfoundation.org>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ Martin Leung <Martin.Leung@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "Leo \(Sunpeng\) Li" <Sunpeng.Li@amd.com>,
+ Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <wayne.lin@amd.com>,
+ Alexander Deucher <Alexander.Deucher@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "Gutierrez,
+ Agustin" <agustin.gutierrez@amd.com>, "Kotarac, Pavle" <pavle.kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Active State Power Management (ASPM) feature is enabled since kernel 5.14.
-There are some AMD GFX cards (such as WX3200 and RX640) that won't work
-with ASPM-enabled Intel Alder Lake based systems. Using these GFX cards as
-video/display output, Intel Alder Lake based systems will hang during
-suspend/resume.
+On Tue, Apr 12, 2022 at 2:52 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
+>
+> [Cc: +dri-devel@lists.freedesktop.org, +Daniel Vetter, +Alexander
+> Deucher, +Greg KH]
+>
+>
+> Dear Alex,
+>
+>
+> I am a little confused and upset about how Display Core patches are
+> handled in the Linux kernel.
+>
+>
+> Am 25.03.22 um 23:53 schrieb Alex Hung:
+> > From: Martin Leung <Martin.Leung@amd.com>
+>
+> git puts a line =E2=80=9CThis reverts commit =E2=80=A6=E2=80=9D into the =
+commit message, when
+> something is reverted. Why isn=E2=80=99t this here? Right now, commit
+> 7d56a154e22f, reverted here, is proposed for the stable series. I guess,
+> because these indicators and meta data are missing.
 
-The issue was initially reported on one system (Dell Precision 3660 with
-BIOS version 0.14.81), but was later confirmed to affect at least 4 Alder
-Lake based systems.
+Sasha's tools proposed to pick it up which I often struggle with.
+It's very useful, but at the same time, we don't have the bandwidth to
+test every combination of patches that Sacha  proposes on every stable
+kernel.  The additional metadata would be useful, but I'm not sure if
+it would solve this problem.  This patch would likely be picked up by
+Sasha as well once it landed.
 
-Add extra check to disable ASPM on Intel Alder Lake based systems.
+>
+> > why and how:
+> > causes failure on install on certain machines
+>
+> Why are such kind of commit messages accepted? What does =E2=80=9Cfailure=
+ on
+> install=E2=80=9D even mean? Why can=E2=80=99t the machine configuration b=
+e documented so
+> it can be reproduced, when necessary.
+>
+> No less confusing, the date you posted it on amd-gfx is from March 25th,
+> 2022, but the author date of the commit in agd5f/amd-staging-drm-next is
+> `Fri Mar 18 11:12:36 2022 -0400`. Why is the patch missing the Date
+> field then?
+>
+> > Reviewed-by: George Shen <George.Shen@amd.com>
+> > Acked-by: Alex Hung <alex.hung@amd.com>
+> > Signed-off-by: Martin Leung <Martin.Leung@amd.com>
+>
+> Shouldn=E2=80=99t the Signed-off-by line by the author go first?
+>
+> You committed this on `Mon Mar 28 08:26:48 2022 -0600`, while you posted
+> the patch on amd-gfx on Friday. How should *proper* review happen over
+> the weekend?
+>
+> > ---
+> >   drivers/gpu/drm/amd/display/dc/core/dc.c | 4 ----
+> >   1 file changed, 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm=
+/amd/display/dc/core/dc.c
+> > index f2ad8f58e69c..c436db416708 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > @@ -1496,10 +1496,6 @@ bool dc_validate_boot_timing(const struct dc *dc=
+,
+> >       if (!link->link_enc->funcs->is_dig_enabled(link->link_enc))
+> >               return false;
+> >
+> > -     /* Check for FEC status*/
+> > -     if (link->link_enc->funcs->fec_is_active(link->link_enc))
+> > -             return false;
+> > -
+> >       enc_inst =3D link->link_enc->funcs->get_dig_frontend(link->link_e=
+nc);
+> >
+> >       if (enc_inst =3D=3D ENGINE_ID_UNKNOWN)
+>
+> The patch reverted here, also lacked proper review, had a to-be desired
+> commit message, did not follow the Linux kernel coding style (missing
+> space before the comment terminator), so should not have been committed
+> in the first place.
+>
+> Seeing how many people are in the Cc list, I would have hoped, that
+> somebody noticed and commented. The current state also makes it really
+> hard for non-AMD employees to get the necessary information to do proper
+> reviews as the needed documentation and information is non-public. So
+> good/excellent commit messages are a must. I think to remember, you
+> replied to me once, that Display Core patches are shared also with the
+> Microsoft Windows driver, restricting the workflow options. But I think
+> the issues I mentioned are unrelated. I know graphics hardware is very
+> complex, but if quality of the commits and review would be improved,
+> hopefully it saves time for everyone in the end, as less bugs are
+> introduced.
 
-Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Richard Gong <richard.gong@amd.com>
----
-v3: s/intel_core_asom_chk/aspm_support_quirk_check
-    correct build error with W=1 option
-v2: correct commit description
-    move the check from chip family to problematic platform
----
- drivers/gpu/drm/amd/amdgpu/vi.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+I agree that good commit messages are ideal and we should strive for
+them, but this is certainly not limited to GPUs.
+Subsystems all require a certain amount of assumed knowledge when it
+comes to commit messages.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-index 039b90cdc3bc..b0b6353b48b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -81,6 +81,10 @@
- #include "mxgpu_vi.h"
- #include "amdgpu_dm.h"
- 
-+#if IS_ENABLED(CONFIG_X86_64)
-+#include <asm/intel-family.h>
-+#endif
-+
- #define ixPCIE_LC_L1_PM_SUBSTATE	0x100100C6
- #define PCIE_LC_L1_PM_SUBSTATE__LC_L1_SUBSTATES_OVERRIDE_EN_MASK	0x00000001L
- #define PCIE_LC_L1_PM_SUBSTATE__LC_PCI_PM_L1_2_OVERRIDE_MASK	0x00000002L
-@@ -1134,13 +1138,24 @@ static void vi_enable_aspm(struct amdgpu_device *adev)
- 		WREG32_PCIE(ixPCIE_LC_CNTL, data);
- }
- 
-+static bool aspm_support_quirk_check(void)
-+{
-+	if (IS_ENABLED(CONFIG_X86_64)) {
-+		struct cpuinfo_x86 *c = &cpu_data(0);
-+
-+		return (c->x86 == 6 && c->x86_model != INTEL_FAM6_ALDERLAKE);
-+	}
-+
-+	return true;
-+}
-+
- static void vi_program_aspm(struct amdgpu_device *adev)
- {
- 	u32 data, data1, orig;
- 	bool bL1SS = false;
- 	bool bClkReqSupport = true;
- 
--	if (!amdgpu_device_should_use_aspm(adev))
-+	if (!amdgpu_device_should_use_aspm(adev) || !aspm_support_quirk_check())
- 		return;
- 
- 	if (adev->flags & AMD_IS_APU ||
--- 
-2.25.1
+At the same time, I think it would be good to set expectations.  Too
+many frivolous review comments and escalations tends to turn
+people off even if they are well intentioned.  There are always new
+people becoming kernel developers that may not have had
+a lot of previous kernel experience.  That said, to the AMD
+developers, please try and address every comment.
 
+Alex
