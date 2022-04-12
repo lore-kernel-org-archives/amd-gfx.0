@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62FC6C433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 00:51:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22517C43217
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 00:52:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1A3210FB25;
-	Tue, 12 Apr 2022 00:51:56 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6710610FB25;
- Tue, 12 Apr 2022 00:51:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB50F10FB2A;
+	Tue, 12 Apr 2022 00:52:13 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D254310FB2A;
+ Tue, 12 Apr 2022 00:52:12 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0A446B81996;
- Tue, 12 Apr 2022 00:51:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B6CC385A9;
- Tue, 12 Apr 2022 00:51:51 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5FB2E60C20;
+ Tue, 12 Apr 2022 00:52:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB858C385A3;
+ Tue, 12 Apr 2022 00:52:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649724712;
- bh=tmI8DtT+P3Q0cz3cFyD1ov7gqSYR/gsjP5W2IKO1sgc=;
+ s=k20201202; t=1649724731;
+ bh=N4oe4JkYZBbeeXFs6huyORVN6GlF6ckNaIQ+O7KQhT4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oO1U2KAgDwj7E8sVgv2+ZFnQo0BFNc3KobXfyfbFy0zJMU0NQMDlo6YHXxpKbFBHE
- JLj/xWTuVKfiXXHZ2aETQ7faHomiR4Y75c2Qn2Cz/77gGZTprevVz4d8AP5BmE2p7a
- 8frBqIuM9EJKnoovnfHxJtA8pgIM+HTcYTtj37gC+oQ1kOYY9nI1jMsDrDLyq9TDNI
- iaVJ3lmghDgh879zxCFEP12vZl5XaIFVBMHDB6th2Z1MOk9HB/KsSad9V/PKpPmdKo
- rnjebKxynr6BCF/CBHmYeBGHw9khNKz0TK/Vks4+sbmVUPKZ6/jIvqhU+tmPSBx1DF
- 5ze6uTCG8HlBA==
+ b=OA7VeqKKY+X9A6aWbzEloSJJwqbUhrQBE0dbmTAJGomE79yq0rs6T4pWEDw++P3mV
+ Gaj0QLXOSY0rGjmgsPgz5gMcAOb6aQ8N92p9NSF5gBKWFFEb7HLgwFTdsNfY4HDnS5
+ 8dYDOwOl94gxErXe8cVQzymeMBLyVXriJ7wP2U12+OnPt8VfzafFyK/vKr7u0rxh5j
+ vWJw9rEtJsbnEWI8jc5vqbqP54xQnZLmmlyC8AoalR3MxGIQprLkPbf2yepR6NGsny
+ CFlMhCkL3047Lt3HY3eKvl6K8H7yMM1RT7ZanoHxMdhcf5svyUFNur4X4DXUgM4/UL
+ WdGF6Odb2LhNA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 02/12] drm/amdkfd: Check for potential null
- return of kmalloc_array()
-Date: Mon, 11 Apr 2022 20:51:35 -0400
-Message-Id: <20220412005148.351391-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 10/12] drm/amd/display: Fix allocate_mst_payload
+ assert on resume
+Date: Mon, 11 Apr 2022 20:51:43 -0400
+Message-Id: <20220412005148.351391-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220412005148.351391-1-sashal@kernel.org>
 References: <20220412005148.351391-1-sashal@kernel.org>
@@ -54,41 +55,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie, Felix.Kuehling@amd.com,
- Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- QintaoShen <unSimple1993@163.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Alex Hung <alex.hung@amd.com>,
+ contact@emersion.fr, airlied@linux.ie, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, Roman Li <Roman.Li@amd.com>,
+ amd-gfx@lists.freedesktop.org, nicholas.kazlauskas@amd.com, sunpeng.li@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Wayne Lin <Wayne.Lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, qingqing.zhuo@amd.com,
+ harry.wentland@amd.com, christian.koenig@amd.com, shenshih@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: QintaoShen <unSimple1993@163.com>
+From: Roman Li <Roman.Li@amd.com>
 
-[ Upstream commit ebbb7bb9e80305820dc2328a371c1b35679f2667 ]
+[ Upstream commit f4346fb3edf7720db3f7f5e1cab1f667cd024280 ]
 
-As the kmalloc_array() may return null, the 'event_waiters[i].wait' would lead to null-pointer dereference.
-Therefore, it is better to check the return value of kmalloc_array() to avoid this confusion.
+[Why]
+On resume we do link detection for all non-MST connectors.
+MST is handled separately. However the condition for telling
+if connector is on mst branch is not enough for mst hub case.
+Link detection for mst branch link leads to mst topology reset.
+That causes assert in dc_link_allocate_mst_payload()
 
-Signed-off-by: QintaoShen <unSimple1993@163.com>
+[How]
+Use link type as indicator for mst link.
+
+Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Roman Li <Roman.Li@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_events.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index e9f0e0a1b41c..892077377339 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -532,6 +532,8 @@ static struct kfd_event_waiter *alloc_event_waiters(uint32_t num_events)
- 	event_waiters = kmalloc_array(num_events,
- 					sizeof(struct kfd_event_waiter),
- 					GFP_KERNEL);
-+	if (!event_waiters)
-+		return NULL;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ed02bb6b2cd0..1d1183c47beb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -777,7 +777,8 @@ static int dm_resume(void *handle)
+ 		 * this is the case when traversing through already created
+ 		 * MST connectors, should be skipped
+ 		 */
+-		if (aconnector->mst_port)
++		if (aconnector->dc_link &&
++		    aconnector->dc_link->type == dc_connection_mst_branch)
+ 			continue;
  
- 	for (i = 0; (event_waiters) && (i < num_events) ; i++) {
- 		init_wait(&event_waiters[i].wait);
+ 		mutex_lock(&aconnector->hpd_lock);
 -- 
 2.35.1
 
