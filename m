@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 657AAC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 03:35:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43AB4C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 03:35:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A55110FB4A;
-	Tue, 12 Apr 2022 03:35:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4DF410FB70;
+	Tue, 12 Apr 2022 03:35:40 +0000 (UTC)
 Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B8FC10FB4A;
- Tue, 12 Apr 2022 03:35:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2AE810FB4E;
+ Tue, 12 Apr 2022 03:35:38 +0000 (UTC)
 Received: from vertex.localdomain (pool-108-36-85-85.phlapa.fios.verizon.net
  [108.36.85.85]) (Authenticated sender: zack)
- by letterbox.kde.org (Postfix) with ESMTPSA id E123028BCA7;
- Tue, 12 Apr 2022 04:35:33 +0100 (BST)
+ by letterbox.kde.org (Postfix) with ESMTPSA id BF9A928384A;
+ Tue, 12 Apr 2022 04:35:36 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
- t=1649734535; bh=zkzByDrF26DGWLnIirOSAU1WUQF3cJVg6KcINgo2HtU=;
+ t=1649734537; bh=Nh5GIWhbYavhYAJ2lM1dTmT1hu102mSZDvX1E9H0yoM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MLRuC6IWahayVU4T8MFfoduNEA3dEpScOZ4SscRiBPe03TxXlq6ekEObY661LsJzX
- i7DICK5EqavCQZlWUuZ1epnVrRkcgTVpNd7kBn208nBUGo3jG4Sx5YQdo3G/2aaTLC
- 7G2yCVhIgURKWBEEYg6Bn4gC0rrRpn68vVULqItf3o1oF1WiLx8lN0vnCgsW8g/fYy
- ogRUoXLwEK82wXZVS28hcneOYRlCfma+rtHnSwUHSs5d1LWLmJOnGNgKERbGwbZ2tp
- pKdLWZZGIuy86sxFalKWFpcnWyHV1h9f0/Uohwj3z+SL8Odrm7PlOwF2YqeHj8CyMm
- xLIin4n2z4Wrg==
+ b=MobUAWlBaoQwv6v7q238iOxMJ/UF4KO3CedZ+8NI6ZV69WRr2H7kUNbZnazIAkS15
+ Q6ksU85luE5oGZmCALGo6GvPnQLz4RLGF2fvm26fZQ6kvRws2mJBN0lxoqCpp4Hfn+
+ 6x3mjYcSB1qsYSoVeWEKEMR4vZfvCYTbZRnwRzK6f2GC3yxjYNL+Mif1a1j1blrT2t
+ UxP2/7xwgYHqUuwkwH+iLLBw823x6w9Q+WtgyFGKnDwkiLqbAwh06TW+9NvkioSj6K
+ ysBjhgzfafTpcW3yyYRu9mavLoTTX2ViOqmRmvS1qcqD/r620STUVgGkqhU54z6N7w
+ +nLQIlcAJnygA==
 From: Zack Rusin <zack@kde.org>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 3/5] drm/amdgpu: Use TTM builtin resource manager debugfs
+Subject: [PATCH v2 5/5] drm/radeon: Use TTM builtin resource manager debugfs
  code
-Date: Mon, 11 Apr 2022 23:35:24 -0400
-Message-Id: <20220412033526.369115-4-zack@kde.org>
+Date: Mon, 11 Apr 2022 23:35:26 -0400
+Message-Id: <20220412033526.369115-6-zack@kde.org>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220412033526.369115-1-zack@kde.org>
 References: <20220412033526.369115-1-zack@kde.org>
@@ -49,22 +49,18 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: Zack Rusin <zackr@vmware.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org,
- krastevm@vmware.com, Huang Rui <ray.huang@amd.com>,
- Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
+Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ amd-gfx@lists.freedesktop.org, krastevm@vmware.com,
+ Huang Rui <ray.huang@amd.com>, Zack Rusin <zackr@vmware.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
  Christian Koenig <christian.koenig@amd.com>, mombasawalam@vmware.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Zack Rusin <zackr@vmware.com>
 
-Switch to using the TTM resource manager debugfs helpers. It's
-exactly the same functionality but the debugfs code is shared with
-other drivers.
-
+Switch to using the TTM resource manager debugfs helpers. The
+functionality is largely the same.
 The TTM resource managers need to stay valid for as long as the
 drm debugfs_root is valid.
 
@@ -74,26 +70,23 @@ Cc: "Christian König" <christian.koenig@amd.com>
 Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
 Cc: David Airlie <airlied@linux.ie>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Nirmoy Das <nirmoy.das@amd.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: amd-gfx@lists.freedesktop.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 86 +++++--------------------
- 1 file changed, 16 insertions(+), 70 deletions(-)
+ drivers/gpu/drm/radeon/radeon_ttm.c | 36 +++++------------------------
+ 1 file changed, 6 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 57ac118fc266..37fe9fb3f8e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2079,17 +2079,6 @@ int amdgpu_ttm_evict_resources(struct amdgpu_device *adev, int mem_type)
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+index 44594d16611f..d33fec488713 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.c
++++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+@@ -781,17 +781,6 @@ void radeon_ttm_set_active_vram_size(struct radeon_device *rdev, u64 size)
  
  #if defined(CONFIG_DEBUG_FS)
  
--static int amdgpu_mm_vram_table_show(struct seq_file *m, void *unused)
+-static int radeon_mm_vram_dump_table_show(struct seq_file *m, void *unused)
 -{
--	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
--	struct ttm_resource_manager *man = ttm_manager_type(&adev->mman.bdev,
+-	struct radeon_device *rdev = (struct radeon_device *)m->private;
+-	struct ttm_resource_manager *man = ttm_manager_type(&rdev->mman.bdev,
 -							    TTM_PL_VRAM);
 -	struct drm_printer p = drm_seq_file_printer(m);
 -
@@ -101,17 +94,17 @@ index 57ac118fc266..37fe9fb3f8e5 100644
 -	return 0;
 -}
 -
- static int amdgpu_ttm_page_pool_show(struct seq_file *m, void *unused)
+ static int radeon_ttm_page_pool_show(struct seq_file *m, void *data)
  {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
-@@ -2097,55 +2086,6 @@ static int amdgpu_ttm_page_pool_show(struct seq_file *m, void *unused)
- 	return ttm_pool_debugfs(&adev->mman.bdev.pool, m);
+ 	struct radeon_device *rdev = (struct radeon_device *)m->private;
+@@ -799,19 +788,6 @@ static int radeon_ttm_page_pool_show(struct seq_file *m, void *data)
+ 	return ttm_pool_debugfs(&rdev->mman.bdev.pool, m);
  }
  
--static int amdgpu_mm_tt_table_show(struct seq_file *m, void *unused)
+-static int radeon_mm_gtt_dump_table_show(struct seq_file *m, void *unused)
 -{
--	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
--	struct ttm_resource_manager *man = ttm_manager_type(&adev->mman.bdev,
+-	struct radeon_device *rdev = (struct radeon_device *)m->private;
+-	struct ttm_resource_manager *man = ttm_manager_type(&rdev->mman.bdev,
 -							    TTM_PL_TT);
 -	struct drm_printer p = drm_seq_file_printer(m);
 -
@@ -119,79 +112,31 @@ index 57ac118fc266..37fe9fb3f8e5 100644
 -	return 0;
 -}
 -
--static int amdgpu_mm_gds_table_show(struct seq_file *m, void *unused)
--{
--	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
--	struct ttm_resource_manager *man = ttm_manager_type(&adev->mman.bdev,
--							    AMDGPU_PL_GDS);
--	struct drm_printer p = drm_seq_file_printer(m);
--
--	ttm_resource_manager_debug(man, &p);
--	return 0;
--}
--
--static int amdgpu_mm_gws_table_show(struct seq_file *m, void *unused)
--{
--	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
--	struct ttm_resource_manager *man = ttm_manager_type(&adev->mman.bdev,
--							    AMDGPU_PL_GWS);
--	struct drm_printer p = drm_seq_file_printer(m);
--
--	ttm_resource_manager_debug(man, &p);
--	return 0;
--}
--
--static int amdgpu_mm_oa_table_show(struct seq_file *m, void *unused)
--{
--	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
--	struct ttm_resource_manager *man = ttm_manager_type(&adev->mman.bdev,
--							    AMDGPU_PL_OA);
--	struct drm_printer p = drm_seq_file_printer(m);
--
--	ttm_resource_manager_debug(man, &p);
--	return 0;
--}
--
--DEFINE_SHOW_ATTRIBUTE(amdgpu_mm_vram_table);
--DEFINE_SHOW_ATTRIBUTE(amdgpu_mm_tt_table);
--DEFINE_SHOW_ATTRIBUTE(amdgpu_mm_gds_table);
--DEFINE_SHOW_ATTRIBUTE(amdgpu_mm_gws_table);
--DEFINE_SHOW_ATTRIBUTE(amdgpu_mm_oa_table);
- DEFINE_SHOW_ATTRIBUTE(amdgpu_ttm_page_pool);
+-DEFINE_SHOW_ATTRIBUTE(radeon_mm_vram_dump_table);
+-DEFINE_SHOW_ATTRIBUTE(radeon_mm_gtt_dump_table);
+ DEFINE_SHOW_ATTRIBUTE(radeon_ttm_page_pool);
  
- /*
-@@ -2355,17 +2295,23 @@ void amdgpu_ttm_debugfs_init(struct amdgpu_device *adev)
- 				 &amdgpu_ttm_vram_fops, adev->gmc.mc_vram_size);
- 	debugfs_create_file("amdgpu_iomem", 0444, root, adev,
- 			    &amdgpu_ttm_iomem_fops);
--	debugfs_create_file("amdgpu_vram_mm", 0444, root, adev,
--			    &amdgpu_mm_vram_table_fops);
--	debugfs_create_file("amdgpu_gtt_mm", 0444, root, adev,
--			    &amdgpu_mm_tt_table_fops);
--	debugfs_create_file("amdgpu_gds_mm", 0444, root, adev,
--			    &amdgpu_mm_gds_table_fops);
--	debugfs_create_file("amdgpu_gws_mm", 0444, root, adev,
--			    &amdgpu_mm_gws_table_fops);
--	debugfs_create_file("amdgpu_oa_mm", 0444, root, adev,
--			    &amdgpu_mm_oa_table_fops);
- 	debugfs_create_file("ttm_page_pool", 0444, root, adev,
- 			    &amdgpu_ttm_page_pool_fops);
-+	ttm_resource_manager_create_debugfs(ttm_manager_type(&adev->mman.bdev,
+ static int radeon_ttm_vram_open(struct inode *inode, struct file *filep)
+@@ -930,15 +906,15 @@ static void radeon_ttm_debugfs_init(struct radeon_device *rdev)
+ 
+ 	debugfs_create_file("radeon_vram", 0444, root, rdev,
+ 			    &radeon_ttm_vram_fops);
+-
+ 	debugfs_create_file("radeon_gtt", 0444, root, rdev,
+ 			    &radeon_ttm_gtt_fops);
+-
+-	debugfs_create_file("radeon_vram_mm", 0444, root, rdev,
+-			    &radeon_mm_vram_dump_table_fops);
+-	debugfs_create_file("radeon_gtt_mm", 0444, root, rdev,
+-			    &radeon_mm_gtt_dump_table_fops);
+ 	debugfs_create_file("ttm_page_pool", 0444, root, rdev,
+ 			    &radeon_ttm_page_pool_fops);
++	ttm_resource_manager_create_debugfs(ttm_manager_type(&rdev->mman.bdev,
 +							     TTM_PL_VRAM),
-+					    root, "amdgpu_vram_mm");
-+	ttm_resource_manager_create_debugfs(ttm_manager_type(&adev->mman.bdev,
++					    root, "radeon_vram_mm");
++	ttm_resource_manager_create_debugfs(ttm_manager_type(&rdev->mman.bdev,
 +							     TTM_PL_TT),
-+					    root, "amdgpu_gtt_mm");
-+	ttm_resource_manager_create_debugfs(ttm_manager_type(&adev->mman.bdev,
-+							     AMDGPU_PL_GDS),
-+					    root, "amdgpu_gds_mm");
-+	ttm_resource_manager_create_debugfs(ttm_manager_type(&adev->mman.bdev,
-+							     AMDGPU_PL_GWS),
-+					    root, "amdgpu_gws_mm");
-+	ttm_resource_manager_create_debugfs(ttm_manager_type(&adev->mman.bdev,
-+							     AMDGPU_PL_OA),
-+					    root, "amdgpu_oa_mm");
-+
++					    root, "radeon_gtt_mm");
  #endif
  }
 -- 
