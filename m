@@ -4,162 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C880EC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 04:04:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FB6CC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 04:08:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BC5010FD1A;
-	Tue, 12 Apr 2022 04:04:13 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B392510FB7B;
- Tue, 12 Apr 2022 04:04:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649736251; x=1681272251;
- h=message-id:date:subject:to:references:from:in-reply-to:
- content-transfer-encoding:mime-version;
- bh=wfY2dtJBvDxkL037Adkk9JEwiOOYkOYtJpWCBV4I/8U=;
- b=JN1kZ0qQuzk6pUhuRTxTFKK94eF7j1kaSNizvsed19kVJZlqKCf7TXkE
- jRmmMEhTqbrnByPBVN6BsxoPQpbZxbTjaQbzefpJdasyXMqsfXXFA8YoH
- uDLt9g20J85l4uQLmm3TG2vgGUBAsq9OtFDV1aRyk3SutglQUIFyoHNV2
- uEzsEg5mKzovdEv+8VSgy15J2HQ/8fjQNFyJOTcU9yvv30P60oyELLZ6u
- bsW9EoUr0wU2wXQ9zmY40RQ1kwY7XKkLediGfCafpLJhN3Shz7N4Dm85A
- 6b3o57RHa0VdAr83qM7PH032w5dM6abYtquookKecqQjyfs9GtJ78+e37 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="287284181"
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="287284181"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 21:04:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="590157643"
-Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
- by orsmga001.jf.intel.com with ESMTP; 11 Apr 2022 21:04:10 -0700
-Received: from orsmsx609.amr.corp.intel.com (10.22.229.22) by
- ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Mon, 11 Apr 2022 21:04:10 -0700
-Received: from orsmsx602.amr.corp.intel.com (10.22.229.15) by
- ORSMSX609.amr.corp.intel.com (10.22.229.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Mon, 11 Apr 2022 21:04:09 -0700
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27 via Frontend Transport; Mon, 11 Apr 2022 21:04:09 -0700
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com (104.47.56.40) by
- edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.27; Mon, 11 Apr 2022 21:04:09 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47CF789F73;
+	Tue, 12 Apr 2022 04:08:21 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2048.outbound.protection.outlook.com [40.107.236.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31B5610EDCE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Apr 2022 04:08:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kOWf75WzS/xQ8JRUTm4gUJB4ZYksW+yNZvVEFJeabUi2+HglzqPzVigrLS/b3TV/J+qk4Eq50Ub+AE8wrImdfjZTL6vx19DLGR5wvqHUPpGIJSdYuQWSdiBaJfriIMtZxABE/rDY0QgqGIXx3rwot0IjiJ4+0eRVJz7yAtSgghmzn9d1vp4mipwBNRhASYOMXkjHH4S5Lb5vfqDmdzKUqTVoR65oG+EMRnJOCss1fYYyWcjM6Gok8mtUXxGDQtGP09/Q588hfaqxbUC7j7bzqOoQobt1hkH6H3imgo0MCb/m6EBMU3oLb55JpPa2zILvZVbNaL05opqk+X6pyLknlA==
+ b=YURmrvbOqTxobF/UWboS0nNdFMtXK97smKCCdMlg385aAYxzC4ZpLaWAJHyiTZ94SQblK0zf0iyJ5Y/b0dEU1buZYQ8uVg9l8E9UjHDdJzIG6LVfsmpQ64UAzoQTNMNuLXWiapF7einzWk4Fcn1LgKzE6KOh8sr0a4liWzAqeJSXAk6t1qD6oXgVlH6OCNhQlsDISxEEZUlYzpQ1yKCL0LtImw0AetgcqTU7z8lB3Vmp7FAgF4scBuec7or2BsDWH6SfpTpCc7aSq3Jm9lAFOGQyBbKDSPZ3a74jsEhlR49q/jEYbdCQxD1dv6yzuHWXPYak6chFkqw0UDXo+1GIRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yDUBAf/XY+pFmzn9JEa4QT3Umup5/Vm2E7NhzhDrbIk=;
- b=hb2SYBXcOmyP/rhUQz7ZgagUp1zt2rZhQ/qlTwaKMYZnb9/jq5qRBiwpLBwGPrw4Ua3ae68GyFMcAJeee6ZQ2fRgvKAj42/3H0LB4/rBPXaSk1cVQhIZGLKLxoVgpPVmCTd7N9tCeBucPOohGZ74BEukqNQsEpS21HBeoT8ySgkpWzSDZSDYUpuutYNDTDxeGfPMoQ/Tf38nV7+40ik9ydy+EgmDByaJ5YBMYLaqB7zdhuEBFufySlbOe/FG2xmLp5oEy6LpnTYCZtiQqSQU3M6Cs0xkrsjtA4xYMcshI4McNlcubVHBvCNxF3ZtsoLLf4fJVrfRTgV6zKDulHVlpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM8PR11MB5719.namprd11.prod.outlook.com (2603:10b6:8:10::6) by
- BL0PR11MB3218.namprd11.prod.outlook.com (2603:10b6:208:60::27) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5144.29; Tue, 12 Apr 2022 04:04:08 +0000
-Received: from DM8PR11MB5719.namprd11.prod.outlook.com
- ([fe80::905:c4c3:7416:d3e9]) by DM8PR11MB5719.namprd11.prod.outlook.com
- ([fe80::905:c4c3:7416:d3e9%7]) with mapi id 15.20.5144.029; Tue, 12 Apr 2022
- 04:04:07 +0000
-Message-ID: <a53c017e-01e1-c642-fe2d-68d6f3f51f9e@intel.com>
-Date: Tue, 12 Apr 2022 09:33:45 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [Intel-gfx] [V2 1/3] drm/debug: Expose connector's max supported
- bpc via debugfs
-Content-Language: en-US
-To: "Murthy, Arun R" <arun.r.murthy@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>, "Sharma, Swati2"
- <swati2.sharma@intel.com>
-References: <20220411095129.1652096-1-bhanuprakash.modem@intel.com>
- <20220411095129.1652096-2-bhanuprakash.modem@intel.com>
- <DM6PR11MB31775291823E7A58E16096D7BAED9@DM6PR11MB3177.namprd11.prod.outlook.com>
-From: "Modem, Bhanuprakash" <bhanuprakash.modem@intel.com>
-Organization: Intel
-In-Reply-To: <DM6PR11MB31775291823E7A58E16096D7BAED9@DM6PR11MB3177.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN0PR01CA0035.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:4e::10) To DM8PR11MB5719.namprd11.prod.outlook.com
- (2603:10b6:8:10::6)
+ bh=eW6Zz80P6/AaekL2UKSgt9KVHpudV4OlnintWtxYek0=;
+ b=CF9eQkZihYrL9jsoWVsRGWk04NTd6WvH36JZ/4XkeFuPJNZKjnruFv6Q4ucGDuQBHY0tXFTvQ9E8q/OYkKHW4tOzFjz+GDdFcLk80vWzY+ZK8baNxfhFkhlZKcrnUEAS8A5t44p8+in7Vh0G+uECCYn1cvmAXNmdHtf+1Ub8QWLpthuy0TlfbFzfIVtDxlH7iEFT2chPGfaRrZQN4uzlrw77dmHqBr835WEHAJ3A8PxAtxURgPCHlM4vIxk7qvGxiWT2JZqAsgyPhQR2Qqzx3UsXjRTkPHDPzbUIuWiny9w2MyjaCT7ujot5/Ye3v/l5ZfEgQfotLEHuu6q9UKrQAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eW6Zz80P6/AaekL2UKSgt9KVHpudV4OlnintWtxYek0=;
+ b=TEoW7QZnSeG3aRYgjgkAZSnl4U1AHtDLg/j9N7WdwY/mCSMTuU3fWO9uVGJcBlgUVOhkT6mhq33rFpvlwZhn2DLs7zuNX/4HY/GLHFQMmDAjyPXRQU9ng98lq+pRBNekqBp6Y45cmxkkbDG4ii260DFK7XpBzJ8YKqrt70Y2plY=
+Received: from BN8PR03CA0004.namprd03.prod.outlook.com (2603:10b6:408:94::17)
+ by CH2PR12MB4119.namprd12.prod.outlook.com (2603:10b6:610:aa::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Tue, 12 Apr
+ 2022 04:08:17 +0000
+Received: from BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:94:cafe::54) by BN8PR03CA0004.outlook.office365.com
+ (2603:10b6:408:94::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29 via Frontend
+ Transport; Tue, 12 Apr 2022 04:08:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT062.mail.protection.outlook.com (10.13.177.34) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5144.20 via Frontend Transport; Tue, 12 Apr 2022 04:08:17 +0000
+Received: from dapowell-ubuntu-200400-1.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Mon, 11 Apr 2022 23:08:16 -0500
+From: Darren Powell <darren.powell@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/1] amdgpu/pm: Clarify documentation of error handling in
+ send_smc_mesg
+Date: Tue, 12 Apr 2022 00:08:01 -0400
+Message-ID: <20220412040801.19905-1-darren.powell@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fef27c30-bc10-440c-270c-08da1c397da0
-X-MS-TrafficTypeDiagnostic: BL0PR11MB3218:EE_
-X-Microsoft-Antispam-PRVS: <BL0PR11MB3218FB42D887FBF2DA105B478DED9@BL0PR11MB3218.namprd11.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: bf45a73b-2f01-4281-864e-08da1c3a12be
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4119:EE_
+X-Microsoft-Antispam-PRVS: <CH2PR12MB411984E3373016BC645657CDF0ED9@CH2PR12MB4119.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: H2C6Z8LslILc8CU5+lds3rod9nT20wGkCWa3szdVPhe7WHJlt9HoKYlvGLKy+nE2Gg+gZlriFDwofnGcskX1S3oowC+tgi6UU1d5RJMYK1wOK56IcWR/STGTfVLqTsw9PkKvB01HJgz8VP4nvjaRTusMAWXDKinKp6MHsQGgq0ddzgedL/nZl90DkRZ3g5sIHnxuWCG6LPw4LaokAzLim+J7d0RYwW09du4+7CsM3zc1mx3eRpJWBvVCn1IwCAKtp6XUobYN6sT2R5pQxQloJl4ZK2EZu6FiNDHAZDPhiXaDvWEMZOd5f/luD7AkMspahO0pua2LYh7bATkgDm9hQCmqGyoJT4ciPHJ3AoYfJ4nE7Quh0klyXcQHTb8y5ilxLu6EAOHgJFdPT9vAwPVm66FHC9cf8Z+UrFm/CrZz+EywW0z8YjbnVkEDykEYmf9fRBGdXNuExkeKZrDGBdrJ3V7kNdHUpi+8cQUjtOWPr4JT72jgLxk+bik2/FmjCcZl8iVa94RPh8MqGtFOS12b1f7UgA6VX8VmobZaRvRA1SfHxw37HZZBCMowtSN+lUs2x011fbGqTTiHJoHiDvOf9IOOwkjbkuqcWmBcJArwAYOlxKqiPgHkxliSE26XZpNvGqV8XImOHEeHHGRTHpF4ldxkk3GAIvnff5MlHJMpJ8h32z3PBmm8vqiWw4165O9gX2891S1Ig9knup0o02CRMZ0lqD2KLJ8ZewOBAVhA0AaxBMdMmf7FRYFRDyNW6TEk
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR11MB5719.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(38100700002)(36916002)(921005)(6506007)(6486002)(5660300002)(82960400001)(6512007)(508600001)(4744005)(6666004)(2906002)(31696002)(186003)(86362001)(26005)(2616005)(6636002)(31686004)(8676002)(66476007)(66946007)(66556008)(36756003)(316002)(8936002)(110136005)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VGlvZUdsaERoWVFSWnFnMi82Ni9XdlBEMm9JcVBnRXp3cDBFb0NiNG9oYjJX?=
- =?utf-8?B?WmFabnNXdVpjbjRLVDJjVUxNdkFDdEE4Q3d0MGRwZE5mbUxoVE9Wc1VsNjVJ?=
- =?utf-8?B?S1pZUnQ0bFY0d0gxWmlnRG91OXc3VS9uQzJEODZYZkFzamt2QlFOT3ZrOTNX?=
- =?utf-8?B?OUtaVCtCV2xQUENiK05iWjhhakV4MjF4RXpVa05tbEswVnBueTZxMjAyellm?=
- =?utf-8?B?S0dWQ1dkT0EvZ3ErUDYxTUx5K0lncFB3Mm44NldKcUxCZUhsdys0RWxWbGRI?=
- =?utf-8?B?OXZSRGR2Unp3b2pPSlJIZzRDdXI4dlZJTnEzcTYzU1pkZy94L3U4UjMvVVVy?=
- =?utf-8?B?Ynlva3ZqeCtWeS9qaDJxZ3VsL0wvMTdhUHJ3OGpBR2dZYUNvUnV3MnJiTkd2?=
- =?utf-8?B?SDJsT2QrMjdTZDdwTC9ET0hvS3JvczVWTWJMaXNmM1QxNmhkSjdLbFFRbTZZ?=
- =?utf-8?B?dUpIT3JVVy9KempkTVFsQ3F0UUE5cDZjVHRucHZKUU9hYXYxUUZ1blZuZHpo?=
- =?utf-8?B?RnlJQXhscmh6a1pxUk80VnZ6Mnpvb2FpWWExa2tCVW5GYzdBWXBQbGMxUERF?=
- =?utf-8?B?MGZHSlpUUHFiOVE4Q0g0TlBlNGZBWmlwNGdseDJ6eC9hWnBZMnI3YytSWjRu?=
- =?utf-8?B?aDhFWXVmL2RmaUhLeDVoRGIvdGpJdlEvc3JnTWFWSkorT3NKTllnSHU5aDdn?=
- =?utf-8?B?YjVEWG1QWHRkQ0JmcmFYRUxoWE5MOU15YTVxOVQ3d25GS2QwUkViYVMwTXBu?=
- =?utf-8?B?WlJ2Y3YrRXE0NUFKbzNUMGMyU1RqYzRFc2daRFZESHpiT1lCYWN3eDFhbWt2?=
- =?utf-8?B?QkpqbHAwSVBFWDRwZDkrTERJakJKZ0RuK1o1ajlESUNyMUxwb3ZMcHhUak1B?=
- =?utf-8?B?Y3VKT1JOdGN0aU5SaGp5cWY4MmRrMHZmY3hzcGFnWndEOVhGUWdFOEFTZmhr?=
- =?utf-8?B?SEcvSjFlektxeVBYKzFlZ3E5eEF3Z0ZWL2docnkwTDFoaENtRmxVRWt0OVc1?=
- =?utf-8?B?UFd2UkNqMUI5QWxsVFp5R2w1WWtxc0F6ZENzV2VVTVdvZytxYnByVk1Nc1o0?=
- =?utf-8?B?WHU2emI2V0o5cjVnNTVRclNJMVJ4VDA3U0RRdmlIa0dCVllpSEE3eEcvOU9G?=
- =?utf-8?B?RUN3UmgxN3VDWk4vTEJmZG9LV044d3lGYklwUXNabW5hRjNiTGIwTEVoenU4?=
- =?utf-8?B?cXNDTHRRZEwxbG1MazZaNm9SY0ljRlpEanZXRzBsVzVQL3gvakxMUUZyY1Az?=
- =?utf-8?B?ZnRsVUxmblFHamwzblpYL3J5eEQ4UGYwQ2Fxdi8raGxaVlRKWENHWi91djFj?=
- =?utf-8?B?U1pkWWVPSHJaNzIyMFpOaWdIZEhIVFBFWG5RLzJkMVJEcEhJTGhPN29wUDV4?=
- =?utf-8?B?dDBtMlk5Y3FrazQ0NS9tZzd4VHZ2MU9FQTBUSzNIZnBNdFhFRG0zellIYlNJ?=
- =?utf-8?B?YklpallUeURvUUkvbHhrcUxza25RKzBpb0FyRVRaL1A0K0U0SGd4QnBkRmtM?=
- =?utf-8?B?MkZkcHZsS1pFUlZmM0taenNDYkh1dWszS3QyV3hhNjI0OVR0Z1IyNXpDbVp1?=
- =?utf-8?B?bDBtd3RyRjJaalU2U2o2N3RiY3RWYWtac2Z3Z2VWYjcrU2lTcER5eklsazdQ?=
- =?utf-8?B?M25zR21FdHNZRXE1enBCSUJ5eEJ1QnlFVjVVdjUvb3haaTBiTGhKYXM2NnNp?=
- =?utf-8?B?Sy9xbjZvNDlaQTVXTk9wZXlxRHVUNmlBRmxPU0xuZkI3ZDdRRjN0N0NLQ0ly?=
- =?utf-8?B?TTRoRTU2cUN3MUk4VVp5a01OMnBvOWFqc3hzQWJFUDVzb0N1VnB4b2FybkxT?=
- =?utf-8?B?dmtjdDZiRWxFU0NNS1BkUThpOGtOTWg4ejdkV1hzZEpFbXVRang1dkZYSDVt?=
- =?utf-8?B?emp3NXpmRHFmWHcwOU0rNmtaU3FJYnhNaTYvdGZNR1lON28zb1BPaDhiNEtS?=
- =?utf-8?B?NEdjeVlpekg0UlQ4cEp1L0NsdCtORWRua2k1OVBMOVFHbyttTEJiSDNIOVV4?=
- =?utf-8?B?Vy9GTXhLcG5Zd3cyZW1RK1dtMmludkhicWNJaDg1eSs4YnVLMFFnem9iSlNH?=
- =?utf-8?B?RGhETGRaSVFYaVpseFVGRkhTL2JUZTZsM3kwMElONE1ocFhoVXpKRU90SEhn?=
- =?utf-8?B?N0piL1c4a3N2ZER5TCt0SGRuL1FwT1p0MThTMDlETzVsd1ROdkJ4M01Qa2d2?=
- =?utf-8?B?N2NXK01PbHRNT1lta29BcktqdHI3QlBZMjltTjdqQXF1eE9sV3VmRitpSXF3?=
- =?utf-8?B?endwdmJrN0oxZXRHN0prZFRwRHE1VGhJRXVUODZYS0J5dy9iRDRvQ21vc2J6?=
- =?utf-8?B?OE13SHAyenZHWVJIM0txcE5pYWVIL2FsT1FNNkh4NXpKdHNOemdvR1A3TG1q?=
- =?utf-8?Q?RV6HPL0rujiidzgk=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: fef27c30-bc10-440c-270c-08da1c397da0
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR11MB5719.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2022 04:04:07.5987 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y3uVgzp+7csNJwJxTovk0PaO2ldTEIbw7yHkjK9PwKMwYzmeqnHEGFS6IGGPUOs+ReKtsHfrzPuLVEW52h88Q4dUzUJvk1XSYVKlDvjlnqg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR11MB3218
-X-OriginatorOrg: intel.com
+X-Microsoft-Antispam-Message-Info: gYms9ra40XDx0av+lvpIPKh355I8cp7g7La1eJx8rha29bstKx6UTIA8i29AhFezKez4dyMRhyXOBKoqCHpd94tm4isjZvIxvPT7tkE440KtPSITImPPTirhZ8IBQU65PScXPZafsWCm7ODSDg7sHl+5tGwm7NVc/LeOOvKYYgpu92QiTGdWUsIYZlCbFz0ywkRniausCeyvPzBKDpYE4MN2ss/P+ArNxdumoBpX6o+DTZh7NqOoYm0Y1+n/QQz3j5bwrWFleedGiXJP48fYilyQ/uHxu8+XS+Ro/oWaHu31980q+WSi0KGwRuUy0qXztZaQzufcTvwr2iV0Ln3qjPi+xiL3CCQYFu37ZGGO6SlrXXMzckxXmHjh37DVrpCPcN4+pxsI5UFtP6f0PCJhp0jS8BjTo8WcrGWYqjWv/ZCkHQXflExxM850ZUjuqiVIPW+nqNd4W9tqhUU63tkVwDwDbg+i6SRxJttJR+46rtqz9SS0q4AjOH1zZs2nzKLMCCWrOuizI82r+yM367t/s7zQWLXxIh9SepIhnDlxuK9kV0Wg9RYvXNA/8RqpEfdjorTn81O8hMWyMAmaQj7ZtRE4TBtyybI88uvad2ofZ9Jjz+vIPbcsovATQGiIW8J7ato/SOcGQSht4f4zSVBC7vwAVRUIcz/auM4RfhR6HG+00FrVXYK7UN6wDwmJhkfOtlY3xf3DmJKjsJbYY8up9w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(2616005)(186003)(16526019)(82310400005)(508600001)(36756003)(6666004)(6916009)(47076005)(83380400001)(336012)(36860700001)(4326008)(70586007)(8676002)(70206006)(54906003)(44832011)(8936002)(426003)(316002)(5660300002)(1076003)(26005)(7696005)(356005)(2906002)(40460700003)(86362001)(81166007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2022 04:08:17.3722 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf45a73b-2f01-4281-864e-08da1c3a12be
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4119
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,26 +99,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: luben.tuikov@amd.com, evan.quan@amd.com,
+ Darren Powell <darren.powell@amd.com>, andrey.grodzovsky@amd.com,
+ pmenzel@molgen.mpg.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue-12-04-2022 08:37 am, Murthy, Arun R wrote:
->> +static int output_bpc_show(struct seq_file *m, void *data) {
-> 
-> Would it be better to have this function name as drm_output_bpc_show()
+Contrary to the smu_cmn_send_smc_msg_with_param documentation, two
+cases exist where messages are silently dropped with no error returned
+to the caller. These cases occur in unusual situations where either:
+ 1. the message target is a virtual GPU, or
+ 2. a PCI recovery is underway and the HW is not yet in sync with the SW
 
-As we are using DEFINE_SHOW_ATTRIBUTE() to define file_operations, this 
-function name must be <debugfs name>_show(). Otherwise, either we need 
-to define new file_operations to use the suggested name or rename the 
-debugfs name to "drm_output_bpc"
+For more details see
+ commit 4ea5081c82c4 ("drm/amd/powerplay: enable SMC message filter")
+ commit bf36b52e781d ("drm/amdgpu: Avoid accessing HW when suspending SW state")
 
-Also, to align/maintain uniform with other debugfs, I think it's ok to 
-use output_bpc_show().
+(v2)
+  Reworked with suggestions from Luben & Paul
 
-- Bhanu
+Signed-off-by: Darren Powell <darren.powell@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-> 
-> Thanks and Regards,
-> Arun R Murthy
-> --------------------
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index b8d0c70ff668..8008ae5508e6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -356,9 +356,11 @@ int smu_cmn_wait_for_response(struct smu_context *smu)
+  * completion of the command, and return back a value from the SMU in
+  * @read_arg pointer.
+  *
+- * Return 0 on success, -errno on error, if we weren't able to send
+- * the message or if the message completed with some kind of
+- * error. See __smu_cmn_reg2errno() for details of the -errno.
++ * Return 0 on success, -errno when a problem is encountered sending
++ * message or receiving reply. If there is a PCI bus recovery or
++ * the destination is a virtual GPU, the message is simply dropped and
++ * success is also returned.
++ * See __smu_cmn_reg2errno() for details of the -errno.
+  *
+  * If we weren't able to send the message to the SMU, we also print
+  * the error to the standard log.
+
+base-commit: 4585c45a6a66cb17cc97f4370457503746e540b7
+-- 
+2.35.1
 
