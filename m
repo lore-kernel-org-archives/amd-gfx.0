@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 035DCC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 07:16:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 887F4C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 07:16:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB6EB10FBA9;
-	Tue, 12 Apr 2022 07:16:09 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1376510FCAF;
- Tue, 12 Apr 2022 06:52:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05FAE10FC82;
+	Tue, 12 Apr 2022 07:16:10 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C72E210FBCA;
+ Tue, 12 Apr 2022 06:40:14 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6887461045;
- Tue, 12 Apr 2022 06:52:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5337BC385A1;
- Tue, 12 Apr 2022 06:52:16 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BF57CB81B44;
+ Tue, 12 Apr 2022 06:40:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA6CCC385A6;
+ Tue, 12 Apr 2022 06:40:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1649746336;
+ s=korg; t=1649745610;
  bh=sXMl2ZYE8rt5NfFeBPGIcHAYJuUylPNTH8SOiNKZ7n8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=k1YRz/10U/v+kTdtnD8Z6F8W7S6sBDSePnzWreeJbPn3oV4yRdqED7qG/ApQc80sY
- Nd9YjVLtnzTjPYR6mEj3DPThe6IRmdLa7oizw5GnnNDEheqfN4eBZZDR10EgRrWwrK
- lRpbQqyKqcoASjqIuPsw/vzaieiIub/4T087GX3E=
+ b=co0f5NxJYrfor9fzZvdB5gWN2wZcgqXXdWdxdwIJquzUH170m70FQqrKg6KJeIH1i
+ INvlrU5F9cUxib7UxRu4nk0VuGCaxcLDjl9Wad+OPH7qoL4UeNtIrxgItZvKFiI8eT
+ +7uTUIlDKnlMuGWMQgyrMCYrNPSRdbxkMMlGi/J4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.15 246/277] drm/amdkfd: Create file descriptor after client
+Subject: [PATCH 5.10 154/171] drm/amdkfd: Create file descriptor after client
  is added to smi_clients list
-Date: Tue, 12 Apr 2022 08:30:49 +0200
-Message-Id: <20220412062949.161563012@linuxfoundation.org>
+Date: Tue, 12 Apr 2022 08:30:45 +0200
+Message-Id: <20220412062932.350937910@linuxfoundation.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220412062942.022903016@linuxfoundation.org>
-References: <20220412062942.022903016@linuxfoundation.org>
+In-Reply-To: <20220412062927.870347203@linuxfoundation.org>
+References: <20220412062927.870347203@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
