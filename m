@@ -4,58 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0710AC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 14:13:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65B23C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 14:59:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9841110E143;
-	Tue, 12 Apr 2022 14:13:09 +0000 (UTC)
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7272810E2D9
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Apr 2022 14:13:08 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id k10so19203861oia.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Apr 2022 07:13:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=b6YpDp+6gFKoLmapSHMcJ8pQjcQrhKppqQPW1qrfY/M=;
- b=OmQRrxF3c5o1KlJk1ADfn7bF1BdDYI/6MzKE+UbXY8zUlFZmDyaVY3FvxTnAIEa0XJ
- 4njrXVLgTxy6M22LJHmyxDfpJ7ZGyeTQwYjdZCYrJlB4P1TCHokXDPBq9hXwtsFzPiWV
- dgVxr0e8bR4X5oAl7zInOA16ohEyFad8aP7T4sk4AS+xF5vZwobNU3fowFkP4aZo1fbw
- p5IEFDRpGPhubpCsos0x6RUgdyVguFDtpUZxDOjAPjuhuidHL356qXpQcP8A5ddnoNNS
- KgnmhtBR9lboTPrbisNcTRfyJQ52UT4qMduUb8bIQChazq0kaFpbJW5pSfXsgoz4EILd
- NrMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=b6YpDp+6gFKoLmapSHMcJ8pQjcQrhKppqQPW1qrfY/M=;
- b=u0GpD7zQu+Ktl87RIBNbgN1yJMsPJn9rrKkQRTUt1yugawqQhPptGYUWGGRK2u17NE
- cHexY35IYsp9wIDwEAUnevTwlSDrbRzyKbzCYpb48bF2SMOjLhrw5SBXxJVXvo97zenO
- Q40/XxGEFzAUJOJAZZX1clGY7p2cS8gp0g7UtJNvWHp6LlJJgdr0uecpG7z7QyBOaUA6
- ybeE/uDZu+XVKQQ2ldD9eID9VmhNzw+szC2RnHQlcDIGrLkjZWbu4j3imMqf+Jl8d3wj
- EeE5dqLM4O9482yFBY03Z1rVBfK3EAZT+T3pyUxJPHUdrpccY2ACyfjdW3ybquNcznOt
- SgHg==
-X-Gm-Message-State: AOAM533Koc7dB/Np2f35KYp2M7pyixtWcaAHQWjGXQqVDKNjViUiVNH1
- lAOIElrPcJmVu3gSFT22trfUnCjTneCfmXu+nNA=
-X-Google-Smtp-Source: ABdhPJzvkvG7jo+a/gm9nQ/3deFhOzLJ1KErpfqpA3Uh0OwD50/Y3p6TDExGZgiwG1OsiMG6x7cSUe+vQyEzjC7hRNI=
-X-Received: by 2002:a05:6808:1486:b0:2f9:e821:51d9 with SMTP id
- e6-20020a056808148600b002f9e82151d9mr1913551oiw.253.1649772787730; Tue, 12
- Apr 2022 07:13:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE60B10E5C4;
+	Tue, 12 Apr 2022 14:59:36 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2049.outbound.protection.outlook.com [40.107.243.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBAAB10E59E;
+ Tue, 12 Apr 2022 14:59:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PBlnekEcW8mh3j8shoCJhosQkrH8izFPVpmMIKtBBY3RL8a/DSVOpN8SDxJmP9GyOI8tDDVEB+ZATdnD8iChUZh/mgTLR+3g0Qcz+/W9eMO/F/+dNRdtZ4j8dUq4KWWh6dZLjqS5cuuRUvRqL7dehlBn5j8q2X0V9yDlvzBZtf/edEMW5Fm6t9kAT8xTkgvX9HrVFA7iDy2WwioisgEOTO1gqcQbk7nNGu7c50mO1M2c6h9xlGD4bjZ2Apu5gGOe/qxrRN2/0I7Kc+uwuWP4vY5rzu+tUwvQiramkSCOd0wb4/F/Kj+CXyMYf20Q5RDrZ0jMcAmN9GNLgpS0+mzqrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HpCtgxfrI0pU+sx5/bPjf6iSGeK1D/DCo6LbvntKJfA=;
+ b=RS9boC5/jeu7e9gWVH96hcWfbImUhLIN4qEULUr8poT37FVA0mAc/T0uBT0wa9UX7FNaf7fyMvCpFNK+l1h5i8AtwKe5kcaTaK3GNhMlEIHYJTxQsYabVyCBi0Id5njl1W2R7TljFVb2a8gCkoCiwsGOJ7WLYG/rtFZf/hNiVosNu6i38XqjtPqXjC7JW8kINP1x2KszX5UYKuA+cY2KkO6lk2q/eua/liN8Gk5anPjiw92PQ1GzaAMfWyrIfhFTdDdFh+97LtilHj3IrSWyXC7aLnaN2/I/fGfT95CbL14fUvZhgPXkXK4n3zfMXhp1uegfkdrEhH3YL85UIEmQtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux.ie smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HpCtgxfrI0pU+sx5/bPjf6iSGeK1D/DCo6LbvntKJfA=;
+ b=wqXiHu5bD+//y7ZqcJYM1sNwxdmKWM+Fk+Bjai4nPg0vQx4GZ9GLNFUYznc6k+aeyZ8kprpzifLGSHu9o9UZUDCAARvR/jok5jAtJV+9klpRbkUD+QeqCHNlJJQEFbe6aGEmg0lD0P8TflcDMQ79y4kfBaFcgEdSzNj5N+qs5bU=
+Received: from DS7PR06CA0037.namprd06.prod.outlook.com (2603:10b6:8:54::12) by
+ DM5PR1201MB0058.namprd12.prod.outlook.com (2603:10b6:4:50::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5164.18; Tue, 12 Apr 2022 14:59:31 +0000
+Received: from DM6NAM11FT047.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:54:cafe::fa) by DS7PR06CA0037.outlook.office365.com
+ (2603:10b6:8:54::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18 via Frontend
+ Transport; Tue, 12 Apr 2022 14:59:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT047.mail.protection.outlook.com (10.13.172.139) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5144.20 via Frontend Transport; Tue, 12 Apr 2022 14:59:31 +0000
+Received: from doryam3r2rack03-34.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Tue, 12 Apr 2022 09:59:29 -0500
+From: Richard Gong <richard.gong@amd.com>
+To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <xinhui.pan@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>
+Subject: [PATCHv3] drm/amdgpu: disable ASPM on Intel Alder Lake based systems
+Date: Tue, 12 Apr 2022 09:53:50 -0500
+Message-ID: <20220412145350.2843514-1-richard.gong@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220411135939.906700-1-yongqiang.sun@amd.com>
- <f06ce5e3-158b-88a8-06f0-53b88c4fad45@molgen.mpg.de>
- <CADnq5_PSZX+11meHYn9CR3A4LiseGo30TwbkOuPgTQsfbYxmCg@mail.gmail.com>
- <88760cd1-d1ed-8952-d061-15e238b2ec57@molgen.mpg.de>
-In-Reply-To: <88760cd1-d1ed-8952-d061-15e238b2ec57@molgen.mpg.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 12 Apr 2022 10:12:56 -0400
-Message-ID: <CADnq5_MdSn0_X6Bqd-Ljv_QzVpgtBYXUkkALEdFasCiiXx=o7g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Not request init data for MS_HYPERV with
- vega10
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 604aa64f-ed80-4a07-e1a4-08da1c950c84
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0058:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB005816F57130BBA7E8DF87D695ED9@DM5PR1201MB0058.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: BHGYcmC8V7Jh9w6LlDL3Tg2I2YEYmLm4THv0JwHftnORKdkr2FvTzZHzsCNf22pswzeWF5zCxCHo7jP7k3oS/er7m5gtpMvEcXHrRSAsayQQY67emifvhEtkLG87juap0t6H2uUUZ9nK4wUfFpJXDuHOcpO5TOeluNvqS4Dh7zT7iSl7ppdgDXaTR5uUoj0M/O/WAESNkCIYUWMnZoN6C8pDr0jntWv+VDV2mlqcJ98+tkzMCHF28eKJAdLOrlN7tHi8KYGs+lVOxWUOw697c/VW+IRN98KBJcT4hJudTIHyXtEcntp3OFZ/XxgOkAQfbEFGjZ+NQWSngF508gGe8zJGUnO6MO36Cy5g4v2VDwFUnBQU0FxyLvc+7aDeNhPKtwz5ACwldfGDLl4xp2AsUnB0wEHVJqGJKvCWpp1bd53A0bQJeuCgNmNRB9p32TPS9R659dd5Xewfa5uWLEN3/W+RJv44cBkhPUuyaND9/xO9NKFIa+ZthNX6+oYLRuPm1CW7m6LYsitmT5zzqULIF8z4GwS2sQAUfPduRYiwkRBzTCqoMihUKrqNiwDirvtsr/bFWBatGOWnH2rLOOfJgI8xCKBKONcGXIOfSOVeENRXKo85frdsnYnSmB/u851Wk3Lrh34oai+ULflf8TMLj9AchvRg3XuLLdL13Ol0YGV1wzdJruY7RDFQQnYn+XfMhZWZ3WdwnBplnSuxCv/P8A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(508600001)(2906002)(26005)(7696005)(6666004)(54906003)(36756003)(8676002)(4326008)(82310400005)(70206006)(70586007)(8936002)(966005)(5660300002)(110136005)(316002)(44832011)(356005)(81166007)(83380400001)(40460700003)(36860700001)(86362001)(1076003)(2616005)(426003)(16526019)(336012)(186003)(47076005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2022 14:59:31.0680 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 604aa64f-ed80-4a07-e1a4-08da1c950c84
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT047.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0058
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,109 +99,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: X86 ML <x86@kernel.org>, "Luo, Zhigang" <zhigang.luo@amd.com>,
- Jingwen Chen <jingwen.chen2@amd.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Yongqiang Sun <yongqiang.sun@amd.com>, Borislav Petkov <bp@alien8.de>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- "monk.liu" <monk.liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
+ richard.gong@amd.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 12, 2022 at 4:01 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
->
-> [Cc: +x86 folks]
->
-> Dear Alex, dear x86 folks,
->
->
-> x86 folks, can you think of alternatives to access `X86_HYPER_MS_HYPERV`
-> from `arch/x86/include/asm/hypervisor.h` without any preprocessor ifdef-e=
-ry?
+Active State Power Management (ASPM) feature is enabled since kernel 5.14.
+There are some AMD GFX cards (such as WX3200 and RX640) that won't work
+with ASPM-enabled Intel Alder Lake based systems. Using these GFX cards as
+video/display output, Intel Alder Lake based systems will hang during
+suspend/resume.
 
-I don't really see what problem that solves.  X86_HYPER_MS_HYPERV is
-an X86 thing.  Why do we need a processor agnostic way to handle it?
-Any code related to that is X86 specific.
+The issue was initially reported on one system (Dell Precision 3660 with
+BIOS version 0.14.81), but was later confirmed to affect at least 4 Alder
+Lake based systems.
 
-Alex
+Add extra check to disable ASPM on Intel Alder Lake based systems.
 
->
->
-> Am 11.04.22 um 18:28 schrieb Alex Deucher:
-> > On Mon, Apr 11, 2022 at 11:28 AM Paul Menzel wrote:
->
-> [=E2=80=A6]
->
-> >> Am 11.04.22 um 15:59 schrieb Yongqiang Sun:
-> >>> MS_HYPERV with vega10 doesn't have the interface to process
-> >>> request init data msg.
-> >>
-> >> Should some Hyper-V folks be added to the reviewers list too?
-> >>
-> >>> Check hypervisor type to not send the request for MS_HYPERV.
-> >>
-> >> Please add a blank line between paragraphs.
-> >>
-> >>> Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
-> >>> ---
-> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 12 ++++++++++--
-> >>>    1 file changed, 10 insertions(+), 2 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_virt.c
-> >>> index 933c41f77c92..56b130ec44a9 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> >>> @@ -23,6 +23,10 @@
-> >>>
-> >>>    #include <linux/module.h>
-> >>>
-> >>> +#ifdef CONFIG_X86
-> >>> +#include <asm/hypervisor.h>
-> >>> +#endif
-> >>> +
-> >>>    #include <drm/drm_drv.h>
-> >>>
-> >>>    #include "amdgpu.h"
-> >>> @@ -721,8 +725,12 @@ void amdgpu_detect_virtualization(struct amdgpu_=
-device *adev)
-> >>>                        break;
-> >>>                case CHIP_VEGA10:
-> >>>                        soc15_set_virt_ops(adev);
-> >>> -                     /* send a dummy GPU_INIT_DATA request to host o=
-n vega10 */
-> >>> -                     amdgpu_virt_request_init_data(adev);
-> >>> +#ifdef CONFIG_X86
-> >>> +                     /* not send GPU_INIT_DATA with MS_HYPERV*/
-> >>> +                     if (hypervisor_is_type(X86_HYPER_MS_HYPERV) =3D=
-=3D false)
-> >>> +#endif
-> >>
-> >> Why guard everything with CONFIG_X86? (If it=E2=80=99s needed, it shou=
-ld be done
-> >> in C code.)
-> >
-> > X86_HYPER_MS_HYPERV only available on x86.
->
-> Sorry, I missed the X86 dependency when quickly looking at the Hyper-V
-> stub IOMMU driver `drivers/iommu/hyperv-iommu.c`, but missed that
-> `HYPERV_IOMMU` has `depends on HYPERV && X86`.
->
->
-> Kind regards,
->
-> Paul
->
->
-> >>> +                             /* send a dummy GPU_INIT_DATA request t=
-o host on vega10 */
-> >>> +                             amdgpu_virt_request_init_data(adev);
-> >>>                        break;
-> >>>                case CHIP_VEGA20:
-> >>>                case CHIP_ARCTURUS:
-> >>
-> >>
-> >> Kind regards,
-> >>
-> >> Paul
+Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Richard Gong <richard.gong@amd.com>
+---
+v3: s/intel_core_asom_chk/aspm_support_quirk_check
+    correct build error with W=1 option
+v2: correct commit description
+    move the check from chip family to problematic platform
+---
+ drivers/gpu/drm/amd/amdgpu/vi.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index 039b90cdc3bc..b0b6353b48b9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -81,6 +81,10 @@
+ #include "mxgpu_vi.h"
+ #include "amdgpu_dm.h"
+ 
++#if IS_ENABLED(CONFIG_X86_64)
++#include <asm/intel-family.h>
++#endif
++
+ #define ixPCIE_LC_L1_PM_SUBSTATE	0x100100C6
+ #define PCIE_LC_L1_PM_SUBSTATE__LC_L1_SUBSTATES_OVERRIDE_EN_MASK	0x00000001L
+ #define PCIE_LC_L1_PM_SUBSTATE__LC_PCI_PM_L1_2_OVERRIDE_MASK	0x00000002L
+@@ -1134,13 +1138,24 @@ static void vi_enable_aspm(struct amdgpu_device *adev)
+ 		WREG32_PCIE(ixPCIE_LC_CNTL, data);
+ }
+ 
++static bool aspm_support_quirk_check(void)
++{
++	if (IS_ENABLED(CONFIG_X86_64)) {
++		struct cpuinfo_x86 *c = &cpu_data(0);
++
++		return (c->x86 == 6 && c->x86_model != INTEL_FAM6_ALDERLAKE);
++	}
++
++	return true;
++}
++
+ static void vi_program_aspm(struct amdgpu_device *adev)
+ {
+ 	u32 data, data1, orig;
+ 	bool bL1SS = false;
+ 	bool bClkReqSupport = true;
+ 
+-	if (!amdgpu_device_should_use_aspm(adev))
++	if (!amdgpu_device_should_use_aspm(adev) || !aspm_support_quirk_check())
+ 		return;
+ 
+ 	if (adev->flags & AMD_IS_APU ||
+-- 
+2.25.1
+
