@@ -4,36 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A2CBC433FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 08:08:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12F49C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 08:27:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ABB010FBDD;
-	Tue, 12 Apr 2022 08:08:47 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E885D10FB65
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Apr 2022 08:08:44 +0000 (UTC)
-Received: from [192.168.0.2] (ip5f5aef95.dynamic.kabel-deutschland.de
- [95.90.239.149])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 4FD0161EA1923;
- Tue, 12 Apr 2022 10:08:43 +0200 (CEST)
-Message-ID: <a91f6e5c-b3e6-5312-9908-572e093f74f9@molgen.mpg.de>
-Date: Tue, 12 Apr 2022 10:08:42 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 438E310FC51;
+	Tue, 12 Apr 2022 08:27:07 +0000 (UTC)
+Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
+ [IPv6:2607:f8b0:4864:20::82a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3880410FC4C;
+ Tue, 12 Apr 2022 08:27:06 +0000 (UTC)
+Received: by mail-qt1-x82a.google.com with SMTP id j21so18678399qta.0;
+ Tue, 12 Apr 2022 01:27:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=F8+i4af9cBBYWvVmZD7Ksp7utdqAU6kVM9+1uef96t4=;
+ b=qtMJBCdOK+RBZxJ+5vEIx9FlCkFnbtCamAlCbHbZLRltDQWlvRlRfukv+m/Z+QnKqF
+ 08mgdjO8E9Q3EOTSpMAtmFVsQeeDRWUrOpdaiyeG4etST13NmtchrSmDrK9ifR0tfGzF
+ DP7feoVBk80/nRkmF2t36SCIuJm0NgbwsSXQb//C0t7zO8b/47wZq7om2p/hd1YaL/kd
+ 12aMfSTOzFfrMXXps7vqcScZEAKvU5fYzpStk7ElvntBgVT6PglZxOd3d2bFBPXkXUeL
+ DD6H4LAVeM5633ygAmEdvE2j69La/WP4W3C+wkHE/52RJg6wOKpeejmsiVI3wyVgpMh5
+ yZuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=F8+i4af9cBBYWvVmZD7Ksp7utdqAU6kVM9+1uef96t4=;
+ b=JnZuG4IiNdtuIjRPsImxk9dSygGWRlB20cq3fO5yg3Qo6rw6c5hlNufYbR13R0pOzj
+ QAcllvALr3QImtN/sGk/JlnDdvmZhlpJmPA7k30NIzJIE0zBvxC7QGAV+7y8VwDUDAAd
+ cFH1ZKJijY7pRb+2QkCwKfeDLeyYZ81idegyd4hp0uDLZc4wikZaf2IoybMZmHBpu7TK
+ iWbUBnbwcqajyIxq0a8pPHAc15r6iTQdS/IUuXr8yFO5Hfo7S91ZZkX0rk0oSwS0LtAL
+ 3OI/qYqFuOuhYCEAPglBeI69n3n7izulIy4Xh3bE6XqWiLRwv1WPfY2jpWEmRnMRoVYD
+ GSEg==
+X-Gm-Message-State: AOAM531sMMaHomWHiZWID55fUWxcnF55aJTWGlzRsAQHWudIdI8RFyFF
+ +Bn5SWQ1sNuz0Bi0xnAB/IHp26ZeubjGKL7pGjo=
+X-Google-Smtp-Source: ABdhPJxg7fkD2HuVd25C3Jmjju8BWlVnRUU/9iqrYxVZipHIPjT1M6EJwqvqli5FnIdluDD6NMUZ2n9RhL2L51bS3sg=
+X-Received: by 2002:ac8:588c:0:b0:2e1:ee12:3473 with SMTP id
+ t12-20020ac8588c000000b002e1ee123473mr2392222qta.455.1649752025393; Tue, 12
+ Apr 2022 01:27:05 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH ] drm/amdgpu: fix discovery ip failed
-Content-Language: en-US
-To: "Jesse (Jie) Zhang" <Jesse.Zhang@amd.com>
-References: <DM4PR12MB51525F878057240AE5C91F14E3EA9@DM4PR12MB5152.namprd12.prod.outlook.com>
- <bbd6939b-227c-f197-5d10-ba9194fd2b76@molgen.mpg.de>
- <DM4PR12MB51529669CBDA773CD36D420FE3ED9@DM4PR12MB5152.namprd12.prod.outlook.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <DM4PR12MB51529669CBDA773CD36D420FE3ED9@DM4PR12MB5152.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20220411185042.24338-1-Arunpravin.PaneerSelvam@amd.com>
+In-Reply-To: <20220411185042.24338-1-Arunpravin.PaneerSelvam@amd.com>
+From: Matthew Auld <matthew.william.auld@gmail.com>
+Date: Tue, 12 Apr 2022 09:26:39 +0100
+Message-ID: <CAM0jSHOemXQz+qFWOY3ztGeJE4xstvYhXKdW6Kr2PVKppHKKqQ@mail.gmail.com>
+Subject: Re: [igt-dev] [PATCH i-g-t v2] tests/drm_buddy: Add drm buddy test
+ cases
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,28 +64,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
- Yifan Zhang <Yifan1.Zhang@amd.com>, Ray Huang <Ray.Huang@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>, igt-dev@lists.freedesktop.org,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ alexander.deucher@amd.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Jie,
+On Mon, 11 Apr 2022 at 19:51, Arunpravin Paneer Selvam
+<Arunpravin.PaneerSelvam@amd.com> wrote:
+>
+> Add a set of drm buddy test cases to validate the
+> drm/drm_buddy.c memory allocator.
+>
+> v2: sorted in alphabetical order
+>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 
+Tests look to be passing in CI sharded runs. Pushed. Thanks.
 
-Am 12.04.22 um 03:52 schrieb Zhang, Jesse (Jie):
-> [AMD Official Use Only]
-> 
-> Thanks  Paul Menzel
-> Attach  the patch file .
-
-Please do not attach patch files, as it breaks work flows and inline 
-commenting. Please use `git send-email` or equivalent. Your colleagues 
-should be able to help you with this.
-
-[…]
-
-
-Kind regards,
-
-Paul
+> ---
+>  tests/drm_buddy.c | 14 ++++++++++++++
+>  tests/meson.build |  1 +
+>  2 files changed, 15 insertions(+)
+>  create mode 100644 tests/drm_buddy.c
+>
+> diff --git a/tests/drm_buddy.c b/tests/drm_buddy.c
+> new file mode 100644
+> index 00000000..06876e0c
+> --- /dev/null
+> +++ b/tests/drm_buddy.c
+> @@ -0,0 +1,14 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright =C2=A9 2019 Intel Corporation
+> + */
+> +
+> +#include "igt.h"
+> +#include "igt_kmod.h"
+> +
+> +IGT_TEST_DESCRIPTION("Basic sanity check of DRM's buddy allocator (struc=
+t drm_buddy)");
+> +
+> +igt_main
+> +{
+> +       igt_kselftests("test-drm_buddy", NULL, NULL, NULL);
+> +}
+> diff --git a/tests/meson.build b/tests/meson.build
+> index b0eab3d6..7261e9aa 100644
+> --- a/tests/meson.build
+> +++ b/tests/meson.build
+> @@ -8,6 +8,7 @@ test_progs =3D [
+>         'debugfs_test',
+>         'dmabuf',
+>         'device_reset',
+> +       'drm_buddy',
+>         'drm_import_export',
+>         'drm_mm',
+>         'drm_read',
+> --
+> 2.25.1
+>
