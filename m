@@ -4,44 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7108DC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 09:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24944C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 09:19:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFA0F10FF63;
-	Tue, 12 Apr 2022 09:02:29 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B69010FF63
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Apr 2022 09:02:29 +0000 (UTC)
-Received: from [192.168.0.2] (ip5f5aef95.dynamic.kabel-deutschland.de
- [95.90.239.149])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 3310961EA1923;
- Tue, 12 Apr 2022 11:02:27 +0200 (CEST)
-Message-ID: <b2c1807b-e88d-103c-2643-5d2303ec2977@molgen.mpg.de>
-Date: Tue, 12 Apr 2022 11:02:26 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF18A10E6FD;
+	Tue, 12 Apr 2022 09:19:55 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A28C10E6FD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Apr 2022 09:19:55 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id bh17so36040292ejb.8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Apr 2022 02:19:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=vcoXkGmHJg8wc3e7k4rRKA4DcM0g4pj0dqh3ibneqjk=;
+ b=Qdu1Z6esiueWEEyOZzG6nAhyWrXZmP9Qwd4xfmGie2KEH6RuFFhkKlJVXifPoa6X7R
+ MFZeI/eK9a+ajMIPD2RHozSEgJmaotJ8IG8rt6fUfm3c8A5aFxk3YQgmbme+gqR3J3sW
+ gAhi28xPDDKJzJS4R6C5f1DEr5nqmsYiTiJkQNAfy6zQOlIBA01pq/jVAJXwI8B/f8wO
+ xJm/pz9yvjwywsOy3nQCoogHMqoBIxYc5qpXehfY08z1jgJ+6hE02Fqi9uRRCQJdsxkv
+ usNXPRgcG0O8FzGsDZ65kXY1Zs6uZ4akjE3v/aMEcdOJAUiyeE9WEV6yH4WfaHb0XQUl
+ 65qA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=vcoXkGmHJg8wc3e7k4rRKA4DcM0g4pj0dqh3ibneqjk=;
+ b=pQxdSIYsPOhO/9ajnzp/Z5FtjsJQLlbHP+MIdyE4BGhOisUoxOMsX95Db9SPR8HCV4
+ ZX+FM/AperTpW6onPrwXymD83YAl+Yx7KSu3MMrWWyJYsVE6SSs1Oj+jqyQ6EBELHtqB
+ VXq/ViMCpSrEb026CEpyCo30esdYQUkAfrW89RZDxKe0DK9gLjjWK6ejHKdo54ElG516
+ R1jIHml6yzo8eCpgaZC8F8UNtr8ioNh+igEk1/pNKNSANqQ9d9/zxYY6+2YbCdCc0teZ
+ bJf6FY4cszIKGQu9JkoxWj/L2oaspiuPLiZ6kjhfwyuE1X2TL7I/uS68P+4+jEEMS0Fr
+ z2Jw==
+X-Gm-Message-State: AOAM530x3W+6nOAyaMJOLOeb94bxhCbTeveJEYbRvBwciWHF+tAZmmeS
+ NexgUbd7deUgbZTgmzL43bg=
+X-Google-Smtp-Source: ABdhPJylj8V8EnCZqxfUa2gAid2hLpD4EEoUJ6lOvkc37wAZQMgGEHGBJZPe9VErKJuw+U41HGpt6Q==
+X-Received: by 2002:a17:906:3ec7:b0:6d6:e52b:b with SMTP id
+ d7-20020a1709063ec700b006d6e52b000bmr34160158ejj.521.1649755193443; 
+ Tue, 12 Apr 2022 02:19:53 -0700 (PDT)
+Received: from [192.168.178.21] (p57b0b9e1.dip0.t-ipconnect.de.
+ [87.176.185.225]) by smtp.gmail.com with ESMTPSA id
+ p24-20020a056402045800b0041614c8f79asm16199484edw.88.2022.04.12.02.19.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Apr 2022 02:19:52 -0700 (PDT)
+Message-ID: <676f2035-414a-27b1-95d5-41f85cffc3ea@gmail.com>
+Date: Tue, 12 Apr 2022 11:19:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: AMDGPU: RX 6500 XT: System reset when loading module [SOLVED]
+ Thunderbird/91.7.0
+Subject: Re: [RFC PATCH] drm/amdgpu: Fix one use-after-free of VM
 Content-Language: en-US
-To: Cal Peake <cp@absolutedigital.net>
-References: <alpine.LNX.2.00.2202131848490.20545@lancer.cnet.absolutedigital.net>
- <b30922e2-04f5-2135-695c-2ea84d9307ac@amd.com>
- <alpine.LNX.2.00.2202141223020.10303@lancer.cnet.absolutedigital.net>
- <de9952a6-cba1-4927-f8e0-fcd7f115267e@amd.com>
- <alpine.LNX.2.00.2202171254420.21576@lancer.cnet.absolutedigital.net>
- <809355d6-ef2a-ca90-5a9a-813beb8ff6d1@amd.com>
- <alpine.LNX.2.00.2202181444250.8791@lancer.cnet.absolutedigital.net>
- <8cd9b639-be48-5b2f-bc3d-d6bd49be1830@amd.com>
- <alpine.LNX.2.00.2202241728250.23253@lancer.cnet.absolutedigital.net>
- <CADnq5_Nx9Oski_2A-99QvqFJiUG36=+bfx_0F-eUK0gD56Vqjg@mail.gmail.com>
- <alpine.LNX.2.00.2204111736500.5748@lancer.cnet.absolutedigital.net>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <alpine.LNX.2.00.2204111736500.5748@lancer.cnet.absolutedigital.net>
+To: xinhui pan <xinhui.pan@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220412071656.16500-1-xinhui.pan@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20220412071656.16500-1-xinhui.pan@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,51 +72,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Cal,
+Am 12.04.22 um 09:16 schrieb xinhui pan:
+> VM might already be freed when amdgpu_vm_tlb_seq_cb() is called.  We see
+> the calltrace below.
+>
+> Fix it by adding vm.delayed_tlb_flush and check this value in vm_fini().
+>
+> BUG kmalloc-4k (Not tainted): Poison overwritten
 
+Shit, I feared that this could happen.
 
-Am 12.04.22 um 00:31 schrieb Cal Peake:
+Please don't use a counter+schedule, but rather keep the last flush 
+fence around and wait for it to signal during vm destruction.
 
-> I wanted to put a capper on this just in case anyone was interested, or in
-> case any future people find this thread, because I did find a resolution.
+Since fences signal in order you can then wait on that one and make sure 
+that the last cb has run.
 
-Yes, that is very much appreciated.
+Thanks,
+Christian.
 
-> Turns out the way to stop the system from crashing was to disable Global
-> C-State Control in the BIOS.
-> 
-> Christian, Alex, you guys seem to have been on the right track in that it
-> was something power related.
-> 
-> I haven't yet been able to figure out what Global C-State Control exactly
-> does.
-> 
-> My best guess as to what was happening: once the GPU power management code
-> was loaded and the GPU dropped into a very low power state, the CPU saw
-> this and decided to match it, lowering its own power state to such a point
-> that it hard resets the system. (Just a wild theory anyway :-)
-> 
-> If anyone knows what this feature really does, or has any better theories
-> as to why it doesn't play nice with AMD GPUs, please do share!
+>
+> 0xffff9c88630414e8-0xffff9c88630414e8 @offset=5352. First byte 0x6c
+> instead of 0x6b Allocated in amdgpu_driver_open_kms+0x9d/0x360 [amdgpu]
+> age=44 cpu=0 pid=2343
+>   __slab_alloc.isra.0+0x4f/0x90
+>   kmem_cache_alloc_trace+0x6b8/0x7a0
+>   amdgpu_driver_open_kms+0x9d/0x360 [amdgpu]
+>   drm_file_alloc+0x222/0x3e0 [drm]
+>   drm_open+0x11d/0x410 [drm]
+>   drm_stub_open+0xdc/0x230 [drm]
+>   chrdev_open+0xa5/0x1e0
+>   do_dentry_open+0x16c/0x3c0
+>   vfs_open+0x2d/0x30
+>   path_openat+0x70a/0xa90
+>   do_filp_open+0xb2/0x120
+>   do_sys_openat2+0x245/0x330
+>   do_sys_open+0x46/0x80
+>   __x64_sys_openat+0x20/0x30
+>   do_syscall_64+0x38/0xc0
+>   entry_SYSCALL_64_after_hwframe+0x44/0xae
+> Freed in amdgpu_driver_postclose_kms+0x3e9/0x550 [amdgpu] age=22 cpu=1
+> pid=2485
+>   kfree+0x4a2/0x580
+>   amdgpu_driver_postclose_kms+0x3e9/0x550 [amdgpu]
+>   drm_file_free+0x24e/0x3c0 [drm]
+>   drm_close_helper.isra.0+0x90/0xb0 [drm]
+>   drm_release+0x97/0x1a0 [drm]
+>   __fput+0xb6/0x280
+>   ____fput+0xe/0x10
+>   task_work_run+0x64/0xb0
+>   do_exit+0x406/0xcf0
+>   do_group_exit+0x50/0xc0
+>   __x64_sys_exit_group+0x18/0x20
+>   do_syscall_64+0x38/0xc0
+>   entry_SYSCALL_64_after_hwframe+0x44/0xae
+>
+> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 1 +
+>   2 files changed, 5 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 645ce28277c2..0e89f42283c6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -789,6 +789,7 @@ static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
+>   
+>   	tlb_cb = container_of(cb, typeof(*tlb_cb), cb);
+>   	atomic64_inc(&tlb_cb->vm->tlb_seq);
+> +	atomic64_dec(&tlb_cb->vm->delayed_tlb_flush);
+>   	kfree(tlb_cb);
+>   }
+>   
+> @@ -932,6 +933,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   
+>   	if (flush_tlb || params.table_freed) {
+>   		tlb_cb->vm = vm;
+> +		atomic64_inc(&vm->delayed_tlb_flush);
+>   		if (!fence || !*fence ||
+>   		    dma_fence_add_callback(*fence, &tlb_cb->cb,
+>   					   amdgpu_vm_tlb_seq_cb))
+> @@ -2257,6 +2259,8 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>   	amdgpu_vm_set_pasid(adev, vm, 0);
+>   	dma_fence_wait(vm->last_unlocked, false);
+>   	dma_fence_put(vm->last_unlocked);
+> +	while (atomic64_read(&vm->delayed_tlb_flush))
+> +		schedule();
+>   
+>   	list_for_each_entry_safe(mapping, tmp, &vm->freed, list) {
+>   		if (mapping->flags & AMDGPU_PTE_PRT && prt_fini_needed) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 1a814fbffff8..4dc9f493d355 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -286,6 +286,7 @@ struct amdgpu_vm {
+>   
+>   	/* Last finished delayed update */
+>   	atomic64_t		tlb_seq;
+> +	atomic64_t		delayed_tlb_flush;
+>   
+>   	/* Last unlocked submission to the scheduler entities */
+>   	struct dma_fence	*last_unlocked;
 
-It might be related to bug report *Random Soft Lockup on new Ryzen 
-build* [1], and the referenced issues there. It’d be great if you could 
-post here or there a summary with your system details (especially the 
-system and GPU firmware versions).
-
-Me is still a little upset, how AMD has until now not been able to 
-properly analyze and fix this (with the ODMs).
-
-
-Kind regards,
-
-Paul
-
-
-[1]: https://bugzilla.kernel.org/show_bug.cgi?id=196683
