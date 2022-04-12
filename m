@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5404C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 00:49:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE010C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 00:50:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73FA710FAFD;
-	Tue, 12 Apr 2022 00:49:45 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4163510FAFD;
- Tue, 12 Apr 2022 00:49:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC5EB10FB06;
+	Tue, 12 Apr 2022 00:50:15 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89B6110FB03;
+ Tue, 12 Apr 2022 00:50:14 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CFFDBB819B5;
- Tue, 12 Apr 2022 00:49:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295E0C385A4;
- Tue, 12 Apr 2022 00:49:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0AA4C60A77;
+ Tue, 12 Apr 2022 00:50:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7442DC385A3;
+ Tue, 12 Apr 2022 00:50:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649724580;
- bh=F744J9Wch+6CYGO7v0bbvWisdqdhidN8eTq9iIl7cEI=;
+ s=k20201202; t=1649724613;
+ bh=Qn6auaIHQqy9g4NZVcZdSXXlNdVGB9qoFuf8cv48lK8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FkDxnS0ep5g43ll0sXj0oV8x/+OLo2cw4VbSQxGfRhiUaDfRPi+XRaXLJezCn0Hhs
- +a9o/W8BaIANVmvSJMgMGaGCd5ntbaUqhuUzvvxyjwVRB/FeiMn50S23JCZPgzQON7
- RbZKEgD3aVeNZDBWHE4DeICJdw+qoM5Y6afOO6+YDxehrO8iDFu24RMb8Kbg7uAHvu
- 5jQ22gN3xu2AKnK05A2yeF/XoHnXhmqiLBf+w1QN1sP47HblC1/UYoHW/c3904fbGw
- j15V/+VkoqidXWgLd8TaGOGmpcOoskb2n73ZKnUrZQENYthHVRNG2NLR8G/GYLh+DL
- uxIzcaXiWNDBA==
+ b=CiCADGgbavGQURvITbCmCem9qv+viII+PO6/zFb1FapEFdQRny8swqhYRfgCIBYKK
+ cVm0IkxI9qOtskL8vzEbcCtcGAIG81RpE/fegt5uFS+scKhN5zNlhnrd0ePO/i5YQB
+ ghn5TI/NFDwdbAskCtKjr6tzqtefDvE8nNQEXqa+feNpSpDT+f70cZcK23gFea1MHV
+ bj0KRdKxv3mKvwkY6s/qFp10DUfPel29+4KMU/WGvRJrWqP5NG0ls0XDDIfVpGEHTM
+ ERjJFvQkabMxi9T8HOmYDBo04axMgj0KipGRpv2G+TvpKmsyoMZTgRG+Wd9E6Ksm+h
+ eOtB7DiFatGYg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 09/30] drm/amdkfd: Check for potential null
- return of kmalloc_array()
-Date: Mon, 11 Apr 2022 20:48:43 -0400
-Message-Id: <20220412004906.350678-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 23/30] drm/amd/display: Revert FEC check in
+ validation
+Date: Mon, 11 Apr 2022 20:48:57 -0400
+Message-Id: <20220412004906.350678-23-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220412004906.350678-1-sashal@kernel.org>
 References: <20220412004906.350678-1-sashal@kernel.org>
@@ -55,41 +54,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie, Felix.Kuehling@amd.com,
- Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- QintaoShen <unSimple1993@163.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com
+Cc: airlied@linux.ie, wenjing.liu@amd.com, dri-devel@lists.freedesktop.org,
+ meenakshikumar.somasundaram@amd.com, Jun.Lei@amd.com, lee.jones@linaro.org,
+ Jimmy.Kizito@amd.com, Sasha Levin <sashal@kernel.org>,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
+ michael.strauss@amd.com, George Shen <George.Shen@amd.com>,
+ harry.wentland@amd.com, Alex Hung <alex.hung@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Martin Leung <Martin.Leung@amd.com>,
+ Eric.Yang2@amd.com, Xinhui.Pan@amd.com, christian.koenig@amd.com,
+ daniel@ffwll.ch, Wayne.Lin@amd.com, Alex Deucher <alexander.deucher@amd.com>,
+ roy.chan@amd.com, nicholas.kazlauskas@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: QintaoShen <unSimple1993@163.com>
+From: Martin Leung <Martin.Leung@amd.com>
 
-[ Upstream commit ebbb7bb9e80305820dc2328a371c1b35679f2667 ]
+[ Upstream commit b2075fce104b88b789c15ef1ed2b91dc94198e26 ]
 
-As the kmalloc_array() may return null, the 'event_waiters[i].wait' would lead to null-pointer dereference.
-Therefore, it is better to check the return value of kmalloc_array() to avoid this confusion.
+why and how:
+causes failure on install on certain machines
 
-Signed-off-by: QintaoShen <unSimple1993@163.com>
+Reviewed-by: George Shen <George.Shen@amd.com>
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Martin Leung <Martin.Leung@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_events.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index ba2c2ce0c55a..159be13ef20b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -531,6 +531,8 @@ static struct kfd_event_waiter *alloc_event_waiters(uint32_t num_events)
- 	event_waiters = kmalloc_array(num_events,
- 					sizeof(struct kfd_event_waiter),
- 					GFP_KERNEL);
-+	if (!event_waiters)
-+		return NULL;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index ac5323596c65..93f5229c303e 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -1173,10 +1173,6 @@ bool dc_validate_seamless_boot_timing(const struct dc *dc,
+ 	if (!link->link_enc->funcs->is_dig_enabled(link->link_enc))
+ 		return false;
  
- 	for (i = 0; (event_waiters) && (i < num_events) ; i++) {
- 		init_wait(&event_waiters[i].wait);
+-	/* Check for FEC status*/
+-	if (link->link_enc->funcs->fec_is_active(link->link_enc))
+-		return false;
+-
+ 	enc_inst = link->link_enc->funcs->get_dig_frontend(link->link_enc);
+ 
+ 	if (enc_inst == ENGINE_ID_UNKNOWN)
 -- 
 2.35.1
 
