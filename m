@@ -4,57 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F38EC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 13:01:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8D5CC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 13:07:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0EA910E34E;
-	Wed, 13 Apr 2022 13:01:03 +0000 (UTC)
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
- [IPv6:2001:4860:4864:20::2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9051210E37E;
- Wed, 13 Apr 2022 13:01:02 +0000 (UTC)
-Received: by mail-oa1-x2e.google.com with SMTP id
- 586e51a60fabf-e2442907a1so1894867fac.8; 
- Wed, 13 Apr 2022 06:01:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A9F310E755;
+	Wed, 13 Apr 2022 13:07:52 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1CB210E725
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 13:07:21 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id r64so1038875wmr.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 06:07:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=gZDaCj8hTLM0bP/l9w7YSO7g2qnbuNgNCn+DCFEd6aI=;
- b=FEv0kyLo3VMIFAfqBNf2vyglxgp+UTUwDsIRZrjJplezgnISwnlye+51pCD+/BwS2H
- B1016hY0GDvBfJCqcJZjHjdT4OzviCPT11gyZw9see9RLuMyS1uV+xeJuc+LL/6r8P9V
- LWDPRVRuD4Nd34JqBPuQfy7uesTk2i37Lhm0/wgvJ8dz/beuac7vETgMBiDWAy5BZsrQ
- NMYsTTfI9x99CKEa3NoeDcRPYklNpjxymFE0eG8Z09wVdQNW5FijH3YxurMWtL5JB0kN
- zXDVLK9EXg8ENwB1X436vunz2P/dHcSD6SX8dpxVqW1lCPZYHtZ/K8D371ILyPyI4W2q
- W8CQ==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=kafA4Cp/nvsG1AFf16x4P3arNB/XPl6avUTek6th6LM=;
+ b=JhqMhVM5H/AR7I/KTvaWwpyBIGvDRUUSTX73lauZ64L74/VO1bBrYLO4kOCXiDsp9b
+ 0eYtRMoZ7x+ck797cRJmAfBS061I5aDnEewWtvDE6jhHf8tUivNI/chCSIiU2fvRcrR/
+ tRVSChnBJZ5SsIri4tfjbW9sM5U/BrgcSRF0tzmvBtL75oV4ALTkPWPmLfIHfc1bLnew
+ /Ge8zb3nnBu8FVVJjy63m44WkE5gpeahe5Xy1imr0aH8pYOpFTrFXd7Mf9Tz+fXBqDnN
+ 1hjMXg6TlCD/sv/8Vsfi03n2aPOgXeeS0Beh55YH84A3mRAFlePkZiEjp95iKeWOgWSg
+ Ah8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=gZDaCj8hTLM0bP/l9w7YSO7g2qnbuNgNCn+DCFEd6aI=;
- b=u1LvJfNk7X+Xa2eWe0fNwRbsGlAKFX+kJXCTsZJ1HhF7qCVG6vqseQqVHj0M8Cq1pH
- NGEPA2q4nrwjAKtqPGATlWdYIh2N0l38LWfcFx/bQQ2Tm8zua9ZkP4xfLbV4AlVf/h1W
- SFWbXjW34Mz61TBC9ZDhDxq8jU6fOyV3Y/HdpYQZNmQpsyTw7d9yxYtoD+B2bxRR6FsC
- TLRWKS3HzeQL6vkWvA/AuV6qvQU3r2YEODC0tmAgwJGwXVcBu4FuWIhN+ZmlruHu1cJq
- 72lplIuYnMOYS02OC+Mi7mJMoMDhsXmajYVnjPzh+W4aNS5cc1X+5WyED3tKjOctm6Bb
- vF7g==
-X-Gm-Message-State: AOAM531nqjVTJdFJPz37e6cjVfkyrbfPnVxBWUmaYrFtnvmjFFs9RoZs
- ZjoNmTP4cioHqRwZTc1woxgw01ZyB/SwGNg/FL8=
-X-Google-Smtp-Source: ABdhPJyxWqtPubtjVsfln8tW3NJZa00U2bWV6SGBrTscpzYvBAsPghZG5gshfaDwslYztZlR+9ZObVa2eOzU4UoTulU=
-X-Received: by 2002:a05:6870:311d:b0:de:9b6c:362b with SMTP id
- v29-20020a056870311d00b000de9b6c362bmr3978609oaa.200.1649854861731; Wed, 13
- Apr 2022 06:01:01 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=kafA4Cp/nvsG1AFf16x4P3arNB/XPl6avUTek6th6LM=;
+ b=tTo8lVv/jv00myjHAk4ikj18H38pwmRuOH3DWzh+Gqt3sVmxdKD+y9Ss5iWcfLlrJa
+ F37BD15kYd/WZGEpUGMLfYCG33CVVIcmaZGk4LX9X8FCuUsPGNF2xP/a21wzd0hsc5BE
+ 4dwT8lV8f47j3BVrnU70Ld41MrUSLg/Egd1xVs+fTNkoc4Uus2U2tmnwAD6PXRgvbdOp
+ N7KGJ8KUD0GjGCg3p6DHxSdLskOPruKTzfA+uUFk9iDCwfGIpkZUP2SzHagOs74PAfh7
+ ND0sU219IFXkUYVyPyJTTc8mZQWotVn1JLeOoFwrF24zlHNvGBLdJ5IzAjngRgxF/Ffp
+ OOZA==
+X-Gm-Message-State: AOAM531Dn1Ckf2IwPdVyG3tGBoluahzaisYd2Oq+1Vo10SdpFARLC9Pl
+ kXMqgZWHJf+RSxCq76vugQg=
+X-Google-Smtp-Source: ABdhPJz38kWLFzpnLGk8019rjJMv35e3WlH7WmyVRBX8+qR51s+Kqeuhii9sqjD11yXqjzhXO47SZg==
+X-Received: by 2002:a1c:6a02:0:b0:38b:3661:47f1 with SMTP id
+ f2-20020a1c6a02000000b0038b366147f1mr8455676wmc.5.1649855240054; 
+ Wed, 13 Apr 2022 06:07:20 -0700 (PDT)
+Received: from nz.home (host81-147-8-147.range81-147.btcentralplus.com.
+ [81.147.8.147]) by smtp.gmail.com with ESMTPSA id
+ o17-20020a05600c4fd100b0038cd5074c83sm2749187wmq.34.2022.04.13.06.07.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Apr 2022 06:07:18 -0700 (PDT)
+Received: by nz.home (Postfix, from userid 1000)
+ id 8D7CC2CBD6EC9; Wed, 13 Apr 2022 14:07:17 +0100 (BST)
+Date: Wed, 13 Apr 2022 14:07:17 +0100
+From: Sergei Trofimovich <slyich@gmail.com>
+To: linux-kernel@vger.kernel.org
+Subject: Re: gcc inserts __builtin_popcount, causes 'modpost: "__popcountdi2"
+ ... amdgpu.ko] undefined'
+Message-ID: <YlbLBUJxMDUBFo+z@nz>
+References: <YlSYv3d9a5cZR9KE@nz>
 MIME-Version: 1.0
-References: <20220412215000.897344-1-richard.gong@amd.com>
- <d4ba3998-34aa-86d2-bde9-bc6ae9d8d08d@molgen.mpg.de>
-In-Reply-To: <d4ba3998-34aa-86d2-bde9-bc6ae9d8d08d@molgen.mpg.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 13 Apr 2022 09:00:50 -0400
-Message-ID: <CADnq5_MgvcGPWf2gYn_3qCr+Gq1P39tvv-W-o8NhivvMpMwUBA@mail.gmail.com>
-Subject: Re: [PATCHv4] drm/amdgpu: disable ASPM on Intel Alder Lake based
- systems
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YlSYv3d9a5cZR9KE@nz>
+X-Mailman-Approved-At: Wed, 13 Apr 2022 13:07:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,127 +72,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, Dave Airlie <airlied@linux.ie>,
- Richard Gong <richard.gong@amd.com>, xinhui pan <xinhui.pan@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, "Limonciello,
- Mario" <mario.limonciello@amd.com>
+Cc: Jakub Jelinek <jakub@redhat.com>,
+ Segher Boessenkool <segher@kernel.crashing.org>, linux-kbuild@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, amd-gfx@lists.freedesktop.org,
+ Andy Lutomirski <luto@kernel.org>, Joe Perches <joe@perches.com>,
+ Thomas Gleixner <tglx@linutronix.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 13, 2022 at 3:43 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
->
-> Dear Richard,
->
->
-> Thank you for sending out v4.
->
-> Am 12.04.22 um 23:50 schrieb Richard Gong:
-> > Active State Power Management (ASPM) feature is enabled since kernel 5.=
-14.
-> > There are some AMD GFX cards (such as WX3200 and RX640) that won't work
-> > with ASPM-enabled Intel Alder Lake based systems. Using these GFX cards=
- as
-> > video/display output, Intel Alder Lake based systems will hang during
-> > suspend/resume.
->
-> I am still not clear, what =E2=80=9Chang during suspend/resume=E2=80=9D m=
-eans. I guess
-> suspending works fine? During resume (S3 or S0ix?), where does it hang?
-> The system is functional, but there are only display problems?
->
-> > The issue was initially reported on one system (Dell Precision 3660 wit=
-h
-> > BIOS version 0.14.81), but was later confirmed to affect at least 4 Ald=
-er
-> > Lake based systems.
-> >
-> > Add extra check to disable ASPM on Intel Alder Lake based systems.
-> >
-> > Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
-> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
-> > Reported-by: kernel test robot <lkp@intel.com>
->
-> This tag is a little confusing. Maybe clarify that it was for an issue
-> in a previous patch iteration?
->
-> > Signed-off-by: Richard Gong <richard.gong@amd.com>
-> > ---
-> > v4: s/CONFIG_X86_64/CONFIG_X86
-> >      enhanced check logic
-> > v3: s/intel_core_asom_chk/aspm_support_quirk_check
-> >      correct build error with W=3D1 option
-> > v2: correct commit description
-> >      move the check from chip family to problematic platform
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/vi.c | 17 ++++++++++++++++-
-> >   1 file changed, 16 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdg=
-pu/vi.c
-> > index 039b90cdc3bc..b33e0a9bee65 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/vi.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-> > @@ -81,6 +81,10 @@
-> >   #include "mxgpu_vi.h"
-> >   #include "amdgpu_dm.h"
-> >
-> > +#if IS_ENABLED(CONFIG_X86)
-> > +#include <asm/intel-family.h>
-> > +#endif
-> > +
-> >   #define ixPCIE_LC_L1_PM_SUBSTATE    0x100100C6
-> >   #define PCIE_LC_L1_PM_SUBSTATE__LC_L1_SUBSTATES_OVERRIDE_EN_MASK    0=
-x00000001L
-> >   #define PCIE_LC_L1_PM_SUBSTATE__LC_PCI_PM_L1_2_OVERRIDE_MASK        0=
-x00000002L
-> > @@ -1134,13 +1138,24 @@ static void vi_enable_aspm(struct amdgpu_device=
- *adev)
-> >               WREG32_PCIE(ixPCIE_LC_CNTL, data);
-> >   }
-> >
-> > +static bool aspm_support_quirk_check(void)
-> > +{
-> > +     if (IS_ENABLED(CONFIG_X86)) {
-> > +             struct cpuinfo_x86 *c =3D &cpu_data(0);
-> > +
-> > +             return !(c->x86 =3D=3D 6 && c->x86_model =3D=3D INTEL_FAM=
-6_ALDERLAKE);
-> > +     }
-> > +
-> > +     return true;
-> > +}
-> > +
-> >   static void vi_program_aspm(struct amdgpu_device *adev)
-> >   {
-> >       u32 data, data1, orig;
-> >       bool bL1SS =3D false;
-> >       bool bClkReqSupport =3D true;
-> >
-> > -     if (!amdgpu_device_should_use_aspm(adev))
-> > +     if (!amdgpu_device_should_use_aspm(adev) || !aspm_support_quirk_c=
-heck())
-> >               return;
->
-> Can users still forcefully enable ASPM with the parameter `amdgpu.aspm`?
->
-> >
-> >       if (adev->flags & AMD_IS_APU ||
->
-> If I remember correctly, there were also newer cards, where ASPM worked
-> with Intel Alder Lake, right? Can only the problematic generations for
-> WX3200 and RX640 be excluded from ASPM?
+On Mon, Apr 11, 2022 at 10:08:15PM +0100, Sergei Trofimovich wrote:
+> Current linux-5.17.1 on fresh gcc-12 fails to build with errors like:
+> 
+>     ERROR: modpost: "__popcountdi2" [drivers/net/ethernet/broadcom/bnx2x/bnx2x.ko] undefined!
+>     ERROR: modpost: "__popcountdi2" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+> 
+> It is occasionally seen by others on previous gcc versions as well:
+> 
+>     https://lkml.org/lkml/2021/7/11/261
+>     https://lkml.org/lkml/2018/10/24/403
+> 
+> '__popcountdi2' are inserted by gcc for code like the following
+> from 'drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c':
+> 
+>     static inline enum mod_hdcp_status validate_bksv(struct mod_hdcp *hdcp)
+>     {
+>         uint64_t n = 0;
+>         uint8_t count = 0;
+>         u8 bksv[sizeof(n)] = { };
+> 
+>         memcpy(bksv, hdcp->auth.msg.hdcp1.bksv, sizeof(hdcp->auth.msg.hdcp1.bksv));
+>         n = *(uint64_t *)bksv;
+> 
+>         /* Here gcc inserts 'count = __builtin_popcount(n);' */
+>         while (n) {
+>                 count++;
+>                 n &= (n - 1);
+>         }
+> 
+>         return (count == 20) ? MOD_HDCP_STATUS_SUCCESS :
+>                                MOD_HDCP_STATUS_HDCP1_INVALID_BKSV;
+>     }
+> 
+> Note that gcc can insert it regardless of -mno-* options.
+> 
+> How should linux.git handle it? A few options come to mind:
+> 
+> - Perhaps use libgcc.a directly.
+> - Just implement '__popcountdi2'. Example definition from libgcc:
+>   https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=libgcc/libgcc2.c;hb=HEAD#l846
+> - Or workaround it with -fno-builtin-popcount in Makefiles.
+> 
+> CCing people who can help routing it and/or deciding on the fix:
+> amd-gfx@lists.freedesktop.org, Joe Perches, linux-kbuild@vger.kernel.org,
+> Jakub Jelinek, Segher Boessenkool, Thomas Gleixner,Peter Zijlstra, Andy
+> Lutomirski.
 
-This patch only disables it for the generation that was problematic.
+There is now a discussion in gcc bugzilla:
 
-Alex
+    https://gcc.gnu.org/PR105253
 
->
->
-> Kind regards,
->
-> Paul
+-- 
+
+  Sergei
