@@ -4,89 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B789EC433FE
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 19:31:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63933C433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 19:42:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 505F410E4C0;
-	Wed, 13 Apr 2022 19:31:21 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2042.outbound.protection.outlook.com [40.107.243.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AD5B10E4C0
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 19:31:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SsPIaK+66xFeKzFYtIRK0yKgjaCsXO0GlGyT0AMAgy9ODVv0bKFcQxgg1OoYQ5NZthDtDHYOSbB8/UDnkWgIDZzcu1GhozwWP+Rz+jM+8g9Ont7vufUg1uObNCznmPqjXK56WU9jXI5KG0F9rnQVCe9TuFSwO3dBE0atVZxrGCMafjRrMj2Yk2Qcq6BfkkCHYiXlSjQ4KxV2zbus6i+kbw48F7p6oNeIy0aReyjxceekfJVjcLDwAEqwX0t9icPsqgNT7UY6iIcT2xI+Ki0Ir6XtnjI+/UNAMFEtyKnZ9BZqWqUnu7QLUdF13sgth6PyubOt4Cvk7sMJSLddxvJGXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=82cddmxNPssfw6MqcC36A80HalOkvSinwKnbpSDlfMk=;
- b=NWrkvLkxSHQC4EH3FRG/jVluq3mTMBKTOICMYnHYZE+4hLAwizs02XIFpgDFzg/FyNj77nCvYjFsEzErHJqfe7iX9RIsVGXgj5t6CVDfllr0GkQaBGdSXJlWQpoO0i2ZO5KrwPvU+T2jN2htGHgxQG4rq+/TwPZwUk0MFpnm8Go+AaKwR9VTAUSmyO76g+c8QpioHkTHk8Zn4uMlS5Y/IxkxWpXRSJOwgBcqzCSI2+AjGj8CCHMcpYe07AZlHSExlLftrDsUb4ld+lFwAUE8xbZlkUEPx6zko2haqUmbKFc3ZnhcE+QsoBlY4eOqOf9b47/sOqBYWrUDpvOC6On8Mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=82cddmxNPssfw6MqcC36A80HalOkvSinwKnbpSDlfMk=;
- b=TLfasonTZi2amGhtbRUqyNr0A4hfNmY/Dfo9HhWmtxbVfwpNKLmKBHTvwLmJ7bEZLnkttuNBQRKsLRouPCU6enok1HEQYCPfWR1/Br2nGpxNvXl+fGRaFc66WU9MaZqd7ffCbapLkgSheLcvN9On1qF5WrC3W+oz1IVqiBBepgo=
-Received: from DS7PR03CA0267.namprd03.prod.outlook.com (2603:10b6:5:3b3::32)
- by DS7PR12MB5911.namprd12.prod.outlook.com (2603:10b6:8:7c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Wed, 13 Apr
- 2022 19:31:16 +0000
-Received: from DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b3:cafe::37) by DS7PR03CA0267.outlook.office365.com
- (2603:10b6:5:3b3::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18 via Frontend
- Transport; Wed, 13 Apr 2022 19:31:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT004.mail.protection.outlook.com (10.13.172.217) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5164.19 via Frontend Transport; Wed, 13 Apr 2022 19:31:16 +0000
-Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Wed, 13 Apr 2022 14:31:15 -0500
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Move reset domain locking in DPC handler
-Date: Wed, 13 Apr 2022 15:31:00 -0400
-Message-ID: <20220413193100.154102-1-andrey.grodzovsky@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D202C10E6DF;
+	Wed, 13 Apr 2022 19:42:18 +0000 (UTC)
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6192F10E6D1;
+ Wed, 13 Apr 2022 19:41:36 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id s18so6156877ejr.0;
+ Wed, 13 Apr 2022 12:41:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=o6aYxcvUneI95bTdsz28eCaOVBdeKnTjyTuYgm31g58=;
+ b=Ar3JAMnHPCsIfQYgcOes+uiSzpnx2R4RdaeNwBiYdyffO5H4jlupRKtMT1blWMazuk
+ tjVoI3SSwl54uS9M3FkXwQePiClm6RACTE/aXHpYtDIRLtOo03dbhCVQitsMd4w3dFd8
+ czqlfics96/Kpux4eQ2ek8DDhjaj8YRi39er2T83Pv/WnUs4r3dPgAtkzpGfE5BvtZLd
+ 2fAt15A/DSqyFYyrnl54U7zparp6BwDfcWc9xUuy3y/qMp/oZ790IL4hV0y5uIvSNRuK
+ 0elHxdOKzwMOa/VazktVd6X0o2vuu8fEdDPYovN1jRitw/MVI/utxIcOkAM4oZd7AZIW
+ bJzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=o6aYxcvUneI95bTdsz28eCaOVBdeKnTjyTuYgm31g58=;
+ b=FJ4aS+Z05IMMKyMdOaB/eRsZ20WJgUa2ke4Gs5Z4z7aA2ByL6Kubo9n/Rl6/c1A2/y
+ ClMEbOaBUpWV2E6HySs6mYNGpRzn85CxToCEqtOmK5ZbxPpkNlLiIgNvWkVouUBKAbAI
+ ncaJnP/VvE25HbF71un21m4jym0dRD23MTDW1eVGV2jcVYsjJNyJnznWOZnaTWm9Rive
+ xpc2sd+RzovziRSi9aX+LwmOBAfY/cou8FzW9IX84LMtdJnSMz7t85jWSIYQDXHmymg4
+ HNkYWy2lWe4IZjCyH96y0WUTje6aOfdwCHsTfTleYpO8SbZnFsoVzFBof7GwDuirUZGD
+ hz4Q==
+X-Gm-Message-State: AOAM53203qOagL7ptMG1to04YXt+6IFccXO4EqJaWiWxiOHKCZilkFkl
+ CvvQbUTaD6Rpa8OfqP7cFoRK+Qj0aKHqUg==
+X-Google-Smtp-Source: ABdhPJxEljLLVQ0kEiFPkfKG9RmhUUwAQUiziY+Xv9O5hm0W3swx+T8iKPfSoBJTmPnsirazAn9qfA==
+X-Received: by 2002:a17:906:6a14:b0:6e8:a87d:3f2f with SMTP id
+ qw20-20020a1709066a1400b006e8a87d3f2fmr10779140ejc.300.1649878894821; 
+ Wed, 13 Apr 2022 12:41:34 -0700 (PDT)
+Received: from darkstar.example.org
+ (host-79-21-204-193.retail.telecomitalia.it. [79.21.204.193])
+ by smtp.gmail.com with ESMTPSA id
+ h7-20020a1709066d8700b006d4b4d137fbsm287200ejt.50.2022.04.13.12.41.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Apr 2022 12:41:34 -0700 (PDT)
+Date: Wed, 13 Apr 2022 21:41:32 +0200
+From: Michele Ballabio <ballabio.m@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: AMDGPU: regression on 5.17.1
+Message-ID: <20220413214132.6aaa061a@darkstar.example.org>
+In-Reply-To: <CADnq5_MVO8B-EH70XJ=L6pp7haHz5ZeF1rGFvPEX5nD1+4n1AQ@mail.gmail.com>
+References: <20220403132322.51c90903@darkstar.example.org>
+ <CADnq5_M+M_iykM0Ag6RF+kxzgpEopUBtp82h7tRM3G+B3AWZ2w@mail.gmail.com>
+ <20220404213940.09a56d15@darkstar.example.org>
+ <CADnq5_PhaFbVCb=-AUCx4L-sCyPCPOsY3tNpiAg=gfCN7hFcJA@mail.gmail.com>
+ <20220409182831.185e5d92@darkstar.example.org>
+ <CADnq5_MvGGONvAvhwgokDxRpTbnsGEFROcgsZteJby9Bya81Nw@mail.gmail.com>
+ <20220413193337.16ecc808@darkstar.example.org>
+ <CADnq5_MVO8B-EH70XJ=L6pp7haHz5ZeF1rGFvPEX5nD1+4n1AQ@mail.gmail.com>
+X-Mailer: Claws Mail 3.19.0 (GTK+ 2.24.33; x86_64-slackware-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ef05ee7e-8221-41e4-7e79-08da1d842d9f
-X-MS-TrafficTypeDiagnostic: DS7PR12MB5911:EE_
-X-Microsoft-Antispam-PRVS: <DS7PR12MB5911A690331CB478E546A79FEAEC9@DS7PR12MB5911.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QDAC24lEshK8+xDfWJeOW5C7gWtIKvmUcJXSVG2td1wYxxY6hdrmAY1+1IXYB4lF9de7MD+Z8HHWZ3RulU4qvDetblODKV6eqY6TR7X8HRl3gDA3FglQQLNNlTFJpQIFp9WmIqsQdL4X/gTJB9NImHadRFeqZBWunDk8Q3hbUlkumiStLAxTrfd2TFLReV1pin4VO0nVtaJKkNaqnZqdFyoMV9akx/4DYFogj2QyNytKwFPRUiYf07JIUwX7t0Rd+DiSIBK0ZEyx9BOF/2ZZt3/KioBAUcgwp1kFQV7rcVsonBdkLJEcrCLEGRGwk/7mMzWxSU8Jkj15jnyMMAnv8YW38a5gwbjVDExJhYST3KtMvoY5Q3Qw0KceuumCy6hY6OSCPgqj1a91sYw0BeCw3v6NGTz6DMjyjU9bSX7pYJuoULpu4yc3waatwqKPBIhYxas+935D692EscA/By4LPfxRLNiVo+0Mxg/faWFsuVX8ydBFarhxm6DO8WlY5XdX0Z1O1n55U5/pi8Og+2eqx6DJyJ1G+pgFPiHTSTgzDip6zXKap4BmPNTSgOgt6S/1gdRfag5R4hcaUIFvLGCZIFn9yfI2bDs7lLWArNN+IBQzeeMRTovm0ICdzgGBejVvwNjYTSOdLwnqJA+BJSvSVBsxvGLm92g+3roMSoBM0w5GEU5IpJC/DXzUtODVWWKWg9gmgTTjsQJ/I4Obo3RvTw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(47076005)(8936002)(508600001)(2616005)(81166007)(1076003)(40460700003)(2906002)(7696005)(356005)(36860700001)(86362001)(6666004)(5660300002)(44832011)(336012)(186003)(26005)(16526019)(83380400001)(6916009)(70206006)(54906003)(70586007)(8676002)(4326008)(82310400005)(36756003)(316002)(426003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2022 19:31:16.3568 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef05ee7e-8221-41e4-7e79-08da1d842d9f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5911
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 13 Apr 2022 19:42:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,50 +78,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, anatoli.antonovitch@amd.com
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ regressions@lists.linux.dev
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Lock reset domain unconditionally because on resume
-we unlock it unconditionally.
-This solved mutex deadlock when handling both FATAL
-and non FATAL PCI errors one after another.
+On Wed, 13 Apr 2022 14:14:42 -0400
+Alex Deucher <alexdeucher@gmail.com> wrote:
 
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+> On Wed, Apr 13, 2022 at 1:33 PM Michele Ballabio
+> <ballabio.m@gmail.com> wrote:
+> >
+> > On Mon, 11 Apr 2022 14:34:37 -0400
+> > Alex Deucher <alexdeucher@gmail.com> wrote:
+> >  
+> > > On Sat, Apr 9, 2022 at 12:28 PM Michele Ballabio
+> > > <ballabio.m@gmail.com> wrote:  
+> > > >
+> > > > On Tue, 5 Apr 2022 10:23:16 -0400
+> > > > Alex Deucher <alexdeucher@gmail.com> wrote:
+> > > >  
+> > > > > On Mon, Apr 4, 2022 at 3:39 PM Michele Ballabio
+> > > > > <ballabio.m@gmail.com> wrote:  
+> > > > > >
+> > > > > > On Mon, 4 Apr 2022 13:03:41 -0400
+> > > > > > Alex Deucher <alexdeucher@gmail.com> wrote:
+> > > > > >  
+> > > > > > > On Sun, Apr 3, 2022 at 10:19 AM Michele Ballabio
+> > > > > > > <ballabio.m@gmail.com> wrote:  
+> > > > > > > >
+> > > > > > > > Hi,
+> > > > > > > >         I've hit a regression on 5.17.1 (haven't tested
+> > > > > > > > 5.17.0, but 5.16-stable didn't have this problem).
+> > > > > > > >
+> > > > > > > > The machine is a Ryzen 5 1600 with AMD graphics (RX
+> > > > > > > > 560).
+> > > > > > > >
+> > > > > > > > The regression I hit seems to trigger when the machine
+> > > > > > > > is left idle at boot (I don't boot straight to X, I
+> > > > > > > > boot to a tty, login and then start X). The machine
+> > > > > > > > after a while blanks the screen. Usually, the screen
+> > > > > > > > unblanks as the keyboard is hit or the mouse moves, but
+> > > > > > > > with kernel 5.17.1 the screen does not wake up. The
+> > > > > > > > machine seems to run mostly fine: I can login from ssh,
+> > > > > > > > but I cannot reboot or halt it: a sysrq sequence is
+> > > > > > > > needed for that. Note that if the screen goes blank
+> > > > > > > > under X, it wakes up fine.
+> > > > > > > >
+> > > > > > > > Below a dmesg and two traces from syslog (they're quite
+> > > > > > > > similar).  
+> > > > > > >
+> > > > > > > Can you bisect?  Does setting amdgpu.runpm=0 help?  
+> > > > > >
+> > > > > > I can try to bisect, should I narrow the search to
+> > > > > > drivers/gpu/drm/ ?  
+> > > > >
+> > > > > I would just do a full bisect if possible in case the change
+> > > > > happens to be outside of drm.
+> > > > >  
+> > > > > >
+> > > > > > Setting amdgpu.runpm=0 works, the display now unblanks
+> > > > > > without problems.  
+> > > > >  
+> > > >
+> > > > Hi,
+> > > >     I bisected this, and the first bad commit is
+> > > > [087451f372bf76d971184caa258807b7c35aac8f] drm/amdgpu: use
+> > > > generic fb helpers instead of setting up AMD own's.
+> > > >
+> > > > Let me know if you need some more testing.  
+> > >
+> > > Thanks.  Do the attached patches fix the issue?
+> > >
+> > > Thanks,
+> > >
+> > > Alex  
+> >
+> > Sorry, no. I applied them both on top of 5.17.1.  
+> 
+> Thanks.  Please try the attached patch.
+> 
+> Thanks,
+> 
+> Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 1cc488a767d8..c65f25e3a0fc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5531,18 +5531,18 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pci_dev *pdev, pci_channel_sta
- 
- 	adev->pci_channel_state = state;
- 
-+	/*
-+	 * Locking adev->reset_domain->sem will prevent any external access
-+	 * to GPU during PCI error recovery
-+	 */
-+	amdgpu_device_lock_reset_domain(adev->reset_domain);
-+	amdgpu_device_set_mp1_state(adev);
-+
- 	switch (state) {
- 	case pci_channel_io_normal:
- 		return PCI_ERS_RESULT_CAN_RECOVER;
- 	/* Fatal error, prepare for slot reset */
- 	case pci_channel_io_frozen:
--		/*
--		 * Locking adev->reset_domain->sem will prevent any external access
--		 * to GPU during PCI error recovery
--		 */
--		amdgpu_device_lock_reset_domain(adev->reset_domain);
--		amdgpu_device_set_mp1_state(adev);
--
- 		/*
- 		 * Block any work scheduling as we do for regular GPU reset
- 		 * for the duration of the recovery
--- 
-2.25.1
+I applied the v2 patch on top of 5.17.1 and it works as expected.
+
+Tested-by: Michele Ballabio <ballabio.m@gmail.com>
+
+Thanks,
+    Michele Ballabio
 
