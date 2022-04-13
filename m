@@ -4,122 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22E7DC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 08:15:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA3DC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 08:34:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A81C10FB94;
-	Wed, 13 Apr 2022 08:15:05 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam08on2068.outbound.protection.outlook.com [40.107.101.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A214B10FB93
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 08:15:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H75c3mH8IA/aZXd7oaMAbBCLgWRUwe7ayVrUVRpwOdN/kx9gGgJHaU7NSCgqjC7SmyIgs67mt0V7TwwLJR1rZteis6Ii4OeaaaczdCV4DtElrETFFca52aTNLlNO2DCZsPJRh+ptOQ707RGyRtWbWpD+0M0sDDwwvkbf+QC56rYaKRQDj5bhhywNpxrLSdi6P8mre6R/IX+qPM8u4IkcW/cP/CUaAuwWARkkVq+0Y1f8vmco1axwgi/UeBwPlyIwYLDoflBnmCaPg/IVNnvUW9cfMgGq8UjmRgZ2A9eTfIaLdyXAZVTxZRkiXp20va4A9HGDiQVZcaf1HfkXzbow1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kstmul/LKOWDsLNPUKxWmtYZUJuhhd4nCNV61QxvAUg=;
- b=jcAZZGfLpx0PgtP574f6nfzSmFLDhNi9jBw5vhwOmiAQ2sSyPYB253tGtMq8bWEcRYpbAlSBnFNzzt3M7/sCr8M2Tb4FsxdQg05xPl5kXbZk33G2a9svj5bHhRKPrkf4/7wDwiEchCoVjq0u/UxjlCZB38g8hmW+DJI1BMbiwu73j6tbRCN/WSRsJ7o2hlilX4N1INbSy3+/pV0vi1PX3c0dlc78HHCyi51DIEndnXKhDuPHeGxKvBJB5j0EX84RPlweRn1CGSC6iCnzyspHjjAxeQXJJTxTbgbhyI2mwMufCMW6TXEn7YOFOumrbDkbvOdmO3NDKC7sKyWEMhdeqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kstmul/LKOWDsLNPUKxWmtYZUJuhhd4nCNV61QxvAUg=;
- b=fAreCU3/xkZMRkBpEc64OHaRsYWznXi9jkBNw8GF1Q+k1A1beweFOlxzkRLCtfCCoPIF4CJWRlZq+ZI2mITWnBFcXw0rbKiup3TldhoT4G7qNrNb7HYfUgUP8RdKp0jpmk3jAIRLn2G2qSwhGQDW/dD6TFy1j/34Q/byhtEzHp8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SN1PR12MB2382.namprd12.prod.outlook.com (2603:10b6:802:2e::30)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18; Wed, 13 Apr
- 2022 08:15:00 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::a5fb:7137:5e64:cf8]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::a5fb:7137:5e64:cf8%5]) with mapi id 15.20.5144.030; Wed, 13 Apr 2022
- 08:15:00 +0000
-Message-ID: <6e792fcb-76eb-9a85-1f8f-266249125f46@amd.com>
-Date: Wed, 13 Apr 2022 10:14:56 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E77C10FC19;
+	Wed, 13 Apr 2022 08:34:33 +0000 (UTC)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 927BB10FC19
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 08:34:32 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id t11so2371582eju.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 01:34:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=PdJdAqHxgf5vZn+OGgAf3kyQvsLTfVAX0wKlNojC+VU=;
+ b=kOZIuEXXPHe/X1sv18X6wiVnMcm/il0x1yZBIhvQdRb5gpxMy0QxZB/0dz1H3Cb889
+ bhsD4iHfbaYbV7SY6/OedD8ePA8OHRNKVva/JAWnCYs7FfE24ksRjEgF0p58Vp6FB/1J
+ z5bhNrsNxSSFn/1IbtYIHWaUC2T09laigAwHX0gDBK4zA+IziKVTrr2f6Jz85lAXheW3
+ VYPfOlxx8GBm2sHMNaAdSCo8DjnpW+/WT+M27EZFM9+Ys7b1Icqwd9KzbdSfy+nkLjjG
+ z0IahnX9dDbFEXEmG6z4nnWXRwig6W99Pw3bPXWu3GKDA4f0ODnwN1Je5YqmyFHHkXlw
+ k4Bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=PdJdAqHxgf5vZn+OGgAf3kyQvsLTfVAX0wKlNojC+VU=;
+ b=gxp+iDTTevMC0BW6W8C5ZI3aX5tRDLfn5+mGdWoa5j4yB0+dM9mckWyBsd+1bxcxZo
+ +7+VD6davIxlQtLPqYRbpF7dF3IoTAC/XErreEJXtjvQnJKB8CmimjR5i3nMwzjqLARE
+ pwOEufruMgQmteV9rEqMcYp6YSnycErbHLs3YbAbxsbUVXXSgRR8xuKS6u//o+Xr94Kq
+ c8zN+e1iMHJokQ8SqvWlFajJcjsWlBGiV8w6Ragr37rYf9wJZlyVmfF2I74tiQi476Jx
+ Qa/8m53x1q19TRdiah/7Mwk2dc/JQu/2kzTjM3AuoEEOpevHhXZ0uBJDIZM+wwmCFtFY
+ 063Q==
+X-Gm-Message-State: AOAM531Ta6GTdfwh3d6Hy5byFodGAOLuD2+ZrV4HvEwOiQO0uuaQqEWT
+ PpoDvZUtCGoe8nCONx27pwk=
+X-Google-Smtp-Source: ABdhPJxXXKVjxbn7ADFzZtQ4JXrv5CBg7Ln96v0JsefkeJUTEIu2WZHChyve2G7dctmidxcIFLsgNg==
+X-Received: by 2002:a17:906:a147:b0:6e8:46a4:25a9 with SMTP id
+ bu7-20020a170906a14700b006e846a425a9mr22949652ejb.213.1649838870994; 
+ Wed, 13 Apr 2022 01:34:30 -0700 (PDT)
+Received: from [192.168.178.21] (p57b0b9e1.dip0.t-ipconnect.de.
+ [87.176.185.225]) by smtp.gmail.com with ESMTPSA id
+ ah13-20020a1709069acd00b006e8a0b3e071sm2471025ejc.110.2022.04.13.01.34.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Apr 2022 01:34:30 -0700 (PDT)
+Message-ID: <d41146ad-ddf1-3860-dff9-bda422469b7c@gmail.com>
+Date: Wed, 13 Apr 2022 10:34:28 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1BBVENIXSBkcm0vYW1kZ3B1OiBNYWtlIHN1cmUg?=
- =?UTF-8?Q?ttm_delayed_work_finished?=
+Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1BBVENIXSBkcm0vYW1kZ3B1OiBGaXggb25lIHVz?=
+ =?UTF-8?Q?e-after-free_of_VM?=
 Content-Language: en-US
 To: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20220413030854.31724-1-xinhui.pan@amd.com>
- <BN8PR12MB3587639A4BC2C1B392DD2DFE83EC9@BN8PR12MB3587.namprd12.prod.outlook.com>
- <DM4PR12MB51650F2F831EF872FACA22E487EC9@DM4PR12MB5165.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <DM4PR12MB51650F2F831EF872FACA22E487EC9@DM4PR12MB5165.namprd12.prod.outlook.com>
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>
+References: <20220412120322.28169-1-xinhui.pan@amd.com>
+ <299dca93-dc4d-8b1a-6de7-bfab8ebc8c19@amd.com>
+ <DM4PR12MB5165048F72922FDF9211ADA087EC9@DM4PR12MB5165.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <DM4PR12MB5165048F72922FDF9211ADA087EC9@DM4PR12MB5165.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM6P191CA0108.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:209:8a::49) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 97307373-6589-4489-7c3d-08da1d25b43e
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2382:EE_
-X-Microsoft-Antispam-PRVS: <SN1PR12MB23823723E4D5FD2470E28F4A83EC9@SN1PR12MB2382.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Uyn5gY3RM3f7sSq4SEjJKdUHinB5pIdJVZ8clQGirhJqCOfedERCQVuYWsr0N9iExUZQbq8NYSd9G4QIEoDW7xtU+CHESZIt3O4uuz697gnALTbTsVYR2sk7cr7fw5frN+IP5LhvLRlxhE4ZArzDDiCoMkl236TeNqQUaATFHqtEx5GQ9oqkljtPJ+T4de9lrOmL6gWO5frFbXLU8pNhAHld7Y07TaYrGIMug864ev6MngedJq4F7l5sO2afS/NwijJydhg3bFfV+Z96tQ1vFpTsIqhwj1QWzb2+X4ma7a19NNxrjpKstsR9cmzkZdD0lWhOeBFu+e+j+TSN98n/VgPRiupKpNHkKXRilqcNtLZmEsQ1JY822aOTBrSXpF8bv0crtJOEuQNqVQMxH9zHPpq0wceGw0P2475bypLWIXPdSxAJ5g3dABu/SLZVWGeTvjgbFDkwkpWQG3JMPp9yCr8OA2qogW2zOVQi/tZoREWZzMNjpJqcwDaT4FaZGkC9KVyOKyggXU+lDVcXGE6lUPcfzzifhSFFUcU9jNiFSIoNF66g/hZW/qxub8xdWQDeW3HDpX9gstwUuntADXb3wSuq5OL3wJ5+2tdgJMu9JXIojClx7fhDcauHwH7s7/s9sGag+xgN2HBN2owZumejxQ2KjDvwLZCuGxDqP9++17UzEPojeO9p/Rudf1m28UjgR/nt7+SA4r5KL6IqJnmw6q/oDWaW+di/bEWv1Ig0mkIM9XxKmoVUZ2GSCGbh/tps
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(36756003)(5660300002)(31686004)(83380400001)(26005)(2906002)(2616005)(186003)(224303003)(4326008)(66556008)(86362001)(66476007)(6486002)(31696002)(6666004)(8936002)(110136005)(316002)(6512007)(6506007)(508600001)(38100700002)(66946007)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFJXRit5azNMaE9ITCtLeWVyZVplclBjN2xSdy82ZmZHNzdzc2NRTVlKdnlB?=
- =?utf-8?B?U1FWNG5RZ3gxN00vWDgvRmQyenF5a1FqclNWbWtFYm5IQnh4SUtZU3lXWmdP?=
- =?utf-8?B?c1p5dktjWko5eHdWSzBpUHlCNEtmOTZnQ29nWjUwTWhjREQrcm8vNHp4TUVu?=
- =?utf-8?B?TXF6K3NVMEt1UlZxQkpmQzY3L0YrdmlOV0ZraVVZRHY3UnNzbjgxZWwvTThJ?=
- =?utf-8?B?K055TFV3LytyMG5mbkNEdERxT2pZYzlWVGd1czB3cGpGRU92a2RtNE5BVUdw?=
- =?utf-8?B?LzVMMDlnQ1ZiMlhPVmlYTWUvekJhZmY1dGdJU0NMTjlwaHlpSDIrTHZkYnNz?=
- =?utf-8?B?eFRqQlJYMEhXOURxTG5RNWxaZlFnM3oySUtSQ0lGNmxiZlowWjR4WWs1akNl?=
- =?utf-8?B?R0NJS2pGbjBMaUNXZ1ZCMGE1MW8wcTF6T2pRK25FWjhwUVI4bS9SUWduZm95?=
- =?utf-8?B?VW5LRmpWRXNvQ0tkMXJnazJvdCtXWVlZbVEzaDhqdDRXcmdqQU81ZGZPMjE5?=
- =?utf-8?B?NjVaekk4Z25SWHpsK3pXQlo1eGx1RHNMa2NPbGtoRnZIeFd0dWwxdzFoZ1dY?=
- =?utf-8?B?Y0ExYm5IaFN6QzJ3bmpiS1YrTTlKTU9wb0x0ekVNNTl6QTAwSDdnMTE4eDkr?=
- =?utf-8?B?RjRtS3gweUtLNVhKWVdRMmZJUEp3Slg1cy9qaGVhbkcrbTcyMkpiaEJpVkll?=
- =?utf-8?B?WW1iNXpuU0lOWCtqQ2ZYaVIyLzhGTVdQclNJckpPamtWRjkzWGY4VHZqQWN1?=
- =?utf-8?B?d2dDMVZVMkh2c1lGWGkweVIwMDZMdC9zZTEzUG5mWVRhTHFnSkR5SERRa01l?=
- =?utf-8?B?ZTBtb1RYYU1pUEFiVkpXMThMUUhzUk5tdFJ1ekU0V0diZW12Tm9TelMvNmls?=
- =?utf-8?B?V3pSbGsxSGF2S0JRMi9oTDl6bitRMVRORTg2SHlxNWkzcDRRdjNiR0FiMUEr?=
- =?utf-8?B?ekFiTkR0NGtGMzlucmcydno3TzZEN1dsRWJiYURYRnlZNDRlRGdHbHByOEpq?=
- =?utf-8?B?WC8zaXRHdEo0enR0Qm1LT3RSV1ZZY25ybXZscy8wL3M2R1d0cFRiRit3VDFT?=
- =?utf-8?B?dnZCcXJBamZEMEYxdndKM3MrRGoyVmJCcEZPYS9LR3BOZ09oelZNNEhnd3h3?=
- =?utf-8?B?RTRZWnQyZ24rV09MYm9Ec3J0WCtZTytxcWpubDdRU0h6OWdvQk81UlMvZ3RW?=
- =?utf-8?B?TUdVSmNvT1dycHZXRXMrMFhVYXN4cElVWmNBSDFDNTFTVzRhcXpXOTFGRlpX?=
- =?utf-8?B?aGt6a3g2S1l5V0oycWU2cFpBYUxGTmVLL1pXWVlsOEs2NHZ1a1REYzcrMlVt?=
- =?utf-8?B?QTc3VGpIMDNyM0NyQitDTm4xVnEvNm9HSzV1c0s0OHhYdmNjMU5ZY0d6dXZP?=
- =?utf-8?B?MlNiRm0xdXJaVUE1cWpjODI2ZDN5RjNyYURXVDI2UWFaeHphVmRUaGVJZ2o2?=
- =?utf-8?B?TlZnMjFrb0hOMU5iUVo0WkdzMHN3NW5wSDRoeFMzS0QrQjhlNGErZTNBcXl2?=
- =?utf-8?B?SUJ4UDNjQktVb0ZOTGY5eThkZU9wOWRNSGpYc0JBOHluV29PdHcxclhFbDZ4?=
- =?utf-8?B?bnh2UnA3czBLQUIxQStqazE5MTlHdFN3dHk3TnRXRlZ3TEVHVnRGZ1VLb2w2?=
- =?utf-8?B?M003enRWWGJ3cXgrSXNUVWpTZzAyVXpIK2oyTGdNcy92REhWckFWS3E2SHVh?=
- =?utf-8?B?UUV1M3JiNy9oQ3ZlWGJjZVhlaTBGVEJidDRRcGVCcXFNL3dhZ0VmYmcwdk9m?=
- =?utf-8?B?NzZsWTUvUFB4ZGFVODI3QktCUi9DMzVnb0VLQU9BMnhlUTN6ZUNSZnUrSjl2?=
- =?utf-8?B?UHAxcGhDdFVtMHRYUzRSTmo0RHBKK1I0a2FsTW1WR3NrNzR3ZFh0T3N4UkxY?=
- =?utf-8?B?SlBUZjMzUGtMTFdjUkY4b2hBY3Y0TzE2L3NJa3JsZGpqVzVEWUo2UzRNMy83?=
- =?utf-8?B?SWN4RlNGRnd4cWJxVzJJem1VNGlKYnBPOUFTVFJjanpCbGNMQUxCMGpvRGRC?=
- =?utf-8?B?WHRrcDFqUHlscFY4S2g5c3pFZkhvVHV5V3B0VjRETjMrSVdXQ1dlSnJNQTBn?=
- =?utf-8?B?dGw2UnFXQzhXUTZvcGQ1VjRBZWNocStBM3p3cW9qS1M5a05TUXdDa25SZVlJ?=
- =?utf-8?B?Y3ZZOFVNbnp2QW5wQTRUb1R4QU5zK2UzSU9JT05RRmpwU25HT0prSkxxOHFi?=
- =?utf-8?B?YVFOaW5WNzVIcUMwMGQ2b1B1c2tCbVRpcTQwc1Z6K005ZFRUS0tuTE5rZGpv?=
- =?utf-8?B?MFNCb0w2aDJzbGhsa2MyV3I5K2x6T3VkYkxKaW9CTVUvYXZ4MytjOEVxQ0dH?=
- =?utf-8?B?cjZCV3o2ZTlqbTlkb0FnYzJucGNtNkpFWDBLemtPa3NmTFQvSWc2QT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97307373-6589-4489-7c3d-08da1d25b43e
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2022 08:15:00.4616 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zqyBzTJ9r66fdSMpn2Bu9HiW8wLnqB8vWBY6eL6i8ovvX6skFlBrv/lG48uIBWyj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2382
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,87 +82,161 @@ Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-That warning is a bit more than a little annoying.
+I think for now we should just have a the following code in amdgpu_vm_fini:
 
-Before we stop the delayed delete worker we *must* absolutely make sure 
-that there is nothing going on the hardware any more. Otherwise we could 
-easily run into use after free issues.
+dma_fence_wait(vm->last_tlb_flush, false);
+/* Make sure that all fence callbacks have completed*/
+spinlock(vm->last_tlb_flush->lock);
+spinunlock(vm->last_tlb_flush->lock);
+dma_fence_put(vm->last_tlb_flush);
 
-There should somewhere be a amdgpu_fence_wait_empty() before the 
-flush_delayed_work() call. If that isn't there we do have a problem 
-elsewhere.
+Cleaning that up in a larger context can come later on and is probably 
+my job as DMA-buf maintainer.
 
-Thanks for investigating this,
+Thanks,
 Christian.
 
-Am 13.04.22 um 09:47 schrieb Pan, Xinhui:
+Am 13.04.22 um 05:07 schrieb Pan, Xinhui:
 > [AMD Official Use Only]
 >
-> The log from tester says it is the drm framebuffer BO being busy.
+> we make something like dma_fence_release does.
 >
-> I just feel there is lack of time for its fence to be signaled.
-> As a delay works too in my test.
-> But the warning is a little annoying.
+> @@ -783,11 +783,15 @@ dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long timeout)
+>          unsigned long flags;
+>          signed long ret = timeout ? timeout : 1;
 >
+> -       if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
+> +       if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags) &&
+> +           list_empty(&fence->cb_list))
+>                  return ret;
+>
+>          spin_lock_irqsave(fence->lock, flags);
+>
+> +       if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
+> +               goto out;
+> +
+>          if (intr && signal_pending(current)) {
+>                  ret = -ERESTARTSYS;
+>                  goto out;
 > ________________________________________
 > 发件人: Koenig, Christian <Christian.Koenig@amd.com>
-> 发送时间: 2022年4月13日 15:30
-> 收件人: Pan, Xinhui; amd-gfx@lists.freedesktop.org
+> 发送时间: 2022年4月12日 20:11
+> 收件人: Pan, Xinhui; amd-gfx@lists.freedesktop.org; Daniel Vetter
 > 抄送: Deucher, Alexander
-> 主题: AW: [PATCH] drm/amdgpu: Make sure ttm delayed work finished
+> 主题: Re: [PATCH] drm/amdgpu: Fix one use-after-free of VM
 >
-> We don't need that.
+> Am 12.04.22 um 14:03 schrieb xinhui pan:
+>> VM might already be freed when amdgpu_vm_tlb_seq_cb() is called.
+>> We see the calltrace below.
+>>
+>> Fix it by keeping the last flush fence around and wait for it to signal
+>>
+>> BUG kmalloc-4k (Not tainted): Poison overwritten
+>>
+>> 0xffff9c88630414e8-0xffff9c88630414e8 @offset=5352. First byte 0x6c
+>> instead of 0x6b Allocated in amdgpu_driver_open_kms+0x9d/0x360 [amdgpu]
+>> age=44 cpu=0 pid=2343
+>>    __slab_alloc.isra.0+0x4f/0x90
+>>    kmem_cache_alloc_trace+0x6b8/0x7a0
+>>    amdgpu_driver_open_kms+0x9d/0x360 [amdgpu]
+>>    drm_file_alloc+0x222/0x3e0 [drm]
+>>    drm_open+0x11d/0x410 [drm]
+>>    drm_stub_open+0xdc/0x230 [drm]
+>>    chrdev_open+0xa5/0x1e0
+>>    do_dentry_open+0x16c/0x3c0
+>>    vfs_open+0x2d/0x30
+>>    path_openat+0x70a/0xa90
+>>    do_filp_open+0xb2/0x120
+>>    do_sys_openat2+0x245/0x330
+>>    do_sys_open+0x46/0x80
+>>    __x64_sys_openat+0x20/0x30
+>>    do_syscall_64+0x38/0xc0
+>>    entry_SYSCALL_64_after_hwframe+0x44/0xae
+>> Freed in amdgpu_driver_postclose_kms+0x3e9/0x550 [amdgpu] age=22 cpu=1
+>> pid=2485
+>>    kfree+0x4a2/0x580
+>>    amdgpu_driver_postclose_kms+0x3e9/0x550 [amdgpu]
+>>    drm_file_free+0x24e/0x3c0 [drm]
+>>    drm_close_helper.isra.0+0x90/0xb0 [drm]
+>>    drm_release+0x97/0x1a0 [drm]
+>>    __fput+0xb6/0x280
+>>    ____fput+0xe/0x10
+>>    task_work_run+0x64/0xb0
+>>    do_exit+0x406/0xcf0
+>>    do_group_exit+0x50/0xc0
+>>    __x64_sys_exit_group+0x18/0x20
+>>    do_syscall_64+0x38/0xc0
+>>    entry_SYSCALL_64_after_hwframe+0x44/0xae
+>>
+>> Suggested-by: Christian König <christian.koenig@amd.com>
+>> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+>> ---
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 22 +++++++++++++++++++---
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  1 +
+>>    2 files changed, 20 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> index 645ce28277c2..e2486e95ca69 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> @@ -932,9 +932,12 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>>
+>>        if (flush_tlb || params.table_freed) {
+>>                tlb_cb->vm = vm;
+>> -             if (!fence || !*fence ||
+>> -                 dma_fence_add_callback(*fence, &tlb_cb->cb,
+>> -                                        amdgpu_vm_tlb_seq_cb))
+>> +             if (fence && *fence &&
+>> +                 !dma_fence_add_callback(*fence, &tlb_cb->cb,
+>> +                                        amdgpu_vm_tlb_seq_cb)) {
+>> +                     dma_fence_put(vm->last_delayed_tlb_flush);
+>> +                     vm->last_delayed_tlb_flush = dma_fence_get(*fence);
+>> +             } else
+>>                        amdgpu_vm_tlb_seq_cb(NULL, &tlb_cb->cb);
+>>                tlb_cb = NULL;
+>>        }
+>> @@ -2258,6 +2261,19 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>>        dma_fence_wait(vm->last_unlocked, false);
+>>        dma_fence_put(vm->last_unlocked);
+>>
+>> +     if (vm->last_delayed_tlb_flush) {
+> You can initialize last_delayed_tlb_flush() with the dummy fence, see
+> how last_unlocked works.
 >
-> TTM only reschedules when the BOs are still busy.
+>> +             /* Wait until fence is signaled.
+>> +              * But must double check to make sure fence cb is called.
+>> +              * As dma_fence_default_wait checks DMA_FENCE_FLAG_SIGNALED_BIT without
+>> +              * holding fence lock(the first test_bit).
+>> +              * So call dma_fence_get_status which will hold the fence lock.
+>> +              * Then we can make sure fence cb has been called.
+>> +              */
+> Uff, that is a really good point and most likely a bug in dma_fence_wait().
 >
-> And if the BOs are still busy when you unload the driver we have much bigger problems that this TTM worker :)
+> I'm pretty sure that a couple of other callers rely on that as well.
 >
-> Regards,
-> Christian
+> Daniel what's you opinion about that?
 >
-> ________________________________
-> Von: Pan, Xinhui <Xinhui.Pan@amd.com>
-> Gesendet: Mittwoch, 13. April 2022 05:08
-> An: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>
-> Betreff: [PATCH] drm/amdgpu: Make sure ttm delayed work finished
+> Thanks,
+> Christian.
 >
-> ttm_device_delayed_workqueue would reschedule itself if there is pending
-> BO to be destroyed. So just one flush + cancel_sync is not enough. We
-> still see lru_list not empty warnging.
->
-> Fix it by waiting all BO to be destroyed.
->
-> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 6f47726f1765..e249923eb9a7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3957,11 +3957,17 @@ static void amdgpu_device_unmap_mmio(struct amdgpu_device *adev)
->    */
->   void amdgpu_device_fini_hw(struct amdgpu_device *adev)
->   {
-> +       int pending = 1;
-> +
->           dev_info(adev->dev, "amdgpu: finishing device.\n");
->           flush_delayed_work(&adev->delayed_init_work);
-> -       if (adev->mman.initialized) {
-> +       while (adev->mman.initialized && pending) {
->                   flush_delayed_work(&adev->mman.bdev.wq);
-> -               ttm_bo_lock_delayed_workqueue(&adev->mman.bdev);
-> +               pending = ttm_bo_lock_delayed_workqueue(&adev->mman.bdev);
-> +               if (pending) {
-> +                       ttm_bo_unlock_delayed_workqueue(&adev->mman.bdev, true);
-> +                       msleep((HZ / 100) < 1) ? 1 : HZ / 100);
-> +               }
->           }
->           adev->shutdown = true;
->
-> --
-> 2.25.1
->
+>> +             (void)dma_fence_wait(vm->last_delayed_tlb_flush, false);
+>> +             (void)dma_fence_get_status(vm->last_delayed_tlb_flush);
+>> +             dma_fence_put(vm->last_delayed_tlb_flush);
+>> +     }
+>> +
+>>        list_for_each_entry_safe(mapping, tmp, &vm->freed, list) {
+>>                if (mapping->flags & AMDGPU_PTE_PRT && prt_fini_needed) {
+>>                        amdgpu_vm_prt_fini(adev, vm);
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>> index 1a814fbffff8..c1a48f5c1019 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>> @@ -286,6 +286,7 @@ struct amdgpu_vm {
+>>
+>>        /* Last finished delayed update */
+>>        atomic64_t              tlb_seq;
+>> +     struct dma_fence        *last_delayed_tlb_flush;
+>>
+>>        /* Last unlocked submission to the scheduler entities */
+>>        struct dma_fence        *last_unlocked;
 
