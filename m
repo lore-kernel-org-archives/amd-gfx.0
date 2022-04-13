@@ -4,51 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4261EC433F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 11:15:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F38EC433EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 13:01:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFE7210E0EB;
-	Wed, 13 Apr 2022 11:15:37 +0000 (UTC)
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5997510E0EB
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 11:15:36 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- g17-20020a9d6191000000b005e8d8583c36so930397otk.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 04:15:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0EA910E34E;
+	Wed, 13 Apr 2022 13:01:03 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9051210E37E;
+ Wed, 13 Apr 2022 13:01:02 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-e2442907a1so1894867fac.8; 
+ Wed, 13 Apr 2022 06:01:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=wcTO4H6EvSVU3LNEDsQgGZiM0vb4tIbXFE79XHrr7oY=;
- b=KdBaguexsZjvP1LHGomfE0UzVrjQYg/o3XC89FcziiBZYMz/OQY824Nb8ApfVrKG2v
- ALkESKDdKOAc62BkiR8Iz+fhPL7XdvIXbfOZqC6O2PrFQ+2mMp4mYezb5y0fqfp39tD4
- z2vMJ6Zp0ELXFmgZhptu/Kqly2yOpX2xFmSn8=
+ bh=gZDaCj8hTLM0bP/l9w7YSO7g2qnbuNgNCn+DCFEd6aI=;
+ b=FEv0kyLo3VMIFAfqBNf2vyglxgp+UTUwDsIRZrjJplezgnISwnlye+51pCD+/BwS2H
+ B1016hY0GDvBfJCqcJZjHjdT4OzviCPT11gyZw9see9RLuMyS1uV+xeJuc+LL/6r8P9V
+ LWDPRVRuD4Nd34JqBPuQfy7uesTk2i37Lhm0/wgvJ8dz/beuac7vETgMBiDWAy5BZsrQ
+ NMYsTTfI9x99CKEa3NoeDcRPYklNpjxymFE0eG8Z09wVdQNW5FijH3YxurMWtL5JB0kN
+ zXDVLK9EXg8ENwB1X436vunz2P/dHcSD6SX8dpxVqW1lCPZYHtZ/K8D371ILyPyI4W2q
+ W8CQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=wcTO4H6EvSVU3LNEDsQgGZiM0vb4tIbXFE79XHrr7oY=;
- b=LEfwr62ZjzPnwjMRCFn5x6NI3qMLpLvqJz99P3DKFaxLLRp9MUmXhEWl4HYMBH0ZkN
- NEEA+Ht0LXM8ptUcUYl8Egy7DW9Hpg9AGHbPo2yT+vGQWSTdst4OLt5TJfZIuTYeJgKy
- zm9/0orZhwLeLpwEeVxkIYtSPEiW66LZVQg6Jf0FDjY95VQDgXkamj0wkHOZS5BBmAGk
- bSSidVIROsN+YkPK8egeYd5+cQrDEcvjTKE021sjBykh7bzvFLej3U86oHYYQ0p6MJHt
- gOnogmvL58sNlHVhTO/SfcDGRolALatBvEH7WZvLFuwmHhk96IV8KbTw2UJjxT4ywIPF
- 7m2A==
-X-Gm-Message-State: AOAM533sCc1d6nzuq1hSKpCVBcCzkHJElOpsv72sAT4mMLU+MpqK/sTp
- aktxBJWBCLfX5PXZB34oTHiMyf+IgUkoFC9zHC+E+g==
-X-Google-Smtp-Source: ABdhPJzdSiZdpR0kdRDspMH4Jvq3DBoGPmoS3zee0c7Qbx+jH3zwEulL2lHOY97smJyjs6OEMh1LGplWr7we14OznCM=
-X-Received: by 2002:a9d:57c7:0:b0:5b2:3d6d:6469 with SMTP id
- q7-20020a9d57c7000000b005b23d6d6469mr14412599oti.301.1649848535569; Wed, 13
- Apr 2022 04:15:35 -0700 (PDT)
+ bh=gZDaCj8hTLM0bP/l9w7YSO7g2qnbuNgNCn+DCFEd6aI=;
+ b=u1LvJfNk7X+Xa2eWe0fNwRbsGlAKFX+kJXCTsZJ1HhF7qCVG6vqseQqVHj0M8Cq1pH
+ NGEPA2q4nrwjAKtqPGATlWdYIh2N0l38LWfcFx/bQQ2Tm8zua9ZkP4xfLbV4AlVf/h1W
+ SFWbXjW34Mz61TBC9ZDhDxq8jU6fOyV3Y/HdpYQZNmQpsyTw7d9yxYtoD+B2bxRR6FsC
+ TLRWKS3HzeQL6vkWvA/AuV6qvQU3r2YEODC0tmAgwJGwXVcBu4FuWIhN+ZmlruHu1cJq
+ 72lplIuYnMOYS02OC+Mi7mJMoMDhsXmajYVnjPzh+W4aNS5cc1X+5WyED3tKjOctm6Bb
+ vF7g==
+X-Gm-Message-State: AOAM531nqjVTJdFJPz37e6cjVfkyrbfPnVxBWUmaYrFtnvmjFFs9RoZs
+ ZjoNmTP4cioHqRwZTc1woxgw01ZyB/SwGNg/FL8=
+X-Google-Smtp-Source: ABdhPJyxWqtPubtjVsfln8tW3NJZa00U2bWV6SGBrTscpzYvBAsPghZG5gshfaDwslYztZlR+9ZObVa2eOzU4UoTulU=
+X-Received: by 2002:a05:6870:311d:b0:de:9b6c:362b with SMTP id
+ v29-20020a056870311d00b000de9b6c362bmr3978609oaa.200.1649854861731; Wed, 13
+ Apr 2022 06:01:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220412120322.28169-1-xinhui.pan@amd.com>
- <299dca93-dc4d-8b1a-6de7-bfab8ebc8c19@amd.com>
-In-Reply-To: <299dca93-dc4d-8b1a-6de7-bfab8ebc8c19@amd.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Wed, 13 Apr 2022 13:15:24 +0200
-Message-ID: <CAKMK7uEVSuUf29fOHJ-vAk_=Yxhf7iW4TMSAeAirXOn=Jet7rw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix one use-after-free of VM
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20220412215000.897344-1-richard.gong@amd.com>
+ <d4ba3998-34aa-86d2-bde9-bc6ae9d8d08d@molgen.mpg.de>
+In-Reply-To: <d4ba3998-34aa-86d2-bde9-bc6ae9d8d08d@molgen.mpg.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 13 Apr 2022 09:00:50 -0400
+Message-ID: <CADnq5_MgvcGPWf2gYn_3qCr+Gq1P39tvv-W-o8NhivvMpMwUBA@mail.gmail.com>
+Subject: Re: [PATCHv4] drm/amdgpu: disable ASPM on Intel Alder Lake based
+ systems
+To: Paul Menzel <pmenzel@molgen.mpg.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -62,170 +66,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, xinhui pan <Xinhui.Pan@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: kernel test robot <lkp@intel.com>, Dave Airlie <airlied@linux.ie>,
+ Richard Gong <richard.gong@amd.com>, xinhui pan <xinhui.pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>, "Limonciello,
+ Mario" <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 12 Apr 2022 at 14:11, Christian K=C3=B6nig <christian.koenig@amd.co=
-m> wrote:
+On Wed, Apr 13, 2022 at 3:43 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
 >
-> Am 12.04.22 um 14:03 schrieb xinhui pan:
-> > VM might already be freed when amdgpu_vm_tlb_seq_cb() is called.
-> > We see the calltrace below.
+> Dear Richard,
+>
+>
+> Thank you for sending out v4.
+>
+> Am 12.04.22 um 23:50 schrieb Richard Gong:
+> > Active State Power Management (ASPM) feature is enabled since kernel 5.=
+14.
+> > There are some AMD GFX cards (such as WX3200 and RX640) that won't work
+> > with ASPM-enabled Intel Alder Lake based systems. Using these GFX cards=
+ as
+> > video/display output, Intel Alder Lake based systems will hang during
+> > suspend/resume.
+>
+> I am still not clear, what =E2=80=9Chang during suspend/resume=E2=80=9D m=
+eans. I guess
+> suspending works fine? During resume (S3 or S0ix?), where does it hang?
+> The system is functional, but there are only display problems?
+>
+> > The issue was initially reported on one system (Dell Precision 3660 wit=
+h
+> > BIOS version 0.14.81), but was later confirmed to affect at least 4 Ald=
+er
+> > Lake based systems.
 > >
-> > Fix it by keeping the last flush fence around and wait for it to signal
+> > Add extra check to disable ASPM on Intel Alder Lake based systems.
 > >
-> > BUG kmalloc-4k (Not tainted): Poison overwritten
-> >
-> > 0xffff9c88630414e8-0xffff9c88630414e8 @offset=3D5352. First byte 0x6c
-> > instead of 0x6b Allocated in amdgpu_driver_open_kms+0x9d/0x360 [amdgpu]
-> > age=3D44 cpu=3D0 pid=3D2343
-> >   __slab_alloc.isra.0+0x4f/0x90
-> >   kmem_cache_alloc_trace+0x6b8/0x7a0
-> >   amdgpu_driver_open_kms+0x9d/0x360 [amdgpu]
-> >   drm_file_alloc+0x222/0x3e0 [drm]
-> >   drm_open+0x11d/0x410 [drm]
-> >   drm_stub_open+0xdc/0x230 [drm]
-> >   chrdev_open+0xa5/0x1e0
-> >   do_dentry_open+0x16c/0x3c0
-> >   vfs_open+0x2d/0x30
-> >   path_openat+0x70a/0xa90
-> >   do_filp_open+0xb2/0x120
-> >   do_sys_openat2+0x245/0x330
-> >   do_sys_open+0x46/0x80
-> >   __x64_sys_openat+0x20/0x30
-> >   do_syscall_64+0x38/0xc0
-> >   entry_SYSCALL_64_after_hwframe+0x44/0xae
-> > Freed in amdgpu_driver_postclose_kms+0x3e9/0x550 [amdgpu] age=3D22 cpu=
-=3D1
-> > pid=3D2485
-> >   kfree+0x4a2/0x580
-> >   amdgpu_driver_postclose_kms+0x3e9/0x550 [amdgpu]
-> >   drm_file_free+0x24e/0x3c0 [drm]
-> >   drm_close_helper.isra.0+0x90/0xb0 [drm]
-> >   drm_release+0x97/0x1a0 [drm]
-> >   __fput+0xb6/0x280
-> >   ____fput+0xe/0x10
-> >   task_work_run+0x64/0xb0
-> >   do_exit+0x406/0xcf0
-> >   do_group_exit+0x50/0xc0
-> >   __x64_sys_exit_group+0x18/0x20
-> >   do_syscall_64+0x38/0xc0
-> >   entry_SYSCALL_64_after_hwframe+0x44/0xae
-> >
-> > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+> > Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
+> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
+> > Reported-by: kernel test robot <lkp@intel.com>
+>
+> This tag is a little confusing. Maybe clarify that it was for an issue
+> in a previous patch iteration?
+>
+> > Signed-off-by: Richard Gong <richard.gong@amd.com>
 > > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 22 +++++++++++++++++++---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  1 +
-> >   2 files changed, 20 insertions(+), 3 deletions(-)
+> > v4: s/CONFIG_X86_64/CONFIG_X86
+> >      enhanced check logic
+> > v3: s/intel_core_asom_chk/aspm_support_quirk_check
+> >      correct build error with W=3D1 option
+> > v2: correct commit description
+> >      move the check from chip family to problematic platform
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/vi.c | 17 ++++++++++++++++-
+> >   1 file changed, 16 insertions(+), 1 deletion(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vm.c
-> > index 645ce28277c2..e2486e95ca69 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -932,9 +932,12 @@ int amdgpu_vm_update_range(struct amdgpu_device *a=
-dev, struct amdgpu_vm *vm,
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdg=
+pu/vi.c
+> > index 039b90cdc3bc..b33e0a9bee65 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> > @@ -81,6 +81,10 @@
+> >   #include "mxgpu_vi.h"
+> >   #include "amdgpu_dm.h"
 > >
-> >       if (flush_tlb || params.table_freed) {
-> >               tlb_cb->vm =3D vm;
-> > -             if (!fence || !*fence ||
-> > -                 dma_fence_add_callback(*fence, &tlb_cb->cb,
-> > -                                        amdgpu_vm_tlb_seq_cb))
-> > +             if (fence && *fence &&
-> > +                 !dma_fence_add_callback(*fence, &tlb_cb->cb,
-> > +                                        amdgpu_vm_tlb_seq_cb)) {
-> > +                     dma_fence_put(vm->last_delayed_tlb_flush);
-> > +                     vm->last_delayed_tlb_flush =3D dma_fence_get(*fen=
-ce);
-> > +             } else
-> >                       amdgpu_vm_tlb_seq_cb(NULL, &tlb_cb->cb);
-> >               tlb_cb =3D NULL;
-> >       }
-> > @@ -2258,6 +2261,19 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, =
-struct amdgpu_vm *vm)
-> >       dma_fence_wait(vm->last_unlocked, false);
-> >       dma_fence_put(vm->last_unlocked);
+> > +#if IS_ENABLED(CONFIG_X86)
+> > +#include <asm/intel-family.h>
+> > +#endif
+> > +
+> >   #define ixPCIE_LC_L1_PM_SUBSTATE    0x100100C6
+> >   #define PCIE_LC_L1_PM_SUBSTATE__LC_L1_SUBSTATES_OVERRIDE_EN_MASK    0=
+x00000001L
+> >   #define PCIE_LC_L1_PM_SUBSTATE__LC_PCI_PM_L1_2_OVERRIDE_MASK        0=
+x00000002L
+> > @@ -1134,13 +1138,24 @@ static void vi_enable_aspm(struct amdgpu_device=
+ *adev)
+> >               WREG32_PCIE(ixPCIE_LC_CNTL, data);
+> >   }
 > >
-> > +     if (vm->last_delayed_tlb_flush) {
->
-> You can initialize last_delayed_tlb_flush() with the dummy fence, see
-> how last_unlocked works.
->
-> > +             /* Wait until fence is signaled.
-> > +              * But must double check to make sure fence cb is called.
-> > +              * As dma_fence_default_wait checks DMA_FENCE_FLAG_SIGNAL=
-ED_BIT without
-> > +              * holding fence lock(the first test_bit).
-> > +              * So call dma_fence_get_status which will hold the fence=
- lock.
-> > +              * Then we can make sure fence cb has been called.
-> > +              */
->
-> Uff, that is a really good point and most likely a bug in dma_fence_wait(=
-).
->
-> I'm pretty sure that a couple of other callers rely on that as well.
->
-> Daniel what's you opinion about that?
-
-dma_fence_wait + dma_fence_signal provide a barrier (like the other
-wake_up/wait function pairs we have), but nothing more. So you're not
-really guaranteed at all that any other waiters have received the
-wakeup. This is also why we had that wording that waiters need to hold
-a dma_fence reference or things can go boom. This is also standard
-linux and I have honestly no idea how we could guarantee more without
-either making this all more expensive (forcing more refcounting would
-probably be needed) or making it look like there's a guarantee that
-really doesn't hold when you try to use it. wait/wake_up functions
-pair really should not provide more ordering than just the barrier
-(and that barrier is even conditional on "an actual wake-up has
-happened").
-
-I'm not exactly sure how to best fix this here, but I guess you either
-want your own spinlock to protect the link between the fence and the
-vm, or some other refcounting scheme changes (like you have the gpu
-ctx that run on top of a vm hold the refence on the fence, and the
-fence itself holds a full reference on the vm) to make sure there's
-not use after free here.
-
-I don't think the spinlock fence you propose below is enough, I think
-you also need to protect any vm dereference from under that spinlock
-(i.e. set some vm pointer to NULL while holding that spinlock, or
-whatever you need to do to unlink the fence from the vm).
--Daniel
-
->
-> Thanks,
-> Christian.
->
-> > +             (void)dma_fence_wait(vm->last_delayed_tlb_flush, false);
-> > +             (void)dma_fence_get_status(vm->last_delayed_tlb_flush);
-> > +             dma_fence_put(vm->last_delayed_tlb_flush);
+> > +static bool aspm_support_quirk_check(void)
+> > +{
+> > +     if (IS_ENABLED(CONFIG_X86)) {
+> > +             struct cpuinfo_x86 *c =3D &cpu_data(0);
+> > +
+> > +             return !(c->x86 =3D=3D 6 && c->x86_model =3D=3D INTEL_FAM=
+6_ALDERLAKE);
 > > +     }
 > > +
-> >       list_for_each_entry_safe(mapping, tmp, &vm->freed, list) {
-> >               if (mapping->flags & AMDGPU_PTE_PRT && prt_fini_needed) {
-> >                       amdgpu_vm_prt_fini(adev, vm);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vm.h
-> > index 1a814fbffff8..c1a48f5c1019 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > @@ -286,6 +286,7 @@ struct amdgpu_vm {
+> > +     return true;
+> > +}
+> > +
+> >   static void vi_program_aspm(struct amdgpu_device *adev)
+> >   {
+> >       u32 data, data1, orig;
+> >       bool bL1SS =3D false;
+> >       bool bClkReqSupport =3D true;
 > >
-> >       /* Last finished delayed update */
-> >       atomic64_t              tlb_seq;
-> > +     struct dma_fence        *last_delayed_tlb_flush;
-> >
-> >       /* Last unlocked submission to the scheduler entities */
-> >       struct dma_fence        *last_unlocked;
+> > -     if (!amdgpu_device_should_use_aspm(adev))
+> > +     if (!amdgpu_device_should_use_aspm(adev) || !aspm_support_quirk_c=
+heck())
+> >               return;
 >
+> Can users still forcefully enable ASPM with the parameter `amdgpu.aspm`?
+>
+> >
+> >       if (adev->flags & AMD_IS_APU ||
+>
+> If I remember correctly, there were also newer cards, where ASPM worked
+> with Intel Alder Lake, right? Can only the problematic generations for
+> WX3200 and RX640 be excluded from ASPM?
 
+This patch only disables it for the generation that was problematic.
 
---=20
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Alex
+
+>
+>
+> Kind regards,
+>
+> Paul
