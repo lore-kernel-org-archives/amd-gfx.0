@@ -4,47 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27699C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 07:37:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B64A8C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 07:52:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1725210FBF2;
-	Thu, 14 Apr 2022 07:37:18 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9F0210E260
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Apr 2022 07:37:16 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:105:465:1:1:0])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4KfBB23TxQz9sWP;
- Thu, 14 Apr 2022 09:37:14 +0200 (CEST)
-Message-ID: <ca5ca8ab-9c48-8d81-2dd6-fbdfface6519@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1649921831;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5ugP9mxdZjTV6JyPUGBKdJZsCaevGGG8M7k2bOgNyNk=;
- b=TGg+dffAkAQSZFahgJ+36xPmz7qGzfj7jVQRnheUpHK7Iew5syLd4dJsTri+TTIs/kVHVN
- 15o5Nl+PCxHaZuo5hdC7jgjJmGbPHJvl7+iBbpayqEzPXMQbn7tCDPUFQs7bQAenRWEjws
- l8yQ8ew1X5TQLZ2wIKUR5bhMk1OMb/5fVPXlcBxZGSZqMB2k+QWYKesbi4V+nWKBza+9sZ
- haHwR1XK6Kp/L1G0qWFR8jFd2KXXk+WX9NOm1b2BhS8LYFTF3J5rchvGYJiI2AxTj6sNsG
- dWO9KamNZAPOymIfU5Y8/HaTtduY4OTap1//gpfTEzKnaO/SgouZuOa2GV3tTg==
-Date: Thu, 14 Apr 2022 09:37:07 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5060010FC45;
+	Thu, 14 Apr 2022 07:52:31 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1090010FC45;
+ Thu, 14 Apr 2022 07:52:30 +0000 (UTC)
+Received: from [192.168.0.2] (ip5f5ae8d7.dynamic.kabel-deutschland.de
+ [95.90.232.215])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 6B44061EA1928;
+ Thu, 14 Apr 2022 09:52:27 +0200 (CEST)
+Message-ID: <91e916e3-d793-b814-6cbf-abee0667f5f8@molgen.mpg.de>
+Date: Thu, 14 Apr 2022 09:52:27 +0200
 MIME-Version: 1.0
-Subject: Re: [PATCH] drm/radeon: Add build directory to include path
-Content-Language: en-CA
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>
-References: <20220413161450.1854370-1-michel@daenzer.net>
- <f425b789-5081-fa70-555f-7553d7cc5bd5@gmail.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <f425b789-5081-fa70-555f-7553d7cc5bd5@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCHv4] drm/amdgpu: disable ASPM on Intel Alder Lake based
+ systems
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>, Richard Gong <richard.gong@amd.com>
+References: <20220412215000.897344-1-richard.gong@amd.com>
+ <d4ba3998-34aa-86d2-bde9-bc6ae9d8d08d@molgen.mpg.de>
+ <CADnq5_MgvcGPWf2gYn_3qCr+Gq1P39tvv-W-o8NhivvMpMwUBA@mail.gmail.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <CADnq5_MgvcGPWf2gYn_3qCr+Gq1P39tvv-W-o8NhivvMpMwUBA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,32 +46,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Dave Airlie <airlied@linux.ie>, xinhui pan <xinhui.pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alexander Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2022-04-14 08:24, Christian König wrote:
-> Am 13.04.22 um 18:14 schrieb Michel Dänzer:
->> From: Michel Dänzer <mdaenzer@redhat.com>
+[Cc: -kernel test robot <lkp@intel.com>]
+
+Dear Alex, dear Richard,
+
+
+Am 13.04.22 um 15:00 schrieb Alex Deucher:
+> On Wed, Apr 13, 2022 at 3:43 AM Paul Menzel wrote:
+
+>> Thank you for sending out v4.
 >>
->> Fixes compile errors with out-of-tree builds, e.g.
+>> Am 12.04.22 um 23:50 schrieb Richard Gong:
+>>> Active State Power Management (ASPM) feature is enabled since kernel 5.14.
+>>> There are some AMD GFX cards (such as WX3200 and RX640) that won't work
+>>> with ASPM-enabled Intel Alder Lake based systems. Using these GFX cards as
+>>> video/display output, Intel Alder Lake based systems will hang during
+>>> suspend/resume.
 >>
->> ../drivers/gpu/drm/radeon/r420.c:38:10: fatal error: r420_reg_safe.h: No such file or directory
->>     38 | #include "r420_reg_safe.h"
->>        |          ^~~~~~~~~~~~~~~~~
+>> I am still not clear, what “hang during suspend/resume” means. I guess
+>> suspending works fine? During resume (S3 or S0ix?), where does it hang?
+>> The system is functional, but there are only display problems?
+>>
+>>> The issue was initially reported on one system (Dell Precision 3660 with
+>>> BIOS version 0.14.81), but was later confirmed to affect at least 4 Alder
+>>> Lake based systems.
+>>>
+>>> Add extra check to disable ASPM on Intel Alder Lake based systems.
+>>>
+>>> Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
+>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
+>>> Reported-by: kernel test robot <lkp@intel.com>
+>>
+>> This tag is a little confusing. Maybe clarify that it was for an issue
+>> in a previous patch iteration?
+>>
+>>> Signed-off-by: Richard Gong <richard.gong@amd.com>
+>>> ---
+>>> v4: s/CONFIG_X86_64/CONFIG_X86
+>>>       enhanced check logic
+>>> v3: s/intel_core_asom_chk/aspm_support_quirk_check
+>>>       correct build error with W=1 option
+>>> v2: correct commit description
+>>>       move the check from chip family to problematic platform
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/vi.c | 17 ++++++++++++++++-
+>>>    1 file changed, 16 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+>>> index 039b90cdc3bc..b33e0a9bee65 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+>>> @@ -81,6 +81,10 @@
+>>>    #include "mxgpu_vi.h"
+>>>    #include "amdgpu_dm.h"
+>>>
+>>> +#if IS_ENABLED(CONFIG_X86)
+>>> +#include <asm/intel-family.h>
+>>> +#endif
+>>> +
+>>>    #define ixPCIE_LC_L1_PM_SUBSTATE    0x100100C6
+>>>    #define PCIE_LC_L1_PM_SUBSTATE__LC_L1_SUBSTATES_OVERRIDE_EN_MASK    0x00000001L
+>>>    #define PCIE_LC_L1_PM_SUBSTATE__LC_PCI_PM_L1_2_OVERRIDE_MASK        0x00000002L
+>>> @@ -1134,13 +1138,24 @@ static void vi_enable_aspm(struct amdgpu_device *adev)
+>>>                WREG32_PCIE(ixPCIE_LC_CNTL, data);
+>>>    }
+>>>
+>>> +static bool aspm_support_quirk_check(void)
+>>> +{
+>>> +     if (IS_ENABLED(CONFIG_X86)) {
+>>> +             struct cpuinfo_x86 *c = &cpu_data(0);
+>>> +
+>>> +             return !(c->x86 == 6 && c->x86_model == INTEL_FAM6_ALDERLAKE);
+>>> +     }
+>>> +
+>>> +     return true;
+>>> +}
+>>> +
+>>>    static void vi_program_aspm(struct amdgpu_device *adev)
+>>>    {
+>>>        u32 data, data1, orig;
+>>>        bool bL1SS = false;
+>>>        bool bClkReqSupport = true;
+>>>
+>>> -     if (!amdgpu_device_should_use_aspm(adev))
+>>> +     if (!amdgpu_device_should_use_aspm(adev) || !aspm_support_quirk_check())
+>>>                return;
+>>
+>> Can users still forcefully enable ASPM with the parameter `amdgpu.aspm`?
+>>
+>>>
+>>>        if (adev->flags & AMD_IS_APU ||
+>>
+>> If I remember correctly, there were also newer cards, where ASPM worked
+>> with Intel Alder Lake, right? Can only the problematic generations for
+>> WX3200 and RX640 be excluded from ASPM?
 > 
-> 
-> Well stuff like that usually points to a broken build environment.
+> This patch only disables it for the generation that was problematic.
 
-Just a separate build directory. Specifically, I'm hitting the errors with
+Could that please be made clear in the commit message summary, and message?
 
- make -C build-amd64 M=drivers/gpu/drm
-
-Generated headers such as r420_reg_safe.h reside in the build directory, so source files in the source directory can't find them without an explicit search path. Are you saying that should get added automagically somehow?
-
-FWIW, this is pretty common in the kernel according to git grep.
+Loosely related, is there a public (or internal issue) to analyze how to 
+get ASPM working for VI generation devices with Intel Alder Lake?
 
 
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+Kind regards,
+
+Paul
