@@ -4,39 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 321EBC43217
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 13:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F5ABC43219
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 13:16:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB6710F075;
-	Thu, 14 Apr 2022 13:16:21 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 796C410F552;
- Thu, 14 Apr 2022 10:44:17 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2941C61F48;
- Thu, 14 Apr 2022 10:44:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9448BC385A8;
- Thu, 14 Apr 2022 10:44:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1649933056;
- bh=Mz94gdoUDNEkJ85Gh/in1p/zmuHeIqMJnDLSXV/KynE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QGj2p6iDaSHx+PqsENx5PQ5oERzG81jT5Ta95i5OYiBm/YzhQdDE0WnuP29/4c+KN
- clTwqpVZedAwK/N+/3Wa2XIkOMTmlLxgYZmjSNsDMxHv9EedbyHHKzO3PiNk/El1Tz
- mMqmZ+ZaSfYeHG8rvA+YKociRQlSKaPWrAxZ+IaE=
-Date: Thu, 14 Apr 2022 12:44:13 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0115910FC52;
+	Thu, 14 Apr 2022 13:16:22 +0000 (UTC)
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0601D10E280;
+ Thu, 14 Apr 2022 10:39:16 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 7970B5C0220;
+ Thu, 14 Apr 2022 06:39:14 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Thu, 14 Apr 2022 06:39:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+ :cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to; s=fm1; t=1649932754; x=
+ 1650019154; bh=vLA0u71ZLF0VcyHL0SIWbeMVXZKhWvjOv7ANtqzkCZQ=; b=J
+ cg75aITzxJRy3Zwz1WlT4n4k4zIWc5BQW06/XDxGe9mz7X2rNH3d4R6BmnONxcSr
+ t/a/GFDdULkb3UcjtUfOXmmIGtcuRf2m2Z4zeNUU+L0dXVocXmvkRfE9oHReaVZF
+ O/lca/KQQwAcpTPwq2XwYUn3c10lyh08dqVdNRu2i8291uXb3EDxQkksOrzQvOhS
+ xUIV5drK4lIScAIzIlT/v6bU+KyrKm8fMYY3FxhI2K/XfQey3QtBxnTgbzX6K1Or
+ mgdMpkx6dZx3RsI1zZlFuZbTLoVbE7chNMzZQzaYF4HauJ56qyX6Y2EvkKXrtlzU
+ J0o/oWg0GpoaGwrcWF8Bg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; t=1649932754; x=1650019154; bh=vLA0u71ZLF0Vc
+ yHL0SIWbeMVXZKhWvjOv7ANtqzkCZQ=; b=jMC0k3q1bG9Y2+DOGz5mC5xB0Xl5b
+ P1aGUAAgFlKZ4GP1NNd5DUFleq69G4rOq/B/Miy+mP1v+5oNgr26tglNaXcFNGtI
+ p5hBVzKzGx9zZVqXox051CsWdVd0PyHWdU6HwJqyOm9iEZBVzyJOuZqYj8unOEnh
+ /n6Gc6QAWW+yqze+4AVWlfLGdHkKIClE8Ls0FhhrXgLf21XhY8T1EnIpKQYUSOW+
+ fhCvKleHrMEAbkO4M4fEX5LA1wMU7REP0vGzNJyGAs+PbagLblgpQSm9VtitqyOb
+ 316XH10S2ClPPDpsvOxKYsfhDeLkM2kloJ88MnRWyU4p7Ppjy2le1Lbeg==
+X-ME-Sender: <xms:0vlXYkqgg3sEfK03lXvA0wM75Dl_mIRhnwnq6sF8y7bwnxRrU7qQEw>
+ <xme:0vlXYqrXOxGkUjUFXey_EN7QI3Ejb1njY0pSYFagn812bTWQpJNw-i1R3dYkbC96y
+ wVCN8k9V6PTsA>
+X-ME-Received: <xmr:0vlXYpPnVU474PyKh00YakZ9O-opf2mtqJMy5Azs8cdQyRk8AwZT10d4U9Z1uKQbhpHXvyFt9Rjuw0OanBW1nomqgYx0grER>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudelfedgfeduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtugfgjgesthekredttddtudenucfhrhhomhepifhrvghg
+ ucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepvedtie
+ elueetgeeggfeufefhvefgtdetgfetgfdtvdegjeehieduvddtkeffheffnecuvehluhhs
+ thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorg
+ hhrdgtohhm
+X-ME-Proxy: <xmx:0vlXYr4XCcN2oEk53QJEFZxnLQU399Uvi3lk8gqUqMdWXN25lPAhEg>
+ <xmx:0vlXYj6UnxmGcpOKng3omE0CWs6Q6_1KZr2GOtUpr7pOU6YXrK7DwA>
+ <xmx:0vlXYrhuMDZdKYs4aoRMgZAO_KrI2acppWZUtckzQfszLZ4DWMbZ3Q>
+ <xmx:0vlXYnqlYNoxwTpANenJTheHnZBurKMRLIclsQ81NeX5xwX4Hw-_IA>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 14 Apr 2022 06:39:13 -0400 (EDT)
+Date: Thu, 14 Apr 2022 12:39:10 +0200
+From: Greg KH <greg@kroah.com>
 To: Lee Jones <lee.jones@linaro.org>
-Subject: Re: [PATCH 4.19 1/2] drm/amdgpu: Check if fd really is an amdgpu fd.
-Message-ID: <Ylf6/aejnw+FWZUc@kroah.com>
-References: <20220412153529.1173412-1-lee.jones@linaro.org>
+Subject: Re: [PATCH 5.10 1/1] drm/amdgpu: Ensure the AMDGPU file descriptor
+ is legitimate
+Message-ID: <Ylf5zmP88Lw0md47@kroah.com>
+References: <20220412152057.1170235-1-lee.jones@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220412153529.1173412-1-lee.jones@linaro.org>
+In-Reply-To: <20220412152057.1170235-1-lee.jones@linaro.org>
 X-Mailman-Approved-At: Thu, 14 Apr 2022 13:16:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,19 +86,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
  Felix Kuehling <Felix.Kuehling@amd.com>, stable@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
  Alex Deucher <alexander.deucher@amd.com>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 12, 2022 at 04:35:28PM +0100, Lee Jones wrote:
-> From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+On Tue, Apr 12, 2022 at 04:20:57PM +0100, Lee Jones wrote:
+> [ Upstream commit b40a6ab2cf9213923bf8e821ce7fa7f6a0a26990 ]
 > 
-> [ Upstream commit 021830d24ba55a578f602979274965344c8e6284 ]
+> This is a partial cherry-pick of the above upstream commit.
 > 
-> Otherwise we interpret the file private data as drm & amdgpu data
-> while it might not be, possibly allowing one to get memory corruption.
+> It ensures the file descriptor passed in by userspace is a valid one.
 > 
 > Cc: Felix Kuehling <Felix.Kuehling@amd.com>
 > Cc: Alex Deucher <alexander.deucher@amd.com>
@@ -73,16 +105,11 @@ On Tue, Apr 12, 2022 at 04:35:28PM +0100, Lee Jones wrote:
 > Cc: Daniel Vetter <daniel@ffwll.ch>
 > Cc: amd-gfx@lists.freedesktop.org
 > Cc: dri-devel@lists.freedesktop.org
-> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> Reviewed-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Lee Jones <lee.jones@linaro.org>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h       |  2 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   | 16 ++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c | 10 +++++++---
->  3 files changed, 25 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
 
-Both now queued up, thanks.
+Now queued up, thanks.
 
 greg k-h
