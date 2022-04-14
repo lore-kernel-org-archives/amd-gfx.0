@@ -4,90 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10843C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 08:19:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40C97C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 08:44:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88D3710F247;
-	Thu, 14 Apr 2022 08:19:32 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2046.outbound.protection.outlook.com [40.107.220.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88D7410F243
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Apr 2022 08:19:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Pxb8C7iUeUM0M6ghxiTs/TkM5AeU0onddffutruaeSEAdsK2wFYCX16mNeTt+b6e5gdGyVNiKwXp5MvADdGV7Hy7nddD3PKPX5v0oVLltuM3aDmb1NpvuvaOn5FeMaF5uFxIinprn9VeqDdz9y9HMkaMJfW82D2vVJjxvupWjmesfcIGyWqdfkpwo24idwNsWUuMtlkWz7IWH70+clIj/aMDsdPNiSwjE0GiBFGmQtJLmr60ReuXBAJ7X3iPUZ8ap4c6YcV7XEvWI8PIpNQ++a3ZQ06e3c2fM/jwUFvLm5iPkBKHrnYSVlpX7WlyhGR+MQ9+bmHeeoZpulrjg0fN3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pFYi2KNZLjcIWvqOYitzcXJaOQIZPvyvsh+xcn8dNAM=;
- b=aOjS/8nmTSkC3yDWuU3SAIXygU5hRVxOby0AqEJYJ+25vcRccloI8NmchIccwXUQRxXVXnhat+oRJbq/mScep61cO7NDoYLFmZSlvjOkZ5J1ABb0SwJZdU9SfpP6BG204SCpoQyY3uDtdeuh5Qc04HPO9JznoeFCVyx/R42+ydj87nJXMh9pliA80cdNRAezv7gfoThhPCer88rn+uFrvmx/bwWqIci8QQi3BkRFpsrxstKy1CmEphfyK+SuP1Tzy9X6bfZKyI0hxPVfQBjpyYIovPXyY1xh4z4tjuooMsiIPLcFiaqn/lyhvsoMBHShh+QFWvT15hrYTog+k76C6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pFYi2KNZLjcIWvqOYitzcXJaOQIZPvyvsh+xcn8dNAM=;
- b=Zjnc2NSxvepby/q6n0fNZi9v55Ws3GDWc5Lf36sVF5ADOEtAIuNEt5dLn/SoS7l1MFvnrKfoQGTgPFrEU80dybsqSy04B1ya+yz9bnBEdHnwoBgXEGLydDl5kwg3if78HPJAannVol7IdSmw7qf2yFrjzVbq6T81Z+9vjFGDkZ8=
-Received: from DS7PR03CA0285.namprd03.prod.outlook.com (2603:10b6:5:3ad::20)
- by CH2PR12MB4181.namprd12.prod.outlook.com (2603:10b6:610:a8::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Thu, 14 Apr
- 2022 08:19:28 +0000
-Received: from DM6NAM11FT022.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3ad:cafe::e1) by DS7PR03CA0285.outlook.office365.com
- (2603:10b6:5:3ad::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.28 via Frontend
- Transport; Thu, 14 Apr 2022 08:19:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT022.mail.protection.outlook.com (10.13.172.210) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5164.19 via Frontend Transport; Thu, 14 Apr 2022 08:19:28 +0000
-Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 14 Apr
- 2022 03:19:25 -0500
-From: Lang Yu <Lang.Yu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: only allow heavy-weight TLB flush on some ASICs
- for SVM too
-Date: Thu, 14 Apr 2022 16:19:09 +0800
-Message-ID: <20220414081909.796653-1-Lang.Yu@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C291110E281;
+	Thu, 14 Apr 2022 08:44:13 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8877410E24E;
+ Thu, 14 Apr 2022 08:44:12 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id t11so8636712eju.13;
+ Thu, 14 Apr 2022 01:44:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=brGaBbat7Ld+7g8YTXosczIIrUA4kff+HdlpKoU9rYY=;
+ b=mzieN5j2RYsWHPNCrz/E6BSm22smV5Vky18FeNUQKb/SEyUlXmR1w7AZp8p2kHk7h0
+ 6JJe+Je+NO3Epj3V8A1/EsoJG6FfyvF2BJCR3IKXs6roM1SRQgNbivMhSdG3aeK+K76M
+ A6R2JCtUHRFWrLXJ+uTIeCTZ3sUWUHewTygzBulb/pkiw+dMbdUukIf6GnWKwxm0Fdj7
+ 7HCiEwfmRw+4qmNuX+0+o5FkD4QJ0saOHPD6qnwUggI28Bx2f1uYqIzQlqHZqIxouKCJ
+ m093G3fJLn8lwSq8nv+kfCRqkX9U2jmU4PSvS+MIa24Ax0IkJ3mSKR7unbZPwCfHIw2A
+ PWqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=brGaBbat7Ld+7g8YTXosczIIrUA4kff+HdlpKoU9rYY=;
+ b=VUwc2tG3emQjngr8U3AOSmM17WAJMXbJvSYBTTWD9AYs6h9Zd3i3rNvwbeW1I+K+hD
+ MvEmqx2EF9kFf3QZKpTlXSpmlvLy+Fqldus39pHXB3INKfpjByKCBz/GyfEg/3YnnG1D
+ Qy2vLzRdw/SnSu/1yjJYVe8ylq/PnxhT+lnXKUqSSV/4tbg3Em1klIOWooNXR6ib9mHV
+ 2IlE1tVYoPrbvrhb8K51dIUGCGjsZ3W/09UzlvpVk6MsKM2g0wFi5xhkcK9jpzFmzWS9
+ af7mjdVAc602q3mUw2/Qz1UVRxeM+Ry/PfeYtFmWAvdlD7SZxb/jZaCzbNOsHSHKz1lL
+ KANA==
+X-Gm-Message-State: AOAM530UwhaAlP/x/nCz3YONX2D5kr6X1/Dtji0DPTotP8uKDBwc4x72
+ uAYkvyVRiRBp/vDEL3sn0uC9TBsEklM=
+X-Google-Smtp-Source: ABdhPJw/Si9Kj0oNU270PkJlaFe8ixODS5+zPgQOJopROnmJxuJotyiKg5lL8Hi4r8EZEa5++Kc9qQ==
+X-Received: by 2002:a17:906:2c0d:b0:6e8:979c:be8 with SMTP id
+ e13-20020a1709062c0d00b006e8979c0be8mr1504244ejh.239.1649925851020; 
+ Thu, 14 Apr 2022 01:44:11 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1252:fb60:4249:af28:5ee2:d30b?
+ ([2a02:908:1252:fb60:4249:af28:5ee2:d30b])
+ by smtp.gmail.com with ESMTPSA id
+ j2-20020a056402238200b0041f351a8b83sm695180eda.43.2022.04.14.01.44.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Apr 2022 01:44:10 -0700 (PDT)
+Message-ID: <abd87438-3ff4-6b62-81b4-6162d167348a@gmail.com>
+Date: Thu, 14 Apr 2022 10:44:08 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] drm/radeon: Add build directory to include path
+Content-Language: en-US
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>
+References: <20220413161450.1854370-1-michel@daenzer.net>
+ <f425b789-5081-fa70-555f-7553d7cc5bd5@gmail.com>
+ <ca5ca8ab-9c48-8d81-2dd6-fbdfface6519@mailbox.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <ca5ca8ab-9c48-8d81-2dd6-fbdfface6519@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fb890a23-d7df-4e72-7685-08da1def7e92
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4181:EE_
-X-Microsoft-Antispam-PRVS: <CH2PR12MB418107ABCE894D9AE30E25A1FBEF9@CH2PR12MB4181.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bU9GbkC5i5QalO52+VPjQn7xwT9MeWLL4YtIMLv3ik36F6iu69z1TaeTvaMvWye4E0kNwPMir5xeM3jOiEqQdEGY0aR9L3aUBDLlBRgdeqTnZ4Ll6zqz5ATEhZiqOBodhr8nsV5n/AnA7rXz4oFaVG5pKt20LkoTNDqvgOEDOKmYEN/4VBoOmHX6i/XiaFRGC172GZAMgo1aOrcgu9jeVDxADSc9XnUenkgmowSUy948DqSFD1+vqPvVqjMiTDVa4AeSH1Nt6S9NRGsH83N6YGt/LIJ6qsvyDI5gO7cAg2zpMxKidxy8r/oCPYuIK+IcM8mU1q7oC+Zslij6Ak9qbjqbzSZ1ZfcFDA61DbQ//WReXwjfCDcUp7Axy5F7FBXZfQxxEHyc1cAVviPQJ3to4BiMLNAjJTf+5Zp1veYW7iMmOKTMWKc7Q0tOVyzrUGt9jMCWjEgsa1OC+cYll8cRfjdi5xlweRHbjIrWHlC8XvUbO/DF7KvxUN/ngjO00QT/dzLnkLoaLFB24ZCAlusWfhi0xaw1zLKhlS3sVtl4ELrulEbVqrrM7gV02oOxjPK6/Le3LHX0wbBJFf91Gi6UnD14w6la2YXEx4Lg54gNjkB6jyRUlWc8kyFgsOyVcouudly1uKnHLgVvQV9RKLrouPlBlOB3nUOhWBwCk1k1w7pHBadexmkVq0Upi9it+W7J4TL9581MC/xgF1LxKoj0sNSTJM4oRYGg8wmUWBQu85cSr8KD0TMuX6i+SsPfHy8b
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(2616005)(7696005)(6666004)(70586007)(1076003)(82310400005)(5660300002)(508600001)(81166007)(8936002)(36860700001)(54906003)(47076005)(36756003)(40460700003)(2906002)(426003)(316002)(6916009)(336012)(83380400001)(86362001)(356005)(8676002)(186003)(16526019)(26005)(4326008)(70206006)(16393002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2022 08:19:28.3169 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb890a23-d7df-4e72-7685-08da1def7e92
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT022.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4181
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,78 +78,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Huang <jinhuieric.huang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Huang
- Rui <ray.huang@amd.com>, Lang Yu <Lang.Yu@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The idea is from commit a50fe7078035 ("drm/amdkfd: Only apply heavy-weight
-TLB flush on Aldebaran") and commit f61c40c0757a ("drm/amdkfd: enable
-heavy-weight TLB flush on Arcturus"). Otherwise, we will run into problems
-on some ASICs when running SVM applications.
+Am 14.04.22 um 09:37 schrieb Michel Dänzer:
+> On 2022-04-14 08:24, Christian König wrote:
+>> Am 13.04.22 um 18:14 schrieb Michel Dänzer:
+>>> From: Michel Dänzer <mdaenzer@redhat.com>
+>>>
+>>> Fixes compile errors with out-of-tree builds, e.g.
+>>>
+>>> ../drivers/gpu/drm/radeon/r420.c:38:10: fatal error: r420_reg_safe.h: No such file or directory
+>>>      38 | #include "r420_reg_safe.h"
+>>>         |          ^~~~~~~~~~~~~~~~~
+>>
+>> Well stuff like that usually points to a broken build environment.
+> Just a separate build directory. Specifically, I'm hitting the errors with
+>
+>   make -C build-amd64 M=drivers/gpu/drm
+>
+> Generated headers such as r420_reg_safe.h reside in the build directory, so source files in the source directory can't find them without an explicit search path.
 
-Signed-off-by: Lang Yu <Lang.Yu@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 8 --------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 8 ++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 4 +++-
- 3 files changed, 11 insertions(+), 9 deletions(-)
+I'm trying to swap back into my brain how all of this used to work, but 
+that's a really long time ago that I tried this as well.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 91f82a9ccdaf..459f59e3d0ed 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1128,14 +1128,6 @@ static int kfd_ioctl_free_memory_of_gpu(struct file *filep,
- 	return ret;
- }
- 
--static bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
--{
--	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
--		(KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1) &&
--		dev->adev->sdma.instance[0].fw_version >= 18) ||
--		KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 0);
--}
--
- static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
- 					struct kfd_process *p, void *data)
- {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 8a43def1f638..aff6f598ff2c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1328,6 +1328,14 @@ void kfd_signal_poison_consumed_event(struct kfd_dev *dev, u32 pasid);
- 
- void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE type);
- 
-+static inline bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
-+{
-+	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
-+	       (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1) &&
-+	       dev->adev->sdma.instance[0].fw_version >= 18) ||
-+	       KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 0);
-+}
-+
- bool kfd_is_locked(void);
- 
- /* Compute profile */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 459fa07a3bcc..5afe216cf099 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1229,7 +1229,9 @@ svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
- 			if (r)
- 				break;
- 		}
--		kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
-+
-+		if (kfd_flush_tlb_after_unmap(pdd->dev))
-+			kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
- 	}
- 
- 	return r;
--- 
-2.25.1
+> Are you saying that should get added automagically somehow?
 
+Yes, exactly that. I'm like 95% sure that used to work, but I don't know 
+why exactly either.
+
+> FWIW, this is pretty common in the kernel according to git grep.
+
+Maybe Alex or somebody else with some more background in the kernel 
+Makefiles could jump in and help here.
+
+Christian.
