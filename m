@@ -4,120 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40424C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Apr 2022 06:37:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52C68C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Apr 2022 08:04:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EECFA10FFF7;
-	Fri, 15 Apr 2022 06:37:34 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2057.outbound.protection.outlook.com [40.107.243.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDEBB10FFF7
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Apr 2022 06:37:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CMsi5bpH/nDzeN0CUGCm1uhLondMk5SVXEO0btgg7sQHJLXQlcCoPe+qThtSK0PYT7x42qZGzCtxi3e0bnacN0PgWtf1RhGoqfkmG6DOAwAFmLNKPx9FDOOhmf80t4BfF+43OBMH5Xeui1jkWO1++y8iz/ef9taxQJk5qZ8LQWZ/ipyDkTHL+LcQYMqz7ON+m2Sydj+wS+qncHoGRQCLrCpnumWDazndcjWUEcHpuqCvzZRPqM4CMWeJR+Ob0VnjmMcHueackaw3AhkVyfmqIRf+WVIETUzzAnSjYsIPabqANQTMQJccSVEFP5vqHc3hlJiwiYWVxHZ4vGIiJvdBOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ihEPl9qqSamAZl6jycnoc2Um/8eGY7P8/fCemFfiN3U=;
- b=h7AU43FZbwsuJl1+D/EqV2qVLTIDs42Jk1ZSLTF+QwVbAZG2Mm06rkPEmiFVXHylfZ6HUL2PfmRs22DgiQvlpa7yrj/8vwajt0u23AtG8n7Pkjr3xJzPXGWjPTl//36LAjKofzB9e9j6tzjlBjDirCTVGnoqaq+xvmazV4Own1+3wEDKaY32wj3ZubioQt/CF6mn+Y93OF6Cr+xEWJfho9lmywtgF7ZvMC3NnQL01HlKVInfj8PBkuC5MFUzYW/JDQNQzT1jkzc6qD7kGfGw+ZYufb+XwvlXkOetAOyAA6w0qHmb5sDsEU8hpc+qylo2oRD8YAJsZvdJBCwIBYpHxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ihEPl9qqSamAZl6jycnoc2Um/8eGY7P8/fCemFfiN3U=;
- b=MRs+boK1y9KVd9MAt69c9Yq1iIBRUrbZ1O8+bqFt9CxyJqgWqTUANwvwYT+YwVUzmW9+MomB/Irar8UN466VoEq+HyF5Ay8ZeiowB4yZVasfSl8JijhsvPSdYuQ3tNOPUemGEpt59Iy4Un4PTA6aviGS2BVLNHglT3y1rVnxZXg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
- CH2PR12MB4327.namprd12.prod.outlook.com (2603:10b6:610:7d::13) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5164.20; Fri, 15 Apr 2022 06:37:31 +0000
-Received: from DM6PR12MB4250.namprd12.prod.outlook.com
- ([fe80::4d1:7b99:6fa4:dc2]) by DM6PR12MB4250.namprd12.prod.outlook.com
- ([fe80::4d1:7b99:6fa4:dc2%7]) with mapi id 15.20.5164.020; Fri, 15 Apr 2022
- 06:37:31 +0000
-Date: Fri, 15 Apr 2022 14:37:20 +0800
-From: Lang Yu <Lang.Yu@amd.com>
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-Subject: Re: [PATCH] drm/amdkfd: only allow heavy-weight TLB flush on some
- ASICs for SVM too
-Message-ID: <YlkSoHeX0ycfJ/aC@lang-desktop>
-References: <20220414081909.796653-1-Lang.Yu@amd.com>
- <e0a1119a-3cb4-4449-142d-a51baa8ad396@molgen.mpg.de>
- <Yljkf/yGk8YFEV9R@lang-desktop>
- <aac8e868-3a1d-7eca-8c85-65d8972add40@molgen.mpg.de>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aac8e868-3a1d-7eca-8c85-65d8972add40@molgen.mpg.de>
-X-ClientProxiedBy: HK2PR0401CA0009.apcprd04.prod.outlook.com
- (2603:1096:202:2::19) To DM6PR12MB4250.namprd12.prod.outlook.com
- (2603:10b6:5:21a::9)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF7D910E61A;
+	Fri, 15 Apr 2022 08:04:10 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6190A10E61A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Apr 2022 08:04:09 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id bh17so14179456ejb.8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Apr 2022 01:04:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=wRw/pC6iJAbq8IgOgAwHeaA7kFsJWyDEzT/CDMq/3c0=;
+ b=DyPzs60VOqjaquhFCmTIU1huFGvTpFS2Q3D8ea17oC6cXKiIq9dnCvyq5soefWSwGO
+ SMq1Yf6sIYKoQEPi59fEdu5nQsTR16XNV4vcLAu9WVg4Am9H7w9dSYyEDFw2tA1q/wok
+ BzdDb7/zJhi3Goum3Zkv7ZYoFQA4Z7L/IiaQ/VOryKHwS7Z9VxoHfoZ1Ob1dmztlo01o
+ 8I+vIeqTz6emCxQ8Cgf73kRNtvqaD1DcEe+Hni03k/DlHD3S1MBlHqqsKUcJA2yrQsf6
+ 1adGXAnL5VAtweeyBVtw5Oo+mTmVCovnG/bJ99kYQhc1OR0Lgl13jLEH5bs9beH02HTD
+ bSoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=wRw/pC6iJAbq8IgOgAwHeaA7kFsJWyDEzT/CDMq/3c0=;
+ b=kQhWUQ+ehMcsUlWCXS8BukmroJRxWnknT0kbm5gWxPqoA615QypQ0qxuhvTiLbGJL0
+ M7cHKSSFzwJuiT/gicIRQUsijx3xkEGVHFwx3YTcBoSNdWhd+rpxTOw8ljlDAF9I42ZR
+ +n8BgPi2rizG1ggFhCg0avqnIHHfnS+arDPnToRIFU22CFQKdMkMrHO81q9GW47X5zMe
+ Etsb0jc116LkyX1UJhfDPwWFnM4ANAZjrHdIFf0+sYlp1PHIn0kFmu3vKr5rsRs6M+qd
+ zrJXFakR2GZdseEsV6kqL8Z3019+J97hwQwRmTiYMV1dNItS0bjwwGta8/Uf80fhPbXr
+ IH/w==
+X-Gm-Message-State: AOAM530AsjKQCRdNmVniwijrBc2lcC44a6gqSxb8sVm4i3Mn0B+mdCbz
+ zxMdYBKskAvtnOlXhYSJww4=
+X-Google-Smtp-Source: ABdhPJwNIcoC4r4J7MSintYlBjxhytSXAjiatuIfoyyRuCFmh+rjzGV+vqz1XLARpUQAcbUS5Me7jQ==
+X-Received: by 2002:a17:907:7204:b0:6e8:c19e:93da with SMTP id
+ dr4-20020a170907720400b006e8c19e93damr5276877ejc.695.1650009847891; 
+ Fri, 15 Apr 2022 01:04:07 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1252:fb60:1dce:acd2:1722:e6e8?
+ ([2a02:908:1252:fb60:1dce:acd2:1722:e6e8])
+ by smtp.gmail.com with ESMTPSA id
+ y13-20020a50eb8d000000b0041f112a63c4sm2313487edr.52.2022.04.15.01.04.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 15 Apr 2022 01:04:07 -0700 (PDT)
+Message-ID: <675a2d33-b286-d1d0-e4e7-05d6516026c0@gmail.com>
+Date: Fri, 15 Apr 2022 10:04:06 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8159d45e-2a72-43f0-761b-08da1eaa6aaa
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4327:EE_
-X-Microsoft-Antispam-PRVS: <CH2PR12MB432788F2CCA198CA43391DEDFBEE9@CH2PR12MB4327.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Y9LXNGhfVvgGDUNH4KxkqOI3vwhCVt4zRtz0V4wGJNb+MyjhuOm0YOsw8jrp8nITFJzDCvrRH3RWr//KOK15/ae+5iDvXhQvbGGjpxMOZeIlsENEZPLLo12uJuE/KE7hVeRxs5CmzCaI068+I9olksCxRJNMW148OoO3KtLHvctfh0Fzzo2cP69gOGfSxceM3nSty5S0ObApJfzzoQPtY1ALrf2O0KfxeSrqh5IUKKLtxKzhQXIfxlZINZrzIfnhNv0uahwLajX8KcjpCx2YEggGU+pitC6mRh+D8dRpu8xw+H2FEHn4kfeslBjLwcjXy8Qz56691p9B+CLbNKKLnhOrD38Lt0FPq0g/bPD3cvUFXWpbpAueoPpGwfSYDJsJJVLPlhORKSHoySFYO1V1qU5TvNkUGoWZyZEmEv3XLYzuohqk5LPUuokmUM/UvZxRMG8ywvo0lGWpeDPMNvHxIdkkJoJJibN2vdEg/OKifiaVtdxn+h4iQK+oFeunUJQhz9g8vjcRsnFG/Ewy5zDdGamokkQQ2FKN+K+pEEnWAspI9M1KQQc8r56wV5AH2N9Uk+wXPIMGtVLdu4s0o9v8FB4zncHr/57JRfdLzRRJMZSfI8Q1IXbk7eFc3PkajkCsYliBawxsbBc5xhq/Kj8taWARfuC0yH+JINHSYxnLICw0A6oLFe37+LSZR4rEpNVUi2cWhYRQdpoBv65dvIvYCQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(7916004)(4636009)(366004)(6666004)(26005)(86362001)(6506007)(8936002)(508600001)(6512007)(9686003)(83380400001)(2906002)(5660300002)(186003)(6486002)(8676002)(33716001)(66946007)(66476007)(66556008)(54906003)(6916009)(316002)(38100700002)(4326008)(16393002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YjNCS0ZEVWw1Q3N6WTE4NGpvN2EwRW1lWlkzT011Qjlsbnl6UFY2Tnd5VHNW?=
- =?utf-8?B?YzdnY1hxS2FyS2dsOUwrTGtDYnVITVFGcW1NVUxsb0g2V2hYQ3FRaVg1Vm9v?=
- =?utf-8?B?TGRrdFhZR3pJbThSYXU4OVZ5NDhVM25EWTJmYldCY0hJNHdMKytsaVJtNG5H?=
- =?utf-8?B?OUIxMHpkcm0rYlhYUkJZVkU2VW1nTnVkOHVMem1JcGdXWFU1MnkrK095cmZn?=
- =?utf-8?B?Z0VzMVpOQ1Jqc0FsdW04M1ZzTENZcmhsOTQxY2Q1MGpUOGtPcTFBbnBsR3Bq?=
- =?utf-8?B?M3JnQ3hzRi9raTFoYUp5ZWMzMlM2dVc1ZHZCdzdKTEozVmRWYUhWell3eVY3?=
- =?utf-8?B?bHlKRzNJcnd6UlA5ZWVNS0I2b1BoNXp0T3dtS3hxa09GcTY1MGZqUk54aVl2?=
- =?utf-8?B?Tnpsc0NmRnZxeHRmYkZoa0FIR3JhQzQyVnFwY2hFYnVqY08zZjRUa3ZxTlBh?=
- =?utf-8?B?RGdiRHBOQlFlRkNkWDVEaTV1SGdFNXkraU1kZEhPTzVKUVBwL01sRjJTS1F4?=
- =?utf-8?B?U2ZNUjRsNVd0ek8rZ2ZSYVFPemJia3ptY29nNDc3RXpYcWRoZTRrTHRCZTRX?=
- =?utf-8?B?SVBwcElPaDRzUlpHRXZPWjZDTGlEWk85L25JclZ5T1VDaDMxSWgrUk1UUHBJ?=
- =?utf-8?B?QStxVGZKNFFySmFDam5xd3lhWlhIcmNJc2U4UENTNGFuTDFLRzdwd1VCZWYy?=
- =?utf-8?B?OFA0TmdxQktvNkJHQkJzMHZWNlZ5RWQzRDNENUtkS1JaSnczQStPMnZaQkxN?=
- =?utf-8?B?R2s4WnlySFM3Y3pEUnpKVUFkbGxWalcyTlc0WG5ZRjE0QW5tTGlueURvMXBI?=
- =?utf-8?B?WTNQK2NmWS96ZnFKUFdpVVVTTTdhUnRUdXNxaU8zd25FU3YwUlUxYWdEQlRU?=
- =?utf-8?B?WEVvSGtkOFdDT05yZTg2WldNT095VjVNQXR0VVRDK083R1cwdWxCUXJEYjVS?=
- =?utf-8?B?aVp1YnJGcHZmWk5ZTC96N0JQZGtXd0tvNEdMKzJKKzh2NUFYeDRuRUpNeU5s?=
- =?utf-8?B?eUo0NjFiQXoyYkduSVg3aEppZytHcVVQVFE2ck42OXNoUzhKb2JycEp0aklr?=
- =?utf-8?B?N01ESnJmK2FLL243dGdVM3hlSGE2Vml6VjhUeSt4VGdDaGNpUGgyRy9GOWFh?=
- =?utf-8?B?NVIvVTZqRHp2RE9yaHNKSFQzUWhBVWluQkkzOUpYM0JJRnlrODQ4Zm1XRXFz?=
- =?utf-8?B?c1ZYUll3VzEvbG9EcG5MRnlXYW5CK0U2Z0djSC8vWE1WKzJHdDJBNkxiTEl2?=
- =?utf-8?B?OElDWGwzS0xqMGR1T3J0eW5UQ21TT3BzR2xYNVM3L0sraUw5L1p6OGNtM2NE?=
- =?utf-8?B?MnloelF3dzJ5dnNicmdWbWVoclBubWVrbmtyYWpRUkNyT1hPM0hFN0RhUWZ5?=
- =?utf-8?B?aUlrbWJaODhYeW1SNlpVa2QxZmI0Zm9MR2V2UjhwRmlsTWZXb3VQY2Y2eUNu?=
- =?utf-8?B?STNkNFNaemUxQ2FXdSs4K0IzaGtDUXRIL0xjdGw1YUFUaVViWWxKUHU4OWs3?=
- =?utf-8?B?SVpBSmRYc1hhem1PT2VDeDBGTjV1MGFqQjVlUS8rMmZxR3dMQkVsWldMWllr?=
- =?utf-8?B?c3pKYUJnT1BVK05Ja0VsaXpWYkFKdjVVdlpydGZNK2JLdzA0Q0pKaWhqazdR?=
- =?utf-8?B?dVNOSzFtdi9FT1hUNlFFcHprUXZ2REpWOXhJOU0yQW8zL1J2eC9xSHltMkhU?=
- =?utf-8?B?cW5xdDN1UmNsYkNwSjlkQjAzbVZDTUU5eTl0RzB5aVpaYSt5UkJFdW9CTUcr?=
- =?utf-8?B?VU9iakVxd3VyZUI2RnJpRTZQcXRqU09xeWljRkJoYmd4SnMvYUZpSHZhUThR?=
- =?utf-8?B?R0NtSUNodkp5YTB6M1NrUzBydDJaaVpFbDdWVnJrQytXcmQvRktoRGhQM095?=
- =?utf-8?B?WlUwdWR0WFJBNE5kaUJVYml4Sy9OQUw3aEVxamV5Wmp2bHgzOEdWcUZjc1Vz?=
- =?utf-8?B?T3A0K1NQNmhsNFI3bGMxQU1DOE03dkFOTUNiOWxjN2hCNDIxYmxhNFRQcGc1?=
- =?utf-8?B?UUdaSTc5b0prd2xyMTU0dmt5MGtOeXZkV2VjV29wVUxPbkNMNFZnOC9hVlN1?=
- =?utf-8?B?N2NxQTFuVW51cDhGYW94d1dESnpTelhLOUg1RHV6Y3Qxdk9zWlhJbTlWTGht?=
- =?utf-8?B?VDdKT1psTjB5enltVUloeUpyZG9qVGp6ekw4dkIrRlpqTVhFVGk2Wnlscm0x?=
- =?utf-8?B?Z2tCM3dOclNodW5QVE1qMWliOSs5YVh6VEF4NDdPNiswRDI0SmltZmdRTXYr?=
- =?utf-8?B?dTVramJHejJpdGFuY3IzYTNsTzJsZitpbFc5cWtOSDFlZXhlUHAwRGVsaHZJ?=
- =?utf-8?B?RjdkVHJ4cnZTemtxZG1ETEJRd081VUtqdHNSSVdJKzRFYVJLc3ptZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8159d45e-2a72-43f0-761b-08da1eaa6aaa
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2022 06:37:31.2144 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: M+nnn6CBrGHZqgwpHtMYzwGPtKyeMl+mIKxmAq3xJ2ys7pgtzbHXV9gf+ABN9XinTK9B3hcKI2PuPH6pQJl7xQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4327
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [Bug][5.18-rc0] Between commits ed4643521e6a and 34af78c4e616,
+ appears warning "WARNING: CPU: 31 PID: 51848 at
+ drivers/dma-buf/dma-fence-array.c:191 dma_fence_array_create+0x101/0x120" and
+ some games stopped working.
+Content-Language: en-US
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+References: <CABXGCsNVp=R5zC9B3PXWJ5nddtt3gkRzDsAsRKvhXq7exGjSAg@mail.gmail.com>
+ <f3bc34e1-0eaf-84ef-486e-b7759e60b792@amd.com>
+ <CABXGCsOD+tDdFcM37NP_1nS9eLym7qC=jUQy3iqYkc1m2iQgxw@mail.gmail.com>
+ <0d5f66d8-9852-b6a9-0e27-9eb9e736d698@amd.com>
+ <CABXGCsPi68Lyvg+6UjTK2aJm6PVBs83YJuP6x68mcrzAQgpuZg@mail.gmail.com>
+ <eef04fc4-741d-606c-c2c6-f054e4e3fffd@amd.com>
+ <CABXGCsNNwEjo_dvWJL7GLULBPy+RmwsC9ObpowR_M1nQ3fKt3g@mail.gmail.com>
+ <4d0cbb79-4955-a3ed-4aa2-7f6cdaa00481@gmail.com>
+ <CABXGCsP19VFRgTx5yGn68iCK3NxPxi_b9MTq=AmHtFPv9xR5sA@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CABXGCsP19VFRgTx5yGn68iCK3NxPxi_b9MTq=AmHtFPv9xR5sA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,112 +84,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Huang <jinhuieric.huang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Felix =?iso-8859-1?Q?K=FChling?= <Felix.Kuehling@amd.com>,
- Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: thomas.hellstrom@linux.intel.com, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Ken.Xue@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 04/15/ , Paul Menzel wrote:
-> Dear Lang,
-> 
-> 
-> Am 15.04.22 um 05:20 schrieb Lang Yu:
-> > On 04/14/ , Paul Menzel wrote:
-> 
-> > > Am 14.04.22 um 10:19 schrieb Lang Yu:
-> > > > The idea is from commit a50fe7078035 ("drm/amdkfd: Only apply heavy-weight
-> > > > TLB flush on Aldebaran") and commit f61c40c0757a ("drm/amdkfd: enable
-> > > > heavy-weight TLB flush on Arcturus"). Otherwise, we will run into problems
-> > > > on some ASICs when running SVM applications.
-> > > 
-> > > Please list the ASICs, you know of having problems, and even add how to
-> > > reproduce this.
-> > 
-> > Actually, this is ported from previous commits. You can find more details
-> > from the commits I mentioned. At the moment the ASICs except Aldebaran
-> > and Arcturus probably have the problem.
-> 
-> I think, it’s always good to make it as easy as possible for reviewers and,
-> later, people reading a commit, and include the necessary information
-> directly in the commit message. It’d be great if you amended the commit
-> message.
+Am 15.04.22 um 07:38 schrieb Mikhail Gavrilov:
+> On Sat, Apr 9, 2022 at 7:27 PM Christian König
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+>> That's unfortunately not the end of the story.
+>>
+>> This is fixing your problem, but reintroducing the original problem that
+>> we call the syncobj with a lock held which can crash badly as well.
+>>
+>> Going to take a closer look on Monday. I hope you can test a few more
+>> patches to help narrow down what's actually going wrong here.
+>>
+>> Thanks,
+>> Christian.
+>>
+> Hi Christian.
+> I'm sorry to trouble you.
+> Have you forgotten about this issue?
+>
 
-Yes, I agree with you. Will amended the commit message.
+No, I just couldn't find time during all that bug fixing :)
 
-> > And running a SVM application could reproduce the issue.
-> 
-> Thanks. How will it fail though?
+Sorry for the delay, going to take a look after the eastern holiday here.
 
-Will describe more details in commit message.
-
-> (Also, a small implementation note would be nice to have. Maybe: Move the
-> helper function into the header `kfd_priv.h`, and use in
-> `svm_range_unmap_from_gpus()`.)
-
-Will separate this change into another patch suggested by Eric.
-
-Thanks,
-Lang
-
-> Kind regards,
-> 
-> Paul
-> 
-> 
-> > > > Signed-off-by: Lang Yu <Lang.Yu@amd.com>
-> > > > ---
-> > > >    drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 8 --------
-> > > >    drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 8 ++++++++
-> > > >    drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 4 +++-
-> > > >    3 files changed, 11 insertions(+), 9 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> > > > index 91f82a9ccdaf..459f59e3d0ed 100644
-> > > > --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> > > > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> > > > @@ -1128,14 +1128,6 @@ static int kfd_ioctl_free_memory_of_gpu(struct file *filep,
-> > > >    	return ret;
-> > > >    }
-> > > > -static bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
-> > > > -{
-> > > > -	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
-> > > > -		(KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1) &&
-> > > > -		dev->adev->sdma.instance[0].fw_version >= 18) ||
-> > > > -		KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 0);
-> > > > -}
-> > > > -
-> > > >    static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
-> > > >    					struct kfd_process *p, void *data)
-> > > >    {
-> > > > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> > > > index 8a43def1f638..aff6f598ff2c 100644
-> > > > --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> > > > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> > > > @@ -1328,6 +1328,14 @@ void kfd_signal_poison_consumed_event(struct kfd_dev *dev, u32 pasid);
-> > > >    void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE type);
-> > > > +static inline bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
-> > > > +{
-> > > > +	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
-> > > > +	       (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1) &&
-> > > > +	       dev->adev->sdma.instance[0].fw_version >= 18) ||
-> > > > +	       KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 0);
-> > > > +}
-> > > > +
-> > > >    bool kfd_is_locked(void);
-> > > >    /* Compute profile */
-> > > > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> > > > index 459fa07a3bcc..5afe216cf099 100644
-> > > > --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> > > > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> > > > @@ -1229,7 +1229,9 @@ svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
-> > > >    			if (r)
-> > > >    				break;
-> > > >    		}
-> > > > -		kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
-> > > > +
-> > > > +		if (kfd_flush_tlb_after_unmap(pdd->dev))
-> > > > +			kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
-> > > >    	}
-> > > >    	return r;
+Christian.
