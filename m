@@ -4,74 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C13E8C433FE
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Apr 2022 13:00:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 639BEC433F5
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Apr 2022 15:35:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7538F10E23A;
-	Sat, 16 Apr 2022 13:00:20 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6017B10E10E;
- Sat, 16 Apr 2022 13:00:19 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- l62-20020a1c2541000000b0038e4570af2fso6355152wml.5; 
- Sat, 16 Apr 2022 06:00:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=XHVUz1b0D0ZF/noy7ANM+++7WGGRFc9oyw89kqgSdjE=;
- b=pahgvwHqu3mBCsoZTQUS0VrZeezjhxSrULviFF4Z6DP/WkzUOnWNVRxqVi49Wc/F5p
- n7aC1tvuXpoca3MQXAjK3yl29Y7zOoqTT8FZ+tdJvdedJiVqgeJ1fUcJtvnrSav3DXXn
- cMYZWSr5tCMYvbvI04uvOjYVBNfkToIX3Y35A7e0h01yRwjoygL4Kt5ZSkF6vWkDJtqq
- a/2ak1+iF10XYZXOlE+E7GMPc1nvxtWJ1nz43JAcpSrqerTOlEr1tV2wFJJddaWLHNX2
- PpAHmCs1sXGDYJsZki7EJGSir4SqZHeMm5q76Ck/Bg5ZmggfB98v/nMXSpnKaaGF/uET
- R+Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
- :content-transfer-encoding;
- bh=XHVUz1b0D0ZF/noy7ANM+++7WGGRFc9oyw89kqgSdjE=;
- b=XDkbhEhdDgdfsydniChR+xPnnzO11M2aqCfvul+7lkRVbdDW966njp3ul/8H2atTXN
- JRlFp0h7GjdApBo/1Iyrf5Ny5GexLvkhdco7l2iCfFiTKKJWsP6deeOB0L0x+yJvKpbc
- scgiywNkQO6Hpfv8ei2SwCNOvV5Kd6KtgvtLTq3JwZSr8htgdF4vuHTLRt7QHreqpYQS
- eDwC1uwex/gG+2C93sl6monwl5DUj9mNNlxMW+yprD9Zw8VMPzusrau0n5E2gZWN2sk2
- /226J8247yRTBYKgqoJDCO2uM6j3u8gHbCazrKkuq0kYBSKRZg97LdmgMVgV2uX5B6YG
- bM/A==
-X-Gm-Message-State: AOAM532UlbKY4nPvas64lDcYS3tV7+EElVHo+uae6aN6M7OnovVuSXoW
- wbYUmHRZknMLNAaWm40wAEU=
-X-Google-Smtp-Source: ABdhPJx16Vt/FPuRxbRMNnFY/Wy6fGUSb4KuPuwz+aSvi4c9sLSD/2bBrV6IuJzISUMX0bRgFRijXw==
-X-Received: by 2002:a1c:f70e:0:b0:38c:6ca9:2f8f with SMTP id
- v14-20020a1cf70e000000b0038c6ca92f8fmr3153245wmh.162.1650114017834; 
- Sat, 16 Apr 2022 06:00:17 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1252:fb60:dd4a:a17a:5566:43bc?
- ([2a02:908:1252:fb60:dd4a:a17a:5566:43bc])
- by smtp.gmail.com with ESMTPSA id
- a11-20020a056000188b00b00204109f7826sm6981250wri.28.2022.04.16.06.00.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 16 Apr 2022 06:00:17 -0700 (PDT)
-Message-ID: <0d065fd6-3fa5-c9cb-3248-6f29b2bdcb71@gmail.com>
-Date: Sat, 16 Apr 2022 15:00:16 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id D52C210EA14;
+	Sat, 16 Apr 2022 15:35:26 +0000 (UTC)
+X-Greylist: delayed 901 seconds by postgrey-1.36 at gabe;
+ Fri, 15 Apr 2022 18:25:09 UTC
+Received: from a3i311.smtp2go.com (a3i311.smtp2go.com [203.31.37.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 250BC10E2D6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Apr 2022 18:25:08 +0000 (UTC)
+Received: from [10.100.33.96] (helo=mail.blazebox.homeip.net)
+ by smtpcorp.com with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.94.2-S2G) (envelope-from <paulb@blazebox.homeip.net>)
+ id 1nfQOQ-IbZpeH-LN; Fri, 15 Apr 2022 18:10:03 +0000
+Received: from blazebox.homeip.net (localhost [127.0.0.1])
+ by mail.blazebox.homeip.net (Postfix) with ESMTP id 36A7764424B;
+ Fri, 15 Apr 2022 14:10:01 -0400 (EDT)
+X-Virus-Scanned: amavisd-new at blazebox.homeip.net
+Received: from mail.blazebox.homeip.net ([127.0.0.1])
+ by blazebox.homeip.net (mail.blazebox.homeip.net [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with LMTP id oxyMeLGq-6Zs; Fri, 15 Apr 2022 14:09:56 -0400 (EDT)
+Received: from [IPV6:2001:470:1f07:a3a:e6aa:8e9e:c988:15a] (unknown
+ [IPv6:2001:470:1f07:a3a:e6aa:8e9e:c988:15a])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ (Client did not present a certificate)
+ by mail.blazebox.homeip.net (Postfix) with ESMTPSA id 8798264423F;
+ Fri, 15 Apr 2022 14:09:56 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=blazebox.homeip.net;
+ s=mail; t=1650046196;
+ bh=dte0E0NR1rKJK6btdB2DvZkx0TnGunSkaIFxgdWnO60=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=v6JWpZQuuqsAZLn7owP8MszGihUtCp3Pem8UOjYmlZ4GOhS3+01mNEE92yxcz87gP
+ m2HV3yU221p6NxwurNKOnstH0VuSnRy05503cP2EPcUsmyTxHEVamCYn+sV6lo7wLy
+ V1eCrmnFpMoQmRcziR6Mc73PNsH5GgwznUySSpiP+2qxyD6BphTvpHpMlLv9QDodCe
+ iJYGUJsu2ityF0JJdfFXzaESJe6JXJLPhtlUuJoIO9dgc67vgP6s9JmqFJQKkYvgvf
+ s99CpQeIZlr6CPUYWqnY/Z71wQTqlFqTaIOIVEGnwyPDbK8KU9nU1Ye56obFFtn1vZ
+ L1BdSbxW9/v5Q==
+Message-ID: <964e1f7a-0078-5bc5-ab59-733435211c96@blazebox.homeip.net>
+Date: Fri, 15 Apr 2022 14:09:53 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 0/2] Update AMDGPU glossary and MAINTAINERS
+ Thunderbird/91.8.0
+Subject: Re: Unable to boot 5.18-rc kernel on amdgpu legacy (si) hardware.
 Content-Language: en-US
-To: Tales Lelo da Aparecida <tales.aparecida@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrealmeid@riseup.net
-References: <20220415195027.305019-1-tales.aparecida@gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220415195027.305019-1-tales.aparecida@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <5eef642a-d7d2-9f59-7f63-b6e89c52bdba@blazebox.homeip.net>
+ <CADnq5_NOc4Q=3ZO8MUxGFyNfFU7mgrHFwEd+5O+9zQoYYUmepw@mail.gmail.com>
+From: Paul Blazejowski <paulb@blazebox.homeip.net>
+In-Reply-To: <CADnq5_NOc4Q=3ZO8MUxGFyNfFU7mgrHFwEd+5O+9zQoYYUmepw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Report-Abuse: Please forward a copy of this message, including all headers,
+ to <abuse-report@smtp2go.com>
+Feedback-ID: 316702m:316702a3jAEqy:316702sYfOBEEuB4
+X-smtpcorp-track: 1nfQOQmPZp-HLN.WLT6bWHkYP7oL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smtpcorp.com;
+ i=@smtpcorp.com; q=dns/txt; s=a1-4; t=1650046207; h=feedback-id :
+ x-smtpcorp-track : date : message-id : to : subject : from : reply-to
+ : sender : list-unsubscribe;
+ bh=dte0E0NR1rKJK6btdB2DvZkx0TnGunSkaIFxgdWnO60=;
+ b=2irl1X6Za+I+Y4DKrA26olTzZ3BAPl12eq9YsudOCdzsMqq/EmhM+R+0bb3P65MmFrE92
+ iqhKACEKY/fTbz0CLPhkljNRnPvH5uGThR1JZhrrcs+8z/wT1afPARNeggHuk5+aKQE9l4l
+ vuCQfE6rrQIah6QTh6Q+F80mXg0baAgEJOZy6R+bGihTaHrfk2xRhp+i2CxhqWowU9Bg1Fc
+ Vd4qhKBDOg+xe9kNEYIv7TXEmQd16PeI/fbTqdtJOtvkCE6Y4TQeCYrTb/NYBpoRSnWvemb
+ I9xXUCRw4OPxYe2kcCharat1M+v7Su3GCeG2FCIAe+qm2iKG3RhmLpkUzHuA==
+X-Mailman-Approved-At: Sat, 16 Apr 2022 15:35:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,25 +84,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.04.22 um 21:50 schrieb Tales Lelo da Aparecida:
-> I was handling the request from [0] and then I noticed that some AMD
-> developers were missing from get_maintainers output due to the lack of a
-> reference to their documentation in the MAINTAINERS file.
+-------- Original Message --------
+Subject: Re: Unable to boot 5.18-rc kernel on amdgpu legacy (si) hardware.
+From: Alex Deucher <alexdeucher@gmail.com>
+To: Paul Blazejowski <paulb@blazebox.homeip.net>
+Date: 4/15/2022, 12:15:40 PM
 
-Acked-by: Christian König <christian.koenig@amd.com>
+> On Fri, Apr 15, 2022 at 12:00 PM Paul Blazejowski
+> <paulb@blazebox.homeip.net> wrote:
+>>
+>> Hello,
+>>
+>> I am unable to boot 5.18-rc1(2) kernel with my rather old (si) XFX card,
+>> which works fine under 5.17.3 and previous kernels.
+>>
+>> The card is identified as:
+>>
+>> 1:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]
+>> Cape Verde PRO [Radeon HD 7750/8740 / R7 250E]
+>>
+>> Running on a Asus M5A99FX PRO R2.0 mainboard.
+>>
+>> The boot process stops at "fb0: EFI VGA frame buffer device" step and
+>> the hdmi connected monitor just shuts off, there's not oops or any other
+>> debug output captured by serial console.
+>>
+>> I was able to bisect the kernel tracing this to a bad commit:
+>>
+>> git bisect bad 3712e7a494596b26861f4dc9b81676d1d0272eaf
+>> # first bad commit: [3712e7a494596b26861f4dc9b81676d1d0272eaf]
+>> drm/amd/pm: unified lock protections in amdgpu_dpm.c
+>>
+>> And reverting this commit on 5.18-rc2 kernel makes my system bootable again.
+>>
+>> Please let me know if there's anything else i could provide to help fix
+>> this issue. I have access to serial console if needed.
+> 
+> Fixed with this patch:
+> https://patchwork.freedesktop.org/patch/481477/
 
->
-> [0] https://gitlab.freedesktop.org/drm/amd/-/issues/1939#note_1309737
->
-> Tales Lelo da Aparecida (2):
->    Documentation/gpu: Add entries to amdgpu glossary
->    MAINTAINERS: add docs entry to AMDGPU
->
->   Documentation/gpu/amdgpu/amdgpu-glossary.rst | 13 +++++++++++++
->   MAINTAINERS                                  |  1 +
->   2 files changed, 14 insertions(+)
->
+Alex,
 
+Great!
+
+Just tested and indeed the patch fixed the issue!
+
+> 
+> Alex
+
+Thank you for providing the link to a patch ...
+
+Paul
+
+> 
+>>
+>> Thank you.
