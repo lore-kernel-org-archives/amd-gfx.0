@@ -4,74 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 639BEC433F5
-	for <amd-gfx@archiver.kernel.org>; Sat, 16 Apr 2022 15:35:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C92BC433EF
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 Apr 2022 15:35:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D52C210EA14;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0AE910E9EE;
 	Sat, 16 Apr 2022 15:35:26 +0000 (UTC)
-X-Greylist: delayed 901 seconds by postgrey-1.36 at gabe;
- Fri, 15 Apr 2022 18:25:09 UTC
-Received: from a3i311.smtp2go.com (a3i311.smtp2go.com [203.31.37.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 250BC10E2D6
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Apr 2022 18:25:08 +0000 (UTC)
-Received: from [10.100.33.96] (helo=mail.blazebox.homeip.net)
- by smtpcorp.com with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.94.2-S2G) (envelope-from <paulb@blazebox.homeip.net>)
- id 1nfQOQ-IbZpeH-LN; Fri, 15 Apr 2022 18:10:03 +0000
-Received: from blazebox.homeip.net (localhost [127.0.0.1])
- by mail.blazebox.homeip.net (Postfix) with ESMTP id 36A7764424B;
- Fri, 15 Apr 2022 14:10:01 -0400 (EDT)
-X-Virus-Scanned: amavisd-new at blazebox.homeip.net
-Received: from mail.blazebox.homeip.net ([127.0.0.1])
- by blazebox.homeip.net (mail.blazebox.homeip.net [127.0.0.1]) (amavisd-new,
- port 10024)
- with LMTP id oxyMeLGq-6Zs; Fri, 15 Apr 2022 14:09:56 -0400 (EDT)
-Received: from [IPV6:2001:470:1f07:a3a:e6aa:8e9e:c988:15a] (unknown
- [IPv6:2001:470:1f07:a3a:e6aa:8e9e:c988:15a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
- (Client did not present a certificate)
- by mail.blazebox.homeip.net (Postfix) with ESMTPSA id 8798264423F;
- Fri, 15 Apr 2022 14:09:56 -0400 (EDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=blazebox.homeip.net;
- s=mail; t=1650046196;
- bh=dte0E0NR1rKJK6btdB2DvZkx0TnGunSkaIFxgdWnO60=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=v6JWpZQuuqsAZLn7owP8MszGihUtCp3Pem8UOjYmlZ4GOhS3+01mNEE92yxcz87gP
- m2HV3yU221p6NxwurNKOnstH0VuSnRy05503cP2EPcUsmyTxHEVamCYn+sV6lo7wLy
- V1eCrmnFpMoQmRcziR6Mc73PNsH5GgwznUySSpiP+2qxyD6BphTvpHpMlLv9QDodCe
- iJYGUJsu2ityF0JJdfFXzaESJe6JXJLPhtlUuJoIO9dgc67vgP6s9JmqFJQKkYvgvf
- s99CpQeIZlr6CPUYWqnY/Z71wQTqlFqTaIOIVEGnwyPDbK8KU9nU1Ye56obFFtn1vZ
- L1BdSbxW9/v5Q==
-Message-ID: <964e1f7a-0078-5bc5-ab59-733435211c96@blazebox.homeip.net>
-Date: Fri, 15 Apr 2022 14:09:53 -0400
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3592110E8A2;
+ Sat, 16 Apr 2022 05:47:59 +0000 (UTC)
+Received: by mail-pl1-x631.google.com with SMTP id c23so8607155plo.0;
+ Fri, 15 Apr 2022 22:47:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=hZc9zcmo/JWKOyzC5RRU+RQ67f92+BjrAId5apbjxx4=;
+ b=BTmnZpEXjDVfSLT1f+xWT1/xn6sYOGBXR8vnDdrxz72m3mLd5ZTISc8FjWEHxbnZ0Q
+ kJ7JUbXOpyyCJhdDcNb1py4wsDmm7KpjIfQP6GR8yEcaOYKFQYFO+2vWcNvXpiZKLMr3
+ q/e6QdW02QmpwPIlnbLe3oX4WWCYdm2n/JyeS+GEd0Hp93xNjUuUpiis8JhOFyd2SMFN
+ ay7peWdqRl0rrxVRxMOEZ+V2dJeDYrI9zRG6DJgh5g+qK1wueWuxmR5pDbJZt8lPtBd3
+ j/RdN9aum+gG4YDDb8b+7ttaSuryetMAh4wDVL2BAlRjdQfCShj0B6C35DBcPCbMdm1W
+ 78DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=hZc9zcmo/JWKOyzC5RRU+RQ67f92+BjrAId5apbjxx4=;
+ b=YgvXJkekjvzIpcJX+JVDZBzdNt3rOtmLbhBnFqqzp8g9eMg1VA3FL7N89dnmAx5SWe
+ l/ADQ9tlJSk/Qjwde/+a0j+cRCSG2Qz5G1V1ycYQL/Trf20PSqRjl35tjz6m0PiKOPb6
+ kCL0UDGLi8kiSP0IVQ4I0UfjvHaM+0nhn8imjadvs2ow/WDyCs7bSWCHA8D/Y6rDUCN3
+ YgCZSRUPtzIOVma9H0dgLdj9LYAI6IqouAoO3Ot1mh72Xmy/93IUME2BfFsoaZv8W+XE
+ NvELqeWl5GThECrXgFtRtvk76k8bsyfXMx6o3tkYcFWtRotrnFBjdtwScgtLENpVKCFg
+ /QrQ==
+X-Gm-Message-State: AOAM530EQhsHwoxZNB9YSXfv5S5ZQGFT/x7S1NuP06TpWQnQQQM7VEF1
+ 6m5FESc5YaSteZF3PPlx6bk=
+X-Google-Smtp-Source: ABdhPJzdHPNlkXPAZkSmp1NrPiHL6M/Utpy+7qlfUa98UuKLz8IjuFuaODr3HigacXCm/YRRaKqAOw==
+X-Received: by 2002:a17:90b:3889:b0:1c7:a31f:2a50 with SMTP id
+ mu9-20020a17090b388900b001c7a31f2a50mr7764499pjb.193.1650088078753; 
+ Fri, 15 Apr 2022 22:47:58 -0700 (PDT)
+Received: from [192.168.43.80] (subs03-180-214-233-90.three.co.id.
+ [180.214.233.90]) by smtp.gmail.com with ESMTPSA id
+ u22-20020a17090a891600b001cd498dc152sm7993070pjn.2.2022.04.15.22.47.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 15 Apr 2022 22:47:58 -0700 (PDT)
+Message-ID: <4f4c8441-a144-6c2d-0f8b-b598905c2f3d@gmail.com>
+Date: Sat, 16 Apr 2022 12:47:52 +0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
-Subject: Re: Unable to boot 5.18-rc kernel on amdgpu legacy (si) hardware.
+Subject: Re: [PATCH 2/2] MAINTAINERS: add docs entry to AMDGPU
 Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <5eef642a-d7d2-9f59-7f63-b6e89c52bdba@blazebox.homeip.net>
- <CADnq5_NOc4Q=3ZO8MUxGFyNfFU7mgrHFwEd+5O+9zQoYYUmepw@mail.gmail.com>
-From: Paul Blazejowski <paulb@blazebox.homeip.net>
-In-Reply-To: <CADnq5_NOc4Q=3ZO8MUxGFyNfFU7mgrHFwEd+5O+9zQoYYUmepw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Tales Lelo da Aparecida <tales.aparecida@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonathan Corbet <corbet@lwn.net>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrealmeid@riseup.net
+References: <20220415195027.305019-1-tales.aparecida@gmail.com>
+ <20220415195027.305019-3-tales.aparecida@gmail.com>
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+In-Reply-To: <20220415195027.305019-3-tales.aparecida@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Report-Abuse: Please forward a copy of this message, including all headers,
- to <abuse-report@smtp2go.com>
-Feedback-ID: 316702m:316702a3jAEqy:316702sYfOBEEuB4
-X-smtpcorp-track: 1nfQOQmPZp-HLN.WLT6bWHkYP7oL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smtpcorp.com;
- i=@smtpcorp.com; q=dns/txt; s=a1-4; t=1650046207; h=feedback-id :
- x-smtpcorp-track : date : message-id : to : subject : from : reply-to
- : sender : list-unsubscribe;
- bh=dte0E0NR1rKJK6btdB2DvZkx0TnGunSkaIFxgdWnO60=;
- b=2irl1X6Za+I+Y4DKrA26olTzZ3BAPl12eq9YsudOCdzsMqq/EmhM+R+0bb3P65MmFrE92
- iqhKACEKY/fTbz0CLPhkljNRnPvH5uGThR1JZhrrcs+8z/wT1afPARNeggHuk5+aKQE9l4l
- vuCQfE6rrQIah6QTh6Q+F80mXg0baAgEJOZy6R+bGihTaHrfk2xRhp+i2CxhqWowU9Bg1Fc
- Vd4qhKBDOg+xe9kNEYIv7TXEmQd16PeI/fbTqdtJOtvkCE6Y4TQeCYrTb/NYBpoRSnWvemb
- I9xXUCRw4OPxYe2kcCharat1M+v7Su3GCeG2FCIAe+qm2iKG3RhmLpkUzHuA==
 X-Mailman-Approved-At: Sat, 16 Apr 2022 15:35:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,63 +83,15 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
--------- Original Message --------
-Subject: Re: Unable to boot 5.18-rc kernel on amdgpu legacy (si) hardware.
-From: Alex Deucher <alexdeucher@gmail.com>
-To: Paul Blazejowski <paulb@blazebox.homeip.net>
-Date: 4/15/2022, 12:15:40 PM
-
-> On Fri, Apr 15, 2022 at 12:00 PM Paul Blazejowski
-> <paulb@blazebox.homeip.net> wrote:
->>
->> Hello,
->>
->> I am unable to boot 5.18-rc1(2) kernel with my rather old (si) XFX card,
->> which works fine under 5.17.3 and previous kernels.
->>
->> The card is identified as:
->>
->> 1:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]
->> Cape Verde PRO [Radeon HD 7750/8740 / R7 250E]
->>
->> Running on a Asus M5A99FX PRO R2.0 mainboard.
->>
->> The boot process stops at "fb0: EFI VGA frame buffer device" step and
->> the hdmi connected monitor just shuts off, there's not oops or any other
->> debug output captured by serial console.
->>
->> I was able to bisect the kernel tracing this to a bad commit:
->>
->> git bisect bad 3712e7a494596b26861f4dc9b81676d1d0272eaf
->> # first bad commit: [3712e7a494596b26861f4dc9b81676d1d0272eaf]
->> drm/amd/pm: unified lock protections in amdgpu_dpm.c
->>
->> And reverting this commit on 5.18-rc2 kernel makes my system bootable again.
->>
->> Please let me know if there's anything else i could provide to help fix
->> this issue. I have access to serial console if needed.
+On 4/16/22 02:50, Tales Lelo da Aparecida wrote:
+> To make sure maintainers of amdgpu drivers are aware of any changes
+>  in their documentation, add its entry to MAINTAINERS.
 > 
-> Fixed with this patch:
-> https://patchwork.freedesktop.org/patch/481477/
 
-Alex,
+Did you mean the Documentation/gpu/amdgpu/ is maintained by dri-devel?
 
-Great!
-
-Just tested and indeed the patch fixed the issue!
-
-> 
-> Alex
-
-Thank you for providing the link to a patch ...
-
-Paul
-
-> 
->>
->> Thank you.
+-- 
+An old man doll... just what I always wanted! - Clara
