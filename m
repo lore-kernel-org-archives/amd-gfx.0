@@ -4,124 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19E7FC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 14:43:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D116EC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 14:44:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F29110EEB2;
-	Tue, 19 Apr 2022 14:43:09 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2063.outbound.protection.outlook.com [40.107.102.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55B3010EEA8
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 14:43:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NTGx9O88Yy8kyeOaUbXSRiug6e+kye40ukFdNhqrKEyZvpoheE449OM5pfhn820xmeQcJtxgCWCIviT3ix+QZJg1tCrtgTaYQquGkXkNHdr1QQuc2nNU0PaYOV+lwvnu4dsYy5q5Z7mFRYWgJrfbq8vjPohNu7BgRMFCzL8Brk83/04XwL8vR63VWAzmGTR/NZ+uktBbcoa44eGud1SPVMWJht8XIl+qYTXn+LJJJP7iLFeqjHFlFkInDN5nflT7ZbSd21Lf8YrbruxkHQzrYZAR1ECMuJoKKCM7ChlwbsPKUjKpub6p2lNvgWhhY6B2wzV38D/peHPp15gZywnvQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MM9QYfvu67ztkUaMPJK+aBJMBDZ+sQMSdjhqVv+KcxQ=;
- b=KH6euxuhRVV0EefzTu4Ihh5lLShQ5tg0f3k7DnYpUMSDOVRb/HXahzltEkFbDOJFt0PzZkfVZdZQVwHawxH5yhhHdfs1OHhKzLVJXnvxulIy8zbrSvzne7MA3mZYU2JRbNNZziL+B2Zt33cfZJfSbcCFig+MbVXUfxbTgIhdat2Jnmfz/vb3s1RrLKP6x/slmxw108gWMLhALrqEIi24pPY7lsoqRPv7bgKTrfOBeRTUc4L4AhnsR1S6oHLfxelW0P45BQU0etZukMS04Bhahs1ZDK62TKEcgX7+/Acv2yGIDJF+2yUS0SDd1b8uLiDbDmYyltbn7j8z36IEyJbO7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MM9QYfvu67ztkUaMPJK+aBJMBDZ+sQMSdjhqVv+KcxQ=;
- b=K5lvXJc4ZS+CfH9ns8OyHUXxgHyADy0FG1H6E9mQWh4TBh24uqKlezJFqO3FoxfhxntjZy6VWuwwpg+R63jW6tfrlBFUixUYmeWqYnuumjpl6Hp780TPVehMn5PVp1ngrSGv6Dajm18DF9wQYFktFTV8GSYsXYCPzP1tB/PBLkE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MWHPR12MB1501.namprd12.prod.outlook.com (2603:10b6:301:f::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.20; Tue, 19 Apr
- 2022 14:43:04 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::a5fb:7137:5e64:cf8]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::a5fb:7137:5e64:cf8%5]) with mapi id 15.20.5164.026; Tue, 19 Apr 2022
- 14:43:04 +0000
-Message-ID: <29e81464-ad03-a159-ef4c-3dd39563299b@amd.com>
-Date: Tue, 19 Apr 2022 16:42:56 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 2/2] drm/amdgpu: remove pointless ttm_eu usage from DM
-Content-Language: en-US
-To: Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Ryan.Taylor@amd.com, amd-gfx@lists.freedesktop.org
-References: <20220419141915.122157-1-christian.koenig@amd.com>
- <20220419141915.122157-2-christian.koenig@amd.com>
- <a9ec25f0-0404-3b4b-64fd-8acf697ca3b9@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <a9ec25f0-0404-3b4b-64fd-8acf697ca3b9@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0006.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::16) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6558510EF79;
+	Tue, 19 Apr 2022 14:44:56 +0000 (UTC)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29D2E10EEBD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 14:44:55 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ r12-20020a056830418c00b006054e1142acso3635308otu.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 07:44:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=9K65g1hRf6K53lqOqvVgP99E8FuHQSNA9FMLkby6pyw=;
+ b=l4kuThPiXFPCLa5zusMnTir2NCm+LICvmHe0u4k280aitDwzJkm9kLElUDkg47Ctgl
+ NocxE8+pUS0n7fbznLlxnCteC6zJjKIlAzPtvXN5yT5ZxYkQS6Vp3jpAHwNk1pLG1bHi
+ ifGH16qckWFRgbUTQpxXTkfZru6YK/cc0Qcvr1oHwF9WL29UovvdVJVzu32lOsRntBNX
+ U/6DfLBAQcMPMfRnFoQcw2A/z82oSwbBv7ovRP8XLNWdCuKoN4r8RPly2fqqj/dmlN6B
+ rlDGU9L39nzkXHJwOiAJDQKprOn7SURkrHdA0tHB0Ze4Bx+CzNCcaG2wwbfScJNb5mX0
+ 9KuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=9K65g1hRf6K53lqOqvVgP99E8FuHQSNA9FMLkby6pyw=;
+ b=0SAfEnwxjIezxliEhhDTtdNgBYVSAez0NokOPVVXtvbyh/i/UU48IkVDQND+x1/Zqk
+ z12QF6GyOqzg5nsNYDLmIWjoatIJdm+f5txIvWOaU5o5e7Zui4coi5He0IHQWg4mor/Y
+ yOZIK3JxEAbR5rZ506/SMC+FRuZ1WP4dl5M23o42lyBVE0fXgmeCf6r8/e/tEkKDrHgS
+ ftPWiw98c/xVacVHYofCbexP87YBHBglRKx77oQqyaKswq5uBc7Ofmr+3ACtZxmc1R1x
+ McVhFsgJUSG92EcER1YOoozmjm4Z7Lf5P7K8p5Qjbx5D+ndMr4/H0hDAIkEl4+ngP4lO
+ 46pw==
+X-Gm-Message-State: AOAM533VmYDYkDjz2LhgfLSfYppxGK6h9hVCG+9OKXz9NxH5//VQmtmH
+ T5vaQB4mMtGVV5BXVxMOSbXSRUBGyFlhenwpsCA=
+X-Google-Smtp-Source: ABdhPJxf9+e80dA25ioKF7cuP2djAsvLngyNI6JHMufyNJtgnd2BCNjgbVMKnCpAU8wSeAM08+QbbnAR4d71J/2UMJw=
+X-Received: by 2002:a9d:7a8f:0:b0:604:25d0:f231 with SMTP id
+ l15-20020a9d7a8f000000b0060425d0f231mr6108928otn.200.1650379494365; Tue, 19
+ Apr 2022 07:44:54 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9c316a82-f23e-4110-e537-08da2212e8d3
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1501:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB150105008B51A2396928A48983F29@MWHPR12MB1501.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: z+kSrh120C8BFZBiYh5kjEFz9/EwZD/gQ0FnKvJYMpMnGuUgnuvcFQXbevWXIb4Ha7ElASi0WqnJGPV+ZdR4mchRhMDS34t8KYxJ78cnfbhB2Q0Qen9n6IoPfP65YPoACQXQyIWfgEHCWOaix24iWbGukHWkALHf0Eb+w/mf8UzA+CEEn96Ve0vqfd8I9zVW7WCyVeitDLCMGY0JwkRng+XX+fFXLpZXG0/BrEppruDoyH6h60bcUcyHp205H+CyY/cYke+slmP+jzm/cfr9qPQOKBPj40zJ7ZZR11UKulSFSOF85tDoHHZ8tREoSVersCmimL8BAqErIPwWmla4qPUwBtfGL8O4m1mY89stUW7d1Tdvwwf4j7PnFBf1wt6lWVCjjjtnGxn7r1yNW3L1sRtBFXdKhCBLLNdEIxsmMIiwgmbiJ0UuJhPD1VfQ6+Y+89ympkb5Xy85lk7mpO38pGy620LMo//haD36Rotpz0Vbct/EPkwFoWGE44MRi56YhR7MKAnKLfgX0GcDOJQF8NUUcE7fSaxNJfRA+9eMvsTYt55WdoKw0mjVjhShcC8bMQ+SLqQefpRiP1EHL5RtsKAdsPEPT9hyvqAbFlufOGXvpOkGUmShz0t59/e7m326JL+MC3q5ZW+aXkeO/bLcIyjLMTLetOUOxYX/oGJpQeoRh3xtXtGM5Zx4Lt4F7d1rbo7vLzmGAglLlLspkknSn0VsxSNXgYeDrhO41AdXucak0JOmsTk8Gq+TK/xYcDoz
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6512007)(53546011)(6666004)(83380400001)(66946007)(66574015)(186003)(2906002)(5660300002)(8936002)(2616005)(6486002)(110136005)(6506007)(66476007)(8676002)(316002)(66556008)(508600001)(38100700002)(36756003)(31686004)(31696002)(86362001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b1hTUjN0S3FTM3FYSkxUTittR0hKZTMwQzQ5bkFuaFpwVGs1UytkTzZSUFA1?=
- =?utf-8?B?YmhBZ0p1U0RlZEVQVDRVMlFhOXg2bXdnbTNxYzNNa2QzVFZpd09WbktJWjdm?=
- =?utf-8?B?a2RNVEh1K0JuM3RKcENIcFFkMnNWbVh0SVV1UG9pS3JXZE5qT0d4ZHlucm1m?=
- =?utf-8?B?ZVArU3RuVFJJZE1RdzU1eGNqckpzbXJGUDI2U1ZYOE9XcmQrVHY3UTB4T2Jy?=
- =?utf-8?B?Sll5REZBSlZxaWRnNVhJRjFaeVk1a0JKZkl4Y0JZQ0M0VVNEKzZhR3liU3Fz?=
- =?utf-8?B?N0Q1N0tyeDBDSC80TUEvSGt2bXJlQUU2RDRUME9qQXNJYWlLb280Zm1ua3d1?=
- =?utf-8?B?ZTl1WXM0SU16T1cyVVhCcnkyWmRwU0ZINFJZM3FPTjVHYzhTOUg2VlU1MlJl?=
- =?utf-8?B?eFA5c2owYlZZRWdWWCtZbm43bW05QWdhSzNmQjZkV0NndnZhcUREeU1ndkFZ?=
- =?utf-8?B?dC9XbTIwZi9CTFNKaUswOGovWTdTdUh1Z1lJZzl1Q3pGT3B5TTluT3ZuejJK?=
- =?utf-8?B?T2dHeGxaOWNsQzBJSkJuU1NYalFKMGkzSUhpeXE0ZEhwTGNpaE9aVjc4OVBQ?=
- =?utf-8?B?OTMvcnNPVUZxeEpKcXhzOHhsT2tOVlNDYkVYdFlRakJrZVVUMFVlcU00UGZt?=
- =?utf-8?B?eUUwUEdKeFBidkNTcjR1NDFsT0JyNjdoQWl5SlQ3SzBvMjZBZExDUkJyS0o1?=
- =?utf-8?B?OTc1N3pqWC9JK01DWitBdnJreWI3UHJlblJpWHNLeGZJYVJGTi9VR3dkb2JO?=
- =?utf-8?B?Y2ZJek00aHlMNjRTS0V2dU9ld0Z5cE0rTTAzQ0FUazM5d1JicEs2YUZqcUxa?=
- =?utf-8?B?R3B6cXd6SFRYRVlmczlvSW9YS3VaVXcwL2dtN3FLRzJtOTQrNGowTzJEUWlr?=
- =?utf-8?B?ZUNFZTdyZ05kRkhLTFBnU1A5bGFkcitmeit2K3E4ZHpOSFFCTGpLcFp6OG1j?=
- =?utf-8?B?UnNSUnVqMlVZQlJiZTRpcGJscFBqRnl2YUtWeVhwa1RMZUdPUTJJUk1wRGVa?=
- =?utf-8?B?emxwL0RMa0p5V1lMYzZkMTVkN25GRGthMExKZWg5eG45SEVrVWJGR25uck9l?=
- =?utf-8?B?SjFxZzRvOTNlR20zRTNrc1o3aDJDNzdhTkxGZGZqdHY1ZjhqZktsYVh6MXUv?=
- =?utf-8?B?REdqei8wYm5jZVlwR0hmenJGQmZuQWdkRWxsS2svblk1S2IxTUVOa0xIdFVm?=
- =?utf-8?B?aFZtRGJ3Y1FXcExndVRFQlhianNsUTlZN2dIemNuaXZMNllDRlp6QzJQYS9a?=
- =?utf-8?B?eDk1YlRURmsvTmtlYzJxMi9zUUR4NDJTcU1WRFRMWVMvUHFMUVVqNGQxejJh?=
- =?utf-8?B?VUhWcHk0N0RjOFU1cWRBdGFxTnB4alROcC9DWlpoUU5QTFRHZnpkTXgvUHpC?=
- =?utf-8?B?QjdTZXJvM0QwUVlCVjdqY2JYYUVRcDVkSjBVc0xQN3I3RTBPWlFSTVNhQW8w?=
- =?utf-8?B?M3J3ZDR4V20vZmdHb0wwc0FOOUZwbDFqVjNSTDRHVDAwM2xvQ0o1T3YvN0Ev?=
- =?utf-8?B?MVB0SGdhdEZEa3ZaQXYyT0h4RituV1phSjhoSkF0Q3AvdHZsUmNKNVlhU1Rk?=
- =?utf-8?B?Y1dhYjE4NGVZSi8zZUxQOFhoNjFvYXk4QXZwaGNnTXYzdXoxeHQ2LzNrYXNx?=
- =?utf-8?B?L09ZRTJKTkU4OVpDS0crWjRGMzRzYnh5T1V5SzQvNDhvY2ZBNThQTnh1c1FT?=
- =?utf-8?B?ZWxGTGJLZnBYcDhDVmM4MVVhZndWNGFVSXhIemwxWk9RWWplK3JxU0Z3UHp1?=
- =?utf-8?B?dG1BYUdvblVZZDR2TkNyZ0tzdVI2UllmSjhYclJ3MUdES0VzVjZoOHA3bThF?=
- =?utf-8?B?UHJya3p2ZHMzTlpwTkFpVk5QMHg3TUdnazJQSjVhSTNOaXU3WXdLVGR2eWZR?=
- =?utf-8?B?ZWh6T29CQ0ljRHZXdWlQOUlKZ1Ntb3ZCSjFFbkdGU3JCd2x5NGtiSC9xaGYx?=
- =?utf-8?B?WEh5d2t6L2psM05TUkF0YTVsczNzV0Jqbzl5ZTRHazBXV0FqM0tUVXVEOUxI?=
- =?utf-8?B?bWZsM2hBUWdNVE56UVQ0Tm5JSzRLbjNnaDMzQTJUaER1TWhtTXdRbW02NE9r?=
- =?utf-8?B?ZGJTcCswS2lBVytqd0hXRG1WS2tDcDlwaUxVNThZR2tiTjZ6RzJucWEyYWlq?=
- =?utf-8?B?VlQ3WkxveHhoNElINjJVdWkxWEJyZGZoaGxlazhwRjlkS0hCWWRsSVczdkpy?=
- =?utf-8?B?ajZVU3FQYnZNaTNhZXpKOFJpV1c3UFRML0pSQjR3bktZZmw3dmJQeWw3N0E0?=
- =?utf-8?B?eWNESnByRXFiUm9jNklEbVpHZVlJcTVsTEpJYnFuQTJST0xiSEl6SnRVbm5i?=
- =?utf-8?B?c3RVUjlicjJpYmhOby9KbkQ1Q1phRVIrT2J4dW1maUpCTEIyTitEeUdvY1gw?=
- =?utf-8?Q?7kUoqQm8kpv8SLwt9MB6hZRW8bJRJ+Fhy/lSntfuuo3WH?=
-X-MS-Exchange-AntiSpam-MessageData-1: 9Daej/VBmkUOig==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c316a82-f23e-4110-e537-08da2212e8d3
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2022 14:43:03.9646 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dJBh38N8MNitAJnlUePEhlO2PjS8/WVK1C5VB3xpIWjPbKXbgDBlAUBzW3OdRe1n
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1501
+References: <20220413201522.2084041-1-alexander.deucher@amd.com>
+ <6729c3d4-c3e9-d3d8-d23a-3892384794f6@molgen.mpg.de>
+In-Reply-To: <6729c3d4-c3e9-d3d8-d23a-3892384794f6@molgen.mpg.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 19 Apr 2022 10:44:43 -0400
+Message-ID: <CADnq5_MnfM7h5KUnedgrYiYwu5O29UeJHGnGKuaQc9dHQv7MFQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: don't runtime suspend if there are displays
+ attached (v2)
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,103 +64,205 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Michele Ballabio <ballabio.m@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 19.04.22 um 16:37 schrieb Harry Wentland:
+On Tue, Apr 19, 2022 at 10:04 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
+>
+> Dear Alex,
 >
 >
-> On 2022-04-19 10:19, Christian König wrote:
->> We just need to reserve the BO here, no need for using ttm_eu.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Thank you for the patch.
 >
-> Acked-by: Harry Wentland <harry.wentland@amd.com>
+> Am 13.04.22 um 22:15 schrieb Alex Deucher:
+> > We normally runtime suspend when there are displays attached if they
+> > are in the DPMS off state, however, if something wakes the GPU
+> > we send a hotplug event on resume (in case any displays were connected
+> > while the GPU was in suspend) which can cause userspace to light
+> > up the displays again soon after they were turned off.
+> >
+> > Prior to
+> > commit 087451f372bf76 ("drm/amdgpu: use generic fb helpers instead of setting up AMD own's."),
+> > the driver took a runtime pm reference when the fbdev emulation was
+> > enabled because we didn't implement proper shadowing support for
+> > vram access when the device was off so the device never runtime
+> > suspended when there was a console bound.  Once that commit landed,
+> > we now utilize the core fb helper implementation which properly
+> > handles the emulation, so runtime pm now suspends in cases where it did
+> > not before.  Ultimately, we need to sort out why runtime suspend in not
+> > working in this case for some users, but this should restore similar
+> > behavior to before.
+> >
+> > v2: move check into runtime_suspend
+> >
+> > Fixes: 087451f372bf76 ("drm/amdgpu: use generic fb helpers instead of setting up AMD own's.")
+> > Tested-by: Michele Ballabio <ballabio.m@gmail.com>
+>
+> On what system and device?
 
-What about the second patch? Who takes care of amdgpu_vkms.c? You guys 
-or should I ping Alex?
-
-Thanks,
-Christian.
+It was a polaris dGPU, but it has been seen on other GPUs as well.
+It's not device specific.  The issue is hard to reproduce at least in
+our testing unfortunately.
 
 >
-> Harry
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 107 ++++++++++++++++--------
+> >   1 file changed, 72 insertions(+), 35 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > index 4efaa183abcd..97a1aa02d76e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > @@ -2395,6 +2395,71 @@ static int amdgpu_pmops_restore(struct device *dev)
+> >       return amdgpu_device_resume(drm_dev, true);
+> >   }
+> >
+> > +static int amdgpu_runtime_idle_check_display(struct device *dev)
+> > +{
+> > +     struct pci_dev *pdev = to_pci_dev(dev);
+> > +     struct drm_device *drm_dev = pci_get_drvdata(pdev);
+> > +     struct amdgpu_device *adev = drm_to_adev(drm_dev);
+> > +
+> > +     if (adev->mode_info.num_crtc) {
+> > +             struct drm_connector *list_connector;
+> > +             struct drm_connector_list_iter iter;
+> > +             int ret = 0;
+> > +
+> > +             /* XXX: Return busy if any displays are connected to avoid
+> > +              * possible display wake ups after runtime resume due to
 >
->> ---
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 32 ++++++++++---------
->>   1 file changed, 17 insertions(+), 15 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index 73423b805b54..91e9922b95b3 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -7583,9 +7583,6 @@ static int dm_plane_helper_prepare_fb(struct 
->> drm_plane *plane,
->>       struct amdgpu_device *adev;
->>       struct amdgpu_bo *rbo;
->>       struct dm_plane_state *dm_plane_state_new, *dm_plane_state_old;
->> -    struct list_head list;
->> -    struct ttm_validate_buffer tv;
->> -    struct ww_acquire_ctx ticket;
->>       uint32_t domain;
->>       int r;
->>   @@ -7598,18 +7595,19 @@ static int 
->> dm_plane_helper_prepare_fb(struct drm_plane *plane,
->>       obj = new_state->fb->obj[0];
->>       rbo = gem_to_amdgpu_bo(obj);
->>       adev = amdgpu_ttm_adev(rbo->tbo.bdev);
->> -    INIT_LIST_HEAD(&list);
->>   -    tv.bo = &rbo->tbo;
->> -    tv.num_shared = 1;
->> -    list_add(&tv.head, &list);
->> -
->> -    r = ttm_eu_reserve_buffers(&ticket, &list, false, NULL);
->> +    r = amdgpu_bo_reserve(rbo, true);
->>       if (r) {
->>           dev_err(adev->dev, "fail to reserve bo (%d)\n", r);
->>           return r;
->>       }
->>   +    r = dma_resv_reserve_fences(rbo->tbo.base.resv, 1);
->> +    if (r) {
->> +        dev_err(adev->dev, "reserving fence slot failed (%d)\n", r);
->> +        goto error_unlock;
->> +    }
->> +
->>       if (plane->type != DRM_PLANE_TYPE_CURSOR)
->>           domain = amdgpu_display_supported_domains(adev, rbo->flags);
->>       else
->> @@ -7619,19 +7617,16 @@ static int dm_plane_helper_prepare_fb(struct 
->> drm_plane *plane,
->>       if (unlikely(r != 0)) {
->>           if (r != -ERESTARTSYS)
->>               DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
->> -        ttm_eu_backoff_reservation(&ticket, &list);
->> -        return r;
->> +        goto error_unlock;
->>       }
->>         r = amdgpu_ttm_alloc_gart(&rbo->tbo);
->>       if (unlikely(r != 0)) {
->> -        amdgpu_bo_unpin(rbo);
->> -        ttm_eu_backoff_reservation(&ticket, &list);
->>           DRM_ERROR("%p bind failed\n", rbo);
->> -        return r;
->> +        goto error_unpin;
->>       }
->>   -    ttm_eu_backoff_reservation(&ticket, &list);
->> +    amdgpu_bo_unreserve(rbo);
->>         afb->address = amdgpu_bo_gpu_offset(rbo);
->>   @@ -7663,6 +7658,13 @@ static int dm_plane_helper_prepare_fb(struct 
->> drm_plane *plane,
->>       }
->>         return 0;
->> +
->> +error_unpin:
->> +    amdgpu_bo_unpin(rbo);
->> +
->> +error_unlock:
->> +    amdgpu_bo_unreserve(rbo);
->> +    return r;
->>   }
->>     static void dm_plane_helper_cleanup_fb(struct drm_plane *plane,
+> Nit: wakeups
 
+Ack.
+
+>
+> > +              * hotplug events in case any displays were connected while
+> > +              * the GPU was in suspend.  Remove this once that is fixed.
+> > +              */
+>
+> Do you have an (internal) issue to track this?
+
+Yes, we are tracking it.
+
+Alex
+
+>
+> > +             mutex_lock(&drm_dev->mode_config.mutex);
+> > +             drm_connector_list_iter_begin(drm_dev, &iter);
+> > +             drm_for_each_connector_iter(list_connector, &iter) {
+> > +                     if (list_connector->status == connector_status_connected) {
+> > +                             ret = -EBUSY;
+> > +                             break;
+> > +                     }
+> > +             }
+> > +             drm_connector_list_iter_end(&iter);
+> > +             mutex_unlock(&drm_dev->mode_config.mutex);
+> > +
+> > +             if (ret)
+> > +                     return ret;
+> > +
+> > +             if (amdgpu_device_has_dc_support(adev)) {
+> > +                     struct drm_crtc *crtc;
+> > +
+> > +                     drm_for_each_crtc(crtc, drm_dev) {
+> > +                             drm_modeset_lock(&crtc->mutex, NULL);
+> > +                             if (crtc->state->active)
+> > +                                     ret = -EBUSY;
+> > +                             drm_modeset_unlock(&crtc->mutex);
+> > +                             if (ret < 0)
+> > +                                     break;
+> > +                     }
+> > +             } else {
+> > +                     mutex_lock(&drm_dev->mode_config.mutex);
+> > +                     drm_modeset_lock(&drm_dev->mode_config.connection_mutex, NULL);
+> > +
+> > +                     drm_connector_list_iter_begin(drm_dev, &iter);
+> > +                     drm_for_each_connector_iter(list_connector, &iter) {
+> > +                             if (list_connector->dpms ==  DRM_MODE_DPMS_ON) {
+> > +                                     ret = -EBUSY;
+> > +                                     break;
+> > +                             }
+> > +                     }
+> > +
+> > +                     drm_connector_list_iter_end(&iter);
+> > +
+> > +                     drm_modeset_unlock(&drm_dev->mode_config.connection_mutex);
+> > +                     mutex_unlock(&drm_dev->mode_config.mutex);
+> > +             }
+> > +             if (ret)
+> > +                     return ret;
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> >   static int amdgpu_pmops_runtime_suspend(struct device *dev)
+> >   {
+> >       struct pci_dev *pdev = to_pci_dev(dev);
+> > @@ -2407,6 +2472,10 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+> >               return -EBUSY;
+> >       }
+> >
+> > +     ret = amdgpu_runtime_idle_check_display(dev);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> >       /* wait for all rings to drain before suspending */
+> >       for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
+> >               struct amdgpu_ring *ring = adev->rings[i];
+> > @@ -2516,41 +2585,9 @@ static int amdgpu_pmops_runtime_idle(struct device *dev)
+> >               return -EBUSY;
+> >       }
+> >
+> > -     if (amdgpu_device_has_dc_support(adev)) {
+> > -             struct drm_crtc *crtc;
+> > -
+> > -             drm_for_each_crtc(crtc, drm_dev) {
+> > -                     drm_modeset_lock(&crtc->mutex, NULL);
+> > -                     if (crtc->state->active)
+> > -                             ret = -EBUSY;
+> > -                     drm_modeset_unlock(&crtc->mutex);
+> > -                     if (ret < 0)
+> > -                             break;
+> > -             }
+> > -
+> > -     } else {
+> > -             struct drm_connector *list_connector;
+> > -             struct drm_connector_list_iter iter;
+> > -
+> > -             mutex_lock(&drm_dev->mode_config.mutex);
+> > -             drm_modeset_lock(&drm_dev->mode_config.connection_mutex, NULL);
+> > -
+> > -             drm_connector_list_iter_begin(drm_dev, &iter);
+> > -             drm_for_each_connector_iter(list_connector, &iter) {
+> > -                     if (list_connector->dpms ==  DRM_MODE_DPMS_ON) {
+> > -                             ret = -EBUSY;
+> > -                             break;
+> > -                     }
+> > -             }
+> > -
+> > -             drm_connector_list_iter_end(&iter);
+> > -
+> > -             drm_modeset_unlock(&drm_dev->mode_config.connection_mutex);
+> > -             mutex_unlock(&drm_dev->mode_config.mutex);
+> > -     }
+> > -
+> > -     if (ret == -EBUSY)
+> > -             DRM_DEBUG_DRIVER("failing to power off - crtc active\n");
+> > +     ret = amdgpu_runtime_idle_check_display(dev);
+> > +     if (ret)
+> > +             return ret;
+> >
+> >       pm_runtime_mark_last_busy(dev);
+> >       pm_runtime_autosuspend(dev);
+>
+> The overall change looks good.
+>
+>
+> Kind regards,
+>
+> Paul
