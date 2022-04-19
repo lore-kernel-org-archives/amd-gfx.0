@@ -4,54 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F5EFC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 15:01:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55BC7C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 15:06:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FE6E10EF02;
-	Tue, 19 Apr 2022 15:01:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B615110EB3A;
+	Tue, 19 Apr 2022 15:06:40 +0000 (UTC)
 Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
  [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77BB110EEAE
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 15:01:33 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id s16so6397499oie.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 08:01:33 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75D2D10E3A5;
+ Tue, 19 Apr 2022 15:06:39 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id a10so955535oif.9;
+ Tue, 19 Apr 2022 08:06:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=ZMTfofCe4LNBjLRYE1jbQ9Sdtnu5GEOaVtNyBNd7MF0=;
- b=PkqHptqdlpH5hzHMzB5o+IBahzBxaOr+XxuTTR05czLUA4LkW4Ah5KfVK4vHAQTOB7
- s1JxMkpkFHqz/PyD6YAcF9JrvrP0FxQ4VDFxiiC20RFS3sfWhnwMZ/EUx9sXBSAdfPPt
- 0PcC9tT55J325e+A2ePq7IRdIHojzhvClVjuFXIsmz5y6skmailda46WyhNahvtkzCmV
- teWYZoCy6cohhw4lnYwNiogKK130cJaWp1Vzz2ZHh8psPYbQmUsS+DOAWlkEPQ3zPZgF
- A1zTXEEvO8eJdEGw4whfopvVbBQ0L/wGhVODF7Ns3VUG7pB37FQdU7R4PsOBw4DdhN6L
- 9sXA==
+ bh=LO5D8IQiXerqDtltovMxrybBsDShYrVWcmmoOckwnnY=;
+ b=BYCn5F0XgInlZJxMgslo67sVMtt2pgaLsSywFeL7y0SzlubtCZN4KjtYRjeaE35OtQ
+ 27A/WKCMQLQnnodLLNZEfSVk5omkbUkpzzD+EzJauEG5yidJBrMhI8oP7GuWSsSyHIjg
+ r5/cEb9FOsvRsXXMQFdEx6sXCAWHqnxsK2GI0iMJOr/mSo9CGcTC14E09Mf0sxLpxduJ
+ 7uzpLcLyaKK5ZBONW0TnF6ciCj7Auuev7Bz0BFTduhnr3+3tXdM5dgql9D9HLWNV6Jjb
+ Bk6ifvWpSviwp8Gqxt6oQVUYwsAKxCh/9fEIo7a0/4dlVt4AXqw3KEJAKYXezHtqKozd
+ lc0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=ZMTfofCe4LNBjLRYE1jbQ9Sdtnu5GEOaVtNyBNd7MF0=;
- b=Be4AIeVva+kRqe2uGumHmh4A0sL6lftDSSh3+ZAUoUcGVo4PepmVXUqbiBVG7By551
- XEU703QaUIKHEFkM/jJv9kzBXAAKwO68JXulujS7ue29aHlM6SpJXOXUXJlpq03dz1QN
- DEyey0wvl+imR1TDO4S6kBbN0ChQ1KH4tloGfALqHxRRi7Og5axYmGUBHHhIa5MqQx6a
- RxU5QzLcZhfcDqqZQfkZ22EpbAaZMMRhOMSvdyMVC0J+MzjAHgq68Hf28SszT+mPBFqE
- z2Ff5qlPBcaeK7yejOYRIIMIx2UB3wydNvzCL7v1xFULGqv/MRmNbDCxICt3JJ4OsJb2
- Ktqw==
-X-Gm-Message-State: AOAM532jed+HpjkPlSzBDxy6nBsOAfbL/yAb83Pe214ogcaZQJkFn4LM
- IcGjI7Y2lt+nX5jjJ7hugDWNfM8d+flw1IJW2y8=
-X-Google-Smtp-Source: ABdhPJzaKEIbOIpcvDjpOFVKuYJTb5aNx0ss3/+tWUnP5t4wFkr2fMnZ68L9z20SKlmg7wE5KWsZVhkg64A6cYCJEqg=
-X-Received: by 2002:aca:3d88:0:b0:321:141:ce0b with SMTP id
- k130-20020aca3d88000000b003210141ce0bmr9026626oia.200.1650380492766; Tue, 19
- Apr 2022 08:01:32 -0700 (PDT)
+ bh=LO5D8IQiXerqDtltovMxrybBsDShYrVWcmmoOckwnnY=;
+ b=zbMbK8STEKS8tNCAGepy2EQrsZR9gdJURqazfVUhM9mYfm4mZsABx+6585ZztInYOY
+ lCzVaIMBnHmuZWK3s5qIRMSYm5HxSwzdeetHDMO7FOsaL1fjdqIzxghBNcOsuyVn4XD7
+ U+sAnOb1HAD6D17GANNmwlhCjSKRrfES00+84N51JAcWiRXx9SGZTT01PuvtBK7MAC7d
+ mLx/m89o4C4lqJ/2o86o/+C3fJZpn38qNeOBoOJpxBCq3ruzTWk/uDTBlxNoLBHBVG7v
+ T0PZcFGKl+cl3jLCt69eSRvILqmBMQJxW1cdcGBXGk8XDu9CAFCE0MbyB053ukonCjw2
+ n6kg==
+X-Gm-Message-State: AOAM5306t2SAgz7mR/6ej6ok/B0W5KxyQTh3cW6fH3NLCTINSZm2HIU4
+ hKRNY8hSLPGTaMy/46z2tR3wtvJTOGh7lNxveks=
+X-Google-Smtp-Source: ABdhPJw/9kNIDpUpFT0h8fEWyNrFgldUoKCfMk4FYkSedoqHAYOn3snP9dcAwic4oAGbzyN1EzSjxThP7jAiINQzwDw=
+X-Received: by 2002:a05:6808:1486:b0:2f9:e821:51d9 with SMTP id
+ e6-20020a056808148600b002f9e82151d9mr7614844oiw.253.1650380798833; Tue, 19
+ Apr 2022 08:06:38 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220419141915.122157-1-christian.koenig@amd.com>
- <CADnq5_Oy2LZ_dbYVYsi+UrQNpCGx+LPWeUcT2_D=-rWgeptuXQ@mail.gmail.com>
- <a488a14f-1b92-357a-419f-54b02e8e369c@amd.com>
-In-Reply-To: <a488a14f-1b92-357a-419f-54b02e8e369c@amd.com>
+References: <alpine.DEB.2.22.394.2204161738390.3501@hadrien>
+In-Reply-To: <alpine.DEB.2.22.394.2204161738390.3501@hadrien>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 Apr 2022 11:01:21 -0400
-Message-ID: <CADnq5_O9YJ3swH6ckp_=5RX7sNiKfMdYKa5OtutVWYwPwYJn5Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: remove pointless ttm_eu usage from vkms
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Date: Tue, 19 Apr 2022 11:06:27 -0400
+Message-ID: <CADnq5_NgQ+wd174nD+fQi_uwaHhfbPbvpXd1pdnUYEOucmgPFg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/powerplay/vega10: fix minmax.cocci warnings
+To: Julia Lawall <julia.lawall@inria.fr>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -65,128 +63,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Ryan Taylor <Ryan.Taylor@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: kbuild-all@lists.01.org, kernel test robot <lkp@intel.com>,
+ David Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, Denis Efremov <efremov@linux.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 19, 2022 at 10:55 AM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+On Sat, Apr 16, 2022 at 11:41 AM Julia Lawall <julia.lawall@inria.fr> wrote=
+:
 >
-> Am 19.04.22 um 16:49 schrieb Alex Deucher:
-> > On Tue, Apr 19, 2022 at 10:19 AM Christian K=C3=B6nig
-> > <ckoenig.leichtzumerken@gmail.com> wrote:
-> >> We just need to reserve the BO here, no need for using ttm_eu.
-> > Can you include a more detailed description as to why it's not
-> > necessary?
+> From: kernel test robot <lkp@intel.com>
 >
-> Well the logic in ttm_eu is for reserving multiple buffers.
+> Use max to simplify the code.
+>
+> Generated by: scripts/coccinelle/misc/minmax.cocci
+>
+> CC: Denis Efremov <efremov@linux.com>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Julia Lawall <julia.lawall@inria.fr>
 
-With the commit message fixed up to include that detail, the series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+This introduces a type comparison warning:
+
+drivers/gpu/drm/amd/amdgpu/../pm/powerplay/hwmgr/vega10_hwmgr.c: In
+function =E2=80=98vega10_odn_initial_default_setting=E2=80=99:
+./include/linux/minmax.h:20:35: warning: comparison of distinct
+pointer types lacks a cast
+   20 |         (!!(sizeof((typeof(x) *)1 =3D=3D (typeof(y) *)1)))
+      |                                   ^~
+./include/linux/minmax.h:26:18: note: in expansion of macro =E2=80=98__type=
+check=E2=80=99
+   26 |                 (__typecheck(x, y) && __no_side_effects(x, y))
+      |                  ^~~~~~~~~~~
+./include/linux/minmax.h:36:31: note: in expansion of macro =E2=80=98__safe=
+_cmp=E2=80=99
+   36 |         __builtin_choose_expr(__safe_cmp(x, y), \
+      |                               ^~~~~~~~~~
+./include/linux/minmax.h:52:25: note: in expansion of macro =E2=80=98__care=
+ful_cmp=E2=80=99
+   52 | #define max(x, y)       __careful_cmp(x, y, >)
+      |                         ^~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../pm/powerplay/hwmgr/vega10_hwmgr.c:350:40:
+note: in expansion of macro =E2=80=98max=E2=80=99
+  350 |         od_table[2]->entries[i].vddc =3D max(odn_table->max_vddc,
+      |                                        ^~~
+
+Alex
 
 >
-> > Most of this code was copied from radeon originally.  Does
-> > radeon need a similar cleanup?
+> ---
 >
-> Most likely yes.
+> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.gi=
+t master
+> head:   028192fea1de083f4f12bfb1eb7c4d7beb5c8ecd
+> commit: 5f66f73b9ff4dcabd4e2405ba9c32e80e02f9408 coccinelle: misc: add mi=
+nmax script
+> :::::: branch date: 17 hours ago
+> :::::: commit date: 12 months ago
 >
-> Christian.
+> Please take the patch only if it's a positive warning. Thanks!
 >
-> >
-> > Alex
-> >
-> >> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 32 +++++++++++++---------=
---
-> >>   1 file changed, 17 insertions(+), 15 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_vkms.c
-> >> index 5224d9a39737..576849e95296 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> >> @@ -302,9 +302,6 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane=
- *plane,
-> >>          struct drm_gem_object *obj;
-> >>          struct amdgpu_device *adev;
-> >>          struct amdgpu_bo *rbo;
-> >> -       struct list_head list;
-> >> -       struct ttm_validate_buffer tv;
-> >> -       struct ww_acquire_ctx ticket;
-> >>          uint32_t domain;
-> >>          int r;
-> >>
-> >> @@ -316,18 +313,19 @@ static int amdgpu_vkms_prepare_fb(struct drm_pla=
-ne *plane,
-> >>          obj =3D new_state->fb->obj[0];
-> >>          rbo =3D gem_to_amdgpu_bo(obj);
-> >>          adev =3D amdgpu_ttm_adev(rbo->tbo.bdev);
-> >> -       INIT_LIST_HEAD(&list);
-> >>
-> >> -       tv.bo =3D &rbo->tbo;
-> >> -       tv.num_shared =3D 1;
-> >> -       list_add(&tv.head, &list);
-> >> -
-> >> -       r =3D ttm_eu_reserve_buffers(&ticket, &list, false, NULL);
-> >> +       r =3D amdgpu_bo_reserve(rbo, true);
-> >>          if (r) {
-> >>                  dev_err(adev->dev, "fail to reserve bo (%d)\n", r);
-> >>                  return r;
-> >>          }
-> >>
-> >> +       r =3D dma_resv_reserve_fences(rbo->tbo.base.resv, 1);
-> >> +       if (r) {
-> >> +               dev_err(adev->dev, "allocating fence slot failed (%d)\=
-n", r);
-> >> +               goto error_unlock;
-> >> +       }
-> >> +
-> >>          if (plane->type !=3D DRM_PLANE_TYPE_CURSOR)
-> >>                  domain =3D amdgpu_display_supported_domains(adev, rbo=
-->flags);
-> >>          else
-> >> @@ -337,25 +335,29 @@ static int amdgpu_vkms_prepare_fb(struct drm_pla=
-ne *plane,
-> >>          if (unlikely(r !=3D 0)) {
-> >>                  if (r !=3D -ERESTARTSYS)
-> >>                          DRM_ERROR("Failed to pin framebuffer with err=
-or %d\n", r);
-> >> -               ttm_eu_backoff_reservation(&ticket, &list);
-> >> -               return r;
-> >> +               goto error_unlock;
-> >>          }
-> >>
-> >>          r =3D amdgpu_ttm_alloc_gart(&rbo->tbo);
-> >>          if (unlikely(r !=3D 0)) {
-> >> -               amdgpu_bo_unpin(rbo);
-> >> -               ttm_eu_backoff_reservation(&ticket, &list);
-> >>                  DRM_ERROR("%p bind failed\n", rbo);
-> >> -               return r;
-> >> +               goto error_unpin;
-> >>          }
-> >>
-> >> -       ttm_eu_backoff_reservation(&ticket, &list);
-> >> +       amdgpu_bo_unreserve(rbo);
-> >>
-> >>          afb->address =3D amdgpu_bo_gpu_offset(rbo);
-> >>
-> >>          amdgpu_bo_ref(rbo);
-> >>
-> >>          return 0;
-> >> +
-> >> +error_unpin:
-> >> +       amdgpu_bo_unpin(rbo);
-> >> +
-> >> +error_unlock:
-> >> +       amdgpu_bo_unreserve(rbo);
-> >> +       return r;
-> >>   }
-> >>
-> >>   static void amdgpu_vkms_cleanup_fb(struct drm_plane *plane,
-> >> --
-> >> 2.25.1
-> >>
+>  drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c |   10 ++++------
+>  1 file changed, 4 insertions(+), 6 deletions(-)
 >
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> @@ -345,12 +345,10 @@ static int vega10_odn_initial_default_se
+>                 odn_table->min_vddc =3D dep_table[0]->entries[0].vddc;
+>
+>         i =3D od_table[2]->count - 1;
+> -       od_table[2]->entries[i].clk =3D hwmgr->platform_descriptor.overdr=
+iveLimit.memoryClock > od_table[2]->entries[i].clk ?
+> -                                       hwmgr->platform_descriptor.overdr=
+iveLimit.memoryClock :
+> -                                       od_table[2]->entries[i].clk;
+> -       od_table[2]->entries[i].vddc =3D odn_table->max_vddc > od_table[2=
+]->entries[i].vddc ?
+> -                                       odn_table->max_vddc :
+> -                                       od_table[2]->entries[i].vddc;
+> +       od_table[2]->entries[i].clk =3D max(hwmgr->platform_descriptor.ov=
+erdriveLimit.memoryClock,
+> +                                         od_table[2]->entries[i].clk);
+> +       od_table[2]->entries[i].vddc =3D max(odn_table->max_vddc,
+> +                                          od_table[2]->entries[i].vddc);
+>
+>         return 0;
+>  }
