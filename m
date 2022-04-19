@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D116EC433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 14:44:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2065C433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 14:49:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6558510EF79;
-	Tue, 19 Apr 2022 14:44:56 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29D2E10EEBD
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 14:44:55 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- r12-20020a056830418c00b006054e1142acso3635308otu.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 07:44:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B29710E789;
+	Tue, 19 Apr 2022 14:49:42 +0000 (UTC)
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [IPv6:2001:4860:4864:20::2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FE3F10E306
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 14:49:42 +0000 (UTC)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-e2afb80550so17765509fac.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 07:49:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9K65g1hRf6K53lqOqvVgP99E8FuHQSNA9FMLkby6pyw=;
- b=l4kuThPiXFPCLa5zusMnTir2NCm+LICvmHe0u4k280aitDwzJkm9kLElUDkg47Ctgl
- NocxE8+pUS0n7fbznLlxnCteC6zJjKIlAzPtvXN5yT5ZxYkQS6Vp3jpAHwNk1pLG1bHi
- ifGH16qckWFRgbUTQpxXTkfZru6YK/cc0Qcvr1oHwF9WL29UovvdVJVzu32lOsRntBNX
- U/6DfLBAQcMPMfRnFoQcw2A/z82oSwbBv7ovRP8XLNWdCuKoN4r8RPly2fqqj/dmlN6B
- rlDGU9L39nzkXHJwOiAJDQKprOn7SURkrHdA0tHB0Ze4Bx+CzNCcaG2wwbfScJNb5mX0
- 9KuQ==
+ :cc:content-transfer-encoding;
+ bh=UCQcrhnSU5LEstj8KBP5msxef1D1KyBqpWIXVkDLWhk=;
+ b=CubJVl5MJdSL1so1ZayAwbcWccc8/lSj/ZovdhISlpq7cNdMrMIbL66tNA6pJJ2WMR
+ qfksJ07A29ZAQjV6TzL6K4CkVIj3+IBRJIuEJirWz0wCCDLG7CZddRU/bwxNjJH14TNy
+ 1y1imPpkxwXO89vpEdQ7z1n53HhVyTJtUyaS/NhxbTde9I+GEtiTxhYWCIH9xCwIApCQ
+ cDGT0RyCJI1gECccfgjUj7yoxnVmEIf8vqrTpqCFrpyby7e2Ny5XB5zljAgEM9zQobkI
+ mt8o4TtnhdLZGWL3zNX9xPO9reyG6BZzv/tslzUjcaVjV3zUO+rjRA4FWw+apkZUdbI0
+ 5asQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9K65g1hRf6K53lqOqvVgP99E8FuHQSNA9FMLkby6pyw=;
- b=0SAfEnwxjIezxliEhhDTtdNgBYVSAez0NokOPVVXtvbyh/i/UU48IkVDQND+x1/Zqk
- z12QF6GyOqzg5nsNYDLmIWjoatIJdm+f5txIvWOaU5o5e7Zui4coi5He0IHQWg4mor/Y
- yOZIK3JxEAbR5rZ506/SMC+FRuZ1WP4dl5M23o42lyBVE0fXgmeCf6r8/e/tEkKDrHgS
- ftPWiw98c/xVacVHYofCbexP87YBHBglRKx77oQqyaKswq5uBc7Ofmr+3ACtZxmc1R1x
- McVhFsgJUSG92EcER1YOoozmjm4Z7Lf5P7K8p5Qjbx5D+ndMr4/H0hDAIkEl4+ngP4lO
- 46pw==
-X-Gm-Message-State: AOAM533VmYDYkDjz2LhgfLSfYppxGK6h9hVCG+9OKXz9NxH5//VQmtmH
- T5vaQB4mMtGVV5BXVxMOSbXSRUBGyFlhenwpsCA=
-X-Google-Smtp-Source: ABdhPJxf9+e80dA25ioKF7cuP2djAsvLngyNI6JHMufyNJtgnd2BCNjgbVMKnCpAU8wSeAM08+QbbnAR4d71J/2UMJw=
-X-Received: by 2002:a9d:7a8f:0:b0:604:25d0:f231 with SMTP id
- l15-20020a9d7a8f000000b0060425d0f231mr6108928otn.200.1650379494365; Tue, 19
- Apr 2022 07:44:54 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=UCQcrhnSU5LEstj8KBP5msxef1D1KyBqpWIXVkDLWhk=;
+ b=30CLYTS31bBlaT67gGw/FNxieSbQRDfJoLnkysqkTn/AL/raWvk1ZEykLrAC1m1f6J
+ aJfJG8ovI5UxY2AEqUKvT+eD19wbJCZ+fOyX34Mr+JNmR0cbXMmg6mAm57GS1d0Ij8fb
+ 8zW34Y0DFf4DsXy8VhFFJMSs4p7PMvyE+vgNsCoNMhTRKnPMFstZ0DugWufWDmJ8Q97O
+ q+gJdz3yvjJJQZdb/2AcKQAhsQVerA+r20YnXZU/MigtoQ/zCgw/4Y53DRXOWrGuduH0
+ 6sbzZ71e8wV0JV8t4MIqlCd3k8+6WQKLGbsWQn+vBR8fxxuaD+xMnEtsUZj2fUNDm7+9
+ t/eg==
+X-Gm-Message-State: AOAM531gyAAJrAWKAmbK5Ek+rEJ8SFZrqN7YVXBARjrfpTRFvhhHLW5D
+ Zw3JvwhAuJxnHjwoMKp0YJ5e6QoVY0eAWUOmUwtxlbXm
+X-Google-Smtp-Source: ABdhPJzjqf+aEmmAixBT4Hw+rbgPjqIjz7FWsPWWScJKt7IbCaxeiwT99ZSzo7Lg/dAVhq32oG8WSW77fHOeWB8qVlY=
+X-Received: by 2002:a05:6870:311d:b0:de:9b6c:362b with SMTP id
+ v29-20020a056870311d00b000de9b6c362bmr8057310oaa.200.1650379781425; Tue, 19
+ Apr 2022 07:49:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220413201522.2084041-1-alexander.deucher@amd.com>
- <6729c3d4-c3e9-d3d8-d23a-3892384794f6@molgen.mpg.de>
-In-Reply-To: <6729c3d4-c3e9-d3d8-d23a-3892384794f6@molgen.mpg.de>
+References: <20220419141915.122157-1-christian.koenig@amd.com>
+In-Reply-To: <20220419141915.122157-1-christian.koenig@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 Apr 2022 10:44:43 -0400
-Message-ID: <CADnq5_MnfM7h5KUnedgrYiYwu5O29UeJHGnGKuaQc9dHQv7MFQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: don't runtime suspend if there are displays
- attached (v2)
-To: Paul Menzel <pmenzel@molgen.mpg.de>
+Date: Tue, 19 Apr 2022 10:49:30 -0400
+Message-ID: <CADnq5_Oy2LZ_dbYVYsi+UrQNpCGx+LPWeUcT2_D=-rWgeptuXQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: remove pointless ttm_eu usage from vkms
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,205 +64,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
+Cc: Ryan Taylor <Ryan.Taylor@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Michele Ballabio <ballabio.m@gmail.com>
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 19, 2022 at 10:04 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
+On Tue, Apr 19, 2022 at 10:19 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> Dear Alex,
->
->
-> Thank you for the patch.
->
-> Am 13.04.22 um 22:15 schrieb Alex Deucher:
-> > We normally runtime suspend when there are displays attached if they
-> > are in the DPMS off state, however, if something wakes the GPU
-> > we send a hotplug event on resume (in case any displays were connected
-> > while the GPU was in suspend) which can cause userspace to light
-> > up the displays again soon after they were turned off.
-> >
-> > Prior to
-> > commit 087451f372bf76 ("drm/amdgpu: use generic fb helpers instead of setting up AMD own's."),
-> > the driver took a runtime pm reference when the fbdev emulation was
-> > enabled because we didn't implement proper shadowing support for
-> > vram access when the device was off so the device never runtime
-> > suspended when there was a console bound.  Once that commit landed,
-> > we now utilize the core fb helper implementation which properly
-> > handles the emulation, so runtime pm now suspends in cases where it did
-> > not before.  Ultimately, we need to sort out why runtime suspend in not
-> > working in this case for some users, but this should restore similar
-> > behavior to before.
-> >
-> > v2: move check into runtime_suspend
-> >
-> > Fixes: 087451f372bf76 ("drm/amdgpu: use generic fb helpers instead of setting up AMD own's.")
-> > Tested-by: Michele Ballabio <ballabio.m@gmail.com>
->
-> On what system and device?
+> We just need to reserve the BO here, no need for using ttm_eu.
 
-It was a polaris dGPU, but it has been seen on other GPUs as well.
-It's not device specific.  The issue is hard to reproduce at least in
-our testing unfortunately.
-
->
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 107 ++++++++++++++++--------
-> >   1 file changed, 72 insertions(+), 35 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > index 4efaa183abcd..97a1aa02d76e 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > @@ -2395,6 +2395,71 @@ static int amdgpu_pmops_restore(struct device *dev)
-> >       return amdgpu_device_resume(drm_dev, true);
-> >   }
-> >
-> > +static int amdgpu_runtime_idle_check_display(struct device *dev)
-> > +{
-> > +     struct pci_dev *pdev = to_pci_dev(dev);
-> > +     struct drm_device *drm_dev = pci_get_drvdata(pdev);
-> > +     struct amdgpu_device *adev = drm_to_adev(drm_dev);
-> > +
-> > +     if (adev->mode_info.num_crtc) {
-> > +             struct drm_connector *list_connector;
-> > +             struct drm_connector_list_iter iter;
-> > +             int ret = 0;
-> > +
-> > +             /* XXX: Return busy if any displays are connected to avoid
-> > +              * possible display wake ups after runtime resume due to
->
-> Nit: wakeups
-
-Ack.
-
->
-> > +              * hotplug events in case any displays were connected while
-> > +              * the GPU was in suspend.  Remove this once that is fixed.
-> > +              */
->
-> Do you have an (internal) issue to track this?
-
-Yes, we are tracking it.
+Can you include a more detailed description as to why it's not
+necessary?  Most of this code was copied from radeon originally.  Does
+radeon need a similar cleanup?
 
 Alex
 
 >
-> > +             mutex_lock(&drm_dev->mode_config.mutex);
-> > +             drm_connector_list_iter_begin(drm_dev, &iter);
-> > +             drm_for_each_connector_iter(list_connector, &iter) {
-> > +                     if (list_connector->status == connector_status_connected) {
-> > +                             ret = -EBUSY;
-> > +                             break;
-> > +                     }
-> > +             }
-> > +             drm_connector_list_iter_end(&iter);
-> > +             mutex_unlock(&drm_dev->mode_config.mutex);
-> > +
-> > +             if (ret)
-> > +                     return ret;
-> > +
-> > +             if (amdgpu_device_has_dc_support(adev)) {
-> > +                     struct drm_crtc *crtc;
-> > +
-> > +                     drm_for_each_crtc(crtc, drm_dev) {
-> > +                             drm_modeset_lock(&crtc->mutex, NULL);
-> > +                             if (crtc->state->active)
-> > +                                     ret = -EBUSY;
-> > +                             drm_modeset_unlock(&crtc->mutex);
-> > +                             if (ret < 0)
-> > +                                     break;
-> > +                     }
-> > +             } else {
-> > +                     mutex_lock(&drm_dev->mode_config.mutex);
-> > +                     drm_modeset_lock(&drm_dev->mode_config.connection_mutex, NULL);
-> > +
-> > +                     drm_connector_list_iter_begin(drm_dev, &iter);
-> > +                     drm_for_each_connector_iter(list_connector, &iter) {
-> > +                             if (list_connector->dpms ==  DRM_MODE_DPMS_ON) {
-> > +                                     ret = -EBUSY;
-> > +                                     break;
-> > +                             }
-> > +                     }
-> > +
-> > +                     drm_connector_list_iter_end(&iter);
-> > +
-> > +                     drm_modeset_unlock(&drm_dev->mode_config.connection_mutex);
-> > +                     mutex_unlock(&drm_dev->mode_config.mutex);
-> > +             }
-> > +             if (ret)
-> > +                     return ret;
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> >   static int amdgpu_pmops_runtime_suspend(struct device *dev)
-> >   {
-> >       struct pci_dev *pdev = to_pci_dev(dev);
-> > @@ -2407,6 +2472,10 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
-> >               return -EBUSY;
-> >       }
-> >
-> > +     ret = amdgpu_runtime_idle_check_display(dev);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> >       /* wait for all rings to drain before suspending */
-> >       for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
-> >               struct amdgpu_ring *ring = adev->rings[i];
-> > @@ -2516,41 +2585,9 @@ static int amdgpu_pmops_runtime_idle(struct device *dev)
-> >               return -EBUSY;
-> >       }
-> >
-> > -     if (amdgpu_device_has_dc_support(adev)) {
-> > -             struct drm_crtc *crtc;
-> > -
-> > -             drm_for_each_crtc(crtc, drm_dev) {
-> > -                     drm_modeset_lock(&crtc->mutex, NULL);
-> > -                     if (crtc->state->active)
-> > -                             ret = -EBUSY;
-> > -                     drm_modeset_unlock(&crtc->mutex);
-> > -                     if (ret < 0)
-> > -                             break;
-> > -             }
-> > -
-> > -     } else {
-> > -             struct drm_connector *list_connector;
-> > -             struct drm_connector_list_iter iter;
-> > -
-> > -             mutex_lock(&drm_dev->mode_config.mutex);
-> > -             drm_modeset_lock(&drm_dev->mode_config.connection_mutex, NULL);
-> > -
-> > -             drm_connector_list_iter_begin(drm_dev, &iter);
-> > -             drm_for_each_connector_iter(list_connector, &iter) {
-> > -                     if (list_connector->dpms ==  DRM_MODE_DPMS_ON) {
-> > -                             ret = -EBUSY;
-> > -                             break;
-> > -                     }
-> > -             }
-> > -
-> > -             drm_connector_list_iter_end(&iter);
-> > -
-> > -             drm_modeset_unlock(&drm_dev->mode_config.connection_mutex);
-> > -             mutex_unlock(&drm_dev->mode_config.mutex);
-> > -     }
-> > -
-> > -     if (ret == -EBUSY)
-> > -             DRM_DEBUG_DRIVER("failing to power off - crtc active\n");
-> > +     ret = amdgpu_runtime_idle_check_display(dev);
-> > +     if (ret)
-> > +             return ret;
-> >
-> >       pm_runtime_mark_last_busy(dev);
-> >       pm_runtime_autosuspend(dev);
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 32 +++++++++++++-----------
+>  1 file changed, 17 insertions(+), 15 deletions(-)
 >
-> The overall change looks good.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vkms.c
+> index 5224d9a39737..576849e95296 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> @@ -302,9 +302,6 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane *p=
+lane,
+>         struct drm_gem_object *obj;
+>         struct amdgpu_device *adev;
+>         struct amdgpu_bo *rbo;
+> -       struct list_head list;
+> -       struct ttm_validate_buffer tv;
+> -       struct ww_acquire_ctx ticket;
+>         uint32_t domain;
+>         int r;
 >
+> @@ -316,18 +313,19 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane =
+*plane,
+>         obj =3D new_state->fb->obj[0];
+>         rbo =3D gem_to_amdgpu_bo(obj);
+>         adev =3D amdgpu_ttm_adev(rbo->tbo.bdev);
+> -       INIT_LIST_HEAD(&list);
 >
-> Kind regards,
+> -       tv.bo =3D &rbo->tbo;
+> -       tv.num_shared =3D 1;
+> -       list_add(&tv.head, &list);
+> -
+> -       r =3D ttm_eu_reserve_buffers(&ticket, &list, false, NULL);
+> +       r =3D amdgpu_bo_reserve(rbo, true);
+>         if (r) {
+>                 dev_err(adev->dev, "fail to reserve bo (%d)\n", r);
+>                 return r;
+>         }
 >
-> Paul
+> +       r =3D dma_resv_reserve_fences(rbo->tbo.base.resv, 1);
+> +       if (r) {
+> +               dev_err(adev->dev, "allocating fence slot failed (%d)\n",=
+ r);
+> +               goto error_unlock;
+> +       }
+> +
+>         if (plane->type !=3D DRM_PLANE_TYPE_CURSOR)
+>                 domain =3D amdgpu_display_supported_domains(adev, rbo->fl=
+ags);
+>         else
+> @@ -337,25 +335,29 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane =
+*plane,
+>         if (unlikely(r !=3D 0)) {
+>                 if (r !=3D -ERESTARTSYS)
+>                         DRM_ERROR("Failed to pin framebuffer with error %=
+d\n", r);
+> -               ttm_eu_backoff_reservation(&ticket, &list);
+> -               return r;
+> +               goto error_unlock;
+>         }
+>
+>         r =3D amdgpu_ttm_alloc_gart(&rbo->tbo);
+>         if (unlikely(r !=3D 0)) {
+> -               amdgpu_bo_unpin(rbo);
+> -               ttm_eu_backoff_reservation(&ticket, &list);
+>                 DRM_ERROR("%p bind failed\n", rbo);
+> -               return r;
+> +               goto error_unpin;
+>         }
+>
+> -       ttm_eu_backoff_reservation(&ticket, &list);
+> +       amdgpu_bo_unreserve(rbo);
+>
+>         afb->address =3D amdgpu_bo_gpu_offset(rbo);
+>
+>         amdgpu_bo_ref(rbo);
+>
+>         return 0;
+> +
+> +error_unpin:
+> +       amdgpu_bo_unpin(rbo);
+> +
+> +error_unlock:
+> +       amdgpu_bo_unreserve(rbo);
+> +       return r;
+>  }
+>
+>  static void amdgpu_vkms_cleanup_fb(struct drm_plane *plane,
+> --
+> 2.25.1
+>
