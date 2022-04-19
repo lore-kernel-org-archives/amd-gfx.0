@@ -4,54 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3034C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 14:59:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F5EFC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 15:01:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8770710EF18;
-	Tue, 19 Apr 2022 14:59:21 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA65A10EED2;
- Tue, 19 Apr 2022 14:59:20 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-e2afb80550so17798428fac.1; 
- Tue, 19 Apr 2022 07:59:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FE6E10EF02;
+	Tue, 19 Apr 2022 15:01:34 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77BB110EEAE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 15:01:33 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id s16so6397499oie.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 08:01:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=txu5qF77kz021syUspWnSzVq95Qu7gMs2hI1GWgdN0g=;
- b=BDcVCy0mQEGbuXPpCkJme82wpCfSVxCgreSd1AQrcG8cDczRdYp6fo63Zl1UesunPw
- U+7T3oBEdXRDpEg2KWIKa7WShBAA+F6PTR1cIET+TL7hiJpdY5dcimQKuRMq/tT/LXan
- JqOlL1xYoi4+pfxn//1yfmGhfJKw41MR5D28CjSMGWBLL6EcSv7cebg4hlEdqKKDrDKl
- lHBIoE3gp2GlIZeRx8yEJThzNHeVJblMX9/2Dmo0yQ+3xRfcDzAErd6DCNTAISNfsAFw
- II1R2VA/PxqGjA52stjrt2fjgMj1ZAZmf2WHvwt8D3qOCAIPe6DyOldDy9ZLlQGvH95K
- /5xQ==
+ :cc:content-transfer-encoding;
+ bh=ZMTfofCe4LNBjLRYE1jbQ9Sdtnu5GEOaVtNyBNd7MF0=;
+ b=PkqHptqdlpH5hzHMzB5o+IBahzBxaOr+XxuTTR05czLUA4LkW4Ah5KfVK4vHAQTOB7
+ s1JxMkpkFHqz/PyD6YAcF9JrvrP0FxQ4VDFxiiC20RFS3sfWhnwMZ/EUx9sXBSAdfPPt
+ 0PcC9tT55J325e+A2ePq7IRdIHojzhvClVjuFXIsmz5y6skmailda46WyhNahvtkzCmV
+ teWYZoCy6cohhw4lnYwNiogKK130cJaWp1Vzz2ZHh8psPYbQmUsS+DOAWlkEPQ3zPZgF
+ A1zTXEEvO8eJdEGw4whfopvVbBQ0L/wGhVODF7Ns3VUG7pB37FQdU7R4PsOBw4DdhN6L
+ 9sXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=txu5qF77kz021syUspWnSzVq95Qu7gMs2hI1GWgdN0g=;
- b=kolq5eAbxDxgUE8OU622KPqjHK8uMhLalQnvxsNFgIDV9FSapnUNyIZIgGVA/0MLMZ
- CwGZtCBIKs8aCCkEDo9ptjJ3MEta5AcHeWEjEeXmQunQzKqvg3T2FGmS6r6mAtRn41O9
- 4UOAHdDIHOU/oDRBMiuU7Eb1haFXlRrwgVK9LBwzrINxDWmUSJhq0irVrJORcN0MTX8i
- HaYA4DEQ9UuIlrpEKmmM+iH53rJ/UioorVMcwukewEKFcRf5nQtHwMj7WXhug0ffxBPs
- 4RKQrphlogVIDVtcF9Ra3B8FeCPgG3afY5Mh2oVBzzDvt5Md9rz7TlUKekWlM4VgFSWE
- 0/1Q==
-X-Gm-Message-State: AOAM531SX6UvnsBQiv9yZFcC2i5ivRQdnQzB43Vrm01PYJQNfsMQsKgZ
- cmyW0pAkvhW7VfGEE6Y/ZmQ2T6BMPsUx4AfQZA8=
-X-Google-Smtp-Source: ABdhPJwkeTzLw742f1pLT1h5HcgounlwYPVNsuzflB54s8eFTAPlS5s6EXzaHdH41CdsZRH5FTve/PqKvS145BOY6YE=
-X-Received: by 2002:a05:6870:311d:b0:de:9b6c:362b with SMTP id
- v29-20020a056870311d00b000de9b6c362bmr8077760oaa.200.1650380360073; Tue, 19
- Apr 2022 07:59:20 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=ZMTfofCe4LNBjLRYE1jbQ9Sdtnu5GEOaVtNyBNd7MF0=;
+ b=Be4AIeVva+kRqe2uGumHmh4A0sL6lftDSSh3+ZAUoUcGVo4PepmVXUqbiBVG7By551
+ XEU703QaUIKHEFkM/jJv9kzBXAAKwO68JXulujS7ue29aHlM6SpJXOXUXJlpq03dz1QN
+ DEyey0wvl+imR1TDO4S6kBbN0ChQ1KH4tloGfALqHxRRi7Og5axYmGUBHHhIa5MqQx6a
+ RxU5QzLcZhfcDqqZQfkZ22EpbAaZMMRhOMSvdyMVC0J+MzjAHgq68Hf28SszT+mPBFqE
+ z2Ff5qlPBcaeK7yejOYRIIMIx2UB3wydNvzCL7v1xFULGqv/MRmNbDCxICt3JJ4OsJb2
+ Ktqw==
+X-Gm-Message-State: AOAM532jed+HpjkPlSzBDxy6nBsOAfbL/yAb83Pe214ogcaZQJkFn4LM
+ IcGjI7Y2lt+nX5jjJ7hugDWNfM8d+flw1IJW2y8=
+X-Google-Smtp-Source: ABdhPJzaKEIbOIpcvDjpOFVKuYJTb5aNx0ss3/+tWUnP5t4wFkr2fMnZ68L9z20SKlmg7wE5KWsZVhkg64A6cYCJEqg=
+X-Received: by 2002:aca:3d88:0:b0:321:141:ce0b with SMTP id
+ k130-20020aca3d88000000b003210141ce0bmr9026626oia.200.1650380492766; Tue, 19
+ Apr 2022 08:01:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220415195027.305019-1-tales.aparecida@gmail.com>
- <20220415195027.305019-2-tales.aparecida@gmail.com>
-In-Reply-To: <20220415195027.305019-2-tales.aparecida@gmail.com>
+References: <20220419141915.122157-1-christian.koenig@amd.com>
+ <CADnq5_Oy2LZ_dbYVYsi+UrQNpCGx+LPWeUcT2_D=-rWgeptuXQ@mail.gmail.com>
+ <a488a14f-1b92-357a-419f-54b02e8e369c@amd.com>
+In-Reply-To: <a488a14f-1b92-357a-419f-54b02e8e369c@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 Apr 2022 10:59:09 -0400
-Message-ID: <CADnq5_O9rV+42=7Lyy7dAwVZkBoxJgmwn0oavzN1pVBmKFLfcA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] Documentation/gpu: Add entries to amdgpu glossary
-To: Tales Lelo da Aparecida <tales.aparecida@gmail.com>
+Date: Tue, 19 Apr 2022 11:01:21 -0400
+Message-ID: <CADnq5_O9YJ3swH6ckp_=5RX7sNiKfMdYKa5OtutVWYwPwYJn5Q@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: remove pointless ttm_eu usage from vkms
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,71 +65,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
- David Airlie <airlied@linux.ie>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, andrealmeid@riseup.net,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Ryan Taylor <Ryan.Taylor@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series with minor fix to capitalize the U in Compute Unit.  Thanks!
+On Tue, Apr 19, 2022 at 10:55 AM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 19.04.22 um 16:49 schrieb Alex Deucher:
+> > On Tue, Apr 19, 2022 at 10:19 AM Christian K=C3=B6nig
+> > <ckoenig.leichtzumerken@gmail.com> wrote:
+> >> We just need to reserve the BO here, no need for using ttm_eu.
+> > Can you include a more detailed description as to why it's not
+> > necessary?
+>
+> Well the logic in ttm_eu is for reserving multiple buffers.
 
-Alex
+With the commit message fixed up to include that detail, the series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Fri, Apr 15, 2022 at 3:52 PM Tales Lelo da Aparecida
-<tales.aparecida@gmail.com> wrote:
 >
-> Add missing acronyms to the amdgppu glossary.
+> > Most of this code was copied from radeon originally.  Does
+> > radeon need a similar cleanup?
 >
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/1939#note_1309737
-> Signed-off-by: Tales Lelo da Aparecida <tales.aparecida@gmail.com>
-> ---
->  Documentation/gpu/amdgpu/amdgpu-glossary.rst | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
+> Most likely yes.
 >
-> diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> index 859dcec6c6f9..48829d097f40 100644
-> --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-> @@ -8,12 +8,19 @@ we have a dedicated glossary for Display Core at
+> Christian.
 >
->  .. glossary::
->
-> +    active_cu_number
-> +      The number of CUs that are active on the system.  The number of active
-> +      CUs may be less than SE * SH * CU depending on the board configuration.
-> +
->      CP
->        Command Processor
->
->      CPLIB
->        Content Protection Library
->
-> +    CU
-> +      Compute unit
-> +
->      DFS
->        Digital Frequency Synthesizer
->
-> @@ -74,6 +81,12 @@ we have a dedicated glossary for Display Core at
->      SDMA
->        System DMA
->
-> +    SE
-> +      Shader Engine
-> +
-> +    SH
-> +      SHader array
-> +
->      SMU
->        System Management Unit
->
-> --
-> 2.35.1
+> >
+> > Alex
+> >
+> >> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >> ---
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 32 +++++++++++++---------=
+--
+> >>   1 file changed, 17 insertions(+), 15 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_vkms.c
+> >> index 5224d9a39737..576849e95296 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> >> @@ -302,9 +302,6 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane=
+ *plane,
+> >>          struct drm_gem_object *obj;
+> >>          struct amdgpu_device *adev;
+> >>          struct amdgpu_bo *rbo;
+> >> -       struct list_head list;
+> >> -       struct ttm_validate_buffer tv;
+> >> -       struct ww_acquire_ctx ticket;
+> >>          uint32_t domain;
+> >>          int r;
+> >>
+> >> @@ -316,18 +313,19 @@ static int amdgpu_vkms_prepare_fb(struct drm_pla=
+ne *plane,
+> >>          obj =3D new_state->fb->obj[0];
+> >>          rbo =3D gem_to_amdgpu_bo(obj);
+> >>          adev =3D amdgpu_ttm_adev(rbo->tbo.bdev);
+> >> -       INIT_LIST_HEAD(&list);
+> >>
+> >> -       tv.bo =3D &rbo->tbo;
+> >> -       tv.num_shared =3D 1;
+> >> -       list_add(&tv.head, &list);
+> >> -
+> >> -       r =3D ttm_eu_reserve_buffers(&ticket, &list, false, NULL);
+> >> +       r =3D amdgpu_bo_reserve(rbo, true);
+> >>          if (r) {
+> >>                  dev_err(adev->dev, "fail to reserve bo (%d)\n", r);
+> >>                  return r;
+> >>          }
+> >>
+> >> +       r =3D dma_resv_reserve_fences(rbo->tbo.base.resv, 1);
+> >> +       if (r) {
+> >> +               dev_err(adev->dev, "allocating fence slot failed (%d)\=
+n", r);
+> >> +               goto error_unlock;
+> >> +       }
+> >> +
+> >>          if (plane->type !=3D DRM_PLANE_TYPE_CURSOR)
+> >>                  domain =3D amdgpu_display_supported_domains(adev, rbo=
+->flags);
+> >>          else
+> >> @@ -337,25 +335,29 @@ static int amdgpu_vkms_prepare_fb(struct drm_pla=
+ne *plane,
+> >>          if (unlikely(r !=3D 0)) {
+> >>                  if (r !=3D -ERESTARTSYS)
+> >>                          DRM_ERROR("Failed to pin framebuffer with err=
+or %d\n", r);
+> >> -               ttm_eu_backoff_reservation(&ticket, &list);
+> >> -               return r;
+> >> +               goto error_unlock;
+> >>          }
+> >>
+> >>          r =3D amdgpu_ttm_alloc_gart(&rbo->tbo);
+> >>          if (unlikely(r !=3D 0)) {
+> >> -               amdgpu_bo_unpin(rbo);
+> >> -               ttm_eu_backoff_reservation(&ticket, &list);
+> >>                  DRM_ERROR("%p bind failed\n", rbo);
+> >> -               return r;
+> >> +               goto error_unpin;
+> >>          }
+> >>
+> >> -       ttm_eu_backoff_reservation(&ticket, &list);
+> >> +       amdgpu_bo_unreserve(rbo);
+> >>
+> >>          afb->address =3D amdgpu_bo_gpu_offset(rbo);
+> >>
+> >>          amdgpu_bo_ref(rbo);
+> >>
+> >>          return 0;
+> >> +
+> >> +error_unpin:
+> >> +       amdgpu_bo_unpin(rbo);
+> >> +
+> >> +error_unlock:
+> >> +       amdgpu_bo_unreserve(rbo);
+> >> +       return r;
+> >>   }
+> >>
+> >>   static void amdgpu_vkms_cleanup_fb(struct drm_plane *plane,
+> >> --
+> >> 2.25.1
+> >>
 >
