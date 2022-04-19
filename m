@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E5FDC43219
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 14:19:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5EE8C4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 14:19:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFB5D10E071;
-	Tue, 19 Apr 2022 14:19:19 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7664710E071
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 14:19:18 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- c190-20020a1c35c7000000b0038e37907b5bso1696432wma.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 07:19:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52E8810EEA4;
+	Tue, 19 Apr 2022 14:19:20 +0000 (UTC)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EF0510E071
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 14:19:19 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id k22so22653119wrd.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 07:19:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=F+pH2zT7W28iAkuqTPBk0WARhplrWx9IjhlHBs1/6Xw=;
- b=lHE2apoOthQ8W9CSE8lEHqH5xQhZKMb+Jy/EwZe0VNrhhc2pTBCpY84dvhKQzfu02P
- /WB72LflV7X6nglgG/EvsaZOWcCp7t/SY6uKyTa7FVzUrnZbMTC2xAgoHqsD6KEAoFN6
- iRvgagRcNVRdVqzvjkcEcPNoUm7BCzUmxGJHTRt59CVYb+oaxOV0Vj7Q/wCDHy9xHF7T
- /BNThcGsvY3nHgLN/MbeB+bbXDBcZLNnRyfTNtm73rI9+8LVvUta8DVVLv+udzp74zi+
- rgK5ZQlIC2jCQ66GkSnVZwlDGvxSSXmK2KLJNZFQwiJE4ev6VzF5n6/HHwg0pnLdJ4Eg
- KZjw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=u1mrF0K5dd6Mm66iwdOr8SmZjFp46VqRoyOurNzP+aA=;
+ b=QGby3jBfaMFpqV1k/6Zxyo52s43xnuRql4EwRTufJ87lFHs1gNodkmYqAG91xLQ8EH
+ IjctD3HwmNN3r7LmCGzgJsLRE7ERPyEHsWG+8qtKwxhW4hUD8lj/Pv7MNeKeAtWivGkV
+ GHmmHb49bdba5wAK+8EjOJFXCVa+l0wIu06D0ghR/x8WCmRLkMGsLCYQnTAedVr9Ba/3
+ Hww7X1mZJMBMQkb7uAg4fgaOMM9bXjH/o9JeuaDWplsLTeB64Z4QQy9V/C0jYcJ2qUZ4
+ Esv10oa64Ic81eMd5m6bDPsILSb+hSSCE2zXTIfTUgmzpUsnTonJYJWaAtLPtF33OTxY
+ 8A0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=F+pH2zT7W28iAkuqTPBk0WARhplrWx9IjhlHBs1/6Xw=;
- b=FAU4kuoTLTeqlh4eROkqtJSANPCr1FNaQylfBnsye4194KdetxCFj2ienO49LBnhdM
- 2WPCd2kOpAB/K37zQxIyVaEzyvHzpJ1K7FCOJtGczmhYUSJNpFVPHQJWEVfPS76eUN1f
- yMQLXTlAZqgsU1SbpHwRbyIfT5dTn90mVTUYIEDjERi403ehPl3irdP4/mM/5k7VE0cb
- EyN3TwPb16HQoZCmBfC7ZzZQ0LuVoiWyx3AN8bVVgMz6oyExUS67pLgJo4v+nbmlK8kS
- RnNMwxsqRD9cWQydOIw2Iz6UDHablcBIC63Ma0RAix6KrB92dCDtOPvi+o8MQ3Jfc356
- 65Nw==
-X-Gm-Message-State: AOAM530yMxhbdSprP2Xf3Qjzwc2wIUMIZ3bmdN3p7eyOvvCYASJrqO/y
- nNCzMpNzy+OoV+OT7KX0dJA=
-X-Google-Smtp-Source: ABdhPJxpIReYSiSTIiGXLg4cyg/SfVFmpuCJmcTb9gxvKYv4lumpX2sT+FVNGMmeamAoxeXjT8hq1g==
-X-Received: by 2002:a7b:cd97:0:b0:38f:f785:ff8 with SMTP id
- y23-20020a7bcd97000000b0038ff7850ff8mr19796000wmj.44.1650377956945; 
- Tue, 19 Apr 2022 07:19:16 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=u1mrF0K5dd6Mm66iwdOr8SmZjFp46VqRoyOurNzP+aA=;
+ b=YolzWSLKLFQzN4L/SIOnPqnsc8AfI0S3tBnslQKBAPtj4HpGBogVjC512FRBjMP6v0
+ h7gBRwXpSNVqUnwaANIYKet/F9eZ6HlUwh0wjWPD5mOQ8NhYKpV9UTcglyGoaHkrW21n
+ LDnGA6MxUfhmapkzM3MvBiLjvvKeamLap+rlsyhlTXZTNKBBDWUlIHSTLqrPCcgkGz4R
+ l0Y+pWAAQJxKAiw5YjYNPQ/ZZao9JsSV3w9BrV4lR4FjbvCT+gO+G9fPqM+TB5B8zLQy
+ fJIW6BP85Gam6eVNgZnkehlBV3nAsUpdFmnlXLFWbmjPF+9xm1Zrdv81/31xEkZTk3ub
+ dWAQ==
+X-Gm-Message-State: AOAM533rLOEeEIiUKcgbIKhhdJrmV+Fk4TWH8/G34x80bg1jIJIEGO4D
+ Zx5wz5gFvNPW+1yd6FW9GSQ=
+X-Google-Smtp-Source: ABdhPJxepslenEFS68t0/MVre/2u+xb/XoJpfje81hg6C6aFU3YAiUDV9IcMoCxyY4v2aH3e2CdD6g==
+X-Received: by 2002:a5d:60cb:0:b0:20a:a7fd:3a81 with SMTP id
+ x11-20020a5d60cb000000b0020aa7fd3a81mr2131538wrt.681.1650377957959; 
+ Tue, 19 Apr 2022 07:19:17 -0700 (PDT)
 Received: from able.fritz.box (p57b0b9e1.dip0.t-ipconnect.de. [87.176.185.225])
  by smtp.gmail.com with ESMTPSA id
- c18-20020a7bc852000000b0038ebf5f191esm22647443wml.45.2022.04.19.07.19.15
+ c18-20020a7bc852000000b0038ebf5f191esm22647443wml.45.2022.04.19.07.19.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Apr 2022 07:19:16 -0700 (PDT)
+ Tue, 19 Apr 2022 07:19:17 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: Ryan.Taylor@amd.com,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amdgpu: remove pointless ttm_eu usage from vkms
-Date: Tue, 19 Apr 2022 16:19:14 +0200
-Message-Id: <20220419141915.122157-1-christian.koenig@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: remove pointless ttm_eu usage from DM
+Date: Tue, 19 Apr 2022 16:19:15 +0200
+Message-Id: <20220419141915.122157-2-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220419141915.122157-1-christian.koenig@amd.com>
+References: <20220419141915.122157-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -79,24 +80,24 @@ We just need to reserve the BO here, no need for using ttm_eu.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 32 +++++++++++++-----------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 32 ++++++++++---------
  1 file changed, 17 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index 5224d9a39737..576849e95296 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -302,9 +302,6 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane *plane,
- 	struct drm_gem_object *obj;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 73423b805b54..91e9922b95b3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7583,9 +7583,6 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
  	struct amdgpu_device *adev;
  	struct amdgpu_bo *rbo;
+ 	struct dm_plane_state *dm_plane_state_new, *dm_plane_state_old;
 -	struct list_head list;
 -	struct ttm_validate_buffer tv;
 -	struct ww_acquire_ctx ticket;
  	uint32_t domain;
  	int r;
  
-@@ -316,18 +313,19 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane *plane,
+@@ -7598,18 +7595,19 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
  	obj = new_state->fb->obj[0];
  	rbo = gem_to_amdgpu_bo(obj);
  	adev = amdgpu_ttm_adev(rbo->tbo.bdev);
@@ -115,14 +116,14 @@ index 5224d9a39737..576849e95296 100644
  
 +	r = dma_resv_reserve_fences(rbo->tbo.base.resv, 1);
 +	if (r) {
-+		dev_err(adev->dev, "allocating fence slot failed (%d)\n", r);
++		dev_err(adev->dev, "reserving fence slot failed (%d)\n", r);
 +		goto error_unlock;
 +	}
 +
  	if (plane->type != DRM_PLANE_TYPE_CURSOR)
  		domain = amdgpu_display_supported_domains(adev, rbo->flags);
  	else
-@@ -337,25 +335,29 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane *plane,
+@@ -7619,19 +7617,16 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
  	if (unlikely(r != 0)) {
  		if (r != -ERESTARTSYS)
  			DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
@@ -145,7 +146,8 @@ index 5224d9a39737..576849e95296 100644
  
  	afb->address = amdgpu_bo_gpu_offset(rbo);
  
- 	amdgpu_bo_ref(rbo);
+@@ -7663,6 +7658,13 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
+ 	}
  
  	return 0;
 +
@@ -157,7 +159,7 @@ index 5224d9a39737..576849e95296 100644
 +	return r;
  }
  
- static void amdgpu_vkms_cleanup_fb(struct drm_plane *plane,
+ static void dm_plane_helper_cleanup_fb(struct drm_plane *plane,
 -- 
 2.25.1
 
