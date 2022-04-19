@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2065C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 14:49:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ED06C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 14:50:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B29710E789;
-	Tue, 19 Apr 2022 14:49:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26DD310EB08;
+	Tue, 19 Apr 2022 14:50:54 +0000 (UTC)
 Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
  [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FE3F10E306
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 14:49:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A526410E306;
+ Tue, 19 Apr 2022 14:50:52 +0000 (UTC)
 Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-e2afb80550so17765509fac.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 07:49:42 -0700 (PDT)
+ 586e51a60fabf-e2442907a1so17727620fac.8; 
+ Tue, 19 Apr 2022 07:50:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=UCQcrhnSU5LEstj8KBP5msxef1D1KyBqpWIXVkDLWhk=;
- b=CubJVl5MJdSL1so1ZayAwbcWccc8/lSj/ZovdhISlpq7cNdMrMIbL66tNA6pJJ2WMR
- qfksJ07A29ZAQjV6TzL6K4CkVIj3+IBRJIuEJirWz0wCCDLG7CZddRU/bwxNjJH14TNy
- 1y1imPpkxwXO89vpEdQ7z1n53HhVyTJtUyaS/NhxbTde9I+GEtiTxhYWCIH9xCwIApCQ
- cDGT0RyCJI1gECccfgjUj7yoxnVmEIf8vqrTpqCFrpyby7e2Ny5XB5zljAgEM9zQobkI
- mt8o4TtnhdLZGWL3zNX9xPO9reyG6BZzv/tslzUjcaVjV3zUO+rjRA4FWw+apkZUdbI0
- 5asQ==
+ :cc; bh=8Tg5nZzh9oQDL1KQptjvk3ZiAVxwof7ABn++cYNncss=;
+ b=jTfmgMbGgpK2pFoqKs+aBE32BYvM2n2aKjYyoCe2lQ5+kWewpr1JDFdMXK6YQKcd56
+ 0Y5VkKgFsVvxWH7EW3wHq8n280yuRTJYli6DfghqSch0dWkpqamWyZ0vbUM49KSaGtBb
+ 3fnqVGuAXNPG1i3lPsSckn7aWDqL5e+3E5MAMHJm21+TTty28/NZUmq9pAeDndnFbA0J
+ JOvbO76AGwEo3RdqJtZumr1fuTJ9hpSHXYk1gGSMXLQFVM5wUp+opXHILw4vP29veUCH
+ dcLCM9X5Zk7EDPNUhflH6L6uKkyf2yso846VRIHnlgxWC8FP7zkbuhdjjekfIwU+pZeP
+ elyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=UCQcrhnSU5LEstj8KBP5msxef1D1KyBqpWIXVkDLWhk=;
- b=30CLYTS31bBlaT67gGw/FNxieSbQRDfJoLnkysqkTn/AL/raWvk1ZEykLrAC1m1f6J
- aJfJG8ovI5UxY2AEqUKvT+eD19wbJCZ+fOyX34Mr+JNmR0cbXMmg6mAm57GS1d0Ij8fb
- 8zW34Y0DFf4DsXy8VhFFJMSs4p7PMvyE+vgNsCoNMhTRKnPMFstZ0DugWufWDmJ8Q97O
- q+gJdz3yvjJJQZdb/2AcKQAhsQVerA+r20YnXZU/MigtoQ/zCgw/4Y53DRXOWrGuduH0
- 6sbzZ71e8wV0JV8t4MIqlCd3k8+6WQKLGbsWQn+vBR8fxxuaD+xMnEtsUZj2fUNDm7+9
- t/eg==
-X-Gm-Message-State: AOAM531gyAAJrAWKAmbK5Ek+rEJ8SFZrqN7YVXBARjrfpTRFvhhHLW5D
- Zw3JvwhAuJxnHjwoMKp0YJ5e6QoVY0eAWUOmUwtxlbXm
-X-Google-Smtp-Source: ABdhPJzjqf+aEmmAixBT4Hw+rbgPjqIjz7FWsPWWScJKt7IbCaxeiwT99ZSzo7Lg/dAVhq32oG8WSW77fHOeWB8qVlY=
-X-Received: by 2002:a05:6870:311d:b0:de:9b6c:362b with SMTP id
- v29-20020a056870311d00b000de9b6c362bmr8057310oaa.200.1650379781425; Tue, 19
- Apr 2022 07:49:41 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=8Tg5nZzh9oQDL1KQptjvk3ZiAVxwof7ABn++cYNncss=;
+ b=06Mga+JuXaSSoTPolULdXPawJ0Seaw0BMU4wwf3MlTDC/0MYO9P+jOjQBNHreyxdx3
+ aoUHRThh2jrWexXoKrr79D5f6S4JwxB8LlR25AzODhMx0Qa/LO5//S4x80r1GQtIU6Du
+ iUrG/YCcoRxY+BF06veX4mQyp2N+Ehk4UIZYQPyMMaitf4/mkV9b1tXriYoPFxHyr4Ow
+ wA6L8hSNgYP524kRc4u0OcsnGeR8C+rYgNIoYrsO6DwF0NIEpFJVa6g3FiUCVqfMwl8Z
+ yDKf/fZ0LG2p80JsdwAouyt0CkRajRjruWa1ai5nOc2fPEiWJ06n274J2VzI3CfyBX1s
+ m/YQ==
+X-Gm-Message-State: AOAM530NDyyXII4G0g/QNRDP4TqiM62rTP9tU0T/TmuuuULGj7RxLJua
+ FzPfyDeuW3tHyfBvaiXZ0V5Pnh2FNzKolSIj5Fw=
+X-Google-Smtp-Source: ABdhPJxqXxqKIvUyCMkpdd15R7yoX0oYv19nBoQ8aXfGbeSnhB+k6n+l60epVZPfGevIPY1sac2Iy3lI/5vW2NsATLM=
+X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
+ z3-20020a056870d68300b000deeaa23550mr6769659oap.253.1650379852002; Tue, 19
+ Apr 2022 07:50:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220419141915.122157-1-christian.koenig@amd.com>
-In-Reply-To: <20220419141915.122157-1-christian.koenig@amd.com>
+References: <20220418194830.3266024-1-trix@redhat.com>
+In-Reply-To: <20220418194830.3266024-1-trix@redhat.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 Apr 2022 10:49:30 -0400
-Message-ID: <CADnq5_Oy2LZ_dbYVYsi+UrQNpCGx+LPWeUcT2_D=-rWgeptuXQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: remove pointless ttm_eu usage from vkms
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Date: Tue, 19 Apr 2022 10:50:41 -0400
+Message-ID: <CADnq5_Mjzbg5jpnnAU8v7C7At9i-s_Dq=qZ21UNudyM+rKrWQw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: add virtual_setup_stream_attribute decl
+ to header
+To: Tom Rix <trix@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,112 +63,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ryan Taylor <Ryan.Taylor@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Stylon Wang <stylon.wang@amd.com>,
+ "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
+ xinhui pan <Xinhui.Pan@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Dave Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>, "Wentland,
+ Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 19, 2022 at 10:19 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
+Applied.  Thanks!
+
+On Mon, Apr 18, 2022 at 3:48 PM Tom Rix <trix@redhat.com> wrote:
 >
-> We just need to reserve the BO here, no need for using ttm_eu.
-
-Can you include a more detailed description as to why it's not
-necessary?  Most of this code was copied from radeon originally.  Does
-radeon need a similar cleanup?
-
-Alex
-
+> Smatch reports this issue
+> virtual_link_hwss.c:32:6: warning: symbol
+>   'virtual_setup_stream_attribute' was not declared.
+>   Should it be static?
 >
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> virtual_setup_stream_attribute is only used in
+> virtual_link_hwss.c, but the other functions in the
+> file are declared in the header file and used elsewhere.
+> For consistency, add the virtual_setup_stream_attribute
+> decl to virtual_link_hwss.h.
+>
+> Signed-off-by: Tom Rix <trix@redhat.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 32 +++++++++++++-----------
->  1 file changed, 17 insertions(+), 15 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/virtual/virtual_link_hwss.h | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vkms.c
-> index 5224d9a39737..576849e95296 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> @@ -302,9 +302,6 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane *p=
-lane,
->         struct drm_gem_object *obj;
->         struct amdgpu_device *adev;
->         struct amdgpu_bo *rbo;
-> -       struct list_head list;
-> -       struct ttm_validate_buffer tv;
-> -       struct ww_acquire_ctx ticket;
->         uint32_t domain;
->         int r;
+> diff --git a/drivers/gpu/drm/amd/display/dc/virtual/virtual_link_hwss.h b/drivers/gpu/drm/amd/display/dc/virtual/virtual_link_hwss.h
+> index e6bcb4bb0f3a..fbcbc5afb47d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/virtual/virtual_link_hwss.h
+> +++ b/drivers/gpu/drm/amd/display/dc/virtual/virtual_link_hwss.h
+> @@ -28,6 +28,7 @@
+>  #include "core_types.h"
 >
-> @@ -316,18 +313,19 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane =
-*plane,
->         obj =3D new_state->fb->obj[0];
->         rbo =3D gem_to_amdgpu_bo(obj);
->         adev =3D amdgpu_ttm_adev(rbo->tbo.bdev);
-> -       INIT_LIST_HEAD(&list);
+>  void virtual_setup_stream_encoder(struct pipe_ctx *pipe_ctx);
+> +void virtual_setup_stream_attribute(struct pipe_ctx *pipe_ctx);
+>  void virtual_reset_stream_encoder(struct pipe_ctx *pipe_ctx);
+>  const struct link_hwss *get_virtual_link_hwss(void);
 >
-> -       tv.bo =3D &rbo->tbo;
-> -       tv.num_shared =3D 1;
-> -       list_add(&tv.head, &list);
-> -
-> -       r =3D ttm_eu_reserve_buffers(&ticket, &list, false, NULL);
-> +       r =3D amdgpu_bo_reserve(rbo, true);
->         if (r) {
->                 dev_err(adev->dev, "fail to reserve bo (%d)\n", r);
->                 return r;
->         }
->
-> +       r =3D dma_resv_reserve_fences(rbo->tbo.base.resv, 1);
-> +       if (r) {
-> +               dev_err(adev->dev, "allocating fence slot failed (%d)\n",=
- r);
-> +               goto error_unlock;
-> +       }
-> +
->         if (plane->type !=3D DRM_PLANE_TYPE_CURSOR)
->                 domain =3D amdgpu_display_supported_domains(adev, rbo->fl=
-ags);
->         else
-> @@ -337,25 +335,29 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane =
-*plane,
->         if (unlikely(r !=3D 0)) {
->                 if (r !=3D -ERESTARTSYS)
->                         DRM_ERROR("Failed to pin framebuffer with error %=
-d\n", r);
-> -               ttm_eu_backoff_reservation(&ticket, &list);
-> -               return r;
-> +               goto error_unlock;
->         }
->
->         r =3D amdgpu_ttm_alloc_gart(&rbo->tbo);
->         if (unlikely(r !=3D 0)) {
-> -               amdgpu_bo_unpin(rbo);
-> -               ttm_eu_backoff_reservation(&ticket, &list);
->                 DRM_ERROR("%p bind failed\n", rbo);
-> -               return r;
-> +               goto error_unpin;
->         }
->
-> -       ttm_eu_backoff_reservation(&ticket, &list);
-> +       amdgpu_bo_unreserve(rbo);
->
->         afb->address =3D amdgpu_bo_gpu_offset(rbo);
->
->         amdgpu_bo_ref(rbo);
->
->         return 0;
-> +
-> +error_unpin:
-> +       amdgpu_bo_unpin(rbo);
-> +
-> +error_unlock:
-> +       amdgpu_bo_unreserve(rbo);
-> +       return r;
->  }
->
->  static void amdgpu_vkms_cleanup_fb(struct drm_plane *plane,
 > --
-> 2.25.1
+> 2.27.0
 >
