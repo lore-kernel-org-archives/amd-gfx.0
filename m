@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4E6FC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 01:32:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9BD0C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Apr 2022 01:32:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5549B10E193;
-	Tue, 19 Apr 2022 01:32:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74FFC10E1F5;
+	Tue, 19 Apr 2022 01:32:52 +0000 (UTC)
 Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2065.outbound.protection.outlook.com [40.107.96.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B57BE10E193
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 01:32:46 +0000 (UTC)
+ (mail-sn1anam02on2056.outbound.protection.outlook.com [40.107.96.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 509B410E1F5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 01:32:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WFF9qTnlXnihWuYVLHwu0Yd3bf1oVUfd/Oby4wUDk/uHWkw8T3FMckUmVwcl397B9Ha8ReyxnBtB7KwS3FoIfI9VXYOoQlvtx6jhTLcLgBfjT8bWcjYYedGtRj90e8YAgvHAUWkIjcNdOyeQKBpuSabuXZbPuaniiE9FuZojceOQd5CPQ7sKZ4iRFaUiOj6s6tMmYa2CQSKQQn9jAlvwfaf8QQWSL7NPuwXahKsV2/wK0786TfhtzsbdiTmOpZBLdmqrvabnflY3Mp3+M2tTbutKn+X4BgbVoLBV8ntboQCpH0Op4Fvxw6fQr1fEBnLwJdLJVu3J/oBl285BRD6dkA==
+ b=gd3+abayhHElApn0gpzGTtKaEVXuls6rKBDY+89vQntPmZLXyhlVSLObtXzQYGF2joqFk+2vzUYvAIvIHT+482Mm3XAsdjPaeqq1JhNz8tq0GHWUTKawGkyXUMH22layL8xAmgTCOzbtAs/4VOUaE9p+D9tfczmrZ1bf0KiB3yXcT+irGplsAfeLLDuIcrJcJwezTIQAWu1sGhypvoEWMxZyx4Enj6ODXWgsG97Csus+TUkpxyG4g/nr/g5BnEt5cipGjOrch9gCwkJ13lCinVIgWVX2WE+cS28BF9CqlpFiwgje79pjNpSOLoPcuymjGtAVWcpJesWQ3dREjWe93Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zlRTD2k8P2eyQ3+joa9DMPnWPaocHIIv2pYAhr4Pfzw=;
- b=mZ1L430mEfs9sc1Hp+i6r7+KeJ65j90Xj+wi7chidrWFGtLk9wlraQPVv0sFZUe2iObax2uTe8gJbUwODNlTohyPLIcXye5hKu9SobblOemZc1COBQ1juii3IY96LBNf/tstpyBe9/tv18LOt28Zam0p0DauNZc8pWQER4w/uy3Qotol9A8dbcHfRRehKrXQd2ffVKBJipNmmdRar3aoeS89at+iLOOgTD3E+kvw61PJqC1JMrs/6inlLfMWyIEjH6INTn8KZIJTeA5Mcjfejgv7ukS4JNEYzAWCUVqSCU1wOobB6QP/UTepnfUPddBXIOCSgJhZUk4+y2dafsMwbg==
+ bh=lub0MOyWM/B3xOzH6yYQuwUStQzEjNupK7bjmCY2Cac=;
+ b=Oo2HApol4ljyop6RCEhvPmV0+/cmXeF7rIi0dewDQNbE32qTT0qPTB0ihZFbXiHg3RFQkTphEPUZEmu+PvOKD8HZ24Y2xTOPuA/k5lY0Zyx6QCtSG88YfDpRh3AG5cJh2VZ6ZPLt3kFBtjITETtDjpB/TRWfKheGbZMX55p2pBkxTyzitmW0n6GksagduLqKaSKhdPOhehjp5mnkRr+aM6/89OwxO9NR/lLkkczxmfhJUhlP4Ij6NUbebiG/bER0K18IXTdqJjt+g4F6zN/fV8/rbVMO2oEMjOjPYRV1rHBfHmJR5LR43pxtAKgH4A0w1lZHgjWQDVazHyMZF4oveA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zlRTD2k8P2eyQ3+joa9DMPnWPaocHIIv2pYAhr4Pfzw=;
- b=xQnnqqUs2u7toTcqN4ZOpPJ/6rcsr0Qg6DYHu/LLSvpYkw8SdWbnaOVDnDiCOlfxzCz1+1mp/e4/sZR8W6UqxZugGOwfGA+lG1iDv0Mqgs/qguD5fxfSkSoKwlLvwl3xC7U8gWJZzEYFryw0fUOZrHRCFkrpK1UocstyiNGnXqY=
-Received: from DM6PR07CA0105.namprd07.prod.outlook.com (2603:10b6:5:330::8) by
- CO6PR12MB5491.namprd12.prod.outlook.com (2603:10b6:303:13b::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5164.18; Tue, 19 Apr 2022 01:32:43 +0000
+ bh=lub0MOyWM/B3xOzH6yYQuwUStQzEjNupK7bjmCY2Cac=;
+ b=biph0kS2j/6TiS+qQlHcx2ZnEFqSnAX60J4ZCzT1JkXD97CpbV+wP5Wei5dB5BMU3PCR2N63Xvsdm93g9xyuK8Nw8ym2d2+S1jj28LxwkZEVS74VMJehVCuWjYRWvpzMNJoheOIeqGKPPTCHOnPWx5wfcbCfldmtToRzYH6XWzA=
+Received: from DM6PR07CA0132.namprd07.prod.outlook.com (2603:10b6:5:330::25)
+ by CY4PR12MB1669.namprd12.prod.outlook.com (2603:10b6:910:3::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18; Tue, 19 Apr
+ 2022 01:32:44 +0000
 Received: from DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:330:cafe::f5) by DM6PR07CA0105.outlook.office365.com
- (2603:10b6:5:330::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18 via Frontend
- Transport; Tue, 19 Apr 2022 01:32:43 +0000
+ (2603:10b6:5:330:cafe::15) by DM6PR07CA0132.outlook.office365.com
+ (2603:10b6:5:330::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.20 via Frontend
+ Transport; Tue, 19 Apr 2022 01:32:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT056.mail.protection.outlook.com (10.13.173.99) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5164.19 via Frontend Transport; Tue, 19 Apr 2022 01:32:42 +0000
+ 15.20.5164.19 via Frontend Transport; Tue, 19 Apr 2022 01:32:44 +0000
 Received: from dayatsin-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 18 Apr
- 2022 20:32:41 -0500
+ 2022 20:32:42 -0500
 From: David Yat Sin <david.yatsin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3 1/2] drm/amdkfd: Fix GWS queue count
-Date: Mon, 18 Apr 2022 21:32:26 -0400
-Message-ID: <20220419013227.2509204-1-david.yatsin@amd.com>
+Subject: [PATCH v3 2/2] drm/amdkfd: CRIU add support for GWS queues
+Date: Mon, 18 Apr 2022 21:32:27 -0400
+Message-ID: <20220419013227.2509204-2-david.yatsin@amd.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220419013227.2509204-1-david.yatsin@amd.com>
+References: <20220419013227.2509204-1-david.yatsin@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ada85b1b-3f69-430b-e481-08da21a47fe2
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5491:EE_
-X-Microsoft-Antispam-PRVS: <CO6PR12MB5491BE02DFCB457579C553CB95F29@CO6PR12MB5491.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: fe7d142a-6d88-437c-6127-08da21a480a6
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1669:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR12MB16690983CBA9CAD06AE093ED95F29@CY4PR12MB1669.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: F1cVSLVXGFibRIpX00tq3HA9xAC3d6jQNCeoX9gsdprXpDlhFaQFxIpihLGVKFxYllbxrnipHMM1DibA3yCIFeFQ+LtuwZTLnY9nFj1Rh6vThofVFWFgPCvusfR6DStOKBUT55gcyDVewjHMv/W+1ysdfnlW3L8lNGXRQ7YDXOFlgsyfrSOu/FheP2RDjOEHOTBi0ct7NwfRjLZSPdY8Wy5eCjpBreLaeh5ZAV2HDOYy2GzIyf06zD+o+eSZ5d2ztl80nyg/WEsz9DSU1OQ+gGDfTt5gFfc9aLFSjnjKBWnMWk2lvUuIj1a5vMLQsbtHaU5t7+/PYLjib1/A6+1j8dnwxZEXLakCRtDbZEHWL1+hxf53ibkXs16Iw6m/z0zgihfFJGlMl8yussVGpNgrylI5kRA61UCr05Mdjncf5q8Z192SxmKE73HOhyqOrCOjbDp6mR8eRNARywAHa5jJa7gEB+gN3ZXnLgl8fI97MTnQaIwFpVWs7dCEGFGte0/8mhag4pGjek/vVAqd1eIQgeqBraTkIWOfAPX27eo5OxRBN1bETsi9sMBfAf3oaQ883YzIb1Mlc8/CXLr0ZahwarH3QyGEq3rscDT+e9ozQXhRHduQZ++s4HELzPOUNzHwgNh+qmhI5qTDD3waQfqt5nPj0zJBxxU/5w5XAKx7UHADdkY9R7c9Daa/NoayUbz0uRaY8bMJfvvUpFPcn34L3Q==
+X-Microsoft-Antispam-Message-Info: SPjLN9w0/Jtk9Jip0/yu7G2wZo7ymLFpLTm5ErF3IhuNn66HZJsLfAT04IQC/x7Cinv0D4fhkgqTWDv9hRwGf1ARlSUGly5YIS3wTNxurINeUe8SWMQoqRBqVCeQ2c7re1fPdc+hPenayusPGDbY9ALm4PBhc5M2+klTDAY+KTgUy5qTfe1zJxJJQfMr5eHcAU8BW3pvkm7pdnEhp2Y6z0rpw3txS+RYAq+h2lniPkDVsSE9ImX0HVSZcuCKuxrSyjYnjmX3rDJBil1N9SqE1CXVJzRL5xhUlejD7S1DZ4zRXxgP348FpsRnGgz+BkLBo3bdaKgVAr0ljvj+HLurjVtqr8+1olRaX/5HVgeioQaDIr64/QcfUdzDLFkyxUWbjTE+HUr7lZA7oBObXlARYZIjujTW4jt1UKibDniBcbwPQjKLDSjV8RFXqc27jhhD9Qys7RZBPDF9qwUKvEUNg82/Gipjto6iZxqa+Lck/YxwdEgNP+82urk4erFTyRrnD/V1ADbycDrCwwZuNqgflyJ0+KWiTSZzWYwcPcLhya5tTLnBMXtRut3YtILQ3vOCNNo3ngb83btxtXGuDJYIW2dIFMEoq30Oc6FbJ7WFrVaZnFH4kRsN2cH9mZbRv52tuXuOUJt59JAgyuhPvt1uUhfNjuw8ptwzoLF3iUrbEAmMxMxxoKNQHmmTNuEup5LL8Mrk/IiLW0ZUBSCLzR0rus4029+oD5kzrBgkULfG7E0=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(36860700001)(81166007)(40460700003)(86362001)(2906002)(6666004)(36756003)(7696005)(26005)(5660300002)(356005)(8936002)(54906003)(6916009)(316002)(83380400001)(82310400005)(508600001)(4326008)(70206006)(70586007)(8676002)(1076003)(2616005)(426003)(336012)(186003)(16526019)(47076005)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(83380400001)(186003)(16526019)(316002)(54906003)(47076005)(26005)(6916009)(426003)(336012)(86362001)(82310400005)(40460700003)(1076003)(2616005)(4326008)(36860700001)(70206006)(70586007)(8676002)(508600001)(5660300002)(36756003)(8936002)(2906002)(356005)(6666004)(7696005)(81166007)(36900700001)(309714004);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2022 01:32:42.9025 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ada85b1b-3f69-430b-e481-08da21a47fe2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2022 01:32:44.1837 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe7d142a-6d88-437c-6127-08da21a480a6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5491
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1669
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,215 +104,67 @@ Cc: pmenzel@molgen.mpg.de, Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dqm->gws_queue_count and pdd->qpd.mapped_gws_queue need to be updated
-each time the queue gets evicted.
-
-Fixes: b8020b0304c8 ("drm/amdkfd: Enable over-subscription with >1 GWS queue")
+Adding support to checkpoint/restore GWS (Global Wave Sync) queues.
 
 Signed-off-by: David Yat Sin <david.yatsin@amd.com>
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 83 +++++++++----------
- 1 file changed, 37 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h                  |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 10 +++++++---
+ 2 files changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index acf4f7975850..198672264492 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -130,19 +130,33 @@ void program_sh_mem_settings(struct device_queue_manager *dqm,
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index aff6f598ff2c..33e7ffd8e3b5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1105,7 +1105,7 @@ struct kfd_criu_queue_priv_data {
+ 	uint32_t priority;
+ 	uint32_t q_percent;
+ 	uint32_t doorbell_id;
+-	uint32_t is_gws;
++	uint32_t gws;
+ 	uint32_t sdma_id;
+ 	uint32_t eop_ring_buffer_size;
+ 	uint32_t ctx_save_restore_area_size;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 6eca9509f2e3..4f58e671d39b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -636,6 +636,8 @@ static int criu_checkpoint_queue(struct kfd_process_device *pdd,
+ 	q_data->ctx_save_restore_area_size =
+ 		q->properties.ctx_save_restore_area_size;
  
- static void increment_queue_count(struct device_queue_manager *dqm,
--			enum kfd_queue_type type)
-+				  struct qcm_process_device *qpd,
-+				  struct queue *q)
- {
- 	dqm->active_queue_count++;
--	if (type == KFD_QUEUE_TYPE_COMPUTE || type == KFD_QUEUE_TYPE_DIQ)
-+	if (q->properties.type == KFD_QUEUE_TYPE_COMPUTE ||
-+	    q->properties.type == KFD_QUEUE_TYPE_DIQ)
- 		dqm->active_cp_queue_count++;
++	q_data->gws = !!q->gws;
 +
-+	if (q->properties.is_gws) {
-+		dqm->gws_queue_count++;
-+		qpd->mapped_gws_queue = true;
-+	}
- }
- 
- static void decrement_queue_count(struct device_queue_manager *dqm,
--			enum kfd_queue_type type)
-+				  struct qcm_process_device *qpd,
-+				  struct queue *q)
+ 	ret = pqm_checkpoint_mqd(&pdd->process->pqm, q->properties.queue_id, mqd, ctl_stack);
+ 	if (ret) {
+ 		pr_err("Failed checkpoint queue_mqd (%d)\n", ret);
+@@ -743,7 +745,6 @@ static void set_queue_properties_from_criu(struct queue_properties *qp,
+ 					  struct kfd_criu_queue_priv_data *q_data)
  {
- 	dqm->active_queue_count--;
--	if (type == KFD_QUEUE_TYPE_COMPUTE || type == KFD_QUEUE_TYPE_DIQ)
-+	if (q->properties.type == KFD_QUEUE_TYPE_COMPUTE ||
-+	    q->properties.type == KFD_QUEUE_TYPE_DIQ)
- 		dqm->active_cp_queue_count--;
+ 	qp->is_interop = false;
+-	qp->is_gws = q_data->is_gws;
+ 	qp->queue_percent = q_data->q_percent;
+ 	qp->priority = q_data->priority;
+ 	qp->queue_address = q_data->q_address;
+@@ -826,12 +827,15 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ 				NULL);
+ 	if (ret) {
+ 		pr_err("Failed to create new queue err:%d\n", ret);
+-		ret = -EINVAL;
++		goto exit;
+ 	}
+ 
++	if (q_data->gws)
++		ret = pqm_set_gws(&p->pqm, q_data->q_id, pdd->dev->gws);
 +
-+	if (q->properties.is_gws) {
-+		dqm->gws_queue_count--;
-+		qpd->mapped_gws_queue = false;
-+	}
- }
+ exit:
+ 	if (ret)
+-		pr_err("Failed to create queue (%d)\n", ret);
++		pr_err("Failed to restore queue (%d)\n", ret);
+ 	else
+ 		pr_debug("Queue id %d was restored successfully\n", queue_id);
  
- /*
-@@ -412,7 +426,7 @@ static int create_queue_nocpsch(struct device_queue_manager *dqm,
- 	list_add(&q->list, &qpd->queues_list);
- 	qpd->queue_count++;
- 	if (q->properties.is_active)
--		increment_queue_count(dqm, q->properties.type);
-+		increment_queue_count(dqm, qpd, q);
- 
- 	/*
- 	 * Unconditionally increment this counter, regardless of the queue's
-@@ -601,13 +615,8 @@ static int destroy_queue_nocpsch_locked(struct device_queue_manager *dqm,
- 		deallocate_vmid(dqm, qpd, q);
- 	}
- 	qpd->queue_count--;
--	if (q->properties.is_active) {
--		decrement_queue_count(dqm, q->properties.type);
--		if (q->properties.is_gws) {
--			dqm->gws_queue_count--;
--			qpd->mapped_gws_queue = false;
--		}
--	}
-+	if (q->properties.is_active)
-+		decrement_queue_count(dqm, qpd, q);
- 
- 	return retval;
- }
-@@ -700,12 +709,11 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
- 	 * dqm->active_queue_count to determine whether a new runlist must be
- 	 * uploaded.
- 	 */
--	if (q->properties.is_active && !prev_active)
--		increment_queue_count(dqm, q->properties.type);
--	else if (!q->properties.is_active && prev_active)
--		decrement_queue_count(dqm, q->properties.type);
--
--	if (q->gws && !q->properties.is_gws) {
-+	if (q->properties.is_active && !prev_active) {
-+		increment_queue_count(dqm, &pdd->qpd, q);
-+	} else if (!q->properties.is_active && prev_active) {
-+		decrement_queue_count(dqm, &pdd->qpd, q);
-+	} else if (q->gws && !q->properties.is_gws) {
- 		if (q->properties.is_active) {
- 			dqm->gws_queue_count++;
- 			pdd->qpd.mapped_gws_queue = true;
-@@ -767,11 +775,7 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
- 		mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
- 				q->properties.type)];
- 		q->properties.is_active = false;
--		decrement_queue_count(dqm, q->properties.type);
--		if (q->properties.is_gws) {
--			dqm->gws_queue_count--;
--			qpd->mapped_gws_queue = false;
--		}
-+		decrement_queue_count(dqm, qpd, q);
- 
- 		if (WARN_ONCE(!dqm->sched_running, "Evict when stopped\n"))
- 			continue;
-@@ -817,7 +821,7 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
- 			continue;
- 
- 		q->properties.is_active = false;
--		decrement_queue_count(dqm, q->properties.type);
-+		decrement_queue_count(dqm, qpd, q);
- 	}
- 	pdd->last_evict_timestamp = get_jiffies_64();
- 	retval = execute_queues_cpsch(dqm,
-@@ -888,11 +892,7 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
- 		mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
- 				q->properties.type)];
- 		q->properties.is_active = true;
--		increment_queue_count(dqm, q->properties.type);
--		if (q->properties.is_gws) {
--			dqm->gws_queue_count++;
--			qpd->mapped_gws_queue = true;
--		}
-+		increment_queue_count(dqm, qpd, q);
- 
- 		if (WARN_ONCE(!dqm->sched_running, "Restore when stopped\n"))
- 			continue;
-@@ -950,7 +950,7 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
- 			continue;
- 
- 		q->properties.is_active = true;
--		increment_queue_count(dqm, q->properties.type);
-+		increment_queue_count(dqm, &pdd->qpd, q);
- 	}
- 	retval = execute_queues_cpsch(dqm,
- 				KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
-@@ -1378,7 +1378,7 @@ static int create_kernel_queue_cpsch(struct device_queue_manager *dqm,
- 			dqm->total_queue_count);
- 
- 	list_add(&kq->list, &qpd->priv_queue_list);
--	increment_queue_count(dqm, kq->queue->properties.type);
-+	increment_queue_count(dqm, qpd, kq->queue);
- 	qpd->is_debug = true;
- 	execute_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
- 	dqm_unlock(dqm);
-@@ -1392,7 +1392,7 @@ static void destroy_kernel_queue_cpsch(struct device_queue_manager *dqm,
- {
- 	dqm_lock(dqm);
- 	list_del(&kq->list);
--	decrement_queue_count(dqm, kq->queue->properties.type);
-+	decrement_queue_count(dqm, qpd, kq->queue);
- 	qpd->is_debug = false;
- 	execute_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES, 0);
- 	/*
-@@ -1467,7 +1467,7 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
- 	qpd->queue_count++;
- 
- 	if (q->properties.is_active) {
--		increment_queue_count(dqm, q->properties.type);
-+		increment_queue_count(dqm, qpd, q);
- 
- 		execute_queues_cpsch(dqm,
- 				KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
-@@ -1683,15 +1683,11 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
- 	list_del(&q->list);
- 	qpd->queue_count--;
- 	if (q->properties.is_active) {
--		decrement_queue_count(dqm, q->properties.type);
-+		decrement_queue_count(dqm, qpd, q);
- 		retval = execute_queues_cpsch(dqm,
- 				KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
- 		if (retval == -ETIME)
- 			qpd->reset_wavefronts = true;
--		if (q->properties.is_gws) {
--			dqm->gws_queue_count--;
--			qpd->mapped_gws_queue = false;
--		}
- 	}
- 
- 	/*
-@@ -1932,7 +1928,7 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
- 	/* Clean all kernel queues */
- 	list_for_each_entry_safe(kq, kq_next, &qpd->priv_queue_list, list) {
- 		list_del(&kq->list);
--		decrement_queue_count(dqm, kq->queue->properties.type);
-+		decrement_queue_count(dqm, qpd, kq->queue);
- 		qpd->is_debug = false;
- 		dqm->total_queue_count--;
- 		filter = KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES;
-@@ -1945,13 +1941,8 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
- 		else if (q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI)
- 			deallocate_sdma_queue(dqm, q);
- 
--		if (q->properties.is_active) {
--			decrement_queue_count(dqm, q->properties.type);
--			if (q->properties.is_gws) {
--				dqm->gws_queue_count--;
--				qpd->mapped_gws_queue = false;
--			}
--		}
-+		if (q->properties.is_active)
-+			decrement_queue_count(dqm, qpd, q);
- 
- 		dqm->total_queue_count--;
- 	}
 -- 
 2.30.2
 
