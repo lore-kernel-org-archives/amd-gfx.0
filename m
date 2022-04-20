@@ -4,118 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C304C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Apr 2022 21:06:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC023C433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Apr 2022 21:09:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 039F510E535;
-	Wed, 20 Apr 2022 21:06:54 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2041.outbound.protection.outlook.com [40.107.92.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C950C10E535
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Apr 2022 21:06:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CHcNBZTOdmFnhC+FRvX1PlvugytjWBx3v/VI9aCs7/FVEmNR6dS29wFtTjyFmqUQjERCRN/Y7XE2JSAEWhH0a2wIs1XL+imNStjgqVFTzUw3zKhU5grs/wPamC12Em5kC22cEqc1vuweLT5kMZsefv2/zCXwhsNk7ytyF5jShIC4spxEYZ83jZOY68Lsw9kfvuCwPGzg4Q0xDnpZob2i0W4GUfTsixto8zMmpuq6lJF16cGTSgHL+S6/6ZXqc2dPdDNVQLorZC8/r3z5HhbBkRkgHLKuYVT/LeaqfgJcaDODae1H3sObr7VV5v42PrrNddoEOJO0/omCWexpeFiWZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FksSrN/5znbMVqMos0DL2eMq9CGTqfTRpudC4eLtnww=;
- b=oTpmLhdH0/lexQXBM65ni++OqRhhs+V4T9rvruxPlvoqShpLgX7FhzZfyqFrgGLuNZ7IP7+bWmw1Ws9yW1IWeJt//nvZd6MG6QvlqBytzrXDvtc5Xv0f7aWpfrKO9aJ4+JLAk9df8+3z7KerLESYPPK4RogCdwr/z0868QHz0pB6eZIpoRgGKeCp3Axz714gZn4HRrv9JlgnzobXNe6IBtMH+wubWLbsKxUyjTplAzN5+R5kQpURLnJ1eRPjDXQpGZwvpJmTx9TzxaP17nCzx9xbitZ97RwNWa1okn5fpByq0jydGXQDwDEXAus/FY5HV8UEhDdLTPQJrLCXYNtcjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FksSrN/5znbMVqMos0DL2eMq9CGTqfTRpudC4eLtnww=;
- b=u6vmH0wgyvea2h3jcdtxYbBMhNB2v1pbacOVDfLJTbBTWr3E9Np4NOjDp4wWXBMLs+pgH1vLn7nqzH24VYfKDBhzE7lFmZIGAVM7zhbONi0F+l+TnTYT8M6i6BHA0D4zrxEfvRleaVZRGkk6GvuNeJ072JTW05pM69OuFCpqTeY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MN2PR12MB4376.namprd12.prod.outlook.com (2603:10b6:208:26c::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.13; Wed, 20 Apr
- 2022 21:06:49 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::6070:7681:db0e:7702]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::6070:7681:db0e:7702%9]) with mapi id 15.20.5186.014; Wed, 20 Apr 2022
- 21:06:49 +0000
-Message-ID: <36459762-ca2c-1fbf-35bc-54bc7cb71dda@amd.com>
-Date: Wed, 20 Apr 2022 17:06:47 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: "Joshi, Mukul" <Mukul.Joshi@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Circular lock dependency chain between pm.mutex and topology_lock
-Organization: AMD Inc.
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR13CA0005.namprd13.prod.outlook.com
- (2603:10b6:610:b1::10) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6939D10F2AA;
+	Wed, 20 Apr 2022 21:09:53 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E79FD10F2AA;
+ Wed, 20 Apr 2022 21:09:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1650488993; x=1682024993;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=qfPmzOXCy/jS0SbJp3UivrAfDR/oQbAAo+F+9aVF3VE=;
+ b=nDJlLMjbsUw4jQ2tfxd0zVj/2meGuMp5qcbl3Zmif3CUxGN1bA15vkGE
+ 3bte96ePPpI7ZnTdqxLG8J7XcEYTBJo0Xs9h6E/NT7t1m65l6zFkEDZPe
+ X1c1Fpyfyblj7xLQEy/apQ822brsG8x+qUs25pI58m+dOMSdfMvqf/UWj
+ hmx7JoEmBFkeou/pmToUGD9tWyfQAb+mGSmkMR82FdYz3/AuPSI+rA9h0
+ 1P4tuvXicKXq9BSNpKeSn+lfm+gf79q0res+tPAJolSTrpudziIoW1HOG
+ iSZ55S999jdCbvyj68Wq7q8K1mAn9Jcx3WfV/c9mjWwhzvsze1jr6SQNu A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10323"; a="263914281"
+X-IronPort-AV: E=Sophos;i="5.90,276,1643702400"; d="scan'208";a="263914281"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2022 14:09:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,276,1643702400"; d="scan'208";a="647826870"
+Received: from lkp-server01.sh.intel.com (HELO 3abc53900bec) ([10.239.97.150])
+ by FMSMGA003.fm.intel.com with ESMTP; 20 Apr 2022 14:09:48 -0700
+Received: from kbuild by 3abc53900bec with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1nhHa8-0007Se-4D;
+ Wed, 20 Apr 2022 21:09:48 +0000
+Date: Thu, 21 Apr 2022 05:09:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ f1244c81da13009dbf61cb807f45881501c44789
+Message-ID: <6260768f.VRPaab4qE9DNlcOi%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c0a0bfb5-840a-4cfc-a161-08da2311af76
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4376:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4376B20D38E2B33F015DB5C392F59@MN2PR12MB4376.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CV+yKyZa/1YlwMgccu5n7OdOUTxZKtP4jZVQpWovYPp9iWsUMyNxFPGvWrFMqXE6diAcit4yWNAPzR5FYKleG4ZeKsNgiqzoJsS5LHbqRGQt3HkCHXT0WBTrpZcFLAZ/8QY75ckB6+3zesYUN56z9PxF8QnUuKo8khbrHeawZPwBOywIky5bFjgudcfKdOAwY4KL+lmPGVXCvxKi810FWNSKgdpfCLbvCr9uRkFG/0074Mv0XgdQzEHmSb5CDGKQ+0UPy4hp3yYyzM8bBsKlYrNR/okGa3ZOK9V6asZU/88stjLO3ISnx3eLHgXvyq5m2uHIn+6Ddyc6TN9g1FqXpu13ZYtZkpH3+hNLDh69BWF4e3vl0rYrCUhOegQxhGKj8TWKSzg1c17h0WX3+UWea0P46U8up4zzrozYi3gO4i2peIq3AHlJuKxbm62Jj/3EFyLQsQPYnvn6kn5xyn3EllTL+ePZslVJbwUPGTIY2ic82+L7ZUqDR7QwnCKm3t6a0ycHNvmsYBUDlYDOOuY4KWTOP0aSTS8wWjYkTlzh8v2wXlP/kW+Zfn/Sy99PgXoH3Jb87v1D9sjjGbIb2zbvshW2tpXcKUXbXz1THaY61maxI2JKJLTrSCRP9TF1Ooa5ilUgSJd8Sh2wbeUQ7NVkxxgl5x8R1SGgMXFJqUByw5Tfu4KwZ4v93/15gHqVa1fXqyG9owgkwLvme5HE867R+8UkHQASScT/NjNqApNsHtb1TUeEFNl/DLG88j5IiJi2a8a5Nyg0eTO4GPLbAYZK2KaWUAEoO38YBRfL+biX4jGyUMpnGJVX7e4NnvY6Q/XS
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(36916002)(6512007)(26005)(6486002)(186003)(6506007)(31686004)(38100700002)(2616005)(83380400001)(110136005)(316002)(40140700001)(36756003)(508600001)(5660300002)(8936002)(86362001)(84970400001)(66946007)(66476007)(44832011)(31696002)(66556008)(2906002)(8676002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d2J5elo1SHV6QU9uN1hGZEZMYTh3YUt0dE1oU1c1SUZwM2FyVExWc3N5eDJE?=
- =?utf-8?B?bHBTVGIvQy83cVNwbmlXeDFFTnRJNHJmNmFhSC8va1pLMmhpNjRZdXcxa0xM?=
- =?utf-8?B?SisrUWxmZFJXdDZkYUJ5Z29EclM1YVJ6bnJKWUdjd010eTU5ZDdUN21ZYlV3?=
- =?utf-8?B?YzJDUi8yTlpQYmtRWm5CVG1NdjdPL2x2c1NUV1Q4SXNZa1duVnp3ZC9lN2pR?=
- =?utf-8?B?TExYVXdjbUlQUDdqWjRSYitxNWx2dzAzUGUyUHpmdjhjaVpNekVaelUrMzZ2?=
- =?utf-8?B?aXR5NTJSbzdBWnpXTFRmREtWZHRGb1JBdnFSMzZ1aEh6aHRscFpLZE1Jdllt?=
- =?utf-8?B?N2VldUtqZndaZ0hWQVJqOHRBUnZmd2Z3WUlHM2h1TGJMaVhTMVhrNG94bVgw?=
- =?utf-8?B?QkpPSjR3MldkQ1JYa0Q1TW5aSGFtbmU3b0NVU0QyYTVZTDhCY2p1aGwzbm95?=
- =?utf-8?B?Umtia3k4KytQeEVnMXdES0RXT2NBVlduN05pblVpdSt1WmhGUUdSY0RuekF3?=
- =?utf-8?B?ZThUWFNxQWJ5QUM3dnIvYnhaTWJlemFpMDVzM2JMalZYZ0s2ZGcyM29nU21C?=
- =?utf-8?B?eFh5emdISnBBQWpUODlla3VPUUdtWnYyZFBkYVdxTFZUVDJ4UGcva3drenZY?=
- =?utf-8?B?eXFVcWpCRGNyUGlQSUo3SHJoVkZYVzJSajQzV2FScTlWV2FRY29OclhkUnBW?=
- =?utf-8?B?ZFduUDE4VFpDWGEzWUpHbVhBMHIvb3FVbVo0cUl3dUtJcVdpcEJYbERoSUdX?=
- =?utf-8?B?czBxaWxqMHVXeHZ3Q1h3MXRWaElzL1ovSmVjRXNZMXFFNFhxelRGUzh1Tlly?=
- =?utf-8?B?OU1ETkMreGhsck14ZEFMMytvaEltaXhrWGlFclVvZU5QZEdQNjNBYjBJdnhX?=
- =?utf-8?B?MndjNEkza05qUFBGbkU0MHFYVUZ4MjNJY0pCTWhpcnYyTDRhaUx5MFhDaUx4?=
- =?utf-8?B?WTNqNitrS3pCVjR3dW5pcTZMUDJTMXoycHJMcjNJUG90cmg5Rys3ZTFFT3hE?=
- =?utf-8?B?bHdQZGxqWDI3VitnVzRtMnZudXd3SEIrc0R4Unkvb1ZTMGtDTEgzdWpaNmpI?=
- =?utf-8?B?eU5LcCtyR2E5TXZlenVNUzFqV3lsejYrem4wZDF1NUs5VGNWNzQ0UEg5cXZn?=
- =?utf-8?B?YmpONTBkc05lWFBmZkJJdHY0eW5MRmRlemV3b21VcXZObytnc3R5VzdMWStn?=
- =?utf-8?B?QTZzamtFRTNjYk1oN2x4U3RPR2FXVmN2cXRBRDZ5Vm5MMzVUQldGVTNhbGYv?=
- =?utf-8?B?N2Z0VlVMU0dodURBcnBIS2VGNmxTYzdSeHg4aXFMWEdwZU9sREp2U3J2cW5Q?=
- =?utf-8?B?dGNmNjFLZk1jZzExUmdUTnVDOE9mSzZibkk4VFhCUHFHQzNxRUQrQ2JMZVYr?=
- =?utf-8?B?Sys5YkpNTnlFRnlZYW8wU2FBelR1MVVSQ3VGM3JvVGF4dmhndWFZNnA5dERl?=
- =?utf-8?B?NEY4TjVOcWZnRDNoRlhOU3ptUENRN29OYzVxT1BHVHNxM3lUZitDUFhXS0JL?=
- =?utf-8?B?R1FPYm0rSy9aMWJIS3JHZ3lzME5pTmpvdVBReTBZdzRLZFoxeXpCS21qcFZR?=
- =?utf-8?B?d01tR3IwQkZOY2ZhWUZ0V3htbmpub2VKdTNlM3VlVVBtUUN5c29Odml2bEQ4?=
- =?utf-8?B?WXZoeGVQSkxYWjM3eW5FQk1KTmwzaUNSaElEZzBhN2MxNHBnVTNhVWJJdWxo?=
- =?utf-8?B?UmhOS0RhZEpmc3ZFek1qNDZkOUQyYVVPVlNwS2l2V1kwWkhOOVJ5MUVtQjhS?=
- =?utf-8?B?cVJPcFRVckR1M2pwbVl6emNmTEVmU1N3bWc2Rm5VbCtDYmkrQm9nZC85SytP?=
- =?utf-8?B?anBSMXhwUnEzdGc5cUw1WEU2MUZuZ0dJcGlhYlpiR0ZZT1VkbGZBelI2UVNw?=
- =?utf-8?B?TlZ1MHpNWEx2eWxHeGhHbHZ0a0x6aVRCdllCZStkK3NaaDlnRlFnbU5yQkU4?=
- =?utf-8?B?SlI0RGdLakw5ekVGQmFTUk5WK1Fwak9TQjkvMHo1cHlseURadnFnZFByRk94?=
- =?utf-8?B?UzJoN29VdnJQNm9RczM0ZXhiZXIwcmpuVjVNSE5kMjV3T2tWWWVtd0ZuV3Zw?=
- =?utf-8?B?UUJrT2hHQldhUjF1cVY2Z1UwTE1xS2hRMEFmb0VUY1A2cGc2blI3cDhETnhN?=
- =?utf-8?B?dWlyQWxQOUxUOXdhR29xM0psalhETER1ZEdKKzdlK05aZ3JGS2hqbE41b1Av?=
- =?utf-8?B?YnJWSWVjM0ZMbTZiT3lsR1ZqS1g3UDJIbFIxd0ptQVhwS3lCQ1lKcXVqTnFy?=
- =?utf-8?B?UXZoYS9NNldLNXdyL1lJeG5oU2JmTkgveE02Z3lha2hYOWJwY29RWmYzeSta?=
- =?utf-8?B?UW9wODB0V1lMcXQrREFzR01qZUZ5aVUyOVFqb0JObVpqQ1krb0Z2dz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0a0bfb5-840a-4cfc-a161-08da2311af76
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2022 21:06:49.3581 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RBDzaTD7PTXWIB9Ms2zQ/xsdordjqJ0pr5TLvD53TBKtddjJ/1SfXRmKyPXshlbafFFkoi3gzjXvChpJc9EMOw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4376
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,187 +57,372 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-kbuild@vger.kernel.org, patches@opensource.cirrus.com,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Linux Memory Management List <linux-mm@kvack.org>, ntb@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-edac@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Evan and Mukul,
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: f1244c81da13009dbf61cb807f45881501c44789  Add linux-next specific files for 20220420
 
-You both made changes recently involving the pm.mutex and the 
-topology_lock respectively. I'm now seeing a circular lock dependency 
-between those locks (see below) that could potentially lead to a 
-deadlock. This cycle also involves the mmap_lock and some file-system 
-related code through the SMU firmware loading. A summary of the dump 
-below is:
+Error/Warning reports:
 
-  * Thread A can take mmap_lock while holding i_mutex_dir_key
-  * Thread B can take i_mutex_dir_key while holding the pm.mutex
-  * Thread C can take pm.mutex while holding topology_lock
-  * Thread D can take topology_lock while holding mmap_lock
+https://lore.kernel.org/linux-mm/202204081656.6x4pfen4-lkp@intel.com
+https://lore.kernel.org/linux-mm/202204140108.DeRAhWEn-lkp@intel.com
+https://lore.kernel.org/linux-mm/202204202059.7tV9FkRy-lkp@intel.com
+https://lore.kernel.org/lkml/202204140043.Tx7BIBvI-lkp@intel.com
+https://lore.kernel.org/llvm/202203241958.Uw9bWfMD-lkp@intel.com
 
-The backtraces below illustrate each of these scenarios. If four such 
-threads run concurrently and try to enter these critical sections around 
-the same time, you may get a deadlock between them. I see two potential 
-ways to break this cycle within our driver:
+Error/Warning: (recently discovered and may have been fixed)
 
- 1. Avoid holding the pm.mutex while loading SMU firmware
- 2. Avoid holding the topology lock while getting mem-info in the KFD
-    topology code
+arch/arm/mach-versatile/integrator_ap.c:148:13: warning: no previous prototype for 'ap_init_early' [-Wmissing-prototypes]
+drivers/bus/mhi/host/main.c:787:13: warning: parameter 'event_quota' set but not used [-Wunused-but-set-parameter]
+drivers/ntb/hw/idt/ntb_hw_idt.c:1116:1: warning: the frame size of 1288 bytes is larger than 1280 bytes [-Wframe-larger-than=]
 
-Can you determine, which one of those is the better/easier solution and 
-implement a fix?
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-Thank you,
-   Felix
+Makefile:684: arch/h8300/Makefile: No such file or directory
+arch/Kconfig:10: can't open file "arch/h8300/Kconfig"
+arch/s390/include/asm/spinlock.h:81:3: error: unexpected token in '.rept' directive
+arch/s390/include/asm/spinlock.h:81:3: error: unknown directive
+arch/s390/include/asm/spinlock.h:81:3: error: unmatched '.endr' directive
+arch/s390/lib/spinlock.c:78:3: error: unexpected token in '.rept' directive
+arch/s390/lib/spinlock.c:78:3: error: unknown directive
+arch/s390/lib/spinlock.c:78:3: error: unmatched '.endr' directive
+drivers/dma-buf/st-dma-fence-unwrap.c:125:13: warning: variable 'err' set but not used [-Wunused-but-set-variable]
+drivers/edac/edac_device.c:79 edac_device_alloc_ctl_info() warn: Please consider using kcalloc instead
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn31/dcn31_hubp.c:57:6: warning: no previous prototype for 'hubp31_program_extended_blank' [-Wmissing-prototypes]
+kernel/bpf/syscall.c:4944:13: warning: no previous prototype for function 'unpriv_ebpf_notify' [-Wmissing-prototypes]
+make[1]: *** No rule to make target 'arch/h8300/Makefile'.
+scripts/Makefile.clean:15: arch/h8300/Makefile: No such file or directory
+sound/soc/codecs/wm8731.c:654:1: internal compiler error: Segmentation fault
 
+Error/Warning ids grouped by kconfigs:
 
-[  168.544078] ======================================================
-[  168.550309] WARNING: possible circular locking dependency detected
-[  168.556523] 5.16.0-kfd-fkuehlin #148 Tainted: G            E
-[  168.562558] ------------------------------------------------------
-[  168.568764] kfdtest/3479 is trying to acquire lock:
-[  168.573672] ffffffffc0927a70 (&topology_lock){++++}-{3:3}, at: kfd_topology_device_by_id+0x16/0x60 [amdgpu]
-[  168.583663]
-                but task is already holding lock:
-[  168.589529] ffff97d303dee668 (&mm->mmap_lock#2){++++}-{3:3}, at: vm_mmap_pgoff+0xa9/0x180
-[  168.597755]
-                which lock already depends on the new lock.
+gcc_recent_errors
+|-- alpha-allmodconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- alpha-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- alpha-randconfig-r024-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- arc-allmodconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- arc-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- arc-randconfig-r002-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- arc-randconfig-r043-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- arm-allmodconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- arm-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- arm-integrator_defconfig
+|   `-- arch-arm-mach-versatile-integrator_ap.c:warning:no-previous-prototype-for-ap_init_early
+|-- arm-randconfig-c002-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- arm64-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- arm64-randconfig-c023-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- h8300-allyesconfig
+|   |-- Makefile:arch-h8300-Makefile:No-such-file-or-directory
+|   |-- arch-Kconfig:can-t-open-file-arch-h8300-Kconfig
+|   `-- make:No-rule-to-make-target-arch-h8300-Makefile-.
+|-- h8300-randconfig-r003-20220420
+|   `-- scripts-Makefile.clean:arch-h8300-Makefile:No-such-file-or-directory
+|-- h8300-randconfig-r032-20220420
+|   |-- Makefile:arch-h8300-Makefile:No-such-file-or-directory
+|   |-- arch-Kconfig:can-t-open-file-arch-h8300-Kconfig
+|   `-- make:No-rule-to-make-target-arch-h8300-Makefile-.
+|-- i386-allyesconfig
+|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn31-dcn31_hubp.c:warning:no-previous-prototype-for-hubp31_program_extended_blank
+|-- i386-randconfig-m021
+|   `-- drivers-edac-edac_device.c-edac_device_alloc_ctl_info()-warn:Please-consider-using-kcalloc-instead
+|-- i386-randconfig-s001
+|   |-- fs-io_uring.c:sparse:sparse:marked-inline-but-without-a-definition
+|   |-- mm-memory.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-unsigned-long-zap_flags-got-restricted-zap_flags_t
+|   `-- mm-memory.c:sparse:sparse:symbol-vma_needs_copy-was-not-declared.-Should-it-be-static
+|-- i386-randconfig-s002
+|   |-- fs-hugetlbfs-inode.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-long-zap_flags-got-restricted-zap_flags_t-usertype
+|   |-- mm-hugetlb.c:sparse:sparse:restricted-zap_flags_t-degrades-to-integer
+|   |-- mm-memory.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-unsigned-long-zap_flags-got-restricted-zap_flags_t
+|   `-- mm-memory.c:sparse:sparse:symbol-vma_needs_copy-was-not-declared.-Should-it-be-static
+|-- ia64-allmodconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- ia64-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- ia64-buildonly-randconfig-r003-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- ia64-randconfig-c003-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- m68k-allmodconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- m68k-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- m68k-randconfig-r025-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- microblaze-randconfig-s031-20220420
+|   |-- mm-memory.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-unsigned-long-zap_flags-got-restricted-zap_flags_t
+|   `-- mm-memory.c:sparse:sparse:symbol-vma_needs_copy-was-not-declared.-Should-it-be-static
+|-- mips-allmodconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- mips-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- nios2-allmodconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- nios2-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- nios2-randconfig-r016-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- openrisc-randconfig-r004-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- parisc-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- powerpc-allmodconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- powerpc-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- powerpc64-randconfig-c024-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- powerpc64-randconfig-p002-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- powerpc64-randconfig-r003-20220420
+|   |-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn31-dcn31_hubp.c:warning:no-previous-prototype-for-hubp31_program_extended_blank
+|-- powerpc64-randconfig-r033-20220420
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn31-dcn31_hubp.c:warning:no-previous-prototype-for-hubp31_program_extended_blank
+|-- riscv-allmodconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- riscv-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- riscv-randconfig-c023-20220420
+|   `-- sound-soc-codecs-wm8731.c:internal-compiler-error:Segmentation-fault
+|-- s390-allmodconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- s390-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- s390-randconfig-r034-20220420
+|   `-- drivers-ntb-hw-idt-ntb_hw_idt.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
+|-- sh-allmodconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- sparc-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- sparc-randconfig-c004-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- sparc-randconfig-m031-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- x86_64-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- x86_64-randconfig-m001
+|   `-- drivers-edac-edac_device.c-edac_device_alloc_ctl_info()-warn:Please-consider-using-kcalloc-instead
+|-- x86_64-randconfig-s021
+|   |-- fs-io_uring.c:sparse:sparse:marked-inline-but-without-a-definition
+|   |-- mm-memory.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-unsigned-long-zap_flags-got-restricted-zap_flags_t
+|   `-- mm-memory.c:sparse:sparse:symbol-vma_needs_copy-was-not-declared.-Should-it-be-static
+|-- x86_64-randconfig-s022
+|   |-- fs-hugetlbfs-inode.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-long-zap_flags-got-restricted-zap_flags_t-usertype
+|   |-- mm-hugetlb.c:sparse:sparse:restricted-zap_flags_t-degrades-to-integer
+|   |-- mm-memory.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-unsigned-long-zap_flags-got-restricted-zap_flags_t
+|   `-- mm-memory.c:sparse:sparse:symbol-vma_needs_copy-was-not-declared.-Should-it-be-static
+|-- x86_64-rhel-8.3-kselftests
+|   |-- fs-hugetlbfs-inode.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-unsigned-long-zap_flags-got-restricted-zap_flags_t-usertype
+|   |-- fs-io_uring.c:sparse:sparse:marked-inline-but-without-a-definition
+|   |-- mm-hugetlb.c:sparse:sparse:restricted-zap_flags_t-degrades-to-integer
+|   |-- mm-memory.c:sparse:sparse:incorrect-type-in-initializer-(different-base-types)-expected-unsigned-long-zap_flags-got-restricted-zap_flags_t
+|   `-- mm-memory.c:sparse:sparse:symbol-vma_needs_copy-was-not-declared.-Should-it-be-static
+|-- xtensa-allyesconfig
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+|-- xtensa-randconfig-r013-20220420
+|   `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
+`-- xtensa-randconfig-r036-20220420
+    `-- drivers-dma-buf-st-dma-fence-unwrap.c:warning:variable-err-set-but-not-used
 
-[  168.605970]
-                the existing dependency chain (in reverse order) is:
-[  168.613487]
-                -> #3 (&mm->mmap_lock#2){++++}-{3:3}:
-[  168.619700]        lock_acquire+0xca/0x2e0
-[  168.623814]        down_read+0x3e/0x140
-[  168.627676]        do_user_addr_fault+0x40d/0x690
-[  168.632399]        exc_page_fault+0x6f/0x270
-[  168.636692]        asm_exc_page_fault+0x1e/0x30
-[  168.641249]        filldir64+0xc8/0x1e0
-[  168.645115]        call_filldir+0x7c/0x110
-[  168.649238]        ext4_readdir+0x58e/0x940
-[  168.653442]        iterate_dir+0x16a/0x1b0
-[  168.657558]        __x64_sys_getdents64+0x83/0x140
-[  168.662375]        do_syscall_64+0x35/0x80
-[  168.666492]        entry_SYSCALL_64_after_hwframe+0x44/0xae
-[  168.672095]
-                -> #2 (&type->i_mutex_dir_key#6){++++}-{3:3}:
-[  168.679008]        lock_acquire+0xca/0x2e0
-[  168.683122]        down_read+0x3e/0x140
-[  168.686982]        path_openat+0x5b2/0xa50
-[  168.691095]        do_file_open_root+0xfc/0x190
-[  168.695652]        file_open_root+0xd8/0x1b0
-[  168.702010]        kernel_read_file_from_path_initns+0xc4/0x140
-[  168.709542]        _request_firmware+0x2e9/0x5e0
-[  168.715741]        request_firmware+0x32/0x50
-[  168.721667]        amdgpu_cgs_get_firmware_info+0x370/0xdd0 [amdgpu]
-[  168.730060]        smu7_upload_smu_firmware_image+0x53/0x190 [amdgpu]
-[  168.738414]        fiji_start_smu+0xcf/0x4e0 [amdgpu]
-[  168.745539]        pp_dpm_load_fw+0x21/0x30 [amdgpu]
-[  168.752503]        amdgpu_pm_load_smu_firmware+0x4b/0x80 [amdgpu]
-[  168.760698]        amdgpu_device_fw_loading+0xb8/0x140 [amdgpu]
-[  168.768412]        amdgpu_device_init.cold+0xdf6/0x1716 [amdgpu]
-[  168.776285]        amdgpu_driver_load_kms+0x15/0x120 [amdgpu]
-[  168.784034]        amdgpu_pci_probe+0x19b/0x3a0 [amdgpu]
-[  168.791161]        local_pci_probe+0x40/0x80
-[  168.797027]        work_for_cpu_fn+0x10/0x20
-[  168.802839]        process_one_work+0x273/0x5b0
-[  168.808903]        worker_thread+0x20f/0x3d0
-[  168.814700]        kthread+0x176/0x1a0
-[  168.819968]        ret_from_fork+0x1f/0x30
-[  168.825563]
-                -> #1 (&adev->pm.mutex){+.+.}-{3:3}:
-[  168.834721]        lock_acquire+0xca/0x2e0
-[  168.840364]        __mutex_lock+0xa2/0x930
-[  168.846020]        amdgpu_dpm_get_mclk+0x37/0x60 [amdgpu]
-[  168.853257]        amdgpu_amdkfd_get_local_mem_info+0xba/0xe0 [amdgpu]
-[  168.861547]        kfd_create_vcrat_image_gpu+0x1b1/0xbb0 [amdgpu]
-[  168.869478]        kfd_create_crat_image_virtual+0x447/0x510 [amdgpu]
-[  168.877884]        kfd_topology_add_device+0x5c8/0x6f0 [amdgpu]
-[  168.885556]        kgd2kfd_device_init.cold+0x385/0x4c5 [amdgpu]
-[  168.893347]        amdgpu_amdkfd_device_init+0x138/0x180 [amdgpu]
-[  168.901177]        amdgpu_device_init.cold+0x141b/0x1716 [amdgpu]
-[  168.909025]        amdgpu_driver_load_kms+0x15/0x120 [amdgpu]
-[  168.916458]        amdgpu_pci_probe+0x19b/0x3a0 [amdgpu]
-[  168.923442]        local_pci_probe+0x40/0x80
-[  168.929249]        work_for_cpu_fn+0x10/0x20
-[  168.935008]        process_one_work+0x273/0x5b0
-[  168.940944]        worker_thread+0x20f/0x3d0
-[  168.946623]        kthread+0x176/0x1a0
-[  168.951765]        ret_from_fork+0x1f/0x30
-[  168.957277]
-                -> #0 (&topology_lock){++++}-{3:3}:
-[  168.965993]        check_prev_add+0x8f/0xbf0
-[  168.971613]        __lock_acquire+0x1299/0x1ca0
-[  168.977485]        lock_acquire+0xca/0x2e0
-[  168.982877]        down_read+0x3e/0x140
-[  168.987975]        kfd_topology_device_by_id+0x16/0x60 [amdgpu]
-[  168.995583]        kfd_device_by_id+0xa/0x20 [amdgpu]
-[  169.002180]        kfd_mmap+0x95/0x200 [amdgpu]
-[  169.008293]        mmap_region+0x337/0x5a0
-[  169.013679]        do_mmap+0x3aa/0x540
-[  169.018678]        vm_mmap_pgoff+0xdc/0x180
-[  169.024095]        ksys_mmap_pgoff+0x186/0x1f0
-[  169.029734]        do_syscall_64+0x35/0x80
-[  169.035005]        entry_SYSCALL_64_after_hwframe+0x44/0xae
-[  169.041754]
-                other info that might help us debug this:
+clang_recent_errors
+|-- arm-randconfig-r005-20220420
+|   `-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|-- arm-randconfig-r006-20220420
+|   `-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|-- hexagon-buildonly-randconfig-r004-20220420
+|   `-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|-- hexagon-randconfig-r041-20220420
+|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|   `-- kernel-bpf-syscall.c:warning:no-previous-prototype-for-function-unpriv_ebpf_notify
+|-- i386-randconfig-a011
+|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|   `-- kernel-bpf-syscall.c:warning:no-previous-prototype-for-function-unpriv_ebpf_notify
+|-- i386-randconfig-a013
+|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|   `-- kernel-bpf-syscall.c:warning:no-previous-prototype-for-function-unpriv_ebpf_notify
+|-- i386-randconfig-a015
+|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|   `-- kernel-bpf-syscall.c:warning:no-previous-prototype-for-function-unpriv_ebpf_notify
+|-- riscv-buildonly-randconfig-r005-20220420
+|   `-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|-- riscv-randconfig-r042-20220420
+|   `-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|-- s390-buildonly-randconfig-r006-20220420
+|   |-- arch-s390-include-asm-spinlock.h:error:unexpected-token-in-.rept-directive
+|   |-- arch-s390-include-asm-spinlock.h:error:unknown-directive
+|   |-- arch-s390-include-asm-spinlock.h:error:unmatched-.endr-directive
+|   |-- arch-s390-lib-spinlock.c:error:unexpected-token-in-.rept-directive
+|   |-- arch-s390-lib-spinlock.c:error:unknown-directive
+|   |-- arch-s390-lib-spinlock.c:error:unmatched-.endr-directive
+|   `-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|-- s390-randconfig-r011-20220420
+|   |-- arch-s390-include-asm-spinlock.h:error:unexpected-token-in-.rept-directive
+|   |-- arch-s390-include-asm-spinlock.h:error:unknown-directive
+|   |-- arch-s390-include-asm-spinlock.h:error:unmatched-.endr-directive
+|   |-- arch-s390-lib-spinlock.c:error:unexpected-token-in-.rept-directive
+|   |-- arch-s390-lib-spinlock.c:error:unknown-directive
+|   |-- arch-s390-lib-spinlock.c:error:unmatched-.endr-directive
+|   `-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|-- s390-randconfig-r044-20220420
+|   |-- arch-s390-include-asm-spinlock.h:error:unexpected-token-in-.rept-directive
+|   |-- arch-s390-include-asm-spinlock.h:error:unknown-directive
+|   |-- arch-s390-include-asm-spinlock.h:error:unmatched-.endr-directive
+|   |-- arch-s390-lib-spinlock.c:error:unexpected-token-in-.rept-directive
+|   |-- arch-s390-lib-spinlock.c:error:unknown-directive
+|   |-- arch-s390-lib-spinlock.c:error:unmatched-.endr-directive
+|   `-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|-- x86_64-randconfig-a001
+|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|   `-- kernel-bpf-syscall.c:warning:no-previous-prototype-for-function-unpriv_ebpf_notify
+|-- x86_64-randconfig-a005
+|   `-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|-- x86_64-randconfig-a012
+|   |-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+|   `-- kernel-bpf-syscall.c:warning:no-previous-prototype-for-function-unpriv_ebpf_notify
+|-- x86_64-randconfig-a014
+|   `-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
+`-- x86_64-randconfig-a016
+    `-- drivers-bus-mhi-host-main.c:warning:parameter-event_quota-set-but-not-used
 
-[  169.053276] Chain exists of:
-                  &topology_lock --> &type->i_mutex_dir_key#6 --> &mm->mmap_lock#2
+elapsed time: 735m
 
-[  169.068389]  Possible unsafe locking scenario:
+configs tested: 110
+configs skipped: 4
 
-[  169.076661]        CPU0                    CPU1
-[  169.082383]        ----                    ----
-[  169.088087]   lock(&mm->mmap_lock#2);
-[  169.092922]                                lock(&type->i_mutex_dir_key#6);
-[  169.100975]                                lock(&mm->mmap_lock#2);
-[  169.108320]   lock(&topology_lock);
-[  169.112957]
-                 *** DEADLOCK ***
+gcc tested configs:
+arm                                 defconfig
+arm64                            allyesconfig
+arm                              allmodconfig
+arm                              allyesconfig
+arm64                               defconfig
+i386                          randconfig-c001
+arc                              allyesconfig
+alpha                            allyesconfig
+nios2                            allyesconfig
+arm                       aspeed_g5_defconfig
+sh                              ul2_defconfig
+arc                        nsim_700_defconfig
+arm                            qcom_defconfig
+ia64                             alldefconfig
+mips                  maltasmvp_eva_defconfig
+powerpc                   motionpro_defconfig
+sh                   secureedge5410_defconfig
+sparc                            allyesconfig
+arm                      jornada720_defconfig
+arm                        shmobile_defconfig
+s390                       zfcpdump_defconfig
+powerpc                      bamboo_defconfig
+arm                         nhk8815_defconfig
+ia64                          tiger_defconfig
+arc                     haps_hs_smp_defconfig
+openrisc                         alldefconfig
+arc                     nsimosci_hs_defconfig
+m68k                        mvme147_defconfig
+sh                        dreamcast_defconfig
+mips                         cobalt_defconfig
+sh                   rts7751r2dplus_defconfig
+arm                  randconfig-c002-20220420
+x86_64                        randconfig-c001
+ia64                                defconfig
+ia64                             allmodconfig
+ia64                             allyesconfig
+m68k                             allyesconfig
+m68k                                defconfig
+m68k                             allmodconfig
+nios2                               defconfig
+alpha                               defconfig
+csky                                defconfig
+h8300                            allyesconfig
+arc                                 defconfig
+sh                               allmodconfig
+xtensa                           allyesconfig
+s390                             allyesconfig
+parisc                              defconfig
+parisc64                            defconfig
+s390                             allmodconfig
+parisc                           allyesconfig
+s390                                defconfig
+i386                   debian-10.3-kselftests
+i386                              debian-10.3
+i386                                defconfig
+i386                             allyesconfig
+sparc                               defconfig
+mips                             allyesconfig
+mips                             allmodconfig
+powerpc                           allnoconfig
+powerpc                          allmodconfig
+powerpc                          allyesconfig
+x86_64                        randconfig-a004
+x86_64                        randconfig-a002
+x86_64                        randconfig-a006
+x86_64                        randconfig-a013
+x86_64                        randconfig-a011
+x86_64                        randconfig-a015
+i386                          randconfig-a014
+i386                          randconfig-a012
+i386                          randconfig-a016
+arc                  randconfig-r043-20220420
+riscv                            allmodconfig
+riscv                    nommu_k210_defconfig
+riscv                    nommu_virt_defconfig
+riscv                             allnoconfig
+riscv                          rv32_defconfig
+riscv                            allyesconfig
+riscv                               defconfig
+x86_64                    rhel-8.3-kselftests
+um                           x86_64_defconfig
+um                             i386_defconfig
+x86_64                              defconfig
+x86_64                           allyesconfig
+x86_64                          rhel-8.3-func
+x86_64                               rhel-8.3
+x86_64                         rhel-8.3-kunit
+x86_64                                  kexec
 
-[  169.122265] 1 lock held by kfdtest/3479:
-[  169.127286]  #0: ffff97d303dee668 (&mm->mmap_lock#2){++++}-{3:3}, at: vm_mmap_pgoff+0xa9/0x180
-[  169.137033]
-                stack backtrace:
-[  169.143579] CPU: 18 PID: 3479 Comm: kfdtest Tainted: G            E     5.16.0-kfd-fkuehlin #148
-[  169.153480] Hardware name: To Be Filled By O.E.M. To Be Filled By O.E.M./EPYCD8-2T, BIOS P2.60 04/10/2020
-[  169.164175] Call Trace:
-[  169.167761]  <TASK>
-[  169.170988]  dump_stack_lvl+0x45/0x59
-[  169.175795]  check_noncircular+0xfe/0x110
-[  169.180947]  check_prev_add+0x8f/0xbf0
-[  169.185828]  __lock_acquire+0x1299/0x1ca0
-[  169.190966]  lock_acquire+0xca/0x2e0
-[  169.195677]  ? kfd_topology_device_by_id+0x16/0x60 [amdgpu]
-[  169.202808]  down_read+0x3e/0x140
-[  169.207333]  ? kfd_topology_device_by_id+0x16/0x60 [amdgpu]
-[  169.214332]  kfd_topology_device_by_id+0x16/0x60 [amdgpu]
-[  169.221123]  kfd_device_by_id+0xa/0x20 [amdgpu]
-[  169.227071]  kfd_mmap+0x95/0x200 [amdgpu]
-[  169.232521]  mmap_region+0x337/0x5a0
-[  169.237305]  do_mmap+0x3aa/0x540
-[  169.241713]  vm_mmap_pgoff+0xdc/0x180
-[  169.246529]  ksys_mmap_pgoff+0x186/0x1f0
-[  169.251603]  do_syscall_64+0x35/0x80
-[  169.256335]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-[  169.262536] RIP: 0033:0x7f828e0d1916
-[  169.267261] Code: 00 00 00 00 f3 0f 1e fa 41 f7 c1 ff 0f 00 00 75 2b 55 48 89 fd 53 89 cb 48 85 ff 74 37 41 89 da 48 89 ef b8 09 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 62 5b 5d c3 0f 1f 80 00 00 00 00 48 8b 05 41
-[  169.288448] RSP: 002b:00007ffe9bc5e7c8 EFLAGS: 00000206 ORIG_RAX: 0000000000000009
-[  169.297252] RAX: ffffffffffffffda RBX: 0000000000000011 RCX: 00007f828e0d1916
-[  169.305628] RDX: 0000000000000003 RSI: 0000000000001000 RDI: 0000000000201000
-[  169.313993] RBP: 0000000000201000 R08: 0000000000000003 R09: 04b4000000000000
-[  169.322358] R10: 0000000000000011 R11: 0000000000000206 R12: 000055571c9c5a40
-[  169.330733] R13: 0000000000000000 R14: 0000000000000011 R15: 0000000000000000
-[  169.339097]  </TASK>
-
+clang tested configs:
+mips                 randconfig-c004-20220420
+powerpc                        icon_defconfig
+arm                         shannon_defconfig
+powerpc                      katmai_defconfig
+mips                     loongson2k_defconfig
+powerpc                      pmac32_defconfig
+arm                         mv78xx0_defconfig
+powerpc                  mpc885_ads_defconfig
+mips                       lemote2f_defconfig
+x86_64                        randconfig-a001
+x86_64                        randconfig-a003
+x86_64                        randconfig-a005
+x86_64                        randconfig-a016
+x86_64                        randconfig-a012
+x86_64                        randconfig-a014
+i386                          randconfig-a013
+i386                          randconfig-a015
+i386                          randconfig-a011
+hexagon              randconfig-r041-20220420
+s390                 randconfig-r044-20220420
+hexagon              randconfig-r045-20220420
+riscv                randconfig-r042-20220420
 
 -- 
-F e l i x   K u e h l i n g
-PMTS Software Development Engineer | Linux Compute Kernel
-1 Commerce Valley Dr. East, Markham, ON L3T 7X6 Canada
-(O) +1(289)695-1597
-     _     _   _   _____   _____
-    / \   | \ / | |  _  \  \ _  |
-   / A \  | \M/ | | |D) )  /|_| |
-  /_/ \_\ |_| |_| |_____/ |__/ \|   facebook.com/AMD | amd.com
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp
