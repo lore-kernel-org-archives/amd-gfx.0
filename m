@@ -4,77 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33A4AC433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Apr 2022 18:56:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E292DC433F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Apr 2022 19:27:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2E6610E2C3;
-	Wed, 20 Apr 2022 18:56:42 +0000 (UTC)
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAA0F10E2C3;
- Wed, 20 Apr 2022 18:56:41 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id bv19so5403811ejb.6;
- Wed, 20 Apr 2022 11:56:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=rc0pPwaP6/47w0P3YZ39eMLVgRn/8HQa1EN8gwRIGPs=;
- b=cmErzdTGtahwYRQP00Qx8ZhwKKlMefoOYkcL5s+3xGq3JNVsS/YzcT3ZAxRoU+OnB4
- Fvu4mS+ZQeWtA88hbuNOPIUv9KPSuSzmrdD6Jlfnd6b+tSHT2NlftqPlRufBHvi9tMc2
- loSjNnChoqebzllejBYgyAhkRSGLI3PCNbTbGPCjMCKVg4LE2dQPoCVGHM3jECncMctU
- IYggO6Zr8mhmCjUIPHb9H3vbiDHEPEjT/WXKJNUvplY7zVVI7teffHrjweDk2osj+f3P
- XkkBMv24FTjxyGvP7mVVyU9y9/awljahl+gICqSG3mdp1b8uKhkc7YI095oI7p3pldf0
- Evpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=rc0pPwaP6/47w0P3YZ39eMLVgRn/8HQa1EN8gwRIGPs=;
- b=4xNxWwoK5mSw0Fdf2mmPc61XiXgPJm5smdtmn4Lup8BYfOFDw1BGbDv6mWqY8rVynj
- nCa5iA+JOBztjz5wn9vthZSZ6lF/Ado62A7SdfxBUpCvxGa284qi+xkzmejN238UmaLo
- aa5fkt5AW090Qf2cteLMOi9VEAgL3Gauh3RPaChS3aukBl2AJHNLgg9kXklxp+VfcjRo
- C6KT7ejWkspprlLWwCzz18/31JfVxXUENJN3uohyRU6HWYKqhGGm9VIKdbBbjZF2AtaZ
- E2p3yxp0TVRJYpQ9zdpdHIYnGrEXzxTdvxm4HT7KXnKxiVScNU6zyT5WwfHJhMhxzhcA
- zQNA==
-X-Gm-Message-State: AOAM533Edvx+R2/Z4vLSEZQ/hI+spLzVE/iDyB6yKUaQVHK2hyQBpJkI
- tm3dZZshywAh0AW+VdxM3YA=
-X-Google-Smtp-Source: ABdhPJymoss9KS5UEweBNeuSGQfdIi8XFSwbjs/XNcQRdCopeJCWXgyfUb9ZXOzrmQgQ0Um++2aN9Q==
-X-Received: by 2002:a17:906:31c2:b0:6e8:6e8b:cbe4 with SMTP id
- f2-20020a17090631c200b006e86e8bcbe4mr20179080ejf.293.1650481000148; 
- Wed, 20 Apr 2022 11:56:40 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1252:fb60:425d:2971:45fa:ac5d?
- ([2a02:908:1252:fb60:425d:2971:45fa:ac5d])
- by smtp.gmail.com with ESMTPSA id
- r3-20020aa7d583000000b00420a8b66566sm10414324edq.97.2022.04.20.11.56.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Apr 2022 11:56:39 -0700 (PDT)
-Message-ID: <ac12f900-fb47-37d6-9a1c-ac44bc711069@gmail.com>
-Date: Wed, 20 Apr 2022 20:56:38 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 845CC10F1C0;
+	Wed, 20 Apr 2022 19:27:24 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 892C210F1BF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Apr 2022 19:27:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nwRldbNCWR1MRuBIZr6Qv9v58HKjIYdhmcnHq3OWigyjDnSLNdPoz89LG6gLPl17lts+GzSQAL8FhIMwEQxkaJ4DyFKhfQAs9ZFaS5yhyVhb0SPrTInlg6KiTXxxjzXcnIMYD11VzkIWY52h2wt8gYLWaqW/YEmpi2c+obG5qjyVQfLE0LKaWsnkTS/Urdo6rlyWVV8WHveRoDgAeUfg/rQO7TK6ypR0tPgs4YvPMkiiJ5DWK28rH/EnYSka8pRxKex0uuo9y376sHCq1sRLB0n1J1d3KrR65uH9Fdfu/Q5iMI7+G9LKEj+OUN62i278Y4RpKevU3YXC4Zz28SkPHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4GCNdOBQXByCoBUQf8O0n98m0yj2s2ocqGY0Xz0HykI=;
+ b=hQ7U3XzT88tLsVtSlVBizeH9qxccFzhY1NPpkj8BChPDnDjmY/3Gelu7lGkXHjj2qf5MYIU2FPQLemqjRvCgdalrluzo6SMf43rqCr+UMb034CBf6QkWMRl6zfmPwr5OFtJg1YB6aIdccCRaP9SO+ce7NcQAGhcr421btB+GNNZEHLDrlY6dLlsrgGKtjB5dZGniFk3LZgO+ntBLkZvIhcPBJTlYNinKowfcM62wqWF3OlAmUig8GXc25IH9LGYXdjy5ZMAfCsuDVAxZ0s2n/Td3STf8eblIh8myHln3/v5W+8RuN+sIRcwrjBLoo9vfqG1hY09yAZJ8tjSoeB9aqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4GCNdOBQXByCoBUQf8O0n98m0yj2s2ocqGY0Xz0HykI=;
+ b=1yukK8xVVE5Sy6xN2g8FGypGRMjY32VcOQNtBiX3LVWjUwsxABOzowchp7I9Lxd9d7Hq5xmcaNbwm3T/L9yiyubSLT+hLru4pRx/JflwXpx80H1ucRa8EZOedKCXfuvIZWV2LQZuz3XXHVQXYjl4ZYbfofdaMYTjN/zC7BQpsM4=
+Received: from BN0PR03CA0021.namprd03.prod.outlook.com (2603:10b6:408:e6::26)
+ by DM5PR12MB1241.namprd12.prod.outlook.com (2603:10b6:3:72::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.20; Wed, 20 Apr
+ 2022 19:27:20 +0000
+Received: from BN8NAM11FT068.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e6:cafe::fb) by BN0PR03CA0021.outlook.office365.com
+ (2603:10b6:408:e6::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14 via Frontend
+ Transport; Wed, 20 Apr 2022 19:27:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT068.mail.protection.outlook.com (10.13.177.69) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5186.14 via Frontend Transport; Wed, 20 Apr 2022 19:27:20 +0000
+Received: from test-Virtual-Machine.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Wed, 20 Apr 2022 14:27:19 -0500
+From: Alice Wong <shiwei.wong@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: clean up psp ip if hw_init failed
+Date: Wed, 20 Apr 2022 15:25:19 -0400
+Message-ID: <20220420192519.1422203-1-shiwei.wong@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 03/15] dma-buf & drm/amdgpu: remove dma_resv workaround
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Zack Rusin <zackr@vmware.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-References: <20220407085946.744568-1-christian.koenig@amd.com>
- <20220407085946.744568-4-christian.koenig@amd.com>
- <60ab53ce1ce1333f5e6a15fc83c3c05cd9bd1084.camel@vmware.com>
- <4c2e9414-3926-c9d7-8482-0d6d9191c2ac@amd.com>
- <fe8916b53b0f0101e6616d23eb6896399b092d58.camel@vmware.com>
- <54d00af9-9384-5794-490c-7d4cafe086b6@gmail.com>
- <e1c60e2a1478c406f515d51608a751fdc9feff3a.camel@vmware.com>
- <baa19a2d-6ad9-63ea-20f4-284a794f8998@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <baa19a2d-6ad9-63ea-20f4-284a794f8998@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 89ba2b18-751e-4ab8-3f5a-08da2303c9db
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1241:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB12410E8744FF638A1B9B2B43EBF59@DM5PR12MB1241.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: D38eDDUlpLARFyf0OejaLdIbofrmL9FwY9piZsTaVum0uMqnYv3/+c8TaULiTO70J2sOsNhOp0H2ozlrXp3+u2ASxe1ozzU73OOzkkIZeE4k0Ewm6O5ObCBdy5v4AvGzi1OdRbzHpd7fHtn8NKgXDEgwY7vnIADN75MNwz2uiSdsr17Amvh06wMWhBINF9BITQTjIZDQFQ0QujvRtzHoMxoEoS1gE6CC9KmfgtS062rG5ZYB83mOiHJgh69K4KsaC1LyNaIRF0aWsfd2gxTy6PMuIiEZMqPB7Tg4ST/bN5q1AcyEEgFA5iidfSiOjRc8krg7jFj56uR44fXYHVmTNyBRGo7YYPmrNQ1zAk4DZeg9UuL5GTzWxf9bz2VrAFF7pqgWpL7yIjWkrPz9NA0trFgZ1sT0g29R/in1C/RmN18t8fN9H1Xo7VEORhcPjARTvRyHMYqdPFXnaUSBB0WukmO7w3bWtHLUDUF7O1+GnpwaZ256NaNL9SxS7gc7nQxFQev+MM9i8Z+0ll+ASYJsGiK4wjQsnea4RRb8ondT6kdV46wTsH/luUd0sqN9xW0KkSx1ZMLQfyPSxVVhPY3Ua077570qaHPm7Q8/A4NgQ3bwgd+8YIi+M6yTZDg7oK2Mn9Yfe2IK5WhrBN/qLHlhGtksnSEso8ff7Fp9Pfz3k4bPBpSXGk/PP22fum0aHL+Hp0gfeJQLZs22uSIjB4d9Og==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(5660300002)(36860700001)(83380400001)(6916009)(2906002)(86362001)(508600001)(40460700003)(356005)(336012)(186003)(70206006)(81166007)(82310400005)(1076003)(26005)(16526019)(426003)(4326008)(8676002)(70586007)(2616005)(316002)(47076005)(36756003)(7696005)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2022 19:27:20.4028 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89ba2b18-751e-4ab8-3f5a-08da2303c9db
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT068.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1241
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,102 +98,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Alice Wong <shiwei.wong@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.04.22 um 20:49 schrieb Christian König:
-> Am 20.04.22 um 20:41 schrieb Zack Rusin:
->> On Wed, 2022-04-20 at 19:40 +0200, Christian König wrote:
->>> Am 20.04.22 um 19:38 schrieb Zack Rusin:
->>>> On Wed, 2022-04-20 at 09:37 +0200, Christian König wrote:
->>>>> ⚠ External Email
->>>>>
->>>>> Hi Zack,
->>>>>
->>>>> Am 20.04.22 um 05:56 schrieb Zack Rusin:
->>>>>> On Thu, 2022-04-07 at 10:59 +0200, Christian König wrote:
->>>>>>> Rework the internals of the dma_resv object to allow adding
->>>>>>> more
->>>>>>> than
->>>>>>> one
->>>>>>> write fence and remember for each fence what purpose it had.
->>>>>>>
->>>>>>> This allows removing the workaround from amdgpu which used a
->>>>>>> container
->>>>>>> for
->>>>>>> this instead.
->>>>>>>
->>>>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>>>>>> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->>>>>>> Cc: amd-gfx@lists.freedesktop.org
->>>>>> afaict this change broke vmwgfx which now kernel oops right
->>>>>> after
->>>>>> boot.
->>>>>> I haven't had the time to look into it yet, so I'm not sure
->>>>>> what's
->>>>>> the
->>>>>> problem. I'll look at this tomorrow, but just in case you have
->>>>>> some
->>>>>> clues, the backtrace follows:
->>>>> that's a known issue and should already be fixed with:
->>>>>
->>>>> commit d72dcbe9fce505228dae43bef9da8f2b707d1b3d
->>>>> Author: Christian König <christian.koenig@amd.com>
->>>>> Date:   Mon Apr 11 15:21:59 2022 +0200
->>>> Unfortunately that doesn't seem to be it. The backtrace is from the
->>>> current (as of the time of sending of this email) drm-misc-next,
->>>> which
->>>> has this change, so it's something else.
->>> Ok, that's strange. In this case I need to investigate further.
->>>
->>> Maybe VMWGFX is adding more than one fence and we actually need to
->>> reserve multiple slots.
->> This might be helper code issue with CONFIG_DEBUG_MUTEXES set. On 
->> that config
->> dma_resv_reset_max_fences does:
->>     fences->max_fences = fences->num_fences;
->> For some objects num_fences is 0 and so after max_fences and 
->> num_fences are both 0.
->> And then BUG_ON(num_fences >= max_fences) is triggered.
->
-> Yeah, but that's expected behavior.
->
-> What's not expected is that max_fences is still 0 (or equal to old 
-> num_fences) when VMWGFX tries to add a new fence. The function 
-> ttm_eu_reserve_buffers() should have reserved at least one fence slot.
->
-> So the underlying problem is that either ttm_eu_reserve_buffers() was 
-> never called or VMWGFX tried to add more than one fence.
+Call psp_hw_fini when psp_hw_init failed.
 
+BUG:SWDEV-332449
+Signed-off-by: Alice Wong <shiwei.wong@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 57 +++++++++++++------------
+ 1 file changed, 29 insertions(+), 28 deletions(-)
 
-To figure out what it is could you try the following code fragment:
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c 
-b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
-index f46891012be3..a36f89d3f36d 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
-@@ -288,7 +288,7 @@ int vmw_validation_add_bo(struct 
-vmw_validation_context *ctx,
-                 val_buf->bo = ttm_bo_get_unless_zero(&vbo->base);
-                 if (!val_buf->bo)
-                         return -ESRCH;
--               val_buf->num_shared = 0;
-+               val_buf->num_shared = 16;
-                 list_add_tail(&val_buf->head, &ctx->bo_list);
-                 bo_node->as_mob = as_mob;
-                 bo_node->cpu_blit = cpu_blit;
-
-Thanks,
-Christian.
-
->
-> Regards,
-> Christian.
->
->>
->> z
->>
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 5b9e48d44f5b..52b14efa848a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -2537,6 +2537,34 @@ static int psp_load_fw(struct amdgpu_device *adev)
+ 	return ret;
+ }
+ 
++static int psp_hw_fini(void *handle)
++{
++	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct psp_context *psp = &adev->psp;
++
++	if (psp->ta_fw) {
++		psp_ras_terminate(psp);
++		psp_securedisplay_terminate(psp);
++		psp_rap_terminate(psp);
++		psp_dtm_terminate(psp);
++		psp_hdcp_terminate(psp);
++	}
++
++	psp_asd_terminate(psp);
++
++	psp_tmr_terminate(psp);
++	psp_ring_destroy(psp, PSP_RING_TYPE__KM);
++
++	amdgpu_bo_free_kernel(&psp->fw_pri_bo,
++			      &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
++	amdgpu_bo_free_kernel(&psp->fence_buf_bo,
++			      &psp->fence_buf_mc_addr, &psp->fence_buf);
++	amdgpu_bo_free_kernel(&psp->cmd_buf_bo, &psp->cmd_buf_mc_addr,
++			      (void **)&psp->cmd_buf_mem);
++
++	return 0;
++}
++
+ static int psp_hw_init(void *handle)
+ {
+ 	int ret;
+@@ -2563,37 +2591,10 @@ static int psp_hw_init(void *handle)
+ failed:
+ 	adev->firmware.load_type = AMDGPU_FW_LOAD_DIRECT;
+ 	mutex_unlock(&adev->firmware.mutex);
++	psp_hw_fini(handle);
+ 	return -EINVAL;
+ }
+ 
+-static int psp_hw_fini(void *handle)
+-{
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	struct psp_context *psp = &adev->psp;
+-
+-	if (psp->ta_fw) {
+-		psp_ras_terminate(psp);
+-		psp_securedisplay_terminate(psp);
+-		psp_rap_terminate(psp);
+-		psp_dtm_terminate(psp);
+-		psp_hdcp_terminate(psp);
+-	}
+-
+-	psp_asd_terminate(psp);
+-
+-	psp_tmr_terminate(psp);
+-	psp_ring_destroy(psp, PSP_RING_TYPE__KM);
+-
+-	amdgpu_bo_free_kernel(&psp->fw_pri_bo,
+-			      &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
+-	amdgpu_bo_free_kernel(&psp->fence_buf_bo,
+-			      &psp->fence_buf_mc_addr, &psp->fence_buf);
+-	amdgpu_bo_free_kernel(&psp->cmd_buf_bo, &psp->cmd_buf_mc_addr,
+-			      (void **)&psp->cmd_buf_mem);
+-
+-	return 0;
+-}
+-
+ static int psp_suspend(void *handle)
+ {
+ 	int ret;
+-- 
+2.25.1
 
