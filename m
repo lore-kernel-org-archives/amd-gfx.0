@@ -4,52 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D42A3C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 17:07:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E72EC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 17:12:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 560FC10E44B;
-	Thu, 21 Apr 2022 17:07:27 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4666C10E44B
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 17:07:26 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id r85so6272604oie.7
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 10:07:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Brtxk4BN8osmeZ8VDpunDYIjJrToxFrwE6MnByANWR0=;
- b=JNAWiA60vw8L0f1dkB9Jx28MUMeb3PwJF6uhf9imf5/oKEk3ANrHp7VJiWSbPuXjg/
- Fk25lmGBfLUCLeTzR872Drqc4JmOaug2SYWwYoky7SBxzt77RrBb7Z3gMiddgoeVoyFu
- Bnuy6Qc2bZiNsPV3SmZy1fOfea3XUXP1BHFV0ERTs/tdsHCAxa+rfgAAtBOTIdq1egU9
- jBlLuSdXF/CwkXbABBs3/Ma1tbOLwaPRtomKJTzkG6ZsM+LKxSSfST9SNULzzGn0cb/q
- iZ3hBM5jPpxn0VeIxTLvf8lMOpF6ygxSJXV+dlVE14JiNSLd4wUndOWkRNDRbyXsmDZn
- 1Ciw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Brtxk4BN8osmeZ8VDpunDYIjJrToxFrwE6MnByANWR0=;
- b=cpC+HiiKNujVujOnU+5EQHJvmJnsCtdVCztg7COMbkeZ+lKgOsreXlT2tthfAjogU5
- rzOkE1Cpaw4656cidXDBG+knjvG9WMzrv0qy5cG5CccRxKt0ZgBezrK8XRPlfxy7HXyH
- qkoQHpNdBI60WM3sQxYLgQiBTvXbaU2af2H0OR0wx87yAdcdV636jXaHWVxYJb1mM7cl
- +BmdDFOPK4YV3umPmjwGGbKrMZRLnZIHTl5ZN++qlo0Bw/hWP1sj7cD3CqG9YsS7DoNl
- DLk8CgoXwoSOrmcTaage1cOqHN0vApy+VFPQ0cauAUS6dYWCWpxpnzf3x3lUSJruEqME
- /PRw==
-X-Gm-Message-State: AOAM530F7RC6ByUuAWRDXc4V/MV6ADgdRfTolTzelt+o2Eg/sV4W8EGp
- Gde1YapVutm4INHxcDUzZC9aE7EsXaPA/34D7xZkLRYa
-X-Google-Smtp-Source: ABdhPJzJqWo2OHTTVoT61TCq0LS31HCntqKzalNz+ltkLGpKXZi6Lo1rSz24K/GVlvon1ga7QXv+u8CGYiu+QVVbTR0=
-X-Received: by 2002:aca:3d88:0:b0:321:141:ce0b with SMTP id
- k130-20020aca3d88000000b003210141ce0bmr4449741oia.200.1650560845425; Thu, 21
- Apr 2022 10:07:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A43F910E2E0;
+	Thu, 21 Apr 2022 17:12:22 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 219A710E2E0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 17:12:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YuN+eIr6rB7eiPRBmAFOgij7t6qVfRuwfN9Zhc239orjSBOm3t0n7dGRC1WG2MiivHT7JwSNJdpRYv4tDcUgOMGdZrULuKP1QcB+NIyFQpYpVRvqYSre9FMwYof0P9OoA9vh0cHCd1pkB67coUVz1wmOT+16zWsgjo4xYfggrd3LsLjwpB4Pj1VsFnLqYQUjPuKGxBKAIOAaffKxVejbqRFWmGb1SCorP7VPqGzWQJU8IQHtqR8N38Dr9NyhLhhFU2N4SuofOCa38mS23NFyu16CWJd+57ja+d7Wj9noXp4Z1WA0eaEds7b3g/rLLCgP5CT9w7aqrJd7tjZORBMcww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RxnHczfoOjtXfWHZ3N5FR1eOu0P0Y75jyOCU78veaUY=;
+ b=e4429s9aqGdLxHLP+wpbV3KiMhD1X4TlOxy8zF7MGpbsfdS7TJB243tUIy/ll0QlmpuuoPHTgPzLtgYrAOi+R/9jniI2iYeM80tYnVFw4MO1ml6Z9xmQ9KGTgaQ0G+G0TMvnH9sbIqHLuYeQo4vHseGVjJTMjrS/KKHjgi1k9WihN4V5AxHVKV3sKaE2TwB2J7z7Uhws9USRMQlgEwGgr1cFf4INRMUJYlTQ+O9qLuK5/Man8DwStHxGiYq7NQp/P6kx/IUvnUyMLWCFz5A2qrSdEzr+imMcB5F8lwbikOOeNKCLGYDMZF1sleAhyZ+lLeMOeqhd43gxjCVHiY1ieg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RxnHczfoOjtXfWHZ3N5FR1eOu0P0Y75jyOCU78veaUY=;
+ b=NvfBjDke5ZSulWeKMijMNvAOHGzBqYrtpeL9DshGJePPviiJogcrwuK6kJK0jT63Yz0CCjse7jrOBA56MJscWvgTOCxjUiUsR40w+MPLfLe6wUEswfNZ9+ZsvwKy1c2Agntv0quttS1CpF44zGl9wQQprTZC50Jcz5yeQk1y4Ik=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by BYAPR12MB3271.namprd12.prod.outlook.com (2603:10b6:a03:138::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.20; Thu, 21 Apr
+ 2022 17:12:18 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::3c53:b805:4206:6620]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::3c53:b805:4206:6620%9]) with mapi id 15.20.5186.013; Thu, 21 Apr 2022
+ 17:12:18 +0000
+Message-ID: <98af64d4-879b-5a8b-8452-ff85e38b753e@amd.com>
+Date: Thu, 21 Apr 2022 13:12:12 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH] drm/amdgpu/display: make hubp31_program_extended_blank
+ static
+Content-Language: en-US
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220421141032.3012374-1-alexander.deucher@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20220421141032.3012374-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT3PR01CA0138.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:83::25) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <20220420224723.275053-1-Bokun.Zhang@amd.com>
-In-Reply-To: <20220420224723.275053-1-Bokun.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 21 Apr 2022 13:07:13 -0400
-Message-ID: <CADnq5_NeiGaxBdKHtxPm01Osj+inwSJBJOvQe+YDHXr8hM3-NQ@mail.gmail.com>
-Subject: Re: [PATCH 2/3 v3] drm/amd/amdgpu: Properly indent PF2VF header
-To: Bokun Zhang <Bokun.Zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 3b1226a5-4903-4c0e-a337-08da23ba16fc
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3271:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB32716AB890482AF7DDF522B18CF49@BYAPR12MB3271.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KuYOeG9FDiLe4tSa4ywD6eluZ9av9uYyVuPABHhmsbLgGfkvEA2FyzngWtS8WaYt74L25SiRGUACzcvZGVwZydbedtXZ47nGRexcY0IDsHlyXCQzGaSQ4O5U/PzkMe7TiEr/kiyHsiYzBcudiwuBAxZtPNlGsmgbpl40uvcm41Rn/3wSTELOrq16jAYeTyHVlORrlc+SUr64YN1p9Lrt8LI/+ATiuf10Hl0Wp7JRjo62SUMBE043MidMPuSPgnIYPwFdHBeo+tefoMGjNoxvKjNIKvkp6xq8PZm6XLBM5aHIxPuOjQKQF5COPauLmUpEpehKDjJxk5HXKKdj14U2BahaSmd8yRed+co2q1uFmo5dUqHrfVkPAAu9wOxEGxhtgThcbgTvZ7y+4rkkjPt0SjXXHPnLBk3//HbEMSm2RCy7mwHuQ/NNBqe8cnJ7Zi60Wnpvh6oav5eiE7bZEsifoSa9OgvPBdUldxcaHHaRnmTxyHk9stETbvG8EU/+gLgx+MwNgrJ7iwOHx6IzgJZUl26XWX5yH9ltpo/2+tCosmkztUF8KSra/YTP3xL4Ez7XExmIQZXwde+IFE8GocJ6f134sojT8iKaXWonTa7PFhChHuJoH386yA09DC8BSqnuw6bsKj+0H/8HATTPgBgFm7KPez8WvxMLk2HMpQkVg6SaUywtqXZzZSfZdXApMYru9KNIAyYapAwZ6+yzyIGnqxp6YeOz1+TY96+zDkATgFwbQOCCwhhhJLhdDoox9cGr
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(66476007)(8936002)(36756003)(4744005)(2906002)(66556008)(5660300002)(316002)(38100700002)(8676002)(6666004)(66946007)(6486002)(53546011)(31686004)(86362001)(31696002)(508600001)(186003)(26005)(2616005)(44832011)(83380400001)(6512007)(6506007)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dG9lb2ZnRVRVYWZUODkzeUUrOStubC9mT3pXTWpJbTE4SU1DZjZKTFpwWEVo?=
+ =?utf-8?B?QTg3QkJtOVFDUUZRNnU5R2dTYms0blpMR1N3RjBPTDB3L25kcy9lU1hqU0xF?=
+ =?utf-8?B?azRtaGNXWGc2TGtQVi9WM2xrYmdySFBNVElYUnVTcnNBODlNRW9FUEFWRzVz?=
+ =?utf-8?B?SzRmZmVFZEZhTytza2huR3M0K2kzTERBWW9LUVlhOXVlR3Yzakx0d1kvYWI1?=
+ =?utf-8?B?Rm82NFR2bVAyM1dLcWE3MWxubmZxaGZqc3RvSEdMNUVKenZzbjFvK3Fma3pU?=
+ =?utf-8?B?RFF3ZjJEK1VPcSt4K08yVWtwdzFYZXpQdGVKek9PcXZ0MTQ2c1NQT2NucEk5?=
+ =?utf-8?B?dExrRFpYSWJkVnQ4SlQxWmduYk5VSDFwTnM0NG0zTGsyMmxOSVlTd0tYajZS?=
+ =?utf-8?B?dlFpSHNOcU1ZdVA0SjZtR1BjZ1FjS0RuM2Z2b0RQaEJQYnowYUdXQW1Pb3Az?=
+ =?utf-8?B?M1BqWFpwRXNoSW1IOUJpcFc4R3E4Wnd4c2doeTQxWkhlRGlVSU0vSjJPb3lG?=
+ =?utf-8?B?MHBtUU1KSXpqZVR3MndEbzNmbU5ocXJQNUQ2TXZNTVJON2UyaDdCUFpQNG5J?=
+ =?utf-8?B?Qk5ZTzFRU1J5Q1pjMXFqOUEzdDVNbUNBRzhQQmx4VWFPQU8rcXRXS0l4aE1u?=
+ =?utf-8?B?RjBwK0lFUXhwUGJpdnZXcmpwZmtRVjVKSVo1QWE3M0NPWjhxS2hPK2l1dkd2?=
+ =?utf-8?B?NG9xU2NwSUUzc3h4dDRrd1J4NVk1N2FYam1GZUtqcXlQRlg3TmxVajU5LzFQ?=
+ =?utf-8?B?SHJCbWJibzkvTjgzVEJsWC9YbndkVmFHdlRrZDFSdWg5a3ppOWlKTGhVcVRI?=
+ =?utf-8?B?Q3VONnpIZnpwYjRJQ21sd04wc2w0djJPZHVqbUk0Vm9yMDRBdUg5d0hPSWNn?=
+ =?utf-8?B?NERaU3QwMDVCS2h0MlRzZzRFM01GQkViYTlWcDAyc0hkS0FJK2JxR25KZTF3?=
+ =?utf-8?B?Q0s0MXF6SEMwM3p3cVBtRElmM3BPdm1VS21tdTkydTZzTzYrZ2tDK3UrdGVE?=
+ =?utf-8?B?ajE2NStvQ2QrZjRia0NMaTRHcFh2aGF3QjIwZHY3UGlTaXhIcE1rOEJZZEJ0?=
+ =?utf-8?B?QVZGc0VjQWRuWG43UUEzNVk3L0tWbS8vRFM4QWVWR0ZXV3BWbiszNVdWZXBT?=
+ =?utf-8?B?dXdTZ0JXWkw0K3psKzVwdktCbkptb0RnZC9sRUdiRjhON2lOMTVtTk8wdmpN?=
+ =?utf-8?B?Ym5LZmIzbWtWQ2ZvVWF0UWR4bW1OUmkvei9FUlgzRUovSXhxaEw4ZlVRNDZV?=
+ =?utf-8?B?Sm9LQUgraDRma0ZwOWhBNDMycTBEcWllaUM3NGhwc0s2ZEZjODRtaElOMFZF?=
+ =?utf-8?B?cm5qVEhFQUMzeHpwZnU3eldicVNCbWxTdWk0a0tZWkNUWWVIU1NweEFsdWdH?=
+ =?utf-8?B?Zmx0RGJoQ0lYdGtzV0cvYUduaU9DeWUvOW1GeDdhU0JqeG0zY2NTWkRKQTMy?=
+ =?utf-8?B?Y0F2RTMrbW4weHVJcE03VTFPUnNMbG9LV2Z6WTk4cXNQTGhZT0I3dlR1UjZJ?=
+ =?utf-8?B?bnF6Q1lTWkIrelc3WFA4NndpMTdGSC9RNEZWYTFLdWJHWDZoOVpWSksvL3lO?=
+ =?utf-8?B?dDkxOXZ3ZGprcU83cWRhUVNmZlRWdnZMUW9Tck9yREFQM0U0a3JROHhUYkI5?=
+ =?utf-8?B?V3ZwRm0rc3RDSkRPSWd2dkplRDBXVWFsWVZZbmFreVFzK2FjVEJwazJUWVVG?=
+ =?utf-8?B?RStmSjlWZW9Pb2VQbWdVaS9ta1hSTlVaeWNtcXd5VTN6TGloazJmT3pLbVNq?=
+ =?utf-8?B?OHVaSkxLZUZBQlpoZGNvNG1neDUvREwyMEFCQS90YnIxeDl1SVBiNVhLMzVL?=
+ =?utf-8?B?MllyNFVEQmh6bTRGRkFhVnQ4TWxOdDN2RVNmMkdDQnZtUHMwM2R1Y1ZmdEVZ?=
+ =?utf-8?B?UHJxZGMrSVU1MUM3eWordWlSYUFjNko5ZmVUMlM1SmpOUkVFaXByeGs0b1VD?=
+ =?utf-8?B?MkxVVjJVVHJ6TjNnMkJmVHoxdVVpem1Ub3BINVpLeG9rbnk4M09PTDhDd2ZR?=
+ =?utf-8?B?ZWk1bkx0QkRselVSZ3JJUDV0YllDck1rYWZrN3E4M202dlprNVc1VDk1UTV6?=
+ =?utf-8?B?YW1sNW1nT2lodkZDc1J0V0pyUTFxY1M2VmwwM1hCSHRvc1BHa2cyYmI4ZVli?=
+ =?utf-8?B?UWpSVUMyVGE4dWZRRnpFSHBFVks1MCtMeGZaMXhybCtHQUd0ZU13aXB6S1dG?=
+ =?utf-8?B?UFRhZ1ZWN1M1NFYyZXhuZ1EwMG5USTBUanlBZVlQK3BPcXl3TzZpYVhXODVS?=
+ =?utf-8?B?VENWTmNMckg5dGp2V0dTcHo5QlFBd0VERFNYYTNiYzBXdzRFOFpORHVHWDVr?=
+ =?utf-8?B?SU9aYnFGQklCVjZIUTFJeDhPMjJ6MFoyNjFDMk5kbzRJVDZmbVE2Zz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b1226a5-4903-4c0e-a337-08da23ba16fc
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2022 17:12:18.5716 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SQjRdtPpmJQV2kaGbahBzTX25wk2f2ru+9lR3VFMufMkUYe9AgcfMkW3ygGW1V3tACwpcTwgcdxi2uZiZTLfrg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3271
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,184 +128,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 20, 2022 at 6:47 PM Bokun Zhang <Bokun.Zhang@amd.com> wrote:
->
-> - Clean up the identation in the header file
->
-> Signed-off-by: Bokun Zhang <Bokun.Zhang@amd.com>
+
+
+On 2022-04-21 10:10, Alex Deucher wrote:
+> It's not used outside of dcn31_hubp.c.
+> 
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 70 ++++++++++-----------
->  1 file changed, 34 insertions(+), 36 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> index 059be32638ac..65433cbb00c5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> @@ -24,10 +24,10 @@
->  #define AMDGV_SRIOV_MSG__H_
->
->  /* unit in kilobytes */
-> -#define AMD_SRIOV_MSG_VBIOS_OFFSET              0
-> -#define AMD_SRIOV_MSG_VBIOS_SIZE_KB             64
-> -#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB    AMD_SRIOV_MSG_VBIOS_SIZE_KB
-> -#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB      4
-> +#define AMD_SRIOV_MSG_VBIOS_OFFSET          0
-> +#define AMD_SRIOV_MSG_VBIOS_SIZE_KB         64
-> +#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB AMD_SRIOV_MSG_VBIOS_SIZE_KB
-> +#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB   4
->
->  /*
->   * layout
-> @@ -50,10 +50,10 @@
->   * v2 defined in amdgim
->   * v3 current
->   */
-> -#define AMD_SRIOV_MSG_FW_VRAM_PF2VF_VER                        2
-> -#define AMD_SRIOV_MSG_FW_VRAM_VF2PF_VER                        3
-> +#define AMD_SRIOV_MSG_FW_VRAM_PF2VF_VER 2
-> +#define AMD_SRIOV_MSG_FW_VRAM_VF2PF_VER 3
->
-> -#define AMD_SRIOV_MSG_RESERVE_UCODE            24
-> +#define AMD_SRIOV_MSG_RESERVE_UCODE 24
->
->  #define AMD_SRIOV_MSG_RESERVE_VCN_INST 4
->
-> @@ -82,19 +82,19 @@ enum amd_sriov_ucode_engine_id {
->         AMD_SRIOV_UCODE_ID__MAX
->  };
->
-> -#pragma pack(push, 1)  // PF2VF / VF2PF data areas are byte packed
-> +#pragma pack(push, 1) // PF2VF / VF2PF data areas are byte packed
->
->  union amd_sriov_msg_feature_flags {
->         struct {
-> -               uint32_t  error_log_collect  : 1;
-> -               uint32_t  host_load_ucodes   : 1;
-> -               uint32_t  host_flr_vramlost  : 1;
-> -               uint32_t  mm_bw_management   : 1;
-> -               uint32_t  pp_one_vf_mode     : 1;
-> -               uint32_t  reg_indirect_acc   : 1;
-> -               uint32_t  reserved           : 26;
-> +               uint32_t error_log_collect : 1;
-> +               uint32_t host_load_ucodes  : 1;
-> +               uint32_t host_flr_vramlost : 1;
-> +               uint32_t mm_bw_management  : 1;
-> +               uint32_t pp_one_vf_mode    : 1;
-> +               uint32_t reg_indirect_acc  : 1;
-> +               uint32_t reserved          : 26;
->         } flags;
-> -       uint32_t      all;
-> +       uint32_t all;
->  };
->
->  union amd_sriov_reg_access_flags {
-> @@ -109,10 +109,10 @@ union amd_sriov_reg_access_flags {
->
->  union amd_sriov_msg_os_info {
->         struct {
-> -               uint32_t  windows            : 1;
-> -               uint32_t  reserved           : 31;
-> +               uint32_t windows  : 1;
-> +               uint32_t reserved : 31;
->         } info;
-> -       uint32_t      all;
-> +       uint32_t all;
->  };
->
->  struct amd_sriov_msg_uuid_info {
-> @@ -203,7 +203,7 @@ struct amd_sriov_msg_pf2vf_info {
->         } mm_bw_management[AMD_SRIOV_MSG_RESERVE_VCN_INST];
->         /* UUID info */
->         struct amd_sriov_msg_uuid_info uuid_info;
-> -       /* pcie atomic Ops info */
-> +       /* PCIE atomic ops support flag */
->         uint32_t pcie_atomic_ops_enabled_flags;
->         /* reserved */
->         uint32_t reserved[256 - 48];
-> @@ -223,7 +223,7 @@ struct amd_sriov_msg_vf2pf_info {
->         struct amd_sriov_msg_vf2pf_info_header header;
->         uint32_t checksum;
->         /* driver version */
-> -       uint8_t  driver_version[64];
-> +       uint8_t driver_version[64];
->         /* driver certification, 1=WHQL, 0=None */
->         uint32_t driver_cert;
->         /* guest OS type and version */
-> @@ -257,13 +257,14 @@ struct amd_sriov_msg_vf2pf_info {
->         uint32_t fb_size;
->         /* guest ucode data, each one is 1.25 Dword */
->         struct {
-> -               uint8_t  id;
-> +               uint8_t id;
->                 uint32_t version;
->         } ucode_info[AMD_SRIOV_MSG_RESERVE_UCODE];
-> +       /* dummy page addr */
->         uint64_t dummy_page_addr;
->
->         /* reserved */
-> -       uint32_t reserved[256-70];
-> +       uint32_t reserved[256 - 70];
->  };
->
->  /* mailbox message send from guest to host  */
-> @@ -275,7 +276,8 @@ enum amd_sriov_mailbox_request_message {
->         MB_REQ_MSG_REQ_GPU_RESET_ACCESS,
->         MB_REQ_MSG_REQ_GPU_INIT_DATA,
->
-> -       MB_REQ_MSG_LOG_VF_ERROR       = 200,
-> +       MB_REQ_MSG_LOG_VF_ERROR = 200,
-> +       MB_REQ_MSG_READY_TO_RESET = 201,
-
-This addition should be in patch 3.  With that fixed, the series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
->  };
->
->  /* mailbox message send from host to guest  */
-> @@ -297,17 +299,15 @@ enum amd_sriov_gpu_init_data_version {
->         GPU_INIT_DATA_READY_V1 = 1,
->  };
->
-> -#pragma pack(pop)      // Restore previous packing option
-> +#pragma pack(pop) // Restore previous packing option
->
->  /* checksum function between host and guest */
-> -unsigned int amd_sriov_msg_checksum(void *obj,
-> -                               unsigned long obj_size,
-> -                               unsigned int key,
-> -                               unsigned int checksum);
-> +unsigned int amd_sriov_msg_checksum(void *obj, unsigned long obj_size, unsigned int key,
-> +                                   unsigned int checksum);
->
->  /* assertion at compile time */
->  #ifdef __linux__
-> -#define stringification(s) _stringification(s)
-> +#define stringification(s)  _stringification(s)
->  #define _stringification(s) #s
->
->  _Static_assert(
-> @@ -318,13 +318,11 @@ _Static_assert(
->         sizeof(struct amd_sriov_msg_pf2vf_info) == AMD_SRIOV_MSG_SIZE_KB << 10,
->         "amd_sriov_msg_pf2vf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB) " KB");
->
-> -_Static_assert(
-> -       AMD_SRIOV_MSG_RESERVE_UCODE % 4 == 0,
-> -       "AMD_SRIOV_MSG_RESERVE_UCODE must be multiple of 4");
-> +_Static_assert(AMD_SRIOV_MSG_RESERVE_UCODE % 4 == 0,
-> +              "AMD_SRIOV_MSG_RESERVE_UCODE must be multiple of 4");
->
-> -_Static_assert(
-> -       AMD_SRIOV_MSG_RESERVE_UCODE > AMD_SRIOV_UCODE_ID__MAX,
-> -       "AMD_SRIOV_MSG_RESERVE_UCODE must be bigger than AMD_SRIOV_UCODE_ID__MAX");
-> +_Static_assert(AMD_SRIOV_MSG_RESERVE_UCODE > AMD_SRIOV_UCODE_ID__MAX,
-> +              "AMD_SRIOV_MSG_RESERVE_UCODE must be bigger than AMD_SRIOV_UCODE_ID__MAX");
->
->  #undef _stringification
->  #undef stringification
-> --
-> 2.25.1
->
+>   drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
+> index 8ae6117953ca..197a5cae068b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
+> @@ -54,7 +54,8 @@ void hubp31_soft_reset(struct hubp *hubp, bool reset)
+>   	REG_UPDATE(DCHUBP_CNTL, HUBP_SOFT_RESET, reset);
+>   }
+>   
+> -void hubp31_program_extended_blank(struct hubp *hubp, unsigned int min_dst_y_next_start_optimized)
+> +static void hubp31_program_extended_blank(struct hubp *hubp,
+> +					  unsigned int min_dst_y_next_start_optimized)
+>   {
+>   	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
+>   
