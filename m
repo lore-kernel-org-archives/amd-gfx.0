@@ -4,40 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCCB6C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 14:38:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33EF7C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 14:39:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55D2E10E41B;
-	Thu, 21 Apr 2022 14:38:04 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5AAF10E41B;
- Thu, 21 Apr 2022 14:38:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=4vyoabUptigSLi47grfw1QocqbtW5Ln8ukV2CRJUJG4=; b=pchOrqjQdVW3hwE/rTgWxP76bm
- 9lva3qJRt0BgKhpOYcKqJFcWIcljHBF1NK+K34R/nmS6UcBJz3aHwKe+O0BAMyQvbQKvkswDVEwHY
- 4D/emZDEM+8+ghI6+EhazyO+O5fkaMMjEj5iJYjJwdOAJn4NOJLOyu53KfPV8iEV+Foj0oQRnsnvp
- p9Z7E04M45L6KPv4PPCASF+emxRloBxoK3JzHMkWA72Odfj3Z0yx4oJD6V2H1AHzHLAgPcMFLG15K
- NyW/9wnhOY378csKMTPZVBSxinrCfNemYlsaMIEJZz51K5ndzIWRGBQmIgmg+LdidNF964PSwdpSs
- TccRm4LA==;
-Received: from [165.90.126.25] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1nhXwX-000CFk-2l; Thu, 21 Apr 2022 16:38:01 +0200
-Date: Thu, 21 Apr 2022 13:37:47 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: AMD display drivers handling DRM CRTC color mgmt props
-Message-ID: <20220421143747.247mohbio436ivqo@mail.igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE1BD10E30D;
+	Thu, 21 Apr 2022 14:39:25 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 813B710E30D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 14:39:24 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id e4so5836667oif.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 07:39:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=w4iWAH/PIbRtrz6JOkSMhoTIMC4NsgZkCTwQW4PEpdc=;
+ b=PtNFZaTVrtUd6IbsgI1iYswAdmmxeS7IdlLBd5W1f+a++ZI+fXvzA4jn90NV4e3pPu
+ rIquFqGGe8ZvUsDAuZnZvgFOi2zSW0KI3bV8xTaal6F0LTOZM8IYN6l2+Tz6X6Q1fTyU
+ k4rjouS2wIejduXtXLFHIRvJC6j/HqiAxBsXxi2LtQZ5DFzbebJPSIeQR7tFmPs4lo1l
+ MZlR5PZREX1Ndkm/gthBoN8IARdB9wmrsEHv3i2gJXpcupiKYCz1mkYc3n4Qj4xY14JV
+ vIOw0+mCEYKlAQdH47XlA0gGFRKu5GEHx+OLSZy1qXtZnq+VisQdAoA3bEcbFgyBGOC6
+ i7Lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=w4iWAH/PIbRtrz6JOkSMhoTIMC4NsgZkCTwQW4PEpdc=;
+ b=q5eMSkqOf/3uf24QjVxewmo2f/SoVOxnpRroebhu4Oq+4+RAu6eqGzlI15hqW+wmgC
+ vne3jK5RcEaYs/k9gFlEgLCxSYeSZd2sNW6ICMSCedaRHSn8tIFTQbg4eLJEn/I+ipcK
+ IfA1q78RKlT2xQT4HN33vW+kIQpA5wZKdnrekNQ5LqTqwfIu4FltibZUkeMopxhGmFiK
+ Xo8H/ePCfIOfOoFBuDYhDX0jceiSTsEoIhTtdy9VuFXrj61E+E1ufkIDfU9g5l7i0F1E
+ GoEaDg04vtlCBaR9sJp1Q7eDrEWL2Ak0n5jBFJzDuhXnYNBUKGAd9wVUNHcQNL33FKrF
+ y2aA==
+X-Gm-Message-State: AOAM5339QBNlXzGx0tNkRBCekCzizivX4c21JdjwIQIMNfBIfWq1SPJw
+ QPq6ucD57c2mrkAbMXeB3fCY4HEMEWT5UBOTvGYy5Tzr
+X-Google-Smtp-Source: ABdhPJyGMaHUsEIH2edYCxw8XUiTuXRqDQJqZx6xzjbjPwZQvF+OSWBX4mNyeZSFMX2de7m3wqfLzGE6K3Tx7lFS9ME=
+X-Received: by 2002:a05:6808:1486:b0:2f9:e821:51d9 with SMTP id
+ e6-20020a056808148600b002f9e82151d9mr15186oiw.253.1650551963810; Thu, 21 Apr
+ 2022 07:39:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="tceca5h5txpfjyw4"
-Content-Disposition: inline
+References: <20220421123322.1833664-1-KevinYang.Wang@amd.com>
+In-Reply-To: <20220421123322.1833664-1-KevinYang.Wang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 21 Apr 2022 10:39:12 -0400
+Message-ID: <CADnq5_Ouj602EgDEF_qU8ceypk9_EE2uk2toDnPtvNJReH33dw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: use kvcalloc() instead of kvmalloc() in
+ kfd_migrate
+To: Yang Wang <KevinYang.Wang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,75 +62,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: harry.wentland@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
- alexander.deucher@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas.Kazlauskas@amd.com
+Cc: "Kuehling, Felix" <felix.kuehling@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Thu, Apr 21, 2022 at 8:33 AM Yang Wang <KevinYang.Wang@amd.com> wrote:
+>
+> simplify programming with existing functions.
+>
+> Signed-off-by: Yang Wang <KevinYang.Wang@amd.com>
 
---tceca5h5txpfjyw4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Hi all,
-
-I'm examining how DRM color management properties (degamma, ctm, gamma)
-are applied to AMD display drivers. As far I could understand thanks
-Nicholas documentation on amdgpu_dm/amdgpu_dm_color, DC drivers have
-per-plane color correction features:
-
-* - Input gamma LUT (de-normalized)
-* - Input CSC (normalized)
-* - Surface degamma LUT (normalized)
-* - Surface CSC (normalized)
-* - Surface regamma LUT (normalized)
-* - Output CSC (normalized)
-                            =20
-so DM is "adapting" those DRM per-CRTC properties to fit into three of
-these color correction stages, which I guess are the surface stages:
-
-* - Surface degamma LUT (normalized)
-* - Surface CSC (normalized)
-* - Surface regamma LUT (normalized)
-
-I'm trying to understand what this mapping is doing. A comment mentions
-that is not possible to do these color corrections after blending, so,
-the same color correction pipe is performed on every plane before
-blending?  (is the surface the plane?) Does this adaptation affect the
-expected output?  Moreover, is there something that I misunderstood? :)
-
-That said, if the DRM color mgmt supports per-CRTC 3D LUT as the last
-step of color correction, I don't see how to accommodate it in the
-mapping above, but I see DC already supports programming 3D LUT on DPP.
-Once DRM has the 3D LUT interface and DM mapped it as a DPP property,
-the 3D LUT will be at the end of the color correction pipeline? Is there
-anything I need to worry about mapping DRM 3D LUT support? Or any
-advice?
-
-Thanks in advance,
-
-Melissa
-
---tceca5h5txpfjyw4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmJhbCkACgkQwqF3j0dL
-ehyyrg/+OQqORjWSmWDUaSPcqg45AkjV8sZ6VwKxy244eoCSnOykDzBsIiDHwHXl
-O1XqFYoccn339iEogx6P+dyDy7RhE6zmwiHe8uhGsiHTg/qctQZqvqF07SrxnIzy
-7LZmfUXW2OgUTpCXcePPb5YKkZ+EfL79IVG33RGOiClMEqR2c2q94sQ7sHENrXpg
-kosPrTQLd0VFrq5kUZjmSMF0rGy0I1ysY56MuGPgYbU1Hoh0WkBkzrqYOR/B/L9z
-VVnpzoPT37M4atKkRGmngGAiqGtmoaOqoLq4d+UToQDn2OHr7CDqNbPDwBYGERqb
-Z1Yi9QqnOXeo2jncApi0IN4CtBuWPbuUW1lTj9WsFZxMIWyb/YV600y9HUPAbTQ6
-K930X00zHAXDuVj83HpIMH/Eo8pudhv0ErOX/RycfiPiLqY0I6DyFt86LO4ViLm5
-JzG0cvm+vqq2hfUt1YuPmqlPAOUuq0xOe1FYgVEoHetVLvZMer2lVXMysApF029C
-GTfZh6Lk9yQ0yOXEUomUUKjAxwkn46ViE8n88QtBLy6c+GekkYwyqL93JJg6HmNc
-0oNOznoDbgb5utFsEV0Kb4mLsVkW0SQ9i8lwFO5QjeM1cFKmkEV1QS+RlItIYqbY
-RYJ79q6wCJl29nITtq4mMieEZ5tyl7XfEs062RTPQmehzh1Y5+8=
-=Jd40
------END PGP SIGNATURE-----
-
---tceca5h5txpfjyw4--
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 15 +++++++--------
+>  1 file changed, 7 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> index 3a29d857640b..43cd47723946 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> @@ -410,7 +410,6 @@ svm_migrate_vma_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+>         struct migrate_vma migrate;
+>         unsigned long cpages = 0;
+>         dma_addr_t *scratch;
+> -       size_t size;
+>         void *buf;
+>         int r = -ENOMEM;
+>
+> @@ -421,9 +420,9 @@ svm_migrate_vma_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+>         migrate.flags = MIGRATE_VMA_SELECT_SYSTEM;
+>         migrate.pgmap_owner = SVM_ADEV_PGMAP_OWNER(adev);
+>
+> -       size = 2 * sizeof(*migrate.src) + sizeof(uint64_t) + sizeof(dma_addr_t);
+> -       size *= npages;
+> -       buf = kvmalloc(size, GFP_KERNEL | __GFP_ZERO);
+> +       buf = kvcalloc(npages,
+> +                      2 * sizeof(*migrate.src) + sizeof(uint64_t) + sizeof(dma_addr_t),
+> +                      GFP_KERNEL);
+>         if (!buf)
+>                 goto out;
+>
+> @@ -665,7 +664,6 @@ svm_migrate_vma_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
+>         struct dma_fence *mfence = NULL;
+>         struct migrate_vma migrate;
+>         dma_addr_t *scratch;
+> -       size_t size;
+>         void *buf;
+>         int r = -ENOMEM;
+>
+> @@ -676,9 +674,10 @@ svm_migrate_vma_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
+>         migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
+>         migrate.pgmap_owner = SVM_ADEV_PGMAP_OWNER(adev);
+>
+> -       size = 2 * sizeof(*migrate.src) + sizeof(uint64_t) + sizeof(dma_addr_t);
+> -       size *= npages;
+> -       buf = kvmalloc(size, GFP_KERNEL | __GFP_ZERO);
+> +       buf = kvcalloc(npages,
+> +                      2 * sizeof(*migrate.src) + sizeof(uint64_t) + sizeof(dma_addr_t),
+> +                      GFP_KERNEL);
+> +
+>         if (!buf)
+>                 goto out;
+>
+> --
+> 2.25.1
+>
