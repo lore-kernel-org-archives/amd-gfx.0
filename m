@@ -4,53 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BB80C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 05:31:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E1F5C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 05:36:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9319D10F3B9;
-	Thu, 21 Apr 2022 05:31:31 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A412D10F3B8
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 05:31:30 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-e5ca5c580fso4356482fac.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Apr 2022 22:31:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=voMHy23gW1h3blc95jnuSihEdJXRzJQNQ3NZistRslE=;
- b=GJ2hvRMwraM6b2g/3LFxOpeH/8yVo/lEcUpTII/jSZES+rZSG6WRVaXewLX+oaySql
- OMHm3pimEC4JCiE60YnMrNM5atRemzYP7zi0unmhlfxzzsfBQA6B1pg68IduCvRAKRfc
- FJDkaS390tloDEvzTMZ0ADYUawzvQSNZOoi3ATZo12BCZsshs//kpBz2Tr4YLZ/Q70I3
- fdtxYlPO619RNVXdkiGu1gA3jSFQQ6zDYkkxnwNzdOA6XHfDdE6DEa0krYanuiJ/UPhr
- a0BnNYEQRJX+slkAsCj+qsK06ktF5+UjJSUvHw6mxbEEWVlSQavG1q6lYG62SnQ4BRx/
- bmPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=voMHy23gW1h3blc95jnuSihEdJXRzJQNQ3NZistRslE=;
- b=KVMi0zw6ZZfTQ7pOHhmTn6fdhCPCFpKAX8EKnyv4UaWoz5w71Z4YwDRuNIB5lbTgNR
- QKOAr+XWuCPweB6EuGi/+96gGF+TP5wiCzkkdcgkBC3mbAu07HT6I4XcT89eVOq3WalJ
- cK4ylscb/wpRStPq2Xd4sZ4FNg7XY5g/c83oLGsBYEytkBqYO2Lz+iH5iFaeh17HbDHz
- t2zrNgXC5SuXYKep9WI6PpR561ExhFZ5UVTx0454XgCf+8d6biDK8M1Q58tX6SQWPdDD
- dxB9Jmq+z6lTvnPTj2NFXgAYoWun4ha45didob46S8wJmYBzBLiK1+GA6hyCs5gJefAY
- e3Kg==
-X-Gm-Message-State: AOAM5320s2DYXvFF95npL11Q6lnjD8uCrhrFUFhYbhwY/Pal8j4seAwx
- Jn1uKzMX4kYXTIkITo0PFfnxOwuTqTunUNIQf0KIKEpp
-X-Google-Smtp-Source: ABdhPJz0LlVgNv5oUUGUiMQsDNnuYgAvytPlaAFD3mEbU0s9EVUyB56uNuOClW10CXyp29xjj+iXZDu15tDZDvBz/IU=
-X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
- z3-20020a056870d68300b000deeaa23550mr3247610oap.253.1650519089897; Wed, 20
- Apr 2022 22:31:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95D5710F3D7;
+	Thu, 21 Apr 2022 05:36:03 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9874B10F3D5;
+ Thu, 21 Apr 2022 05:36:01 +0000 (UTC)
+Received: from [192.168.0.2] (ip5f5ae8f0.dynamic.kabel-deutschland.de
+ [95.90.232.240])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 181F461CCD7D8;
+ Thu, 21 Apr 2022 07:35:59 +0200 (CEST)
+Message-ID: <294555b4-2d1b-270f-6682-3a17e9df133c@molgen.mpg.de>
+Date: Thu, 21 Apr 2022 07:35:58 +0200
 MIME-Version: 1.0
-References: <20220420214715.2644898-1-shiwei.wong@amd.com>
-In-Reply-To: <20220420214715.2644898-1-shiwei.wong@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 21 Apr 2022 01:31:18 -0400
-Message-ID: <CADnq5_ORQYj6ro4u9P4j7+NHVCMmn-iJ_FNzcNsiVHCro0J8KQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: clean up psp ip if hw_init failed v2
-To: Alice Wong <shiwei.wong@amd.com>
-Content-Type: multipart/mixed; boundary="0000000000000c78db05dd236cc1"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCHv4] drm/amdgpu: disable ASPM on Intel Alder Lake based
+ systems
+Content-Language: en-US
+To: Richard Gong <richard.gong@amd.com>
+References: <20220412215000.897344-1-richard.gong@amd.com>
+ <d4ba3998-34aa-86d2-bde9-bc6ae9d8d08d@molgen.mpg.de>
+ <CADnq5_MgvcGPWf2gYn_3qCr+Gq1P39tvv-W-o8NhivvMpMwUBA@mail.gmail.com>
+ <91e916e3-d793-b814-6cbf-abee0667f5f8@molgen.mpg.de>
+ <94fd858d-1792-9c05-b5c6-1b028427687d@amd.com>
+ <efc1dfd1-2b54-aee5-1497-4b800a468141@molgen.mpg.de>
+ <237da02b-0ed8-6b1c-3eaf-5574aab4f13f@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <237da02b-0ed8-6b1c-3eaf-5574aab4f13f@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,213 +50,241 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Dave Airlie <airlied@linux.ie>, Xinhui Pan <xinhui.pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alexander Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000000c78db05dd236cc1
-Content-Type: text/plain; charset="UTF-8"
+Dear Richard,
 
-On Wed, Apr 20, 2022 at 5:48 PM Alice Wong <shiwei.wong@amd.com> wrote:
->
-> If at any point psp_hw_init failed, psp_hw_fini would not be called
-> during unload due to ip_blocks[PSP].status.hw not being set to true.
-> This could cause a memory leak when the driver unloads.
-> As a rule of thumb, each IP block should cleanup themselves when
-> their hw_init fails. Only previously intialized blocks should
-> be cleaned up by the common framework.
->
-> v1: Call IP blocks' respective hw_fini when hw_init failed from
->     the common framework
-> v2: Call psp_hw_fini when psp_hw_init failed.
->
-> Signed-off-by: Alice Wong <shiwei.wong@amd.com>
 
-I don't think this is a good idea.  The hw programming in hw_fini
-makes no sense if the driver never set it up in the first place if
-hw_init failed before initializing the hw.  It would be better to just
-properly unwind the relevant functions.  Presumably the problem you
-are seeing is the failure to free the GPU memory allocated in fw_fini,
-depending on where it fails.  We should just allocate the memory in
-sw_init; that is what we do in other IPs.  Does the attached patch fix
-the issue you are seeing?
+Am 21.04.22 um 03:12 schrieb Gong, Richard:
 
-Alex
+> On 4/20/2022 3:29 PM, Paul Menzel wrote:
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 57 +++++++++++++------------
->  1 file changed, 29 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index 5b9e48d44f5b..52b14efa848a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -2537,6 +2537,34 @@ static int psp_load_fw(struct amdgpu_device *adev)
->         return ret;
->  }
->
-> +static int psp_hw_fini(void *handle)
-> +{
-> +       struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-> +       struct psp_context *psp = &adev->psp;
-> +
-> +       if (psp->ta_fw) {
-> +               psp_ras_terminate(psp);
-> +               psp_securedisplay_terminate(psp);
-> +               psp_rap_terminate(psp);
-> +               psp_dtm_terminate(psp);
-> +               psp_hdcp_terminate(psp);
-> +       }
-> +
-> +       psp_asd_terminate(psp);
-> +
-> +       psp_tmr_terminate(psp);
-> +       psp_ring_destroy(psp, PSP_RING_TYPE__KM);
-> +
-> +       amdgpu_bo_free_kernel(&psp->fw_pri_bo,
-> +                             &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
-> +       amdgpu_bo_free_kernel(&psp->fence_buf_bo,
-> +                             &psp->fence_buf_mc_addr, &psp->fence_buf);
-> +       amdgpu_bo_free_kernel(&psp->cmd_buf_bo, &psp->cmd_buf_mc_addr,
-> +                             (void **)&psp->cmd_buf_mem);
-> +
-> +       return 0;
-> +}
-> +
->  static int psp_hw_init(void *handle)
->  {
->         int ret;
-> @@ -2563,37 +2591,10 @@ static int psp_hw_init(void *handle)
->  failed:
->         adev->firmware.load_type = AMDGPU_FW_LOAD_DIRECT;
->         mutex_unlock(&adev->firmware.mutex);
-> +       psp_hw_fini(handle);
->         return -EINVAL;
->  }
->
-> -static int psp_hw_fini(void *handle)
-> -{
-> -       struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-> -       struct psp_context *psp = &adev->psp;
-> -
-> -       if (psp->ta_fw) {
-> -               psp_ras_terminate(psp);
-> -               psp_securedisplay_terminate(psp);
-> -               psp_rap_terminate(psp);
-> -               psp_dtm_terminate(psp);
-> -               psp_hdcp_terminate(psp);
-> -       }
-> -
-> -       psp_asd_terminate(psp);
-> -
-> -       psp_tmr_terminate(psp);
-> -       psp_ring_destroy(psp, PSP_RING_TYPE__KM);
-> -
-> -       amdgpu_bo_free_kernel(&psp->fw_pri_bo,
-> -                             &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
-> -       amdgpu_bo_free_kernel(&psp->fence_buf_bo,
-> -                             &psp->fence_buf_mc_addr, &psp->fence_buf);
-> -       amdgpu_bo_free_kernel(&psp->cmd_buf_bo, &psp->cmd_buf_mc_addr,
-> -                             (void **)&psp->cmd_buf_mem);
-> -
-> -       return 0;
-> -}
-> -
->  static int psp_suspend(void *handle)
->  {
->         int ret;
-> --
-> 2.25.1
->
+>> Am 19.04.22 um 23:46 schrieb Gong, Richard:
+>>
+>>> On 4/14/2022 2:52 AM, Paul Menzel wrote:
+>>>> [Cc: -kernel test robot <lkp@intel.com>]
+>>
+>> […]
+>>
+>>>> Am 13.04.22 um 15:00 schrieb Alex Deucher:
+>>>>> On Wed, Apr 13, 2022 at 3:43 AM Paul Menzel wrote:
+>>>>
+>>>>>> Thank you for sending out v4.
+>>>>>>
+>>>>>> Am 12.04.22 um 23:50 schrieb Richard Gong:
+>>>>>>> Active State Power Management (ASPM) feature is enabled since 
+>>>>>>> kernel 5.14.
+>>>>>>> There are some AMD GFX cards (such as WX3200 and RX640) that 
+>>>>>>> won't work
+>>>>>>> with ASPM-enabled Intel Alder Lake based systems. Using these GFX 
+>>>>>>> cards as
+>>>>>>> video/display output, Intel Alder Lake based systems will hang 
+>>>>>>> during
+>>>>>>> suspend/resume.
+>>
+>> [Your email program wraps lines in cited text for some reason, making 
+>> the citation harder to read.]
+>>
+> Not sure why, I am using Mozila Thunderbird for email. I am not using MS 
+> Outlook for upstream email.
 
---0000000000000c78db05dd236cc1
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-drm-amdgpu-psp-move-PSP-memory-alloc-from-hw_init-to.patch"
-Content-Disposition: attachment; 
-	filename="0001-drm-amdgpu-psp-move-PSP-memory-alloc-from-hw_init-to.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_l28ke24v0>
-X-Attachment-Id: f_l28ke24v0
+Strange. No idea if there were bugs in Mozilla Thunderbird 91.2.0, 
+released over half year ago. The current version is 91.8.1. [1]
 
-RnJvbSBmOThhMTU3ZDUyZTE5OWM4NTMwZGMwZWZjOTFiYTNiZDViN2NlM2NjIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+CkRhdGU6IFRodSwgMjEgQXByIDIwMjIgMDE6MjE6NTIgLTA0MDAKU3ViamVjdDogW1BBVENI
-XSBkcm0vYW1kZ3B1L3BzcDogbW92ZSBQU1AgbWVtb3J5IGFsbG9jIGZyb20gaHdfaW5pdCB0byBz
-d19pbml0CgpNZW1vcnkgYWxsb2NhdGlvbnMgc2hvdWxkIGJlIGRvbmUgaW4gc3dfaW5pdC4gIGh3
-X2luaXQgc2hvdWxkCmp1c3QgYmUgaGFyZHdhcmUgcHJvZ3JhbW1pbmcgbmVlZGVkIHRvIGluaXRp
-YWxpemUgdGhlIElQIGJsb2NrLgpUaGlzIGlzIGhvdyBtb3N0IG90aGVyIElQIGJsb2NrcyB3b3Jr
-LiAgTW92ZSB0aGUgR1BVIG1lbW9yeQphbGxvY2F0aW9ucyBmcm9tIHBzcCBod19pbml0IHRvIHBz
-cCBzd19pbml0IGFuZCBtb3ZlIHRoZSBtZW1vcnkKZnJlZSB0byBzd19maW5pLiAgVGhpcyBhbHNv
-IGZpeGVzIGEgcG90ZW50aWFsIEdQVSBtZW1vcnkgbGVhawppZiBwc3AgaHdfaW5pdCBmYWlscy4K
-ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMgfCA5NSArKysrKysr
-KysrKystLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNDcgaW5zZXJ0aW9ucygrKSwgNDgg
-ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3BzcC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCmluZGV4
-IGE2YWNlYzFhNjE1NS4uMjFhYTU1NmE2YmVmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfcHNwLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3BzcC5jCkBAIC0zNTcsNyArMzU3LDM5IEBAIHN0YXRpYyBpbnQgcHNwX3N3X2luaXQo
-dm9pZCAqaGFuZGxlKQogCQl9CiAJfQogCisJcmV0ID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWwo
-YWRldiwgUFNQXzFfTUVHLCBQU1BfMV9NRUcsCisJCQkJICAgICAgYW1kZ3B1X3NyaW92X3ZmKGFk
-ZXYpID8KKwkJCQkgICAgICBBTURHUFVfR0VNX0RPTUFJTl9WUkFNIDogQU1ER1BVX0dFTV9ET01B
-SU5fR1RULAorCQkJCSAgICAgICZwc3AtPmZ3X3ByaV9ibywKKwkJCQkgICAgICAmcHNwLT5md19w
-cmlfbWNfYWRkciwKKwkJCQkgICAgICAmcHNwLT5md19wcmlfYnVmKTsKKwlpZiAocmV0KQorCQly
-ZXR1cm4gcmV0OworCisJcmV0ID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWwoYWRldiwgUFNQX0ZF
-TkNFX0JVRkZFUl9TSVpFLCBQQUdFX1NJWkUsCisJCQkJICAgICAgQU1ER1BVX0dFTV9ET01BSU5f
-VlJBTSwKKwkJCQkgICAgICAmcHNwLT5mZW5jZV9idWZfYm8sCisJCQkJICAgICAgJnBzcC0+ZmVu
-Y2VfYnVmX21jX2FkZHIsCisJCQkJICAgICAgJnBzcC0+ZmVuY2VfYnVmKTsKKwlpZiAocmV0KQor
-CQlnb3RvIGZhaWxlZDE7CisKKwlyZXQgPSBhbWRncHVfYm9fY3JlYXRlX2tlcm5lbChhZGV2LCBQ
-U1BfQ01EX0JVRkZFUl9TSVpFLCBQQUdFX1NJWkUsCisJCQkJICAgICAgQU1ER1BVX0dFTV9ET01B
-SU5fVlJBTSwKKwkJCQkgICAgICAmcHNwLT5jbWRfYnVmX2JvLCAmcHNwLT5jbWRfYnVmX21jX2Fk
-ZHIsCisJCQkJICAgICAgKHZvaWQgKiopJnBzcC0+Y21kX2J1Zl9tZW0pOworCWlmIChyZXQpCisJ
-CWdvdG8gZmFpbGVkMjsKKwogCXJldHVybiAwOworCitmYWlsZWQyOgorCWFtZGdwdV9ib19mcmVl
-X2tlcm5lbCgmcHNwLT5md19wcmlfYm8sCisJCQkgICAgICAmcHNwLT5md19wcmlfbWNfYWRkciwg
-JnBzcC0+ZndfcHJpX2J1Zik7CitmYWlsZWQxOgorCWFtZGdwdV9ib19mcmVlX2tlcm5lbCgmcHNw
-LT5mZW5jZV9idWZfYm8sCisJCQkgICAgICAmcHNwLT5mZW5jZV9idWZfbWNfYWRkciwgJnBzcC0+
-ZmVuY2VfYnVmKTsKKwlyZXR1cm4gcmV0OwogfQogCiBzdGF0aWMgaW50IHBzcF9zd19maW5pKHZv
-aWQgKmhhbmRsZSkKQEAgLTM5MSw2ICs0MjMsMTMgQEAgc3RhdGljIGludCBwc3Bfc3dfZmluaSh2
-b2lkICpoYW5kbGUpCiAJa2ZyZWUoY21kKTsKIAljbWQgPSBOVUxMOwogCisJYW1kZ3B1X2JvX2Zy
-ZWVfa2VybmVsKCZwc3AtPmZ3X3ByaV9ibywKKwkJCSAgICAgICZwc3AtPmZ3X3ByaV9tY19hZGRy
-LCAmcHNwLT5md19wcmlfYnVmKTsKKwlhbWRncHVfYm9fZnJlZV9rZXJuZWwoJnBzcC0+ZmVuY2Vf
-YnVmX2JvLAorCQkJICAgICAgJnBzcC0+ZmVuY2VfYnVmX21jX2FkZHIsICZwc3AtPmZlbmNlX2J1
-Zik7CisJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZwc3AtPmNtZF9idWZfYm8sICZwc3AtPmNtZF9i
-dWZfbWNfYWRkciwKKwkJCSAgICAgICh2b2lkICoqKSZwc3AtPmNtZF9idWZfbWVtKTsKKwogCXJl
-dHVybiAwOwogfQogCkBAIC0yNDMwLDUxICsyNDY5LDE4IEBAIHN0YXRpYyBpbnQgcHNwX2xvYWRf
-Zncoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJc3RydWN0IHBzcF9jb250ZXh0ICpwc3Ag
-PSAmYWRldi0+cHNwOwogCiAJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSAmJiBhbWRncHVfaW5f
-cmVzZXQoYWRldikpIHsKLQkJcHNwX3Jpbmdfc3RvcChwc3AsIFBTUF9SSU5HX1RZUEVfX0tNKTsg
-Lyogc2hvdWxkIG5vdCBkZXN0cm95IHJpbmcsIG9ubHkgc3RvcCAqLwotCQlnb3RvIHNraXBfbWVt
-YWxsb2M7Ci0JfQotCi0JaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkgewotCQlyZXQgPSBhbWRn
-cHVfYm9fY3JlYXRlX2tlcm5lbChhZGV2LCBQU1BfMV9NRUcsIFBTUF8xX01FRywKLQkJCQkJCUFN
-REdQVV9HRU1fRE9NQUlOX1ZSQU0sCi0JCQkJCQkmcHNwLT5md19wcmlfYm8sCi0JCQkJCQkmcHNw
-LT5md19wcmlfbWNfYWRkciwKLQkJCQkJCSZwc3AtPmZ3X3ByaV9idWYpOworCQkvKiBzaG91bGQg
-bm90IGRlc3Ryb3kgcmluZywgb25seSBzdG9wICovCisJCXBzcF9yaW5nX3N0b3AocHNwLCBQU1Bf
-UklOR19UWVBFX19LTSk7CiAJfSBlbHNlIHsKLQkJcmV0ID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJu
-ZWwoYWRldiwgUFNQXzFfTUVHLCBQU1BfMV9NRUcsCi0JCQkJCQlBTURHUFVfR0VNX0RPTUFJTl9H
-VFQsCi0JCQkJCQkmcHNwLT5md19wcmlfYm8sCi0JCQkJCQkmcHNwLT5md19wcmlfbWNfYWRkciwK
-LQkJCQkJCSZwc3AtPmZ3X3ByaV9idWYpOwotCX0KLQotCWlmIChyZXQpCi0JCWdvdG8gZmFpbGVk
-OwotCi0JcmV0ID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWwoYWRldiwgUFNQX0ZFTkNFX0JVRkZF
-Ul9TSVpFLCBQQUdFX1NJWkUsCi0JCQkJCUFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sCi0JCQkJCSZw
-c3AtPmZlbmNlX2J1Zl9ibywKLQkJCQkJJnBzcC0+ZmVuY2VfYnVmX21jX2FkZHIsCi0JCQkJCSZw
-c3AtPmZlbmNlX2J1Zik7Ci0JaWYgKHJldCkKLQkJZ290byBmYWlsZWQ7Ci0KLQlyZXQgPSBhbWRn
-cHVfYm9fY3JlYXRlX2tlcm5lbChhZGV2LCBQU1BfQ01EX0JVRkZFUl9TSVpFLCBQQUdFX1NJWkUs
-Ci0JCQkJICAgICAgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSwKLQkJCQkgICAgICAmcHNwLT5jbWRf
-YnVmX2JvLCAmcHNwLT5jbWRfYnVmX21jX2FkZHIsCi0JCQkJICAgICAgKHZvaWQgKiopJnBzcC0+
-Y21kX2J1Zl9tZW0pOwotCWlmIChyZXQpCi0JCWdvdG8gZmFpbGVkOworCQltZW1zZXQocHNwLT5m
-ZW5jZV9idWYsIDAsIFBTUF9GRU5DRV9CVUZGRVJfU0laRSk7CiAKLQltZW1zZXQocHNwLT5mZW5j
-ZV9idWYsIDAsIFBTUF9GRU5DRV9CVUZGRVJfU0laRSk7Ci0KLQlyZXQgPSBwc3BfcmluZ19pbml0
-KHBzcCwgUFNQX1JJTkdfVFlQRV9fS00pOwotCWlmIChyZXQpIHsKLQkJRFJNX0VSUk9SKCJQU1Ag
-cmluZyBpbml0IGZhaWxlZCFcbiIpOwotCQlnb3RvIGZhaWxlZDsKKwkJcmV0ID0gcHNwX3Jpbmdf
-aW5pdChwc3AsIFBTUF9SSU5HX1RZUEVfX0tNKTsKKwkJaWYgKHJldCkgeworCQkJRFJNX0VSUk9S
-KCJQU1AgcmluZyBpbml0IGZhaWxlZCFcbiIpOworCQkJZ290byBmYWlsZWQ7CisJCX0KIAl9CiAK
-LXNraXBfbWVtYWxsb2M6CiAJcmV0ID0gcHNwX2h3X3N0YXJ0KHBzcCk7CiAJaWYgKHJldCkKIAkJ
-Z290byBmYWlsZWQ7CkBAIC0yNTkyLDEzICsyNTk4LDYgQEAgc3RhdGljIGludCBwc3BfaHdfZmlu
-aSh2b2lkICpoYW5kbGUpCiAJcHNwX3Rtcl90ZXJtaW5hdGUocHNwKTsKIAlwc3BfcmluZ19kZXN0
-cm95KHBzcCwgUFNQX1JJTkdfVFlQRV9fS00pOwogCi0JYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZw
-c3AtPmZ3X3ByaV9ibywKLQkJCSAgICAgICZwc3AtPmZ3X3ByaV9tY19hZGRyLCAmcHNwLT5md19w
-cmlfYnVmKTsKLQlhbWRncHVfYm9fZnJlZV9rZXJuZWwoJnBzcC0+ZmVuY2VfYnVmX2JvLAotCQkJ
-ICAgICAgJnBzcC0+ZmVuY2VfYnVmX21jX2FkZHIsICZwc3AtPmZlbmNlX2J1Zik7Ci0JYW1kZ3B1
-X2JvX2ZyZWVfa2VybmVsKCZwc3AtPmNtZF9idWZfYm8sICZwc3AtPmNtZF9idWZfbWNfYWRkciwK
-LQkJCSAgICAgICh2b2lkICoqKSZwc3AtPmNtZF9idWZfbWVtKTsKLQogCXJldHVybiAwOwogfQog
-Ci0tIAoyLjM1LjEKCg==
---0000000000000c78db05dd236cc1--
+>>>>>> I am still not clear, what “hang during suspend/resume” means. I 
+>>>>>> guess
+>>>>>> suspending works fine? During resume (S3 or S0ix?), where does it 
+>>>>>> hang?
+>>>>>> The system is functional, but there are only display problems?
+>>> System freeze after suspend/resume.
+>>
+>> But you see certain messages still? At what point does it freeze 
+>> exactly? In the bug report you posted Linux messages.
+> 
+> No, the system freeze then users have to recycle power to recover.
+
+Then I misread the issue? Did you capture the messages over serial log then?
+
+>>>>>>> The issue was initially reported on one system (Dell Precision 
+>>>>>>> 3660 with
+>>>>>>> BIOS version 0.14.81), but was later confirmed to affect at least 
+>>>>>>> 4 Alder
+>>>>>>> Lake based systems.
+>>>>>>>
+>>>>>>> Add extra check to disable ASPM on Intel Alder Lake based systems.
+>>>>>>>
+>>>>>>> Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
+>>>>>>> Link: 
+>>>>>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1885&amp;data=05%7C01%7Crichard.gong%40amd.com%7Cce01de048c61456174ff08da230c750d%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637860833680922036%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=vqhh3dTc%2FgBt7GrP9hKppWlrFy2F7DaivkNEuGekl0g%3D&amp;reserved=0 
+>>>>>>>
+>>
+>> Thank you Microsoft Outlook for keeping us safe. :(
+> I am not using MS Outlook for the email exchanges.
+
+I guess, it’s not the client but the Microsoft email service (Exchange?) 
+no idea adding these protection links. (Making it even harder for users 
+to actually verify domain. No idea who comes up with these ideas, and 
+customers actually accepting those.)
+
+>>>>>>>
+>>>>>>> Reported-by: kernel test robot <lkp@intel.com>
+>>>>>>
+>>>>>> This tag is a little confusing. Maybe clarify that it was for an 
+>>>>>> issue
+>>>>>> in a previous patch iteration?
+>>>
+>>> I did describe in change-list version 3 below, which corrected the 
+>>> build error with W=1 option.
+>>>
+>>> It is not good idea to add the description for that to the commit 
+>>> message, this is why I add descriptions on change-list version 3.
+>>
+>> Do as you wish, but the current style is confusing, and readers of the 
+>> commit are going to think, the kernel test robot reported the problem 
+>> with AMD VI ASICs and Intel Alder Lake systems.
+>>
+>>>>>>
+>>>>>>> Signed-off-by: Richard Gong <richard.gong@amd.com>
+>>>>>>> ---
+>>>>>>> v4: s/CONFIG_X86_64/CONFIG_X86
+>>>>>>>       enhanced check logic
+>>>>>>> v3: s/intel_core_asom_chk/aspm_support_quirk_check
+>>>>>>>       correct build error with W=1 option
+>>>>>>> v2: correct commit description
+>>>>>>>       move the check from chip family to problematic platform
+>>>>>>> ---
+>>>>>>>    drivers/gpu/drm/amd/amdgpu/vi.c | 17 ++++++++++++++++-
+>>>>>>>    1 file changed, 16 insertions(+), 1 deletion(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c 
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/vi.c
+>>>>>>> index 039b90cdc3bc..b33e0a9bee65 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+>>>>>>> @@ -81,6 +81,10 @@
+>>>>>>>    #include "mxgpu_vi.h"
+>>>>>>>    #include "amdgpu_dm.h"
+>>>>>>>
+>>>>>>> +#if IS_ENABLED(CONFIG_X86)
+>>>>>>> +#include <asm/intel-family.h>
+>>>>>>> +#endif
+>>>>>>> +
+>>>>>>>    #define ixPCIE_LC_L1_PM_SUBSTATE    0x100100C6
+>>>>>>>    #define 
+>>>>>>> PCIE_LC_L1_PM_SUBSTATE__LC_L1_SUBSTATES_OVERRIDE_EN_MASK 0x00000001L
+>>>>>>>    #define PCIE_LC_L1_PM_SUBSTATE__LC_PCI_PM_L1_2_OVERRIDE_MASK 
+>>>>>>> 0x00000002L
+>>>>>>> @@ -1134,13 +1138,24 @@ static void vi_enable_aspm(struct 
+>>>>>>> amdgpu_device *adev)
+>>>>>>>                WREG32_PCIE(ixPCIE_LC_CNTL, data);
+>>>>>>>    }
+>>>>>>>
+>>>>>>> +static bool aspm_support_quirk_check(void)
+>>>>>>> +{
+>>>>>>> +     if (IS_ENABLED(CONFIG_X86)) {
+>>>>>>> +             struct cpuinfo_x86 *c = &cpu_data(0);
+>>>>>>> +
+>>>>>>> +             return !(c->x86 == 6 && c->x86_model == 
+>>>>>>> INTEL_FAM6_ALDERLAKE);
+>>>>>>> +     }
+>>>>>>> +
+>>>>>>> +     return true;
+>>>>>>> +}
+>>>>>>> +
+>>>>>>>    static void vi_program_aspm(struct amdgpu_device *adev)
+>>>>>>>    {
+>>>>>>>        u32 data, data1, orig;
+>>>>>>>        bool bL1SS = false;
+>>>>>>>        bool bClkReqSupport = true;
+>>>>>>>
+>>>>>>> -     if (!amdgpu_device_should_use_aspm(adev))
+>>>>>>> +     if (!amdgpu_device_should_use_aspm(adev) || 
+>>>>>>> !aspm_support_quirk_check())
+>>>>>>>                return;
+>>>>>>
+>>>>>> Can users still forcefully enable ASPM with the parameter 
+>>>>>> `amdgpu.aspm`?
+>>>>>>
+>>> As Mario mentioned in a separate reply, we can't forcefully enable 
+>>> ASPM with the parameter 'amdgpu.aspm'.
+>>
+>> That would be a regression on systems where ASPM used to work. Hmm. I 
+>> guess, you could say, there are no such systems.
+>>
+>>>>>>>
+>>>>>>>        if (adev->flags & AMD_IS_APU ||
+>>>>>>
+>>>>>> If I remember correctly, there were also newer cards, where ASPM 
+>>>>>> worked
+>>>>>> with Intel Alder Lake, right? Can only the problematic generations 
+>>>>>> for
+>>>>>> WX3200 and RX640 be excluded from ASPM?
+>>>>>
+>>>>> This patch only disables it for the generatioaon that was problematic.
+>>>>
+>>>> Could that please be made clear in the commit message summary, and 
+>>>> message?
+>>>
+>>> Are you ok with the commit messages below?
+>>
+>> Please change the commit message summary. Maybe:
+>>
+>> drm/amdgpu: VI: Disable ASPM on Intel Alder Lake based systems
+>>
+>>> Active State Power Management (ASPM) feature is enabled since kernel 
+>>> 5.14.
+>>>
+>>> There are some AMD GFX cards (such as WX3200 and RX640) that won't work
+>>> with ASPM-enabled Intel Alder Lake based systems. Using these GFX 
+>>> cards as
+>>> video/display output, Intel Alder Lake based systems will freeze after
+>>> suspend/resume.
+>>
+>> Something like:
+>>
+>> On Intel Alder Lake based systems using ASPM with AMD GFX Volcanic 
+>> Islands (VI) cards, like WX3200 and RX640, graphics don’t initialize 
+>> when resuming from S0ix(?).
+>>
+>>
+>>> The issue was initially reported on one system (Dell Precision 3660 with
+>>> BIOS version 0.14.81), but was later confirmed to affect at least 4 
+>>> Alder
+>>> Lake based systems.
+>>
+>> Which ones?
+> those are pre-production Alder Lake based OEM systems
+
+Just write that then: at least four pre-production Alder Lake based systems.
+
+>>> Add extra check to disable ASPM on Intel Alder Lake based systems with
+>>> problematic generation GFX cards.
+>>
+>> … with the problematic Volcanic Islands GFX cards.
+>>
+>>>>
+>>>> Loosely related, is there a public (or internal issue) to analyze 
+>>>> how to get ASPM working for VI generation devices with Intel Alder 
+>>>> Lake?
+>>>
+>>> As Alex mentioned, we need support from Intel. We don't have any 
+>>> update on that.
+>>
+>> It’d be great to get that fixed properly.
+>>
+>> Last thing, please don’t hate me, does Linux log, that ASPM is disabled?
+
+
+Kind regards,
+
+Paul
+
+
+[1]: https://www.thunderbird.net/en-US/thunderbird/releases/
