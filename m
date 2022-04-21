@@ -4,119 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E72EC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 17:12:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26DBEC4332F
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 19:20:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A43F910E2E0;
-	Thu, 21 Apr 2022 17:12:22 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 219A710E2E0
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 17:12:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YuN+eIr6rB7eiPRBmAFOgij7t6qVfRuwfN9Zhc239orjSBOm3t0n7dGRC1WG2MiivHT7JwSNJdpRYv4tDcUgOMGdZrULuKP1QcB+NIyFQpYpVRvqYSre9FMwYof0P9OoA9vh0cHCd1pkB67coUVz1wmOT+16zWsgjo4xYfggrd3LsLjwpB4Pj1VsFnLqYQUjPuKGxBKAIOAaffKxVejbqRFWmGb1SCorP7VPqGzWQJU8IQHtqR8N38Dr9NyhLhhFU2N4SuofOCa38mS23NFyu16CWJd+57ja+d7Wj9noXp4Z1WA0eaEds7b3g/rLLCgP5CT9w7aqrJd7tjZORBMcww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RxnHczfoOjtXfWHZ3N5FR1eOu0P0Y75jyOCU78veaUY=;
- b=e4429s9aqGdLxHLP+wpbV3KiMhD1X4TlOxy8zF7MGpbsfdS7TJB243tUIy/ll0QlmpuuoPHTgPzLtgYrAOi+R/9jniI2iYeM80tYnVFw4MO1ml6Z9xmQ9KGTgaQ0G+G0TMvnH9sbIqHLuYeQo4vHseGVjJTMjrS/KKHjgi1k9WihN4V5AxHVKV3sKaE2TwB2J7z7Uhws9USRMQlgEwGgr1cFf4INRMUJYlTQ+O9qLuK5/Man8DwStHxGiYq7NQp/P6kx/IUvnUyMLWCFz5A2qrSdEzr+imMcB5F8lwbikOOeNKCLGYDMZF1sleAhyZ+lLeMOeqhd43gxjCVHiY1ieg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RxnHczfoOjtXfWHZ3N5FR1eOu0P0Y75jyOCU78veaUY=;
- b=NvfBjDke5ZSulWeKMijMNvAOHGzBqYrtpeL9DshGJePPviiJogcrwuK6kJK0jT63Yz0CCjse7jrOBA56MJscWvgTOCxjUiUsR40w+MPLfLe6wUEswfNZ9+ZsvwKy1c2Agntv0quttS1CpF44zGl9wQQprTZC50Jcz5yeQk1y4Ik=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by BYAPR12MB3271.namprd12.prod.outlook.com (2603:10b6:a03:138::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.20; Thu, 21 Apr
- 2022 17:12:18 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::3c53:b805:4206:6620]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::3c53:b805:4206:6620%9]) with mapi id 15.20.5186.013; Thu, 21 Apr 2022
- 17:12:18 +0000
-Message-ID: <98af64d4-879b-5a8b-8452-ff85e38b753e@amd.com>
-Date: Thu, 21 Apr 2022 13:12:12 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH] drm/amdgpu/display: make hubp31_program_extended_blank
- static
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220421141032.3012374-1-alexander.deucher@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20220421141032.3012374-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0138.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:83::25) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C71CE10E9F4;
+	Thu, 21 Apr 2022 19:20:23 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3326C10E9F3;
+ Thu, 21 Apr 2022 19:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=uKJBe9eCqyyG6EEptgE9QaaoEsdZpl1Kh0VqWIabWyo=; b=o1i7fTqbgTvZtmoYYgu6i+UxNF
+ b0PnlBLUDIyQz0rrV3fQQwGtEGD8CEB39ndf6cyaQtHRhrAMSW/63ome6TUg7l4WnInOn+BNo649I
+ nyu7B610hgxfOL7YN9Dz+0mWAEIlxu687fNBu2/3tSSd/gtMmLxe3D1tIBI0/yxK+Z/UzE9kWdEZi
+ 2bPKmRj8UeaJcSEIJ4H6JHJE6NA4GuwRj/tOIgdLZC/7BNvpA9hvclhtk1j0SaGWyYjfOFgmR0aFX
+ D3X5zsnreMJ0Te/Au21GwhReSpHG9bvmwWmrhbMWbcKmVXl5Z0SQE6G48JRtKgQ/GEvJWXNwJquRK
+ 6hD/plgg==;
+Received: from [165.90.126.25] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1nhcLj-0008M1-MT; Thu, 21 Apr 2022 21:20:19 +0200
+Date: Thu, 21 Apr 2022 18:20:06 -0100
+From: Melissa Wen <mwen@igalia.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: AMD display drivers handling DRM CRTC color mgmt props
+Message-ID: <20220421191945.yn4plwv757jlri2n@mail.igalia.com>
+References: <20220421143747.247mohbio436ivqo@mail.igalia.com>
+ <06891dd7-b2f4-ece6-b1a5-b9ad15f5f899@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3b1226a5-4903-4c0e-a337-08da23ba16fc
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3271:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB32716AB890482AF7DDF522B18CF49@BYAPR12MB3271.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KuYOeG9FDiLe4tSa4ywD6eluZ9av9uYyVuPABHhmsbLgGfkvEA2FyzngWtS8WaYt74L25SiRGUACzcvZGVwZydbedtXZ47nGRexcY0IDsHlyXCQzGaSQ4O5U/PzkMe7TiEr/kiyHsiYzBcudiwuBAxZtPNlGsmgbpl40uvcm41Rn/3wSTELOrq16jAYeTyHVlORrlc+SUr64YN1p9Lrt8LI/+ATiuf10Hl0Wp7JRjo62SUMBE043MidMPuSPgnIYPwFdHBeo+tefoMGjNoxvKjNIKvkp6xq8PZm6XLBM5aHIxPuOjQKQF5COPauLmUpEpehKDjJxk5HXKKdj14U2BahaSmd8yRed+co2q1uFmo5dUqHrfVkPAAu9wOxEGxhtgThcbgTvZ7y+4rkkjPt0SjXXHPnLBk3//HbEMSm2RCy7mwHuQ/NNBqe8cnJ7Zi60Wnpvh6oav5eiE7bZEsifoSa9OgvPBdUldxcaHHaRnmTxyHk9stETbvG8EU/+gLgx+MwNgrJ7iwOHx6IzgJZUl26XWX5yH9ltpo/2+tCosmkztUF8KSra/YTP3xL4Ez7XExmIQZXwde+IFE8GocJ6f134sojT8iKaXWonTa7PFhChHuJoH386yA09DC8BSqnuw6bsKj+0H/8HATTPgBgFm7KPez8WvxMLk2HMpQkVg6SaUywtqXZzZSfZdXApMYru9KNIAyYapAwZ6+yzyIGnqxp6YeOz1+TY96+zDkATgFwbQOCCwhhhJLhdDoox9cGr
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66476007)(8936002)(36756003)(4744005)(2906002)(66556008)(5660300002)(316002)(38100700002)(8676002)(6666004)(66946007)(6486002)(53546011)(31686004)(86362001)(31696002)(508600001)(186003)(26005)(2616005)(44832011)(83380400001)(6512007)(6506007)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dG9lb2ZnRVRVYWZUODkzeUUrOStubC9mT3pXTWpJbTE4SU1DZjZKTFpwWEVo?=
- =?utf-8?B?QTg3QkJtOVFDUUZRNnU5R2dTYms0blpMR1N3RjBPTDB3L25kcy9lU1hqU0xF?=
- =?utf-8?B?azRtaGNXWGc2TGtQVi9WM2xrYmdySFBNVElYUnVTcnNBODlNRW9FUEFWRzVz?=
- =?utf-8?B?SzRmZmVFZEZhTytza2huR3M0K2kzTERBWW9LUVlhOXVlR3Yzakx0d1kvYWI1?=
- =?utf-8?B?Rm82NFR2bVAyM1dLcWE3MWxubmZxaGZqc3RvSEdMNUVKenZzbjFvK3Fma3pU?=
- =?utf-8?B?RFF3ZjJEK1VPcSt4K08yVWtwdzFYZXpQdGVKek9PcXZ0MTQ2c1NQT2NucEk5?=
- =?utf-8?B?dExrRFpYSWJkVnQ4SlQxWmduYk5VSDFwTnM0NG0zTGsyMmxOSVlTd0tYajZS?=
- =?utf-8?B?dlFpSHNOcU1ZdVA0SjZtR1BjZ1FjS0RuM2Z2b0RQaEJQYnowYUdXQW1Pb3Az?=
- =?utf-8?B?M1BqWFpwRXNoSW1IOUJpcFc4R3E4Wnd4c2doeTQxWkhlRGlVSU0vSjJPb3lG?=
- =?utf-8?B?MHBtUU1KSXpqZVR3MndEbzNmbU5ocXJQNUQ2TXZNTVJON2UyaDdCUFpQNG5J?=
- =?utf-8?B?Qk5ZTzFRU1J5Q1pjMXFqOUEzdDVNbUNBRzhQQmx4VWFPQU8rcXRXS0l4aE1u?=
- =?utf-8?B?RjBwK0lFUXhwUGJpdnZXcmpwZmtRVjVKSVo1QWE3M0NPWjhxS2hPK2l1dkd2?=
- =?utf-8?B?NG9xU2NwSUUzc3h4dDRrd1J4NVk1N2FYam1GZUtqcXlQRlg3TmxVajU5LzFQ?=
- =?utf-8?B?SHJCbWJibzkvTjgzVEJsWC9YbndkVmFHdlRrZDFSdWg5a3ppOWlKTGhVcVRI?=
- =?utf-8?B?Q3VONnpIZnpwYjRJQ21sd04wc2w0djJPZHVqbUk0Vm9yMDRBdUg5d0hPSWNn?=
- =?utf-8?B?NERaU3QwMDVCS2h0MlRzZzRFM01GQkViYTlWcDAyc0hkS0FJK2JxR25KZTF3?=
- =?utf-8?B?Q0s0MXF6SEMwM3p3cVBtRElmM3BPdm1VS21tdTkydTZzTzYrZ2tDK3UrdGVE?=
- =?utf-8?B?ajE2NStvQ2QrZjRia0NMaTRHcFh2aGF3QjIwZHY3UGlTaXhIcE1rOEJZZEJ0?=
- =?utf-8?B?QVZGc0VjQWRuWG43UUEzNVk3L0tWbS8vRFM4QWVWR0ZXV3BWbiszNVdWZXBT?=
- =?utf-8?B?dXdTZ0JXWkw0K3psKzVwdktCbkptb0RnZC9sRUdiRjhON2lOMTVtTk8wdmpN?=
- =?utf-8?B?Ym5LZmIzbWtWQ2ZvVWF0UWR4bW1OUmkvei9FUlgzRUovSXhxaEw4ZlVRNDZV?=
- =?utf-8?B?Sm9LQUgraDRma0ZwOWhBNDMycTBEcWllaUM3NGhwc0s2ZEZjODRtaElOMFZF?=
- =?utf-8?B?cm5qVEhFQUMzeHpwZnU3eldicVNCbWxTdWk0a0tZWkNUWWVIU1NweEFsdWdH?=
- =?utf-8?B?Zmx0RGJoQ0lYdGtzV0cvYUduaU9DeWUvOW1GeDdhU0JqeG0zY2NTWkRKQTMy?=
- =?utf-8?B?Y0F2RTMrbW4weHVJcE03VTFPUnNMbG9LV2Z6WTk4cXNQTGhZT0I3dlR1UjZJ?=
- =?utf-8?B?bnF6Q1lTWkIrelc3WFA4NndpMTdGSC9RNEZWYTFLdWJHWDZoOVpWSksvL3lO?=
- =?utf-8?B?dDkxOXZ3ZGprcU83cWRhUVNmZlRWdnZMUW9Tck9yREFQM0U0a3JROHhUYkI5?=
- =?utf-8?B?V3ZwRm0rc3RDSkRPSWd2dkplRDBXVWFsWVZZbmFreVFzK2FjVEJwazJUWVVG?=
- =?utf-8?B?RStmSjlWZW9Pb2VQbWdVaS9ta1hSTlVaeWNtcXd5VTN6TGloazJmT3pLbVNq?=
- =?utf-8?B?OHVaSkxLZUZBQlpoZGNvNG1neDUvREwyMEFCQS90YnIxeDl1SVBiNVhLMzVL?=
- =?utf-8?B?MllyNFVEQmh6bTRGRkFhVnQ4TWxOdDN2RVNmMkdDQnZtUHMwM2R1Y1ZmdEVZ?=
- =?utf-8?B?UHJxZGMrSVU1MUM3eWordWlSYUFjNko5ZmVUMlM1SmpOUkVFaXByeGs0b1VD?=
- =?utf-8?B?MkxVVjJVVHJ6TjNnMkJmVHoxdVVpem1Ub3BINVpLeG9rbnk4M09PTDhDd2ZR?=
- =?utf-8?B?ZWk1bkx0QkRselVSZ3JJUDV0YllDck1rYWZrN3E4M202dlprNVc1VDk1UTV6?=
- =?utf-8?B?YW1sNW1nT2lodkZDc1J0V0pyUTFxY1M2VmwwM1hCSHRvc1BHa2cyYmI4ZVli?=
- =?utf-8?B?UWpSVUMyVGE4dWZRRnpFSHBFVks1MCtMeGZaMXhybCtHQUd0ZU13aXB6S1dG?=
- =?utf-8?B?UFRhZ1ZWN1M1NFYyZXhuZ1EwMG5USTBUanlBZVlQK3BPcXl3TzZpYVhXODVS?=
- =?utf-8?B?VENWTmNMckg5dGp2V0dTcHo5QlFBd0VERFNYYTNiYzBXdzRFOFpORHVHWDVr?=
- =?utf-8?B?SU9aYnFGQklCVjZIUTFJeDhPMjJ6MFoyNjFDMk5kbzRJVDZmbVE2Zz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b1226a5-4903-4c0e-a337-08da23ba16fc
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2022 17:12:18.5716 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SQjRdtPpmJQV2kaGbahBzTX25wk2f2ru+9lR3VFMufMkUYe9AgcfMkW3ygGW1V3tACwpcTwgcdxi2uZiZTLfrg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3271
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="h6wjzxgbx56uj4c2"
+Content-Disposition: inline
+In-Reply-To: <06891dd7-b2f4-ece6-b1a5-b9ad15f5f899@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,35 +52,166 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ alexander.deucher@amd.com, Bhawanpreet.Lakha@amd.com,
+ Nicholas.Kazlauskas@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+--h6wjzxgbx56uj4c2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 2022-04-21 10:10, Alex Deucher wrote:
-> It's not used outside of dcn31_hubp.c.
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+On 04/21, Harry Wentland wrote:
+>=20
+>=20
+> On 2022-04-21 10:37, Melissa Wen wrote:
+> > Hi all,
+> >=20
+> > I'm examining how DRM color management properties (degamma, ctm, gamma)
+> > are applied to AMD display drivers. As far I could understand thanks
+> > Nicholas documentation on amdgpu_dm/amdgpu_dm_color, DC drivers have
+> > per-plane color correction features:
+> >=20
+Hi Harry,
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Wow, thanks so much for all details!
+>=20
+> DC programs some of the color correction features pre-blending but
+> DRM/KMS has not per-plane color correction properties.
+>=20
+> See this series from Uma Shankar for an RFC on how to introduce those
+> properties for 1D LUTs and CSC matrix:
+> https://patchwork.freedesktop.org/series/90826/
+>=20
+> Bhanuprakash has a series of IGT tests for these properties:
+> https://patchwork.freedesktop.org/series/96895/
+>=20
+> I've rebased these on amd-staging-drm-next and maintain a kernel and IGT
+> branch with these patches:
+> https://gitlab.freedesktop.org/hwentland/linux/-/tree/color-and-hdr
+> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/color-and-h=
+dr
+>=20
+> We've had many discussions with Weston guys on this. In order to merge the
+> kernel properties we need a canonical userspace implementation that are
+> using it. Weston guys are working towards that but if you want to suggest=
+ a
+> different userspace to serve as that vehicle I'd be all ears. :)
+>=20
+> Note that in order to show this all working we also need a Wayland Protoc=
+ol
+> update.
+>=20
+> See
+> https://gitlab.freedesktop.org/pq/color-and-hdr
+> https://gitlab.freedesktop.org/swick/wayland-protocols
+> https://gitlab.freedesktop.org/wayland/weston/-/issues/467
 
-Harry
+So, I've followed these discussions (until the issue on naming) because
+initially I considered it addresses our current goals for color
+correction. But after some discussions, what we are targeting is a 3D
+LUT after blending (per-CRTC). I found past proposals on dri-devel
+[1][2] to extend the DRM CRTC color management properties, but they
+didn't move forward and were never applied.
 
-> ---
->   drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
-> index 8ae6117953ca..197a5cae068b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubp.c
-> @@ -54,7 +54,8 @@ void hubp31_soft_reset(struct hubp *hubp, bool reset)
->   	REG_UPDATE(DCHUBP_CNTL, HUBP_SOFT_RESET, reset);
->   }
->   
-> -void hubp31_program_extended_blank(struct hubp *hubp, unsigned int min_dst_y_next_start_optimized)
-> +static void hubp31_program_extended_blank(struct hubp *hubp,
-> +					  unsigned int min_dst_y_next_start_optimized)
->   {
->   	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
->   
+>=20
+> > * - Input gamma LUT (de-normalized)
+> > * - Input CSC (normalized)
+> > * - Surface degamma LUT (normalized)
+> > * - Surface CSC (normalized)
+> > * - Surface regamma LUT (normalized)
+> > * - Output CSC (normalized)
+> > so DM is "adapting" those DRM per-CRTC properties to fit into three of
+> > these color correction stages, which I guess are the surface stages:
+> >=20
+> > * - Surface degamma LUT (normalized)
+> > * - Surface CSC (normalized)
+> > * - Surface regamma LUT (normalized)
+> >=20
+> > I'm trying to understand what this mapping is doing. A comment mentions
+> > that is not possible to do these color corrections after blending, so,
+> > the same color correction pipe is performed on every plane before
+> > blending?  (is the surface the plane?) Does this adaptation affect the
+> > expected output?  Moreover, is there something that I misunderstood? :)
+> >=20
+>=20
+> What's possible to do before and after blending has changed quite a bit
+> between DCN generations. We program the CRTC Gamma and CTM after blending.
+> See attached picture for a view relating the color bits between the DRM
+> interface, DC interface and DCN 3.0 HW blocks.
+
+This picture is really enlightening, thanks!
+You said it changes between generations, therefore, I can't consider the
+DCN 2.x family follow the same mapping, right? If so, can you share the
+main differences for a DCN 2.x regarding per-CRTC properties?
+
+>=20
+> > That said, if the DRM color mgmt supports per-CRTC 3D LUT as the last
+>=20
+> Where do you see 3D LUT support in DRM? Is there a new proposal that I've
+> missed?
+
+So, it's exactly what I aim to work: a proposal to add 3D LUT to the
+current range of DRM per-CRTC color properties. But I also need to
+understand how this property will be mapped to AMD display once it
+exists in the DRM framework.
+
+One of the things that caught my attention after seeing the attached
+picture is the position of 3D LUT. I was expecting to see the 3D LUT
+correction after gamma correction. Is this position a particularity of
+DCN 3.0 (that varies between hw) or was I expecting a wrong color
+correction pipeline at all?
+
+Melissa
+
+[1] https://lore.kernel.org/all/20201221015730.28333-1-laurent.pinchart+ren=
+esas@ideasonboard.com/
+[2] https://github.com/vsyrjala/linux/commit/4d28e8ddf2a076f30f9e5bdc17cbb4=
+656fe23e69
+>=20
+> I'm thinking of putting a 3D LUT proposal together but haven't gotten aro=
+und
+> to it yet. We'll want a pre-blending 3D LUT, and possible a programmable
+> post-blending one as well.
+>=20
+> Thanks,
+> Harry
+>=20
+> > step of color correction, I don't see how to accommodate it in the
+> > mapping above, but I see DC already supports programming 3D LUT on DPP.
+> > Once DRM has the 3D LUT interface and DM mapped it as a DPP property,
+> > the 3D LUT will be at the end of the color correction pipeline? Is there
+> > anything I need to worry about mapping DRM 3D LUT support? Or any
+> > advice?
+> >=20
+> > Thanks in advance,
+> >=20
+> > Melissa
+
+
+
+--h6wjzxgbx56uj4c2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmJhrmYACgkQwqF3j0dL
+ehwNLhAAkuCOZIaCGV+5ZE8MvvuIMj872HViTTSOqJGELsqLNP5suGFoJHd209jD
+CDDzKd5lfRdKWOSMY/U3XV3uvlYU21U01RgBZD2hmvBbLaPWwLSjX061bIu1gkLk
+jHefXRfve6LeeTd+XeXnsz/5aYqUg7aQgGGlZZMez5lv78uhFOE4Ekxg7j/zHiYA
+v4hOq1etxrZDVAoaQ6t1FmpT2CZh/yhQNxuf81w7ZdlReLeHm+ilj3z8rENK/xhg
+KvuNKGTSALrCGt9TwFqqtQ6Ehy7b9K9dcQCovAzxu37KG8Z9yFAMPA7Sh99O9y7o
+bDr+mOn9iUnQRUm+Hgary6LaL5LaSMynWNkDpyjJ8sdlbnufIJX4KoKhrrYkirro
+SQjeTklgkaZoq7vgGGoefETc8qLzUsnvNexfHgR4rcmNTO9eCLlg80jwETuS/d9b
+ad4IXzrcayIp455NODaSr8My2GZKjgx5Ti7qSNPxgQxnAX0zc7mPZGQQmSoHKrXQ
+1VcEED6e+JBiNoHXzLBZZQ8xcXQ0t/eopzUik3LXAmOAMcqNi8DiCWE7Z2DQvAlh
+42jh6tVICmUtV6O9EuGt9vp3NV8anJ5mBZpXQf9Pu0JOXpmORvsjfMpFdWKCi2vB
+SjlUoCQk1wS6L3hb5wm/uBu/Nmn2cNv9m0KUcV2w56Dz755CcLc=
+=k+M4
+-----END PGP SIGNATURE-----
+
+--h6wjzxgbx56uj4c2--
