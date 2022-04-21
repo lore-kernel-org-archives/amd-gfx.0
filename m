@@ -4,119 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F3BC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 20:17:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA61CC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 20:50:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F82D10E02B;
-	Thu, 21 Apr 2022 20:17:46 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2073.outbound.protection.outlook.com [40.107.244.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97E8010E02B
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 20:17:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42B5710E010;
+	Thu, 21 Apr 2022 20:50:40 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2056.outbound.protection.outlook.com [40.107.237.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6491B10E010
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 20:50:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YM/pOQ6xHVyXwEer0FLySh/D72aKQq2nFxRe7Q8IevrF4Q/sTRMWlLsgL2mQ5EyUMS23TWwG895NLuZ/kI9U7qrFzpvG/wz+xkUpwTqCkuTKyJqqgS2XTlWSH3PniVHWe3jWL80UyfpYScsbegsOHd1JkdSLJtl3bE5nPgQSEhLve+hRH7A0ar+cfsJTFAqMHRxwK8xR+s0g9ehIMwJmmNUw3W/eolR/847nAMe5Y233S4DolzmYFxdPbfBr4oppw7PrcSS7HZt+PtVQbBGvTHaYE7pRTcuJMP2UO+9xLesxaRj0Yk/uuM577ONP2rpZ9wNwm+pShP6ElnU6RNL7VQ==
+ b=BQAZGihG2ruUHbW73D0OtubpAxEQT2iJfKcx6K9d8qgguXeBVR1JOs8n9TuXrVqfdMsEKbB/KlHyo9xGrmM1cGvSk2lKy+1khrngf/pwP1njq4mCmB3bz6uJD2kIGH4n/u/Ux+CMjJ2XWSG1lAr64PIf+CQ/q75UzybBSP2XkJpCEldNoe1Wc8GSE4DKbo3ID+wf0Z+fDkbfaBJM/z85yVqlowE8RbRSr3J0J2dLTKPaQCgJtBgjRlGrLmYXYmqJSG8OT2J3q19ghCIvaOPFDO/PfXbQgPm7hQ5FUFVHy7ZFnQgBHmotPoALHZTyU2NcVLKX9oBAoTcr78kwjMhkwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sSj5MOemvaoL+ggq3qYnijUluJLF7GpgBfeG8tlCr3M=;
- b=U6fT5Sch0rOYBSl9crYVkVAq+Aa03KSBryDFuG5a+s+CiEfQO5cVS7j8DwM5PtpvtFYcVlC7D4qnH8cZRJ5wbIAkQVuHo8mbCZOPQeq+fTLdhWdhLNUlUNffOsVlkh3VU9NcI8pgiaq0+xwYOYkRAFc+pK3gzNiJhmuJk+NN0Sw300DWOZFFhPcNhJuGrth/s64CiugvgyJLVZ1DyDjtBAXGiWM1aPjrBVIQsvtNzVaYSb3YIXb9rqCsfuK6rN30WIUnKG7oyALQOernf03rdEru7WZsfsWpRtJ1RH+lV85qElWOsSVYBrPlvNhLteyjpi4YoOtQpWVPLrnRQ6HXXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=wjGsC6P6tc/KZ3jklghhcNKa1O2jcD/z0WAAxw2uYhw=;
+ b=kkZ/FRN/QX/uUCIRK+MrEW5MLuXmA8G2YxocnS5TVWzt486c9JKT7HVyfI/ZZkoCzjO7V7RM/zSE/DWP2CNwFcsw79U+hGXjafQEUwpSR7cx6tFchPYS8N3QDooGuGOWKAvNdHvWu9FFsBALDZcP+Z0iESJYPGWYNJALIFvu0w/teJbsvl7XTpu4q6eK7Okpgd6apfWu9ixeJL1Xs7YyjYJldq98fZtt2Z2TZBRtVBCP8o2On+6HbN6c/GOYPa9oCIwkR3TbMM2SpSzjxZtLhhQzl+lRjJhV4C8feJU0KFy0XgFfJUeeq6ORMo6y+sUBPvMxpq+Hnzetusktj/SnaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sSj5MOemvaoL+ggq3qYnijUluJLF7GpgBfeG8tlCr3M=;
- b=DOI/Em2BM9FQh46aheAiSsSKdlBk8LgHkobp2VVCGGIab5H4pESi7ObjQ0E9EqrOtLB1Si2qoD+I4JBiJtnB8u+hOW66pXg5Mi8NbehOLWB66oUoKDou8+DvQ2CqG1G2EY7+zZDzh7QjDPT7qNvVy02KCwFtoBPKslzoi5PYpOE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CO6PR12MB5460.namprd12.prod.outlook.com (2603:10b6:5:357::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Thu, 21 Apr
- 2022 20:17:42 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::6070:7681:db0e:7702]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::6070:7681:db0e:7702%9]) with mapi id 15.20.5186.015; Thu, 21 Apr 2022
- 20:17:42 +0000
-Message-ID: <8c272923-ddfa-9151-4efe-cf8127ea995f@amd.com>
-Date: Thu, 21 Apr 2022 16:17:40 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 2/2] drm/amdkfd: Update mapping if range attributes changed
-Content-Language: en-US
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220420004742.8780-1-Philip.Yang@amd.com>
- <20220420004742.8780-2-Philip.Yang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20220420004742.8780-2-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0039.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::8) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ bh=wjGsC6P6tc/KZ3jklghhcNKa1O2jcD/z0WAAxw2uYhw=;
+ b=qw2nUvJGBYPEj4BYGcNutpOI7rCyL7zTEuXOLI9IB4yAieRa7Ta8z6jv0xww8cHfb84wUre5ns2sRMHmH8TvyQUDaONBausGAVUJexXAkOupWzYpQAYNJXM6x14kWyCyOsWYi9J9fMlrKmowvmsYlvON9AmIOf2vVa812Tedbyc=
+Received: from MW4PR03CA0041.namprd03.prod.outlook.com (2603:10b6:303:8e::16)
+ by BN6PR1201MB2531.namprd12.prod.outlook.com (2603:10b6:404:b2::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.20; Thu, 21 Apr
+ 2022 20:50:35 +0000
+Received: from CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8e:cafe::81) by MW4PR03CA0041.outlook.office365.com
+ (2603:10b6:303:8e::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14 via Frontend
+ Transport; Thu, 21 Apr 2022 20:50:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT003.mail.protection.outlook.com (10.13.175.93) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5186.14 via Frontend Transport; Thu, 21 Apr 2022 20:50:34 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 21 Apr
+ 2022 15:50:33 -0500
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdkfd: Ignore bogus signals from MEC efficiently
+Date: Thu, 21 Apr 2022 16:49:56 -0400
+Message-ID: <20220421204956.806057-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 82743f55-1368-46bf-6a25-08da23d3fd5a
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5460:EE_
-X-Microsoft-Antispam-PRVS: <CO6PR12MB5460B25A6A9C3D5D5E63C59092F49@CO6PR12MB5460.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 9c913344-c763-4093-9577-08da23d8954f
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB2531:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB2531B9723A030C7D125AEA3A92F49@BN6PR1201MB2531.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0Wm5j00WsSiu0brMjj6P22S9av1pnrw0EO+CncqGtdlAcqvMeKOsKrpkdUZ5bfJihz/Q/gBbUOEhvVc6LvZCgPQwleuvq7/6+qaBClIdzh/TQiFckKEomTQxYU+e1Es55MiRt2zvcq9H6VV+JWnlp/7rQxp8gGDhCxeRPlXQLRhkaUD3wM+pILq2fzo6CVtHB20sDvkNBMA20Hii+cCrYj29pWtt5wbfNMvkX8ndECwnJeRyq+5h3Ol0C4qgM9oV7CkjPnGGObuSnjRyQZIyjIvklWgH/PbNaX34paDgB73GgA39nHPIU8/ccAzx768HayWgNvyNPEAOVOFs3NWc7QR0q8XxbVz/jB2c7yAe3pAIjt8cEOb6dfjq3+/rEIA+4nuKOhydxK0UKSQUOVluwjw3Qdwrqbfigv9BwbI01jnDyJeL7D+W4V3rTfGHIXUC5rNGjAYYkNhpbArlImLE9ILu/xwyIO40+WD4HV9Wi4ebWi3T8kBf1CAwuNegSC6HO53xvacejcKuNXUHkZCWaK6ySa2j2FW0EuvwivmILqpvAlHi3JgiQ12L8CciZj7jLmFKj5XCHqvGCcU7500GRmcWmD2VsDxzOq0b06VM4ROQVNR5E64hb/egJHtwgl4Cj38o9KR26z1hfoy5xt0yL1PzjWlgH89n48s0Q8ZyHiyp2CAqx2BHgEbChcdCQZWSzM0/aD7GfeUrbbVrdxksqYujrhkU2mLTyoWIYPkzSXM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6506007)(8936002)(86362001)(8676002)(66476007)(6486002)(66946007)(83380400001)(508600001)(316002)(66556008)(38100700002)(31686004)(31696002)(15650500001)(186003)(36756003)(2616005)(2906002)(26005)(5660300002)(44832011)(6512007)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: 5DG4X19Nn4TawO9Fx6sMJCXyGRHGBQqXyZcZwp09Atvp0e0tWXpq31vfZL1q/LVyYteDfwvRJjbQcjH7zJ4ix/YDOd8aicOg53rDKSeuTDxM3T68xodBTF7c5IJgmbaIc8ZhTaT3jwAgGE2Ogy6Oe5YsAJ27UTXV52jNQFOrXq6hPII+HgZdzV4OFMlpBdamM/5GKdqhMs2MmJw6q7oi09AVYUDE2qZn2bArWNlhNY4AO+uZNeK9ClYq3IIEsYGouy247Hw+5RxOm4O2oYSgyNaP2P3tM1JAhWwOiZUVU4/WN4oMTxqydOEq//OEeSTDYeKbyhnEZ7LBbBGLJrgRiTIud+UZTYHRJUBaaQq0++/2t05taCgpnMwV6ynZXTjTPI+QtLi4B4cybDUPyH9KzQrpsMlpQOE4rQXoZm3LLdUxFuaP9mjlqBJlkhYYFPBhhGtjuwyd8u+K+rVqRQr2S1EsqvnrnsyHt29l+VlFgjqoEwRUEk5ssU4bwgxkLbIIn8pNdAu/Ox1dA+JljJovrApPsnaUhVv6RtU9luOexHhJjgwNhSdLKEi77EgabYCRc0sCQH2+CPraOYu81SCRRDBMeWKVrX2KMnGCQwshWcKZoDtenwmuOE1F2PsBU+llHaWp4Ngi7gGth+WfxX4cCHjW4/CGOwsbFau2FwcMs7lVyPR4tI2VIux2szPwEwfxFyxmSf+Nb3k6Y5rBc5NzaNRXN8jBVWcbRAXGcid041u72+SsJs3a++VifyYXQAjR
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(508600001)(356005)(8936002)(86362001)(336012)(186003)(2906002)(426003)(70206006)(70586007)(16526019)(6916009)(316002)(83380400001)(81166007)(2616005)(1076003)(6666004)(36756003)(26005)(40460700003)(7696005)(36860700001)(8676002)(47076005)(4326008)(82310400005)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UVIva3luSjE4MmlpaDRvUTNpcnRMaE9CWTJWMTJpVzZLai9CbEErbnRVUDdo?=
- =?utf-8?B?emRMT2dZeUFuc2cyeWFmczFvTnRqRmIwdWdvNENvOEthR21PRlZOTXdwRUhW?=
- =?utf-8?B?Tm9iV2svNW4zQ2sxbmxHOWJ6cWhBcGdJUEVtNnM4S1A1MlRNbEs2eTBSeXl6?=
- =?utf-8?B?aGM4TnFGRlViNXV4S0w5YmFuUUZSSDhSU09ocjhHWmdweDk5S3RYdUgwakE0?=
- =?utf-8?B?b1dDc3l5ZVl3RUpRNTVqT0VOOGRUYTBDbnhlY1RhSDhBZ2JYUzRSMjE2aWYx?=
- =?utf-8?B?R0p4TDJ2aWNEdU5mU0YxVUEvMlhlZUVRUU9VdkQxN0hCTUl6WDl0aFJnNVds?=
- =?utf-8?B?b0pNN0diam1Gdi9DT1ZqQ3RQNURNRE1wdXk2WFlQMHhvdFdhQ081WGw1enJv?=
- =?utf-8?B?aHJwTmQ0SVdDREpNbHRveFdnUmZDVzYwMU5memlXaUFaQ1dzWFB2RDUwNVNs?=
- =?utf-8?B?bnEvZHdWQnNUMGhHVnhYNkNJY1UyMzdGV0NzOG1uczFDVWlIc295cEppVU9q?=
- =?utf-8?B?Rm5GK29rTTFjMExubnhDNGJ5REcxdHVNR1dOZ3J6QXVOUFlaVHc4VGR1Znpt?=
- =?utf-8?B?ZTM2SERRMEd6UmR5by9RanlCVEZ6aXArZ29kaXhOSENVTkpiRVVsVTZCeU5m?=
- =?utf-8?B?akRxby96dk9xNnYrbENuVG9QSHFqR1lDRHlkWlR6NEwvcC9uRjV4cVEySnlJ?=
- =?utf-8?B?TFYwMXZtcHB6STBMSHQrOVlvbkV2Y0kxWDBxWWpXWFRKY1Z3VTdUdWY1QUZM?=
- =?utf-8?B?MXhCWlhhWDVLUlZweVRFL2lMOTRxNURJQXRuOWhsNXdVbHpyN21aWnFqZ25W?=
- =?utf-8?B?NTRZYmRhUGEzYUJmeDQ1NEFxaUxlcEtlVzE3OGE3dEdGT040a09WN2dRVUFr?=
- =?utf-8?B?OExhVjV3V2V6ZEZlSmQ4S1ZrUjhOOTNXQUhnMmtTM3VFc1RrLyt4VEdCQ29X?=
- =?utf-8?B?dDlKb1V4a0FUWThRdGoyYWJpRmJ1OGFBVnNlMVhDY1U0dXpzSHpvZzN4Y2U0?=
- =?utf-8?B?RHJHT1k1QzI4SjlMM1ljd1NhZ1hUb0NBNGJmWitPNVoyYzBkK1p3ZkR6T2VO?=
- =?utf-8?B?THpzMVNPaFdKUGg5a2dzQjhsbUR1cXZaVVpJNlVjWWpZN3YxeWwxWU1EdlZK?=
- =?utf-8?B?UmE2bk1kY2FodXZFcjYzMUl6U1VVQ2FXRWlGMmdsN2JSeTQ4UExtN2dzSVI2?=
- =?utf-8?B?VDhFVUFqM1ZROWxzYmkxTnV6eHBySFROL3JESU1mODB5dnlZejNkZWtOZFV3?=
- =?utf-8?B?RzkyWElqVFdjMndPMXVGSkNtUGpXWmtOYkZYZlREQk9xWTl4S3MvcS9MTzgy?=
- =?utf-8?B?TVJ2RzY4Z2V0V0ZHc3NGOGNrWlVJVGlFZVhOcHphZlhuVWIvTnF6VGlMbjBG?=
- =?utf-8?B?Z3d5Z2U1NU5NcTlLZWFzUnFLK1FuRW1HRkhNTnFVSnAxTFJVVDhZNzhUUExo?=
- =?utf-8?B?NDFxZlJpK3VkT2ZkSGZFOVVadnRTZng4b1QrWVFPR0lIYnVGUWRuT3FEQXhx?=
- =?utf-8?B?eTV5anlZNmlqNEJVN2QxdnFvcUVmZHhON1NNRHdRdkR3VW4reUtPOTFSenRY?=
- =?utf-8?B?aVBvbVc5U1h3RGg1REZEZytBYkNtbU1ESmRGa0xpRkFDNWN1ZVpGNU5nbWRW?=
- =?utf-8?B?RmlEN2E1Q0xiYk44TUlOcHFSVUZodWFjK1NETVFVTE9VM2ZBUWFxU2ovUVEw?=
- =?utf-8?B?QkNrdys2b1ZFM1RxTi9RZUpkN1ZtU0NUanc1WE11UUtFaTdWTXhMS1A0WGxK?=
- =?utf-8?B?anJUUXZBelpDTHpCeWZpcjRXMGl4eEVJYnJpSUpselpFeWFNbkMvYVVVWHZ6?=
- =?utf-8?B?eU90RjEvcGJ1THFlK0gxMFRobllBUWFMYWZLZDVTMHlZbTFNWm96OEhick1Y?=
- =?utf-8?B?Z091ZkZITGh2Y1dkME5uVCt3dEhOWk5zSENrVGd6VjRrQzkvMHVEVlhlNzZZ?=
- =?utf-8?B?MUVuTHB1OHNZOTRzNTBkSXVXbHJtaTVjcU1pcHM4bUdWMjdXbjVNS3djYnBv?=
- =?utf-8?B?ZWlBVnQ3dGpmTEhaM202MTgzR3IyV1E4UU1WVExLTHdIWm1Td0lOQkd5MUE2?=
- =?utf-8?B?eklYZFQxZ1Ard2pXSmpPL2Z4YTlwb1JMd0FJTW9sOExGQWlKZFpCNXYwTngw?=
- =?utf-8?B?cTcwOWh0WFI2dW96dHRDNXZ3cS9ab09yNGlacVJBbDZ0dU5JeDUzM3BZOHcx?=
- =?utf-8?B?MWNkSVpoSzA1aThIOHYyWHB2RFlSZy9PYnN5eVFXSHRIa2hXdjhWbGQ4UVZF?=
- =?utf-8?B?MVF2aWs3MDNEWXJnVDBhR0ZEWGx6OEZtaXhIVHNQUHFZRlkxc3JINGNzc2dV?=
- =?utf-8?B?NkpJQUh4dmE3a1VubkNBakVhWHJGQWVKa0JQQlQyNE1HMkNFNWllZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82743f55-1368-46bf-6a25-08da23d3fd5a
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2022 20:17:42.4166 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2022 20:50:34.9556 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c913344-c763-4093-9577-08da23d8954f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0bIZudHRQ+eV96QGJIptiD578OyhQloTHws8TsO186Gc8e3q9F3SA8ULnIWkOfBzeGmXQu7CgoXydQqn5rsL+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5460
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB2531
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,179 +98,178 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Philip Yang <Philip.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2022-04-19 um 20:47 schrieb Philip Yang:
-> Change SVM range mapping flags or access attributes don't trigger
-> migration, if range is already mapped on GPUs we should update GPU
-> mapping, and pass flush_tlb flag to amdgpu vm.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 41 ++++++++++++++++++----------
->   1 file changed, 27 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 6be1695f3a09..0a9bdadf875e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -686,7 +686,8 @@ svm_range_check_attr(struct kfd_process *p,
->   
->   static void
->   svm_range_apply_attrs(struct kfd_process *p, struct svm_range *prange,
-> -		      uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs)
-> +		      uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs,
-> +		      bool *update_mapping)
->   {
->   	uint32_t i;
->   	int gpuidx;
-> @@ -702,6 +703,7 @@ svm_range_apply_attrs(struct kfd_process *p, struct svm_range *prange,
->   		case KFD_IOCTL_SVM_ATTR_ACCESS:
->   		case KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE:
->   		case KFD_IOCTL_SVM_ATTR_NO_ACCESS:
-> +			*update_mapping = true;
->   			gpuidx = kfd_process_gpuidx_from_gpuid(p,
->   							       attrs[i].value);
->   			if (attrs[i].type == KFD_IOCTL_SVM_ATTR_NO_ACCESS) {
-> @@ -716,9 +718,11 @@ svm_range_apply_attrs(struct kfd_process *p, struct svm_range *prange,
->   			}
->   			break;
->   		case KFD_IOCTL_SVM_ATTR_SET_FLAGS:
-> +			*update_mapping = true;
->   			prange->flags |= attrs[i].value;
->   			break;
->   		case KFD_IOCTL_SVM_ATTR_CLR_FLAGS:
-> +			*update_mapping = true;
->   			prange->flags &= ~attrs[i].value;
->   			break;
->   		case KFD_IOCTL_SVM_ATTR_GRANULARITY:
-> @@ -1253,7 +1257,7 @@ static int
->   svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
->   		     unsigned long offset, unsigned long npages, bool readonly,
->   		     dma_addr_t *dma_addr, struct amdgpu_device *bo_adev,
-> -		     struct dma_fence **fence)
-> +		     struct dma_fence **fence, bool flush_tlb)
->   {
->   	struct amdgpu_device *adev = pdd->dev->adev;
->   	struct amdgpu_vm *vm = drm_priv_to_vm(pdd->drm_priv);
-> @@ -1291,7 +1295,7 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
->   			 (last_domain == SVM_RANGE_VRAM_DOMAIN) ? 1 : 0,
->   			 pte_flags);
->   
-> -		r = amdgpu_vm_update_range(adev, vm, false, false, false, NULL,
-> +		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb, NULL,
->   					   last_start, prange->start + i,
->   					   pte_flags,
->   					   last_start - prange->start,
-> @@ -1325,7 +1329,7 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
->   static int
->   svm_range_map_to_gpus(struct svm_range *prange, unsigned long offset,
->   		      unsigned long npages, bool readonly,
-> -		      unsigned long *bitmap, bool wait)
-> +		      unsigned long *bitmap, bool wait, bool flush_tlb)
->   {
->   	struct kfd_process_device *pdd;
->   	struct amdgpu_device *bo_adev;
-> @@ -1360,7 +1364,8 @@ svm_range_map_to_gpus(struct svm_range *prange, unsigned long offset,
->   
->   		r = svm_range_map_to_gpu(pdd, prange, offset, npages, readonly,
->   					 prange->dma_addr[gpuidx],
-> -					 bo_adev, wait ? &fence : NULL);
-> +					 bo_adev, wait ? &fence : NULL,
-> +					 flush_tlb);
->   		if (r)
->   			break;
->   
-> @@ -1481,8 +1486,8 @@ static void *kfd_svm_page_owner(struct kfd_process *p, int32_t gpuidx)
->    * 5. Release page table (and SVM BO) reservation
->    */
->   static int svm_range_validate_and_map(struct mm_struct *mm,
-> -				      struct svm_range *prange,
-> -				      int32_t gpuidx, bool intr, bool wait)
-> +				      struct svm_range *prange, int32_t gpuidx,
-> +				      bool intr, bool wait, bool flush_tlb)
->   {
->   	struct svm_validate_context ctx;
->   	unsigned long start, end, addr;
-> @@ -1521,8 +1526,12 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->   			  prange->bitmap_aip, MAX_GPU_INSTANCE);
->   	}
->   
-> -	if (bitmap_empty(ctx.bitmap, MAX_GPU_INSTANCE))
-> -		return 0;
-> +	if (bitmap_empty(ctx.bitmap, MAX_GPU_INSTANCE)) {
-> +		if (!prange->mapped_to_gpu)
-> +			return 0;
-> +
-> +		bitmap_copy(ctx.bitmap, prange->bitmap_access, MAX_GPU_INSTANCE);
-> +	}
->   
->   	if (prange->actual_loc && !prange->ttm_res) {
->   		/* This should never happen. actual_loc gets set by
-> @@ -1594,7 +1603,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->   		}
->   
->   		r = svm_range_map_to_gpus(prange, offset, npages, readonly,
-> -					  ctx.bitmap, wait);
-> +					  ctx.bitmap, wait, flush_tlb);
->   
->   unlock_out:
->   		svm_range_unlock(prange);
-> @@ -1690,7 +1699,7 @@ static void svm_range_restore_work(struct work_struct *work)
->   		mutex_lock(&prange->migrate_mutex);
->   
->   		r = svm_range_validate_and_map(mm, prange, MAX_GPU_INSTANCE,
-> -					       false, true);
-> +					       false, true, false);
->   		if (r)
->   			pr_debug("failed %d to map 0x%lx to gpus\n", r,
->   				 prange->start);
-> @@ -2828,7 +2837,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
->   		}
->   	}
->   
-> -	r = svm_range_validate_and_map(mm, prange, gpuidx, false, false);
-> +	r = svm_range_validate_and_map(mm, prange, gpuidx, false, false, false);
->   	if (r)
->   		pr_debug("failed %d to map svms 0x%p [0x%lx 0x%lx] to gpus\n",
->   			 r, svms, prange->start, prange->last);
-> @@ -3241,6 +3250,8 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->   	struct svm_range_list *svms;
->   	struct svm_range *prange;
->   	struct svm_range *next;
-> +	bool update_mapping = false;
-> +	bool flush_tlb;
->   	int r = 0;
->   
->   	pr_debug("pasid 0x%x svms 0x%p [0x%llx 0x%llx] pages 0x%llx\n",
-> @@ -3279,7 +3290,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->   		svm_range_add_notifier_locked(mm, prange);
->   	}
->   	list_for_each_entry(prange, &update_list, update_list) {
-> -		svm_range_apply_attrs(p, prange, nattr, attrs);
-> +		svm_range_apply_attrs(p, prange, nattr, attrs, &update_mapping);
->   		/* TODO: unmap ranges from GPU that lost access */
->   	}
->   	list_for_each_entry_safe(prange, next, &remove_list, update_list) {
-> @@ -3312,8 +3323,10 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->   			continue;
->   		}
->   
-> +		flush_tlb = !migrated && update_mapping && prange->mapped_to_gpu;
-> +
+MEC firmware sometimes sends signal interrupts without a valid context ID
+on end of pipe events that don't intend to signal any HSA signals.
+This triggers the slow path in kfd_signal_event_interrupt that scans the
+entire event page for signaled events. Detect these signals in the top
+half interrupt handler to stop processing them as early as possible.
 
-Can we skip the validate_and_map if update_mapping is false?
+Because we now always treat event ID 0 as invalid, reserve that ID during
+process initialization.
 
-Other than that, the series looks good to me.
+v2: Update firmware version checks to support more GPUs
 
-Regards,
-   Felix
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c       | 22 ++++++++++---
+ .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   | 33 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 10 ++++--
+ 4 files changed, 60 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+index 6e5e8d637f48..4df9c36146ba 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -238,12 +238,24 @@ static int create_other_event(struct kfd_process *p, struct kfd_event *ev, const
+ 	return 0;
+ }
+ 
+-void kfd_event_init_process(struct kfd_process *p)
++int kfd_event_init_process(struct kfd_process *p)
+ {
++	int id;
++
+ 	mutex_init(&p->event_mutex);
+ 	idr_init(&p->event_idr);
+ 	p->signal_page = NULL;
+-	p->signal_event_count = 0;
++	p->signal_event_count = 1;
++	/* Allocate event ID 0. It is used for a fast path to ignore bogus events
++	 * that are sent by the CP without a context ID
++	 */
++	id = idr_alloc(&p->event_idr, NULL, 0, 1, GFP_KERNEL);
++	if (id < 0) {
++		idr_destroy(&p->event_idr);
++		mutex_destroy(&p->event_mutex);
++		return id;
++	}
++	return 0;
+ }
+ 
+ static void destroy_event(struct kfd_process *p, struct kfd_event *ev)
+@@ -271,8 +283,10 @@ static void destroy_events(struct kfd_process *p)
+ 	uint32_t id;
+ 
+ 	idr_for_each_entry(&p->event_idr, ev, id)
+-		destroy_event(p, ev);
++		if (ev)
++			destroy_event(p, ev);
+ 	idr_destroy(&p->event_idr);
++	mutex_destroy(&p->event_mutex);
+ }
+ 
+ /*
+@@ -749,7 +763,7 @@ void kfd_signal_event_interrupt(u32 pasid, uint32_t partial_id,
+ 			 * iterate over the signal slots and lookup
+ 			 * only signaled events from the IDR.
+ 			 */
+-			for (id = 0; id < KFD_SIGNAL_EVENT_LIMIT; id++)
++			for (id = 1; id < KFD_SIGNAL_EVENT_LIMIT; id++)
+ 				if (READ_ONCE(slots[id]) != UNSIGNALED_EVENT_SLOT) {
+ 					ev = lookup_event_by_id(p, id);
+ 					set_event_from_interrupt(p, ev);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+index 03c29bdd89a1..f27fe022ef6f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+@@ -141,6 +141,25 @@ static void event_interrupt_poison_consumption(struct kfd_dev *dev,
+ 	}
+ }
+ 
++static bool context_id_expected(struct kfd_dev *dev)
++{
++	switch (KFD_GC_VERSION(dev)) {
++	case IP_VERSION(9, 0, 1):
++		return dev->mec_fw_version >= 0x817a;
++	case IP_VERSION(9, 1, 0):
++	case IP_VERSION(9, 2, 1):
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 3, 0):
++	case IP_VERSION(9, 4, 0):
++		return dev->mec_fw_version >= 0x17a;
++	default:
++		/* Other GFXv9 and later GPUs always sent valid context IDs
++		 * on legitimate events
++		 */
++		return KFD_GC_VERSION(dev) >= IP_VERSION(9, 4, 1);
++	}
++}
++
+ static bool event_interrupt_isr_v9(struct kfd_dev *dev,
+ 					const uint32_t *ih_ring_entry,
+ 					uint32_t *patched_ihre,
+@@ -206,6 +225,20 @@ static bool event_interrupt_isr_v9(struct kfd_dev *dev,
+ 	if (WARN_ONCE(pasid == 0, "Bug: No PASID in KFD interrupt"))
+ 		return false;
+ 
++	/* Workaround CP firmware sending bogus signals with 0 context_id.
++	 * Those can be safely ignored on hardware and firmware versions that
++	 * include a valid context_id on legitimate signals. This avoids the
++	 * slow path in kfd_signal_event_interrupt that scans all event slots
++	 * for signaled events.
++	 */
++	if (source_id == SOC15_INTSRC_CP_END_OF_PIPE) {
++		uint32_t context_id =
++			SOC15_CONTEXT_ID0_FROM_IH_ENTRY(ih_ring_entry);
++
++		if (context_id == 0 && context_id_expected(dev))
++			return false;
++	}
++
+ 	/* Interrupt types we care about: various signals and faults.
+ 	 * They will be forwarded to a work queue (see below).
+ 	 */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 33e7ffd8e3b5..19c8b3f56129 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1294,7 +1294,7 @@ extern const struct kfd_event_interrupt_class event_interrupt_class_v9;
+ 
+ extern const struct kfd_device_global_init_class device_global_init_class_cik;
+ 
+-void kfd_event_init_process(struct kfd_process *p);
++int kfd_event_init_process(struct kfd_process *p);
+ void kfd_event_free_process(struct kfd_process *p);
+ int kfd_event_mmap(struct kfd_process *process, struct vm_area_struct *vma);
+ int kfd_wait_on_events(struct kfd_process *p,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 9e82d7aa67fa..cb8f4a459add 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1370,12 +1370,16 @@ static struct kfd_process *create_process(const struct task_struct *thread)
+ 	INIT_DELAYED_WORK(&process->eviction_work, evict_process_worker);
+ 	INIT_DELAYED_WORK(&process->restore_work, restore_process_worker);
+ 	process->last_restore_timestamp = get_jiffies_64();
+-	kfd_event_init_process(process);
++	err = kfd_event_init_process(process);
++	if (err)
++		goto err_event_init;
+ 	process->is_32bit_user_mode = in_compat_syscall();
+ 
+ 	process->pasid = kfd_pasid_alloc();
+-	if (process->pasid == 0)
++	if (process->pasid == 0) {
++		err = -ENOSPC;
+ 		goto err_alloc_pasid;
++	}
+ 
+ 	err = pqm_init(&process->pqm, process);
+ 	if (err != 0)
+@@ -1424,6 +1428,8 @@ static struct kfd_process *create_process(const struct task_struct *thread)
+ err_process_pqm_init:
+ 	kfd_pasid_free(process->pasid);
+ err_alloc_pasid:
++	kfd_event_free_process(process);
++err_event_init:
+ 	mutex_destroy(&process->mutex);
+ 	kfree(process);
+ err_alloc_process:
+-- 
+2.32.0
 
->   		r = svm_range_validate_and_map(mm, prange, MAX_GPU_INSTANCE,
-> -					       true, true);
-> +					       true, true, flush_tlb);
->   		if (r)
->   			pr_debug("failed %d to map svm range\n", r);
->   
