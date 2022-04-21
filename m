@@ -4,121 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B2E9C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 08:51:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BE14C433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 09:23:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8611D10FA28;
-	Thu, 21 Apr 2022 08:51:48 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2054.outbound.protection.outlook.com [40.107.96.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E670710FA28
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 08:51:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D13B10F88A;
+	Thu, 21 Apr 2022 09:23:01 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2066.outbound.protection.outlook.com [40.107.223.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D32510F88A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 09:23:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PWNN1Nw8GS5KIwIO3+esYMzBYDujMelJfRpbmBp0dEwV75ltDA9HY4de5hqrf3H/ghqg5zQuHacg0kzVhOJhYoAXLzK0/Cy3PgfTm4fQzQYRW3P6XwO3PT+pbVuZMWVWqdPbu63JT5H6euHNaCgcHW5N85uJ6Je/W0w9msMPHkwMwY8AUQYyusAVbj/afeZHyqbZtTZXWSi3IU8O051GDBOL+U4XZ3iyEfVGQrhQTWL7/Kp0h7fEwj2P6NFKGa+eEO7E+8DmZE/Cu98CMF6T6XRbMoJs2Xl4D9akihbuW5QRO+qsH8OXKWtTYA5KOs3jCIXnsDw5amF3Ao0T4CLIHw==
+ b=ZQFHV+VgN+12nK5RNkpORTLlPoBRXjkJTPDUTH7iuFLaSyw1VKLkmPyyNMVn3G0xtM/0ruMkpRdZgpOii+7Ph+7bmE3Kej4pc4IgoHyQBlbufZNXy4OCofiK2sdYGoXNVMvcLzu976sw0v8gJuoKd5CCzRwWyzpmje/YPSgxv3f2OT3dJIqDWtbqyXwhZyOKNtkPb1E50Li4NARZLhoHDw4mvkrbmvXJjJ1p5n/TuKWl15wCrrdx/cTW0865tFoaYLlS0C9o8eU3CVlond0GwIuEqmtoxExDUAekrPwdZiPNTvkpZsoHkg6CKgy88fqBmdKpP0KuCGAwmYpg8FMeGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zduZdAdHqGCiItxoTa/z/ohdrkzco1zwSi6xn1wtxZA=;
- b=Mk4t8UVdZhilunOis8ooqq11ffqB3aHIj06odxO1WRn/qISeNYPDvopWHw8dTSVYZ2MQXvgl9Icl7fEenTM8DBaWb2MotRbp7lq5jz6Nf3oYCltEL2KXbfGstm2Y5EQYeFniw0Ig9r31KnNeuQaFdyYZ/go0iFQsGd4wX4Us2xAHqEc08HSC0PKsUcKz7MAjhgTBajKiNV364pPkv3EZHeRsg6nnGVwY4FQq6NU5isG+p873BqueSTauJnPJZftxXiZA8vX86u38Zj9SD9WMFe1j9KGXrd08OSI10OC8Qy06kUOkz3YCSCw4yL0ildvGOfJGKd+xQ5Z3o87eUC9YJA==
+ bh=OOaxysktpqKWIcvpzy//J2xq9jXjBwoFQPSOTPBU3lA=;
+ b=VKz7PKDLj+Wa3j2eUgT0k9uLBRaj5ysMmRAREBi7YIQ76QzEiYpbmU48AZj6DGKIIXOCvd4for7qT32yTVIMx8PH4PZxIFp0Evt5n3KYqYz2KyzL5r4A5zKZ7KCZdnIyS/PNPEiRv7WeC8GG55k6kockTnFDUOJWO/yWcmPut6eT2iHwOMuFD5cSImpTKzttpSWkqtxuJ06SsYihkEFWAw58JR9jrXwLWy/g/FuS5FFjXRIclZyGxAlLXvWtoezlFjp3siGJ6GP1I1SqTb8qF8IXlvg7zZjVtNX71csPJ1q1IlaiIZGHKyfWGLDFt0aMCUK9Ldq4AT3h7uHaoJBqbw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zduZdAdHqGCiItxoTa/z/ohdrkzco1zwSi6xn1wtxZA=;
- b=zyYYi1YbIhGMc8KHY6JkZX2q/WTOcx+ECxrNVf5scydk+YOzG4JXdUS00SHqTZyTC3u9q533DHg7xvLjpugX8iWDTi+DpHOZ4rpe7mBO3umSyBMXPCIsihdGsl04L4cciPUYnss4Dt27f1Lj/WfPvKg2pHfVey5WKsH6Mea9wwQ=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=OOaxysktpqKWIcvpzy//J2xq9jXjBwoFQPSOTPBU3lA=;
+ b=cFsW8jSbK3n12H9UKxtcY3WrahBSpkznLzU3+sHVI8ijhdD6/qtndyiKInDmIjC6lFv4W9FfmJCQYYFy7WnTLjCP9bDU3Bsig4wNvHKPuHaxBHYhJJWyQ/XN3WZ4/qDeh8LN3yh+nOOA1gWpj8LnSgmYv8Ex923yt9tMx1kp2js=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by DM5PR12MB1484.namprd12.prod.outlook.com (2603:10b6:4:11::10) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Thu, 21 Apr
- 2022 08:51:43 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::a561:6b71:55fa:ed2d]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::a561:6b71:55fa:ed2d%8]) with mapi id 15.20.5186.014; Thu, 21 Apr 2022
- 08:51:43 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v2 2/2] drm/amdgpu: Add debugfs TA load/unload/invoke
+ 2022 09:22:57 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::88f5:b843:e848:fcf]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::88f5:b843:e848:fcf%3]) with mapi id 15.20.5186.013; Thu, 21 Apr 2022
+ 09:22:57 +0000
+Message-ID: <a48beb99-5843-b457-9382-dd46d7b50ac5@amd.com>
+Date: Thu, 21 Apr 2022 14:52:46 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH v2 2/2] drm/amdgpu: Add debugfs TA load/unload/invoke
  support
-Thread-Topic: [PATCH v2 2/2] drm/amdgpu: Add debugfs TA load/unload/invoke
- support
-Thread-Index: AQHYVKfMc3AcDnJ5jEWhg9bcKhxdMKz6EKLg
-Date: Thu, 21 Apr 2022 08:51:42 +0000
-Message-ID: <BN9PR12MB5257C0B2D90A6C5AA12E8514FCF49@BN9PR12MB5257.namprd12.prod.outlook.com>
+Content-Language: en-US
+To: Candice Li <candice.li@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20220420111357.9488-1-candice.li@amd.com>
  <20220420111357.9488-2-candice.li@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
 In-Reply-To: <20220420111357.9488-2-candice.li@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ActionId=a57eec60-15f0-4a68-b06d-528a3030c2ee;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_ContentBits=0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Enabled=true;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Method=Standard;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_Name=AMD
- Official Use Only-AIP 2.0;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SetDate=2022-04-21T08:51:21Z;
- MSIP_Label_88914ebd-7e6c-4e12-a031-a9906be2db14_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: c9d0ba05-5360-4461-5914-08da23742893
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_
-x-microsoft-antispam-prvs: <BN9PR12MB514631EF550CDB01855D0BAEFCF49@BN9PR12MB5146.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 7YIeRlrwKku5+FtugokSYrW5zhRqQZf3OTxaA84gE9ouZeX3sOHTg5o88wEgFPzjGkdhdN0AdD5R38OhRK3rskmrtxmxlytvLqt7tB+MXKjmQ5Ixp3ff+34LKNvW+gNL8GvhRsa9vT/skuZFbcF5Q/ZSALlnpRzCz3mHmZQY1pmRyNf1z1GImMP5Q+2Bpy2q9V3Pkidr1rjdzJFt7PzCtYJRyKYWeB4vsufmfX02OV0YuHh+YwP2vUHf9xfoB7HDg2eSXcOTDTK2yGiQOu4DRedI15rxVAOHVa7GtwP6SChGN0+FZvJhILNOsj+uN1yplt8cD6vt1QRu6o0hURk6T4IvAKIYczKc+1OyM3nENBMEzPZglGef1upwIs/gjrg1o7bC9f3ni1ZmRMg0ot23TIgWepFlUmHlWpJciT72Z5BXWEW5LlJRFwp9gVSroejp2t2jq8N3DKIwtJ9haQuC3Db9drdCyWtWR8OGfXxx7PNYOnK++iKkt9DcOvBOi3et1SQjLDPf85TenZ7FI5AKwbHCpbnCoLgiSh9ppUyKWx0YqsQOfDwpBnCSuJDpqa2m+M1iHINY3GR9NndeIsVJIXtz13dhAG0n9TFTQVCHWNIZBpRrFwFXdx+1ALYgqaXpBFgA+H/gWHxxJE2ApKeDZ8qReEUZQmzFybnhynyJzJrSXik7dma4oHVdVg+9MKfQzKnZc9dN9yBDwCTNbUUJes0Bsw++M3pKu8cV5Jupg3s=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(52536014)(508600001)(66946007)(76116006)(5660300002)(38070700005)(8936002)(26005)(66556008)(66476007)(86362001)(4326008)(9686003)(71200400001)(6506007)(8676002)(66446008)(110136005)(54906003)(316002)(7696005)(53546011)(38100700002)(64756008)(186003)(55016003)(83380400001)(33656002)(122000001)(30864003)(2906002)(461764006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?z/ZJxealogsyaDa3bgqqEnWyLszp4JYxGeKdMa/FQb9jefNF7SebWwiMsHQ6?=
- =?us-ascii?Q?givpdeLYpUO/GKWAU9hDmPrL5qaULb8Q27RfVXQT9fdn16Vwknmq+6baD+g6?=
- =?us-ascii?Q?BFOkczlMwRanfic5A872j9U0vT5mMa1N8zS58HK809m8SOYL6XtDxYJYaRfa?=
- =?us-ascii?Q?CHpIf0+NInJu8UuJryhep2e6h4FUR/euKBT0oK6yj7gFxV/kRUJJ3nhTgW73?=
- =?us-ascii?Q?y7mCeA8kU070hCifmMGh5Q2gbUafmg7fM3UNi4S536hD09D1PX/0Lvufidym?=
- =?us-ascii?Q?kAdex1LYEpfSLaZ/p++WoKxi/+beMLKtvvXgVvgxblMLlukUCQk3Ao52gTCV?=
- =?us-ascii?Q?Zwv7RExbhFdhX4KAA6I8Zwb103NV4Lp3ijrZI9Nd015mLtan2jF350/t+Tg+?=
- =?us-ascii?Q?3AmC551Smz4rg7kd8Rsice9nMLcA3DEFJDKz7O2iu16y3YnBPmPKGRWyXXpo?=
- =?us-ascii?Q?l/1J5ujsr+IZ4XjMtY7xQXlde6a1x5NmFhaOpatCKunmpi6qsnEIlgbEz3Y8?=
- =?us-ascii?Q?jF+6W9371X8sTlegk6QVXNZjRy/KLydaeIDgDH7dOHJrILVZQbywsPmbRxB8?=
- =?us-ascii?Q?jvOAHOdJT3gRTqMeWcr93aJcgty3d20VnTIE7TpDNZmvFHer126xaX5mBR6o?=
- =?us-ascii?Q?5trHFq9IOhSFOo6IthONDqrjUwbrE8AIwUQIzkgShogufhfLfcgCXGUF1AHW?=
- =?us-ascii?Q?5cbmUZkSQ+qWy5aqTxhD+sE+0Y+uNmEHjDmtExOr1vDo4nJEdi9MAv+kN4OK?=
- =?us-ascii?Q?/19jIseGY2GOjzomtj2R+uQGknMqDY/Ia/8QxUf5myyNkKhJOwhhTWG2mTuW?=
- =?us-ascii?Q?+EPp/smEQMO8ckfrwJDIgi9q0z0FGd9HEVjcCxBBxwODXX50M+uC0Xr/OuO8?=
- =?us-ascii?Q?z5yCBfAa0M/Q9KwphFR7pWB2bnyGHkJbmhqKxhYhJxYybHxFMYR811q+Ax2s?=
- =?us-ascii?Q?+bjzRxSlVvMqxEgYPIBUd+QYBOjWsSW3r+HRkfF+a4MKjHnCWjkxhflCxoNs?=
- =?us-ascii?Q?sTooOnlz7ABGwBhRDGmfda7i5NkjHMWPUhtTrS6YzIfDnXJZ+KVI/bQSZLE1?=
- =?us-ascii?Q?O4gVj6KizIMAoUFSFn7/cxpR5Z945NrhJBW378/GXR49OCsywVLjVe8jQ2g3?=
- =?us-ascii?Q?jC4g2OBH4LLqkBzgJ42iXMylgWrasmcCUGKbipiJ5yWc7vQPEYz3PkfGcTca?=
- =?us-ascii?Q?T/uMI5sG6lmyGqQKMAi+BnZPy/9quOGSxJ0N4lkdceWGHf2Djt53F9kN9BCh?=
- =?us-ascii?Q?ls8O7As9vu8Hk+jb88Gvr6126HUzWH0pQ5an4Rh+L2RDiPVjtlSlQuwCVQkr?=
- =?us-ascii?Q?k1w5SLXVkvrNozI4VLgQgwEfgesmRm4PS8Ywc8EeAHXSZo/hvNd1LC0cq8SK?=
- =?us-ascii?Q?lLCLcvoDZOp32eqI8WRKS82nC1mF8XcuPCq2WnjbpBeB2SCd4O6QKq0uuUOI?=
- =?us-ascii?Q?6/90pBPsn9Kd2cOpdKY/8C/UzzUi/Hz49XkQZUr5E4LgCyH53FlYdBvoTMog?=
- =?us-ascii?Q?ktf2iwltg6u/to80NGjtzCn8vEXd/KnPtU2Abd6MOZvCAxx6o8JsK02vdSbH?=
- =?us-ascii?Q?7rHnxruavnPnb580yAQqdmSGVmQVt1ZH2TNFnDFUU7Igid1NNO5ddFqtJGCj?=
- =?us-ascii?Q?e1jE2tODNleB3xlhBICspbva5VkUWZ9EkF7oVujxWSnj+lbv0kyHM3OpFpZC?=
- =?us-ascii?Q?1K+ftsFr/O6RR3Gu954qvaQAIh5Hk6DaHdd0thDU6pGYhWyrghzDxWoICYKW?=
- =?us-ascii?Q?qwYgucbPmg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0173.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26::28) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fccc883a-dbac-47e4-316e-08da2378854e
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1484:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1484AA9FF9FAF352A52D58F697F49@DM5PR12MB1484.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: fNu0nUIPQ8pBFRwEw1fQjc6LvsSljERlrcGwpIPQQR3+oDfoC1SvMOPsPUnAi5dr17U5yQyksep9AkKPUDJy0kg5qthH6KNtGJhgrBNcW4mD2l3ZGorPmkKFk1DAEyLhu4FxcPrT0y2QiHLj9HdQA3717G8cjVAR/s6DE5zrZ1Ly0XEZiTxV85BghdDHx55Hi3HwipFraR8nJoKTaC+9iaTrU5en2kMxuACNix6vR6ZMDZzmWFM4RGu8/AN3be9mWE+E1qVx2BeacbZKtRDUMR9ru+vA2BfXJf/yhB2+4+aHqtKrAwcjVXkDKrIMA7fQEn2G84r7t/7chswMfKESCBnZGbqMCWvN9yJ75DqboeHFQWNneshZ/z+gQwgYgYCo+QS85+ok1x5fGRlKLriVG5v7lhGrE2iBXO1bvaJu/jvzCig9CidBSxDjuXs4xcl/YKemBoVbrcetWNIyRXaSlph555W99SEDl4RgPGSP22AVkcGEEgKN0jSj4N0guAteKW799xjy5+gT++7alllsGzQTcvI9elJs6QLRLIwO5fS6eWBz8d9xjyhOf1ZvXpNWn7nbkNo20u2CVUczjTDAE67X5aRnK+q5q4HvHsg11R4YlfKXzlE11Jk1DPGuJK8tEwwcRZGtoCq/3x8xBJLNY/i2GM2NY2ZOMWt4/BU718L5X0yRMur0SlSdwZTxkkoK3RQHz6bAAeAnJLs00lUijH3Pc5X3QfVwOo/tEy9Ty1lFuE3I9JRp2ZWXdEpzZwsyQbzqDc/Z4a9Ex6HBnDpYOA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(31686004)(4326008)(8676002)(66556008)(66476007)(66946007)(36756003)(6512007)(8936002)(5660300002)(30864003)(508600001)(6486002)(2906002)(316002)(31696002)(53546011)(86362001)(2616005)(6506007)(83380400001)(26005)(186003)(6666004)(38100700002)(461764006)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFFFOHoyUGZXTlNndjk3dE9LeDhrWVNOVUZBZlY0ZjZFaE0zOGR3a2hERE9K?=
+ =?utf-8?B?eGFVV1JQd1Z5N0ZJV2xGNFp0c0tqdUF4MDBNQVFvOTk4eUxGV2NTQ0FxZ0ti?=
+ =?utf-8?B?aUFESDRiM2V0R2REeWJkQk8xZ2VvNGt4aGpoWStOM3J0WnAxTXZucVgrY2I1?=
+ =?utf-8?B?SjBrUDNjVldLcVk0NDZFMEkyZWZoeWxaUVNoK1ZkbkRwaWpFbDlJQ1B6N2JE?=
+ =?utf-8?B?K0dhQmR2QUNwYTFrS1VxTHBjY2xjZ0t6cTBieTNjdHlublpOVTNpdG95WjZL?=
+ =?utf-8?B?Zll4VXZJOE9sSmZ2NnF2Y0xpTzhBVW9FSVFNcmdPQTYyWHhMNlNWclJnaHk0?=
+ =?utf-8?B?RUI3VGZVOVJsZzFhYnlIVDZnUGdhQlh6Y0ZuSXI0UjBpQ1I3eGQvV2tjVVNz?=
+ =?utf-8?B?VkhiT1IvUm9VZ1owZVF4MFV5dVh4L2hDSERCaFdDS1Nkd0d1MVpXMnZzeU54?=
+ =?utf-8?B?Wmg0K1ZWbXVpcm1qSE1uUXRDenFCa3hVYzNuSGp5MTFIc0xnbllNaUU3emVv?=
+ =?utf-8?B?dThMTlJPdGVzY1lnV0J6VDdMK0JRT0JqWWxKSzJxMjBZR200Y2J5Q0NkQmFF?=
+ =?utf-8?B?eEQ5QzdXOEVFcVVvdGNJdE56QlpmdkVOdFNDdEJnbVhlTVJxajJ5b2ZpRmt5?=
+ =?utf-8?B?T2hha3dEd2pGNGFJS25JUkJHSUFPZ0FTeWRJOVRCS3pPL0haR0d5TkhJNFBJ?=
+ =?utf-8?B?YUZPRWdFaUxnVGE2cGRTUjYreVdPUmVENE9rMVUvS1kzODlFQTV1ckM4S1di?=
+ =?utf-8?B?SFp0OWhEYXIycFdTTWxPMURLd204dHVuWHJoVkppN1NGT1lGb2x5eHVSZlNk?=
+ =?utf-8?B?VkhndTRXR3dsK0xqZ3BaaDhsTnNCNjhoVzQxZmNkeGRYZ01HanlrcEJ1WDRi?=
+ =?utf-8?B?WWNweHY2UUdjRXp0WllBM2RsZ0FibXV1dlZrUGdpMGlxU2lETEtGeThNUEZz?=
+ =?utf-8?B?Yy8wSEhyTEZramZKTlJBbjdVSUVYbnFld0oxVktTVEE2SFJ1WFhNaHNqbWxT?=
+ =?utf-8?B?VzNkZVlFNHY0QkNSZ1RRRytVaVYzMnFqWFIvVmxvZTdNb0FGZ0tzdXROZEJQ?=
+ =?utf-8?B?NHB2eWJPRUh3eDVta1RHdkxydTBhKzlLeVdzZEpZZnNvMFFrZTQwZWp4aks3?=
+ =?utf-8?B?TWxTMDVDYjVpMTlyS05OaUFXaktia3hnZlpXNlZ1VzVSelJnbWx2UGxXQ0ZO?=
+ =?utf-8?B?bUhFVEs2Mi9OSjNIWU5rcStDVm9UUC9xSXpiNTdPT2tXaEtsOUp4aG54Zjdp?=
+ =?utf-8?B?Rk1pWjJEZkUxK21zT0o4RzdWckwwNVAzMGN3R3BhbWYzd251R2JxTWtIajBG?=
+ =?utf-8?B?YmQyS1EydTNMN1hoY2V5RU5tZENTQkZvbzZTRzYyc0dFUDVXODI5dXBib1F3?=
+ =?utf-8?B?bjlUODBpb1UxTE5wUUdqclBmL09wdGgxS0ZTSDB3SEtRNW8vZmk0WlhLSi9t?=
+ =?utf-8?B?VjlNb1JQSkNZaVgweDAzUHR0WWZSWnpxb1FrVnhaSnlEaVhSVUJKTU9zalNl?=
+ =?utf-8?B?RmZ0eXUvNWt1VU92U1I4cFo5bHNQUlA2cTlWcmsrQTBuak53RW5aT0xmNEMw?=
+ =?utf-8?B?eXR4UmJPcHVYbnZJTjdYOXg4bm9DZDhFV0VrbHA0YkUralR4R1E1YXFkcWNr?=
+ =?utf-8?B?SmNFZHlTMnlVb2VKTkpPSDV6bVNhbjNaSnkzS3A5RXFYL1NRdExNY3QrQ0tl?=
+ =?utf-8?B?WHIwZkF3K3NLZWhCSVVyU3ZIVnYvdWQ1VEtMQ0ppdWdRcno5OTJwU2FpdWVr?=
+ =?utf-8?B?UDZFMTZlUlRLU1NCMExCcy83c0Y4UmNBVGZ6cnE0Z055VHl6MDZMOFo4VFg4?=
+ =?utf-8?B?ODNLU2trcGdKK0xKcWF6R0RBd3Qxejh5Ny9tT2NZRVhOUzJXbHFmd0dOTVdB?=
+ =?utf-8?B?OWthN3E1a3NtYk9kUXU2WVJHMmR1NWJlb2p6ekdFUmpBU1BwVmdWQWJ0YzZG?=
+ =?utf-8?B?U05IYm5yY1hWd2lBd2xuaE5zdGVFTlNWdW1NL0RPb0hvMDVkTTRmYmUxTklh?=
+ =?utf-8?B?UDBManFoVmlGWHZHZ2tKRVFSeTdOTW9Yalh3K0F2OFhPaEJPTE12UDBQRjI4?=
+ =?utf-8?B?dnRLdEhkcWtZUFZLcWd4eUFyU2RQakMvN0dveGQ4cDgvQllDV2hudG5NUVBu?=
+ =?utf-8?B?dXZSUXdTSmgyclNPVWhncWtjQ3c1SG9lSlVHSmRrR0VQTVBTV09nUGdKS1A3?=
+ =?utf-8?B?dTVXeWxlak9PekVlUGt2UDJRbGRLSWIwZUREemkrR1BzY1VGTVJVM0svLzNM?=
+ =?utf-8?B?a1BUSFFDL1AySURtZTJHcmtpS2FjY2F3TUtTNDNzUVBFRVNUbUl2NmM5eDkr?=
+ =?utf-8?B?c0s1UStyUkMzSXpFd0N5Q0V3NlBnak16cTlkUlpKQjBUdHAyYUVBdz09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fccc883a-dbac-47e4-316e-08da2378854e
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9d0ba05-5360-4461-5914-08da23742893
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Apr 2022 08:51:43.0113 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZbYopCHtmPjEeB5bwqnMTqE6WpaGiGgNxeLEV1oL6T2H5RTBLtSueNJ8lInvXZV0EH5rLC2zD84JNHfM9XGdWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5146
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2022 09:22:57.0263 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mlQHMcfs3nHH1QWEdkA9rFtyKzEu4WLP6JH5TZVfYGEcsDaaIjz6eLkYVRJ1ErcB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1484
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,481 +129,420 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Candice" <Candice.Li@amd.com>, "Clements,
- John" <John.Clements@amd.com>
+Cc: John Clements <john.clements@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only]
 
-Series is
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+On 4/20/2022 4:43 PM, Candice Li wrote:
+> v1:
+> Add debugfs support to load/unload/invoke TA in runtime.
+> 
+> v2:
+> 1. Update some variables to static.
+> 2. Use PAGE_ALIGN to calculate shared buf size directly.
+> 3. Remove fp check.
+> 4. Update debugfs from read to write.
+> 
+> Signed-off-by: John Clements <john.clements@amd.com>
+> Signed-off-by: Candice Li <candice.li@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/Makefile         |   2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   2 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c  | 308 ++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h  |  30 ++
+>   4 files changed, 341 insertions(+), 1 deletion(-)
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 7d7af43a258f83..b525f9be9326f4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -58,7 +58,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+>   	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
+>   	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+>   	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+> -	amdgpu_eeprom.o amdgpu_mca.o
+> +	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o
+>   
+>   amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index 13e4d8f9b87449..eedb12f6b8a32d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -38,6 +38,7 @@
+>   #include "amdgpu_umr.h"
+>   
+>   #include "amdgpu_reset.h"
+> +#include "amdgpu_psp_ta.h"
+>   
+>   #if defined(CONFIG_DEBUG_FS)
+>   
+> @@ -1767,6 +1768,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+>   		DRM_ERROR("registering register debugfs failed (%d).\n", r);
+>   
+>   	amdgpu_debugfs_firmware_init(adev);
+> +	amdgpu_ta_if_debugfs_init(adev);
+>   
+>   #if defined(CONFIG_DRM_AMD_DC)
+>   	if (amdgpu_device_has_dc_support(adev))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
+> new file mode 100644
+> index 00000000000000..247a476e63544c
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
+> @@ -0,0 +1,308 @@
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#include "amdgpu.h"
+> +#include "amdgpu_psp_ta.h"
+> +
+> +static const char *TA_IF_FS_NAME = "ta_if";
+> +
+> +struct dentry *dir;
+> +static struct dentry *ta_load_debugfs_dentry;
+> +static struct dentry *ta_unload_debugfs_dentry;
+> +static struct dentry *ta_invoke_debugfs_dentry;
+> +
+> +static ssize_t ta_if_load_debugfs_write(struct file *fp, const char *buf,
+> +					    size_t len, loff_t *off);
+> +static ssize_t ta_if_unload_debugfs_write(struct file *fp, const char *buf,
+> +					    size_t len, loff_t *off);
+> +static ssize_t ta_if_invoke_debugfs_write(struct file *fp, const char *buf,
+> +					    size_t len, loff_t *off);
+> +
+> +
+> +static uint32_t get_bin_version(const uint8_t *bin)
+> +{
+> +	const struct common_firmware_header *hdr =
+> +			     (const struct common_firmware_header *)bin;
+> +
+> +	return hdr->ucode_version;
+> +}
+> +
+> +static void prep_ta_mem_context(struct psp_context *psp,
+> +					     struct ta_context *context,
+> +					     uint8_t *shared_buf,
+> +					     uint32_t shared_buf_len)
+> +{
+> +	context->mem_context.shared_mem_size = PAGE_ALIGN(shared_buf_len);
+> +	psp_ta_init_shared_buf(psp, &context->mem_context);
+> +
+> +	memcpy((void *)context->mem_context.shared_buf, shared_buf, shared_buf_len);
+> +}
+> +
+> +static bool is_ta_type_valid(enum ta_type_id ta_type)
+> +{
+> +	bool ret = false;
+> +
+> +	switch (ta_type) {
+> +	case TA_TYPE_RAS:
+> +		ret = true;
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct file_operations ta_load_debugfs_fops = {
+> +	.write   = ta_if_load_debugfs_write,
+> +	.llseek = default_llseek,
+> +	.owner  = THIS_MODULE
+> +};
+> +
+> +static const struct file_operations ta_unload_debugfs_fops = {
+> +	.write   = ta_if_unload_debugfs_write,
+> +	.llseek = default_llseek,
+> +	.owner  = THIS_MODULE
+> +};
+> +
+> +static const struct file_operations ta_invoke_debugfs_fops = {
+> +	.write   = ta_if_invoke_debugfs_write,
+> +	.llseek = default_llseek,
+> +	.owner  = THIS_MODULE
+> +};
+> +
+> +
+> +/**
+> + * DOC: AMDGPU TA debugfs interfaces
+> + *
+> + * Three debugfs interfaces can be opened by a program to
+> + * load/invoke/unload TA,
+> + *
+> + * - /sys/kernel/debug/dri/<N>/ta_if/ta_load
+> + * - /sys/kernel/debug/dri/<N>/ta_if/ta_invoke
+> + * - /sys/kernel/debug/dri/<N>/ta_if/ta_unload
+> + *
+> + * How to use the interfaces in a program?
+> + *
+> + * A program needs to provide transmit buffer to the interfaces
+> + * and will receive buffer from the interfaces below,
+> + *
+> + * - For TA load debugfs interface:
+> + *   Transmit buffer:
+> + *    - TA type (4bytes)
+> + *    - TA bin length (4bytes)
+> + *    - TA bin
+> + *   Receive buffer:
+> + *    - TA ID (4bytes)
+> + *
+> + * - For TA invoke debugfs interface:
+> + *   Transmit buffer:
+> + *    - TA ID (4bytes)
+> + *    - TA CMD ID (4bytes)
+> + *    - TA shard buf length (4bytes)
+> + *    - TA shared buf
+> + *   Receive buffer:
+> + *    - TA shared buf
+> + *
+> + * - For TA unload debugfs interface:
+> + *   Transmit buffer:
+> + *    - TA ID (4bytes)
+> + */
+> +
+> +static ssize_t ta_if_load_debugfs_write(struct file *fp, const char *buf, size_t len, loff_t *off)
+> +{
+> +	uint32_t ta_type    = 0;
+> +	uint32_t ta_bin_len = 0;
+> +	uint8_t  *ta_bin    = NULL;
+> +	uint32_t copy_pos   = 0;
+> +	int      ret        = 0;
+> +
+> +	struct amdgpu_device *adev   = (struct amdgpu_device *)file_inode(fp)->i_private;
+> +	struct psp_context   *psp    = &adev->psp;
+> +	struct ta_context    context = {0};
+> +
+> +	if (!buf)
+> +		return -EINVAL;
+> +
+> +	ret = copy_from_user((void *)&ta_type, &buf[copy_pos], sizeof(uint32_t));
+> +	if (ret || (!is_ta_type_valid(ta_type)))
+> +		return -EINVAL;
+> +
+> +	copy_pos += sizeof(uint32_t);
+> +
+> +	ret = copy_from_user((void *)&ta_bin_len, &buf[copy_pos], sizeof(uint32_t));
+> +	if (ret)
+> +		return -EINVAL;
+> +
+> +	copy_pos += sizeof(uint32_t);
+> +
+> +	ta_bin = kzalloc(ta_bin_len, GFP_KERNEL);
+> +	if (!ta_bin)
+> +		ret = -ENOMEM;
+> +	ret = copy_from_user((void *)ta_bin, &buf[copy_pos], ta_bin_len);
+> +	if (ret)
+> +		goto err_free_bin;
+> +
+> +	ret = psp_ras_terminate(psp);
+> +	if (ret) {
+> +		dev_err(adev->dev, "Failed to unload embedded RAS TA\n");
+> +		goto err_free_bin;
+> +	}
+> +
+> +	context.ta_type             = ta_type;
+> +	context.ta_load_type        = GFX_CMD_ID_LOAD_TA;
+> +	context.bin_desc.fw_version = get_bin_version(ta_bin);
+> +	context.bin_desc.size_bytes = ta_bin_len;
+> +	context.bin_desc.start_addr = ta_bin;
+> +
+> +	ret = psp_ta_load(psp, &context);
+> +
+> +	if (ret || context.resp_status) {
+> +		dev_err(adev->dev, "TA load via debugfs failed (%d) status %d\n",
+> +			 ret, context.resp_status);
+> +		goto err_free_bin;
+> +	}
+> +
+> +	context.initialized = true;
+> +	ret = copy_to_user((char *)buf, (void *)&context.session_id, sizeof(uint32_t));
+> +
+> +err_free_bin:
+> +	kfree(ta_bin);
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t ta_if_unload_debugfs_write(struct file *fp, const char *buf, size_t len, loff_t *off)
+> +{
+> +	uint32_t ta_id  = 0;
+> +	int      ret    = 0;
+> +
+> +	struct amdgpu_device *adev   = (struct amdgpu_device *)file_inode(fp)->i_private;
+> +	struct psp_context   *psp    = &adev->psp;
+> +	struct ta_context    context = {0};
+> +
+> +	if (!buf)
+> +		return -EINVAL;
+> +
+> +	ret = copy_from_user((void *)&ta_id, buf, sizeof(uint32_t));
+> +	if (ret)
+> +		return -EINVAL;
+> +
+> +	context.session_id = ta_id;
+> +
+> +	ret = psp_ta_unload(psp, &context);
+> +	if (!ret)
+> +		context.initialized = false;
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t ta_if_invoke_debugfs_write(struct file *fp, const char *buf, size_t len, loff_t *off)
+> +{
+> +	uint32_t ta_id          = 0;
+> +	uint32_t cmd_id         = 0;
+> +	uint32_t shared_buf_len = 0;
+> +	uint8_t	 *shared_buf    = NULL;
+> +	uint32_t copy_pos       = 0;
+> +	int      ret            = 0;
+> +
+> +	struct amdgpu_device *adev   = (struct amdgpu_device *)file_inode(fp)->i_private;
+> +	struct psp_context   *psp    = &adev->psp;
+> +	struct ta_context    context = {0};
+> +
+> +	if (!buf)
+> +		return -EINVAL;
+> +
+> +	ret = copy_from_user((void *)&ta_id, &buf[copy_pos], sizeof(uint32_t));
+> +	if (ret)
+> +		return -EINVAL;
+> +	copy_pos += sizeof(uint32_t);
+> +
+> +	ret = copy_from_user((void *)&cmd_id, &buf[copy_pos], sizeof(uint32_t));
+> +	if (ret)
+> +		return -EINVAL;
+> +	copy_pos += sizeof(uint32_t);
+> +
+> +	ret = copy_from_user((void *)&shared_buf_len, &buf[copy_pos], sizeof(uint32_t));
+> +	if (ret)
+> +		return -EINVAL;
+> +	copy_pos += sizeof(uint32_t);
+> +
+> +	shared_buf = kzalloc(shared_buf_len, GFP_KERNEL);
+> +	if (!shared_buf)
+> +		ret = -ENOMEM;
+> +	ret = copy_from_user((void *)shared_buf, &buf[copy_pos], shared_buf_len);
+> +	if (ret)
+> +		goto err_free_shared_buf;
+> +
+> +	context.session_id = ta_id;
+> +
+> +	prep_ta_mem_context(psp, &context, shared_buf, shared_buf_len);
+> +
+> +	ret = psp_ta_invoke_indirect(psp, cmd_id, &context);
+> +
+> +	if (ret || context.resp_status) {
+> +		dev_err(adev->dev, "TA invoke via debugfs failed (%d) status %d\n",
+> +			 ret, context.resp_status);
+> +		goto err_free_ta_shared_buf;
+> +	}
+> +
+> +	ret = copy_to_user((char *)buf, context.mem_context.shared_buf, shared_buf_len);
+> +
+> +err_free_ta_shared_buf:
+> +	psp_ta_free_shared_buf(&context.mem_context);
+> +
+> +err_free_shared_buf:
+> +	kfree(shared_buf);
+> +
+> +	return ret;
+> +}
+> +
+> +static struct dentry *amdgpu_ta_if_debugfs_create(struct amdgpu_device *adev)
+> +{
+> +	struct drm_minor *minor = adev_to_drm(adev)->primary;
+> +
+> +	dir = debugfs_create_dir(TA_IF_FS_NAME, minor->debugfs_root);
+> +
+> +	ta_load_debugfs_dentry = debugfs_create_file("ta_load", 0200, dir, adev,
+> +						     &ta_load_debugfs_fops);
+> +
+> +	ta_unload_debugfs_dentry = debugfs_create_file("ta_unload", 0200, dir,
+> +						     adev, &ta_unload_debugfs_fops);
+> +
+> +	ta_invoke_debugfs_dentry = debugfs_create_file("ta_invoke", 0200, dir,
+> +						     adev, &ta_invoke_debugfs_fops);
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Candice =
-Li
-Sent: Wednesday, April 20, 2022 19:14
-To: amd-gfx@lists.freedesktop.org
-Cc: Li, Candice <Candice.Li@amd.com>; Clements, John <John.Clements@amd.com=
->
-Subject: [PATCH v2 2/2] drm/amdgpu: Add debugfs TA load/unload/invoke suppo=
-rt
+This uses global variables, is this tested on a system with multiple GPUs?
 
-v1:
-Add debugfs support to load/unload/invoke TA in runtime.
+Thanks,
+Lijo
 
-v2:
-1. Update some variables to static.
-2. Use PAGE_ALIGN to calculate shared buf size directly.
-3. Remove fp check.
-4. Update debugfs from read to write.
-
-Signed-off-by: John Clements <john.clements@amd.com>
-Signed-off-by: Candice Li <candice.li@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/Makefile         |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c  | 308 ++++++++++++++++++++  dr=
-ivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h  |  30 ++
- 4 files changed, 341 insertions(+), 1 deletion(-)  create mode 100644 driv=
-ers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdg=
-pu/Makefile
-index 7d7af43a258f83..b525f9be9326f4 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -58,7 +58,7 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_kms.o \
-        amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio=
-.o \
-        amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
-        amdgpu_fw_attestation.o amdgpu_securedisplay.o \
--       amdgpu_eeprom.o amdgpu_mca.o
-+       amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o
-
- amdgpu-$(CONFIG_PROC_FS) +=3D amdgpu_fdinfo.o
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_debugfs.c
-index 13e4d8f9b87449..eedb12f6b8a32d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -38,6 +38,7 @@
- #include "amdgpu_umr.h"
-
- #include "amdgpu_reset.h"
-+#include "amdgpu_psp_ta.h"
-
- #if defined(CONFIG_DEBUG_FS)
-
-@@ -1767,6 +1768,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
-                DRM_ERROR("registering register debugfs failed (%d).\n", r)=
-;
-
-        amdgpu_debugfs_firmware_init(adev);
-+       amdgpu_ta_if_debugfs_init(adev);
-
- #if defined(CONFIG_DRM_AMD_DC)
-        if (amdgpu_device_has_dc_support(adev))
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_psp_ta.c
-new file mode 100644
-index 00000000000000..247a476e63544c
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-@@ -0,0 +1,308 @@
-+/*
-+ * Copyright 2022 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person
-+obtaining a
-+ * copy of this software and associated documentation files (the
-+"Software"),
-+ * to deal in the Software without restriction, including without
-+limitation
-+ * the rights to use, copy, modify, merge, publish, distribute,
-+sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom
-+the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be
-+included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-+EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-+MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT
-+SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-+DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-+OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
-+OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include "amdgpu.h"
-+#include "amdgpu_psp_ta.h"
-+
-+static const char *TA_IF_FS_NAME =3D "ta_if";
-+
-+struct dentry *dir;
-+static struct dentry *ta_load_debugfs_dentry; static struct dentry
-+*ta_unload_debugfs_dentry; static struct dentry
-+*ta_invoke_debugfs_dentry;
-+
-+static ssize_t ta_if_load_debugfs_write(struct file *fp, const char *buf,
-+                                           size_t len, loff_t *off);
-+static ssize_t ta_if_unload_debugfs_write(struct file *fp, const char *buf=
-,
-+                                           size_t len, loff_t *off);
-+static ssize_t ta_if_invoke_debugfs_write(struct file *fp, const char *buf=
-,
-+                                           size_t len, loff_t *off);
-+
-+
-+static uint32_t get_bin_version(const uint8_t *bin) {
-+       const struct common_firmware_header *hdr =3D
-+                            (const struct common_firmware_header *)bin;
-+
-+       return hdr->ucode_version;
-+}
-+
-+static void prep_ta_mem_context(struct psp_context *psp,
-+                                            struct ta_context *context,
-+                                            uint8_t *shared_buf,
-+                                            uint32_t shared_buf_len)
-+{
-+       context->mem_context.shared_mem_size =3D PAGE_ALIGN(shared_buf_len)=
-;
-+       psp_ta_init_shared_buf(psp, &context->mem_context);
-+
-+       memcpy((void *)context->mem_context.shared_buf, shared_buf,
-+shared_buf_len); }
-+
-+static bool is_ta_type_valid(enum ta_type_id ta_type) {
-+       bool ret =3D false;
-+
-+       switch (ta_type) {
-+       case TA_TYPE_RAS:
-+               ret =3D true;
-+               break;
-+       default:
-+               break;
-+       }
-+
-+       return ret;
-+}
-+
-+static const struct file_operations ta_load_debugfs_fops =3D {
-+       .write   =3D ta_if_load_debugfs_write,
-+       .llseek =3D default_llseek,
-+       .owner  =3D THIS_MODULE
-+};
-+
-+static const struct file_operations ta_unload_debugfs_fops =3D {
-+       .write   =3D ta_if_unload_debugfs_write,
-+       .llseek =3D default_llseek,
-+       .owner  =3D THIS_MODULE
-+};
-+
-+static const struct file_operations ta_invoke_debugfs_fops =3D {
-+       .write   =3D ta_if_invoke_debugfs_write,
-+       .llseek =3D default_llseek,
-+       .owner  =3D THIS_MODULE
-+};
-+
-+
-+/**
-+ * DOC: AMDGPU TA debugfs interfaces
-+ *
-+ * Three debugfs interfaces can be opened by a program to
-+ * load/invoke/unload TA,
-+ *
-+ * - /sys/kernel/debug/dri/<N>/ta_if/ta_load
-+ * - /sys/kernel/debug/dri/<N>/ta_if/ta_invoke
-+ * - /sys/kernel/debug/dri/<N>/ta_if/ta_unload
-+ *
-+ * How to use the interfaces in a program?
-+ *
-+ * A program needs to provide transmit buffer to the interfaces
-+ * and will receive buffer from the interfaces below,
-+ *
-+ * - For TA load debugfs interface:
-+ *   Transmit buffer:
-+ *    - TA type (4bytes)
-+ *    - TA bin length (4bytes)
-+ *    - TA bin
-+ *   Receive buffer:
-+ *    - TA ID (4bytes)
-+ *
-+ * - For TA invoke debugfs interface:
-+ *   Transmit buffer:
-+ *    - TA ID (4bytes)
-+ *    - TA CMD ID (4bytes)
-+ *    - TA shard buf length (4bytes)
-+ *    - TA shared buf
-+ *   Receive buffer:
-+ *    - TA shared buf
-+ *
-+ * - For TA unload debugfs interface:
-+ *   Transmit buffer:
-+ *    - TA ID (4bytes)
-+ */
-+
-+static ssize_t ta_if_load_debugfs_write(struct file *fp, const char
-+*buf, size_t len, loff_t *off) {
-+       uint32_t ta_type    =3D 0;
-+       uint32_t ta_bin_len =3D 0;
-+       uint8_t  *ta_bin    =3D NULL;
-+       uint32_t copy_pos   =3D 0;
-+       int      ret        =3D 0;
-+
-+       struct amdgpu_device *adev   =3D (struct amdgpu_device *)file_inode=
-(fp)->i_private;
-+       struct psp_context   *psp    =3D &adev->psp;
-+       struct ta_context    context =3D {0};
-+
-+       if (!buf)
-+               return -EINVAL;
-+
-+       ret =3D copy_from_user((void *)&ta_type, &buf[copy_pos], sizeof(uin=
-t32_t));
-+       if (ret || (!is_ta_type_valid(ta_type)))
-+               return -EINVAL;
-+
-+       copy_pos +=3D sizeof(uint32_t);
-+
-+       ret =3D copy_from_user((void *)&ta_bin_len, &buf[copy_pos], sizeof(=
-uint32_t));
-+       if (ret)
-+               return -EINVAL;
-+
-+       copy_pos +=3D sizeof(uint32_t);
-+
-+       ta_bin =3D kzalloc(ta_bin_len, GFP_KERNEL);
-+       if (!ta_bin)
-+               ret =3D -ENOMEM;
-+       ret =3D copy_from_user((void *)ta_bin, &buf[copy_pos], ta_bin_len);
-+       if (ret)
-+               goto err_free_bin;
-+
-+       ret =3D psp_ras_terminate(psp);
-+       if (ret) {
-+               dev_err(adev->dev, "Failed to unload embedded RAS TA\n");
-+               goto err_free_bin;
-+       }
-+
-+       context.ta_type             =3D ta_type;
-+       context.ta_load_type        =3D GFX_CMD_ID_LOAD_TA;
-+       context.bin_desc.fw_version =3D get_bin_version(ta_bin);
-+       context.bin_desc.size_bytes =3D ta_bin_len;
-+       context.bin_desc.start_addr =3D ta_bin;
-+
-+       ret =3D psp_ta_load(psp, &context);
-+
-+       if (ret || context.resp_status) {
-+               dev_err(adev->dev, "TA load via debugfs failed (%d) status =
-%d\n",
-+                        ret, context.resp_status);
-+               goto err_free_bin;
-+       }
-+
-+       context.initialized =3D true;
-+       ret =3D copy_to_user((char *)buf, (void *)&context.session_id,
-+sizeof(uint32_t));
-+
-+err_free_bin:
-+       kfree(ta_bin);
-+
-+       return ret;
-+}
-+
-+static ssize_t ta_if_unload_debugfs_write(struct file *fp, const char
-+*buf, size_t len, loff_t *off) {
-+       uint32_t ta_id  =3D 0;
-+       int      ret    =3D 0;
-+
-+       struct amdgpu_device *adev   =3D (struct amdgpu_device *)file_inode=
-(fp)->i_private;
-+       struct psp_context   *psp    =3D &adev->psp;
-+       struct ta_context    context =3D {0};
-+
-+       if (!buf)
-+               return -EINVAL;
-+
-+       ret =3D copy_from_user((void *)&ta_id, buf, sizeof(uint32_t));
-+       if (ret)
-+               return -EINVAL;
-+
-+       context.session_id =3D ta_id;
-+
-+       ret =3D psp_ta_unload(psp, &context);
-+       if (!ret)
-+               context.initialized =3D false;
-+
-+       return ret;
-+}
-+
-+static ssize_t ta_if_invoke_debugfs_write(struct file *fp, const char
-+*buf, size_t len, loff_t *off) {
-+       uint32_t ta_id          =3D 0;
-+       uint32_t cmd_id         =3D 0;
-+       uint32_t shared_buf_len =3D 0;
-+       uint8_t  *shared_buf    =3D NULL;
-+       uint32_t copy_pos       =3D 0;
-+       int      ret            =3D 0;
-+
-+       struct amdgpu_device *adev   =3D (struct amdgpu_device *)file_inode=
-(fp)->i_private;
-+       struct psp_context   *psp    =3D &adev->psp;
-+       struct ta_context    context =3D {0};
-+
-+       if (!buf)
-+               return -EINVAL;
-+
-+       ret =3D copy_from_user((void *)&ta_id, &buf[copy_pos], sizeof(uint3=
-2_t));
-+       if (ret)
-+               return -EINVAL;
-+       copy_pos +=3D sizeof(uint32_t);
-+
-+       ret =3D copy_from_user((void *)&cmd_id, &buf[copy_pos], sizeof(uint=
-32_t));
-+       if (ret)
-+               return -EINVAL;
-+       copy_pos +=3D sizeof(uint32_t);
-+
-+       ret =3D copy_from_user((void *)&shared_buf_len, &buf[copy_pos], siz=
-eof(uint32_t));
-+       if (ret)
-+               return -EINVAL;
-+       copy_pos +=3D sizeof(uint32_t);
-+
-+       shared_buf =3D kzalloc(shared_buf_len, GFP_KERNEL);
-+       if (!shared_buf)
-+               ret =3D -ENOMEM;
-+       ret =3D copy_from_user((void *)shared_buf, &buf[copy_pos], shared_b=
-uf_len);
-+       if (ret)
-+               goto err_free_shared_buf;
-+
-+       context.session_id =3D ta_id;
-+
-+       prep_ta_mem_context(psp, &context, shared_buf, shared_buf_len);
-+
-+       ret =3D psp_ta_invoke_indirect(psp, cmd_id, &context);
-+
-+       if (ret || context.resp_status) {
-+               dev_err(adev->dev, "TA invoke via debugfs failed (%d) statu=
-s %d\n",
-+                        ret, context.resp_status);
-+               goto err_free_ta_shared_buf;
-+       }
-+
-+       ret =3D copy_to_user((char *)buf, context.mem_context.shared_buf,
-+shared_buf_len);
-+
-+err_free_ta_shared_buf:
-+       psp_ta_free_shared_buf(&context.mem_context);
-+
-+err_free_shared_buf:
-+       kfree(shared_buf);
-+
-+       return ret;
-+}
-+
-+static struct dentry *amdgpu_ta_if_debugfs_create(struct amdgpu_device
-+*adev) {
-+       struct drm_minor *minor =3D adev_to_drm(adev)->primary;
-+
-+       dir =3D debugfs_create_dir(TA_IF_FS_NAME, minor->debugfs_root);
-+
-+       ta_load_debugfs_dentry =3D debugfs_create_file("ta_load", 0200, dir=
-, adev,
-+                                                    &ta_load_debugfs_fops)=
-;
-+
-+       ta_unload_debugfs_dentry =3D debugfs_create_file("ta_unload", 0200,=
- dir,
-+                                                    adev, &ta_unload_debug=
-fs_fops);
-+
-+       ta_invoke_debugfs_dentry =3D debugfs_create_file("ta_invoke", 0200,=
- dir,
-+                                                    adev, &ta_invoke_debug=
-fs_fops);
-+       return dir;
-+}
-+
-+void amdgpu_ta_if_debugfs_init(struct amdgpu_device *adev) { #if
-+defined(CONFIG_DEBUG_FS)
-+       dir =3D amdgpu_ta_if_debugfs_create(adev);
-+#endif
-+}
-+
-+void amdgpu_ta_if_debugfs_remove(void)
-+{
-+       debugfs_remove_recursive(dir);
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_psp_ta.h
-new file mode 100644
-index 00000000000000..883f89d57616d0
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h
-@@ -0,0 +1,30 @@
-+/*
-+ * Copyright 2022 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person
-+obtaining a
-+ * copy of this software and associated documentation files (the
-+"Software"),
-+ * to deal in the Software without restriction, including without
-+limitation
-+ * the rights to use, copy, modify, merge, publish, distribute,
-+sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom
-+the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be
-+included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-+EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-+MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT
-+SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-+DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-+OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
-+OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __AMDGPU_PSP_TA_H__
-+#define __AMDGPU_PSP_TA_H__
-+
-+void amdgpu_ta_if_debugfs_init(struct amdgpu_device *adev); void
-+amdgpu_ta_if_debugfs_remove(void);
-+
-+#endif
---
-2.17.1
-
+> +	return dir;
+> +}
+> +
+> +void amdgpu_ta_if_debugfs_init(struct amdgpu_device *adev)
+> +{
+> +#if defined(CONFIG_DEBUG_FS)
+> +	dir = amdgpu_ta_if_debugfs_create(adev);
+> +#endif
+> +}
+> +
+> +void amdgpu_ta_if_debugfs_remove(void)
+> +{
+> +	debugfs_remove_recursive(dir);
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h
+> new file mode 100644
+> index 00000000000000..883f89d57616d0
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h
+> @@ -0,0 +1,30 @@
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#ifndef __AMDGPU_PSP_TA_H__
+> +#define __AMDGPU_PSP_TA_H__
+> +
+> +void amdgpu_ta_if_debugfs_init(struct amdgpu_device *adev);
+> +void amdgpu_ta_if_debugfs_remove(void);
+> +
+> +#endif
+> 
