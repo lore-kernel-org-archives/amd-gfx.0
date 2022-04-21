@@ -4,80 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B6EBC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 06:26:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C9D3C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 07:00:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD2FD10F452;
-	Thu, 21 Apr 2022 06:26:32 +0000 (UTC)
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1F2110F44E;
- Thu, 21 Apr 2022 06:26:30 +0000 (UTC)
-Received: by mail-ej1-x634.google.com with SMTP id u15so7854985ejf.11;
- Wed, 20 Apr 2022 23:26:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to;
- bh=cd1egrVMwW6VynWrNSFyUHI/QPQ/T4PEowZfARpEMYo=;
- b=OcHukgust1pXfGtFgT4ZSrPYVWPPReFZv1OKeBBvlTAbJMG+zbyO1XGHFsWmispyx+
- L4ANORg4QZ50gMscSf2rAJlDhZmyM0JG+xv5BCdvVNfUuCalsbpa+93u3YaviyD7Ko3Z
- Y3KC0FOARL1TazkV8fzHleniLoOal9sbgtUkaDhqC3d7ApEtmFoYSdcNYtIs0eIkL6bY
- 009NksmndEKHSE9CNDqfFPKptH4XHu0vtcHL6C0iH3xduqOUS2ZcnqTYM+kDw3Dxo+Bi
- /O7VdT6vZ9bEKu7B1hxbAk27jCiL4b2RIMt9QmChdvvJIAoNAfzUJQIWW2aZIx36YhYB
- 5ieQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to;
- bh=cd1egrVMwW6VynWrNSFyUHI/QPQ/T4PEowZfARpEMYo=;
- b=6GuAhFAUboyR1JbbZKC0/k/NjWSNZaqX/t3PgU3b3KmMbwEy6v1WUBChjFm2XgB705
- N1zHG4vzL/5SGiRmbvbgTluBPJt/rwKsA6yMG1F4lZbJlAzCLR4ctITYybPI+SiEOdhv
- i0dVSEZGEYiIV2LkjRWZ8vD9hvMhqCAs6gMIfLjoP9hAH9LDRpd2NtaiwNoqiX1YDdrO
- VLkzfaTJDCiXkelMEGAap0WUNZU2M3lL9Yv9E49M23yxyXsNIbo498mwxrMplvHvJwUO
- L/POlK4pEnqUoIdDiv00ItNZ4nFQSmoxMnnVw4gxPhLQ2WxYZVfpfmQVug1ctKr6lRNJ
- /ZZQ==
-X-Gm-Message-State: AOAM530gqYT/zojiCKK0NisBAQWso1uK2P6kk5txruUXOsqVn5NyFowW
- bSPS0Zl+W5Gs+RcYEnZ5fN4=
-X-Google-Smtp-Source: ABdhPJxU7lLXxpZENOm11+GPWGbpLlKpzt/pl7vrTjNHecZMJg29IpbJl7RzSZz7ECwc0eMfANF6+A==
-X-Received: by 2002:a17:907:2ce5:b0:6f0:1d2c:118d with SMTP id
- hz5-20020a1709072ce500b006f01d2c118dmr1439715ejc.715.1650522389220; 
- Wed, 20 Apr 2022 23:26:29 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1252:fb60:74ec:39fd:9a7c:7ff3?
- ([2a02:908:1252:fb60:74ec:39fd:9a7c:7ff3])
- by smtp.gmail.com with ESMTPSA id
- wc23-20020a170907125700b006efa5c8ba7esm4240546ejb.116.2022.04.20.23.26.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Apr 2022 23:26:28 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------vdznHasFmNx4e2RAlAoQXvZx"
-Message-ID: <8ce90f44-d318-65ba-045a-18cbecf1734a@gmail.com>
-Date: Thu, 21 Apr 2022 08:26:27 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH] drm/ttm: fix ttm tt init fail when size exceeds kmalloc
- limit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2464910F367;
+	Thu, 21 Apr 2022 07:00:01 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2065.outbound.protection.outlook.com [40.107.244.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFA3810F383
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 06:59:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EIfTkmetwHY4yoIP6lT+1lHzMqJouRNaU0Bbpc3/TuCm8EKbynWH2nW+ujv+cZnuzl3ndklm8zADrMG+ZrpOs70ImikJshfhbKk28wWmfYpVnQ8t7m7rK/BIL28CCxDJtWMj6Xg/zKXkb392MmwagE3oiS3G/4NHAH50RVVWMOtC8ka57E8jquCny7xF0vaEH00q0dqCt2geGhdWkKx3RkfGIH3euhByeLRkRDxmx3LvTcjU+yJb7rwgl5s/7LX6d7ef6PmjmvPDaK92KTBmiNk9prHgrgwW7Lt4BYCEFyRbRplQgD7L6Q7GW/c341IyP5s8OU9s3Noxys8mIkF9rQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=InY0aUeAzAvS3E2bea5ofqxd+9o35WGu+wjFBN8hm+M=;
+ b=RVJz6xOeNArRTKtLWJKxnGkaIxwost1Jcp+BHb8Gt3JMANnYGnFoau7u+tI4IZyTZ7RS35E/eO8vhPYLcRu6O/U/kMpzbogaAaeGeaKY76o5EWlVEASMRL6lE1AKUzN4Ou4AEEF4byxFR3nIzT44GV5ImN1IjGwkGlGfNo75B+q7khvo+kQJ3ibw2i696MpWYlc63m9UC7CRTSwl9OOKqtX7dJWrmBWZsQvBnPX2/aJKVLmTmil0xPD+MDvzomPHoYMs+gGmjyv0jCIrEMX2NXbmYDnu4F0eZF0wO8TysEGVlNguvVlvRHRxT76uhjNL+U4I5kUDeQ8XwC+//lx84g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=InY0aUeAzAvS3E2bea5ofqxd+9o35WGu+wjFBN8hm+M=;
+ b=RAt4+an1/Ugre+s/+q5tUH30uQthdpEd5u9j3VDdxFTFmDtupMklVCIGUgXIRGutr5/P/mCsXfqVrIErPN4eDIUvhTmHNVPx3S7TEpTMs1Z2rOoioI7ZTi1cZ7Bngjq/vGeXwWFF28dqjW5sRQQVNlth1ZK0KpSCVf5TozQP4z0=
+Received: from DM5PR12MB1770.namprd12.prod.outlook.com (2603:10b6:3:108::22)
+ by DM6PR12MB4861.namprd12.prod.outlook.com (2603:10b6:5:1bd::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Thu, 21 Apr
+ 2022 06:59:56 +0000
+Received: from DM5PR12MB1770.namprd12.prod.outlook.com
+ ([fe80::6191:648d:c4a:dff]) by DM5PR12MB1770.namprd12.prod.outlook.com
+ ([fe80::6191:648d:c4a:dff%7]) with mapi id 15.20.5164.026; Thu, 21 Apr 2022
+ 06:59:56 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2 2/2] drm/amdgpu: Add debugfs TA load/unload/invoke
+ support
+Thread-Topic: [PATCH v2 2/2] drm/amdgpu: Add debugfs TA load/unload/invoke
+ support
+Thread-Index: AQHYVKfNzBDPxWfm3Ua4JVBiIMYniqz58Mjw
+Date: Thu, 21 Apr 2022 06:59:55 +0000
+Message-ID: <DM5PR12MB17706C49AC35D675D5B153DEB0F49@DM5PR12MB1770.namprd12.prod.outlook.com>
+References: <20220420111357.9488-1-candice.li@amd.com>
+ <20220420111357.9488-2-candice.li@amd.com>
+In-Reply-To: <20220420111357.9488-2-candice.li@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Lazar, Lijo"
- <Lijo.Lazar@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20220420085612.1664787-1-KevinYang.Wang@amd.com>
- <00dfec71-cf38-d6d9-8775-0ae88f59224e@amd.com>
- <CO6PR12MB54733101E19842B59668482B82F59@CO6PR12MB5473.namprd12.prod.outlook.com>
- <65ef352b-59c8-e802-5285-afc59e56fa9b@amd.com>
- <CO6PR12MB547340CB065269B1731812B182F59@CO6PR12MB5473.namprd12.prod.outlook.com>
- <572ed15c-b47e-e7b3-850a-cb0d5259af04@gmail.com>
- <CO6PR12MB54735D4B8E05AB1C17D356AE82F59@CO6PR12MB5473.namprd12.prod.outlook.com>
- <71f3ac77-b6ed-e503-8e05-dcf9d2c2811a@amd.com>
- <CO6PR12MB547334A5A8E66A578D131C6D82F59@CO6PR12MB5473.namprd12.prod.outlook.com>
- <075258d7-16af-a664-0406-2b2862efe05f@amd.com>
- <b5f6cd30-d7c7-c615-9723-68746e35b4de@amd.com>
- <6d1ec935-3b41-fef6-efe3-577f8316edd2@amd.com>
- <CO6PR12MB5473F2A9C21F68886DDF140082F49@CO6PR12MB5473.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CO6PR12MB5473F2A9C21F68886DDF140082F49@CO6PR12MB5473.namprd12.prod.outlook.com>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 7418c4e5-2b46-48eb-4aa4-08da23648af4
+x-ms-traffictypediagnostic: DM6PR12MB4861:EE_
+x-microsoft-antispam-prvs: <DM6PR12MB4861852ED58C1C454019239AB0F49@DM6PR12MB4861.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: wQyTHg3NyF8ax4x8DmBUlv2K04O5bjJ+nNr7FeSQ859amQpGuKQvsO51o5K7P9r/jYwfW9xNMvlq5BMoUvU9kO+KF3Kzm9nfSzP6GoiECtkWOvPjmR+0IDDmkB3z7SSM76A3AD+JyE9V2EBk42w2t+59COoPRDCf4AXCNYDrUrYtwrIVnhbXIyiWU13RB55iqWSUXlAB35eDFCWz+NXHigvza05UsMmrLksQX3tZCJBE9dZ7ZgVQGoQ0c50MmPdmbExt7UVtK4xyyioAMHieeYvLukI1NrYkjtIPf3XaroloVKjBwxSqaRmpHKHDuTJPzh0SFT0eeZjrNSGaqk+MY4sA+OJtcFLDJRTvLgo3CBujTthYa3CdlqGg8iigrAY2OAsnHOThU8ZDbesCVK60EAzQ3M1Hm4xd0pjtB8vF5YGfwyBoZbRnI3SWCAGHXRdhNJ7H7KAbAIUhV0hKukbDdsTlWKTM7Zn7Uvhy4hVNlMLHWzsGAp8YIjvj7dn+SyrY4gZrByIdISSCy3vTYkJyPu3wGFgk94UyJnona6e22pLY9EI1ARhD9esY6JsQCP9mNAFHvz9LpU+2OeqVmtwuB5xrMRIGR7iJKqYKilL5lxdKWUmUSBWnuS4xpHSNrgiVS73C/RgNwEIeRNOf4zj45gXTzqDQ926DEeF150iQG9JsV7KB2DXbI9gRPUNkQ4umZda7pVzWyng50vRbunLmZ1L2N7Cwi+FeTzArc1H5Cho=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1770.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(26005)(186003)(38070700005)(316002)(83380400001)(53546011)(6506007)(86362001)(7696005)(9686003)(54906003)(110136005)(66446008)(4326008)(76116006)(64756008)(8676002)(66476007)(66946007)(66556008)(5660300002)(71200400001)(38100700002)(8936002)(122000001)(52536014)(2906002)(30864003)(33656002)(55016003)(508600001)(461764006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/6SIBbKEpNQMFWs51eBNDHzYsl75/Jl+rCQ1vxQqnSFSjqeWa7j7l7FewNeL?=
+ =?us-ascii?Q?sjwFSJwzNkA1h8LTbHTSnggLx6xH2JA9JZmqo3HxSV8g+OTxL5NMRV9jCXYG?=
+ =?us-ascii?Q?z80uREZM4Uf71HxyDz4drTgJcbGxeH/gKtUSkhaCkdQmS4ba/yCWiwZWzOWQ?=
+ =?us-ascii?Q?XaN3isku+iPX8FUbDExFxOvTpQuH1Fh2NkE9DYrqC334okqUFiBLEMH353ps?=
+ =?us-ascii?Q?GJTV8hggWqRHmtAgH3qKfeS4c2YfOBn7g5tWpsnU57nzWzWk2dLfedNBl1+G?=
+ =?us-ascii?Q?hHE+He1o6QdPwXKmNMj9Ltg9hM5ZGVj+s4jmBKyKUna9fAyZqywGYInIrNhl?=
+ =?us-ascii?Q?MI6CVukYYU9t09HtW2fKbB9kFNJ847Oo3At00N5Hxaak4EijqL+dGmqNKBC7?=
+ =?us-ascii?Q?aw0vX80emeZon4LiD1S0Znq1zM/HYYipx3P8QZRxNy670YRGOlJhruXD7Ac3?=
+ =?us-ascii?Q?Gzz2CcnX36Ck5J6q5kYaszmyShCk7M8zdUaA9XqbGQapek01x6KysDx6Y1fb?=
+ =?us-ascii?Q?d1ffz1tguq831h9L2MKdMRuVV2R5HG5L5Wd2IJZl2bWqURxSBwS7q856UXDV?=
+ =?us-ascii?Q?xwy2Dr9/aQ0jVRGsj6veVpjXN3pVycovvmN+2VdVNv7eE43+farAK29pEVDz?=
+ =?us-ascii?Q?jBHrkewrYlK9VuOvz9uQx0m2uHYT1oCNzbNe0D7nDv234lKn+Zc8/ejgg2qH?=
+ =?us-ascii?Q?4HCDCfHn9VW82hmfnBRwnKBL42OoFTNmwt3G90Y4IHYswpIYYlYWPLHQ8rPL?=
+ =?us-ascii?Q?xCx6wejtxbgIbsdQfXcW5TkKm1v9jUUlvxNP/LinLN8n+C9DXgsMe8vHWQ4Q?=
+ =?us-ascii?Q?9PnZoV/uVNJSxF/oSoGtBVEwMjkkw0EslpDqnLcpN0aXIFUQ4wvbRTkzENIY?=
+ =?us-ascii?Q?gMt+HkeX8LYphNAmccWAGccb/GAGNgl9XBrY0nv7Nq/P7tIykMNCeijdyHbN?=
+ =?us-ascii?Q?HQOMhdpmuHg59pQnXee5t9Z5a0V5sW1HGY5KIWPt3P8cnchqKd/+RhUDZG1V?=
+ =?us-ascii?Q?9W9uMtDRNQVCBgIeCM5SZQlR54xJcsFBk87OlWKsD7EIxIXAAohmL9BX/puK?=
+ =?us-ascii?Q?2wha8AgxZnl3ZhaWrWCgAXmgx7Cpa9zTRPPOrI0w4YgbVLAPOJ4nPLCdR2zq?=
+ =?us-ascii?Q?KpmIzDZpX7aZoWakXP64rfFi2CBSe0v2BbWFVadiyedliRwUY1tYWlO9IdGS?=
+ =?us-ascii?Q?pSljazTRgpvaKK8F/Bs/eOBqzldlpjTkucNC5QfxKnCft6FWcT2bf1yZiGjG?=
+ =?us-ascii?Q?HPGh8YX5/de7MV/ewgbYaiyd2VBqp4H4Cqb2b7chmLMK8+xyiwChfZVlIZlQ?=
+ =?us-ascii?Q?u6L6+06KFOvonxgKxzbMNQg6dAnVAuDdbi2oePWaj/DlPaJ6IciW40dRRk4s?=
+ =?us-ascii?Q?hmcl24Q1jV62a5DKW8ine/mrAGUTl+9zGaHeI1KgnZwaxBpvXOyKVkL2Kn01?=
+ =?us-ascii?Q?A08RtSqklBuaDh5OE0OiqCI6EijivCge08vxMnua5LWDgZrLL7uATq3tgcCx?=
+ =?us-ascii?Q?i+S3AcP+4eW0f6skrqQ068MwR5Jhi7P4sMSoCi4aLaJ6L0cWkhPqbmyuupyu?=
+ =?us-ascii?Q?p/AFJb/G0uhAbId7iMpQv9FX4DuDwOOBda7casu+RvnoPeTGwL00mazdQbfH?=
+ =?us-ascii?Q?ImgOzfMtznSTF8QJijebBcoJ2zh9pPXYNlI8lSjo+72PjHeF2KInXq2e3Nne?=
+ =?us-ascii?Q?SCV67JrWXSiyWKozEH+VDM2irVHX3XpcDh9b8DViiHVjSmux?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1770.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7418c4e5-2b46-48eb-4aa4-08da23648af4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Apr 2022 06:59:55.3502 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dVcsE1MkCg3QC/1rM0XoIQ+X3So0Z8S/91A/vUIzHiCy2ngDyqYmycSKkyxolgQS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4861
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,1027 +121,489 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Li, Candice" <Candice.Li@amd.com>, "Clements,
+ John" <John.Clements@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------vdznHasFmNx4e2RAlAoQXvZx
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+The series is:
 
-Am 21.04.22 um 04:15 schrieb Wang, Yang(Kevin):
->
-> [AMD Official Use Only]
->
->
->
->
-> ------------------------------------------------------------------------
-> *From:* Kuehling, Felix <Felix.Kuehling@amd.com>
-> *Sent:* Thursday, April 21, 2022 5:21 AM
-> *To:* Lazar, Lijo <Lijo.Lazar@amd.com>; Koenig, Christian 
-> <Christian.Koenig@amd.com>; Wang, Yang(Kevin) 
-> <KevinYang.Wang@amd.com>; Christian König 
-> <ckoenig.leichtzumerken@gmail.com>; dri-devel@lists.freedesktop.org 
-> <dri-devel@lists.freedesktop.org>; amd-gfx@lists.freedesktop.org 
-> <amd-gfx@lists.freedesktop.org>
-> *Subject:* Re: [PATCH] drm/ttm: fix ttm tt init fail when size exceeds 
-> kmalloc limit
->
-> On 2022-04-20 09:23, Lazar, Lijo wrote:
-> >
-> >
-> > On 4/20/2022 6:26 PM, Christian König wrote:
-> >> Am 20.04.22 um 14:54 schrieb Wang, Yang(Kevin):
-> >>>
-> >>> [AMD Official Use Only]
-> >>>
-> >>>
-> >>> Hi Chris,
-> >>>
-> >>> 1) Change the test case to use something larger than 1TiB.
-> >>> sure, we can increase the size of BO and make test pass,
-> >>> but if user really want to allocate 1TB GTT BO, we have no reason to
-> >>> let it fail? right?
-> >>
-> >> No, the reason is the underlying core kernel doesn't allow kvmalloc
-> >> allocations with GFP_ZERO which are large enough to hold the array of
-> >> allocated pages for this.
-> >>
-> >> We are working on top of the core Linux kernel and should *NEVER*
-> >> ever add workarounds like what was suggested here. >
-> >
-> > AFAIU, for the purpose of ttm use, fallback to vmalloc is fine.
-> >
-> >  * Please note that any use of gfp flags outside of GFP_KERNEL is
-> > careful to not
-> >  * fall back to vmalloc.
-> >  *
->
-> That's weird, because kvcalloc does the same thing. If that were not
-> able to fall back to vmalloc, it would be pretty useless.
->
->     static inline __alloc_size(1, 2) void *kvcalloc(size_t n, size_t 
-> size, gfp_t flags)
->     {
->              return kvmalloc_array(n, size, flags | __GFP_ZERO);
->     }
->
-> Maybe kvcalloc is the function we TTM should be using here anyway,
-> instead of open-coding the kvmalloc_array call with an extra GFP flag.
->
-> Regards,
->    Felix
->
-> Yes, I agree with your point, and in amdkfd driver code, we have the 
-> same risk in svm_range_dma_map_dev().
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 
-Yes, sounds like a good idea to me as well to change that.
+Make sure the series is checked by checkpatch.pl.
 
-Regards,
-Christian.
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Candic=
+e
+> Li
+> Sent: Wednesday, April 20, 2022 7:14 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Li, Candice <Candice.Li@amd.com>; Clements, John
+> <John.Clements@amd.com>
+> Subject: [PATCH v2 2/2] drm/amdgpu: Add debugfs TA load/unload/invoke
+> support
+>=20
+> v1:
+> Add debugfs support to load/unload/invoke TA in runtime.
+>=20
+> v2:
+> 1. Update some variables to static.
+> 2. Use PAGE_ALIGN to calculate shared buf size directly.
+> 3. Remove fp check.
+> 4. Update debugfs from read to write.
+>=20
+> Signed-off-by: John Clements <john.clements@amd.com>
+> Signed-off-by: Candice Li <candice.li@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Makefile         |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   2 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c  | 308
+> ++++++++++++++++++++  drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h  |
+> 30 ++
+>  4 files changed, 341 insertions(+), 1 deletion(-)  create mode 100644
+> drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile
+> b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 7d7af43a258f83..b525f9be9326f4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -58,7 +58,7 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_kms.o \
+>  	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o
+> amdgpu_nbio.o \
+>  	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o
+> amdgpu_rap.o \
+>  	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+> -	amdgpu_eeprom.o amdgpu_mca.o
+> +	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o
+>=20
+>  amdgpu-$(CONFIG_PROC_FS) +=3D amdgpu_fdinfo.o
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index 13e4d8f9b87449..eedb12f6b8a32d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -38,6 +38,7 @@
+>  #include "amdgpu_umr.h"
+>=20
+>  #include "amdgpu_reset.h"
+> +#include "amdgpu_psp_ta.h"
+>=20
+>  #if defined(CONFIG_DEBUG_FS)
+>=20
+> @@ -1767,6 +1768,7 @@ int amdgpu_debugfs_init(struct amdgpu_device
+> *adev)
+>  		DRM_ERROR("registering register debugfs failed (%d).\n", r);
+>=20
+>  	amdgpu_debugfs_firmware_init(adev);
+> +	amdgpu_ta_if_debugfs_init(adev);
+>=20
+>  #if defined(CONFIG_DRM_AMD_DC)
+>  	if (amdgpu_device_has_dc_support(adev))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
+> new file mode 100644
+> index 00000000000000..247a476e63544c
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
+> @@ -0,0 +1,308 @@
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person
+> +obtaining a
+> + * copy of this software and associated documentation files (the
+> +"Software"),
+> + * to deal in the Software without restriction, including without
+> +limitation
+> + * the rights to use, copy, modify, merge, publish, distribute,
+> +sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom
+> +the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be
+> +included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+> +EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+> +MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+> EVENT
+> +SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+> +DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+> +OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+> USE
+> +OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#include "amdgpu.h"
+> +#include "amdgpu_psp_ta.h"
+> +
+> +static const char *TA_IF_FS_NAME =3D "ta_if";
+> +
+> +struct dentry *dir;
+> +static struct dentry *ta_load_debugfs_dentry; static struct dentry
+> +*ta_unload_debugfs_dentry; static struct dentry
+> +*ta_invoke_debugfs_dentry;
+> +
+> +static ssize_t ta_if_load_debugfs_write(struct file *fp, const char *buf=
+,
+> +					    size_t len, loff_t *off);
+> +static ssize_t ta_if_unload_debugfs_write(struct file *fp, const char *b=
+uf,
+> +					    size_t len, loff_t *off);
+> +static ssize_t ta_if_invoke_debugfs_write(struct file *fp, const char *b=
+uf,
+> +					    size_t len, loff_t *off);
+> +
+> +
+> +static uint32_t get_bin_version(const uint8_t *bin) {
+> +	const struct common_firmware_header *hdr =3D
+> +			     (const struct common_firmware_header *)bin;
+> +
+> +	return hdr->ucode_version;
+> +}
+> +
+> +static void prep_ta_mem_context(struct psp_context *psp,
+> +					     struct ta_context *context,
+> +					     uint8_t *shared_buf,
+> +					     uint32_t shared_buf_len)
+> +{
+> +	context->mem_context.shared_mem_size =3D
+> PAGE_ALIGN(shared_buf_len);
+> +	psp_ta_init_shared_buf(psp, &context->mem_context);
+> +
+> +	memcpy((void *)context->mem_context.shared_buf, shared_buf,
+> +shared_buf_len); }
+> +
+> +static bool is_ta_type_valid(enum ta_type_id ta_type) {
+> +	bool ret =3D false;
+> +
+> +	switch (ta_type) {
+> +	case TA_TYPE_RAS:
+> +		ret =3D true;
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct file_operations ta_load_debugfs_fops =3D {
+> +	.write   =3D ta_if_load_debugfs_write,
+> +	.llseek =3D default_llseek,
+> +	.owner  =3D THIS_MODULE
+> +};
+> +
+> +static const struct file_operations ta_unload_debugfs_fops =3D {
+> +	.write   =3D ta_if_unload_debugfs_write,
+> +	.llseek =3D default_llseek,
+> +	.owner  =3D THIS_MODULE
+> +};
+> +
+> +static const struct file_operations ta_invoke_debugfs_fops =3D {
+> +	.write   =3D ta_if_invoke_debugfs_write,
+> +	.llseek =3D default_llseek,
+> +	.owner  =3D THIS_MODULE
+> +};
+> +
+> +
+> +/**
+> + * DOC: AMDGPU TA debugfs interfaces
+> + *
+> + * Three debugfs interfaces can be opened by a program to
+> + * load/invoke/unload TA,
+> + *
+> + * - /sys/kernel/debug/dri/<N>/ta_if/ta_load
+> + * - /sys/kernel/debug/dri/<N>/ta_if/ta_invoke
+> + * - /sys/kernel/debug/dri/<N>/ta_if/ta_unload
+> + *
+> + * How to use the interfaces in a program?
+> + *
+> + * A program needs to provide transmit buffer to the interfaces
+> + * and will receive buffer from the interfaces below,
+> + *
+> + * - For TA load debugfs interface:
+> + *   Transmit buffer:
+> + *    - TA type (4bytes)
+> + *    - TA bin length (4bytes)
+> + *    - TA bin
+> + *   Receive buffer:
+> + *    - TA ID (4bytes)
+> + *
+> + * - For TA invoke debugfs interface:
+> + *   Transmit buffer:
+> + *    - TA ID (4bytes)
+> + *    - TA CMD ID (4bytes)
+> + *    - TA shard buf length (4bytes)
+> + *    - TA shared buf
+> + *   Receive buffer:
+> + *    - TA shared buf
+> + *
+> + * - For TA unload debugfs interface:
+> + *   Transmit buffer:
+> + *    - TA ID (4bytes)
+> + */
+> +
+> +static ssize_t ta_if_load_debugfs_write(struct file *fp, const char
+> +*buf, size_t len, loff_t *off) {
+> +	uint32_t ta_type    =3D 0;
+> +	uint32_t ta_bin_len =3D 0;
+> +	uint8_t  *ta_bin    =3D NULL;
+> +	uint32_t copy_pos   =3D 0;
+> +	int      ret        =3D 0;
+> +
+> +	struct amdgpu_device *adev   =3D (struct amdgpu_device *)file_inode(fp)=
+-
+> >i_private;
+> +	struct psp_context   *psp    =3D &adev->psp;
+> +	struct ta_context    context =3D {0};
+> +
+> +	if (!buf)
+> +		return -EINVAL;
+> +
+> +	ret =3D copy_from_user((void *)&ta_type, &buf[copy_pos],
+> sizeof(uint32_t));
+> +	if (ret || (!is_ta_type_valid(ta_type)))
+> +		return -EINVAL;
+> +
+> +	copy_pos +=3D sizeof(uint32_t);
+> +
+> +	ret =3D copy_from_user((void *)&ta_bin_len, &buf[copy_pos],
+> sizeof(uint32_t));
+> +	if (ret)
+> +		return -EINVAL;
+> +
+> +	copy_pos +=3D sizeof(uint32_t);
+> +
+> +	ta_bin =3D kzalloc(ta_bin_len, GFP_KERNEL);
+> +	if (!ta_bin)
+> +		ret =3D -ENOMEM;
+> +	ret =3D copy_from_user((void *)ta_bin, &buf[copy_pos], ta_bin_len);
+> +	if (ret)
+> +		goto err_free_bin;
+> +
+> +	ret =3D psp_ras_terminate(psp);
+> +	if (ret) {
+> +		dev_err(adev->dev, "Failed to unload embedded RAS TA\n");
+> +		goto err_free_bin;
+> +	}
+> +
+> +	context.ta_type             =3D ta_type;
+> +	context.ta_load_type        =3D GFX_CMD_ID_LOAD_TA;
+> +	context.bin_desc.fw_version =3D get_bin_version(ta_bin);
+> +	context.bin_desc.size_bytes =3D ta_bin_len;
+> +	context.bin_desc.start_addr =3D ta_bin;
+> +
+> +	ret =3D psp_ta_load(psp, &context);
+> +
+> +	if (ret || context.resp_status) {
+> +		dev_err(adev->dev, "TA load via debugfs failed (%d)
+> status %d\n",
+> +			 ret, context.resp_status);
+> +		goto err_free_bin;
+> +	}
+> +
+> +	context.initialized =3D true;
+> +	ret =3D copy_to_user((char *)buf, (void *)&context.session_id,
+> +sizeof(uint32_t));
+> +
+> +err_free_bin:
+> +	kfree(ta_bin);
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t ta_if_unload_debugfs_write(struct file *fp, const char
+> +*buf, size_t len, loff_t *off) {
+> +	uint32_t ta_id  =3D 0;
+> +	int      ret    =3D 0;
+> +
+> +	struct amdgpu_device *adev   =3D (struct amdgpu_device *)file_inode(fp)=
+-
+> >i_private;
+> +	struct psp_context   *psp    =3D &adev->psp;
+> +	struct ta_context    context =3D {0};
+> +
+> +	if (!buf)
+> +		return -EINVAL;
+> +
+> +	ret =3D copy_from_user((void *)&ta_id, buf, sizeof(uint32_t));
+> +	if (ret)
+> +		return -EINVAL;
+> +
+> +	context.session_id =3D ta_id;
+> +
+> +	ret =3D psp_ta_unload(psp, &context);
+> +	if (!ret)
+> +		context.initialized =3D false;
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t ta_if_invoke_debugfs_write(struct file *fp, const char
+> +*buf, size_t len, loff_t *off) {
+> +	uint32_t ta_id          =3D 0;
+> +	uint32_t cmd_id         =3D 0;
+> +	uint32_t shared_buf_len =3D 0;
+> +	uint8_t	 *shared_buf    =3D NULL;
+> +	uint32_t copy_pos       =3D 0;
+> +	int      ret            =3D 0;
+> +
+> +	struct amdgpu_device *adev   =3D (struct amdgpu_device *)file_inode(fp)=
+-
+> >i_private;
+> +	struct psp_context   *psp    =3D &adev->psp;
+> +	struct ta_context    context =3D {0};
+> +
+> +	if (!buf)
+> +		return -EINVAL;
+> +
+> +	ret =3D copy_from_user((void *)&ta_id, &buf[copy_pos], sizeof(uint32_t)=
+);
+> +	if (ret)
+> +		return -EINVAL;
+> +	copy_pos +=3D sizeof(uint32_t);
+> +
+> +	ret =3D copy_from_user((void *)&cmd_id, &buf[copy_pos],
+> sizeof(uint32_t));
+> +	if (ret)
+> +		return -EINVAL;
+> +	copy_pos +=3D sizeof(uint32_t);
+> +
+> +	ret =3D copy_from_user((void *)&shared_buf_len, &buf[copy_pos],
+> sizeof(uint32_t));
+> +	if (ret)
+> +		return -EINVAL;
+> +	copy_pos +=3D sizeof(uint32_t);
+> +
+> +	shared_buf =3D kzalloc(shared_buf_len, GFP_KERNEL);
+> +	if (!shared_buf)
+> +		ret =3D -ENOMEM;
+> +	ret =3D copy_from_user((void *)shared_buf, &buf[copy_pos],
+> shared_buf_len);
+> +	if (ret)
+> +		goto err_free_shared_buf;
+> +
+> +	context.session_id =3D ta_id;
+> +
+> +	prep_ta_mem_context(psp, &context, shared_buf, shared_buf_len);
+> +
+> +	ret =3D psp_ta_invoke_indirect(psp, cmd_id, &context);
+> +
+> +	if (ret || context.resp_status) {
+> +		dev_err(adev->dev, "TA invoke via debugfs failed (%d)
+> status %d\n",
+> +			 ret, context.resp_status);
+> +		goto err_free_ta_shared_buf;
+> +	}
+> +
+> +	ret =3D copy_to_user((char *)buf, context.mem_context.shared_buf,
+> +shared_buf_len);
+> +
+> +err_free_ta_shared_buf:
+> +	psp_ta_free_shared_buf(&context.mem_context);
+> +
+> +err_free_shared_buf:
+> +	kfree(shared_buf);
+> +
+> +	return ret;
+> +}
+> +
+> +static struct dentry *amdgpu_ta_if_debugfs_create(struct amdgpu_device
+> +*adev) {
+> +	struct drm_minor *minor =3D adev_to_drm(adev)->primary;
+> +
+> +	dir =3D debugfs_create_dir(TA_IF_FS_NAME, minor->debugfs_root);
+> +
+> +	ta_load_debugfs_dentry =3D debugfs_create_file("ta_load", 0200, dir,
+> adev,
+> +						     &ta_load_debugfs_fops);
+> +
+> +	ta_unload_debugfs_dentry =3D debugfs_create_file("ta_unload", 0200, dir=
+,
+> +						     adev,
+> &ta_unload_debugfs_fops);
+> +
+> +	ta_invoke_debugfs_dentry =3D debugfs_create_file("ta_invoke", 0200, dir=
+,
+> +						     adev,
+> &ta_invoke_debugfs_fops);
+> +	return dir;
+> +}
+> +
+> +void amdgpu_ta_if_debugfs_init(struct amdgpu_device *adev) { #if
+> +defined(CONFIG_DEBUG_FS)
+> +	dir =3D amdgpu_ta_if_debugfs_create(adev);
+> +#endif
+> +}
+> +
+> +void amdgpu_ta_if_debugfs_remove(void)
+> +{
+> +	debugfs_remove_recursive(dir);
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h
+> new file mode 100644
+> index 00000000000000..883f89d57616d0
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.h
+> @@ -0,0 +1,30 @@
+> +/*
+> + * Copyright 2022 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person
+> +obtaining a
+> + * copy of this software and associated documentation files (the
+> +"Software"),
+> + * to deal in the Software without restriction, including without
+> +limitation
+> + * the rights to use, copy, modify, merge, publish, distribute,
+> +sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom
+> +the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be
+> +included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+> +EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+> +MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+> EVENT
+> +SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+> +DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+> +OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+> USE
+> +OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#ifndef __AMDGPU_PSP_TA_H__
+> +#define __AMDGPU_PSP_TA_H__
+> +
+> +void amdgpu_ta_if_debugfs_init(struct amdgpu_device *adev); void
+> +amdgpu_ta_if_debugfs_remove(void);
+> +
+> +#endif
+> --
+> 2.17.1
 
->
-> Best Regards,
-> Kevin
->
-> >
-> > Actually the current implementation documents the behavior, but it is
-> > deep inside the implementation to be noticeable - at least not obvious
-> > while using kvmalloc_array.
-> >
-> > Thanks,
-> > Lijo
-> >
-> >> Regards,
-> >> Christian.
-> >>
-> >>> the system availed memory about 2T, but it will still fail.
-> >>>
-> >>> 2) Change kvmalloc to allow GFP_ZERO allocations even in the vmalloc
-> >>> fallback path.
-> >>>     the 5.18 kernel will add this patch to fix this issue .
-> >>>
-> >>> Best Regards,
-> >>> Kevin
-> >>> 
-> ------------------------------------------------------------------------
-> >>>
-> >>> *From:* Koenig, Christian <Christian.Koenig@amd.com>
-> >>> *Sent:* Wednesday, April 20, 2022 8:42 PM
-> >>> *To:* Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Christian König
-> >>> <ckoenig.leichtzumerken@gmail.com>; dri-devel@lists.freedesktop.org
-> >>> <dri-devel@lists.freedesktop.org>; amd-gfx@lists.freedesktop.org
-> >>> <amd-gfx@lists.freedesktop.org>
-> >>> *Subject:* Re: [PATCH] drm/ttm: fix ttm tt init fail when size
-> >>> exceeds kmalloc limit
-> >>> Hi Kevin,
-> >>>
-> >>> yes and that is perfectly valid and expected behavior. There is
-> >>> absolutely no need to change anything in TTM here.
-> >>>
-> >>> What we could do is:
-> >>> 1) Change the test case to use something larger than 1TiB.
-> >>> 2) Change kvmalloc to allow GFP_ZERO allocations even in the vmalloc
-> >>> fallback path.
-> >>>
-> >>> Regards,
-> >>> Christian.
-> >>>
-> >>> Am 20.04.22 um 14:39 schrieb Wang, Yang(Kevin):
-> >>>>
-> >>>> [AMD Official Use Only]
-> >>>>
-> >>>>
-> >>>> Hi Chirs,
-> >>>>
-> >>>> yes, right, the amdgpu drive rwill use amdgpu_bo_validate_size()
-> >>>> function to verify bo size,
-> >>>> but when driver try to allocate VRAM domain bo fail, the amdgpu
-> >>>> driver will fall back to allocate domain = (GTT | VRAM)  bo.
-> >>>> please check following code, it will cause the 2nd time to allocate
-> >>>> bo fail during allocate 256Mb buffer to store dma address (via
-> >>>> kvmalloc()).
-> >>>>
-> >>>> initial_domain = (u32)(0xffffffff & args->in.domains);
-> >>>> retry:
-> >>>>         r = amdgpu_gem_object_create(adev, size, args->in.alignment,
-> >>>>                    initial_domain,
-> >>>>                    flags, ttm_bo_type_device, resv, &gobj);
-> >>>>         if (r && r != -ERESTARTSYS) {
-> >>>>                 if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
-> >>>>       flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> >>>>       goto retry;
-> >>>>                 }
-> >>>>
-> >>>>                 if (initial_domain == AMDGPU_GEM_DOMAIN_VRAM) {
-> >>>>       initial_domain |= AMDGPU_GEM_DOMAIN_GTT;
-> >>>>       goto retry;
-> >>>>                 }
-> >>>> DRM_DEBUG("Failed to allocate GEM object (%llu, %d, %llu, %d)\n",
-> >>>>               size, initial_domain, args->in.alignment, r);
-> >>>>         }
-> >>>>
-> >>>> Best Regards,
-> >>>> Kevin
-> >>>>
-> >>>> 
-> ------------------------------------------------------------------------
-> >>>>
-> >>>> *From:* Christian König <ckoenig.leichtzumerken@gmail.com>
-> >>>> <mailto:ckoenig.leichtzumerken@gmail.com 
-> <mailto:ckoenig.leichtzumerken@gmail.com>>
-> >>>> *Sent:* Wednesday, April 20, 2022 7:55 PM
-> >>>> *To:* Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-> >>>> <mailto:KevinYang.Wang@amd.com <mailto:KevinYang.Wang@amd.com>>; 
-> Koenig, Christian
-> >>>> <Christian.Koenig@amd.com> <mailto:Christian.Koenig@amd.com 
-> <mailto:Christian.Koenig@amd.com>>;
-> >>>> dri-devel@lists.freedesktop.org
-> >>>> <mailto:dri-devel@lists.freedesktop.org 
-> <mailto:dri-devel@lists.freedesktop.org>>
-> >>>> <dri-devel@lists.freedesktop.org>
-> >>>> <mailto:dri-devel@lists.freedesktop.org 
-> <mailto:dri-devel@lists.freedesktop.org>>;
-> >>>> amd-gfx@lists.freedesktop.org
-> >>>> <mailto:amd-gfx@lists.freedesktop.org 
-> <mailto:amd-gfx@lists.freedesktop.org>>
-> >>>> <amd-gfx@lists.freedesktop.org> 
-> <mailto:amd-gfx@lists.freedesktop.org 
-> <mailto:amd-gfx@lists.freedesktop.org>>
-> >>>> *Subject:* Re: [PATCH] drm/ttm: fix ttm tt init fail when size
-> >>>> exceeds kmalloc limit
-> >>>> Hi Kevin,
-> >>>>
-> >>>> no, the test case should already fail in amdgpu_bo_validate_size().
-> >>>>
-> >>>> If we have a system with 2TiB of memory where the test case could
-> >>>> succeed then we should increase the requested size to something
-> >>>> larger.
-> >>>>
-> >>>> And if the underlying core Linux kernel functions don't allow
-> >>>> allocations as large as the requested one we should *NEVER* ever
-> >>>> add workarounds like this.
-> >>>>
-> >>>> It is perfectly expected that this test case is not able to fulfill
-> >>>> the desired allocation. That it fails during kvmalloc is
-> >>>> unfortunate, but not a show stopper.
-> >>>>
-> >>>> Regards,
-> >>>> Christian.
-> >>>>
-> >>>>
-> >>>> Am 20.04.22 um 13:32 schrieb Wang, Yang(Kevin):
-> >>>>>
-> >>>>> [AMD Official Use Only]
-> >>>>>
-> >>>>>
-> >>>>> Hi Chris,
-> >>>>>
-> >>>>> you misunderstood background about this case.
-> >>>>>
-> >>>>> although we expect this test case to fail, it should fail at the
-> >>>>> location where the Bo actual memory is actually allocated. now the
-> >>>>> code logic will cause the failure to allocate memory to store DMA
-> >>>>> address.
-> >>>>>
-> >>>>> e.g: the case is failed in 2TB system ram machine, it should be
-> >>>>> allocated successful, but it is failed.
-> >>>>>
-> >>>>> allocate 1TB BO, the ttm should allocate 1TB/4k * 8 buffer to
-> >>>>> store allocate result (page address), this should not be failed
-> >>>>> usually.
-> >>>>>
-> >>>>> There is a similar fix in upstream kernel 5.18, before this fix
-> >>>>> entered the TTM code, this problem existed in TTM.
-> >>>>>
-> >>>>> kernel/git/torvalds/linux.git - Linux kernel source tree
-> >>>>> 
-> <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v5.18-rc3&id=a421ef303008b0ceee2cfc625c3246fa7654b0ca
-> >>>>> mm: allow !GFP_KERNEL allocations for kvmalloc
-> >>>>>
-> >>>>> Best Regards,
-> >>>>> Kevin
-> >>>>>
-> >>>>> 
-> ------------------------------------------------------------------------
-> >>>>>
-> >>>>> *From:* Koenig, Christian <Christian.Koenig@amd.com>
-> >>>>> <mailto:Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>
-> >>>>> *Sent:* Wednesday, April 20, 2022 6:53 PM
-> >>>>> *To:* Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-> >>>>> <mailto:KevinYang.Wang@amd.com <mailto:KevinYang.Wang@amd.com>>; 
-> dri-devel@lists.freedesktop.org
-> >>>>> <mailto:dri-devel@lists.freedesktop.org 
-> <mailto:dri-devel@lists.freedesktop.org>>
-> >>>>> <dri-devel@lists.freedesktop.org>
-> >>>>> <mailto:dri-devel@lists.freedesktop.org 
-> <mailto:dri-devel@lists.freedesktop.org>>;
-> >>>>> amd-gfx@lists.freedesktop.org
-> >>>>> <mailto:amd-gfx@lists.freedesktop.org 
-> <mailto:amd-gfx@lists.freedesktop.org>>
-> >>>>> <amd-gfx@lists.freedesktop.org>
-> >>>>> <mailto:amd-gfx@lists.freedesktop.org 
-> <mailto:amd-gfx@lists.freedesktop.org>>
-> >>>>> *Subject:* Re: [PATCH] drm/ttm: fix ttm tt init fail when size
-> >>>>> exceeds kmalloc limit
-> >>>>> Am 20.04.22 um 11:07 schrieb Wang, Yang(Kevin):
-> >>>>>>
-> >>>>>> [AMD Official Use Only]
-> >>>>>>
-> >>>>>>
-> >>>>>>
-> >>>>>> 
-> ------------------------------------------------------------------------
-> >>>>>>
-> >>>>>> *From:* Koenig, Christian <Christian.Koenig@amd.com>
-> >>>>>> <mailto:Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>
-> >>>>>> *Sent:* Wednesday, April 20, 2022 5:00 PM
-> >>>>>> *To:* Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-> >>>>>> <mailto:KevinYang.Wang@amd.com 
-> <mailto:KevinYang.Wang@amd.com>>; dri-devel@lists.freedesktop.org
-> >>>>>> <mailto:dri-devel@lists.freedesktop.org 
-> <mailto:dri-devel@lists.freedesktop.org>>
-> >>>>>> <dri-devel@lists.freedesktop.org>
-> >>>>>> <mailto:dri-devel@lists.freedesktop.org 
-> <mailto:dri-devel@lists.freedesktop.org>>;
-> >>>>>> amd-gfx@lists.freedesktop.org
-> >>>>>> <mailto:amd-gfx@lists.freedesktop.org 
-> <mailto:amd-gfx@lists.freedesktop.org>>
-> >>>>>> <amd-gfx@lists.freedesktop.org>
-> >>>>>> <mailto:amd-gfx@lists.freedesktop.org 
-> <mailto:amd-gfx@lists.freedesktop.org>>
-> >>>>>> *Subject:* Re: [PATCH] drm/ttm: fix ttm tt init fail when size
-> >>>>>> exceeds kmalloc limit
-> >>>>>> Am 20.04.22 um 10:56 schrieb Yang Wang:
-> >>>>>> > if the __GFP_ZERO is set, the kvmalloc() can't fallback to use
-> >>>>>> vmalloc()
-> >>>>>>
-> >>>>>> Hui what? Why should kvmalloc() not be able to fallback to 
-> vmalloc()
-> >>>>>> when __GFP_ZERO is set?
-> >>>>>>
-> >>>>>> And even that is really the case then that sounds like a bug in
-> >>>>>> kvmalloc().
-> >>>>>>
-> >>>>>> Regards,
-> >>>>>> Christian.
-> >>>>>>
-> >>>>>> [kevin]:
-> >>>>>> it is really test case from libdrm amdgpu test, which try to
-> >>>>>> allocate a big BO which will cause ttm tt init fail.
-> >>>>>
-> >>>>>
-> >>>>> LOL! Guys, this test case is intended to fail!
-> >>>>> *
-> >>>>> *The test consists of allocating a buffer so ridiculous large that
-> >>>>> it should never succeed and be rejected by the kernel driver.
-> >>>>>
-> >>>>> This patch here is a really clear NAK.
-> >>>>>
-> >>>>> Regards,
-> >>>>> Christian.
-> >>>>>
-> >>>>>> it may be a kvmalloc() bug, and this patch can as a workaround
-> >>>>>> in ttm before this issue fix.
-> >>>>>>
-> >>>>>> void *kvmalloc_node(size_t size, gfp_t flags, int node)
-> >>>>>> {
-> >>>>>> ...
-> >>>>>>       if ((flags & GFP_KERNEL) != GFP_KERNEL)
-> >>>>>>               return kmalloc_node(size, flags, node);
-> >>>>>> ...
-> >>>>>> }
-> >>>>>>
-> >>>>>> Best Regards,
-> >>>>>> Kevin
-> >>>>>>
-> >>>>>> > to allocate memory, when request size is exceeds kmalloc limit,
-> >>>>>> it will
-> >>>>>> > cause allocate memory fail.
-> >>>>>> >
-> >>>>>> > e.g: when ttm want to create a BO with 1TB size, it maybe fail.
-> >>>>>> >
-> >>>>>> > Signed-off-by: Yang Wang <KevinYang.Wang@amd.com>
-> >>>>>> <mailto:KevinYang.Wang@amd.com <mailto:KevinYang.Wang@amd.com>>
-> >>>>>> > ---
-> >>>>>> > drivers/gpu/drm/ttm/ttm_tt.c | 14 +++++++++++---
-> >>>>>> >   1 file changed, 11 insertions(+), 3 deletions(-)
-> >>>>>> >
-> >>>>>> > diff --git a/drivers/gpu/drm/ttm/ttm_tt.c
-> >>>>>> b/drivers/gpu/drm/ttm/ttm_tt.c
-> >>>>>> > index 79c870a3bef8..9f2f3e576b8d 100644
-> >>>>>> > --- a/drivers/gpu/drm/ttm/ttm_tt.c
-> >>>>>> > +++ b/drivers/gpu/drm/ttm/ttm_tt.c
-> >>>>>> > @@ -97,9 +97,12 @@ int ttm_tt_create(struct ttm_buffer_object
-> >>>>>> *bo, bool zero_alloc)
-> >>>>>> >   static int ttm_tt_alloc_page_directory(struct ttm_tt *ttm)
-> >>>>>> >   {
-> >>>>>> >        ttm->pages = kvmalloc_array(ttm->num_pages, sizeof(void*),
-> >>>>>> > - GFP_KERNEL | __GFP_ZERO);
-> >>>>>> > + GFP_KERNEL);
-> >>>>>> >        if (!ttm->pages)
-> >>>>>> >                return -ENOMEM;
-> >>>>>> > +
-> >>>>>> > + memset(ttm->pages, 0, ttm->num_pages * sizeof(void *));
-> >>>>>> > +
-> >>>>>> >        return 0;
-> >>>>>> >   }
-> >>>>>> >
-> >>>>>> > @@ -108,10 +111,12 @@ static int
-> >>>>>> ttm_dma_tt_alloc_page_directory(struct ttm_tt *ttm)
-> >>>>>> >        ttm->pages = kvmalloc_array(ttm->num_pages,
-> >>>>>> > sizeof(*ttm->pages) +
-> >>>>>> > sizeof(*ttm->dma_address),
-> >>>>>> > - GFP_KERNEL | __GFP_ZERO);
-> >>>>>> > + GFP_KERNEL);
-> >>>>>> >        if (!ttm->pages)
-> >>>>>> >                return -ENOMEM;
-> >>>>>> >
-> >>>>>> > + memset(ttm->pages, 0, ttm->num_pages *
-> >>>>>> (sizeof(*ttm->pages) + sizeof(*ttm->dma_address)));
-> >>>>>> > +
-> >>>>>> >        ttm->dma_address = (void *)(ttm->pages + ttm->num_pages);
-> >>>>>> >        return 0;
-> >>>>>> >   }
-> >>>>>> > @@ -120,9 +125,12 @@ static int
-> >>>>>> ttm_sg_tt_alloc_page_directory(struct ttm_tt *ttm)
-> >>>>>> >   {
-> >>>>>> >        ttm->dma_address = kvmalloc_array(ttm->num_pages,
-> >>>>>> > sizeof(*ttm->dma_address),
-> >>>>>> > - GFP_KERNEL | __GFP_ZERO);
-> >>>>>> > + GFP_KERNEL);
-> >>>>>> >        if (!ttm->dma_address)
-> >>>>>> >                return -ENOMEM;
-> >>>>>> > +
-> >>>>>> > + memset(ttm->dma_address, 0, ttm->num_pages *
-> >>>>>> sizeof(*ttm->dma_address));
-> >>>>>> > +
-> >>>>>> >        return 0;
-> >>>>>> >   }
-> >>>>>> >
-> >>>>>>
-> >>>>>
-> >>>>
-> >>>
-> >>
-
---------------vdznHasFmNx4e2RAlAoQXvZx
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Am 21.04.22 um 04:15 schrieb Wang, Yang(Kevin):<br>
-    <blockquote type="cite"
-cite="mid:CO6PR12MB5473F2A9C21F68886DDF140082F49@CO6PR12MB5473.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <style type="text/css" style="display:none;">P {margin-top:0;margin-bottom:0;}</style>
-      <p
-        style="font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;"
-        align="Left">
-        [AMD Official Use Only]<br>
-      </p>
-      <br>
-      <div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <div style="font-family:Calibri,Arial,Helvetica,sans-serif;
-          font-size:12pt; color:rgb(0,0,0)">
-          <br>
-        </div>
-        <hr tabindex="-1" style="display:inline-block; width:98%">
-        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            face="Calibri, sans-serif" color="#000000"><b>From:</b>
-            Kuehling, Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a><br>
-            <b>Sent:</b> Thursday, April 21, 2022 5:21 AM<br>
-            <b>To:</b> Lazar, Lijo <a class="moz-txt-link-rfc2396E" href="mailto:Lijo.Lazar@amd.com">&lt;Lijo.Lazar@amd.com&gt;</a>; Koenig,
-            Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>; Wang,
-            Yang(Kevin) <a class="moz-txt-link-rfc2396E" href="mailto:KevinYang.Wang@amd.com">&lt;KevinYang.Wang@amd.com&gt;</a>; Christian König
-            <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a>;
-            <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel@lists.freedesktop.org">&lt;dri-devel@lists.freedesktop.org&gt;</a>;
-            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-            <b>Subject:</b> Re: [PATCH] drm/ttm: fix ttm tt init fail
-            when size exceeds kmalloc limit</font>
-          <div> </div>
-        </div>
-        <div class="BodyFragment"><font size="2"><span
-              style="font-size:11pt">
-              <div class="PlainText elementToProof"><br>
-                On 2022-04-20 09:23, Lazar, Lijo wrote:<br>
-                &gt;<br>
-                &gt;<br>
-                &gt; On 4/20/2022 6:26 PM, Christian König wrote:<br>
-                &gt;&gt; Am 20.04.22 um 14:54 schrieb Wang, Yang(Kevin):<br>
-                &gt;&gt;&gt;<br>
-                &gt;&gt;&gt; [AMD Official Use Only]<br>
-                &gt;&gt;&gt;<br>
-                &gt;&gt;&gt;<br>
-                &gt;&gt;&gt; Hi Chris,<br>
-                &gt;&gt;&gt;<br>
-                &gt;&gt;&gt; 1) Change the test case to use something
-                larger than 1TiB.<br>
-                &gt;&gt;&gt; sure, we can increase the size of BO and
-                make test pass,<br>
-                &gt;&gt;&gt; but if user really want to allocate 1TB GTT
-                BO, we have no reason to <br>
-                &gt;&gt;&gt; let it fail? right?<br>
-                &gt;&gt;<br>
-                &gt;&gt; No, the reason is the underlying core kernel
-                doesn't allow kvmalloc <br>
-                &gt;&gt; allocations with GFP_ZERO which are large
-                enough to hold the array of <br>
-                &gt;&gt; allocated pages for this.<br>
-                &gt;&gt;<br>
-                &gt;&gt; We are working on top of the core Linux kernel
-                and should *NEVER* <br>
-                &gt;&gt; ever add workarounds like what was suggested
-                here. &gt;<br>
-                &gt;<br>
-                &gt; AFAIU, for the purpose of ttm use, fallback to
-                vmalloc is fine.<br>
-                &gt;<br>
-                &gt;  * Please note that any use of gfp flags outside of
-                GFP_KERNEL is <br>
-                &gt; careful to not<br>
-                &gt;  * fall back to vmalloc.<br>
-                &gt;  *<br>
-                <br>
-                That's weird, because kvcalloc does the same thing. If
-                that were not <br>
-                able to fall back to vmalloc, it would be pretty
-                useless.<br>
-                <br>
-                    static inline __alloc_size(1, 2) void
-                *kvcalloc(size_t n, size_t size, gfp_t flags)<br>
-                    {<br>
-                             return kvmalloc_array(n, size, flags |
-                __GFP_ZERO);<br>
-                    }<br>
-                <br>
-                Maybe kvcalloc is the function we TTM should be using
-                here anyway, <br>
-                instead of open-coding the kvmalloc_array call with an
-                extra GFP flag.<br>
-                <br>
-                Regards,<br>
-                   Felix</div>
-              <div class="PlainText elementToProof"><br>
-              </div>
-              <div class="PlainText elementToProof">Yes, I agree with
-                your point, and in amdkfd driver code, we have the same
-                risk in svm_range_dma_map_dev().<br>
-              </div>
-            </span></font></div>
-      </div>
-    </blockquote>
-    <br>
-    Yes, sounds like a good idea to me as well to change that.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CO6PR12MB5473F2A9C21F68886DDF140082F49@CO6PR12MB5473.namprd12.prod.outlook.com">
-      <div>
-        <div class="BodyFragment"><font size="2"><span
-              style="font-size:11pt">
-              <div class="PlainText elementToProof">
-                <br>
-                Best Regards,<br>
-                Kevin<br>
-                <br>
-                &gt;<br>
-                &gt; Actually the current implementation documents the
-                behavior, but it is <br>
-                &gt; deep inside the implementation to be noticeable -
-                at least not obvious <br>
-                &gt; while using kvmalloc_array.<br>
-                &gt;<br>
-                &gt; Thanks,<br>
-                &gt; Lijo<br>
-                &gt;<br>
-                &gt;&gt; Regards,<br>
-                &gt;&gt; Christian.<br>
-                &gt;&gt;<br>
-                &gt;&gt;&gt; the system availed memory about 2T, but it
-                will still fail.<br>
-                &gt;&gt;&gt;<br>
-                &gt;&gt;&gt; 2) Change kvmalloc to allow GFP_ZERO
-                allocations even in the vmalloc <br>
-                &gt;&gt;&gt; fallback path.<br>
-                &gt;&gt;&gt;     the 5.18 kernel will add this patch to
-                fix this issue .<br>
-                &gt;&gt;&gt;<br>
-                &gt;&gt;&gt; Best Regards,<br>
-                &gt;&gt;&gt; Kevin<br>
-                &gt;&gt;&gt;
-                ------------------------------------------------------------------------
-                <br>
-                &gt;&gt;&gt;<br>
-                &gt;&gt;&gt; *From:* Koenig, Christian
-                <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a><br>
-                &gt;&gt;&gt; *Sent:* Wednesday, April 20, 2022 8:42 PM<br>
-                &gt;&gt;&gt; *To:* Wang, Yang(Kevin)
-                <a class="moz-txt-link-rfc2396E" href="mailto:KevinYang.Wang@amd.com">&lt;KevinYang.Wang@amd.com&gt;</a>; Christian König <br>
-                &gt;&gt;&gt; <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a>;
-                <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a> <br>
-                &gt;&gt;&gt; <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel@lists.freedesktop.org">&lt;dri-devel@lists.freedesktop.org&gt;</a>;
-                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a> <br>
-                &gt;&gt;&gt; <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-                &gt;&gt;&gt; *Subject:* Re: [PATCH] drm/ttm: fix ttm tt
-                init fail when size <br>
-                &gt;&gt;&gt; exceeds kmalloc limit<br>
-                &gt;&gt;&gt; Hi Kevin,<br>
-                &gt;&gt;&gt;<br>
-                &gt;&gt;&gt; yes and that is perfectly valid and
-                expected behavior. There is <br>
-                &gt;&gt;&gt; absolutely no need to change anything in
-                TTM here.<br>
-                &gt;&gt;&gt;<br>
-                &gt;&gt;&gt; What we could do is:<br>
-                &gt;&gt;&gt; 1) Change the test case to use something
-                larger than 1TiB.<br>
-                &gt;&gt;&gt; 2) Change kvmalloc to allow GFP_ZERO
-                allocations even in the vmalloc <br>
-                &gt;&gt;&gt; fallback path.<br>
-                &gt;&gt;&gt;<br>
-                &gt;&gt;&gt; Regards,<br>
-                &gt;&gt;&gt; Christian.<br>
-                &gt;&gt;&gt;<br>
-                &gt;&gt;&gt; Am 20.04.22 um 14:39 schrieb Wang,
-                Yang(Kevin):<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt; [AMD Official Use Only]<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt; Hi Chirs,<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt; yes, right, the amdgpu drive rwill use
-                amdgpu_bo_validate_size() <br>
-                &gt;&gt;&gt;&gt; function to verify bo size,<br>
-                &gt;&gt;&gt;&gt; but when driver try to allocate VRAM
-                domain bo fail, the amdgpu <br>
-                &gt;&gt;&gt;&gt; driver will fall back to allocate
-                domain = (GTT | VRAM)  bo.<br>
-                &gt;&gt;&gt;&gt; please check following code, it will
-                cause the 2nd time to allocate <br>
-                &gt;&gt;&gt;&gt; bo fail during allocate 256Mb buffer to
-                store dma address (via <br>
-                &gt;&gt;&gt;&gt; kvmalloc()).<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt; initial_domain = (u32)(0xffffffff &amp;
-                args-&gt;in.domains);<br>
-                &gt;&gt;&gt;&gt; retry:<br>
-                &gt;&gt;&gt;&gt;         r =
-                amdgpu_gem_object_create(adev, size,
-                args-&gt;in.alignment,<br>
-                &gt;&gt;&gt;&gt;                    initial_domain,<br>
-                &gt;&gt;&gt;&gt;                    flags,
-                ttm_bo_type_device, resv, &amp;gobj);<br>
-                &gt;&gt;&gt;&gt;         if (r &amp;&amp; r !=
-                -ERESTARTSYS) {<br>
-                &gt;&gt;&gt;&gt;                 if (flags &amp;
-                AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {<br>
-                &gt;&gt;&gt;&gt;       flags &amp;=
-                ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;<br>
-                &gt;&gt;&gt;&gt;       goto retry;<br>
-                &gt;&gt;&gt;&gt;                 }<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;                 if (initial_domain ==
-                AMDGPU_GEM_DOMAIN_VRAM) {<br>
-                &gt;&gt;&gt;&gt;       initial_domain |=
-                AMDGPU_GEM_DOMAIN_GTT;<br>
-                &gt;&gt;&gt;&gt;       goto retry;<br>
-                &gt;&gt;&gt;&gt;                 }<br>
-                &gt;&gt;&gt;&gt; DRM_DEBUG("Failed to allocate GEM
-                object (%llu, %d, %llu, %d)\n",<br>
-                &gt;&gt;&gt;&gt;               size, initial_domain,
-                args-&gt;in.alignment, r);<br>
-                &gt;&gt;&gt;&gt;         }<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt; Best Regards,<br>
-                &gt;&gt;&gt;&gt; Kevin<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;
-                ------------------------------------------------------------------------
-                <br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt; *From:* Christian König
-                <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a> <br>
-                &gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:ckoenig.leichtzumerken@gmail.com"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:ckoenig.leichtzumerken@gmail.com</a>&gt;<br>
-                &gt;&gt;&gt;&gt; *Sent:* Wednesday, April 20, 2022 7:55
-                PM<br>
-                &gt;&gt;&gt;&gt; *To:* Wang, Yang(Kevin)
-                <a class="moz-txt-link-rfc2396E" href="mailto:KevinYang.Wang@amd.com">&lt;KevinYang.Wang@amd.com&gt;</a> <br>
-                &gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:KevinYang.Wang@amd.com"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:KevinYang.Wang@amd.com</a>&gt;;
-                Koenig, Christian
-                <br>
-                &gt;&gt;&gt;&gt; <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a> &lt;<a
-                  href="mailto:Christian.Koenig@amd.com"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:Christian.Koenig@amd.com</a>&gt;;
-                <br>
-                &gt;&gt;&gt;&gt; <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a> <br>
-                &gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:dri-devel@lists.freedesktop.org"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:dri-devel@lists.freedesktop.org</a>&gt;
-                <br>
-                &gt;&gt;&gt;&gt; <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel@lists.freedesktop.org">&lt;dri-devel@lists.freedesktop.org&gt;</a>
-                <br>
-                &gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:dri-devel@lists.freedesktop.org"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:dri-devel@lists.freedesktop.org</a>&gt;;
-                <br>
-                &gt;&gt;&gt;&gt; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a> <br>
-                &gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:amd-gfx@lists.freedesktop.org"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:amd-gfx@lists.freedesktop.org</a>&gt;
-                <br>
-                &gt;&gt;&gt;&gt; <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>
-                &lt;<a href="mailto:amd-gfx@lists.freedesktop.org"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:amd-gfx@lists.freedesktop.org</a>&gt;<br>
-                &gt;&gt;&gt;&gt; *Subject:* Re: [PATCH] drm/ttm: fix ttm
-                tt init fail when size <br>
-                &gt;&gt;&gt;&gt; exceeds kmalloc limit<br>
-                &gt;&gt;&gt;&gt; Hi Kevin,<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt; no, the test case should already fail
-                in amdgpu_bo_validate_size().<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt; If we have a system with 2TiB of memory
-                where the test case could <br>
-                &gt;&gt;&gt;&gt; succeed then we should increase the
-                requested size to something <br>
-                &gt;&gt;&gt;&gt; larger.<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt; And if the underlying core Linux kernel
-                functions don't allow <br>
-                &gt;&gt;&gt;&gt; allocations as large as the requested
-                one we should *NEVER* ever <br>
-                &gt;&gt;&gt;&gt; add workarounds like this.<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt; It is perfectly expected that this test
-                case is not able to fulfill <br>
-                &gt;&gt;&gt;&gt; the desired allocation. That it fails
-                during kvmalloc is <br>
-                &gt;&gt;&gt;&gt; unfortunate, but not a show stopper.<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt; Regards,<br>
-                &gt;&gt;&gt;&gt; Christian.<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt; Am 20.04.22 um 13:32 schrieb Wang,
-                Yang(Kevin):<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; [AMD Official Use Only]<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; Hi Chris,<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; you misunderstood background about
-                this case.<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; although we expect this test case
-                to fail, it should fail at the <br>
-                &gt;&gt;&gt;&gt;&gt; location where the Bo actual memory
-                is actually allocated. now the <br>
-                &gt;&gt;&gt;&gt;&gt; code logic will cause the failure
-                to allocate memory to store DMA <br>
-                &gt;&gt;&gt;&gt;&gt; address.<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; e.g: the case is failed in 2TB
-                system ram machine, it should be <br>
-                &gt;&gt;&gt;&gt;&gt; allocated successful, but it is
-                failed.<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; allocate 1TB BO, the ttm should
-                allocate 1TB/4k * 8 buffer to <br>
-                &gt;&gt;&gt;&gt;&gt; store allocate result (page
-                address), this should not be failed <br>
-                &gt;&gt;&gt;&gt;&gt; usually.<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; There is a similar fix in upstream
-                kernel 5.18, before this fix <br>
-                &gt;&gt;&gt;&gt;&gt; entered the TTM code, this problem
-                existed in TTM.<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; kernel/git/torvalds/linux.git -
-                Linux kernel source tree <br>
-                &gt;&gt;&gt;&gt;&gt;
-&lt;<a class="moz-txt-link-freetext" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v5.18-rc3&amp;id=a421ef303008b0ceee2cfc625c3246fa7654b0ca">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v5.18-rc3&amp;id=a421ef303008b0ceee2cfc625c3246fa7654b0ca</a><br>
-                &gt;&gt;&gt;&gt;&gt; mm: allow !GFP_KERNEL allocations
-                for kvmalloc<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; Best Regards,<br>
-                &gt;&gt;&gt;&gt;&gt; Kevin<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;
-                ------------------------------------------------------------------------
-                <br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; *From:* Koenig, Christian
-                <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a> <br>
-                &gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:Christian.Koenig@amd.com"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:Christian.Koenig@amd.com</a>&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; *Sent:* Wednesday, April 20, 2022
-                6:53 PM<br>
-                &gt;&gt;&gt;&gt;&gt; *To:* Wang, Yang(Kevin)
-                <a class="moz-txt-link-rfc2396E" href="mailto:KevinYang.Wang@amd.com">&lt;KevinYang.Wang@amd.com&gt;</a> <br>
-                &gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:KevinYang.Wang@amd.com"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:KevinYang.Wang@amd.com</a>&gt;;
-                <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a>
-                <br>
-                &gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:dri-devel@lists.freedesktop.org"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:dri-devel@lists.freedesktop.org</a>&gt;
-                <br>
-                &gt;&gt;&gt;&gt;&gt;
-                <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel@lists.freedesktop.org">&lt;dri-devel@lists.freedesktop.org&gt;</a> <br>
-                &gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:dri-devel@lists.freedesktop.org"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:dri-devel@lists.freedesktop.org</a>&gt;;
-                <br>
-                &gt;&gt;&gt;&gt;&gt; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a> <br>
-                &gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:amd-gfx@lists.freedesktop.org"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:amd-gfx@lists.freedesktop.org</a>&gt;
-                <br>
-                &gt;&gt;&gt;&gt;&gt;
-                <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a> <br>
-                &gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:amd-gfx@lists.freedesktop.org"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:amd-gfx@lists.freedesktop.org</a>&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; *Subject:* Re: [PATCH] drm/ttm: fix
-                ttm tt init fail when size <br>
-                &gt;&gt;&gt;&gt;&gt; exceeds kmalloc limit<br>
-                &gt;&gt;&gt;&gt;&gt; Am 20.04.22 um 11:07 schrieb Wang,
-                Yang(Kevin):<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; [AMD Official Use Only]<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;
-                ------------------------------------------------------------------------
-                <br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; *From:* Koenig, Christian
-                <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a> <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:Christian.Koenig@amd.com"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:Christian.Koenig@amd.com</a>&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; *Sent:* Wednesday, April 20,
-                2022 5:00 PM<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; *To:* Wang, Yang(Kevin)
-                <a class="moz-txt-link-rfc2396E" href="mailto:KevinYang.Wang@amd.com">&lt;KevinYang.Wang@amd.com&gt;</a> <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:KevinYang.Wang@amd.com"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:KevinYang.Wang@amd.com</a>&gt;;
-                <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a>
-                <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:dri-devel@lists.freedesktop.org"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:dri-devel@lists.freedesktop.org</a>&gt;
-                <br>
-                &gt;&gt;&gt;&gt;&gt;&gt;
-                <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel@lists.freedesktop.org">&lt;dri-devel@lists.freedesktop.org&gt;</a> <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:dri-devel@lists.freedesktop.org"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:dri-devel@lists.freedesktop.org</a>&gt;;
-                <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a> <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:amd-gfx@lists.freedesktop.org"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:amd-gfx@lists.freedesktop.org</a>&gt;
-                <br>
-                &gt;&gt;&gt;&gt;&gt;&gt;
-                <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a> <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:amd-gfx@lists.freedesktop.org"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:amd-gfx@lists.freedesktop.org</a>&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; *Subject:* Re: [PATCH] drm/ttm:
-                fix ttm tt init fail when size <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; exceeds kmalloc limit<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; Am 20.04.22 um 10:56 schrieb
-                Yang Wang:<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; if the __GFP_ZERO is set,
-                the kvmalloc() can't fallback to use <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; vmalloc()<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; Hui what? Why should kvmalloc()
-                not be able to fallback to vmalloc()<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; when __GFP_ZERO is set?<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; And even that is really the
-                case then that sounds like a bug in <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; kvmalloc().<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; Regards,<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; Christian.<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; [kevin]:<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; it is really test case from
-                libdrm amdgpu test, which try to <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; allocate a big BO which will
-                cause ttm tt init fail.<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; LOL! Guys, this test case is
-                intended to fail!<br>
-                &gt;&gt;&gt;&gt;&gt; *<br>
-                &gt;&gt;&gt;&gt;&gt; *The test consists of allocating a
-                buffer so ridiculous large that <br>
-                &gt;&gt;&gt;&gt;&gt; it should never succeed and be
-                rejected by the kernel driver.<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; This patch here is a really clear
-                NAK.<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt; Regards,<br>
-                &gt;&gt;&gt;&gt;&gt; Christian.<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; it may be a kvmalloc() bug, and
-                this patch can as a workaround <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; in ttm before this issue fix.<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; void *kvmalloc_node(size_t
-                size, gfp_t flags, int node)<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; {<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; ...<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;       if ((flags &amp;
-                GFP_KERNEL) != GFP_KERNEL)<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;               return
-                kmalloc_node(size, flags, node);<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; ...<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; }<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; Best Regards,<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; Kevin<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; to allocate memory, when
-                request size is exceeds kmalloc limit, <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; it will<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; cause allocate memory
-                fail.<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; e.g: when ttm want to
-                create a BO with 1TB size, it maybe fail.<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; Signed-off-by: Yang Wang
-                <a class="moz-txt-link-rfc2396E" href="mailto:KevinYang.Wang@amd.com">&lt;KevinYang.Wang@amd.com&gt;</a> <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &lt;<a
-                  href="mailto:KevinYang.Wang@amd.com"
-                  data-auth="NotApplicable" moz-do-not-send="true">mailto:KevinYang.Wang@amd.com</a>&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; ---<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;  
-                drivers/gpu/drm/ttm/ttm_tt.c | 14 +++++++++++---<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;   1 file changed, 11
-                insertions(+), 3 deletions(-)<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; diff --git
-                a/drivers/gpu/drm/ttm/ttm_tt.c <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; b/drivers/gpu/drm/ttm/ttm_tt.c<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; index
-                79c870a3bef8..9f2f3e576b8d 100644<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; ---
-                a/drivers/gpu/drm/ttm/ttm_tt.c<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; +++
-                b/drivers/gpu/drm/ttm/ttm_tt.c<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; @@ -97,9 +97,12 @@ int
-                ttm_tt_create(struct ttm_buffer_object <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; *bo, bool zero_alloc)<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;   static int
-                ttm_tt_alloc_page_directory(struct ttm_tt *ttm)<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;   {<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;        ttm-&gt;pages =
-                kvmalloc_array(ttm-&gt;num_pages, sizeof(void*),<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; -                    
-                GFP_KERNEL | __GFP_ZERO);<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; + GFP_KERNEL);<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;        if (!ttm-&gt;pages)<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;                return
-                -ENOMEM;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; +<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; +    
-                memset(ttm-&gt;pages, 0, ttm-&gt;num_pages * sizeof(void
-                *));<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; +<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;        return 0;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;   }<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; @@ -108,10 +111,12 @@
-                static int <br>
-                &gt;&gt;&gt;&gt;&gt;&gt;
-                ttm_dma_tt_alloc_page_directory(struct ttm_tt *ttm)<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;        ttm-&gt;pages =
-                kvmalloc_array(ttm-&gt;num_pages,<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; sizeof(*ttm-&gt;pages) +<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;
-                sizeof(*ttm-&gt;dma_address),<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; - GFP_KERNEL |
-                __GFP_ZERO);<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; + GFP_KERNEL);<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;        if (!ttm-&gt;pages)<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;                return
-                -ENOMEM;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; +    
-                memset(ttm-&gt;pages, 0, ttm-&gt;num_pages * <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; (sizeof(*ttm-&gt;pages) +
-                sizeof(*ttm-&gt;dma_address)));<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; +<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;        ttm-&gt;dma_address
-                = (void *)(ttm-&gt;pages + ttm-&gt;num_pages);<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;        return 0;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;   }<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; @@ -120,9 +125,12 @@
-                static int <br>
-                &gt;&gt;&gt;&gt;&gt;&gt;
-                ttm_sg_tt_alloc_page_directory(struct ttm_tt *ttm)<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;   {<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;        ttm-&gt;dma_address
-                = kvmalloc_array(ttm-&gt;num_pages,<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;
-                sizeof(*ttm-&gt;dma_address),<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; - GFP_KERNEL |
-                __GFP_ZERO);<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; + GFP_KERNEL);<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;        if
-                (!ttm-&gt;dma_address)<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;                return
-                -ENOMEM;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; +<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; +    
-                memset(ttm-&gt;dma_address, 0, ttm-&gt;num_pages * <br>
-                &gt;&gt;&gt;&gt;&gt;&gt; sizeof(*ttm-&gt;dma_address));<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt; +<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;        return 0;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;   }<br>
-                &gt;&gt;&gt;&gt;&gt;&gt; &gt;<br>
-                &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;&gt;<br>
-                &gt;&gt;&gt;<br>
-                &gt;&gt;<br>
-              </div>
-            </span></font></div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------vdznHasFmNx4e2RAlAoQXvZx--
