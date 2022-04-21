@@ -4,35 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78BB7C433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 13:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 214F2C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 13:06:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B4A410E351;
-	Thu, 21 Apr 2022 13:06:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10A4610E3B6;
+	Thu, 21 Apr 2022 13:06:25 +0000 (UTC)
 Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
  [IPv6:2a01:488:42:1000:50ed:8234::])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FAFB10F80A
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 08:29:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44D5510E724
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Apr 2022 11:11:36 +0000 (UTC)
 Received: from [2a02:8108:963f:de38:6624:6d8d:f790:d5c]; authenticated
  by wp530.webpack.hosteurope.de running ExIM with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1nhSBa-0002bh-Cn; Thu, 21 Apr 2022 10:29:10 +0200
-Message-ID: <44570dcb-edae-9a92-b5a8-cfe9da4e9b29@leemhuis.info>
-Date: Thu, 21 Apr 2022 10:29:09 +0200
+ id 1nhUik-0002yu-82; Thu, 21 Apr 2022 13:11:34 +0200
+Message-ID: <550cf7fc-47fa-777d-892d-8ec0b9d15445@leemhuis.info>
+Date: Thu, 21 Apr 2022 13:11:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
-Subject: Re: [PATCH V2] drm/amd/pm: fix the deadlock issue observed on SI
+Subject: Re: [PATCH] drm/amdgpu: don't runtime suspend if there are displays
+ attached (v2)
 Content-Language: en-US
-To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220411085453.38063-1-evan.quan@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20220421031607.1745623-1-alexander.deucher@amd.com>
 From: Thorsten Leemhuis <regressions@leemhuis.info>
-In-Reply-To: <20220411085453.38063-1-evan.quan@amd.com>
+In-Reply-To: <20220421031607.1745623-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1650529756;
- c613129c; 
-X-HE-SMSGID: 1nhSBa-0002bh-Cn
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1650539496;
+ a7026f63; 
+X-HE-SMSGID: 1nhUik-0002yu-82
 X-Mailman-Approved-At: Thu, 21 Apr 2022 13:06:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -45,37 +46,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, pmenzel@molgen.mpg.de,
- arthur.marsh@internode.on.net
+Cc: Michele Ballabio <ballabio.m@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11.04.22 10:54, Evan Quan wrote:
-> The adev->pm.mutx is already held at the beginning of
-> amdgpu_dpm_compute_clocks/amdgpu_dpm_enable_uvd/amdgpu_dpm_enable_vce.
-> But on their calling path, amdgpu_display_bandwidth_update will be
-> called and thus its sub functions amdgpu_dpm_get_sclk/mclk. They
-> will then try to acquire the same adev->pm.mutex and deadlock will
-> occur.
+On 21.04.22 05:16, Alex Deucher wrote:
+> We normally runtime suspend when there are displays attached if they
+> are in the DPMS off state, however, if something wakes the GPU
+> we send a hotplug event on resume (in case any displays were connected
+> while the GPU was in suspend) which can cause userspace to light
+> up the displays again soon after they were turned off.
 > 
-> By placing amdgpu_display_bandwidth_update outside of adev->pm.mutex
-> protection(considering logically they do not need such protection) and
-> restructuring the call flow accordingly, we can eliminate the deadlock
-> issue. This comes with no real logics change.
+> Prior to
+> commit 087451f372bf76 ("drm/amdgpu: use generic fb helpers instead of setting up AMD own's."),
+> the driver took a runtime pm reference when the fbdev emulation was
+> enabled because we didn't implement proper shadowing support for
+> vram access when the device was off so the device never runtime
+> suspended when there was a console bound.  Once that commit landed,
+> we now utilize the core fb helper implementation which properly
+> handles the emulation, so runtime pm now suspends in cases where it did
+> not before.  Ultimately, we need to sort out why runtime suspend in not
+> working in this case for some users, but this should restore similar
+> behavior to before.
 > 
-> Fixes: 3712e7a49459 ("drm/amd/pm: unified lock protections in amdgpu_dpm.c")
-> Reported-by: Paul Menzel <pmenzel@molgen.mpg.de>
-> Reported-by: Arthur Marsh <arthur.marsh@internode.on.net>
-> Link: https: //lore.kernel.org/all/9e689fea-6c69-f4b0-8dee-32c4cf7d8f9c@molgen.mpg.de/
-> BugLink: https: //gitlab.freedesktop.org/drm/amd/-/issues/1957
+> v2: move check into runtime_suspend
+> v3: wake ups -> wakeups in comment, retain pm_runtime behavior in
+>     runtime_idle callback
+> 
+> Fixes: 087451f372bf76 ("drm/amdgpu: use generic fb helpers instead of setting up AMD own's.")
+> Tested-by: Michele Ballabio <ballabio.m@gmail.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> [...]
 
-Side note: two spaces sneaked in there. But that's not why I write this
-mail.
+Hi Alex, how can I bribe you to start placing "Link:" tags in
+submissions that fix regressions (like this one), as explained in the
+Linux kernels documentation (see
+'Documentation/process/submitting-patches.rst' and
+'Documentation/process/5.Posting.rst'). E.g. in this case like this:
 
-This patch is fixing a regression in 5.18-rc, but it looks like things
-are stuck for more than a week now. What's up there? Or was progress
-made somewhere and I just couldn't find it? Was the review comment from
-Lijo addressed?
+"Link:
+https://lore.kernel.org/r/20220403132322.51c90903@darkstar.example.org/"
+
+This concept is not new (Linus and quite a few other developers use them
+like this for a long time), I just recently improved those documents to
+clarify things, as my regression tracking efforts rely on them -- that's
+why it's making my work a lot harder if they are missing most of the
+time. :-/
 
 Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
 
@@ -87,185 +103,5 @@ that's not the case here; if you think it is, don't hesitate to tell me
 in a public reply, it's in everyone's interest to set the public record
 straight.
 
-#regzbot ignore-activity
 #regzbot ^backmonitor:
-https://lore.kernel.org/all/9e689fea-6c69-f4b0-8dee-32c4cf7d8f9c@molgen.mpg.de/
-
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> --
-> v1->v2:
->   - rich the commit messages(Paul)
-> ---
->  drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 39 +++++++++++++++++++
->  .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    | 10 -----
->  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 35 -----------------
->  .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 10 -----
->  4 files changed, 39 insertions(+), 55 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> index 5504d81c77b7..72e7b5d40af6 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> @@ -427,6 +427,7 @@ int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors senso
->  void amdgpu_dpm_compute_clocks(struct amdgpu_device *adev)
->  {
->  	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> +	int i;
->  
->  	if (!adev->pm.dpm_enabled)
->  		return;
-> @@ -434,6 +435,15 @@ void amdgpu_dpm_compute_clocks(struct amdgpu_device *adev)
->  	if (!pp_funcs->pm_compute_clocks)
->  		return;
->  
-> +	if (adev->mode_info.num_crtc)
-> +		amdgpu_display_bandwidth_update(adev);
-> +
-> +	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
-> +		struct amdgpu_ring *ring = adev->rings[i];
-> +		if (ring && ring->sched.ready)
-> +			amdgpu_fence_wait_empty(ring);
-> +	}
-> +
->  	mutex_lock(&adev->pm.mutex);
->  	pp_funcs->pm_compute_clocks(adev->powerplay.pp_handle);
->  	mutex_unlock(&adev->pm.mutex);
-> @@ -443,6 +453,20 @@ void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable)
->  {
->  	int ret = 0;
->  
-> +	if (adev->family == AMDGPU_FAMILY_SI) {
-> +		mutex_lock(&adev->pm.mutex);
-> +		if (enable) {
-> +			adev->pm.dpm.uvd_active = true;
-> +			adev->pm.dpm.state = POWER_STATE_TYPE_INTERNAL_UVD;
-> +		} else {
-> +			adev->pm.dpm.uvd_active = false;
-> +		}
-> +		mutex_unlock(&adev->pm.mutex);
-> +
-> +		amdgpu_dpm_compute_clocks(adev);
-> +		return;
-> +	}
-> +
->  	ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_UVD, !enable);
->  	if (ret)
->  		DRM_ERROR("Dpm %s uvd failed, ret = %d. \n",
-> @@ -453,6 +477,21 @@ void amdgpu_dpm_enable_vce(struct amdgpu_device *adev, bool enable)
->  {
->  	int ret = 0;
->  
-> +	if (adev->family == AMDGPU_FAMILY_SI) {
-> +		mutex_lock(&adev->pm.mutex);
-> +		if (enable) {
-> +			adev->pm.dpm.vce_active = true;
-> +			/* XXX select vce level based on ring/task */
-> +			adev->pm.dpm.vce_level = AMD_VCE_LEVEL_AC_ALL;
-> +		} else {
-> +			adev->pm.dpm.vce_active = false;
-> +		}
-> +		mutex_unlock(&adev->pm.mutex);
-> +
-> +		amdgpu_dpm_compute_clocks(adev);
-> +		return;
-> +	}
-> +
->  	ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_VCE, !enable);
->  	if (ret)
->  		DRM_ERROR("Dpm %s vce failed, ret = %d. \n",
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> index 9613c6181c17..d3fe149d8476 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-> @@ -1028,16 +1028,6 @@ static int amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
->  void amdgpu_legacy_dpm_compute_clocks(void *handle)
->  {
->  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-> -	int i = 0;
-> -
-> -	if (adev->mode_info.num_crtc)
-> -		amdgpu_display_bandwidth_update(adev);
-> -
-> -	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
-> -		struct amdgpu_ring *ring = adev->rings[i];
-> -		if (ring && ring->sched.ready)
-> -			amdgpu_fence_wait_empty(ring);
-> -	}
->  
->  	amdgpu_dpm_get_active_displays(adev);
->  
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> index caae54487f9c..633dab14f51c 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> @@ -3892,40 +3892,6 @@ static int si_set_boot_state(struct amdgpu_device *adev)
->  }
->  #endif
->  
-> -static int si_set_powergating_by_smu(void *handle,
-> -				     uint32_t block_type,
-> -				     bool gate)
-> -{
-> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-> -
-> -	switch (block_type) {
-> -	case AMD_IP_BLOCK_TYPE_UVD:
-> -		if (!gate) {
-> -			adev->pm.dpm.uvd_active = true;
-> -			adev->pm.dpm.state = POWER_STATE_TYPE_INTERNAL_UVD;
-> -		} else {
-> -			adev->pm.dpm.uvd_active = false;
-> -		}
-> -
-> -		amdgpu_legacy_dpm_compute_clocks(handle);
-> -		break;
-> -	case AMD_IP_BLOCK_TYPE_VCE:
-> -		if (!gate) {
-> -			adev->pm.dpm.vce_active = true;
-> -			/* XXX select vce level based on ring/task */
-> -			adev->pm.dpm.vce_level = AMD_VCE_LEVEL_AC_ALL;
-> -		} else {
-> -			adev->pm.dpm.vce_active = false;
-> -		}
-> -
-> -		amdgpu_legacy_dpm_compute_clocks(handle);
-> -		break;
-> -	default:
-> -		break;
-> -	}
-> -	return 0;
-> -}
-> -
->  static int si_set_sw_state(struct amdgpu_device *adev)
->  {
->  	return (amdgpu_si_send_msg_to_smc(adev, PPSMC_MSG_SwitchToSwState) == PPSMC_Result_OK) ?
-> @@ -8125,7 +8091,6 @@ static const struct amd_pm_funcs si_dpm_funcs = {
->  	.print_power_state = &si_dpm_print_power_state,
->  	.debugfs_print_current_performance_level = &si_dpm_debugfs_print_current_performance_level,
->  	.force_performance_level = &si_dpm_force_performance_level,
-> -	.set_powergating_by_smu = &si_set_powergating_by_smu,
->  	.vblank_too_short = &si_dpm_vblank_too_short,
->  	.set_fan_control_mode = &si_dpm_set_fan_control_mode,
->  	.get_fan_control_mode = &si_dpm_get_fan_control_mode,
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> index dbed72c1e0c6..1eb4e613b27a 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-> @@ -1503,16 +1503,6 @@ static void pp_pm_compute_clocks(void *handle)
->  {
->  	struct pp_hwmgr *hwmgr = handle;
->  	struct amdgpu_device *adev = hwmgr->adev;
-> -	int i = 0;
-> -
-> -	if (adev->mode_info.num_crtc)
-> -		amdgpu_display_bandwidth_update(adev);
-> -
-> -	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
-> -		struct amdgpu_ring *ring = adev->rings[i];
-> -		if (ring && ring->sched.ready)
-> -			amdgpu_fence_wait_empty(ring);
-> -	}
->  
->  	if (!amdgpu_device_has_dc_support(adev)) {
->  		amdgpu_dpm_get_active_displays(adev);
-
+https://lore.kernel.org/lkml/20220403132322.51c90903@darkstar.example.org/
