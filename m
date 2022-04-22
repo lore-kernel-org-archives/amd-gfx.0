@@ -4,45 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC2DDC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Apr 2022 14:28:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50574C433FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Apr 2022 14:58:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAD7010E4C8;
-	Fri, 22 Apr 2022 14:28:29 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A52C010E132;
- Fri, 22 Apr 2022 14:28:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=9nJGD0ALpi4ZEslTLhyAFX8KcdFr5YqB5pf4RusRpVE=; b=nki5xphEufnUq9lwcMt6UGIttX
- 4LFqniQ3EPwNVMb/pI7Cvut+W0czlW+j9DXVTazgzpdWc1GxGqD9UYFQYvNcCsOTFdYfisAQsf+CL
- MXnvvBIHmsBhKHSjXbi5+c3o8KWu87Wqr0jOzwHIH1vFTXvw6DXCTnZ5/bHG6Fp+ZMh45RhqrKVP9
- 3tsZtyocmRAXjSVQw8HCl/yhjD71JMn+BvYTLB5BtfLAEciruPzrJ0SXeAbeIYnJRXB1E57QEYw3X
- uE9xfajZvr9qOrm3r0VwkwKaY+vdiLwYUFkDNQQWiqxihdd4E280zXhdvXHQ+lEL6RHvPR043m8Xu
- 2QTQ/9dA==;
-Received: from [165.90.126.25] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1nhuGn-0004Yx-CO; Fri, 22 Apr 2022 16:28:25 +0200
-Date: Fri, 22 Apr 2022 13:28:11 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: AMD display drivers handling DRM CRTC color mgmt props
-Message-ID: <20220422142811.dm6vtk6v64jcwydk@mail.igalia.com>
-References: <20220421143747.247mohbio436ivqo@mail.igalia.com>
- <06891dd7-b2f4-ece6-b1a5-b9ad15f5f899@amd.com>
- <20220421191945.yn4plwv757jlri2n@mail.igalia.com>
- <b94504d9-4d19-5663-f67d-7b1376827335@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEC5310F125;
+	Fri, 22 Apr 2022 14:58:40 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2059.outbound.protection.outlook.com [40.107.236.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7F1C10ECFA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Apr 2022 14:58:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I6NHGWrRhfwh8/EvnGC1OpkQ2nVEWzrgSLkL6q21/EGwrukcSa+8YBBpraqKOUWbUnDY03o1qQ5k8b5UUg2eyBfexvyi1kcw9+sE46PA0hDvaxUcjlh4QkiYn4XlJR1qjkrfNHNhYSXzR8whmxaw8Ti+yq6HkPlasv1jYyQjSody0M7zvXOv+5HpQ6Rimz0zC9tg4Rpe55s1sMVRGvWXkCAPtB7RcdLZmzaI4XowajCOq+kNLAHeRQy5pWdm9Z0g+EtI8u3cxkCIj16czhBAVJbHJ06+rbTF0xXQe9o0POojue+VrDK5v93Lx9vNCQjrPB7NeobHJ9nt6ms43EwOOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gu9BXhBPE9OaXH+FMabuCTHcRz/VbvPmdEX4RGqfFvs=;
+ b=nmjvp1gWDqOZqWXT0jExh0QXnIjri4ZMDxJEgqtz6P+9wziyxa5Ej0vuL+CeEBFDEuBi9mJmcOClz1hXEpSWUeuFpbiMVmyLfDhQAEhiQDgkowsr1KbkMCWv6IszF3otE/p/hysR/zHburUgUJPEV8aKtf7T2LI/BOfw1dfmGfLSVeDNxjUqWb7EGuF1QGIU8cRyQOjyH3uKeB+lG+BHuHd9EHcRyuvVrQH9jd1nHGbfgS0E1czroAW0ph/l01Dhz5qIYvwQ80k7IGVPNGVzrTzxuUu5Sk8BZNY5chHLxMF0KGVNa5egFdv6p9+o26v7GXlnbev6MAxO/UYr/JnpRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gu9BXhBPE9OaXH+FMabuCTHcRz/VbvPmdEX4RGqfFvs=;
+ b=ykV9JSwYYmN0V75kRo9mwcmOoJH6wkmpF8EDfnXhF077qe1qI1D8xDW0fx+5KDQKZABOfw7lIrZjjoPe6TiWHhVlCRvmKvfBfTQUjZBexjeiUAdRWH2pziXEQ3WIsjWz4fB3JrSg+UEOyLIHO5/9W2gootXCAkTAwMxyTixSwOc=
+Received: from MW4PR03CA0135.namprd03.prod.outlook.com (2603:10b6:303:8c::20)
+ by MN2PR12MB4359.namprd12.prod.outlook.com (2603:10b6:208:265::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.13; Fri, 22 Apr
+ 2022 14:58:37 +0000
+Received: from CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8c:cafe::a5) by MW4PR03CA0135.outlook.office365.com
+ (2603:10b6:303:8c::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14 via Frontend
+ Transport; Fri, 22 Apr 2022 14:58:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT041.mail.protection.outlook.com (10.13.174.217) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5186.14 via Frontend Transport; Fri, 22 Apr 2022 14:58:37 +0000
+Received: from MSDN-LAPTOPDYU.localdomain (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Fri, 22 Apr 2022 09:58:35 -0500
+From: David Yu <David.Yu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Ta fw needs to be loaded for SRIOV aldebaran
+Date: Fri, 22 Apr 2022 10:58:22 -0400
+Message-ID: <20220422145822.3628-1-David.Yu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="6cvtn3wedhuoalan"
-Content-Disposition: inline
-In-Reply-To: <b94504d9-4d19-5663-f67d-7b1376827335@amd.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a8f56b05-7cb2-440c-e280-08da2470948c
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4359:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4359D4B4698FC85DA91B3E8981F79@MN2PR12MB4359.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: n95dAXZyz/wjxCYHrFoARDXIQpOxOLbcFFvgyPHU654CImhgQnGlk/seSjHCRzIbV1i4jhuVoE84PxtR8npRocB07F+1QrRtoKcn4Y+/rER6HYTSbmxe3FjYGiEM/LH/J+Q3AyiksHlmBGrd5an7U4y3YCybilKGU61rX12rojMXJuwCCbNRhNliwdWcmAVLjacUuFjZU+r6bdKCdkOpohplHamdSLhZkcnGwbRu7fSf+sAdbgB/jsh43m0YKlST7CyXJeIP9d/RQfy92boBXIrOyfjOU84C61J4CbXdUWdIPW1gEblu4FDKHb1uULpoQAAm4ZEnKjiRqDrJIHkgA9rFq9WUI+aKM6dJtWcyTbEBSoRg9cK/Q9TbaYHOT9Jnq9m/RxvRMIeV3799vzVmAlcsTCmmwznMupNELmOtJnVdN8oJSs1CCx9DppRGPnA3H3kRUGawB/MjlCW2Bvuj6XDbl54bKdpdYELq6EtX1dHGVQALxrIYPslWGUaBLPOac+mKh29IUQjrxtpLupVkd5WGUknCFk3VpetKy7laPeAd/801lSd4nn4v3bKXDx4OK0ZfiNh68HpA9fOIURSUOKzfB+rgJOMt/UYVM8zgfDHumptNqtTV9P9OrIF0cOdBU3SqIwa+gFI8OIDtNnfuczjZ/zoe0WhjRALFSwQJX5kQBJ4ccdxnVjKDfNZ1x5E9qGqJslUpo8VMjqKhdOhMLw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(36860700001)(40460700003)(47076005)(6666004)(4326008)(82310400005)(26005)(83380400001)(356005)(316002)(6916009)(508600001)(5660300002)(16526019)(81166007)(426003)(4744005)(70206006)(1076003)(8676002)(336012)(186003)(70586007)(2616005)(36756003)(86362001)(2906002)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2022 14:58:37.1669 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8f56b05-7cb2-440c-e280-08da2470948c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT041.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4359
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,252 +98,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo.Siqueira@amd.com, dri-devel@lists.freedesktop.org,
- Nicholas.Kazlauskas@amd.com, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, alexander.deucher@amd.com, Bhawanpreet.Lakha@amd.com,
- christian.koenig@amd.com
+Cc: David Yu <David.Yu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Load ta fw during psp_init_sriov_microcode to enable XGMI
 
---6cvtn3wedhuoalan
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: David Yu <David.Yu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-On 04/21, Harry Wentland wrote:
->=20
->=20
-> On 2022-04-21 15:20, Melissa Wen wrote:
-> > On 04/21, Harry Wentland wrote:
-> > >=20
-> > >=20
-> > > On 2022-04-21 10:37, Melissa Wen wrote:
-> > > > Hi all,
-> > > >=20
-> > > > I'm examining how DRM color management properties (degamma, ctm, ga=
-mma)
-> > > > are applied to AMD display drivers. As far I could understand thanks
-> > > > Nicholas documentation on amdgpu_dm/amdgpu_dm_color, DC drivers have
-> > > > per-plane color correction features:
-> > > >=20
-> > Hi Harry,
-> >=20
-> > Wow, thanks so much for all details!
-> > >=20
-> > > DC programs some of the color correction features pre-blending but
-> > > DRM/KMS has not per-plane color correction properties.
-> > >=20
-> > > See this series from Uma Shankar for an RFC on how to introduce those
-> > > properties for 1D LUTs and CSC matrix:
-> > > https://patchwork.freedesktop.org/series/90826/
-> > >=20
-> > > Bhanuprakash has a series of IGT tests for these properties:
-> > > https://patchwork.freedesktop.org/series/96895/
-> > >=20
-> > > I've rebased these on amd-staging-drm-next and maintain a kernel and =
-IGT
-> > > branch with these patches:
-> > > https://gitlab.freedesktop.org/hwentland/linux/-/tree/color-and-hdr
-> > > https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/color-a=
-nd-hdr
-> > >=20
-> > > We've had many discussions with Weston guys on this. In order to merg=
-e the
-> > > kernel properties we need a canonical userspace implementation that a=
-re
-> > > using it. Weston guys are working towards that but if you want to sug=
-gest a
-> > > different userspace to serve as that vehicle I'd be all ears. :)
-> > >=20
-> > > Note that in order to show this all working we also need a Wayland Pr=
-otocol
-> > > update.
-> > >=20
-> > > See
-> > > https://gitlab.freedesktop.org/pq/color-and-hdr
-> > > https://gitlab.freedesktop.org/swick/wayland-protocols
-> > > https://gitlab.freedesktop.org/wayland/weston/-/issues/467
-> >=20
-> > So, I've followed these discussions (until the issue on naming) because
-> > initially I considered it addresses our current goals for color
-> > correction. But after some discussions, what we are targeting is a 3D
-> > LUT after blending (per-CRTC). I found past proposals on dri-devel
-> > [1][2] to extend the DRM CRTC color management properties, but they
-> > didn't move forward and were never applied.
-> >=20
->=20
-> They're stuck in limbo until we have an upstream userspace
-> implementation that's making use of them.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index f6527aa19238..895251f42853 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -275,7 +275,8 @@ static int psp_init_sriov_microcode(struct psp_context *psp)
+ 		ret = psp_init_cap_microcode(psp, "sienna_cichlid");
+ 		break;
+ 	case IP_VERSION(13, 0, 2):
+-		ret = psp_init_cap_microcode(psp, "aldebaran");
++		ret = psp_init_ta_microcode(psp, "aldebaran");
++		ret &= psp_init_cap_microcode(psp, "aldebaran");
+ 		break;
+ 	default:
+ 		BUG();
+-- 
+2.25.1
 
-Yes... afaiu, the basic requirements for all of these changes are IGT
-tests + open userspace usage, right?
-
->=20
-> > >=20
-> > > > * - Input gamma LUT (de-normalized)
-> > > > * - Input CSC (normalized)
-> > > > * - Surface degamma LUT (normalized)
-> > > > * - Surface CSC (normalized)
-> > > > * - Surface regamma LUT (normalized)
-> > > > * - Output CSC (normalized)
-> > > > so DM is "adapting" those DRM per-CRTC properties to fit into three=
- of
-> > > > these color correction stages, which I guess are the surface stages:
-> > > >=20
-> > > > * - Surface degamma LUT (normalized)
-> > > > * - Surface CSC (normalized)
-> > > > * - Surface regamma LUT (normalized)
-> > > >=20
-> > > > I'm trying to understand what this mapping is doing. A comment ment=
-ions
-> > > > that is not possible to do these color corrections after blending, =
-so,
-> > > > the same color correction pipe is performed on every plane before
-> > > > blending?  (is the surface the plane?) Does this adaptation affect =
-the
-> > > > expected output?  Moreover, is there something that I misunderstood=
-? :)
-> > > >=20
-> > >=20
-> > > What's possible to do before and after blending has changed quite a b=
-it
-> > > between DCN generations. We program the CRTC Gamma and CTM after blen=
-ding.
-> > > See attached picture for a view relating the color bits between the D=
-RM
-> > > interface, DC interface and DCN 3.0 HW blocks.
-> >=20
-> > This picture is really enlightening, thanks!
-> > You said it changes between generations, therefore, I can't consider the
-> > DCN 2.x family follow the same mapping, right? If so, can you share the
-> > main differences for a DCN 2.x regarding per-CRTC properties?
-> >=20
->=20
-> See attached diagram for DCN 2.0.
-
-Thanks again!
-
->=20
-> > >=20
-> > > > That said, if the DRM color mgmt supports per-CRTC 3D LUT as the la=
-st
-> > >=20
-> > > Where do you see 3D LUT support in DRM? Is there a new proposal that =
-I've
-> > > missed?
-> >=20
-> > So, it's exactly what I aim to work: a proposal to add 3D LUT to the
-> > current range of DRM per-CRTC color properties. But I also need to
-> > understand how this property will be mapped to AMD display once it
-> > exists in the DRM framework.
-> >=20
->=20
-> Ah, nice to see. :)
->=20
-> > One of the things that caught my attention after seeing the attached
-> > picture is the position of 3D LUT. I was expecting to see the 3D LUT
-> > correction after gamma correction. Is this position a particularity of
-> > DCN 3.0 (that varies between hw) or was I expecting a wrong color
-> > correction pipeline at all?
-> >=20
->=20
-> Before DCN 3.0 there was no 3D LUT after blending.
->
-By comparing these diagrams, I'm curious: in case we have a per-CRTC 3D
-LUT support on DRM, DCN 2.0 generations would initially map this
-property as a pre-blending property on DPP (currently the same approach
-for CTM, for example), right? But after we also have a per-plane color
-management property, those per-CRTC property would be ignored? And how
-about degamma for both generations? No problem if there isn't an answer
-yet (many if's), but it may help me to think of a more generic solution.
-
-> Note in the diagram that our HW (and DC interface) have a Shaper LUT
-> available before the 3D LUT. You could expose if you want to shape your
-> content post-blending before applying the 3D LUT.
->=20
-> The 3D LUT is most effective when it's in non-linear space. Currently
-> DRM has no way to specify a way for drm_plane to be linearized (see notes
-> (1) and (2)) so it is assumed that you're blending in non-linear space and
-> therefore your pixels would already be non-linear going into your 3D LUT.
->=20
-> (1) unless you use the drm_plane PWL API that was proposed
-> (2) amdgpu_dm is currently setting the drm_crtc degamma LUT on the
->     DC plane. This might lead to unexpected behavior when using
->     multiple planes (though I believe gamescope is making use of
->     this behavior).
-
-Thanks for raising these points. In fact, I was considering unexpected
-behavior when I saw this DRM <-> DC mapping.
->=20
-> Have you looked at [1] yet? It might provide a good example on how to
-> define a 3D LUT. For AMD HW you'll want a 17x17x17 LUT.
->=20
-> [1] http://intel.github.io/libva/structVAProcFilterParameterBuffer3DLUT.h=
-tml
-
-Not yet, but it seems helpful. I'll take as a reference... until now,
-I've only examined details on DC drivers.
-
-Thanks,
-
-Melissa
-
->=20
-> Harry
->=20
-> > Melissa
-> >=20
-> > [1] https://lore.kernel.org/all/20201221015730.28333-1-laurent.pinchart=
-+renesas@ideasonboard.com/
-> > [2] https://github.com/vsyrjala/linux/commit/4d28e8ddf2a076f30f9e5bdc17=
-cbb4656fe23e69
-> > >=20
-> > > I'm thinking of putting a 3D LUT proposal together but haven't gotten=
- around
-> > > to it yet. We'll want a pre-blending 3D LUT, and possible a programma=
-ble
-> > > post-blending one as well.
-> > >=20
-> > > Thanks,
-> > > Harry
-> > >=20
-> > > > step of color correction, I don't see how to accommodate it in the
-> > > > mapping above, but I see DC already supports programming 3D LUT on =
-DPP.
-> > > > Once DRM has the 3D LUT interface and DM mapped it as a DPP propert=
-y,
-> > > > the 3D LUT will be at the end of the color correction pipeline? Is =
-there
-> > > > anything I need to worry about mapping DRM 3D LUT support? Or any
-> > > > advice?
-> > > >=20
-> > > > Thanks in advance,
-> > > >=20
-> > > > Melissa
-> >=20
-> >=20
-
-
-
---6cvtn3wedhuoalan
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmJiu3YACgkQwqF3j0dL
-ehwQ6xAAiyYjV2cxCzEk6iF3KxmOM9dAvoXGNTv6cPlga3W9RADB86W773hCy0fw
-aBqWIBsSb6uPJ2aMNd9/5NRhGc6LBqJGW2eU65IPOlvbgpeMI6kqSVDdeLDxGu8t
-X/CfBkSShgg9ddph7g16rIgkH7sUMYIxj9CISzDeMwO/fg0iGMfERBItruOohBgW
-bAOJ+78aO7Ey87oF+FFicsVNY4IccEb/aQq6KTbQgXdxJMvYPfscW7dxD8gA8P/o
-W47bya9WSBd2O1H88OMN1y1utZmKcvQeIB1+RhvInbfuSoc3MJTTxbCsezoJqY2O
-nSno18A8sN9mldeSx2K8ze8yvYwYx5PRUNa9t76vFB9U0d7EmqIRrPf0Eru2YMrO
-U4JDHmNidLfFGR26Z8/BP7p2k4wUj4JkrVl9gzFPujVS7cJcoNbHeadAm0166/aB
-udErf7mF/Rj4Sarj3/Bmo/ZqZXeEhLukNReEQmVj/RspAeCHJZqlHzKnbTNi0TH0
-usRHVbldlYr9DKzfGAStSPjhPlxnqQAXBOuml6VnVutTzkh1VuEkJl8DG8Z5fhVn
-Fd+UzzGn2GksXrGnTPdsL9Gbl9aTz2k8r4DwnLAQd04vd6HT7gt7QcifokF0uU5m
-e4AOF9bIHQoGzV/SbtlAbfdPwTIve0MDypk+jWj74Eu5cllbFfM=
-=ly/5
------END PGP SIGNATURE-----
-
---6cvtn3wedhuoalan--
