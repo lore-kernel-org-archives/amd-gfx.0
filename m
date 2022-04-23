@@ -4,65 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E081CC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 07:33:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F1A2C433EF
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 07:33:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB2DE10E6E0;
-	Mon, 25 Apr 2022 07:33:13 +0000 (UTC)
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8FB910F76D
- for <amd-gfx@lists.freedesktop.org>; Sun, 24 Apr 2022 23:39:26 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 5E5D75C01A6;
- Sun, 24 Apr 2022 19:39:24 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Sun, 24 Apr 2022 19:39:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1650843564; x=
- 1650929964; bh=TnzC/xewfks6siQR2OzUMgonZrv7KZx+dVNe8LLuhCc=; b=L
- M8JA2SwWTGr6LGXrFQ9NYpfhYDDamqXrrClVeoNa5w4cJqDfi634PGAcQrUNdW7z
- 1Xv4LmgyopQcr/0FPOBZg19l2O7qL8MPYmfDGUa+GuavZ6Twzn680cM9ae1BmqmI
- TcJ4FyeCB5PTy3kL/zMECnLPhPIAWQTwdyEwy2qnd2g51krPQBpAWnhvZtOucGIn
- Cm1UHBAelbL/XqllwOnCKG1XqPkqMlilaHsmSKGWd9ffLqS6+YVHnN5NFxFMr1lE
- 2AepO63Bl4/djYiwobt7jPVVxmm2gfmrR5z5+1tyeTpWax/7L+jvE6mqr4x4V58x
- 3DhQEolRIs7VU+eNJVsmA==
-X-ME-Sender: <xms:rN9lYipgpaU3-5aeL4nfjUGXztenvPV1JL5sklRhy5Wobr9xglrqTg>
- <xme:rN9lYgrKfXajtuHr5bbfZVS9Gt03q3Y0iWuOup74dQovq2iC4ZSWOqjKPDg6K8ddX
- w2uYtWlJc1IlrI>
-X-ME-Received: <xmr:rN9lYnNarFv8ko65osE2R2Y0Md0VYZrkWJGtuaTQhSbU_MVcblZVoklxrXF3>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedruddtgddviecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghmihcu
- ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
- hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeutdehhfdtvdfffeejjedvhedvjeei
- heffheekkeehgeelueelveeludetheetteenucffohhmrghinhepghhithhhuhgsrdgtoh
- hmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggv
- mhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:rN9lYh5BjUKBmJ_-sdFjgL38sJA8YNbqcRYrj5PJZp-0M_DR7n2Vog>
- <xmx:rN9lYh5ykYYP69Gb6K4gDzvOZkKrIc8vkuHQIT7Mkr5Bbdmcdrw5RA>
- <xmx:rN9lYhgnA7HeIp14WCiix89GC4o4ZK9PA0CBWPsusaeuzoqEKS3KIg>
- <xmx:rN9lYk0vpV53s2kpG3HYjfzH4jWpZvD26LuUvwefBndD7ScogIX7XA>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 24 Apr 2022 19:39:23 -0400 (EDT)
-Date: Sun, 24 Apr 2022 19:38:47 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
- Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [REGRESSION] AMD GPU regression in 5.16.18..5.17.4
-Message-ID: <YmXfqrktdufyYC4r@itl-email>
-References: <YmQi7ajZpZ4W7BJL@itl-email> <YmQkCXZEqp6TKrhJ@itl-email>
- <YmTqYkGEqiz1o2o6@kroah.com>
- <e1950610-ba09-7c42-4a1a-152ad41015b5@leemhuis.info>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2521310E7C3;
+	Mon, 25 Apr 2022 07:33:14 +0000 (UTC)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD10810E489
+ for <amd-gfx@lists.freedesktop.org>; Sat, 23 Apr 2022 16:31:56 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id g19so19314339lfv.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 23 Apr 2022 09:31:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:subject:message-id:mime-version;
+ bh=A+4bwDc/fxhJPoJinnNWLGQDdeldBdMLh6UUu6Sf/Wo=;
+ b=I/yETCcU1EWGcca3bru3w6rEyIcL9mU6w9WXZJeUKRFxueETvMonguraWImj7nmMui
+ K3pSEyMP/ifEb3mCTcE+N1CUbJ7ZTcLpLZVh1oxcUHwmxVYU0Tl6jeJtXmDymY/nEvSd
+ /OG4ecC2OCpF7HmSMPffwEyNwn60EovbCvENQ3uJPgl2vP6guKdXwu/ZXa6AurLb0xsp
+ GArRiEHCex9S8TSUQVdBR/nH1s6zCjmxnvjxux2olA37HFvhvJaM1Dysa4mHQyaCUpbR
+ QwulnQWuPCc4fuXHi2t8GwZ1zaPbJgqffQ/UnGfRcZt/OfXp+cAwsDirtLqtArs+7o5E
+ 8HwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:subject:message-id:mime-version;
+ bh=A+4bwDc/fxhJPoJinnNWLGQDdeldBdMLh6UUu6Sf/Wo=;
+ b=kBb/2cob9uubb3w/NQqXJXvcE2B/aHioYBH+QBCH1iKaYU10bgLk+V7tnu7+sLOsrN
+ XgOLYsb3X6y/t1LelH13QR8ajhBFtI1LbCu+eAcBkgetM+uCF9kUbQMrAZTIbv5Bkzar
+ J+NFfI5L44aptWzuxhMjni43GzRM5xnCheeqXb7rXxGRFUURvjF3PLXX9XJBLvaT4B89
+ mA+eoksHWXIDZnu3/o6pZTTMZFtsuO7kDdYvJXHiZUnBUXiViXC1UOdtmkD0u6A0ax0S
+ +2LTdKtgDlM/bhCZkvGJMQDWa5GsQCdWwTJImMuRgh7oTqAfVCK81r3AHwsJbtdOVLqD
+ BUWg==
+X-Gm-Message-State: AOAM533gKN6WVE4cAmZpGNFSkzv9XPIkiQtSzrypeHJaxeiY8r1S+GLF
+ uhuTWdnmRfe8HJUJtnxLbjfZORYtLw==
+X-Google-Smtp-Source: ABdhPJykNFrpY+p5YJCA0QcXSLUbwQqWyQo0T+wSZ8IscE4vS4RwvMCJkYT4Eg4Tf0TlP6/pchh+YA==
+X-Received: by 2002:a05:6512:1328:b0:445:cefe:f8b7 with SMTP id
+ x40-20020a056512132800b00445cefef8b7mr7042999lfu.34.1650731514225; 
+ Sat, 23 Apr 2022 09:31:54 -0700 (PDT)
+Received: from desktop (ppp85-141-144-80.pppoe.mtu-net.ru. [85.141.144.80])
+ by smtp.gmail.com with ESMTPSA id
+ d11-20020a19384b000000b0046bbd144dfesm671990lfj.125.2022.04.23.09.31.53
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 23 Apr 2022 09:31:53 -0700 (PDT)
+Date: Sat, 23 Apr 2022 19:31:45 +0300
+From: Krylov Michael <sqarert@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: Screen corruption using radeon kernel driver
+Message-ID: <20220423193145.3301ed06@desktop>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; i686-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="IWeqqwZPHTdMGABi"
-Content-Disposition: inline
-In-Reply-To: <e1950610-ba09-7c42-4a1a-152ad41015b5@leemhuis.info>
+Content-Type: multipart/signed; boundary="Sig_/z0sqPSHN8+i79pqpAS4ynzJ";
+ protocol="application/pgp-signature"; micalg=pgp-sha512
 X-Mailman-Approved-At: Mon, 25 Apr 2022 07:33:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,87 +67,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, regressions@lists.linux.dev,
- amd-gfx@lists.freedesktop.org,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
---IWeqqwZPHTdMGABi
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+--Sig_/z0sqPSHN8+i79pqpAS4ynzJ
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 24 Apr 2022 19:38:47 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
-	Greg KH <gregkh@linuxfoundation.org>
-Cc: amd-gfx@lists.freedesktop.org, regressions@lists.linux.dev,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	"Pan, Xinhui" <Xinhui.Pan@amd.com>
-Subject: Re: [REGRESSION] AMD GPU regression in 5.16.18..5.17.4
 
-On Sun, Apr 24, 2022 at 11:02:43AM +0200, Thorsten Leemhuis wrote:
-> CCing the amdgpu maintainers
->=20
-> On 24.04.22 08:12, Greg KH wrote:
-> > On Sat, Apr 23, 2022 at 12:06:33PM -0400, Demi Marie Obenour wrote:
-> >> Two Qubes OS users reported that their AMD GPU systems did not work on
-> >> 5.17.4, while 5.16.18 worked fine.  Details can be found on
-> >> https://github.com/QubesOS/qubes-issues/issues/7462.  The initial repo=
-rt
-> >> listed the GPU as =E2=80=9CAdvanced Micro Devices, Inc. [AMD/ATI] Reno=
-ir
-> >> [1002:1636} (rev d3) (prog-if 00 [VGA controller])=E2=80=9D and the CP=
-U as
-> >> =E2=80=9CAMD Ryzen 5 PRO 4650U with Radeon Graphics=E2=80=9D.
-> >>
-> >> #regzbot introduced: v5.16.18..v5.17.4
-> >=20
-> > That's a big range, can you use 'git bisect' to track it down?
->=20
-> FWIW, in another mail in this thread and
-> https://github.com/QubesOS/qubes-issues/issues/7462#issuecomment-11076811=
-26
-> it was clarified that the problem was introduced between 5.17.3 and
-> 5.17.4, where a few amdgpu changes were applied. Maybe they are the reaso=
-n.
->=20
-> Anyway: Yes, as Gregkh said, a bisection really would help. But maybe
-> the amdgfx developers might already have an idea what might be wrong
-> here? The QubesOS ticket linked above has some more details.
+Hello!=20
 
-The reporter was able to bisect the regression.  I am not surprised that
-this commit caused problems for Qubes OS, as dom0 in Qubes OS is
-technically a guest of Xen.
+After updating my Linux kernel from version 4.19 (Debian 10 version) to
+5.10 (packaged with Debian 11), I've noticed that the image
+displayed on my older computer, 32-bit Pentium 4 using ATI Radeon X1950
+AGP video card is severely corrupted in the graphical (Xorg and Wayland)
+mode: all kinds of black and white stripes across the screen, some
+letters missing, etc.
 
-#regzbot ^introduced: b818a5d374542ccec73dcfe578a081574029820e
+I've checked several options (Xorg drivers, Wayland instead of
+Xorg, radeon.agpmode=3D-1 in kernel command line and so on), but the
+problem persisted. I've managed to find that the problem was in the
+kernel, as everything worked well with 4.19 kernel with everything
+else being from Debian 11.
 
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+I have managed to find the culprit of that corruption, that is the
+commit 33b3ad3788aba846fc8b9a065fe2685a0b64f713 on the linux kernel.
+Reverting this commit and building the kernel with that commit reverted
+fixes the problem. Disabling HIMEM also gets rid of that problem. But it
+also leaves the system with less that 1G of RAM, which is, of course,
+undesirable.
 
---IWeqqwZPHTdMGABi
-Content-Type: application/pgp-signature; name="signature.asc"
+Apparently this problem is somewhat known, as I can tell after googling
+for the commit id, see this link for example:
+https://lkml.org/lkml/2020/1/9/518=20
+
+Mageia distro, for example, reverted this commit in the kernel they are
+building:
+
+http://sophie.zarb.org/distrib/Mageia/7/i586/by-pkgid/b9193a4f85192bc57f4d7=
+70fb9bb399c/files/32
+
+I've reported this bug to Debian bugtracker, checked the recent verion
+of the kernel (5.17), bug still persists. Here's a link to the Debian
+bug page:
+
+https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D993670
+
+I'm not sure if reverting this commit is the correct way to go, so if
+you need to check any changes/patches that I could apply and test on
+the real hardware, I'll be glad to do that (but please keep in mind
+that testing could take some time, I don't have access to this computer
+24/7, but I'll do my best to respond ASAP).
+
+Thanks in advance!
+
+--Sig_/z0sqPSHN8+i79pqpAS4ynzJ
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmJl36kACgkQsoi1X/+c
-IsEPKw//ZpF8oBPSG4UWxpHdK0OrWQrXuAVsZcZ6aE/zFMLaavcJo1BfUXbgEJ3Z
-+10tyxLR0dllcWNPREcS90TJb2lUGny2fJ1C1NLCgH0WA4hocYUCpUGHaoE5g2/n
-LyiXJVN0XV3Hbx7A4ZgBj5A9wnL5ybKJwGCVQu5XFBISPu7XSLhL6JQmsy97Vlxu
-qrbCEbTLvOPnyp5r1ONOh2GrGkfh13s2ZSjh0HDZGWKIv/Hs4if2q2egGxiWVlHW
-rx/e4RrBtommerw1GDUKmDP69j5GSU7QmwM5UEIGPZOsbfOlEEayc4zLE9Ha7WYW
-0q4DgAHvAmUDUdBUeaiRCEMbmrDytHa6wqrzpPitW/rLkL5exA3eM4NiKS8J4oaD
-5hOjgI9KkgE0y0NMCj/+QLBUkwWz7duIrdhkJyzYTUvd7gk9guPgTn2a9zbL/H7J
-RnOeU5iqWmYsk50TS08Rq3RURWnlRBmOlsd0V0Yoo392oAhMV/rz1TIxx+PgyUE/
-YAmiUBZtnUnP8HR05ti6G9aYJaMtnydQB3YDANGp44535AkRGeB+surqT0aMiHfk
-cuydijqpnlBJTznvFEn8ZWTpXvgCIhdnA3XoRQbhGzezlVkUfOxaMgpwHiXmKuS7
-oKI3Eis/Ljz2sgqRPdYJjSPkrTT+SdLS/IusoI/lN5oed3hescc=
-=zcu0
+iQEzBAEBCgAdFiEEq9zNqT9shXHTn/gRzNfc0dbmrQAFAmJkKfEACgkQzNfc0dbm
+rQC5Igf+MRIOJtqUYPUYBwpQmXbOQimRewkuB593yxmHvaObwREFB4lF02UGL2PJ
+80gGKdqxnsLIqS6g+nLShHVl3tJHBNBT8shai8DONJxIqqWS1F55cp+i22CWLQej
+tpWbxN2+xniLHxFBllmCQljQTO/sHAl6NGNL+kS2EFLmqHUBz44vA7tSkX3YX5Vg
+tKSTOIQTDRofpLeQiVfyGp5NhMWR/vpu+XNTXNwh8qU9bR908Z6EG1gHvZAHM1q0
+AJrT+kfXZSuBbxW35gnxqWWaY6MksNlE1P2EPY0erSAlpYMfJ9h0Tja/cIQC2oDX
+pdxTegJLcq2WiM6xN0Bo4Fzbxdc56A==
+=TRlD
 -----END PGP SIGNATURE-----
 
---IWeqqwZPHTdMGABi--
+--Sig_/z0sqPSHN8+i79pqpAS4ynzJ--
