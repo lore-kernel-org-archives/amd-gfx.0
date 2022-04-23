@@ -4,41 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5434C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 07:33:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F45CC433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 07:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9DF310E774;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5BCD10E6C7;
 	Mon, 25 Apr 2022 07:33:13 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1F7D10E728
- for <amd-gfx@lists.freedesktop.org>; Sun, 24 Apr 2022 06:13:01 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4BFE4B80D5F;
- Sun, 24 Apr 2022 06:12:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFA0DC385AB;
- Sun, 24 Apr 2022 06:12:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1650780775;
- bh=E1MKqD62FevE1GiU9ohHO912BX6dHib5zhdDMAllcyY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gO9dryS/25Vs3WdQbnCYE7g65CKaYN3JpRwDD4gSKafRCV37T3dzW469HegaOdkMQ
- 4eN1KUPwgbOcDUUT8WT1jKUvsrRoJoF5CdKA+h0W6vj9Rrs1SbkUHgz7xR5+TRQ535
- MWTTQ6b1ZsF8GPpKjtDLDgBTfnIotuRLiIJG+GIA=
-Date: Sun, 24 Apr 2022 08:12:50 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Subject: Re: [REGRESSION] AMD GPU regression in 5.16.18..5.17.4
-Message-ID: <YmTqYkGEqiz1o2o6@kroah.com>
-References: <YmQi7ajZpZ4W7BJL@itl-email>
- <YmQkCXZEqp6TKrhJ@itl-email>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 998E610E1EB;
+ Sat, 23 Apr 2022 01:29:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=x2bd6S4bmTTvHUq69Na2qRGHtShuyYBXZEOPRIIgd8E=; b=hn+LOYPKMgtXSUvCJARi8nm8Ap
+ /jovlbudM4XvOs3vv2peO9+0ewMjqvx6sl43o7E0XBcPv9RJ7ApMXWSOeiSRKigkC90RZm6u9/2or
+ ZNG2sQRK1CvHX2o3qwAFJwIPt/qErClQsyp+Ai0DMMAQFdEac/3sba3iNf2Zxh8cvtalNw2bgLftg
+ 9sOr7cgX66O5MsJW27sMKFTKKkOjklM9RiSBiqJTpASv4xUdcDQlhZmOM9oHNjQVoFwW8MhVcUHlQ
+ Qdo+uVQhVB3aylrTd42+F5G0eK9aqZvCi52jo79x9mmOtIW/N1ZAeHEb7g4LVaqt/J/yTdirK9C2N
+ b4oBG80Q==;
+Received: from [2601:1c0:6280:3f0::aa0b] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1ni4an-00377U-9S; Sat, 23 Apr 2022 01:29:45 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: fix non-kernel-doc comment warnings
+Date: Fri, 22 Apr 2022 18:29:43 -0700
+Message-Id: <20220423012943.12133-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <YmQkCXZEqp6TKrhJ@itl-email>
 X-Mailman-Approved-At: Mon, 25 Apr 2022 07:33:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,22 +46,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org
+Cc: Randy Dunlap <rdunlap@infradead.org>, kernel test robot <lkp@intel.com>,
+ David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>,
+ Robin Chen <po-tchen@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ amd-gfx@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Anthony Koo <Anthony.Koo@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Apr 23, 2022 at 12:06:33PM -0400, Demi Marie Obenour wrote:
-> Two Qubes OS users reported that their AMD GPU systems did not work on
-> 5.17.4, while 5.16.18 worked fine.  Details can be found on
-> https://github.com/QubesOS/qubes-issues/issues/7462.  The initial report
-> listed the GPU as “Advanced Micro Devices, Inc. [AMD/ATI] Renoir
-> [1002:1636} (rev d3) (prog-if 00 [VGA controller])” and the CPU as
-> “AMD Ryzen 5 PRO 4650U with Radeon Graphics”.
-> 
-> #regzbot introduced: v5.16.18..v5.17.4
+Fix kernel-doc warnings for a comment that should not use
+kernel-doc notation:
 
-That's a big range, can you use 'git bisect' to track it down?
+dmub_psr.c:235: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ * Set PSR power optimization flags.
+dmub_psr.c:235: warning: missing initial short description on line:
+ * Set PSR power optimization flags.
 
-thanks,
+Fixes: e5dfcd272722 ("drm/amd/display: dc_link_set_psr_allow_active refactoring")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Cc: Robin Chen <po-tchen@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Anthony Koo <Anthony.Koo@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-greg k-h
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+@@ -231,7 +231,7 @@ static void dmub_psr_set_level(struct dm
+ 	dc_dmub_srv_wait_idle(dc->dmub_srv);
+ }
+ 
+-/**
++/*
+  * Set PSR power optimization flags.
+  */
+ static void dmub_psr_set_power_opt(struct dmub_psr *dmub, unsigned int power_opt, uint8_t panel_inst)
