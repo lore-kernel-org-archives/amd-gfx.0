@@ -4,64 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 400F3C433EF
-	for <amd-gfx@archiver.kernel.org>; Sat, 23 Apr 2022 17:54:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA3CCC433F5
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 Apr 2022 20:15:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7B5E10E154;
-	Sat, 23 Apr 2022 17:54:41 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F71A10E154
- for <amd-gfx@lists.freedesktop.org>; Sat, 23 Apr 2022 17:54:40 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id y3so1707445ejo.12
- for <amd-gfx@lists.freedesktop.org>; Sat, 23 Apr 2022 10:54:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=1+6T9swXkShFFWNp7kofZ1BGAj9YObQ8WVsxFGDXD7U=;
- b=mF381w845fMlWeZIFjJVwrtiYOwhyle0SZnMhl8yee5b2vUMSnkTi8vchDdfxLqpoK
- TAA8mTT+LlxeuHU6+3tcMT7OofqAI16AcL6yrEKF9W8q4Vo8Aas4PTjvVT9YHNidZikv
- VlD1CMXpRpJHaKgeXks/XMnA3AgpySy0owOh4AexL/pPSnW+8+T5HqtHmqJqxK0s0Rxn
- jIgX+y7arMKfvW+1vAHCwF7PlVyl40Ry9xk6eidQtA0J6of6xLVjqFtxFwk9MHQEmFkH
- MmfwSQr2bAcrWArgxwr+0UFpJsYkQe9kE3VwLaTAQ1sXcXzmJAMKSvFHN724IEgaEXlR
- QXcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
- :content-transfer-encoding;
- bh=1+6T9swXkShFFWNp7kofZ1BGAj9YObQ8WVsxFGDXD7U=;
- b=Te8o9Mo5tVaJ9cmwopGFSbYqpj+CDkBYnuk7pqh93yyaj+iwJCmrgZATY+vvjP4W6e
- jBFOpiDEkC5SGOzmpRzOAplUD4Qu9UscN2HJF9zmbFCcnhZSrpDwRel3ucsE771inKTl
- oAGujIMmyjK7RbUiZHb4hKR0bgmDxS3yvbME6UYVHvYy8VV1u8+07mVzzLgEdidfk35I
- rx9LjHUZonsP+uqD+M7f5F07q+aLcUKJ5n3DfwKO3LEwdQ6FOpSL4eFSkVmAVo7QcpL7
- gOF3WHtM4Aj9+Q5mrQGcaYY3oF+gC25Bw7z0995Y5T0zRdCCYYMHyJpXX/BYRUFvOS+d
- qFmQ==
-X-Gm-Message-State: AOAM5313yJ3rVAQeJBZ0H6FAzxa8w/mc0EAdVRmzFHan4ycchej0tdPj
- O+3IDV4vpVJCilgZOTj5wTw=
-X-Google-Smtp-Source: ABdhPJxQ/kojUKxxuT/8s8J8535eM/wMJxr/1IMn01FFvuZ2FHJ4gIQh0kxqTmGeAEckaTpbuOwQDA==
-X-Received: by 2002:a17:907:6e1c:b0:6ef:fb80:d92a with SMTP id
- sd28-20020a1709076e1c00b006effb80d92amr9015052ejc.539.1650736478901; 
- Sat, 23 Apr 2022 10:54:38 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1252:fb60:164a:23ad:31da:3e03?
- ([2a02:908:1252:fb60:164a:23ad:31da:3e03])
- by smtp.gmail.com with ESMTPSA id
- y14-20020a056402440e00b00416046b623csm2575513eda.2.2022.04.23.10.54.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 23 Apr 2022 10:54:38 -0700 (PDT)
-Message-ID: <f0e62c2b-a715-932f-891d-b4c80b395911@gmail.com>
-Date: Sat, 23 Apr 2022 19:54:36 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v2] drm/amdgpu: replace VM fault error by info logs
+	by gabe.freedesktop.org (Postfix) with ESMTP id 627DA10E46B;
+	Sun, 24 Apr 2022 20:15:21 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8281510E46B;
+ Sun, 24 Apr 2022 20:15:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ms4um4D+8HOTu+Ri1Jynzi4e9EguSkxe6blkUXHeP8xDhMU5r8Plh1VaQnsntooVROdwr9tdLqfJhRkdIlld7aQ/uS3447/xRUbnsdx3GsTN6aNwqnJ+Y3vHv8x2p0po9nCR9e4wOP8jzcbDEIX3dnpj2qsnmP8A6azjJQanLBIuAIMqXqvg048WhwzpODqMXE4w2NVdphv9cAzBIb2owyVFZ6s4emEhbex/+B+pxWMxgpDJ3F1wzPeLhAWLbY7y9F/SXSRyMCV/j+2fJX8ZlUnIALUyUEeAbQmK6gk3ijD07UqyNh48wfE9ASFmI5qzzy5yttV4eB+PO4c4p5Lfvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M6XocEDhVwdNVYEyIfpwMFBJPXnKy8tXrfrZ3mJVu38=;
+ b=JGQGm+imFlOON75pAIiQK1au9tJ7FjeuYasj4H5nhPXTW0vr8GgQN3a9Ez2kJbuwJ7LBg2WC7cnd1C96niakY6iBxJGJe1utI4mzvAXtMWbAF8+T8xq2Z0/Cuikh+iFS2IL1OwrhWs20/KjgZIgvI42xf5BZuW2J21XbqhNT4T7hz1zePWKu9lLpb8Plt1mTGMlsS0gVV1rmxow2CgtzqSdDgk8JI+f2C6aCUgrNZoAlCIBUsOwWpkUkAitEmgGI1uENAmMbjfsc8+9xoDnxkd+s7RdUkamt3BdrvedVg2sOUtuzdmkSTP97KHcJiztIYvqGxIMvyPU20dUORkgpZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M6XocEDhVwdNVYEyIfpwMFBJPXnKy8tXrfrZ3mJVu38=;
+ b=5GD4bARy28GMcNdSs7In+ESSdGGYY9PV/GSV8BaIfRg0fXWKP3NNOGAKOkJqdrofoAfHHpNtMQ/G8kw1MhffeM1SEQWSuB5eZ5o6+aVVbksY38b788UHHmmQtlcw7M5MG1mX8SJWLDq1/zrtP4w8wB1iqrVnYNJaBoeiid3cZ2M=
+Received: from DM4PR12MB5214.namprd12.prod.outlook.com (2603:10b6:5:395::22)
+ by CY4PR12MB1349.namprd12.prod.outlook.com (2603:10b6:903:40::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Sun, 24 Apr
+ 2022 20:15:16 +0000
+Received: from DM4PR12MB5214.namprd12.prod.outlook.com
+ ([fe80::a805:d518:afcb:4965]) by DM4PR12MB5214.namprd12.prod.outlook.com
+ ([fe80::a805:d518:afcb:4965%5]) with mapi id 15.20.5186.021; Sun, 24 Apr 2022
+ 20:15:16 +0000
+From: "Liu, Zhan" <Zhan.Liu@amd.com>
+To: Guo Zhengkui <guozhengkui@vivo.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>, Daniel
+ Vetter <daniel@ffwll.ch>, "Liu, Charlene" <Charlene.Liu@amd.com>, "Lei, Jun"
+ <Jun.Lei@amd.com>, =?iso-8859-1?Q?Jos=E9_Exp=F3sito?=
+ <jose.exposito89@gmail.com>, "open list:AMD DISPLAY CORE"
+ <amd-gfx@lists.freedesktop.org>, "open list:DRM DRIVERS"
+ <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] drm/amd/display: fix if == else warning
+Thread-Topic: [PATCH] drm/amd/display: fix if == else warning
+Thread-Index: AQHYV7qv7thHdmRXJkie4zu+ewRH+qz/gGaw
+Date: Sun, 24 Apr 2022 20:15:15 +0000
+Message-ID: <DM4PR12MB52143C2204F820E49D377A519EF99@DM4PR12MB5214.namprd12.prod.outlook.com>
+References: <20220424090640.1865-1-guozhengkui@vivo.com>
+In-Reply-To: <20220424090640.1865-1-guozhengkui@vivo.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Alex Sierra <alex.sierra@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20220423022445.7238-1-alex.sierra@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220423022445.7238-1-alex.sierra@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=2940ef4c-806d-49dc-ad37-8ba4d9af77d5;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-04-24T20:14:40Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 437425b4-a468-41cf-7dbb-08da262f2575
+x-ms-traffictypediagnostic: CY4PR12MB1349:EE_
+x-microsoft-antispam-prvs: <CY4PR12MB1349B5CD5C36D86378F8E5259EF99@CY4PR12MB1349.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Zx90lYEe1uvUBSHaVM95v4WaCmNRGFI+WsxJqX9otoyIazNHoTPYCsqxf3mDDtF9rJuY0aUt52SPpd3D0smEKB8WyAzmPI+rMsjj9hTZh0ZCuS3LSlah2gciP42X823UWSqbkUECtCH3FPhPTvgXGCbUX8csmmAnSjws86irYuEd+Z2gkEEm8bGtt3ttdZ5+dCwxO/ST/irpvatk/4cIWf3I/nbVIT9TLY5sZxsRzLHALrBK2b4Pf2kDjK+q/wFse7XAYzRsudgGlomlao0PeDb4TgUUKCKqqXsEYYAMutoiFO3ICeffeODeQ0WnAJvR6GaLQv5ZP9nCmACquIj8Yvv5GoolTXt51JoJU7QoHnHIEdQgQ4zeKXlUcX6v5OsRdWmTO0hibmmbbNoddDA0ClNg9TauY6mib9YppGH9ok4cIAFqZ/mc54RsALdFpst70/rvyorrl209ns6ckI+JsibUuE+TY9bYGdAkCNRo3+rLkIE8jLiCPT+czTi/684F9xZ/W3owqduMmb20VkAfmKG+1eUoHlk7LetIa+rwuw/pRMg2D/8jDvWuHsX9tJT1X/Nj3BdDJDkOizQDYpz+8xTTy5Gbqv0+xIt+22C1eqHoV2UkCZS/KSRgSkXoWxyVec8QRwcV6BElJR1Bz9a4WPM95ns3FOp3AdTY/kAygNmuQfOGBwQMkkPxUQ894ccUXgtsn5OU6XrQjSOz5e/abhCSjNYJutpf25ZYFjMjnLo=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5214.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(2906002)(921005)(122000001)(33656002)(66946007)(71200400001)(5660300002)(55016003)(38070700005)(38100700002)(76116006)(316002)(110136005)(508600001)(45080400002)(8676002)(26005)(53546011)(86362001)(83380400001)(6506007)(7696005)(9686003)(8936002)(52536014)(66476007)(66446008)(64756008)(66556008)(4326008)(186003)(66574015);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?acLlxNWg30suGGFpXCahAlngB0Xib6VYX4zShmx34usNEfsjc+Vn/qMYCz?=
+ =?iso-8859-1?Q?0mJaIdH4GOy2s3hRv9WbYE9Dmx3W6P/MuxzOhAXi3m5l4x0/NTel13ubkZ?=
+ =?iso-8859-1?Q?BjCfLrtbYjB+NkswxvK7N8QidJunlVidvpCLxDNVwbWuI7ej2LKhcfXgwc?=
+ =?iso-8859-1?Q?/JgD6choouP9hQgDxEfVu/8MnA0KHABiHzwWDEFlURk3h3aKzOhdboRhgu?=
+ =?iso-8859-1?Q?c6hviHoA+VJwIUPmbQABYIZHXZvgmlNNhaF1a5C7DLtI6qvxyBlTKdSd/3?=
+ =?iso-8859-1?Q?pdI3umoggewGmRddq5kSNOSaPx+T6EC1BGuh3l5kZWGtvsyw14nG71U/i9?=
+ =?iso-8859-1?Q?c9eB/494AWpCIG73scxMjF/9UHt1DByLy1Hhgv6jT2wq9/sMqn2OIxjajr?=
+ =?iso-8859-1?Q?w/5zCopyw08M0+bYERG8iDB/AjBUPxsr/ysE2EGmV//x6crYHNBzbhXMWr?=
+ =?iso-8859-1?Q?ViUJRDywYSuqq3lm/4/sgYAiwP+qlKAwFPjfEgDO0T0tUDJmJOVXT9glOp?=
+ =?iso-8859-1?Q?++Nyby8YP/5EzdcDOq1JuRicxSRn/DhzDWDngURV26O623aDdt+OH7b8XA?=
+ =?iso-8859-1?Q?PnWMf2rs+crvs8Q1MdnMA0k8iEhjTPkb5iAo7B/PumoaE41yl4036nCsUI?=
+ =?iso-8859-1?Q?GfDRwpQkgco9NaPecK4Z8hPrDu1NE/yt7U8NuoZlvEcGilITdD3n5AvORd?=
+ =?iso-8859-1?Q?Nz4CM58WZHQTkrk7jCdtKIxcRoMKe0DwLg7X32NUuKpWT5pDQiQU7KSsaR?=
+ =?iso-8859-1?Q?oJayJ1i0WA8paWTFkaFSDzxAhTFRDwWUBAhiwb1aYWPgqFpes6nDkRZjVv?=
+ =?iso-8859-1?Q?itETrCGRvH5zAZuadNH4VZ3RqfOb0+I0K0qR/JlK8ecYMIsghuCGSn7SN9?=
+ =?iso-8859-1?Q?j8MXlOWwLpmIlut2a9/9mYAsfw7Impfz6s6XWu/Na903ssqFYgwD2qX+IZ?=
+ =?iso-8859-1?Q?h7f8yIMKA/dV2fptUB0QBXLjBkFPwFSHK5hR200F0EYbuczYS2+/+sRwf9?=
+ =?iso-8859-1?Q?ylqbYNE9tPguFS4pR4HR/dYR2H7AcVTyzFZg4CuvEeSsUKpbFE0BxEHjIr?=
+ =?iso-8859-1?Q?yQVHPIOgCc60BWIH00TLgcAx7kJzEpYW7sVRNWFutB7UKTJ1A4KUeVrD1O?=
+ =?iso-8859-1?Q?mV3JpCq/TsaIxojeZA/2S0VgigwS1rjfOKRbMUPiqsLYLd/wzIJurCoIyl?=
+ =?iso-8859-1?Q?zzVuUvxXD7FK6cgqeVF9in07N1ER+uQeHznHWUjP6GOhvDAqTzFZnebQAH?=
+ =?iso-8859-1?Q?RWLOMp0+3zjq9ky/Cg8cfsSRBQJ1uFhyTJHRhQSUgYjOICyHAx/ogc7pwm?=
+ =?iso-8859-1?Q?Pk52FkFn8Ik45lrmIqTkkISO/Q8tehYPwK+XXtshY7PuRtHy/Qg7Q6kI+l?=
+ =?iso-8859-1?Q?SeWziTk5CyuRnyY1g3i8cqkfttKi6zjgYqdWBXNQg3PtaKDBl5D5r83pfi?=
+ =?iso-8859-1?Q?NAElVd5xRBErh7dneGVvfS/v6CWyWTVSA6LApfuuQwx898Ojw4WKBGmS5J?=
+ =?iso-8859-1?Q?jdT20DMLDpLbNmKj0IrDiILnF+yNXK6si+fm1gZDsNoBUqt581RMmuXM8i?=
+ =?iso-8859-1?Q?UAAsvdMYgkQWaMbRJtUtGAsOxPvFpUUn8peRTskdxp9IDbUR54bCuj5SAW?=
+ =?iso-8859-1?Q?lgV/znbw8o2tP4SbOL6KQMhEl3CumKrn9l0rxkgMRmNm5uqJRyWDZTLAbO?=
+ =?iso-8859-1?Q?1rUhGpgTLbPzeiEEdHCNfhRabp4AvcibV9gHlmigRWdbYDHx+naFTQGwBY?=
+ =?iso-8859-1?Q?elDaM41cA8kQ4FwYb8967FwD3dYn2GyX9csnEV6Emz46CM?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5214.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 437425b4-a468-41cf-7dbb-08da262f2575
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Apr 2022 20:15:15.9497 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: j+PqDGAJGtqCt/15hWoSRwskmqLybVki6VbfkbV2f0INgrff9vq7yrtjJqLOGbxI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1349
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,358 +134,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "zhengkui_guo@outlook.com" <zhengkui_guo@outlook.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 23.04.22 um 04:24 schrieb Alex Sierra:
-> This is not a kernel error. These logs are caused by VM faults that
-> could not be handled. Typically, generated by user mode applications.
+[AMD Official Use Only - General]
 
-Well it's still a hardware fault which should be logged as an error.
-
-So I'm absolutely not keen about reducing it to just an information.
-
-Regards,
-Christian.
-
+> -----Original Message-----
+> From: Guo Zhengkui <guozhengkui@vivo.com>
+> Sent: 2022/April/24, Sunday 5:06 AM
+> To: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
+> <Sunpeng.Li@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>;
+> Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David Airli=
+e
+> <airlied@linux.ie>; Daniel Vetter <daniel@ffwll.ch>; Liu, Charlene
+> <Charlene.Liu@amd.com>; Lei, Jun <Jun.Lei@amd.com>; Guo Zhengkui
+> <guozhengkui@vivo.com>; Liu, Zhan <Zhan.Liu@amd.com>; Jos=E9 Exp=F3sito
+> <jose.exposito89@gmail.com>; open list:AMD DISPLAY CORE <amd-
+> gfx@lists.freedesktop.org>; open list:DRM DRIVERS <dri-
+> devel@lists.freedesktop.org>; open list <linux-kernel@vger.kernel.org>
+> Cc: zhengkui_guo@outlook.com
+> Subject: [PATCH] drm/amd/display: fix if =3D=3D else warning
 >
-> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+> Fix the following coccicheck warning:
+>
+> drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c:98:8-10:
+> WARNING: possible condition with no effect (if =3D=3D else)
+>
+> Signed-off-by: Guo Zhengkui <guozhengkui@vivo.com>
+
+Thanks a lot for fixing this warning.
+
+Reviewed-by: Zhan Liu <zhan.liu@amd.com>
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c | 14 +++++++-------
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 14 +++++++-------
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   |  4 ++--
->   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c    |  8 ++++----
->   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c    |  8 ++++----
->   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c    |  8 ++++----
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 20 ++++++++++----------
->   drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c  | 14 +++++++-------
->   drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c  | 14 +++++++-------
->   9 files changed, 52 insertions(+), 52 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c | 2 --
+>  1 file changed, 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-> index 6e0ace2fbfab..c226a4803086 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-> @@ -79,25 +79,25 @@ gfxhub_v2_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
->   	u32 cid = REG_GET_FIELD(status,
->   				GCVM_L2_PROTECTION_FAULT_STATUS, CID);
->   
-> -	dev_err(adev->dev,
-> +	dev_info(adev->dev,
->   		"GCVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
->   		status);
-> -	dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
-> +	dev_info(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
->   		cid >= ARRAY_SIZE(gfxhub_client_ids) ? "unknown" : gfxhub_client_ids[cid],
->   		cid);
-> -	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
-> +	dev_info(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		GCVM_L2_PROTECTION_FAULT_STATUS, MORE_FAULTS));
-> -	dev_err(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
-> +	dev_info(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		GCVM_L2_PROTECTION_FAULT_STATUS, WALKER_ERROR));
-> -	dev_err(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
-> +	dev_info(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		GCVM_L2_PROTECTION_FAULT_STATUS, PERMISSION_FAULTS));
-> -	dev_err(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
-> +	dev_info(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		GCVM_L2_PROTECTION_FAULT_STATUS, MAPPING_ERROR));
-> -	dev_err(adev->dev, "\t RW: 0x%lx\n",
-> +	dev_info(adev->dev, "\t RW: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		GCVM_L2_PROTECTION_FAULT_STATUS, RW));
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-> index ff738e9725ee..fdcca1477592 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-> @@ -82,25 +82,25 @@ gfxhub_v2_1_print_l2_protection_fault_status(struct amdgpu_device *adev,
->   	u32 cid = REG_GET_FIELD(status,
->   				GCVM_L2_PROTECTION_FAULT_STATUS, CID);
->   
-> -	dev_err(adev->dev,
-> +	dev_info(adev->dev,
->   		"GCVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
->   		status);
-> -	dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
-> +	dev_info(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
->   		cid >= ARRAY_SIZE(gfxhub_client_ids) ? "unknown" : gfxhub_client_ids[cid],
->   		cid);
-> -	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
-> +	dev_info(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		GCVM_L2_PROTECTION_FAULT_STATUS, MORE_FAULTS));
-> -	dev_err(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
-> +	dev_info(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		GCVM_L2_PROTECTION_FAULT_STATUS, WALKER_ERROR));
-> -	dev_err(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
-> +	dev_info(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		GCVM_L2_PROTECTION_FAULT_STATUS, PERMISSION_FAULTS));
-> -	dev_err(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
-> +	dev_info(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		GCVM_L2_PROTECTION_FAULT_STATUS, MAPPING_ERROR));
-> -	dev_err(adev->dev, "\t RW: 0x%lx\n",
-> +	dev_info(adev->dev, "\t RW: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		GCVM_L2_PROTECTION_FAULT_STATUS, RW));
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index a455e59f41f4..864fcc0edb90 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -148,14 +148,14 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
->   	memset(&task_info, 0, sizeof(struct amdgpu_task_info));
->   	amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
->   
-> -	dev_err(adev->dev,
-> +	dev_info(adev->dev,
->   		"[%s] page fault (src_id:%u ring:%u vmid:%u pasid:%u, "
->   		"for process %s pid %d thread %s pid %d)\n",
->   		entry->vmid_src ? "mmhub" : "gfxhub",
->   		entry->src_id, entry->ring_id, entry->vmid,
->   		entry->pasid, task_info.process_name, task_info.tgid,
->   		task_info.task_name, task_info.pid);
-> -	dev_err(adev->dev, "  in page starting at address 0x%016llx from client 0x%x (%s)\n",
-> +	dev_info(adev->dev, "  in page starting at address 0x%016llx from client 0x%x (%s)\n",
->   		addr, entry->client_id,
->   		soc15_ih_clientid_name[entry->client_id]);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> index ec291d28edff..3d830fd7706b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -620,7 +620,7 @@ static void gmc_v6_0_vm_decode_fault(struct amdgpu_device *adev,
->   	mc_id = REG_GET_FIELD(status, VM_CONTEXT1_PROTECTION_FAULT_STATUS,
->   			      MEMORY_CLIENT_ID);
->   
-> -	dev_err(adev->dev, "VM fault (0x%02x, vmid %d) at page %u, %s from '%s' (0x%08x) (%d)\n",
-> +	dev_info(adev->dev, "VM fault (0x%02x, vmid %d) at page %u, %s from '%s' (0x%08x) (%d)\n",
->   	       protections, vmid, addr,
->   	       REG_GET_FIELD(status, VM_CONTEXT1_PROTECTION_FAULT_STATUS,
->   			     MEMORY_CLIENT_RW) ?
-> @@ -1083,11 +1083,11 @@ static int gmc_v6_0_process_interrupt(struct amdgpu_device *adev,
->   		gmc_v6_0_set_fault_enable_default(adev, false);
->   
->   	if (printk_ratelimit()) {
-> -		dev_err(adev->dev, "GPU fault detected: %d 0x%08x\n",
-> +		dev_info(adev->dev, "GPU fault detected: %d 0x%08x\n",
->   			entry->src_id, entry->src_data[0]);
-> -		dev_err(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_ADDR   0x%08X\n",
-> +		dev_info(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_ADDR   0x%08X\n",
->   			addr);
-> -		dev_err(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_STATUS 0x%08X\n",
-> +		dev_info(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_STATUS 0x%08X\n",
->   			status);
->   		gmc_v6_0_vm_decode_fault(adev, status, addr, 0);
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> index 979da6f510e8..1f3ceb03b47b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -781,7 +781,7 @@ static void gmc_v7_0_vm_decode_fault(struct amdgpu_device *adev, u32 status,
->   	mc_id = REG_GET_FIELD(status, VM_CONTEXT1_PROTECTION_FAULT_STATUS,
->   			      MEMORY_CLIENT_ID);
->   
-> -	dev_err(adev->dev, "VM fault (0x%02x, vmid %d, pasid %d) at page %u, %s from '%s' (0x%08x) (%d)\n",
-> +	dev_info(adev->dev, "VM fault (0x%02x, vmid %d, pasid %d) at page %u, %s from '%s' (0x%08x) (%d)\n",
->   	       protections, vmid, pasid, addr,
->   	       REG_GET_FIELD(status, VM_CONTEXT1_PROTECTION_FAULT_STATUS,
->   			     MEMORY_CLIENT_RW) ?
-> @@ -1286,11 +1286,11 @@ static int gmc_v7_0_process_interrupt(struct amdgpu_device *adev,
->   		gmc_v7_0_set_fault_enable_default(adev, false);
->   
->   	if (printk_ratelimit()) {
-> -		dev_err(adev->dev, "GPU fault detected: %d 0x%08x\n",
-> +		dev_info(adev->dev, "GPU fault detected: %d 0x%08x\n",
->   			entry->src_id, entry->src_data[0]);
-> -		dev_err(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_ADDR   0x%08X\n",
-> +		dev_info(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_ADDR   0x%08X\n",
->   			addr);
-> -		dev_err(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_STATUS 0x%08X\n",
-> +		dev_info(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_STATUS 0x%08X\n",
->   			status);
->   		gmc_v7_0_vm_decode_fault(adev, status, addr, mc_client,
->   					 entry->pasid);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index 382dde1ce74c..5be3f4f77c49 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -1021,7 +1021,7 @@ static void gmc_v8_0_vm_decode_fault(struct amdgpu_device *adev, u32 status,
->   	mc_id = REG_GET_FIELD(status, VM_CONTEXT1_PROTECTION_FAULT_STATUS,
->   			      MEMORY_CLIENT_ID);
->   
-> -	dev_err(adev->dev, "VM fault (0x%02x, vmid %d, pasid %d) at page %u, %s from '%s' (0x%08x) (%d)\n",
-> +	dev_info(adev->dev, "VM fault (0x%02x, vmid %d, pasid %d) at page %u, %s from '%s' (0x%08x) (%d)\n",
->   	       protections, vmid, pasid, addr,
->   	       REG_GET_FIELD(status, VM_CONTEXT1_PROTECTION_FAULT_STATUS,
->   			     MEMORY_CLIENT_RW) ?
-> @@ -1466,12 +1466,12 @@ static int gmc_v8_0_process_interrupt(struct amdgpu_device *adev,
->   		memset(&task_info, 0, sizeof(struct amdgpu_task_info));
->   		amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
->   
-> -		dev_err(adev->dev, "GPU fault detected: %d 0x%08x for process %s pid %d thread %s pid %d\n",
-> +		dev_info(adev->dev, "GPU fault detected: %d 0x%08x for process %s pid %d thread %s pid %d\n",
->   			entry->src_id, entry->src_data[0], task_info.process_name,
->   			task_info.tgid, task_info.task_name, task_info.pid);
-> -		dev_err(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_ADDR   0x%08X\n",
-> +		dev_info(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_ADDR   0x%08X\n",
->   			addr);
-> -		dev_err(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_STATUS 0x%08X\n",
-> +		dev_info(adev->dev, "  VM_CONTEXT1_PROTECTION_FAULT_STATUS 0x%08X\n",
->   			status);
->   		gmc_v8_0_vm_decode_fault(adev, status, addr, mc_client,
->   					 entry->pasid);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 22761a3bb818..98c8de7307be 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -582,14 +582,14 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
->   	memset(&task_info, 0, sizeof(struct amdgpu_task_info));
->   	amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
->   
-> -	dev_err(adev->dev,
-> +	dev_info(adev->dev,
->   		"[%s] %s page fault (src_id:%u ring:%u vmid:%u "
->   		"pasid:%u, for process %s pid %d thread %s pid %d)\n",
->   		hub_name, retry_fault ? "retry" : "no-retry",
->   		entry->src_id, entry->ring_id, entry->vmid,
->   		entry->pasid, task_info.process_name, task_info.tgid,
->   		task_info.task_name, task_info.pid);
-> -	dev_err(adev->dev, "  in page starting at address 0x%016llx from IH client 0x%x (%s)\n",
-> +	dev_info(adev->dev, "  in page starting at address 0x%016llx from IH client 0x%x (%s)\n",
->   		addr, entry->client_id,
->   		soc15_ih_clientid_name[entry->client_id]);
->   
-> @@ -611,11 +611,11 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
->   	WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
->   
->   
-> -	dev_err(adev->dev,
-> +	dev_info(adev->dev,
->   		"VM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
->   		status);
->   	if (hub == &adev->vmhub[AMDGPU_GFXHUB_0]) {
-> -		dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
-> +		dev_info(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
->   			cid >= ARRAY_SIZE(gfxhub_client_ids) ? "unknown" :
->   			gfxhub_client_ids[cid],
->   			cid);
-> @@ -648,22 +648,22 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
->   			mmhub_cid = NULL;
->   			break;
->   		}
-> -		dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
-> +		dev_info(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
->   			mmhub_cid ? mmhub_cid : "unknown", cid);
->   	}
-> -	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
-> +	dev_info(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		VM_L2_PROTECTION_FAULT_STATUS, MORE_FAULTS));
-> -	dev_err(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
-> +	dev_info(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		VM_L2_PROTECTION_FAULT_STATUS, WALKER_ERROR));
-> -	dev_err(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
-> +	dev_info(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		VM_L2_PROTECTION_FAULT_STATUS, PERMISSION_FAULTS));
-> -	dev_err(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
-> +	dev_info(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		VM_L2_PROTECTION_FAULT_STATUS, MAPPING_ERROR));
-> -	dev_err(adev->dev, "\t RW: 0x%x\n", rw);
-> +	dev_info(adev->dev, "\t RW: 0x%x\n", rw);
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-> index 636abd855686..ec8c8b2cab36 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-> @@ -150,7 +150,7 @@ mmhub_v2_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
->   	rw = REG_GET_FIELD(status,
->   			   MMVM_L2_PROTECTION_FAULT_STATUS, RW);
->   
-> -	dev_err(adev->dev,
-> +	dev_info(adev->dev,
->   		"MMVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
->   		status);
->   	switch (adev->ip_versions[MMHUB_HWIP][0]) {
-> @@ -169,21 +169,21 @@ mmhub_v2_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
->   		mmhub_cid = NULL;
->   		break;
->   	}
-> -	dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
-> +	dev_info(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
->   		mmhub_cid ? mmhub_cid : "unknown", cid);
-> -	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
-> +	dev_info(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		MMVM_L2_PROTECTION_FAULT_STATUS, MORE_FAULTS));
-> -	dev_err(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
-> +	dev_info(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		MMVM_L2_PROTECTION_FAULT_STATUS, WALKER_ERROR));
-> -	dev_err(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
-> +	dev_info(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		MMVM_L2_PROTECTION_FAULT_STATUS, PERMISSION_FAULTS));
-> -	dev_err(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
-> +	dev_info(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		MMVM_L2_PROTECTION_FAULT_STATUS, MAPPING_ERROR));
-> -	dev_err(adev->dev, "\t RW: 0x%x\n", rw);
-> +	dev_info(adev->dev, "\t RW: 0x%x\n", rw);
->   }
->   
->   static void mmhub_v2_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> index ff44c5364a8c..72dda850e7d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-> @@ -87,7 +87,7 @@ mmhub_v2_3_print_l2_protection_fault_status(struct amdgpu_device *adev,
->   	rw = REG_GET_FIELD(status,
->   			   MMVM_L2_PROTECTION_FAULT_STATUS, RW);
->   
-> -	dev_err(adev->dev,
-> +	dev_info(adev->dev,
->   		"MMVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
->   		status);
->   	switch (adev->ip_versions[MMHUB_HWIP][0]) {
-> @@ -100,21 +100,21 @@ mmhub_v2_3_print_l2_protection_fault_status(struct amdgpu_device *adev,
->   		mmhub_cid = NULL;
->   		break;
->   	}
-> -	dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
-> +	dev_info(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
->   		mmhub_cid ? mmhub_cid : "unknown", cid);
-> -	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
-> +	dev_info(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		MMVM_L2_PROTECTION_FAULT_STATUS, MORE_FAULTS));
-> -	dev_err(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
-> +	dev_info(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		MMVM_L2_PROTECTION_FAULT_STATUS, WALKER_ERROR));
-> -	dev_err(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
-> +	dev_info(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		MMVM_L2_PROTECTION_FAULT_STATUS, PERMISSION_FAULTS));
-> -	dev_err(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
-> +	dev_info(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
->   		REG_GET_FIELD(status,
->   		MMVM_L2_PROTECTION_FAULT_STATUS, MAPPING_ERROR));
-> -	dev_err(adev->dev, "\t RW: 0x%x\n", rw);
-> +	dev_info(adev->dev, "\t RW: 0x%x\n", rw);
->   }
->   
->   static void mmhub_v2_3_setup_vm_pt_regs(struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
+> b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
+> index fe22530242d2..05b3fba9ccce 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
+> @@ -95,8 +95,6 @@ static void gpu_addr_to_uma(struct dce_hwseq *hwseq,
+>       } else if (hwseq->fb_offset.quad_part <=3D addr->quad_part &&
+>                       addr->quad_part <=3D hwseq->uma_top.quad_part) {
+>               is_in_uma =3D true;
+> -     } else if (addr->quad_part =3D=3D 0) {
+> -             is_in_uma =3D false;
+>       } else {
+>               is_in_uma =3D false;
+>       }
+> --
+> 2.20.1
 
