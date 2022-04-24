@@ -4,57 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F1A2C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 07:33:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2489DC433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 07:33:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2521310E7C3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33DF610E85E;
 	Mon, 25 Apr 2022 07:33:14 +0000 (UTC)
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD10810E489
- for <amd-gfx@lists.freedesktop.org>; Sat, 23 Apr 2022 16:31:56 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id g19so19314339lfv.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 23 Apr 2022 09:31:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:subject:message-id:mime-version;
- bh=A+4bwDc/fxhJPoJinnNWLGQDdeldBdMLh6UUu6Sf/Wo=;
- b=I/yETCcU1EWGcca3bru3w6rEyIcL9mU6w9WXZJeUKRFxueETvMonguraWImj7nmMui
- K3pSEyMP/ifEb3mCTcE+N1CUbJ7ZTcLpLZVh1oxcUHwmxVYU0Tl6jeJtXmDymY/nEvSd
- /OG4ecC2OCpF7HmSMPffwEyNwn60EovbCvENQ3uJPgl2vP6guKdXwu/ZXa6AurLb0xsp
- GArRiEHCex9S8TSUQVdBR/nH1s6zCjmxnvjxux2olA37HFvhvJaM1Dysa4mHQyaCUpbR
- QwulnQWuPCc4fuXHi2t8GwZ1zaPbJgqffQ/UnGfRcZt/OfXp+cAwsDirtLqtArs+7o5E
- 8HwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:subject:message-id:mime-version;
- bh=A+4bwDc/fxhJPoJinnNWLGQDdeldBdMLh6UUu6Sf/Wo=;
- b=kBb/2cob9uubb3w/NQqXJXvcE2B/aHioYBH+QBCH1iKaYU10bgLk+V7tnu7+sLOsrN
- XgOLYsb3X6y/t1LelH13QR8ajhBFtI1LbCu+eAcBkgetM+uCF9kUbQMrAZTIbv5Bkzar
- J+NFfI5L44aptWzuxhMjni43GzRM5xnCheeqXb7rXxGRFUURvjF3PLXX9XJBLvaT4B89
- mA+eoksHWXIDZnu3/o6pZTTMZFtsuO7kDdYvJXHiZUnBUXiViXC1UOdtmkD0u6A0ax0S
- +2LTdKtgDlM/bhCZkvGJMQDWa5GsQCdWwTJImMuRgh7oTqAfVCK81r3AHwsJbtdOVLqD
- BUWg==
-X-Gm-Message-State: AOAM533gKN6WVE4cAmZpGNFSkzv9XPIkiQtSzrypeHJaxeiY8r1S+GLF
- uhuTWdnmRfe8HJUJtnxLbjfZORYtLw==
-X-Google-Smtp-Source: ABdhPJykNFrpY+p5YJCA0QcXSLUbwQqWyQo0T+wSZ8IscE4vS4RwvMCJkYT4Eg4Tf0TlP6/pchh+YA==
-X-Received: by 2002:a05:6512:1328:b0:445:cefe:f8b7 with SMTP id
- x40-20020a056512132800b00445cefef8b7mr7042999lfu.34.1650731514225; 
- Sat, 23 Apr 2022 09:31:54 -0700 (PDT)
-Received: from desktop (ppp85-141-144-80.pppoe.mtu-net.ru. [85.141.144.80])
- by smtp.gmail.com with ESMTPSA id
- d11-20020a19384b000000b0046bbd144dfesm671990lfj.125.2022.04.23.09.31.53
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 Apr 2022 09:31:53 -0700 (PDT)
-Date: Sat, 23 Apr 2022 19:31:45 +0300
-From: Krylov Michael <sqarert@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: Screen corruption using radeon kernel driver
-Message-ID: <20220423193145.3301ed06@desktop>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; i686-pc-linux-gnu)
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-sgaapc01on2128.outbound.protection.outlook.com [40.107.215.128])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 554B110F122;
+ Sun, 24 Apr 2022 09:07:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XHt1YLmoTTmmbd+vuwiw9LBlKEAZdy4smoyH9ILv6TKBDGmQJ00NiNxvCkGT12zJNbs60juUVdMbR93cmA2YfqzFvR9iU949W5PlK8ucfCKZDWiCACAngbJO2RUpZZ50wiaFKRwrqeyvOPv8uupV7u1Rmt2rMNBpvKwRCdNq3E0b+MkOwxifUQFCPurrca7dHEnJGp5tZQ9ZaBcqXysPHpXl5qPvA3p+D7eNSy+DbBW4sZFz63XQgWa2yInMJPVWruVkXsV7+MUHVN66+fpJjGR6AsiWeow+yblq6NcbUTLaVF8zXeogBuAesvb0gbaGIs3qvGwpeTGTSIWhAMgrTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gNHJ1e2JIegEggNVKEt33Z/nktC6f90YwxNlF/t5cfQ=;
+ b=l6sxQxseyrzmjUpWQAkOcqs8b7TgVAnb7RNyu/Iku5d7ay25XjDxeX5ks+BnbzLRNzPrLZWxX/+6/py5ViApNP2TExN/j683nXiahTmlsTblqbGh3HmYkm7iAwiR4qPVbykIl0OB4olZdvl3Imp/680gVDjwZMyoVNgaato7QlcIqbjEAMLiBrNQAVmg3uqhLWAJfYw+4JWjM2rceH1lEHwIj/hByhHgb6mcw8jjbNnz2+tTfwvX91u224+jxiHaUFzdWK4mPOdd9/fI29PAa3/LsmMrpkMtdOJhwQLlHxZB2UeFcyhRUKM8UORmRbN7hZk4QZcBA4nZPIa6JUV3iA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
+ s=selector2-vivo0-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gNHJ1e2JIegEggNVKEt33Z/nktC6f90YwxNlF/t5cfQ=;
+ b=C6NvKVEJBzV5+8egvXIcKg760pNa6r6JlSdpjQOLseJ80GMWTGOanqN7NUuBjIUyd7SF2L4rgDE9Ejao0XiUkGQrUv/uet8sqcRwcpZ+wy5gDdWiglu81rjciPzdbCXpE+bD/jm146Kq2uNUMb5H2Tcg29THjmazPQrFRwGoN8Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from HK2PR06MB3492.apcprd06.prod.outlook.com (2603:1096:202:2f::10)
+ by SI2PR06MB5067.apcprd06.prod.outlook.com (2603:1096:4:1a7::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Sun, 24 Apr
+ 2022 09:07:02 +0000
+Received: from HK2PR06MB3492.apcprd06.prod.outlook.com
+ ([fe80::88e1:dc04:6851:ad08]) by HK2PR06MB3492.apcprd06.prod.outlook.com
+ ([fe80::88e1:dc04:6851:ad08%7]) with mapi id 15.20.5186.020; Sun, 24 Apr 2022
+ 09:07:02 +0000
+From: Guo Zhengkui <guozhengkui@vivo.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Charlene Liu <charlene.liu@amd.com>,
+ Jun Lei <jun.lei@amd.com>, Guo Zhengkui <guozhengkui@vivo.com>,
+ Zhan Liu <zhan.liu@amd.com>,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ amd-gfx@lists.freedesktop.org (open list:AMD DISPLAY CORE),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm/amd/display: fix if == else warning
+Date: Sun, 24 Apr 2022 17:06:23 +0800
+Message-Id: <20220424090640.1865-1-guozhengkui@vivo.com>
+X-Mailer: git-send-email 2.20.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: HK2P15301CA0023.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:202:1::33) To HK2PR06MB3492.apcprd06.prod.outlook.com
+ (2603:1096:202:2f::10)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/z0sqPSHN8+i79pqpAS4ynzJ";
- protocol="application/pgp-signature"; micalg=pgp-sha512
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7f5bb0ea-d468-4a77-eb07-08da25d1cbbe
+X-MS-TrafficTypeDiagnostic: SI2PR06MB5067:EE_
+X-Microsoft-Antispam-PRVS: <SI2PR06MB50676DC2EC9F59848E979956C7F99@SI2PR06MB5067.apcprd06.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EjSrVGt3O4XLpU6+Fd3UiY5pULuABGb7lKA6E3oxxDhkpXMIyE4N9mk4NCozyUGjhPMg6wfXu2OmURBJjlpIKDWbqp2X0adaZYVgjuAi8ykU7pijYf0dkhNNx5bFBvKfcuu68/GxYbFOZE2spsasp9WTkavDAnNcrWzmUzMrxyUsEk75BNX3s4eN05u1hjK4pnNb0nXIuqoxMgd2eP4a3snR2EQmug/MRVBwR4+hf6G/uo5ALq5gXE3eNlHZY31u2TC7icgUIDZtU+JmOEDPQ7owXR7XVjfEjZOt9iJZKx2L8kW+lNzpVa96vv/SZoXDGCW6tfsbbAYxI7rfkRZ3UXHhsrSjaR21MwP1FmyYRY3U23xYC6g++0mD3FRVvrdF2dCAco8Jz7CX8DrQLNMw7mLCDbTCpVwQZiHlr0z76aNox4+VDjnxRKLCw9xn75cS5OKdqTXw8JGqV8R+Vm1EkoOk5TeXAQsXRCWV6ik/KUbQibwYRs1z5+98iSzM8QQeyc4CTJxtnPkeG+v0D1WoBAWuEqQokn1IjJJWuvwF/xOURUIj84UWeQ/2xjsLOTzAgxGCmiJ/i2sFVLpskClIUOoUnL1RxtBNbxSmz+Y0gF82C36PM/P1JIq/meRB323jzZD1/fSxhasu2QS8H7rbpfM+9e66CjafejDM8Q/rognVfhgBfhFXMZmbPX8NRR4fnuuM1tJF5e9f20r0C7damgP6t9olYg+CTbUWYJxmAQA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:HK2PR06MB3492.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(36756003)(7416002)(5660300002)(26005)(110136005)(6506007)(6512007)(8936002)(38350700002)(66476007)(8676002)(66946007)(66556008)(4326008)(4744005)(2906002)(6486002)(6666004)(38100700002)(316002)(52116002)(921005)(186003)(2616005)(1076003)(508600001)(86362001)(83380400001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?MzNsjbyozgcjbPn3vIv6rvVUEpJpeRosNyc3NfRRc5S3Jkz7FwxaIXWmS+Cr?=
+ =?us-ascii?Q?4yGnN+TEKRsupdJ6WPgrBkqzeQS8QeJ0LEnoYqSC1nyeFI5kCtht4Ves5eEf?=
+ =?us-ascii?Q?HKPxpgSld4l66JSR90nXVh21wmUtduB36RpLDFsVsOPsxE7X0VbyTyPk3XRY?=
+ =?us-ascii?Q?+CUcN7s+wJp0V3/5VIgz8OHYLbGti4WQkKSaS12I97tWQKbs7STFAvgC7yex?=
+ =?us-ascii?Q?koYl3cYyO51AoI566wfjjC8T2G4bqCSx19tT30O/8ozfG4ZcozFp2/FuHYsb?=
+ =?us-ascii?Q?eZ24FopSVe0vAplWjzgi4PiucHDjQ5A1rNrOu0zq/WYRbY9tPJvgI6YU3ov9?=
+ =?us-ascii?Q?O2D4+ZtuAbSYehgGJOIQkstoGfA+ZIAEhkJfJC5KiNfMsL3ZJb/hUDBCYwU9?=
+ =?us-ascii?Q?Wc9V2cot+C3Bp8dTHW946npSmymsuq/IbNOJvitqjchz13PJnKw9TiUJ0q8t?=
+ =?us-ascii?Q?LZHcsHJY2J64pFprOJC3Os6D1MUXIlib4n3AO9aHVaUZ3ptgfk6Mxm2CCZsp?=
+ =?us-ascii?Q?iyTMnSc2ab2h2cQuP8tUYnAkWBLfp4pc/aA4fIenSXDQ48Ugf/eYSV47i2En?=
+ =?us-ascii?Q?7m/VbBpHsO6+5pwjmNom9138VSfUzezuraWm74uIIRREe8IfyK33v1cp8/PA?=
+ =?us-ascii?Q?vUrL6JzHCxqeglgwKZn7/1g4jWQbUsKbSMztaR046dktKQKnznz10bzbL25s?=
+ =?us-ascii?Q?5H11mEuJwTFWV+ly5qMtF2iHrmcXrMrfCEdAkHfgDRy0ZxQ3Zz7pBo/ZB8+w?=
+ =?us-ascii?Q?GM2reHbf+WdLW30HbsHiNiBeqgh3G9PBhqJeBaIdB52SMLTIBWfQcWy3Q66E?=
+ =?us-ascii?Q?JCyzBq9d7OKTkimmEznz1L+aI1+Vk9WQ9G8MIbT8TIPPd3zwPv7OIW5BoKR5?=
+ =?us-ascii?Q?sIOI5B63z2xE6XHVJhCoWXxCpGSZiC7ev3vvIdHivuJl2qdgP+4kUSg6Iw2u?=
+ =?us-ascii?Q?n0m/4vWS4DBMP397x/IUysdR7katYeSSUdZH1Cw58DiVtGuVCMX1gVOO8WIX?=
+ =?us-ascii?Q?ArsHGX3bfq+gAo4SqJ6psRNMdMalMgIeGMOglFvE0HkrBdvtix2HDKZGtSyq?=
+ =?us-ascii?Q?XdNYE3aJME+fETCDF1ejz4ouiMObdxhUzzDQNmzgOOXqsshcw5qUX1YvvJG7?=
+ =?us-ascii?Q?GR1oJAIzti/tZNWc/S+KKnLW1YLLOkPetxs9eTxF4SZNdA0sFkXPZASvMStW?=
+ =?us-ascii?Q?nD4js5UbjjIhJM2JpBwUOC43k/KcLQuz/XpPRLLS2/VNLNpmEHzTX6P/qadI?=
+ =?us-ascii?Q?TEtdrjuCopsZ+n5IChfTmSSal1DnY6fZdb2A24P07tvKMXq6wGThHAxe86b2?=
+ =?us-ascii?Q?hIuXlssTFKWsbw89i7HroqX/itg5X8KbM7T7yeGpMFSN7Jg5HYKvvzGqzsrs?=
+ =?us-ascii?Q?YH2PkLFBjdgwe7hYhrYJbEZUcaufk9M2YqIvu1FNxjnlGktlJoFiArlv3lNr?=
+ =?us-ascii?Q?GPsMhBAzy8J7rElLgqA8wesd8IBUO/Cr5Jaj3fbQJscHVTk+NoWPAppNN138?=
+ =?us-ascii?Q?xC82jD6APtnvPQ6LQiYkMl/EgfiBLo+iGOfW3svd055nwIJbvDaoFObi1/k2?=
+ =?us-ascii?Q?yDvzt+fGGOEykr5eFlJXqiKgsB2umaJm7Y4Sa2tSnJue5hIwTvLFnNG+EE7i?=
+ =?us-ascii?Q?NT4ELCmTPKwB+LyxJzEeb67GxTou+EX4/4S/7cO2dmSLdGk/tmLjXJMMVdOu?=
+ =?us-ascii?Q?yAgIbc8Mn4g0JKmd102cqafpZdobzEqTS1MxmaLQ5b9w4LKVjcLhs5jExpje?=
+ =?us-ascii?Q?+aJ93mWbwA=3D=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f5bb0ea-d468-4a77-eb07-08da25d1cbbe
+X-MS-Exchange-CrossTenant-AuthSource: HK2PR06MB3492.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2022 09:07:02.4900 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Vu6CbGLE4bPEEvP7KXm3kmkKApJbOsUjGYwUWJK5JPxhYhzw9G4ojCkQOLB/8uLwsZtDVodENc82Nlb5enfDjA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI2PR06MB5067
 X-Mailman-Approved-At: Mon, 25 Apr 2022 07:33:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,73 +127,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: zhengkui_guo@outlook.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/z0sqPSHN8+i79pqpAS4ynzJ
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Fix the following coccicheck warning:
 
-Hello!=20
+drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c:98:8-10:
+WARNING: possible condition with no effect (if == else)
 
-After updating my Linux kernel from version 4.19 (Debian 10 version) to
-5.10 (packaged with Debian 11), I've noticed that the image
-displayed on my older computer, 32-bit Pentium 4 using ATI Radeon X1950
-AGP video card is severely corrupted in the graphical (Xorg and Wayland)
-mode: all kinds of black and white stripes across the screen, some
-letters missing, etc.
+Signed-off-by: Guo Zhengkui <guozhengkui@vivo.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-I've checked several options (Xorg drivers, Wayland instead of
-Xorg, radeon.agpmode=3D-1 in kernel command line and so on), but the
-problem persisted. I've managed to find that the problem was in the
-kernel, as everything worked well with 4.19 kernel with everything
-else being from Debian 11.
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
+index fe22530242d2..05b3fba9ccce 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
+@@ -95,8 +95,6 @@ static void gpu_addr_to_uma(struct dce_hwseq *hwseq,
+ 	} else if (hwseq->fb_offset.quad_part <= addr->quad_part &&
+ 			addr->quad_part <= hwseq->uma_top.quad_part) {
+ 		is_in_uma = true;
+-	} else if (addr->quad_part == 0) {
+-		is_in_uma = false;
+ 	} else {
+ 		is_in_uma = false;
+ 	}
+-- 
+2.20.1
 
-I have managed to find the culprit of that corruption, that is the
-commit 33b3ad3788aba846fc8b9a065fe2685a0b64f713 on the linux kernel.
-Reverting this commit and building the kernel with that commit reverted
-fixes the problem. Disabling HIMEM also gets rid of that problem. But it
-also leaves the system with less that 1G of RAM, which is, of course,
-undesirable.
-
-Apparently this problem is somewhat known, as I can tell after googling
-for the commit id, see this link for example:
-https://lkml.org/lkml/2020/1/9/518=20
-
-Mageia distro, for example, reverted this commit in the kernel they are
-building:
-
-http://sophie.zarb.org/distrib/Mageia/7/i586/by-pkgid/b9193a4f85192bc57f4d7=
-70fb9bb399c/files/32
-
-I've reported this bug to Debian bugtracker, checked the recent verion
-of the kernel (5.17), bug still persists. Here's a link to the Debian
-bug page:
-
-https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D993670
-
-I'm not sure if reverting this commit is the correct way to go, so if
-you need to check any changes/patches that I could apply and test on
-the real hardware, I'll be glad to do that (but please keep in mind
-that testing could take some time, I don't have access to this computer
-24/7, but I'll do my best to respond ASAP).
-
-Thanks in advance!
-
---Sig_/z0sqPSHN8+i79pqpAS4ynzJ
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEq9zNqT9shXHTn/gRzNfc0dbmrQAFAmJkKfEACgkQzNfc0dbm
-rQC5Igf+MRIOJtqUYPUYBwpQmXbOQimRewkuB593yxmHvaObwREFB4lF02UGL2PJ
-80gGKdqxnsLIqS6g+nLShHVl3tJHBNBT8shai8DONJxIqqWS1F55cp+i22CWLQej
-tpWbxN2+xniLHxFBllmCQljQTO/sHAl6NGNL+kS2EFLmqHUBz44vA7tSkX3YX5Vg
-tKSTOIQTDRofpLeQiVfyGp5NhMWR/vpu+XNTXNwh8qU9bR908Z6EG1gHvZAHM1q0
-AJrT+kfXZSuBbxW35gnxqWWaY6MksNlE1P2EPY0erSAlpYMfJ9h0Tja/cIQC2oDX
-pdxTegJLcq2WiM6xN0Bo4Fzbxdc56A==
-=TRlD
------END PGP SIGNATURE-----
-
---Sig_/z0sqPSHN8+i79pqpAS4ynzJ--
