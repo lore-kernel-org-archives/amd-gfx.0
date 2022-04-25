@@ -4,49 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4064C433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 09:15:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B9F3C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 10:52:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4033D10E06D;
-	Mon, 25 Apr 2022 09:15:29 +0000 (UTC)
-Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
- [IPv6:2607:f8b0:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BD5110E06D
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Apr 2022 09:15:28 +0000 (UTC)
-Received: by mail-pg1-x532.google.com with SMTP id s137so12910704pgs.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Apr 2022 02:15:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C8210E2D2;
+	Mon, 25 Apr 2022 10:52:07 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2213C10E2D2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Apr 2022 10:52:06 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id a21so5685066edb.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Apr 2022 03:52:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=Ga17vWhC3spOWBjmExGdm8iCRbnZ+KR8qSiKr53Jtpc=;
- b=TSzEIViWYAgtojne8VENP8Whbq3UJizPj6dTmGTDGQr6S9x15ZfqUphsZRePFaJQ2T
- cjwdhOASUB0gWMkCkqk9FsnBeXIer6Z/Y6rcfrUgjzHTnkH5PIfEmDsDXvIUCr2MZP56
- DDb/PJkdwyutjVbExNhmH6RyKGOgIUFIhgftyiBmTlwTu0YiyyCfH1krlyb/grch2JSX
- jUw31RMPieb0CByDVpxOwz5DN+rE2kqOp3t8VPS5CSmskNfSS6VnqTcpHcbXLYz/9c3W
- cjtnFCrwnpj/yZ3iAvDT+dTJHNocMZlGZFMH+IzsUlCAAJML2exXLIA4Gr2zs5xOOiG2
- GvnA==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=BrTZNzimTF2Kf1k6VeZZsx4uwPmHOhP5TccATDHeGmQ=;
+ b=K5Jn5HA9KxTtLboYv6l+VU2p3Urnbh1svV403yVNmUjZVt2cofvrkLcsBKwrHSnDEB
+ mMJ0dR8EgtMPMl7siQ88H4E4LRHDXT2WWT21mdSkCv5WI+q6TbSUtBpjO9+k4QMUlFsc
+ K9UX250IKzDGiYIAXe7vJGKWIdqj/N4fvqTTgI6feTx/pBVJyBpbrnS3fi3x6htII/+q
+ qXDfcdyRQndouL8HwsBu66fv7TkswnOiJSKOL//fE1yPBcFdXDEY3B4nJVYi8rZE/IOb
+ auSE21Y1zc4vxxQicBTo/ZZlk+ouaJGtCrTAFO7O6Wh1AyHLKoy0Qtx2iNeqNM6owikg
+ /kMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=Ga17vWhC3spOWBjmExGdm8iCRbnZ+KR8qSiKr53Jtpc=;
- b=cN/9ME60QzAn7YiNWMTERqU0KPkbVgrEd5I6cjrkNlp3rKFJBTmSXJlgtBMKRe+Yau
- STRlJXnH16cav876ZFdU2Lc65i7/UvdTkabNnmYh6n0Tq30t38as0VVVyTRM7Uq7OAhR
- 9qX/2hUN64X2uR2Bu3nLeVGoi5y83BbIiX4Isuot+IkOTvzH9L536CnaakR5Jnwansx9
- Sog5Ee8Xue8LQ60Xe3QXQZAtJ91/akEa5HB/YO78Sl2u9t7R8wxFvuwlWXvOXJBgCbGs
- HgAHUPcn1jWgnJlppLrX4IKWYKDhfWpGwaYtTPQOZhAun0ELlLGkscvlJYFhbpsuI00q
- HzhQ==
-X-Gm-Message-State: AOAM533TskCw517Wj4mxxl67PEfSvW1jO9huooW67nHY/zVFO3VD6wAh
- F01Gi7AC6NAwsvUt7y8njGF/E7DHj+wpUJj2vvuqCGnNuZjh1Q==
-X-Google-Smtp-Source: ABdhPJyQwJfDjox/CqrjI5o3xqgE1GKdO8OoK/f+w5M9xcveMfbqIrNNUa54M+W3c15vrwxvbQyqrlnsDIQf1ohWeAk=
-X-Received: by 2002:a63:4b1e:0:b0:3a3:9226:594c with SMTP id
- y30-20020a634b1e000000b003a39226594cmr14040046pga.5.1650878127566; Mon, 25
- Apr 2022 02:15:27 -0700 (PDT)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=BrTZNzimTF2Kf1k6VeZZsx4uwPmHOhP5TccATDHeGmQ=;
+ b=2NiIm+F0Q4mVM55wQ0e/Yp40ns9R4DeYcSJTDG1mtRowsH7Hq2FX+3Aeun3nui07vR
+ wASSa/sUVbwedVodcJXhruQannfbXE+4fePJSsk6riY+Z/juNySdeWMUXARgIdvQ/byS
+ N/iEN12lGlQ1QU43qcyrcFueLox7TWEkzeYeGAfysfCXR3uO897E5Li1ARui5MyfMvSo
+ Y1GnjDCUQONpBLVjhmWjYAa394LjCNv9K2MLOyxnu1PaLZSgqHcN7eNjb06K0Rg4a5RK
+ I4n2z3SV/K2O5yLFY32/iVHHJgj2mbEm2dPTLMcqyivCG01DK9cY5exfzSKn0hFqvmRe
+ 0DdA==
+X-Gm-Message-State: AOAM531Phyw5LE496gzLURo+zw2YGovNDBGRDxR174jGyrGP3NpPO+a5
+ Vpk4/2cO1J/W6GuvucffxB4=
+X-Google-Smtp-Source: ABdhPJw3unUznTQU+wHf8zqZ9gx6goYwsncqQA9jCwwM+zEzCGiSL5qq9S6wegOvKmOxXI2LnC3dLQ==
+X-Received: by 2002:a05:6402:22e1:b0:425:d5e5:c63 with SMTP id
+ dn1-20020a05640222e100b00425d5e50c63mr9569511edb.185.1650883924604; 
+ Mon, 25 Apr 2022 03:52:04 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1252:fb60:7284:dbdc:d72b:7ea1?
+ ([2a02:908:1252:fb60:7284:dbdc:d72b:7ea1])
+ by smtp.gmail.com with ESMTPSA id
+ jw12-20020a17090776ac00b006e87137194esm3506483ejc.150.2022.04.25.03.52.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Apr 2022 03:52:03 -0700 (PDT)
+Message-ID: <f4b9dc03-2d2c-28f6-fe72-7bf0e6bcf203@gmail.com>
+Date: Mon, 25 Apr 2022 12:52:02 +0200
 MIME-Version: 1.0
-From: Haohui Mai <ricetons@gmail.com>
-Date: Mon, 25 Apr 2022 17:15:14 +0800
-Message-ID: <CAHpOOhHuoZzFfXgM35b65pXxAtFoyTFKGYGO2NT7kKZ1-oNN9A@mail.gmail.com>
-Subject: [PATCH] Set the 64-bit address of the wptr of SDMA doorbell properly
-To: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] Fix out-of-bound access for gfx_v10_0_ring_test_ib()
+Content-Language: en-US
+To: Haohui Mai <ricetons@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <CAHpOOhHucS2QJSW3-jyGg8v8AMoCp2nV0h7T2rL_TQf6EHRvaA@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CAHpOOhHucS2QJSW3-jyGg8v8AMoCp2nV0h7T2rL_TQf6EHRvaA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,207 +73,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ckoenig.leichtzumerken@gmail.com, emily.deng@amd.com
+Cc: emily.deng@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Computing the address of the doorbell should be done before instead of after
-separating the 64-bit address into the higher and lower half. The
-current code sets the MMIO registers incorrectly if the address of the
-doorbell is above 1G.
+Am 25.04.22 um 10:56 schrieb Haohui Mai:
+> The gfx_v10_0_ring_test_ib() function uses 20 bytes instead of 16
+> bytes during the test. The patch sets the size of the allocation to be
+> 4-byte larger to match the actual usage.
+>
+> Signed-off-by: Haohui Mai <ricetons@gmail.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index 9426e252d8aa..b131235826b1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -3830,7 +3830,7 @@ static int gfx_v10_0_ring_test_ib(struct
+> amdgpu_ring *ring, long timeout)
+>          gpu_addr = adev->wb.gpu_addr + (index * 4);
+>          adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+>          memset(&ib, 0, sizeof(ib));
+> -       r = amdgpu_ib_get(adev, NULL, 16,
+> +       r = amdgpu_ib_get(adev, NULL, 20,
+>                                          AMDGPU_IB_POOL_DIRECT, &ib);
 
-Signed-off-by: Haohui Mai <ricetons@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c  | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 8 ++++----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 8 ++++----
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 8 ++++----
- drivers/gpu/drm/amd/amdgpu/si_dma.c    | 4 ++--
- 7 files changed, 20 insertions(+), 20 deletions(-)
+Good catch, but while at it please fix the coding style and move the 
+"AMDGPU_IB_POOL_DIRECT, &ib);" on the same line as well.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-index c8ebd108548d..df863d346995 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-@@ -195,7 +195,7 @@ static void cik_sdma_ring_set_wptr(struct amdgpu_ring *ring)
-  struct amdgpu_device *adev = ring->adev;
+With that done, the patch is Reviewed-by: Christian König 
+<christian.koenig@amd.com>
 
-  WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
--        (lower_32_bits(ring->wptr) << 2) & 0x3fffc);
-+        (lower_32_bits(ring->wptr << 2)) & 0x3fffc);
- }
+>          if (r)
+>                  goto err1;
+> --
+> 2.25.1
 
- static void cik_sdma_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
-@@ -487,7 +487,7 @@ static int cik_sdma_gfx_resume(struct amdgpu_device *adev)
-  WREG32(mmSDMA0_GFX_RB_BASE_HI + sdma_offsets[i], ring->gpu_addr >> 40);
-
-  ring->wptr = 0;
-- WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[i], lower_32_bits(ring->wptr) << 2);
-+ WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[i], lower_32_bits(ring->wptr << 2));
-
-  /* enable DMA RB */
-  WREG32(mmSDMA0_GFX_RB_CNTL + sdma_offsets[i],
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-index 1d8bbcbd7a37..b83fd00466fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-@@ -223,7 +223,7 @@ static void sdma_v2_4_ring_set_wptr(struct
-amdgpu_ring *ring)
- {
-  struct amdgpu_device *adev = ring->adev;
-
-- WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
-lower_32_bits(ring->wptr) << 2);
-+ WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
-lower_32_bits(ring->wptr << 2));
- }
-
- static void sdma_v2_4_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
-@@ -465,7 +465,7 @@ static int sdma_v2_4_gfx_resume(struct amdgpu_device *adev)
-  WREG32(mmSDMA0_GFX_RB_BASE_HI + sdma_offsets[i], ring->gpu_addr >> 40);
-
-  ring->wptr = 0;
-- WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[i], lower_32_bits(ring->wptr) << 2);
-+ WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[i], lower_32_bits(ring->wptr << 2));
-
-  /* enable DMA RB */
-  rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 1);
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-index 4ef4feff5649..557a7d5174b0 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-@@ -389,14 +389,14 @@ static void sdma_v3_0_ring_set_wptr(struct
-amdgpu_ring *ring)
-  if (ring->use_doorbell) {
-  u32 *wb = (u32 *)&adev->wb.wb[ring->wptr_offs];
-  /* XXX check if swapping is necessary on BE */
-- WRITE_ONCE(*wb, (lower_32_bits(ring->wptr) << 2));
-- WDOORBELL32(ring->doorbell_index, lower_32_bits(ring->wptr) << 2);
-+ WRITE_ONCE(*wb, (lower_32_bits(ring->wptr << 2)));
-+ WDOORBELL32(ring->doorbell_index, lower_32_bits(ring->wptr << 2));
-  } else if (ring->use_pollmem) {
-  u32 *wb = (u32 *)&adev->wb.wb[ring->wptr_offs];
-
-- WRITE_ONCE(*wb, (lower_32_bits(ring->wptr) << 2));
-+ WRITE_ONCE(*wb, (lower_32_bits(ring->wptr << 2)));
-  } else {
-- WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
-lower_32_bits(ring->wptr) << 2);
-+ WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
-lower_32_bits(ring->wptr << 2));
-  }
- }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index d7e8f7232364..ff86c43b63d1 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -772,8 +772,8 @@ static void sdma_v4_0_ring_set_wptr(struct
-amdgpu_ring *ring)
-
-  DRM_DEBUG("Using doorbell -- "
-  "wptr_offs == 0x%08x "
-- "lower_32_bits(ring->wptr) << 2 == 0x%08x "
-- "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
-+ "lower_32_bits(ring->wptr << 2) == 0x%08x "
-+ "upper_32_bits(ring->wptr << 2) == 0x%08x\n",
-  ring->wptr_offs,
-  lower_32_bits(ring->wptr << 2),
-  upper_32_bits(ring->wptr << 2));
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index a8d49c005f73..627eb1f147c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -394,8 +394,8 @@ static void sdma_v5_0_ring_set_wptr(struct
-amdgpu_ring *ring)
-  if (ring->use_doorbell) {
-  DRM_DEBUG("Using doorbell -- "
-  "wptr_offs == 0x%08x "
-- "lower_32_bits(ring->wptr) << 2 == 0x%08x "
-- "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
-+ "lower_32_bits(ring->wptr << 2) == 0x%08x "
-+ "upper_32_bits(ring->wptr << 2) == 0x%08x\n",
-  ring->wptr_offs,
-  lower_32_bits(ring->wptr << 2),
-  upper_32_bits(ring->wptr << 2));
-@@ -774,9 +774,9 @@ static int sdma_v5_0_gfx_resume(struct amdgpu_device *adev)
-
-  if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use register write
-for wptr */
-  WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR),
--        lower_32_bits(ring->wptr) << 2);
-+        lower_32_bits(ring->wptr << 2));
-  WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI),
--        upper_32_bits(ring->wptr) << 2);
-+        upper_32_bits(ring->wptr << 2));
-  }
-
-  doorbell = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i,
-mmSDMA0_GFX_DOORBELL));
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 824eace69884..a5eb82bfeaa8 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -295,8 +295,8 @@ static void sdma_v5_2_ring_set_wptr(struct
-amdgpu_ring *ring)
-  if (ring->use_doorbell) {
-  DRM_DEBUG("Using doorbell -- "
-  "wptr_offs == 0x%08x "
-- "lower_32_bits(ring->wptr) << 2 == 0x%08x "
-- "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
-+ "lower_32_bits(ring->wptr << 2) == 0x%08x "
-+ "upper_32_bits(ring->wptr << 2) == 0x%08x\n",
-  ring->wptr_offs,
-  lower_32_bits(ring->wptr << 2),
-  upper_32_bits(ring->wptr << 2));
-@@ -672,8 +672,8 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
-  WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i,
-mmSDMA0_GFX_MINOR_PTR_UPDATE), 1);
-
-  if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use register write
-for wptr */
-- WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR),
-lower_32_bits(ring->wptr) << 2);
-- WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI),
-upper_32_bits(ring->wptr) << 2);
-+ WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR),
-lower_32_bits(ring->wptr << 2));
-+ WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI),
-upper_32_bits(ring->wptr << 2));
-  }
-
-  doorbell = RREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i,
-mmSDMA0_GFX_DOORBELL));
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c
-b/drivers/gpu/drm/amd/amdgpu/si_dma.c
-index 195b45bcb8ad..0af11d3b00e7 100644
---- a/drivers/gpu/drm/amd/amdgpu/si_dma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si_dma.c
-@@ -57,7 +57,7 @@ static void si_dma_ring_set_wptr(struct amdgpu_ring *ring)
-  u32 me = (ring == &adev->sdma.instance[0].ring) ? 0 : 1;
-
-  WREG32(DMA_RB_WPTR + sdma_offsets[me],
--        (lower_32_bits(ring->wptr) << 2) & 0x3fffc);
-+        (lower_32_bits(ring->wptr << 2)) & 0x3fffc);
- }
-
- static void si_dma_ring_emit_ib(struct amdgpu_ring *ring,
-@@ -175,7 +175,7 @@ static int si_dma_start(struct amdgpu_device *adev)
-  WREG32(DMA_CNTL + sdma_offsets[i], dma_cntl);
-
-  ring->wptr = 0;
-- WREG32(DMA_RB_WPTR + sdma_offsets[i], lower_32_bits(ring->wptr) << 2);
-+ WREG32(DMA_RB_WPTR + sdma_offsets[i], lower_32_bits(ring->wptr << 2));
-  WREG32(DMA_RB_CNTL + sdma_offsets[i], rb_cntl | DMA_RB_ENABLE);
-
-  ring->sched.ready = true;
---
-2.25.1
