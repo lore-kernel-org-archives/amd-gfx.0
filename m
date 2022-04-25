@@ -4,70 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F143EC433F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 16:03:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAFF8C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 16:11:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61F9810E43C;
-	Mon, 25 Apr 2022 16:03:57 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B33210E43C
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Apr 2022 16:03:55 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id g6so7713618ejw.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Apr 2022 09:03:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=9uPpKNgvW/uH5GgsB8Zuqwi9GQwsh7FUuHH+RMb7ae4=;
- b=ijsf36cSHOIMMceQqYxrQ6iNNg5X+opI70bDq3D66ePTlTd10EI4TbPAL93YG332z4
- O6f6gJMnRyTiOFMrvFMn+sTvoKR50Y4xy6LTI3bUdFu5PVqbx7Vz4qzlHjO0d9due2Fz
- 4wTBWcrEkJFiPAkvBFJLuvdMgr+CXf/aDNq7LJ0FaQPUr/HQEy+XVvLwXJKlCrluiJep
- //0MCzKYvcHbWAif4wPlmqEhRjZBfKmSl9GFX1DsC6baRHRe6goBCj+lFm0kXcGDs+KW
- RY1boyHO5YWzoQABhJ3nYGNFwUSD8dVmQgJvguPA8eJkecYhp9AELyzyn4H+jOXcb8NT
- AXEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=9uPpKNgvW/uH5GgsB8Zuqwi9GQwsh7FUuHH+RMb7ae4=;
- b=yLXcw8PuA1hPG1o6TjyhWM8yXIwf7+tj8rN4yJlZHoMj9F1cfdK9/1JMgtc8hL5qUD
- qemxeHurTmrQjbbXW7iShi2fvRq5E6tlbLTubC1gKVbhIY+vT9RSgKMs2yTHFWbdyzCP
- E0Re1cvx2ozaODFo1a1T0klCQgMEUv5mURo3vAzWnaf6zvvatuC1dxSKV1AZdFWEdXRt
- 3QGcIMLGrUvvN7fDszvlHyrTEJnKi1YI/OkY9Ib9AYiL7ZhBVHXU/9uXVx1uByAi7x0X
- y4+Eqnvn6hxKeWGYDp7BbfhDBriVOykKi99fW8CNJbcKDcujIBaaCiVm0TWY6JwTHQk7
- ccwA==
-X-Gm-Message-State: AOAM533bhSMisEMFr7FtsMaIzJTclwLNx9Vpj2ckm2D2E0tUjX2vGeAJ
- DB5SewnVahcrAsaqsgjd+ws=
-X-Google-Smtp-Source: ABdhPJz0Omlfie4IkAXvBNjt0XX0CKmPBZD/hhqTenj3amceCaFmxfCifDZZkaWTUW57cAanJQUTNg==
-X-Received: by 2002:a17:907:98cf:b0:6f3:9901:bc0c with SMTP id
- kd15-20020a17090798cf00b006f39901bc0cmr4424677ejc.315.1650902633169; 
- Mon, 25 Apr 2022 09:03:53 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1252:fb60:944a:f372:bd22:8205?
- ([2a02:908:1252:fb60:944a:f372:bd22:8205])
- by smtp.gmail.com with ESMTPSA id
- jw12-20020a17090776ac00b006e87137194esm3780726ejc.150.2022.04.25.09.03.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Apr 2022 09:03:52 -0700 (PDT)
-Message-ID: <35e5c8a5-6f1e-93f0-337b-7c8c5e23efc8@gmail.com>
-Date: Mon, 25 Apr 2022 18:03:51 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB2910F0D5;
+	Mon, 25 Apr 2022 16:11:53 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2072.outbound.protection.outlook.com [40.107.100.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB20A10F0C8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Apr 2022 16:11:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UEiPo02hYGqAfEc6s/QOTRi3h5cDVzX0kWxyJYZnY76wFctzYjyLILXAUD1qlYkVEtdoSxy2JgN6Guc6wGLp0uamBmCvLPfqEP8BLu2o2TFFMjXlHq6VGqJ9nJ+2FfLyCe4x4bXQi/8pV6EJj6l597PhCsjZplfmxyLO1WPnQQfis4WrT+v2Mx1p6bps0WozWR5N4SYb81totdDbk6goPIGJIykWVvuERynyzncFgWn5HsefeMR5WQWtiKm+HJyR4PU83XfV5Kb8/iYu1wZelQHGItXGFZWZH67izJ5zBQDfTCRVPOh1TlvWfQNSOjPnQ3ZpBHHuNNuIxYMdECzL1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yKLT8TYZaVCy0Db4tDB+T0AyMNNkqcTa80hyodKEBe4=;
+ b=Q5OUDcrpA/fK9JGl6TgUKj3H70cSMSZVVOSP/qtAEWzFm7GwRaN+YtPBIVU40SQQ7Qb0GDawRX5Fj1vEIZn40sGUpvgyixgqvEokGzSo//KvGU/8v661xPbeTPz30SQYwvaKOPpJQbC2/4pnIEry16P4Egr3SRXQeTOUplZzU7mP5QpgouttcbXYGmE7tM2HfdMqMF+Q4ODlkR4K6Tsf6Hsc7oCSehAOz81pKmR1tGgLhFuU+ZgZW5hAZQzq8x8RYDn8qLZuD3P/guFZHs1nFxzhb5XBp8S5x1Lva/vadewj6cbgDFSyra5tBZRT3fgIoGokAgaM7VuTCa7KJMQ9jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yKLT8TYZaVCy0Db4tDB+T0AyMNNkqcTa80hyodKEBe4=;
+ b=x/HZs7EqBt7+b80aAWL9yaUOlKzSEdaeagVc8q3oI87rQ2LFSk+2AtU+2G27DvSEPp5cILFRdQ+9TlJU6U6TqCSEAH67zfqxQlkCRDvT7Ai4l8pClumbb8vir7FRr+noQcZTDU1lsoW0iobmHccaJFAlHSjGllbOXRVw3EjAGm4=
+Received: from MW2PR16CA0064.namprd16.prod.outlook.com (2603:10b6:907:1::41)
+ by DM6PR12MB3020.namprd12.prod.outlook.com (2603:10b6:5:11f::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Mon, 25 Apr
+ 2022 16:11:49 +0000
+Received: from CO1NAM11FT056.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:907:1:cafe::49) by MW2PR16CA0064.outlook.office365.com
+ (2603:10b6:907:1::41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21 via Frontend
+ Transport; Mon, 25 Apr 2022 16:11:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT056.mail.protection.outlook.com (10.13.175.107) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5186.14 via Frontend Transport; Mon, 25 Apr 2022 16:11:49 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 25 Apr
+ 2022 11:11:47 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/display: Make dcn31_set_low_power_state static
+Date: Mon, 25 Apr 2022 12:11:35 -0400
+Message-ID: <20220425161135.1025420-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 1/2] Fix incorrect calculations of the wptr of the
- doorbells
-Content-Language: en-US
-To: Haohui Mai <ricetons@gmail.com>
-References: <CAHpOOhHgvsM0YzuhP+9j=PsJLp5s2t9xCmcCOg+LvSiQX8rqug@mail.gmail.com>
- <6b9f94ea-695b-22d7-5d95-e3d3f45c4ef3@gmail.com>
- <CAHpOOhE7r+m=t3qY3aYLdU2AKp+SBiaL2=M1D45bK=HpE7OB3g@mail.gmail.com>
- <33ff47fa-b719-faae-a63d-4a5c31213f93@gmail.com>
- <CAHpOOhFmZ+oSB0Jskwuho2rDP1V4t9tzMboKA1cMLYsotdUw0g@mail.gmail.com>
- <CAHpOOhFAaNqO6PgtHADMFG-AUiJYiAmTRAcWajuQoYZ=6-mgWw@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAHpOOhFAaNqO6PgtHADMFG-AUiJYiAmTRAcWajuQoYZ=6-mgWw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e159cd2e-b7e3-44ec-09bb-08da26d64d9d
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3020:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB302086D5F618B1AE7DD040CEF7F89@DM6PR12MB3020.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: piYqiPaejH7XQ/UyMhO8oP4SVjGal5FO/YlIDpWEIdJhYVy1G/8ZNcA+SSv+wtz4XEmlbvSRPRk3XB90RdGBiY1afdNhZAiN//5NaqHMtngo1It8/wqMcPHE3HXdnh50m3jMFqjJ3XYINHDU9OyrkzeMxBc1ur8EAC0Y0O+aMg1WRRFVLEyfhYylJHT4w8NDF6Axtc+wA5qgRwQfSXDrypTSruU/hqapNmOX1V2euSloWtwY1bdP8pa+b4+WrIYwkth9/ErZ0KwQ8nU7A9Fb39n4X/C/VuFc6z10ry3I9HbVmcNLAlINvAPoEqY+7c3YfyiqGLyaFcLiFDJgUeVjcmloMlhs/+hDAu7AeKjXPHYR9pDz/uwMMCXHdpemkqC/O+YRKvJNFqYS58F50JCejXBad9W4cBCH6HV+AipF9GwA7hE8kJATW+Lx+Hxlf4EHLoXq2Ss/+Z2jd+HIqIRAk0EbrUZolYc0oIqJMyO9HyJQ9ut5TcXhVHVce9mQX94xHfsiV3w8haFP03RmfkPB5En30/HM6KRnL6U0WfY/7PPwb4lYfo8ibQdKpp7EymMWtIX68f3Re621RpnlO6R54/7vE+kxVm7TGYz0Lo/KjpSOWtqp00WZ3QJYVP6HNVVACm9rjCwsBpvPJ7X9IgjKLu/LcfUkptJR3mUkvnWUbET+6yu6ksVL285M9Tpc8apD9zYRbx/mDO0gGaVm0k4Y4w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(16526019)(426003)(336012)(4326008)(70586007)(70206006)(82310400005)(5660300002)(8676002)(186003)(36756003)(26005)(6666004)(316002)(7696005)(6916009)(356005)(81166007)(54906003)(2616005)(1076003)(47076005)(86362001)(2906002)(36860700001)(83380400001)(508600001)(4744005)(8936002)(40460700003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2022 16:11:49.1621 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e159cd2e-b7e3-44ec-09bb-08da26d64d9d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT056.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3020
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,446 +98,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: emily.deng@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, kernel test robot <lkp@intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Alex is usually picking up patches like this one here from the mailing list.
+It's not used outside of dcn31_clk_mgr.c.
 
-Feel free to add a Reviewed-by: Christian König 
-<christian.koenig@amd.com> to the series.
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks for the help,
-Christian.
-
-Am 25.04.22 um 14:44 schrieb Haohui Mai:
-> Your prompt reviews are highly appreciated. Thanks.
->
-> A little bit off-topic -- I'm not too familiar with the whole process.
-> Just wondering, what else needs to be done in order to ensure the
-> patches get picked up in the next available merge window?
->
-> Thanks,
-> Haohui
->
-> On Mon, Apr 25, 2022 at 8:41 PM Haohui Mai <ricetons@gmail.com> wrote:
->> This patch fixes the issue where the driver miscomputes the 64-bit
->> values of the wptr of the SDMA doorbell when initializing the
->> hardware. SDMA engines v4 and later on have full 64-bit registers for
->> wptr thus they should be set properly.
->>
->> Older generation hardwares like CIK / SI have only 16 / 20 / 24bits
->> for the WPTR, where the calls of lower_32_bits() will be removed in a
->> following patch.
->>
->> Signed-off-by: Haohui Mai <ricetons@gmail.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 4 ++--
->>   drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 8 ++++----
->>   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 8 ++++----
->>   3 files changed, 10 insertions(+), 10 deletions(-)
->>
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->> index d7e8f7232364..ff86c43b63d1 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->> @@ -772,8 +772,8 @@ static void sdma_v4_0_ring_set_wptr(struct
->> amdgpu_ring *ring)
->>
->>                  DRM_DEBUG("Using doorbell -- "
->>                                  "wptr_offs == 0x%08x "
->> -                               "lower_32_bits(ring->wptr) << 2 == 0x%08x "
->> -                               "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
->> +                               "lower_32_bits(ring->wptr << 2) == 0x%08x "
->> +                               "upper_32_bits(ring->wptr << 2) == 0x%08x\n",
->>                                  ring->wptr_offs,
->>                                  lower_32_bits(ring->wptr << 2),
->>                                  upper_32_bits(ring->wptr << 2));
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->> index a8d49c005f73..627eb1f147c2 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->> @@ -394,8 +394,8 @@ static void sdma_v5_0_ring_set_wptr(struct
->> amdgpu_ring *ring)
->>          if (ring->use_doorbell) {
->>                  DRM_DEBUG("Using doorbell -- "
->>                                  "wptr_offs == 0x%08x "
->> -                               "lower_32_bits(ring->wptr) << 2 == 0x%08x "
->> -                               "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
->> +                               "lower_32_bits(ring->wptr << 2) == 0x%08x "
->> +                               "upper_32_bits(ring->wptr << 2) == 0x%08x\n",
->>                                  ring->wptr_offs,
->>                                  lower_32_bits(ring->wptr << 2),
->>                                  upper_32_bits(ring->wptr << 2));
->> @@ -774,9 +774,9 @@ static int sdma_v5_0_gfx_resume(struct amdgpu_device *adev)
->>
->>                  if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use
->> register write for wptr */
->>                          WREG32(sdma_v5_0_get_reg_offset(adev, i,
->> mmSDMA0_GFX_RB_WPTR),
->> -                              lower_32_bits(ring->wptr) << 2);
->> +                              lower_32_bits(ring->wptr << 2));
->>                          WREG32(sdma_v5_0_get_reg_offset(adev, i,
->> mmSDMA0_GFX_RB_WPTR_HI),
->> -                              upper_32_bits(ring->wptr) << 2);
->> +                              upper_32_bits(ring->wptr << 2));
->>                  }
->>
->>                  doorbell = RREG32_SOC15_IP(GC,
->> sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_DOORBELL));
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->> index 824eace69884..a5eb82bfeaa8 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->> @@ -295,8 +295,8 @@ static void sdma_v5_2_ring_set_wptr(struct
->> amdgpu_ring *ring)
->>          if (ring->use_doorbell) {
->>                  DRM_DEBUG("Using doorbell -- "
->>                                  "wptr_offs == 0x%08x "
->> -                               "lower_32_bits(ring->wptr) << 2 == 0x%08x "
->> -                               "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
->> +                               "lower_32_bits(ring->wptr << 2) == 0x%08x "
->> +                               "upper_32_bits(ring->wptr << 2) == 0x%08x\n",
->>                                  ring->wptr_offs,
->>                                  lower_32_bits(ring->wptr << 2),
->>                                  upper_32_bits(ring->wptr << 2));
->> @@ -672,8 +672,8 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
->>                  WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i,
->> mmSDMA0_GFX_MINOR_PTR_UPDATE), 1);
->>
->>                  if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use
->> register write for wptr */
->> -                       WREG32(sdma_v5_2_get_reg_offset(adev, i,
->> mmSDMA0_GFX_RB_WPTR), lower_32_bits(ring->wptr) << 2);
->> -                       WREG32(sdma_v5_2_get_reg_offset(adev, i,
->> mmSDMA0_GFX_RB_WPTR_HI), upper_32_bits(ring->wptr) << 2);
->> +                       WREG32(sdma_v5_2_get_reg_offset(adev, i,
->> mmSDMA0_GFX_RB_WPTR), lower_32_bits(ring->wptr << 2));
->> +                       WREG32(sdma_v5_2_get_reg_offset(adev, i,
->> mmSDMA0_GFX_RB_WPTR_HI), upper_32_bits(ring->wptr << 2));
->>                  }
->>
->>                  doorbell = RREG32_SOC15_IP(GC,
->> sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_DOORBELL));
->> --
->> 2.25.1
->>
->> On Mon, Apr 25, 2022 at 8:33 PM Christian König
->> <ckoenig.leichtzumerken@gmail.com> wrote:
->>> Am 25.04.22 um 14:19 schrieb Haohui Mai:
->>>> Dropped the changes of older generations.
->>>>
->>>> Signed-off-by: Haohui Mai <ricetons@gmail.com>
->>> Please update the commit messages to include all the background we just
->>> discussed.
->>>
->>> With that done the series is Reviewed-by: Christian König
->>> <christian.koenig@amd.com>
->>>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 4 ++--
->>>>    drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 8 ++++----
->>>>    drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 8 ++++----
->>>>    3 files changed, 10 insertions(+), 10 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->>>> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->>>> index d7e8f7232364..ff86c43b63d1 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->>>> @@ -772,8 +772,8 @@ static void sdma_v4_0_ring_set_wptr(struct
->>>> amdgpu_ring *ring)
->>>>
->>>>                   DRM_DEBUG("Using doorbell -- "
->>>>                                   "wptr_offs == 0x%08x "
->>>> -                               "lower_32_bits(ring->wptr) << 2 == 0x%08x "
->>>> -                               "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
->>>> +                               "lower_32_bits(ring->wptr << 2) == 0x%08x "
->>>> +                               "upper_32_bits(ring->wptr << 2) == 0x%08x\n",
->>>>                                   ring->wptr_offs,
->>>>                                   lower_32_bits(ring->wptr << 2),
->>>>                                   upper_32_bits(ring->wptr << 2));
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->>>> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->>>> index a8d49c005f73..627eb1f147c2 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->>>> @@ -394,8 +394,8 @@ static void sdma_v5_0_ring_set_wptr(struct
->>>> amdgpu_ring *ring)
->>>>           if (ring->use_doorbell) {
->>>>                   DRM_DEBUG("Using doorbell -- "
->>>>                                   "wptr_offs == 0x%08x "
->>>> -                               "lower_32_bits(ring->wptr) << 2 == 0x%08x "
->>>> -                               "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
->>>> +                               "lower_32_bits(ring->wptr << 2) == 0x%08x "
->>>> +                               "upper_32_bits(ring->wptr << 2) == 0x%08x\n",
->>>>                                   ring->wptr_offs,
->>>>                                   lower_32_bits(ring->wptr << 2),
->>>>                                   upper_32_bits(ring->wptr << 2));
->>>> @@ -774,9 +774,9 @@ static int sdma_v5_0_gfx_resume(struct amdgpu_device *adev)
->>>>
->>>>                   if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use
->>>> register write for wptr */
->>>>                           WREG32(sdma_v5_0_get_reg_offset(adev, i,
->>>> mmSDMA0_GFX_RB_WPTR),
->>>> -                              lower_32_bits(ring->wptr) << 2);
->>>> +                              lower_32_bits(ring->wptr << 2));
->>>>                           WREG32(sdma_v5_0_get_reg_offset(adev, i,
->>>> mmSDMA0_GFX_RB_WPTR_HI),
->>>> -                              upper_32_bits(ring->wptr) << 2);
->>>> +                              upper_32_bits(ring->wptr << 2));
->>>>                   }
->>>>
->>>>                   doorbell = RREG32_SOC15_IP(GC,
->>>> sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_DOORBELL));
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->>>> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->>>> index 824eace69884..a5eb82bfeaa8 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->>>> @@ -295,8 +295,8 @@ static void sdma_v5_2_ring_set_wptr(struct
->>>> amdgpu_ring *ring)
->>>>           if (ring->use_doorbell) {
->>>>                   DRM_DEBUG("Using doorbell -- "
->>>>                                   "wptr_offs == 0x%08x "
->>>> -                               "lower_32_bits(ring->wptr) << 2 == 0x%08x "
->>>> -                               "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
->>>> +                               "lower_32_bits(ring->wptr << 2) == 0x%08x "
->>>> +                               "upper_32_bits(ring->wptr << 2) == 0x%08x\n",
->>>>                                   ring->wptr_offs,
->>>>                                   lower_32_bits(ring->wptr << 2),
->>>>                                   upper_32_bits(ring->wptr << 2));
->>>> @@ -672,8 +672,8 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
->>>>                   WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i,
->>>> mmSDMA0_GFX_MINOR_PTR_UPDATE), 1);
->>>>
->>>>                   if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use
->>>> register write for wptr */
->>>> -                       WREG32(sdma_v5_2_get_reg_offset(adev, i,
->>>> mmSDMA0_GFX_RB_WPTR), lower_32_bits(ring->wptr) << 2);
->>>> -                       WREG32(sdma_v5_2_get_reg_offset(adev, i,
->>>> mmSDMA0_GFX_RB_WPTR_HI), upper_32_bits(ring->wptr) << 2);
->>>> +                       WREG32(sdma_v5_2_get_reg_offset(adev, i,
->>>> mmSDMA0_GFX_RB_WPTR), lower_32_bits(ring->wptr << 2));
->>>> +                       WREG32(sdma_v5_2_get_reg_offset(adev, i,
->>>> mmSDMA0_GFX_RB_WPTR_HI), upper_32_bits(ring->wptr << 2));
->>>>                   }
->>>>
->>>>                   doorbell = RREG32_SOC15_IP(GC,
->>>> sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_DOORBELL));
->>>> --
->>>> 2.25.1
->>>>
->>>> On Mon, Apr 25, 2022 at 7:52 PM Christian König
->>>> <ckoenig.leichtzumerken@gmail.com> wrote:
->>>>> Am 25.04.22 um 13:47 schrieb Haohui Mai:
->>>>>> Updated the commit messages based on the previous discussion.
->>>>> Please drop all the changes for pre SDMA v4 hardware (e.g. the ones with
->>>>> only a 32bit register), so that we only have the changes for the 64bit
->>>>> hw versions in here.
->>>>>
->>>>> Apart from that looks good to me.
->>>>>
->>>>> Thanks,
->>>>> Christian.
->>>>>
->>>>>> Signed-off-by: Haohui Mai <ricetons@gmail.com>
->>>>>> ---
->>>>>>     drivers/gpu/drm/amd/amdgpu/cik_sdma.c  | 4 ++--
->>>>>>     drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c | 4 ++--
->>>>>>     drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 8 ++++----
->>>>>>     drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 4 ++--
->>>>>>     drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 8 ++++----
->>>>>>     drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 8 ++++----
->>>>>>     drivers/gpu/drm/amd/amdgpu/si_dma.c    | 4 ++--
->>>>>>     7 files changed, 20 insertions(+), 20 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
->>>>>> b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
->>>>>> index c8ebd108548d..df863d346995 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
->>>>>> @@ -195,7 +195,7 @@ static void cik_sdma_ring_set_wptr(struct amdgpu_ring *ring)
->>>>>>      struct amdgpu_device *adev = ring->adev;
->>>>>>
->>>>>>      WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
->>>>>> -        (lower_32_bits(ring->wptr) << 2) & 0x3fffc);
->>>>>> +        (lower_32_bits(ring->wptr << 2)) & 0x3fffc);
->>>>>>     }
->>>>>>
->>>>>>     static void cik_sdma_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
->>>>>> @@ -487,7 +487,7 @@ static int cik_sdma_gfx_resume(struct amdgpu_device *adev)
->>>>>>      WREG32(mmSDMA0_GFX_RB_BASE_HI + sdma_offsets[i], ring->gpu_addr >> 40);
->>>>>>
->>>>>>      ring->wptr = 0;
->>>>>> - WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[i], lower_32_bits(ring->wptr) << 2);
->>>>>> + WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[i], lower_32_bits(ring->wptr << 2));
->>>>>>
->>>>>>      /* enable DMA RB */
->>>>>>      WREG32(mmSDMA0_GFX_RB_CNTL + sdma_offsets[i],
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
->>>>>> b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
->>>>>> index 1d8bbcbd7a37..b83fd00466fe 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
->>>>>> @@ -223,7 +223,7 @@ static void sdma_v2_4_ring_set_wptr(struct
->>>>>> amdgpu_ring *ring)
->>>>>>     {
->>>>>>      struct amdgpu_device *adev = ring->adev;
->>>>>>
->>>>>> - WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
->>>>>> lower_32_bits(ring->wptr) << 2);
->>>>>> + WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
->>>>>> lower_32_bits(ring->wptr << 2));
->>>>>>     }
->>>>>>
->>>>>>     static void sdma_v2_4_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
->>>>>> @@ -465,7 +465,7 @@ static int sdma_v2_4_gfx_resume(struct amdgpu_device *adev)
->>>>>>      WREG32(mmSDMA0_GFX_RB_BASE_HI + sdma_offsets[i], ring->gpu_addr >> 40);
->>>>>>
->>>>>>      ring->wptr = 0;
->>>>>> - WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[i], lower_32_bits(ring->wptr) << 2);
->>>>>> + WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[i], lower_32_bits(ring->wptr << 2));
->>>>>>
->>>>>>      /* enable DMA RB */
->>>>>>      rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 1);
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
->>>>>> b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
->>>>>> index 4ef4feff5649..557a7d5174b0 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
->>>>>> @@ -389,14 +389,14 @@ static void sdma_v3_0_ring_set_wptr(struct
->>>>>> amdgpu_ring *ring)
->>>>>>      if (ring->use_doorbell) {
->>>>>>      u32 *wb = (u32 *)&adev->wb.wb[ring->wptr_offs];
->>>>>>      /* XXX check if swapping is necessary on BE */
->>>>>> - WRITE_ONCE(*wb, (lower_32_bits(ring->wptr) << 2));
->>>>>> - WDOORBELL32(ring->doorbell_index, lower_32_bits(ring->wptr) << 2);
->>>>>> + WRITE_ONCE(*wb, (lower_32_bits(ring->wptr << 2)));
->>>>>> + WDOORBELL32(ring->doorbell_index, lower_32_bits(ring->wptr << 2));
->>>>>>      } else if (ring->use_pollmem) {
->>>>>>      u32 *wb = (u32 *)&adev->wb.wb[ring->wptr_offs];
->>>>>>
->>>>>> - WRITE_ONCE(*wb, (lower_32_bits(ring->wptr) << 2));
->>>>>> + WRITE_ONCE(*wb, (lower_32_bits(ring->wptr << 2)));
->>>>>>      } else {
->>>>>> - WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
->>>>>> lower_32_bits(ring->wptr) << 2);
->>>>>> + WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
->>>>>> lower_32_bits(ring->wptr << 2));
->>>>>>      }
->>>>>>     }
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->>>>>> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->>>>>> index d7e8f7232364..ff86c43b63d1 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->>>>>> @@ -772,8 +772,8 @@ static void sdma_v4_0_ring_set_wptr(struct
->>>>>> amdgpu_ring *ring)
->>>>>>
->>>>>>      DRM_DEBUG("Using doorbell -- "
->>>>>>      "wptr_offs == 0x%08x "
->>>>>> - "lower_32_bits(ring->wptr) << 2 == 0x%08x "
->>>>>> - "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
->>>>>> + "lower_32_bits(ring->wptr << 2) == 0x%08x "
->>>>>> + "upper_32_bits(ring->wptr << 2) == 0x%08x\n",
->>>>>>      ring->wptr_offs,
->>>>>>      lower_32_bits(ring->wptr << 2),
->>>>>>      upper_32_bits(ring->wptr << 2));
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->>>>>> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->>>>>> index a8d49c005f73..627eb1f147c2 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->>>>>> @@ -394,8 +394,8 @@ static void sdma_v5_0_ring_set_wptr(struct
->>>>>> amdgpu_ring *ring)
->>>>>>      if (ring->use_doorbell) {
->>>>>>      DRM_DEBUG("Using doorbell -- "
->>>>>>      "wptr_offs == 0x%08x "
->>>>>> - "lower_32_bits(ring->wptr) << 2 == 0x%08x "
->>>>>> - "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
->>>>>> + "lower_32_bits(ring->wptr << 2) == 0x%08x "
->>>>>> + "upper_32_bits(ring->wptr << 2) == 0x%08x\n",
->>>>>>      ring->wptr_offs,
->>>>>>      lower_32_bits(ring->wptr << 2),
->>>>>>      upper_32_bits(ring->wptr << 2));
->>>>>> @@ -774,9 +774,9 @@ static int sdma_v5_0_gfx_resume(struct amdgpu_device *adev)
->>>>>>
->>>>>>      if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use register write
->>>>>> for wptr */
->>>>>>      WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR),
->>>>>> -        lower_32_bits(ring->wptr) << 2);
->>>>>> +        lower_32_bits(ring->wptr << 2));
->>>>>>      WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI),
->>>>>> -        upper_32_bits(ring->wptr) << 2);
->>>>>> +        upper_32_bits(ring->wptr << 2));
->>>>>>      }
->>>>>>
->>>>>>      doorbell = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i,
->>>>>> mmSDMA0_GFX_DOORBELL));
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->>>>>> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->>>>>> index 824eace69884..a5eb82bfeaa8 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->>>>>> @@ -295,8 +295,8 @@ static void sdma_v5_2_ring_set_wptr(struct
->>>>>> amdgpu_ring *ring)
->>>>>>      if (ring->use_doorbell) {
->>>>>>      DRM_DEBUG("Using doorbell -- "
->>>>>>      "wptr_offs == 0x%08x "
->>>>>> - "lower_32_bits(ring->wptr) << 2 == 0x%08x "
->>>>>> - "upper_32_bits(ring->wptr) << 2 == 0x%08x\n",
->>>>>> + "lower_32_bits(ring->wptr << 2) == 0x%08x "
->>>>>> + "upper_32_bits(ring->wptr << 2) == 0x%08x\n",
->>>>>>      ring->wptr_offs,
->>>>>>      lower_32_bits(ring->wptr << 2),
->>>>>>      upper_32_bits(ring->wptr << 2));
->>>>>> @@ -672,8 +672,8 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
->>>>>>      WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i,
->>>>>> mmSDMA0_GFX_MINOR_PTR_UPDATE), 1);
->>>>>>
->>>>>>      if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use register write
->>>>>> for wptr */
->>>>>> - WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR),
->>>>>> lower_32_bits(ring->wptr) << 2);
->>>>>> - WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI),
->>>>>> upper_32_bits(ring->wptr) << 2);
->>>>>> + WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR),
->>>>>> lower_32_bits(ring->wptr << 2));
->>>>>> + WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI),
->>>>>> upper_32_bits(ring->wptr << 2));
->>>>>>      }
->>>>>>
->>>>>>      doorbell = RREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i,
->>>>>> mmSDMA0_GFX_DOORBELL));
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c
->>>>>> b/drivers/gpu/drm/amd/amdgpu/si_dma.c
->>>>>> index 195b45bcb8ad..0af11d3b00e7 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/si_dma.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/si_dma.c
->>>>>> @@ -57,7 +57,7 @@ static void si_dma_ring_set_wptr(struct amdgpu_ring *ring)
->>>>>>      u32 me = (ring == &adev->sdma.instance[0].ring) ? 0 : 1;
->>>>>>
->>>>>>      WREG32(DMA_RB_WPTR + sdma_offsets[me],
->>>>>> -        (lower_32_bits(ring->wptr) << 2) & 0x3fffc);
->>>>>> +        (lower_32_bits(ring->wptr << 2)) & 0x3fffc);
->>>>>>     }
->>>>>>
->>>>>>     static void si_dma_ring_emit_ib(struct amdgpu_ring *ring,
->>>>>> @@ -175,7 +175,7 @@ static int si_dma_start(struct amdgpu_device *adev)
->>>>>>      WREG32(DMA_CNTL + sdma_offsets[i], dma_cntl);
->>>>>>
->>>>>>      ring->wptr = 0;
->>>>>> - WREG32(DMA_RB_WPTR + sdma_offsets[i], lower_32_bits(ring->wptr) << 2);
->>>>>> + WREG32(DMA_RB_WPTR + sdma_offsets[i], lower_32_bits(ring->wptr << 2));
->>>>>>      WREG32(DMA_RB_CNTL + sdma_offsets[i], rb_cntl | DMA_RB_ENABLE);
->>>>>>
->>>>>>      ring->sched.ready = true;
->>>>>> --
->>>>>> 2.25.1
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
+index 969b40250434..ceb34376decb 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
+@@ -615,7 +615,7 @@ static void dcn31_clk_mgr_helper_populate_bw_params(struct clk_mgr_internal *clk
+ 	}
+ }
+ 
+-void dcn31_set_low_power_state(struct clk_mgr *clk_mgr_base)
++static void dcn31_set_low_power_state(struct clk_mgr *clk_mgr_base)
+ {
+ 	int display_count;
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+-- 
+2.35.1
 
