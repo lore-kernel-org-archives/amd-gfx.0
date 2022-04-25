@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79128C433EF
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 17:10:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56777C433F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 17:12:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A9A410EF61;
-	Mon, 25 Apr 2022 17:10:14 +0000 (UTC)
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C85CB10EF61;
- Mon, 25 Apr 2022 17:10:12 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-d6e29fb3d7so16733040fac.7; 
- Mon, 25 Apr 2022 10:10:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB3AE10F0A2;
+	Mon, 25 Apr 2022 17:12:48 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53CE410F0AB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Apr 2022 17:12:47 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id q129so17838053oif.4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 Apr 2022 10:12:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FKPxk8T+PNpsX+t/Fbj+aBKeJtlWLiqDlWC/CAfDx2c=;
- b=g0SEwyj8gHZs144Ip4riSiMjWfpHFrJ7xX50lQ82lYEDVCaeszdY9VQ0BYoq1/QoCh
- pQDNtjETe+ryPaZ5Y2Ma02dVLaA1lVpR2Q0RJSbfyaKWRBpiJAHvjg+gLUeZLbV6s6og
- Ztc7244wbNq6eX98h1Dg6dHTDmYqhfh8JqKgDQdgojPMUeChiYEhbwIvM+vp/tVTdV8t
- rL3jRYH4SwCTpeYgoCcdvm0GQfDTl54LEsqlZCQJ9r1g9OEpnHYdxv3KoSWpAqVLTpsw
- qXHzNf6Uykj954vKSAWJFT33aJppnWltm7TbfRjLgx6jHC3yh/398OIt7ED8UeipIt1s
- txHw==
+ :cc; bh=+u/S/yPWVhNnjSYbLsyDazqBcVzHwKzX3VKk0nDog3E=;
+ b=YKcpEASqDNN4e4TPaodMzhGedkJeOupH9R3p1jf3LOM1oIlv/P+EkPiGh6oTDR7Htl
+ iAGCT6EP+pMnOr6q77rZwvdBnyXbeRJFG7h1sOEJ7nh1P1E+5vNcJ60zxMRod3JLunpV
+ N+7TD+/2QQSJUgBXGWdlXFOXMp36gMmTpQI9JUFTQl3k3YB4QJipY3bTvnA0sWs1+xRq
+ AcJRaj5xNe29IL1bga5v/+ErHCtRNfi2DMRMkS9gZxgLNU5yDUAU89evYxtCVW1tLxz6
+ m7ry3tptyrhCb99BWE/gGjbaxnRirhf5J3W7A8PAeNB4LAVj1V7l0VK1q4LKLcjO+vGe
+ dd/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=FKPxk8T+PNpsX+t/Fbj+aBKeJtlWLiqDlWC/CAfDx2c=;
- b=Tua+k1pKgz4/R7GrIqGnwkQR634MB0ri+FXn4TzQ8Z0TKAf9d2Hc2zyO5vosUwWCq6
- 1RnK6yINB7PglMFQlB72uNoBFS+CCoBG3kCxlvGcuUphuc/+Y/R3MQX7/08fIi5wM7+U
- Nz5FyQqVOAn646kg92dOBrt8cp4CqOLmfw8tskiICZObgWjUwqkq5dpVwNwpzGrpVlEe
- XUFPlLUYHE3TW4Ej/IVlk8aXQI81OsiaR4ttEzfhxqQcJ365md03HYQTJjlZG7YadyK6
- 91s1HY0MC/PYdnoKhNSWL/GaGui7fPvQf/a0wv0S4x6mfpJTg7H4eVMfeWfZGIujuJKX
- H8jQ==
-X-Gm-Message-State: AOAM533quS3OouOZOS0w+2dKqXUmCBkSV6eq7Dcq+JnF8RwZnHj2ZVw6
- BkyiBF7T8hBvKoYfxWmyPAZCouPMcad5AwNYKYk=
-X-Google-Smtp-Source: ABdhPJxDeMcCi6n0Vl4q2/ICp4DEmjg3kaj7k4WDNM3ZtsZWC6eVYEyE4tZ7EkHRjQNcogaKJ5M5u9+pBxCZQrJujFU=
-X-Received: by 2002:a05:6870:311d:b0:de:9b6c:362b with SMTP id
- v29-20020a056870311d00b000de9b6c362bmr11123566oaa.200.1650906612105; Mon, 25
- Apr 2022 10:10:12 -0700 (PDT)
+ bh=+u/S/yPWVhNnjSYbLsyDazqBcVzHwKzX3VKk0nDog3E=;
+ b=PZ22CYLVTGFc8HcR+8Y/I/YmCHlOMVUicp2GkW5uWPKDWjkAQ969yVL0OmM93iMi8I
+ znjbRsmuxKJiw8hedpp5QNQhy4BeMCTVUPito+LvyITtjcX5r+cC34nU2BBr5thpT85W
+ ElZlRGFXsuswdNMDnG7jgrzf8j86tcLZHCTHQNQ4oL3bRQZzrNwGjhUfOGPw6t+4O/vz
+ Jp0hdnWA8aCZZhIIBc5vtw2jnXGXjr2ZKo/5IjSl0qQZkx1mPyclgUclk5mFw2Fslbus
+ MOjBaZOHuYhXxSql2p7iZmDAPZ/CI8Yxz/1K55E+TlLAjKzYH7tKp4oheuSv/3FTUNjN
+ 38Lg==
+X-Gm-Message-State: AOAM53370XDZXt5DeyzsnLCqXmo0wQhwG04xDjDtXzFHfxJqknxdTzgc
+ whiPobmM89l+5YbPDVPvV/f/Xok1cnh+sYiPlVQ=
+X-Google-Smtp-Source: ABdhPJzNID7soY95yC5ymmcnkzbAC5YGKwW8kIv7ErFFLXlCwqFWaeA5yBbjuQuw0Jc0clSbopBfXZERrjVx3Au77Js=
+X-Received: by 2002:a05:6808:f8d:b0:325:1e81:ffe5 with SMTP id
+ o13-20020a0568080f8d00b003251e81ffe5mr4153016oiw.253.1650906766661; Mon, 25
+ Apr 2022 10:12:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220423200155.1735336-1-trix@redhat.com>
-In-Reply-To: <20220423200155.1735336-1-trix@redhat.com>
+References: <20220425022508.75434-1-evan.quan@amd.com>
+In-Reply-To: <20220425022508.75434-1-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 25 Apr 2022 13:10:00 -0400
-Message-ID: <CADnq5_Oys5RXiksMGW8kvFiZ+DknGRqMnR6njEN1DZGWhYRcEQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: change cac_weights_* to static
-To: Tom Rix <trix@redhat.com>
+Date: Mon, 25 Apr 2022 13:12:35 -0400
+Message-ID: <CADnq5_Nffq-Eb=6Dwsq4JKLt9hoy=WiTs4cm08YhP8Kobu+s-w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: fix the compile warning
+To: Evan Quan <evan.quan@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,55 +61,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, xinhui pan <Xinhui.Pan@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, kernel test robot <lkp@intel.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Sun, Apr 24, 2022 at 10:25 PM Evan Quan <evan.quan@amd.com> wrote:
+>
+> Fix the compile warning below:
+> drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/kv_dpm.c:1641
+> kv_get_acp_boot_level() warn: always true condition '(table->entries[i]->clk >= 0) => (0-u32max >= 0)'
+>
+> Reported-by: kernel test robot <lkp@intel.com>
+> CC: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> Change-Id: If4985252017023d6711b4d7eb1192a397baff813
+> ---
+>  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> index 8b23cc9f098a..cab948118d4b 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> @@ -1623,6 +1623,7 @@ static int kv_update_samu_dpm(struct amdgpu_device *adev, bool gate)
+>
+>  static u8 kv_get_acp_boot_level(struct amdgpu_device *adev)
+>  {
+> +#if 0
+>         u8 i;
+>         struct amdgpu_clock_voltage_dependency_table *table =
+>                 &adev->pm.dpm.dyn_state.acp_clock_voltage_dependency_table;
+> @@ -1636,6 +1637,8 @@ static u8 kv_get_acp_boot_level(struct amdgpu_device *adev)
+>                 i = table->count - 1;
+>
+>         return i;
+> +#endif
+
+Just drop the code at this point and return 0.
 
 Alex
 
-On Sat, Apr 23, 2022 at 4:02 PM Tom Rix <trix@redhat.com> wrote:
+
+> +       return 0;
+>  }
 >
-> Sparse reports these issues
-> si_dpm.c:332:26: warning: symbol 'cac_weights_pitcairn' was not declared. Should it be static?
-> si_dpm.c:1088:26: warning: symbol 'cac_weights_oland' was not declared. Should it be static?
->
-> Both of these variables are only used in si_dpm.c.  Single file variables
-> should be static, so change their storage-class specifiers to static.
->
-> Signed-off-by: Tom Rix <trix@redhat.com>
-> ---
->  drivers/gpu/drm/radeon/si_dpm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
-> index 3add39c1a689..fbf968e3f6d7 100644
-> --- a/drivers/gpu/drm/radeon/si_dpm.c
-> +++ b/drivers/gpu/drm/radeon/si_dpm.c
-> @@ -329,7 +329,7 @@ static const struct si_dte_data dte_data_malta =
->         true
->  };
->
-> -struct si_cac_config_reg cac_weights_pitcairn[] =
-> +static struct si_cac_config_reg cac_weights_pitcairn[] =
->  {
->         { 0x0, 0x0000ffff, 0, 0x8a, SISLANDS_CACCONFIG_CGIND },
->         { 0x0, 0xffff0000, 16, 0x0, SISLANDS_CACCONFIG_CGIND },
-> @@ -1085,7 +1085,7 @@ static const struct si_dte_data dte_data_venus_pro =
->         true
->  };
->
-> -struct si_cac_config_reg cac_weights_oland[] =
-> +static struct si_cac_config_reg cac_weights_oland[] =
->  {
->         { 0x0, 0x0000ffff, 0, 0x82, SISLANDS_CACCONFIG_CGIND },
->         { 0x0, 0xffff0000, 16, 0x4F, SISLANDS_CACCONFIG_CGIND },
+>  static void kv_update_acp_boot_level(struct amdgpu_device *adev)
 > --
-> 2.27.0
+> 2.29.0
 >
