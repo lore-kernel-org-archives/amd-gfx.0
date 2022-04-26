@@ -4,53 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50A79C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 13:09:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74BA8C433FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 13:22:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B939110E4A4;
-	Tue, 26 Apr 2022 13:08:59 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8737E10EFEE
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 13:08:58 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-e9027efe6aso11972472fac.10
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 06:08:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F302210F187;
+	Tue, 26 Apr 2022 13:22:13 +0000 (UTC)
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5638710F127;
+ Tue, 26 Apr 2022 13:22:12 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id m20so15309933ejj.10;
+ Tue, 26 Apr 2022 06:22:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=czv81LDe+E62AgbMshDS21kdyN9Ob9LP6ABjXNzTmn8=;
- b=eA6+1pjzKyFOcYgwN8Z7a6Wbzdr9B7dPFS8Zb96OZKEdSEIxMUt3gC+/PPtLPCcG0V
- b5vX9dvjPz0o08ktx/mG50gdsxezw7cMEF7nLjiGQ5FOzAeGvFCZr6rPHYLRQlpyQQro
- PYRjxjfHRbN5n+DRPZpdA7Zy2ck4LoGIKF1vDCBzr38+D1ySuWVnUIVSlKeAD5DBb2MF
- HgJaogUWDk5eV4TTyernoJnpOX9F6M+2BBGUxysWDLDl9VBARu3UM8DWYx29vz4WW95y
- m6LYUnX5XSuDt1aYqEXHZgqI4pT1HJDSDcYfRWACMdWYZYkKHTK+xlvW5EHfoiqo2yqr
- ygUg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=1KRrAvUHtWqCbci+1kggznPLZmodpkw3cORPlN6NxAk=;
+ b=ORNzmh3Avg27YBdlfP0CeDbOsgIQqfcwWLkDSlByVdgJjnO4A5xiRqnZPmmxT+foUk
+ odZdVdTv6j4qqSu/imCR0FMSXeccJHJttEcY+sReFlQGLmeEQTnFjAP3sa1efkKMt4nj
+ ViMKZXwNBh3bB6krRoTqPGy8kTGvqedcEoRVxXy7eylzYpZmBOjNyuVPE2T53DPMWoUq
+ YUO3oQjU4qt5eu/Q53seIzsPYCdrkINrvaaNKsRitDPhb3fQvKvrRF7zTMBYmjTjEVE/
+ 20jPfDRTs1UzHIAMDL8xKYV1meENnRukb4qwBNb+qd6bXMExnATpMSW7Lhv5Jf7Zq5tI
+ y/gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=czv81LDe+E62AgbMshDS21kdyN9Ob9LP6ABjXNzTmn8=;
- b=EHewYYlQdzqxvl2ERoTrUPAt++R6o48GThd5DSmxknAs8fsNMbOHIyOhH5xKN8frRr
- pEyZEl/aWz5Mh2qsttg3iqJLEWI6e8bXQxNgGULHWticTyMUj9BFqqkaDBoB40eDFST7
- 1RgFoTPf9wPBt3EH/88aAE/RXa2uhmAYoAaRcS0XiP5/HEpksMIGU/wOVWCkpi7SGGsM
- jS1/wQLfS1Jjhf+XeztyGz+P52ZjPLqc5WPL2cCq6Gxh74BOLP9gIchVmrpi5nQlubAs
- hLau07rtJ/Cxg1B/LuWmiL8sI1ShURpYvIq9XleVL5wTULbFacGgMRxdbICPJKmuluZw
- bXsA==
-X-Gm-Message-State: AOAM533QgrgBo58mK/Di2VJ7treaCL6A//fBk6HtwB3O7tCNjnLp6c0j
- UYX5U1nGJBzsdaRfKqRVHL/etiVTHY8P1NG3pLY=
-X-Google-Smtp-Source: ABdhPJw3eSd1/Bho1OeAK+lpifDl/htsYez9vmGbe5cMXBZswoqSbbnQ2mxcgFe+0CgSbA8zFT/djGg1pHBV1jqtflI=
-X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
- z3-20020a056870d68300b000deeaa23550mr9624505oap.253.1650978537720; Tue, 26
- Apr 2022 06:08:57 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=1KRrAvUHtWqCbci+1kggznPLZmodpkw3cORPlN6NxAk=;
+ b=hrXISOPpDRRUteoSsAkojeAB33qb+IrdL2CpdKfzavUggrtY8n1Ug0TSgzhA1Q8HhP
+ OgE1QG8StzqjmZ22wpiRVmpMBxvv4NsbQsskuu75CYiOBfE7CW6Y5XJhA5qMcbCtveKp
+ fnigOYR06O1J7ww9Q5wNiPk7yU7Yn2X0nvvisBS1RqTdP+tyrh04Q9I2zGWl17XSQSiM
+ rMhckjWPRLYoOAS9tUZOLcEpEgAEfpJCIVfz1h7N371rG+DY13uzL3C71jIRPXFCQQRK
+ lljSl5Apt3w0wOFUYYxZfRakaT8B+70sAQM3JLt12Uw1FQOvaSpSDcPNxpBMie8QhqSS
+ weTA==
+X-Gm-Message-State: AOAM531YIdj4lnoeAOe23J0EMgSHggDHNM+nmEXafNxySJYdcGfPGTIS
+ blutZjdRfVgh1+YPZLN6wfNnPA2ILeU=
+X-Google-Smtp-Source: ABdhPJxMFqnGqgGJE/SWDcREKSSe6Sh6Wz6YnkqkvEC7lFzDH1pf1Ze/+zgv73vHW5HB65yshb1W/Q==
+X-Received: by 2002:a17:907:1c06:b0:6df:b257:cbb3 with SMTP id
+ nc6-20020a1709071c0600b006dfb257cbb3mr21191396ejc.631.1650979330850; 
+ Tue, 26 Apr 2022 06:22:10 -0700 (PDT)
+Received: from able.fritz.box (p57b0b9e1.dip0.t-ipconnect.de. [87.176.185.225])
+ by smtp.gmail.com with ESMTPSA id
+ x1-20020a1709060ee100b006e8a49f215dsm4889914eji.73.2022.04.26.06.22.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 Apr 2022 06:22:10 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org
+Subject: [RFC] Common DRM execution context
+Date: Tue, 26 Apr 2022 15:22:03 +0200
+Message-Id: <20220426132208.20801-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20220426094720.436117-1-evan.quan@amd.com>
-In-Reply-To: <20220426094720.436117-1-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 Apr 2022 09:08:46 -0400
-Message-ID: <CADnq5_OBQ2zpBzg9TeZdL23Z3xhRdtRiCh1mUMnG2fufvtec4w@mail.gmail.com>
-Subject: Re: [PATCH V2] drm/amd/pm: fix the compile warning
-To: Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,56 +70,23 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, kernel test robot <lkp@intel.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 26, 2022 at 5:47 AM Evan Quan <evan.quan@amd.com> wrote:
->
-> Fix the compile warning below:
-> drivers/gpu/drm/amd/amdgpu/../pm/legacy-dpm/kv_dpm.c:1641
-> kv_get_acp_boot_level() warn: always true condition '(table->entries[i]->clk >= 0) => (0-u32max >= 0)'
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> CC: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
+Hello everyone,
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+as mentioned a couple of times in various discussions it would be rather helpful if DRM has an execution context component similar to TTMs execbuf util.
 
-> Change-Id: If4985252017023d6711b4d7eb1192a397baff813
-> --
-> v1->v2:
->   - drop dead code(Alex)
-> ---
->  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c | 14 +-------------
->  1 file changed, 1 insertion(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> index 8b23cc9f098a..8fd0782a2b20 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-> @@ -1623,19 +1623,7 @@ static int kv_update_samu_dpm(struct amdgpu_device *adev, bool gate)
->
->  static u8 kv_get_acp_boot_level(struct amdgpu_device *adev)
->  {
-> -       u8 i;
-> -       struct amdgpu_clock_voltage_dependency_table *table =
-> -               &adev->pm.dpm.dyn_state.acp_clock_voltage_dependency_table;
-> -
-> -       for (i = 0; i < table->count; i++) {
-> -               if (table->entries[i].clk >= 0) /* XXX */
-> -                       break;
-> -       }
-> -
-> -       if (i >= table->count)
-> -               i = table->count - 1;
-> -
-> -       return i;
-> +       return 0;
->  }
->
->  static void kv_update_acp_boot_level(struct amdgpu_device *adev)
-> --
-> 2.29.0
->
+In contrast to the TTM component this implementation works on the GEM level instead and also doesn't use a double linked list but rather an xarray to track all prepared GEM objects.
+
+Additionally to that an object oriented approach is used to describe the state which makes initializing and cleaning up the object much easier to handle (no external state, just use init/fini and that's it).
+
+Since we now doesn't have nor need a linked list of all the objects to lock a bunch of macros are provided to aid driver developers to correctly prepare all the buffer objects. See the documentation in drm_exec.c for further details.
+
+As prove of concept the new component is then used inside amdgpu to replace TTMs execbuf util.
+
+Please comment and/or review,
+Christian.
+
+
