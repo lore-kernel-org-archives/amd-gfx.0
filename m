@@ -4,91 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63CA8C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 18:29:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6298FC433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 18:34:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E6D310EC60;
-	Tue, 26 Apr 2022 18:29:46 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam07on2089.outbound.protection.outlook.com [40.107.95.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A444D10E69D
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 18:29:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EOnnJ8Q3heoFDfIGBAMu/b6aF0ehBqc4UQ5shsa8GO0tVm2SiYnnqiMhkO3rQhOi753pLOmIJskQDNe8hyNTzWxMeu+pNzQwbTfUACC61ivp0Lf6L7xzMWQi2kuNOFesgxyxor7jKHVUEF/vlU7EI6xND58GATmKKys2rdB8yhaWWwx4a6ay7J7tMd8hPSuJYEaDFepuVCi9J75IwqSWXnlun7QHDfhsztPgCZschhcHRPMcRydCwBpn/XuqJKuvHFJeprUBx7KJB7N2prjRv0r5mBFI11BzquEXXm6WUasCZdO/kApXp2u7hUg8y0cdIPFuhejI0iHo4Z9yeYGZ3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JWW6u9y7G8ksIBmooVxcxN1Z1NSpV5QqetXpESvtNKg=;
- b=mi5sgAsRTpPGOTddmYK7uGG+V/jtYDQnnlvx3QQ5jIL9Y/cZgmwFiQ9OKUOPxF0gLaWs/Ikx8EvyUoQd9zlN4qTpYB86o6idxm+/t5r+ORPT3wRe6ln6AjkZuYbPvqlFzIc56+HzlyZCizZ0ha+ps3lnn4/vmFiwed0tJ05tW441U8M5o0gdvoa5Ng8mRP5RGO1lRWnJvdkPmOe7yJn398CJGCC529qQju7rlTLvOhQxmXEDiqX56zW+Sn/EwQvOYk4jizuXhTiwtKHhc7uCc4XE5yawIGkX8pdAAO6gx6DHrlOMBaqgQ/eVSgRJnCaoe64k+Isa7Il7yZZOr48gPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JWW6u9y7G8ksIBmooVxcxN1Z1NSpV5QqetXpESvtNKg=;
- b=jpKB2kqNvvPsiiKYu3ahypH1/ath6ADJNKem2BXsDYCLJBMuoSvskOz4f6TecOr1CLaJxtKzsSn1mIA5X6sMGgyqMa+GOau03KgveK+IkNwvCBUB5VTeg5dqNowRI7knVg4NcDAdOSpWXlcTw8aJt947GQmKqr6hd1knF1xiRgs=
-Received: from MW4PR03CA0134.namprd03.prod.outlook.com (2603:10b6:303:8c::19)
- by BYAPR12MB3638.namprd12.prod.outlook.com (2603:10b6:a03:dc::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Tue, 26 Apr
- 2022 18:29:38 +0000
-Received: from CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8c:cafe::aa) by MW4PR03CA0134.outlook.office365.com
- (2603:10b6:303:8c::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.13 via Frontend
- Transport; Tue, 26 Apr 2022 18:29:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT033.mail.protection.outlook.com (10.13.174.247) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5186.14 via Frontend Transport; Tue, 26 Apr 2022 18:29:37 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 26 Apr
- 2022 13:29:33 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 4/5] drm/amdgpu: update gc info from bios table
-Date: Tue, 26 Apr 2022 14:29:19 -0400
-Message-ID: <20220426182920.3007060-4-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220426182920.3007060-1-alexander.deucher@amd.com>
-References: <20220426182920.3007060-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D770F10E2CC;
+	Tue, 26 Apr 2022 18:34:36 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93D4010E2C6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 18:34:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1650998074;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=eJubVxidxrH43nT1ZcESqGVo+TV4vGiI9S8510OYaUk=;
+ b=d7aZ+8YfcSH/Rck7V2XQ/4epEAoRZ7zaVfVjfdZoQsg/PtLIWf0HI9oFJzD4H2XghVCDrR
+ 21++f1O+1PmkZThWmd1HXMgNNIgzSw6rnt14sDJ06q0hINVuNq1+Xb33nFUUew451O14WI
+ Rf7kB5FLXUuNRJf7u3b8/I/U1SoIbm4=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-637-o9G1Q32BMWKE8JmiC6oqYQ-1; Tue, 26 Apr 2022 14:34:33 -0400
+X-MC-Unique: o9G1Q32BMWKE8JmiC6oqYQ-1
+Received: by mail-qk1-f198.google.com with SMTP id
+ e66-20020a378245000000b0069f23a82b5bso7298262qkd.22
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 11:34:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:organization
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=eJubVxidxrH43nT1ZcESqGVo+TV4vGiI9S8510OYaUk=;
+ b=tNzhyd612di8fNGg5lZ7XSbzcOXG5xSSVXIc9izq6cEHzKCzN49fBP1F/0EtUOfL5s
+ 8K5LieqjDnGX+QCc/6bYApOQbdB0yXXj13tpycU/cvF299FCPeTPGqd0iNSfUwNMRCsr
+ WRvVsfgRjHaZWM+H+/dXQqAWVT1zH+6oge0oFn2VnvyvU5XSkzkNDZyH93jXnOVyqzXS
+ xv04MHfeCtIL+WqS44dJ62qK30s0947f0VzY1ynKPENfSU6Ku1QDecWLf+RmlRaOu5Qd
+ lJsfDGKGsqqhPRKS8p02Aww44cVF9JDn76BhqiI1BC3DbvI/XV0VGGrNAB6GjTP3tzkF
+ ardw==
+X-Gm-Message-State: AOAM532D+uIEevj7cqgxbAvxuiY5O9sVKP1CRksPxVjCbbbLKE8kdd9W
+ +f270IJRXZvRGv9gP88vIM2nQYBkAdkaoXO5hhSgYoiEkhDq+4QAjcmMTjAawt9gzTNWzQCMlDe
+ rwBqGPnidqRtBLgWG/cMDUprBvQ==
+X-Received: by 2002:a05:6214:4011:b0:446:63b6:8b51 with SMTP id
+ kd17-20020a056214401100b0044663b68b51mr17416038qvb.43.1650998072511; 
+ Tue, 26 Apr 2022 11:34:32 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxSTyxghOMakuSzLg+vVd1jQRAhTlvSuZxjU1DMb91ySKyNOQTzvYi4NffiezRcnRfbz+CZSQ==
+X-Received: by 2002:a05:6214:4011:b0:446:63b6:8b51 with SMTP id
+ kd17-20020a056214401100b0044663b68b51mr17416023qvb.43.1650998072239; 
+ Tue, 26 Apr 2022 11:34:32 -0700 (PDT)
+Received: from [192.168.8.138] (static-71-184-137-158.bstnma.ftas.verizon.net.
+ [71.184.137.158]) by smtp.gmail.com with ESMTPSA id
+ 22-20020ac85916000000b002f3402e34a3sm8785857qty.55.2022.04.26.11.34.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 Apr 2022 11:34:31 -0700 (PDT)
+Message-ID: <fa4b1543a0547d505d73a74002eedc12de03e910.camel@redhat.com>
+Subject: XDC 2022: Registration & Call for Proposals now open!
+From: Lyude Paul <lyude@redhat.com>
+To: events@lists.x.org, xorg-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ libre-soc-dev@lists.libre-soc.org
+Date: Tue, 26 Apr 2022 14:34:30 -0400
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2910d9d6-c58d-440d-bd74-08da27b2b885
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3638:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB3638B1AE47795A4FFD1BFAB4F7FB9@BYAPR12MB3638.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ecaq55eMNmNSbaTEppydaIIEqWwLzAVtRGRlqHNpiH+8BjNanvtSJpS/+FxSOawxzyZRge/2pfgLH+8N8zxW0/SZA+4h+S0zWLXS/qRc7BDUW//5InPt/xErwoo9YBtkLIKOmfy+Sv3z5/UF1YiKvi+hxD1vBv2w4tBZTUC7/ZRm3ZdQoY4Oakp90RPvjPLHRwFpj5Snu+TLnjDU1P2eHJRcoS+INU2s6yR/39EZR5NcMwfy0lHk54x2nyomKsIevh+xK0j5MyIYdXC/Cf1PP39GS2sfdZpj4qsnGnCuu5zrgXAoWuItLQ3XF9DBfdQOjya4T/mxzdjYTNMnpYhR8CQUI+7MOyE760wbMzGtkh5SR7BFAtuhEKRSAe+NVzm7JduM5uVTcQbsKFfTR1diZ6RSngnA7jd1zhr0qY8tKmecNaKUuQUvMppAv8eh10NG45QkjaqLE8codU24ItcWXYCvgpBzJFDwKmEZb5/CC0+26UR+PZJZ+deouJ2hBfgt0Jx5iYCy1KZg0hWqhQYjCYaGRC34bWIYSJ7Xa503KUK1vuT8xZNVrOiqhJ8w0w5DLJKgVT/Y5W6RUumyWqRVj70hXaUAwoG56IoWXNB67uL61u/VV8v4Jo4NUKnkicuQRE73qawqE92IrfyY0M2L0dW3pbHFnCFqaHNsSRr0N/gdbutKLo8YEIlhHjCH6U5mtvDvLPuTCMWIr6QLvr3x/w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(336012)(426003)(16526019)(47076005)(82310400005)(186003)(8676002)(54906003)(6916009)(83380400001)(36756003)(356005)(81166007)(4326008)(40460700003)(36860700001)(6666004)(2616005)(26005)(8936002)(70586007)(5660300002)(70206006)(508600001)(7696005)(1076003)(86362001)(2906002)(316002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2022 18:29:37.8062 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2910d9d6-c58d-440d-bd74-08da27b2b885
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3638
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,129 +86,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: board@foundation.x.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+Hello!
 
-Handle newer gc info tables.
+The 2022 X.Org Developers Conference is being held in conjunction with
+the 2022 Wine Developers Conference.  This is a meeting to bring
+together developers working on all things open graphics (Linux kernel,
+Mesa, DRM, Wayland, X11, etc.) as well as developers for the Wine
+Project, a key consumer of open graphics.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Likun Gao <Likun.Gao@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 89 +++++++++++--------
- 1 file changed, 53 insertions(+), 36 deletions(-)
+Registration & Call for Proposals are now open for both XDC 2022 and
+WineConf 2022, which will take place on October 4-6, 2022 in
+Minneapolis, Minnesota, USA. 
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index 6034578cf57f..0900912be72d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -653,6 +653,7 @@ int amdgpu_atomfirmware_get_clock_info(struct amdgpu_device *adev)
- union gfx_info {
- 	struct atom_gfx_info_v2_4 v24;
- 	struct atom_gfx_info_v2_7 v27;
-+	struct atom_gfx_info_v3_0 v30;
- };
+https://xdc2022.x.org
  
- int amdgpu_atomfirmware_get_gfx_info(struct amdgpu_device *adev)
-@@ -668,42 +669,58 @@ int amdgpu_atomfirmware_get_gfx_info(struct amdgpu_device *adev)
- 				   &frev, &crev, &data_offset)) {
- 		union gfx_info *gfx_info = (union gfx_info *)
- 			(mode_info->atom_context->bios + data_offset);
--		switch (crev) {
--		case 4:
--			adev->gfx.config.max_shader_engines = gfx_info->v24.max_shader_engines;
--			adev->gfx.config.max_cu_per_sh = gfx_info->v24.max_cu_per_sh;
--			adev->gfx.config.max_sh_per_se = gfx_info->v24.max_sh_per_se;
--			adev->gfx.config.max_backends_per_se = gfx_info->v24.max_backends_per_se;
--			adev->gfx.config.max_texture_channel_caches = gfx_info->v24.max_texture_channel_caches;
--			adev->gfx.config.max_gprs = le16_to_cpu(gfx_info->v24.gc_num_gprs);
--			adev->gfx.config.max_gs_threads = gfx_info->v24.gc_num_max_gs_thds;
--			adev->gfx.config.gs_vgt_table_depth = gfx_info->v24.gc_gs_table_depth;
--			adev->gfx.config.gs_prim_buffer_depth =
--				le16_to_cpu(gfx_info->v24.gc_gsprim_buff_depth);
--			adev->gfx.config.double_offchip_lds_buf =
--				gfx_info->v24.gc_double_offchip_lds_buffer;
--			adev->gfx.cu_info.wave_front_size = le16_to_cpu(gfx_info->v24.gc_wave_size);
--			adev->gfx.cu_info.max_waves_per_simd = le16_to_cpu(gfx_info->v24.gc_max_waves_per_simd);
--			adev->gfx.cu_info.max_scratch_slots_per_cu = gfx_info->v24.gc_max_scratch_slots_per_cu;
--			adev->gfx.cu_info.lds_size = le16_to_cpu(gfx_info->v24.gc_lds_size);
--			return 0;
--		case 7:
--			adev->gfx.config.max_shader_engines = gfx_info->v27.max_shader_engines;
--			adev->gfx.config.max_cu_per_sh = gfx_info->v27.max_cu_per_sh;
--			adev->gfx.config.max_sh_per_se = gfx_info->v27.max_sh_per_se;
--			adev->gfx.config.max_backends_per_se = gfx_info->v27.max_backends_per_se;
--			adev->gfx.config.max_texture_channel_caches = gfx_info->v27.max_texture_channel_caches;
--			adev->gfx.config.max_gprs = le16_to_cpu(gfx_info->v27.gc_num_gprs);
--			adev->gfx.config.max_gs_threads = gfx_info->v27.gc_num_max_gs_thds;
--			adev->gfx.config.gs_vgt_table_depth = gfx_info->v27.gc_gs_table_depth;
--			adev->gfx.config.gs_prim_buffer_depth = le16_to_cpu(gfx_info->v27.gc_gsprim_buff_depth);
--			adev->gfx.config.double_offchip_lds_buf = gfx_info->v27.gc_double_offchip_lds_buffer;
--			adev->gfx.cu_info.wave_front_size = le16_to_cpu(gfx_info->v27.gc_wave_size);
--			adev->gfx.cu_info.max_waves_per_simd = le16_to_cpu(gfx_info->v27.gc_max_waves_per_simd);
--			adev->gfx.cu_info.max_scratch_slots_per_cu = gfx_info->v27.gc_max_scratch_slots_per_cu;
--			adev->gfx.cu_info.lds_size = le16_to_cpu(gfx_info->v27.gc_lds_size);
--			return 0;
--		default:
-+		if (frev == 2) {
-+			switch (crev) {
-+			case 4:
-+				adev->gfx.config.max_shader_engines = gfx_info->v24.max_shader_engines;
-+				adev->gfx.config.max_cu_per_sh = gfx_info->v24.max_cu_per_sh;
-+				adev->gfx.config.max_sh_per_se = gfx_info->v24.max_sh_per_se;
-+				adev->gfx.config.max_backends_per_se = gfx_info->v24.max_backends_per_se;
-+				adev->gfx.config.max_texture_channel_caches = gfx_info->v24.max_texture_channel_caches;
-+				adev->gfx.config.max_gprs = le16_to_cpu(gfx_info->v24.gc_num_gprs);
-+				adev->gfx.config.max_gs_threads = gfx_info->v24.gc_num_max_gs_thds;
-+				adev->gfx.config.gs_vgt_table_depth = gfx_info->v24.gc_gs_table_depth;
-+				adev->gfx.config.gs_prim_buffer_depth =
-+					le16_to_cpu(gfx_info->v24.gc_gsprim_buff_depth);
-+				adev->gfx.config.double_offchip_lds_buf =
-+					gfx_info->v24.gc_double_offchip_lds_buffer;
-+				adev->gfx.cu_info.wave_front_size = le16_to_cpu(gfx_info->v24.gc_wave_size);
-+				adev->gfx.cu_info.max_waves_per_simd = le16_to_cpu(gfx_info->v24.gc_max_waves_per_simd);
-+				adev->gfx.cu_info.max_scratch_slots_per_cu = gfx_info->v24.gc_max_scratch_slots_per_cu;
-+				adev->gfx.cu_info.lds_size = le16_to_cpu(gfx_info->v24.gc_lds_size);
-+				return 0;
-+			case 7:
-+				adev->gfx.config.max_shader_engines = gfx_info->v27.max_shader_engines;
-+				adev->gfx.config.max_cu_per_sh = gfx_info->v27.max_cu_per_sh;
-+				adev->gfx.config.max_sh_per_se = gfx_info->v27.max_sh_per_se;
-+				adev->gfx.config.max_backends_per_se = gfx_info->v27.max_backends_per_se;
-+				adev->gfx.config.max_texture_channel_caches = gfx_info->v27.max_texture_channel_caches;
-+				adev->gfx.config.max_gprs = le16_to_cpu(gfx_info->v27.gc_num_gprs);
-+				adev->gfx.config.max_gs_threads = gfx_info->v27.gc_num_max_gs_thds;
-+				adev->gfx.config.gs_vgt_table_depth = gfx_info->v27.gc_gs_table_depth;
-+				adev->gfx.config.gs_prim_buffer_depth = le16_to_cpu(gfx_info->v27.gc_gsprim_buff_depth);
-+				adev->gfx.config.double_offchip_lds_buf = gfx_info->v27.gc_double_offchip_lds_buffer;
-+				adev->gfx.cu_info.wave_front_size = le16_to_cpu(gfx_info->v27.gc_wave_size);
-+				adev->gfx.cu_info.max_waves_per_simd = le16_to_cpu(gfx_info->v27.gc_max_waves_per_simd);
-+				adev->gfx.cu_info.max_scratch_slots_per_cu = gfx_info->v27.gc_max_scratch_slots_per_cu;
-+				adev->gfx.cu_info.lds_size = le16_to_cpu(gfx_info->v27.gc_lds_size);
-+				return 0;
-+			default:
-+				return -EINVAL;
-+			}
-+		} else if (frev == 3) {
-+			switch (crev) {
-+			case 0:
-+				adev->gfx.config.max_shader_engines = gfx_info->v30.max_shader_engines;
-+				adev->gfx.config.max_cu_per_sh = gfx_info->v30.max_cu_per_sh;
-+				adev->gfx.config.max_sh_per_se = gfx_info->v30.max_sh_per_se;
-+				adev->gfx.config.max_backends_per_se = gfx_info->v30.max_backends_per_se;
-+				adev->gfx.config.max_texture_channel_caches = gfx_info->v30.max_texture_channel_caches;
-+				return 0;
-+			default:
-+				return -EINVAL;
-+			}
-+		} else {
- 			return -EINVAL;
- 		}
+As usual, the conference is free of charge and open to the general
+public. If you plan on attending, please make sure to register as early
+as possible!
  
--- 
-2.35.1
+In order to register as attendee, you will therefore need to do it via
+the XDC website:
+ 
+https://indico.freedesktop.org/event/2/registrations/2/
+ 
+In addition to registration, the CfP is now open for talks, workshops
+and demos at XDC 2022. While any serious proposal will be gratefully
+considered, topics of interest to X.Org and freedesktop.org developers
+are encouraged. The program focus is on new development, ongoing
+challenges and anything else that will spark discussions among
+attendees in the hallway track.
+ 
+We are open to talks across all layers of the graphics stack, from the
+kernel to desktop environments / graphical applications and about how
+to make things better for the developers who build them. Head to the
+CfP page to learn more: 
+ 
+https://indico.freedesktop.org/event/2/abstracts/
+ 
+The deadline for submissions is Monday July 4th, 2022.
+ 
+Check out our Reimbursement Policy to accept speaker
+expenses for X.Org events like XDC 2022:
+ 
+https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
+
+If you have any questions, please send me an email to
+xdc@codeweavers.com, adding on CC the X.org board (board
+at foundation.x.org).
+ 
+And don't forget, you can follow us on Twitter for all the latest
+updates and to stay connected:
+ 
+https://twitter.com/XOrgDevConf
+
+Best regards,
+Lyude Paul, on behalf of X.org
 
