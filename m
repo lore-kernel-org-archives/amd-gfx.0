@@ -4,63 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88873C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 13:28:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEF16C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 13:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A4D10E6F6;
-	Tue, 26 Apr 2022 13:28:30 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DB9510E6F6;
- Tue, 26 Apr 2022 13:28:29 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id e2so19203317wrh.7;
- Tue, 26 Apr 2022 06:28:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=oM30FhmQfO46n0r+P4uRf95ZE1vZtA1tsapmUJrgQ8A=;
- b=hjeULA6v7AO+OfpirGkChZwEWze7lBBMkTJdCjewPr+LT0dulQUbdo4JVtUInnm7Wh
- gJufLH2t4IwGYRTrcz/ia+m5jyUnjVmrQgkRXTLRTh9vDZpRmI7e/WefUHxZy30I2Mkf
- QwkufHZtlmX79+h+h8thJa6e7OMO5w/Eeocxudcfnuh3XCUHOY0gSgBmXjeOf3OP1xJB
- /j9WTnKFV91Qd+3tsRQGDT7ZeUOtMyOFHiJ2x4AKbBysSpKtT4MrXP4rQ37MwlpCJ8/a
- gUqbzQU/nMJS53VgMZLiddW02ZfSEv43GTZhUweOSYkPB338VW1KyIla8m1PsmIydb3B
- OKmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=oM30FhmQfO46n0r+P4uRf95ZE1vZtA1tsapmUJrgQ8A=;
- b=puSurghe7VQ3ASnWedQkrrmO+jJGjV9fpNjXXW1qAqlZnt9ac0YBdbU5ACbIlxb0js
- UQ1nt/jzT1ZCYmjXxlb3GkN4U/AdOYSyfIer8jvuadVzLdaIOXZaLTZI9s7D5ruiqx2b
- jcf2PbEr+bQvFVz4YsrIhV75IQobV9WkcRgecC0JyUiNEVE3xa4PjngR5INeLH02hsGJ
- 2NwcUbcsuA0BPbk87yspsNPk/V+WINGFmII7Y8hlhTupXNSF7RNE59Lc7R+YlWdMiycw
- wYECpLv1kosXifn6viaJGGCUy9yCtliRqBeQKDMGOQm7lumMKInTFbjO+nG+kZiTWgbO
- 3AoQ==
-X-Gm-Message-State: AOAM532ijE1AtLgG5KkzFUeJFTo1E750X8q7P0r+rHVuUJcEr5Qx3gb4
- wibMjluvON4grSWfbYLj20a8mBsVFAw=
-X-Google-Smtp-Source: ABdhPJyDS7rfZJaxl74taGBA576lUrnSXeNoWZZegk2tTljZl/bug8nSglYkZZZ8WyBRvfMx45qmDQ==
-X-Received: by 2002:a17:906:dc8f:b0:6e0:5ce7:d80e with SMTP id
- cs15-20020a170906dc8f00b006e05ce7d80emr21787118ejc.435.1650979334660; 
- Tue, 26 Apr 2022 06:22:14 -0700 (PDT)
-Received: from able.fritz.box (p57b0b9e1.dip0.t-ipconnect.de. [87.176.185.225])
- by smtp.gmail.com with ESMTPSA id
- x1-20020a1709060ee100b006e8a49f215dsm4889914eji.73.2022.04.26.06.22.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Apr 2022 06:22:11 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: dri-devel@lists.freedesktop.org,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/5] drm: execution context for GEM buffers
-Date: Tue, 26 Apr 2022 15:22:04 +0200
-Message-Id: <20220426132208.20801-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220426132208.20801-1-christian.koenig@amd.com>
-References: <20220426132208.20801-1-christian.koenig@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B43910E251;
+	Tue, 26 Apr 2022 13:53:25 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2075.outbound.protection.outlook.com [40.107.94.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63D4110E157;
+ Tue, 26 Apr 2022 13:53:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=REXcdnB9TyyloKR4E3Xd9rjoUvKLaYtzc/QQIHwEKdyT7EObGZYpyPP+LCVyhyV2MPUncjoUtOKvRJdWAKUyLneL4dMBIYpvky1DFvAYzrOLp9zfEooKz3Wfp+Vuj5CnBCf9Y24/5lGCJjdrHzRbzv5NZHChMwZMDRKidIX3mlANw9a+fOGBhjPX0PW1c8+99vCINfr9Ea6OPf8TQtM4NfFtC9Pet3Vph0EhcsLvnPtIT6YRW6p502tbbgXG/KajQyJCo+CpAdH7SeDzPtZxhVBAC9mKBMyK+Xd5iIvC3y/BHlByAKaV5SEBg3M3gUN/DSdW0G0Xi6gBfIWwA8vfhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BF2KzYgCablwP47d4neBSayo/Rm5+cKCPZnrmtajTOM=;
+ b=i2CYgzAqWFKbWTnui0xiXBq52ggsPw8FIjC/cxeFt8gnN6N3cTpdL0hePQizzVf711k02P0oval8R6kAvfL71ZS3cnL6psZDetFz3v7YHb9wP6zfTgqLKtpxT+1q+n5xEcRD4doZh7GlQ6f0h3ZCn2Y4Jh9PMUmHIue3hFjxYp8NImcW64ofvlmsTSib4g8TjAe22YZltMaHooDAvzsFEESRkYBfC3fqKpioKRuC77jX7DJTpsx2btPvRvd0O5tUZ1ctdxLLGYrpGBWquDBlvhu+enwdOB1i+OC5SlP+Vp0UvtEtm31Qw3jI1Uzdwr2BsRnzgswPgNX1YPiotcetrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BF2KzYgCablwP47d4neBSayo/Rm5+cKCPZnrmtajTOM=;
+ b=WQra2n6fxBZ4crUsN5QK/HX1IxYYUbSdaCdF6zHZgk+NnE/z1pJZoXAKDCBzk9EWLSr8Fi3IhHdc+Ju1Yv9Lxbnc5hPA3PO1f449hia81pub1dgfOBIezPh0wPVqIQxmVkZtxZJXlnvecAeIAWrnBU94izrehFI72heh6rHKOsw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB4526.namprd12.prod.outlook.com (2603:10b6:806:98::23)
+ by BN6PR1201MB0097.namprd12.prod.outlook.com (2603:10b6:405:54::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Tue, 26 Apr
+ 2022 13:53:20 +0000
+Received: from SA0PR12MB4526.namprd12.prod.outlook.com
+ ([fe80::8515:3855:bed9:3f05]) by SA0PR12MB4526.namprd12.prod.outlook.com
+ ([fe80::8515:3855:bed9:3f05%9]) with mapi id 15.20.5186.021; Tue, 26 Apr 2022
+ 13:53:20 +0000
+Message-ID: <5adfe067-dc00-6567-e218-c5c68670cf5b@amd.com>
+Date: Tue, 26 Apr 2022 08:53:15 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Subject: Re: [PATCHv4] drm/amdgpu: disable ASPM on Intel Alder Lake based
+ systems
+Content-Language: en-US
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+References: <20220412215000.897344-1-richard.gong@amd.com>
+ <d4ba3998-34aa-86d2-bde9-bc6ae9d8d08d@molgen.mpg.de>
+ <CADnq5_MgvcGPWf2gYn_3qCr+Gq1P39tvv-W-o8NhivvMpMwUBA@mail.gmail.com>
+ <91e916e3-d793-b814-6cbf-abee0667f5f8@molgen.mpg.de>
+ <94fd858d-1792-9c05-b5c6-1b028427687d@amd.com>
+ <efc1dfd1-2b54-aee5-1497-4b800a468141@molgen.mpg.de>
+ <237da02b-0ed8-6b1c-3eaf-5574aab4f13f@amd.com>
+ <294555b4-2d1b-270f-6682-3a17e9df133c@molgen.mpg.de>
+From: "Gong, Richard" <richard.gong@amd.com>
+In-Reply-To: <294555b4-2d1b-270f-6682-3a17e9df133c@molgen.mpg.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH0PR03CA0036.namprd03.prod.outlook.com
+ (2603:10b6:610:b3::11) To SA0PR12MB4526.namprd12.prod.outlook.com
+ (2603:10b6:806:98::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0218428e-f7d4-4729-bd8f-08da278c1f7e
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0097:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB009726DD2792E534F3BE9DE395FB9@BN6PR1201MB0097.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cT8DbLaatH8nnQOv/aZJYWeogeFdBB6hWAwE9FKPiUaSfCUlfNa5XVy+AwuJIMbNCNuhU+Tlk1WTqPBJr5QsDWdoi1zK2+CmJPDvLtHWY2VdHwWE9HX2Bo/xPwRQjekQZEsiEy5Q2nKFxMqdC3UzZXHkyUCmOF01XULukYfQL4uD36hssXjlQBfLLW7zlnnlxur2Nlq6wJgFFWHNgMMH7UE7wz0wS2lDYZ4qGI8PrMPTSvA0DeC8heQBqsg74a2ZCwh2O4ZD/xwZp36tcEGWXL/kM1Jx7G6jGBZxwvSkutdQc5i/T07mWFSI7P87scxiJprcduSdFWNcbJz70ZITg/4Pxi1v5lgodQ1LLHfii2jn5MXbnUrfHkO+mvMtaBSHLySLNeSr0fnPa0+WFwnw83j/lLp5sQwgkf4+j3W3vy/dcxKVG70iFk6FBJohGjxOthtUvDVNLqlS7DVLZw2gL3N/m0b9IUgYiIXJal+8VoX9bzXeFvXH9QJaOBHSE9rfcr4k8i1fqsRbLzUl9Uqh8dnc4dxYuf/2ftD+YvM9cRHzc/IxuuN6j1afTaeEdfMVTKW8/T5g29Sheqf5IIB9XaZIP73FbJOiLGvUg9lwelVwVlfPqRfaDFxZPymsiRCbC/JS4yJaICyLsW77V8Ic0KgsAb8VoOdzN4lspPc7EdXheQfO1u6cPe28LX6wlUHB/6XrRf1oTj1XkNlc65guyX5lWQUkECb1RQllT3Qj2HCIFicpdU6GfA/Wg5yofbwvjPFWFmR2NpnAlBb4MkWpLMtDeH1H1BjA9iOcBUl+WhehA840wC6ddbI26g9qpDVl
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB4526.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(36756003)(6486002)(2616005)(5660300002)(6506007)(53546011)(8936002)(31686004)(83380400001)(186003)(45080400002)(966005)(31696002)(26005)(86362001)(38100700002)(6512007)(6666004)(8676002)(66556008)(4326008)(2906002)(508600001)(66946007)(66476007)(6916009)(316002)(54906003)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bDV2UUdsSmdPdmkzdmphR1pETnZrMkFDQzN3bnc3VTRQcEJVUG9iRnVuS2Y1?=
+ =?utf-8?B?TXJUVkpSS09pQ015enZzalpPNllpZy93SnNTcjhQN2pDZUJWOE0rSHhxYmVn?=
+ =?utf-8?B?UGVrODlqbmJhMTR4cTJ5RXdMejlUdlMza2VkOVp1UmpHMGRnbmd5V1FhSlJI?=
+ =?utf-8?B?d0x0SjVOSHZiaVRwbmdoTkFheVZGUFFMeEplazhwd3hsRWZCR3VhQldqbksv?=
+ =?utf-8?B?bFpmM1h2Slg3VWVNY3Vjd1FxZmJnc01KNittQ2M1SGNzOGx1NFZTZ3ZnMzVM?=
+ =?utf-8?B?dThtUUNLMTlyNWg4Mm9SNzdybnVUYngvRTlYSzZad1BiS2ZEL1JGMVRSWlBI?=
+ =?utf-8?B?S3psZ0hVbjRKWW9ndml1eGRRVWtkZHVnK2oxUDZvSC9iQXZQOEUwcWxCOEhr?=
+ =?utf-8?B?OVA2UDVTK2xBejhNRDUwcUVFaEswLzZYV1RmcXArc1pOWm4yL2U0RTBSRzRh?=
+ =?utf-8?B?ZDZUVEowdkNudTMzdjROM1l0RU5sSWpFQ2xjTXJHZlM5TDlBQndJZWlhdGpV?=
+ =?utf-8?B?UysveW94WmRKb0hVNGl0NmVyVEh6MnNGTDUzYWJxcXFRL00ya3RJNDl4Z2lo?=
+ =?utf-8?B?S05Mc0NiVkhFdkk2OUEvUWJObGdCdm81REhBakFhRGVoaDR3Y2VPdGNEYUJX?=
+ =?utf-8?B?S1E5ckhHL2VlQnA1MkQvSHkzMDFmYWpwN1d6cE9qZHhRbzQrNVRPWWtoT0VQ?=
+ =?utf-8?B?SFBJaUowbjVkNkl1UytmTWoxVW5MakFZbUc1TXZ3dUVya2R1dmtKMzI5SnZH?=
+ =?utf-8?B?eFlvclhNaklTb0dZOHEzb2czVUJORloxdG5YQjZqOG5nS04xc2l3UTZoVU9y?=
+ =?utf-8?B?S3hSQ0k0MmhrUUN6ZjdJNWJiS0xQekkyZzgwUDNKejA5OWdaQXFiOVVMWEJ3?=
+ =?utf-8?B?N1BaSW9ySWd5RlRsVFhVUHo2Yng2K2lvRGFickpvWFpLb25CRTVjaWNmN1hW?=
+ =?utf-8?B?NEl5ZGZNMldRNk1ZcXlyR3dlMUFuZGF1QUVjUlRlUkJvSmR1dkhNdmNDWk1X?=
+ =?utf-8?B?QS9GYkxvbXpUMm5yQ2xDcXVGYy92WFhSUm91QktwUjdkVVlXRkhVT3BtNzBa?=
+ =?utf-8?B?bTArZmdWZytzcnJmcGNFZ1pCYXFENEN1QU81STRtUVNBMXVDYloySW1USTdP?=
+ =?utf-8?B?Mm45WFVabmdWV3U3Vm1JSjhPQVJBUWJaWC9CUUR0VmhnamNmeDkwY0pBc0NJ?=
+ =?utf-8?B?VlRSN0o3RUpXek5zL053Z1NSMEpORlZDWThKMnNJS09wRG4weWllVmNtaVIw?=
+ =?utf-8?B?UmVrQ2JQaFA3WWpFOW9EcVFmVXNCRVZBVERWVWU5cDR6M01hRzhPRGJMR3Ey?=
+ =?utf-8?B?QjhlZXkycFhYTUFadXZuUlJPZ1E1QVVTUWdMRjR0YUhCUFpkelJ5M0ZQTVBG?=
+ =?utf-8?B?WDAvTjlaamVUTno0Y3p2b0djTmNNekZMblBxQkNjbnkxRUZUKzgwQkVjdWF3?=
+ =?utf-8?B?MUkwcDRFOXZkdTNwWmRIRkpyemlmaDM3UlZVR0syaTlFclpiOE1tZThUR3Vx?=
+ =?utf-8?B?d1ptWjlzaXB6aUtjQzNhNXBqcC80V3JsSFZlTWV1WGRTZ2J4ZjJ6S0RxYUMw?=
+ =?utf-8?B?RHp3ZzIzMWNsSFFtQU8yWXZhVHNzcG9oUWVKMkZVNU9yVWd0eDFJYjh4UkNm?=
+ =?utf-8?B?SVNBS0NKN2ZKaVczM21DSGVudFVTb2NCUjVTSnRnc0hRUlFsK1RWcmJSTkxq?=
+ =?utf-8?B?OGJRMkVsM1ZrTEVtRld1Zm9LSFFoV256SEN2VERaN2ljeVcwL2pZeWE5YmVu?=
+ =?utf-8?B?dWNmajZpdGUyaUdyaUgyZ1RlTUI1WUN4SkRDcmtwaU5qQ3podisvZWRuMXlT?=
+ =?utf-8?B?elVSY1R6N2VGRTdkTHpaVVI2ZjBqeTZtcEF1QnJjUHF1K1VzUGJUWk54UlJF?=
+ =?utf-8?B?QnUxVE9Hcm12YUdjRkhJZmhmU2ZYRElVRWh1a2JVbVI5dWoxS1dRUmNXKzB5?=
+ =?utf-8?B?dUc3dnlxZFJ2amUxTHRtZWdrZUVNNXA0L1JvN21pMHpJenFkdTJ2U3lZMmcr?=
+ =?utf-8?B?YzVFVFNtVmNFckhkSDJsTmtxSkcyMGRVd0dEd3hjKy9TRWdXMnMvZFRJMGY1?=
+ =?utf-8?B?c2FLYW45R210eERrdFJRM0ozTlgrUVA1QXk0bmhPNW5VZk5hRUtFNERWL0c2?=
+ =?utf-8?B?WFJla0x0MWRORGRuMFpwcHduc0cxSDFVTHlnS0hFaStHYzVaUldBazFmUTh5?=
+ =?utf-8?B?SVBoa3lxL1c4L2szODAwbHR1UnowUmt0NGhNbmVERmVNdmd4d3hmV014c2ZP?=
+ =?utf-8?B?YmZpOE9jZGZDOWM5ZDM5UU96ZHA3RjhzRkI4US80VGx2NGx6Tmp1emRYZEVX?=
+ =?utf-8?B?Ykk2OEpWOTFXNXd5OWlWNnRDUURCa3dCdDlzQjFTbUdZMXJyK1NIUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0218428e-f7d4-4729-bd8f-08da278c1f7e
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4526.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2022 13:53:20.4588 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0MRoHT7Z3PJb2BzFFeq5HBRz2WlgMpiNh9A4oTkRBlKTOBSE04fpwX5342h91Xli5+GUb0wBtxmg8eKSxwY8/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0097
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,486 +135,259 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- daniel@ffwll.ch
+Cc: Dave Airlie <airlied@linux.ie>, Xinhui Pan <xinhui.pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alexander Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This adds the infrastructure for an execution context for GEM buffers
-which is similar to the existinc TTMs execbuf util and intended to replace
-it in the long term.
+Hi Paul,
 
-The basic functionality is that we abstracts the necessary loop to lock
-many different GEM buffers with automated deadlock and duplicate handling.
+On 4/21/2022 12:35 AM, Paul Menzel wrote:
+> Dear Richard,
+>
+>
+> Am 21.04.22 um 03:12 schrieb Gong, Richard:
+>
+>> On 4/20/2022 3:29 PM, Paul Menzel wrote:
+>
+>>> Am 19.04.22 um 23:46 schrieb Gong, Richard:
+>>>
+>>>> On 4/14/2022 2:52 AM, Paul Menzel wrote:
+>>>>> [Cc: -kernel test robot <lkp@intel.com>]
+>>>
+>>> […]
+>>>
+>>>>> Am 13.04.22 um 15:00 schrieb Alex Deucher:
+>>>>>> On Wed, Apr 13, 2022 at 3:43 AM Paul Menzel wrote:
+>>>>>
+>>>>>>> Thank you for sending out v4.
+>>>>>>>
+>>>>>>> Am 12.04.22 um 23:50 schrieb Richard Gong:
+>>>>>>>> Active State Power Management (ASPM) feature is enabled since 
+>>>>>>>> kernel 5.14.
+>>>>>>>> There are some AMD GFX cards (such as WX3200 and RX640) that 
+>>>>>>>> won't work
+>>>>>>>> with ASPM-enabled Intel Alder Lake based systems. Using these 
+>>>>>>>> GFX cards as
+>>>>>>>> video/display output, Intel Alder Lake based systems will hang 
+>>>>>>>> during
+>>>>>>>> suspend/resume.
+>>>
+>>> [Your email program wraps lines in cited text for some reason, 
+>>> making the citation harder to read.]
+>>>
+>> Not sure why, I am using Mozila Thunderbird for email. I am not using 
+>> MS Outlook for upstream email.
+>
+> Strange. No idea if there were bugs in Mozilla Thunderbird 91.2.0, 
+> released over half year ago. The current version is 91.8.1. [1]
+>
+>>>>>>> I am still not clear, what “hang during suspend/resume” means. I 
+>>>>>>> guess
+>>>>>>> suspending works fine? During resume (S3 or S0ix?), where does 
+>>>>>>> it hang?
+>>>>>>> The system is functional, but there are only display problems?
+>>>> System freeze after suspend/resume.
+>>>
+>>> But you see certain messages still? At what point does it freeze 
+>>> exactly? In the bug report you posted Linux messages.
+>>
+>> No, the system freeze then users have to recycle power to recover.
+>
+> Then I misread the issue? Did you capture the messages over serial log 
+> then?
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- Documentation/gpu/drm-mm.rst |  12 ++
- drivers/gpu/drm/Kconfig      |   7 +
- drivers/gpu/drm/Makefile     |   2 +
- drivers/gpu/drm/drm_exec.c   | 256 +++++++++++++++++++++++++++++++++++
- include/drm/drm_exec.h       | 128 ++++++++++++++++++
- 5 files changed, 405 insertions(+)
- create mode 100644 drivers/gpu/drm/drm_exec.c
- create mode 100644 include/drm/drm_exec.h
+I think so. We captured dmesg log.
 
-diff --git a/Documentation/gpu/drm-mm.rst b/Documentation/gpu/drm-mm.rst
-index f32ccce5722d..bf7dd2a78e9b 100644
---- a/Documentation/gpu/drm-mm.rst
-+++ b/Documentation/gpu/drm-mm.rst
-@@ -493,6 +493,18 @@ DRM Sync Objects
- .. kernel-doc:: drivers/gpu/drm/drm_syncobj.c
-    :export:
- 
-+DRM Execution context
-+=====================
-+
-+.. kernel-doc:: drivers/gpu/drm/drm_exec.c
-+   :doc: Overview
-+
-+.. kernel-doc:: include/drm/drm_exec.h
-+   :internal:
-+
-+.. kernel-doc:: drivers/gpu/drm/drm_exec.c
-+   :export:
-+
- GPU Scheduler
- =============
- 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index e88c497fa010..1b35c10df263 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -179,6 +179,12 @@ config DRM_TTM
- 	  GPU memory types. Will be enabled automatically if a device driver
- 	  uses it.
- 
-+config DRM_EXEC
-+	tristate
-+	depends on DRM
-+	help
-+	  Execution context for command submissions
-+
- config DRM_BUDDY
- 	tristate
- 	depends on DRM
-@@ -252,6 +258,7 @@ config DRM_AMDGPU
- 	select DRM_SCHED
- 	select DRM_TTM
- 	select DRM_TTM_HELPER
-+	select DRM_EXEC
- 	select POWER_SUPPLY
- 	select HWMON
- 	select BACKLIGHT_CLASS_DEVICE
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 15fe3163f822..ee8573b683f3 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -37,6 +37,8 @@ obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) += drm_panel_orientation_quirks.o
- #
- # Memory-management helpers
- #
-+#
-+obj-$(CONFIG_DRM_EXEC) += drm_exec.o
- 
- obj-$(CONFIG_DRM_BUDDY) += drm_buddy.o
- 
-diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-new file mode 100644
-index 000000000000..805fb4850cf9
---- /dev/null
-+++ b/drivers/gpu/drm/drm_exec.c
-@@ -0,0 +1,256 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-+
-+#include <drm/drm_exec.h>
-+#include <drm/drm_gem.h>
-+#include <linux/dma-resv.h>
-+
-+/**
-+ * DOC: Overview
-+ *
-+ * This component mainly abstracts the retry loop necessary for locking
-+ * multiple GEM objects while preparing hardware operations (e.g. command
-+ * submissions, page table updates etc..).
-+ *
-+ * If a contention is detected while locking a GEM object the cleanup procedure
-+ * unlocks all previously locked GEM objects and locks the contended one first
-+ * before locking any further objects.
-+ *
-+ * After an object is locked fences slots can optionally be reserved on the
-+ * dma_resv object inside the GEM object.
-+ *
-+ * A typical usage pattern should look like this::
-+ *
-+ *	struct drm_gem_object *obj;
-+ *	struct drm_exec exec;
-+ *	unsigned long index;
-+ *	int ret;
-+ *
-+ *	drm_exec_init(&exec, true);
-+ *	drm_exec_while_not_all_locked(&exec) {
-+ *		ret = drm_exec_prepare_obj(&exec, boA, 1);
-+ *		drm_exec_continue_on_contention(&exec);
-+ *		if (ret)
-+ *			goto error;
-+ *
-+ *		ret = drm_exec_lock(&exec, boB, 1);
-+ *		drm_exec_continue_on_contention(&exec);
-+ *		if (ret)
-+ *			goto error;
-+ *	}
-+ *
-+ *	drm_exec_for_each_locked_object(&exec, index, obj) {
-+ *		dma_resv_add_fence(obj->resv, fence, DMA_RESV_USAGE_READ);
-+ *		...
-+ *	}
-+ *	drm_exec_fini(&exec);
-+ *
-+ * See struct dma_exec for more details.
-+ */
-+
-+/* Dummy value used to initially enter the retry loop */
-+#define DRM_EXEC_DUMMY (void*)~0
-+
-+/* Unlock all objects and drop references */
-+static void drm_exec_unlock_all(struct drm_exec *exec)
-+{
-+	struct drm_gem_object *obj;
-+	unsigned long index;
-+
-+	xa_for_each(&exec->duplicates, index, obj) {
-+		drm_gem_object_put(obj);
-+		xa_erase(&exec->duplicates, index);
-+	}
-+
-+	xa_for_each(&exec->locked, index, obj) {
-+		dma_resv_unlock(obj->resv);
-+		drm_gem_object_put(obj);
-+		xa_erase(&exec->locked, index);
-+	}
-+}
-+
-+/**
-+ * drm_exec_init - initialize a drm_exec object
-+ * @exec: the drm_exec object to initialize
-+ * @interruptible: if locks should be acquired interruptible
-+ *
-+ * Initialize the object and make sure that we can track locked and duplicate
-+ * objects.
-+ */
-+void drm_exec_init(struct drm_exec *exec, bool interruptible)
-+{
-+	exec->interruptible = interruptible;
-+	ww_acquire_init(&exec->ticket, &reservation_ww_class);
-+	xa_init_flags(&exec->duplicates, XA_FLAGS_ALLOC);
-+	xa_init_flags(&exec->locked, XA_FLAGS_ALLOC);
-+	exec->contended = DRM_EXEC_DUMMY;
-+}
-+EXPORT_SYMBOL(drm_exec_init);
-+
-+/**
-+ * drm_exec_fini - finalize a drm_exec object
-+ * @exec: the drm_exec object to finilize
-+ *
-+ * Unlock all locked objects, drop the references to objects and free all memory
-+ * used for tracking the state.
-+ */
-+void drm_exec_fini(struct drm_exec *exec)
-+{
-+	if (exec->contended != DRM_EXEC_DUMMY)
-+		drm_gem_object_put(exec->contended);
-+	drm_exec_unlock_all(exec);
-+	xa_destroy(&exec->duplicates);
-+	xa_destroy(&exec->locked);
-+	ww_acquire_fini(&exec->ticket);
-+}
-+EXPORT_SYMBOL(drm_exec_fini);
-+
-+/**
-+ * drm_exec_cleanup - cleanup when contention is detected
-+ * @exec: the drm_exec object to cleanup
-+ *
-+ * Cleanup the current state and return true if we should stay inside the retry
-+ * loop, false if there wasn't any contention detected and we can keep the
-+ * objects locked.
-+ */
-+bool drm_exec_cleanup(struct drm_exec *exec)
-+{
-+	if (likely(!exec->contended)) {
-+		ww_acquire_done(&exec->ticket);
-+		return false;
-+	}
-+
-+	if (likely(exec->contended == DRM_EXEC_DUMMY)) {
-+		exec->contended = NULL;
-+		return true;
-+	}
-+
-+	drm_exec_unlock_all(exec);
-+	return true;
-+}
-+EXPORT_SYMBOL(drm_exec_cleanup);
-+
-+/* Track the locked object in the xa and reserve fences */
-+static int drm_exec_obj_locked(struct xarray *xa, struct drm_gem_object *obj,
-+			       unsigned int num_fences)
-+{
-+	uint32_t index = 0;
-+	int ret;
-+
-+	if (xa) {
-+		ret = xa_alloc(xa, &index, obj, xa_limit_32b, GFP_KERNEL);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (num_fences) {
-+		ret = dma_resv_reserve_fences(obj->resv, num_fences);
-+		if (ret)
-+			goto error_erase;
-+	}
-+
-+	return 0;
-+
-+error_erase:
-+	if (xa)
-+		xa_erase(xa, index);
-+	return ret;
-+}
-+
-+/* Make sure the contended object is locked first */
-+static int drm_exec_lock_contended(struct drm_exec *exec)
-+{
-+	struct drm_gem_object *obj = exec->contended;
-+	int ret;
-+
-+	if (likely(!obj))
-+		return 0;
-+
-+	if (exec->interruptible) {
-+		ret = dma_resv_lock_slow_interruptible(obj->resv,
-+						       &exec->ticket);
-+		if (unlikely(ret))
-+			return ret;
-+	} else {
-+		dma_resv_lock_slow(obj->resv, &exec->ticket);
-+	}
-+
-+	ret = drm_exec_obj_locked(&exec->locked, obj, 0);
-+	if (unlikely(ret))
-+		goto error_unlock;
-+
-+	exec->contended = NULL;
-+	return 0;
-+
-+error_unlock:
-+	dma_resv_unlock(obj->resv);
-+	return ret;
-+}
-+
-+/**
-+ * drm_exec_prepare_obj - prepare a GEM object for use
-+ * @exec: the drm_exec object with the state
-+ * @obj: the GEM object to prepare
-+ * @num_fences: how many fences to reserve
-+ *
-+ * Prepare a GEM object for use by locking it and reserving fence slots. All
-+ * succesfully locked objects are put into the locked container. Duplicates
-+ * detected as well and automatically moved into the duplicates container.
-+ *
-+ * Returns: -EDEADLK if a contention is detected, -ENOMEM when memory
-+ * allocation failed and zero for success.
-+ */
-+int drm_exec_prepare_obj(struct drm_exec *exec, struct drm_gem_object *obj,
-+			 unsigned int num_fences)
-+{
-+	int ret;
-+
-+	ret = drm_exec_lock_contended(exec);
-+	if (unlikely(ret))
-+		return ret;
-+
-+	if (exec->interruptible)
-+		ret = dma_resv_lock_interruptible(obj->resv, &exec->ticket);
-+	else
-+		ret = dma_resv_lock(obj->resv, &exec->ticket);
-+
-+	if (unlikely(ret == -EDEADLK)) {
-+		drm_gem_object_get(obj);
-+		exec->contended = obj;
-+		return -EDEADLK;
-+	}
-+
-+	if (unlikely(ret == -EALREADY)) {
-+		struct xarray *xa = &exec->duplicates;
-+
-+		/*
-+		 * If this is the first locked GEM object it was most likely
-+		 * just contended. So don't add it to the duplicates, just
-+		 * reserve the fence slots.
-+		 */
-+		if (xa_load(&exec->locked, 0) == obj)
-+			xa = NULL;
-+
-+		ret = drm_exec_obj_locked(&exec->duplicates, obj, num_fences);
-+		if (ret)
-+			return ret;
-+
-+	} else if (unlikely(ret)) {
-+		return ret;
-+
-+	} else {
-+		ret = drm_exec_obj_locked(&exec->locked, obj, num_fences);
-+		if (ret)
-+			goto error_unlock;
-+	}
-+
-+	drm_gem_object_get(obj);
-+	return 0;
-+
-+error_unlock:
-+	dma_resv_unlock(obj->resv);
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_exec_prepare_obj);
-+
-+MODULE_DESCRIPTION("DRM execution context");
-+MODULE_LICENSE("Dual MIT/GPL");
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-new file mode 100644
-index 000000000000..48b6f9c24be5
---- /dev/null
-+++ b/include/drm/drm_exec.h
-@@ -0,0 +1,128 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-+
-+#ifndef __DRM_EXEC_H__
-+#define __DRM_EXEC_H__
-+
-+#include <linux/ww_mutex.h>
-+#include <linux/xarray.h>
-+
-+struct drm_gem_object;
-+
-+/**
-+ * struct drm_exec - Execution context
-+ */
-+struct drm_exec {
-+	/**
-+	 * @interruptible: If locks should be taken interruptible
-+	 */
-+	bool			interruptible;
-+
-+	/**
-+	 * @ticket: WW ticket used for acquiring locks
-+	 */
-+	struct ww_acquire_ctx	ticket;
-+
-+	/**
-+	 * @locked: container for the locked GEM objects
-+	 */
-+	struct xarray		locked;
-+
-+	/**
-+	 * @duplicates: container for the duplicated GEM objects
-+	 */
-+	struct xarray		duplicates;
-+
-+	/**
-+	 * @contended: contended GEM object we backet of for.
-+	 */
-+	struct drm_gem_object	*contended;
-+};
-+
-+/**
-+ * drm_exec_for_each_locked_object - iterate over all the locked objects
-+ * @exec: drm_exec object
-+ * @index: unsigned long index for the iteration
-+ * @obj: the current GEM object
-+ *
-+ * Iterate over all the locked GEM objects inside the drm_exec object.
-+ */
-+#define drm_exec_for_each_locked_object(exec, index, obj)	\
-+	xa_for_each(&(exec)->locked, index, obj)
-+
-+/**
-+ * drm_exec_for_each_duplicate_object - iterate over all the duplicate objects
-+ * @exec: drm_exec object
-+ * @index: unsigned long index for the iteration
-+ * @obj: the current GEM object
-+ *
-+ * Iterate over all the duplicate GEM objects inside the drm_exec object.
-+ */
-+#define drm_exec_for_each_duplicate_object(exec, index, obj)	\
-+	xa_for_each(&(exec)->duplicates, index, obj)
-+
-+/**
-+ * drm_exec_while_not_all_locked - loop until all GEM objects are prepared
-+ * @exec: drm_exec object
-+ *
-+ * Core functionality of the drm_exec object. Loops until all GEM objects are
-+ * prepared and no more contention exists.
-+ *
-+ * At the beginning of the loop it is guaranteed that no GEM object is locked.
-+ */
-+#define drm_exec_while_not_all_locked(exec)	\
-+	while (drm_exec_cleanup(exec))
-+
-+/**
-+ * drm_exec_continue_on_contention - continue the loop when we need to cleanup
-+ * @exec: drm_exec object
-+ *
-+ * Control flow helper to continue when a contention was detected and we need to
-+ * clean up and re-start the loop to prepare all GEM objects.
-+ */
-+#define drm_exec_continue_on_contention(exec)		\
-+	if (unlikely(drm_exec_is_contended(exec)))	\
-+		continue
-+
-+/**
-+ * drm_exec_break_on_contention - break a subordinal loop on contention
-+ * @exec: drm_exec object
-+ *
-+ * Control flow helper to break a subordinal loop when a contention was detected
-+ * and we need to clean up and re-start the loop to prepare all GEM objects.
-+ */
-+#define drm_exec_break_on_contention(exec)		\
-+	if (unlikely(drm_exec_is_contended(exec)))	\
-+		break
-+
-+/**
-+ * drm_exec_is_contended - check for contention
-+ * @exec: drm_exec object
-+ *
-+ * Returns true if the drm_exec object has run into some contention while
-+ * locking a GEM object and needs to clean up.
-+ */
-+static inline bool drm_exec_is_contended(struct drm_exec *exec)
-+{
-+	return !!exec->contended;
-+}
-+
-+/**
-+ * drm_exec_has_duplicates - check for duplicated GEM object
-+ * @exec: drm_exec object
-+ *
-+ * Return true if the drm_exec object has encountered some already locked GEM
-+ * objects while trying to lock them. This can happen if multiple GEM objects
-+ * share the same underlying resv object.
-+ */
-+static inline bool drm_exec_has_duplicates(struct drm_exec *exec)
-+{
-+	return !xa_empty(&exec->duplicates);
-+}
-+
-+void drm_exec_init(struct drm_exec *exec, bool interruptible);
-+void drm_exec_fini(struct drm_exec *exec);
-+bool drm_exec_cleanup(struct drm_exec *exec);
-+int drm_exec_prepare_obj(struct drm_exec *exec, struct drm_gem_object *obj,
-+			 unsigned int num_fences);
-+
-+#endif
--- 
-2.25.1
+As mentioned early we need support from Intel on how to get ASPM working 
+for VI generation on Intel Alder Lake, but we don't know where things 
+currently stand.
 
+>
+>>>>>>>> The issue was initially reported on one system (Dell Precision 
+>>>>>>>> 3660 with
+>>>>>>>> BIOS version 0.14.81), but was later confirmed to affect at 
+>>>>>>>> least 4 Alder
+>>>>>>>> Lake based systems.
+>>>>>>>>
+>>>>>>>> Add extra check to disable ASPM on Intel Alder Lake based systems.
+>>>>>>>>
+>>>>>>>> Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
+>>>>>>>> Link: 
+>>>>>>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1885&amp;data=05%7C01%7Crichard.gong%40amd.com%7C5990a9e58af0438b80c308da2358d216%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637861161666341691%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=Ka3NSmXuyji%2F%2FRdH319aFk9ya5UytU8lq3FhiuMd%2FcU%3D&amp;reserved=0 
+>>>>>>>>
+>>>
+>>> Thank you Microsoft Outlook for keeping us safe. :(
+>> I am not using MS Outlook for the email exchanges.
+>
+> I guess, it’s not the client but the Microsoft email service 
+> (Exchange?) no idea adding these protection links. (Making it even 
+> harder for users to actually verify domain. No idea who comes up with 
+> these ideas, and customers actually accepting those.)
+>
+>>>>>>>>
+>>>>>>>> Reported-by: kernel test robot <lkp@intel.com>
+>>>>>>>
+>>>>>>> This tag is a little confusing. Maybe clarify that it was for an 
+>>>>>>> issue
+>>>>>>> in a previous patch iteration?
+>>>>
+>>>> I did describe in change-list version 3 below, which corrected the 
+>>>> build error with W=1 option.
+>>>>
+>>>> It is not good idea to add the description for that to the commit 
+>>>> message, this is why I add descriptions on change-list version 3.
+>>>
+>>> Do as you wish, but the current style is confusing, and readers of 
+>>> the commit are going to think, the kernel test robot reported the 
+>>> problem with AMD VI ASICs and Intel Alder Lake systems.
+>>>
+>>>>>>>
+>>>>>>>> Signed-off-by: Richard Gong <richard.gong@amd.com>
+>>>>>>>> ---
+>>>>>>>> v4: s/CONFIG_X86_64/CONFIG_X86
+>>>>>>>>       enhanced check logic
+>>>>>>>> v3: s/intel_core_asom_chk/aspm_support_quirk_check
+>>>>>>>>       correct build error with W=1 option
+>>>>>>>> v2: correct commit description
+>>>>>>>>       move the check from chip family to problematic platform
+>>>>>>>> ---
+>>>>>>>>    drivers/gpu/drm/amd/amdgpu/vi.c | 17 ++++++++++++++++-
+>>>>>>>>    1 file changed, 16 insertions(+), 1 deletion(-)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c 
+>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/vi.c
+>>>>>>>> index 039b90cdc3bc..b33e0a9bee65 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+>>>>>>>> @@ -81,6 +81,10 @@
+>>>>>>>>    #include "mxgpu_vi.h"
+>>>>>>>>    #include "amdgpu_dm.h"
+>>>>>>>>
+>>>>>>>> +#if IS_ENABLED(CONFIG_X86)
+>>>>>>>> +#include <asm/intel-family.h>
+>>>>>>>> +#endif
+>>>>>>>> +
+>>>>>>>>    #define ixPCIE_LC_L1_PM_SUBSTATE    0x100100C6
+>>>>>>>>    #define 
+>>>>>>>> PCIE_LC_L1_PM_SUBSTATE__LC_L1_SUBSTATES_OVERRIDE_EN_MASK 
+>>>>>>>> 0x00000001L
+>>>>>>>>    #define PCIE_LC_L1_PM_SUBSTATE__LC_PCI_PM_L1_2_OVERRIDE_MASK 
+>>>>>>>> 0x00000002L
+>>>>>>>> @@ -1134,13 +1138,24 @@ static void vi_enable_aspm(struct 
+>>>>>>>> amdgpu_device *adev)
+>>>>>>>>                WREG32_PCIE(ixPCIE_LC_CNTL, data);
+>>>>>>>>    }
+>>>>>>>>
+>>>>>>>> +static bool aspm_support_quirk_check(void)
+>>>>>>>> +{
+>>>>>>>> +     if (IS_ENABLED(CONFIG_X86)) {
+>>>>>>>> +             struct cpuinfo_x86 *c = &cpu_data(0);
+>>>>>>>> +
+>>>>>>>> +             return !(c->x86 == 6 && c->x86_model == 
+>>>>>>>> INTEL_FAM6_ALDERLAKE);
+>>>>>>>> +     }
+>>>>>>>> +
+>>>>>>>> +     return true;
+>>>>>>>> +}
+>>>>>>>> +
+>>>>>>>>    static void vi_program_aspm(struct amdgpu_device *adev)
+>>>>>>>>    {
+>>>>>>>>        u32 data, data1, orig;
+>>>>>>>>        bool bL1SS = false;
+>>>>>>>>        bool bClkReqSupport = true;
+>>>>>>>>
+>>>>>>>> -     if (!amdgpu_device_should_use_aspm(adev))
+>>>>>>>> +     if (!amdgpu_device_should_use_aspm(adev) || 
+>>>>>>>> !aspm_support_quirk_check())
+>>>>>>>>                return;
+>>>>>>>
+>>>>>>> Can users still forcefully enable ASPM with the parameter 
+>>>>>>> `amdgpu.aspm`?
+>>>>>>>
+>>>> As Mario mentioned in a separate reply, we can't forcefully enable 
+>>>> ASPM with the parameter 'amdgpu.aspm'.
+>>>
+>>> That would be a regression on systems where ASPM used to work. Hmm. 
+>>> I guess, you could say, there are no such systems.
+>>>
+>>>>>>>>
+>>>>>>>>        if (adev->flags & AMD_IS_APU ||
+>>>>>>>
+>>>>>>> If I remember correctly, there were also newer cards, where ASPM 
+>>>>>>> worked
+>>>>>>> with Intel Alder Lake, right? Can only the problematic 
+>>>>>>> generations for
+>>>>>>> WX3200 and RX640 be excluded from ASPM?
+>>>>>>
+>>>>>> This patch only disables it for the generatioaon that was 
+>>>>>> problematic.
+>>>>>
+>>>>> Could that please be made clear in the commit message summary, and 
+>>>>> message?
+>>>>
+>>>> Are you ok with the commit messages below?
+>>>
+>>> Please change the commit message summary. Maybe:
+>>>
+>>> drm/amdgpu: VI: Disable ASPM on Intel Alder Lake based systems
+>>>
+>>>> Active State Power Management (ASPM) feature is enabled since 
+>>>> kernel 5.14.
+>>>>
+>>>> There are some AMD GFX cards (such as WX3200 and RX640) that won't 
+>>>> work
+>>>> with ASPM-enabled Intel Alder Lake based systems. Using these GFX 
+>>>> cards as
+>>>> video/display output, Intel Alder Lake based systems will freeze after
+>>>> suspend/resume.
+>>>
+>>> Something like:
+>>>
+>>> On Intel Alder Lake based systems using ASPM with AMD GFX Volcanic 
+>>> Islands (VI) cards, like WX3200 and RX640, graphics don’t initialize 
+>>> when resuming from S0ix(?).
+>>>
+>>>
+>>>> The issue was initially reported on one system (Dell Precision 3660 
+>>>> with
+>>>> BIOS version 0.14.81), but was later confirmed to affect at least 4 
+>>>> Alder
+>>>> Lake based systems.
+>>>
+>>> Which ones?
+>> those are pre-production Alder Lake based OEM systems
+>
+> Just write that then: at least four pre-production Alder Lake based 
+> systems.
+>
+>>>> Add extra check to disable ASPM on Intel Alder Lake based systems with
+>>>> problematic generation GFX cards.
+>>>
+>>> … with the problematic Volcanic Islands GFX cards.
+>>>
+>>>>>
+>>>>> Loosely related, is there a public (or internal issue) to analyze 
+>>>>> how to get ASPM working for VI generation devices with Intel Alder 
+>>>>> Lake?
+>>>>
+>>>> As Alex mentioned, we need support from Intel. We don't have any 
+>>>> update on that.
+>>>
+>>> It’d be great to get that fixed properly.
+>>>
+>>> Last thing, please don’t hate me, does Linux log, that ASPM is 
+>>> disabled?
+>
+>
+> Kind regards,
+>
+> Paul
+>
+>
+> [1]: 
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.thunderbird.net%2Fen-US%2Fthunderbird%2Freleases%2F&amp;data=05%7C01%7Crichard.gong%40amd.com%7C5990a9e58af0438b80c308da2358d216%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637861161666341691%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=HYlNdeVKxSWQto%2BWGAoUc5etFwhdlyTUoox71SQjCtY%3D&amp;reserved=0
