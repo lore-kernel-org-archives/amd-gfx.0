@@ -4,40 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E1A6C433EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 12:56:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A84FC4332F
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 12:56:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9827710E27F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C80A310E2DE;
 	Tue, 26 Apr 2022 12:56:13 +0000 (UTC)
-X-Greylist: delayed 911 seconds by postgrey-1.36 at gabe;
- Tue, 26 Apr 2022 08:30:56 UTC
-Received: from mail-m973.mail.163.com (mail-m973.mail.163.com [123.126.97.3])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2C56710E501
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 08:30:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=zvXbx
- c6oeTRO3XsxcHtOzBD/YFkC8b+iClv9CLrQQ6Q=; b=WiLnpn+ipULxnoqRcM543
- 92S8Wh0eQUXovS5xRLlhIUPzAYhkEVfVhaI7ky0o93Mbg4zlMka/MB/i1p1Q3hng
- aMttQicmwiOXhmuHRZ7r4Sjh4pkXc70z6S4n8CGHDisBrTQ4DFtwFFzrrzIDMgh3
- SuEWOd5WdjM2DhH8J//IbU=
-Received: from localhost.localdomain (unknown [116.128.244.169])
- by smtp3 (Coremail) with SMTP id G9xpCgCnApgpqmdiPhL7DA--.44213S2;
- Tue, 26 Apr 2022 16:15:39 +0800 (CST)
-From: clement wei <clementwei90@163.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: fix typo
-Date: Tue, 26 Apr 2022 16:15:29 +0800
-Message-Id: <20220426081529.870302-1-clementwei90@163.com>
+Received: from nksmu.kylinos.cn (mailgw.kylinos.cn [123.150.8.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01C2C10E73B;
+ Tue, 26 Apr 2022 08:50:12 +0000 (UTC)
+X-UUID: a86d9c48cb624fe087b56add348e97a3-20220426
+X-UUID: a86d9c48cb624fe087b56add348e97a3-20220426
+Received: from cs2c.com.cn [(172.17.111.24)] by nksmu.kylinos.cn
+ (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
+ with ESMTP id 923068118; Tue, 26 Apr 2022 16:48:37 +0800
+X-ns-mid: postfix-6267B23C-7950086977
+Received: from localhost.localdomain (unknown [172.20.108.41])
+ by cs2c.com.cn (NSMail) with ESMTPA id 8C844383B46C;
+ Tue, 26 Apr 2022 08:50:04 +0000 (UTC)
+From: Zhenneng Li <lizhenneng@kylinos.cn>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] gpu/drm/radeon: Fix typo in comments
+Date: Tue, 26 Apr 2022 16:49:59 +0800
+Message-Id: <20220426084959.3345358-1-lizhenneng@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: G9xpCgCnApgpqmdiPhL7DA--.44213S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtF17Jw18WrWxCw45ZF4xWFg_yoWDuFX_C3
- WxGwnru348XFsaqa1YkrZavrWa93ykuFWrXryIqw4fAF45Cr4qq3srXr4rWr98Gry8C3Zx
- JF4rXF9xArnrWjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0K0P3UUUUU==
-X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: 5fohzv5qwzvxizq6il2tof0z/xtbB2APua2BHKA3igwAAs9
 X-Mailman-Approved-At: Tue, 26 Apr 2022 12:56:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,39 +41,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: xiaolinkui@kylinos.cn, Rongguang Wei <weirongguang@kylinos.cn>,
- amd-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Zhenneng Li <lizhenneng@kylinos.cn>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rongguang Wei <weirongguang@kylinos.cn>
-
-Fix spelling mistake:
-	"differnt" -> "different"
-	"commond"  -> "common"
-
-Signed-off-by: Rongguang Wei <weirongguang@kylinos.cn>
+Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
 ---
- drivers/gpu/drm/amd/include/atombios.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/atombios.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/include/atombios.h b/drivers/gpu/drm/amd/include/atombios.h
-index da895d1f3b4f..1f9df4e7509b 100644
---- a/drivers/gpu/drm/amd/include/atombios.h
-+++ b/drivers/gpu/drm/amd/include/atombios.h
-@@ -4665,7 +4665,7 @@ typedef  struct _ATOM_EXTERNAL_DISPLAY_CONNECTION_INFO
-   UCHAR                    Reserved[3];                           // for potential expansion
- }ATOM_EXTERNAL_DISPLAY_CONNECTION_INFO;
+diff --git a/drivers/gpu/drm/radeon/atombios.h b/drivers/gpu/drm/radeon/atombios.h
+index bd5dc09e860f..6ccc9f31689f 100644
+--- a/drivers/gpu/drm/radeon/atombios.h
++++ b/drivers/gpu/drm/radeon/atombios.h
+@@ -3599,7 +3599,7 @@ typedef struct  _ATOM_LCD_RTS_RECORD
+   UCHAR     ucRTSValue;
+ }ATOM_LCD_RTS_RECORD;
  
--//Related definitions, all records are differnt but they have a commond header
-+//Related definitions, all records are different but they have a common header
- typedef struct _ATOM_COMMON_RECORD_HEADER
+-//!! If the record below exits, it shoud always be the first record for easy use in command table!!! 
++//!! If the record below exits, it should always be the first record for easy use in command table!!!
+ // The record below is only used when LVDS_Info is present. From ATOM_LVDS_INFO_V12, use ucLCDPanel_SpecialHandlingCap instead.
+ typedef struct  _ATOM_LCD_MODE_CONTROL_CAP
  {
-   UCHAR               ucRecordType;                      //An emun to indicate the record type
+@@ -3823,7 +3823,7 @@ typedef struct _ATOM_DPCD_INFO
+ // Note1: This table is filled by SetBiosReservationStartInFB in CoreCommSubs.asm
+ //        at running time.   
+ // note2: From RV770, the memory is more than 32bit addressable, so we will change 
+-//        ucTableFormatRevision=1,ucTableContentRevision=4, the strcuture remains 
++//        ucTableFormatRevision=1,ucTableContentRevision=4, the structure remains
+ //        exactly same as 1.1 and 1.2 (1.3 is never in use), but ulStartAddrUsedByFirmware 
+ //        (in offset to start of memory address) is KB aligned instead of byte aligend.
+ /***********************************************************************************/	
+@@ -3858,7 +3858,7 @@ typedef struct _ATOM_VRAM_USAGE_BY_FIRMWARE
+   ATOM_FIRMWARE_VRAM_RESERVE_INFO	asFirmwareVramReserveInfo[ATOM_MAX_FIRMWARE_VRAM_USAGE_INFO];
+ }ATOM_VRAM_USAGE_BY_FIRMWARE;
+ 
+-// change verion to 1.5, when allow driver to allocate the vram area for command table access. 
++// change version to 1.5, when allow driver to allocate the vram area for command table access.
+ typedef struct _ATOM_FIRMWARE_VRAM_RESERVE_INFO_V1_5
+ {
+   ULONG   ulStartAddrUsedByFirmware;
 -- 
 2.25.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
 
