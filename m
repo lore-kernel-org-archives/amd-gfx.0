@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA9D1C433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 14:51:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37BB3C433EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 14:52:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2895710E3B6;
-	Tue, 26 Apr 2022 14:51:03 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F84410E3B6;
- Tue, 26 Apr 2022 14:51:02 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- t6-20020a056830224600b00605491a5cd7so13179557otd.13; 
- Tue, 26 Apr 2022 07:51:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3D7410E45C;
+	Tue, 26 Apr 2022 14:52:04 +0000 (UTC)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EB5710E45C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 14:52:03 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id r8so20933048oib.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 07:52:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mjUtCSyBnFk8A3kTILIrriQceuNIreHcu/IG7ob7Yjw=;
- b=eEihIfAYOPixN4pXa9pV6rApPJ/mm+Ff36ssgjFVVtp6lXlr8xUkUFSXFY2R5btYUh
- e0bPxX4RJNBOBvjBM5mH0kDJOuNImtnNAUiqKNLl1ts5txepBbOJS0W+CxxJ7IqBj5VY
- mWVQN8+pTokpaJ8lG7CWp+dPeEyOulLirq4omYYkDQxB24tGSJmjVU40upQrW4VZcu2s
- ij4AqBttsogwiH4XU2M2l9Dw6xVQLoAc4G5knFHo3/TNUKhJTJgABL5kngE/mPK9Nnw9
- TlL2svtdIEJAh7kW/Xseb/5gzLETsWfkAL0LcBCzi8v1JEEc8rtYynsAuItgiOfC+3gl
- 7vYA==
+ :cc; bh=HWK8Tqovx5psIdPel+SMe3uq6RQ6mNq2Px0+PxtqEhg=;
+ b=TZrQnriNmdMuKNlPb4kHYpG+irLTYkQY4X+uIcrxKCzNxevKAEuHR+98MZKZ1iwuV0
+ Nygx3/vq0cEyhHY6+3DY0uRINZlL9lsPy5/lCoTupSLDADaYEKKPwj8cgCzknAM8heLs
+ s6rMNU4YoW6aIUdv6WzswoBG3uujyoaEK6YFTgm7VFXFgDI9VwvbL1j9n4Jvx2x+63sW
+ ENthm83c/3EQnA/dmnUFXkOi/GnPcsSkgN9fucDYbSM5qUVNvZTK+OM8OysoOWh31f/7
+ c0bcvpgeO/+IYqsR/6XEM5ckP2Zfn4mBz5HZgZsEIrbwXQxIiE8hhjQHClGgOfFsazCf
+ 0neQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=mjUtCSyBnFk8A3kTILIrriQceuNIreHcu/IG7ob7Yjw=;
- b=goCWJG8vIRLR9o6x6IGivXoAJvlgzUdis/oXOe6Y5MZVBFigZjjEJaQI8qxSg3g8ir
- LLuZiWMhRQ3PkZogc9E4wjKRYsu5NcJJb2oFgaALWYrS5eW9uDCSUKOlTx4EseROV6Id
- TGszzppg8rI7QopEcnt8hIvS66s5x//GCUVL3OSgQeaqzyMBsUVRqXACaXuk0HW8EiGu
- VTf96HJ6TA3ECtAFWp+8ADVYM2qXKEYWNKvmu2RMUkkUnrmqxbJlTYMwZLifi13I4F4F
- po+e43kOerIdAX/E4AoTu8lpB41gY0CeoSXAs8lC1SzdWY0PelT5iis5EitFgzwKSp/Q
- qW0A==
-X-Gm-Message-State: AOAM532d2FAk+w/09yO2PXDh+r4+N8OCzA2tC1r8YKPhgo/LowPs7i2M
- IR2Nu6LopZMPaa6UhIYTtO41g6ZJvcuDM2jbxWk=
-X-Google-Smtp-Source: ABdhPJwQWZyiDHzcPHPthMVbpOd+wMn9jPepqdWib/QYV5CmxlYnXLUwO6hhH6jHp7CQeRHWTBjQ9784pbyYkooY4Hg=
-X-Received: by 2002:a9d:110:0:b0:605:a618:4a68 with SMTP id
- 16-20020a9d0110000000b00605a6184a68mr4761422otu.357.1650984661559; Tue, 26
- Apr 2022 07:51:01 -0700 (PDT)
+ bh=HWK8Tqovx5psIdPel+SMe3uq6RQ6mNq2Px0+PxtqEhg=;
+ b=cGJpApfmZXzSSy1q6C9gmm+O5L1n33tSYKx8qldiBie+rZixLuTAlShAGHv3usI6ez
+ lTcxtnbErE8QTFTZyCO25nzKjH+ADB+Te3Dq1+X20h4n4nqDkIVzPKXuCVqh2ZRVCXet
+ p54bezL9rAbQjhI14eXPE+9aqfzgGYgaPp0R111CyTVQTyhZxRqeziL6i/6s1alv7etu
+ L9Vu7HtoTbXeep5p+LiKJoelDRnNE2G8BEdJpag7LpEGXj88bl0WEC57P91OX0KEpcmy
+ oVpNckc4GBOBxvuZbz0aTAgoBI142wQ2D2d8IVf7A3ethYwQ1KSg5OUxsPWe4kJXPEx5
+ Aidg==
+X-Gm-Message-State: AOAM531J0vb/nhbYurzSUZIAp9jO6mD+eTYNFY9PWcensq3Wfv2LMwlt
+ I1MBrTzu41s5m9NSYM1OnFSuseVZ9RhnhytEdi4=
+X-Google-Smtp-Source: ABdhPJzBmEMHvVQC450lNGzGc9YNnkYjXmEtWN11vrzgbJZmvG9+uBtFE+QJ2I8TB8slZbTYLvzI+bxvXDjT6+LlCJ0=
+X-Received: by 2002:a05:6808:f8d:b0:325:1e81:ffe5 with SMTP id
+ o13-20020a0568080f8d00b003251e81ffe5mr6415852oiw.253.1650984722316; Tue, 26
+ Apr 2022 07:52:02 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220426100616.1411209-1-oushixiong@kylinos.cn>
-In-Reply-To: <20220426100616.1411209-1-oushixiong@kylinos.cn>
+References: <20220426081529.870302-1-clementwei90@163.com>
+In-Reply-To: <20220426081529.870302-1-clementwei90@163.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 Apr 2022 10:50:50 -0400
-Message-ID: <CADnq5_NC+LckMSBYXHGDohyTB6PbELwtYqAknBgRvR3q7N_LYw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Fix spelling typo in comment
-To: oushixiong <oushixiong@kylinos.cn>
+Date: Tue, 26 Apr 2022 10:51:51 -0400
+Message-ID: <CADnq5_MkPbgtq6KaNh8oCx-S4o7AwHJFAfJWjReC-8RJj7JbPw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix typo
+To: clement wei <clementwei90@163.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,43 +61,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: xinhui pan <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Jiawei Gu <Jiawei.Gu@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ xiaolinkui <xiaolinkui@kylinos.cn>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- John Clements <john.clements@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ Rongguang Wei <weirongguang@kylinos.cn>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks.
+Applied.  Thanks!
 
-Alex
-
-On Tue, Apr 26, 2022 at 8:56 AM oushixiong <oushixiong@kylinos.cn> wrote:
+On Tue, Apr 26, 2022 at 8:56 AM clement wei <clementwei90@163.com> wrote:
 >
-> Signed-off-by: oushixiong <oushixiong@kylinos.cn>
+> From: Rongguang Wei <weirongguang@kylinos.cn>
+>
+> Fix spelling mistake:
+>         "differnt" -> "different"
+>         "commond"  -> "common"
+>
+> Signed-off-by: Rongguang Wei <weirongguang@kylinos.cn>
 > ---
->  drivers/gpu/drm/amd/include/atomfirmware.h | 2 +-
+>  drivers/gpu/drm/amd/include/atombios.h | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
-> index 7bd763361d6e..b7a1e2116e7e 100644
-> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
-> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-> @@ -3,7 +3,7 @@
->  *  File Name      atomfirmware.h
->  *  Project        This is an interface header file between atombios and OS GPU drivers for SoC15 products
->  *
-> -*  Description    header file of general definitions for OS nd pre-OS video drivers
-> +*  Description    header file of general definitions for OS and pre-OS video drivers
->  *
->  *  Copyright 2014 Advanced Micro Devices, Inc.
->  *
+> diff --git a/drivers/gpu/drm/amd/include/atombios.h b/drivers/gpu/drm/amd/include/atombios.h
+> index da895d1f3b4f..1f9df4e7509b 100644
+> --- a/drivers/gpu/drm/amd/include/atombios.h
+> +++ b/drivers/gpu/drm/amd/include/atombios.h
+> @@ -4665,7 +4665,7 @@ typedef  struct _ATOM_EXTERNAL_DISPLAY_CONNECTION_INFO
+>    UCHAR                    Reserved[3];                           // for potential expansion
+>  }ATOM_EXTERNAL_DISPLAY_CONNECTION_INFO;
+>
+> -//Related definitions, all records are differnt but they have a commond header
+> +//Related definitions, all records are different but they have a common header
+>  typedef struct _ATOM_COMMON_RECORD_HEADER
+>  {
+>    UCHAR               ucRecordType;                      //An emun to indicate the record type
 > --
 > 2.25.1
+>
+>
+> No virus found
+>                 Checked by Hillstone Network AntiVirus
 >
