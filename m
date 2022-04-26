@@ -4,82 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B209EC433F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 18:36:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CB3CC433F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 18:48:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E78C410E255;
-	Tue, 26 Apr 2022 18:36:50 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EEAC10E2C4
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 18:36:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1650998208;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=U7x3WHti8mB7zSssr6dU5T2fFBWQH7ax9JH4iLf8LkU=;
- b=d9odd6x1wzf73HOPYL+LjGvCy5TRQTwMNFXtI7TiJWkb2z+0740XtXKsww5enbon1NOxeF
- BeG1IYDTzNhyXmzTw+t6NMKFraaMmw1xYNzzvnOVQgpTc3twvCLZqelVa6nWwYVLUI0dgS
- Jw9Uy9J+ihQ3S93rr9oF7tHVSIqJsL4=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-562-Y46-GYkSMkm9TyL8jJrZJw-1; Tue, 26 Apr 2022 14:36:47 -0400
-X-MC-Unique: Y46-GYkSMkm9TyL8jJrZJw-1
-Received: by mail-qk1-f197.google.com with SMTP id
- o13-20020a05620a0d4d00b0069f47054e58so4667997qkl.13
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 11:36:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:organization
- :user-agent:mime-version:content-transfer-encoding;
- bh=U7x3WHti8mB7zSssr6dU5T2fFBWQH7ax9JH4iLf8LkU=;
- b=EUO9O95FlirqMzoMU+xy6qnSlIkSlgEDf7j3JupDUNmzC9ujF4Wnt594jYclPXtps1
- dKanfp1Cql7iH9aPNGFEXr1f3e/aVEzlBizBdZsehFST921psfnmgp5Ue343XcTmgl65
- THr+t4ARB66cBgrMqp9cJMO2/LgBty+GRa9x6foGTImHp1JtBEqHT3VQtmnwtkI+FVqf
- +VEVyOzypKaSi1x0Hh3WfkYJt72hPK3YZlDUMDzdobGVXrxrTETN2EIyKh77Zt9jqsW8
- Jq0lXAlb3HsDbDpR2I0PZwgW3V6+hiuPlgYiZe+5kIB6m9G8JTYssSWHW/eVMZZBkBlC
- VxpQ==
-X-Gm-Message-State: AOAM530xX2L/b5PkoqoVm7+5y+OuRVHRurDPwZvE69ptV9LxdP4RJGPB
- BeY3bjdip40gG5RyZbcwj5riMC7h/RjhO7lGaWyjNOYcobYAoLZRhgpxTbCsNmpjHaX30hsze6G
- oSMIzvIZdqrs33dX5khKcsVmIig==
-X-Received: by 2002:a05:620a:f98:b0:648:a980:5161 with SMTP id
- b24-20020a05620a0f9800b00648a9805161mr13975234qkn.545.1650998206581; 
- Tue, 26 Apr 2022 11:36:46 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxFlkV78mcoPFbdNEywIl8YhmnRu/TNzHWCRjxstF0LNzVzvVzweFee+/7HtJv0KoRQlwNbkA==
-X-Received: by 2002:a05:620a:f98:b0:648:a980:5161 with SMTP id
- b24-20020a05620a0f9800b00648a9805161mr13975211qkn.545.1650998206290; 
- Tue, 26 Apr 2022 11:36:46 -0700 (PDT)
-Received: from [192.168.8.138] (static-71-184-137-158.bstnma.ftas.verizon.net.
- [71.184.137.158]) by smtp.gmail.com with ESMTPSA id
- f39-20020a05622a1a2700b002f367d7a7a5sm4252542qtb.23.2022.04.26.11.36.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Apr 2022 11:36:45 -0700 (PDT)
-Message-ID: <2be5f25b4212817ebc5e0435467848675063b45f.camel@redhat.com>
-Subject: Requests For Proposals for hosting XDC 2023 are now open
-From: Lyude Paul <lyude@redhat.com>
-To: "events@lists.x.org" <events@lists.x.org>, 
- "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, wayland-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, libre-soc-dev@lists.libre-soc.org
-Date: Tue, 26 Apr 2022 14:36:44 -0400
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E40E10E3EB;
+	Tue, 26 Apr 2022 18:48:47 +0000 (UTC)
+Received: from smtp.smtpout.orange.fr (smtp01.smtpout.orange.fr
+ [80.12.242.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18DEB10E33D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 18:47:24 +0000 (UTC)
+Received: from [192.168.1.18] ([86.243.180.246]) by smtp.orange.fr with ESMTPA
+ id jQDZnijInrYGrjQDZnIczV; Tue, 26 Apr 2022 20:47:22 +0200
+X-ME-Helo: [192.168.1.18]
+X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
+X-ME-Date: Tue, 26 Apr 2022 20:47:22 +0200
+X-ME-IP: 86.243.180.246
+Message-ID: <80a426b3-ece2-129c-edca-03556e1ecbb6@wanadoo.fr>
+Date: Tue, 26 Apr 2022 20:47:20 +0200
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH 1/2] drm/amdkfd: Use bitmap_zalloc() when applicable
+Content-Language: fr
+To: Felix Kuehling <felix.kuehling@amd.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch
+Newsgroups: gmane.linux.kernel.janitors, gmane.comp.freedesktop.amd-gfx,
+ gmane.comp.video.dri.devel, gmane.linux.kernel
+References: <f12820f6c5fca9b10ac8f82b3689c50ccb6966aa.1638117878.git.christophe.jaillet@wanadoo.fr>
+ <14268d5a-9a4a-2921-9961-d5d36fad47b2@amd.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+In-Reply-To: <14268d5a-9a4a-2921-9961-d5d36fad47b2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 26 Apr 2022 18:48:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,38 +49,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: board@foundation.x.org
+Cc: kernel-janitors@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello everyone!
+Le 26/04/2022 à 20:01, Felix Kuehling a écrit :
+> Hi Christophe,
+> 
+> I just stumbled over this patch series while cleaning up my inbox. Sorry 
+> for dropping it back in November. I'm about to apply it but I noticed 
+> that patch 1 is missing a Signed-off-by. Is it OK to add that in your name?
 
-The X.org board is soliciting proposals to host XDC in 2023. Since
-XDC 2022 is being held in North America this year, XDC 2023 is expected
-to be in Europe. However, the board is open to other locations,
-especially if there's an interesting co-location with another
-conference.
+Hi,
 
-If you're considering hosting XDC, we've assembled a wiki page with
-what's generally expected and needed:
+No problem for me if you can add it. Thanks.
+But if you prefer a v2, it is also fine for me.
 
-https://www.x.org/wiki/Events/RFP/
+BTW sorry for missing the SoB tag. This definitively means that I forgot 
+the checkpatch.pl step for this patch, which is bad.
 
-When submitting your proposal, please make sure to include at least the
-key information about the potential location in question, possible
-dates along with estimated costs. Proposals can be submitted to board
-at foundation.x.org until the deadline of *September 1st, 2022*. 
+CJ
 
-Additionally, an quirk early heads-up to the board if you're
-considering hosting would be appreciated, in case we need to adjust the
-schedule a bit. Also, earlier is better since there generally will be a
-bit of Q&A with organizers.
-
-And if you just have some questions about what organizing XDC entails,
-please feel free to chat with previous organizers, or someone from the
-board.
-
-Best regards,
-	Lyude Paul
-On behalf of X.org
+> 
+> Thanks,
+>    Felix
+> 
+> 
+> Am 2021-11-28 um 11:45 schrieb Christophe JAILLET:
+>> 'kfd->gtt_sa_bitmap' is a bitmap. So use 'bitmap_zalloc()' to simplify
+>> code, improve the semantic and avoid some open-coded arithmetic in
+>> allocator arguments.
+>>
+>> Also change the corresponding 'kfree()' into 'bitmap_free()' to keep
+>> consistency.
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_device.c | 12 +++---------
+>>   1 file changed, 3 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c 
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>> index e1294fba0c26..c5a0ce44a295 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>> @@ -1252,8 +1252,6 @@ int 
+>> kgd2kfd_schedule_evict_and_restore_process(struct mm_struct *mm,
+>>   static int kfd_gtt_sa_init(struct kfd_dev *kfd, unsigned int buf_size,
+>>                   unsigned int chunk_size)
+>>   {
+>> -    unsigned int num_of_longs;
+>> -
+>>       if (WARN_ON(buf_size < chunk_size))
+>>           return -EINVAL;
+>>       if (WARN_ON(buf_size == 0))
+>> @@ -1264,11 +1262,8 @@ static int kfd_gtt_sa_init(struct kfd_dev *kfd, 
+>> unsigned int buf_size,
+>>       kfd->gtt_sa_chunk_size = chunk_size;
+>>       kfd->gtt_sa_num_of_chunks = buf_size / chunk_size;
+>> -    num_of_longs = (kfd->gtt_sa_num_of_chunks + BITS_PER_LONG - 1) /
+>> -        BITS_PER_LONG;
+>> -
+>> -    kfd->gtt_sa_bitmap = kcalloc(num_of_longs, sizeof(long), 
+>> GFP_KERNEL);
+>> -
+>> +    kfd->gtt_sa_bitmap = bitmap_zalloc(kfd->gtt_sa_num_of_chunks,
+>> +                       GFP_KERNEL);
+>>       if (!kfd->gtt_sa_bitmap)
+>>           return -ENOMEM;
+>> @@ -1278,13 +1273,12 @@ static int kfd_gtt_sa_init(struct kfd_dev 
+>> *kfd, unsigned int buf_size,
+>>       mutex_init(&kfd->gtt_sa_lock);
+>>       return 0;
+>> -
+>>   }
+>>   static void kfd_gtt_sa_fini(struct kfd_dev *kfd)
+>>   {
+>>       mutex_destroy(&kfd->gtt_sa_lock);
+>> -    kfree(kfd->gtt_sa_bitmap);
+>> +    bitmap_free(kfd->gtt_sa_bitmap);
+>>   }
+>>   static inline uint64_t kfd_gtt_sa_calc_gpu_addr(uint64_t start_addr,
+> 
 
