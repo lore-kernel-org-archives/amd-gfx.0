@@ -4,90 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 338A5C433EF
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Apr 2022 10:11:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4FD7C433FE
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Apr 2022 10:16:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B462310EEFF;
-	Wed, 27 Apr 2022 10:11:54 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2057.outbound.protection.outlook.com [40.107.244.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA0A710EEFB
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Apr 2022 10:11:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BFAB10EEE3;
+	Wed, 27 Apr 2022 10:16:14 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2084.outbound.protection.outlook.com [40.107.243.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5B3C10EEE3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Apr 2022 10:16:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hJ1Qnlr10xH56S0EjVZ4VbkLIB+Q87CHSWLzMyWI14yDWCVmyD9e25BYPh/UCn5iw/dyxThyWJXX0WswR/UM1poeYOzqWzVFSJ4yqySA+qJtqGbUJ+WSKXTKb01zeJlS3GEfvGKWGDBHBfm7sw0AiAKvAZVp276n2vCgW99Yw2eb327dnbL0xKrmIiveVTMs9COlIwo9O/mmqSED/Tsf4WKotMDlzc65m6Vqzxz7zJxC4ltCO+l8zenFDmtt4+LekYua/VIXYBZwAqpaIujjkXJ0pSlpksr+niQ3gvhnP8L/LB60t9I3kI1iz0X0sG1XJVN0ZuolJi8LnqYKTMZa7A==
+ b=TSBmYtmsaYppWtTHs8Chzx9tDeSTkFP+afQEHdYT7C8gONOGM/ABFRg7src03Qq5nC1+dynmPItBoYsHJkNKee8IB/9Lf8G/ECcIpdAN6anMxnVXgVs1+KYm+MAQHPgOaHafSf8LLdbo9mzV9KOF3dv4kkXAUqI8373EdwWcOipCvM0YYEFzjqA9SmBx9J3pZ7h8TSzFYrup8lRqEz3mOVcbfJayypPD23vU/2tqN7p2Io7jEayvpdaNcBbVAC8yJH8euCIos5hXz6n0xWieyCqNWAiUGWk1VpKci3fd5YYvyzW5rXp99yfk4VlXo1HbaUGDSEHeXIBXPN+5eo8R4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iyNDuu6edwBgW1TqJqpYvUuYXVyG+2W/2xmbCMnr18A=;
- b=jeL8JDJPVLVm7VuzbZPdHc/MU6Wp2/Q+Xbregqrr1RUA8iJ/iHd0IlWkvOMeF4qSiUR4dTPOSl4T9T248V7zgnhyaoB0D9A3KXmVASlu8JyxJSC7BF2wnSH7Uun4FK2F/mC8ptgI023UvGFFTxKmXTEzixOeWIF2wZyYYZdxuDBMff1sB0WlEq2ysjGjfWj28lRH03P0msnFp1KCA5DrLJcuzEled5uGBG7AiPOJKnQGdnXz2lI/m83Q4S9yv/V7JFEIC9cj9LcSxrXVgcORyWocJd5ElBIOGVo0ULGpY0iwR6VUVVUOF/HtSdZpcxHiIubTRIYfdJKKsxaxAxgbng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=4r1574Q3/qfXzpU1IQ5Q4ATj33/rDe822ICqaFOXu9M=;
+ b=K2F6CftFOMbVTdp7iaq/JM5koWXHIWPArGBGSqgrCP+oBLDMuNoCt/Ee37c1duSq1XbbcGGENpsne6P6rLGeKf3klGdqOsuuG//SBSAN8cW1wHoHYglKVwp3fya2CZE4qUJ+e27Fyu+shTKewlcSKi+Tzsm0gC946YdH2hzpzmWeCli519qHMlUapACS6Iyt623EP4keEHWZQfGAvYHDxBCzHIt5tg7DoHQKETK7nRE/pznHFm80XTzHUaVUjQeELsuV/fKQjLbRBmP5pZzn9x47HGAYXWF2O4NtdsX7ekAzVk775UJDWPS8loBzHsC4nE8xPzmRzHMxz6kPMedCDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iyNDuu6edwBgW1TqJqpYvUuYXVyG+2W/2xmbCMnr18A=;
- b=AGpZMQsnK79Q2Rt/hIkiRrRerUEHyIthlr4eX7+78CvNNQJKR7A3VqvWfP6/2aUIOSZlJGO9fOILVK5izQMJk4F1CmJk8TZX5YZ+nZOWowUIWAlNitWxZxHILIAeajVTCcWzBmI1RXpL7Q9Ue1+uJXSDT1X3MGGZqx6n1xOZJ1Y=
-Received: from DS7PR03CA0340.namprd03.prod.outlook.com (2603:10b6:8:55::21) by
- SA0PR12MB4541.namprd12.prod.outlook.com (2603:10b6:806:9e::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5206.13; Wed, 27 Apr 2022 10:11:51 +0000
-Received: from DM6NAM11FT039.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:55:cafe::25) by DS7PR03CA0340.outlook.office365.com
- (2603:10b6:8:55::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14 via Frontend
- Transport; Wed, 27 Apr 2022 10:11:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT039.mail.protection.outlook.com (10.13.172.83) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Wed, 27 Apr 2022 10:11:51 +0000
-Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Wed, 27 Apr 2022 05:11:48 -0500
-From: Guchun Chen <guchun.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
- <hawking.zhang@amd.com>, <alexander.deucher@amd.com>, <lijo.lazar@amd.com>,
- <evan.quan@amd.com>
-Subject: [PATCH] drm/amdgpu: disable runtime pm on several sienna cichlid cards
-Date: Wed, 27 Apr 2022 18:11:34 +0800
-Message-ID: <20220427101134.17917-1-guchun.chen@amd.com>
-X-Mailer: git-send-email 2.17.1
+ bh=4r1574Q3/qfXzpU1IQ5Q4ATj33/rDe822ICqaFOXu9M=;
+ b=rrg/C3XO8C6txLhQ9hB4k0bRzZnimejImIUz9ojK4onUW6Ze8295nXI+7ks6FcVOMlTmrCOQx4zDxWN1MNiC8h53lwYNSlH44uEpOCFRE8Gzpgx0GG4Q6PM+XCuqldJBPYcLi1t9G1MhgWPyuTo50HxZsFMwdZ2RJnaiRb65lmM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by DS7PR12MB5840.namprd12.prod.outlook.com (2603:10b6:8:7b::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Wed, 27 Apr
+ 2022 10:16:10 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::88f5:b843:e848:fcf]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::88f5:b843:e848:fcf%3]) with mapi id 15.20.5186.021; Wed, 27 Apr 2022
+ 10:16:10 +0000
+Message-ID: <71203a07-9f5c-1193-4014-879e6f4766b7@amd.com>
+Date: Wed, 27 Apr 2022 15:45:59 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH] drm/amdgpu: disable runtime pm on several sienna cichlid
+ cards
+Content-Language: en-US
+To: Guchun Chen <guchun.chen@amd.com>, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, hawking.zhang@amd.com, alexander.deucher@amd.com,
+ evan.quan@amd.com
+References: <20220427101134.17917-1-guchun.chen@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20220427101134.17917-1-guchun.chen@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0122.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:6::7) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d6341421-67a4-4704-12b1-08da283658e9
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4541:EE_
-X-Microsoft-Antispam-PRVS: <SA0PR12MB45412C152936D06D860F776FF1FA9@SA0PR12MB4541.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: ffd19016-d452-4552-229f-08da2836f2fb
+X-MS-TrafficTypeDiagnostic: DS7PR12MB5840:EE_
+X-Microsoft-Antispam-PRVS: <DS7PR12MB58402AC07ED6F3CA61BCFED497FA9@DS7PR12MB5840.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: s5N22oIhPaCG/t7GvRQiYIxSNetYpIq0O7xjyhUrhdXIp2F4UbDmm2AwZoH1mNRUHtrog/fc1J2ioSoZ0VCgPr/+0dnIdaBmc2/3ymySPVc2rReD15CTjy6OnyGracx1J/knqXeMQvcAF7nF4pYKa09RNF2tMVGb2ULeU29NKwnaZgEC3puzYH/TQduzldbiPJw2Levw0S7DVcAEjXbv8exXZtpPua9IloVyXlXdWMsTUkwGdetA0JNp9Zze9Ncbo2D3D1cs9eNBFynCR58T35Yp1mtzexUStpkBCorKc5SwRhFyca+7JyC8REO24vcI5sGCM1r8Ikc1gcJhy/7LlZzoFEF8yE3AM007xYI8hYFqQuV8qIgl4RqYVF85ss53hoM94Bo5vpU1brFN8L/kZFQO6+728VY8qWQURko+uaEseBZV3134JpU+y/dGmqNRTRdLGGB2Lra/cK4ojv/mt+h11hTI9zyS+z53KpZrfceEPAUE5Yp2bzBlZOhQ2Phy0Bdy2Hch9araRYo5RUKeGsSBY+y7V01QTwm8hZIFqtP0m5XegiOXO0Gx9yvhvTdIKpqZbdg3f39oo4SRUzzhpLEKgl36Uz3t6SjtyL4b2sNelJSgcQ57vH4gzncrby1rwx8gY+L6SPkxBc23q9A3xhb35OnsI70GjYfRNx74Ma0X4THqUdg7G91cpYh1ttvElR5jqCeyUfF7k4dduEEDdA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(336012)(426003)(508600001)(82310400005)(2616005)(47076005)(86362001)(40460700003)(26005)(1076003)(356005)(81166007)(6666004)(7696005)(16526019)(186003)(44832011)(2906002)(316002)(36860700001)(70206006)(36756003)(5660300002)(8936002)(70586007)(110136005)(4326008)(83380400001)(8676002)(6636002)(36900700001);
+X-Microsoft-Antispam-Message-Info: akUeErHXLcrrKs3JWXnZXV6Mgu6rqUm5kysHAsK2rkSFPXx7S1rrQ5Dcqls0PYZDzXASxuYpv5Eam1G7cu8rQjNpYcIs5C2b/IPIy4LtZ/mEsxmiOvqBncdEilAJmgPjZ5/JDbMtUCiZZ2sKpBVRAbzxBO848LgfuWE5U62Vduy4WyV/+awIXY+wUYQOeBZrWSKxdInCLUZeHZXDy5l+tBX7gZkuw4Ha577ticv6RMoONRFA6zuPfe4AYiz5yLWcT92NBp9G8NX1E2gE7Jgr6w6z+KvVGFm0o5lNYsv5Y9QAwCaXsk1Q/itC367kt6Js7zGbbRkh6TN9Uw1d1iBQ9Ef4CiyYun+g8BEM5gNvIFQTxnxo2NI9zLj6xbZfuX/KcgF8bEJmAvbDSsQld0Cga6Eh/Qm82VSRyYbuJGMUtXW3aIdRfB/WUBeAe9FFWtMDrIh4NMg0hxl0kx2fOO4Fzxkq2xQ0dvT/596HLO21L2dcpyIOvD8ByOXbw1t3nTueyelMzPMyjedGvMEp4wiYfqKq4BH/9sJAefzJ9wgYQxA4ZBCSfwkrYpby+ZVpYeA8PtkXAeM+wT//x2UtuHzwPAaElaIbmx0cDnJycxgHjKWESbXiX2BH6O231dGFlfdrVexUtLDFyxTM77XVRUWaG+qhUWfmLJNkPgdzsQl6PVo2UDpUkJ4URP8/j6xuvokYxHRyeqD7uVu+UcjGjK732W0Igm8sMdAyaFYJ6kMoh5Q=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6512007)(5660300002)(66946007)(66476007)(66556008)(6666004)(86362001)(6486002)(31696002)(2616005)(36756003)(316002)(2906002)(508600001)(8676002)(53546011)(31686004)(83380400001)(38100700002)(186003)(6636002)(6506007)(26005)(8936002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qmk4L2lTbzZodWhWajBMQVJCbWNQb2xHRVhseTJzUVhWY1FEdVN3Ynd3T2Z3?=
+ =?utf-8?B?UVlsYWFZVENDSUNQQ1hmSDhQNXJCQ25xS1pQRGhqYnBTNDZ2NE5jR3IyWjhz?=
+ =?utf-8?B?ZnJYRTV5QjhiU292K0xTYkJVV3NVZFMvM1RDcDZ5SWdNYmJ2UnVWOWVTTnNr?=
+ =?utf-8?B?SXU2Y3JGQkU3RzArVlRTQnRSdzdhbFVKazI1U0hEVFRkb3R4OTZFdE45MGxt?=
+ =?utf-8?B?Ty9EaVJ3b0JyWXI3S2w1L2g4a3cyakorRXJnS1NiQ0pZT3V5UkpSY0M3cTBO?=
+ =?utf-8?B?YnhHZ0llK3RpSkxVa2ZQQno0L2Vvb0l6Myt4UWhYSlVRTEs0ZDUwTEtrbnB3?=
+ =?utf-8?B?bkMwbzBiUnhlVjRLSWNra096SWZaM040MnNqbDRyZmVGVmZMbkZNRm1TeWll?=
+ =?utf-8?B?VFZMcDloNzRtK3dtd2V3NmpwMjBrRjBrR2JZZzNlenZMZHVYWDJSaUNSOGMr?=
+ =?utf-8?B?L25OejhUbGpQV1MwNHU4SkNhbG05Q2hWTUZWcWpwOFlQeUdYWHV3NUJlbEZJ?=
+ =?utf-8?B?N25ENDByVm56T1VSNnU2N1Faa1RZWWE0UXJTMStUVDNnVi9WTmdmWjMyZXp0?=
+ =?utf-8?B?anVjQi9JMkMrVUZFRnB2MVZqL3pody9Fd0gxS2ZRdXFtT01BOXhOelJLY2xy?=
+ =?utf-8?B?VWJhNlNCSUlVYUplYThVYk9GVktKWEZrdDliMGVZZ1RuVjNrcWhrNnZxdnhr?=
+ =?utf-8?B?MXdBUEZGQm4zdDZYMzUrUEIwekVZOFNHK0Q2dWlnNmxqVTN5ZzJBMThPdXl6?=
+ =?utf-8?B?eUlxY0dYODUvTUo4c3ZVdXJDanFrdS96bTk0MDVGQlVQMmM4Ny84OTkreUQ5?=
+ =?utf-8?B?LzRsRVpWWUVjaXcwWENXazFYTXRwQm5QalFvQVNUcFJ4MDhqSWwwNFNIMnNV?=
+ =?utf-8?B?Sit6Wm5mbE5WWUNLZjREYzExMExZVVB5b0RGMTJuN1ZwWjBicE1uc0owNVlm?=
+ =?utf-8?B?UXVDTVZMQTd5MGJQdVpSOElPaFYvMHdTMzg1VS9DK3RabFJKUzI1U0ppYk1R?=
+ =?utf-8?B?WWo4TXVZdkhFRlNGRThOOTRqdzY5bmEyTXVTQlk5UmRRV1ZWNjI0SXFPamMy?=
+ =?utf-8?B?ZW5MQlZIMjAvM1VoRm1Id01MclRPa25ZQXBLWlpnem1aWWpCYWdTYlpNN3Zp?=
+ =?utf-8?B?bzFEbDl0dGNwU2drUVZsNi9lWVl2UFArbS9xR2V3UDRTL2NjcWwvZVZsKy85?=
+ =?utf-8?B?TmhCRXJQR25aU3ZSVVNqWEgyREE3SzdRamYvRnA5Mlo4OXZLeUdMeURuNXZ0?=
+ =?utf-8?B?dHR5UEtxTlY5ODF1cGF2d2V5NWZCNElQUFNhK3NOZ1BPTXFGNEw0dm44ek10?=
+ =?utf-8?B?VWpPUk9sQUVTNytFS01jRmVzUmVrZk1yOGJIN2U4bG1wRE9EUDBxQWNPc29M?=
+ =?utf-8?B?YTZGb005cEFmY3k3UXprWGE5cTNCOGw0Z0JuTEt1cU01MmsxbHdaN2ZSWnl1?=
+ =?utf-8?B?UnNqTmU4aFdXOGxZZGdPSFhTMnFtU09MSEhlZHVMYVZtekR0OXBwaHpORVNK?=
+ =?utf-8?B?QUF4U1lYMStZNE4yQ1JRSzVzUlBRdGFFQVA0QWJKWllhZUtPdnB4dWVueHFh?=
+ =?utf-8?B?Mk96WDhuOEtvSlVva3pUUWdkWlp4cDkwUGw3eEVuMkpRUEY5d0ZjWlZHSHNF?=
+ =?utf-8?B?SElkS2xGK2g1VVF3SGE1QmJjeHhOMW4zaUZlZS9RWjNUc3ZTd0lGWTBGYnBp?=
+ =?utf-8?B?czdnTE1qK0ltblYwRWlRQ3MyTFVOeTJWc2xTa2lmSjNrMEVybU9yMkptUUZZ?=
+ =?utf-8?B?UzVQd21tTS80aWt1VUxnRHRvSnZFTStpdmlZVmRoRGl3aGlYZDArT0RMdDg3?=
+ =?utf-8?B?cGxiaGhOMUJHcHlSZUg3SWxZVmJVbHBiQ09LR3k4N0lBcGhpSlBwRjNWekJH?=
+ =?utf-8?B?Qjg1NEFMMWl2VDRUSGlhR3BWVFlZRTdDQWR3ZWpOcEpsMExrT2JZdE11Z2Vn?=
+ =?utf-8?B?YXcyRjBKMVc3eDFsenNqdVpOblQybm5Md2Q5VnAzRUEwSlo4R0FlN2xqd3pl?=
+ =?utf-8?B?b2k4RkN3TFRDZjYxaWdHbFBySjgxMGVWY2ZUM2ZWa1dGNTdaU0RtMmEvYUJs?=
+ =?utf-8?B?OElnYXo2bG1QQmthRG9kUTJ1QWFheTlaNVlWa1BZTHFHdFhRdEV1L29adi9o?=
+ =?utf-8?B?NGZGbkE0SThpNVNzaEovVzJUZzFnQWpYUGlpbndKRDhtV1hwMUlZc2haNjA5?=
+ =?utf-8?B?MVE4QXVwUG5WeVYreXgrVklndVI2d2xROHB4YXJOWlk4SjRabFN3YVVXN2tZ?=
+ =?utf-8?B?Zk5pQUxBMFlYN1JuZlQyRS8vejlrWGxZOWFUUFcxMTcwcy9uNXpUSElZVTBj?=
+ =?utf-8?B?ZStsR0U1M3p2Z280REx3cTNJTlFnRTlTQ1YxTlFTVGNxVk4yRCtwQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2022 10:11:51.0267 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6341421-67a4-4704-12b1-08da283658e9
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffd19016-d452-4552-229f-08da2836f2fb
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2022 10:16:10.0767 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT039.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4541
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Eoz/jhcRm0i6ZkY59wcNyrNuXPq8c7WsQgFE2Orhy5Vik2vMSXIBgr2gWIzKoQKB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5840
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,49 +130,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Disable runtime power management on several sienna cichlid
-cards, otherwise SMU will possibly fail to be resumed from
-runtime suspend. Will drop this after a clean solution between
-kernel driver and SMU FW is available.
 
-amdgpu 0000:63:00.0: amdgpu: GECC is enabled
-amdgpu 0000:63:00.0: amdgpu: SECUREDISPLAY: securedisplay ta ucode is not available
-amdgpu 0000:63:00.0: amdgpu: SMU is resuming...
-amdgpu 0000:63:00.0: amdgpu: SMU: I'm not done with your command: SMN_C2PMSG_66:0x0000000E SMN_C2PMSG_82:0x00000080
-amdgpu 0000:63:00.0: amdgpu: Failed to SetDriverDramAddr!
-amdgpu 0000:63:00.0: amdgpu: Failed to setup smc hw!
-[drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of IP block <smu> failed -62
-amdgpu 0000:63:00.0: amdgpu: amdgpu_device_ip_resume failed (-62)
 
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+On 4/27/2022 3:41 PM, Guchun Chen wrote:
+> Disable runtime power management on several sienna cichlid
+> cards, otherwise SMU will possibly fail to be resumed from
+> runtime suspend. Will drop this after a clean solution between
+> kernel driver and SMU FW is available.
+> 
+> amdgpu 0000:63:00.0: amdgpu: GECC is enabled
+> amdgpu 0000:63:00.0: amdgpu: SECUREDISPLAY: securedisplay ta ucode is not available
+> amdgpu 0000:63:00.0: amdgpu: SMU is resuming...
+> amdgpu 0000:63:00.0: amdgpu: SMU: I'm not done with your command: SMN_C2PMSG_66:0x0000000E SMN_C2PMSG_82:0x00000080
+> amdgpu 0000:63:00.0: amdgpu: Failed to SetDriverDramAddr!
+> amdgpu 0000:63:00.0: amdgpu: Failed to setup smc hw!
+> [drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of IP block <smu> failed -62
+> amdgpu 0000:63:00.0: amdgpu: amdgpu_device_ip_resume failed (-62)
+> 
+> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 9 +++++++++
+>   1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 262938f0dfdb..9c483787c0ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -180,6 +180,15 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+>   		 */
+>   		if (adev->is_fw_fb)
+>   			adev->runpm = false;
+> +
+> +		/*
+> +		 * Add below quirk on several sienna_cichlid cards to disable
+> +		 * runtime pm to fix EMI failures.
+> +		 */
+> +		if (((adev->pdev->device == 0x73A1) && (adev->pdev->revision == 0x00)) ||
+> +		    ((adev->pdev->device == 0x73BF) && (adev->pdev->revision == 0xCF)))
+> +			adev->runpm = false;
+> +
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 262938f0dfdb..9c483787c0ca 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -180,6 +180,15 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
- 		 */
- 		if (adev->is_fw_fb)
- 			adev->runpm = false;
-+
-+		/*
-+		 * Add below quirk on several sienna_cichlid cards to disable
-+		 * runtime pm to fix EMI failures.
-+		 */
-+		if (((adev->pdev->device == 0x73A1) && (adev->pdev->revision == 0x00)) ||
-+		    ((adev->pdev->device == 0x73BF) && (adev->pdev->revision == 0xCF)))
-+			adev->runpm = false;
-+
- 		if (adev->runpm)
- 			dev_info(adev->dev, "Using BACO for runtime pm\n");
- 	}
--- 
-2.17.1
+Separate to amdgpu_runtime_pm_quirk()?
 
+Thanks,
+Lijo
+
+>   		if (adev->runpm)
+>   			dev_info(adev->dev, "Using BACO for runtime pm\n");
+>   	}
+> 
