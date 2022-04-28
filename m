@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 619C5C4332F
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 21:30:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24A6AC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 21:30:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27BD210E93F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 744B610EAF0;
 	Thu, 28 Apr 2022 21:30:11 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2074.outbound.protection.outlook.com [40.107.223.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06E8B10E93F
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Apr 2022 21:30:09 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44B1510E93F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Apr 2022 21:30:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=enLkGUZsHj8SqtExYhmRY1JsKxRPqiI/6yMhW1VPHH3gey7m8zAujpZZe2v3ywgP5FnKcgNSlNWOWEmu+q/8er4i6D7XxKvpnsZNz4aNJPgw29KnOu6bdeJB8ewQwkYpQ9jHXp/GQc3ZXRT6B5KxdkVlmckVMXVJREFJ0n+QqSS8imxr/WHFm85QN0/ex2wJ7U7cyD71DmhIEx5CCnzCiBmeBeAPQDIVBDnO2iT3qnPomclrqhJBdlY3wy1+PjBDP3gK7bJ5uqVb2kOUAgufQJhtBDidnQoZGFSRwEqu7wF+m1sitp3ZoPW0rmD/bq/mc3ifa+rANLqMWjvMX47HeQ==
+ b=bXSAAW/Wpys6/HXm+UIWLM0NCWoGX8q10+V+G5jq+Z3b/Q+pVYz9zNb1syDhsHl0fPkxYZtqSjCXCDVtjRBb5GgTomLTRtVZnAohN26Scl7X0G19eq0bMB59G76bCB2IzVg71NXDxcjKI3eu8NCRxri5V/lKVItP4jjX7QK+TwF8b11qzVQXh8TlzADNmIrWVd5InTw+uBS5VK1QqKIwxFVNgJPz59sbg4g+4yvLZBnTuo+u4x/OCTgQU3hUONCxux0WRvteZVOB8O27ilA0yfUYnvcusflhu54XQQ/UF+EgeFigC4YbuC/xlv+uIT3dp8sXijitcZDBkhWSmfrCdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZGOUkk7Ptuk36JWoelnXeNnmOdpiUEhoS/gbaBVAWts=;
- b=GZ2q+RF/G2IRWFTuXWDHnzWnyNjMO94qlICfs+dS3mOsN6bHSDPeIWO2irpyIKCRZqdihgPpnkiySviJmA4kl0VzPJA/IvL1ZABfruPy6cRdWG8j4emkw335FvpwppskVZ7d5NUuKY7YU0My20QnRjqeN1440o+Z8/3yZv5o3/KgBYyGAqI1P3RfsTRIPW4jYBtfSVf8/KWFlK7beH8ZXcTAJ6z1nUxiocCoqBnM50cobBCJM2i+lAFo+gKn1aIxdj/NrpMuxq1Kpj1mLeT/GVlt+a9kPMzTjhZJi5PWC4wrgLDPvK0x3HsenQWfaEyQbxe2ypj2uKToHIzlKA6bmQ==
+ bh=9zBa04bOMFENM9jrEa+zc5qraKpov0yQMTCbJvYcSN8=;
+ b=IX8amu1JjgApZx1BcULqyZ1dcioXNcW56/E7iia7TscNNz5+RbZZRvdueYOHobeo74NaVDzKSUu8WhDNV0seTwkgybxCLl/zpypS1JoH2fdE+w3QVEts3bv5PiYilokZ7uhcrc2hZNqZFZ+5C5Yiu9Tc++omK8n6iLD7YfH7qQ6slaWUVxNbiM8BQMcpXXbceNWSxgCQBcWv3J8zLkxZMAcolWM/Q2Bld4nYHOHtPyGOhpTryDuXLTVJvALB36Gx4QlSxxjLQt6Yym3RX/MVsJoEUV9BfGcgo1ZRLrm8H30txZU+rt32Waqp+1J7yqxqm602HP8gFVFfyiXmIwY/MA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZGOUkk7Ptuk36JWoelnXeNnmOdpiUEhoS/gbaBVAWts=;
- b=BuAvRtj/zWAGIB3ADQF4rYzpZU3EsVIwOkwQdS+gp9ZJPyAVy+/o3xGtzY3lTKWJwmHY3sxeBpS0kSmWKJ549sDRI3bnnF2cc9BqgH5i1Bu59xDx8md31CXACKXltuDrQlLWqAsd3VIhNIuOmByGYa8NAWr87gZnjBS4x04GI1s=
-Received: from MW4PR03CA0037.namprd03.prod.outlook.com (2603:10b6:303:8e::12)
- by DM4PR12MB5987.namprd12.prod.outlook.com (2603:10b6:8:6a::21) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=9zBa04bOMFENM9jrEa+zc5qraKpov0yQMTCbJvYcSN8=;
+ b=YV07x+NE2cBG75iVvKo5gZZPRpebQFhul+7PSey0vjyOkIp7z6+AqMu3BktF1EGnDTyB0uk+dCf6rkR3CP8DYFIKbtV15dv/u0yobz0AmRvkltj5U4bWQHQaH0ACfaaRmOyHReSGEZllBakLQnMh0W2Ck2NbLCvHJ7smD/JIDok=
+Received: from MW4PR03CA0158.namprd03.prod.outlook.com (2603:10b6:303:8d::13)
+ by CH2PR12MB4327.namprd12.prod.outlook.com (2603:10b6:610:7d::13)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Thu, 28 Apr
  2022 21:30:07 +0000
-Received: from CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8e:cafe::17) by MW4PR03CA0037.outlook.office365.com
- (2603:10b6:303:8e::12) with Microsoft SMTP Server (version=TLS1_2,
+Received: from CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8d:cafe::9a) by MW4PR03CA0158.outlook.office365.com
+ (2603:10b6:303:8d::13) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.14 via Frontend
- Transport; Thu, 28 Apr 2022 21:30:07 +0000
+ Transport; Thu, 28 Apr 2022 21:30:06 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT064.mail.protection.outlook.com (10.13.175.77) with Microsoft SMTP
+ CO1NAM11FT006.mail.protection.outlook.com (10.13.174.246) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.5206.12 via Frontend Transport; Thu, 28 Apr 2022 21:30:06 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 28 Apr
- 2022 16:30:03 -0500
+ 2022 16:30:02 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: correct SMU OverridePcieParameters related
- settings
-Date: Thu, 28 Apr 2022 17:29:45 -0400
-Message-ID: <20220428212946.700296-11-alexander.deucher@amd.com>
+Subject: [PATCH] drm/amd/pm: enable SCPM support for SMU
+Date: Thu, 28 Apr 2022 17:29:44 -0400
+Message-ID: <20220428212946.700296-10-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220428212946.700296-1-alexander.deucher@amd.com>
 References: <20220428212946.700296-1-alexander.deucher@amd.com>
@@ -69,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e57e8820-871d-4b02-1d52-08da295e440b
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5987:EE_
-X-Microsoft-Antispam-PRVS: <DM4PR12MB59872663D45059D3BBDB6A4FF7FD9@DM4PR12MB5987.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 6baad358-e36c-4138-b7d5-08da295e43ce
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4327:EE_
+X-Microsoft-Antispam-PRVS: <CH2PR12MB432790820D109E1261AD2DEAF7FD9@CH2PR12MB4327.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vtTy6+HbtEL/848m/08zeHULFc5p9Css5DZYNdguQY7F/Z+fsoSkOW4zHkWzPnetQOsvvBHZZlgIaZStfgBqTj5m5y1oDP5jeigmSrtCw6yv3KmsSpMddgaDsLie5GFGwM7CFMpzD88aZT7gY5V4KFQwsgc/pJ9qE7jM2YAvN43BLZMufKOnmMNMOLMJby+d82tzynSljOXZyLrgF0q2CKvIGrvl3DbDzeDQ8lBm1/MCD0xWCshvX0exXeS7+Eojbl8b1vd973E3G9htHxyPM6wDe//mNIU8DkPuQSY2hPGvHFCvj8AbwRvxcpWWqCnNi1ACvvsJCs7QM4eOFiTMj6zSO94H9y3xwd8BuVB7dh94xoOOk/M6J4ABrzLuGLMchEzYK/XZ8mIGsBO1BKz2jrw2J+lGeISaO0QH6+CQCMf0AJaEiXR3aSl+DSG7UBYOe6p/ssfwYE+qCGP8m6eEZssJhxID/eBznRApXjXKxQsX+KkIlPM94OQD+qkz0DzYjglbLPanpdiczZllAdjj/ECT2Mo9NdRxb2yzZLNyAcdujw6u9y0zYOndCTfwJHDjgq/VEoaTyiGqO5PSEfAZ4a+yC9nkt4Dn74uUZubSoiCqVi44Lnk3XZ5AKTxwajH2E1rnOh52uR+BDG+S27MEX4Lp7vEQpOAkGGpDdyeXeiXAcwHIbNqfiUTjIaZY9WuCVWdVQVyy8gynJebt6f8BCw==
+X-Microsoft-Antispam-Message-Info: /ssl3lQ5MUsEZ2q6kJUGGS7t6U32xeXMLLFm2so4oiRW1v8RD+ZzCXwoAWiDc5KHBRRm0WFCz3i7VF1mMmnroIbc1meuvBf+Invz4uBc66nQzEuOXfuIKFcf/6iEulDtl18XQ6cDxqjc+dxQazH9FYPKJb4qxWaxJKyAYhNkwv3H6gLf30BPCi2dX0ob/zgjmZEhOTD8rqJj1D6NKSqPus7uXUXy/GOi4LeJHVpe+DJuzv/aElqrIFuVaMo4L0xN1UNWCWRpu/7xKghCVuub9O7T1QMq2nFbOAN/aHxO9rXZCJkIIG7SXit7cRPY82eOHE5qeS79yb3XOyF5V5cXqAl0ZGJjRKzUhi2/paBGkeksJn7kjXXQbmVB3j7fMV9M5sBiY9Q0RA0cFzjLfObRgHEJGCQsrMGcEH0saFgEE7U/pUaZz8ZKi9DiW+/UG3f6DLaPveneBn302Yvat20iq3AYNumpI972JP9BPjdXOoboCWy7z2f0LvzuZfhSd1KyWYCmbLvsG5wIRKYkSAwrjBn2jUGHjZz/3t05C15Hib2Zqfu+2YZSPZ8ZFndVTiSPW1QAzGt2xulvts0geybsSwHKdj/kK7rSDBlkdtx1brng3HSonSoXbjaJOgjEQ5Y5SLZrYw499S1LZIb/uF9HUefcneoQnnVuSeVLhwDHkj7j+oWa7y7wy0nto2ezlJo49fudTIFKbJsQxGxtUREE9Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(316002)(70586007)(40460700003)(47076005)(426003)(336012)(1076003)(4326008)(8676002)(86362001)(82310400005)(16526019)(5660300002)(2906002)(36756003)(36860700001)(83380400001)(70206006)(8936002)(2616005)(508600001)(186003)(6916009)(54906003)(356005)(7696005)(6666004)(26005)(81166007)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(8676002)(16526019)(82310400005)(186003)(356005)(47076005)(83380400001)(66574015)(19627235002)(54906003)(426003)(6916009)(336012)(36756003)(40460700003)(36860700001)(26005)(5660300002)(70206006)(70586007)(4326008)(2616005)(6666004)(8936002)(316002)(81166007)(508600001)(7696005)(1076003)(86362001)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2022 21:30:06.9715 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e57e8820-871d-4b02-1d52-08da295e440b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2022 21:30:06.5757 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6baad358-e36c-4138-b7d5-08da295e43ce
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5987
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4327
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,62 +100,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo Lazar <lijo.lazar@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Evan Quan <evan.quan@amd.com>
 
-Correct the hw initialization sequence.
+With SCPM enabled, the pptable used will be signed. It cannot
+be used directly by driver. To get the raw pptable, we need to
+rely on the combo pptable(and its revelant SMU message).
+
+Also, the pptable transferring(to SMU) will be performed by PSP.
+Some SMU messages will be not available to driver any more.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 55 +++++++++++++++++------
+ 1 file changed, 41 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 85fbb18a9e4b..612d07762306 100644
+index 2513b1af76d8..85fbb18a9e4b 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1218,6 +1218,17 @@ static int smu_smc_hw_setup(struct smu_context *smu)
- 	if (!smu_is_dpm_running(smu))
- 		dev_info(adev->dev, "dpm has been disabled\n");
- 
-+	/*
-+	 * Set initialized values (get from vbios) to dpm tables context such as
-+	 * gfxclk, memclk, dcefclk, and etc. And enable the DPM feature for each
-+	 * type of clks.
-+	 */
-+	ret = smu_set_default_dpm_table(smu);
-+	if (ret) {
-+		dev_err(adev->dev, "Failed to setup default dpm clock tables!\n");
-+		return ret;
-+	}
+@@ -488,8 +488,20 @@ static int smu_sys_set_pp_table(void *handle,
+ static int smu_get_driver_allowed_feature_mask(struct smu_context *smu)
+ {
+ 	struct smu_feature *feature = &smu->smu_feature;
+-	int ret = 0;
+ 	uint32_t allowed_feature_mask[SMU_FEATURE_MAX/32];
++	int ret = 0;
 +
- 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN4)
- 		pcie_gen = 3;
- 	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
-@@ -1261,17 +1272,6 @@ static int smu_smc_hw_setup(struct smu_context *smu)
- 		return ret;
++	/*
++	 * With SCPM enabled, the allowed featuremasks setting(via
++	 * PPSMC_MSG_SetAllowedFeaturesMaskLow/High) is not permitted.
++	 * That means there is no way to let PMFW knows the settings below.
++	 * Thus, we just assume all the features are allowed under
++	 * such scenario.
++	 */
++	if (smu->adev->scpm_enabled) {
++		bitmap_fill(feature->allowed, SMU_FEATURE_MAX);
++		return 0;
++	}
+ 
+ 	bitmap_zero(feature->allowed, SMU_FEATURE_MAX);
+ 
+@@ -1156,13 +1168,19 @@ static int smu_smc_hw_setup(struct smu_context *smu)
+ 	/* smu_dump_pptable(smu); */
+ 
+ 	/*
+-	 * Copy pptable bo in the vram to smc with SMU MSGs such as
+-	 * SetDriverDramAddr and TransferTableDram2Smu.
++	 * With SCPM enabled, PSP is responsible for the PPTable transferring
++	 * (to SMU). Driver involvement is not needed and permitted.
+ 	 */
+-	ret = smu_write_pptable(smu);
+-	if (ret) {
+-		dev_err(adev->dev, "Failed to transfer pptable to SMC!\n");
+-		return ret;
++	if (!adev->scpm_enabled) {
++		/*
++		 * Copy pptable bo in the vram to smc with SMU MSGs such as
++		 * SetDriverDramAddr and TransferTableDram2Smu.
++		 */
++		ret = smu_write_pptable(smu);
++		if (ret) {
++			dev_err(adev->dev, "Failed to transfer pptable to SMC!\n");
++			return ret;
++		}
  	}
  
--	/*
--	 * Set initialized values (get from vbios) to dpm tables context such as
--	 * gfxclk, memclk, dcefclk, and etc. And enable the DPM feature for each
--	 * type of clks.
--	 */
--	ret = smu_set_default_dpm_table(smu);
+ 	/* issue Run*Btc msg */
+@@ -1170,10 +1188,16 @@ static int smu_smc_hw_setup(struct smu_context *smu)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = smu_feature_set_allowed_mask(smu);
 -	if (ret) {
--		dev_err(adev->dev, "Failed to setup default dpm clock tables!\n");
+-		dev_err(adev->dev, "Failed to set driver allowed features mask!\n");
 -		return ret;
--	}
--
- 	ret = smu_notify_display_change(smu);
- 	if (ret) {
- 		dev_err(adev->dev, "Failed to notify display change!\n");
++	/*
++	 * With SCPM enabled, these actions(and relevant messages) are
++	 * not needed and permitted.
++	 */
++	if (!adev->scpm_enabled) {
++		ret = smu_feature_set_allowed_mask(smu);
++		if (ret) {
++			dev_err(adev->dev, "Failed to set driver allowed features mask!\n");
++			return ret;
++		}
+ 	}
+ 
+ 	ret = smu_system_features_control(smu, true);
+@@ -1422,9 +1446,12 @@ static int smu_disable_dpms(struct smu_context *smu)
+ 		if (ret)
+ 			dev_err(adev->dev, "Failed to disable smu features except BACO.\n");
+ 	} else {
+-		ret = smu_system_features_control(smu, false);
+-		if (ret)
+-			dev_err(adev->dev, "Failed to disable smu features.\n");
++		/* DisableAllSmuFeatures message is not permitted with SCPM enabled */
++		if (!adev->scpm_enabled) {
++			ret = smu_system_features_control(smu, false);
++			if (ret)
++				dev_err(adev->dev, "Failed to disable smu features.\n");
++		}
+ 	}
+ 
+ 	if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(9, 4, 2) &&
 -- 
 2.35.1
 
