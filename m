@@ -4,55 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D4DCC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 02:11:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 916EDC433F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 02:32:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9104D10E155;
-	Thu, 28 Apr 2022 02:11:18 +0000 (UTC)
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [IPv6:2607:f8b0:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06F9910E155
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Apr 2022 02:11:17 +0000 (UTC)
-Received: by mail-pl1-x630.google.com with SMTP id q8so3113729plx.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Apr 2022 19:11:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id;
- bh=uaI6iH2XhVzv1sXeoqurr705kcQujyYxyzqq79vfBSk=;
- b=XxbtV0RqH3h7LGyUk1izheBWUgLyQsbczhkT76teCnJZpkZTQ7yE4SZPCzpHAyY4g5
- TpMSCdt8wYmzfCzG2cK+cBO5qo2p07Z4XpZJ6/msQo4Glkh6jZjzd0eb0kaMo14BH68M
- 8z4FeK81dVLo/LPXZunS4OBPHww3c0ohrV9Ku7ZBLsB/9mJCesy/nkmU/sSDO6twg6Hj
- FQWI+cGnFqNDFh1Y3TCZJclSNkyuHD4DB8PGHNXlJqCawrqgY9L64jciblDFU4yM5G7K
- m/v/pwX/zbHTqPwkNDQRxjY+LXEwJS0/ZDJiJktKJMl4Z+EBLyFr9fPockGn7PCiZek+
- Hqrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=uaI6iH2XhVzv1sXeoqurr705kcQujyYxyzqq79vfBSk=;
- b=4aJKvdTfP0gDrPw12qk9WI5he5igRrlOsIHA6RAigze+I8m0kUbd7xheKdiNP+cMCf
- HQjP3+Wu9Ru4io7PduEyY0MF20E6lH2JGScAoTQWlJiMgMQiA3gb4cMWONpl/4ulWTcg
- 3wXCa3SEfc9rrx3Re7Jvg95KRfcW7M4DCv/2Ld3p5cLgHt2jL/iMF5YLJsExIBQPaEA+
- z97zBf1y9M7n5P98O8YgrKgfCOL6yzRryf0DTe3nWkzqlIYObXqC5kEbQap40S5L8W3A
- N2jGGH+1Tp1eaVwocWUY4/DLtjOAMuzmQm41K7qLNKyNIktHZ1RW1L3pzFx0RorTKdnz
- 2huw==
-X-Gm-Message-State: AOAM532dhyZMUZX7ULqSuVfEB+Lowrj4TLhL87F/b56ug7oZIhLsiWRe
- x9qQdcj9klFDfOVJDN95DFi2rKV33+CAMjibNmA=
-X-Google-Smtp-Source: ABdhPJzNG5yPgsPz7Z4DMg4XRabbaa+1v40nfWt19I4+L8A4CvPmmWemTtlyMJ4sTPkVaL/+nnGkQQ==
-X-Received: by 2002:a17:90b:3a8a:b0:1d9:739f:96ba with SMTP id
- om10-20020a17090b3a8a00b001d9739f96bamr21313240pjb.117.1651111876236; 
- Wed, 27 Apr 2022 19:11:16 -0700 (PDT)
-Received: from chachonne.lan ([2600:1700:8a10:4fd0::e])
- by smtp.gmail.com with ESMTPSA id
- z24-20020a63d018000000b003c14af50629sm632733pgf.65.2022.04.27.19.11.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Apr 2022 19:11:15 -0700 (PDT)
-From: ricetons@gmail.com
-To: amd-gfx@lists.freedesktop.org,
-	ckoenig.leichtzumerken@gmail.com
-Subject: [PATCH v3] drm/amdgpu: Ensure the DMA engine is deactivated during
- set ups
-Date: Wed, 27 Apr 2022 19:11:09 -0700
-Message-Id: <20220428021109.2571-1-ricetons@gmail.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDA8910E2D9;
+	Thu, 28 Apr 2022 02:32:55 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0BD110E2D9;
+ Thu, 28 Apr 2022 02:32:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iovI1Nc+UiV1n+V/taTXoc2I1hXhLTuB6kmQXcf6m0vH8Pkga2OKImwgM1shANRjKBHllIYBPvp/l7WQZE9o6zpxhnjCLcJKhjaH4NeFjxNt3Qp5YpZgmkysyfyGjjQc5Ya+PM8exGouyrWbuPOZPM42R6RhE3eRBIU42440zGsUNQVp9VAjaSm4SadR88gJoDqY5dLWES843oscxnFMLDuvx5ZJab+fdN9rXHOoJSU7HTHtgFB3QU3cAtq5HNscAiH3NPPxBBl4O/bCGb4SAYIUNvxcaZsNAN3FE2qfMqR8uUTul8NVGsL2nFDmvOAmVltOsQinLyvZUeonTw9eew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kPXWM8SA34fYMxVKNViCnrfg85zhkgMcoaIqFGRLXxs=;
+ b=L6bIDjdOKAt2oni/eqagJk8jgrd+olUFI/Ht6vvMhJY6E3uvJXgXt0T5lj5bNBVr6kjoLpKlZ/lGpxGQQBTaPEKvC9s30bLYQ6B+zmZzb4J6oGhkXBoPqq/gHmyIIyq66tLSBCIKphr6TjeHRPGp9RgJh4QkO1XTyZtdqIlYFoTBoYzRhsJSAnl3ANqj/bJPXU+BbiWCBaxW4nAq1+bHRCkmqfWxe6Lz3gL55vdcX1/PhWyshWGLaHHIwrCxSSfNpmbrNXovGdL+QmnZ8IucFh7QGke1q1pl8AW80tsjlphG8/MVJSKzOYZrnAiWuWpdkWBHB2i/mRt6fDhdQG9jUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kPXWM8SA34fYMxVKNViCnrfg85zhkgMcoaIqFGRLXxs=;
+ b=zcMVmHm3i+QZWjyCTHv5rbCNf1VabltDcLZHsLc65qXq2Esr5NUO2jNkOm/YeJixHEg0/kbZpGPe3x5FteTAFm6rZbRCh+ko5DjYU4O/89yiTSJ+gC9h/zhDxkspWEzKOs4dXMW+Li46OCAxQxnOLKtwmkihUUKlK923B/lidfU=
+Received: from BN9PR03CA0621.namprd03.prod.outlook.com (2603:10b6:408:106::26)
+ by BYAPR12MB2949.namprd12.prod.outlook.com (2603:10b6:a03:12f::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Thu, 28 Apr
+ 2022 02:32:51 +0000
+Received: from BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:106:cafe::b) by BN9PR03CA0621.outlook.office365.com
+ (2603:10b6:408:106::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15 via Frontend
+ Transport; Thu, 28 Apr 2022 02:32:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT059.mail.protection.outlook.com (10.13.177.120) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5206.12 via Frontend Transport; Thu, 28 Apr 2022 02:32:46 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 27 Apr
+ 2022 21:32:45 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu, amdkfd drm-fixes-5.18
+Date: Wed, 27 Apr 2022 22:32:32 -0400
+Message-ID: <20220428023232.5794-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 44a0cf19-6bca-47f7-c138-08da28bf618a
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2949:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB2949731258D0640882EDD552F7FD9@BYAPR12MB2949.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: IGKhYt0zDuIHnBfIgSB8Z+PXVOlICB1DDYphKb8D9MzfrcRe2oFBvzjQ4FkgzVrKH+GH9whVkiixrTtmPW6G7KiddrH2Sk2bBRdxHBOu3lPtVNJ8+glb3j2zLNGmmz7VMKQsbBnwacoycsFOk3y8MvGdRywelCvuCB2DPehOwyKIdRGE0p/OqqP4WkQ0IV706OfqsU6XmoQv71RY8DrG4PKE+ICI7uKE+36ux7d5BwLxkCeliGSMW2khScW7yUfUBg1xqZSPqim2QsJqfq+9R1BuSKnCLucvkD60azbu1EzXAv88oASlTE7CN35m6v6l0ys26hDHaU2o8g8/HCpIjjfwh5L0Ag2evlGAHBJvJqkjPAyt0KS3DTKkPWQlIUSjrenUJI4Mi4X+M9u6T29DHk5U1qNPS/seO7GQnl9PtWqb7d9ySKNXZlUnXPnz1H923vOTt9wiUHoNh3ISpvO8gfoO9XrWKynQM2z5bfGwYpvaoVE5v0LqK2PLqa4g34KPZ2Os6HjCIKKExfHzIxSIrnLDc3cvSukOLkBgV2J37RKNP9XVzCvoKHaH9E8lEJF0B0IjkwP50gtPOH8W7OQbiZJJCthbvqK+vvLBqpFNQDN7tiqJ7tNstOK1ZIksS1B9nqcbH/mKzxRVjYKnk4HiDeRiXiycqfHii5a2wOX8nMdgSGHdookVH5VSmwP6qMhspfmOHNtMob+kwNV2wEtWCw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(4326008)(40460700003)(83380400001)(26005)(6666004)(7696005)(8676002)(966005)(86362001)(316002)(82310400005)(110136005)(70206006)(70586007)(36860700001)(8936002)(5660300002)(16526019)(2616005)(1076003)(426003)(36756003)(47076005)(81166007)(508600001)(2906002)(336012)(186003)(356005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2022 02:32:46.5913 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44a0cf19-6bca-47f7-c138-08da28bf618a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2949
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,221 +99,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Haohui Mai <haohui@alt-chain.io>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Haohui Mai <haohui@alt-chain.io>
+Hi Dave, Daniel,
 
-The patch fully deactivates the DMA engine before setting up the ring
-buffer to avoid potential data races and crashes.
+Fixes for 5.18.
 
-Signed-off-by: Haohui Mai <haohui@alt-chain.io>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 110 +++++++++++++------------
- 1 file changed, 59 insertions(+), 51 deletions(-)
+The following changes since commit b2d229d4ddb17db541098b83524d901257e93845:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 013d2dec81d0..a22aafd2d7f6 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -459,7 +459,6 @@ static void sdma_v5_2_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 se
- 	}
- }
- 
--
- /**
-  * sdma_v5_2_gfx_stop - stop the gfx async dma engines
-  *
-@@ -505,17 +504,21 @@ static void sdma_v5_2_rlc_stop(struct amdgpu_device *adev)
- }
- 
- /**
-- * sdma_v5_2_ctx_switch_enable - stop the async dma engines context switch
-+ * sdma_v5_2_ctx_switch_enable_for_instance - start the async dma engines
-+ * context switch for an instance
-  *
-  * @adev: amdgpu_device pointer
-- * @enable: enable/disable the DMA MEs context switch.
-+ * @instance_idx: the index of the SDMA instance
-  *
-- * Halt or unhalt the async dma engines context switch.
-+ * Unhalt the async dma engines context switch.
-  */
--static void sdma_v5_2_ctx_switch_enable(struct amdgpu_device *adev, bool enable)
-+static void sdma_v5_2_ctx_switch_enable_for_instance(struct amdgpu_device *adev, int instance_idx)
- {
- 	u32 f32_cntl, phase_quantum = 0;
--	int i;
-+
-+	if (WARN_ON(instance_idx >= adev->sdma.num_instances)) {
-+		return;
-+	}
- 
- 	if (amdgpu_sdma_phase_quantum) {
- 		unsigned value = amdgpu_sdma_phase_quantum;
-@@ -539,61 +542,71 @@ static void sdma_v5_2_ctx_switch_enable(struct amdgpu_device *adev, bool enable)
- 		phase_quantum =
- 			value << SDMA0_PHASE0_QUANTUM__VALUE__SHIFT |
- 			unit  << SDMA0_PHASE0_QUANTUM__UNIT__SHIFT;
--	}
--
--	for (i = 0; i < adev->sdma.num_instances; i++) {
--		if (enable && amdgpu_sdma_phase_quantum) {
--			WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_PHASE0_QUANTUM),
--			       phase_quantum);
--			WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_PHASE1_QUANTUM),
--			       phase_quantum);
--			WREG32_SOC15_IP(GC, sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_PHASE2_QUANTUM),
--			       phase_quantum);
--		}
- 
--		if (!amdgpu_sriov_vf(adev)) {
--			f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL));
--			f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_CNTL,
--					AUTO_CTXSW_ENABLE, enable ? 1 : 0);
--			WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL), f32_cntl);
--		}
-+		WREG32_SOC15_IP(GC,
-+			sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_PHASE0_QUANTUM),
-+			phase_quantum);
-+		WREG32_SOC15_IP(GC,
-+			sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_PHASE1_QUANTUM),
-+		    phase_quantum);
-+		WREG32_SOC15_IP(GC,
-+			sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_PHASE2_QUANTUM),
-+		    phase_quantum);
- 	}
- 
-+	if (!amdgpu_sriov_vf(adev)) {
-+		f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_CNTL));
-+		f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_CNTL,
-+				AUTO_CTXSW_ENABLE, 1);
-+		WREG32(sdma_v5_2_get_reg_offset(adev, instance_idx, mmSDMA0_CNTL), f32_cntl);
-+	}
- }
- 
- /**
-- * sdma_v5_2_enable - stop the async dma engines
-+ * sdma_v5_2_ctx_switch_disable_all - stop the async dma engines context switch
-  *
-  * @adev: amdgpu_device pointer
-- * @enable: enable/disable the DMA MEs.
-  *
-- * Halt or unhalt the async dma engines.
-+ * Halt the async dma engines context switch.
-  */
--static void sdma_v5_2_enable(struct amdgpu_device *adev, bool enable)
-+static void sdma_v5_2_ctx_switch_disable_all(struct amdgpu_device *adev)
- {
- 	u32 f32_cntl;
- 	int i;
- 
--	if (!enable) {
--		sdma_v5_2_gfx_stop(adev);
--		sdma_v5_2_rlc_stop(adev);
--	}
-+	if (amdgpu_sriov_vf(adev))
-+		return;
- 
--	if (!amdgpu_sriov_vf(adev)) {
--		for (i = 0; i < adev->sdma.num_instances; i++) {
--			f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL));
--			f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, enable ? 0 : 1);
--			WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL), f32_cntl);
--		}
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL));
-+		f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_CNTL,
-+				AUTO_CTXSW_ENABLE, 0);
-+		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL), f32_cntl);
- 	}
- }
- 
-+/**
-+ * sdma_v5_2_halt - stop the async dma engines
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Halt the async dma engines.
-+ */
-+static void sdma_v5_2_halt(struct amdgpu_device *adev)
-+{
-+	sdma_v5_2_gfx_stop(adev);
-+	sdma_v5_2_rlc_stop(adev);
-+}
-+
- /**
-  * sdma_v5_2_gfx_resume - setup and start the async dma engines
-  *
-  * @adev: amdgpu_device pointer
-  *
-  * Set up the gfx DMA ring buffers and enable them.
-+ * It assumes that the dma engine is stopped for each instance.
-+ * The function enables the engine and preemptions sequentially for each instance.
-+ *
-  * Returns 0 for success, error for failure.
-  */
- static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
-@@ -737,10 +750,7 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
- 
- 		ring->sched.ready = true;
- 
--		if (amdgpu_sriov_vf(adev)) { /* bare-metal sequence doesn't need below to lines */
--			sdma_v5_2_ctx_switch_enable(adev, true);
--			sdma_v5_2_enable(adev, true);
--		}
-+		sdma_v5_2_ctx_switch_enable_for_instance(adev, i);
- 
- 		r = amdgpu_ring_test_ring(ring);
- 		if (r) {
-@@ -784,7 +794,7 @@ static int sdma_v5_2_load_microcode(struct amdgpu_device *adev)
- 	int i, j;
- 
- 	/* halt the MEs */
--	sdma_v5_2_enable(adev, false);
-+	sdma_v5_2_halt(adev);
- 
- 	for (i = 0; i < adev->sdma.num_instances; i++) {
- 		if (!adev->sdma.instance[i].fw)
-@@ -856,8 +866,8 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
- 	int r = 0;
- 
- 	if (amdgpu_sriov_vf(adev)) {
--		sdma_v5_2_ctx_switch_enable(adev, false);
--		sdma_v5_2_enable(adev, false);
-+		sdma_v5_2_ctx_switch_disable_all(adev);
-+		sdma_v5_2_halt(adev);
- 
- 		/* set RB registers */
- 		r = sdma_v5_2_gfx_resume(adev);
-@@ -881,12 +891,10 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
- 		amdgpu_gfx_off_ctrl(adev, false);
- 
- 	sdma_v5_2_soft_reset(adev);
--	/* unhalt the MEs */
--	sdma_v5_2_enable(adev, true);
--	/* enable sdma ring preemption */
--	sdma_v5_2_ctx_switch_enable(adev, true);
- 
--	/* start the gfx rings and rlc compute queues */
-+	/* Soft reset supposes to disable the dma engine and preemption.
-+	 * Now start the gfx rings and rlc compute queues.
-+	 */
- 	r = sdma_v5_2_gfx_resume(adev);
- 	if (adev->in_s0ix)
- 		amdgpu_gfx_off_ctrl(adev, true);
-@@ -1340,8 +1348,8 @@ static int sdma_v5_2_hw_fini(void *handle)
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
- 
--	sdma_v5_2_ctx_switch_enable(adev, false);
--	sdma_v5_2_enable(adev, false);
-+	sdma_v5_2_ctx_switch_disable_all(adev);
-+	sdma_v5_2_halt(adev);
- 
- 	return 0;
- }
--- 
-2.25.1
+  Linux 5.18-rc3 (2022-04-17 13:57:31 -0700)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-5.18-2022-04-27
+
+for you to fetch changes up to fb8cc3318e47e1a0ced4025ef614317b541147e7:
+
+  drm/amdgpu: keep mmhub clock gating being enabled during s2idle suspend (2022-04-27 17:38:02 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-5.18-2022-04-27:
+
+amdgpu:
+- Runtime pm fix
+- DCN memory leak fix in error path
+- SI DPM deadlock fix
+- S0ix fix
+
+amdkfd:
+- GWS fix
+- GWS support for CRIU
+
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/amdgpu: don't runtime suspend if there are displays attached (v3)
+
+David Yat Sin (2):
+      drm/amdkfd: Fix GWS queue count
+      drm/amdkfd: CRIU add support for GWS queues
+
+Evan Quan (1):
+      drm/amd/pm: fix the deadlock issue observed on SI
+
+Miaoqian Lin (1):
+      drm/amd/display: Fix memory leak in dcn21_clock_source_create
+
+Prike Liang (1):
+      drm/amdgpu: keep mmhub clock gating being enabled during s2idle suspend
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            | 105 ++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             |  10 ++
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  83 ++++++++--------
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |   2 +-
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  10 +-
+ .../gpu/drm/amd/display/dc/dcn21/dcn21_resource.c  |   1 +
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c                |  39 ++++++++
+ drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c     |  10 --
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         |  35 -------
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c   |  10 --
+ 10 files changed, 165 insertions(+), 140 deletions(-)
