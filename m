@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2098C433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 17:44:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6394FC433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 18:20:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 388E610E7AD;
-	Thu, 28 Apr 2022 17:44:19 +0000 (UTC)
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 282AE10E7AD
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Apr 2022 17:44:18 +0000 (UTC)
-Received: by mail-oi1-x236.google.com with SMTP id 12so6062129oix.12
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Apr 2022 10:44:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D60A810E958;
+	Thu, 28 Apr 2022 18:20:11 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BABEA10E43D;
+ Thu, 28 Apr 2022 18:20:10 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id e4so6223899oif.2;
+ Thu, 28 Apr 2022 11:20:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=GRM4rt5wVUfSX9dP5diTDQgF5WsCUDTxWZBbzUu0Ue0=;
- b=cmO79FoETpBzHASfeNxS2KFcP8V/tMM+UPHwwXF+DGke+ujkQSnynTNxqUibJPMddB
- BCL4YMC/2jat3cMLrHnE3pmswTdIeGFhCaOBXn1KvpnUqKVEyLOjSZyK/6q3Y/0hRaDQ
- pow65iudKXx65zrGZhVNFQlOF/YEIurVLsRnG0pfVajIPteclvsqvDncgODino3ICwYg
- lf9NtFxH2R9Ykv8P/pX6HZhxqXYTmj4H2b7dsEActBottngPBQNaMDHDNjlk5LQOWnZo
- DP4E9SmjjffTiXdXvOkvVTrqadNNChQNQn81mUryWaw6Bbdrm+oomGSL3RgjoryYapG1
- g5RA==
+ :cc; bh=WSkLqqraq4ZJNQe/eZcJ3+XKx5848eMDeTMp9yd+NZM=;
+ b=obYe3GbeS28Q8s3W22+uGpah48Yhjrf3iqtEBYsC2yYSMYDDkbfzvkmpRD62rdvOzG
+ GoWzspgjSsB104FKymYqPB2lYKBjSDvsL02cNJC4nsbZCe8BgKv6BSdazIfFuqACk5Fp
+ jYkoGdOVCyOqtTj74zy5qcochi33suJma61KdJ22oyzS7lhQRQ3iqMDPwFXFuM+eSGmj
+ wvRl2NdpJImE1xNcegaHj8cAipsw0KfQJVSp3pk6ogdCMQ9xdp3VDRjo8b9JVex3Z+kF
+ zLshy82k7rwKwnQwRuOysMzFy68RKxIh9AdBo0OrDZM/8E/1pw9Ko6gp53tRlehoiEWv
+ LmOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=GRM4rt5wVUfSX9dP5diTDQgF5WsCUDTxWZBbzUu0Ue0=;
- b=5kckJ2NngVRIivtV1N+FJb0Il3A0t7l7BvdegzJc43dzw6TdClPI86qn9pQmJyuvHG
- yI8VV2NAk+axK+MD1rbPzpGVYXGyVT97N/lnvMxsJnSq6bGEeytLIO4knqb1DBVlLxns
- 2mTtItg0Rggy+j9AW/0CBOfpkz6IOlvm+7kxTf4fqZaQKF0lywqUvDOjp4yPBstTELqr
- inBAvkpnm9MvGBljC9oJ+Cdgtea+kToP0t8/q1fvq7iEewbPhbaXtVELumQ2iNWhbuT2
- QNoIaqgfqvBfyoqwJNadYHcHv+4WQs+hlYaRTWaGifyMvxu/VDmL20DJbLQKHfknjjo2
- pNSA==
-X-Gm-Message-State: AOAM530Qrz0eY1PX//MGXpcRcoDYKe/fBD0KexzZDSsZL5nHYRhKBH+i
- c+vNonVzYliyYjXDckmqrm44QR716jmAaDtXS0M=
-X-Google-Smtp-Source: ABdhPJxaVgKNv9Z3i7Y7m2Yd+C5108zxH++ownFcWClCVQ/oqDeYpcJDBV0yoN1XSRkot8uT/tb2YflgBFLFFBdTn2I=
-X-Received: by 2002:a05:6808:f8d:b0:325:1e81:ffe5 with SMTP id
- o13-20020a0568080f8d00b003251e81ffe5mr11954915oiw.253.1651167857280; Thu, 28
- Apr 2022 10:44:17 -0700 (PDT)
+ bh=WSkLqqraq4ZJNQe/eZcJ3+XKx5848eMDeTMp9yd+NZM=;
+ b=CAmRZ+hrXpwdvuJPCe8UShLoylUbFM4m1WYH0lthgVRZ31DBsFsXyh/tx5eA7LnwRd
+ bXPHWA64Ze+fO6t7lr6tIF15zz77zrOx8bucF3rntU6AsNMeOpFnUb4M8FfJ0uKkasN2
+ ecjnU+hw7nSaZSp/ZBGoThCCXutt6ja+tHOZFHlchrD/Tpva7HF4QQi+QJAkEXdSjM5X
+ hwF2VmX+tJoiii2M0bNBV3pXIrv0n2CzzzpWaOzQPy+KsO5vHTy39Y1IhDnnCD1J1MkZ
+ xi1oSm7mwas2E3gJ+8M1vZHkfkhdclQK8n18bqZj71fQd7wc+U6Ryx9tcLCIvX68cAK8
+ E8QA==
+X-Gm-Message-State: AOAM531hJg3amvszAKLkQ4sIzuBC8hHoRdA9b3Tmo3oqzall24Dmb1Pz
+ 4evwpeaNxphmJ6TnqUrZFyvtO0HyAqM19FHbc8E=
+X-Google-Smtp-Source: ABdhPJwshtYA+L5Ift7DeQosPnfBSDjxkl9c/30PQ8kqkkhv+1eC2bfEn00RvDYu/DdL1+5O4iX+glwTNv5FfFcl9Q0=
+X-Received: by 2002:aca:3d88:0:b0:321:141:ce0b with SMTP id
+ k130-20020aca3d88000000b003210141ce0bmr19523709oia.200.1651170009987; Thu, 28
+ Apr 2022 11:20:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220428174118.131226-1-harry.wentland@amd.com>
-In-Reply-To: <20220428174118.131226-1-harry.wentland@amd.com>
+References: <20220428072000.6542-1-pengfuyuan@kylinos.cn>
+In-Reply-To: <20220428072000.6542-1-pengfuyuan@kylinos.cn>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 28 Apr 2022 13:44:06 -0400
-Message-ID: <CADnq5_PuvUcUUUXs80x8A87pkVV718U-mYbHnkuOTaNXs40Edw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Avoid reading audio pattern past
- AUDIO_CHANNELS_COUNT
-To: Harry Wentland <harry.wentland@amd.com>
+Date: Thu, 28 Apr 2022 14:19:58 -0400
+Message-ID: <CADnq5_P-TMs2f+9Bfd8MXZxxYcc1VPux4Ed1iQSkbXzFPdwPQw@mail.gmail.com>
+Subject: Re: [PATCH] gpu/drm/radeon: Fix spelling typo in comments
+To: pengfuyuan <pengfuyuan@kylinos.cn>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,37 +61,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: David Airlie <airlied@linux.ie>, xinhui pan <Xinhui.Pan@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 28, 2022 at 1:41 PM Harry Wentland <harry.wentland@amd.com> wrote:
+On Thu, Apr 28, 2022 at 3:37 AM pengfuyuan <pengfuyuan@kylinos.cn> wrote:
 >
-> A faulty receiver might report an erroneous channel count. We
-> should guard against reading beyond AUDIO_CHANNELS_COUNT as
-> that would overflow the dpcd_pattern_period array.
+> Fix spelling typo in comments.
 >
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+> Signed-off-by: pengfuyuan <pengfuyuan@kylinos.cn>
 > ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/radeon/atombios.h | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> index c15c46b81111..55a5a6a49fe2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -4464,7 +4464,7 @@ static void dp_test_get_audio_test_data(struct dc_link *link, bool disable_video
->                 &dpcd_pattern_type.value,
->                 sizeof(dpcd_pattern_type));
+> diff --git a/drivers/gpu/drm/radeon/atombios.h b/drivers/gpu/drm/radeon/atombios.h
+> index bd5dc09e860f..e00d6adf7262 100644
+> --- a/drivers/gpu/drm/radeon/atombios.h
+> +++ b/drivers/gpu/drm/radeon/atombios.h
+> @@ -3599,7 +3599,7 @@ typedef struct  _ATOM_LCD_RTS_RECORD
+>    UCHAR     ucRTSValue;
+>  }ATOM_LCD_RTS_RECORD;
 >
-> -       channel_count = dpcd_test_mode.bits.channel_count + 1;
-> +       channel_count = min(dpcd_test_mode.bits.channel_count + 1, AUDIO_CHANNELS_COUNT);
+> -//!! If the record below exits, it shoud always be the first record for easy use in command table!!!
+> +//!! If the record below exits, it should always be the first record for easy use in command table!!!
+
+s/exits/exists/
+
+Other than that, it looks good to me.
+
+Alex
+
+>  // The record below is only used when LVDS_Info is present. From ATOM_LVDS_INFO_V12, use ucLCDPanel_SpecialHandlingCap instead.
+>  typedef struct  _ATOM_LCD_MODE_CONTROL_CAP
+>  {
+> @@ -3823,7 +3823,7 @@ typedef struct _ATOM_DPCD_INFO
+>  // Note1: This table is filled by SetBiosReservationStartInFB in CoreCommSubs.asm
+>  //        at running time.
+>  // note2: From RV770, the memory is more than 32bit addressable, so we will change
+> -//        ucTableFormatRevision=1,ucTableContentRevision=4, the strcuture remains
+> +//        ucTableFormatRevision=1,ucTableContentRevision=4, the structure remains
+>  //        exactly same as 1.1 and 1.2 (1.3 is never in use), but ulStartAddrUsedByFirmware
+>  //        (in offset to start of memory address) is KB aligned instead of byte aligend.
+>  /***********************************************************************************/
+> @@ -3858,7 +3858,7 @@ typedef struct _ATOM_VRAM_USAGE_BY_FIRMWARE
+>    ATOM_FIRMWARE_VRAM_RESERVE_INFO      asFirmwareVramReserveInfo[ATOM_MAX_FIRMWARE_VRAM_USAGE_INFO];
+>  }ATOM_VRAM_USAGE_BY_FIRMWARE;
 >
->         // read pattern periods for requested channels when sawTooth pattern is requested
->         if (dpcd_pattern_type.value == AUDIO_TEST_PATTERN_SAWTOOTH ||
+> -// change verion to 1.5, when allow driver to allocate the vram area for command table access.
+> +// change version to 1.5, when allow driver to allocate the vram area for command table access.
+>  typedef struct _ATOM_FIRMWARE_VRAM_RESERVE_INFO_V1_5
+>  {
+>    ULONG   ulStartAddrUsedByFirmware;
+> @@ -5973,7 +5973,7 @@ typedef struct _ATOM_ASIC_INTERNAL_SS_INFO_V3
+>  #define CLEAR_ATOM_S7_DOS_8BIT_DAC_EN         ((ATOM_DOS_MODE_INFO_DEF << 8 )|ATOM_S7_DOS_8BIT_DAC_EN_SHIFT | ATOM_FLAG_CLEAR )
+>
+>  /****************************************************************************/
+> -//Portion II: Definitinos only used in Driver
+> +//Portion II: Definitions only used in Driver
+>  /****************************************************************************/
+>
+>  // Macros used by driver
+> @@ -7162,7 +7162,7 @@ typedef struct _DP_ENCODER_SERVICE_PARAMETERS
+>
+>  // ucAction
+>  #define ATOM_DP_ACTION_GET_SINK_TYPE                                                   0x01
+> -/* obselete */
+> +/* obsolete */
+>  #define ATOM_DP_ACTION_TRAINING_START                                                  0x02
+>  #define ATOM_DP_ACTION_TRAINING_COMPLETE                                       0x03
+>  #define ATOM_DP_ACTION_TRAINING_PATTERN_SEL                            0x04
 > --
-> 2.35.1
+> 2.25.1
 >
