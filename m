@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7EDBC433F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 21:30:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E887C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 21:30:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 575F810E86B;
-	Thu, 28 Apr 2022 21:30:19 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2041.outbound.protection.outlook.com [40.107.92.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4997D10E943
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Apr 2022 21:30:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1291910EA8F;
+	Thu, 28 Apr 2022 21:30:21 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2068.outbound.protection.outlook.com [40.107.95.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAE4010E93F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Apr 2022 21:30:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TfaR0CRhTTxoM5vyIEFkMhAt/muoj2nS/hAy8IQUKkEx/ZFyP56avfZn/kbyz756NCCx1wN2QQ2QCd74RZqv8tHweaZl8FGQjInGWxeWw/r2d6OdkVEqqs1JtK6cXKJj4Z6cmx2HtT0NA3q2fr+GTZipFPKPErO5+zkyp4gYgf3RqDScJrYxFrJjp6SZlDyDMcKkNYML99L4vtItKjPAfr6ivrVW6y8hM7rNPfN4MTcn4LKfh2jvk6DBIPMBSdB5qVDzYThtJN1Z60ZGJlMsteRphaJEjI3vbLz+FYi6NjGIhcHoSHT961CeiSXWpU4Nu+xbwd576NEh42h8PWqBpA==
+ b=iDS4nNVIhtSjedmU9iVV5Ip+S/cPEdFt6GQ/VKw7onKEGO2yU7O6S38EInq+n2+OMx0bDVpDwi+DJFofZ69QmnWxzxJyG6YwMfff3uOielx7IHcpAE5PyvewoXHyxHPIciu+JGIKCoaCTltRuBPSLjT+oB7rZzOOGl7zxTgkUdTAI+zoc22EtspBH4VOjoXd15Z3vzCI/U3JmcVZk1KrlvKxzlvzn+OJQEtqQqnbDB4/h/j/sd9I75mEOzcrPtiMYkA/8N5qQmTSzCOleKWcG1XE6EtWAOlQmbwadCE9ex0fjSqA5fdKMT+FO+rDIE/uZQwzchx0lm4RRr3MPKmbkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7JloZbXfA/Vez8etpkqUi0Q7Qfb5Grl5jjU+dNQNXQo=;
- b=PhEDsUuZzK7PQw6uHL8a+Mnbs8erX6TaECcecCXtb13ZFk9bWkMSaL+pEc7zMHKpNsgyzjfi9aoZvMi1hzei9FD7G4mG+jGJUav9beOVyyKat2cxdaaOSxskOVKG/KVBjl1rnKPkN89D7f52TqJE6gZIs7xXtDW6L03QVSwr/YkN4IZJgKOYSVJsX+t6JXEjbF7w1VK7x6JJMbsTTku8hFFCFFBghTUpfvB6Eeo1Vel+LhY8LbATU4twjY3KyqA60osAA9ajKicZ2NNc2Xj2P14LEYFRzE64GnYbTj1lzFD/T0KAbx+Sb6wKoRyXKD1G4y7N9DD8ssAWHUs8IR7bPg==
+ bh=7PF2fIoT7mrKrBcxk7+7uVQbLuPpX6d/ykvaAg3ayn4=;
+ b=biMV0+yDmrokENz8rTo+2D6rkbTpRlAvanxkzin1yE7pmbD2pMqAvDSdUTbEPN5Wpqkl1QbjbXrmUAmN4NYXdJxGr9YmNKkwnEAVguHYt8OWfcntRtEKbKhLguVlf3Kim9D+HtCvj6hhsp3tFo8Ea5+SHvD2F0ezIAfr6zu8zkLeXIW2QeX+W6V7dhQA6OfZp74xfEh4fDfJrfu9e19p6JXSv68Z1osZAA5txEXRl0sWAnqyRoGbSitZr7k5/obTkuqiVH52RZLsrOp+Nj1ogj16LCTTDJqhHKutCDmBlIEyPzvyvz5M5drrPKJ0EfNaLS24f51fVuHgp2fFK10+DQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7JloZbXfA/Vez8etpkqUi0Q7Qfb5Grl5jjU+dNQNXQo=;
- b=MELlkoVn+ZyLJXlUkvo4qeZ2EGAgfo1SCEU526f37POZb+TWRLdjNg6YbD+j04VVtmfGzex290JZlt4UW8r8KP2A+H6thlBT/patiAycPKkYQSzkWN7Hzmj12xbOw0tM+EGpX/bmsN15lez1b0RK9HOrtBCM7DewmgZ6FpVdejw=
-Received: from MW4PR03CA0155.namprd03.prod.outlook.com (2603:10b6:303:8d::10)
- by BYAPR12MB2648.namprd12.prod.outlook.com (2603:10b6:a03:69::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.20; Thu, 28 Apr
- 2022 21:30:06 +0000
+ bh=7PF2fIoT7mrKrBcxk7+7uVQbLuPpX6d/ykvaAg3ayn4=;
+ b=nW26RAQOqcBe2SUxLGmPyGhu4aZVl06T88etWPtDZXV79tqUMIcO4W8t5kzYdVCESR0F8IaFDpeHHPeI9xXm06ZDrRL4pNboXzOFj9gZf26Rn5tClNRL2kqi6uWO/QZs5QREkonuf0Ej5nPGHhFH0S3QGGn5OHcL9H7vq6WTr5g=
+Received: from MW4PR03CA0176.namprd03.prod.outlook.com (2603:10b6:303:8d::31)
+ by DM4PR12MB6010.namprd12.prod.outlook.com (2603:10b6:8:6a::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5206.13; Thu, 28 Apr 2022 21:30:08 +0000
 Received: from CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8d:cafe::be) by MW4PR03CA0155.outlook.office365.com
- (2603:10b6:303:8d::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.14 via Frontend
- Transport; Thu, 28 Apr 2022 21:30:06 +0000
+ (2603:10b6:303:8d:cafe::ac) by MW4PR03CA0176.outlook.office365.com
+ (2603:10b6:303:8d::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14 via Frontend
+ Transport; Thu, 28 Apr 2022 21:30:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT006.mail.protection.outlook.com (10.13.174.246) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Thu, 28 Apr 2022 21:30:05 +0000
+ 15.20.5206.12 via Frontend Transport; Thu, 28 Apr 2022 21:30:07 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 28 Apr
- 2022 16:30:01 -0500
+ 2022 16:30:03 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: enable pptable ucode loading
-Date: Thu, 28 Apr 2022 17:29:43 -0400
-Message-ID: <20220428212946.700296-9-alexander.deucher@amd.com>
+Subject: [PATCH] drm/amd/pm: enable the support for retrieving combo pptable
+Date: Thu, 28 Apr 2022 17:29:46 -0400
+Message-ID: <20220428212946.700296-12-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220428212946.700296-1-alexander.deucher@amd.com>
 References: <20220428212946.700296-1-alexander.deucher@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f2a6a145-a00c-4730-96f8-08da295e436a
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2648:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB26485B114875168316342A12F7FD9@BYAPR12MB2648.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 11c2321c-39e3-4b9c-36ff-08da295e4473
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6010:EE_
+X-Microsoft-Antispam-PRVS: <DM4PR12MB6010653D47F32BE698351118F7FD9@DM4PR12MB6010.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OTdwNR9TyhX8I+3oPKHxuWmLwfKSCOYYFLhGj/uvMTGwOzf28p8zmX0jlk0QUTuRrjnQx+PZlVPzPSg6F1IMFgjiedpY84nqjQ+MzqLU/mnxn+PFXyLe7SED2LEjfQJ8J9iyrLCmEokOMtERZotw3ZbYe8plCrcu3yOtibU0rSuNmt2P5dZqBS3EQnQ0fy1T1bMYFSaVEMEmwjL6W0rNpnAyuxXg0RSrDWJgBbe6rv7bGdluqv3k0cEVEhhTmv4cdkp39IXJoGm5TPtFi0Wm5w5q+9uVGHEc19j/TWEuNp2QHpVEYry980K4OVrx1V9bjx9OBjL/ntSoZK1VzwvO0MCmAH8Okzvg0BRmxlWn2MNsEDnvGhRcjLP5yG6J8LGXCvzTgl3+hGv9W3xQf+GvP3/Gfqk0it7NbwTAvDwRdJRYTg/cUA89ocFvyu4nxQ14jWXYKNYoxBkG51xoQjn0YoXuGtr21JcHYdwMkoHM6wXDUOjtJAO/40QidULs1Q161DXDCU4EVEsIEDVqH8Pc0cFxVF3zOKNW/u1mky18f8uuH4NigTUmpPQcLQ5qkB2r9JyxjVB86Tjpi1u6k7PgxQHm8WVyYpubdeQAHs3yYjoCHT2rbSXC9dXzVoBsrwn7/HpsIV5BAHj++X6icM+SrFUXEXdama0/3Sv8xKYl8pFCZ8eibzZDMUZror45oEauWxEnsJlIvRk3xApGJrQZbg==
+X-Microsoft-Antispam-Message-Info: mH9Hc+C3VZvgLVHCEZKhzP+785DNE/8VhphVguh3NM+M133Xm6H5ZXhmai6xhYeBr9NbexH2rvH3yv59lFS8wTyLNwO0SsJ66rDK60+B5rdo+rmOK9XipYdNYypOYStGODsYN9AsVWdtyFQczluSTDAxs3xcHoSg1ztSA5ou71ptuEf4CJjdPdShFwFvaZHYcBKE6+PGGQ9ZT3j1GiZR6C8Ny8k/O8lfyclJ/MlAY9rn5xabZ0EHEvjWxZS2ma0385lwg7xoVZzz/RxKmIC00Rac1JxUutzH1S58kLCfSAM+szh7BK0SLxFIt3IelP0NLLH2dKCj0YDydFIp0f/YroIs0pA0K3yRzMR9sFzXYS27EmfG6t4yyLK1k24//x3zi3RBWXwMFqusduHygs9XLuto5ws7655Owqd0Pz6r81ax7qkiTWnuG0A443fc85JTHsHMJl4FT4DrlIv73SxA4FNW7Ulx4nJ9HOezvexmXp7zQubdnsCCEhOCmSx2ssUuu7z5HgUBnVWjks1IdvPWfe9luhTP0mD3cYb/fbDC4PcF7g+pTnEOU+Bbxs4oZVGqjNSMD+QuwZXc297ntPUpOJaZ6iydwhklJlHTNmqgAcT93En0NJZJM15dAxFR3FmNT5WkSmZzz7DV83OD7yQTfgiMqBAoNa+6oB6sVft323Mh6DbZ460y0gZ5fIMksmouYACbBtNlpNc1r/r3YwB1DA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(5660300002)(47076005)(356005)(83380400001)(36860700001)(8676002)(4326008)(2616005)(86362001)(70586007)(81166007)(70206006)(2906002)(6916009)(54906003)(36756003)(316002)(40460700003)(6666004)(426003)(26005)(336012)(82310400005)(7696005)(508600001)(8936002)(1076003)(16526019)(186003)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(2906002)(7696005)(5660300002)(36756003)(70206006)(36860700001)(16526019)(186003)(316002)(83380400001)(8676002)(4326008)(6916009)(8936002)(70586007)(54906003)(2616005)(336012)(426003)(47076005)(86362001)(40460700003)(82310400005)(508600001)(81166007)(356005)(6666004)(1076003)(26005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2022 21:30:05.8414 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2a6a145-a00c-4730-96f8-08da295e436a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2022 21:30:07.6537 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11c2321c-39e3-4b9c-36ff-08da295e4473
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2648
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6010
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,133 +107,75 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Evan Quan <evan.quan@amd.com>
 
-With SCPM enabled, pptable cannot be uploaded to SMU directly.
-The transferring has to be via PSP.
+We need to relay on this way to get the raw PPTable when
+SCPM feature is enabled.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 6 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h     | 1 +
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 6 ++++++
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 8 ++++++++
- drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   | 1 +
- 6 files changed, 25 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  4 +++-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 11 +++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  2 ++
+ 3 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 890259d4414a..aabb208bebde 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -2232,6 +2232,9 @@ static int psp_get_fw_type(struct amdgpu_firmware_info *ucode,
- 	case AMDGPU_UCODE_ID_SMC:
- 		*type = GFX_FW_TYPE_SMU;
- 		break;
-+	case AMDGPU_UCODE_ID_PPTABLE:
-+		*type = GFX_FW_TYPE_PPTABLE;
-+		break;
- 	case AMDGPU_UCODE_ID_UVD:
- 		*type = GFX_FW_TYPE_UVD;
- 		break;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-index c909446c3a96..6218bd62d172 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -543,6 +543,8 @@ const char *amdgpu_ucode_name(enum AMDGPU_UCODE_ID ucode_id)
- 		return "STORAGE";
- 	case AMDGPU_UCODE_ID_SMC:
- 		return "SMC";
-+	case AMDGPU_UCODE_ID_PPTABLE:
-+		return "PPTABLE";
- 	case AMDGPU_UCODE_ID_UVD:
- 		return "UVD";
- 	case AMDGPU_UCODE_ID_UVD1:
-@@ -720,6 +722,10 @@ static int amdgpu_ucode_init_single_fw(struct amdgpu_device *adev,
- 			ucode_addr = (u8 *)ucode->fw->data +
- 				le32_to_cpu(header->ucode_array_offset_bytes);
- 			break;
-+		case AMDGPU_UCODE_ID_PPTABLE:
-+			ucode->ucode_size = ucode->fw->size;
-+			ucode_addr = (u8 *)ucode->fw->data;
-+			break;
- 		default:
- 			ucode->ucode_size = le32_to_cpu(header->ucode_size_bytes);
- 			ucode_addr = (u8 *)ucode->fw->data +
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-index 864984d0d3ef..1c2d1f9bf418 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-@@ -369,6 +369,7 @@ enum AMDGPU_UCODE_ID {
- 	AMDGPU_UCODE_ID_RLC_G,
- 	AMDGPU_UCODE_ID_STORAGE,
- 	AMDGPU_UCODE_ID_SMC,
-+	AMDGPU_UCODE_ID_PPTABLE,
- 	AMDGPU_UCODE_ID_UVD,
- 	AMDGPU_UCODE_ID_UVD1,
- 	AMDGPU_UCODE_ID_VCE,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 5dd97eac0e99..2513b1af76d8 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1027,6 +1027,12 @@ static int smu_sw_init(void *handle)
- 		return ret;
- 	}
- 
-+	ret = smu_init_pptable_microcode(smu);
-+	if (ret) {
-+		dev_err(adev->dev, "Failed to setup pptable firmware!\n");
-+		return ret;
-+	}
-+
- 	ret = smu_register_irq_handler(smu);
- 	if (ret) {
- 		dev_err(adev->dev, "Failed to register smc irq handler!\n");
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index 46e34ed8a3c8..491357321020 100644
+index 491357321020..49d2c0eb014d 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
 +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -27,6 +27,7 @@
- #include "dm_pp_interface.h"
- #include "dm_pp_smu.h"
- #include "smu_types.h"
-+#include "linux/firmware.h"
- 
- #define SMU_THERMAL_MINIMUM_ALERT_TEMP		0
- #define SMU_THERMAL_MAXIMUM_ALERT_TEMP		255
-@@ -557,6 +558,8 @@ struct smu_context
- 	struct smu_user_dpm_profile user_dpm_profile;
- 
- 	struct stb_context stb_context;
-+
-+	struct firmware pptable_firmware;
+@@ -321,6 +321,7 @@ enum smu_table_id
+ 	SMU_TABLE_I2C_COMMANDS,
+ 	SMU_TABLE_PACE,
+ 	SMU_TABLE_ECCINFO,
++	SMU_TABLE_COMBO_PPTABLE,
+ 	SMU_TABLE_COUNT,
  };
  
- struct i2c_adapter;
-@@ -1298,6 +1301,11 @@ struct pptable_funcs {
- 	 *										of SMUBUS table.
- 	 */
- 	int (*send_hbm_bad_channel_flag)(struct smu_context *smu, uint32_t size);
+@@ -336,7 +337,8 @@ struct smu_table_context
+ 
+ 	void				*max_sustainable_clocks;
+ 	struct smu_bios_boot_up_values	boot_values;
+-	void                            *driver_pptable;
++	void				*driver_pptable;
++	void				*combo_pptable;
+ 	void                            *ecc_table;
+ 	void				*driver_smu_config_table;
+ 	struct smu_table		tables[SMU_TABLE_COUNT];
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index f12319883a80..622881ab34c7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -971,6 +971,17 @@ int smu_cmn_get_metrics_table(struct smu_context *smu,
+ 	return 0;
+ }
+ 
++int smu_cmn_get_combo_pptable(struct smu_context *smu)
++{
++	void *pptable = smu->smu_table.combo_pptable;
 +
-+	/**
-+	 * @init_pptable_microcode: Prepare the pptable microcode to upload via PSP
-+	 */
-+	int (*init_pptable_microcode)(struct smu_context *smu);
- };
++	return smu_cmn_update_table(smu,
++				    SMU_TABLE_COMBO_PPTABLE,
++				    0,
++				    pptable,
++				    false);
++}
++
+ void smu_cmn_init_soft_gpu_metrics(void *table, uint8_t frev, uint8_t crev)
+ {
+ 	struct metrics_table_header *header = (struct metrics_table_header *)table;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+index a4c593ed8b03..1526ce09c399 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+@@ -99,6 +99,8 @@ int smu_cmn_get_metrics_table(struct smu_context *smu,
+ 			      void *metrics_table,
+ 			      bool bypass_cache);
  
- typedef enum {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-index 5f21ead860f9..7469bbfce1fb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-@@ -93,6 +93,7 @@
- #define smu_set_fine_grain_gfx_freq_parameters(smu)					smu_ppt_funcs(set_fine_grain_gfx_freq_parameters, 0, smu)
- #define smu_get_default_config_table_settings(smu, config_table)	smu_ppt_funcs(get_default_config_table_settings, -EOPNOTSUPP, smu, config_table)
- #define smu_set_config_table(smu, config_table)				smu_ppt_funcs(set_config_table, -EOPNOTSUPP, smu, config_table)
-+#define smu_init_pptable_microcode(smu)					smu_ppt_funcs(init_pptable_microcode, 0, smu)
++int smu_cmn_get_combo_pptable(struct smu_context *smu);
++
+ void smu_cmn_init_soft_gpu_metrics(void *table, uint8_t frev, uint8_t crev);
  
- #endif
- #endif
+ int smu_cmn_set_mp1_state(struct smu_context *smu,
 -- 
 2.35.1
 
