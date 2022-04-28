@@ -4,90 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5498FC433EF
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 22:13:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0561C433EF
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 22:14:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D976310E072;
-	Thu, 28 Apr 2022 22:13:27 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2078.outbound.protection.outlook.com [40.107.96.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9765E10E072
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Apr 2022 22:13:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IwKYC57RoUDbCGKU3PR3gCG1rAF54PsW6UVIyjOE1KfMxgNH3hEa/nv2tCLwmuTLVj8MfahslWUlNO8UB2h/TdB3favMluphp+xTj2+yj3xNk1nWNqTTpJ/EWDn2+/ToA9RjdvpGa8SNpIu5qmy8oYZXPWCq2/7ZtDmS6elV56W4Uw1yfHQyLCKRg0WMFJ8B5IqB4FDoI+TULR/63SYKeKj27JbdrqvGM3VZReHI94jYYBGwmpu/b+8nJu2ml9wvwV078okWN9l4Bqtw+0MJOOfjN7Ra6hvI5VsVBEm+VqA/9HcKpklHxxGk/+jOLxxkPkKCVbWymZzZG1Zhtj2Plw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=emFo/OYOPwN0zllqEQd+kjibUfRPh+pKXc4zphX/H+0=;
- b=UiFwuSW3e5yG77OljIGFcEeUrGqnzwkm3wVKx/LdxWtQxcx5vAIonV22fabJ4/1HmQsbHdw3/51b3Oke9XNAA2aQe9I4xs8Tl3ZeRC/KFZOGJh/FjhYT1Tyu+9yNlw+S8hzf2J0dZOjtitMWrFLA/kIgDESW7s5+jvmRSt1QJD1u9ty7f1k+sM14UkZ2+R2/fUfuRiaU5IhiDbX5IdfaaJJZzVr7AbkP1ZN5uPJIUw37vAeBtU5KfWPYfY+a4stjH2zX2D4iloh8DPwJNEwliKhizlBYbnOWJllHMFuUpYJXNwCZeFPlEO96iSdRFKTm51TrUHABFdsxlxDl8yLdKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=emFo/OYOPwN0zllqEQd+kjibUfRPh+pKXc4zphX/H+0=;
- b=sOjMbZjAqiJC4AnoPOaYQOZOEm2ZtHAaRrKJ+UWiBC2FXeetsT+U3CjkhgRrfWhvhyOqUGcI1dT7tnGtg4i3fQTrjCrzz2yc2CfU6dRREmk4oF/SsDCzgoyMc3PeNVd5VWGgJLqHo11lVaSaC3TPhql8PZZkESNRgYxioQl+Gxk=
-Received: from DM6PR12CA0010.namprd12.prod.outlook.com (2603:10b6:5:1c0::23)
- by BYAPR12MB4632.namprd12.prod.outlook.com (2603:10b6:a03:110::33) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Thu, 28 Apr
- 2022 22:13:24 +0000
-Received: from DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1c0:cafe::c7) by DM6PR12CA0010.outlook.office365.com
- (2603:10b6:5:1c0::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15 via Frontend
- Transport; Thu, 28 Apr 2022 22:13:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT041.mail.protection.outlook.com (10.13.172.98) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Thu, 28 Apr 2022 22:13:23 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 28 Apr
- 2022 17:13:23 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/display: flush the HDP when setting up DMCUB
- firmware
-Date: Thu, 28 Apr 2022 18:13:11 -0400
-Message-ID: <20220428221311.1030146-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40D1010E682;
+	Thu, 28 Apr 2022 22:14:13 +0000 (UTC)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CDFC10E682
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Apr 2022 22:14:12 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-d6e29fb3d7so6512832fac.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Apr 2022 15:14:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=A9wT2G4zx+OlAIflfTuGmkC7Qh8zAduJOs4UhUembXs=;
+ b=QgZp1GhBs8/wo2HEbpJWtHG+QUFiJBSoZnrM4lHFUpu/NKPgu2xxu/ySYQUrZFDJ2Q
+ gm1F+xpWyZnvJmkY0LZSoBKRgyBH+HrGlYp2dvZSkbHuX8o5isnBlsy9EDO+771+7GoS
+ Fwdm08EgFnrqyTA78I89oB+zOFXr0Jw1tk20CZJHbkz3loUUUlsn8eGIpo2JZ810EuvK
+ 6d7K64On8A39oWGktBqmKy5w/9D08Tx78VmXISDeEC1hwYZY3WQ25hgbrslCzz27JJve
+ AxQJCZN4BWXzIyW/mXaYQfQiYW4FiKk+mDmPRWxIh52/cN7LxfAl/GRpBmUcH0NLuJPP
+ /aQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=A9wT2G4zx+OlAIflfTuGmkC7Qh8zAduJOs4UhUembXs=;
+ b=F/WlPBeNO+IIygHOVmTlt4ieD1DKm6AKYz0o4cxl/4JndnCopbfh3NEpX6lFfT3doG
+ qJcfSu3YqET8oUNtJEmHM5wNdPhH6ZHpesVCN/w80VMi8nTokJXwPrkJZtz/crIiYhPh
+ bL8f0OD36Oc2mBH5lEVVfypwdMtuqCL3ZSSFzVY+VmtQiw6j44oC6DZmxAg/g9py8QUW
+ lPg1dgPoYGkUSxpo4q73S0VwKYe+duUEzWFDY4fgryFeTrA8qd8Ph2d9AHxolx6wa+ik
+ s2Bnf3kL4Ln0pWPVm4XCyQRPHck+SQZGLReWO+KcWilpGiIGuYm3Xex9fDaiGaeZm1zI
+ lvJg==
+X-Gm-Message-State: AOAM532jtViPQ+dFJRO5rNZBngKLUltenPsqFU3J0YG1DtIwQh/5LPQ+
+ I9YmqYltfISur33dYx08v6+EWlNjwqUqf/O66pE259bi
+X-Google-Smtp-Source: ABdhPJw7GkzIEgtPSnGfFIdNSzyvVSuClAGdMZdGuQPavI3kr+pDvFDlKNZGK+qM3Kw9Td4yO0ddYhDVEb1qkdwJc0s=
+X-Received: by 2002:a05:6870:d683:b0:de:eaa2:3550 with SMTP id
+ z3-20020a056870d68300b000deeaa23550mr150844oap.253.1651184051844; Thu, 28 Apr
+ 2022 15:14:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4c5b8d67-e13d-42e4-349a-08da29644fe2
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4632:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR12MB4632E7352EDAD101BBB2ACC9F7FD9@BYAPR12MB4632.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EohN00ksjlWZ0vFajHmpScJzB5HQyeLSKHtEy1O3DIaXFcz8ttkZgOEb7ij5VdSMwVNtOuxycVgXHQmpMH013sJcxA0bbqc/WbVSFQqYlezCYOZipmBjWAUe5lbSNL6KkzoLBZtRLy/k8ZR4jLV3ZbkjI7qSsKkGeX6QYqNr6aFhjfOFahBE8cEtiyfsGGYq1x3M1aokjexqqnGz4dKdtTYmT1yBDqeEZxCFO5NlbyNkGFGEjXo92Pa5arCMV60zv6Ztp/tLxm/3zDEIIWkT4aARWLHlpphmJ3I8bUcVmliKyIf4OY+HPyn/fDgud6GOtpjSBdayfE6W41otNWQuoAjWzkWs9OVQUJygSVzeTIpKZhS1PaQIl2DNBU1NJZzViYQoMUoLJMdBW9WsSjMqs3YGRr8sogTHE/5k/ChkJmSTrF5F76NgkniMGjvT4OPfg58ACbepgUrtwnZ7qOqhsY8/kL7B3l5dCVNikrh+VayEakG9HLdkOcYYz/cFc9+Q6L2z6rpCtMEm5gif/rgnJMkhm7p1BHRRPsNio7b0QubgrckCBKVNJc4yP2m3kluDbNBWBKWNL6+OReCaYns3oAwPcE3Cj01iH6Dj9h5c0vtxBJV7SIQp6j/TxZ5XjLJVF2LKH0mBk0D4XHCB15T+LRUKbBtyiLNLvsjse9kwsMPxHsffaLf6TMvnB23pqIl4Y/Kxhbb7+em3Gi1Vbeubsw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(4326008)(508600001)(8676002)(81166007)(70586007)(70206006)(5660300002)(7696005)(36756003)(40460700003)(356005)(6666004)(86362001)(82310400005)(2906002)(83380400001)(6916009)(36860700001)(8936002)(2616005)(1076003)(26005)(336012)(16526019)(186003)(47076005)(316002)(426003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2022 22:13:23.9102 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c5b8d67-e13d-42e4-349a-08da29644fe2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT041.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4632
+References: <20220420214715.2644898-1-shiwei.wong@amd.com>
+ <CADnq5_ORQYj6ro4u9P4j7+NHVCMmn-iJ_FNzcNsiVHCro0J8KQ@mail.gmail.com>
+ <DM6PR12MB3963944F7765140E05D7AEA3EBF79@DM6PR12MB3963.namprd12.prod.outlook.com>
+ <CADnq5_N7yckjOTwEDnVZCBrtcqj7YE+gnkfGWofy0-b=ah3CeA@mail.gmail.com>
+ <CADnq5_PLOZ3xMcMnK5Rg8J_ev8LFP2vKsmP_EJ+J8rAAZ1j+Xw@mail.gmail.com>
+ <DM6PR12MB39632AAEDAA3768273B3DD3DEBFD9@DM6PR12MB3963.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB39632AAEDAA3768273B3DD3DEBFD9@DM6PR12MB3963.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 28 Apr 2022 18:13:59 -0400
+Message-ID: <CADnq5_PMXs-iMJfR0a3YQKbpmP4UcHwJoyk32eqYpTD07DTJJw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: clean up psp ip if hw_init failed v2
+To: "Wong, Alice" <Shiwei.Wong@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,43 +69,187 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When data is written to VRAM via the PCI BAR, the data goes
-through a block called HDP which has a write queue and a
-read cache.  When the driver writes to VRAM, it needs to flush
-the HDP write queue to make sure all the data written has
-actually hit VRAM.
+Looks good.  Thanks for fixing that.  I've sent the patches out for review!
 
-When we write the DMCUB firmware to vram, we never flushed the
-HDP.  In theory this could cause DMCUB errors if we try and
-start the DMCUB firmware without making sure the data has hit
-memory.
+Alex
 
-This doesn't fix any known issues, but is the right thing to do.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a6c3e1d74124..5c1fd3a91cd5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1133,6 +1133,10 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
- 		break;
- 	}
- 
-+	/* flush HDP */
-+	mb();
-+	amdgpu_device_flush_hdp(adev, NULL);
-+
- 	status = dmub_srv_hw_init(dmub_srv, &hw_params);
- 	if (status != DMUB_STATUS_OK) {
- 		DRM_ERROR("Error initializing DMUB HW: %d\n", status);
--- 
-2.35.1
-
+On Wed, Apr 27, 2022 at 9:37 PM Wong, Alice <Shiwei.Wong@amd.com> wrote:
+>
+> [AMD Official Use Only - General]
+>
+> Need this patch on top of your patches to handle psp_load_fw failure.
+>
+> Alice
+>
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: April 22, 2022 5:23 PM
+> To: Wong, Alice <Shiwei.Wong@amd.com>
+> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+> Subject: Re: [PATCH] drm/amdgpu: clean up psp ip if hw_init failed v2
+>
+> How about these patches?
+>
+> Alex
+>
+> On Fri, Apr 22, 2022 at 5:00 PM Alex Deucher <alexdeucher@gmail.com> wrot=
+e:
+> >
+> > On Fri, Apr 22, 2022 at 3:54 PM Wong, Alice <Shiwei.Wong@amd.com> wrote=
+:
+> > >
+> > > [AMD Official Use Only]
+> > >
+> > > Hi Alex,
+> > >
+> > > The attached patch freed most of the allocated memory except for one =
+allocated by psp_tmr_init during psp_load_fw.
+> > > Combination of the attached patch and calling psp_hw_fini when psp_hw=
+_init failed would fix the issue.
+> > >
+> > > As a proper fix, we can call psp_tmr_terminate in psp_load_fw when
+> > > psp_load_non_psp_fw failed. (attached patch) We can't move psp_tmr_in=
+it to sw_init because we need to load toc to get the TMR size.
+> > > Do you have any concerns with this approach?
+> >
+> > That only covers failures in hw_init().  It doesn't handle resume().
+> > Looks like all of the ta functions also potentially leak.  I'm working
+> > on a cleanup to handle all of these.
+> >
+> > Alex
+> >
+> > >
+> > > Alice
+> > >
+> > >
+> > > -----Original Message-----
+> > > From: Alex Deucher <alexdeucher@gmail.com>
+> > > Sent: April 21, 2022 1:31 AM
+> > > To: Wong, Alice <Shiwei.Wong@amd.com>
+> > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+> > > Subject: Re: [PATCH] drm/amdgpu: clean up psp ip if hw_init failed
+> > > v2
+> > >
+> > > On Wed, Apr 20, 2022 at 5:48 PM Alice Wong <shiwei.wong@amd.com> wrot=
+e:
+> > > >
+> > > > If at any point psp_hw_init failed, psp_hw_fini would not be
+> > > > called during unload due to ip_blocks[PSP].status.hw not being set =
+to true.
+> > > > This could cause a memory leak when the driver unloads.
+> > > > As a rule of thumb, each IP block should cleanup themselves when
+> > > > their hw_init fails. Only previously intialized blocks should be
+> > > > cleaned up by the common framework.
+> > > >
+> > > > v1: Call IP blocks' respective hw_fini when hw_init failed from
+> > > >     the common framework
+> > > > v2: Call psp_hw_fini when psp_hw_init failed.
+> > > >
+> > > > Signed-off-by: Alice Wong <shiwei.wong@amd.com>
+> > >
+> > > I don't think this is a good idea.  The hw programming in hw_fini mak=
+es no sense if the driver never set it up in the first place if hw_init fai=
+led before initializing the hw.  It would be better to just properly unwind=
+ the relevant functions.  Presumably the problem you are seeing is the fail=
+ure to free the GPU memory allocated in fw_fini, depending on where it fail=
+s.  We should just allocate the memory in sw_init; that is what we do in ot=
+her IPs.  Does the attached patch fix the issue you are seeing?
+> > >
+> > > Alex
+> > >
+> > > > ---
+> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 57
+> > > > +++++++++++++------------
+> > > >  1 file changed, 29 insertions(+), 28 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> > > > index 5b9e48d44f5b..52b14efa848a 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> > > > @@ -2537,6 +2537,34 @@ static int psp_load_fw(struct amdgpu_device =
+*adev)
+> > > >         return ret;
+> > > >  }
+> > > >
+> > > > +static int psp_hw_fini(void *handle) {
+> > > > +       struct amdgpu_device *adev =3D (struct amdgpu_device *)hand=
+le;
+> > > > +       struct psp_context *psp =3D &adev->psp;
+> > > > +
+> > > > +       if (psp->ta_fw) {
+> > > > +               psp_ras_terminate(psp);
+> > > > +               psp_securedisplay_terminate(psp);
+> > > > +               psp_rap_terminate(psp);
+> > > > +               psp_dtm_terminate(psp);
+> > > > +               psp_hdcp_terminate(psp);
+> > > > +       }
+> > > > +
+> > > > +       psp_asd_terminate(psp);
+> > > > +
+> > > > +       psp_tmr_terminate(psp);
+> > > > +       psp_ring_destroy(psp, PSP_RING_TYPE__KM);
+> > > > +
+> > > > +       amdgpu_bo_free_kernel(&psp->fw_pri_bo,
+> > > > +                             &psp->fw_pri_mc_addr, &psp->fw_pri_bu=
+f);
+> > > > +       amdgpu_bo_free_kernel(&psp->fence_buf_bo,
+> > > > +                             &psp->fence_buf_mc_addr, &psp->fence_=
+buf);
+> > > > +       amdgpu_bo_free_kernel(&psp->cmd_buf_bo, &psp->cmd_buf_mc_ad=
+dr,
+> > > > +                             (void **)&psp->cmd_buf_mem);
+> > > > +
+> > > > +       return 0;
+> > > > +}
+> > > > +
+> > > >  static int psp_hw_init(void *handle)  {
+> > > >         int ret;
+> > > > @@ -2563,37 +2591,10 @@ static int psp_hw_init(void *handle)
+> > > >  failed:
+> > > >         adev->firmware.load_type =3D AMDGPU_FW_LOAD_DIRECT;
+> > > >         mutex_unlock(&adev->firmware.mutex);
+> > > > +       psp_hw_fini(handle);
+> > > >         return -EINVAL;
+> > > >  }
+> > > >
+> > > > -static int psp_hw_fini(void *handle) -{
+> > > > -       struct amdgpu_device *adev =3D (struct amdgpu_device *)hand=
+le;
+> > > > -       struct psp_context *psp =3D &adev->psp;
+> > > > -
+> > > > -       if (psp->ta_fw) {
+> > > > -               psp_ras_terminate(psp);
+> > > > -               psp_securedisplay_terminate(psp);
+> > > > -               psp_rap_terminate(psp);
+> > > > -               psp_dtm_terminate(psp);
+> > > > -               psp_hdcp_terminate(psp);
+> > > > -       }
+> > > > -
+> > > > -       psp_asd_terminate(psp);
+> > > > -
+> > > > -       psp_tmr_terminate(psp);
+> > > > -       psp_ring_destroy(psp, PSP_RING_TYPE__KM);
+> > > > -
+> > > > -       amdgpu_bo_free_kernel(&psp->fw_pri_bo,
+> > > > -                             &psp->fw_pri_mc_addr, &psp->fw_pri_bu=
+f);
+> > > > -       amdgpu_bo_free_kernel(&psp->fence_buf_bo,
+> > > > -                             &psp->fence_buf_mc_addr, &psp->fence_=
+buf);
+> > > > -       amdgpu_bo_free_kernel(&psp->cmd_buf_bo, &psp->cmd_buf_mc_ad=
+dr,
+> > > > -                             (void **)&psp->cmd_buf_mem);
+> > > > -
+> > > > -       return 0;
+> > > > -}
+> > > > -
+> > > >  static int psp_suspend(void *handle)  {
+> > > >         int ret;
+> > > > --
+> > > > 2.25.1
+> > > >
