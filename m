@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A25BC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 17:35:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2DE7C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 17:35:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EB0810EFA5;
-	Fri, 29 Apr 2022 17:35:22 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2043.outbound.protection.outlook.com [40.107.93.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B24810EFA5
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 17:35:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E13110EFDF;
+	Fri, 29 Apr 2022 17:35:25 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2083.outbound.protection.outlook.com [40.107.212.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F80810EFB6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 17:35:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ax9pu8epGa6OEFIQ2rSA4BD9/3zTDzV0a59ehJzFC1Cz9+MyTtm7lLzKWNQoSwl/3qNfKCK43By/rtEu8s/BXg06uTiP2+rXLOvhb0G/hD8WBPgJRVOy8XLny8RplVa3l0mwVaMM29z9RUfXdZjuRyCTcu4apOMePlR25/FId6etCH4TRBofTo/sRZUZyxsCWlTtWU1gNTPs5S3RrbTgQjUt19JBo0/xMrsNR8eQvyRoGihaQu0itQaRfoZMoLW/VQKNyNfFKtKxibyhN/zwE34gWaH0WNLloKnHChtr/Rs1LC5pv0qSRt2A9hgLemuktf59IerijhAYRqq6/PpSNQ==
+ b=mh0Pj70YuLhTTy//dR5nJurUOeHvWN08hiStzXfZtJ4xUv5NeQS87m2SdYj8E6yqfFXRmBLQ96qxHspPZuHl8+6+gMT6YtOxuhSzhfScMgUrUFBHthM1dOJ8PYQ/DfOG7e/R+YN7JLXKYPe3jmiqYxT+ApEyeT9F/dfdhg98lBqIbbCv0vF0+4zqxy9k+olXIgchD9QPNJHxa9XNbo6tRCX7+VCB+H96GSr0p3VRknoKyZek9z60jz8VCtxJFaXBXhCftiwnn45pla6O3vg6HTfpYdyLQ9XRs3Cki+Fh0gTTvaqRIBEkyeLbEfNKrLG4hcZPNzmkpLV7YpeX//zpMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZffK/wd+aj33+vmeHfzcHrT7FrhMFg6FSy16JKXd00U=;
- b=IpiNcL1GZP8fSw0MwJQJLwoQegpnolJmYZwka8KadJS18mvbi/SPTZLUtkH31uqySTrA4HLT/vjkIrEHGVuzdSpq1L2N085kUsbjep2nR1cqsYOe71FOZo9clIor3Z95PjEQTBslv/qR6kcAWgjMRVcLqmpe7CgoNMfhtGsWkEQcXiZy85j7BirWey8b840KprXrsUew6pDENtBxtfsSD2cjh8lG3LJHOOkUCs1vDxIEiQ2/jUho2Q4SM3ZDKeZQb9X4pUVxwFfgv7MiIfutFNeeg7VfEKsBp6NvGq1/9DK6/3/kQXI9Q3iAGvK3LC9Kn8E0GD6xiflbCnoIiUPjVg==
+ bh=TTL7KhFKWvPyHtZZdX4ZXg2WuNL5nnlHT8XHhYNaAOM=;
+ b=ZJzbv2jTwvwfURDrbYMeFSOaqNIWUG07qOqNQYB/W0Azf3oKzBOAFbxuJYBX2aT03a6mmFrQSvYN75Mp+P/HRyqx2AvKCnvUp0Ac0TJZRirVDbEBOslgXw5wUD6PPmoH24svu2ThuY7Yi+nonFJ8VdYy2EMf7TvTaEh5cRP9ZJU4KpE74KT/8FDKOxHxt8g16r91nMWx+mSj6h0JVyE/0d80JrKR5N5zCzrZN45L6L0PgSxFIk250947bVfffJHqU8Gz3c/8WMLSXhs4vxlxgoRwmOkyt+AF//XSkon+CrJjBMNzTW7EHvbKEgtGb7zg2tno6vFxZ8N2gBBDk+3BuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZffK/wd+aj33+vmeHfzcHrT7FrhMFg6FSy16JKXd00U=;
- b=bjUYFkD+IFiYrYZ2jPZenNQ8iOdZ0c9p3mZK6PEyaSLCGsYvFu2TDcIAWKbGZasoaUmCKqMupTSrwrt2vYvW1pqgm3U1wihJxpry6lfL6zspDOIM6r0ENbE7uLxkC+Fl63/0JSeXhH9Kk/WYbCA3BuGJSo81PC6GGEE0Zm4Ug50=
+ bh=TTL7KhFKWvPyHtZZdX4ZXg2WuNL5nnlHT8XHhYNaAOM=;
+ b=x5RxjftLWX4n0mGXErTJSwccUMayNR42GoeBUXHVtstSqyCpnizzbWCJxY2fCGgOjXbMzy+4gmGZwI8yhv2IyDHWAuoNeeOVKOAo1tcUA240sXDniVpTZwIUUbJyd04ogG7orPjcLexPHeMCoot/JBzM2CsY5lBAqwqXPhIbE2s=
 Received: from MW4PR03CA0116.namprd03.prod.outlook.com (2603:10b6:303:b7::31)
- by MN2PR12MB2958.namprd12.prod.outlook.com (2603:10b6:208:aa::29)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Fri, 29 Apr
- 2022 17:35:17 +0000
+ by DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13; Fri, 29 Apr
+ 2022 17:35:20 +0000
 Received: from CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b7:cafe::d1) by MW4PR03CA0116.outlook.office365.com
+ (2603:10b6:303:b7:cafe::ab) by MW4PR03CA0116.outlook.office365.com
  (2603:10b6:303:b7::31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.14 via Frontend
- Transport; Fri, 29 Apr 2022 17:35:17 +0000
+ Transport; Fri, 29 Apr 2022 17:35:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT036.mail.protection.outlook.com (10.13.174.124) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Fri, 29 Apr 2022 17:35:17 +0000
+ 15.20.5206.12 via Frontend Transport; Fri, 29 Apr 2022 17:35:19 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 29 Apr
  2022 12:35:16 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 0/3] add some gfx11 headers
-Date: Fri, 29 Apr 2022 13:34:30 -0400
-Message-ID: <20220429173432.433220-1-alexander.deucher@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: add gfx11 clearstate header
+Date: Fri, 29 Apr 2022 13:34:31 -0400
+Message-ID: <20220429173432.433220-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220429173432.433220-1-alexander.deucher@amd.com>
+References: <20220429173432.433220-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bd5c5438-20d1-44b9-e1d3-08da2a06a07a
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2958:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB2958392185C445E42E2A58A5F7FC9@MN2PR12MB2958.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 2a89516e-4123-4e0a-ce19-08da2a06a1b0
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5152:EE_
+X-Microsoft-Antispam-PRVS: <DM4PR12MB5152AA4D41960575AA473273F7FC9@DM4PR12MB5152.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0M4/tYyf9GbpO/5SuKfuEPwFXUgDmtz4v885ZdrrtsOQMsW150roonTlwZPgzvPEKCzgofonUtMBYiGXGyhaSSyw5m0ewvj+JRW+nEFj/WbdnLtl8Gc+SoptIsOd2xt5SP+LygKhIuINWrEiMYf/lknGHQBvjTxz3bCM5RnlA0eamdE0pTemuDOwGSb3vhz51TkEaQ+EaeuYpr95xCABdRKmTG246SV2t5M4QEdaPYgH5snkiSH6Ti3PkqqLHyhdFzR8eLH6pq0LLuVF6Ua9dgkmbqaX8/UDwMQ3fDB4c8+0kBs/fEOVAIoURhU42JA/9Tu2pWhBs3PE+VqLWdZG3D9IyjXO47kMr68PWknGdnQMyRLUPsdbdDy+Wq821D2Eir186DOYOwiqBdojxgNpYhaKd1joSec//V14TznMtY8bVCP+1Hfz7owdn1cZP3xWHXbdxVVgWrEfjV/plwe4qadjWrBD6uTiBZUbD/VJFEnR2MdANuYaZBjI7/dsfrbI6XJ/LgER9rLp2gvYS287sot596WhAx0T7T3fFVLBphUwGmGDbfuMkrKPoEILyIY9lRNtb4/Pk0VFdhBMPNX0F8fhKIyGOakw2Udv+DoZHDueKPj2SougNVZEQsUD7yg+MlHBxY5Omu5DhMSbsMr1d2TZcCc25s5za0Mlep8GafkA+i5SlfJqVRmdAw4PiP95HmtfDvWcwqtdp+I6nzQrng==
+X-Microsoft-Antispam-Message-Info: /vgrzJw5EE593TeNxCctM0XbZvKzxQru13oi74HTt/wJCaEHcWStwwlL60f3aYJlelaO5nokZ0LYlUGRaQiaGlyRDjQG/jScBnC3Js6DaL3K2XlN2dqNtcqJTRdW5Fack0wybZcTIgnYseqimltYbdJC/L8f8jhR2pIkv9fv531o+r3QlI6e1+6nX1oHLtKaIhEqpTB/F+MncYmA2EpUebZ3kzbKQyPwYcVqfOoyqtSPM3jtypmKpJ81OeFDEaKCl4dXTLxgtyxs8dPyAFOuziZb09+9Z7D+dTUJA4IN8q2ximdft10ilX9jBFKUKalPXpvuioxMiJR761UPrCXdmh1ZlnN/hWq6PhEwZcWua0jP/PlNssz9A/2CHglpX5h5CPER8qjW4ijxizay+gxpagXHQ6SWXok/GjY/Ha9zQI3dWwuLfq122vvRXb6vtluUGre6icfU1jFYw/PTNA+5jrzgR0g/tQs/0snEs2DqeTs/5zP/1ft7R2YVLDj2+5H3vRti93yYPPJ1GNaqe1VgJ26E0ysg1IrVTudQ5eRiThegkGKremDjYSrz+8KzeSnVGtLbTI8v60MXnKKpiIFMenDxt7OEG4eyGaPqodUBX1i5zrvut44ltfMuzgUuB70ldM2s+UczFumfNEVEAbeqvrs2S/mJL+qdBbGGVfZKQjnh69PuD3B+TKcn7oE68yAaRyZ9KwBNyJHaGBFCKMgsFA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(2616005)(1076003)(426003)(16526019)(336012)(186003)(6916009)(40460700003)(47076005)(508600001)(26005)(36756003)(316002)(5660300002)(8936002)(82310400005)(4744005)(8676002)(7696005)(6666004)(70206006)(70586007)(4326008)(86362001)(81166007)(356005)(2906002)(36860700001)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(2616005)(54906003)(8676002)(86362001)(70206006)(70586007)(6916009)(4326008)(26005)(508600001)(36756003)(40460700003)(82310400005)(83380400001)(356005)(30864003)(5660300002)(2906002)(1076003)(16526019)(8936002)(316002)(186003)(426003)(336012)(47076005)(81166007)(7696005)(6666004)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 17:35:17.5049 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd5c5438-20d1-44b9-e1d3-08da2a06a07a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 17:35:19.5517 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a89516e-4123-4e0a-ce19-08da2a06a1b0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB2958
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5152
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,26 +100,1016 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-New headers for enums and gfx structures for gfx11.  First patch was
-too large for the mailing list.
+From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Hawking Zhang (3):
-  drm/amdgpu: add soc21 chip enum header v8
-  drm/amdgpu: add gfx11 clearstate header
-  drm/amdgpu: add gfx11 mqd structures
+Add gfx11 clearstate register arrays
 
- drivers/gpu/drm/amd/amdgpu/clearstate_gfx11.h |   988 +
- drivers/gpu/drm/amd/include/soc21_enum.h      | 22477 ++++++++++++++++
- drivers/gpu/drm/amd/include/v11_structs.h     |  1189 +
- 3 files changed, 24654 insertions(+)
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/clearstate_gfx11.h | 988 ++++++++++++++++++
+ 1 file changed, 988 insertions(+)
  create mode 100644 drivers/gpu/drm/amd/amdgpu/clearstate_gfx11.h
- create mode 100644 drivers/gpu/drm/amd/include/soc21_enum.h
- create mode 100644 drivers/gpu/drm/amd/include/v11_structs.h
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/clearstate_gfx11.h b/drivers/gpu/drm/amd/amdgpu/clearstate_gfx11.h
+new file mode 100644
+index 000000000000..f3852b59b1d6
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/clearstate_gfx11.h
+@@ -0,0 +1,988 @@
++/*
++ * Copyright 2021 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#ifndef __CLEARSTATE_GFX11_H_
++#define __CLEARSTATE_GFX11_H_
++
++static const unsigned int gfx11_SECT_CONTEXT_def_1[] =
++{
++    0x00000000, // DB_RENDER_CONTROL
++    0x00000000, // DB_COUNT_CONTROL
++    0x00000000, // DB_DEPTH_VIEW
++    0x00000000, // DB_RENDER_OVERRIDE
++    0x00000000, // DB_RENDER_OVERRIDE2
++    0x00000000, // DB_HTILE_DATA_BASE
++    0, // HOLE
++    0x00000000, // DB_DEPTH_SIZE_XY
++    0x00000000, // DB_DEPTH_BOUNDS_MIN
++    0x00000000, // DB_DEPTH_BOUNDS_MAX
++    0x00000000, // DB_STENCIL_CLEAR
++    0x00000000, // DB_DEPTH_CLEAR
++    0x00000000, // PA_SC_SCREEN_SCISSOR_TL
++    0x40004000, // PA_SC_SCREEN_SCISSOR_BR
++    0x00000000, // DB_DFSM_CONTROL
++    0x00000000, // DB_RESERVED_REG_2
++    0x00000000, // DB_Z_INFO
++    0x00000000, // DB_STENCIL_INFO
++    0x00000000, // DB_Z_READ_BASE
++    0x00000000, // DB_STENCIL_READ_BASE
++    0x00000000, // DB_Z_WRITE_BASE
++    0x00000000, // DB_STENCIL_WRITE_BASE
++    0x00000000, // DB_RESERVED_REG_1
++    0x00000000, // DB_RESERVED_REG_3
++    0x00000000, // DB_SPI_VRS_CENTER_LOCATION
++    0x00000000, // DB_VRS_OVERRIDE_CNTL
++    0x00000000, // DB_Z_READ_BASE_HI
++    0x00000000, // DB_STENCIL_READ_BASE_HI
++    0x00000000, // DB_Z_WRITE_BASE_HI
++    0x00000000, // DB_STENCIL_WRITE_BASE_HI
++    0x00000000, // DB_HTILE_DATA_BASE_HI
++    0x00150055, // DB_RMI_L2_CACHE_CONTROL
++    0x00000000, // TA_BC_BASE_ADDR
++    0x00000000, // TA_BC_BASE_ADDR_HI
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0x00000000, // COHER_DEST_BASE_HI_0
++    0x00000000, // COHER_DEST_BASE_HI_1
++    0x00000000, // COHER_DEST_BASE_HI_2
++    0x00000000, // COHER_DEST_BASE_HI_3
++    0x00000000, // COHER_DEST_BASE_2
++    0x00000000, // COHER_DEST_BASE_3
++    0x00000000, // PA_SC_WINDOW_OFFSET
++    0x80000000, // PA_SC_WINDOW_SCISSOR_TL
++    0x40004000, // PA_SC_WINDOW_SCISSOR_BR
++    0x0000ffff, // PA_SC_CLIPRECT_RULE
++    0x00000000, // PA_SC_CLIPRECT_0_TL
++    0x40004000, // PA_SC_CLIPRECT_0_BR
++    0x00000000, // PA_SC_CLIPRECT_1_TL
++    0x40004000, // PA_SC_CLIPRECT_1_BR
++    0x00000000, // PA_SC_CLIPRECT_2_TL
++    0x40004000, // PA_SC_CLIPRECT_2_BR
++    0x00000000, // PA_SC_CLIPRECT_3_TL
++    0x40004000, // PA_SC_CLIPRECT_3_BR
++    0xaa99aaaa, // PA_SC_EDGERULE
++    0x00000000, // PA_SU_HARDWARE_SCREEN_OFFSET
++    0xffffffff, // CB_TARGET_MASK
++    0xffffffff, // CB_SHADER_MASK
++    0x80000000, // PA_SC_GENERIC_SCISSOR_TL
++    0x40004000, // PA_SC_GENERIC_SCISSOR_BR
++    0x00000000, // COHER_DEST_BASE_0
++    0x00000000, // COHER_DEST_BASE_1
++    0x80000000, // PA_SC_VPORT_SCISSOR_0_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_0_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_1_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_1_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_2_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_2_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_3_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_3_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_4_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_4_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_5_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_5_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_6_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_6_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_7_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_7_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_8_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_8_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_9_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_9_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_10_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_10_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_11_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_11_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_12_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_12_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_13_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_13_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_14_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_14_BR
++    0x80000000, // PA_SC_VPORT_SCISSOR_15_TL
++    0x40004000, // PA_SC_VPORT_SCISSOR_15_BR
++    0x00000000, // PA_SC_VPORT_ZMIN_0
++    0x3f800000, // PA_SC_VPORT_ZMAX_0
++    0x00000000, // PA_SC_VPORT_ZMIN_1
++    0x3f800000, // PA_SC_VPORT_ZMAX_1
++    0x00000000, // PA_SC_VPORT_ZMIN_2
++    0x3f800000, // PA_SC_VPORT_ZMAX_2
++    0x00000000, // PA_SC_VPORT_ZMIN_3
++    0x3f800000, // PA_SC_VPORT_ZMAX_3
++    0x00000000, // PA_SC_VPORT_ZMIN_4
++    0x3f800000, // PA_SC_VPORT_ZMAX_4
++    0x00000000, // PA_SC_VPORT_ZMIN_5
++    0x3f800000, // PA_SC_VPORT_ZMAX_5
++    0x00000000, // PA_SC_VPORT_ZMIN_6
++    0x3f800000, // PA_SC_VPORT_ZMAX_6
++    0x00000000, // PA_SC_VPORT_ZMIN_7
++    0x3f800000, // PA_SC_VPORT_ZMAX_7
++    0x00000000, // PA_SC_VPORT_ZMIN_8
++    0x3f800000, // PA_SC_VPORT_ZMAX_8
++    0x00000000, // PA_SC_VPORT_ZMIN_9
++    0x3f800000, // PA_SC_VPORT_ZMAX_9
++    0x00000000, // PA_SC_VPORT_ZMIN_10
++    0x3f800000, // PA_SC_VPORT_ZMAX_10
++    0x00000000, // PA_SC_VPORT_ZMIN_11
++    0x3f800000, // PA_SC_VPORT_ZMAX_11
++    0x00000000, // PA_SC_VPORT_ZMIN_12
++    0x3f800000, // PA_SC_VPORT_ZMAX_12
++    0x00000000, // PA_SC_VPORT_ZMIN_13
++    0x3f800000, // PA_SC_VPORT_ZMAX_13
++    0x00000000, // PA_SC_VPORT_ZMIN_14
++    0x3f800000, // PA_SC_VPORT_ZMAX_14
++    0x00000000, // PA_SC_VPORT_ZMIN_15
++    0x3f800000, // PA_SC_VPORT_ZMAX_15
++    0x00000000, // PA_SC_RASTER_CONFIG
++    0x00000000, // PA_SC_RASTER_CONFIG_1
++    0x00000000, // PA_SC_SCREEN_EXTENT_CONTROL
++};
++static const unsigned int gfx11_SECT_CONTEXT_def_2[] =
++{
++    0x00000000, // CP_PERFMON_CNTX_CNTL
++    0x00000000, // CP_PIPEID
++    0x00000000, // CP_VMID
++    0x00000000, // CONTEXT_RESERVED_REG0
++    0x00000000, // CONTEXT_RESERVED_REG1
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0x00000000, // PA_SC_FSR_EN
++    0x00000000, // PA_SC_FSR_FBW_RECURSIONS_X
++    0x00000000, // PA_SC_FSR_FBW_RECURSIONS_Y
++    0x00000000, // PA_SC_VRS_RATE_FEEDBACK_VIEW
++    0x00000000, // PA_SC_VRS_OVERRIDE_CNTL
++    0x00000000, // PA_SC_VRS_RATE_FEEDBACK_BASE
++    0x00000000, // PA_SC_VRS_RATE_FEEDBACK_BASE_EXT
++    0x00000000, // PA_SC_VRS_RATE_FEEDBACK_SIZE_XY
++    0x00000000, // PA_SC_BINNER_OUTPUT_TIMEOUT_CNTL
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0x00000000, // PA_SC_VRS_RATE_BASE
++    0x00000000, // PA_SC_VRS_RATE_BASE_EXT
++    0x00000000, // PA_SC_VRS_RATE_SIZE_XY
++    0x00000000, // PA_SC_VRS_RATE_VIEW
++    0xffffffff, // VGT_MAX_VTX_INDX
++    0x00000000, // VGT_MIN_VTX_INDX
++    0x00000000, // VGT_INDX_OFFSET
++    0x00000000, // VGT_MULTI_PRIM_IB_RESET_INDX
++    0x00550055, // CB_RMI_GL2_CACHE_CONTROL
++    0x00000000, // CB_BLEND_RED
++    0x00000000, // CB_BLEND_GREEN
++    0x00000000, // CB_BLEND_BLUE
++    0x00000000, // CB_BLEND_ALPHA
++    0x00000000, // CB_DCC_CONTROL
++    0x00000000, // CB_COVERAGE_OUT_CONTROL
++    0x00000000, // DB_STENCIL_CONTROL
++    0x01000000, // DB_STENCILREFMASK
++    0x01000000, // DB_STENCILREFMASK_BF
++    0, // HOLE
++    0x00000000, // PA_CL_VPORT_XSCALE
++    0x00000000, // PA_CL_VPORT_XOFFSET
++    0x00000000, // PA_CL_VPORT_YSCALE
++    0x00000000, // PA_CL_VPORT_YOFFSET
++    0x00000000, // PA_CL_VPORT_ZSCALE
++    0x00000000, // PA_CL_VPORT_ZOFFSET
++    0x00000000, // PA_CL_VPORT_XSCALE_1
++    0x00000000, // PA_CL_VPORT_XOFFSET_1
++    0x00000000, // PA_CL_VPORT_YSCALE_1
++    0x00000000, // PA_CL_VPORT_YOFFSET_1
++    0x00000000, // PA_CL_VPORT_ZSCALE_1
++    0x00000000, // PA_CL_VPORT_ZOFFSET_1
++    0x00000000, // PA_CL_VPORT_XSCALE_2
++    0x00000000, // PA_CL_VPORT_XOFFSET_2
++    0x00000000, // PA_CL_VPORT_YSCALE_2
++    0x00000000, // PA_CL_VPORT_YOFFSET_2
++    0x00000000, // PA_CL_VPORT_ZSCALE_2
++    0x00000000, // PA_CL_VPORT_ZOFFSET_2
++    0x00000000, // PA_CL_VPORT_XSCALE_3
++    0x00000000, // PA_CL_VPORT_XOFFSET_3
++    0x00000000, // PA_CL_VPORT_YSCALE_3
++    0x00000000, // PA_CL_VPORT_YOFFSET_3
++    0x00000000, // PA_CL_VPORT_ZSCALE_3
++    0x00000000, // PA_CL_VPORT_ZOFFSET_3
++    0x00000000, // PA_CL_VPORT_XSCALE_4
++    0x00000000, // PA_CL_VPORT_XOFFSET_4
++    0x00000000, // PA_CL_VPORT_YSCALE_4
++    0x00000000, // PA_CL_VPORT_YOFFSET_4
++    0x00000000, // PA_CL_VPORT_ZSCALE_4
++    0x00000000, // PA_CL_VPORT_ZOFFSET_4
++    0x00000000, // PA_CL_VPORT_XSCALE_5
++    0x00000000, // PA_CL_VPORT_XOFFSET_5
++    0x00000000, // PA_CL_VPORT_YSCALE_5
++    0x00000000, // PA_CL_VPORT_YOFFSET_5
++    0x00000000, // PA_CL_VPORT_ZSCALE_5
++    0x00000000, // PA_CL_VPORT_ZOFFSET_5
++    0x00000000, // PA_CL_VPORT_XSCALE_6
++    0x00000000, // PA_CL_VPORT_XOFFSET_6
++    0x00000000, // PA_CL_VPORT_YSCALE_6
++    0x00000000, // PA_CL_VPORT_YOFFSET_6
++    0x00000000, // PA_CL_VPORT_ZSCALE_6
++    0x00000000, // PA_CL_VPORT_ZOFFSET_6
++    0x00000000, // PA_CL_VPORT_XSCALE_7
++    0x00000000, // PA_CL_VPORT_XOFFSET_7
++    0x00000000, // PA_CL_VPORT_YSCALE_7
++    0x00000000, // PA_CL_VPORT_YOFFSET_7
++    0x00000000, // PA_CL_VPORT_ZSCALE_7
++    0x00000000, // PA_CL_VPORT_ZOFFSET_7
++    0x00000000, // PA_CL_VPORT_XSCALE_8
++    0x00000000, // PA_CL_VPORT_XOFFSET_8
++    0x00000000, // PA_CL_VPORT_YSCALE_8
++    0x00000000, // PA_CL_VPORT_YOFFSET_8
++    0x00000000, // PA_CL_VPORT_ZSCALE_8
++    0x00000000, // PA_CL_VPORT_ZOFFSET_8
++    0x00000000, // PA_CL_VPORT_XSCALE_9
++    0x00000000, // PA_CL_VPORT_XOFFSET_9
++    0x00000000, // PA_CL_VPORT_YSCALE_9
++    0x00000000, // PA_CL_VPORT_YOFFSET_9
++    0x00000000, // PA_CL_VPORT_ZSCALE_9
++    0x00000000, // PA_CL_VPORT_ZOFFSET_9
++    0x00000000, // PA_CL_VPORT_XSCALE_10
++    0x00000000, // PA_CL_VPORT_XOFFSET_10
++    0x00000000, // PA_CL_VPORT_YSCALE_10
++    0x00000000, // PA_CL_VPORT_YOFFSET_10
++    0x00000000, // PA_CL_VPORT_ZSCALE_10
++    0x00000000, // PA_CL_VPORT_ZOFFSET_10
++    0x00000000, // PA_CL_VPORT_XSCALE_11
++    0x00000000, // PA_CL_VPORT_XOFFSET_11
++    0x00000000, // PA_CL_VPORT_YSCALE_11
++    0x00000000, // PA_CL_VPORT_YOFFSET_11
++    0x00000000, // PA_CL_VPORT_ZSCALE_11
++    0x00000000, // PA_CL_VPORT_ZOFFSET_11
++    0x00000000, // PA_CL_VPORT_XSCALE_12
++    0x00000000, // PA_CL_VPORT_XOFFSET_12
++    0x00000000, // PA_CL_VPORT_YSCALE_12
++    0x00000000, // PA_CL_VPORT_YOFFSET_12
++    0x00000000, // PA_CL_VPORT_ZSCALE_12
++    0x00000000, // PA_CL_VPORT_ZOFFSET_12
++    0x00000000, // PA_CL_VPORT_XSCALE_13
++    0x00000000, // PA_CL_VPORT_XOFFSET_13
++    0x00000000, // PA_CL_VPORT_YSCALE_13
++    0x00000000, // PA_CL_VPORT_YOFFSET_13
++    0x00000000, // PA_CL_VPORT_ZSCALE_13
++    0x00000000, // PA_CL_VPORT_ZOFFSET_13
++    0x00000000, // PA_CL_VPORT_XSCALE_14
++    0x00000000, // PA_CL_VPORT_XOFFSET_14
++    0x00000000, // PA_CL_VPORT_YSCALE_14
++    0x00000000, // PA_CL_VPORT_YOFFSET_14
++    0x00000000, // PA_CL_VPORT_ZSCALE_14
++    0x00000000, // PA_CL_VPORT_ZOFFSET_14
++    0x00000000, // PA_CL_VPORT_XSCALE_15
++    0x00000000, // PA_CL_VPORT_XOFFSET_15
++    0x00000000, // PA_CL_VPORT_YSCALE_15
++    0x00000000, // PA_CL_VPORT_YOFFSET_15
++    0x00000000, // PA_CL_VPORT_ZSCALE_15
++    0x00000000, // PA_CL_VPORT_ZOFFSET_15
++    0x00000000, // PA_CL_UCP_0_X
++    0x00000000, // PA_CL_UCP_0_Y
++    0x00000000, // PA_CL_UCP_0_Z
++    0x00000000, // PA_CL_UCP_0_W
++    0x00000000, // PA_CL_UCP_1_X
++    0x00000000, // PA_CL_UCP_1_Y
++    0x00000000, // PA_CL_UCP_1_Z
++    0x00000000, // PA_CL_UCP_1_W
++    0x00000000, // PA_CL_UCP_2_X
++    0x00000000, // PA_CL_UCP_2_Y
++    0x00000000, // PA_CL_UCP_2_Z
++    0x00000000, // PA_CL_UCP_2_W
++    0x00000000, // PA_CL_UCP_3_X
++    0x00000000, // PA_CL_UCP_3_Y
++    0x00000000, // PA_CL_UCP_3_Z
++    0x00000000, // PA_CL_UCP_3_W
++    0x00000000, // PA_CL_UCP_4_X
++    0x00000000, // PA_CL_UCP_4_Y
++    0x00000000, // PA_CL_UCP_4_Z
++    0x00000000, // PA_CL_UCP_4_W
++    0x00000000, // PA_CL_UCP_5_X
++    0x00000000, // PA_CL_UCP_5_Y
++    0x00000000, // PA_CL_UCP_5_Z
++    0x00000000, // PA_CL_UCP_5_W
++    0x00000000, // PA_CL_PROG_NEAR_CLIP_Z
++    0x00000000, // PA_RATE_CNTL
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0x00000000, // SPI_PS_INPUT_CNTL_0
++    0x00000000, // SPI_PS_INPUT_CNTL_1
++    0x00000000, // SPI_PS_INPUT_CNTL_2
++    0x00000000, // SPI_PS_INPUT_CNTL_3
++    0x00000000, // SPI_PS_INPUT_CNTL_4
++    0x00000000, // SPI_PS_INPUT_CNTL_5
++    0x00000000, // SPI_PS_INPUT_CNTL_6
++    0x00000000, // SPI_PS_INPUT_CNTL_7
++    0x00000000, // SPI_PS_INPUT_CNTL_8
++    0x00000000, // SPI_PS_INPUT_CNTL_9
++    0x00000000, // SPI_PS_INPUT_CNTL_10
++    0x00000000, // SPI_PS_INPUT_CNTL_11
++    0x00000000, // SPI_PS_INPUT_CNTL_12
++    0x00000000, // SPI_PS_INPUT_CNTL_13
++    0x00000000, // SPI_PS_INPUT_CNTL_14
++    0x00000000, // SPI_PS_INPUT_CNTL_15
++    0x00000000, // SPI_PS_INPUT_CNTL_16
++    0x00000000, // SPI_PS_INPUT_CNTL_17
++    0x00000000, // SPI_PS_INPUT_CNTL_18
++    0x00000000, // SPI_PS_INPUT_CNTL_19
++    0x00000000, // SPI_PS_INPUT_CNTL_20
++    0x00000000, // SPI_PS_INPUT_CNTL_21
++    0x00000000, // SPI_PS_INPUT_CNTL_22
++    0x00000000, // SPI_PS_INPUT_CNTL_23
++    0x00000000, // SPI_PS_INPUT_CNTL_24
++    0x00000000, // SPI_PS_INPUT_CNTL_25
++    0x00000000, // SPI_PS_INPUT_CNTL_26
++    0x00000000, // SPI_PS_INPUT_CNTL_27
++    0x00000000, // SPI_PS_INPUT_CNTL_28
++    0x00000000, // SPI_PS_INPUT_CNTL_29
++    0x00000000, // SPI_PS_INPUT_CNTL_30
++    0x00000000, // SPI_PS_INPUT_CNTL_31
++    0x00000000, // SPI_VS_OUT_CONFIG
++    0, // HOLE
++    0x00000000, // SPI_PS_INPUT_ENA
++    0x00000000, // SPI_PS_INPUT_ADDR
++    0x00000000, // SPI_INTERP_CONTROL_0
++    0x00000002, // SPI_PS_IN_CONTROL
++    0x00000000, // SPI_BARYC_SSAA_CNTL
++    0x00000000, // SPI_BARYC_CNTL
++    0, // HOLE
++    0x00000000, // SPI_TMPRING_SIZE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0x00000000, // SPI_SHADER_IDX_FORMAT
++    0x00000000, // SPI_SHADER_POS_FORMAT
++    0x00000000, // SPI_SHADER_Z_FORMAT
++    0x00000000, // SPI_SHADER_COL_FORMAT
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0x00000000, // SX_PS_DOWNCONVERT_CONTROL
++    0x00000000, // SX_PS_DOWNCONVERT
++    0x00000000, // SX_BLEND_OPT_EPSILON
++    0x00000000, // SX_BLEND_OPT_CONTROL
++    0x00000000, // SX_MRT0_BLEND_OPT
++    0x00000000, // SX_MRT1_BLEND_OPT
++    0x00000000, // SX_MRT2_BLEND_OPT
++    0x00000000, // SX_MRT3_BLEND_OPT
++    0x00000000, // SX_MRT4_BLEND_OPT
++    0x00000000, // SX_MRT5_BLEND_OPT
++    0x00000000, // SX_MRT6_BLEND_OPT
++    0x00000000, // SX_MRT7_BLEND_OPT
++    0x00000000, // CB_BLEND0_CONTROL
++    0x00000000, // CB_BLEND1_CONTROL
++    0x00000000, // CB_BLEND2_CONTROL
++    0x00000000, // CB_BLEND3_CONTROL
++    0x00000000, // CB_BLEND4_CONTROL
++    0x00000000, // CB_BLEND5_CONTROL
++    0x00000000, // CB_BLEND6_CONTROL
++    0x00000000, // CB_BLEND7_CONTROL
++};
++static const unsigned int gfx11_SECT_CONTEXT_def_3[] =
++{
++    0x00000000, // PA_CL_POINT_X_RAD
++    0x00000000, // PA_CL_POINT_Y_RAD
++    0x00000000, // PA_CL_POINT_SIZE
++    0x00000000, // PA_CL_POINT_CULL_RAD
++};
++static const unsigned int gfx11_SECT_CONTEXT_def_4[] =
++{
++    0x00000000, // GE_MAX_OUTPUT_PER_SUBGROUP
++    0x00000000, // DB_DEPTH_CONTROL
++    0x00000000, // DB_EQAA
++    0x00000000, // CB_COLOR_CONTROL
++    0x00000000, // DB_SHADER_CONTROL
++    0x00090000, // PA_CL_CLIP_CNTL
++    0x00000004, // PA_SU_SC_MODE_CNTL
++    0x00000000, // PA_CL_VTE_CNTL
++    0x00000000, // PA_CL_VS_OUT_CNTL
++    0x00000000, // PA_CL_NANINF_CNTL
++    0x00000000, // PA_SU_LINE_STIPPLE_CNTL
++    0x00000000, // PA_SU_LINE_STIPPLE_SCALE
++    0x00000000, // PA_SU_PRIM_FILTER_CNTL
++    0x00000000, // PA_SU_SMALL_PRIM_FILTER_CNTL
++    0, // HOLE
++    0x00000000, // PA_CL_NGG_CNTL
++    0x00000000, // PA_SU_OVER_RASTERIZATION_CNTL
++    0x00000000, // PA_STEREO_CNTL
++    0x00000000, // PA_STATE_STEREO_X
++    0x00000000, // PA_CL_VRS_CNTL
++    0x00000000, // PA_SIDEBAND_REQUEST_DELAYS
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0x00000000, // PA_SU_POINT_SIZE
++    0x00000000, // PA_SU_POINT_MINMAX
++    0x00000000, // PA_SU_LINE_CNTL
++    0x00000000, // PA_SC_LINE_STIPPLE
++    0x00000000, // VGT_OUTPUT_PATH_CNTL
++    0x00000000, // VGT_HOS_CNTL
++    0x00000000, // VGT_HOS_MAX_TESS_LEVEL
++    0x00000000, // VGT_HOS_MIN_TESS_LEVEL
++    0x00000000, // VGT_HOS_REUSE_DEPTH
++    0x00000000, // VGT_GROUP_PRIM_TYPE
++    0x00000000, // VGT_GROUP_FIRST_DECR
++    0x00000000, // VGT_GROUP_DECR
++    0x00000000, // VGT_GROUP_VECT_0_CNTL
++    0x00000000, // VGT_GROUP_VECT_1_CNTL
++    0x00000000, // VGT_GROUP_VECT_0_FMT_CNTL
++    0x00000000, // VGT_GROUP_VECT_1_FMT_CNTL
++    0x00000000, // VGT_GS_MODE
++    0x00000000, // VGT_GS_ONCHIP_CNTL
++    0x00000000, // PA_SC_MODE_CNTL_0
++    0x00000000, // PA_SC_MODE_CNTL_1
++    0x00000000, // VGT_ENHANCE
++    0x00000100, // VGT_GS_PER_ES
++    0x00000080, // VGT_ES_PER_GS
++    0x00000002, // VGT_GS_PER_VS
++    0x00000000, // VGT_GSVS_RING_OFFSET_1
++    0x00000000, // VGT_GSVS_RING_OFFSET_2
++    0x00000000, // VGT_GSVS_RING_OFFSET_3
++    0x00000000, // VGT_GS_OUT_PRIM_TYPE
++    0x00000000, // IA_ENHANCE
++};
++static const unsigned int gfx11_SECT_CONTEXT_def_5[] =
++{
++    0x00000000, // WD_ENHANCE
++    0x00000000, // VGT_PRIMITIVEID_EN
++};
++static const unsigned int gfx11_SECT_CONTEXT_def_6[] =
++{
++    0x00000000, // VGT_PRIMITIVEID_RESET
++};
++static const unsigned int gfx11_SECT_CONTEXT_def_7[] =
++{
++    0x00000000, // VGT_MULTI_PRIM_IB_RESET_EN
++    0x00000000, // VGT_DRAW_PAYLOAD_CNTL
++    0, // HOLE
++    0x00000000, // VGT_INSTANCE_STEP_RATE_0
++    0x00000000, // VGT_INSTANCE_STEP_RATE_1
++    0x000000ff, // IA_MULTI_VGT_PARAM
++    0x00000000, // VGT_ESGS_RING_ITEMSIZE
++    0x00000000, // VGT_GSVS_RING_ITEMSIZE
++    0x00000000, // VGT_REUSE_OFF
++    0x00000000, // VGT_VTX_CNT_EN
++    0x00000000, // DB_HTILE_SURFACE
++    0x00000000, // DB_SRESULTS_COMPARE_STATE0
++    0x00000000, // DB_SRESULTS_COMPARE_STATE1
++    0x00000000, // DB_PRELOAD_CONTROL
++    0, // HOLE
++    0x00000000, // VGT_STRMOUT_BUFFER_SIZE_0
++    0x00000000, // VGT_STRMOUT_VTX_STRIDE_0
++    0, // HOLE
++    0x00000000, // VGT_STRMOUT_BUFFER_OFFSET_0
++    0x00000000, // VGT_STRMOUT_BUFFER_SIZE_1
++    0x00000000, // VGT_STRMOUT_VTX_STRIDE_1
++    0, // HOLE
++    0x00000000, // VGT_STRMOUT_BUFFER_OFFSET_1
++    0x00000000, // VGT_STRMOUT_BUFFER_SIZE_2
++    0x00000000, // VGT_STRMOUT_VTX_STRIDE_2
++    0, // HOLE
++    0x00000000, // VGT_STRMOUT_BUFFER_OFFSET_2
++    0x00000000, // VGT_STRMOUT_BUFFER_SIZE_3
++    0x00000000, // VGT_STRMOUT_VTX_STRIDE_3
++    0, // HOLE
++    0x00000000, // VGT_STRMOUT_BUFFER_OFFSET_3
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0x00000000, // VGT_STRMOUT_DRAW_OPAQUE_OFFSET
++    0x00000000, // VGT_STRMOUT_DRAW_OPAQUE_BUFFER_FILLED_SIZE
++    0x00000000, // VGT_STRMOUT_DRAW_OPAQUE_VERTEX_STRIDE
++    0, // HOLE
++    0x00000000, // VGT_GS_MAX_VERT_OUT
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0, // HOLE
++    0x00000000, // GE_NGG_SUBGRP_CNTL
++    0x00000000, // VGT_TESS_DISTRIBUTION
++    0x00000000, // VGT_SHADER_STAGES_EN
++    0x00000000, // VGT_LS_HS_CONFIG
++    0x00000000, // VGT_GS_VERT_ITEMSIZE
++    0x00000000, // VGT_GS_VERT_ITEMSIZE_1
++    0x00000000, // VGT_GS_VERT_ITEMSIZE_2
++    0x00000000, // VGT_GS_VERT_ITEMSIZE_3
++    0x00000000, // VGT_TF_PARAM
++    0x00000000, // DB_ALPHA_TO_MASK
++    0, // HOLE
++    0x00000000, // PA_SU_POLY_OFFSET_DB_FMT_CNTL
++    0x00000000, // PA_SU_POLY_OFFSET_CLAMP
++    0x00000000, // PA_SU_POLY_OFFSET_FRONT_SCALE
++    0x00000000, // PA_SU_POLY_OFFSET_FRONT_OFFSET
++    0x00000000, // PA_SU_POLY_OFFSET_BACK_SCALE
++    0x00000000, // PA_SU_POLY_OFFSET_BACK_OFFSET
++    0x00000000, // VGT_GS_INSTANCE_CNT
++    0x00000000, // VGT_STRMOUT_CONFIG
++    0x00000000, // VGT_STRMOUT_BUFFER_CONFIG
++};
++static const unsigned int gfx11_SECT_CONTEXT_def_8[] =
++{
++    0x00000000, // PA_SC_CENTROID_PRIORITY_0
++    0x00000000, // PA_SC_CENTROID_PRIORITY_1
++    0x00001000, // PA_SC_LINE_CNTL
++    0x00000000, // PA_SC_AA_CONFIG
++    0x00000005, // PA_SU_VTX_CNTL
++    0x3f800000, // PA_CL_GB_VERT_CLIP_ADJ
++    0x3f800000, // PA_CL_GB_VERT_DISC_ADJ
++    0x3f800000, // PA_CL_GB_HORZ_CLIP_ADJ
++    0x3f800000, // PA_CL_GB_HORZ_DISC_ADJ
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y0_0
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y0_1
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y0_2
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y0_3
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y0_0
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y0_1
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y0_2
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y0_3
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y1_0
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y1_1
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y1_2
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y1_3
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y1_0
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y1_1
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y1_2
++    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y1_3
++    0xffffffff, // PA_SC_AA_MASK_X0Y0_X1Y0
++    0xffffffff, // PA_SC_AA_MASK_X0Y1_X1Y1
++    0x00000000, // PA_SC_SHADER_CONTROL
++    0x00000003, // PA_SC_BINNER_CNTL_0
++    0x00000000, // PA_SC_BINNER_CNTL_1
++    0x00100000, // PA_SC_CONSERVATIVE_RASTERIZATION_CNTL
++    0x00000000, // PA_SC_NGG_MODE_CNTL
++    0x00000000, // PA_SC_BINNER_CNTL_2
++    0x0000001e, // VGT_VERTEX_REUSE_BLOCK_CNTL
++    0x00000020, // VGT_OUT_DEALLOC_CNTL
++    0x00000000, // CB_COLOR0_BASE
++    0x00000000, // CB_COLOR0_PITCH
++    0x00000000, // CB_COLOR0_SLICE
++    0x00000000, // CB_COLOR0_VIEW
++    0x00000000, // CB_COLOR0_INFO
++    0x00000000, // CB_COLOR0_ATTRIB
++    0x00000000, // CB_COLOR0_DCC_CONTROL
++    0x00000000, // CB_COLOR0_CMASK
++    0x00000000, // CB_COLOR0_CMASK_SLICE
++    0x00000000, // CB_COLOR0_FMASK
++    0x00000000, // CB_COLOR0_FMASK_SLICE
++    0x00000000, // CB_COLOR0_CLEAR_WORD0
++    0x00000000, // CB_COLOR0_CLEAR_WORD1
++    0x00000000, // CB_COLOR0_DCC_BASE
++    0, // HOLE
++    0x00000000, // CB_COLOR1_BASE
++    0x00000000, // CB_COLOR1_PITCH
++    0x00000000, // CB_COLOR1_SLICE
++    0x00000000, // CB_COLOR1_VIEW
++    0x00000000, // CB_COLOR1_INFO
++    0x00000000, // CB_COLOR1_ATTRIB
++    0x00000000, // CB_COLOR1_DCC_CONTROL
++    0x00000000, // CB_COLOR1_CMASK
++    0x00000000, // CB_COLOR1_CMASK_SLICE
++    0x00000000, // CB_COLOR1_FMASK
++    0x00000000, // CB_COLOR1_FMASK_SLICE
++    0x00000000, // CB_COLOR1_CLEAR_WORD0
++    0x00000000, // CB_COLOR1_CLEAR_WORD1
++    0x00000000, // CB_COLOR1_DCC_BASE
++    0, // HOLE
++    0x00000000, // CB_COLOR2_BASE
++    0x00000000, // CB_COLOR2_PITCH
++    0x00000000, // CB_COLOR2_SLICE
++    0x00000000, // CB_COLOR2_VIEW
++    0x00000000, // CB_COLOR2_INFO
++    0x00000000, // CB_COLOR2_ATTRIB
++    0x00000000, // CB_COLOR2_DCC_CONTROL
++    0x00000000, // CB_COLOR2_CMASK
++    0x00000000, // CB_COLOR2_CMASK_SLICE
++    0x00000000, // CB_COLOR2_FMASK
++    0x00000000, // CB_COLOR2_FMASK_SLICE
++    0x00000000, // CB_COLOR2_CLEAR_WORD0
++    0x00000000, // CB_COLOR2_CLEAR_WORD1
++    0x00000000, // CB_COLOR2_DCC_BASE
++    0, // HOLE
++    0x00000000, // CB_COLOR3_BASE
++    0x00000000, // CB_COLOR3_PITCH
++    0x00000000, // CB_COLOR3_SLICE
++    0x00000000, // CB_COLOR3_VIEW
++    0x00000000, // CB_COLOR3_INFO
++    0x00000000, // CB_COLOR3_ATTRIB
++    0x00000000, // CB_COLOR3_DCC_CONTROL
++    0x00000000, // CB_COLOR3_CMASK
++    0x00000000, // CB_COLOR3_CMASK_SLICE
++    0x00000000, // CB_COLOR3_FMASK
++    0x00000000, // CB_COLOR3_FMASK_SLICE
++    0x00000000, // CB_COLOR3_CLEAR_WORD0
++    0x00000000, // CB_COLOR3_CLEAR_WORD1
++    0x00000000, // CB_COLOR3_DCC_BASE
++    0, // HOLE
++    0x00000000, // CB_COLOR4_BASE
++    0x00000000, // CB_COLOR4_PITCH
++    0x00000000, // CB_COLOR4_SLICE
++    0x00000000, // CB_COLOR4_VIEW
++    0x00000000, // CB_COLOR4_INFO
++    0x00000000, // CB_COLOR4_ATTRIB
++    0x00000000, // CB_COLOR4_DCC_CONTROL
++    0x00000000, // CB_COLOR4_CMASK
++    0x00000000, // CB_COLOR4_CMASK_SLICE
++    0x00000000, // CB_COLOR4_FMASK
++    0x00000000, // CB_COLOR4_FMASK_SLICE
++    0x00000000, // CB_COLOR4_CLEAR_WORD0
++    0x00000000, // CB_COLOR4_CLEAR_WORD1
++    0x00000000, // CB_COLOR4_DCC_BASE
++    0, // HOLE
++    0x00000000, // CB_COLOR5_BASE
++    0x00000000, // CB_COLOR5_PITCH
++    0x00000000, // CB_COLOR5_SLICE
++    0x00000000, // CB_COLOR5_VIEW
++    0x00000000, // CB_COLOR5_INFO
++    0x00000000, // CB_COLOR5_ATTRIB
++    0x00000000, // CB_COLOR5_DCC_CONTROL
++    0x00000000, // CB_COLOR5_CMASK
++    0x00000000, // CB_COLOR5_CMASK_SLICE
++    0x00000000, // CB_COLOR5_FMASK
++    0x00000000, // CB_COLOR5_FMASK_SLICE
++    0x00000000, // CB_COLOR5_CLEAR_WORD0
++    0x00000000, // CB_COLOR5_CLEAR_WORD1
++    0x00000000, // CB_COLOR5_DCC_BASE
++    0, // HOLE
++    0x00000000, // CB_COLOR6_BASE
++    0x00000000, // CB_COLOR6_PITCH
++    0x00000000, // CB_COLOR6_SLICE
++    0x00000000, // CB_COLOR6_VIEW
++    0x00000000, // CB_COLOR6_INFO
++    0x00000000, // CB_COLOR6_ATTRIB
++    0x00000000, // CB_COLOR6_DCC_CONTROL
++    0x00000000, // CB_COLOR6_CMASK
++    0x00000000, // CB_COLOR6_CMASK_SLICE
++    0x00000000, // CB_COLOR6_FMASK
++    0x00000000, // CB_COLOR6_FMASK_SLICE
++    0x00000000, // CB_COLOR6_CLEAR_WORD0
++    0x00000000, // CB_COLOR6_CLEAR_WORD1
++    0x00000000, // CB_COLOR6_DCC_BASE
++    0, // HOLE
++    0x00000000, // CB_COLOR7_BASE
++    0x00000000, // CB_COLOR7_PITCH
++    0x00000000, // CB_COLOR7_SLICE
++    0x00000000, // CB_COLOR7_VIEW
++    0x00000000, // CB_COLOR7_INFO
++    0x00000000, // CB_COLOR7_ATTRIB
++    0x00000000, // CB_COLOR7_DCC_CONTROL
++    0x00000000, // CB_COLOR7_CMASK
++    0x00000000, // CB_COLOR7_CMASK_SLICE
++    0x00000000, // CB_COLOR7_FMASK
++    0x00000000, // CB_COLOR7_FMASK_SLICE
++    0x00000000, // CB_COLOR7_CLEAR_WORD0
++    0x00000000, // CB_COLOR7_CLEAR_WORD1
++    0x00000000, // CB_COLOR7_DCC_BASE
++    0, // HOLE
++    0x00000000, // CB_COLOR0_BASE_EXT
++    0x00000000, // CB_COLOR1_BASE_EXT
++    0x00000000, // CB_COLOR2_BASE_EXT
++    0x00000000, // CB_COLOR3_BASE_EXT
++    0x00000000, // CB_COLOR4_BASE_EXT
++    0x00000000, // CB_COLOR5_BASE_EXT
++    0x00000000, // CB_COLOR6_BASE_EXT
++    0x00000000, // CB_COLOR7_BASE_EXT
++    0x00000000, // CB_COLOR0_CMASK_BASE_EXT
++    0x00000000, // CB_COLOR1_CMASK_BASE_EXT
++    0x00000000, // CB_COLOR2_CMASK_BASE_EXT
++    0x00000000, // CB_COLOR3_CMASK_BASE_EXT
++    0x00000000, // CB_COLOR4_CMASK_BASE_EXT
++    0x00000000, // CB_COLOR5_CMASK_BASE_EXT
++    0x00000000, // CB_COLOR6_CMASK_BASE_EXT
++    0x00000000, // CB_COLOR7_CMASK_BASE_EXT
++    0x00000000, // CB_COLOR0_FMASK_BASE_EXT
++    0x00000000, // CB_COLOR1_FMASK_BASE_EXT
++    0x00000000, // CB_COLOR2_FMASK_BASE_EXT
++    0x00000000, // CB_COLOR3_FMASK_BASE_EXT
++    0x00000000, // CB_COLOR4_FMASK_BASE_EXT
++    0x00000000, // CB_COLOR5_FMASK_BASE_EXT
++    0x00000000, // CB_COLOR6_FMASK_BASE_EXT
++    0x00000000, // CB_COLOR7_FMASK_BASE_EXT
++    0x00000000, // CB_COLOR0_DCC_BASE_EXT
++    0x00000000, // CB_COLOR1_DCC_BASE_EXT
++    0x00000000, // CB_COLOR2_DCC_BASE_EXT
++    0x00000000, // CB_COLOR3_DCC_BASE_EXT
++    0x00000000, // CB_COLOR4_DCC_BASE_EXT
++    0x00000000, // CB_COLOR5_DCC_BASE_EXT
++    0x00000000, // CB_COLOR6_DCC_BASE_EXT
++    0x00000000, // CB_COLOR7_DCC_BASE_EXT
++    0x00000000, // CB_COLOR0_ATTRIB2
++    0x00000000, // CB_COLOR1_ATTRIB2
++    0x00000000, // CB_COLOR2_ATTRIB2
++    0x00000000, // CB_COLOR3_ATTRIB2
++    0x00000000, // CB_COLOR4_ATTRIB2
++    0x00000000, // CB_COLOR5_ATTRIB2
++    0x00000000, // CB_COLOR6_ATTRIB2
++    0x00000000, // CB_COLOR7_ATTRIB2
++    0x00000000, // CB_COLOR0_ATTRIB3
++    0x00000000, // CB_COLOR1_ATTRIB3
++    0x00000000, // CB_COLOR2_ATTRIB3
++    0x00000000, // CB_COLOR3_ATTRIB3
++    0x00000000, // CB_COLOR4_ATTRIB3
++    0x00000000, // CB_COLOR5_ATTRIB3
++    0x00000000, // CB_COLOR6_ATTRIB3
++    0x00000000, // CB_COLOR7_ATTRIB3
++};
++static const struct cs_extent_def gfx11_SECT_CONTEXT_defs[] =
++{
++    {gfx11_SECT_CONTEXT_def_1, 0x0000a000, 215 },
++    {gfx11_SECT_CONTEXT_def_2, 0x0000a0d8, 272 },
++    {gfx11_SECT_CONTEXT_def_3, 0x0000a1f5, 4 },
++    {gfx11_SECT_CONTEXT_def_4, 0x0000a1ff, 158 },
++    {gfx11_SECT_CONTEXT_def_5, 0x0000a2a0, 2 },
++    {gfx11_SECT_CONTEXT_def_6, 0x0000a2a3, 1 },
++    {gfx11_SECT_CONTEXT_def_7, 0x0000a2a5, 66 },
++    {gfx11_SECT_CONTEXT_def_8, 0x0000a2f5, 203 },
++    { 0, 0, 0 }
++};
++static const struct cs_section_def gfx11_cs_data[] = {
++    { gfx11_SECT_CONTEXT_defs, SECT_CONTEXT },
++    { 0, SECT_NONE }
++};
++
++#endif /* __CLEARSTATE_GFX11_H_ */
 -- 
 2.35.1
 
