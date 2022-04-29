@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2DE7C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 17:35:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF013C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 17:35:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E13110EFDF;
-	Fri, 29 Apr 2022 17:35:25 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2083.outbound.protection.outlook.com [40.107.212.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F80810EFB6
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 17:35:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49C4810EFE9;
+	Fri, 29 Apr 2022 17:35:27 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam08on2044.outbound.protection.outlook.com [40.107.100.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F367010EFB6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 17:35:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mh0Pj70YuLhTTy//dR5nJurUOeHvWN08hiStzXfZtJ4xUv5NeQS87m2SdYj8E6yqfFXRmBLQ96qxHspPZuHl8+6+gMT6YtOxuhSzhfScMgUrUFBHthM1dOJ8PYQ/DfOG7e/R+YN7JLXKYPe3jmiqYxT+ApEyeT9F/dfdhg98lBqIbbCv0vF0+4zqxy9k+olXIgchD9QPNJHxa9XNbo6tRCX7+VCB+H96GSr0p3VRknoKyZek9z60jz8VCtxJFaXBXhCftiwnn45pla6O3vg6HTfpYdyLQ9XRs3Cki+Fh0gTTvaqRIBEkyeLbEfNKrLG4hcZPNzmkpLV7YpeX//zpMg==
+ b=FVoD/aFuLmHVtJNZ0knh6DYtgETfUBVr/8xsVYPAaIp8k7VYfWve6KTyVFmyuzCG8abeeAg03HZB8jDyWMZQH37+T7AuGdKW3+lo3N1TlRXpCVS01Bv4MoU2g4dJOxtJl2OMtt8JQyrtQfMPzPKGbehJ09YUJ99vvtJX1WEYSJK0ApS3tBfezIML4DHKG4yBlFVPMIxAnD5EPUnk6q/DPnbEW6WTKBBwG4Qks3EBVq4J+WNC3m10ifuKvRJsvjXfV+WB45awaLHvM35xKeA45A92aiGTzzQbnljpwbctULHXVk3l+2L4kZOOSSormDiSdqgQxGImEwgnX0jVKI2VUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TTL7KhFKWvPyHtZZdX4ZXg2WuNL5nnlHT8XHhYNaAOM=;
- b=ZJzbv2jTwvwfURDrbYMeFSOaqNIWUG07qOqNQYB/W0Azf3oKzBOAFbxuJYBX2aT03a6mmFrQSvYN75Mp+P/HRyqx2AvKCnvUp0Ac0TJZRirVDbEBOslgXw5wUD6PPmoH24svu2ThuY7Yi+nonFJ8VdYy2EMf7TvTaEh5cRP9ZJU4KpE74KT/8FDKOxHxt8g16r91nMWx+mSj6h0JVyE/0d80JrKR5N5zCzrZN45L6L0PgSxFIk250947bVfffJHqU8Gz3c/8WMLSXhs4vxlxgoRwmOkyt+AF//XSkon+CrJjBMNzTW7EHvbKEgtGb7zg2tno6vFxZ8N2gBBDk+3BuA==
+ bh=Qe9jrIvuboExvhT0bchz4s4Mr4ustmrK4A4TkM11a2c=;
+ b=i7Q0R1OOadtwCSagP3QiqGO+hVv8LOqbbhZv6gJkgzGHV0bJgzg0cSlNwNMUVlH2AWmlZ7XCXgJw2JgB4LYhBp11wwJwoy/dk2NVlA23F5dgR3Jxs256I3vSr5U1MYyBBTcuzA2xmOX66URc66WWzjaGeDqQmf0yuPfQ9Nx+Qt9sXHgLjVRcFVefrRxNCESBbpAHsrKbyJNHZI+uJk6UPLJe2JCiZi88Y5vTMYEuecNz0o6d1anWRrNQYexqhJZAxFQFYDA4nNfivhqSnXqoVQPxtv1w+ehYd5pJyq4Dda5TTXlk1Irrbzws4odJY0rgBE/UJxQULcPfRPWqHPe85w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TTL7KhFKWvPyHtZZdX4ZXg2WuNL5nnlHT8XHhYNaAOM=;
- b=x5RxjftLWX4n0mGXErTJSwccUMayNR42GoeBUXHVtstSqyCpnizzbWCJxY2fCGgOjXbMzy+4gmGZwI8yhv2IyDHWAuoNeeOVKOAo1tcUA240sXDniVpTZwIUUbJyd04ogG7orPjcLexPHeMCoot/JBzM2CsY5lBAqwqXPhIbE2s=
-Received: from MW4PR03CA0116.namprd03.prod.outlook.com (2603:10b6:303:b7::31)
- by DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13; Fri, 29 Apr
- 2022 17:35:20 +0000
+ bh=Qe9jrIvuboExvhT0bchz4s4Mr4ustmrK4A4TkM11a2c=;
+ b=zrexUDUapP5t1ZXr/s77+PeefCcTqMqWrnrSfjS5P8W0pze506J8V2g1T9zSi1Of2ukewI6sme9eiFjZfJkHAjtBQ5sbP0xJ6UbiG/oftamXhH0pFgbZmqjOuyz6PhDI7jOPFVgA22OdFAjC1B/7fhR8bqlEPrkpWjdri0ltkhQ=
+Received: from MW4PR03CA0097.namprd03.prod.outlook.com (2603:10b6:303:b7::12)
+ by BL1PR12MB5079.namprd12.prod.outlook.com (2603:10b6:208:31a::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Fri, 29 Apr
+ 2022 17:35:21 +0000
 Received: from CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b7:cafe::ab) by MW4PR03CA0116.outlook.office365.com
- (2603:10b6:303:b7::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.14 via Frontend
- Transport; Fri, 29 Apr 2022 17:35:19 +0000
+ (2603:10b6:303:b7:cafe::df) by MW4PR03CA0097.outlook.office365.com
+ (2603:10b6:303:b7::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13 via Frontend
+ Transport; Fri, 29 Apr 2022 17:35:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT036.mail.protection.outlook.com (10.13.174.124) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Fri, 29 Apr 2022 17:35:19 +0000
+ 15.20.5206.12 via Frontend Transport; Fri, 29 Apr 2022 17:35:20 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 29 Apr
- 2022 12:35:16 -0500
+ 2022 12:35:17 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/3] drm/amdgpu: add gfx11 clearstate header
-Date: Fri, 29 Apr 2022 13:34:31 -0400
-Message-ID: <20220429173432.433220-2-alexander.deucher@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: add gfx11 mqd structures
+Date: Fri, 29 Apr 2022 13:34:32 -0400
+Message-ID: <20220429173432.433220-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220429173432.433220-1-alexander.deucher@amd.com>
 References: <20220429173432.433220-1-alexander.deucher@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2a89516e-4123-4e0a-ce19-08da2a06a1b0
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5152:EE_
-X-Microsoft-Antispam-PRVS: <DM4PR12MB5152AA4D41960575AA473273F7FC9@DM4PR12MB5152.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: dca921c5-aa55-456a-c438-08da2a06a24b
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5079:EE_
+X-Microsoft-Antispam-PRVS: <BL1PR12MB5079746AB2B9223603EFECF3F7FC9@BL1PR12MB5079.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /vgrzJw5EE593TeNxCctM0XbZvKzxQru13oi74HTt/wJCaEHcWStwwlL60f3aYJlelaO5nokZ0LYlUGRaQiaGlyRDjQG/jScBnC3Js6DaL3K2XlN2dqNtcqJTRdW5Fack0wybZcTIgnYseqimltYbdJC/L8f8jhR2pIkv9fv531o+r3QlI6e1+6nX1oHLtKaIhEqpTB/F+MncYmA2EpUebZ3kzbKQyPwYcVqfOoyqtSPM3jtypmKpJ81OeFDEaKCl4dXTLxgtyxs8dPyAFOuziZb09+9Z7D+dTUJA4IN8q2ximdft10ilX9jBFKUKalPXpvuioxMiJR761UPrCXdmh1ZlnN/hWq6PhEwZcWua0jP/PlNssz9A/2CHglpX5h5CPER8qjW4ijxizay+gxpagXHQ6SWXok/GjY/Ha9zQI3dWwuLfq122vvRXb6vtluUGre6icfU1jFYw/PTNA+5jrzgR0g/tQs/0snEs2DqeTs/5zP/1ft7R2YVLDj2+5H3vRti93yYPPJ1GNaqe1VgJ26E0ysg1IrVTudQ5eRiThegkGKremDjYSrz+8KzeSnVGtLbTI8v60MXnKKpiIFMenDxt7OEG4eyGaPqodUBX1i5zrvut44ltfMuzgUuB70ldM2s+UczFumfNEVEAbeqvrs2S/mJL+qdBbGGVfZKQjnh69PuD3B+TKcn7oE68yAaRyZ9KwBNyJHaGBFCKMgsFA==
+X-Microsoft-Antispam-Message-Info: TsLvBfJwsPFO17I15OpxGXQhjc/EYtpWAvPwQRuKOM+YREXjrUxmzwQPYelVpJeQj4ilvMqnmlpouIcbKEyNecbAIKoa+boopeTFKmQlFAQJJSR35WOjh+Kk8fPqXADr2veFJMdEdyLyq+wykZ/gR/VRcpLFeV8jy4+xKa7NsDNFEHIFiZoaA+iFs6KaXj+hjV6zAy9KCekOUeDq6D+X2N9PXFHi9UmKr9dX2HSByAyGEh99g1V+/XOTjdg2/+GVAsWIZCplHmv1+gdsYkLsDEINi+QerG+7tKS2cFhFSDNRQ1YFDPWOJ+FJtUtaWi7RLvDd79B8QgQzRfTnx9eDW3cvRLllvpyTAzhIL3HGx8TEJ5/kDIHPgKGtQbkc0wQ8zDK/Xe+FXYsRNXUDd/fu3wRUrZpN5BwKJIXfU6cUTjyHTNAqnjRPiifND2tj3ldzE7uMVRx/fXkoNwOfCSN5QrP1KhZpYDKk/gR3SAtm3YGb3hhna8BNYHaM6kBjq+5SR0a1DmTurGZPT7BufZzvgIolh0NudhA7ZpfMp0jnKAwSe4ktWtCgg5VHQ7pfGb7hSaL5KpfVk2HRonEZD3boR1skdkYzz9136red3MR8HvQmk5tHZ2iw1GY9TAOVKIw/Ea0NVSYkrP/46ixuA6fwC+tVsqt1r60MwROqWFhVO7HrNrsKb6ej27SNm8HSxtzZs0UNKCoknxWLhR4cq9xYPg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(2616005)(54906003)(8676002)(86362001)(70206006)(70586007)(6916009)(4326008)(26005)(508600001)(36756003)(40460700003)(82310400005)(83380400001)(356005)(30864003)(5660300002)(2906002)(1076003)(16526019)(8936002)(316002)(186003)(426003)(336012)(47076005)(81166007)(7696005)(6666004)(36860700001)(36900700001);
+ SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(36756003)(8676002)(36860700001)(4326008)(6666004)(426003)(336012)(5660300002)(2906002)(47076005)(26005)(186003)(16526019)(356005)(30864003)(8936002)(508600001)(83380400001)(40460700003)(86362001)(316002)(7696005)(54906003)(6916009)(82310400005)(2616005)(70206006)(70586007)(81166007)(1076003)(36900700001)(559001)(579004);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 17:35:19.5517 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a89516e-4123-4e0a-ce19-08da2a06a1b0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 17:35:20.5516 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dca921c5-aa55-456a-c438-08da2a06a24b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5152
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5079
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,28 +100,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
+Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Add gfx11 clearstate register arrays
+memory queue descriptors for gfx11.
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Likun Gao <Likun.Gao@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/clearstate_gfx11.h | 988 ++++++++++++++++++
- 1 file changed, 988 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/clearstate_gfx11.h
+ drivers/gpu/drm/amd/include/v11_structs.h | 1189 +++++++++++++++++++++
+ 1 file changed, 1189 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/include/v11_structs.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/clearstate_gfx11.h b/drivers/gpu/drm/amd/amdgpu/clearstate_gfx11.h
+diff --git a/drivers/gpu/drm/amd/include/v11_structs.h b/drivers/gpu/drm/amd/include/v11_structs.h
 new file mode 100644
-index 000000000000..f3852b59b1d6
+index 000000000000..b8ff7456ae0b
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/clearstate_gfx11.h
-@@ -0,0 +1,988 @@
++++ b/drivers/gpu/drm/amd/include/v11_structs.h
+@@ -0,0 +1,1189 @@
 +/*
 + * Copyright 2021 Advanced Micro Devices, Inc.
 + *
@@ -144,972 +145,1173 @@ index 000000000000..f3852b59b1d6
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + */
-+#ifndef __CLEARSTATE_GFX11_H_
-+#define __CLEARSTATE_GFX11_H_
 +
-+static const unsigned int gfx11_SECT_CONTEXT_def_1[] =
-+{
-+    0x00000000, // DB_RENDER_CONTROL
-+    0x00000000, // DB_COUNT_CONTROL
-+    0x00000000, // DB_DEPTH_VIEW
-+    0x00000000, // DB_RENDER_OVERRIDE
-+    0x00000000, // DB_RENDER_OVERRIDE2
-+    0x00000000, // DB_HTILE_DATA_BASE
-+    0, // HOLE
-+    0x00000000, // DB_DEPTH_SIZE_XY
-+    0x00000000, // DB_DEPTH_BOUNDS_MIN
-+    0x00000000, // DB_DEPTH_BOUNDS_MAX
-+    0x00000000, // DB_STENCIL_CLEAR
-+    0x00000000, // DB_DEPTH_CLEAR
-+    0x00000000, // PA_SC_SCREEN_SCISSOR_TL
-+    0x40004000, // PA_SC_SCREEN_SCISSOR_BR
-+    0x00000000, // DB_DFSM_CONTROL
-+    0x00000000, // DB_RESERVED_REG_2
-+    0x00000000, // DB_Z_INFO
-+    0x00000000, // DB_STENCIL_INFO
-+    0x00000000, // DB_Z_READ_BASE
-+    0x00000000, // DB_STENCIL_READ_BASE
-+    0x00000000, // DB_Z_WRITE_BASE
-+    0x00000000, // DB_STENCIL_WRITE_BASE
-+    0x00000000, // DB_RESERVED_REG_1
-+    0x00000000, // DB_RESERVED_REG_3
-+    0x00000000, // DB_SPI_VRS_CENTER_LOCATION
-+    0x00000000, // DB_VRS_OVERRIDE_CNTL
-+    0x00000000, // DB_Z_READ_BASE_HI
-+    0x00000000, // DB_STENCIL_READ_BASE_HI
-+    0x00000000, // DB_Z_WRITE_BASE_HI
-+    0x00000000, // DB_STENCIL_WRITE_BASE_HI
-+    0x00000000, // DB_HTILE_DATA_BASE_HI
-+    0x00150055, // DB_RMI_L2_CACHE_CONTROL
-+    0x00000000, // TA_BC_BASE_ADDR
-+    0x00000000, // TA_BC_BASE_ADDR_HI
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0x00000000, // COHER_DEST_BASE_HI_0
-+    0x00000000, // COHER_DEST_BASE_HI_1
-+    0x00000000, // COHER_DEST_BASE_HI_2
-+    0x00000000, // COHER_DEST_BASE_HI_3
-+    0x00000000, // COHER_DEST_BASE_2
-+    0x00000000, // COHER_DEST_BASE_3
-+    0x00000000, // PA_SC_WINDOW_OFFSET
-+    0x80000000, // PA_SC_WINDOW_SCISSOR_TL
-+    0x40004000, // PA_SC_WINDOW_SCISSOR_BR
-+    0x0000ffff, // PA_SC_CLIPRECT_RULE
-+    0x00000000, // PA_SC_CLIPRECT_0_TL
-+    0x40004000, // PA_SC_CLIPRECT_0_BR
-+    0x00000000, // PA_SC_CLIPRECT_1_TL
-+    0x40004000, // PA_SC_CLIPRECT_1_BR
-+    0x00000000, // PA_SC_CLIPRECT_2_TL
-+    0x40004000, // PA_SC_CLIPRECT_2_BR
-+    0x00000000, // PA_SC_CLIPRECT_3_TL
-+    0x40004000, // PA_SC_CLIPRECT_3_BR
-+    0xaa99aaaa, // PA_SC_EDGERULE
-+    0x00000000, // PA_SU_HARDWARE_SCREEN_OFFSET
-+    0xffffffff, // CB_TARGET_MASK
-+    0xffffffff, // CB_SHADER_MASK
-+    0x80000000, // PA_SC_GENERIC_SCISSOR_TL
-+    0x40004000, // PA_SC_GENERIC_SCISSOR_BR
-+    0x00000000, // COHER_DEST_BASE_0
-+    0x00000000, // COHER_DEST_BASE_1
-+    0x80000000, // PA_SC_VPORT_SCISSOR_0_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_0_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_1_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_1_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_2_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_2_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_3_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_3_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_4_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_4_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_5_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_5_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_6_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_6_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_7_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_7_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_8_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_8_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_9_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_9_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_10_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_10_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_11_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_11_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_12_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_12_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_13_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_13_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_14_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_14_BR
-+    0x80000000, // PA_SC_VPORT_SCISSOR_15_TL
-+    0x40004000, // PA_SC_VPORT_SCISSOR_15_BR
-+    0x00000000, // PA_SC_VPORT_ZMIN_0
-+    0x3f800000, // PA_SC_VPORT_ZMAX_0
-+    0x00000000, // PA_SC_VPORT_ZMIN_1
-+    0x3f800000, // PA_SC_VPORT_ZMAX_1
-+    0x00000000, // PA_SC_VPORT_ZMIN_2
-+    0x3f800000, // PA_SC_VPORT_ZMAX_2
-+    0x00000000, // PA_SC_VPORT_ZMIN_3
-+    0x3f800000, // PA_SC_VPORT_ZMAX_3
-+    0x00000000, // PA_SC_VPORT_ZMIN_4
-+    0x3f800000, // PA_SC_VPORT_ZMAX_4
-+    0x00000000, // PA_SC_VPORT_ZMIN_5
-+    0x3f800000, // PA_SC_VPORT_ZMAX_5
-+    0x00000000, // PA_SC_VPORT_ZMIN_6
-+    0x3f800000, // PA_SC_VPORT_ZMAX_6
-+    0x00000000, // PA_SC_VPORT_ZMIN_7
-+    0x3f800000, // PA_SC_VPORT_ZMAX_7
-+    0x00000000, // PA_SC_VPORT_ZMIN_8
-+    0x3f800000, // PA_SC_VPORT_ZMAX_8
-+    0x00000000, // PA_SC_VPORT_ZMIN_9
-+    0x3f800000, // PA_SC_VPORT_ZMAX_9
-+    0x00000000, // PA_SC_VPORT_ZMIN_10
-+    0x3f800000, // PA_SC_VPORT_ZMAX_10
-+    0x00000000, // PA_SC_VPORT_ZMIN_11
-+    0x3f800000, // PA_SC_VPORT_ZMAX_11
-+    0x00000000, // PA_SC_VPORT_ZMIN_12
-+    0x3f800000, // PA_SC_VPORT_ZMAX_12
-+    0x00000000, // PA_SC_VPORT_ZMIN_13
-+    0x3f800000, // PA_SC_VPORT_ZMAX_13
-+    0x00000000, // PA_SC_VPORT_ZMIN_14
-+    0x3f800000, // PA_SC_VPORT_ZMAX_14
-+    0x00000000, // PA_SC_VPORT_ZMIN_15
-+    0x3f800000, // PA_SC_VPORT_ZMAX_15
-+    0x00000000, // PA_SC_RASTER_CONFIG
-+    0x00000000, // PA_SC_RASTER_CONFIG_1
-+    0x00000000, // PA_SC_SCREEN_EXTENT_CONTROL
-+};
-+static const unsigned int gfx11_SECT_CONTEXT_def_2[] =
-+{
-+    0x00000000, // CP_PERFMON_CNTX_CNTL
-+    0x00000000, // CP_PIPEID
-+    0x00000000, // CP_VMID
-+    0x00000000, // CONTEXT_RESERVED_REG0
-+    0x00000000, // CONTEXT_RESERVED_REG1
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0x00000000, // PA_SC_FSR_EN
-+    0x00000000, // PA_SC_FSR_FBW_RECURSIONS_X
-+    0x00000000, // PA_SC_FSR_FBW_RECURSIONS_Y
-+    0x00000000, // PA_SC_VRS_RATE_FEEDBACK_VIEW
-+    0x00000000, // PA_SC_VRS_OVERRIDE_CNTL
-+    0x00000000, // PA_SC_VRS_RATE_FEEDBACK_BASE
-+    0x00000000, // PA_SC_VRS_RATE_FEEDBACK_BASE_EXT
-+    0x00000000, // PA_SC_VRS_RATE_FEEDBACK_SIZE_XY
-+    0x00000000, // PA_SC_BINNER_OUTPUT_TIMEOUT_CNTL
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0x00000000, // PA_SC_VRS_RATE_BASE
-+    0x00000000, // PA_SC_VRS_RATE_BASE_EXT
-+    0x00000000, // PA_SC_VRS_RATE_SIZE_XY
-+    0x00000000, // PA_SC_VRS_RATE_VIEW
-+    0xffffffff, // VGT_MAX_VTX_INDX
-+    0x00000000, // VGT_MIN_VTX_INDX
-+    0x00000000, // VGT_INDX_OFFSET
-+    0x00000000, // VGT_MULTI_PRIM_IB_RESET_INDX
-+    0x00550055, // CB_RMI_GL2_CACHE_CONTROL
-+    0x00000000, // CB_BLEND_RED
-+    0x00000000, // CB_BLEND_GREEN
-+    0x00000000, // CB_BLEND_BLUE
-+    0x00000000, // CB_BLEND_ALPHA
-+    0x00000000, // CB_DCC_CONTROL
-+    0x00000000, // CB_COVERAGE_OUT_CONTROL
-+    0x00000000, // DB_STENCIL_CONTROL
-+    0x01000000, // DB_STENCILREFMASK
-+    0x01000000, // DB_STENCILREFMASK_BF
-+    0, // HOLE
-+    0x00000000, // PA_CL_VPORT_XSCALE
-+    0x00000000, // PA_CL_VPORT_XOFFSET
-+    0x00000000, // PA_CL_VPORT_YSCALE
-+    0x00000000, // PA_CL_VPORT_YOFFSET
-+    0x00000000, // PA_CL_VPORT_ZSCALE
-+    0x00000000, // PA_CL_VPORT_ZOFFSET
-+    0x00000000, // PA_CL_VPORT_XSCALE_1
-+    0x00000000, // PA_CL_VPORT_XOFFSET_1
-+    0x00000000, // PA_CL_VPORT_YSCALE_1
-+    0x00000000, // PA_CL_VPORT_YOFFSET_1
-+    0x00000000, // PA_CL_VPORT_ZSCALE_1
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_1
-+    0x00000000, // PA_CL_VPORT_XSCALE_2
-+    0x00000000, // PA_CL_VPORT_XOFFSET_2
-+    0x00000000, // PA_CL_VPORT_YSCALE_2
-+    0x00000000, // PA_CL_VPORT_YOFFSET_2
-+    0x00000000, // PA_CL_VPORT_ZSCALE_2
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_2
-+    0x00000000, // PA_CL_VPORT_XSCALE_3
-+    0x00000000, // PA_CL_VPORT_XOFFSET_3
-+    0x00000000, // PA_CL_VPORT_YSCALE_3
-+    0x00000000, // PA_CL_VPORT_YOFFSET_3
-+    0x00000000, // PA_CL_VPORT_ZSCALE_3
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_3
-+    0x00000000, // PA_CL_VPORT_XSCALE_4
-+    0x00000000, // PA_CL_VPORT_XOFFSET_4
-+    0x00000000, // PA_CL_VPORT_YSCALE_4
-+    0x00000000, // PA_CL_VPORT_YOFFSET_4
-+    0x00000000, // PA_CL_VPORT_ZSCALE_4
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_4
-+    0x00000000, // PA_CL_VPORT_XSCALE_5
-+    0x00000000, // PA_CL_VPORT_XOFFSET_5
-+    0x00000000, // PA_CL_VPORT_YSCALE_5
-+    0x00000000, // PA_CL_VPORT_YOFFSET_5
-+    0x00000000, // PA_CL_VPORT_ZSCALE_5
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_5
-+    0x00000000, // PA_CL_VPORT_XSCALE_6
-+    0x00000000, // PA_CL_VPORT_XOFFSET_6
-+    0x00000000, // PA_CL_VPORT_YSCALE_6
-+    0x00000000, // PA_CL_VPORT_YOFFSET_6
-+    0x00000000, // PA_CL_VPORT_ZSCALE_6
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_6
-+    0x00000000, // PA_CL_VPORT_XSCALE_7
-+    0x00000000, // PA_CL_VPORT_XOFFSET_7
-+    0x00000000, // PA_CL_VPORT_YSCALE_7
-+    0x00000000, // PA_CL_VPORT_YOFFSET_7
-+    0x00000000, // PA_CL_VPORT_ZSCALE_7
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_7
-+    0x00000000, // PA_CL_VPORT_XSCALE_8
-+    0x00000000, // PA_CL_VPORT_XOFFSET_8
-+    0x00000000, // PA_CL_VPORT_YSCALE_8
-+    0x00000000, // PA_CL_VPORT_YOFFSET_8
-+    0x00000000, // PA_CL_VPORT_ZSCALE_8
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_8
-+    0x00000000, // PA_CL_VPORT_XSCALE_9
-+    0x00000000, // PA_CL_VPORT_XOFFSET_9
-+    0x00000000, // PA_CL_VPORT_YSCALE_9
-+    0x00000000, // PA_CL_VPORT_YOFFSET_9
-+    0x00000000, // PA_CL_VPORT_ZSCALE_9
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_9
-+    0x00000000, // PA_CL_VPORT_XSCALE_10
-+    0x00000000, // PA_CL_VPORT_XOFFSET_10
-+    0x00000000, // PA_CL_VPORT_YSCALE_10
-+    0x00000000, // PA_CL_VPORT_YOFFSET_10
-+    0x00000000, // PA_CL_VPORT_ZSCALE_10
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_10
-+    0x00000000, // PA_CL_VPORT_XSCALE_11
-+    0x00000000, // PA_CL_VPORT_XOFFSET_11
-+    0x00000000, // PA_CL_VPORT_YSCALE_11
-+    0x00000000, // PA_CL_VPORT_YOFFSET_11
-+    0x00000000, // PA_CL_VPORT_ZSCALE_11
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_11
-+    0x00000000, // PA_CL_VPORT_XSCALE_12
-+    0x00000000, // PA_CL_VPORT_XOFFSET_12
-+    0x00000000, // PA_CL_VPORT_YSCALE_12
-+    0x00000000, // PA_CL_VPORT_YOFFSET_12
-+    0x00000000, // PA_CL_VPORT_ZSCALE_12
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_12
-+    0x00000000, // PA_CL_VPORT_XSCALE_13
-+    0x00000000, // PA_CL_VPORT_XOFFSET_13
-+    0x00000000, // PA_CL_VPORT_YSCALE_13
-+    0x00000000, // PA_CL_VPORT_YOFFSET_13
-+    0x00000000, // PA_CL_VPORT_ZSCALE_13
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_13
-+    0x00000000, // PA_CL_VPORT_XSCALE_14
-+    0x00000000, // PA_CL_VPORT_XOFFSET_14
-+    0x00000000, // PA_CL_VPORT_YSCALE_14
-+    0x00000000, // PA_CL_VPORT_YOFFSET_14
-+    0x00000000, // PA_CL_VPORT_ZSCALE_14
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_14
-+    0x00000000, // PA_CL_VPORT_XSCALE_15
-+    0x00000000, // PA_CL_VPORT_XOFFSET_15
-+    0x00000000, // PA_CL_VPORT_YSCALE_15
-+    0x00000000, // PA_CL_VPORT_YOFFSET_15
-+    0x00000000, // PA_CL_VPORT_ZSCALE_15
-+    0x00000000, // PA_CL_VPORT_ZOFFSET_15
-+    0x00000000, // PA_CL_UCP_0_X
-+    0x00000000, // PA_CL_UCP_0_Y
-+    0x00000000, // PA_CL_UCP_0_Z
-+    0x00000000, // PA_CL_UCP_0_W
-+    0x00000000, // PA_CL_UCP_1_X
-+    0x00000000, // PA_CL_UCP_1_Y
-+    0x00000000, // PA_CL_UCP_1_Z
-+    0x00000000, // PA_CL_UCP_1_W
-+    0x00000000, // PA_CL_UCP_2_X
-+    0x00000000, // PA_CL_UCP_2_Y
-+    0x00000000, // PA_CL_UCP_2_Z
-+    0x00000000, // PA_CL_UCP_2_W
-+    0x00000000, // PA_CL_UCP_3_X
-+    0x00000000, // PA_CL_UCP_3_Y
-+    0x00000000, // PA_CL_UCP_3_Z
-+    0x00000000, // PA_CL_UCP_3_W
-+    0x00000000, // PA_CL_UCP_4_X
-+    0x00000000, // PA_CL_UCP_4_Y
-+    0x00000000, // PA_CL_UCP_4_Z
-+    0x00000000, // PA_CL_UCP_4_W
-+    0x00000000, // PA_CL_UCP_5_X
-+    0x00000000, // PA_CL_UCP_5_Y
-+    0x00000000, // PA_CL_UCP_5_Z
-+    0x00000000, // PA_CL_UCP_5_W
-+    0x00000000, // PA_CL_PROG_NEAR_CLIP_Z
-+    0x00000000, // PA_RATE_CNTL
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0x00000000, // SPI_PS_INPUT_CNTL_0
-+    0x00000000, // SPI_PS_INPUT_CNTL_1
-+    0x00000000, // SPI_PS_INPUT_CNTL_2
-+    0x00000000, // SPI_PS_INPUT_CNTL_3
-+    0x00000000, // SPI_PS_INPUT_CNTL_4
-+    0x00000000, // SPI_PS_INPUT_CNTL_5
-+    0x00000000, // SPI_PS_INPUT_CNTL_6
-+    0x00000000, // SPI_PS_INPUT_CNTL_7
-+    0x00000000, // SPI_PS_INPUT_CNTL_8
-+    0x00000000, // SPI_PS_INPUT_CNTL_9
-+    0x00000000, // SPI_PS_INPUT_CNTL_10
-+    0x00000000, // SPI_PS_INPUT_CNTL_11
-+    0x00000000, // SPI_PS_INPUT_CNTL_12
-+    0x00000000, // SPI_PS_INPUT_CNTL_13
-+    0x00000000, // SPI_PS_INPUT_CNTL_14
-+    0x00000000, // SPI_PS_INPUT_CNTL_15
-+    0x00000000, // SPI_PS_INPUT_CNTL_16
-+    0x00000000, // SPI_PS_INPUT_CNTL_17
-+    0x00000000, // SPI_PS_INPUT_CNTL_18
-+    0x00000000, // SPI_PS_INPUT_CNTL_19
-+    0x00000000, // SPI_PS_INPUT_CNTL_20
-+    0x00000000, // SPI_PS_INPUT_CNTL_21
-+    0x00000000, // SPI_PS_INPUT_CNTL_22
-+    0x00000000, // SPI_PS_INPUT_CNTL_23
-+    0x00000000, // SPI_PS_INPUT_CNTL_24
-+    0x00000000, // SPI_PS_INPUT_CNTL_25
-+    0x00000000, // SPI_PS_INPUT_CNTL_26
-+    0x00000000, // SPI_PS_INPUT_CNTL_27
-+    0x00000000, // SPI_PS_INPUT_CNTL_28
-+    0x00000000, // SPI_PS_INPUT_CNTL_29
-+    0x00000000, // SPI_PS_INPUT_CNTL_30
-+    0x00000000, // SPI_PS_INPUT_CNTL_31
-+    0x00000000, // SPI_VS_OUT_CONFIG
-+    0, // HOLE
-+    0x00000000, // SPI_PS_INPUT_ENA
-+    0x00000000, // SPI_PS_INPUT_ADDR
-+    0x00000000, // SPI_INTERP_CONTROL_0
-+    0x00000002, // SPI_PS_IN_CONTROL
-+    0x00000000, // SPI_BARYC_SSAA_CNTL
-+    0x00000000, // SPI_BARYC_CNTL
-+    0, // HOLE
-+    0x00000000, // SPI_TMPRING_SIZE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0x00000000, // SPI_SHADER_IDX_FORMAT
-+    0x00000000, // SPI_SHADER_POS_FORMAT
-+    0x00000000, // SPI_SHADER_Z_FORMAT
-+    0x00000000, // SPI_SHADER_COL_FORMAT
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0x00000000, // SX_PS_DOWNCONVERT_CONTROL
-+    0x00000000, // SX_PS_DOWNCONVERT
-+    0x00000000, // SX_BLEND_OPT_EPSILON
-+    0x00000000, // SX_BLEND_OPT_CONTROL
-+    0x00000000, // SX_MRT0_BLEND_OPT
-+    0x00000000, // SX_MRT1_BLEND_OPT
-+    0x00000000, // SX_MRT2_BLEND_OPT
-+    0x00000000, // SX_MRT3_BLEND_OPT
-+    0x00000000, // SX_MRT4_BLEND_OPT
-+    0x00000000, // SX_MRT5_BLEND_OPT
-+    0x00000000, // SX_MRT6_BLEND_OPT
-+    0x00000000, // SX_MRT7_BLEND_OPT
-+    0x00000000, // CB_BLEND0_CONTROL
-+    0x00000000, // CB_BLEND1_CONTROL
-+    0x00000000, // CB_BLEND2_CONTROL
-+    0x00000000, // CB_BLEND3_CONTROL
-+    0x00000000, // CB_BLEND4_CONTROL
-+    0x00000000, // CB_BLEND5_CONTROL
-+    0x00000000, // CB_BLEND6_CONTROL
-+    0x00000000, // CB_BLEND7_CONTROL
-+};
-+static const unsigned int gfx11_SECT_CONTEXT_def_3[] =
-+{
-+    0x00000000, // PA_CL_POINT_X_RAD
-+    0x00000000, // PA_CL_POINT_Y_RAD
-+    0x00000000, // PA_CL_POINT_SIZE
-+    0x00000000, // PA_CL_POINT_CULL_RAD
-+};
-+static const unsigned int gfx11_SECT_CONTEXT_def_4[] =
-+{
-+    0x00000000, // GE_MAX_OUTPUT_PER_SUBGROUP
-+    0x00000000, // DB_DEPTH_CONTROL
-+    0x00000000, // DB_EQAA
-+    0x00000000, // CB_COLOR_CONTROL
-+    0x00000000, // DB_SHADER_CONTROL
-+    0x00090000, // PA_CL_CLIP_CNTL
-+    0x00000004, // PA_SU_SC_MODE_CNTL
-+    0x00000000, // PA_CL_VTE_CNTL
-+    0x00000000, // PA_CL_VS_OUT_CNTL
-+    0x00000000, // PA_CL_NANINF_CNTL
-+    0x00000000, // PA_SU_LINE_STIPPLE_CNTL
-+    0x00000000, // PA_SU_LINE_STIPPLE_SCALE
-+    0x00000000, // PA_SU_PRIM_FILTER_CNTL
-+    0x00000000, // PA_SU_SMALL_PRIM_FILTER_CNTL
-+    0, // HOLE
-+    0x00000000, // PA_CL_NGG_CNTL
-+    0x00000000, // PA_SU_OVER_RASTERIZATION_CNTL
-+    0x00000000, // PA_STEREO_CNTL
-+    0x00000000, // PA_STATE_STEREO_X
-+    0x00000000, // PA_CL_VRS_CNTL
-+    0x00000000, // PA_SIDEBAND_REQUEST_DELAYS
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0x00000000, // PA_SU_POINT_SIZE
-+    0x00000000, // PA_SU_POINT_MINMAX
-+    0x00000000, // PA_SU_LINE_CNTL
-+    0x00000000, // PA_SC_LINE_STIPPLE
-+    0x00000000, // VGT_OUTPUT_PATH_CNTL
-+    0x00000000, // VGT_HOS_CNTL
-+    0x00000000, // VGT_HOS_MAX_TESS_LEVEL
-+    0x00000000, // VGT_HOS_MIN_TESS_LEVEL
-+    0x00000000, // VGT_HOS_REUSE_DEPTH
-+    0x00000000, // VGT_GROUP_PRIM_TYPE
-+    0x00000000, // VGT_GROUP_FIRST_DECR
-+    0x00000000, // VGT_GROUP_DECR
-+    0x00000000, // VGT_GROUP_VECT_0_CNTL
-+    0x00000000, // VGT_GROUP_VECT_1_CNTL
-+    0x00000000, // VGT_GROUP_VECT_0_FMT_CNTL
-+    0x00000000, // VGT_GROUP_VECT_1_FMT_CNTL
-+    0x00000000, // VGT_GS_MODE
-+    0x00000000, // VGT_GS_ONCHIP_CNTL
-+    0x00000000, // PA_SC_MODE_CNTL_0
-+    0x00000000, // PA_SC_MODE_CNTL_1
-+    0x00000000, // VGT_ENHANCE
-+    0x00000100, // VGT_GS_PER_ES
-+    0x00000080, // VGT_ES_PER_GS
-+    0x00000002, // VGT_GS_PER_VS
-+    0x00000000, // VGT_GSVS_RING_OFFSET_1
-+    0x00000000, // VGT_GSVS_RING_OFFSET_2
-+    0x00000000, // VGT_GSVS_RING_OFFSET_3
-+    0x00000000, // VGT_GS_OUT_PRIM_TYPE
-+    0x00000000, // IA_ENHANCE
-+};
-+static const unsigned int gfx11_SECT_CONTEXT_def_5[] =
-+{
-+    0x00000000, // WD_ENHANCE
-+    0x00000000, // VGT_PRIMITIVEID_EN
-+};
-+static const unsigned int gfx11_SECT_CONTEXT_def_6[] =
-+{
-+    0x00000000, // VGT_PRIMITIVEID_RESET
-+};
-+static const unsigned int gfx11_SECT_CONTEXT_def_7[] =
-+{
-+    0x00000000, // VGT_MULTI_PRIM_IB_RESET_EN
-+    0x00000000, // VGT_DRAW_PAYLOAD_CNTL
-+    0, // HOLE
-+    0x00000000, // VGT_INSTANCE_STEP_RATE_0
-+    0x00000000, // VGT_INSTANCE_STEP_RATE_1
-+    0x000000ff, // IA_MULTI_VGT_PARAM
-+    0x00000000, // VGT_ESGS_RING_ITEMSIZE
-+    0x00000000, // VGT_GSVS_RING_ITEMSIZE
-+    0x00000000, // VGT_REUSE_OFF
-+    0x00000000, // VGT_VTX_CNT_EN
-+    0x00000000, // DB_HTILE_SURFACE
-+    0x00000000, // DB_SRESULTS_COMPARE_STATE0
-+    0x00000000, // DB_SRESULTS_COMPARE_STATE1
-+    0x00000000, // DB_PRELOAD_CONTROL
-+    0, // HOLE
-+    0x00000000, // VGT_STRMOUT_BUFFER_SIZE_0
-+    0x00000000, // VGT_STRMOUT_VTX_STRIDE_0
-+    0, // HOLE
-+    0x00000000, // VGT_STRMOUT_BUFFER_OFFSET_0
-+    0x00000000, // VGT_STRMOUT_BUFFER_SIZE_1
-+    0x00000000, // VGT_STRMOUT_VTX_STRIDE_1
-+    0, // HOLE
-+    0x00000000, // VGT_STRMOUT_BUFFER_OFFSET_1
-+    0x00000000, // VGT_STRMOUT_BUFFER_SIZE_2
-+    0x00000000, // VGT_STRMOUT_VTX_STRIDE_2
-+    0, // HOLE
-+    0x00000000, // VGT_STRMOUT_BUFFER_OFFSET_2
-+    0x00000000, // VGT_STRMOUT_BUFFER_SIZE_3
-+    0x00000000, // VGT_STRMOUT_VTX_STRIDE_3
-+    0, // HOLE
-+    0x00000000, // VGT_STRMOUT_BUFFER_OFFSET_3
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0x00000000, // VGT_STRMOUT_DRAW_OPAQUE_OFFSET
-+    0x00000000, // VGT_STRMOUT_DRAW_OPAQUE_BUFFER_FILLED_SIZE
-+    0x00000000, // VGT_STRMOUT_DRAW_OPAQUE_VERTEX_STRIDE
-+    0, // HOLE
-+    0x00000000, // VGT_GS_MAX_VERT_OUT
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0, // HOLE
-+    0x00000000, // GE_NGG_SUBGRP_CNTL
-+    0x00000000, // VGT_TESS_DISTRIBUTION
-+    0x00000000, // VGT_SHADER_STAGES_EN
-+    0x00000000, // VGT_LS_HS_CONFIG
-+    0x00000000, // VGT_GS_VERT_ITEMSIZE
-+    0x00000000, // VGT_GS_VERT_ITEMSIZE_1
-+    0x00000000, // VGT_GS_VERT_ITEMSIZE_2
-+    0x00000000, // VGT_GS_VERT_ITEMSIZE_3
-+    0x00000000, // VGT_TF_PARAM
-+    0x00000000, // DB_ALPHA_TO_MASK
-+    0, // HOLE
-+    0x00000000, // PA_SU_POLY_OFFSET_DB_FMT_CNTL
-+    0x00000000, // PA_SU_POLY_OFFSET_CLAMP
-+    0x00000000, // PA_SU_POLY_OFFSET_FRONT_SCALE
-+    0x00000000, // PA_SU_POLY_OFFSET_FRONT_OFFSET
-+    0x00000000, // PA_SU_POLY_OFFSET_BACK_SCALE
-+    0x00000000, // PA_SU_POLY_OFFSET_BACK_OFFSET
-+    0x00000000, // VGT_GS_INSTANCE_CNT
-+    0x00000000, // VGT_STRMOUT_CONFIG
-+    0x00000000, // VGT_STRMOUT_BUFFER_CONFIG
-+};
-+static const unsigned int gfx11_SECT_CONTEXT_def_8[] =
-+{
-+    0x00000000, // PA_SC_CENTROID_PRIORITY_0
-+    0x00000000, // PA_SC_CENTROID_PRIORITY_1
-+    0x00001000, // PA_SC_LINE_CNTL
-+    0x00000000, // PA_SC_AA_CONFIG
-+    0x00000005, // PA_SU_VTX_CNTL
-+    0x3f800000, // PA_CL_GB_VERT_CLIP_ADJ
-+    0x3f800000, // PA_CL_GB_VERT_DISC_ADJ
-+    0x3f800000, // PA_CL_GB_HORZ_CLIP_ADJ
-+    0x3f800000, // PA_CL_GB_HORZ_DISC_ADJ
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y0_0
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y0_1
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y0_2
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y0_3
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y0_0
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y0_1
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y0_2
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y0_3
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y1_0
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y1_1
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y1_2
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X0Y1_3
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y1_0
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y1_1
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y1_2
-+    0x00000000, // PA_SC_AA_SAMPLE_LOCS_PIXEL_X1Y1_3
-+    0xffffffff, // PA_SC_AA_MASK_X0Y0_X1Y0
-+    0xffffffff, // PA_SC_AA_MASK_X0Y1_X1Y1
-+    0x00000000, // PA_SC_SHADER_CONTROL
-+    0x00000003, // PA_SC_BINNER_CNTL_0
-+    0x00000000, // PA_SC_BINNER_CNTL_1
-+    0x00100000, // PA_SC_CONSERVATIVE_RASTERIZATION_CNTL
-+    0x00000000, // PA_SC_NGG_MODE_CNTL
-+    0x00000000, // PA_SC_BINNER_CNTL_2
-+    0x0000001e, // VGT_VERTEX_REUSE_BLOCK_CNTL
-+    0x00000020, // VGT_OUT_DEALLOC_CNTL
-+    0x00000000, // CB_COLOR0_BASE
-+    0x00000000, // CB_COLOR0_PITCH
-+    0x00000000, // CB_COLOR0_SLICE
-+    0x00000000, // CB_COLOR0_VIEW
-+    0x00000000, // CB_COLOR0_INFO
-+    0x00000000, // CB_COLOR0_ATTRIB
-+    0x00000000, // CB_COLOR0_DCC_CONTROL
-+    0x00000000, // CB_COLOR0_CMASK
-+    0x00000000, // CB_COLOR0_CMASK_SLICE
-+    0x00000000, // CB_COLOR0_FMASK
-+    0x00000000, // CB_COLOR0_FMASK_SLICE
-+    0x00000000, // CB_COLOR0_CLEAR_WORD0
-+    0x00000000, // CB_COLOR0_CLEAR_WORD1
-+    0x00000000, // CB_COLOR0_DCC_BASE
-+    0, // HOLE
-+    0x00000000, // CB_COLOR1_BASE
-+    0x00000000, // CB_COLOR1_PITCH
-+    0x00000000, // CB_COLOR1_SLICE
-+    0x00000000, // CB_COLOR1_VIEW
-+    0x00000000, // CB_COLOR1_INFO
-+    0x00000000, // CB_COLOR1_ATTRIB
-+    0x00000000, // CB_COLOR1_DCC_CONTROL
-+    0x00000000, // CB_COLOR1_CMASK
-+    0x00000000, // CB_COLOR1_CMASK_SLICE
-+    0x00000000, // CB_COLOR1_FMASK
-+    0x00000000, // CB_COLOR1_FMASK_SLICE
-+    0x00000000, // CB_COLOR1_CLEAR_WORD0
-+    0x00000000, // CB_COLOR1_CLEAR_WORD1
-+    0x00000000, // CB_COLOR1_DCC_BASE
-+    0, // HOLE
-+    0x00000000, // CB_COLOR2_BASE
-+    0x00000000, // CB_COLOR2_PITCH
-+    0x00000000, // CB_COLOR2_SLICE
-+    0x00000000, // CB_COLOR2_VIEW
-+    0x00000000, // CB_COLOR2_INFO
-+    0x00000000, // CB_COLOR2_ATTRIB
-+    0x00000000, // CB_COLOR2_DCC_CONTROL
-+    0x00000000, // CB_COLOR2_CMASK
-+    0x00000000, // CB_COLOR2_CMASK_SLICE
-+    0x00000000, // CB_COLOR2_FMASK
-+    0x00000000, // CB_COLOR2_FMASK_SLICE
-+    0x00000000, // CB_COLOR2_CLEAR_WORD0
-+    0x00000000, // CB_COLOR2_CLEAR_WORD1
-+    0x00000000, // CB_COLOR2_DCC_BASE
-+    0, // HOLE
-+    0x00000000, // CB_COLOR3_BASE
-+    0x00000000, // CB_COLOR3_PITCH
-+    0x00000000, // CB_COLOR3_SLICE
-+    0x00000000, // CB_COLOR3_VIEW
-+    0x00000000, // CB_COLOR3_INFO
-+    0x00000000, // CB_COLOR3_ATTRIB
-+    0x00000000, // CB_COLOR3_DCC_CONTROL
-+    0x00000000, // CB_COLOR3_CMASK
-+    0x00000000, // CB_COLOR3_CMASK_SLICE
-+    0x00000000, // CB_COLOR3_FMASK
-+    0x00000000, // CB_COLOR3_FMASK_SLICE
-+    0x00000000, // CB_COLOR3_CLEAR_WORD0
-+    0x00000000, // CB_COLOR3_CLEAR_WORD1
-+    0x00000000, // CB_COLOR3_DCC_BASE
-+    0, // HOLE
-+    0x00000000, // CB_COLOR4_BASE
-+    0x00000000, // CB_COLOR4_PITCH
-+    0x00000000, // CB_COLOR4_SLICE
-+    0x00000000, // CB_COLOR4_VIEW
-+    0x00000000, // CB_COLOR4_INFO
-+    0x00000000, // CB_COLOR4_ATTRIB
-+    0x00000000, // CB_COLOR4_DCC_CONTROL
-+    0x00000000, // CB_COLOR4_CMASK
-+    0x00000000, // CB_COLOR4_CMASK_SLICE
-+    0x00000000, // CB_COLOR4_FMASK
-+    0x00000000, // CB_COLOR4_FMASK_SLICE
-+    0x00000000, // CB_COLOR4_CLEAR_WORD0
-+    0x00000000, // CB_COLOR4_CLEAR_WORD1
-+    0x00000000, // CB_COLOR4_DCC_BASE
-+    0, // HOLE
-+    0x00000000, // CB_COLOR5_BASE
-+    0x00000000, // CB_COLOR5_PITCH
-+    0x00000000, // CB_COLOR5_SLICE
-+    0x00000000, // CB_COLOR5_VIEW
-+    0x00000000, // CB_COLOR5_INFO
-+    0x00000000, // CB_COLOR5_ATTRIB
-+    0x00000000, // CB_COLOR5_DCC_CONTROL
-+    0x00000000, // CB_COLOR5_CMASK
-+    0x00000000, // CB_COLOR5_CMASK_SLICE
-+    0x00000000, // CB_COLOR5_FMASK
-+    0x00000000, // CB_COLOR5_FMASK_SLICE
-+    0x00000000, // CB_COLOR5_CLEAR_WORD0
-+    0x00000000, // CB_COLOR5_CLEAR_WORD1
-+    0x00000000, // CB_COLOR5_DCC_BASE
-+    0, // HOLE
-+    0x00000000, // CB_COLOR6_BASE
-+    0x00000000, // CB_COLOR6_PITCH
-+    0x00000000, // CB_COLOR6_SLICE
-+    0x00000000, // CB_COLOR6_VIEW
-+    0x00000000, // CB_COLOR6_INFO
-+    0x00000000, // CB_COLOR6_ATTRIB
-+    0x00000000, // CB_COLOR6_DCC_CONTROL
-+    0x00000000, // CB_COLOR6_CMASK
-+    0x00000000, // CB_COLOR6_CMASK_SLICE
-+    0x00000000, // CB_COLOR6_FMASK
-+    0x00000000, // CB_COLOR6_FMASK_SLICE
-+    0x00000000, // CB_COLOR6_CLEAR_WORD0
-+    0x00000000, // CB_COLOR6_CLEAR_WORD1
-+    0x00000000, // CB_COLOR6_DCC_BASE
-+    0, // HOLE
-+    0x00000000, // CB_COLOR7_BASE
-+    0x00000000, // CB_COLOR7_PITCH
-+    0x00000000, // CB_COLOR7_SLICE
-+    0x00000000, // CB_COLOR7_VIEW
-+    0x00000000, // CB_COLOR7_INFO
-+    0x00000000, // CB_COLOR7_ATTRIB
-+    0x00000000, // CB_COLOR7_DCC_CONTROL
-+    0x00000000, // CB_COLOR7_CMASK
-+    0x00000000, // CB_COLOR7_CMASK_SLICE
-+    0x00000000, // CB_COLOR7_FMASK
-+    0x00000000, // CB_COLOR7_FMASK_SLICE
-+    0x00000000, // CB_COLOR7_CLEAR_WORD0
-+    0x00000000, // CB_COLOR7_CLEAR_WORD1
-+    0x00000000, // CB_COLOR7_DCC_BASE
-+    0, // HOLE
-+    0x00000000, // CB_COLOR0_BASE_EXT
-+    0x00000000, // CB_COLOR1_BASE_EXT
-+    0x00000000, // CB_COLOR2_BASE_EXT
-+    0x00000000, // CB_COLOR3_BASE_EXT
-+    0x00000000, // CB_COLOR4_BASE_EXT
-+    0x00000000, // CB_COLOR5_BASE_EXT
-+    0x00000000, // CB_COLOR6_BASE_EXT
-+    0x00000000, // CB_COLOR7_BASE_EXT
-+    0x00000000, // CB_COLOR0_CMASK_BASE_EXT
-+    0x00000000, // CB_COLOR1_CMASK_BASE_EXT
-+    0x00000000, // CB_COLOR2_CMASK_BASE_EXT
-+    0x00000000, // CB_COLOR3_CMASK_BASE_EXT
-+    0x00000000, // CB_COLOR4_CMASK_BASE_EXT
-+    0x00000000, // CB_COLOR5_CMASK_BASE_EXT
-+    0x00000000, // CB_COLOR6_CMASK_BASE_EXT
-+    0x00000000, // CB_COLOR7_CMASK_BASE_EXT
-+    0x00000000, // CB_COLOR0_FMASK_BASE_EXT
-+    0x00000000, // CB_COLOR1_FMASK_BASE_EXT
-+    0x00000000, // CB_COLOR2_FMASK_BASE_EXT
-+    0x00000000, // CB_COLOR3_FMASK_BASE_EXT
-+    0x00000000, // CB_COLOR4_FMASK_BASE_EXT
-+    0x00000000, // CB_COLOR5_FMASK_BASE_EXT
-+    0x00000000, // CB_COLOR6_FMASK_BASE_EXT
-+    0x00000000, // CB_COLOR7_FMASK_BASE_EXT
-+    0x00000000, // CB_COLOR0_DCC_BASE_EXT
-+    0x00000000, // CB_COLOR1_DCC_BASE_EXT
-+    0x00000000, // CB_COLOR2_DCC_BASE_EXT
-+    0x00000000, // CB_COLOR3_DCC_BASE_EXT
-+    0x00000000, // CB_COLOR4_DCC_BASE_EXT
-+    0x00000000, // CB_COLOR5_DCC_BASE_EXT
-+    0x00000000, // CB_COLOR6_DCC_BASE_EXT
-+    0x00000000, // CB_COLOR7_DCC_BASE_EXT
-+    0x00000000, // CB_COLOR0_ATTRIB2
-+    0x00000000, // CB_COLOR1_ATTRIB2
-+    0x00000000, // CB_COLOR2_ATTRIB2
-+    0x00000000, // CB_COLOR3_ATTRIB2
-+    0x00000000, // CB_COLOR4_ATTRIB2
-+    0x00000000, // CB_COLOR5_ATTRIB2
-+    0x00000000, // CB_COLOR6_ATTRIB2
-+    0x00000000, // CB_COLOR7_ATTRIB2
-+    0x00000000, // CB_COLOR0_ATTRIB3
-+    0x00000000, // CB_COLOR1_ATTRIB3
-+    0x00000000, // CB_COLOR2_ATTRIB3
-+    0x00000000, // CB_COLOR3_ATTRIB3
-+    0x00000000, // CB_COLOR4_ATTRIB3
-+    0x00000000, // CB_COLOR5_ATTRIB3
-+    0x00000000, // CB_COLOR6_ATTRIB3
-+    0x00000000, // CB_COLOR7_ATTRIB3
-+};
-+static const struct cs_extent_def gfx11_SECT_CONTEXT_defs[] =
-+{
-+    {gfx11_SECT_CONTEXT_def_1, 0x0000a000, 215 },
-+    {gfx11_SECT_CONTEXT_def_2, 0x0000a0d8, 272 },
-+    {gfx11_SECT_CONTEXT_def_3, 0x0000a1f5, 4 },
-+    {gfx11_SECT_CONTEXT_def_4, 0x0000a1ff, 158 },
-+    {gfx11_SECT_CONTEXT_def_5, 0x0000a2a0, 2 },
-+    {gfx11_SECT_CONTEXT_def_6, 0x0000a2a3, 1 },
-+    {gfx11_SECT_CONTEXT_def_7, 0x0000a2a5, 66 },
-+    {gfx11_SECT_CONTEXT_def_8, 0x0000a2f5, 203 },
-+    { 0, 0, 0 }
-+};
-+static const struct cs_section_def gfx11_cs_data[] = {
-+    { gfx11_SECT_CONTEXT_defs, SECT_CONTEXT },
-+    { 0, SECT_NONE }
++#ifndef V11_STRUCTS_H_
++#define V11_STRUCTS_H_
++
++struct v11_gfx_mqd {
++	uint32_t reserved_0; // offset: 0  (0x0)
++	uint32_t reserved_1; // offset: 1  (0x1)
++	uint32_t reserved_2; // offset: 2  (0x2)
++	uint32_t reserved_3; // offset: 3  (0x3)
++	uint32_t reserved_4; // offset: 4  (0x4)
++	uint32_t reserved_5; // offset: 5  (0x5)
++	uint32_t reserved_6; // offset: 6  (0x6)
++	uint32_t reserved_7; // offset: 7  (0x7)
++	uint32_t reserved_8; // offset: 8  (0x8)
++	uint32_t reserved_9; // offset: 9  (0x9)
++	uint32_t reserved_10; // offset: 10  (0xA)
++	uint32_t reserved_11; // offset: 11  (0xB)
++	uint32_t reserved_12; // offset: 12  (0xC)
++	uint32_t reserved_13; // offset: 13  (0xD)
++	uint32_t reserved_14; // offset: 14  (0xE)
++	uint32_t reserved_15; // offset: 15  (0xF)
++	uint32_t reserved_16; // offset: 16  (0x10)
++	uint32_t reserved_17; // offset: 17  (0x11)
++	uint32_t reserved_18; // offset: 18  (0x12)
++	uint32_t reserved_19; // offset: 19  (0x13)
++	uint32_t reserved_20; // offset: 20  (0x14)
++	uint32_t reserved_21; // offset: 21  (0x15)
++	uint32_t reserved_22; // offset: 22  (0x16)
++	uint32_t reserved_23; // offset: 23  (0x17)
++	uint32_t reserved_24; // offset: 24  (0x18)
++	uint32_t reserved_25; // offset: 25  (0x19)
++	uint32_t reserved_26; // offset: 26  (0x1A)
++	uint32_t reserved_27; // offset: 27  (0x1B)
++	uint32_t reserved_28; // offset: 28  (0x1C)
++	uint32_t reserved_29; // offset: 29  (0x1D)
++	uint32_t reserved_30; // offset: 30  (0x1E)
++	uint32_t reserved_31; // offset: 31  (0x1F)
++	uint32_t reserved_32; // offset: 32  (0x20)
++	uint32_t reserved_33; // offset: 33  (0x21)
++	uint32_t reserved_34; // offset: 34  (0x22)
++	uint32_t reserved_35; // offset: 35  (0x23)
++	uint32_t reserved_36; // offset: 36  (0x24)
++	uint32_t reserved_37; // offset: 37  (0x25)
++	uint32_t reserved_38; // offset: 38  (0x26)
++	uint32_t reserved_39; // offset: 39  (0x27)
++	uint32_t reserved_40; // offset: 40  (0x28)
++	uint32_t reserved_41; // offset: 41  (0x29)
++	uint32_t reserved_42; // offset: 42  (0x2A)
++	uint32_t reserved_43; // offset: 43  (0x2B)
++	uint32_t reserved_44; // offset: 44  (0x2C)
++	uint32_t reserved_45; // offset: 45  (0x2D)
++	uint32_t reserved_46; // offset: 46  (0x2E)
++	uint32_t reserved_47; // offset: 47  (0x2F)
++	uint32_t reserved_48; // offset: 48  (0x30)
++	uint32_t reserved_49; // offset: 49  (0x31)
++	uint32_t reserved_50; // offset: 50  (0x32)
++	uint32_t reserved_51; // offset: 51  (0x33)
++	uint32_t reserved_52; // offset: 52  (0x34)
++	uint32_t reserved_53; // offset: 53  (0x35)
++	uint32_t reserved_54; // offset: 54  (0x36)
++	uint32_t reserved_55; // offset: 55  (0x37)
++	uint32_t reserved_56; // offset: 56  (0x38)
++	uint32_t reserved_57; // offset: 57  (0x39)
++	uint32_t reserved_58; // offset: 58  (0x3A)
++	uint32_t reserved_59; // offset: 59  (0x3B)
++	uint32_t reserved_60; // offset: 60  (0x3C)
++	uint32_t reserved_61; // offset: 61  (0x3D)
++	uint32_t reserved_62; // offset: 62  (0x3E)
++	uint32_t reserved_63; // offset: 63  (0x3F)
++	uint32_t reserved_64; // offset: 64  (0x40)
++	uint32_t reserved_65; // offset: 65  (0x41)
++	uint32_t reserved_66; // offset: 66  (0x42)
++	uint32_t reserved_67; // offset: 67  (0x43)
++	uint32_t reserved_68; // offset: 68  (0x44)
++	uint32_t reserved_69; // offset: 69  (0x45)
++	uint32_t reserved_70; // offset: 70  (0x46)
++	uint32_t reserved_71; // offset: 71  (0x47)
++	uint32_t reserved_72; // offset: 72  (0x48)
++	uint32_t reserved_73; // offset: 73  (0x49)
++	uint32_t reserved_74; // offset: 74  (0x4A)
++	uint32_t reserved_75; // offset: 75  (0x4B)
++	uint32_t reserved_76; // offset: 76  (0x4C)
++	uint32_t reserved_77; // offset: 77  (0x4D)
++	uint32_t reserved_78; // offset: 78  (0x4E)
++	uint32_t reserved_79; // offset: 79  (0x4F)
++	uint32_t reserved_80; // offset: 80  (0x50)
++	uint32_t reserved_81; // offset: 81  (0x51)
++	uint32_t reserved_82; // offset: 82  (0x52)
++	uint32_t reserved_83; // offset: 83  (0x53)
++	uint32_t checksum_lo; // offset: 84  (0x54)
++	uint32_t checksum_hi; // offset: 85  (0x55)
++	uint32_t cp_mqd_query_time_lo; // offset: 86  (0x56)
++	uint32_t cp_mqd_query_time_hi; // offset: 87  (0x57)
++	uint32_t reserved_88; // offset: 88  (0x58)
++	uint32_t reserved_89; // offset: 89  (0x59)
++	uint32_t reserved_90; // offset: 90  (0x5A)
++	uint32_t reserved_91; // offset: 91  (0x5B)
++	uint32_t cp_mqd_query_wave_count; // offset: 92  (0x5C)
++	uint32_t cp_mqd_query_gfx_hqd_rptr; // offset: 93  (0x5D)
++	uint32_t cp_mqd_query_gfx_hqd_wptr; // offset: 94  (0x5E)
++	uint32_t cp_mqd_query_gfx_hqd_offset; // offset: 95  (0x5F)
++	uint32_t reserved_96; // offset: 96  (0x60)
++	uint32_t reserved_97; // offset: 97  (0x61)
++	uint32_t reserved_98; // offset: 98  (0x62)
++	uint32_t reserved_99; // offset: 99  (0x63)
++	uint32_t reserved_100; // offset: 100  (0x64)
++	uint32_t reserved_101; // offset: 101  (0x65)
++	uint32_t reserved_102; // offset: 102  (0x66)
++	uint32_t reserved_103; // offset: 103  (0x67)
++	uint32_t control_buf_addr_lo; // offset: 104  (0x68)
++	uint32_t control_buf_addr_hi; // offset: 105  (0x69)
++	uint32_t disable_queue; // offset: 106  (0x6A)
++	uint32_t reserved_107; // offset: 107  (0x6B)
++	uint32_t reserved_108; // offset: 108  (0x6C)
++	uint32_t reserved_109; // offset: 109  (0x6D)
++	uint32_t reserved_110; // offset: 110  (0x6E)
++	uint32_t reserved_111; // offset: 111  (0x6F)
++	uint32_t reserved_112; // offset: 112  (0x70)
++	uint32_t reserved_113; // offset: 113  (0x71)
++	uint32_t reserved_114; // offset: 114  (0x72)
++	uint32_t reserved_115; // offset: 115  (0x73)
++	uint32_t reserved_116; // offset: 116  (0x74)
++	uint32_t reserved_117; // offset: 117  (0x75)
++	uint32_t reserved_118; // offset: 118  (0x76)
++	uint32_t reserved_119; // offset: 119  (0x77)
++	uint32_t reserved_120; // offset: 120  (0x78)
++	uint32_t reserved_121; // offset: 121  (0x79)
++	uint32_t reserved_122; // offset: 122  (0x7A)
++	uint32_t reserved_123; // offset: 123  (0x7B)
++	uint32_t reserved_124; // offset: 124  (0x7C)
++	uint32_t reserved_125; // offset: 125  (0x7D)
++	uint32_t reserved_126; // offset: 126  (0x7E)
++	uint32_t reserved_127; // offset: 127  (0x7F)
++	uint32_t cp_mqd_base_addr; // offset: 128  (0x80)
++	uint32_t cp_mqd_base_addr_hi; // offset: 129  (0x81)
++	uint32_t cp_gfx_hqd_active; // offset: 130  (0x82)
++	uint32_t cp_gfx_hqd_vmid; // offset: 131  (0x83)
++	uint32_t reserved_131; // offset: 132  (0x84)
++	uint32_t reserved_132; // offset: 133  (0x85)
++	uint32_t cp_gfx_hqd_queue_priority; // offset: 134  (0x86)
++	uint32_t cp_gfx_hqd_quantum; // offset: 135  (0x87)
++	uint32_t cp_gfx_hqd_base; // offset: 136  (0x88)
++	uint32_t cp_gfx_hqd_base_hi; // offset: 137  (0x89)
++	uint32_t cp_gfx_hqd_rptr; // offset: 138  (0x8A)
++	uint32_t cp_gfx_hqd_rptr_addr; // offset: 139  (0x8B)
++	uint32_t cp_gfx_hqd_rptr_addr_hi; // offset: 140  (0x8C)
++	uint32_t cp_rb_wptr_poll_addr_lo; // offset: 141  (0x8D)
++	uint32_t cp_rb_wptr_poll_addr_hi; // offset: 142  (0x8E)
++	uint32_t cp_rb_doorbell_control; // offset: 143  (0x8F)
++	uint32_t cp_gfx_hqd_offset; // offset: 144  (0x90)
++	uint32_t cp_gfx_hqd_cntl; // offset: 145  (0x91)
++	uint32_t reserved_146; // offset: 146  (0x92)
++	uint32_t reserved_147; // offset: 147  (0x93)
++	uint32_t cp_gfx_hqd_csmd_rptr; // offset: 148  (0x94)
++	uint32_t cp_gfx_hqd_wptr; // offset: 149  (0x95)
++	uint32_t cp_gfx_hqd_wptr_hi; // offset: 150  (0x96)
++	uint32_t reserved_151; // offset: 151  (0x97)
++	uint32_t reserved_152; // offset: 152  (0x98)
++	uint32_t reserved_153; // offset: 153  (0x99)
++	uint32_t reserved_154; // offset: 154  (0x9A)
++	uint32_t reserved_155; // offset: 155  (0x9B)
++	uint32_t cp_gfx_hqd_mapped; // offset: 156  (0x9C)
++	uint32_t cp_gfx_hqd_que_mgr_control; // offset: 157  (0x9D)
++	uint32_t reserved_158; // offset: 158  (0x9E)
++	uint32_t reserved_159; // offset: 159  (0x9F)
++	uint32_t cp_gfx_hqd_hq_status0; // offset: 160  (0xA0)
++	uint32_t cp_gfx_hqd_hq_control0; // offset: 161  (0xA1)
++	uint32_t cp_gfx_mqd_control; // offset: 162  (0xA2)
++	uint32_t reserved_163; // offset: 163  (0xA3)
++	uint32_t reserved_164; // offset: 164  (0xA4)
++	uint32_t reserved_165; // offset: 165  (0xA5)
++	uint32_t reserved_166; // offset: 166  (0xA6)
++	uint32_t reserved_167; // offset: 167  (0xA7)
++	uint32_t reserved_168; // offset: 168  (0xA8)
++	uint32_t reserved_169; // offset: 169  (0xA9)
++	uint32_t cp_num_prim_needed_count0_lo; // offset: 170  (0xAA)
++	uint32_t cp_num_prim_needed_count0_hi; // offset: 171  (0xAB)
++	uint32_t cp_num_prim_needed_count1_lo; // offset: 172  (0xAC)
++	uint32_t cp_num_prim_needed_count1_hi; // offset: 173  (0xAD)
++	uint32_t cp_num_prim_needed_count2_lo; // offset: 174  (0xAE)
++	uint32_t cp_num_prim_needed_count2_hi; // offset: 175  (0xAF)
++	uint32_t cp_num_prim_needed_count3_lo; // offset: 176  (0xB0)
++	uint32_t cp_num_prim_needed_count3_hi; // offset: 177  (0xB1)
++	uint32_t cp_num_prim_written_count0_lo; // offset: 178  (0xB2)
++	uint32_t cp_num_prim_written_count0_hi; // offset: 179  (0xB3)
++	uint32_t cp_num_prim_written_count1_lo; // offset: 180  (0xB4)
++	uint32_t cp_num_prim_written_count1_hi; // offset: 181  (0xB5)
++	uint32_t cp_num_prim_written_count2_lo; // offset: 182  (0xB6)
++	uint32_t cp_num_prim_written_count2_hi; // offset: 183  (0xB7)
++	uint32_t cp_num_prim_written_count3_lo; // offset: 184  (0xB8)
++	uint32_t cp_num_prim_written_count3_hi; // offset: 185  (0xB9)
++	uint32_t reserved_186; // offset: 186  (0xBA)
++	uint32_t reserved_187; // offset: 187  (0xBB)
++	uint32_t reserved_188; // offset: 188  (0xBC)
++	uint32_t reserved_189; // offset: 189  (0xBD)
++	uint32_t mp1_smn_fps_cnt; // offset: 190  (0xBE)
++	uint32_t sq_thread_trace_buf0_base; // offset: 191  (0xBF)
++	uint32_t sq_thread_trace_buf0_size; // offset: 192  (0xC0)
++	uint32_t sq_thread_trace_buf1_base; // offset: 193  (0xC1)
++	uint32_t sq_thread_trace_buf1_size; // offset: 194  (0xC2)
++	uint32_t sq_thread_trace_wptr; // offset: 195  (0xC3)
++	uint32_t sq_thread_trace_mask; // offset: 196  (0xC4)
++	uint32_t sq_thread_trace_token_mask; // offset: 197  (0xC5)
++	uint32_t sq_thread_trace_ctrl; // offset: 198  (0xC6)
++	uint32_t sq_thread_trace_status; // offset: 199  (0xC7)
++	uint32_t sq_thread_trace_dropped_cntr; // offset: 200  (0xC8)
++	uint32_t sq_thread_trace_finish_done_debug; // offset: 201  (0xC9)
++	uint32_t sq_thread_trace_gfx_draw_cntr; // offset: 202  (0xCA)
++	uint32_t sq_thread_trace_gfx_marker_cntr; // offset: 203  (0xCB)
++	uint32_t sq_thread_trace_hp3d_draw_cntr; // offset: 204  (0xCC)
++	uint32_t sq_thread_trace_hp3d_marker_cntr; // offset: 205  (0xCD)
++	uint32_t reserved_206; // offset: 206  (0xCE)
++	uint32_t reserved_207; // offset: 207  (0xCF)
++	uint32_t cp_sc_psinvoc_count0_lo; // offset: 208  (0xD0)
++	uint32_t cp_sc_psinvoc_count0_hi; // offset: 209  (0xD1)
++	uint32_t cp_pa_cprim_count_lo; // offset: 210  (0xD2)
++	uint32_t cp_pa_cprim_count_hi; // offset: 211  (0xD3)
++	uint32_t cp_pa_cinvoc_count_lo; // offset: 212  (0xD4)
++	uint32_t cp_pa_cinvoc_count_hi; // offset: 213  (0xD5)
++	uint32_t cp_vgt_vsinvoc_count_lo; // offset: 214  (0xD6)
++	uint32_t cp_vgt_vsinvoc_count_hi; // offset: 215  (0xD7)
++	uint32_t cp_vgt_gsinvoc_count_lo; // offset: 216  (0xD8)
++	uint32_t cp_vgt_gsinvoc_count_hi; // offset: 217  (0xD9)
++	uint32_t cp_vgt_gsprim_count_lo; // offset: 218  (0xDA)
++	uint32_t cp_vgt_gsprim_count_hi; // offset: 219  (0xDB)
++	uint32_t cp_vgt_iaprim_count_lo; // offset: 220  (0xDC)
++	uint32_t cp_vgt_iaprim_count_hi; // offset: 221  (0xDD)
++	uint32_t cp_vgt_iavert_count_lo; // offset: 222  (0xDE)
++	uint32_t cp_vgt_iavert_count_hi; // offset: 223  (0xDF)
++	uint32_t cp_vgt_hsinvoc_count_lo; // offset: 224  (0xE0)
++	uint32_t cp_vgt_hsinvoc_count_hi; // offset: 225  (0xE1)
++	uint32_t cp_vgt_dsinvoc_count_lo; // offset: 226  (0xE2)
++	uint32_t cp_vgt_dsinvoc_count_hi; // offset: 227  (0xE3)
++	uint32_t cp_vgt_csinvoc_count_lo; // offset: 228  (0xE4)
++	uint32_t cp_vgt_csinvoc_count_hi; // offset: 229  (0xE5)
++	uint32_t reserved_230; // offset: 230  (0xE6)
++	uint32_t reserved_231; // offset: 231  (0xE7)
++	uint32_t reserved_232; // offset: 232  (0xE8)
++	uint32_t reserved_233; // offset: 233  (0xE9)
++	uint32_t reserved_234; // offset: 234  (0xEA)
++	uint32_t reserved_235; // offset: 235  (0xEB)
++	uint32_t reserved_236; // offset: 236  (0xEC)
++	uint32_t reserved_237; // offset: 237  (0xED)
++	uint32_t reserved_238; // offset: 238  (0xEE)
++	uint32_t reserved_239; // offset: 239  (0xEF)
++	uint32_t reserved_240; // offset: 240  (0xF0)
++	uint32_t reserved_241; // offset: 241  (0xF1)
++	uint32_t reserved_242; // offset: 242  (0xF2)
++	uint32_t reserved_243; // offset: 243  (0xF3)
++	uint32_t reserved_244; // offset: 244  (0xF4)
++	uint32_t reserved_245; // offset: 245  (0xF5)
++	uint32_t reserved_246; // offset: 246  (0xF6)
++	uint32_t reserved_247; // offset: 247  (0xF7)
++	uint32_t reserved_248; // offset: 248  (0xF8)
++	uint32_t reserved_249; // offset: 249  (0xF9)
++	uint32_t reserved_250; // offset: 250  (0xFA)
++	uint32_t reserved_251; // offset: 251  (0xFB)
++	uint32_t reserved_252; // offset: 252  (0xFC)
++	uint32_t reserved_253; // offset: 253  (0xFD)
++	uint32_t reserved_254; // offset: 254  (0xFE)
++	uint32_t reserved_255; // offset: 255  (0xFF)
++	uint32_t reserved_256; // offset: 256  (0x100)
++	uint32_t reserved_257; // offset: 257  (0x101)
++	uint32_t reserved_258; // offset: 258  (0x102)
++	uint32_t reserved_259; // offset: 259  (0x103)
++	uint32_t reserved_260; // offset: 260  (0x104)
++	uint32_t reserved_261; // offset: 261  (0x105)
++	uint32_t reserved_262; // offset: 262  (0x106)
++	uint32_t reserved_263; // offset: 263  (0x107)
++	uint32_t reserved_264; // offset: 264  (0x108)
++	uint32_t reserved_265; // offset: 265  (0x109)
++	uint32_t reserved_266; // offset: 266  (0x10A)
++	uint32_t reserved_267; // offset: 267  (0x10B)
++	uint32_t vgt_strmout_buffer_filled_size_0; // offset: 268  (0x10C)
++	uint32_t vgt_strmout_buffer_filled_size_1; // offset: 269  (0x10D)
++	uint32_t vgt_strmout_buffer_filled_size_2; // offset: 270  (0x10E)
++	uint32_t vgt_strmout_buffer_filled_size_3; // offset: 271  (0x10F)
++	uint32_t reserved_272; // offset: 272  (0x110)
++	uint32_t reserved_273; // offset: 273  (0x111)
++	uint32_t reserved_274; // offset: 274  (0x112)
++	uint32_t reserved_275; // offset: 275  (0x113)
++	uint32_t vgt_dma_max_size; // offset: 276  (0x114)
++	uint32_t vgt_dma_num_instances; // offset: 277  (0x115)
++	uint32_t reserved_278; // offset: 278  (0x116)
++	uint32_t reserved_279; // offset: 279  (0x117)
++	uint32_t reserved_280; // offset: 280  (0x118)
++	uint32_t reserved_281; // offset: 281  (0x119)
++	uint32_t reserved_282; // offset: 282  (0x11A)
++	uint32_t reserved_283; // offset: 283  (0x11B)
++	uint32_t reserved_284; // offset: 284  (0x11C)
++	uint32_t reserved_285; // offset: 285  (0x11D)
++	uint32_t reserved_286; // offset: 286  (0x11E)
++	uint32_t reserved_287; // offset: 287  (0x11F)
++	uint32_t it_set_base_ib_addr_lo; // offset: 288  (0x120)
++	uint32_t it_set_base_ib_addr_hi; // offset: 289  (0x121)
++	uint32_t reserved_290; // offset: 290  (0x122)
++	uint32_t reserved_291; // offset: 291  (0x123)
++	uint32_t reserved_292; // offset: 292  (0x124)
++	uint32_t reserved_293; // offset: 293  (0x125)
++	uint32_t reserved_294; // offset: 294  (0x126)
++	uint32_t reserved_295; // offset: 295  (0x127)
++	uint32_t reserved_296; // offset: 296  (0x128)
++	uint32_t reserved_297; // offset: 297  (0x129)
++	uint32_t reserved_298; // offset: 298  (0x12A)
++	uint32_t reserved_299; // offset: 299  (0x12B)
++	uint32_t reserved_300; // offset: 300  (0x12C)
++	uint32_t reserved_301; // offset: 301  (0x12D)
++	uint32_t reserved_302; // offset: 302  (0x12E)
++	uint32_t reserved_303; // offset: 303  (0x12F)
++	uint32_t reserved_304; // offset: 304  (0x130)
++	uint32_t reserved_305; // offset: 305  (0x131)
++	uint32_t reserved_306; // offset: 306  (0x132)
++	uint32_t reserved_307; // offset: 307  (0x133)
++	uint32_t reserved_308; // offset: 308  (0x134)
++	uint32_t reserved_309; // offset: 309  (0x135)
++	uint32_t reserved_310; // offset: 310  (0x136)
++	uint32_t reserved_311; // offset: 311  (0x137)
++	uint32_t reserved_312; // offset: 312  (0x138)
++	uint32_t reserved_313; // offset: 313  (0x139)
++	uint32_t reserved_314; // offset: 314  (0x13A)
++	uint32_t reserved_315; // offset: 315  (0x13B)
++	uint32_t reserved_316; // offset: 316  (0x13C)
++	uint32_t reserved_317; // offset: 317  (0x13D)
++	uint32_t reserved_318; // offset: 318  (0x13E)
++	uint32_t reserved_319; // offset: 319  (0x13F)
++	uint32_t reserved_320; // offset: 320  (0x140)
++	uint32_t reserved_321; // offset: 321  (0x141)
++	uint32_t reserved_322; // offset: 322  (0x142)
++	uint32_t reserved_323; // offset: 323  (0x143)
++	uint32_t reserved_324; // offset: 324  (0x144)
++	uint32_t reserved_325; // offset: 325  (0x145)
++	uint32_t reserved_326; // offset: 326  (0x146)
++	uint32_t reserved_327; // offset: 327  (0x147)
++	uint32_t reserved_328; // offset: 328  (0x148)
++	uint32_t reserved_329; // offset: 329  (0x149)
++	uint32_t reserved_330; // offset: 330  (0x14A)
++	uint32_t reserved_331; // offset: 331  (0x14B)
++	uint32_t reserved_332; // offset: 332  (0x14C)
++	uint32_t reserved_333; // offset: 333  (0x14D)
++	uint32_t reserved_334; // offset: 334  (0x14E)
++	uint32_t reserved_335; // offset: 335  (0x14F)
++	uint32_t reserved_336; // offset: 336  (0x150)
++	uint32_t reserved_337; // offset: 337  (0x151)
++	uint32_t reserved_338; // offset: 338  (0x152)
++	uint32_t reserved_339; // offset: 339  (0x153)
++	uint32_t reserved_340; // offset: 340  (0x154)
++	uint32_t reserved_341; // offset: 341  (0x155)
++	uint32_t reserved_342; // offset: 342  (0x156)
++	uint32_t reserved_343; // offset: 343  (0x157)
++	uint32_t reserved_344; // offset: 344  (0x158)
++	uint32_t reserved_345; // offset: 345  (0x159)
++	uint32_t reserved_346; // offset: 346  (0x15A)
++	uint32_t reserved_347; // offset: 347  (0x15B)
++	uint32_t reserved_348; // offset: 348  (0x15C)
++	uint32_t reserved_349; // offset: 349  (0x15D)
++	uint32_t reserved_350; // offset: 350  (0x15E)
++	uint32_t reserved_351; // offset: 351  (0x15F)
++	uint32_t reserved_352; // offset: 352  (0x160)
++	uint32_t reserved_353; // offset: 353  (0x161)
++	uint32_t reserved_354; // offset: 354  (0x162)
++	uint32_t reserved_355; // offset: 355  (0x163)
++	uint32_t spi_shader_pgm_rsrc3_ps; // offset: 356  (0x164)
++	uint32_t spi_shader_pgm_rsrc3_vs; // offset: 357  (0x165)
++	uint32_t spi_shader_pgm_rsrc3_gs; // offset: 358  (0x166)
++	uint32_t spi_shader_pgm_rsrc3_hs; // offset: 359  (0x167)
++	uint32_t spi_shader_pgm_rsrc4_ps; // offset: 360  (0x168)
++	uint32_t spi_shader_pgm_rsrc4_vs; // offset: 361  (0x169)
++	uint32_t spi_shader_pgm_rsrc4_gs; // offset: 362  (0x16A)
++	uint32_t spi_shader_pgm_rsrc4_hs; // offset: 363  (0x16B)
++	uint32_t db_occlusion_count0_low_00; // offset: 364  (0x16C)
++	uint32_t db_occlusion_count0_hi_00; // offset: 365  (0x16D)
++	uint32_t db_occlusion_count1_low_00; // offset: 366  (0x16E)
++	uint32_t db_occlusion_count1_hi_00; // offset: 367  (0x16F)
++	uint32_t db_occlusion_count2_low_00; // offset: 368  (0x170)
++	uint32_t db_occlusion_count2_hi_00; // offset: 369  (0x171)
++	uint32_t db_occlusion_count3_low_00; // offset: 370  (0x172)
++	uint32_t db_occlusion_count3_hi_00; // offset: 371  (0x173)
++	uint32_t db_occlusion_count0_low_01; // offset: 372  (0x174)
++	uint32_t db_occlusion_count0_hi_01; // offset: 373  (0x175)
++	uint32_t db_occlusion_count1_low_01; // offset: 374  (0x176)
++	uint32_t db_occlusion_count1_hi_01; // offset: 375  (0x177)
++	uint32_t db_occlusion_count2_low_01; // offset: 376  (0x178)
++	uint32_t db_occlusion_count2_hi_01; // offset: 377  (0x179)
++	uint32_t db_occlusion_count3_low_01; // offset: 378  (0x17A)
++	uint32_t db_occlusion_count3_hi_01; // offset: 379  (0x17B)
++	uint32_t db_occlusion_count0_low_02; // offset: 380  (0x17C)
++	uint32_t db_occlusion_count0_hi_02; // offset: 381  (0x17D)
++	uint32_t db_occlusion_count1_low_02; // offset: 382  (0x17E)
++	uint32_t db_occlusion_count1_hi_02; // offset: 383  (0x17F)
++	uint32_t db_occlusion_count2_low_02; // offset: 384  (0x180)
++	uint32_t db_occlusion_count2_hi_02; // offset: 385  (0x181)
++	uint32_t db_occlusion_count3_low_02; // offset: 386  (0x182)
++	uint32_t db_occlusion_count3_hi_02; // offset: 387  (0x183)
++	uint32_t db_occlusion_count0_low_03; // offset: 388  (0x184)
++	uint32_t db_occlusion_count0_hi_03; // offset: 389  (0x185)
++	uint32_t db_occlusion_count1_low_03; // offset: 390  (0x186)
++	uint32_t db_occlusion_count1_hi_03; // offset: 391  (0x187)
++	uint32_t db_occlusion_count2_low_03; // offset: 392  (0x188)
++	uint32_t db_occlusion_count2_hi_03; // offset: 393  (0x189)
++	uint32_t db_occlusion_count3_low_03; // offset: 394  (0x18A)
++	uint32_t db_occlusion_count3_hi_03; // offset: 395  (0x18B)
++	uint32_t db_occlusion_count0_low_04; // offset: 396  (0x18C)
++	uint32_t db_occlusion_count0_hi_04; // offset: 397  (0x18D)
++	uint32_t db_occlusion_count1_low_04; // offset: 398  (0x18E)
++	uint32_t db_occlusion_count1_hi_04; // offset: 399  (0x18F)
++	uint32_t db_occlusion_count2_low_04; // offset: 400  (0x190)
++	uint32_t db_occlusion_count2_hi_04; // offset: 401  (0x191)
++	uint32_t db_occlusion_count3_low_04; // offset: 402  (0x192)
++	uint32_t db_occlusion_count3_hi_04; // offset: 403  (0x193)
++	uint32_t db_occlusion_count0_low_05; // offset: 404  (0x194)
++	uint32_t db_occlusion_count0_hi_05; // offset: 405  (0x195)
++	uint32_t db_occlusion_count1_low_05; // offset: 406  (0x196)
++	uint32_t db_occlusion_count1_hi_05; // offset: 407  (0x197)
++	uint32_t db_occlusion_count2_low_05; // offset: 408  (0x198)
++	uint32_t db_occlusion_count2_hi_05; // offset: 409  (0x199)
++	uint32_t db_occlusion_count3_low_05; // offset: 410  (0x19A)
++	uint32_t db_occlusion_count3_hi_05; // offset: 411  (0x19B)
++	uint32_t db_occlusion_count0_low_06; // offset: 412  (0x19C)
++	uint32_t db_occlusion_count0_hi_06; // offset: 413  (0x19D)
++	uint32_t db_occlusion_count1_low_06; // offset: 414  (0x19E)
++	uint32_t db_occlusion_count1_hi_06; // offset: 415  (0x19F)
++	uint32_t db_occlusion_count2_low_06; // offset: 416  (0x1A0)
++	uint32_t db_occlusion_count2_hi_06; // offset: 417  (0x1A1)
++	uint32_t db_occlusion_count3_low_06; // offset: 418  (0x1A2)
++	uint32_t db_occlusion_count3_hi_06; // offset: 419  (0x1A3)
++	uint32_t db_occlusion_count0_low_07; // offset: 420  (0x1A4)
++	uint32_t db_occlusion_count0_hi_07; // offset: 421  (0x1A5)
++	uint32_t db_occlusion_count1_low_07; // offset: 422  (0x1A6)
++	uint32_t db_occlusion_count1_hi_07; // offset: 423  (0x1A7)
++	uint32_t db_occlusion_count2_low_07; // offset: 424  (0x1A8)
++	uint32_t db_occlusion_count2_hi_07; // offset: 425  (0x1A9)
++	uint32_t db_occlusion_count3_low_07; // offset: 426  (0x1AA)
++	uint32_t db_occlusion_count3_hi_07; // offset: 427  (0x1AB)
++	uint32_t db_occlusion_count0_low_10; // offset: 428  (0x1AC)
++	uint32_t db_occlusion_count0_hi_10; // offset: 429  (0x1AD)
++	uint32_t db_occlusion_count1_low_10; // offset: 430  (0x1AE)
++	uint32_t db_occlusion_count1_hi_10; // offset: 431  (0x1AF)
++	uint32_t db_occlusion_count2_low_10; // offset: 432  (0x1B0)
++	uint32_t db_occlusion_count2_hi_10; // offset: 433  (0x1B1)
++	uint32_t db_occlusion_count3_low_10; // offset: 434  (0x1B2)
++	uint32_t db_occlusion_count3_hi_10; // offset: 435  (0x1B3)
++	uint32_t db_occlusion_count0_low_11; // offset: 436  (0x1B4)
++	uint32_t db_occlusion_count0_hi_11; // offset: 437  (0x1B5)
++	uint32_t db_occlusion_count1_low_11; // offset: 438  (0x1B6)
++	uint32_t db_occlusion_count1_hi_11; // offset: 439  (0x1B7)
++	uint32_t db_occlusion_count2_low_11; // offset: 440  (0x1B8)
++	uint32_t db_occlusion_count2_hi_11; // offset: 441  (0x1B9)
++	uint32_t db_occlusion_count3_low_11; // offset: 442  (0x1BA)
++	uint32_t db_occlusion_count3_hi_11; // offset: 443  (0x1BB)
++	uint32_t db_occlusion_count0_low_12; // offset: 444  (0x1BC)
++	uint32_t db_occlusion_count0_hi_12; // offset: 445  (0x1BD)
++	uint32_t db_occlusion_count1_low_12; // offset: 446  (0x1BE)
++	uint32_t db_occlusion_count1_hi_12; // offset: 447  (0x1BF)
++	uint32_t db_occlusion_count2_low_12; // offset: 448  (0x1C0)
++	uint32_t db_occlusion_count2_hi_12; // offset: 449  (0x1C1)
++	uint32_t db_occlusion_count3_low_12; // offset: 450  (0x1C2)
++	uint32_t db_occlusion_count3_hi_12; // offset: 451  (0x1C3)
++	uint32_t db_occlusion_count0_low_13; // offset: 452  (0x1C4)
++	uint32_t db_occlusion_count0_hi_13; // offset: 453  (0x1C5)
++	uint32_t db_occlusion_count1_low_13; // offset: 454  (0x1C6)
++	uint32_t db_occlusion_count1_hi_13; // offset: 455  (0x1C7)
++	uint32_t db_occlusion_count2_low_13; // offset: 456  (0x1C8)
++	uint32_t db_occlusion_count2_hi_13; // offset: 457  (0x1C9)
++	uint32_t db_occlusion_count3_low_13; // offset: 458  (0x1CA)
++	uint32_t db_occlusion_count3_hi_13; // offset: 459  (0x1CB)
++	uint32_t db_occlusion_count0_low_14; // offset: 460  (0x1CC)
++	uint32_t db_occlusion_count0_hi_14; // offset: 461  (0x1CD)
++	uint32_t db_occlusion_count1_low_14; // offset: 462  (0x1CE)
++	uint32_t db_occlusion_count1_hi_14; // offset: 463  (0x1CF)
++	uint32_t db_occlusion_count2_low_14; // offset: 464  (0x1D0)
++	uint32_t db_occlusion_count2_hi_14; // offset: 465  (0x1D1)
++	uint32_t db_occlusion_count3_low_14; // offset: 466  (0x1D2)
++	uint32_t db_occlusion_count3_hi_14; // offset: 467  (0x1D3)
++	uint32_t db_occlusion_count0_low_15; // offset: 468  (0x1D4)
++	uint32_t db_occlusion_count0_hi_15; // offset: 469  (0x1D5)
++	uint32_t db_occlusion_count1_low_15; // offset: 470  (0x1D6)
++	uint32_t db_occlusion_count1_hi_15; // offset: 471  (0x1D7)
++	uint32_t db_occlusion_count2_low_15; // offset: 472  (0x1D8)
++	uint32_t db_occlusion_count2_hi_15; // offset: 473  (0x1D9)
++	uint32_t db_occlusion_count3_low_15; // offset: 474  (0x1DA)
++	uint32_t db_occlusion_count3_hi_15; // offset: 475  (0x1DB)
++	uint32_t db_occlusion_count0_low_16; // offset: 476  (0x1DC)
++	uint32_t db_occlusion_count0_hi_16; // offset: 477  (0x1DD)
++	uint32_t db_occlusion_count1_low_16; // offset: 478  (0x1DE)
++	uint32_t db_occlusion_count1_hi_16; // offset: 479  (0x1DF)
++	uint32_t db_occlusion_count2_low_16; // offset: 480  (0x1E0)
++	uint32_t db_occlusion_count2_hi_16; // offset: 481  (0x1E1)
++	uint32_t db_occlusion_count3_low_16; // offset: 482  (0x1E2)
++	uint32_t db_occlusion_count3_hi_16; // offset: 483  (0x1E3)
++	uint32_t db_occlusion_count0_low_17; // offset: 484  (0x1E4)
++	uint32_t db_occlusion_count0_hi_17; // offset: 485  (0x1E5)
++	uint32_t db_occlusion_count1_low_17; // offset: 486  (0x1E6)
++	uint32_t db_occlusion_count1_hi_17; // offset: 487  (0x1E7)
++	uint32_t db_occlusion_count2_low_17; // offset: 488  (0x1E8)
++	uint32_t db_occlusion_count2_hi_17; // offset: 489  (0x1E9)
++	uint32_t db_occlusion_count3_low_17; // offset: 490  (0x1EA)
++	uint32_t db_occlusion_count3_hi_17; // offset: 491  (0x1EB)
++	uint32_t reserved_492; // offset: 492  (0x1EC)
++	uint32_t reserved_493; // offset: 493  (0x1ED)
++	uint32_t reserved_494; // offset: 494  (0x1EE)
++	uint32_t reserved_495; // offset: 495  (0x1EF)
++	uint32_t reserved_496; // offset: 496  (0x1F0)
++	uint32_t reserved_497; // offset: 497  (0x1F1)
++	uint32_t reserved_498; // offset: 498  (0x1F2)
++	uint32_t reserved_499; // offset: 499  (0x1F3)
++	uint32_t reserved_500; // offset: 500  (0x1F4)
++	uint32_t reserved_501; // offset: 501  (0x1F5)
++	uint32_t reserved_502; // offset: 502  (0x1F6)
++	uint32_t reserved_503; // offset: 503  (0x1F7)
++	uint32_t reserved_504; // offset: 504  (0x1F8)
++	uint32_t reserved_505; // offset: 505  (0x1F9)
++	uint32_t reserved_506; // offset: 506  (0x1FA)
++	uint32_t reserved_507; // offset: 507  (0x1FB)
++	uint32_t reserved_508; // offset: 508  (0x1FC)
++	uint32_t reserved_509; // offset: 509  (0x1FD)
++	uint32_t reserved_510; // offset: 510  (0x1FE)
++	uint32_t reserved_511; // offset: 511  (0x1FF)
 +};
 +
-+#endif /* __CLEARSTATE_GFX11_H_ */
++struct v11_sdma_mqd {
++	uint32_t sdmax_rlcx_rb_cntl; // offset: 0  (0x0)
++	uint32_t sdmax_rlcx_rb_base; // offset: 1  (0x1)
++	uint32_t sdmax_rlcx_rb_base_hi; // offset: 2  (0x2)
++	uint32_t sdmax_rlcx_rb_rptr; // offset: 3  (0x3)
++	uint32_t sdmax_rlcx_rb_rptr_hi; // offset: 4  (0x4)
++	uint32_t sdmax_rlcx_rb_wptr; // offset: 5  (0x5)
++	uint32_t sdmax_rlcx_rb_wptr_hi; // offset: 6  (0x6)
++	uint32_t sdmax_rlcx_rb_rptr_addr_hi; // offset: 7  (0x7)
++	uint32_t sdmax_rlcx_rb_rptr_addr_lo; // offset: 8  (0x8)
++	uint32_t sdmax_rlcx_ib_cntl; // offset: 9  (0x9)
++	uint32_t sdmax_rlcx_ib_rptr; // offset: 10  (0xA)
++	uint32_t sdmax_rlcx_ib_offset; // offset: 11  (0xB)
++	uint32_t sdmax_rlcx_ib_base_lo; // offset: 12  (0xC)
++	uint32_t sdmax_rlcx_ib_base_hi; // offset: 13  (0xD)
++	uint32_t sdmax_rlcx_ib_size; // offset: 14  (0xE)
++	uint32_t sdmax_rlcx_skip_cntl; // offset: 15  (0xF)
++	uint32_t sdmax_rlcx_context_status; // offset: 16  (0x10)
++	uint32_t sdmax_rlcx_doorbell; // offset: 17  (0x11)
++	uint32_t sdmax_rlcx_doorbell_log; // offset: 18  (0x12)
++	uint32_t sdmax_rlcx_doorbell_offset; // offset: 19  (0x13)
++	uint32_t sdmax_rlcx_csa_addr_lo; // offset: 20  (0x14)
++	uint32_t sdmax_rlcx_csa_addr_hi; // offset: 21  (0x15)
++	uint32_t sdmax_rlcx_sched_cntl; // offset: 22  (0x16)
++	uint32_t sdmax_rlcx_ib_sub_remain; // offset: 23  (0x17)
++	uint32_t sdmax_rlcx_preempt; // offset: 24  (0x18)
++	uint32_t sdmax_rlcx_dummy_reg; // offset: 25  (0x19)
++	uint32_t sdmax_rlcx_rb_wptr_poll_addr_hi; // offset: 26  (0x1A)
++	uint32_t sdmax_rlcx_rb_wptr_poll_addr_lo; // offset: 27  (0x1B)
++	uint32_t sdmax_rlcx_rb_aql_cntl; // offset: 28  (0x1C)
++	uint32_t sdmax_rlcx_minor_ptr_update; // offset: 29  (0x1D)
++	uint32_t sdmax_rlcx_rb_preempt; // offset: 30  (0x1E)
++	uint32_t sdmax_rlcx_midcmd_data0; // offset: 31  (0x1F)
++	uint32_t sdmax_rlcx_midcmd_data1; // offset: 32  (0x20)
++	uint32_t sdmax_rlcx_midcmd_data2; // offset: 33  (0x21)
++	uint32_t sdmax_rlcx_midcmd_data3; // offset: 34  (0x22)
++	uint32_t sdmax_rlcx_midcmd_data4; // offset: 35  (0x23)
++	uint32_t sdmax_rlcx_midcmd_data5; // offset: 36  (0x24)
++	uint32_t sdmax_rlcx_midcmd_data6; // offset: 37  (0x25)
++	uint32_t sdmax_rlcx_midcmd_data7; // offset: 38  (0x26)
++	uint32_t sdmax_rlcx_midcmd_data8; // offset: 39  (0x27)
++	uint32_t sdmax_rlcx_midcmd_data9; // offset: 40  (0x28)
++	uint32_t sdmax_rlcx_midcmd_data10; // offset: 41  (0x29)
++	uint32_t sdmax_rlcx_midcmd_cntl; // offset: 42  (0x2A)
++	uint32_t sdmax_rlcx_f32_dbg0; // offset: 43  (0x2B)
++	uint32_t sdmax_rlcx_f32_dbg1; // offset: 44  (0x2C)
++	uint32_t reserved_45; // offset: 45  (0x2D)
++	uint32_t reserved_46; // offset: 46  (0x2E)
++	uint32_t reserved_47; // offset: 47  (0x2F)
++	uint32_t reserved_48; // offset: 48  (0x30)
++	uint32_t reserved_49; // offset: 49  (0x31)
++	uint32_t reserved_50; // offset: 50  (0x32)
++	uint32_t reserved_51; // offset: 51  (0x33)
++	uint32_t reserved_52; // offset: 52  (0x34)
++	uint32_t reserved_53; // offset: 53  (0x35)
++	uint32_t reserved_54; // offset: 54  (0x36)
++	uint32_t reserved_55; // offset: 55  (0x37)
++	uint32_t reserved_56; // offset: 56  (0x38)
++	uint32_t reserved_57; // offset: 57  (0x39)
++	uint32_t reserved_58; // offset: 58  (0x3A)
++	uint32_t reserved_59; // offset: 59  (0x3B)
++	uint32_t reserved_60; // offset: 60  (0x3C)
++	uint32_t reserved_61; // offset: 61  (0x3D)
++	uint32_t reserved_62; // offset: 62  (0x3E)
++	uint32_t reserved_63; // offset: 63  (0x3F)
++	uint32_t reserved_64; // offset: 64  (0x40)
++	uint32_t reserved_65; // offset: 65  (0x41)
++	uint32_t reserved_66; // offset: 66  (0x42)
++	uint32_t reserved_67; // offset: 67  (0x43)
++	uint32_t reserved_68; // offset: 68  (0x44)
++	uint32_t reserved_69; // offset: 69  (0x45)
++	uint32_t reserved_70; // offset: 70  (0x46)
++	uint32_t reserved_71; // offset: 0  (0x47)
++	uint32_t reserved_72; // offset: 1  (0x48)
++	uint32_t reserved_73; // offset: 2  (0x49)
++	uint32_t reserved_74; // offset: 3  (0x4A)
++	uint32_t reserved_75; // offset: 4  (0x4B)
++	uint32_t reserved_76; // offset: 5  (0x4C)
++	uint32_t reserved_77; // offset: 6  (0x4D)
++	uint32_t reserved_78; // offset: 7  (0x4E)
++	uint32_t reserved_79; // offset: 79  (0x4F)
++	uint32_t reserved_80; // offset: 80  (0x50)
++	uint32_t reserved_81; // offset: 81  (0x51)
++	uint32_t reserved_82; // offset: 82  (0x52)
++	uint32_t reserved_83; // offset: 83  (0x53)
++	uint32_t reserved_84; // offset: 84  (0x54)
++	uint32_t reserved_85; // offset: 85  (0x55)
++	uint32_t reserved_86; // offset: 86  (0x56)
++	uint32_t reserved_87; // offset: 87  (0x57)
++	uint32_t reserved_88; // offset: 88  (0x58)
++	uint32_t reserved_89; // offset: 89  (0x59)
++	uint32_t reserved_90; // offset: 90  (0x5A)
++	uint32_t reserved_91; // offset: 91  (0x5B)
++	uint32_t reserved_92; // offset: 92  (0x5C)
++	uint32_t reserved_93; // offset: 93  (0x5D)
++	uint32_t reserved_94; // offset: 94  (0x5E)
++	uint32_t reserved_95; // offset: 95  (0x5F)
++	uint32_t reserved_96; // offset: 96  (0x60)
++	uint32_t reserved_97; // offset: 97  (0x61)
++	uint32_t reserved_98; // offset: 98  (0x62)
++	uint32_t reserved_99; // offset: 99  (0x63)
++	uint32_t reserved_100; // offset: 100  (0x64)
++	uint32_t reserved_101; // offset: 101  (0x65)
++	uint32_t reserved_102; // offset: 102  (0x66)
++	uint32_t reserved_103; // offset: 103  (0x67)
++	uint32_t reserved_104; // offset: 104  (0x68)
++	uint32_t reserved_105; // offset: 105  (0x69)
++	uint32_t reserved_106; // offset: 106  (0x6A)
++	uint32_t reserved_107; // offset: 107  (0x6B)
++	uint32_t reserved_108; // offset: 108  (0x6C)
++	uint32_t reserved_109; // offset: 109  (0x6D)
++	uint32_t reserved_110; // offset: 110  (0x6E)
++	uint32_t reserved_111; // offset: 111  (0x6F)
++	uint32_t reserved_112; // offset: 112  (0x70)
++	uint32_t reserved_113; // offset: 113  (0x71)
++	uint32_t reserved_114; // offset: 114  (0x72)
++	uint32_t reserved_115; // offset: 115  (0x73)
++	uint32_t reserved_116; // offset: 116  (0x74)
++	uint32_t reserved_117; // offset: 117  (0x75)
++	uint32_t reserved_118; // offset: 118  (0x76)
++	uint32_t reserved_119; // offset: 119  (0x77)
++	uint32_t reserved_120; // offset: 120  (0x78)
++	uint32_t reserved_121; // offset: 121  (0x79)
++	uint32_t reserved_122; // offset: 122  (0x7A)
++	uint32_t reserved_123; // offset: 123  (0x7B)
++	uint32_t reserved_124; // offset: 124  (0x7C)
++	uint32_t reserved_125; // offset: 125  (0x7D)
++	/* reserved_126,127: repurposed for driver-internal use */
++	uint32_t sdma_engine_id;
++	uint32_t sdma_queue_id;
++};
++
++struct v11_compute_mqd {
++	uint32_t header; // offset: 0  (0x0)
++	uint32_t compute_dispatch_initiator; // offset: 1  (0x1)
++	uint32_t compute_dim_x; // offset: 2  (0x2)
++	uint32_t compute_dim_y; // offset: 3  (0x3)
++	uint32_t compute_dim_z; // offset: 4  (0x4)
++	uint32_t compute_start_x; // offset: 5  (0x5)
++	uint32_t compute_start_y; // offset: 6  (0x6)
++	uint32_t compute_start_z; // offset: 7  (0x7)
++	uint32_t compute_num_thread_x; // offset: 8  (0x8)
++	uint32_t compute_num_thread_y; // offset: 9  (0x9)
++	uint32_t compute_num_thread_z; // offset: 10  (0xA)
++	uint32_t compute_pipelinestat_enable; // offset: 11  (0xB)
++	uint32_t compute_perfcount_enable; // offset: 12  (0xC)
++	uint32_t compute_pgm_lo; // offset: 13  (0xD)
++	uint32_t compute_pgm_hi; // offset: 14  (0xE)
++	uint32_t compute_dispatch_pkt_addr_lo; // offset: 15  (0xF)
++	uint32_t compute_dispatch_pkt_addr_hi; // offset: 16  (0x10)
++	uint32_t compute_dispatch_scratch_base_lo; // offset: 17  (0x11)
++	uint32_t compute_dispatch_scratch_base_hi; // offset: 18  (0x12)
++	uint32_t compute_pgm_rsrc1; // offset: 19  (0x13)
++	uint32_t compute_pgm_rsrc2; // offset: 20  (0x14)
++	uint32_t compute_vmid; // offset: 21  (0x15)
++	uint32_t compute_resource_limits; // offset: 22  (0x16)
++	uint32_t compute_static_thread_mgmt_se0; // offset: 23  (0x17)
++	uint32_t compute_static_thread_mgmt_se1; // offset: 24  (0x18)
++	uint32_t compute_tmpring_size; // offset: 25  (0x19)
++	uint32_t compute_static_thread_mgmt_se2; // offset: 26  (0x1A)
++	uint32_t compute_static_thread_mgmt_se3; // offset: 27  (0x1B)
++	uint32_t compute_restart_x; // offset: 28  (0x1C)
++	uint32_t compute_restart_y; // offset: 29  (0x1D)
++	uint32_t compute_restart_z; // offset: 30  (0x1E)
++	uint32_t compute_thread_trace_enable; // offset: 31  (0x1F)
++	uint32_t compute_misc_reserved; // offset: 32  (0x20)
++	uint32_t compute_dispatch_id; // offset: 33  (0x21)
++	uint32_t compute_threadgroup_id; // offset: 34  (0x22)
++	uint32_t compute_req_ctrl; // offset: 35  (0x23)
++	uint32_t reserved_36; // offset: 36  (0x24)
++	uint32_t compute_user_accum_0; // offset: 37  (0x25)
++	uint32_t compute_user_accum_1; // offset: 38  (0x26)
++	uint32_t compute_user_accum_2; // offset: 39  (0x27)
++	uint32_t compute_user_accum_3; // offset: 40  (0x28)
++	uint32_t compute_pgm_rsrc3; // offset: 41  (0x29)
++	uint32_t compute_ddid_index; // offset: 42  (0x2A)
++	uint32_t compute_shader_chksum; // offset: 43  (0x2B)
++	uint32_t compute_static_thread_mgmt_se4; // offset: 44  (0x2C)
++	uint32_t compute_static_thread_mgmt_se5; // offset: 45  (0x2D)
++	uint32_t compute_static_thread_mgmt_se6; // offset: 46  (0x2E)
++	uint32_t compute_static_thread_mgmt_se7; // offset: 47  (0x2F)
++	uint32_t compute_dispatch_interleave; // offset: 48  (0x30)
++	uint32_t compute_relaunch; // offset: 49  (0x31)
++	uint32_t compute_wave_restore_addr_lo; // offset: 50  (0x32)
++	uint32_t compute_wave_restore_addr_hi; // offset: 51  (0x33)
++	uint32_t compute_wave_restore_control; // offset: 52  (0x34)
++	uint32_t reserved_53; // offset: 53  (0x35)
++	uint32_t reserved_54; // offset: 54  (0x36)
++	uint32_t reserved_55; // offset: 55  (0x37)
++	uint32_t reserved_56; // offset: 56  (0x38)
++	uint32_t reserved_57; // offset: 57  (0x39)
++	uint32_t reserved_58; // offset: 58  (0x3A)
++	uint32_t reserved_59; // offset: 59  (0x3B)
++	uint32_t reserved_60; // offset: 60  (0x3C)
++	uint32_t reserved_61; // offset: 61  (0x3D)
++	uint32_t reserved_62; // offset: 62  (0x3E)
++	uint32_t reserved_63; // offset: 63  (0x3F)
++	uint32_t reserved_64; // offset: 64  (0x40)
++	uint32_t compute_user_data_0; // offset: 65  (0x41)
++	uint32_t compute_user_data_1; // offset: 66  (0x42)
++	uint32_t compute_user_data_2; // offset: 67  (0x43)
++	uint32_t compute_user_data_3; // offset: 68  (0x44)
++	uint32_t compute_user_data_4; // offset: 69  (0x45)
++	uint32_t compute_user_data_5; // offset: 70  (0x46)
++	uint32_t compute_user_data_6; // offset: 71  (0x47)
++	uint32_t compute_user_data_7; // offset: 72  (0x48)
++	uint32_t compute_user_data_8; // offset: 73  (0x49)
++	uint32_t compute_user_data_9; // offset: 74  (0x4A)
++	uint32_t compute_user_data_10; // offset: 75  (0x4B)
++	uint32_t compute_user_data_11; // offset: 76  (0x4C)
++	uint32_t compute_user_data_12; // offset: 77  (0x4D)
++	uint32_t compute_user_data_13; // offset: 78  (0x4E)
++	uint32_t compute_user_data_14; // offset: 79  (0x4F)
++	uint32_t compute_user_data_15; // offset: 80  (0x50)
++	uint32_t cp_compute_csinvoc_count_lo; // offset: 81  (0x51)
++	uint32_t cp_compute_csinvoc_count_hi; // offset: 82  (0x52)
++	uint32_t reserved_83; // offset: 83  (0x53)
++	uint32_t reserved_84; // offset: 84  (0x54)
++	uint32_t reserved_85; // offset: 85  (0x55)
++	uint32_t cp_mqd_query_time_lo; // offset: 86  (0x56)
++	uint32_t cp_mqd_query_time_hi; // offset: 87  (0x57)
++	uint32_t cp_mqd_connect_start_time_lo; // offset: 88  (0x58)
++	uint32_t cp_mqd_connect_start_time_hi; // offset: 89  (0x59)
++	uint32_t cp_mqd_connect_end_time_lo; // offset: 90  (0x5A)
++	uint32_t cp_mqd_connect_end_time_hi; // offset: 91  (0x5B)
++	uint32_t cp_mqd_connect_end_wf_count; // offset: 92  (0x5C)
++	uint32_t cp_mqd_connect_end_pq_rptr; // offset: 93  (0x5D)
++	uint32_t cp_mqd_connect_end_pq_wptr; // offset: 94  (0x5E)
++	uint32_t cp_mqd_connect_end_ib_rptr; // offset: 95  (0x5F)
++	uint32_t cp_mqd_readindex_lo; // offset: 96  (0x60)
++	uint32_t cp_mqd_readindex_hi; // offset: 97  (0x61)
++	uint32_t cp_mqd_save_start_time_lo; // offset: 98  (0x62)
++	uint32_t cp_mqd_save_start_time_hi; // offset: 99  (0x63)
++	uint32_t cp_mqd_save_end_time_lo; // offset: 100  (0x64)
++	uint32_t cp_mqd_save_end_time_hi; // offset: 101  (0x65)
++	uint32_t cp_mqd_restore_start_time_lo; // offset: 102  (0x66)
++	uint32_t cp_mqd_restore_start_time_hi; // offset: 103  (0x67)
++	uint32_t cp_mqd_restore_end_time_lo; // offset: 104  (0x68)
++	uint32_t cp_mqd_restore_end_time_hi; // offset: 105  (0x69)
++	uint32_t disable_queue; // offset: 106  (0x6A)
++	uint32_t reserved_107; // offset: 107  (0x6B)
++	uint32_t gds_cs_ctxsw_cnt0; // offset: 108  (0x6C)
++	uint32_t gds_cs_ctxsw_cnt1; // offset: 109  (0x6D)
++	uint32_t gds_cs_ctxsw_cnt2; // offset: 110  (0x6E)
++	uint32_t gds_cs_ctxsw_cnt3; // offset: 111  (0x6F)
++	uint32_t reserved_112; // offset: 112  (0x70)
++	uint32_t reserved_113; // offset: 113  (0x71)
++	uint32_t cp_pq_exe_status_lo; // offset: 114  (0x72)
++	uint32_t cp_pq_exe_status_hi; // offset: 115  (0x73)
++	uint32_t cp_packet_id_lo; // offset: 116  (0x74)
++	uint32_t cp_packet_id_hi; // offset: 117  (0x75)
++	uint32_t cp_packet_exe_status_lo; // offset: 118  (0x76)
++	uint32_t cp_packet_exe_status_hi; // offset: 119  (0x77)
++	uint32_t gds_save_base_addr_lo; // offset: 120  (0x78)
++	uint32_t gds_save_base_addr_hi; // offset: 121  (0x79)
++	uint32_t gds_save_mask_lo; // offset: 122  (0x7A)
++	uint32_t gds_save_mask_hi; // offset: 123  (0x7B)
++	uint32_t ctx_save_base_addr_lo; // offset: 124  (0x7C)
++	uint32_t ctx_save_base_addr_hi; // offset: 125  (0x7D)
++	uint32_t reserved_126; // offset: 126  (0x7E)
++	uint32_t reserved_127; // offset: 127  (0x7F)
++	uint32_t cp_mqd_base_addr_lo; // offset: 128  (0x80)
++	uint32_t cp_mqd_base_addr_hi; // offset: 129  (0x81)
++	uint32_t cp_hqd_active; // offset: 130  (0x82)
++	uint32_t cp_hqd_vmid; // offset: 131  (0x83)
++	uint32_t cp_hqd_persistent_state; // offset: 132  (0x84)
++	uint32_t cp_hqd_pipe_priority; // offset: 133  (0x85)
++	uint32_t cp_hqd_queue_priority; // offset: 134  (0x86)
++	uint32_t cp_hqd_quantum; // offset: 135  (0x87)
++	uint32_t cp_hqd_pq_base_lo; // offset: 136  (0x88)
++	uint32_t cp_hqd_pq_base_hi; // offset: 137  (0x89)
++	uint32_t cp_hqd_pq_rptr; // offset: 138  (0x8A)
++	uint32_t cp_hqd_pq_rptr_report_addr_lo; // offset: 139  (0x8B)
++	uint32_t cp_hqd_pq_rptr_report_addr_hi; // offset: 140  (0x8C)
++	uint32_t cp_hqd_pq_wptr_poll_addr_lo; // offset: 141  (0x8D)
++	uint32_t cp_hqd_pq_wptr_poll_addr_hi; // offset: 142  (0x8E)
++	uint32_t cp_hqd_pq_doorbell_control; // offset: 143  (0x8F)
++	uint32_t reserved_144; // offset: 144  (0x90)
++	uint32_t cp_hqd_pq_control; // offset: 145  (0x91)
++	uint32_t cp_hqd_ib_base_addr_lo; // offset: 146  (0x92)
++	uint32_t cp_hqd_ib_base_addr_hi; // offset: 147  (0x93)
++	uint32_t cp_hqd_ib_rptr; // offset: 148  (0x94)
++	uint32_t cp_hqd_ib_control; // offset: 149  (0x95)
++	uint32_t cp_hqd_iq_timer; // offset: 150  (0x96)
++	uint32_t cp_hqd_iq_rptr; // offset: 151  (0x97)
++	uint32_t cp_hqd_dequeue_request; // offset: 152  (0x98)
++	uint32_t cp_hqd_dma_offload; // offset: 153  (0x99)
++	uint32_t cp_hqd_sema_cmd; // offset: 154  (0x9A)
++	uint32_t cp_hqd_msg_type; // offset: 155  (0x9B)
++	uint32_t cp_hqd_atomic0_preop_lo; // offset: 156  (0x9C)
++	uint32_t cp_hqd_atomic0_preop_hi; // offset: 157  (0x9D)
++	uint32_t cp_hqd_atomic1_preop_lo; // offset: 158  (0x9E)
++	uint32_t cp_hqd_atomic1_preop_hi; // offset: 159  (0x9F)
++	uint32_t cp_hqd_hq_status0; // offset: 160  (0xA0)
++	uint32_t cp_hqd_hq_control0; // offset: 161  (0xA1)
++	uint32_t cp_mqd_control; // offset: 162  (0xA2)
++	uint32_t cp_hqd_hq_status1; // offset: 163  (0xA3)
++	uint32_t cp_hqd_hq_control1; // offset: 164  (0xA4)
++	uint32_t cp_hqd_eop_base_addr_lo; // offset: 165  (0xA5)
++	uint32_t cp_hqd_eop_base_addr_hi; // offset: 166  (0xA6)
++	uint32_t cp_hqd_eop_control; // offset: 167  (0xA7)
++	uint32_t cp_hqd_eop_rptr; // offset: 168  (0xA8)
++	uint32_t cp_hqd_eop_wptr; // offset: 169  (0xA9)
++	uint32_t cp_hqd_eop_done_events; // offset: 170  (0xAA)
++	uint32_t cp_hqd_ctx_save_base_addr_lo; // offset: 171  (0xAB)
++	uint32_t cp_hqd_ctx_save_base_addr_hi; // offset: 172  (0xAC)
++	uint32_t cp_hqd_ctx_save_control; // offset: 173  (0xAD)
++	uint32_t cp_hqd_cntl_stack_offset; // offset: 174  (0xAE)
++	uint32_t cp_hqd_cntl_stack_size; // offset: 175  (0xAF)
++	uint32_t cp_hqd_wg_state_offset; // offset: 176  (0xB0)
++	uint32_t cp_hqd_ctx_save_size; // offset: 177  (0xB1)
++	uint32_t cp_hqd_gds_resource_state; // offset: 178  (0xB2)
++	uint32_t cp_hqd_error; // offset: 179  (0xB3)
++	uint32_t cp_hqd_eop_wptr_mem; // offset: 180  (0xB4)
++	uint32_t cp_hqd_aql_control; // offset: 181  (0xB5)
++	uint32_t cp_hqd_pq_wptr_lo; // offset: 182  (0xB6)
++	uint32_t cp_hqd_pq_wptr_hi; // offset: 183  (0xB7)
++	uint32_t reserved_184; // offset: 184  (0xB8)
++	uint32_t reserved_185; // offset: 185  (0xB9)
++	uint32_t reserved_186; // offset: 186  (0xBA)
++	uint32_t reserved_187; // offset: 187  (0xBB)
++	uint32_t reserved_188; // offset: 188  (0xBC)
++	uint32_t reserved_189; // offset: 189  (0xBD)
++	uint32_t reserved_190; // offset: 190  (0xBE)
++	uint32_t reserved_191; // offset: 191  (0xBF)
++	uint32_t iqtimer_pkt_header; // offset: 192  (0xC0)
++	uint32_t iqtimer_pkt_dw0; // offset: 193  (0xC1)
++	uint32_t iqtimer_pkt_dw1; // offset: 194  (0xC2)
++	uint32_t iqtimer_pkt_dw2; // offset: 195  (0xC3)
++	uint32_t iqtimer_pkt_dw3; // offset: 196  (0xC4)
++	uint32_t iqtimer_pkt_dw4; // offset: 197  (0xC5)
++	uint32_t iqtimer_pkt_dw5; // offset: 198  (0xC6)
++	uint32_t iqtimer_pkt_dw6; // offset: 199  (0xC7)
++	uint32_t iqtimer_pkt_dw7; // offset: 200  (0xC8)
++	uint32_t iqtimer_pkt_dw8; // offset: 201  (0xC9)
++	uint32_t iqtimer_pkt_dw9; // offset: 202  (0xCA)
++	uint32_t iqtimer_pkt_dw10; // offset: 203  (0xCB)
++	uint32_t iqtimer_pkt_dw11; // offset: 204  (0xCC)
++	uint32_t iqtimer_pkt_dw12; // offset: 205  (0xCD)
++	uint32_t iqtimer_pkt_dw13; // offset: 206  (0xCE)
++	uint32_t iqtimer_pkt_dw14; // offset: 207  (0xCF)
++	uint32_t iqtimer_pkt_dw15; // offset: 208  (0xD0)
++	uint32_t iqtimer_pkt_dw16; // offset: 209  (0xD1)
++	uint32_t iqtimer_pkt_dw17; // offset: 210  (0xD2)
++	uint32_t iqtimer_pkt_dw18; // offset: 211  (0xD3)
++	uint32_t iqtimer_pkt_dw19; // offset: 212  (0xD4)
++	uint32_t iqtimer_pkt_dw20; // offset: 213  (0xD5)
++	uint32_t iqtimer_pkt_dw21; // offset: 214  (0xD6)
++	uint32_t iqtimer_pkt_dw22; // offset: 215  (0xD7)
++	uint32_t iqtimer_pkt_dw23; // offset: 216  (0xD8)
++	uint32_t iqtimer_pkt_dw24; // offset: 217  (0xD9)
++	uint32_t iqtimer_pkt_dw25; // offset: 218  (0xDA)
++	uint32_t iqtimer_pkt_dw26; // offset: 219  (0xDB)
++	uint32_t iqtimer_pkt_dw27; // offset: 220  (0xDC)
++	uint32_t iqtimer_pkt_dw28; // offset: 221  (0xDD)
++	uint32_t iqtimer_pkt_dw29; // offset: 222  (0xDE)
++	uint32_t iqtimer_pkt_dw30; // offset: 223  (0xDF)
++	uint32_t iqtimer_pkt_dw31; // offset: 224  (0xE0)
++	uint32_t reserved_225; // offset: 225  (0xE1)
++	uint32_t reserved_226; // offset: 226  (0xE2)
++	uint32_t reserved_227; // offset: 227  (0xE3)
++	uint32_t set_resources_header; // offset: 228  (0xE4)
++	uint32_t set_resources_dw1; // offset: 229  (0xE5)
++	uint32_t set_resources_dw2; // offset: 230  (0xE6)
++	uint32_t set_resources_dw3; // offset: 231  (0xE7)
++	uint32_t set_resources_dw4; // offset: 232  (0xE8)
++	uint32_t set_resources_dw5; // offset: 233  (0xE9)
++	uint32_t set_resources_dw6; // offset: 234  (0xEA)
++	uint32_t set_resources_dw7; // offset: 235  (0xEB)
++	uint32_t reserved_236; // offset: 236  (0xEC)
++	uint32_t reserved_237; // offset: 237  (0xED)
++	uint32_t reserved_238; // offset: 238  (0xEE)
++	uint32_t reserved_239; // offset: 239  (0xEF)
++	uint32_t queue_doorbell_id0; // offset: 240  (0xF0)
++	uint32_t queue_doorbell_id1; // offset: 241  (0xF1)
++	uint32_t queue_doorbell_id2; // offset: 242  (0xF2)
++	uint32_t queue_doorbell_id3; // offset: 243  (0xF3)
++	uint32_t queue_doorbell_id4; // offset: 244  (0xF4)
++	uint32_t queue_doorbell_id5; // offset: 245  (0xF5)
++	uint32_t queue_doorbell_id6; // offset: 246  (0xF6)
++	uint32_t queue_doorbell_id7; // offset: 247  (0xF7)
++	uint32_t queue_doorbell_id8; // offset: 248  (0xF8)
++	uint32_t queue_doorbell_id9; // offset: 249  (0xF9)
++	uint32_t queue_doorbell_id10; // offset: 250  (0xFA)
++	uint32_t queue_doorbell_id11; // offset: 251  (0xFB)
++	uint32_t queue_doorbell_id12; // offset: 252  (0xFC)
++	uint32_t queue_doorbell_id13; // offset: 253  (0xFD)
++	uint32_t queue_doorbell_id14; // offset: 254  (0xFE)
++	uint32_t queue_doorbell_id15; // offset: 255  (0xFF)
++	uint32_t control_buf_addr_lo; // offset: 256  (0x100)
++	uint32_t control_buf_addr_hi; // offset: 257  (0x101)
++	uint32_t control_buf_wptr_lo; // offset: 258  (0x102)
++	uint32_t control_buf_wptr_hi; // offset: 259  (0x103)
++	uint32_t control_buf_dptr_lo; // offset: 260  (0x104)
++	uint32_t control_buf_dptr_hi; // offset: 261  (0x105)
++	uint32_t control_buf_num_entries; // offset: 262  (0x106)
++	uint32_t draw_ring_addr_lo; // offset: 263  (0x107)
++	uint32_t draw_ring_addr_hi; // offset: 264  (0x108)
++	uint32_t reserved_265; // offset: 265  (0x109)
++	uint32_t reserved_266; // offset: 266  (0x10A)
++	uint32_t reserved_267; // offset: 267  (0x10B)
++	uint32_t reserved_268; // offset: 268  (0x10C)
++	uint32_t reserved_269; // offset: 269  (0x10D)
++	uint32_t reserved_270; // offset: 270  (0x10E)
++	uint32_t reserved_271; // offset: 271  (0x10F)
++	uint32_t reserved_272; // offset: 272  (0x110)
++	uint32_t reserved_273; // offset: 273  (0x111)
++	uint32_t reserved_274; // offset: 274  (0x112)
++	uint32_t reserved_275; // offset: 275  (0x113)
++	uint32_t reserved_276; // offset: 276  (0x114)
++	uint32_t reserved_277; // offset: 277  (0x115)
++	uint32_t reserved_278; // offset: 278  (0x116)
++	uint32_t reserved_279; // offset: 279  (0x117)
++	uint32_t reserved_280; // offset: 280  (0x118)
++	uint32_t reserved_281; // offset: 281  (0x119)
++	uint32_t reserved_282; // offset: 282  (0x11A)
++	uint32_t reserved_283; // offset: 283  (0x11B)
++	uint32_t reserved_284; // offset: 284  (0x11C)
++	uint32_t reserved_285; // offset: 285  (0x11D)
++	uint32_t reserved_286; // offset: 286  (0x11E)
++	uint32_t reserved_287; // offset: 287  (0x11F)
++	uint32_t reserved_288; // offset: 288  (0x120)
++	uint32_t reserved_289; // offset: 289  (0x121)
++	uint32_t reserved_290; // offset: 290  (0x122)
++	uint32_t reserved_291; // offset: 291  (0x123)
++	uint32_t reserved_292; // offset: 292  (0x124)
++	uint32_t reserved_293; // offset: 293  (0x125)
++	uint32_t reserved_294; // offset: 294  (0x126)
++	uint32_t reserved_295; // offset: 295  (0x127)
++	uint32_t reserved_296; // offset: 296  (0x128)
++	uint32_t reserved_297; // offset: 297  (0x129)
++	uint32_t reserved_298; // offset: 298  (0x12A)
++	uint32_t reserved_299; // offset: 299  (0x12B)
++	uint32_t reserved_300; // offset: 300  (0x12C)
++	uint32_t reserved_301; // offset: 301  (0x12D)
++	uint32_t reserved_302; // offset: 302  (0x12E)
++	uint32_t reserved_303; // offset: 303  (0x12F)
++	uint32_t reserved_304; // offset: 304  (0x130)
++	uint32_t reserved_305; // offset: 305  (0x131)
++	uint32_t reserved_306; // offset: 306  (0x132)
++	uint32_t reserved_307; // offset: 307  (0x133)
++	uint32_t reserved_308; // offset: 308  (0x134)
++	uint32_t reserved_309; // offset: 309  (0x135)
++	uint32_t reserved_310; // offset: 310  (0x136)
++	uint32_t reserved_311; // offset: 311  (0x137)
++	uint32_t reserved_312; // offset: 312  (0x138)
++	uint32_t reserved_313; // offset: 313  (0x139)
++	uint32_t reserved_314; // offset: 314  (0x13A)
++	uint32_t reserved_315; // offset: 315  (0x13B)
++	uint32_t reserved_316; // offset: 316  (0x13C)
++	uint32_t reserved_317; // offset: 317  (0x13D)
++	uint32_t reserved_318; // offset: 318  (0x13E)
++	uint32_t reserved_319; // offset: 319  (0x13F)
++	uint32_t reserved_320; // offset: 320  (0x140)
++	uint32_t reserved_321; // offset: 321  (0x141)
++	uint32_t reserved_322; // offset: 322  (0x142)
++	uint32_t reserved_323; // offset: 323  (0x143)
++	uint32_t reserved_324; // offset: 324  (0x144)
++	uint32_t reserved_325; // offset: 325  (0x145)
++	uint32_t reserved_326; // offset: 326  (0x146)
++	uint32_t reserved_327; // offset: 327  (0x147)
++	uint32_t reserved_328; // offset: 328  (0x148)
++	uint32_t reserved_329; // offset: 329  (0x149)
++	uint32_t reserved_330; // offset: 330  (0x14A)
++	uint32_t reserved_331; // offset: 331  (0x14B)
++	uint32_t reserved_332; // offset: 332  (0x14C)
++	uint32_t reserved_333; // offset: 333  (0x14D)
++	uint32_t reserved_334; // offset: 334  (0x14E)
++	uint32_t reserved_335; // offset: 335  (0x14F)
++	uint32_t reserved_336; // offset: 336  (0x150)
++	uint32_t reserved_337; // offset: 337  (0x151)
++	uint32_t reserved_338; // offset: 338  (0x152)
++	uint32_t reserved_339; // offset: 339  (0x153)
++	uint32_t reserved_340; // offset: 340  (0x154)
++	uint32_t reserved_341; // offset: 341  (0x155)
++	uint32_t reserved_342; // offset: 342  (0x156)
++	uint32_t reserved_343; // offset: 343  (0x157)
++	uint32_t reserved_344; // offset: 344  (0x158)
++	uint32_t reserved_345; // offset: 345  (0x159)
++	uint32_t reserved_346; // offset: 346  (0x15A)
++	uint32_t reserved_347; // offset: 347  (0x15B)
++	uint32_t reserved_348; // offset: 348  (0x15C)
++	uint32_t reserved_349; // offset: 349  (0x15D)
++	uint32_t reserved_350; // offset: 350  (0x15E)
++	uint32_t reserved_351; // offset: 351  (0x15F)
++	uint32_t reserved_352; // offset: 352  (0x160)
++	uint32_t reserved_353; // offset: 353  (0x161)
++	uint32_t reserved_354; // offset: 354  (0x162)
++	uint32_t reserved_355; // offset: 355  (0x163)
++	uint32_t reserved_356; // offset: 356  (0x164)
++	uint32_t reserved_357; // offset: 357  (0x165)
++	uint32_t reserved_358; // offset: 358  (0x166)
++	uint32_t reserved_359; // offset: 359  (0x167)
++	uint32_t reserved_360; // offset: 360  (0x168)
++	uint32_t reserved_361; // offset: 361  (0x169)
++	uint32_t reserved_362; // offset: 362  (0x16A)
++	uint32_t reserved_363; // offset: 363  (0x16B)
++	uint32_t reserved_364; // offset: 364  (0x16C)
++	uint32_t reserved_365; // offset: 365  (0x16D)
++	uint32_t reserved_366; // offset: 366  (0x16E)
++	uint32_t reserved_367; // offset: 367  (0x16F)
++	uint32_t reserved_368; // offset: 368  (0x170)
++	uint32_t reserved_369; // offset: 369  (0x171)
++	uint32_t reserved_370; // offset: 370  (0x172)
++	uint32_t reserved_371; // offset: 371  (0x173)
++	uint32_t reserved_372; // offset: 372  (0x174)
++	uint32_t reserved_373; // offset: 373  (0x175)
++	uint32_t reserved_374; // offset: 374  (0x176)
++	uint32_t reserved_375; // offset: 375  (0x177)
++	uint32_t reserved_376; // offset: 376  (0x178)
++	uint32_t reserved_377; // offset: 377  (0x179)
++	uint32_t reserved_378; // offset: 378  (0x17A)
++	uint32_t reserved_379; // offset: 379  (0x17B)
++	uint32_t reserved_380; // offset: 380  (0x17C)
++	uint32_t reserved_381; // offset: 381  (0x17D)
++	uint32_t reserved_382; // offset: 382  (0x17E)
++	uint32_t reserved_383; // offset: 383  (0x17F)
++	uint32_t reserved_384; // offset: 384  (0x180)
++	uint32_t reserved_385; // offset: 385  (0x181)
++	uint32_t reserved_386; // offset: 386  (0x182)
++	uint32_t reserved_387; // offset: 387  (0x183)
++	uint32_t reserved_388; // offset: 388  (0x184)
++	uint32_t reserved_389; // offset: 389  (0x185)
++	uint32_t reserved_390; // offset: 390  (0x186)
++	uint32_t reserved_391; // offset: 391  (0x187)
++	uint32_t reserved_392; // offset: 392  (0x188)
++	uint32_t reserved_393; // offset: 393  (0x189)
++	uint32_t reserved_394; // offset: 394  (0x18A)
++	uint32_t reserved_395; // offset: 395  (0x18B)
++	uint32_t reserved_396; // offset: 396  (0x18C)
++	uint32_t reserved_397; // offset: 397  (0x18D)
++	uint32_t reserved_398; // offset: 398  (0x18E)
++	uint32_t reserved_399; // offset: 399  (0x18F)
++	uint32_t reserved_400; // offset: 400  (0x190)
++	uint32_t reserved_401; // offset: 401  (0x191)
++	uint32_t reserved_402; // offset: 402  (0x192)
++	uint32_t reserved_403; // offset: 403  (0x193)
++	uint32_t reserved_404; // offset: 404  (0x194)
++	uint32_t reserved_405; // offset: 405  (0x195)
++	uint32_t reserved_406; // offset: 406  (0x196)
++	uint32_t reserved_407; // offset: 407  (0x197)
++	uint32_t reserved_408; // offset: 408  (0x198)
++	uint32_t reserved_409; // offset: 409  (0x199)
++	uint32_t reserved_410; // offset: 410  (0x19A)
++	uint32_t reserved_411; // offset: 411  (0x19B)
++	uint32_t reserved_412; // offset: 412  (0x19C)
++	uint32_t reserved_413; // offset: 413  (0x19D)
++	uint32_t reserved_414; // offset: 414  (0x19E)
++	uint32_t reserved_415; // offset: 415  (0x19F)
++	uint32_t reserved_416; // offset: 416  (0x1A0)
++	uint32_t reserved_417; // offset: 417  (0x1A1)
++	uint32_t reserved_418; // offset: 418  (0x1A2)
++	uint32_t reserved_419; // offset: 419  (0x1A3)
++	uint32_t reserved_420; // offset: 420  (0x1A4)
++	uint32_t reserved_421; // offset: 421  (0x1A5)
++	uint32_t reserved_422; // offset: 422  (0x1A6)
++	uint32_t reserved_423; // offset: 423  (0x1A7)
++	uint32_t reserved_424; // offset: 424  (0x1A8)
++	uint32_t reserved_425; // offset: 425  (0x1A9)
++	uint32_t reserved_426; // offset: 426  (0x1AA)
++	uint32_t reserved_427; // offset: 427  (0x1AB)
++	uint32_t reserved_428; // offset: 428  (0x1AC)
++	uint32_t reserved_429; // offset: 429  (0x1AD)
++	uint32_t reserved_430; // offset: 430  (0x1AE)
++	uint32_t reserved_431; // offset: 431  (0x1AF)
++	uint32_t reserved_432; // offset: 432  (0x1B0)
++	uint32_t reserved_433; // offset: 433  (0x1B1)
++	uint32_t reserved_434; // offset: 434  (0x1B2)
++	uint32_t reserved_435; // offset: 435  (0x1B3)
++	uint32_t reserved_436; // offset: 436  (0x1B4)
++	uint32_t reserved_437; // offset: 437  (0x1B5)
++	uint32_t reserved_438; // offset: 438  (0x1B6)
++	uint32_t reserved_439; // offset: 439  (0x1B7)
++	uint32_t reserved_440; // offset: 440  (0x1B8)
++	uint32_t reserved_441; // offset: 441  (0x1B9)
++	uint32_t reserved_442; // offset: 442  (0x1BA)
++	uint32_t reserved_443; // offset: 443  (0x1BB)
++	uint32_t reserved_444; // offset: 444  (0x1BC)
++	uint32_t reserved_445; // offset: 445  (0x1BD)
++	uint32_t reserved_446; // offset: 446  (0x1BE)
++	uint32_t reserved_447; // offset: 447  (0x1BF)
++	uint32_t gws_0_val; // offset: 448  (0x1C0)
++	uint32_t gws_1_val; // offset: 449  (0x1C1)
++	uint32_t gws_2_val; // offset: 450  (0x1C2)
++	uint32_t gws_3_val; // offset: 451  (0x1C3)
++	uint32_t gws_4_val; // offset: 452  (0x1C4)
++	uint32_t gws_5_val; // offset: 453  (0x1C5)
++	uint32_t gws_6_val; // offset: 454  (0x1C6)
++	uint32_t gws_7_val; // offset: 455  (0x1C7)
++	uint32_t gws_8_val; // offset: 456  (0x1C8)
++	uint32_t gws_9_val; // offset: 457  (0x1C9)
++	uint32_t gws_10_val; // offset: 458  (0x1CA)
++	uint32_t gws_11_val; // offset: 459  (0x1CB)
++	uint32_t gws_12_val; // offset: 460  (0x1CC)
++	uint32_t gws_13_val; // offset: 461  (0x1CD)
++	uint32_t gws_14_val; // offset: 462  (0x1CE)
++	uint32_t gws_15_val; // offset: 463  (0x1CF)
++	uint32_t gws_16_val; // offset: 464  (0x1D0)
++	uint32_t gws_17_val; // offset: 465  (0x1D1)
++	uint32_t gws_18_val; // offset: 466  (0x1D2)
++	uint32_t gws_19_val; // offset: 467  (0x1D3)
++	uint32_t gws_20_val; // offset: 468  (0x1D4)
++	uint32_t gws_21_val; // offset: 469  (0x1D5)
++	uint32_t gws_22_val; // offset: 470  (0x1D6)
++	uint32_t gws_23_val; // offset: 471  (0x1D7)
++	uint32_t gws_24_val; // offset: 472  (0x1D8)
++	uint32_t gws_25_val; // offset: 473  (0x1D9)
++	uint32_t gws_26_val; // offset: 474  (0x1DA)
++	uint32_t gws_27_val; // offset: 475  (0x1DB)
++	uint32_t gws_28_val; // offset: 476  (0x1DC)
++	uint32_t gws_29_val; // offset: 477  (0x1DD)
++	uint32_t gws_30_val; // offset: 478  (0x1DE)
++	uint32_t gws_31_val; // offset: 479  (0x1DF)
++	uint32_t gws_32_val; // offset: 480  (0x1E0)
++	uint32_t gws_33_val; // offset: 481  (0x1E1)
++	uint32_t gws_34_val; // offset: 482  (0x1E2)
++	uint32_t gws_35_val; // offset: 483  (0x1E3)
++	uint32_t gws_36_val; // offset: 484  (0x1E4)
++	uint32_t gws_37_val; // offset: 485  (0x1E5)
++	uint32_t gws_38_val; // offset: 486  (0x1E6)
++	uint32_t gws_39_val; // offset: 487  (0x1E7)
++	uint32_t gws_40_val; // offset: 488  (0x1E8)
++	uint32_t gws_41_val; // offset: 489  (0x1E9)
++	uint32_t gws_42_val; // offset: 490  (0x1EA)
++	uint32_t gws_43_val; // offset: 491  (0x1EB)
++	uint32_t gws_44_val; // offset: 492  (0x1EC)
++	uint32_t gws_45_val; // offset: 493  (0x1ED)
++	uint32_t gws_46_val; // offset: 494  (0x1EE)
++	uint32_t gws_47_val; // offset: 495  (0x1EF)
++	uint32_t gws_48_val; // offset: 496  (0x1F0)
++	uint32_t gws_49_val; // offset: 497  (0x1F1)
++	uint32_t gws_50_val; // offset: 498  (0x1F2)
++	uint32_t gws_51_val; // offset: 499  (0x1F3)
++	uint32_t gws_52_val; // offset: 500  (0x1F4)
++	uint32_t gws_53_val; // offset: 501  (0x1F5)
++	uint32_t gws_54_val; // offset: 502  (0x1F6)
++	uint32_t gws_55_val; // offset: 503  (0x1F7)
++	uint32_t gws_56_val; // offset: 504  (0x1F8)
++	uint32_t gws_57_val; // offset: 505  (0x1F9)
++	uint32_t gws_58_val; // offset: 506  (0x1FA)
++	uint32_t gws_59_val; // offset: 507  (0x1FB)
++	uint32_t gws_60_val; // offset: 508  (0x1FC)
++	uint32_t gws_61_val; // offset: 509  (0x1FD)
++	uint32_t gws_62_val; // offset: 510  (0x1FE)
++	uint32_t gws_63_val; // offset: 511  (0x1FF)
++};
++
++#endif /* V11_STRUCTS_H_ */
 -- 
 2.35.1
 
