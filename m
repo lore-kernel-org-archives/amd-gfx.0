@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D7F0C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 17:47:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34F0DC433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 17:47:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AD5710F52F;
-	Fri, 29 Apr 2022 17:47:17 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2080.outbound.protection.outlook.com [40.107.244.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 195CD10F354
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 17:47:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53E5610F687;
+	Fri, 29 Apr 2022 17:47:18 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2071.outbound.protection.outlook.com [40.107.220.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3668110F23E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 17:46:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h9wJwO2zyN8v/M+wLUlo2vKPlR2dIh9aQhDVRFcyQS2mpQQOUFUjG4FuvDjyoEm22+o8HIbK2+lOnvfSMmvzkLYe6TpYlIovFoECxKqLOUrWc10A7vg0B48hbdTfNkiZ2RRzwA7pT+tlZCVykzfAZuC+l803m4Sq+T5EtzvBpUOmEPLaqwpeiX419ccYyIXG7mn6XOAZedDWvovmoywiSHTHSEFeSfGLZjF0L0J78sOjkDVXCCGcF6vCcXsbrHTr3dTgrmYq+myJ60x3YcoUHB2awVJkV4g32BGehA1CeGu5CXgQqm1hwEdkqjNHIr9Pwl9EeGL2BkmWlsuCXydcKg==
+ b=Rmv1JNbBe81S92DAoG0xeh/jq2Q2t03qZdeobFD4iktX8WS8fnOukdadFshje8UY+C1lGKgF057hL6MNUay/NvtruLbPeADos3j6lP4wPIR7en05Jd7AaUbuH8qz7mNBrO+PQNxUBugMWArfXEPuiQ5ZQBzKSMnS11ce+/0dI5YGkC8mdL6bgdeMCUL+HdvUZOgfnnU4mD1B7WawfMb5Kur+D3PsL2lXpCMCDhvXqL1rYQEyqvXw88dbPC1eV3hzj0MxJfTCQ8tcD6xPiXhBsvHvTwPxtX3C60vcgo24H1Fdnc0lSb2A/NBa1GXednh8ck01ttLI4iY3jbUityK01w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UkSMZA0pGrGGFrbMnoLZM2YdXR2quIefBZRPIhyWFuA=;
- b=Y8MVDUVEVQD7P1azCqZZEj+ICwDf+hDuGFPwyE3dklyhBNqtbdMFuQM1y3k2EZUTdI/vqQUoHC1S8LrAumsznS1cqHU9dUcYYTCWMESGsErIuLtxggarjlolsGbdf/swvW/JjQpsSF3taoMwQ5GGwjbllVzC4/gMLB6ebrRVE06i45QtQhmyLps75m7WMSXLSWyUYSDZ2pxjAt7RJWU55LSZ9SY2PpRX1DISJjBHBdAkB1WhnvjOUwF0A7Hn6h9HWZUAfdKm5JVH24Tq89kAjuSBZIgzpZmnGwCBiQ2vb7P5+nz9t8LKK/TalCszkkKu3+96vrbVZ0OphPxEI23H4g==
+ bh=kQ5hwlocVq9mjq3wyhYLUo0/x0DpxCN4wjQZah0t26k=;
+ b=NGRykEgjBcNxtTOhtRIOXw5pUgdz0QfCYSDkZjM+nDafwcC9ywAFH+0gbSsUVR7rQedDaTFsTrPsv6kARE52X9J61KPIswLneO3YVbMefBn1Xd7r5P6yuScpFD4kqtguGVdKXclFfA8p/skar8YoICwU6U2GqajSHQkzLIip4TxOehjGg5QDGimwwxnqekaCvt9r7PnhxytjSIoxKqMLIk3MQ+snxOuRj5dUi8gj8dDOm7cKPc4ddLv55HLh8YuAnkqquoholaOvZoWSX+xTlYk2FbxLgrwKl7P7WmFE6XRGyKU7PkjFA5XBvz26Hu8mp0LDHrZCi/YTxK14S4bSgg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UkSMZA0pGrGGFrbMnoLZM2YdXR2quIefBZRPIhyWFuA=;
- b=vMzuOa2Y3NTIBvpauZgLrSENgsXVa8mxl1CgoURFlW1BAXFi0MUqb4LUQdtnaiFcbgk6l01zFna8/3vY9JYhHNXrzPJBLkAPClhk9fMs5ssyEaJCZGn5RFuM/nVU27RN2Owimdk91Te8dTcwAavVIHnqKjn/DG7UIRCQd21gUOY=
-Received: from DM6PR02CA0081.namprd02.prod.outlook.com (2603:10b6:5:1f4::22)
- by DM4PR12MB5263.namprd12.prod.outlook.com (2603:10b6:5:39b::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Fri, 29 Apr
- 2022 17:47:02 +0000
-Received: from DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1f4:cafe::28) by DM6PR02CA0081.outlook.office365.com
- (2603:10b6:5:1f4::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14 via Frontend
- Transport; Fri, 29 Apr 2022 17:47:02 +0000
+ bh=kQ5hwlocVq9mjq3wyhYLUo0/x0DpxCN4wjQZah0t26k=;
+ b=kQ119Qb0Nd4DmtrutVF4cZPusvPIegFHkY0+lERE/OY4e7pBwS92H3aQMXKljhcTETlAOH289Tk12ggWG4iOBAi+9+me74ECbDUv+oMZLhJJB4rYtKPtRDM7E7Ath4E12Xpw+XGS8Befwzv9DurteqQTL90sameslPyD5/9qdyE=
+Received: from DS7PR06CA0011.namprd06.prod.outlook.com (2603:10b6:8:2a::6) by
+ DM5PR12MB1404.namprd12.prod.outlook.com (2603:10b6:3:77::15) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5186.14; Fri, 29 Apr 2022 17:46:53 +0000
+Received: from DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2a:cafe::fb) by DS7PR06CA0011.outlook.office365.com
+ (2603:10b6:8:2a::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13 via Frontend
+ Transport; Fri, 29 Apr 2022 17:46:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,50 +45,50 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT054.mail.protection.outlook.com (10.13.173.95) with Microsoft SMTP
+ DM6NAM11FT050.mail.protection.outlook.com (10.13.173.111) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Fri, 29 Apr 2022 17:47:02 +0000
+ 15.20.5206.12 via Frontend Transport; Fri, 29 Apr 2022 17:46:53 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 29 Apr
- 2022 12:46:59 -0500
+ 2022 12:46:51 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 38/73] drm/amdgpu: enable mes kiq N-1 test on sienna cichlid
-Date: Fri, 29 Apr 2022 13:45:49 -0400
-Message-ID: <20220429174624.459475-39-alexander.deucher@amd.com>
+Subject: [PATCH 25/73] drm/amdgpu/sdma5.2: initialize sdma mqd
+Date: Fri, 29 Apr 2022 13:45:36 -0400
+Message-ID: <20220429174624.459475-26-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220429174624.459475-1-alexander.deucher@amd.com>
 References: <20220429174624.459475-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 79dc7008-2dd8-484e-843d-08da2a084467
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5263:EE_
-X-Microsoft-Antispam-PRVS: <DM4PR12MB526365AEA36A61CA4770621CF7FC9@DM4PR12MB5263.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: d3453b1d-46ca-4bfd-f405-08da2a083f0e
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1404:EE_
+X-Microsoft-Antispam-PRVS: <DM5PR12MB140454CE136B7FD67573B4F5F7FC9@DM5PR12MB1404.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: E/C8wWWxBYSwq+JBExkAsUYNu04vyoPZ9hDEl09tPp6BIpdq+ti6ZAPJjCaKRdaF2+fqd4NEjHfZeQUhpaEZ7TXkgPSKu4lSH6TeAasjBSviwBhpShJciilPZvwAQ7OKxN/COFQ3IT0m1N+pEH16SyBLNkDFjmr0bwrVYFP9cDKXLw162Ib8duK3WPE94v2D+k+a4wHKicw+sROT2rf4TIBwrrs/tTodZfa/jA8uuuw6tWnmf0d45j4BeT1RZTibYs+wddFAGMPHcnyfbGHegPIYcWuzoWelTM563j2V/OdxYh1EFO2PAm6MEz1UC7clsLc/dsXxI1FHPc9Eq+uyd5IDGf0UIuFlrHDsgjbuICk2Y0t+yEHskJfl7EbtqRgDrdAmg0m8RfsZr0a0yx0CKm8TsofuGtvOjR4B9CvRR3Z4lgVLUKBM6OS86cFWB35/bcUVnmLR+U1QcWbuWPQ+0/f6J1E8Qzu6uMedaHgRsLC0v3H50c3uFvb1GLKubjrR8Glgk4KxWxbn5731QTnyIrtXCAxomA3ddB0Ry7FTfmx2H8r8osk1ZXb/MOPoKBhGpRwucMTJCY7Z9OhM0uS5hrPJsDNWNgBDfBEj1OcxUcu21ETjvr5qfWiGDqTY/KC67yNRouLJNFpVw029xp5C3EEm6IQa8y/ysFSYCZP8hZfYzdcrjtLsL4nKwSJ9KvMzzKActN89ibF3xUw3gBhDdA==
+X-Microsoft-Antispam-Message-Info: 3c2sRoUyHozf17lXgGCfe9eayqjEqmlb7KPeffTYLWrG9Ez2p3L+euJLkX34KOx+rLy9RbCwxk/dk3YI3CYweojOpJs/ydjQY6NMEaDtztjYwE5QUDXmIgfckSQTl9lrVx7Jks4nzndRhZIWYPG4ufXpiP4CRriTEfjnz2MhaVB2l2yZa8aB8BI017cY2SzXmvkle9RgYDVI9qWYsV0F9fLJ7Q6Pe3As5jsWnFrZeHbXAeZsCxZMRgDu7sGyEfLUg8AIWYie5L4fJ2Nk3JOARRFwzSwf2tsn9kbGY7naPVww7vQZN/Ol9cUAJft4d7MTiyDgPM8/eGXdWXLt65JiB/xx5Bj3UbPXi5C6rL3wBGXe8INoX4OXGN7oWSdU8s5mdYT16LIIIrRLpKqs9F0FAPairZnixL0GhmFIsHjdp7reXTcYZ0INMS6yHshk4/Vmz/Thj+OpMza3c1FiSA+Z/0JpRewfZy5gPDAY7rsb6FKWrPd9T4EWDvFPbiVS4HJd8iqcsOqYWsD9jOTli1wvyGJKAa0YrH80gHL2OTwpetPvbug7FO4mjmjTS9i0hoEc1l523MGmcsca6HbbWvglqvV1xawCw6Twap1aLS3+aTOSOwpcrvrvcSn7MsK3vtxkDpP1eO331hrnpVJ04Ze587CCFBzkmLJPgAQFW7czNznUZ+mbswH2TKO7H9S7gcJ7SQybh0VUgOSuQEWCN9HiYw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(30864003)(82310400005)(2906002)(508600001)(4326008)(8676002)(70586007)(70206006)(356005)(40460700003)(316002)(54906003)(5660300002)(36860700001)(81166007)(8936002)(83380400001)(26005)(86362001)(2616005)(36756003)(186003)(16526019)(1076003)(7696005)(47076005)(426003)(336012)(6916009)(6666004)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(508600001)(86362001)(36756003)(16526019)(8936002)(40460700003)(336012)(5660300002)(47076005)(66574015)(426003)(36860700001)(186003)(316002)(83380400001)(6666004)(7696005)(26005)(2616005)(82310400005)(81166007)(2906002)(356005)(1076003)(70586007)(70206006)(4326008)(6916009)(8676002)(54906003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 17:47:02.0992 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79dc7008-2dd8-484e-843d-08da2a084467
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 17:46:53.1458 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3453b1d-46ca-4bfd-f405-08da2a083f0e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5263
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1404
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,435 +101,82 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jack Xiao <Jack.Xiao@amd.com>
 
-Enable kiq support on gfx10.3, enable mes kiq (n-1)
-test on sienna cichlid, so that mes kiq can be tested on
-sienna cichlid. The patch can be dropped once mes kiq
-is functional.
+Initialize sdma mqd according to ring settings.
 
 Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+Acked-by: Christian König <christian.koenig@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c |  32 ++--
- drivers/gpu/drm/amd/amdgpu/mes_v10_1.c | 202 ++++++++++++++++++++-----
- 2 files changed, 184 insertions(+), 50 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 44 ++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 1208d01cc936..9042e0b480ce 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4897,16 +4897,18 @@ static int gfx_v10_0_sw_init(void *handle)
- 		}
- 	}
- 
--	r = amdgpu_gfx_kiq_init(adev, GFX10_MEC_HPD_SIZE);
--	if (r) {
--		DRM_ERROR("Failed to init KIQ BOs!\n");
--		return r;
--	}
-+	if (!adev->enable_mes_kiq) {
-+		r = amdgpu_gfx_kiq_init(adev, GFX10_MEC_HPD_SIZE);
-+		if (r) {
-+			DRM_ERROR("Failed to init KIQ BOs!\n");
-+			return r;
-+		}
- 
--	kiq = &adev->gfx.kiq;
--	r = amdgpu_gfx_kiq_init_ring(adev, &kiq->ring, &kiq->irq);
--	if (r)
--		return r;
-+		kiq = &adev->gfx.kiq;
-+		r = amdgpu_gfx_kiq_init_ring(adev, &kiq->ring, &kiq->irq);
-+		if (r)
-+			return r;
-+	}
- 
- 	r = amdgpu_gfx_mqd_sw_init(adev, sizeof(struct v10_compute_mqd));
- 	if (r)
-@@ -4958,8 +4960,11 @@ static int gfx_v10_0_sw_fini(void *handle)
- 		amdgpu_ring_fini(&adev->gfx.compute_ring[i]);
- 
- 	amdgpu_gfx_mqd_sw_fini(adev);
--	amdgpu_gfx_kiq_free_ring(&adev->gfx.kiq.ring);
--	amdgpu_gfx_kiq_fini(adev);
-+
-+	if (!adev->enable_mes_kiq) {
-+		amdgpu_gfx_kiq_free_ring(&adev->gfx.kiq.ring);
-+		amdgpu_gfx_kiq_fini(adev);
-+	}
- 
- 	gfx_v10_0_pfp_fini(adev);
- 	gfx_v10_0_ce_fini(adev);
-@@ -7213,7 +7218,10 @@ static int gfx_v10_0_cp_resume(struct amdgpu_device *adev)
- 			return r;
- 	}
- 
--	r = gfx_v10_0_kiq_resume(adev);
-+	if (adev->enable_mes_kiq && adev->mes.kiq_hw_init)
-+		r = amdgpu_mes_kiq_hw_init(adev);
-+	else
-+		r = gfx_v10_0_kiq_resume(adev);
- 	if (r)
- 		return r;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-index f82a6f981629..fecf3f26bf7c 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-@@ -33,11 +33,15 @@
- 
- #define mmCP_MES_IC_OP_CNTL_Sienna_Cichlid               0x2820
- #define mmCP_MES_IC_OP_CNTL_Sienna_Cichlid_BASE_IDX      1
-+#define mmRLC_CP_SCHEDULERS_Sienna_Cichlid		0x4ca1
-+#define mmRLC_CP_SCHEDULERS_Sienna_Cichlid_BASE_IDX	1
- 
- MODULE_FIRMWARE("amdgpu/navi10_mes.bin");
- MODULE_FIRMWARE("amdgpu/sienna_cichlid_mes.bin");
-+MODULE_FIRMWARE("amdgpu/sienna_cichlid_mes1.bin");
- 
- static int mes_v10_1_hw_fini(void *handle);
-+static int mes_v10_1_kiq_hw_init(struct amdgpu_device *adev);
- 
- #define MES_EOP_SIZE   2048
- 
-@@ -278,11 +282,11 @@ static int mes_v10_1_init_microcode(struct amdgpu_device *adev,
- 	const struct mes_firmware_header_v1_0 *mes_hdr;
- 	struct amdgpu_firmware_info *info;
- 
--	switch (adev->asic_type) {
--	case CHIP_NAVI10:
-+	switch (adev->ip_versions[GC_HWIP][0]) {
-+	case IP_VERSION(10, 1, 10):
- 		chip_name = "navi10";
- 		break;
--	case CHIP_SIENNA_CICHLID:
-+	case IP_VERSION(10, 3, 0):
- 		chip_name = "sienna_cichlid";
- 		break;
- 	default:
-@@ -293,7 +297,8 @@ static int mes_v10_1_init_microcode(struct amdgpu_device *adev,
- 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes.bin",
- 			 chip_name);
- 	else
--		BUG();
-+		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes1.bin",
-+			 chip_name);
- 
- 	err = request_firmware(&adev->mes.fw[pipe], fw_name, adev->dev);
- 	if (err)
-@@ -326,7 +331,8 @@ static int mes_v10_1_init_microcode(struct amdgpu_device *adev,
- 			ucode = AMDGPU_UCODE_ID_CP_MES;
- 			ucode_data = AMDGPU_UCODE_ID_CP_MES_DATA;
- 		} else {
--			BUG();
-+			ucode = AMDGPU_UCODE_ID_CP_MES1;
-+			ucode_data = AMDGPU_UCODE_ID_CP_MES1_DATA;
- 		}
- 
- 		info = &adev->firmware.ucode[ucode];
-@@ -439,6 +445,8 @@ static void mes_v10_1_enable(struct amdgpu_device *adev, bool enable)
- 	if (enable) {
- 		data = RREG32_SOC15(GC, 0, mmCP_MES_CNTL);
- 		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE0_RESET, 1);
-+		data = REG_SET_FIELD(data, CP_MES_CNTL,
-+			     MES_PIPE1_RESET, adev->enable_mes_kiq ? 1 : 0);
- 		WREG32_SOC15(GC, 0, mmCP_MES_CNTL, data);
- 
- 		mutex_lock(&adev->srbm_mutex);
-@@ -462,13 +470,18 @@ static void mes_v10_1_enable(struct amdgpu_device *adev, bool enable)
- 
- 		/* unhalt MES and activate pipe0 */
- 		data = REG_SET_FIELD(0, CP_MES_CNTL, MES_PIPE0_ACTIVE, 1);
-+		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE1_ACTIVE,
-+				     adev->enable_mes_kiq ? 1 : 0);
- 		WREG32_SOC15(GC, 0, mmCP_MES_CNTL, data);
- 	} else {
- 		data = RREG32_SOC15(GC, 0, mmCP_MES_CNTL);
- 		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE0_ACTIVE, 0);
-+		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE1_ACTIVE, 0);
- 		data = REG_SET_FIELD(data, CP_MES_CNTL,
- 				     MES_INVALIDATE_ICACHE, 1);
- 		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE0_RESET, 1);
-+		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE1_RESET,
-+				     adev->enable_mes_kiq ? 1 : 0);
- 		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_HALT, 1);
- 		WREG32_SOC15(GC, 0, mmCP_MES_CNTL, data);
- 	}
-@@ -525,8 +538,8 @@ static int mes_v10_1_load_microcode(struct amdgpu_device *adev,
- 	WREG32_SOC15(GC, 0, mmCP_MES_MDBOUND_LO, 0x3FFFF);
- 
- 	/* invalidate ICACHE */
--	switch (adev->asic_type) {
--	case CHIP_SIENNA_CICHLID:
-+	switch (adev->ip_versions[GC_HWIP][0]) {
-+	case IP_VERSION(10, 3, 0):
- 		data = RREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL_Sienna_Cichlid);
- 		break;
- 	default:
-@@ -535,8 +548,8 @@ static int mes_v10_1_load_microcode(struct amdgpu_device *adev,
- 	}
- 	data = REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACHE, 0);
- 	data = REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, INVALIDATE_CACHE, 1);
--	switch (adev->asic_type) {
--	case CHIP_SIENNA_CICHLID:
-+	switch (adev->ip_versions[GC_HWIP][0]) {
-+	case IP_VERSION(10, 3, 0):
- 		WREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL_Sienna_Cichlid, data);
- 		break;
- 	default:
-@@ -545,8 +558,8 @@ static int mes_v10_1_load_microcode(struct amdgpu_device *adev,
- 	}
- 
- 	/* prime the ICACHE. */
--	switch (adev->asic_type) {
--	case CHIP_SIENNA_CICHLID:
-+	switch (adev->ip_versions[GC_HWIP][0]) {
-+	case IP_VERSION(10, 3, 0):
- 		data = RREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL_Sienna_Cichlid);
- 		break;
- 	default:
-@@ -554,8 +567,8 @@ static int mes_v10_1_load_microcode(struct amdgpu_device *adev,
- 		break;
- 	}
- 	data = REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACHE, 1);
--	switch (adev->asic_type) {
--	case CHIP_SIENNA_CICHLID:
-+	switch (adev->ip_versions[GC_HWIP][0]) {
-+	case IP_VERSION(10, 3, 0):
- 		WREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL_Sienna_Cichlid, data);
- 		break;
- 	default:
-@@ -883,13 +896,40 @@ static int mes_v10_1_ring_init(struct amdgpu_device *adev)
- 				AMDGPU_RING_PRIO_DEFAULT, NULL);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index bf2cf95cbf8f..f67801c5a6c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -903,6 +903,49 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
+ 	return r;
  }
  
-+static int mes_v10_1_kiq_ring_init(struct amdgpu_device *adev)
++static int sdma_v5_2_mqd_init(struct amdgpu_device *adev, void *mqd,
++			      struct amdgpu_mqd_prop *prop)
 +{
-+	struct amdgpu_ring *ring;
++	struct v10_sdma_mqd *m = mqd;
++	uint64_t wb_gpu_addr;
 +
-+	spin_lock_init(&adev->gfx.kiq.ring_lock);
++	m->sdmax_rlcx_rb_cntl =
++		order_base_2(prop->queue_size / 4) << SDMA0_RLC0_RB_CNTL__RB_SIZE__SHIFT |
++		1 << SDMA0_RLC0_RB_CNTL__RPTR_WRITEBACK_ENABLE__SHIFT |
++		6 << SDMA0_RLC0_RB_CNTL__RPTR_WRITEBACK_TIMER__SHIFT |
++		1 << SDMA0_RLC0_RB_CNTL__RB_PRIV__SHIFT;
 +
-+	ring = &adev->gfx.kiq.ring;
++	m->sdmax_rlcx_rb_base = lower_32_bits(prop->hqd_base_gpu_addr >> 8);
++	m->sdmax_rlcx_rb_base_hi = upper_32_bits(prop->hqd_base_gpu_addr >> 8);
 +
-+	ring->me = 3;
-+	ring->pipe = 1;
-+	ring->queue = 0;
++	m->sdmax_rlcx_rb_wptr_poll_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, 0,
++						  mmSDMA0_GFX_RB_WPTR_POLL_CNTL));
 +
-+	ring->adev = NULL;
-+	ring->ring_obj = NULL;
-+	ring->use_doorbell = true;
-+	ring->doorbell_index = adev->doorbell_index.mes_ring1 << 1;
-+	ring->eop_gpu_addr = adev->mes.eop_gpu_addr[AMDGPU_MES_KIQ_PIPE];
-+	ring->no_scheduler = true;
-+	sprintf(ring->name, "mes_kiq_%d.%d.%d",
-+		ring->me, ring->pipe, ring->queue);
++	wb_gpu_addr = prop->wptr_gpu_addr;
++	m->sdmax_rlcx_rb_wptr_poll_addr_lo = lower_32_bits(wb_gpu_addr);
++	m->sdmax_rlcx_rb_wptr_poll_addr_hi = upper_32_bits(wb_gpu_addr);
 +
-+	return amdgpu_ring_init(adev, ring, 1024, NULL, 0,
-+				AMDGPU_RING_PRIO_DEFAULT, NULL);
++	wb_gpu_addr = prop->rptr_gpu_addr;
++	m->sdmax_rlcx_rb_rptr_addr_lo = lower_32_bits(wb_gpu_addr);
++	m->sdmax_rlcx_rb_rptr_addr_hi = upper_32_bits(wb_gpu_addr);
++
++	m->sdmax_rlcx_ib_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, 0,
++							mmSDMA0_GFX_IB_CNTL));
++
++	m->sdmax_rlcx_doorbell_offset =
++		prop->doorbell_index << SDMA0_RLC0_DOORBELL_OFFSET__OFFSET__SHIFT;
++
++	m->sdmax_rlcx_doorbell = REG_SET_FIELD(0, SDMA0_RLC0_DOORBELL, ENABLE, 1);
++
++	return 0;
 +}
 +
- static int mes_v10_1_mqd_sw_init(struct amdgpu_device *adev,
- 				 enum admgpu_mes_pipe pipe)
- {
- 	int r, mqd_size = sizeof(struct v10_compute_mqd);
- 	struct amdgpu_ring *ring;
- 
--	if (pipe == AMDGPU_MES_SCHED_PIPE)
-+	if (pipe == AMDGPU_MES_KIQ_PIPE)
-+		ring = &adev->gfx.kiq.ring;
-+	else if (pipe == AMDGPU_MES_SCHED_PIPE)
- 		ring = &adev->mes.ring;
- 	else
- 		BUG();
-@@ -918,22 +958,34 @@ static int mes_v10_1_mqd_sw_init(struct amdgpu_device *adev,
- static int mes_v10_1_sw_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	int r, pipe = AMDGPU_MES_SCHED_PIPE;
-+	int pipe, r;
- 
- 	adev->mes.adev = adev;
- 	adev->mes.funcs = &mes_v10_1_funcs;
-+	adev->mes.kiq_hw_init = &mes_v10_1_kiq_hw_init;
- 
--	r = mes_v10_1_init_microcode(adev, pipe);
--	if (r)
--		return r;
-+	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
-+		if (!adev->enable_mes_kiq && pipe == AMDGPU_MES_KIQ_PIPE)
-+			continue;
- 
--	r = mes_v10_1_allocate_eop_buf(adev, pipe);
--	if (r)
--		return r;
-+		r = mes_v10_1_init_microcode(adev, pipe);
-+		if (r)
-+			return r;
- 
--	r = mes_v10_1_mqd_sw_init(adev, pipe);
--	if (r)
--		return r;
-+		r = mes_v10_1_allocate_eop_buf(adev, pipe);
-+		if (r)
-+			return r;
-+
-+		r = mes_v10_1_mqd_sw_init(adev, pipe);
-+		if (r)
-+			return r;
-+	}
-+
-+	if (adev->enable_mes_kiq) {
-+		r = mes_v10_1_kiq_ring_init(adev);
-+		if (r)
-+			return r;
-+	}
- 
- 	r = mes_v10_1_ring_init(adev);
- 	if (r)
-@@ -949,43 +1001,115 @@ static int mes_v10_1_sw_init(void *handle)
- static int mes_v10_1_sw_fini(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	int pipe = AMDGPU_MES_SCHED_PIPE;
-+	int pipe;
- 
- 	amdgpu_device_wb_free(adev, adev->mes.sch_ctx_offs);
- 	amdgpu_device_wb_free(adev, adev->mes.query_status_fence_offs);
- 
--	kfree(adev->mes.mqd_backup[pipe]);
-+	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
-+		kfree(adev->mes.mqd_backup[pipe]);
-+
-+		amdgpu_bo_free_kernel(&adev->mes.eop_gpu_obj[pipe],
-+				      &adev->mes.eop_gpu_addr[pipe],
-+				      NULL);
-+
-+		mes_v10_1_free_microcode(adev, pipe);
-+	}
-+
-+	amdgpu_bo_free_kernel(&adev->gfx.kiq.ring.mqd_obj,
-+			      &adev->gfx.kiq.ring.mqd_gpu_addr,
-+			      &adev->gfx.kiq.ring.mqd_ptr);
- 
- 	amdgpu_bo_free_kernel(&adev->mes.ring.mqd_obj,
- 			      &adev->mes.ring.mqd_gpu_addr,
- 			      &adev->mes.ring.mqd_ptr);
- 
--	amdgpu_bo_free_kernel(&adev->mes.eop_gpu_obj[pipe],
--			      &adev->mes.eop_gpu_addr[pipe],
--			      NULL);
--
--	mes_v10_1_free_microcode(adev, pipe);
-+	amdgpu_ring_fini(&adev->gfx.kiq.ring);
- 	amdgpu_ring_fini(&adev->mes.ring);
- 
- 	return 0;
- }
- 
--static int mes_v10_1_hw_init(void *handle)
-+static void mes_v10_1_kiq_setting(struct amdgpu_ring *ring)
- {
--	int r;
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	uint32_t tmp;
-+	struct amdgpu_device *adev = ring->adev;
-+
-+	/* tell RLC which is KIQ queue */
-+	switch (adev->ip_versions[GC_HWIP][0]) {
-+	case IP_VERSION(10, 3, 0):
-+	case IP_VERSION(10, 3, 2):
-+	case IP_VERSION(10, 3, 1):
-+	case IP_VERSION(10, 3, 4):
-+		tmp = RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid);
-+		tmp &= 0xffffff00;
-+		tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
-+		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp);
-+		tmp |= 0x80;
-+		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp);
-+		break;
-+	default:
-+		tmp = RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS);
-+		tmp &= 0xffffff00;
-+		tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
-+		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
-+		tmp |= 0x80;
-+		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
-+		break;
-+	}
++static void sdma_v5_2_set_mqd_funcs(struct amdgpu_device *adev)
++{
++	adev->mqds[AMDGPU_HW_IP_DMA].mqd_size = sizeof(struct v10_sdma_mqd);
++	adev->mqds[AMDGPU_HW_IP_DMA].init_mqd = sdma_v5_2_mqd_init;
 +}
 +
-+static int mes_v10_1_kiq_hw_init(struct amdgpu_device *adev)
-+{
-+	int r = 0;
- 
- 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
--		r = mes_v10_1_load_microcode(adev,
--					     AMDGPU_MES_SCHED_PIPE);
-+		r = mes_v10_1_load_microcode(adev, AMDGPU_MES_KIQ_PIPE);
-+		if (r) {
-+			DRM_ERROR("failed to load MES kiq fw, r=%d\n", r);
-+			return r;
-+		}
-+
-+		r = mes_v10_1_load_microcode(adev, AMDGPU_MES_SCHED_PIPE);
- 		if (r) {
--			DRM_ERROR("failed to MES fw, r=%d\n", r);
-+			DRM_ERROR("failed to load MES fw, r=%d\n", r);
- 			return r;
- 		}
- 	}
- 
- 	mes_v10_1_enable(adev, true);
- 
-+	mes_v10_1_kiq_setting(&adev->gfx.kiq.ring);
-+
-+	r = mes_v10_1_queue_init(adev);
-+	if (r)
-+		goto failure;
-+
-+	return r;
-+
-+failure:
-+	mes_v10_1_hw_fini(adev);
-+	return r;
-+}
-+
-+static int mes_v10_1_hw_init(void *handle)
-+{
-+	int r;
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+
-+	if (!adev->enable_mes_kiq) {
-+		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
-+			r = mes_v10_1_load_microcode(adev,
-+					     AMDGPU_MES_SCHED_PIPE);
-+			if (r) {
-+				DRM_ERROR("failed to MES fw, r=%d\n", r);
-+				return r;
-+			}
-+		}
-+
-+		mes_v10_1_enable(adev, true);
-+	}
-+
- 	r = mes_v10_1_queue_init(adev);
- 	if (r)
- 		goto failure;
-@@ -1013,8 +1137,10 @@ static int mes_v10_1_hw_fini(void *handle)
- 
- 	mes_v10_1_enable(adev, false);
- 
--	if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT)
-+	if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
-+		mes_v10_1_free_ucode_buffers(adev, AMDGPU_MES_KIQ_PIPE);
- 		mes_v10_1_free_ucode_buffers(adev, AMDGPU_MES_SCHED_PIPE);
-+	}
+ /**
+  * sdma_v5_2_ring_test_ring - simple async dma engine test
+  *
+@@ -1233,6 +1276,7 @@ static int sdma_v5_2_early_init(void *handle)
+ 	sdma_v5_2_set_buffer_funcs(adev);
+ 	sdma_v5_2_set_vm_pte_funcs(adev);
+ 	sdma_v5_2_set_irq_funcs(adev);
++	sdma_v5_2_set_mqd_funcs(adev);
  
  	return 0;
  }
