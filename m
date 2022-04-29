@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 685AFC433EF
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 17:36:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 567A2C433F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 17:36:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1E0F10F05A;
-	Fri, 29 Apr 2022 17:36:45 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2048.outbound.protection.outlook.com [40.107.220.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6B6610F04D
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 17:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8A8F10F051;
+	Fri, 29 Apr 2022 17:36:46 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2047.outbound.protection.outlook.com [40.107.236.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BFEF10F04D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 17:36:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ioS99QgSew7faF9ijrWUmXSF3qKARWanOOVhkvCkjLfIF+RVlaUDb40rCmSiJPzCkSo/oth+XxjSeawB8aw/mA70sPhDUk/yFnodk3foUDUIM0JShJjIfe8pqMdbPS9qTf6rf83t3IpdIzetG//k01e+lgypBXIXjA6vzM/g1V+yv2+7nFDR7TAxdhFaydcPMEylOSjYnXo0y8ve3ds/WZbfqp3Fs16ZcG+cMmYjXZsXhkvhVm1sU7UDDvY/6+5y4gKRwuJhggLo2+06ZnISBLWRjI6snQnU/jolYx6Mtuduudu+RK5MVkmDDhpH/oneN91UeFfqx0xCK5yaakNdYw==
+ b=UPdsgJShDdMfIfL9FcFOlngQW39ht+2PeWsfEY7Cp8r/N8Z9YH85NyoIZppe7DGkC87yAol2OwWKfF4vE+6TcENugMvfZjBgdLtMCSrd4ZsZpnkZVLz3HD+To/rY2mToveO++1CMUBlYa2difiavcdzOJJN/J0gxxt9e95dHCcfCesfbnPkei4KMOJPcMHDGRUfNbo137yaK5cqV2jZAaHPxd00lgkN4JtVtlHUdGgbLEAFqJDSdQsih5hw8/LDF9uXWAflvckR7cesdBjkWbyag/Dik+SlnCnyfCgmu6T++JyZTndqilJCWQOXWOJL6sUwBrxzXCBDrVsX0LheEQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m4cr2+jZEvlsYwo4BbzFRjVeKaCTkM2Hc+RYs8ZdnTA=;
- b=mCWveXnW9jm9tzD5ahZ39xONJ5y+X+YT0Qp7zpaKOXx++DWwIqjam4p7yEz4y/DHL0i5XzW8wHSDCI93GrZ5CdiLiUaEYuAIywzR6YkHH4d5tvFluj0qo7+U+5PovTmPtb7DKqJVkzc6QvQTm/A7a1BcqW6riwdrpj3FBbVeNhzv+zkZB0ygrrBMMPhFLR6nKjNynmzJycm74YY2UaxPabZGQ1a4owJjspblTmUVzmTw440tAWi+De1WDG2MxGYhRdekOzIEP9jdJd7H6tLk2wG0r+LY2tQcDDvUjbBTgIYNszdqw3N/WHFK4pBwMHzrVWBRxICRQyH4PWZ91pkC9w==
+ bh=liXu3oepxlpn43h3e9Xgd2vsWOy6p4F8NrkioP2kv6I=;
+ b=Y2llMForC0lwLZ4I7jmfovCtN0kA2BK5vhNjc6LYoH8QpKXYMTuIjc0Ms7wYEFCQ8Y2q9dzy/NfIjIDPu8gDxCmME6g5JB5NIq9lG5NdbTZ0/DvP5mnNONo9mgJkvI/COLL2bUby+4OmcnSpduEsIJ3IWTpjd3Jp5zrPCyoAjpMVPh4S+MFMnMrC67p8Wi8K7PuJVqr4yllsUk0Ipel38tBWOn1fHXiTi9QILFYTXKc1JDhaTqxrdck4AZk511HcVAzdU10VrOAyow+lnsLXU6Gk5CqsBy6bp7Ae682dhnwqoK6LLp3Dft+bzFWsaMjMQbBmRkB1fwmzSN69pjdvPg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m4cr2+jZEvlsYwo4BbzFRjVeKaCTkM2Hc+RYs8ZdnTA=;
- b=w5pMfD96u/z9KZun4QmuW8A2rtICgxcd7C2HNyN8kTgY4CfKK1D/0kFrq1HupFnl+2kIyhduJ1odqx+VU9XnSy2YaL8ISrcSp1XnG3iXfqB0EGErBZ4cRWDAHOLXhYI5R5EgDtewX80ZgYV+5pcKtTY6lMpNY09aFjKpf0m6slc=
-Received: from BN9PR03CA0323.namprd03.prod.outlook.com (2603:10b6:408:112::28)
- by MWHPR12MB1806.namprd12.prod.outlook.com (2603:10b6:300:10d::21)
+ bh=liXu3oepxlpn43h3e9Xgd2vsWOy6p4F8NrkioP2kv6I=;
+ b=wsfZF+mqdxNxwbFBKQBmSGJjwE7ImCEr63hJgCfmnOttkFqYUexGPn2wkeoLuGq5CV2LUIcG5bcLKlNGBx3UvOXeDUMq3lCvYn9hJFqPLvPNwxt46uXBsHzlPXj1mDF5mWs9pnqmIBqBiDfrnXhodZqSwmebTJKyq6Yg284boMI=
+Received: from BN9PR03CA0317.namprd03.prod.outlook.com (2603:10b6:408:112::22)
+ by BN8PR12MB3236.namprd12.prod.outlook.com (2603:10b6:408:9a::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Fri, 29 Apr
- 2022 17:36:39 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13; Fri, 29 Apr
+ 2022 17:36:40 +0000
 Received: from BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:112:cafe::7b) by BN9PR03CA0323.outlook.office365.com
- (2603:10b6:408:112::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15 via Frontend
+ (2603:10b6:408:112:cafe::2b) by BN9PR03CA0317.outlook.office365.com
+ (2603:10b6:408:112::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13 via Frontend
  Transport; Fri, 29 Apr 2022 17:36:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -54,9 +54,9 @@ Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  2022 12:36:32 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 5/6] drm/amdgpu: add rlc TOC header file for soc21 (v2)
-Date: Fri, 29 Apr 2022 13:36:16 -0400
-Message-ID: <20220429173617.433334-5-alexander.deucher@amd.com>
+Subject: [PATCH 6/6] drm/amdgpu: add imu fw structure
+Date: Fri, 29 Apr 2022 13:36:17 -0400
+Message-ID: <20220429173617.433334-6-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220429173617.433334-1-alexander.deucher@amd.com>
 References: <20220429173617.433334-1-alexander.deucher@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a904d1d6-c1e7-4963-7a04-08da2a06d110
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1806:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR12MB18062F652C4A1906505ECB14F7FC9@MWHPR12MB1806.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 8b8b0d43-1d2f-4920-8690-08da2a06d180
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3236:EE_
+X-Microsoft-Antispam-PRVS: <BN8PR12MB32360BC2BE7C0EE264660D74F7FC9@BN8PR12MB3236.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OGa6KvxZ65AFQZIwUDXah19bkxRNOmGClb91EJ1oxUylutSQEAZ+0aDxULL56RpBts6BWu3yvEHcfbEOwY0TI//X707f2X3qjHaqLaYMPCTJUrNWwCKMxjGSnBDNB+kUEMsgTzYRlKvCtK7B9+UaJx/jgASbE7QL5DL2ZeAbW3a+7sq3uz1zo/rp5mqZIHbWIeG0rUMAxXR1lJI2fGIMMzCuZq5CZaYPhdf+JqxDhl02GTVeOAUPN1JXH4umZm3l2uOj8l2y1TZ+5BU+z9WsK5eDPyWNmaAGmj/Y4ezLBqnwYaVMjjuQ+Kph3sGr4Qq3USpdJ5V6YMLNJI1sLyOzssT0cj9HYQ49FF7DPoSNSFThkcebWNNep85TLidcutz6RbiDorpc23t7kidGgFaxiBGpjWzuhlJUpAG1fmzMy5cNHPlY3D8sZA9Ph72k5Rg+VYGz31BVvP6c3JOmBJAq0r0nazO+xCCUmDQ24f9pBXgUyoc7NSj8fdIv51QlR7ADz3qL5XdJvXvkH7hJekUGpip63/V9pbP+9HQWnKskB7yD1FWYT1/A6qUSRcWnzfMgl09p13Uqhfqp1K9dFsMFDlkymrOxJ6Zejz/8+yjyGE9eiqDoBEBAQZ/LA9Ca4r3EsyjnYQUwGDrDG0mcxCCQprVpXN65EmuDIiEi0b0JuLGEwXNLs0LdmdMVKyAmf0zcSzTZc7e6zFL0WRi5h2EiBQ==
+X-Microsoft-Antispam-Message-Info: SigPmwhlF/9q1OWj0bVm1ScZapeWwgP0t6GaFYLhFmJa8cB3Ym+BmxmDAYLYmWtzMLIR2kUmSOzHLNzGg0rIULuWxuknlWGNkAyyxFubfq9nihBi6yPJ1sR5OqgQRkIeb+i+uXwttS7DttIO+TjS7EcJBd0oYl7xCTOUkFFOv58zu+6fDFU5r3KPBSIQTcade6JbSWyGDt2HmPZsrHF+B6iW6P68mioKo/zCk54jlKoChk1NTBkfUEgvhWpRd95XFZp86hdkP7AYbG/6n6slR4v5630wiLs0dG3P+C7HSTYO66jLqeZX6FWykpXw/x8oUrDwX4AppDbOhukApYu0L3czKL0WSsUg3Dl7ZR4u3h/tSs3BWQsQxPCNq351OJdRKc0H3DbTzGAPSRoymIgiYBPaZjypfEbagfN2YzSx4PxA6Vw2nosusjO28JF9UMzoqSF7+kDV7aG/XXgDR8my2cidA64DnzrEQ/Kb/w6rVBTWsC60sMIA14MVx4uQkWQZs6txv/rQDRJQ6wtlOzC9goFPrjdKAfevICmFYhpc5fPvsNDQwi5k7tMLk/4mMUEi2ajnJKBi1jnizMOyIsED1jPOYSVFH9zL1eAro0zLR0sAn0o5ELSZXQ4Blrvy1hxzUorLkB9wjjFvJSfae4pApmuGmLn9agdIBbxidg5U3Mv+duv3Pp1/ISEwbmUHvNEOUV7R5vdjlp4mY+74bFT13g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(5660300002)(316002)(40460700003)(86362001)(82310400005)(26005)(8676002)(36756003)(36860700001)(70206006)(4326008)(70586007)(508600001)(6916009)(356005)(8936002)(2906002)(83380400001)(7696005)(2616005)(6666004)(1076003)(54906003)(186003)(16526019)(336012)(47076005)(426003)(81166007)(36900700001);
+ SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(7696005)(1076003)(36860700001)(40460700003)(26005)(6666004)(2906002)(36756003)(356005)(5660300002)(2616005)(16526019)(186003)(81166007)(54906003)(8936002)(508600001)(6916009)(426003)(47076005)(336012)(86362001)(82310400005)(4326008)(8676002)(70206006)(70586007)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 17:36:39.1409 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a904d1d6-c1e7-4963-7a04-08da2a06d110
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 17:36:39.8596 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b8b0d43-1d2f-4920-8690-08da2a06d180
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT011.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1806
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3236
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,69 +107,43 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-Add RLC autoload TOC header file for soc21 ASIC.
-
-v2: squash in updates
+Add IMU firmware structure.
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h | 41 +++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-index 6232a89f02dd..f6fd9e1a7dac 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-@@ -69,6 +69,47 @@ typedef enum _FIRMWARE_ID_ {
- 	FIRMWARE_ID_MAX                                         = 38,
- } FIRMWARE_ID;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+index f535770f8092..fb88f951fb3a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+@@ -334,6 +334,15 @@ struct dmcub_firmware_header_v1_0 {
+ 	uint32_t bss_data_bytes; /* size of bss/data region, in bytes */
+ };
  
-+typedef enum _SOC21_FIRMWARE_ID_ {
-+    SOC21_FIRMWARE_ID_INVALID                     = 0,
-+    SOC21_FIRMWARE_ID_RLC_G_UCODE                 = 1,
-+    SOC21_FIRMWARE_ID_RLC_TOC                     = 2,
-+    SOC21_FIRMWARE_ID_RLCG_SCRATCH                = 3,
-+    SOC21_FIRMWARE_ID_RLC_SRM_ARAM                = 4,
-+    SOC21_FIRMWARE_ID_RLC_P_UCODE                 = 5,
-+    SOC21_FIRMWARE_ID_RLC_V_UCODE                 = 6,
-+    SOC21_FIRMWARE_ID_RLX6_UCODE                  = 7,
-+    SOC21_FIRMWARE_ID_RLX6_UCODE_CORE1            = 8,
-+    SOC21_FIRMWARE_ID_RLX6_DRAM_BOOT              = 9,
-+    SOC21_FIRMWARE_ID_RLX6_DRAM_BOOT_CORE1        = 10,
-+    SOC21_FIRMWARE_ID_SDMA_UCODE_TH0              = 11,
-+    SOC21_FIRMWARE_ID_SDMA_UCODE_TH1              = 12,
-+    SOC21_FIRMWARE_ID_CP_PFP                      = 13,
-+    SOC21_FIRMWARE_ID_CP_ME                       = 14,
-+    SOC21_FIRMWARE_ID_CP_MEC                      = 15,
-+    SOC21_FIRMWARE_ID_RS64_MES_P0                 = 16,
-+    SOC21_FIRMWARE_ID_RS64_MES_P1                 = 17,
-+    SOC21_FIRMWARE_ID_RS64_PFP                    = 18,
-+    SOC21_FIRMWARE_ID_RS64_ME                     = 19,
-+    SOC21_FIRMWARE_ID_RS64_MEC                    = 20,
-+    SOC21_FIRMWARE_ID_RS64_MES_P0_STACK           = 21,
-+    SOC21_FIRMWARE_ID_RS64_MES_P1_STACK           = 22,
-+    SOC21_FIRMWARE_ID_RS64_PFP_P0_STACK           = 23,
-+    SOC21_FIRMWARE_ID_RS64_PFP_P1_STACK           = 24,
-+    SOC21_FIRMWARE_ID_RS64_ME_P0_STACK            = 25,
-+    SOC21_FIRMWARE_ID_RS64_ME_P1_STACK            = 26,
-+    SOC21_FIRMWARE_ID_RS64_MEC_P0_STACK           = 27,
-+    SOC21_FIRMWARE_ID_RS64_MEC_P1_STACK           = 28,
-+    SOC21_FIRMWARE_ID_RS64_MEC_P2_STACK           = 29,
-+    SOC21_FIRMWARE_ID_RS64_MEC_P3_STACK           = 30,
-+    SOC21_FIRMWARE_ID_RLC_SRM_DRAM_SR             = 31,
-+    SOC21_FIRMWARE_ID_RLCG_SCRATCH_SR             = 32,
-+    SOC21_FIRMWARE_ID_RLCP_SCRATCH_SR             = 33,
-+    SOC21_FIRMWARE_ID_RLCV_SCRATCH_SR             = 34,
-+    SOC21_FIRMWARE_ID_RLX6_DRAM_SR                = 35,
-+    SOC21_FIRMWARE_ID_RLX6_DRAM_SR_CORE1          = 36,
-+    SOC21_FIRMWARE_ID_MAX                         = 37
-+} SOC21_FIRMWARE_ID;
++/* version_major=1, version_minor=0 */
++struct imu_firmware_header_v1_0 {
++    struct common_firmware_header header;
++    uint32_t imu_iram_ucode_size_bytes;
++    uint32_t imu_iram_ucode_offset_bytes;
++    uint32_t imu_dram_ucode_size_bytes;
++    uint32_t imu_dram_ucode_offset_bytes;
++};
 +
- typedef struct _RLC_TABLE_OF_CONTENT {
- 	union {
- 		unsigned int	DW0;
+ /* header is fixed size */
+ union amdgpu_firmware_header {
+ 	struct common_firmware_header common;
+@@ -358,6 +367,7 @@ union amdgpu_firmware_header {
+ 	struct gpu_info_firmware_header_v1_0 gpu_info;
+ 	struct dmcu_firmware_header_v1_0 dmcu;
+ 	struct dmcub_firmware_header_v1_0 dmcub;
++	struct imu_firmware_header_v1_0 imu;
+ 	uint8_t raw[0x100];
+ };
+ 
 -- 
 2.35.1
 
