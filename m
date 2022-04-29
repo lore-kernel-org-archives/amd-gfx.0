@@ -4,89 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C638C433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 00:29:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72A93C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 01:41:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EC2010F0E9;
-	Fri, 29 Apr 2022 00:29:55 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2073.outbound.protection.outlook.com [40.107.223.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02A3D10F0E9
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 00:29:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3D7510EBCE;
+	Fri, 29 Apr 2022 01:41:40 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2077.outbound.protection.outlook.com [40.107.94.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3EBF10EB8A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 01:41:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vup3c0UifTDw9LktxrJ4MH0Y+TZ7rlp9gOfyHja2DJcf7DM1SsxXJBmnItVaP3CvjzOCBuPRyzjZjPiSLq0dZX1PY08yG52LPULLD2PLaZgL3AQ48oSH8pQO00a1Hq9wFQRhQdcwednZfh/bRXZOjDAqy+cn6fWfh+Nf2C/2w5Pt1LRGXSXVIhJRRueAq0TfbEZMe96jA57dEKV7h/9NQvp05TzmuQzCpOt8AFmKPPr8YwJMyCqobpuategEEcUj0EdTtv88uI/mzGpz1IDnVrbXut0h7S2n3eTb8bgDuvif5loa3q47F3khP/faagAENP6WeY/YzXE8Uo1oVWDGfQ==
+ b=CSgFds0GK0dCoiOcP1ZtJwEue3i4aTq0mdrAyPxQ4J0RS1WNjEPrbNW1ai7w1GMUVajnjfBPWFPJE8C9BgOtUfHFboTNuVixeP+3QSaGVpfVQNvQ6iZIDP0uINpgpFuYRzYaE4YTvLsalKV9YNRcgS4UTNf71ryY79jI/TonEuKXTW+bRHQELkmEMHSriYmOtf7j3Hy1n2J4VhxkcF+Q/PWS98lDxUEpcR+OckGWodeJ30gGvgU7W6LMIV63zNinsgR3XXT1JDHxc4i1jj1zV1JisuB2xZ451xKuE9t7t+BOkETByvA+LRRQjroP8Dt9OCpQ64nX5XAe7fW/qse4MQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kww7qTk1sZQLfJFXEX9TwmHY1cKnqwwvS2uvc7Y+yek=;
- b=aYtQXI02tjrwfppe8Y+1QfQzaqnu8qTOTsQzxlXRyb1BGWd/nU+CDyNbdso3MD3XvUEowEc80xazx1IEuak6PUbNtsrnBEHFuvuEy/QjaLXAsimwNsjEI2cY+WnLdUhm+SOdSQY/mmY1Nr4D72FMSfUm7DMo4u8a40EFqAdR69jYWydKgU1bEWJUr7HkptB6Nesc8kpOf9MRLsnRnCYWm4XIOmReVGEa0BikJ8+MwcbU6z92PWRg/cZE6uEDeQfR68JR6SgW1lxYYybr9zenh7XeQMV//ynVz2Ql4fhFI1wThTP8lFGxgtDG0B6i1S53j53XWRGFAjcghMtMLbu8Eg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=1739YHRNmDfqU+dKcRImq++lSLXxGNQZF2R2GcM353k=;
+ b=WleYDIL8mBx8FkhKZeCsTCS37hrVLQgJbmp/Nu7IhVicS7Lajl4TU6pDtWn0CXqTPI2Z09/mQyuMZOxHYSIailP1NGUrb+S+6z4V0iPdW1zJCgPTkg4SXM4mpojBHbsHyuSabj5GGZokkWNW01TBD7xfDW0uHWpVlF+iDwqQU2bAG3v9VhAPuzhZKE8MYyeuyBBq7buZNLvwMaUbFZ+bzZiBOXk8eYwKdn1ffHeD6nXJdiCzNKbUf39v6kT3sgcdeohzBh/hv4l4vhv0O2NcbWbjiTu00zRa+E3qaSSIQF90KPVyjsDyUv/r7hemoaMIeJFXpf5ffOe1tUbyHj//Zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kww7qTk1sZQLfJFXEX9TwmHY1cKnqwwvS2uvc7Y+yek=;
- b=vUtShuazxGOPcKL2vRHXRlE+WqVRCL1qQsyUFrxZqcNryZr6vJfXVne2/T8GRJOdaBTHcaB+KvoxJF/LbOuXFoJ6hR8ItNCx0EbAumzIXTQs1WSGFp2CEKBiBvRU+tqyf/AJLVBsEh6/hqMgpi0YskM8qrXEL64G3X1TG/0McDU=
-Received: from BN0PR08CA0026.namprd08.prod.outlook.com (2603:10b6:408:142::28)
- by MN2PR12MB4534.namprd12.prod.outlook.com (2603:10b6:208:24f::10)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=1739YHRNmDfqU+dKcRImq++lSLXxGNQZF2R2GcM353k=;
+ b=faluyV8n3NM3kLG+S0ljoN7Gpj8ItsFmM4HscqVz6VpCBAAQPyJSZxMCpJSlqf4AXeYWMVBe9WNYQNTnY+BzqPKPSZlwuBYuFpZJYTqN6OUS+SzhGymszDK22MXh5qv91OSEUSpbhRtkYkhVNWNvt26P0afwBiF6KZ847dRfmko=
+Received: from DM4PR12MB5182.namprd12.prod.outlook.com (2603:10b6:5:395::24)
+ by MN2PR12MB4045.namprd12.prod.outlook.com (2603:10b6:208:1d6::15) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Fri, 29 Apr
- 2022 00:29:47 +0000
-Received: from BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:142:cafe::b7) by BN0PR08CA0026.outlook.office365.com
- (2603:10b6:408:142::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13 via Frontend
- Transport; Fri, 29 Apr 2022 00:29:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT057.mail.protection.outlook.com (10.13.177.49) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Fri, 29 Apr 2022 00:29:28 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 28 Apr
- 2022 19:29:25 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/1] drm/amdgpu: Free user pages if kvmalloc_array fails
-Date: Thu, 28 Apr 2022 20:29:11 -0400
-Message-ID: <20220429002911.8207-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.35.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a4947416-0ceb-4f39-5572-08da29775d85
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4534:EE_
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4534D70FD083DE9A2E31BD29E6FC9@MN2PR12MB4534.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WnIj3B9T/23GOjmqyrwqmSlMZeMKa7Zxb5GUyHS6/WG4CPJsTqGTtUKrEKMMF7BiHMBDxv124r2Y7LNvY9t0xVpa6WKGmGCZJVn3kTffxyTYyyV2OXEkXWWFxnj5JJ7sQitQ6IHc+hd+Gz0q4LgM0sSZzevVwsYrrwZuLwpeCnfrb4aZtxNJ7qacp1AS+5YiDMSPbyzciqne4BV78B9y3u/UsiPLWuF9cglVhIIHJt1vwmRTm/c0zDfNGHzdqMj/bufXvz6+uObtTuhGX3PTHo1AISWeTbJ21cEM8hvcc9BpXQJZ/3s4TVDNxsc4AoR6di82P10uOtCnryjnSoqRKX44BFhaTrT5Nq6UeeGyBkUTEPHmcFjJ79BjsrOiGbkzTwBaLu8sS2dYWD/vTEb+t1rqXpZFKhcBt4k5fPFzvhvLIgBHckQqNCOD2s4e0e4oOtJCKkM2uk530uqyP0KW0E4a2uCbH39fOc3vZfjjfukyTwlYzHBaQuMziXGRPlnkuc3YP0z1E6G2yRUXaLpgT7193qnzVepUdVawAhwmiI8NmvJt/3GdLh8Ao6uG97+vJuUGwu2lpUj655W5kvCdNPzSlo0ei5SUMrLiia+N4BDhVxYVlEb895SsfFp7SZWeWbWm4dPBW2bd7HZOnpiQ0135GCPCA9uEtdOgkjjacFLQKJNPchwxFz/VpGHXY8zDlrRMrGkC5HzMW3r2WgY1Ew==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(6916009)(356005)(82310400005)(36860700001)(2906002)(336012)(47076005)(426003)(83380400001)(316002)(4326008)(70586007)(508600001)(70206006)(8676002)(36756003)(16526019)(7696005)(186003)(2616005)(26005)(86362001)(6666004)(4744005)(1076003)(40460700003)(5660300002)(81166007)(8936002)(54906003)(36900700001);
+ 2022 01:41:35 +0000
+Received: from DM4PR12MB5182.namprd12.prod.outlook.com
+ ([fe80::68df:719a:6c7:96cc]) by DM4PR12MB5182.namprd12.prod.outlook.com
+ ([fe80::68df:719a:6c7:96cc%7]) with mapi id 15.20.5206.013; Fri, 29 Apr 2022
+ 01:41:35 +0000
+From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu/display: flush the HDP when setting up DMCUB
+ firmware
+Thread-Topic: [PATCH] drm/amdgpu/display: flush the HDP when setting up DMCUB
+ firmware
+Thread-Index: AQHYW00xlTl8dhrR1kinJN2ZG4pxl60GGzYL
+Date: Fri, 29 Apr 2022 01:41:35 +0000
+Message-ID: <DM4PR12MB5182C293BE9C6AF6E807A554ECFC9@DM4PR12MB5182.namprd12.prod.outlook.com>
+References: <20220428221311.1030146-1-alexander.deucher@amd.com>
+In-Reply-To: <20220428221311.1030146-1-alexander.deucher@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2022-04-29T01:41:31.894Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+suggested_attachment_session_id: 1382fabb-a892-5c9a-7a92-e85da57c16be
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a824e529-e429-4a7c-e7fa-08da29816534
+x-ms-traffictypediagnostic: MN2PR12MB4045:EE_
+x-microsoft-antispam-prvs: <MN2PR12MB40457AB0CC50B2B2DDC52F38ECFC9@MN2PR12MB4045.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: OV0tA7SSUxk7aE15y8ReinJnbMj0y0LvnO8vYmXWMiuxNIeasbaiF+yf1yQXrvyW7ZFcuM0tg6aW1FW5JaQF53zepFCboezYjuwDFIpdgQVa9/3YLRnmNVxU12u2jRsweLsbG8s0GWtSb9HAHY3o9KTgQYWhs2/5n5WkaBiz+PAoUD/cOeZW/L4Kv9ZxVID1uGpK8lIAnQg7bbfrjfKalxUe0sz/V6mi/6gWS7H3Cw557EnyQOznXuEYbUwxh9sFtVt4jbZCjXJzn8DDAGUAhs7UNrDn4qJDSDIKtmyI/noxBdLMea/zZopyK2F4rYLdYkhAxWu1WFZ4gb455GqAwqugBdLNkqNtPIvpN62u4xrLADc/4QzqfjdS9gL3PP1YAwT5A5hhF0srMPOxGnx+T9r2dm7uX0sfdHjdqp1i42ymxC7Cm/wtxiM0rBlVVun6vjglDpU2kE/c6ic8QgBMv/9w0vduY8SBlZ3D0eMLSp78i20ys0zJ4UaqC9zRYa74ePJ0UMBQX2QhhDvsTEgwElIeIHS8H/5AIfYGfs869CXlmFyhmbY4QNYXJMcdRXsxKD5BwJQQA3NHnTlxWUdDait62igIqihG5D8TO72FQjO47+VMvmcgZiV2V1Nlp2iYyRPZ8QguWeDKb/JAGjO03Pl5HFth1L4TRq6C4HahCv7XbEnLiO27Ulg6kdQ2h2iohh5H5kD1hfWVX+fMSZDImg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5182.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(8936002)(186003)(55016003)(19627405001)(508600001)(52536014)(316002)(110136005)(86362001)(83380400001)(26005)(91956017)(38100700002)(38070700005)(122000001)(5660300002)(8676002)(7696005)(76116006)(9686003)(64756008)(66556008)(2906002)(71200400001)(66476007)(53546011)(66446008)(66946007)(33656002)(6506007);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?vW4svB6AypmFrJKOKlVyfatzUueR402JPrTNclH7kXAhe8B3tz2fT9eaH9r1?=
+ =?us-ascii?Q?IMwFdGC5We38uCx3y9MspvNS5nBksDtdP0pQfRUnN6IwHQchY+dbRBNYKKQV?=
+ =?us-ascii?Q?5O076DqjUFaDF5jEzl9lVXfhYETkJKwmJNU5kucSfkxlUengV1HoBHYGp32C?=
+ =?us-ascii?Q?Ziyv/KRZdabq+sB2NTeNWU7MUz99s4kJRU4kXdgpJPYxf3CyX9J8vJd3FvyX?=
+ =?us-ascii?Q?qajfXenfLqmFCFTAVN6fSEX5iHiMUd7L9srxtPRxd0tGRGCJOtuTgU4navCw?=
+ =?us-ascii?Q?/G8lCn5xfHrTFzEidV+XftAeZsCr4SLTsYq5pZglJF2LS1EjVAOmR8hgpMlY?=
+ =?us-ascii?Q?5KywBoBVVxqC0xvI/ElcnxcNpsOFvXFNThC2uNig6ldoiHifiY1c7eN5EePh?=
+ =?us-ascii?Q?37QpJICMJwC8pPqdg7WF0JCe1blDmKj64KyUYdWzdzFNrLBKRrvZQXdjRFht?=
+ =?us-ascii?Q?3sBSmPqt4P2SV4cC0amG2IAlAkObCDw/nB8qfNzfIj9E/oqMpSpfN8XyByds?=
+ =?us-ascii?Q?WtntX/xsZy48E/81d84303NZgAhSTiarx5gpbsvz9xaC8SNDDEtaxJGo6LTG?=
+ =?us-ascii?Q?XdwqlDMAdK7LvFplUE9LAhjGPgX9VigcJXDIicc8ZB+kDWKWJYj4A1kGjvmt?=
+ =?us-ascii?Q?e8Y12y6dRVXCqyqd5AyJRg9xf0+aHHZ9A+WCDrXDkfUqWZbnnYJQ2imSrLxy?=
+ =?us-ascii?Q?/wscKlBg9+eg1+HhPMfTgTMD5USdKtme4Y3dZ+Cv/uEI9jPyR72CKbgEhXEI?=
+ =?us-ascii?Q?8KcB3KxRK30rr1+TXFUpovsIngpWAcI/C1zHfwkIfj2ZouH1PzCp17gf37Z0?=
+ =?us-ascii?Q?9seo6RQ0CAsbK+H6RHcoLvh57nx+xAYzz8kkq/GoTF7i8QKeZr/KQ4sS5nLB?=
+ =?us-ascii?Q?Iflwmb/OgZKejvQGixa24H+Ht4vNzhRuw5xwbNhsGnf/TZ+4oE0M+4Uk7php?=
+ =?us-ascii?Q?evzH1QHndGhYYmTeV/dHNw/6VnKAsr8wnoyQVy8uw/NzcGJoOWgdI/c61KAA?=
+ =?us-ascii?Q?hdcwjEC9A8Ug7X4vxqNMcVlRT9O5HuRZOVIlJ8aIDrdrDBEHPK4laR2GDOy8?=
+ =?us-ascii?Q?i4t/SDr01mttiXHX3SzLhK+y7SrT7OcFoPkY84Kt3CSXW83+yFz39XtTZwIm?=
+ =?us-ascii?Q?xSq457+slipEGs31jOtyqtwR0qHYuDJZvE4OsgGAH+Ud2yBRuPJ+CivCAAwf?=
+ =?us-ascii?Q?9lLEyUFQOnAYJQwVUjeMx4c3syOX5kStCb9kTZbIfdmBWfM2dqt6RIrheFGf?=
+ =?us-ascii?Q?P5fXIDk2FIRx4olpRaHb2a9U3vTjOPSVbCpXxtrLnarunaIwdEmHbrmq4ttv?=
+ =?us-ascii?Q?mXnYfzM8g+GEJdNKUoBugyPeZjPZX/wYlUPIbvI2TTIIjtFBEVUStpbS5d75?=
+ =?us-ascii?Q?yK3UWTBawpGgDifx2UAGcSDL7HiQkKUjF0TikEm8hJptBf18r/YjCKFS2BOF?=
+ =?us-ascii?Q?QVNNld6+wsms1SilMFQp+W/Bu8u4/jWIGU5/AyxDw8H8W6ev2Rsou5TAxzzN?=
+ =?us-ascii?Q?prH9x9Oq1wDDUnCnOtzSBd1cF9ho6poNEv4m0fGSmcQKWeprZHsDUi/8X7eL?=
+ =?us-ascii?Q?YO70HPKPuPwJh3fk7+nCvWSaiTfPNUSsO88V/3nq/XSORuPusJn7Bk8W4snD?=
+ =?us-ascii?Q?8zZRXCbiwJJ9bxKLP1moGwTms1qATtbuVSEZ+Xc5hPXDvafDkrdhyNr5LVtI?=
+ =?us-ascii?Q?cjkUuYAKutPQklSxiFIr8EVnJ7Q4LkQMzFvHdZUEgBw2J8Ed?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM4PR12MB5182C293BE9C6AF6E807A554ECFC9DM4PR12MB5182namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 00:29:28.1195 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4947416-0ceb-4f39-5572-08da29775d85
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4534
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5182.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a824e529-e429-4a7c-e7fa-08da29816534
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2022 01:41:35.1675 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: RMlmM1ESMLLAnhlKngoYCNefmMabz71eRX3oRKJpbvELeXoIn1pw516lrZkqLiuzzi+AHsWCcrPCWr0JBLhRDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4045
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,32 +127,228 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ckoenig.leichtzumerken@gmail.com, Felix.Kuehling@amd.com,
- Philip Yang <Philip.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To cleanup the BOs of bo_list which have got user pages.
+--_000_DM4PR12MB5182C293BE9C6AF6E807A554ECFC9DM4PR12MB5182namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+[Public]
+
+This bug previously existed, and we have a solution in place for it.
+
+The solution we picked was to force a stall through reading back the memory=
+. You'll see this implemented in dmub_srv.c and the dmub_cmd.h header - thr=
+ough use of a volatile read over the region written. We do this for both th=
+e initial allocation for the cache windows and on every command submission =
+to ensure DMCUB doesn't wakeup before the writes are in VRAM.
+
+The issue on dGPU is the latency through the HDP path, but on APU the issue=
+ is out of order writes. We saw this problem on both DCN30/DCN21 when DMCUB=
+ was first introduced.
+
+The writes we do happen within dmub_hw_init and on every command execution,=
+ but this patch adds the flush before HW init. I think the only issue this =
+potentially fixes is the initial writeout in the SW PSP code to VRAM, but t=
+hey already have flushes in place for that. The signature validation would =
+cause firmware to fail to load if it wasn't at least.
+
+So from a correctness perspective I don't think this patch causes any issue=
+, but from a performance perspective this probably adds at least 100us to b=
+oot, if not more. My recommendation is to leave things as-is for now.
+
+Regards,
+Nicholas Kazlauskas
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Alex Deu=
+cher <alexander.deucher@amd.com>
+Sent: Thursday, April 28, 2022 6:13 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amdgpu/display: flush the HDP when setting up DMCUB fi=
+rmware
+
+When data is written to VRAM via the PCI BAR, the data goes
+through a block called HDP which has a write queue and a
+read cache.  When the driver writes to VRAM, it needs to flush
+the HDP write queue to make sure all the data written has
+actually hit VRAM.
+
+When we write the DMCUB firmware to vram, we never flushed the
+HDP.  In theory this could cause DMCUB errors if we try and
+start the DMCUB firmware without making sure the data has hit
+memory.
+
+This doesn't fix any known issues, but is the right thing to do.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 44dcbef80229..ccde951244f5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -543,7 +543,8 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 					GFP_KERNEL | __GFP_ZERO);
- 		if (!e->user_pages) {
- 			DRM_ERROR("kvmalloc_array failure\n");
--			return -ENOMEM;
-+			r = -ENOMEM;
-+			goto out_free_user_pages;
- 		}
- 
- 		r = amdgpu_ttm_tt_get_user_pages(bo, e->user_pages);
--- 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a6c3e1d74124..5c1fd3a91cd5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1133,6 +1133,10 @@ static int dm_dmub_hw_init(struct amdgpu_device *ade=
+v)
+                 break;
+         }
+
++       /* flush HDP */
++       mb();
++       amdgpu_device_flush_hdp(adev, NULL);
++
+         status =3D dmub_srv_hw_init(dmub_srv, &hw_params);
+         if (status !=3D DMUB_STATUS_OK) {
+                 DRM_ERROR("Error initializing DMUB HW: %d\n", status);
+--
 2.35.1
 
+
+--_000_DM4PR12MB5182C293BE9C6AF6E807A554ECFC9DM4PR12MB5182namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+<span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-siz=
+e: 12pt;">This bug previously existed, and we have a solution in place for =
+it.</span><br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+The solution we picked was to force a stall through reading back the memory=
+. You'll see this implemented in dmub_srv.c and the dmub_cmd.h header - thr=
+ough use of a volatile read over the region written. We do this for both th=
+e initial allocation for the cache
+ windows and on every command submission to ensure DMCUB doesn't wakeup bef=
+ore the writes are in VRAM.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+The issue on dGPU is the latency through the HDP path, but on APU the issue=
+ is out of order writes. We saw this problem on both DCN30/DCN21 when DMCUB=
+ was first introduced.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+The writes we do happen within dmub_hw_init and on every command execution,=
+ but this patch adds the flush before HW init. I think the only issue this =
+potentially fixes is the initial writeout in the SW PSP code to VRAM, but t=
+hey already have flushes in place
+ for that. The signature validation would cause firmware to fail to load if=
+ it wasn't at least.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+So from a correctness perspective I don't think this patch causes any issue=
+, but from a performance perspective this probably adds at least 100us to b=
+oot, if not more. My recommendation is to leave things as-is for now.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+Nicholas Kazlauskas</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Alex Deucher &lt;alexander.de=
+ucher@amd.com&gt;<br>
+<b>Sent:</b> Thursday, April 28, 2022 6:13 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu/display: flush the HDP when setting up D=
+MCUB firmware</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">When data is written to VRAM via the PCI BAR, the =
+data goes<br>
+through a block called HDP which has a write queue and a<br>
+read cache.&nbsp; When the driver writes to VRAM, it needs to flush<br>
+the HDP write queue to make sure all the data written has<br>
+actually hit VRAM.<br>
+<br>
+When we write the DMCUB firmware to vram, we never flushed the<br>
+HDP.&nbsp; In theory this could cause DMCUB errors if we try and<br>
+start the DMCUB firmware without making sure the data has hit<br>
+memory.<br>
+<br>
+This doesn't fix any known issues, but is the right thing to do.<br>
+<br>
+Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++<br>
+&nbsp;1 file changed, 4 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index a6c3e1d74124..5c1fd3a91cd5 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -1133,6 +1133,10 @@ static int dm_dmub_hw_init(struct amdgpu_device *ade=
+v)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* flush HDP */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mb();<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_flush_hdp(adev, NULL);<=
+br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status =3D dmub_srv_hw_ini=
+t(dmub_srv, &amp;hw_params);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (status !=3D DMUB_STATU=
+S_OK) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Error initializing DMUB HW: %d\n&quot=
+;, status);<br>
+-- <br>
+2.35.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DM4PR12MB5182C293BE9C6AF6E807A554ECFC9DM4PR12MB5182namp_--
