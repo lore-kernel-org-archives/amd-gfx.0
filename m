@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34F0DC433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C42EBC4332F
 	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 17:47:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53E5610F687;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC2E10F6C3;
 	Fri, 29 Apr 2022 17:47:18 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2071.outbound.protection.outlook.com [40.107.220.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3668110F23E
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 17:46:56 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2048.outbound.protection.outlook.com [40.107.236.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04FD310F232
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 17:46:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rmv1JNbBe81S92DAoG0xeh/jq2Q2t03qZdeobFD4iktX8WS8fnOukdadFshje8UY+C1lGKgF057hL6MNUay/NvtruLbPeADos3j6lP4wPIR7en05Jd7AaUbuH8qz7mNBrO+PQNxUBugMWArfXEPuiQ5ZQBzKSMnS11ce+/0dI5YGkC8mdL6bgdeMCUL+HdvUZOgfnnU4mD1B7WawfMb5Kur+D3PsL2lXpCMCDhvXqL1rYQEyqvXw88dbPC1eV3hzj0MxJfTCQ8tcD6xPiXhBsvHvTwPxtX3C60vcgo24H1Fdnc0lSb2A/NBa1GXednh8ck01ttLI4iY3jbUityK01w==
+ b=RpZfMuF2RbXr2vicgrWSBc2SM4EkfaQ9q42hAvNyJakqq06UsYYdvNt/xL//DVAWVUqPyVdtjGJFr+5cXfeh8TR9MPpJs5Tc/I31GM651enOCJGK8VwGT0mM1IIdJSiftUNLRjGqqIrkOdoEpXm8EFa9n2MzO2l+U84e0pICE4UuxUMmQ8wmbM+gk/bD2r/DMoidbILIUpL01w48ox4U1oQRFR77iccbKGNAF5bomu87SW2hhEasKU+mikaTwmbkxdSo0prRCPQMV23aZ3HXFoWkItWMRSMomd596FYzH86WEXUBuZF2Wzy0GmmHNhdWf7Z5U36vAIG9PzdqLvI0EQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kQ5hwlocVq9mjq3wyhYLUo0/x0DpxCN4wjQZah0t26k=;
- b=NGRykEgjBcNxtTOhtRIOXw5pUgdz0QfCYSDkZjM+nDafwcC9ywAFH+0gbSsUVR7rQedDaTFsTrPsv6kARE52X9J61KPIswLneO3YVbMefBn1Xd7r5P6yuScpFD4kqtguGVdKXclFfA8p/skar8YoICwU6U2GqajSHQkzLIip4TxOehjGg5QDGimwwxnqekaCvt9r7PnhxytjSIoxKqMLIk3MQ+snxOuRj5dUi8gj8dDOm7cKPc4ddLv55HLh8YuAnkqquoholaOvZoWSX+xTlYk2FbxLgrwKl7P7WmFE6XRGyKU7PkjFA5XBvz26Hu8mp0LDHrZCi/YTxK14S4bSgg==
+ bh=DNR0ffYkCe5ARzJnj0MGUPXx4dkL1USvpHxQIDS2iA8=;
+ b=LLekUacUlrYO/es+9vXn9x7ug5tsUz7ciyPrOZWhnJf9hlyPTokYhwOUbJZ15K2PLT1RLBQAOHmr4uxoO/NuxvgXXZbsyzbdKUAF5hL325Dv/FTVw8nXTh/EkKkB4tJNoO5++hqjZDyvohFWbv4TyZ8KF2vZ0xHVVjp+Bg79oZejSJSTLAqHQf8NnUTJIWrcqyAVpyRiIiahEmZpJOfm2F2J0gAtFgHQexMizkr+KC/05U0QjgiizXqocDQAUgI1DlDRX9zmvgbEEAKNQlCSFXFfpPkaLcZz8t74HkhNerLMfkOytKOn3oVOgRthtlUVhFQ+hH8Bb6v3hBB+SfUfcw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kQ5hwlocVq9mjq3wyhYLUo0/x0DpxCN4wjQZah0t26k=;
- b=kQ119Qb0Nd4DmtrutVF4cZPusvPIegFHkY0+lERE/OY4e7pBwS92H3aQMXKljhcTETlAOH289Tk12ggWG4iOBAi+9+me74ECbDUv+oMZLhJJB4rYtKPtRDM7E7Ath4E12Xpw+XGS8Befwzv9DurteqQTL90sameslPyD5/9qdyE=
-Received: from DS7PR06CA0011.namprd06.prod.outlook.com (2603:10b6:8:2a::6) by
- DM5PR12MB1404.namprd12.prod.outlook.com (2603:10b6:3:77::15) with
+ bh=DNR0ffYkCe5ARzJnj0MGUPXx4dkL1USvpHxQIDS2iA8=;
+ b=LiS41NYL/7N7kH6HU82E6w5FaQ5HSCEoI1lBQJlvfLGmv7hR6SprrEjMNqQt3RTnRntIDnZ/gk/+X43FHAF7T+Oe4zKkLrcD+AmFEphyhwCqVOp+Bx8hyYSCopactcCRBEggU8hIASVVhkvfboH2HX7IgHN6SDsA9xO8HnKjwuQ=
+Received: from DS7PR06CA0015.namprd06.prod.outlook.com (2603:10b6:8:2a::26) by
+ DM6PR12MB3193.namprd12.prod.outlook.com (2603:10b6:5:186::31) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5186.14; Fri, 29 Apr 2022 17:46:53 +0000
+ 15.20.5186.14; Fri, 29 Apr 2022 17:46:52 +0000
 Received: from DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2a:cafe::fb) by DS7PR06CA0011.outlook.office365.com
- (2603:10b6:8:2a::6) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:8:2a:cafe::23) by DS7PR06CA0015.outlook.office365.com
+ (2603:10b6:8:2a::26) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13 via Frontend
- Transport; Fri, 29 Apr 2022 17:46:53 +0000
+ Transport; Fri, 29 Apr 2022 17:46:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT050.mail.protection.outlook.com (10.13.173.111) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Fri, 29 Apr 2022 17:46:53 +0000
+ 15.20.5206.12 via Frontend Transport; Fri, 29 Apr 2022 17:46:52 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 29 Apr
- 2022 12:46:51 -0500
+ 2022 12:46:50 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 25/73] drm/amdgpu/sdma5.2: initialize sdma mqd
-Date: Fri, 29 Apr 2022 13:45:36 -0400
-Message-ID: <20220429174624.459475-26-alexander.deucher@amd.com>
+Subject: [PATCH 24/73] drm/amdgpu/sdma: use per-ctx sdma csa address for mes
+ sdma queue
+Date: Fri, 29 Apr 2022 13:45:35 -0400
+Message-ID: <20220429174624.459475-25-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220429174624.459475-1-alexander.deucher@amd.com>
 References: <20220429174624.459475-1-alexander.deucher@amd.com>
@@ -68,27 +69,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d3453b1d-46ca-4bfd-f405-08da2a083f0e
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1404:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR12MB140454CE136B7FD67573B4F5F7FC9@DM5PR12MB1404.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 951254a6-6197-4492-9617-08da2a083ece
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3193:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB319398D5CDD0F521A7CA0F50F7FC9@DM6PR12MB3193.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3c2sRoUyHozf17lXgGCfe9eayqjEqmlb7KPeffTYLWrG9Ez2p3L+euJLkX34KOx+rLy9RbCwxk/dk3YI3CYweojOpJs/ydjQY6NMEaDtztjYwE5QUDXmIgfckSQTl9lrVx7Jks4nzndRhZIWYPG4ufXpiP4CRriTEfjnz2MhaVB2l2yZa8aB8BI017cY2SzXmvkle9RgYDVI9qWYsV0F9fLJ7Q6Pe3As5jsWnFrZeHbXAeZsCxZMRgDu7sGyEfLUg8AIWYie5L4fJ2Nk3JOARRFwzSwf2tsn9kbGY7naPVww7vQZN/Ol9cUAJft4d7MTiyDgPM8/eGXdWXLt65JiB/xx5Bj3UbPXi5C6rL3wBGXe8INoX4OXGN7oWSdU8s5mdYT16LIIIrRLpKqs9F0FAPairZnixL0GhmFIsHjdp7reXTcYZ0INMS6yHshk4/Vmz/Thj+OpMza3c1FiSA+Z/0JpRewfZy5gPDAY7rsb6FKWrPd9T4EWDvFPbiVS4HJd8iqcsOqYWsD9jOTli1wvyGJKAa0YrH80gHL2OTwpetPvbug7FO4mjmjTS9i0hoEc1l523MGmcsca6HbbWvglqvV1xawCw6Twap1aLS3+aTOSOwpcrvrvcSn7MsK3vtxkDpP1eO331hrnpVJ04Ze587CCFBzkmLJPgAQFW7czNznUZ+mbswH2TKO7H9S7gcJ7SQybh0VUgOSuQEWCN9HiYw==
+X-Microsoft-Antispam-Message-Info: uW+ID9ewenC7LOSpx4fdMsfwwZYMbGcnpKAZuOCMGcTRlVGp69+5bIuEFG1YmEXv+mEeuF4k24CfOqTjQ2UTW1McOgYkBWLT8QnK29TkI8TPpL28xK15ycMtWFasBOJDQjuEeL0CPmbSE87cvZIIGU7zWJehownTyqWJ6GgCPUs0Z4CDZ9ackGbo+muDvwCOKDtt9f+a0+pooehkBqrhjnUNFVpMuJ8BPJQfCFp8VD1B7T7tvRPTUTvaOq4QDCg8bUV7DRCO9d2AM0c5E5Y0rBF2FysroLpDkOqVDRsXJJQA1UYKe8WF5suvJrKEbEAbqhGnOlU1xNNPpFXfULjN7oMFi+jC8pku4BaQE8vmf0/NyHZgwIByOwyZtiCGeAG9JSn7gzQ4EnBHSjuITGou78ZZadugcAMIyc4fW2S/C7+4mktqDprH0U0Pj66YGAWauyIuhDDcNSYeqSKx0SQFNhMzCQ1E6y6TuaP7U0ricOzSY/oMQXMdUG51hmN+FdwGTbETchLv906xPTVlU9rw4fdWs2d8p6daMWRbvvudH9b66w/U/OHHEViahT3ag7IbagMckdrMLvvgi+3gynWP2WQQntH4qp6c6OIP5clIe0us7z6y+mUxazWo3RNLNMKI9qYaJjolYwfg+raKHOWmRjgd+VE3K08CcGJdMRRmjxSIPfNgJgXByQfgw3T6otqNV3f3yKKUrDgTeMP/sP1pgw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(508600001)(86362001)(36756003)(16526019)(8936002)(40460700003)(336012)(5660300002)(47076005)(66574015)(426003)(36860700001)(186003)(316002)(83380400001)(6666004)(7696005)(26005)(2616005)(82310400005)(81166007)(2906002)(356005)(1076003)(70586007)(70206006)(4326008)(6916009)(8676002)(54906003)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(82310400005)(2616005)(26005)(356005)(81166007)(2906002)(7696005)(70586007)(1076003)(8676002)(70206006)(4326008)(6916009)(54906003)(16526019)(36756003)(8936002)(86362001)(508600001)(6666004)(83380400001)(5660300002)(47076005)(40460700003)(336012)(186003)(36860700001)(316002)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 17:46:53.1458 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3453b1d-46ca-4bfd-f405-08da2a083f0e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 17:46:52.7240 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 951254a6-6197-4492-9617-08da2a083ece
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1404
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3193
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,77 +109,50 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jack Xiao <Jack.Xiao@amd.com>
 
-Initialize sdma mqd according to ring settings.
+Use per context sdma csa address for mes sdma queue.
 
 Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
 Acked-by: Christian König <christian.koenig@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 44 ++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 24 ++++++++++++++++--------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index bf2cf95cbf8f..f67801c5a6c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -903,6 +903,49 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
- 	return r;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+index e1835fd4b237..8e221a1ba937 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -74,14 +74,22 @@ uint64_t amdgpu_sdma_get_csa_mc_addr(struct amdgpu_ring *ring,
+ 	if (amdgpu_sriov_vf(adev) || vmid == 0 || !amdgpu_mcbp)
+ 		return 0;
  
-+static int sdma_v5_2_mqd_init(struct amdgpu_device *adev, void *mqd,
-+			      struct amdgpu_mqd_prop *prop)
-+{
-+	struct v10_sdma_mqd *m = mqd;
-+	uint64_t wb_gpu_addr;
+-	r = amdgpu_sdma_get_index_from_ring(ring, &index);
+-
+-	if (r || index > 31)
+-		csa_mc_addr = 0;
+-	else
+-		csa_mc_addr = amdgpu_csa_vaddr(adev) +
+-			AMDGPU_CSA_SDMA_OFFSET +
+-			index * AMDGPU_CSA_SDMA_SIZE;
++	if (ring->is_mes_queue) {
++		uint32_t offset = 0;
 +
-+	m->sdmax_rlcx_rb_cntl =
-+		order_base_2(prop->queue_size / 4) << SDMA0_RLC0_RB_CNTL__RB_SIZE__SHIFT |
-+		1 << SDMA0_RLC0_RB_CNTL__RPTR_WRITEBACK_ENABLE__SHIFT |
-+		6 << SDMA0_RLC0_RB_CNTL__RPTR_WRITEBACK_TIMER__SHIFT |
-+		1 << SDMA0_RLC0_RB_CNTL__RB_PRIV__SHIFT;
++		offset = offsetof(struct amdgpu_mes_ctx_meta_data,
++				  sdma[ring->idx].sdma_meta_data);
++		csa_mc_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
++	} else {
++		r = amdgpu_sdma_get_index_from_ring(ring, &index);
 +
-+	m->sdmax_rlcx_rb_base = lower_32_bits(prop->hqd_base_gpu_addr >> 8);
-+	m->sdmax_rlcx_rb_base_hi = upper_32_bits(prop->hqd_base_gpu_addr >> 8);
-+
-+	m->sdmax_rlcx_rb_wptr_poll_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, 0,
-+						  mmSDMA0_GFX_RB_WPTR_POLL_CNTL));
-+
-+	wb_gpu_addr = prop->wptr_gpu_addr;
-+	m->sdmax_rlcx_rb_wptr_poll_addr_lo = lower_32_bits(wb_gpu_addr);
-+	m->sdmax_rlcx_rb_wptr_poll_addr_hi = upper_32_bits(wb_gpu_addr);
-+
-+	wb_gpu_addr = prop->rptr_gpu_addr;
-+	m->sdmax_rlcx_rb_rptr_addr_lo = lower_32_bits(wb_gpu_addr);
-+	m->sdmax_rlcx_rb_rptr_addr_hi = upper_32_bits(wb_gpu_addr);
-+
-+	m->sdmax_rlcx_ib_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, 0,
-+							mmSDMA0_GFX_IB_CNTL));
-+
-+	m->sdmax_rlcx_doorbell_offset =
-+		prop->doorbell_index << SDMA0_RLC0_DOORBELL_OFFSET__OFFSET__SHIFT;
-+
-+	m->sdmax_rlcx_doorbell = REG_SET_FIELD(0, SDMA0_RLC0_DOORBELL, ENABLE, 1);
-+
-+	return 0;
-+}
-+
-+static void sdma_v5_2_set_mqd_funcs(struct amdgpu_device *adev)
-+{
-+	adev->mqds[AMDGPU_HW_IP_DMA].mqd_size = sizeof(struct v10_sdma_mqd);
-+	adev->mqds[AMDGPU_HW_IP_DMA].init_mqd = sdma_v5_2_mqd_init;
-+}
-+
- /**
-  * sdma_v5_2_ring_test_ring - simple async dma engine test
-  *
-@@ -1233,6 +1276,7 @@ static int sdma_v5_2_early_init(void *handle)
- 	sdma_v5_2_set_buffer_funcs(adev);
- 	sdma_v5_2_set_vm_pte_funcs(adev);
- 	sdma_v5_2_set_irq_funcs(adev);
-+	sdma_v5_2_set_mqd_funcs(adev);
++		if (r || index > 31)
++			csa_mc_addr = 0;
++		else
++			csa_mc_addr = amdgpu_csa_vaddr(adev) +
++				AMDGPU_CSA_SDMA_OFFSET +
++				index * AMDGPU_CSA_SDMA_SIZE;
++	}
  
- 	return 0;
+ 	return csa_mc_addr;
  }
 -- 
 2.35.1
