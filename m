@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64A9EC433F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 17:47:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11CB3C433EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 17:47:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B792F10F5A9;
-	Fri, 29 Apr 2022 17:47:17 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2088.outbound.protection.outlook.com [40.107.94.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B17310F232
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 17:47:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD3BD10F6D9;
+	Fri, 29 Apr 2022 17:47:18 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2088.outbound.protection.outlook.com [40.107.92.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C5E810F4D4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 17:47:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I0Gd1nsa/X9SzaVuQ+lEGLrU931sBooB+wYGuOj7CEfytfPUrg0k+KeYw0ZnzlzGXCX3IHCiiwVZv8nSP3WF7eturPv3ufFWeRbfUkYBLS/CJrb1rb7RjB6cOjWWG/6PsfL+dO6iE+tm4W7yDG++P23AxjM1ADrYdTasM+hNpuRcXud5sykkmLFja7wjFf5Ib8hFCLQ9O7IGewlMv8HYY6MFvhIEGsHP+vN6Z6vgjD4xupJO/a8jUteShVmI4rZJVG4P8W8mnILEamjwfedAqFoClvLtRv6A9/BqjNMJbfsXGC8jsQn2bLnbY4GX7s6f06C0eOQOMZhS2Wnk5uOLIA==
+ b=GbJ6dBQSMIvGPEVtYenpF1MTeLuWNORXSiOpEja0CFnEEsdBrbW5gqOwwcnLlZb1YQZeOZvUkz/CPrrdfhvDwM39faXDyfooMox9SiBFg5f61/CINP0q5555xH+7Jv7r8Dnd7Ms/AFJD8KQ2zFgVDdO5ERAo3kvYmQ73fXbEnCjIK8J8F4P39vsw9WEUR0rJCf0ihKqN/SGvX5lgxnQo/asdPDEuf6DPcan7yl9xIJ0baz8Odzm4XG3og8fSU4Jrdtvm2vzgVGO5s/B3ykMHu0WUrFHdQLvIkURBoFv1H/2lbTPBgXgM4mtFK8cbW1pTXayPc4lyIuFyJMyOqxUnyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x3N5oi705KrtpTBFoo74YiriORwq9/7PN3AqBBOBpsg=;
- b=AiKAQdK+szkzkdvwLE8fiV5E6+fFGDWazO/x5Dt2RwxVXcEEGMMbFOgH1/U7hw2fYlosSJ4G+rJHz6hnm5ShQSISfLrUy+zFj2IXz8VeSPuFJxZI+N/LM/AWoTv834HFOe6h7xGhH77t+l1IFXW4j0gBYG7XWsDPHcg49w18kwWrIudieXqVFqgOi/lPJPQKLaIMy+1dC7HxyoK8eSWiMYZDfyojtkY9elbcM3i/xpMxR1Zi9X0vevcC5PNAlciQkWNOZMuqmfanmAQ2T/asdiFXK2mqYn0Yfw8ZNev3rLkvDFL2TFtehZNQJSgmeQyfKMHFsEZfdKqxgne8jXZaVg==
+ bh=cKb5pSYOo8uT9ZNZEIFb9KESUiRMQbBeEesEnUrTzRU=;
+ b=gN4xJNz19eawH+PDLIA1DROq6Lldezsi7bK8NCOYE89KEPDSbZ4SctvyaJyvsyqoBiG69gs5l+GN7aVdeyxdTr/bjiDkNrvbvRat/554tAWae9W+nzPshKXCbT4+jhIAuFK8MbUfk0n3ijlStFosNazUh3290AxX90tdtzTVkwSF0b5ydvrB+ebHu/JLYZS6mWGYIg5Z5u8h5KljftdzIU/rvmZqo6EDK15oK19oGS5PUDcrj9m1F+7o4+hfyA5zeg6U40gVaC/D9p/EPAqkTRrmkjM3C619ei/k2s2oLsOMpmdk+QIi5RDphuzZrniM1Hutr7rDy5eK90ODookCEg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x3N5oi705KrtpTBFoo74YiriORwq9/7PN3AqBBOBpsg=;
- b=BsVo6wcfARVRxZEr5VHCvSrb4nIbudgGoRgQEOQ2LFJetWV3axjO8yuttkhsB4S8Bo8qhuhfe1sbS9s9y2day/wgJVlUr9aWs4bwexF8X5Xcvd7C8DoIXKavwa7puAEMdY6mTeX/Rn2WbD+YbA9nYgo4lB8ZAYG67AFFbcGY8b8=
-Received: from DS7PR06CA0007.namprd06.prod.outlook.com (2603:10b6:8:2a::25) by
- PH0PR12MB5433.namprd12.prod.outlook.com (2603:10b6:510:e1::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5186.14; Fri, 29 Apr 2022 17:46:59 +0000
-Received: from DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2a:cafe::f6) by DS7PR06CA0007.outlook.office365.com
- (2603:10b6:8:2a::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13 via Frontend
- Transport; Fri, 29 Apr 2022 17:46:59 +0000
+ bh=cKb5pSYOo8uT9ZNZEIFb9KESUiRMQbBeEesEnUrTzRU=;
+ b=D+5/b9KD7f62TRq9oI6hBGGfR72T7Sxk4jA80a+OH2VsBPTCy1NIbgW0c1eI+yPI7lSusr3YKq4tmHCmsYLP3f854kKdQ7KHsrJ6SbeB4sMYp7/fY2+QZcRF8++rjS1+9U53MRMxnPnCUuuoxr+hQvabhwiUug1o/7kbXMFD2Mg=
+Received: from DM6PR02CA0106.namprd02.prod.outlook.com (2603:10b6:5:1f4::47)
+ by BY5PR12MB4194.namprd12.prod.outlook.com (2603:10b6:a03:210::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.12; Fri, 29 Apr
+ 2022 17:47:11 +0000
+Received: from DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1f4:cafe::5a) by DM6PR02CA0106.outlook.office365.com
+ (2603:10b6:5:1f4::47) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.14 via Frontend
+ Transport; Fri, 29 Apr 2022 17:47:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT050.mail.protection.outlook.com (10.13.173.111) with Microsoft SMTP
+ DM6NAM11FT054.mail.protection.outlook.com (10.13.173.95) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Fri, 29 Apr 2022 17:46:59 +0000
+ 15.20.5206.12 via Frontend Transport; Fri, 29 Apr 2022 17:47:11 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Fri, 29 Apr
- 2022 12:46:56 -0500
+ 2022 12:47:08 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 34/73] drm/amdgpu/sdma5: add mes support for sdma ib test
-Date: Fri, 29 Apr 2022 13:45:45 -0400
-Message-ID: <20220429174624.459475-35-alexander.deucher@amd.com>
+Subject: [PATCH 54/73] drm/amdgpu/mes: implement removing mes queue
+Date: Fri, 29 Apr 2022 13:46:05 -0400
+Message-ID: <20220429174624.459475-55-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220429174624.459475-1-alexander.deucher@amd.com>
 References: <20220429174624.459475-1-alexander.deucher@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3d1a4644-83bc-4af9-4e1b-08da2a0842cd
-X-MS-TrafficTypeDiagnostic: PH0PR12MB5433:EE_
-X-Microsoft-Antispam-PRVS: <PH0PR12MB54334C573735B890E9140AC6F7FC9@PH0PR12MB5433.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: dde39be7-54ba-41e7-67f6-08da2a084a26
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4194:EE_
+X-Microsoft-Antispam-PRVS: <BY5PR12MB4194F3E5DB3061619EFC8498F7FC9@BY5PR12MB4194.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GNrCZJrxSx1f+XsjIvGi0epkUqL6HnKjPraoBE8BGbAUM8He6g8srAd4bUzEDsfw5uDwsxS89lozgKwytWxepAzDAxw20hgvWCa3a5vavtzPBVTP/eg8pp+8HgkJWvHLxDOt4QIW6eTzu2Pmkz/+3LRCASsvL7Pbw1HBL0a6WfuZIqmUDTgFxQMOcekA0uJbzpVvBVczGo5ozR+OaA9Mug2vhclpXOkJBxVVjxiP/IcQ91oqEhT2gmhYT8wmMboy4sEOobdUG59u0YLBZnNB9tzZVPalski/36YlNPZioeDj1KHah9Z6kcx6MKHDDxOh/gfJFiYVzRbikTWOhO4dHqiU9OoTc4SGPLKyU3D/JzYMAxbu95VNWNoZo/8YZcOftFTvXbU62tl9DxApe1X6mKtmEJVlJteFz9yumz8VxEH7v+WvxhEjmOR1C2jxbtdsY5KF49wb+mB3yPETs9ddfQFpLJmbutcDxdNfTJ4PFrRr8d2TkbZOyjsZ8NkVAfZqvFUNm3mR56FcvC2Ron4aprdYp7+exQ8lnrL/kv/gfFTXYz3WJiq/Nng8/z6/04boleUcNOKA6Bsu1NultuBr5VAiVtrem3VQYQoIq5QmpIey6U98/btR+Fv0weXKE21QHmF+5/BK7vMMXkeaGmis43mxg2GwIJXvKx129xsaCkjloNOaPpWkntZoXbi43KHQvmTgOu1b0vKuRnapycUL3A==
+X-Microsoft-Antispam-Message-Info: Poju91r8YmieKbEIxOc999n2V7BZ8OYMKUpZZ5PAVyUgcVANsjHMinRFRqRwYS2nxshS4PzFjKpOHVtJBZM/okQzMhgLTlyc17HxtBW2BodcrvLXf5JFVNQTEhvtRl61IVMitMHB7yvgFLZB1STgS+GSEHS1zhqqBMaBhzfLLA9GeoawvDPSEtbzyFDozalEsLz2qXfcvJZyeGWisHPAyAAA7ftAXDbfxHt5v9HDMeALg+nuGt7OwPhOzR7eHLqz2Osd7yFXhWPeIaJQJdxFqLh0TdsEl5BMJ0NyzyebkwR8EDoDtJAVlHW334sFqXzWWCqmW6hPsBNImD0x+pS8gjC3OokbNqnOSh5OuMI3RKQ8iV+zDu63H7n08gcYBy3GoHY0DH6O8RSNK4X73vgkDNrEtaK3i9hOS61gg1wDGLHboM+4WCfgT7sjFb4zzNZygN93RCA01+VoU0Ky4gEyrmj0ItYvyz/a8uafl8ngyMG/fnEBUp82S7Rox07opHeHVnBeK7F9RuM6xbfXwvy4qW5FRtpyxq5h2QA5OHWF7WK+fgZZPbSE94qAjM9JrYKBqzQqSFiRoigZSGRnezrNf6J2DpRMPAIzKFKTKBgIS4LG5UEBqOK05LOLdY2EVTDpluww4Z1YO3POVPaiVveYXzo+N2ltUSV7cdUZFfRuG2wEXi0GY6tDIWGT6jQZF+W2QDZPgKkLo8sbraxAZfJz8w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(7696005)(36860700001)(26005)(6666004)(426003)(336012)(1076003)(2616005)(16526019)(83380400001)(36756003)(186003)(47076005)(8936002)(8676002)(4326008)(5660300002)(2906002)(82310400005)(40460700003)(508600001)(86362001)(54906003)(70206006)(70586007)(6916009)(316002)(81166007)(356005)(36900700001);
+ SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(40460700003)(4326008)(356005)(6916009)(54906003)(36756003)(508600001)(316002)(8936002)(36860700001)(86362001)(81166007)(186003)(83380400001)(2616005)(70206006)(1076003)(70586007)(16526019)(6666004)(7696005)(2906002)(8676002)(66574015)(336012)(426003)(26005)(82310400005)(47076005)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 17:46:59.4108 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d1a4644-83bc-4af9-4e1b-08da2a0842cd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 17:47:11.7388 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dde39be7-54ba-41e7-67f6-08da2a084a26
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5433
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4194
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,95 +108,81 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jack Xiao <Jack.Xiao@amd.com>
 
-Add MES support for sdma ib test.
+Remove the MES queue from MES scheduling and free its resources.
 
 Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
 Acked-by: Christian König <christian.koenig@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 50 ++++++++++++++++++--------
- 1 file changed, 36 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 45 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  1 +
+ 2 files changed, 46 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index 1f0b19e18494..1f9021f896a1 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -1098,22 +1098,38 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 	long r;
- 	u32 tmp = 0;
- 	u64 gpu_addr;
-+	volatile uint32_t *cpu_ptr = NULL;
- 
--	r = amdgpu_device_wb_get(adev, &index);
--	if (r) {
--		dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
--		return r;
--	}
--
--	gpu_addr = adev->wb.gpu_addr + (index * 4);
- 	tmp = 0xCAFEDEAD;
--	adev->wb.wb[index] = cpu_to_le32(tmp);
- 	memset(&ib, 0, sizeof(ib));
--	r = amdgpu_ib_get(adev, NULL, 256,
-+
-+	if (ring->is_mes_queue) {
-+		uint32_t offset = 0;
-+		offset = amdgpu_mes_ctx_get_offs(ring, AMDGPU_MES_CTX_IB_OFFS);
-+		ib.gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
-+		ib.ptr = (void *)amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
-+
-+		offset = amdgpu_mes_ctx_get_offs(ring,
-+					 AMDGPU_MES_CTX_PADDING_OFFS);
-+		gpu_addr = amdgpu_mes_ctx_get_offs_gpu_addr(ring, offset);
-+		cpu_ptr = amdgpu_mes_ctx_get_offs_cpu_addr(ring, offset);
-+		*cpu_ptr = tmp;
-+	} else {
-+		r = amdgpu_device_wb_get(adev, &index);
-+		if (r) {
-+			dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
-+			return r;
-+		}
-+
-+		gpu_addr = adev->wb.gpu_addr + (index * 4);
-+		adev->wb.wb[index] = cpu_to_le32(tmp);
-+
-+		r = amdgpu_ib_get(adev, NULL, 256,
- 					AMDGPU_IB_POOL_DIRECT, &ib);
--	if (r) {
--		DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
--		goto err0;
-+		if (r) {
-+			DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
-+			goto err0;
-+		}
- 	}
- 
- 	ib.ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
-@@ -1140,7 +1156,12 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 		DRM_ERROR("amdgpu: fence wait failed (%ld).\n", r);
- 		goto err1;
- 	}
--	tmp = le32_to_cpu(adev->wb.wb[index]);
-+
-+	if (ring->is_mes_queue)
-+		tmp = le32_to_cpu(*cpu_ptr);
-+	else
-+		tmp = le32_to_cpu(adev->wb.wb[index]);
-+
- 	if (tmp == 0xDEADBEEF)
- 		r = 0;
- 	else
-@@ -1150,7 +1171,8 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- 	amdgpu_ib_free(adev, &ib, NULL);
- 	dma_fence_put(f);
- err0:
--	amdgpu_device_wb_free(adev, index);
-+	if (!ring->is_mes_queue)
-+		amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+index 9f059c32c6c2..df0e542bd687 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -655,3 +655,48 @@ int amdgpu_mes_add_hw_queue(struct amdgpu_device *adev, int gang_id,
+ 	mutex_unlock(&adev->mes.mutex);
  	return r;
  }
++
++int amdgpu_mes_remove_hw_queue(struct amdgpu_device *adev, int queue_id)
++{
++	unsigned long flags;
++	struct amdgpu_mes_queue *queue;
++	struct amdgpu_mes_gang *gang;
++	struct mes_remove_queue_input queue_input;
++	int r;
++
++	mutex_lock(&adev->mes.mutex);
++
++	/* remove the mes gang from idr list */
++	spin_lock_irqsave(&adev->mes.queue_id_lock, flags);
++
++	queue = idr_find(&adev->mes.queue_id_idr, queue_id);
++	if (!queue) {
++		spin_unlock_irqrestore(&adev->mes.queue_id_lock, flags);
++		mutex_unlock(&adev->mes.mutex);
++		DRM_ERROR("queue id %d doesn't exist\n", queue_id);
++		return -EINVAL;
++	}
++
++	idr_remove(&adev->mes.queue_id_idr, queue_id);
++	spin_unlock_irqrestore(&adev->mes.queue_id_lock, flags);
++
++	DRM_DEBUG("try to remove queue, doorbell off = 0x%llx\n",
++		  queue->doorbell_off);
++
++	gang = queue->gang;
++	queue_input.doorbell_offset = queue->doorbell_off;
++	queue_input.gang_context_addr = gang->gang_ctx_gpu_addr;
++
++	r = adev->mes.funcs->remove_hw_queue(&adev->mes, &queue_input);
++	if (r)
++		DRM_ERROR("failed to remove hardware queue, queue id = %d\n",
++			  queue_id);
++
++	amdgpu_mes_queue_free_mqd(queue);
++	list_del(&queue->list);
++	amdgpu_mes_queue_doorbell_free(adev, gang->process,
++				       queue->doorbell_off);
++	kfree(queue);
++	mutex_unlock(&adev->mes.mutex);
++	return 0;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+index ec727c2109bc..bf90863852a7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -251,5 +251,6 @@ int amdgpu_mes_resume(struct amdgpu_device *adev);
+ int amdgpu_mes_add_hw_queue(struct amdgpu_device *adev, int gang_id,
+ 			    struct amdgpu_mes_queue_properties *qprops,
+ 			    int *queue_id);
++int amdgpu_mes_remove_hw_queue(struct amdgpu_device *adev, int queue_id);
  
+ #endif /* __AMDGPU_MES_H__ */
 -- 
 2.35.1
 
