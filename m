@@ -4,65 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDD1EC433F5
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Apr 2022 19:29:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D132CC433F5
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 May 2022 02:12:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96F4710EA51;
-	Sat, 30 Apr 2022 19:29:19 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 848CD10EA46
- for <amd-gfx@lists.freedesktop.org>; Sat, 30 Apr 2022 19:29:18 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id l7so21197816ejn.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 30 Apr 2022 12:29:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=rgBAwgkTHdYwQtKARVs7Ya1Ys4DKSdWxKu1cshY//3M=;
- b=nAn0/zlzedQSFRuQhzdaMJKMb8+y+soIPToiF6sxmQarUS/ueSnyHa9VjxC6vVsctv
- KrPpINn4V8aKgWcQsq1ntyM6xhz+/MBFOnvsVhmwwWYoMQI+vux6IIj7SDtMABQ4fUY4
- Ugj4d0+hnjlY0FNBEXXWiVXEFgNptX6lH5tvnCs7hggxEBA1N2dXbvB6NXqp4X26b3Mb
- 7FbW2U6p0YjO/kk5hrYTzNdhywBRnwnSADXqWVoeL27lTqVIkQgkLcdW6gUXf4wfiBZP
- 6r4xwAotMcojDjCkjoFDjAcZ97tlf4zuJlVg0TdUsky/2qYGuwHUiQqfMsRJyU0VLZG0
- aZJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=rgBAwgkTHdYwQtKARVs7Ya1Ys4DKSdWxKu1cshY//3M=;
- b=FKm3jG/iGV95+dj4LWcKnuDKPlmnbcC2sGkVWaIETXIZMMVeto1iL0wq8cLUTO0NhM
- dOxDxhFHHiKZZFHyOCLhjwF81fHIdX3OYfMCNf8AzB2gvsFgXJmoUarQcX+U4fn8YeLp
- J5hHlI+TlhTsDFzlk51mu0RQuCYwW9WeozKDvf1Q4wYpej6hJZZmQCd6qNjO4YaLiQ3p
- /aPK8onU3ysKsLan+y/6oMtx389YoEL6Po0be7HQ+aXKvFxD72qlebV3TWeoQbBgrDPT
- M6yI9EgmTEZvoMZ9c/82ZmvdyZrtA9HUsVLpS/LRNZVug7OHr6G+4N0HVksCzxPxoc4j
- YJLA==
-X-Gm-Message-State: AOAM533tHoX93cX/TG3iExUACxlfZYc/n5iOOokmuZrsIxC9xeplH8tI
- 0oDtKDyoQ84z6kplhE1+OdE=
-X-Google-Smtp-Source: ABdhPJzbd55ZW9RqQjQOze20QzjN+C/83NLDz6mz/xUSvCLKpr2zCthhgll723e0csGbSmb4Smzb+g==
-X-Received: by 2002:a17:906:4795:b0:6f3:d1cc:7127 with SMTP id
- cw21-20020a170906479500b006f3d1cc7127mr5023354ejc.461.1651346956948; 
- Sat, 30 Apr 2022 12:29:16 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:581f:99bb:cb4f:439c?
- ([2a02:908:1256:79a0:581f:99bb:cb4f:439c])
- by smtp.gmail.com with ESMTPSA id
- eo9-20020a1709069b0900b006f3ef214e00sm1891455ejc.102.2022.04.30.12.29.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 30 Apr 2022 12:29:16 -0700 (PDT)
-Message-ID: <85927512-377e-39b1-d812-ef9bddcc2f02@gmail.com>
-Date: Sat, 30 Apr 2022 21:29:14 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH] drm/amdgpu: Add out parameters to drm_amdgpu_sched
+	by gabe.freedesktop.org (Postfix) with ESMTP id 575F210E511;
+	Sun,  1 May 2022 02:12:53 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2054.outbound.protection.outlook.com [40.107.102.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABBF610E3DC
+ for <amd-gfx@lists.freedesktop.org>; Sun,  1 May 2022 02:12:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d16z/+txckJ04AsK5gaO+nsPa7AOmzPl4n3lgfk2cVzUcCwuo1Gw+/26TkVBiONY/kYRCKjojbxFG5ZszLml8FjFFPeta+lnQprZgFS3qywj0LKrUpYKw2FYyB8+dtkimoWsp6Emh32tL+jeWC+yjudhUsg5aq75lK7YrAKCnu/Z2vQiWKqKamRiCym1cOKCS5oyFLQfgNqSoq3GCMr4ivN4ekzK66JncTrA6iiRQ3IRWKUJCuf4R11J74Ki/o84V5/CaQ/nJiwBXQU7d99yBlghYZdvY4ghasCaREAkId92zPf18H+d62iJjqVB73fP4E+rZco8lz4JaYr2JsNoDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hs4EHsKPO41jUZdpIAUFaHlmYfmeksRPmKz3IXyMJTQ=;
+ b=HrRhBVg6aRnP2bZEDj7c8xhLfDKukZrFvJ/KdXjPXflp0nIzQMJy2vDAA4aLQkjL0ZKEXbof2kweYkBsofoLVazN79M8yb64lGiBHurBN0S/UeECng3c3OiGSOa2yyPi2kDXxcBZhguul8SogyR84oP7kFXjBuc8ky4k37Lcd6oBKHd3I2R+gKSBr2GJldAjBvCSnqYaB24ClIXjpAO2aJYPdgaT1YECxwRKQNk4dZ1WigFGNyi9gYflqnwuvBtBSaSCS1WxCXZG4hb6qH33H9jO7DzDSeRnC2Lkg0nV1++IU0y9Li4fQI6n+VVRGyRi88rVWP5XGNXhqajsb/e3Og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hs4EHsKPO41jUZdpIAUFaHlmYfmeksRPmKz3IXyMJTQ=;
+ b=i6EHUqXrpRzMSZbzOTujlXAWE3JJVaNg7OI78MlUKdCnuEXxT3keSyUQisDNGbjrRHCZHi1C1ghLZvGleXKPCsVjVELtENmPtalE0M/SIaAAT+wntlQKivqtHmhiGz9/hW+ex9ndKmcgpFjZjROBLaAV2DLuT/D4qHbYWKBkzGU=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by CY4PR12MB1607.namprd12.prod.outlook.com (2603:10b6:910:b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Sun, 1 May
+ 2022 02:12:46 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::4cb5:c559:c82d:94da]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::4cb5:c559:c82d:94da%7]) with mapi id 15.20.5206.013; Sun, 1 May 2022
+ 02:12:46 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu/discovery: Set GC family for GC 11.0 IP
+Thread-Topic: [PATCH 2/2] drm/amdgpu/discovery: Set GC family for GC 11.0 IP
+Thread-Index: AQHYW+8i4LRLH+J05kWSgpWtSubMAq0JSfDQ
+Date: Sun, 1 May 2022 02:12:46 +0000
+Message-ID: <BN9PR12MB52573AA9CC5956279C411215FCFE9@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20220429173218.433113-1-alexander.deucher@amd.com>
+ <20220429173218.433113-2-alexander.deucher@amd.com>
+In-Reply-To: <20220429173218.433113-2-alexander.deucher@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20220430151428.237089-1-Arunpravin.PaneerSelvam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220430151428.237089-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=1d61a28a-8214-4c72-8375-5d38d7f022e5;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-05-01T02:12:27Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 5b78ba4d-d884-40fe-2617-08da2b181574
+x-ms-traffictypediagnostic: CY4PR12MB1607:EE_
+x-microsoft-antispam-prvs: <CY4PR12MB16079944421270CB984EC7D0FCFE9@CY4PR12MB1607.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: VmL0XcSy708zI/SstUkt5FmdpWqRNRcTYDUOqtx4S4gD8xepGVWZgYk8c0T9Ybml2B85by6re1WcBVr7aooiXE8fOcY6pWiP1UjA6utfntdwQnOkUFYTL3MPmlFi3hiIT/K18YCtTlRsMGCn5IU0IX+3K62ARF+Ie71dUDLm7PbWx+ODI5qA7e5IjWFHwpcSIUJ+TEvJeJn4GzKaexsATZpuPsxSy9uzN9gPxdgnjKaPcECaweekl2fgOHKQ4fuldX3aUiXFUJ/3fXTfAZbHEzjcEBV02Wft7rp13rRSU52RCt5Dzkk2VySVR1m4A88fVQ8X1l8Gs/pFydMcoXuyBdQ1+m/0lij98yfK7F+OkcYwAU0ZH8D4aQy1ooriuMQ0EgY+2aGYytLGzKhObT+2xo6E7bVXxYleFY40JVO72Sd3UjtbnOF8X6Lg2EOFc+hZGXMiI+2vNGA64WvhvA/t4USKblo49AYAn/bZn5YOh1FRGC6oW8fo1ICpUotdLSwd/Q+Y2qkyP69d0b3sqtW14P6bkJ6DHzDGEyzNPpCZo8RQZPnYn7TDVtpMEkEe95024agtg2eo+YiJpgpcuT2Aco1l0RZymu/7zN64GdHNRpywJ0O/PGAyqAbFIjovKBwpc+G1xk2/DU0b63ZobMeTv/ItpimjUr/fT9NKzT+KL+TW/fLexicxQs5roTQgE14OkdUUq3eCioDI/60u+Xks9A==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(86362001)(66476007)(64756008)(316002)(66556008)(66446008)(76116006)(66946007)(8676002)(4326008)(53546011)(508600001)(26005)(38100700002)(71200400001)(6506007)(38070700005)(186003)(9686003)(7696005)(122000001)(54906003)(110136005)(33656002)(83380400001)(8936002)(5660300002)(52536014)(2906002)(55016003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?OeZ0fyqt9OTDaYL2OwPA9iPh+uEqOLFqJjBbl6YDz3W+1qOrNJV+vx0H/Ogp?=
+ =?us-ascii?Q?J14m91BKvzPs9B3NpT2mp6Hcn7tuNCX69o4RKTOXrqAsolQrZx56JZvWQHsJ?=
+ =?us-ascii?Q?mTtaC9BGj1O5c6fMyEHMgjLCLtXSUPCqHU6cTY7+Lhwk5h681bVnYiJE75Mn?=
+ =?us-ascii?Q?a5m+bGIoXZlghS3xBWegd3+bC/8w9XK6vE4HQfhLKz/mRe8q2EHl74ZsFY6o?=
+ =?us-ascii?Q?c5PzDKAQq3Vum57drjxReS9WgMm8G5OpHWiJAp13HvIr9zZOtrcV7GEp5fFH?=
+ =?us-ascii?Q?UCoNI50t1jbg5wdTwUQNGjgAuBuR31wxvNbS52xchoB2eRxwI6TSV/1rT+KF?=
+ =?us-ascii?Q?AvbOYjCymyk16wVWey3UZFNEQtJ6n9sFh+CuWgAD+LfwZbDpm1Xi/hd9/rBn?=
+ =?us-ascii?Q?z5+AX2IpEHZ0BsNU+AH6GmBdeTnGr64kgd3y58GvohpyLjX8euFF+Vyhtq+o?=
+ =?us-ascii?Q?YHIh+fqRMThhJjbezggyMdwFGiXbKN6bDU0ehFB5pf3LBoqj7tK1jsvYY2Ps?=
+ =?us-ascii?Q?RYz6c6cSTGumYKOpYa7Hn2a/If9yAnNkhdy7vOxXxaGFhcoeWZyhvp5sOHEE?=
+ =?us-ascii?Q?WS4Lq6RrSaIeV85ePwuIXPiWcXLMi+y9DIx3h/VS3Gu0vWgL7pIUhY3Vn0BJ?=
+ =?us-ascii?Q?Ez59DwmYtCCGIIVpjyRcBJyzBCKr6RPRB6tnEbdb1NUSfdOtD8rgfO+GO3f+?=
+ =?us-ascii?Q?uwmylfiiRtAEZk8ZNaNYPGFuggF0SaGUnhG2kncDOeZ9kEfkSrqgN0poLcLp?=
+ =?us-ascii?Q?hVKCC51kaz9kJtmwrtH5WIkrfOsB5489TCczWzqVO1ejVCb9qN2l7ntrg4eX?=
+ =?us-ascii?Q?Eqe5dZp0hx0DlqoVgX9e/PSj9KssWbX3dvxuixMlmsZYmc8CF3m2frSd8+hp?=
+ =?us-ascii?Q?XPBQor25+t0kcm/w2Pu2QE6NN2ofvnFh2EjwjE+Ht0hwrGC3qIjTIs1Xx6E+?=
+ =?us-ascii?Q?gSiUABgkPQN2dJzVif9Vd+TI5J03xuV+fO/DbUeEMBDFGKDOSrf85NPsd2G2?=
+ =?us-ascii?Q?fL7E7qEYsc7EB9bSWJkL9SaiJot8YhRsLV6XF1t63dzVxmKhEQZfnBMDve5V?=
+ =?us-ascii?Q?stKh/yO4XQJT+kD6ah+k4Xbcn0bOsFJq8uGzzcOIjyVzCnN7CvHbIqN1Q9yC?=
+ =?us-ascii?Q?ENSRkbZHtDr0JKny5WRATLWrpaOnfv7LYaC6SDgyGxbZm28SPusH66OOdpJC?=
+ =?us-ascii?Q?c7lHMKfPEjAs6ysy2wj0X7RWvO/4R6Z8U1FRdVubNK/mDmxCiPDgfZvBQBCZ?=
+ =?us-ascii?Q?ZWuHN91FKMS98PwrQEmIe0G2Ca+5whnybwZucmnlC+tQk/htVFzr7V2f5xmv?=
+ =?us-ascii?Q?305W/xDJIzghEH0t33V5DjXa/5nhOFTBopPQ0IROp9aIVud3QM3fFHOaN/uX?=
+ =?us-ascii?Q?BdJeeH37AAcgSFpY7CELtpkv8dF4XDtSgu+PQcLhbeQwAACuFfpCaRLrsABk?=
+ =?us-ascii?Q?PTGZp6A2wU0zoNXaZ8YqsdOpJZfTtwGcs07bEQLsTLG4j/R/TaGbyp6GpPS4?=
+ =?us-ascii?Q?38K1T7iPYo9yid93JhGmp811o+6fRmM2L24/Bn+68/FvJRNv/Uuj00WSUM3y?=
+ =?us-ascii?Q?/nH2evwYkQU1Bmpg1NX15uRrb4fKJaEWuW3LhgFg6gZ7BBbAQiAK8MEaYi9/?=
+ =?us-ascii?Q?R3NjJzI+94XHCgh7IxyX0XIz9x+hXng4XikVxBPm4V700DsR1sOkA9jpTiWW?=
+ =?us-ascii?Q?WFpElnTIpnJx5bNjAWOqHGGNt5c4M27W+GTD51uHjeGy43372PKX6fK8+s27?=
+ =?us-ascii?Q?JBIoZyj1sQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b78ba4d-d884-40fe-2617-08da2b181574
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 May 2022 02:12:46.5020 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CkEkO2LUGp+8I5+3bMFEgAGaBcWgN4Bfk98JjibRo9QE13qG98HzCQkqMbhlM41hl0x62EspzZPYyYCXALp23g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1607
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,232 +127,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Gao,
+ Likun" <Likun.Gao@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 30.04.22 um 17:14 schrieb Arunpravin Paneer Selvam:
-> - Add pipe and queue as out parameters to support high priority
->    queue test enabled in libdrm basic test suite.
->
-> - Fetch amdgpu_ring pointer and pass sched info to userspace
->
-> - Improve amdgpu_sched_ioctl() function
->
-> The related merge request for enabling high priority test case are
-> libdrm - https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/235
-> mesa - https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/16262
->
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+[AMD Official Use Only - General]
 
-Well that is certainly a NAK since as far as I can see this breaks the 
-UAPI in a not backward compatible way.
-
-Then we absolutely should not pass scheduler info to userspace. That 
-should be completely transparent to userspace.
-
-So can you summarize once more why that should be necessary?
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
 Regards,
-Christian.
+Hawking
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deu=
+cher
+Sent: Saturday, April 30, 2022 01:32
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Gao, Likun <Likun.Gao@a=
+md.com>
+Subject: [PATCH 2/2] drm/amdgpu/discovery: Set GC family for GC 11.0 IP
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c | 114 ++++++++--------------
->   include/uapi/drm/amdgpu_drm.h             |  14 ++-
->   2 files changed, 53 insertions(+), 75 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-> index e9b45089a28a..fc2864b612d9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-> @@ -32,106 +32,72 @@
->   #include "amdgpu_sched.h"
->   #include "amdgpu_vm.h"
->   
-> -static int amdgpu_sched_process_priority_override(struct amdgpu_device *adev,
-> -						  int fd,
-> -						  int32_t priority)
-> +int amdgpu_sched_ioctl(struct drm_device *dev, void *data,
-> +		       struct drm_file *filp)
->   {
-> -	struct fd f = fdget(fd);
-> +	union drm_amdgpu_sched *args = data;
-> +	struct amdgpu_ctx *ctx, *ctx_ptr;
-> +	struct drm_sched_entity *entity;
->   	struct amdgpu_fpriv *fpriv;
-> -	struct amdgpu_ctx *ctx;
-> -	uint32_t id;
-> -	int r;
-> -
-> -	if (!f.file)
-> -		return -EINVAL;
-> -
-> -	r = amdgpu_file_to_fpriv(f.file, &fpriv);
-> -	if (r) {
-> -		fdput(f);
-> -		return r;
-> -	}
-> -
-> -	idr_for_each_entry(&fpriv->ctx_mgr.ctx_handles, ctx, id)
-> -		amdgpu_ctx_priority_override(ctx, priority);
-> -
-> -	fdput(f);
-> -	return 0;
-> -}
-> -
-> -static int amdgpu_sched_context_priority_override(struct amdgpu_device *adev,
-> -						  int fd,
-> -						  unsigned ctx_id,
-> -						  int32_t priority)
-> -{
-> +	struct amdgpu_ring *ring;
-> +	u32 fd = args->in.fd;
->   	struct fd f = fdget(fd);
-> -	struct amdgpu_fpriv *fpriv;
-> -	struct amdgpu_ctx *ctx;
-> +	u32 id;
->   	int r;
->   
->   	if (!f.file)
->   		return -EINVAL;
->   
->   	r = amdgpu_file_to_fpriv(f.file, &fpriv);
-> -	if (r) {
-> -		fdput(f);
-> -		return r;
-> -	}
-> +	if (r)
-> +		goto out_fd;
->   
-> -	ctx = amdgpu_ctx_get(fpriv, ctx_id);
-> +	ctx = amdgpu_ctx_get(fpriv, args->in.ctx_id);
->   
->   	if (!ctx) {
-> -		fdput(f);
-> -		return -EINVAL;
-> -	}
-> -
-> -	amdgpu_ctx_priority_override(ctx, priority);
-> -	amdgpu_ctx_put(ctx);
-> -	fdput(f);
-> -
-> -	return 0;
-> -}
-> -
-> -int amdgpu_sched_ioctl(struct drm_device *dev, void *data,
-> -		       struct drm_file *filp)
-> -{
-> -	union drm_amdgpu_sched *args = data;
-> -	struct amdgpu_device *adev = drm_to_adev(dev);
-> -	int r;
-> -
-> -	/* First check the op, then the op's argument.
-> -	 */
-> -	switch (args->in.op) {
-> -	case AMDGPU_SCHED_OP_PROCESS_PRIORITY_OVERRIDE:
-> -	case AMDGPU_SCHED_OP_CONTEXT_PRIORITY_OVERRIDE:
-> -		break;
-> -	default:
-> -		DRM_ERROR("Invalid sched op specified: %d\n", args->in.op);
-> -		return -EINVAL;
-> +		r = -EINVAL;
-> +		goto out_fd;
->   	}
->   
->   	if (!amdgpu_ctx_priority_is_valid(args->in.priority)) {
->   		WARN(1, "Invalid context priority %d\n", args->in.priority);
-> -		return -EINVAL;
-> +		r = -EINVAL;
-> +		goto out_ctx;
->   	}
->   
->   	switch (args->in.op) {
->   	case AMDGPU_SCHED_OP_PROCESS_PRIORITY_OVERRIDE:
-> -		r = amdgpu_sched_process_priority_override(adev,
-> -							   args->in.fd,
-> -							   args->in.priority);
-> +		/* Retrieve all ctx handles and override priority  */
-> +		idr_for_each_entry(&fpriv->ctx_mgr.ctx_handles, ctx_ptr, id)
-> +			amdgpu_ctx_priority_override(ctx_ptr, args->in.priority);
->   		break;
->   	case AMDGPU_SCHED_OP_CONTEXT_PRIORITY_OVERRIDE:
-> -		r = amdgpu_sched_context_priority_override(adev,
-> -							   args->in.fd,
-> -							   args->in.ctx_id,
-> -							   args->in.priority);
-> +		/* Override priority for a given context */
-> +		amdgpu_ctx_priority_override(ctx, args->in.priority);
->   		break;
->   	default:
-> -		/* Impossible.
-> -		 */
-> +		DRM_ERROR("Invalid sched op specified: %d\n", args->in.op);
->   		r = -EINVAL;
-> -		break;
-> +		goto out_ctx;
->   	}
->   
-> +	r = amdgpu_ctx_get_entity(ctx, args->in.ip_type, 0, args->in.ring,
-> +				  &entity);
-> +	if (r)
-> +		goto out_ctx;
-> +
-> +	/* Fetch amdgpu_ring pointer */
-> +	ring = to_amdgpu_ring(entity->rq->sched);
-> +
-> +	/* Pass sched info to userspace */
-> +	memset(args, 0, sizeof(*args));
-> +	args->out.info.pipe = ring->pipe;
-> +	args->out.info.queue = ring->queue;
-> +
-> +out_ctx:
-> +	amdgpu_ctx_put(ctx);
-> +out_fd:
-> +	fdput(f);
-> +
->   	return r;
->   }
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index 1d65c1fbc4ec..e93f1b6c4561 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -70,7 +70,7 @@ extern "C" {
->   #define DRM_IOCTL_AMDGPU_WAIT_FENCES	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_WAIT_FENCES, union drm_amdgpu_wait_fences)
->   #define DRM_IOCTL_AMDGPU_VM		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_VM, union drm_amdgpu_vm)
->   #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FENCE_TO_HANDLE, union drm_amdgpu_fence_to_handle)
-> -#define DRM_IOCTL_AMDGPU_SCHED		DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
-> +#define DRM_IOCTL_AMDGPU_SCHED		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
->   
->   /**
->    * DOC: memory domains
-> @@ -308,6 +308,11 @@ union drm_amdgpu_vm {
->   #define AMDGPU_SCHED_OP_PROCESS_PRIORITY_OVERRIDE	1
->   #define AMDGPU_SCHED_OP_CONTEXT_PRIORITY_OVERRIDE	2
->   
-> +struct drm_amdgpu_sched_info {
-> +	__u32 pipe;
-> +	__u32 queue;
-> +};
-> +
->   struct drm_amdgpu_sched_in {
->   	/* AMDGPU_SCHED_OP_* */
->   	__u32	op;
-> @@ -315,10 +320,17 @@ struct drm_amdgpu_sched_in {
->   	/** AMDGPU_CTX_PRIORITY_* */
->   	__s32	priority;
->   	__u32   ctx_id;
-> +	__u32   ip_type;
-> +	__u32   ring;
-> +};
-> +
-> +struct drm_amdgpu_sched_out {
-> +	struct drm_amdgpu_sched_info info;
->   };
->   
->   union drm_amdgpu_sched {
->   	struct drm_amdgpu_sched_in in;
-> +	struct drm_amdgpu_sched_out out;
->   };
->   
->   /*
+From: Likun Gao <Likun.Gao@amd.com>
+
+Set GC family for GC 11.0 IPs.
+
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_discovery.c
+index 2349617efeee..9c177ccc7ed9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -2090,6 +2090,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_devi=
+ce *adev)
+        case IP_VERSION(10, 3, 7):
+                adev->family =3D AMDGPU_FAMILY_GC_10_3_7;
+                break;
++       case IP_VERSION(11, 0, 0):
++               adev->family =3D AMDGPU_FAMILY_GC_11_0_0;
++               break;
+        default:
+                return -EINVAL;
+        }
+--
+2.35.1
 
